@@ -81,7 +81,8 @@ fun ConfirmDialog(spec: DialogSpec, onDismiss: () -> Unit) {
                     Spacer(Modifier.height(8.dp))
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    PixelButton(spec.cancel, Modifier.weight(1f), size = 15.sp, onClick = onDismiss)
+                    // Information dialogs have no cancel button, only "OK".
+                    if (spec.cancel.isNotEmpty()) PixelButton(spec.cancel, Modifier.weight(1f), size = 15.sp, onClick = onDismiss)
                     PixelButton(spec.confirm, Modifier.weight(1f), enabled = spec.confirmEnabled, size = 15.sp) {
                         spec.onConfirm()
                         onDismiss()

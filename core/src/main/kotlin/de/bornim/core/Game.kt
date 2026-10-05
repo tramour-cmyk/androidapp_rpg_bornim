@@ -239,7 +239,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
         val enc = map.encounters ?: return
         // Rarely, something hidden in the grass or the dark jumps out.
-        if (map.tile(p.x, p.y) in enc.tiles && !map.safe(p.x, p.y) && dice.chance(enc.rate)) {
+        if (map.tile(p.x, p.y) in enc.tiles && !map.safe(p.x, p.y) && dice.chance(enc.rate * Perks.ambushFactor(hero))) {
             startBattle(dice.weighted(enc.table), null, opening = Opening.AMBUSHED)
         }
     }
@@ -282,7 +282,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val p = state.place
         if (!herbAt(p.x, p.y)) return
         state.picked["${p.map}:${p.x}:${p.y}"] = state.day
-        val n = 1 + (if (dice.chance(0.3)) 1 else 0)
+        val n = 1 + (if (dice.chance(0.3)) 1 else 0) + (if (dice.chance(Perks.extraHerbChance(hero))) 1 else 0)
         state.add("herbs", n)
         sounds += de.bornim.core.audio.Sound.LOOT
         notices += T("Du pflückst Heilkräuter (+$n).", "You pick healing herbs (+$n).")
@@ -294,8 +294,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         state.ailments.clear()
         for ((st, turns) in battle.heroStatus) {
             if (!st.lingers) continue
-            // A curse that is still on at the end of the fight stays until it is cured.
-            state.ailments[st.name] = if (st == Status.WEAK) Status.LASTING else turns
+            // A curse that is still on at the end of the fight stays until it is cured;
+            // a tough hero shakes off poison and bleeding sooner.
+            val left = if (st == Status.WEAK) Status.LASTING else turns - Perks.ailmentShortening(hero)
+            if (left > 0) state.ailments[st.name] = left
         }
     }
 
@@ -313,6 +315,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val ate = T("{0} isst {1}, heilt {2} TP und fühlt sich gestärkt für den nächsten Kampf.", "{0} eats {1}, recovers {2} HP and feels fortified for the next fight.")
         val alreadyFed = T("{0} ist noch satt von der letzten Mahlzeit.", "{0} is still full from the last meal.")
         val brewed = T("Hedda braut dir: {0}.", "Hedda brews for you: {0}.")
+        val brewedTwo = T("Mit deinem Wissen holt ihr zwei Tränke heraus: 2× {0}.", "With your know-how you get two potions out of it: 2× {0}.")
         val missing = T("Dafür fehlen dir Zutaten oder Gold.", "You lack ingredients or gold for that.")
     }
 
@@ -376,7 +379,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             val calm = now < r.calmUntil || now < peaceUntil
             // Weak monsters keep away from a far stronger hero; elites are never afraid.
             val afraid = strongHero && r.trait == null
-            val sees = heroSafe == null && dist <= (if (r.temper == Temper.LURKER) 2 else 4)
+            val sees = heroSafe == null && dist <= (if (r.temper == Temper.LURKER) 2 else Perks.noticeRange(hero))
             when {
                 !calm && afraid && dist <= 4 && heroSafe == null -> {
                     r.hunting = false
@@ -795,7 +798,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             state.remove(id)
             sounds += de.bornim.core.audio.Sound.HEAL
             val before = hero.hp
-            hero.hp = minOf(hero.maxHp, hero.hp + dice.roll(def.heal!!))
+            hero.hp = minOf(hero.maxHp, hero.hp + dice.roll(def.heal!!) + Perks.mealBonus(hero))
             state.wellFed = true
             changed()
             return Msgs.ate.f(lang, hero.name, def.name(lang), hero.hp - before)
@@ -813,17 +816,23 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         return if (cures) Msgs.cured.f(lang, hero.name) + " " + healed else healed
     }
 
+    /** What the hero pays for [id]; charisma makes it cheaper. */
+    fun buyPrice(id: String): Int = Perks.buyPrice(hero, Items[id].price)
+
+    fun buyPrice(g: Gear): Int = Perks.buyPrice(hero, g.price)
+
     fun buy(id: String): String {
         val def = Items[id]
-        if (state.gold < def.price) return Ui.notEnoughGold(lang)
-        state.gold -= def.price
+        val price = buyPrice(id)
+        if (state.gold < price) return Ui.notEnoughGold(lang)
+        state.gold -= price
         state.add(id)
         sounds += de.bornim.core.audio.Sound.COINS
         changed()
         return Ui.bought.f(lang, def.name(lang))
     }
 
-    fun sellPrice(id: String): Int = Items[id].price / 2
+    fun sellPrice(id: String): Int = Perks.sellPrice(hero, Items[id].price / 2)
 
     /** Hedda brews [r] from the hero's ingredients and a little gold. */
     fun brew(r: Recipe): String {
@@ -831,6 +840,13 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         r.ingredients.forEach { (id, n) -> state.remove(id, n) }
         state.gold -= r.gold
         state.add(r.output)
+        // A clever alchemist sometimes gets a second potion out of the same brew.
+        if (dice.chance(Perks.extraBrewChance(hero))) {
+            state.add(r.output)
+            sounds += de.bornim.core.audio.Sound.POTION
+            changed()
+            return Msgs.brewedTwo.f(lang, Items[r.output].name(lang))
+        }
         sounds += de.bornim.core.audio.Sound.POTION
         changed()
         return Msgs.brewed.f(lang, Items[r.output].name(lang))
@@ -843,8 +859,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     }
 
     fun buyGear(g: Gear): String {
-        if (state.gold < g.price) return Ui.notEnoughGold(lang)
-        state.gold -= g.price
+        val price = buyPrice(g)
+        if (state.gold < price) return Ui.notEnoughGold(lang)
+        state.gold -= price
         state.shopSold += "${state.battlesWon / 8}:${g.uid}"
         state.addGear(g.copy(uid = 0))
         sounds += de.bornim.core.audio.Sound.COINS
@@ -852,7 +869,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         return Ui.bought.f(lang, g.name(lang))
     }
 
-    fun sellPrice(g: Gear): Int = maxOf(1, g.price / 4)
+    fun sellPrice(g: Gear): Int = Perks.sellPrice(hero, maxOf(1, g.price / 4))
 
     fun sellGear(g: Gear): String {
         if (!state.bag.remove(g)) return Ui.cannotSell(lang)

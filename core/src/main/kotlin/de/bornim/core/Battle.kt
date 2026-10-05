@@ -176,6 +176,13 @@ class Battle(
         trait?.let { say(Msg.eliteTrait.f(lang, it.desc(lang))) }
         if (pack != null && packSize > 0) say(pack.intro.f(lang, packSize))
         if (wellFed) say(Msg.fed.f(lang, name))
+        if (Perks.knowsWeaknesses(hero)) weaknesses()?.let { say(Msg.knows.f(lang, name, it)) }
+        // A commanding presence makes ordinary foes hesitate.
+        val cow = Perks.cowChance(hero)
+        if (opening != Opening.AMBUSHED && !monster.boss && cow > 0 && foeSurprised == 0 && dice.chance(cow)) {
+            foeSurprised = 1
+            say(Msg.cowed.f(lang, foe, name))
+        }
         if (opening == Opening.AMBUSHED) {
             // The foe gets a free attack before anything else happens.
             enemyTurn()
@@ -407,7 +414,7 @@ class Battle(
                 say(Msg.throws.f(lang, name, def.name(lang)))
                 val d = def.damage!!
                 val dmg = if (id == "holy_water" && monster.undead) d.copy(count = d.count * 2) else d
-                hitEnemy(dice.roll(dmg), def.damageType, false, fx(if (id == "holy_water") FxKind.BOMB_HOLY else FxKind.BOMB_FIRE, false))
+                hitEnemy(dice.roll(dmg) + Perks.throwBonus(hero), def.damageType, false, fx(if (id == "holy_water") FxKind.BOMB_HOLY else FxKind.BOMB_FIRE, false))
                 if (id == "alchemist_fire") inflict(onHero = false, Status.BURN, 2)
             }
             else -> {
@@ -743,6 +750,18 @@ class Battle(
     }
 
     private fun blessBonus(): Int = if (blessed) dice.d(4) else 0
+
+    /** "verwundbar gegen Wucht; immun gegen Gift" – null if the foe has nothing special. */
+    private fun weaknesses(): String? {
+        val de = lang == Lang.DE
+        fun list(label: String, types: Set<DamageType>) = if (types.isEmpty()) null else label + " " + types.joinToString(", ") { it.title(lang) }
+        val parts = listOfNotNull(
+            list(if (de) "verwundbar gegen" else "vulnerable to", monster.vulnerable),
+            list(if (de) "resistent gegen" else "resistant to", monster.resistant),
+            list(if (de) "immun gegen" else "immune to", monster.immune),
+        )
+        return parts.takeIf { it.isNotEmpty() }?.joinToString("; ")
+    }
     private fun fedBonus(): Int = if (wellFed) 1 else 0
 
     private fun heroSave(a: Ability, dc: Int): Boolean {
@@ -832,7 +851,7 @@ class Battle(
         // Higher monster levels are worth a lot more experience.
         val scale = 1 + 0.35 * over + 0.05 * over * over
         // Each pack mate is worth a little extra.
-        val xp = (monster.xp * scale * (1 + (pack?.xpShare ?: 0.0) * packSize) * (if (elite) 2.5 else 1.0) * (if (shiny) 2.0 else 1.0) * (1 + hero.bonus(Affix.XP) / 100.0)).toInt()
+        val xp = (monster.xp * scale * (1 + (pack?.xpShare ?: 0.0) * packSize) * (if (elite) 2.5 else 1.0) * (if (shiny) 2.0 else 1.0) * (1 + hero.bonus(Affix.XP) / 100.0) * Perks.xpFactor(hero)).toInt()
         val gold = if (fled) 0 else (dice.roll(monster.gold) * (1 + over * 0.3) * (if (elite) 2.0 else 1.0) * (if (shiny) 3.0 else 1.0) *
             (1 + hero.bonus(Affix.GOLD_FIND) / 100.0)).toInt()
         val fixed = if (fled) emptyList() else monster.loot.filter { dice.chance(it.chance) }.map { it.item }
@@ -932,6 +951,8 @@ private object Msg {
     val heroFalls = T("{0} bricht zusammen …", "{0} collapses...")
     val heals = T("{0} heilt {1} TP.", "{0} recovers {1} HP.")
     val gainXp = T("{0} erhält {1} EP.", "{0} gained {1} XP.")
+    val knows = T("{0} erkennt: {1}.", "{0} recognises: {1}.")
+    val cowed = T("{0} zögert, eingeschüchtert von {1}!", "{0} hesitates, cowed by {1}!")
     val fed = T("{0} ist gut gestärkt: +1 auf Angriffe und Schaden.", "{0} is well fed: +1 to attacks and damage.")
     val capped = T("Höchststufe für Kapitel 1 erreicht – die EP werden für Kapitel 2 aufgehoben.", "Highest level for chapter 1 reached – the XP are kept for chapter 2.")
     val gainGold = T("Du erbeutest {0} Gold.", "You got {0} gold.")

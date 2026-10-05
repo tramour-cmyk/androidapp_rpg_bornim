@@ -4,6 +4,21 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – jedes Attribut zählt**
+- **Erklärung im Heldenreiter:** Tippt man auf ein Attribut, steht dort, was es bringt, mit den aktuellen Zahlen.
+- **Charisma:** pro Punkt 5 % günstiger einkaufen und teurer verkaufen (höchstens 20 %, bei negativem Modifikator umgekehrt). Normale Gegner zögern mit 8 % Chance pro Punkt eingeschüchtert und verlieren ihre erste Runde.
+- **Intelligenz:** Ab INT 12 erkennt der Held zu Kampfbeginn Schwächen, Resistenzen und Immunitäten des Gegners. Pro Punkt 10 % Chance auf einen zusätzlichen Trank beim Brauen und 3 % mehr Erfahrung.
+- **Weisheit:** pro Punkt ein halbes Feld mehr Sicht im Nebel, 15 % seltener Hinterhalte (bis 60 %) und 15 % Chance auf ein zusätzliches Kraut.
+- **Stärke:** Wurfgeschosse (Alchemistenfeuer, Weihwasser) bekommen den Stärke-Modifikator als Bonusschaden.
+- **Geschicklichkeit:** Schleichen: Jagende Monster bemerken den Helden pro 2 Punkte ein Feld später (normal 4, mindestens 2).
+- **Konstitution:** Gift und Blutung klingen nach dem Kampf pro Punkt eine Runde schneller ab; Mahlzeiten heilen zusätzlich den Modifikator.
+
+**Neu – Version sichtbar**
+- Titelbild und System-Reiter zeigen die genaue installierte Version mit Unternummer und Build-Nummer (vorher stand dort immer „v0.1“).
+
+**Sonstiges**
+- Neue [Merkliste](docs/MERKLISTE.md) mit allen bisher nicht umgesetzten Ideen.
+
 ## v0.1.20 – 05.10.2026, 16:51
 
 **Geändert – Blumenwiesen und Heilkräuter**

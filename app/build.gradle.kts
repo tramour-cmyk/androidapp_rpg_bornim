@@ -47,6 +47,8 @@ android {
     }
 
     buildFeatures {
+        // The version name shown on the title screen.
+        buildConfig = true
         compose = true
     }
 }

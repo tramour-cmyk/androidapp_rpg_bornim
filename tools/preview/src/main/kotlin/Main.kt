@@ -298,6 +298,23 @@ fun main() {
             vm.refresh()
         }
     }
+    for ((name, y) in listOf("57_info_cha" to 1740f, "57_info_wis" to 1630f)) {
+        shot(name, taps = listOf(Offset(150f, y))) { vm ->
+            vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
+            val g = vm.game!!
+            g.skipDialogs()
+            g.hero.gainXp(9200, de.bornim.core.Story.levelCap(g.state))
+            g.hero.base[de.bornim.core.Ability.CHA] = 14
+            g.hero.base[de.bornim.core.Ability.WIS] = 14
+            g.hero.restoreFully()
+            vm.menuOpen = true
+        }
+    }
+    shot("58_system_version", taps = listOf(Offset(930f, 95f))) { vm ->
+        vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
+        vm.game!!.skipDialogs()
+        vm.menuOpen = true
+    }
     shot("47_hud_ailments") { vm ->
         vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
         val g = vm.game!!

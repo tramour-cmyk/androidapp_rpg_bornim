@@ -106,7 +106,7 @@ fun ShopScreen(vm: GameViewModel, game: Game, stock: List<String>, brewing: Bool
                     if (supplies.isEmpty()) Txt(Ui.nothing(lang), size = 14.sp, color = Colors.textDim)
                     supplies.forEach { (id, count) ->
                         val def = Items[id]
-                        val price = if (buying) def.price else game.sellPrice(id)
+                        val price = if (buying) game.buyPrice(id) else game.sellPrice(id)
                         val affordable = !buying || game.state.gold >= price
                         Row(
                             Modifier
@@ -158,7 +158,7 @@ fun ShopScreen(vm: GameViewModel, game: Game, stock: List<String>, brewing: Bool
                         if (buying) Txt(if (de) "Neue Ware nach jeweils 8 Siegen." else "New stock every 8 victories.", size = 12.sp, color = Colors.textDim)
                         if (gear.isEmpty()) Txt(Ui.nothing(lang), size = 14.sp, color = Colors.textDim)
                         gear.forEach { g ->
-                            val price = if (buying) g.price else game.sellPrice(g)
+                            val price = if (buying) game.buyPrice(g) else game.sellPrice(g)
                             GearRow(g, lang, game, vm.tick, trailing = Ui.price.f(lang, price)) {
                                 val buy = buying
                                 dialog = DialogSpec(

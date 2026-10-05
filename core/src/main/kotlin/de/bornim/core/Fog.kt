@@ -63,7 +63,8 @@ class Sight(private val state: GameState) {
         if (k == key) return
         key = k
         visible = BooleanArray(map.width * map.height)
-        val radius = if (night || map.kind == MapKind.CAVE) 4.2 else 5.2
+        // A wise hero sees a little further.
+        val radius = (if (night || map.kind == MapKind.CAVE) 4.2 else 5.2) + Perks.sightBonus(state.hero)
         val r = radius.toInt() + 1
         for (dy in -r..r) for (dx in -r..r) {
             val x = p.x + dx; val y = p.y + dy

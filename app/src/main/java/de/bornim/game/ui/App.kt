@@ -149,7 +149,7 @@ fun TitleScreen(vm: GameViewModel) {
             }
         }, size = 14.sp, color = Colors.textLight)
         Spacer(Modifier.height(4.dp))
-        Txt("v0.1 · SRD 5.1 · CC BY 4.0", size = 12.sp, color = Colors.textDim)
+        Txt("v${de.bornim.game.BuildConfig.VERSION_NAME} · SRD 5.1 · CC BY 4.0", size = 12.sp, color = Colors.textDim)
         if (vm.testMode) Txt(if (lang == Lang.DE) "Testmodus aktiv" else "Test mode on", size = 12.sp, color = Colors.accent)
     }
 }

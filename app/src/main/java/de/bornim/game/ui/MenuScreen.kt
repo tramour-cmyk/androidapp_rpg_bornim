@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Ability
+import de.bornim.core.Perks
 import de.bornim.core.Facing
 import de.bornim.core.Game
 import de.bornim.core.ItemDef
@@ -132,10 +133,23 @@ private fun HeroTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
     if (h.unspentPoints > 0) {
         Txt(Ui.points.f(lang, h.unspentPoints - planned), size = 15.sp, bold = true, color = Colors.accent)
     }
+    Txt(
+        if (de) "Tippe auf ein Attribut, um zu sehen, was es bringt." else "Tap an ability to see what it does.",
+        size = 12.sp, color = Colors.textDim,
+    )
     Ability.entries.forEach { a ->
         val add = pending[a] ?: 0
         Row(Modifier.fillMaxWidth().padding(vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
-            Txt(a.full(lang), Modifier.weight(1f), size = if (h.unspentPoints > 0) 14.sp else 16.sp, maxLines = 1)
+            // Tapping the name explains what the ability does.
+            Txt(a.full(lang), Modifier.weight(1f).tap {
+                ask(DialogSpec(title = a.full(lang), confirm = "OK", cancel = "", onConfirm = {}) {
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Perks.describe(a, h, lang).forEachIndexed { i, line ->
+                            Txt(line, size = if (i == 0) 15.sp else 14.sp, bold = i == 0)
+                        }
+                    }
+                })
+            }, size = if (h.unspentPoints > 0) 14.sp else 16.sp, maxLines = 1)
             val score = h.score(a) + add
             Txt(if (add > 0) "${h.score(a)}→$score" else "$score", Modifier.width(56.dp), size = 16.sp, bold = true,
                 color = if (add > 0) Color(0xFF2E8B3E) else Colors.text)
@@ -334,7 +348,13 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
     vm.tick // redraw after every change
     Txt(Ui.quest(lang), size = 18.sp, bold = true)
     Txt(Story.objective(game.state)(lang), size = 16.sp)
-    Spacer(Modifier.height(16.dp))
+    Spacer(Modifier.height(6.dp))
+    // The exact installed version, e.g. for bug reports.
+    Txt(
+        "Version ${de.bornim.game.BuildConfig.VERSION_NAME} (Build ${de.bornim.game.BuildConfig.VERSION_CODE})",
+        size = 13.sp, bold = true, color = Colors.textDim,
+    )
+    Spacer(Modifier.height(12.dp))
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         PixelButton(Ui.save(lang), Modifier.fillMaxWidth()) {
             vm.save()
