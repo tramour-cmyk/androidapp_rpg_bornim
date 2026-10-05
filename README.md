@@ -1,6 +1,6 @@
 # Chroniken von Bornim / Chronicles of Bornim
 
-Ein Rollenspiel für Android im Stil klassischer Handheld-RPGs (Draufsicht, rundenbasierte Kämpfe), mit einem vereinfachten Regelsystem auf Basis des D&D 5e SRD 5.1. Deutsch und Englisch.
+Ein Fantasy-Rollenspiel für Android: Erkunde das Dorf Bornim und seine Umgebung aus der Vogelperspektive, stelle dich in rundenbasierten Kämpfen 17 Monsterarten, sammle Beute in sechs Seltenheitsstufen und entwickle deinen Helden bis Stufe 20. Mit Touch-Steuerung, animierter Pixel-Grafik, eigener Musik und einem vereinfachten Regelsystem auf Basis des SRD 5.1. Auf Deutsch und Englisch.
 
 **Download:** [bornim.apk (neueste Version)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/latest/download/bornim.apk)
 
