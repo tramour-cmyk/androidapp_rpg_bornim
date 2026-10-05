@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.21 – 05.10.2026, 17:09
+
 **Neu – jedes Attribut zählt**
 - **Erklärung im Heldenreiter:** Tippt man auf ein Attribut, steht dort, was es bringt, mit den aktuellen Zahlen.
 - **Charisma:** pro Punkt 5 % günstiger einkaufen und teurer verkaufen (höchstens 20 %, bei negativem Modifikator umgekehrt). Normale Gegner zögern mit 8 % Chance pro Punkt eingeschüchtert und verlieren ihre erste Runde.
