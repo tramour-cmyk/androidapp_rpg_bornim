@@ -205,6 +205,14 @@ fun main() {
         vm.refresh()
     }
     val cave = Place("cave", 10, 20, Facing.UP)
+    shot("33_status") { vm ->
+        fight(vm, "giant_spider", cave, EliteTrait.VENOMOUS)
+        val b = (vm.game!!.mode as Mode.Fight).battle
+        b.heroStatus[de.bornim.core.Status.POISON] = 3
+        b.heroStatus[de.bornim.core.Status.SLOW] = 2
+        b.foeStatus[de.bornim.core.Status.BURN] = 2
+        b.foeStatus[de.bornim.core.Status.BLEED] = 3
+    }
     val forest = Place("forest", 10, 20, Facing.UP)
     shot("19_elite") { fight(it, "wolf", forest, EliteTrait.VENOMOUS) }
     shot("20_shiny") { fight(it, "goblin_shaman", cave, shiny = true) }

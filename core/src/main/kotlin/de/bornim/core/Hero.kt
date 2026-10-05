@@ -118,6 +118,8 @@ class Hero(
     val critFrom: Int get() = (20 - bonus(Affix.CRIT) - if (has(Skill.IMPROVED_CRITICAL)) 1 else 0).coerceAtLeast(17)
     val lifeSteal: Int get() = bonus(Affix.LIFESTEAL).coerceAtMost(30)
     val damageReduction: Int get() = bonus(Affix.RESIST)
+    /** Chance in percent to shrug off a negative status. */
+    val tenacity: Int get() = bonus(Affix.TENACITY).coerceAtMost(60)
 
     fun canWear(g: Gear): Boolean = Loot.wearable(cls, g.def)
 

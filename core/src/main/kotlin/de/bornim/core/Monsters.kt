@@ -76,8 +76,8 @@ data class MonsterDef(
     /** How the monster's attack looks on screen. */
     val attackFx: FxKind = FxKind.SLASH,
     val gender: Gender = Gender.M,
-    /** Extra damage of [MonsterSpecial.POISON] (CON save for half). */
-    val poison: DiceExpr = dice(2, 8),
+    /** Damage per round of the poison from [MonsterSpecial.POISON] (CON save avoids it). */
+    val poison: DiceExpr = dice(1, 6),
 )
 
 /** Monster statistics follow the SRD 5.1, slightly simplified. */
@@ -148,7 +148,7 @@ object Monsters {
         MonsterDef(
             "giant_centipede", T("Riesen-Hundertfüßer", "Giant Centipede"), 13, dice(2, 6, 1), T("Biss", "Bite"), 4, dice(1, 4, 2), DamageType.PIERCING,
             50, dice(1, 3), 2, 1, -2, listOf(LootEntry("potion", 0.1)),
-            special = MonsterSpecial.POISON, poison = dice(1, 6), attackFx = FxKind.BITE, cr = "1/4",
+            special = MonsterSpecial.POISON, poison = dice(1, 4), attackFx = FxKind.BITE, cr = "1/4",
         ),
         MonsterDef(
             "kobold", T("Kobold", "Kobold"), 12, dice(2, 6, 1), T("Speer", "Spear"), 4, dice(1, 4, 2), DamageType.PIERCING,

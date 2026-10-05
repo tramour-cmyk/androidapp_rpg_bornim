@@ -105,6 +105,9 @@ object Loot {
             Affix.GOLD_FIND -> 10 + upTo(40)
             Affix.MAGIC_FIND -> 5 + upTo(25)
             Affix.XP -> 5 + upTo(15)
+            Affix.POISON_HIT, Affix.BLEED_HIT -> 8 + upTo(12)
+            Affix.STUN_HIT -> 5 + upTo(8)
+            Affix.TENACITY -> 10 + upTo(20)
         }
         val boost = when (rarity) {
             Rarity.EPIC -> 1.25

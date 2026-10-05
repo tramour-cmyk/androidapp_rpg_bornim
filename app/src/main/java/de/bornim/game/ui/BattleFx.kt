@@ -58,6 +58,9 @@ fun soundFor(step: Step): Sound? {
             FxKind.ACID -> Sound.POISON
             FxKind.PARALYZE -> Sound.MAGIC
             FxKind.BURN -> Sound.FIRE
+            FxKind.BLEED -> Sound.HIT_SLASH
+            FxKind.STUN -> Sound.HIT_SMASH
+            FxKind.CURSE -> Sound.MAGIC
         }
     }
     return when (step.anim) {
@@ -101,6 +104,8 @@ private val POISON = Color(0xFF9AE04A)
 private val BLOOD = Color(0xFFE03A3A)
 private val ACID = Color(0xFFC8E040)
 private val FROST = Color(0xFFBFE8FF)
+private val STAR = Color(0xFFFFE070)
+private val CURSE = Color(0xFF8A58C8)
 
 private fun lerp(a: Offset, b: Offset, t: Float) = Offset(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t)
 
@@ -377,6 +382,30 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
             val y = target.y + 26 * u - rise * 50 * u
             val col = listOf(FIRE_HOT, FIRE, FIRE_DARK)[it % 3]
             square(col, Offset(x, y), (4.5f - rise * 3f) * u, fade(p) * (1 - rise * 0.6f))
+        }
+        FxKind.BLEED -> repeat(10) { k ->
+            // drops run down from the wound
+            val x = hit.x + (r.nextFloat() - 0.5f) * 30 * u
+            val fall = (p * 1.3f - k * 0.04f).coerceIn(0f, 1f)
+            val y = hit.y - 6 * u + fall * (18 + r.nextFloat() * 18) * u
+            drawCircle(BLOOD.copy(alpha = (1f - fall * 0.7f) * fade(p)), (1.6f + r.nextFloat()) * u, Offset(x, y))
+        }
+        FxKind.STUN -> {
+            // little stars circling above the head
+            val head = Offset(target.x, target.y - 30 * u)
+            repeat(4) { k ->
+                val a = (p * 2f * PI.toFloat() * 1.5f) + k * PI.toFloat() / 2
+                val pos = Offset(head.x + cos(a) * 18 * u, head.y + sin(a) * 6 * u)
+                val st = 3.2f * u
+                drawRect(STAR.copy(alpha = fade(p)), Offset(pos.x - st / 4, pos.y - st), Size(st / 2, st * 2))
+                drawRect(STAR.copy(alpha = fade(p)), Offset(pos.x - st, pos.y - st / 4), Size(st * 2, st / 2))
+            }
+        }
+        FxKind.CURSE -> repeat(12) { k ->
+            // a dark swirl closing in
+            val a = k * PI.toFloat() / 6 + p * 4f
+            val d = (1f - p) * 40 * u + 6 * u
+            drawCircle(CURSE.copy(alpha = 0.8f * fade(p)), (2.5f + (k % 3)) * u, Offset(target.x + cos(a) * d, target.y + sin(a) * d * 0.7f))
         }
         FxKind.BLOCK -> {
             val s = (p / 0.3f).coerceAtMost(1f)

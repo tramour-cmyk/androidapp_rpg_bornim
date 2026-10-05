@@ -21,6 +21,8 @@ data class ItemDef(
     val damage: DiceExpr? = null,
     val damageType: DamageType = DamageType.BLUDGEONING,
     val heal: DiceExpr? = null,
+    /** Removes negative battle statuses (poison, burning, stun …). */
+    val cures: Boolean = false,
 ) {
     val sellable: Boolean get() = kind != ItemKind.KEY && price > 0
 
@@ -38,6 +40,8 @@ object Items {
             ItemKind.POTION, 75, Icon.BIG_POTION, Rarity.UNCOMMON, heal = dice(4, 4, 4)),
         ItemDef("superior_potion", T("Überragender Heiltrank", "Superior Healing Potion"), T("Heilt 8W4+8 TP.", "Heals 8d4+8 HP."),
             ItemKind.POTION, 200, Icon.BIG_POTION, Rarity.RARE, heal = dice(8, 4, 8)),
+        ItemDef("remedy", T("Kräutertrank", "Herbal Remedy"), T("Heilt Vergiftung, Brand, Blutung, Betäubung und Flüche sowie 1W4 TP.", "Cures poison, burning, bleeding, stun and curses, and heals 1d4 HP."),
+            ItemKind.POTION, 20, Icon.FLASK, heal = dice(1, 4), cures = true),
         ItemDef("alchemist_fire", T("Alchemistenfeuer", "Alchemist's Fire"), T("Wurfgeschoss: 2W6 Feuerschaden, trifft immer.", "Thrown: 2d6 fire damage, always hits."),
             ItemKind.BOMB, 30, Icon.FLASK, damage = dice(2, 6), damageType = DamageType.FIRE),
         ItemDef("holy_water", T("Weihwasser", "Holy Water"), T("Wurfgeschoss: 2W6 gleißender Schaden, 4W6 gegen Untote.", "Thrown: 2d6 radiant damage, 4d6 against undead."),

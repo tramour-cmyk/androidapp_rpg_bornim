@@ -89,6 +89,10 @@ enum class Affix(val title: T, val prefixDe: String, val prefixEn: String, val s
     GOLD_FIND(T("Goldfund", "Gold find"), "Gierig", "Greedy", "des Händlers", "of the Merchant", percent = true),
     MAGIC_FIND(T("Magiefund", "Magic find"), "Glücklich", "Lucky", "des Glücks", "of Fortune", percent = true),
     XP(T("Erfahrung", "Experience"), "Lehrreich", "Studious", "des Lernens", "of Learning", percent = true),
+    POISON_HIT(T("Giftchance", "Poison chance"), "Giftig", "Venomous", "der Viper", "of the Viper", percent = true),
+    BLEED_HIT(T("Blutungschance", "Bleed chance"), "Reißend", "Serrated", "der Wunden", "of Wounds", percent = true),
+    STUN_HIT(T("Betäubungschance", "Stun chance"), "Betäubend", "Stunning", "des Donners", "of Thunder", percent = true),
+    TENACITY(T("Standhaftigkeit", "Tenacity"), "Standhaft", "Steadfast", "des Ankers", "of the Anchor", percent = true),
     ;
 
     fun line(lang: Lang, value: Int): String = when (this) {
@@ -273,16 +277,19 @@ object GearBases {
     fun affixesFor(b: GearBase): List<Affix> {
         val stats = listOf(Affix.STR, Affix.DEX, Affix.CON, Affix.INT, Affix.WIS, Affix.CHA)
         return when {
-            b.isWeapon && b.focus > 0 -> listOf(Affix.INT, Affix.WIS, Affix.SPELL, Affix.SP, Affix.ATTACK, Affix.DAMAGE, Affix.FIRE, Affix.CRIT)
-            b.isWeapon -> listOf(Affix.STR, Affix.DEX, Affix.ATTACK, Affix.DAMAGE, Affix.CRIT, Affix.FIRE, Affix.RADIANT, Affix.LIFESTEAL)
+            b.isWeapon && b.focus > 0 -> listOf(Affix.INT, Affix.WIS, Affix.SPELL, Affix.SP, Affix.ATTACK, Affix.DAMAGE, Affix.FIRE, Affix.CRIT, Affix.STUN_HIT)
+            b.isWeapon -> listOf(
+                Affix.STR, Affix.DEX, Affix.ATTACK, Affix.DAMAGE, Affix.CRIT, Affix.FIRE, Affix.RADIANT, Affix.LIFESTEAL,
+                Affix.POISON_HIT, Affix.BLEED_HIT, Affix.STUN_HIT,
+            )
             b.kind == BaseKind.SHIELD -> listOf(Affix.AC, Affix.HP, Affix.RESIST, Affix.CON, Affix.STR)
             b.kind == BaseKind.FOCUS -> listOf(Affix.SPELL, Affix.SP, Affix.INT, Affix.WIS, Affix.CHA, Affix.HP)
             b.slot == GearSlot.HEAD -> stats + listOf(Affix.AC, Affix.HP, Affix.SP, Affix.SPELL, Affix.MAGIC_FIND, Affix.XP)
-            b.slot == GearSlot.CHEST -> listOf(Affix.AC, Affix.HP, Affix.RESIST, Affix.STR, Affix.DEX, Affix.CON)
-            b.slot == GearSlot.ARMS -> listOf(Affix.STR, Affix.DEX, Affix.ATTACK, Affix.DAMAGE, Affix.CRIT, Affix.AC, Affix.LIFESTEAL)
-            b.slot == GearSlot.LEGS -> listOf(Affix.DEX, Affix.CON, Affix.AC, Affix.HP, Affix.RESIST, Affix.GOLD_FIND)
-            b.slot == GearSlot.CLOAK -> listOf(Affix.AC, Affix.RESIST, Affix.DEX, Affix.CHA, Affix.HP, Affix.MAGIC_FIND)
-            b.slot == GearSlot.AMULET -> stats + listOf(Affix.SPELL, Affix.HP, Affix.SP, Affix.XP, Affix.MAGIC_FIND, Affix.RESIST)
+            b.slot == GearSlot.CHEST -> listOf(Affix.AC, Affix.HP, Affix.RESIST, Affix.STR, Affix.DEX, Affix.CON, Affix.TENACITY)
+            b.slot == GearSlot.ARMS -> listOf(Affix.STR, Affix.DEX, Affix.ATTACK, Affix.DAMAGE, Affix.CRIT, Affix.AC, Affix.LIFESTEAL, Affix.BLEED_HIT, Affix.POISON_HIT)
+            b.slot == GearSlot.LEGS -> listOf(Affix.DEX, Affix.CON, Affix.AC, Affix.HP, Affix.RESIST, Affix.GOLD_FIND, Affix.TENACITY)
+            b.slot == GearSlot.CLOAK -> listOf(Affix.AC, Affix.RESIST, Affix.DEX, Affix.CHA, Affix.HP, Affix.MAGIC_FIND, Affix.TENACITY)
+            b.slot == GearSlot.AMULET -> stats + listOf(Affix.SPELL, Affix.HP, Affix.SP, Affix.XP, Affix.MAGIC_FIND, Affix.RESIST, Affix.TENACITY)
             else -> stats + listOf(Affix.ATTACK, Affix.DAMAGE, Affix.CRIT, Affix.SPELL, Affix.GOLD_FIND, Affix.MAGIC_FIND, Affix.LIFESTEAL, Affix.SP)
         }
     }

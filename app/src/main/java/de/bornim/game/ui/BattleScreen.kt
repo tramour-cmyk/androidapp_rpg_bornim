@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -75,6 +76,8 @@ private class BattleUi(val battle: Battle) {
     var menu by mutableStateOf(BattleMenu.MAIN)
     var animKey by mutableIntStateOf(0)
     var enemyGone by mutableStateOf(false)
+    var heroStatus by mutableStateOf<Map<de.bornim.core.Status, Int>>(emptyMap())
+    var foeStatus by mutableStateOf<Map<de.bornim.core.Status, Int>>(emptyMap())
     var heroGone by mutableStateOf(false)
 
     init {
@@ -93,6 +96,8 @@ private class BattleUi(val battle: Battle) {
             heroHp = s.heroHp
             heroSp = s.heroSp
             enemyHp = s.enemyHp
+            heroStatus = s.heroStatus
+            foeStatus = s.foeStatus
             if (s.anim == Anim.ENEMY_FAINT) enemyGone = true
             if (s.anim == Anim.HERO_FAINT) heroGone = true
             animKey++
@@ -265,8 +270,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 BattleFxLayer(fx, ui.animKey, enemyC, heroC, (monsterSize / 64).toPx(), Modifier.matchParentSize())
             }
 
-            EnemyBox(battle, ui.enemyHp, lang, Modifier.align(Alignment.TopStart).padding(10.dp))
-            HeroBox(battle, ui.heroHp, ui.heroSp, lang, Modifier.align(Alignment.BottomEnd).padding(10.dp))
+            EnemyBox(battle, ui.enemyHp, ui.foeStatus, lang, Modifier.align(Alignment.TopStart).padding(10.dp))
+            HeroBox(battle, ui.heroHp, ui.heroSp, ui.heroStatus, lang, Modifier.align(Alignment.BottomEnd).padding(10.dp))
 
             // Flashes for spells and level ups
             val bigLoot = a == Anim.LOOT && (step?.rarity ?: de.bornim.core.Rarity.COMMON) >= de.bornim.core.Rarity.EPIC
@@ -327,7 +332,7 @@ private fun BattleBackground(kind: MapKind, modifier: Modifier) {
 }
 
 @Composable
-private fun EnemyBox(battle: Battle, hp: Int, lang: Lang, modifier: Modifier) {
+private fun EnemyBox(battle: Battle, hp: Int, status: Map<de.bornim.core.Status, Int>, lang: Lang, modifier: Modifier) {
     val frac by animateFloatAsState(hp.toFloat() / battle.enemyMaxHp, tween(500), label = "enemyHp")
     val name = battle.foeName(lang)
     Panel(modifier.width(232.dp)) {
@@ -349,12 +354,29 @@ private fun EnemyBox(battle: Battle, hp: Int, lang: Lang, modifier: Modifier) {
                 Spacer(Modifier.width(4.dp))
                 Bar(frac, hpColor(frac), Modifier.fillMaxWidth())
             }
+            StatusChips(status, lang)
+        }
+    }
+}
+
+/** Small colored tags for active statuses, with the rounds left. */
+@Composable
+private fun StatusChips(status: Map<de.bornim.core.Status, Int>, lang: Lang) {
+    if (status.isEmpty()) return
+    Row(Modifier.padding(top = 4.dp), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+        status.forEach { (st, turns) ->
+            Box(
+                Modifier
+                    .clip(androidx.compose.foundation.shape.RoundedCornerShape(4.dp))
+                    .background(Color(st.color))
+                    .padding(horizontal = 5.dp, vertical = 1.dp)
+            ) { Txt("${st.short(lang)} $turns", size = 11.sp, color = Color.White, bold = true, maxLines = 1) }
         }
     }
 }
 
 @Composable
-private fun HeroBox(battle: Battle, hp: Int, sp: Int, lang: Lang, modifier: Modifier) {
+private fun HeroBox(battle: Battle, hp: Int, sp: Int, status: Map<de.bornim.core.Status, Int>, lang: Lang, modifier: Modifier) {
     val hero = battle.hero
     val frac by animateFloatAsState(hp.toFloat() / hero.maxHp, tween(500), label = "heroHp")
     val shownHp by animateFloatAsState(hp.toFloat(), tween(500), label = "heroHpNum")
@@ -390,6 +412,7 @@ private fun HeroBox(battle: Battle, hp: Int, sp: Int, lang: Lang, modifier: Modi
                 if (battle.guardians) add(Skill.SPIRIT_GUARDIANS.title(lang))
             }
             if (effects.isNotEmpty()) Txt(effects.joinToString(" · "), size = 11.sp, color = Colors.sp)
+            StatusChips(status, lang)
         }
     }
 }
