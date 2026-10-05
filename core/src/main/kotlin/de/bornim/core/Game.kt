@@ -42,10 +42,30 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     private var graceSteps = 3
     private val npcFacing = mutableMapOf<String, Facing>()
 
+    // Monsters walking around on the maps; not saved, they simply appear again after loading.
+    private val herds = HashMap<String, MutableList<Roamer>>()
+    /** Step counts at which a defeated monster of a map comes back. */
+    private val respawns = HashMap<String, MutableList<Int>>()
+    private var nextRoamerUid = 1
+    private var battleRoamer: Roamer? = null
+    /** App clock of the last update, and a short period after battles in which nothing attacks. */
+    private var now = 0L
+    private var peaceUntil = 0L
+    // Movement of monsters is cosmetic randomness and must not shift the game's dice.
+    private val roamRandom = kotlin.random.Random(state.steps * 31 + 7)
+
     val map: MapDef get() = World[state.place.map]
     val hero: Hero get() = state.hero
 
     fun npcFacing(npc: Npc): Facing = npcFacing[npc.id] ?: npc.facing
+
+    /** Monsters walking around on the current map. */
+    val roamers: List<Roamer> get() = herd()
+
+    fun roamerAt(x: Int, y: Int): Roamer? = herd().firstOrNull { it.x == x && it.y == y }
+
+    /** Walkable for the hero and monsters: free of walls, people and monsters. */
+    fun free(x: Int, y: Int): Boolean = map.walkable(x, y, state) && roamerAt(x, y) == null
 
     /** Call once after creating or loading a game. */
     fun begin() {
@@ -64,6 +84,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (warp != null && warp.requires != null && !state.has(warp.requires)) {
             changed()
             enqueue(warp.denied)
+            return Move.Blocked
+        }
+        roamerAt(nx, ny)?.let { r ->
+            // Walking into a monster attacks it; from behind the hero strikes first.
+            engage(r, if (r.facing == dir || (r.temper == Temper.LURKER && !r.hunting)) Opening.HERO_FIRST else Opening.NORMAL)
             return Move.Blocked
         }
         if (!map.walkable(nx, ny, state)) {
@@ -93,14 +118,156 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             enqueue(it.script(state))
             return
         }
+        respawnRoamers()
         if (graceSteps > 0) {
             graceSteps--
             return
         }
         val enc = map.encounters ?: return
+        // Rarely, something hidden in the grass or the dark jumps out.
         if (map.tile(p.x, p.y) in enc.tiles && dice.chance(enc.rate)) {
-            startBattle(dice.weighted(enc.table), null)
+            startBattle(dice.weighted(enc.table), null, opening = Opening.AMBUSHED)
         }
+    }
+
+    // ------------------------------------------------------------ monsters on the map
+
+    private fun herd(): MutableList<Roamer> = herds.getOrPut(state.place.map) {
+        val list = mutableListOf<Roamer>()
+        repeat(map.encounters?.roamers ?: 0) { spawnRoamer(list)?.let { list += it } }
+        list
+    }
+
+    /** Places a new monster on a free tile of the area, away from the hero. */
+    private fun spawnRoamer(list: List<Roamer>): Roamer? {
+        val enc = map.encounters ?: return null
+        val p = state.place
+        val spots = ArrayList<Pair<Int, Int>>()
+        for (y in 0 until map.height) for (x in 0 until map.width) {
+            if (map.tile(x, y) !in enc.tiles || !map.walkable(x, y, state) || map.warpAt(x, y) != null) continue
+            if (kotlin.math.abs(x - p.x) + kotlin.math.abs(y - p.y) < 7) continue
+            if (list.any { kotlin.math.abs(it.x - x) + kotlin.math.abs(it.y - y) < 3 }) continue
+            if (map.triggers.any { it.x == x && it.y == y }) continue
+            spots += x to y
+        }
+        if (spots.isEmpty()) return null
+        val (x, y) = spots[roamRandom.nextInt(spots.size)]
+        val monster = dice.weighted(enc.table)
+        val shiny = dice.chance(SHINY_CHANCE)
+        val trait = if (!shiny && hero.level >= 2 && dice.chance(ELITE_CHANCE)) dice.pick(EliteTrait.entries) else null
+        return Roamer(nextRoamerUid++, monster, x, y, x, y, trait, shiny, MonsterLook(roamRandom.nextInt(), shiny, trait?.color)).also {
+            it.facing = Facing.entries[roamRandom.nextInt(4)]
+            it.nextMoveAt = now + 500 + roamRandom.nextInt(2000)
+        }
+    }
+
+    private fun respawnRoamers() {
+        val due = respawns[state.place.map] ?: return
+        val herd = herd()
+        val ready = due.filter { it <= state.steps }
+        if (ready.isEmpty()) return
+        due.removeAll(ready)
+        repeat(ready.size) { spawnRoamer(herd)?.let { herd += it } }
+        changed()
+    }
+
+    /**
+     * Lets the monsters of the current map move; call every frame with the app clock in ms.
+     * A hunter that reaches the hero starts a fight, from behind as an ambush.
+     */
+    fun updateRoamers(nowMs: Long) {
+        now = nowMs
+        if (mode != Mode.Explore) return
+        val herd = herd()
+        val p = state.place
+        val strongHero = hero.level >= map.areaLevel + 5
+        var moved = false
+        for (r in herd) {
+            if (now < r.nextMoveAt) continue
+            val dist = kotlin.math.abs(r.x - p.x) + kotlin.math.abs(r.y - p.y)
+            val calm = now < r.calmUntil || now < peaceUntil
+            // Weak monsters keep away from a far stronger hero; elites are never afraid.
+            val afraid = strongHero && r.trait == null
+            when {
+                !calm && afraid && dist <= 4 -> {
+                    r.hunting = false
+                    stepRoamer(r, away = true, ms = 320)
+                }
+                !calm && !afraid && r.temper != Temper.WANDERER && (r.hunting || dist <= (if (r.temper == Temper.LURKER) 2 else 5)) -> {
+                    if (!r.hunting) {
+                        r.hunting = true
+                        r.alertUntil = now + 800
+                        r.nextMoveAt = now + 450
+                        sounds += de.bornim.core.audio.Sound.ALERT
+                        moved = true
+                        continue
+                    }
+                    if (dist > 9) {
+                        r.hunting = false
+                    } else if (dist == 1) {
+                        // Adjacent: attack. Coming from behind the hero is an ambush.
+                        val fromBehind = r.x - p.x == -p.facing.dx && r.y - p.y == -p.facing.dy
+                        r.facing = Facing.entries.first { it.dx == p.x - r.x && it.dy == p.y - r.y }
+                        engage(r, if (fromBehind) Opening.AMBUSHED else Opening.NORMAL)
+                        return
+                    } else {
+                        stepRoamer(r, away = false, ms = if (r.monster == "zombie" || r.monster == "ochre_jelly") 520 else 300)
+                    }
+                }
+                r.temper == Temper.LURKER && !r.hunting -> r.nextMoveAt = now + 1000
+                else -> wander(r)
+            }
+            moved = true
+        }
+        if (moved) changed()
+    }
+
+    private fun wander(r: Roamer) {
+        r.hunting = false
+        if (roamRandom.nextInt(10) < 3) {
+            r.facing = Facing.entries[roamRandom.nextInt(4)]
+        } else {
+            val dirs = Facing.entries.shuffled(roamRandom)
+            for (d in dirs) {
+                val nx = r.x + d.dx; val ny = r.y + d.dy
+                if (kotlin.math.abs(nx - r.homeX) + kotlin.math.abs(ny - r.homeY) > 3) continue
+                if (moveRoamer(r, d, 420)) break
+            }
+        }
+        r.nextMoveAt = now + 900 + roamRandom.nextInt(1600)
+    }
+
+    /** One step towards (or away from) the hero along the better axis, trying the other one if blocked. */
+    private fun stepRoamer(r: Roamer, away: Boolean, ms: Long) {
+        val p = state.place
+        val dx = (p.x - r.x).let { if (away) -it else it }
+        val dy = (p.y - r.y).let { if (away) -it else it }
+        val h = if (dx > 0) Facing.RIGHT else Facing.LEFT
+        val v = if (dy > 0) Facing.DOWN else Facing.UP
+        val order = if (kotlin.math.abs(dx) >= kotlin.math.abs(dy)) listOf(h, v) else listOf(v, h)
+        val tried = order.filter { (if (it == h) dx else dy) != 0 } + Facing.entries.shuffled(roamRandom)
+        for (d in tried) if (moveRoamer(r, d, ms)) break
+        r.nextMoveAt = now + ms + 40
+    }
+
+    private fun moveRoamer(r: Roamer, d: Facing, ms: Long): Boolean {
+        val nx = r.x + d.dx; val ny = r.y + d.dy
+        val p = state.place
+        if (!free(nx, ny) || map.warpAt(nx, ny) != null || (nx == p.x && ny == p.y)) return false
+        if (map.tile(nx, ny) == Tile.DOOR || map.tile(nx, ny) == Tile.GATE) return false
+        r.fromX = r.x; r.fromY = r.y
+        r.x = nx; r.y = ny
+        r.facing = d
+        r.movedAt = now
+        r.moveMs = ms
+        return true
+    }
+
+    /** Starts the fight against a monster on the map. */
+    private fun engage(r: Roamer, opening: Opening) {
+        if (mode != Mode.Explore) return
+        battleRoamer = r
+        startBattle(r.monster, null, r.trait to r.shiny, opening, r.look)
     }
 
     private fun runOnEnter() {
@@ -124,6 +291,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (map.tile(tx, ty) == Tile.COUNTER) {
             tx += p.facing.dx
             ty += p.facing.dy
+        }
+        roamerAt(tx, ty)?.let { r ->
+            engage(r, if (r.facing == p.facing || (r.temper == Temper.LURKER && !r.hunting)) Opening.HERO_FIRST else Opening.NORMAL)
+            return
         }
         map.npcAt(tx, ty, state)?.let { npc ->
             npcFacing[npc.id] = p.facing.opposite
@@ -258,7 +429,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     // ------------------------------------------------------------ battles
 
-    private fun startBattle(monster: String, fromScript: Cmd.Fight?, forced: Pair<EliteTrait?, Boolean>? = null) {
+    private fun startBattle(
+        monster: String, fromScript: Cmd.Fight?, forced: Pair<EliteTrait?, Boolean>? = null,
+        opening: Opening = Opening.NORMAL, forcedLook: MonsterLook? = null,
+    ) {
         battleFromScript = fromScript
         val def = Monsters[monster]
         // Monsters grow with the hero so grinding stays worthwhile.
@@ -271,9 +445,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val trait = if (forced != null) forced.first
         else if (!def.boss && !shiny && hero.level >= 2 && dice.chance(ELITE_CHANCE)) dice.pick(EliteTrait.entries) else null
         // The look is purely cosmetic and must not use the game's dice.
-        val look = MonsterLook(kotlin.random.Random.nextInt(), shiny, trait?.color)
-        sounds += de.bornim.core.audio.Sound.ENCOUNTER
-        mode = Mode.Fight(Battle(state, def, lang, dice, level, trait != null, area, trait, shiny, look))
+        val look = forcedLook ?: MonsterLook(kotlin.random.Random.nextInt(), shiny, trait?.color)
+        sounds += if (opening == Opening.AMBUSHED) de.bornim.core.audio.Sound.AMBUSH else de.bornim.core.audio.Sound.ENCOUNTER
+        mode = Mode.Fight(Battle(state, def, lang, dice, level, trait != null, area, trait, shiny, look, opening))
         changed()
     }
 
@@ -352,6 +526,21 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         battleFromScript = null
         graceSteps = 3
         mode = Mode.Explore
+        peaceUntil = now + 2500
+        battleRoamer?.let { r ->
+            when (battle.outcome) {
+                Outcome.WON, Outcome.ENEMY_FLED -> {
+                    herds[state.place.map]?.remove(r)
+                    // It comes back after a good walk.
+                    respawns.getOrPut(state.place.map) { mutableListOf() } += state.steps + 60
+                }
+                else -> {
+                    r.hunting = false
+                    r.calmUntil = now + 8000
+                }
+            }
+        }
+        battleRoamer = null
         when (battle.outcome) {
             Outcome.WON, Outcome.ENEMY_FLED -> {
                 script?.winFlag?.let { state.flags += it }

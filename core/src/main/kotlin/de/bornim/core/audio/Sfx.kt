@@ -11,6 +11,7 @@ enum class Sound {
     CLICK, HIT_SLASH, HIT_PIERCE, HIT_SMASH, MISS, CRIT, BLOCK, BITE, ARROW,
     FIRE, MAGIC, HOLY, HEAL, BUFF, POISON, THROW, POTION,
     ENEMY_DOWN, HERO_DOWN, LEVEL_UP, LOOT, LOOT_EPIC, COINS, CHEST, DOOR, ENCOUNTER,
+    ALERT, AMBUSH,
 }
 
 /** Synthesized sound effects, rendered once to 16-bit mono PCM. */
@@ -198,6 +199,17 @@ object Sfx {
             tone(0.42, 0.45, 80.0, 40.0, 0.9, Wave.TRIANGLE, 0.15)
             noise(0.42, 0.4, 0.4, 0.5, 36)
             listOf(57, 63).forEach { n -> tone(0.42, 0.4, midi(n), midi(n), 0.2, Wave.SAW, 0.2) }
+        }
+        // A monster spotted the hero: two quick rising blips.
+        Sound.ALERT -> Buf(0.3).apply {
+            tone(0.0, 0.08, midi(81), midi(84), 0.35, Wave.PULSE25, 0.05)
+            tone(0.09, 0.14, midi(88), midi(91), 0.35, Wave.PULSE25, 0.06)
+        }
+        // Ambushed: a sharp hit and a low dissonant stab.
+        Sound.AMBUSH -> Buf(0.8).apply {
+            noise(0.0, 0.12, 0.8, 0.04, 37)
+            tone(0.0, 0.5, 70.0, 45.0, 0.9, Wave.TRIANGLE, 0.15)
+            listOf(56, 62, 63).forEach { n -> tone(0.04, 0.6, midi(n), midi(n) * 0.98, 0.18, Wave.SAW, 0.25) }
         }
     }.pcm()
 }

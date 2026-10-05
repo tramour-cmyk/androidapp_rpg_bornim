@@ -1,7 +1,7 @@
 package de.bornim.core
 
 /** What the action button would do right now; the app shows a matching icon. */
-enum class ActionKind { TALK, OPEN, READ, REST, UNLOCK, LOOK }
+enum class ActionKind { TALK, OPEN, READ, REST, UNLOCK, LOOK, FIGHT }
 
 /** A walk planned by tapping: steps to take, then optionally turn to [face] and interact. */
 data class Route(val steps: List<Facing>, val face: Facing? = null, val interact: Boolean = false, val target: Pair<Int, Int>)
@@ -9,6 +9,7 @@ data class Route(val steps: List<Facing>, val face: Facing? = null, val interact
 /** The interaction an object on tile ([x], [y]) offers, if any. */
 fun Game.actionAt(x: Int, y: Int): ActionKind? {
     val m = map
+    if (roamerAt(x, y) != null) return ActionKind.FIGHT
     if (m.npcAt(x, y, state) != null) return ActionKind.TALK
     if (m.signs.containsKey(x to y)) return ActionKind.READ
     return when (m.tile(x, y)) {
@@ -54,14 +55,14 @@ fun Game.route(tx: Int, ty: Int): Route? {
             // Shopkeepers stand behind a counter.
             if (m.tile(tx - d.dx, ty - d.dy) == Tile.COUNTER) goals[(tx - 2 * d.dx) to (ty - 2 * d.dy)] = d
         }
-    } else if (m.walkable(tx, ty, state)) {
+    } else if (free(tx, ty)) {
         goals[target] = null
     } else {
         return null
     }
 
     fun passable(x: Int, y: Int): Boolean {
-        if (!m.walkable(x, y, state)) return false
+        if (!free(x, y)) return false
         val warp = m.warpAt(x, y) ?: return true
         // Doors and exits change the map, so they are only used as the destination.
         return (x to y) == target && (warp.requires == null || state.has(warp.requires))

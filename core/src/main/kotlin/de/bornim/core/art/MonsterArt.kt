@@ -21,6 +21,31 @@ object MonsterArt {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > 160
     }
 
+    /**
+     * A half-size version for monsters walking around on the map (32×32): every 2×2 block of the
+     * battle sprite becomes one pixel, then it gets a fresh outline.
+     */
+    fun mapSprite(id: String, look: MonsterLook, idleFrame: Int, mirrored: Boolean): PixelImage {
+        val f = idleFrame.mod(IDLE_FRAMES)
+        val key = "map/$id/${look.seed}/${look.shiny}/${look.glow}/$f/$mirrored"
+        synchronized(cache) { cache[key]?.let { return it } }
+        val big = frame(id, look, Pose.IDLE, f)
+        val out = PixelImage(SIZE / 2, SIZE / 2)
+        for (y in 0 until SIZE / 2) for (x in 0 until SIZE / 2) {
+            var n = 0; var r = 0; var g = 0; var b = 0
+            for (dy in 0..1) for (dx in 0..1) {
+                val c = big[x * 2 + dx, y * 2 + dy]
+                if ((c ushr 24) < 200) continue
+                n++; r += (c shr 16) and 0xFF; g += (c shr 8) and 0xFF; b += c and 0xFF
+            }
+            if (n >= 2) out.set(x, y, argb(((r / n) shl 16) or ((g / n) shl 8) or (b / n)))
+        }
+        Pen(out).outline(Pal.OUTLINE)
+        val img = if (mirrored) out.mirrored() else out
+        synchronized(cache) { cache[key] = img }
+        return img
+    }
+
     /** The default look in its first idle frame, e.g. for bosses standing on the map. */
     fun get(id: String): PixelImage = frame(id, MonsterLook(), Pose.IDLE, 0)
 

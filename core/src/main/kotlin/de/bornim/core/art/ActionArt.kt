@@ -17,6 +17,7 @@ object ActionArt {
                 ActionKind.REST -> fire()
                 ActionKind.UNLOCK -> key()
                 ActionKind.LOOK -> eye()
+                ActionKind.FIGHT -> swords()
             }
             outline(Pal.OUTLINE)
         }
@@ -86,6 +87,16 @@ object ActionArt {
         ellipse(8.0, 8.0, 3.0, 3.0, argb(0x4878D0))
         ellipse(8.0, 8.0, 1.5, 1.5, INK)
         px(7, 6, Pal.WHITE)
+    }
+
+    private fun Pen.swords() {
+        // two crossed blades
+        for (i in 0..9) {
+            px(2 + i, 2 + i, Pal.STONE_LIGHT); px(3 + i, 2 + i, Pal.STONE)
+            px(13 - i, 2 + i, Pal.STONE_LIGHT); px(12 - i, 2 + i, Pal.STONE)
+        }
+        rect(1, 10, 4, 11, Pal.GOLD); rect(11, 10, 14, 11, Pal.GOLD)
+        rect(2, 12, 3, 14, Pal.WOOD_DARK); rect(12, 12, 13, 14, Pal.WOOD_DARK)
     }
 
     private fun Pen.next() {

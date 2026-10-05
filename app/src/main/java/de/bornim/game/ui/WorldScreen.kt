@@ -28,6 +28,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -170,6 +171,19 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         }
     }
 
+    // Monsters on the map move in real time; the clock also drives their animation.
+    var clock by remember { mutableLongStateOf(0L) }
+    LaunchedEffect(game) {
+        while (isActive) {
+            withFrameMillis { ms ->
+                clock = ms
+                val modeBefore = game.mode
+                game.updateRoamers(ms)
+                if (game.sounds.isNotEmpty() || game.mode != modeBefore) vm.refresh()
+            }
+        }
+    }
+
     // Typewriter effect for dialog text.
     LaunchedEffect(dialog) {
         if (dialog == null) return@LaunchedEffect
@@ -189,7 +203,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 .clipToBounds()
                 .background(Color.Black)
         ) {
-            MapView(game, rev, progress, fromX, fromY, route?.target)
+            MapView(game, rev, progress, fromX, fromY, route?.target, clock)
             if (touch) {
                 TouchLayer(
                     onDir = { d -> heldDir = d },
@@ -362,7 +376,7 @@ private fun TouchLayer(onDir: (Facing?) -> Unit, onRun: (Boolean) -> Unit, onTap
 }
 
 @Composable
-private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: Int, marker: Pair<Int, Int>?) {
+private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: Int, marker: Pair<Int, Int>?, clock: Long) {
     val time = rememberTime()
     val frame = ((time / 450) % 2).toInt()
     Canvas(Modifier.fillMaxSize()) {
@@ -434,6 +448,52 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 sprites += Sprite(bottom.toFloat()) { put(img, npc.x * T, npc.y * T - 2) }
             }
         }
+        // Monsters walking around
+        for (r in game.roamers) {
+            val t = ((clock - r.movedAt).toFloat() / r.moveMs).coerceIn(0f, 1f)
+            val rx = ((r.fromX + (r.x - r.fromX) * t) * T).roundToInt()
+            val ry = ((r.fromY + (r.y - r.fromY) * t) * T).roundToInt()
+            val img = MonsterArt.mapSprite(r.monster, r.look, ((clock / 240) % 4).toInt(), mirrored = r.facing == Facing.RIGHT)
+            val foot = ry + T - 1
+            sprites += Sprite(foot.toFloat()) {
+                val sx = rx + T / 2 - img.width / 2
+                val sy = foot + 1 - img.height
+                put(WorldArt.shadow(), rx + 4, ry + 26)
+                r.trait?.let { tr ->
+                    // Elites glow in the color of their trait.
+                    val pulse = 0.5f + 0.5f * kotlin.math.sin(clock / 220f)
+                    drawCircle(
+                        androidx.compose.ui.graphics.Brush.radialGradient(
+                            listOf(Color(tr.color).copy(alpha = 0.35f + 0.25f * pulse), Color.Transparent),
+                            center = Offset((rx + T / 2f - camX) * scale, (ry + T / 2f - camY) * scale),
+                            radius = T * 0.75f * scale,
+                        ),
+                        radius = T * 0.75f * scale,
+                        center = Offset((rx + T / 2f - camX) * scale, (ry + T / 2f - camY) * scale),
+                    )
+                }
+                put(img, sx, sy)
+                if (r.shiny) {
+                    // a few twinkling pixels
+                    for (k in 0 until 3) {
+                        val phase = ((clock / 180 + k * 3 + r.uid) % 8).toInt()
+                        if (phase > 3) continue
+                        val px = sx + 6 + ((r.uid * 7 + k * 11) % 20)
+                        val py = sy + 4 + ((r.uid * 5 + k * 13) % 18)
+                        drawRect(Color.White, Offset((px - camX) * scale.toFloat(), (py - camY) * scale.toFloat()), androidx.compose.ui.geometry.Size(scale.toFloat(), scale.toFloat()))
+                    }
+                }
+                if (clock < r.alertUntil) {
+                    // "!" above the head: it has seen the hero
+                    val bx = (rx + T / 2f - 4 - camX) * scale
+                    val by = (sy - 14f - camY) * scale
+                    drawRoundRect(Color.White, Offset(bx, by), androidx.compose.ui.geometry.Size(9f * scale, 12f * scale), androidx.compose.ui.geometry.CornerRadius(2f * scale))
+                    drawRect(Color(0xFFD83030), Offset(bx + 3.5f * scale, by + 2f * scale), androidx.compose.ui.geometry.Size(2f * scale, 5f * scale))
+                    drawRect(Color(0xFFD83030), Offset(bx + 3.5f * scale, by + 8.5f * scale), androidx.compose.ui.geometry.Size(2f * scale, 1.5f * scale))
+                }
+            }
+        }
+
         val walking = progress < 1f
         val step = if (!walking) 0 else if (state.steps % 2 == 0) 1 else 2
         val hero = CharacterArt.hero(state.hero.race, state.hero.cls, p.facing, step)

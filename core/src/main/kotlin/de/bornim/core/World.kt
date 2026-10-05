@@ -45,7 +45,11 @@ data class Warp(val x: Int, val y: Int, val to: Place, val requires: String? = n
 
 data class Chest(val id: String, val x: Int, val y: Int, val item: String? = null, val count: Int = 1, val gold: Int = 0)
 
-data class Encounters(val rate: Double, val table: List<Pair<String, Int>>, val tiles: Set<Tile>)
+/**
+ * Monsters of an area. [roamers] of them walk around visibly; [rate] is the (small) chance per
+ * step on [tiles] to be ambushed by one that was hiding.
+ */
+data class Encounters(val rate: Double, val table: List<Pair<String, Int>>, val tiles: Set<Tile>, val roamers: Int = 0)
 
 data class Trigger(val x: Int, val y: Int, val condition: (GameState) -> Boolean, val script: (GameState) -> List<Cmd>)
 

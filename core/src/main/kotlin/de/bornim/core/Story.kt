@@ -370,12 +370,13 @@ object Story {
             },
         ),
         encounters = Encounters(
-            rate = 0.10,
+            rate = 0.004,
             table = listOf(
                 "giant_rat" to 22, "wolf" to 20, "goblin" to 17, "goblin_archer" to 8,
                 "boar" to 10, "kobold" to 10, "giant_centipede" to 7, "stirge" to 6,
             ),
             tiles = setOf(Tile.TALL_GRASS),
+            roamers = 7,
         ),
         areaLevel = 1,
     )
@@ -443,12 +444,13 @@ object Story {
             Trigger(x, 4, condition = { !it.has(GRAK_DEFEATED) }, script = { s -> grakTalk(s) })
         },
         encounters = Encounters(
-            rate = 0.07,
+            rate = 0.004,
             table = listOf(
                 "goblin" to 22, "goblin_archer" to 12, "goblin_shaman" to 8, "skeleton" to 14, "zombie" to 9,
                 "giant_bat" to 12, "giant_rat" to 6, "ghoul" to 6, "giant_spider" to 5, "ochre_jelly" to 3,
             ),
             tiles = setOf(Tile.CAVE_FLOOR),
+            roamers = 6,
         ),
         areaLevel = 3,
         onEnter = { s ->

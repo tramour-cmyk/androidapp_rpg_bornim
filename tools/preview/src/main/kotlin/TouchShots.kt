@@ -89,5 +89,17 @@ fun touchShots() {
         tap(Offset((npc.x * 32 + 16 - camX) * scale, (npc.y * 32 + 16 - camY) * scale))
         frames(150)
     }
+    // Monsters walking around in the forest; one has spotted the hero.
+    touchShot("34_roamers", setup = { vm ->
+        val g = vm.game!!
+        g.state.hero.gainXp(de.bornim.core.Rules.xpForLevel[4])
+        g.state.place = Place("forest", 10, 20, Facing.UP)
+        val near = listOf(7 to 18, 13 to 17, 9 to 23, 14 to 22, 6 to 21)
+        g.roamers.take(near.size).forEachIndexed { i, r ->
+            r.x = near[i].first; r.y = near[i].second; r.fromX = r.x; r.fromY = r.y
+            r.calmUntil = Long.MAX_VALUE
+        }
+        g.roamers.first().alertUntil = Long.MAX_VALUE
+    }) { frames(12) }
     touchShot("30_classic", touch = false, setup = { it.game!!.state.place = village }) { frames(10) }
 }

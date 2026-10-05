@@ -58,6 +58,8 @@ class Battle(
     val shiny: Boolean = false,
     /** Cosmetic variation of the sprite. */
     val look: MonsterLook = MonsterLook(),
+    /** Who strikes first: surprised from behind, or ambushed. */
+    val opening: Opening = Opening.NORMAL,
 ) {
     val hero: Hero get() = state.hero
     private val over = (level - areaLevel).coerceAtLeast(0)
@@ -96,6 +98,8 @@ class Battle(
     private var acid = 0
     private var foeRelentlessUsed = false
     private var shamanHeals = 2
+    /** Rounds the foe still stands surprised after the hero struck from behind. */
+    private var foeSurprised = if (opening == Opening.HERO_FIRST) 1 else 0
 
     /** Active statuses with the rounds they still last. */
     val heroStatus = LinkedHashMap<Status, Int>()
@@ -146,10 +150,21 @@ class Battle(
     // ---------------------------------------------------------------- public API
 
     fun start(): List<Step> {
-        say(if (monster.boss) Msg.bossAppears.f(lang, foe) else Msg.appears.f(lang, foe))
+        when (opening) {
+            Opening.AMBUSHED -> say(Msg.ambush.f(lang, foe), Anim.ENEMY_ACT)
+            Opening.HERO_FIRST -> say(Msg.firstStrike.f(lang, name, foe), Anim.HERO_ACT)
+            Opening.NORMAL -> say(if (monster.boss) Msg.bossAppears.f(lang, foe) else Msg.appears.f(lang, foe))
+        }
         if (shiny) say(Msg.shiny(lang))
         trait?.let { say(Msg.eliteTrait.f(lang, it.desc(lang))) }
         if (monster.special == MonsterSpecial.PACK_TACTICS) say(Msg.pack(lang))
+        if (opening == Opening.AMBUSHED) {
+            // The foe gets a free attack before anything else happens.
+            enemyTurn()
+            heroTurnStart()
+            return flush()
+        }
+        if (opening == Opening.HERO_FIRST) return flush()
         val elf = if (hero.race == Race.ELF) 2 else 0
         val heroInit = dice.d20() + hero.mod(Ability.DEX) + elf
         val foeInit = dice.d20() + monster.dexSave
@@ -411,6 +426,11 @@ class Battle(
     private fun enemyTurn() {
         if (outcome != Outcome.ONGOING) return
         if (!tick(onHero = false)) return
+        if (foeSurprised > 0) {
+            foeSurprised--
+            say(Msg.stillSurprised.f(lang, foe))
+            return
+        }
         enemyTurns++
         if (enemyPotions > 0 && enemyHp < enemyMaxHp / 2) {
             enemyPotions--
@@ -851,6 +871,9 @@ private object Msg {
     val loot = T("Beute: {0}!", "Loot: {0}!")
     val gearLoot = T("Beute: {0} ({1})!", "Loot: {0} ({1})!")
     val elite = T("Elite-{0}", "Elite {0}")
+    val ambush = T("Hinterhalt! {0} springt aus dem Versteck!", "Ambush! {0} leaps out of hiding!")
+    val firstStrike = T("{0} überrascht {1} von hinten – Erstschlag!", "{0} catches {1} from behind – first strike!")
+    val stillSurprised = T("{0} ist noch überrascht und kann nicht reagieren!", "{0} is still caught off guard!")
     val gained = mapOf(
         Status.POISON to T("{0} ist vergiftet!", "{0} is poisoned!"),
         Status.BURN to T("{0} fängt Feuer!", "{0} catches fire!"),
