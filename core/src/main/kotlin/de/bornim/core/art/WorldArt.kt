@@ -41,8 +41,8 @@ object WorldArt {
             Tile.GRASS -> cached("grass$seed") { grass(seed) }
             Tile.FLOWERS -> cached("flowers$seed") { grass(seed); flowers(seed) }
             Tile.TALL_GRASS -> cached("tall$seed") { tallGrass(seed) }
-            Tile.PATH -> {
-                fun p(dx: Int, dy: Int) = at(dx, dy).let { it == Tile.PATH || it == Tile.DOOR || it == Tile.CAVE_ENTRANCE || it in PAVED }
+            Tile.PATH, Tile.BARRIER -> {
+                fun p(dx: Int, dy: Int) = at(dx, dy).let { it == Tile.PATH || it == Tile.BARRIER || it == Tile.DOOR || it == Tile.CAVE_ENTRANCE || it in PAVED }
                 val m = mask(!p(0, -1), !p(1, 0), !p(0, 1), !p(-1, 0))
                 cached("path$m/$seed") { path(m, seed) }
             }
@@ -515,7 +515,7 @@ object WorldArt {
     /** All static objects of a map for the current game state, in no particular order. */
     fun objects(map: MapDef, state: GameState, frame: Int): List<Obj> {
         val opened = map.chests.filter { it.id in state.openedChests }.joinToString(",") { it.id }
-        val key = "${map.id}/$opened/${state.has(Story.GATE_OPEN)}/$frame/${state.has(Story.CHAPTER1_DONE)}"
+        val key = "${map.id}/$opened/${state.has(Story.GATE_OPEN)}/${state.has(Story.BARRIER_OPEN)}/$frame/${state.has(Story.CHAPTER1_DONE)}"
         return objCache.getOrPut(key) { buildObjects(map, state, frame) }
     }
 
@@ -564,6 +564,11 @@ object WorldArt {
                     out += Obj(cached("fence${f(-1, 0)}${f(1, 0)}${f(0, -1)}${f(0, 1)}", T, 40) { fence(f(-1, 0), f(1, 0), f(0, -1), f(0, 1)) }, px, py - 8, bottom)
                 }
                 Tile.HAY -> out += Obj(cached("hay$seed", T, 36) { hay(seed) }, px, py - 4, bottom)
+                Tile.BARRIER -> {
+                    val pivot = map.tile(tx - 1, ty) != Tile.BARRIER
+                    val open = state.has(Story.BARRIER_OPEN)
+                    out += Obj(cached("barrier$pivot$open", T, 64) { barrier(pivot, open) }, px, py - 32, bottom)
+                }
                 Tile.WASHLINE -> {
                     fun w(dx: Int) = map.tile(tx + dx, ty) == Tile.WASHLINE
                     out += Obj(cached("washline${w(-1)}${w(1)}$seed", T, 48) { washline(w(-1), w(1), seed) }, px, py - 16, bottom)
@@ -1172,6 +1177,48 @@ object WorldArt {
         // post in the middle
         rect(13, 10, 18, 34, post); rect(13, 10, 18, 11, Pal.WOOD_LIGHT)
         blendEllipse(16.0, 36.0, 8.0, 2.0, SHADOW)
+        outline(Pal.OUTLINE)
+    }
+
+    /**
+     * Barrier pole across a road (32×64, the tile is the lower half). The [pivot] end has the post
+     * the pole swings up on, the other end a forked rest; [open] shows the pole raised.
+     */
+    private fun Pen.barrier(pivot: Boolean, open: Boolean) {
+        val red = argb(0xC8402E); val redD = argb(0x8E2A1E); val white = argb(0xF2EEE2); val whiteD = argb(0xC8C2B4)
+        val post = Pal.WOOD_DARK
+        fun stripe(i: Int) = (i / 5) % 2 == 0
+        if (pivot) {
+            blendEllipse(8.0, 61.0, 7.0, 2.0, SHADOW)
+            rect(4, 38, 9, 61, post); rect(4, 38, 5, 61, Pal.WOOD); rect(3, 37, 10, 38, Pal.WOOD_LIGHT)
+            if (open) {
+                // pole standing up, counterweight down by the post
+                for (y in 4..44) {
+                    val c = if (stripe(y)) red else white
+                    rect(5, y, 8, y, c); px(8, y, if (stripe(y)) redD else whiteD)
+                }
+                rect(10, 44, 14, 49, Pal.STONE_DARK); rect(10, 44, 14, 44, Pal.STONE)
+            } else {
+                rect(0, 42, 3, 47, Pal.STONE_DARK); rect(0, 42, 3, 42, Pal.STONE) // counterweight
+                for (x in 6..31) {
+                    val c = if (stripe(x)) red else white
+                    rect(x, 41, x, 45, c); px(x, 45, if (stripe(x)) redD else whiteD); px(x, 41, if (stripe(x)) red else Pal.WHITE)
+                }
+                for (x in 6..31) { blend(x, 56, SHADOW_SOFT); blend(x, 57, SHADOW_SOFT) }
+            }
+            px(6, 43, Pal.IRON_LIGHT); px(7, 43, Pal.IRON)
+        } else {
+            blendEllipse(26.0, 61.0, 6.0, 2.0, SHADOW)
+            rect(24, 46, 28, 61, post); rect(24, 46, 25, 61, Pal.WOOD)
+            rect(22, 42, 23, 47, post); rect(29, 42, 30, 47, post) // fork
+            if (!open) {
+                for (x in 0..27) {
+                    val c = if (stripe(x + 32)) red else white
+                    rect(x, 41, x, 45, c); px(x, 45, if (stripe(x + 32)) redD else whiteD)
+                }
+                for (x in 0..27) { blend(x, 56, SHADOW_SOFT); blend(x, 57, SHADOW_SOFT) }
+            }
+        }
         outline(Pal.OUTLINE)
     }
 

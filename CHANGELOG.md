@@ -4,6 +4,13 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – Schlagbaum am Nordweg**
+- Am Nordrand von Bornim sperren jetzt ein rot-weißer Schlagbaum und ein Dorfzaun den Weg in den Flüsterwald.
+- Nach dem Gespräch mit Ältestem Aldric öffnet **Wache Jorin** den Schlagbaum, wenn du ihn ansprichst. Danach bleibt der Weg dauerhaft frei. Das Ziel im Menü weist darauf hin.
+- Läufst du gegen den geschlossenen Schlagbaum, erfährst du, was fehlt.
+- **Jorin geht Streife:** Er läuft am Zaun entlang, bleibt am Weg stehen und schaut nach Norden. Sprichst du ihn an, bleibt er stehen.
+- Wer die Quest in einem bestehenden Spielstand schon hat, findet den Schlagbaum offen.
+
 ## v0.1.27 – 05.10.2026, 20:29
 
 **Geändert – Namen mit Fantasy-Klang**

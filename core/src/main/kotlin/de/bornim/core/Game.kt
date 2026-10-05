@@ -115,10 +115,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     private val walkers = HashMap<String, List<Walker>>()
 
-    private fun walkersHere(): List<Walker> = walkers.getOrPut(state.place.map) { map.npcs.filter { it.wander > 0 }.map { Walker(it) } }
+    private fun walkersHere(): List<Walker> = walkers.getOrPut(state.place.map) { map.npcs.filter { it.moves }.map { Walker(it) } }
 
     /** Where a strolling villager is right now, null for people who stand still. */
-    fun walkerOf(npc: Npc): Walker? = if (npc.wander == 0) null else walkersHere().firstOrNull { it.npc === npc }
+    fun walkerOf(npc: Npc): Walker? = if (!npc.moves) null else walkersHere().firstOrNull { it.npc === npc }
 
     /** The person at ([x], [y]), wherever they strolled to. */
     fun npcAt(x: Int, y: Int): Npc? = map.npcAt(x, y, state)
@@ -128,6 +128,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val p = state.place
         for (w in walkersHere()) {
             if (now < w.nextMoveAt || !w.npc.visible(state)) continue
+            if (w.npc.patrol.isNotEmpty()) {
+                patrol(w)
+                continue
+            }
             w.nextMoveAt = now + 1500 + roamRandom.nextInt(2500)
             // Stay put while the hero stands right next to them.
             if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 1) continue
@@ -141,6 +145,39 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             w.movedAt = now
             changed()
         }
+    }
+
+    /** One step of a guard's round: walk to the next patrol point, look around there, go on. */
+    private fun patrol(w: Walker) {
+        val p = state.place
+        // Wait while the hero stands next to them, e.g. to talk.
+        if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 1) {
+            w.nextMoveAt = now + 800
+            return
+        }
+        val (tx, ty) = w.npc.patrol[w.leg]
+        if (w.x == tx && w.y == ty) {
+            // Arrived: look around for a while, then head for the next point.
+            w.leg = (w.leg + 1) % w.npc.patrol.size
+            w.facing = if (roamRandom.nextBoolean()) Facing.UP else Facing.entries[roamRandom.nextInt(4)]
+            npcFacing.remove(w.npc.id)
+            w.nextMoveAt = now + 2500 + roamRandom.nextInt(2500)
+            changed()
+            return
+        }
+        val d = when {
+            tx != w.x -> if (tx > w.x) Facing.RIGHT else Facing.LEFT
+            else -> if (ty > w.y) Facing.DOWN else Facing.UP
+        }
+        val nx = w.x + d.dx; val ny = w.y + d.dy
+        w.nextMoveAt = now + 650
+        if (!free(nx, ny) || (nx == p.x && ny == p.y)) return
+        w.facing = d
+        npcFacing.remove(w.npc.id)
+        w.fromX = w.x; w.fromY = w.y
+        w.x = nx; w.y = ny
+        w.movedAt = now
+        changed()
     }
 
     /** Advances the clock, villagers and monsters; call every frame with the app clock in ms. */
@@ -228,6 +265,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
         if (!free(nx, ny)) {
             changed()
+            if (map.tile(nx, ny) == Tile.BARRIER && !state.has(Story.BARRIER_OPEN)) barrier()
             return Move.Blocked
         }
         state.place = Place(p.map, nx, ny, dir)
@@ -548,6 +586,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                 enqueue(listOf(Cmd.Rest, Cmd.Say(null, Ui.rested)) + roast)
             }
             Tile.GATE -> gate()
+            Tile.BARRIER -> if (!state.has(Story.BARRIER_OPEN)) barrier()
             Tile.WELL -> say(T("Ein alter Brunnen. Das Wasser ist klar und kalt.", "An old well. The water is clear and cold."))
             Tile.SHELF -> say(T("Regale voller Krimskrams.", "Shelves full of odds and ends."))
             Tile.STALL -> say(listOf(
@@ -587,6 +626,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         enqueue(cmds)
     }
 
+    /** The closed barrier on the north road: what it takes to get through. */
+    private fun barrier() = say(
+        if (state.has(Story.QUEST_STARTED)) T("Der Schlagbaum ist unten. Sprich mit Wache Jorin, damit er ihn öffnet.", "The barrier is down. Talk to Guard Jorin so he raises it.")
+        else T("Der Schlagbaum ist unten. Ohne Erlaubnis des Ältesten kommst du hier nicht durch.", "The barrier is down. You can't pass without the Elder's permission."),
+    )
+
     private fun gate() {
         when {
             state.has(Story.GATE_OPEN) -> {}
@@ -625,6 +670,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                 is Cmd.SetFlag -> {
                     state.flags += c.flag
                     hero.chapter = Story.chapter(state)
+                    if (c.flag == Story.BARRIER_OPEN) sounds += de.bornim.core.audio.Sound.DOOR
                 }
                 is Cmd.Give -> {
                     val text = when {

@@ -43,6 +43,8 @@ enum class Tile(val ch: Char, val walkable: Boolean) {
     VEG_BED('v', false),
     HAY('y', false),
     WASHLINE('q', false),
+    /** Barrier pole across a road; passable once [Story.BARRIER_OPEN] is set. */
+    BARRIER('z', false),
     ;
 
     companion object {
@@ -102,8 +104,13 @@ class Npc(
     val visible: (GameState) -> Boolean = { true },
     /** How far this person strolls around their spot (0 = stands still). */
     val wander: Int = 0,
+    /** Points this person walks between in a loop, pausing at each (a guard on patrol). */
+    val patrol: List<Pair<Int, Int>> = emptyList(),
     val talk: (GameState) -> List<Cmd>,
-)
+) {
+    /** Strolls or patrols, so the game tracks where they are. */
+    val moves: Boolean get() = wander > 0 || patrol.isNotEmpty()
+}
 
 class MapDef(
     val id: String,
@@ -137,14 +144,14 @@ class MapDef(
     val defaultTile: Tile get() = if (kind == MapKind.CAVE) Tile.CAVE_WALL else if (kind == MapKind.INTERIOR) Tile.WALL else Tile.TREE
 
     /** People standing still at ([x], [y]); strolling ones are tracked by the [Game]. */
-    fun npcAt(x: Int, y: Int, state: GameState): Npc? = npcs.firstOrNull { it.wander == 0 && it.x == x && it.y == y && it.visible(state) }
+    fun npcAt(x: Int, y: Int, state: GameState): Npc? = npcs.firstOrNull { !it.moves && it.x == x && it.y == y && it.visible(state) }
     fun chestAt(x: Int, y: Int): Chest? = chests.firstOrNull { it.x == x && it.y == y }
     fun warpAt(x: Int, y: Int): Warp? = warps.firstOrNull { it.x == x && it.y == y }
 
     fun walkable(x: Int, y: Int, state: GameState): Boolean {
         if (!inside(x, y)) return false
         val t = tile(x, y)
-        val ok = t.walkable || (t == Tile.GATE && state.has(Story.GATE_OPEN))
+        val ok = t.walkable || (t == Tile.GATE && state.has(Story.GATE_OPEN)) || (t == Tile.BARRIER && state.has(Story.BARRIER_OPEN))
         return ok && npcAt(x, y, state) == null
     }
 }

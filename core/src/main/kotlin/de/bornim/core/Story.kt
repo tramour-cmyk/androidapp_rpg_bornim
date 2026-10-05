@@ -12,6 +12,8 @@ object Story {
     const val HUNTER_MET = "hunter_met"
     const val KROGG_DEFEATED = "krogg_defeated"
     const val GATE_OPEN = "gate_open"
+    /** Jorin raised the barrier on the north road. */
+    const val BARRIER_OPEN = "barrier_open"
     const val GRAK_DEFEATED = "grak_defeated"
     const val LYRA_RESCUED = "lyra_rescued"
     const val CHAPTER1_DONE = "chapter1_done"
@@ -87,8 +89,8 @@ object Story {
         kind = MapKind.TOWN,
         rows = listOf(
             "TTTTTTTTTTTTTTTTT==TTTTTTTTTTTTTTTTT",
-            "TTT.......T......==S.....TT......TTT",
-            "TT.......T.......==.....T.........TT",
+            "TTT.......T......==......TT......TTT",
+            "TTxxxxxxxTxxxxxxxzzSxxxxTxxxxxxxxxTT",
             "T..^^^^^^........==.......^^^^^....T",
             "T..^^^^^^..^^^^..==..^^^..^^^^^....T",
             "T..#W#D#Wb.#D#W..==..#D#..W#D#Wb...T",
@@ -134,7 +136,7 @@ object Story {
             lockedDoor(13, 22, T("Hier wohnt Pim mit seinen Eltern. Die Tür ist verschlossen.", "Pim lives here with his parents. The door is locked.")),
         ),
         signs = mapOf(
-            (19 to 1) to T("Norden: Flüsterwald.\nAchtung, Goblins!", "North: Whisperwood.\nBeware of goblins!"),
+            (19 to 2) to T("Norden: Flüsterwald.\nAchtung, Goblins!", "North: Whisperwood.\nBeware of goblins!"),
             (7 to 6) to T("Gasthaus »Zum Schlafenden Greif«", "The Sleeping Griffin Inn"),
             (25 to 6) to T("Thessas Kramladen\nWaffen · Rüstungen · Tränke", "Thessa's General Store\nWeapons · Armor · Potions"),
         ),
@@ -150,10 +152,16 @@ object Story {
             (11 to 21) to HouseStyle(RoofKind.SHINGLE, WallKind.TIMBER, mirrored = true),
         ),
         npcs = listOf(
-            Npc("jorin", 16, 1, "guard", Facing.RIGHT) { s ->
+            // Jorin walks his round along the fence and stops at the road to look north.
+            Npc("jorin", 10, 3, "guard", Facing.RIGHT, patrol = listOf(10 to 3, 17 to 3, 24 to 3, 18 to 3)) { s ->
                 if (!s.has(QUEST_STARTED)) script {
                     say(jorin, "Halt! Der Flüsterwald ist zu gefährlich geworden.", "Halt! The Whisperwood has become too dangerous.")
                     say(jorin, "Ohne Erlaubnis des Ältesten lasse ich niemanden hinaus.", "I'm not letting anyone out without the Elder's permission.")
+                } else if (!s.has(BARRIER_OPEN)) script {
+                    say(jorin, "Der Älteste hat mir Bescheid gegeben. Dann wollen wir mal.", "The Elder told me about you. Well then.")
+                    flag(BARRIER_OPEN)
+                    narrate("Jorin löst das Seil, und der Schlagbaum schwingt knarrend nach oben. Der Weg nach Norden ist frei.", "Jorin loosens the rope and the barrier swings up with a creak. The road north is open.")
+                    say(jorin, "Viel Glück da draußen, {name}! Tipp: Im hohen Gras lauern Monster. Bleib auf dem Weg, wenn du verletzt bist.", "Good luck out there, {name}! Tip: monsters lurk in the tall grass. Stay on the path when you're hurt.")
                 } else if (!s.has(CHAPTER1_DONE)) script {
                     say(jorin, "Der Älteste hat mir Bescheid gegeben. Viel Glück da draußen, {name}!", "The Elder told me about you. Good luck out there, {name}!")
                     say(jorin, "Tipp: Im hohen Gras lauern Monster. Bleib auf dem Weg, wenn du verletzt bist.", "Tip: monsters lurk in the tall grass. Stay on the path when you're hurt.")
@@ -306,7 +314,7 @@ object Story {
             say(aldric, "Bring beide zurück, und Bornim wird es dir nie vergessen. Nimm dies für die Reise.", "Bring them both back, and Bornim will never forget it. Take this for the road.")
             give("potion", 2)
             gold(50)
-            say(aldric, "Wache Jorin am Nordtor wird dich passieren lassen. Möge das Licht dich leiten.", "Guard Jorin at the north gate will let you pass. May the light guide you.")
+            say(aldric, "Wache Jorin öffnet dir den Schlagbaum am Nordweg. Möge das Licht dich leiten.", "Guard Jorin will raise the barrier on the north road for you. May the light guide you.")
             flag(QUEST_STARTED)
         }
         s.has(CHAPTER1_DONE) -> script {
@@ -667,6 +675,7 @@ object Story {
         s.has(GATE_OPEN) -> T("Stelle dich Hauptmann Grak hinter dem Gitter.", "Face Captain Grak beyond the gate.")
         s.has(KROGG_DEFEATED) -> T("Öffne das Gitter in der Mitte der Höhle mit dem rostigen Schlüssel.", "Open the gate in the middle of the cave with the rusty key.")
         s.has("cave_seen") -> T("Finde den Schlüssel zu Graks Halle. Vielleicht trägt ihn einer seiner Schergen.", "Find the key to Grak's hall. Perhaps one of his henchmen carries it.")
+        s.has(QUEST_STARTED) && !s.has(BARRIER_OPEN) -> T("Lass dir von Wache Jorin den Schlagbaum am Nordweg öffnen.", "Ask Guard Jorin to raise the barrier on the north road.")
         s.has(QUEST_STARTED) -> T("Durchquere den Flüsterwald nach Norden und finde die Blutzahnhöhle.", "Cross the Whisperwood to the north and find the Bloodfang Cave.")
         else -> T("Sprich mit Ältestem Aldric. Sein Haus liegt unten links am Dorfplatz.", "Talk to Elder Aldric. His house is at the bottom left of the village square.")
     }

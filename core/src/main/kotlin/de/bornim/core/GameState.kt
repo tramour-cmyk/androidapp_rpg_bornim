@@ -114,6 +114,10 @@ class GameState(
             for (slot in hero.gear.keys.toList()) hero.gear[slot] = refresh(hero.gear.getValue(slot))
             bag.replaceAll { refresh(it) }
         }
+        if (version < 4) {
+            // Version 4: a barrier on the north road, raised by Jorin. Heroes already on the quest find it open.
+            if (Story.QUEST_STARTED in flags) flags += Story.BARRIER_OPEN
+        }
         version = SAVE_VERSION
         hero.clamp()
     }
@@ -121,7 +125,7 @@ class GameState(
     fun toJson(): String = json.encodeToString(this)
 
     companion object {
-        const val SAVE_VERSION = 3
+        const val SAVE_VERSION = 4
         /** Set when loading recalculated the hero's ability points; the game tells the player once. */
         const val POINTS_REFIT = "points_refit"
         private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true; allowStructuredMapKeys = true }

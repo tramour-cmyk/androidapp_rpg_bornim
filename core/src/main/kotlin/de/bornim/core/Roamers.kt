@@ -62,4 +62,6 @@ class Walker(val npc: Npc) {
     var movedAt = 0L
     var moveMs = 520L
     var nextMoveAt = 0L
+    /** Index of the patrol point this walker heads for. */
+    var leg = 0
 }

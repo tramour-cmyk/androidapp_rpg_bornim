@@ -68,6 +68,8 @@ class WorldTest {
 
             bot.talkTo("elder", "aldric")
             assertTrue(state.has(Story.QUEST_STARTED), "quest not started")
+            bot.talkTo("village", "jorin")
+            assertTrue(state.has(Story.BARRIER_OPEN), "barrier still down")
             bot.talkTo("forest", "garrick")
             assertTrue(state.has(Story.HUNTER_MET))
             bot.openChest("cave", "cave_3")
@@ -189,7 +191,7 @@ class Bot(val game: Game) {
                 val isTarget = n == tx to ty
                 val w = map.warpAt(n.first, n.second)
                 if (w != null && !isTarget) continue
-                if (!map.walkable(n.first, n.second, state)) continue
+                if (!map.walkable(n.first, n.second, state) || game.npcAt(n.first, n.second) != null) continue
                 prev[n] = cur to f
                 q += n
             }

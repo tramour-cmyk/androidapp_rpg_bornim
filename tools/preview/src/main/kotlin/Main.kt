@@ -364,6 +364,14 @@ fun main() {
         vm.newGame("Mira", Race.ELF, CharClass.ROGUE, into = 2); vm.game!!.skipDialogs(); vm.save()
         vm.toTitle(); vm.screen = de.bornim.game.Screen.SLOTS
     }
+    shot("66_barrier_closed") { vm -> vm.newGame("Alrik", Race.HUMAN, CharClass.FIGHTER); vm.game!!.skipDialogs(); vm.game!!.state.place = Place("village", 17, 6, Facing.UP); vm.refresh() }
+    shot("66_barrier_bump") { vm ->
+        vm.newGame("Alrik", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
+        g.state.flags += Story.QUEST_STARTED
+        g.state.place = Place("village", 18, 3, Facing.UP); g.move(Facing.UP); vm.refresh()
+    }
+    shot("66_barrier_jorin") { vm -> vm.newGame("Alrik", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs(); g.state.place = Place("village", 9, 4, Facing.UP); vm.refresh() }
+    shot("66_barrier_open") { vm -> vm.newGame("Alrik", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs(); g.state.flags += Story.QUEST_STARTED; g.state.flags += Story.BARRIER_OPEN; g.state.place = Place("village", 17, 6, Facing.UP); vm.refresh() }
     shot("64_title_slots", setup = savedHeroes)
     shot("64_slots", setup = { vm -> savedHeroes(vm); vm.screen = de.bornim.game.Screen.SLOTS })
     shot("64_slots_full", taps = listOf(Offset(760f, 2250f))) { vm -> savedHeroes(vm); vm.screen = de.bornim.game.Screen.CREATE }

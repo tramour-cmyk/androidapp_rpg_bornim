@@ -16,6 +16,7 @@ fun Game.actionAt(x: Int, y: Int): ActionKind? {
         Tile.CHEST -> if (m.chestAt(x, y)?.id in state.openedChests) ActionKind.LOOK else ActionKind.OPEN
         Tile.CAMPFIRE -> ActionKind.REST
         Tile.GATE -> if (state.has(Story.GATE_OPEN)) null else ActionKind.UNLOCK
+        Tile.BARRIER -> if (state.has(Story.BARRIER_OPEN)) null else ActionKind.LOOK
         Tile.BED -> if (isNight) ActionKind.REST else ActionKind.LOOK
         Tile.WELL, Tile.SHELF, Tile.ALTAR, Tile.STALL, Tile.LAMP, Tile.BARREL, Tile.BENCH,
         Tile.CROPS, Tile.VEG_BED, Tile.HAY, Tile.WASHLINE -> ActionKind.LOOK

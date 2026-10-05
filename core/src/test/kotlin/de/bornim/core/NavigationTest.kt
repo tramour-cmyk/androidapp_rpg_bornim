@@ -12,6 +12,7 @@ class NavigationTest {
         var guard = 0
         while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
         g.state.flags += Story.QUEST_STARTED
+        g.state.flags += Story.BARRIER_OPEN
         g.state.place = place
         return g
     }

@@ -35,7 +35,7 @@ Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md).
 ## Welt und Leben auf der Karte
 
 - **Kartenansicht** im Menü mit den bereits erkundeten Bereichen.
-- **Bewohner mit Tagesablauf:** Der Wirt fegt vor der Tür, die Wache dreht Runden, Läden haben nachts geschlossen.
+- **Bewohner mit Tagesablauf:** Die Wirtin fegt vor der Tür, Läden haben nachts geschlossen. (Jorins Streife am Schlagbaum gibt es schon.)
 - **Monsterverhalten:** Goblins patrouillieren auf Wegen, Fledermäuse hängen an der Höhlendecke und stürzen herab.
 - **Wetter:** Nebel; Windgeräusche als weiterer Umgebungsklang.
 - **Nebenquests** über ein Anschlagbrett, z. B. „Bring 5 Wolfsfelle“ oder „Finde Gwennas verlorenen Ring“.
