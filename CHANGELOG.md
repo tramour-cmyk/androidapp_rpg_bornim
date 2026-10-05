@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.19 – 05.10.2026, 16:28
+
 **Geändert – Spielbalance** (per Kampfsimulation für alle vier Klassen abgestimmt)
 - **Point-Buy bei der Charaktererstellung:** 24 Punkte frei verteilen, Werte 8–15 vor Volksbonus (14 kostet 7, 15 kostet 9 Punkte). Der Knopf „Vorschlag“ verteilt passend zur Klasse. Neue Helden starten damit etwas kleiner als bisher.
 - **Attributspunkte wie im SRD:** je 2 Punkte auf Stufe 4, 8, 12, 16 und 19 statt 1 Punkt auf jeder Stufe.
