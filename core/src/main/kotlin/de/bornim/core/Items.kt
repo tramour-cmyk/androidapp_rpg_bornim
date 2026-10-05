@@ -1,13 +1,14 @@
 package de.bornim.core
 
 /** Stackable items: potions, throwables and story items. Equipment is [Gear]. */
-enum class ItemKind { POTION, BOMB, KEY }
+enum class ItemKind { POTION, BOMB, KEY, FOOD, INGREDIENT }
 
 /** Icon shapes the app knows how to draw. */
 enum class Icon {
     SWORD, DAGGER, AXE, MACE, HAMMER, SPEAR, STAFF, WAND, BOW, CROSSBOW,
     ARMOR, ROBE, SHIELD, ORB, TOME, SYMBOL, HELMET, HOOD, CIRCLET, GLOVES, BRACERS, LEGS, BOOTS,
     RING, AMULET, CLOAK, POTION, BIG_POTION, FLASK, KEY, SUN, NOTE,
+    MEAT, ROAST, PELT, TUSK, GLAND, WING, HERB,
 }
 
 data class ItemDef(
@@ -46,6 +47,22 @@ object Items {
             ItemKind.BOMB, 30, Icon.FLASK, damage = dice(2, 6), damageType = DamageType.FIRE),
         ItemDef("holy_water", T("Weihwasser", "Holy Water"), T("Wurfgeschoss: 2W6 gleißender Schaden, 4W6 gegen Untote.", "Thrown: 2d6 radiant damage, 4d6 against undead."),
             ItemKind.BOMB, 25, Icon.FLASK, damage = dice(2, 6), damageType = DamageType.RADIANT),
+
+        // Food and ingredients: sold, roasted at a campfire or brewed into potions by Hedda.
+        ItemDef("raw_meat", T("Rohes Fleisch", "Raw Meat"), T("Am Lagerfeuer lässt es sich braten. Oder man verkauft es.", "Can be roasted at a campfire. Or sold."),
+            ItemKind.INGREDIENT, 6, Icon.MEAT),
+        ItemDef("roast_meat", T("Gebratenes Fleisch", "Roast Meat"), T("Heilt 2W4+2 TP und stärkt für den nächsten Kampf: +1 auf Angriffe und +1 Schaden.", "Heals 2d4+2 HP and fortifies for the next fight: +1 to attacks and +1 damage."),
+            ItemKind.FOOD, 16, Icon.ROAST, heal = dice(2, 4, 2)),
+        ItemDef("herbs", T("Heilkräuter", "Healing Herbs"), T("Wachsen auf Blumenwiesen in der Wildnis. Hedda braut daraus Tränke.", "Grow in wild flower meadows. Hedda brews potions from them."),
+            ItemKind.INGREDIENT, 8, Icon.HERB),
+        ItemDef("wolf_pelt", T("Wolfsfell", "Wolf Pelt"), T("Ein dichtes graues Fell. Händler zahlen gut dafür.", "A thick grey pelt. Traders pay well for it."),
+            ItemKind.INGREDIENT, 24, Icon.PELT),
+        ItemDef("boar_tusk", T("Keilerhauer", "Boar Tusk"), T("Ein gebogener Hauer. Händler zahlen gut dafür.", "A curved tusk. Traders pay well for it."),
+            ItemKind.INGREDIENT, 20, Icon.TUSK),
+        ItemDef("spider_gland", T("Giftdrüse", "Venom Gland"), T("Aus einer Riesenspinne. Hedda kann daraus Alchemistenfeuer mischen.", "From a giant spider. Hedda can mix alchemist's fire from it."),
+            ItemKind.INGREDIENT, 30, Icon.GLAND),
+        ItemDef("bat_wing", T("Fledermausflügel", "Bat Wing"), T("Ledrig und zäh. Eine Zutat für starke Heiltränke.", "Leathery and tough. An ingredient for strong healing potions."),
+            ItemKind.INGREDIENT, 16, Icon.WING),
 
         // Story items
         ItemDef("rusty_key", T("Rostiger Schlüssel", "Rusty Key"), T("Er gehörte Krogg dem Grobian.", "It belonged to Krogg the Brute."),

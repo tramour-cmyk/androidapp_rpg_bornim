@@ -4,6 +4,14 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – Zutaten**
+- **Beute von Tieren:** Wölfe lassen Fleisch und Wolfsfelle fallen, Wildschweine Fleisch und Keilerhauer, Riesenratten manchmal Fleisch, Riesenspinnen Giftdrüsen, Riesenfledermäuse Flügel. Grimmzahn hinterlässt immer Fell und Fleisch.
+- **Braten am Lagerfeuer:** Beim Rasten an einem Lagerfeuer wird mitgebrachtes Fleisch gebraten. Gebratenes Fleisch heilt 2W4+2 TP und stärkt für den nächsten Kampf (+1 auf Angriffe und Schaden, oben rechts als „Satt“ angezeigt). Man kann es auch verkaufen.
+- **Heilkräuter:** Auf Blumenwiesen im Wald wachsen Kräuter; jede Wiese kann einmal am Tag abgeerntet werden. Im Flüsterwald gibt es dafür neue Blumenwiesen.
+- **Brauen bei Hedda:** Neuer Reiter „Brauen“ in Heddas Laden: Heiltrank (2 Kräuter + 5 Gold), Kräutertrank (2 Kräuter + 2 Gold), Großer Heiltrank (3 Kräuter + Fledermausflügel + 15 Gold), Alchemistenfeuer (Giftdrüse + 5 Gold).
+- Felle, Hauer und alle anderen Zutaten lassen sich bei Tilda und Hedda verkaufen.
+- Hedda verkauft keine Ausrüstung mehr (vorher erschien dort Tildas Sortiment).
+
 **Neu**
 - **Wolfsrudel:** Ein Wolf kommt mit ein oder zwei Jungwölfen, die im Kampf von der Seite zuschnappen.
 - **Goblin mit Späher:** Goblins haben einen Späher dabei, der aus dem Hintergrund Pfeile schießt.

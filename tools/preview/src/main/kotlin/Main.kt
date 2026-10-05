@@ -265,6 +265,20 @@ fun main() {
         g.state.place = Place("forest", 10, 20, Facing.UP)
         vm.menuOpen = true
     }
+    val stocked: (GameViewModel) -> Unit = { vm ->
+        vm.newGame("Thora", Race.DWARF, CharClass.FIGHTER)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.state.gold = 80
+        for ((id, n) in listOf("herbs" to 5, "raw_meat" to 2, "roast_meat" to 1, "wolf_pelt" to 2, "boar_tusk" to 1, "spider_gland" to 1, "bat_wing" to 1)) g.state.add(id, n)
+        g.state.place = Place("deep_forest", 23, 21, Facing.RIGHT)
+    }
+    shot("52_hedda_brew", taps = listOf(Offset(900f, 250f))) { vm ->
+        stocked(vm)
+        vm.game!!.enqueue(listOf(Cmd.OpenShop(listOf("potion", "greater_potion", "remedy", "holy_water"), brewing = true)))
+        vm.refresh()
+    }
+    shot("53_bag_ingredients", taps = listOf(Offset(410f, 95f))) { vm -> stocked(vm); vm.menuOpen = true }
     shot("47_hud_ailments") { vm ->
         vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
         val g = vm.game!!
@@ -275,6 +289,7 @@ fun main() {
         g.hero.sp = g.hero.maxSp / 2
         g.state.ailments[de.bornim.core.Status.POISON.name] = 4
         g.state.ailments[de.bornim.core.Status.WEAK.name] = de.bornim.core.Status.LASTING
+        g.state.wellFed = true
         g.state.place = Place("forest", 10, 20, Facing.UP)
         vm.refresh()
     }

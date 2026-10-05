@@ -47,6 +47,10 @@ class GameState(
      * rounds they still last (they tick on the map), a curse ([Status.WEAK]) until it is cured.
      */
     val ailments: MutableMap<String, Int> = linkedMapOf(),
+    /** Flower patches already picked, as "map:x:y" to the day they were picked. */
+    val picked: MutableMap<String, Int> = mutableMapOf(),
+    /** A good meal: a small bonus in the next fight. */
+    var wellFed: Boolean = false,
 ) {
     fun nextUid(): Long = ++uidCounter
 

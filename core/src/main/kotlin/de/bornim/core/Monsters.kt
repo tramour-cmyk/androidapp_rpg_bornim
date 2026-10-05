@@ -85,11 +85,11 @@ object Monsters {
     val all = listOf(
         MonsterDef(
             "giant_rat", T("Riesenratte", "Giant Rat"), 12, dice(2, 6), T("Biss", "Bite"), 4, dice(1, 4, 2), DamageType.PIERCING,
-            25, dice(1, 4), 2, 0, 0, listOf(LootEntry("potion", 0.08)), attackFx = FxKind.BITE, cr = "1/8", gender = Gender.F,
+            25, dice(1, 4), 2, 0, 0, listOf(LootEntry("potion", 0.08), LootEntry("raw_meat", 0.3)), attackFx = FxKind.BITE, cr = "1/8", gender = Gender.F,
         ),
         MonsterDef(
             "wolf", T("Wolf", "Wolf"), 13, dice(2, 6, 2), T("Biss", "Bite"), 4, dice(2, 4, 2), DamageType.PIERCING,
-            50, dice(1, 6), 2, 1, 1, listOf(LootEntry("potion", 0.12)),
+            50, dice(1, 6), 2, 1, 1, listOf(LootEntry("potion", 0.12), LootEntry("raw_meat", 0.6), LootEntry("wolf_pelt", 0.45)),
             special = MonsterSpecial.KNOCKDOWN, attackFx = FxKind.BITE, cr = "1/4",
         ),
         MonsterDef(
@@ -120,7 +120,7 @@ object Monsters {
         MonsterDef(
             "giant_spider", T("Riesenspinne", "Giant Spider"), 14, dice(4, 10, 4), T("Biss", "Bite"), 5, dice(1, 8, 3), DamageType.PIERCING,
             200, dice(2, 10), 3, 1, 0,
-            listOf(LootEntry("greater_potion", 0.15), LootEntry("cloak_protection", 0.03)),
+            listOf(LootEntry("greater_potion", 0.15), LootEntry("spider_gland", 0.6), LootEntry("cloak_protection", 0.03)),
             special = MonsterSpecial.POISON, attackFx = FxKind.BITE, cr = "1", gender = Gender.F,
         ),
         MonsterDef(
@@ -132,7 +132,7 @@ object Monsters {
         MonsterDef(
             "dire_wolf", T("Grimmzahn, der Leitwolf", "Grimfang the Alpha"), 14, dice(4, 10, 4), T("Reißzähne", "Fangs"), 4, dice(2, 6, 1), DamageType.PIERCING,
             450, dice(4, 10), 3, 3, 1,
-            listOf(LootEntry("amulet_grimfang", 1.0), LootEntry("greater_potion", 0.5)),
+            listOf(LootEntry("amulet_grimfang", 1.0), LootEntry("greater_potion", 0.5), LootEntry("wolf_pelt", 1.0), LootEntry("raw_meat", 1.0)),
             special = MonsterSpecial.KNOCKDOWN, boss = true, attackFx = FxKind.BITE, cr = "2",
         ),
         MonsterDef(
@@ -143,7 +143,7 @@ object Monsters {
         ),
         MonsterDef(
             "boar", T("Wildschwein", "Boar"), 11, dice(2, 8, 2), T("Hauer", "Tusk"), 3, dice(1, 6, 1), DamageType.SLASHING,
-            50, dice(1, 3), 0, 2, -1, listOf(LootEntry("potion", 0.08)),
+            50, dice(1, 3), 0, 2, -1, listOf(LootEntry("potion", 0.08), LootEntry("raw_meat", 0.8), LootEntry("boar_tusk", 0.5)),
             special = MonsterSpecial.CHARGE, attackFx = FxKind.SMASH, cr = "1/4", gender = Gender.N,
         ),
         MonsterDef(
@@ -168,7 +168,7 @@ object Monsters {
         ),
         MonsterDef(
             "giant_bat", T("Riesenfledermaus", "Giant Bat"), 13, dice(4, 10), T("Biss", "Bite"), 4, dice(1, 6, 2), DamageType.PIERCING,
-            50, dice(1, 4), 3, 0, 1, listOf(LootEntry("potion", 0.1)),
+            50, dice(1, 4), 3, 0, 1, listOf(LootEntry("potion", 0.1), LootEntry("bat_wing", 0.6)),
             special = MonsterSpecial.EVASIVE, attackFx = FxKind.BITE, cr = "1/4", gender = Gender.F,
         ),
         MonsterDef(

@@ -235,10 +235,10 @@ private fun BagTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec) 
     items.forEach { (id, count) ->
         val def = Items[id]
         ItemRow(def, lang, count) {
-            val potion = def.kind == ItemKind.POTION
+            val potion = def.kind == ItemKind.POTION || def.kind == ItemKind.FOOD
             ask(DialogSpec(
                 title = def.name(lang), icon = def.icon, titleColor = rarityColor(def.rarity),
-                confirm = if (potion) Ui.use(lang) else "OK", cancel = cancel,
+                confirm = if (def.kind == ItemKind.FOOD) (if (de) "Essen" else "Eat") else if (potion) Ui.use(lang) else "OK", cancel = cancel,
                 onConfirm = {
                     if (potion) {
                         vm.toast = game.useItemOutside(id)

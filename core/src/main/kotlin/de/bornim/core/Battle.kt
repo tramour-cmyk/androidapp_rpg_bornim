@@ -89,6 +89,8 @@ class Battle(
     private val usesLeft = mutableMapOf<Skill, Int>()
     var mageArmor = false; private set
     var blessed = false; private set
+    /** A good meal before the fight: +1 to attack rolls and +1 weapon damage. */
+    val wellFed: Boolean = state.wellFed.also { state.wellFed = false }
     var spiritualWeapon = false; private set
     var guardians = false; private set
     private var heroProne = false
@@ -173,6 +175,7 @@ class Battle(
         if (shiny) say(Msg.shiny(lang))
         trait?.let { say(Msg.eliteTrait.f(lang, it.desc(lang))) }
         if (pack != null && packSize > 0) say(pack.intro.f(lang, packSize))
+        if (wellFed) say(Msg.fed.f(lang, name))
         if (opening == Opening.AMBUSHED) {
             // The foe gets a free attack before anything else happens.
             enemyTurn()
@@ -242,13 +245,13 @@ class Battle(
         if (Status.BLIND in heroStatus) mode -= 1
         val roll = heroD20(mode.coerceIn(-1, 1))
         val crit = roll >= hero.critFrom
-        val total = roll + hero.attackBonus(w) + blessBonus() - attackPenalty(onHero = true)
+        val total = roll + hero.attackBonus(w) + blessBonus() + fedBonus() - attackPenalty(onHero = true)
         if (roll == 1 || (!crit && total < enemyAc)) {
             say(Msg.miss(lang), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false))
             return
         }
         val base = hero.weaponDamage(w, offHand)
-        var dmg = dice.roll(if (crit) base.copy(count = base.count * 2) else base) - damagePenalty(onHero = true)
+        var dmg = dice.roll(if (crit) base.copy(count = base.count * 2) else base) - damagePenalty(onHero = true) + fedBonus()
         val sneakable = w == null || w.def.finesse || w.def.ranged
         if (hero.has(Skill.SNEAK_ATTACK) && sneakable && (!heroHasHit || mode > 0)) {
             val n = (hero.level + 1) / 2
@@ -281,7 +284,7 @@ class Battle(
     private fun spellAttack(dmg: DiceExpr, type: DamageType, kind: FxKind): Boolean {
         val roll = heroD20(if (Status.BLIND in heroStatus) -1 else 0)
         val crit = roll == 20
-        if (roll == 1 || (!crit && roll + hero.spellAttack + blessBonus() - attackPenalty(onHero = true) < enemyAc)) {
+        if (roll == 1 || (!crit && roll + hero.spellAttack + blessBonus() + fedBonus() - attackPenalty(onHero = true) < enemyAc)) {
             say(Msg.miss(lang), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false))
             return false
         }
@@ -733,6 +736,7 @@ class Battle(
     }
 
     private fun blessBonus(): Int = if (blessed) dice.d(4) else 0
+    private fun fedBonus(): Int = if (wellFed) 1 else 0
 
     private fun heroSave(a: Ability, dc: Int): Boolean {
         val prof = if (a in savingThrows.getValue(hero.cls)) hero.proficiency else 0
@@ -915,6 +919,7 @@ private object Msg {
     val heroFalls = T("{0} bricht zusammen …", "{0} collapses...")
     val heals = T("{0} heilt {1} TP.", "{0} recovers {1} HP.")
     val gainXp = T("{0} erhält {1} EP.", "{0} gained {1} XP.")
+    val fed = T("{0} ist gut gestärkt: +1 auf Angriffe und Schaden.", "{0} is well fed: +1 to attacks and damage.")
     val capped = T("Höchststufe für Kapitel 1 erreicht – die EP werden für Kapitel 2 aufgehoben.", "Highest level for chapter 1 reached – the XP are kept for chapter 2.")
     val gainGold = T("Du erbeutest {0} Gold.", "You got {0} gold.")
     val loot = T("Beute: {0}!", "Loot: {0}!")

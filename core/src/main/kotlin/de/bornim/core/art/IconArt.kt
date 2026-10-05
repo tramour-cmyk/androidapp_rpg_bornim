@@ -138,6 +138,48 @@ object IconArt {
                     for (y in 4..10 step 2) line(5, y, 10, y, Pal.STONE_DARK)
                     ellipse(8.0, 12.0, 2.0, 2.0, argb(0x707080))
                 }
+                Icon.MEAT -> {
+                    // A raw haunch with its bone
+                    ball(7.0, 8.0, 5.0, 4.0, argb(0xC84858), argb(0xF08890), argb(0x903040))
+                    ellipse(6.0, 7.0, 2.0, 1.2, argb(0xF8C8C0))
+                    rect(11, 10, 14, 11, Pal.WHITE); px(14, 9, Pal.WHITE); px(14, 12, Pal.WHITE)
+                }
+                Icon.ROAST -> {
+                    ball(7.0, 8.0, 5.0, 4.0, argb(0x9A5428), argb(0xD08A48), argb(0x5E3014))
+                    line(4, 7, 9, 5, argb(0x5E3014)); line(4, 10, 10, 8, argb(0x5E3014))
+                    rect(11, 10, 14, 11, Pal.WHITE); px(14, 9, Pal.WHITE); px(14, 12, Pal.WHITE)
+                    px(6, 2, argb(0xD8D8E0)); px(8, 1, argb(0xD8D8E0)); px(7, 3, argb(0xB8B8C8))
+                }
+                Icon.PELT -> {
+                    ball(8.0, 8.0, 5.5, 5.0, argb(0x8A8A94), argb(0xC0C0C8), argb(0x5A5A66))
+                    rect(1, 4, 3, 6, argb(0x7A7A84)); rect(13, 4, 15, 6, argb(0x7A7A84))
+                    rect(2, 11, 4, 13, argb(0x7A7A84)); rect(12, 11, 14, 13, argb(0x7A7A84))
+                    line(8, 4, 8, 12, argb(0x6A6A74))
+                }
+                Icon.TUSK -> {
+                    for (i in 0..9) {
+                        val y = 13 - i
+                        val x = 3 + i - (i * i) / 14
+                        rect(x, y, x + (if (i < 6) 2 else 1), y, if (i < 3) argb(0xD8C8A0) else argb(0xF4ECD8))
+                    }
+                    px(11, 3, Pal.WHITE)
+                }
+                Icon.GLAND -> {
+                    ball(8.0, 9.0, 4.5, 4.5, argb(0x7AB830), argb(0xC0F070), argb(0x407018))
+                    rect(7, 2, 8, 5, argb(0x507020)); px(6, 7, Pal.WHITE)
+                    px(12, 13, argb(0x9AE040)); px(13, 14, argb(0x9AE040))
+                }
+                Icon.WING -> {
+                    tri(2, 4, 14, 3, 8, 13, argb(0x5A4050))
+                    tri(2, 4, 8, 6, 5, 12, argb(0x765868))
+                    line(2, 4, 14, 3, argb(0x3A2838)); line(8, 5, 8, 13, argb(0x3A2838)); line(8, 5, 12, 9, argb(0x3A2838))
+                }
+                Icon.HERB -> {
+                    line(8, 14, 8, 5, Pal.LEAF_DARK)
+                    ellipse(5.5, 7.0, 2.5, 1.4, Pal.LEAF); ellipse(10.5, 9.0, 2.5, 1.4, Pal.LEAF)
+                    ellipse(5.5, 11.0, 2.2, 1.2, Pal.LEAF_LIGHT); ellipse(10.5, 5.0, 2.2, 1.2, Pal.LEAF_LIGHT)
+                    ball(8.0, 3.0, 1.6, 1.6, argb(0xE070C0), argb(0xF8B0E0), argb(0xA04090))
+                }
             }
             outline(Pal.OUTLINE)
         }

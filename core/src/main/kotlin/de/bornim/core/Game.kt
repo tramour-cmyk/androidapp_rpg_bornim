@@ -4,7 +4,8 @@ sealed interface Mode {
     data object Explore : Mode
     data class Dialog(val speaker: String?, val text: String) : Mode
     data class Fight(val battle: Battle) : Mode
-    data class Shop(val stock: List<String>) : Mode
+    /** A shop; [brewing] adds Hedda's potion brewing and leaves out Tilda's equipment. */
+    data class Shop(val stock: List<String>, val brewing: Boolean = false) : Mode
     data object ChapterEnd : Mode
 }
 
@@ -24,6 +25,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         const val SHINY_CHANCE = 1.0 / 150
         /** Poison and bleeding carried out of a fight hurt once every this many steps. */
         const val AILMENT_STEPS = 4
+        /** Chance that a flower patch holds healing herbs. */
+        const val HERB_CHANCE = 0.5
     }
 
     var mode: Mode = Mode.Explore
@@ -222,6 +225,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
         if (fogged) fog(p.x, p.y) // explore what comes into view, also without a screen
         tickAilments()
+        pickHerbs()
         respawnRoamers()
         if (graceSteps > 0) {
             graceSteps--
@@ -253,6 +257,21 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
     }
 
+    /** Flower meadows in the wild hold healing herbs; each patch can be picked once a day. */
+    private fun pickHerbs() {
+        val p = state.place
+        if (map.kind != MapKind.FOREST || map.tile(p.x, p.y) != Tile.FLOWERS) return
+        val key = "${p.map}:${p.x}:${p.y}"
+        if (state.picked[key] == state.day) return
+        state.picked[key] = state.day
+        if (!dice.chance(HERB_CHANCE)) return
+        val n = 1 + (if (dice.chance(0.3)) 1 else 0)
+        state.add("herbs", n)
+        sounds += de.bornim.core.audio.Sound.LOOT
+        notices += T("Du pflückst Heilkräuter (+$n).", "You pick healing herbs (+$n).")
+        changed()
+    }
+
     /** Takes over the statuses that outlast a fight. */
     private fun keepAilments(battle: Battle) {
         state.ailments.clear()
@@ -273,6 +292,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             Status.BLEED to T("Die Blutung hat aufgehört.", "The bleeding has stopped."),
         )
         val cured = T("{0} fühlt sich wieder gesund.", "{0} feels healthy again.")
+        val roasted = T("Du brätst {0}× Fleisch über dem Feuer. Es duftet herrlich!", "You roast {0}× meat over the fire. It smells wonderful!")
+        val ate = T("{0} isst {1}, heilt {2} TP und fühlt sich gestärkt für den nächsten Kampf.", "{0} eats {1}, recovers {2} HP and feels fortified for the next fight.")
+        val alreadyFed = T("{0} ist noch satt von der letzten Mahlzeit.", "{0} is still full from the last meal.")
+        val brewed = T("Hedda braut dir: {0}.", "Hedda brews for you: {0}.")
+        val missing = T("Dafür fehlen dir Zutaten oder Gold.", "You lack ingredients or gold for that.")
     }
 
     // ------------------------------------------------------------ monsters on the map
@@ -469,7 +493,16 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
         when (map.tile(tx, ty)) {
             Tile.CHEST -> openChest(tx, ty)
-            Tile.CAMPFIRE -> enqueue(listOf(Cmd.Rest, Cmd.Say(null, Ui.rested)))
+            Tile.CAMPFIRE -> {
+                val meat = state.count("raw_meat")
+                val roast = if (meat == 0) emptyList() else {
+                    // Raw meat goes on the fire while the hero rests.
+                    state.remove("raw_meat", meat)
+                    state.add("roast_meat", meat)
+                    listOf(Cmd.Say(null, Msgs.roasted.let { T(it.de.replace("{0}", "$meat"), it.en.replace("{0}", "$meat")) }))
+                }
+                enqueue(listOf(Cmd.Rest, Cmd.Say(null, Ui.rested)) + roast)
+            }
             Tile.GATE -> gate()
             Tile.WELL -> say(T("Ein alter Brunnen. Das Wasser ist klar und kalt.", "An old well. The water is clear and cold."))
             Tile.SHELF -> say(T("Regale voller Krimskrams.", "Shelves full of odds and ends."))
@@ -569,7 +602,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     return
                 }
                 is Cmd.OpenShop -> {
-                    mode = Mode.Shop(c.stock)
+                    mode = Mode.Shop(c.stock, c.brewing)
                     changed()
                     return
                 }
@@ -745,6 +778,16 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** Use a consumable outside of battle. Returns a message to show. */
     fun useItemOutside(id: String): String {
         val def = Items[id]
+        if (def.kind == ItemKind.FOOD && state.count(id) > 0) {
+            if (state.wellFed && hero.hp >= hero.maxHp) return Msgs.alreadyFed.f(lang, hero.name)
+            state.remove(id)
+            sounds += de.bornim.core.audio.Sound.HEAL
+            val before = hero.hp
+            hero.hp = minOf(hero.maxHp, hero.hp + dice.roll(def.heal!!))
+            state.wellFed = true
+            changed()
+            return Msgs.ate.f(lang, hero.name, def.name(lang), hero.hp - before)
+        }
         if (def.kind != ItemKind.POTION || state.count(id) == 0) return Ui.cannotUseHere(lang)
         val cures = def.cures && state.ailments.isNotEmpty()
         if (hero.hp >= hero.maxHp && !cures) return Ui.alreadyFull(lang)
@@ -769,6 +812,17 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     }
 
     fun sellPrice(id: String): Int = Items[id].price / 2
+
+    /** Hedda brews [r] from the hero's ingredients and a little gold. */
+    fun brew(r: Recipe): String {
+        if (!r.affordable(state)) return Msgs.missing(lang)
+        r.ingredients.forEach { (id, n) -> state.remove(id, n) }
+        state.gold -= r.gold
+        state.add(r.output)
+        sounds += de.bornim.core.audio.Sound.POTION
+        changed()
+        return Msgs.brewed.f(lang, Items[r.output].name(lang))
+    }
 
     /** Tilda's current gear stock, without the pieces already bought. */
     fun shopGear(): List<Gear> {

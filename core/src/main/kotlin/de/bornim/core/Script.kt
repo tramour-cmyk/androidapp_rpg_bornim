@@ -10,7 +10,7 @@ sealed interface Cmd {
     data class GiveGold(val amount: Int) : Cmd
     /** Starts a battle. The rest of the script only runs if the hero wins; [winFlag] is set on victory. */
     data class Fight(val monster: String, val winFlag: String? = null) : Cmd
-    data class OpenShop(val stock: List<String>) : Cmd
+    data class OpenShop(val stock: List<String>, val brewing: Boolean = false) : Cmd
     /** Full heal and makes the current spot the respawn point. */
     data object Rest : Cmd
     data object ChapterEnd : Cmd
@@ -25,7 +25,7 @@ class ScriptBuilder {
     fun take(item: String, count: Int = 1) { cmds += Cmd.Take(item, count) }
     fun gold(n: Int) { cmds += Cmd.GiveGold(n) }
     fun fight(monster: String, winFlag: String? = null) { cmds += Cmd.Fight(monster, winFlag) }
-    fun shop(stock: List<String>) { cmds += Cmd.OpenShop(stock) }
+    fun shop(stock: List<String>, brewing: Boolean = false) { cmds += Cmd.OpenShop(stock, brewing) }
     fun rest() { cmds += Cmd.Rest }
     fun chapterEnd() { cmds += Cmd.ChapterEnd }
 }

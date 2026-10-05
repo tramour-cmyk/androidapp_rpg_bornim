@@ -81,7 +81,7 @@ fun PlayScreen(vm: GameViewModel) {
     val mode = game.mode
     when {
         mode is Mode.Fight -> BattleScreen(vm, game, mode.battle)
-        mode is Mode.Shop -> ShopScreen(vm, game, mode.stock)
+        mode is Mode.Shop -> ShopScreen(vm, game, mode.stock, mode.brewing)
         mode == Mode.ChapterEnd -> ChapterEndScreen(vm, game)
         vm.menuOpen -> MenuScreen(vm, game)
         else -> WorldScreen(vm, game)
@@ -783,6 +783,7 @@ private data class HudInfo(
     val level: Int, val xpFraction: Float?, val points: Int,
     val day: Int, val minutes: Int, val night: Boolean,
     val ailments: List<de.bornim.core.Status>,
+    val wellFed: Boolean,
 ) {
     companion object {
         fun of(game: de.bornim.core.Game): HudInfo {
@@ -790,7 +791,7 @@ private data class HudInfo(
             val from = de.bornim.core.Rules.xpForLevel[h.level]
             val xp = if (de.bornim.core.Story.capped(game.state)) 1f else de.bornim.core.Rules.xpToNext(h.level)?.let { to -> ((h.xp - from).toFloat() / (to - from)).coerceIn(0f, 1f) }
             val ailments = de.bornim.core.Status.entries.filter { game.state.ailment(it) > 0 }
-            return HudInfo(h.hp, h.maxHp, h.sp, h.maxSp, h.level, xp, h.unspentPoints, game.state.day, game.state.minutes, game.isNight, ailments)
+            return HudInfo(h.hp, h.maxHp, h.sp, h.maxSp, h.level, xp, h.unspentPoints, game.state.day, game.state.minutes, game.isNight, ailments, game.state.wellFed)
         }
     }
 }
@@ -810,15 +811,17 @@ private fun HudChip(info: HudInfo, lang: de.bornim.core.Lang, modifier: Modifier
             HudBar(Ui.hp(lang), hpFrac, hpColor(hpFrac), "${info.hp}/${info.maxHp}", Colors.accent)
             if (info.maxSp > 0) HudBar(Ui.sp(lang), info.sp.toFloat() / info.maxSp, Colors.sp, "${info.sp}/${info.maxSp}", Colors.sp)
             HudBar(Ui.xp(lang), info.xpFraction ?: 1f, Colors.gold, (if (lang == de.bornim.core.Lang.DE) "St. " else "Lv ") + info.level, Colors.gold)
-            if (info.ailments.isNotEmpty()) {
+            if (info.ailments.isNotEmpty() || info.wellFed) {
                 Row(Modifier.padding(top = 2.dp), horizontalArrangement = Arrangement.spacedBy(3.dp)) {
-                    info.ailments.forEach { st ->
+                    val chips = info.ailments.map { it.short(lang) to Color(it.color) } +
+                        (if (info.wellFed) listOf((if (lang == de.bornim.core.Lang.DE) "Satt" else "Fed") to Color(0xFFB07A30)) else emptyList())
+                    chips.forEach { (label, color) ->
                         Box(
                             Modifier
                                 .clip(RoundedCornerShape(3.dp))
-                                .background(Color(st.color))
+                                .background(color)
                                 .padding(horizontal = 4.dp)
-                        ) { Txt(st.short(lang), size = 10.sp, color = Color.White, bold = true, maxLines = 1) }
+                        ) { Txt(label, size = 10.sp, color = Color.White, bold = true, maxLines = 1) }
                     }
                 }
             }

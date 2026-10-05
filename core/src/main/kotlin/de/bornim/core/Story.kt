@@ -324,9 +324,9 @@ object Story {
             "TT,,TT,..=..TT,,,,TT",
             "TT,,TT...=...T,,C,TT",
             "TTTTTT..==...TTTTTTT",
-            "TT.....==.....TTTTTT",
+            "TT.f...==.....TTTTTT",
             "TT.r..==..r.....TTTT",
-            "TT....=........,,,TT",
+            "TT.f..=........,,,TT",
             "TT,,,.=....F...,,,TT",
             "TT,,,.=......=======",
             "TT,,,.==.......,,,TT",
@@ -340,13 +340,13 @@ object Story {
             "TT,,,,...=..,,,,,,TT",
             "TT,,TT...=...TT,,,TT",
             "TT,,TT...=...TT,,,TT",
-            "TT.......=.....r..TT",
+            "TT.ff....=.....r..TT",
             "TTTTT....=...TTTTTTT",
             "TTC,,,...==..,,,,TTT",
             "TT,,,,....=..,,,,,TT",
             "TT,,,,....=..,,,,,TT",
             "TTTT,,....=...,,TTTT",
-            "TTTT......=S.....TTT",
+            "TTTT.f....=S...f.TTT",
             "TTTTTT...==...TTTTTT",
             "TTTTTTTT.==.TTTTTTTT",
             "TTTTTTTTT==TTTTTTTTT",
@@ -474,7 +474,9 @@ object Story {
                 } else script {
                     say(hedda, if (s.has(GRIMFANG_DEFEATED)) "Ohne Grimmzahn ist der Wald ruhiger geworden. Brauchst du Tränke?" else "Brauchst du Tränke? Für Grimmzahn wirst du sie brauchen.",
                         if (s.has(GRIMFANG_DEFEATED)) "The woods are quieter without Grimfang. Need potions?" else "Need potions? You'll need them for Grimfang.")
-                    shop(listOf("potion", "greater_potion", "remedy", "holy_water"))
+                    say(hedda, "Bring mir Kräuter von den Blumenwiesen, dann braue ich dir Tränke für ein paar Münzen. Fledermausflügel und Giftdrüsen nehme ich auch.",
+                        "Bring me herbs from the flower meadows and I'll brew you potions for a few coins. I'll take bat wings and venom glands too.")
+                    shop(listOf("potion", "greater_potion", "remedy", "holy_water"), brewing = true)
                 }
             },
             Npc("grimfang", 22, 4, "monster:dire_wolf", Facing.DOWN, visible = { !it.has(GRIMFANG_DEFEATED) }) { _ ->
