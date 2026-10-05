@@ -407,7 +407,7 @@ private fun StatusChips(status: Map<de.bornim.core.Status, Int>, lang: Lang) {
                     .clip(androidx.compose.foundation.shape.RoundedCornerShape(4.dp))
                     .background(Color(st.color))
                     .padding(horizontal = 5.dp, vertical = 1.dp)
-            ) { Txt("${st.short(lang)} $turns", size = 11.sp, color = Color.White, bold = true, maxLines = 1) }
+            ) { Txt(if (turns >= de.bornim.core.Status.LASTING) st.short(lang) else "${st.short(lang)} $turns", size = 11.sp, color = Color.White, bold = true, maxLines = 1) }
         }
     }
 }

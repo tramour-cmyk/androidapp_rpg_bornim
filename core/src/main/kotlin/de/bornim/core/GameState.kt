@@ -42,8 +42,15 @@ class GameState(
     var day: Int = 1,
     /** Explored tiles per map (fog of war), as hex-encoded bits, row by row. */
     val explored: MutableMap<String, String> = mutableMapOf(),
+    /**
+     * Statuses the hero carries out of a fight, by [Status] name: poison and bleeding with the
+     * rounds they still last (they tick on the map), a curse ([Status.WEAK]) until it is cured.
+     */
+    val ailments: MutableMap<String, Int> = linkedMapOf(),
 ) {
     fun nextUid(): Long = ++uidCounter
+
+    fun ailment(st: Status): Int = ailments[st.name] ?: 0
     fun has(flag: String) = flag in flags
     fun count(item: String) = inventory[item] ?: 0
 

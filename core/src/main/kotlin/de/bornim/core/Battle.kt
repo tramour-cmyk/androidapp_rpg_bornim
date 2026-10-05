@@ -120,6 +120,11 @@ class Battle(
     private val steps = mutableListOf<Step>()
 
     init {
+        // What the hero brought along from the last fight.
+        for ((name, turns) in state.ailments) {
+            val st = Status.entries.firstOrNull { it.name == name } ?: continue
+            if (turns > 0) heroStatus[st] = turns
+        }
         hero.cls.skills().filter { it.cost == SkillCost.PER_BATTLE }.forEach { usesLeft[it] = it.amount }
     }
 
@@ -684,6 +689,7 @@ class Battle(
         val stunned = Status.STUN in map
         if (stunned) say(Msg.stunned.f(lang, who), fx = fx(FxKind.STUN, onHero))
         for (st in map.keys.toList()) {
+            if (map.getValue(st) >= Status.LASTING) continue
             val left = map.getValue(st) - 1
             if (left <= 0) {
                 map.remove(st)

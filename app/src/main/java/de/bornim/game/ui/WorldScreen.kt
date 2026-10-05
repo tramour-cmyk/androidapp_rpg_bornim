@@ -57,6 +57,7 @@ import de.bornim.core.Mode
 import de.bornim.core.Move
 import de.bornim.core.Story
 import de.bornim.core.Tile
+import de.bornim.core.Ui
 import de.bornim.core.Route
 import de.bornim.core.actionAhead
 import de.bornim.core.route
@@ -251,7 +252,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             // would otherwise skip redrawing these after a heal or a map change.
             MapBanner(game.state.place.map, game.map.name(game.lang))
             HudChip(
-                game.hero.hp, game.hero.maxHp, game.hero.unspentPoints, game.state.day, game.state.minutes, game.isNight, game.lang,
+                HudInfo.of(game), game.lang,
                 Modifier.align(Alignment.TopEnd).padding(8.dp),
             ) { if (game.mode == Mode.Explore) vm.menuOpen = true }
             if (touch && dialog == null && action != null) {
@@ -759,8 +760,26 @@ private fun MapBanner(mapId: String, mapName: String) {
     }
 }
 
+/** Everything the HUD shows, as plain values so Compose redraws it whenever one of them changes. */
+private data class HudInfo(
+    val hp: Int, val maxHp: Int, val sp: Int, val maxSp: Int,
+    val level: Int, val xpFraction: Float?, val points: Int,
+    val day: Int, val minutes: Int, val night: Boolean,
+    val ailments: List<de.bornim.core.Status>,
+) {
+    companion object {
+        fun of(game: de.bornim.core.Game): HudInfo {
+            val h = game.hero
+            val from = de.bornim.core.Rules.xpForLevel[h.level]
+            val xp = de.bornim.core.Rules.xpToNext(h.level)?.let { to -> ((h.xp - from).toFloat() / (to - from)).coerceIn(0f, 1f) }
+            val ailments = de.bornim.core.Status.entries.filter { game.state.ailment(it) > 0 }
+            return HudInfo(h.hp, h.maxHp, h.sp, h.maxSp, h.level, xp, h.unspentPoints, game.state.day, game.state.minutes, game.isNight, ailments)
+        }
+    }
+}
+
 @Composable
-private fun HudChip(hp: Int, maxHp: Int, points: Int, day: Int, minutes: Int, night: Boolean, lang: de.bornim.core.Lang, modifier: Modifier, onMenu: () -> Unit) {
+private fun HudChip(info: HudInfo, lang: de.bornim.core.Lang, modifier: Modifier, onMenu: () -> Unit) {
     Row(
         modifier
             .clip(RoundedCornerShape(8.dp))
@@ -770,14 +789,28 @@ private fun HudChip(hp: Int, maxHp: Int, points: Int, day: Int, minutes: Int, ni
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(horizontalAlignment = Alignment.End) {
-            Txt("$hp/$maxHp", size = 14.sp, color = Colors.textLight, bold = true)
-            Bar(hp.toFloat() / maxHp, hpColor(hp.toFloat() / maxHp), Modifier.width(70.dp), 6.dp)
-            if (points > 0) Txt("★ +$points", size = 12.sp, color = Colors.gold)
+            val hpFrac = info.hp.toFloat() / info.maxHp
+            HudBar(Ui.hp(lang), hpFrac, hpColor(hpFrac), "${info.hp}/${info.maxHp}", Colors.accent)
+            if (info.maxSp > 0) HudBar(Ui.sp(lang), info.sp.toFloat() / info.maxSp, Colors.sp, "${info.sp}/${info.maxSp}", Colors.sp)
+            HudBar(Ui.xp(lang), info.xpFraction ?: 1f, Colors.gold, (if (lang == de.bornim.core.Lang.DE) "St. " else "Lv ") + info.level, Colors.gold)
+            if (info.ailments.isNotEmpty()) {
+                Row(Modifier.padding(top = 2.dp), horizontalArrangement = Arrangement.spacedBy(3.dp)) {
+                    info.ailments.forEach { st ->
+                        Box(
+                            Modifier
+                                .clip(RoundedCornerShape(3.dp))
+                                .background(Color(st.color))
+                                .padding(horizontal = 4.dp)
+                        ) { Txt(st.short(lang), size = 10.sp, color = Color.White, bold = true, maxLines = 1) }
+                    }
+                }
+            }
+            if (info.points > 0) Txt("★ +${info.points}", size = 12.sp, color = Colors.gold)
             Row(verticalAlignment = Alignment.CenterVertically) {
-                PixelImageView(ActionArt.icon(if (night) ActionArt.Extra.MOON else ActionArt.Extra.SUN), 16.dp)
+                PixelImageView(ActionArt.icon(if (info.night) ActionArt.Extra.MOON else ActionArt.Extra.SUN), 16.dp)
                 Spacer(Modifier.width(3.dp))
                 Txt(
-                    (if (lang == de.bornim.core.Lang.DE) "Tag $day · " else "Day $day · ") + "%02d:%02d".format(minutes / 60, minutes % 60),
+                    (if (lang == de.bornim.core.Lang.DE) "Tag ${info.day} · " else "Day ${info.day} · ") + "%02d:%02d".format(info.minutes / 60, info.minutes % 60),
                     size = 12.sp, color = Colors.textLight,
                 )
             }
@@ -785,6 +818,17 @@ private fun HudChip(hp: Int, maxHp: Int, points: Int, day: Int, minutes: Int, ni
         Spacer(Modifier.width(8.dp))
         // The bag opens the menu.
         PixelImageView(ActionArt.icon(ActionArt.Extra.MENU), 36.dp)
+    }
+}
+
+/** One labelled bar of the HUD: label, bar and value in a row. */
+@Composable
+private fun HudBar(label: String, fraction: Float, color: Color, value: String, labelColor: Color) {
+    Row(Modifier.padding(vertical = 1.dp), verticalAlignment = Alignment.CenterVertically) {
+        Txt(label, Modifier.width(20.dp), size = 10.sp, color = labelColor, bold = true, maxLines = 1)
+        Bar(fraction, color, Modifier.width(62.dp), 6.dp)
+        Spacer(Modifier.width(4.dp))
+        Txt(value, Modifier.width(44.dp), size = 11.sp, color = Colors.textLight, bold = true, maxLines = 1)
     }
 }
 

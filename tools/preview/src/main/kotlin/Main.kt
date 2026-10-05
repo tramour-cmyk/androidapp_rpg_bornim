@@ -238,5 +238,26 @@ fun main() {
         vm.game!!.skipDialogs()
         vm.menuOpen = true
     }
+    shot("47_hud_ailments") { vm ->
+        vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.cheatLevel(3)
+        g.hero.gainXp(150)
+        g.hero.hp = g.hero.maxHp * 2 / 3
+        g.hero.sp = g.hero.maxSp / 2
+        g.state.ailments[de.bornim.core.Status.POISON.name] = 4
+        g.state.ailments[de.bornim.core.Status.WEAK.name] = de.bornim.core.Status.LASTING
+        g.state.place = Place("forest", 10, 20, Facing.UP)
+        vm.refresh()
+    }
+    shot("48_hud_fighter_en", lang = Lang.EN) { vm ->
+        vm.newGame("Alrik", Race.HUMAN, CharClass.FIGHTER)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.state.ailments[de.bornim.core.Status.BLEED.name] = 2
+        g.state.place = Place("village", 11, 7, Facing.DOWN)
+        vm.refresh()
+    }
     System.exit(0)
 }

@@ -1,6 +1,9 @@
 package de.bornim.core
 
-/** Lasting conditions in battle. Negative ones are cleared by a remedy or at the end of the fight. */
+/**
+ * Conditions in battle. A remedy cures them all. Poison and bleeding outlast the fight and tick
+ * on the map; a curse ([WEAK]) stays until a rest, a remedy or the priest; the rest end with the fight.
+ */
 enum class Status(val title: T, val short: T, val color: Long, val desc: T) {
     POISON(T("Vergiftet", "Poisoned"), T("Gift", "Psn"), 0xFF6FB83A, T("Schaden zu Beginn jeder Runde.", "Damage at the start of each round.")),
     BURN(T("Brennend", "Burning"), T("Brand", "Brn"), 0xFFE8701A, T("Starker Schaden zu Beginn jeder Runde.", "Heavy damage at the start of each round.")),
@@ -13,7 +16,13 @@ enum class Status(val title: T, val short: T, val color: Long, val desc: T) {
 
     val damaging: Boolean get() = this == POISON || this == BURN || this == BLEED
 
+    /** Whether the hero keeps this status after a fight. */
+    val lingers: Boolean get() = this == POISON || this == BLEED || this == WEAK
+
     companion object {
+        /** Round count of a status that does not wear off by itself (a curse carried between fights). */
+        const val LASTING = 99
+
         /** Creatures that cannot suffer a status at all. */
         fun immune(m: MonsterDef, s: Status): Boolean = when (s) {
             POISON -> DamageType.POISON in m.immune

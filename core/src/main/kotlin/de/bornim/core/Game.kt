@@ -22,6 +22,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     companion object {
         const val ELITE_CHANCE = 0.12
         const val SHINY_CHANCE = 1.0 / 150
+        /** Poison and bleeding carried out of a fight hurt once every this many steps. */
+        const val AILMENT_STEPS = 4
     }
 
     var mode: Mode = Mode.Explore
@@ -217,6 +219,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             return
         }
         if (fogged) fog(p.x, p.y) // explore what comes into view, also without a screen
+        tickAilments()
         respawnRoamers()
         if (graceSteps > 0) {
             graceSteps--
@@ -227,6 +230,47 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (map.tile(p.x, p.y) in enc.tiles && !map.safe(p.x, p.y) && dice.chance(enc.rate)) {
             startBattle(dice.weighted(enc.table), null, opening = Opening.AMBUSHED)
         }
+    }
+
+    /** Poison and bleeding from the last fight hurt every few steps, but never knock the hero out. */
+    private fun tickAilments() {
+        if (state.steps % AILMENT_STEPS != 0) return
+        for (st in listOf(Status.POISON, Status.BLEED)) {
+            val left = state.ailment(st)
+            if (left <= 0) continue
+            val before = hero.hp
+            hero.hp = maxOf(1, hero.hp - dice.roll(if (st == Status.POISON) dice(1, 3) else dice(1, 2)))
+            if (left <= 1) {
+                state.ailments.remove(st.name)
+                notices += Msgs.ailmentEnds.getValue(st)
+            } else {
+                state.ailments[st.name] = left - 1
+                if (before > hero.hp) notices += Msgs.ailmentHurts.getValue(st).let { T(it.de.replace("{0}", "${before - hero.hp}"), it.en.replace("{0}", "${before - hero.hp}")) }
+            }
+            changed()
+        }
+    }
+
+    /** Takes over the statuses that outlast a fight. */
+    private fun keepAilments(battle: Battle) {
+        state.ailments.clear()
+        for ((st, turns) in battle.heroStatus) {
+            if (!st.lingers) continue
+            // A curse that is still on at the end of the fight stays until it is cured.
+            state.ailments[st.name] = if (st == Status.WEAK) Status.LASTING else turns
+        }
+    }
+
+    private object Msgs {
+        val ailmentHurts = mapOf(
+            Status.POISON to T("Das Gift brennt in den Adern (−{0} TP).", "The poison burns in your veins (−{0} HP)."),
+            Status.BLEED to T("Die Wunde blutet weiter (−{0} TP).", "The wound keeps bleeding (−{0} HP)."),
+        )
+        val ailmentEnds = mapOf(
+            Status.POISON to T("Das Gift hat nachgelassen.", "The poison has worn off."),
+            Status.BLEED to T("Die Blutung hat aufgehört.", "The bleeding has stopped."),
+        )
+        val cured = T("{0} fühlt sich wieder gesund.", "{0} feels healthy again.")
     }
 
     // ------------------------------------------------------------ monsters on the map
@@ -530,6 +574,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                 Cmd.Rest -> {
                     sounds += de.bornim.core.audio.Sound.HEAL
                     hero.restoreFully()
+                    state.ailments.clear()
                     state.respawn = state.place
                 }
                 Cmd.ChapterEnd -> {
@@ -670,6 +715,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             }
         }
         battleRoamer = null
+        if (battle.outcome == Outcome.LOST) state.ailments.clear() else keepAilments(battle)
         when (battle.outcome) {
             Outcome.WON, Outcome.ENEMY_FLED -> {
                 script?.winFlag?.let { state.flags += it }
@@ -698,13 +744,16 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     fun useItemOutside(id: String): String {
         val def = Items[id]
         if (def.kind != ItemKind.POTION || state.count(id) == 0) return Ui.cannotUseHere(lang)
-        if (hero.hp >= hero.maxHp) return Ui.alreadyFull(lang)
+        val cures = def.cures && state.ailments.isNotEmpty()
+        if (hero.hp >= hero.maxHp && !cures) return Ui.alreadyFull(lang)
         state.remove(id)
         sounds += de.bornim.core.audio.Sound.POTION
         val before = hero.hp
         hero.hp = minOf(hero.maxHp, hero.hp + dice.roll(def.heal!!))
+        if (cures) state.ailments.clear()
         changed()
-        return T("{0} heilt {1} TP.", "{0} recovers {1} HP.").f(lang, hero.name, hero.hp - before)
+        val healed = T("{0} heilt {1} TP.", "{0} recovers {1} HP.").f(lang, hero.name, hero.hp - before)
+        return if (cures) Msgs.cured.f(lang, hero.name) + " " + healed else healed
     }
 
     fun buy(id: String): String {

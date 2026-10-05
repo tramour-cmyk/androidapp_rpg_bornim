@@ -92,7 +92,8 @@ object Sfx {
     }
 
     fun render(s: Sound): ShortArray = when (s) {
-        Sound.CLICK -> Buf(0.06).apply { tone(0.0, 0.05, 1400.0, 1700.0, 0.4, Wave.PULSE25, 0.015) }
+        // A soft, low wooden tick rather than a bright beep.
+        Sound.CLICK -> Buf(0.05).apply { tone(0.0, 0.04, 820.0, 640.0, 0.26, Wave.TRIANGLE, 0.01) }
         Sound.HIT_SLASH -> Buf(0.3).apply {
             noise(0.0, 0.16, 0.9, 0.35, 3, sweep = 0.5)
             tone(0.03, 0.15, 160.0, 70.0, 0.6, Wave.TRIANGLE, 0.05)
