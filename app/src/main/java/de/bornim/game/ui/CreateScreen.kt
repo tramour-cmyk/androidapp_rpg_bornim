@@ -78,9 +78,10 @@ fun CreateScreen(vm: GameViewModel) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     val facing = Facing.entries[((time / 900) % 4).toInt()]
                     val step = ((time / 220) % 4).toInt().let { if (it == 1) 1 else if (it == 3) 2 else 0 }
-                    PixelImageView(CharacterArt.hero(race, cls, facing, step), 96.dp)
+                    val preview = Hero.create(name.ifBlank { "?" }, race, cls, bought)
+                    PixelImageView(CharacterArt.hero(preview, facing, step), 96.dp)
                     Spacer(Modifier.width(12.dp))
-                    HeroSummary(Hero.create(name.ifBlank { "?" }, race, cls, bought), lang)
+                    HeroSummary(preview, lang)
                 }
             }
 

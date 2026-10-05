@@ -557,7 +557,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 
         val walking = progress < 1f
         val step = if (!walking) 0 else if (state.steps % 2 == 0) 1 else 2
-        val hero = CharacterArt.hero(state.hero.race, state.hero.cls, p.facing, step)
+        val hero = CharacterArt.hero(state.hero, p.facing, step)
         // +0.5 so the hero is drawn after objects standing on the same row
         sprites += Sprite(heroY + T - 0.5f) {
             put(hero, heroX, heroY - 2)

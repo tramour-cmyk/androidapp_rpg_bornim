@@ -1,10 +1,22 @@
 package de.bornim.core.art
 
+import de.bornim.core.BaseKind
 import de.bornim.core.CharClass
 import de.bornim.core.Facing
+import de.bornim.core.Gear
+import de.bornim.core.GearSlot
+import de.bornim.core.Hero
+import de.bornim.core.Icon
 import de.bornim.core.Race
+import de.bornim.core.Rarity
+import de.bornim.core.Weight
 
 enum class Headgear { NONE, HAT, HELMET, HOOD, CIRCLET, BALD, BEARD_HOOD }
+
+private val SHORT_WEAPONS = setOf(HandItem.BLADE, HandItem.DAGGER, HandItem.AXE, HandItem.MACE, HandItem.WAND)
+
+/** What a character carries in the weapon hand on the map. */
+enum class HandItem { NONE, BLADE, DAGGER, AXE, MACE, STAFF, WAND, BOW, SPEAR }
 
 data class Look(
     val skin: Int,
@@ -18,6 +30,14 @@ data class Look(
     val robe: Boolean = false,
     val beard: Boolean = false,
     val small: Boolean = false,
+    /** Cloak colour, or null for none. */
+    val cloak: Int? = null,
+    val weapon: HandItem = HandItem.NONE,
+    val weaponColor: Int = Pal.IRON_LIGHT,
+    /** Shield colour, or null for none. */
+    val shield: Int? = null,
+    /** A glint in the colour of an epic or divine item, or null. */
+    val sparkle: Int? = null,
 )
 
 /** 16×16 overworld characters drawn from simple shapes plus an automatic outline. */
@@ -69,6 +89,73 @@ object CharacterArt {
         "dwarf" to Look(SKIN_TAN, argb(0x904020), argb(0x707888), argb(0x4A5060), argb(0x8A5A30), argb(0x403830), beard = true, small = true),
     )
 
+    /** Metal tinted towards the rarity: rare weapons and helmets take on its colour. */
+    private fun metal(r: Rarity): Int = mix(argb(0xC0CAD6), r.color.toInt(), when (r) {
+        Rarity.COMMON, Rarity.UNCOMMON -> 0.0
+        Rarity.RARE -> 0.3
+        Rarity.VERY_RARE -> 0.4
+        Rarity.EPIC, Rarity.DIVINE -> 0.5
+    })
+
+    private fun cloakColor(r: Rarity): Int = when (r) {
+        Rarity.COMMON -> argb(0x6A4A3A)
+        Rarity.UNCOMMON -> argb(0x3E7A44)
+        Rarity.RARE -> argb(0x3A5AB0)
+        Rarity.VERY_RARE -> argb(0x7A3AB0)
+        Rarity.EPIC -> argb(0xC0602A)
+        Rarity.DIVINE -> argb(0xD8A830)
+    }
+
+    /**
+     * The hero as equipped: head, armor, cloak, weapon and shield show on the map. Empty slots keep
+     * the class look (e.g. the wizard's hat), so the class stays recognisable.
+     */
+    fun heroLook(hero: Hero): Look {
+        var l = heroLook(hero.race, hero.cls)
+        hero.item(GearSlot.HEAD)?.let { g ->
+            l = when (g.def.icon) {
+                Icon.HELMET -> l.copy(headgear = Headgear.HELMET, gear = metal(g.rarity))
+                Icon.HOOD -> l.copy(headgear = Headgear.HOOD, gear = cloakColor(g.rarity))
+                Icon.CIRCLET -> l.copy(headgear = Headgear.CIRCLET, accent = if (g.rarity >= Rarity.RARE) g.rarity.color.toInt() else Pal.GOLD)
+                else -> l
+            }
+        }
+        hero.item(GearSlot.CHEST)?.let { g ->
+            val trim = if (g.rarity >= Rarity.UNCOMMON) g.rarity.color.toInt() else l.accent
+            l = when (g.def.weight) {
+                Weight.LIGHT -> l.copy(cloth = argb(0x8A5A34), clothDark = argb(0x5E3C22), accent = trim, robe = false)
+                Weight.MEDIUM -> l.copy(cloth = argb(0x9AA4B0), clothDark = argb(0x6A7480), accent = trim, robe = false)
+                Weight.HEAVY -> l.copy(cloth = metal(g.rarity), clothDark = mix(metal(g.rarity), Pal.OUTLINE, 0.3), accent = trim, robe = false)
+                else -> l.copy(cloth = mix(l.cloth, g.rarity.color.toInt(), if (g.rarity >= Rarity.RARE) 0.35 else 0.0), accent = trim, robe = true)
+            }
+        }
+        hero.item(GearSlot.CLOAK)?.let { l = l.copy(cloak = cloakColor(it.rarity)) }
+        hero.weapon?.let { g ->
+            val hand = when (g.def.icon) {
+                Icon.SWORD -> HandItem.BLADE
+                Icon.DAGGER -> HandItem.DAGGER
+                Icon.AXE -> HandItem.AXE
+                Icon.MACE, Icon.HAMMER -> HandItem.MACE
+                Icon.STAFF -> HandItem.STAFF
+                Icon.WAND -> HandItem.WAND
+                Icon.BOW, Icon.CROSSBOW -> HandItem.BOW
+                Icon.SPEAR -> HandItem.SPEAR
+                else -> HandItem.NONE
+            }
+            l = l.copy(weapon = hand, weaponColor = metal(g.rarity))
+        }
+        hero.item(GearSlot.OFF_HAND)?.takeIf { it.def.kind == BaseKind.SHIELD }?.let { l = l.copy(shield = mix(argb(0x8A5A30), it.rarity.color.toInt(), if (it.rarity >= Rarity.RARE) 0.5 else 0.0)) }
+        val best = hero.gear.values.maxByOrNull { it.rarity }
+        if (best != null && best.rarity >= Rarity.EPIC) l = l.copy(sparkle = best.rarity.color.toInt())
+        return l
+    }
+
+    /** The hero on the map as equipped. */
+    fun hero(hero: Hero, facing: Facing, step: Int = 0): PixelImage {
+        val look = heroLook(hero)
+        return sprite(look, facing, step, "hero:$look")
+    }
+
     fun npc(look: String, facing: Facing, step: Int = 0): PixelImage =
         sprite(npcLooks[look] ?: npcLooks.getValue("villager"), facing, step, "npc:$look")
 
@@ -93,6 +180,14 @@ object CharacterArt {
         val dy = if (l.small) 2 else 0
         val side = facing == Facing.LEFT
         val up = facing == Facing.UP
+        val top0 = 17 + dy
+        // A cloak hangs behind the body: seen from the front only at the sides.
+        l.cloak?.let { c ->
+            if (facing == Facing.DOWN) { rect(8, top0, 23, 27, c); rect(20, top0, 23, 27, shade(c)) }
+            if (side) { rect(17, top0, 22, 27, c); rect(20, top0 + 2, 22, 27, shade(c)) }
+        }
+        // A shield on the far arm is partly hidden behind the body when seen from the side.
+        if (side) l.shield?.let { c -> ellipse(20.0, top0 + 5.0, 3.0, 4.5, shade(c)) }
 
         // ---- legs and boots (two walk frames lift one foot)
         val liftL = if (step == 1) 1 else 0
@@ -179,7 +274,101 @@ object CharacterArt {
             for (x in 12..15) if (at(x, hairTop - 3) == l.hair) px(x, hairTop - 3, light(l.hair))
         }
         headgear(l, facing, cy, top)
+        // From behind, the cloak covers the back like a cape.
+        if (up) l.cloak?.let { c ->
+            rect(9, top, 22, 27, c); rect(19, top, 22, 27, shade(c)); rect(9, top, 22, top, light(c))
+            for (y in top + 3..26 step 4) px(12, y, shade(c))
+        }
+        weapon(l, facing, top)
+        if (!side) l.shield?.let { c ->
+            // round shield on the left arm, with a metal boss
+            val sx = if (up) 23.0 else 8.0
+            ellipse(sx, top + 5.0, 4.0, 5.0, shade(c)); ellipse(sx - 0.5, top + 4.5, 3.2, 4.2, c)
+            if (!up) { px(sx.toInt(), top + 5, Pal.IRON_LIGHT); px(sx.toInt() - 1, top + 4, Pal.WHITE) }
+        }
         outline(Pal.OUTLINE)
+        l.sparkle?.let { c ->
+            // drawn after the outline so it glows: a small four-pointed star beside the head and a glint at the hip
+            px(4, top - 7, Pal.WHITE); px(3, top - 7, c); px(5, top - 7, c); px(4, top - 8, c); px(4, top - 6, c)
+            px(27, top + 3, light(c))
+        }
+    }
+
+    /** The weapon held upright in the weapon hand (right hand; in front when seen from the side). */
+    private fun Pen.weapon(l: Look, facing: Facing, top: Int) {
+        if (l.weapon == HandItem.NONE) return
+        val side = facing == Facing.LEFT
+        // From the front the right hand is on the right of the picture, from behind on the left.
+        val x = when (facing) { Facing.LEFT -> 7; Facing.UP -> 6; else -> 24 }
+        val hand = top + 7
+        val wood = argb(0x8A5A30); val woodD = argb(0x5E3A1E)
+        val m = l.weaponColor; val mL = light(m); val mD = shade(m)
+        if (side && l.weapon in SHORT_WEAPONS) {
+            // Seen from the side, one-handed weapons point forward and up, clear of the face.
+            val hx = 10; val hy = top + 8
+            val len = when (l.weapon) { HandItem.DAGGER -> 4; HandItem.WAND -> 5; HandItem.BLADE -> 9; else -> 8 }
+            val tx = hx - len; val ty = hy - len
+            when (l.weapon) {
+                HandItem.BLADE, HandItem.DAGGER -> {
+                    line(hx - 1, hy - 1, tx, ty, m); line(hx - 1, hy - 2, tx, ty - 1, mL)
+                    line(hx - 2, hy + 1, hx + 1, hy - 2, Pal.GOLD_DARK); px(hx, hy, woodD); px(hx + 1, hy + 1, woodD)
+                }
+                HandItem.WAND -> {
+                    line(hx, hy, tx, ty, woodD)
+                    px(tx - 1, ty - 1, if (m == argb(0xC0CAD6)) argb(0x7AD0FF) else m); px(tx - 2, ty - 2, Pal.WHITE)
+                }
+                HandItem.AXE -> {
+                    line(hx + 1, hy + 1, tx, ty, wood)
+                    for (k in 0..3) line(tx + k, ty - 1 + k, tx - 3 + k, ty + 2 + k, if (k == 0) mL else m)
+                }
+                else -> {
+                    line(hx + 1, hy + 1, tx + 1, ty + 1, wood)
+                    ellipse(tx.toDouble(), ty.toDouble(), 2.2, 2.2, m); px(tx - 1, ty - 1, mL)
+                }
+            }
+            return
+        }
+        when (l.weapon) {
+            HandItem.BLADE -> {
+                rect(x, hand - 12, x + 1, hand - 1, m); rect(x, hand - 12, x, hand - 1, mL); px(x, hand - 13, mL)
+                rect(x - 2, hand, x + 3, hand, Pal.GOLD_DARK); rect(x, hand + 1, x + 1, hand + 2, woodD)
+            }
+            HandItem.DAGGER -> {
+                rect(x, hand - 6, x + 1, hand - 1, m); px(x, hand - 7, mL)
+                rect(x - 1, hand, x + 2, hand, Pal.GOLD_DARK); rect(x, hand + 1, x + 1, hand + 1, woodD)
+            }
+            HandItem.AXE -> {
+                rect(x, hand - 11, x, hand + 3, wood)
+                val dir = if (side) -1 else 1
+                for (k in 0..3) rect(minOf(x + dir, x + dir * (2 + k / 2)), hand - 11 + k, maxOf(x + dir, x + dir * (2 + k / 2)), hand - 11 + k, if (k == 0) mL else m)
+                rect(minOf(x + dir, x + dir * 3), hand - 7, maxOf(x + dir, x + dir * 3), hand - 7, mD)
+            }
+            HandItem.MACE -> {
+                rect(x, hand - 8, x, hand + 3, wood)
+                ellipse(x + 0.5, hand - 9.5, 2.2, 2.2, m); px(x, hand - 11, mL)
+            }
+            HandItem.STAFF -> {
+                rect(x, hand - 14, x, hand + 9, wood); rect(x + 1, hand - 14, x + 1, hand + 9, woodD)
+                ellipse(x + 0.5, hand - 15.0, 1.8, 1.8, if (m == argb(0xC0CAD6)) argb(0x7AD0FF) else m); px(x, hand - 16, Pal.WHITE)
+            }
+            HandItem.WAND -> {
+                rect(x, hand - 6, x, hand + 2, woodD)
+                px(x, hand - 7, if (m == argb(0xC0CAD6)) argb(0x7AD0FF) else m); px(x, hand - 8, Pal.WHITE)
+            }
+            HandItem.BOW -> {
+                val dir = if (side) -1 else 1
+                for (k in -9..9) {
+                    val bx = x + dir * (2 - kotlin.math.abs(k) / 4)
+                    px(bx, hand + k - 2, wood)
+                }
+                rect(x, hand - 11, x, hand + 7, argb(0xE8E0D0))
+            }
+            HandItem.SPEAR -> {
+                rect(x, hand - 13, x, hand + 9, wood)
+                tri(x - 1, hand - 13, x + 2, hand - 13, x, hand - 18, m); px(x, hand - 16, mL)
+            }
+            HandItem.NONE -> {}
+        }
     }
 
     private fun Pen.headgear(l: Look, facing: Facing, cy: Double, top: Int) {

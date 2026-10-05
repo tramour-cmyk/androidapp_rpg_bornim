@@ -93,7 +93,7 @@ fun SlotCard(info: SlotInfo, lang: Lang, onLoad: (() -> Unit)? = null, onDelete:
     val de = lang == Lang.DE
     Column {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            PixelImageView(CharacterArt.hero(info.race, info.cls, Facing.DOWN), 64.dp)
+            PixelImageView(CharacterArt.hero(info.hero, Facing.DOWN), 64.dp)
             Spacer(Modifier.width(10.dp))
             Column(Modifier.weight(1f)) {
                 Txt((if (de) "Platz ${info.slot} · " else "Slot ${info.slot} · ") + info.name, size = 18.sp, bold = true, maxLines = 1)

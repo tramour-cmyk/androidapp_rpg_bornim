@@ -80,6 +80,7 @@ fun main() {
         renderMapOverview(id, "map_$id")
         System.exit(0)
     }
+    if (System.getenv("SHEET") != null) { renderHeroSheet(); System.exit(0) }
     if (System.getenv("ABOUT") != null) {
         shot("31_about") { it.screen = Screen.ABOUT }
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }
@@ -356,6 +357,12 @@ fun main() {
             vm.save()
         }
         vm.toTitle()
+    }
+    shot("65_map_geared") { vm -> geared(vm, CharClass.FIGHTER); vm.game!!.state.place = Place("village", 17, 12, Facing.LEFT); vm.refresh() }
+    shot("65_slots_geared") { vm ->
+        geared(vm, CharClass.FIGHTER); vm.save()
+        vm.newGame("Mira", Race.ELF, CharClass.ROGUE, into = 2); vm.game!!.skipDialogs(); vm.save()
+        vm.toTitle(); vm.screen = de.bornim.game.Screen.SLOTS
     }
     shot("64_title_slots", setup = savedHeroes)
     shot("64_slots", setup = { vm -> savedHeroes(vm); vm.screen = de.bornim.game.Screen.SLOTS })

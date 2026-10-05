@@ -10,6 +10,7 @@ import androidx.lifecycle.AndroidViewModel
 import de.bornim.core.CharClass
 import de.bornim.core.Game
 import de.bornim.core.GameState
+import de.bornim.core.Hero
 import de.bornim.core.Lang
 import de.bornim.core.Race
 import de.bornim.core.audio.Sound
@@ -31,6 +32,8 @@ data class SlotInfo(
     val minutes: Int,
     /** When it was last saved, in milliseconds since 1970, or 0 if unknown. */
     val savedAt: Long,
+    /** The saved hero itself, to draw it as equipped. */
+    val hero: Hero,
 )
 
 class GameViewModel(app: Application) : AndroidViewModel(app) {
@@ -156,7 +159,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         val json = prefs.getString(slotKey(n), null) ?: return null
         val s = runCatching { GameState.fromJson(json) }.getOrNull() ?: return null
         val h = s.hero
-        return SlotInfo(n, h.name, h.race, h.cls, h.level, s.place.map, s.day, s.minutes, prefs.getLong(slotKey(n) + "_at", 0L))
+        return SlotInfo(n, h.name, h.race, h.cls, h.level, s.place.map, s.day, s.minutes, prefs.getLong(slotKey(n) + "_at", 0L), h)
     }
 
     fun slots(): List<SlotInfo?> = (1..SLOTS).map { slotInfo(it) }
