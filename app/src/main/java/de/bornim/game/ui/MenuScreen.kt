@@ -41,6 +41,8 @@ import de.bornim.core.art.IconArt
 import de.bornim.game.GameViewModel
 import de.bornim.game.Screen
 
+private val gearBlue = Color(0xFF2A62C8)
+
 private enum class Tab { HERO, BAG, GEAR, SYSTEM, TEST }
 
 @Composable
@@ -125,10 +127,13 @@ private fun HeroTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
     Ability.entries.forEach { a ->
         val add = pending[a] ?: 0
         Row(Modifier.fillMaxWidth().padding(vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
-            Txt(a.full(lang), Modifier.weight(1f), size = 16.sp)
+            Txt(a.full(lang), Modifier.weight(1f), size = if (h.unspentPoints > 0) 14.sp else 16.sp, maxLines = 1)
             val score = h.score(a) + add
-            Txt(if (add > 0) "${h.score(a)}→$score" else "$score", Modifier.width(64.dp), size = 16.sp, bold = true,
+            Txt(if (add > 0) "${h.score(a)}→$score" else "$score", Modifier.width(56.dp), size = 16.sp, bold = true,
                 color = if (add > 0) Color(0xFF2E8B3E) else Colors.text)
+            // Part of the score that comes from equipped gear, shown separately.
+            val fromGear = h.gearBonus(a)
+            Txt(if (fromGear != 0) Rules.signed(fromGear) else "", Modifier.width(30.dp), size = 14.sp, bold = true, color = gearBlue)
             Txt("(${Rules.signed(Rules.mod(score))})", Modifier.width(44.dp), size = 15.sp, color = Colors.textDim)
             if (h.unspentPoints > 0) {
                 PixelButton("−", Modifier.width(44.dp).height(36.dp), enabled = add > 0) {
@@ -140,6 +145,9 @@ private fun HeroTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
                 }
             }
         }
+    }
+    if (Ability.entries.any { h.gearBonus(it) != 0 }) {
+        Txt(if (lang == Lang.DE) "Blau: Bonus durch Ausrüstung (im Wert enthalten)" else "Blue: bonus from gear (included in the score)", size = 12.sp, color = gearBlue)
     }
     if (planned > 0) {
         Row(Modifier.padding(top = 6.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {

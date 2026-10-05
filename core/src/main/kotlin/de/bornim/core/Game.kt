@@ -286,9 +286,18 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (t > h.level) {
             h.gainXp(maxOf(0, Rules.xpForLevel[t] - h.xp))
         } else if (t < h.level) {
-            h.unspentPoints = maxOf(0, h.unspentPoints - (h.level - t))
             h.level = t
             h.xp = Rules.xpForLevel[t]
+            // A hero of level t has exactly t - 1 ability points; take back what is too much,
+            // starting with the most raised ability, so the hero looks as if it reached t normally.
+            val start = Hero.startingScores(h.race, h.cls)
+            var excess = h.spentPoints - (t - 1)
+            while (excess > 0) {
+                val a = Ability.entries.maxBy { h.base.getValue(it) - start.getValue(it) }
+                h.base[a] = h.base.getValue(a) - 1
+                excess--
+            }
+            h.unspentPoints = (t - 1) - h.spentPoints
         }
         h.restoreFully()
         changed()

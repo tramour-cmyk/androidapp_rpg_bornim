@@ -46,6 +46,7 @@ private fun Game.skipDialogs() {
 
 @OptIn(ExperimentalComposeUiApi::class)
 private fun shot(name: String, lang: Lang = Lang.DE, taps: List<Offset> = emptyList(), lastFrames: Int = 30, setup: (GameViewModel) -> Unit) {
+    System.getenv("ONLY")?.let { if (!name.startsWith(it)) return }
     val vm = GameViewModel(Application())
     vm.ensureLang(lang)
     setup(vm)
@@ -173,6 +174,8 @@ fun main() {
         repeat(14) { i -> s.addGear(Loot.generate(s, dice, 9, Rarity.entries[i % 6], if (i % 3 == 0) null else cls)) }
         s.hero.restoreFully()
     }
+    shot("32_hero_gear") { vm -> geared(vm, CharClass.WIZARD); vm.menuOpen = true }
+    if (System.getenv("HERO") != null) System.exit(0)
     shot("14_gear_tab", taps = listOf(Offset(680f, 95f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }
     shot("15_bag_tab", taps = listOf(Offset(410f, 95f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }
     shot("16_bag_dialog", taps = listOf(Offset(410f, 95f), Offset(540f, 560f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }

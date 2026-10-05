@@ -32,6 +32,12 @@ class Hero(
         Ability.CHA -> Affix.CHA
     }
 
+    /** Bonus of the equipped gear on an ability. */
+    fun gearBonus(a: Ability): Int = bonus(statAffix(a)) + bonus(Affix.ALL_STATS)
+
+    /** Ability points spent so far (one per level after the first). */
+    val spentPoints: Int get() = Ability.entries.sumOf { base.getValue(it) - startingScores(race, cls).getValue(it) }.coerceAtLeast(0)
+
     /** Ability score including gear. Gear can push it past 20. */
     fun score(a: Ability): Int = base.getValue(a) + bonus(statAffix(a)) + bonus(Affix.ALL_STATS)
 
@@ -212,10 +218,15 @@ class Hero(
     }
 
     companion object {
-        fun create(name: String, race: Race, cls: CharClass, newUid: () -> Long = { 0L }): Hero {
+        /** Ability scores of a new hero: the standard array in class order plus the race bonus. */
+        fun startingScores(race: Race, cls: CharClass): Map<Ability, Int> {
             val scores = mutableMapOf<Ability, Int>()
             cls.priority.forEachIndexed { i, a -> scores[a] = Rules.standardArray[i] + (race.bonus[a] ?: 0) }
-            val hero = Hero(name, race, cls, base = scores)
+            return scores
+        }
+
+        fun create(name: String, race: Race, cls: CharClass, newUid: () -> Long = { 0L }): Hero {
+            val hero = Hero(name, race, cls, base = startingScores(race, cls).toMutableMap())
             cls.startItems.filter { GearBases.exists(it) }.forEach { id ->
                 hero.equip(Gear(newUid(), id, Rarity.COMMON, 1))
             }

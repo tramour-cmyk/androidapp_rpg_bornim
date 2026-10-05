@@ -29,6 +29,24 @@ class CheatTest {
     }
 
     @Test
+    fun levelDownTakesBackSpentPoints() {
+        val g = game()
+        val start = Hero.startingScores(g.hero.race, g.hero.cls)
+        g.cheatLevel(11)
+        assertTrue(g.hero.applyPoints(mapOf(Ability.INT to 2, Ability.CON to 3, Ability.DEX to 3)))
+        assertEquals(2, g.hero.unspentPoints)
+        g.cheatLevel(4)
+        assertEquals(3, g.hero.spentPoints + g.hero.unspentPoints)
+        assertEquals(3, g.hero.spentPoints)
+        assertEquals(0, g.hero.unspentPoints)
+        assertTrue(Ability.entries.all { g.hero.base.getValue(it) >= start.getValue(it) })
+        g.cheatLevel(1)
+        assertEquals(start, g.hero.base.toMap())
+        assertEquals(0, g.hero.unspentPoints)
+        assertEquals(72 + 6, g.hero.base.values.sum()) // human: +1 to all six
+    }
+
+    @Test
     fun fightsAndBosses() {
         val g = game()
         g.state.flags += Story.KROGG_DEFEATED
