@@ -287,8 +287,23 @@ private fun BagTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec) 
                         vm.refresh()
                     })
                     add((if (de) "Wegwerfen" else "Discard") to {
-                        game.discard(g)
-                        vm.refresh()
+                        fun discard() {
+                            game.discard(g)
+                            vm.toast = if (de) "${g.name(lang)} weggeworfen." else "${g.name(lang)} discarded."
+                            vm.refresh()
+                        }
+                        if (!vm.confirmations) discard()
+                        else ask(DialogSpec(
+                            title = if (de) "Wirklich wegwerfen?" else "Really discard?", icon = g.def.icon, titleColor = rarityColor(g.rarity),
+                            confirm = if (de) "Wegwerfen" else "Discard", cancel = cancel, onConfirm = { discard() },
+                        ) {
+                            Txt("${g.name(lang)} (${g.rarity.title(lang)})", size = 16.sp, bold = true, color = rarityColor(g.rarity))
+                            Txt(
+                                if (de) "Der Gegenstand ist danach verloren. Beim Händler bekämst du dafür ${game.sellPrice(g)} Gold."
+                                else "The item will be gone for good. A trader would pay you ${game.sellPrice(g)} gold for it.",
+                                size = 15.sp,
+                            )
+                        })
                     })
                 },
                 onConfirm = {
@@ -367,6 +382,8 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
         if (vm.touchControls) Txt(Ui.touchHint(lang), size = 13.sp, color = Colors.textDim)
         PixelButton((if (vm.leftHanded) Ui.actionLeft else Ui.actionRight)(lang), Modifier.fillMaxWidth()) { vm.toggleLeftHanded() }
         PixelButton((if (vm.haptics) Ui.hapticsOn else Ui.hapticsOff)(lang), Modifier.fillMaxWidth()) { vm.toggleHaptics() }
+        PixelButton((if (vm.confirmations) Ui.confirmOn else Ui.confirmOff)(lang), Modifier.fillMaxWidth()) { vm.toggleConfirmations() }
+        Txt(Ui.confirmHint(lang), size = 13.sp, color = Colors.textDim)
         PixelButton(Ui.about(lang), Modifier.fillMaxWidth()) {
             vm.toTitle()
             vm.screen = Screen.ABOUT

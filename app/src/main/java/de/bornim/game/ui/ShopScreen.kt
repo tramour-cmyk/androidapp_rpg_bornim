@@ -149,9 +149,24 @@ fun ShopScreen(vm: GameViewModel, game: Game, stock: List<String>, brewing: Bool
                             Txt((if (de) "Ausrüstung" else "Equipment") + " (${gear.size})", Modifier.weight(1f), size = 17.sp, bold = true)
                             if (!buying && gear.any { it.rarity == Rarity.COMMON }) {
                                 PixelButton(if (de) "Gewöhnliche verkaufen" else "Sell commons", Modifier.height(36.dp), size = 13.sp) {
-                                    val n = game.sellAllCommon()
-                                    message = if (de) "$n gewöhnliche Gegenstände verkauft." else "Sold $n common items."
-                                    vm.refresh()
+                                    fun sellAll() {
+                                        val n = game.sellAllCommon()
+                                        message = if (de) "$n gewöhnliche Gegenstände verkauft." else "Sold $n common items."
+                                        vm.refresh()
+                                    }
+                                    val commons = gear.filter { it.rarity == Rarity.COMMON }
+                                    if (!vm.confirmations) sellAll()
+                                    else dialog = DialogSpec(
+                                        title = if (de) "Alle gewöhnlichen verkaufen?" else "Sell all commons?",
+                                        confirm = (if (de) "Verkaufen · " else "Sell · ") + Ui.price.f(lang, commons.sumOf { game.sellPrice(it) }),
+                                        cancel = cancel, onConfirm = { sellAll() },
+                                    ) {
+                                        Txt(
+                                            if (de) "${commons.size} Gegenstände:" else "${commons.size} items:",
+                                            size = 15.sp, bold = true,
+                                        )
+                                        Txt(commons.joinToString(", ") { it.name(lang) }, size = 14.sp, color = Colors.textDim)
+                                    }
                                 }
                             }
                         }

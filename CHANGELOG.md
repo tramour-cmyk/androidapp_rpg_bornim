@@ -4,6 +4,12 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – Sicherheitsabfragen**
+- **Wegwerfen** in der Tasche fragt nach und nennt, was ein Händler für den Gegenstand zahlen würde.
+- **„Gewöhnliche verkaufen“** im Laden fragt nach und zeigt alle betroffenen Gegenstände samt Gesamterlös.
+- **Neues Spiel** über einen vorhandenen Spielstand fragt immer nach, bevor der alte Held überschrieben wird (vorher geschah das ohne Warnung).
+- Neue Einstellung **„Sicherheitsabfragen: An/Aus“** im System-Reiter (für Wegwerfen und Sammelverkauf; die Abfrage beim Überschreiben des Spielstands bleibt immer aktiv).
+
 ## v0.1.23 – 05.10.2026, 18:46
 
 **Neu – ein schöneres Bornim (Teil 2)**

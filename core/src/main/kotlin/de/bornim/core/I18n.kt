@@ -34,6 +34,12 @@ object Ui {
     val actionLeft = T("Aktionstaste: links", "Action button: left")
     val hapticsOn = T("Vibration: An", "Vibration: On")
     val hapticsOff = T("Vibration: Aus", "Vibration: Off")
+    val confirmOn = T("Sicherheitsabfragen: An", "Safety questions: On")
+    val confirmOff = T("Sicherheitsabfragen: Aus", "Safety questions: Off")
+    val confirmHint = T(
+        "Fragt nach, bevor du etwas wegwirfst oder alle gewöhnlichen Gegenstände verkaufst. Ein neues Spiel über einen vorhandenen Spielstand fragt immer nach.",
+        "Asks before you discard something or sell all common items. Starting a new game over an existing save always asks.",
+    )
     val touchHint = T(
         "Ziehen zum Laufen (weit ziehen = rennen), Tippen zum Hinlaufen. Tippe auf Personen oder Truhen, um sie direkt anzusprechen oder zu öffnen.",
         "Drag to walk (drag far to run), tap to walk there. Tap people or chests to talk to them or open them right away.",

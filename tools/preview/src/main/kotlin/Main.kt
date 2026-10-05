@@ -339,6 +339,12 @@ fun main() {
             vm.refresh()
         }
     }
+    shot("62_discard_confirm", taps = listOf(Offset(410f, 95f), Offset(540f, 560f), Offset(538f, 1716f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }
+    shot("63_system_confirm", taps = listOf(Offset(930f, 95f))) { vm ->
+        vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
+        vm.game!!.skipDialogs()
+        vm.menuOpen = true
+    }
     shot("47_hud_ailments") { vm ->
         vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
         val g = vm.game!!

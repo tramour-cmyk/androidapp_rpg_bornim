@@ -72,9 +72,10 @@ fun ConfirmDialog(spec: DialogSpec, onDismiss: () -> Unit) {
                 if (spec.extra.isNotEmpty()) {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         spec.extra.forEach { (label, action) ->
+                            // Close first, so the action may open a follow-up dialog (e.g. a safety question).
                             PixelButton(label, Modifier.weight(1f), size = 15.sp) {
-                                action()
                                 onDismiss()
+                                action()
                             }
                         }
                     }
@@ -84,8 +85,8 @@ fun ConfirmDialog(spec: DialogSpec, onDismiss: () -> Unit) {
                     // Information dialogs have no cancel button, only "OK".
                     if (spec.cancel.isNotEmpty()) PixelButton(spec.cancel, Modifier.weight(1f), size = 15.sp, onClick = onDismiss)
                     PixelButton(spec.confirm, Modifier.weight(1f), enabled = spec.confirmEnabled, size = 15.sp) {
-                        spec.onConfirm()
                         onDismiss()
+                        spec.onConfirm()
                     }
                 }
             }

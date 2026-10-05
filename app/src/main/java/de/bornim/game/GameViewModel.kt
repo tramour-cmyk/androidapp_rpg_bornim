@@ -83,6 +83,15 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         prefs.edit().putBoolean(KEY_HAPTICS, haptics).apply()
     }
 
+    /** Ask before actions that cannot be undone (discarding, selling in bulk). */
+    var confirmations by mutableStateOf(prefs.getBoolean(KEY_CONFIRM, true))
+        private set
+
+    fun toggleConfirmations() {
+        confirmations = !confirmations
+        prefs.edit().putBoolean(KEY_CONFIRM, confirmations).apply()
+    }
+
     /** Hidden test mode with a cheat tab in the menu; toggled by tapping the copyright 7 times. */
     var testMode by mutableStateOf(prefs.getBoolean(KEY_TEST, false))
         private set
@@ -173,5 +182,6 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_CONTROLS = "controls"
         private const val KEY_LEFT = "left_handed"
         private const val KEY_HAPTICS = "haptics"
+        private const val KEY_CONFIRM = "confirmations"
     }
 }

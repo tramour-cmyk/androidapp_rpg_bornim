@@ -52,8 +52,11 @@ fun CreateScreen(vm: GameViewModel) {
     // Point buy before the race bonus; a new class starts from its suggestion.
     var bought by remember { mutableStateOf(Hero.suggestedScores(CharClass.FIGHTER)) }
     val time = rememberTime()
-    BackHandler { vm.screen = Screen.TITLE }
+    // Starting over replaces the saved game, so that always needs a yes.
+    var overwrite by remember { mutableStateOf<DialogSpec?>(null) }
+    BackHandler { if (overwrite != null) overwrite = null else vm.screen = Screen.TITLE }
 
+    Box(Modifier.fillMaxSize()) {
     Column(
         Modifier
             .fillMaxSize()
@@ -132,8 +135,26 @@ fun CreateScreen(vm: GameViewModel) {
         Spacer(Modifier.height(10.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             PixelButton(Ui.back(lang), Modifier.weight(1f)) { vm.screen = Screen.TITLE }
-            PixelButton(Ui.start(lang), Modifier.weight(2f)) { vm.newGame(name.trim(), race, cls, bought) }
+            PixelButton(Ui.start(lang), Modifier.weight(2f)) {
+                if (!vm.hasSave) vm.newGame(name.trim(), race, cls, bought)
+                else {
+                    val de = lang == Lang.DE
+                    overwrite = DialogSpec(
+                        title = if (de) "Spielstand überschreiben?" else "Overwrite saved game?",
+                        confirm = if (de) "Neu beginnen" else "Start over", cancel = if (de) "Abbrechen" else "Cancel",
+                        onConfirm = { vm.newGame(name.trim(), race, cls, bought) },
+                    ) {
+                        Txt(
+                            if (de) "Es gibt bereits einen gespeicherten Helden. Ein neues Spiel ersetzt ihn – der alte Spielstand ist danach verloren."
+                            else "There is already a saved hero. A new game replaces it – the old save will be lost.",
+                            size = 15.sp,
+                        )
+                    }
+                }
+            }
         }
+    }
+    overwrite?.let { ConfirmDialog(it) { overwrite = null } }
     }
 }
 
