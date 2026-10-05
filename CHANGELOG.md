@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.26 – 05.10.2026, 20:10
+
 **Neu – die Figur zeigt deine Ausrüstung**
 - Dein Held sieht auf der Karte so aus, wie er ausgerüstet ist: Helm, Kapuze oder Reif, die Art der Rüstung (Stoff, Leder, Kette, Platte), Umhang, Waffe in der Hand (Schwert, Dolch, Axt, Streitkolben, Stab, Zauberstab, Bogen, Speer) und Schild.
 - Höhere Seltenheit färbt Metall und Säume ein; wer etwas Episches oder Göttliches trägt, funkelt.
