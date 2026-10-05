@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.11 – 05.10.2026, 14:48
+
 **Neu**
 - **Nebel des Unbekannten** in Wald und Höhle: Unerkundetes ist schwarz, Gesehenes bleibt abgedunkelt sichtbar. Der Held sieht in einem Kegel von 160° in Blickrichtung etwa 5 Felder weit (nachts und in der Höhle 4) und rundum ein Feld; Bäume, Felsen und Wände verdecken die Sicht. Monster sieht man nur, wenn sie im Blick sind – das „!“ eines Verfolgers hört man aber auch aus dem Nebel. Erkundetes wird gespeichert. Antippen zum Hinlaufen geht nur in bereits erkundetes Gebiet.
 - **Tiefer Flüsterwald:** neues, gut doppelt so großes Gebiet östlich des Flüsterwalds (Ausgang beim Jägerlager), Gebietsstufe 2, 13 umherstreifende Monster, nachts Untote und Ghule, vier Truhen.
