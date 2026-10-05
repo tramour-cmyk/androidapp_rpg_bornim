@@ -205,6 +205,9 @@ fun main() {
         vm.refresh()
     }
     val cave = Place("cave", 10, 20, Facing.UP)
+    for ((name, minutes) in listOf("45_battle_day" to 12 * 60, "45_battle_dusk" to 19 * 60 + 50, "46_battle_night" to 23 * 60)) {
+        shot(name) { vm -> fight(vm, "wolf", Place("forest", 10, 20, Facing.UP)); vm.game!!.state.minutes = minutes }
+    }
     val packSeed = (1..200).first { Monsters.packSize(Monsters["kobold"], MonsterLook(it)) == 2 }
     val woods = Place("forest", 10, 20, Facing.UP)
     shot("39_pack") { fight(it, "kobold", woods, seed = packSeed) }

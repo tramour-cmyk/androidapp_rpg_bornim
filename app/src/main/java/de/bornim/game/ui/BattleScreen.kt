@@ -200,7 +200,18 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 val side = if (fx.seed % 2 == 0) 1 else -1
                 return (sin(t * Math.PI.toFloat()) * 26 * side).dp
             }
-            BattleBackground(game.map.kind, Modifier.matchParentSize())
+            val light = when {
+                game.daylight < 0.35f -> BattleArt.Light.NIGHT
+                game.daylight < 0.85f -> BattleArt.Light.DUSK
+                else -> BattleArt.Light.DAY
+            }
+            BattleBackground(game.map.kind, light, Modifier.matchParentSize())
+            val shade = when {
+                game.map.kind == MapKind.CAVE -> null
+                light == BattleArt.Light.NIGHT -> Color(0xFF9CA6D4)
+                light == BattleArt.Light.DUSK -> Color(0xFFF4D2C4)
+                else -> null
+            }
             val shakeX = if (a == Anim.HERO_HIT && t < 0.99f) (sin(t * 40) * 8).dp else 0.dp
 
             val moving = t in 0.01f..0.99f
@@ -241,7 +252,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 ) {
                     PixelImageView(
                         MonsterArt.frame(battle.monster.id, MonsterLook(battle.look.seed + 101 * (i + 1)), if (acting) Pose.ATTACK else Pose.IDLE, idle + i + 1),
-                        mateSize, alpha = (if (fleeing) 1f - t else 1f) * enemyAlphaBase(a, ui.enemyGone, t),
+                        mateSize, alpha = (if (fleeing) 1f - t else 1f) * enemyAlphaBase(a, ui.enemyGone, t), shade = shade,
                     )
                 }
             }
@@ -258,7 +269,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 PixelImageView(
                     MonsterArt.frame(battle.monster.id, battle.look, enemyPose, idle),
                     monsterSize, alpha = enemyAlpha,
-                    flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f,
+                    flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f, shade = shade,
                 )
                 if (battle.shiny && !ui.enemyGone) Sparkles(battle.look.seed, monsterSize, enemyAlpha)
             }
@@ -284,7 +295,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             ) {
                 PixelImageView(
                     HeroArt.battle(battle.hero, heroPose, idle + 2), heroSize, alpha = heroAlpha,
-                    flash = if (a == Anim.HERO_HIT && blink) 0.85f else 0f,
+                    flash = if (a == Anim.HERO_HIT && blink) 0.85f else 0f, shade = shade,
                 )
             }
 
@@ -339,13 +350,13 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
 }
 
 @Composable
-private fun BattleBackground(kind: MapKind, modifier: Modifier) {
+private fun BattleBackground(kind: MapKind, light: BattleArt.Light, modifier: Modifier) {
     Canvas(modifier) {
         // Whole-number zoom for crisp pixels; the backdrop is generated to fill the scene.
         val scale = maxOf(1, (size.width / 170f).toInt())
         val w = kotlin.math.ceil(size.width / scale).toInt()
         val h = kotlin.math.ceil(size.height / scale).toInt()
-        val img = BattleArt.background(kind, w, h)
+        val img = BattleArt.background(kind, w, h, light)
         drawImage(
             image = Bitmaps.of(img),
             srcOffset = androidx.compose.ui.unit.IntOffset.Zero,

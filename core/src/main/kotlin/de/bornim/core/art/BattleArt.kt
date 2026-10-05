@@ -12,9 +12,66 @@ object BattleArt {
 
     private val cache = HashMap<String, PixelImage>()
 
-    fun background(kind: MapKind, w: Int, h: Int): PixelImage = cache.getOrPut("$kind/$w/$h") {
-        draw(w, h) { if (kind == MapKind.CAVE) cave() else outdoors(kind == MapKind.TOWN) }
+    /** Time of day for outdoor battles. */
+    enum class Light { DAY, DUSK, NIGHT }
+
+    fun background(kind: MapKind, w: Int, h: Int, light: Light = Light.DAY): PixelImage = cache.getOrPut("$kind/$w/$h/$light") {
+        draw(w, h) {
+            if (kind == MapKind.CAVE) cave() else {
+                outdoors(kind == MapKind.TOWN)
+                if (light != Light.DAY) evening(light == Light.NIGHT)
+            }
+        }
     }
+
+    /** Recolors an outdoor backdrop for dusk or night: new sky, darker and bluer land, stars and moon. */
+    private fun Pen.evening(night: Boolean) {
+        val w = img.width; val h = img.height
+        val horizon = (h * 0.30).toInt()
+        val top = if (night) argb(0x0A1030) else argb(0x3A3070)
+        val low = if (night) argb(0x24305A) else argb(0xF0906A)
+        val shade = if (night) argb(0x101838) else argb(0x5A2A40)
+        val amount = if (night) 0.55 else 0.22
+        // where the sky was (above the hills and tree line), paint the new sky
+        val sky = BooleanArray(w * h)
+        for (x in 0 until w) {
+            var y = 0
+            while (y < horizon && (img[x, y] and 0xFFFFFF).let { c -> isSky(c) }) {
+                raw(x, y, mix(top, low, y.toDouble() / horizon))
+                sky[y * w + x] = true
+                y++
+            }
+        }
+        // darken everything else towards the night color
+        for (y in 0 until h) for (x in 0 until w) {
+            val c = img[x, y]
+            if (sky[y * w + x]) continue
+            raw(x, y, mix(c, shade, amount))
+        }
+        if (night) {
+            for (i in 0 until 60) {
+                val x = noise(i, 1, 91) % w
+                val y = noise(i, 2, 91) % (horizon - 12).coerceAtLeast(1)
+                if (sky[y * w + x]) raw(x, y, if (i % 7 == 0) Pal.WHITE else argb(0xB8C4E8))
+            }
+            // moon
+            val mx = w * 0.82; val my = h * 0.09
+            // a crescent: the moon disc minus an offset disc, so the sky stays untouched around it
+            for (y in (my - 9).toInt()..(my + 9).toInt()) for (x in (mx - 9).toInt()..(mx + 9).toInt()) {
+                val dx = x + 0.5 - mx; val dy = y + 0.5 - my
+                val ox = x + 0.5 - (mx + 3.5); val oy = y + 0.5 - (my - 2.5)
+                if (dx * dx + dy * dy <= 64 && ox * ox + oy * oy > 49) raw(x, y, if (dx < -5 && dy > 1) argb(0xD8D0B0) else argb(0xF4EED0))
+            }
+        }
+    }
+
+    private fun isSky(rgb: Int): Boolean {
+        val r = (rgb shr 16) and 0xFF; val g = (rgb shr 8) and 0xFF; val b = rgb and 0xFF
+        // light blue sky gradient and white clouds
+        return (b > 200 && r > 110 && g > 170) || (r > 235 && g > 235 && b > 235)
+    }
+
+
 
     private fun Pen.copy(src: PixelImage, ox: Int, oy: Int) {
         for (y in 0 until src.height) for (x in 0 until src.width) {

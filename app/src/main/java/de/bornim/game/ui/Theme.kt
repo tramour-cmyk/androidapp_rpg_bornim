@@ -81,14 +81,19 @@ object Bitmaps {
 
 /** A pixel image; [flash] > 0 paints it towards white (hit flash). */
 @Composable
-fun PixelImageView(image: PixelImage, size: Dp, modifier: Modifier = Modifier, alpha: Float = 1f, flash: Float = 0f) {
+fun PixelImageView(image: PixelImage, size: Dp, modifier: Modifier = Modifier, alpha: Float = 1f, flash: Float = 0f, shade: Color? = null) {
     Image(
         bitmap = Bitmaps.of(image),
         contentDescription = null,
         modifier = modifier.size(size),
         alpha = alpha,
         filterQuality = FilterQuality.None,
-        colorFilter = if (flash > 0f) ColorFilter.tint(Color.White.copy(alpha = flash.coerceIn(0f, 1f)), BlendMode.SrcAtop) else null,
+        colorFilter = when {
+            flash > 0f -> ColorFilter.tint(Color.White.copy(alpha = flash.coerceIn(0f, 1f)), BlendMode.SrcAtop)
+            // evening and night light on sprites
+            shade != null -> ColorFilter.tint(shade, BlendMode.Modulate)
+            else -> null
+        },
     )
 }
 
