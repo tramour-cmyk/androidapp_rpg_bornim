@@ -1,0 +1,216 @@
+package preview
+
+import android.app.Application
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.ImageComposeScene
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.unit.Density
+import de.bornim.core.CharClass
+import de.bornim.core.Battle
+import de.bornim.core.Dice
+import de.bornim.core.EliteTrait
+import de.bornim.core.MonsterLook
+import de.bornim.core.Monsters
+import de.bornim.core.GearSlot
+import de.bornim.core.Loot
+import de.bornim.core.Rarity
+import de.bornim.core.Rules
+import de.bornim.core.Cmd
+import de.bornim.core.Facing
+import de.bornim.core.Game
+import de.bornim.core.Lang
+import de.bornim.core.Mode
+import de.bornim.core.Place
+import de.bornim.core.Race
+import de.bornim.core.Story
+import de.bornim.game.GameViewModel
+import de.bornim.game.Screen
+import de.bornim.game.ui.BornimApp
+import org.jetbrains.skia.EncodedImageFormat
+import org.jetbrains.skia.Image
+import java.io.File
+
+private const val W = 1080
+private const val H = 2340
+private val out = File("build/screens").apply { mkdirs() }
+
+private fun GameViewModel.ensureLang(l: Lang) {
+    if (lang != l) toggleLang()
+}
+
+private fun Game.skipDialogs() {
+    var guard = 0
+    while (mode is Mode.Dialog && guard++ < 50) advance()
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+private fun shot(name: String, lang: Lang = Lang.DE, taps: List<Offset> = emptyList(), lastFrames: Int = 30, setup: (GameViewModel) -> Unit) {
+    val vm = GameViewModel(Application())
+    vm.ensureLang(lang)
+    setup(vm)
+    val scene = ImageComposeScene(W, H, Density(2.75f)) { BornimApp(vm) }
+    var time = 0L
+    var img: Image? = null
+    fun frames(n: Int) = repeat(n) {
+        img = scene.render(time)
+        time += 33_000_000L
+        Thread.sleep(25)
+    }
+    frames(40)
+    for ((i, p) in taps.withIndex()) {
+        scene.sendPointerEvent(PointerEventType.Press, p)
+        frames(2)
+        scene.sendPointerEvent(PointerEventType.Release, p)
+        frames(if (i == taps.lastIndex) lastFrames else 30)
+    }
+    if (taps.isEmpty()) frames(10)
+    File(out, "$name.png").writeBytes(img!!.encodeToData(EncodedImageFormat.PNG)!!.bytes)
+    scene.close()
+    println("wrote $name")
+}
+
+fun main() {
+    if (System.getenv("RUNS") != null) {
+        battleRuns()
+        System.exit(0)
+    }
+    hudCheck()
+    if (System.getenv("TOUCH") != null) {
+        touchShots()
+        System.exit(0)
+    }
+    if (System.getenv("QUICK") != null) System.exit(0)
+    renderFxSheet()
+    shot("01_title") {}
+    shot("02_create") { it.screen = Screen.CREATE }
+    shot("03_intro") { it.newGame("Alrik", Race.HUMAN, CharClass.FIGHTER) }
+    shot("04_village") { vm ->
+        vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.state.place = Place("village", 11, 7, Facing.DOWN)
+        vm.refresh()
+    }
+    shot("05_forest_en", lang = Lang.EN) { vm ->
+        vm.newGame("Tess", Race.HALFLING, CharClass.ROGUE)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.state.place = Place("forest", 10, 20, Facing.UP)
+        vm.refresh()
+    }
+    val battleSetup: (GameViewModel) -> Unit = { vm ->
+        vm.newGame("Borin", Race.DWARF, CharClass.CLERIC)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.state.place = Place("forest", 10, 20, Facing.UP)
+        g.enqueue(listOf(Cmd.Fight("goblin")))
+        vm.refresh()
+    }
+    shot("06_battle", setup = battleSetup)
+    val msgBox = Offset(W / 2f, H - 300f)
+    shot("07_battle_menu", taps = List(4) { msgBox }, setup = battleSetup)
+    shot("08_cave_boss") { vm ->
+        vm.newGame("Grom", Race.HALF_ORC, CharClass.FIGHTER)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.state.flags += Story.GATE_OPEN
+        g.state.place = Place("cave", 10, 5, Facing.UP)
+        vm.refresh()
+    }
+    shot("09_menu") { vm ->
+        vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
+        vm.game!!.skipDialogs()
+        vm.game!!.hero.gainXp(500)
+        vm.menuOpen = true
+    }
+    shot("10_shop") { vm ->
+        vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.enqueue(listOf(Cmd.OpenShop(Story.shopStock)))
+        vm.refresh()
+    }
+    shot("11_shop_dialog", taps = listOf(Offset(W / 2f, 700f))) { vm ->
+        vm.newGame("Grom", Race.HALF_ORC, CharClass.FIGHTER)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.state.gold = 100
+        g.enqueue(listOf(Cmd.OpenShop(Story.shopStock.drop(10))))
+        vm.refresh()
+    }
+    shot("12_points", taps = listOf(Offset(985f, 1550f), Offset(985f, 1655f))) { vm ->
+        vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
+        vm.game!!.skipDialogs()
+        vm.game!!.hero.gainXp(500)
+        vm.menuOpen = true
+    }
+    shot("13_battle_skills", taps = List(4) { Offset(W / 2f, H - 300f) } + listOf(Offset(810f, 2010f))) { vm ->
+        vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.state.place = Place("forest", 10, 20, Facing.UP)
+        g.enqueue(listOf(Cmd.Fight("wolf")))
+        vm.refresh()
+    }
+    fun geared(vm: GameViewModel, cls: CharClass) {
+        vm.newGame("Thora", Race.DWARF, cls)
+        val g = vm.game!!
+        g.skipDialogs()
+        val s = g.state
+        s.hero.gainXp(Rules.xpForLevel[9])
+        val dice = Dice(kotlin.random.Random(4))
+        for (slot in GearSlot.entries) {
+            val r = Rarity.entries[(slot.ordinal * 2) % 6]
+            val item = Loot.generate(s, dice, 9, r, cls, slot)
+            if (s.hero.canWear(item)) s.equipFromBag(s.addGear(item))
+        }
+        repeat(14) { i -> s.addGear(Loot.generate(s, dice, 9, Rarity.entries[i % 6], if (i % 3 == 0) null else cls)) }
+        s.hero.restoreFully()
+    }
+    shot("14_gear_tab", taps = listOf(Offset(680f, 95f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }
+    shot("15_bag_tab", taps = listOf(Offset(410f, 95f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }
+    shot("16_bag_dialog", taps = listOf(Offset(410f, 95f), Offset(540f, 560f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }
+    shot("17_shop_gear") { vm ->
+        geared(vm, CharClass.ROGUE)
+        vm.game!!.state.gold = 3000
+        vm.game!!.enqueue(listOf(Cmd.OpenShop(Story.shopStock)))
+        vm.refresh()
+    }
+    for ((i, f) in listOf(6, 9, 12).withIndex()) {
+        shot("18_fx_$i", taps = List(4) { Offset(W / 2f, H - 300f) } + listOf(Offset(810f, 2010f), Offset(540f, 1830f), Offset(W / 2f, H - 300f)), lastFrames = f) { vm ->
+            vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
+            val g = vm.game!!
+            g.skipDialogs()
+            g.state.place = Place("forest", 10, 20, Facing.UP)
+            g.enqueue(listOf(Cmd.Fight("wolf")))
+            vm.refresh()
+        }
+    }
+    // New battle sprites: elites, shimmering variants and the cave monsters
+    fun fight(vm: GameViewModel, id: String, place: Place, trait: EliteTrait? = null, shiny: Boolean = false, seed: Int = 3) {
+        vm.newGame("Thora", Race.DWARF, CharClass.FIGHTER)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.state.place = place
+        g.fight(Battle(g.state, Monsters[id], g.lang, Dice(), 3, trait != null, 3, trait, shiny, MonsterLook(seed, shiny, trait?.color)))
+        vm.refresh()
+    }
+    val cave = Place("cave", 10, 20, Facing.UP)
+    val forest = Place("forest", 10, 20, Facing.UP)
+    shot("19_elite") { fight(it, "wolf", forest, EliteTrait.VENOMOUS) }
+    shot("20_shiny") { fight(it, "goblin_shaman", cave, shiny = true) }
+    shot("21_ghoul") { fight(it, "ghoul", cave, EliteTrait.BURNING, seed = 8) }
+    shot("22_bat") { fight(it, "giant_bat", cave) }
+    shot("23_boar_geared", taps = List(3) { msgBox }) { vm -> geared(vm, CharClass.FIGHTER); vm.game!!.state.place = forest; vm.game!!.enqueue(listOf(Cmd.Fight("boar"))); vm.refresh() }
+    for ((i, f) in listOf(3, 7).withIndex()) {
+        shot("24_attack_$i", taps = List(6) { msgBox } + listOf(Offset(270f, 2010f)), lastFrames = f) { vm -> fight(vm, "kobold", forest) }
+    }
+    shot("25_test_tab", taps = listOf(Offset(965f, 95f))) { vm ->
+        if (!vm.testMode) vm.toggleTestMode()
+        vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
+        vm.game!!.skipDialogs()
+        vm.menuOpen = true
+    }
+    System.exit(0)
+}
