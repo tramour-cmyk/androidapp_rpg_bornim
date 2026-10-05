@@ -278,6 +278,13 @@ fun main() {
         vm.game!!.enqueue(listOf(Cmd.OpenShop(listOf("potion", "greater_potion", "remedy", "holy_water"), brewing = true)))
         vm.refresh()
     }
+    for ((name, y) in listOf("54_brew_potion" to 690f, "54_brew_remedy" to 904f)) {
+        shot(name, taps = listOf(Offset(900f, 250f), Offset(400f, y))) { vm ->
+            stocked(vm)
+            vm.game!!.enqueue(listOf(Cmd.OpenShop(listOf("potion", "greater_potion", "remedy", "holy_water"), brewing = true)))
+            vm.refresh()
+        }
+    }
     shot("53_bag_ingredients", taps = listOf(Offset(410f, 95f))) { vm -> stocked(vm); vm.menuOpen = true }
     shot("47_hud_ailments") { vm ->
         vm.newGame("Mira", Race.ELF, CharClass.WIZARD)

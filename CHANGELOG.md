@@ -4,6 +4,11 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Geändert**
+- Gegenstandsbeschreibungen wiederholen die Werte nicht mehr (vorher z. B. „heilt 2W4+2“ und darunter „Heilt 2W4+2 TP.“). Stattdessen steht dort, was der Wert nicht verrät: etwa dass der Kräutertrank alle Zustände heilt oder Alchemistenfeuer in Brand setzt.
+
+## v0.1.17 – 05.10.2026, 15:50
+
 **Fehlerbehebungen**
 - Heddas Laden zeigt jetzt schon beim ersten Besuch den Reiter „Brauen“ und keine Ausrüstung mehr (vorher erst ab dem zweiten Gespräch).
 
