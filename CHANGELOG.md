@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.14 – 05.10.2026, 15:16
+
 **Neu**
 - **Zustände wirken nach dem Kampf weiter:** Gift und Blutung kosten auf der Karte alle 4 Schritte ein bis drei TP, bis sie abklingen. Der Held fällt dadurch nie unter 1 TP. Ein Fluch („Geschwächt“) bleibt, bis man rastet, schläft, einen Kräutertrank trinkt oder Bruder Odo aufsucht, und gilt auch im nächsten Kampf. Brand, Betäubung, Verlangsamung und Blendung enden mit dem Kampf.
 - **Anzeige oben rechts:** Balken für TP, ZP (bei Zauberkundigen) und den Fortschritt zur nächsten Stufe (EP), dazu farbige Schilder für anhaltende Zustände.
