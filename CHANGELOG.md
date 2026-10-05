@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.12 – 05.10.2026, 14:56
+
 **Neu**
 - **Kämpfe bei Abend und Nacht:** Im Freien passt sich der Kampfhintergrund der Tageszeit an – in der Dämmerung mit rosa-violettem Himmel, nachts mit dunklem Sternenhimmel und Mondsichel. Held und Monster werden passend getönt. In der Höhle bleibt alles wie bisher.
 
