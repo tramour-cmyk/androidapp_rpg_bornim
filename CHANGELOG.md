@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.27 – 05.10.2026, 20:29
+
 **Geändert – Namen mit Fantasy-Klang**
 - Die Bewohner von Bornim tragen jetzt Namen, die besser in eine Fantasy-Welt passen:
   - Wirtin Berta → **Rowena**, Händlerin Tilda → **Thessa** („Thessas Kramladen“), Bruder Odo → **Bruder Osric**
