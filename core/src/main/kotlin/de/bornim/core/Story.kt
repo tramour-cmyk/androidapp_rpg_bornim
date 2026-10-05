@@ -15,6 +15,8 @@ object Story {
     const val GRAK_DEFEATED = "grak_defeated"
     const val LYRA_RESCUED = "lyra_rescued"
     const val CHAPTER1_DONE = "chapter1_done"
+    const val GRIMFANG_DEFEATED = "grimfang_defeated"
+    const val HEDDA_MET = "hedda_met"
 
     val START = Place("inn", 7, 2, Facing.DOWN)
     val RESPAWN = Place("temple", 4, 4, Facing.UP)
@@ -32,6 +34,7 @@ object Story {
     private val wilhelm = T("Jäger Wilhelm", "Hunter William")
     private val krogg = T("Krogg", "Krogg")
     private val grak = T("Grak", "Grak")
+    private val hedda = T("Kräuterfrau Hedda", "Hedda the Herbalist")
 
     /** Consumables sold by Tilda; her gear stock is generated (see [Loot.shopGear]). */
     val shopStock = listOf("potion", "greater_potion", "superior_potion", "remedy", "alchemist_fire", "holy_water")
@@ -316,7 +319,7 @@ object Story {
             "TT.r..==..r.....TTTT",
             "TT....=........,,,TT",
             "TT,,,.=....F...,,,TT",
-            "TT,,,.=.......,,,,TT",
+            "TT,,,.=......=======",
             "TT,,,.==.......,,,TT",
             "TTTT...=...TTT,,TTTT",
             "TT~~~..=..,,,,,,,,TT",
@@ -343,6 +346,7 @@ object Story {
             Warp(9, 31, Place("village", 11, 1, Facing.DOWN)),
             Warp(10, 31, Place("village", 12, 1, Facing.DOWN)),
             Warp(10, 0, Place("cave", 10, 18, Facing.UP)),
+            Warp(19, 10, Place("deep_forest", 1, 18, Facing.RIGHT)),
         ),
         signs = mapOf(
             (11 to 28) to T("Flüsterwald\nBleib auf dem Weg, Wanderer!", "Whisperwood\nStay on the path, traveller!"),
@@ -387,6 +391,107 @@ object Story {
             SafeZone(12, 9, 4, T("Jäger Wilhelm schwenkt seine Fackel – die Biester weichen zurück!", "Hunter William waves his torch – the beasts back off!")),
             SafeZone(10, 30, 3),
             SafeZone(10, 1, 2),
+            SafeZone(19, 10, 2),
+        ),
+    )
+
+    // ------------------------------------------------------------------ deep forest
+
+    val deepForest = MapDef(
+        id = "deep_forest",
+        name = T("Tiefer Flüsterwald", "Deep Whisperwood"),
+        kind = MapKind.FOREST,
+        rows = listOf(
+            "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+            "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+            "TTTTTTTTTTTTTTTTTT,TT..TTTTTTTTTTTTTTTTTTTTT",
+            "TTTTTTTTTTTTTTTT,,,,,.......TTTTTTTTTTTTTTTT",
+            "TTTTTTTTTTTTTTT,,,,,,,.....CTTTTTTTTTTTTTTTT",
+            "TTTTTTTTTTTTTTT,,,,,,.......TTTTTTTT,TTTTTTT",
+            "TTTTTTTTTTT,,,,,,,,,..........T,,,,,,,,TTTTT",
+            "TTTTTTTTTT,,,,,,,,,...=......T,,,T,,,C,,TTTT",
+            "TTTTTTTTTT,,T,,,,,,.T.=.T..T.TT,,,,,,,,,,TTT",
+            "TTTTTTTTTT,,,,=,,,,Tf.=...T.TT,,,,,,,,,,,TTT",
+            "TTTTTTTTTT,,,,=T,,,,..=.TTTTTT,,T,,=,,,,,,TT",
+            "TTTTTTTTTT,,,,=,,,,TT==TTTTTTT,,,,,=,,,,,,TT",
+            "TTTTTTTTTTT,,,=,,,TTT=TTTTTTTT,,,,,=,,,,,TTT",
+            "TTTTTTTTTTrTT==,TTTTT=TTTTTTTT,,,,,=,,r,,TTT",
+            "TTTTT........=TTTTTTT=TTTTTTTTTT,,,=,,TTTTTT",
+            "TT.T.........=TTTTTTT=TTTTTTTT,TT,T=,TTTTTTT",
+            "TTT....T....==TTTTT..=ff.TTT,,,,,,T=TTTTTTTT",
+            "TT.S........=..TT.fT.=..T.,,,,,,,===TTTTTTTT",
+            "=======.....=.T......=....,,,,,,,=,TTTTTTTTT",
+            "TT....========.r.....=============,,TTTTTTTT",
+            "TTT..f..,,,,,==========T..,====,,,,TTTTTTTTT",
+            "TTT....,,,,,,,.==.........,,,,=,,,TTTTTTTTTT",
+            "TTT.....,,,,,T==.....F.,.,,,,,=,,,TTTTTTTTTT",
+            "TTTTTTT...TTTT=TT.....,,,,,,,,=TTTTTTTTTTTTT",
+            "TTTTTTTTTTTTTT=TTTT....,,,,,TT====TTTTTTTTTT",
+            "TTTTTTTTTTT,T==TTTT.T..TTTTTTT...=....T.TTTT",
+            "TTTTTTTTT,,,==,,TTTTTTTTTTTTT....=......TTTT",
+            "TTTTTTTT,,,,=,,,,TTTTTTTTTTT...===......TTTT",
+            "TTTTTTT,,,,,=,,,,,,,TTTTTTTT...=....~....TTT",
+            "TTTTT,T,,,,,=,,,,,,,TTTTTTT....=..~~~~~...TT",
+            "TTTTTT,,,,r,=,,,,,,TTTTTTTTT...=.~~~~~~...TT",
+            "TTTTT,,,,,,,,,,,,,,TTTTTTTTT......~~~~~C..TT",
+            "TTTTTT,,,C,,,,,,,,,TTTTTTTTTT..f....~...TTTT",
+            "TTTTTTTr,,,,,,,,,TTTTTTTTTTTTTTT.......TTTTT",
+            "TTTTTTTT,,,,,,,,,TTTTTTTTTTTTTTTT.T..TTTTTTT",
+            "TTTTTTTTTTTT,TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+            "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+            "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        ),
+        warps = listOf(
+            Warp(0, 18, Place("forest", 18, 10, Facing.LEFT)),
+        ),
+        signs = mapOf(
+            (3 to 17) to T("Tiefer Flüsterwald\nHier endet der Weg der Jäger.\nNur für erfahrene Abenteurer!", "Deep Whisperwood\nThe hunters' trail ends here.\nFor seasoned adventurers only!"),
+        ),
+        chests = listOf(
+            Chest("deep_1", 37, 7, randomGear(Rarity.RARE)),
+            Chest("deep_2", 9, 32, "remedy", count = 2),
+            Chest("deep_3", 39, 31, gold = 120),
+            Chest("deep_4", 27, 4, randomGear(Rarity.VERY_RARE)),
+        ),
+        npcs = listOf(
+            Npc("hedda", 24, 21, "herbalist", Facing.LEFT) { s ->
+                if (!s.has(HEDDA_MET)) script {
+                    say(hedda, "Na sieh an, jemand wagt sich so tief in den Wald. Ich bin Hedda, ich sammle hier Kräuter.", "Well, well, someone dares to come this deep into the woods. I'm Hedda, I gather herbs here.")
+                    say(hedda, "Am Feuer bist du sicher: Der Rauch meiner Kräuter hält die Biester fern.", "You're safe by the fire: the smoke of my herbs keeps the beasts away.")
+                    say(hedda, "Im Norden haust Grimmzahn, der Leitwolf. Groß wie ein Pony und doppelt so bösartig. Nimm das hier mit.", "In the north lives Grimfang, the alpha wolf. Big as a pony and twice as vicious. Take this with you.")
+                    give("remedy", 1)
+                    flag(HEDDA_MET)
+                    shop(listOf("potion", "greater_potion", "remedy", "holy_water"))
+                } else script {
+                    say(hedda, if (s.has(GRIMFANG_DEFEATED)) "Ohne Grimmzahn ist der Wald ruhiger geworden. Brauchst du Tränke?" else "Brauchst du Tränke? Für Grimmzahn wirst du sie brauchen.",
+                        if (s.has(GRIMFANG_DEFEATED)) "The woods are quieter without Grimfang. Need potions?" else "Need potions? You'll need them for Grimfang.")
+                    shop(listOf("potion", "greater_potion", "remedy", "holy_water"))
+                }
+            },
+            Npc("grimfang", 22, 4, "monster:dire_wolf", Facing.DOWN, visible = { !it.has(GRIMFANG_DEFEATED) }) { _ ->
+                script {
+                    narrate("Ein gewaltiger Wolf mit narbigem Fell tritt aus dem Schatten. Seine Augen glühen rot.", "A huge wolf with a scarred coat steps out of the shadows. Its eyes glow red.")
+                    fight("dire_wolf", GRIMFANG_DEFEATED)
+                    narrate("Grimmzahn bricht zusammen. Für einen Moment wird es ganz still im Wald.", "Grimfang collapses. For a moment the forest falls completely silent.")
+                }
+            },
+        ),
+        encounters = Encounters(
+            rate = 0.004,
+            table = listOf(
+                "wolf" to 22, "boar" to 14, "kobold" to 14, "giant_spider" to 8, "goblin" to 12, "goblin_archer" to 8,
+                "giant_centipede" to 8, "stirge" to 8, "goblin_shaman" to 6,
+            ),
+            tiles = setOf(Tile.TALL_GRASS),
+            roamers = 13,
+            night = listOf(
+                "wolf" to 22, "skeleton" to 16, "zombie" to 12, "giant_bat" to 16, "ghoul" to 6, "kobold" to 10, "giant_spider" to 10, "stirge" to 8,
+            ),
+        ),
+        areaLevel = 2,
+        safeZones = listOf(
+            SafeZone(21, 21, 4, T("Der beißende Kräuterrauch aus Heddas Feuer vertreibt die Biester!", "The acrid herb smoke from Hedda's fire drives the beasts away!")),
+            SafeZone(1, 18, 3),
         ),
     )
 

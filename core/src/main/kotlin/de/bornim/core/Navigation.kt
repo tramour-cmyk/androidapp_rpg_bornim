@@ -45,6 +45,8 @@ fun Game.route(tx: Int, ty: Int): Route? {
     val m = map
     val p = state.place
     if (tx == p.x && ty == p.y) return null
+    // Only places the hero has already seen can be walked to by tapping.
+    if (fog(tx, ty) == Fog.HIDDEN) return null
     val target = tx to ty
 
     // Tiles to stand on, with the direction to face from there.
@@ -63,7 +65,7 @@ fun Game.route(tx: Int, ty: Int): Route? {
     }
 
     fun passable(x: Int, y: Int): Boolean {
-        if (!free(x, y)) return false
+        if (!free(x, y) || fog(x, y) == Fog.HIDDEN) return false
         val warp = m.warpAt(x, y) ?: return true
         // Doors and exits change the map, so they are only used as the destination.
         return (x to y) == target && (warp.requires == null || state.has(warp.requires))

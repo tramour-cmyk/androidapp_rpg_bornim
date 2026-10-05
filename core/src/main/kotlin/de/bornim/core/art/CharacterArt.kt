@@ -63,6 +63,7 @@ object CharacterArt {
         "villager" to Look(SKIN, argb(0x804020), argb(0x80A050), argb(0x587038), Pal.WHITE, argb(0x604828), robe = true),
         "hunter" to Look(SKIN_TAN, argb(0x503018), argb(0x6A5030), argb(0x4A3820), argb(0x3E7040), argb(0x3E3020), Headgear.HOOD, gear = argb(0x3E7040), beard = true),
         "lyra" to Look(SKIN_LIGHT, argb(0xD0A040), Pal.WHITE, argb(0xC8C8D8), Pal.GOLD, argb(0xC8C8D8), Headgear.CIRCLET, gear = Pal.GOLD, robe = true),
+        "herbalist" to Look(SKIN_TAN, argb(0xC8C8C8), argb(0x5A7A3A), argb(0x3A5A2A), argb(0xC09040), argb(0x3A5A2A), Headgear.HOOD, gear = argb(0x5A7A3A), robe = true),
         "dwarf" to Look(SKIN_TAN, argb(0x904020), argb(0x707888), argb(0x4A5060), argb(0x8A5A30), argb(0x403830), beard = true, small = true),
     )
 

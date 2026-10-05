@@ -142,5 +142,26 @@ fun touchShots() {
         vm.refresh()
         frames(10)
     }
+    // Fog of war in the forest and the new deep forest
+    touchShot("42_fog_forest", setup = { vm ->
+        val g = vm.game!!
+        g.state.minutes = 11 * 60
+        g.state.place = Place("forest", 10, 20, Facing.UP)
+    }) { frames(10) }
+    touchShot("43_fog_walked", setup = { vm ->
+        val g = vm.game!!
+        g.state.minutes = 11 * 60
+        g.state.place = Place("forest", 9, 28, Facing.UP)
+        // walk up the path, looking around now and then
+        for (y in 27 downTo 18) { g.move(Facing.UP); g.afterStep() }
+        g.face(Facing.LEFT); g.fog(9, 18); g.face(Facing.RIGHT); g.fog(9, 18); g.face(Facing.UP)
+    }) { frames(10) }
+    touchShot("44_deep_forest", setup = { vm ->
+        val g = vm.game!!
+        g.state.minutes = 11 * 60
+        g.state.place = Place("deep_forest", 16, 20, Facing.RIGHT)
+        for (x in 17..20) { g.move(Facing.RIGHT); g.afterStep() }
+        g.face(Facing.UP); g.fog(20, 20); g.face(Facing.DOWN); g.fog(20, 20); g.face(Facing.RIGHT)
+    }) { frames(10) }
     touchShot("30_classic", touch = false, setup = { it.game!!.state.place = village }) { frames(10) }
 }

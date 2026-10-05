@@ -149,6 +149,13 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         updateRoamers(nowMs)
     }
 
+    private val sight = Sight(state)
+
+    /** Wild areas (forest, cave) are covered by fog until the hero has seen them. */
+    val fogged: Boolean get() = map.kind == MapKind.FOREST || map.kind == MapKind.CAVE
+
+    fun fog(x: Int, y: Int): Fog = if (!fogged) Fog.VISIBLE else sight.fog(map, x, y, isNight)
+
     /** Monsters walking around on the current map. */
     val roamers: List<Roamer> get() = herd()
 
@@ -209,6 +216,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             enqueue(it.script(state))
             return
         }
+        if (fogged) fog(p.x, p.y) // explore what comes into view, also without a screen
         respawnRoamers()
         if (graceSteps > 0) {
             graceSteps--
@@ -610,7 +618,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     /** Puts Krogg and Grak back on the map. */
     fun cheatRespawnBosses() {
-        state.flags -= setOf(Story.KROGG_DEFEATED, Story.GRAK_DEFEATED)
+        state.flags -= setOf(Story.KROGG_DEFEATED, Story.GRAK_DEFEATED, Story.GRIMFANG_DEFEATED)
         changed()
     }
 

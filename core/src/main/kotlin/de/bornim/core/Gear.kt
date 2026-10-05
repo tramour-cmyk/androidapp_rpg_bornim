@@ -322,6 +322,8 @@ object Uniques {
             listOf(Roll(Affix.DEX, 1), Roll(Affix.CRIT, 1), Roll(Affix.ATTACK, 1))),
         "mace_of_dawn" to Unique(T("Morgenröte", "Dawnbringer"), "mace", Rarity.VERY_RARE, 1,
             listOf(Roll(Affix.WIS, 1), Roll(Affix.RADIANT, 3), Roll(Affix.HP, 6))),
+        "amulet_grimfang" to Unique(T("Grimmzahns Fang", "Grimfang's Tooth"), "amulet", Rarity.EPIC, 0,
+            listOf(Roll(Affix.DEX, 2), Roll(Affix.CRIT, 1), Roll(Affix.BLEED_HIT, 20), Roll(Affix.HP, 8))),
         "cloak_protection" to Unique(T("Umhang des Schutzes", "Cloak of Protection"), "cloak", Rarity.RARE, 0,
             listOf(Roll(Affix.AC, 1), Roll(Affix.RESIST, 1))),
     )

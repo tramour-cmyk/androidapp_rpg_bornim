@@ -55,11 +55,12 @@ object MonsterArt {
         synchronized(cache) { cache[key]?.let { return it } }
         val s = Sculpt(SIZE, SIZE, look.seed)
         val boss = id in BOSSES
-        val rig = Rig(s, look, pose, f, SHINY_HUE[id] ?: 150.0, boss)
+        val rig = Rig(s, look, pose, f, SHINY_HUE[id] ?: 150.0, boss, if (id == "dire_wolf") 1.14 else 1.0)
         with(rig) {
             when (id) {
                 "giant_rat" -> rat()
                 "wolf" -> wolf()
+                "dire_wolf" -> wolf(alpha = true)
                 "goblin" -> goblin(GoblinKind.WARRIOR)
                 "goblin_archer" -> goblin(GoblinKind.ARCHER)
                 "goblin_shaman" -> goblin(GoblinKind.SHAMAN)
@@ -87,7 +88,7 @@ object MonsterArt {
         return img
     }
 
-    private val BOSSES = setOf("bugbear", "hobgoblin_captain")
+    private val BOSSES = setOf("bugbear", "hobgoblin_captain", "dire_wolf")
     private val FLYERS = setOf("stirge", "giant_bat")
 
     /** How far the shimmering variant rotates the colors. */
@@ -102,7 +103,7 @@ object MonsterArt {
     private fun Mat.far() = copy(bias = bias - 0.2)
     private fun Mat.soft() = copy(inline = false)
 
-    private class Rig(val s: Sculpt, val look: MonsterLook, val pose: Pose, frame: Int, shinyHue: Double, val boss: Boolean) {
+    private class Rig(val s: Sculpt, val look: MonsterLook, val pose: Pose, frame: Int, shinyHue: Double, val boss: Boolean, boost: Double = 1.0) {
         val ph = frame / IDLE_FRAMES.toDouble() * 2 * PI
         /** Idle breathing, -1..1. */
         val b = if (pose == Pose.IDLE) sin(ph) else 0.0
@@ -110,7 +111,7 @@ object MonsterArt {
         val atk = pose == Pose.ATTACK
         val hurt = pose == Pose.HURT
         val hue = (if (boss) 0.0 else look.range(1) * 12) + if (look.shiny) shinyHue else 0.0
-        val size = if (boss) 1.0 else 1 + look.range(2) * 0.05
+        val size = (if (boss) 1.0 else 1 + look.range(2) * 0.05) * boost
         val shiny = look.shiny
 
         fun pick(n: Int, salt: Int) = look.pick(n, salt)
@@ -213,9 +214,9 @@ object MonsterArt {
             s.line(hx - 6, hy + 1, hx - 12, hy - 1, wc); s.line(hx - 6, hy + 2, hx - 12, hy + 3, wc)
         }
 
-        fun wolf() {
-            val tone = pick(4, 10)
-            val furC = listOf(0x8A92A2, 0x8A6E52, 0x4E4E5C, 0xC8C8C8)[tone]
+        fun wolf(alpha: Boolean = false) {
+            val tone = if (alpha) 2 else pick(4, 10)
+            val furC = if (alpha) 0x3E3C48 else listOf(0x8A92A2, 0x8A6E52, 0x4E4E5C, 0xC8C8C8)[tone]
             val fur = skin(furC, grain = 0.16)
             val pale = skin(if (tone == 2) 0x8A8A98 else 0xD8D8D8, grain = 0.1).soft()
             body(if (atk) -4.0 else if (hurt) 4.0 else 0.0, 0.0)
@@ -242,7 +243,9 @@ object MonsterArt {
                 for (i in 0..3) s.dot(hx - 8 + i * 2, hy + 5, Pal.WHITE)
             }
             s.blob(hx - 9.5, hy + (if (atk) 1.5 else 3.5), 1.5, 1.3, fixed(0x202028, shine = 1.0))
-            if (hurt) s.line(hx - 2.5, hy - 1, hx + 0.5, hy - 0.5, dark) else s.eye(hx - 1.5, hy - 0.8, 1.5, eye(0xF0C030))
+            if (hurt) s.line(hx - 2.5, hy - 1, hx + 0.5, hy - 0.5, dark) else s.eye(hx - 1.5, hy - 0.8, 1.5, eye(if (alpha) 0xF03030 else 0xF0C030))
+            // the alpha wolf carries an old scar across the eye
+            if (alpha) s.line(hx - 3.5, hy - 4.0, hx + 1.0, hy + 2.5, argb(0xC89090))
             s.limb(22.0, 47.0, 20.0, 59.0, 3.2, 2.4, fur)
             s.blob(19.0, 59.5, 3.2, 1.6, fur)
             s.limb(45.0, 44.0, 47.0, 52.0, 4.0, 3.0, fur)

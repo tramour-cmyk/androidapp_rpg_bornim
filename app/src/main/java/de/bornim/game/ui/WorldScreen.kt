@@ -480,9 +480,12 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 sprites += Sprite((ny + T - 1).toFloat()) { put(img, nx, ny - 2) }
             }
         }
-        // Monsters walking around
+        // Monsters walking around; only those in sight are shown, the "!" of a hunter is heard from anywhere.
+        val alerts = mutableListOf<Pair<Float, Float>>()
         for (r in game.roamers) {
             val t = ((clock - r.movedAt).toFloat() / r.moveMs).coerceIn(0f, 1f)
+            if (clock < r.alertUntil) alerts += ((r.fromX + (r.x - r.fromX) * t) * T + T / 2f) to ((r.fromY + (r.y - r.fromY) * t) * T)
+            if (game.fog(r.x, r.y) != de.bornim.core.Fog.VISIBLE) continue
             val rx = ((r.fromX + (r.x - r.fromX) * t) * T).roundToInt()
             val ry = ((r.fromY + (r.y - r.fromY) * t) * T).roundToInt()
             val img = MonsterArt.mapSprite(r.monster, r.look, ((clock / 240) % 4).toInt(), mirrored = r.facing == Facing.RIGHT)
@@ -523,14 +526,6 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                         drawRect(Color.White, Offset((px - camX) * scale.toFloat(), (py - camY) * scale.toFloat()), androidx.compose.ui.geometry.Size(scale.toFloat(), scale.toFloat()))
                     }
                 }
-                if (clock < r.alertUntil) {
-                    // "!" above the head: it has seen the hero
-                    val bx = (rx + T / 2f - 4 - camX) * scale
-                    val by = (sy - 14f - camY) * scale
-                    drawRoundRect(Color.White, Offset(bx, by), androidx.compose.ui.geometry.Size(9f * scale, 12f * scale), androidx.compose.ui.geometry.CornerRadius(2f * scale))
-                    drawRect(Color(0xFFD83030), Offset(bx + 3.5f * scale, by + 2f * scale), androidx.compose.ui.geometry.Size(2f * scale, 5f * scale))
-                    drawRect(Color(0xFFD83030), Offset(bx + 3.5f * scale, by + 8.5f * scale), androidx.compose.ui.geometry.Size(2f * scale, 1.5f * scale))
-                }
             }
         }
 
@@ -552,6 +547,17 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             drawWeatherAndNight(game, map, clock, camX, camY, scale, heroX, heroY)
         }
 
+        // Fog of war over wild areas: black where unexplored, dimmed where not in sight.
+        if (game.fogged) drawFog(game, camX, camY, scale, viewW, viewH)
+        for ((ax, ay) in alerts) {
+            // "!" above a monster that has seen the hero
+            val bx = (ax - 4 - camX) * scale
+            val by = (ay - 30f - camY) * scale
+            drawRoundRect(Color.White, Offset(bx, by), androidx.compose.ui.geometry.Size(9f * scale, 12f * scale), androidx.compose.ui.geometry.CornerRadius(2f * scale))
+            drawRect(Color(0xFFD83030), Offset(bx + 3.5f * scale, by + 2f * scale), androidx.compose.ui.geometry.Size(2f * scale, 5f * scale))
+            drawRect(Color(0xFFD83030), Offset(bx + 3.5f * scale, by + 8.5f * scale), androidx.compose.ui.geometry.Size(2f * scale, 1.5f * scale))
+        }
+
         if (map.kind == MapKind.CAVE) {
             // A soft vignette around the hero, like a torch light.
             val center = Offset((heroX - camX + T / 2f) * scale, (heroY - camY + T / 2f) * scale)
@@ -567,6 +573,45 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 }
 
 private class Sprite(val y: Float, val draw: () -> Unit)
+
+/**
+ * Draws the fog in half-tile cells; each cell blends the fog of its tile with the neighbours
+ * on that side, so the edges of the sight cone are soft instead of blocky.
+ */
+private fun DrawScope.drawFog(game: Game, camX: Int, camY: Int, scale: Int, viewW: Float, viewH: Float) {
+    val T = WorldArt.T
+    val x0 = floor(camX.toFloat() / T).toInt() - 1
+    val y0 = floor(camY.toFloat() / T).toInt() - 1
+    val x1 = ((camX + viewW) / T).toInt() + 1
+    val y1 = ((camY + viewH) / T).toInt() + 1
+    val w = x1 - x0 + 1
+    val h = y1 - y0 + 1
+    val a = FloatArray(w * h)
+    for (ty in y0..y1) for (tx in x0..x1) {
+        a[(ty - y0) * w + (tx - x0)] = when (game.fog(tx, ty)) {
+            de.bornim.core.Fog.HIDDEN -> 1f
+            de.bornim.core.Fog.SEEN -> 0.5f
+            de.bornim.core.Fog.VISIBLE -> 0f
+        }
+    }
+    fun at(tx: Int, ty: Int) = if (tx < x0 || ty < y0 || tx > x1 || ty > y1) 1f else a[(ty - y0) * w + (tx - x0)]
+    val color = Color(0xFF080A12)
+    val half = T / 2f
+    for (ty in y0..y1) for (tx in x0..x1) {
+        val self = at(tx, ty)
+        for (sy in 0..1) for (sx in 0..1) {
+            val nx = if (sx == 0) -1 else 1
+            val ny = if (sy == 0) -1 else 1
+            val v = self * 0.5f + (at(tx + nx, ty) + at(tx, ty + ny)) * 0.2f + at(tx + nx, ty + ny) * 0.1f
+            if (v <= 0.01f) continue
+            drawRect(
+                color.copy(alpha = v.coerceAtMost(1f) * (if (v > 0.9f) 1f else 0.92f)),
+                Offset((tx * T + sx * half - camX) * scale, (ty * T + sy * half - camY) * scale),
+                androidx.compose.ui.geometry.Size(half * scale + 0.5f, half * scale + 0.5f),
+            )
+        }
+    }
+}
 
 private fun hash(a: Int, b: Int, c: Int = 0): Int {
     var n = a * 374761393 + b * 668265263 + c * 1442695041

@@ -40,6 +40,8 @@ class GameState(
     /** Time of day in minutes (0..1439) and the day counter; one real second is one game minute. */
     var minutes: Int = 8 * 60,
     var day: Int = 1,
+    /** Explored tiles per map (fog of war), as hex-encoded bits, row by row. */
+    val explored: MutableMap<String, String> = mutableMapOf(),
 ) {
     fun nextUid(): Long = ++uidCounter
     fun has(flag: String) = flag in flags

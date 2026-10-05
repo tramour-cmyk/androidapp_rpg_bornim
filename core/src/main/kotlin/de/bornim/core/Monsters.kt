@@ -130,6 +130,12 @@ object Monsters {
             special = MonsterSpecial.SURPRISE_ATTACK, boss = true, attackFx = FxKind.SMASH, cr = "1",
         ),
         MonsterDef(
+            "dire_wolf", T("Grimmzahn, der Leitwolf", "Grimfang the Alpha"), 14, dice(5, 10, 5), T("Reißzähne", "Fangs"), 4, dice(2, 6, 1), DamageType.PIERCING,
+            450, dice(4, 10), 3, 3, 1,
+            listOf(LootEntry("amulet_grimfang", 1.0), LootEntry("greater_potion", 0.5)),
+            special = MonsterSpecial.KNOCKDOWN, boss = true, attackFx = FxKind.BITE, cr = "2",
+        ),
+        MonsterDef(
             "hobgoblin_captain", T("Hauptmann Grak", "Captain Grak"), 16, dice(6, 10, 6), T("Kriegsaxt", "War Axe"), 5, dice(1, 10, 3), DamageType.SLASHING,
             450, dice(8, 10), 1, 2, 1,
             listOf(LootEntry("sun_amulet", 1.0), LootEntry("prophet_letter", 1.0), LootEntry("greataxe_grak", 1.0)),

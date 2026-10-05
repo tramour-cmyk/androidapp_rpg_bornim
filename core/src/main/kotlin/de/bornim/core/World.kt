@@ -125,7 +125,7 @@ class MapDef(
 
 object World {
     val maps: Map<String, MapDef> by lazy {
-        listOf(Story.village, Story.inn, Story.shop, Story.elderHouse, Story.temple, Story.forest, Story.cave).associateBy { it.id }
+        listOf(Story.village, Story.inn, Story.shop, Story.elderHouse, Story.temple, Story.forest, Story.deepForest, Story.cave).associateBy { it.id }
     }
 
     operator fun get(id: String): MapDef = maps[id] ?: error("Unknown map $id")

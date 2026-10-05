@@ -13,6 +13,10 @@ class MonsterSimTest {
         val setups = listOf(
             Triple(1, 1, listOf("giant_rat", "wolf", "goblin", "goblin_archer", "boar", "kobold", "giant_centipede", "stirge")),
             Triple(3, 3, listOf("goblin", "goblin_archer", "goblin_shaman", "skeleton", "zombie", "giant_bat", "ghoul", "giant_spider", "ochre_jelly")),
+            Triple(4, 2, listOf("dire_wolf")),
+            Triple(5, 2, listOf("dire_wolf")),
+            Triple(4, 3, listOf("bugbear", "hobgoblin_captain")),
+            Triple(5, 3, listOf("bugbear", "hobgoblin_captain")),
         )
         for ((lvl, area, ids) in setups) for (id in ids) {
             val line = StringBuilder("L$lvl ${id.padEnd(16)}")
@@ -25,12 +29,16 @@ class MonsterSimTest {
                     for (a in listOf(cls.primary, Ability.CON)) while (s.hero.raise(a)) {}
                     s.hero.restoreFully()
                     val dice = Dice(rng)
-                    val b = Battle(s, Monsters[id], Lang.EN, dice, lvl, false, area)
+                    // like the game: bosses grow at most two levels above their area
+                    val monsterLevel = if (Monsters[id].boss) minOf(lvl, area + 2) else lvl
+                    s.add("potion", 2)
+                    val b = Battle(s, Monsters[id], Lang.EN, dice, monsterLevel, false, area)
                     b.start()
                     var turns = 0
                     while (b.outcome == Outcome.ONGOING && turns++ < 60) {
                         val h = s.hero
                         val action = when {
+                            h.hp < h.maxHp * 0.3 && s.count("potion") > 0 -> Action.UseItem("potion")
                             cls == CharClass.WIZARD && b.blocked(Skill.MAGIC_MISSILE) == null && h.sp > 2 -> Action.UseSkill(Skill.MAGIC_MISSILE)
                             cls == CharClass.WIZARD -> Action.UseSkill(Skill.FIRE_BOLT)
                             cls == CharClass.CLERIC && h.hp < h.maxHp / 2 && b.blocked(Skill.CURE_WOUNDS) == null -> Action.UseSkill(Skill.CURE_WOUNDS)
