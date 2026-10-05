@@ -4,6 +4,9 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Fehlerbehebungen**
+- Heddas Laden zeigt jetzt schon beim ersten Besuch den Reiter „Brauen“ und keine Ausrüstung mehr (vorher erst ab dem zweiten Gespräch).
+
 ## v0.1.16 – 05.10.2026, 15:30
 
 **Neu – Zutaten**

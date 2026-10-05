@@ -21,6 +21,9 @@ object Story {
     const val CHAPTER2_STARTED = "chapter2_started"
     const val CHAPTER1_LEVEL_CAP = 6
 
+    /** What Hedda sells; she also brews potions from ingredients. */
+    private val HEDDA_STOCK = listOf("potion", "greater_potion", "remedy", "holy_water")
+
     /** Highest level the hero can reach in the current chapter. Experience beyond it is kept. */
     fun levelCap(s: GameState): Int = if (s.has(CHAPTER2_STARTED)) Rules.MAX_LEVEL else CHAPTER1_LEVEL_CAP
 
@@ -470,13 +473,15 @@ object Story {
                     say(hedda, "Im Norden haust Grimmzahn, der Leitwolf. Groß wie ein Pony und doppelt so bösartig. Nimm das hier mit.", "In the north lives Grimfang, the alpha wolf. Big as a pony and twice as vicious. Take this with you.")
                     give("remedy", 1)
                     flag(HEDDA_MET)
-                    shop(listOf("potion", "greater_potion", "remedy", "holy_water"))
+                    say(hedda, "Bring mir Kräuter von den Blumenwiesen, dann braue ich dir Tränke für ein paar Münzen. Fledermausflügel und Giftdrüsen nehme ich auch.",
+                        "Bring me herbs from the flower meadows and I'll brew you potions for a few coins. I'll take bat wings and venom glands too.")
+                    shop(HEDDA_STOCK, brewing = true)
                 } else script {
                     say(hedda, if (s.has(GRIMFANG_DEFEATED)) "Ohne Grimmzahn ist der Wald ruhiger geworden. Brauchst du Tränke?" else "Brauchst du Tränke? Für Grimmzahn wirst du sie brauchen.",
                         if (s.has(GRIMFANG_DEFEATED)) "The woods are quieter without Grimfang. Need potions?" else "Need potions? You'll need them for Grimfang.")
                     say(hedda, "Bring mir Kräuter von den Blumenwiesen, dann braue ich dir Tränke für ein paar Münzen. Fledermausflügel und Giftdrüsen nehme ich auch.",
                         "Bring me herbs from the flower meadows and I'll brew you potions for a few coins. I'll take bat wings and venom glands too.")
-                    shop(listOf("potion", "greater_potion", "remedy", "holy_water"), brewing = true)
+                    shop(HEDDA_STOCK, brewing = true)
                 }
             },
             Npc("grimfang", 22, 4, "monster:dire_wolf", Facing.DOWN, visible = { !it.has(GRIMFANG_DEFEATED) }) { _ ->

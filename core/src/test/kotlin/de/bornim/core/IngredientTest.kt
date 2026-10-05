@@ -72,6 +72,20 @@ class IngredientTest {
     }
 
     @Test
+    fun heddaOffersBrewingFromTheFirstVisit() {
+        val g = game()
+        g.state.place = Place("deep_forest", 23, 21, Facing.RIGHT)
+        repeat(2) { visit ->
+            g.interact()
+            var guard = 0
+            while (g.mode is Mode.Dialog && guard++ < 20) g.advance()
+            val mode = g.mode
+            assertTrue(mode is Mode.Shop && mode.brewing, "visit $visit: $mode")
+            g.advance()
+        }
+    }
+
+    @Test
     fun flowerMeadowsHoldHerbsOnceADay() {
         val g = game()
         g.state.place = Place("forest", 3, 6, Facing.UP)
