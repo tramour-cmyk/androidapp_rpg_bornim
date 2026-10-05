@@ -70,7 +70,7 @@ class BarrierTest {
             assertEquals(3, w.y, "stays on his line")
             assertEquals(jorin, g.npcAt(w.x, w.y))
         }
-        assertTrue((10 to 3) in seen && (24 to 3) in seen, "patrol covered $seen")
+        assertTrue((15 to 3) in seen && (20 to 3) in seen, "patrol covered $seen")
     }
 
     @Test

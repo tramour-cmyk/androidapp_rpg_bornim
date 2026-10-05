@@ -370,7 +370,7 @@ fun main() {
         g.state.flags += Story.QUEST_STARTED
         g.state.place = Place("village", 18, 3, Facing.UP); g.move(Facing.UP); vm.refresh()
     }
-    shot("66_barrier_jorin") { vm -> vm.newGame("Alrik", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs(); g.state.place = Place("village", 9, 4, Facing.UP); vm.refresh() }
+    shot("66_barrier_jorin") { vm -> vm.newGame("Alrik", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs(); g.state.place = Place("village", 15, 6, Facing.UP); vm.refresh() }
     shot("66_barrier_open") { vm -> vm.newGame("Alrik", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs(); g.state.flags += Story.QUEST_STARTED; g.state.flags += Story.BARRIER_OPEN; g.state.place = Place("village", 17, 6, Facing.UP); vm.refresh() }
     shot("64_title_slots", setup = savedHeroes)
     shot("64_slots", setup = { vm -> savedHeroes(vm); vm.screen = de.bornim.game.Screen.SLOTS })

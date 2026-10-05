@@ -89,8 +89,8 @@ object Story {
         kind = MapKind.TOWN,
         rows = listOf(
             "TTTTTTTTTTTTTTTTT==TTTTTTTTTTTTTTTTT",
-            "TTT.......T......==......TT......TTT",
-            "TTxxxxxxxTxxxxxxxzzSxxxxTxxxxxxxxxTT",
+            "TTT.......T.....x==x.....TT......TTT",
+            "TT.......T......xzzxS...T.........TT",
             "T..^^^^^^........==.......^^^^^....T",
             "T..^^^^^^..^^^^..==..^^^..^^^^^....T",
             "T..#W#D#Wb.#D#W..==..#D#..W#D#Wb...T",
@@ -136,7 +136,7 @@ object Story {
             lockedDoor(13, 22, T("Hier wohnt Pim mit seinen Eltern. Die Tür ist verschlossen.", "Pim lives here with his parents. The door is locked.")),
         ),
         signs = mapOf(
-            (19 to 2) to T("Norden: Flüsterwald.\nAchtung, Goblins!", "North: Whisperwood.\nBeware of goblins!"),
+            (20 to 2) to T("Norden: Flüsterwald.\nAchtung, Goblins!", "North: Whisperwood.\nBeware of goblins!"),
             (7 to 6) to T("Gasthaus »Zum Schlafenden Greif«", "The Sleeping Griffin Inn"),
             (25 to 6) to T("Thessas Kramladen\nWaffen · Rüstungen · Tränke", "Thessa's General Store\nWeapons · Armor · Potions"),
         ),
@@ -152,8 +152,8 @@ object Story {
             (11 to 21) to HouseStyle(RoofKind.SHINGLE, WallKind.TIMBER, mirrored = true),
         ),
         npcs = listOf(
-            // Jorin walks his round along the fence and stops at the road to look north.
-            Npc("jorin", 10, 3, "guard", Facing.RIGHT, patrol = listOf(10 to 3, 17 to 3, 24 to 3, 18 to 3)) { s ->
+            // Jorin walks his round in front of the barrier and stops at the road to look north.
+            Npc("jorin", 15, 3, "guard", Facing.RIGHT, patrol = listOf(15 to 3, 17 to 3, 20 to 3, 18 to 3)) { s ->
                 if (!s.has(QUEST_STARTED)) script {
                     say(jorin, "Halt! Der Flüsterwald ist zu gefährlich geworden.", "Halt! The Whisperwood has become too dangerous.")
                     say(jorin, "Ohne Erlaubnis des Ältesten lasse ich niemanden hinaus.", "I'm not letting anyone out without the Elder's permission.")

@@ -4,6 +4,11 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Geändert – Zaun am Schlagbaum**
+- Statt eines langen Zauns quer durchs Dorf führt jetzt links und rechts vom Weg je ein kurzer Zaun vom Waldrand hinunter zum Schlagbaum. Der Norden des Dorfes bleibt offen.
+- Wache Jorin geht seine Runde direkt vor dem Schlagbaum und ist dabei immer gut zu sehen. Vorher verschwand er zeitweise hinter den Dächern.
+- Das Schild „Norden: Flüsterwald“ steht rechts neben dem Zaun.
+
 ## v0.1.28 – 05.10.2026, 20:53
 
 **Neu – Schlagbaum am Nordweg**
