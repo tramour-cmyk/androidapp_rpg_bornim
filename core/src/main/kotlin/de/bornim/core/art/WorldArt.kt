@@ -46,11 +46,20 @@ object WorldArt {
                 val m = mask(!p(0, -1), !p(1, 0), !p(0, 1), !p(-1, 0))
                 cached("path$m/$seed") { path(m, seed) }
             }
-            Tile.WATER -> {
-                fun w(dx: Int, dy: Int) = at(dx, dy) == Tile.WATER
+            Tile.WATER, Tile.BRIDGE -> {
+                fun w(dx: Int, dy: Int) = at(dx, dy) == Tile.WATER || at(dx, dy) == Tile.BRIDGE
                 val m = mask(!w(0, -1), !w(1, 0), !w(0, 1), !w(-1, 0))
-                cached("water$m/$frame") { water(m, frame) }
+                // inner corners: both neighbours are water, the diagonal is land
+                val d = (if (w(0, -1) && w(1, 0) && !w(1, -1)) 1 else 0) or (if (w(1, 0) && w(0, 1) && !w(1, 1)) 2 else 0) or
+                    (if (w(0, 1) && w(-1, 0) && !w(-1, 1)) 4 else 0) or (if (w(-1, 0) && w(0, -1) && !w(-1, -1)) 8 else 0)
+                if (t == Tile.BRIDGE) {
+                    val left = at(-1, 0) != Tile.BRIDGE; val right = at(1, 0) != Tile.BRIDGE
+                    cached("bridge$m/$d/$frame/$left/$right") { water(m, frame, d); bridge(left, right) }
+                } else cached("water$m/$d/$frame") { water(m, frame, d) }
             }
+            Tile.CROPS -> cached("crops$seed") { field(seed) }
+            Tile.VEG_BED -> cached("veg$seed") { vegBed(seed) }
+            Tile.FENCE, Tile.HAY, Tile.WASHLINE -> cached("grass$seed") { grass(seed) }
             Tile.TREE -> cached("treeground$seed") { grass(seed); blendEllipse(16.0, 26.0, 13.0, 5.0, SHADOW) }
             Tile.ROCK, Tile.SIGN, Tile.CHEST, Tile.CAMPFIRE -> {
                 val base = baseGround(kind, seed)
@@ -278,7 +287,7 @@ object WorldArt {
 
     private val W = argb(0x4A8EEC); private val W_D = argb(0x346FCC); private val W_L = argb(0x9ACCF8)
 
-    private fun Pen.water(m: Int, frame: Int) {
+    private fun Pen.water(m: Int, frame: Int, inner: Int = 0) {
         fill(W)
         for (y in 0 until T) for (x in 0 until T) if ((x + y * 3) % 17 == 0) raw(x, y, W_D)
         val sh = frame * 3
@@ -292,6 +301,77 @@ object WorldArt {
             if (m and 4 != 0) { for (y in T - 3 until T) raw(i, y, G); raw(i, T - 4, W_L) }
             if (m and 8 != 0) { for (x in 0..3) raw(x, i, G); raw(4, i, G_DD); raw(5, i, W_L) }
             if (m and 2 != 0) { for (x in T - 4 until T) raw(x, i, G); raw(T - 5, i, G_DD); raw(T - 6, i, W_L) }
+        }
+        // round outer corners where two banks meet
+        fun round(cx: Int, cy: Int, inX: (Int) -> Boolean, inY: (Int) -> Boolean) {
+            for (y in 0 until T) for (x in 0 until T) {
+                if (!inX(x) || !inY(y)) continue
+                val dd = (x - cx) * (x - cx) + (y - cy) * (y - cy)
+                if (dd > 100) raw(x, y, G) else if (dd > 81) raw(x, y, G_DD) else if (dd > 64) raw(x, y, W_L)
+            }
+        }
+        if (m and 1 != 0 && m and 8 != 0) round(14, 14, { it < 14 }, { it < 14 })
+        if (m and 1 != 0 && m and 2 != 0) round(T - 15, 14, { it > T - 15 }, { it < 14 })
+        if (m and 4 != 0 && m and 8 != 0) round(14, T - 15, { it < 14 }, { it > T - 15 })
+        if (m and 4 != 0 && m and 2 != 0) round(T - 15, T - 15, { it > T - 15 }, { it > T - 15 })
+        // small bites of land at inner corners
+        fun bite(cx: Int, cy: Int) {
+            for (y in 0 until T) for (x in 0 until T) {
+                val dd = (x - cx) * (x - cx) + (y - cy) * (y - cy)
+                if (dd <= 16) raw(x, y, G) else if (dd <= 25) raw(x, y, G_DD) else if (dd <= 36) raw(x, y, W_L)
+            }
+        }
+        if (inner and 1 != 0) bite(T - 1, 0)
+        if (inner and 2 != 0) bite(T - 1, T - 1)
+        if (inner and 4 != 0) bite(0, T - 1)
+        if (inner and 8 != 0) bite(0, 0)
+    }
+
+    /** Wooden planks across the water, with a railing on the outer sides. */
+    private fun Pen.bridge(left: Boolean, right: Boolean) {
+        val x0 = if (left) 3 else 0
+        val x1 = if (right) T - 4 else T - 1
+        for (y in 0 until T) {
+            val c = if (y % 6 == 5) Pal.WOOD_DARK else if (y % 6 == 0) Pal.WOOD_LIGHT else Pal.WOOD
+            for (x in x0..x1) raw(x, y, c)
+            if (y % 6 == 2) { raw(x0 + 3, y, Pal.WOOD_DARK); raw(x1 - 3, y, Pal.WOOD_DARK) } // nails
+        }
+        if (left) { rect(0, 0, 2, T - 1, Pal.WOOD_DARK); rect(0, 0, 0, T - 1, Pal.OUTLINE); for (y in 4 until T step 10) rect(0, y, 3, y + 2, argb(0x4A2E18)) }
+        if (right) { rect(T - 3, 0, T - 1, T - 1, Pal.WOOD_DARK); rect(T - 1, 0, T - 1, T - 1, Pal.OUTLINE); for (y in 4 until T step 10) rect(T - 4, y, T - 1, y + 2, argb(0x4A2E18)) }
+    }
+
+    private val SOIL = argb(0x6E4A2C); private val SOIL_D = argb(0x50341E); private val SOIL_L = argb(0x8A6038)
+    private val WHEAT = argb(0xE0C060); private val WHEAT_D = argb(0xB89838); private val WHEAT_L = argb(0xF4E098)
+
+    /** Ripe grain, dense and golden, with a few darker furrows. */
+    private fun Pen.field(seed: Int) {
+        fill(WHEAT_D)
+        for (y in 0 until T) for (x in 0 until T) {
+            val n = noise(x, y, 70 + seed) % 10
+            raw(x, y, if (n < 5) WHEAT else if (n < 7) WHEAT_D else if (n < 8) WHEAT_L else mix(WHEAT, WHEAT_D, 0.5))
+        }
+        // furrows
+        for (y in listOf(10, 21)) for (x in 0 until T) raw(x, y, mix(WHEAT_D, SOIL, 0.5))
+        // ears of grain sticking out
+        for (i in 0 until 14) {
+            val x = noise(i, seed, 72) % T; val y = 2 + noise(seed, i, 73) % (T - 4)
+            raw(x, y, WHEAT_L); raw(x, y + 1, WHEAT_L); raw(x, y + 2, WHEAT_D)
+        }
+    }
+
+    /** A vegetable bed: dark soil with cabbages and carrot tops. */
+    private fun Pen.vegBed(seed: Int) {
+        fill(SOIL)
+        for (y in 0 until T) for (x in 0 until T) if (noise(x, y, 80 + seed) % 7 == 0) raw(x, y, SOIL_L)
+        for (row in 0 until 3) for (col in 0 until 3) {
+            val cx = 6 + col * 10 + (row % 2) * 2
+            val cy = 6 + row * 10
+            if ((row + col + seed) % 2 == 0) {
+                ellipse(cx.toDouble(), cy.toDouble(), 4.0, 3.5, argb(0x6AAE4A)); ellipse(cx.toDouble(), cy - 1.0, 2.5, 2.0, argb(0x9AD86E)); raw(cx, cy - 1, argb(0xC8F0A0))
+            } else {
+                for (k in -2..2) { raw(cx + k, cy - 2 - kotlin.math.abs(k), G_D); raw(cx + k, cy - 1, G) }
+                raw(cx, cy + 1, argb(0xF08A2C)); raw(cx + 1, cy + 1, argb(0xF08A2C))
+            }
         }
     }
 
@@ -479,6 +559,15 @@ object WorldArt {
                 Tile.LAMP -> out += Obj(cached("lamp", T, 56) { lamp() }, px, py - 24, bottom)
                 Tile.BARREL -> out += Obj(cached("barrel", T, 36) { barrel() }, px, py - 4, bottom)
                 Tile.BENCH -> out += Obj(cached("bench", T, T) { bench() }, px, py, bottom)
+                Tile.FENCE -> {
+                    fun f(dx: Int, dy: Int) = map.tile(tx + dx, ty + dy) == Tile.FENCE
+                    out += Obj(cached("fence${f(-1, 0)}${f(1, 0)}${f(0, -1)}${f(0, 1)}", T, 40) { fence(f(-1, 0), f(1, 0), f(0, -1), f(0, 1)) }, px, py - 8, bottom)
+                }
+                Tile.HAY -> out += Obj(cached("hay$seed", T, 36) { hay(seed) }, px, py - 4, bottom)
+                Tile.WASHLINE -> {
+                    fun w(dx: Int) = map.tile(tx + dx, ty) == Tile.WASHLINE
+                    out += Obj(cached("washline${w(-1)}${w(1)}$seed", T, 48) { washline(w(-1), w(1), seed) }, px, py - 16, bottom)
+                }
                 else -> {}
             }
         }
@@ -1065,6 +1154,53 @@ object WorldArt {
         for (y in listOf(14, 27)) for (x in 7..25) if (kotlin.math.abs(x - 16) < 9.5) raw(x, y, Pal.IRON)
         for (x in 9..23 step 4) for (y in 11..31) if (raw2(x, y)) raw(x, y, argb(0x7A4C28))
         ellipse(16.0, 10.5, 8.0, 3.0, argb(0x8A5A30)); ellipse(16.0, 10.5, 6.0, 2.0, argb(0x6A4222))
+        outline(Pal.OUTLINE)
+    }
+
+    /** A wooden fence that joins its neighbours (32×40). */
+    private fun Pen.fence(left: Boolean, right: Boolean, up: Boolean, down: Boolean) {
+        val post = Pal.WOOD_DARK; val rail = Pal.WOOD
+        val horizontal = left || right || !(up || down)
+        if (horizontal) {
+            val x0 = if (left) 0 else 12; val x1 = if (right) T - 1 else 19
+            for (y in listOf(16, 26)) { rect(x0, y, x1, y + 2, rail); rect(x0, y, x1, y, Pal.WOOD_LIGHT) }
+        }
+        if (up || down) {
+            val y0 = if (up) 0 else 12; val y1 = if (down) 39 else 30
+            rect(14, y0, 17, y1, rail); rect(14, y0, 14, y1, Pal.WOOD_LIGHT)
+        }
+        // post in the middle
+        rect(13, 10, 18, 34, post); rect(13, 10, 18, 11, Pal.WOOD_LIGHT)
+        blendEllipse(16.0, 36.0, 8.0, 2.0, SHADOW)
+        outline(Pal.OUTLINE)
+    }
+
+    /** A round bale of hay (32×36). */
+    private fun Pen.hay(seed: Int) {
+        blendEllipse(16.0, 33.0, 13.0, 3.0, SHADOW)
+        ball(16.0, 20.0, 13.0, 11.0, WHEAT, WHEAT_L, WHEAT_D)
+        for (y in 12..30 step 3) for (x in 4..28) if (noise(x, y, 90 + seed) % 4 == 0 && img.opaque(x, y)) raw(x, y, WHEAT_D)
+        ellipse(22.0, 20.0, 5.0, 8.0, mix(WHEAT, WHEAT_D, 0.4))
+        for (r in 1..4) for (a in 0 until 12) {
+            val ang = a * Math.PI / 6
+            val x = (22 + kotlin.math.cos(ang) * r * 1.1).toInt(); val y = (20 + kotlin.math.sin(ang) * r * 1.8).toInt()
+            if (r % 2 == 0) raw(x, y, WHEAT_D)
+        }
+        outline(Pal.OUTLINE)
+    }
+
+    /** A washing line between two posts, with laundry (32×48). */
+    private fun Pen.washline(left: Boolean, right: Boolean, seed: Int) {
+        if (!left) { rect(3, 8, 5, 44, Pal.WOOD_DARK); blendEllipse(4.0, 45.0, 4.0, 1.5, SHADOW) }
+        if (!right) { rect(T - 6, 8, T - 4, 44, Pal.WOOD_DARK); blendEllipse(T - 5.0, 45.0, 4.0, 1.5, SHADOW) }
+        val x0 = if (left) 0 else 4; val x1 = if (right) T - 1 else T - 5
+        for (x in x0..x1) raw(x, 10 + (if (x in 8..24) 1 else 0), argb(0xE8E8E8))
+        val colors = listOf(Pal.WHITE, argb(0x6A9AE0), argb(0xE07A6A), argb(0xF0D070), argb(0x8AC07A))
+        // a shirt and a sheet
+        val c1 = colors[seed % colors.size]; val c2 = colors[(seed + 2) % colors.size]
+        rect(8, 12, 15, 24, c1); rect(6, 12, 17, 15, c1); rect(8, 12, 15, 12, mix(c1, Pal.WHITE, 0.4))
+        rect(19, 12, 26, 28, c2); for (y in 13..28 step 4) rect(19, y, 26, y, mix(c2, Pal.BLACK, 0.12))
+        raw(10, 11, Pal.WOOD); raw(14, 11, Pal.WOOD); raw(20, 11, Pal.WOOD); raw(25, 11, Pal.WOOD)
         outline(Pal.OUTLINE)
     }
 

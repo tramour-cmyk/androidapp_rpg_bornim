@@ -37,6 +37,12 @@ enum class Tile(val ch: Char, val walkable: Boolean) {
     LAMP('l', false),
     BARREL('b', false),
     BENCH('n', false),
+    BRIDGE('h', true),
+    FENCE('x', false),
+    CROPS('c', false),
+    VEG_BED('v', false),
+    HAY('y', false),
+    WASHLINE('q', false),
     ;
 
     companion object {

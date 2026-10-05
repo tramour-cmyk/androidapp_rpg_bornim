@@ -703,6 +703,30 @@ private fun DrawScope.drawCritters(
                 px(fx - 1, fy + wing, 2f, 1f, brown); px(fx + 2, fy + wing, 2f, 1f, brown)
             }
         }
+        // Chickens scratching around the hay bales
+        for (ty in ty0..ty1) for (tx in tx0..tx1) {
+            if (map.tile(tx, ty) != Tile.HAY) continue
+            for (k in 0 until 3) {
+                val seed = hash(tx, ty, 20 + k) % 1000
+                val t = clock / 2600f + seed
+                // slow wandering on a little loop beside the bale, pecking now and then
+                val cx = tx * T + 16f + kotlin.math.sin(t * 0.9f + k * 2.1f) * 26f + (if (k == 1) -30f else 0f)
+                val cy = ty * T + 28f + kotlin.math.cos(t * 0.7f + k) * 8f
+                val faceLeft = kotlin.math.cos(t * 0.9f + k * 2.1f) < 0
+                val peck = (clock / 180 + seed) % 11 < 2
+                val dir = if (faceLeft) -1f else 1f
+                val white = Color(0xFFF4F0E8); val shade = Color(0xFFC8C0B0)
+                px(cx - 3, cy - 4, 6f, 4f, white)
+                px(cx - 3, cy - 1, 6f, 1f, shade)
+                px(cx - 3 * dir - (if (faceLeft) 1 else 0), cy - 4, 1f, 2f, shade) // tail
+                val hx = cx + 3 * dir - (if (faceLeft) 1 else 0)
+                val hy = if (peck) cy - 3 else cy - 6
+                px(hx, hy, 2f, 2f, white)
+                px(hx, hy - 1, 1f, 1f, Color(0xFFD83030)) // comb
+                px(hx + dir * 2 - (if (faceLeft) 1 else 0), hy + 1, 1f, 1f, Color(0xFFE8A020)) // beak
+                px(cx - 1, cy, 1f, 1f, Color(0xFFE8A020)); px(cx + 1, cy, 1f, 1f, Color(0xFFE8A020)) // legs
+            }
+        }
         // Leaves drifting through the forest
         if (map.kind == MapKind.FOREST) for (k in 0 until 7) {
             val sx = (hash(k, 11) % 1000) / 1000f * viewW

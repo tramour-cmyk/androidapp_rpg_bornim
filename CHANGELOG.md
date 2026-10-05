@@ -4,6 +4,16 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – ein schöneres Bornim (Teil 2)**
+- **Ein Bach** fließt durch den Süden des Dorfs, mit runden Ufern und einer Holzbrücke an der Hauptstraße. Er ersetzt den eckigen Teich; Greta angelt jetzt am Bach.
+- **Südlicher Dorfrand:** eingezäunter Gemüsegarten mit Kohl und Möhren, ein goldenes Getreidefeld, Heuballen und **Hühner**, die um die Ballen scharren.
+- **Wäscheleine** mit bunter Wäsche bei Gretas Haus.
+- **Zwei neue Bewohner:** Bauer Ludwig an seinem Feld und Lene an der Wäscheleine, jeweils mit eigenen Sätzen vor und nach dem Ende von Kapitel 1.
+- Felder, Beete, Heuballen und Wäsche lassen sich ansehen.
+- Wasser hat jetzt überall runde Ufer statt eckiger Kanten (auch im Wald).
+
+## v0.1.22 – 05.10.2026, 18:41
+
 **Neu – ein schöneres Bornim (Teil 1)**
 - **Größeres Dorf** (36 × 28 statt 24 × 20 Felder) mit gepflastertem **Dorfplatz**: Brunnen in der Mitte, vier Marktstände (Obst, Stoffe, Kräuter), Bänke und Laternen, die nachts leuchten.
 - **Verschiedene Häuser:** rote Ziegel, blauer und grauer Schiefer, Stroh oder Holzschindeln; Fachwerk, Naturstein oder Holzbretter; Fensterläden in verschiedenen Farben, Brennholz an der Wand, Schornsteine mal links, mal rechts.

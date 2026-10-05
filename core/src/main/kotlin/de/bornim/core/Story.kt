@@ -52,6 +52,8 @@ object Story {
     private val jorin = T("Wache Jorin", "Guard Jorin")
     private val finn = T("Finn", "Finn")
     private val greta = T("Greta", "Greta")
+    private val ludwig = T("Bauer Ludwig", "Farmer Ludwig")
+    private val lene = T("Lene", "Lene")
     private val wilhelm = T("Jäger Wilhelm", "Hunter William")
     private val krogg = T("Krogg", "Krogg")
     private val grak = T("Grak", "Grak")
@@ -95,7 +97,7 @@ object Story {
             "T....==========================....T",
             "T.f...........f..==...f.......T..f.T",
             "T........T.......==.......T........T",
-            "T...........looooooooool...........T",
+            "T.......qqq.looooooooool...........T",
             "T..^^^^.....oommoooommoo.....^^^^..T",
             "T..^^^^.....oooooooooooo.....#D#W..T",
             "T..W#D#.....ooooowoooooo========...T",
@@ -108,9 +110,13 @@ object Story {
             "T....=.....^^^^..==.........=....f.T",
             "T....=.....W#D#..==.........=......T",
             "T....==========================....T",
-            "T.~~~~~............................T",
-            "TT~~~~~..f....T......fT.......f...TT",
-            "TT~~~~~..........................TTT",
+            "T..f..........T..==...T....f....T..T",
+            "~~~~~~~~~~~......==...~~~~~~~~~~~~~~",
+            "~~~~~~~~~~~~~~~~~hh~~~~~~~~~~~~~~~~~",
+            "T..........~~~~~~hh~~~.............T",
+            "T..xxxxxxx===========............y.T",
+            "T..xvvvvvx..f........ccccccccccc.y.T",
+            "TT.xvvvvvx.y...f....fccccccccccc..TT",
             "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
         ),
         warps = listOf(
@@ -163,7 +169,23 @@ object Story {
                     say(finn, "Wenn ich groß bin, werde ich auch ein Held! Genau wie du!", "When I grow up I'll be a hero too! Just like you!")
                 }
             },
-            Npc("greta", 8, 25, "villager", Facing.LEFT, wander = 2) { s ->
+            Npc("ludwig", 20, 29, "farmer", Facing.DOWN, wander = 1) { s ->
+                if (!s.has(CHAPTER1_DONE)) script {
+                    say(ludwig, "Das Korn steht gut dieses Jahr. Wenn nur die Wölfe nicht wären – letzte Woche haben sie mir zwei Hühner geholt.", "The grain is doing well this year. If only it weren't for the wolves – last week they took two of my hens.")
+                    say(ludwig, "Wenn du im Wald Fleisch erbeutest: Am Lagerfeuer gebraten schmeckt es am besten. Und es macht stark!", "If you get meat in the forest: roasted at a campfire it tastes best. And it makes you strong!")
+                } else script {
+                    say(ludwig, "Seit die Goblins fort sind, schlafen sogar meine Hühner wieder ruhig.", "Since the goblins are gone, even my hens sleep soundly again.")
+                }
+            },
+            Npc("lene", 8, 10, "maid", Facing.DOWN, wander = 1) { s ->
+                if (!s.has(CHAPTER1_DONE)) script {
+                    say(lene, "Bei dem Wetter trocknet die Wäsche im Nu. Hast du schon Tildas neue Ware gesehen?", "In this weather the laundry dries in no time. Have you seen Tilda's new goods yet?")
+                    say(lene, "Auf dem Markt am Brunnen gibt es frisches Obst. Und die Kräuterstände riechen herrlich.", "There's fresh fruit at the market by the well. And the herb stalls smell wonderful.")
+                } else script {
+                    say(lene, "Ganz Bornim spricht von dir! Ich habe gehört, du hast Grak mit bloßen Händen besiegt.", "All of Bornim is talking about you! I heard you beat Grak with your bare hands.")
+                }
+            },
+            Npc("greta", 8, 24, "villager", Facing.DOWN, wander = 2) { s ->
                 if (!s.has(CHAPTER1_DONE)) script {
                     say(greta, "Früher konnte man nachts in Ruhe fischen. Jetzt heulen die Wölfe bis zum Morgengrauen.", "We used to fish here in peace at night. Now the wolves howl until dawn.")
                 } else script {

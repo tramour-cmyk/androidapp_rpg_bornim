@@ -326,8 +326,11 @@ fun main() {
         Triple("60_village_square", Place("village", 18, 10, Facing.DOWN), 10 * 60),
         Triple("60_village_south", Place("village", 17, 21, Facing.DOWN), 10 * 60),
         Triple("60_village_night", Place("village", 18, 10, Facing.DOWN), 22 * 60),
+        Triple("61_village_brook", Place("village", 17, 25, Facing.DOWN), 11 * 60),
+        Triple("61_village_farm", Place("village", 26, 27, Facing.DOWN), 11 * 60),
+        Triple("61_village_wash", Place("village", 8, 13, Facing.UP), 11 * 60),
     )) {
-        shot(name) { vm ->
+        shot(name, lastFrames = 45) { vm ->
             vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
             val g = vm.game!!
             g.skipDialogs()
