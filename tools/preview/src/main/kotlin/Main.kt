@@ -205,6 +205,13 @@ fun main() {
         vm.refresh()
     }
     val cave = Place("cave", 10, 20, Facing.UP)
+    val packSeed = (1..200).first { Monsters.packSize(Monsters["kobold"], MonsterLook(it)) == 2 }
+    val woods = Place("forest", 10, 20, Facing.UP)
+    shot("39_pack") { fight(it, "kobold", woods, seed = packSeed) }
+    for ((i, f) in listOf(5, 9).withIndex()) {
+        // tap through the messages until a pack mate jabs
+        shot("39_pack_jab_$i", taps = List(3) { msgBox } + listOf(Offset(270f, 2010f)) + List(2) { msgBox }, lastFrames = f) { fight(it, "kobold", woods, seed = packSeed) }
+    }
     shot("33_status") { vm ->
         fight(vm, "giant_spider", cave, EliteTrait.VENOMOUS)
         val b = (vm.game!!.mode as Mode.Fight).battle

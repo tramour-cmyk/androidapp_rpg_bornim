@@ -36,6 +36,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     private val queue = ArrayDeque<Cmd>()
 
+    /** Short messages for the app to show as a toast. */
+    val notices = ArrayDeque<T>()
+
     /** Sound effects triggered by the last actions; the app plays and clears them. */
     val sounds = ArrayDeque<de.bornim.core.audio.Sound>()
     private var battleFromScript: Cmd.Fight? = null
@@ -213,7 +216,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
         val enc = map.encounters ?: return
         // Rarely, something hidden in the grass or the dark jumps out.
-        if (map.tile(p.x, p.y) in enc.tiles && dice.chance(enc.rate)) {
+        if (map.tile(p.x, p.y) in enc.tiles && !map.safe(p.x, p.y) && dice.chance(enc.rate)) {
             startBattle(dice.weighted(enc.table), null, opening = Opening.AMBUSHED)
         }
     }
@@ -235,7 +238,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             if (map.tile(x, y) !in enc.tiles || !map.walkable(x, y, state) || map.warpAt(x, y) != null) continue
             if (kotlin.math.abs(x - p.x) + kotlin.math.abs(y - p.y) < 7) continue
             if (list.any { kotlin.math.abs(it.x - x) + kotlin.math.abs(it.y - y) < 3 }) continue
-            if (map.triggers.any { it.x == x && it.y == y }) continue
+            if (map.triggers.any { it.x == x && it.y == y } || map.safe(x, y)) continue
             spots += x to y
         }
         if (spots.isEmpty()) return null
@@ -270,39 +273,55 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val p = state.place
         val strongHero = hero.level >= map.areaLevel + 5
         var moved = false
+        val heroSafe = map.safeZones.firstOrNull { it.contains(p.x, p.y) }
         for (r in herd) {
             if (now < r.nextMoveAt) continue
             val dist = kotlin.math.abs(r.x - p.x) + kotlin.math.abs(r.y - p.y)
+            val fromHome = kotlin.math.abs(r.x - r.homeX) + kotlin.math.abs(r.y - r.homeY)
             val calm = now < r.calmUntil || now < peaceUntil
             // Weak monsters keep away from a far stronger hero; elites are never afraid.
             val afraid = strongHero && r.trait == null
+            val sees = heroSafe == null && dist <= (if (r.temper == Temper.LURKER) 2 else 4)
             when {
-                !calm && afraid && dist <= 4 -> {
+                !calm && afraid && dist <= 4 && heroSafe == null -> {
                     r.hunting = false
-                    stepRoamer(r, away = true, ms = 320)
+                    stepRoamer(r, away = true, ms = 360)
                 }
-                !calm && !afraid && r.temper != Temper.WANDERER && (r.hunting || dist <= (if (r.temper == Temper.LURKER) 2 else 5)) -> {
-                    if (!r.hunting) {
-                        r.hunting = true
-                        r.alertUntil = now + 800
-                        r.nextMoveAt = now + 450
-                        sounds += de.bornim.core.audio.Sound.ALERT
-                        moved = true
-                        continue
+                r.hunting -> {
+                    when {
+                        // The hero reached a safe place, got away, or lured it too far from home.
+                        heroSafe != null || calm || dist > 7 || fromHome > 9 -> {
+                            r.hunting = false
+                            r.returning = true
+                            if (heroSafe?.notice != null && dist <= 7) notices += heroSafe.notice
+                            r.nextMoveAt = now + 600
+                        }
+                        dist == 1 -> {
+                            // Adjacent: attack. Coming from behind the hero is an ambush.
+                            val fromBehind = r.x - p.x == -p.facing.dx && r.y - p.y == -p.facing.dy
+                            r.facing = Facing.entries.first { it.dx == p.x - r.x && it.dy == p.y - r.y }
+                            engage(r, if (fromBehind) Opening.AMBUSHED else Opening.NORMAL)
+                            return
+                        }
+                        else -> stepTowards(r, p.x, p.y, away = false, ms = if (r.monster == "zombie" || r.monster == "ochre_jelly") 560 else 380)
                     }
-                    if (dist > 9) {
-                        r.hunting = false
-                    } else if (dist == 1) {
-                        // Adjacent: attack. Coming from behind the hero is an ambush.
-                        val fromBehind = r.x - p.x == -p.facing.dx && r.y - p.y == -p.facing.dy
-                        r.facing = Facing.entries.first { it.dx == p.x - r.x && it.dy == p.y - r.y }
-                        engage(r, if (fromBehind) Opening.AMBUSHED else Opening.NORMAL)
-                        return
+                }
+                !calm && !afraid && r.temper != Temper.WANDERER && sees && !r.returning -> {
+                    r.hunting = true
+                    r.alertUntil = now + 800
+                    r.nextMoveAt = now + 500
+                    sounds += de.bornim.core.audio.Sound.ALERT
+                }
+                r.returning -> {
+                    if (fromHome <= 1) {
+                        r.returning = false
+                        r.nextMoveAt = now + 800
                     } else {
-                        stepRoamer(r, away = false, ms = if (r.monster == "zombie" || r.monster == "ochre_jelly") 520 else 300)
+                        stepTowards(r, r.homeX, r.homeY, away = false, ms = 420)
+                        r.nextMoveAt = now + 520
                     }
                 }
-                r.temper == Temper.LURKER && !r.hunting -> r.nextMoveAt = now + 1000
+                r.temper == Temper.LURKER -> r.nextMoveAt = now + 1000
                 else -> wander(r)
             }
             moved = true
@@ -325,11 +344,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         r.nextMoveAt = now + 900 + roamRandom.nextInt(1600)
     }
 
-    /** One step towards (or away from) the hero along the better axis, trying the other one if blocked. */
-    private fun stepRoamer(r: Roamer, away: Boolean, ms: Long) {
-        val p = state.place
-        val dx = (p.x - r.x).let { if (away) -it else it }
-        val dy = (p.y - r.y).let { if (away) -it else it }
+    private fun stepRoamer(r: Roamer, away: Boolean, ms: Long) = stepTowards(r, state.place.x, state.place.y, away, ms)
+
+    /** One step towards (or away from) a tile along the better axis, trying the other one if blocked. */
+    private fun stepTowards(r: Roamer, tx: Int, ty: Int, away: Boolean, ms: Long) {
+        val dx = (tx - r.x).let { if (away) -it else it }
+        val dy = (ty - r.y).let { if (away) -it else it }
         val h = if (dx > 0) Facing.RIGHT else Facing.LEFT
         val v = if (dy > 0) Facing.DOWN else Facing.UP
         val order = if (kotlin.math.abs(dx) >= kotlin.math.abs(dy)) listOf(h, v) else listOf(v, h)
@@ -341,7 +361,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     private fun moveRoamer(r: Roamer, d: Facing, ms: Long): Boolean {
         val nx = r.x + d.dx; val ny = r.y + d.dy
         val p = state.place
-        if (!free(nx, ny) || map.warpAt(nx, ny) != null || (nx == p.x && ny == p.y)) return false
+        if (!free(nx, ny) || map.warpAt(nx, ny) != null || (nx == p.x && ny == p.y) || map.safe(nx, ny)) return false
         if (map.tile(nx, ny) == Tile.DOOR || map.tile(nx, ny) == Tile.GATE) return false
         r.fromX = r.x; r.fromY = r.y
         r.x = nx; r.y = ny

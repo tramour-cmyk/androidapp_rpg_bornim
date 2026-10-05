@@ -44,6 +44,8 @@ class Roamer(
     /** Shows a "!" above the monster until this time. */
     var alertUntil = 0L
     var hunting = false
+    /** Walking back to its home after giving up the chase. */
+    var returning = false
     /** Ignores the hero until this time (after the hero fled). */
     var calmUntil = 0L
 

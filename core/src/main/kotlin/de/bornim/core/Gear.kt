@@ -160,7 +160,15 @@ data class Gear(
     /** "Episch · Langschwert" – rarity and base type, shown under the name. */
     fun subtitle(lang: Lang): String {
         val plusText = if (plus > 0) " +$plus" else ""
-        return "${rarity.title(lang).replaceFirstChar { it.uppercase() }} · ${def.name(lang)}$plusText"
+        return "${rarity.title(lang).replaceFirstChar { it.uppercase() }} · ${def.name(lang)}$plusText" + (hands(lang)?.let { " · $it" } ?: "")
+    }
+
+    /** "Zweihändig", "Einhändig" or "Nebenhand", so it is clear how many hands an item takes. */
+    fun hands(lang: Lang): String? = when {
+        def.isWeapon && def.twoHanded -> if (lang == Lang.DE) "Zweihändig" else "Two-handed"
+        def.isWeapon -> if (lang == Lang.DE) "Einhändig" else "One-handed"
+        def.slot == GearSlot.OFF_HAND -> if (lang == Lang.DE) "Nebenhand" else "Off hand"
+        else -> null
     }
 
     val price: Int

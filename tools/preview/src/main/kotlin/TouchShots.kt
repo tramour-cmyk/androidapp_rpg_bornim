@@ -117,5 +117,15 @@ fun touchShots() {
         g.state.place = Place("forest", 10, 20, Facing.UP)
         g.cheatRain()
     }) { frames(30) }
+    // A kobold pack on the map
+    touchShot("40_pack_map", setup = { vm ->
+        val g = vm.game!!
+        g.state.place = Place("forest", 10, 20, Facing.UP)
+        val r = g.roamers.first()
+        val pack = de.bornim.core.Roamer(500, "kobold", 8, 18, 8, 18, null, false, de.bornim.core.MonsterLook((1..200).first { de.bornim.core.Monsters.packSize(de.bornim.core.Monsters["kobold"], de.bornim.core.MonsterLook(it)) == 2 }))
+        (g.roamers as MutableList).add(pack)
+        pack.calmUntil = Long.MAX_VALUE
+        r.x = 0; r.y = 0
+    }) { frames(12) }
     touchShot("30_classic", touch = false, setup = { it.game!!.state.place = village }) { frames(10) }
 }

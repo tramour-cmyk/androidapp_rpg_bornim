@@ -81,4 +81,27 @@ class StatusTest {
             assertFalse(steps.any { it.text.contains("ist betäubt und kann nicht") && it.text.startsWith("T ") }, "elf stunned by ghoul")
         }
     }
+
+    @Test
+    fun koboldPackJabsAndFleesWithItsLeader() {
+        var jabbed = false
+        var fled = false
+        for (seed in 0 until 20) {
+            val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+            s.hero.gainXp(Rules.xpForLevel[3])
+            s.hero.restoreFully()
+            val look = MonsterLook((1..200).first { Monsters.packSize(Monsters["kobold"], MonsterLook(it)) == 2 })
+            val b = Battle(s, Monsters["kobold"], Lang.DE, Dice(Random(seed)), 1, false, 1, look = look)
+            assertTrue(b.packSize == 2)
+            val steps = b.start().toMutableList()
+            while (b.outcome == Outcome.ONGOING) {
+                s.hero.restoreFully()
+                steps += b.act(Action.Attack)
+            }
+            if (steps.any { it.anim == Anim.PACK_ACT }) jabbed = true
+            if (b.outcome == Outcome.WON && steps.any { it.anim == Anim.PACK_FLEE } && b.packLeft == 0) fled = true
+        }
+        assertTrue(jabbed, "pack never jabbed")
+        assertTrue(fled, "pack never fled")
+    }
 }

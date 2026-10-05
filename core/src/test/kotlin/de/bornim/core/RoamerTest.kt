@@ -26,29 +26,61 @@ class RoamerTest {
         }
     }
 
+    /** A wolf whose home is right where it is put. */
+    private fun wolfAt(g: Game, x: Int, y: Int): Roamer {
+        val herd = g.roamers as MutableList<Roamer>
+        herd.clear()
+        return Roamer(99, "wolf", x, y, x, y, null, false, MonsterLook()).also { herd += it }
+    }
+
     @Test
     fun hunterFromBehindAmbushes() {
-        var ambushes = 0
-        for (seed in 1..10) {
-            val g = forestGame(seed)
-            val p = g.state.place
-            // a wolf right behind the hero, who looks up
-            val wolf = g.roamers.first()
-            g.roamers.drop(1).forEach { it.x = 0; it.y = 0 }
-            wolf.x = p.x; wolf.y = p.y + 2
-            val hunter = Roamer(99, "wolf", p.x, p.y + 1, p.x, p.y + 1, null, false, MonsterLook())
-            // drive the clock until something happens
-            var t = 0L
-            val start = g.roamers.first()
-            start.x = hunter.x; start.y = hunter.y
-            while (g.mode == Mode.Explore && t < 20_000) {
-                t += 100
-                g.updateRoamers(t)
-            }
-            val b = (g.mode as? Mode.Fight)?.battle ?: continue
-            if (b.opening == Opening.AMBUSHED) ambushes++
+        val g = forestGame()
+        val p = g.state.place // hero looks up
+        wolfAt(g, p.x, p.y + 3)
+        var t = 0L
+        while (g.mode == Mode.Explore && t < 20_000) {
+            t += 100
+            g.update(t)
         }
-        assertTrue(ambushes > 0, "never ambushed from behind")
+        val b = (g.mode as Mode.Fight).battle
+        assertEquals(Opening.AMBUSHED, b.opening)
+    }
+
+    @Test
+    fun huntersGiveUpInSafeZonesAndGoHome() {
+        val g = forestGame()
+        // hero stands at the hunter's camp; a wolf nearby must not attack
+        g.state.place = Place("forest", 12, 11, Facing.UP)
+        assertTrue(g.map.safe(12, 11))
+        val wolf = wolfAt(g, 12, 16)
+        wolf.hunting = true
+        var t = 0L
+        repeat(300) {
+            t += 100
+            g.update(t)
+            assertEquals(Mode.Explore, g.mode, "attacked in a safe zone")
+            assertTrue(!g.map.safe(wolf.x, wolf.y), "wolf entered the safe zone")
+        }
+        assertTrue(!wolf.hunting)
+        assertTrue(kotlin.math.abs(wolf.x - wolf.homeX) + kotlin.math.abs(wolf.y - wolf.homeY) <= 3, "wolf did not go home")
+        assertTrue(g.notices.isNotEmpty(), "no notice from the hunter")
+    }
+
+    @Test
+    fun huntersLeftBehindReturnHome() {
+        val g = forestGame()
+        val wolf = wolfAt(g, 6, 22)
+        // the wolf was lured far away, then loses the hero
+        wolf.x = 6; wolf.y = 12
+        wolf.hunting = true
+        g.state.place = Place("forest", 17, 4, Facing.UP)
+        var t = 0L
+        repeat(400) {
+            t += 100
+            g.update(t)
+        }
+        assertTrue(kotlin.math.abs(wolf.x - 6) + kotlin.math.abs(wolf.y - 22) <= 3, "wolf stayed at ${wolf.x},${wolf.y}")
     }
 
     @Test

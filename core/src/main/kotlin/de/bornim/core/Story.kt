@@ -383,6 +383,11 @@ object Story {
             ),
         ),
         areaLevel = 1,
+        safeZones = listOf(
+            SafeZone(12, 9, 4, T("Jäger Wilhelm schwenkt seine Fackel – die Biester weichen zurück!", "Hunter William waves his torch – the beasts back off!")),
+            SafeZone(10, 30, 3),
+            SafeZone(10, 1, 2),
+        ),
     )
 
     // ------------------------------------------------------------------ cave
@@ -457,6 +462,7 @@ object Story {
             roamers = 6,
         ),
         areaLevel = 3,
+        safeZones = listOf(SafeZone(10, 18, 2)),
         onEnter = { s ->
             if (s.has("cave_seen")) emptyList() else script {
                 narrate("Ein modriger Geruch schlägt dir entgegen. Irgendwo in der Tiefe tropft Wasser … und etwas lacht.", "A musty smell hits you. Somewhere in the depths, water drips... and something laughs.")

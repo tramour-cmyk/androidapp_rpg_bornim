@@ -179,6 +179,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 clock = ms
                 val modeBefore = game.mode
                 game.update(ms)
+                game.notices.removeFirstOrNull()?.let { vm.toast = it(game.lang) }
                 if (game.sounds.isNotEmpty() || game.mode != modeBefore) vm.refresh()
             }
         }
@@ -486,6 +487,14 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             val ry = ((r.fromY + (r.y - r.fromY) * t) * T).roundToInt()
             val img = MonsterArt.mapSprite(r.monster, r.look, ((clock / 240) % 4).toInt(), mirrored = r.facing == Facing.RIGHT)
             val foot = ry + T - 1
+            // A pack walks together: its mates trail just behind the leader.
+            val mates = de.bornim.core.Monsters.packSize(de.bornim.core.Monsters[r.monster], r.look)
+            for (i in 0 until mates) {
+                val mate = MonsterArt.mapSprite(r.monster, de.bornim.core.MonsterLook(r.look.seed + 101 * (i + 1)), ((clock / 240 + i + 1) % 4).toInt(), mirrored = r.facing == Facing.RIGHT)
+                val ox = if (i == 0) -11 else 11
+                val oy = if (i == 0) -7 else -9
+                sprites += Sprite((foot + oy).toFloat()) { put(mate, rx + T / 2 - mate.width / 2 + ox, foot + 1 + oy - mate.height) }
+            }
             sprites += Sprite(foot.toFloat()) {
                 val sx = rx + T / 2 - img.width / 2
                 val sy = foot + 1 - img.height

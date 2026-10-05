@@ -16,7 +16,7 @@ enum class MonsterSpecial {
     CHARGE,
     /** Stirge: a hit drains extra blood and heals the stirge. */
     BLOOD_DRAIN,
-    /** Kobold: always attacks with advantage, the rest of the pack lurks nearby. */
+    /** Kobold: comes with one or two pack mates that jab from behind until the leader falls. */
     PACK_TACTICS,
     /** Ghoul: a hit can paralyze (CON save, elves are immune); the ghoul then strikes again. */
     PARALYZE,
@@ -177,6 +177,9 @@ object Monsters {
             gender = Gender.F,
         ),
     )
+
+    /** Number of pack mates a pack monster brings along; fixed per look, so map and battle agree. */
+    fun packSize(m: MonsterDef, look: MonsterLook): Int = if (m.special == MonsterSpecial.PACK_TACTICS) 1 + look.pick(2, 50) else 0
 
     private val byId = all.associateBy { it.id }
     operator fun get(id: String): MonsterDef = byId[id] ?: error("Unknown monster $id")

@@ -58,6 +58,14 @@ data class Encounters(
     val night: List<Pair<String, Int>>? = null,
 )
 
+/**
+ * An area monsters will not enter: around camps and exits. A hunting monster that sees the hero
+ * reach it gives up and goes home; [notice] is shown when that happens.
+ */
+data class SafeZone(val x: Int, val y: Int, val radius: Int, val notice: T? = null) {
+    fun contains(px: Int, py: Int) = kotlin.math.abs(px - x) + kotlin.math.abs(py - y) <= radius
+}
+
 data class Trigger(val x: Int, val y: Int, val condition: (GameState) -> Boolean, val script: (GameState) -> List<Cmd>)
 
 class Npc(
@@ -87,7 +95,10 @@ class MapDef(
     val onEnter: (GameState) -> List<Cmd> = { emptyList() },
     /** Baseline monster and item level of this area. */
     val areaLevel: Int = 1,
+    val safeZones: List<SafeZone> = emptyList(),
 ) {
+    fun safe(x: Int, y: Int) = safeZones.any { it.contains(x, y) }
+
     val width = rows.first().length
     val height = rows.size
     val tiles: Array<Array<Tile>> = Array(height) { y ->

@@ -48,6 +48,7 @@ import de.bornim.core.ItemKind
 import de.bornim.core.Items
 import de.bornim.core.Lang
 import de.bornim.core.MapKind
+import de.bornim.core.MonsterLook
 import de.bornim.core.Outcome
 import de.bornim.core.Rules
 import de.bornim.core.Skill
@@ -78,6 +79,8 @@ private class BattleUi(val battle: Battle) {
     var enemyGone by mutableStateOf(false)
     var heroStatus by mutableStateOf<Map<de.bornim.core.Status, Int>>(emptyMap())
     var foeStatus by mutableStateOf<Map<de.bornim.core.Status, Int>>(emptyMap())
+    var pack by mutableIntStateOf(battle.packSize)
+    var packBefore by mutableIntStateOf(battle.packSize)
     var heroGone by mutableStateOf(false)
 
     init {
@@ -98,6 +101,8 @@ private class BattleUi(val battle: Battle) {
             enemyHp = s.enemyHp
             heroStatus = s.heroStatus
             foeStatus = s.foeStatus
+            packBefore = pack
+            pack = s.pack
             if (s.anim == Anim.ENEMY_FAINT) enemyGone = true
             if (s.anim == Anim.HERO_FAINT) heroGone = true
             animKey++
@@ -220,6 +225,27 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 else -> 0.dp
             }
             val enemyDy = if (a == Anim.ENEMY_ACT) (lunge * 16).dp else 0.dp
+            // Pack mates stand behind the leader, smaller, and jab when it is their turn.
+            val fleeing = a == Anim.PACK_FLEE && moving
+            val mateCount = if (fleeing) ui.packBefore else ui.pack
+            for (i in 0 until mateCount) {
+                val mateSize = monsterSize * 0.66f
+                val acting = a == Anim.PACK_ACT && step?.packActor == i && moving
+                val baseX = sceneW * BattleArt.ENEMY_X + (if (i == 0) (-86).dp else 56.dp)
+                val baseY = sceneH * BattleArt.ENEMY_Y - (if (i == 0) 20.dp else 30.dp)
+                Box(
+                    Modifier.offset(
+                        x = baseX - mateSize / 2 + (intro.value * 260).dp + (if (acting) -(lunge * 26).dp else 0.dp) + (if (fleeing) (t * 140).dp else 0.dp),
+                        y = baseY - mateSize * 0.94f + (if (acting) (lunge * 12).dp else 0.dp),
+                    )
+                ) {
+                    PixelImageView(
+                        MonsterArt.frame(battle.monster.id, MonsterLook(battle.look.seed + 101 * (i + 1)), if (acting) Pose.ATTACK else Pose.IDLE, idle + i + 1),
+                        mateSize, alpha = (if (fleeing) 1f - t else 1f) * enemyAlphaBase(a, ui.enemyGone, t),
+                    )
+                }
+            }
+
             val glow = battle.trait?.let { Color(it.color) }
             // Feet on the enemy platform
             Box(
@@ -490,6 +516,9 @@ private fun BagMenu(game: Game, lang: Lang, onPick: (String) -> Unit, onBack: ()
         }
     }
 }
+
+/** Mates stay while the leader fades out on its defeat (they flee with their own animation). */
+private fun enemyAlphaBase(a: Anim?, gone: Boolean, t: Float): Float = if (gone && a != Anim.ENEMY_FAINT && a != Anim.PACK_FLEE) 0f else 1f
 
 /** Pulsing glow in the elite's trait color behind the monster. */
 @Composable

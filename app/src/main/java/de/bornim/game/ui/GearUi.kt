@@ -68,6 +68,17 @@ fun GearIcon(g: Gear?, size: Dp, modifier: Modifier = Modifier) {
         contentAlignment = Alignment.Center,
     ) {
         if (g != null) PixelImageView(IconArt.get(g.def.icon), size * 0.78f)
+        // Two-handed weapons carry a small "2H" tag.
+        if (g != null && g.def.isWeapon && g.def.twoHanded) {
+            Box(
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(2.dp)
+                    .clip(RoundedCornerShape(3.dp))
+                    .background(Color(0xE0302838))
+                    .padding(horizontal = 2.dp)
+            ) { Txt("2H", size = (size.value / 5f).coerceIn(8f, 12f).sp, color = Color.White, bold = true) }
+        }
     }
 }
 
@@ -133,11 +144,25 @@ fun GearDetails(g: Gear, game: Game, lang: Lang) {
     Txt(g.subtitle(lang), size = 14.sp, color = rarityColor(g.rarity))
     Txt((if (de) "Gegenstandsstufe " else "Item level ") + g.ilvl + " · " + d.slot.title(lang) +
         (if (d.weight != Weight.NONE) " · " + d.weight.title(lang) else ""), size = 13.sp, color = Colors.textDim)
+    // What else has to come off when this is put on
+    val inBag = g in game.state.bag
+    val swapped = when {
+        !inBag -> null
+        d.isWeapon && d.twoHanded -> hero.item(GearSlot.OFF_HAND)?.takeIf { it.uid != hero.weapon?.uid }
+        d.slot == GearSlot.OFF_HAND -> hero.weapon?.takeIf { it.def.twoHanded }
+        else -> null
+    }
+    swapped?.let { Txt((if (de) "Beim Anlegen wird abgelegt: " else "Equipping removes: ") + it.name(lang), size = 13.sp, color = Colors.accent) }
     Spacer(Modifier.height(6.dp))
     // base numbers
     d.damage?.let { dmg ->
         val withPlus = dmg.copy(bonus = dmg.bonus + g.plus)
-        Txt("${Ui.damage(lang)}: ${withPlus.label(lang)} ${d.damageType.title(lang)}" + (if (d.twoHanded) (if (de) " · zweihändig" else " · two-handed") else ""), size = 16.sp, bold = true)
+        Txt("${Ui.damage(lang)}: ${withPlus.label(lang)} ${d.damageType.title(lang)}", size = 16.sp, bold = true)
+        Txt(
+            if (d.twoHanded) (if (de) "Zweihändig – belegt Haupt- und Nebenhand" else "Two-handed – takes main and off hand")
+            else (if (de) "Einhändig – Haupt- oder Nebenhand (zwei Waffen möglich)" else "One-handed – main or off hand (dual wielding possible)"),
+            size = 14.sp, bold = true, color = if (d.twoHanded) Colors.accent else Colors.textDim,
+        )
         if (g.plus > 0) Txt("${Ui.attack(lang)} +${g.plus}", size = 15.sp, bold = true)
         val traits = buildList {
             if (d.finesse) add(if (de) "Finesse" else "Finesse")
