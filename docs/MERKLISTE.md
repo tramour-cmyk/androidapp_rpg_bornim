@@ -1,6 +1,6 @@
 # Merkliste
 
-Ideen und Vorschläge aus der bisherigen Entwicklung, die noch **nicht umgesetzt** sind. Gesammelt, damit wir sie später prüfen, neu bewerten oder verwerfen können. Stand: 05.10.2026, 19:58 (Berliner Zeit).
+Ideen und Vorschläge aus der bisherigen Entwicklung, die noch **nicht umgesetzt** sind. Gesammelt, damit wir sie später prüfen, neu bewerten oder verwerfen können. Stand: 05.10.2026, 22:39 (Berliner Zeit).
 
 Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md).
 
@@ -43,9 +43,23 @@ Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md).
 
 ## Zutaten und Handwerk
 
-- **Handwerk:** Felle und Hauer verarbeiten, z. B. Lederrüstung verbessern (heute nur zum Verkaufen).
+- **Handwerk:** Felle und Hauer verarbeiten, z. B. Lederrüstung verbessern (heute nur zum Verkaufen). Siehe auch den Schmied unten.
 - **Fleisch an die Wirtin** im Gasthaus verkaufen (heute bei Thessa und Morwen).
 - **Kräuter wachsen am Morgen nach** statt schon um Mitternacht (Spielzeit).
+
+## Schmied Dorran
+
+Dorran wohnt heute nur hinter einer verschlossenen Tür („Er ist wohl in seiner Werkstatt“). Er bekommt eine eigene Schmiede im Dorf.
+
+- **Die Schmiede:** offene Werkstatt neben seinem Haus mit Esse, Amboss und Wassertrog. Funken fliegen, ab und zu hört man Hammerschläge. Abends glüht die Esse.
+- **Einstieg als kleine Quest:** Dorrans Esse ist kalt, weil ihm das Eisenerz ausgegangen ist. Goblins haben den Erzkarren auf der Waldstraße überfallen. Bringt man ihm Erz aus der Blutzahnhöhle (neue Zutat **Eisenerz**, liegt dort in Erzadern oder in Kisten), öffnet er die Schmiede.
+- **Aufwerten:** ein Ausrüstungsteil verbessern, z. B. Schaden oder Rüstungsklasse um eine Stufe, gegen Gold und Material (Eisenerz für Metall, Felle für Leder, Hauer und Giftdrüsen für besondere Werte). Pro Teil nur wenige Stufen, und immer nur bis zur Obergrenze des Kapitels, damit die Balance hält.
+- **Umschmieden:** eine einzelne Eigenschaft eines Gegenstands neu auswürfeln, z. B. „+1 Stärke“ gegen etwas anderes. Jedes weitere Umschmieden desselben Teils wird teurer.
+- **Zerlegen:** ungeliebte Ausrüstung in Material verwandeln statt zu verkaufen: Eisenstücke, Leder und ab „selten“ etwas **Glutstaub** für bessere Aufwertungen.
+- **Auftragsarbeit:** Mit genug Material schmiedet Dorran eine passende Waffe für die eigene Klasse. Sie ist am nächsten Spieltag fertig, dann holt man sie ab (nutzt die Tageszeit, die es schon gibt).
+- **Attribute:** Charisma senkt seine Preise wie beim Händler. Stärke könnte erlauben, selbst am Amboss mitzuhelfen und so etwas Material zu sparen.
+- **Bedienung:** wie Morwens Brauen ein eigener Reiter im Laden („Schmieden“), mit Material-Anzeige wie bei den Rezepten.
+- **Später (Kapitel 2):** Runen oder Sockel für Ausrüstung, seltene Erze aus neuen Gebieten, eine Belohnung von Dorran für eine größere Aufgabe.
 
 ## Balance – offene Beobachtungen
 
