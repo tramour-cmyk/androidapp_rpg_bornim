@@ -90,7 +90,7 @@ object Story {
         rows = listOf(
             "TTTTTTTTTTTTTTTTT==TTTTTTTTTTTTTTTTT",
             "TTT.......T.....x==x.....TT......TTT",
-            "TT.......T......xzzxS...T.........TT",
+            "TT.......T......xzzx.S..T.........TT",
             "T..^^^^^^........==.......^^^^^....T",
             "T..^^^^^^..^^^^..==..^^^..^^^^^....T",
             "T..#W#D#Wb.#D#W..==..#D#..W#D#Wb...T",
@@ -136,7 +136,7 @@ object Story {
             lockedDoor(13, 22, T("Hier wohnt Pim mit seinen Eltern. Die Tür ist verschlossen.", "Pim lives here with his parents. The door is locked.")),
         ),
         signs = mapOf(
-            (20 to 2) to T("Norden: Flüsterwald.\nAchtung, Goblins!", "North: Whisperwood.\nBeware of goblins!"),
+            (21 to 2) to T("Norden: Flüsterwald.\nAchtung, Goblins!", "North: Whisperwood.\nBeware of goblins!"),
             (7 to 6) to T("Gasthaus »Zum Schlafenden Greif«", "The Sleeping Griffin Inn"),
             (25 to 6) to T("Thessas Kramladen\nWaffen · Rüstungen · Tränke", "Thessa's General Store\nWeapons · Armor · Potions"),
         ),
