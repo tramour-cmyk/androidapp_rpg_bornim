@@ -2,6 +2,9 @@ name: Build APK
 
 on:
   push:
+    # Pure documentation changes need no new APK.
+    paths-ignore:
+      - "**.md"
   pull_request:
   workflow_dispatch:
 
@@ -51,8 +54,12 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # Release notes: the "Unveröffentlicht" section of CHANGELOG.md, else the commit message.
+          awk '/^## Unveröffentlicht/{on=1; next} /^## /{on=0} on' CHANGELOG.md > notes.md || true
+          if ! grep -q '[^[:space:]]' notes.md; then git log -1 --pretty=%B > notes.md; fi
+          echo -e "\n\n[Vollständige Änderungshistorie](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)" >> notes.md
           gh release create "v$VERSION_NAME" bornim.apk \
             --title "Bornim $VERSION_NAME" \
-            --notes "$(git log -1 --pretty=%B)" \
+            --notes-file notes.md \
             --target "$GITHUB_SHA" \
             --latest
