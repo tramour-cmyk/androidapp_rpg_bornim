@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.20 – 05.10.2026, 16:51
+
 **Geändert – Blumenwiesen und Heilkräuter**
 - **Echte Blumenwiesen:** Statt einzelner, kaum erkennbarer Felder gibt es im Flüsterwald drei und im Tiefen Flüsterwald fünf Wiesen aus 4–7 Feldern. Die Blüten sind dichter, größer und bunter, gut sichtbar auch auf dem Handy.
 - **Heilkräuter sieht man jetzt:** Wo Kräuter wachsen, steht eine hellgrüne Heilpflanze mit weißer Blüte (etwa auf jedem zweiten Wiesenfeld). Drüberlaufen pflückt sie, dann ist sie weg und wächst am nächsten Tag nach. Kein Glücksspiel mehr wie vorher (50 % Zufall pro Feld).
