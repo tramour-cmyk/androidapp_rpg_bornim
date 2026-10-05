@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.24 – 05.10.2026, 19:46
+
 **Neu – Sicherheitsabfragen**
 - **Wegwerfen** in der Tasche fragt nach und nennt, was ein Händler für den Gegenstand zahlen würde.
 - **„Gewöhnliche verkaufen“** im Laden fragt nach und zeigt alle betroffenen Gegenstände samt Gesamterlös.
