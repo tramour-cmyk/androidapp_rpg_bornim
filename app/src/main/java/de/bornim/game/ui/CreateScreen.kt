@@ -199,7 +199,7 @@ private fun <E> Choices(items: List<E>, selected: E, label: (E) -> String, onPic
         items.chunked(3).forEach { row ->
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 row.forEach { item ->
-                    PixelButton(label(item), Modifier.weight(1f), selected = item == selected, size = 15.sp) { onPick(item) }
+                    PixelButton(label(item), Modifier.weight(1f), selected = item == selected, size = 15.sp, marker = false) { onPick(item) }
                 }
                 repeat(3 - row.size) { Spacer(Modifier.weight(1f)) }
             }
