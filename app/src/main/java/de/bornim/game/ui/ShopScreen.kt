@@ -64,9 +64,9 @@ fun ShopScreen(vm: GameViewModel, game: Game, stock: List<String>, brewing: Bool
         }
         Spacer(Modifier.height(8.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            PixelButton(Ui.buy(lang), Modifier.weight(1f), selected = buying && !brewTab, marker = false) { buying = true; brewTab = false }
-            PixelButton(Ui.sell(lang), Modifier.weight(1f), selected = !buying && !brewTab, marker = false) { buying = false; brewTab = false }
-            if (brewing) PixelButton(if (de) "Brauen" else "Brew", Modifier.weight(1f), selected = brewTab, marker = false) { brewTab = true }
+            PixelButton(Ui.buy(lang), Modifier.weight(1f), selected = buying && !brewTab) { buying = true; brewTab = false }
+            PixelButton(Ui.sell(lang), Modifier.weight(1f), selected = !buying && !brewTab) { buying = false; brewTab = false }
+            if (brewing) PixelButton(if (de) "Brauen" else "Brew", Modifier.weight(1f), selected = brewTab) { brewTab = true }
         }
         Spacer(Modifier.height(8.dp))
         Panel(

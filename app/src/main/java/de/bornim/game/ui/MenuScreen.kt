@@ -67,7 +67,7 @@ fun MenuScreen(vm: GameViewModel, game: Game) {
             val tabs = Tab.entries.filter { it != Tab.TEST || vm.testMode }
             tabs.forEach { t ->
                 val badge = if (t == Tab.HERO && game.hero.unspentPoints > 0) " ★" else ""
-                PixelButton(labels.getValue(t)(lang) + badge, Modifier.weight(1f), selected = t == tab, size = if (tabs.size > 4) 11.sp else 13.sp, marker = false) { tab = t }
+                PixelButton(labels.getValue(t)(lang) + badge, Modifier.weight(1f), selected = t == tab, size = if (tabs.size > 4) 11.sp else 13.sp) { tab = t }
             }
         }
         Spacer(Modifier.height(8.dp))

@@ -146,8 +146,6 @@ fun PixelButton(
     enabled: Boolean = true,
     selected: Boolean = false,
     size: TextUnit = 18.sp,
-    /** Show ▶ in front of the label when selected (off for compact tabs). */
-    marker: Boolean = true,
     onClick: () -> Unit,
 ) {
     val click = LocalClick.current
@@ -170,7 +168,7 @@ fun PixelButton(
         contentAlignment = Alignment.Center,
     ) {
         Txt(
-            (if (selected && marker) "▶ " else "") + label,
+            label,
             size = size,
             color = if (enabled) Colors.text else Colors.textDim,
             bold = true,

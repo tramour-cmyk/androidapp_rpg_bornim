@@ -42,28 +42,28 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         Txt(t("Stufe", "Level") + ": ${h.level}   ·   " + t("Gold", "Gold") + ": ${game.state.gold}", size = 16.sp)
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             for (d in listOf(-5, -1, 1, 5)) {
-                PixelButton(if (d > 0) "+$d" else "$d", Modifier.weight(1f), size = 15.sp, marker = false) {
+                PixelButton(if (d > 0) "+$d" else "$d", Modifier.weight(1f), size = 15.sp) {
                     game.cheatLevel(h.level + d)
                     vm.refresh()
                 }
             }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            PixelButton("+1000 " + t("Gold", "gold"), Modifier.weight(1f), size = 14.sp, marker = false) {
+            PixelButton("+1000 " + t("Gold", "gold"), Modifier.weight(1f), size = 14.sp) {
                 game.cheatGold(1000)
                 vm.refresh()
             }
-            PixelButton(t("Heilen", "Heal"), Modifier.weight(1f), size = 14.sp, marker = false) {
+            PixelButton(t("Heilen", "Heal"), Modifier.weight(1f), size = 14.sp) {
                 game.cheatHeal()
                 vm.refresh()
             }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            PixelButton(t("Uhrzeit +3 h", "Time +3 h") + "  (%02d:%02d)".format(game.state.minutes / 60, game.state.minutes % 60), Modifier.weight(1f), size = 13.sp, marker = false) {
+            PixelButton(t("Uhrzeit +3 h", "Time +3 h") + "  (%02d:%02d)".format(game.state.minutes / 60, game.state.minutes % 60), Modifier.weight(1f), size = 13.sp) {
                 game.cheatTime(3)
                 vm.refresh()
             }
-            PixelButton(if (game.raining) t("Regen aus", "Rain off") else t("Regen an", "Rain on"), Modifier.weight(1f), size = 13.sp, marker = false) {
+            PixelButton(if (game.raining) t("Regen aus", "Rain off") else t("Regen an", "Rain on"), Modifier.weight(1f), size = 13.sp) {
                 game.cheatRain()
                 vm.refresh()
             }
@@ -83,7 +83,7 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
                 t("Höhle", "Cave") to Place("cave", 10, 18, Facing.UP),
             )
             for ((label, place) in places) {
-                PixelButton(label, Modifier.weight(1f), size = 14.sp, marker = false) {
+                PixelButton(label, Modifier.weight(1f), size = 14.sp) {
                     game.cheatWarp(place)
                     vm.menuOpen = false
                     vm.refresh()
@@ -108,7 +108,7 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             Monsters.all.chunked(2).forEach { pair ->
                 Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     pair.forEach { m ->
-                        PixelButton(m.name(lang) + if (m.boss) " ★" else "", Modifier.weight(1f), size = 13.sp, marker = false) {
+                        PixelButton(m.name(lang) + if (m.boss) " ★" else "", Modifier.weight(1f), size = 13.sp) {
                             val trait = if (variant in 1..6 && !m.boss) EliteTrait.entries[variant - 1] else null
                             vm.menuOpen = false
                             game.cheatFight(m.id, trait, variant == 7 && !m.boss)
@@ -125,7 +125,7 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         Rarity.entries.chunked(3).forEach { row ->
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 row.forEach { r ->
-                    PixelButton(r.title(lang), Modifier.weight(1f), size = 12.sp, marker = false) {
+                    PixelButton(r.title(lang), Modifier.weight(1f), size = 12.sp) {
                         val g = game.cheatLoot(r)
                         vm.refresh()
                         vm.toast = t("Erhalten: ", "Received: ") + g.name(lang)

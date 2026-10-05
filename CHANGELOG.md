@@ -5,7 +5,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 ## Unveröffentlicht
 
 **Behoben**
-- Im Laden brach der gewählte Reiter („▶ Verkaufen“) in zwei Zeilen um. Gewählte Reiter im Laden und bei der Charaktererstellung sind jetzt nur noch gelb hervorgehoben, ohne Pfeil davor.
+- Im Laden brach der gewählte Reiter („▶ Verkaufen“) in zwei Zeilen um. Der Pfeil vor gewählten Reitern und Knöpfen ist jetzt überall weg; die Auswahl zeigt einheitlich die gelbe Reiterfarbe.
 
 **Geändert – Zaun am Schlagbaum**
 - Statt eines langen Zauns quer durchs Dorf führt jetzt links und rechts vom Weg je ein kurzer Zaun vom Waldrand hinunter zum Schlagbaum. Der Norden des Dorfes bleibt offen.
