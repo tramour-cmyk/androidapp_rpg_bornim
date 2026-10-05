@@ -48,18 +48,18 @@ object Items {
         ItemDef("holy_water", T("Weihwasser", "Holy Water"), T("Wurfgeschoss, trifft immer. Gegen Untote doppelter Schaden.", "Thrown, always hits. Double damage against undead."),
             ItemKind.BOMB, 25, Icon.FLASK, damage = dice(2, 6), damageType = DamageType.RADIANT),
 
-        // Food and ingredients: sold, roasted at a campfire or brewed into potions by Hedda.
+        // Food and ingredients: sold, roasted at a campfire or brewed into potions by Morwen.
         ItemDef("raw_meat", T("Rohes Fleisch", "Raw Meat"), T("Am Lagerfeuer lässt es sich braten. Oder man verkauft es.", "Can be roasted at a campfire. Or sold."),
             ItemKind.INGREDIENT, 6, Icon.MEAT),
         ItemDef("roast_meat", T("Gebratenes Fleisch", "Roast Meat"), T("Stärkt für den nächsten Kampf: +1 auf Angriffe und Schaden.", "Fortifies for the next fight: +1 to attacks and damage."),
             ItemKind.FOOD, 16, Icon.ROAST, heal = dice(2, 4, 2)),
-        ItemDef("herbs", T("Heilkräuter", "Healing Herbs"), T("Wachsen auf Blumenwiesen in der Wildnis. Hedda braut daraus Tränke.", "Grow in wild flower meadows. Hedda brews potions from them."),
+        ItemDef("herbs", T("Heilkräuter", "Healing Herbs"), T("Wachsen auf Blumenwiesen in der Wildnis. Morwen braut daraus Tränke.", "Grow in wild flower meadows. Morwen brews potions from them."),
             ItemKind.INGREDIENT, 8, Icon.HERB),
         ItemDef("wolf_pelt", T("Wolfsfell", "Wolf Pelt"), T("Ein dichtes graues Fell. Händler zahlen gut dafür.", "A thick grey pelt. Traders pay well for it."),
             ItemKind.INGREDIENT, 24, Icon.PELT),
         ItemDef("boar_tusk", T("Keilerhauer", "Boar Tusk"), T("Ein gebogener Hauer. Händler zahlen gut dafür.", "A curved tusk. Traders pay well for it."),
             ItemKind.INGREDIENT, 20, Icon.TUSK),
-        ItemDef("spider_gland", T("Giftdrüse", "Venom Gland"), T("Aus einer Riesenspinne. Hedda kann daraus Alchemistenfeuer mischen.", "From a giant spider. Hedda can mix alchemist's fire from it."),
+        ItemDef("spider_gland", T("Giftdrüse", "Venom Gland"), T("Aus einer Riesenspinne. Morwen kann daraus Alchemistenfeuer mischen.", "From a giant spider. Morwen can mix alchemist's fire from it."),
             ItemKind.INGREDIENT, 30, Icon.GLAND),
         ItemDef("bat_wing", T("Fledermausflügel", "Bat Wing"), T("Ledrig und zäh. Eine Zutat für starke Heiltränke.", "Leathery and tough. An ingredient for strong healing potions."),
             ItemKind.INGREDIENT, 16, Icon.WING),

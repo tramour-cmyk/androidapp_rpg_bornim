@@ -30,7 +30,7 @@ object Perks {
     /** From INT 12 on the hero recognises a foe's weaknesses and resistances. */
     fun knowsWeaknesses(h: Hero): Boolean = mod(h, Ability.INT) >= 1
 
-    /** Chance per point that Hedda's brew yields an extra potion. */
+    /** Chance per point that Morwen's brew yields an extra potion. */
     fun extraBrewChance(h: Hero): Double = 0.10 * plus(h, Ability.INT)
 
     /** Experience factor: 3 % more per point. */

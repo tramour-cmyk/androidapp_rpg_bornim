@@ -25,7 +25,7 @@ Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md).
 
 ## Gruppe und Kampf
 
-- **Begleiter:** Lyra (Heilerin) oder Jäger Wilhelm als zweites Gruppenmitglied.
+- **Begleiter:** Lyra (Heilerin) oder Jäger Garrick als zweites Gruppenmitglied.
 - **Echte Gruppenkämpfe:** mehrere Gegner gleichzeitig mit Zielauswahl, eigenen Lebensbalken und Flächenzaubern gegen alle. Großer Umbau; die heutigen Rudel (Begleiter im Hintergrund) wären die Vorstufe.
 - **Weitere Zauber** ab Stufe 5 für alle Zauberklassen.
 - **Kleriker-Fähigkeit „Läutern“:** heilt Zustände.
@@ -38,13 +38,13 @@ Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md).
 - **Bewohner mit Tagesablauf:** Der Wirt fegt vor der Tür, die Wache dreht Runden, Läden haben nachts geschlossen.
 - **Monsterverhalten:** Goblins patrouillieren auf Wegen, Fledermäuse hängen an der Höhlendecke und stürzen herab.
 - **Wetter:** Nebel; Windgeräusche als weiterer Umgebungsklang.
-- **Nebenquests** über ein Anschlagbrett, z. B. „Bring 5 Wolfsfelle“ oder „Finde Gretas verlorenen Ring“.
+- **Nebenquests** über ein Anschlagbrett, z. B. „Bring 5 Wolfsfelle“ oder „Finde Gwennas verlorenen Ring“.
 - **Sammelbares und Verstecke:** geheime Truhen, rissige Wände.
 
 ## Zutaten und Handwerk
 
 - **Handwerk:** Felle und Hauer verarbeiten, z. B. Lederrüstung verbessern (heute nur zum Verkaufen).
-- **Fleisch an die Wirtin** im Gasthaus verkaufen (heute bei Tilda und Hedda).
+- **Fleisch an die Wirtin** im Gasthaus verkaufen (heute bei Thessa und Morwen).
 - **Kräuter wachsen am Morgen nach** statt schon um Mitternacht (Spielzeit).
 
 ## Balance – offene Beobachtungen

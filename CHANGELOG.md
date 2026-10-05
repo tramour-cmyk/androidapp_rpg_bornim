@@ -4,6 +4,14 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Geändert – Namen mit Fantasy-Klang**
+- Die Bewohner von Bornim tragen jetzt Namen, die besser in eine Fantasy-Welt passen:
+  - Wirtin Berta → **Rowena**, Händlerin Tilda → **Thessa** („Thessas Kramladen“), Bruder Odo → **Bruder Osric**
+  - Kräuterfrau Hedda → **Morwen**, Jäger Wilhelm → **Garrick**, Bauer Ludwig → **Bram**
+  - Greta → **Gwenna**, Lene → **Liska**, das Dorfkind Finn → **Pim**
+- Verschlossene Häuser: Bäcker Anton → **Edrik**, Schmied Bruno → **Dorran**; in der kleinen Hütte wohnt jetzt der **alte Kael**.
+- Aldric, Jorin, Borin, Lyra und die Bosse behalten ihre Namen. Spielstände bleiben gültig.
+
 ## v0.1.26 – 05.10.2026, 20:10
 
 **Neu – die Figur zeigt deine Ausrüstung**

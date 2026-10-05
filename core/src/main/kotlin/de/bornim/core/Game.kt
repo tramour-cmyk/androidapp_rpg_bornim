@@ -4,7 +4,7 @@ sealed interface Mode {
     data object Explore : Mode
     data class Dialog(val speaker: String?, val text: String) : Mode
     data class Fight(val battle: Battle) : Mode
-    /** A shop; [brewing] adds Hedda's potion brewing and leaves out Tilda's equipment. */
+    /** A shop; [brewing] adds Morwen's potion brewing and leaves out Thessa's equipment. */
     data class Shop(val stock: List<String>, val brewing: Boolean = false) : Mode
     data object ChapterEnd : Mode
 }
@@ -338,7 +338,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val roasted = T("Du brätst {0}× Fleisch über dem Feuer. Es duftet herrlich!", "You roast {0}× meat over the fire. It smells wonderful!")
         val ate = T("{0} isst {1}, heilt {2} TP und fühlt sich gestärkt für den nächsten Kampf.", "{0} eats {1}, recovers {2} HP and feels fortified for the next fight.")
         val alreadyFed = T("{0} ist noch satt von der letzten Mahlzeit.", "{0} is still full from the last meal.")
-        val brewed = T("Hedda braut dir: {0}.", "Hedda brews for you: {0}.")
+        val brewed = T("Morwen braut dir: {0}.", "Morwen brews for you: {0}.")
         val brewedTwo = T("Mit deinem Wissen holt ihr zwei Tränke heraus: 2× {0}.", "With your know-how you get two potions out of it: 2× {0}.")
         val missing = T("Dafür fehlen dir Zutaten oder Gold.", "You lack ingredients or gold for that.")
     }
@@ -870,7 +870,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     fun sellPrice(id: String): Int = Perks.sellPrice(hero, Items[id].price / 2)
 
-    /** Hedda brews [r] from the hero's ingredients and a little gold. */
+    /** Morwen brews [r] from the hero's ingredients and a little gold. */
     fun brew(r: Recipe): String {
         if (!r.affordable(state)) return Msgs.missing(lang)
         r.ingredients.forEach { (id, n) -> state.remove(id, n) }
@@ -888,7 +888,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         return Msgs.brewed.f(lang, Items[r.output].name(lang))
     }
 
-    /** Tilda's current gear stock, without the pieces already bought. */
+    /** Thessa's current gear stock, without the pieces already bought. */
     fun shopGear(): List<Gear> {
         val batch = state.battlesWon / 8
         return Loot.shopGear(state).filter { "$batch:${it.uid}" !in state.shopSold }

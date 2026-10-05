@@ -16,16 +16,16 @@ object Story {
     const val LYRA_RESCUED = "lyra_rescued"
     const val CHAPTER1_DONE = "chapter1_done"
     const val GRIMFANG_DEFEATED = "grimfang_defeated"
-    const val HEDDA_MET = "hedda_met"
+    const val HERBALIST_MET = "hedda_met"
     /** Never set: doors that stay locked. */
     const val LOCKED = "locked_forever"
     /** Set when chapter 2 begins; until then the hero cannot rise above [CHAPTER1_LEVEL_CAP]. */
     const val CHAPTER2_STARTED = "chapter2_started"
     const val CHAPTER1_LEVEL_CAP = 6
 
-    /** What Hedda sells; she also brews potions from ingredients. */
-    private val HEDDA_STOCK = listOf("potion", "greater_potion", "remedy", "holy_water")
-    private val HEDDA_HERBS = T(
+    /** What Morwen sells; she also brews potions from ingredients. */
+    private val HERBALIST_STOCK = listOf("potion", "greater_potion", "remedy", "holy_water")
+    private val HERBALIST_HERBS = T(
         "Auf den bunten Blumenwiesen im Wald wachsen Heilkräuter – achte auf die hellgrünen Pflanzen und lauf einfach darüber. Was du pflückst, wächst am nächsten Tag nach. Bring sie mir, dann braue ich dir Tränke für ein paar Münzen. Fledermausflügel und Giftdrüsen nehme ich auch.",
         "Healing herbs grow in the colourful flower meadows of the forest – look for the light green plants and just walk over them. What you pick grows back the next day. Bring them to me and I'll brew you potions for a few coins. I'll take bat wings and venom glands too.",
     )
@@ -43,23 +43,23 @@ object Story {
     val RESPAWN = Place("temple", 4, 4, Facing.UP)
 
     // Speakers
-    private val berta = T("Berta", "Berta")
+    private val rowena = T("Rowena", "Rowena")
     private val borin = T("Borin", "Borin")
     private val aldric = T("Ältester Aldric", "Elder Aldric")
-    private val tilda = T("Tilda", "Tilda")
-    private val odo = T("Bruder Odo", "Brother Odo")
+    private val thessa = T("Thessa", "Thessa")
+    private val osric = T("Bruder Osric", "Brother Osric")
     private val lyra = T("Lyra", "Lyra")
     private val jorin = T("Wache Jorin", "Guard Jorin")
-    private val finn = T("Finn", "Finn")
-    private val greta = T("Greta", "Greta")
-    private val ludwig = T("Bauer Ludwig", "Farmer Ludwig")
-    private val lene = T("Lene", "Lene")
-    private val wilhelm = T("Jäger Wilhelm", "Hunter William")
+    private val pim = T("Pim", "Pim")
+    private val gwenna = T("Gwenna", "Gwenna")
+    private val bram = T("Bauer Bram", "Farmer Bram")
+    private val liska = T("Liska", "Liska")
+    private val garrick = T("Jäger Garrick", "Hunter Garrick")
     private val krogg = T("Krogg", "Krogg")
     private val grak = T("Grak", "Grak")
-    private val hedda = T("Kräuterfrau Hedda", "Hedda the Herbalist")
+    private val morwen = T("Kräuterfrau Morwen", "Morwen the Herbalist")
 
-    /** Consumables sold by Tilda; her gear stock is generated (see [Loot.shopGear]). */
+    /** Consumables sold by Thessa; her gear stock is generated (see [Loot.shopGear]). */
     val shopStock = listOf("potion", "greater_potion", "superior_potion", "remedy", "alchemist_fire", "holy_water")
 
     /** Chest item resolved per class, so every hero finds a fitting weapon. */
@@ -127,16 +127,16 @@ object Story {
             Warp(5, 20, inside("elder")),
             Warp(28, 20, inside("temple")),
             // Homes of villagers: locked for now.
-            lockedDoor(12, 5, T("Hier wohnt Bäcker Anton. Es duftet nach frischem Brot, aber die Tür ist verschlossen.", "Anton the baker lives here. It smells of fresh bread, but the door is locked.")),
-            lockedDoor(22, 5, T("Eine kleine Hütte. Niemand öffnet.", "A small hut. Nobody answers.")),
-            lockedDoor(5, 14, T("Hier wohnt Greta mit ihrer Familie. Die Tür ist verschlossen.", "Greta lives here with her family. The door is locked.")),
-            lockedDoor(30, 13, T("Das Haus von Schmied Bruno. Er ist wohl in seiner Werkstatt.", "Bruno the smith's house. He must be at his workshop.")),
-            lockedDoor(13, 22, T("Hier wohnt Finn mit seinen Eltern. Die Tür ist verschlossen.", "Finn lives here with his parents. The door is locked.")),
+            lockedDoor(12, 5, T("Hier wohnt Bäcker Edrik. Es duftet nach frischem Brot, aber die Tür ist verschlossen.", "Edrik the baker lives here. It smells of fresh bread, but the door is locked.")),
+            lockedDoor(22, 5, T("Die Hütte des alten Kael. Niemand öffnet.", "Old Kael's hut. Nobody answers.")),
+            lockedDoor(5, 14, T("Hier wohnt Gwenna mit ihrer Familie. Die Tür ist verschlossen.", "Gwenna lives here with her family. The door is locked.")),
+            lockedDoor(30, 13, T("Das Haus von Schmied Dorran. Er ist wohl in seiner Werkstatt.", "Dorran the smith's house. He must be at his workshop.")),
+            lockedDoor(13, 22, T("Hier wohnt Pim mit seinen Eltern. Die Tür ist verschlossen.", "Pim lives here with his parents. The door is locked.")),
         ),
         signs = mapOf(
             (19 to 1) to T("Norden: Flüsterwald.\nAchtung, Goblins!", "North: Whisperwood.\nBeware of goblins!"),
             (7 to 6) to T("Gasthaus »Zum Schlafenden Greif«", "The Sleeping Griffin Inn"),
-            (25 to 6) to T("Tildas Kramladen\nWaffen · Rüstungen · Tränke", "Tilda's General Store\nWeapons · Armor · Potions"),
+            (25 to 6) to T("Thessas Kramladen\nWaffen · Rüstungen · Tränke", "Thessa's General Store\nWeapons · Armor · Potions"),
         ),
         houseStyles = mapOf(
             (3 to 3) to HouseStyle(RoofKind.RED, WallKind.TIMBER, feature = HouseFeature.INN_SIGN),
@@ -161,35 +161,35 @@ object Story {
                     say(jorin, "Seit du Grak besiegt hast, schlafe ich wieder ruhig. Danke, {name}!", "Since you beat Grak I'm sleeping soundly again. Thanks, {name}!")
                 }
             },
-            Npc("finn", 15, 14, "child", Facing.DOWN, wander = 3) { s ->
+            Npc("pim", 15, 14, "child", Facing.DOWN, wander = 3) { s ->
                 if (!s.has(CHAPTER1_DONE)) script {
-                    say(finn, "Papa sagt, Goblins haben Angst vor Feuer! Stimmt das?", "Dad says goblins are scared of fire! Is that true?")
-                    say(finn, "Tilda verkauft Alchemistenfeuer. Damit kann man sogar zaubern, ohne Magier zu sein!", "Tilda sells alchemist's fire. You can do magic with it without even being a wizard!")
+                    say(pim, "Papa sagt, Goblins haben Angst vor Feuer! Stimmt das?", "Dad says goblins are scared of fire! Is that true?")
+                    say(pim, "Thessa verkauft Alchemistenfeuer. Damit kann man sogar zaubern, ohne Magier zu sein!", "Thessa sells alchemist's fire. You can do magic with it without even being a wizard!")
                 } else script {
-                    say(finn, "Wenn ich groß bin, werde ich auch ein Held! Genau wie du!", "When I grow up I'll be a hero too! Just like you!")
+                    say(pim, "Wenn ich groß bin, werde ich auch ein Held! Genau wie du!", "When I grow up I'll be a hero too! Just like you!")
                 }
             },
-            Npc("ludwig", 20, 29, "farmer", Facing.DOWN, wander = 1) { s ->
+            Npc("bram", 20, 29, "farmer", Facing.DOWN, wander = 1) { s ->
                 if (!s.has(CHAPTER1_DONE)) script {
-                    say(ludwig, "Das Korn steht gut dieses Jahr. Wenn nur die Wölfe nicht wären – letzte Woche haben sie mir zwei Hühner geholt.", "The grain is doing well this year. If only it weren't for the wolves – last week they took two of my hens.")
-                    say(ludwig, "Wenn du im Wald Fleisch erbeutest: Am Lagerfeuer gebraten schmeckt es am besten. Und es macht stark!", "If you get meat in the forest: roasted at a campfire it tastes best. And it makes you strong!")
+                    say(bram, "Das Korn steht gut dieses Jahr. Wenn nur die Wölfe nicht wären – letzte Woche haben sie mir zwei Hühner geholt.", "The grain is doing well this year. If only it weren't for the wolves – last week they took two of my hens.")
+                    say(bram, "Wenn du im Wald Fleisch erbeutest: Am Lagerfeuer gebraten schmeckt es am besten. Und es macht stark!", "If you get meat in the forest: roasted at a campfire it tastes best. And it makes you strong!")
                 } else script {
-                    say(ludwig, "Seit die Goblins fort sind, schlafen sogar meine Hühner wieder ruhig.", "Since the goblins are gone, even my hens sleep soundly again.")
+                    say(bram, "Seit die Goblins fort sind, schlafen sogar meine Hühner wieder ruhig.", "Since the goblins are gone, even my hens sleep soundly again.")
                 }
             },
-            Npc("lene", 8, 10, "maid", Facing.DOWN, wander = 1) { s ->
+            Npc("liska", 8, 10, "maid", Facing.DOWN, wander = 1) { s ->
                 if (!s.has(CHAPTER1_DONE)) script {
-                    say(lene, "Bei dem Wetter trocknet die Wäsche im Nu. Hast du schon Tildas neue Ware gesehen?", "In this weather the laundry dries in no time. Have you seen Tilda's new goods yet?")
-                    say(lene, "Auf dem Markt am Brunnen gibt es frisches Obst. Und die Kräuterstände riechen herrlich.", "There's fresh fruit at the market by the well. And the herb stalls smell wonderful.")
+                    say(liska, "Bei dem Wetter trocknet die Wäsche im Nu. Hast du schon Thessas neue Ware gesehen?", "In this weather the laundry dries in no time. Have you seen Thessa's new goods yet?")
+                    say(liska, "Auf dem Markt am Brunnen gibt es frisches Obst. Und die Kräuterstände riechen herrlich.", "There's fresh fruit at the market by the well. And the herb stalls smell wonderful.")
                 } else script {
-                    say(lene, "Ganz Bornim spricht von dir! Ich habe gehört, du hast Grak mit bloßen Händen besiegt.", "All of Bornim is talking about you! I heard you beat Grak with your bare hands.")
+                    say(liska, "Ganz Bornim spricht von dir! Ich habe gehört, du hast Grak mit bloßen Händen besiegt.", "All of Bornim is talking about you! I heard you beat Grak with your bare hands.")
                 }
             },
-            Npc("greta", 8, 24, "villager", Facing.DOWN, wander = 2) { s ->
+            Npc("gwenna", 8, 24, "villager", Facing.DOWN, wander = 2) { s ->
                 if (!s.has(CHAPTER1_DONE)) script {
-                    say(greta, "Früher konnte man nachts in Ruhe fischen. Jetzt heulen die Wölfe bis zum Morgengrauen.", "We used to fish here in peace at night. Now the wolves howl until dawn.")
+                    say(gwenna, "Früher konnte man nachts in Ruhe fischen. Jetzt heulen die Wölfe bis zum Morgengrauen.", "We used to fish here in peace at night. Now the wolves howl until dawn.")
                 } else script {
-                    say(greta, "Der Held von Bornim! Ich hab's ja immer gewusst.", "The hero of Bornim! I always knew it.")
+                    say(gwenna, "Der Held von Bornim! Ich hab's ja immer gewusst.", "The hero of Bornim! I always knew it.")
                 }
             },
         ),
@@ -221,16 +221,16 @@ object Story {
         ),
         warps = interiorExit(toVillage(6, 6)),
         npcs = listOf(
-            Npc("berta", 2, 2, "innkeeper", Facing.DOWN) { s ->
+            Npc("rowena", 2, 2, "innkeeper", Facing.DOWN) { s ->
                 when {
                     !s.has(QUEST_STARTED) -> script {
-                        say(berta, "Ältester Aldric wartet auf dich. Sein Haus liegt unten links am Dorfplatz.", "Elder Aldric is waiting for you. His house is at the bottom left of the village square.")
+                        say(rowena, "Ältester Aldric wartet auf dich. Sein Haus liegt unten links am Dorfplatz.", "Elder Aldric is waiting for you. His house is at the bottom left of the village square.")
                     }
                     !s.has(CHAPTER1_DONE) -> script {
-                        say(berta, "Pass auf dich auf, {name}. Wenn du verletzt bist: Bruder Odo im Tempel heilt jeden, der darum bittet.", "Take care, {name}. If you're hurt, Brother Odo at the temple heals anyone who asks.")
+                        say(rowena, "Pass auf dich auf, {name}. Wenn du verletzt bist: Bruder Osric im Tempel heilt jeden, der darum bittet.", "Take care, {name}. If you're hurt, Brother Osric at the temple heals anyone who asks.")
                     }
                     else -> script {
-                        say(berta, "Für den Helden von Bornim geht das Bier heute aufs Haus!", "Drinks are on the house for the hero of Bornim tonight!")
+                        say(rowena, "Für den Helden von Bornim geht das Bier heute aufs Haus!", "Drinks are on the house for the hero of Bornim tonight!")
                     }
                 }
             },
@@ -243,10 +243,10 @@ object Story {
         ),
         onEnter = { s ->
             if (s.has(INTRO_DONE)) emptyList() else script {
-                say(berta, "Na, endlich wach, {name}? Du hast geschlafen wie ein Stein.", "Well, finally awake, {name}? You slept like a rock.")
-                say(berta, "Schlimme Zeiten sind das. Seit Wochen überfallen Goblins die Händler auf der Waldstraße.", "These are dark times. For weeks, goblins have been raiding the merchants on the forest road.")
-                say(berta, "Und letzte Nacht haben sie Schwester Lyra aus dem Tempel verschleppt – und das heilige Sonnenamulett gleich mit!", "And last night they dragged Sister Lyra out of the temple, and took the holy Sun Amulet too!")
-                say(berta, "Ältester Aldric sucht verzweifelt nach Hilfe. Sein Haus liegt unten links am Dorfplatz. Geh zu ihm!", "Elder Aldric is desperate for help. His house is at the bottom left of the village square. Go and see him!")
+                say(rowena, "Na, endlich wach, {name}? Du hast geschlafen wie ein Stein.", "Well, finally awake, {name}? You slept like a rock.")
+                say(rowena, "Schlimme Zeiten sind das. Seit Wochen überfallen Goblins die Händler auf der Waldstraße.", "These are dark times. For weeks, goblins have been raiding the merchants on the forest road.")
+                say(rowena, "Und letzte Nacht haben sie Schwester Lyra aus dem Tempel verschleppt – und das heilige Sonnenamulett gleich mit!", "And last night they dragged Sister Lyra out of the temple, and took the holy Sun Amulet too!")
+                say(rowena, "Ältester Aldric sucht verzweifelt nach Hilfe. Sein Haus liegt unten links am Dorfplatz. Geh zu ihm!", "Elder Aldric is desperate for help. His house is at the bottom left of the village square. Go and see him!")
                 narrate("Tipp: Mit dem Steuerkreuz bewegst du dich, mit A sprichst du und untersuchst Dinge. START öffnet das Menü.", "Tip: use the D-pad to move and A to talk and examine things. START opens the menu.")
                 flag(INTRO_DONE)
             }
@@ -255,7 +255,7 @@ object Story {
 
     val shop = MapDef(
         id = "shop",
-        name = T("Tildas Kramladen", "Tilda's General Store"),
+        name = T("Thessas Kramladen", "Thessa's General Store"),
         kind = MapKind.INTERIOR,
         rows = listOf(
             "##########",
@@ -269,11 +269,11 @@ object Story {
         ),
         warps = interiorExit(toVillage(28, 6)),
         npcs = listOf(
-            Npc("tilda", 4, 2, "merchant", Facing.DOWN) { _ ->
+            Npc("thessa", 4, 2, "merchant", Facing.DOWN) { _ ->
                 script {
-                    say(tilda, "Willkommen in Tildas Kramladen! Was darf's sein?", "Welcome to Tilda's General Store! What can I get you?")
+                    say(thessa, "Willkommen in Thessas Kramladen! Was darf's sein?", "Welcome to Thessa's General Store! What can I get you?")
                     shop(shopStock)
-                    say(tilda, "Komm bald wieder!", "Come again soon!")
+                    say(thessa, "Komm bald wieder!", "Come again soon!")
                 }
             },
         ),
@@ -299,7 +299,7 @@ object Story {
 
     private fun elderTalk(s: GameState): List<Cmd> = when {
         !s.has(QUEST_STARTED) -> script {
-            say(aldric, "Du bist also {name}. Berta sagt, du verstehst dich aufs Kämpfen.", "So you're {name}. Berta tells me you know how to fight.")
+            say(aldric, "Du bist also {name}. Rowena sagt, du verstehst dich aufs Kämpfen.", "So you're {name}. Rowena tells me you know how to fight.")
             say(aldric, "Der Blutzahn-Stamm haust in einer Höhle am Nordende des Flüsterwalds. Früher waren diese Goblins feige.", "The Bloodfang tribe lives in a cave at the northern end of the Whisperwood. Those goblins used to be cowards.")
             say(aldric, "Doch nun führt sie ein Hobgoblin namens Grak – grausam und gerissen.", "But now they're led by a hobgoblin called Grak, cruel and cunning.")
             say(aldric, "Sie haben Schwester Lyra entführt und das Sonnenamulett gestohlen. Seit hundert Jahren schützt es Bornim vor der Finsternis.", "They kidnapped Sister Lyra and stole the Sun Amulet. For a hundred years it has protected Bornim from the darkness.")
@@ -329,7 +329,7 @@ object Story {
         }
         else -> script {
             say(aldric, "Die Blutzahnhöhle liegt am Nordende des Flüsterwalds. Sei vorsichtig, {name}.", "The Bloodfang Cave lies at the northern end of the Whisperwood. Be careful, {name}.")
-            say(aldric, "Wenn du verletzt bist, geh zu Bruder Odo in den Tempel. Und Tilda verkauft gute Ausrüstung.", "If you're hurt, go to Brother Odo at the temple. And Tilda sells good equipment.")
+            say(aldric, "Wenn du verletzt bist, geh zu Bruder Osric in den Tempel. Und Thessa verkauft gute Ausrüstung.", "If you're hurt, go to Brother Osric at the temple. And Thessa sells good equipment.")
         }
     }
 
@@ -349,17 +349,17 @@ object Story {
         ),
         warps = interiorExit(toVillage(28, 21)),
         npcs = listOf(
-            Npc("odo", 4, 2, "priest", Facing.DOWN) { s ->
+            Npc("osric", 4, 2, "priest", Facing.DOWN) { s ->
                 script {
                     if (!s.has(LYRA_RESCUED)) {
-                        say(odo, "Willkommen im Tempel des Morgenlichts. Lass mich deine Wunden versorgen.", "Welcome to the Temple of the Dawnlight. Let me tend to your wounds.")
+                        say(osric, "Willkommen im Tempel des Morgenlichts. Lass mich deine Wunden versorgen.", "Welcome to the Temple of the Dawnlight. Let me tend to your wounds.")
                     } else {
-                        say(odo, "Gesegnet seist du, {name}. Lass mich deine Wunden versorgen.", "Blessings upon you, {name}. Let me tend to your wounds.")
+                        say(osric, "Gesegnet seist du, {name}. Lass mich deine Wunden versorgen.", "Blessings upon you, {name}. Let me tend to your wounds.")
                     }
                     rest()
                     narrate("Ein warmes Licht umhüllt dich. TP und ZP sind vollständig wiederhergestellt.", "A warm light surrounds you. HP and SP are fully restored.")
                     if (!s.has(LYRA_RESCUED)) {
-                        say(odo, "Bitte … finde Schwester Lyra. Ohne sie und das Amulett ist dieser Tempel nur ein kalter Steinhaufen.", "Please... find Sister Lyra. Without her and the amulet, this temple is just a cold pile of stones.")
+                        say(osric, "Bitte … finde Schwester Lyra. Ohne sie und das Amulett ist dieser Tempel nur ein kalter Steinhaufen.", "Please... find Sister Lyra. Without her and the amulet, this temple is just a cold pile of stones.")
                     }
                 }
             },
@@ -429,18 +429,18 @@ object Story {
             Chest("forest_3", 2, 24, gold = 40),
         ),
         npcs = listOf(
-            Npc("wilhelm", 12, 9, "hunter", Facing.LEFT) { s ->
+            Npc("garrick", 12, 9, "hunter", Facing.LEFT) { s ->
                 if (!s.has(HUNTER_MET)) script {
-                    say(wilhelm, "Ein Abenteurer? Setz dich ans Feuer. Ich bin Wilhelm, Jäger aus Bornim.", "An adventurer? Sit by the fire. I'm William, a hunter from Bornim.")
-                    say(wilhelm, "Im hohen Gras lauern Riesenratten, Wölfe und Goblin-Späher. Auf dem Weg bist du sicherer.", "Giant rats, wolves and goblin scouts lurk in the tall grass. You're safer on the path.")
-                    say(wilhelm, "An einem Lagerfeuer kannst du rasten – das heilt dich vollständig. Und hier, nimm das.", "You can rest at a campfire to fully heal. And here, take these.")
+                    say(garrick, "Ein Abenteurer? Setz dich ans Feuer. Ich bin Garrick, Jäger aus Bornim.", "An adventurer? Sit by the fire. I'm Garrick, a hunter from Bornim.")
+                    say(garrick, "Im hohen Gras lauern Riesenratten, Wölfe und Goblin-Späher. Auf dem Weg bist du sicherer.", "Giant rats, wolves and goblin scouts lurk in the tall grass. You're safer on the path.")
+                    say(garrick, "An einem Lagerfeuer kannst du rasten – das heilt dich vollständig. Und hier, nimm das.", "You can rest at a campfire to fully heal. And here, take these.")
                     give("potion", 2)
                     flag(HUNTER_MET)
                 } else if (!s.has(KROGG_DEFEATED)) script {
-                    say(wilhelm, "Ich habe Goblins belauscht. Ihr Bugbear Krogg trägt den Schlüssel zu Graks Halle.", "I overheard some goblins. Their bugbear Krogg carries the key to Grak's hall.")
-                    say(wilhelm, "Er haust im Ostflügel der Höhle. Ruh dich vorher gut aus!", "He lurks in the east wing of the cave. Rest well before you face him!")
+                    say(garrick, "Ich habe Goblins belauscht. Ihr Bugbear Krogg trägt den Schlüssel zu Graks Halle.", "I overheard some goblins. Their bugbear Krogg carries the key to Grak's hall.")
+                    say(garrick, "Er haust im Ostflügel der Höhle. Ruh dich vorher gut aus!", "He lurks in the east wing of the cave. Rest well before you face him!")
                 } else script {
-                    say(wilhelm, "Du siehst aus, als könntest du eine Rast gebrauchen. Das Feuer brennt noch.", "You look like you could use a rest. The fire's still burning.")
+                    say(garrick, "Du siehst aus, als könntest du eine Rast gebrauchen. Das Feuer brennt noch.", "You look like you could use a rest. The fire's still burning.")
                 }
             },
         ),
@@ -459,7 +459,7 @@ object Story {
         ),
         areaLevel = 1,
         safeZones = listOf(
-            SafeZone(12, 9, 4, T("Jäger Wilhelm schwenkt seine Fackel – die Biester weichen zurück!", "Hunter William waves his torch – the beasts back off!")),
+            SafeZone(12, 9, 4, T("Jäger Garrick schwenkt seine Fackel – die Biester weichen zurück!", "Hunter Garrick waves his torch – the beasts back off!")),
             SafeZone(10, 30, 3),
             SafeZone(10, 1, 2),
             SafeZone(19, 10, 2),
@@ -525,20 +525,20 @@ object Story {
             Chest("deep_4", 27, 4, randomGear(Rarity.VERY_RARE)),
         ),
         npcs = listOf(
-            Npc("hedda", 24, 21, "herbalist", Facing.LEFT) { s ->
-                if (!s.has(HEDDA_MET)) script {
-                    say(hedda, "Na sieh an, jemand wagt sich so tief in den Wald. Ich bin Hedda, ich sammle hier Kräuter.", "Well, well, someone dares to come this deep into the woods. I'm Hedda, I gather herbs here.")
-                    say(hedda, "Am Feuer bist du sicher: Der Rauch meiner Kräuter hält die Biester fern.", "You're safe by the fire: the smoke of my herbs keeps the beasts away.")
-                    say(hedda, "Im Norden haust Grimmzahn, der Leitwolf. Groß wie ein Pony und doppelt so bösartig. Nimm das hier mit.", "In the north lives Grimfang, the alpha wolf. Big as a pony and twice as vicious. Take this with you.")
+            Npc("morwen", 24, 21, "herbalist", Facing.LEFT) { s ->
+                if (!s.has(HERBALIST_MET)) script {
+                    say(morwen, "Na sieh an, jemand wagt sich so tief in den Wald. Ich bin Morwen, ich sammle hier Kräuter.", "Well, well, someone dares to come this deep into the woods. I'm Morwen, I gather herbs here.")
+                    say(morwen, "Am Feuer bist du sicher: Der Rauch meiner Kräuter hält die Biester fern.", "You're safe by the fire: the smoke of my herbs keeps the beasts away.")
+                    say(morwen, "Im Norden haust Grimmzahn, der Leitwolf. Groß wie ein Pony und doppelt so bösartig. Nimm das hier mit.", "In the north lives Grimfang, the alpha wolf. Big as a pony and twice as vicious. Take this with you.")
                     give("remedy", 1)
-                    flag(HEDDA_MET)
-                    say(hedda, HEDDA_HERBS.de, HEDDA_HERBS.en)
-                    shop(HEDDA_STOCK, brewing = true)
+                    flag(HERBALIST_MET)
+                    say(morwen, HERBALIST_HERBS.de, HERBALIST_HERBS.en)
+                    shop(HERBALIST_STOCK, brewing = true)
                 } else script {
-                    say(hedda, if (s.has(GRIMFANG_DEFEATED)) "Ohne Grimmzahn ist der Wald ruhiger geworden. Brauchst du Tränke?" else "Brauchst du Tränke? Für Grimmzahn wirst du sie brauchen.",
+                    say(morwen, if (s.has(GRIMFANG_DEFEATED)) "Ohne Grimmzahn ist der Wald ruhiger geworden. Brauchst du Tränke?" else "Brauchst du Tränke? Für Grimmzahn wirst du sie brauchen.",
                         if (s.has(GRIMFANG_DEFEATED)) "The woods are quieter without Grimfang. Need potions?" else "Need potions? You'll need them for Grimfang.")
-                    say(hedda, HEDDA_HERBS.de, HEDDA_HERBS.en)
-                    shop(HEDDA_STOCK, brewing = true)
+                    say(morwen, HERBALIST_HERBS.de, HERBALIST_HERBS.en)
+                    shop(HERBALIST_STOCK, brewing = true)
                 }
             },
             Npc("grimfang", 22, 4, "monster:dire_wolf", Facing.DOWN, visible = { !it.has(GRIMFANG_DEFEATED) }) { _ ->
@@ -563,7 +563,7 @@ object Story {
         ),
         areaLevel = 2,
         safeZones = listOf(
-            SafeZone(21, 21, 4, T("Der beißende Kräuterrauch aus Heddas Feuer vertreibt die Biester!", "The acrid herb smoke from Hedda's fire drives the beasts away!")),
+            SafeZone(21, 21, 4, T("Der beißende Kräuterrauch aus Morwens Feuer vertreibt die Biester!", "The acrid herb smoke from Morwen's fire drives the beasts away!")),
             SafeZone(1, 18, 3),
         ),
     )

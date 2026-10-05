@@ -1,6 +1,6 @@
 package de.bornim.core
 
-/** A potion Hedda brews from ingredients and a little gold. */
+/** A potion Morwen brews from ingredients and a little gold. */
 class Recipe(val output: String, val ingredients: Map<String, Int>, val gold: Int) {
     fun affordable(s: GameState): Boolean = s.gold >= gold && ingredients.all { (id, n) -> s.count(id) >= n }
 

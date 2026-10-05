@@ -59,7 +59,7 @@ class IngredientTest {
     }
 
     @Test
-    fun heddaBrewsFromHerbs() {
+    fun morwenBrewsFromHerbs() {
         val g = game()
         val potion = Recipes.all.first { it.output == "potion" }
         assertFalse(potion.affordable(g.state.also { it.gold = 100 }))
@@ -72,7 +72,7 @@ class IngredientTest {
     }
 
     @Test
-    fun heddaOffersBrewingFromTheFirstVisit() {
+    fun morwenOffersBrewingFromTheFirstVisit() {
         val g = game()
         g.state.place = Place("deep_forest", 23, 21, Facing.RIGHT)
         repeat(2) { visit ->

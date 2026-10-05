@@ -68,7 +68,7 @@ class WorldTest {
 
             bot.talkTo("elder", "aldric")
             assertTrue(state.has(Story.QUEST_STARTED), "quest not started")
-            bot.talkTo("forest", "wilhelm")
+            bot.talkTo("forest", "garrick")
             assertTrue(state.has(Story.HUNTER_MET))
             bot.openChest("cave", "cave_3")
             assertTrue(state.bag.any { it.unique == Story.classWeapon(cls) }, "$cls weapon chest")

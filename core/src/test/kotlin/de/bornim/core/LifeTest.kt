@@ -62,22 +62,22 @@ class LifeTest {
     @Test
     fun villagersStrollButStayNearTheirSpot() {
         val g = game(Place("village", 11, 7, Facing.DOWN))
-        val finn = g.map.npcs.first { it.id == "finn" }
-        val start = g.walkerOf(finn)!!.x to g.walkerOf(finn)!!.y
+        val pim = g.map.npcs.first { it.id == "pim" }
+        val start = g.walkerOf(pim)!!.x to g.walkerOf(pim)!!.y
         var moved = false
         var t = 1000L
         repeat(600) {
             t += 100
             g.update(t)
-            val w = g.walkerOf(finn)!!
+            val w = g.walkerOf(pim)!!
             if ((w.x to w.y) != start) moved = true
-            assertTrue(kotlin.math.abs(w.x - finn.x) + kotlin.math.abs(w.y - finn.y) <= finn.wander)
+            assertTrue(kotlin.math.abs(w.x - pim.x) + kotlin.math.abs(w.y - pim.y) <= pim.wander)
             assertTrue(!(w.x == g.state.place.x && w.y == g.state.place.y))
         }
-        assertTrue(moved, "Finn never moved")
+        assertTrue(moved, "Pim never moved")
         // he can still be found and talked to where he is now
-        val w = g.walkerOf(finn)!!
-        assertEquals(finn, g.npcAt(w.x, w.y))
+        val w = g.walkerOf(pim)!!
+        assertEquals(pim, g.npcAt(w.x, w.y))
     }
 
     @Test

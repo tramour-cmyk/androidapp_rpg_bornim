@@ -140,7 +140,7 @@ fun ShopScreen(vm: GameViewModel, game: Game, stock: List<String>, brewing: Bool
                             Txt(Ui.price.f(lang, price), Modifier.width(72.dp), size = 16.sp, bold = true, align = TextAlign.End)
                         }
                     }
-                    // --- equipment (Hedda trades only in herbs and potions)
+                    // --- equipment (Morwen trades only in herbs and potions)
                     if (!(brewing && buying)) {
                         Spacer(Modifier.height(8.dp))
                         val gear = if (buying) game.shopGear()
@@ -203,11 +203,11 @@ fun ShopScreen(vm: GameViewModel, game: Game, stock: List<String>, brewing: Bool
     }
 }
 
-/** Hedda's recipes with what the hero has of each ingredient. */
+/** Morwen's recipes with what the hero has of each ingredient. */
 @Composable
 private fun BrewList(game: Game, lang: Lang, onPick: (Recipe) -> Unit) {
     val de = lang == Lang.DE
-    Txt(if (de) "Heddas Rezepte" else "Hedda's recipes", size = 17.sp, bold = true)
+    Txt(if (de) "Morwens Rezepte" else "Morwen's recipes", size = 17.sp, bold = true)
     Txt(
         if (de) "Kräuter wachsen auf Blumenwiesen im Wald – einfach darüberlaufen." else "Herbs grow in the forest's flower meadows – just walk over them.",
         size = 12.sp, color = Colors.textDim,
