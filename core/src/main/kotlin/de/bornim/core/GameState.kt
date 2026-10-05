@@ -52,6 +52,10 @@ class GameState(
     /** A good meal: a small bonus in the next fight. */
     var wellFed: Boolean = false,
 ) {
+    init {
+        hero.chapter = Story.chapter(this)
+    }
+
     fun nextUid(): Long = ++uidCounter
 
     fun ailment(st: Status): Int = ailments[st.name] ?: 0
@@ -102,6 +106,14 @@ class GameState(
             val n = inventory.remove(id) ?: 0
             repeat(n) { Legacy.convert(id, nextUid())?.let { bag += it } }
         }
+        if (version < 3) {
+            // Version 3: ability points only at levels 4, 8, 12, 16 and 19 (two each) …
+            if (hero.fitPoints()) flags += POINTS_REFIT
+            // … and the story items of chapter 1 were toned down.
+            fun refresh(g: Gear) = g.unique?.takeIf { Uniques.exists(it) }?.let { Uniques.make(it, g.uid, g.ilvl) } ?: g
+            for (slot in hero.gear.keys.toList()) hero.gear[slot] = refresh(hero.gear.getValue(slot))
+            bag.replaceAll { refresh(it) }
+        }
         version = SAVE_VERSION
         hero.clamp()
     }
@@ -109,14 +121,16 @@ class GameState(
     fun toJson(): String = json.encodeToString(this)
 
     companion object {
-        const val SAVE_VERSION = 2
+        const val SAVE_VERSION = 3
+        /** Set when loading recalculated the hero's ability points; the game tells the player once. */
+        const val POINTS_REFIT = "points_refit"
         private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true; allowStructuredMapKeys = true }
 
         fun fromJson(s: String): GameState = json.decodeFromString(serializer(), s).also { it.migrate() }
 
-        fun newGame(name: String, race: Race, cls: CharClass): GameState {
+        fun newGame(name: String, race: Race, cls: CharClass, bought: Map<Ability, Int>? = null): GameState {
             var uid = 0L
-            val hero = Hero.create(name, race, cls) { ++uid }
+            val hero = Hero.create(name, race, cls, bought) { ++uid }
             val state = GameState(hero, cls.startGold, place = Story.START, respawn = Story.RESPAWN, uidCounter = uid)
             cls.startItems.forEach { id -> if (Items.exists(id)) state.add(id) }
             return state

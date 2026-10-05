@@ -141,7 +141,8 @@ private fun HeroTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
                 color = if (add > 0) Color(0xFF2E8B3E) else Colors.text)
             // Part of the score that comes from equipped gear, shown separately.
             val fromGear = h.gearBonus(a)
-            Txt(if (fromGear != 0) Rules.signed(fromGear) else "", Modifier.width(30.dp), size = 14.sp, bold = true, color = gearBlue)
+            // A star marks gear that would give more than the chapter allows.
+            Txt(if (fromGear != 0) Rules.signed(fromGear) + (if (h.gearCapped(a)) "*" else "") else "", Modifier.width(30.dp), size = 14.sp, bold = true, color = gearBlue)
             Txt("(${Rules.signed(Rules.mod(score))})", Modifier.width(44.dp), size = 15.sp, color = Colors.textDim)
             if (h.unspentPoints > 0) {
                 PixelButton("−", Modifier.width(44.dp).height(36.dp), enabled = add > 0) {
@@ -156,6 +157,12 @@ private fun HeroTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
     }
     if (Ability.entries.any { h.gearBonus(it) != 0 }) {
         Txt(if (lang == Lang.DE) "Blau: Bonus durch Ausrüstung (im Wert enthalten)" else "Blue: bonus from gear (included in the score)", size = 12.sp, color = gearBlue)
+        val cap = h.chapter
+        Txt(
+            if (lang == Lang.DE) "In Kapitel $cap gibt Ausrüstung insgesamt höchstens +$cap je Attribut, auf Angriff, Zauberangriff und RK sowie +${cap + 1} Schaden. * = Deine Ausrüstung könnte mehr."
+            else "In chapter $cap, all gear together adds at most +$cap to each ability, attack, spell attack and AC, and +${cap + 1} damage. * = your gear could give more.",
+            size = 12.sp, color = Colors.textDim,
+        )
     }
     if (planned > 0) {
         Row(Modifier.padding(top = 6.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {

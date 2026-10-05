@@ -18,11 +18,11 @@ class CheatTest {
         val g = game()
         g.cheatLevel(8)
         assertEquals(8, g.hero.level)
-        assertEquals(7, g.hero.unspentPoints)
+        assertEquals(4, g.hero.unspentPoints) // two each at levels 4 and 8
         assertEquals(g.hero.maxHp, g.hero.hp)
         g.cheatLevel(5)
         assertEquals(5, g.hero.level)
-        assertEquals(4, g.hero.unspentPoints)
+        assertEquals(2, g.hero.unspentPoints)
         assertEquals(Rules.xpForLevel[5], g.hero.xp)
         g.cheatLevel(99)
         assertEquals(Rules.MAX_LEVEL, g.hero.level)
@@ -31,19 +31,18 @@ class CheatTest {
     @Test
     fun levelDownTakesBackSpentPoints() {
         val g = game()
-        val start = Hero.startingScores(g.hero.race, g.hero.cls)
-        g.cheatLevel(11)
-        assertTrue(g.hero.applyPoints(mapOf(Ability.INT to 2, Ability.CON to 3, Ability.DEX to 3)))
-        assertEquals(2, g.hero.unspentPoints)
+        val start = g.hero.startScores
+        g.cheatLevel(12)
+        assertTrue(g.hero.applyPoints(mapOf(Ability.INT to 2, Ability.CON to 2, Ability.DEX to 1)))
+        assertEquals(1, g.hero.unspentPoints)
         g.cheatLevel(4)
-        assertEquals(3, g.hero.spentPoints + g.hero.unspentPoints)
-        assertEquals(3, g.hero.spentPoints)
+        assertEquals(2, g.hero.spentPoints)
         assertEquals(0, g.hero.unspentPoints)
         assertTrue(Ability.entries.all { g.hero.base.getValue(it) >= start.getValue(it) })
         g.cheatLevel(1)
         assertEquals(start, g.hero.base.toMap())
         assertEquals(0, g.hero.unspentPoints)
-        assertEquals(72 + 6, g.hero.base.values.sum()) // human: +1 to all six
+        assertEquals(69 + 6, g.hero.base.values.sum()) // 24-point suggestion, human: +1 to all six
     }
 
     @Test

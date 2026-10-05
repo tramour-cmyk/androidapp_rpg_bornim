@@ -174,6 +174,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     fun begin() {
         // Experience banked at a chapter's level cap counts once the cap is lifted.
         hero.gainXp(0, Story.levelCap(state))
+        if (state.flags.remove(GameState.POINTS_REFIT)) {
+            enqueue(listOf(Cmd.Say(null, T(
+                "Neue Regeln: Attributspunkte gibt es jetzt auf Stufe 4, 8, 12, 16 und 19 (je zwei). Deine Punkte wurden neu berechnet – verteile sie im Heldenmenü.",
+                "New rules: ability points now come at levels 4, 8, 12, 16 and 19 (two each). Your points were recalculated – spend them in the hero menu.",
+            ))))
+        }
         runOnEnter()
     }
 
@@ -566,13 +572,16 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     changed()
                     return
                 }
-                is Cmd.SetFlag -> state.flags += c.flag
+                is Cmd.SetFlag -> {
+                    state.flags += c.flag
+                    hero.chapter = Story.chapter(state)
+                }
                 is Cmd.Give -> {
                     val text = when {
                         c.item.startsWith("@gear:") -> {
                             val min = Rarity.valueOf(c.item.removePrefix("@gear:"))
                             val ilvl = maxOf(map.areaLevel, hero.level)
-                            val g = state.addGear(Loot.generate(state, dice, ilvl, Loot.rollRarity(dice, ilvl, hero.bonus(Affix.MAGIC_FIND), min), hero.cls))
+                            val g = state.addGear(Loot.generate(state, dice, ilvl, Loot.rarityFor(state, dice, ilvl, special = true, floor = min), hero.cls))
                             "${g.name(lang)} (${g.rarity.title(lang)})"
                         }
                         Uniques.exists(c.item) -> {
@@ -658,16 +667,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         } else if (t < h.level) {
             h.level = t
             h.xp = Rules.xpForLevel[t]
-            // A hero of level t has exactly t - 1 ability points; take back what is too much,
-            // starting with the most raised ability, so the hero looks as if it reached t normally.
-            val start = Hero.startingScores(h.race, h.cls)
-            var excess = h.spentPoints - (t - 1)
-            while (excess > 0) {
-                val a = Ability.entries.maxBy { h.base.getValue(it) - start.getValue(it) }
-                h.base[a] = h.base.getValue(a) - 1
-                excess--
-            }
-            h.unspentPoints = (t - 1) - h.spentPoints
+            // Take back what a hero of level t cannot have, so it looks as if it reached t normally.
+            h.fitPoints()
         }
         h.restoreFully()
         changed()

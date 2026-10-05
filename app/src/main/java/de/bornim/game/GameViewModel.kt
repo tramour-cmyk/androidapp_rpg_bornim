@@ -121,8 +121,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         refresh()
     }
 
-    fun newGame(name: String, race: Race, cls: CharClass) {
-        val g = Game(GameState.newGame(name.ifBlank { "Held" }, race, cls), lang)
+    fun newGame(name: String, race: Race, cls: CharClass, bought: Map<de.bornim.core.Ability, Int>? = null) {
+        val g = Game(GameState.newGame(name.ifBlank { "Held" }, race, cls, bought), lang)
         game = g
         menuOpen = false
         screen = Screen.PLAYING

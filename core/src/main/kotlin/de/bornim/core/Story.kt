@@ -24,6 +24,9 @@ object Story {
     /** What Hedda sells; she also brews potions from ingredients. */
     private val HEDDA_STOCK = listOf("potion", "greater_potion", "remedy", "holy_water")
 
+    /** The chapter the hero is playing: it sets the level cap, the best loot and the gear limits. */
+    fun chapter(s: GameState): Int = if (s.has(CHAPTER2_STARTED)) 2 else 1
+
     /** Highest level the hero can reach in the current chapter. Experience beyond it is kept. */
     fun levelCap(s: GameState): Int = if (s.has(CHAPTER2_STARTED)) Rules.MAX_LEVEL else CHAPTER1_LEVEL_CAP
 

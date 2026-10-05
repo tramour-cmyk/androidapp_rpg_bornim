@@ -261,6 +261,8 @@ fun main() {
         val g = vm.game!!
         g.skipDialogs()
         g.hero.gainXp(9200, de.bornim.core.Story.levelCap(g.state))
+        // gear that would give more than chapter 1 allows
+        g.state.equipFromBag(g.state.addGear(de.bornim.core.Gear(0, "amulet", de.bornim.core.Rarity.RARE, 6, 0, listOf(de.bornim.core.Roll(de.bornim.core.Affix.INT, 2), de.bornim.core.Roll(de.bornim.core.Affix.CON, 1)))))
         g.hero.restoreFully()
         g.state.place = Place("forest", 10, 20, Facing.UP)
         vm.menuOpen = true

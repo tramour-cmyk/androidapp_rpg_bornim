@@ -15,7 +15,7 @@ class LevelCapTest {
         s.hero.gainXp(Rules.xpForLevel[9], cap)
         assertEquals(6, s.hero.level)
         assertEquals(Rules.xpForLevel[9], s.hero.xp, "the XP are kept")
-        assertEquals(5, s.hero.unspentPoints)
+        assertEquals(2, s.hero.unspentPoints)
         assertTrue(Story.capped(s))
 
         // From chapter 2 on the banked XP count.
@@ -24,7 +24,7 @@ class LevelCapTest {
         val g = Game(s, Lang.DE, Dice(Random(1)))
         g.begin()
         assertEquals(9, s.hero.level)
-        assertEquals(8, s.hero.unspentPoints)
+        assertEquals(4, s.hero.unspentPoints)
     }
 
     @Test

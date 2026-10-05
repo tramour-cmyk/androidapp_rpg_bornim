@@ -32,11 +32,11 @@ class RulesTest {
     }
 
     @Test
-    fun heroCreationAppliesStandardArrayAndRace() {
+    fun heroCreationAppliesPointBuyAndRace() {
         val h = Hero.create("Test", Race.DWARF, CharClass.FIGHTER)
         assertEquals(16, h.score(Ability.STR)) // 15 + 1
         assertEquals(16, h.score(Ability.CON)) // 14 + 2
-        assertEquals(13, h.score(Ability.DEX))
+        assertEquals(12, h.score(Ability.DEX))
         // Chain shirt 13 + min(DEX 1, 2) + shield 2 + defense style 1
         assertEquals(17, h.armorClass)
         assertEquals(10 + 3 + 4, h.maxHp)
@@ -96,8 +96,10 @@ class RulesTest {
         assertEquals(h.maxHp, h.hp)
         assertEquals(h.maxSp, h.sp)
         assertEquals(3, h.level)
-        assertEquals(2, h.unspentPoints)
+        assertEquals(0, h.unspentPoints) // points only from level 4 on
         assertTrue(h.maxHp > hp)
+        h.gainXp(Rules.xpForLevel[4] - h.xp)
+        assertEquals(2, h.unspentPoints)
         assertFalse(h.applyPoints(mapOf(Ability.WIS to 3)))
         val wis = h.base.getValue(Ability.WIS)
         val con = h.base.getValue(Ability.CON)

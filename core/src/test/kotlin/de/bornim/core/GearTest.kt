@@ -72,6 +72,10 @@ class GearTest {
         val hp = s.hero.maxHp
         val ring = s.addGear(Gear(0, "ring", Rarity.EPIC, 5, 0, listOf(Roll(Affix.STR, 2), Roll(Affix.AC, 1), Roll(Affix.HP, 10), Roll(Affix.CRIT, 1))))
         assertTrue(s.equipFromBag(ring))
+        // Chapter 1 allows +1 from gear; from chapter 2 on the full +2 counts.
+        assertEquals(str + 1, s.hero.score(Ability.STR))
+        assertTrue(s.hero.gearCapped(Ability.STR))
+        s.hero.chapter = 2
         assertEquals(str + 2, s.hero.score(Ability.STR))
         assertEquals(ac + 1, s.hero.armorClass)
         assertEquals(hp + 10, s.hero.maxHp)

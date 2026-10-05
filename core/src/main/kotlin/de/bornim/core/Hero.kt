@@ -2,6 +2,7 @@ package de.bornim.core
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 @Serializable
 class Hero(
@@ -17,11 +18,26 @@ class Hero(
     /** Equipment of save games from version 1 (item ids); converted on load. */
     @SerialName("equipment") val legacyEquipment: MutableMap<String, String> = mutableMapOf(),
     val gear: MutableMap<GearSlot, Gear> = mutableMapOf(),
+    /** Scores at creation, race bonus included; empty for heroes from before point buy. */
+    val start: MutableMap<Ability, Int> = mutableMapOf(),
 ) {
+    /** The chapter being played; it limits what gear can add (see [Rules.gearCap]). */
+    @Transient var chapter: Int = 1
+
+    /** Scores at creation; old heroes started with the standard array. */
+    val startScores: Map<Ability, Int> get() = start.ifEmpty { startingScores(race, cls) }
+
     fun item(slot: GearSlot): Gear? = gear[slot]
 
-    /** Sum of an affix over all equipped gear. */
-    fun bonus(a: Affix): Int = gear.values.sumOf { it.total(a) }
+    /** Sum of an affix over all equipped gear, before the chapter's limit. */
+    fun rawBonus(a: Affix): Int = gear.values.sumOf { it.total(a) }
+
+    /** Sum of an affix over all equipped gear, limited for the chapter. */
+    fun bonus(a: Affix): Int {
+        val raw = rawBonus(a)
+        val cap = Rules.gearCap(a, chapter) ?: return raw
+        return minOf(raw, cap)
+    }
 
     private fun statAffix(a: Ability) = when (a) {
         Ability.STR -> Affix.STR
@@ -32,14 +48,36 @@ class Hero(
         Ability.CHA -> Affix.CHA
     }
 
-    /** Bonus of the equipped gear on an ability. */
-    fun gearBonus(a: Ability): Int = bonus(statAffix(a)) + bonus(Affix.ALL_STATS)
+    /** Bonus of the equipped gear on an ability, limited for the chapter. */
+    fun gearBonus(a: Ability): Int = minOf(rawBonus(statAffix(a)) + rawBonus(Affix.ALL_STATS), Rules.gearCap(statAffix(a), chapter)!!)
 
-    /** Ability points spent so far (one per level after the first). */
-    val spentPoints: Int get() = Ability.entries.sumOf { base.getValue(it) - startingScores(race, cls).getValue(it) }.coerceAtLeast(0)
+    /** Whether the gear would add more to [a] than the chapter allows. */
+    fun gearCapped(a: Ability): Boolean = rawBonus(statAffix(a)) + rawBonus(Affix.ALL_STATS) > gearBonus(a)
+
+    /** Ability points spent since creation. */
+    val spentPoints: Int get() = Ability.entries.sumOf { maxOf(0, base.getValue(it) - startScores.getValue(it)) }
+
+    /**
+     * Brings the ability points in line with [Rules.abilityPoints] for the current level: points
+     * spent beyond that are taken back, starting with the most raised ability. Returns whether
+     * anything changed.
+     */
+    fun fitPoints(): Boolean {
+        val before = base.toMap() to unspentPoints
+        val allowed = Rules.abilityPoints(level)
+        var excess = spentPoints - allowed
+        while (excess > 0) {
+            val a = Ability.entries.maxBy { base.getValue(it) - startScores.getValue(it) }
+            base[a] = base.getValue(a) - 1
+            excess--
+        }
+        unspentPoints = allowed - spentPoints
+        clamp()
+        return base != before.first || unspentPoints != before.second
+    }
 
     /** Ability score including gear. Gear can push it past 20. */
-    fun score(a: Ability): Int = base.getValue(a) + bonus(statAffix(a)) + bonus(Affix.ALL_STATS)
+    fun score(a: Ability): Int = base.getValue(a) + gearBonus(a)
 
     fun mod(a: Ability): Int = Rules.mod(score(a))
     val proficiency: Int get() = Rules.proficiency(level)
@@ -170,7 +208,7 @@ class Hero(
         val target = minOf(Rules.levelForXp(xp), cap)
         while (level < target) {
             level++
-            unspentPoints += 1
+            unspentPoints += Rules.abilityPoints(level) - Rules.abilityPoints(level - 1)
         }
         // A level up fully restores HP and SP.
         if (level > before) restoreFully()
@@ -230,8 +268,22 @@ class Hero(
             return scores
         }
 
-        fun create(name: String, race: Race, cls: CharClass, newUid: () -> Long = { 0L }): Hero {
-            val hero = Hero(name, race, cls, base = startingScores(race, cls).toMutableMap())
+        /** The class's suggested point-buy spread, before the race bonus. */
+        fun suggestedScores(cls: CharClass): Map<Ability, Int> {
+            // The cleric swings a mace: strength matters more early on than for the class order.
+            val order = if (cls == CharClass.CLERIC) listOf(Ability.WIS, Ability.STR, Ability.CON, Ability.DEX, Ability.CHA, Ability.INT) else cls.priority
+            return order.withIndex().associate { (i, a) -> a to Rules.suggestedArray[i] }
+        }
+
+        /** Whether [scores] (before race bonus) is a valid point buy. */
+        fun validPointBuy(scores: Map<Ability, Int>): Boolean =
+            Ability.entries.all { (scores[it] ?: 0) in Rules.POINT_BUY_MIN..Rules.POINT_BUY_MAX } && Rules.pointsSpent(scores) <= Rules.POINT_BUY
+
+        /** A new hero; [bought] are point-buy scores before the race bonus (default: the class suggestion). */
+        fun create(name: String, race: Race, cls: CharClass, bought: Map<Ability, Int>? = null, newUid: () -> Long = { 0L }): Hero {
+            val pre = bought?.takeIf { validPointBuy(it) } ?: suggestedScores(cls)
+            val scores = Ability.entries.associateWith { pre.getValue(it) + (race.bonus[it] ?: 0) }
+            val hero = Hero(name, race, cls, base = scores.toMutableMap(), start = scores.toMutableMap())
             cls.startItems.filter { GearBases.exists(it) }.forEach { id ->
                 hero.equip(Gear(newUid(), id, Rarity.COMMON, 1))
             }

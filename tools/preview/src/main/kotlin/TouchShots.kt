@@ -29,6 +29,7 @@ private class Driver(val scene: ImageComposeScene) {
     fun move(p: Offset) { scene.sendPointerEvent(PointerEventType.Move, p); frames(1) }
     fun release(p: Offset) { scene.sendPointerEvent(PointerEventType.Release, p); frames(1) }
     fun tap(p: Offset) { press(p); release(p) }
+    fun scroll(p: Offset, dy: Float) { scene.sendPointerEvent(PointerEventType.Scroll, p, scrollDelta = Offset(0f, dy)); frames(2) }
     fun save(name: String) {
         File("build/screens/$name.png").writeBytes(scene.render(time).encodeToData(EncodedImageFormat.PNG)!!.bytes)
         println("wrote $name")
@@ -53,6 +54,15 @@ private fun touchShot(name: String, touch: Boolean = true, setup: (GameViewModel
 }
 
 fun touchShots() {
+    // Character creation, scrolled down to the point buy
+    touchShot("55_create_pointbuy", setup = { vm ->
+        if (vm.lang != de.bornim.core.Lang.DE) vm.toggleLang()
+        vm.screen = de.bornim.game.Screen.CREATE
+    }) {
+        repeat(30) { scroll(Offset(540f, 1200f), 3f) }
+        frames(10)
+    }
+    if (System.getenv("ONLY") == "55") return
     val village = Place("village", 11, 7, Facing.DOWN)
     // Next to a villager: the action button shows a speech bubble.
     touchShot("26_touch_action", setup = { vm ->

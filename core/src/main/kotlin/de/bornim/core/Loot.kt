@@ -23,13 +23,52 @@ object Loot {
      * Rolls a rarity. [magicFind] in percent boosts everything above common;
      * [atLeast] guarantees a floor (elites, bosses, chests).
      */
-    fun rollRarity(dice: Dice, ilvl: Int, magicFind: Int = 0, atLeast: Rarity = Rarity.COMMON): Rarity {
+    fun rollRarity(dice: Dice, ilvl: Int, magicFind: Int = 0, atLeast: Rarity = Rarity.COMMON, atMost: Rarity = Rarity.DIVINE): Rarity {
         val mf = 1.0 + magicFind / 100.0
+        val floor = atLeast.coerceAtMost(atMost)
         val entries = Rarity.entries
-            .filter { it >= atLeast && ilvl >= minIlvl(it) }
+            .filter { it in floor..atMost && (ilvl >= minIlvl(it) || it == floor) }
             .map { r -> r to (baseWeights.getValue(r) * (if (r == Rarity.COMMON) 1.0 else mf)).toInt().coerceAtLeast(1) }
         return dice.weighted(entries)
     }
+
+    // ---------------------------------------------------------------- loot by chapter
+
+    /** Best rarity of ordinary drops and the shop in [chapter]. */
+    fun maxNormal(chapter: Int): Rarity = when (chapter) {
+        1 -> Rarity.UNCOMMON
+        2 -> Rarity.RARE
+        3 -> Rarity.VERY_RARE
+        else -> Rarity.EPIC
+    }
+
+    /** Best rarity of bosses, elites, chests and shimmering monsters in [chapter]. */
+    fun maxSpecial(chapter: Int): Rarity = when (chapter) {
+        1 -> Rarity.RARE
+        2 -> Rarity.VERY_RARE
+        3, 4 -> Rarity.EPIC
+        else -> Rarity.DIVINE
+    }
+
+    /**
+     * Rarity of a piece of loot found now. Ordinary loot stays below [maxNormal]; in chapter 1 it
+     * is plain until level 2 and only now and then uncommon. [special] loot (bosses, elites,
+     * chests) may reach [maxSpecial] and starts at [floor].
+     */
+    fun rarityFor(state: GameState, dice: Dice, ilvl: Int, special: Boolean, floor: Rarity = Rarity.COMMON): Rarity {
+        val chapter = Story.chapter(state)
+        val mf = state.hero.bonus(Affix.MAGIC_FIND)
+        if (special) return rollRarity(dice, ilvl, mf, floor, maxSpecial(chapter))
+        if (chapter == 1) {
+            if (state.hero.level < 2) return Rarity.COMMON
+            val uncommon = (CHAPTER1_UNCOMMON * (1.0 + mf / 100.0)).toInt()
+            return if (dice.d(1000) <= uncommon) Rarity.UNCOMMON else Rarity.COMMON
+        }
+        return rollRarity(dice, ilvl, mf, floor, maxNormal(chapter))
+    }
+
+    /** Chance per mille of an ordinary drop in chapter 1 being uncommon. */
+    private const val CHAPTER1_UNCOMMON = 150
 
     /** Can [cls] make good use of this base? Used to bias drops towards the player's class. */
     fun suits(cls: CharClass, b: GearBase): Boolean = when (b.kind) {
@@ -119,18 +158,15 @@ object Loot {
 
     /** Gear dropped by a defeated monster. */
     fun drops(state: GameState, dice: Dice, ilvl: Int, boss: Boolean, elite: Boolean): List<Gear> {
-        val mf = state.hero.bonus(Affix.MAGIC_FIND)
-        val (count, floor) = when {
-            boss -> 2 + dice.d(2) to Rarity.RARE
-            elite -> 1 + dice.d(2) - 1 to Rarity.UNCOMMON
-            dice.chance(0.38) -> 1 to Rarity.COMMON
-            else -> 0 to Rarity.COMMON
+        // One highlight from a boss or an elite, plus ordinary loot.
+        val rarities = when {
+            boss -> listOf(rarityFor(state, dice, ilvl, true, Rarity.RARE)) + List(dice.d(2)) { rarityFor(state, dice, ilvl, false) }
+            elite -> listOf(rarityFor(state, dice, ilvl, true, Rarity.UNCOMMON))
+            dice.chance(0.38) -> listOf(rarityFor(state, dice, ilvl, false))
+            else -> emptyList()
         }
-        return List(count) {
-            val r = rollRarity(dice, ilvl, mf, floor)
-            // Two thirds of the drops are tailored to the hero's class.
-            generate(state, dice, ilvl, r, if (dice.chance(0.67)) state.hero.cls else null)
-        }
+        // Two thirds of the drops are tailored to the hero's class.
+        return rarities.map { r -> generate(state, dice, ilvl, r, if (dice.chance(0.67)) state.hero.cls else null) }
     }
 
     /** Stock of the general store: refreshed every few victories. */
@@ -145,7 +181,7 @@ object Loot {
         }
         // a handful of magic items
         repeat(5) {
-            val r = rollRarity(dice, level, 0, Rarity.UNCOMMON).coerceAtMost(Rarity.VERY_RARE)
+            val r = rollRarity(dice, level, 0, Rarity.UNCOMMON, maxNormal(Story.chapter(state)))
             list += generate(state, dice, level, r, state.hero.cls).copy(uid = -(list.size + 1L))
         }
         return list

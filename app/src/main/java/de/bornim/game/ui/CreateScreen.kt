@@ -49,6 +49,8 @@ fun CreateScreen(vm: GameViewModel) {
     var name by remember { mutableStateOf(Ui.defaultName(lang)) }
     var race by remember { mutableStateOf(Race.HUMAN) }
     var cls by remember { mutableStateOf(CharClass.FIGHTER) }
+    // Point buy before the race bonus; a new class starts from its suggestion.
+    var bought by remember { mutableStateOf(Hero.suggestedScores(CharClass.FIGHTER)) }
     val time = rememberTime()
     BackHandler { vm.screen = Screen.TITLE }
 
@@ -70,7 +72,7 @@ fun CreateScreen(vm: GameViewModel) {
                     val step = ((time / 220) % 4).toInt().let { if (it == 1) 1 else if (it == 3) 2 else 0 }
                     PixelImageView(CharacterArt.hero(race, cls, facing, step), 96.dp)
                     Spacer(Modifier.width(12.dp))
-                    HeroSummary(Hero.create(name.ifBlank { "?" }, race, cls), lang)
+                    HeroSummary(Hero.create(name.ifBlank { "?" }, race, cls, bought), lang)
                 }
             }
 
@@ -106,7 +108,10 @@ fun CreateScreen(vm: GameViewModel) {
             }
 
             Txt(Ui.chooseClass(lang), color = Colors.textLight, bold = true)
-            Choices(CharClass.entries, cls, { it.title(lang) }) { cls = it }
+            Choices(CharClass.entries, cls, { it.title(lang) }) {
+                cls = it
+                bought = Hero.suggestedScores(it)
+            }
             Panel(Modifier.fillMaxWidth()) {
                 Column {
                     Txt(cls.desc(lang), size = 15.sp)
@@ -121,11 +126,51 @@ fun CreateScreen(vm: GameViewModel) {
                     }
                 }
             }
+
+            PointBuy(bought, race, cls, lang) { bought = it }
         }
         Spacer(Modifier.height(10.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             PixelButton(Ui.back(lang), Modifier.weight(1f)) { vm.screen = Screen.TITLE }
-            PixelButton(Ui.start(lang), Modifier.weight(2f)) { vm.newGame(name.trim(), race, cls) }
+            PixelButton(Ui.start(lang), Modifier.weight(2f)) { vm.newGame(name.trim(), race, cls, bought) }
+        }
+    }
+}
+
+/** Distributes the point-buy budget; values shown include the race bonus. */
+@Composable
+private fun PointBuy(bought: Map<Ability, Int>, race: Race, cls: CharClass, lang: Lang, onChange: (Map<Ability, Int>) -> Unit) {
+    val de = lang == Lang.DE
+    val left = Rules.POINT_BUY - Rules.pointsSpent(bought)
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Txt(if (de) "Attribute verteilen" else "Assign abilities", Modifier.weight(1f), color = Colors.textLight, bold = true)
+        PixelButton(if (de) "Vorschlag" else "Suggest", Modifier.height(36.dp), size = 13.sp) { onChange(Hero.suggestedScores(cls)) }
+    }
+    Panel(Modifier.fillMaxWidth()) {
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Txt(
+                (if (de) "Punkte übrig: " else "Points left: ") + "$left / ${Rules.POINT_BUY}",
+                size = 15.sp, bold = true, color = if (left > 0) Colors.accent else Colors.text,
+            )
+            Txt(
+                if (de) "Werte 8–15 vor Volksbonus. Höhere Werte kosten mehr (14: 7 Punkte, 15: 9 Punkte)."
+                else "Scores 8–15 before race bonus. High scores cost more (14: 7 points, 15: 9 points).",
+                size = 12.sp, color = Colors.textDim,
+            )
+            Ability.entries.forEach { a ->
+                val v = bought.getValue(a)
+                val bonus = race.bonus[a] ?: 0
+                val up = v < Rules.POINT_BUY_MAX && Rules.pointCost(v + 1) - Rules.pointCost(v) <= left
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Txt(a.full(lang) + if (a == cls.primary) " ★" else "", Modifier.weight(1f), size = 14.sp, maxLines = 1)
+                    Txt("${v + bonus}", Modifier.width(30.dp), size = 16.sp, bold = true)
+                    Txt(if (bonus > 0) "+$bonus" else "", Modifier.width(30.dp), size = 12.sp, color = Colors.border)
+                    Txt("(${Rules.signed(Rules.mod(v + bonus))})", Modifier.width(40.dp), size = 13.sp, color = Colors.textDim)
+                    PixelButton("−", Modifier.width(44.dp).height(36.dp), enabled = v > Rules.POINT_BUY_MIN) { onChange(bought + (a to v - 1)) }
+                    Spacer(Modifier.width(6.dp))
+                    PixelButton("+", Modifier.width(44.dp).height(36.dp), enabled = up) { onChange(bought + (a to v + 1)) }
+                }
+            }
         }
     }
 }

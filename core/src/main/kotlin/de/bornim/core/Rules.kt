@@ -39,8 +39,43 @@ object Rules {
         42500, 50000, 60000, 70000, 82500, 97500, 112500, 132500, 152500, 177500,
     )
 
-    /** Standard array from the SRD, assigned in class priority order. */
+    /** Standard array from the SRD: the starting scores of heroes created before point buy. */
     val standardArray = intArrayOf(15, 14, 13, 12, 10, 8)
+
+    /** Point buy at character creation: a budget a little below the SRD's 27, scores 8–15 before race. */
+    const val POINT_BUY = 24
+    const val POINT_BUY_MIN = 8
+    const val POINT_BUY_MAX = 15
+
+    /** SRD point-buy cost of a score. */
+    fun pointCost(score: Int): Int = when (score) {
+        in POINT_BUY_MIN..13 -> score - POINT_BUY_MIN
+        14 -> 7
+        15 -> 9
+        else -> error("Score $score outside point buy")
+    }
+
+    fun pointsSpent(scores: Map<Ability, Int>): Int = scores.values.sumOf { pointCost(it) }
+
+    /** A sensible 24-point spread, assigned in class priority order. */
+    val suggestedArray = intArrayOf(15, 14, 12, 10, 10, 8)
+
+    /** Levels that bring ability points, two each (SRD ability score improvements). */
+    val abilityLevels = intArrayOf(4, 8, 12, 16, 19)
+
+    /**
+     * Most that all equipped gear together may add to [a] in [chapter], or null for no limit:
+     * keeps loot from outgrowing the monsters of a chapter.
+     */
+    fun gearCap(a: Affix, chapter: Int): Int? = when (a) {
+        Affix.STR, Affix.DEX, Affix.CON, Affix.INT, Affix.WIS, Affix.CHA, Affix.ALL_STATS,
+        Affix.ATTACK, Affix.SPELL, Affix.AC -> chapter
+        Affix.DAMAGE, Affix.FIRE, Affix.RADIANT -> chapter + 1
+        else -> null
+    }
+
+    /** Ability points a hero of [level] has earned in total. */
+    fun abilityPoints(level: Int): Int = 2 * abilityLevels.count { it <= level }
 
     /** Spell points variant (SRD-compatible spell slot alternative), by caster level. */
     private val spellPoints = intArrayOf(0, 4, 6, 14, 17, 27, 32, 38, 44, 57, 64, 73, 73, 83, 83, 94, 94, 107, 114, 123, 133)
@@ -187,7 +222,7 @@ enum class Skill(
     SCORCHING_RAY(CharClass.WIZARD, 3, T("Sengender Strahl", "Scorching Ray"),
         T("Drei Strahlen, je ein Zauberangriff mit 2W6 Feuerschaden.", "Three rays, each a spell attack for 2d6 fire damage."), SkillCost.SPELL_POINTS, 3),
     FIREBALL(CharClass.WIZARD, 5, T("Feuerball", "Fireball"),
-        T("8W6 Feuerschaden, GES-Rettungswurf halbiert.", "8d6 fire damage, DEX save for half."), SkillCost.SPELL_POINTS, 5),
+        T("8W6 Feuerschaden, GES-Rettungswurf halbiert. Verjagt Begleiter, die ihren Rettungswurf nicht schaffen. Einmal pro Kampf.", "8d6 fire damage, DEX save for half. Drives off companions that fail their save. Once per battle."), SkillCost.SPELL_POINTS, 5),
 
     // Rogue
     SNEAK_ATTACK(CharClass.ROGUE, 1, T("Hinterhältiger Angriff", "Sneak Attack"),
@@ -197,7 +232,7 @@ enum class Skill(
     CUNNING_ACTION(CharClass.ROGUE, 2, T("Raffinierte Aktion", "Cunning Action"),
         T("Die Flucht gelingt immer (außer vor Bossen).", "Fleeing always succeeds (except from bosses)."), SkillCost.PASSIVE),
     UNCANNY_DODGE(CharClass.ROGUE, 3, T("Unglaubliches Ausweichen", "Uncanny Dodge"),
-        T("Der erste Treffer gegen dich in jedem Kampf macht nur halben Schaden.", "The first hit against you each battle deals only half damage."), SkillCost.PASSIVE),
+        T("Der erste Treffer gegen dich in jedem Kampf macht nur halben Schaden, ab Stufe 5 in jeder Runde.", "The first hit against you each battle deals only half damage, from level 5 on each round."), SkillCost.PASSIVE),
 
     // Cleric
     SACRED_FLAME(CharClass.CLERIC, 1, T("Heilige Flamme", "Sacred Flame"),

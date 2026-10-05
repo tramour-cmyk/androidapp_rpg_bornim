@@ -74,7 +74,7 @@ class Battle(
     private val enemyDamageBonus: Int = over + eliteTier + (if (trait == EliteTrait.SAVAGE) eliteTier else 0)
     val enemyMaxHp: Int = maxOf(
         1,
-        (dice.roll(monster.hp) * (1 + 0.35 * over) * (if (eliteTier == 2) 1.8 else if (elite) 1.5 else 1.0) *
+        (dice.roll(monster.hp) * (1 + (if (monster.boss) BOSS_HP_PER_LEVEL else HP_PER_LEVEL) * over) * (if (eliteTier == 2) 1.8 else if (elite) 1.5 else 1.0) *
             (if (trait == EliteTrait.ANCIENT) 1.3 else 1.0) * (if (shiny) 1.3 else 1.0)).toInt(),
     )
     /** Extra damage of venomous and burning elites. */
@@ -197,8 +197,12 @@ class Battle(
     fun usesLeft(skill: Skill): Int? = usesLeft[skill]
 
     /** Null if usable, otherwise the reason why not. */
+    /** Fireball can be cast once per battle. */
+    private var fireballUsed = false
+
     fun blocked(skill: Skill): T? = when {
         !hero.has(skill) || skill.passive -> Msg.cannot
+        skill == Skill.FIREBALL && fireballUsed -> Msg.noUses
         skill.cost == SkillCost.PER_BATTLE && (usesLeft[skill] ?: 0) <= 0 -> Msg.noUses
         skill.cost == SkillCost.SPELL_POINTS && hero.sp < skill.amount -> Msg.noSp
         skill == Skill.MAGE_ARMOR && (mageArmor || (hero.item(GearSlot.CHEST)?.def?.armor ?: 0) > 0) -> Msg.noEffect
@@ -303,6 +307,7 @@ class Battle(
             SkillCost.SPELL_POINTS -> hero.sp -= skill.amount
             else -> {}
         }
+        if (skill == Skill.FIREBALL) fireballUsed = true
         say(Msg.uses.f(lang, name, skill.title(lang)), Anim.SPELL)
         when (skill) {
             Skill.SECOND_WIND -> healHero(dice.roll(1, 10) + hero.level)
@@ -327,8 +332,8 @@ class Battle(
                 if (saveSpell(dice(8, 6), DamageType.FIRE, monster.dexSave, half = true, FxKind.FIREBALL) && dice.chance(0.5)) {
                     inflict(onHero = false, Status.BURN, 2)
                 }
-                // The blast also catches the pack in the background.
-                if (pack != null && packLeft > 0 && outcome == Outcome.ONGOING) {
+                // The blast also catches the pack in the background; they flee unless they dodge it.
+                if (pack != null && packLeft > 0 && outcome == Outcome.ONGOING && dice.d20() + monster.dexSave < hero.spellDc) {
                     packLeft = 0
                     say(pack.burned(lang), Anim.PACK_FLEE)
                 }
@@ -450,6 +455,8 @@ class Battle(
 
     private fun enemyTurn() {
         if (outcome != Outcome.ONGOING) return
+        // From level 5 on, uncanny dodge works once per round instead of once per battle.
+        if (hero.level >= UNCANNY_EVERY_ROUND) dodgeUsed = false
         if (!tick(onHero = false)) return
         if (foeSurprised > 0) {
             foeSurprised--
@@ -832,7 +839,8 @@ class Battle(
         val items = fixed.filter { Items.exists(it) }
         val gear = if (fled) mutableListOf() else fixed.filter { Uniques.exists(it) }.map { Uniques.make(it, 0, level) }.toMutableList()
         if (!fled) gear += Loot.drops(state, dice, level, monster.boss, elite)
-        if (!fled && shiny) gear += Loot.generate(state, dice, level, Loot.rollRarity(dice, level, hero.bonus(Affix.MAGIC_FIND), Rarity.RARE), hero.cls)
+        // A shimmering monster always leaves the best the chapter has to offer.
+        if (!fled && shiny) gear += Loot.generate(state, dice, level, Loot.maxSpecial(Story.chapter(state)), hero.cls)
         state.gold += gold
         items.forEach { state.add(it) }
         val owned = gear.map { state.addGear(it) }
@@ -865,6 +873,11 @@ class Battle(
     private fun flush(): List<Step> = steps.toList().also { steps.clear() }
 
     companion object {
+        /** Extra HP per level above the area: ordinary monsters keep up with the hero, bosses less so. */
+        const val HP_PER_LEVEL = 0.6
+        const val BOSS_HP_PER_LEVEL = 0.35
+        const val UNCANNY_EVERY_ROUND = 5
+
         val savingThrows = mapOf(
             CharClass.FIGHTER to setOf(Ability.STR, Ability.CON),
             CharClass.WIZARD to setOf(Ability.INT, Ability.WIS),

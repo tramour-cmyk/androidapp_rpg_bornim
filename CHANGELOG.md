@@ -4,6 +4,17 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Geändert – Spielbalance** (per Kampfsimulation für alle vier Klassen abgestimmt)
+- **Point-Buy bei der Charaktererstellung:** 24 Punkte frei verteilen, Werte 8–15 vor Volksbonus (14 kostet 7, 15 kostet 9 Punkte). Der Knopf „Vorschlag“ verteilt passend zur Klasse. Neue Helden starten damit etwas kleiner als bisher.
+- **Attributspunkte wie im SRD:** je 2 Punkte auf Stufe 4, 8, 12, 16 und 19 statt 1 Punkt auf jeder Stufe.
+- **Feuerball:** nur noch einmal pro Kampf. Begleiter (Rudel, Späher, Leibwache) fliehen nur noch, wenn ihr Rettungswurf misslingt.
+- **Beute nach Kapiteln:** In Kapitel 1 ist normale Beute bis Stufe 2 gewöhnlich, danach nur gelegentlich ungewöhnlich. Bosse, Eliten, Truhen und schimmernde Monster geben höchstens „selten“. Bessere Seltenheiten kommen mit späteren Kapiteln. Bosse lassen ein Highlight und etwas normale Beute fallen statt drei bis vier seltener Gegenstände. Tildas Laden führt in Kapitel 1 höchstens Ungewöhnliches.
+- **Obergrenzen für Ausrüstung:** In Kapitel 1 bringt alle Ausrüstung zusammen höchstens +1 je Attribut, auf Angriff, Zauberangriff und RK sowie +2 Schaden. Im Heldenreiter markiert ein Sternchen, wenn deine Ausrüstung mehr könnte.
+- **Story-Gegenstände aus Kapitel 1** (Glutstab, Klinge von Bornim, Graks Kriegsaxt, Grimmzahns Fang usw.) sind jetzt „selten“ mit kleineren Werten.
+- **Normale Monster** wachsen mit der Heldenstufe stärker mit (TP), damit Kämpfe auf Stufe 5–6 nicht nach einer Runde vorbei sind. Bosse bleiben wie bisher.
+- **Schurke:** „Unglaubliches Ausweichen“ halbiert ab Stufe 5 den ersten Treffer in jeder Runde (vorher nur einmal pro Kampf).
+- **Bestehende Spielstände:** Beim Laden werden die Attributspunkte nach der neuen Regel neu berechnet (zu viel Verteiltes wird zurückgenommen, zuerst beim am stärksten gesteigerten Attribut), und die Story-Gegenstände werden angepasst. Ein Hinweis erscheint einmalig.
+
 ## v0.1.18 – 05.10.2026, 15:55
 
 **Geändert**
