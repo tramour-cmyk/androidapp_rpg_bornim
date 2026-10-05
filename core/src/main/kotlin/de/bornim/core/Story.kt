@@ -17,6 +17,8 @@ object Story {
     const val CHAPTER1_DONE = "chapter1_done"
     const val GRIMFANG_DEFEATED = "grimfang_defeated"
     const val HEDDA_MET = "hedda_met"
+    /** Never set: doors that stay locked. */
+    const val LOCKED = "locked_forever"
     /** Set when chapter 2 begins; until then the hero cannot rise above [CHAPTER1_LEVEL_CAP]. */
     const val CHAPTER2_STARTED = "chapter2_started"
     const val CHAPTER1_LEVEL_CAP = 6
@@ -82,42 +84,67 @@ object Story {
         name = T("Bornim", "Bornim"),
         kind = MapKind.TOWN,
         rows = listOf(
-            "TTTTTTTTTTT==TTTTTTTTTTT",
-            "T.f........==S.......f.T",
-            "T.^^^^^....==...^^^^^..T",
-            "T.^^^^^....==...^^^^^..T",
-            "T.#W#D#....==...#W#D#..T",
-            "T....=S....==...S..=...T",
-            "T....===============...T",
-            "T.........w==..........T",
-            "T.f........==........f.T",
-            "T.^^^^^....==...MMMMM..T",
-            "T.^^^^^....==...MMMMM..T",
-            "T.#W#D#....==...#W#D#..T",
-            "T....=.....==......=...T",
-            "T....===============...T",
-            "T.f..........f.........T",
-            "T...~~~~~.........f....T",
-            "T...~~~~~..............T",
-            "T.f.......f......f.....T",
-            "T......................T",
-            "TTTTTTTTTTTTTTTTTTTTTTTT",
+            "TTTTTTTTTTTTTTTTT==TTTTTTTTTTTTTTTTT",
+            "TTT.......T......==S.....TT......TTT",
+            "TT.......T.......==.....T.........TT",
+            "T..^^^^^^........==.......^^^^^....T",
+            "T..^^^^^^..^^^^..==..^^^..^^^^^....T",
+            "T..#W#D#Wb.#D#W..==..#D#..W#D#Wb...T",
+            "T.....=S.b..=....==...=..S..=......T",
+            "T.....=.....=....==...=.....=......T",
+            "T....==========================....T",
+            "T.f...........f..==...f.......T..f.T",
+            "T........T.......==.......T........T",
+            "T...........looooooooool...........T",
+            "T..^^^^.....oommoooommoo.....^^^^..T",
+            "T..^^^^.....oooooooooooo.....#D#W..T",
+            "T..W#D#.....ooooowoooooo========...T",
+            "T....=======oooooooooooo...........T",
+            "T.f.........oonoooooonoo.........f.T",
+            "T...........looooooooool.........T.T",
+            "T.T^^^^^^........==.......MMMMMM...T",
+            "T..^^^^^^f.......==.......MMMMMM...T",
+            "T..W#D#WW........==.....f.W#D#W#...T",
+            "T....=.....^^^^..==.........=....f.T",
+            "T....=.....W#D#..==.........=......T",
+            "T....==========================....T",
+            "T.~~~~~............................T",
+            "TT~~~~~..f....T......fT.......f...TT",
+            "TT~~~~~..........................TTT",
+            "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
         ),
         warps = listOf(
-            Warp(11, 0, Place("forest", 9, 30, Facing.UP), QUEST_STARTED, jorinStop()),
-            Warp(12, 0, Place("forest", 10, 30, Facing.UP), QUEST_STARTED, jorinStop()),
-            Warp(5, 4, inside("inn")),
-            Warp(19, 4, inside("shop")),
-            Warp(5, 11, inside("elder")),
-            Warp(19, 11, inside("temple")),
+            Warp(17, 0, Place("forest", 9, 30, Facing.UP), QUEST_STARTED, jorinStop()),
+            Warp(18, 0, Place("forest", 10, 30, Facing.UP), QUEST_STARTED, jorinStop()),
+            Warp(6, 5, inside("inn")),
+            Warp(28, 5, inside("shop")),
+            Warp(5, 20, inside("elder")),
+            Warp(28, 20, inside("temple")),
+            // Homes of villagers: locked for now.
+            lockedDoor(12, 5, T("Hier wohnt Bäcker Anton. Es duftet nach frischem Brot, aber die Tür ist verschlossen.", "Anton the baker lives here. It smells of fresh bread, but the door is locked.")),
+            lockedDoor(22, 5, T("Eine kleine Hütte. Niemand öffnet.", "A small hut. Nobody answers.")),
+            lockedDoor(5, 14, T("Hier wohnt Greta mit ihrer Familie. Die Tür ist verschlossen.", "Greta lives here with her family. The door is locked.")),
+            lockedDoor(30, 13, T("Das Haus von Schmied Bruno. Er ist wohl in seiner Werkstatt.", "Bruno the smith's house. He must be at his workshop.")),
+            lockedDoor(13, 22, T("Hier wohnt Finn mit seinen Eltern. Die Tür ist verschlossen.", "Finn lives here with his parents. The door is locked.")),
         ),
         signs = mapOf(
-            (13 to 1) to T("Norden: Flüsterwald.\nAchtung, Goblins!", "North: Whisperwood.\nBeware of goblins!"),
-            (6 to 5) to T("Gasthaus »Zum Schlafenden Greif«", "The Sleeping Griffin Inn"),
-            (16 to 5) to T("Tildas Kramladen\nWaffen · Rüstungen · Tränke", "Tilda's General Store\nWeapons · Armor · Potions"),
+            (19 to 1) to T("Norden: Flüsterwald.\nAchtung, Goblins!", "North: Whisperwood.\nBeware of goblins!"),
+            (7 to 6) to T("Gasthaus »Zum Schlafenden Greif«", "The Sleeping Griffin Inn"),
+            (25 to 6) to T("Tildas Kramladen\nWaffen · Rüstungen · Tränke", "Tilda's General Store\nWeapons · Armor · Potions"),
+        ),
+        houseStyles = mapOf(
+            (3 to 3) to HouseStyle(RoofKind.RED, WallKind.TIMBER, feature = HouseFeature.INN_SIGN),
+            (26 to 3) to HouseStyle(RoofKind.SHINGLE, WallKind.PLANKS, mirrored = true, feature = HouseFeature.AWNING),
+            (11 to 4) to HouseStyle(RoofKind.STRAW, WallKind.TIMBER),
+            (21 to 4) to HouseStyle(RoofKind.STRAW, WallKind.PLANKS, mirrored = true),
+            (3 to 12) to HouseStyle(RoofKind.RED, WallKind.STONE, mirrored = true),
+            (29 to 12) to HouseStyle(RoofKind.SLATE, WallKind.STONE),
+            (3 to 18) to HouseStyle(RoofKind.BLUE, WallKind.STONE),
+            (26 to 18) to HouseStyle(RoofKind.SLATE, WallKind.STONE, feature = HouseFeature.BELL_TOWER),
+            (11 to 21) to HouseStyle(RoofKind.SHINGLE, WallKind.TIMBER, mirrored = true),
         ),
         npcs = listOf(
-            Npc("jorin", 10, 1, "guard", Facing.RIGHT) { s ->
+            Npc("jorin", 16, 1, "guard", Facing.RIGHT) { s ->
                 if (!s.has(QUEST_STARTED)) script {
                     say(jorin, "Halt! Der Flüsterwald ist zu gefährlich geworden.", "Halt! The Whisperwood has become too dangerous.")
                     say(jorin, "Ohne Erlaubnis des Ältesten lasse ich niemanden hinaus.", "I'm not letting anyone out without the Elder's permission.")
@@ -128,7 +155,7 @@ object Story {
                     say(jorin, "Seit du Grak besiegt hast, schlafe ich wieder ruhig. Danke, {name}!", "Since you beat Grak I'm sleeping soundly again. Thanks, {name}!")
                 }
             },
-            Npc("finn", 9, 8, "child", Facing.DOWN, wander = 3) { s ->
+            Npc("finn", 15, 14, "child", Facing.DOWN, wander = 3) { s ->
                 if (!s.has(CHAPTER1_DONE)) script {
                     say(finn, "Papa sagt, Goblins haben Angst vor Feuer! Stimmt das?", "Dad says goblins are scared of fire! Is that true?")
                     say(finn, "Tilda verkauft Alchemistenfeuer. Damit kann man sogar zaubern, ohne Magier zu sein!", "Tilda sells alchemist's fire. You can do magic with it without even being a wizard!")
@@ -136,7 +163,7 @@ object Story {
                     say(finn, "Wenn ich groß bin, werde ich auch ein Held! Genau wie du!", "When I grow up I'll be a hero too! Just like you!")
                 }
             },
-            Npc("greta", 9, 15, "villager", Facing.LEFT, wander = 2) { s ->
+            Npc("greta", 8, 25, "villager", Facing.LEFT, wander = 2) { s ->
                 if (!s.has(CHAPTER1_DONE)) script {
                     say(greta, "Früher konnte man nachts in Ruhe fischen. Jetzt heulen die Wölfe bis zum Morgengrauen.", "We used to fish here in peace at night. Now the wolves howl until dawn.")
                 } else script {
@@ -145,6 +172,9 @@ object Story {
             },
         ),
     )
+
+    /** A villager's front door that stays shut, with a line about who lives there. */
+    private fun lockedDoor(x: Int, y: Int, text: T) = Warp(x, y, Place("village", x, y + 1, Facing.DOWN), LOCKED, script { narrate(text.de, text.en) })
 
     private fun jorinStop() = script {
         say(jorin, "Halt! Ohne Erlaubnis des Ältesten lasse ich niemanden in den Wald.", "Halt! Nobody enters the woods without the Elder's permission.")
@@ -167,7 +197,7 @@ object Story {
             "#kRRRkkkk#",
             "####D#####",
         ),
-        warps = interiorExit(toVillage(5, 5)),
+        warps = interiorExit(toVillage(6, 6)),
         npcs = listOf(
             Npc("berta", 2, 2, "innkeeper", Facing.DOWN) { s ->
                 when {
@@ -215,7 +245,7 @@ object Story {
             "#kkkkkkkP#",
             "####D#####",
         ),
-        warps = interiorExit(toVillage(19, 5)),
+        warps = interiorExit(toVillage(28, 6)),
         npcs = listOf(
             Npc("tilda", 4, 2, "merchant", Facing.DOWN) { _ ->
                 script {
@@ -241,7 +271,7 @@ object Story {
             "#kRRRRkkk#",
             "####D#####",
         ),
-        warps = interiorExit(toVillage(5, 12)),
+        warps = interiorExit(toVillage(5, 21)),
         npcs = listOf(Npc("aldric", 6, 2, "elder", Facing.DOWN) { s -> elderTalk(s) }),
     )
 
@@ -295,7 +325,7 @@ object Story {
             "#kkRRRRkk#",
             "####D#####",
         ),
-        warps = interiorExit(toVillage(19, 12)),
+        warps = interiorExit(toVillage(28, 21)),
         npcs = listOf(
             Npc("odo", 4, 2, "priest", Facing.DOWN) { s ->
                 script {
@@ -362,8 +392,8 @@ object Story {
             "TTTTTTTTT==TTTTTTTTT",
         ),
         warps = listOf(
-            Warp(9, 31, Place("village", 11, 1, Facing.DOWN)),
-            Warp(10, 31, Place("village", 12, 1, Facing.DOWN)),
+            Warp(9, 31, Place("village", 17, 1, Facing.DOWN)),
+            Warp(10, 31, Place("village", 18, 1, Facing.DOWN)),
             Warp(10, 0, Place("cave", 10, 18, Facing.UP)),
             Warp(19, 10, Place("deep_forest", 1, 18, Facing.RIGHT)),
         ),

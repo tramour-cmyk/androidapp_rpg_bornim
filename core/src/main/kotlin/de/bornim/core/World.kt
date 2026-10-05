@@ -31,6 +31,12 @@ enum class Tile(val ch: Char, val walkable: Boolean) {
     SHELF('Q', false),
     PLANT('P', false),
     ALTAR('A', false),
+    // village
+    COBBLE('o', true),
+    STALL('m', false),
+    LAMP('l', false),
+    BARREL('b', false),
+    BENCH('n', false),
     ;
 
     companion object {
@@ -40,6 +46,18 @@ enum class Tile(val ch: Char, val walkable: Boolean) {
 }
 
 enum class MapKind { TOWN, INTERIOR, FOREST, CAVE }
+
+enum class RoofKind { RED, BLUE, SLATE, STRAW, SHINGLE }
+enum class WallKind { TIMBER, STONE, PLANKS }
+enum class HouseFeature { NONE, INN_SIGN, AWNING, BELL_TOWER }
+
+/** Look of a house on a town map; [mirrored] puts the chimney on the left. */
+data class HouseStyle(
+    val roof: RoofKind,
+    val walls: WallKind,
+    val mirrored: Boolean = false,
+    val feature: HouseFeature = HouseFeature.NONE,
+)
 
 data class Warp(val x: Int, val y: Int, val to: Place, val requires: String? = null, val denied: List<Cmd> = emptyList())
 
@@ -96,6 +114,8 @@ class MapDef(
     /** Baseline monster and item level of this area. */
     val areaLevel: Int = 1,
     val safeZones: List<SafeZone> = emptyList(),
+    /** Looks of the houses, by the top-left tile of their roof; others get one from their position. */
+    val houseStyles: Map<Pair<Int, Int>, HouseStyle> = emptyMap(),
 ) {
     fun safe(x: Int, y: Int) = safeZones.any { it.contains(x, y) }
 

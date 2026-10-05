@@ -4,6 +4,14 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – ein schöneres Bornim (Teil 1)**
+- **Größeres Dorf** (36 × 28 statt 24 × 20 Felder) mit gepflastertem **Dorfplatz**: Brunnen in der Mitte, vier Marktstände (Obst, Stoffe, Kräuter), Bänke und Laternen, die nachts leuchten.
+- **Verschiedene Häuser:** rote Ziegel, blauer und grauer Schiefer, Stroh oder Holzschindeln; Fachwerk, Naturstein oder Holzbretter; Fensterläden in verschiedenen Farben, Brennholz an der Wand, Schornsteine mal links, mal rechts.
+- **Gebäude mit Charakter:** Gasthaus mit Wirtshausschild und Fässern, Tildas Laden mit gestreifter Markise, Tempel aus hellem Stein mit Glockenturm und Bogenfenstern.
+- **Fünf neue Wohnhäuser** von Bäcker Anton, Schmied Bruno, Greta, Finns Familie und eine kleine Hütte. Sie sind vorerst verschlossen, ein kurzer Text verrät, wer dort wohnt.
+- Marktstände, Laternen, Fässer und Bänke lassen sich ansehen.
+- Alte Spielstände: Steht der Held an einer Stelle, die jetzt bebaut ist, wird er auf das nächste freie Feld gesetzt.
+
 ## v0.1.21 – 05.10.2026, 17:09
 
 **Neu – jedes Attribut zählt**

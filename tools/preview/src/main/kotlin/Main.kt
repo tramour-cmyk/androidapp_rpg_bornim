@@ -76,6 +76,10 @@ fun main() {
         battleRuns()
         System.exit(0)
     }
+    System.getenv("OVERVIEW")?.let { id ->
+        renderMapOverview(id, "map_$id")
+        System.exit(0)
+    }
     if (System.getenv("ABOUT") != null) {
         shot("31_about") { it.screen = Screen.ABOUT }
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }
@@ -315,12 +319,22 @@ fun main() {
         vm.game!!.skipDialogs()
         vm.menuOpen = true
     }
-    shot("59_village_overview") { vm ->
-        vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
-        val g = vm.game!!
-        g.skipDialogs()
-        g.state.place = Place("village", 11, 10, Facing.DOWN)
-        vm.refresh()
+    for ((name, place, minutes) in listOf(
+        Triple("60_village_north", Place("village", 15, 8, Facing.DOWN), 10 * 60),
+        Triple("60_village_inn", Place("village", 6, 9, Facing.UP), 10 * 60),
+        Triple("60_village_shop", Place("village", 29, 9, Facing.UP), 10 * 60),
+        Triple("60_village_square", Place("village", 18, 10, Facing.DOWN), 10 * 60),
+        Triple("60_village_south", Place("village", 17, 21, Facing.DOWN), 10 * 60),
+        Triple("60_village_night", Place("village", 18, 10, Facing.DOWN), 22 * 60),
+    )) {
+        shot(name) { vm ->
+            vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
+            val g = vm.game!!
+            g.skipDialogs()
+            g.state.place = place
+            g.state.minutes = minutes
+            vm.refresh()
+        }
     }
     shot("47_hud_ailments") { vm ->
         vm.newGame("Mira", Race.ELF, CharClass.WIZARD)

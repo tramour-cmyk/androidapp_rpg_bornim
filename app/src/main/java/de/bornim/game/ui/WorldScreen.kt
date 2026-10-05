@@ -748,7 +748,7 @@ private fun DrawScope.drawWeatherAndNight(
         // warm light from windows and fires
         for (ty in 0 until map.height) for (tx in 0 until map.width) {
             val t = map.tile(tx, ty)
-            if (t != Tile.WINDOW && t != Tile.CAMPFIRE) continue
+            if (t != Tile.WINDOW && t != Tile.CAMPFIRE && t != Tile.LAMP) continue
             val c = Offset((tx * T + T / 2f - camX) * scale, (ty * T + T / 2f - camY) * scale)
             if (c.x < -200 || c.y < -200 || c.x > size.width + 200 || c.y > size.height + 200) continue
             val flicker = if (t == Tile.CAMPFIRE) 0.85f + 0.15f * kotlin.math.sin(clock / 90f) else 1f

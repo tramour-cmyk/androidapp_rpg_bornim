@@ -1,10 +1,14 @@
 package de.bornim.core.art
 
 import de.bornim.core.GameState
+import de.bornim.core.HouseFeature
+import de.bornim.core.HouseStyle
 import de.bornim.core.MapDef
 import de.bornim.core.MapKind
+import de.bornim.core.RoofKind
 import de.bornim.core.Story
 import de.bornim.core.Tile
+import de.bornim.core.WallKind
 
 /**
  * 32×32 world graphics in a classic three-quarter ("from above at an angle") view.
@@ -38,7 +42,7 @@ object WorldArt {
             Tile.FLOWERS -> cached("flowers$seed") { grass(seed); flowers(seed) }
             Tile.TALL_GRASS -> cached("tall$seed") { tallGrass(seed) }
             Tile.PATH -> {
-                fun p(dx: Int, dy: Int) = at(dx, dy).let { it == Tile.PATH || it == Tile.DOOR || it == Tile.CAVE_ENTRANCE }
+                fun p(dx: Int, dy: Int) = at(dx, dy).let { it == Tile.PATH || it == Tile.DOOR || it == Tile.CAVE_ENTRANCE || it in PAVED }
                 val m = mask(!p(0, -1), !p(1, 0), !p(0, 1), !p(-1, 0))
                 cached("path$m/$seed") { path(m, seed) }
             }
@@ -48,7 +52,7 @@ object WorldArt {
                 cached("water$m/$frame") { water(m, frame) }
             }
             Tile.TREE -> cached("treeground$seed") { grass(seed); blendEllipse(16.0, 26.0, 13.0, 5.0, SHADOW) }
-            Tile.ROCK, Tile.SIGN, Tile.CHEST, Tile.WELL, Tile.CAMPFIRE -> {
+            Tile.ROCK, Tile.SIGN, Tile.CHEST, Tile.CAMPFIRE -> {
                 val base = baseGround(kind, seed)
                 cached("obj-ground/${kind}/$seed/${t == Tile.CAMPFIRE}") {
                     paste(base)
@@ -57,6 +61,21 @@ object WorldArt {
                 }
             }
             Tile.ROOF, Tile.ROOF_BLUE, Tile.WINDOW -> cached("grass$seed") { grass(seed) }
+            Tile.COBBLE, Tile.STALL, Tile.LAMP, Tile.BARREL, Tile.BENCH, Tile.WELL -> {
+                // Objects on the square stand on cobbles, elsewhere on grass.
+                val onSquare = t == Tile.COBBLE || listOf(0 to -1, 1 to 0, 0 to 1, -1 to 0).any { (dx, dy) -> at(dx, dy) == Tile.COBBLE }
+                if (!onSquare) {
+                    val base = baseGround(kind, seed)
+                    cached("obj-ground/$kind/$seed/false") { paste(base); blendEllipse(16.0, 27.0, 12.0, 4.0, SHADOW) }
+                } else {
+                    fun c(dx: Int, dy: Int) = at(dx, dy).let { it in PAVED || it == Tile.PATH || it == Tile.WELL || it == Tile.DOOR }
+                    val m = mask(!c(0, -1), !c(1, 0), !c(0, 1), !c(-1, 0))
+                    cached("cobble$m/$seed/${t != Tile.COBBLE}") {
+                        cobble(m, seed)
+                        if (t != Tile.COBBLE) blendEllipse(16.0, 27.0, 12.0, 4.0, SHADOW)
+                    }
+                }
+            }
             Tile.WALL -> when (kind) {
                 MapKind.INTERIOR -> if (at(0, 1) != Tile.WALL && map.inside(tx, ty + 1)) cached("iwallface${tx % 3}") { interiorWallFace(tx % 3) } else cached("iwalltop") { interiorWallTop() }
                 else -> cached("grass$seed") { grass(seed) }
@@ -212,6 +231,36 @@ object WorldArt {
         for (i in 0 until 2) {
             val x = 4 + noise(seed, i, 2) % 22; val y = 4 + noise(i, seed, 8) % 22
             raw(x, y, P_D); raw(x + 1, y, P_D); raw(x, y - 1, P_L)
+        }
+        border(m, G, G_D, seed)
+    }
+
+    private val PAVED = setOf(Tile.COBBLE, Tile.STALL, Tile.LAMP, Tile.BARREL, Tile.BENCH)
+    private val COB = argb(0xB8AE9C); private val COB_L = argb(0xD4CCBC); private val COB_D = argb(0x8E8474); private val MORTAR = argb(0x6E6658)
+
+    /** Cobblestones in staggered rows, with a grass border where the square ends. */
+    private fun Pen.cobble(m: Int, seed: Int) {
+        fill(MORTAR)
+        for (row in 0 until 6) {
+            val y0 = row * 6 - 1
+            val shift = if (row % 2 == 0) 0 else 4
+            var x0 = -shift
+            var k = 0
+            while (x0 < T) {
+                val w = 6 + noise(row, k + seed * 5, 41) % 3
+                val tone = noise(k, row, 43 + seed) % 3
+                val c = when (tone) { 0 -> COB; 1 -> mix(COB, COB_D, 0.35); else -> mix(COB, COB_L, 0.4) }
+                for (y in y0 + 1 until y0 + 6) for (x in x0 + 1 until x0 + w) {
+                    if (x !in 0 until T || y !in 0 until T) continue
+                    // rounded corners
+                    val corner = (x == x0 + 1 || x == x0 + w - 1) && (y == y0 + 1 || y == y0 + 5)
+                    if (!corner) raw(x, y, c)
+                }
+                // light on top, shade at the bottom of each stone
+                for (x in x0 + 2 until x0 + w - 1) { if (x in 0 until T && y0 + 1 in 0 until T) raw(x, y0 + 1, mix(c, COB_L, 0.5)); if (x in 0 until T && y0 + 5 in 0 until T) raw(x, y0 + 5, mix(c, COB_D, 0.5)) }
+                x0 += w
+                k++
+            }
         }
         border(m, G, G_D, seed)
     }
@@ -424,8 +473,12 @@ object WorldArt {
                     out += Obj(cached("altar${a(-1)}${a(1)}$lit", T, 44) { altar(a(-1), a(1), lit) }, px, py - 12, bottom)
                 }
                 Tile.ROOF, Tile.ROOF_BLUE, Tile.WALL, Tile.WINDOW, Tile.DOOR -> {
-                    if (map.kind == MapKind.TOWN && (tx to ty) !in seen) out += building(map, tx, ty, seen)
+                    if (map.kind == MapKind.TOWN && (tx to ty) !in seen) building(map, tx, ty, seen)?.let { out += it }
                 }
+                Tile.STALL -> out += Obj(cached("stall$seed", T, 48) { stall(seed) }, px, py - 16, bottom)
+                Tile.LAMP -> out += Obj(cached("lamp", T, 56) { lamp() }, px, py - 24, bottom)
+                Tile.BARREL -> out += Obj(cached("barrel", T, 36) { barrel() }, px, py - 4, bottom)
+                Tile.BENCH -> out += Obj(cached("bench", T, T) { bench() }, px, py, bottom)
                 else -> {}
             }
         }
@@ -653,17 +706,29 @@ object WorldArt {
     private val PLASTER = argb(0xF2E4C0); private val PLASTER_D = argb(0xD8C49C)
     private val TIMBER = argb(0x6E4626); private val TIMBER_L = argb(0x8A5E36)
 
-    /** Finds the whole building containing (sx, sy) and draws it as one object with façade and roof. */
-    private val chimneyCache = HashMap<String, List<Pair<Int, Int>>>()
+    // ------------------------------------------------------------------ buildings
 
-    /** Tops of the chimneys on a town map, in art pixels (for the smoke). */
-    fun chimneys(map: MapDef): List<Pair<Int, Int>> = chimneyCache.getOrPut(map.id) {
+    private val HOUSE_PARTS = setOf(Tile.ROOF, Tile.ROOF_BLUE, Tile.WALL, Tile.WINDOW, Tile.DOOR)
+
+    /** A building on a town map: its tiles' bounds, façade and look. */
+    private class House(val x0: Int, val y0: Int, val w: Int, val h: Int, val facade: List<Tile>, val style: HouseStyle) {
+        /** Extra image height above the roof (the temple's bell tower). */
+        val extraTop: Int get() = if (style.feature == HouseFeature.BELL_TOWER) 34 else 0
+        val over: Int get() = 16 + extraTop
+        val chimney: Boolean get() = w >= 4 && style.feature != HouseFeature.BELL_TOWER
+        /** Left edge of the chimney in image pixels. */
+        val chimneyX: Int get() = if (style.mirrored) 34 else w * T - 44
+    }
+
+    private val houseCache = HashMap<String, List<House>>()
+
+    /** All buildings of a town map (flood fill over roof, wall, window and door tiles). */
+    private fun houses(map: MapDef): List<House> = houseCache.getOrPut(map.id) {
         if (map.kind != MapKind.TOWN) return@getOrPut emptyList()
-        val parts = setOf(Tile.ROOF, Tile.ROOF_BLUE, Tile.WALL, Tile.WINDOW, Tile.DOOR)
         val seen = HashSet<Pair<Int, Int>>()
-        val out = mutableListOf<Pair<Int, Int>>()
+        val out = mutableListOf<House>()
         for (ty in 0 until map.height) for (tx in 0 until map.width) {
-            if (map.tile(tx, ty) !in parts || (tx to ty) in seen) continue
+            if (map.tile(tx, ty) !in HOUSE_PARTS || (tx to ty) in seen) continue
             val cells = mutableListOf<Pair<Int, Int>>()
             val queue = ArrayDeque(listOf(tx to ty))
             seen += tx to ty
@@ -672,100 +737,182 @@ object WorldArt {
                 cells += x to y
                 for ((dx, dy) in listOf(1 to 0, -1 to 0, 0 to 1, 0 to -1)) {
                     val n = x + dx to y + dy
-                    if (n !in seen && map.inside(n.first, n.second) && map.tile(n.first, n.second) in parts) {
+                    if (n !in seen && map.inside(n.first, n.second) && map.tile(n.first, n.second) in HOUSE_PARTS) {
                         seen += n
                         queue += n
                     }
                 }
             }
             val x0 = cells.minOf { it.first }; val x1 = cells.maxOf { it.first }
-            val y0 = cells.minOf { it.second }
-            val wTiles = x1 - x0 + 1
-            // same place as drawn in house(): 44 px from the right edge of the image, at its top
-            if (wTiles >= 4) out += (x0 * T + wTiles * T + 6 - 44 + 5) to (y0 * T - 16)
+            val y0 = cells.minOf { it.second }; val y1 = cells.maxOf { it.second }
+            val blue = cells.any { map.tile(it.first, it.second) == Tile.ROOF_BLUE }
+            // Houses without an explicit look keep the classic one.
+            val style = map.houseStyles[x0 to y0] ?: HouseStyle(if (blue) RoofKind.BLUE else RoofKind.RED, WallKind.TIMBER)
+            out += House(x0, y0, x1 - x0 + 1, y1 - y0 + 1, (x0..x1).map { map.tile(it, y1) }, style)
         }
         out
     }
 
-    private fun building(map: MapDef, sx: Int, sy: Int, seen: MutableSet<Pair<Int, Int>>): Obj {
-        val parts = setOf(Tile.ROOF, Tile.ROOF_BLUE, Tile.WALL, Tile.WINDOW, Tile.DOOR)
-        val queue = ArrayDeque(listOf(sx to sy))
-        val cells = mutableListOf<Pair<Int, Int>>()
-        seen += sx to sy
-        while (queue.isNotEmpty()) {
-            val (x, y) = queue.removeFirst()
-            cells += x to y
-            for ((dx, dy) in listOf(1 to 0, -1 to 0, 0 to 1, 0 to -1)) {
-                val n = x + dx to y + dy
-                if (n !in seen && map.inside(n.first, n.second) && map.tile(n.first, n.second) in parts) {
-                    seen += n
-                    queue += n
-                }
-            }
-        }
-        val x0 = cells.minOf { it.first }; val x1 = cells.maxOf { it.first }
-        val y0 = cells.minOf { it.second }; val y1 = cells.maxOf { it.second }
-        val wTiles = x1 - x0 + 1
-        val hTiles = y1 - y0 + 1
-        val blue = cells.any { map.tile(it.first, it.second) == Tile.ROOF_BLUE }
-        val facade = (x0..x1).map { map.tile(it, y1) }
-        val key = "house/$wTiles/$hTiles/$blue/${facade.joinToString("") { it.ch.toString() }}"
-        val over = 16 // roof reaches this far into the tile row above
+    /** Tops of the chimneys on a town map, in art pixels (for the smoke). */
+    fun chimneys(map: MapDef): List<Pair<Int, Int>> =
+        houses(map).filter { it.chimney }.map { (it.x0 * T + it.chimneyX + 5) to (it.y0 * T - 16) }
+
+    /** The building whose top-left tile is (x0, y0), drawn as one object with façade and roof. */
+    private fun building(map: MapDef, sx: Int, sy: Int, seen: MutableSet<Pair<Int, Int>>): Obj? {
+        val house = houses(map).firstOrNull { sx in it.x0 until it.x0 + it.w && sy in it.y0 until it.y0 + it.h } ?: return null
+        for (y in house.y0 until house.y0 + house.h) for (x in house.x0 until house.x0 + house.w) seen += x to y
+        val s = house.style
+        val key = "house/${house.w}/${house.h}/${s.roof}/${s.walls}/${s.mirrored}/${s.feature}/${house.facade.joinToString("") { it.ch.toString() }}"
         val img = cache.getOrPut(key) {
-            draw(wTiles * T + 6, hTiles * T + over) { house(wTiles, hTiles, blue, facade, over) }
+            draw(house.w * T + 6, house.h * T + house.over) { house(house) }
         }
-        return Obj(img, x0 * T, y0 * T - over, (y1 + 1) * T - 1)
+        return Obj(img, house.x0 * T, house.y0 * T - house.over, (house.y0 + house.h) * T - 1)
     }
 
-    private fun Pen.house(wTiles: Int, hTiles: Int, blue: Boolean, facade: List<Tile>, over: Int) {
+    private val STONE_WALL = argb(0xC4BAA8); private val STONE_WALL_D = argb(0x9A907E)
+    private val TEMPLE_WALL = argb(0xE2DCCE); private val TEMPLE_WALL_D = argb(0xBDB5A4)
+    private val PLANK = argb(0xA8743E); private val PLANK_D = argb(0x7A5028); private val PLANK_L = argb(0xC48C50)
+
+    private fun roofColors(r: RoofKind): Pair<Int, Int> = when (r) {
+        RoofKind.RED -> Pal.ROOF to Pal.ROOF_DARK
+        RoofKind.BLUE -> Pal.ROOF_BLUE to Pal.ROOF_BLUE_DARK
+        RoofKind.SLATE -> argb(0x6E7888) to argb(0x48505E)
+        RoofKind.SHINGLE -> argb(0x9A6440) to argb(0x643C22)
+        RoofKind.STRAW -> argb(0xD8B868) to argb(0xA07C34)
+    }
+
+    private fun Pen.house(h: House) {
+        val wTiles = h.w; val hTiles = h.h; val facade = h.facade; val st = h.style
+        val over = h.over
         val W = wTiles * T
         val wallTop = over + (hTiles - 1) * T - 10 // a tall façade reads better in this view
         val roofBottom = wallTop + 5 // eave overlaps the façade a little
         val wallBottom = over + hTiles * T - 1
+        val temple = st.feature == HouseFeature.BELL_TOWER
+        // A pick of shutter colours per house, so neighbours differ.
+        val shutter = listOf(argb(0x4E8A4A), argb(0x4A6AA8), argb(0x9A3A2A), argb(0x5A5A6A))[Math.floorMod(W * 7 + hTiles * 3 + st.roof.ordinal, 4)]
 
         // drop shadow to the right
         for (y in roofBottom - 8..wallBottom) for (x in W until W + 6) raw(x, y, SHADOW_SOFT)
 
-        // façade
-        rect(0, wallTop, W - 1, wallBottom, PLASTER)
-        for (y in wallTop..wallBottom) for (x in 0 until W) if (noise(x, y, 5) % 23 == 0) raw(x, y, PLASTER_D)
+        // ---- façade
+        when (st.walls) {
+            WallKind.TIMBER -> {
+                rect(0, wallTop, W - 1, wallBottom, PLASTER)
+                for (y in wallTop..wallBottom) for (x in 0 until W) if (noise(x, y, 5) % 23 == 0) raw(x, y, PLASTER_D)
+            }
+            WallKind.STONE -> {
+                val c = if (temple) TEMPLE_WALL else STONE_WALL
+                val d = if (temple) TEMPLE_WALL_D else STONE_WALL_D
+                rect(0, wallTop, W - 1, wallBottom, d)
+                var row = 0
+                var y = wallTop
+                while (y < wallBottom - 3) {
+                    var x = if (row % 2 == 0) 0 else -5
+                    var k = 0
+                    while (x < W) {
+                        val bw = 9 + noise(row, k, 13) % 4
+                        val tone = mix(c, d, (noise(k, row, 17) % 4) * 0.08)
+                        for (yy in y + 1 until minOf(y + 6, wallBottom - 3)) for (xx in maxOf(0, x + 1) until minOf(W, x + bw)) raw(xx, yy, tone)
+                        for (xx in maxOf(0, x + 1) until minOf(W, x + bw)) if (y + 1 < wallBottom - 3) raw(xx, y + 1, mix(tone, Pal.WHITE, 0.25))
+                        x += bw
+                        k++
+                    }
+                    y += 6
+                    row++
+                }
+            }
+            WallKind.PLANKS -> {
+                rect(0, wallTop, W - 1, wallBottom, PLANK)
+                var y = wallTop
+                var row = 0
+                while (y < wallBottom) {
+                    for (x in 0 until W) raw(x, y, PLANK_D)
+                    for (x in 0 until W) if (noise(x, row, 21) % 9 == 0) raw(x, y + 2, PLANK_L)
+                    // knots
+                    val kx = noise(row, W, 23) % W
+                    if (y + 2 < wallBottom) { raw(kx, y + 2, PLANK_D); raw(kx + 1, y + 2, PLANK_D) }
+                    y += 5
+                    row++
+                }
+            }
+        }
         rect(0, wallBottom - 3, W - 1, wallBottom, Pal.STONE) // foundation
         for (x in 0 until W step 5) raw(x, wallBottom - 2, Pal.STONE_DARK)
-        rect(0, wallBottom - 4, W - 1, wallBottom - 4, TIMBER)
-        rect(0, wallTop, 2, wallBottom - 4, TIMBER); rect(W - 3, wallTop, W - 1, wallBottom - 4, TIMBER)
+        val frame = when (st.walls) { WallKind.TIMBER -> TIMBER; WallKind.PLANKS -> PLANK_D; WallKind.STONE -> if (temple) TEMPLE_WALL_D else STONE_WALL_D }
+        if (st.walls != WallKind.STONE) {
+            rect(0, wallBottom - 4, W - 1, wallBottom - 4, frame)
+            rect(0, wallTop, 2, wallBottom - 4, frame); rect(W - 3, wallTop, W - 1, wallBottom - 4, frame)
+        } else {
+            // corner stones
+            for (y in wallTop until wallBottom - 4 step 6) { rect(0, y, 3, y + 4, mix(frame, Pal.WHITE, 0.2)); rect(W - 4, y, W - 1, y + 4, mix(frame, Pal.WHITE, 0.2)) }
+        }
+        var doorFx = -1
         facade.forEachIndexed { i, t ->
             val fx = i * T
-            if (i > 0) rect(fx - 1, wallTop, fx, wallBottom - 4, TIMBER)
+            if (i > 0 && st.walls == WallKind.TIMBER) rect(fx - 1, wallTop, fx, wallBottom - 4, TIMBER)
             when (t) {
                 Tile.WINDOW -> {
-                    rect(fx + 7, wallTop + 9, fx + 24, wallTop + 22, TIMBER)
-                    rect(fx + 9, wallTop + 11, fx + 22, wallTop + 20, Pal.GLASS)
-                    rect(fx + 15, wallTop + 11, fx + 16, wallTop + 20, TIMBER)
-                    raw(fx + 10, wallTop + 12, Pal.WHITE); raw(fx + 11, wallTop + 12, Pal.WHITE); raw(fx + 10, wallTop + 13, Pal.WHITE)
-                    rect(fx + 6, wallTop + 23, fx + 25, wallTop + 25, Pal.WOOD) // flower box
-                    for (x in fx + 7..fx + 24 step 3) { raw(x, wallTop + 22, Pal.RED); raw(x + 1, wallTop + 22, G_D) }
+                    if (temple) {
+                        // tall arched window with coloured glass
+                        rect(fx + 10, wallTop + 6, fx + 21, wallTop + 24, frame)
+                        ellipse(fx + 15.5, wallTop + 8.0, 5.5, 4.0, frame)
+                        rect(fx + 12, wallTop + 8, fx + 19, wallTop + 22, argb(0x5A7AC8))
+                        ellipse(fx + 15.5, wallTop + 9.0, 3.5, 2.5, argb(0xE8C040))
+                        rect(fx + 15, wallTop + 8, fx + 16, wallTop + 22, frame)
+                        rect(fx + 12, wallTop + 15, fx + 19, wallTop + 15, frame)
+                    } else {
+                        rect(fx + 7, wallTop + 9, fx + 24, wallTop + 22, if (st.walls == WallKind.TIMBER) TIMBER else PLANK_D)
+                        rect(fx + 9, wallTop + 11, fx + 22, wallTop + 20, Pal.GLASS)
+                        rect(fx + 15, wallTop + 11, fx + 16, wallTop + 20, TIMBER)
+                        raw(fx + 10, wallTop + 12, Pal.WHITE); raw(fx + 11, wallTop + 12, Pal.WHITE); raw(fx + 10, wallTop + 13, Pal.WHITE)
+                        if (st.walls != WallKind.TIMBER) {
+                            // shutters
+                            rect(fx + 3, wallTop + 9, fx + 6, wallTop + 22, shutter); rect(fx + 25, wallTop + 9, fx + 28, wallTop + 22, shutter)
+                            for (y in wallTop + 11 until wallTop + 22 step 3) { raw(fx + 4, y, mix(shutter, Pal.BLACK, 0.3)); raw(fx + 26, y, mix(shutter, Pal.BLACK, 0.3)) }
+                        }
+                        rect(fx + 6, wallTop + 23, fx + 25, wallTop + 25, Pal.WOOD) // flower box
+                        val bloom = listOf(Pal.RED, argb(0xF08CC0), Pal.GOLD, argb(0xB070E0))[Math.floorMod(i + W, 4)]
+                        for (x in fx + 7..fx + 24 step 3) { raw(x, wallTop + 22, bloom); raw(x + 1, wallTop + 22, G_D) }
+                    }
                 }
                 Tile.DOOR -> {
-                    rect(fx + 6, wallTop + 6, fx + 25, wallBottom - 4, TIMBER)
-                    rect(fx + 8, wallTop + 8, fx + 23, wallBottom - 4, Pal.WOOD)
-                    ellipse(fx + 16.0, wallTop + 9.0, 8.0, 4.0, Pal.WOOD)
-                    for (x in fx + 11..fx + 21 step 5) rect(x, wallTop + 8, x, wallBottom - 4, Pal.WOOD_DARK)
-                    raw(fx + 21, wallTop + 18, Pal.GOLD); raw(fx + 21, wallTop + 19, Pal.GOLD_DARK)
+                    doorFx = fx
+                    if (temple) {
+                        rect(fx + 6, wallTop + 4, fx + 25, wallBottom - 4, frame)
+                        ellipse(fx + 16.0, wallTop + 6.0, 10.0, 6.0, frame)
+                        rect(fx + 8, wallTop + 7, fx + 23, wallBottom - 4, argb(0x7A4A28))
+                        ellipse(fx + 16.0, wallTop + 8.0, 8.0, 4.5, argb(0x7A4A28))
+                        rect(fx + 15, wallTop + 4, fx + 16, wallBottom - 4, argb(0x5A3418))
+                        raw(fx + 13, wallTop + 18, Pal.GOLD); raw(fx + 18, wallTop + 18, Pal.GOLD)
+                    } else {
+                        rect(fx + 6, wallTop + 6, fx + 25, wallBottom - 4, if (st.walls == WallKind.TIMBER) TIMBER else PLANK_D)
+                        rect(fx + 8, wallTop + 8, fx + 23, wallBottom - 4, Pal.WOOD)
+                        ellipse(fx + 16.0, wallTop + 9.0, 8.0, 4.0, Pal.WOOD)
+                        for (x in fx + 11..fx + 21 step 5) rect(x, wallTop + 8, x, wallBottom - 4, Pal.WOOD_DARK)
+                        raw(fx + 21, wallTop + 18, Pal.GOLD); raw(fx + 21, wallTop + 19, Pal.GOLD_DARK)
+                    }
                     rect(fx + 5, wallBottom - 3, fx + 26, wallBottom, Pal.STONE_LIGHT) // step
                 }
-                else -> { // half-timbering cross
+                else -> if (st.walls == WallKind.TIMBER) { // half-timbering cross
                     line(fx + 4, wallTop + 6, fx + 27, wallBottom - 6, TIMBER)
                     line(fx + 27, wallTop + 6, fx + 4, wallBottom - 6, TIMBER)
+                } else if (st.walls == WallKind.PLANKS && Math.floorMod(i * 5 + W, 3) == 0) {
+                    // firewood stacked against the wall
+                    for (r in 0 until 3) for (k in 0 until 4 - r) {
+                        val cx = fx + 8 + k * 5 + r * 2; val cy = wallBottom - 7 - r * 4
+                        ellipse(cx.toDouble(), cy.toDouble(), 2.4, 2.0, argb(0x8A5A30)); raw(cx, cy, argb(0xD8B078))
+                    }
                 }
             }
         }
 
-        // roof: front slope seen from above at an angle. It narrows towards the ridge, the
+        // ---- roof: front slope seen from above at an angle. It narrows towards the ridge, the
         // slanted gable edges are shaded, and shingle rows get darker towards the top.
-        val c = if (blue) Pal.ROOF_BLUE else Pal.ROOF
-        val d = if (blue) Pal.ROOF_BLUE_DARK else Pal.ROOF_DARK
+        val (c, d) = roofColors(st.roof)
         val l = mix(c, Pal.WHITE, 0.25)
-        val roofTop = 2
+        val straw = st.roof == RoofKind.STRAW
+        val roofTop = 2 + h.extraTop
         val span = (roofBottom - roofTop).toDouble()
         for (y in roofTop..roofBottom) {
             val t = (y - roofTop) / span
@@ -774,9 +921,18 @@ object WorldArt {
             val base = mix(c, d, (1 - t) * 0.45)
             for (x in inset until W - inset) {
                 var col = base
-                if ((roofBottom - y) % 5 == 0) col = mix(base, d, 0.6) // shingle row edge
-                else if ((roofBottom - y) % 5 == 4) col = mix(base, Pal.WHITE, 0.12)
-                if ((roofBottom - y) % 5 != 0 && (x + rowFromEave * 4) % 8 == 0) col = mix(base, d, 0.45)
+                if (straw) {
+                    // thatch: streaks running down the slope
+                    val n = noise(x, y / 3, 61) % 7
+                    if (n == 0) col = mix(base, d, 0.5) else if (n == 1) col = mix(base, Pal.WHITE, 0.2)
+                    if ((roofBottom - y) % 7 == 0) col = mix(col, d, 0.35)
+                } else {
+                    val rowH = if (st.roof == RoofKind.SHINGLE) 4 else 5
+                    if ((roofBottom - y) % rowH == 0) col = mix(base, d, 0.6) // shingle row edge
+                    else if ((roofBottom - y) % rowH == rowH - 1) col = mix(base, Pal.WHITE, 0.12)
+                    val stagger = if (st.roof == RoofKind.SHINGLE) 6 else 8
+                    if ((roofBottom - y) % rowH != 0 && (x + rowFromEave * 4) % stagger == 0) col = mix(base, d, 0.45)
+                }
                 // gable edges
                 if (x < inset + 4) col = mix(d, Pal.OUTLINE, 0.25)
                 if (x >= W - inset - 4) col = mix(d, Pal.OUTLINE, 0.45)
@@ -784,18 +940,143 @@ object WorldArt {
             }
         }
         // ridge cap with highlight
-        rect(10, roofTop, W - 11, roofTop + 2, d)
+        rect(10, roofTop, W - 11, roofTop + (if (straw) 3 else 2), d)
         for (x in 10 until W - 10) raw(x, roofTop, l)
-        // eave board and its shadow on the wall
-        rect(0, roofBottom, W - 1, roofBottom + 1, Pal.WOOD_DARK)
+        // eave board (a thick bundle for thatch) and its shadow on the wall
+        if (straw) {
+            rect(0, roofBottom - 1, W - 1, roofBottom + 2, mix(c, d, 0.5))
+            for (x in 0 until W) if (x % 3 == 0) raw(x, roofBottom + 2, d)
+        } else rect(0, roofBottom, W - 1, roofBottom + 1, if (st.roof == RoofKind.SLATE) argb(0x3A404C) else Pal.WOOD_DARK)
         for (y in roofBottom + 2..roofBottom + 5) for (x in 3 until W - 3) blend(x, y, alpha(0x201010, 0x70 - (y - roofBottom) * 12))
-        // chimney
-        if (wTiles >= 4) {
-            val cx = W - 44
-            rect(cx, 0, cx + 9, roofTop + 12, argb(0x9A5A48))
-            for (y in 2..roofTop + 12 step 4) for (x in cx..cx + 9) if ((x + y) % 5 == 0) raw(x, y, argb(0x7A4434))
-            rect(cx - 1, 0, cx + 10, 1, Pal.STONE_DARK)
+
+        // ---- chimney
+        if (h.chimney) {
+            val cx = h.chimneyX
+            val top = h.extraTop
+            val brick = if (st.walls == WallKind.STONE) argb(0x8A8478) else argb(0x9A5A48)
+            rect(cx, top, cx + 9, roofTop + 12, brick)
+            for (y in top + 2..roofTop + 12 step 4) for (x in cx..cx + 9) if ((x + y) % 5 == 0) raw(x, y, mix(brick, Pal.BLACK, 0.25))
+            rect(cx - 1, top, cx + 10, top + 1, Pal.STONE_DARK)
         }
+
+        // ---- special features
+        when (st.feature) {
+            HouseFeature.INN_SIGN -> if (doorFx >= 0) {
+                // a wrought-iron bracket with a hanging board showing a mug
+                val bx = doorFx + T + 2
+                val by = wallTop + 4
+                rect(bx - 2, by, bx + 14, by, Pal.IRON); raw(bx + 14, by + 1, Pal.IRON)
+                line(bx - 2, by + 6, bx + 6, by, Pal.IRON)
+                raw(bx + 2, by + 1, Pal.IRON); raw(bx + 12, by + 1, Pal.IRON)
+                rect(bx, by + 2, bx + 14, by + 13, Pal.WOOD_DARK)
+                rect(bx + 1, by + 3, bx + 13, by + 12, Pal.WOOD)
+                // mug
+                rect(bx + 4, by + 5, bx + 9, by + 10, Pal.GOLD); rect(bx + 4, by + 4, bx + 9, by + 5, Pal.WHITE)
+                rect(bx + 10, by + 6, bx + 11, by + 9, Pal.GOLD_DARK)
+            }
+            HouseFeature.AWNING -> {
+                // striped awning over the whole front
+                val ay = wallTop + 1
+                for (x in 2 until W - 2) {
+                    val red = (x / 5) % 2 == 0
+                    val col = if (red) argb(0xC83C34) else argb(0xF4ECDC)
+                    for (y in ay until ay + 7) raw(x, y, if (y == ay) mix(col, Pal.WHITE, 0.3) else col)
+                    // scalloped lower edge
+                    if (x % 5 in 1..3) raw(x, ay + 7, col)
+                    if (x % 5 == 2) raw(x, ay + 8, col)
+                }
+                for (x in 2 until W - 2) blend(x, ay + 9, alpha(0x201010, 0x50))
+            }
+            HouseFeature.BELL_TOWER -> {
+                // a stone tower rising from the middle of the roof, with an open belfry and a slate spire
+                val tw = 24
+                val tx = W / 2 - tw / 2
+                val towerBottom = roofTop + 14
+                val belfryTop = 14
+                rect(tx, belfryTop, tx + tw - 1, towerBottom, TEMPLE_WALL)
+                for (y in belfryTop until towerBottom step 5) for (x in tx until tx + tw) raw(x, y, TEMPLE_WALL_D)
+                rect(tx, belfryTop, tx + 1, towerBottom, TEMPLE_WALL_D); rect(tx + tw - 2, belfryTop, tx + tw - 1, towerBottom, mix(TEMPLE_WALL_D, Pal.OUTLINE, 0.3))
+                // arched opening with a golden bell
+                rect(tx + 7, belfryTop + 6, tx + 16, belfryTop + 17, argb(0x2A2638))
+                ellipse(tx + 11.5, belfryTop + 6.0, 4.5, 3.5, argb(0x2A2638))
+                ball(tx + 11.5, belfryTop + 12.0, 3.5, 3.5, Pal.GOLD, Pal.WHITE, Pal.GOLD_DARK)
+                rect(tx + 8, belfryTop + 15, tx + 15, belfryTop + 15, Pal.GOLD_DARK)
+                // spire
+                val (sc, sd) = roofColors(RoofKind.SLATE)
+                for (y in 0 until belfryTop) {
+                    val half = (y + 1) * (tw / 2 + 2) / belfryTop
+                    for (x in W / 2 - half until W / 2 + half) raw(x, y, if (x < W / 2) mix(sc, Pal.WHITE, 0.15) else sd)
+                }
+                // a little golden sun on top
+                raw(W / 2 - 1, 0, Pal.GOLD); raw(W / 2, 0, Pal.GOLD)
+            }
+            HouseFeature.NONE -> {}
+        }
+        outline(Pal.OUTLINE)
+    }
+
+    // ------------------------------------------------------------------ objects: village square
+
+    /** A market stall: a wooden table with goods under a striped awning (32×48). */
+    private fun Pen.stall(seed: Int) {
+        val stripe = listOf(argb(0xC83C34), argb(0x3C7AC8), argb(0x3C9A4C), argb(0xD89A2C))[seed]
+        blendEllipse(16.0, 45.0, 15.0, 3.0, SHADOW)
+        // posts
+        rect(2, 10, 3, 44, Pal.WOOD_DARK); rect(28, 10, 29, 44, Pal.WOOD_DARK)
+        // table
+        rect(1, 30, 30, 34, Pal.WOOD); rect(1, 30, 30, 30, Pal.WOOD_LIGHT); rect(1, 35, 30, 41, Pal.WOOD_DARK)
+        for (x in 4..27 step 6) rect(x, 35, x, 41, mix(Pal.WOOD_DARK, Pal.BLACK, 0.25))
+        // goods by stall: apples, cloth, herbs and mushrooms
+        when (seed % 3) {
+            0 -> for (i in 0 until 6) { val x = 4 + i * 4; ball(x + 1.5, 27.5, 2.0, 2.0, Pal.RED, argb(0xF07070), argb(0x902020)); raw(x + 1, 25, G_DD) }
+            1 -> { rect(3, 24, 11, 29, argb(0x7A5AC8)); rect(12, 25, 19, 29, argb(0xE8C040)); rect(20, 23, 28, 29, argb(0x4AA0C8)); for (x in 3..28 step 4) raw(x, 24, Pal.WHITE) }
+            else -> for (i in 0 until 4) { val x = 5 + i * 6; ellipse(x + 1.5, 27.0, 3.0, 2.0, if (i % 2 == 0) G_D else argb(0xC8A878)); raw(x + 1, 26, if (i % 2 == 0) G_L else Pal.WHITE) }
+        }
+        // striped awning with a scalloped edge
+        for (y in 6..15) {
+            val inset = (15 - y) / 3
+            for (x in inset until T - inset) {
+                val col = if ((x / 4) % 2 == 0) stripe else argb(0xF4ECDC)
+                raw(x, y, if (y == 6) mix(col, Pal.WHITE, 0.3) else if (y >= 14) mix(col, Pal.BLACK, 0.15) else col)
+            }
+        }
+        for (x in 0 until T) if (x % 4 in 1..2) raw(x, 16, if ((x / 4) % 2 == 0) stripe else argb(0xF4ECDC))
+        outline(Pal.OUTLINE)
+    }
+
+    /** A street lantern on a post (32×56); the glow at night is drawn by the app. */
+    private fun Pen.lamp() {
+        blendEllipse(16.0, 53.0, 6.0, 2.0, SHADOW)
+        rect(15, 18, 16, 52, Pal.IRON); raw(15, 18, Pal.IRON_LIGHT)
+        rect(12, 50, 19, 53, Pal.STONE_DARK)
+        // lantern head
+        rect(11, 8, 20, 18, Pal.IRON)
+        rect(12, 9, 19, 17, argb(0xF8D878)); rect(13, 10, 15, 13, argb(0xFFF4C0))
+        rect(15, 9, 16, 17, Pal.IRON)
+        tri(10, 8, 21, 8, 16, 3, Pal.IRON)
+        rect(15, 1, 16, 3, Pal.IRON)
+        outline(Pal.OUTLINE)
+    }
+
+    /** A wooden barrel with iron hoops (32×36). */
+    private fun Pen.barrel() {
+        blendEllipse(16.0, 33.0, 10.0, 3.0, SHADOW)
+        ball(16.0, 21.0, 9.5, 11.5, argb(0xA06A38), argb(0xC8904E), argb(0x6A4222))
+        for (y in listOf(14, 27)) for (x in 7..25) if (kotlin.math.abs(x - 16) < 9.5) raw(x, y, Pal.IRON)
+        for (x in 9..23 step 4) for (y in 11..31) if (raw2(x, y)) raw(x, y, argb(0x7A4C28))
+        ellipse(16.0, 10.5, 8.0, 3.0, argb(0x8A5A30)); ellipse(16.0, 10.5, 6.0, 2.0, argb(0x6A4222))
+        outline(Pal.OUTLINE)
+    }
+
+    private fun Pen.raw2(x: Int, y: Int): Boolean = img.opaque(x, y) && (x + y) % 3 != 0
+
+    /** A wooden bench (32×32). */
+    private fun Pen.bench() {
+        blendEllipse(16.0, 28.0, 14.0, 3.0, SHADOW)
+        rect(4, 20, 5, 27, Pal.WOOD_DARK); rect(26, 20, 27, 27, Pal.WOOD_DARK)
+        rect(2, 16, 29, 20, Pal.WOOD); rect(2, 16, 29, 16, Pal.WOOD_LIGHT)
+        rect(2, 9, 29, 12, Pal.WOOD); rect(2, 9, 29, 9, Pal.WOOD_LIGHT)
+        rect(4, 12, 5, 16, Pal.WOOD_DARK); rect(26, 12, 27, 16, Pal.WOOD_DARK)
         outline(Pal.OUTLINE)
     }
 

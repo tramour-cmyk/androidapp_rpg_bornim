@@ -17,7 +17,7 @@ fun Game.actionAt(x: Int, y: Int): ActionKind? {
         Tile.CAMPFIRE -> ActionKind.REST
         Tile.GATE -> if (state.has(Story.GATE_OPEN)) null else ActionKind.UNLOCK
         Tile.BED -> if (isNight) ActionKind.REST else ActionKind.LOOK
-        Tile.WELL, Tile.SHELF, Tile.ALTAR -> ActionKind.LOOK
+        Tile.WELL, Tile.SHELF, Tile.ALTAR, Tile.STALL, Tile.LAMP, Tile.BARREL, Tile.BENCH -> ActionKind.LOOK
         else -> null
     }
 }

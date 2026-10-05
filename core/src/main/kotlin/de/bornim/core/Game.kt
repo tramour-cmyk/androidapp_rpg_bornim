@@ -174,6 +174,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     fun begin() {
         // Experience banked at a chapter's level cap counts once the cap is lifted.
         hero.gainXp(0, Story.levelCap(state))
+        unstick()
         if (state.flags.remove(GameState.POINTS_REFIT)) {
             enqueue(listOf(Cmd.Say(null, T(
                 "Neue Regeln: Attributspunkte gibt es jetzt auf Stufe 4, 8, 12, 16 und 19 (je zwei). Deine Punkte wurden neu berechnet – verteile sie im Heldenmenü.",
@@ -181,6 +182,29 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             ))))
         }
         runOnEnter()
+    }
+
+    /**
+     * Moves the hero to the nearest free tile if a save game put them somewhere that is no longer
+     * walkable, e.g. after a map was rebuilt.
+     */
+    private fun unstick() {
+        val p = state.place
+        if (map.walkable(p.x, p.y, state)) return
+        val seen = HashSet<Pair<Int, Int>>()
+        val queue = ArrayDeque(listOf(p.x to p.y))
+        seen += p.x to p.y
+        while (queue.isNotEmpty()) {
+            val (x, y) = queue.removeFirst()
+            if (map.walkable(x, y, state) && map.warpAt(x, y) == null) {
+                state.place = p.copy(x = x, y = y)
+                return
+            }
+            for (d in Facing.entries) {
+                val n = x + d.dx to y + d.dy
+                if (map.inside(n.first, n.second) && seen.add(n)) queue += n
+            }
+        }
     }
 
     // ------------------------------------------------------------ movement
@@ -526,6 +550,14 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             Tile.GATE -> gate()
             Tile.WELL -> say(T("Ein alter Brunnen. Das Wasser ist klar und kalt.", "An old well. The water is clear and cold."))
             Tile.SHELF -> say(T("Regale voller Krimskrams.", "Shelves full of odds and ends."))
+            Tile.STALL -> say(listOf(
+                T("Ein Marktstand mit rotbackigen Äpfeln und frischem Gemüse.", "A market stall with rosy apples and fresh vegetables."),
+                T("Bunte Stoffe und Wollknäuel liegen auf dem Stand aus.", "Colourful cloth and balls of wool are laid out on the stall."),
+                T("Der Stand duftet nach Kräutern und getrockneten Pilzen.", "The stall smells of herbs and dried mushrooms."),
+            )[Math.floorMod(tx * 7 + ty * 3, 3)])
+            Tile.LAMP -> say(T(if (isNight) "Die Laterne brennt warm und hell." else "Eine Laterne. Abends zündet Jorin sie an.", if (isNight) "The lantern burns warm and bright." else "A lantern. Jorin lights it in the evening."))
+            Tile.BARREL -> say(T("Ein Fass. Es riecht nach Apfelmost.", "A barrel. It smells of cider."))
+            Tile.BENCH -> say(T("Eine Bank zum Ausruhen. Von hier hat man den ganzen Dorfplatz im Blick.", "A bench to rest on. From here you can see the whole village square."))
             Tile.BED -> if (isNight) sleep() else say(T("Ein weiches Bett. Schlafen kannst du, wenn es Nacht ist.", "A soft bed. You can sleep here once night falls."))
             Tile.ALTAR -> say(
                 if (state.has(Story.CHAPTER1_DONE)) T("Das Sonnenamulett strahlt auf dem Altar.", "The Sun Amulet shines on the altar.")
