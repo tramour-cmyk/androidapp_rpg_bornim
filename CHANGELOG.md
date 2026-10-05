@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.23 – 05.10.2026, 18:46
+
 **Neu – ein schöneres Bornim (Teil 2)**
 - **Ein Bach** fließt durch den Süden des Dorfs, mit runden Ufern und einer Holzbrücke an der Hauptstraße. Er ersetzt den eckigen Teich; Greta angelt jetzt am Bach.
 - **Südlicher Dorfrand:** eingezäunter Gemüsegarten mit Kohl und Möhren, ein goldenes Getreidefeld, Heuballen und **Hühner**, die um die Ballen scharren.
