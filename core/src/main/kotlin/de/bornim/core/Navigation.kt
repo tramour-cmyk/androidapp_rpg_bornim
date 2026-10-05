@@ -10,13 +10,14 @@ data class Route(val steps: List<Facing>, val face: Facing? = null, val interact
 fun Game.actionAt(x: Int, y: Int): ActionKind? {
     val m = map
     if (roamerAt(x, y) != null) return ActionKind.FIGHT
-    if (m.npcAt(x, y, state) != null) return ActionKind.TALK
+    if (npcAt(x, y) != null) return ActionKind.TALK
     if (m.signs.containsKey(x to y)) return ActionKind.READ
     return when (m.tile(x, y)) {
         Tile.CHEST -> if (m.chestAt(x, y)?.id in state.openedChests) ActionKind.LOOK else ActionKind.OPEN
         Tile.CAMPFIRE -> ActionKind.REST
         Tile.GATE -> if (state.has(Story.GATE_OPEN)) null else ActionKind.UNLOCK
-        Tile.WELL, Tile.SHELF, Tile.BED, Tile.ALTAR -> ActionKind.LOOK
+        Tile.BED -> if (isNight) ActionKind.REST else ActionKind.LOOK
+        Tile.WELL, Tile.SHELF, Tile.ALTAR -> ActionKind.LOOK
         else -> null
     }
 }

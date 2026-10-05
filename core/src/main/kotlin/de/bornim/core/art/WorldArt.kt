@@ -645,6 +645,39 @@ object WorldArt {
     private val TIMBER = argb(0x6E4626); private val TIMBER_L = argb(0x8A5E36)
 
     /** Finds the whole building containing (sx, sy) and draws it as one object with façade and roof. */
+    private val chimneyCache = HashMap<String, List<Pair<Int, Int>>>()
+
+    /** Tops of the chimneys on a town map, in art pixels (for the smoke). */
+    fun chimneys(map: MapDef): List<Pair<Int, Int>> = chimneyCache.getOrPut(map.id) {
+        if (map.kind != MapKind.TOWN) return@getOrPut emptyList()
+        val parts = setOf(Tile.ROOF, Tile.ROOF_BLUE, Tile.WALL, Tile.WINDOW, Tile.DOOR)
+        val seen = HashSet<Pair<Int, Int>>()
+        val out = mutableListOf<Pair<Int, Int>>()
+        for (ty in 0 until map.height) for (tx in 0 until map.width) {
+            if (map.tile(tx, ty) !in parts || (tx to ty) in seen) continue
+            val cells = mutableListOf<Pair<Int, Int>>()
+            val queue = ArrayDeque(listOf(tx to ty))
+            seen += tx to ty
+            while (queue.isNotEmpty()) {
+                val (x, y) = queue.removeFirst()
+                cells += x to y
+                for ((dx, dy) in listOf(1 to 0, -1 to 0, 0 to 1, 0 to -1)) {
+                    val n = x + dx to y + dy
+                    if (n !in seen && map.inside(n.first, n.second) && map.tile(n.first, n.second) in parts) {
+                        seen += n
+                        queue += n
+                    }
+                }
+            }
+            val x0 = cells.minOf { it.first }; val x1 = cells.maxOf { it.first }
+            val y0 = cells.minOf { it.second }
+            val wTiles = x1 - x0 + 1
+            // same place as drawn in house(): 44 px from the right edge of the image, at its top
+            if (wTiles >= 4) out += (x0 * T + wTiles * T + 6 - 44 + 5) to (y0 * T - 16)
+        }
+        out
+    }
+
     private fun building(map: MapDef, sx: Int, sy: Int, seen: MutableSet<Pair<Int, Int>>): Obj {
         val parts = setOf(Tile.ROOF, Tile.ROOF_BLUE, Tile.WALL, Tile.WINDOW, Tile.DOOR)
         val queue = ArrayDeque(listOf(sx to sy))

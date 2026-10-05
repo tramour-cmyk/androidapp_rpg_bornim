@@ -49,7 +49,14 @@ data class Chest(val id: String, val x: Int, val y: Int, val item: String? = nul
  * Monsters of an area. [roamers] of them walk around visibly; [rate] is the (small) chance per
  * step on [tiles] to be ambushed by one that was hiding.
  */
-data class Encounters(val rate: Double, val table: List<Pair<String, Int>>, val tiles: Set<Tile>, val roamers: Int = 0)
+data class Encounters(
+    val rate: Double,
+    val table: List<Pair<String, Int>>,
+    val tiles: Set<Tile>,
+    val roamers: Int = 0,
+    /** Monsters that come out at night instead of [table]. */
+    val night: List<Pair<String, Int>>? = null,
+)
 
 data class Trigger(val x: Int, val y: Int, val condition: (GameState) -> Boolean, val script: (GameState) -> List<Cmd>)
 
@@ -61,6 +68,8 @@ class Npc(
     val look: String,
     val facing: Facing = Facing.DOWN,
     val visible: (GameState) -> Boolean = { true },
+    /** How far this person strolls around their spot (0 = stands still). */
+    val wander: Int = 0,
     val talk: (GameState) -> List<Cmd>,
 )
 
@@ -90,7 +99,8 @@ class MapDef(
     fun tile(x: Int, y: Int): Tile = if (inside(x, y)) tiles[y][x] else defaultTile
     val defaultTile: Tile get() = if (kind == MapKind.CAVE) Tile.CAVE_WALL else if (kind == MapKind.INTERIOR) Tile.WALL else Tile.TREE
 
-    fun npcAt(x: Int, y: Int, state: GameState): Npc? = npcs.firstOrNull { it.x == x && it.y == y && it.visible(state) }
+    /** People standing still at ([x], [y]); strolling ones are tracked by the [Game]. */
+    fun npcAt(x: Int, y: Int, state: GameState): Npc? = npcs.firstOrNull { it.wander == 0 && it.x == x && it.y == y && it.visible(state) }
     fun chestAt(x: Int, y: Int): Chest? = chests.firstOrNull { it.x == x && it.y == y }
     fun warpAt(x: Int, y: Int): Warp? = warps.firstOrNull { it.x == x && it.y == y }
 

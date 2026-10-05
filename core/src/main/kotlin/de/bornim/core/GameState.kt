@@ -37,6 +37,9 @@ class GameState(
     var uidCounter: Long = 0,
     /** Shop stock already bought, as "batch:uid". */
     val shopSold: MutableSet<String> = mutableSetOf(),
+    /** Time of day in minutes (0..1439) and the day counter; one real second is one game minute. */
+    var minutes: Int = 8 * 60,
+    var day: Int = 1,
 ) {
     fun nextUid(): Long = ++uidCounter
     fun has(flag: String) = flag in flags

@@ -58,7 +58,7 @@ class NavigationTest {
         val m = g.map
         var tested = 0
         for (y in 0 until m.height) for (x in 0 until m.width) {
-            if (!m.walkable(x, y, g.state) || m.warpAt(x, y) != null || (x == 11 && y == 7)) continue
+            if (!g.free(x, y) || m.warpAt(x, y) != null || (x == 11 && y == 7)) continue
             val r = g.route(x, y) ?: continue
             val copy = game(Place("village", 11, 7, Facing.DOWN))
             for (d in r.steps) assertTrue(copy.move(d) is Move.Stepped)

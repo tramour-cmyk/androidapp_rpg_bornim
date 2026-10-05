@@ -178,9 +178,28 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             withFrameMillis { ms ->
                 clock = ms
                 val modeBefore = game.mode
-                game.updateRoamers(ms)
+                game.update(ms)
                 if (game.sounds.isNotEmpty() || game.mode != modeBefore) vm.refresh()
             }
+        }
+    }
+
+    // Quiet ambient sounds: birds by day, crickets and owls at night, drops in the cave.
+    LaunchedEffect(game.state.place.map) {
+        val rnd = kotlin.random.Random(game.state.steps)
+        while (isActive) {
+            delay(5000L + rnd.nextLong(8000))
+            if (game.mode != Mode.Explore || vm.menuOpen) continue
+            val sound = when (game.map.kind) {
+                MapKind.CAVE -> de.bornim.core.audio.Sound.DRIP
+                MapKind.TOWN, MapKind.FOREST -> when {
+                    game.raining -> null
+                    game.isNight -> if (game.map.kind == MapKind.FOREST && rnd.nextInt(3) == 0) de.bornim.core.audio.Sound.OWL else de.bornim.core.audio.Sound.CRICKET
+                    else -> de.bornim.core.audio.Sound.BIRD
+                }
+                else -> null
+            }
+            sound?.let { vm.play(it, 0.3f) }
         }
     }
 
@@ -231,7 +250,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             // would otherwise skip redrawing these after a heal or a map change.
             MapBanner(game.state.place.map, game.map.name(game.lang))
             HudChip(
-                game.hero.hp, game.hero.maxHp, game.hero.unspentPoints,
+                game.hero.hp, game.hero.maxHp, game.hero.unspentPoints, game.state.day, game.state.minutes, game.isNight, game.lang,
                 Modifier.align(Alignment.TopEnd).padding(8.dp),
             ) { if (game.mode == Mode.Explore) vm.menuOpen = true }
             if (touch && dialog == null && action != null) {
@@ -432,7 +451,16 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 
         // 2) shadows under characters
         val visibleNpcs = map.npcs.filter { it.visible(state) }
-        for (npc in visibleNpcs) if (!npc.look.startsWith("monster:")) put(WorldArt.shadow(), npc.x * T + 4, npc.y * T + 26)
+        // Strolling villagers slide between tiles like the hero.
+        fun npcPos(npc: de.bornim.core.Npc): Pair<Int, Int> {
+            val w = game.walkerOf(npc) ?: return npc.x * T to npc.y * T
+            val t = ((clock - w.movedAt).toFloat() / w.moveMs).coerceIn(0f, 1f)
+            return ((w.fromX + (w.x - w.fromX) * t) * T).roundToInt() to ((w.fromY + (w.y - w.fromY) * t) * T).roundToInt()
+        }
+        for (npc in visibleNpcs) if (!npc.look.startsWith("monster:")) {
+            val (nx, ny) = npcPos(npc)
+            put(WorldArt.shadow(), nx + 4, ny + 26)
+        }
         put(WorldArt.shadow(), heroX + 4, heroY + 26)
 
         // 3) objects and characters, sorted by their foot line
@@ -444,8 +472,11 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 val img = MonsterArt.get(npc.look.removePrefix("monster:"))
                 sprites += Sprite(bottom.toFloat()) { put(img, npc.x * T + T / 2 - img.width / 2, bottom + 1 - img.height) }
             } else {
-                val img = CharacterArt.npc(npc.look, game.npcFacing(npc))
-                sprites += Sprite(bottom.toFloat()) { put(img, npc.x * T, npc.y * T - 2) }
+                val (nx, ny) = npcPos(npc)
+                val w = game.walkerOf(npc)
+                val walkingNow = w != null && clock - w.movedAt < w.moveMs
+                val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
+                sprites += Sprite((ny + T - 1).toFloat()) { put(img, nx, ny - 2) }
             }
         }
         // Monsters walking around
@@ -506,6 +537,12 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         sprites.sortBy { it.y }
         sprites.forEach { it.draw() }
 
+        val outdoors = map.kind == MapKind.TOWN || map.kind == MapKind.FOREST
+        if (outdoors) {
+            drawCritters(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH)
+            drawWeatherAndNight(game, map, clock, camX, camY, scale, heroX, heroY)
+        }
+
         if (map.kind == MapKind.CAVE) {
             // A soft vignette around the hero, like a torch light.
             val center = Offset((heroX - camX + T / 2f) * scale, (heroY - camY + T / 2f) * scale)
@@ -522,6 +559,138 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 
 private class Sprite(val y: Float, val draw: () -> Unit)
 
+private fun hash(a: Int, b: Int, c: Int = 0): Int {
+    var n = a * 374761393 + b * 668265263 + c * 1442695041
+    n = (n xor (n ushr 13)) * 1274126177
+    return (n xor (n ushr 16)) and 0x7fffffff
+}
+
+/** Butterflies, birds, chimney smoke, fireflies and leaves: small things that make the world feel alive. */
+private fun DrawScope.drawCritters(
+    game: Game, map: de.bornim.core.MapDef, clock: Long, camX: Int, camY: Int, scale: Int,
+    heroX: Int, heroY: Int, viewW: Float, viewH: Float,
+) {
+    val T = WorldArt.T
+    val day = game.daylight
+    fun px(x: Float, y: Float, w: Float, h: Float, c: Color) =
+        drawRect(c, Offset((x - camX) * scale, (y - camY) * scale), androidx.compose.ui.geometry.Size(w * scale, h * scale))
+    val tx0 = (camX / T) - 1; val ty0 = (camY / T) - 1
+    val tx1 = ((camX + viewW) / T).toInt() + 1; val ty1 = ((camY + viewH) / T).toInt() + 1
+
+    // Chimney smoke, day and night
+    for ((cx, cy) in WorldArt.chimneys(map)) for (k in 0 until 4) {
+        val p = ((clock / 2200f) + k / 4f) % 1f
+        val x = cx + kotlin.math.sin(p * 6f + k) * 2f + p * 7f
+        val y = cy - p * 24f
+        val r = 2f + p * 4f
+        drawCircle(Color(0xFFD8D8E0).copy(alpha = 0.45f * (1f - p)), r * scale, Offset((x - camX) * scale, (y - camY) * scale))
+    }
+
+    if (day > 0.4f && !game.raining) {
+        // Butterflies over flowers
+        for (ty in ty0..ty1) for (tx in tx0..tx1) {
+            if (map.tile(tx, ty) != Tile.FLOWERS || hash(tx, ty) % 4 != 0) continue
+            val seed = hash(tx, ty, 7) % 1000
+            val x = tx * T + 16 + kotlin.math.sin(clock / 700f + seed) * 12f
+            val y = ty * T + 8 + kotlin.math.cos(clock / 530f + seed * 0.7f) * 7f
+            val open = (clock / 90 + seed) % 2 == 0L
+            val c = listOf(Color.White, Color(0xFFF8E060), Color(0xFFF0A040), Color(0xFF80B8F8))[seed % 4]
+            if (open) {
+                px(x - 2, y, 2f, 2f, c); px(x + 1, y, 2f, 2f, c)
+            } else {
+                px(x - 1, y - 1, 1f, 2f, c); px(x + 1, y - 1, 1f, 2f, c)
+            }
+            px(x, y, 1f, 2f, Color(0xFF302020))
+        }
+        // Birds pecking on the grass fly off when the hero comes close
+        for (ty in ty0..ty1) for (tx in tx0..tx1) {
+            val t = map.tile(tx, ty)
+            if ((t != Tile.GRASS && t != Tile.PATH) || hash(tx, ty, 3) % 23 != 0) continue
+            val bx = tx * T + 10f + hash(tx, ty, 4) % 12
+            val by = ty * T + 18f
+            val dist = kotlin.math.hypot((bx - heroX - 16).toDouble(), (by - heroY - 16).toDouble())
+            val flee = ((80.0 - dist) / 30.0).coerceIn(0.0, 1.0).toFloat()
+            val fx = bx + flee * 70f
+            val fy = by - flee * 90f
+            if (flee >= 1f) continue
+            val brown = Color(0xFF7A5030)
+            val hop = if (flee == 0f && (clock / 140 + hash(tx, ty)) % 9 == 0L) 1f else 0f
+            px(fx, fy - hop, 3f, 2f, brown)
+            px(fx + 3, fy - 1 - hop, 1f, 1f, brown)
+            px(fx + 4, fy - 1 - hop, 1f, 1f, Color(0xFFE0A030))
+            if (flee > 0f) {
+                val wing = if ((clock / 70) % 2 == 0L) -2f else 1f
+                px(fx - 1, fy + wing, 2f, 1f, brown); px(fx + 2, fy + wing, 2f, 1f, brown)
+            }
+        }
+        // Leaves drifting through the forest
+        if (map.kind == MapKind.FOREST) for (k in 0 until 7) {
+            val sx = (hash(k, 11) % 1000) / 1000f * viewW
+            val x = camX + (sx + clock * 0.012f + kotlin.math.sin(clock / 600f + k) * 8f) % viewW
+            val y = camY + (hash(k, 12) % 1000 / 1000f * viewH + clock * 0.02f) % viewH
+            px(x, y, 2f, 1f, if (k % 2 == 0) Color(0xFF8AB040) else Color(0xFFE09030))
+        }
+    }
+
+    if (day < 0.5f && map.kind == MapKind.FOREST) {
+        // Fireflies
+        for (k in 0 until 18) {
+            val x = camX + (hash(k, 21) % 1000) / 1000f * viewW + kotlin.math.sin(clock / 900f + k) * 10f
+            val y = camY + (hash(k, 22) % 1000) / 1000f * viewH + kotlin.math.cos(clock / 1100f + k * 1.7f) * 8f
+            val glow = kotlin.math.sin(clock / 380f + k * 2.1f).coerceAtLeast(0f) * (1f - day * 2f)
+            if (glow <= 0.05f) continue
+            drawCircle(Color(0xFFE8F870).copy(alpha = 0.3f * glow), 4f * scale, Offset((x - camX) * scale, (y - camY) * scale))
+            px(x, y, 1f, 1f, Color(0xFFF8FFB0).copy(alpha = glow))
+        }
+    }
+}
+
+/** Night darkness with a lantern glow around the hero, lit windows, and rain. */
+private fun DrawScope.drawWeatherAndNight(
+    game: Game, map: de.bornim.core.MapDef, clock: Long, camX: Int, camY: Int, scale: Int, heroX: Int, heroY: Int,
+) {
+    val T = WorldArt.T
+    val dark = (1f - game.daylight) * 0.8f + if (game.raining) 0.18f else 0f
+    if (dark > 0.01f) {
+        val center = Offset((heroX - camX + T / 2f) * scale, (heroY - camY + T / 2f) * scale)
+        val night = Color(0xFF0A1236)
+        drawRect(
+            androidx.compose.ui.graphics.Brush.radialGradient(
+                0f to night.copy(alpha = dark * 0.15f),
+                0.14f to night.copy(alpha = dark * 0.45f),
+                0.4f to night.copy(alpha = dark),
+                center = center, radius = size.maxDimension * 0.9f,
+            ),
+        )
+    }
+    val nightness = 1f - game.daylight
+    if (nightness > 0.2f) {
+        // warm light from windows and fires
+        for (ty in 0 until map.height) for (tx in 0 until map.width) {
+            val t = map.tile(tx, ty)
+            if (t != Tile.WINDOW && t != Tile.CAMPFIRE) continue
+            val c = Offset((tx * T + T / 2f - camX) * scale, (ty * T + T / 2f - camY) * scale)
+            if (c.x < -200 || c.y < -200 || c.x > size.width + 200 || c.y > size.height + 200) continue
+            val flicker = if (t == Tile.CAMPFIRE) 0.85f + 0.15f * kotlin.math.sin(clock / 90f) else 1f
+            val r = (if (t == Tile.CAMPFIRE) 2.2f else 1.5f) * T * scale * flicker
+            drawCircle(
+                androidx.compose.ui.graphics.Brush.radialGradient(
+                    listOf(Color(0xFFFFC870).copy(alpha = 0.7f * nightness), Color(0xFFFFB050).copy(alpha = 0.25f * nightness), Color.Transparent), c, r,
+                ),
+                r, c,
+            )
+        }
+    }
+    if (game.raining) {
+        val rain = Color(0xFFC8DCF8).copy(alpha = 0.7f)
+        for (k in 0 until 220) {
+            val x = ((hash(k, 31) % 1000) / 1000f * size.width + clock * 0.25f) % size.width
+            val y = ((hash(k, 32) % 1000) / 1000f * size.height + clock * 1.1f) % size.height
+            drawLine(rain, Offset(x, y), Offset(x - 3f * scale, y + 10f * scale), 0.9f * scale)
+        }
+    }
+}
+
 
 @Composable
 private fun MapBanner(mapId: String, mapName: String) {
@@ -537,7 +706,7 @@ private fun MapBanner(mapId: String, mapName: String) {
 }
 
 @Composable
-private fun HudChip(hp: Int, maxHp: Int, points: Int, modifier: Modifier, onMenu: () -> Unit) {
+private fun HudChip(hp: Int, maxHp: Int, points: Int, day: Int, minutes: Int, night: Boolean, lang: de.bornim.core.Lang, modifier: Modifier, onMenu: () -> Unit) {
     Row(
         modifier
             .clip(RoundedCornerShape(8.dp))
@@ -550,6 +719,14 @@ private fun HudChip(hp: Int, maxHp: Int, points: Int, modifier: Modifier, onMenu
             Txt("$hp/$maxHp", size = 14.sp, color = Colors.textLight, bold = true)
             Bar(hp.toFloat() / maxHp, hpColor(hp.toFloat() / maxHp), Modifier.width(70.dp), 6.dp)
             if (points > 0) Txt("★ +$points", size = 12.sp, color = Colors.gold)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                PixelImageView(ActionArt.icon(if (night) ActionArt.Extra.MOON else ActionArt.Extra.SUN), 16.dp)
+                Spacer(Modifier.width(3.dp))
+                Txt(
+                    (if (lang == de.bornim.core.Lang.DE) "Tag $day · " else "Day $day · ") + "%02d:%02d".format(minutes / 60, minutes % 60),
+                    size = 12.sp, color = Colors.textLight,
+                )
+            }
         }
         Spacer(Modifier.width(8.dp))
         // The bag opens the menu.

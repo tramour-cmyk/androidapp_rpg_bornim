@@ -49,3 +49,15 @@ class Roamer(
 
     val temper: Temper get() = Temper.of(monster)
 }
+
+/** A villager strolling around their spot. */
+class Walker(val npc: Npc) {
+    var x = npc.x
+    var y = npc.y
+    var fromX = x
+    var fromY = y
+    var facing = npc.facing
+    var movedAt = 0L
+    var moveMs = 520L
+    var nextMoveAt = 0L
+}

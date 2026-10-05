@@ -101,5 +101,21 @@ fun touchShots() {
         }
         g.roamers.first().alertUntil = Long.MAX_VALUE
     }) { frames(12) }
+    // Life on the map: village by day and by night, forest at night and in the rain.
+    touchShot("35_village_day", setup = { vm -> vm.game!!.state.place = village; vm.game!!.state.minutes = 10 * 60 }) { frames(30) }
+    touchShot("36_village_night", setup = { vm -> vm.game!!.state.place = village; vm.game!!.state.minutes = 23 * 60 }) { frames(30) }
+    touchShot("37_forest_night", setup = { vm ->
+        val g = vm.game!!
+        g.state.minutes = 22 * 60
+        g.state.place = Place("forest", 10, 20, Facing.UP)
+        val near = listOf(7 to 18, 9 to 23, 6 to 21)
+        g.roamers.take(near.size).forEachIndexed { i, r -> r.x = near[i].first; r.y = near[i].second; r.fromX = r.x; r.fromY = r.y; r.calmUntil = Long.MAX_VALUE }
+    }) { frames(30) }
+    touchShot("38_forest_rain", setup = { vm ->
+        val g = vm.game!!
+        g.state.minutes = 15 * 60
+        g.state.place = Place("forest", 10, 20, Facing.UP)
+        g.cheatRain()
+    }) { frames(30) }
     touchShot("30_classic", touch = false, setup = { it.game!!.state.place = village }) { frames(10) }
 }

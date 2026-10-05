@@ -4,7 +4,7 @@ import de.bornim.core.ActionKind
 
 /** Pixel icons for the touch controls: the action button, the menu bag and running. */
 object ActionArt {
-    enum class Extra { NEXT, MENU, RUN, ACT }
+    enum class Extra { NEXT, MENU, RUN, ACT, SUN, MOON }
 
     private val cache = HashMap<String, PixelImage>()
 
@@ -30,6 +30,8 @@ object ActionArt {
                 Extra.MENU -> bag()
                 Extra.RUN -> boot()
                 Extra.ACT -> spark()
+                Extra.SUN -> sun()
+                Extra.MOON -> moon()
             }
             outline(Pal.OUTLINE)
         }
@@ -121,6 +123,21 @@ object ActionArt {
         rect(5, 13, 13, 13, Pal.WOOD_DARK)
         rect(5, 2, 9, 3, Pal.WOOD_LIGHT)
         for (y in listOf(5, 8, 11)) rect(0, y, 2, y, Pal.WHITE)
+    }
+
+    private fun Pen.sun() {
+        for (k in 0 until 8) {
+            val a = k * Math.PI / 4
+            line(8 + (Math.cos(a) * 5).toInt(), 8 + (Math.sin(a) * 5).toInt(), 8 + (Math.cos(a) * 7).toInt(), 8 + (Math.sin(a) * 7).toInt(), Pal.FIRE)
+        }
+        ellipse(8.0, 8.0, 4.0, 4.0, Pal.FIRE_LIGHT)
+        ellipse(7.0, 7.0, 1.5, 1.5, Pal.WHITE)
+    }
+
+    private fun Pen.moon() {
+        ellipse(8.0, 8.0, 6.0, 6.0, argb(0xF0E8C0))
+        ellipse(11.0, 6.0, 5.0, 5.0, 0)
+        px(5, 9, argb(0xC8C0A0)); px(6, 11, argb(0xC8C0A0))
     }
 
     private fun Pen.spark() {

@@ -12,6 +12,7 @@ enum class Sound {
     FIRE, MAGIC, HOLY, HEAL, BUFF, POISON, THROW, POTION,
     ENEMY_DOWN, HERO_DOWN, LEVEL_UP, LOOT, LOOT_EPIC, COINS, CHEST, DOOR, ENCOUNTER,
     ALERT, AMBUSH,
+    BIRD, CRICKET, OWL, DRIP,
 }
 
 /** Synthesized sound effects, rendered once to 16-bit mono PCM. */
@@ -204,6 +205,23 @@ object Sfx {
         Sound.ALERT -> Buf(0.3).apply {
             tone(0.0, 0.08, midi(81), midi(84), 0.35, Wave.PULSE25, 0.05)
             tone(0.09, 0.14, midi(88), midi(91), 0.35, Wave.PULSE25, 0.06)
+        }
+        // Ambient sounds, played quietly now and then.
+        Sound.BIRD -> Buf(0.7).apply {
+            listOf(0.0 to 96, 0.12 to 99, 0.22 to 94, 0.42 to 100).forEach { (at, n) ->
+                tone(at, 0.09, midi(n), midi(n + 3), 0.22, Wave.TRIANGLE, 0.03)
+            }
+        }
+        Sound.CRICKET -> Buf(0.9).apply {
+            for (k in 0 until 3) for (j in 0 until 5) tone(k * 0.28 + j * 0.035, 0.02, 4300.0, 4300.0, 0.08, Wave.PULSE50, 0.006)
+        }
+        Sound.OWL -> Buf(1.4).apply {
+            tone(0.0, 0.35, midi(64), midi(62), 0.3, Wave.TRIANGLE, 0.2)
+            tone(0.55, 0.6, midi(64), midi(61), 0.28, Wave.TRIANGLE, 0.3)
+        }
+        Sound.DRIP -> Buf(0.5).apply {
+            tone(0.0, 0.12, midi(91), midi(79), 0.3, Wave.TRIANGLE, 0.03)
+            tone(0.14, 0.3, midi(84), midi(81), 0.08, Wave.TRIANGLE, 0.1)
         }
         // Ambushed: a sharp hit and a low dissonant stab.
         Sound.AMBUSH -> Buf(0.8).apply {

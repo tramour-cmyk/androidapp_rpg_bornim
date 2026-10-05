@@ -106,7 +106,7 @@ object Story {
                     say(jorin, "Seit du Grak besiegt hast, schlafe ich wieder ruhig. Danke, {name}!", "Since you beat Grak I'm sleeping soundly again. Thanks, {name}!")
                 }
             },
-            Npc("finn", 9, 8, "child", Facing.DOWN) { s ->
+            Npc("finn", 9, 8, "child", Facing.DOWN, wander = 3) { s ->
                 if (!s.has(CHAPTER1_DONE)) script {
                     say(finn, "Papa sagt, Goblins haben Angst vor Feuer! Stimmt das?", "Dad says goblins are scared of fire! Is that true?")
                     say(finn, "Tilda verkauft Alchemistenfeuer. Damit kann man sogar zaubern, ohne Magier zu sein!", "Tilda sells alchemist's fire. You can do magic with it without even being a wizard!")
@@ -114,7 +114,7 @@ object Story {
                     say(finn, "Wenn ich groß bin, werde ich auch ein Held! Genau wie du!", "When I grow up I'll be a hero too! Just like you!")
                 }
             },
-            Npc("greta", 9, 15, "villager", Facing.LEFT) { s ->
+            Npc("greta", 9, 15, "villager", Facing.LEFT, wander = 2) { s ->
                 if (!s.has(CHAPTER1_DONE)) script {
                     say(greta, "Früher konnte man nachts in Ruhe fischen. Jetzt heulen die Wölfe bis zum Morgengrauen.", "We used to fish here in peace at night. Now the wolves howl until dawn.")
                 } else script {
@@ -377,6 +377,10 @@ object Story {
             ),
             tiles = setOf(Tile.TALL_GRASS),
             roamers = 7,
+            // At night the dead walk and bats come out.
+            night = listOf(
+                "wolf" to 24, "skeleton" to 18, "zombie" to 14, "giant_bat" to 14, "goblin" to 10, "kobold" to 10, "stirge" to 10,
+            ),
         ),
         areaLevel = 1,
     )

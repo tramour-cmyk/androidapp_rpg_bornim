@@ -57,7 +57,94 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     val map: MapDef get() = World[state.place.map]
     val hero: Hero get() = state.hero
 
-    fun npcFacing(npc: Npc): Facing = npcFacing[npc.id] ?: npc.facing
+    fun npcFacing(npc: Npc): Facing = npcFacing[npc.id] ?: walkerOf(npc)?.facing ?: npc.facing
+
+    // ------------------------------------------------------------ time of day and weather
+
+    private var clockMs = 0L
+    private var lastUpdate = 0L
+    private var rainLeft = 0
+
+    /** 1 in full daylight, 0 at night, in between at dawn and dusk. */
+    val daylight: Float
+        get() {
+            val m = state.minutes
+            return when {
+                m in 7 * 60 until 19 * 60 -> 1f
+                m in 19 * 60 until 21 * 60 -> 1f - (m - 19 * 60) / 120f
+                m in 5 * 60 until 7 * 60 -> (m - 5 * 60) / 120f
+                else -> 0f
+            }
+        }
+
+    val isNight: Boolean get() = daylight < 0.35f
+    val raining: Boolean get() = rainLeft > 0
+
+    private fun tickClock(deltaMs: Long) {
+        clockMs += deltaMs
+        while (clockMs >= 1000) {
+            clockMs -= 1000
+            state.minutes++
+            if (rainLeft > 0) rainLeft--
+            if (state.minutes >= 24 * 60) {
+                state.minutes = 0
+                state.day++
+            }
+            // Now and then it starts to rain for an hour or two.
+            if (state.minutes % 60 == 0 && rainLeft == 0 && roamRandom.nextInt(9) == 0) rainLeft = 60 + roamRandom.nextInt(120)
+        }
+    }
+
+    /** Sleep until morning (beds in the inn). */
+    private fun sleep() {
+        state.minutes = 7 * 60
+        state.day++
+        rainLeft = 0
+        enqueue(listOf(Cmd.Rest, Cmd.Say(null, T("Du schläfst tief und fest. Ein neuer Morgen bricht an – TP und ZP sind voll.", "You sleep soundly. A new morning dawns – HP and SP are full."))))
+    }
+
+    // ------------------------------------------------------------ villagers strolling around
+
+    private val walkers = HashMap<String, List<Walker>>()
+
+    private fun walkersHere(): List<Walker> = walkers.getOrPut(state.place.map) { map.npcs.filter { it.wander > 0 }.map { Walker(it) } }
+
+    /** Where a strolling villager is right now, null for people who stand still. */
+    fun walkerOf(npc: Npc): Walker? = if (npc.wander == 0) null else walkersHere().firstOrNull { it.npc === npc }
+
+    /** The person at ([x], [y]), wherever they strolled to. */
+    fun npcAt(x: Int, y: Int): Npc? = map.npcAt(x, y, state)
+        ?: walkersHere().firstOrNull { it.x == x && it.y == y && it.npc.visible(state) }?.npc
+
+    private fun updateWalkers() {
+        val p = state.place
+        for (w in walkersHere()) {
+            if (now < w.nextMoveAt || !w.npc.visible(state)) continue
+            w.nextMoveAt = now + 1500 + roamRandom.nextInt(2500)
+            // Stay put while the hero stands right next to them.
+            if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 1) continue
+            val d = Facing.entries[roamRandom.nextInt(4)]
+            val nx = w.x + d.dx; val ny = w.y + d.dy
+            w.facing = d
+            if (kotlin.math.abs(nx - w.npc.x) + kotlin.math.abs(ny - w.npc.y) > w.npc.wander) continue
+            if (!free(nx, ny) || map.warpAt(nx, ny) != null || (nx == p.x && ny == p.y)) continue
+            w.fromX = w.x; w.fromY = w.y
+            w.x = nx; w.y = ny
+            w.movedAt = now
+            changed()
+        }
+    }
+
+    /** Advances the clock, villagers and monsters; call every frame with the app clock in ms. */
+    fun update(nowMs: Long) {
+        val delta = if (lastUpdate == 0L) 0L else (nowMs - lastUpdate).coerceIn(0, 250)
+        lastUpdate = nowMs
+        now = nowMs
+        if (mode != Mode.Explore) return
+        tickClock(delta)
+        updateWalkers()
+        updateRoamers(nowMs)
+    }
 
     /** Monsters walking around on the current map. */
     val roamers: List<Roamer> get() = herd()
@@ -65,7 +152,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     fun roamerAt(x: Int, y: Int): Roamer? = herd().firstOrNull { it.x == x && it.y == y }
 
     /** Walkable for the hero and monsters: free of walls, people and monsters. */
-    fun free(x: Int, y: Int): Boolean = map.walkable(x, y, state) && roamerAt(x, y) == null
+    fun free(x: Int, y: Int): Boolean =
+        map.walkable(x, y, state) && roamerAt(x, y) == null && walkersHere().none { it.x == x && it.y == y && it.npc.visible(state) }
 
     /** Call once after creating or loading a game. */
     fun begin() {
@@ -91,7 +179,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             engage(r, if (r.facing == dir || (r.temper == Temper.LURKER && !r.hunting)) Opening.HERO_FIRST else Opening.NORMAL)
             return Move.Blocked
         }
-        if (!map.walkable(nx, ny, state)) {
+        if (!free(nx, ny)) {
             changed()
             return Move.Blocked
         }
@@ -152,7 +240,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
         if (spots.isEmpty()) return null
         val (x, y) = spots[roamRandom.nextInt(spots.size)]
-        val monster = dice.weighted(enc.table)
+        val monster = dice.weighted(if (isNight && enc.night != null) enc.night else enc.table)
         val shiny = dice.chance(SHINY_CHANCE)
         val trait = if (!shiny && hero.level >= 2 && dice.chance(ELITE_CHANCE)) dice.pick(EliteTrait.entries) else null
         return Roamer(nextRoamerUid++, monster, x, y, x, y, trait, shiny, MonsterLook(roamRandom.nextInt(), shiny, trait?.color)).also {
@@ -296,7 +384,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             engage(r, if (r.facing == p.facing || (r.temper == Temper.LURKER && !r.hunting)) Opening.HERO_FIRST else Opening.NORMAL)
             return
         }
-        map.npcAt(tx, ty, state)?.let { npc ->
+        npcAt(tx, ty)?.let { npc ->
             npcFacing[npc.id] = p.facing.opposite
             enqueue(npc.talk(state))
             return
@@ -311,7 +399,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             Tile.GATE -> gate()
             Tile.WELL -> say(T("Ein alter Brunnen. Das Wasser ist klar und kalt.", "An old well. The water is clear and cold."))
             Tile.SHELF -> say(T("Regale voller Krimskrams.", "Shelves full of odds and ends."))
-            Tile.BED -> say(T("Ein weiches Bett. Jetzt ist keine Zeit zum Schlafen.", "A soft bed. No time to sleep now."))
+            Tile.BED -> if (isNight) sleep() else say(T("Ein weiches Bett. Schlafen kannst du, wenn es Nacht ist.", "A soft bed. You can sleep here once night falls."))
             Tile.ALTAR -> say(
                 if (state.has(Story.CHAPTER1_DONE)) T("Das Sonnenamulett strahlt auf dem Altar.", "The Sun Amulet shines on the altar.")
                 else T("Auf dem Altar ist eine leere Halterung. Hier lag das Sonnenamulett.", "There's an empty holder on the altar. This is where the Sun Amulet lay.")
@@ -474,6 +562,19 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             h.unspentPoints = (t - 1) - h.spentPoints
         }
         h.restoreFully()
+        changed()
+    }
+
+    /** Moves the clock forward by [hours]. */
+    fun cheatTime(hours: Int) {
+        val total = state.minutes + hours * 60
+        state.day += total / (24 * 60)
+        state.minutes = total % (24 * 60)
+        changed()
+    }
+
+    fun cheatRain() {
+        rainLeft = if (rainLeft > 0) 0 else 120
         changed()
     }
 

@@ -58,6 +58,16 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
                 vm.refresh()
             }
         }
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            PixelButton(t("Uhrzeit +3 h", "Time +3 h") + "  (%02d:%02d)".format(game.state.minutes / 60, game.state.minutes % 60), Modifier.weight(1f), size = 13.sp, marker = false) {
+                game.cheatTime(3)
+                vm.refresh()
+            }
+            PixelButton(if (game.raining) t("Regen aus", "Rain off") else t("Regen an", "Rain on"), Modifier.weight(1f), size = 13.sp, marker = false) {
+                game.cheatRain()
+                vm.refresh()
+            }
+        }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()
             vm.refresh()
