@@ -239,11 +239,15 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // Pack mates stand behind the leader, smaller, and jab when it is their turn.
             val fleeing = a == Anim.PACK_FLEE && moving
             val mateCount = if (fleeing) ui.packBefore else ui.pack
-            for (i in 0 until mateCount) {
-                val mateSize = monsterSize * 0.66f
+            val packDef = battle.pack
+            if (packDef != null) for (i in 0 until mateCount) {
+                val mateSize = monsterSize * packDef.scale
                 val acting = a == Anim.PACK_ACT && step?.packActor == i && moving
-                val baseX = sceneW * BattleArt.ENEMY_X + (if (i == 0) (-86).dp else 56.dp)
-                val baseY = sceneH * BattleArt.ENEMY_Y - (if (i == 0) 20.dp else 30.dp)
+                // A boss is big: its guards stand well to the left and just behind its shoulder,
+                // so neither is hidden nor cut off by the screen edge.
+                val boss = battle.monster.boss
+                val baseX = sceneW * BattleArt.ENEMY_X + if (i == 0) (if (boss) (-150).dp else (-86).dp) else (if (boss) 24.dp else 56.dp)
+                val baseY = sceneH * BattleArt.ENEMY_Y - if (i == 0) (if (boss) 14.dp else 20.dp) else (if (boss) 62.dp else 30.dp)
                 Box(
                     Modifier.offset(
                         x = baseX - mateSize / 2 + (intro.value * 260).dp + (if (acting) -(lunge * 26).dp else 0.dp) + (if (fleeing) (t * 140).dp else 0.dp),
@@ -251,7 +255,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     )
                 ) {
                     PixelImageView(
-                        MonsterArt.frame(battle.monster.id, MonsterLook(battle.look.seed + 101 * (i + 1)), if (acting) Pose.ATTACK else Pose.IDLE, idle + i + 1),
+                        MonsterArt.frame(packDef.mate, MonsterLook(battle.look.seed + 101 * (i + 1)), if (acting) Pose.ATTACK else Pose.IDLE, idle + i + 1),
                         mateSize, alpha = (if (fleeing) 1f - t else 1f) * enemyAlphaBase(a, ui.enemyGone, t), shade = shade,
                     )
                 }
@@ -440,7 +444,7 @@ private fun HeroBox(battle: Battle, hp: Int, sp: Int, status: Map<de.bornim.core
             }
             val next = Rules.xpToNext(hero.level)
             val prev = Rules.xpForLevel[hero.level]
-            val xpFrac = if (next == null) 1f else (hero.xp - prev).toFloat() / (next - prev)
+            val xpFrac = if (next == null || de.bornim.core.Story.capped(battle.state)) 1f else (hero.xp - prev).toFloat() / (next - prev)
             Bar(xpFrac, Colors.xp, Modifier.fillMaxWidth().padding(top = 3.dp), 4.dp)
             val effects = buildList {
                 if (battle.blessed) add(Skill.BLESS.title(lang))

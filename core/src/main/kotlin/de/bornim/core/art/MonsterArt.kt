@@ -1,5 +1,7 @@
 package de.bornim.core.art
 
+import kotlin.math.roundToInt
+
 import de.bornim.core.MonsterLook
 import kotlin.math.PI
 import kotlin.math.cos
@@ -25,20 +27,25 @@ object MonsterArt {
      * A half-size version for monsters walking around on the map (32×32): every 2×2 block of the
      * battle sprite becomes one pixel, then it gets a fresh outline.
      */
-    fun mapSprite(id: String, look: MonsterLook, idleFrame: Int, mirrored: Boolean): PixelImage {
+    /** The monster shrunk for the map: half the battle size, times [scale] (smaller pack mates). */
+    fun mapSprite(id: String, look: MonsterLook, idleFrame: Int, mirrored: Boolean, scale: Float = 1f): PixelImage {
         val f = idleFrame.mod(IDLE_FRAMES)
-        val key = "map/$id/${look.seed}/${look.shiny}/${look.glow}/$f/$mirrored"
+        val n = (SIZE / 2 * scale).roundToInt().coerceIn(8, SIZE / 2)
+        val key = "map/$id/${look.seed}/${look.shiny}/${look.glow}/$f/$mirrored/$n"
         synchronized(cache) { cache[key]?.let { return it } }
         val big = frame(id, look, Pose.IDLE, f)
-        val out = PixelImage(SIZE / 2, SIZE / 2)
-        for (y in 0 until SIZE / 2) for (x in 0 until SIZE / 2) {
-            var n = 0; var r = 0; var g = 0; var b = 0
-            for (dy in 0..1) for (dx in 0..1) {
-                val c = big[x * 2 + dx, y * 2 + dy]
-                if ((c ushr 24) < 200) continue
-                n++; r += (c shr 16) and 0xFF; g += (c shr 8) and 0xFF; b += c and 0xFF
+        val out = PixelImage(n, n)
+        for (y in 0 until n) for (x in 0 until n) {
+            // Average the opaque pixels of the source box that maps onto this pixel.
+            val x0 = x * SIZE / n; val x1 = maxOf(x0 + 1, (x + 1) * SIZE / n)
+            val y0 = y * SIZE / n; val y1 = maxOf(y0 + 1, (y + 1) * SIZE / n)
+            var c = 0; var r = 0; var g = 0; var b = 0
+            for (sy in y0 until y1) for (sx in x0 until x1) {
+                val p = big[sx, sy]
+                if ((p ushr 24) < 200) continue
+                c++; r += (p shr 16) and 0xFF; g += (p shr 8) and 0xFF; b += p and 0xFF
             }
-            if (n >= 2) out.set(x, y, argb(((r / n) shl 16) or ((g / n) shl 8) or (b / n)))
+            if (c * 2 >= (x1 - x0) * (y1 - y0)) out.set(x, y, argb(((r / c) shl 16) or ((g / c) shl 8) or (b / c)))
         }
         Pen(out).outline(Pal.OUTLINE)
         val img = if (mirrored) out.mirrored() else out

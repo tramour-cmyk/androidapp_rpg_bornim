@@ -471,8 +471,18 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         for (npc in visibleNpcs) {
             val bottom = npc.y * T + T - 1
             if (npc.look.startsWith("monster:")) {
-                val img = MonsterArt.get(npc.look.removePrefix("monster:"))
+                val id = npc.look.removePrefix("monster:")
+                val img = MonsterArt.get(id)
                 sprites += Sprite(bottom.toFloat()) { put(img, npc.x * T + T / 2 - img.width / 2, bottom + 1 - img.height) }
+                // A boss with a bodyguard: the guards sit at its sides.
+                de.bornim.core.Packs[id]?.let { pack ->
+                    for (i in 0 until de.bornim.core.Packs.size(id, de.bornim.core.MonsterLook())) {
+                        val left = i % 2 == 0
+                        val mate = MonsterArt.mapSprite(pack.mate, de.bornim.core.MonsterLook(101 * (i + 1)), ((clock / 260 + i) % 4).toInt(), mirrored = !left, scale = mapMateScale(pack))
+                        val mx = npc.x * T + T / 2 - mate.width / 2 + (if (left) -(img.width / 2 + 4) else img.width / 2 + 4)
+                        sprites += Sprite((bottom + 1).toFloat()) { put(mate, mx, bottom + 3 - mate.height) }
+                    }
+                }
             } else {
                 val (nx, ny) = npcPos(npc)
                 val w = game.walkerOf(npc)
@@ -492,9 +502,13 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             val img = MonsterArt.mapSprite(r.monster, r.look, ((clock / 240) % 4).toInt(), mirrored = r.facing == Facing.RIGHT)
             val foot = ry + T - 1
             // A pack walks together: its mates trail just behind the leader.
-            val mates = de.bornim.core.Monsters.packSize(de.bornim.core.Monsters[r.monster], r.look)
-            for (i in 0 until mates) {
-                val mate = MonsterArt.mapSprite(r.monster, de.bornim.core.MonsterLook(r.look.seed + 101 * (i + 1)), ((clock / 240 + i + 1) % 4).toInt(), mirrored = r.facing == Facing.RIGHT)
+            val pack = de.bornim.core.Packs[r.monster]
+            val mates = de.bornim.core.Packs.size(r.monster, r.look)
+            if (pack != null) for (i in 0 until mates) {
+                val mate = MonsterArt.mapSprite(
+                    pack.mate, de.bornim.core.MonsterLook(r.look.seed + 101 * (i + 1)), ((clock / 240 + i + 1) % 4).toInt(),
+                    mirrored = r.facing == Facing.RIGHT, scale = mapMateScale(pack),
+                )
                 val ox = if (i == 0) -11 else 11
                 val oy = if (i == 0) -7 else -9
                 sprites += Sprite((foot + oy).toFloat()) { put(mate, rx + T / 2 - mate.width / 2 + ox, foot + 1 + oy - mate.height) }
@@ -760,6 +774,9 @@ private fun MapBanner(mapId: String, mapName: String) {
     }
 }
 
+/** Pack mates on the map are a little smaller than their leader, though less so than in battle. */
+private fun mapMateScale(pack: de.bornim.core.PackDef): Float = 0.5f + pack.scale / 2
+
 /** Everything the HUD shows, as plain values so Compose redraws it whenever one of them changes. */
 private data class HudInfo(
     val hp: Int, val maxHp: Int, val sp: Int, val maxSp: Int,
@@ -771,7 +788,7 @@ private data class HudInfo(
         fun of(game: de.bornim.core.Game): HudInfo {
             val h = game.hero
             val from = de.bornim.core.Rules.xpForLevel[h.level]
-            val xp = de.bornim.core.Rules.xpToNext(h.level)?.let { to -> ((h.xp - from).toFloat() / (to - from)).coerceIn(0f, 1f) }
+            val xp = if (de.bornim.core.Story.capped(game.state)) 1f else de.bornim.core.Rules.xpToNext(h.level)?.let { to -> ((h.xp - from).toFloat() / (to - from)).coerceIn(0f, 1f) }
             val ailments = de.bornim.core.Status.entries.filter { game.state.ailment(it) > 0 }
             return HudInfo(h.hp, h.maxHp, h.sp, h.maxSp, h.level, xp, h.unspentPoints, game.state.day, game.state.minutes, game.isNight, ailments)
         }

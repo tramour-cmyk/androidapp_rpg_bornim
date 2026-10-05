@@ -17,6 +17,15 @@ object Story {
     const val CHAPTER1_DONE = "chapter1_done"
     const val GRIMFANG_DEFEATED = "grimfang_defeated"
     const val HEDDA_MET = "hedda_met"
+    /** Set when chapter 2 begins; until then the hero cannot rise above [CHAPTER1_LEVEL_CAP]. */
+    const val CHAPTER2_STARTED = "chapter2_started"
+    const val CHAPTER1_LEVEL_CAP = 6
+
+    /** Highest level the hero can reach in the current chapter. Experience beyond it is kept. */
+    fun levelCap(s: GameState): Int = if (s.has(CHAPTER2_STARTED)) Rules.MAX_LEVEL else CHAPTER1_LEVEL_CAP
+
+    /** Whether the hero stands at the level cap of the chapter and banks further experience. */
+    fun capped(s: GameState): Boolean = levelCap(s) < Rules.MAX_LEVEL && s.hero.level >= levelCap(s)
 
     val START = Place("inn", 7, 2, Facing.DOWN)
     val RESPAWN = Place("temple", 4, 4, Facing.UP)

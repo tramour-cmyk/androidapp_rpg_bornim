@@ -169,6 +169,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     /** Call once after creating or loading a game. */
     fun begin() {
+        // Experience banked at a chapter's level cap counts once the cap is lifted.
+        hero.gainXp(0, Story.levelCap(state))
         runOnEnter()
     }
 

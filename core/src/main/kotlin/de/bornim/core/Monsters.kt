@@ -88,7 +88,7 @@ object Monsters {
             25, dice(1, 4), 2, 0, 0, listOf(LootEntry("potion", 0.08)), attackFx = FxKind.BITE, cr = "1/8", gender = Gender.F,
         ),
         MonsterDef(
-            "wolf", T("Wolf", "Wolf"), 13, dice(2, 8, 2), T("Biss", "Bite"), 4, dice(2, 4, 2), DamageType.PIERCING,
+            "wolf", T("Wolf", "Wolf"), 13, dice(2, 6, 2), T("Biss", "Bite"), 4, dice(2, 4, 2), DamageType.PIERCING,
             50, dice(1, 6), 2, 1, 1, listOf(LootEntry("potion", 0.12)),
             special = MonsterSpecial.KNOCKDOWN, attackFx = FxKind.BITE, cr = "1/4",
         ),
@@ -130,7 +130,7 @@ object Monsters {
             special = MonsterSpecial.SURPRISE_ATTACK, boss = true, attackFx = FxKind.SMASH, cr = "1",
         ),
         MonsterDef(
-            "dire_wolf", T("Grimmzahn, der Leitwolf", "Grimfang the Alpha"), 14, dice(5, 10, 5), T("Reißzähne", "Fangs"), 4, dice(2, 6, 1), DamageType.PIERCING,
+            "dire_wolf", T("Grimmzahn, der Leitwolf", "Grimfang the Alpha"), 14, dice(4, 10, 4), T("Reißzähne", "Fangs"), 4, dice(2, 6, 1), DamageType.PIERCING,
             450, dice(4, 10), 3, 3, 1,
             listOf(LootEntry("amulet_grimfang", 1.0), LootEntry("greater_potion", 0.5)),
             special = MonsterSpecial.KNOCKDOWN, boss = true, attackFx = FxKind.BITE, cr = "2",
@@ -185,7 +185,7 @@ object Monsters {
     )
 
     /** Number of pack mates a pack monster brings along; fixed per look, so map and battle agree. */
-    fun packSize(m: MonsterDef, look: MonsterLook): Int = if (m.special == MonsterSpecial.PACK_TACTICS) 1 + look.pick(2, 50) else 0
+    fun packSize(m: MonsterDef, look: MonsterLook): Int = Packs.size(m.id, look)
 
     private val byId = all.associateBy { it.id }
     operator fun get(id: String): MonsterDef = byId[id] ?: error("Unknown monster $id")

@@ -160,11 +160,14 @@ class Hero(
         sp = maxSp
     }
 
-    /** Adds XP and returns the number of levels gained. */
-    fun gainXp(amount: Int): Int {
+    /**
+     * Adds XP and returns the number of levels gained. The hero rises at most to [cap]; the XP
+     * beyond it is kept and counts as soon as the cap is lifted (call again with 0 then).
+     */
+    fun gainXp(amount: Int, cap: Int = Rules.MAX_LEVEL): Int {
         val before = level
         xp += amount
-        val target = Rules.levelForXp(xp)
+        val target = minOf(Rules.levelForXp(xp), cap)
         while (level < target) {
             level++
             unspentPoints += 1

@@ -238,6 +238,33 @@ fun main() {
         vm.game!!.skipDialogs()
         vm.menuOpen = true
     }
+    val wolfSeed = (1..200).first { Monsters.packSize(Monsters["wolf"], MonsterLook(it)) == 2 }
+    shot("49_wolf_pack") { fight(it, "wolf", woods, seed = wolfSeed) }
+    shot("49_wolf_pack_bite", taps = List(3) { msgBox } + listOf(Offset(270f, 2010f)) + List(2) { msgBox }, lastFrames = 7) { fight(it, "wolf", woods, seed = wolfSeed) }
+    shot("49_goblin_scout") { fight(it, "goblin", woods) }
+    shot("49_grimfang") { fight(it, "dire_wolf", Place("deep_forest", 22, 7, Facing.UP)) }
+    shot("50_map_packs") { vm ->
+        vm.newGame("Thora", Race.DWARF, CharClass.FIGHTER)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.state.place = Place("deep_forest", 22, 8, Facing.UP)
+        g.roamers.forEach { it.x = 0; it.y = 0 }
+        val list = g.roamers as MutableList
+        for ((id, x, y) in listOf(Triple("wolf", 19, 6), Triple("goblin", 25, 6))) {
+            val seed = (1..200).first { Monsters.packSize(Monsters[id], MonsterLook(it)) == 2 || id == "goblin" }
+            list += de.bornim.core.Roamer(600 + x, id, x, y, x, y, null, false, MonsterLook(seed)).also { it.calmUntil = Long.MAX_VALUE }
+        }
+        vm.refresh()
+    }
+    shot("51_menu_cap") { vm ->
+        vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.hero.gainXp(9200, de.bornim.core.Story.levelCap(g.state))
+        g.hero.restoreFully()
+        g.state.place = Place("forest", 10, 20, Facing.UP)
+        vm.menuOpen = true
+    }
     shot("47_hud_ailments") { vm ->
         vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
         val g = vm.game!!

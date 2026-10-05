@@ -101,8 +101,9 @@ class Battle(
     private var acid = 0
     private var foeRelentlessUsed = false
     private var shamanHeals = 2
-    /** Pack mates (kobolds) that jab from behind the leader. */
-    val packSize: Int = Monsters.packSize(monster, look)
+    /** Companions (pack mates, a scout, a bodyguard) that attack from behind the leader. */
+    val pack: PackDef? = Packs[monster.id]
+    val packSize: Int = Packs.size(monster.id, look)
     var packLeft: Int = packSize
         private set
     private var packActor = -1
@@ -171,7 +172,7 @@ class Battle(
         }
         if (shiny) say(Msg.shiny(lang))
         trait?.let { say(Msg.eliteTrait.f(lang, it.desc(lang))) }
-        if (packSize > 0) say(Msg.pack.f(lang, packSize))
+        if (pack != null && packSize > 0) say(pack.intro.f(lang, packSize))
         if (opening == Opening.AMBUSHED) {
             // The foe gets a free attack before anything else happens.
             enemyTurn()
@@ -324,9 +325,9 @@ class Battle(
                     inflict(onHero = false, Status.BURN, 2)
                 }
                 // The blast also catches the pack in the background.
-                if (packLeft > 0 && outcome == Outcome.ONGOING) {
+                if (pack != null && packLeft > 0 && outcome == Outcome.ONGOING) {
                     packLeft = 0
-                    say(Msg.packBurned(lang), Anim.PACK_FLEE)
+                    say(pack.burned(lang), Anim.PACK_FLEE)
                 }
             }
             Skill.FEINT -> attackAction(advantage = 1)
@@ -488,17 +489,19 @@ class Battle(
         packJabs()
     }
 
-    /** Each pack mate may jab with its spear: weaker than the leader, but it adds up. */
+    /** Each companion may attack: weaker than the leader, but it adds up. */
     private fun packJabs() {
+        val p = pack ?: return
         for (i in 0 until packLeft) {
-            if (outcome != Outcome.ONGOING || !dice.chance(0.7)) continue
+            if (outcome != Outcome.ONGOING || !dice.chance(p.chance)) continue
             packActor = i
-            say(Msg.packJab(lang), Anim.PACK_ACT)
+            say(p.attack(lang), Anim.PACK_ACT)
             val roll = dice.d20()
-            if (roll == 1 || (roll != 20 && roll + monster.attackBonus + over / 2 < heroAc)) {
-                say(Msg.foeMisses.f(lang, Msg.packMate(lang)), Anim.MISS, fx = fx(FxKind.DODGE, onHero = true))
+            if (roll == 1 || (roll != 20 && roll + monster.attackBonus + p.attackShift + over / 2 < heroAc)) {
+                say(Msg.foeMisses.f(lang, p.one(lang)), Anim.MISS, fx = fx(FxKind.DODGE, onHero = true))
             } else {
-                hitHero(dice.roll(dice(1, 4, over / 2)), fx(FxKind.PIERCE, true, roll == 20))
+                val d = p.damage
+                hitHero(dice.roll(dice(if (roll == 20) d.count * 2 else d.count, d.sides, d.bonus + over / 2)), fx(p.fx, true, roll == 20))
             }
             packActor = -1
         }
@@ -811,14 +814,14 @@ class Battle(
 
     private fun finishWin(fled: Boolean) {
         outcome = if (fled) Outcome.ENEMY_FLED else Outcome.WON
-        if (packLeft > 0) {
+        if (pack != null && packLeft > 0) {
             packLeft = 0
-            say(Msg.packFlees(lang), Anim.PACK_FLEE)
+            say(pack.flee(lang), Anim.PACK_FLEE)
         }
         // Higher monster levels are worth a lot more experience.
         val scale = 1 + 0.35 * over + 0.05 * over * over
         // Each pack mate is worth a little extra.
-        val xp = (monster.xp * scale * (1 + 0.4 * packSize) * (if (elite) 2.5 else 1.0) * (if (shiny) 2.0 else 1.0) * (1 + hero.bonus(Affix.XP) / 100.0)).toInt()
+        val xp = (monster.xp * scale * (1 + (pack?.xpShare ?: 0.0) * packSize) * (if (elite) 2.5 else 1.0) * (if (shiny) 2.0 else 1.0) * (1 + hero.bonus(Affix.XP) / 100.0)).toInt()
         val gold = if (fled) 0 else (dice.roll(monster.gold) * (1 + over * 0.3) * (if (elite) 2.0 else 1.0) * (if (shiny) 3.0 else 1.0) *
             (1 + hero.bonus(Affix.GOLD_FIND) / 100.0)).toInt()
         val fixed = if (fled) emptyList() else monster.loot.filter { dice.chance(it.chance) }.map { it.item }
@@ -831,10 +834,11 @@ class Battle(
         val owned = gear.map { state.addGear(it) }
         state.battlesWon++
         val oldLevel = hero.level
-        val gained = hero.gainXp(xp)
+        val gained = hero.gainXp(xp, Story.levelCap(state))
         rewards = Rewards(xp, gold, items, owned, gained)
 
         say(Msg.gainXp.f(lang, name, xp))
+        if (gained == 0 && Story.capped(state)) say(Msg.capped(lang))
         if (gold > 0) say(Msg.gainGold.f(lang, gold), Anim.COINS)
         items.forEach { say(Msg.loot.f(lang, Items[it].name(lang)), Anim.LOOT) }
         owned.sortedByDescending { it.rarity }.forEach {
@@ -911,6 +915,7 @@ private object Msg {
     val heroFalls = T("{0} bricht zusammen …", "{0} collapses...")
     val heals = T("{0} heilt {1} TP.", "{0} recovers {1} HP.")
     val gainXp = T("{0} erhält {1} EP.", "{0} gained {1} XP.")
+    val capped = T("Höchststufe für Kapitel 1 erreicht – die EP werden für Kapitel 2 aufgehoben.", "Highest level for chapter 1 reached – the XP are kept for chapter 2.")
     val gainGold = T("Du erbeutest {0} Gold.", "You got {0} gold.")
     val loot = T("Beute: {0}!", "Loot: {0}!")
     val gearLoot = T("Beute: {0} ({1})!", "Loot: {0} ({1})!")
@@ -945,11 +950,6 @@ private object Msg {
     val elfImmune = T("Elfen sind gegen Lähmung immun – {0} bleibt unbeeindruckt.", "Elves are immune to paralysis – {0} is unaffected.")
     val eliteTrait = T("Ein Elite-Gegner! {0}", "An elite foe! {0}")
     val shiny = T("Er schimmert in seltsamen Farben … eine seltene Erscheinung!", "It shimmers in strange colors... a rare sight!")
-    val pack = T("Ein Kobold-Rudel! {0} weitere Kobolde stechen aus dem Hintergrund zu.", "A kobold pack! {0} more kobolds jab from behind.")
-    val packJab = T("Ein Kobold aus dem Rudel sticht zu!", "A kobold from the pack jabs!")
-    val packMate = T("Der Rudel-Kobold", "The pack kobold")
-    val packFlees = T("Ohne ihren Anführer fliehen die übrigen Kobolde!", "Without their leader, the other kobolds flee!")
-    val packBurned = T("Der Feuerball erfasst auch das Rudel – die Kobolde fliehen kreischend!", "The fireball catches the pack too – the kobolds flee screeching!")
     val flutters = T("{0} flattert davon – daneben!", "{0} flutters away – a miss!")
     val shamanHeals = T("{0} murmelt einen Heilzauber und heilt {1} TP!", "{0} mutters a healing spell and recovers {1} HP!")
     val shamanBolt = T("{0} schleudert einen Feuerpfeil!", "{0} hurls a fire bolt!")

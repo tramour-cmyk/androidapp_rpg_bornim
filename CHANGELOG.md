@@ -4,6 +4,16 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu**
+- **Wolfsrudel:** Ein Wolf kommt mit ein oder zwei Jungwölfen, die im Kampf von der Seite zuschnappen.
+- **Goblin mit Späher:** Goblins haben einen Späher dabei, der aus dem Hintergrund Pfeile schießt.
+- **Grimmzahns Leibwache:** Zwei Wölfe begleiten den Leitwolf, auf der Karte und im Kampf.
+- Wie beim Kobold-Rudel gilt: Fällt der Anführer, fliehen die Begleiter, und ein Feuerball verjagt sie sofort. Begleiter bringen etwas mehr Erfahrung.
+- **Stufengrenze in Kapitel 1:** Der Held steigt in Kapitel 1 höchstens bis Stufe 6, damit die Bosse eine Herausforderung bleiben. Weitere EP werden aufgehoben und ab Kapitel 2 angerechnet. Kampf und Heldenreiter zeigen „Höchststufe für Kapitel 1 erreicht“. Das Testmenü kann weiterhin jede Stufe einstellen.
+
+**Geändert**
+- Damit Rudel nicht zu schwer werden, haben Wolf und Grimmzahn etwas weniger TP (per Simulation abgestimmt).
+
 ## v0.1.14 – 05.10.2026, 15:16
 
 **Neu**

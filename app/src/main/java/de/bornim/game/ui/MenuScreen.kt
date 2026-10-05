@@ -112,7 +112,15 @@ private fun HeroTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
     if (h.maxSp > 0) LabeledBar(Ui.sp(lang), h.sp, h.maxSp, Colors.sp)
     val next = Rules.xpToNext(h.level)
     val prev = Rules.xpForLevel[h.level]
-    if (next != null) LabeledBar(Ui.xp(lang), h.xp - prev, next - prev, Colors.xp, "${h.xp} / $next")
+    if (de.bornim.core.Story.capped(game.state)) {
+        // At the chapter's level cap the XP keep counting for later.
+        LabeledBar(Ui.xp(lang), 1, 1, Colors.xp, "${h.xp}")
+        Txt(
+            if (lang == Lang.DE) "Höchststufe für Kapitel 1 erreicht. Weitere EP werden ab Kapitel 2 angerechnet."
+            else "Highest level for chapter 1 reached. Further XP count from chapter 2 on.",
+            size = 13.sp, color = Colors.textDim,
+        )
+    } else if (next != null) LabeledBar(Ui.xp(lang), h.xp - prev, next - prev, Colors.xp, "${h.xp} / $next")
     Spacer(Modifier.height(8.dp))
     val weapon = h.weapon
     Txt("${Ui.ac(lang)} ${h.armorClass}   ${Ui.attack(lang)} ${Rules.signed(h.attackBonus)}   ${Ui.damage(lang)} ${h.weaponDamage.label(lang)}", size = 15.sp, bold = true)
