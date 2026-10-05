@@ -84,7 +84,8 @@ fun GearIcon(g: Gear?, size: Dp, modifier: Modifier = Modifier) {
 
 /** One line in the bag or shop: icon, colored name, rarity and type, optional trailing text. */
 @Composable
-fun GearRow(g: Gear, lang: Lang, game: Game, trailing: String? = null, onClick: () -> Unit) {
+fun GearRow(g: Gear, lang: Lang, game: Game, revision: Int, trailing: String? = null, onClick: () -> Unit) {
+    revision.hashCode() // upgrade arrows depend on what is equipped right now
     Row(
         Modifier
             .fillMaxWidth()
@@ -227,7 +228,9 @@ fun GearDetails(g: Gear, game: Game, lang: Lang) {
 
 /** Paper doll: the nine equipment slots around the hero. */
 @Composable
-fun PaperDoll(game: Game, lang: Lang, onSlot: (GearSlot) -> Unit) {
+fun PaperDoll(game: Game, lang: Lang, revision: Int, onSlot: (GearSlot) -> Unit) {
+    // The Game object never changes identity, so the revision makes Compose redraw after (un)equipping.
+    revision.hashCode()
     val hero = game.hero
     val rows = listOf(
         listOf(GearSlot.CLOAK, GearSlot.HEAD, GearSlot.AMULET),

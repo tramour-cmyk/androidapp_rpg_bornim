@@ -137,7 +137,7 @@ fun ShopScreen(vm: GameViewModel, game: Game, stock: List<String>) {
                 if (gear.isEmpty()) Txt(Ui.nothing(lang), size = 14.sp, color = Colors.textDim)
                 gear.forEach { g ->
                     val price = if (buying) g.price else game.sellPrice(g)
-                    GearRow(g, lang, game, trailing = Ui.price.f(lang, price)) {
+                    GearRow(g, lang, game, vm.tick, trailing = Ui.price.f(lang, price)) {
                         val buy = buying
                         dialog = DialogSpec(
                             title = g.name(lang), icon = g.def.icon, titleColor = rarityColor(g.rarity),

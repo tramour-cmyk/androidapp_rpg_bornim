@@ -245,7 +245,7 @@ private fun BagTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec) 
     Txt((if (de) "Ausrüstung" else "Equipment") + " (${gear.size})", size = 18.sp, bold = true)
     if (gear.isEmpty()) Txt(if (de) "Besiege Monster und öffne Truhen, um Ausrüstung zu finden." else "Defeat monsters and open chests to find equipment.", size = 14.sp, color = Colors.textDim)
     gear.forEach { g ->
-        GearRow(g, lang, game) {
+        GearRow(g, lang, game, vm.tick) {
             val canWear = game.hero.canWear(g)
             val oneHanded = g.def.isWeapon && !g.def.twoHanded
             ask(DialogSpec(
@@ -276,7 +276,7 @@ private fun GearTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
     vm.tick // redraw after every change
     val de = lang == Lang.DE
     val h = game.hero
-    PaperDoll(game, lang) { slot ->
+    PaperDoll(game, lang, vm.tick) { slot ->
         val g = h.item(slot)
         if (g == null) {
             vm.toast = slot.title(lang) + ": " + Ui.empty(lang)

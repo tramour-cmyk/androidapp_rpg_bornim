@@ -127,5 +127,20 @@ fun touchShots() {
         pack.calmUntil = Long.MAX_VALUE
         r.x = 0; r.y = 0
     }) { frames(12) }
+    // Unequipping in the gear tab must redraw the paper doll at once.
+    touchShot("41_unequip", setup = { vm ->
+        val g = vm.game!!
+        g.state.hero.gainXp(de.bornim.core.Rules.xpForLevel[5])
+        val cloak = de.bornim.core.Loot.generate(g.state, de.bornim.core.Dice(kotlin.random.Random(3)), 5, de.bornim.core.Rarity.RARE, null, de.bornim.core.GearSlot.CLOAK)
+        g.state.equipFromBag(g.state.addGear(cloak))
+        vm.menuOpen = true
+    }) { vm ->
+        tap(Offset(680f, 95f))
+        frames(10)
+        save("41_unequip_before")
+        vm.game!!.state.unequipToBag(de.bornim.core.GearSlot.CLOAK)
+        vm.refresh()
+        frames(10)
+    }
     touchShot("30_classic", touch = false, setup = { it.game!!.state.place = village }) { frames(10) }
 }
