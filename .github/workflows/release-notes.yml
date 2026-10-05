@@ -1,0 +1,35 @@
+name: Sync release notes
+
+# Copies each version's section of CHANGELOG.md into the notes of its GitHub release,
+# so the change history can be read both in the file and on the releases page.
+on:
+  push:
+    branches: [main]
+    paths:
+      - CHANGELOG.md
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Update release notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          link="[Vollständige Änderungshistorie](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)"
+          for tag in $(grep -oE '^## v[0-9]+\.[0-9]+\.[0-9]+' CHANGELOG.md | cut -c4-); do
+            awk -v t="## $tag " 'index($0, t) == 1 { on = 1; next } /^## |^---/ { on = 0 } on' CHANGELOG.md > notes.md
+            printf '\n%s\n' "$link" >> notes.md
+            if gh release view "$tag" > /dev/null 2>&1; then
+              gh release edit "$tag" --notes-file notes.md
+              echo "updated $tag"
+            else
+              echo "no release $tag"
+            fi
+          done
