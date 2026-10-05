@@ -4,6 +4,9 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Geändert**
+- Nächtliches Grillenzirpen klingt natürlicher und leiser (vorher erinnerte es an ein altes Handyklingeln).
+
 ## v0.1.12 – 05.10.2026, 14:56
 
 **Neu**
