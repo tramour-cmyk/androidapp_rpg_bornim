@@ -5,6 +5,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 ## Unveröffentlicht
 
 **Behoben**
+- Nach jedem Stufenaufstieg kam der Hinweis, Attributspunkte zu verteilen, auch wenn es gar keine gab. Er erscheint jetzt nur noch auf den Stufen mit neuen Punkten (4, 8, 12, 16, 19) und nennt die richtige Anzahl.
 - Im Laden brach der gewählte Reiter („▶ Verkaufen“) in zwei Zeilen um. Der Pfeil vor gewählten Reitern und Knöpfen ist jetzt überall weg; die Auswahl zeigt einheitlich die gelbe Reiterfarbe.
 
 **Geändert – Zaun am Schlagbaum**

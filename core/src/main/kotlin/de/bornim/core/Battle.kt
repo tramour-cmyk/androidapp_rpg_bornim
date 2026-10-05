@@ -881,7 +881,9 @@ class Battle(
         }
         if (gained > 0) {
             say(Msg.restored.f(lang, name), Anim.HERO_HEAL)
-            say(Msg.points.f(lang, gained))
+            // Ability points only come at certain levels (SRD), not with every level up.
+            val points = Rules.abilityPoints(hero.level) - Rules.abilityPoints(oldLevel)
+            if (points > 0) say(Msg.points.f(lang, points))
         }
     }
 
