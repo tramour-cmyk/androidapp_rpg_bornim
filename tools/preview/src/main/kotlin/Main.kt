@@ -315,6 +315,13 @@ fun main() {
         vm.game!!.skipDialogs()
         vm.menuOpen = true
     }
+    shot("59_village_overview") { vm ->
+        vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.state.place = Place("village", 11, 10, Facing.DOWN)
+        vm.refresh()
+    }
     shot("47_hud_ailments") { vm ->
         vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
         val g = vm.game!!
