@@ -468,6 +468,17 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // 3) objects and characters, sorted by their foot line
         val sprites = mutableListOf<Sprite>()
         for (o in WorldArt.objects(map, state, frame)) sprites += Sprite(o.sortY.toFloat()) { put(o.img, o.x, o.y) }
+        // Healing herbs on the flower meadows, swaying gently so they catch the eye.
+        if (map.kind == MapKind.FOREST) for (ty in 0 until map.height) for (tx in 0 until map.width) {
+            if (map.tile(tx, ty) != Tile.FLOWERS || !game.herbAt(tx, ty)) continue
+            val img = WorldArt.herb()
+            val sway = if ((clock / 600 + tx + ty) % 2 == 0L) 0 else 1
+            val bottom = ty * T + T - 4
+            sprites += Sprite(bottom.toFloat()) {
+                put(WorldArt.shadow(), tx * T + 4, bottom - 5)
+                put(img, tx * T + T / 2 - img.width / 2 + sway, bottom - img.height + 1)
+            }
+        }
         for (npc in visibleNpcs) {
             val bottom = npc.y * T + T - 1
             if (npc.look.startsWith("monster:")) {

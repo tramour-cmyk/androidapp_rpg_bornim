@@ -90,16 +90,22 @@ class IngredientTest {
         val g = game()
         g.state.place = Place("forest", 3, 6, Facing.UP)
         assertEquals(Tile.FLOWERS, g.map.tile(3, 6))
+        // Find a day on which a herb grows here; it is visible before stepping on it.
         var days = 0
-        while (g.state.count("herbs") == 0 && days++ < 30) {
-            g.state.day++
-            g.state.steps++
-            g.afterStep()
-        }
+        while (!g.herbAt(3, 6) && days++ < 30) g.state.day++
+        assertTrue(g.herbAt(3, 6))
+        g.state.steps++
+        g.afterStep()
         assertTrue(g.state.count("herbs") > 0)
-        // Picked today: nothing more until tomorrow.
+        // Picked: the plant is gone, nothing more until it grows back the next day.
+        assertFalse(g.herbAt(3, 6))
         val n = g.state.count("herbs")
         repeat(5) { g.state.steps++; g.afterStep() }
         assertEquals(n, g.state.count("herbs"))
+        // Roughly half of the flower tiles carry a herb on any given day.
+        val flowers = (0 until g.map.height).flatMap { y -> (0 until g.map.width).map { it to y } }.filter { (x, y) -> g.map.tile(x, y) == Tile.FLOWERS }
+        assertTrue(flowers.size >= 15)
+        val share = (1..30).map { d -> g.state.day = 100 + d; flowers.count { (x, y) -> g.herbAt(x, y) } }.sum() / (30.0 * flowers.size)
+        assertTrue(share in 0.35..0.65, "share $share")
     }
 }

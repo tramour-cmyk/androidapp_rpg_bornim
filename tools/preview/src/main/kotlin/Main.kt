@@ -288,12 +288,15 @@ fun main() {
         }
     }
     shot("53_bag_ingredients", taps = listOf(Offset(410f, 95f))) { vm -> stocked(vm); vm.menuOpen = true }
-    shot("56_flowers") { vm ->
-        vm.newGame("Thora", Race.DWARF, CharClass.FIGHTER)
-        val g = vm.game!!
-        g.skipDialogs()
-        g.state.place = Place("forest", 6, 22, Facing.LEFT)
-        vm.refresh()
+    for ((name, place) in listOf("56_flowers" to Place("forest", 6, 22, Facing.LEFT), "56_flowers_deep" to Place("deep_forest", 21, 18, Facing.UP))) {
+        shot(name) { vm ->
+            vm.newGame("Thora", Race.DWARF, CharClass.FIGHTER)
+            val g = vm.game!!
+            g.skipDialogs()
+            g.state.place = place
+            g.state.day = 3
+            vm.refresh()
+        }
     }
     shot("47_hud_ailments") { vm ->
         vm.newGame("Mira", Race.ELF, CharClass.WIZARD)

@@ -23,6 +23,10 @@ object Story {
 
     /** What Hedda sells; she also brews potions from ingredients. */
     private val HEDDA_STOCK = listOf("potion", "greater_potion", "remedy", "holy_water")
+    private val HEDDA_HERBS = T(
+        "Auf den bunten Blumenwiesen im Wald wachsen Heilkräuter – achte auf die hellgrünen Pflanzen und lauf einfach darüber. Was du pflückst, wächst am nächsten Tag nach. Bring sie mir, dann braue ich dir Tränke für ein paar Münzen. Fledermausflügel und Giftdrüsen nehme ich auch.",
+        "Healing herbs grow in the colourful flower meadows of the forest – look for the light green plants and just walk over them. What you pick grows back the next day. Bring them to me and I'll brew you potions for a few coins. I'll take bat wings and venom glands too.",
+    )
 
     /** The chapter the hero is playing: it sets the level cap, the best loot and the gear limits. */
     fun chapter(s: GameState): Int = if (s.has(CHAPTER2_STARTED)) 2 else 1
@@ -330,9 +334,9 @@ object Story {
             "TT,,TT,..=..TT,,,,TT",
             "TT,,TT...=...T,,C,TT",
             "TTTTTT..==...TTTTTTT",
-            "TT.f...==.....TTTTTT",
-            "TT.r..==..r.....TTTT",
-            "TT.f..=........,,,TT",
+            "TTfff..==.....TTTTTT",
+            "TTfr..==..r.....TTTT",
+            "TTff..=........,,,TT",
             "TT,,,.=....F...,,,TT",
             "TT,,,.=......=======",
             "TT,,,.==.......,,,TT",
@@ -346,13 +350,13 @@ object Story {
             "TT,,,,...=..,,,,,,TT",
             "TT,,TT...=...TT,,,TT",
             "TT,,TT...=...TT,,,TT",
-            "TT.ff....=.....r..TT",
-            "TTTTT....=...TTTTTTT",
+            "TTffff...=.....r..TT",
+            "TTTTTff..=...TTTTTTT",
             "TTC,,,...==..,,,,TTT",
             "TT,,,,....=..,,,,,TT",
             "TT,,,,....=..,,,,,TT",
-            "TTTT,,....=...,,TTTT",
-            "TTTT.f....=S...f.TTT",
+            "TTTT,,ff..=...,,TTTT",
+            "TTTTfff...=S..fffTTT",
             "TTTTTT...==...TTTTTT",
             "TTTTTTTT.==.TTTTTTTT",
             "TTTTTTTTT==TTTTTTTTT",
@@ -426,19 +430,19 @@ object Story {
             "TTTTTTTTTTT,,,,,,,,,..........T,,,,,,,,TTTTT",
             "TTTTTTTTTT,,,,,,,,,...=......T,,,T,,,C,,TTTT",
             "TTTTTTTTTT,,T,,,,,,.T.=.T..T.TT,,,,,,,,,,TTT",
-            "TTTTTTTTTT,,,,=,,,,Tf.=...T.TT,,,,,,,,,,,TTT",
-            "TTTTTTTTTT,,,,=T,,,,..=.TTTTTT,,T,,=,,,,,,TT",
+            "TTTTTTTTTT,,,,=,,,,Tff=...T.TT,,,,,,,,,,,TTT",
+            "TTTTTTTTTT,,,,=T,,,,ff=.TTTTTT,,T,,=,,,,,,TT",
             "TTTTTTTTTT,,,,=,,,,TT==TTTTTTT,,,,,=,,,,,,TT",
             "TTTTTTTTTTT,,,=,,,TTT=TTTTTTTT,,,,,=,,,,,TTT",
             "TTTTTTTTTTrTT==,TTTTT=TTTTTTTT,,,,,=,,r,,TTT",
             "TTTTT........=TTTTTTT=TTTTTTTTTT,,,=,,TTTTTT",
             "TT.T.........=TTTTTTT=TTTTTTTT,TT,T=,TTTTTTT",
-            "TTT....T....==TTTTT..=ff.TTT,,,,,,T=TTTTTTTT",
-            "TT.S........=..TT.fT.=..T.,,,,,,,===TTTTTTTT",
+            "TTT....T....==TTTTTff=fffTTT,,,,,,T=TTTTTTTT",
+            "TT.S........=..TTffT.=ffT.,,,,,,,===TTTTTTTT",
             "=======.....=.T......=....,,,,,,,=,TTTTTTTTT",
             "TT....========.r.....=============,,TTTTTTTT",
-            "TTT..f..,,,,,==========T..,====,,,,TTTTTTTTT",
-            "TTT....,,,,,,,.==.........,,,,=,,,TTTTTTTTTT",
+            "TTT.fff.,,,,,==========T..,====,,,,TTTTTTTTT",
+            "TTT.ff.,,,,,,,.==.........,,,,=,,,TTTTTTTTTT",
             "TTT.....,,,,,T==.....F.,.,,,,,=,,,TTTTTTTTTT",
             "TTTTTTT...TTTT=TT.....,,,,,,,,=TTTTTTTTTTTTT",
             "TTTTTTTTTTTTTT=TTTT....,,,,,TT====TTTTTTTTTT",
@@ -448,8 +452,8 @@ object Story {
             "TTTTTTT,,,,,=,,,,,,,TTTTTTTT...=....~....TTT",
             "TTTTT,T,,,,,=,,,,,,,TTTTTTT....=..~~~~~...TT",
             "TTTTTT,,,,r,=,,,,,,TTTTTTTTT...=.~~~~~~...TT",
-            "TTTTT,,,,,,,,,,,,,,TTTTTTTTT......~~~~~C..TT",
-            "TTTTTT,,,C,,,,,,,,,TTTTTTTTTT..f....~...TTTT",
+            "TTTTT,,,,,,,,,,,,,,TTTTTTTTT..ff..~~~~~C..TT",
+            "TTTTTT,,,C,,,,,,,,,TTTTTTTTTT.fff...~...TTTT",
             "TTTTTTTr,,,,,,,,,TTTTTTTTTTTTTTT.......TTTTT",
             "TTTTTTTT,,,,,,,,,TTTTTTTTTTTTTTTT.T..TTTTTTT",
             "TTTTTTTTTTTT,TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
@@ -476,14 +480,12 @@ object Story {
                     say(hedda, "Im Norden haust Grimmzahn, der Leitwolf. Groß wie ein Pony und doppelt so bösartig. Nimm das hier mit.", "In the north lives Grimfang, the alpha wolf. Big as a pony and twice as vicious. Take this with you.")
                     give("remedy", 1)
                     flag(HEDDA_MET)
-                    say(hedda, "Bring mir Kräuter von den Blumenwiesen, dann braue ich dir Tränke für ein paar Münzen. Fledermausflügel und Giftdrüsen nehme ich auch.",
-                        "Bring me herbs from the flower meadows and I'll brew you potions for a few coins. I'll take bat wings and venom glands too.")
+                    say(hedda, HEDDA_HERBS.de, HEDDA_HERBS.en)
                     shop(HEDDA_STOCK, brewing = true)
                 } else script {
                     say(hedda, if (s.has(GRIMFANG_DEFEATED)) "Ohne Grimmzahn ist der Wald ruhiger geworden. Brauchst du Tränke?" else "Brauchst du Tränke? Für Grimmzahn wirst du sie brauchen.",
                         if (s.has(GRIMFANG_DEFEATED)) "The woods are quieter without Grimfang. Need potions?" else "Need potions? You'll need them for Grimfang.")
-                    say(hedda, "Bring mir Kräuter von den Blumenwiesen, dann braue ich dir Tränke für ein paar Münzen. Fledermausflügel und Giftdrüsen nehme ich auch.",
-                        "Bring me herbs from the flower meadows and I'll brew you potions for a few coins. I'll take bat wings and venom glands too.")
+                    say(hedda, HEDDA_HERBS.de, HEDDA_HERBS.en)
                     shop(HEDDA_STOCK, brewing = true)
                 }
             },

@@ -148,13 +148,22 @@ object WorldArt {
         }
     }
 
+    /** A dense, colourful meadow that is easy to spot on a phone: twelve big blossoms per tile. */
     private fun Pen.flowers(seed: Int) {
-        val colors = listOf(Pal.RED, Pal.WHITE, Pal.GOLD, argb(0xB070E0))
-        listOf(6 to 7, 22 to 5, 13 to 20, 25 to 23).forEachIndexed { i, (x, y) ->
-            val c = colors[(i + seed) % colors.size]
-            raw(x, y + 3, G_DD); raw(x, y + 2, G_DD)
-            raw(x, y - 1, c); raw(x - 1, y, c); raw(x + 1, y, c); raw(x, y + 1, c)
+        val colors = listOf(Pal.RED, Pal.WHITE, Pal.GOLD, argb(0xB070E0), argb(0xF08CC0), argb(0x6CA8F0))
+        var i = 0
+        // A jittered 4×3 grid: dense, but not regular.
+        for (gy in 0 until 3) for (gx in 0 until 4) {
+            val x = 4 + gx * 7 + noise(gx, gy, 31 + seed) % 3 + (gy % 2) * 2
+            val y = 4 + gy * 9 + noise(gy, gx, 17 + seed) % 3
+            val c = colors[(noise(gx, gy, 5 + seed) + i++) % colors.size]
+            // stem with a leaf
+            raw(x, y + 2, G_DD); raw(x, y + 3, G_DD); raw(x + 1, y + 3, G_D); raw(x - 1, y + 4, G_DD)
+            // petals around a golden centre, with longer tips
+            for (dy in -1..1) for (dx in -1..1) raw(x + dx, y + dy, c)
+            raw(x, y - 2, c); raw(x - 2, y, c); raw(x + 2, y, c)
             raw(x, y, Pal.GOLD_DARK)
+            raw(x - 1, y - 1, Pal.WHITE.takeIf { c != Pal.WHITE } ?: Pal.GOLD)
         }
     }
 
@@ -794,4 +803,20 @@ object WorldArt {
 
     /** Soft shadow under a character's feet. */
     fun shadow(): PixelImage = cached("char-shadow", 24, 8) { ellipse(12.0, 4.0, 11.0, 3.5, SHADOW) }
+
+    /** A healing herb ready to be picked: a bright light-green plant that stands out of the meadow. */
+    fun herb(): PixelImage = cached("herb", 20, 22) {
+        val dark = argb(0x3E8A2A); val base = argb(0x8ED84A); val light = argb(0xD2F88A)
+        // leaves fanning out from the root
+        ball(5.0, 15.0, 4.2, 2.3, base, light, dark)
+        ball(15.0, 15.0, 4.2, 2.3, base, light, dark)
+        ball(7.0, 11.0, 3.0, 3.8, base, light, dark)
+        ball(13.0, 11.0, 3.0, 3.8, base, light, dark)
+        ball(10.0, 8.5, 2.6, 4.4, base, light, dark)
+        line(10, 19, 10, 7, dark)
+        // a small white blossom on top
+        ball(10.0, 3.5, 2.0, 2.0, Pal.WHITE, Pal.WHITE, argb(0xD0D0E0))
+        raw(10, 3, Pal.GOLD)
+        outline(Pal.OUTLINE)
+    }
 }

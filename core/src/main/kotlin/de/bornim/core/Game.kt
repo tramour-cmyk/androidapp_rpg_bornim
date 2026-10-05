@@ -25,7 +25,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         const val SHINY_CHANCE = 1.0 / 150
         /** Poison and bleeding carried out of a fight hurt once every this many steps. */
         const val AILMENT_STEPS = 4
-        /** Chance that a flower patch holds healing herbs. */
+        /** Share of flower tiles that carry a healing herb on a given day. */
         const val HERB_CHANCE = 0.5
     }
 
@@ -263,14 +263,25 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
     }
 
-    /** Flower meadows in the wild hold healing herbs; each patch can be picked once a day. */
+    /**
+     * Whether a healing herb grows at ([x], [y]) right now: on some flower tiles of the wild, a
+     * different set each day, until it is picked. Visible on the map as a light green plant.
+     */
+    fun herbAt(x: Int, y: Int): Boolean {
+        if (map.kind != MapKind.FOREST || map.tile(x, y) != Tile.FLOWERS) return false
+        if (state.picked["${state.place.map}:$x:$y"] == state.day) return false
+        // Fixed per tile and day, so the plant does not flicker and the map can show it.
+        var h = state.place.map.hashCode() * 31 + x * 73_856_093 + y * 19_349_663 + state.day * 83_492_791
+        h = (h xor (h ushr 13)) * 0x5bd1e995
+        h = h xor (h ushr 15)
+        return Math.floorMod(h, 100) < HERB_CHANCE * 100
+    }
+
+    /** Walking onto a herb picks it; it grows back the next day. */
     private fun pickHerbs() {
         val p = state.place
-        if (map.kind != MapKind.FOREST || map.tile(p.x, p.y) != Tile.FLOWERS) return
-        val key = "${p.map}:${p.x}:${p.y}"
-        if (state.picked[key] == state.day) return
-        state.picked[key] = state.day
-        if (!dice.chance(HERB_CHANCE)) return
+        if (!herbAt(p.x, p.y)) return
+        state.picked["${p.map}:${p.x}:${p.y}"] = state.day
         val n = 1 + (if (dice.chance(0.3)) 1 else 0)
         state.add("herbs", n)
         sounds += de.bornim.core.audio.Sound.LOOT
