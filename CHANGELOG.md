@@ -4,6 +4,15 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – drei Spielstand-Plätze**
+- Bis zu drei Helden lassen sich parallel spielen.
+- **Titelbild:** „Fortsetzen“ lädt den zuletzt gespielten Helden und zeigt Name und Stufe. Neu ist der Knopf **„Spielstände“** mit einer Übersicht aller Plätze: Held, Volk, Klasse, Stufe, Ort, Spieltag und Zeitpunkt des letzten Speicherns, dazu „Laden“ und „Löschen“ (mit Sicherheitsabfrage). Auf einem leeren Platz startet „Neues Spiel“ direkt dort.
+- **Neues Spiel** belegt den ersten freien Platz. Sind alle drei belegt, wählst du, welcher Held ersetzt wird.
+- Der bisherige Spielstand wird beim ersten Start automatisch auf Platz 1 übernommen.
+
+**Sonstiges**
+- Merkliste: Anmeldung mit Google Play (Cloud-Spielstände, Erfolge) samt Voraussetzungen ergänzt.
+
 ## v0.1.24 – 05.10.2026, 19:46
 
 **Neu – Sicherheitsabfragen**

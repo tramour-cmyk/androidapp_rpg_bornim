@@ -345,6 +345,21 @@ fun main() {
         vm.game!!.skipDialogs()
         vm.menuOpen = true
     }
+    // Save slots: three heroes saved, then the title and the slot list
+    val savedHeroes: (GameViewModel) -> Unit = { vm ->
+        for ((n, hero) in listOf(Triple("Alrik", Race.HUMAN, CharClass.WIZARD), Triple("Thora", Race.DWARF, CharClass.FIGHTER), Triple("Mira", Race.ELF, CharClass.ROGUE)).withIndex()) {
+            vm.newGame(hero.first, hero.second, hero.third, into = n + 1)
+            val g = vm.game!!
+            g.skipDialogs()
+            g.hero.gainXp(Rules.xpForLevel[2 + n * 2], de.bornim.core.Story.levelCap(g.state))
+            g.state.place = Place(listOf("village", "forest", "deep_forest")[n], 17, 8, Facing.DOWN)
+            vm.save()
+        }
+        vm.toTitle()
+    }
+    shot("64_title_slots", setup = savedHeroes)
+    shot("64_slots", setup = { vm -> savedHeroes(vm); vm.screen = de.bornim.game.Screen.SLOTS })
+    shot("64_slots_full", taps = listOf(Offset(760f, 2250f))) { vm -> savedHeroes(vm); vm.screen = de.bornim.game.Screen.CREATE }
     shot("47_hud_ailments") { vm ->
         vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
         val g = vm.game!!

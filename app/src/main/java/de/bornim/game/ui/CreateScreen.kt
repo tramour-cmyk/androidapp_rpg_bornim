@@ -52,9 +52,14 @@ fun CreateScreen(vm: GameViewModel) {
     // Point buy before the race bonus; a new class starts from its suggestion.
     var bought by remember { mutableStateOf(Hero.suggestedScores(CharClass.FIGHTER)) }
     val time = rememberTime()
-    // Starting over replaces the saved game, so that always needs a yes.
-    var overwrite by remember { mutableStateOf<DialogSpec?>(null) }
-    BackHandler { if (overwrite != null) overwrite = null else vm.screen = Screen.TITLE }
+    // With all save slots taken, the player picks the hero to replace.
+    var chooseSlot by remember { mutableStateOf(false) }
+    BackHandler {
+        when {
+            chooseSlot -> chooseSlot = false
+            else -> vm.screen = if (vm.pendingSlot != null) Screen.SLOTS else Screen.TITLE
+        }
+    }
 
     Box(Modifier.fillMaxSize()) {
     Column(
@@ -136,25 +141,16 @@ fun CreateScreen(vm: GameViewModel) {
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             PixelButton(Ui.back(lang), Modifier.weight(1f)) { vm.screen = Screen.TITLE }
             PixelButton(Ui.start(lang), Modifier.weight(2f)) {
-                if (!vm.hasSave) vm.newGame(name.trim(), race, cls, bought)
-                else {
-                    val de = lang == Lang.DE
-                    overwrite = DialogSpec(
-                        title = if (de) "Spielstand überschreiben?" else "Overwrite saved game?",
-                        confirm = if (de) "Neu beginnen" else "Start over", cancel = if (de) "Abbrechen" else "Cancel",
-                        onConfirm = { vm.newGame(name.trim(), race, cls, bought) },
-                    ) {
-                        Txt(
-                            if (de) "Es gibt bereits einen gespeicherten Helden. Ein neues Spiel ersetzt ihn – der alte Spielstand ist danach verloren."
-                            else "There is already a saved hero. A new game replaces it – the old save will be lost.",
-                            size = 15.sp,
-                        )
-                    }
-                }
+                // A free (or chosen empty) slot starts right away; with all slots taken, pick one to replace.
+                if (vm.pendingSlot != null || vm.freeSlot != null) vm.newGame(name.trim(), race, cls, bought)
+                else chooseSlot = true
             }
         }
     }
-    overwrite?.let { ConfirmDialog(it) { overwrite = null } }
+    if (chooseSlot) SlotChooser(vm, lang, onCancel = { chooseSlot = false }) { n ->
+        chooseSlot = false
+        vm.newGame(name.trim(), race, cls, bought, into = n)
+    }
     }
 }
 
@@ -222,6 +218,34 @@ fun HeroSummary(hero: Hero, lang: Lang) {
                 row.forEach { a ->
                     Txt("${a.short(lang)} ${hero.score(a)} (${Rules.signed(hero.mod(a))})", Modifier.width(104.dp), size = 13.sp, maxLines = 1)
                 }
+            }
+        }
+    }
+}
+
+/** All slots are taken: pick the hero the new one replaces (that hero is lost). */
+@Composable
+private fun SlotChooser(vm: GameViewModel, lang: Lang, onCancel: () -> Unit, onPick: (Int) -> Unit) {
+    val de = lang == Lang.DE
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(androidx.compose.ui.graphics.Color(0xD0000000))
+            .tap(onCancel),
+        contentAlignment = Alignment.Center,
+    ) {
+        Panel(Modifier.padding(16.dp).fillMaxWidth().tap {}) {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Txt(if (de) "Alle Spielstand-Plätze sind belegt" else "All save slots are taken", size = 19.sp, bold = true)
+                Txt(
+                    if (de) "Welchen Helden soll der neue ersetzen? Der gewählte Spielstand geht dabei verloren."
+                    else "Which hero should the new one replace? That saved game will be lost.",
+                    size = 14.sp, color = Colors.accent,
+                )
+                vm.slots().filterNotNull().forEach { info ->
+                    Panel(Modifier.fillMaxWidth().tap { onPick(info.slot) }) { SlotCard(info, lang) }
+                }
+                PixelButton(if (de) "Abbrechen" else "Cancel", Modifier.fillMaxWidth(), size = 15.sp, onClick = onCancel)
             }
         }
     }

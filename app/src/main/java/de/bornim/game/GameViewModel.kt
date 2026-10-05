@@ -17,7 +17,21 @@ import de.bornim.game.audio.MusicPlayer
 import de.bornim.game.audio.SfxPlayer
 import java.util.Locale
 
-enum class Screen { TITLE, CREATE, PLAYING, ABOUT }
+enum class Screen { TITLE, CREATE, PLAYING, ABOUT, SLOTS }
+
+/** What the slot list shows about a saved hero. */
+data class SlotInfo(
+    val slot: Int,
+    val name: String,
+    val race: Race,
+    val cls: CharClass,
+    val level: Int,
+    val place: String,
+    val day: Int,
+    val minutes: Int,
+    /** When it was last saved, in milliseconds since 1970, or 0 if unknown. */
+    val savedAt: Long,
+)
 
 class GameViewModel(app: Application) : AndroidViewModel(app) {
     private val prefs = app.getSharedPreferences("bornim", Context.MODE_PRIVATE)
@@ -118,7 +132,50 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     var menuOpen by mutableStateOf(false)
     var toast by mutableStateOf<String?>(null)
 
-    val hasSave: Boolean get() = prefs.contains(KEY_SAVE)
+    // ------------------------------------------------------------ save slots
+
+    init {
+        // Saves from before slots existed move to slot 1.
+        prefs.getString(KEY_SAVE, null)?.let { old ->
+            if (!prefs.contains(slotKey(1))) prefs.edit().putString(slotKey(1), old).putInt(KEY_LAST_SLOT, 1).apply()
+            prefs.edit().remove(KEY_SAVE).apply()
+        }
+    }
+
+    /** The slot the running game is saved to. */
+    var slot by mutableIntStateOf(prefs.getInt(KEY_LAST_SLOT, 1))
+        private set
+
+    /** Bumped when slots change, so the title and slot screens redraw. */
+    var slotsVersion by mutableIntStateOf(0)
+        private set
+
+    private fun slotKey(n: Int) = "save_$n"
+
+    fun slotInfo(n: Int): SlotInfo? {
+        val json = prefs.getString(slotKey(n), null) ?: return null
+        val s = runCatching { GameState.fromJson(json) }.getOrNull() ?: return null
+        val h = s.hero
+        return SlotInfo(n, h.name, h.race, h.cls, h.level, s.place.map, s.day, s.minutes, prefs.getLong(slotKey(n) + "_at", 0L))
+    }
+
+    fun slots(): List<SlotInfo?> = (1..SLOTS).map { slotInfo(it) }
+
+    val hasSave: Boolean get() = (1..SLOTS).any { prefs.contains(slotKey(it)) }
+
+    /** The hero played last, for "Continue" on the title screen. */
+    val lastSave: SlotInfo? get() = slotInfo(prefs.getInt(KEY_LAST_SLOT, 1)) ?: slots().filterNotNull().maxByOrNull { it.savedAt }
+
+    /** First empty slot, or null if all are taken. */
+    val freeSlot: Int? get() = (1..SLOTS).firstOrNull { !prefs.contains(slotKey(it)) }
+
+    /** Slot chosen on the slot screen for the next new game. */
+    var pendingSlot by mutableStateOf<Int?>(null)
+
+    fun deleteSlot(n: Int) {
+        prefs.edit().remove(slotKey(n)).remove(slotKey(n) + "_at").apply()
+        slotsVersion++
+    }
 
     fun toggleLang() {
         lang = if (lang == Lang.DE) Lang.EN else Lang.DE
@@ -130,7 +187,11 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         refresh()
     }
 
-    fun newGame(name: String, race: Race, cls: CharClass, bought: Map<de.bornim.core.Ability, Int>? = null) {
+    /** Starts a new hero in slot [into] (default: the first free one, else slot 1). */
+    fun newGame(name: String, race: Race, cls: CharClass, bought: Map<de.bornim.core.Ability, Int>? = null, into: Int? = null) {
+        slot = into ?: pendingSlot ?: freeSlot ?: 1
+        pendingSlot = null
+        prefs.edit().putInt(KEY_LAST_SLOT, slot).apply()
         val g = Game(GameState.newGame(name.ifBlank { "Held" }, race, cls, bought), lang)
         game = g
         menuOpen = false
@@ -140,8 +201,11 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         refresh()
     }
 
-    fun continueGame() {
-        val json = prefs.getString(KEY_SAVE, null) ?: return
+    /** Loads slot [n] (default: the hero played last). */
+    fun continueGame(n: Int = lastSave?.slot ?: 1) {
+        val json = prefs.getString(slotKey(n), null) ?: return
+        slot = n
+        prefs.edit().putInt(KEY_LAST_SLOT, n).apply()
         val state = runCatching { GameState.fromJson(json) }.getOrNull() ?: return
         val g = Game(state, lang)
         game = g
@@ -154,7 +218,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     fun save() {
         val g = game ?: return
         if (screen != Screen.PLAYING) return
-        prefs.edit().putString(KEY_SAVE, g.state.toJson()).apply()
+        prefs.edit().putString(slotKey(slot), g.state.toJson()).putLong(slotKey(slot) + "_at", System.currentTimeMillis()).apply()
+        slotsVersion++
     }
 
     fun refresh() {
@@ -174,7 +239,11 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     companion object {
+        /** Number of save slots. */
+        const val SLOTS = 3
+        /** The single save of versions before slots; moved to slot 1. */
         private const val KEY_SAVE = "save"
+        private const val KEY_LAST_SLOT = "last_slot"
         private const val KEY_LANG = "lang"
         private const val KEY_MUSIC = "music"
         private const val KEY_SFX = "sfx"

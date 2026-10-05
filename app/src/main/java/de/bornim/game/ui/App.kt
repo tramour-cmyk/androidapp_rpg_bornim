@@ -68,6 +68,7 @@ fun BornimApp(vm: GameViewModel) {
                 Screen.TITLE -> TitleScreen(vm)
                 Screen.CREATE -> CreateScreen(vm)
                 Screen.ABOUT -> AboutScreen(vm)
+                Screen.SLOTS -> SlotsScreen(vm)
                 Screen.PLAYING -> PlayScreen(vm)
             }
             vm.toast?.let { msg ->
@@ -123,11 +124,18 @@ fun TitleScreen(vm: GameViewModel) {
         }
         Spacer(Modifier.height(36.dp))
         val w = Modifier.width(260.dp)
-        if (vm.hasSave) {
-            PixelButton(Ui.continueGame(lang), w) { vm.continueGame() }
+        vm.slotsVersion
+        vm.lastSave?.let { last ->
+            // Continue with the hero played last, named so it is clear which one.
+            PixelButton(Ui.continueGame(lang) + ": " + last.name + " · " + Ui.level(lang) + " " + last.level, w, size = 15.sp) { vm.continueGame(last.slot) }
+            Spacer(Modifier.height(12.dp))
+            PixelButton(if (lang == de.bornim.core.Lang.DE) "Spielstände" else "Saved games", w) { vm.screen = Screen.SLOTS }
             Spacer(Modifier.height(12.dp))
         }
-        PixelButton(Ui.newGame(lang), w) { vm.screen = Screen.CREATE }
+        PixelButton(Ui.newGame(lang), w) {
+            vm.pendingSlot = null
+            vm.screen = Screen.CREATE
+        }
         Spacer(Modifier.height(12.dp))
         PixelButton(Ui.language(lang), w) { vm.toggleLang() }
         Spacer(Modifier.height(12.dp))
