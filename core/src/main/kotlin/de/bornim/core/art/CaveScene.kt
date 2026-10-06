@@ -301,7 +301,8 @@ object CaveScene {
 
         /** The way on: a dark opening in the back wall, or the bright mouth of the cave. */
         fun mouth(daylight: Boolean, big: Boolean = false) {
-            val cx = fx(if (spot == Spot.TUNNEL) 0.5 else 0.38)
+            // at the lake the way on lies beside the water, not behind it
+            val cx = fx(when (spot) { Spot.TUNNEL -> 0.5; Spot.POOL -> 0.8; else -> 0.38 })
             val rx = w * (if (big) 0.17 else if (daylight) 0.2 else 0.11)
             val ry = h * (if (big) 0.17 else if (daylight) 0.19 else 0.1)
             val baseY = horizon + 2.0

@@ -4,6 +4,11 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Behoben**
+- Am unterirdischen See sah es aus, als flösse das Wasser in den dunklen Gang hinein. Der Gang liegt jetzt neben dem See.
+
+## v0.1.58 – 06.10.2026, 13:58
+
 **Neu – Höhlenkämpfe im neuen Stil**
 - Kämpfe in der Blutzahnhöhle haben eine neue Kulisse mit durchgehendem Felsboden, Tropfsteinen, Geröll und einem Gang, der ins Dunkel führt.
 - Fünf Orte je nach Stelle auf der Karte: der Höhleneingang mit Blick nach draußen (nachts mit Sternenhimmel), enge Stollen mit alten Holzstützen, große Hallen mit Säulen, ein unterirdischer See, der die Höhle spiegelt, und ein Lager mit Feuer und Kisten.
