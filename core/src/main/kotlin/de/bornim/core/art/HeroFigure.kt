@@ -350,7 +350,7 @@ object HeroFigure {
             legs()
             at(p(V(0.0, 70.0, 0.0)).third) { torso() }
             // the skirt wraps the hips: over both thighs whatever the facing
-            at(maxOf(p(V(6.0, 28.0, 6.0)).third, p(V(-6.0, 28.0, 6.0)).third, p(V(0.0, 70.0, 0.0)).third) + 0.05) { skirt() }
+            at(maxOf(p(knee(-1.0)).third, p(knee(1.0)).third, p(V(0.0, 70.0, 0.0)).third) + 0.05) { skirt() }
             cloak()
             at(p(headC).third + 0.5) { head() }
             arm(shL, lArm, 0.0)
@@ -362,14 +362,26 @@ object HeroFigure {
             if (r.trail > 0.05 && main != null && !main.ranged) trail()
         }
 
+        fun hipJoint(side: Double) = V(side * 5.8, hip, 0.0)
+        fun footAt(side: Double) = V(side * r.spread, 0.0, if (side > 0) r.stride else -r.stride * 0.3)
+        fun knee(side: Double): V {
+            val h = hipJoint(side); val ft = footAt(side)
+            return V((h.r + ft.r) / 2 + side * 0.5, hip / 2 + 1.0, (h.f + ft.f) / 2 + 3.0 + r.crouch * 0.8)
+        }
+
+        /** Points on the body's surface, drawn as a flat patch: foreshortens and slides round as the body turns. */
+        fun patch(mat: Mat, vararg pts: V, bevel: Double = 1.0) {
+            s.poly(mat, *pts.flatMap { val q = p(it); listOf(q.first, q.second) }.toDoubleArray(), bevel = bevel)
+        }
+
         fun legs() {
             val legsPart = parts[GearSlot.LEGS]
             val shin = if (legsPart?.icon == Icon.LEGS && legsPart.weight == Weight.HEAVY) metal(legsPart.rarity) else pantsMat
             val boot = if (legsPart?.icon == Icon.BOOTS && legsPart.weight == Weight.HEAVY) darkSteel else darkLeather
             for (side in listOf(-1.0, 1.0)) {
-                val hipJ = V(side * 5.8, hip, 0.0)
-                val foot = V(side * r.spread, 0.0, if (side > 0) r.stride else -r.stride * 0.3)
-                val knee = V((hipJ.r + foot.r) / 2 + side * 0.5, hip / 2 + 1.0, (hipJ.f + foot.f) / 2 + 3.0 + r.crouch * 0.8)
+                val hipJ = hipJoint(side)
+                val foot = footAt(side)
+                val knee = knee(side)
                 at(p(knee).third) {
                     limb(hipJ, knee, 7.0, 5.6, pantsMat)
                     limb(knee, foot + V(0.0, 4.0, 0.0), 5.6, 4.2, shin)
@@ -393,16 +405,21 @@ object HeroFigure {
             s.poly(torsoMat, lx, ly - 2, rx, ry - 2, hr.first, hr.second, hl.first, hl.second, tiltY = -0.1, bevel = 3.0)
             s.blob(c.first, c.second, half * 0.95, 13.0, torsoMat)
             val b0 = p(V(0.0, hip + 10, 0.0))
-            if (facing > 0.25) {
-                // the front: buckle, a tabard with the house colour for the armoured, laces on leather
+            val cu = 72.0 - r.crouch
+            if (facing > 0.08) {
+                // the front: a tabard with the house colour for the armoured, laces on leather; all on the chest's surface
                 if (heavy || medium) {
-                    s.poly(m(worn(look.cloth)), c.first - 4.5, c.second - 8, c.first + 4.5, c.second - 8, c.first + 4.0, b0.second, c.first - 4.0, b0.second, bevel = 1.0)
-                    s.blob(c.first, c.second - 1, 2.4, 2.4, gold)
+                    patch(m(worn(look.cloth)), upper(V(-4.5, cu + 8, 7.5)), upper(V(4.5, cu + 8, 7.5)), upper(V(4.0, hip + 10, 6.8)), upper(V(-4.0, hip + 10, 6.8)))
+                    if (facing > 0.3) { val g = p(upper(V(0.0, cu + 1, 8.2))); s.blob(g.first, g.second, 2.4 * facing.coerceAtLeast(0.5), 2.4, gold) }
                 }
-                if (weight == Weight.LIGHT) for (k in 0..3) s.line(c.first - 2, c.second - 6 + k * 3.5, c.first + 2, c.second - 4 + k * 3.5, argb(0x2A1C14))
-            } else if (facing < -0.25) {
-                s.line(c.first, c.second - 10, c.first, c.second + 10, torsoMat.ramp[1])
-                if (heavy) for (dy in listOf(-6.0, 2.0)) { s.dot(c.first - 7, c.second + dy, argb(0xD0D4D8)); s.dot(c.first + 7, c.second + dy, argb(0xD0D4D8)) }
+                if (weight == Weight.LIGHT) for (k in 0..3) {
+                    val a = p(upper(V(-2.0, cu + 6 - k * 3.5, 7.8))); val b = p(upper(V(2.0, cu + 4 - k * 3.5, 7.8)))
+                    s.line(a.first, a.second, b.first, b.second, argb(0x2A1C14))
+                }
+            } else if (facing < -0.08) {
+                val a = p(upper(V(0.0, cu + 10, -7.5))); val b = p(upper(V(0.0, cu - 10, -7.0)))
+                s.line(a.first, a.second, b.first, b.second, torsoMat.ramp[1])
+                if (heavy) for (du in listOf(6.0, -2.0)) for (sd in listOf(-7.0, 7.0)) { val q = p(upper(V(sd, cu + du, -6.0))); s.dot(q.first, q.second, argb(0xD0D4D8)) }
             }
             // pouch on the right hip
             val pouch = p(V(10.5, hip + 7, -1.0))
@@ -434,9 +451,12 @@ object HeroFigure {
                 else -> s.poly(clothDark, b0.first - half * 0.85, b0.second - 3, b0.first + half * 0.85, b0.second - 3, b0.first + half * 0.98, hem - 2, b0.first - half * 0.98, hem - 2, tiltY = -0.2)
             }
             // the tabard falls over it at the front
-            if (facing > 0.25 && (heavy || medium)) s.poly(m(worn(look.cloth)), c.first - 4.5, c.second - 8, c.first + 4.5, c.second - 8, c.first + 3.8, hem + 3, c.first - 3.8, hem + 3, bevel = 1.0)
+            if (facing > 0.08 && (heavy || medium)) {
+                val cu = 72.0 - r.crouch
+                patch(m(worn(look.cloth)), upper(V(-4.5, cu + 8, 7.5)), upper(V(4.5, cu + 8, 7.5)), V(3.8, 31.0, 8.0 + r.stride * 0.3), V(-3.8, 31.0, 8.0 + r.stride * 0.3))
+            }
             s.limb(b0.first - half * 0.85, b0.second - 4, b0.first + half * 0.85, b0.second - 4, 2.2, 2.2, darkLeather)
-            if (facing > 0.25) s.blob(b0.first + fX * 2, b0.second - 4, 2.0, 2.0, gold)
+            if (facing > 0.2) { val bk = p(V(0.0, hip + 14, 7.5)); s.blob(bk.first, bk.second, 2.0 * facing.coerceAtLeast(0.6), 2.0, gold) }
         }
 
         fun cloak() {
