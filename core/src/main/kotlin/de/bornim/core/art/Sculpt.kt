@@ -184,6 +184,9 @@ class Sculpt(val w: Int, val h: Int, private val seed: Int = 0) {
         }
     }
 
+    /** Ramp index of a surface with normal (nx right, ny down, nz towards us) at pixel (x, y), lit and dithered like every shape. */
+    fun litIndex(x: Int, y: Int, nx: Double, ny: Double, nz: Double, m: Mat): Int = quantize(intensity(nx, ny, nz, m, x, y), m.ramp, x, y)
+
     // ---------------------------------------------------------------- shapes
 
     /** Ellipsoid, optionally rotated by [rot] radians. [depth] < 1 flattens it (rounder light falloff). */

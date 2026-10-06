@@ -281,3 +281,49 @@ fun renderWeaponSheet() {
     ImageIO.write(out, "png", File("build/screens/weapons.png"))
     println("wrote weapons")
 }
+
+/** The new 3D doll: all peoples side by side, turntables, builds and skin tones. */
+fun renderDollModels() {
+    val cw = 110; val ch = 182; val k = 3
+    val px = 0.75
+    fun sheet(rows: List<List<Pair<String, de.bornim.core.art.Doll.() -> de.bornim.core.art.DollImage>>>, dolls: List<List<de.bornim.core.art.Doll>>, file: String, ruler: Boolean = false) {
+        val cols = rows.maxOf { it.size }
+        val out = BufferedImage(cw * cols * k, ch * rows.size * k, BufferedImage.TYPE_INT_RGB)
+        val g = out.createGraphics(); g.color = java.awt.Color(0x5E625C); g.fillRect(0, 0, out.width, out.height)
+        for ((ri, row) in rows.withIndex()) {
+            if (ruler) {
+                g.color = java.awt.Color(0x6E726A)
+                for (cm in listOf(50, 100, 150)) { val y = (ri * ch + 174 - cm * px) * k; g.drawLine(0, y.toInt(), out.width, y.toInt()); g.drawString("$cm cm", 4, y.toInt() - 3) }
+            }
+            for ((ci, cell) in row.withIndex()) {
+                val t0 = System.nanoTime()
+                val im = cell.second(dolls[ri][ci]).img
+                val ms = (System.nanoTime() - t0) / 1_000_000
+                for (y in 0 until im.height) for (x in 0 until im.width) {
+                    val p = im[x, y]; if ((p ushr 24) < 128) continue
+                    for (q in 0 until k * k) out.setRGB((ci * cw + x) * k + q % k, (ri * ch + y) * k + q / k, p)
+                }
+                g.color = java.awt.Color(0xF0E8D8); g.drawString(cell.first, ci * cw * k + 6, ri * ch * k + 16)
+                println("${cell.first}: $ms ms")
+            }
+        }
+        File("build/screens").mkdirs()
+        ImageIO.write(out, "png", File("build/screens/$file"))
+    }
+    val D = de.bornim.core.art.Doll::class
+    fun doll(r: de.bornim.core.Race, s: de.bornim.core.Sex, b: de.bornim.core.Build = de.bornim.core.Build.AVERAGE, skin: Int = 1, hair: Int = 0) = de.bornim.core.art.Doll(r, s, b, skin, hair)
+    fun pic(yaw: Double): de.bornim.core.art.Doll.() -> de.bornim.core.art.DollImage = { render(cw, ch, cw / 2.0, 174.0, px, yaw) }
+    val races = de.bornim.core.Race.entries
+    val sexes = de.bornim.core.Sex.entries
+    // 1: every people, both sexes, front and three-quarter
+    val lineup = races.flatMap { r -> sexes.map { s -> doll(r, s) } }
+    sheet(listOf(lineup.map { d -> "${d.race.title.de} ${d.sex.title.de.take(1)}" to pic(20.0) }, lineup.map { "  ${it.height.toInt()} cm" to pic(140.0) }), listOf(lineup, lineup), "doll_voelker.png", ruler = true)
+    // 2: turntables
+    val turn = listOf(doll(races[0], sexes[0]), doll(races[0], sexes[1], skin = 3, hair = 2), doll(de.bornim.core.Race.DWARF, sexes[0], skin = 0), doll(de.bornim.core.Race.HALF_ORC, sexes[1], skin = 1, hair = 0), doll(de.bornim.core.Race.ELF, sexes[1], skin = 0))
+    val yaws = listOf(0.0, 30.0, 60.0, 90.0, 120.0, 150.0, 180.0)
+    sheet(turn.map { _ -> yaws.map { y -> "${y.toInt()}°" to pic(y) } }, turn.map { d -> yaws.map { d } }, "doll_drehung.png")
+    // 3: builds and skins
+    val bs = races.map { r -> de.bornim.core.Build.entries.flatMap { b -> listOf(doll(r, sexes[0], b, skin = b.ordinal), doll(r, sexes[1], b, skin = 3 - b.ordinal, hair = b.ordinal + 1)) } }
+    sheet(bs.map { row -> row.map { d -> "${d.build.title.de.take(6)} ${d.sex.title.de.take(1)}" to pic(25.0) } }, bs, "doll_statur.png", ruler = true)
+    println("wrote doll models")
+}
