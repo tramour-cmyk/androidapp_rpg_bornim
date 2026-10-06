@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.40 – 06.10.2026, 07:43
+
 **Geändert – Anzeige als feste Leiste**
 - Lebens-, Zauber- und Erfahrungsbalken, Tag und Uhrzeit, Zustände und die Tasche sitzen jetzt in einer festen Leiste über der Karte. Sie überdeckt keinen Teil der Karte mehr, auch nicht am oberen Rand (z. B. am Höhleneingang).
 - Die Karte scrollt dafür wieder nur bis zu ihrem Rand, ohne dunklen Streifen.
