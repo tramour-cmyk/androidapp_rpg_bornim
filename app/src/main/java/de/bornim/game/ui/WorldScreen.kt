@@ -860,8 +860,10 @@ private fun HudChip(info: HudInfo, lang: de.bornim.core.Lang, modifier: Modifier
             }
             val chips = info.ailments.map { it.short(lang) to Color(it.color) } +
                 (if (info.wellFed) listOf((if (german) "Satt" else "Fed") to Color(0xFFB07A30)) else emptyList())
-            if (chips.isNotEmpty() || info.points > 0) {
+            // The row is always there, even when empty, so the bar keeps its height and the map never jumps.
+            run {
                 Row(Modifier.padding(top = 1.dp), horizontalArrangement = Arrangement.spacedBy(3.dp), verticalAlignment = Alignment.CenterVertically) {
+                    if (chips.isEmpty() && info.points == 0) Txt(" ", size = 11.sp, maxLines = 1)
                     chips.forEach { (label, color) ->
                         Box(
                             Modifier

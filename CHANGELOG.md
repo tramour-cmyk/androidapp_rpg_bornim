@@ -4,6 +4,9 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Verbessert**
+- Die Leiste oben hat jetzt immer dieselbe Höhe, auch wenn Zustände wie Gift oder Satt dazukommen oder wegfallen. Die Karte springt dadurch nicht mehr.
+
 ## v0.1.40 – 06.10.2026, 07:43
 
 **Geändert – Anzeige als feste Leiste**
