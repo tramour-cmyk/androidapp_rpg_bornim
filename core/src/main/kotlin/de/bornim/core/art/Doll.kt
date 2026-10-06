@@ -7,6 +7,7 @@ import de.bornim.core.Sex
 import kotlin.math.abs
 import kotlin.math.atan
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 
 /**
@@ -71,7 +72,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     // ---------------------------------------------------------------- the skeleton in a pose
 
     /** Where every joint is in one pose. Index 0 is the left side, 1 the right. */
-    inner class Skeleton(val rig: HeroFigure.Rig, shieldArm: Boolean = false, val fists: Boolean = true, val twoHands: Boolean = false) {
+    inner class Skeleton(val rig: HeroFigure.Rig, shieldArm: Boolean = false, val fists: Boolean = true, val twoHands: Boolean = false, val weaponReach: Double = 90.0) {
         /** Centimetres per unit of the old figure, which stood about 107 units tall. */
         val s = height / 107.0
         private val reachK = (upperArm + foreArm) / 31.0
@@ -172,15 +173,12 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
                 }
                 var (el, wr) = ik(shoulder[i], target, upperArm, foreArm, pole)
                 if (twoHands && rig.brace > 0.01) {
-                    // the free forearm laid under the weapon like a roof beam, across the brow: the elbow out on its own
-                    // side where the line under the weapon is in reach of the upper arm, the hand back towards the grip
-                    val below = upper.dir(P3.Y) * (0.03 * height)
-                    val a = handR - below - shoulder[i]
-                    val ad = a dot weapon
-                    val disc = ad * ad - ((a dot a) - upperArm * upperArm)
-                    val e2 = if (disc >= 0) shoulder[i] + a + weapon * (-ad + sqrt(disc))
-                        else shoulder[i] + (a + weapon * (-ad)).norm() * upperArm
-                    val w2 = e2 - weapon * foreArm
+                    // the free forearm braced against the back of the weapon, a good shoulder's width from the grip
+                    // towards its head: it crosses the weapon from behind, so the blow or the bite is taken on both arms
+                    val toFoe = upper.dir(P3.Z).let { it - weapon * (it dot weapon) }.norm()
+                    val upright = upper.dir(P3.Y).let { it - weapon * (it dot weapon) }.norm()
+                    val contact = handR + weapon * (min(weaponReach * 0.48, upperArm + foreArm * 0.9)) - toFoe * (0.01 * height)
+                    val (e2, w2) = ik(shoulder[i], contact + upright * (foreArm * 0.3), upperArm, foreArm, P3(-1.0, -0.7, -0.3))
                     el = el.lerp(e2, rig.brace); wr = wr.lerp(w2, rig.brace)
                 }
                 e[i] = el; w[i] = wr
@@ -475,7 +473,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             val base = if (nudge == 0) rig else rig.copy(lh = rig.lh + HeroFigure.V(-2.5 * nudge, 0.0, -1.0 * nudge), shieldFace = rig.shieldFace + HeroFigure.V(-0.15 * nudge, 0.0, 0.0))
             for (turn in ROLLS) {
                 val r = if (turn == 0.0) base else base.copy(roll = base.roll + turn)
-                val sk = Skeleton(r, shieldArm = shield, fists = true, twoHands = outfit.twoHands)
+                val sk = Skeleton(r, shieldArm = shield, fists = true, twoHands = outfit.twoHands, weaponReach = outfit.base(de.bornim.core.GearSlot.MAIN_HAND)?.let(Dress::reach) ?: 90.0)
                 val body = body(sk)
                 val dress = Dress(this, sk, body, outfit)
                 val clothes = dress.solids()

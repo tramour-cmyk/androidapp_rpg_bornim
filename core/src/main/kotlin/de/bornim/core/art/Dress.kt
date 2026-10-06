@@ -476,11 +476,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         return null
     }
 
-    /** About how far a weapon reaches beyond the hand, in cm. */
-    private fun reach(base: String) = when (base) {
-        "dagger" -> 30.0; "shortsword", "handaxe", "wand" -> 60.0; "mace", "scimitar" -> 75.0
-        "longsword", "rapier", "battleaxe", "warhammer" -> 90.0; "greatsword" -> 125.0; "greataxe", "maul" -> 105.0; "quarterstaff", "staff" -> 120.0; else -> 100.0
-    }
+    private fun reach(base: String) = Dress.reach(base)
 
     // ---------------------------------------------------------------- weapons, drawn over the doll
 
@@ -517,6 +513,12 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     }
 
     companion object {
+        /** About how far a weapon reaches beyond the hand, in cm. */
+        fun reach(base: String) = when (base) {
+            "dagger" -> 30.0; "shortsword", "handaxe", "wand" -> 60.0; "mace", "scimitar" -> 75.0
+            "longsword", "rapier", "battleaxe", "warhammer" -> 90.0; "greatsword" -> 125.0; "greataxe", "maul" -> 105.0; "quarterstaff", "staff" -> 120.0; else -> 100.0
+        }
+
         fun frac(v: Double) = v - floor(v)
 
         fun roundRect(x: Double, y: Double, hw: Double, hh: Double, r: Double): Double {
