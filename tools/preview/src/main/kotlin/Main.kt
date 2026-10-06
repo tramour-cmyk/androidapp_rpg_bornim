@@ -82,6 +82,7 @@ fun main() {
     }
     if (System.getenv("SHEET") != null) { renderHeroSheet(); System.exit(0) }
     if (System.getenv("SCENES") != null) { renderSceneSheet(); System.exit(0) }
+    if (System.getenv("ELITE") != null) { renderEliteMock(); System.exit(0) }
     if (System.getenv("ABOUT") != null) {
         shot("31_about") { it.screen = Screen.ABOUT }
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }
@@ -235,6 +236,10 @@ fun main() {
     }
     val cave = Place("cave", 10, 20, Facing.UP)
     // a pond fight at dusk with a pack, to check nobody stands in the water
+    for ((n, tr) in listOf("savage" to EliteTrait.SAVAGE, "vampiric" to EliteTrait.VAMPIRIC, "swift" to EliteTrait.SWIFT, "ancient" to EliteTrait.ANCIENT)) {
+        shot("74_elite_$n") { fight(it, "wolf", Place("forest", 10, 20, Facing.UP), trait = tr, seed = 3); it.game!!.state.minutes = 12 * 60 }
+    }
+    shot("74_shiny") { fight(it, "wolf", Place("forest", 10, 20, Facing.UP), shiny = true, seed = 3); it.game!!.state.minutes = 12 * 60 }
     shot("73_pond_pack") { vm ->
         val seed = (1..300).first { Monsters.packSize(Monsters["wolf"], MonsterLook(it)) == 2 }
         val m = de.bornim.core.World["forest"]
