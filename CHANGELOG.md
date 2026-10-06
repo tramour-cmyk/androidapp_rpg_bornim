@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.49 – 06.10.2026, 12:00
+
 **Neu – Kämpfe in neuer Grafik (Schritt 1: Wald und Wolf)**
 - Kämpfe im Flüsterwald und im Tiefen Flüsterwald spielen in neuen Szenen: durchgehender Boden mit Tiefe statt Plattformen, Waldrand, Berge im Dunst, Baumstämme und Laub als Rahmen, Lichtstrahlen.
 - Sechs Arten von Orten: Lichtung, Waldrand, Teich, umgestürzter Baum, Felsen und alter Steinkreis – je nachdem, wo auf der Karte der Kampf beginnt (am Wasser am Teich, bei Felsen zwischen Felsen).
