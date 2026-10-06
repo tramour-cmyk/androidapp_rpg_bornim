@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.51 – 06.10.2026, 12:31
+
 **Verbessert – flüssigere Bewegungen**
 - Der Wolf hat deutlich mehr Zwischenbilder bei gleichem Tempo: 16 statt 6 beim Atmen, 17 statt 9 bei Biss und Sprung, doppelt so viele bei Heulen und Treffer-Reaktion.
 - Alle Bilder eines Gegners und seines Rudels werden zu Kampfbeginn im Hintergrund vorbereitet (bei schwerer Verletzung erneut), damit beim ersten Angriff nichts mehr ruckelt.
