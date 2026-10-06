@@ -21,6 +21,33 @@ enum class Sound {
 object Sfx {
     private const val SR = Synth.SAMPLE_RATE
 
+    /** The variant being rendered: its pitch factor, seed offset and index, so each take sounds a little different. */
+    private var vp = 1.0
+    private var vs = 0
+    private var vi = 0
+
+    /** Battle sounds come in several takes, picked at random, so fights do not get monotonous. */
+    private val VARIED = setOf(
+        Sound.HIT_SLASH, Sound.HIT_PIERCE, Sound.HIT_SMASH, Sound.MISS, Sound.CRIT, Sound.BLOCK, Sound.BITE, Sound.ARROW,
+        Sound.FIRE, Sound.MAGIC, Sound.HOLY, Sound.HEAL, Sound.BUFF, Sound.POISON, Sound.THROW, Sound.POTION,
+        Sound.ENEMY_DOWN, Sound.HERO_DOWN, Sound.ENCOUNTER, Sound.ALERT, Sound.AMBUSH, Sound.SWING, Sound.SWING_HEAVY,
+    )
+
+    fun variants(s: Sound): Int = if (s in VARIED) 3 else 1
+
+    /** Renders take [variant] of [s]. */
+    @Synchronized
+    fun render(s: Sound, variant: Int): ShortArray {
+        vi = variant
+        vp = listOf(1.0, 0.89, 1.12)[variant % 3]
+        vs = variant * 1009
+        try {
+            return render(s)
+        } finally {
+            vi = 0; vp = 1.0; vs = 0
+        }
+    }
+
     private class Buf(seconds: Double) {
         val d = DoubleArray((seconds * SR).toInt())
         val size get() = d.size
@@ -167,8 +194,9 @@ object Sfx {
      * crunches, the rush of fire. [q] sets how narrow the band is; the envelope rises over
      * [attack] seconds and decays with [decay], or swells and fades when [swell].
      */
-    private fun Buf.band(at: Double, dur: Double, vol: Double, f0: Double, f1: Double, q: Double = 2.0, seed: Int = 1, attack: Double = 0.004, decay: Double = dur / 3, swell: Boolean = false) {
-        val rng = Random(seed)
+    private fun Buf.band(at: Double, dur: Double, vol: Double, f0In: Double, f1In: Double, q: Double = 2.0, seed: Int = 1, attack: Double = 0.004, decay: Double = dur / 3, swell: Boolean = false) {
+        val rng = Random(seed + vs)
+        val f0 = f0In * vp; val f1 = f1In * vp
         val start = (at * SR).toInt(); val n = (dur * SR).toInt()
         var x1 = 0.0; var x2 = 0.0; var y1 = 0.0; var y2 = 0.0
         for (i in 0 until n) {
@@ -190,7 +218,8 @@ object Sfx {
     }
 
     /** A body blow: a sine whose pitch drops from [f0] to [f1], dying away quickly. */
-    private fun Buf.thud(at: Double, dur: Double, f0: Double, f1: Double, vol: Double) {
+    private fun Buf.thud(at: Double, dur: Double, f0In: Double, f1In: Double, vol: Double) {
+        val f0 = f0In * vp; val f1 = f1In * vp
         val start = (at * SR).toInt(); val n = (dur * SR).toInt()
         var ph = 0.0
         for (i in 0 until n) {
@@ -204,7 +233,8 @@ object Sfx {
     }
 
     /** Struck metal: a few inharmonic partials that ring and fade at different speeds. */
-    private fun Buf.ring(at: Double, dur: Double, f: Double, vol: Double) {
+    private fun Buf.ring(at: Double, dur: Double, fIn: Double, vol: Double) {
+        val f = fIn * vp
         val partials = listOf(1.0 to 1.0, 2.76 to 0.55, 5.4 to 0.35, 8.93 to 0.2, 13.3 to 0.1)
         val start = (at * SR).toInt()
         for (i in 0 until (dur * SR).toInt()) {
@@ -218,8 +248,9 @@ object Sfx {
     }
 
     /** A plucked string (Karplus–Strong): the bowstring. */
-    private fun Buf.pluck(at: Double, dur: Double, f: Double, vol: Double, seed: Int = 1) {
-        val rng = Random(seed)
+    private fun Buf.pluck(at: Double, dur: Double, fIn: Double, vol: Double, seed: Int = 1) {
+        val rng = Random(seed + vs)
+        val f = fIn * vp
         val len = (SR / f).toInt().coerceAtLeast(2)
         val line = DoubleArray(len) { rng.nextDouble() * 2 - 1 }
         val start = (at * SR).toInt()
@@ -236,7 +267,8 @@ object Sfx {
     }
 
     /** Bowed or blown tone: a sawtooth softened by a low-pass, swelling in and out (strings, horns, drones). */
-    private fun Buf.pad(at: Double, dur: Double, f: Double, vol: Double, cutoff: Double = 900.0, attack: Double = 0.15, vibrato: Double = 0.004) {
+    private fun Buf.pad(at: Double, dur: Double, fIn: Double, vol: Double, cutoff: Double = 900.0, attack: Double = 0.15, vibrato: Double = 0.004) {
+        val f = fIn * Math.sqrt(vp)
         val start = (at * SR).toInt(); val n = (dur * SR).toInt()
         var ph = 0.0; var lp = 0.0; var lp2 = 0.0
         val k = 1 - exp(-2 * PI * cutoff / SR)
@@ -357,7 +389,7 @@ object Sfx {
         Sound.HIT_SMASH -> Buf(0.8).apply {
             thud(0.0, 0.45, 95.0, 38.0, 1.0)
             band(0.0, 0.2, 0.7, 420.0, 220.0, 1.5, 105, decay = 0.06)
-            for (k in 0 until 3) band(0.02 + k * 0.025, 0.04, 0.3, 2600.0, 1800.0, 4.0, 106 + k, decay = 0.01)
+            for (k in 0 until 2 + vi) band(0.02 + k * 0.025, 0.04, 0.3, 2600.0, 1800.0, 4.0, 106 + k, decay = 0.01)
             room(0.3)
         }
         Sound.MISS -> Buf(0.6).apply {
@@ -381,8 +413,8 @@ object Sfx {
         }
         // snarl, the snap of jaws and the bite going in
         Sound.BITE -> Buf(0.7).apply {
-            val rng = Random(114)
-            for (k in 0 until 6) band(k * 0.03, 0.035, 0.35 + rng.nextDouble() * 0.2, 320.0, 260.0, 3.0, 115 + k, decay = 0.015)
+            val rng = Random(114 + vs)
+            for (k in 0 until 4 + vi * 2) band(k * 0.03, 0.035, 0.35 + rng.nextDouble() * 0.2, 320.0, 260.0, 3.0, 115 + k, decay = 0.015)
             band(0.2, 0.03, 0.8, 2800.0, 2000.0, 5.0, 122, decay = 0.008)
             band(0.24, 0.03, 0.7, 2500.0, 1800.0, 5.0, 123, decay = 0.008)
             thud(0.21, 0.18, 160.0, 80.0, 0.5)
@@ -401,8 +433,8 @@ object Sfx {
             thud(0.0, 0.4, 70.0, 45.0, 0.6)
             band(0.0, 0.9, 0.9, 180.0, 1400.0, 0.8, 127, swell = true)
             band(0.1, 0.8, 0.4, 2500.0, 1200.0, 1.2, 128, swell = true)
-            val rng = Random(129)
-            for (k in 0 until 9) band(0.2 + rng.nextDouble() * 0.8, 0.02, 0.5, 3000.0, 2200.0, 5.0, 130 + k, decay = 0.005)
+            val rng = Random(129 + vs)
+            for (k in 0 until 6 + vi * 3) band(0.2 + rng.nextDouble() * 0.8, 0.02, 0.5, 3000.0, 2200.0, 5.0, 130 + k, decay = 0.005)
             room(0.25)
         }
         // arcane force: an airy rising rush over a low hum, glassy overtones
@@ -431,7 +463,7 @@ object Sfx {
         }
         // poison: wet bubbling and a sickly hiss
         Sound.POISON -> Buf(1.0).apply {
-            val rng = Random(142)
+            val rng = Random(142 + vs)
             for (k in 0 until 10) { val f = 180.0 + rng.nextDouble() * 240; thud(k * 0.07 + rng.nextDouble() * 0.03, 0.07, f, f * 1.6, 0.3) }
             band(0.0, 0.9, 0.25, 3000.0, 1800.0, 1.5, 143, swell = true)
             room(0.2)

@@ -23,24 +23,27 @@ class SfxPlayer(context: Context) {
                 .build()
         )
         .build()
-    private val ids = ConcurrentHashMap<Sound, Int>()
+    private val ids = ConcurrentHashMap<Sound, IntArray>()
     var enabled = true
 
     init {
         val dir = File(context.cacheDir, "sfx-$VERSION").apply { mkdirs() }
         thread(name = "sfx-render", isDaemon = true) {
             for (s in Sound.entries) {
-                val f = File(dir, "${s.name.lowercase()}.wav")
-                if (!f.exists()) writeWav(f, Sfx.render(s))
-                ids[s] = pool.load(f.path, 1)
+                // several takes of battle sounds, one picked at random each time
+                ids[s] = IntArray(Sfx.variants(s)) { v ->
+                    val f = File(dir, "${s.name.lowercase()}_$v.wav")
+                    if (!f.exists()) writeWav(f, Sfx.render(s, v))
+                    pool.load(f.path, 1)
+                }
             }
         }
     }
 
     fun play(s: Sound, volume: Float = 0.8f) {
         if (!enabled) return
-        val id = ids[s] ?: return
-        pool.play(id, volume, volume, 1, 0, 1f)
+        val takes = ids[s] ?: return
+        pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume, volume, 1, 0, 1f)
     }
 
     fun release() = pool.release()
@@ -57,6 +60,6 @@ class SfxPlayer(context: Context) {
 
     companion object {
         /** Bump when the sounds change so the cache is rebuilt. */
-        private const val VERSION = 1
+        private const val VERSION = 2
     }
 }
