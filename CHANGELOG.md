@@ -4,9 +4,15 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.54 – 06.10.2026, 13:04
+
 **Neu – Wolfsgeheul**
 - Wölfe heulen wieder, aber nicht jedes Mal: manchmal beim Auftauchen und manchmal, wenn ein Jungwolf fällt oder flieht. Der Kopf geht hoch, das Heulen hält und klingt wieder ab.
 - Drei verschiedene Heul-Geräusche, zufällig gewählt: ein langes Auf und Ab, ein kurzes abgesetztes und ein tiefes, zitterndes, jeweils mit leisem Waldecho. Sie laufen über die Lautstärke für Effekte.
+
+## v0.1.53 – 06.10.2026, 12:46
+
+- Keine Änderungen im Spiel; nur interne Vorschau-Werkzeuge.
 
 ## v0.1.52 – 06.10.2026, 12:41
 
