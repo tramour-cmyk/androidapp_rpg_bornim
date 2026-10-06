@@ -461,6 +461,18 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         return null
     }
 
+    /** Where along the main weapon it would pass through the hero's own head or body (not the hand holding it), or null. */
+    fun weaponThroughBody(): Double? {
+        val main = o.items[GearSlot.MAIN_HAND] ?: return null
+        if (main.def.ranged) return null
+        val len = reach(main.base)
+        val hand = sk.hand(1)
+        val solid = body.filter { it.key !in setOf("hand1", "fore1", "upper1", "delt1") && it.part != BodyPart.HAIR }
+        // the grip is inside the fist; check from just beyond it
+        for (i in 4..40) { val t = i / 40.0; val p = hand + sk.weapon * (len * t); if (solid.any { it.dist(p) < -0.5 }) return t }
+        return null
+    }
+
     /** About how far a weapon reaches beyond the hand, in cm. */
     private fun reach(base: String) = when (base) {
         "dagger" -> 30.0; "shortsword", "handaxe", "wand" -> 60.0; "mace", "scimitar" -> 75.0

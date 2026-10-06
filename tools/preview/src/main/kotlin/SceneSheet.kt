@@ -397,6 +397,8 @@ fun checkClashes() {
     fun g(base: String) = de.bornim.core.Gear(uid++, base, de.bornim.core.Rarity.COMMON, 3)
     var bad = 0; var total = 0; var rawBad = 0
     val byAct = sortedMapOf<String, Int>()
+    var bodyBad = 0
+    val bodyAct = sortedMapOf<String, Int>()
     for (race in de.bornim.core.Race.entries) for (weapon in listOf("longsword", "mace", "shortsword", "warhammer")) {
         val doll = de.bornim.core.art.Doll(race, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE)
         val outfit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g(weapon), de.bornim.core.GearSlot.OFF_HAND to g("shield")))
@@ -411,6 +413,7 @@ fun checkClashes() {
                 if (raw != null) { rawBad++; byAct["${run.first}/${run.second}"] = (byAct["${run.first}/${run.second}"] ?: 0) + 1 }
                 val dress = doll.fit(rig, outfit).second!!.first
                 dress.weaponThroughShield()?.let { t -> bad++; if (bad <= 60) println("DURCH: ${race.name} $weapon ${run.first}/${run.second}/$variant Bild $i bei ${(t * 100).toInt()} %") }
+                dress.weaponThroughBody()?.let { t -> bodyBad++; bodyAct["${run.first}/${run.second}"] = (bodyAct["${run.first}/${run.second}"] ?: 0) + 1; if (bodyBad <= 20) println("KÖRPER: ${race.name} $weapon ${run.first}/${run.second}/$variant Bild $i bei ${(t * 100).toInt()} %") }
             }
         }
     }
@@ -425,6 +428,7 @@ fun checkClashes() {
     }
     println("geprüft: $total Bilder, Klinge im Schild ohne Korrektur: $rawBad, mit Korrektur: $bad")
     println("ohne Korrektur je Ablauf: $byAct")
+    println("Klinge durch Kopf oder Körper: $bodyBad, je Ablauf: $bodyAct")
 }
 
 /** The dressed 3D knight in the forest against the wolf: intro and turn, sword strike, block, as frame folders for GIFs. */
@@ -463,4 +467,25 @@ fun renderDollAnims() {
         }
     }
     println("wrote doll anims")
+}
+
+
+/** The block, large, from four sides, to judge the arms. */
+fun renderBlockViews() {
+    var uid = 1L
+    fun g(base: String, r: de.bornim.core.Rarity = de.bornim.core.Rarity.COMMON) = de.bornim.core.Gear(uid++, base, r, 3)
+    val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 0)
+    val outfit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(
+        de.bornim.core.GearSlot.CHEST to g("chain_shirt"), de.bornim.core.GearSlot.MAIN_HAND to g("longsword"), de.bornim.core.GearSlot.OFF_HAND to g("shield")))
+    val yaws = listOf(20.0, 90.0, 138.0, 180.0, 270.0)
+    val cw = 300; val ch = 300; val px = 1.5
+    val out = BufferedImage(cw * yaws.size, ch, BufferedImage.TYPE_INT_RGB)
+    val gg = out.createGraphics(); gg.color = java.awt.Color(0x5E625C); gg.fillRect(0, 0, out.width, out.height)
+    for ((i, yaw) in yaws.withIndex()) {
+        val im = doll.render(cw, ch, cw / 2.0, ch - 10.0 + 0.0, px, de.bornim.core.art.HeroFigure.BLOCK.copy(yaw = yaw), outfit).img
+        for (y in 0 until ch) for (x in 0 until cw) { val p = im[x, y]; if ((p ushr 24) >= 128) out.setRGB(i * cw + x, y, p) }
+        gg.color = java.awt.Color(0xF0E8D8); gg.drawString("${yaw.toInt()}°", i * cw + 6, 16)
+    }
+    ImageIO.write(out, "png", File("build/screens/block_views.png"))
+    println("wrote block views")
 }
