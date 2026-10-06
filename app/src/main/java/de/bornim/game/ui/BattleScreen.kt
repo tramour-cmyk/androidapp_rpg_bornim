@@ -1,6 +1,7 @@
 package de.bornim.game.ui
 
 import androidx.activity.compose.BackHandler
+import de.bornim.core.audio.Sound
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
@@ -87,6 +88,11 @@ private class BattleUi(val battle: Battle) {
     var heroGone by mutableStateOf(false)
     /** Which attack animation the foe plays for its current attack. */
     var attackVariant by mutableIntStateOf(0)
+    /** Counts the leader's howls; [howlStart] is when the latest began, [howlSound] which voice it uses. */
+    var howlKey by mutableIntStateOf(0)
+    var howlStart = 0L
+    var howlSound = Sound.HOWL_1
+    private val howls = MonsterArt.isNewStyle(battle.monster.id) && battle.monster.id.contains("wolf")
 
     init {
         push(battle.start())
@@ -111,6 +117,17 @@ private class BattleUi(val battle: Battle) {
             if (s.anim == Anim.ENEMY_FAINT) enemyGone = true
             if (s.anim == Anim.HERO_FAINT) heroGone = true
             if (s.anim == Anim.ENEMY_ACT) attackVariant = kotlin.random.Random.nextInt(MonsterArt.attackVariants(battle.monster.id))
+            // Wolves howl now and then, not every time: when they appear, and when a pack mate falls or flees.
+            val chance = when {
+                animKey == 0 -> 0.5
+                s.anim == Anim.PACK_FLEE -> 0.6
+                else -> 0.0
+            }
+            if (howls && !enemyGone && kotlin.random.Random.nextDouble() < chance) {
+                howlStart = System.currentTimeMillis()
+                howlSound = listOf(Sound.HOWL_1, Sound.HOWL_2, Sound.HOWL_3).random()
+                howlKey++
+            }
             animKey++
         }
     }
@@ -166,6 +183,12 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
     val shake = remember { Animatable(0f) }
     val intro = remember(battle) { Animatable(1f) }
     LaunchedEffect(battle) { intro.animateTo(0f, tween(600)) }
+    LaunchedEffect(ui.howlKey) {
+        if (ui.howlKey == 0) return@LaunchedEffect
+        // the sound starts once the head is raised
+        delay(HOWL_RAISE_MS)
+        vm.play(ui.howlSound)
+    }
     LaunchedEffect(ui.animKey) {
         ui.current?.let { st -> soundFor(st)?.let { vm.play(it) } }
         shake.snapTo(0f)
@@ -284,6 +307,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     battle.pack?.let { pk -> for (i in 0 until battle.packSize) MonsterArt.prepare(pk.mate, MonsterLook(battle.look.seed + 101 * (i + 1))) }
                 }
             }
+            val howling = ui.howlKey > 0 && !ui.enemyGone && System.currentTimeMillis() - ui.howlStart < HOWL_MS
             val enemyFrame = if (!newStyle) null else {
                 fun seq(act: Act, from: Int, to: Int) = MonsterArt.battleFrame(id, battle.look, act, variant, from + ((to - from + 1) * t).toInt().coerceAtMost(to - from), foeWound)
                 val strike = MonsterArt.strikeFrame(id, variant)
@@ -293,6 +317,17 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     // only the leader's own hits: a pack mate's hit belongs to that mate
                     (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && fx?.onHero == true && (step?.packActor ?: -1) < 0 && moving -> seq(Act.ATTACK, strike, n - 1)
                     (a == Anim.ENEMY_HIT || a == Anim.ENEMY_FAINT) && moving -> seq(Act.HURT, 0, MonsterArt.frameCount(id, Act.HURT, 0) - 1)
+                    howling -> {
+                        val n = MonsterArt.frameCount(id, Act.HOWL, 0)
+                        val since = System.currentTimeMillis() - ui.howlStart
+                        // raise the head, hold the howl, lower it again
+                        val i = when {
+                            since < HOWL_RAISE_MS -> (since * 4 / HOWL_RAISE_MS).toInt()
+                            since < HOWL_MS - 150 -> 4 + ((since - HOWL_RAISE_MS) * 6 / (HOWL_MS - 150 - HOWL_RAISE_MS)).toInt()
+                            else -> n - 1
+                        }
+                        MonsterArt.battleFrame(id, battle.look, Act.HOWL, 0, i.coerceIn(0, n - 1), foeWound)
+                    }
                     else -> MonsterArt.battleFrame(id, battle.look, Act.IDLE, 0, idleIdx % MonsterArt.frameCount(id, Act.IDLE, 0), foeWound)
                 }
             }
@@ -700,6 +735,10 @@ private fun rememberPulse(): Float {
     )
     return p
 }
+
+/** How long the leader's howl animation runs, and how long it takes to raise its head. */
+private const val HOWL_MS = 1900L
+private const val HOWL_RAISE_MS = 330L
 
 /** Milliseconds that keep counting, to drive slow effects. */
 @Composable

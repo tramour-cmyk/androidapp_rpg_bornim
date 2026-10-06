@@ -13,6 +13,7 @@ enum class Sound {
     ENEMY_DOWN, HERO_DOWN, LEVEL_UP, LOOT, LOOT_EPIC, COINS, CHEST, DOOR, ENCOUNTER,
     ALERT, AMBUSH,
     BIRD, CRICKET, OWL, DRIP,
+    HOWL_1, HOWL_2, HOWL_3,
 }
 
 /** Synthesized sound effects, rendered once to 16-bit mono PCM. */
@@ -82,6 +83,35 @@ object Sfx {
             prev = lp
             val env = if (swell) sin(PI * x).pow(1.5) else (1 - x).pow(2)
             d[idx] += hp * vol * env
+        }
+    }
+
+    /**
+     * A howling voice: a few soft harmonics whose pitch follows [curve] (pairs of 0..1 position and
+     * frequency), with a slow wavering vibrato, a breathy layer and an envelope that swells and fades.
+     */
+    private fun Buf.howl(at: Double, dur: Double, curve: List<Pair<Double, Double>>, vol: Double, vibrato: Double = 0.025, rate: Double = 5.0, seed: Int = 1) {
+        val start = (at * SR).toInt()
+        val n = (dur * SR).toInt()
+        val rng = Random(seed)
+        var phase = 0.0
+        var lp = 0.0
+        for (i in 0 until n) {
+            val idx = start + i
+            if (idx >= size) break
+            val x = i.toDouble() / n
+            val k = curve.indexOfLast { it.first <= x }.coerceIn(0, curve.size - 2)
+            val (x0, f0) = curve[k]; val (x1, f1) = curve[k + 1]
+            val u = ((x - x0) / (x1 - x0)).coerceIn(0.0, 1.0)
+            val s = u * u * (3 - 2 * u)
+            // vibrato grows towards the end of the howl, as the breath runs out
+            val f = (f0 + (f1 - f0) * s) * (1 + vibrato * (0.3 + x) * sin(2 * PI * rate * i / SR))
+            phase += f / SR
+            phase -= phase.toInt()
+            val v = sin(2 * PI * phase) + 0.35 * sin(4 * PI * phase) + 0.12 * sin(6 * PI * phase)
+            val env = minOf(1.0, x / 0.12) * (1 - ((x - 0.7) / 0.3).coerceIn(0.0, 1.0)).pow(1.5)
+            lp += (rng.nextDouble() * 2 - 1 - lp) * 0.3
+            d[idx] += (v * 0.85 + lp * 0.35) * vol * env
         }
     }
 
@@ -228,6 +258,20 @@ object Sfx {
         Sound.DRIP -> Buf(0.5).apply {
             tone(0.0, 0.12, midi(91), midi(79), 0.3, Wave.TRIANGLE, 0.03)
             tone(0.14, 0.3, midi(84), midi(81), 0.08, Wave.TRIANGLE, 0.1)
+        }
+        // Three wolf howls: a long rising and falling one, a short broken one, a deep wavering one.
+        // A second voice slightly off pitch sounds like the echo of the forest.
+        Sound.HOWL_1 -> Buf(2.0).apply {
+            howl(0.0, 1.8, listOf(0.0 to 300.0, 0.25 to 560.0, 0.6 to 600.0, 1.0 to 380.0), 0.5, seed = 51)
+            howl(0.12, 1.75, listOf(0.0 to 296.0, 0.25 to 552.0, 0.6 to 590.0, 1.0 to 372.0), 0.12, seed = 52)
+        }
+        Sound.HOWL_2 -> Buf(1.7).apply {
+            howl(0.0, 0.55, listOf(0.0 to 360.0, 0.4 to 620.0, 1.0 to 540.0), 0.45, rate = 6.5, seed = 53)
+            howl(0.5, 1.15, listOf(0.0 to 520.0, 0.3 to 680.0, 0.7 to 640.0, 1.0 to 420.0), 0.5, rate = 6.0, seed = 54)
+        }
+        Sound.HOWL_3 -> Buf(2.0).apply {
+            howl(0.0, 1.85, listOf(0.0 to 210.0, 0.3 to 420.0, 0.55 to 400.0, 0.8 to 440.0, 1.0 to 260.0), 0.55, vibrato = 0.04, rate = 4.0, seed = 55)
+            howl(0.12, 1.85, listOf(0.0 to 206.0, 0.3 to 414.0, 0.55 to 396.0, 0.8 to 432.0, 1.0 to 256.0), 0.13, vibrato = 0.04, rate = 4.0, seed = 56)
         }
         // Ambushed: a sharp hit and a low dissonant stab.
         Sound.AMBUSH -> Buf(0.8).apply {

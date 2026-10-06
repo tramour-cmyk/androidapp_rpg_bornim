@@ -36,6 +36,7 @@ Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md).
 - **Kleriker-Fähigkeit „Läutern“:** heilt Zustände.
 - **Positive Zustände:** Gesegnet, Geschützt, Hast, z. B. durch Tränke.
 - **Neue Ausrüstungseigenschaft:** Giftresistenz.
+- **Monster-Geräusche:** eigene Laute je Gegnerart, jeweils in mehreren zufälligen Varianten wie beim Wolfsheulen. Zum Beispiel Knurren vor dem Angriff, Fauchen, Schmerzlaute bei Treffern und Todeslaute. Dazu Klappern bei Skeletten, Stöhnen bei Zombies, Schmatzen beim Ockergallert, Kreischen bei Fledermäusen, Kampfrufe bei Goblins und Kobolden, Brüllen bei Bossen. Elite-Gegner und Grimmzahn klingen tiefer.
 
 ## Welt und Leben auf der Karte
 
