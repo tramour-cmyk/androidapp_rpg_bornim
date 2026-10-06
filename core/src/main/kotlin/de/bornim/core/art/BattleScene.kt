@@ -31,18 +31,20 @@ object BattleScene {
     /** Width the scene is designed for; the app picks a whole-number zoom close to it. */
     const val DESIGN_W = 270
 
-    /** The kind of place for a fight at ([x], [y]) on [map]: water and rocks nearby count, otherwise it varies by area. */
+    /**
+     * The kind of place for a fight at ([x], [y]) on [map], from what stands nearby on the map:
+     * water, standing stones, a fallen trunk, rocks; among many trees the edge of the wood,
+     * otherwise a clearing.
+     */
     fun spotFor(map: MapDef, x: Int, y: Int): Spot {
         fun near(t: Tile, r: Int) = (-r..r).any { dy -> (-r..r).any { dx -> map.tile(x + dx, y + dy) == t } }
         if (near(Tile.WATER, 4)) return Spot.POND
+        if (near(Tile.MENHIR, 3)) return Spot.STONE_CIRCLE
+        if (near(Tile.LOG, 3)) return Spot.FALLEN_TREE
         if (near(Tile.ROCK, 3)) return Spot.ROCKS
-        val h = hash(x / 5, y / 5, map.id.hashCode()) % 100
-        return when {
-            h < 30 -> Spot.CLEARING
-            h < 58 -> Spot.EDGE
-            h < 84 -> Spot.FALLEN_TREE
-            else -> Spot.STONE_CIRCLE
-        }
+        var trees = 0
+        for (dy in -2..2) for (dx in -2..2) if (map.tile(x + dx, y + dy) == Tile.TREE) trees++
+        return if (trees >= 8) Spot.EDGE else Spot.CLEARING
     }
 
     /** A number for small variations (tree positions, mirrored props) that stays the same within a few tiles. */

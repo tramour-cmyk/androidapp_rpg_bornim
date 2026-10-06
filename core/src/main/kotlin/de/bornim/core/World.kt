@@ -58,6 +58,11 @@ enum class Tile(val ch: Char, val walkable: Boolean) {
     SUPPORT('H', true),
     /** Daylight falls through a crack in the cave roof. */
     SKYLIGHT('*', true),
+    // forest places that also appear as battle scenes
+    /** A fallen, mossy tree trunk. */
+    LOG('O', false),
+    /** A standing stone of an old stone circle. */
+    MENHIR('I', false),
     ;
 
     companion object {

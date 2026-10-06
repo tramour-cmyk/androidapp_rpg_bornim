@@ -57,6 +57,7 @@ import de.bornim.core.Mode
 import de.bornim.core.Move
 import de.bornim.core.Story
 import de.bornim.core.Tile
+import de.bornim.core.art.MapLight
 import de.bornim.core.Ui
 import de.bornim.core.Route
 import de.bornim.core.actionAhead
@@ -573,17 +574,17 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         sprites.sortBy { it.y }
         sprites.forEach { it.draw() }
 
+        // Light of the place: time of day, shade of the crowns, lamps, fires and the lantern.
+        if (MapLight.needed(map, game.daylight)) drawMapLight(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH)
         val outdoors = map.kind == MapKind.TOWN || map.kind == MapKind.FOREST
         if (outdoors) {
             drawCritters(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH)
-            drawWeatherAndNight(game, map, clock, camX, camY, scale, heroX, heroY)
+            drawRain(game, clock, scale)
         }
 
-        // Caves are dark: torches, fires, mushrooms, crystals and the hero's lantern light them.
-        if (map.kind == MapKind.CAVE) drawCaveLight(map, clock, camX, camY, scale, heroX, heroY, viewW, viewH)
-
         // Fog of war over wild areas: black where unexplored, dimmed where not in sight.
-        if (game.fogged) drawFog(game, camX, camY, scale, viewW, viewH)
+        // Where the map has a light image, the fog is already part of it (soft edges).
+        if (game.fogged && !MapLight.needed(map, game.daylight)) drawFog(game, camX, camY, scale, viewW, viewH)
         for ((ax, ay) in alerts) {
             // "!" above a monster that has seen the hero
             val bx = (ax - 4 - camX) * scale
@@ -748,62 +749,96 @@ private fun DrawScope.drawCritters(
     }
 }
 
-/** The light grid of the current cave, redrawn only when the hero moves to another cell. */
-private object CaveLightGrid {
+/** The light image of the current view, redrawn only when hero, view or daylight change. */
+private object LightImage {
     var key = ""
     var img: de.bornim.core.art.PixelImage? = null
 }
 
 /**
- * Light in a cave: the light grid multiplied over the map (dark where nothing shines), a glow
- * around every light that flickers (fire) or pulses (mushrooms), and small life: drops falling
- * from the roof, spores over the mushrooms, dust in daylight, sparks over fires.
+ * Light on the map: the light image multiplied over it (dark where nothing shines), a glow around
+ * every light that flickers (fire) or pulses (mushrooms), and small life: sparks over fires, spores
+ * over mushrooms, dust in daylight and, in caves, drops falling from the roof.
  */
-private fun DrawScope.drawCaveLight(
-    map: de.bornim.core.MapDef, clock: Long, camX: Int, camY: Int, scale: Int, heroX: Int, heroY: Int, viewW: Float, viewH: Float,
+private fun DrawScope.drawMapLight(
+    game: Game, map: de.bornim.core.MapDef, clock: Long, camX: Int, camY: Int, scale: Int, heroX: Int, heroY: Int, viewW: Float, viewH: Float,
 ) {
     val T = WorldArt.T
-    val cell = de.bornim.core.art.CaveLight.RES
+    val res = MapLight.RES
     val hx = heroX + T / 2; val hy = heroY + T / 2
-    val key = "${map.id}/${hx / 4}/${hy / 4}"
-    if (CaveLightGrid.key != key) {
-        CaveLightGrid.img = de.bornim.core.art.CaveLight.lightmap(map, hx, hy)
-        CaveLightGrid.key = key
+    val day = game.daylight
+    // the region under the view, aligned to the light image's pixels
+    val x0 = Math.floorDiv(camX, res) * res - res; val y0 = Math.floorDiv(camY, res) * res - res
+    val w = ((viewW.toInt() / res) + 3) * res; val h = ((viewH.toInt() / res) + 3) * res
+    val fog = game.fogged
+    val key = "${map.id}/$x0/$y0/$w/$h/${hx / 3}/${hy / 3}/${(day * 64).toInt()}/${if (fog) "${game.state.place.x},${game.state.place.y},${game.state.place.facing}" else ""}"
+    if (LightImage.key != key) {
+        val img = MapLight.lightmap(map, day, hx, hy, x0, y0, w, h)
+        if (fog) {
+            // darken by the fog of war, smoothly between tile centres: unexplored black, out of sight dim
+            val tx0 = Math.floorDiv(x0, T) - 1; val ty0 = Math.floorDiv(y0, T) - 1
+            val tw = w / T + 4; val th = h / T + 4
+            val fa = FloatArray(tw * th) { i ->
+                when (game.fog(tx0 + i % tw, ty0 + i / tw)) {
+                    de.bornim.core.Fog.HIDDEN -> 1f
+                    de.bornim.core.Fog.SEEN -> 0.5f
+                    de.bornim.core.Fog.VISIBLE -> 0f
+                }
+            }
+            for (yy in 0 until img.height) for (xx in 0 until img.width) {
+                val fx = (x0 + xx * res + res / 2f) / T - 0.5f - tx0; val fy = (y0 + yy * res + res / 2f) / T - 0.5f - ty0
+                val ix = floor(fx).toInt().coerceIn(0, tw - 2); val iy = floor(fy).toInt().coerceIn(0, th - 2)
+                val ux = (fx - ix).coerceIn(0f, 1f); val uy = (fy - iy).coerceIn(0f, 1f)
+                val a = (fa[iy * tw + ix] * (1 - ux) + fa[iy * tw + ix + 1] * ux) * (1 - uy) + (fa[(iy + 1) * tw + ix] * (1 - ux) + fa[(iy + 1) * tw + ix + 1] * ux) * uy
+                if (a <= 0f) continue
+                val k = 1f - a * (if (a > 0.95f) 1f else 0.92f)
+                val c = img.pixels[yy * img.width + xx]
+                val r = (((c shr 16) and 0xFF) * k).toInt(); val g = (((c shr 8) and 0xFF) * k).toInt(); val b = ((c and 0xFF) * k).toInt()
+                img.pixels[yy * img.width + xx] = (0xFF shl 24) or (r shl 16) or (g shl 8) or b
+            }
+        }
+        LightImage.img = img
+        LightImage.key = key
     }
-    val grid = CaveLightGrid.img ?: return
+    val grid = LightImage.img ?: return
     drawImage(
         image = Bitmaps.of(grid),
         srcOffset = IntOffset.Zero,
         srcSize = IntSize(grid.width, grid.height),
-        dstOffset = IntOffset(-camX * scale, -camY * scale),
-        dstSize = IntSize(grid.width * cell * scale, grid.height * cell * scale),
+        dstOffset = IntOffset((x0 - camX) * scale, (y0 - camY) * scale),
+        dstSize = IntSize(grid.width * res * scale, grid.height * res * scale),
         filterQuality = FilterQuality.None,
         blendMode = androidx.compose.ui.graphics.BlendMode.Multiply,
     )
     fun at(x: Double, y: Double) = Offset(((x - camX) * scale).toFloat(), ((y - camY) * scale).toFloat())
     fun visible(o: Offset, r: Float) = o.x > -r && o.y > -r && o.x < size.width + r && o.y < size.height + r
-    for ((i, src) in de.bornim.core.art.CaveLight.sources(map).withIndex()) {
+    for ((i, src) in MapLight.sources(map).withIndex()) {
         val c = at(src.x, src.y)
         val r = (src.reach * 0.75 * scale).toFloat()
-        if (!visible(c, r)) continue
+        val on = MapLight.strength(map, src.shines, day).toFloat()
+        if (on <= 0.02f || !visible(c, r)) continue
         val t = clock.toFloat()
         val (color, a) = when (src.kind) {
-            de.bornim.core.art.CaveLight.Kind.TORCH, de.bornim.core.art.CaveLight.Kind.FIRE -> {
+            MapLight.Kind.TORCH, MapLight.Kind.FIRE -> {
                 val f = 0.8f + 0.12f * kotlin.math.sin(t / 83f + i * 1.7f) + 0.08f * kotlin.math.sin(t / 37f + i)
                 Color(0xFFFFA850) to 0.32f * f
             }
-            de.bornim.core.art.CaveLight.Kind.SHROOM -> Color(0xFF60F0E0) to 0.2f * (0.65f + 0.35f * kotlin.math.sin(t / 900f + i * 2.3f))
-            de.bornim.core.art.CaveLight.Kind.CRYSTAL -> Color(0xFFB890FF) to 0.2f * (0.8f + 0.2f * kotlin.math.sin(t / 600f + i))
-            de.bornim.core.art.CaveLight.Kind.SKY -> Color(0xFFE8F0FF) to 0.32f
-            de.bornim.core.art.CaveLight.Kind.EXIT -> Color(0xFFFFF4D8) to 0.18f
-        }
+            MapLight.Kind.SHROOM -> Color(0xFF60F0E0) to 0.2f * (0.65f + 0.35f * kotlin.math.sin(t / 900f + i * 2.3f))
+            MapLight.Kind.CRYSTAL -> Color(0xFFB890FF) to 0.2f * (0.8f + 0.2f * kotlin.math.sin(t / 600f + i))
+            MapLight.Kind.SKY -> Color(0xFFE8F0FF) to 0.32f
+            MapLight.Kind.EXIT -> Color(0xFFFFF4D8) to 0.18f
+            MapLight.Kind.LAMP -> Color(0xFFFFD088) to 0.3f * (0.94f + 0.06f * kotlin.math.sin(t / 140f + i))
+            MapLight.Kind.WINDOW -> Color(0xFFFFC870) to 0.2f
+            MapLight.Kind.CANDLE -> Color(0xFFFFC078) to 0.18f * (0.88f + 0.12f * kotlin.math.sin(t / 97f + i * 1.3f))
+            MapLight.Kind.DOOR -> Color(0xFFE8ECF0) to 0.1f
+        }.let { (c, al) -> c to al * on }
         drawCircle(
             androidx.compose.ui.graphics.Brush.radialGradient(listOf(color.copy(alpha = a), color.copy(alpha = a * 0.35f), Color.Transparent), c, r),
             r, c, blendMode = androidx.compose.ui.graphics.BlendMode.Plus,
         )
         val px = scale.toFloat()
         when (src.kind) {
-            de.bornim.core.art.CaveLight.Kind.FIRE, de.bornim.core.art.CaveLight.Kind.TORCH -> for (k in 0 until (if (src.kind == de.bornim.core.art.CaveLight.Kind.FIRE) 5 else 2)) {
+            MapLight.Kind.FIRE, MapLight.Kind.TORCH -> for (k in 0 until (if (src.kind == MapLight.Kind.FIRE) 5 else 2)) {
                 // sparks rising and fading
                 val period = 1400 + k * 230
                 val ph = ((clock + k * 517 + i * 131) % period) / period.toFloat()
@@ -811,7 +846,7 @@ private fun DrawScope.drawCaveLight(
                 val sy = src.y - 6 - ph * 26
                 drawRect(Color(0xFFFFC060).copy(alpha = (1 - ph) * 0.9f), at(sx, sy.toDouble()), androidx.compose.ui.geometry.Size(px, px))
             }
-            de.bornim.core.art.CaveLight.Kind.SHROOM -> for (k in 0 until 3) {
+            MapLight.Kind.SHROOM -> for (k in 0 until 3) {
                 // spores drifting up from the mushrooms
                 val period = 3200 + k * 700
                 val ph = ((clock + k * 1100 + i * 377) % period) / period.toFloat()
@@ -819,7 +854,7 @@ private fun DrawScope.drawCaveLight(
                 val sy = src.y + 4 - ph * 30
                 drawRect(Color(0xFFA8FFF0).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * 0.8f), at(sx, sy.toDouble()), androidx.compose.ui.geometry.Size(px, px))
             }
-            de.bornim.core.art.CaveLight.Kind.SKY -> {
+            MapLight.Kind.SKY -> {
                 // a slanted shaft of light from the roof, dust dancing in it
                 val top = at(src.x - 10, src.y - T * 2.5)
                 val path = androidx.compose.ui.graphics.Path().apply {
@@ -839,6 +874,7 @@ private fun DrawScope.drawCaveLight(
             else -> {}
         }
     }
+    if (map.kind != MapKind.CAVE) return
     // drops falling from the roof onto the floor, leaving a small ring
     val tx0 = (camX / T).coerceAtLeast(0); val ty0 = (camY / T).coerceAtLeast(0)
     val tw = (viewW / T).toInt() + 2; val th = (viewH / T).toInt() + 2
@@ -863,42 +899,8 @@ private fun DrawScope.drawCaveLight(
     }
 }
 
-/** Night darkness with a lantern glow around the hero, lit windows, and rain. */
-private fun DrawScope.drawWeatherAndNight(
-    game: Game, map: de.bornim.core.MapDef, clock: Long, camX: Int, camY: Int, scale: Int, heroX: Int, heroY: Int,
-) {
-    val T = WorldArt.T
-    val dark = (1f - game.daylight) * 0.8f + if (game.raining) 0.18f else 0f
-    if (dark > 0.01f) {
-        val center = Offset((heroX - camX + T / 2f) * scale, (heroY - camY + T / 2f) * scale)
-        val night = Color(0xFF0A1236)
-        drawRect(
-            androidx.compose.ui.graphics.Brush.radialGradient(
-                0f to night.copy(alpha = dark * 0.15f),
-                0.14f to night.copy(alpha = dark * 0.45f),
-                0.4f to night.copy(alpha = dark),
-                center = center, radius = size.maxDimension * 0.9f,
-            ),
-        )
-    }
-    val nightness = 1f - game.daylight
-    if (nightness > 0.2f) {
-        // warm light from windows and fires
-        for (ty in 0 until map.height) for (tx in 0 until map.width) {
-            val t = map.tile(tx, ty)
-            if (t != Tile.WINDOW && t != Tile.CAMPFIRE && t != Tile.LAMP) continue
-            val c = Offset((tx * T + T / 2f - camX) * scale, (ty * T + T / 2f - camY) * scale)
-            if (c.x < -200 || c.y < -200 || c.x > size.width + 200 || c.y > size.height + 200) continue
-            val flicker = if (t == Tile.CAMPFIRE) 0.85f + 0.15f * kotlin.math.sin(clock / 90f) else 1f
-            val r = (if (t == Tile.CAMPFIRE) 2.2f else 1.5f) * T * scale * flicker
-            drawCircle(
-                androidx.compose.ui.graphics.Brush.radialGradient(
-                    listOf(Color(0xFFFFC870).copy(alpha = 0.7f * nightness), Color(0xFFFFB050).copy(alpha = 0.25f * nightness), Color.Transparent), c, r,
-                ),
-                r, c,
-            )
-        }
-    }
+/** Rain over the whole view. */
+private fun DrawScope.drawRain(game: Game, clock: Long, scale: Int) {
     if (game.raining) {
         val rain = Color(0xFFC8DCF8).copy(alpha = 0.7f)
         for (k in 0 until 220) {

@@ -84,6 +84,10 @@ fun main() {
     if (System.getenv("SCENES") != null) { renderSceneSheet(); System.exit(0) }
     if (System.getenv("CAVES") != null) { renderCaveSheet(); System.exit(0) }
     if (System.getenv("CAVEMAP") != null) { renderCaveMap(); System.exit(0) }
+    System.getenv("MAPS")?.let { ids ->
+        for (id in ids.split(",")) for ((t, d) in listOf("day" to 1f, "dusk" to 0.55f, "night" to 0.1f)) renderMapOverview(de.bornim.core.World[id], daylight = d, name = "${id}_$t")
+        System.exit(0)
+    }
     if (System.getenv("WOLFANIM") != null) { renderWolfAnim(); System.exit(0) }
     if (System.getenv("ELITE") != null) { renderEliteMock(); System.exit(0) }
     if (System.getenv("ABOUT") != null) {
@@ -143,6 +147,24 @@ fun main() {
             g.state.flags += Story.GATE_OPEN
             g.state.explored["cave"] = "f".repeat(Story.cave.width * Story.cave.height / 4 + 1)
             g.state.place = Place("cave", pos.first, pos.second, Facing.DOWN)
+            vm.refresh()
+        }
+    }
+    // Chapter 1 maps in their new light
+    for ((n, spec) in listOf(
+        "forest_day" to Triple("forest", 15 to 26, 12 * 60), "forest_dusk" to Triple("forest", 4 to 19, 19 * 60 + 30), "forest_night" to Triple("forest", 11 to 9, 23 * 60),
+        "deep_day" to Triple("deep_forest", 8 to 15, 12 * 60), "deep_night" to Triple("deep_forest", 22 to 21, 23 * 60),
+        "village_day" to Triple("village", 17 to 12, 12 * 60), "village_dusk" to Triple("village", 17 to 12, 19 * 60 + 30), "village_night" to Triple("village", 17 to 12, 23 * 60),
+        "inn_day" to Triple("inn", 5 to 5, 12 * 60), "temple_night" to Triple("temple", 5 to 5, 23 * 60),
+    )) {
+        shot("81_map_$n") { vm ->
+            vm.newGame("Grom", Race.HALF_ORC, CharClass.FIGHTER)
+            val g = vm.game!!
+            g.skipDialogs()
+            val m = de.bornim.core.World[spec.first]
+            g.state.explored[m.id] = "f".repeat(m.width * m.height / 4 + 1)
+            g.state.place = Place(m.id, spec.second.first, spec.second.second, Facing.DOWN)
+            g.state.minutes = spec.third
             vm.refresh()
         }
     }

@@ -53,17 +53,17 @@ object CaveScene {
     fun lightFor(map: MapDef, x: Int, y: Int, spot: Spot): Light {
         if (spot == Spot.CAMP) return Light.DARK
         val px = x * WorldArt.T + WorldArt.T / 2.0; val py = y * WorldArt.T + WorldArt.T / 2.0
-        var best: CaveLight.Source? = null
+        var best: MapLight.Source? = null
         var bestK = 0.12
-        for (s in CaveLight.sources(map)) {
+        for (s in MapLight.sources(map)) {
             val d = kotlin.math.sqrt((s.x - px) * (s.x - px) + (s.y - py) * (s.y - py))
             val k = s.power * exp(-(d / s.reach) * (d / s.reach) * 2.0)
-            if (k > bestK && CaveLight.reaches(map, s, px, py)) { best = s; bestK = k }
+            if (k > bestK && MapLight.reaches(map, s, px, py)) { best = s; bestK = k }
         }
         return when (best?.kind) {
-            CaveLight.Kind.TORCH, CaveLight.Kind.FIRE -> Light.TORCH
-            CaveLight.Kind.SHROOM, CaveLight.Kind.CRYSTAL -> Light.GLOW
-            CaveLight.Kind.SKY -> Light.SHAFT
+            MapLight.Kind.TORCH, MapLight.Kind.FIRE -> Light.TORCH
+            MapLight.Kind.SHROOM, MapLight.Kind.CRYSTAL -> Light.GLOW
+            MapLight.Kind.SKY -> Light.SHAFT
             else -> if (spot == Spot.ENTRANCE) Light.TORCH else Light.DARK
         }
     }

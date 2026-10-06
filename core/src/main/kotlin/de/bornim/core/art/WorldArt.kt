@@ -27,7 +27,7 @@ object WorldArt {
     private val cache = HashMap<String, PixelImage>()
     private fun cached(key: String, w: Int = T, h: Int = T, block: Pen.() -> Unit) = cache.getOrPut(key) { draw(w, h, block = block) }
 
-    private val SHADOW = alpha(0x101020, 0x55)
+    private val SHADOW = alpha(0x0C0E14, 0x70)
     private val SHADOW_SOFT = alpha(0x101020, 0x30)
 
     // ================================================================== ground layer
@@ -62,7 +62,7 @@ object WorldArt {
             Tile.VEG_BED -> cached("veg$seed") { vegBed(seed) }
             Tile.FENCE, Tile.HAY, Tile.WASHLINE -> cached("grass$seed") { grass(seed) }
             Tile.TREE -> cached("treeground$seed") { grass(seed); blendEllipse(16.0, 26.0, 13.0, 5.0, SHADOW) }
-            Tile.ROCK, Tile.SIGN, Tile.CHEST, Tile.CAMPFIRE -> {
+            Tile.ROCK, Tile.SIGN, Tile.CHEST, Tile.CAMPFIRE, Tile.LOG, Tile.MENHIR -> {
                 val base = baseGround(kind, seed)
                 cached("obj-ground/${kind}/$seed/${t == Tile.CAMPFIRE}") {
                     paste(base)
@@ -173,7 +173,7 @@ object WorldArt {
 
     // ------------------------------------------------------------------ outdoors
 
-    private val G = argb(0x7CC85A); private val G_D = argb(0x5EAA44); private val G_DD = argb(0x4A9038); private val G_L = argb(0x9ADC72)
+    private val G = argb(0x5E7C3C); private val G_D = argb(0x4C6832); private val G_DD = argb(0x3A5228); private val G_L = argb(0x7A9450)
 
     private fun Pen.grass(seed: Int) {
         fill(G)
@@ -192,7 +192,7 @@ object WorldArt {
 
     /** A dense, colourful meadow that is easy to spot on a phone: twelve big blossoms per tile. */
     private fun Pen.flowers(seed: Int) {
-        val colors = listOf(Pal.RED, Pal.WHITE, Pal.GOLD, argb(0xB070E0), argb(0xF08CC0), argb(0x6CA8F0))
+        val colors = listOf(argb(0xA8443C), argb(0xD8D4C4), argb(0xC8A848), argb(0x8A6AA8), argb(0xB87A90), argb(0x6A86A8))
         var i = 0
         // A jittered 4×3 grid: dense, but not regular.
         for (gy in 0 until 3) for (gx in 0 until 4) {
@@ -209,7 +209,7 @@ object WorldArt {
         }
     }
 
-    private val TG = argb(0x3E9E42); private val TG_D = argb(0x2A7434); private val TG_DD = argb(0x1E5A2A); private val TG_L = argb(0x76CC5E)
+    private val TG = argb(0x46703A); private val TG_D = argb(0x34562E); private val TG_DD = argb(0x243E22); private val TG_L = argb(0x6E9050)
 
     private fun Pen.tallGrass(seed: Int) {
         fill(TG_D)
@@ -242,7 +242,7 @@ object WorldArt {
         for (col in 0..4) blades(col * 7 + 2, 25, col + 50)
     }
 
-    private val P = argb(0xDCC28E); private val P_D = argb(0xC4A472); private val P_L = argb(0xECD8AC)
+    private val P = argb(0x9A8462); private val P_D = argb(0x7E6A4C); private val P_L = argb(0xB29E7A)
 
     private fun Pen.path(m: Int, seed: Int) {
         fill(P)
@@ -259,7 +259,7 @@ object WorldArt {
     }
 
     private val PAVED = setOf(Tile.COBBLE, Tile.STALL, Tile.LAMP, Tile.BARREL, Tile.BENCH)
-    private val COB = argb(0xB8AE9C); private val COB_L = argb(0xD4CCBC); private val COB_D = argb(0x8E8474); private val MORTAR = argb(0x6E6658)
+    private val COB = argb(0x8E877C); private val COB_L = argb(0xA8A094); private val COB_D = argb(0x6C665C); private val MORTAR = argb(0x484440)
 
     /** Cobblestones in staggered rows, with a grass border where the square ends. */
     private fun Pen.cobble(m: Int, seed: Int) {
@@ -299,7 +299,7 @@ object WorldArt {
         }
     }
 
-    private val W = argb(0x4A8EEC); private val W_D = argb(0x346FCC); private val W_L = argb(0x9ACCF8)
+    private val W = argb(0x325E72); private val W_D = argb(0x264C5E); private val W_L = argb(0x82A8B4)
 
     private fun Pen.water(m: Int, frame: Int, inner: Int = 0) {
         fill(W)
@@ -354,8 +354,8 @@ object WorldArt {
         if (right) { rect(T - 3, 0, T - 1, T - 1, Pal.WOOD_DARK); rect(T - 1, 0, T - 1, T - 1, Pal.OUTLINE); for (y in 4 until T step 10) rect(T - 4, y, T - 1, y + 2, argb(0x4A2E18)) }
     }
 
-    private val SOIL = argb(0x6E4A2C); private val SOIL_D = argb(0x50341E); private val SOIL_L = argb(0x8A6038)
-    private val WHEAT = argb(0xE0C060); private val WHEAT_D = argb(0xB89838); private val WHEAT_L = argb(0xF4E098)
+    private val SOIL = argb(0x5A4028); private val SOIL_D = argb(0x3E2C1A); private val SOIL_L = argb(0x725234)
+    private val WHEAT = argb(0xB89A50); private val WHEAT_D = argb(0x8E7436); private val WHEAT_L = argb(0xCCB474)
 
     /** Ripe grain, dense and golden, with a few darker furrows. */
     private fun Pen.field(seed: Int) {
@@ -522,6 +522,62 @@ object WorldArt {
             }
         }
         raw(16, base - hgt, argb(0xC8D8E0)); raw(15, base - hgt + 1, argb(0xA8B8C0))
+    }
+
+    /** A fallen trunk lying across the ground, mossy on top; [leftEnd]/[rightEnd] show the cut or broken end. */
+    private fun Pen.log(leftEnd: Boolean, rightEnd: Boolean) {
+        val bark = argb(0x4E3A2A); val barkL = argb(0x6A5038); val barkD = argb(0x2E2218); val moss = argb(0x4E6A30); val mossL = argb(0x6A8A40)
+        blendEllipse(16.0, 28.0, 17.0, 3.5, SHADOW)
+        val x0 = if (leftEnd) 3 else 0; val x1 = if (rightEnd) 28 else T - 1
+        for (x in x0..x1) for (y in 13..27) {
+            val u = (y - 20) / 7.0
+            var c = when {
+                u < -0.6 -> barkL
+                u > 0.55 -> barkD
+                else -> bark
+            }
+            if ((x * 7 + y * 3) % 11 == 0) c = barkD
+            if (u < -0.35 && noise(x, y, 81) % 3 != 0) c = if (u < -0.75) mossL else moss
+            raw(x, y, c)
+        }
+        fun end(cx: Int) {
+            for (y in 13..27) for (x in cx - 3..cx + 3) {
+                val d = Math.sqrt(((x - cx) / 3.2).let { it * it } + ((y - 20) / 7.2).let { it * it })
+                if (d > 1) continue
+                raw(x, y, if ((d * 4).toInt() % 2 == 0) argb(0x9A7A52) else argb(0x7A5E3E))
+            }
+            raw(cx, 20, argb(0x5A4430))
+        }
+        if (leftEnd) end(x0 + 1)
+        if (rightEnd) {
+            // broken end: splinters
+            for (k in 0 until 5) line(x1, 14 + k * 3, x1 + 2 + k % 2 * 2, 13 + k * 3, barkL)
+        }
+        if (!leftEnd && !rightEnd) for (k in 0 until 3) raw(10 + k * 6, 12, moss)
+    }
+
+    /** A weathered standing stone, mossy at the foot, with a faded carving. */
+    private fun Pen.menhir(seed: Int) {
+        val st = argb(0x7A7870); val stL = argb(0x9A988E); val stD = argb(0x4E4C48); val moss = argb(0x4E6A30)
+        blendEllipse(16.0, 49.0, 11.0, 3.5, SHADOW)
+        val top = 6 + seed * 2
+        for (y in top..49) {
+            val t = (y - top) / (49.0 - top)
+            val half = 6.5 + 2.5 * t - (if (y < top + 4) (top + 4 - y) * 1.2 else 0.0)
+            for (x in (16 - half).toInt()..(16 + half).toInt()) {
+                val u = (x - 16) / half
+                var c = if (u < -0.4) stL else if (u > 0.45) stD else st
+                if (noise(x, y, 91 + seed) % 13 == 0) c = stD
+                if (y > 40 && noise(x / 2, y, 93) % 3 != 0) c = moss
+                raw(x, y, c)
+            }
+        }
+        // a faded spiral carving
+        for (k in 0 until 14) {
+            val a = k * 0.7; val r = 1 + k * 0.28
+            raw((16 + Math.cos(a) * r).toInt(), (24 + Math.sin(a) * r).toInt(), stD)
+        }
+        outline(Pal.OUTLINE)
     }
 
     /** Loose stones of different sizes. */
@@ -705,6 +761,11 @@ object WorldArt {
                 }
                 Tile.WELL -> out += Obj(cached("well", T, 48) { well() }, px, py - 16, bottom)
                 Tile.CAMPFIRE -> out += Obj(cached("fire$frame") { campfire(frame) }, px, py, bottom)
+                Tile.LOG -> {
+                    val l = map.tile(tx - 1, ty) == Tile.LOG; val r = map.tile(tx + 1, ty) == Tile.LOG
+                    out += Obj(cached("log$l$r") { log(!l, !r) }, px, py, bottom)
+                }
+                Tile.MENHIR -> out += Obj(cached("menhir$seed", T, 52) { menhir(seed) }, px, py - 20, bottom)
                 Tile.STALAGMITE -> out += Obj(cached("stalagmite$seed", T, 48) { stalagmite(seed) }, px, py - 16, bottom)
                 Tile.CRATE -> out += Obj(cached("crate${seed % 2}", T, 40) { crate(seed % 2 == 1) }, px, py - 8, bottom)
                 Tile.SUPPORT -> {
@@ -754,7 +815,7 @@ object WorldArt {
 
     // ------------------------------------------------------------------ objects: nature
 
-    private val LEAF = argb(0x3C9440); private val LEAF_D = argb(0x2A6E30); private val LEAF_DD = argb(0x1C4E24); private val LEAF_L = argb(0x6EC458)
+    private val LEAF = argb(0x3A6438); private val LEAF_D = argb(0x2A4C2C); private val LEAF_DD = argb(0x1C3420); private val LEAF_L = argb(0x5A8248)
 
     /** 32×50 tree whose crown reaches up into the tile above. */
     fun tree(seed: Int, pine: Boolean): PixelImage = cached("tree$seed$pine", T, 50) {
@@ -788,10 +849,13 @@ object WorldArt {
     }
 
     private fun Pen.rock() {
-        ellipse(16.0, 21.0, 12.5, 9.5, Pal.STONE_DARK)
-        ball(15.0, 19.5, 11.5, 8.5, Pal.STONE, Pal.STONE_LIGHT, Pal.STONE_DARK)
-        ellipse(21.0, 23.0, 5.0, 4.0, Pal.STONE_DARK)
-        raw(12, 18, Pal.STONE_DARK); raw(13, 19, Pal.STONE_DARK); raw(14, 20, Pal.STONE_DARK)
+        val st = argb(0x7E7C74); val stL = argb(0x9E9B90); val stD = argb(0x52504A)
+        ellipse(16.0, 21.0, 12.5, 9.5, stD)
+        ball(15.0, 19.5, 11.5, 8.5, st, stL, stD)
+        ellipse(21.0, 23.0, 5.0, 4.0, stD)
+        raw(12, 18, stD); raw(13, 19, stD); raw(14, 20, stD)
+        // moss on the shaded foot
+        for (y in 20..28) for (x in 6..26) if (img[x, y] == stD && noise(x, y, 97) % 3 != 0) raw(x, y, argb(0x4E6A30))
         outline(Pal.OUTLINE)
     }
 
@@ -970,8 +1034,8 @@ object WorldArt {
 
     // ------------------------------------------------------------------ buildings
 
-    private val PLASTER = argb(0xF2E4C0); private val PLASTER_D = argb(0xD8C49C)
-    private val TIMBER = argb(0x6E4626); private val TIMBER_L = argb(0x8A5E36)
+    private val PLASTER = argb(0xCFC2A2); private val PLASTER_D = argb(0xAE9F80)
+    private val TIMBER = argb(0x4A3220); private val TIMBER_L = argb(0x64462C)
 
     // ------------------------------------------------------------------ buildings
 
@@ -1036,16 +1100,16 @@ object WorldArt {
         return Obj(img, house.x0 * T, house.y0 * T - house.over, (house.y0 + house.h) * T - 1)
     }
 
-    private val STONE_WALL = argb(0xC4BAA8); private val STONE_WALL_D = argb(0x9A907E)
-    private val TEMPLE_WALL = argb(0xE2DCCE); private val TEMPLE_WALL_D = argb(0xBDB5A4)
+    private val STONE_WALL = argb(0x9E9686); private val STONE_WALL_D = argb(0x7A7264)
+    private val TEMPLE_WALL = argb(0xBCB6A8); private val TEMPLE_WALL_D = argb(0x969082)
     private val PLANK = argb(0xA8743E); private val PLANK_D = argb(0x7A5028); private val PLANK_L = argb(0xC48C50)
 
     private fun roofColors(r: RoofKind): Pair<Int, Int> = when (r) {
-        RoofKind.RED -> Pal.ROOF to Pal.ROOF_DARK
-        RoofKind.BLUE -> Pal.ROOF_BLUE to Pal.ROOF_BLUE_DARK
-        RoofKind.SLATE -> argb(0x6E7888) to argb(0x48505E)
-        RoofKind.SHINGLE -> argb(0x9A6440) to argb(0x643C22)
-        RoofKind.STRAW -> argb(0xD8B868) to argb(0xA07C34)
+        RoofKind.RED -> argb(0x8A4434) to argb(0x5C2C24)
+        RoofKind.BLUE -> argb(0x4A5A74) to argb(0x303C52)
+        RoofKind.SLATE -> argb(0x565E6A) to argb(0x383E48)
+        RoofKind.SHINGLE -> argb(0x76503A) to argb(0x4C3224)
+        RoofKind.STRAW -> argb(0xA48E54) to argb(0x766234)
     }
 
     private fun Pen.house(h: House) {
