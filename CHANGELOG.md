@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.63 – 06.10.2026, 15:20
+
 **Neu – Kapitel 1 in neuem Gewand**
 - Alle Karten sehen erwachsener und etwas düsterer aus: moosiges Gras, dunkleres Laub, erdige Wege, dunkles Wasser, gedämpfte Dächer, verwitterte Wände.
 - Neue Bäume: lichte, klumpige Kronen mit Schatten darunter, Rinde und Wurzeln, Tannen in Stufen. Im Tiefen Flüsterwald stehen knorrige alte Bäume mit hängendem Moos.
