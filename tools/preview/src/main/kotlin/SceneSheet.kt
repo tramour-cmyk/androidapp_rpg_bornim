@@ -62,3 +62,27 @@ fun renderWolfAnim() {
     File("build/screens/anim2/durations.txt").writeText(durations.toString())
     println("wrote anim")
 }
+
+/** All cave spots by light, with the wolf standing where it would in a fight. */
+fun renderCaveSheet() {
+    val w = 270; val h = 370
+    val spots = de.bornim.core.art.CaveScene.Spot.entries
+    val lights = de.bornim.core.art.CaveScene.Light.entries
+    val out = BufferedImage(w * spots.size, h * lights.size, BufferedImage.TYPE_INT_RGB)
+    File("build/screens/caves").mkdirs()
+    for ((r, light) in lights.withIndex()) for ((c, spot) in spots.withIndex()) {
+        val img = de.bornim.core.art.CaveScene.cave(w, h, spot, light, 11 + c * 7 + r)
+        val wolf = MonsterArt.battleFrame("wolf", MonsterLook(c), Act.IDLE, 0, 0)
+        val fx = (w * BattleScene.FOE_X - wolf.width / 2).toInt(); val fy = (h * BattleScene.FOE_Y - MonsterArt.groundLine("wolf")).toInt()
+        val one = BufferedImage(w * 2, h * 2, BufferedImage.TYPE_INT_RGB)
+        for (y in 0 until h) for (x in 0 until w) {
+            val wp = wolf[x - fx, y - fy]
+            val p = if ((wp ushr 24) > 128) wp else img[x, y]
+            out.setRGB(c * w + x, r * h + y, p)
+            for (q in 0 until 4) one.setRGB(x * 2 + q % 2, y * 2 + q / 2, p)
+        }
+        ImageIO.write(one, "png", File("build/screens/caves/${spot.name.lowercase()}_${light.name.lowercase()}.png"))
+    }
+    ImageIO.write(out, "png", File("build/screens/scenes_cave.png"))
+    println("wrote caves")
+}
