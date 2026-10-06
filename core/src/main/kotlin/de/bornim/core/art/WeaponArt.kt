@@ -29,8 +29,11 @@ class WeaponArt(private val s: Sculpt) {
 
     private var hx = 0.0; private var hy = 0.0; private var dx = 1.0; private var dy = 0.0
 
-    private fun x(u: Double, v: Double) = hx + dx * u - dy * v
-    private fun y(u: Double, v: Double) = hy + dy * u + dx * v
+    /** How much the weapon is shortened by pointing towards or away from us (1 = flat in the picture). */
+    private var fs = 1.0
+
+    private fun x(u: Double, v: Double) = hx + dx * u * fs - dy * v
+    private fun y(u: Double, v: Double) = hy + dy * u * fs + dx * v
 
     private fun poly(mat: Mat, vararg uv: Double, tiltX: Double = 0.0, tiltY: Double = 0.0, bevel: Double = 1.2) {
         val pts = DoubleArray(uv.size)
@@ -86,8 +89,8 @@ class WeaponArt(private val s: Sculpt) {
      * Draws [base] held in a hand at ([handX], [handY]) pointing at [deg] degrees (0 right, -90 up).
      * [glow] brightens a staff's crystal or a wand's gem while casting.
      */
-    fun draw(base: String, r: Rarity, handX: Double, handY: Double, deg: Double, glow: Double = 0.0) {
-        hx = handX; hy = handY
+    fun draw(base: String, r: Rarity, handX: Double, handY: Double, deg: Double, glow: Double = 0.0, foreshorten: Double = 1.0) {
+        hx = handX; hy = handY; fs = foreshorten
         val a = Math.toRadians(deg)
         dx = cos(a); dy = sin(a)
         when (base) {

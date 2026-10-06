@@ -196,14 +196,23 @@ fun renderHeroDrafts() {
     val anim = File("build/screens/heroanim"); anim.deleteRecursively(); anim.mkdirs()
     val bg = BattleScene.forest(w, h, BattleScene.Spot.CLEARING, BattleScene.Light.DUSK, false, 12)
     val wolf = MonsterArt.battleFrame("wolf", MonsterLook(1), Act.IDLE, 0, 0)
-    for ((name, hh, act, strike) in listOf(
-        Quad4("sword", geared[0], de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SLASH), Quad4("thrust", geared[0], de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.THRUST),
-        Quad4("axe", geared[4], de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SMASH), Quad4("bow", geared[2], de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SHOOT),
-        Quad4("cast", geared[5], de.bornim.core.art.HeroFigure.Act.CAST, de.bornim.core.art.HeroFigure.Strike.CAST), Quad4("block", geared[0], de.bornim.core.art.HeroFigure.Act.BLOCK, de.bornim.core.art.HeroFigure.Strike.SLASH),
-        Quad4("hurt", geared[1], de.bornim.core.art.HeroFigure.Act.HURT, de.bornim.core.art.HeroFigure.Strike.SLASH),
-    )) {
+    val F2 = de.bornim.core.art.HeroFigure
+    fun idle(hh: de.bornim.core.Hero, n: Int) = (0 until n).map { F2.frame(hh, de.bornim.core.art.HeroFigure.Act.IDLE, it) }
+    fun run(hh: de.bornim.core.Hero, act: de.bornim.core.art.HeroFigure.Act, strike: de.bornim.core.art.HeroFigure.Strike = F2.strikes(hh).first(), v: Int = 0) =
+        (0 until F2.frameCount(act, strike, v)).map { F2.frame(hh, act, it, strike, v) }
+    val clips = listOf(
+        "intro" to ((0 until 16).map { F2.frame(geared[0], de.bornim.core.art.HeroFigure.Act.INTRO, it) } + run(geared[0], de.bornim.core.art.HeroFigure.Act.TURN) + idle(geared[0], 10)),
+        "ambush" to ((0 until 8).map { F2.frame(geared[1], de.bornim.core.art.HeroFigure.Act.INTRO, it) } + run(geared[1], de.bornim.core.art.HeroFigure.Act.AMBUSHED) + idle(geared[1], 10)),
+        "sword" to (idle(geared[0], 10) + run(geared[0], de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SLASH) + idle(geared[0], 8)),
+        "thrust" to (idle(geared[0], 10) + run(geared[0], de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.THRUST) + idle(geared[0], 8)),
+        "axe" to (idle(geared[4], 10) + run(geared[4], de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SMASH) + idle(geared[4], 8)),
+        "bow" to (idle(geared[2], 10) + run(geared[2], de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SHOOT) + idle(geared[2], 8)),
+        "cast" to (idle(geared[5], 10) + run(geared[5], de.bornim.core.art.HeroFigure.Act.CAST) + idle(geared[5], 8)),
+        "block" to (idle(geared[0], 10) + run(geared[0], de.bornim.core.art.HeroFigure.Act.BLOCK) + idle(geared[0], 8)),
+        "hurt" to (idle(geared[1], 10) + run(geared[1], de.bornim.core.art.HeroFigure.Act.HURT) + idle(geared[1], 8)),
+    ) + (0 until F2.victoryVariants).map { v -> "victory$v" to (idle(geared[v % 2 * 4], 6) + run(geared[v % 2 * 4], de.bornim.core.art.HeroFigure.Act.VICTORY, v = v) + List(14) { run(geared[v % 2 * 4], de.bornim.core.art.HeroFigure.Act.VICTORY, v = v).last() }) }
+    for ((name, seq) in clips) {
         val dir = File(anim, name); dir.mkdirs()
-        val seq = (0 until 12).map { F.frame(hh, de.bornim.core.art.HeroFigure.Act.IDLE, it) } + (0 until F.frameCount(act, strike)).map { F.frame(hh, act, it, strike) } + (0 until 8).map { F.frame(hh, de.bornim.core.art.HeroFigure.Act.IDLE, it) }
         for ((i, img) in seq.withIndex()) {
             val out = BufferedImage(w * 2, h * 2, BufferedImage.TYPE_INT_RGB)
             for (y in 0 until h) for (x in 0 until w) for (q in 0 until 4) out.setRGB(x * 2 + q % 2, y * 2 + q / 2, bg[x, y])
