@@ -44,7 +44,7 @@ class MusicTest {
         val out = File("build/music/sfx").apply { mkdirs() }
         for (s in de.bornim.core.audio.Sound.entries) {
             val pcm = de.bornim.core.audio.Sfx.render(s)
-            assertTrue(pcm.size in 500..(2 * Synth.SAMPLE_RATE), "$s length ${pcm.size}")
+            assertTrue(pcm.size in 500..(3 * Synth.SAMPLE_RATE), "$s length ${pcm.size}")
             assertTrue(pcm.maxOf { abs(it.toInt()) } > 10000, "$s silent")
             writeWav(File(out, "${s.name.lowercase()}.wav"), pcm)
         }

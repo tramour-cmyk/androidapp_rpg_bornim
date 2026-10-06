@@ -87,32 +87,76 @@ object Sfx {
     }
 
     /**
-     * A howling voice: a few soft harmonics whose pitch follows [curve] (pairs of 0..1 position and
-     * frequency), with a slow wavering vibrato, a breathy layer and an envelope that swells and fades.
+     * A howling voice: an almost pure, soft "oo" tone whose pitch follows [curve] (pairs of 0..1
+     * position and frequency). It gets louder and a little brighter the higher it climbs, wavers
+     * slowly and unevenly, and fades out as the pitch sinks at the end.
      */
-    private fun Buf.howl(at: Double, dur: Double, curve: List<Pair<Double, Double>>, vol: Double, vibrato: Double = 0.025, rate: Double = 5.0, seed: Int = 1) {
+    private fun Buf.howl(at: Double, dur: Double, curve: List<Pair<Double, Double>>, vol: Double, wobble: Double = 0.012, seed: Int = 1) {
         val start = (at * SR).toInt()
         val n = (dur * SR).toInt()
         val rng = Random(seed)
+        val lo = curve.minOf { it.second }
+        val hi = curve.maxOf { it.second }
         var phase = 0.0
-        var lp = 0.0
+        var drift = 0.0
+        var driftTarget = 0.0
         for (i in 0 until n) {
             val idx = start + i
             if (idx >= size) break
             val x = i.toDouble() / n
+            val t = i.toDouble() / SR
             val k = curve.indexOfLast { it.first <= x }.coerceIn(0, curve.size - 2)
             val (x0, f0) = curve[k]; val (x1, f1) = curve[k + 1]
             val u = ((x - x0) / (x1 - x0)).coerceIn(0.0, 1.0)
-            val s = u * u * (3 - 2 * u)
-            // vibrato grows towards the end of the howl, as the breath runs out
-            val f = (f0 + (f1 - f0) * s) * (1 + vibrato * (0.3 + x) * sin(2 * PI * rate * i / SR))
+            val base = f0 + (f1 - f0) * u * u * (3 - 2 * u)
+            // an uneven waver: a slow wobble plus a drifting pitch that wanders a little
+            if (i % (SR / 12) == 0) driftTarget = (rng.nextDouble() * 2 - 1) * wobble
+            drift += (driftTarget - drift) * 0.0008
+            val f = base * (1 + wobble * (0.3 + 0.7 * x) * sin(2 * PI * 4.3 * t + sin(2 * PI * 0.7 * t)) + drift)
             phase += f / SR
             phase -= phase.toInt()
-            val v = sin(2 * PI * phase) + 0.35 * sin(4 * PI * phase) + 0.12 * sin(6 * PI * phase)
-            val env = minOf(1.0, x / 0.12) * (1 - ((x - 0.7) / 0.3).coerceIn(0.0, 1.0)).pow(1.5)
-            lp += (rng.nextDouble() * 2 - 1 - lp) * 0.3
-            d[idx] += (v * 0.85 + lp * 0.35) * vol * env
+            val p = ((base - lo) / (hi - lo).coerceAtLeast(1.0)).coerceIn(0.0, 1.0)
+            val bright = 0.06 + 0.22 * p
+            val v = sin(2 * PI * phase) + bright * sin(4 * PI * phase) + bright * 0.25 * sin(6 * PI * phase)
+            val attack = sin(PI / 2 * minOf(1.0, t / 0.12))
+            val release = if (x < 0.72) 1.0 else 0.5 + 0.5 * kotlin.math.cos(PI * (x - 0.72) / 0.28)
+            d[idx] += v * vol * attack * release * (0.35 + 0.65 * p)
         }
+    }
+
+    /**
+     * Forest reverb over the whole buffer: a few damped echo loops and two diffusers
+     * (a small Schroeder reverb). [wet] is how much of the echo is mixed in.
+     */
+    private fun Buf.reverb(wet: Double, feedback: Double = 0.78) {
+        val dry = d.copyOf()
+        val out = DoubleArray(size)
+        for (ms in listOf(59.3, 71.7, 83.1, 97.9)) {
+            val len = (ms / 1000 * SR).toInt()
+            val line = DoubleArray(len)
+            var pos = 0
+            var damp = 0.0
+            for (i in 0 until size) {
+                val y = line[pos]
+                damp += (y - damp) * 0.35
+                line[pos] = dry[i] + damp * feedback
+                out[i] += y
+                pos = (pos + 1) % len
+            }
+        }
+        for (ms in listOf(5.0, 1.7)) {
+            val len = (ms / 1000 * SR).toInt()
+            val line = DoubleArray(len)
+            var pos = 0
+            for (i in 0 until size) {
+                val buf = line[pos]
+                val y = -0.6 * out[i] + buf
+                line[pos] = out[i] + 0.6 * y
+                out[i] = y
+                pos = (pos + 1) % len
+            }
+        }
+        for (i in 0 until size) d[i] = dry[i] + out[i] * wet / 4
     }
 
     private fun Buf.pcm(): ShortArray {
@@ -259,19 +303,20 @@ object Sfx {
             tone(0.0, 0.12, midi(91), midi(79), 0.3, Wave.TRIANGLE, 0.03)
             tone(0.14, 0.3, midi(84), midi(81), 0.08, Wave.TRIANGLE, 0.1)
         }
-        // Three wolf howls: a long rising and falling one, a short broken one, a deep wavering one.
-        // A second voice slightly off pitch sounds like the echo of the forest.
-        Sound.HOWL_1 -> Buf(2.0).apply {
-            howl(0.0, 1.8, listOf(0.0 to 300.0, 0.25 to 560.0, 0.6 to 600.0, 1.0 to 380.0), 0.5, seed = 51)
-            howl(0.12, 1.75, listOf(0.0 to 296.0, 0.25 to 552.0, 0.6 to 590.0, 1.0 to 372.0), 0.12, seed = 52)
+        // Three wolf howls, each with the echo of the forest: a long one that swells and sinks,
+        // a short call answered by a longer, higher one, and a deep mournful one that breaks upward.
+        Sound.HOWL_1 -> Buf(2.6).apply {
+            howl(0.0, 1.9, listOf(0.0 to 330.0, 0.18 to 560.0, 0.55 to 610.0, 0.85 to 520.0, 1.0 to 360.0), 0.6, seed = 51)
+            reverb(0.55)
         }
-        Sound.HOWL_2 -> Buf(1.7).apply {
-            howl(0.0, 0.55, listOf(0.0 to 360.0, 0.4 to 620.0, 1.0 to 540.0), 0.45, rate = 6.5, seed = 53)
-            howl(0.5, 1.15, listOf(0.0 to 520.0, 0.3 to 680.0, 0.7 to 640.0, 1.0 to 420.0), 0.5, rate = 6.0, seed = 54)
+        Sound.HOWL_2 -> Buf(2.6).apply {
+            howl(0.0, 0.6, listOf(0.0 to 380.0, 0.35 to 590.0, 1.0 to 470.0), 0.5, wobble = 0.008, seed = 53)
+            howl(0.62, 1.4, listOf(0.0 to 470.0, 0.2 to 680.0, 0.6 to 660.0, 1.0 to 430.0), 0.6, seed = 54)
+            reverb(0.55)
         }
-        Sound.HOWL_3 -> Buf(2.0).apply {
-            howl(0.0, 1.85, listOf(0.0 to 210.0, 0.3 to 420.0, 0.55 to 400.0, 0.8 to 440.0, 1.0 to 260.0), 0.55, vibrato = 0.04, rate = 4.0, seed = 55)
-            howl(0.12, 1.85, listOf(0.0 to 206.0, 0.3 to 414.0, 0.55 to 396.0, 0.8 to 432.0, 1.0 to 256.0), 0.13, vibrato = 0.04, rate = 4.0, seed = 56)
+        Sound.HOWL_3 -> Buf(2.6).apply {
+            howl(0.0, 2.0, listOf(0.0 to 230.0, 0.25 to 400.0, 0.42 to 410.0, 0.47 to 520.0, 0.75 to 500.0, 1.0 to 280.0), 0.6, wobble = 0.018, seed = 55)
+            reverb(0.6)
         }
         // Ambushed: a sharp hit and a low dissonant stab.
         Sound.AMBUSH -> Buf(0.8).apply {
