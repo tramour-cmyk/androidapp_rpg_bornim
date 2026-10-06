@@ -68,7 +68,7 @@ object HeroFigure {
         val bodyX: Double = 0.0, val bodyY: Double = 0.0,
         val lean: Double = 0.0, val crouch: Double = 0.0, val stride: Double = 2.0, val spread: Double = 6.0,
         val rh: V = V(10.0, 70.0, 12.0), val weapon: V = V(0.25, 0.8, 0.55),
-        val lh: V = V(0.0, 77.0, 21.0), val shieldFace: V = V(-0.3, 0.0, 1.0),
+        val lh: V = V(0.0, 60.0, 19.0), val shieldFace: V = V(-0.3, 0.0, 1.0),
         val headTurn: Double = 0.0, val headDown: Double = 0.0,
         val cloak: Double = 0.0, val glow: Double = 0.0, val draw: Double = 0.0,
         /** 0..1: a bright arc behind the blade on the fastest frames of a blow. */
@@ -87,24 +87,24 @@ object HeroFigure {
     // ---------------------------------------------------------------- key poses
 
     val STAND = Rig()
-    val BREATHE = STAND.copy(bodyY = 0.7, rh = V(10.0, 69.4, 12.0), lh = V(0.0, 76.4, 21.0), cloak = 1.0)
+    val BREATHE = STAND.copy(bodyY = 0.7, rh = V(10.0, 69.4, 12.0), lh = V(0.0, 59.4, 19.0), cloak = 1.0)
 
     /** Facing us, ready: weapon across the body, shield face towards us. */
-    val READY = Rig(yaw = 16.0, stride = 1.0, spread = 8.0, rh = V(11.0, 70.0, 11.0), weapon = V(-0.35, 0.8, 0.45), lh = V(-5.0, 76.0, 13.0), shieldFace = V(-0.2, 0.0, 1.0), headTurn = -8.0)
-    val READY_B = READY.copy(bodyY = 0.7, rh = V(11.0, 69.4, 11.0), lh = V(-5.0, 75.4, 13.0), cloak = 1.0)
+    val READY = Rig(yaw = 16.0, stride = 1.0, spread = 8.0, rh = V(11.0, 70.0, 11.0), weapon = V(-0.35, 0.8, 0.45), lh = V(-5.0, 60.0, 14.0), shieldFace = V(-0.2, 0.0, 1.0), headTurn = -8.0)
+    val READY_B = READY.copy(bodyY = 0.7, rh = V(11.0, 69.4, 11.0), lh = V(-5.0, 59.4, 14.0), cloak = 1.0)
     /** Half way round, seen from the side. */
-    val TURNING = Rig(yaw = 80.0, bodyY = 1.0, stride = 4.0, spread = 5.0, rh = V(10.0, 70.0, 12.0), weapon = V(0.0, 0.85, 0.5), lh = V(2.0, 80.0, 24.0), shieldFace = V(-0.6, 0.0, 0.8), cloak = -2.0)
+    val TURNING = Rig(yaw = 80.0, bodyY = 1.0, stride = 4.0, spread = 5.0, rh = V(10.0, 70.0, 12.0), weapon = V(0.0, 0.85, 0.5), lh = V(2.0, 67.0, 22.0), shieldFace = V(-0.6, 0.0, 0.8), cloak = -2.0)
 
     /** Struck from behind while still facing us: thrown forward, then turning round. */
     val STAGGER = Rig(yaw = 10.0, bodyY = 2.0, lean = 0.6, crouch = 2.0, stride = -3.0, rh = V(14.0, 64.0, 6.0), weapon = V(0.6, -0.3, 0.7), lh = V(-15.0, 66.0, 5.0), headDown = 4.0, cloak = 3.0)
 
     // a diagonal cut from high over the right shoulder down across, forward into the foe
-    val SLASH_WIND = Rig(lean = -0.15, rh = V(15.0, 98.0, 2.0), weapon = V(0.25, 0.9, -0.3), lh = V(-6.0, 76.0, 13.0), cloak = -1.0)
-    val SLASH_HIT = Rig(lean = 0.35, crouch = 1.5, stride = 7.0, rh = V(7.0, 68.0, 21.0), weapon = V(0.45, -0.35, 0.8), lh = V(-9.0, 72.0, 11.0), cloak = 2.0, trail = 1.0)
+    val SLASH_WIND = Rig(lean = -0.15, rh = V(15.0, 98.0, 2.0), weapon = V(0.25, 0.9, -0.3), lh = V(-6.0, 65.0, 14.0), cloak = -1.0)
+    val SLASH_HIT = Rig(lean = 0.35, crouch = 1.5, stride = 7.0, rh = V(7.0, 68.0, 21.0), weapon = V(0.45, -0.35, 0.8), lh = V(-9.0, 63.0, 12.0), cloak = 2.0, trail = 1.0)
 
     // a lunge straight at the foe
-    val THRUST_WIND = Rig(lean = -0.2, rh = V(13.0, 72.0, -3.0), weapon = V(0.05, 0.15, 1.0), lh = V(-5.0, 75.0, 15.0))
-    val THRUST_HIT = Rig(lean = 0.45, crouch = 2.0, stride = 10.0, rh = V(5.0, 80.0, 27.0), weapon = V(-0.05, 0.12, 1.0), lh = V(-10.0, 72.0, 9.0), cloak = 2.5, trail = 0.6)
+    val THRUST_WIND = Rig(lean = -0.2, rh = V(13.0, 72.0, -3.0), weapon = V(0.05, 0.15, 1.0), lh = V(-5.0, 64.0, 15.0))
+    val THRUST_HIT = Rig(lean = 0.45, crouch = 2.0, stride = 10.0, rh = V(5.0, 80.0, 27.0), weapon = V(-0.05, 0.12, 1.0), lh = V(-10.0, 63.0, 10.0), cloak = 2.5, trail = 0.6)
 
     // overhead and down onto the foe
     val SMASH_WIND = Rig(lean = -0.25, bodyY = -1.5, rh = V(5.0, 110.0, 0.0), weapon = V(0.0, 0.75, -0.65), lh = V(-3.0, 108.0, 1.0), cloak = -1.5)

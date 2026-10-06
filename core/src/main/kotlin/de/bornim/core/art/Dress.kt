@@ -412,15 +412,16 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val n = shieldNormal()
         val fore = (wr - el).norm()
         var up = (n cross fore).let { if (it.y < 0) -it else it }
-        up = (up + P3(0.0, 1.2, 0.0) - n * (n.y * 1.2)).norm()
+        // held upright, however the forearm lies
+        up = (up + P3(0.0, 4.0, 0.0) - n * (n.y * 4.0)).norm()
         val ax = (up cross n).norm()
         val f = Frame(ax, up, n)
         // the forearm runs across the back through the middle, the board stands off it by the straps
         val hw = (if (tower) 0.2 else 0.165) * h
-        val ht = (if (tower) 0.62 else 0.44) * h
+        val ht = (if (tower) 0.6 else 0.41) * h
         val center = el.lerp(wr, 0.55) + n * (0.02 * h)
         val outline: (Double, Double) -> Double = if (tower) { x, y -> roundRect(x, y + 0.0, hw, ht / 2, 0.03 * h) } else heater(hw, ht)
-        val c0 = center + up * (if (tower) 0.0 else ht * 0.12)
+        val c0 = center + up * (if (tower) -0.03 * h else ht * 0.05)
         val paintRgb = worn(if (r >= Rarity.RARE) mix(argb(0x7A2A22), r.color.toInt(), 0.45) else argb(0x6E2E24), 0.15)
         val face = m(paintRgb)
         val stripe = m(argb(0xC8BCA0))
