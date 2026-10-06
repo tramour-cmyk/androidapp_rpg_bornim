@@ -92,6 +92,7 @@ fun main() {
     if (System.getenv("BLOCKVIEW") != null) { renderBlockViews(); System.exit(0) }
     if (System.getenv("BACKVIEW") != null) { renderBackViews(); System.exit(0) }
     if (System.getenv("ATTACKVIEW") != null) { renderAttackViews(); System.exit(0) }
+    if (System.getenv("RANGED") != null) { renderRangedViews(); System.exit(0) }
     if (System.getenv("WEAPONS") != null) { renderWeaponSheet(); System.exit(0) }
     if (System.getenv("CAVEMAP") != null) { renderCaveMap(); System.exit(0) }
     System.getenv("MAPS")?.let { ids ->

@@ -98,6 +98,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         cloak()
         headgear()
         offHand()
+        bow()
         return out
     }
 
@@ -382,6 +383,53 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         }
     }
 
+    // ---------------------------------------------------------------- bow, arrow and quiver
+
+    /** A bow in the left hand, standing upright and canted a little, bending further as it is drawn; the string runs to the drawing hand. */
+    private fun bow() {
+        val main = o.items[GearSlot.MAIN_HAND] ?: return
+        if (main.def.icon != Icon.BOW) return
+        val r = main.rarity
+        val long = main.base == "longbow"
+        val len = (if (long) 0.8 else 0.58) * h
+        val draw = sk.rig.draw.coerceIn(0.0, 1.0)
+        val grip = sk.hand(0)
+        val nock = sk.hand(1)
+        val aim = (if (draw > 0.05) grip - nock else sk.upper.dir(P3.Z)).norm()
+        var up = (P3.Y - aim * (P3.Y dot aim)).norm()
+        up = (up + (aim cross up) * 0.15).norm()
+        val bend = len * (0.09 + 0.1 * draw)
+        fun at(t: Double) = grip + up * (t * len / 2) + aim * (-bend * t * t + bend * 0.15)
+        fun thick(t: Double) = (0.012 - 0.0065 * abs(t)) * h
+        val woodMat = m(mix(argb(0x5E3E24), r.color.toInt(), if (r >= Rarity.RARE) 0.3 else 0.0), grain = 0.05)
+        val n = 10
+        for (k in 0 until n) {
+            val t0 = -1.0 + 2.0 * k / n; val t1 = -1.0 + 2.0 * (k + 1) / n
+            add(RoundCone(at(t0), at(t1), thick(t0), thick(t1), BodyPart.GEAR, Doll.ITEM), woodMat)
+        }
+        add(RoundCone(at(-0.12), at(0.12), 0.014 * h, 0.014 * h, BodyPart.GEAR, Doll.ITEM), darkLeather)
+        // the string, straight when slack, to the drawing fingers when drawn
+        val str = m(argb(0xD8D0C0))
+        val tipA = at(-1.0); val tipB = at(1.0)
+        val mid = if (draw > 0.05) nock + aim * (0.01 * h) else tipA.lerp(tipB, 0.5)
+        add(RoundCone(tipA, mid, 0.25, 0.25, BodyPart.GEAR, Doll.ITEM), str)
+        add(RoundCone(mid, tipB, 0.25, 0.25, BodyPart.GEAR, Doll.ITEM), str)
+        // the arrow on the string
+        if (draw > 0.2) {
+            val shaft = m(argb(0x8A6A44), grain = 0.05)
+            val tip = mid + aim * (0.44 * h)
+            add(RoundCone(mid, tip, 0.35, 0.35, BodyPart.GEAR, Doll.ITEM), shaft)
+            add(RoundCone(tip, tip + aim * (0.025 * h), 0.9, 0.1, BodyPart.GEAR, Doll.ITEM), metal(r))
+            add(Ellipsoid(mid + aim * (0.03 * h), P3(0.006 * h, 0.03 * h, 0.006 * h), Frame.along(aim), BodyPart.GEAR, Doll.ITEM), m(argb(0xB8B0A0)))
+        }
+        // the quiver on the back, its fletchings showing over the shoulder
+        val top = sk.upper.apply(P3(d.shoulderX * 0.45, d.shoulderY - 0.01 * h, -d.chestDepth - 0.035 * h))
+        val bottom = sk.upper.apply(P3(-d.shoulderX * 0.15, d.hipY + 0.15 * d.trunk, -d.chestDepth - 0.035 * h))
+        add(RoundCone(bottom, top, 0.03 * h, 0.034 * h, BodyPart.GEAR, Doll.ITEM), leather)
+        val dirQ = (top - bottom).norm()
+        for (k in 0..2) add(Ellipsoid(top + dirQ * (0.03 * h) + sk.upper.dir(P3((k - 1) * 0.012 * h, 0.0, 0.0)), P3(0.006 * h, 0.022 * h, 0.006 * h), Frame.along(dirQ), BodyPart.GEAR, Doll.TRIM), m(argb(0xC8BCA0)))
+    }
+
     // ---------------------------------------------------------------- off hand: shield and foci
 
     /** The shield's face, square to the forearm it is strapped to. */
@@ -484,6 +532,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     fun overlay(img: DepthImage) {
         val main = o.items[GearSlot.MAIN_HAND]
         if (main != null && !main.def.ranged) weapon(img, main.base, main.rarity, sk.hand(1), sk.weapon)
+        if (main != null && main.base == "light_crossbow") weapon(img, main.base, main.rarity, sk.hand(1), sk.weapon)
         val off = o.items[GearSlot.OFF_HAND]
         if (off != null && off.def.isWeapon && !o.twoHands) weapon(img, off.base, off.rarity, sk.hand(0), P3(sk.weapon.x * -0.5, sk.weapon.y, sk.weapon.z).norm())
     }

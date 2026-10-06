@@ -91,6 +91,8 @@ object HeroFigure {
         val aim: Double = 0.0,
         /** 0..1: how far the free forearm comes up under a two-handed weapon to brace it, close to the head. */
         val brace: Double = 0.0,
+        /** Where the weapon arm's elbow bends to: by default out, down and back; a drawn bow wants it level and back. */
+        val rPole: V = V(0.6, -1.0, -0.5),
     ) {
         fun lerp(o: Rig, t: Double): Rig {
             fun l(a: Double, b: Double) = a + (b - a) * t
@@ -98,7 +100,7 @@ object HeroFigure {
                 l(yaw, o.yaw), l(bodyX, o.bodyX), l(bodyY, o.bodyY), l(lean, o.lean), l(crouch, o.crouch), l(stride, o.stride), l(spread, o.spread),
                 rh.lerp(o.rh, t), weapon.lerp(o.weapon, t).norm(), lh.lerp(o.lh, t), shieldFace.lerp(o.shieldFace, t).norm(),
                 l(headTurn, o.headTurn), l(headDown, o.headDown), l(cloak, o.cloak), l(glow, o.glow), l(draw, o.draw), l(trail, o.trail),
-                l(elbowUp, o.elbowUp), elbowAt.lerp(o.elbowAt, t), l(twist, o.twist), l(grip, o.grip), l(roll, o.roll), l(foreLevel, o.foreLevel), l(aim, o.aim), l(brace, o.brace),
+                l(elbowUp, o.elbowUp), elbowAt.lerp(o.elbowAt, t), l(twist, o.twist), l(grip, o.grip), l(roll, o.roll), l(foreLevel, o.foreLevel), l(aim, o.aim), l(brace, o.brace), rPole.lerp(o.rPole, t),
             )
         }
     }
@@ -146,9 +148,16 @@ object HeroFigure {
     // and down: the whole body drops behind the blow, chest turning in, knees bending
     val SMASH_HIT = Rig(lean = 0.5, crouch = 4.5, stride = 8.0, rh = V(6.0, 69.0, 40.0), weapon = V(0.0, -0.65, 0.76), lh = V(-12.0, 66.0, 9.0), cloak = 2.5, trail = 1.0, twist = -15.0, grip = 18.0)
 
-    // the bow held out at the foe, the string drawn to the cheek
-    val BOW_AIM = Rig(rh = V(5.0, 92.0, 3.0), lh = V(-3.0, 90.0, 27.0), draw = 1.0, headTurn = 6.0)
-    val BOW_RELEASE = Rig(rh = V(11.0, 93.0, -6.0), lh = V(-3.0, 90.0, 27.0), draw = 0.0, headTurn = 6.0, cloak = -0.5)
+    // the archer's stance: chest turned side on, the bow shoulder towards the foe, the bow foot forward
+    // nocking: the arrow laid on the string in front of the body
+    val BOW_NOCK = Rig(stride = -7.0, spread = 7.0, twist = 35.0, rh = V(2.0, 80.0, 20.0), lh = V(-6.0, 80.0, 30.0), draw = 0.25, grip = 10.0)
+    // full draw: the bow arm straight at the foe, the string to the jaw, the drawing elbow back at shoulder height
+    val BOW_AIM = Rig(stride = -8.0, spread = 7.0, twist = 55.0, rh = V(3.0, 94.0, 3.0), lh = V(14.0, 95.0, 50.0), draw = 1.0, grip = 10.0, foreLevel = 1.0)
+    // the loose: the drawing hand flies back past the ear, the bow arm stays
+    val BOW_RELEASE = Rig(stride = -8.0, spread = 7.0, twist = 55.0, rh = V(9.0, 95.0, -10.0), lh = V(14.0, 95.0, 50.0), draw = 0.0, grip = 10.0, cloak = -0.5, foreLevel = 0.6)
+    // the crossbow brought to the shoulder like a long gun, both hands on it, sighting along the stock
+    val XBOW_AIM = Rig(stride = -5.0, spread = 7.0, twist = 20.0, rh = V(6.0, 90.0, 10.0), lh = V(-2.0, 86.0, 30.0), weapon = V(0.0, 0.04, 1.0), grip = 10.0, aim = 1.0)
+    val XBOW_RECOIL = XBOW_AIM.copy(rh = V(6.0, 91.0, 7.0), lh = V(-2.0, 87.0, 27.0), weapon = V(0.0, 0.1, 1.0), lean = -0.08)
 
     val CAST_RAISE = Rig(lean = -0.15, rh = V(12.0, 104.0, 8.0), weapon = V(0.0, 1.0, 0.25), lh = V(-10.0, 86.0, 16.0), glow = 0.6)
     val CAST_RELEASE = Rig(lean = 0.4, stride = 6.0, rh = V(6.0, 88.0, 25.0), weapon = V(0.0, 0.3, 1.0), lh = V(-8.0, 86.0, 21.0), glow = 1.0, cloak = 1.5)
@@ -201,7 +210,7 @@ object HeroFigure {
         Strike.SLASH to tween(STAND to 3, SLASH_WIND to 4, SLASH_OVER to 2, SLASH_HIT to 3, SLASH_FOLLOW to 5, STAND to 1),
         Strike.THRUST to tween(STAND to 3, THRUST_WIND to 5, THRUST_HIT to 3, THRUST_HIT.copy(trail = 0.0) to 5, STAND to 1),
         Strike.SMASH to tween(STAND to 2, SMASH_RAISE to 2, SMASH_WIND to 4, SMASH_OVER to 2, SMASH_HIT to 3, SMASH_HIT.copy(trail = 0.0) to 5, STAND to 1),
-        Strike.SHOOT to tween(STAND to 3, BOW_AIM to 7, BOW_RELEASE to 2, BOW_RELEASE to 5, STAND to 1),
+        Strike.SHOOT to tween(STAND to 3, BOW_NOCK to 3, BOW_AIM to 4, BOW_AIM to 1, BOW_RELEASE to 2, BOW_RELEASE to 4, STAND to 2),
         Strike.CAST to tween(STAND to 3, CAST_RAISE to 7, CAST_RELEASE to 3, CAST_RELEASE to 5, STAND to 1),
     )
 
@@ -210,10 +219,11 @@ object HeroFigure {
         Strike.SLASH -> 9
         Strike.THRUST -> 8
         Strike.SMASH -> 10
-        Strike.SHOOT -> 10
+        Strike.SHOOT -> 11
         Strike.CAST -> 10
     }
 
+    private val XBOW_SEQ = tween(STAND to 3, XBOW_AIM to 5, XBOW_AIM to 3, XBOW_RECOIL to 2, XBOW_AIM to 4, STAND to 2)
     private val PARRY_SEQ = tween(STAND to 3, PARRY to 4, PARRY to 5, STAND to 1)
     private val PARRY_HIGH_SEQ = tween(STAND to 3, PARRY_HIGH to 4, PARRY_HIGH to 5, STAND to 1)
     private val BLOCK_LOW_SEQ = tween(STAND to 3, BLOCK_LOW to 4, BLOCK_LOW to 5, STAND to 1)
@@ -254,7 +264,7 @@ object HeroFigure {
 
     fun sequence(act: Act, strike: Strike, variant: Int): List<Rig> = when (act) {
         Act.IDLE -> IDLE
-        Act.ATTACK -> SEQ.getValue(strike)
+        Act.ATTACK -> if (strike == Strike.SHOOT && variant == 1) XBOW_SEQ else SEQ.getValue(strike)
         Act.CAST -> SEQ.getValue(Strike.CAST)
         // 0 shield high, 1 two-handed low, 2 shield low, 3 two-handed high
         Act.BLOCK -> when (variant) { 1 -> PARRY_SEQ; 2 -> BLOCK_LOW_SEQ; 3 -> PARRY_HIGH_SEQ; else -> BLOCK_SEQ }

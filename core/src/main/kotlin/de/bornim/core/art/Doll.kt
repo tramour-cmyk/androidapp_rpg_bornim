@@ -134,7 +134,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             run {
                 val i = 1
                 val target = map(rig.rh)
-                var (el, wr) = ik(shoulder[i], target, upperArm, foreArm, P3(0.6, -1.0, -0.5))
+                var (el, wr) = ik(shoulder[i], target, upperArm, foreArm, P3(rig.rPole.r, rig.rPole.u, rig.rPole.f))
                 if (rig.foreLevel > 0.01) {
                     // the forearm held level, pointing at the foe: the elbow sits behind the hand, the upper arm reaches it
                     val d = upper.dir(P3.Z).let { P3(it.x, 0.0, it.z).norm() }
