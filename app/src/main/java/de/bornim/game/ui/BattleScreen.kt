@@ -252,7 +252,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             }
             val enemyPose = when {
                 a == Anim.ENEMY_ACT && moving -> Pose.ATTACK
-                a == Anim.HERO_HIT && fx?.onHero == true && t < 0.5f -> Pose.ATTACK
+                a == Anim.HERO_HIT && fx?.onHero == true && (step?.packActor ?: -1) < 0 && t < 0.5f -> Pose.ATTACK
                 (a == Anim.ENEMY_HIT || a == Anim.ENEMY_FAINT) && moving -> Pose.HURT
                 else -> Pose.IDLE
             }
@@ -290,9 +290,9 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 val n = MonsterArt.frameCount(id, Act.ATTACK, variant)
                 when {
                     a == Anim.ENEMY_ACT && moving -> seq(Act.ATTACK, 0, strike)
-                    (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && fx?.onHero == true && moving -> seq(Act.ATTACK, strike, n - 1)
+                    // only the leader's own hits: a pack mate's hit belongs to that mate
+                    (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && fx?.onHero == true && (step?.packActor ?: -1) < 0 && moving -> seq(Act.ATTACK, strike, n - 1)
                     (a == Anim.ENEMY_HIT || a == Anim.ENEMY_FAINT) && moving -> seq(Act.HURT, 0, MonsterArt.frameCount(id, Act.HURT, 0) - 1)
-                    a == Anim.PACK_ACT && moving -> seq(Act.HOWL, 0, MonsterArt.frameCount(id, Act.HOWL, 0) - 1)
                     else -> MonsterArt.battleFrame(id, battle.look, Act.IDLE, 0, idleIdx % MonsterArt.frameCount(id, Act.IDLE, 0), foeWound)
                 }
             }
@@ -320,11 +320,15 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             val packDef = battle.pack
             if (packDef != null) for (i in 0 until mateCount) {
                 val acting = a == Anim.PACK_ACT && step?.packActor == i && moving
+                // the mate's own hit or miss right after its attack: the strike and the way back
+                val landing = (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && step?.packActor == i && moving
                 val mateLook = MonsterLook(battle.look.seed + 101 * (i + 1))
                 val mateNew = MonsterArt.isNewStyle(packDef.mate)
-                val mateFrame = if (!mateNew) null else if (acting) {
+                val mateFrame = if (!mateNew) null else if (acting || landing) {
                     val n = MonsterArt.frameCount(packDef.mate, Act.ATTACK, i)
-                    MonsterArt.battleFrame(packDef.mate, mateLook, Act.ATTACK, i, (n * t).toInt().coerceAtMost(n - 1))
+                    val strike = MonsterArt.strikeFrame(packDef.mate, i)
+                    val (from, to) = if (acting) 0 to strike else strike to n - 1
+                    MonsterArt.battleFrame(packDef.mate, mateLook, Act.ATTACK, i, from + ((to - from + 1) * t).toInt().coerceAtMost(to - from))
                 } else MonsterArt.battleFrame(packDef.mate, mateLook, Act.IDLE, 0, (clockMs / 86 + 5 * i + 3).toInt() % MonsterArt.frameCount(packDef.mate, Act.IDLE, 0))
                 val mateSize = monsterSize * packDef.scale
                 val mPx = artDp * packDef.scale

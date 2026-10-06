@@ -4,6 +4,9 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Behoben**
+- Griff ein Jungwolf an, biss der Leitwolf in der Animation mit zu. Jetzt holt nur der Jungwolf aus und beißt zu, wenn sein Treffer gemeldet wird; der Leitwolf bleibt ruhig. Gleiches gilt für Rudel im alten Stil (Kobolde, Goblin-Späher).
+
 ## v0.1.51 – 06.10.2026, 12:31
 
 **Verbessert – flüssigere Bewegungen**
