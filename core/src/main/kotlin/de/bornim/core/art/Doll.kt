@@ -108,12 +108,13 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         private val stockWrists: Pair<P3, P3>? = if (rig.stock < 0.01) null else {
             val aimD = dir(rig.weapon)
             val up = (P3.Y - aimD * (P3.Y dot aimD)).norm()
-            // the stock's top at the cheek; the butt below it fills the hollow inside the shoulder joint
-            val butt = shoulderRest[1] + upper.dir(P3.Z) * (0.03 * height) - upper.dir(P3.X) * (0.03 * height) + up * (0.1 * height)
+            // the butt plate presses into the hollow in front of the shoulder joint, against chest and shoulder, so the
+            // kick is taken straight back into the body; the stock runs level forward from its top
+            val plate = shoulderRest[1] + upper.dir(P3.Z) * (chestDepth * 0.75 + BUTT_HALF * height) - upper.dir(P3.X) * (0.05 * height) - up * (0.012 * height)
             val handLen = 0.035 * height * handK
             // the hands where they hold; the wrists back from them along the way each forearm will about lie
-            val rHand = butt + aimD * (0.15 * height) - up * (STOCK_ABOVE_HAND * height)
-            val lHand = butt + aimD * (0.31 * height) - up * (0.042 * height)
+            val rHand = plate + up * (BUTT_DROP * height) + aimD * (STOCK_BACK * height) - up * (STOCK_ABOVE_HAND * height)
+            val lHand = rHand + aimD * (0.16 * height) - up * (0.012 * height)
             val r = rHand - (rHand - shoulderRest[1] + up * (0.1 * height)).norm() * handLen
             val l = lHand - (lHand - shoulderRest[0] + up * (0.1 * height)).norm() * handLen
             Pair(map(rig.rh).lerp(r, rig.stock), map(rig.lh).lerp(l, rig.stock))
@@ -519,6 +520,12 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         const val GROUPS = 22
         /** How far, in body heights, a crossbow's stock lies above the middle of the trigger hand. */
         const val STOCK_ABOVE_HAND = 0.03
+        /** How far, in body heights, the butt plate lies behind the trigger hand along the stock. */
+        const val STOCK_BACK = 0.13
+        /** How far, in body heights, the stock's line lies above the middle of the butt plate. */
+        const val BUTT_DROP = 0.075
+        /** Half the butt plate's thickness, in body heights. */
+        const val BUTT_HALF = 0.012
         /** Forearm turns tried, smallest first, to keep a blade clear of head, body and shield. */
         private val ROLLS = doubleArrayOf(0.0, 15.0, -15.0, 30.0, -30.0, 45.0, -45.0, 60.0, -60.0, 75.0, -75.0, 90.0, -90.0)
 

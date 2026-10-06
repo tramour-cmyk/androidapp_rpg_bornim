@@ -158,10 +158,10 @@ object HeroFigure {
     val BOW_AIM = Rig(stride = -8.0, spread = 7.0, twist = 85.0, rh = V(7.5, 93.0, -0.5), lh = V(7.5, 94.0, 52.0), draw = 1.0, grip = 10.0, rPole = V(0.15, -0.35, -1.0))
     // the loose: the drawing hand flies back past the ear, the bow arm stays
     val BOW_RELEASE = Rig(stride = -8.0, spread = 7.0, twist = 85.0, rh = V(10.0, 94.5, -12.0), lh = V(7.5, 94.0, 52.0), draw = 0.0, grip = 10.0, cloak = -0.5, rPole = V(0.4, 0.1, -1.0))
-    // the crossbow brought to the shoulder like a long gun: butt in the shoulder, stock level at the cheek, the trigger
-    // hand on the grip, the free hand under the fore end to steady it
+    // the crossbow brought up like a long gun: the butt against the front of the shoulder to take the kick, the stock
+    // level, the head bent down to it, the trigger hand on the grip, the free hand under the fore end to steady it
     val XBOW_AIM = Rig(stride = -6.0, spread = 7.0, twist = 60.0, rh = V(10.0, 80.0, 14.0), lh = V(-4.0, 78.0, 24.0), weapon = V(0.0, 0.0, 1.0), grip = 10.0, aim = 1.0,
-        stock = 1.0, draw = 1.0, headDown = 4.0, rPole = V(1.0, -0.4, -0.3))
+        stock = 1.0, draw = 1.0, headDown = 10.0, lean = 0.12, rPole = V(1.0, -0.4, -0.3))
     // carried low before and after: both hands on it, the point forward and a little down, never up past the face
     val XBOW_LOW = Rig(stride = -3.0, spread = 7.0, twist = 25.0, rh = V(11.0, 64.0, 12.0), lh = V(-2.0, 64.0, 26.0), weapon = V(0.05, -0.25, 1.0), grip = 10.0, aim = 1.0, draw = 1.0, rPole = V(1.0, -0.6, -0.3))
     val XBOW_RECOIL = XBOW_AIM.copy(weapon = V(0.0, 0.07, 1.0), lean = -0.08, draw = 0.0)

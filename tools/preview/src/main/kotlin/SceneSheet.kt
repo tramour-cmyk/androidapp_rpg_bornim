@@ -623,13 +623,18 @@ fun renderRangedViews() {
         val xs = d.fit(F.XBOW_AIM, xbow).first
         val aimX = xs.weapon
         val s0 = xs.hand(1) + de.bornim.core.art.P3.Y * (de.bornim.core.art.Doll.STOCK_ABOVE_HAND * d.height)
-        val butt = s0 - aimX * (0.15 * d.height) - de.bornim.core.art.P3.Y * (0.045 * d.height)
+        val plate = s0 - aimX * (de.bornim.core.art.Doll.STOCK_BACK * d.height) - de.bornim.core.art.P3.Y * (de.bornim.core.art.Doll.BUTT_DROP * d.height)
         val eye = xs.head.apply(d.headC + de.bornim.core.art.P3(0.0, 0.05 * d.hh, 0.0))
         val fore = s0 + aimX * (0.2 * d.height)
         val under = xs.hand(0)
         val lv = Math.toDegrees(Math.asin(aimX.y))
-        println("ARMBRUST ${race.name}: Schaft ${"%.0f".format(lv)}° zur Waagerechten, Kolben ${"%.0f".format((butt - xs.shoulder[1]).len())} cm vom Schultergelenk, Schaft ${"%.0f".format(eye.y - s0.y)} cm unter Augenhöhe und ${"%.0f".format(s0.x - eye.x)} cm seitlich, " +
-            "Stützhand ${"%.0f".format(fore.y - under.y)} cm unter dem Schaft bei ${"%.0f".format(((under - s0) dot aimX))} cm vor dem Abzug, seitlich ${"%.0f".format(under.x - s0.x)} cm")
+        val rel = plate - xs.shoulder[1]
+        // how far the plate's back face is from the body: negative means pressed in, positive a gap
+        val back = plate - aimX * (de.bornim.core.art.Doll.BUTT_HALF * d.height)
+        val solids = d.body(xs)
+        val gap = solids.minOf { it.dist(back) }
+        println("ARMBRUST ${race.name}: Schaft ${"%.0f".format(lv)}° zur Waagerechten, Kolbenkappe ${"%.0f".format(rel dot aimX)} cm vor und ${"%.0f".format(rel.y)} cm über dem Schultergelenk, Abstand Kappe–Körper ${"%.1f".format(gap)} cm, " +
+            "Schaft ${"%.0f".format(eye.y - s0.y)} cm unter Augenhöhe und ${"%.0f".format(s0.x - eye.x)} cm seitlich, Stützhand ${"%.0f".format(fore.y - under.y)} cm unter dem Schaft bei ${"%.0f".format(((under - s0) dot aimX))} cm vor dem Abzug, seitlich ${"%.0f".format(under.x - s0.x)} cm")
     }
     val rows = listOf(Triple(elf, bow, listOf(F.STAND, F.BOW_NOCK, F.BOW_AIM, F.BOW_RELEASE)), Triple(dwarf, xbow, listOf(F.STAND, F.XBOW_AIM, F.XBOW_RECOIL)))
     val views = listOf(138.0, 90.0, 30.0, 0.0)

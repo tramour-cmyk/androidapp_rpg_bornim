@@ -442,11 +442,12 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val s0 = sk.hand(1) + up * (Doll.STOCK_ABOVE_HAND * h)
         val wood = m(mix(argb(0x5A3A22), r.color.toInt(), if (r >= Rarity.RARE) 0.3 else 0.0), grain = 0.06)
         fun cone(a: P3, b: P3, ra: Double, rb: Double, mat: Mat, group: Int = Doll.ITEM) = add(RoundCone(a, b, ra, rb, BodyPart.GEAR, group), mat)
-        // the stock, level along the aim, and the butt dropping to the shoulder behind the hand
-        cone(s0 - aim * (0.04 * h), s0 + aim * (0.29 * h), 0.011 * h, 0.009 * h, wood)
-        val butt = s0 - aim * (0.15 * h) - up * (0.03 * h)
-        cone(s0 - aim * (0.03 * h), butt, 0.011 * h, 0.017 * h, wood)
-        cone(butt + aim * (0.01 * h), butt - up * (0.035 * h) + aim * (0.004 * h), 0.016 * h, 0.012 * h, wood)
+        // the stock, level along the aim, to the butt plate that sits square against the front of the shoulder
+        val rear = s0 - aim * (Doll.STOCK_BACK * h)
+        val plate = rear - up * (Doll.BUTT_DROP * h)
+        cone(rear + aim * (0.02 * h), s0 + aim * (0.29 * h), 0.011 * h, 0.009 * h, wood)
+        cone(rear + aim * (0.07 * h), plate + up * (0.012 * h) + aim * (0.008 * h), 0.009 * h, 0.012 * h, wood)
+        cone(plate + up * (0.024 * h), plate - up * (0.03 * h), Doll.BUTT_HALF * h, Doll.BUTT_HALF * h * 0.85, wood)
         cone(s0 - up * (0.012 * h) + aim * (0.012 * h), s0 - up * (0.032 * h) - aim * (0.012 * h), 0.003 * h, 0.0025 * h, metal(r), Doll.TRIM)
         // the prod across the front, bent back by the string while spanned
         val draw = sk.rig.draw.coerceIn(0.0, 1.0)
