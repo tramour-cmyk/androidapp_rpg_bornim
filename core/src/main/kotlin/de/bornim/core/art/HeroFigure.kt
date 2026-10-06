@@ -349,6 +349,8 @@ object HeroFigure {
             s.transform(ANCHOR_X - 48.0, GROUND - 124.0, SIZE * scale * wide, SIZE * scale, ANCHOR_X.toDouble(), GROUND.toDouble())
             legs()
             at(p(V(0.0, 70.0, 0.0)).third) { torso() }
+            // the skirt wraps the hips: over both thighs whatever the facing
+            at(maxOf(p(V(6.0, 28.0, 6.0)).third, p(V(-6.0, 28.0, 6.0)).third, p(V(0.0, 70.0, 0.0)).third) + 0.05) { skirt() }
             cloak()
             at(p(headC).third + 0.5) { head() }
             arm(shL, lArm, 0.0)
@@ -390,18 +392,11 @@ object HeroFigure {
             val half = maxOf(span, 9.0)
             s.poly(torsoMat, lx, ly - 2, rx, ry - 2, hr.first, hr.second, hl.first, hl.second, tiltY = -0.1, bevel = 3.0)
             s.blob(c.first, c.second, half * 0.95, 13.0, torsoMat)
-            // skirt, robe or mail below the belt
             val b0 = p(V(0.0, hip + 10, 0.0))
-            if (robe) s.poly(cloth, b0.first - half * 0.9, b0.second - 2, b0.first + half * 0.9, b0.second - 2, b0.first + half * 1.3 + r.cloak, b0.second + 52, b0.first - half * 1.3 + r.cloak, b0.second + 52, tiltY = -0.12)
-            else if (heavy || medium) s.poly(if (heavy) metal(chest!!.rarity) else m(argb(0x8A9098), shine = 0.4, grain = 0.4), b0.first - half * 0.85, b0.second - 3, b0.first + half * 0.85, b0.second - 3, b0.first + half * 0.95, b0.second + 16, b0.first - half * 0.95, b0.second + 16, tiltY = -0.2)
-            else s.poly(clothDark, b0.first - half * 0.85, b0.second - 3, b0.first + half * 0.85, b0.second - 3, b0.first + half * 0.9, b0.second + 13, b0.first - half * 0.9, b0.second + 13, tiltY = -0.2)
-            // belt across the hips
-            s.limb(b0.first - half * 0.85, b0.second - 4, b0.first + half * 0.85, b0.second - 4, 2.2, 2.2, darkLeather)
             if (facing > 0.25) {
                 // the front: buckle, a tabard with the house colour for the armoured, laces on leather
-                s.blob(b0.first + fX * 2, b0.second - 4, 2.0, 2.0, gold)
                 if (heavy || medium) {
-                    s.poly(m(worn(look.cloth)), c.first - 4.5, c.second - 8, c.first + 4.5, c.second - 8, c.first + 3.5, b0.second + 14, c.first - 3.5, b0.second + 14, bevel = 1.0)
+                    s.poly(m(worn(look.cloth)), c.first - 4.5, c.second - 8, c.first + 4.5, c.second - 8, c.first + 4.0, b0.second, c.first - 4.0, b0.second, bevel = 1.0)
                     s.blob(c.first, c.second - 1, 2.4, 2.4, gold)
                 }
                 if (weight == Weight.LIGHT) for (k in 0..3) s.line(c.first - 2, c.second - 6 + k * 3.5, c.first + 2, c.second - 4 + k * 3.5, argb(0x2A1C14))
@@ -420,6 +415,28 @@ object HeroFigure {
             // a collar closes the neck
             val n = p(neck)
             s.blob(n.first, n.second + 2, 7.5, 3.6, if (heavy || medium) m(argb(0x8A9098), shine = 0.4, grain = 0.45) else torsoMat)
+        }
+
+        /** Tunic, mail skirt or robe hanging from the belt over the thighs: always over the legs. */
+        fun skirt() {
+            val c = p(upper(V(0.0, 72.0 - r.crouch, 0.0)))
+            val pl = p(shL); val pr = p(shR)
+            val half = maxOf(abs(pr.first - pl.first) / 2, 9.0)
+            val b0 = p(V(0.0, hip + 10, 0.0))
+            val hem = p(V(0.0, 34.0, 0.0)).second
+            when {
+                robe -> s.poly(cloth, b0.first - half * 0.9, b0.second - 2, b0.first + half * 0.9, b0.second - 2, b0.first + half * 1.3 + r.cloak, b0.second + 52, b0.first - half * 1.3 + r.cloak, b0.second + 52, tiltY = -0.12)
+                heavy || medium -> {
+                    val mail = if (heavy) metal(chest!!.rarity) else m(argb(0x8A9098), shine = 0.4, grain = 0.4)
+                    s.poly(mail, b0.first - half * 0.85, b0.second - 3, b0.first + half * 0.85, b0.second - 3, b0.first + half * 1.0, hem, b0.first - half * 1.0, hem, tiltY = -0.2)
+                    if (heavy) for (k in 0..2) { val y = b0.second + 2 + k * 5; s.limb(b0.first - half * 0.86, y, b0.first + half * 0.86, y, 1.3, 1.3, mail) }
+                }
+                else -> s.poly(clothDark, b0.first - half * 0.85, b0.second - 3, b0.first + half * 0.85, b0.second - 3, b0.first + half * 0.98, hem - 2, b0.first - half * 0.98, hem - 2, tiltY = -0.2)
+            }
+            // the tabard falls over it at the front
+            if (facing > 0.25 && (heavy || medium)) s.poly(m(worn(look.cloth)), c.first - 4.5, c.second - 8, c.first + 4.5, c.second - 8, c.first + 3.8, hem + 3, c.first - 3.8, hem + 3, bevel = 1.0)
+            s.limb(b0.first - half * 0.85, b0.second - 4, b0.first + half * 0.85, b0.second - 4, 2.2, 2.2, darkLeather)
+            if (facing > 0.25) s.blob(b0.first + fX * 2, b0.second - 4, 2.0, 2.0, gold)
         }
 
         fun cloak() {
