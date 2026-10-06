@@ -313,7 +313,8 @@ private fun camera(game: Game, w: Float, h: Float, progress: Float, fromX: Int, 
     val mapW = map.width * T
     val mapH = map.height * T
     val camX = (if (mapW <= viewW) (mapW - viewW) / 2f else (heroX + T / 2f - viewW / 2f).coerceIn(0f, mapW - viewW)).roundToInt()
-    val camY = (if (mapH <= viewH) (mapH - viewH) / 2f else (heroY + T / 2f - viewH / 2f).coerceIn(0f, mapH - viewH)).roundToInt()
+    // The view may scroll one tile beyond the top edge, so the top row is not hidden under the HUD.
+    val camY = (if (mapH <= viewH) (mapH - viewH) / 2f else (heroY + T / 2f - viewH / 2f).coerceIn(-T.toFloat(), mapH - viewH)).roundToInt()
     return Cam(scale, camX, camY, heroX, heroY)
 }
 
@@ -833,57 +834,62 @@ private data class HudInfo(
 
 @Composable
 private fun HudChip(info: HudInfo, lang: de.bornim.core.Lang, modifier: Modifier, onMenu: () -> Unit) {
+    val german = lang == de.bornim.core.Lang.DE
+    // Compact: bars on the left, level, points and time on the right, so the map stays visible.
     Row(
         modifier
             .clip(RoundedCornerShape(8.dp))
             .background(Color(0xAA000000))
             .tap(onMenu)
-            .padding(horizontal = 8.dp, vertical = 5.dp),
+            .padding(horizontal = 6.dp, vertical = 3.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Column(horizontalAlignment = Alignment.End) {
+        Column {
             val hpFrac = info.hp.toFloat() / info.maxHp
             HudBar(Ui.hp(lang), hpFrac, hpColor(hpFrac), "${info.hp}/${info.maxHp}", Colors.accent)
             if (info.maxSp > 0) HudBar(Ui.sp(lang), info.sp.toFloat() / info.maxSp, Colors.sp, "${info.sp}/${info.maxSp}", Colors.sp)
-            HudBar(Ui.xp(lang), info.xpFraction ?: 1f, Colors.gold, (if (lang == de.bornim.core.Lang.DE) "St. " else "Lv ") + info.level, Colors.gold)
-            if (info.ailments.isNotEmpty() || info.wellFed) {
-                Row(Modifier.padding(top = 2.dp), horizontalArrangement = Arrangement.spacedBy(3.dp)) {
-                    val chips = info.ailments.map { it.short(lang) to Color(it.color) } +
-                        (if (info.wellFed) listOf((if (lang == de.bornim.core.Lang.DE) "Satt" else "Fed") to Color(0xFFB07A30)) else emptyList())
+            HudBar(Ui.xp(lang), info.xpFraction ?: 1f, Colors.gold, (if (german) "St. " else "Lv ") + info.level, Colors.gold)
+        }
+        Spacer(Modifier.width(6.dp))
+        Column(horizontalAlignment = Alignment.End) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                PixelImageView(ActionArt.icon(if (info.night) ActionArt.Extra.MOON else ActionArt.Extra.SUN), 13.dp)
+                Spacer(Modifier.width(2.dp))
+                Txt(
+                    (if (german) "Tag ${info.day} · " else "Day ${info.day} · ") + "%02d:%02d".format(info.minutes / 60, info.minutes % 60),
+                    size = 11.sp, color = Colors.textLight, maxLines = 1,
+                )
+            }
+            val chips = info.ailments.map { it.short(lang) to Color(it.color) } +
+                (if (info.wellFed) listOf((if (german) "Satt" else "Fed") to Color(0xFFB07A30)) else emptyList())
+            if (chips.isNotEmpty() || info.points > 0) {
+                Row(Modifier.padding(top = 1.dp), horizontalArrangement = Arrangement.spacedBy(3.dp), verticalAlignment = Alignment.CenterVertically) {
                     chips.forEach { (label, color) ->
                         Box(
                             Modifier
                                 .clip(RoundedCornerShape(3.dp))
                                 .background(color)
-                                .padding(horizontal = 4.dp)
-                        ) { Txt(label, size = 10.sp, color = Color.White, bold = true, maxLines = 1) }
+                                .padding(horizontal = 3.dp)
+                        ) { Txt(label, size = 9.sp, color = Color.White, bold = true, maxLines = 1) }
                     }
+                    if (info.points > 0) Txt("★ +${info.points}", size = 11.sp, color = Colors.gold, maxLines = 1)
                 }
             }
-            if (info.points > 0) Txt("★ +${info.points}", size = 12.sp, color = Colors.gold)
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                PixelImageView(ActionArt.icon(if (info.night) ActionArt.Extra.MOON else ActionArt.Extra.SUN), 16.dp)
-                Spacer(Modifier.width(3.dp))
-                Txt(
-                    (if (lang == de.bornim.core.Lang.DE) "Tag ${info.day} · " else "Day ${info.day} · ") + "%02d:%02d".format(info.minutes / 60, info.minutes % 60),
-                    size = 12.sp, color = Colors.textLight,
-                )
-            }
         }
-        Spacer(Modifier.width(8.dp))
+        Spacer(Modifier.width(6.dp))
         // The bag opens the menu.
-        PixelImageView(ActionArt.icon(ActionArt.Extra.MENU), 36.dp)
+        PixelImageView(ActionArt.icon(ActionArt.Extra.MENU), 28.dp)
     }
 }
 
 /** One labelled bar of the HUD: label, bar and value in a row. */
 @Composable
 private fun HudBar(label: String, fraction: Float, color: Color, value: String, labelColor: Color) {
-    Row(Modifier.padding(vertical = 1.dp), verticalAlignment = Alignment.CenterVertically) {
-        Txt(label, Modifier.width(20.dp), size = 10.sp, color = labelColor, bold = true, maxLines = 1)
-        Bar(fraction, color, Modifier.width(62.dp), 6.dp)
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Txt(label, Modifier.width(18.dp), size = 9.sp, color = labelColor, bold = true, maxLines = 1)
+        Bar(fraction, color, Modifier.width(56.dp), 5.dp)
         Spacer(Modifier.width(4.dp))
-        Txt(value, Modifier.width(44.dp), size = 11.sp, color = Colors.textLight, bold = true, maxLines = 1)
+        Txt(value, Modifier.width(42.dp), size = 10.sp, color = Colors.textLight, bold = true, maxLines = 1)
     }
 }
 
