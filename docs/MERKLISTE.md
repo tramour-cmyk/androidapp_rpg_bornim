@@ -43,6 +43,7 @@ Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md).
 
 ## Welt und Leben auf der Karte
 
+- **Wegesystem:** geschwungene Wege statt Treppenstufen aus Kacheln. Wege werden als Linien mit Breite über die Karte gelegt (Kurven, Abzweigungen, ausgefranste Ränder, Fahrspuren) und nicht mehr Kachel für Kachel gezeichnet. Gilt für Waldpfade, Dorfwege und spätere Straßen; Begehbarkeit bleibt wie bisher an den Kacheln.
 - **Kartenansicht** im Menü mit den bereits erkundeten Bereichen.
 - **Bewohner mit Tagesablauf:** Die Wirtin fegt vor der Tür, Läden haben nachts geschlossen. (Jorins Streife am Schlagbaum gibt es schon.)
 - **Monsterverhalten:** Goblins patrouillieren auf Wegen, Fledermäuse hängen an der Höhlendecke und stürzen herab.
