@@ -125,3 +125,68 @@ fun renderMapOverview(map: de.bornim.core.MapDef, lit: Boolean = true, daylight:
     ImageIO.write(out, "png", File("build/screens/map_$name.png"))
     println("wrote map ${map.id}")
 }
+
+/** Draft sheets for the new hero figure: old versus new in a scene, all races, attack pose. */
+fun renderHeroDrafts() {
+    val w = 270; val h = 370
+    var uid = 1L
+    fun gear(base: String, r: de.bornim.core.Rarity = de.bornim.core.Rarity.COMMON) = de.bornim.core.Gear(uid++, base, r, 3)
+    fun hero(race: de.bornim.core.Race, cls: de.bornim.core.CharClass, vararg extra: de.bornim.core.Gear, off: de.bornim.core.Gear? = null): de.bornim.core.Hero {
+        val st = de.bornim.core.GameState.newGame("Test", race, cls)
+        for (g in extra) st.hero.equip(g)
+        off?.let { if (it.def.isWeapon) st.hero.equipOffHand(it) else st.hero.equip(it) }
+        return st.hero
+    }
+    fun paste(out: BufferedImage, img: de.bornim.core.art.PixelImage, ox: Int, oy: Int, k: Int = 2, sx: Double = 1.0) {
+        val ww = (img.width * sx).toInt(); val hh = (img.height * sx).toInt()
+        for (y in 0 until hh) for (x in 0 until ww) {
+            val p = img[(x / sx).toInt(), (y / sx).toInt()]
+            if ((p ushr 24) < 128) continue
+            for (q in 0 until k * k) {
+                val px = (ox + x) * k + q % k; val py = (oy + y) * k + q / k
+                if (px in 0 until out.width && py in 0 until out.height) out.setRGB(px, py, p)
+            }
+        }
+    }
+    fun scene(out: BufferedImage, col: Int, hero: de.bornim.core.Hero, newStyle: Boolean, act: de.bornim.core.art.HeroFigure.Act = de.bornim.core.art.HeroFigure.Act.IDLE, light: BattleScene.Light = BattleScene.Light.DUSK) {
+        val bg = BattleScene.forest(w, h, BattleScene.Spot.CLEARING, light, false, 11 + col)
+        val ox = col * w
+        for (y in 0 until h) for (x in 0 until w) for (q in 0 until 4) out.setRGB((ox + x) * 2 + q % 2, y * 2 + q / 2, bg[x, y])
+        val wolf = MonsterArt.battleFrame("wolf", MonsterLook(col), Act.IDLE, 0, 0)
+        paste(out, wolf, ox + (w * BattleScene.FOE_X - wolf.width / 2).toInt(), (h * BattleScene.FOE_Y - MonsterArt.groundLine("wolf")).toInt())
+        if (newStyle) {
+            val img = de.bornim.core.art.HeroFigure.frame(hero, act, 3)
+            paste(out, img, ox + (w * BattleScene.HERO_X - img.width / 2).toInt(), (h * BattleScene.HERO_Y - de.bornim.core.art.HeroFigure.GROUND).toInt())
+        } else {
+            val img = de.bornim.core.art.HeroArt.battle(hero, de.bornim.core.art.Pose.IDLE, 3)
+            val sx = 1.8
+            paste(out, img, ox + (w * BattleScene.HERO_X - img.width * sx / 2).toInt(), (h * BattleScene.HERO_Y - img.height * sx * 0.97).toInt(), 2, sx)
+        }
+    }
+    File("build/screens").mkdirs()
+    // 1: old and new, four classes as they start
+    val starts = listOf(de.bornim.core.CharClass.FIGHTER, de.bornim.core.CharClass.ROGUE, de.bornim.core.CharClass.WIZARD, de.bornim.core.CharClass.CLERIC).map { hero(de.bornim.core.Race.HUMAN, it) }
+    val s1 = BufferedImage(w * 8 * 2, h * 2, BufferedImage.TYPE_INT_RGB)
+    for ((i, hh) in starts.withIndex()) { scene(s1, i * 2, hh, false); scene(s1, i * 2 + 1, hh, true) }
+    ImageIO.write(s1, "png", File("build/screens/hero_old_new.png"))
+    // 2: races with better gear
+    val geared = listOf(
+        hero(de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER, gear("plate", de.bornim.core.Rarity.RARE), gear("helmet", de.bornim.core.Rarity.RARE), gear("cloak", de.bornim.core.Rarity.RARE), gear("gauntlets"), gear("longsword", de.bornim.core.Rarity.RARE), off = gear("shield", de.bornim.core.Rarity.UNCOMMON)),
+        hero(de.bornim.core.Race.DWARF, de.bornim.core.CharClass.CLERIC, gear("chain_mail"), gear("great_helm"), gear("warhammer", de.bornim.core.Rarity.VERY_RARE), gear("cloak", de.bornim.core.Rarity.UNCOMMON), off = gear("shield")),
+        hero(de.bornim.core.Race.ELF, de.bornim.core.CharClass.ROGUE, gear("studded_leather", de.bornim.core.Rarity.UNCOMMON), gear("hood"), gear("longbow", de.bornim.core.Rarity.RARE), gear("cloak", de.bornim.core.Rarity.UNCOMMON)),
+        hero(de.bornim.core.Race.HALFLING, de.bornim.core.CharClass.ROGUE, gear("leather"), gear("shortsword"), gear("cloak"), off = gear("dagger")),
+        hero(de.bornim.core.Race.HALF_ORC, de.bornim.core.CharClass.FIGHTER, gear("half_plate", de.bornim.core.Rarity.EPIC), gear("greataxe", de.bornim.core.Rarity.EPIC), gear("cloak", de.bornim.core.Rarity.EPIC), gear("greaves")),
+        hero(de.bornim.core.Race.ELF, de.bornim.core.CharClass.WIZARD, gear("robe", de.bornim.core.Rarity.VERY_RARE), gear("staff", de.bornim.core.Rarity.VERY_RARE), gear("cloak", de.bornim.core.Rarity.VERY_RARE), off = gear("orb", de.bornim.core.Rarity.RARE)),
+    )
+    val s2 = BufferedImage(w * geared.size * 2, h * 2, BufferedImage.TYPE_INT_RGB)
+    for ((i, hh) in geared.withIndex()) scene(s2, i, hh, true, light = if (i % 3 == 1) BattleScene.Light.NIGHT else if (i % 3 == 2) BattleScene.Light.DAY else BattleScene.Light.DUSK)
+    ImageIO.write(s2, "png", File("build/screens/hero_races.png"))
+    // 3: attack and hurt poses
+    val s3 = BufferedImage(w * 4 * 2, h * 2, BufferedImage.TYPE_INT_RGB)
+    scene(s3, 0, geared[0], true, de.bornim.core.art.HeroFigure.Act.ATTACK)
+    scene(s3, 1, geared[4], true, de.bornim.core.art.HeroFigure.Act.ATTACK)
+    scene(s3, 2, geared[2], true, de.bornim.core.art.HeroFigure.Act.ATTACK)
+    scene(s3, 3, geared[0], true, de.bornim.core.art.HeroFigure.Act.HURT)
+    ImageIO.write(s3, "png", File("build/screens/hero_poses.png"))
+    println("wrote hero drafts")
+}
