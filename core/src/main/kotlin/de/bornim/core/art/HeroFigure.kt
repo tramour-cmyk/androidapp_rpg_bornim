@@ -68,7 +68,7 @@ object HeroFigure {
         val bodyX: Double = 0.0, val bodyY: Double = 0.0,
         val lean: Double = 0.0, val crouch: Double = 0.0, val stride: Double = 2.0, val spread: Double = 6.0,
         val rh: V = V(10.0, 70.0, 12.0), val weapon: V = V(0.25, 0.8, 0.55),
-        val lh: V = V(-11.0, 72.0, 10.0), val shieldFace: V = V(-0.25, 0.0, 1.0),
+        val lh: V = V(0.0, 77.0, 21.0), val shieldFace: V = V(-0.3, 0.0, 1.0),
         val headTurn: Double = 0.0, val headDown: Double = 0.0,
         val cloak: Double = 0.0, val glow: Double = 0.0, val draw: Double = 0.0,
         /** 0..1: a bright arc behind the blade on the fastest frames of a blow. */
@@ -87,24 +87,24 @@ object HeroFigure {
     // ---------------------------------------------------------------- key poses
 
     val STAND = Rig()
-    val BREATHE = STAND.copy(bodyY = 0.7, rh = V(10.0, 69.4, 12.0), lh = V(-11.0, 71.4, 10.0), cloak = 1.0)
+    val BREATHE = STAND.copy(bodyY = 0.7, rh = V(10.0, 69.4, 12.0), lh = V(0.0, 76.4, 21.0), cloak = 1.0)
 
     /** Facing us, ready: weapon across the body, shield face towards us. */
-    val READY = Rig(yaw = 16.0, stride = 1.0, spread = 8.0, rh = V(11.0, 70.0, 11.0), weapon = V(-0.35, 0.8, 0.45), lh = V(-12.0, 74.0, 9.0), shieldFace = V(-0.2, 0.0, 1.0), headTurn = -8.0)
-    val READY_B = READY.copy(bodyY = 0.7, rh = V(11.0, 69.4, 11.0), lh = V(-12.0, 73.4, 9.0), cloak = 1.0)
+    val READY = Rig(yaw = 16.0, stride = 1.0, spread = 8.0, rh = V(11.0, 70.0, 11.0), weapon = V(-0.35, 0.8, 0.45), lh = V(-5.0, 76.0, 13.0), shieldFace = V(-0.2, 0.0, 1.0), headTurn = -8.0)
+    val READY_B = READY.copy(bodyY = 0.7, rh = V(11.0, 69.4, 11.0), lh = V(-5.0, 75.4, 13.0), cloak = 1.0)
     /** Half way round, seen from the side. */
-    val TURNING = Rig(yaw = 80.0, bodyY = 1.0, stride = 4.0, spread = 5.0, rh = V(10.0, 70.0, 12.0), weapon = V(0.0, 0.85, 0.5), lh = V(-11.0, 73.0, 10.0), shieldFace = V(-0.2, 0.0, 1.0), cloak = -2.0)
+    val TURNING = Rig(yaw = 80.0, bodyY = 1.0, stride = 4.0, spread = 5.0, rh = V(10.0, 70.0, 12.0), weapon = V(0.0, 0.85, 0.5), lh = V(2.0, 80.0, 24.0), shieldFace = V(-0.6, 0.0, 0.8), cloak = -2.0)
 
     /** Struck from behind while still facing us: thrown forward, then turning round. */
     val STAGGER = Rig(yaw = 10.0, bodyY = 2.0, lean = 0.6, crouch = 2.0, stride = -3.0, rh = V(14.0, 64.0, 6.0), weapon = V(0.6, -0.3, 0.7), lh = V(-15.0, 66.0, 5.0), headDown = 4.0, cloak = 3.0)
 
     // a diagonal cut from high over the right shoulder down across, forward into the foe
-    val SLASH_WIND = Rig(lean = -0.15, rh = V(15.0, 98.0, 2.0), weapon = V(0.25, 0.9, -0.3), lh = V(-12.0, 74.0, 8.0), cloak = -1.0)
-    val SLASH_HIT = Rig(lean = 0.35, crouch = 1.5, stride = 7.0, rh = V(7.0, 68.0, 21.0), weapon = V(0.45, -0.35, 0.8), lh = V(-13.0, 70.0, 6.0), cloak = 2.0, trail = 1.0)
+    val SLASH_WIND = Rig(lean = -0.15, rh = V(15.0, 98.0, 2.0), weapon = V(0.25, 0.9, -0.3), lh = V(-6.0, 76.0, 13.0), cloak = -1.0)
+    val SLASH_HIT = Rig(lean = 0.35, crouch = 1.5, stride = 7.0, rh = V(7.0, 68.0, 21.0), weapon = V(0.45, -0.35, 0.8), lh = V(-9.0, 72.0, 11.0), cloak = 2.0, trail = 1.0)
 
     // a lunge straight at the foe
-    val THRUST_WIND = Rig(lean = -0.2, rh = V(13.0, 72.0, -3.0), weapon = V(0.05, 0.15, 1.0), lh = V(-11.0, 74.0, 10.0))
-    val THRUST_HIT = Rig(lean = 0.45, crouch = 2.0, stride = 10.0, rh = V(5.0, 80.0, 27.0), weapon = V(-0.05, 0.12, 1.0), lh = V(-13.0, 72.0, 4.0), cloak = 2.5, trail = 0.6)
+    val THRUST_WIND = Rig(lean = -0.2, rh = V(13.0, 72.0, -3.0), weapon = V(0.05, 0.15, 1.0), lh = V(-5.0, 75.0, 15.0))
+    val THRUST_HIT = Rig(lean = 0.45, crouch = 2.0, stride = 10.0, rh = V(5.0, 80.0, 27.0), weapon = V(-0.05, 0.12, 1.0), lh = V(-10.0, 72.0, 9.0), cloak = 2.5, trail = 0.6)
 
     // overhead and down onto the foe
     val SMASH_WIND = Rig(lean = -0.25, bodyY = -1.5, rh = V(5.0, 110.0, 0.0), weapon = V(0.0, 0.75, -0.65), lh = V(-3.0, 108.0, 1.0), cloak = -1.5)
@@ -118,7 +118,7 @@ object HeroFigure {
     val CAST_RELEASE = Rig(lean = 0.4, stride = 6.0, rh = V(6.0, 88.0, 25.0), weapon = V(0.0, 0.3, 1.0), lh = V(-8.0, 86.0, 21.0), glow = 1.0, cloak = 1.5)
 
     // the shield goes up in front of the face
-    val BLOCK = Rig(lean = -0.1, crouch = 2.5, rh = V(12.0, 68.0, 6.0), weapon = V(0.3, 0.7, 0.6), lh = V(-5.0, 88.0, 17.0), shieldFace = V(0.0, 0.1, 1.0), headDown = 2.0)
+    val BLOCK = Rig(lean = -0.1, crouch = 2.5, rh = V(12.0, 68.0, 6.0), weapon = V(0.3, 0.7, 0.6), lh = V(1.0, 90.0, 25.0), shieldFace = V(0.3, 0.15, 1.0), headDown = 2.0)
     val HURT = Rig(lean = -0.45, crouch = 2.0, stride = -2.0, rh = V(15.0, 66.0, 4.0), weapon = V(0.6, 0.5, 0.3), lh = V(-15.0, 68.0, 4.0), headDown = -3.0, cloak = -2.0)
 
     /** Earnest victory poses, facing us again. */
@@ -318,7 +318,7 @@ object HeroFigure {
         val headC = upper(V(0.0, 98.5 - r.crouch - r.headDown * 0.3, r.headDown * 0.4))
 
         /** Two-bone reach in space: the elbow bends out, down and back. */
-        fun elbow(a: V, t: V, out: Double, l1: Double = 16.0, l2: Double = 15.0): Pair<V, V> {
+        fun elbow(a: V, t: V, out: Double, l1: Double = 16.0, l2: Double = 15.0, pole: V = V(out * 0.6, -1.0, -0.5)): Pair<V, V> {
             var d = t - a
             var dist = d.len()
             if (dist > l1 + l2 - 0.5) { d = d * ((l1 + l2 - 0.5) / dist); dist = l1 + l2 - 0.5 }
@@ -326,12 +326,12 @@ object HeroFigure {
             val dn = d.norm()
             val aa = (l1 * l1 - l2 * l2 + dist * dist) / (2 * dist.coerceAtLeast(0.01))
             val hh = sqrt((l1 * l1 - aa * aa).coerceAtLeast(0.0))
-            val pole = V(out * 0.6, -1.0, -0.5)
             val perp = (pole - dn * (pole.r * dn.r + pole.u * dn.u + pole.f * dn.f)).norm()
             return Pair(a + dn * aa + perp * hh, h)
         }
 
-        val lArm = elbow(shL, r.lh, -1.0)
+        // a shield arm bends its elbow out to the side, so the forearm lies across the body behind the shield
+        val lArm = if (off?.kind == BaseKind.SHIELD && !twoHands) elbow(shL, r.lh, -1.0, pole = V(-1.0, -0.5, 0.35)) else elbow(shL, r.lh, -1.0)
         val rArm = elbow(shR, r.rh, 1.0)
 
         // ---- drawing, sorted from far to near
@@ -573,7 +573,11 @@ object HeroFigure {
             when {
                 main?.ranged == true -> at(p(h).third - 0.3) { bow(h) }
                 off == null || twoHands -> {}
-                off.kind == BaseKind.SHIELD -> at(p(h).third + (if (shieldFront()) 0.4 else -0.4)) { shield(off, h) }
+                // strapped to the forearm: in front of the arm when its face looks at us, behind it otherwise
+                off.kind == BaseKind.SHIELD -> {
+                    val near = maxOf(p(h).third, p(lArm.first).third); val far = minOf(p(h).third, p(lArm.first).third)
+                    at(if (shieldFront()) near + 0.6 else far - 0.6) { shield(off, lArm.first, h) }
+                }
                 off.icon == Icon.ORB -> at(p(h).third + 0.3) {
                     val g = mix(argb(0x80C8FF), off.rarity.color.toInt(), 0.4)
                     val c = p(h + V(0.0, 6.0, 1.0)); val rr = 4.0 + r.glow * 1.5
@@ -595,29 +599,49 @@ object HeroFigure {
             }
         }
 
+        /**
+         * The shield is strapped to the left forearm: its face looks along [Rig.shieldFace] but stays
+         * square to the forearm, which runs across the back of the shield through its middle.
+         */
+        fun shieldNormal(): V {
+            val a = (lArm.second - lArm.first).norm()
+            val f = r.shieldFace
+            val d = f.r * a.r + f.u * a.u + f.f * a.f
+            return (f - a * d).norm()
+        }
+
         /** The shield's face looks towards us. */
         fun shieldFront(): Boolean {
-            val n = r.shieldFace
+            val n = shieldNormal()
             return n.r * rZ + n.f * fZ > 0
         }
 
-        /** A shield in space on the left forearm: its painted face with boss when it looks at us, else the inside with straps. */
-        fun shield(p0: Part, h: V) {
+        /** A shield on the left forearm: the painted face with boss when it looks at us (hiding the arm), else the inside with the arm in its straps. */
+        fun shield(p0: Part, el: V, h: V) {
             val tower = p0.base == "tower_shield"
-            val n = r.shieldFace.norm()
-            // axes in the shield's plane: across (horizontal) and up
-            var ax = V(n.f, 0.0, -n.r)
-            if (ax.len() < 0.1) ax = V(1.0, 0.0, 0.0)
-            ax = ax.norm()
-            val up = V(0.0, 1.0, 0.0)
-            val c = h + n * 2.5 + V(-1.0, 3.0, 0.0)
-            val hw = if (tower) 11.0 else 9.5; val hh = if (tower) 19.0 else 13.0
+            val n = shieldNormal()
+            // axes in the shield's plane: across runs along the forearm, up is square to it and the face
+            val fore = (h - el).norm()
+            var up = V(n.u * fore.f - n.f * fore.u, n.f * fore.r - n.r * fore.f, n.r * fore.u - n.u * fore.r).norm()
+            if (up.u < 0) up = up * -1.0
+            // keep the shield upright: lean "up" towards the sky, "across" follows
+            up = (up + V(0.0, 1.2, 0.0) - n * (n.u * 1.2)).norm()
+            val ax = V(up.u * n.f - up.f * n.u, up.f * n.r - up.r * n.f, up.r * n.u - up.u * n.r).norm()
+            // centred on the forearm, standing off it by the thickness of the straps
+            val c = el.lerp(h, 0.55) + n * 2.0
+            val hw = if (tower) 13.0 else 11.0; val hh = if (tower) 21.0 else 15.0
             fun q(a: Double, b: Double) = p(c + ax * a + up * b)
             fun pts(list: List<Triple<Double, Double, Double>>) = list.flatMap { listOf(it.first, it.second) }.toDoubleArray()
             val outline = listOf(q(-hw, hh), q(hw, hh), q(hw, -hh * 0.35), q(0.0, -hh - 2), q(-hw, -hh * 0.35))
             val rim = metal(p0.rarity)
+            // the board has thickness: its back edge shows as a slab when seen side on
+            val back = listOf(-hw to hh, hw to hh, hw to -hh * 0.35, 0.0 to -hh - 2, -hw to -hh * 0.35).map { (a, b) -> p(c + ax * a + up * b - n * 2.2) }
+            s.poly(wood.copy(bias = -0.2), *pts(back), tiltX = -0.2, bevel = 0.6)
             s.poly(rim, *pts(outline), tiltX = -0.2, bevel = 1.8)
+            // how squarely the face looks at us; nearly side on there is no room for paint and boss
+            val square = abs(n.r * rZ + n.f * fZ)
             val inner = listOf(q(-hw + 1.6, hh - 1.6), q(hw - 1.6, hh - 1.6), q(hw - 1.6, -hh * 0.35 + 0.5), q(0.0, -hh + 0.5), q(-hw + 1.6, -hh * 0.35 + 0.5))
+            if (square < 0.22) return
             if (shieldFront()) {
                 // the face: paint, a pale stripe, the iron boss
                 val paint = m(worn(if (p0.rarity >= Rarity.RARE) mix(argb(0x7A2A22), p0.rarity.color.toInt(), 0.45) else argb(0x6E2E24), 0.15))

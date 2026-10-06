@@ -224,6 +224,41 @@ fun renderHeroDrafts() {
     println("wrote hero drafts")
 }
 
+/** Turntable of one dressed figure: rows of poses, columns of yaw angles, plus every frame of the turn sequences. */
+fun renderDollSheet() {
+    val F = de.bornim.core.art.HeroFigure
+    var uid = 1L
+    fun gear(base: String, r: de.bornim.core.Rarity = de.bornim.core.Rarity.COMMON) = de.bornim.core.Gear(uid++, base, r, 3)
+    val st = de.bornim.core.GameState.newGame("Puppe", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER)
+    for (g in listOf(gear("plate", de.bornim.core.Rarity.RARE), gear("helmet"), gear("cloak", de.bornim.core.Rarity.RARE), gear("gauntlets"), gear("longsword", de.bornim.core.Rarity.RARE), gear("shield", de.bornim.core.Rarity.UNCOMMON))) st.hero.equip(g)
+    val hero = st.hero
+    val yaws = (0..12).map { it * 15.0 }
+    val rows = listOf("stand" to F.STAND, "ready" to F.READY, "block" to F.BLOCK, "hit" to F.SLASH_HIT)
+    val cw = 110; val ch = 150; val k = 2
+    fun sheet(cells: List<List<Pair<String, de.bornim.core.art.PixelImage>>>, file: String) {
+        val cols = cells.maxOf { it.size }
+        val out = BufferedImage(cw * cols * k, ch * cells.size * k, BufferedImage.TYPE_INT_RGB)
+        val g = out.createGraphics(); g.color = java.awt.Color(0x6A706A); g.fillRect(0, 0, out.width, out.height)
+        for ((ri, row) in cells.withIndex()) for ((ci, cell) in row.withIndex()) {
+            val img = cell.second
+            val ox = ci * cw + cw / 2 - F.ANCHOR_X; val oy = ri * ch + ch - 4 - F.GROUND
+            for (y in 0 until img.height) for (x in 0 until img.width) {
+                val p = img[x, y]; if ((p ushr 24) < 128) continue
+                val px = ox + x; val py = oy + y
+                if (px !in ci * cw until (ci + 1) * cw || py !in ri * ch until (ri + 1) * ch) continue
+                for (q in 0 until k * k) out.setRGB(px * k + q % k, py * k + q / k, p)
+            }
+            g.color = java.awt.Color(0xF0E8D8); g.drawString(cell.first, ci * cw * k + 4, ri * ch * k + 14)
+        }
+        ImageIO.write(out, "png", File("build/screens/$file"))
+    }
+    File("build/screens").mkdirs()
+    sheet(rows.map { (n, r) -> yaws.map { y -> "$n ${y.toInt()}°" to F.draw(hero, r.copy(yaw = y), "doll/$n/$y") } }, "doll_turntable.png")
+    fun seq(act: de.bornim.core.art.HeroFigure.Act) = (0 until F.frameCount(act)).map { "${act.name.lowercase()} $it" to F.frame(hero, act, it) }
+    sheet(listOf(seq(de.bornim.core.art.HeroFigure.Act.TURN), seq(de.bornim.core.art.HeroFigure.Act.AMBUSHED), seq(de.bornim.core.art.HeroFigure.Act.BLOCK)), "doll_sequences.png")
+    println("wrote doll")
+}
+
 /** Every weapon large on a plain background, for checking the drawings. */
 fun renderWeaponSheet() {
     val bases = listOf("dagger", "shortsword", "scimitar", "rapier", "longsword", "greatsword", "handaxe", "battleaxe", "greataxe", "mace",
