@@ -111,7 +111,8 @@ class Bot(val game: Game) {
                     val b = m.battle
                     b.start()
                     while (b.outcome == Outcome.ONGOING) {
-                        if (state.hero.hp < state.hero.maxHp * 3 / 5) state.hero.restoreFully()
+                        // the walk-through tests the story, not the balance: stay fit
+                        if (state.hero.hp < state.hero.maxHp) state.hero.restoreFully()
                         b.act(Action.Attack)
                     }
                     if (b.outcome == Outcome.LOST) fail("lost against ${b.monster.id}")

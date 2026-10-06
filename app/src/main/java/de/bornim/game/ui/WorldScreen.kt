@@ -621,20 +621,20 @@ private fun DrawScope.drawFog(game: Game, camX: Int, camY: Int, scale: Int, view
     }
     fun at(tx: Int, ty: Int) = if (tx < x0 || ty < y0 || tx > x1 || ty > y1) 1f else a[(ty - y0) * w + (tx - x0)]
     val color = Color(0xFF080A12)
-    val half = T / 2f
-    for (ty in y0..y1) for (tx in x0..x1) {
-        val self = at(tx, ty)
-        for (sy in 0..1) for (sx in 0..1) {
-            val nx = if (sx == 0) -1 else 1
-            val ny = if (sy == 0) -1 else 1
-            val v = self * 0.5f + (at(tx + nx, ty) + at(tx, ty + ny)) * 0.2f + at(tx + nx, ty + ny) * 0.1f
-            if (v <= 0.01f) continue
-            drawRect(
-                color.copy(alpha = v.coerceAtMost(1f) * (if (v > 0.9f) 1f else 0.92f)),
-                Offset((tx * T + sx * half - camX) * scale, (ty * T + sy * half - camY) * scale),
-                androidx.compose.ui.geometry.Size(half * scale + 0.5f, half * scale + 0.5f),
-            )
-        }
+    // quarter-tile cells, each blending the fog of the four nearest tile centres: soft edges
+    val q = T / 4f
+    for (ty in y0..y1) for (tx in x0..x1) for (sy in 0..3) for (sx in 0..3) {
+        val px = tx + (sx + 0.5f) / 4f - 0.5f
+        val py = ty + (sy + 0.5f) / 4f - 0.5f
+        val ix = floor(px).toInt(); val iy = floor(py).toInt()
+        val fx = px - ix; val fy = py - iy
+        val v = (at(ix, iy) * (1 - fx) + at(ix + 1, iy) * fx) * (1 - fy) + (at(ix, iy + 1) * (1 - fx) + at(ix + 1, iy + 1) * fx) * fy
+        if (v <= 0.01f) continue
+        drawRect(
+            color.copy(alpha = v.coerceAtMost(1f) * (if (v > 0.95f) 1f else 0.92f)),
+            Offset((tx * T + sx * q - camX) * scale, (ty * T + sy * q - camY) * scale),
+            androidx.compose.ui.geometry.Size(q * scale + 0.5f, q * scale + 0.5f),
+        )
     }
 }
 
@@ -794,7 +794,7 @@ private fun DrawScope.drawCaveLight(
             }
             de.bornim.core.art.CaveLight.Kind.SHROOM -> Color(0xFF60F0E0) to 0.2f * (0.65f + 0.35f * kotlin.math.sin(t / 900f + i * 2.3f))
             de.bornim.core.art.CaveLight.Kind.CRYSTAL -> Color(0xFFB890FF) to 0.2f * (0.8f + 0.2f * kotlin.math.sin(t / 600f + i))
-            de.bornim.core.art.CaveLight.Kind.SKY -> Color(0xFFE8F0FF) to 0.22f
+            de.bornim.core.art.CaveLight.Kind.SKY -> Color(0xFFE8F0FF) to 0.32f
             de.bornim.core.art.CaveLight.Kind.EXIT -> Color(0xFFFFF4D8) to 0.18f
         }
         drawCircle(
@@ -827,7 +827,7 @@ private fun DrawScope.drawCaveLight(
                     val b = at(src.x, src.y)
                     lineTo(b.x + 16 * px, b.y + 8 * px); lineTo(b.x - 16 * px, b.y + 8 * px); close()
                 }
-                drawPath(path, androidx.compose.ui.graphics.Brush.verticalGradient(listOf(Color(0x00E8F0FF), Color(0x40E8F0FF), Color(0x18E8F0FF)), top.y, at(src.x, src.y).y + 8 * px), blendMode = androidx.compose.ui.graphics.BlendMode.Plus)
+                drawPath(path, androidx.compose.ui.graphics.Brush.verticalGradient(listOf(Color(0x10E8F0FF), Color(0x66E8F0FF), Color(0x30E8F0FF)), top.y, at(src.x, src.y).y + 8 * px), blendMode = androidx.compose.ui.graphics.BlendMode.Plus)
                 for (k in 0 until 6) {
                     val period = 4000 + k * 650
                     val ph = ((clock + k * 900) % period) / period.toFloat()

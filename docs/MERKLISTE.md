@@ -20,6 +20,9 @@ Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md).
   - **Eingänge, Schilder und wichtige Figuren am Kartenrand** (vor allem oben) in der Vorschau genau an dieser Stelle prüfen, wie beim Höhleneingang im Flüsterwald.
   - Die sichtbare Fläche ist durch die Leiste etwas kleiner: Wege, Engstellen und Sperren (z. B. Zäune wie am Schlagbaum) so planen, dass man sie gut überblickt.
   - Die Statuszeile hat immer dieselbe Höhe; neue Zustände dürfen die Leiste nicht höher machen.
+  - **Karte und Kampfort gehören zusammen** (Standard für alle bestehenden und neuen Karten): Was auf der Karte steht, bestimmt die Kampfkulisse. Wasser, Felsen, Feuerstellen, Lager, Leuchtpilze, Lichtschächte und Fackeln auf der Karte erscheinen im Kampf an derselben Stelle wieder, auch mit demselben Licht. Kein reines Auswürfeln der Kulisse.
+  - **Stimmung wie im Kampf:** erwachsener, etwas düsterer Stil. Licht kommt von sichtbaren Quellen (Sonne/Mond, Fackeln, Feuer, Pilze, Fenster), Dunkelheit ist erlaubt, die Laterne des Helden leuchtet. Kleine Bewegung (Flackern, Tropfen, Funken, Staub) und passende Umgebungsgeräusche.
+  - Jede neue Kampfkulisse bekommt Orte, die auf der Karte als Gegenstücke vorkommen, und umgekehrt.
 - **Technisch beim Start von Kapitel 2:** den Merker `chapter2_started` setzen. Damit gelten automatisch:
   - die Stufengrenze 6 fällt, aufgehobene EP werden angerechnet;
   - bessere Beute (normal bis „selten“, besondere Beute bis „sehr selten“);

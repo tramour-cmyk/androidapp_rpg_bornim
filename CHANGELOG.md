@@ -4,6 +4,15 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – die Blutzahnhöhle lebt**
+- Die Höhle ist jetzt dunkel und wird von dem beleuchtet, was darin steht: Fackeln, das Lagerfeuer der Goblins, leuchtende Pilze, violette Kristalle, ein Lichtstrahl durch einen Deckenriss und das Tageslicht am Ausgang. Felswände halten das Licht auf, und die Laterne des Helden leuchtet die nähere Umgebung aus.
+- Jeder Raum hat einen eigenen Charakter: Graks Halle mit Fackeln und Tropfsteinen, ein Pilzraum mit Kristallen, ein unterirdischer See, Kroggs Höhle im Lichtstrahl mit Knochen und Geröll, ein Goblinlager mit Feuer, Schlaffellen und Kisten, ein Mittelgang mit alten Holzstützen.
+- Fackeln und Feuer flackern und sprühen Funken, Pilze pulsieren und verlieren Sporen, im Lichtstrahl tanzt Staub, von der Decke fallen Tropfen. Am Lagerfeuer knistert es.
+- **Karte und Kampf passen zusammen:** Wo du kämpfst, siehst du denselben Ort: am See den See, im Pilzraum das Pilzlicht, bei Krogg den Lichtstrahl, im Lager das Feuer, im dunklen Gang nur die Laterne.
+
+**Verbessert**
+- Der Nebel über unerkundeten und nicht sichtbaren Bereichen hat weichere Kanten.
+
 ## v0.1.59 – 06.10.2026, 14:02
 
 **Behoben**
