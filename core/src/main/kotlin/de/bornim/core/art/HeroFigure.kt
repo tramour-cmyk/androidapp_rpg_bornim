@@ -73,6 +73,9 @@ object HeroFigure {
         val cloak: Double = 0.0, val glow: Double = 0.0, val draw: Double = 0.0,
         /** 0..1: a bright arc behind the blade on the fastest frames of a blow. */
         val trail: Double = 0.0,
+        /** 0..1: how far the right elbow is lifted to [elbowAt] instead of hanging where the reach puts it. */
+        val elbowUp: Double = 0.0,
+        val elbowAt: V = V(27.0, 86.0, -4.0),
     ) {
         fun lerp(o: Rig, t: Double): Rig {
             fun l(a: Double, b: Double) = a + (b - a) * t
@@ -80,6 +83,7 @@ object HeroFigure {
                 l(yaw, o.yaw), l(bodyX, o.bodyX), l(bodyY, o.bodyY), l(lean, o.lean), l(crouch, o.crouch), l(stride, o.stride), l(spread, o.spread),
                 rh.lerp(o.rh, t), weapon.lerp(o.weapon, t).norm(), lh.lerp(o.lh, t), shieldFace.lerp(o.shieldFace, t).norm(),
                 l(headTurn, o.headTurn), l(headDown, o.headDown), l(cloak, o.cloak), l(glow, o.glow), l(draw, o.draw), l(trail, o.trail),
+                l(elbowUp, o.elbowUp), elbowAt.lerp(o.elbowAt, t),
             )
         }
     }
@@ -118,7 +122,9 @@ object HeroFigure {
     val CAST_RELEASE = Rig(lean = 0.4, stride = 6.0, rh = V(6.0, 88.0, 25.0), weapon = V(0.0, 0.3, 1.0), lh = V(-8.0, 86.0, 21.0), glow = 1.0, cloak = 1.5)
 
     // the shield goes up in front of the face
-    val BLOCK = Rig(lean = -0.1, crouch = 2.5, rh = V(12.0, 68.0, 6.0), weapon = V(0.3, 0.7, 0.6), lh = V(1.0, 90.0, 25.0), shieldFace = V(0.3, 0.15, 1.0), headDown = 2.0)
+    // the shield goes up in front of the face, the weapon arm cocked high with the forearm level, ready to strike back
+    val BLOCK = Rig(lean = -0.1, crouch = 2.5, rh = V(19.0, 83.0, 12.0), weapon = V(0.15, 0.75, -0.65), lh = V(1.0, 90.0, 25.0), shieldFace = V(0.3, 0.15, 1.0), headDown = 2.0,
+        elbowUp = 1.0, elbowAt = V(27.0, 81.0, -4.0))
     val HURT = Rig(lean = -0.45, crouch = 2.0, stride = -2.0, rh = V(15.0, 66.0, 4.0), weapon = V(0.6, 0.5, 0.3), lh = V(-15.0, 68.0, 4.0), headDown = -3.0, cloak = -2.0)
 
     /** Earnest victory poses, facing us again. */

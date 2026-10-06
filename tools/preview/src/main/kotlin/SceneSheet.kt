@@ -414,6 +414,13 @@ fun checkClashes() {
             }
         }
     }
+    for (race in de.bornim.core.Race.entries) {
+        val doll = de.bornim.core.art.Doll(race, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE)
+        val sk = doll.Skeleton(de.bornim.core.art.HeroFigure.BLOCK, shieldArm = true)
+        val fa = sk.wrist[1] - sk.elbow[1]
+        val deg = Math.toDegrees(Math.atan2(fa.y, Math.sqrt(fa.x * fa.x + fa.z * fa.z)))
+        println("BLOCK ${race.name}: Unterarm ${"%.0f".format(deg)}° zur Waagerechten, Ellbogen ${"%.0f".format(sk.elbow[1].y - sk.shoulder[1].y)} cm über der Schulter")
+    }
     println("geprüft: $total Bilder, Klinge im Schild ohne Korrektur: $rawBad, mit Korrektur: $bad")
     println("ohne Korrektur je Ablauf: $byAct")
 }
