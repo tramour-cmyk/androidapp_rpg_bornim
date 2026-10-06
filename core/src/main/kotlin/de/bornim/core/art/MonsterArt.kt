@@ -38,7 +38,7 @@ object MonsterArt {
         synchronized(cache) { cache[key]?.let { return it } }
         if (isNewStyle(id)) {
             // New-style monsters are wider than tall: shrink to the map size, feet on the bottom row.
-            val src = battleFrame(id, look, Act.IDLE, 0, f)
+            val src = battleFrame(id, look, Act.IDLE, 0, f * frameCount(id, Act.IDLE, 0) / IDLE_FRAMES)
             val small = shrink(src, (n * (if (id == "dire_wolf") 1.25 else 1.0)).roundToInt())
             Pen(small).outline(Pal.OUTLINE)
             val img = if (mirrored) small.mirrored() else small
@@ -88,6 +88,18 @@ object MonsterArt {
     /** [wound] 0 healthy, 1 below half its hit points, 2 below a quarter: changes posture. */
     fun battleFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound: Int = 0): PixelImage =
         WolfArt.frame(look, id == "dire_wolf", act, variant, index, wound)
+
+    /**
+     * Draws every frame of a new-style monster ahead of time (call off the main thread at the
+     * start of a fight), so the first attack does not stutter while its frames are made.
+     */
+    fun prepare(id: String, look: MonsterLook, wound: Int = 0) {
+        if (!isNewStyle(id)) return
+        for (act in Act.entries) {
+            val variants = if (act == Act.ATTACK) attackVariants(id) else 1
+            for (v in 0 until variants) for (i in 0 until frameCount(id, act, v)) battleFrame(id, look, act, v, i, wound)
+        }
+    }
 
     /** Feet position of a new-style frame, in sprite pixels from the top. */
     fun groundLine(id: String): Double = WolfArt.GROUND * (if (id == "dire_wolf") 1.22 else 1.0)

@@ -82,6 +82,7 @@ fun main() {
     }
     if (System.getenv("SHEET") != null) { renderHeroSheet(); System.exit(0) }
     if (System.getenv("SCENES") != null) { renderSceneSheet(); System.exit(0) }
+    if (System.getenv("WOLFANIM") != null) { renderWolfAnim(); System.exit(0) }
     if (System.getenv("ELITE") != null) { renderEliteMock(); System.exit(0) }
     if (System.getenv("ABOUT") != null) {
         shot("31_about") { it.screen = Screen.ABOUT }

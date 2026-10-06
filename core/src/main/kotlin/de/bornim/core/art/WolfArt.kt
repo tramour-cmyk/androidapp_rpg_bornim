@@ -99,11 +99,16 @@ object WolfArt {
         return out
     }
 
-    val IDLE_LOOP = (0 until 6).map { STAND.lerp(BREATHE, (1 - cos(it / 6.0 * 2 * PI)) / 2) }
-    val BITE = tween(STAND to 2, CROUCH to 2, LUNGE to 1, SNAP to 2, STAND to 1)
-    val POUNCE = tween(STAND to 2, CROUCH to 2, SPRING to 2, LAND to 2, STAND to 1)
-    val HOWL_SEQ = tween(STAND to 2, HOWL to 3, STAND to 1)
-    val HURT_SEQ = tween(STAND to 1, HURT to 2, STAND to 2)
+    /** Frames of one breath; the battle screen shows about twelve per second. */
+    const val IDLE_FRAMES = 16
+    val IDLE_LOOP = (0 until IDLE_FRAMES).map { STAND.lerp(BREATHE, (1 - cos(it / IDLE_FRAMES.toDouble() * 2 * PI)) / 2) }
+    val BITE = tween(STAND to 4, CROUCH to 4, LUNGE to 2, SNAP to 6, STAND to 1)
+    val POUNCE = tween(STAND to 4, CROUCH to 4, SPRING to 4, LAND to 4, STAND to 1)
+    val HOWL_SEQ = tween(STAND to 4, HOWL to 6, STAND to 1)
+    val HURT_SEQ = tween(STAND to 2, HURT to 5, STAND to 1)
+    /** Index of the key frame where the jaws close (bite) or the wolf lands (pounce). */
+    private const val BITE_STRIKE = 10
+    private const val POUNCE_STRIKE = 12
 
     // ---------------------------------------------------------------- drawing
 
@@ -118,10 +123,10 @@ object WolfArt {
     }
 
     /** The frame in which an attack lands: the jaws close, or the wolf lands on its prey. */
-    fun strikeFrame(variant: Int): Int = if (variant.mod(2) == 0) 5 else 6
+    fun strikeFrame(variant: Int): Int = if (variant.mod(2) == 0) BITE_STRIKE else POUNCE_STRIKE
 
     private val cache = object : LinkedHashMap<String, PixelImage>(64, 0.75f, true) {
-        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > 240
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > 480
     }
 
     /**

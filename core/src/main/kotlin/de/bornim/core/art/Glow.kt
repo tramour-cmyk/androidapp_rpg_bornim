@@ -11,7 +11,7 @@ object Glow {
     const val PAD = 4
 
     private val cache = object : LinkedHashMap<String, PixelImage>(32, 0.75f, true) {
-        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > 120
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > 400
     }
 
     private fun cached(key: String, make: () -> PixelImage): PixelImage {

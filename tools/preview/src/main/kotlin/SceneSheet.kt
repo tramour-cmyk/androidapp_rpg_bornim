@@ -30,3 +30,34 @@ fun renderSceneSheet() {
     }
     println("wrote scenes")
 }
+
+/** Frames of the wolf on a dusk scene for an animated preview: idle, bite, idle, pounce, hurt. */
+fun renderWolfAnim() {
+    val w = 270; val h = 370
+    val bg = BattleScene.forest(w, h, BattleScene.Spot.CLEARING, BattleScene.Light.DUSK, false, 11)
+    val look = MonsterLook(4)
+    val seq = mutableListOf<Pair<de.bornim.core.art.PixelImage, Int>>()
+    fun idle(n: Int) = repeat(n) { seq += MonsterArt.battleFrame("wolf", look, Act.IDLE, 0, it % 16) to 86 }
+    fun act(a: Act, v: Int, ms: Int) = repeat(MonsterArt.frameCount("wolf", a, v)) { seq += MonsterArt.battleFrame("wolf", look, a, v, it) to ms }
+    idle(32); act(Act.ATTACK, 0, 45); idle(16); act(Act.ATTACK, 1, 45); idle(16); act(Act.HURT, 0, 60); idle(16)
+    File("build/screens/anim2").mkdirs()
+    val durations = StringBuilder()
+    for ((i, fr) in seq.withIndex()) {
+        val (img, ms) = fr
+        val out = BufferedImage(200 * 3, 120 * 3, BufferedImage.TYPE_INT_RGB)
+        val fx = (w * BattleScene.FOE_X - img.width / 2).toInt(); val fy = (h * BattleScene.FOE_Y - MonsterArt.groundLine("wolf")).toInt()
+        for (y in 0 until 360) for (x in 0 until 600) {
+            val sx = 70 + x / 3; val sy = 125 + y / 3
+            val p = img[sx - fx, sy - fy]
+            out.setRGB(x, y, if ((p ushr 24) > 128) de.bornim.core.art.mix(p, de.bornim.core.art.argb(0xE8B4A8), 0.0).let { c ->
+                // dusk light on the sprite
+                val r = ((c shr 16) and 0xFF) * 0xE8 / 255; val g = ((c shr 8) and 0xFF) * 0xB4 / 255; val b = (c and 0xFF) * 0xA8 / 255
+                (0xFF shl 24) or (r shl 16) or (g shl 8) or b
+            } else bg[sx, sy])
+        }
+        ImageIO.write(out, "png", File("build/screens/anim2/f%03d.png".format(i)))
+        durations.append(ms).append('\n')
+    }
+    File("build/screens/anim2/durations.txt").writeText(durations.toString())
+    println("wrote anim")
+}

@@ -267,9 +267,23 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             }
             // Overlays (wounds, glow, sheen) stay while the foe sinks down and fade with it.
             val foeShown = !ui.enemyGone || a == Anim.ENEMY_FAINT
-            // Hurt monsters breathe faster.
+            // Hurt monsters breathe faster. New-style monsters have many more idle frames, shown faster.
             val clockMs = pulseClock()
-            val idleIdx = (clockMs / (230 / (1 + 0.6 * foeWound))).toInt()
+            val idleIdx = (clockMs / ((if (newStyle) 86 else 230) / (1 + 0.6 * foeWound))).toInt()
+            // Draw all frames ahead in the background: at the start, and again once the foe is badly hurt.
+            LaunchedEffect(battle, foeWound) {
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                    MonsterArt.prepare(id, battle.look, foeWound)
+                    battle.trait?.let { tr ->
+                        if (newStyle) for (act in Act.entries) for (v in 0 until (if (act == Act.ATTACK) MonsterArt.attackVariants(id) else 1))
+                            for (i in 0 until MonsterArt.frameCount(id, act, v)) {
+                                val f = MonsterArt.battleFrame(id, battle.look, act, v, i, foeWound)
+                                Glow.halo(f, tr.color and 0xFFFFFF); Glow.rim(f, tr.color and 0xFFFFFF)
+                            }
+                    }
+                    battle.pack?.let { pk -> for (i in 0 until battle.packSize) MonsterArt.prepare(pk.mate, MonsterLook(battle.look.seed + 101 * (i + 1))) }
+                }
+            }
             val enemyFrame = if (!newStyle) null else {
                 fun seq(act: Act, from: Int, to: Int) = MonsterArt.battleFrame(id, battle.look, act, variant, from + ((to - from + 1) * t).toInt().coerceAtMost(to - from), foeWound)
                 val strike = MonsterArt.strikeFrame(id, variant)
@@ -311,7 +325,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 val mateFrame = if (!mateNew) null else if (acting) {
                     val n = MonsterArt.frameCount(packDef.mate, Act.ATTACK, i)
                     MonsterArt.battleFrame(packDef.mate, mateLook, Act.ATTACK, i, (n * t).toInt().coerceAtMost(n - 1))
-                } else MonsterArt.battleFrame(packDef.mate, mateLook, Act.IDLE, 0, (idle + 2 * i + 1) % MonsterArt.frameCount(packDef.mate, Act.IDLE, 0))
+                } else MonsterArt.battleFrame(packDef.mate, mateLook, Act.IDLE, 0, (clockMs / 86 + 5 * i + 3).toInt() % MonsterArt.frameCount(packDef.mate, Act.IDLE, 0))
                 val mateSize = monsterSize * packDef.scale
                 val mPx = artDp * packDef.scale
                 val mateW = if (mateFrame != null) mPx * mateFrame.width else mateSize
@@ -690,7 +704,7 @@ private fun pulseClock(): Long {
     LaunchedEffect(Unit) {
         val start = System.currentTimeMillis()
         while (true) {
-            delay(60)
+            delay(33)
             now = System.currentTimeMillis() - start
         }
     }
