@@ -10,6 +10,9 @@ import kotlin.math.sin
 /** Which picture of a monster to draw: one of the idle frames, the attack or the flinch. */
 enum class Pose { IDLE, ATTACK, HURT }
 
+/** Actions of monsters drawn in the new battle style, each a sequence of frames. */
+enum class Act { IDLE, ATTACK, HURT, HOWL }
+
 /**
  * 64×64 battle sprites. Every monster is built from lit shapes (see [Sculpt]) as a function of
  * its pose, so idle loops, attacks and hits are separate frames, and of a [MonsterLook], so no two
@@ -33,6 +36,15 @@ object MonsterArt {
         val n = (SIZE / 2 * scale).roundToInt().coerceIn(8, SIZE / 2)
         val key = "map/$id/${look.seed}/${look.shiny}/${look.glow}/$f/$mirrored/$n"
         synchronized(cache) { cache[key]?.let { return it } }
+        if (isNewStyle(id)) {
+            // New-style monsters are wider than tall: shrink to the map size, feet on the bottom row.
+            val src = battleFrame(id, look, Act.IDLE, 0, f)
+            val small = shrink(src, (n * (if (id == "dire_wolf") 1.25 else 1.0)).roundToInt())
+            Pen(small).outline(Pal.OUTLINE)
+            val img = if (mirrored) small.mirrored() else small
+            synchronized(cache) { cache[key] = img }
+            return img
+        }
         val big = frame(id, look, Pose.IDLE, f)
         val out = PixelImage(n, n)
         for (y in 0 until n) for (x in 0 until n) {
@@ -54,9 +66,57 @@ object MonsterArt {
     }
 
     /** The default look in its first idle frame, e.g. for bosses standing on the map. */
-    fun get(id: String): PixelImage = frame(id, MonsterLook(), Pose.IDLE, 0)
+    fun get(id: String): PixelImage =
+        if (isNewStyle(id)) synchronized(cache) { cache.getOrPut("get/$id") { shrink(battleFrame(id, MonsterLook(), Act.IDLE, 0, 0), SIZE).also { Pen(it).outline(Pal.OUTLINE) } } }
+        else frame(id, MonsterLook(), Pose.IDLE, 0)
+
+    // ---------------------------------------------------------------- monsters in the new battle style
+
+    /** Monsters already drawn in the new, larger battle style with frame sequences. */
+    private val NEW_STYLE = setOf("wolf", "dire_wolf")
+
+    fun isNewStyle(id: String) = id in NEW_STYLE
+
+    /** Number of different attack animations of a monster. */
+    fun attackVariants(id: String): Int = if (isNewStyle(id)) 2 else 1
+
+    fun frameCount(id: String, act: Act, variant: Int): Int = WolfArt.sequence(act, variant).size
+
+    /** The frame in which an attack lands; frames before it play while the monster attacks, the rest while the hit shows. */
+    fun strikeFrame(id: String, variant: Int): Int = WolfArt.strikeFrame(variant)
+
+    fun battleFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage =
+        WolfArt.frame(look, id == "dire_wolf", act, variant, index)
+
+    /** Feet position of a new-style frame, in sprite pixels from the top. */
+    fun groundLine(id: String): Double = WolfArt.GROUND * (if (id == "dire_wolf") 1.22 else 1.0)
+
+    /** Shrinks [src] to [width] pixels by averaging, keeping the feet on the bottom row of a square image. */
+    private fun shrink(src: PixelImage, width: Int): PixelImage {
+        val f = src.width.toDouble() / width
+        val h = (src.height / f).roundToInt()
+        val out = PixelImage(width, maxOf(width * 3 / 4, h))
+        val oy = out.height - h
+        for (y in 0 until h) for (x in 0 until width) {
+            val x0 = (x * f).toInt(); val x1 = maxOf(x0 + 1, ((x + 1) * f).toInt())
+            val y0 = (y * f).toInt(); val y1 = maxOf(y0 + 1, ((y + 1) * f).toInt())
+            var c = 0; var r = 0; var g = 0; var b = 0
+            for (sy in y0 until y1) for (sx in x0 until x1) {
+                val p = src[sx, sy]
+                if ((p ushr 24) < 200) continue
+                c++; r += (p shr 16) and 0xFF; g += (p shr 8) and 0xFF; b += p and 0xFF
+            }
+            if (c * 2 >= (x1 - x0) * (y1 - y0)) out.set(x, oy + y, argb(((r / c) shl 16) or ((g / c) shl 8) or (b / c)))
+        }
+        return out
+    }
 
     fun frame(id: String, look: MonsterLook, pose: Pose, idleFrame: Int = 0): PixelImage {
+        if (isNewStyle(id)) return when (pose) {
+            Pose.IDLE -> battleFrame(id, look, Act.IDLE, 0, idleFrame.mod(frameCount(id, Act.IDLE, 0)))
+            Pose.ATTACK -> battleFrame(id, look, Act.ATTACK, 0, strikeFrame(id, 0))
+            Pose.HURT -> battleFrame(id, look, Act.HURT, 0, 2)
+        }
         val f = if (pose == Pose.IDLE) idleFrame.mod(IDLE_FRAMES) else 0
         val key = "$id/${look.seed}/${look.shiny}/${look.glow}/$pose/$f"
         synchronized(cache) { cache[key]?.let { return it } }

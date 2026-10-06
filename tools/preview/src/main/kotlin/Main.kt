@@ -81,6 +81,7 @@ fun main() {
         System.exit(0)
     }
     if (System.getenv("SHEET") != null) { renderHeroSheet(); System.exit(0) }
+    if (System.getenv("SCENES") != null) { renderSceneSheet(); System.exit(0) }
     if (System.getenv("ABOUT") != null) {
         shot("31_about") { it.screen = Screen.ABOUT }
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }
@@ -199,6 +200,29 @@ fun main() {
             g.enqueue(listOf(Cmd.Fight("wolf")))
             vm.refresh()
         }
+    }
+    // New battle look: forest scenes by time of day, the deep forest, and hits with blood
+    fun wolfFight(vm: GameViewModel, map: String, x: Int, y: Int, minutes: Int, id: String = "wolf", cls: CharClass = CharClass.FIGHTER, seed: Int = 0) {
+        vm.newGame("Borin", Race.DWARF, cls)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.hero.gainXp(Rules.xpForLevel[4])
+        g.state.place = Place(map, x, y, Facing.UP); g.state.minutes = minutes
+        g.enqueue(listOf(Cmd.Fight(id)))
+        vm.refresh()
+    }
+    shot("70_battle_day") { vm -> wolfFight(vm, "forest", 10, 20, 12 * 60) }
+    shot("70_battle_dusk") { vm -> wolfFight(vm, "forest", 4, 9, 19 * 60 + 40) }
+    shot("70_battle_night") { vm -> wolfFight(vm, "forest", 16, 14, 23 * 60) }
+    shot("70_battle_deep") { vm -> wolfFight(vm, "deep_forest", 22, 6, 12 * 60, id = "dire_wolf") }
+    shot("70_battle_cave") { vm -> wolfFight(vm, "cave", 10, 14, 12 * 60, id = "skeleton") }
+    shot("70_battle_menu", taps = List(4) { msgBox }) { vm -> wolfFight(vm, "forest", 10, 20, 12 * 60) }
+    val fightBtn = Offset(300f, 1975f)
+    for ((i, f) in listOf(3, 6, 10, 16).withIndex()) {
+        shot("71_hit_$i", taps = List(4) { msgBox } + listOf(fightBtn, msgBox), lastFrames = f) { vm -> vm.changeBlood(2); wolfFight(vm, "forest", 10, 20, 12 * 60) }
+    }
+    for (extra in 2..4) for ((i, f) in listOf(4, 9, 14, 20).withIndex()) {
+        shot("72_foe_${extra}_$i", taps = List(4) { msgBox } + listOf(fightBtn) + List(extra) { msgBox }, lastFrames = f) { vm -> vm.changeBlood(1); wolfFight(vm, "forest", 10, 20, 12 * 60) }
     }
     // New battle sprites: elites, shimmering variants and the cave monsters
     fun fight(vm: GameViewModel, id: String, place: Place, trait: EliteTrait? = null, shiny: Boolean = false, seed: Int = 3) {

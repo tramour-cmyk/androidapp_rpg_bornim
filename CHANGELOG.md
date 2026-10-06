@@ -4,6 +4,15 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – Kämpfe in neuer Grafik (Schritt 1: Wald und Wolf)**
+- Kämpfe im Flüsterwald und im Tiefen Flüsterwald spielen in neuen Szenen: durchgehender Boden mit Tiefe statt Plattformen, Waldrand, Berge im Dunst, Baumstämme und Laub als Rahmen, Lichtstrahlen.
+- Sechs Arten von Orten: Lichtung, Waldrand, Teich, umgestürzter Baum, Felsen und alter Steinkreis – je nachdem, wo auf der Karte der Kampf beginnt (am Wasser am Teich, bei Felsen zwischen Felsen).
+- Tag, Abend und Nacht mit eigenem Himmel, Licht und Farben; nachts Sterne, Mond und Glühwürmchen. Der Tiefe Wald ist dunkler, mit geschlossenem Blätterdach, Nebel und Pilzen.
+- Der Wolf ist neu gezeichnet: größer, düsterer, mit vier Fellvarianten (grau, schwarz, rostbraun, aschgrau), Narben und eingerissenen Ohren. Grimmzahn ist größer, schwarz, mit roten Augen.
+- Flüssigere Bewegungen mit vielen Zwischenbildern: atmen in Ruhe, zwei Angriffsarten (Biss und Sprungangriff), Heulen, wenn das Rudel angreift, Zurückzucken bei Treffern.
+- Held und Gegner werfen Schatten; auch in Höhle und Dorf gibt es keine Plattformen mehr.
+- **Blut bei Treffern** (dezent), im Menü unter „System“ einstellbar: Aus, Dezent oder Deutlich (mit Spritzern am Boden). Skelette splittern, Untote verlieren dunkle Brühe, der Schleim spritzt.
+
 ## v0.1.41 – 06.10.2026, 07:49
 
 **Verbessert**

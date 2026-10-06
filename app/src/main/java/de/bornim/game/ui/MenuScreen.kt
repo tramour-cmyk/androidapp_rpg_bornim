@@ -378,6 +378,11 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
         PixelButton(Ui.language(lang), Modifier.fillMaxWidth()) { vm.toggleLang() }
         PixelButton((if (vm.musicOn) Ui.musicOn else Ui.musicOff)(lang), Modifier.fillMaxWidth()) { vm.toggleMusic() }
         PixelButton((if (vm.sfxOn) Ui.sfxOn else Ui.sfxOff)(lang), Modifier.fillMaxWidth()) { vm.toggleSfx() }
+        Txt(if (lang == Lang.DE) "Blut bei Treffern" else "Blood on hits", size = 15.sp, bold = true)
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            val names = if (lang == Lang.DE) listOf("Aus", "Dezent", "Deutlich") else listOf("Off", "Subtle", "More")
+            names.forEachIndexed { i, label -> PixelButton(label, Modifier.weight(1f), selected = vm.bloodLevel == i, size = 15.sp) { vm.changeBlood(i) } }
+        }
         PixelButton((if (vm.touchControls) Ui.controlsTouch else Ui.controlsClassic)(lang), Modifier.fillMaxWidth()) { vm.toggleControls() }
         if (vm.touchControls) Txt(Ui.touchHint(lang), size = 13.sp, color = Colors.textDim)
         PixelButton((if (vm.leftHanded) Ui.actionLeft else Ui.actionRight)(lang), Modifier.fillMaxWidth()) { vm.toggleLeftHanded() }

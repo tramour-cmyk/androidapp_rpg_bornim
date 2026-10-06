@@ -104,6 +104,15 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     var confirmations by mutableStateOf(prefs.getBoolean(KEY_CONFIRM, true))
         private set
 
+    /** How much blood hits show: 0 none, 1 subtle (default), 2 more. For all heroes, not per save. */
+    var bloodLevel by mutableStateOf(prefs.getInt(KEY_BLOOD, 1).coerceIn(0, 2))
+        private set
+
+    fun changeBlood(level: Int) {
+        bloodLevel = level.coerceIn(0, 2)
+        prefs.edit().putInt(KEY_BLOOD, bloodLevel).apply()
+    }
+
     fun toggleConfirmations() {
         confirmations = !confirmations
         prefs.edit().putBoolean(KEY_CONFIRM, confirmations).apply()
@@ -255,5 +264,6 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_LEFT = "left_handed"
         private const val KEY_HAPTICS = "haptics"
         private const val KEY_CONFIRM = "confirmations"
+        private const val KEY_BLOOD = "blood"
     }
 }

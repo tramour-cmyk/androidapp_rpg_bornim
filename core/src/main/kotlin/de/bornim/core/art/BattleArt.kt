@@ -4,7 +4,7 @@ import de.bornim.core.MapKind
 
 /** Battle backdrops in the same pixel style as the world. */
 object BattleArt {
-    /** Where the platforms sit, as fractions of the backdrop size. */
+    /** Where the foe and the hero stand, as fractions of the backdrop size. */
     const val ENEMY_X = 0.72f
     const val ENEMY_Y = 0.42f
     const val HERO_X = 0.28f
@@ -84,15 +84,6 @@ object BattleArt {
         }
     }
 
-    private fun Pen.platform(fx: Float, fy: Float, rx: Double, ry: Double, top: Int, rim: Int, edge: Int) {
-        val cx = img.width * fx.toDouble()
-        val cy = img.height * fy.toDouble()
-        ellipse(cx, cy + 2, rx + 1, ry + 1.5, mix(edge, Pal.OUTLINE, 0.5))
-        ellipse(cx, cy + 1, rx, ry, edge)
-        ellipse(cx, cy, rx, ry, rim)
-        ellipse(cx, cy - 1, rx - 3, ry - 2, top)
-    }
-
     private fun Pen.outdoors(town: Boolean) {
         val w = img.width; val h = img.height
         val horizon = (h * 0.30).toInt()
@@ -123,9 +114,6 @@ object BattleArt {
             x += 20
             i++
         }
-        val top = argb(0x8ED46A); val rim = argb(0x6AB050); val edge = argb(0x4A8838)
-        platform(ENEMY_X, ENEMY_Y, w * 0.25, h * 0.055, top, rim, edge)
-        platform(HERO_X, HERO_Y, w * 0.32, h * 0.075, top, rim, edge)
     }
 
     private fun Pen.cave() {
@@ -157,8 +145,5 @@ object BattleArt {
             raw(x, y, if (n < 6) argb(0x6E604C) else if (n < 9) argb(0x9A8A76) else argb(0x84745F))
         }
         for (y in wallBottom + 2 until wallBottom + 14) for (x in 0 until w) raw(x, y, mix(img[x, y], Pal.BLACK, 0.4 * (1 - (y - wallBottom) / 14.0)))
-        val top = argb(0xA49482); val rim = argb(0x8A7A66); val edge = argb(0x5E5044)
-        platform(ENEMY_X, ENEMY_Y, w * 0.25, h * 0.055, top, rim, edge)
-        platform(HERO_X, HERO_Y, w * 0.32, h * 0.075, top, rim, edge)
     }
 }

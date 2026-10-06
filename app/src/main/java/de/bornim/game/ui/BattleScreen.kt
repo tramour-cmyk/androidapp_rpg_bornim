@@ -55,7 +55,9 @@ import de.bornim.core.Skill
 import de.bornim.core.SkillCost
 import de.bornim.core.Step
 import de.bornim.core.Ui
+import de.bornim.core.art.Act
 import de.bornim.core.art.BattleArt
+import de.bornim.core.art.BattleScene
 import de.bornim.core.art.CharacterArt
 import de.bornim.core.art.IconArt
 import de.bornim.core.art.HeroArt
@@ -82,6 +84,8 @@ private class BattleUi(val battle: Battle) {
     var pack by mutableIntStateOf(battle.packSize)
     var packBefore by mutableIntStateOf(battle.packSize)
     var heroGone by mutableStateOf(false)
+    /** Which attack animation the foe plays for its current attack. */
+    var attackVariant by mutableIntStateOf(0)
 
     init {
         push(battle.start())
@@ -105,6 +109,7 @@ private class BattleUi(val battle: Battle) {
             pack = s.pack
             if (s.anim == Anim.ENEMY_FAINT) enemyGone = true
             if (s.anim == Anim.HERO_FAINT) heroGone = true
+            if (s.anim == Anim.ENEMY_ACT) attackVariant = kotlin.random.Random.nextInt(MonsterArt.attackVariants(battle.monster.id))
             animKey++
         }
     }
@@ -205,7 +210,26 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 game.daylight < 0.85f -> BattleArt.Light.DUSK
                 else -> BattleArt.Light.DAY
             }
-            BattleBackground(game.map.kind, light, Modifier.matchParentSize())
+            // Forest fights use the new scenes: ground with depth, places and times of day.
+            val forest = game.map.kind == MapKind.FOREST
+            val place = game.state.place
+            val spot = remember(battle) { BattleScene.spotFor(game.map, place.x, place.y) }
+            val sceneSeed = remember(battle) { BattleScene.seedFor(place.x, place.y) }
+            val sceneLight = when (light) {
+                BattleArt.Light.NIGHT -> BattleScene.Light.NIGHT
+                BattleArt.Light.DUSK -> BattleScene.Light.DUSK
+                else -> BattleScene.Light.DAY
+            }
+            val density = androidx.compose.ui.platform.LocalDensity.current
+            val sceneScale = with(density) { maxOf(1, kotlin.math.round(sceneW.toPx() / BattleScene.DESIGN_W).toInt()) }
+            /** Size of one art pixel of the new scenes, in dp. */
+            val artDp = with(density) { sceneScale.toDp() }
+            if (forest) ForestBackground(spot, sceneLight, game.map.id == "deep_forest", sceneSeed, sceneScale, Modifier.matchParentSize())
+            else BattleBackground(game.map.kind, light, Modifier.matchParentSize())
+            val foeX = if (forest) BattleScene.FOE_X else BattleArt.ENEMY_X
+            val foeY = if (forest) BattleScene.FOE_Y else BattleArt.ENEMY_Y
+            val heroX = if (forest) BattleScene.HERO_X else BattleArt.HERO_X
+            val heroY = if (forest) BattleScene.HERO_Y else BattleArt.HERO_Y
             val shade = when {
                 game.map.kind == MapKind.CAVE -> null
                 light == BattleArt.Light.NIGHT -> Color(0xFF9CA6D4)
@@ -218,6 +242,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             val lunge = if (moving) sin(t * Math.PI.toFloat()) else 0f
 
             // Enemy
+            val newStyle = MonsterArt.isNewStyle(battle.monster.id)
             val monsterSize = if (battle.monster.boss) 212.dp else 184.dp
             val enemyAlpha = when {
                 a == Anim.ENEMY_FAINT -> 1f - t
@@ -230,52 +255,108 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 (a == Anim.ENEMY_HIT || a == Anim.ENEMY_FAINT) && moving -> Pose.HURT
                 else -> Pose.IDLE
             }
-            val enemyDx = when (a) {
-                Anim.ENEMY_ACT -> -(lunge * 30).dp
-                Anim.ENEMY_HIT -> (lunge * 10 * (1 - t)).dp
+            // New-style monsters play whole sequences: wind-up while attacking, the rest while the hit shows.
+            val id = battle.monster.id
+            val variant = ui.attackVariant
+            val enemyFrame = if (!newStyle) null else {
+                fun seq(act: Act, from: Int, to: Int) = MonsterArt.battleFrame(id, battle.look, act, variant, from + ((to - from + 1) * t).toInt().coerceAtMost(to - from))
+                val strike = MonsterArt.strikeFrame(id, variant)
+                val n = MonsterArt.frameCount(id, Act.ATTACK, variant)
+                when {
+                    a == Anim.ENEMY_ACT && moving -> seq(Act.ATTACK, 0, strike)
+                    (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && fx?.onHero == true && moving -> seq(Act.ATTACK, strike, n - 1)
+                    (a == Anim.ENEMY_HIT || a == Anim.ENEMY_FAINT) && moving -> seq(Act.HURT, 0, MonsterArt.frameCount(id, Act.HURT, 0) - 1)
+                    a == Anim.PACK_ACT && moving -> seq(Act.HOWL, 0, MonsterArt.frameCount(id, Act.HOWL, 0) - 1)
+                    else -> MonsterArt.battleFrame(id, battle.look, Act.IDLE, 0, idle % MonsterArt.frameCount(id, Act.IDLE, 0))
+                }
+            }
+            val enemyDx = when {
+                newStyle -> 0.dp
+                a == Anim.ENEMY_ACT -> -(lunge * 30).dp
+                a == Anim.ENEMY_HIT -> (lunge * 10 * (1 - t)).dp
                 else -> 0.dp
             }
-            val enemyDy = if (a == Anim.ENEMY_ACT) (lunge * 16).dp else 0.dp
+            val enemyDy = if (a == Anim.ENEMY_ACT && !newStyle) (lunge * 16).dp else 0.dp
+            val foeW = if (enemyFrame != null) artDp * enemyFrame.width else monsterSize
+            val foeH = if (enemyFrame != null) artDp * enemyFrame.height else monsterSize
+            /** From the top of the picture down to the feet. */
+            val foeFeet = if (enemyFrame != null) artDp * MonsterArt.groundLine(id).toFloat() else monsterSize * 0.94f
+            // Shadows on the ground instead of platforms
+            Canvas(Modifier.matchParentSize()) {
+                val gx = (sceneW * foeX).toPx(); val gy = (sceneH * foeY).toPx()
+                if (!ui.enemyGone) drawOval(Color.Black.copy(alpha = 0.32f * enemyAlpha), Offset(gx - foeW.toPx() * 0.36f, gy - 7.dp.toPx()), Size(foeW.toPx() * 0.72f, 12.dp.toPx()))
+                val hx = (sceneW * heroX).toPx(); val hy = (sceneH * heroY).toPx()
+                if (!ui.heroGone) drawOval(Color.Black.copy(alpha = 0.32f), Offset(hx - 70.dp.toPx(), hy - 10.dp.toPx()), Size(140.dp.toPx(), 18.dp.toPx()))
+            }
             // Pack mates stand behind the leader, smaller, and jab when it is their turn.
             val fleeing = a == Anim.PACK_FLEE && moving
             val mateCount = if (fleeing) ui.packBefore else ui.pack
             val packDef = battle.pack
             if (packDef != null) for (i in 0 until mateCount) {
-                val mateSize = monsterSize * packDef.scale
                 val acting = a == Anim.PACK_ACT && step?.packActor == i && moving
+                val mateLook = MonsterLook(battle.look.seed + 101 * (i + 1))
+                val mateNew = MonsterArt.isNewStyle(packDef.mate)
+                val mateFrame = if (!mateNew) null else if (acting) {
+                    val n = MonsterArt.frameCount(packDef.mate, Act.ATTACK, i)
+                    MonsterArt.battleFrame(packDef.mate, mateLook, Act.ATTACK, i, (n * t).toInt().coerceAtMost(n - 1))
+                } else MonsterArt.battleFrame(packDef.mate, mateLook, Act.IDLE, 0, (idle + 2 * i + 1) % MonsterArt.frameCount(packDef.mate, Act.IDLE, 0))
+                val mateSize = monsterSize * packDef.scale
+                val mPx = artDp * packDef.scale
+                val mateW = if (mateFrame != null) mPx * mateFrame.width else mateSize
+                val mateFeet = if (mateFrame != null) mPx * MonsterArt.groundLine(packDef.mate).toFloat() else mateSize * 0.94f
                 // A boss is big: its guards stand well to the left and just behind its shoulder,
                 // so neither is hidden nor cut off by the screen edge.
                 val boss = battle.monster.boss
-                val baseX = sceneW * BattleArt.ENEMY_X + if (i == 0) (if (boss) (-150).dp else (-86).dp) else (if (boss) 24.dp else 56.dp)
-                val baseY = sceneH * BattleArt.ENEMY_Y - if (i == 0) (if (boss) 14.dp else 20.dp) else (if (boss) 62.dp else 30.dp)
+                // New-style animals are wider, so their pack spreads out more and stands further back.
+                val baseX = sceneW * foeX + when {
+                    mateNew && i == 0 -> if (boss) (-150).dp else (-128).dp
+                    mateNew -> if (boss) 96.dp else 78.dp
+                    i == 0 -> if (boss) (-150).dp else (-86).dp
+                    else -> if (boss) 24.dp else 56.dp
+                }
+                val baseY = sceneH * foeY - when {
+                    mateNew && i == 0 -> if (boss) 22.dp else 30.dp
+                    mateNew -> if (boss) 70.dp else 46.dp
+                    i == 0 -> if (boss) 14.dp else 20.dp
+                    else -> if (boss) 62.dp else 30.dp
+                }
                 Box(
                     Modifier.offset(
-                        x = baseX - mateSize / 2 + (intro.value * 260).dp + (if (acting) -(lunge * 26).dp else 0.dp) + (if (fleeing) (t * 140).dp else 0.dp),
-                        y = baseY - mateSize * 0.94f + (if (acting) (lunge * 12).dp else 0.dp),
+                        x = baseX - mateW / 2 + (intro.value * 260).dp + (if (acting && !mateNew) -(lunge * 26).dp else 0.dp) + (if (fleeing) (t * 140).dp else 0.dp),
+                        y = baseY - mateFeet + (if (acting && !mateNew) (lunge * 12).dp else 0.dp),
                     )
                 ) {
-                    PixelImageView(
-                        MonsterArt.frame(packDef.mate, MonsterLook(battle.look.seed + 101 * (i + 1)), if (acting) Pose.ATTACK else Pose.IDLE, idle + i + 1),
-                        mateSize, alpha = (if (fleeing) 1f - t else 1f) * enemyAlphaBase(a, ui.enemyGone, t), shade = shade,
+                    val mAlpha = (if (fleeing) 1f - t else 1f) * enemyAlphaBase(a, ui.enemyGone, t)
+                    if (mateFrame != null) PixelSprite(mateFrame, mPx, alpha = mAlpha, shade = shade)
+                    else PixelImageView(
+                        MonsterArt.frame(packDef.mate, mateLook, if (acting) Pose.ATTACK else Pose.IDLE, idle + i + 1),
+                        mateSize, alpha = mAlpha, shade = shade,
                     )
                 }
             }
 
             val glow = battle.trait?.let { Color(it.color) }
-            // Feet on the enemy platform
+            // Feet on the ground where the foe stands
             Box(
                 Modifier.offset(
-                    x = sceneW * BattleArt.ENEMY_X - monsterSize / 2 + (intro.value * 260).dp + dodge(false) + enemyDx,
-                    y = sceneH * BattleArt.ENEMY_Y - monsterSize * 0.94f + enemyDy + if (a == Anim.ENEMY_FAINT) (t * 40).dp else 0.dp,
+                    x = sceneW * foeX - foeW / 2 + (intro.value * 260).dp + dodge(false) + enemyDx,
+                    y = sceneH * foeY - foeFeet + enemyDy + if (a == Anim.ENEMY_FAINT) (t * 40).dp else 0.dp,
                 )
             ) {
-                if (glow != null && !ui.enemyGone) EliteAura(glow, monsterSize, enemyAlpha)
-                PixelImageView(
+                if (glow != null && !ui.enemyGone) {
+                    // the aura is round: centre it on the body of the wider new-style sprites
+                    if (newStyle) Box(Modifier.offset(y = (foeH - foeW) / 2)) { EliteAura(glow, foeW, enemyAlpha) }
+                    else EliteAura(glow, monsterSize, enemyAlpha)
+                }
+                if (enemyFrame != null) PixelSprite(
+                    enemyFrame, artDp, alpha = enemyAlpha,
+                    flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f, shade = shade,
+                ) else PixelImageView(
                     MonsterArt.frame(battle.monster.id, battle.look, enemyPose, idle),
                     monsterSize, alpha = enemyAlpha,
                     flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f, shade = shade,
                 )
-                if (battle.shiny && !ui.enemyGone) Sparkles(battle.look.seed, monsterSize, enemyAlpha)
+                if (battle.shiny && !ui.enemyGone) Sparkles(battle.look.seed, if (newStyle) foeW else monsterSize, enemyAlpha)
             }
             // Hero (seen from behind)
             val heroAlpha = when {
@@ -292,9 +373,9 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             val heroSize = 168.dp
             Box(
                 Modifier.offset(
-                    x = sceneW * BattleArt.HERO_X - heroSize / 2 + shakeX - (intro.value * 260).dp + dodge(true) +
+                    x = sceneW * heroX - heroSize / 2 + shakeX - (intro.value * 260).dp + dodge(true) +
                         (if (a == Anim.HERO_ACT) (lunge * 30).dp else 0.dp),
-                    y = sceneH * BattleArt.HERO_Y - heroSize * 0.97f - (if (a == Anim.HERO_ACT) (lunge * 16).dp else 0.dp),
+                    y = sceneH * heroY - heroSize * 0.97f - (if (a == Anim.HERO_ACT) (lunge * 16).dp else 0.dp),
                 )
             ) {
                 PixelImageView(
@@ -303,12 +384,13 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 )
             }
 
-            // Attack and spell effects
-            val density = androidx.compose.ui.platform.LocalDensity.current
+            // Attack and spell effects, and blood
             with(density) {
-                val enemyC = androidx.compose.ui.geometry.Offset((sceneW * BattleArt.ENEMY_X).toPx(), (sceneH * BattleArt.ENEMY_Y - monsterSize * 0.45f).toPx())
-                val heroC = androidx.compose.ui.geometry.Offset((sceneW * BattleArt.HERO_X).toPx(), (sceneH * BattleArt.HERO_Y - heroSize * 0.5f).toPx())
-                BattleFxLayer(fx, ui.animKey, enemyC, heroC, (monsterSize / 64).toPx(), Modifier.matchParentSize())
+                val enemyC = Offset((sceneW * foeX).toPx(), (sceneH * foeY - (if (newStyle) foeFeet * 0.55f else monsterSize * 0.45f)).toPx())
+                val heroC = Offset((sceneW * heroX).toPx(), (sceneH * heroY - heroSize * 0.5f).toPx())
+                val unit = (if (newStyle) foeW / 90 else monsterSize / 64).toPx()
+                BattleFxLayer(fx, ui.animKey, enemyC, heroC, unit, Modifier.matchParentSize())
+                BloodLayer(a, fx, ui.animKey, enemyC, (sceneH * foeY).toPx(), heroC, (sceneH * heroY).toPx(), vm.bloodLevel, goreFor(id), (monsterSize / 64).toPx(), Modifier.matchParentSize())
             }
 
             EnemyBox(battle, ui.enemyHp, ui.foeStatus, lang, Modifier.align(Alignment.TopStart).padding(10.dp))
@@ -350,6 +432,23 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun ForestBackground(spot: BattleScene.Spot, light: BattleScene.Light, deep: Boolean, seed: Int, scale: Int, modifier: Modifier) {
+    Canvas(modifier) {
+        val w = kotlin.math.ceil(size.width / scale).toInt()
+        val h = kotlin.math.ceil(size.height / scale).toInt()
+        val img = BattleScene.forest(w, h, spot, light, deep, seed)
+        drawImage(
+            image = Bitmaps.of(img),
+            srcOffset = androidx.compose.ui.unit.IntOffset.Zero,
+            srcSize = androidx.compose.ui.unit.IntSize(w, h),
+            dstOffset = androidx.compose.ui.unit.IntOffset.Zero,
+            dstSize = androidx.compose.ui.unit.IntSize(w * scale, h * scale),
+            filterQuality = androidx.compose.ui.graphics.FilterQuality.None,
+        )
     }
 }
 

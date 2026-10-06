@@ -97,6 +97,23 @@ fun PixelImageView(image: PixelImage, size: Dp, modifier: Modifier = Modifier, a
     )
 }
 
+/** A pixel image at [px] dp per art pixel, keeping its own aspect ratio. */
+@Composable
+fun PixelSprite(image: PixelImage, px: Dp, modifier: Modifier = Modifier, alpha: Float = 1f, flash: Float = 0f, shade: Color? = null) {
+    Image(
+        bitmap = Bitmaps.of(image),
+        contentDescription = null,
+        modifier = modifier.size(px * image.width, px * image.height),
+        alpha = alpha,
+        filterQuality = FilterQuality.None,
+        colorFilter = when {
+            flash > 0f -> ColorFilter.tint(Color.White.copy(alpha = flash.coerceIn(0f, 1f)), BlendMode.SrcAtop)
+            shade != null -> ColorFilter.tint(shade, BlendMode.Modulate)
+            else -> null
+        },
+    )
+}
+
 @Composable
 fun Txt(
     text: String,
