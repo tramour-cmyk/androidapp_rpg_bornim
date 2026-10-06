@@ -241,7 +241,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val front = sk.upper.apply(P3(0.0, y, d.chestDepth * 0.82 + t))
         add(Box(front, P3(0.018 * h, 0.014 * h, 0.5), sk.upper.frame(Frame.IDENTITY), 0.3, BodyPart.GEAR, Doll.TRIM), gold)
         // a pouch on the right hip
-        add(Box(sk.upper.apply(P3(d.shoulderX * 0.62, y - 0.035 * h, d.chestDepth * 0.25)), P3(0.022 * h, 0.03 * h, 0.014 * h), sk.upper.frame(Frame.IDENTITY), 1.0, BodyPart.GEAR, Doll.TRIM), leather)
+        // the hips do not turn with the chest, so the pouch stays on the side
+        add(Box(sk.lower.apply(P3(d.hipX * 1.85, d.hipY + 0.06 * h, 0.0)), P3(0.012 * h, 0.03 * h, 0.022 * h), Frame.IDENTITY, 1.0, BodyPart.GEAR, Doll.TRIM), leather)
     }
 
     // ---------------------------------------------------------------- arms and legs

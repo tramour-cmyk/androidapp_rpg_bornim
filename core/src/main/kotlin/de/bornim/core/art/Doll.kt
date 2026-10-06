@@ -82,9 +82,6 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         val upper = Xf(Rot.pitch(lean) * Rot.yaw(rig.twist), P3(0.0, hipY, 0.0), P3(0.0, -crouch, 0.0))
         /** The head turns back against the chest, to keep its eyes on the foe. */
         val head = Xf(Rot.yaw(-rig.headTurn - rig.twist * 0.85) * Rot.pitch(rig.headDown * 3.0), neckTop).then(upper)
-        /** Hands and elbows are placed relative to the turned chest. */
-        private val turn = Rot.yaw(rig.twist)
-        fun place(v: HeroFigure.V): P3 = turn.apply(map(v))
 
         /** Old figure units to centimetres on this body: heights by landmarks, widths by the shoulders, reach by the arms. */
         fun map(v: HeroFigure.V): P3 = P3(v.r * shoulderX / 15.5, mapU(v.u), v.f * reachK)
@@ -112,12 +109,12 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
                 val sd = side(i)
                 val (kn, an) = ik(hip[i], ankle[i], hipY - kneeY, kneeY - ankleY, P3(sd * 0.15, 0.0, 1.0))
                 k[i] = kn; ankle[i] = an
-                val target = place(if (i == 0) rig.lh else rig.rh)
+                val target = map(if (i == 0) rig.lh else rig.rh)
                 val pole = if (i == 0 && shieldArm) P3(-1.0, -0.5, 0.35) else P3(sd * 0.6, -1.0, -0.5)
                 var (el, wr) = ik(shoulder[i], target, upperArm, foreArm, pole)
                 if (i == 1 && rig.elbowUp > 0.01) {
                     // the elbow lifted to where the pose wants it, the forearm reaching from there to the hand
-                    val lifted = (place(rig.elbowAt) - shoulder[i]).norm()
+                    val lifted = (map(rig.elbowAt) - shoulder[i]).norm()
                     val d = (el - shoulder[i]).norm().lerp(lifted, rig.elbowUp).norm()
                     el = shoulder[i] + d * upperArm
                     wr = el + (target - el).norm() * foreArm
@@ -168,11 +165,11 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         val waistK = (if (female) 0.84 else 1.0) * (if (race == Race.DWARF) 1.15 else 1.0)
         up(P3(0.0, hipY + 0.45 * trunk, 0.004 * h), P3(0.63 * shoulderX * waistK, 0.30 * trunk, 0.058 * h * g), BodyPart.TORSO, "waist")
         low(P3(0.0, hipY + 0.10 * trunk, -0.004 * h), P3(1.75 * hipX, 0.22 * trunk, 0.064 * h * g), BodyPart.PELVIS, "pelvis")
-        for (s in listOf(-1.0, 1.0)) low(P3(s * 0.75 * hipX, hipY + 0.03 * trunk, -0.024 * h * g), P3(0.9 * hipX, 0.13 * trunk, 0.036 * h * g), BodyPart.PELVIS, "pelvis")
+        for (s in listOf(-1.0, 1.0)) low(P3(s * 0.75 * hipX, hipY + 0.03 * trunk, -0.022 * h * g), P3(0.82 * hipX, 0.12 * trunk, 0.032 * h * g), BodyPart.PELVIS, "pelvis")
         for (i in 0..1) {
             val s = sk.side(i)
             // sloping from high on the neck down to the shoulder
-            cone(sk.upper.apply(P3(0.0, chinY - 0.004 * h, -0.012 * h)), sk.upper.apply(P3(s * shoulderX * 0.72, shoulderY + 0.002 * h, -0.01 * h)), 0.021 * h * g, 0.022 * h * g, BodyPart.TORSO, TRUNK, "torso")
+            cone(sk.upper.apply(P3(0.0, chinY - 0.01 * h, -0.004 * h)), sk.upper.apply(P3(s * shoulderX * 0.72, shoulderY + 0.002 * h, -0.006 * h)), 0.017 * h * g, 0.021 * h * g, BodyPart.TORSO, TRUNK, "torso")
                 .also { it.rest = sk.upper::inverse }
             // the deltoid: rounded over the top of the arm, tapering down along it
             val armDir = (sk.elbow[i] - sk.shoulder[i]).norm()
