@@ -94,7 +94,20 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         }
         fun dir(v: HeroFigure.V) = P3(v.r, v.u, v.f).norm()
 
-        val shoulder = Array(2) { i -> upper.apply(P3(side(i) * shoulderX, shoulderY - 0.012 * height, 0.0)) }
+        /** Where the shoulder joints sit at rest, before the arms move them. */
+        val shoulderRest = Array(2) { i -> upper.apply(P3(side(i) * shoulderX, shoulderY - 0.022 * height, 0.0)) }
+        /**
+         * The shoulder rides on the shoulder blade: when the arm is raised it lifts, when it reaches forward it
+         * comes forward round the ribs. Without this a raised arm seems to grow out of the neck.
+         */
+        val shoulder = Array(2) { i ->
+            val aim = if (i == 1 && rig.elbowUp > 0.01) map(rig.elbowAt) else map(if (i == 0) rig.lh else rig.rh)
+            val d = (aim - shoulderRest[i]).norm()
+            val up = upper.dir(P3.Y); val fwd = upper.dir(P3.Z)
+            val lift = (d dot up).coerceAtLeast(0.0)
+            val reach = (d dot fwd).coerceAtLeast(0.0)
+            shoulderRest[i] + up * (0.018 * height * lift) + fwd * (0.02 * height * reach)
+        }
         val hip = Array(2) { i -> lower.apply(P3(side(i) * hipX, hipY, 0.0)) }
         val ankle = Array(2) { i ->
             val sd = side(i)
@@ -169,11 +182,16 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         for (i in 0..1) {
             val s = sk.side(i)
             // sloping from high on the neck down to the shoulder
-            cone(sk.upper.apply(P3(0.0, chinY - 0.01 * h, -0.004 * h)), sk.upper.apply(P3(s * shoulderX * 0.72, shoulderY + 0.002 * h, -0.006 * h)), 0.017 * h * g, 0.021 * h * g, BodyPart.TORSO, TRUNK, "torso")
+            val neckRoot = sk.upper.apply(P3(0.0, chinY - 0.01 * h, -0.004 * h))
+            val top = sk.shoulder[i] + sk.upper.dir(P3(-s * shoulderX * 0.25, 0.024 * h, -0.006 * h))
+            cone(neckRoot, top, 0.017 * h * g, 0.021 * h * g, BodyPart.TORSO, TRUNK, "torso")
                 .also { it.rest = sk.upper::inverse }
             // the deltoid: rounded over the top of the arm, tapering down along it
+            // anchored on the shoulder: it turns only part of the way with the arm
             val armDir = (sk.elbow[i] - sk.shoulder[i]).norm()
-            ell(sk.shoulder[i] + armDir * (0.028 * h) + sk.upper.dir(P3(s * 0.004 * h, 0.0, 0.0)), P3(0.031 * h * l, 0.052 * h * l, 0.034 * h * l), BodyPart.ARM, TRUNK, "delt$i", Frame.along(armDir))
+            val restDir = sk.upper.dir(P3(s * 0.16, -1.0, 0.02)).norm()
+            val deltDir = restDir.lerp(armDir, 0.45).norm()
+            ell(sk.shoulder[i] + deltDir * (0.016 * h) + sk.upper.dir(P3(s * 0.006 * h, 0.006 * h, 0.0)), P3(0.032 * h * l, 0.05 * h * l, 0.035 * h * l), BodyPart.ARM, TRUNK, "delt$i", Frame.along(deltDir))
         }
         cone(sk.upper.apply(P3(0.0, shoulderY + 0.012 * h, -0.006 * h)), sk.upper.apply(P3(0.0, chinY + 0.025 * h, 0.004 * h)),
             0.034 * h * sqrt(g), 0.029 * h * sqrt(g) * (if (female) 0.88 else 1.0), BodyPart.NECK, TRUNK, "neck")

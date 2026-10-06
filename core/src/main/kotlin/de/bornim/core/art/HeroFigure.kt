@@ -126,8 +126,8 @@ object HeroFigure {
     // the shield goes up in front of the face
     // the chest turns so the shield shoulder leads into the blow; the weapon arm comes up in front, upper arm about level,
     // forearm upright with the hand beside the head, the wrist cocked so the blade lies back over the shoulder, ready to strike back
-    val BLOCK = Rig(lean = -0.05, crouch = 2.5, stride = 3.0, rh = V(14.0, 101.0, 9.0), weapon = V(0.3, 0.25, -0.92), lh = V(1.0, 90.0, 25.0), shieldFace = V(0.0, 0.15, 1.0), headDown = 2.0,
-        elbowUp = 1.0, elbowAt = V(15.0, 84.0, 10.0), twist = 30.0)
+    val BLOCK = Rig(lean = -0.05, crouch = 2.5, stride = 3.0, rh = V(20.0, 100.0, 7.0), weapon = V(0.3, 0.25, -0.92), lh = V(1.0, 90.0, 25.0), shieldFace = V(0.0, 0.15, 1.0), headDown = 2.0,
+        elbowUp = 1.0, elbowAt = V(23.0, 84.0, 9.0), twist = 22.0)
     val HURT = Rig(lean = -0.45, crouch = 2.0, stride = -2.0, rh = V(15.0, 66.0, 4.0), weapon = V(0.6, 0.5, 0.3), lh = V(-15.0, 68.0, 4.0), headDown = -3.0, cloak = -2.0)
 
     /** Earnest victory poses, facing us again. */

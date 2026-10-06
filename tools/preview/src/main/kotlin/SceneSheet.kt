@@ -479,12 +479,14 @@ fun renderBlockViews() {
         de.bornim.core.GearSlot.CHEST to g("chain_shirt"), de.bornim.core.GearSlot.MAIN_HAND to g("longsword"), de.bornim.core.GearSlot.OFF_HAND to g("shield")))
     val yaws = listOf(20.0, 90.0, 138.0, 180.0, 270.0)
     val cw = 300; val ch = 300; val px = 1.5
-    val out = BufferedImage(cw * yaws.size, ch, BufferedImage.TYPE_INT_RGB)
+    val rows = listOf<Pair<de.bornim.core.art.HeroFigure.Rig, de.bornim.core.art.Outfit?>>(
+        de.bornim.core.art.HeroFigure.BLOCK to outfit, de.bornim.core.art.HeroFigure.BLOCK to null, de.bornim.core.art.HeroFigure.STAND to null)
+    val out = BufferedImage(cw * yaws.size, ch * rows.size, BufferedImage.TYPE_INT_RGB)
     val gg = out.createGraphics(); gg.color = java.awt.Color(0x5E625C); gg.fillRect(0, 0, out.width, out.height)
-    for ((i, yaw) in yaws.withIndex()) {
-        val im = doll.render(cw, ch, cw / 2.0, ch - 10.0 + 0.0, px, de.bornim.core.art.HeroFigure.BLOCK.copy(yaw = yaw), outfit).img
-        for (y in 0 until ch) for (x in 0 until cw) { val p = im[x, y]; if ((p ushr 24) >= 128) out.setRGB(i * cw + x, y, p) }
-        gg.color = java.awt.Color(0xF0E8D8); gg.drawString("${yaw.toInt()}°", i * cw + 6, 16)
+    for ((ri, row) in rows.withIndex()) for ((i, yaw) in yaws.withIndex()) {
+        val im = doll.render(cw, ch, cw / 2.0, ch - 10.0 + 0.0, px, row.first.copy(yaw = yaw), row.second).img
+        for (y in 0 until ch) for (x in 0 until cw) { val p = im[x, y]; if ((p ushr 24) >= 128) out.setRGB(i * cw + x, ri * ch + y, p) }
+        gg.color = java.awt.Color(0xF0E8D8); gg.drawString("${yaw.toInt()}°", i * cw + 6, ri * ch + 16)
     }
     ImageIO.write(out, "png", File("build/screens/block_views.png"))
     println("wrote block views")
