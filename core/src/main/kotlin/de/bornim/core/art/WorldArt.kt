@@ -38,9 +38,19 @@ object WorldArt {
         fun at(dx: Int, dy: Int): Tile = if (map.inside(tx + dx, ty + dy)) map.tile(tx + dx, ty + dy) else t
         val kind = map.kind
         return when (t) {
-            Tile.GRASS -> cached("grass$seed") { grass(seed) }
-            Tile.FLOWERS -> cached("flowers$seed") { grass(seed); flowers(seed) }
-            Tile.TALL_GRASS -> cached("tall$seed") { tallGrass(seed) }
+            Tile.GRASS -> {
+                // the forest floor near trees: ferns, mushrooms, fallen leaves
+                val nearTree = kind == MapKind.FOREST && listOf(0 to -1, 1 to 0, 0 to 1, -1 to 0).any { (dx, dy) -> at(dx, dy) == Tile.TREE }
+                val deco = Math.floorMod(tx * 13 + ty * 7 + tx * ty, 5)
+                if (nearTree && deco < 3) cached("grassdeco$seed/$deco") { grass(seed); forestFloor(deco) }
+                else cached("grass$seed") { grass(seed) }
+            }
+            Tile.FLOWERS -> cached("flowers$seed/${Math.floorMod(tx * 3 + ty * 5, 3)}") { grass(seed); flowers(seed + Math.floorMod(tx * 3 + ty * 5, 3) * 4) }
+            Tile.TALL_GRASS -> {
+                fun g(dx: Int, dy: Int) = at(dx, dy) == Tile.TALL_GRASS
+                val m = mask(!g(0, -1), !g(1, 0), !g(0, 1), !g(-1, 0))
+                cached("tall$seed/$m") { tallGrass(seed, m) }
+            }
             Tile.PATH, Tile.BARRIER -> {
                 fun p(dx: Int, dy: Int) = at(dx, dy).let { it == Tile.PATH || it == Tile.BARRIER || it == Tile.DOOR || it == Tile.CAVE_ENTRANCE || it in PAVED }
                 val m = mask(!p(0, -1), !p(1, 0), !p(0, 1), !p(-1, 0))
@@ -56,6 +66,7 @@ object WorldArt {
                     val left = at(-1, 0) != Tile.BRIDGE; val right = at(1, 0) != Tile.BRIDGE
                     cached("bridge$m/$d/$frame/$left/$right") { water(m, frame, d); bridge(left, right) }
                 } else if (kind == MapKind.CAVE) cached("cavewater$m/$d/$frame") { water(m, frame, d); caveWater() }
+                else if (kind == MapKind.FOREST) cached("pond$m/$d/$frame/$seed") { water(m, frame, d); pondLife(m, seed) }
                 else cached("water$m/$d/$frame") { water(m, frame, d) }
             }
             Tile.CROPS -> cached("crops$seed") { field(seed) }
@@ -179,8 +190,13 @@ object WorldArt {
         fill(G)
         for (y in 0 until T) for (x in 0 until T) {
             val n = noise(x, y, 11 + seed) % 100
-            if (n < 6) raw(x, y, G_D) else if (n < 9) raw(x, y, G_L)
+            // soft darker and lighter patches across the tile, then single flecks
+            val patch = (noise(x / 6, y / 5, 13 + seed) % 7)
+            if (patch == 0) raw(x, y, G_D) else if (patch == 1 && n < 50) raw(x, y, mix(G, G_L, 0.5))
+            if (n < 6) raw(x, y, G_D) else if (n < 9) raw(x, y, G_L) else if (n < 11) raw(x, y, G_DD)
         }
+        // a small stone now and then
+        if (seed % 2 == 0) { val sx = 6 + noise(seed, 7, 3) % 20; val sy = 6 + noise(7, seed, 3) % 20; raw(sx, sy, argb(0x8A887E)); raw(sx + 1, sy, argb(0x6A685E)); raw(sx, sy + 1, G_DD) }
         // little tufts of blades
         for (i in 0 until 3) {
             val bx = 3 + noise(seed, i, 5) % 24
@@ -194,11 +210,12 @@ object WorldArt {
     private fun Pen.flowers(seed: Int) {
         val colors = listOf(argb(0xA8443C), argb(0xD8D4C4), argb(0xC8A848), argb(0x8A6AA8), argb(0xB87A90), argb(0x6A86A8))
         var i = 0
-        // A jittered 4×3 grid: dense, but not regular.
+        // A loose scatter: some spots of the jittered grid stay empty, two colours per tile.
         for (gy in 0 until 3) for (gx in 0 until 4) {
+            if (noise(gx, gy, 71 + seed) % 5 < 2) continue
             val x = 4 + gx * 7 + noise(gx, gy, 31 + seed) % 3 + (gy % 2) * 2
             val y = 4 + gy * 9 + noise(gy, gx, 17 + seed) % 3
-            val c = colors[(noise(gx, gy, 5 + seed) + i++) % colors.size]
+            val c = colors[(seed + (noise(gx, gy, 5 + seed) + i++) % 2 * 3) % colors.size]
             // stem with a leaf
             raw(x, y + 2, G_DD); raw(x, y + 3, G_DD); raw(x + 1, y + 3, G_D); raw(x - 1, y + 4, G_DD)
             // petals around a golden centre, with longer tips
@@ -211,11 +228,22 @@ object WorldArt {
 
     private val TG = argb(0x46703A); private val TG_D = argb(0x34562E); private val TG_DD = argb(0x243E22); private val TG_L = argb(0x6E9050)
 
-    private fun Pen.tallGrass(seed: Int) {
-        fill(TG_D)
+    private fun Pen.tallGrass(seed: Int, m: Int = 0) {
+        // where the tall grass ends, short grass shows through and the clumps thin out
+        grass(seed)
+        for (y in 0 until T) for (x in 0 until T) {
+            var edge = 99
+            if (m and 1 != 0) edge = minOf(edge, y)
+            if (m and 4 != 0) edge = minOf(edge, T - 1 - y)
+            if (m and 8 != 0) edge = minOf(edge, x)
+            if (m and 2 != 0) edge = minOf(edge, T - 1 - x)
+            if (edge > 4 + noise(x, y, 61 + seed) % 4) raw(x, y, TG_D)
+        }
         for (row in 0..3) for (col in 0..3) {
             val ox = col * 8 + (row % 2) * 4 - 2
             val oy = row * 8 + 1
+            val atEdge = (m and 1 != 0 && row == 0) || (m and 4 != 0 && row == 3) || (m and 8 != 0 && col == 0) || (m and 2 != 0 && col == 3)
+            if (atEdge && noise(row, col, 63 + seed) % 2 == 0) continue
             blades(ox, oy, seed + row * 4 + col)
         }
     }
@@ -227,7 +255,7 @@ object WorldArt {
             val h = 4 + (noise(i, seed, 3) % 4)
             for (y in oy + 8 - h until oy + 8) {
                 val c = when {
-                    y == oy + 8 - h -> TG_L
+                    y == oy + 8 - h -> if (noise(i, seed, 9) % 5 == 0) argb(0xA89A60) else TG_L
                     i % 3 == 0 -> TG_DD
                     else -> TG
                 }
@@ -256,6 +284,22 @@ object WorldArt {
             raw(x, y, P_D); raw(x + 1, y, P_D); raw(x, y - 1, P_L)
         }
         border(m, G, G_D, seed)
+        roundCorners(m, P, G, G_D)
+    }
+
+    /** Rounds the corners where two borders meet, so paths bend instead of stepping. */
+    private fun Pen.roundCorners(m: Int, inner: Int, outer: Int, edge: Int) {
+        fun corner(cx: Int, cy: Int, inX: (Int) -> Boolean, inY: (Int) -> Boolean) {
+            for (y in 0 until T) for (x in 0 until T) {
+                if (!inX(x) || !inY(y)) continue
+                val dd = (x - cx) * (x - cx) + (y - cy) * (y - cy)
+                if (dd > 121) raw(x, y, outer) else if (dd > 100) raw(x, y, edge)
+            }
+        }
+        if (m and 1 != 0 && m and 8 != 0) corner(14, 14, { it < 14 }, { it < 14 })
+        if (m and 1 != 0 && m and 2 != 0) corner(T - 15, 14, { it > T - 15 }, { it < 14 })
+        if (m and 4 != 0 && m and 8 != 0) corner(14, T - 15, { it < 14 }, { it > T - 15 })
+        if (m and 4 != 0 && m and 2 != 0) corner(T - 15, T - 15, { it > T - 15 }, { it > T - 15 })
     }
 
     private val PAVED = setOf(Tile.COBBLE, Tile.STALL, Tile.LAMP, Tile.BARREL, Tile.BENCH)
@@ -524,6 +568,49 @@ object WorldArt {
         raw(16, base - hgt, argb(0xC8D8E0)); raw(15, base - hgt + 1, argb(0xA8B8C0))
     }
 
+    /** Small things on the forest floor near trees: a fern, a few mushrooms or fallen leaves. */
+    private fun Pen.forestFloor(v: Int) {
+        when (v) {
+            0 -> { // fern: fronds from one point
+                val bx = 10 + noise(v, 1, 5) % 12; val by = 24
+                for (f in 0 until 5) {
+                    val ang = -Math.PI / 2 + (f - 2) * 0.45
+                    for (k in 0 until 9) {
+                        val x = bx + (Math.cos(ang) * k).toInt(); val y = by + (Math.sin(ang) * k).toInt() + k * k / 14
+                        raw(x, y, if (f < 2) argb(0x5A8040) else argb(0x3A5A2C))
+                        if (k % 2 == 0) { raw(x - 1, y + 1, argb(0x46682E)); raw(x + 1, y + 1, argb(0x2E4A24)) }
+                    }
+                }
+            }
+            1 -> for ((mx, my) in listOf(9 to 20, 13 to 23, 22 to 14)) { // brown mushrooms
+                raw(mx, my, argb(0xD8CCB0)); raw(mx, my - 1, argb(0xD8CCB0))
+                for (dx in -2..2) raw(mx + dx, my - 2, if (dx < 0) argb(0xA87A50) else argb(0x7A5434))
+                for (dx in -1..1) raw(mx + dx, my - 3, argb(0xB88A5A))
+            }
+            else -> for (k in 0 until 7) { // fallen leaves
+                val x = 4 + noise(k, 3, 7) % 24; val y = 4 + noise(3, k, 7) % 24
+                val c = listOf(argb(0x8A5A26), argb(0xA87A30), argb(0x6A4A22))[k % 3]
+                raw(x, y, c); raw(x + 1, y, c); raw(x, y + 1, mix(c, Pal.BLACK, 0.3))
+            }
+        }
+    }
+
+    /** Lily pads on open water and reeds along the banks of forest ponds. */
+    private fun Pen.pondLife(m: Int, seed: Int) {
+        if (m == 0 && seed % 2 == 0) for ((lx, ly) in listOf(10 to 12, 20 to 20)) {
+            ellipse(lx.toDouble(), ly.toDouble(), 3.5, 2.5, argb(0x3E6A34))
+            raw(lx, ly, argb(0x325E72)); raw(lx + 1, ly - 1, argb(0x325E72))
+            raw(lx - 2, ly - 1, argb(0x5A8848))
+            if (seed == 0 && lx == 10) { raw(lx - 1, ly - 2, argb(0xE8D8E0)); raw(lx, ly - 3, argb(0xF0E4EC)) }
+        }
+        if (m and 5 != 0) for (k in 0 until 6) {
+            val x = 4 + k * 5 + noise(k, seed, 11) % 3
+            val y0 = if (m and 1 != 0) 8 else 26
+            val len = 5 + noise(seed, k, 13) % 5
+            for (t in 0 until len) raw(x, y0 - t, if (t == len - 1) argb(0x6A4A2A) else argb(0x4E6A34))
+        }
+    }
+
     /** A fallen trunk lying across the ground, mossy on top; [leftEnd]/[rightEnd] show the cut or broken end. */
     private fun Pen.log(leftEnd: Boolean, rightEnd: Boolean) {
         val bark = argb(0x4E3A2A); val barkL = argb(0x6A5038); val barkD = argb(0x2E2218); val moss = argb(0x4E6A30); val mossL = argb(0x6A8A40)
@@ -752,7 +839,17 @@ object WorldArt {
             val bottom = py + T - 1
             val seed = Math.floorMod(tx * 7 + ty * 13, 4)
             when (t) {
-                Tile.TREE -> out += Obj(tree(seed, map.kind == MapKind.FOREST && seed == 3), px, py - 18, bottom)
+                Tile.TREE -> {
+                    // mostly leafy trees, some pines; in the deep forest old gnarled ones
+                    val v = Math.floorMod(tx * 5 + ty * 11 + tx * ty, 7)
+                    val deep = map.id == "deep_forest"
+                    val kind = when {
+                        deep && v % 3 == 0 -> TreeKind.GNARLED
+                        map.kind == MapKind.FOREST && v >= 5 -> TreeKind.PINE
+                        else -> TreeKind.LEAFY
+                    }
+                    out += Obj(mapTree(kind, v % 4, deep), px - 6, py - 24, bottom)
+                }
                 Tile.ROCK -> out += Obj(cached("rock") { rock() }, px, py, bottom)
                 Tile.SIGN -> out += Obj(cached("sign") { sign() }, px, py, bottom)
                 Tile.CHEST -> {
@@ -846,6 +943,88 @@ object WorldArt {
             if (seed == 1) { raw(10, 20, Pal.RED); raw(21, 14, Pal.RED); raw(18, 24, Pal.RED) } // apples
         }
         outline(Pal.OUTLINE)
+    }
+
+    enum class TreeKind { LEAFY, PINE, GNARLED }
+
+    /** Leaf tones from lit to deep shadow, per kind of wood. */
+    private fun leafRamp(kind: TreeKind, deep: Boolean): IntArray = when {
+        kind == TreeKind.PINE -> intArrayOf(argb(0x5A7A56), argb(0x3E5E46), argb(0x2C4636), argb(0x1C3026), argb(0x111E18))
+        deep -> intArrayOf(argb(0x4E6E3E), argb(0x38552F), argb(0x284026), argb(0x1A2C1A), argb(0x101A12))
+        else -> intArrayOf(argb(0x6A8C48), argb(0x4C6E38), argb(0x36542C), argb(0x243C20), argb(0x152416))
+    }
+
+    /**
+     * A tree for the map, 44 × 56 with its foot at the bottom middle: a lit, clumpy crown with a
+     * deep shadow underneath, a barked trunk and roots. Pines in tiers, gnarled old trees with
+     * hanging moss in the deep forest.
+     */
+    fun mapTree(kind: TreeKind, v: Int, deep: Boolean): PixelImage = cached("maptree/$kind/$v/$deep", 44, 56) {
+        val ramp = leafRamp(kind, deep)
+        val barkL = argb(0x6A5038); val bark = argb(0x4A3828); val barkD = argb(0x2C2018)
+        val outline = argb(0x0E1610)
+        val cx = 22
+        // roots and trunk
+        val trunkW = if (kind == TreeKind.GNARLED) 5 else 3
+        val trunkTop = if (kind == TreeKind.PINE) 40 else 32
+        for (y in trunkTop..53) {
+            val flare = if (y > 49) (y - 49) else 0
+            val bend = if (kind == TreeKind.GNARLED) (Math.sin(y / 4.0 + v) * 1.5).toInt() else 0
+            for (x in cx - trunkW - flare + bend..cx + trunkW + flare + bend) {
+                val u = (x - (cx + bend)) / (trunkW + flare + 0.5)
+                var c = if (u < -0.4) barkL else if (u > 0.35) barkD else bark
+                if ((x * 3 + y) % 7 == 0 && u > -0.6) c = barkD
+                raw(x, y, c)
+            }
+        }
+        if (kind == TreeKind.GNARLED) { raw(cx - 2, 40, barkD); raw(cx - 1, 40, barkD); raw(cx - 2, 41, argb(0x1A120C)); raw(cx + 2, 46, barkD) }
+        for (k in 0..2) { // roots
+            val dir = k - 1
+            for (t in 0..5) raw(cx + dir * (trunkW + 1 + t), 53 - (if (t < 2) 1 else 0) + (if (t > 3) 1 else 0), if (dir < 0) barkL else barkD)
+        }
+        // the crown: overlapping clumps, lit from the upper left
+        val clumps = when (kind) {
+            TreeKind.PINE -> emptyList()
+            TreeKind.GNARLED -> listOf(Triple(14.0, 20.0, 10.0), Triple(28.0, 16.0, 11.0), Triple(22.0, 9.0, 9.0), Triple(9.0, 28.0, 7.0), Triple(34.0, 27.0, 8.0), Triple(22.0, 25.0, 10.0))
+            else -> listOf(Triple(22.0, 17.0, 13.0), Triple(13.0, 23.0, 9.5), Triple(31.0, 22.0, 10.0), Triple(17.0, 9.0, 8.5), Triple(28.0, 10.0, 8.0), Triple(22.0, 28.0, 9.0))
+        }.mapIndexed { i, c -> Triple(c.first + ((v + i) % 3 - 1) * 1.5, c.second + ((v * 2 + i) % 3 - 1), c.third - (if ((v + i) % 4 == 0) 1.5 else 0.0)) }
+        if (kind == TreeKind.PINE) {
+            val tiers = 5
+            for (t in 0 until tiers) {
+                val top = 2 + t * 8.0; val bot = top + 13; val half = 5 + t * 3.4
+                for (y in top.toInt()..bot.toInt()) {
+                    val q = (y - top) / (bot - top)
+                    val hw = half * q + 1
+                    for (x in (cx - hw).toInt()..(cx + hw).toInt()) {
+                        val jag = (x + y * 2 + t) % 3 == 0 && q > 0.85
+                        if (jag) continue
+                        val u = (x - cx) / hw
+                        val l = 0.3 + u * 0.45 + q * 0.35 + (noise(x, y, 33 + v) % 10) / 40.0
+                        raw(x, y, ramp[(l * 4).toInt().coerceIn(0, 4)])
+                    }
+                }
+            }
+        } else for (y in 0 until 44) for (x in 0 until 44) {
+            var best = 9.0; var bnx = 0.0; var bny = 0.0
+            for ((ox, oy, r) in clumps) {
+                val dx = (x + 0.5 - ox) / r; val dy = (y + 0.5 - oy) / r
+                val d = dx * dx + dy * dy
+                if (d < best) { best = d; bnx = dx; bny = dy }
+            }
+            // ragged leafy edge
+            if (best > 1.0 + ((noise(x, y, 41 + v) % 10) - 4) * 0.035) continue
+            var l = 0.35 + (bnx * 0.45 + bny * 0.55) * 0.5 + y / 44.0 * 0.4
+            // leaf texture: small light and dark flecks in clusters of two
+            val n = noise(x / 2, y / 2, 47 + v) % 12
+            if (n == 0) l -= 0.25 else if (n == 1) l += 0.22
+            raw(x, y, ramp[(l * 4).toInt().coerceIn(0, 4)])
+        }
+        // hanging moss on old trees
+        if (kind == TreeKind.GNARLED) for (k in 0 until 5) {
+            val x = 8 + k * 7 + v % 3; val len = 4 + (k + v) % 4
+            for (t in 0 until len) if (img[x, 28 + t] != 0) raw(x, 30 + t, argb(0x6A7A4A))
+        }
+        outline(outline)
     }
 
     private fun Pen.rock() {

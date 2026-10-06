@@ -4,6 +4,17 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – Kapitel 1 in neuem Gewand**
+- Alle Karten sehen erwachsener und etwas düsterer aus: moosiges Gras, dunkleres Laub, erdige Wege, dunkles Wasser, gedämpfte Dächer, verwitterte Wände.
+- Neue Bäume: lichte, klumpige Kronen mit Schatten darunter, Rinde und Wurzeln, Tannen in Stufen. Im Tiefen Flüsterwald stehen knorrige alte Bäume mit hängendem Moos.
+- Mehr Leben am Boden: Farne, Pilze und Laub unter den Bäumen, hohes Gras mit natürlichen Rändern und Samenständen, locker verstreute Blumen, Seerosen und Schilf an den Waldteichen.
+- Licht wie in den Kämpfen auf allen Karten: Schatten unter dichtem Laub mit Lichtflecken, der Tiefe Flüsterwald deutlich dunkler, warme Abende und kalte, dunkle Nächte. Nachts leuchten Lagerfeuer, Straßenlaternen und Fenster, deren Licht vor die Häuser fällt. Im Wald trägt der Held eine Laterne. In Häusern brennen Kerzen auf Tischen, Theke und Altar, tagsüber fällt Licht durch die Tür.
+- Der Nebel über Unerkundetem geht weich in das Licht über.
+
+**Karte und Kampf passen zusammen – auch im Wald**
+- Neu in beiden Wäldern: umgestürzte, bemooste Baumstämme und Steinkreise aus alten Menhiren.
+- Der Kampfort ergibt sich jetzt aus dem, was in der Nähe steht: am Teich der Teich, beim Steinkreis der Steinkreis, beim Stamm der umgestürzte Baum, bei Felsen die Felsen, zwischen vielen Bäumen der Waldrand, sonst eine Lichtung.
+
 ## v0.1.61 – 06.10.2026, 14:35
 
 **Neu – die Blutzahnhöhle lebt**
