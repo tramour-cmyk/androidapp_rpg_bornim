@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.34 – 06.10.2026, 07:18
+
 **Verbessert – mehr Sicht auf der Karte**
 - Die Anzeige oben rechts ist deutlich flacher: Lebens-, Zauber- und Erfahrungsbalken links, Tag und Uhrzeit sowie offene Attributspunkte und Zustände rechts daneben, die Tasche etwas kleiner.
 - Am oberen Kartenrand scrollt die Karte ein Feld weiter, sodass die oberste Reihe (z. B. der Schlagbaum oder der Höhleneingang) nicht mehr unter der Anzeige verschwindet.
