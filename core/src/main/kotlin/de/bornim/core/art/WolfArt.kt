@@ -56,9 +56,14 @@ object WolfArt {
     /** Grimfang, the alpha wolf. */
     val ALPHA = Coat(0x343034, 0x0E0A0C, 0x5A5250, 0xF03A2A, scar = true, tornEar = true)
 
-    fun coatFor(look: MonsterLook, alpha: Boolean): Coat {
-        val base = if (alpha) ALPHA else listOf(GREY, DARK, RUST, ASH)[look.pick(4, 10)]
-        return if (look.shiny) base.shifted(190.0) else base
+    /** The rare shimmering wolf: silver-blue fur and pale blue eyes; the alpha keeps its darker saddle. */
+    val SHIMMER = Coat(0x8C9CB8, 0x2C3654, 0xDCE8F4, 0x7AD8FF)
+    val SHIMMER_ALPHA = Coat(0x5A6A8E, 0x141A30, 0xA8B8D4, 0x9AE4FF, scar = true, tornEar = true)
+
+    fun coatFor(look: MonsterLook, alpha: Boolean): Coat = when {
+        look.shiny -> if (alpha) SHIMMER_ALPHA else SHIMMER.copy(scar = look.pick(3, 11) == 0)
+        alpha -> ALPHA
+        else -> listOf(GREY, DARK, RUST, ASH)[look.pick(4, 10)]
     }
 
     // ---------------------------------------------------------------- key poses

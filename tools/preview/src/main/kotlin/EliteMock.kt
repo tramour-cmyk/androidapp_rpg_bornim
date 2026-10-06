@@ -45,5 +45,20 @@ fun renderEliteMock() {
         File("build/screens").mkdirs()
         ImageIO.write(out, "png", File("build/screens/elite_mock_${name}_$pi.png"))
     }
+    // the sheen wandering over a shimmering wolf, a few moments of one sweep
+    val shiny = MonsterArt.battleFrame("wolf", MonsterLook(3, shiny = true), Act.IDLE, 0, 0)
+    val phases = listOf(2, 4, 6, 8, 10)
+    val out = BufferedImage(shiny.width * 3 * phases.size, shiny.height * 3, BufferedImage.TYPE_INT_RGB)
+    for ((i, ph) in phases.withIndex()) {
+        val sheen = de.bornim.core.art.Glow.sheen(shiny, ph)
+        for (y in 0 until shiny.height * 3) for (x in 0 until shiny.width * 3) {
+            val p = shiny[x / 3, y / 3]
+            var c = if ((p ushr 24) > 128) p else argb(0x4E6E44)
+            val s = sheen[x / 3, y / 3]
+            if ((s ushr 24) > 0) c = mix(c, s or (0xFF shl 24), (s ushr 24) / 255.0 * 0.75)
+            out.setRGB(i * shiny.width * 3 + x, y, c)
+        }
+    }
+    ImageIO.write(out, "png", File("build/screens/shiny_sheen.png"))
     println("wrote elite mock")
 }

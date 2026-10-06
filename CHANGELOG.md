@@ -11,6 +11,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Der Wolf ist neu gezeichnet: größer, düsterer, mit vier Fellvarianten (grau, schwarz, rostbraun, aschgrau), Narben und eingerissenen Ohren. Grimmzahn ist größer, schwarz, mit roten Augen.
 - Flüssigere Bewegungen mit vielen Zwischenbildern: atmen in Ruhe, zwei Angriffsarten (Biss und Sprungangriff), Heulen, wenn das Rudel angreift, Zurückzucken bei Treffern.
 - Held und Gegner werfen Schatten; auch in Höhle und Dorf gibt es keine Plattformen mehr.
+- Elite-Gegner im neuen Stil leuchten pulsierend entlang ihres Umrisses in der Farbe ihrer Eigenschaft. Schimmernde Wölfe haben silberblaues Fell, Glitzer um den Körper und einen Lichtschimmer, der regelmäßig über das Fell wandert.
 - **Blut bei Treffern** (dezent), im Menü unter „System“ einstellbar: Aus, Dezent oder Deutlich (mit Spritzern am Boden). Skelette splittern, Untote verlieren dunkle Brühe, der Schleim spritzt.
 
 ## v0.1.41 – 06.10.2026, 07:49

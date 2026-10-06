@@ -58,6 +58,7 @@ import de.bornim.core.Ui
 import de.bornim.core.art.Act
 import de.bornim.core.art.BattleArt
 import de.bornim.core.art.BattleScene
+import de.bornim.core.art.Glow
 import de.bornim.core.art.CharacterArt
 import de.bornim.core.art.IconArt
 import de.bornim.core.art.HeroArt
@@ -343,20 +344,33 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     y = sceneH * foeY - foeFeet + enemyDy + if (a == Anim.ENEMY_FAINT) (t * 40).dp else 0.dp,
                 )
             ) {
-                if (glow != null && !ui.enemyGone) {
-                    // the aura is round: centre it on the body of the wider new-style sprites
-                    if (newStyle) Box(Modifier.offset(y = (foeH - foeW) / 2)) { EliteAura(glow, foeW, enemyAlpha) }
-                    else EliteAura(glow, monsterSize, enemyAlpha)
-                }
-                if (enemyFrame != null) PixelSprite(
-                    enemyFrame, artDp, alpha = enemyAlpha,
-                    flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f, shade = shade,
-                ) else PixelImageView(
+                val pulse = rememberPulse()
+                // New-style elites shimmer along their outline; the old sprites keep the round aura.
+                if (glow != null && !ui.enemyGone && enemyFrame != null) Box(Modifier.offset(x = -artDp * Glow.PAD, y = -artDp * Glow.PAD)) {
+                    PixelSprite(Glow.halo(enemyFrame, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.55f + 0.4f * pulse))
+                } else if (glow != null && !ui.enemyGone) EliteAura(glow, monsterSize, enemyAlpha)
+                if (enemyFrame != null) {
+                    PixelSprite(
+                        enemyFrame, artDp, alpha = enemyAlpha,
+                        flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f, shade = shade,
+                    )
+                    if (glow != null && !ui.enemyGone) PixelSprite(Glow.rim(enemyFrame, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.22f + 0.18f * pulse))
+                    // a band of light wanders over a shimmering coat every few seconds
+                    if (battle.shiny && !ui.enemyGone) {
+                        val steps = 12
+                        val phase = ((pulseClock() / 120) % 30).toInt()
+                        if (phase < steps) PixelSprite(Glow.sheen(enemyFrame, phase, steps), artDp, alpha = enemyAlpha * 0.75f)
+                    }
+                } else PixelImageView(
                     MonsterArt.frame(battle.monster.id, battle.look, enemyPose, idle),
                     monsterSize, alpha = enemyAlpha,
                     flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f, shade = shade,
                 )
-                if (battle.shiny && !ui.enemyGone) Sparkles(battle.look.seed, if (newStyle) foeW else monsterSize, enemyAlpha)
+                if (battle.shiny && !ui.enemyGone) {
+                    // sparkles around the body: centre their square on the wide new-style sprite
+                    if (newStyle) Box(Modifier.offset(y = (foeH - foeW) / 2 - foeH * 0.22f)) { Sparkles(battle.look.seed, foeW, enemyAlpha) }
+                    else Sparkles(battle.look.seed, monsterSize, enemyAlpha)
+                }
             }
             // Hero (seen from behind)
             val heroAlpha = when {
@@ -635,6 +649,31 @@ private fun BagMenu(game: Game, lang: Lang, onPick: (String) -> Unit, onBack: ()
 private fun enemyAlphaBase(a: Anim?, gone: Boolean, t: Float): Float = if (gone && a != Anim.ENEMY_FAINT && a != Anim.PACK_FLEE) 0f else 1f
 
 /** Pulsing glow in the elite's trait color behind the monster. */
+/** 0..1 and back, slowly, for glowing things. */
+@Composable
+private fun rememberPulse(): Float {
+    val p by androidx.compose.animation.core.rememberInfiniteTransition(label = "glow").animateFloat(
+        0f, 1f,
+        androidx.compose.animation.core.infiniteRepeatable(tween(1100), androidx.compose.animation.core.RepeatMode.Reverse),
+        label = "pulse",
+    )
+    return p
+}
+
+/** Milliseconds that keep counting, to drive slow effects. */
+@Composable
+private fun pulseClock(): Long {
+    var now by remember { androidx.compose.runtime.mutableLongStateOf(0L) }
+    LaunchedEffect(Unit) {
+        val start = System.currentTimeMillis()
+        while (true) {
+            delay(60)
+            now = System.currentTimeMillis() - start
+        }
+    }
+    return now
+}
+
 @Composable
 private fun EliteAura(color: Color, size: androidx.compose.ui.unit.Dp, alpha: Float) {
     val pulse by androidx.compose.animation.core.rememberInfiniteTransition(label = "aura").animateFloat(
