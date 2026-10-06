@@ -426,6 +426,15 @@ fun checkClashes() {
         val fwd = Math.toDegrees(Math.atan2(ua.z, Math.abs(ua.x)))
         println("BLOCK ${race.name}: Unterarm ${"%.0f".format(deg)}° zur Waagerechten, Ellbogen ${"%.0f".format(sk.elbow[1].y - sk.shoulder[1].y)} cm über der Schulter, Oberarm ${"%.0f".format(fwd)}° nach vorn (0 = seitlich, 90 = gerade vorn)")
     }
+    run {
+        val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE)
+        for ((n, r) in listOf("Hieb" to de.bornim.core.art.HeroFigure.SLASH_HIT, "Stich" to de.bornim.core.art.HeroFigure.THRUST_HIT, "Schlag" to de.bornim.core.art.HeroFigure.SMASH_HIT)) {
+            val sk = doll.Skeleton(r, shieldArm = true)
+            val a = sk.elbow[1] - sk.shoulder[1]; val b = sk.wrist[1] - sk.elbow[1]
+            val bend = 180 - Math.toDegrees(Math.acos((a.norm() dot b.norm()).coerceIn(-1.0, 1.0)))
+            println("$n: Ellbogen ${"%.0f".format(bend)}° (180 = gestreckt)")
+        }
+    }
     println("geprüft: $total Bilder, Klinge im Schild ohne Korrektur: $rawBad, mit Korrektur: $bad")
     println("ohne Korrektur je Ablauf: $byAct")
     println("Klinge durch Kopf oder Körper: $bodyBad, je Ablauf: $bodyAct")
@@ -448,13 +457,16 @@ fun renderDollAnims() {
         "intro" to (seq(de.bornim.core.art.HeroFigure.Act.INTRO).take(10) + seq(de.bornim.core.art.HeroFigure.Act.TURN) + idle),
         "schwert" to (idle + seq(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SLASH) + idle.take(6)),
         "block" to (idle + seq(de.bornim.core.art.HeroFigure.Act.BLOCK) + idle.take(6)),
+        "stich" to (idle + seq(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.THRUST) + idle.take(6)),
+        "schlag" to (idle + seq(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SMASH) + idle.take(6)),
     )
     val dir0 = File("build/screens/dollanim"); dir0.deleteRecursively(); dir0.mkdirs()
     for ((name, rigs) in clips) {
         val dir = File(dir0, name); dir.mkdirs()
         for ((i, rig) in rigs.withIndex()) {
             val cw = 150; val chh = 190
-            val im = doll.render(cw, chh, 70.0, 184.0, 0.75, rig, outfit).img
+            val kit = if (name == "schlag") de.bornim.core.art.Outfit(outfit.cls, outfit.items + (de.bornim.core.GearSlot.MAIN_HAND to g("warhammer", de.bornim.core.Rarity.RARE))) else outfit
+            val im = doll.render(cw, chh, 70.0, 184.0, 0.75, rig, kit).img
             val out = BufferedImage(w * 2, h * 2, BufferedImage.TYPE_INT_RGB)
             for (y in 0 until h) for (x in 0 until w) for (q in 0 until 4) out.setRGB(x * 2 + q % 2, y * 2 + q / 2, bg[x, y])
             fun paste(img: de.bornim.core.art.PixelImage, ox: Int, oy: Int) {
@@ -509,4 +521,32 @@ fun renderBackViews() {
     }
     ImageIO.write(out, "png", File("build/screens/back_views.png"))
     println("wrote back views")
+}
+
+
+/** Key frames of each blow, large: dressed and bare, from the fighting view and the front. */
+fun renderAttackViews() {
+    var uid = 1L
+    fun g(base: String) = de.bornim.core.Gear(uid++, base, de.bornim.core.Rarity.COMMON, 3)
+    val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 0)
+    fun kit(w: String) = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.CHEST to g("chain_shirt"), de.bornim.core.GearSlot.MAIN_HAND to g(w), de.bornim.core.GearSlot.OFF_HAND to g("shield")))
+    val F = de.bornim.core.art.HeroFigure
+    val rows = listOf(
+        Triple("Hieb", kit("longsword"), listOf(F.STAND, F.SLASH_WIND, F.STAND.lerp(F.SLASH_WIND, 0.5).lerp(F.SLASH_HIT, 0.5), F.SLASH_HIT, F.SLASH_FOLLOW)),
+        Triple("Stich", kit("longsword"), listOf(F.STAND, F.THRUST_WIND, F.THRUST_WIND.lerp(F.THRUST_HIT, 0.5), F.THRUST_HIT)),
+        Triple("Schlag", kit("mace"), listOf(F.SMASH_RAISE, F.SMASH_WIND, F.SMASH_OVER, F.SMASH_HIT)),
+    )
+    val cw = 240; val ch = 280; val px = 1.25
+    val views = listOf(138.0, 30.0, 90.0)
+    val cols = rows.maxOf { it.third.size }
+    val out = BufferedImage(cw * cols * views.size, ch * rows.size * 2, BufferedImage.TYPE_INT_RGB)
+    val gg = out.createGraphics(); gg.color = java.awt.Color(0x5E625C); gg.fillRect(0, 0, out.width, out.height)
+    for ((ri, row) in rows.withIndex()) for ((vi, yaw) in views.withIndex()) for ((ci, rig) in row.third.withIndex()) for (bare in 0..1) {
+        val im = doll.render(cw, ch, cw / 2.0 - 20, ch - 8.0, px, rig.copy(yaw = rig.yaw - de.bornim.core.art.HeroFigure.FIGHT_YAW + yaw), if (bare == 1) null else row.second).img
+        val ox = (vi * cols + ci) * cw; val oy = (ri * 2 + bare) * ch
+        for (y in 0 until ch) for (x in 0 until cw) { val p = im[x, y]; if ((p ushr 24) >= 128) out.setRGB(ox + x, oy + y, p) }
+        gg.color = java.awt.Color(0xF0E8D8); gg.drawString("${row.first} ${ci + 1} – ${yaw.toInt()}°", ox + 6, oy + 16)
+    }
+    ImageIO.write(out, "png", File("build/screens/attack_views.png"))
+    println("wrote attack views")
 }
