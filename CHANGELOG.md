@@ -4,6 +4,10 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Verbessert – Wolfsgeheul**
+- Das Heulen klingt jetzt wie ein Wolf statt wie ein Gebläse: ein weicher, fast reiner Ton ohne Rauschen, der lauter wird, wenn er steigt, ungleichmäßig zittert und weich ausklingt. Dazu kommt ein Nachhall wie im Wald.
+- Die drei Varianten sind ein langes Heulen, ein kurzer Ruf mit längerem, höherem Heulen und ein tiefes, klagendes Heulen mit Stimmsprung.
+
 ## v0.1.54 – 06.10.2026, 13:04
 
 **Neu – Wolfsgeheul**
