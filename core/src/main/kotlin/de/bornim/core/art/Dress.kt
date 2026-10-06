@@ -416,12 +416,13 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         up = (up + P3(0.0, 4.0, 0.0) - n * (n.y * 4.0)).norm()
         val ax = (up cross n).norm()
         val f = Frame(ax, up, n)
-        // the forearm runs across the back through the middle, the board stands off it by the straps
+        // strapped to the forearm in its upper third: the arm runs across the back there, the board hangs below
         val hw = (if (tower) 0.2 else 0.165) * h
         val ht = (if (tower) 0.6 else 0.41) * h
         val center = el.lerp(wr, 0.55) + n * (0.02 * h)
+        val strapY = if (tower) ht / 6 else ht * 0.42 - ht / 3
         val outline: (Double, Double) -> Double = if (tower) { x, y -> roundRect(x, y + 0.0, hw, ht / 2, 0.03 * h) } else heater(hw, ht)
-        val c0 = center + up * (if (tower) -0.03 * h else ht * 0.05)
+        val c0 = center - up * strapY
         val paintRgb = worn(if (r >= Rarity.RARE) mix(argb(0x7A2A22), r.color.toInt(), 0.45) else argb(0x6E2E24), 0.15)
         val face = m(paintRgb)
         val stripe = m(argb(0xC8BCA0))
@@ -429,6 +430,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val planks = wood
         val strap = darkLeather
         val board = Board(c0, f, max(hw, ht / 2) * 1.2, 0.022 * h, 0.08 * h, outline, BodyPart.GEAR, Doll.SHIELD)
+        shieldBoard = board
         add(board, face, { _ -> face }, null)
         board.paint = { p ->
             val l = board.local(p)
@@ -436,13 +438,33 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             when {
                 edge > -0.02 * h -> rim
                 l.z > 0 -> if (abs(l.y - ht * 0.08) < 0.016 * h) stripe else face
-                abs(l.y + 0.02 * h) < 0.012 * h || abs(l.y - 0.07 * h) < 0.012 * h -> strap
+                abs(l.y - strapY + 0.03 * h) < 0.011 * h || abs(l.y - strapY - 0.03 * h) < 0.011 * h -> strap
                 frac(l.x / (0.05 * h)) < 0.08 -> planks.copy(bias = -0.15)
                 else -> planks
             }
         }
         // the iron boss in the middle of the face
         add(Ellipsoid(c0 + up * (ht * 0.0) + n * (0.012 * h), P3(0.035 * h, 0.035 * h, 0.022 * h), f, BodyPart.GEAR, Doll.ITEM), rim)
+    }
+
+    /** The shield's board once [solids] has run, for checks. */
+    var shieldBoard: Board? = null
+        private set
+
+    /** Where along the main weapon (0 at the hand, 1 at the tip) it would pass through the shield, or null. */
+    fun weaponThroughShield(): Double? {
+        val b = shieldBoard ?: return null
+        val main = o.items[GearSlot.MAIN_HAND] ?: return null
+        val len = reach(main.base)
+        val hand = sk.hand(1)
+        for (i in 0..40) { val t = i / 40.0; if (b.dist(hand + sk.weapon * (len * t)) < 0.6) return t }
+        return null
+    }
+
+    /** About how far a weapon reaches beyond the hand, in cm. */
+    private fun reach(base: String) = when (base) {
+        "dagger" -> 30.0; "shortsword", "handaxe", "wand" -> 60.0; "mace", "scimitar" -> 75.0
+        "longsword", "rapier", "battleaxe", "warhammer" -> 90.0; else -> 100.0
     }
 
     // ---------------------------------------------------------------- weapons, drawn over the doll

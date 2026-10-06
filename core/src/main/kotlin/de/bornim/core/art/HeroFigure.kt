@@ -68,7 +68,7 @@ object HeroFigure {
         val bodyX: Double = 0.0, val bodyY: Double = 0.0,
         val lean: Double = 0.0, val crouch: Double = 0.0, val stride: Double = 2.0, val spread: Double = 6.0,
         val rh: V = V(10.0, 70.0, 12.0), val weapon: V = V(0.25, 0.8, 0.55),
-        val lh: V = V(0.0, 60.0, 19.0), val shieldFace: V = V(-0.3, 0.0, 1.0),
+        val lh: V = V(-9.0, 68.0, 16.0), val shieldFace: V = V(-0.5, 0.0, 1.0),
         val headTurn: Double = 0.0, val headDown: Double = 0.0,
         val cloak: Double = 0.0, val glow: Double = 0.0, val draw: Double = 0.0,
         /** 0..1: a bright arc behind the blade on the fastest frames of a blow. */
@@ -87,28 +87,28 @@ object HeroFigure {
     // ---------------------------------------------------------------- key poses
 
     val STAND = Rig()
-    val BREATHE = STAND.copy(bodyY = 0.7, rh = V(10.0, 69.4, 12.0), lh = V(0.0, 59.4, 19.0), cloak = 1.0)
+    val BREATHE = STAND.copy(bodyY = 0.7, rh = V(10.0, 69.4, 12.0), lh = V(-9.0, 67.4, 16.0), cloak = 1.0)
 
     /** Facing us, ready: weapon across the body, shield face towards us. */
-    val READY = Rig(yaw = 16.0, stride = 1.0, spread = 8.0, rh = V(11.0, 70.0, 11.0), weapon = V(-0.35, 0.8, 0.45), lh = V(-5.0, 60.0, 14.0), shieldFace = V(-0.2, 0.0, 1.0), headTurn = -8.0)
-    val READY_B = READY.copy(bodyY = 0.7, rh = V(11.0, 69.4, 11.0), lh = V(-5.0, 59.4, 14.0), cloak = 1.0)
+    val READY = Rig(yaw = 16.0, stride = 1.0, spread = 8.0, rh = V(13.0, 70.0, 11.0), weapon = V(0.2, 0.85, 0.45), lh = V(-8.0, 68.0, 14.0), shieldFace = V(-0.2, 0.0, 1.0), headTurn = -8.0)
+    val READY_B = READY.copy(bodyY = 0.7, rh = V(11.0, 69.4, 11.0), lh = V(-8.0, 67.4, 14.0), cloak = 1.0)
     /** Half way round, seen from the side. */
-    val TURNING = Rig(yaw = 80.0, bodyY = 1.0, stride = 4.0, spread = 5.0, rh = V(10.0, 70.0, 12.0), weapon = V(0.0, 0.85, 0.5), lh = V(2.0, 67.0, 22.0), shieldFace = V(-0.6, 0.0, 0.8), cloak = -2.0)
+    val TURNING = Rig(yaw = 80.0, bodyY = 1.0, stride = 4.0, spread = 5.0, rh = V(13.0, 70.0, 10.0), weapon = V(0.3, 0.85, 0.4), lh = V(-10.0, 72.0, 17.0), shieldFace = V(-0.7, 0.0, 0.8), cloak = -2.0)
 
     /** Struck from behind while still facing us: thrown forward, then turning round. */
     val STAGGER = Rig(yaw = 10.0, bodyY = 2.0, lean = 0.6, crouch = 2.0, stride = -3.0, rh = V(14.0, 64.0, 6.0), weapon = V(0.6, -0.3, 0.7), lh = V(-15.0, 66.0, 5.0), headDown = 4.0, cloak = 3.0)
 
     // a diagonal cut from high over the right shoulder down across, forward into the foe
-    val SLASH_WIND = Rig(lean = -0.15, rh = V(15.0, 98.0, 2.0), weapon = V(0.25, 0.9, -0.3), lh = V(-6.0, 65.0, 14.0), cloak = -1.0)
-    val SLASH_HIT = Rig(lean = 0.35, crouch = 1.5, stride = 7.0, rh = V(7.0, 68.0, 21.0), weapon = V(0.45, -0.35, 0.8), lh = V(-9.0, 63.0, 12.0), cloak = 2.0, trail = 1.0)
+    val SLASH_WIND = Rig(lean = -0.15, rh = V(15.0, 98.0, 2.0), weapon = V(0.25, 0.9, -0.3), lh = V(-6.0, 70.0, 14.0), cloak = -1.0)
+    val SLASH_HIT = Rig(lean = 0.35, crouch = 1.5, stride = 7.0, rh = V(7.0, 68.0, 21.0), weapon = V(0.45, -0.35, 0.8), lh = V(-13.0, 68.0, 10.0), cloak = 2.0, trail = 1.0)
 
     // a lunge straight at the foe
-    val THRUST_WIND = Rig(lean = -0.2, rh = V(13.0, 72.0, -3.0), weapon = V(0.05, 0.15, 1.0), lh = V(-5.0, 64.0, 15.0))
-    val THRUST_HIT = Rig(lean = 0.45, crouch = 2.0, stride = 10.0, rh = V(5.0, 80.0, 27.0), weapon = V(-0.05, 0.12, 1.0), lh = V(-10.0, 63.0, 10.0), cloak = 2.5, trail = 0.6)
+    val THRUST_WIND = Rig(lean = -0.2, rh = V(13.0, 72.0, -3.0), weapon = V(0.05, 0.15, 1.0), lh = V(-11.0, 69.0, 13.0))
+    val THRUST_HIT = Rig(lean = 0.45, crouch = 2.0, stride = 10.0, rh = V(5.0, 80.0, 27.0), weapon = V(-0.05, 0.12, 1.0), lh = V(-14.0, 68.0, 8.0), cloak = 2.5, trail = 0.6)
 
     // overhead and down onto the foe
-    val SMASH_WIND = Rig(lean = -0.25, bodyY = -1.5, rh = V(5.0, 110.0, 0.0), weapon = V(0.0, 0.75, -0.65), lh = V(-3.0, 108.0, 1.0), cloak = -1.5)
-    val SMASH_HIT = Rig(lean = 0.5, crouch = 4.0, stride = 8.0, rh = V(3.0, 70.0, 22.0), weapon = V(0.0, -0.55, 0.85), lh = V(-3.0, 72.0, 20.0), cloak = 2.5, trail = 1.0)
+    val SMASH_WIND = Rig(lean = -0.25, bodyY = -1.5, rh = V(5.0, 110.0, 0.0), weapon = V(0.0, 0.75, -0.65), lh = V(-9.0, 72.0, 12.0), cloak = -1.5)
+    val SMASH_HIT = Rig(lean = 0.5, crouch = 4.0, stride = 8.0, rh = V(3.0, 70.0, 22.0), weapon = V(0.0, -0.55, 0.85), lh = V(-11.0, 68.0, 10.0), cloak = 2.5, trail = 1.0)
 
     // the bow held out at the foe, the string drawn to the cheek
     val BOW_AIM = Rig(rh = V(5.0, 92.0, 3.0), lh = V(-3.0, 90.0, 27.0), draw = 1.0, headTurn = 6.0)
@@ -124,13 +124,13 @@ object HeroFigure {
     /** Earnest victory poses, facing us again. */
     val VICTORY_POSES = listOf(
         // the blade raised upright before the face: a salute to the fallen
-        Rig(yaw = 14.0, stride = 1.0, spread = 7.0, rh = V(2.0, 90.0, 9.0), weapon = V(0.0, 1.0, 0.06), lh = V(-15.0, 66.0, 3.0), shieldFace = V(-0.4, 0.0, 1.0), headDown = 1.5),
+        Rig(yaw = 14.0, stride = 1.0, spread = 7.0, rh = V(2.0, 90.0, 9.0), weapon = V(0.0, 1.0, 0.06), lh = V(-17.0, 64.0, 3.0), shieldFace = V(-1.0, 0.0, 0.35), headDown = 1.5),
         // resting on the weapon, point to the ground, both hands on the hilt
         Rig(yaw = 20.0, stride = 0.0, spread = 8.0, rh = V(0.5, 66.0, 10.0), weapon = V(0.0, -1.0, 0.05), lh = V(-1.5, 64.0, 10.0), shieldFace = V(-0.6, 0.0, 0.8), headDown = 3.0),
         // the weapon lowered at the side, looking back at the fallen foe
-        Rig(yaw = 28.0, stride = 3.0, spread = 7.0, rh = V(14.0, 60.0, 5.0), weapon = V(0.3, -0.85, 0.35), lh = V(-13.0, 68.0, 6.0), shieldFace = V(-0.3, 0.0, 1.0), headTurn = 30.0, headDown = 1.0),
+        Rig(yaw = 28.0, stride = 3.0, spread = 7.0, rh = V(14.0, 60.0, 5.0), weapon = V(0.3, -0.85, 0.35), lh = V(-17.0, 64.0, 4.0), shieldFace = V(-1.0, 0.0, 0.35), headTurn = 30.0, headDown = 1.0),
         // the weapon held high, calm and upright
-        Rig(yaw = 12.0, stride = 1.0, spread = 8.0, rh = V(18.0, 104.0, 6.0), weapon = V(0.4, 1.0, 0.1), lh = V(-14.0, 68.0, 5.0), shieldFace = V(-0.3, 0.0, 1.0), headTurn = 6.0),
+        Rig(yaw = 12.0, stride = 1.0, spread = 8.0, rh = V(18.0, 104.0, 6.0), weapon = V(0.4, 1.0, 0.1), lh = V(-17.0, 64.0, 4.0), shieldFace = V(-1.0, 0.0, 0.35), headTurn = 6.0),
     )
 
     fun tween(vararg keys: Pair<Rig, Int>): List<Rig> {
@@ -179,7 +179,13 @@ object HeroFigure {
     /** The victory poses that suit what the hero holds: a two-handed weapon is not raised over the head. */
     fun victoryPoses(hero: Hero): List<Int> {
         val w = hero.item(GearSlot.MAIN_HAND)?.def
-        return if (w != null && w.twoHanded && !w.ranged) listOf(0, 1, 2) else VICTORY_POSES.indices.toList()
+        val shield = hero.item(GearSlot.OFF_HAND)?.def?.kind == de.bornim.core.BaseKind.SHIELD
+        return when {
+            w != null && w.twoHanded && !w.ranged -> listOf(0, 1, 2)
+            // both hands on the hilt does not go with a shield on the arm
+            shield -> listOf(0, 2, 3)
+            else -> VICTORY_POSES.indices.toList()
+        }
     }
 
     /** The ways this hero can strike with what is in hand: two variants for melee weapons. */
@@ -195,7 +201,7 @@ object HeroFigure {
         }
     }
 
-    private fun sequence(act: Act, strike: Strike, variant: Int): List<Rig> = when (act) {
+    fun sequence(act: Act, strike: Strike, variant: Int): List<Rig> = when (act) {
         Act.IDLE -> IDLE
         Act.ATTACK -> SEQ.getValue(strike)
         Act.CAST -> SEQ.getValue(Strike.CAST)

@@ -340,10 +340,10 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
      * [w]×[h] pixels, feet at ([anchorX], [ground]), [px] pixels per centimetre, dressed in [outfit].
      */
     fun render(w: Int, h: Int, anchorX: Double, ground: Double, px: Double, rig: HeroFigure.Rig = REST, outfit: Outfit? = null, pitch: Double = 15.0): DepthImage {
-        val sk = Skeleton(rig, shieldArm = outfit?.hasShield == true, fists = outfit != null)
-        var body = body(sk)
-        val dress = outfit?.let { Dress(this, sk, body, it) }
-        val clothes = dress?.solids() ?: emptyList()
+        val (sk, fitted) = fit(rig, outfit)
+        var body = fitted?.second ?: body(sk)
+        val dress = fitted?.first ?: outfit?.let { Dress(this, sk, body, it) }
+        val clothes = fitted?.third ?: dress?.solids() ?: emptyList()
         dress?.hidden?.let { hide -> body = body.filter { it.key !in hide } }
         val ax = anchorX + rig.bodyX * sk.s * px
         val gr = ground + rig.bodyY * sk.s * px
@@ -352,6 +352,26 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         dress?.overlay(img)
         outline(img.img)
         return img
+    }
+
+    /**
+     * The pose made to work with what the hero holds: when a blade would pass through the shield, the shield
+     * arm is taken further out to its own side until the blade is free.
+     */
+    fun fit(rig: HeroFigure.Rig, outfit: Outfit?): Pair<Skeleton, Triple<Dress, List<Solid>, List<Solid>>?> {
+        val shield = outfit?.hasShield == true
+        var r = rig
+        for (attempt in 0..10) {
+            val sk = Skeleton(r, shieldArm = shield, fists = outfit != null)
+            if (outfit == null) return sk to null
+            val body = body(sk)
+            val dress = Dress(this, sk, body, outfit)
+            val clothes = dress.solids()
+            if (!shield || attempt == 10 || dress.weaponThroughShield() == null) return sk to Triple(dress, body, clothes)
+            // further to the shield's side and a little back, its face turned outwards
+            r = r.copy(lh = r.lh + HeroFigure.V(-2.5, 0.0, -1.0), shieldFace = (r.shieldFace + HeroFigure.V(-0.15, 0.0, 0.0)))
+        }
+        error("unreachable")
     }
 
     private fun outline(img: PixelImage) {

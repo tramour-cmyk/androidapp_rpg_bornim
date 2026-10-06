@@ -389,3 +389,69 @@ fun renderDollDressed() {
     ImageIO.write(t, "png", File("build/screens/doll_angezogen_drehung.png"))
     println("wrote dressed dolls")
 }
+
+/** Runs every frame of every animation for sword-and-board heroes and reports where a blade passes through the shield. */
+fun checkClashes() {
+    val F = de.bornim.core.art.HeroFigure
+    var uid = 1L
+    fun g(base: String) = de.bornim.core.Gear(uid++, base, de.bornim.core.Rarity.COMMON, 3)
+    var bad = 0; var total = 0; var rawBad = 0
+    val byAct = sortedMapOf<String, Int>()
+    for (race in de.bornim.core.Race.entries) for (weapon in listOf("longsword", "mace", "shortsword", "warhammer")) {
+        val doll = de.bornim.core.art.Doll(race, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE)
+        val outfit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g(weapon), de.bornim.core.GearSlot.OFF_HAND to g("shield")))
+        val runs = listOf(de.bornim.core.art.HeroFigure.Act.IDLE to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.INTRO to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.TURN to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.AMBUSHED to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.BLOCK to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.HURT to de.bornim.core.art.HeroFigure.Strike.SLASH,
+            de.bornim.core.art.HeroFigure.Act.ATTACK to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.ATTACK to de.bornim.core.art.HeroFigure.Strike.THRUST, de.bornim.core.art.HeroFigure.Act.ATTACK to de.bornim.core.art.HeroFigure.Strike.SMASH) + listOf(0, 2, 3).map { de.bornim.core.art.HeroFigure.Act.VICTORY to de.bornim.core.art.HeroFigure.Strike.SLASH }
+        for ((ri, run) in runs.withIndex()) {
+            val variant = if (run.first == de.bornim.core.art.HeroFigure.Act.VICTORY) listOf(0, 2, 3)[ri - 9] else 0
+            for ((i, rig) in F.sequence(run.first, run.second, variant).withIndex()) {
+                total++
+                val raw = run { val sk = doll.Skeleton(rig, shieldArm = true); val d = de.bornim.core.art.Dress(doll, sk, doll.body(sk), outfit); d.solids(); d.weaponThroughShield() }
+                if (raw != null && run.first == de.bornim.core.art.HeroFigure.Act.VICTORY && rawBad < 400) println("ROH: ${race.name} $weapon v$variant Bild $i bei ${(raw * 100).toInt()} %")
+                if (raw != null) { rawBad++; byAct["${run.first}/${run.second}"] = (byAct["${run.first}/${run.second}"] ?: 0) + 1 }
+                val dress = doll.fit(rig, outfit).second!!.first
+                dress.weaponThroughShield()?.let { t -> bad++; if (bad <= 60) println("DURCH: ${race.name} $weapon ${run.first}/${run.second}/$variant Bild $i bei ${(t * 100).toInt()} %") }
+            }
+        }
+    }
+    println("geprüft: $total Bilder, Klinge im Schild ohne Korrektur: $rawBad, mit Korrektur: $bad")
+    println("ohne Korrektur je Ablauf: $byAct")
+}
+
+/** The dressed 3D knight in the forest against the wolf: intro and turn, sword strike, block, as frame folders for GIFs. */
+fun renderDollAnims() {
+    val w = 270; val h = 370
+    var uid = 1L
+    fun g(base: String, r: de.bornim.core.Rarity = de.bornim.core.Rarity.COMMON) = de.bornim.core.Gear(uid++, base, r, 3)
+    val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 0)
+    val outfit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(
+        de.bornim.core.GearSlot.CHEST to g("plate", de.bornim.core.Rarity.RARE), de.bornim.core.GearSlot.HEAD to g("helmet"), de.bornim.core.GearSlot.CLOAK to g("cloak", de.bornim.core.Rarity.RARE),
+        de.bornim.core.GearSlot.ARMS to g("gauntlets"), de.bornim.core.GearSlot.LEGS to g("greaves"), de.bornim.core.GearSlot.MAIN_HAND to g("longsword", de.bornim.core.Rarity.RARE), de.bornim.core.GearSlot.OFF_HAND to g("shield", de.bornim.core.Rarity.UNCOMMON)))
+    val bg = BattleScene.forest(w, h, BattleScene.Spot.CLEARING, BattleScene.Light.DUSK, false, 12)
+    val wolf = MonsterArt.battleFrame("wolf", MonsterLook(1), Act.IDLE, 0, 0)
+    fun seq(a: de.bornim.core.art.HeroFigure.Act, s: de.bornim.core.art.HeroFigure.Strike = de.bornim.core.art.HeroFigure.Strike.SLASH) = de.bornim.core.art.HeroFigure.sequence(a, s, 0)
+    val idle = seq(de.bornim.core.art.HeroFigure.Act.IDLE).take(10)
+    val clips = listOf(
+        "intro" to (seq(de.bornim.core.art.HeroFigure.Act.INTRO).take(10) + seq(de.bornim.core.art.HeroFigure.Act.TURN) + idle),
+        "schwert" to (idle + seq(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SLASH) + idle.take(6)),
+        "block" to (idle + seq(de.bornim.core.art.HeroFigure.Act.BLOCK) + idle.take(6)),
+    )
+    val dir0 = File("build/screens/dollanim"); dir0.deleteRecursively(); dir0.mkdirs()
+    for ((name, rigs) in clips) {
+        val dir = File(dir0, name); dir.mkdirs()
+        for ((i, rig) in rigs.withIndex()) {
+            val cw = 150; val chh = 190
+            val im = doll.render(cw, chh, 70.0, 184.0, 0.75, rig, outfit).img
+            val out = BufferedImage(w * 2, h * 2, BufferedImage.TYPE_INT_RGB)
+            for (y in 0 until h) for (x in 0 until w) for (q in 0 until 4) out.setRGB(x * 2 + q % 2, y * 2 + q / 2, bg[x, y])
+            fun paste(img: de.bornim.core.art.PixelImage, ox: Int, oy: Int) {
+                for (y in 0 until img.height) for (x in 0 until img.width) { val p = img[x, y]; if ((p ushr 24) < 128) continue
+                    for (q in 0 until 4) { val px = (ox + x) * 2 + q % 2; val py = (oy + y) * 2 + q / 2; if (px in 0 until out.width && py in 0 until out.height) out.setRGB(px, py, p) } }
+            }
+            paste(wolf, (w * BattleScene.FOE_X - wolf.width / 2).toInt(), (h * BattleScene.FOE_Y - MonsterArt.groundLine("wolf")).toInt())
+            paste(im, (w * BattleScene.HERO_X - 70).toInt(), (h * BattleScene.HERO_Y - 184).toInt())
+            ImageIO.write(out.getSubimage(0, 260, w * 2, h * 2 - 260), "png", File(dir, "f%03d.png".format(i)))
+        }
+    }
+    println("wrote doll anims")
+}
