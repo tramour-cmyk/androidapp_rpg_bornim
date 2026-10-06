@@ -329,7 +329,7 @@ object BattleScene {
                     val n = rnd(x, (y / (1 + d * 2)).toInt(), 13)
                     if (n < 0.1) c = mix(c, Pal.BLACK, 0.25) else if (n > 0.93) c = mix(c, Pal.WHITE, 0.2)
                     if (d > 0.3 && abs(abs(x - cx) - half * 0.45) < 0.6 + d) c = mix(c, Pal.BLACK, 0.15)
-                    blend(x, y, c, if (e < 0.08) 0.55 else if (spot == Spot.POND && d < 0.5) 0.0 else 1.0)
+                    blend(x, y, c, if (e < 0.08) 0.55 else 1.0)
                 }
             }
         }
@@ -360,8 +360,9 @@ object BattleScene {
         // ------------------------------------------------------------ places
 
         fun pond() {
-            val cx = px(0.2); val cy = gy(0.3)
-            val rx = w * 0.24; val ry = (h - horizon) * 0.11
+            // a lake far back at the forest edge, behind where the foes stand
+            val cx = px(0.24); val cy = gy(0.075)
+            val rx = w * 0.3; val ry = (h - horizon) * 0.045
             for (y in (cy - ry - 2).toInt()..(cy + ry + 2).toInt()) for (x in (cx - rx - 3).toInt()..(cx + rx + 3).toInt()) {
                 val wob = 1 + 0.12 * sin(x / 5.0 + seed) + 0.08 * sin(y * 1.3)
                 val q = ((x - cx) / (rx * wob)).pow(2) + ((y - cy) / ry).pow(2)
@@ -381,9 +382,9 @@ object BattleScene {
         }
 
         fun fallenTree() {
-            val y0 = gy(0.24)
-            val x0 = px(-0.02); val x1 = px(0.4)
-            val r = 8.5
+            val y0 = gy(0.115)
+            val x0 = px(-0.02); val x1 = px(0.38)
+            val r = 6.5
             val bark = Ramp.of(p.bark)
             val steps = abs(x1 - x0).toInt()
             for (i in 0..steps) {
@@ -427,16 +428,16 @@ object BattleScene {
         private fun atan(x: Double, y: Double) = kotlin.math.atan2(y, x)
 
         fun rocks() {
-            val by = gy(0.3)
-            boulder(px(0.17), by, 19.0, 81 + seed)
-            boulder(px(0.34), by + 6, 11.0, 82 + seed)
-            boulder(px(0.05), by + 9, 10.0, 83 + seed)
+            val by = gy(0.13)
+            boulder(px(0.17), by, 14.0, 81 + seed)
+            boulder(px(0.32), by + 3, 8.5, 82 + seed)
+            boulder(px(0.05), by + 5, 8.0, 83 + seed)
             boulder(px(0.88), gy(0.08), 7.0, 84 + seed)
         }
 
         fun stoneCircle() {
             val stone = Ramp.of(mix(p.stone, Pal.BLACK, 0.1))
-            val cx = px(0.22); val cy = gy(0.2)
+            val cx = px(0.22); val cy = gy(0.09)
             for (i in 0 until 6) {
                 val a = PI * (0.1 + i * 0.16)
                 val sx = cx + cos(a) * w * 0.2; val sy = cy - sin(a) * (h - horizon) * 0.1 + 6

@@ -234,6 +234,15 @@ fun main() {
         vm.refresh()
     }
     val cave = Place("cave", 10, 20, Facing.UP)
+    // a pond fight at dusk with a pack, to check nobody stands in the water
+    shot("73_pond_pack") { vm ->
+        val seed = (1..300).first { Monsters.packSize(Monsters["wolf"], MonsterLook(it)) == 2 }
+        val m = de.bornim.core.World["forest"]
+        val (wx, wy) = (0 until m.height).flatMap { y -> (0 until m.width).map { it to y } }.first { (x, y) -> m.tile(x, y) == de.bornim.core.Tile.GRASS && (-3..3).any { d -> m.tile(x + d, y) == de.bornim.core.Tile.WATER } }
+        fight(vm, "wolf", Place("forest", wx, wy, Facing.UP), seed = seed)
+        vm.game!!.state.minutes = 19 * 60 + 40
+        vm.refresh()
+    }
     for ((name, minutes) in listOf("45_battle_day" to 12 * 60, "45_battle_dusk" to 19 * 60 + 50, "46_battle_night" to 23 * 60)) {
         shot(name) { vm -> fight(vm, "wolf", Place("forest", 10, 20, Facing.UP)); vm.game!!.state.minutes = minutes }
     }
