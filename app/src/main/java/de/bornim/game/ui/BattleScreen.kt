@@ -259,8 +259,18 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // New-style monsters play whole sequences: wind-up while attacking, the rest while the hit shows.
             val id = battle.monster.id
             val variant = ui.attackVariant
+            // How badly the foe is hurt: 1 below half its hit points, 2 below a quarter.
+            val foeWound = when {
+                ui.enemyHp <= 0 -> 0
+                ui.enemyHp * 4 <= battle.enemyMaxHp -> 2
+                ui.enemyHp * 2 <= battle.enemyMaxHp -> 1
+                else -> 0
+            }
+            // Hurt monsters breathe faster.
+            val clockMs = pulseClock()
+            val idleIdx = (clockMs / (230 / (1 + 0.6 * foeWound))).toInt()
             val enemyFrame = if (!newStyle) null else {
-                fun seq(act: Act, from: Int, to: Int) = MonsterArt.battleFrame(id, battle.look, act, variant, from + ((to - from + 1) * t).toInt().coerceAtMost(to - from))
+                fun seq(act: Act, from: Int, to: Int) = MonsterArt.battleFrame(id, battle.look, act, variant, from + ((to - from + 1) * t).toInt().coerceAtMost(to - from), foeWound)
                 val strike = MonsterArt.strikeFrame(id, variant)
                 val n = MonsterArt.frameCount(id, Act.ATTACK, variant)
                 when {
@@ -268,7 +278,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && fx?.onHero == true && moving -> seq(Act.ATTACK, strike, n - 1)
                     (a == Anim.ENEMY_HIT || a == Anim.ENEMY_FAINT) && moving -> seq(Act.HURT, 0, MonsterArt.frameCount(id, Act.HURT, 0) - 1)
                     a == Anim.PACK_ACT && moving -> seq(Act.HOWL, 0, MonsterArt.frameCount(id, Act.HOWL, 0) - 1)
-                    else -> MonsterArt.battleFrame(id, battle.look, Act.IDLE, 0, idle % MonsterArt.frameCount(id, Act.IDLE, 0))
+                    else -> MonsterArt.battleFrame(id, battle.look, Act.IDLE, 0, idleIdx % MonsterArt.frameCount(id, Act.IDLE, 0), foeWound)
                 }
             }
             val enemyDx = when {
@@ -341,7 +351,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             Box(
                 Modifier.offset(
                     x = sceneW * foeX - foeW / 2 + (intro.value * 260).dp + dodge(false) + enemyDx,
-                    y = sceneH * foeY - foeFeet + enemyDy + if (a == Anim.ENEMY_FAINT) (t * 40).dp else 0.dp,
+                    // old-style sprites sag a little when badly hurt; new ones change their posture
+                    y = sceneH * foeY - foeFeet + enemyDy + (if (a == Anim.ENEMY_FAINT) (t * 40).dp else 0.dp) + (if (newStyle) 0.dp else (foeWound * 3).dp),
                 )
             ) {
                 val pulse = rememberPulse()
@@ -355,17 +366,18 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                         flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f, shade = shade,
                     )
                     if (glow != null && !ui.enemyGone) PixelSprite(Glow.rim(enemyFrame, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.22f + 0.18f * pulse))
+                    if (vm.bloodLevel > 0 && foeWound > 0 && !ui.enemyGone) PixelSprite(woundsOf(enemyFrame, foeWound, id, battle.look.seed), artDp, alpha = enemyAlpha, shade = shade)
                     // a band of light wanders over a shimmering coat every few seconds
                     if (battle.shiny && !ui.enemyGone) {
                         val steps = 12
                         val phase = ((pulseClock() / 120) % 30).toInt()
                         if (phase < steps) PixelSprite(Glow.sheen(enemyFrame, phase, steps), artDp, alpha = enemyAlpha * 0.75f)
                     }
-                } else PixelImageView(
-                    MonsterArt.frame(battle.monster.id, battle.look, enemyPose, idle),
-                    monsterSize, alpha = enemyAlpha,
-                    flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f, shade = shade,
-                )
+                } else {
+                    val img = MonsterArt.frame(battle.monster.id, battle.look, enemyPose, if (foeWound > 0) idleIdx else idle)
+                    PixelImageView(img, monsterSize, alpha = enemyAlpha, flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f, shade = shade)
+                    if (vm.bloodLevel > 0 && foeWound > 0 && !ui.enemyGone) PixelImageView(woundsOf(img, foeWound, id, battle.look.seed), monsterSize, alpha = enemyAlpha, shade = shade)
+                }
                 if (battle.shiny && !ui.enemyGone) {
                     // sparkles around the body: centre their square on the wide new-style sprite
                     if (newStyle) Box(Modifier.offset(y = (foeH - foeW) / 2 - foeH * 0.22f)) { Sparkles(battle.look.seed, foeW, enemyAlpha) }
@@ -404,7 +416,10 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 val heroC = Offset((sceneW * heroX).toPx(), (sceneH * heroY - heroSize * 0.5f).toPx())
                 val unit = (if (newStyle) foeW / 90 else monsterSize / 64).toPx()
                 BattleFxLayer(fx, ui.animKey, enemyC, heroC, unit, Modifier.matchParentSize())
-                BloodLayer(a, fx, ui.animKey, enemyC, (sceneH * foeY).toPx(), heroC, (sceneH * heroY).toPx(), vm.bloodLevel, goreFor(id), (monsterSize / 64).toPx(), Modifier.matchParentSize())
+                BloodLayer(
+                    a, fx, ui.animKey, enemyC, (sceneH * foeY).toPx(), heroC, (sceneH * heroY).toPx(), vm.bloodLevel, goreFor(id), (monsterSize / 64).toPx(),
+                    foeHurt = 1f - ui.enemyHp.toFloat() / battle.enemyMaxHp, heroHurt = 1f - ui.heroHp.toFloat() / battle.hero.maxHp, modifier = Modifier.matchParentSize(),
+                )
             }
 
             EnemyBox(battle, ui.enemyHp, ui.foeStatus, lang, Modifier.align(Alignment.TopStart).padding(10.dp))
@@ -649,6 +664,13 @@ private fun BagMenu(game: Game, lang: Lang, onPick: (String) -> Unit, onBack: ()
 private fun enemyAlphaBase(a: Anim?, gone: Boolean, t: Float): Float = if (gone && a != Anim.ENEMY_FAINT && a != Anim.PACK_FLEE) 0f else 1f
 
 /** Pulsing glow in the elite's trait color behind the monster. */
+/** Stains on a hurt monster in the color of what it bleeds; skeletons crack instead. */
+private fun woundsOf(img: de.bornim.core.art.PixelImage, wound: Int, id: String, seed: Int): de.bornim.core.art.PixelImage {
+    val gore = goreFor(id)
+    val c = (gore.main.red * 255).toInt() shl 16 or ((gore.main.green * 255).toInt() shl 8) or (gore.main.blue * 255).toInt()
+    return Glow.wounds(img, wound, c, seed, cracks = gore == Gore.BONE)
+}
+
 /** 0..1 and back, slowly, for glowing things. */
 @Composable
 private fun rememberPulse(): Float {

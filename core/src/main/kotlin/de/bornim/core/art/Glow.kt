@@ -48,6 +48,60 @@ object Glow {
     }
 
     /**
+     * Wounds on the body of a hurt monster: a few dark stains ([level] 1) or more with drips
+     * ([level] 2), in [color]. With [cracks] they are thin dark fissures instead (bone).
+     * Positions are fractions of the sprite's bounding box, so they move with the body.
+     */
+    fun wounds(src: PixelImage, level: Int, color: Int, seed: Int, cracks: Boolean = false): PixelImage =
+        cached("wounds/${System.identityHashCode(src)}/$level/$color/$seed/$cracks") {
+            val out = PixelImage(src.width, src.height)
+            var x0 = src.width; var x1 = 0; var y0 = src.height; var y1 = 0
+            for (y in 0 until src.height) for (x in 0 until src.width) if (src.opaque(x, y)) {
+                x0 = minOf(x0, x); x1 = maxOf(x1, x); y0 = minOf(y0, y); y1 = maxOf(y1, y)
+            }
+            if (x1 <= x0) return@cached out
+            fun rnd(i: Int, k: Int): Double {
+                var n = i * 374761393 + k * 668265263 + seed * 1442695041
+                n = (n xor (n ushr 13)) * 1274126177
+                return ((n xor (n ushr 16)) and 0xFFFF) / 65535.0
+            }
+            fun inside(x: Int, y: Int) = src.opaque(x, y) && src.opaque(x - 1, y) && src.opaque(x + 1, y) && src.opaque(x, y - 1) && src.opaque(x, y + 1)
+            val dark = mix(argb(color), argb(0x000000), 0.35)
+            val count = if (level >= 2) 7 else 3
+            var placed = 0
+            var tries = 0
+            while (placed < count && tries < 80) {
+                tries++
+                // stains sit on the upper body, not on thin legs
+                val cx = x0 + ((x1 - x0) * (0.2 + 0.65 * rnd(tries, 1))).toInt()
+                val cy = y0 + ((y1 - y0) * (0.15 + 0.4 * rnd(tries, 2))).toInt()
+                if (!inside(cx, cy)) continue
+                placed++
+                if (cracks) {
+                    var px = cx; var py = cy
+                    for (k in 0 until 6 + level * 3) {
+                        if (inside(px, py)) out.set(px, py, argb(0x14100C))
+                        if (k % 3 == 0 && inside(px + 1, py)) out.set(px + 1, py, argb(0x5A5248))
+                        px += if (rnd(placed, k) < 0.5) 1 else -1; py += if (rnd(placed, k + 9) < 0.6) 1 else 0
+                    }
+                    continue
+                }
+                val r = 1.2 + rnd(placed, 3) * (if (level >= 2) 1.6 else 1.0)
+                for (dy in -2..2) for (dx in -3..3) {
+                    val d = kotlin.math.sqrt((dx * dx).toDouble() + (dy * dy * 1.6))
+                    if (d > r + rnd(dx + 7, dy + 7) * 0.8) continue
+                    val x = cx + dx; val y = cy + dy
+                    if (inside(x, y)) out.set(x, y, if (d < r * 0.5) dark else argb(color))
+                }
+                // fresh blood runs down
+                if (level >= 2 && rnd(placed, 5) < 0.7) for (k in 1..(2 + (rnd(placed, 6) * 3).toInt())) {
+                    if (inside(cx, cy + 1 + k)) out.set(cx, cy + 1 + k, argb(color))
+                }
+            }
+            out
+        }
+
+    /**
      * A diagonal band of light across the body at [phase] (0..1 sweeps from left to right),
      * to lay over a shimmering monster.
      */

@@ -13,6 +13,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Held und Gegner werfen Schatten; auch in Höhle und Dorf gibt es keine Plattformen mehr.
 - Elite-Gegner im neuen Stil leuchten pulsierend entlang ihres Umrisses in der Farbe ihrer Eigenschaft. Schimmernde Wölfe haben silberblaues Fell, Glitzer um den Körper und einen Lichtschimmer, der regelmäßig über das Fell wandert.
 - **Blut bei Treffern** (dezent), im Menü unter „System“ einstellbar: Aus, Dezent oder Deutlich (mit Spritzern am Boden). Skelette splittern, Untote verlieren dunkle Brühe, der Schleim spritzt.
+- Man sieht, wie schwer ein Gegner verletzt ist: Je weniger Lebenspunkte er hat, desto mehr Blut spritzt bei Treffern. Unter der Hälfte zeigen sich Wunden am Körper, unter einem Viertel mehr davon, mit frischem Blut (Skelette bekommen Risse, Untote dunkle Flecken). Schwer verletzte Gegner atmen schneller; der Wolf lässt den Kopf hängen und schont eine Vorderpfote. Bei „Blut: Aus“ bleibt nur die Haltung.
 
 ## v0.1.41 – 06.10.2026, 07:49
 

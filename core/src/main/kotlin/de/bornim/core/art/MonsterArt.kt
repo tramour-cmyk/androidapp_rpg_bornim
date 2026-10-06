@@ -85,8 +85,9 @@ object MonsterArt {
     /** The frame in which an attack lands; frames before it play while the monster attacks, the rest while the hit shows. */
     fun strikeFrame(id: String, variant: Int): Int = WolfArt.strikeFrame(variant)
 
-    fun battleFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage =
-        WolfArt.frame(look, id == "dire_wolf", act, variant, index)
+    /** [wound] 0 healthy, 1 below half its hit points, 2 below a quarter: changes posture. */
+    fun battleFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound: Int = 0): PixelImage =
+        WolfArt.frame(look, id == "dire_wolf", act, variant, index, wound)
 
     /** Feet position of a new-style frame, in sprite pixels from the top. */
     fun groundLine(id: String): Double = WolfArt.GROUND * (if (id == "dire_wolf") 1.22 else 1.0)

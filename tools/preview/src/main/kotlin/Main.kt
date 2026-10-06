@@ -240,6 +240,24 @@ fun main() {
         shot("74_elite_$n") { fight(it, "wolf", Place("forest", 10, 20, Facing.UP), trait = tr, seed = 3); it.game!!.state.minutes = 12 * 60 }
     }
     shot("74_shiny") { fight(it, "wolf", Place("forest", 10, 20, Facing.UP), shiny = true, seed = 3); it.game!!.state.minutes = 12 * 60 }
+    // hurt foes: posture, wounds and faster breathing at half and a quarter of their hit points
+    fun hurtFight(vm: GameViewModel, id: String, place: Place, share: Double, blood: Int = 1) {
+        vm.changeBlood(blood)
+        vm.newGame("Thora", Race.DWARF, CharClass.FIGHTER)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.state.place = place; g.state.minutes = 12 * 60
+        val b = Battle(g.state, Monsters[id], g.lang, Dice(), 3, false, 3, null, false, MonsterLook(3))
+        Battle::class.java.getDeclaredField("enemyHp").apply { isAccessible = true }.setInt(b, maxOf(1, (b.enemyMaxHp * share).toInt()))
+        g.fight(b)
+        vm.refresh()
+    }
+    for ((n, share) in listOf("full" to 1.0, "half" to 0.45, "quarter" to 0.2)) {
+        shot("75_hurt_wolf_$n") { hurtFight(it, "wolf", Place("forest", 10, 20, Facing.UP), share) }
+        shot("75_hurt_goblin_$n") { hurtFight(it, "goblin", Place("forest", 10, 20, Facing.UP), share) }
+        shot("75_hurt_skeleton_$n") { hurtFight(it, "skeleton", Place("cave", 10, 14, Facing.UP), share) }
+    }
+    shot("75_hurt_wolf_off") { hurtFight(it, "wolf", Place("forest", 10, 20, Facing.UP), 0.2, blood = 0) }
     shot("73_pond_pack") { vm ->
         val seed = (1..300).first { Monsters.packSize(Monsters["wolf"], MonsterLook(it)) == 2 }
         val m = de.bornim.core.World["forest"]

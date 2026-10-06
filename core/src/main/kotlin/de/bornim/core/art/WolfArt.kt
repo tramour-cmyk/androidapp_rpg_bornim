@@ -124,13 +124,25 @@ object WolfArt {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > 240
     }
 
-    fun frame(look: MonsterLook, alpha: Boolean, act: Act, variant: Int, index: Int): PixelImage {
+    /**
+     * A badly hurt wolf ([wound] 1 below half its hit points, 2 below a quarter) hangs its head,
+     * pants and, while standing, keeps one front paw off the ground.
+     */
+    fun wounded(r: Rig, wound: Int, act: Act): Rig {
+        if (wound <= 0) return r
+        val k = wound / 2.0
+        var out = r.copy(headY = r.headY + 2.0 + 2.5 * k, mouth = maxOf(r.mouth, 0.45 + 0.25 * k), tilt = r.tilt + 0.015 * wound, ears = minOf(r.ears, -0.4 * wound))
+        if (act == Act.IDLE) out = out.copy(fnU = r.fnU - 0.12 - 0.12 * k, fnL = r.fnL + 0.45 + 0.35 * k)
+        return out
+    }
+
+    fun frame(look: MonsterLook, alpha: Boolean, act: Act, variant: Int, index: Int, wound: Int = 0): PixelImage {
         val seq = sequence(act, variant)
         val i = index.coerceIn(0, seq.size - 1)
-        val key = "${look.seed}/${look.shiny}/$alpha/$act/${if (act == Act.ATTACK) variant.mod(2) else 0}/$i"
+        val key = "${look.seed}/${look.shiny}/$alpha/$act/${if (act == Act.ATTACK) variant.mod(2) else 0}/$i/$wound"
         synchronized(cache) { cache[key]?.let { return it } }
         val size = if (alpha) 1.22 else 1.0 + look.range(2) * 0.05
-        val img = draw(seq[i], coatFor(look, alpha), 7 + look.seed.mod(5), size)
+        val img = draw(wounded(seq[i], wound, act), coatFor(look, alpha), 7 + look.seed.mod(5), size)
         synchronized(cache) { cache[key] = img }
         return img
     }

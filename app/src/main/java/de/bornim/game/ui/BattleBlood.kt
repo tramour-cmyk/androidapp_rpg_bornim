@@ -42,7 +42,12 @@ private val WOUNDS = setOf(FxKind.SLASH, FxKind.PIERCE, FxKind.SMASH, FxKind.ARR
  * [level] 1 is subtle (few small drops), 2 shows more and leaves splats on the ground that fade.
  */
 @Composable
-fun BloodLayer(anim: Anim?, fx: Fx?, key: Int, enemy: Offset, enemyFeet: Float, hero: Offset, heroFeet: Float, level: Int, foe: Gore, unit: Float, modifier: Modifier) {
+fun BloodLayer(
+    anim: Anim?, fx: Fx?, key: Int, enemy: Offset, enemyFeet: Float, hero: Offset, heroFeet: Float, level: Int, foe: Gore, unit: Float,
+    /** How badly each side is hurt after the hit, 0..1: the worse the wounds, the more blood. */
+    foeHurt: Float = 0f, heroHurt: Float = 0f,
+    modifier: Modifier,
+) {
     if (level <= 0 || fx == null || fx.kind !in WOUNDS) return
     val onHero = when (anim) {
         Anim.HERO_HIT, Anim.HERO_FAINT -> true
@@ -56,7 +61,8 @@ fun BloodLayer(anim: Anim?, fx: Fx?, key: Int, enemy: Offset, enemyFeet: Float, 
     val p = progress.value
     if (p >= 1f) return
     val rnd = Random(fx.seed * 31 + key)
-    val count = (if (level >= 2) 15 else 6) + if (fx.crit) (if (level >= 2) 8 else 3) else 0
+    val hurt = (if (onHero) heroHurt else foeHurt).coerceIn(0f, 1f)
+    val count = (((if (level >= 2) 15 else 6) + if (fx.crit) (if (level >= 2) 8 else 3) else 0) * (0.55f + 1.1f * hurt)).toInt().coerceAtLeast(2)
     // Drops fly away from the attacker: the hero stands bottom left, the foe top right.
     val baseAngle = if (onHero) 200.0 else -25.0
     data class Drop(val angle: Double, val speed: Float, val size: Float, val delay: Float, val light: Boolean)
