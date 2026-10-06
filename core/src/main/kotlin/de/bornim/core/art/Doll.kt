@@ -138,7 +138,33 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             }
             knee = k; elbow = e; wrist = w
         }
-        val weapon = dir(rig.weapon)
+        /**
+         * The hand's thumb side: in a handshake grip the thumb points away from the forearm towards where the upper
+         * arm comes from; with the arm straight, upwards.
+         */
+        fun thumb(i: Int): P3 {
+            val fore = (wrist[i] - elbow[i]).norm()
+            fun perp(v: P3) = v - fore * (v dot fore)
+            val back = perp(shoulder[i] - elbow[i])
+            val up = perp(upper.dir(P3.Y))
+            val bent = back.len() / (shoulder[i] - elbow[i]).len().coerceAtLeast(1e-6)
+            var t = (back.norm() * bent + up.norm() * (1 - bent)).let { if (it.len() < 1e-6) up.norm() else it.norm() }
+            // the forearm may turn about itself without the grip changing; outwards is away from the body's middle
+            val roll = if (i == 1) rig.roll else 0.0
+            if (abs(roll) > 0.01) {
+                val side = fore cross t
+                val out = if ((side dot upper.dir(P3(side(i), 0.0, 0.0))) >= 0) 1.0 else -1.0
+                val a = Math.toRadians(roll) * out
+                t = (t * kotlin.math.cos(a) + side * kotlin.math.sin(a)).norm()
+            }
+            return t
+        }
+        /** The weapon sits fixed in the fist: forearm direction, leaned towards the thumb by the grip angle. */
+        val weapon: P3 = run {
+            val fore = (wrist[1] - elbow[1]).norm()
+            val a = Math.toRadians(rig.grip)
+            (fore * kotlin.math.cos(a) + thumb(1) * kotlin.math.sin(a)).norm()
+        }
         val shieldFace = dir(rig.shieldFace)
         fun side(i: Int) = if (i == 0) -1.0 else 1.0
         fun hand(i: Int): P3 = wrist[i] + (wrist[i] - elbow[i]).norm() * (0.035 * height * handK)
@@ -218,7 +244,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             cone(el, wr, 0.022 * h * l, 0.015 * h * l, BodyPart.ARM, grp, "fore$i")
             ell(el.lerp(wr, 0.28), P3(0.022 * h * l, 0.06 * h, 0.02 * h * l), BodyPart.ARM, grp, "fore$i", Frame.along(wr - el))
             val dir = (wr - el).norm()
-            val hf = Frame.along(dir, sk.upper.dir(P3(s, 0.0, 0.0)))
+            val hf = Frame.along(dir, sk.thumb(i))
             if (sk.fists) ell(wr + dir * (0.03 * h * handK), P3(0.026 * h * handK, 0.034 * h * handK, 0.022 * h * handK), BodyPart.HAND, grp, "hand$i", hf)
             else ell(wr + dir * (0.045 * h * handK), P3(0.029 * h * handK, 0.054 * h * handK, 0.014 * h * handK), BodyPart.HAND, grp, "hand$i", hf)
         }
@@ -401,18 +427,23 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
      */
     fun fit(rig: HeroFigure.Rig, outfit: Outfit?): Pair<Skeleton, Triple<Dress, List<Solid>, List<Solid>>?> {
         val shield = outfit?.hasShield == true
-        var r = rig
-        for (attempt in 0..10) {
-            val sk = Skeleton(r, shieldArm = shield, fists = outfit != null)
-            if (outfit == null) return sk to null
-            val body = body(sk)
-            val dress = Dress(this, sk, body, outfit)
-            val clothes = dress.solids()
-            if (!shield || attempt == 10 || dress.weaponThroughShield() == null) return sk to Triple(dress, body, clothes)
-            // further to the shield's side and a little back, its face turned outwards
-            r = r.copy(lh = r.lh + HeroFigure.V(-2.5, 0.0, -1.0), shieldFace = (r.shieldFace + HeroFigure.V(-0.15, 0.0, 0.0)))
+        if (outfit == null) return Skeleton(rig, shieldArm = false, fists = false) to null
+        var first: Pair<Skeleton, Triple<Dress, List<Solid>, List<Solid>>>? = null
+        // the grip never changes; the forearm turns as little as it must, then the shield arm gives way
+        for (nudge in 0..6) {
+            val base = if (nudge == 0) rig else rig.copy(lh = rig.lh + HeroFigure.V(-2.5 * nudge, 0.0, -1.0 * nudge), shieldFace = rig.shieldFace + HeroFigure.V(-0.15 * nudge, 0.0, 0.0))
+            for (turn in ROLLS) {
+                val r = if (turn == 0.0) base else base.copy(roll = base.roll + turn)
+                val sk = Skeleton(r, shieldArm = shield, fists = true)
+                val body = body(sk)
+                val dress = Dress(this, sk, body, outfit)
+                val clothes = dress.solids()
+                val result = sk to Triple(dress, body, clothes)
+                if (first == null) first = result
+                if ((!shield || dress.weaponThroughShield() == null) && dress.weaponThroughBody() == null) return result
+            }
         }
-        error("unreachable")
+        return first!!
     }
 
     private fun outline(img: PixelImage) {
@@ -428,6 +459,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         const val BELT = 12; const val SKIRT = 13; const val CLOAK = 14; const val HELM = 15; const val SHIELD = 16; const val ITEM = 17; const val BOOTS = 18; const val TRIM = 19
         const val LEG_L = 20; const val LEG_R = 21
         const val GROUPS = 22
+        /** Forearm turns tried, smallest first, to keep a blade clear of head, body and shield. */
+        private val ROLLS = doubleArrayOf(0.0, 15.0, -15.0, 30.0, -30.0, 45.0, -45.0, 60.0, -60.0, 75.0, -75.0, 90.0, -90.0)
 
         /** Standing at ease, facing us, arms hanging. */
         val REST = HeroFigure.Rig(yaw = 20.0, stride = 0.0, spread = 6.0, rh = HeroFigure.V(17.0, 52.0, 3.0), lh = HeroFigure.V(-17.0, 52.0, 3.0), weapon = HeroFigure.V(0.0, -1.0, 0.0))
