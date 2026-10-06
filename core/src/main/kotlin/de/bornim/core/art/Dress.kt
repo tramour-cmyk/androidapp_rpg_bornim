@@ -99,6 +99,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         headgear()
         offHand()
         bow()
+        crossbow()
         return out
     }
 
@@ -430,6 +431,50 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         for (k in 0..2) add(Ellipsoid(top + dirQ * (0.03 * h) + sk.upper.dir(P3((k - 1) * 0.012 * h, 0.0, 0.0)), P3(0.006 * h, 0.022 * h, 0.006 * h), Frame.along(dirQ), BodyPart.GEAR, Doll.TRIM), m(argb(0xC8BCA0)))
     }
 
+    /** A light crossbow, built in the round so it reads from every side: stock, butt, steel prod, string, bolt and stirrup. */
+    private fun crossbow() {
+        val main = o.items[GearSlot.MAIN_HAND] ?: return
+        if (main.base != "light_crossbow") return
+        val r = main.rarity
+        val aim = sk.weapon.norm()
+        val up = (P3.Y - aim * (P3.Y dot aim)).norm()
+        val side = (up cross aim).norm()
+        val s0 = sk.hand(1) + up * (Doll.STOCK_ABOVE_HAND * h)
+        val wood = m(mix(argb(0x5A3A22), r.color.toInt(), if (r >= Rarity.RARE) 0.3 else 0.0), grain = 0.06)
+        fun cone(a: P3, b: P3, ra: Double, rb: Double, mat: Mat, group: Int = Doll.ITEM) = add(RoundCone(a, b, ra, rb, BodyPart.GEAR, group), mat)
+        // the stock, level along the aim, and the butt dropping to the shoulder behind the hand
+        cone(s0 - aim * (0.04 * h), s0 + aim * (0.29 * h), 0.011 * h, 0.009 * h, wood)
+        val butt = s0 - aim * (0.15 * h) - up * (0.03 * h)
+        cone(s0 - aim * (0.03 * h), butt, 0.011 * h, 0.017 * h, wood)
+        cone(butt + aim * (0.01 * h), butt - up * (0.035 * h) + aim * (0.004 * h), 0.016 * h, 0.012 * h, wood)
+        cone(s0 - up * (0.012 * h) + aim * (0.012 * h), s0 - up * (0.032 * h) - aim * (0.012 * h), 0.003 * h, 0.0025 * h, metal(r), Doll.TRIM)
+        // the prod across the front, bent back by the string while spanned
+        val draw = sk.rig.draw.coerceIn(0.0, 1.0)
+        val prod = s0 + aim * (0.26 * h) + up * (0.004 * h)
+        val bend = (0.018 + 0.03 * draw) * h
+        fun at(t: Double) = prod + side * (t * 0.17 * h) - aim * (bend * t * t)
+        val n = 6
+        for (k in 0 until 2 * n) {
+            val t0 = -1.0 + k.toDouble() / n; val t1 = -1.0 + (k + 1).toDouble() / n
+            cone(at(t0), at(t1), (0.0085 - 0.004 * abs(t0)) * h, (0.0085 - 0.004 * abs(t1)) * h, metal(r))
+        }
+        // the string, to the nut when spanned, straight across when loosed
+        val nut = s0 + aim * (0.08 * h) + up * (0.011 * h)
+        val mid = at(1.0).lerp(at(-1.0), 0.5).lerp(nut, draw)
+        val str = m(argb(0xD8D0C0))
+        cone(at(-1.0), mid, 0.25, 0.25, str); cone(mid, at(1.0), 0.25, 0.25, str)
+        // the bolt in its groove
+        if (draw > 0.5) {
+            val tip = prod + aim * (0.05 * h) + up * (0.008 * h)
+            cone(nut + up * (0.002 * h), tip, 0.4, 0.4, m(argb(0x8A6A44), grain = 0.05))
+            cone(tip, tip + aim * (0.018 * h), 0.9, 0.1, metal(r))
+        }
+        // the stirrup at the front, for the foot when spanning
+        val front = s0 + aim * (0.295 * h)
+        cone(front + side * (0.022 * h), front + aim * (0.05 * h), 0.0028 * h, 0.0028 * h, metal(r), Doll.TRIM)
+        cone(front - side * (0.022 * h), front + aim * (0.05 * h), 0.0028 * h, 0.0028 * h, metal(r), Doll.TRIM)
+    }
+
     // ---------------------------------------------------------------- off hand: shield and foci
 
     /** The shield's face, square to the forearm it is strapped to. */
@@ -532,7 +577,6 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     fun overlay(img: DepthImage) {
         val main = o.items[GearSlot.MAIN_HAND]
         if (main != null && !main.def.ranged) weapon(img, main.base, main.rarity, sk.hand(1), sk.weapon)
-        if (main != null && main.base == "light_crossbow") weapon(img, main.base, main.rarity, sk.hand(1), sk.weapon)
         val off = o.items[GearSlot.OFF_HAND]
         if (off != null && off.def.isWeapon && !o.twoHands) weapon(img, off.base, off.rarity, sk.hand(0), P3(sk.weapon.x * -0.5, sk.weapon.y, sk.weapon.z).norm())
     }

@@ -101,10 +101,29 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
          * The shoulder rides on the shoulder blade: when the arm is raised it lifts, when it reaches forward it
          * comes forward round the ribs. Without this a raised arm seems to grow out of the neck.
          */
+        /**
+         * Where the wrists go for a shouldered crossbow: the stock runs level from the hollow of the shoulder, the trigger
+         * hand on the grip under it, the free hand under its fore end.
+         */
+        private val stockWrists: Pair<P3, P3>? = if (rig.stock < 0.01) null else {
+            val aimD = dir(rig.weapon)
+            val up = (P3.Y - aimD * (P3.Y dot aimD)).norm()
+            // the stock's top at the cheek; the butt below it fills the hollow inside the shoulder joint
+            val butt = shoulderRest[1] + upper.dir(P3.Z) * (0.03 * height) - upper.dir(P3.X) * (0.03 * height) + up * (0.1 * height)
+            val handLen = 0.035 * height * handK
+            // the hands where they hold; the wrists back from them along the way each forearm will about lie
+            val rHand = butt + aimD * (0.15 * height) - up * (STOCK_ABOVE_HAND * height)
+            val lHand = butt + aimD * (0.31 * height) - up * (0.042 * height)
+            val r = rHand - (rHand - shoulderRest[1] + up * (0.1 * height)).norm() * handLen
+            val l = lHand - (lHand - shoulderRest[0] + up * (0.1 * height)).norm() * handLen
+            Pair(map(rig.rh).lerp(r, rig.stock), map(rig.lh).lerp(l, rig.stock))
+        }
+        private val rAt = stockWrists?.first ?: map(rig.rh)
+        private val lAt = stockWrists?.second ?: map(rig.lh)
         /** 0..1: how high each arm is raised; the shoulder blade turns up with it. */
         val lift = DoubleArray(2)
         val shoulder = Array(2) { i ->
-            val aim = if (i == 1 && rig.elbowUp > 0.01) map(rig.elbowAt) else map(if (i == 0) rig.lh else rig.rh)
+            val aim = if (i == 1 && rig.elbowUp > 0.01) map(rig.elbowAt) else if (i == 0) lAt else rAt
             val d = (aim - shoulderRest[i]).norm()
             val up = upper.dir(P3.Y); val fwd = upper.dir(P3.Z)
             lift[i] = ((d dot up) + 0.3).coerceIn(0.0, 1.0)
@@ -133,7 +152,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             // the weapon arm first: the free hand may need to know where the weapon is
             run {
                 val i = 1
-                val target = map(rig.rh)
+                val target = rAt
                 var (el, wr) = ik(shoulder[i], target, upperArm, foreArm, P3(rig.rPole.r, rig.rPole.u, rig.rPole.f))
                 if (rig.foreLevel > 0.01) {
                     // the forearm held level, pointing at the foe: the elbow sits behind the hand, the upper arm reaches it
@@ -165,8 +184,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             run {
                 val i = 0
                 val handR = w[1] + fore * (0.035 * height * handK)
-                var target = map(rig.lh)
-                var pole = if (shieldArm) P3(-1.0, -0.5, 0.35) else P3(-0.6, -1.0, -0.5)
+                var target = lAt
+                var pole = if (shieldArm) P3(-1.0, -0.5, 0.35) else if (rig.stock > 0.01) P3(-0.3, -1.0, -0.2) else P3(-0.6, -1.0, -0.5)
                 if (twoHands) {
                     // both hands on the grip, the free one below the weapon hand
                     target = handR - weapon * (0.06 * height)
@@ -498,6 +517,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         const val BELT = 12; const val SKIRT = 13; const val CLOAK = 14; const val HELM = 15; const val SHIELD = 16; const val ITEM = 17; const val BOOTS = 18; const val TRIM = 19
         const val LEG_L = 20; const val LEG_R = 21
         const val GROUPS = 22
+        /** How far, in body heights, a crossbow's stock lies above the middle of the trigger hand. */
+        const val STOCK_ABOVE_HAND = 0.03
         /** Forearm turns tried, smallest first, to keep a blade clear of head, body and shield. */
         private val ROLLS = doubleArrayOf(0.0, 15.0, -15.0, 30.0, -30.0, 45.0, -45.0, 60.0, -60.0, 75.0, -75.0, 90.0, -90.0)
 

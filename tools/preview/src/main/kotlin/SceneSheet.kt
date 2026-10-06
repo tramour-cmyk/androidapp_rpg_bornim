@@ -489,7 +489,7 @@ fun renderDollAnims() {
         "parade" to (idle + de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.BLOCK, de.bornim.core.art.HeroFigure.Strike.SLASH, 1) + idle.take(6)),
         "zweihand" to (idle + seq(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SMASH) + idle.take(6)),
         "bogen" to (idle + seq(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SHOOT) + idle.take(6)),
-        "armbrust" to (idle + de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SHOOT, 1) + idle.take(6)),
+        "armbrust" to (List(6) { de.bornim.core.art.HeroFigure.XBOW_LOW } + de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SHOOT, 1) + List(6) { de.bornim.core.art.HeroFigure.XBOW_LOW.copy(draw = 0.0) }),
     )
     val dir0 = File("build/screens/dollanim"); dir0.deleteRecursively(); dir0.mkdirs()
     for ((name, rigs) in clips) {
@@ -610,7 +610,26 @@ fun renderRangedViews() {
         val arrow = (sk.hand(0) - sk.hand(1)).norm()
         val off = Math.toDegrees(Math.acos((arrow dot de.bornim.core.art.P3.Z).coerceIn(-1.0, 1.0)))
         val elbowH = sk.elbow[1].y - sk.hand(1).y
-        println("BOGEN ${race.name}: Bogenarm ${"%.0f".format(bend)}° (180 gestreckt), Zughand ${"%.0f".format(toJaw)} cm vom Kinn, Pfeil ${"%.0f".format(off)}° neben der Gegnerrichtung, Zugellbogen ${"%.0f".format(elbowH)} cm über der Pfeilhöhe")
+        // the drawing arm must stay clear of the head: nearest point of upper arm and forearm to the head's middle
+        val hc = sk.head.apply(d.headC)
+        fun segDist(p: de.bornim.core.art.P3, q: de.bornim.core.art.P3): Double { val dq = q - p; val t = (((hc - p) dot dq) / (dq dot dq)).coerceIn(0.0, 1.0); return (p + dq * t - hc).len() }
+        val clear = segDist(sk.shoulder[1], sk.elbow[1]) - d.hh * 0.5
+        val clearF = segDist(sk.elbow[1], sk.wrist[1]) - d.hh * 0.5
+        val fa = sk.hand(1) - sk.elbow[1]
+        val foreTop = Math.toDegrees(Math.atan2(fa.x, fa.z))
+        val behind = sk.hand(1).z - sk.elbow[1].z
+        println("BOGEN ${race.name}: Bogenarm ${"%.0f".format(bend)}° (180 gestreckt), Zughand ${"%.0f".format(toJaw)} cm vom Kinn, Pfeil ${"%.0f".format(off)}° neben der Gegnerrichtung, Zugellbogen ${"%.0f".format(elbowH)} cm über der Pfeilhöhe, " +
+            "${"%.0f".format(behind)} cm hinter der Hand, Unterarm von oben ${"%.0f".format(foreTop)}° neben der Pfeillinie, Oberarm ${"%.0f".format(clear)} / Unterarm ${"%.0f".format(clearF)} cm vom Kopf frei")
+        val xs = d.fit(F.XBOW_AIM, xbow).first
+        val aimX = xs.weapon
+        val s0 = xs.hand(1) + de.bornim.core.art.P3.Y * (de.bornim.core.art.Doll.STOCK_ABOVE_HAND * d.height)
+        val butt = s0 - aimX * (0.15 * d.height) - de.bornim.core.art.P3.Y * (0.045 * d.height)
+        val eye = xs.head.apply(d.headC + de.bornim.core.art.P3(0.0, 0.05 * d.hh, 0.0))
+        val fore = s0 + aimX * (0.2 * d.height)
+        val under = xs.hand(0)
+        val lv = Math.toDegrees(Math.asin(aimX.y))
+        println("ARMBRUST ${race.name}: Schaft ${"%.0f".format(lv)}° zur Waagerechten, Kolben ${"%.0f".format((butt - xs.shoulder[1]).len())} cm vom Schultergelenk, Schaft ${"%.0f".format(eye.y - s0.y)} cm unter Augenhöhe und ${"%.0f".format(s0.x - eye.x)} cm seitlich, " +
+            "Stützhand ${"%.0f".format(fore.y - under.y)} cm unter dem Schaft bei ${"%.0f".format(((under - s0) dot aimX))} cm vor dem Abzug, seitlich ${"%.0f".format(under.x - s0.x)} cm")
     }
     val rows = listOf(Triple(elf, bow, listOf(F.STAND, F.BOW_NOCK, F.BOW_AIM, F.BOW_RELEASE)), Triple(dwarf, xbow, listOf(F.STAND, F.XBOW_AIM, F.XBOW_RECOIL)))
     val views = listOf(138.0, 90.0, 30.0, 0.0)
@@ -624,5 +643,34 @@ fun renderRangedViews() {
         gg.color = java.awt.Color(0xF0E8D8); gg.drawString("${ci + 1} – ${yaw.toInt()}°", ox + 6, oy + 16)
     }
     ImageIO.write(out, "png", File("build/screens/ranged_views.png"))
+    // the aim, large: dressed and bare, from all round and from above
+    val human = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 0)
+    val bareBow = de.bornim.core.art.Outfit(de.bornim.core.CharClass.ROGUE, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("longbow")))
+    val bareX = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("light_crossbow")))
+    val big = listOf(Triple(elf, bow, F.BOW_AIM), Triple(human, bareBow, F.BOW_AIM), Triple(dwarf, xbow, F.XBOW_AIM), Triple(human, bareX, F.XBOW_AIM))
+    val cams = listOf(0.0 to 15.0, 45.0 to 15.0, 90.0 to 15.0, 138.0 to 15.0, 180.0 to 15.0, 270.0 to 15.0, 138.0 to 80.0)
+    val bw = 300; val bh = 330
+    val out2 = BufferedImage(bw * cams.size, bh * big.size, BufferedImage.TYPE_INT_RGB)
+    val g2 = out2.createGraphics(); g2.color = java.awt.Color(0x5E625C); g2.fillRect(0, 0, out2.width, out2.height)
+    for ((ri, row) in big.withIndex()) for ((ci, cam) in cams.withIndex()) {
+        val top = cam.second > 45
+        val im = row.first.render(bw, bh, bw / 2.0, if (top) bh * 0.75 else bh - 8.0, 1.7, row.third.copy(yaw = row.third.yaw - F.FIGHT_YAW + cam.first), row.second, cam.second).img
+        for (y in 0 until bh) for (x in 0 until bw) { val p = im[x, y]; if ((p ushr 24) >= 128) out2.setRGB(ci * bw + x, ri * bh + y, p) }
+        g2.color = java.awt.Color(0xF0E8D8); g2.drawString(if (top) "von oben" else "${cam.first.toInt()}°", ci * bw + 6, ri * bh + 16)
+    }
+    ImageIO.write(out2, "png", File("build/screens/ranged_big.png"))
+    // every frame of both sequences, from the side and half front, to catch a bad in-between
+    val seqs = listOf(Triple(elf, bow, F.sequence(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SHOOT, 0)), Triple(dwarf, xbow, F.sequence(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SHOOT, 1)))
+    val sw = 150; val sh = 190
+    val n = seqs.maxOf { it.third.size }
+    val out3 = BufferedImage(sw * n, sh * 4, BufferedImage.TYPE_INT_RGB)
+    val g3 = out3.createGraphics(); g3.color = java.awt.Color(0x5E625C); g3.fillRect(0, 0, out3.width, out3.height)
+    for ((si, sq) in seqs.withIndex()) for ((vi, yaw) in listOf(90.0, 40.0).withIndex()) for ((fi, rig) in sq.third.withIndex()) {
+        val im = sq.first.render(sw, sh, sw / 2.0, sh - 6.0, 0.95, rig.copy(yaw = rig.yaw - F.FIGHT_YAW + yaw), sq.second).img
+        val oy = (si * 2 + vi) * sh
+        for (y in 0 until sh) for (x in 0 until sw) { val p = im[x, y]; if ((p ushr 24) >= 128) out3.setRGB(fi * sw + x, oy + y, p) }
+        g3.color = java.awt.Color(0xF0E8D8); g3.drawString("$fi", fi * sw + 4, oy + 14)
+    }
+    ImageIO.write(out3, "png", File("build/screens/ranged_seq.png"))
     println("wrote ranged views")
 }
