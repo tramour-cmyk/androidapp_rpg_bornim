@@ -387,6 +387,15 @@ fun main() {
         g.state.place = Place("forest", 9, 4, Facing.UP); g.state.minutes = 17 * 60 + 30
         vm.refresh()
     }
+    shot("68_status_fighter") { vm ->
+        vm.newGame("Thora", Race.DWARF, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
+        g.state.flags += Story.QUEST_STARTED; g.state.flags += Story.BARRIER_OPEN
+        g.hero.gainXp(Rules.xpForLevel[4])
+        for (st in listOf("POISON", "BLEED", "WEAK")) g.state.ailments[st] = 9
+        g.state.wellFed = true
+        g.state.place = Place("forest", 9, 4, Facing.UP); g.state.minutes = 17 * 60 + 30
+        vm.refresh()
+    }
     shot("66_barrier_closed") { vm -> vm.newGame("Alrik", Race.HUMAN, CharClass.FIGHTER); vm.game!!.skipDialogs(); vm.game!!.state.place = Place("village", 17, 6, Facing.UP); vm.refresh() }
     shot("66_barrier_bump") { vm ->
         vm.newGame("Alrik", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
