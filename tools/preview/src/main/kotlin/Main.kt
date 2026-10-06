@@ -219,6 +219,10 @@ fun main() {
     shot("70_battle_night") { vm -> wolfFight(vm, "forest", 16, 14, 23 * 60) }
     shot("70_battle_deep") { vm -> wolfFight(vm, "deep_forest", 22, 6, 12 * 60, id = "dire_wolf") }
     shot("70_battle_cave") { vm -> wolfFight(vm, "cave", 10, 14, 12 * 60, id = "skeleton") }
+    for ((n, pos) in listOf("entrance" to (10 to 17), "tunnel" to (10 to 6), "camp" to (16 to 14), "hall" to (4 to 9), "boss" to (12 to 2), "right" to (17 to 13))) {
+        shot("70_cave_$n") { vm -> wolfFight(vm, "cave", pos.first, pos.second, 12 * 60) }
+    }
+    shot("70_cave_entrance_night") { vm -> wolfFight(vm, "cave", 10, 17, 23 * 60) }
     shot("70_battle_menu", taps = List(4) { msgBox }) { vm -> wolfFight(vm, "forest", 10, 20, 12 * 60) }
     val fightBtn = Offset(300f, 1975f)
     for ((i, f) in listOf(3, 6, 10, 16).withIndex()) {

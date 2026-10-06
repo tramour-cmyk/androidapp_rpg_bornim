@@ -56,9 +56,11 @@ import de.bornim.core.Skill
 import de.bornim.core.SkillCost
 import de.bornim.core.Step
 import de.bornim.core.Ui
+import androidx.compose.ui.layout.onSizeChanged
 import de.bornim.core.art.Act
 import de.bornim.core.art.BattleArt
 import de.bornim.core.art.BattleScene
+import de.bornim.core.art.CaveScene
 import de.bornim.core.art.Glow
 import de.bornim.core.art.CharacterArt
 import de.bornim.core.art.IconArt
@@ -234,9 +236,13 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 game.daylight < 0.85f -> BattleArt.Light.DUSK
                 else -> BattleArt.Light.DAY
             }
-            // Forest fights use the new scenes: ground with depth, places and times of day.
+            // Forest and cave fights use the new scenes: ground with depth, places, times of day or lights.
             val forest = game.map.kind == MapKind.FOREST
+            val cave = game.map.kind == MapKind.CAVE
+            val newScene = forest || cave
             val place = game.state.place
+            val caveSpot = remember(battle) { if (cave) CaveScene.spotFor(game.map, place.x, place.y) else CaveScene.Spot.HALL }
+            val caveLight = remember(battle) { if (cave) CaveScene.lightFor(game.map, place.x, place.y, caveSpot) else CaveScene.Light.TORCH }
             val spot = remember(battle) { BattleScene.spotFor(game.map, place.x, place.y) }
             val sceneSeed = remember(battle) { BattleScene.seedFor(place.x, place.y) }
             val sceneLight = when (light) {
@@ -249,13 +255,15 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             /** Size of one art pixel of the new scenes, in dp. */
             val artDp = with(density) { sceneScale.toDp() }
             if (forest) ForestBackground(spot, sceneLight, game.map.id == "deep_forest", sceneSeed, sceneScale, Modifier.matchParentSize())
+            else if (cave) CaveBackground(caveSpot, caveLight, sceneSeed, light == BattleArt.Light.NIGHT, sceneScale, Modifier.matchParentSize())
             else BattleBackground(game.map.kind, light, Modifier.matchParentSize())
-            val foeX = if (forest) BattleScene.FOE_X else BattleArt.ENEMY_X
-            val foeY = if (forest) BattleScene.FOE_Y else BattleArt.ENEMY_Y
-            val heroX = if (forest) BattleScene.HERO_X else BattleArt.HERO_X
-            val heroY = if (forest) BattleScene.HERO_Y else BattleArt.HERO_Y
+            val foeX = if (newScene) BattleScene.FOE_X else BattleArt.ENEMY_X
+            val foeY = if (newScene) BattleScene.FOE_Y else BattleArt.ENEMY_Y
+            val heroX = if (newScene) BattleScene.HERO_X else BattleArt.HERO_X
+            val heroY = if (newScene) BattleScene.HERO_Y else BattleArt.HERO_Y
+            // Monsters and hero stand in the light of the place.
             val shade = when {
-                game.map.kind == MapKind.CAVE -> null
+                cave -> Color(CaveScene.tint(caveSpot, caveLight, light == BattleArt.Light.NIGHT))
                 light == BattleArt.Light.NIGHT -> Color(0xFF9CA6D4)
                 light == BattleArt.Light.DUSK -> Color(0xFFF4D2C4)
                 else -> null
@@ -530,6 +538,28 @@ private fun ForestBackground(spot: BattleScene.Spot, light: BattleScene.Light, d
             srcSize = androidx.compose.ui.unit.IntSize(w, h),
             dstOffset = androidx.compose.ui.unit.IntOffset.Zero,
             dstSize = androidx.compose.ui.unit.IntSize(w * scale, h * scale),
+            filterQuality = androidx.compose.ui.graphics.FilterQuality.None,
+        )
+    }
+}
+
+/** The cave is lit pixel by pixel, which takes a moment: it is drawn in the background and fades in. */
+@Composable
+private fun CaveBackground(spot: CaveScene.Spot, light: CaveScene.Light, seed: Int, night: Boolean, scale: Int, modifier: Modifier) {
+    var dims by remember { mutableStateOf(androidx.compose.ui.unit.IntSize.Zero) }
+    var img by remember { mutableStateOf<de.bornim.core.art.PixelImage?>(null) }
+    LaunchedEffect(dims, spot, light, seed, night) {
+        if (dims.width > 0) img = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { CaveScene.cave(dims.width, dims.height, spot, light, seed, night) }
+    }
+    Canvas(modifier.onSizeChanged { dims = androidx.compose.ui.unit.IntSize(kotlin.math.ceil(it.width / scale.toFloat()).toInt(), kotlin.math.ceil(it.height / scale.toFloat()).toInt()) }) {
+        drawRect(Color(0xFF07080C))
+        val pic = img ?: return@Canvas
+        drawImage(
+            image = Bitmaps.of(pic),
+            srcOffset = androidx.compose.ui.unit.IntOffset.Zero,
+            srcSize = androidx.compose.ui.unit.IntSize(pic.width, pic.height),
+            dstOffset = androidx.compose.ui.unit.IntOffset.Zero,
+            dstSize = androidx.compose.ui.unit.IntSize(pic.width * scale, pic.height * scale),
             filterQuality = androidx.compose.ui.graphics.FilterQuality.None,
         )
     }

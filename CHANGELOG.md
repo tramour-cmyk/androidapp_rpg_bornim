@@ -4,6 +4,12 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – Höhlenkämpfe im neuen Stil**
+- Kämpfe in der Blutzahnhöhle haben eine neue Kulisse mit durchgehendem Felsboden, Tropfsteinen, Geröll und einem Gang, der ins Dunkel führt.
+- Fünf Orte je nach Stelle auf der Karte: der Höhleneingang mit Blick nach draußen (nachts mit Sternenhimmel), enge Stollen mit alten Holzstützen, große Hallen mit Säulen, ein unterirdischer See, der die Höhle spiegelt, und ein Lager mit Feuer und Kisten.
+- Vier Lichtstimmungen: Fackeln, leuchtende Pilze und Kristalle, ein Lichtstrahl durch einen Deckenriss und fast völlige Dunkelheit, in der nur das Lagerfeuer oder die Laterne des Helden leuchtet. Das Licht fällt wirklich auf Felsen und Boden.
+- Gegner und Held stehen im Licht des Ortes: warm bei Fackeln, kalt-türkis bei den Pilzen, dunkler in der Finsternis.
+
 ## v0.1.56 – 06.10.2026, 13:36
 
 **Verbessert – Wolfsgeheul**

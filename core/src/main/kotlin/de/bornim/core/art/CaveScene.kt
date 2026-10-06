@@ -1,5 +1,7 @@
 package de.bornim.core.art
 
+import de.bornim.core.MapDef
+import de.bornim.core.Tile
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
@@ -28,10 +30,49 @@ object CaveScene {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > 6
     }
 
-    fun cave(w: Int, h: Int, spot: Spot, light: Light, seed: Int): PixelImage {
-        val key = "$w/$h/$spot/$light/$seed"
+    /**
+     * The kind of place for a fight at ([x], [y]) on [map]: near the way out the cave mouth, near
+     * a fire a camp, near water a pool, in narrow passages a tunnel, otherwise a hall or a pool.
+     */
+    fun spotFor(map: MapDef, x: Int, y: Int): Spot {
+        fun near(r: Int, test: (Tile) -> Boolean) = (-r..r).any { dy -> (-r..r).any { dx -> test(map.tile(x + dx, y + dy)) } }
+        if (near(3) { it == Tile.CAVE_EXIT || it == Tile.CAVE_ENTRANCE }) return Spot.ENTRANCE
+        if (near(3) { it == Tile.CAMPFIRE }) return Spot.CAMP
+        if (near(3) { it == Tile.WATER }) return Spot.POOL
+        var open = 0
+        for (dy in -2..2) for (dx in -2..2) if (map.tile(x + dx, y + dy).walkable) open++
+        if (open < 13) return Spot.TUNNEL
+        return if (hash(x / 4, y / 4, map.id.hashCode()) % 100 < 70) Spot.HALL else Spot.POOL
+    }
+
+    /** What lights the place: torches on the walls nearby, a fire in a camp, otherwise it varies by area. */
+    fun lightFor(map: MapDef, x: Int, y: Int, spot: Spot): Light {
+        if (spot == Spot.CAMP) return Light.DARK
+        if ((-4..4).any { dy -> (-4..4).any { dx -> map.tile(x + dx, y + dy) == Tile.TORCH } }) return Light.TORCH
+        val h = hash(x / 3, y / 3, map.id.hashCode() + 7) % 100
+        return when {
+            spot == Spot.ENTRANCE -> if (h < 60) Light.TORCH else Light.SHAFT
+            h < 45 -> Light.TORCH
+            h < 72 -> Light.GLOW
+            h < 90 -> Light.SHAFT
+            else -> Light.DARK
+        }
+    }
+
+    /** The colour monsters and the hero are multiplied with, so they stand in the same light as the place. */
+    fun tint(spot: Spot, light: Light, night: Boolean = false): Int = when {
+        spot == Spot.ENTRANCE && light != Light.DARK && !night -> 0xFFF0E8DC.toInt()
+        spot == Spot.CAMP && light == Light.DARK -> 0xFFE0A880.toInt()
+        light == Light.TORCH -> 0xFFF4CCA8.toInt()
+        light == Light.GLOW -> 0xFFA8D8D4.toInt()
+        light == Light.SHAFT -> 0xFFD8E0EC.toInt()
+        else -> 0xFFB09884.toInt()
+    }
+
+    fun cave(w: Int, h: Int, spot: Spot, light: Light, seed: Int, night: Boolean = false): PixelImage {
+        val key = "$w/$h/$spot/$light/$seed/$night"
         synchronized(cache) { cache[key]?.let { return it } }
-        val img = Painter(w, h, spot, light, seed).paint()
+        val img = Painter(w, h, spot, light, seed, night).paint()
         synchronized(cache) { cache[key] = img }
         return img
     }
@@ -67,7 +108,7 @@ object CaveScene {
     /** A light: where it is, its colour, how far it reaches and how strong it is; [lift] is its height above the surface. */
     private class Lamp(val x: Double, val y: Double, val color: Int, val reach: Double, val power: Double, val lift: Double = 26.0)
 
-    private class Painter(val w: Int, val h: Int, val spot: Spot, val light: Light, val seed: Int) {
+    private class Painter(val w: Int, val h: Int, val spot: Spot, val light: Light, val seed: Int, val night: Boolean) {
         val horizon = (h * if (spot == Spot.HALL) 0.43 else 0.42).toInt()
         val flip = seed % 2 == 1
 
@@ -81,6 +122,8 @@ object CaveScene {
         val emisA = DoubleArray(w * h)
         val lamps = mutableListOf<Lamp>()
         var ambient = argb(0x1A1C26)
+        val mirror = BooleanArray(w * h)
+        var shoreY = 0
 
         fun fx(f: Double) = (if (flip) 1 - f else f) * w
         fun gy(d: Double) = horizon + (h - horizon) * d
@@ -125,6 +168,7 @@ object CaveScene {
                 Spot.ENTRANCE -> mossAndLeaves()
             }
             stalagmites()
+            boulders()
             when (light) {
                 Light.TORCH -> torches()
                 Light.GLOW -> fungi()
@@ -133,8 +177,9 @@ object CaveScene {
             }
             frameRocks()
             val img = shade()
+            reflect(img)
             if (light == Light.SHAFT) beam(img)
-            if (spot == Spot.ENTRANCE) spill(img)
+            if (spot == Spot.ENTRANCE && !night) spill(img)
             dust(img)
             vignette(img)
             return img
@@ -167,8 +212,8 @@ object CaveScene {
                 // the hero's lantern
                 Light.DARK -> lamps += Lamp(w * 0.28, h * 0.9, argb(0xFFB868), w * 0.5, 1.2, 30.0)
             }
-            if (spot == Spot.ENTRANCE) lamps += Lamp(fx(0.42), horizon - h * 0.08, argb(0xF0F4E8), w * 0.62, 1.15, 50.0)
-            if (spot == Spot.CAMP) lamps += Lamp(fx(0.3), gy(0.12) - 6, argb(0xFF9440), w * 0.4, 1.35, 16.0)
+            if (spot == Spot.ENTRANCE) lamps += if (night) Lamp(fx(0.42), horizon - h * 0.08, argb(0x8A9CC8), w * 0.5, 0.7, 50.0) else Lamp(fx(0.42), horizon - h * 0.08, argb(0xF0F4E8), w * 0.62, 1.15, 50.0)
+            if (spot == Spot.CAMP) lamps += Lamp(w * 0.17, gy(0.1) - 6, argb(0xFF9440), w * 0.4, 1.35, 16.0)
         }
 
         /** Brightness at a surface point from all lamps, as an RGB multiplier (1.0 = full colour). */
@@ -274,6 +319,9 @@ object CaveScene {
                         val t = (y - (cy - ry)) / (ry * 1.55)
                         val treeTop = cy - ry * 0.1 + 6 * noise(x / 6.0, 0.0, 33 + seed) + 4 * noise(x / 2.5, 1.0, 34)
                         val col = when {
+                            night && y > baseY - 5 -> argb(0x1A2A2C)
+                            night && y > treeTop -> mix(argb(0x0C141E), argb(0x162232), noise(x / 3.0, y / 3.0, 35))
+                            night -> if (rnd(x, y, 36) < 0.025) argb(0xC8D0F0) else mix(argb(0x2E3A5A), argb(0x0A1024), (1 - t).coerceIn(0.0, 1.0))
                             y > baseY - 5 -> mix(argb(0x8CB060), argb(0x5E8A44), (baseY - y) / 5.0)
                             y > treeTop -> mix(argb(0x3E6A44), argb(0x5E8C58), noise(x / 3.0, y / 3.0, 35))
                             else -> mix(argb(0xE8F0F0), argb(0xB8D0E4), (1 - t).coerceIn(0.0, 1.0))
@@ -389,7 +437,7 @@ object CaveScene {
         }
 
         fun gravel() {
-            for (i in 0 until w * h / 900) {
+            for (i in 0 until w * h / 650) {
                 val y = horizon + 3 + ((h - horizon - 4) * rnd(i, 1, 55 + seed).pow(0.8)).toInt()
                 val x = (rnd(i, 2, 55 + seed) * w).toInt()
                 val d = depth(y)
@@ -402,6 +450,24 @@ object CaveScene {
                 }
                 // contact shadow
                 for (xx in (-rr * 1.4).toInt()..(rr * 1.4).toInt()) if (inside(x + xx, y + 2)) ao[(y + 2) * w + x + xx] *= 0.6
+            }
+        }
+
+        /** Fallen rocks along the sides, away from where foe and hero stand. */
+        fun boulders() {
+            for (k in 0 until 7) {
+                val left = k % 2 == 0
+                val d = 0.08 + rnd(k, 1, 211 + seed) * 0.55
+                val x = if (left) w * (0.04 + rnd(k, 2, 211 + seed) * 0.14) else w * (0.86 + rnd(k, 2, 211 + seed) * 0.12)
+                val by = gy(d); val rr = 4 + d * 14 * (0.6 + rnd(k, 3, 211 + seed) * 0.6)
+                for (y in (by - rr * 1.3).toInt()..by.toInt()) for (xx in (x - rr * 1.3).toInt()..(x + rr * 1.3).toInt()) {
+                    val u = (xx - x) / (rr * 1.3); val v = (y - (by - rr * 0.6)) / (rr * 0.75)
+                    val wob = 1 + 0.18 * sin(kotlin.math.atan2(v, u) * 3 + k)
+                    if (u * u + v * v > wob) continue
+                    val (c, n1, n2) = rockAt(xx, y, 212 + k, 0.8)
+                    put(xx, y, c, u * 0.7 + n1 * 0.3, v * 0.6 - 0.25 + n2 * 0.3, 1.0)
+                }
+                for (xx in (x - rr * 1.3).toInt()..(x + rr * 1.3).toInt()) if (inside(xx, by.toInt() + 1)) ao[(by.toInt() + 1) * w + xx] *= 0.5
             }
         }
 
@@ -419,13 +485,14 @@ object CaveScene {
 
         fun lake() {
             val cx = fx(0.27); val cy = gy(0.06)
-            val rx = w * 0.32; val ry = (h - horizon) * 0.07
+            val rx = w * 0.36; val ry = (h - horizon) * 0.1
+            shoreY = (cy - ry).toInt()
             for (y in (cy - ry).toInt()..(cy + ry + 2).toInt()) for (x in (cx - rx - 4).toInt()..(cx + rx + 4).toInt()) {
                 val q = ((x - cx) / (rx * (1 + 0.1 * sin(x / 7.0 + seed)))).pow(2) + ((y - cy) / ry).pow(2)
                 if (q > 1.2 || !inside(x, y)) continue
                 if (q > 1) { put(x, y, mix(floorFar, rockDark, 0.4), 0.0, -0.8, 0.9); wet[y * w + x] = 0.4; continue }
                 put(x, y, argb(0x0E1A22), 0.0, -0.95, 1.0)
-                wet[y * w + x] = 1.0
+                mirror[y * w + x] = true
                 // ripples catch more light
                 if (noise(x / 10.0, y * 1.7, 83 + seed) > 0.68) wet[y * w + x] = 1.5 else wet[y * w + x] = 0.7
             }
@@ -473,26 +540,27 @@ object CaveScene {
 
         fun camp() {
             // fire ring with logs and the glow of embers
-            val cx = fx(0.3); val cy = gy(0.12)
+            val cx = w * 0.17; val cy = gy(0.1)
             for (k in 0 until 9) {
                 val a = k / 9.0 * 2 * PI
                 val sx = cx + cos(a) * 11; val sy = cy + sin(a) * 3.2
                 for (yy in -2..1) for (xx in -2..2) if (xx * xx + yy * yy * 2 <= 5) put((sx + xx).toInt(), (sy + yy).toInt(), rockMid, xx * 0.4, yy * 0.4 - 0.3, 1.0)
             }
-            for (k in 0 until 3) for (t in -7..7) {
-                val a = k * 1.1
-                val x = (cx + cos(a) * t).toInt(); val y = (cy - 1 + sin(a) * t * 0.3).toInt()
-                put(x, y, argb(0x4A3020), 0.0, -0.5, 1.0); put(x, y - 1, argb(0x5A3A26), 0.0, -0.8, 1.0)
+            for ((k, a) in listOf(-0.5, 0.45, -0.15, 0.2).withIndex()) for (t in -6..6) {
+                val x = (cx + t * 0.9).toInt(); val y = (cy - 1 + t * a - k * 0.5).toInt()
+                put(x, y, argb(0x3A2418), 0.0, -0.5, 1.0); put(x, y - 1, argb(0x5A3A26), 0.0, -0.9, 1.0)
             }
-            flame(cx, cy - 2, 12.0, 1.0)
+            // glowing embers under the flames
+            for (t in -6..6) for (yy in -1..1) glow((cx + t).toInt(), (cy + yy).toInt(), if (rnd(t, yy, 116) < 0.4) argb(0xFFC040) else argb(0xC83A10), 0.8)
+            flame(cx, cy - 2, 14.0, 1.0)
             // crates and a sack on the other side, a bedroll and some bones
-            crate(fx(0.14), gy(0.05), 11.0)
-            crate(fx(0.2), gy(0.03), 9.0)
-            crate(fx(0.15), gy(0.05) - 11, 8.0)
-            val bx = fx(0.86); val by = gy(0.08)
+            crate(w * 0.86, gy(0.04), 11.0)
+            crate(w * 0.92, gy(0.07), 9.0)
+            crate(w * 0.87, gy(0.04) - 11, 8.0)
+            val bx = w * 0.34; val by = gy(0.03)
             for (y in (by - 2).toInt()..(by + 2).toInt()) for (x in (bx - 12).toInt()..(bx + 12).toInt()) put(x, y, argb(0x6A5038), 0.0, -0.8 + (y - by) * 0.1, 1.0)
             for (k in 0 until 4) {
-                val x0 = fx(0.08 + k * 0.05); val y0 = gy(0.3 + rnd(k, 1, 111) * 0.08)
+                val x0 = w * (0.08 + k * 0.05); val y0 = gy(0.3 + rnd(k, 1, 111) * 0.08)
                 for (t in -3..3) put((x0 + t).toInt(), (y0 + t * (if (k % 2 == 0) 0.4 else -0.4)).toInt(), argb(0xD8D0BC), 0.0, -0.7, 1.0)
             }
         }
@@ -632,6 +700,17 @@ object CaveScene {
         }
 
         // ------------------------------------------------------------ effects over the shaded picture
+
+        /** Still water mirrors the cave above it, broken by ripples. */
+        fun reflect(img: PixelImage) {
+            for (y in 0 until h) for (x in 0 until w) {
+                if (!mirror[y * w + x]) continue
+                val wave = (sin(y * 1.9 + noise(x / 6.0, y.toDouble(), 85) * 4) * 1.5).toInt()
+                val my = 2 * shoreY - y - 1
+                val above = img[x + wave, my.coerceIn(0, h - 1)]
+                img.set(x, y, mix(img[x, y], mix(above, argb(0x10303A), 0.35), 0.6))
+            }
+        }
 
         fun beam(img: PixelImage) {
             // a slanted shaft of light from the crack down to the fight

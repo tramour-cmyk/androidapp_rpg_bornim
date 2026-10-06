@@ -77,7 +77,9 @@ fun renderCaveSheet() {
         val one = BufferedImage(w * 2, h * 2, BufferedImage.TYPE_INT_RGB)
         for (y in 0 until h) for (x in 0 until w) {
             val wp = wolf[x - fx, y - fy]
-            val p = if ((wp ushr 24) > 128) wp else img[x, y]
+            val t = de.bornim.core.art.CaveScene.tint(spot, light)
+            fun mul(a: Int, sh: Int) = ((a shr sh) and 0xFF) * ((t shr sh) and 0xFF) / 255 shl sh
+            val p = if ((wp ushr 24) > 128) (0xFF shl 24) or mul(wp, 16) or mul(wp, 8) or mul(wp, 0) else img[x, y]
             out.setRGB(c * w + x, r * h + y, p)
             for (q in 0 until 4) one.setRGB(x * 2 + q % 2, y * 2 + q / 2, p)
         }
