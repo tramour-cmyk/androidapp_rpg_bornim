@@ -182,11 +182,12 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         for (i in 0..1) {
             val s = sk.side(i)
             // the deltoid: rounded over the top of the arm, tapering down along it
-            // anchored on the shoulder: it turns only part of the way with the arm
+            // the deltoid: a cap over the shoulder joint, tapering down to where it grips the upper arm a third of the way
+            // along; it hugs the arm instead of bulging past it
             val armDir = (sk.elbow[i] - sk.shoulder[i]).norm()
-            val restDir = sk.upper.dir(P3(s * 0.16, -1.0, 0.02)).norm()
-            val deltDir = restDir.lerp(armDir, 0.45).norm()
-            ell(sk.shoulder[i] + deltDir * (0.016 * h) + sk.upper.dir(P3(s * 0.006 * h, 0.006 * h, 0.0)), P3(0.032 * h * l, 0.05 * h * l, 0.035 * h * l), BodyPart.ARM, TRUNK, "delt$i", Frame.along(deltDir))
+            val cap = sk.shoulder[i] + sk.upper.dir(P3(s * 0.004 * h, 0.012 * h, 0.0))
+            val insertion = sk.shoulder[i] + armDir * (upperArm * 0.42)
+            cone(cap, insertion, 0.03 * h * l, 0.021 * h * l, BodyPart.ARM, if (i == 0) ARM_L else ARM_R, "delt$i")
         }
         // the upper back: a broad flat trapezius from the neck out to the shoulders, and the shoulder blades under it,
         // so the back is wide up top and the arms come out of muscle, not out of a bare tube
