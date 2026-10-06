@@ -127,6 +127,13 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
                 val target = map(if (i == 0) rig.lh else rig.rh)
                 val pole = if (i == 0 && shieldArm) P3(-1.0, -0.5, 0.35) else P3(sd * 0.6, -1.0, -0.5)
                 var (el, wr) = ik(shoulder[i], target, upperArm, foreArm, pole)
+                if (i == 1 && rig.foreLevel > 0.01) {
+                    // the forearm held level, pointing at the foe: the elbow sits behind the hand, the upper arm reaches it
+                    val d = upper.dir(P3.Z).let { P3(it.x, 0.0, it.z).norm() }
+                    val e2 = shoulder[i] + (target - d * foreArm - shoulder[i]).norm() * upperArm
+                    el = el.lerp(e2, rig.foreLevel)
+                    wr = el + ((e2 + d * foreArm - el).norm().lerp((target - el).norm(), 1 - rig.foreLevel)).norm() * foreArm
+                }
                 if (i == 1 && rig.elbowUp > 0.01) {
                     // the elbow lifted to where the pose wants it, the forearm reaching from there to the hand
                     val lifted = (map(rig.elbowAt) - shoulder[i]).norm()

@@ -532,9 +532,9 @@ fun renderAttackViews() {
     fun kit(w: String) = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.CHEST to g("chain_shirt"), de.bornim.core.GearSlot.MAIN_HAND to g(w), de.bornim.core.GearSlot.OFF_HAND to g("shield")))
     val F = de.bornim.core.art.HeroFigure
     val rows = listOf(
-        Triple("Hieb", kit("longsword"), listOf(F.STAND, F.SLASH_WIND, F.STAND.lerp(F.SLASH_WIND, 0.5).lerp(F.SLASH_HIT, 0.5), F.SLASH_HIT, F.SLASH_FOLLOW)),
-        Triple("Stich", kit("longsword"), listOf(F.STAND, F.THRUST_WIND, F.THRUST_WIND.lerp(F.THRUST_HIT, 0.5), F.THRUST_HIT)),
-        Triple("Schlag", kit("mace"), listOf(F.SMASH_RAISE, F.SMASH_WIND, F.SMASH_OVER, F.SMASH_HIT)),
+        Triple("Hieb", kit("longsword"), listOf(F.STAND, F.SLASH_WIND, F.SLASH_OVER, F.SLASH_OVER.lerp(F.SLASH_HIT, 0.5), F.SLASH_HIT, F.SLASH_FOLLOW)),
+        Triple("Stich", kit("longsword"), listOf(F.STAND, F.THRUST_WIND, F.THRUST_WIND.lerp(F.THRUST_HIT, 0.33), F.THRUST_WIND.lerp(F.THRUST_HIT, 0.66), F.THRUST_HIT)),
+        Triple("Schlag", kit("mace"), listOf(F.SMASH_RAISE, F.SMASH_WIND, F.SMASH_WIND.lerp(F.SMASH_OVER, 0.5), F.SMASH_OVER, F.SMASH_OVER.lerp(F.SMASH_HIT, 0.5), F.SMASH_HIT)),
     )
     val cw = 240; val ch = 280; val px = 1.25
     val views = listOf(138.0, 30.0, 90.0)
