@@ -369,6 +369,14 @@ fun main() {
         vm.newGame("Mira", Race.ELF, CharClass.ROGUE, into = 2); vm.game!!.skipDialogs(); vm.save()
         vm.toTitle(); vm.screen = de.bornim.game.Screen.SLOTS
     }
+    for ((i, spot) in listOf(10 to 1, 9 to 4).withIndex()) {
+        shot("67_cave_entrance_$i") { vm ->
+            vm.newGame("Alrik", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
+            g.state.flags += Story.QUEST_STARTED; g.state.flags += Story.BARRIER_OPEN
+            g.state.place = Place("forest", spot.first, spot.second, Facing.UP); g.state.minutes = 17 * 60 + 30
+            vm.refresh()
+        }
+    }
     shot("66_barrier_closed") { vm -> vm.newGame("Alrik", Race.HUMAN, CharClass.FIGHTER); vm.game!!.skipDialogs(); vm.game!!.state.place = Place("village", 17, 6, Facing.UP); vm.refresh() }
     shot("66_barrier_bump") { vm ->
         vm.newGame("Alrik", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
