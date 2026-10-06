@@ -286,7 +286,7 @@ fun renderWeaponSheet() {
 fun renderDollModels() {
     val cw = 110; val ch = 182; val k = 3
     val px = 0.75
-    fun sheet(rows: List<List<Pair<String, de.bornim.core.art.Doll.() -> de.bornim.core.art.DollImage>>>, dolls: List<List<de.bornim.core.art.Doll>>, file: String, ruler: Boolean = false) {
+    fun sheet(rows: List<List<Pair<String, de.bornim.core.art.Doll.() -> de.bornim.core.art.DepthImage>>>, dolls: List<List<de.bornim.core.art.Doll>>, file: String, ruler: Boolean = false) {
         val cols = rows.maxOf { it.size }
         val out = BufferedImage(cw * cols * k, ch * rows.size * k, BufferedImage.TYPE_INT_RGB)
         val g = out.createGraphics(); g.color = java.awt.Color(0x5E625C); g.fillRect(0, 0, out.width, out.height)
@@ -312,7 +312,7 @@ fun renderDollModels() {
     }
     val D = de.bornim.core.art.Doll::class
     fun doll(r: de.bornim.core.Race, s: de.bornim.core.Sex, b: de.bornim.core.Build = de.bornim.core.Build.AVERAGE, skin: Int = 1, hair: Int = 0) = de.bornim.core.art.Doll(r, s, b, skin, hair)
-    fun pic(yaw: Double): de.bornim.core.art.Doll.() -> de.bornim.core.art.DollImage = { render(cw, ch, cw / 2.0, 174.0, px, yaw) }
+    fun pic(yaw: Double): de.bornim.core.art.Doll.() -> de.bornim.core.art.DepthImage = { render(cw, ch, cw / 2.0, 174.0, px, de.bornim.core.art.Doll.REST.copy(yaw = yaw)) }
     val races = de.bornim.core.Race.entries
     val sexes = de.bornim.core.Sex.entries
     // 1: every people, both sexes, front and three-quarter
@@ -325,5 +325,67 @@ fun renderDollModels() {
     // 3: builds and skins
     val bs = races.map { r -> de.bornim.core.Build.entries.flatMap { b -> listOf(doll(r, sexes[0], b, skin = b.ordinal), doll(r, sexes[1], b, skin = 3 - b.ordinal, hair = b.ordinal + 1)) } }
     sheet(bs.map { row -> row.map { d -> "${d.build.title.de.take(6)} ${d.sex.title.de.take(1)}" to pic(25.0) } }, bs, "doll_statur.png", ruler = true)
+    // 4: close-ups of head and shoulders, large and at game size
+    run {
+        val bw = 150; val bh = 150; val big = 2.6
+        val list = races.flatMap { r -> sexes.map { s -> doll(r, s) } }
+        val out = BufferedImage(bw * list.size * 2, bh * 3 * 2, BufferedImage.TYPE_INT_RGB)
+        val gg = out.createGraphics(); gg.color = java.awt.Color(0x5E625C); gg.fillRect(0, 0, out.width, out.height)
+        for ((i, d) in list.withIndex()) for ((row, yaw) in listOf(15.0, 60.0).withIndex()) {
+            val im = d.render(bw, bh, bw / 2.0, bh - 6 + (d.height * 0.7) * big, big, de.bornim.core.art.Doll.REST.copy(yaw = yaw)).img
+            for (y in 0 until bh) for (x in 0 until bw) { val p = im[x, y]; if ((p ushr 24) < 128) continue; for (q in 0 until 4) out.setRGB((i * bw + x) * 2 + q % 2, (row * bh + y) * 2 + q / 2, p) }
+            // game size, zoomed six times
+            val sm = d.render(40, 40, 20.0, 40 - 4 + (d.height * 0.7) * 0.75, 0.75, de.bornim.core.art.Doll.REST.copy(yaw = 15.0)).img
+            for (y in 0 until 40) for (x in 0 until 40) { val p = sm[x, y]; if ((p ushr 24) < 128) continue
+                for (q in 0 until 36) { val xx = i * bw * 2 + 30 + x * 6 + q % 6; val yy = 2 * bh * 2 + y * 6 + q / 6 - 0; if (yy < out.height) out.setRGB(xx, yy, p) } }
+        }
+        ImageIO.write(out, "png", File("build/screens/doll_nah.png"))
+    }
     println("wrote doll models")
+}
+
+
+/** The 3D doll dressed: several heroes in their gear, in three poses, and one turned all the way round. */
+fun renderDollDressed() {
+    val cw = 120; val ch = 186; val k = 3; val px = 0.75
+    var uid = 1L
+    fun g(base: String, r: de.bornim.core.Rarity = de.bornim.core.Rarity.COMMON) = de.bornim.core.Gear(uid++, base, r, 3)
+    class H(val name: String, val doll: de.bornim.core.art.Doll, val outfit: de.bornim.core.art.Outfit)
+    fun hero(name: String, race: de.bornim.core.Race, sex: de.bornim.core.Sex, cls: de.bornim.core.CharClass, skin: Int, hair: Int, vararg gear: Pair<de.bornim.core.GearSlot, de.bornim.core.Gear>) =
+        H(name, de.bornim.core.art.Doll(race, sex, de.bornim.core.Build.AVERAGE, skin, hair), de.bornim.core.art.Outfit(cls, gear.toMap()))
+    val M = de.bornim.core.Sex.MALE; val W = de.bornim.core.Sex.FEMALE
+    val heroes = listOf(
+        hero("Ritter", de.bornim.core.Race.HUMAN, M, de.bornim.core.CharClass.FIGHTER, 1, 0, de.bornim.core.GearSlot.CHEST to g("plate", de.bornim.core.Rarity.RARE), de.bornim.core.GearSlot.HEAD to g("helmet"), de.bornim.core.GearSlot.CLOAK to g("cloak", de.bornim.core.Rarity.RARE), de.bornim.core.GearSlot.ARMS to g("gauntlets"), de.bornim.core.GearSlot.LEGS to g("greaves"), de.bornim.core.GearSlot.MAIN_HAND to g("longsword", de.bornim.core.Rarity.RARE), de.bornim.core.GearSlot.OFF_HAND to g("shield", de.bornim.core.Rarity.UNCOMMON)),
+        hero("Zwergenpriester", de.bornim.core.Race.DWARF, M, de.bornim.core.CharClass.CLERIC, 0, 0, de.bornim.core.GearSlot.CHEST to g("chain_mail"), de.bornim.core.GearSlot.HEAD to g("great_helm"), de.bornim.core.GearSlot.CLOAK to g("mantle", de.bornim.core.Rarity.UNCOMMON), de.bornim.core.GearSlot.MAIN_HAND to g("warhammer", de.bornim.core.Rarity.VERY_RARE), de.bornim.core.GearSlot.OFF_HAND to g("shield"), de.bornim.core.GearSlot.LEGS to g("boots")),
+        hero("Elfenschurkin", de.bornim.core.Race.ELF, W, de.bornim.core.CharClass.ROGUE, 2, 2, de.bornim.core.GearSlot.CHEST to g("studded_leather", de.bornim.core.Rarity.UNCOMMON), de.bornim.core.GearSlot.HEAD to g("hood"), de.bornim.core.GearSlot.CLOAK to g("cloak", de.bornim.core.Rarity.UNCOMMON), de.bornim.core.GearSlot.LEGS to g("boots"), de.bornim.core.GearSlot.ARMS to g("gloves"), de.bornim.core.GearSlot.MAIN_HAND to g("shortsword"), de.bornim.core.GearSlot.OFF_HAND to g("dagger")),
+        hero("Halblingsdiebin", de.bornim.core.Race.HALFLING, W, de.bornim.core.CharClass.ROGUE, 1, 1, de.bornim.core.GearSlot.CHEST to g("leather"), de.bornim.core.GearSlot.HEAD to g("leather_cap"), de.bornim.core.GearSlot.ARMS to g("wraps"), de.bornim.core.GearSlot.MAIN_HAND to g("shortsword")),
+        hero("Halbork", de.bornim.core.Race.HALF_ORC, M, de.bornim.core.CharClass.FIGHTER, 1, 0, de.bornim.core.GearSlot.CHEST to g("half_plate", de.bornim.core.Rarity.EPIC), de.bornim.core.GearSlot.MAIN_HAND to g("greataxe", de.bornim.core.Rarity.EPIC), de.bornim.core.GearSlot.ARMS to g("bracers"), de.bornim.core.GearSlot.LEGS to g("chain_leggings"), de.bornim.core.GearSlot.CLOAK to g("cloak", de.bornim.core.Rarity.EPIC)),
+        hero("Magierin", de.bornim.core.Race.HUMAN, W, de.bornim.core.CharClass.WIZARD, 3, 2, de.bornim.core.GearSlot.MAIN_HAND to g("staff", de.bornim.core.Rarity.VERY_RARE), de.bornim.core.GearSlot.OFF_HAND to g("orb", de.bornim.core.Rarity.RARE), de.bornim.core.GearSlot.CLOAK to g("cloak", de.bornim.core.Rarity.VERY_RARE)),
+        hero("Elfenpriester", de.bornim.core.Race.ELF, M, de.bornim.core.CharClass.CLERIC, 0, 0, de.bornim.core.GearSlot.CHEST to g("breastplate", de.bornim.core.Rarity.RARE), de.bornim.core.GearSlot.HEAD to g("circlet", de.bornim.core.Rarity.RARE), de.bornim.core.GearSlot.MAIN_HAND to g("mace"), de.bornim.core.GearSlot.OFF_HAND to g("shield", de.bornim.core.Rarity.RARE), de.bornim.core.GearSlot.LEGS to g("boots")),
+        hero("Schuppenkrieger", de.bornim.core.Race.HUMAN, M, de.bornim.core.CharClass.FIGHTER, 2, 2, de.bornim.core.GearSlot.CHEST to g("scale_mail"), de.bornim.core.GearSlot.HEAD to g("leather_cap"), de.bornim.core.GearSlot.MAIN_HAND to g("spear"), de.bornim.core.GearSlot.LEGS to g("boots"), de.bornim.core.GearSlot.ARMS to g("gloves")),
+    )
+    val F = de.bornim.core.art.HeroFigure
+    val poses = listOf("Bereit" to F.READY, "Kampf" to F.STAND, "Block" to F.BLOCK)
+    val out = BufferedImage(cw * heroes.size * k, ch * poses.size * k, BufferedImage.TYPE_INT_RGB)
+    val gfx = out.createGraphics(); gfx.color = java.awt.Color(0x5E625C); gfx.fillRect(0, 0, out.width, out.height)
+    for ((ci, hh) in heroes.withIndex()) for ((ri, pose) in poses.withIndex()) {
+        val t0 = System.nanoTime()
+        val im = hh.doll.render(cw, ch, cw / 2.0, 178.0, px, pose.second, hh.outfit).img
+        println("${hh.name}/${pose.first}: ${(System.nanoTime() - t0) / 1_000_000} ms")
+        for (y in 0 until im.height) for (x in 0 until im.width) { val p = im[x, y]; if ((p ushr 24) < 128) continue; for (q in 0 until k * k) out.setRGB((ci * cw + x) * k + q % k, (ri * ch + y) * k + q / k, p) }
+        gfx.color = java.awt.Color(0xF0E8D8); gfx.drawString(hh.name + " – " + pose.first, ci * cw * k + 6, ri * ch * k + 16)
+    }
+    File("build/screens").mkdirs()
+    ImageIO.write(out, "png", File("build/screens/doll_angezogen.png"))
+    // turntable of the knight and the dwarf
+    val yaws = (0..12).map { it * 15.0 }
+    val t = BufferedImage(cw * yaws.size * 2, ch * 2 * 2, BufferedImage.TYPE_INT_RGB)
+    val g2 = t.createGraphics(); g2.color = java.awt.Color(0x5E625C); g2.fillRect(0, 0, t.width, t.height)
+    for ((ri, hh) in listOf(heroes[0], heroes[1]).withIndex()) for ((ci, yaw) in yaws.withIndex()) {
+        val im = hh.doll.render(cw, ch, cw / 2.0, 178.0, px, F.STAND.copy(yaw = yaw), hh.outfit).img
+        for (y in 0 until im.height) for (x in 0 until im.width) { val p = im[x, y]; if ((p ushr 24) < 128) continue; for (q in 0 until 4) t.setRGB((ci * cw + x) * 2 + q % 2, (ri * ch + y) * 2 + q / 2, p) }
+        g2.color = java.awt.Color(0xF0E8D8); g2.drawString("${yaw.toInt()}°", ci * cw * 2 + 6, ri * ch * 2 + 16)
+    }
+    ImageIO.write(t, "png", File("build/screens/doll_angezogen_drehung.png"))
+    println("wrote dressed dolls")
 }

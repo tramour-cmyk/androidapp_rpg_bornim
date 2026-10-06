@@ -86,6 +86,7 @@ fun main() {
     if (System.getenv("HEROES") != null) { renderHeroDrafts(); System.exit(0) }
     if (System.getenv("DOLL") != null) { renderDollSheet(); System.exit(0) }
     if (System.getenv("DOLL3D") != null) { renderDollModels(); System.exit(0) }
+    if (System.getenv("DRESS") != null) { renderDollDressed(); System.exit(0) }
     if (System.getenv("WEAPONS") != null) { renderWeaponSheet(); System.exit(0) }
     if (System.getenv("CAVEMAP") != null) { renderCaveMap(); System.exit(0) }
     System.getenv("MAPS")?.let { ids ->
