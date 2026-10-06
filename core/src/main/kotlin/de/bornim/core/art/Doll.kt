@@ -100,13 +100,15 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
          * The shoulder rides on the shoulder blade: when the arm is raised it lifts, when it reaches forward it
          * comes forward round the ribs. Without this a raised arm seems to grow out of the neck.
          */
+        /** 0..1: how high each arm is raised; the shoulder blade turns up with it. */
+        val lift = DoubleArray(2)
         val shoulder = Array(2) { i ->
             val aim = if (i == 1 && rig.elbowUp > 0.01) map(rig.elbowAt) else map(if (i == 0) rig.lh else rig.rh)
             val d = (aim - shoulderRest[i]).norm()
             val up = upper.dir(P3.Y); val fwd = upper.dir(P3.Z)
-            val lift = (d dot up).coerceAtLeast(0.0)
+            lift[i] = ((d dot up) + 0.3).coerceIn(0.0, 1.0)
             val reach = (d dot fwd).coerceAtLeast(0.0)
-            shoulderRest[i] + up * (0.01 * height * lift) + fwd * (0.02 * height * reach)
+            shoulderRest[i] + up * (0.01 * height * lift[i]) + fwd * (0.02 * height * reach)
         }
         val hip = Array(2) { i -> lower.apply(P3(side(i) * hipX, hipY, 0.0)) }
         val ankle = Array(2) { i ->
@@ -191,8 +193,15 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         }
         // the upper back: a broad flat trapezius from the neck out to the shoulders, and the shoulder blades under it,
         // so the back is wide up top and the arms come out of muscle, not out of a bare tube
-        up(P3(0.0, shoulderY + 0.002 * h, -0.016 * h * g), P3(0.8 * shoulderX, 0.032 * h, 0.04 * h * g), BodyPart.TORSO, "torso")
-        for (s in listOf(-1.0, 1.0)) up(P3(s * 0.45 * shoulderX, shoulderY - 0.16 * trunk, -0.034 * h * g), P3(0.36 * shoulderX, 0.22 * trunk, 0.03 * h * g), BodyPart.TORSO, "torso")
+        for (i in 0..1) {
+            val s = sk.side(i); val lf = sk.lift[i]
+            // each half of the trapezius reaches out to the shoulder; when the arm rises the deltoid takes over the outline
+            val reachOut = 0.82 - 0.2 * lf
+            up(P3(s * reachOut * shoulderX * 0.45, shoulderY + 0.002 * h, -0.016 * h * g), P3(reachOut * shoulderX * 0.55, 0.032 * h, 0.04 * h * g), BodyPart.TORSO, "torso")
+            // the shoulder blade swings up and out as the arm rises; its outer corner rides on the shoulder
+            up(P3(s * (0.45 + 0.08 * lf) * shoulderX, shoulderY - (0.16 - 0.08 * lf) * trunk, -0.034 * h * g), P3(0.34 * shoulderX, 0.22 * trunk, 0.03 * h * g), BodyPart.TORSO, "torso",
+                Frame(P3(1.0, s * 0.45 * lf, 0.0).norm(), P3(-s * 0.45 * lf, 1.0, 0.0).norm(), P3.Z))
+        }
         cone(sk.upper.apply(P3(0.0, shoulderY + 0.012 * h, -0.006 * h)), sk.upper.apply(P3(0.0, chinY + 0.025 * h, 0.004 * h)),
             0.034 * h * sqrt(g), 0.029 * h * sqrt(g) * (if (female) 0.88 else 1.0), BodyPart.NECK, TRUNK, "neck")
 
@@ -317,7 +326,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     /** How the groups melt into each other in this pose. */
     fun groups(sk: Skeleton): Groups {
         val g = Groups(GROUPS)
-        g.reach = 0.07 * height
+        g.reach = 0.09 * height
         g.set(TRUNK, 4.5); g.set(HEAD, 2.6, TRUNK, sk.head.apply(neckTop))
         g.set(LEG_L, 2.6, TRUNK, sk.hip[0]); g.set(LEG_R, 2.6, TRUNK, sk.hip[1])
         g.set(ARM_L, 1.6, TRUNK, sk.shoulder[0]); g.set(ARM_R, 1.6, TRUNK, sk.shoulder[1])
