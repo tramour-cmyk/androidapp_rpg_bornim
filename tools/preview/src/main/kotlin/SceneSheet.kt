@@ -419,7 +419,9 @@ fun checkClashes() {
         val sk = doll.Skeleton(de.bornim.core.art.HeroFigure.BLOCK, shieldArm = true)
         val fa = sk.wrist[1] - sk.elbow[1]
         val deg = Math.toDegrees(Math.atan2(fa.y, Math.sqrt(fa.x * fa.x + fa.z * fa.z)))
-        println("BLOCK ${race.name}: Unterarm ${"%.0f".format(deg)}° zur Waagerechten, Ellbogen ${"%.0f".format(sk.elbow[1].y - sk.shoulder[1].y)} cm über der Schulter")
+        val ua = sk.elbow[1] - sk.shoulder[1]
+        val fwd = Math.toDegrees(Math.atan2(ua.z, Math.abs(ua.x)))
+        println("BLOCK ${race.name}: Unterarm ${"%.0f".format(deg)}° zur Waagerechten, Ellbogen ${"%.0f".format(sk.elbow[1].y - sk.shoulder[1].y)} cm über der Schulter, Oberarm ${"%.0f".format(fwd)}° nach vorn (0 = seitlich, 90 = gerade vorn)")
     }
     println("geprüft: $total Bilder, Klinge im Schild ohne Korrektur: $rawBad, mit Korrektur: $bad")
     println("ohne Korrektur je Ablauf: $byAct")

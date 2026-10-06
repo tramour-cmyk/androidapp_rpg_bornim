@@ -78,8 +78,13 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         val crouch = rig.crouch * s
         val lower = Xf(shift = P3(0.0, -crouch, 0.0))
         val lean = Math.toDegrees(atan(rig.lean * 0.35))
-        val upper = Xf(Rot.pitch(lean), P3(0.0, hipY, 0.0), P3(0.0, -crouch, 0.0))
-        val head = Xf(Rot.yaw(-rig.headTurn) * Rot.pitch(rig.headDown * 3.0), neckTop).then(upper)
+        /** The chest turns against the hips, then the whole upper body bends. */
+        val upper = Xf(Rot.pitch(lean) * Rot.yaw(rig.twist), P3(0.0, hipY, 0.0), P3(0.0, -crouch, 0.0))
+        /** The head turns back against the chest, to keep its eyes on the foe. */
+        val head = Xf(Rot.yaw(-rig.headTurn - rig.twist * 0.85) * Rot.pitch(rig.headDown * 3.0), neckTop).then(upper)
+        /** Hands and elbows are placed relative to the turned chest. */
+        private val turn = Rot.yaw(rig.twist)
+        fun place(v: HeroFigure.V): P3 = turn.apply(map(v))
 
         /** Old figure units to centimetres on this body: heights by landmarks, widths by the shoulders, reach by the arms. */
         fun map(v: HeroFigure.V): P3 = P3(v.r * shoulderX / 15.5, mapU(v.u), v.f * reachK)
@@ -107,12 +112,12 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
                 val sd = side(i)
                 val (kn, an) = ik(hip[i], ankle[i], hipY - kneeY, kneeY - ankleY, P3(sd * 0.15, 0.0, 1.0))
                 k[i] = kn; ankle[i] = an
-                val target = map(if (i == 0) rig.lh else rig.rh)
+                val target = place(if (i == 0) rig.lh else rig.rh)
                 val pole = if (i == 0 && shieldArm) P3(-1.0, -0.5, 0.35) else P3(sd * 0.6, -1.0, -0.5)
                 var (el, wr) = ik(shoulder[i], target, upperArm, foreArm, pole)
                 if (i == 1 && rig.elbowUp > 0.01) {
                     // the elbow lifted to where the pose wants it, the forearm reaching from there to the hand
-                    val lifted = (map(rig.elbowAt) - shoulder[i]).norm()
+                    val lifted = (place(rig.elbowAt) - shoulder[i]).norm()
                     val d = (el - shoulder[i]).norm().lerp(lifted, rig.elbowUp).norm()
                     el = shoulder[i] + d * upperArm
                     wr = el + (target - el).norm() * foreArm
