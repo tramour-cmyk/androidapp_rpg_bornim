@@ -13,6 +13,7 @@ enum class Sound {
     ENEMY_DOWN, HERO_DOWN, LEVEL_UP, LOOT, LOOT_EPIC, COINS, CHEST, DOOR, ENCOUNTER,
     ALERT, AMBUSH,
     BIRD, CRICKET, OWL, DRIP, CRACKLE,
+    SWING, SWING_HEAVY,
     HOWL_1, HOWL_2, HOWL_3,
 }
 
@@ -159,6 +160,102 @@ object Sfx {
         for (i in 0 until size) d[i] = dry[i] + out[i] * wet / 4
     }
 
+    // ---------------------------------------------------------------- realistic battle sounds
+
+    /**
+     * Noise through a resonant band-pass whose centre glides from [f0] to [f1] (Hz): whooshes,
+     * crunches, the rush of fire. [q] sets how narrow the band is; the envelope rises over
+     * [attack] seconds and decays with [decay], or swells and fades when [swell].
+     */
+    private fun Buf.band(at: Double, dur: Double, vol: Double, f0: Double, f1: Double, q: Double = 2.0, seed: Int = 1, attack: Double = 0.004, decay: Double = dur / 3, swell: Boolean = false) {
+        val rng = Random(seed)
+        val start = (at * SR).toInt(); val n = (dur * SR).toInt()
+        var x1 = 0.0; var x2 = 0.0; var y1 = 0.0; var y2 = 0.0
+        for (i in 0 until n) {
+            val idx = start + i
+            if (idx >= size) break
+            val x = i.toDouble() / n
+            val f = f0 * (f1 / f0).pow(x)
+            val w0 = 2 * PI * f / SR
+            val alpha = sin(w0) / (2 * q)
+            val a0 = 1 + alpha
+            val b0 = alpha / a0; val b2 = -alpha / a0; val a1 = -2 * kotlin.math.cos(w0) / a0; val a2 = (1 - alpha) / a0
+            val xin = rng.nextDouble() * 2 - 1
+            val y = b0 * xin + b2 * x2 - a1 * y1 - a2 * y2
+            x2 = x1; x1 = xin; y2 = y1; y1 = y
+            val t = i.toDouble() / SR
+            val env = if (swell) sin(PI * x).pow(1.3) else minOf(1.0, t / attack) * exp(-(t - attack).coerceAtLeast(0.0) / decay)
+            d[idx] += y * vol * env * 3
+        }
+    }
+
+    /** A body blow: a sine whose pitch drops from [f0] to [f1], dying away quickly. */
+    private fun Buf.thud(at: Double, dur: Double, f0: Double, f1: Double, vol: Double) {
+        val start = (at * SR).toInt(); val n = (dur * SR).toInt()
+        var ph = 0.0
+        for (i in 0 until n) {
+            val idx = start + i
+            if (idx >= size) break
+            val x = i.toDouble() / n
+            ph += f0 * (f1 / f0).pow(x) / SR
+            val t = i.toDouble() / SR
+            d[idx] += sin(2 * PI * ph) * vol * minOf(1.0, t / 0.002) * exp(-t / (dur / 3.5))
+        }
+    }
+
+    /** Struck metal: a few inharmonic partials that ring and fade at different speeds. */
+    private fun Buf.ring(at: Double, dur: Double, f: Double, vol: Double) {
+        val partials = listOf(1.0 to 1.0, 2.76 to 0.55, 5.4 to 0.35, 8.93 to 0.2, 13.3 to 0.1)
+        val start = (at * SR).toInt()
+        for (i in 0 until (dur * SR).toInt()) {
+            val idx = start + i
+            if (idx >= size) break
+            val t = i.toDouble() / SR
+            var v = 0.0
+            for ((k, pair) in partials.withIndex()) v += sin(2 * PI * f * pair.first * t + k) * pair.second * exp(-t / (dur / (2.5 + k * 1.5)))
+            d[idx] += v * vol * minOf(1.0, t / 0.001)
+        }
+    }
+
+    /** A plucked string (Karplus–Strong): the bowstring. */
+    private fun Buf.pluck(at: Double, dur: Double, f: Double, vol: Double, seed: Int = 1) {
+        val rng = Random(seed)
+        val len = (SR / f).toInt().coerceAtLeast(2)
+        val line = DoubleArray(len) { rng.nextDouble() * 2 - 1 }
+        val start = (at * SR).toInt()
+        var pos = 0
+        for (i in 0 until (dur * SR).toInt()) {
+            val idx = start + i
+            if (idx >= size) break
+            val nx = (pos + 1) % len
+            val v = line[pos]
+            line[pos] = (line[pos] + line[nx]) * 0.5 * 0.996
+            d[idx] += v * vol
+            pos = nx
+        }
+    }
+
+    /** Bowed or blown tone: a sawtooth softened by a low-pass, swelling in and out (strings, horns, drones). */
+    private fun Buf.pad(at: Double, dur: Double, f: Double, vol: Double, cutoff: Double = 900.0, attack: Double = 0.15, vibrato: Double = 0.004) {
+        val start = (at * SR).toInt(); val n = (dur * SR).toInt()
+        var ph = 0.0; var lp = 0.0; var lp2 = 0.0
+        val k = 1 - exp(-2 * PI * cutoff / SR)
+        for (i in 0 until n) {
+            val idx = start + i
+            if (idx >= size) break
+            val t = i.toDouble() / SR
+            ph += f * (1 + vibrato * sin(2 * PI * 5.2 * t)) / SR
+            ph -= ph.toInt()
+            val saw = 2 * ph - 1
+            lp += (saw - lp) * k; lp2 += (lp - lp2) * k
+            val env = minOf(1.0, t / attack) * minOf(1.0, (dur - t) / (dur * 0.4))
+            d[idx] += lp2 * vol * env
+        }
+    }
+
+    /** A short room or forest reverb over everything drawn so far. */
+    private fun Buf.room(wet: Double) = reverb(wet, 0.62)
+
     private fun Buf.pcm(): ShortArray {
         val peak = d.maxOf { abs(it) }.coerceAtLeast(1e-6)
         val gain = 0.7 / peak
@@ -168,78 +265,6 @@ object Sfx {
     fun render(s: Sound): ShortArray = when (s) {
         // A soft, low wooden tick rather than a bright beep.
         Sound.CLICK -> Buf(0.05).apply { tone(0.0, 0.04, 820.0, 640.0, 0.26, Wave.TRIANGLE, 0.01) }
-        Sound.HIT_SLASH -> Buf(0.3).apply {
-            noise(0.0, 0.16, 0.9, 0.35, 3, sweep = 0.5)
-            tone(0.03, 0.15, 160.0, 70.0, 0.6, Wave.TRIANGLE, 0.05)
-        }
-        Sound.HIT_PIERCE -> Buf(0.25).apply {
-            noise(0.0, 0.05, 0.8, 0.8, 5)
-            tone(0.01, 0.14, 900.0, 600.0, 0.3, Wave.TRIANGLE, 0.04)
-            tone(0.02, 0.1, 140.0, 80.0, 0.5, Wave.TRIANGLE, 0.04)
-        }
-        Sound.HIT_SMASH -> Buf(0.4).apply {
-            tone(0.0, 0.3, 120.0, 45.0, 0.9, Wave.TRIANGLE, 0.09)
-            noise(0.0, 0.12, 0.6, 0.15, 7)
-        }
-        Sound.MISS -> Buf(0.3).apply { noise(0.0, 0.26, 0.7, 0.12, 9, swell = true, sweep = 0.5) }
-        Sound.CRIT -> Buf(0.7).apply {
-            tone(0.0, 0.25, 140.0, 50.0, 0.8, Wave.TRIANGLE, 0.08)
-            noise(0.0, 0.1, 0.6, 0.6, 11)
-            bell(0.02, 0.6, 880.0, 0.35, metal = true)
-        }
-        Sound.BLOCK -> Buf(0.4).apply {
-            bell(0.0, 0.35, 620.0, 0.4, metal = true)
-            noise(0.0, 0.06, 0.5, 0.7, 13)
-        }
-        Sound.BITE -> Buf(0.3).apply {
-            noise(0.0, 0.07, 0.8, 0.25, 15)
-            noise(0.1, 0.08, 0.8, 0.22, 16)
-            tone(0.0, 0.18, 220.0, 90.0, 0.3, Wave.SAW, 0.05)
-        }
-        Sound.ARROW -> Buf(0.35).apply {
-            tone(0.0, 0.12, 330.0, 300.0, 0.4, Wave.SAW, 0.04)
-            noise(0.05, 0.25, 0.5, 0.3, 17, swell = true, sweep = 0.4)
-        }
-        Sound.FIRE -> Buf(0.7).apply {
-            noise(0.0, 0.65, 0.9, 0.08, 19, swell = true, sweep = 0.25)
-            for (i in 0 until 8) noise(0.05 + i * 0.07, 0.02, 0.5, 0.9, 20 + i)
-            tone(0.0, 0.5, 90.0, 140.0, 0.3, Wave.SAW, 0.2)
-        }
-        Sound.MAGIC -> Buf(0.6).apply {
-            listOf(76, 79, 83, 88).forEachIndexed { i, n -> bell(i * 0.05, 0.35, midi(n), 0.3) }
-            tone(0.0, 0.5, 600.0, 1800.0, 0.12, Wave.PULSE12, 0.2)
-        }
-        Sound.HOLY -> Buf(1.0).apply {
-            listOf(72, 76, 79, 84).forEach { n -> bell(0.0, 0.95, midi(n), 0.25) }
-            noise(0.0, 0.8, 0.15, 0.9, 23, swell = true)
-        }
-        Sound.HEAL -> Buf(0.7).apply {
-            listOf(72, 76, 79, 84).forEachIndexed { i, n -> tone(i * 0.08, 0.35, midi(n), midi(n), 0.35, Wave.TRIANGLE, 0.12) }
-        }
-        Sound.BUFF -> Buf(0.6).apply {
-            tone(0.0, 0.55, 420.0, 1300.0, 0.35, Wave.TRIANGLE, 0.3)
-            tone(0.0, 0.55, 630.0, 1950.0, 0.15, Wave.TRIANGLE, 0.3)
-        }
-        Sound.POISON -> Buf(0.5).apply {
-            val rng = Random(3)
-            for (i in 0 until 6) {
-                val f = 200 + rng.nextDouble() * 300
-                tone(i * 0.07, 0.06, f, f * 1.6, 0.35, Wave.TRIANGLE, 0.03)
-            }
-        }
-        Sound.THROW -> Buf(0.5).apply {
-            noise(0.0, 0.2, 0.5, 0.2, 29, swell = true, sweep = 0.4)
-            noise(0.22, 0.2, 0.8, 0.95, 30)
-            bell(0.22, 0.25, 2400.0, 0.15, metal = true)
-        }
-        Sound.POTION -> Buf(0.5).apply {
-            for (i in 0 until 3) tone(i * 0.13, 0.1, 260.0, 180.0, 0.5, Wave.TRIANGLE, 0.04)
-            tone(0.4, 0.1, 700.0, 900.0, 0.2, Wave.TRIANGLE, 0.04)
-        }
-        Sound.ENEMY_DOWN -> Buf(0.6).apply { tone(0.0, 0.55, 520.0, 70.0, 0.4, Wave.PULSE25, 0.25) }
-        Sound.HERO_DOWN -> Buf(1.2).apply {
-            listOf(69, 65, 62, 57).forEachIndexed { i, n -> tone(i * 0.22, 0.4, midi(n), midi(n), 0.4, Wave.PULSE25, 0.2) }
-        }
         Sound.LEVEL_UP -> Buf(1.3).apply {
             listOf(67, 72, 76, 79).forEachIndexed { i, n -> tone(i * 0.09, 0.15, midi(n), midi(n), 0.35, Wave.PULSE25, 0.1) }
             tone(0.38, 0.85, midi(84), midi(84), 0.35, Wave.PULSE25, 0.4)
@@ -269,17 +294,6 @@ object Sfx {
         Sound.DOOR -> Buf(0.5).apply {
             tone(0.0, 0.2, 110.0, 60.0, 0.6, Wave.TRIANGLE, 0.06)
             tone(0.05, 0.3, 300.0, 220.0, 0.15, Wave.SAW, 0.12)
-        }
-        Sound.ENCOUNTER -> Buf(0.9).apply {
-            noise(0.0, 0.45, 0.6, 0.05, 35, swell = true, sweep = 0.8)
-            tone(0.42, 0.45, 80.0, 40.0, 0.9, Wave.TRIANGLE, 0.15)
-            noise(0.42, 0.4, 0.4, 0.5, 36)
-            listOf(57, 63).forEach { n -> tone(0.42, 0.4, midi(n), midi(n), 0.2, Wave.SAW, 0.2) }
-        }
-        // A monster spotted the hero: two quick rising blips.
-        Sound.ALERT -> Buf(0.3).apply {
-            tone(0.0, 0.08, midi(81), midi(84), 0.35, Wave.PULSE25, 0.05)
-            tone(0.09, 0.14, midi(88), midi(91), 0.35, Wave.PULSE25, 0.06)
         }
         // Ambient sounds, played quietly now and then.
         Sound.BIRD -> Buf(0.7).apply {
@@ -327,11 +341,150 @@ object Sfx {
             howl(0.0, 2.0, listOf(0.0 to 230.0, 0.25 to 400.0, 0.42 to 410.0, 0.47 to 520.0, 0.75 to 500.0, 1.0 to 280.0), 0.6, wobble = 0.018, seed = 55)
             reverb(0.6)
         }
-        // Ambushed: a sharp hit and a low dissonant stab.
-        Sound.AMBUSH -> Buf(0.8).apply {
-            noise(0.0, 0.12, 0.8, 0.04, 37)
-            tone(0.0, 0.5, 70.0, 45.0, 0.9, Wave.TRIANGLE, 0.15)
-            listOf(56, 62, 63).forEach { n -> tone(0.04, 0.6, midi(n), midi(n) * 0.98, 0.18, Wave.SAW, 0.25) }
+        // ---- battle: hits and misses, layered from swish, body blow and crunch, in a small room
+        Sound.HIT_SLASH -> Buf(0.7).apply {
+            band(0.0, 0.14, 0.5, 4200.0, 1300.0, 1.4, 101, decay = 0.05)
+            thud(0.05, 0.22, 150.0, 70.0, 0.75)
+            band(0.05, 0.12, 0.45, 900.0, 600.0, 3.0, 102, decay = 0.03)
+            room(0.25)
         }
+        Sound.HIT_PIERCE -> Buf(0.6).apply {
+            band(0.0, 0.08, 0.35, 3000.0, 5200.0, 2.0, 103, decay = 0.03)
+            band(0.06, 0.05, 0.6, 1700.0, 1200.0, 6.0, 104, decay = 0.012)
+            thud(0.06, 0.18, 190.0, 95.0, 0.6)
+            room(0.22)
+        }
+        Sound.HIT_SMASH -> Buf(0.8).apply {
+            thud(0.0, 0.45, 95.0, 38.0, 1.0)
+            band(0.0, 0.2, 0.7, 420.0, 220.0, 1.5, 105, decay = 0.06)
+            for (k in 0 until 3) band(0.02 + k * 0.025, 0.04, 0.3, 2600.0, 1800.0, 4.0, 106 + k, decay = 0.01)
+            room(0.3)
+        }
+        Sound.MISS -> Buf(0.6).apply {
+            band(0.0, 0.32, 0.55, 500.0, 2400.0, 1.6, 109, swell = true)
+            band(0.18, 0.2, 0.25, 2400.0, 700.0, 1.6, 110, swell = true)
+            room(0.2)
+        }
+        Sound.CRIT -> Buf(1.1).apply {
+            band(0.0, 0.12, 0.55, 4800.0, 1200.0, 1.3, 111, decay = 0.05)
+            thud(0.04, 0.55, 120.0, 40.0, 1.0)
+            band(0.04, 0.25, 0.6, 700.0, 300.0, 1.4, 112, decay = 0.08)
+            ring(0.04, 0.7, 610.0, 0.18)
+            room(0.4)
+        }
+        // shield block: wood takes the blow, the metal rim rings
+        Sound.BLOCK -> Buf(0.9).apply {
+            band(0.0, 0.1, 0.8, 520.0, 380.0, 4.0, 113, decay = 0.03)
+            thud(0.0, 0.2, 210.0, 120.0, 0.6)
+            ring(0.005, 0.6, 1180.0, 0.22)
+            room(0.3)
+        }
+        // snarl, the snap of jaws and the bite going in
+        Sound.BITE -> Buf(0.7).apply {
+            val rng = Random(114)
+            for (k in 0 until 6) band(k * 0.03, 0.035, 0.35 + rng.nextDouble() * 0.2, 320.0, 260.0, 3.0, 115 + k, decay = 0.015)
+            band(0.2, 0.03, 0.8, 2800.0, 2000.0, 5.0, 122, decay = 0.008)
+            band(0.24, 0.03, 0.7, 2500.0, 1800.0, 5.0, 123, decay = 0.008)
+            thud(0.21, 0.18, 160.0, 80.0, 0.5)
+            room(0.25)
+        }
+        // the bowstring, the arrow hissing through the air, the impact
+        Sound.ARROW -> Buf(0.9).apply {
+            pluck(0.0, 0.35, 98.0, 0.6, 124)
+            band(0.04, 0.3, 0.4, 1800.0, 3800.0, 2.5, 125, swell = true)
+            band(0.33, 0.05, 0.6, 1500.0, 1000.0, 5.0, 126, decay = 0.012)
+            thud(0.33, 0.15, 180.0, 90.0, 0.4)
+            room(0.25)
+        }
+        // a roaring burst of flame and crackling
+        Sound.FIRE -> Buf(1.2).apply {
+            thud(0.0, 0.4, 70.0, 45.0, 0.6)
+            band(0.0, 0.9, 0.9, 180.0, 1400.0, 0.8, 127, swell = true)
+            band(0.1, 0.8, 0.4, 2500.0, 1200.0, 1.2, 128, swell = true)
+            val rng = Random(129)
+            for (k in 0 until 9) band(0.2 + rng.nextDouble() * 0.8, 0.02, 0.5, 3000.0, 2200.0, 5.0, 130 + k, decay = 0.005)
+            room(0.25)
+        }
+        // arcane force: an airy rising rush over a low hum, glassy overtones
+        Sound.MAGIC -> Buf(1.2).apply {
+            pad(0.0, 0.9, 110.0, 0.35, 500.0, 0.08, 0.01)
+            band(0.0, 0.7, 0.6, 400.0, 3200.0, 4.0, 140, swell = true)
+            for ((k, f) in listOf(1318.0, 1975.0, 2637.0).withIndex()) tone(0.25 + k * 0.06, 0.5, f, f * 1.01, 0.05, Wave.TRIANGLE, 0.25)
+            room(0.45)
+        }
+        // holy light: a soft choir chord swelling in, a bell on top
+        Sound.HOLY -> Buf(1.8).apply {
+            for (f in listOf(220.0, 277.2, 329.6, 440.0)) { pad(0.0, 1.4, f, 0.14, 1400.0, 0.35, 0.006); pad(0.0, 1.4, f * 1.004, 0.1, 1400.0, 0.4, 0.007) }
+            bell(0.3, 1.2, 880.0, 0.2)
+            room(0.5)
+        }
+        Sound.HEAL -> Buf(1.6).apply {
+            for ((k, f) in listOf(392.0, 493.9, 587.3, 784.0).withIndex()) pad(k * 0.08, 1.0, f, 0.1, 1800.0, 0.2, 0.008)
+            band(0.0, 1.1, 0.2, 2000.0, 5000.0, 3.0, 141, swell = true)
+            room(0.5)
+        }
+        Sound.BUFF -> Buf(1.4).apply {
+            pad(0.0, 1.0, 98.0, 0.35, 600.0, 0.25)
+            pad(0.0, 1.0, 147.0, 0.25, 700.0, 0.25)
+            bell(0.35, 0.9, 587.0, 0.18)
+            room(0.4)
+        }
+        // poison: wet bubbling and a sickly hiss
+        Sound.POISON -> Buf(1.0).apply {
+            val rng = Random(142)
+            for (k in 0 until 10) { val f = 180.0 + rng.nextDouble() * 240; thud(k * 0.07 + rng.nextDouble() * 0.03, 0.07, f, f * 1.6, 0.3) }
+            band(0.0, 0.9, 0.25, 3000.0, 1800.0, 1.5, 143, swell = true)
+            room(0.2)
+        }
+        // a flask thrown: whoosh, glass shattering
+        Sound.THROW -> Buf(0.9).apply {
+            band(0.0, 0.3, 0.4, 600.0, 1800.0, 1.5, 144, swell = true)
+            for (k in 0 until 7) ring(0.3 + k * 0.012, 0.18, 2400.0 + k * 530, 0.05)
+            band(0.3, 0.2, 0.6, 5000.0, 3000.0, 1.0, 145, decay = 0.05)
+            room(0.25)
+        }
+        // a cork pulled, a few swallows
+        Sound.POTION -> Buf(0.8).apply {
+            thud(0.0, 0.05, 700.0, 300.0, 0.4)
+            band(0.0, 0.04, 0.4, 1800.0, 1200.0, 4.0, 146, decay = 0.01)
+            for (k in 0 until 3) thud(0.18 + k * 0.17, 0.12, 160.0, 220.0, 0.35)
+            room(0.15)
+        }
+        // a body falling, a last breath
+        Sound.ENEMY_DOWN -> Buf(1.1).apply {
+            band(0.0, 0.4, 0.3, 700.0, 300.0, 1.2, 147, swell = true)
+            thud(0.32, 0.5, 80.0, 40.0, 1.0)
+            band(0.32, 0.25, 0.5, 400.0, 200.0, 1.3, 148, decay = 0.08)
+            room(0.3)
+        }
+        Sound.HERO_DOWN -> Buf(2.6).apply {
+            thud(0.0, 0.6, 70.0, 35.0, 1.0)
+            band(0.0, 0.3, 0.5, 400.0, 200.0, 1.3, 149, decay = 0.1)
+            for ((k, f) in listOf(110.0, 130.8, 164.8).withIndex()) pad(0.3 + k * 0.05, 2.0, f, 0.2, 700.0, 0.4, 0.003)
+            room(0.5)
+        }
+        // battle begins: a deep drum hit and a tense swell of low strings
+        Sound.ENCOUNTER -> Buf(2.0).apply {
+            thud(0.0, 0.7, 60.0, 38.0, 1.0)
+            band(0.0, 0.25, 0.4, 300.0, 150.0, 1.2, 150, decay = 0.08)
+            for (f in listOf(73.4, 77.8, 110.0)) pad(0.05, 1.5, f, 0.22, 650.0, 0.5, 0.004)
+            room(0.45)
+        }
+        // a monster has seen the hero: two quick low drum taps
+        Sound.ALERT -> Buf(0.6).apply {
+            thud(0.0, 0.18, 110.0, 70.0, 0.7)
+            thud(0.12, 0.22, 120.0, 72.0, 0.8)
+            room(0.25)
+        }
+        // ambushed: a sharp crack and a dissonant brass stab
+        Sound.AMBUSH -> Buf(1.6).apply {
+            band(0.0, 0.08, 1.0, 2500.0, 900.0, 1.0, 151, decay = 0.02)
+            thud(0.0, 0.5, 80.0, 40.0, 1.0)
+            for (f in listOf(92.5, 98.0, 138.6)) pad(0.02, 1.0, f, 0.3, 1400.0, 0.02, 0.003)
+            room(0.4)
+        }
+        // the hero swings: a weapon cutting the air, light and heavy
+        Sound.SWING -> Buf(0.5).apply { band(0.0, 0.25, 0.6, 700.0, 2600.0, 1.8, 152, swell = true); room(0.15) }
+        Sound.SWING_HEAVY -> Buf(0.7).apply { band(0.0, 0.4, 0.8, 250.0, 900.0, 1.4, 153, swell = true); room(0.2) }
     }.pcm()
 }

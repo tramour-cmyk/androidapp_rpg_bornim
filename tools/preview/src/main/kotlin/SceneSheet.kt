@@ -126,6 +126,8 @@ fun renderMapOverview(map: de.bornim.core.MapDef, lit: Boolean = true, daylight:
     println("wrote map ${map.id}")
 }
 
+private data class Quad4(val a: String, val b: de.bornim.core.Hero, val c: de.bornim.core.art.HeroFigure.Act, val d: de.bornim.core.art.HeroFigure.Strike)
+
 /** Draft sheets for the new hero figure: old versus new in a scene, all races, attack pose. */
 fun renderHeroDrafts() {
     val w = 270; val h = 370
@@ -155,8 +157,9 @@ fun renderHeroDrafts() {
         val wolf = MonsterArt.battleFrame("wolf", MonsterLook(col), Act.IDLE, 0, 0)
         paste(out, wolf, ox + (w * BattleScene.FOE_X - wolf.width / 2).toInt(), (h * BattleScene.FOE_Y - MonsterArt.groundLine("wolf")).toInt())
         if (newStyle) {
-            val img = de.bornim.core.art.HeroFigure.frame(hero, act, 3)
-            paste(out, img, ox + (w * BattleScene.HERO_X - img.width / 2).toInt(), (h * BattleScene.HERO_Y - de.bornim.core.art.HeroFigure.GROUND).toInt())
+            val img = if (act == de.bornim.core.art.HeroFigure.Act.IDLE) de.bornim.core.art.HeroFigure.frame(hero, act, 3)
+                else de.bornim.core.art.HeroFigure.frame(hero, act, de.bornim.core.art.HeroFigure.strikeFrame(de.bornim.core.art.HeroFigure.strikes(hero).first()), de.bornim.core.art.HeroFigure.strikes(hero).first())
+            paste(out, img, ox + (w * BattleScene.HERO_X - de.bornim.core.art.HeroFigure.ANCHOR_X).toInt(), (h * BattleScene.HERO_Y - de.bornim.core.art.HeroFigure.GROUND).toInt())
         } else {
             val img = de.bornim.core.art.HeroArt.battle(hero, de.bornim.core.art.Pose.IDLE, 3)
             val sx = 1.8
@@ -188,5 +191,26 @@ fun renderHeroDrafts() {
     scene(s3, 2, geared[2], true, de.bornim.core.art.HeroFigure.Act.ATTACK)
     scene(s3, 3, geared[0], true, de.bornim.core.art.HeroFigure.Act.HURT)
     ImageIO.write(s3, "png", File("build/screens/hero_poses.png"))
+    // 4: animation frames of each strike, for GIFs
+    val F = de.bornim.core.art.HeroFigure
+    val anim = File("build/screens/heroanim"); anim.deleteRecursively(); anim.mkdirs()
+    val bg = BattleScene.forest(w, h, BattleScene.Spot.CLEARING, BattleScene.Light.DUSK, false, 12)
+    val wolf = MonsterArt.battleFrame("wolf", MonsterLook(1), Act.IDLE, 0, 0)
+    for ((name, hh, act, strike) in listOf(
+        Quad4("sword", geared[0], de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SLASH), Quad4("thrust", geared[0], de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.THRUST),
+        Quad4("axe", geared[4], de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SMASH), Quad4("bow", geared[2], de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SHOOT),
+        Quad4("cast", geared[5], de.bornim.core.art.HeroFigure.Act.CAST, de.bornim.core.art.HeroFigure.Strike.CAST), Quad4("block", geared[0], de.bornim.core.art.HeroFigure.Act.BLOCK, de.bornim.core.art.HeroFigure.Strike.SLASH),
+        Quad4("hurt", geared[1], de.bornim.core.art.HeroFigure.Act.HURT, de.bornim.core.art.HeroFigure.Strike.SLASH),
+    )) {
+        val dir = File(anim, name); dir.mkdirs()
+        val seq = (0 until 12).map { F.frame(hh, de.bornim.core.art.HeroFigure.Act.IDLE, it) } + (0 until F.frameCount(act, strike)).map { F.frame(hh, act, it, strike) } + (0 until 8).map { F.frame(hh, de.bornim.core.art.HeroFigure.Act.IDLE, it) }
+        for ((i, img) in seq.withIndex()) {
+            val out = BufferedImage(w * 2, h * 2, BufferedImage.TYPE_INT_RGB)
+            for (y in 0 until h) for (x in 0 until w) for (q in 0 until 4) out.setRGB(x * 2 + q % 2, y * 2 + q / 2, bg[x, y])
+            paste(out, wolf, (w * BattleScene.FOE_X - wolf.width / 2).toInt(), (h * BattleScene.FOE_Y - MonsterArt.groundLine("wolf")).toInt())
+            paste(out, img, (w * BattleScene.HERO_X - F.ANCHOR_X).toInt(), (h * BattleScene.HERO_Y - F.GROUND).toInt())
+            ImageIO.write(out.getSubimage(0, 260, w * 2, h * 2 - 260), "png", File(dir, "f%03d.png".format(i)))
+        }
+    }
     println("wrote hero drafts")
 }
