@@ -533,8 +533,13 @@ object HeroFigure {
             val bw = m(mix(argb(0x5E3E24), rar.color.toInt(), if (rar >= Rarity.RARE) 0.3 else 0.0), grain = 0.05)
             // held out in front, upright, the belly towards the foe
             val x = h.first - 9; val y = h.second - 6
-            s.chain(bw, x + 2, y - 26, 1.4, x - 1, y - 13, 2.1, x - 2.5, y, 2.5, x - 1, y + 13, 2.1, x + 2, y + 26, 1.4)
-            if (r.draw <= 0.05) { s.line(x + 2, y - 26, x + 3, y, argb(0xD8D0C0)); s.line(x + 3, y, x + 2, y + 26, argb(0xD8D0C0)) }
+            val l = bowLen
+            if (main?.base == "light_crossbow") { arms.draw("light_crossbow", rar, h.first, h.second, -70.0); return }
+            // limbs curving back at the tips (recurve), a leather-wrapped grip, horn nocks
+            s.chain(bw, x + 3.5, y - l, 1.1, x + 1, y - l * 0.75, 1.7, x - 1.5, y - l * 0.4, 2.2, x - 2.5, y, 2.5, x - 1.5, y + l * 0.4, 2.2, x + 1, y + l * 0.75, 1.7, x + 3.5, y + l, 1.1)
+            s.limb(x - 2.5, y - 3, x - 2.5, y + 3, 2.7, 2.7, darkLeather)
+            s.blob(x + 3.5, y - l, 1.2, 1.2, m(argb(0xD8CCB0))); s.blob(x + 3.5, y + l, 1.2, 1.2, m(argb(0xD8CCB0)))
+            if (r.draw <= 0.05) { s.line(x + 3.5, y - l, x + 4, y, argb(0xD8D0C0)); s.line(x + 4, y, x + 3.5, y + l, argb(0xD8D0C0)) }
         }
 
         /** The string and the arrow, pulled back towards us to the cheek. */
@@ -542,7 +547,8 @@ object HeroFigure {
             val bx = lArm.second.first - 9; val by = lArm.second.second - 6
             val (hx, hy) = rArm.second
             val px = bx + (hx - bx) * r.draw; val py = by + (hy - by) * r.draw
-            s.line(bx + 2, by - 26, px, py, argb(0xD8D0C0)); s.line(px, py, bx + 2, by + 26, argb(0xD8D0C0))
+            if (main?.base == "light_crossbow") return
+            s.line(bx + 3.5, by - bowLen, px, py, argb(0xD8D0C0)); s.line(px, py, bx + 3.5, by + bowLen, argb(0xD8D0C0))
             if (r.draw > 0.3) {
                 s.limb(px, py, bx - 4, by - 2, 0.7, 0.7, wood)
                 s.limb(bx - 2, by - 1.5, bx - 7, by - 3, 1.1, 0.3, steel)
@@ -550,73 +556,10 @@ object HeroFigure {
             }
         }
 
-        fun weapon(p: Part, hx: Double, hy: Double, deg: Double) {
-            val a = Math.toRadians(deg)
-            val dx = cos(a); val dy = sin(a)
-            val met = metal(p.rarity)
-            val long = if (p.twoHanded) 1.35 else 1.0
-            fun along(d: Double) = Pair(hx + dx * d, hy + dy * d)
-            when (p.icon) {
-                Icon.SWORD, Icon.DAGGER -> {
-                    val len = (if (p.icon == Icon.DAGGER) (if (p.base == "shortsword") 22.0 else 15.0) else 32.0) * long
-                    s.limb(hx - dx * 7, hy - dy * 7, hx + dx, hy + dy, 1.6, 1.6, darkLeather)
-                    s.blob(hx - dx * 8, hy - dy * 8, 2.0, 2.0, gold)
-                    s.limb(hx + dy * 6, hy - dx * 6, hx - dy * 6, hy + dx * 6, 1.4, 1.4, darkSteel)
-                    blade(hx + dx * 2, hy + dy * 2, deg, len, if (p.twoHanded) 3.6 else 2.9, met)
-                }
-                Icon.AXE -> {
-                    val (ex, ey) = along(26.0 * long)
-                    s.limb(hx - dx * 9, hy - dy * 9, ex, ey, 1.8, 1.6, wood)
-                    val px = -dy; val py = dx
-                    val w = if (p.twoHanded) 1.7 else 1.25
-                    s.poly(met, ex - dx * 4, ey - dy * 4, ex + px * 12 * w - dx * 7 * w, ey + py * 12 * w - dy * 7 * w,
-                        ex + px * 13 * w + dx * 6 * w, ey + py * 13 * w + dy * 6 * w, ex + dx * 4, ey + dy * 4, bevel = 1.8)
-                    if (p.twoHanded) s.poly(met, ex - dx * 3, ey - dy * 3, ex - px * 8 * w - dx * 5, ey - py * 8 * w - dy * 5,
-                        ex - px * 9 * w + dx * 4, ey - py * 9 * w + dy * 4, ex + dx * 3, ey + dy * 3, bevel = 1.6)
-                }
-                Icon.MACE, Icon.HAMMER -> {
-                    val (ex, ey) = along(24.0 * long)
-                    s.limb(hx - dx * 7, hy - dy * 7, ex, ey, 1.8, 1.6, wood)
-                    if (p.icon == Icon.MACE) {
-                        s.blob(ex, ey, 5.5 * long, 5.5 * long, met)
-                        for (k in 0 until 6) {
-                            val sa = k * 60.0 + deg
-                            s.limb(ex, ey, Sculpt.polarX(ex, 8.0 * long, sa), Sculpt.polarY(ey, 8.0 * long, sa), 1.4, 0.5, met)
-                        }
-                    } else {
-                        val px = -dy; val py = dx
-                        val w = 5.0 * long; val h = 10.0 * long
-                        s.poly(met, ex + px * h - dx * w, ey + py * h - dy * w, ex + px * h + dx * w, ey + py * h + dy * w,
-                            ex - px * h + dx * w, ey - py * h + dy * w, ex - px * h - dx * w, ey - py * h - dy * w, bevel = 2.0)
-                    }
-                }
-                Icon.SPEAR -> {
-                    val (ex, ey) = along(42.0)
-                    s.limb(hx - dx * 18, hy - dy * 18, ex, ey, 1.5, 1.5, wood)
-                    if (p.twoHanded) {
-                        val px = -dy; val py = dx
-                        s.poly(met, ex, ey, ex + px * 7 - dx * 3, ey + py * 7 - dy * 3, ex + px * 6 + dx * 4, ey + py * 6 + dy * 4, bevel = 1.4)
-                    }
-                    blade(ex, ey, deg, 12.0, 3.0, met)
-                }
-                Icon.STAFF, Icon.WAND -> {
-                    val len = if (p.icon == Icon.STAFF) 42.0 else 16.0
-                    val (ex, ey) = along(len)
-                    s.limb(hx - dx * (if (p.icon == Icon.STAFF) 24.0 else 3.0), hy - dy * (if (p.icon == Icon.STAFF) 24.0 else 3.0), ex, ey,
-                        if (p.icon == Icon.STAFF) 1.9 else 1.2, if (p.icon == Icon.STAFF) 2.2 else 1.0, wood)
-                    val g = mix(argb(0x80E0FF), p.rarity.color.toInt(), 0.5)
-                    val rr = (if (p.icon == Icon.STAFF) 3.6 else 2.2) + r.glow * 2.2
-                    s.flat(ex, ey, rr + 3 + r.glow * 3, rr + 3 + r.glow * 3, alpha(g, (70 + r.glow * 100).toInt()))
-                    s.blob(ex, ey, rr, rr, m(g, shine = 1.0).copy(inline = false))
-                }
-                Icon.CROSSBOW -> {
-                    val (ex, ey) = along(18.0)
-                    s.limb(hx - dx * 6, hy - dy * 6, ex, ey, 2.0, 1.8, wood)
-                    s.limb(ex - dy * 9, ey + dx * 9, ex + dy * 9, ey - dx * 9, 1.4, 1.4, darkSteel)
-                }
-                else -> s.limb(hx - dx * 6, hy - dy * 6, hx + dx * 20, hy + dy * 20, 1.8, 1.8, wood)
-            }
-        }
+        val arms = WeaponArt(s)
+        val bowLen = if (main?.base == "longbow") 30.0 else 23.0
+
+        fun weapon(p: Part, hx: Double, hy: Double, deg: Double) = arms.draw(p.base, p.rarity, hx, hy, deg, r.glow)
 
         fun blade(hx: Double, hy: Double, deg: Double, len: Double, wid: Double, mat: Mat) {
             val a = Math.toRadians(deg)

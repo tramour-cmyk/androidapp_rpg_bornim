@@ -84,6 +84,7 @@ fun main() {
     if (System.getenv("SCENES") != null) { renderSceneSheet(); System.exit(0) }
     if (System.getenv("CAVES") != null) { renderCaveSheet(); System.exit(0) }
     if (System.getenv("HEROES") != null) { renderHeroDrafts(); System.exit(0) }
+    if (System.getenv("WEAPONS") != null) { renderWeaponSheet(); System.exit(0) }
     if (System.getenv("CAVEMAP") != null) { renderCaveMap(); System.exit(0) }
     System.getenv("MAPS")?.let { ids ->
         for (id in ids.split(",")) for ((t, d) in listOf("day" to 1f, "dusk" to 0.55f, "night" to 0.1f)) renderMapOverview(de.bornim.core.World[id], daylight = d, name = "${id}_$t")

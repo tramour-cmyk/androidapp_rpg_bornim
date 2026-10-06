@@ -214,3 +214,26 @@ fun renderHeroDrafts() {
     }
     println("wrote hero drafts")
 }
+
+/** Every weapon large on a plain background, for checking the drawings. */
+fun renderWeaponSheet() {
+    val bases = listOf("dagger", "shortsword", "scimitar", "rapier", "longsword", "greatsword", "handaxe", "battleaxe", "greataxe", "mace",
+        "warhammer", "maul", "spear", "halberd", "quarterstaff", "staff", "wand", "light_crossbow")
+    val cw = 90; val ch = 90; val cols = 6; val k = 3
+    val out = BufferedImage(cw * cols * k, ch * ((bases.size + cols - 1) / cols) * 2 * k, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x3A4038); g.fillRect(0, 0, out.width, out.height)
+    for ((i, b) in bases.withIndex()) for ((row, r) in listOf(de.bornim.core.Rarity.COMMON, de.bornim.core.Rarity.EPIC).withIndex()) {
+        val sc = de.bornim.core.art.Sculpt(cw, ch, 5)
+        de.bornim.core.art.WeaponArt(sc).draw(b, r, 22.0, 66.0, -42.0)
+        sc.outline(de.bornim.core.art.argb(0x14100E))
+        val ox = (i % cols) * cw; val oy = ((i / cols) * 2 + row) * ch
+        for (y in 0 until ch) for (x in 0 until cw) {
+            val p = sc.img[x, y]
+            if ((p ushr 24) < 128) continue
+            for (q in 0 until k * k) out.setRGB((ox + x) * k + q % k, (oy + y) * k + q / k, p)
+        }
+        g.color = java.awt.Color(0xE8E0D0); g.drawString(b + if (row == 1) " (episch)" else "", ox * k + 6, oy * k + 16)
+    }
+    ImageIO.write(out, "png", File("build/screens/weapons.png"))
+    println("wrote weapons")
+}
