@@ -484,8 +484,13 @@ object BattleProto {
     }
 
     /** The full scene: backdrop, wolf in the middle ground and the hero (from behind) in front. */
-    fun compose(light: Light, pose: WolfPose = WolfPose.IDLE_A): PixelImage {
+    fun compose(light: Light, pose: WolfPose = WolfPose.IDLE_A, v2: PixelImage? = null): PixelImage {
         val img = scene(light)
+        if (v2 != null) {
+            shadow(img, 170.0, 222.0, 36.0, 5.0, 0.5)
+            blit(img, v2, 118, 222 - 73, tint = tintFor(light))
+            return img
+        }
         val wolf = wolf(pose)
         // the wolf stands in the light pool
         shadow(img, 170.0, 222.0, 34.0, 5.0, 0.5)
@@ -533,6 +538,37 @@ object BattleProto {
             blit(sheet, wolf(p), (i % 4) * 96, (i / 4) * 72)
         }
         write("proto_wolf_poses", sheet, 3)
+        // second wolf: sequences with in-between frames, coats, and animation frames on the scene
+        val seqs = listOf("idle" to WolfV2.IDLE_LOOP, "bite" to WolfV2.BITE, "pounce" to WolfV2.POUNCE, "howl" to WolfV2.HOWL_SEQ, "hurt" to WolfV2.HURT_SEQ)
+        for ((name, frames) in seqs) {
+            val sh = PixelImage(104 * frames.size, 76)
+            for ((i, r) in frames.withIndex()) {
+                for (y in 0 until 76) for (x in 0 until 104) sh.set(i * 104 + x, y, if (i % 2 == 0) argb(0x4A5A44) else argb(0x44523E))
+                blit(sh, WolfV2.draw(r), i * 104, 0)
+            }
+            write("wolf2_$name", sh, 2)
+        }
+        val coats = listOf(WolfV2.GREY, WolfV2.DARK, WolfV2.RUST, WolfV2.ASH)
+        val cs = PixelImage(104 * 4, 76)
+        for ((i, c) in coats.withIndex()) {
+            for (y in 0 until 76) for (x in 0 until 104) cs.set(i * 104 + x, y, if (i % 2 == 0) argb(0x4A5A44) else argb(0x44523E))
+            blit(cs, WolfV2.draw(WolfV2.STAND, c, seed = 7 + i), i * 104, 0)
+        }
+        write("wolf2_coats", cs, 3)
+        write("proto2_dusk", compose(Light.DUSK, v2 = WolfV2.draw(WolfV2.STAND, WolfV2.DARK)), 4, heroImg, tint = tintFor(Light.DUSK))
+        write("proto2_day", compose(Light.DAY, v2 = WolfV2.draw(WolfV2.STAND, WolfV2.GREY)), 4, heroImg)
+        // animation frames on the dusk scene (cropped around the wolf), for a GIF
+        File("build/screens/anim").mkdirs()
+        val bg = scene(Light.DUSK)
+        val anim = WolfV2.IDLE_LOOP + WolfV2.IDLE_LOOP + WolfV2.BITE + WolfV2.IDLE_LOOP + WolfV2.POUNCE + WolfV2.IDLE_LOOP + WolfV2.HOWL_SEQ + WolfV2.IDLE_LOOP + WolfV2.HURT_SEQ
+        for ((i, r) in anim.withIndex()) {
+            val img = bg.copy()
+            shadow(img, 170.0 + r.bodyX, 222.0, 36.0 + r.bodyY.coerceAtMost(0.0), 5.0, 0.5 - (-r.bodyY).coerceAtLeast(0.0) * 0.02)
+            blit(img, WolfV2.draw(r, WolfV2.GREY), 118, 222 - 73, tint = tintFor(Light.DUSK))
+            val crop = PixelImage(200, 120)
+            for (y in 0 until 120) for (x in 0 until 200) crop.set(x, y, img[70 + x, 125 + y])
+            write("anim/f%03d".format(i), crop, 4)
+        }
         println("wrote prototype")
     }
 }
