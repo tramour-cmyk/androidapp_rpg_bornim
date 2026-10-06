@@ -81,6 +81,7 @@ fun main() {
         System.exit(0)
     }
     if (System.getenv("SHEET") != null) { renderHeroSheet(); System.exit(0) }
+    if (System.getenv("PROTO") != null) { BattleProto.run(); System.exit(0) }
     if (System.getenv("ABOUT") != null) {
         shot("31_about") { it.screen = Screen.ABOUT }
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }
@@ -395,6 +396,11 @@ fun main() {
         g.state.wellFed = true
         g.state.place = Place("forest", 9, 4, Facing.UP); g.state.minutes = 17 * 60 + 30
         vm.refresh()
+    }
+    shot("69_current_wolf") { vm ->
+        vm.newGame("Borin", Race.DWARF, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
+        g.state.place = Place("forest", 10, 20, Facing.UP); g.state.minutes = 12 * 60
+        g.enqueue(listOf(Cmd.Fight("wolf"))); vm.refresh()
     }
     shot("66_barrier_closed") { vm -> vm.newGame("Alrik", Race.HUMAN, CharClass.FIGHTER); vm.game!!.skipDialogs(); vm.game!!.state.place = Place("village", 17, 6, Facing.UP); vm.refresh() }
     shot("66_barrier_bump") { vm ->
