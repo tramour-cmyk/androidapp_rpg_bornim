@@ -491,3 +491,22 @@ fun renderBlockViews() {
     ImageIO.write(out, "png", File("build/screens/block_views.png"))
     println("wrote block views")
 }
+
+
+/** Back and side views of the bare doll, large, upper body only: to compare the shoulders with real people. */
+fun renderBackViews() {
+    val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 0)
+    val F = de.bornim.core.art.HeroFigure
+    val rigs = listOf("Grundhaltung" to F.STAND, "Block" to F.BLOCK, "Ausholen" to F.SLASH_WIND)
+    val yaws = listOf(90.0, 138.0, 160.0, 180.0)
+    val cw = 260; val ch = 260; val px = 3.0
+    val out = BufferedImage(cw * yaws.size, ch * rigs.size, BufferedImage.TYPE_INT_RGB)
+    val gg = out.createGraphics(); gg.color = java.awt.Color(0x5E625C); gg.fillRect(0, 0, out.width, out.height)
+    for ((ri, r) in rigs.withIndex()) for ((i, yaw) in yaws.withIndex()) {
+        val im = doll.render(cw, ch, cw / 2.0, ch + 75 * px, px, r.second.copy(yaw = yaw), null).img
+        for (y in 0 until ch) for (x in 0 until cw) { val p = im[x, y]; if ((p ushr 24) >= 128) out.setRGB(i * cw + x, ri * ch + y, p) }
+        gg.color = java.awt.Color(0xF0E8D8); gg.drawString("${r.first} ${yaw.toInt()}°", i * cw + 6, ri * ch + 16)
+    }
+    ImageIO.write(out, "png", File("build/screens/back_views.png"))
+    println("wrote back views")
+}

@@ -106,7 +106,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             val up = upper.dir(P3.Y); val fwd = upper.dir(P3.Z)
             val lift = (d dot up).coerceAtLeast(0.0)
             val reach = (d dot fwd).coerceAtLeast(0.0)
-            shoulderRest[i] + up * (0.018 * height * lift) + fwd * (0.02 * height * reach)
+            shoulderRest[i] + up * (0.01 * height * lift) + fwd * (0.02 * height * reach)
         }
         val hip = Array(2) { i -> lower.apply(P3(side(i) * hipX, hipY, 0.0)) }
         val ankle = Array(2) { i ->
@@ -181,11 +181,6 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         for (s in listOf(-1.0, 1.0)) low(P3(s * 0.75 * hipX, hipY + 0.03 * trunk, -0.022 * h * g), P3(0.82 * hipX, 0.12 * trunk, 0.032 * h * g), BodyPart.PELVIS, "pelvis")
         for (i in 0..1) {
             val s = sk.side(i)
-            // sloping from high on the neck down to the shoulder
-            val neckRoot = sk.upper.apply(P3(0.0, chinY - 0.01 * h, -0.004 * h))
-            val top = sk.shoulder[i] + sk.upper.dir(P3(-s * shoulderX * 0.25, 0.024 * h, -0.006 * h))
-            cone(neckRoot, top, 0.017 * h * g, 0.021 * h * g, BodyPart.TORSO, TRUNK, "torso")
-                .also { it.rest = sk.upper::inverse }
             // the deltoid: rounded over the top of the arm, tapering down along it
             // anchored on the shoulder: it turns only part of the way with the arm
             val armDir = (sk.elbow[i] - sk.shoulder[i]).norm()
@@ -193,6 +188,10 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             val deltDir = restDir.lerp(armDir, 0.45).norm()
             ell(sk.shoulder[i] + deltDir * (0.016 * h) + sk.upper.dir(P3(s * 0.006 * h, 0.006 * h, 0.0)), P3(0.032 * h * l, 0.05 * h * l, 0.035 * h * l), BodyPart.ARM, TRUNK, "delt$i", Frame.along(deltDir))
         }
+        // the upper back: a broad flat trapezius from the neck out to the shoulders, and the shoulder blades under it,
+        // so the back is wide up top and the arms come out of muscle, not out of a bare tube
+        up(P3(0.0, shoulderY + 0.002 * h, -0.016 * h * g), P3(0.8 * shoulderX, 0.032 * h, 0.04 * h * g), BodyPart.TORSO, "torso")
+        for (s in listOf(-1.0, 1.0)) up(P3(s * 0.45 * shoulderX, shoulderY - 0.16 * trunk, -0.034 * h * g), P3(0.36 * shoulderX, 0.22 * trunk, 0.03 * h * g), BodyPart.TORSO, "torso")
         cone(sk.upper.apply(P3(0.0, shoulderY + 0.012 * h, -0.006 * h)), sk.upper.apply(P3(0.0, chinY + 0.025 * h, 0.004 * h)),
             0.034 * h * sqrt(g), 0.029 * h * sqrt(g) * (if (female) 0.88 else 1.0), BodyPart.NECK, TRUNK, "neck")
 
@@ -216,22 +215,23 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             val hip = sk.hip[i]; val knee = sk.knee[i]; val ankle = sk.ankle[i]
             val thighLen = (knee - hip).len()
             val thighDir = (knee - hip).norm()
-            cone(hip, knee, 0.048 * h * l * (if (female) 1.06 else 1.0), 0.029 * h * l, BodyPart.THIGH, TRUNK, "thigh$i")
+            val lg = if (i == 0) LEG_L else LEG_R
+            cone(hip, knee, 0.048 * h * l * (if (female) 1.06 else 1.0), 0.029 * h * l, BodyPart.THIGH, lg, "thigh$i")
                 .also { it.paint = { p -> if (((p - hip) dot thighDir) < 0.3 * thighLen) shortsMat else skinMat } }
             val shinDir = (ankle - knee).norm()
             val front = (shinDir cross P3.X).let { if (it.z < 0) -it else it }.norm()
-            ell(knee + front * (0.006 * h), P3(0.028 * h * l, 0.03 * h, 0.026 * h * l), BodyPart.SHIN, TRUNK, "knee$i", Frame.along(shinDir))
-            cone(knee, ankle, 0.026 * h * l, 0.016 * h * l, BodyPart.SHIN, TRUNK, "shin$i")
-            ell(knee.lerp(ankle, 0.3) - front * (0.012 * h * l), P3(0.03 * h * l, 0.075 * h, 0.03 * h * l), BodyPart.SHIN, TRUNK, "shin$i", Frame.along(shinDir))
+            ell(knee + front * (0.006 * h), P3(0.028 * h * l, 0.03 * h, 0.026 * h * l), BodyPart.SHIN, lg, "knee$i", Frame.along(shinDir))
+            cone(knee, ankle, 0.026 * h * l, 0.016 * h * l, BodyPart.SHIN, lg, "shin$i")
+            ell(knee.lerp(ankle, 0.3) - front * (0.012 * h * l), P3(0.03 * h * l, 0.075 * h, 0.03 * h * l), BodyPart.SHIN, lg, "shin$i", Frame.along(shinDir))
             // heel, arch and toes: narrow at the heel, wider over the ball, low at the front
             val fw = P3(s * 0.08, 0.0, 1.0).norm()
             val heel = ankle + P3(0.0, -0.026 * h, 0.0) - fw * (0.016 * h)
             val ball = ankle + P3(0.0, -0.034 * h, 0.0) + fw * (0.07 * h * footK)
             val toe = ankle + P3(0.0, -0.038 * h, 0.0) + fw * (0.1 * h * footK)
-            cone(heel, ball, 0.016 * h * footK, 0.017 * h * footK, BodyPart.FOOT, TRUNK, "foot$i")
-            cone(ball, toe, 0.016 * h * footK, 0.011 * h * footK, BodyPart.FOOT, TRUNK, "foot$i")
-            ell(ankle.lerp(ball, 0.45) + P3(0.0, -0.008 * h, 0.0), P3(0.019 * h * footK, 0.017 * h, 0.04 * h * footK), BodyPart.FOOT, TRUNK, "foot$i", Frame.along(fw, P3.Y).let { Frame(it.x, it.z, it.y) })
-            for (side in listOf(-1.0, 1.0)) ell(ankle + P3(side * 0.012 * h, 0.0, 0.0), P3(0.008 * h, 0.01 * h, 0.009 * h), BodyPart.FOOT, TRUNK, "ankle$i")
+            cone(heel, ball, 0.016 * h * footK, 0.017 * h * footK, BodyPart.FOOT, lg, "foot$i")
+            cone(ball, toe, 0.016 * h * footK, 0.011 * h * footK, BodyPart.FOOT, lg, "foot$i")
+            ell(ankle.lerp(ball, 0.45) + P3(0.0, -0.008 * h, 0.0), P3(0.019 * h * footK, 0.017 * h, 0.04 * h * footK), BodyPart.FOOT, lg, "foot$i", Frame.along(fw, P3.Y).let { Frame(it.x, it.z, it.y) })
+            for (side in listOf(-1.0, 1.0)) ell(ankle + P3(side * 0.012 * h, 0.0, 0.0), P3(0.008 * h, 0.01 * h, 0.009 * h), BodyPart.FOOT, lg, "ankle$i")
         }
 
         head(sk, out)
@@ -305,9 +305,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             BodyPart.FOOT -> footMat
             BodyPart.TORSO -> when {
                 q.y < shirtHem -> shortsMat
-                // a sleeveless shirt: bare shoulders, a round neckline at the front
-                q.y > shoulderY - 0.12 * trunk && abs(q.x) > 0.6 * shoulderX -> skinMat
-                q.y > shoulderY - 0.08 * trunk && q.z > 0 && abs(q.x) < 0.32 * shoulderX -> skinMat
+                // a plain shirt with a round neckline at the front
+                q.y > shoulderY - 0.08 * trunk && q.z > 0 && abs(q.x) < 0.3 * shoulderX -> skinMat
                 else -> shirtMat
             }
             else -> skinMat
@@ -318,7 +317,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     fun groups(sk: Skeleton): Groups {
         val g = Groups(GROUPS)
         g.reach = 0.07 * height
-        g.set(TRUNK, 2.6); g.set(HEAD, 2.6, TRUNK, sk.head.apply(neckTop))
+        g.set(TRUNK, 4.5); g.set(HEAD, 2.6, TRUNK, sk.head.apply(neckTop))
+        g.set(LEG_L, 2.6, TRUNK, sk.hip[0]); g.set(LEG_R, 2.6, TRUNK, sk.hip[1])
         g.set(ARM_L, 1.6, TRUNK, sk.shoulder[0]); g.set(ARM_R, 1.6, TRUNK, sk.shoulder[1])
         g.set(HAIR, 1.6); g.set(TUSK, 0.0)
         g.set(CLOTH, 2.2); g.set(CLOTH_L, 1.4, CLOTH, sk.shoulder[0]); g.set(CLOTH_R, 1.4, CLOTH, sk.shoulder[1])
@@ -412,7 +412,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         const val TRUNK = 0; const val HEAD = 1; const val ARM_L = 2; const val ARM_R = 3; const val HAIR = 4; const val TUSK = 5
         const val CLOTH = 6; const val CLOTH_L = 7; const val CLOTH_R = 8; const val ARMOR = 9; const val ARMOR_L = 10; const val ARMOR_R = 11
         const val BELT = 12; const val SKIRT = 13; const val CLOAK = 14; const val HELM = 15; const val SHIELD = 16; const val ITEM = 17; const val BOOTS = 18; const val TRIM = 19
-        const val GROUPS = 20
+        const val LEG_L = 20; const val LEG_R = 21
+        const val GROUPS = 22
 
         /** Standing at ease, facing us, arms hanging. */
         val REST = HeroFigure.Rig(yaw = 20.0, stride = 0.0, spread = 6.0, rh = HeroFigure.V(17.0, 52.0, 3.0), lh = HeroFigure.V(-17.0, 52.0, 3.0), weapon = HeroFigure.V(0.0, -1.0, 0.0))
