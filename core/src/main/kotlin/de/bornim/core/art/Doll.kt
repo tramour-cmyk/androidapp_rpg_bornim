@@ -108,7 +108,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             val up = upper.dir(P3.Y); val fwd = upper.dir(P3.Z)
             lift[i] = ((d dot up) + 0.3).coerceIn(0.0, 1.0)
             val reach = (d dot fwd).coerceAtLeast(0.0)
-            shoulderRest[i] + up * (0.01 * height * lift[i]) + fwd * (0.02 * height * reach)
+            shoulderRest[i] + up * (0.01 * height * lift[i]) + fwd * (0.012 * height * reach)
         }
         val hip = Array(2) { i -> lower.apply(P3(side(i) * hipX, hipY, 0.0)) }
         val ankle = Array(2) { i ->
@@ -184,6 +184,10 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         for (i in 0..1) {
             val s = sk.side(i)
             // the deltoid: rounded over the top of the arm, tapering down along it
+            // collarbone and shoulder cap: a bridge from the trunk to wherever the shoulder joint has moved, so the arm
+            // never comes loose from the body
+            cone(sk.shoulderRest[i] + sk.upper.dir(P3(-s * 0.02 * h, 0.014 * h, 0.0)), sk.shoulder[i] + sk.upper.dir(P3(0.0, 0.01 * h, 0.0)), 0.03 * h * g, 0.028 * h * l, BodyPart.TORSO, TRUNK, "torso")
+                .also { it.rest = sk.upper::inverse }
             // the deltoid: a cap over the shoulder joint, tapering down to where it grips the upper arm a third of the way
             // along; it hugs the arm instead of bulging past it
             val armDir = (sk.elbow[i] - sk.shoulder[i]).norm()
