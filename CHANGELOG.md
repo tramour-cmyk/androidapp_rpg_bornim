@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.50 – 06.10.2026, 12:22
+
 **Behoben**
 - Wunden, Elite-Leuchten und Schimmer verschwanden schlagartig, sobald ein Gegner auf 0 TP fiel. Sie bleiben jetzt beim Zusammenbrechen sichtbar und verblassen mit dem Gegner.
 
