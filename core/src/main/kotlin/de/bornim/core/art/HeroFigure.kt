@@ -87,6 +87,10 @@ object HeroFigure {
         val roll: Double = 0.0,
         /** 0..1: how far the weapon forearm is held level, pointing straight at the foe (a thrust drives it forward like that). */
         val foreLevel: Double = 0.0,
+        /** 0..1: how far the forearm turns so the weapon lies along [weapon] (the grip still unchanged). */
+        val aim: Double = 0.0,
+        /** 0..1: how far the free forearm comes up under a two-handed weapon to brace it, close to the head. */
+        val brace: Double = 0.0,
     ) {
         fun lerp(o: Rig, t: Double): Rig {
             fun l(a: Double, b: Double) = a + (b - a) * t
@@ -94,7 +98,7 @@ object HeroFigure {
                 l(yaw, o.yaw), l(bodyX, o.bodyX), l(bodyY, o.bodyY), l(lean, o.lean), l(crouch, o.crouch), l(stride, o.stride), l(spread, o.spread),
                 rh.lerp(o.rh, t), weapon.lerp(o.weapon, t).norm(), lh.lerp(o.lh, t), shieldFace.lerp(o.shieldFace, t).norm(),
                 l(headTurn, o.headTurn), l(headDown, o.headDown), l(cloak, o.cloak), l(glow, o.glow), l(draw, o.draw), l(trail, o.trail),
-                l(elbowUp, o.elbowUp), elbowAt.lerp(o.elbowAt, t), l(twist, o.twist), l(grip, o.grip), l(roll, o.roll), l(foreLevel, o.foreLevel),
+                l(elbowUp, o.elbowUp), elbowAt.lerp(o.elbowAt, t), l(twist, o.twist), l(grip, o.grip), l(roll, o.roll), l(foreLevel, o.foreLevel), l(aim, o.aim), l(brace, o.brace),
             )
         }
     }
@@ -154,6 +158,10 @@ object HeroFigure {
     // forearm upright with the hand beside the head, the wrist cocked so the blade lies back over the shoulder, ready to strike back
     val BLOCK = Rig(lean = -0.05, crouch = 2.5, stride = 3.0, rh = V(20.0, 100.0, 7.0), weapon = V(0.3, 0.25, -0.92), lh = V(1.0, 90.0, 25.0), shieldFace = V(0.0, 0.15, 1.0), headDown = 2.0,
         elbowUp = 1.0, elbowAt = V(23.0, 84.0, 9.0), twist = 22.0, grip = 85.0, roll = 60.0)
+    // two-handed parry: the weapon across above the brow, the hand on the grip on its own side, the free forearm level
+    // under the blade or haft close to the head, bracing it so the blow is taken on both arms
+    val PARRY = Rig(lean = -0.05, crouch = 2.5, stride = 3.0, rh = V(17.0, 100.0, 7.0), weapon = V(-1.0, 0.06, 0.12), lh = V(-6.0, 100.0, 14.0), headDown = 2.0,
+        twist = 8.0, grip = 88.0, aim = 1.0, brace = 1.0)
     val HURT = Rig(lean = -0.45, crouch = 2.0, stride = -2.0, rh = V(15.0, 66.0, 4.0), weapon = V(0.6, 0.5, 0.3), lh = V(-15.0, 68.0, 4.0), headDown = -3.0, cloak = -2.0, grip = 45.0)
 
     /** Earnest victory poses, facing us again. */
@@ -201,6 +209,7 @@ object HeroFigure {
         Strike.CAST -> 10
     }
 
+    private val PARRY_SEQ = tween(STAND to 3, PARRY to 4, PARRY to 5, STAND to 1)
     private val BLOCK_SEQ = tween(STAND to 3, BLOCK to 4, BLOCK to 5, STAND to 1)
     private val HURT_SEQ = tween(STAND to 2, HURT to 4, STAND to 1)
     /** Facing us, then a smooth turn of the whole body to the foe, with a step. */
@@ -240,7 +249,7 @@ object HeroFigure {
         Act.IDLE -> IDLE
         Act.ATTACK -> SEQ.getValue(strike)
         Act.CAST -> SEQ.getValue(Strike.CAST)
-        Act.BLOCK -> BLOCK_SEQ
+        Act.BLOCK -> if (variant == 1) PARRY_SEQ else BLOCK_SEQ
         Act.HURT -> HURT_SEQ
         Act.INTRO -> READY_IDLE
         Act.TURN -> TURN_SEQ

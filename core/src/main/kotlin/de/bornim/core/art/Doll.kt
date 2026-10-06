@@ -71,7 +71,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     // ---------------------------------------------------------------- the skeleton in a pose
 
     /** Where every joint is in one pose. Index 0 is the left side, 1 the right. */
-    inner class Skeleton(val rig: HeroFigure.Rig, shieldArm: Boolean = false, val fists: Boolean = true) {
+    inner class Skeleton(val rig: HeroFigure.Rig, shieldArm: Boolean = false, val fists: Boolean = true, val twoHands: Boolean = false) {
         /** Centimetres per unit of the old figure, which stood about 107 units tall. */
         val s = height / 107.0
         private val reachK = (upperArm + foreArm) / 31.0
@@ -118,23 +118,30 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         val knee: Array<P3>
         val elbow: Array<P3>
         val wrist: Array<P3>
+        /** The weapon hand's thumb side, after any turn of the forearm. */
+        private val thumbR: P3
+        /** The weapon sits fixed in the fist: forearm direction, leaned towards the thumb by the grip angle. */
+        val weapon: P3
         init {
             val k = Array(2) { P3.O }; val e = Array(2) { P3.O }; val w = Array(2) { P3.O }
             for (i in 0..1) {
                 val sd = side(i)
                 val (kn, an) = ik(hip[i], ankle[i], hipY - kneeY, kneeY - ankleY, P3(sd * 0.15, 0.0, 1.0))
                 k[i] = kn; ankle[i] = an
-                val target = map(if (i == 0) rig.lh else rig.rh)
-                val pole = if (i == 0 && shieldArm) P3(-1.0, -0.5, 0.35) else P3(sd * 0.6, -1.0, -0.5)
-                var (el, wr) = ik(shoulder[i], target, upperArm, foreArm, pole)
-                if (i == 1 && rig.foreLevel > 0.01) {
+            }
+            // the weapon arm first: the free hand may need to know where the weapon is
+            run {
+                val i = 1
+                val target = map(rig.rh)
+                var (el, wr) = ik(shoulder[i], target, upperArm, foreArm, P3(0.6, -1.0, -0.5))
+                if (rig.foreLevel > 0.01) {
                     // the forearm held level, pointing at the foe: the elbow sits behind the hand, the upper arm reaches it
                     val d = upper.dir(P3.Z).let { P3(it.x, 0.0, it.z).norm() }
                     val e2 = shoulder[i] + (target - d * foreArm - shoulder[i]).norm() * upperArm
                     el = el.lerp(e2, rig.foreLevel)
                     wr = el + ((e2 + d * foreArm - el).norm().lerp((target - el).norm(), 1 - rig.foreLevel)).norm() * foreArm
                 }
-                if (i == 1 && rig.elbowUp > 0.01) {
+                if (rig.elbowUp > 0.01) {
                     // the elbow lifted to where the pose wants it, the forearm reaching from there to the hand
                     val lifted = (map(rig.elbowAt) - shoulder[i]).norm()
                     val d = (el - shoulder[i]).norm().lerp(lifted, rig.elbowUp).norm()
@@ -143,18 +150,49 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
                 }
                 e[i] = el; w[i] = wr
             }
+            val fore = (w[1] - e[1]).norm()
+            var t = thumbOf(e[1], w[1], shoulder[1], 1)
+            if (rig.aim > 0.01) {
+                // the forearm turns so the weapon lies where the pose wants it; the grip angle stays the same
+                val want = dir(rig.weapon).let { it - fore * (it dot fore) }
+                if (want.len() > 1e-6) t = t.lerp(want.norm(), rig.aim).norm()
+            }
+            thumbR = t
+            val ga = Math.toRadians(rig.grip)
+            val held = (fore * kotlin.math.cos(ga) + t * kotlin.math.sin(ga)).norm()
+            weapon = if (rig.aim > 0.01) held.lerp(dir(rig.weapon), rig.aim).norm() else held
+            run {
+                val i = 0
+                val handR = w[1] + fore * (0.035 * height * handK)
+                var target = map(rig.lh)
+                var pole = if (shieldArm) P3(-1.0, -0.5, 0.35) else P3(-0.6, -1.0, -0.5)
+                if (twoHands) {
+                    // both hands on the grip, the free one below the weapon hand
+                    target = handR - weapon * (0.06 * height)
+                }
+                var (el, wr) = ik(shoulder[i], target, upperArm, foreArm, pole)
+                if (twoHands && rig.brace > 0.01) {
+                    // the free forearm laid under the weapon like a roof beam, across the brow: the elbow out on its own
+                    // side where the line under the weapon is in reach of the upper arm, the hand back towards the grip
+                    val below = upper.dir(P3.Y) * (0.03 * height)
+                    val a = handR - below - shoulder[i]
+                    val ad = a dot weapon
+                    val disc = ad * ad - ((a dot a) - upperArm * upperArm)
+                    val e2 = if (disc >= 0) shoulder[i] + a + weapon * (-ad + sqrt(disc))
+                        else shoulder[i] + (a + weapon * (-ad)).norm() * upperArm
+                    val w2 = e2 - weapon * foreArm
+                    el = el.lerp(e2, rig.brace); wr = wr.lerp(w2, rig.brace)
+                }
+                e[i] = el; w[i] = wr
+            }
             knee = k; elbow = e; wrist = w
         }
-        /**
-         * The hand's thumb side: in a handshake grip the thumb points away from the forearm towards where the upper
-         * arm comes from; with the arm straight, upwards.
-         */
-        fun thumb(i: Int): P3 {
-            val fore = (wrist[i] - elbow[i]).norm()
+        private fun thumbOf(el: P3, wr: P3, sh: P3, i: Int): P3 {
+            val fore = (wr - el).norm()
             fun perp(v: P3) = v - fore * (v dot fore)
-            val back = perp(shoulder[i] - elbow[i])
+            val back = perp(sh - el)
             val up = perp(upper.dir(P3.Y))
-            val bent = back.len() / (shoulder[i] - elbow[i]).len().coerceAtLeast(1e-6)
+            val bent = back.len() / (sh - el).len().coerceAtLeast(1e-6)
             var t = (back.norm() * bent + up.norm() * (1 - bent)).let { if (it.len() < 1e-6) up.norm() else it.norm() }
             // the forearm may turn about itself without the grip changing; outwards is away from the body's middle
             val roll = if (i == 1) rig.roll else 0.0
@@ -166,12 +204,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             }
             return t
         }
-        /** The weapon sits fixed in the fist: forearm direction, leaned towards the thumb by the grip angle. */
-        val weapon: P3 = run {
-            val fore = (wrist[1] - elbow[1]).norm()
-            val a = Math.toRadians(rig.grip)
-            (fore * kotlin.math.cos(a) + thumb(1) * kotlin.math.sin(a)).norm()
-        }
+        /** The hand's thumb side, for how the fist is turned. */
+        fun thumb(i: Int): P3 = if (i == 1) thumbR else thumbOf(elbow[i], wrist[i], shoulder[i], i)
         val shieldFace = dir(rig.shieldFace)
         fun side(i: Int) = if (i == 0) -1.0 else 1.0
         fun hand(i: Int): P3 = wrist[i] + (wrist[i] - elbow[i]).norm() * (0.035 * height * handK)
@@ -441,7 +475,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             val base = if (nudge == 0) rig else rig.copy(lh = rig.lh + HeroFigure.V(-2.5 * nudge, 0.0, -1.0 * nudge), shieldFace = rig.shieldFace + HeroFigure.V(-0.15 * nudge, 0.0, 0.0))
             for (turn in ROLLS) {
                 val r = if (turn == 0.0) base else base.copy(roll = base.roll + turn)
-                val sk = Skeleton(r, shieldArm = shield, fists = true)
+                val sk = Skeleton(r, shieldArm = shield, fists = true, twoHands = outfit.twoHands)
                 val body = body(sk)
                 val dress = Dress(this, sk, body, outfit)
                 val clothes = dress.solids()

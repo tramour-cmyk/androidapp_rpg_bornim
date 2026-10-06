@@ -468,7 +468,9 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         if (main.def.ranged) return null
         val len = reach(main.base)
         val hand = sk.hand(1)
-        val solid = body.filter { it.key !in setOf("hand1", "fore1", "upper1", "delt1") && it.part != BodyPart.HAIR }
+        // the hands holding it are not in its way; with two hands or a bracing forearm, neither is the free arm
+        val holding = if (o.twoHands) setOf("hand1", "fore1", "upper1", "delt1", "hand0", "fore0") else setOf("hand1", "fore1", "upper1", "delt1")
+        val solid = body.filter { it.key !in holding && it.part != BodyPart.HAIR }
         // the grip is inside the fist; check from just beyond it
         for (i in 4..40) { val t = i / 40.0; val p = hand + sk.weapon * (len * t); if (solid.any { it.dist(p) < -0.5 }) return t }
         return null
@@ -477,7 +479,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     /** About how far a weapon reaches beyond the hand, in cm. */
     private fun reach(base: String) = when (base) {
         "dagger" -> 30.0; "shortsword", "handaxe", "wand" -> 60.0; "mace", "scimitar" -> 75.0
-        "longsword", "rapier", "battleaxe", "warhammer" -> 90.0; else -> 100.0
+        "longsword", "rapier", "battleaxe", "warhammer" -> 90.0; "greatsword" -> 125.0; "greataxe", "maul" -> 105.0; "quarterstaff", "staff" -> 120.0; else -> 100.0
     }
 
     // ---------------------------------------------------------------- weapons, drawn over the doll
