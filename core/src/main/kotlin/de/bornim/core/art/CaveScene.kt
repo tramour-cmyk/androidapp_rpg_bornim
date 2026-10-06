@@ -31,31 +31,40 @@ object CaveScene {
     }
 
     /**
-     * The kind of place for a fight at ([x], [y]) on [map]: near the way out the cave mouth, near
-     * a fire a camp, near water a pool, in narrow passages a tunnel, otherwise a hall or a pool.
+     * The kind of place for a fight at ([x], [y]) on [map], from what stands nearby on the map:
+     * the way out, a camp (fire, crates, bedrolls), water, timbered or narrow passages, else a hall.
      */
     fun spotFor(map: MapDef, x: Int, y: Int): Spot {
         fun near(r: Int, test: (Tile) -> Boolean) = (-r..r).any { dy -> (-r..r).any { dx -> test(map.tile(x + dx, y + dy)) } }
         if (near(3) { it == Tile.CAVE_EXIT || it == Tile.CAVE_ENTRANCE }) return Spot.ENTRANCE
-        if (near(3) { it == Tile.CAMPFIRE }) return Spot.CAMP
+        if (near(3) { it == Tile.CAMPFIRE || it == Tile.CRATE || it == Tile.BEDROLL }) return Spot.CAMP
         if (near(3) { it == Tile.WATER }) return Spot.POOL
+        if (near(1) { it == Tile.SUPPORT }) return Spot.TUNNEL
         var open = 0
         for (dy in -2..2) for (dx in -2..2) if (map.tile(x + dx, y + dy).walkable) open++
-        if (open < 13) return Spot.TUNNEL
-        return if (hash(x / 4, y / 4, map.id.hashCode()) % 100 < 70) Spot.HALL else Spot.POOL
+        return if (open < 13) Spot.TUNNEL else Spot.HALL
     }
 
-    /** What lights the place: torches on the walls nearby, a fire in a camp, otherwise it varies by area. */
+    /**
+     * What lights the place: the strongest light on the map that reaches the spot — torches,
+     * glowing mushrooms or crystals, a crack of daylight. A camp is lit by its fire; where no light
+     * reaches, only the hero's lantern shines.
+     */
     fun lightFor(map: MapDef, x: Int, y: Int, spot: Spot): Light {
         if (spot == Spot.CAMP) return Light.DARK
-        if ((-4..4).any { dy -> (-4..4).any { dx -> map.tile(x + dx, y + dy) == Tile.TORCH } }) return Light.TORCH
-        val h = hash(x / 3, y / 3, map.id.hashCode() + 7) % 100
-        return when {
-            spot == Spot.ENTRANCE -> if (h < 60) Light.TORCH else Light.SHAFT
-            h < 45 -> Light.TORCH
-            h < 72 -> Light.GLOW
-            h < 90 -> Light.SHAFT
-            else -> Light.DARK
+        val px = x * WorldArt.T + WorldArt.T / 2.0; val py = y * WorldArt.T + WorldArt.T / 2.0
+        var best: CaveLight.Source? = null
+        var bestK = 0.12
+        for (s in CaveLight.sources(map)) {
+            val d = kotlin.math.sqrt((s.x - px) * (s.x - px) + (s.y - py) * (s.y - py))
+            val k = s.power * exp(-(d / s.reach) * (d / s.reach) * 2.0)
+            if (k > bestK && CaveLight.reaches(map, s, px, py)) { best = s; bestK = k }
+        }
+        return when (best?.kind) {
+            CaveLight.Kind.TORCH, CaveLight.Kind.FIRE -> Light.TORCH
+            CaveLight.Kind.SHROOM, CaveLight.Kind.CRYSTAL -> Light.GLOW
+            CaveLight.Kind.SKY -> Light.SHAFT
+            else -> if (spot == Spot.ENTRANCE) Light.TORCH else Light.DARK
         }
     }
 

@@ -12,7 +12,7 @@ enum class Sound {
     FIRE, MAGIC, HOLY, HEAL, BUFF, POISON, THROW, POTION,
     ENEMY_DOWN, HERO_DOWN, LEVEL_UP, LOOT, LOOT_EPIC, COINS, CHEST, DOOR, ENCOUNTER,
     ALERT, AMBUSH,
-    BIRD, CRICKET, OWL, DRIP,
+    BIRD, CRICKET, OWL, DRIP, CRACKLE,
     HOWL_1, HOWL_2, HOWL_3,
 }
 
@@ -298,6 +298,15 @@ object Sfx {
         Sound.OWL -> Buf(1.4).apply {
             tone(0.0, 0.35, midi(64), midi(62), 0.3, Wave.TRIANGLE, 0.2)
             tone(0.55, 0.6, midi(64), midi(61), 0.28, Wave.TRIANGLE, 0.3)
+        }
+        // A fire crackling: soft rushing with a few sharp pops of wood.
+        Sound.CRACKLE -> Buf(1.6).apply {
+            noise(0.0, 1.6, 0.25, 0.05, 61, swell = true)
+            val rng = Random(62)
+            for (k in 0 until 11) {
+                val at = rng.nextDouble() * 1.45
+                noise(at, 0.012 + rng.nextDouble() * 0.02, 0.5 + rng.nextDouble() * 0.5, 0.75, 63 + k)
+            }
         }
         Sound.DRIP -> Buf(0.5).apply {
             tone(0.0, 0.12, midi(91), midi(79), 0.3, Wave.TRIANGLE, 0.03)

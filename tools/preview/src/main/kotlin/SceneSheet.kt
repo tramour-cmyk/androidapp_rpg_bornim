@@ -88,3 +88,38 @@ fun renderCaveSheet() {
     ImageIO.write(out, "png", File("build/screens/scenes_cave.png"))
     println("wrote caves")
 }
+
+/** The whole cave map with its light, without characters: an overview for drafts. */
+fun renderCaveMap() {
+    val map = de.bornim.core.Story.cave
+    val vm = de.bornim.game.GameViewModel(android.app.Application())
+    vm.newGame("Grom", de.bornim.core.Race.HALF_ORC, de.bornim.core.CharClass.FIGHTER)
+    val state = vm.game!!.state
+    val T = de.bornim.core.art.WorldArt.T
+    val w = map.width * T; val h = map.height * T
+    val pix = IntArray(w * h)
+    for (ty in 0 until map.height) for (tx in 0 until map.width) {
+        val g = de.bornim.core.art.WorldArt.ground(map, tx, ty, state, 0)
+        for (y in 0 until T) for (x in 0 until T) pix[(ty * T + y) * w + tx * T + x] = g[x, y]
+    }
+    for (o in de.bornim.core.art.WorldArt.objects(map, state, 0).sortedBy { it.sortY }) {
+        for (y in 0 until o.img.height) for (x in 0 until o.img.width) {
+            val p = o.img[x, y]; val px = o.x + x; val py = o.y + y
+            if ((p ushr 24) > 128 && px in 0 until w && py in 0 until h) pix[py * w + px] = p
+        }
+    }
+    val grid = de.bornim.core.art.CaveLight.lightmap(map, 11 * T, 17 * T)
+    val cell = de.bornim.core.art.CaveLight.RES
+    val out = BufferedImage(w, h, BufferedImage.TYPE_INT_RGB)
+    for (y in 0 until h) for (x in 0 until w) {
+        // smooth the light grid between cell centres
+        fun ch(s: Int): Int {
+            val light = (grid[x / cell, y / cell] shr s) and 0xFF
+            return (((pix[y * w + x] shr s) and 0xFF) * light / 255).coerceIn(0, 255)
+        }
+        out.setRGB(x, y, (ch(16) shl 16) or (ch(8) shl 8) or ch(0))
+    }
+    File("build/screens").mkdirs()
+    ImageIO.write(out, "png", File("build/screens/cavemap_overview.png"))
+    println("wrote cave map")
+}

@@ -8,7 +8,7 @@ enum class Fog { HIDDEN, SEEN, VISIBLE }
 
 /** Tiles that block the view. */
 private val opaque = setOf(
-    Tile.TREE, Tile.ROCK, Tile.WALL, Tile.CAVE_WALL, Tile.ROOF, Tile.ROOF_BLUE, Tile.WINDOW, Tile.TORCH, Tile.SHELF,
+    Tile.TREE, Tile.ROCK, Tile.WALL, Tile.CAVE_WALL, Tile.ROOF, Tile.ROOF_BLUE, Tile.WINDOW, Tile.TORCH, Tile.SHELF, Tile.CRYSTAL,
 )
 
 /**

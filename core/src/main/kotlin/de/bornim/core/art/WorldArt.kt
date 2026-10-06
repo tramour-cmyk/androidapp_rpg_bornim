@@ -55,7 +55,8 @@ object WorldArt {
                 if (t == Tile.BRIDGE) {
                     val left = at(-1, 0) != Tile.BRIDGE; val right = at(1, 0) != Tile.BRIDGE
                     cached("bridge$m/$d/$frame/$left/$right") { water(m, frame, d); bridge(left, right) }
-                } else cached("water$m/$d/$frame") { water(m, frame, d) }
+                } else if (kind == MapKind.CAVE) cached("cavewater$m/$d/$frame") { water(m, frame, d); caveWater() }
+                else cached("water$m/$d/$frame") { water(m, frame, d) }
             }
             Tile.CROPS -> cached("crops$seed") { field(seed) }
             Tile.VEG_BED -> cached("veg$seed") { vegBed(seed) }
@@ -90,22 +91,35 @@ object WorldArt {
                 else -> cached("grass$seed") { grass(seed) }
             }
             Tile.DOOR -> if (kind == MapKind.INTERIOR) cached("doormat") { woodFloor(0); doormat() } else cached("path0/$seed") { path(0, seed) }
-            Tile.CAVE_WALL, Tile.TORCH -> {
-                fun wall(dx: Int, dy: Int) = at(dx, dy).let { it == Tile.CAVE_WALL || it == Tile.TORCH || it == Tile.CAVE_ENTRANCE }
+            Tile.CAVE_WALL, Tile.TORCH, Tile.CRYSTAL -> {
+                fun wall(dx: Int, dy: Int) = at(dx, dy).let { it == Tile.CAVE_WALL || it == Tile.TORCH || it == Tile.CAVE_ENTRANCE || it == Tile.CRYSTAL }
                 val face = !wall(0, 1) && map.inside(tx, ty + 1)
-                if (face) cached("cliff$seed/${t == Tile.TORCH}/$frame/${kind == MapKind.CAVE}") {
+                if (face) cached("cliff$seed/$t/$frame/${kind == MapKind.CAVE}") {
                     cliffFace(seed, kind != MapKind.CAVE)
                     if (t == Tile.TORCH) torch(frame)
+                    if (t == Tile.CRYSTAL) crystals(seed)
                 } else {
                     val m = mask(!wall(0, -1) && map.inside(tx, ty - 1), !wall(1, 0), false, !wall(-1, 0))
                     cached("rocktop$m/$seed") { rockTop(m, seed) }
                 }
             }
             Tile.CAVE_ENTRANCE -> cached("caveentrance") { cliffFace(1, true); caveMouth() }
-            Tile.CAVE_FLOOR, Tile.GATE -> {
-                fun wall(dx: Int, dy: Int) = at(dx, dy).let { it == Tile.CAVE_WALL || it == Tile.TORCH }
+            Tile.CAVE_FLOOR, Tile.GATE, Tile.GLOWSHROOM, Tile.RUBBLE, Tile.BONES, Tile.BEDROLL, Tile.SUPPORT, Tile.SKYLIGHT -> {
+                fun wall(dx: Int, dy: Int) = at(dx, dy).let { it == Tile.CAVE_WALL || it == Tile.TORCH || it == Tile.CRYSTAL }
                 val m = mask(wall(0, -1), wall(1, 0), false, wall(-1, 0))
-                cached("cavefloor$m/$seed") { caveFloor(seed, m) }
+                val base = cached("cavefloor$m/$seed") { caveFloor(seed, m) }
+                when (t) {
+                    Tile.GLOWSHROOM -> cached("shrooms$m/$seed") { paste(base); shrooms(Math.floorMod(tx * 5 + ty * 3, 4)) }
+                    Tile.RUBBLE -> cached("rubble$m/$seed") { paste(base); rubble(Math.floorMod(tx * 3 + ty * 7, 5)) }
+                    Tile.BONES -> cached("bones$m/$seed") { paste(base); bones(Math.floorMod(tx + ty, 2)) }
+                    Tile.BEDROLL -> cached("bedroll$m/$seed") { paste(base); bedroll() }
+                    Tile.SKYLIGHT -> cached("skylight$m/$seed") { paste(base); skylight(seed) }
+                    else -> base
+                }
+            }
+            Tile.STALAGMITE, Tile.CRATE -> {
+                val base = baseGround(kind, seed)
+                cached("obj-ground/$kind/$seed/false") { paste(base); blendEllipse(16.0, 27.0, 12.0, 4.0, SHADOW) }
             }
             Tile.CAVE_EXIT -> cached("caveexit") { caveFloor(0, 0); exitLight() }
             Tile.WOOD_FLOOR -> {
@@ -446,6 +460,159 @@ object WorldArt {
         }
     }
 
+    // ------------------------------------------------------------------ cave life
+
+    private val SHROOM = argb(0x48C8C0); private val SHROOM_L = argb(0xB8FFF4); private val SHROOM_D = argb(0x24706E)
+
+    /** Glowing mushrooms in little clusters, each with a soft halo on the floor. */
+    private fun Pen.shrooms(v: Int) {
+        val clusters = listOf(
+            listOf(8 to 22, 12 to 25, 6 to 27, 10 to 28),
+            listOf(20 to 11, 24 to 14, 18 to 15, 23 to 18),
+            listOf(9 to 12, 13 to 9, 22 to 24, 26 to 21, 19 to 27),
+            listOf(15 to 18, 11 to 21, 19 to 22, 14 to 24),
+        )[v]
+        for ((x, y) in clusters) blendEllipse(x.toDouble(), y - 1.0, 7.0, 4.0, alpha(0x60F0E0, 0x22))
+        for ((i, xy) in clusters.withIndex()) {
+            val (x, y) = xy
+            val r = 2.0 + (i + v) % 3 * 0.7
+            for (k in 0 until 3 + i % 2) raw(x, y - k, argb(0xD0CCBC))
+            raw(x, y, argb(0x8A8478))
+            val top = y - 3 - i % 2
+            ellipse(x + 0.5, top + 0.5, r + 0.4, r * 0.6 + 0.3, SHROOM_D)
+            ellipse(x + 0.5, top.toDouble(), r, r * 0.55, SHROOM)
+            raw(x - 1, top - 1, SHROOM_L); raw(x, top - 1, SHROOM_L)
+        }
+    }
+
+    private val CRY = argb(0xA078E8); private val CRY_L = argb(0xE8DCFF); private val CRY_D = argb(0x5A3A9A)
+
+    /** Violet crystals growing out of the foot of a cave wall. */
+    private fun Pen.crystals(seed: Int) {
+        blendEllipse(16.0, 26.0, 14.0, 7.0, alpha(0xB090FF, 0x30))
+        val shards = listOf(Triple(9, 13, -3), Triple(15, 19, 0), Triple(21, 11, 3), Triple(12, 9, -6), Triple(24, 8, 6))
+        for ((i, sh) in shards.withIndex()) {
+            if (i == 4 && seed % 2 == 0) continue
+            val (bx, len, lean) = sh
+            val by = 30
+            val tipX = bx + lean; val tipY = by - len
+            tri(bx - 2, by, bx, by, tipX, tipY, CRY_L)
+            tri(bx, by, bx + 2, by, tipX, tipY, CRY_D)
+            line(bx, by - 1, tipX, tipY + 1, CRY)
+        }
+        for (x in 4..28) if (noise(x, 31, seed) % 3 == 0) raw(x, 31, R_DD)
+    }
+
+    /** A stalagmite rising from the floor: ringed, lit from the left, wet at the tip. */
+    private fun Pen.stalagmite(seed: Int) {
+        val hgt = 34 + seed * 3
+        val base = 47
+        for (y in base - hgt..base) {
+            val t = (base - y) / hgt.toDouble()
+            val half = 1.0 + 9.0 * Math.pow(1 - t, 1.1)
+            val ring = (y + seed) % 6 == 0
+            for (x in (16 - half).toInt()..(16 + half).toInt()) {
+                val u = (x - 16) / half
+                val c = when {
+                    u < -0.45 -> R_L
+                    u > 0.4 -> R_DD
+                    else -> R
+                }
+                raw(x, y, if (ring && u > -0.6) R_D else c)
+            }
+        }
+        raw(16, base - hgt, argb(0xC8D8E0)); raw(15, base - hgt + 1, argb(0xA8B8C0))
+    }
+
+    /** Loose stones of different sizes. */
+    private fun Pen.rubble(v: Int) {
+        val stones = listOf(Triple(8, 20, 4), Triple(14, 24, 3), Triple(22, 15, 5), Triple(25, 25, 2), Triple(11, 10, 2), Triple(18, 28, 2))
+        for ((i, st) in stones.withIndex()) {
+            if ((i + v) % 4 == 3) continue
+            val (x, y, r) = st
+            blendEllipse(x + 0.5, y + r * 0.6, r + 1.0, r * 0.45, SHADOW)
+            ball(x.toDouble(), y.toDouble(), r.toDouble(), r * 0.75, R, R_L, R_DD)
+        }
+    }
+
+    /** A skull and some gnawed bones. */
+    private fun Pen.bones(v: Int) {
+        val bone = argb(0xD8D0BC); val boneD = argb(0x9A9282)
+        val sx = if (v == 0) 10 else 21; val sy = if (v == 0) 14 else 22
+        ellipse(sx.toDouble(), sy.toDouble(), 4.0, 3.5, bone)
+        rect(sx - 2, sy + 2, sx + 2, sy + 4, bone)
+        raw(sx - 2, sy, argb(0x2A2420)); raw(sx - 1, sy, argb(0x2A2420)); raw(sx + 1, sy, argb(0x2A2420)); raw(sx + 2, sy, argb(0x2A2420))
+        raw(sx - 3, sy - 2, argb(0xF4ECDC))
+        for ((x0, y0, x1, y1) in listOf(listOf(4, 25, 13, 21), listOf(18, 8, 27, 12), listOf(15, 27, 24, 25))) {
+            line(x0, y0, x1, y1, bone); line(x0, y0 + 1, x1, y1 + 1, boneD)
+            raw(x0 - 1, y0, bone); raw(x1 + 1, y1, bone)
+        }
+    }
+
+    /** A rolled-out fur and blanket somebody sleeps on. */
+    private fun Pen.bedroll() {
+        val fur = argb(0x7A6650); val furL = argb(0x9A866A); val cloth = argb(0x6A3A2A); val clothL = argb(0x8A5038)
+        blendEllipse(16.0, 24.0, 14.0, 6.0, SHADOW)
+        for (y in 9..25) for (x in 5..26) {
+            val edge = x == 5 || x == 26 || y == 9 || y == 25
+            raw(x, y, if (edge) fur else if (y < 15) (if ((x + y) % 3 == 0) furL else fur) else if ((x / 3 + y / 3) % 2 == 0) cloth else clothL)
+        }
+        ellipse(10.0, 12.0, 4.0, 2.5, argb(0xB0A080))
+    }
+
+    /** Old timbers propping up the passage: a post on the wall side and a beam overhead. */
+    private fun Pen.support(left: Boolean, right: Boolean) {
+        val wood = argb(0x6A4A30); val woodL = argb(0x8A6440); val woodD = argb(0x3E2A1C)
+        fun post(x0: Int) {
+            for (y in 2..46) for (x in x0 until x0 + 5) raw(x, y, if (x == x0) woodL else if (x == x0 + 4) woodD else if (y % 9 == 0) woodD else wood)
+            blendEllipse(x0 + 2.5, 46.0, 5.0, 2.0, SHADOW)
+        }
+        for (y in 0..5) for (x in 0 until T) raw(x, y, if (y == 0) woodL else if (y == 5) woodD else if ((x + 3) % 11 == 0) woodD else wood)
+        if (left) post(1)
+        if (right) post(T - 6)
+    }
+
+    /** A wooden crate, some with a sack leaning against it. */
+    private fun Pen.crate(sack: Boolean) {
+        val wood = argb(0x8A6038); val woodL = argb(0xA87A48); val woodD = argb(0x5A3C22)
+        blendEllipse(16.0, 37.0, 14.0, 4.0, SHADOW)
+        rect(5, 14, 25, 37, wood)
+        rect(5, 10, 25, 14, woodL)
+        for (x in 5..25) { raw(x, 14, woodD); raw(x, 37, woodD) }
+        for (y in 10..37) { raw(5, y, woodD); raw(25, y, woodD); raw(15, y, woodD) }
+        line(6, 36, 14, 15, woodD); line(16, 36, 24, 15, woodD)
+        if (sack) {
+            ellipse(26.0, 31.0, 5.0, 6.5, argb(0xA08A5E))
+            ellipse(25.0, 29.0, 3.0, 4.0, argb(0xBCA678))
+            rect(25, 23, 27, 25, argb(0x6A5A3A))
+        }
+    }
+
+    /** Daylight on the floor under a crack in the roof, with a little moss that grows in it. */
+    private fun Pen.skylight(seed: Int) {
+        blendEllipse(16.0, 16.0, 15.0, 12.0, alpha(0xFFF8E0, 0x30))
+        blendEllipse(16.0, 16.0, 10.0, 8.0, alpha(0xFFF8E0, 0x30))
+        for (k in 0 until 9) {
+            val x = 6 + noise(k, 1, seed) % 20; val y = 6 + noise(k, 2, seed) % 20
+            raw(x, y, argb(0x5A7A3A)); raw(x + 1, y, argb(0x4A6A30)); if (k % 3 == 0) raw(x, y - 1, argb(0x7A9A4A))
+        }
+    }
+
+    /** Recolours outdoor water for a cave: dark water, stone banks instead of grass. */
+    private fun Pen.caveWater() {
+        for (y in 0 until T) for (x in 0 until T) {
+            val c = img[x, y]
+            img.set(x, y, when (c) {
+                G, G_L -> CF
+                G_D, G_DD -> CF_D
+                W -> argb(0x24404E)
+                W_D -> argb(0x1A3040)
+                W_L -> argb(0x6A98A8)
+                else -> mix(c, argb(0x24404E), 0.5)
+            })
+        }
+    }
+
     // ------------------------------------------------------------------ interiors
 
     private val FL = argb(0xD6A66A); private val FL_D = argb(0xB4864C); private val FL_L = argb(0xE6BC84)
@@ -538,6 +705,12 @@ object WorldArt {
                 }
                 Tile.WELL -> out += Obj(cached("well", T, 48) { well() }, px, py - 16, bottom)
                 Tile.CAMPFIRE -> out += Obj(cached("fire$frame") { campfire(frame) }, px, py, bottom)
+                Tile.STALAGMITE -> out += Obj(cached("stalagmite$seed", T, 48) { stalagmite(seed) }, px, py - 16, bottom)
+                Tile.CRATE -> out += Obj(cached("crate${seed % 2}", T, 40) { crate(seed % 2 == 1) }, px, py - 8, bottom)
+                Tile.SUPPORT -> {
+                    val left = map.tile(tx - 1, ty) == Tile.CAVE_WALL; val right = map.tile(tx + 1, ty) == Tile.CAVE_WALL
+                    out += Obj(cached("support$left$right", T, 48) { support(left, right) }, px, py - 16, bottom)
+                }
                 Tile.GATE -> if (!state.has(Story.GATE_OPEN)) out += Obj(cached("gate", T, 44) { gate() }, px, py - 12, bottom)
                 Tile.COUNTER -> {
                     fun c(dx: Int) = map.tile(tx + dx, ty) == Tile.COUNTER

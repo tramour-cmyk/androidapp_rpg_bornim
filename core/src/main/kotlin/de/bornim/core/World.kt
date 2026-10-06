@@ -45,6 +45,19 @@ enum class Tile(val ch: Char, val walkable: Boolean) {
     WASHLINE('q', false),
     /** Barrier pole across a road; passable once [Story.BARRIER_OPEN] is set. */
     BARRIER('z', false),
+    // cave life: things that light the cave, things that lie around
+    GLOWSHROOM('g', true),
+    /** Crystals growing out of a cave wall; glow violet. */
+    CRYSTAL('G', false),
+    STALAGMITE('i', false),
+    RUBBLE('%', true),
+    BONES('j', true),
+    CRATE('u', false),
+    BEDROLL('e', true),
+    /** Wooden supports on the sides of a cave passage. */
+    SUPPORT('H', true),
+    /** Daylight falls through a crack in the cave roof. */
+    SKYLIGHT('*', true),
     ;
 
     companion object {

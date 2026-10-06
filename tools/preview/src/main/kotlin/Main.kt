@@ -83,6 +83,7 @@ fun main() {
     if (System.getenv("SHEET") != null) { renderHeroSheet(); System.exit(0) }
     if (System.getenv("SCENES") != null) { renderSceneSheet(); System.exit(0) }
     if (System.getenv("CAVES") != null) { renderCaveSheet(); System.exit(0) }
+    if (System.getenv("CAVEMAP") != null) { renderCaveMap(); System.exit(0) }
     if (System.getenv("WOLFANIM") != null) { renderWolfAnim(); System.exit(0) }
     if (System.getenv("ELITE") != null) { renderEliteMock(); System.exit(0) }
     if (System.getenv("ABOUT") != null) {
@@ -132,6 +133,18 @@ fun main() {
         g.state.flags += Story.GATE_OPEN
         g.state.place = Place("cave", 10, 5, Facing.UP)
         vm.refresh()
+    }
+    // Cave map: light, things lying around, small life
+    for ((n, pos) in listOf("lake" to (5 to 14), "camp" to (15 to 14), "glow" to (4 to 9), "krogg" to (16 to 10), "corridor" to (10 to 12), "grak" to (10 to 3), "exit" to (11 to 17))) {
+        shot("80_cavemap_$n") { vm ->
+            vm.newGame("Grom", Race.HALF_ORC, CharClass.FIGHTER)
+            val g = vm.game!!
+            g.skipDialogs()
+            g.state.flags += Story.GATE_OPEN
+            g.state.explored["cave"] = "f".repeat(Story.cave.width * Story.cave.height / 4 + 1)
+            g.state.place = Place("cave", pos.first, pos.second, Facing.DOWN)
+            vm.refresh()
+        }
     }
     shot("09_menu") { vm ->
         vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
