@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 20:35 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 21:55 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -17,11 +17,12 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## Zu testen
 
-Mit der neuesten Version (Releases auf GitHub, `bornim.apk`):
+Mit dem Testbuild vom Zweig `neue-gegner` (Link im Chat):
 
+- **Gehaltene Haltungen:** Ausholen beim Angriff bleibt stehen bis zum Schlag (kein Zurück in die Ruhe dazwischen); Abwehr bleibt stehen bis zum nächsten eigenen Zug, auch nach Treffer oder Verfehlen; ebenso Zauber sammeln und Wurf. Am besten mit Kleriker und Kampfstab und mit einer weiteren Klasse.
+- **Konter:** Abwehr, Gegner verfehlt („Lücke“), dann angreifen: erst „nutzt die Lücke!“, dann Ausholen und Schlag in einem Zug. Auch mit Feuerpfeil.
+- **Neue Gegner:** Kobold (auch im Rudel), Zombie, Krogg und Grak im Kampf: Aussehen, Ausrüstungsvarianten, Bewegungen, Stürze (Kobold-Schwanz); Morgenstern als Beute.
 - **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln, Drehung langsamer; die Schläge selbst so schnell wie bisher.
-- **Neue Gegner:** Kobold (auch im Rudel), Zombie, Krogg und Grak im Kampf: Aussehen, Ausrüstungsvarianten, Bewegungen; Morgenstern als Beute.
-- **Abwehr und Treffer:** In Abwehrhaltung getroffen, bleibt der Held in Deckung bis zu seinem nächsten Zug.
 
 ## Geplant
 
