@@ -2,7 +2,7 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
-## Unveröffentlicht
+## v0.1.173 – 07.10.2026, 22:48
 
 **Geändert – keine EP mehr über der Stufengrenze**
 - An der Stufengrenze von Kapitel 1 (Stufe 6) gibt es keine weiteren EP mehr; es wird nichts für Kapitel 2 aufgehoben. Kämpfen lohnt sich weiter für Beute und Ausrüstung.

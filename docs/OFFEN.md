@@ -19,6 +19,7 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 Mit der neuesten Version (Releases auf GitHub, `bornim.apk`):
 
+- **Stufengrenze (v0.1.173):** Auf Stufe 6 nennt der Kampf keine EP mehr, sondern „keine weiteren EP in diesem Kapitel“; Beute kommt weiter. Ein Spielstand mit aufgehobenen EP bleibt auf Stufe 6.
 - **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln, Drehung langsamer; die Schläge selbst so schnell wie bisher.
 
 ## Geplant
