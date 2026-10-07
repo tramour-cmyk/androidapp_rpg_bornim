@@ -1041,7 +1041,7 @@ private fun BagMenu(game: Game, lang: Lang, onPick: (String) -> Unit, onBack: ()
                 usable.forEach { (id, count) ->
                     val def = Items[id]
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        PixelImageView(IconArt.get(def.icon), 32.dp)
+                        SupplyPicture(def.id, 32.dp)
                         Spacer(Modifier.width(6.dp))
                         PixelButton("${def.name(lang)} ×$count", Modifier.weight(1f), size = 16.sp) { onPick(id) }
                     }

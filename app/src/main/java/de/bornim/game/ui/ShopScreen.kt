@@ -87,7 +87,7 @@ fun ShopScreen(vm: GameViewModel, game: Game, stock: List<String>, brewing: Bool
                     BrewList(game, lang) { r ->
                         val out = Items[r.output]
                         dialog = DialogSpec(
-                            title = out.name(lang), icon = out.icon, titleColor = rarityColor(out.rarity),
+                            title = out.name(lang), icon = out.icon, supply = out.id, titleColor = rarityColor(out.rarity),
                             confirm = if (de) "Brauen" else "Brew", cancel = cancel, confirmEnabled = r.affordable(game.state),
                             onConfirm = {
                                 message = game.brew(r)
@@ -114,7 +114,7 @@ fun ShopScreen(vm: GameViewModel, game: Game, stock: List<String>, brewing: Bool
                                 .tap {
                                     val buy = buying
                                     dialog = DialogSpec(
-                                        title = def.name(lang), icon = def.icon, titleColor = rarityColor(def.rarity),
+                                        title = def.name(lang), icon = def.icon, supply = def.id, titleColor = rarityColor(def.rarity),
                                         confirm = (if (buy) Ui.buy(lang) else Ui.sell(lang)) + " · " + Ui.price.f(lang, price),
                                         cancel = cancel, confirmEnabled = affordable,
                                         onConfirm = {
@@ -129,7 +129,7 @@ fun ShopScreen(vm: GameViewModel, game: Game, stock: List<String>, brewing: Bool
                                 .padding(vertical = 4.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            PixelImageView(IconArt.get(def.icon), 36.dp)
+                            SupplyPicture(def.id, 36.dp)
                             Spacer(Modifier.width(8.dp))
                             Column(Modifier.weight(1f)) {
                                 Txt(def.name(lang) + (count?.let { "  ×$it" } ?: ""), size = 16.sp, bold = true, color = if (affordable) rarityColor(def.rarity) else Colors.textDim)
@@ -222,14 +222,14 @@ private fun BrewList(game: Game, lang: Lang, onPick: (Recipe) -> Unit) {
                 .padding(vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            PixelImageView(IconArt.get(out.icon), 36.dp)
+            SupplyPicture(out.id, 36.dp)
             Spacer(Modifier.width(8.dp))
             Column(Modifier.weight(1f)) {
                 Txt(out.name(lang), size = 16.sp, bold = true, color = if (ok) rarityColor(out.rarity) else Colors.textDim)
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     r.ingredients.forEach { (id, n) ->
                         val have = game.state.count(id)
-                        PixelImageView(IconArt.get(Items[id].icon), 18.dp)
+                        SupplyPicture(id, 18.dp)
                         Txt(" $have/$n  ", size = 12.sp, bold = true, color = if (have >= n) Colors.text else Colors.accent)
                     }
                     if (r.gold > 0) Txt("${r.gold} G", size = 12.sp, bold = true, color = if (game.state.gold >= r.gold) Colors.text else Colors.accent)

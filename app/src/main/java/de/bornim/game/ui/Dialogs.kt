@@ -34,6 +34,8 @@ class DialogSpec(
     val icon: Icon? = null,
     /** A piece of gear to show instead of [icon], as it looks when worn. */
     val gear: de.bornim.core.Gear? = null,
+    /** A supply to show instead of [icon], built in the round. */
+    val supply: String? = null,
     val titleColor: Color? = null,
     /** Further buttons, e.g. "Off hand" or "Discard". */
     val extra: List<Pair<String, () -> Unit>> = emptyList(),
@@ -60,6 +62,9 @@ fun ConfirmDialog(spec: DialogSpec, onDismiss: () -> Unit) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     if (spec.gear != null) {
                         GearPicture(spec.gear.base, spec.gear.rarity, 48.dp)
+                        Spacer(Modifier.width(10.dp))
+                    } else if (spec.supply != null) {
+                        SupplyPicture(spec.supply, 48.dp)
                         Spacer(Modifier.width(10.dp))
                     } else spec.icon?.let {
                         PixelImageView(IconArt.get(it), 48.dp)

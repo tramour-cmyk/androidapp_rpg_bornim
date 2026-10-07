@@ -64,6 +64,8 @@ object ItemArt {
     }
 
     private val doll by lazy { Doll(Race.HUMAN, Sex.MALE, Build.AVERAGE) }
+    /** The doll's groups at rest, for pieces built here on their own. */
+    internal val restGroups by lazy { doll.groups(doll.Skeleton(Doll.REST)) }
 
     /** How a thing is held up to be seen: the pose, the side it is seen from and how far from above. */
     private class View(val rig: Rig, val yaw: Double, val pitch: Double = 15.0)
@@ -104,26 +106,31 @@ object ItemArt {
             else -> Dress(doll, sk, doll.body(sk), Outfit(cls, mapOf(slot to gear))).only(slot).filter { slot != GearSlot.ARMS || it.group != Doll.ARMOR_L }
         }
         if (solids.isEmpty()) return IconArt.get(def.icon)
-        val groups = doll.groups(sk)
-        // drawn once large to find its extent, then again to fill the picture
-        val big = 160
-        val g0 = 145.0
-        val px0 = 0.5
-        val a = SdfRender.render(solids, groups, doll::material, big, big, big / 2.0, g0, px0, v.yaw, v.pitch).img
-        var x0 = big; var y0 = big; var x1 = -1; var y1 = -1
-        for (y in 0 until big) for (x in 0 until big) if ((a[x, y] ushr 24) > 0) { x0 = minOf(x0, x); x1 = maxOf(x1, x); y0 = minOf(y0, y); y1 = maxOf(y1, y) }
-        if (x1 < 0) return IconArt.get(def.icon)
-        val fit = SIZE - 2 * MARGIN
-        // a long shaft would be a hairline: drawn larger, its head in the corner and its foot running out of the picture
         // a long shaft would be a hairline, a mace's or hammer's head a dot: drawn larger, the head in the corner and
         // the shaft running out of the picture
         val zoom = if (base in LONG) 2.2 else if (base in HEADED) 1.45 else 1.0
+        return picture(solids, doll.groups(sk), v.yaw, v.pitch, zoom) ?: IconArt.get(def.icon)
+    }
+
+    /**
+     * [solids] drawn to fill the picture: once large to find their extent, then again at the size that fills it. A
+     * [zoom] over 1 draws them larger with the upper right corner kept in the picture.
+     */
+    internal fun picture(solids: List<Solid>, groups: Groups, yaw: Double, pitch: Double, zoom: Double = 1.0): PixelImage? {
+        val big = 160
+        val g0 = 145.0
+        val px0 = 0.5
+        val a = SdfRender.render(solids, groups, doll::material, big, big, big / 2.0, g0, px0, yaw, pitch).img
+        var x0 = big; var y0 = big; var x1 = -1; var y1 = -1
+        for (y in 0 until big) for (x in 0 until big) if ((a[x, y] ushr 24) > 0) { x0 = minOf(x0, x); x1 = maxOf(x1, x); y0 = minOf(y0, y); y1 = maxOf(y1, y) }
+        if (x1 < 0) return null
+        val fit = SIZE - 2 * MARGIN
         val k = fit / maxOf(x1 - x0 + 1, y1 - y0 + 1).toDouble() * zoom
         val cx = if (zoom > 1) x1 + 1 - fit / k / 2 else (x0 + x1 + 1) / 2.0
         val cy = if (zoom > 1) y0 + fit / k / 2 else (y0 + y1 + 1) / 2.0
         val ax = SIZE / 2.0 - (cx - big / 2.0) * k
         val gr = SIZE / 2.0 + (g0 - cy) * k
-        val img = SdfRender.render(solids, groups, doll::material, SIZE, SIZE, ax, gr, px0 * k, v.yaw, v.pitch).img
+        val img = SdfRender.render(solids, groups, doll::material, SIZE, SIZE, ax, gr, px0 * k, yaw, pitch).img
         val s = Sculpt(SIZE, SIZE)
         for (y in 0 until SIZE) for (x in 0 until SIZE) s.img.set(x, y, img[x, y])
         s.outline(argb(0x14100E))

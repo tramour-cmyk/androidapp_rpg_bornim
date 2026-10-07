@@ -40,6 +40,8 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 - **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln im Hinterhalt, Drehung; die Schläge selbst so schnell wie bisher.
 - **Vielseitige Waffen:** ohne Schild mehr Schaden (Kampfwerte im Ausrüstungsreiter) und beidhändige Haltung im Kampf; mit Schild wie bisher.
 - **Tasche, Laden, Dialog:** kürzere Zeilen ohne Dopplungen.
+- **Gegenstandsvergleich:** Tabelle „Angelegt | Neu“ im Dialog, Urteil oben, Obergrenzen-Hinweise; Pfeil in der Tasche passt zum Urteil.
+- **Vorräte:** neue räumliche Bilder in Tasche, Laden, Brauen und Kampf.
 - **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
 
 ## Zu entscheiden

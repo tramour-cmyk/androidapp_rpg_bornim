@@ -236,7 +236,7 @@ private fun ItemRow(def: ItemDef, lang: Lang, count: Int?, onClick: () -> Unit) 
             .tap(onClick),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        PixelImageView(IconArt.get(def.icon), 36.dp)
+        SupplyPicture(def.id, 36.dp)
         Spacer(Modifier.width(8.dp))
         Column(Modifier.weight(1f)) {
             Txt(def.name(lang), size = 16.sp, bold = true, color = rarityColor(def.rarity))
@@ -260,7 +260,7 @@ private fun BagTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec) 
         ItemRow(def, lang, count) {
             val potion = def.kind == ItemKind.POTION || def.kind == ItemKind.FOOD
             ask(DialogSpec(
-                title = def.name(lang), icon = def.icon, titleColor = rarityColor(def.rarity),
+                title = def.name(lang), icon = def.icon, supply = def.id, titleColor = rarityColor(def.rarity),
                 confirm = if (def.kind == ItemKind.FOOD) (if (de) "Essen" else "Eat") else if (potion) Ui.use(lang) else "OK", cancel = cancel,
                 onConfirm = {
                     if (potion) {

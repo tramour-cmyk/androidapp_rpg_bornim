@@ -119,6 +119,7 @@ fun main() {
     if (System.getenv("FOELUNGE") != null) { renderFoeLunge(); System.exit(0) }
     if (System.getenv("FOEFALLS") != null) { renderFoeFalls(); System.exit(0) }
     if (System.getenv("FOEANIM") != null) { renderFoeAnims(); System.exit(0) }
+    if (System.getenv("SUPPLIES") != null) { renderSupplySheet(); System.exit(0) }
     if (System.getenv("SHIELDTURN") != null) { checkShieldTurn(); System.exit(0) }
     if (System.getenv("VERSHOW") != null) { renderVersatile(); System.exit(0) }
     if (System.getenv("VERSATILE") != null) { checkVersatile(); System.exit(0) }
@@ -167,6 +168,11 @@ fun main() {
     if (System.getenv("GEARSHOTS") != null) {
         // drawn ahead, so the shots show the built pictures rather than the stand-ins
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
+        for (it in de.bornim.core.Items.all) de.bornim.core.art.SupplyArt.get(it.id)
+        shot("10_shop") { vm -> vm.newGame("Mira", Race.ELF, CharClass.WIZARD); val g = vm.game!!; g.skipDialogs(); g.enqueue(listOf(Cmd.OpenShop(Story.shopStock))); vm.refresh() }
+        shot("15b_bag_supplies", taps = listOf(Offset(410f, 95f))) { vm -> geared(vm, CharClass.FIGHTER)
+            val st = vm.game!!.state; for (it in listOf("greater_potion", "remedy", "alchemist_fire", "holy_water", "raw_meat", "roast_meat", "herbs", "wolf_pelt", "boar_tusk", "bat_wing")) st.add(it, 2)
+            vm.menuOpen = true }
         shot("34_gear_halfling", taps = listOf(Offset(680f, 95f))) { vm -> geared(vm, CharClass.CLERIC, Race.HALFLING); vm.menuOpen = true }
         shot("15_bag_tab", taps = listOf(Offset(410f, 95f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }
         shot("16_bag_dialog", taps = listOf(Offset(410f, 95f), Offset(540f, 560f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }

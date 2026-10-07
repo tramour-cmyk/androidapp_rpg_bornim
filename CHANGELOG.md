@@ -4,6 +4,13 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Verbessert – Vorräte im neuen Stil**
+- Alle Vorräte haben jetzt räumliche Bilder wie die Ausrüstung, jedes sein eigenes: Heiltrank (rund, rot), Großer Heiltrank (rosé, Goldband), Überragender Heiltrank (hoch, violett, vergoldete Kappe), Kräutertrank (grün, mit Kräuterzweig), Alchemistenfeuer (glühend orange, Lumpen als Docht), Weihwasser (schlanke Phiole mit goldener Sonne), rohes und gebratenes Fleisch, Heilkräuterbund, Wolfsfell, Keilerhauer, Giftdrüse, Fledermausflügel, rostiger Schlüssel, Sonnenamulett und versiegelter Brief. Die Tränke zeigen Glas mit Flüssigkeitsstand.
+- Gilt überall: Tasche, Laden, Brauen bei Hedda, Gegenstände im Kampf und die Dialoge.
+- Die Bilder werden beim Start im Hintergrund vorbereitet, damit Listen sofort vollständig erscheinen.
+
+## v0.1.156 – 07.10.2026, 20:25
+
 **Neu – Gegenstände vergleichen**
 - Im Dialog eines Gegenstands aus der Tasche steht eine Tabelle „Angelegt | Neu“ mit allem, was sich beim Anlegen ändert: Rüstungsklasse, Angriff, Schaden (mit Durchschnitt), Trefferpunkte, bei Zauberern Zauberangriff und Zauberpunkte, jedes Attribut und jede weitere Eigenschaft (Krit, Schadensreduktion, Gift, Lebensraub, Goldfund …) beider Stücke. Gewinne grün, Verluste rot.
 - Boni, die eine Obergrenze des Kapitels verschluckt, werden benannt („Bonus wirkt nicht: Obergrenze für dieses Kapitel erreicht“), statt stillschweigend zu fehlen.

@@ -56,6 +56,15 @@ fun BornimApp(vm: GameViewModel) {
         else -> Songs.battle
     }
     LaunchedEffect(song) { vm.music.play(song) }
+    // the pictures of the supplies and of what the hero carries, drawn ahead in the background so lists open at once
+    val heroKey = vm.game?.hero
+    LaunchedEffect(heroKey) {
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+            de.bornim.core.Items.all.forEach { de.bornim.core.art.SupplyArt.get(it.id) }
+            val g = vm.game ?: return@withContext
+            (g.hero.gear.values + g.state.bag).forEach { de.bornim.core.art.ItemArt.get(it) }
+        }
+    }
 
     CompositionLocalProvider(LocalTextStyle provides BaseText, LocalClick provides { vm.play(Sound.CLICK, 0.35f) }) {
         Box(

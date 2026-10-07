@@ -165,3 +165,22 @@ fun checkShieldTurn() {
         for (yy in 0 until P.H) for (x in 0 until P.W) { val q = im[x, yy]; out.setRGB((i % 8) * P.W + x, (i / 8) * P.H + yy, if ((q ushr 24) >= 128) q else 0xE9E3D3) } }
     ImageIO.write(out, "png", File("build/screens/shield_turn.png"))
 }
+
+/** Every supply: its old drawn icon beside its new picture built in the round. */
+fun renderSupplySheet() {
+    val cell = 32 * 4 + 12
+    val items = de.bornim.core.Items.all
+    val cols = 4; val rows = (items.size + cols - 1) / cols
+    val colW = cell * 2 + 20; val rowH = cell + 22
+    val img = BufferedImage(colW * cols, rowH * rows, BufferedImage.TYPE_INT_ARGB)
+    val g = img.createGraphics(); g.color = Color(0x1B1A2A); g.fillRect(0, 0, img.width, img.height)
+    g.font = Font("SansSerif", Font.PLAIN, 14)
+    for ((i, it) in items.withIndex()) {
+        val ox = (i % cols) * colW; val oy = (i / cols) * rowH
+        g.put(IconArt.get(it.icon), ox + 4, oy + 4, cell)
+        g.put(de.bornim.core.art.SupplyArt.get(it.id), ox + 4 + cell, oy + 4, cell)
+        g.color = Color(0xE9E3D3); g.drawString(it.name.de, ox + 6, oy + cell + 14)
+    }
+    ImageIO.write(img, "png", File("build/screens/supply_sheet.png"))
+    println("wrote supply sheet")
+}

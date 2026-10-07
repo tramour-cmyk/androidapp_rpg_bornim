@@ -97,6 +97,15 @@ fun GearPicture(base: String, rarity: Rarity, size: Dp, modifier: Modifier = Mod
     PixelImageView(img ?: IconArt.get(de.bornim.core.GearBases[base].icon), size, modifier)
 }
 
+/** A supply (draught, food, ingredient, key) as built in the round; its old drawn icon stands in until it is drawn. */
+@Composable
+fun SupplyPicture(id: String, size: Dp, modifier: Modifier = Modifier) {
+    val img by androidx.compose.runtime.produceState(de.bornim.core.art.SupplyArt.ready(id), id) {
+        if (value == null) value = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { de.bornim.core.art.SupplyArt.get(id) }
+    }
+    PixelImageView(img ?: IconArt.get(de.bornim.core.Items[id].icon), size, modifier)
+}
+
 /** One line in the bag or shop: icon, colored name, rarity and type, optional trailing text. */
 @Composable
 fun GearRow(g: Gear, lang: Lang, game: Game, revision: Int, trailing: String? = null, onClick: () -> Unit) {
