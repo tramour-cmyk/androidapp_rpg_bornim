@@ -11,7 +11,7 @@ import kotlin.math.sin
 enum class Pose { IDLE, ATTACK, HURT }
 
 /** Actions of monsters drawn in the new battle style, each a sequence of frames. */
-enum class Act { IDLE, ATTACK, HURT, HOWL }
+enum class Act { IDLE, ATTACK, HURT, HOWL, DODGE, DIE }
 
 /**
  * 64×64 battle sprites. Every monster is built from lit shapes (see [Sculpt]) as a function of
@@ -36,7 +36,7 @@ object MonsterArt {
         val n = (SIZE / 2 * scale).roundToInt().coerceIn(8, SIZE / 2)
         val key = "map/$id/${look.seed}/${look.shiny}/${look.glow}/$f/$mirrored/$n"
         synchronized(cache) { cache[key]?.let { return it } }
-        if (isNewStyle(id)) {
+        if (isNewStyle(id) && !isDoll(id)) {
             // New-style monsters are wider than tall: shrink to the map size, feet on the bottom row.
             val src = battleFrame(id, look, Act.IDLE, 0, f * frameCount(id, Act.IDLE, 0) / IDLE_FRAMES)
             val small = shrink(src, (n * (if (id == "dire_wolf") 1.25 else 1.0)).roundToInt())
@@ -67,33 +67,53 @@ object MonsterArt {
 
     /** The default look in its first idle frame, e.g. for bosses standing on the map. */
     fun get(id: String): PixelImage =
-        if (isNewStyle(id)) synchronized(cache) { cache.getOrPut("get/$id") { shrink(battleFrame(id, MonsterLook(), Act.IDLE, 0, 0), SIZE).also { Pen(it).outline(Pal.OUTLINE) } } }
+        if (isNewStyle(id) && !isDoll(id)) synchronized(cache) { cache.getOrPut("get/$id") { shrink(battleFrame(id, MonsterLook(), Act.IDLE, 0, 0), SIZE).also { Pen(it).outline(Pal.OUTLINE) } } }
         else frame(id, MonsterLook(), Pose.IDLE, 0)
 
     // ---------------------------------------------------------------- monsters in the new battle style
 
     /** Monsters already drawn in the new, larger battle style with frame sequences. */
-    private val NEW_STYLE = setOf("wolf", "dire_wolf")
+    private val NEW_STYLE = setOf("wolf", "dire_wolf") + FoeArt.KINDS
 
     fun isNewStyle(id: String) = id in NEW_STYLE
 
-    /** Number of different attack animations of a monster. */
-    fun attackVariants(id: String): Int = if (isNewStyle(id)) 2 else 1
+    /** Foes on the hero's doll ([FoeArt]); on the map they keep their small figures for now. */
+    fun isDoll(id: String) = id in FoeArt.KINDS
 
-    fun frameCount(id: String, act: Act, variant: Int): Int = WolfArt.sequence(act, variant).size
+    /** Number of different attack animations of a monster. */
+    fun attackVariants(id: String): Int = if (isDoll(id)) 3 else if (isNewStyle(id)) 2 else 1
+
+    /** Number of variants of being hit, dodging and falling. */
+    fun reactVariants(id: String): Int = if (isDoll(id)) 3 else 1
+
+    fun frameCount(id: String, act: Act, variant: Int): Int =
+        if (isDoll(id)) FoeArt.sequence(id, MonsterLook(), act, variant).rigs.size else WolfArt.sequence(act, variant).size
+
+    /** The frame count of one foe, whose kit (one blade, a spear, a bow) shapes its moves. */
+    fun frameCount(id: String, look: MonsterLook, act: Act, variant: Int): Int =
+        if (isDoll(id)) FoeArt.sequence(id, look, act, variant).rigs.size else frameCount(id, act, variant)
 
     /** The frame in which an attack lands; frames before it play while the monster attacks, the rest while the hit shows. */
     fun strikeFrame(id: String, variant: Int): Int = WolfArt.strikeFrame(variant)
 
+    fun strikeFrame(id: String, look: MonsterLook, variant: Int): Int =
+        if (isDoll(id)) FoeArt.sequence(id, look, Act.ATTACK, variant).strike else strikeFrame(id, variant)
+
     /** [wound] 0 healthy, 1 below half its hit points, 2 below a quarter: changes posture. */
     fun battleFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound: Int = 0): PixelImage =
-        WolfArt.frame(look, id == "dire_wolf", act, variant, index, wound)
+        if (isDoll(id)) FoeArt.frame(id, look, act, variant, index)
+        else WolfArt.frame(look, id == "dire_wolf", act, variant, index, wound)
+
+    /** The frame to show now: for foes on the doll the nearest one drawn so far, never waiting; see [FoeArt.shown]. */
+    fun shownFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound: Int = 0): PixelImage =
+        if (isDoll(id)) FoeArt.shown(id, look, act, variant, index) else battleFrame(id, look, act, variant, index, wound)
 
     /**
      * Draws every frame of a new-style monster ahead of time (call off the main thread at the
      * start of a fight), so the first attack does not stutter while its frames are made.
      */
     fun prepare(id: String, look: MonsterLook, wound: Int = 0) {
+        if (isDoll(id)) { FoeArt.prepare(id, look); return }
         if (!isNewStyle(id)) return
         for (act in Act.entries) {
             val variants = if (act == Act.ATTACK) attackVariants(id) else 1
@@ -101,8 +121,16 @@ object MonsterArt {
         }
     }
 
+    /** Where the feet are across a new-style frame, in sprite pixels from the left: foes on the doll stand off-centre. */
+    fun anchorX(id: String, width: Int): Double = if (isDoll(id)) FoeArt.ANCHOR_X else width / 2.0
+
+    /** How tall and how wide the body itself stands in a new-style frame, in sprite pixels (the frame may be far larger). */
+    fun bodySize(id: String, look: MonsterLook, frameW: Int, frameH: Int): Pair<Double, Double> =
+        if (isDoll(id)) { val h = FoeArt.doll(id, look).height * FoeArt.PX; Pair(h * 0.75, h) }
+        else Pair(frameW.toDouble(), groundLine(id))
+
     /** Feet position of a new-style frame, in sprite pixels from the top. */
-    fun groundLine(id: String): Double = WolfArt.GROUND * (if (id == "dire_wolf") 1.22 else 1.0)
+    fun groundLine(id: String): Double = if (isDoll(id)) FoeArt.GROUND else WolfArt.GROUND * (if (id == "dire_wolf") 1.22 else 1.0)
 
     /** Shrinks [src] to [width] pixels by averaging, keeping the feet on the bottom row of a square image. */
     private fun shrink(src: PixelImage, width: Int): PixelImage {
@@ -125,7 +153,7 @@ object MonsterArt {
     }
 
     fun frame(id: String, look: MonsterLook, pose: Pose, idleFrame: Int = 0): PixelImage {
-        if (isNewStyle(id)) return when (pose) {
+        if (isNewStyle(id) && !isDoll(id)) return when (pose) {
             Pose.IDLE -> battleFrame(id, look, Act.IDLE, 0, idleFrame.mod(frameCount(id, Act.IDLE, 0)))
             Pose.ATTACK -> battleFrame(id, look, Act.ATTACK, 0, strikeFrame(id, 0))
             Pose.HURT -> battleFrame(id, look, Act.HURT, 0, 2)

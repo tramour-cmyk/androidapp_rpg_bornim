@@ -100,6 +100,8 @@ fun main() {
     if (System.getenv("TURN") != null) { renderTurntable(); System.exit(0) }
     if (System.getenv("TITLE") != null) { renderTitleHeroes(); System.exit(0) }
     if (System.getenv("CLERIC") != null) { renderClericShield(); System.exit(0) }
+    if (System.getenv("FOEANIM") != null) { renderFoeAnims(); System.exit(0) }
+    if (System.getenv("FOECLASH") != null) { checkFoeClashes(); System.exit(0) }
     if (System.getenv("FOEKITS") != null) { renderFoeKits(); System.exit(0) }
     if (System.getenv("FOESCENE") != null) { renderFoeInScene(); System.exit(0) }
     if (System.getenv("FOES") != null) { renderFoeDrafts(); System.exit(0) }
@@ -303,6 +305,28 @@ fun main() {
     shot("77_inn", lastFrames = 60, taps = List(4) { msgBox }) { vm -> wolfFight(vm, "inn", 5, 5, 20 * 60, id = "giant_rat") }
     for ((i, f) in listOf(2, 5, 8, 12).withIndex()) {
         shot("77_town_lunge_$i", taps = List(4) { msgBox } + listOf(fightBtn0, fightBtn0, msgBox, msgBox), lastFrames = f) { vm -> wolfFight(vm, "village", 12, 12, 12 * 60, id = "goblin") }
+    }
+    // foes on the doll in battle: goblins in the forest, the dead in the cave, every kit
+    fun dollFight(vm: GameViewModel, id: String, map: String, x: Int, y: Int, seed: Int, minutes: Int = 12 * 60): Battle {
+        vm.newGame("Borin", Race.HUMAN, CharClass.FIGHTER)
+        val g = vm.game!!
+        g.skipDialogs()
+        g.state.place = Place(map, x, y, Facing.UP); g.state.minutes = minutes
+        val b = Battle(g.state, Monsters[id], g.lang, Dice(kotlin.random.Random(seed)), 2, false, 2, look = MonsterLook(seed))
+        g.fight(b)
+        vm.refresh()
+        return b
+    }
+    for (seed in 0..2) {
+        shot("79_goblin_$seed", lastFrames = 40, taps = List(3) { msgBox }) { vm -> dollFight(vm, "goblin", "forest", 10, 20, seed) }
+        shot("79_skeleton_$seed", lastFrames = 40, taps = List(3) { msgBox }) { vm -> dollFight(vm, "skeleton", "cave", 10, 14, seed) }
+    }
+    shot("79_archer", lastFrames = 40, taps = List(3) { msgBox }) { vm -> dollFight(vm, "goblin_archer", "forest", 10, 20, 4) }
+    val attackBtn = Offset(300f, 1870f)
+    for ((i, f) in listOf(5, 10, 16).withIndex()) {
+        // the hero's blow and the goblin's answer
+        shot("80_goblin_hit_$i", taps = List(3) { msgBox } + listOf(fightBtn0, attackBtn, msgBox, msgBox), lastFrames = f) { vm -> dollFight(vm, "goblin", "forest", 10, 20, 0) }
+        shot("80_goblin_foe_$i", taps = List(3) { msgBox } + listOf(fightBtn0, attackBtn, msgBox, msgBox, msgBox, msgBox), lastFrames = f) { vm -> dollFight(vm, "goblin", "forest", 10, 20, 0) }
     }
     shot("77_town_fightmenu", taps = List(4) { msgBox } + listOf(fightBtn0)) { vm -> wolfFight(vm, "village", 12, 12, 12 * 60, id = "goblin", cls = CharClass.CLERIC) }
     val fightBtn = Offset(300f, 1975f)

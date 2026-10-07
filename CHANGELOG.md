@@ -19,6 +19,9 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Heilige Flamme ist auch zu sehen, wenn der Gegner ausweicht: Sie schlägt neben ihm ein, während er zur Seite springt, mit ihrem Klang. Bisher sah man dann nur das Ausweichen, als wäre der Zauber ausgeblieben.
 - Auf der Karte trägt der Kampfstab des Klerikers Eisenkappen statt des Kristalls vom Magierstab.
 - Neue [Stil-Leitlinien](docs/STIL.md) für alle künftigen Arbeiten: erwachsener und düsterer, bessere Übergänge, Kollisionen selbst prüfen, Klänge ohne Chiptune.
+- **Goblins, Goblin-Späher und Skelette im neuen Stil:** gebaut auf der Puppe des Helden, dem Helden zugewandt, im Licht der Szene. Jeder Gegner sieht anders aus: je drei Ausrüstungen nach SRD (z. B. Krummsäbel mit grobem Holzschild, Handbeil, Säbel und Dolch; Kurzschwert mit rostigem Helm, Speer), dazu Hautton, Größe und Körperbau im Rahmen des SRD. Rostiges Eisen und grobe Schilde sind reine Optik, die Werte bleiben.
+- Ihre Bewegungen in je drei Varianten: Angriff passend zur Waffe (Hieb, Überkopfschlag, Stich; Speer hoch, tief, von oben; Bogen stehend, kniend, schnell; Säbel und Dolch), Treffer, Ausweichen oder Schildblock, Zusammenbrechen. Alle Abläufe sind auf Durchdringungen geprüft.
+- Der Kampftext nennt die Waffe, die der Gegner wirklich trägt (z. B. „Handbeil“, „Speer“).
 - Abwehr nach Gegner: gegen Wölfe und anderes Getier mit tiefem Schild oder tiefer Zweihandparade, gegen große Gegner hoch; beim Zweihänder stützt der freie Unterarm die Waffe am Kopf ab.
 - Jede Waffe in wahrer Größe, Kleidung und Rüstung in Schichten, Umhang fällt über Rücken und schwingt nach. Schwungsound beim Schlag.
 - Bei der Heldenerschaffung wählbar: Geschlecht, Statur, Haut- und Haarton je Volk, mit drehender Vorschau. Die Körpergrößen folgen dem SRD (Halbling 60 % eines Menschen).

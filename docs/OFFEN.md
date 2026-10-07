@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 13:20 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 14:00 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -15,7 +15,7 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 - **Branch `hero-figure`** (noch nicht in `main`, also noch nicht veröffentlicht): der Held als bewegliche Figur im Kampf, im Ausrüstungsbild, bei der Erstellung, auf dem Titelbild und bei den Spielständen; Kampfmenü „Angreifen/Abwehr“ mit Konter; Kleriker mit Kampfstab, Rundschild und Sonne auf dem Wappenrock.
 
-- **Gegner im neuen Stil:** Ausrüstung je Gegnerart nach SRD mit mindestens drei Varianten (beschlossen 07.10., 13:20, siehe [Stil-Leitlinien](STIL.md)); danach Bewegungen in je mindestens drei Varianten.
+- **Gegner im neuen Stil:** Goblin, Goblin-Späher und Skelett sind eingebaut (Aussehen, Ausrüstung, Bewegungen in je drei Varianten). Als Nächstes die übrigen menschenähnlichen Gegner (Kobold, Zombie, Krogg, Grak), danach die Tiere als 3D-Vierbeiner.
 
 ## Zu testen
 
@@ -30,11 +30,11 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 - **Karte:** Kleriker mit Rundschild (hell, goldene Sonne) und Kampfstab mit Eisenkappen.
 - **Heldenerstellung:** Figur und Werte bleiben oben stehen, nur die Eingaben darunter scrollen.
 - **Heilige Flamme:** bei Treffer mitten auf dem Gegner, beim Ausweichen schlägt sie neben ihm ein (bei allen Gegnern, auch Grimmzahn, Krogg, Grak).
+- **Goblins und Skelette im Kampf:** verschiedene Ausrüstungen, Größen und Hauttöne; Angriffe, Treffer, Ausweichen und Zusammenbrechen in Varianten; Goblin-Späher schießt mit dem Bogen; Angriffsname im Text passt zur Waffe.
 - **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
 
 ## Zu entscheiden
 
-- **Gegner im neuen Stil, Entwurf Goblin und Skelett:** auf der Heldenpuppe gebaut; zweiter Entwurf mit bedrohlicherem Goblin (Fell, Fratze, rostiger Säbel, grober Holzschild) und Skelett mit rostigem Helm (Bilder vom 07.10., 13:14). Rückmeldung abwarten; danach Bewegungen (Angriff, Treffer, Tod) und Einbau, dann die übrigen menschenähnlichen Gegner, danach die Tiere als 3D-Vierbeiner.
 
 1. **Veröffentlichen:** `hero-figure` nach `main` übernehmen. Das baut automatisch die nächste Version (v0.1.x). Danach bekommt die Änderungshistorie den Versionseintrag mit Datum und Uhrzeit. Vorschlag: nach deinem Test.
 

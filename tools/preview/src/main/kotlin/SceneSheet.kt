@@ -1433,3 +1433,53 @@ fun renderFoeKits() {
     ImageIO.write(out, "png", File("build/screens/foe_kits.png"))
     println("wrote foe kits")
 }
+
+/** Every foe on the doll, every kit, every act and variant: frames where a weapon passes through body or shield. */
+fun checkFoeClashes() {
+    var total = 0; var body = 0; var shield = 0
+    val where = sortedMapOf<String, Int>()
+    for (id in de.bornim.core.art.FoeArt.KINDS) for (seed in 0 until 12) {
+        val look = de.bornim.core.MonsterLook(seed)
+        val doll = de.bornim.core.art.FoeArt.doll(id, look)
+        val o = de.bornim.core.art.FoeArt.outfit(id, look)
+        for (act in listOf(de.bornim.core.art.Act.IDLE, de.bornim.core.art.Act.ATTACK, de.bornim.core.art.Act.HURT, de.bornim.core.art.Act.DODGE, de.bornim.core.art.Act.DIE))
+            for (v in 0 until de.bornim.core.art.FoeArt.variants(act)) for ((i, rig) in de.bornim.core.art.FoeArt.sequence(id, look, act, v).rigs.withIndex()) {
+                total++
+                val dress = doll.fit(rig, o).second!!.first
+                val k = "$id/${seed % 3}/$act/$v"
+                dress.weaponThroughBody()?.let { t -> body++; where["K $k"] = (where["K $k"] ?: 0) + 1; if (body <= 15) println("KOERPER $id seed $seed $act/$v Bild $i bei ${(t * 100).toInt()} %") }
+                dress.weaponThroughShield()?.let { t -> shield++; where["S $k"] = (where["S $k"] ?: 0) + 1; if (shield <= 15) println("SCHILD $id seed $seed $act/$v Bild $i bei ${(t * 100).toInt()} %") }
+                dress.offWeaponThroughBody()?.let { t -> body++; where["D $k"] = (where["D $k"] ?: 0) + 1; if (body <= 15) println("DOLCH $id seed $seed $act/$v Bild $i bei ${(t * 100).toInt()} %") }
+            }
+    }
+    println("Gegner: $total Bilder, durch Koerper $body, durch Schild $shield")
+    where.forEach { (k, n) -> println("  $k: $n") }
+}
+
+/** Every act of one foe as a strip of frames, one row per act and variant. */
+fun renderFoeAnims() {
+    val cases = listOf("goblin" to 0, "goblin" to 2, "goblin_archer" to 0, "skeleton" to 2, "skeleton" to 1)
+    val acts = listOf(de.bornim.core.art.Act.IDLE to 0) + listOf(de.bornim.core.art.Act.ATTACK, de.bornim.core.art.Act.HURT, de.bornim.core.art.Act.DODGE, de.bornim.core.art.Act.DIE).flatMap { a -> (0..2).map { a to it } }
+    val cw = 150; val cols = 8; val F = de.bornim.core.art.FoeArt
+    for ((id, seed) in cases) {
+        val look = de.bornim.core.MonsterLook(seed)
+        val out = BufferedImage(cw * cols, F.H * acts.size, BufferedImage.TYPE_INT_RGB)
+        val g = out.createGraphics(); g.color = java.awt.Color(0x3C3A36); g.fillRect(0, 0, out.width, out.height)
+        g.color = java.awt.Color(0xE0D8C0)
+        for ((r, av) in acts.withIndex()) {
+            val (act, v) = av
+            val seq = F.sequence(id, look, act, v)
+            val n = seq.rigs.size
+            val picks = if (n <= cols) (0 until n).toList() else (0 until cols).map { it * (n - 1) / (cols - 1) }.toMutableList().also { l -> if (seq.strike >= 0 && seq.strike !in l) l[l.indexOfFirst { it > seq.strike }.coerceAtLeast(0)] = seq.strike }
+            for ((c, i) in picks.withIndex()) {
+                val im = F.frame(id, look, act, v, i)
+                val ox = c * cw - (F.ANCHOR_X.toInt() - 115)
+                for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; val X = ox + x; if ((q ushr 24) >= 128 && X in c * cw until (c + 1) * cw) out.setRGB(X, r * F.H + y, q and 0xFFFFFF) }
+                if (i == seq.strike) { g.color = java.awt.Color(0xC04030); g.drawRect(c * cw, r * F.H, cw - 1, F.H - 1); g.color = java.awt.Color(0xE0D8C0) }
+            }
+            g.drawString("$act/$v", 2, r * F.H + 12)
+        }
+        ImageIO.write(out, "png", File("build/screens/foeanim_${id}_$seed.png"))
+        println("wrote foeanim $id $seed")
+    }
+}

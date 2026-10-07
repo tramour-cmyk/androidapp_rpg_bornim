@@ -556,7 +556,9 @@ class Battle(
     }
 
     private fun enemyAttack() {
-        say(Msg.foeAttacks.f(lang, foe, monster.attackName(lang)), Anim.ENEMY_ACT)
+        // a foe with another weapon than its kind's own names that one (a goblin's hand axe)
+        val attackName = MonsterKits.of(monster.id, look.seed)?.attack ?: monster.attackName
+        say(Msg.foeAttacks.f(lang, foe, attackName(lang)), Anim.ENEMY_ACT)
         val mode = foeMode(if (Status.BLIND in foeStatus) -1 else 0)
         val roll = dice.d20(mode)
         val crit = roll == 20

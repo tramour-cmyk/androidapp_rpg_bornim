@@ -394,8 +394,10 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // Enemy
             val newStyle = MonsterArt.isNewStyle(battle.monster.id)
             val monsterSize = if (battle.monster.boss) 212.dp else 184.dp
+            // foes on the doll fall in their own way first, then fade; the others fade as they sink
+            val dollFoe = MonsterArt.isDoll(battle.monster.id)
             val enemyAlpha = when {
-                a == Anim.ENEMY_FAINT -> 1f - t
+                a == Anim.ENEMY_FAINT -> if (dollFoe) 1f - ((t - 0.6f) / 0.4f).coerceIn(0f, 1f) else 1f - t
                 ui.enemyGone -> 0f
                 else -> 1f
             }
@@ -437,8 +439,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
                     MonsterArt.prepare(id, battle.look, foeWound)
                     battle.trait?.let { tr ->
-                        if (newStyle) for (act in Act.entries) for (v in 0 until (if (act == Act.ATTACK) MonsterArt.attackVariants(id) else 1))
-                            for (i in 0 until MonsterArt.frameCount(id, act, v)) {
+                        if (newStyle) for (act in Act.entries) for (v in 0 until (if (act == Act.ATTACK) MonsterArt.attackVariants(id) else if (act == Act.IDLE || act == Act.HOWL) 1 else MonsterArt.reactVariants(id)))
+                            for (i in 0 until MonsterArt.frameCount(id, battle.look, act, v)) {
                                 val f = MonsterArt.battleFrame(id, battle.look, act, v, i, foeWound)
                                 Glow.halo(f, tr.color and 0xFFFFFF); Glow.rim(f, tr.color and 0xFFFFFF)
                             }
@@ -448,15 +450,22 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             }
             val howling = ui.howlKey > 0 && !ui.enemyGone && System.currentTimeMillis() - ui.howlStart < HOWL_MS
             val enemyFrame = if (!newStyle) null else {
-                fun seq(act: Act, from: Int, to: Int) = MonsterArt.battleFrame(id, battle.look, act, variant, from + ((to - from + 1) * t).toInt().coerceAtMost(to - from), foeWound)
-                val strike = MonsterArt.strikeFrame(id, variant)
-                val n = MonsterArt.frameCount(id, Act.ATTACK, variant)
+                fun seq(act: Act, from: Int, to: Int, v: Int = variant) = MonsterArt.shownFrame(id, battle.look, act, v, from + ((to - from + 1) * t).toInt().coerceAtMost(to - from), foeWound)
+                val strike = MonsterArt.strikeFrame(id, battle.look, variant)
+                val n = MonsterArt.frameCount(id, battle.look, Act.ATTACK, variant)
+                // being hit, dodging and falling come in variants too, taken in turn
+                val react = ui.animKey.mod(MonsterArt.reactVariants(id))
+                fun whole(act: Act) = seq(act, 0, MonsterArt.frameCount(id, battle.look, act, react) - 1, react)
                 when {
                     // the wind-up, held poised until the blow lands with the next message
                     a == Anim.ENEMY_ACT -> seq(Act.ATTACK, 0, strike)
                     // only the leader's own hits: a pack mate's hit belongs to that mate
                     (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && fx?.onHero == true && (step?.packActor ?: -1) < 0 && moving -> seq(Act.ATTACK, strike, n - 1)
-                    (a == Anim.ENEMY_HIT || a == Anim.ENEMY_FAINT) && moving -> seq(Act.HURT, 0, MonsterArt.frameCount(id, Act.HURT, 0) - 1)
+                    // falling: held on its last frame while it fades
+                    a == Anim.ENEMY_FAINT && dollFoe -> if (moving) whole(Act.DIE) else seq(Act.DIE, MonsterArt.frameCount(id, battle.look, Act.DIE, react) - 1, MonsterArt.frameCount(id, battle.look, Act.DIE, react) - 1, react)
+                    // a blow or a spell turned aside: the foe ducks, steps back or springs aside, or takes it on its shield
+                    a == Anim.MISS && fx?.onHero == false && dollFoe && moving -> whole(Act.DODGE)
+                    (a == Anim.ENEMY_HIT || a == Anim.ENEMY_FAINT) && moving -> if (dollFoe) whole(Act.HURT) else seq(Act.HURT, 0, MonsterArt.frameCount(id, Act.HURT, 0) - 1)
                     howling -> {
                         val n = MonsterArt.frameCount(id, Act.HOWL, 0)
                         val since = System.currentTimeMillis() - ui.howlStart
@@ -466,9 +475,9 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                             since < HOWL_MS - 150 -> 4 + ((since - HOWL_RAISE_MS) * 6 / (HOWL_MS - 150 - HOWL_RAISE_MS)).toInt()
                             else -> n - 1
                         }
-                        MonsterArt.battleFrame(id, battle.look, Act.HOWL, 0, i.coerceIn(0, n - 1), foeWound)
+                        MonsterArt.shownFrame(id, battle.look, Act.HOWL, 0, i.coerceIn(0, n - 1), foeWound)
                     }
-                    else -> MonsterArt.battleFrame(id, battle.look, Act.IDLE, 0, idleIdx % MonsterArt.frameCount(id, Act.IDLE, 0), foeWound)
+                    else -> MonsterArt.shownFrame(id, battle.look, Act.IDLE, 0, idleIdx % MonsterArt.frameCount(id, battle.look, Act.IDLE, 0), foeWound)
                 }
             }
             val enemyDx = when {
@@ -477,10 +486,16 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 else -> -(foeIn * 30).dp
             }
             val enemyDy = if (!newStyle) (foeIn * 16).dp else 0.dp
-            val foeW = if (enemyFrame != null) artDp * enemyFrame.width else monsterSize
+            /** How wide the foe's body is (a doll's picture is far wider than the doll), for its shadow, effects and the lunge. */
+            val body = enemyFrame?.let { MonsterArt.bodySize(id, battle.look, it.width, it.height) }
+            val foeW = if (body != null) artDp * body.first.toFloat() else monsterSize
             val foeH = if (enemyFrame != null) artDp * enemyFrame.height else monsterSize
             /** From the top of the picture down to the feet. */
             val foeFeet = if (enemyFrame != null) artDp * MonsterArt.groundLine(id).toFloat() else monsterSize * 0.94f
+            /** How tall the foe stands above its feet. */
+            val foeTall = if (body != null) artDp * body.second.toFloat() else foeFeet
+            /** From the picture's left edge to the feet. */
+            val foeAnchor = if (enemyFrame != null) artDp * MonsterArt.anchorX(id, enemyFrame.width).toFloat() else monsterSize / 2
             // Shadows on the ground instead of platforms
             Canvas(Modifier.matchParentSize()) {
                 val gx = (sceneW * foeX).toPx(); val gy = (sceneH * foeY).toPx()
@@ -500,14 +515,15 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 val mateLook = MonsterLook(battle.look.seed + 101 * (i + 1))
                 val mateNew = MonsterArt.isNewStyle(packDef.mate)
                 val mateFrame = if (!mateNew) null else if (acting || landing) {
-                    val n = MonsterArt.frameCount(packDef.mate, Act.ATTACK, i)
-                    val strike = MonsterArt.strikeFrame(packDef.mate, i)
+                    val n = MonsterArt.frameCount(packDef.mate, mateLook, Act.ATTACK, i)
+                    val strike = MonsterArt.strikeFrame(packDef.mate, mateLook, i)
                     val (from, to) = if (acting) 0 to strike else strike to n - 1
-                    MonsterArt.battleFrame(packDef.mate, mateLook, Act.ATTACK, i, from + ((to - from + 1) * t).toInt().coerceAtMost(to - from))
-                } else MonsterArt.battleFrame(packDef.mate, mateLook, Act.IDLE, 0, (clockMs / 86 + 5 * i + 3).toInt() % MonsterArt.frameCount(packDef.mate, Act.IDLE, 0))
+                    MonsterArt.shownFrame(packDef.mate, mateLook, Act.ATTACK, i, from + ((to - from + 1) * t).toInt().coerceAtMost(to - from))
+                } else MonsterArt.shownFrame(packDef.mate, mateLook, Act.IDLE, 0, (clockMs / 86 + 5 * i + 3).toInt() % MonsterArt.frameCount(packDef.mate, mateLook, Act.IDLE, 0))
                 val mateSize = monsterSize * packDef.scale
                 val mPx = artDp * packDef.scale
                 val mateW = if (mateFrame != null) mPx * mateFrame.width else mateSize
+                val mateAnchor = if (mateFrame != null) mPx * MonsterArt.anchorX(packDef.mate, mateFrame.width).toFloat() else mateSize / 2
                 val mateFeet = if (mateFrame != null) mPx * MonsterArt.groundLine(packDef.mate).toFloat() else mateSize * 0.94f
                 // A boss is big: its guards stand well to the left and just behind its shoulder,
                 // so neither is hidden nor cut off by the screen edge.
@@ -528,7 +544,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 Box(
                     Modifier.offset(
                         // old-style mates leap in while their attack is named and spring back with the hit or the miss
-                        x = baseX - mateW / 2 + (intro.value * 260).dp + (if (!mateNew) -(mateIn * 26).dp else 0.dp) + (if (fleeing) (t * 140).dp else 0.dp),
+                        x = baseX - mateAnchor + (intro.value * 260).dp + (if (!mateNew) -(mateIn * 26).dp else 0.dp) + (if (fleeing) (t * 140).dp else 0.dp),
                         y = baseY - mateFeet + (if (!mateNew) (mateIn * 12).dp else 0.dp),
                     )
                 ) {
@@ -545,9 +561,10 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // Feet on the ground where the foe stands
             Box(
                 Modifier.offset(
-                    x = sceneW * foeX - foeW / 2 + (intro.value * 260).dp + dodge(false) + enemyDx,
+                    // a foe on the doll steps aside in its own frames rather than hopping
+                    x = sceneW * foeX - foeAnchor + (intro.value * 260).dp + (if (dollFoe) 0.dp else dodge(false)) + enemyDx,
                     // old-style sprites sag a little when badly hurt; new ones change their posture
-                    y = sceneH * foeY - foeFeet + enemyDy + (if (a == Anim.ENEMY_FAINT) (t * 40).dp else 0.dp) + (if (newStyle) 0.dp else (foeWound * 3).dp),
+                    y = sceneH * foeY - foeFeet + enemyDy + (if (a == Anim.ENEMY_FAINT && !dollFoe) (t * 40).dp else 0.dp) + (if (newStyle) 0.dp else (foeWound * 3).dp),
                 )
             ) {
                 val pulse = rememberPulse()
@@ -606,7 +623,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // the old village and house scenes have their foe far off up the field: only a short step forward there
             else if (!newScene) androidx.compose.ui.unit.DpOffset((lungeF * 30).dp, -(lungeF * 16).dp)
             else {
-                val aim = HeroBattle.aimAt((sceneW * foeX / artDp).toDouble(), (sceneH * foeY / artDp).toDouble(), (foeW / artDp).toDouble(), (foeFeet / artDp).toDouble())
+                val aim = HeroBattle.aimAt((sceneW * foeX / artDp).toDouble(), (sceneH * foeY / artDp).toDouble(), (foeW / artDp).toDouble(), (foeTall / artDp).toDouble())
                 val (ox, oy) = HeroBattle.lungeOffset(battle.hero, ui.motion!!.strike, (sceneW * heroX / artDp).toDouble(), (sceneH * heroY / artDp).toDouble(), aim.first, aim.second)
                 androidx.compose.ui.unit.DpOffset(artDp * (ox * lungeF).toFloat(), artDp * (oy * lungeF).toFloat())
             }
@@ -626,7 +643,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             }
             // Attack and spell effects, and blood
             with(density) {
-                val enemyC = Offset((sceneW * foeX).toPx(), (sceneH * foeY - (if (newStyle) foeFeet * 0.55f else monsterSize * 0.45f)).toPx())
+                val enemyC = Offset((sceneW * foeX).toPx(), (sceneH * foeY - (if (newStyle) foeTall * 0.55f else monsterSize * 0.45f)).toPx())
                 // the doll stands about 130 art pixels tall: spells and blows start from its chest
                 val heroC = Offset((sceneW * heroX).toPx(), (sceneH * heroY - artDp * 78f).toPx())
                 val unit = (if (newStyle) foeW / 90 else monsterSize / 64).toPx()

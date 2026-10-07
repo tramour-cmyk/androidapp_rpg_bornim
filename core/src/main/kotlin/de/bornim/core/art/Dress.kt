@@ -741,6 +741,28 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         return null
     }
 
+    /**
+     * Which way a blade in the off hand points. A hero's mirrors the main weapon; a foe's goes on from its own forearm,
+     * the point forward and a little up, so it never swings round into the body with the main blade.
+     */
+    private fun offDir(): P3 {
+        if (d.kind == null) return P3(sk.weapon.x * -0.5, sk.weapon.y, sk.weapon.z).norm()
+        val fore = (sk.wrist[0] - sk.elbow[0]).norm()
+        return (fore * 0.55 + sk.upper.dir(P3.Z) * 0.65 + sk.upper.dir(P3.Y) * 0.35 - sk.upper.dir(P3.X) * 0.15).norm()
+    }
+
+    /** Where along a blade in the off hand (0 at the hand, 1 at the tip) it would pass into the body, or null. */
+    fun offWeaponThroughBody(): Double? {
+        val off = o.items[GearSlot.OFF_HAND] ?: return null
+        if (!off.def.isWeapon || o.twoHands) return null
+        val len = reach(off.base)
+        val hand = sk.hand(0)
+        val dir = offDir()
+        val solid = body.filter { it.key !in setOf("hand0", "fore0", "upper0", "delt0") && it.part != BodyPart.HAIR }
+        for (i in 4..40) { val t = i / 40.0; if (solid.any { it.dist(hand + dir * (len * t)) < -0.5 }) return t }
+        return null
+    }
+
     private fun reach(base: String) = Dress.reach(base)
 
     // ---------------------------------------------------------------- weapons, drawn over the doll
@@ -750,7 +772,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val main = o.items[GearSlot.MAIN_HAND]
         if (main != null && !main.def.ranged && main.base !in ROUND) weapon(img, main.base, main.rarity, sk.hand(1), sk.weapon)
         val off = o.items[GearSlot.OFF_HAND]
-        if (off != null && off.def.isWeapon && !o.twoHands) weapon(img, off.base, off.rarity, sk.hand(0), P3(sk.weapon.x * -0.5, sk.weapon.y, sk.weapon.z).norm())
+        if (off != null && off.def.isWeapon && !o.twoHands) weapon(img, off.base, off.rarity, sk.hand(0), offDir())
     }
 
     private fun weapon(img: DepthImage, base: String, r: Rarity, hand: P3, dir: P3) {
