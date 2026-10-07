@@ -212,3 +212,28 @@ fun renderCreatureDrafts() {
     }
     println("wrote creatures")
 }
+
+/** The falls of the new foes in whole frames, every third picture, with the frame's edge drawn, to see what is cut off. */
+fun renderNewFalls() {
+    val F = de.bornim.core.art.FoeArt
+    val cases = listOf("kobold" to 0, "zombie" to 1, "bugbear" to 0, "hobgoblin_captain" to 0)
+    val rows = cases.size * 3
+    val cols = 6
+    val fw = F.W; val fh = F.height("bugbear")
+    val img = BufferedImage(fw * cols, fh * rows, BufferedImage.TYPE_INT_RGB)
+    val g = img.createGraphics(); g.color = Color(0x3C3A36); g.fillRect(0, 0, img.width, img.height)
+    for ((ci, case) in cases.withIndex()) for (v in 0..2) {
+        val (id, seed) = case
+        val look = de.bornim.core.MonsterLook(seed)
+        val n = F.sequence(id, look, de.bornim.core.art.Act.DIE, v).rigs.size
+        for (c in 0 until cols) {
+            val i = c * (n - 1) / (cols - 1)
+            val im = F.frame(id, look, de.bornim.core.art.Act.DIE, v, i)
+            val ox = c * fw; val oy = (ci * 3 + v) * fh + (fh - im.height)
+            for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; if ((q ushr 24) >= 128) img.setRGB(ox + x, oy + y, q and 0xFFFFFF) }
+            g.color = Color(0x8A5040); g.drawRect(ox, oy, im.width - 1, im.height - 1)
+        }
+    }
+    ImageIO.write(img, "png", File("build/screens/new_falls.png"))
+    println("wrote new falls")
+}

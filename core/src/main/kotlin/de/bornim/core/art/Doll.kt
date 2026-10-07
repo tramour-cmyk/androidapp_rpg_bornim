@@ -431,9 +431,12 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         // a kobold's tail: thick at the root behind the hips, sweeping down and back to lie along the ground
         if (kobold) {
             val h = height
+            // fallen on its face the tail would point at the sky, on its back into the ground: it lies along the legs instead
+            val down = (kotlin.math.abs(sk.rig.fallF) / 90.0).coerceIn(0.0, 1.0)
             val pts = (0..6).map { t ->
                 val u = t / 6.0
-                sk.lower.apply(P3(0.06 * h * sin(u * 2.4), hipY - 0.02 * h - u * (hipY - 0.04 * h) * 1.05, -0.07 * h - u * 0.5 * h))
+                val back = 0.5 * h * u * (1 - 0.85 * down)
+                sk.lower.apply(P3(0.06 * h * sin(u * 2.4), hipY - 0.02 * h - u * (hipY - 0.04 * h) * 1.05 - down * u * 0.25 * h, -0.07 * h * (1 - 0.6 * down) - back))
             }
             for (t in 0 until pts.size - 1) cone(pts[t], pts[t + 1], 0.03 * h * (1 - t / 7.0) + 0.005 * h, 0.03 * h * (1 - (t + 1) / 7.0) + 0.005 * h, BodyPart.THIGH, TRUNK, "tail")
         }
