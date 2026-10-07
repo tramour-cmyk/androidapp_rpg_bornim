@@ -195,6 +195,51 @@ object FoeArt {
 
     fun variants(act: Act): Int = if (act == Act.IDLE || act == Act.HOWL) 1 else 3
 
+    // ---------------------------------------------------------------- the lunge
+
+    /** Whether the foe steps in to strike: all but the archers, who shoot from where they stand. */
+    fun lunges(id: String, look: MonsterLook) = style(id, look) != Style.BOW
+
+    /** How much larger the foe is drawn at the end of its lunge: it comes nearer to us, towards the hero. */
+    const val LUNGE_SCALE = 1.18
+
+    private val tips = java.util.concurrent.ConcurrentHashMap<String, Pair<Double, Double>>()
+
+    /** Where the weapon's point is in the frame at the moment the blow lands, in art pixels of the frame. */
+    fun tip(id: String, look: MonsterLook, variant: Int): Pair<Double, Double> = tips.getOrPut("$id/${look.seed}/${variant.mod(3)}") {
+        val seq = sequence(id, look, Act.ATTACK, variant)
+        val rig = seq.rigs[seq.strike.coerceIn(0, seq.rigs.size - 1)]
+        val doll = doll(id, look); val o = outfit(id, look)
+        val img = doll.render(W, H, ANCHOR_X, GROUND, PX, rig, o)
+        val sk = doll.fit(rig, o).first
+        val base = o.base(GearSlot.MAIN_HAND)
+        val reach = if (base == null) 0.0 else Dress.reach(base) * (if (base in Dress.ROUND) doll.height / 175.0 * 0.95 else 1.0)
+        val (x, y, _) = img.project(sk.hand(1) + sk.weapon * reach)
+        Pair(x, y)
+    }
+
+    /**
+     * How far along its lunge the foe is at frame [index] of an attack: still at the start of the wind-up, stepping in
+     * through it, all the way when the blow lands, and back through the follow-through.
+     */
+    fun lungeAt(id: String, look: MonsterLook, variant: Int, index: Int): Double {
+        if (!lunges(id, look)) return 0.0
+        val seq = sequence(id, look, Act.ATTACK, variant)
+        val hit = seq.strike.coerceAtLeast(1)
+        val n = seq.rigs.size
+        fun smooth(x: Double) = x.coerceIn(0.0, 1.0).let { it * it * (3 - 2 * it) }
+        return if (index <= hit) smooth((index - hit * 0.3) / (hit * 0.7)) else 1 - smooth((index - hit).toDouble() / (n - 1 - hit).coerceAtLeast(1))
+    }
+
+    /**
+     * The step for a blow, in art pixels: how far the feet move so that, drawn [LUNGE_SCALE] times as large, the weapon's
+     * point lands on ([toX], [toY]) while the feet stood at ([feetX], [feetY]).
+     */
+    fun lungeOffset(id: String, look: MonsterLook, variant: Int, feetX: Double, feetY: Double, toX: Double, toY: Double): Pair<Double, Double> {
+        val (tx, ty) = tip(id, look, variant)
+        return Pair(toX - feetX - (tx - ANCHOR_X) * LUNGE_SCALE, toY - feetY - (ty - GROUND) * LUNGE_SCALE)
+    }
+
     // ---------------------------------------------------------------- the frames, kept
 
     private val capacity: Int = (Runtime.getRuntime().maxMemory() / 10 / (W * H * 4L)).toInt().coerceIn(80, 400)

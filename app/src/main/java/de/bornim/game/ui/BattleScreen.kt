@@ -64,6 +64,7 @@ import de.bornim.core.art.CaveScene
 import de.bornim.core.art.Glow
 import de.bornim.core.art.CharacterArt
 import de.bornim.core.art.IconArt
+import de.bornim.core.art.FoeArt
 import de.bornim.core.art.HeroBattle
 import de.bornim.core.art.HeroFigure
 import de.bornim.core.art.MonsterArt
@@ -450,18 +451,28 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 }
             }
             val howling = ui.howlKey > 0 && !ui.enemyGone && System.currentTimeMillis() - ui.howlStart < HOWL_MS
+            // the leader's own blow: wound up while it is named, then struck with the hit or the miss. A foe on the doll
+            // holds its wind-up two frames short of the blow, so the blow itself comes with the result, as the hero's does.
+            val foeStrike = if (newStyle) MonsterArt.strikeFrame(id, battle.look, variant) else 0
+            val foeN = if (newStyle) MonsterArt.frameCount(id, battle.look, Act.ATTACK, variant) else 0
+            val windEnd = if (dollFoe) (foeStrike - 2).coerceAtLeast(0) else foeStrike
+            fun span(from: Int, to: Int) = from + ((to - from + 1) * t).toInt().coerceAtMost(to - from)
+            val foeAttackIdx: Int? = when {
+                !newStyle -> null
+                a == Anim.ENEMY_ACT -> span(0, windEnd)
+                foeLanding && moving -> span(windEnd, foeN - 1)
+                else -> null
+            }
             val enemyFrame = if (!newStyle) null else {
                 fun seq(act: Act, from: Int, to: Int, v: Int = variant) = MonsterArt.shownFrame(id, battle.look, act, v, from + ((to - from + 1) * t).toInt().coerceAtMost(to - from), foeWound)
-                val strike = MonsterArt.strikeFrame(id, battle.look, variant)
-                val n = MonsterArt.frameCount(id, battle.look, Act.ATTACK, variant)
+                val strike = foeStrike
+                val n = foeN
                 // being hit, dodging and falling come in variants too, taken in turn
                 val react = ui.animKey.mod(MonsterArt.reactVariants(id))
                 fun whole(act: Act) = seq(act, 0, MonsterArt.frameCount(id, battle.look, act, react) - 1, react)
                 when {
-                    // the wind-up, held poised until the blow lands with the next message
-                    a == Anim.ENEMY_ACT -> seq(Act.ATTACK, 0, strike)
-                    // only the leader's own hits: a pack mate's hit belongs to that mate
-                    (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && fx?.onHero == true && (step?.packActor ?: -1) < 0 && moving -> seq(Act.ATTACK, strike, n - 1)
+                    // the wind-up, held poised until the blow lands with the next message; then the blow
+                    foeAttackIdx != null -> MonsterArt.shownFrame(id, battle.look, Act.ATTACK, variant, foeAttackIdx, foeWound)
                     // falling: held on its last frame while it fades
                     a == Anim.ENEMY_FAINT && dollFoe -> if (moving) whole(Act.DIE) else seq(Act.DIE, MonsterArt.frameCount(id, battle.look, Act.DIE, react) - 1, MonsterArt.frameCount(id, battle.look, Act.DIE, react) - 1, react)
                     // a blow or a spell turned aside: the foe ducks, steps back or springs aside, or takes it on its shield
@@ -559,14 +570,31 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             }
 
             val glow = battle.trait?.let { Color(it.color) }
+            // a foe on the doll steps in at the hero with its blow, so the weapon lands on the hero, and back again;
+            // drawn larger as it comes nearer
+            val foeLungeF = if (dollFoe && foeAttackIdx != null) {
+                // while it is named it only starts the step; the rest comes with the blow
+                FoeArt.lungeAt(id, battle.look, variant, foeAttackIdx).toFloat()
+            } else 0f
+            val foeLunge = if (foeLungeF <= 0f || enemyFrame == null) androidx.compose.ui.unit.DpOffset.Zero else {
+                val (ox, oy) = FoeArt.lungeOffset(id, battle.look, variant, (sceneW * foeX / artDp).toDouble(), (sceneH * foeY / artDp).toDouble(),
+                    (sceneW * heroX / artDp).toDouble() + 8.0, (sceneH * heroY / artDp).toDouble() - 82.0)
+                androidx.compose.ui.unit.DpOffset(artDp * (ox * foeLungeF).toFloat(), artDp * (oy * foeLungeF).toFloat())
+            }
+            val foeScale = 1f + (FoeArt.LUNGE_SCALE.toFloat() - 1f) * foeLungeF
             // Feet on the ground where the foe stands
             Box(
                 Modifier.offset(
                     // a foe on the doll steps aside in its own frames rather than hopping
-                    x = sceneW * foeX - foeAnchor + (intro.value * 260).dp + (if (dollFoe) 0.dp else dodge(false)) + enemyDx,
+                    x = sceneW * foeX - foeAnchor + (intro.value * 260).dp + (if (dollFoe) 0.dp else dodge(false)) + enemyDx + foeLunge.x,
                     // old-style sprites sag a little when badly hurt; new ones change their posture
-                    y = sceneH * foeY - foeFeet + enemyDy + (if (a == Anim.ENEMY_FAINT && !dollFoe) (t * 40).dp else 0.dp) + (if (newStyle) 0.dp else (foeWound * 3).dp),
-                )
+                    y = sceneH * foeY - foeFeet + enemyDy + (if (a == Anim.ENEMY_FAINT && !dollFoe) (t * 40).dp else 0.dp) + (if (newStyle) 0.dp else (foeWound * 3).dp) + foeLunge.y,
+                ).graphicsLayer {
+                    if (foeScale != 1f && enemyFrame != null) {
+                        scaleX = foeScale; scaleY = foeScale
+                        transformOrigin = androidx.compose.ui.graphics.TransformOrigin((MonsterArt.anchorX(id, enemyFrame.width) / enemyFrame.width).toFloat(), (MonsterArt.groundLine(id) / enemyFrame.height).toFloat())
+                    }
+                }
             ) {
                 val pulse = rememberPulse()
                 // New-style elites shimmer along their outline; the old sprites keep the round aura.
