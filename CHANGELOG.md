@@ -4,8 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## v0.1.173 – 07.10.2026, 22:48
 
-**Geändert – keine EP mehr über der Stufengrenze**
-- An der Stufengrenze von Kapitel 1 (Stufe 6) gibt es keine weiteren EP mehr; es wird nichts für Kapitel 2 aufgehoben. Kämpfen lohnt sich weiter für Beute und Ausrüstung.
+**Geändert – keine EP mehr ab Erreichen von Stufe 6**
+- Ab Erreichen von Stufe 6, der Stufengrenze von Kapitel 1, gibt es keine weiteren EP mehr; die EP bleiben genau auf dem Wert für Stufe 6 stehen, es wird nichts für Kapitel 2 aufgehoben. Kämpfen lohnt sich weiter für Beute und Ausrüstung.
 - Der Kampf nennt dann keine EP mehr, sondern „Höchststufe für Kapitel 1 erreicht – keine weiteren EP in diesem Kapitel. Beute und Ausrüstung gibt es weiterhin.“ Ebenso der Heldenreiter.
 - Bei älteren Spielständen werden schon aufgehobene EP beim Laden auf die Grenze gekürzt.
 
