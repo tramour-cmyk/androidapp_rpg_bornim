@@ -93,6 +93,9 @@ private class BattleUi(val battle: Battle) {
     var heroGone by mutableStateOf(false)
     /** Which attack animation the foe plays for its current attack. */
     var attackVariant by mutableIntStateOf(0)
+    /** The foe is wound up for its blow and holds it through any word in between (a critical hit, a surprise attack),
+     *  until the blow lands or misses. */
+    var foePoised by mutableStateOf(false)
     /** Counts the leader's howls; [howlStart] is when the latest began, [howlSound] which voice it uses. */
     var howlKey by mutableIntStateOf(0)
     var howlStart = 0L
@@ -262,6 +265,7 @@ private class BattleUi(val battle: Battle) {
             if (s.anim == Anim.ENEMY_FAINT) enemyGone = true
             if (s.anim == Anim.HERO_FAINT) heroGone = true
             moveHero(s)
+            foePoised = s.anim == Anim.ENEMY_ACT || (foePoised && s.anim == Anim.NONE)
             if (s.anim == Anim.ENEMY_ACT) attackVariant = kotlin.random.Random.nextInt(MonsterArt.attackVariants(battle.monster.id))
             // Wolves howl now and then, not every time: when they appear, and when a pack mate falls or flees.
             val chance = when {
@@ -468,13 +472,16 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // old-style foes, like the hero: while the attack is named they leap in and stay poised, then strike and
             // spring back with the hit or the miss
             val leap = if (t >= 0.99f) 1f else (t * t * (3 - 2 * t))
+            // wound up and waiting for the blow through a word in between: held where the wind-up ended
+            val poised = ui.foePoised && a == Anim.NONE
             val foeIn = when {
                 a == Anim.ENEMY_ACT -> leap
+                poised -> 1f
                 foeLanding -> 1f - leap
                 else -> 0f
             }
             val enemyPose = when {
-                a == Anim.ENEMY_ACT -> Pose.ATTACK
+                a == Anim.ENEMY_ACT || poised -> Pose.ATTACK
                 foeLanding && t < 0.5f -> Pose.ATTACK
                 (a == Anim.ENEMY_HIT || a == Anim.ENEMY_FAINT) && moving -> Pose.HURT
                 else -> Pose.IDLE
@@ -520,6 +527,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             val foeAttackIdx: Int? = when {
                 !newStyle -> null
                 a == Anim.ENEMY_ACT -> span(0, windEnd)
+                poised -> windEnd
                 foeLanding && moving -> {
                     // the blow lands as fast as ever; only the way back takes the longer time
                     val q = ((foeStrike - windEnd + 1).toFloat() / (foeN - windEnd)) * 450f / REACT_MS

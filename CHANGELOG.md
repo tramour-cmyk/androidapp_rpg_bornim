@@ -14,6 +14,9 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Neu als Waffe nach SRD: der Morgenstern (1W8 Stich), auch als Beute.
 - Der Schwanz des Kobolds liegt beim Sturz entlang der Beine statt in den Himmel oder in den Boden zu zeigen.
 
+**Behoben – Gegner täuschte den Schlag an**
+- Kam zwischen dem Ausholen des Gegners und seinem Schlag eine Meldung (etwa „Ein brutaler Überraschungsschlag!“ oder „Ein kritischer Treffer!“), ging er dabei zurück in die Ruhe und schlug erst danach zu. Jetzt hält er das Ausholen, bis der Schlag trifft oder verfehlt. Mit Krogg gegen den Kleriker nachgefilmt.
+
 ## v0.1.168 – 07.10.2026, 22:00
 
 **Behoben – gehaltene Haltungen fielen in die Ruhe zurück**
