@@ -620,7 +620,9 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 }
                 if (battle.shiny && foeShown) {
                     // sparkles around the body: centre their square on the wide new-style sprite
-                    if (newStyle) Box(Modifier.offset(y = (foeH - foeW) / 2 - foeH * 0.22f)) { Sparkles(battle.look.seed, foeW, enemyAlpha) }
+                    // foes built in the round stand off-centre in a wide frame: the sparkles go round the body, about its feet
+                    if (dollFoe) Box(Modifier.offset(x = foeAnchor - foeW * (if (MonsterArt.isBeast(id)) 0.58f else 0.5f), y = foeFeet - foeTall / 2 - foeW / 2)) { Sparkles(battle.look.seed, foeW, enemyAlpha) }
+                    else if (newStyle) Box(Modifier.offset(y = (foeH - foeW) / 2 - foeH * 0.22f)) { Sparkles(battle.look.seed, foeW, enemyAlpha) }
                     else Sparkles(battle.look.seed, monsterSize, enemyAlpha)
                 }
             }
