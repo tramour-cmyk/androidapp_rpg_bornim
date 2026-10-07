@@ -557,7 +557,12 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             line(c + P3(sd * 0.1 * k, -0.01 * k, 0.39 * k), c + P3(sd * 0.22 * k, 0.0, 0.35 * k), argb(0xE8B828))
             put(c + P3(sd * 0.15 * k, -0.01 * k, 0.38 * k), argb(0x1A0C04))
         }
-        line(c + P3(-0.2 * k, -0.3 * k, 0.36 * k), c + P3(0.2 * k, -0.3 * k, 0.36 * k), argb(0x2A1810))
+        // a snarl: the mouth pulled open, a row of crooked yellow teeth, the fangs at its corners
+        line(c + P3(-0.2 * k, -0.28 * k, 0.37 * k), c + P3(0.2 * k, -0.28 * k, 0.37 * k), argb(0x1E0E0A))
+        line(c + P3(-0.17 * k, -0.33 * k, 0.36 * k), c + P3(0.17 * k, -0.33 * k, 0.36 * k), argb(0x3A1410))
+        for (t in -3..3) put(c + P3(t * 0.045 * k, -0.3 * k, 0.375 * k), if (t % 2 == 0) argb(0xC8B880) else argb(0x9A8A58))
+        // an old scar down over the left eye
+        line(c + P3(-0.2 * k, 0.16 * k, 0.33 * k), c + P3(-0.1 * k, -0.12 * k, 0.4 * k), mix(argb(skinRgb), argb(0xC09A80), 0.5))
     }
 
     // ---------------------------------------------------------------- skeleton

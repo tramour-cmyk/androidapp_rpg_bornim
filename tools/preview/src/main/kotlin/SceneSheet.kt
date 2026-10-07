@@ -1325,14 +1325,14 @@ fun renderFoeDrafts() {
     val W = 150; val H = 230; val px = 0.9
     val rest = HF.sequence(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, de.bornim.core.art.HeroFigure.Stance.MELEE)[0]
     // a goblin stoops, knees bent, head pushed forward
-    val stoop = rest.copy(lean = 0.42, crouch = 4.5, headDown = -2.5)
+    val stoop = de.bornim.core.art.HeroFigure.READY.copy(lean = 0.42, crouch = 4.5, headDown = -2.5, headTurn = 0.0)
     val yaws = listOf(-30.0, 0.0, -90.0, 160.0)
     val G = de.bornim.core.art.Doll.Creature.GOBLIN; val S = de.bornim.core.art.Doll.Creature.SKELETON
     val gob = { sex: de.bornim.core.Sex, skin: Int -> de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, sex, de.bornim.core.Build.AVERAGE, skin, 0, G) }
     val skel = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 0, 0, S)
     val human = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 0)
-    val gobKit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.ROGUE, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("scimitar"), de.bornim.core.GearSlot.CHEST to g("leather")))
-    val skelKit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("shortsword")))
+    val gobKit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.ROGUE, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("scimitar"), de.bornim.core.GearSlot.CHEST to g("leather"), de.bornim.core.GearSlot.OFF_HAND to g("round_shield")), rusty = true, crude = true)
+    val skelKit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("shortsword"), de.bornim.core.GearSlot.HEAD to g("helmet")), rusty = true)
     val heroKit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("longsword"), de.bornim.core.GearSlot.CHEST to g("chain_shirt"), de.bornim.core.GearSlot.OFF_HAND to g("shield")))
     data class Cell(val doll: de.bornim.core.art.Doll, val rig: de.bornim.core.art.HeroFigure.Rig, val kit: de.bornim.core.art.Outfit?)
     val rows = listOf(
@@ -1365,11 +1365,11 @@ fun renderFoeInScene() {
     val hero = de.bornim.core.Hero.create("Borin", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER)
     val heroImg = B.frame(hero, de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, 0)
     val rest = HF.sequence(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, de.bornim.core.art.HeroFigure.Stance.MELEE)[0]
-    val stoop = rest.copy(lean = 0.42, crouch = 4.5, headDown = -2.5)
+    val stoop = de.bornim.core.art.HeroFigure.READY.copy(lean = 0.42, crouch = 4.5, headDown = -2.5, headTurn = 0.0)
     val gob = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 0, de.bornim.core.art.Doll.Creature.GOBLIN)
     val skel = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 0, 0, de.bornim.core.art.Doll.Creature.SKELETON)
-    val gobKit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.ROGUE, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("scimitar"), de.bornim.core.GearSlot.CHEST to g("leather")))
-    val skelKit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("shortsword")))
+    val gobKit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.ROGUE, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("scimitar"), de.bornim.core.GearSlot.CHEST to g("leather"), de.bornim.core.GearSlot.OFF_HAND to g("round_shield")), rusty = true, crude = true)
+    val skelKit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("shortsword"), de.bornim.core.GearSlot.HEAD to g("helmet")), rusty = true)
     // the foe stands further off than the hero: a little smaller per centimetre
     val foePx = 0.66
     val fw = 150; val fh = 200

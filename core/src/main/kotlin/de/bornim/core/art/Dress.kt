@@ -16,8 +16,11 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sqrt
 
-/** What a hero wears and holds, slot by slot. */
-class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>) {
+/**
+ * What a hero wears and holds, slot by slot. A foe's gear can be [rusty] (old iron, flaking brown) or [crude]
+ * (a shield of bare nailed planks): a look only, not a kind of item.
+ */
+class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Boolean = false, val crude: Boolean = false) {
     fun base(slot: GearSlot): String? = items[slot]?.base
     fun rarity(slot: GearSlot): Rarity = items[slot]?.rarity ?: Rarity.COMMON
     val twoHands: Boolean get() = items[GearSlot.MAIN_HAND]?.def?.let { it.twoHanded && !it.ranged } == true
@@ -39,7 +42,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     private val look = CharacterArt.heroLook(d.race, o.cls)
     private fun worn(rgb: Int, k: Double = 0.38) = mix(rgb, argb(0x3A3632), k)
     private fun m(rgb: Int, shine: Double = 0.0, grain: Double = 0.0, bias: Double = 0.0) = Mat(Ramp.of(rgb), shine, grain, bias)
-    private fun metal(r: Rarity, bias: Double = 0.0) = m(mix(argb(0x868E98), r.color.toInt(), if (r >= Rarity.RARE) 0.16 else 0.0), shine = 0.9, bias = bias - 0.04)
+    private fun metal(r: Rarity, bias: Double = 0.0) = if (o.rusty) m(argb(0x6A5444), shine = 0.25, grain = 0.55, bias = bias - 0.04)
+        else m(mix(argb(0x868E98), r.color.toInt(), if (r >= Rarity.RARE) 0.16 else 0.0), shine = 0.9, bias = bias - 0.04)
     private val darkSteel = m(argb(0x6E7680), shine = 0.6)
     private val leather = m(argb(0x6A4A32), grain = 0.07)
     private val darkLeather = m(argb(0x3E2C22), grain = 0.05)
@@ -48,7 +52,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     private val cloth = m(worn(look.cloth), grain = 0.05)
     private val clothDark = m(worn(look.clothDark, 0.45), grain = 0.05)
     private val pants = m(worn(look.pants, 0.3), grain = 0.05)
-    private fun chain(r: Rarity) = m(mix(argb(0x8A9098), r.color.toInt(), if (r >= Rarity.RARE) 0.12 else 0.0), shine = 0.4, grain = 0.45)
+    private fun chain(r: Rarity) = if (o.rusty) m(argb(0x5E4A3C), shine = 0.2, grain = 0.6) else m(mix(argb(0x8A9098), r.color.toInt(), if (r >= Rarity.RARE) 0.12 else 0.0), shine = 0.4, grain = 0.45)
     private fun cloakColor(r: Rarity) = worn(argb(when (r) {
         Rarity.COMMON -> 0x5A4A3A; Rarity.UNCOMMON -> 0x3E5A3A; Rarity.RARE -> 0x34486E; Rarity.VERY_RARE -> 0x5A3A6E; Rarity.EPIC -> 0x7A4A22; Rarity.DIVINE -> 0x8A7A3A
     }), 0.3)
@@ -94,6 +98,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         // creatures bring their own: a goblin's rag, a skeleton's bare bones
         if (d.kind == null) clothes()
         armour()
+        if (d.kind == Doll.Creature.GOBLIN) furMantle()
         arms()
         // a creature goes barefoot and beltless unless it wears something there
         if (d.kind == null || o.items[GearSlot.LEGS] != null) legs()
@@ -256,6 +261,19 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         // a pouch on the right hip
         // the hips do not turn with the chest, so the pouch stays on the side
         add(Box(sk.lower.apply(P3(d.hipX * 1.85, d.hipY + 0.06 * h, 0.0)), P3(0.012 * h, 0.03 * h, 0.022 * h), Frame.IDENTITY, 1.0, BodyPart.GEAR, Doll.TRIM), leather)
+    }
+
+    /** A goblin's mangy pelt over the shoulders, tied at the chest, its lower edge ragged. */
+    private fun furMantle() {
+        val fur = m(argb(0x2E2620), grain = 0.7)
+        val furLight = m(argb(0x4A3C30), grain = 0.7)
+        val edge = d.shoulderY - 0.42 * d.trunk
+        val paint: (P3) -> Mat = { p -> if (frac(p.x * 0.7 + p.y * 0.3) < 0.35) furLight else fur }
+        for (b in bones("torso")) add(Shell(b, 2.6, BodyPart.GEAR, Doll.CLOAK), fur, paint, b.rest).also {
+            // ragged: the cut tilts a little each way round the body
+            it.cut(-upN, upY(edge))
+        }
+        for (i in 0..1) shell(2.2, armGroup(i, Doll.CLOTH), fur, "delt$i", paint = paint)
     }
 
     // ---------------------------------------------------------------- arms and legs
@@ -635,7 +653,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         // a round shield is held by the middle, the fist behind the boss
         val hw = (if (tower) 0.2 else if (round) 0.175 else 0.165) * h
         val ht = (if (tower) 0.6 else if (round) 0.35 else 0.41) * h
-        val center = el.lerp(wr, if (round) 0.75 else 0.55) + n * (0.02 * h)
+        // big hands need the board further off the forearm, or the fist comes through it
+        val center = el.lerp(wr, if (round) 0.75 else 0.55) + n * (0.02 * h + (if (d.kind != null) (d.handK - 1).coerceAtLeast(0.0) * 0.06 * h else 0.0))
         val strapY = if (tower) ht / 6 else if (round) 0.0 else ht * 0.42 - ht / 3
         val outline: (Double, Double) -> Double = when {
             tower -> { x, y -> roundRect(x, y + 0.0, hw, ht / 2, 0.03 * h) }
@@ -644,6 +663,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         }
         val c0 = center - up * strapY
         val paintRgb = when {
+            // a crude shield is bare planks, grey with age
+            o.crude -> argb(0x5A4632)
             r >= Rarity.RARE -> worn(mix(argb(if (round) 0xE8E0C8 else 0x7A2A22), r.color.toInt(), 0.45), 0.15)
             // the round shield of a servant of the gods: pale, with a golden sun on it
             round -> worn(argb(0xE4DCC4), 0.15)
@@ -662,6 +683,12 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             val edge = outline(l.x, l.y)
             when {
                 edge > -0.02 * h -> rim
+                // nailed planks on both faces, a crack here and there, an iron band across
+                l.z > 0 && o.crude -> when {
+                    abs(l.y - 0.02 * h) < 0.012 * h -> rim
+                    frac(l.x / (0.055 * h)) < 0.1 -> planks.copy(bias = -0.25)
+                    else -> face.copy(grain = 0.3)
+                }
                 l.z > 0 && round -> {
                     // a ring round the boss and rays running out from it
                     val rr = sqrt(l.x * l.x + l.y * l.y)
@@ -675,7 +702,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             }
         }
         // the iron boss in the middle of the face, gilt on the round shield
-        add(Ellipsoid(c0 + up * (ht * 0.0) + n * (0.012 * h), P3(0.035 * h, 0.035 * h, 0.022 * h), f, BodyPart.GEAR, Doll.ITEM), if (round && r < Rarity.RARE) gold else rim)
+        add(Ellipsoid(c0 + up * (ht * 0.0) + n * (0.012 * h), P3(0.035 * h, 0.035 * h, 0.022 * h), f, BodyPart.GEAR, Doll.ITEM), if (round && r < Rarity.RARE && !o.crude) gold else rim)
     }
 
     /** The shield's board once [solids] has run, for checks. */
@@ -742,9 +769,18 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             val z = hz + (tz - hz) * t
             val at = y * w + x
             if (img.depth[at] > z + 0.8) continue
-            img.img.set(x, y, p)
+            img.img.set(x, y, if (o.rusty) rusted(p) else p)
             img.depth[at] = z
         }
+    }
+
+    /** Old iron: grey and bright steel turned to flaking brown, wood and leather left as they are. */
+    private fun rusted(p: Int): Int {
+        val r = (p shr 16) and 255; val g = (p shr 8) and 255; val b = p and 255
+        val mx = maxOf(r, g, b); val mn = minOf(r, g, b)
+        if (mx - mn > 40 || mx < 60) return p
+        val k = 0.55 + 0.25 * (((r * 7 + g * 13 + b) % 5) / 4.0)
+        return mix(p, argb(0x7A4E30), k * 0.6).let { mix(it, argb(0x2A2018), 0.12) }
     }
 
     companion object {
