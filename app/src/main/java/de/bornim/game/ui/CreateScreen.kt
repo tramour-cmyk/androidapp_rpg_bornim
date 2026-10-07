@@ -83,7 +83,7 @@ fun CreateScreen(vm: GameViewModel) {
             Panel(Modifier.fillMaxWidth()) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     val preview = Hero.create(name.ifBlank { "?" }, race, cls, bought).also { it.sex = sex; it.build = build; it.skin = skin; it.hair = hair }
-                    HeroTurntable(preview, "$race/$cls/$sex/$build/$skin/$hair", 0.75.dp)
+                    HeroTurntable(preview, "$race/$cls/$sex/$build/$skin/$hair", 0.75.dp, fill = false)
                     Spacer(Modifier.width(12.dp))
                     HeroSummary(preview, lang)
                 }

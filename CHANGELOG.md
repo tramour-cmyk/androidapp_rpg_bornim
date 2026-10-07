@@ -10,6 +10,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Der Kleriker startet mit mannshohem Kampfstab und Rundschild mit goldener Sonne statt Streitkolben und Wappenschild; Rundschilde gibt es auch als Beute (gleiche Werte wie der Schild). Mit Stab und Schild blockt er mit dem Schild, der Stab bleibt aufrecht stehen, und Flaschen wirft er mit der Schildhand.
 - Der Wappenrock des Klerikers trägt die goldene Sonne auf Brust und Rücken. Alte Spielstände: unveränderter Streitkolben und Schild eines Klerikers werden beim Laden zu Kampfstab und Rundschild; verbesserte oder gefundene Stücke bleiben.
 - Neue Liste [Offen](docs/OFFEN.md): was gerade in Arbeit, zu testen oder zu entscheiden ist.
+- Die Heldenfigur steht in Menüs, Ausrüstungsbild, Titelbild und Spielständen mittig und wird für jedes Volk gleich groß gezeichnet, so ist auch ein Halbling gut zu sehen. Bei der Erstellung bleibt sie maßstabsgetreu (Halbling klein, Halbork groß), steht aber ebenfalls mittig.
 - Abwehr nach Gegner: gegen Wölfe und anderes Getier mit tiefem Schild oder tiefer Zweihandparade, gegen große Gegner hoch; beim Zweihänder stützt der freie Unterarm die Waffe am Kopf ab.
 - Jede Waffe in wahrer Größe, Kleidung und Rüstung in Schichten, Umhang fällt über Rücken und schwingt nach. Schwungsound beim Schlag.
 - Bei der Heldenerschaffung wählbar: Geschlecht, Statur, Haut- und Haarton je Volk, mit drehender Vorschau. Die Körpergrößen folgen dem SRD (Halbling 60 % eines Menschen).

@@ -1284,3 +1284,20 @@ fun renderClericSun() {
     }
     ImageIO.write(out, "png", File("build/screens/cleric_sun.png"))
 }
+
+/** Every people in the picture as the menus show it (filled) and as the making of a hero does (true to scale), framed. */
+fun renderPortraitFill() {
+    val P = de.bornim.core.art.HeroPortrait
+    val races = de.bornim.core.Race.entries
+    val classes = listOf(de.bornim.core.CharClass.CLERIC, de.bornim.core.CharClass.FIGHTER, de.bornim.core.CharClass.ROGUE, de.bornim.core.CharClass.WIZARD, de.bornim.core.CharClass.CLERIC)
+    val out = BufferedImage(P.W * races.size, P.H * 2, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x3C3A36); g.fillRect(0, 0, out.width, out.height)
+    for ((row, fill) in listOf(true, false).withIndex()) for ((i, race) in races.withIndex()) {
+        val h = de.bornim.core.Hero.create("Rahmen$i", race, classes[i]).also { it.sex = if (i % 2 == 0) de.bornim.core.Sex.FEMALE else de.bornim.core.Sex.MALE; it.skin = i % 4; it.hair = (i + 1) % 4 }
+        val im = P.render(h, P.YAWS[0], fill)
+        for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(i * P.W + x, row * P.H + y, q) }
+        g.color = java.awt.Color(0x6A665E); g.drawRect(i * P.W, row * P.H, P.W - 1, P.H - 1)
+        g.drawLine(i * P.W, row * P.H + P.H / 2, i * P.W + 8, row * P.H + P.H / 2)
+    }
+    ImageIO.write(out, "png", File("build/screens/portrait_fill.png"))
+}

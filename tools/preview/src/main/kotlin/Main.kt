@@ -100,6 +100,7 @@ fun main() {
     if (System.getenv("TURN") != null) { renderTurntable(); System.exit(0) }
     if (System.getenv("TITLE") != null) { renderTitleHeroes(); System.exit(0) }
     if (System.getenv("CLERIC") != null) { renderClericShield(); System.exit(0) }
+    if (System.getenv("PORTFILL") != null) { renderPortraitFill(); System.exit(0) }
     if (System.getenv("CLERICSUN") != null) { renderClericSun(); System.exit(0) }
     if (System.getenv("HALFBLOCK") != null) { renderHalflingBlock(); System.exit(0) }
     if (System.getenv("CLERICCLASH") != null) { checkClericStaff(); System.exit(0) }
@@ -233,8 +234,8 @@ fun main() {
         g.enqueue(listOf(Cmd.Fight("wolf")))
         vm.refresh()
     }
-    fun geared(vm: GameViewModel, cls: CharClass) {
-        vm.newGame("Thora", Race.DWARF, cls)
+    fun geared(vm: GameViewModel, cls: CharClass, race: Race = Race.DWARF) {
+        vm.newGame("Thora", race, cls)
         val g = vm.game!!
         g.skipDialogs()
         val s = g.state
@@ -249,6 +250,8 @@ fun main() {
         s.hero.restoreFully()
     }
     shot("32_hero_gear") { vm -> geared(vm, CharClass.WIZARD); vm.menuOpen = true }
+    shot("33_hero_halfling") { vm -> geared(vm, CharClass.CLERIC, Race.HALFLING); vm.menuOpen = true }
+    shot("34_gear_halfling", taps = listOf(Offset(680f, 95f))) { vm -> geared(vm, CharClass.CLERIC, Race.HALFLING); vm.menuOpen = true }
     if (System.getenv("HERO") != null) System.exit(0)
     shot("14_gear_tab", taps = listOf(Offset(680f, 95f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }
     shot("15_bag_tab", taps = listOf(Offset(410f, 95f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }

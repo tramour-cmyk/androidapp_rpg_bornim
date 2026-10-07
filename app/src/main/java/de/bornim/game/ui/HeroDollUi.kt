@@ -21,10 +21,11 @@ import kotlinx.coroutines.withContext
 
 /**
  * The hero as the doll, slowly turning round; a tap turns it on by hand. The sides are drawn in the background and
- * shown as they come; [key] changes whenever the look or what is worn changes.
+ * shown as they come; [key] changes whenever the look or what is worn changes. [fill] draws every people as large,
+ * else true to scale.
  */
 @Composable
-fun HeroTurntable(hero: Hero, key: Any, px: Dp, modifier: Modifier = Modifier) {
+fun HeroTurntable(hero: Hero, key: Any, px: Dp, modifier: Modifier = Modifier, fill: Boolean = true) {
     var side by remember(key) { mutableIntStateOf(0) }
     val last = remember(key) { arrayOfNulls<PixelImage>(1) }
     var drawn by remember(key) { mutableIntStateOf(0) }
@@ -32,7 +33,7 @@ fun HeroTurntable(hero: Hero, key: Any, px: Dp, modifier: Modifier = Modifier) {
         withContext(Dispatchers.Default) {
             for (y in HeroPortrait.YAWS) {
                 if (!isActive) return@withContext
-                HeroPortrait.render(hero, y)
+                HeroPortrait.render(hero, y, fill)
                 drawn++
             }
         }
@@ -47,7 +48,7 @@ fun HeroTurntable(hero: Hero, key: Any, px: Dp, modifier: Modifier = Modifier) {
     // the side wanted if it is drawn, else the nearest one before it that is
     val want = HeroPortrait.YAWS.indices.map { (side - it).mod(HeroPortrait.YAWS.size) }
     drawn.hashCode()
-    val shown = want.firstNotNullOfOrNull { HeroPortrait.ready(hero, HeroPortrait.YAWS[it]) } ?: last[0]
+    val shown = want.firstNotNullOfOrNull { HeroPortrait.ready(hero, HeroPortrait.YAWS[it], fill) } ?: last[0]
     last[0] = shown
     Box(modifier.size(px * HeroPortrait.W, px * HeroPortrait.H).tap { side = (side + 3) % HeroPortrait.YAWS.size }, contentAlignment = Alignment.Center) {
         shown?.let { PixelSprite(it, px) }
