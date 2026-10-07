@@ -20,7 +20,7 @@ import kotlin.math.sqrt
  * What a hero wears and holds, slot by slot. A foe's gear can be [rusty] (old iron, flaking brown) or [crude]
  * (a shield of bare nailed planks): a look only, not a kind of item.
  */
-class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Boolean = false, val crude: Boolean = false) {
+class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Boolean = false, val crude: Boolean = false, val pelt: Boolean = false) {
     fun base(slot: GearSlot): String? = items[slot]?.base
     fun rarity(slot: GearSlot): Rarity = items[slot]?.rarity ?: Rarity.COMMON
     val twoHands: Boolean get() = items[GearSlot.MAIN_HAND]?.def?.let { it.twoHanded && !it.ranged } == true
@@ -28,6 +28,10 @@ class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Bool
 
     companion object {
         fun of(hero: Hero) = Outfit(hero.cls, GearSlot.entries.mapNotNull { s -> hero.item(s)?.let { s to it } }.toMap())
+
+        /** A foe's kit as an outfit to dress its doll in. */
+        fun of(kit: de.bornim.core.MonsterKit) = Outfit(CharClass.FIGHTER,
+            kit.items.mapValues { (_, base) -> Gear(0, base, Rarity.COMMON, 1) }, kit.rusty, kit.crude, kit.pelt)
     }
 }
 
@@ -98,7 +102,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         // creatures bring their own: a goblin's rag, a skeleton's bare bones
         if (d.kind == null) clothes()
         armour()
-        if (d.kind == Doll.Creature.GOBLIN) furMantle()
+        if (o.pelt) furMantle()
         arms()
         // a creature goes barefoot and beltless unless it wears something there
         if (d.kind == null || o.items[GearSlot.LEGS] != null) legs()
@@ -198,7 +202,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             }
         }
         // a tabard in the house colour over mail and plate of fighters and clerics
-        if ((heavy || medium) && chestBase != "scale_mail" && (o.cls == CharClass.FIGHTER || o.cls == CharClass.CLERIC)) tabard(if (plated) 2.8 else 1.6)
+        if (d.kind == null && (heavy || medium) && chestBase != "scale_mail" && (o.cls == CharClass.FIGHTER || o.cls == CharClass.CLERIC)) tabard(if (plated) 2.8 else 1.6)
     }
 
     /** Breast and back plate, pauldrons and tassets. */

@@ -1405,3 +1405,26 @@ fun renderFoeInScene() {
     ImageIO.write(out, "png", File("build/screens/foe_in_scene.png"))
     println("wrote foe in scene")
 }
+
+/** Every kit of goblin, goblin scout and skeleton, turned to the hero, two seeds each so skin tones vary as well. */
+fun renderFoeKits() {
+    val W = 120; val H = 200; val px = 0.9
+    val ids = listOf("goblin", "goblin_archer", "skeleton")
+    val out = BufferedImage(W * 6, H * ids.size, BufferedImage.TYPE_INT_RGB)
+    val gg = out.createGraphics(); gg.color = java.awt.Color(0x3C3A36); gg.fillRect(0, 0, out.width, out.height)
+    fun put(im: de.bornim.core.art.PixelImage, ox: Int, oy: Int) { for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(ox + x, oy + y, q) } }
+    for ((r, id) in ids.withIndex()) for (c in 0 until 6) {
+        val seed = c % 3 + 3 * (c / 3) * 5
+        val kit = de.bornim.core.MonsterKits.of(id, seed)!!
+        val creature = if (id == "skeleton") de.bornim.core.art.Doll.Creature.SKELETON else de.bornim.core.art.Doll.Creature.GOBLIN
+        val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, de.bornim.core.MonsterKits.tone(seed), 0, creature)
+        val stance = de.bornim.core.art.HeroFigure.stance(de.bornim.core.GearBases[kit.items.getValue(de.bornim.core.GearSlot.MAIN_HAND)])
+        val base = if (stance == de.bornim.core.art.HeroFigure.Stance.MELEE) de.bornim.core.art.HeroFigure.READY.copy(headTurn = 0.0)
+            else de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, stance)[0]
+        // goblins stoop and crouch; the dead stand stiff
+        val rig = (if (creature == de.bornim.core.art.Doll.Creature.GOBLIN) base.copy(lean = 0.42, crouch = 4.5, headDown = -2.5) else base).copy(yaw = -35.0)
+        put(doll.render(W, H, W / 2.0, H - 6.0, px, rig, de.bornim.core.art.Outfit.of(kit)).img, c * W, r * H)
+    }
+    ImageIO.write(out, "png", File("build/screens/foe_kits.png"))
+    println("wrote foe kits")
+}
