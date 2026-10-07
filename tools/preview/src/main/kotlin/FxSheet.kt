@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.offset
 import androidx.compose.ui.ImageComposeScene
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -44,4 +45,44 @@ fun renderFxSheet() {
     File("build/screens/fx_sheet.png").writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
     scene.close()
     println("wrote fx_sheet")
+}
+
+/** Grimfang springing out of a sacred flame (the save made) and caught in one (the save failed), as the battle shows it. */
+fun renderFlameDodge() {
+    val id = "dire_wolf"
+    val look = de.bornim.core.MonsterLook(3)
+    val frame = de.bornim.core.art.MonsterArt.battleFrame(id, look, de.bornim.core.art.Act.IDLE, 0, 0)
+    val px = 1.6f
+    val ts = listOf(0.15f, 0.35f, 0.55f, 0.75f)
+    val cw = 330; val ch = 300
+    val scene = ImageComposeScene(cw * ts.size, ch * 2, Density(1f)) {
+        Column(Modifier.background(Color(0xFF2A3A2A))) {
+            for (saved in listOf(true, false)) Row {
+                for (t in ts) androidx.compose.foundation.layout.Box(Modifier.size(cw.dp, ch.dp).background(Color(0xFF3A5A3A))) {
+                    val feetX = cw * 0.5f; val feetY = ch * 0.85f
+                    val seed = 11
+                    val side = if (seed % 2 == 0) 1 else -1
+                    val hop = if (saved) (kotlin.math.sin(t * Math.PI.toFloat()) * 26 * side) else 0f
+                    val fw = frame.width * px; val feet = (de.bornim.core.art.MonsterArt.groundLine(id) * px).toFloat()
+                    androidx.compose.foundation.layout.Box(Modifier.offset((feetX - fw / 2 + hop).dp, (feetY - feet).dp)) {
+                        de.bornim.game.ui.PixelSprite(frame, px.dp)
+                    }
+                    Canvas(Modifier.size(cw.dp, ch.dp)) {
+                        val enemy = Offset(feetX, feetY - feet * 0.55f)
+                        val hero = Offset(20f, ch.toFloat())
+                        val u = fw / 90
+                        if (saved) {
+                            val away = if (seed % 2 == 0) -1f else 1f
+                            drawFx(Fx(FxKind.SACRED_FLAME, false, false, seed), t, hero, Offset(enemy.x + away * 30 * u, enemy.y), u)
+                            drawFx(Fx(FxKind.DODGE, false, false, seed, FxKind.SACRED_FLAME), t, hero, enemy, u)
+                        } else drawFx(Fx(FxKind.SACRED_FLAME, false, false, seed), t, hero, enemy, u)
+                    }
+                }
+            }
+        }
+    }
+    val img = scene.render(0)
+    File("build/screens/flame_dodge.png").writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
+    scene.close()
+    println("wrote flame_dodge")
 }

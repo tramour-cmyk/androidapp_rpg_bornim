@@ -16,6 +16,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Auch in Testkämpfen im Dorf und in den Häusern kämpft der Held als neue Figur, dort mit kurzem Schritt nach vorn.
 - Heldenerstellung: Figur und Werte bleiben oben stehen, nur die Eingaben darunter scrollen.
 - Auf der Karte trägt der Kleriker den Rundschild: hell mit goldener Sonne, von hinten Holz.
+- Heilige Flamme ist auch zu sehen, wenn der Gegner ausweicht: Sie schlägt neben ihm ein, während er zur Seite springt, mit ihrem Klang. Bisher sah man dann nur das Ausweichen, als wäre der Zauber ausgeblieben.
 - Abwehr nach Gegner: gegen Wölfe und anderes Getier mit tiefem Schild oder tiefer Zweihandparade, gegen große Gegner hoch; beim Zweihänder stützt der freie Unterarm die Waffe am Kopf ab.
 - Jede Waffe in wahrer Größe, Kleidung und Rüstung in Schichten, Umhang fällt über Rücken und schwingt nach. Schwungsound beim Schlag.
 - Bei der Heldenerschaffung wählbar: Geschlecht, Statur, Haut- und Haarton je Volk, mit drehender Vorschau. Die Körpergrößen folgen dem SRD (Halbling 60 % eines Menschen).

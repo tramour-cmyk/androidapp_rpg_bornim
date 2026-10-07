@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 12:19 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 12:32 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -25,6 +25,7 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 - **Abwehr:** Untermenü „Angreifen/Abwehr“, Konter-Hinweis; danach fließender Übergang in den nächsten Zug.
 - **Karte:** Kleriker mit Rundschild (hell, goldene Sonne).
 - **Heldenerstellung:** Figur und Werte bleiben oben stehen, nur die Eingaben darunter scrollen.
+- **Heilige Flamme:** bei Treffer mitten auf dem Gegner, beim Ausweichen schlägt sie neben ihm ein (bei allen Gegnern, auch Grimmzahn, Krogg, Grak).
 - **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
 
 ## Zu entscheiden

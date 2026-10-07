@@ -71,8 +71,8 @@ fun fxDuration(kind: FxKind): Int = when (kind) {
 /** The sound for a battle message. */
 fun soundFor(step: Step): Sound? {
     step.fx?.let { fx ->
-        // a bolt or arrow that goes wide still sounds as it is let go
-        if ((fx.kind == FxKind.DODGE) && fx.past in FLYING) return kindSound(fx.past!!, false)
+        // a bolt or arrow that goes wide, or a flame the foe springs out of, still sounds as it is let go
+        if (fx.kind == FxKind.DODGE && fx.past != null) return kindSound(fx.past!!, false)
         return kindSound(fx.kind, fx.crit)
     }
     return when (step.anim) {
@@ -94,12 +94,14 @@ fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, m
     if (fx == null) return
     // a miss with something flying: the bolt goes wide past the target, which then dodges
     val wide = fx.past?.takeIf { it in FLYING && (fx.kind == FxKind.DODGE || fx.kind == FxKind.BLOCK) }
+    // a spell that falls on the spot, like the sacred flame: it strikes where the foe stood as it springs aside
+    val onSpot = fx.past?.takeIf { it !in FLYING && fx.kind == FxKind.DODGE }
     val progress = remember(key) { Animatable(0f) }
     // a spell or shot waits for the frame on which the hero lets it go
     var started by remember(key) { androidx.compose.runtime.mutableStateOf(startDelay <= 0L) }
     LaunchedEffect(key) {
         if (startDelay > 0) { kotlinx.coroutines.delay(startDelay); started = true }
-        progress.animateTo(1f, tween(fxDuration(wide ?: fx.kind), easing = LinearEasing))
+        progress.animateTo(1f, tween(fxDuration(wide ?: onSpot ?: fx.kind), easing = LinearEasing))
     }
     val p = progress.value
     if (!started || p >= 1f) return
@@ -107,6 +109,13 @@ fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, m
         val target = if (fx.onHero) hero else enemy
         val source = if (fx.onHero) enemy else hero
         val u = unit * (if (fx.crit) 1.35f else 1f)
+        if (onSpot != null) {
+            // the foe hops to one side (see the battle screen's dodge): the flame comes down a little to the other
+            val away = if (fx.seed % 2 == 0) -1f else 1f
+            drawFx(Fx(onSpot, fx.onHero, false, fx.seed), p, source, Offset(target.x + away * 30 * u, target.y), u)
+            drawFx(fx, p, source, target, u)
+            return@Canvas
+        }
         if (wide == null) { drawFx(fx, p, source, target, u); return@Canvas }
         // past the target and on behind it, to one side; a shield stops it where it is
         val dx = target.x - source.x; val dy = target.y - source.y
