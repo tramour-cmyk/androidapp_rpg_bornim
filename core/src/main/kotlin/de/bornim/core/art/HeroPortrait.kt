@@ -14,14 +14,14 @@ object HeroPortrait {
     /** Art pixels per centimetre. */
     const val PX = 0.9
 
-    /** The sides it is turned to, one after the other: half towards us first. */
-    val YAWS = listOf(20.0, 60.0, 100.0, 140.0, 180.0, 220.0, 260.0, 300.0, 340.0)
+    /** The sides it is turned to, one after the other in small steps so the turn runs smooth: half towards us first. */
+    val YAWS = List(24) { (20.0 + it * 15.0) % 360.0 }
 
     private fun look(hero: Hero) = "${hero.race}/${hero.sex}/${hero.build}/${hero.skinTone}/${hero.hairTone}/${hero.cls}/" +
         de.bornim.core.GearSlot.entries.joinToString(",") { s -> hero.item(s)?.let { "${it.base}:${it.rarity}" } ?: "-" }
 
     private val cache = object : LinkedHashMap<String, PixelImage>(32, 0.75f, true) {
-        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > 40
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > 60
     }
 
     /** The hero turned to [yaw], drawn now if need be (about a twentieth of a second). */

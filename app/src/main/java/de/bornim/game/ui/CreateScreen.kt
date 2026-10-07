@@ -82,13 +82,8 @@ fun CreateScreen(vm: GameViewModel) {
             // Preview
             Panel(Modifier.fillMaxWidth()) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    val facing = Facing.entries[((time / 900) % 4).toInt()]
-                    val step = ((time / 220) % 4).toInt().let { if (it == 1) 1 else if (it == 3) 2 else 0 }
                     val preview = Hero.create(name.ifBlank { "?" }, race, cls, bought).also { it.sex = sex; it.build = build; it.skin = skin; it.hair = hair }
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        HeroTurntable(preview, "$race/$cls/$sex/$build/$skin/$hair", 0.75.dp)
-                        PixelImageView(CharacterArt.hero(preview, facing, step), 48.dp)
-                    }
+                    HeroTurntable(preview, "$race/$cls/$sex/$build/$skin/$hair", 0.75.dp)
                     Spacer(Modifier.width(12.dp))
                     HeroSummary(preview, lang)
                 }

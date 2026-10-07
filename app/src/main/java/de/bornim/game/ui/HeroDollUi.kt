@@ -39,7 +39,8 @@ fun HeroTurntable(hero: Hero, key: Any, px: Dp, modifier: Modifier = Modifier) {
     }
     LaunchedEffect(key) {
         while (true) {
-            delay(1400)
+            // a full turn in about six seconds
+            delay(250)
             side = (side + 1) % HeroPortrait.YAWS.size
         }
     }
@@ -48,7 +49,7 @@ fun HeroTurntable(hero: Hero, key: Any, px: Dp, modifier: Modifier = Modifier) {
     drawn.hashCode()
     val shown = want.firstNotNullOfOrNull { HeroPortrait.ready(hero, HeroPortrait.YAWS[it]) } ?: last[0]
     last[0] = shown
-    Box(modifier.size(px * HeroPortrait.W, px * HeroPortrait.H).tap { side = (side + 1) % HeroPortrait.YAWS.size }, contentAlignment = Alignment.Center) {
+    Box(modifier.size(px * HeroPortrait.W, px * HeroPortrait.H).tap { side = (side + 3) % HeroPortrait.YAWS.size }, contentAlignment = Alignment.Center) {
         shown?.let { PixelSprite(it, px) }
     }
 }

@@ -97,6 +97,7 @@ fun main() {
     if (System.getenv("REACH") != null) { measureReach(); System.exit(0) }
     if (System.getenv("LAUNCH") != null) { renderLaunch(); System.exit(0) }
     if (System.getenv("WOUNDS") != null) { renderWounds(); System.exit(0) }
+    if (System.getenv("TURN") != null) { renderTurntable(); System.exit(0) }
     System.getenv("DUMP")?.let { dumpFrames(it); System.exit(0) }
     if (System.getenv("WEAPONS") != null) { measureWeapons(); renderWeaponSizes(); System.exit(0) }
     if (System.getenv("REACT") != null) { renderReactViews(); System.exit(0) }

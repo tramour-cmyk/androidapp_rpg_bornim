@@ -1143,3 +1143,17 @@ fun renderWounds() {
     println("wrote wounds")
 }
 
+
+/** The turning hero of the equipment menu, every side in order, written out for a moving picture. */
+fun renderTurntable() {
+    val P = de.bornim.core.art.HeroPortrait
+    val hero = de.bornim.core.GameState.newGame("Alrik", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER).hero
+    val dir = File("build/screens/turntable"); dir.deleteRecursively(); dir.mkdirs()
+    for ((i, y) in P.YAWS.withIndex()) {
+        val im = P.render(hero, y)
+        val b = BufferedImage(P.W * 2, P.H * 2, BufferedImage.TYPE_INT_RGB)
+        for (yy in 0 until P.H * 2) for (x in 0 until P.W * 2) { val q = im[x / 2, yy / 2]; b.setRGB(x, yy, if ((q ushr 24) >= 128) q else 0x3C3A36) }
+        ImageIO.write(b, "png", File(dir, "f%03d.png".format(i)))
+    }
+    println("wrote turntable")
+}
