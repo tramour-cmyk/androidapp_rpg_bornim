@@ -92,14 +92,19 @@ object FoeArt {
                 // a quick snap shot, barely drawn
                 Seq(tween(r to 2, HeroFigure.BOW_NOCK to 2, HeroFigure.BOW_AIM.copy(rh = V(8.0, 92.0, 8.0)) to 3, HeroFigure.BOW_RELEASE to 2, HeroFigure.BOW_RELEASE to 3, r to 2), 7),
             )
-            Style.SPEAR -> listOf(
-                Seq(tween(r to 3, THRUST_W to 5, THRUST_H to 3, THRUST_H.copy(trail = 0.0) to 5, r to 1), 8),
-                // low, at the legs, from a crouch
-                Seq(tween(r to 3, THRUST_W.copy(crouch = 5.0) to 5, THRUST_H.copy(crouch = 7.0, rh = V(7.0, 70.0, 40.0), weapon = V(0.45, -0.15, 0.85)) to 3,
-                    THRUST_H.copy(crouch = 7.0, rh = V(7.0, 70.0, 40.0), weapon = V(0.45, -0.15, 0.85), trail = 0.0) to 5, r to 1), 8),
-                // raised over the head and driven down
-                Seq(tween(r to 2, HeroFigure.SMASH_RAISE to 2, HeroFigure.SMASH_WIND to 4, HeroFigure.SMASH_OVER to 2, HeroFigure.SMASH_HIT to 3, HeroFigure.SMASH_HIT.copy(trail = 0.0) to 5, r to 1), 10),
-            )
+            Style.SPEAR -> {
+                val lowW = HeroFigure.SPEAR_LOW_WIND; val lowH = HeroFigure.SPEAR_LOW_HIT
+                // at the legs: from a crouch, the point a little down
+                val legsH = lowH.copy(crouch = 8.0, rh = V(7.0, 58.0, 40.0), weapon = V(-0.03, -0.18, 0.98))
+                val highH = HeroFigure.SPEAR_HIGH_HIT
+                listOf(
+                    // from below, level at the body
+                    Seq(tween(r to 3, lowW to 5, lowH to 3, lowH.copy(trail = 0.0) to 5, r to 1), 8),
+                    Seq(tween(r to 3, lowW.copy(crouch = 5.0) to 5, legsH to 3, legsH.copy(trail = 0.0) to 5, r to 1), 8),
+                    // over the shoulder like a javelin, forward and a little down
+                    Seq(tween(r to 2, HeroFigure.SPEAR_HIGH_RAISE to 2, HeroFigure.SPEAR_HIGH_WIND to 4, HeroFigure.SPEAR_HIGH_DRIVE to 2, highH to 3, highH.copy(trail = 0.0) to 5, r to 1), 10),
+                )
+            }
             Style.TWO_BLADES -> {
                 // the off-hand blade stabs in under the main one
                 // the main blade held out to its side, clear of the head, while the dagger goes in
@@ -113,7 +118,8 @@ object FoeArt {
             }
             Style.BLADE -> listOf(
                 Seq(tween(r to 3, HeroFigure.SLASH_WIND to 4, HeroFigure.SLASH_OVER to 2, HeroFigure.SLASH_HIT to 3, HeroFigure.SLASH_FOLLOW to 5, r to 1), 9),
-                Seq(tween(r to 2, HeroFigure.SMASH_RAISE to 2, HeroFigure.SMASH_WIND to 4, HeroFigure.SMASH_OVER to 2, HeroFigure.SMASH_HIT to 3, HeroFigure.SMASH_HIT.copy(trail = 0.0) to 5, r to 1), 10),
+                // the blade raised wide of the big head
+                Seq(tween(r to 2, HeroFigure.SMASH_RAISE.copy(rh = V(24.0, 96.0, 9.0)) to 2, HeroFigure.SMASH_WIND to 4, HeroFigure.SMASH_OVER to 2, HeroFigure.SMASH_HIT to 3, HeroFigure.SMASH_HIT.copy(trail = 0.0) to 5, r to 1), 10),
                 Seq(tween(r to 3, THRUST_W to 5, THRUST_H to 3, THRUST_H.copy(trail = 0.0) to 5, r to 1), 8),
             )
         }

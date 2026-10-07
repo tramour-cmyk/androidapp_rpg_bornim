@@ -160,6 +160,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         private val thumbR: P3
         /** The weapon sits fixed in the fist: forearm direction, leaned towards the thumb by the grip angle. */
         val weapon: P3
+        /** Which way the main weapon's edge (an axe's bit, a hammer's face) looks, square to [weapon]. */
+        val edge: P3
         init {
             val k = Array(2) { P3.O }; val e = Array(2) { P3.O }; val w = Array(2) { P3.O }
             for (i in 0..1) {
@@ -199,6 +201,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             val ga = Math.toRadians(rig.grip)
             val held = (fore * kotlin.math.cos(ga) + t * kotlin.math.sin(ga)).norm()
             weapon = if (rig.aim > 0.01) held.lerp(dir(rig.weapon), rig.aim).norm() else held
+            // the edge faces where the knuckles do: the forearm's way with the weapon upright in the fist, away from the thumb with it level
+            edge = (fore * kotlin.math.sin(ga) - t * kotlin.math.cos(ga)).let { it - weapon * (it dot weapon) }.let { if (it.len() < 1e-4) fore else it.norm() }
             run {
                 val i = 0
                 val handR = w[1] + fore * (0.035 * height * handK)
@@ -761,7 +765,6 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         // the lift moves the whole picture up, not the figure in its own space, so rays and light stay as they are
         val img = SdfRender.render(body + clothes, groups(sk), mat, w, h, ax, gr - lift * px * kotlin.math.cos(Math.toRadians(pitch)), px, rig.yaw, pitch, fallF = rig.fallF, fallS = rig.fallS)
         face(img, sk)
-        dress?.overlay(img)
         outline(img.img)
         dress?.glowHalo(img)
         return img
@@ -777,7 +780,9 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         var first: Pair<Skeleton, Triple<Dress, List<Solid>, List<Solid>>>? = null
         // the grip never changes; the forearm turns as little as it must, then the shield arm gives way
         for (nudge in 0..6) {
-            val base = if (nudge == 0) rig else rig.copy(lh = rig.lh + HeroFigure.V(-2.5 * nudge, 0.0, -1.0 * nudge), shieldFace = rig.shieldFace + HeroFigure.V(-0.15 * nudge, 0.0, 0.0))
+            // two hands on a long grip: both brought forward, off the belly; otherwise the shield arm gives way
+            val base = if (nudge == 0) rig else if (outfit.twoHands) rig.copy(rh = rig.rh + HeroFigure.V(0.0, 0.0, 3.0 * nudge))
+                else rig.copy(lh = rig.lh + HeroFigure.V(-2.5 * nudge, 0.0, -1.0 * nudge), shieldFace = rig.shieldFace + HeroFigure.V(-0.15 * nudge, 0.0, 0.0))
             for (turn in ROLLS) {
                 val r = if (turn == 0.0) base else base.copy(roll = base.roll + turn)
                 val sk = Skeleton(r, shieldArm = shield, fists = true, twoHands = outfit.twoHands, weaponReach = outfit.base(de.bornim.core.GearSlot.MAIN_HAND)?.let(Dress::reach) ?: 90.0)

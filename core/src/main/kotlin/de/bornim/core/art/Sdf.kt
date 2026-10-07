@@ -124,6 +124,41 @@ class Ellipsoid(override val center: P3, val r: P3, val f: Frame = Frame.IDENTIT
     }
 }
 
+/**
+ * A flat blade, diamond in section: from [a] along [f]'s y for [len] cm, [w0] cm half wide across x at the base and [w1]
+ * near the point, [t0] to [t1] cm half thick along z. Over the last [tip] cm it narrows to a point ([round] above 1 for an
+ * ogive, 1 for straight sides, 0 for a square end). [curve] cm bends its middle line towards x by the point, as a sabre's.
+ */
+class Blade(
+    val a: P3, val f: Frame, val len: Double, val w0: Double, val w1: Double, val t0: Double, val t1: Double,
+    val tip: Double, val round: Double = 1.0, val curve: Double = 0.0, part: BodyPart = BodyPart.GEAR, group: Int,
+) : Solid(part, group) {
+    override val center = a + f.y * (len / 2) + f.x * (curve / 2)
+    private val wMax = max(w0, w1) + abs(curve) / 2 + 0.2
+    override val bound = sqrt((len / 2) * (len / 2) + wMax * wMax)
+    private val box = Box(center, P3(wMax, len / 2, max(t0, t1)), f, 0.0, part, group)
+    override fun raw(p: P3): Double {
+        val q = p - a
+        val y = q dot f.y
+        val yc = y.coerceIn(0.0, len)
+        val k = yc / len
+        val x = (q dot f.x) - curve * k * k
+        val z = q dot f.z
+        var w = w0 + (w1 - w0) * k
+        var t = t0 + (t1 - t0) * k
+        val inTip = yc - (len - tip)
+        if (tip > 0 && inTip > 0) {
+            val r = (1 - inTip / tip).coerceIn(0.0, 1.0)
+            val shape = if (round <= 0) 1.0 else Math.pow(r, 1.0 / round)
+            w *= shape; t *= 0.35 + 0.65 * shape
+        }
+        w = max(w, 0.05); t = max(t, 0.05)
+        val dd = (abs(x) / w + abs(z) / t - 1) * (w * t) / sqrt(w * w + t * t)
+        val dy = max(-y, y - len)
+        return max(max(dd * 0.8, dy), box.dist(p))
+    }
+}
+
 /** A cone with rounded ends: radius [ra] at [a], [rb] at [b]. Limbs, necks, tusks, grips. */
 class RoundCone(val a: P3, val b: P3, val ra: Double, val rb: Double, part: BodyPart, group: Int) : Solid(part, group) {
     override val center = a.lerp(b, 0.5)

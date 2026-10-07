@@ -161,6 +161,20 @@ object HeroFigure {
     // and down: the whole body drops behind the blow, chest turning in, knees bending
     val SMASH_HIT = Rig(lean = 0.5, crouch = 4.5, stride = 8.0, rh = V(6.0, 69.0, 40.0), weapon = V(0.0, -0.65, 0.76), lh = V(-12.0, 66.0, 9.0), cloak = 2.5, trail = 1.0, twist = -15.0, grip = 18.0)
 
+    // the spear: thrust from below, held low and level, or driven down from over the shoulder like a javelin
+    // from below, drawn back: the hand at the hip, the shaft level along the side, the free hand forward
+    val SPEAR_LOW_WIND = Rig(lean = -0.12, crouch = 1.5, stride = 3.0, rh = V(17.0, 58.0, -6.0), weapon = V(0.04, 0.0, 1.0), lh = V(-6.0, 64.0, 20.0), twist = 28.0, grip = 10.0, aim = 1.0)
+    // and in: a long step, the arm straight at waist height, the point level at the foe
+    val SPEAR_LOW_HIT = Rig(lean = 0.45, crouch = 3.0, stride = 11.0, rh = V(7.0, 64.0, 40.0), weapon = V(-0.03, 0.0, 1.0), lh = V(-14.0, 66.0, 8.0), cloak = 2.5, trail = 0.6, twist = -22.0, grip = 10.0, aim = 1.0)
+    // over the shoulder: the spear lifted to the shoulder, point forward
+    val SPEAR_HIGH_RAISE = Rig(lean = -0.05, stride = 2.0, rh = V(19.0, 90.0, 4.0), weapon = V(0.05, 0.3, 0.95), lh = V(-8.0, 70.0, 14.0), elbowUp = 0.6, elbowAt = V(26.0, 88.0, -2.0), twist = 12.0, grip = 10.0, aim = 1.0)
+    // cocked like a javelin: the hand high beside the head and drawn back, the elbow up, the free arm reaching at the foe
+    val SPEAR_HIGH_WIND = Rig(lean = -0.22, bodyY = -1.0, stride = 4.0, rh = V(18.0, 100.0, -10.0), weapon = V(0.04, 0.08, 1.0), lh = V(-10.0, 80.0, 24.0), elbowUp = 1.0, elbowAt = V(28.0, 92.0, -10.0), twist = 32.0, grip = 10.0, aim = 1.0, headTurn = -4.0)
+    // driving forward over the shoulder, the point tipping down
+    val SPEAR_HIGH_DRIVE = Rig(lean = 0.1, stride = 7.0, rh = V(14.0, 100.0, 14.0), weapon = V(0.0, -0.12, 0.99), lh = V(-12.0, 74.0, 14.0), elbowUp = 0.8, elbowAt = V(22.0, 94.0, 0.0), twist = 8.0, grip = 10.0, aim = 1.0, trail = 0.5)
+    // the blow: the hand still above the shoulder, far forward, the point forward and a little down into the foe
+    val SPEAR_HIGH_HIT = Rig(lean = 0.45, crouch = 2.5, stride = 10.0, rh = V(8.0, 94.0, 38.0), weapon = V(-0.02, -0.3, 0.95), lh = V(-14.0, 68.0, 6.0), cloak = 2.5, trail = 0.8, twist = -20.0, grip = 10.0, aim = 1.0, elbowUp = 0.4, elbowAt = V(16.0, 92.0, 16.0))
+
     // the archer's stance: chest turned side on, the bow shoulder towards the foe, the bow foot forward
     // nocking: the arrow laid on the string in front of the body
     val BOW_NOCK = Rig(stride = -7.0, spread = 7.0, twist = 35.0, rh = V(2.0, 80.0, 20.0), lh = V(-6.0, 80.0, 30.0), draw = 0.25, grip = 10.0)
@@ -257,13 +271,14 @@ object HeroFigure {
      * a crossbow carried in both hands with the point down, a staff stood upright beside the foot. Every sequence
      * starts and ends in it.
      */
-    enum class Stance { MELEE, BOW, CROSSBOW, STAFF }
+    enum class Stance { MELEE, BOW, CROSSBOW, STAFF, SPEAR }
 
     fun stance(main: de.bornim.core.GearBase?): Stance = when {
         main == null -> Stance.MELEE
         main.icon == Icon.BOW -> Stance.BOW
         main.ranged -> Stance.CROSSBOW
         main.icon == Icon.STAFF -> Stance.STAFF
+        main.id == "spear" -> Stance.SPEAR
         else -> Stance.MELEE
     }
     fun stance(hero: Hero): Stance = stance(hero.item(GearSlot.MAIN_HAND)?.def)
@@ -273,9 +288,9 @@ object HeroFigure {
     // the staff stood upright beside the foot, the hand round it at the hip, the other hand free
     val STAFF_REST = Rig(stride = 1.0, spread = 7.0, rh = V(19.0, 64.0, 8.0), weapon = V(0.03, 1.0, 0.06), lh = V(-15.0, 64.0, 5.0), grip = 70.0, aim = 1.0, freeHand = 1.0)
 
-    private fun restOf(st: Stance) = when (st) { Stance.MELEE -> STAND; Stance.BOW -> BOW_REST; Stance.CROSSBOW -> XBOW_LOW.copy(draw = 0.0); Stance.STAFF -> STAFF_REST }
+    private fun restOf(st: Stance) = when (st) { Stance.MELEE, Stance.SPEAR -> STAND; Stance.BOW -> BOW_REST; Stance.CROSSBOW -> XBOW_LOW.copy(draw = 0.0); Stance.STAFF -> STAFF_REST }
     /** The rest turned towards us, for the start of a fight. */
-    private fun readyOf(st: Stance) = if (st == Stance.MELEE) READY else restOf(st).copy(yaw = 16.0, headTurn = -8.0, twist = restOf(st).twist * 0.5)
+    private fun readyOf(st: Stance) = if (st == Stance.MELEE || st == Stance.SPEAR) READY else restOf(st).copy(yaw = 16.0, headTurn = -8.0, twist = restOf(st).twist * 0.5)
     private fun breath(r: Rig) = r.copy(bodyY = r.bodyY + 0.7, rh = r.rh + V(0.0, -0.6, 0.0), lh = r.lh + V(0.0, -0.6, 0.0), cloak = r.cloak + 1.0)
 
     /** Victory poses for those who carry no blade, facing us again. */
@@ -319,8 +334,11 @@ object HeroFigure {
             intro = breathe(ready, breath(ready)),
             seq = mapOf(
                 Strike.SLASH to tween(r to 3, SLASH_WIND to 4, SLASH_OVER to 2, SLASH_HIT to 3, SLASH_FOLLOW to 5, r to 1),
-                Strike.THRUST to tween(r to 3, THRUST_WIND to 5, THRUST_HIT to 3, THRUST_HIT.copy(trail = 0.0) to 5, r to 1),
-                Strike.SMASH to tween(r to 2, SMASH_RAISE to 2, SMASH_WIND to 4, SMASH_OVER to 2, SMASH_HIT to 3, SMASH_HIT.copy(trail = 0.0) to 5, r to 1),
+                // with a spear the thrust comes from below, the smash over the shoulder like a javelin
+                Strike.THRUST to if (st == Stance.SPEAR) SPEAR_LOW
+                    else tween(r to 3, THRUST_WIND to 5, THRUST_HIT to 3, THRUST_HIT.copy(trail = 0.0) to 5, r to 1),
+                Strike.SMASH to if (st == Stance.SPEAR) SPEAR_HIGH
+                    else tween(r to 2, SMASH_RAISE to 2, SMASH_WIND to 4, SMASH_OVER to 2, SMASH_HIT to 3, SMASH_HIT.copy(trail = 0.0) to 5, r to 1),
                 Strike.SHOOT to tween(r to 3, BOW_NOCK to 3, BOW_AIM to 4, BOW_AIM to 1, BOW_RELEASE to 2, BOW_RELEASE to 4, r to 2),
                 Strike.CAST to cast(1),
             ),
@@ -346,6 +364,10 @@ object HeroFigure {
             victories = wins.map { tween(r to 3, turning.copy(yaw = 70.0) to 7, it to 10) },
         )
     }
+    /** The spear's two blows from the rest, landing on the thrust's and the smash's strike frames. */
+    val SPEAR_LOW: List<Rig> get() = tween(STAND to 3, SPEAR_LOW_WIND to 5, SPEAR_LOW_HIT to 3, SPEAR_LOW_HIT.copy(trail = 0.0) to 5, STAND to 1)
+    val SPEAR_HIGH: List<Rig> get() = tween(STAND to 2, SPEAR_HIGH_RAISE to 2, SPEAR_HIGH_WIND to 4, SPEAR_HIGH_DRIVE to 2, SPEAR_HIGH_HIT to 3, SPEAR_HIGH_HIT.copy(trail = 0.0) to 5, STAND to 1)
+
     private val kits = java.util.concurrent.ConcurrentHashMap<Stance, Kit>()
     private fun kitOf(st: Stance) = kits.getOrPut(st) { kit(st) }
 
@@ -375,7 +397,7 @@ object HeroFigure {
         val w = hero.item(GearSlot.MAIN_HAND)?.def
         val shield = hero.item(GearSlot.OFF_HAND)?.def?.kind == de.bornim.core.BaseKind.SHIELD
         return when {
-            stance(w) != Stance.MELEE -> RANGED_VICTORY.getValue(stance(w)).indices.toList()
+            stance(w) != Stance.MELEE && stance(w) != Stance.SPEAR -> RANGED_VICTORY.getValue(stance(w)).indices.toList()
             w != null && w.twoHanded && !w.ranged -> listOf(0, 1, 2)
             // both hands on the hilt does not go with a shield on the arm
             shield -> listOf(0, 2, 3)
@@ -389,6 +411,8 @@ object HeroFigure {
         return when {
             w == null -> if (hero.cls == CharClass.WIZARD || hero.cls == CharClass.CLERIC) listOf(Strike.SMASH) else listOf(Strike.SMASH, Strike.THRUST)
             w.ranged -> listOf(Strike.SHOOT)
+            // a spear is not swung like a blade: thrust from below, or driven down over the shoulder
+            w.id == "spear" -> listOf(Strike.THRUST, Strike.SMASH)
             w.icon == Icon.DAGGER || w.icon == Icon.SPEAR -> listOf(Strike.THRUST, Strike.SLASH)
             w.icon == Icon.MACE || w.icon == Icon.HAMMER || w.icon == Icon.STAFF -> listOf(Strike.SMASH, Strike.SLASH)
             w.twoHanded -> listOf(Strike.SMASH, Strike.SLASH)

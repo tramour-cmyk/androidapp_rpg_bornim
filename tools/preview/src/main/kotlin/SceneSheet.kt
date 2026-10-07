@@ -414,7 +414,7 @@ fun checkClashes() {
                 if (raw != null) { rawBad++; byAct["${run.first}/${run.second}"] = (byAct["${run.first}/${run.second}"] ?: 0) + 1 }
                 val dress = doll.fit(rig, outfit).second!!.first
                 dress.weaponThroughShield()?.let { t -> bad++; if (bad <= 60) println("DURCH: ${race.name} $weapon ${run.first}/${run.second}/$variant Bild $i bei ${(t * 100).toInt()} %") }
-                dress.weaponThroughBody()?.let { t -> bodyBad++; bodyAct["${run.first}/${run.second}"] = (bodyAct["${run.first}/${run.second}"] ?: 0) + 1; if (bodyBad <= 20) println("KÖRPER: ${race.name} $weapon ${run.first}/${run.second}/$variant Bild $i bei ${(t * 100).toInt()} %") }
+                dress.weaponThroughBody()?.let { t -> bodyBad++; bodyAct["${run.first}/${run.second}"] = (bodyAct["${run.first}/${run.second}"] ?: 0) + 1; if (bodyBad <= 400) println("KÖRPER: ${race.name} $weapon ${run.first}/${run.second}/$variant Bild $i bei ${(t * 100).toInt()} % ${dress.lastClash}") }
             }
         }
     }
@@ -450,7 +450,7 @@ fun checkClashes() {
         for (run in runs) for ((i, rig) in F.sequence(run.first, run.second, run.third).withIndex()) {
             twoTotal++
             val dress = doll.fit(rig, outfit).second!!.first
-            dress.weaponThroughBody()?.let { t -> twoBad++; if (twoBad <= 10) println("ZWEIHAND: ${race.name} $weapon ${run.first}/${run.second}/${run.third} Bild $i bei ${(t * 100).toInt()} %") }
+            dress.weaponThroughBody()?.let { t -> twoBad++; if (twoBad <= 100) println("ZWEIHAND: ${race.name} $weapon ${run.first}/${run.second}/${run.third} Bild $i bei ${(t * 100).toInt()} % ${dress.lastClash}") }
         }
         if (weapon == "greatsword" || weapon == "greataxe") for ((pn, pr) in listOf("tief" to F.PARRY, "hoch" to F.PARRY_HIGH)) {
             val sk = doll.fit(pr, outfit).first
@@ -1447,7 +1447,7 @@ fun checkFoeClashes() {
                 total++
                 val dress = doll.fit(rig, o).second!!.first
                 val k = "$id/${seed % 3}/$act/$v"
-                dress.weaponThroughBody()?.let { t -> body++; where["K $k"] = (where["K $k"] ?: 0) + 1; if (body <= 15) println("KOERPER $id seed $seed $act/$v Bild $i bei ${(t * 100).toInt()} %") }
+                dress.weaponThroughBody()?.let { t -> body++; where["K $k"] = (where["K $k"] ?: 0) + 1; if (body <= 100) println("KOERPER $id seed $seed $act/$v Bild $i bei ${(t * 100).toInt()} % ${dress.lastClash}") }
                 dress.weaponThroughShield()?.let { t -> shield++; where["S $k"] = (where["S $k"] ?: 0) + 1; if (shield <= 15) println("SCHILD $id seed $seed $act/$v Bild $i bei ${(t * 100).toInt()} %") }
                 dress.offWeaponThroughBody()?.let { t -> body++; where["D $k"] = (where["D $k"] ?: 0) + 1; if (body <= 15) println("DOLCH $id seed $seed $act/$v Bild $i bei ${(t * 100).toInt()} %") }
             }
@@ -1550,8 +1550,8 @@ fun renderHeroSpear() {
     val B = de.bornim.core.art.HeroBattle
     val hero = de.bornim.core.Hero.create("Borin", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER)
     hero.gear[de.bornim.core.GearSlot.MAIN_HAND] = de.bornim.core.Gear(900, "spear", de.bornim.core.Rarity.COMMON, 1)
-    val runs = listOf(de.bornim.core.art.HeroFigure.Act.IDLE to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.ATTACK to de.bornim.core.art.HeroFigure.Strike.THRUST, de.bornim.core.art.HeroFigure.Act.ATTACK to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.BLOCK to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.HURT to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.AMBUSHED to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.VICTORY to de.bornim.core.art.HeroFigure.Strike.SLASH)
-    val cols = 7; val cw = 170; val ch = B.H.toInt()
+    val runs = listOf(de.bornim.core.art.HeroFigure.Act.IDLE to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.ATTACK to de.bornim.core.art.HeroFigure.Strike.THRUST, de.bornim.core.art.HeroFigure.Act.ATTACK to de.bornim.core.art.HeroFigure.Strike.SMASH, de.bornim.core.art.HeroFigure.Act.BLOCK to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.HURT to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.AMBUSHED to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.VICTORY to de.bornim.core.art.HeroFigure.Strike.SLASH)
+    val cols = 9; val cw = 150; val ch = B.H.toInt()
     val out = BufferedImage(cw * cols, ch * runs.size, BufferedImage.TYPE_INT_RGB)
     val g = out.createGraphics(); g.color = java.awt.Color(0x4A4C46); g.fillRect(0, 0, out.width, out.height); g.color = java.awt.Color(0xE0D8C0)
     for ((r, run) in runs.withIndex()) {
@@ -1566,4 +1566,52 @@ fun renderHeroSpear() {
     }
     ImageIO.write(out, "png", File("build/screens/hero_spear.png"))
     println("wrote hero spear")
+}
+
+/**
+ * The weapons built in the round, for a first look: each in the hand close up, then at battle size in rest, in a cut
+ * and in a thrust, the flat drawing (left) beside the solid (right).
+ */
+fun renderArms3d() {
+    val B = de.bornim.core.art.HeroBattle
+    val F = de.bornim.core.art.HeroFigure
+    val weapons = (System.getenv("ARMS3D") ?: "").split(",").filter { it.length > 2 }.ifEmpty {
+        listOf("dagger", "shortsword", "scimitar", "rapier", "longsword", "greatsword", "handaxe", "battleaxe", "greataxe", "mace", "warhammer", "maul", "halberd")
+    }
+    val cw = 240; val closeH = 400
+    val rows = listOf(
+        Triple(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, -1),
+        Triple(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SLASH, 9),
+        Triple(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SMASH, 10),
+        Triple(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.THRUST, 8))
+    val out = BufferedImage(cw * weapons.size, closeH + rows.size * B.H, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x4A4C46); g.fillRect(0, 0, out.width, out.height)
+    val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE)
+    for ((ci, w) in weapons.withIndex()) {
+        val hero = de.bornim.core.Hero.create("Borin", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER)
+        hero.gear[de.bornim.core.GearSlot.MAIN_HAND] = de.bornim.core.Gear(900, w, de.bornim.core.Rarity.COMMON, 1)
+        if (hero.gear[de.bornim.core.GearSlot.MAIN_HAND]!!.def.twoHanded) hero.gear.remove(de.bornim.core.GearSlot.OFF_HAND)
+        val o = B.outfit(hero)
+        // close up: held out upright to the side, turned a little towards us
+        val rig = F.VICTORY_POSES[0].copy(yaw = 35.0, rh = de.bornim.core.art.HeroFigure.V(26.0, 68.0, 14.0), weapon = de.bornim.core.art.HeroFigure.V(0.3, 1.0, 0.05))
+        val bare = de.bornim.core.art.Outfit(o.cls, o.items - de.bornim.core.GearSlot.OFF_HAND)
+        val big = doll.render(cw, 640, cw / 2.0 + 10, 630.0, 2.2, rig, bare).img
+        for (y in 0 until closeH) for (x in 0 until cw) { val q = big[x, y + 40]; if ((q ushr 24) >= 128) out.setRGB(ci * cw + x, y, q and 0xFFFFFF) }
+        for ((ri, row) in rows.withIndex()) {
+            val seq = B.frames(hero, row.first, row.second, 0)
+            val rg = seq[if (row.third < 0) 0 else row.third.coerceAtMost(seq.size - 1)]
+            for (solid in listOf(true)) {
+                val im = doll.render(B.W, B.H, B.ANCHOR_X, B.GROUND, B.PX, rg, o).img
+                val ox = ci * cw + (if (solid) cw / 2 else 0) - (B.ANCHOR_X.toInt() - cw / 4)
+                for (y in 0 until im.height) for (x in 0 until im.width) {
+                    val q = im[x, y]; val X = ox + x
+                    if ((q ushr 24) >= 128 && X in (ci * cw + (if (solid) cw / 2 else 0)) until (ci * cw + (if (solid) cw else cw / 2))) out.setRGB(X, closeH + ri * B.H + y, q and 0xFFFFFF)
+                }
+            }
+        }
+        g.color = java.awt.Color(0xF0E8D8); g.drawString(w, ci * cw + 4, 14)
+        g.color = java.awt.Color(0x6A6C66); g.drawLine(ci * cw, 0, ci * cw, out.height)
+    }
+    ImageIO.write(out, "png", File("build/screens/arms3d.png"))
+    println("wrote arms3d")
 }

@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 14:58 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 15:40 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -31,6 +31,8 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 - **Heldenerstellung:** Figur und Werte bleiben oben stehen, nur die Eingaben darunter scrollen.
 - **Heilige Flamme:** bei Treffer mitten auf dem Gegner, beim Ausweichen schlägt sie neben ihm ein (bei allen Gegnern, auch Grimmzahn, Krogg, Grak).
 - **Goblins und Skelette im Kampf:** verschiedene Ausrüstungen, Größen und Hauttöne; Angriffe, Treffer, Ausweichen und Zusammenbrechen in Varianten; Goblin-Späher schießt mit dem Bogen; der Speer des Skeletts ist räumlich und sticht schräg auf den Helden zu; Angriffsname im Text passt zur Waffe; ihre Schläge erreichen den Helden (Ausfallschritt).
+- **Waffen als Körper:** alle Nahkampfwaffen bei Held und Gegnern räumlich (Klinge, Parierstange, Knauf, Axtblatt, Kopf); in Ruhe, bei Hieb, Überkopfschlag und Stich gut erkennbar; rostige Gegnerwaffen grau mit Rostflecken.
+- **Speer:** Stoß von unten (waagerecht) und Stoß über Kopf (wie ein Speerwerfer) beim Helden mit Speer und beim Skelett.
 - **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
 
 ## Zu entscheiden

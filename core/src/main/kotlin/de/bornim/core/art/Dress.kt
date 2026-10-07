@@ -113,6 +113,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         bow()
         crossbow()
         staff()
+        arms3d()
         return out
     }
 
@@ -734,6 +735,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val len = reach(main.base)
         val hand = sk.hand(1)
         for (i in 0..40) { val t = i / 40.0; if (b.dist(hand + sk.weapon * (len * t)) < 0.6) return t }
+        if (partsThrough(mainArm, listOf(b), hand, 0.3)) return 1.01
         return null
     }
 
@@ -772,6 +774,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         // a staff reaches back past the hand as well
         val back = len * buttPart(main.base) - slide
         if (back > 0) for (i in 3..(40 * back / len).toInt()) { val t = i / 40.0; val p = hand - sk.weapon * (len * t); if (solid.any { it.dist(p) < -0.5 }) return -t }
+        // guards, bits and heads stand out beside the line
+        if (partsThrough(mainArm, solid, hand)) return 1.01
         return null
     }
 
@@ -794,6 +798,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val dir = offDir()
         val solid = body.filter { it.key !in setOf("hand0", "fore0", "upper0", "delt0") && it.part != BodyPart.HAIR }
         for (i in 4..40) { val t = i / 40.0; if (solid.any { it.dist(hand + dir * (len * t)) < -0.5 }) return t }
+        if (partsThrough(offArm, solid, hand)) return 1.01
         return null
     }
 
@@ -801,49 +806,244 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
 
     // ---------------------------------------------------------------- weapons, drawn over the doll
 
-    /** Draws the weapons into [img], pixel by pixel in front of or behind the doll. */
-    fun overlay(img: DepthImage) {
-        val main = o.items[GearSlot.MAIN_HAND]
-        if (main != null && !main.def.ranged && main.base !in ROUND) weapon(img, main.base, main.rarity, sk.hand(1), sk.weapon)
-        val off = o.items[GearSlot.OFF_HAND]
-        if (off != null && off.def.isWeapon && !o.twoHands) weapon(img, off.base, off.rarity, sk.hand(0), offDir())
-    }
+    // ---------------------------------------------------------------- blades, axes, maces and pole arms, built in the round
 
-    private fun weapon(img: DepthImage, base: String, r: Rarity, hand: P3, dir: P3) {
-        val w = img.img.width; val hgt = img.img.height
-        val layer = Sculpt(w, hgt, 31)
-        val (hx, hy, hz) = img.project(hand)
-        val (tx, ty, tz) = img.project(hand + dir * 20.0)
-        val dx = tx - hx; val dy = ty - hy
-        val len = sqrt(dx * dx + dy * dy)
-        // weapon drawings are in units of the old figure; small folk carry somewhat smaller arms
-        val (along, across) = proportion(base)
-        val k = img.px * 1.636 * sqrt(h / 175.0) * across
-        layer.transform(0.0, 0.0, k, k, hx, hy)
-        WeaponArt(layer).draw(base, r, hx, hy, Math.toDegrees(atan2(dy, dx)), 0.0, (len / (20.0 * img.px)).coerceIn(0.2, 1.15) * along / across)
-        val l2 = (dx * dx + dy * dy).coerceAtLeast(1e-6)
-        for (y in 0 until hgt) for (x in 0 until w) {
-            val p = layer.img[x, y]
-            if ((p ushr 24) < 128) continue
-            val t = ((x + 0.5 - hx) * dx + (y + 0.5 - hy) * dy) / l2
-            val z = hz + (tz - hz) * t
-            val at = y * w + x
-            if (img.depth[at] > z + 0.8) continue
-            img.img.set(x, y, if (o.rusty) rusted(p) else p)
-            img.depth[at] = z
+    /** The weapons in either hand that are not staves or bows, as solids: a blade's flat and edge, an axe's bit, all real. */
+    private fun arms3d() {
+        val main = o.items[GearSlot.MAIN_HAND]
+        if (main != null && !main.def.ranged && main.base !in ROUND)
+            mainArm = held(main.base, ownSolids, sk.hand(1), o.twoHands) { s, k -> arm(main.base, main.rarity, sk.hand(1), sk.weapon.norm(), sk.edge, s, k) }
+        val off = o.items[GearSlot.OFF_HAND]
+        if (off != null && off.def.isWeapon && !o.twoHands) {
+            val d0 = offDir()
+            val fore = (sk.wrist[0] - sk.elbow[0]).norm()
+            val e = (fore - d0 * (fore dot d0)).let { if (it.len() < 1e-3) P3.Y - d0 * (P3.Y dot d0) else it }.norm()
+            val free = body.filter { it.key !in setOf("hand0", "fore0", "upper0", "delt0") && it.part != BodyPart.HAIR }
+            offArm = held(off.base, free, sk.hand(0), false) { s, k -> arm(off.base, off.rarity, sk.hand(0), d0, e, s, k) }
         }
     }
 
-    /** Old iron: grey and bright steel turned to flaking brown, wood and leather left as they are. */
-    private fun rusted(p: Int): Int {
-        val r = (p shr 16) and 255; val g = (p shr 8) and 255; val b = p and 255
-        val mx = maxOf(r, g, b); val mn = minOf(r, g, b)
-        if (mx - mn > 40 || mx < 60) return p
-        val k = 0.55 + 0.25 * (((r * 7 + g * 13 + b) % 5) / 4.0)
-        return mix(p, argb(0x7A4E30), k * 0.6).let { mix(it, argb(0x2A2018), 0.12) }
+    /**
+     * Builds a weapon with [build], its grip slid forward through the fist (the hand nearer the pommel) as far as it
+     * must for the pommel and grip end to stay out of [solid]; a two-handed grip keeps room for both hands.
+     */
+    private fun held(base: String, solid: List<Solid>, hand: P3, two: Boolean, build: (Double, Double) -> Unit): List<Solid> {
+        val most = (GRIP_BACK[base] ?: 8.0) - (if (two) 13.0 else 4.5)
+        var first: List<Solid>? = null
+        // turned to show its flat as far as it can be, less if a guard or bit would turn into the body
+        for (turn in TURNS) {
+            var s = 0.0
+            while (true) {
+                val i0 = out.size
+                build(s, turn)
+                val parts = out.subList(i0, out.size).toList()
+                val behind = parts.filter { ((it.center - hand) dot sk.weapon) < 0 || it.bound > 15.0 }
+                if (s >= most || !partsThrough(behind, solid, hand, -0.5, backOnly = true)) {
+                    if (!partsThrough(parts, solid, hand)) { first?.let { f -> drop(f) }; return parts }
+                    if (first == null) first = parts else drop(parts)
+                    break
+                }
+                drop(parts)
+                s = minOf(most, s + 2.0)
+            }
+        }
+        return first!!
+    }
+
+    private fun drop(parts: List<Solid>) { out.removeAll(parts.toSet()) }
+
+    /** The solids of the weapon in each hand, as built: guards, heads and bits as well as the blade. */
+    private var mainArm: List<Solid> = emptyList()
+    /** What the last weapon part found in the way was, and where: for the collision checks. */
+    var lastClash = ""
+        private set
+    private var offArm: List<Solid> = emptyList()
+
+    /** Points inside a weapon part, spread along its length and across it, to test against the body. */
+    private fun samples(s: Solid): List<P3> = when (s) {
+        is Blade -> (0..12).flatMap { i ->
+            val k = i / 12.0; val y = s.len * k
+            val w = (s.w0 + (s.w1 - s.w0) * k) * (if (s.tip > 0 && y > s.len - s.tip) (s.len - y) / s.tip else 1.0)
+            listOf(-0.7, 0.0, 0.7).map { a -> s.a + s.f.y * y + s.f.x * (a * w + s.curve * k * k) }
+        }
+        is RoundCone -> (0..10).map { s.a.lerp(s.b, it / 10.0) }
+        is Ellipsoid -> listOf(s.center) + listOf(s.f.x * s.r.x, s.f.y * s.r.y, s.f.z * s.r.z).flatMap { v -> listOf(s.center + v * 0.7, s.center - v * 0.7) }
+        is Box -> listOf(s.center) + listOf(s.f.x * s.half.x, s.f.y * s.half.y, s.f.z * s.half.z).flatMap { v -> listOf(s.center + v * 0.8, s.center - v * 0.8) }
+        else -> listOf(s.center)
+    }
+
+    /** Whether any part of [parts] (but its grip, inside the fist) goes into one of [solid]. */
+    private fun partsThrough(parts: List<Solid>, solid: List<Solid>, hand: P3, within: Double = -0.5, backOnly: Boolean = false): Boolean {
+        for (part in parts) {
+            val near = solid.filter { (it.center - part.center).len() < it.bound + part.bound + 1.0 }
+            if (near.isEmpty()) continue
+            for (p in samples(part)) {
+                if ((p - hand).len() < 0.05 * h) continue
+                if (backOnly && ((p - hand) dot sk.weapon) > 0) continue
+                near.firstOrNull { it.dist(p) < within }?.let { lastClash = "${part.javaClass.simpleName}@${((p - hand) dot (sk.weapon)).toInt()}cm in ${it.key.ifEmpty { it.part.name }}"; return true }
+            }
+        }
+        return false
+    }
+
+    /**
+     * One weapon in the fist at [hand]: [d] runs from the hand to the point or head, [e] is where its edge (an axe's bit,
+     * a hammer's face) looks. Lengths are true to the weapon, in cm; small folk carry somewhat slimmer arms.
+     */
+    private fun arm(base: String, r: Rarity, hand: P3, d: P3, e0: P3, slide: Double = 0.0, turnK: Double = 1.0) {
+        // the weapon turned in the fist, by no more than a wrist allows, to show its flat rather than its edge to the onlooker
+        val cam = SdfView(sk.rig.yaw).toLocal(P3.Z)
+        val n0 = (d cross e0).norm()
+        val fa = n0 dot cam; val fb = -(e0 dot cam)
+        val sg = if (fa >= 0) 1.0 else -1.0
+        val turn = kotlin.math.atan2(fb * sg, fa * sg).coerceIn(-MAX_TURN, MAX_TURN) * turnK
+        val e = (e0 * kotlin.math.cos(turn) + n0 * kotlin.math.sin(turn)).norm()
+        val n = (d cross e).norm()
+        // true lengths, but blades and heads drawn broader than life and grips a little thicker, so they read at battle size
+        val c = sqrt(h / 175.0) * 1.15
+        val b = sqrt(h / 175.0) * BOLD
+        // polished steel catches light even on its shadowed side; old iron is dull grey eaten by blotches of rust
+        val steel = if (o.rusty) m(argb(0x7C7A76), shine = 0.45, grain = 0.3, bias = 0.06) else metal(r, 0.16)
+        val dark = metal(r, -0.06)
+        val rust = m(argb(0x5E4636), shine = 0.12, grain = 0.5)
+        // blotches a few centimetres across, fixed to the weapon so they move with it
+        val blotched: ((P3) -> Mat)? = if (!o.rusty) null else { p ->
+            val q = p - hand
+            val u = q dot d; val v = q dot e0; val w = q dot (d cross e0)
+            val k = kotlin.math.sin(u * 0.33 + 1.3) + kotlin.math.sin(u * 0.71 + v * 0.9 - 0.5) * 0.6 + kotlin.math.sin(v * 1.3 + w * 1.1 + 2.0) * 0.4
+            if (k > 0.55) rust else steel
+        }
+        val fit = if (r >= Rarity.RARE && !o.rusty) gold else dark
+        val wood = if (o.rusty) m(argb(0x4E463C), grain = 0.1) else m(argb(0x5A4030), grain = 0.08)
+        fun at(t: Double) = hand + d * (t + slide)
+        fun cone(a: P3, b: P3, ra: Double, rb: Double, mat: Mat, g: Int = Doll.TRIM) = add(RoundCone(a, b, ra * c, rb * c, BodyPart.GEAR, g), mat)
+        fun ball(p: P3, rx: Double, ry: Double, rz: Double, mat: Mat) = add(Ellipsoid(p, P3(rx * c, ry * c, rz * c), Frame(e, d, n), BodyPart.GEAR, Doll.TRIM), mat)
+        // a flat piece running from [from] along [y], its width across [x]; the fuller a darker groove down the middle
+        fun blade(from: P3, y: P3, x: P3, len: Double, w0: Double, w1: Double, t0: Double, t1: Double, tip: Double, round: Double = 1.0, curve: Double = 0.0, fuller: Double = 0.0, mat: Mat = steel) {
+            val xx = (x - y * (x dot y)).norm()
+            val f = Frame(xx, y, (xx cross y).norm())
+            val groove = if (fuller > 0) dark else null
+            val surface: (P3) -> Mat = { p -> if (mat === steel && blotched != null) blotched(p) else mat }
+            add(Blade(from, f, len, w0 * b, w1 * b, t0 * b, t1 * b, tip, round, curve, BodyPart.GEAR, Doll.ITEM), mat,
+                paint = if (groove == null && blotched == null) null else { p -> val q = p - from; val yy = q dot y
+                    if (groove != null && yy in 1.0..len * fuller && abs((q dot xx) - curve * (yy / len) * (yy / len)) < w0 * b * 0.22) groove else surface(p) })
+        }
+        fun grip(back: Double, front: Double, rad: Double) = cone(at(-back), at(front), rad, rad, darkLeather, Doll.ITEM)
+        fun guard(t: Double, half: Double, rad: Double) = cone(at(t) - e * half * c, at(t) + e * half * c, rad, rad, fit)
+        fun haft(back: Double, front: Double, rad: Double) {
+            cone(at(-back), at(front), rad, rad * 0.92, wood, Doll.ITEM)
+            // the wrapping is where the hand holds, wherever along the haft that is
+            cone(hand - d * 4.0, hand + d * 5.0, rad * 1.08, rad * 1.08, darkLeather)
+        }
+        when (base) {
+            "dagger" -> {
+                grip(4.5, 4.0, 1.25); ball(at(-5.6), 1.5, 1.2, 1.3, fit); guard(4.6, 4.2, 0.6)
+                blade(at(5.0), d, e, 23.0, 1.6, 1.0, 0.38, 0.22, 8.0, 1.0)
+            }
+            "shortsword" -> {
+                grip(5.0, 5.0, 1.35); ball(at(-6.6), 1.9, 1.3, 1.5, fit); guard(5.6, 6.5, 0.7)
+                blade(at(6.0), d, e, 41.0, 2.3, 1.8, 0.4, 0.28, 8.0, 1.3, fuller = 0.6)
+            }
+            "scimitar" -> {
+                grip(5.0, 5.0, 1.3); ball(at(-6.4), 1.6, 1.4, 1.4, fit); guard(5.6, 5.0, 0.6)
+                // the edge on the outer curve, the point sweeping back
+                blade(at(6.0), d, e, 59.0, 1.8, 2.5, 0.42, 0.26, 13.0, 1.7, curve = -7.0)
+            }
+            "rapier" -> {
+                cone(at(-5.0), at(5.0), 1.1, 1.1, dark, Doll.ITEM); ball(at(-6.6), 1.8, 1.6, 1.8, fit)
+                guard(5.6, 9.0, 0.45)
+                add(Ellipsoid(at(6.2), P3(3.2 * c, 0.45 * c, 3.2 * c), Frame(e, d, n), BodyPart.GEAR, Doll.TRIM), fit)
+                // the knuckle bow, from the guard round the fist to the pommel
+                val bow = listOf(at(5.6) + e * 3.2, at(2.5) + e * 5.0, at(-2.5) + e * 5.0, at(-6.0) + e * 2.0)
+                for (i in 0 until bow.size - 1) cone(bow[i], bow[i + 1], 0.4, 0.4, fit)
+                blade(at(6.5), d, e, 73.0, 1.05, 0.6, 0.55, 0.32, 12.0, 1.0)
+            }
+            "longsword" -> {
+                grip(9.0, 5.0, 1.35); add(Ellipsoid(at(-10.6), P3(2.6 * c, 1.5 * c, 1.2 * c), Frame(e, d, n), BodyPart.GEAR, Doll.TRIM), fit)
+                guard(5.6, 10.0, 0.75)
+                blade(at(6.0), d, e, 69.0, 2.5, 1.5, 0.42, 0.26, 12.0, 1.2, fuller = 0.65)
+            }
+            "greatsword" -> {
+                grip(22.0, 5.0, 1.45); add(Ellipsoid(at(-23.8), P3(3.0 * c, 1.8 * c, 1.5 * c), Frame(e, d, n), BodyPart.GEAR, Doll.TRIM), fit)
+                guard(5.6, 15.0, 0.9)
+                // parrying lugs above the unsharpened ricasso
+                for (s in listOf(-1.0, 1.0)) cone(at(15.0) + e * (s * 3.0 * c), at(16.5) + e * (s * 5.2 * c), 0.55, 0.3, steel)
+                blade(at(6.0), d, e, 97.0, 2.9, 1.9, 0.5, 0.3, 15.0, 1.2, fuller = 0.55)
+            }
+            "handaxe" -> {
+                haft(9.0, 37.0, 1.3)
+                val hd = at(32.0)
+                cone(hd - d * 3.0, hd + d * 3.0, 1.9, 1.9, dark)
+                blade(hd, e, d, 9.5, 2.2, 4.6, 1.2, 0.25, 0.0, curve = -1.6)
+                cone(hd, hd - e * (3.0 * c), 1.4, 1.2, dark)
+            }
+            "battleaxe" -> {
+                haft(12.0, 64.0, 1.45)
+                val hd = at(57.0)
+                cone(hd - d * 4.0, hd + d * 4.0, 2.1, 2.1, dark)
+                blade(hd, e, d, 13.0, 2.6, 9.0, 1.3, 0.25, 0.0, curve = -4.0)
+                cone(hd, hd - e * (4.5 * c), 1.5, 0.5, dark)
+            }
+            "greataxe" -> {
+                haft(35.0, 96.0, 1.65)
+                val hd = at(86.0)
+                cone(hd - d * 6.0, hd + d * 6.0, 2.4, 2.4, dark)
+                // a great bearded bit and a smaller one behind it
+                blade(hd, e, d, 17.0, 3.6, 13.0, 1.5, 0.28, 0.0, curve = -5.0)
+                blade(hd, -e, d, 10.0, 3.0, 7.5, 1.3, 0.28, 0.0, curve = -2.0)
+                cone(at(92.0), at(97.0), 1.2, 0.2, steel)
+            }
+            "mace" -> {
+                cone(at(-9.0), at(44.0), 1.3, 1.3, dark, Doll.ITEM)
+                cone(hand - d * 4.0, hand + d * 5.0, 1.45, 1.45, darkLeather)
+                ball(at(-9.8), 1.8, 1.2, 1.8, dark)
+                val hd = at(48.0)
+                add(Ellipsoid(hd, P3(2.4 * b, 4.6 * c, 2.4 * b), Frame(e, d, n), BodyPart.GEAR, Doll.TRIM), steel)
+                // six flanges round the head
+                for (i in 0 until 6) {
+                    val a = i * Math.PI / 3
+                    val out = e * kotlin.math.cos(a) + n * kotlin.math.sin(a)
+                    blade(hd + out * (1.2 * b), out, d, 3.6 * b, 3.4, 2.1, 0.4, 0.28, 0.0)
+                }
+                cone(hd + d * 4.6, hd + d * 6.2, 1.2, 0.5, steel)
+            }
+            "warhammer" -> {
+                haft(9.0, 50.0, 1.35)
+                val hd = at(45.0)
+                cone(hd - d * 3.0, hd + d * 3.0, 1.9, 1.9, dark)
+                // the face on the edge's side, a beak behind, a spike on top
+                add(Box(hd + e * (4.0 * b), P3(3.2 * b, 1.9 * b, 1.9 * b), Frame(e, d, n), 0.4, BodyPart.GEAR, Doll.TRIM), steel)
+                cone(hd - e * (1.5 * b), hd - e * (8.0 * b) - d * (1.5 * b), 1.6, 0.2, steel)
+                cone(at(48.0), at(53.0), 1.0, 0.15, steel)
+            }
+            "maul" -> {
+                haft(30.0, 78.0, 1.6)
+                val hd = at(78.0)
+                add(Box(hd, P3(9.0 * b, 4.3 * b, 4.3 * b), Frame(e, d, n), 1.0, BodyPart.GEAR, Doll.TRIM), steel)
+                for (s in listOf(-1.0, 1.0)) add(Box(hd + e * (s * 7.2 * b), P3(0.9 * b, 4.7 * b, 4.7 * b), Frame(e, d, n), 0.5, BodyPart.GEAR, Doll.TRIM), dark)
+            }
+            "halberd" -> {
+                haft(45.0, 104.0, 1.5)
+                cone(at(96.0), at(106.0), 1.9, 1.6, dark)
+                blade(at(105.0), d, e, 26.0, 1.6, 1.2, 0.5, 0.3, 10.0, 1.0)
+                // the axe on the edge's side, its long edge curving; the hook behind
+                blade(at(100.0), e, d, 13.0, 6.0, 12.5, 0.9, 0.25, 0.0, curve = 1.5)
+                cone(at(100.0), at(102.0) - e * (6.0 * c), 1.3, 0.6, steel)
+                cone(at(102.0) - e * (6.0 * c), at(106.0) - e * (8.0 * c), 0.6, 0.15, steel)
+            }
+        }
     }
 
     companion object {
+        /** How much broader than life blades and weapon heads are built, so they read at battle size. */
+        @Volatile var BOLD = 1.45
+        /** How far each weapon's grip and pommel reach back behind the fist, in cm. */
+        private val GRIP_BACK = mapOf("dagger" to 7.0, "shortsword" to 8.5, "scimitar" to 8.0, "rapier" to 8.5, "longsword" to 12.5,
+            "greatsword" to 25.5, "handaxe" to 9.0, "battleaxe" to 12.0, "greataxe" to 35.0, "mace" to 11.5, "warhammer" to 9.0, "maul" to 30.0, "halberd" to 45.0)
+        /** How much of that turn is tried, in order, until no guard or bit goes into the body. */
+        private val TURNS = doubleArrayOf(1.0, 0.5, 0.0, -0.5)
+        /** How far a weapon may be turned in the fist to show its flat, in radians. */
+        private val MAX_TURN = Math.toRadians(40.0)
         /** Staves, wands and spears, built in the round rather than drawn over the doll. */
         val ROUND = setOf("staff", "quarterstaff", "wand", "spear")
         /**
@@ -851,20 +1051,6 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
          * staff in the middle, a spear (175 cm on a human) in its back third.
          */
         fun buttPart(base: String) = when (base) { "staff" -> 1.45; "quarterstaff" -> 1.0; "spear" -> 0.42; else -> 0.0 }
-        /**
-         * How a weapon drawing is stretched along its length and across it to true size on a human: swords and pole arms
-         * were drawn short, the heads of axes, maces and hammers far too broad. Lengths after it: dagger 38 cm, short sword
-         * 68, scimitar 85, longsword and rapier 105, greatsword 145, hand axe 48, battleaxe 85, greataxe 130, mace 65,
-         * war hammer 70, maul 120, spear 175, halberd 185.
-         */
-        fun proportion(base: String): Pair<Double, Double> = when (base) {
-            "dagger" -> 1.0 to 0.8; "shortsword" -> 1.3 to 1.0; "scimitar" -> 1.27 to 1.0; "rapier" -> 1.4 to 1.0
-            "longsword" -> 1.33 to 1.0; "greatsword" -> 1.37 to 1.0; "handaxe" -> 1.05 to 0.8; "battleaxe" -> 1.3 to 0.8
-            "greataxe" -> 1.33 to 0.5; "mace" -> 1.1 to 0.65; "warhammer" -> 1.15 to 0.65; "maul" -> 1.3 to 0.8
-            "spear" -> 1.5 to 1.0; "halberd" -> 1.6 to 0.9
-            else -> 1.0 to 1.0
-        }
-
         /** About how far a weapon reaches beyond the hand, in cm: the front of its drawing at true size. */
         fun reach(base: String) = when (base) {
             "dagger" -> 28.0; "shortsword" -> 47.0; "scimitar" -> 65.0; "rapier" -> 80.0; "longsword" -> 75.0; "greatsword" -> 103.0
