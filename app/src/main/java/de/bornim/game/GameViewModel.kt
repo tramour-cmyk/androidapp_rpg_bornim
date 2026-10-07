@@ -200,11 +200,13 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     /** Starts a new hero in slot [into] (default: the first free one, else slot 1). */
-    fun newGame(name: String, race: Race, cls: CharClass, bought: Map<de.bornim.core.Ability, Int>? = null, into: Int? = null) {
+    fun newGame(name: String, race: Race, cls: CharClass, bought: Map<de.bornim.core.Ability, Int>? = null, into: Int? = null, look: Look? = null) {
         slot = into ?: pendingSlot ?: freeSlot ?: 1
         pendingSlot = null
         prefs.edit().putInt(KEY_LAST_SLOT, slot).apply()
-        val g = Game(GameState.newGame(name.ifBlank { "Held" }, race, cls, bought), lang)
+        val g = Game(GameState.newGame(name.ifBlank { "Held" }, race, cls, bought).also { st ->
+            look?.let { st.hero.sex = it.sex; st.hero.build = it.build; st.hero.skin = it.skin; st.hero.hair = it.hair }
+        }, lang)
         game = g
         menuOpen = false
         screen = Screen.PLAYING
@@ -267,3 +269,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_BLOOD = "blood"
     }
 }
+
+
+/** How a new hero looks, as chosen at creation. */
+data class Look(val sex: de.bornim.core.Sex, val build: de.bornim.core.Build, val skin: Int, val hair: Int)

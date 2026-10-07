@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import de.bornim.game.Look
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -51,6 +53,10 @@ fun CreateScreen(vm: GameViewModel) {
     var cls by remember { mutableStateOf(CharClass.FIGHTER) }
     // Point buy before the race bonus; a new class starts from its suggestion.
     var bought by remember { mutableStateOf(Hero.suggestedScores(CharClass.FIGHTER)) }
+    var sex by remember { mutableStateOf(de.bornim.core.Sex.MALE) }
+    var build by remember { mutableStateOf(de.bornim.core.Build.AVERAGE) }
+    var skin by remember { mutableStateOf(1) }
+    var hair by remember { mutableStateOf(0) }
     val time = rememberTime()
     // With all save slots taken, the player picks the hero to replace.
     var chooseSlot by remember { mutableStateOf(false) }
@@ -78,8 +84,11 @@ fun CreateScreen(vm: GameViewModel) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     val facing = Facing.entries[((time / 900) % 4).toInt()]
                     val step = ((time / 220) % 4).toInt().let { if (it == 1) 1 else if (it == 3) 2 else 0 }
-                    val preview = Hero.create(name.ifBlank { "?" }, race, cls, bought)
-                    PixelImageView(CharacterArt.hero(preview, facing, step), 96.dp)
+                    val preview = Hero.create(name.ifBlank { "?" }, race, cls, bought).also { it.sex = sex; it.build = build; it.skin = skin; it.hair = hair }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        HeroTurntable(preview, "$race/$cls/$sex/$build/$skin/$hair", 0.75.dp)
+                        PixelImageView(CharacterArt.hero(preview, facing, step), 48.dp)
+                    }
                     Spacer(Modifier.width(12.dp))
                     HeroSummary(preview, lang)
                 }
@@ -116,6 +125,13 @@ fun CreateScreen(vm: GameViewModel) {
                 }
             }
 
+            // how the hero looks: body form, build, and the skin and hair tones of the chosen people
+            Txt(if (lang == Lang.DE) "Aussehen" else "Appearance", color = Colors.textLight, bold = true)
+            Choices(de.bornim.core.Sex.entries, sex, { it.title(lang) }) { sex = it }
+            Choices(de.bornim.core.Build.entries, build, { it.title(lang) }) { build = it }
+            ToneChoices(if (lang == Lang.DE) "Haut" else "Skin", de.bornim.core.Appearance.skins(race), skin, lang) { skin = it }
+            ToneChoices(if (lang == Lang.DE) "Haar" else "Hair", de.bornim.core.Appearance.hairs(race), hair, lang) { hair = it }
+
             Txt(Ui.chooseClass(lang), color = Colors.textLight, bold = true)
             Choices(CharClass.entries, cls, { it.title(lang) }) {
                 cls = it
@@ -143,14 +159,14 @@ fun CreateScreen(vm: GameViewModel) {
             PixelButton(Ui.back(lang), Modifier.weight(1f)) { vm.screen = Screen.TITLE }
             PixelButton(Ui.start(lang), Modifier.weight(2f)) {
                 // A free (or chosen empty) slot starts right away; with all slots taken, pick one to replace.
-                if (vm.pendingSlot != null || vm.freeSlot != null) vm.newGame(name.trim(), race, cls, bought)
+                if (vm.pendingSlot != null || vm.freeSlot != null) vm.newGame(name.trim(), race, cls, bought, look = Look(sex, build, skin, hair))
                 else chooseSlot = true
             }
         }
     }
     if (chooseSlot) SlotChooser(vm, lang, onCancel = { chooseSlot = false }) { n ->
         chooseSlot = false
-        vm.newGame(name.trim(), race, cls, bought, into = n)
+        vm.newGame(name.trim(), race, cls, bought, into = n, look = Look(sex, build, skin, hair))
     }
     }
 }
@@ -202,6 +218,26 @@ private fun <E> Choices(items: List<E>, selected: E, label: (E) -> String, onPic
                     PixelButton(label(item), Modifier.weight(1f), selected = item == selected, size = 15.sp) { onPick(item) }
                 }
                 repeat(3 - row.size) { Spacer(Modifier.weight(1f)) }
+            }
+        }
+    }
+}
+
+/** A row of colour swatches with their names, one picked. */
+@Composable
+private fun ToneChoices(label: String, tones: List<de.bornim.core.Appearance.Tone>, selected: Int, lang: Lang, onPick: (Int) -> Unit) {
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        Txt(label, Modifier.width(52.dp), size = 14.sp, color = Colors.textLight)
+        tones.forEachIndexed { i, t ->
+            Column(Modifier.weight(1f).tap { onPick(i) }, horizontalAlignment = Alignment.CenterHorizontally) {
+                Box(
+                    Modifier
+                        .size(34.dp)
+                        .clip(RoundedCornerShape(6.dp))
+                        .border(if (i == selected) 3.dp else 1.dp, if (i == selected) Colors.accent else Colors.border, RoundedCornerShape(6.dp))
+                        .background(androidx.compose.ui.graphics.Color(0xFF000000 or t.rgb.toLong()))
+                )
+                Txt(t.title(lang), size = 11.sp, color = if (i == selected) Colors.accent else Colors.textDim, maxLines = 1)
             }
         }
     }

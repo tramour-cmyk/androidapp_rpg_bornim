@@ -944,3 +944,72 @@ fun dumpFrames(dir: String) {
     }
     println("dumped")
 }
+
+/** A fight as the battle screen plays it, with the frames HeroBattle hands out: start, blows, block, hit, spell, victory. */
+fun renderBattleRun() {
+    val B = de.bornim.core.art.HeroBattle
+    val w = 270; val h = 370
+    val heroes = listOf(
+        "kampf_kaempfer" to de.bornim.core.GameState.newGame("Alrik", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER).hero,
+        "kampf_magierin" to de.bornim.core.GameState.newGame("Ilse", de.bornim.core.Race.ELF, de.bornim.core.CharClass.WIZARD).hero.also { it.sex = de.bornim.core.Sex.FEMALE },
+        "kampf_klerikerin" to de.bornim.core.GameState.newGame("Hedwig", de.bornim.core.Race.DWARF, de.bornim.core.CharClass.CLERIC).hero.also { it.sex = de.bornim.core.Sex.FEMALE; it.build = de.bornim.core.Build.STRONG },
+        "kampf_schurke" to de.bornim.core.GameState.newGame("Fenn", de.bornim.core.Race.HALFLING, de.bornim.core.CharClass.ROGUE).hero,
+    )
+    val bg = BattleScene.forest(w, h, BattleScene.Spot.CLEARING, BattleScene.Light.DUSK, false, 12)
+    val wolf = MonsterArt.battleFrame("wolf", MonsterLook(1), Act.IDLE, 0, 0)
+    for ((name, hero) in heroes) {
+        val F = de.bornim.core.art.HeroFigure
+        val plan = mutableListOf<de.bornim.core.art.PixelImage>()
+        fun seq(act: de.bornim.core.art.HeroFigure.Act, strike: de.bornim.core.art.HeroFigure.Strike = de.bornim.core.art.HeroFigure.Strike.SLASH, v: Int = 0) {
+            for (i in 0 until B.frameCount(hero, act, strike, v)) plan += B.frame(hero, act, strike, v, i)
+        }
+        fun idle(n: Int) { for (i in 0 until n) plan += B.frame(hero, de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, i) }
+        seq(de.bornim.core.art.HeroFigure.Act.TURN); idle(6)
+        val strikes = B.strikes(hero)
+        seq(de.bornim.core.art.HeroFigure.Act.ATTACK, strikes[0]); idle(5)
+        seq(de.bornim.core.art.HeroFigure.Act.BLOCK, v = B.blockVariant(hero, "wolf")); idle(4)
+        seq(de.bornim.core.art.HeroFigure.Act.HURT); idle(4)
+        if (hero.cls == de.bornim.core.CharClass.WIZARD || hero.cls == de.bornim.core.CharClass.CLERIC) { seq(de.bornim.core.art.HeroFigure.Act.CAST, de.bornim.core.art.HeroFigure.Strike.CAST, B.castVariant(hero)); idle(4) }
+        seq(de.bornim.core.art.HeroFigure.Act.ATTACK, strikes[1 % strikes.size]); idle(4)
+        seq(de.bornim.core.art.HeroFigure.Act.VICTORY, v = B.variant(hero, de.bornim.core.art.HeroFigure.Act.VICTORY, "wolf", 1)); repeat(8) { plan += plan.last() }
+        val dir = File("build/screens/battlerun/$name"); dir.deleteRecursively(); dir.mkdirs()
+        for ((i, im) in plan.withIndex()) {
+            val out = BufferedImage(w * 2, h * 2, BufferedImage.TYPE_INT_RGB)
+            for (y in 0 until h) for (x in 0 until w) for (q in 0 until 4) out.setRGB(x * 2 + q % 2, y * 2 + q / 2, bg[x, y])
+            fun paste(img: de.bornim.core.art.PixelImage, ox: Int, oy: Int) {
+                for (y in 0 until img.height) for (x in 0 until img.width) { val p = img[x, y]; val al = (p ushr 24) / 255.0; if (al <= 0.02) continue
+                    for (q in 0 until 4) { val px = (ox + x) * 2 + q % 2; val py = (oy + y) * 2 + q / 2; if (px in 0 until out.width && py in 0 until out.height) {
+                        val c = out.getRGB(px, py)
+                        fun ch(sh: Int) = (((p shr sh) and 0xFF) * al + ((c shr sh) and 0xFF) * (1 - al)).toInt()
+                        out.setRGB(px, py, (ch(16) shl 16) or (ch(8) shl 8) or ch(0)) } } }
+            }
+            paste(wolf, (w * BattleScene.FOE_X - wolf.width / 2).toInt(), (h * BattleScene.FOE_Y - MonsterArt.groundLine("wolf")).toInt())
+            paste(im, (w * BattleScene.HERO_X - B.ANCHOR_X).toInt(), (h * BattleScene.HERO_Y - B.GROUND).toInt())
+            ImageIO.write(out.getSubimage(0, 260, w * 2, h * 2 - 260), "png", File(dir, "f%03d.png".format(i)))
+        }
+        println("$name: ${plan.size} Bilder, Ausrüstung ${hero.gear.values.joinToString { it.base }}")
+    }
+}
+
+/** Every people in a few looks, as the making of a hero and the equipment menu show them. */
+fun renderPortraits() {
+    val P = de.bornim.core.art.HeroPortrait
+    val looks = listOf(
+        Triple(de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 0), Triple(de.bornim.core.Sex.FEMALE, de.bornim.core.Build.SLIM, 1),
+        Triple(de.bornim.core.Sex.MALE, de.bornim.core.Build.STRONG, 2), Triple(de.bornim.core.Sex.FEMALE, de.bornim.core.Build.AVERAGE, 3))
+    val classes = listOf(de.bornim.core.CharClass.FIGHTER, de.bornim.core.CharClass.WIZARD, de.bornim.core.CharClass.ROGUE, de.bornim.core.CharClass.CLERIC)
+    val races = de.bornim.core.Race.entries
+    val out = BufferedImage(P.W * looks.size * races.size / 2 + 0, P.H * 2, BufferedImage.TYPE_INT_RGB)
+    val gg = out.createGraphics(); gg.color = java.awt.Color(0x3C3A36); gg.fillRect(0, 0, out.width, out.height)
+    var col = 0
+    for ((ri, race) in races.withIndex()) for ((li, l) in looks.withIndex()) {
+        val hero = de.bornim.core.GameState.newGame("Test", race, classes[li]).hero
+        hero.sex = l.first; hero.build = l.second; hero.skin = l.third; hero.hair = (l.third + ri) % 4
+        val im = P.render(hero, if (li % 2 == 0) 20.0 else 340.0)
+        val cx = (col % (out.width / P.W)) * P.W; val cy = (col / (out.width / P.W)) * P.H
+        for (y in 0 until P.H) for (x in 0 until P.W) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(cx + x, cy + y, q) }
+        col++
+    }
+    ImageIO.write(out, "png", File("build/screens/portraits.png"))
+    println("wrote portraits ${out.width}x${out.height}")
+}

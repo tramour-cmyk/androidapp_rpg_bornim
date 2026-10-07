@@ -226,37 +226,34 @@ fun GearDetails(g: Gear, game: Game, lang: Lang) {
     line(Ui.hp(lang), "${c.hpBefore}", "${c.hpAfter}", c.hpAfter > c.hpBefore)
 }
 
-/** Paper doll: the nine equipment slots around the hero. */
+/** Paper doll: the hero as the doll in the middle, slowly turning, and the nine equipment slots on both sides. */
 @Composable
 fun PaperDoll(game: Game, lang: Lang, revision: Int, onSlot: (GearSlot) -> Unit) {
     // The Game object never changes identity, so the revision makes Compose redraw after (un)equipping.
     revision.hashCode()
     val hero = game.hero
-    val rows = listOf(
-        listOf(GearSlot.CLOAK, GearSlot.HEAD, GearSlot.AMULET),
-        listOf(GearSlot.MAIN_HAND, GearSlot.CHEST, GearSlot.OFF_HAND),
-        listOf(GearSlot.ARMS, GearSlot.LEGS, GearSlot.RING),
-    )
-    Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-        Column(verticalArrangement = Arrangement.spacedBy(6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            rows.forEachIndexed { i, row ->
-                Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-                    row.forEachIndexed { j, slot ->
-                        // A two-handed weapon also fills the off-hand frame.
-                        val twoHanded = slot == GearSlot.OFF_HAND && hero.weapon?.def?.twoHanded == true
-                        val g = if (twoHanded) hero.weapon else hero.item(slot)
-                        Column(
-                            Modifier
-                                .width(96.dp)
-                                .tap { onSlot(if (twoHanded) GearSlot.MAIN_HAND else slot) },
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                        ) {
-                            GearIcon(g, 56.dp)
-                            Txt(slot.title(lang), size = 11.sp, color = Colors.textDim, maxLines = 1)
-                        }
-                    }
-                }
-            }
+    val left = listOf(GearSlot.HEAD, GearSlot.CLOAK, GearSlot.CHEST, GearSlot.ARMS, GearSlot.LEGS)
+    val right = listOf(GearSlot.AMULET, GearSlot.RING, GearSlot.MAIN_HAND, GearSlot.OFF_HAND)
+    @Composable
+    fun slotCell(slot: GearSlot) {
+        // A two-handed weapon also fills the off-hand frame.
+        val twoHanded = slot == GearSlot.OFF_HAND && hero.weapon?.def?.twoHanded == true
+        val g = if (twoHanded) hero.weapon else hero.item(slot)
+        Column(
+            Modifier
+                .width(78.dp)
+                .tap { onSlot(if (twoHanded) GearSlot.MAIN_HAND else slot) },
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            GearIcon(g, 48.dp)
+            Txt(slot.title(lang), size = 11.sp, color = Colors.textDim, maxLines = 1)
         }
+    }
+    // what is worn, so the doll is drawn anew after every change
+    val worn = GearSlot.entries.joinToString(",") { s -> hero.item(s)?.let { "${it.base}:${it.rarity}" } ?: "-" }
+    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) { left.forEach { slotCell(it) } }
+        HeroTurntable(hero, worn + "/" + hero.sex + hero.build + hero.skinTone + hero.hairTone, 1.1.dp)
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) { right.forEach { slotCell(it) } }
     }
 }

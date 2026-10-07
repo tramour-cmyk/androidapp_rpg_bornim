@@ -1,0 +1,54 @@
+package de.bornim.game.ui
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
+import de.bornim.core.Hero
+import de.bornim.core.art.HeroPortrait
+import de.bornim.core.art.PixelImage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.withContext
+
+/**
+ * The hero as the doll, slowly turning round; a tap turns it on by hand. The sides are drawn in the background and
+ * shown as they come; [key] changes whenever the look or what is worn changes.
+ */
+@Composable
+fun HeroTurntable(hero: Hero, key: Any, px: Dp, modifier: Modifier = Modifier) {
+    var side by remember(key) { mutableIntStateOf(0) }
+    val last = remember(key) { arrayOfNulls<PixelImage>(1) }
+    var drawn by remember(key) { mutableIntStateOf(0) }
+    LaunchedEffect(key) {
+        withContext(Dispatchers.Default) {
+            for (y in HeroPortrait.YAWS) {
+                if (!isActive) return@withContext
+                HeroPortrait.render(hero, y)
+                drawn++
+            }
+        }
+    }
+    LaunchedEffect(key) {
+        while (true) {
+            delay(1400)
+            side = (side + 1) % HeroPortrait.YAWS.size
+        }
+    }
+    // the side wanted if it is drawn, else the nearest one before it that is
+    val want = HeroPortrait.YAWS.indices.map { (side - it).mod(HeroPortrait.YAWS.size) }
+    drawn.hashCode()
+    val shown = want.firstNotNullOfOrNull { HeroPortrait.ready(hero, HeroPortrait.YAWS[it]) } ?: last[0]
+    last[0] = shown
+    Box(modifier.size(px * HeroPortrait.W, px * HeroPortrait.H).tap { side = (side + 1) % HeroPortrait.YAWS.size }, contentAlignment = Alignment.Center) {
+        shown?.let { PixelSprite(it, px) }
+    }
+}
