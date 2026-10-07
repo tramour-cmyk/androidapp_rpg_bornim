@@ -180,7 +180,7 @@ enum class CharClass(
         listOf(Ability.WIS, Ability.CON, Ability.STR, Ability.DEX, Ability.CHA, Ability.INT),
         setOf(ArmorCategory.LIGHT, ArmorCategory.MEDIUM), true,
         setOf("dagger", "handaxe", "mace", "spear", "quarterstaff", "light_crossbow", "shortbow", "wand", "staff"),
-        listOf("mace", "chain_shirt", "shield", "potion"), 15, true,
+        listOf("mace", "chain_shirt", "round_shield", "potion"), 15, true,
     ),
     ;
 

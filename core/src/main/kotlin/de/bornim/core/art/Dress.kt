@@ -8,6 +8,7 @@ import de.bornim.core.Hero
 import de.bornim.core.Icon
 import de.bornim.core.Rarity
 import de.bornim.core.Weight
+import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.floor
@@ -599,7 +600,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val r = off.rarity
         val hand = sk.hand(0)
         when {
-            off.def.kind == BaseKind.SHIELD -> shield(off.base == "tower_shield", r)
+            off.def.kind == BaseKind.SHIELD -> shield(off.base, r)
             off.def.icon == Icon.ORB -> {
                 val glow = mix(argb(0x80C8FF), r.color.toInt(), 0.4)
                 add(Ellipsoid(hand + P3(0.0, 0.05 * h, 0.01 * h), P3(0.04 * h, 0.04 * h, 0.04 * h), Frame.IDENTITY, BodyPart.GEAR, Doll.ITEM), m(glow, shine = 1.0, bias = 0.15))
@@ -610,7 +611,9 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         }
     }
 
-    private fun shield(tower: Boolean, r: Rarity) {
+    private fun shield(base: String, r: Rarity) {
+        val tower = base == "tower_shield"
+        val round = base == "round_shield"
         val el = sk.elbow[0]; val wr = sk.wrist[0]
         val n = shieldNormal()
         val fore = (wr - el).norm()
@@ -619,16 +622,26 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         up = (up + P3(0.0, 4.0, 0.0) - n * (n.y * 4.0)).norm()
         val ax = (up cross n).norm()
         val f = Frame(ax, up, n)
-        // strapped to the forearm in its upper third: the arm runs across the back there, the board hangs below
-        val hw = (if (tower) 0.2 else 0.165) * h
-        val ht = (if (tower) 0.6 else 0.41) * h
-        val center = el.lerp(wr, 0.55) + n * (0.02 * h)
-        val strapY = if (tower) ht / 6 else ht * 0.42 - ht / 3
-        val outline: (Double, Double) -> Double = if (tower) { x, y -> roundRect(x, y + 0.0, hw, ht / 2, 0.03 * h) } else heater(hw, ht)
+        // strapped to the forearm in its upper third: the arm runs across the back there, the board hangs below;
+        // a round shield is held by the middle, the fist behind the boss
+        val hw = (if (tower) 0.2 else if (round) 0.175 else 0.165) * h
+        val ht = (if (tower) 0.6 else if (round) 0.35 else 0.41) * h
+        val center = el.lerp(wr, if (round) 0.75 else 0.55) + n * (0.02 * h)
+        val strapY = if (tower) ht / 6 else if (round) 0.0 else ht * 0.42 - ht / 3
+        val outline: (Double, Double) -> Double = when {
+            tower -> { x, y -> roundRect(x, y + 0.0, hw, ht / 2, 0.03 * h) }
+            round -> { x, y -> sqrt(x * x + y * y) - hw }
+            else -> heater(hw, ht)
+        }
         val c0 = center - up * strapY
-        val paintRgb = worn(if (r >= Rarity.RARE) mix(argb(0x7A2A22), r.color.toInt(), 0.45) else argb(0x6E2E24), 0.15)
+        val paintRgb = when {
+            r >= Rarity.RARE -> worn(mix(argb(if (round) 0xE8E0C8 else 0x7A2A22), r.color.toInt(), 0.45), 0.15)
+            // the round shield of a servant of the gods: pale, with a golden sun on it
+            round -> worn(argb(0xE4DCC4), 0.15)
+            else -> worn(argb(0x6E2E24), 0.15)
+        }
         val face = m(paintRgb)
-        val stripe = m(argb(0xC8BCA0))
+        val stripe = if (round) gold else m(argb(0xC8BCA0))
         val rim = metal(r)
         val planks = wood
         val strap = darkLeather
@@ -640,14 +653,20 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             val edge = outline(l.x, l.y)
             when {
                 edge > -0.02 * h -> rim
+                l.z > 0 && round -> {
+                    // a ring round the boss and rays running out from it
+                    val rr = sqrt(l.x * l.x + l.y * l.y)
+                    val ray = abs(frac(atan2(l.y, l.x) / (2 * PI) * 8 + 0.5) - 0.5) * rr
+                    if (abs(rr - 0.07 * h) < 0.012 * h || (rr in 0.07 * h..0.13 * h && ray < 0.012 * h)) stripe else face
+                }
                 l.z > 0 -> if (abs(l.y - ht * 0.08) < 0.016 * h) stripe else face
                 abs(l.y - strapY + 0.03 * h) < 0.011 * h || abs(l.y - strapY - 0.03 * h) < 0.011 * h -> strap
                 frac(l.x / (0.05 * h)) < 0.08 -> planks.copy(bias = -0.15)
                 else -> planks
             }
         }
-        // the iron boss in the middle of the face
-        add(Ellipsoid(c0 + up * (ht * 0.0) + n * (0.012 * h), P3(0.035 * h, 0.035 * h, 0.022 * h), f, BodyPart.GEAR, Doll.ITEM), rim)
+        // the iron boss in the middle of the face, gilt on the round shield
+        add(Ellipsoid(c0 + up * (ht * 0.0) + n * (0.012 * h), P3(0.035 * h, 0.035 * h, 0.022 * h), f, BodyPart.GEAR, Doll.ITEM), if (round && r < Rarity.RARE) gold else rim)
     }
 
     /** The shield's board once [solids] has run, for checks. */

@@ -1174,3 +1174,27 @@ fun renderTitleHeroes() {
     ImageIO.write(out, "png", File("build/screens/title_heroes.png"))
     println("wrote title heroes")
 }
+
+/** Fighter and cleric side by side from several sides, and the cleric blocking and casting. */
+fun renderClericShield() {
+    val P = de.bornim.core.art.HeroPortrait
+    val B = de.bornim.core.art.HeroBattle
+    val yaws = listOf(20.0, 95.0, 160.0, 250.0, 340.0)
+    val heroes = listOf(de.bornim.core.CharClass.FIGHTER, de.bornim.core.CharClass.CLERIC).map { cls ->
+        de.bornim.core.Hero.create("Held", de.bornim.core.Race.HUMAN, cls).also { it.sex = de.bornim.core.Sex.MALE; it.skin = 1; it.hair = 0 }
+    }
+    val out = BufferedImage(P.W * yaws.size, P.H * 2 + B.H, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x3C3A36); g.fillRect(0, 0, out.width, out.height)
+    fun put(im: de.bornim.core.art.PixelImage, ox: Int, oy: Int) { for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; if ((q ushr 24) >= 128 && ox + x < out.width) out.setRGB(ox + x, oy + y, q) } }
+    for ((r, h) in heroes.withIndex()) for ((i, y) in yaws.withIndex()) put(P.render(h, y), i * P.W, r * P.H)
+    val c = heroes[1]
+    val shots = listOf(
+        B.frame(c, de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, 0),
+        B.frame(c, de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SMASH, 0, B.strikeFrame(de.bornim.core.art.HeroFigure.Strike.SMASH)),
+        B.frame(c, de.bornim.core.art.HeroFigure.Act.BLOCK, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, 4),
+        B.frame(c, de.bornim.core.art.HeroFigure.Act.CAST, de.bornim.core.art.HeroFigure.Strike.CAST, B.castVariant(c), B.strikeFrame(de.bornim.core.art.HeroFigure.Strike.CAST)),
+        B.frame(c, de.bornim.core.art.HeroFigure.Act.BLOCK, de.bornim.core.art.HeroFigure.Strike.SLASH, 2, 4))
+    for ((i, im) in shots.withIndex()) put(im, i * P.W, P.H * 2)
+    ImageIO.write(out, "png", File("build/screens/cleric_shield.png"))
+    println("wrote cleric shield")
+}

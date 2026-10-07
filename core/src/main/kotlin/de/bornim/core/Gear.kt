@@ -271,6 +271,7 @@ object GearBases {
         weapon("light_crossbow", "Armbrust", Gender.F, "Light Crossbow", Icon.CROSSBOW, 25, dice(1, 8), DamageType.PIERCING, 2, ranged = true, twoHanded = true),
         // Off-hand only
         GearBase("shield", "Schild", Gender.M, "Shield", GearSlot.OFF_HAND, BaseKind.SHIELD, Icon.SHIELD, 10, armor = 2),
+        GearBase("round_shield", "Rundschild", Gender.M, "Round Shield", GearSlot.OFF_HAND, BaseKind.SHIELD, Icon.SHIELD, 10, armor = 2),
         GearBase("tower_shield", "Turmschild", Gender.M, "Tower Shield", GearSlot.OFF_HAND, BaseKind.SHIELD, Icon.SHIELD, 60, 5, armor = 3),
         GearBase("orb", "Zauberkugel", Gender.F, "Orb", GearSlot.OFF_HAND, BaseKind.FOCUS, Icon.ORB, 20, 1, focus = 1),
         GearBase("tome", "Foliant", Gender.M, "Tome", GearSlot.OFF_HAND, BaseKind.FOCUS, Icon.TOME, 25, 2, focus = 1),
