@@ -99,7 +99,6 @@ fun rememberTime(): Long {
 @Composable
 fun TitleScreen(vm: GameViewModel) {
     val lang = vm.lang
-    val time = rememberTime()
     Column(
         Modifier
             .fillMaxSize()
@@ -123,11 +122,8 @@ fun TitleScreen(vm: GameViewModel) {
                     }
                 }
             }
-            heroes.forEachIndexed { i, h ->
-                // a slow breath, each in its own time
-                val bob = if (((time / 700 + i) % 2) == 0L) 0.dp else 2.dp
-                Box(Modifier.padding(top = bob)) { HeroStill(h, "title/$i", 0.46.dp) }
-            }
+            // standing still at rest, each class with what it carries
+            heroes.forEachIndexed { i, h -> HeroStill(h, "title/$i", 0.46.dp) }
         }
         Spacer(Modifier.height(36.dp))
         val w = Modifier.width(260.dp)
