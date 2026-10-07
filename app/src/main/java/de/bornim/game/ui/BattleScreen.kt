@@ -210,6 +210,9 @@ private class BattleUi(val battle: Battle) {
                 fxDelay = (HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - m.to) * 50L
                 flashKey++
             }
+            // struck through the guard: the guard holds until the hero's next turn, as the defence does; the blow shows
+            // in the flash of the hit
+            s.anim == Anim.HERO_HIT && m != null && m.act == HeroFigure.Act.BLOCK && m.hold -> {}
             s.anim == Anim.HERO_HIT -> play(HeroFigure.Act.HURT, perFrame = 95)
             s.anim == Anim.HERO_FAINT -> play(HeroFigure.Act.HURT, to = 3, perFrame = 130, hold = true)
             // the defensive stance: up into the guard, held until the hero's next turn

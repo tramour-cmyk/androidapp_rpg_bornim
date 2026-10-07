@@ -26,6 +26,7 @@ Mit der neuesten Version (Releases auf GitHub, `bornim.apk`):
 - **Gegenstandsvergleich:** Tabelle „Angelegt | Neu“ im Dialog, Urteil oben, Obergrenzen-Hinweise; Pfeil in der Tasche passt zum Urteil.
 - **Vorräte:** neue räumliche Bilder in Tasche, Laden, Brauen und Kampf.
 - **Rundschild beim Drehen:** im Ausrüstungsbild nicht mehr im Bauch.
+- **Abwehr und Treffer:** In Abwehrhaltung getroffen, bleibt der Held in Deckung bis zu seinem nächsten Zug.
 - **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
 
 ## Geplant
