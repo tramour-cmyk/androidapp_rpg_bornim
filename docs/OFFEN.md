@@ -19,6 +19,8 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 Mit der neuesten Version (Releases auf GitHub, `bornim.apk`):
 
+- **Gehaltene Haltungen (v0.1.168):** Ausholen bleibt stehen bis zum Schlag, Abwehr bis zum nächsten eigenen Zug (auch nach Treffer oder Verfehlen), ebenso Zauber sammeln und Wurf.
+- **Konter (v0.1.168):** erst „nutzt die Lücke!“, dann Ausholen und Schlag in einem Zug; auch mit Feuerpfeil.
 - **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln, Drehung langsamer; die Schläge selbst so schnell wie bisher.
 - **Abwehr und Treffer:** In Abwehrhaltung getroffen, bleibt der Held in Deckung bis zu seinem nächsten Zug.
 
