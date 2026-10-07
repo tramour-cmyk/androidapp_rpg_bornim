@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 22:45 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 22:50 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -19,7 +19,6 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 Mit der neuesten Version (Releases auf GitHub, `bornim.apk`):
 
-- **Ausholen bis zum Schlag, bei Held und Gegnern:** Held und Gegner bleiben ausgeholt, bis Treffer oder Fehlschlag kommen, auch über Zwischenmeldungen („kritischer Treffer“, „Überraschungsschlag“, „nutzt eine Lücke“). Abwehr bleibt bis zum nächsten eigenen Zug, Konter in einem Zug. Der Fluch des Goblin-Schamanen wird sichtbar losgelassen.
 - **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln, Drehung langsamer; die Schläge selbst so schnell wie bisher.
 
 ## Geplant
