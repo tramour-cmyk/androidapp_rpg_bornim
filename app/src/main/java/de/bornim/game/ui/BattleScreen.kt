@@ -96,6 +96,8 @@ private class BattleUi(val battle: Battle) {
     /** The foe is wound up for its blow and holds it through any word in between (a critical hit, a surprise attack),
      *  until the blow lands or misses. */
     var foePoised by mutableStateOf(false)
+    /** A spell of the poised foe that lands (or is turned aside) on the hero without a blow: the wind-up is let go with it. */
+    var foeCastLands by mutableStateOf(false)
     /** Counts the leader's howls; [howlStart] is when the latest began, [howlSound] which voice it uses. */
     var howlKey by mutableIntStateOf(0)
     var howlStart = 0L
@@ -265,7 +267,8 @@ private class BattleUi(val battle: Battle) {
             if (s.anim == Anim.ENEMY_FAINT) enemyGone = true
             if (s.anim == Anim.HERO_FAINT) heroGone = true
             moveHero(s)
-            foePoised = s.anim == Anim.ENEMY_ACT || (foePoised && s.anim == Anim.NONE)
+            foeCastLands = foePoised && s.anim == Anim.NONE && s.fx?.onHero == true
+            foePoised = s.anim == Anim.ENEMY_ACT || (foePoised && s.anim == Anim.NONE && s.fx == null)
             if (s.anim == Anim.ENEMY_ACT) attackVariant = kotlin.random.Random.nextInt(MonsterArt.attackVariants(battle.monster.id))
             // Wolves howl now and then, not every time: when they appear, and when a pack mate falls or flees.
             val chance = when {
@@ -388,7 +391,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                         else -> 450
                     }))
                 Anim.HERO_ACT, Anim.ENEMY_ACT -> shake.animateTo(1f, tween(380))
-                else -> {}
+                // a foe's spell let go on the hero (a curse): it lands like a blow
+                else -> if (ui.foeCastLands) shake.animateTo(1f, tween(REACT_MS))
             }
         } finally {
             if (fall) ui.falling = false
@@ -468,7 +472,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 else -> 1f
             }
             // the foe's own blow landing on the hero, or missing: the second half of its attack
-            val foeLanding = (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && fx?.onHero == true && (step?.packActor ?: -1) < 0
+            val foeLanding = (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT || ui.foeCastLands) && fx?.onHero == true && (step?.packActor ?: -1) < 0
             // old-style foes, like the hero: while the attack is named they leap in and stay poised, then strike and
             // spring back with the hit or the miss
             val leap = if (t >= 0.99f) 1f else (t * t * (3 - 2 * t))

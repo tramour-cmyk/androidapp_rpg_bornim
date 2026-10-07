@@ -530,7 +530,7 @@ class Battle(
             }
             if (enemyTurns % 3 == 2 && Status.WEAK !in heroStatus) {
                 say(Msg.shamanCurse.f(lang, foe), Anim.ENEMY_ACT)
-                inflict(onHero = true, Status.WEAK, 3, Ability.WIS to 11)
+                inflict(onHero = true, Status.WEAK, 3, Ability.WIS to 11, cast = true)
                 return
             }
             if (enemyTurns % 2 == 1) {
@@ -684,18 +684,22 @@ class Battle(
      * Tries to put [st] on the hero or the foe for [turns] rounds. The hero may resist with a
      * saving throw ([save]: ability and DC) or through tenacity from gear. Returns true if it took hold.
      */
-    private fun inflict(onHero: Boolean, st: Status, turns: Int, save: Pair<Ability, Int>? = null): Boolean {
+    /**
+     * [cast]: the foe's own spell, named with its wind-up: resisted, the hero is seen to turn it aside, so the wind-up
+     * always ends in something that lands or misses.
+     */
+    private fun inflict(onHero: Boolean, st: Status, turns: Int, save: Pair<Ability, Int>? = null, cast: Boolean = false): Boolean {
         if (outcome != Outcome.ONGOING) return false
         val map = if (onHero) heroStatus else foeStatus
         val who = if (onHero) name else foe
         if (st == Status.STUN && (if (onHero) heroStunGuard else foeStunGuard) > 0) return false
         if (onHero) {
             if (save != null && heroSave(save.first, save.second)) {
-                say(Msg.shrugs.f(lang, who))
+                say(Msg.shrugs.f(lang, who), fx = if (cast) fx(FxKind.DODGE, onHero = true) else null)
                 return false
             }
             if (hero.tenacity > 0 && dice.chance(hero.tenacity / 100.0)) {
-                say(Msg.steadfast.f(lang, who))
+                say(Msg.steadfast.f(lang, who), fx = if (cast) fx(FxKind.DODGE, onHero = true) else null)
                 return false
             }
             if (st == Status.POISON && hero.race == Race.DWARF && dice.chance(0.5)) {

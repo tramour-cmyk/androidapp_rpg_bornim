@@ -16,6 +16,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 **Behoben – Gegner täuschte den Schlag an**
 - Kam zwischen dem Ausholen des Gegners und seinem Schlag eine Meldung (etwa „Ein brutaler Überraschungsschlag!“ oder „Ein kritischer Treffer!“), ging er dabei zurück in die Ruhe und schlug erst danach zu. Jetzt hält er das Ausholen, bis der Schlag trifft oder verfehlt. Mit Krogg gegen den Kleriker nachgefilmt.
+- Alle Gegner mit allen Klassen und allen Aktionen (Angriff, Abwehr, Fähigkeiten, Tränke, Wurfflaschen, Elite-Eigenschaften) automatisch durchgespielt: Jedes Ausholen, ob von Held, Gegner oder Rudel, endet jetzt in einem Treffer oder Fehlschlag. Ein neuer Test hält das fest.
+- Einziger weiterer Fall war der Fluch des Goblin-Schamanen: Er holte aus, und es kam nur Text. Jetzt lässt er den Fluch sichtbar los; widersteht der Held, weicht er ihm aus.
 
 ## v0.1.168 – 07.10.2026, 22:00
 
