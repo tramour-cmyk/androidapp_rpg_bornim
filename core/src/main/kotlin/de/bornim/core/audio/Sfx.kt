@@ -392,11 +392,24 @@ object Sfx {
             for (k in 0 until 2 + vi) band(0.02 + k * 0.025, 0.04, 0.3, 2600.0, 1800.0, 4.0, 106 + k, decay = 0.01)
             room(0.3)
         }
-        // a miss: just the whoosh of the blow going past, quick and full
-        Sound.MISS -> Buf(0.45).apply {
-            band(0.0, 0.24, 0.75, 260.0, 1250.0, 1.2, 109, swell = true)
-            band(0.1, 0.2, 0.35, 1250.0, 420.0, 1.2, 110, swell = true)
-            room(0.12)
+        // a miss, in three kinds: a full whoosh, a quick hiss of a light blade, the heavy rush of a big swing
+        Sound.MISS -> when (vi) {
+            1 -> Buf(0.3).apply {
+                band(0.0, 0.15, 0.7, 700.0, 2600.0, 1.4, 151, swell = true)
+                band(0.08, 0.1, 0.25, 2600.0, 1100.0, 1.4, 152, swell = true)
+                room(0.08)
+            }
+            2 -> Buf(0.6).apply {
+                band(0.0, 0.36, 0.85, 160.0, 820.0, 0.9, 153, swell = true)
+                band(0.16, 0.28, 0.4, 820.0, 260.0, 0.9, 154, swell = true)
+                thud(0.0, 0.3, 70.0, 55.0, 0.18)
+                room(0.15)
+            }
+            else -> Buf(0.45).apply {
+                band(0.0, 0.24, 0.75, 260.0, 1250.0, 1.2, 109, swell = true)
+                band(0.1, 0.2, 0.35, 1250.0, 420.0, 1.2, 110, swell = true)
+                room(0.12)
+            }
         }
         Sound.CRIT -> Buf(1.1).apply {
             band(0.0, 0.12, 0.55, 4800.0, 1200.0, 1.3, 111, decay = 0.05)
@@ -405,13 +418,30 @@ object Sfx {
             ring(0.04, 0.7, 610.0, 0.18)
             room(0.4)
         }
-        // a blow caught on the shield or the blade: a dull klonk of wood and iron, short, without ringing on
-        Sound.BLOCK -> Buf(0.5).apply {
-            thud(0.0, 0.22, 230.0, 115.0, 0.95)
-            band(0.0, 0.07, 0.9, 720.0, 440.0, 3.0, 113, decay = 0.02)
-            band(0.0, 0.025, 0.16, 2100.0, 1600.0, 2.5, 114, decay = 0.008)
-            ring(0.0, 0.11, 360.0, 0.07)
-            room(0.15)
+        // a blow caught, in three kinds: a dull klonk of wood and iron; a deep knock on a wooden shield with a short
+        // rattle; a blade turned by a blade, a short hard clash. None of them rings on.
+        Sound.BLOCK -> when (vi) {
+            1 -> Buf(0.5).apply {
+                thud(0.0, 0.26, 175.0, 85.0, 1.0)
+                band(0.0, 0.09, 0.8, 480.0, 300.0, 2.5, 155, decay = 0.03)
+                band(0.07, 0.05, 0.3, 380.0, 260.0, 3.0, 156, decay = 0.015)
+                band(0.12, 0.04, 0.18, 360.0, 240.0, 3.0, 157, decay = 0.012)
+                room(0.14)
+            }
+            2 -> Buf(0.45).apply {
+                band(0.0, 0.05, 0.75, 1700.0, 1150.0, 5.0, 158, decay = 0.012)
+                thud(0.0, 0.14, 270.0, 150.0, 0.55)
+                ring(0.0, 0.09, 540.0, 0.1)
+                band(0.02, 0.06, 0.25, 3200.0, 2400.0, 3.0, 159, decay = 0.015)
+                room(0.16)
+            }
+            else -> Buf(0.5).apply {
+                thud(0.0, 0.22, 230.0, 115.0, 0.95)
+                band(0.0, 0.07, 0.9, 720.0, 440.0, 3.0, 113, decay = 0.02)
+                band(0.0, 0.025, 0.16, 2100.0, 1600.0, 2.5, 114, decay = 0.008)
+                ring(0.0, 0.11, 360.0, 0.07)
+                room(0.15)
+            }
         }
         // snarl, the snap of jaws and the bite going in
         Sound.BITE -> Buf(0.7).apply {
