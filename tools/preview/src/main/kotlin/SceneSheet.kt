@@ -1063,6 +1063,7 @@ fun renderLaunch() {
         "Zauberstab und Buch" to hero("Ilse", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.WIZARD, de.bornim.core.GearSlot.MAIN_HAND to "wand", de.bornim.core.GearSlot.OFF_HAND to "tome"),
         "Heiligensymbol" to hero("Hedwig", de.bornim.core.Race.DWARF, de.bornim.core.CharClass.CLERIC, de.bornim.core.GearSlot.OFF_HAND to "holy_symbol"),
         "Bogen" to hero("Fenn", de.bornim.core.Race.ELF, de.bornim.core.CharClass.ROGUE, de.bornim.core.GearSlot.MAIN_HAND to "longbow"),
+        "Armbrust" to hero("Borin", de.bornim.core.Race.DWARF, de.bornim.core.CharClass.FIGHTER, de.bornim.core.GearSlot.MAIN_HAND to "light_crossbow"),
     )
     val bg = BattleScene.forest(w, h, BattleScene.Spot.CLEARING, BattleScene.Light.DUSK, false, 12)
     val wolf = MonsterArt.battleFrame("wolf", MonsterLook(1), Act.IDLE, 0, 0)
