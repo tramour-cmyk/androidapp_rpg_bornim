@@ -2,7 +2,7 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
-## v0.1.155 – 07.10.2026, 20:08
+## v0.1.155 – 07.10.2026, 20:07
 
 **Neu – vielseitige Waffen (SRD)**
 - Kampfstab und Speer (1W6 → 1W8), Langschwert, Streitaxt und Kriegshammer (1W8 → 1W10) machen mehr Schaden, wenn die andere Hand leer ist, also ohne Schild, Zweitwaffe oder Fokus. Der Held führt sie dann sichtbar mit beiden Händen. Wer den Schild behält, hat dafür die bessere Rüstungsklasse.
