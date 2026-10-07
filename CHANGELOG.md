@@ -2,7 +2,7 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
-## Unveröffentlicht
+## v0.1.154 – 07.10.2026, 19:49
 
 **Neu – der Held als bewegliche Figur**
 - In Wald und Höhle kämpft der Held als neu gezeichnete Figur, von hinten über die Schulter gesehen: Zu Beginn wendet er sich dem Spieler zu und dreht sich dann zum Gegner, im Hinterhalt wird er nach vorn geworfen.

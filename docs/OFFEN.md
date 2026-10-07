@@ -13,7 +13,7 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## In Arbeit
 
-- **Branch `hero-figure`** (noch nicht in `main`, also noch nicht veröffentlicht): der Held als bewegliche Figur im Kampf, im Ausrüstungsbild, bei der Erstellung, auf dem Titelbild und bei den Spielständen; Kampfmenü „Angreifen/Abwehr“ mit Konter; Kleriker mit Kampfstab, Rundschild und Sonne auf dem Wappenrock.
+- **Veröffentlicht in v0.1.154** (vorher Branch `hero-figure`): der Held als bewegliche Figur im Kampf, im Ausrüstungsbild, bei der Erstellung, auf dem Titelbild und bei den Spielständen; Kampfmenü „Angreifen/Abwehr“ mit Konter; Kleriker mit Kampfstab, Rundschild und Sonne auf dem Wappenrock.
 
 - **Gegner im neuen Stil:** Goblin, Goblin-Späher und Skelett sind eingebaut (Aussehen, Ausrüstung, Bewegungen in je drei Varianten). Der Wolf (und Grimmzahn) ist als 3D-Vierbeiner eingebaut. Als Nächstes die übrigen menschenähnlichen Gegner (Kobold, Zombie, Krogg, Grak), dann Wildschwein und Ratte als Vierbeiner. Danach die übrigen menschenähnlichen Gegner (Kobold, Zombie, Krogg, Grak) und die übrigen Tiere.
 
