@@ -300,11 +300,17 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         // a short cape over the shoulders, falling into the long cloth behind
         val neck = sk.upper.apply(P3(0.0, d.shoulderY + 0.035 * h, -d.chestDepth * 0.1))
         val shoulders = sk.upper.apply(P3(0.0, d.shoulderY - 0.03 * h, -d.chestDepth * 0.15))
-        val cape = RoundCone(neck, shoulders, d.shoulderX * 0.45, d.shoulderX * 1.08 + 0.03 * h, BodyPart.GEAR, Doll.CLOAK)
-        val fall = RoundCone(shoulders, bottom, d.shoulderX * 1.08 + 0.03 * h, d.shoulderX * 1.2 + 0.04 * h, BodyPart.GEAR, Doll.CLOAK)
-        val shape = Union(listOf(cape, fall), 3.0, BodyPart.GEAR, Doll.CLOAK)
+        // the cloth lies over the back and the seat, then falls free; the hem spreads with the stride and lags behind a move
+        val seat = sk.lower.apply(P3(0.0, d.hipY + 0.1 * h, -d.chestDepth * 0.9 - 0.012 * h - sway * 0.35))
+        val stride = abs(sk.rig.stride) * sk.s * 0.4
+        val rTop = d.shoulderX * 1.08 + 0.03 * h
+        val cape = RoundCone(neck, shoulders, d.shoulderX * 0.45, rTop, BodyPart.GEAR, Doll.CLOAK)
+        val back = RoundCone(shoulders, seat, rTop, d.shoulderX * 1.12 + 0.034 * h, BodyPart.GEAR, Doll.CLOAK)
+        val fall = RoundCone(seat, bottom, d.shoulderX * 1.12 + 0.034 * h, d.shoulderX * 1.22 + 0.045 * h + stride, BodyPart.GEAR, Doll.CLOAK)
+        val shape = Union(listOf(cape, back, fall), 3.0, BodyPart.GEAR, Doll.CLOAK)
         val oval = Squash(shape, shoulders, f, P3(1.0, 1.0, 0.6), BodyPart.GEAR, Doll.CLOAK)
-        val folds = Folds(oval, shoulders, (shoulders - bottom).norm(), 11.0, 0.6, BodyPart.GEAR, Doll.CLOAK)
+        // the folds ripple as the cloth swings
+        val folds = Folds(oval, shoulders, (shoulders - bottom).norm(), 11.0, 0.75, BodyPart.GEAR, Doll.CLOAK, sk.rig.cloak * 0.5)
         val s = add(Hollow(folds, 0.55, BodyPart.GEAR, Doll.CLOAK), col)
         // open at the front, ending at the shoulders and the hem
         s.cut(f.z, shoulders + f.z * (d.chestDepth * 0.35))

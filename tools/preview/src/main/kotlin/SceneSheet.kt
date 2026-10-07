@@ -870,3 +870,24 @@ fun renderWeaponSizes() {
     ImageIO.write(out, "png", File("build/screens/weapon_sizes.png"))
     println("wrote weapon sizes")
 }
+
+/** Bare arms in a few poses and a cloak in motion, to judge the arm muscles and how the cloth hangs. */
+fun renderArmsAndCloak() {
+    var uid = 1L
+    fun g(base: String, r: de.bornim.core.Rarity = de.bornim.core.Rarity.UNCOMMON) = de.bornim.core.Gear(uid++, base, r, 3)
+    val F = de.bornim.core.art.HeroFigure
+    val cw = 220; val ch = 270
+    val bare = listOf(de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.STRONG), de.bornim.core.art.Doll(de.bornim.core.Race.ELF, de.bornim.core.Sex.FEMALE, de.bornim.core.Build.AVERAGE))
+    val poses = listOf(F.STAND.copy(yaw = 30.0), F.SLASH_WIND.copy(yaw = 30.0), F.BLOCK.copy(yaw = 90.0), F.THRUST_HIT.copy(yaw = 90.0), F.SMASH_WIND.copy(yaw = 180.0), F.BOW_AIM.copy(yaw = 60.0))
+    val cloaked = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.CHEST to g("chain_shirt"), de.bornim.core.GearSlot.CLOAK to g("cloak"), de.bornim.core.GearSlot.MAIN_HAND to g("longsword"), de.bornim.core.GearSlot.OFF_HAND to g("shield")))
+    val mantle = de.bornim.core.art.Outfit(de.bornim.core.CharClass.WIZARD, mapOf(de.bornim.core.GearSlot.CHEST to g("robe"), de.bornim.core.GearSlot.CLOAK to g("mantle", de.bornim.core.Rarity.RARE), de.bornim.core.GearSlot.MAIN_HAND to g("staff")))
+    val cl = listOf(F.STAND, F.SLASH_HIT, F.THRUST_HIT, F.SMASH_HIT, F.STAND.copy(yaw = 180.0), F.SLASH_HIT.copy(yaw = 200.0))
+    val out = BufferedImage(cw * 6, ch * 4, BufferedImage.TYPE_INT_RGB)
+    val gg = out.createGraphics(); gg.color = java.awt.Color(0x5E625C); gg.fillRect(0, 0, out.width, out.height)
+    fun put(im: de.bornim.core.art.PixelImage, cx: Int, cy: Int) { for (y in 0 until ch) for (x in 0 until cw) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(cx * cw + x, cy * ch + y, q) } }
+    for ((ri, d) in bare.withIndex()) for ((ci, r) in poses.withIndex()) put(d.render(cw, ch, cw / 2.0, ch - 8.0, 1.2, r, null).img, ci, ri)
+    val hd = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 0)
+    for ((ci, r) in cl.withIndex()) { put(hd.render(cw, ch, cw / 2.0, ch - 8.0, 1.2, r, cloaked).img, ci, 2); put(hd.render(cw, ch, cw / 2.0, ch - 8.0, 1.2, r, mantle).img, ci, 3) }
+    ImageIO.write(out, "png", File("build/screens/arms_cloak.png"))
+    println("wrote arms and cloak")
+}

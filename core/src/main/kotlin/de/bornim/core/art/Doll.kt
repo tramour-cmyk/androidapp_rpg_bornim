@@ -300,6 +300,14 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             val grp = if (i == 0) ARM_L else ARM_R
             val sh = sk.shoulder[i]; val el = sk.elbow[i]; val wr = sk.wrist[i]
             cone(sh, el, 0.029 * h * l, 0.02 * h * l, BodyPart.ARM, grp, "upper$i")
+            // biceps in front, swelling as the elbow bends, and the triceps behind: the upper arm reads as muscle
+            val ua = (el - sh).norm()
+            val fa = (wr - el).norm()
+            val flex = (1 - (ua dot fa)).coerceIn(0.0, 1.0)
+            val front = (fa - ua * (fa dot ua)).let { if (it.len() < 0.15) sk.upper.dir(P3.Z).let { z -> z - ua * (z dot ua) } else it }.norm()
+            val uLen = (el - sh).len()
+            ell(sh + ua * (uLen * 0.56) + front * (0.011 * h * l), P3(0.019 * h * l * (1 + 0.18 * flex), uLen * 0.27, 0.017 * h * l * (1 + 0.25 * flex)), BodyPart.ARM, grp, "upper$i", Frame.along(ua, front))
+            ell(sh + ua * (uLen * 0.42) - front * (0.008 * h * l), P3(0.018 * h * l, uLen * 0.3, 0.016 * h * l), BodyPart.ARM, grp, "upper$i", Frame.along(ua, front))
             cone(el, wr, 0.022 * h * l, 0.015 * h * l, BodyPart.ARM, grp, "fore$i")
             ell(el.lerp(wr, 0.28), P3(0.022 * h * l, 0.06 * h, 0.02 * h * l), BodyPart.ARM, grp, "fore$i", Frame.along(wr - el))
             val dir = (wr - el).norm()

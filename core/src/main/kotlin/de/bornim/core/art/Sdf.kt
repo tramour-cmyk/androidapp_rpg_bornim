@@ -175,14 +175,14 @@ class Hollow(val inner: Solid, val t: Double, part: BodyPart = BodyPart.GEAR, gr
 }
 
 /** Folds pressed into another solid: ripples around the axis through [axis] along [up]. */
-class Folds(val inner: Solid, val axis: P3, val up: P3, val count: Double, val depth: Double, part: BodyPart = BodyPart.GEAR, group: Int) : Solid(part, group) {
+class Folds(val inner: Solid, val axis: P3, val up: P3, val count: Double, val depth: Double, part: BodyPart = BodyPart.GEAR, group: Int, val phase: Double = 0.0) : Solid(part, group) {
     override val center = inner.center
     override val bound = inner.bound + depth
     private val f = Frame.along(up)
     override fun raw(p: P3): Double {
         val q = p - axis
         val a = atan2(q dot f.x, q dot f.z)
-        return inner.dist(p) + sin(a * count) * depth
+        return inner.dist(p) + sin(a * count + phase) * depth
     }
 }
 
