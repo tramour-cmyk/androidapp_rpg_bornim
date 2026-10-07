@@ -1301,3 +1301,18 @@ fun renderPortraitFill() {
     }
     ImageIO.write(out, "png", File("build/screens/portrait_fill.png"))
 }
+
+/** The map figure of cleric and fighter from every side, large. */
+fun renderMapShields() {
+    val CA = de.bornim.core.art.CharacterArt
+    val facings = listOf(de.bornim.core.Facing.DOWN, de.bornim.core.Facing.LEFT, de.bornim.core.Facing.UP, de.bornim.core.Facing.RIGHT)
+    val heroes = listOf(de.bornim.core.CharClass.CLERIC, de.bornim.core.CharClass.FIGHTER).map { de.bornim.core.Hero.create("Karte", de.bornim.core.Race.HUMAN, it) }
+    val k = 8
+    val out = BufferedImage(32 * k * 4, 32 * k * 2, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x5A8A3A); g.fillRect(0, 0, out.width, out.height)
+    for ((r, h) in heroes.withIndex()) for ((c, f) in facings.withIndex()) {
+        val im = CA.hero(h, f, 0)
+        for (y in 0 until 32) for (x in 0 until 32) { val q = im[x, y]; if ((q ushr 24) >= 128) { g.color = java.awt.Color(q and 0xFFFFFF); g.fillRect(c * 32 * k + x * k, r * 32 * k + y * k, k, k) } }
+    }
+    ImageIO.write(out, "png", File("build/screens/map_shields.png"))
+}

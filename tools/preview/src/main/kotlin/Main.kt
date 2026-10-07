@@ -100,6 +100,7 @@ fun main() {
     if (System.getenv("TURN") != null) { renderTurntable(); System.exit(0) }
     if (System.getenv("TITLE") != null) { renderTitleHeroes(); System.exit(0) }
     if (System.getenv("CLERIC") != null) { renderClericShield(); System.exit(0) }
+    if (System.getenv("MAPSHIELD") != null) { renderMapShields(); System.exit(0) }
     if (System.getenv("PORTFILL") != null) { renderPortraitFill(); System.exit(0) }
     if (System.getenv("CLERICSUN") != null) { renderClericSun(); System.exit(0) }
     if (System.getenv("HALFBLOCK") != null) { renderHalflingBlock(); System.exit(0) }

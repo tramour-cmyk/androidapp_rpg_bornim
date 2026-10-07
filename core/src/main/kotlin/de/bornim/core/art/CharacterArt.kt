@@ -36,6 +36,8 @@ data class Look(
     val weaponColor: Int = Pal.IRON_LIGHT,
     /** Shield colour, or null for none. */
     val shield: Int? = null,
+    /** The shield is a round one, pale with a golden sun (the cleric's), rather than the long wooden one. */
+    val roundShield: Boolean = false,
     /** A glint in the colour of an epic or divine item, or null. */
     val sparkle: Int? = null,
 )
@@ -144,7 +146,10 @@ object CharacterArt {
             }
             l = l.copy(weapon = hand, weaponColor = metal(g.rarity))
         }
-        hero.item(GearSlot.OFF_HAND)?.takeIf { it.def.kind == BaseKind.SHIELD }?.let { l = l.copy(shield = mix(argb(0x8A5A30), it.rarity.color.toInt(), if (it.rarity >= Rarity.RARE) 0.5 else 0.0)) }
+        hero.item(GearSlot.OFF_HAND)?.takeIf { it.def.kind == BaseKind.SHIELD }?.let {
+            val round = it.base == "round_shield"
+            l = l.copy(shield = mix(argb(if (round) 0xE4DCC4 else 0x8A5A30), it.rarity.color.toInt(), if (it.rarity >= Rarity.RARE) 0.5 else 0.0), roundShield = round)
+        }
         val best = hero.gear.values.maxByOrNull { it.rarity }
         if (best != null && best.rarity >= Rarity.EPIC) l = l.copy(sparkle = best.rarity.color.toInt())
         return l
@@ -187,7 +192,7 @@ object CharacterArt {
             if (side) { rect(17, top0, 22, 27, c); rect(20, top0 + 2, 22, 27, shade(c)) }
         }
         // A shield on the far arm is partly hidden behind the body when seen from the side.
-        if (side) l.shield?.let { c -> ellipse(20.0, top0 + 5.0, 3.0, 4.5, shade(c)) }
+        if (side) l.shield?.let { c -> if (l.roundShield) ellipse(20.0, top0 + 5.0, 2.6, 4.0, shade(c)) else ellipse(20.0, top0 + 5.0, 3.0, 4.5, shade(c)) }
 
         // ---- legs and boots (two walk frames lift one foot)
         val liftL = if (step == 1) 1 else 0
@@ -281,10 +286,23 @@ object CharacterArt {
         }
         weapon(l, facing, top)
         if (!side) l.shield?.let { c ->
-            // round shield on the left arm, with a metal boss
             val sx = if (up) 23.0 else 8.0
-            ellipse(sx, top + 5.0, 4.0, 5.0, shade(c)); ellipse(sx - 0.5, top + 4.5, 3.2, 4.2, c)
-            if (!up) { px(sx.toInt(), top + 5, Pal.IRON_LIGHT); px(sx.toInt() - 1, top + 4, Pal.WHITE) }
+            if (l.roundShield) {
+                // the round shield: an iron rim, the pale face and a golden sun in the middle (from behind, the wood)
+                ellipse(sx, top + 5.0, 4.5, 4.5, Pal.IRON_LIGHT)
+                ellipse(sx, top + 5.0, 3.6, 3.6, if (up) argb(0x8A5A30) else c)
+                if (!up) {
+                    val x = sx.toInt(); val y = top + 5
+                    val ray = argb(0xC07A20)
+                    for (dx in -1..1) for (dy in -1..1) px(x + dx, y + dy, ray)
+                    px(x - 2, y, ray); px(x + 2, y, ray); px(x, y - 2, ray); px(x, y + 2, ray)
+                    px(x, y, Pal.GOLD)
+                }
+            } else {
+                // the long wooden shield on the left arm, with a metal boss
+                ellipse(sx, top + 5.0, 4.0, 5.0, shade(c)); ellipse(sx - 0.5, top + 4.5, 3.2, 4.2, c)
+                if (!up) { px(sx.toInt(), top + 5, Pal.IRON_LIGHT); px(sx.toInt() - 1, top + 4, Pal.WHITE) }
+            }
         }
         outline(Pal.OUTLINE)
         l.sparkle?.let { c ->
