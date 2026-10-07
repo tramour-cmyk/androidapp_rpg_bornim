@@ -105,6 +105,8 @@ fun main() {
     if (System.getenv("FOEANIM") != null) { renderFoeAnims(); System.exit(0) }
     if (System.getenv("HEROSPEAR") != null) { renderHeroSpear(); System.exit(0) }
     if (System.getenv("ARMS3D") != null) { renderArms3d(); System.exit(0) }
+    if (System.getenv("BEAST") != null) { renderBeastDraft(); System.exit(0) }
+    if (System.getenv("BEASTSCENE") != null) { renderBeastScene(); System.exit(0) }
     if (System.getenv("FOECLASH") != null) { checkFoeClashes(); System.exit(0) }
     if (System.getenv("FOEKITS") != null) { renderFoeKits(); System.exit(0) }
     if (System.getenv("FOESCENE") != null) { renderFoeInScene(); System.exit(0) }

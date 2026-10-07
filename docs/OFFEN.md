@@ -15,7 +15,7 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 - **Branch `hero-figure`** (noch nicht in `main`, also noch nicht veröffentlicht): der Held als bewegliche Figur im Kampf, im Ausrüstungsbild, bei der Erstellung, auf dem Titelbild und bei den Spielständen; Kampfmenü „Angreifen/Abwehr“ mit Konter; Kleriker mit Kampfstab, Rundschild und Sonne auf dem Wappenrock.
 
-- **Gegner im neuen Stil:** Goblin, Goblin-Späher und Skelett sind eingebaut (Aussehen, Ausrüstung, Bewegungen in je drei Varianten). Jetzt: der Wolf als 3D-Vierbeiner (erst Entwurfsbilder). Danach die übrigen menschenähnlichen Gegner (Kobold, Zombie, Krogg, Grak) und die übrigen Tiere.
+- **Gegner im neuen Stil:** Goblin, Goblin-Späher und Skelett sind eingebaut (Aussehen, Ausrüstung, Bewegungen in je drei Varianten). Jetzt: der Wolf als 3D-Vierbeiner. Entwurf (Körpermodell, Fellvarianten, Schlüsselhaltungen) liegt vor und wartet auf Freigabe; noch nicht im Spiel. Danach die übrigen menschenähnlichen Gegner (Kobold, Zombie, Krogg, Grak) und die übrigen Tiere.
 
 ## Zu testen
 
@@ -37,6 +37,7 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 
 ## Zu entscheiden
 
+2. **Wolf bei Nacht:** Wölfe bekommen das Szenenlicht (nachts kühl und dunkel, Augen leuchten), wie die Gegner in der Höhle? Vorschlag: ja.
 
 1. **Veröffentlichen:** `hero-figure` nach `main` übernehmen. Das baut automatisch die nächste Version (v0.1.x). Danach bekommt die Änderungshistorie den Versionseintrag mit Datum und Uhrzeit. Vorschlag: nach deinem Test.
 

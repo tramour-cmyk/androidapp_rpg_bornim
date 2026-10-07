@@ -1615,3 +1615,101 @@ fun renderArms3d() {
     ImageIO.write(out, "png", File("build/screens/arms3d.png"))
     println("wrote arms3d")
 }
+
+/** The wolf built in the round: every coat standing, from the side and turned towards the hero, close up. */
+fun renderBeastDraft() {
+    val W = de.bornim.core.art.WolfArt
+    val coats = listOf("Grau" to W.GREY, "Dunkel" to W.DARK, "Rost" to W.RUST, "Asche" to W.ASH, "Grimmzahn" to W.ALPHA, "Schimmer" to W.SHIMMER)
+    val yaws = listOf(-90.0, -60.0, -30.0)
+    val cw = 300; val ch = 230
+    val out = BufferedImage(cw * coats.size, ch * yaws.size, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x3A3E36); g.fillRect(0, 0, out.width, out.height)
+    for ((ci, cn) in coats.withIndex()) {
+        val size = if (cn.first == "Grimmzahn") 1.45 else 1.0
+        val beast = de.bornim.core.art.Beast(size, cn.second)
+        for ((ri, yaw) in yaws.withIndex()) {
+            val px = 1.45 / size
+            val im = beast.render(cw, ch, cw / 2.0, ch - 12.0, px, de.bornim.core.art.Beast.Rig(yaw = yaw))
+            for (y in 0 until ch) for (x in 0 until cw) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(ci * cw + x, ri * ch + y, q and 0xFFFFFF) }
+        }
+        g.color = java.awt.Color(0xF0E8D8); g.drawString(cn.first, ci * cw + 4, 14)
+    }
+    ImageIO.write(out, "png", File("build/screens/beast_draft.png"))
+    // the heads close up: from the side, turned to the hero, snarling
+    val heads = BufferedImage(260 * 3, 220 * 2, BufferedImage.TYPE_INT_RGB)
+    val hg = heads.createGraphics(); hg.color = java.awt.Color(0x3A3E36); hg.fillRect(0, 0, heads.width, heads.height)
+    for ((ri, coat) in listOf(W.GREY, W.ALPHA).withIndex()) for ((ci, rig) in listOf(de.bornim.core.art.Beast.Rig(yaw = -90.0), de.bornim.core.art.Beast.Rig(yaw = -45.0),
+            de.bornim.core.art.Beast.Rig(yaw = -60.0, mouth = 0.8, snarl = 1.0, ears = -1.0, neck = -15.0, crouch = 6.0)).withIndex()) {
+        val size = if (ri == 1) 1.45 else 1.0
+        val im = de.bornim.core.art.Beast(size, coat).render(260, 220, listOf(420.0, 340.0, 380.0)[ci], 455.0 - (if (ci == 2) 0.0 else 0.0), 4.0 / size, rig)
+        for (y in 0 until 220) for (x in 0 until 260) { val q = im[x, y]; if ((q ushr 24) >= 128) heads.setRGB(ci * 260 + x, ri * 220 + y, q and 0xFFFFFF) }
+    }
+    ImageIO.write(heads, "png", File("build/screens/beast_heads.png"))
+    println("wrote beast draft")
+}
+
+/** Key poses of the wolf in the round, for the first look. */
+object WolfKeys {
+    private val V = de.bornim.core.art.HeroFigure::V
+    val STAND = de.bornim.core.art.Beast.Rig(neck = -6.0, nod = 4.0, tail = -0.1)
+    val SNARL = de.bornim.core.art.Beast.Rig(crouch = 6.0, pitch = 4.0, neck = -18.0, nod = 8.0, mouth = 0.35, snarl = 1.0, ears = -1.0, tail = -0.3, fl = V(0.0, 0.0, 4.0))
+    val BITE = de.bornim.core.art.Beast.Rig(fwd = 22.0, crouch = 2.0, pitch = 6.0, neck = -8.0, nod = -6.0, mouth = 0.95, snarl = 1.0, ears = -1.0, tail = 0.2,
+        fl = V(0.0, 0.0, 14.0), fr = V(0.0, 4.0, 30.0), hl = V(0.0, 0.0, -6.0), hr = V(0.0, 0.0, 8.0))
+    val LEAP = de.bornim.core.art.Beast.Rig(fwd = 40.0, crouch = -38.0, pitch = -10.0, neck = 0.0, nod = -4.0, mouth = 0.95, snarl = 1.0, ears = -1.0, tail = 0.5,
+        fl = V(0.0, 74.0, 52.0), fr = V(0.0, 80.0, 46.0), hl = V(0.0, 56.0, -42.0), hr = V(0.0, 62.0, -36.0))
+    val HURT = de.bornim.core.art.Beast.Rig(fwd = -8.0, crouch = 4.0, pitch = -6.0, neck = 6.0, turn = 25.0, mouth = 0.6, eyes = 0.0, ears = -1.0, tail = -0.8)
+    val DEAD = de.bornim.core.art.Beast.Rig(fallS = 90.0, eyes = 0.0, mouth = 0.4, tail = -0.5, neck = -10.0, nod = -10.0)
+    val ALL = listOf("Stand" to STAND, "Knurren" to SNARL, "Biss" to BITE, "Sprung" to LEAP, "Getroffen" to HURT, "Tot" to DEAD)
+}
+
+/** The wolf in the round beside the hero in the forest, and its key poses, against the old wolf. */
+fun renderBeastScene() {
+    val B = de.bornim.core.art.HeroBattle
+    val BS = de.bornim.core.art.BattleScene
+    val W = de.bornim.core.art.WolfArt
+    val sw = 270; val sh = 410
+    val hero = de.bornim.core.Hero.create("Borin", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER)
+    val heroImg = B.frame(hero, de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, 0)
+    val px = 0.66
+    val fw = 240; val fh = 200
+    fun wolf(size: Double, coat: de.bornim.core.art.WolfArt.Coat, rig: de.bornim.core.art.Beast.Rig) =
+        de.bornim.core.art.Beast(size, coat).render(fw, fh, fw / 2.0, fh - 8.0, px, rig)
+    val old = de.bornim.core.art.MonsterArt.battleFrame("wolf", de.bornim.core.MonsterLook(3), de.bornim.core.art.Act.IDLE, 0, 0)
+    val panels = listOf(
+        Triple("alt", old, de.bornim.core.art.MonsterArt.groundLine("wolf").toInt()),
+        Triple("Grau", wolf(1.0, W.GREY, WolfKeys.STAND), fh - 8),
+        Triple("Rost, knurrend", wolf(1.0, W.RUST, WolfKeys.SNARL), fh - 8),
+        Triple("Grimmzahn", wolf(1.45, W.ALPHA, WolfKeys.SNARL.copy(mouth = 0.2, snarl = 0.6)), fh - 8))
+    val lights = listOf(de.bornim.core.art.BattleScene.Light.DAY, de.bornim.core.art.BattleScene.Light.NIGHT)
+    val k = 2
+    val out = BufferedImage((sw * panels.size + 10 * (panels.size - 1)) * k, (sh * lights.size + 10) * k, BufferedImage.TYPE_INT_RGB)
+    for ((li, light) in lights.withIndex()) {
+        val forest = BS.forest(sw, sh, de.bornim.core.art.BattleScene.Spot.entries[li], light, false, 7 + li)
+        for ((pi, pan) in panels.withIndex()) {
+            val (_, foe, feet) = pan
+            val canvas = IntArray(sw * sh) { forest.pixels[it] }
+            fun blit(im: de.bornim.core.art.PixelImage, ox: Int, oy: Int) {
+                for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; val X = ox + x; val Y = oy + y
+                    if ((q ushr 24) >= 128 && X in 0 until sw && Y in 0 until sh) canvas[Y * sw + X] = q }
+            }
+            blit(foe, (sw * BS.FOE_X).toInt() - foe.width / 2, (sh * BS.FOE_Y).toInt() - feet)
+            blit(heroImg, (sw * BS.HERO_X - B.ANCHOR_X).toInt(), (sh * BS.HERO_Y - B.GROUND).toInt())
+            for (y in 0 until sh * k) for (x in 0 until sw * k) out.setRGB(pi * (sw + 10) * k + x, li * (sh + 10) * k + y, canvas[(y / k) * sw + x / k] and 0xFFFFFF)
+        }
+    }
+    val g = out.createGraphics(); g.color = java.awt.Color(0xF0E8D8); g.font = g.font.deriveFont(22f)
+    for ((pi, pan) in panels.withIndex()) g.drawString(pan.first, pi * (sw + 10) * k + 10, 30)
+    ImageIO.write(out, "png", File("build/screens/beast_scene.png"))
+    // the key poses, grey wolf and Grimfang, close enough to judge
+    val cw = 300; val ch = 240
+    val poses = BufferedImage(cw * WolfKeys.ALL.size, ch * 2, BufferedImage.TYPE_INT_RGB)
+    val pg = poses.createGraphics(); pg.color = java.awt.Color(0x3A3E36); pg.fillRect(0, 0, poses.width, poses.height)
+    for ((ri, coat) in listOf(W.GREY, W.ALPHA).withIndex()) for ((ci, kp) in WolfKeys.ALL.withIndex()) {
+        val size = if (ri == 1) 1.45 else 1.0
+        val im = de.bornim.core.art.Beast(size, coat).render(cw, ch, cw / 2.0 + 10, ch - 14.0, 1.25 / size, kp.second)
+        for (y in 0 until ch) for (x in 0 until cw) { val q = im[x, y]; if ((q ushr 24) >= 128) poses.setRGB(ci * cw + x, ri * ch + y, q and 0xFFFFFF) }
+        pg.color = java.awt.Color(0xF0E8D8); pg.drawString(kp.first, ci * cw + 4, ri * ch + 14)
+    }
+    ImageIO.write(poses, "png", File("build/screens/beast_poses.png"))
+    println("wrote beast scene")
+}
