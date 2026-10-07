@@ -14,6 +14,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Wunden nach Blutstufe: Bei „Dezent“ zeigen Held und Gegner nur leichte Wunden, bei „Deutlich“ die vollen.
 - Aus der Abwehrhaltung gehen Schild oder Waffe erst fließend herunter, dann beginnt die nächste Bewegung (Angriff, Zauber, Wurf, Trank); bei einem Treffer bricht die Abwehr schneller. Erneute Abwehr hält die Haltung einfach.
 - Auch in Testkämpfen im Dorf und in den Häusern kämpft der Held als neue Figur, dort mit kurzem Schritt nach vorn.
+- Heldenerstellung: Figur und Werte bleiben oben stehen, nur die Eingaben darunter scrollen.
 - Abwehr nach Gegner: gegen Wölfe und anderes Getier mit tiefem Schild oder tiefer Zweihandparade, gegen große Gegner hoch; beim Zweihänder stützt der freie Unterarm die Waffe am Kopf ab.
 - Jede Waffe in wahrer Größe, Kleidung und Rüstung in Schichten, Umhang fällt über Rücken und schwingt nach. Schwungsound beim Schlag.
 - Bei der Heldenerschaffung wählbar: Geschlecht, Statur, Haut- und Haarton je Volk, mit drehender Vorschau. Die Körpergrößen folgen dem SRD (Halbling 60 % eines Menschen).

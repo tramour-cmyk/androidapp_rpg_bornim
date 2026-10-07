@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 12:06 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 12:12 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -23,13 +23,13 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 - **Figurgröße in den Menüs:** Halbling und Zwerg im Reiter „Held“ und im Ausrüstungsbild groß und mittig; bei der Erstellung maßstabsgetreu und mittig.
 - **Kampfablauf:** Ansage mit Ausholen → Tippen → Schlag oder Zauber zusammen mit Treffer/Fehlschlag; auch beim Kobold.
 - **Abwehr:** Untermenü „Angreifen/Abwehr“, Konter-Hinweis; danach fließender Übergang in den nächsten Zug.
+- **Heldenerstellung:** Figur und Werte bleiben oben stehen, nur die Eingaben darunter scrollen.
 - **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
 
 ## Zu entscheiden
 
 1. **Veröffentlichen:** `hero-figure` nach `main` übernehmen. Das baut automatisch die nächste Version (v0.1.x). Danach bekommt die Änderungshistorie den Versionseintrag mit Datum und Uhrzeit. Vorschlag: nach deinem Test.
-2. **Erstellungsbildschirm:** Figur und Werte oben fest, nur die Eingaben darunter scrollen. Vorschlag liegt vor, wartet auf dein Ja.
-3. **Rundschild auf der Karte:** Das Kartenmännchen (alter Stil) zeigt den Rundschild noch als Wappenschild. Anpassen oder so lassen, bis die Karte die neue Figur bekommt?
+2. **Rundschild auf der Karte:** Das Kartenmännchen (alter Stil) zeigt den Rundschild noch als Wappenschild. Anpassen oder so lassen, bis die Karte die neue Figur bekommt?
 
 ## Bei dir
 
