@@ -2,6 +2,17 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
+## Unveröffentlicht
+
+**Neu – vielseitige Waffen (SRD)**
+- Kampfstab und Speer (1W6 → 1W8), Langschwert, Streitaxt und Kriegshammer (1W8 → 1W10) machen mehr Schaden, wenn die andere Hand leer ist, also ohne Schild, Zweitwaffe oder Fokus. Der Held führt sie dann sichtbar mit beiden Händen. Wer den Schild behält, hat dafür die bessere Rüstungsklasse.
+- Im Dialog steht „Vielseitig: eine oder beide Hände“ und der Schaden mit beiden Händen; in der Liste beide Würfel, z. B. „1W6/1W8 Wucht“.
+
+**Verbessert**
+- **Tasche und Laden ohne Dopplungen:** Unter dem Namen stehen nur noch Art (wenn der Name sie nicht schon nennt), Platz und der wichtigste Wert, z. B. „Topfhelm · Kopf“ bei „Eisenbrecher“ oder „Plattenpanzer +2 · Oberkörper · RK 20“. Seltenheit und Zweihändigkeit zeigt das Symbol.
+- **Gegenstandsdialog:** Seltenheit nur einmal in Worten (und gar nicht, wenn der Name sie schon trägt), eine Zeile zum Tragen („Haupt- oder Nebenhand“, rot „Beide Hände“), der doppelte Satz zur Händigkeit ist weg.
+- **Symbole besser lesbar:** Bögen stärker gekrümmt und kräftiger, der Kristall des Magierstabs groß und leuchtend, Streitkolben, Kriegshammer und Handbeil mit größerem Kopf.
+
 ## v0.1.154 – 07.10.2026, 19:49
 
 **Neu – der Held als bewegliche Figur**

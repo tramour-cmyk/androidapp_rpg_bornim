@@ -38,6 +38,8 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 - **Klänge:** Abwehr klingt dumpf („Klonk“), Fehlschlag als Luftzug („Wusch“).
 - **Ausrüstungssymbole:** in Ausrüstungsplätzen, Tasche, Laden und Dialogen wie die 3D-Modelle; Seltenheit als 1–5 farbige Steine unten rechts; Zweihänder-Zeichen „2H“ jetzt oben rechts. Das erste Anzeigen eines Symbols dauert kurz, bis dahin steht das alte da.
 - **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln im Hinterhalt, Drehung; die Schläge selbst so schnell wie bisher.
+- **Vielseitige Waffen:** ohne Schild mehr Schaden (Kampfwerte im Ausrüstungsreiter) und beidhändige Haltung im Kampf; mit Schild wie bisher.
+- **Tasche, Laden, Dialog:** kürzere Zeilen ohne Dopplungen.
 - **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
 
 ## Zu entscheiden

@@ -121,6 +121,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
 
     /** Whether a bow comes with its quiver on the back. */
     private var quiver = true
+    /** Drawn small on its own, as the item's picture: thin parts made bolder, the bow more bent, the crystal brighter. */
+    private var alone = false
     /** How thick a bowstring is, in cm: thicker when the bow is drawn small on its own, or it falls apart into dots. */
     private var string = 0.25
 
@@ -128,7 +130,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     fun only(slot: GearSlot): List<Solid> {
         out.clear()
         when (slot) {
-            GearSlot.MAIN_HAND -> { quiver = false; string = 0.9; bow(); crossbow(); staff(); arms3d() }
+            GearSlot.MAIN_HAND -> { quiver = false; alone = true; string = 0.9; bow(); crossbow(); staff(); arms3d() }
             GearSlot.OFF_HAND -> { offHand(); arms3d() }
             GearSlot.CHEST -> if (robe) clothes() else { armour(); belt() }
             GearSlot.HEAD -> headgear()
@@ -465,9 +467,9 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         // carried undrawn, the bow leans its upper limb towards the foe
         val tilt = Math.toRadians(sk.rig.bowTilt * (1 - draw.coerceIn(0.0, 1.0)))
         if (abs(tilt) > 1e-3) up = (up * kotlin.math.cos(tilt) + aim * kotlin.math.sin(tilt)).norm()
-        val bend = len * (0.09 + 0.1 * draw)
+        val bend = len * ((if (alone) 0.16 else 0.09) + 0.1 * draw)
         fun at(t: Double) = grip + up * (t * len / 2) + aim * (-bend * t * t + bend * 0.15)
-        fun thick(t: Double) = (0.012 - 0.0065 * abs(t)) * h
+        fun thick(t: Double) = (0.012 - 0.0065 * abs(t)) * h * (if (alone) 1.8 else 1.0)
         val woodMat = m(mix(argb(0x5E3E24), r.color.toInt(), if (r >= Rarity.RARE) 0.3 else 0.0), grain = 0.05)
         val n = 10
         for (k in 0 until n) {
@@ -555,7 +557,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val side = (if (abs(dir.y) > 0.9) P3.X else (P3.Y cross dir)).norm()
         val glowRgb = glowColour()
         fun cone(a: P3, b: P3, ra: Double, rb: Double, mat: Mat, group: Int = Doll.ITEM) = add(RoundCone(a, b, ra, rb, BodyPart.GEAR, group), mat)
-        val shine = m(glowRgb, shine = 1.0, bias = 0.12 + 0.3 * sk.rig.glow)
+        val shine = m(glowRgb, shine = 1.0, bias = 0.12 + 0.3 * sk.rig.glow + (if (alone) 0.25 else 0.0))
         when (main.base) {
             "wand" -> {
                 val tip = hand + dir * (0.1 * h * k)
@@ -581,7 +583,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
                         val out = side * kotlin.math.cos(a) + up2 * kotlin.math.sin(a)
                         cone(at(0.95), crystal + out * (0.013 * h) + dir * (0.012 * h), 0.004 * h, 0.0018 * h, wood, Doll.TRIM)
                     }
-                    add(Ellipsoid(crystal, P3(0.011 * h, 0.019 * h, 0.011 * h), Frame.along(dir), BodyPart.GEAR, Doll.TRIM), shine)
+                    val big = if (alone) 2.3 else 1.0
+                    add(Ellipsoid(crystal, P3(0.011 * h * big, 0.019 * h * big, 0.011 * h * big), Frame.along(dir), BodyPart.GEAR, Doll.TRIM), shine)
                 } else if (main.base == "spear") {
                     // an ash shaft with a socketed iron leaf, ridged down the middle, and an iron shoe at the butt
                     val u = h / 175.0

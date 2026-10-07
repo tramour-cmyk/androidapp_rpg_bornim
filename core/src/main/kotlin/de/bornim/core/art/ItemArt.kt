@@ -34,6 +34,7 @@ object ItemArt {
     /** A millimetre at ten times life size, the unit rings and amulets are built in. */
     private const val U = 1.0
 
+    private val HEADED = setOf("mace", "warhammer", "handaxe")
     private val LONG = setOf("spear", "halberd", "quarterstaff", "staff")
 
     private val cache = HashMap<String, PixelImage>()
@@ -114,7 +115,9 @@ object ItemArt {
         if (x1 < 0) return IconArt.get(def.icon)
         val fit = SIZE - 2 * MARGIN
         // a long shaft would be a hairline: drawn larger, its head in the corner and its foot running out of the picture
-        val zoom = if (base in LONG) 2.2 else 1.0
+        // a long shaft would be a hairline, a mace's or hammer's head a dot: drawn larger, the head in the corner and
+        // the shaft running out of the picture
+        val zoom = if (base in LONG) 2.2 else if (base in HEADED) 1.45 else 1.0
         val k = fit / maxOf(x1 - x0 + 1, y1 - y0 + 1).toDouble() * zoom
         val cx = if (zoom > 1) x1 + 1 - fit / k / 2 else (x0 + x1 + 1) / 2.0
         val cy = if (zoom > 1) y0 + fit / k / 2 else (y0 + y1 + 1) / 2.0
