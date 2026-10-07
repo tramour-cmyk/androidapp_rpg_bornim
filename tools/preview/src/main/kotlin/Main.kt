@@ -119,6 +119,8 @@ fun main() {
     if (System.getenv("FOELUNGE") != null) { renderFoeLunge(); System.exit(0) }
     if (System.getenv("FOEFALLS") != null) { renderFoeFalls(); System.exit(0) }
     if (System.getenv("FOEANIM") != null) { renderFoeAnims(); System.exit(0) }
+    if (System.getenv("VERSHOW") != null) { renderVersatile(); System.exit(0) }
+    if (System.getenv("VERSATILE") != null) { checkVersatile(); System.exit(0) }
     if (System.getenv("XBOW") != null) { renderCrossbowProbe(); System.exit(0) }
     if (System.getenv("ITEMS") != null) { renderItemSheet(); System.exit(0) }
     if (System.getenv("HEROSPEAR") != null) { renderHeroSpear(); System.exit(0) }

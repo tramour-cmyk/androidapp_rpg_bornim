@@ -149,12 +149,19 @@ class Hero(
     fun weaponDamage(w: Gear?, offHand: Boolean = false): DiceExpr {
         val extra = bonus(Affix.DAMAGE) + bonus(Affix.FIRE) + bonus(Affix.RADIANT)
         if (w == null) return dice(1, 1, mod(Ability.STR) + extra)
-        val d = w.def.damage ?: dice(1, 4)
+        val d = (if (!offHand && bothHands(w)) w.def.versatile else null) ?: w.def.damage ?: dice(1, 4)
         val ability = if (offHand) minOf(0, mod(weaponAbility(w))) else mod(weaponAbility(w))
         return d.copy(bonus = d.bonus + ability + w.plus + extra)
     }
 
     val weaponDamage: DiceExpr get() = weaponDamage(weapon)
+
+    /** Whether [w] is held in both hands: a two-handed weapon always, a versatile one when the other hand is empty. */
+    fun bothHands(w: Gear? = weapon): Boolean {
+        val d = w?.def ?: return false
+        if (d.ranged) return false
+        return d.twoHanded || (d.versatile != null && w.uid == weapon?.uid && item(GearSlot.OFF_HAND) == null)
+    }
 
     val spellAbility: Ability get() = cls.primary
     val spellBonusFromItems: Int get() = gear.values.sumOf { it.def.focus } + bonus(Affix.SPELL)

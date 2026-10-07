@@ -398,7 +398,7 @@ object HeroFigure {
         val shield = hero.item(GearSlot.OFF_HAND)?.def?.kind == de.bornim.core.BaseKind.SHIELD
         return when {
             stance(w) != Stance.MELEE && stance(w) != Stance.SPEAR -> RANGED_VICTORY.getValue(stance(w)).indices.toList()
-            w != null && w.twoHanded && !w.ranged -> listOf(0, 1, 2)
+            hero.bothHands() -> listOf(0, 1, 2)
             // both hands on the hilt does not go with a shield on the arm
             shield -> listOf(0, 2, 3)
             else -> VICTORY_POSES.indices.toList()
@@ -454,7 +454,7 @@ object HeroFigure {
         var rig = seq[i]
         // two-handed weapons: both hands on the haft
         val w = hero.item(GearSlot.MAIN_HAND)?.def
-        if (w != null && w.twoHanded && !w.ranged) rig = rig.copy(lh = rig.rh + rig.weapon * (-5.0) + V(-1.5, 0.0, 0.0))
+        if (w != null && hero.bothHands()) rig = rig.copy(lh = rig.rh + rig.weapon * (-5.0) + V(-1.5, 0.0, 0.0))
         return draw(hero, rig, "$act/$strike/$variant/$i")
     }
 

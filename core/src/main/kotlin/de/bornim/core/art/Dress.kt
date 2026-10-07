@@ -20,14 +20,16 @@ import kotlin.math.sqrt
  * What a hero wears and holds, slot by slot. A foe's gear can be [rusty] (old iron, flaking brown) or [crude]
  * (a shield of bare nailed planks): a look only, not a kind of item.
  */
-class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Boolean = false, val crude: Boolean = false, val pelt: Boolean = false) {
+class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Boolean = false, val crude: Boolean = false, val pelt: Boolean = false,
+    /** A versatile weapon held in both hands, the other hand being empty (see [Hero.bothHands]). */
+    val bothHands: Boolean = false) {
     fun base(slot: GearSlot): String? = items[slot]?.base
     fun rarity(slot: GearSlot): Rarity = items[slot]?.rarity ?: Rarity.COMMON
-    val twoHands: Boolean get() = items[GearSlot.MAIN_HAND]?.def?.let { it.twoHanded && !it.ranged } == true
+    val twoHands: Boolean get() = items[GearSlot.MAIN_HAND]?.def?.let { (it.twoHanded || bothHands && it.versatile != null) && !it.ranged } == true
     val hasShield: Boolean get() = items[GearSlot.OFF_HAND]?.def?.kind == BaseKind.SHIELD && !twoHands
 
     companion object {
-        fun of(hero: Hero) = Outfit(hero.cls, GearSlot.entries.mapNotNull { s -> hero.item(s)?.let { s to it } }.toMap())
+        fun of(hero: Hero) = Outfit(hero.cls, GearSlot.entries.mapNotNull { s -> hero.item(s)?.let { s to it } }.toMap(), bothHands = hero.bothHands())
 
         /** A foe's kit as an outfit to dress its doll in. */
         fun of(kit: de.bornim.core.MonsterKit) = Outfit(CharClass.FIGHTER,

@@ -61,6 +61,8 @@ class GearBase(
     val twoHanded: Boolean = false,
     /** Spell attack and spell DC bonus of foci, wands and staves. */
     val focus: Int = 0,
+    /** SRD versatile: the damage when held in both hands (nothing in the other one), or null. */
+    val versatile: DiceExpr? = null,
 ) {
     val name: T get() = T(de, en)
     val isWeapon: Boolean get() = kind == BaseKind.WEAPON
@@ -182,7 +184,7 @@ data class Gear(
         val de = lang == Lang.DE
         val dmg = def.damage
         return when {
-            dmg != null -> dmg.copy(bonus = dmg.bonus + plus).label(lang) + " " + def.damageType.title(lang)
+            dmg != null -> dmg.copy(bonus = dmg.bonus + plus).label(lang) + (def.versatile?.let { "/" + it.copy(bonus = it.bonus + plus).label(lang) } ?: "") + " " + def.damageType.title(lang)
             def.slot == GearSlot.CHEST && def.armor > 0 -> (if (de) "RK " else "AC ") + (def.armor + plus)
             def.kind == BaseKind.SHIELD -> (if (de) "RK +" else "AC +") + (def.armor + plus)
             def.focus > 0 -> (if (de) "Zauberkraft +" else "Spell power +") + def.focus
@@ -213,6 +215,7 @@ data class Gear(
         val de = lang == Lang.DE
         return when {
             def.isWeapon && def.twoHanded -> if (de) "Beide Hände" else "Both hands"
+            def.versatile != null -> if (de) "Vielseitig: eine oder beide Hände" else "Versatile: one or both hands"
             def.isWeapon -> if (de) "Haupt- oder Nebenhand" else "Main or off hand"
             else -> def.slot.title(lang)
         }
@@ -256,8 +259,8 @@ object GearBases {
 
     private fun weapon(
         id: String, de: String, g: Gender, en: String, icon: Icon, price: Int, dmg: DiceExpr, type: DamageType,
-        minLevel: Int = 1, finesse: Boolean = false, ranged: Boolean = false, twoHanded: Boolean = false, focus: Int = 0,
-    ) = GearBase(id, de, g, en, GearSlot.MAIN_HAND, BaseKind.WEAPON, icon, price, minLevel, Weight.NONE, 0, dmg, type, finesse, ranged, twoHanded, focus)
+        minLevel: Int = 1, finesse: Boolean = false, ranged: Boolean = false, twoHanded: Boolean = false, focus: Int = 0, versatile: DiceExpr? = null,
+    ) = GearBase(id, de, g, en, GearSlot.MAIN_HAND, BaseKind.WEAPON, icon, price, minLevel, Weight.NONE, 0, dmg, type, finesse, ranged, twoHanded, focus, versatile)
 
     val all: List<GearBase> = listOf(
         // Head
@@ -300,12 +303,12 @@ object GearBases {
         weapon("scimitar", "Krummsäbel", Gender.M, "Scimitar", Icon.SWORD, 25, dice(1, 6), DamageType.SLASHING, finesse = true),
         weapon("handaxe", "Handbeil", Gender.N, "Handaxe", Icon.AXE, 5, dice(1, 6), DamageType.SLASHING),
         weapon("mace", "Streitkolben", Gender.M, "Mace", Icon.MACE, 5, dice(1, 6), DamageType.BLUDGEONING),
-        weapon("spear", "Speer", Gender.M, "Spear", Icon.SPEAR, 1, dice(1, 6), DamageType.PIERCING),
-        weapon("quarterstaff", "Kampfstab", Gender.M, "Quarterstaff", Icon.STAFF, 1, dice(1, 6), DamageType.BLUDGEONING),
+        weapon("spear", "Speer", Gender.M, "Spear", Icon.SPEAR, 1, dice(1, 6), DamageType.PIERCING, versatile = dice(1, 8)),
+        weapon("quarterstaff", "Kampfstab", Gender.M, "Quarterstaff", Icon.STAFF, 1, dice(1, 6), DamageType.BLUDGEONING, versatile = dice(1, 8)),
         weapon("rapier", "Rapier", Gender.N, "Rapier", Icon.SWORD, 25, dice(1, 8), DamageType.PIERCING, 2, finesse = true),
-        weapon("longsword", "Langschwert", Gender.N, "Longsword", Icon.SWORD, 15, dice(1, 8), DamageType.SLASHING),
-        weapon("battleaxe", "Streitaxt", Gender.F, "Battleaxe", Icon.AXE, 10, dice(1, 8), DamageType.SLASHING),
-        weapon("warhammer", "Kriegshammer", Gender.M, "Warhammer", Icon.HAMMER, 15, dice(1, 8), DamageType.BLUDGEONING, 2),
+        weapon("longsword", "Langschwert", Gender.N, "Longsword", Icon.SWORD, 15, dice(1, 8), DamageType.SLASHING, versatile = dice(1, 10)),
+        weapon("battleaxe", "Streitaxt", Gender.F, "Battleaxe", Icon.AXE, 10, dice(1, 8), DamageType.SLASHING, versatile = dice(1, 10)),
+        weapon("warhammer", "Kriegshammer", Gender.M, "Warhammer", Icon.HAMMER, 15, dice(1, 8), DamageType.BLUDGEONING, 2, versatile = dice(1, 10)),
         weapon("wand", "Zauberstab", Gender.M, "Wand", Icon.WAND, 30, dice(1, 4), DamageType.FORCE, 2, focus = 1),
         // Two-handed weapons
         weapon("greatsword", "Zweihänder", Gender.M, "Greatsword", Icon.SWORD, 50, dice(2, 6), DamageType.SLASHING, 3, twoHanded = true),

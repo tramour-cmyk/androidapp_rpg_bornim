@@ -125,4 +125,23 @@ class GearTest {
         assertEquals(listOf("studded_leather"), s.bag.map { it.base })
         assertEquals(GameState.SAVE_VERSION, s.version)
     }
+
+    @Test
+    fun versatileWeaponsHitHarderInBothHands() {
+        val s = GameState.newGame("V", Race.HUMAN, CharClass.FIGHTER)
+        val hero = s.hero
+        hero.equip(Gear(900, "longsword", Rarity.COMMON, 1))
+        hero.equip(Gear(901, "shield", Rarity.COMMON, 1))
+        assertEquals(8, hero.weaponDamage.sides, "with a shield: one hand")
+        assertTrue(!hero.bothHands())
+        hero.unequip(GearSlot.OFF_HAND)
+        assertTrue(hero.bothHands())
+        assertEquals(10, hero.weaponDamage.sides, "other hand empty: both hands")
+        // a weapon that is not versatile stays as it is
+        hero.equip(Gear(902, "mace", Rarity.COMMON, 1))
+        assertEquals(6, hero.weaponDamage.sides)
+        assertTrue(!hero.bothHands())
+        // the list line names both dice
+        assertTrue(Gear(903, "quarterstaff", Rarity.COMMON, 1).listLine(Lang.DE).contains("1W6/1W8"))
+    }
 }

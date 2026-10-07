@@ -175,6 +175,9 @@ fun GearDetails(g: Gear, game: Game, lang: Lang) {
     d.damage?.let { dmg ->
         val withPlus = dmg.copy(bonus = dmg.bonus + g.plus)
         Txt("${Ui.damage(lang)}: ${withPlus.label(lang)} ${d.damageType.title(lang)}", size = 16.sp, bold = true)
+        d.versatile?.let { v ->
+            Txt((if (de) "Mit beiden Händen (andere Hand leer): " else "In both hands (other hand empty): ") + v.copy(bonus = v.bonus + g.plus).label(lang), size = 14.sp, color = Colors.textDim)
+        }
         if (g.plus > 0) Txt("${Ui.attack(lang)} +${g.plus}", size = 15.sp, bold = true)
         val traits = buildList {
             if (d.finesse) add(if (de) "Finesse" else "Finesse")

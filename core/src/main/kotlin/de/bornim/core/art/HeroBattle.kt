@@ -22,7 +22,7 @@ object HeroBattle {
 
     fun doll(hero: Hero) = Doll(hero.race, hero.sex, hero.build, hero.skinTone, hero.hairTone)
 
-    fun outfit(hero: Hero) = Outfit(hero.cls, GearSlot.entries.mapNotNull { s -> hero.item(s)?.let { s to it } }.toMap())
+    fun outfit(hero: Hero) = Outfit.of(hero)
 
     fun stance(hero: Hero) = HeroFigure.stance(hero)
 

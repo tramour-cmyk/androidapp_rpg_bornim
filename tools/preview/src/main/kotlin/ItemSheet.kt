@@ -5,6 +5,8 @@ import de.bornim.core.Rarity
 import de.bornim.core.art.IconArt
 import de.bornim.core.art.ItemArt
 import de.bornim.core.art.PixelImage
+import de.bornim.core.art.HeroFigure.Act
+import de.bornim.core.art.HeroFigure.Strike
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics2D
@@ -83,4 +85,57 @@ fun renderCrossbowProbe() {
     }
     ImageIO.write(img, "png", File("build/screens/crossbow_probe.png"))
     println("wrote crossbow probe")
+}
+
+/** Versatile weapons held in both hands: every act of every folk checked for the weapon going into the body. */
+fun checkVersatile() {
+    val F = de.bornim.core.art.HeroFigure
+    var bad = 0; var total = 0
+    val strikes = mapOf("spear" to listOf(Strike.THRUST, Strike.SMASH), "quarterstaff" to listOf(Strike.SMASH, Strike.SLASH), "warhammer" to listOf(Strike.SMASH, Strike.SLASH),
+        "longsword" to listOf(Strike.SLASH, Strike.THRUST), "battleaxe" to listOf(Strike.SLASH, Strike.THRUST))
+    for (race in de.bornim.core.Race.entries) for ((base, st) in strikes) {
+        val doll = de.bornim.core.art.Doll(race, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE)
+        val outfit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to de.bornim.core.Gear(1, base, de.bornim.core.Rarity.COMMON, 3)), bothHands = true)
+        val stance = F.stance(de.bornim.core.GearBases[base])
+        val runs = mutableListOf<Triple<Act, Strike, Int>>()
+        for (a in listOf(Act.IDLE, Act.INTRO, Act.TURN, Act.AMBUSHED, Act.HURT)) runs += Triple(a, Strike.SLASH, 0)
+        for (v in listOf(1, 3)) runs += Triple(Act.BLOCK, Strike.SLASH, v)
+        for (s in st) runs += Triple(Act.ATTACK, s, 0)
+        for (v in listOf(0, 1, 2)) runs += Triple(Act.VICTORY, Strike.SLASH, v)
+        for ((act, s, v) in runs) for ((i, rig) in F.sequence(act, s, v, stance).withIndex()) {
+            total++
+            val dress = doll.fit(rig, outfit).second!!.first
+            dress.weaponThroughBody()?.let { t -> bad++; if (bad <= 80) println("KÖRPER: ${race.name} $base $act/$s/$v Bild $i bei ${(t * 100).toInt()} % ${dress.lastClash}") }
+        }
+    }
+    println("VIELSEITIG: $bad von $total Bildern mit der Waffe im Körper")
+}
+
+/** Versatile weapons in both hands: rest, the blows at wind-up and strike, the parry and a victory, for a look. */
+fun renderVersatile() {
+    val F = de.bornim.core.art.HeroFigure
+    val strikes = mapOf("longsword" to listOf(Strike.SLASH, Strike.THRUST), "battleaxe" to listOf(Strike.SLASH, Strike.THRUST), "warhammer" to listOf(Strike.SMASH, Strike.SLASH),
+        "spear" to listOf(Strike.THRUST, Strike.SMASH), "quarterstaff" to listOf(Strike.SMASH, Strike.SLASH))
+    val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE)
+    val W = 190; val H = 230; val sc = 2
+    val cols = 8
+    val img = BufferedImage(W * sc * cols, H * sc * strikes.size, BufferedImage.TYPE_INT_ARGB)
+    val g = img.createGraphics(); g.color = Color(0x3A4A36); g.fillRect(0, 0, img.width, img.height)
+    for ((ri, e) in strikes.entries.withIndex()) {
+        val (base, st) = e
+        val outfit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to de.bornim.core.Gear(1, base, de.bornim.core.Rarity.COMMON, 3)), bothHands = true)
+        val stance = F.stance(de.bornim.core.GearBases[base])
+        val rigs = mutableListOf(F.sequence(Act.IDLE, Strike.SLASH, 0, stance)[0])
+        for (s in st) { val q = F.sequence(Act.ATTACK, s, 0, stance); val k = F.strikeFrame(s); rigs += q[k - 3]; rigs += q[k] }
+        rigs += F.sequence(Act.BLOCK, Strike.SLASH, 1, stance)[7]
+        rigs += F.sequence(Act.BLOCK, Strike.SLASH, 3, stance)[7]
+        rigs += F.sequence(Act.VICTORY, Strike.SLASH, 1, stance).last()
+        for ((ci, rig) in rigs.take(cols).withIndex()) {
+            val p = doll.render(W, H, W / 2.0, H - 12.0, 0.95, rig, outfit).img
+            for (y in 0 until H) for (x in 0 until W) { val v = p[x, y]; if ((v ushr 24) < 128) continue
+                g.color = Color(v, true); g.fillRect(ci * W * sc + x * sc, ri * H * sc + y * sc, sc, sc) }
+        }
+    }
+    ImageIO.write(img, "png", File("build/screens/versatile.png"))
+    println("wrote versatile")
 }
