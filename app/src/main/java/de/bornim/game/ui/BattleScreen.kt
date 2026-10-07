@@ -155,7 +155,16 @@ private class BattleUi(val battle: Battle) {
             flashKey++
             return
         }
+        // still waiting for a blow that never came: the hero's own move starts from the rest
+        if (m != null && m.act == HeroFigure.Act.AMBUSHED && m.hold && s.anim in HERO_MOVES) motion = null
         when {
+            // ambushed: still facing us, the hero is caught from behind by the foe's first blow, staggers and only then
+            // turns to it; struck down by it, the hero stays down in the stagger
+            s.anim == Anim.HERO_FAINT && m != null && m.act == HeroFigure.Act.AMBUSHED ->
+                play(HeroFigure.Act.AMBUSHED, to = AMBUSH_DOWN, perFrame = 90, hold = true)
+            m != null && m.act == HeroFigure.Act.AMBUSHED && m.hold &&
+                (s.anim == Anim.HERO_HIT || (s.anim == Anim.MISS && fx?.onHero == true)) ->
+                play(HeroFigure.Act.AMBUSHED, perFrame = 75)
             s.anim == Anim.HERO_ACT -> {
                 val list = HeroBattle.strikes(hero)
                 val strike = list[blows++ % list.size]
@@ -204,8 +213,9 @@ private class BattleUi(val battle: Battle) {
     }
 
     init {
-        // the fight begins with the hero facing us and turning to the foe, or thrown forward by an ambush
-        if (battle.opening == de.bornim.core.Opening.AMBUSHED) play(HeroFigure.Act.AMBUSHED, perFrame = 75, delayMs = 250)
+        // the fight begins with the hero facing us and turning to the foe; in an ambush the hero stays facing us,
+        // unaware, until the foe's blow lands from behind
+        if (battle.opening == de.bornim.core.Opening.AMBUSHED) play(HeroFigure.Act.AMBUSHED, from = 0, to = 0, hold = true)
         else play(HeroFigure.Act.TURN, perFrame = 70, delayMs = 700)
         push(battle.start())
     }
@@ -1040,6 +1050,10 @@ private fun rememberPulse(): Float {
 
 /** The frame of a fall at which the foe has taken the killing blow and reels, before it goes down. */
 private const val DIE_REEL = 4
+/** The ambushed hero's last frame of the stagger, before the turn to the foe begins. */
+private const val AMBUSH_DOWN = 7
+/** What the hero does on the hero's own turn. */
+private val HERO_MOVES = setOf(Anim.HERO_ACT, Anim.SPELL, Anim.THROW, Anim.DEFEND, Anim.HERO_HEAL)
 
 /** How far into its step a foe on the doll goes while its attack is named: the rest of the step comes with the blow. */
 private const val FOE_WIND_STEP = 0.45f

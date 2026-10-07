@@ -40,6 +40,19 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - „Kämpfen“ öffnet jetzt „Angreifen“ und „Abwehr“. In Abwehrhaltung (nach SRD „Ausweichen“) greift der Gegner bis zum nächsten Zug mit Nachteil an, Geschicklichkeitsrettungswürfe haben Vorteil. Verfehlt er, bietet sich ein Konter: der nächste Angriff hat Vorteil.
 - Jeder Angriff ist zu sehen, auch ein verfehlter: Pfeile, Bolzen und Zauber fliegen am Ziel vorbei. Ansage mit Ausholen, dann Schlag mit Treffer oder Fehlschlag – beim Helden wie bei den Gegnern.
 
+**Verbessert**
+- Neue Klänge, wenn ein Angriff abgewehrt wird oder danebengeht: statt eines hellen „Ping“ wie von einer alten Ladenkasse ein dumpfes „Klonk“ auf Schild oder Klinge, und beim Fehlschlag nur ein Luftzug („Wusch“). Je drei verschiedene Varianten, die zufällig wechseln: bei der Abwehr Klonk, hölzernes Pochen und kurzes Klirren von Klinge auf Klinge; beim Fehlschlag voller Luftzug, kurzes Zischen und schwerer, tiefer Luftzug.
+
+**Behoben**
+- Im Hinterhalt hatte sich der Held schon zum Gegner umgedreht, bevor dieser zuschlug. Jetzt steht er noch ahnungslos dem Spieler zugewandt, der Schlag trifft ihn von hinten, er taumelt nach vorn und dreht sich erst dann zum Gegner. Fällt er schon durch diesen Schlag, bleibt er im Taumeln.
+- Beim tödlichen Treffer knickte ein Gegner erst mit der Trefferbewegung ein, stand wieder auf und brach dann mit dem Sturz ein zweites Mal zusammen. Jetzt taumelt er mit dem tödlichen Treffer, bleibt so, und fällt mit „besiegt“ in einem Zug zu Boden (Goblins, Skelette, Wölfe).
+- Ein besiegter Gegner konnte stehend ausblenden, ohne zu fallen: wenn man nach „besiegt“ zügig weitertippte, oder wenn die Sturzbilder noch nicht berechnet waren. Jetzt wartet die nächste Meldung, bis der Sturz zu Ende gespielt ist, und der Sturz beginnt erst, wenn seine Bilder fertig sind (sie werden gleich nach dem ersten Ruhebild vorbereitet, fehlende sofort berechnet).
+- Der doppelte Zusammenbruch kam vor allem daher, dass zu Beginn jeder Meldung kurz das Endbild der Bewegung gezeigt wurde (bei Zaubern wie der Heiligen Flamme sogar länger): erst eingeknickt, dann von vorn stehend und wieder einknickend. Jetzt bleibt der Gegner bis zum Start im vorigen Bild. Ebenso springt ein Gegner zwischen Ausholen und Schlag (etwa während ein Pfeil fliegt) nicht mehr kurz in die Ruhehaltung.
+- In kurzen Kämpfen waren die Sturzbilder oft noch nicht fertig berechnet, sodass der Gegner beim Sturz zwischen Stehen und Fallen sprang. Jetzt wird gleich nach den Ruhebildern der Sturz vorbereitet, und zwar nur die eine Variante, die der Gegner nutzt; beim Wolf auch nicht mehr neu für jede Verwundungsstufe.
+- Goblins, Skelette und Wölfe wurden im Kampf etwas gestaucht und versetzt gezeichnet, weil ihr Bild (mit Platz für Ausfallschritt und Biss) breiter als die Szene ist. Dadurch saßen Treffer, Zauber, Funkeln und Schimmer nicht genau auf dem Körper. Jetzt werden sie in voller Größe gezeichnet, und alle Effekte landen auf dem Gegner; das Schimmerband läuft nur noch über den Körper.
+- Beim schimmernden Wolf (und schimmernden Goblins und Skeletten) funkelte es weit links am Bildrand statt am Tier. Das Funkeln sitzt jetzt um den Körper.
+- Überraschte der Held einen Gegner von hinten (Erstschlag), sprang er schon bei der Ansage zum Angriff vor, noch bevor man Angreifen oder Abwehr wählen konnte. Jetzt wartet er in Ruhehaltung, und erst die Wahl löst die passende Bewegung aus.
+
 ## v0.1.63 – 06.10.2026, 15:20
 
 **Neu – Kapitel 1 in neuem Gewand**
@@ -62,19 +75,11 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - **Karte und Kampf passen zusammen:** Wo du kämpfst, siehst du denselben Ort: am See den See, im Pilzraum das Pilzlicht, bei Krogg den Lichtstrahl, im Lager das Feuer, im dunklen Gang nur die Laterne.
 
 **Verbessert**
-- Neue Klänge, wenn ein Angriff abgewehrt wird oder danebengeht: statt eines hellen „Ping“ wie von einer alten Ladenkasse ein dumpfes „Klonk“ auf Schild oder Klinge, und beim Fehlschlag nur ein Luftzug („Wusch“). Je drei verschiedene Varianten, die zufällig wechseln: bei der Abwehr Klonk, hölzernes Pochen und kurzes Klirren von Klinge auf Klinge; beim Fehlschlag voller Luftzug, kurzes Zischen und schwerer, tiefer Luftzug.
 - Der Nebel über unerkundeten und nicht sichtbaren Bereichen hat weichere Kanten.
 
 ## v0.1.59 – 06.10.2026, 14:02
 
 **Behoben**
-- Beim tödlichen Treffer knickte ein Gegner erst mit der Trefferbewegung ein, stand wieder auf und brach dann mit dem Sturz ein zweites Mal zusammen. Jetzt taumelt er mit dem tödlichen Treffer, bleibt so, und fällt mit „besiegt“ in einem Zug zu Boden (Goblins, Skelette, Wölfe).
-- Ein besiegter Gegner konnte stehend ausblenden, ohne zu fallen: wenn man nach „besiegt“ zügig weitertippte, oder wenn die Sturzbilder noch nicht berechnet waren. Jetzt wartet die nächste Meldung, bis der Sturz zu Ende gespielt ist, und der Sturz beginnt erst, wenn seine Bilder fertig sind (sie werden gleich nach dem ersten Ruhebild vorbereitet, fehlende sofort berechnet).
-- Der doppelte Zusammenbruch kam vor allem daher, dass zu Beginn jeder Meldung kurz das Endbild der Bewegung gezeigt wurde (bei Zaubern wie der Heiligen Flamme sogar länger): erst eingeknickt, dann von vorn stehend und wieder einknickend. Jetzt bleibt der Gegner bis zum Start im vorigen Bild. Ebenso springt ein Gegner zwischen Ausholen und Schlag (etwa während ein Pfeil fliegt) nicht mehr kurz in die Ruhehaltung.
-- In kurzen Kämpfen waren die Sturzbilder oft noch nicht fertig berechnet, sodass der Gegner beim Sturz zwischen Stehen und Fallen sprang. Jetzt wird gleich nach den Ruhebildern der Sturz vorbereitet, und zwar nur die eine Variante, die der Gegner nutzt; beim Wolf auch nicht mehr neu für jede Verwundungsstufe.
-- Goblins, Skelette und Wölfe wurden im Kampf etwas gestaucht und versetzt gezeichnet, weil ihr Bild (mit Platz für Ausfallschritt und Biss) breiter als die Szene ist. Dadurch saßen Treffer, Zauber, Funkeln und Schimmer nicht genau auf dem Körper. Jetzt werden sie in voller Größe gezeichnet, und alle Effekte landen auf dem Gegner; das Schimmerband läuft nur noch über den Körper.
-- Beim schimmernden Wolf (und schimmernden Goblins und Skeletten) funkelte es weit links am Bildrand statt am Tier. Das Funkeln sitzt jetzt um den Körper.
-- Überraschte der Held einen Gegner von hinten (Erstschlag), sprang er schon bei der Ansage zum Angriff vor, noch bevor man Angreifen oder Abwehr wählen konnte. Jetzt wartet er in Ruhehaltung, und erst die Wahl löst die passende Bewegung aus.
 - Am unterirdischen See sah es aus, als flösse das Wasser in den dunklen Gang hinein. Der Gang liegt jetzt neben dem See.
 
 ## v0.1.58 – 06.10.2026, 13:58
