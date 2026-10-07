@@ -249,20 +249,44 @@ class DepthImage(val img: PixelImage, val depth: DoubleArray, val view: SdfView,
 }
 
 /** The camera: the hero turned by its yaw, seen from slightly above. */
-class SdfView(yawDeg: Double, pitchDeg: Double = 15.0) {
+/**
+ * The camera on the figure. [fallF] and [fallS] tip the whole figure over about its feet, in degrees: forward (the head
+ * going where it faces) and to its right side. 0 for everyone standing.
+ */
+class SdfView(yawDeg: Double, pitchDeg: Double = 15.0, fallF: Double = 0.0, fallS: Double = 0.0) {
     private val yaw = Math.toRadians(yawDeg)
     private val rX = -cos(yaw); private val rZ = sin(yaw)
     private val fX = sin(yaw); private val fZ = cos(yaw)
     private val c = cos(Math.toRadians(pitchDeg)); private val s = sin(Math.toRadians(pitchDeg))
+    private val tipped = fallF != 0.0 || fallS != 0.0
+    private val cf = cos(Math.toRadians(fallF)); private val sf = sin(Math.toRadians(fallF))
+    private val cs = cos(Math.toRadians(fallS)); private val ss = sin(Math.toRadians(fallS))
+
+    /** Tips a point of the figure over about its feet. */
+    private fun tip(p: P3): P3 {
+        if (!tipped) return p
+        // forward: up turns towards the front
+        val y1 = p.y * cf - p.z * sf; val z1 = p.y * sf + p.z * cf
+        // sideways: up turns towards the right
+        val x2 = p.x * cs + y1 * ss; val y2 = -p.x * ss + y1 * cs
+        return P3(x2, y2, z1)
+    }
+    private fun untip(p: P3): P3 {
+        if (!tipped) return p
+        val x1 = p.x * cs - p.y * ss; val y1 = p.x * ss + p.y * cs
+        val y2 = y1 * cf + p.z * sf; val z2 = -y1 * sf + p.z * cf
+        return P3(x1, y2, z2)
+    }
 
     /** Hero space to view space: x right, y up on screen, z towards us. */
-    fun toView(p: P3): P3 {
+    fun toView(p0: P3): P3 {
+        val p = tip(p0)
         val wx = p.x * rX + p.z * fX; val wz = p.x * rZ + p.z * fZ; val wy = p.y
         return P3(wx, wy * c - wz * s, wz * c + wy * s)
     }
     fun toLocal(v: P3): P3 {
         val wx = v.x; val wy = v.y * c + v.z * s; val wz = -v.y * s + v.z * c
-        return P3(wx * rX + wz * rZ, wy, wx * fX + wz * fZ)
+        return untip(P3(wx * rX + wz * rZ, wy, wx * fX + wz * fZ))
     }
 }
 
@@ -284,10 +308,10 @@ object SdfRender {
     fun render(
         solids: List<Solid>, groups: Groups, material: (Solid, P3) -> Mat,
         w: Int, h: Int, anchorX: Double, ground: Double, px: Double, yaw: Double, pitch: Double = 15.0, seed: Int = 23,
-        sculpt: Sculpt = Sculpt(w, h, seed),
+        sculpt: Sculpt = Sculpt(w, h, seed), fallF: Double = 0.0, fallS: Double = 0.0,
     ): DepthImage {
         val s = sculpt
-        val view = SdfView(yaw, pitch)
+        val view = SdfView(yaw, pitch, fallF, fallS)
         val depth = DoubleArray(w * h) { Double.NEGATIVE_INFINITY }
         val idx = IntArray(w * h)
         val mats = arrayOfNulls<Mat>(w * h)

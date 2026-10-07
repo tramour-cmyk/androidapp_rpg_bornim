@@ -323,7 +323,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
         val an = ui.current?.anim
         when (an) {
             Anim.ENEMY_HIT, Anim.HERO_HIT, Anim.SPELL, Anim.LEVEL_UP, Anim.ENEMY_FAINT, Anim.HERO_FAINT, Anim.LOOT, Anim.MISS ->
-                shake.animateTo(1f, tween(if (an == Anim.ENEMY_FAINT || an == Anim.HERO_FAINT) 700 else 450))
+                // a foe on the doll takes its time to fall before it fades
+                shake.animateTo(1f, tween(if (an == Anim.ENEMY_FAINT && MonsterArt.isDoll(battle.monster.id)) 1400 else if (an == Anim.ENEMY_FAINT || an == Anim.HERO_FAINT) 700 else 450))
             Anim.HERO_ACT, Anim.ENEMY_ACT -> shake.animateTo(1f, tween(380))
             else -> {}
         }
@@ -397,7 +398,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // foes on the doll fall in their own way first, then fade; the others fade as they sink
             val dollFoe = MonsterArt.isDoll(battle.monster.id)
             val enemyAlpha = when {
-                a == Anim.ENEMY_FAINT -> if (dollFoe) 1f - ((t - 0.6f) / 0.4f).coerceIn(0f, 1f) else 1f - t
+                a == Anim.ENEMY_FAINT -> if (dollFoe) 1f - ((t - 0.75f) / 0.25f).coerceIn(0f, 1f) else 1f - t
                 ui.enemyGone -> 0f
                 else -> 1f
             }

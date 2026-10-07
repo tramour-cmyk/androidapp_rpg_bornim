@@ -17,7 +17,7 @@ import de.bornim.core.art.HeroFigure.V
  */
 object FoeArt {
     // wide towards the hero on the left, so a spear or a lunge is not cut off
-    const val W = 250
+    const val W = 290
     const val H = 180
     const val ANCHOR_X = 160.0
     const val GROUND = 170.0
@@ -145,19 +145,23 @@ object FoeArt {
 
     private fun deaths(s: Style): List<Seq> {
         val r = rest(s)
-        val reel = HeroFigure.HURT.copy(rh = r.rh, weapon = r.weapon)
-        // the weapon hand drops, the blade hanging down
+        val reel = HeroFigure.HURT.copy(rh = r.rh, weapon = r.weapon, aim = r.aim, grip = r.grip, lh = r.lh)
+        // the weapon hand goes slack, the blade hanging down
         val limp = V(0.2, -1.0, 0.25)
+        val slack = r.copy(weapon = limp, aim = 1.0, grip = 30.0)
         return listOf(
-            // the knees give, the body folds forward over them
-            Seq(tween(r to 1, reel to 4, r.copy(crouch = 20.0, lean = 1.0, headDown = 9.0, rh = V(14.0, 40.0, 16.0), weapon = limp, aim = 1.0, lh = V(-12.0, 40.0, 12.0)) to 7,
-                r.copy(crouch = 24.0, lean = 1.2, headDown = 10.0, rh = V(14.0, 30.0, 18.0), weapon = limp, aim = 1.0, lh = V(-12.0, 30.0, 14.0)) to 1)),
-            // thrown back, arms flung wide, sinking down
-            Seq(tween(r to 1, reel.copy(lean = -0.6, stride = -6.0) to 4, r.copy(crouch = 16.0, lean = -1.0, stride = -8.0, headDown = -7.0, rh = V(26.0, 70.0, -6.0), weapon = limp, aim = 1.0, lh = V(-26.0, 70.0, -6.0)) to 7,
-                r.copy(crouch = 20.0, lean = -1.1, stride = -8.0, headDown = -8.0, rh = V(28.0, 60.0, -8.0), weapon = limp, aim = 1.0, lh = V(-28.0, 60.0, -8.0)) to 1)),
-            // spun round and crumpling to one side
-            Seq(tween(r to 1, reel.copy(twist = 30.0) to 4, r.copy(crouch = 18.0, lean = 0.7, twist = 45.0, headTurn = 40.0, headDown = 6.0, rh = V(20.0, 40.0, 4.0), weapon = limp, aim = 1.0, lh = V(-24.0, 44.0, 10.0)) to 7,
-                r.copy(crouch = 22.0, lean = 0.8, twist = 50.0, headTurn = 45.0, headDown = 8.0, rh = V(20.0, 32.0, 4.0), weapon = limp, aim = 1.0, lh = V(-26.0, 36.0, 10.0)) to 1)),
+            // the knees give, then it pitches forward onto its face, the arms thrown out before it
+            Seq(tween(r to 1, reel to 3, slack.copy(crouch = 12.0, lean = 0.6, headDown = 6.0, rh = V(14.0, 50.0, 14.0), lh = V(-14.0, 50.0, 14.0), fallF = 8.0) to 4,
+                slack.copy(crouch = 6.0, lean = 0.3, headDown = 2.0, rh = V(16.0, 70.0, 34.0), lh = V(-16.0, 70.0, 34.0), fallF = 82.0) to 6,
+                slack.copy(crouch = 6.0, lean = 0.3, headDown = 2.0, rh = V(16.0, 70.0, 34.0), lh = V(-16.0, 70.0, 34.0), fallF = 86.0) to 1)),
+            // thrown back by the blow: it staggers, then falls flat on its back, arms flung wide
+            Seq(tween(r to 1, reel.copy(lean = -0.6, stride = -6.0) to 3, slack.copy(crouch = 6.0, lean = -0.5, stride = -7.0, headDown = -6.0, rh = V(26.0, 80.0, -4.0), lh = V(-26.0, 80.0, -4.0), fallF = -20.0) to 4,
+                slack.copy(crouch = 3.0, lean = -0.2, stride = -4.0, headDown = -4.0, rh = V(30.0, 96.0, -2.0), lh = V(-30.0, 96.0, -2.0), fallF = -84.0) to 6,
+                slack.copy(crouch = 3.0, lean = -0.2, stride = -4.0, headDown = -4.0, rh = V(30.0, 96.0, -2.0), lh = V(-30.0, 96.0, -2.0), fallF = -88.0) to 1)),
+            // spun round, it sinks to one knee and topples over sideways
+            Seq(tween(r to 1, reel.copy(twist = 30.0) to 3, slack.copy(crouch = 14.0, lean = 0.4, twist = 35.0, headTurn = 30.0, headDown = 6.0, rh = V(20.0, 46.0, 4.0), lh = V(-24.0, 46.0, 10.0), fallS = -10.0) to 4,
+                slack.copy(crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(22.0, 56.0, 6.0), lh = V(-26.0, 56.0, 10.0), fallS = -80.0) to 6,
+                slack.copy(crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(22.0, 56.0, 6.0), lh = V(-26.0, 56.0, 10.0), fallS = -84.0) to 1)),
         )
     }
 

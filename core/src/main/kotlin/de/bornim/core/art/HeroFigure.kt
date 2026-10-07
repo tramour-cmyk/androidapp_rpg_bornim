@@ -101,6 +101,10 @@ object HeroFigure {
         val freeHand: Double = 0.0,
         /** Degrees an undrawn bow leans its upper limb forward, towards the foe: carried low it is tipped well over. */
         val bowTilt: Double = 0.0,
+        /** Degrees the whole figure tips over about its feet: forward onto its face, or back (negative); for the fallen. */
+        val fallF: Double = 0.0,
+        /** Degrees the whole figure tips over to its right side (negative: its left). */
+        val fallS: Double = 0.0,
     ) {
         fun lerp(o: Rig, t: Double): Rig {
             fun l(a: Double, b: Double) = a + (b - a) * t
@@ -109,6 +113,7 @@ object HeroFigure {
                 rh.lerp(o.rh, t), weapon.lerp(o.weapon, t).norm(), lh.lerp(o.lh, t), shieldFace.lerp(o.shieldFace, t).norm(),
                 l(headTurn, o.headTurn), l(headDown, o.headDown), l(cloak, o.cloak), l(glow, o.glow), l(draw, o.draw), l(trail, o.trail),
                 l(elbowUp, o.elbowUp), elbowAt.lerp(o.elbowAt, t), l(twist, o.twist), l(grip, o.grip), l(roll, o.roll), l(foreLevel, o.foreLevel), l(aim, o.aim), l(brace, o.brace), rPole.lerp(o.rPole, t), l(stock, o.stock), l(glowAt, o.glowAt), l(freeHand, o.freeHand), l(bowTilt, o.bowTilt),
+                l(fallF, o.fallF), l(fallS, o.fallS),
             )
         }
     }
