@@ -2,6 +2,17 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
+## Unveröffentlicht
+
+**Neu – Gegenstände vergleichen**
+- Im Dialog eines Gegenstands aus der Tasche steht eine Tabelle „Angelegt | Neu“ mit allem, was sich beim Anlegen ändert: Rüstungsklasse, Angriff, Schaden (mit Durchschnitt), Trefferpunkte, bei Zauberern Zauberangriff und Zauberpunkte, jedes Attribut und jede weitere Eigenschaft (Krit, Schadensreduktion, Gift, Lebensraub, Goldfund …) beider Stücke. Gewinne grün, Verluste rot.
+- Boni, die eine Obergrenze des Kapitels verschluckt, werden benannt („Bonus wirkt nicht: Obergrenze für dieses Kapitel erreicht“), statt stillschweigend zu fehlen.
+- Ganz oben das Urteil in einem Satz („Besser: …“, „Schlechter: …“, „Gemischt: mehr …, aber weniger …“) und was dafür abgelegt wird, bei Zweihändern auch der Schild (rot).
+- Der grüne oder rote Pfeil in der Tasche kommt aus derselben Rechnung; bei gemischten Stücken steht keiner.
+
+**Behoben**
+- Der Rundschild schnitt beim Drehen der Figur (Ausrüstungsbild) in Bauch und Hüfte. Er hält jetzt Abstand zum Rumpf, mit Platz für die Rüstung.
+
 ## v0.1.155 – 07.10.2026, 20:07
 
 **Neu – vielseitige Waffen (SRD)**
