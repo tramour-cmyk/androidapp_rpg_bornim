@@ -57,6 +57,10 @@ class DefendTest {
             assertTrue(first.any { it.text.contains("Lücke") })
             val next = b.act(Action.Attack)
             assertTrue(next.any { it.text.contains("nutzt die Lücke") }, "the counter is used on the next attack")
+            // named before the wind-up: wind-up and blow follow each other with no message between
+            val named = next.indexOfFirst { it.text.contains("nutzt die Lücke") }
+            val windUp = next.indexOfFirst { it.anim == Anim.HERO_ACT }
+            assertTrue(named in 0 until windUp, "the counter is named before the attack")
             assertTrue(!b.counter)
             countered = true
             break

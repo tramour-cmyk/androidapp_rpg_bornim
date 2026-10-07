@@ -14,6 +14,9 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Neu als Waffe nach SRD: der Morgenstern (1W8 Stich), auch als Beute.
 - Der Schwanz des Kobolds liegt beim Sturz entlang der Beine statt in den Himmel oder in den Boden zu zeigen.
 
+**Behoben – Konter wirkte wie zwei Angriffe**
+- Nutzt der Held eine Lücke, kam die Ansage „nutzt die Lücke!“ zwischen Ausholen und Schlag; das sah aus wie zwei Angriffe. Jetzt kommt die Ansage zuerst, dann Ausholen und Schlag in einem Zug. Ebenso bei Feuerpfeil und Sengenden Strahlen.
+
 **Behoben – Abwehrhaltung fiel zurück**
 - Nach einem Treffer werden die Bilder des Helden mit den neuen Wunden neu gezeichnet; die Abwehr kam dabei erst spät an die Reihe, und bis dahin stand der Held in Ruhehaltung. Jetzt werden Abwehr und Treffer gleich nach der Ruhe gezeichnet, eine gehaltene Abwehr zuerst, und eine gehaltene Haltung fällt nie mehr in die Ruhe zurück.
 
