@@ -4,6 +4,15 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – der Held als bewegliche Figur**
+- In Wald und Höhle kämpft der Held als neu gezeichnete Figur, von hinten über die Schulter gesehen: Zu Beginn wendet er sich dem Spieler zu und dreht sich dann zum Gegner, im Hinterhalt wird er nach vorn geworfen.
+- Echte Bewegungen statt Standbilder: Hieb, Stich und Überkopfschlag im Wechsel mit gleichbleibendem Griff, Bogenschuss mit Auflegen, Ausziehen und Lösen, Armbrust an der Schulter, Zauber je nach Stab, Zauberstab, Buch, Kugel oder Heiligensymbol mit Leuchten, Treffer, Sieg.
+- Abwehr nach Gegner: gegen Wölfe und anderes Getier mit tiefem Schild oder tiefer Zweihandparade, gegen große Gegner hoch; beim Zweihänder stützt der freie Unterarm die Waffe am Kopf ab.
+- Jede Waffe in wahrer Größe, Kleidung und Rüstung in Schichten, Umhang fällt über Rücken und schwingt nach. Schwungsound beim Schlag.
+- Bei der Heldenerschaffung wählbar: Geschlecht, Statur, Haut- und Haarton je Volk, mit drehender Vorschau. Die Körpergrößen folgen dem SRD (Halbling 60 % eines Menschen).
+- Im Ausrüstungsmenü steht der Held als drehende Figur zwischen den Ausrüstungsplätzen und zeigt alles, was er trägt.
+- Bestehende Spielstände laden weiter; ihr Held bekommt einen festen Haut- und Haarton.
+
 ## v0.1.63 – 06.10.2026, 15:20
 
 **Neu – Kapitel 1 in neuem Gewand**
