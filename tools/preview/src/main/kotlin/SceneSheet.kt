@@ -1013,3 +1013,23 @@ fun renderPortraits() {
     ImageIO.write(out, "png", File("build/screens/portraits.png"))
     println("wrote portraits ${out.width}x${out.height}")
 }
+
+/** How far the weapon's point is from the foe at the moment a blow lands, in scene pixels. */
+fun measureReach() {
+    val B = de.bornim.core.art.HeroBattle
+    val w = 270; val h = 370
+    val foe = Pair(w * BattleScene.FOE_X, h * BattleScene.FOE_Y - MonsterArt.groundLine("wolf") * 0.45)
+    for (cls in listOf(de.bornim.core.CharClass.FIGHTER, de.bornim.core.CharClass.ROGUE)) {
+        val hero = de.bornim.core.GameState.newGame("A", de.bornim.core.Race.HUMAN, cls).hero
+        val d = B.doll(hero); val o = B.outfit(hero)
+        for (s in B.strikes(hero)) {
+            val rig = B.frames(hero, de.bornim.core.art.HeroFigure.Act.ATTACK, s, 0)[B.strikeFrame(s)]
+            val img = d.render(B.W, B.H, B.ANCHOR_X, B.GROUND, B.PX, rig, o)
+            val sk = d.fit(rig, o).first
+            val tip = sk.hand(1) + sk.weapon * de.bornim.core.art.Dress.reach(hero.weapon!!.base)
+            val (tx, ty, _) = img.project(tip)
+            val sx = w * BattleScene.HERO_X - B.ANCHOR_X + tx; val sy = h * BattleScene.HERO_Y - B.GROUND + ty
+            println("REICHWEITE ${cls} $s: Spitze bei (${sx.toInt()}, ${sy.toInt()}), Gegnermitte (${foe.first.toInt()}, ${foe.second.toInt()}), Abstand ${Math.hypot(sx - foe.first, sy - foe.second).toInt()} px; Held ${B.H} px hoch, Wolfbild ${MonsterArt.battleFrame("wolf", MonsterLook(1), Act.IDLE, 0, 0).width} px breit")
+        }
+    }
+}
