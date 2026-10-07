@@ -15,6 +15,10 @@ data class MonsterKit(
     val crude: Boolean = false,
     /** A mangy pelt over the shoulders. */
     val pelt: Boolean = false,
+    /** The weapon held in both hands (a versatile one, the other hand empty). */
+    val bothHands: Boolean = false,
+    /** A cloak of this colour rather than plain brown, e.g. a captain's red. */
+    val cloak: Int? = null,
 )
 
 object MonsterKits {
@@ -36,6 +40,28 @@ object MonsterKits {
             MonsterKit(mapOf(S to "shortbow", C to "leather", H to "hood"), rusty = true),
             MonsterKit(mapOf(S to "shortbow", H to "leather_cap"), rusty = true, pelt = true),
             MonsterKit(mapOf(S to "shortbow", C to "leather"), rusty = true, pelt = true),
+        ),
+        // SRD kobold: dagger and sling; here the spear it fights with, or a dagger, all of old iron
+        "kobold" to listOf(
+            MonsterKit(mapOf(S to "spear", H to "leather_cap"), rusty = true),
+            MonsterKit(mapOf(S to "spear", O to "round_shield"), rusty = true, crude = true),
+            MonsterKit(mapOf(S to "dagger"), attack = T("Dolch", "Dagger"), rusty = true, pelt = true),
+        ),
+        // the risen dead strike with their fists: in rags, in a rotten leather jerkin, or an old soldier's rusted mail
+        "zombie" to listOf(
+            MonsterKit(emptyMap()),
+            MonsterKit(mapOf(C to "leather"), rusty = true),
+            MonsterKit(mapOf(C to "chain_shirt", H to "helmet"), rusty = true),
+        ),
+        // Krogg, SRD bugbear: hide and the morningstar; one brute, always the same. The SRD's shield is left off: it
+        // would hide his face and most of him behind a plank
+        "bugbear" to listOf(
+            MonsterKit(mapOf(S to "morningstar"), rusty = true, pelt = true),
+        ),
+        // Captain Grak, SRD hobgoblin captain in half plate; his war axe swung in both hands, a captain's red cloak
+        "hobgoblin_captain" to listOf(
+            // bare-headed, so his face, war paint and topknot are seen
+            MonsterKit(mapOf(S to "battleaxe", C to "half_plate", GearSlot.CLOAK to "cloak"), bothHands = true, cloak = 0x6A1A16),
         ),
         // SRD skeleton: shortsword, scraps of armour; the spear pierces the same
         "skeleton" to listOf(

@@ -22,7 +22,9 @@ import kotlin.math.sqrt
  */
 class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Boolean = false, val crude: Boolean = false, val pelt: Boolean = false,
     /** A versatile weapon held in both hands, the other hand being empty (see [Hero.bothHands]). */
-    val bothHands: Boolean = false) {
+    val bothHands: Boolean = false,
+    /** A cloak of this colour rather than its rarity's. */
+    val cloakRgb: Int? = null) {
     fun base(slot: GearSlot): String? = items[slot]?.base
     fun rarity(slot: GearSlot): Rarity = items[slot]?.rarity ?: Rarity.COMMON
     val twoHands: Boolean get() = items[GearSlot.MAIN_HAND]?.def?.let { (it.twoHanded || bothHands && it.versatile != null) && !it.ranged } == true
@@ -33,7 +35,7 @@ class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Bool
 
         /** A foe's kit as an outfit to dress its doll in. */
         fun of(kit: de.bornim.core.MonsterKit) = Outfit(CharClass.FIGHTER,
-            kit.items.mapValues { (_, base) -> Gear(0, base, Rarity.COMMON, 1) }, kit.rusty, kit.crude, kit.pelt)
+            kit.items.mapValues { (_, base) -> Gear(0, base, Rarity.COMMON, 1) }, kit.rusty, kit.crude, kit.pelt, kit.bothHands, kit.cloak)
     }
 }
 
@@ -59,7 +61,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     private val clothDark = m(worn(look.clothDark, 0.45), grain = 0.05)
     private val pants = m(worn(look.pants, 0.3), grain = 0.05)
     private fun chain(r: Rarity) = if (o.rusty) m(argb(0x5E4A3C), shine = 0.2, grain = 0.6) else m(mix(argb(0x8A9098), r.color.toInt(), if (r >= Rarity.RARE) 0.12 else 0.0), shine = 0.4, grain = 0.45)
-    private fun cloakColor(r: Rarity) = worn(argb(when (r) {
+    private fun cloakColor(r: Rarity) = o.cloakRgb?.let { worn(argb(it), 0.2) } ?: worn(argb(when (r) {
         Rarity.COMMON -> 0x5A4A3A; Rarity.UNCOMMON -> 0x3E5A3A; Rarity.RARE -> 0x34486E; Rarity.VERY_RARE -> 0x5A3A6E; Rarity.EPIC -> 0x7A4A22; Rarity.DIVINE -> 0x8A7A3A
     }), 0.3)
 
@@ -1052,6 +1054,22 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
                 }
                 cone(hd + d * 4.6, hd + d * 6.2, 1.2, 0.5, steel)
             }
+            "morningstar" -> {
+                // a stout haft, a heavy iron ball set all round with long spikes, a spike on its crown
+                cone(at(-9.0), at(48.0), 1.5, 1.5, if (o.rusty) wood else dark, Doll.ITEM)
+                cone(hand - d * 4.0, hand + d * 5.0, 1.6, 1.6, darkLeather)
+                ball(at(-9.8), 1.9, 1.3, 1.9, dark)
+                val hd = at(53.0)
+                add(Ellipsoid(hd, P3(4.0 * c, 4.4 * c, 4.0 * c), Frame(e, d, n), BodyPart.GEAR, Doll.TRIM), steel)
+                cone(at(47.0), at(50.0), 2.2, 2.6, dark)
+                for (ring in 0..2) for (i in 0 until 6) {
+                    val a = i * Math.PI / 3 + ring * Math.PI / 6
+                    val tilt = (ring - 1) * 0.65
+                    val out = (e * (kotlin.math.cos(a) * kotlin.math.cos(tilt)) + n * (kotlin.math.sin(a) * kotlin.math.cos(tilt)) + d * kotlin.math.sin(tilt)).norm()
+                    cone(hd + out * (3.4 * c), hd + out * (8.2 * c), 1.05, 0.15, steel)
+                }
+                cone(hd + d * (3.8 * c), hd + d * (8.6 * c), 1.05, 0.15, steel)
+            }
             "warhammer" -> {
                 haft(9.0, 50.0, 1.35)
                 val hd = at(45.0)
@@ -1101,7 +1119,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         /** About how far a weapon reaches beyond the hand, in cm: the front of its drawing at true size. */
         fun reach(base: String) = when (base) {
             "dagger" -> 28.0; "shortsword" -> 47.0; "scimitar" -> 65.0; "rapier" -> 80.0; "longsword" -> 75.0; "greatsword" -> 103.0
-            "handaxe" -> 36.0; "battleaxe" -> 64.0; "greataxe" -> 96.0; "mace" -> 54.0; "warhammer" -> 53.0; "maul" -> 85.0
+            "handaxe" -> 36.0; "battleaxe" -> 64.0; "greataxe" -> 96.0; "mace" -> 54.0; "morningstar" -> 66.0; "warhammer" -> 53.0; "maul" -> 85.0
             "spear" -> 123.0; "halberd" -> 131.0; "wand" -> 60.0; "quarterstaff" -> 85.0; "staff" -> 70.0; else -> 100.0
         }
 

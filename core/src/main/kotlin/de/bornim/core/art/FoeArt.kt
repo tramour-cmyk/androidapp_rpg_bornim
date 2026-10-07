@@ -22,11 +22,17 @@ object FoeArt {
     const val H = 215
     const val ANCHOR_X = 160.0
     const val GROUND = 170.0
+
+    /** Extra room above for the big ones (Krogg, Grak), whose raised weapon would leave the frame. */
+    private fun extra(id: String) = if (id == "bugbear" || id == "hobgoblin_captain") 90 else 0
+    /** The frame's height and the ground line in it, for this kind of foe. */
+    fun height(id: String) = H + extra(id)
+    fun ground(id: String) = GROUND + extra(id)
     /** Art pixels per centimetre: the foe stands further off than the hero. */
     const val PX = 0.66
 
     /** Foes drawn this way. */
-    val KINDS = setOf("goblin", "goblin_archer", "skeleton")
+    val KINDS = setOf("goblin", "goblin_archer", "skeleton", "kobold", "zombie", "bugbear", "hobgoblin_captain")
 
     fun creature(id: String) = when (id) {
         "skeleton" -> Doll.Creature.SKELETON
@@ -231,7 +237,7 @@ object FoeArt {
         val seq = sequence(id, look, Act.ATTACK, variant)
         val rig = seq.rigs[seq.strike.coerceIn(0, seq.rigs.size - 1)]
         val doll = doll(id, look); val o = outfit(id, look)
-        val img = doll.render(W, H, ANCHOR_X, GROUND, PX, rig, o)
+        val img = doll.render(W, height(id), ANCHOR_X, ground(id), PX, rig, o)
         val sk = doll.fit(rig, o).first
         val base = o.base(GearSlot.MAIN_HAND)
         val reach = if (base == null) 0.0 else Dress.reach(base) * (if (base in Dress.ROUND) doll.height / 175.0 * 0.95 else 1.0)
@@ -258,7 +264,7 @@ object FoeArt {
      */
     fun lungeOffset(id: String, look: MonsterLook, variant: Int, feetX: Double, feetY: Double, toX: Double, toY: Double): Pair<Double, Double> {
         val (tx, ty) = tip(id, look, variant)
-        return Pair(toX - feetX - (tx - ANCHOR_X) * LUNGE_SCALE, toY - feetY - (ty - GROUND) * LUNGE_SCALE)
+        return Pair(toX - feetX - (tx - ANCHOR_X) * LUNGE_SCALE, toY - feetY - (ty - ground(id)) * LUNGE_SCALE)
     }
 
     // ---------------------------------------------------------------- the frames, kept
@@ -273,7 +279,7 @@ object FoeArt {
         val i = if (act == Act.IDLE) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         val k = "$id/${look.seed}/${look.glow}/$act/${variant.mod(3)}/$i"
         synchronized(cache) { cache[k]?.let { return it } }
-        val img = doll(id, look).render(W, H, ANCHOR_X, GROUND, PX, seq[i], outfit(id, look)).img
+        val img = doll(id, look).render(W, height(id), ANCHOR_X, ground(id), PX, seq[i], outfit(id, look)).img
         synchronized(cache) { cache[k] = img }
         return img
     }

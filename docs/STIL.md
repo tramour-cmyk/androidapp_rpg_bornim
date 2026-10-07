@@ -20,6 +20,7 @@ Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistori
 - **Kein Gegner verschwindet einfach:** Jede Gegnerart bekommt eigene Sterbeanimationen (mindestens drei), erst danach blendet sie aus. Ein tödlicher kritischer Treffer bekommt einen eigenen Killerschlag (siehe Liste [Offen](OFFEN.md) unter „Geplant“).
 - **Größe und Körperbau variieren** im Rahmen des SRD, zum Beispiel Goblins 98–118 cm (Small), Skelette 160–185 cm, dazu schlank, normal oder kräftig. Größe, Körperbau, Ausrüstung und Hautton werden unabhängig voneinander gewählt.
 - Die Variante wird beim Kampfbeginn aus dem Erscheinungsbild-Zufall des Gegners gewählt und bleibt für diesen Gegner im ganzen Kampf gleich.
+- **Ausnahme Bosse:** Benannte Bosse (etwa Krogg, Grak, Grimmzahn) haben ein festes Aussehen ohne Varianten, damit man sie wiedererkennt; ihre Bewegungen haben trotzdem je drei Varianten.
 - Gilt für alle künftigen Gegner, Tiere, Begleiter und Figuren.
 
 ## Ausrüstung der Gegner

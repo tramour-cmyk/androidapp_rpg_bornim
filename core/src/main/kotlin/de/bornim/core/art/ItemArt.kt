@@ -34,7 +34,7 @@ object ItemArt {
     /** A millimetre at ten times life size, the unit rings and amulets are built in. */
     private const val U = 1.0
 
-    private val HEADED = setOf("mace", "warhammer", "handaxe")
+    private val HEADED = setOf("mace", "morningstar", "warhammer", "handaxe")
     private val LONG = setOf("spear", "halberd", "quarterstaff", "staff")
 
     private val cache = HashMap<String, PixelImage>()

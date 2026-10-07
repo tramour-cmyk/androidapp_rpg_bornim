@@ -13,13 +13,14 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## In Arbeit
 
-- **Gegner im neuen Stil:** Goblin, Goblin-Späher, Skelett und Wolf (mit Grimmzahn) sind eingebaut. Als Nächstes die übrigen menschenähnlichen Gegner (Kobold, Zombie, Krogg, Grak), dann Wildschwein und Ratte als Vierbeiner.
+- **Gegner im neuen Stil:** Goblin, Goblin-Späher, Skelett, Wolf (mit Grimmzahn), Kobold, Zombie, Krogg und Grak sind eingebaut. Als Nächstes Wildschwein und Riesenratte als Vierbeiner; danach Goblin-Schamane und Ghul auf der Puppe, später Spinne, Hundertfüßer, Fledermaus, Stirge und Ockergallerte mit eigenen Körpern.
 
 ## Zu testen
 
 Mit der neuesten Version (Releases auf GitHub, `bornim.apk`):
 
 - **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln, Drehung langsamer; die Schläge selbst so schnell wie bisher.
+- **Neue Gegner:** Kobold (auch im Rudel), Zombie, Krogg und Grak im Kampf: Aussehen, Ausrüstungsvarianten, Bewegungen; Morgenstern als Beute.
 - **Abwehr und Treffer:** In Abwehrhaltung getroffen, bleibt der Held in Deckung bis zu seinem nächsten Zug.
 
 ## Geplant

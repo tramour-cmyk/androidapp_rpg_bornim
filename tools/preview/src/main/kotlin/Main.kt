@@ -181,6 +181,17 @@ fun main() {
         shot("16c_bag_dialog", taps = listOf(Offset(410f, 95f), Offset(540f, 1200f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }
         System.exit(0)
     }
+    if (System.getenv("NEWFOES") != null) {
+        fun fight(vm: GameViewModel, id: String, map: String, x: Int, y: Int) {
+            vm.newGame("Borin", Race.HUMAN, CharClass.FIGHTER)
+            val g = vm.game!!; g.skipDialogs(); g.hero.gainXp(Rules.xpForLevel[4])
+            g.state.place = Place(map, x, y, Facing.UP); g.state.minutes = 12 * 60
+            g.enqueue(listOf(Cmd.Fight(id))); vm.refresh()
+        }
+        for ((id, map) in listOf("kobold" to "forest", "zombie" to "forest", "bugbear" to "cave", "hobgoblin_captain" to "cave"))
+            shot("90_neu_$id", taps = listOf(Offset(5f, 5f)), lastFrames = 120) { vm -> fight(vm, id, map, 10, 20) }
+        System.exit(0)
+    }
     hudCheck()
     if (System.getenv("TOUCH") != null) {
         touchShots()

@@ -2,6 +2,17 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
+## Unveröffentlicht
+
+**Neu – Kobold, Zombie, Krogg und Grak im neuen Stil**
+- **Kobold** (SRD: klein, etwa 72–88 cm): kleiner Drachenkopf mit weit offenem Rachen voller Nadelzähne, zurückgebogenen Hörnern, Stachelkamm und glühenden Schlitzaugen; Schuppen in Rostrot, Ocker, Ziegel oder Umbra, Klauenfüße und langer Schwanz. Drei Ausrüstungen: Speer mit Lederkappe, Speer mit grobem Schild, Dolch mit Fellumhang. Auch die Kobolde im Rudel.
+- **Zombie**: ausgezehrt, graugrün bis fleckig violett, zerrissene, verschmierte Kleidung mit Löchern bis aufs Fleisch, strähnige Haarreste, herabhängender Unterkiefer mit gebrochenen Zähnen, freiliegender Wangenknochen, altes Blut am Kinn. Drei Ausrüstungen: Lumpen, verrottetes Lederwams, alter Soldat mit rostigem Kettenhemd und Helm.
+- **Krogg der Grobian** (SRD-Grottenschrat, etwa 2,10 m): Bärenkopf mit gefletschten Reißzähnen, glühend roten Augen und Krallennarben, zottiges Fell, Mähne, Fellumhang und ein neuer **Morgenstern** mit Stachelkopf.
+- **Hauptmann Grak** (Hobgoblin): rötliche Haut, flaches Gesicht mit langen Hauern, schwarzer Kriegsbemalung und Narbe, Kriegerzopf, Halbplatte, roter Hauptmannsumhang und die Streitaxt beidhändig.
+- Alle bewegen sich in je drei Varianten (Angriff, Treffer, Ausweichen, Sterben), jeder in seiner Art: der Kobold geduckt mit vorgestreckter Schnauze, der Zombie schlaff mit hängendem Kopf, Krogg mit gebeugten Schultern, Grak aufrecht und gedrillt. Kollisionsprüfung: 0 Durchdringungen in 13 364 Bildern aller Gegner.
+- Krogg und Grak sind feste Bosse und sehen immer gleich aus; die übrigen variieren in Haut, Statur, Größe und Ausrüstung.
+- Neu als Waffe nach SRD: der Morgenstern (1W8 Stich), auch als Beute.
+
 ## v0.1.159 – 07.10.2026, 20:45
 
 **Behoben**

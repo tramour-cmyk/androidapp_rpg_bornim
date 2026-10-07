@@ -308,6 +308,7 @@ object GearBases {
         weapon("rapier", "Rapier", Gender.N, "Rapier", Icon.SWORD, 25, dice(1, 8), DamageType.PIERCING, 2, finesse = true),
         weapon("longsword", "Langschwert", Gender.N, "Longsword", Icon.SWORD, 15, dice(1, 8), DamageType.SLASHING, versatile = dice(1, 10)),
         weapon("battleaxe", "Streitaxt", Gender.F, "Battleaxe", Icon.AXE, 10, dice(1, 8), DamageType.SLASHING, versatile = dice(1, 10)),
+        weapon("morningstar", "Morgenstern", Gender.M, "Morningstar", Icon.MACE, 15, dice(1, 8), DamageType.PIERCING, 3),
         weapon("warhammer", "Kriegshammer", Gender.M, "Warhammer", Icon.HAMMER, 15, dice(1, 8), DamageType.BLUDGEONING, 2, versatile = dice(1, 10)),
         weapon("wand", "Zauberstab", Gender.M, "Wand", Icon.WAND, 30, dice(1, 4), DamageType.FORCE, 2, focus = 1),
         // Two-handed weapons

@@ -147,7 +147,7 @@ object MonsterArt {
         else Pair(frameW.toDouble(), groundLine(id))
 
     /** Feet position of a new-style frame, in sprite pixels from the top. */
-    fun groundLine(id: String): Double = if (isDoll(id)) FoeArt.GROUND else if (isBeast(id)) BeastArt.GROUND else WolfArt.GROUND * (if (id == "dire_wolf") 1.22 else 1.0)
+    fun groundLine(id: String): Double = if (isDoll(id)) FoeArt.ground(id) else if (isBeast(id)) BeastArt.GROUND else WolfArt.GROUND * (if (id == "dire_wolf") 1.22 else 1.0)
 
     // ---------------------------------------------------------------- the lunge of foes built in the round
 

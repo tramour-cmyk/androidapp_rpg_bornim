@@ -1458,7 +1458,8 @@ fun checkFoeClashes() {
 
 /** Every act of one foe as a strip of frames, one row per act and variant. */
 fun renderFoeAnims() {
-    val cases = listOf("goblin" to 0, "goblin" to 2, "goblin_archer" to 0, "skeleton" to 2, "skeleton" to 1)
+    val cases = if (System.getenv("FOEANIM") == "neu") listOf("kobold" to 0, "kobold" to 2, "zombie" to 0, "zombie" to 2, "bugbear" to 0, "hobgoblin_captain" to 0)
+        else listOf("goblin" to 0, "goblin" to 2, "goblin_archer" to 0, "skeleton" to 2, "skeleton" to 1)
     val acts = listOf(de.bornim.core.art.Act.IDLE to 0) + listOf(de.bornim.core.art.Act.ATTACK, de.bornim.core.art.Act.HURT, de.bornim.core.art.Act.DODGE, de.bornim.core.art.Act.DIE).flatMap { a -> (0..2).map { a to it } }
     val cw = 150; val cols = 8; val F = de.bornim.core.art.FoeArt
     for ((id, seed) in cases) {
