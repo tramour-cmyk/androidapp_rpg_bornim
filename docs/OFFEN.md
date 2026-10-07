@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 21:55 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 22:45 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -17,11 +17,9 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## Zu testen
 
-Mit dem Testbuild vom Zweig `neue-gegner` (Link im Chat):
+Mit der neuesten Version (Releases auf GitHub, `bornim.apk`):
 
-- **Gehaltene Haltungen (schon in v0.1.168):** Ausholen beim Angriff bleibt stehen bis zum Schlag (kein Zurück in die Ruhe dazwischen); Abwehr bleibt stehen bis zum nächsten eigenen Zug, auch nach Treffer oder Verfehlen; ebenso Zauber sammeln und Wurf. Am besten mit Kleriker und Kampfstab und mit einer weiteren Klasse.
-- **Konter (schon in v0.1.168):** Abwehr, Gegner verfehlt („Lücke“), dann angreifen: erst „nutzt die Lücke!“, dann Ausholen und Schlag in einem Zug. Auch mit Feuerpfeil.
-- **Neue Gegner:** Kobold (auch im Rudel), Zombie, Krogg und Grak im Kampf: Aussehen, Ausrüstungsvarianten, Bewegungen, Stürze (Kobold-Schwanz); Morgenstern als Beute.
+- **Ausholen bis zum Schlag, bei Held und Gegnern:** Held und Gegner bleiben ausgeholt, bis Treffer oder Fehlschlag kommen, auch über Zwischenmeldungen („kritischer Treffer“, „Überraschungsschlag“, „nutzt eine Lücke“). Abwehr bleibt bis zum nächsten eigenen Zug, Konter in einem Zug. Der Fluch des Goblin-Schamanen wird sichtbar losgelassen.
 - **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln, Drehung langsamer; die Schläge selbst so schnell wie bisher.
 
 ## Geplant
