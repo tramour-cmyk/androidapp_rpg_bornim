@@ -100,7 +100,9 @@ private fun HeroTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
     var pending by remember { mutableStateOf(mapOf<Ability, Int>()) }
     val planned = pending.values.sum()
     Row(verticalAlignment = Alignment.CenterVertically) {
-        PixelImageView(CharacterArt.hero(h, Facing.DOWN), 80.dp)
+        // the hero as the doll, slowly turning, with everything worn
+        val worn = de.bornim.core.GearSlot.entries.joinToString(",") { sl -> h.item(sl)?.let { "${it.base}:${it.rarity}" } ?: "-" }
+        HeroTurntable(h, worn + "/" + h.sex + h.build + h.skinTone + h.hairTone, 0.62.dp)
         Spacer(Modifier.width(10.dp))
         Column {
             Txt(h.name, size = 22.sp, bold = true)
