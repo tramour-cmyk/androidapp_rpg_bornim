@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 16:45 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 20:35 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -13,41 +13,20 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## In Arbeit
 
-- **Veröffentlicht in v0.1.154** (vorher Branch `hero-figure`): der Held als bewegliche Figur im Kampf, im Ausrüstungsbild, bei der Erstellung, auf dem Titelbild und bei den Spielständen; Kampfmenü „Angreifen/Abwehr“ mit Konter; Kleriker mit Kampfstab, Rundschild und Sonne auf dem Wappenrock.
-
-- **Gegner im neuen Stil:** Goblin, Goblin-Späher und Skelett sind eingebaut (Aussehen, Ausrüstung, Bewegungen in je drei Varianten). Der Wolf (und Grimmzahn) ist als 3D-Vierbeiner eingebaut. Als Nächstes die übrigen menschenähnlichen Gegner (Kobold, Zombie, Krogg, Grak), dann Wildschwein und Ratte als Vierbeiner. Danach die übrigen menschenähnlichen Gegner (Kobold, Zombie, Krogg, Grak) und die übrigen Tiere.
+- **Gegner im neuen Stil:** Goblin, Goblin-Späher, Skelett und Wolf (mit Grimmzahn) sind eingebaut. Als Nächstes die übrigen menschenähnlichen Gegner (Kobold, Zombie, Krogg, Grak), dann Wildschwein und Ratte als Vierbeiner.
 
 ## Zu testen
 
-Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Artefakt `bornim-apk`):
+Mit der neuesten Version (Releases auf GitHub, `bornim.apk`):
 
-- **Kleriker:** neuer Held mit Kampfstab und Rundschild; Block (Schild hoch, Stab bleibt stehen), Flasche werfen (mit der Schildhand), Zauber (Leuchten an der Stabspitze), Sonne auf dem Rücken im Kampf.
-- **Alter Spielstand mit Kleriker:** unveränderter Streitkolben und Schild werden beim Laden zu Kampfstab und Rundschild; verbesserte oder gefundene Stücke bleiben.
-- **Titelbild und Spielstände:** neue Figuren, still in Ruhehaltung.
-- **Figurgröße in den Menüs:** Halbling und Zwerg im Reiter „Held“ und im Ausrüstungsbild groß und mittig; bei der Erstellung maßstabsgetreu und mittig.
-- **Kampfablauf:** Ansage mit Ausholen → Tippen → Schlag oder Zauber zusammen mit Treffer/Fehlschlag; auch beim Kobold.
-- **Abwehr:** Untermenü „Angreifen/Abwehr“, Konter-Hinweis; danach fließender Übergang in den nächsten Zug.
-- **Karte:** Kleriker mit Rundschild (hell, goldene Sonne) und Kampfstab mit Eisenkappen.
-- **Heldenerstellung:** Figur und Werte bleiben oben stehen, nur die Eingaben darunter scrollen.
-- **Heilige Flamme:** bei Treffer mitten auf dem Gegner, beim Ausweichen schlägt sie neben ihm ein (bei allen Gegnern, auch Grimmzahn, Krogg, Grak).
-- **Goblins und Skelette im Kampf:** verschiedene Ausrüstungen, Größen und Hauttöne; Angriffe, Treffer, Ausweichen und Zusammenbrechen in Varianten; Goblin-Späher schießt mit dem Bogen; der Speer des Skeletts ist räumlich und sticht schräg auf den Helden zu; Angriffsname im Text passt zur Waffe; ihre Schläge erreichen den Helden (Ausfallschritt).
-- **Waffen als Körper:** alle Nahkampfwaffen bei Held und Gegnern räumlich (Klinge, Parierstange, Knauf, Axtblatt, Kopf); in Ruhe, bei Hieb, Überkopfschlag und Stich gut erkennbar; rostige Gegnerwaffen grau mit Rostflecken.
-- **Speer:** Stoß von unten (waagerecht) und Stoß über Kopf (wie ein Speerwerfer) beim Helden mit Speer und beim Skelett.
-- **Wölfe und Grimmzahn:** neues Aussehen, Größen und Felle; Biss, Sprung und tiefer Biss erreichen den Helden; Treffer, Ausweichen und Sterben in Varianten; Heulen; verwundete Haltung; bei Nacht abgedunkelt. Rudel: die Begleitwölfe beißen von ihrem Platz aus.
-- **Testmodus, Kampf auslösen:** Eröffnung (normal / Hinterhalt / Held zuerst), Waffe des Helden und andere Hand, Gegner mit bestimmter Ausrüstung.
-- **Klänge:** Abwehr klingt dumpf („Klonk“), Fehlschlag als Luftzug („Wusch“).
-- **Ausrüstungssymbole:** in Ausrüstungsplätzen, Tasche, Laden und Dialogen wie die 3D-Modelle; Seltenheit als 1–5 farbige Steine unten rechts; Zweihänder-Zeichen „2H“ jetzt oben rechts. Das erste Anzeigen eines Symbols dauert kurz, bis dahin steht das alte da.
-- **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln im Hinterhalt, Drehung; die Schläge selbst so schnell wie bisher.
-- **Vielseitige Waffen:** ohne Schild mehr Schaden (Kampfwerte im Ausrüstungsreiter) und beidhändige Haltung im Kampf; mit Schild wie bisher.
+- **Hinterhalt:** Der Held steht zugewandt, bis der Schlag von hinten trifft, taumelt dann nach vorn und dreht sich um.
+- **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln, Drehung langsamer; die Schläge selbst so schnell wie bisher.
+- **Vielseitige Waffen:** Langschwert, Streitaxt, Kriegshammer, Speer, Kampfstab ohne Schild: mehr Schaden (Kampfwerte im Ausrüstungsreiter) und beidhändige Haltung im Kampf; mit Schild wie bisher.
 - **Tasche, Laden, Dialog:** kürzere Zeilen ohne Dopplungen.
 - **Gegenstandsvergleich:** Tabelle „Angelegt | Neu“ im Dialog, Urteil oben, Obergrenzen-Hinweise; Pfeil in der Tasche passt zum Urteil.
 - **Vorräte:** neue räumliche Bilder in Tasche, Laden, Brauen und Kampf.
+- **Rundschild beim Drehen:** im Ausrüstungsbild nicht mehr im Bauch.
 - **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
-
-## Zu entscheiden
-
-
-1. **Veröffentlichen:** `hero-figure` nach `main` übernehmen. Das baut automatisch die nächste Version (v0.1.x). Danach bekommt die Änderungshistorie den Versionseintrag mit Datum und Uhrzeit. Vorschlag: nach deinem Test.
 
 ## Geplant
 
