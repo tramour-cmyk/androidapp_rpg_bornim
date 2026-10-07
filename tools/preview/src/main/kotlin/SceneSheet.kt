@@ -1767,3 +1767,23 @@ fun writeSounds(names: List<String>) {
         println("wrote $n")
     }
 }
+
+/** Every frame of one fall, in a row: env FALLSEQ=id,seed,variant. */
+fun renderFallSequence(spec: String) {
+    val (id, seedS, vS) = spec.split(",")
+    val look = de.bornim.core.MonsterLook(seedS.toInt()); val v = vS.toInt()
+    val M = de.bornim.core.art.MonsterArt
+    val n = M.frameCount(id, look, de.bornim.core.art.Act.DIE, v)
+    val cw = 150
+    val first = M.battleFrame(id, look, de.bornim.core.art.Act.DIE, v, 0)
+    val out = BufferedImage(cw * n, first.height, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x3C3A36); g.fillRect(0, 0, out.width, out.height)
+    for (i in 0 until n) {
+        val im = M.battleFrame(id, look, de.bornim.core.art.Act.DIE, v, i)
+        val ox = i * cw - (M.anchorX(id, im.width).toInt() - cw / 2)
+        for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; val X = ox + x; if ((q ushr 24) >= 128 && X in i * cw until (i + 1) * cw) out.setRGB(X, y, q and 0xFFFFFF) }
+        g.color = java.awt.Color(0xE0D8C0); g.drawString("$i", i * cw + 3, 12)
+    }
+    ImageIO.write(out, "png", File("build/screens/fall_${id}_$v.png"))
+    println("wrote fall $id $v ($n frames)")
+}

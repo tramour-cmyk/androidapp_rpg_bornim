@@ -460,6 +460,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 !newStyle -> null
                 a == Anim.ENEMY_ACT -> span(0, windEnd)
                 foeLanding && moving -> span(windEnd, foeN - 1)
+                // the blow not begun yet (an arrow still in flight): still poised in the wind-up, not back at rest
+                foeLanding && t < 0.01f -> windEnd
                 else -> null
             }
             val enemyFrame = if (!newStyle) null else {
@@ -477,10 +479,22 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     // the wind-up, held poised until the blow lands with the next message; then the blow
                     foeAttackIdx != null -> MonsterArt.shownFrame(id, battle.look, Act.ATTACK, variant, foeAttackIdx, foeWound)
                     // struck down: it reels with the blow and stays reeling through any further word, never getting up again
-                    dollFoe && ui.enemyHp <= 0 && a != Anim.ENEMY_FAINT && !ui.enemyGone ->
-                        if (a == Anim.ENEMY_HIT && moving) seq(Act.DIE, 0, reel, dieV) else seq(Act.DIE, reel, reel, dieV)
+                    // (each message's motion starts at 0 and may wait, for a spell to be let go: until it starts, the picture
+                    // stays where the last one left it, so nothing jumps ahead to the end and back)
+                    dollFoe && ui.enemyHp <= 0 && a != Anim.ENEMY_FAINT && !ui.enemyGone -> when {
+                        a != Anim.ENEMY_HIT || t >= 0.99f -> seq(Act.DIE, reel, reel, dieV)
+                        t < 0.01f -> seq(Act.DIE, 0, 0, dieV)
+                        else -> seq(Act.DIE, 0, reel, dieV)
+                    }
                     // falling: from the reel on to the ground (from the start if nothing struck it down first), then held while it fades
-                    a == Anim.ENEMY_FAINT && dollFoe -> if (moving) seq(Act.DIE, if (fx?.kind == de.bornim.core.FxKind.TURN) 0 else reel, dieLast, dieV) else seq(Act.DIE, dieLast, dieLast, dieV)
+                    a == Anim.ENEMY_FAINT && dollFoe -> {
+                        val from = if (fx?.kind == de.bornim.core.FxKind.TURN) 0 else reel
+                        when {
+                            t >= 0.99f -> seq(Act.DIE, dieLast, dieLast, dieV)
+                            t < 0.01f -> seq(Act.DIE, from, from, dieV)
+                            else -> seq(Act.DIE, from, dieLast, dieV)
+                        }
+                    }
                     // a blow or a spell turned aside: the foe ducks, steps back or springs aside, or takes it on its shield
                     a == Anim.MISS && fx?.onHero == false && dollFoe && moving -> whole(Act.DODGE)
                     (a == Anim.ENEMY_HIT || a == Anim.ENEMY_FAINT) && moving -> if (dollFoe) whole(Act.HURT) else seq(Act.HURT, 0, MonsterArt.frameCount(id, Act.HURT, 0) - 1)

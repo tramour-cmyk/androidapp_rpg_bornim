@@ -115,6 +115,7 @@ fun main() {
     if (System.getenv("FOES") != null) { renderFoeDrafts(); System.exit(0) }
     if (System.getenv("FLAMEDODGE") != null) { renderFlameDodge(); System.exit(0) }
     if (System.getenv("FXFOES") != null) { renderFxOnFoes(); System.exit(0) }
+    System.getenv("FALLSEQ")?.let { renderFallSequence(it); System.exit(0) }
     if (System.getenv("MAPSHIELD") != null) { renderMapShields(); System.exit(0) }
     if (System.getenv("PORTFILL") != null) { renderPortraitFill(); System.exit(0) }
     if (System.getenv("CLERICSUN") != null) { renderClericSun(); System.exit(0) }
