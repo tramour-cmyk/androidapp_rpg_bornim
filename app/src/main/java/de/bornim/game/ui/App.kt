@@ -112,14 +112,21 @@ fun TitleScreen(vm: GameViewModel) {
         Spacer(Modifier.height(6.dp))
         Txt(Ui.subtitle(lang), size = 18.sp, color = Colors.textLight, align = TextAlign.Center)
         Spacer(Modifier.height(28.dp))
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+            // one of each class as the doll, in its starting gear, of different peoples and looks
             val races = listOf(Race.HUMAN, Race.ELF, Race.DWARF, Race.HALF_ORC)
-            CharClass.entries.forEachIndexed { i, cls ->
-                val step = ((time / 250 + i) % 4).toInt().let { if (it == 1) 1 else if (it == 3) 2 else 0 }
-                val bob = if (((time / 250 + i) % 2) == 0L) 0.dp else 3.dp
-                Box(Modifier.padding(top = bob)) {
-                    PixelImageView(CharacterArt.hero(races[i], cls, Facing.DOWN, step), 64.dp)
+            val heroes = remember {
+                CharClass.entries.mapIndexed { i, cls ->
+                    de.bornim.core.Hero.create("Held $i", races[i % races.size], cls).also {
+                        it.sex = if (i % 2 == 1) de.bornim.core.Sex.FEMALE else de.bornim.core.Sex.MALE
+                        it.skin = (i * 3 + 1) % 4; it.hair = i % 4
+                    }
                 }
+            }
+            heroes.forEachIndexed { i, h ->
+                // a slow breath, each in its own time
+                val bob = if (((time / 700 + i) % 2) == 0L) 0.dp else 2.dp
+                Box(Modifier.padding(top = bob)) { HeroStill(h, "title/$i", 0.46.dp) }
             }
         }
         Spacer(Modifier.height(36.dp))
