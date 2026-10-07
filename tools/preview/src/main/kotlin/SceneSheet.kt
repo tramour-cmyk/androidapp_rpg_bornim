@@ -960,10 +960,15 @@ fun renderBattleRun() {
     for ((name, hero) in heroes) {
         val F = de.bornim.core.art.HeroFigure
         val plan = mutableListOf<de.bornim.core.art.PixelImage>()
+        // how far along the lunge each frame is, and for which blow
+        val lunge = mutableListOf<Pair<Double, de.bornim.core.art.HeroFigure.Strike>>()
         fun seq(act: de.bornim.core.art.HeroFigure.Act, strike: de.bornim.core.art.HeroFigure.Strike = de.bornim.core.art.HeroFigure.Strike.SLASH, v: Int = 0) {
-            for (i in 0 until B.frameCount(hero, act, strike, v)) plan += B.frame(hero, act, strike, v, i)
+            for (i in 0 until B.frameCount(hero, act, strike, v)) {
+                plan += B.frame(hero, act, strike, v, i)
+                lunge += (if (act == de.bornim.core.art.HeroFigure.Act.ATTACK) B.lungeAt(hero, strike, i) else 0.0) to strike
+            }
         }
-        fun idle(n: Int) { for (i in 0 until n) plan += B.frame(hero, de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, i) }
+        fun idle(n: Int) { for (i in 0 until n) { plan += B.frame(hero, de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, i); lunge += 0.0 to de.bornim.core.art.HeroFigure.Strike.SLASH } }
         seq(de.bornim.core.art.HeroFigure.Act.TURN); idle(6)
         val strikes = B.strikes(hero)
         seq(de.bornim.core.art.HeroFigure.Act.ATTACK, strikes[0]); idle(5)
@@ -971,7 +976,7 @@ fun renderBattleRun() {
         seq(de.bornim.core.art.HeroFigure.Act.HURT); idle(4)
         if (hero.cls == de.bornim.core.CharClass.WIZARD || hero.cls == de.bornim.core.CharClass.CLERIC) { seq(de.bornim.core.art.HeroFigure.Act.CAST, de.bornim.core.art.HeroFigure.Strike.CAST, B.castVariant(hero)); idle(4) }
         seq(de.bornim.core.art.HeroFigure.Act.ATTACK, strikes[1 % strikes.size]); idle(4)
-        seq(de.bornim.core.art.HeroFigure.Act.VICTORY, v = B.variant(hero, de.bornim.core.art.HeroFigure.Act.VICTORY, "wolf", 1)); repeat(8) { plan += plan.last() }
+        seq(de.bornim.core.art.HeroFigure.Act.VICTORY, v = B.variant(hero, de.bornim.core.art.HeroFigure.Act.VICTORY, "wolf", 1)); repeat(8) { plan += plan.last(); lunge += 0.0 to de.bornim.core.art.HeroFigure.Strike.SLASH }
         val dir = File("build/screens/battlerun/$name"); dir.deleteRecursively(); dir.mkdirs()
         for ((i, im) in plan.withIndex()) {
             val out = BufferedImage(w * 2, h * 2, BufferedImage.TYPE_INT_RGB)
@@ -984,9 +989,21 @@ fun renderBattleRun() {
                         out.setRGB(px, py, (ch(16) shl 16) or (ch(8) shl 8) or ch(0)) } } }
             }
             paste(wolf, (w * BattleScene.FOE_X - wolf.width / 2).toInt(), (h * BattleScene.FOE_Y - MonsterArt.groundLine("wolf")).toInt())
-            paste(im, (w * BattleScene.HERO_X - B.ANCHOR_X).toInt(), (h * BattleScene.HERO_Y - B.GROUND).toInt())
+            val (f, st) = lunge[i]
+            val feetX = w * BattleScene.HERO_X; val feetY = h * BattleScene.HERO_Y
+            val (ax, ay) = B.aimAt((w * BattleScene.FOE_X).toDouble(), (h * BattleScene.FOE_Y).toDouble(), wolf.width.toDouble(), MonsterArt.groundLine("wolf").toDouble())
+            val (ox, oy) = if (f > 0) B.lungeOffset(hero, st, feetX.toDouble(), feetY.toDouble(), ax, ay) else 0.0 to 0.0
+            val sc = 1 - (1 - B.LUNGE_SCALE) * f
+            // the frame shrunk about the feet, as the battle screen draws it
+            val scaled = de.bornim.core.art.PixelImage(im.width, im.height)
+            for (y in 0 until im.height) for (x in 0 until im.width) {
+                val sx = (B.ANCHOR_X + (x + 0.5 - B.ANCHOR_X) / sc).toInt(); val sy = (B.GROUND + (y + 0.5 - B.GROUND) / sc).toInt()
+                scaled.set(x, y, im[sx, sy])
+            }
+            paste(scaled, (feetX + ox * f - B.ANCHOR_X).toInt(), (feetY + oy * f - B.GROUND).toInt())
             ImageIO.write(out.getSubimage(0, 260, w * 2, h * 2 - 260), "png", File(dir, "f%03d.png".format(i)))
         }
+        println("$name: Trefferbilder ${lunge.indices.filter { lunge[it].first >= 0.999 }}")
         println("$name: ${plan.size} Bilder, Ausrüstung ${hero.gear.values.joinToString { it.base }}")
     }
 }

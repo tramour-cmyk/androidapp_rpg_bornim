@@ -524,12 +524,26 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     HeroBattle.prepare(battle.hero, battle.monster.id, battle.opening == de.bornim.core.Opening.AMBUSHED, ui.victoryPick) { job?.isActive == false }
                 }
             }
-            val dollFrame = if (!newScene) null else heroDollFrame(ui, clockMs)
+            val doll = if (!newScene) null else heroDollFrame(ui, clockMs)
+            val dollFrame = doll?.first
+            // a melee blow steps in towards the foe, so the weapon lands on it, and back again
+            val lungeF = (doll?.second ?: 0.0).toFloat()
+            val lungeOff = if (lungeF <= 0f || ui.motion == null) androidx.compose.ui.unit.DpOffset.Zero else {
+                val aim = HeroBattle.aimAt((sceneW * foeX / artDp).toDouble(), (sceneH * foeY / artDp).toDouble(), (foeW / artDp).toDouble(), (foeFeet / artDp).toDouble())
+                val (ox, oy) = HeroBattle.lungeOffset(battle.hero, ui.motion!!.strike, (sceneW * heroX / artDp).toDouble(), (sceneH * heroY / artDp).toDouble(), aim.first, aim.second)
+                androidx.compose.ui.unit.DpOffset(artDp * (ox * lungeF).toFloat(), artDp * (oy * lungeF).toFloat())
+            }
+            val lungeScale = 1f - (1f - HeroBattle.LUNGE_SCALE.toFloat()) * lungeF
             if (dollFrame != null) Box(
-                Modifier.offset(
-                    x = sceneW * heroX - artDp * HeroBattle.ANCHOR_X.toFloat() + shakeX - (intro.value * 260).dp + dodge(true),
-                    y = sceneH * heroY - artDp * HeroBattle.GROUND.toFloat(),
-                )
+                Modifier
+                    .offset(
+                        x = sceneW * heroX - artDp * HeroBattle.ANCHOR_X.toFloat() + shakeX - (intro.value * 260).dp + dodge(true) + lungeOff.x,
+                        y = sceneH * heroY - artDp * HeroBattle.GROUND.toFloat() + lungeOff.y,
+                    )
+                    .graphicsLayer {
+                        scaleX = lungeScale; scaleY = lungeScale
+                        transformOrigin = androidx.compose.ui.graphics.TransformOrigin((HeroBattle.ANCHOR_X / HeroBattle.W).toFloat(), (HeroBattle.GROUND / HeroBattle.H).toFloat())
+                    }
             ) {
                 PixelSprite(dollFrame, artDp, alpha = heroAlpha, flash = if (a == Anim.HERO_HIT && blink) 0.85f else 0f, shade = shade)
             } else Box(
@@ -905,7 +919,7 @@ private fun Sparkles(seed: Int, size: androidx.compose.ui.unit.Dp, alpha: Float)
  * The doll's frame for this moment: the act it is playing, or its rest. A frame not drawn yet is stood in for by the
  * nearest earlier one of the same act, then by the rest, which is drawn at once if need be.
  */
-private fun heroDollFrame(ui: BattleUi, clockMs: Long): de.bornim.core.art.PixelImage {
+private fun heroDollFrame(ui: BattleUi, clockMs: Long): Pair<de.bornim.core.art.PixelImage, Double> {
     val hero = ui.battle.hero
     val now = System.currentTimeMillis()
     val m = ui.motion
@@ -913,11 +927,14 @@ private fun heroDollFrame(ui: BattleUi, clockMs: Long): de.bornim.core.art.Pixel
         val p = (now - m.start).toDouble() / m.ms
         if (p < 1.0 || m.hold) {
             val i = if (p <= 0) m.from else (m.from + ((m.to - m.from + 1) * p).toInt()).coerceAtMost(m.to)
-            for (k in i downTo m.from) HeroBattle.ready(hero, m.act, m.strike, m.variant, k)?.let { return it }
+            // how far the blow has stepped in, by the frame it has reached
+            val lunge = if (m.act == HeroFigure.Act.ATTACK) HeroBattle.lungeAt(hero, m.strike, i) else 0.0
+            for (k in i downTo m.from) HeroBattle.ready(hero, m.act, m.strike, m.variant, k)?.let { return it to lunge }
         }
     }
     val idle = (clockMs / 110).toInt()
-    return HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
+    val img = HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
         ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
         ?: HeroBattle.frame(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
+    return img to 0.0
 }
