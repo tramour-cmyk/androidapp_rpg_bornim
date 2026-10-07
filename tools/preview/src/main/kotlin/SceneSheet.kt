@@ -1511,25 +1511,27 @@ fun renderFoeLunge() {
     val hero = de.bornim.core.Hero.create("Borin", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER)
     val heroImg = B.frame(hero, de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, 0)
     val forest = BS.forest(sw, sh, de.bornim.core.art.BattleScene.Spot.entries[0], de.bornim.core.art.BattleScene.Light.DAY, false, 7)
-    val cases = listOf(Triple("goblin", 0, 0), Triple("goblin", 1, 2), Triple("skeleton", 2, 0), Triple("skeleton", 0, 1))
+    val M = de.bornim.core.art.MonsterArt
+    val cases = if (System.getenv("FOELUNGE") == "wolf") listOf(Triple("wolf", 3, 0), Triple("wolf", 5, 1), Triple("wolf", 1, 2), Triple("dire_wolf", 0, 1))
+        else listOf(Triple("goblin", 0, 0), Triple("goblin", 1, 2), Triple("skeleton", 2, 0), Triple("skeleton", 0, 1))
     val picks = 5
     val out = BufferedImage(sw * picks, sh * cases.size, BufferedImage.TYPE_INT_RGB)
     for ((r, c) in cases.withIndex()) {
         val (id, seed, v) = c
         val look = de.bornim.core.MonsterLook(seed)
-        val seq = F.sequence(id, look, de.bornim.core.art.Act.ATTACK, v)
-        val idx = listOf(0, (seq.strike - 2).coerceAtLeast(0), seq.strike, (seq.strike + seq.rigs.size) / 2, seq.rigs.size - 1)
+        val strike = M.strikeFrame(id, look, v); val n = M.frameCount(id, look, de.bornim.core.art.Act.ATTACK, v)
+        val idx = listOf(0, (strike - 2).coerceAtLeast(0), strike, (strike + n) / 2, n - 1)
         for ((k, i) in idx.withIndex()) {
             val canvas = IntArray(sw * sh) { forest.pixels[it] }
-            val im = F.frame(id, look, de.bornim.core.art.Act.ATTACK, v, i)
+            val im = M.battleFrame(id, look, de.bornim.core.art.Act.ATTACK, v, i)
             // the held wind-up (the second picture) only starts the step, as in battle
-            val f = F.lungeAt(id, look, v, i) * (if (k == 1) 0.45 else 1.0)
+            val f = M.lungeAt(id, look, v, i) * (if (k == 1) 0.45 else 1.0)
             val feetX = sw * BS.FOE_X.toDouble(); val feetY = sh * BS.FOE_Y.toDouble()
-            val (ox, oy) = F.lungeOffset(id, look, v, feetX, feetY, sw * BS.HERO_X + 8.0, sh * BS.HERO_Y - 82.0)
-            val sc = 1.0 + (F.LUNGE_SCALE - 1.0) * f
+            val (ox, oy) = M.lungeOffset(id, look, v, feetX, feetY, sw * BS.HERO_X + 8.0, sh * BS.HERO_Y - 82.0)
+            val sc = 1.0 + (M.LUNGE_SCALE - 1.0) * f
             // the foe scaled about its feet, then moved
             for (y in 0 until sh) for (x in 0 until sw) {
-                val fx = (x - (feetX + ox * f)) / sc + F.ANCHOR_X; val fy = (y - (feetY + oy * f)) / sc + F.GROUND
+                val fx = (x - (feetX + ox * f)) / sc + M.anchorX(id, im.width); val fy = (y - (feetY + oy * f)) / sc + M.groundLine(id)
                 val ix = fx.toInt(); val iy = fy.toInt()
                 if (ix in 0 until im.width && iy in 0 until im.height) { val q = im[ix, iy]; if ((q ushr 24) >= 128) canvas[y * sw + x] = q }
             }
@@ -1538,10 +1540,10 @@ fun renderFoeLunge() {
             for (y in 0 until heroImg.height) for (x in 0 until heroImg.width) { val q = heroImg[x, y]; val X = hx0 + x; val Y = hy0 + y
                 if ((q ushr 24) >= 128 && X in 0 until sw && Y in 0 until sh) canvas[Y * sw + X] = q }
             for (y in 0 until sh) for (x in 0 until sw) out.setRGB(k * sw + x, r * sh + y, canvas[y * sw + x] and 0xFFFFFF)
-            if (i == seq.strike) { val g = out.createGraphics(); g.color = java.awt.Color(0xC04030); g.drawRect(k * sw, r * sh, sw - 1, sh - 1) }
+            if (i == strike) { val g = out.createGraphics(); g.color = java.awt.Color(0xC04030); g.drawRect(k * sw, r * sh, sw - 1, sh - 1) }
         }
     }
-    ImageIO.write(out, "png", File("build/screens/foe_lunge.png"))
+    ImageIO.write(out, "png", File(if (System.getenv("FOELUNGE") == "wolf") "build/screens/wolf_lunge.png" else "build/screens/foe_lunge.png"))
     println("wrote foe lunge")
 }
 
@@ -1638,10 +1640,10 @@ fun renderBeastDraft() {
     // the heads close up: from the side, turned to the hero, snarling
     val heads = BufferedImage(260 * 3, 220 * 2, BufferedImage.TYPE_INT_RGB)
     val hg = heads.createGraphics(); hg.color = java.awt.Color(0x3A3E36); hg.fillRect(0, 0, heads.width, heads.height)
-    for ((ri, coat) in listOf(W.GREY, W.ALPHA).withIndex()) for ((ci, rig) in listOf(de.bornim.core.art.Beast.Rig(yaw = -90.0), de.bornim.core.art.Beast.Rig(yaw = -45.0),
-            de.bornim.core.art.Beast.Rig(yaw = -60.0, mouth = 0.8, snarl = 1.0, ears = -1.0, neck = -15.0, crouch = 6.0)).withIndex()) {
+    for ((ri, coat) in listOf(W.GREY, W.ALPHA).withIndex()) for ((ci, rig) in listOf(de.bornim.core.art.Beast.Rig(yaw = -90.0, snarl = 0.7, ears = -0.3), de.bornim.core.art.Beast.Rig(yaw = -45.0, snarl = 0.7, ears = -0.3),
+            de.bornim.core.art.Beast.Rig(yaw = -60.0, mouth = 0.8, snarl = 1.0, ears = -1.0)).withIndex()) {
         val size = if (ri == 1) 1.45 else 1.0
-        val im = de.bornim.core.art.Beast(size, coat).render(260, 220, listOf(420.0, 340.0, 380.0)[ci], 455.0 - (if (ci == 2) 0.0 else 0.0), 4.0 / size, rig)
+        val im = de.bornim.core.art.Beast(size, coat).render(260, 220, listOf(420.0, 340.0, 380.0)[ci], 455.0 - (if (ci == 2) 45.0 else 0.0), 4.0 / size, rig)
         for (y in 0 until 220) for (x in 0 until 260) { val q = im[x, y]; if ((q ushr 24) >= 128) heads.setRGB(ci * 260 + x, ri * 220 + y, q and 0xFFFFFF) }
     }
     ImageIO.write(heads, "png", File("build/screens/beast_heads.png"))
@@ -1675,11 +1677,13 @@ fun renderBeastScene() {
     fun wolf(size: Double, coat: de.bornim.core.art.WolfArt.Coat, rig: de.bornim.core.art.Beast.Rig) =
         de.bornim.core.art.Beast(size, coat).render(fw, fh, fw / 2.0, fh - 8.0, px, rig)
     val old = de.bornim.core.art.MonsterArt.battleFrame("wolf", de.bornim.core.MonsterLook(3), de.bornim.core.art.Act.IDLE, 0, 0)
+    val BA = de.bornim.core.art.BeastArt
+    fun game(id: String, seed: Int, act: de.bornim.core.art.Act, v: Int, i: Int) = BA.frame(id, de.bornim.core.MonsterLook(seed), act, v, i)
     val panels = listOf(
         Triple("alt", old, de.bornim.core.art.MonsterArt.groundLine("wolf").toInt()),
-        Triple("Grau", wolf(1.0, W.GREY, WolfKeys.STAND), fh - 8),
-        Triple("Rost, knurrend", wolf(1.0, W.RUST, WolfKeys.SNARL), fh - 8),
-        Triple("Grimmzahn", wolf(1.45, W.ALPHA, WolfKeys.SNARL.copy(mouth = 0.2, snarl = 0.6)), fh - 8))
+        Triple("Wolf", game("wolf", 3, de.bornim.core.art.Act.IDLE, 0, 0), BA.GROUND.toInt()),
+        Triple("Wolf, Biss", game("wolf", 1, de.bornim.core.art.Act.ATTACK, 0, 6), BA.GROUND.toInt()),
+        Triple("Grimmzahn", game("dire_wolf", 0, de.bornim.core.art.Act.IDLE, 0, 0), BA.GROUND.toInt()))
     val lights = listOf(de.bornim.core.art.BattleScene.Light.DAY, de.bornim.core.art.BattleScene.Light.NIGHT)
     val k = 2
     val out = BufferedImage((sw * panels.size + 10 * (panels.size - 1)) * k, (sh * lights.size + 10) * k, BufferedImage.TYPE_INT_RGB)
@@ -1688,11 +1692,18 @@ fun renderBeastScene() {
         for ((pi, pan) in panels.withIndex()) {
             val (_, foe, feet) = pan
             val canvas = IntArray(sw * sh) { forest.pixels[it] }
+            // the game lays the light of the place over foe and hero alike: bluish and dark by night
+            val tint = if (light == de.bornim.core.art.BattleScene.Light.NIGHT) 0x9CA6D4 else 0xFFFFFF
+            fun shade(c: Int): Int {
+                val r = ((c shr 16) and 255) * ((tint shr 16) and 255) / 255; val gg = ((c shr 8) and 255) * ((tint shr 8) and 255) / 255; val b = (c and 255) * (tint and 255) / 255
+                return (c and 0xFF000000.toInt()) or (r shl 16) or (gg shl 8) or b
+            }
             fun blit(im: de.bornim.core.art.PixelImage, ox: Int, oy: Int) {
                 for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; val X = ox + x; val Y = oy + y
-                    if ((q ushr 24) >= 128 && X in 0 until sw && Y in 0 until sh) canvas[Y * sw + X] = q }
+                    if ((q ushr 24) >= 128 && X in 0 until sw && Y in 0 until sh) canvas[Y * sw + X] = shade(q) }
             }
-            blit(foe, (sw * BS.FOE_X).toInt() - foe.width / 2, (sh * BS.FOE_Y).toInt() - feet)
+            val ax = if (pan.first == "alt") foe.width / 2 else BA.ANCHOR_X.toInt()
+            blit(foe, (sw * BS.FOE_X).toInt() - ax, (sh * BS.FOE_Y).toInt() - feet)
             blit(heroImg, (sw * BS.HERO_X - B.ANCHOR_X).toInt(), (sh * BS.HERO_Y - B.GROUND).toInt())
             for (y in 0 until sh * k) for (x in 0 until sw * k) out.setRGB(pi * (sw + 10) * k + x, li * (sh + 10) * k + y, canvas[(y / k) * sw + x / k] and 0xFFFFFF)
         }
@@ -1713,3 +1724,31 @@ fun renderBeastScene() {
     ImageIO.write(poses, "png", File("build/screens/beast_poses.png"))
     println("wrote beast scene")
 }
+
+/** Every act of the wolves built in the round, a few frames each, the bite or landing framed. */
+fun renderBeastAnims() {
+    val BA = de.bornim.core.art.BeastArt
+    val acts = listOf(de.bornim.core.art.Act.IDLE to 0, de.bornim.core.art.Act.HOWL to 0) + listOf(de.bornim.core.art.Act.ATTACK, de.bornim.core.art.Act.HURT, de.bornim.core.art.Act.DODGE, de.bornim.core.art.Act.DIE).flatMap { a -> (0..2).map { a to it } }
+    val cw = 200; val cols = 7
+    for ((id, seed) in listOf("wolf" to 3, "dire_wolf" to 0)) {
+        val look = de.bornim.core.MonsterLook(seed)
+        val out = BufferedImage(cw * cols, BA.H * acts.size, BufferedImage.TYPE_INT_RGB)
+        val g = out.createGraphics(); g.color = java.awt.Color(0x3C3A36); g.fillRect(0, 0, out.width, out.height)
+        for ((r, av) in acts.withIndex()) {
+            val (act, v) = av
+            val seq = BA.sequence(act, v)
+            val n = seq.rigs.size
+            val picks = (0 until cols).map { it * (n - 1) / (cols - 1) }.toMutableList().also { l -> if (seq.strike >= 0 && seq.strike !in l) l[l.indexOfFirst { it > seq.strike }.coerceAtLeast(0)] = seq.strike }
+            for ((c, i) in picks.withIndex()) {
+                val im = BA.frame(id, look, act, v, i)
+                val ox = c * cw - (BA.ANCHOR_X.toInt() - 120)
+                for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; val X = ox + x; if ((q ushr 24) >= 128 && X in c * cw until (c + 1) * cw) out.setRGB(X, r * BA.H + y, q and 0xFFFFFF) }
+                if (i == seq.strike) { g.color = java.awt.Color(0xC04030); g.drawRect(c * cw, r * BA.H, cw - 1, BA.H - 1) }
+            }
+            g.color = java.awt.Color(0xE0D8C0); g.drawString("$act/$v", 2, r * BA.H + 12)
+        }
+        ImageIO.write(out, "png", File("build/screens/beastanim_$id.png"))
+        println("wrote beastanim $id")
+    }
+}
+

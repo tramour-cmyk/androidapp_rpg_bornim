@@ -64,7 +64,6 @@ import de.bornim.core.art.CaveScene
 import de.bornim.core.art.Glow
 import de.bornim.core.art.CharacterArt
 import de.bornim.core.art.IconArt
-import de.bornim.core.art.FoeArt
 import de.bornim.core.art.HeroBattle
 import de.bornim.core.art.HeroFigure
 import de.bornim.core.art.MonsterArt
@@ -325,7 +324,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
         when (an) {
             Anim.ENEMY_HIT, Anim.HERO_HIT, Anim.SPELL, Anim.LEVEL_UP, Anim.ENEMY_FAINT, Anim.HERO_FAINT, Anim.LOOT, Anim.MISS ->
                 // a foe on the doll takes its time to fall before it fades
-                shake.animateTo(1f, tween(if (an == Anim.ENEMY_FAINT && MonsterArt.isDoll(battle.monster.id)) 1400 else if (an == Anim.ENEMY_FAINT || an == Anim.HERO_FAINT) 700 else 450))
+                shake.animateTo(1f, tween(if (an == Anim.ENEMY_FAINT && MonsterArt.isSolid(battle.monster.id)) 1400 else if (an == Anim.ENEMY_FAINT || an == Anim.HERO_FAINT) 700 else 450))
             Anim.HERO_ACT, Anim.ENEMY_ACT -> shake.animateTo(1f, tween(380))
             else -> {}
         }
@@ -396,8 +395,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // Enemy
             val newStyle = MonsterArt.isNewStyle(battle.monster.id)
             val monsterSize = if (battle.monster.boss) 212.dp else 184.dp
-            // foes on the doll fall in their own way first, then fade; the others fade as they sink
-            val dollFoe = MonsterArt.isDoll(battle.monster.id)
+            // foes built in the round (on the doll, or wolves) fall in their own way first, then fade; the others fade as they sink
+            val dollFoe = MonsterArt.isSolid(battle.monster.id)
             val enemyAlpha = when {
                 a == Anim.ENEMY_FAINT -> if (dollFoe) 1f - ((t - 0.75f) / 0.25f).coerceIn(0f, 1f) else 1f - t
                 ui.enemyGone -> 0f
@@ -574,14 +573,14 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // drawn larger as it comes nearer
             val foeLungeF = if (dollFoe && foeAttackIdx != null) {
                 // while it is named it only starts the step; the rest comes with the blow
-                FoeArt.lungeAt(id, battle.look, variant, foeAttackIdx).toFloat() * (if (a == Anim.ENEMY_ACT) FOE_WIND_STEP else 1f)
+                MonsterArt.lungeAt(id, battle.look, variant, foeAttackIdx).toFloat() * (if (a == Anim.ENEMY_ACT) FOE_WIND_STEP else 1f)
             } else 0f
             val foeLunge = if (foeLungeF <= 0f || enemyFrame == null) androidx.compose.ui.unit.DpOffset.Zero else {
-                val (ox, oy) = FoeArt.lungeOffset(id, battle.look, variant, (sceneW * foeX / artDp).toDouble(), (sceneH * foeY / artDp).toDouble(),
+                val (ox, oy) = MonsterArt.lungeOffset(id, battle.look, variant, (sceneW * foeX / artDp).toDouble(), (sceneH * foeY / artDp).toDouble(),
                     (sceneW * heroX / artDp).toDouble() + 8.0, (sceneH * heroY / artDp).toDouble() - 82.0)
                 androidx.compose.ui.unit.DpOffset(artDp * (ox * foeLungeF).toFloat(), artDp * (oy * foeLungeF).toFloat())
             }
-            val foeScale = 1f + (FoeArt.LUNGE_SCALE.toFloat() - 1f) * foeLungeF
+            val foeScale = 1f + (MonsterArt.LUNGE_SCALE.toFloat() - 1f) * foeLungeF
             // Feet on the ground where the foe stands
             Box(
                 Modifier.offset(

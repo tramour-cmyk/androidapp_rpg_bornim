@@ -20,6 +20,8 @@ class Beast(val size: Double = 1.0, val coat: WolfArt.Coat = WolfArt.GREY) {
     data class Rig(
         /** The whole body forward (+) or back, and down (+) into a crouch. */
         val fwd: Double = 0.0, val crouch: Double = 0.0,
+        /** The whole body to its right (+) or left, as in a leap aside. */
+        val side: Double = 0.0,
         /** The body tipped nose down (+) or up, about the hips. */
         val pitch: Double = 0.0,
         /** The breath: the chest a little fuller. */
@@ -45,7 +47,7 @@ class Beast(val size: Double = 1.0, val coat: WolfArt.Coat = WolfArt.GREY) {
         fun lerp(o: Rig, t: Double): Rig {
             fun l(a: Double, b: Double) = a + (b - a) * t
             fun v(a: HeroFigure.V, b: HeroFigure.V) = HeroFigure.V(l(a.r, b.r), l(a.u, b.u), l(a.f, b.f))
-            return Rig(l(fwd, o.fwd), l(crouch, o.crouch), l(pitch, o.pitch), l(breath, o.breath), l(neck, o.neck), l(nod, o.nod), l(turn, o.turn),
+            return Rig(l(fwd, o.fwd), l(crouch, o.crouch), l(side, o.side), l(pitch, o.pitch), l(breath, o.breath), l(neck, o.neck), l(nod, o.nod), l(turn, o.turn),
                 l(mouth, o.mouth), l(snarl, o.snarl), l(ears, o.ears), l(tail, o.tail), l(tailSwing, o.tailSwing),
                 v(fl, o.fl), v(fr, o.fr), v(hl, o.hl), v(hr, o.hr), l(eyes, o.eyes), l(fallF, o.fallF), l(fallS, o.fallS), l(yaw, o.yaw))
         }
@@ -60,6 +62,7 @@ class Beast(val size: Double = 1.0, val coat: WolfArt.Coat = WolfArt.GREY) {
     private val cheek = Mat(Ramp.of(argb(mix(argb(coat.fur), argb(coat.belly), 0.5))), grain = 0.1)
     private val dark = Mat(Ramp.of(argb(mix(argb(coat.fur), argb(0x181414), 0.55))), grain = 0.1)
     private val nose = Mat(Ramp.of(argb(0x1A1616)), shine = 0.9)
+    private val maw = Mat(Ramp.of(argb(0x1E0A0C)), shine = 0.3)
     private val gum = Mat(Ramp.of(argb(0x5A1E22)), shine = 0.4)
     private val tooth = Mat(Ramp.of(argb(0xE8E0CC)), shine = 0.5)
     private val eye = Mat(Ramp.of(argb(coat.eye)), shine = 1.0, bias = 0.25)
@@ -70,6 +73,9 @@ class Beast(val size: Double = 1.0, val coat: WolfArt.Coat = WolfArt.GREY) {
     private val out = mutableListOf<Solid>()
     /** Where head, legs and tail join the trunk in the last pose built, so they melt into it there. */
     private val joints = HashMap<Int, P3>()
+    /** Where the jaws meet at the front, in the last pose built: what lands on the prey. */
+    var snoutTip: P3 = P3.O
+        private set
     private fun add(s: Solid, m: Mat): Solid { s.mat = m; out += s; return s }
 
     /** A surface roughened into tufts of fur: strands that run along [flow], [depth] cm deep. */
@@ -105,7 +111,7 @@ class Beast(val size: Double = 1.0, val coat: WolfArt.Coat = WolfArt.GREY) {
         out.clear()
         // the body turns about the hips: forward and down by the rig, nose down by its pitch
         val hip0 = P3(0.0, 62.0, -34.0) * k
-        val body = Xf(Rot.pitch(r.pitch), hip0, P3(0.0, -r.crouch * k, r.fwd * k))
+        val body = Xf(Rot.pitch(r.pitch), hip0, P3(r.side * k, -r.crouch * k, r.fwd * k))
         fun b(x: Double, y: Double, z: Double) = body.apply(P3(x, y, z) * k)
         val fwdB = body.dir(P3.Z); val upB = body.dir(P3.Y)
         fun ell(c: P3, rx: Double, ry: Double, rz: Double, m: Mat, g: Int, f: Frame = Frame(body.dir(P3.X), upB, fwdB)) =
@@ -143,36 +149,50 @@ class Beast(val size: Double = 1.0, val coat: WolfArt.Coat = WolfArt.GREY) {
         for (s in listOf(-1.0, 1.0)) ell(h(s * 4.6, -4.0, 4.0), 3.4, 3.0, 5.0, cheek, HEAD, hf)
         // the muzzle sets on low and narrows to a black nose
         val snout = h(0.0, -2.2, 8.5); val tip = h(0.0, -2.8, 20.0)
+        snoutTip = h(0.0, -4.5, 21.0)
         cone(snout, tip, 5.0, 3.3, fur, HEAD)
         add(Ellipsoid(h(0.0, 1.0, 13.0), P3(2.7 * k, 1.4 * k, 6.5 * k), hf, BodyPart.HEAD, HEAD), dark)
-        add(Ellipsoid(tip + hz * (2.6 * k * HEAD_K) + hy * (0.9 * k * HEAD_K), P3(2.2 * k, 1.7 * k, 1.8 * k), hf, BodyPart.HEAD, DETAIL), nose)
+        // the nose lifts and the muzzle wrinkles behind it as the lips draw back
+        val sn = r.snarl.coerceIn(0.0, 1.0)
+        add(Ellipsoid(tip + hz * (2.6 * k * HEAD_K) + hy * ((0.9 + 0.7 * sn) * k * HEAD_K), P3(2.2 * k, 1.7 * k, 1.8 * k), hf, BodyPart.HEAD, DETAIL), nose)
+        if (sn > 0.25) for (w in 0..2) cone(h(-1.8, 1.9 + 0.25 * w, 10.0 + w * 2.0), h(1.8, 1.9 + 0.25 * w, 10.0 + w * 2.0), 0.3 * sn, 0.3 * sn, dark, HEAD)
         // the lower jaw, swung open about its hinge below the ear
         val hinge = h(0.0, -5.0, 2.0)
-        val jawRot = headRot * Rot.pitch(-(3.0 + 36.0 * r.mouth))
+        val jawRot = headRot * Rot.pitch(3.0 + 36.0 * r.mouth)
         fun j(x: Double, y: Double, z: Double) = hinge + jawRot.apply(P3(x, y, z) * (k * HEAD_K))
         cone(j(0.0, 0.0, 2.0), j(0.0, -0.4, 16.0), 3.3, 2.2, cheek, JAW)
-        // the dark line of the lips down each side of the muzzle, drawn back in a snarl
-        for (s in listOf(-1.0, 1.0)) cone(h(s * 3.4, -4.6, 7.0 + r.snarl * 2.0), h(s * 2.6, -5.0, 20.5), 0.5, 0.4, nose, DETAIL)
-        // gums and teeth show as it opens and snarls, the fangs under the lip
-        val open = max(r.mouth, r.snarl * 0.5)
-        if (open > 0.25) {
-            add(Ellipsoid(h(0.0, -4.8, 13.0), P3(2.3 * k, 0.9 * k, 6.5 * k), hf, BodyPart.HEAD, DETAIL), gum)
+        // the lips: a dark line down each side, curled up and back off the fangs in a snarl
+        for (s in listOf(-1.0, 1.0)) {
+            cone(h(s * 3.4, -4.6, 6.5 + sn * 2.5), h(s * 3.0, -4.4 + sn * 1.4, 14.0), 0.55, 0.5, nose, DETAIL)
+            cone(h(s * 3.0, -4.4 + sn * 1.4, 14.0), h(s * 2.6, -5.0 + sn * 0.6, 20.5), 0.5, 0.4, nose, DETAIL)
+        }
+        // the dark maw and the tongue between the jaws as they part
+        if (r.mouth > 0.3) {
+            add(Ellipsoid(h(0.0, -5.6, 10.0).lerp(j(0.0, 0.5, 10.0), 0.5), P3(2.4 * k, (0.8 + 2.4 * r.mouth) * k, 6.5 * k), hf, BodyPart.HEAD, DETAIL), maw)
+            cone(j(0.0, 1.4, 4.0), j(0.0, 1.6, 13.0), 1.8, 1.4, gum, DETAIL)
+        }
+        // gums and teeth: long fangs over the lower jaw, bared as soon as it snarls
+        val open = max(r.mouth, sn * 0.6)
+        if (open > 0.2) {
+            add(Ellipsoid(h(0.0, -4.4 + sn * 0.6, 13.5), P3(2.6 * k, 1.0 * k + sn * 0.6 * k, 6.5 * k), hf, BodyPart.HEAD, DETAIL), gum)
             for (s in listOf(-1.0, 1.0)) {
-                cone(h(s * 2.0, -4.4, 17.5), h(s * 1.8, -7.6, 17.8), 0.75, 0.15, tooth, DETAIL)
-                cone(j(s * 1.6, 0.8, 13.5), j(s * 1.5, 3.6, 13.8), 0.65, 0.15, tooth, DETAIL)
-                for (t in 0..2) cone(h(s * 2.3, -4.6, 15.0 - t * 2.2), h(s * 2.3, -5.9, 15.0 - t * 2.2), 0.45, 0.15, tooth, DETAIL)
+                cone(h(s * 2.3, -4.0, 17.6), h(s * 2.0, -8.6, 18.2), 1.15, 0.12, tooth, DETAIL)
+                cone(j(s * 1.8, 0.4, 13.6), j(s * 1.7, 3.8, 14.0), 0.95, 0.12, tooth, DETAIL)
+                for (t in 0..2) cone(h(s * 2.5, -4.4, 15.2 - t * 2.3), h(s * 2.5, -6.3, 15.0 - t * 2.3), 0.6, 0.15, tooth, DETAIL)
+                cone(h(s * 0.9, -4.6, 19.6), h(s * 0.9, -5.9, 19.8), 0.5, 0.2, tooth, DETAIL)
             }
         }
-        // eyes, almond shaped, set forward under the brow
+        // eyes, narrowed under brows drawn down towards the nose
         for (s in listOf(-1.0, 1.0)) {
-            val e = h(s * 4.4, 2.4, 8.2)
+            val e = h(s * 4.4, 2.3, 8.2)
+            val slit = 1.0 - 0.35 * sn
             if (r.eyes > 0.5) {
-                add(Ellipsoid(e, P3(1.8 * k, 1.1 * k, 1.3 * k), hf, BodyPart.HEAD, DETAIL), pupil)
-                add(Ellipsoid(e + hz * (0.25 * k) + hx * (s * 0.35 * k), P3(1.4 * k, 0.85 * k, 1.1 * k), hf, BodyPart.HEAD, DETAIL), eye)
-                add(Ellipsoid(e + hz * (0.6 * k) + hx * (s * 0.6 * k), P3(0.45 * k, 0.7 * k, 0.45 * k), hf, BodyPart.HEAD, DETAIL), pupil)
+                add(Ellipsoid(e, P3(1.9 * k, 1.1 * slit * k, 1.3 * k), hf, BodyPart.HEAD, DETAIL), pupil)
+                add(Ellipsoid(e + hz * (0.25 * k) + hx * (s * 0.35 * k), P3(1.5 * k, 0.8 * slit * k, 1.1 * k), hf, BodyPart.HEAD, DETAIL), eye)
+                add(Ellipsoid(e + hz * (0.6 * k) + hx * (s * 0.6 * k), P3(0.4 * k, 0.65 * slit * k, 0.45 * k), hf, BodyPart.HEAD, DETAIL), pupil)
             } else cone(e - hx * (1.4 * k), e + hx * (1.4 * k), 0.35, 0.35, dark, DETAIL)
-            // the brow ridge over it
-            cone(h(s * 6.4, 4.6, 5.0), h(s * 2.4, 4.0, 9.5), 1.3, 0.9, saddle, HEAD)
+            // the brow ridge, slanting down to the nose: the scowl
+            cone(h(s * 6.6, 5.2 + 0.4 * sn, 4.6), h(s * 2.0, 3.3 - 0.6 * sn, 9.8), 1.5, 1.1, saddle, HEAD)
         }
         if (coat.scar) cone(h(4.0, 6.0, 3.0), h(5.6, -1.5, 9.0), 0.45, 0.35, scar, DETAIL)
         // ears: soft, cupped triangles, pricked up or laid back flat on the skull
@@ -196,7 +216,7 @@ class Beast(val size: Double = 1.0, val coat: WolfArt.Coat = WolfArt.GREY) {
         fun frontLeg(side: Double, off: HeroFigure.V, g: Int) {
             val shoulder = b(side * 8.0, 62.0, 34.0)
             joints[g] = shoulder
-            val foot = P3(side * 7.0 * k, ground, (36.0 + off.f) * k + r.fwd * k) + P3(0.0, off.u * k, 0.0)
+            val foot = P3((side * 7.0 + r.side + off.r) * k, ground, (36.0 + off.f) * k + r.fwd * k) + P3(0.0, off.u * k, 0.0)
             val wrist = foot + P3(0.0, 8.0 * k, -1.0 * k)
             val elbow = ik(shoulder, wrist, 24.0 * k, 26.0 * k, -fwdB)
             shag(cone(shoulder, elbow, 7.5, 5.0, fur, g), elbow - shoulder, 1.2, side)
@@ -207,7 +227,7 @@ class Beast(val size: Double = 1.0, val coat: WolfArt.Coat = WolfArt.GREY) {
         fun hindLeg(side: Double, off: HeroFigure.V, g: Int) {
             val hip = b(side * 9.0, 60.0, -34.0)
             joints[g] = hip
-            val foot = P3(side * 8.0 * k, ground, (-40.0 + off.f) * k + r.fwd * k) + P3(0.0, off.u * k, 0.0)
+            val foot = P3((side * 8.0 + r.side + off.r) * k, ground, (-40.0 + off.f) * k + r.fwd * k) + P3(0.0, off.u * k, 0.0)
             // the long hind foot from the paw up to the high heel, tipped back
             val hock = foot + P3(0.0, 17.0 * k, -5.0 * k)
             val knee = ik(hip, hock, 26.0 * k, 26.0 * k, fwdB)
@@ -248,6 +268,12 @@ class Beast(val size: Double = 1.0, val coat: WolfArt.Coat = WolfArt.GREY) {
         for (l in listOf(LEG_FL, LEG_FR, LEG_HL, LEG_HR)) g.set(l, 1.6 * k, TRUNK, joints[l])
         g.set(TAIL, 2.0 * k, TRUNK, joints[TAIL])
         return g
+    }
+
+    /** Where point [p] of pose [r] lands in a picture rendered with these numbers, in pixels. */
+    fun project(p: P3, r: Rig, anchorX: Double, ground: Double, px: Double, pitch: Double = 15.0): Pair<Double, Double> {
+        val v = SdfView(r.yaw, pitch, r.fallF, r.fallS).toView(p)
+        return Pair(anchorX + v.x * px, ground - v.y * px)
     }
 
     /** Renders pose [r] into a [w] × [h] picture with the feet on [ground] at [anchorX]. */

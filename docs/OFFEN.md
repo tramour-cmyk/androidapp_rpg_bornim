@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 15:40 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 16:03 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -15,7 +15,7 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 - **Branch `hero-figure`** (noch nicht in `main`, also noch nicht veröffentlicht): der Held als bewegliche Figur im Kampf, im Ausrüstungsbild, bei der Erstellung, auf dem Titelbild und bei den Spielständen; Kampfmenü „Angreifen/Abwehr“ mit Konter; Kleriker mit Kampfstab, Rundschild und Sonne auf dem Wappenrock.
 
-- **Gegner im neuen Stil:** Goblin, Goblin-Späher und Skelett sind eingebaut (Aussehen, Ausrüstung, Bewegungen in je drei Varianten). Jetzt: der Wolf als 3D-Vierbeiner. Entwurf (Körpermodell, Fellvarianten, Schlüsselhaltungen) liegt vor und wartet auf Freigabe; noch nicht im Spiel. Danach die übrigen menschenähnlichen Gegner (Kobold, Zombie, Krogg, Grak) und die übrigen Tiere.
+- **Gegner im neuen Stil:** Goblin, Goblin-Späher und Skelett sind eingebaut (Aussehen, Ausrüstung, Bewegungen in je drei Varianten). Der Wolf (und Grimmzahn) ist als 3D-Vierbeiner eingebaut. Als Nächstes die übrigen menschenähnlichen Gegner (Kobold, Zombie, Krogg, Grak), dann Wildschwein und Ratte als Vierbeiner. Danach die übrigen menschenähnlichen Gegner (Kobold, Zombie, Krogg, Grak) und die übrigen Tiere.
 
 ## Zu testen
 
@@ -33,18 +33,18 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 - **Goblins und Skelette im Kampf:** verschiedene Ausrüstungen, Größen und Hauttöne; Angriffe, Treffer, Ausweichen und Zusammenbrechen in Varianten; Goblin-Späher schießt mit dem Bogen; der Speer des Skeletts ist räumlich und sticht schräg auf den Helden zu; Angriffsname im Text passt zur Waffe; ihre Schläge erreichen den Helden (Ausfallschritt).
 - **Waffen als Körper:** alle Nahkampfwaffen bei Held und Gegnern räumlich (Klinge, Parierstange, Knauf, Axtblatt, Kopf); in Ruhe, bei Hieb, Überkopfschlag und Stich gut erkennbar; rostige Gegnerwaffen grau mit Rostflecken.
 - **Speer:** Stoß von unten (waagerecht) und Stoß über Kopf (wie ein Speerwerfer) beim Helden mit Speer und beim Skelett.
+- **Wölfe und Grimmzahn:** neues Aussehen, Größen und Felle; Biss, Sprung und tiefer Biss erreichen den Helden; Treffer, Ausweichen und Sterben in Varianten; Heulen; verwundete Haltung; bei Nacht abgedunkelt. Rudel: die Begleitwölfe beißen von ihrem Platz aus.
 - **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
 
 ## Zu entscheiden
 
 
 1. **Veröffentlichen:** `hero-figure` nach `main` übernehmen. Das baut automatisch die nächste Version (v0.1.x). Danach bekommt die Änderungshistorie den Versionseintrag mit Datum und Uhrzeit. Vorschlag: nach deinem Test.
-2. **Wolf bei Nacht:** Wölfe bekommen das Szenenlicht (nachts kühl und dunkel, Augen leuchten), wie die Gegner in der Höhle? Vorschlag: ja.
 
 ## Geplant
 
 - **Killerschlag:** Ein kritischer Treffer, der ein Monster tötet, bekommt einen besonderen Schlag des Helden in mindestens drei Varianten. Das Trefferbild zerfetzt den Gegner, abgestuft nach der Blutstufe: bei „Aus“ ohne Blut, etwa ein Zerbrechen oder Zusammensacken; bei „Dezent“ und „Deutlich“ immer stärker. Skelette zerspringen in Knochen. Gilt für alle Gegner im neuen Stil.
-- **Sterbeanimationen für alle Gegner:** Goblin, Späher und Skelett haben sie schon (drei Varianten: vornüber, rücklings, seitlich, mit echtem Sturz zu Boden). Die Wölfe bekommen sie mit dem Umbau zu 3D-Vierbeinern, die übrigen Gegner beim Umzug auf die Puppe.
+- **Sterbeanimationen für alle Gegner:** Goblin, Späher und Skelett haben sie schon (drei Varianten: vornüber, rücklings, seitlich, mit echtem Sturz zu Boden). Die Wölfe haben sie jetzt auch (drei Stürze); die übrigen Gegner bekommen sie beim Umzug auf die Puppe.
 
 - **Klänge überarbeiten** nach den [Stil-Leitlinien](STIL.md): weg von quietschenden Nintendo-Tönen, hin zu glaubwürdigen Geräuschen. Die Kampfgeräusche (Hiebe, Stiche, Schläge, Biss, Pfeil, Schwung, Wolfsheulen) wurden schon einmal realistischer gemacht und werden mit geprüft. Noch im alten Stil sind vermutlich:
   - Menü und Bedienung: Klick.
@@ -62,6 +62,6 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 
 ## Bewusst so gelassen
 
-- **Kartenfigur:** bleibt vorerst das alte Männchen.
+- **Kartenfigur:** bleibt vorerst das alte Männchen. Auch die Wölfe auf der Karte behalten vorerst ihr gezeichnetes Bild.
 - **Dorf und Häuser:** Dort gibt es keine Kämpfe (nur Testkämpfe über den Test-Reiter). Die alten Kulissen bleiben; bekommt das Dorf später echte Begegnungen, gibt es eine Kulisse im neuen Stil.
 - **Figurgröße im Reiter „Held“** und **Kampfablauf** (Ansage mit Ausholen → Tippen → Schlag mit Treffer/Fehlschlag): so bestätigt.

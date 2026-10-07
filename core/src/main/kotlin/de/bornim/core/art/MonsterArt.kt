@@ -38,7 +38,7 @@ object MonsterArt {
         synchronized(cache) { cache[key]?.let { return it } }
         if (isNewStyle(id) && !isDoll(id)) {
             // New-style monsters are wider than tall: shrink to the map size, feet on the bottom row.
-            val src = battleFrame(id, look, Act.IDLE, 0, f * frameCount(id, Act.IDLE, 0) / IDLE_FRAMES)
+            val src = legacy(id, look, Act.IDLE, 0, f * WolfArt.IDLE_FRAMES / IDLE_FRAMES)
             val small = shrink(src, (n * (if (id == "dire_wolf") 1.25 else 1.0)).roundToInt())
             Pen(small).outline(Pal.OUTLINE)
             val img = if (mirrored) small.mirrored() else small
@@ -67,7 +67,7 @@ object MonsterArt {
 
     /** The default look in its first idle frame, e.g. for bosses standing on the map. */
     fun get(id: String): PixelImage =
-        if (isNewStyle(id) && !isDoll(id)) synchronized(cache) { cache.getOrPut("get/$id") { shrink(battleFrame(id, MonsterLook(), Act.IDLE, 0, 0), SIZE).also { Pen(it).outline(Pal.OUTLINE) } } }
+        if (isNewStyle(id) && !isDoll(id)) synchronized(cache) { cache.getOrPut("get/$id") { shrink(legacy(id, MonsterLook(), Act.IDLE, 0, 0), SIZE).also { Pen(it).outline(Pal.OUTLINE) } } }
         else frame(id, MonsterLook(), Pose.IDLE, 0)
 
     // ---------------------------------------------------------------- monsters in the new battle style
@@ -80,21 +80,31 @@ object MonsterArt {
     /** Foes on the hero's doll ([FoeArt]); on the map they keep their small figures for now. */
     fun isDoll(id: String) = id in FoeArt.KINDS
 
+    /** Animals built in the round ([BeastArt]); on the map they keep their drawn figures for now. */
+    fun isBeast(id: String) = id in BeastArt.KINDS
+
+    /** Foes built in the round, on the doll or as animals: they step in to strike, dodge and fall in their own frames. */
+    fun isSolid(id: String) = isDoll(id) || isBeast(id)
+
+    /** The drawn wolf, still used for the small figures on the map. */
+    private fun legacy(id: String, look: MonsterLook, act: Act, variant: Int, index: Int) = WolfArt.frame(look, id == "dire_wolf", act, variant, index)
+
     /** Number of different attack animations of a monster. */
-    fun attackVariants(id: String): Int = if (isDoll(id)) 3 else if (isNewStyle(id)) 2 else 1
+    fun attackVariants(id: String): Int = if (isSolid(id)) 3 else if (isNewStyle(id)) 2 else 1
 
     /** Number of variants of being hit, dodging and falling. */
-    fun reactVariants(id: String): Int = if (isDoll(id)) 3 else 1
+    fun reactVariants(id: String): Int = if (isSolid(id)) 3 else 1
 
     fun frameCount(id: String, act: Act, variant: Int): Int =
-        if (isDoll(id)) FoeArt.sequence(id, MonsterLook(), act, variant).rigs.size else WolfArt.sequence(act, variant).size
+        if (isDoll(id)) FoeArt.sequence(id, MonsterLook(), act, variant).rigs.size
+        else if (isBeast(id)) BeastArt.sequence(act, variant).rigs.size else WolfArt.sequence(act, variant).size
 
     /** The frame count of one foe, whose kit (one blade, a spear, a bow) shapes its moves. */
     fun frameCount(id: String, look: MonsterLook, act: Act, variant: Int): Int =
         if (isDoll(id)) FoeArt.sequence(id, look, act, variant).rigs.size else frameCount(id, act, variant)
 
     /** The frame in which an attack lands; frames before it play while the monster attacks, the rest while the hit shows. */
-    fun strikeFrame(id: String, variant: Int): Int = WolfArt.strikeFrame(variant)
+    fun strikeFrame(id: String, variant: Int): Int = if (isBeast(id)) BeastArt.sequence(Act.ATTACK, variant).strike else WolfArt.strikeFrame(variant)
 
     fun strikeFrame(id: String, look: MonsterLook, variant: Int): Int =
         if (isDoll(id)) FoeArt.sequence(id, look, Act.ATTACK, variant).strike else strikeFrame(id, variant)
@@ -102,11 +112,13 @@ object MonsterArt {
     /** [wound] 0 healthy, 1 below half its hit points, 2 below a quarter: changes posture. */
     fun battleFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound: Int = 0): PixelImage =
         if (isDoll(id)) FoeArt.frame(id, look, act, variant, index)
+        else if (isBeast(id)) BeastArt.frame(id, look, act, variant, index, wound)
         else WolfArt.frame(look, id == "dire_wolf", act, variant, index, wound)
 
     /** The frame to show now: for foes on the doll the nearest one drawn so far, never waiting; see [FoeArt.shown]. */
     fun shownFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound: Int = 0): PixelImage =
-        if (isDoll(id)) FoeArt.shown(id, look, act, variant, index) else battleFrame(id, look, act, variant, index, wound)
+        if (isDoll(id)) FoeArt.shown(id, look, act, variant, index)
+        else if (isBeast(id)) BeastArt.shown(id, look, act, variant, index, wound) else battleFrame(id, look, act, variant, index, wound)
 
     /**
      * Draws every frame of a new-style monster ahead of time (call off the main thread at the
@@ -114,6 +126,7 @@ object MonsterArt {
      */
     fun prepare(id: String, look: MonsterLook, wound: Int = 0) {
         if (isDoll(id)) { FoeArt.prepare(id, look); return }
+        if (isBeast(id)) { BeastArt.prepare(id, look, wound); return }
         if (!isNewStyle(id)) return
         for (act in Act.entries) {
             val variants = if (act == Act.ATTACK) attackVariants(id) else 1
@@ -122,15 +135,29 @@ object MonsterArt {
     }
 
     /** Where the feet are across a new-style frame, in sprite pixels from the left: foes on the doll stand off-centre. */
-    fun anchorX(id: String, width: Int): Double = if (isDoll(id)) FoeArt.ANCHOR_X else width / 2.0
+    fun anchorX(id: String, width: Int): Double = if (isDoll(id)) FoeArt.ANCHOR_X else if (isBeast(id)) BeastArt.ANCHOR_X else width / 2.0
 
     /** How tall and how wide the body itself stands in a new-style frame, in sprite pixels (the frame may be far larger). */
     fun bodySize(id: String, look: MonsterLook, frameW: Int, frameH: Int): Pair<Double, Double> =
         if (isDoll(id)) { val h = FoeArt.doll(id, look).height * FoeArt.PX; Pair(h * 0.75, h) }
+        else if (isBeast(id)) BeastArt.bodySize(id, look)
         else Pair(frameW.toDouble(), groundLine(id))
 
     /** Feet position of a new-style frame, in sprite pixels from the top. */
-    fun groundLine(id: String): Double = if (isDoll(id)) FoeArt.GROUND else WolfArt.GROUND * (if (id == "dire_wolf") 1.22 else 1.0)
+    fun groundLine(id: String): Double = if (isDoll(id)) FoeArt.GROUND else if (isBeast(id)) BeastArt.GROUND else WolfArt.GROUND * (if (id == "dire_wolf") 1.22 else 1.0)
+
+    // ---------------------------------------------------------------- the lunge of foes built in the round
+
+    /** How much larger a foe is drawn at the end of its lunge, coming nearer. */
+    const val LUNGE_SCALE = 1.18
+
+    /** How far along its lunge the foe is at frame [index] of an attack, 0 to 1. */
+    fun lungeAt(id: String, look: MonsterLook, variant: Int, index: Int): Double =
+        if (isDoll(id)) FoeArt.lungeAt(id, look, variant, index) else if (isBeast(id)) BeastArt.lungeAt(variant, index) else 0.0
+
+    /** The step for a blow or a bite, in art pixels, so that it lands on ([toX], [toY]). */
+    fun lungeOffset(id: String, look: MonsterLook, variant: Int, feetX: Double, feetY: Double, toX: Double, toY: Double): Pair<Double, Double> =
+        if (isBeast(id)) BeastArt.lungeOffset(id, look, variant, feetX, feetY, toX, toY) else FoeArt.lungeOffset(id, look, variant, feetX, feetY, toX, toY)
 
     /** Shrinks [src] to [width] pixels by averaging, keeping the feet on the bottom row of a square image. */
     private fun shrink(src: PixelImage, width: Int): PixelImage {
@@ -154,9 +181,9 @@ object MonsterArt {
 
     fun frame(id: String, look: MonsterLook, pose: Pose, idleFrame: Int = 0): PixelImage {
         if (isNewStyle(id) && !isDoll(id)) return when (pose) {
-            Pose.IDLE -> battleFrame(id, look, Act.IDLE, 0, idleFrame.mod(frameCount(id, Act.IDLE, 0)))
-            Pose.ATTACK -> battleFrame(id, look, Act.ATTACK, 0, strikeFrame(id, 0))
-            Pose.HURT -> battleFrame(id, look, Act.HURT, 0, 2)
+            Pose.IDLE -> legacy(id, look, Act.IDLE, 0, idleFrame.mod(WolfArt.IDLE_FRAMES))
+            Pose.ATTACK -> legacy(id, look, Act.ATTACK, 0, WolfArt.strikeFrame(0))
+            Pose.HURT -> legacy(id, look, Act.HURT, 0, 2)
         }
         val f = if (pose == Pose.IDLE) idleFrame.mod(IDLE_FRAMES) else 0
         val key = "$id/${look.seed}/${look.shiny}/${look.glow}/$pose/$f"
