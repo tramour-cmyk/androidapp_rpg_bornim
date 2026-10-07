@@ -99,6 +99,8 @@ object HeroFigure {
         val glowAt: Double = 0.0,
         /** 0..1: how far the free hand lets go of a two-handed staff to cast with an open palm. */
         val freeHand: Double = 0.0,
+        /** Degrees an undrawn bow leans its upper limb forward, towards the foe: carried low it is tipped well over. */
+        val bowTilt: Double = 0.0,
     ) {
         fun lerp(o: Rig, t: Double): Rig {
             fun l(a: Double, b: Double) = a + (b - a) * t
@@ -106,7 +108,7 @@ object HeroFigure {
                 l(yaw, o.yaw), l(bodyX, o.bodyX), l(bodyY, o.bodyY), l(lean, o.lean), l(crouch, o.crouch), l(stride, o.stride), l(spread, o.spread),
                 rh.lerp(o.rh, t), weapon.lerp(o.weapon, t).norm(), lh.lerp(o.lh, t), shieldFace.lerp(o.shieldFace, t).norm(),
                 l(headTurn, o.headTurn), l(headDown, o.headDown), l(cloak, o.cloak), l(glow, o.glow), l(draw, o.draw), l(trail, o.trail),
-                l(elbowUp, o.elbowUp), elbowAt.lerp(o.elbowAt, t), l(twist, o.twist), l(grip, o.grip), l(roll, o.roll), l(foreLevel, o.foreLevel), l(aim, o.aim), l(brace, o.brace), rPole.lerp(o.rPole, t), l(stock, o.stock), l(glowAt, o.glowAt), l(freeHand, o.freeHand),
+                l(elbowUp, o.elbowUp), elbowAt.lerp(o.elbowAt, t), l(twist, o.twist), l(grip, o.grip), l(roll, o.roll), l(foreLevel, o.foreLevel), l(aim, o.aim), l(brace, o.brace), rPole.lerp(o.rPole, t), l(stock, o.stock), l(glowAt, o.glowAt), l(freeHand, o.freeHand), l(bowTilt, o.bowTilt),
             )
         }
     }
@@ -244,16 +246,92 @@ object HeroFigure {
 
     const val IDLE_FRAMES = 16
     private fun breathe(a: Rig, b: Rig) = List(IDLE_FRAMES) { a.lerp(b, (1 - cos(it / IDLE_FRAMES.toDouble() * 2 * PI)) / 2) }
-    private val IDLE = breathe(STAND, BREATHE)
-    private val READY_IDLE = breathe(READY, READY_B)
 
-    private val SEQ = mapOf(
-        Strike.SLASH to tween(STAND to 3, SLASH_WIND to 4, SLASH_OVER to 2, SLASH_HIT to 3, SLASH_FOLLOW to 5, STAND to 1),
-        Strike.THRUST to tween(STAND to 3, THRUST_WIND to 5, THRUST_HIT to 3, THRUST_HIT.copy(trail = 0.0) to 5, STAND to 1),
-        Strike.SMASH to tween(STAND to 2, SMASH_RAISE to 2, SMASH_WIND to 4, SMASH_OVER to 2, SMASH_HIT to 3, SMASH_HIT.copy(trail = 0.0) to 5, STAND to 1),
-        Strike.SHOOT to tween(STAND to 3, BOW_NOCK to 3, BOW_AIM to 4, BOW_AIM to 1, BOW_RELEASE to 2, BOW_RELEASE to 4, STAND to 2),
-        Strike.CAST to cast(1),
+    /**
+     * How the hero stands between actions, by what is carried: the blade at the ready, a bow held low in the bow hand,
+     * a crossbow carried in both hands with the point down, a staff stood upright beside the foot. Every sequence
+     * starts and ends in it.
+     */
+    enum class Stance { MELEE, BOW, CROSSBOW, STAFF }
+
+    fun stance(main: de.bornim.core.GearBase?): Stance = when {
+        main == null -> Stance.MELEE
+        main.icon == Icon.BOW -> Stance.BOW
+        main.ranged -> Stance.CROSSBOW
+        main.icon == Icon.STAFF -> Stance.STAFF
+        else -> Stance.MELEE
+    }
+    fun stance(hero: Hero): Stance = stance(hero.item(GearSlot.MAIN_HAND)?.def)
+
+    // the bow low in the bow hand at the side, its upper limb tipped towards the foe, the drawing hand free
+    val BOW_REST = Rig(stride = -2.0, spread = 7.0, twist = 15.0, rh = V(13.0, 64.0, 6.0), lh = V(-14.0, 63.0, 10.0), grip = 10.0, bowTilt = 38.0)
+    // the staff stood upright beside the foot, the hand round it at the hip, the other hand free
+    val STAFF_REST = Rig(stride = 1.0, spread = 7.0, rh = V(19.0, 64.0, 8.0), weapon = V(0.03, 1.0, 0.06), lh = V(-15.0, 64.0, 5.0), grip = 70.0, aim = 1.0, freeHand = 1.0)
+
+    private fun restOf(st: Stance) = when (st) { Stance.MELEE -> STAND; Stance.BOW -> BOW_REST; Stance.CROSSBOW -> XBOW_LOW.copy(draw = 0.0); Stance.STAFF -> STAFF_REST }
+    /** The rest turned towards us, for the start of a fight. */
+    private fun readyOf(st: Stance) = if (st == Stance.MELEE) READY else restOf(st).copy(yaw = 16.0, headTurn = -8.0, twist = restOf(st).twist * 0.5)
+    private fun breath(r: Rig) = r.copy(bodyY = r.bodyY + 0.7, rh = r.rh + V(0.0, -0.6, 0.0), lh = r.lh + V(0.0, -0.6, 0.0), cloak = r.cloak + 1.0)
+
+    /** Victory poses for those who carry no blade, facing us again. */
+    private val RANGED_VICTORY = mapOf(
+        Stance.BOW to listOf(
+            // the bow held up high in the bow hand, unstrung of its arrow
+            BOW_REST.copy(yaw = 14.0, lh = V(-21.0, 108.0, 5.0), bowTilt = 0.0, twist = 0.0, headTurn = -6.0),
+            // the bow low at the side, the head bowed to the fallen
+            BOW_REST.copy(yaw = 22.0, twist = 5.0, headDown = 3.0)),
+        Stance.CROSSBOW to listOf(
+            // the crossbow laid back over the shoulder
+            Rig(yaw = 16.0, spread = 7.0, rh = V(15.0, 92.0, 2.0), weapon = V(-0.15, 0.55, -0.82), lh = V(-15.0, 64.0, 4.0), grip = 10.0, aim = 1.0, headTurn = -6.0),
+            XBOW_LOW.copy(yaw = 22.0, twist = 10.0, headDown = 3.0, draw = 0.0)),
+        Stance.STAFF to listOf(
+            // the staff raised high, upright
+            STAFF_REST.copy(yaw = 14.0, rh = V(21.0, 104.0, 6.0), headTurn = -6.0),
+            STAFF_REST.copy(yaw = 22.0, headDown = 3.0)),
     )
+
+    /** Everything one stance can do, built once. */
+    private class Kit(val idle: List<Rig>, val intro: List<Rig>, val seq: Map<Strike, List<Rig>>, val xbow: List<Rig>, val casts: List<List<Rig>>,
+        val blocks: List<List<Rig>>, val hurt: List<Rig>, val turn: List<Rig>, val ambush: List<Rig>, val victories: List<List<Rig>>)
+
+    private fun kit(st: Stance): Kit {
+        val r = restOf(st)
+        val ready = readyOf(st)
+        fun cast(v: Int): List<Rig> {
+            val (raise, release) = CAST_KEYS[v.mod(CAST_KEYS.size)]
+            // the spell gathers slowly and is let go in a rush; the release lands on the strike frame
+            return tween(r to 5, raise to 3, raise.copy(glow = 1.0) to 2, release to 3, release.copy(glow = 0.25) to 3, raise.copy(glow = 0.0) to 2, r to 1)
+        }
+        val wins = RANGED_VICTORY[st] ?: VICTORY_POSES
+        // a long staff is not flung about like a blade: when struck it stays upright, its top tipped back, its foot clear in front
+        fun held(k: Rig, w: V = V(0.1, 1.0, -0.2)) = if (st == Stance.STAFF) k.copy(weapon = w, grip = 70.0, aim = 1.0, freeHand = 1.0) else k
+        val hurtKey = held(HURT)
+        // stumbling forward, the head comes down: the staff's top is kept out to the side of it
+        val stagger = held(STAGGER, V(0.55, 1.0, -0.12))
+        val turning = held(TURNING, V(0.05, 1.0, -0.15))
+        return Kit(
+            idle = breathe(r, breath(r)),
+            intro = breathe(ready, breath(ready)),
+            seq = mapOf(
+                Strike.SLASH to tween(r to 3, SLASH_WIND to 4, SLASH_OVER to 2, SLASH_HIT to 3, SLASH_FOLLOW to 5, r to 1),
+                Strike.THRUST to tween(r to 3, THRUST_WIND to 5, THRUST_HIT to 3, THRUST_HIT.copy(trail = 0.0) to 5, r to 1),
+                Strike.SMASH to tween(r to 2, SMASH_RAISE to 2, SMASH_WIND to 4, SMASH_OVER to 2, SMASH_HIT to 3, SMASH_HIT.copy(trail = 0.0) to 5, r to 1),
+                Strike.SHOOT to tween(r to 3, BOW_NOCK to 3, BOW_AIM to 4, BOW_AIM to 1, BOW_RELEASE to 2, BOW_RELEASE to 4, r to 2),
+                Strike.CAST to cast(1),
+            ),
+            xbow = tween(r to 3, XBOW_AIM to 5, XBOW_AIM to 3, XBOW_RECOIL to 2, XBOW_AIM.copy(draw = 0.0) to 4, r to 2),
+            casts = CAST_KEYS.indices.map { cast(it) },
+            // 0 shield high, 1 two-handed low, 2 shield low, 3 two-handed high
+            blocks = listOf(BLOCK, PARRY, BLOCK_LOW, PARRY_HIGH).map { tween(r to 3, it to 4, it to 5, r to 1) },
+            hurt = tween(r to 2, hurtKey to 4, r to 1),
+            /** Facing us, then a smooth turn of the whole body to the foe, with a step. */
+            turn = tween(ready to 2, turning to 7, r to 7),
+            ambush = tween(ready to 1, stagger to 3, stagger.copy(bodyY = 1.0, lean = 0.3) to 4, turning to 6, r to 7),
+            victories = wins.map { tween(r to 3, turning.copy(yaw = 70.0) to 7, it to 10) },
+        )
+    }
+    private val kits = java.util.concurrent.ConcurrentHashMap<Stance, Kit>()
+    private fun kitOf(st: Stance) = kits.getOrPut(st) { kit(st) }
 
     /** The frame of each strike at which the blow lands (or the arrow and spell fly). */
     fun strikeFrame(s: Strike): Int = when (s) {
@@ -264,13 +342,6 @@ object HeroFigure {
         Strike.CAST -> 10
     }
 
-    private fun cast(v: Int): List<Rig> {
-        val (raise, release) = CAST_KEYS[v.mod(CAST_KEYS.size)]
-        // the spell gathers slowly and is let go in a rush; the release lands on the strike frame
-        return tween(STAND to 5, raise to 3, raise.copy(glow = 1.0) to 2, release to 3, release.copy(glow = 0.25) to 3, raise.copy(glow = 0.0) to 2, STAND to 1)
-    }
-    private val CASTS = CAST_KEYS.indices.map { cast(it) }
-
     /** How this hero casts: 0 with a staff, 1 a wand or bare hand (a tome in the other), 2 an orb or holy symbol, 3 a weapon with a shield on the arm. */
     fun castVariant(main: de.bornim.core.GearBase?, off: de.bornim.core.GearBase?): Int = when {
         main?.icon == Icon.STAFF -> 0
@@ -280,17 +351,6 @@ object HeroFigure {
     }
     fun castVariant(hero: Hero): Int = castVariant(hero.item(GearSlot.MAIN_HAND)?.def, hero.item(GearSlot.OFF_HAND)?.def)
 
-    private val XBOW_SEQ = tween(XBOW_LOW to 3, XBOW_AIM to 5, XBOW_AIM to 3, XBOW_RECOIL to 2, XBOW_AIM.copy(draw = 0.0) to 4, XBOW_LOW.copy(draw = 0.0) to 2)
-    private val PARRY_SEQ = tween(STAND to 3, PARRY to 4, PARRY to 5, STAND to 1)
-    private val PARRY_HIGH_SEQ = tween(STAND to 3, PARRY_HIGH to 4, PARRY_HIGH to 5, STAND to 1)
-    private val BLOCK_LOW_SEQ = tween(STAND to 3, BLOCK_LOW to 4, BLOCK_LOW to 5, STAND to 1)
-    private val BLOCK_SEQ = tween(STAND to 3, BLOCK to 4, BLOCK to 5, STAND to 1)
-    private val HURT_SEQ = tween(STAND to 2, HURT to 4, STAND to 1)
-    /** Facing us, then a smooth turn of the whole body to the foe, with a step. */
-    private val TURN_SEQ = tween(READY to 2, TURNING to 7, STAND to 7)
-    private val AMBUSH_SEQ = tween(READY to 1, STAGGER to 3, STAGGER.copy(bodyY = 1.0, lean = 0.3) to 4, TURNING to 6, STAND to 7)
-    private fun victory(v: Int) = tween(STAND to 3, TURNING.copy(yaw = 70.0) to 7, VICTORY_POSES[v % VICTORY_POSES.size] to 10)
-
     /** How many victory poses there are to choose from. */
     val victoryVariants: Int get() = VICTORY_POSES.size
 
@@ -299,6 +359,7 @@ object HeroFigure {
         val w = hero.item(GearSlot.MAIN_HAND)?.def
         val shield = hero.item(GearSlot.OFF_HAND)?.def?.kind == de.bornim.core.BaseKind.SHIELD
         return when {
+            stance(w) != Stance.MELEE -> RANGED_VICTORY.getValue(stance(w)).indices.toList()
             w != null && w.twoHanded && !w.ranged -> listOf(0, 1, 2)
             // both hands on the hilt does not go with a shield on the arm
             shield -> listOf(0, 2, 3)
@@ -319,17 +380,20 @@ object HeroFigure {
         }
     }
 
-    fun sequence(act: Act, strike: Strike, variant: Int): List<Rig> = when (act) {
-        Act.IDLE -> IDLE
-        Act.ATTACK -> if (strike == Strike.SHOOT && variant == 1) XBOW_SEQ else SEQ.getValue(strike)
-        Act.CAST -> CASTS[variant.mod(CASTS.size)]
-        // 0 shield high, 1 two-handed low, 2 shield low, 3 two-handed high
-        Act.BLOCK -> when (variant) { 1 -> PARRY_SEQ; 2 -> BLOCK_LOW_SEQ; 3 -> PARRY_HIGH_SEQ; else -> BLOCK_SEQ }
-        Act.HURT -> HURT_SEQ
-        Act.INTRO -> READY_IDLE
-        Act.TURN -> TURN_SEQ
-        Act.AMBUSHED -> AMBUSH_SEQ
-        Act.VICTORY -> victory(variant)
+    /** The frames of [act] for a hero standing in [stance]; attacks use [strike] (a crossbow is variant 1 of a shot), casts, blocks and victories [variant]. */
+    fun sequence(act: Act, strike: Strike, variant: Int, stance: Stance = Stance.MELEE): List<Rig> {
+        val k = kitOf(stance)
+        return when (act) {
+            Act.IDLE -> k.idle
+            Act.ATTACK -> if (strike == Strike.SHOOT && (variant == 1 || stance == Stance.CROSSBOW)) k.xbow else k.seq.getValue(strike)
+            Act.CAST -> k.casts[variant.mod(k.casts.size)]
+            Act.BLOCK -> k.blocks[variant.mod(k.blocks.size)]
+            Act.HURT -> k.hurt
+            Act.INTRO -> k.intro
+            Act.TURN -> k.turn
+            Act.AMBUSHED -> k.ambush
+            Act.VICTORY -> k.victories[variant.mod(k.victories.size)]
+        }
     }
 
     fun frameCount(act: Act, strike: Strike = Strike.SLASH, variant: Int = 0): Int = sequence(act, strike, variant).size

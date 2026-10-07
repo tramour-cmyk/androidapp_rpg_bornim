@@ -768,3 +768,59 @@ fun renderReactViews() {
     ImageIO.write(out, "png", File("build/screens/react_views.png"))
     println("wrote react views")
 }
+
+
+/** The rest of each stance, the turn to the foe, the shot or spell and the victory, for bow, crossbow and staff. */
+fun renderStanceViews() {
+    var uid = 1L
+    fun g(base: String) = de.bornim.core.Gear(uid++, base, de.bornim.core.Rarity.UNCOMMON, 3)
+    val F = de.bornim.core.art.HeroFigure
+    val kits = listOf(
+        Triple(de.bornim.core.art.Doll(de.bornim.core.Race.ELF, de.bornim.core.Sex.FEMALE, de.bornim.core.Build.AVERAGE, 1, 1),
+            de.bornim.core.art.Outfit(de.bornim.core.CharClass.ROGUE, mapOf(de.bornim.core.GearSlot.CHEST to g("leather"), de.bornim.core.GearSlot.MAIN_HAND to g("longbow"), de.bornim.core.GearSlot.CLOAK to g("cloak"))), "Bogen"),
+        Triple(de.bornim.core.art.Doll(de.bornim.core.Race.DWARF, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 1),
+            de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.CHEST to g("chain_shirt"), de.bornim.core.GearSlot.MAIN_HAND to g("light_crossbow"))), "Armbrust"),
+        Triple(de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 2),
+            de.bornim.core.art.Outfit(de.bornim.core.CharClass.WIZARD, mapOf(de.bornim.core.GearSlot.CHEST to g("robe"), de.bornim.core.GearSlot.MAIN_HAND to g("staff"))), "Stab"),
+        Triple(de.bornim.core.art.Doll(de.bornim.core.Race.HALFLING, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 2, 0),
+            de.bornim.core.art.Outfit(de.bornim.core.CharClass.ROGUE, mapOf(de.bornim.core.GearSlot.CHEST to g("leather"), de.bornim.core.GearSlot.MAIN_HAND to g("quarterstaff"))), "Kampfstab"),
+    )
+    // the check: staves through the body in every act, for every people
+    var bad = 0; var total = 0
+    for (race in de.bornim.core.Race.entries) for ((_, o, name) in kits) {
+        val d = de.bornim.core.art.Doll(race, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE)
+        val st = F.stance(o.items[de.bornim.core.GearSlot.MAIN_HAND]?.def)
+        val acts = listOf(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Act.INTRO, de.bornim.core.art.HeroFigure.Act.TURN, de.bornim.core.art.HeroFigure.Act.AMBUSHED, de.bornim.core.art.HeroFigure.Act.HURT, de.bornim.core.art.HeroFigure.Act.CAST)
+        val runs = acts.map { it to 0 } + listOf(de.bornim.core.art.HeroFigure.Act.VICTORY to 0, de.bornim.core.art.HeroFigure.Act.VICTORY to 1, de.bornim.core.art.HeroFigure.Act.ATTACK to 0, de.bornim.core.art.HeroFigure.Act.ATTACK to 1)
+        for ((act, v) in runs) {
+            val strike = if (act == de.bornim.core.art.HeroFigure.Act.ATTACK) (if (st == de.bornim.core.art.HeroFigure.Stance.BOW || st == de.bornim.core.art.HeroFigure.Stance.CROSSBOW) de.bornim.core.art.HeroFigure.Strike.SHOOT else if (v == 0) de.bornim.core.art.HeroFigure.Strike.SMASH else de.bornim.core.art.HeroFigure.Strike.SLASH) else de.bornim.core.art.HeroFigure.Strike.SLASH
+            val cv = if (act == de.bornim.core.art.HeroFigure.Act.CAST) F.castVariant(o.items[de.bornim.core.GearSlot.MAIN_HAND]?.def, null) else if (act == de.bornim.core.art.HeroFigure.Act.ATTACK) 0 else v
+            for ((i, rig) in F.sequence(act, strike, cv, st).withIndex()) {
+                total++
+                d.fit(rig, o).second!!.first.weaponThroughBody()?.let { t -> bad++; if (bad <= 25) println("HALTUNG DURCH: ${race.name} $name $act/$v Bild $i bei ${(t * 100).toInt()} %") }
+            }
+        }
+    }
+    println("Haltungen: $total Bilder, Waffe durch Körper: $bad")
+    // the rest from three sides, the turned-to-us intro and both victories
+    val cols = listOf("Ruhe 138°" to 0, "Ruhe 90°" to 1, "Ruhe 30°" to 2, "Einstieg" to 3, "Sieg 1" to 4, "Sieg 2" to 5)
+    val cw = 230; val ch = 280
+    val out = BufferedImage(cw * cols.size, ch * kits.size, BufferedImage.TYPE_INT_RGB)
+    val gg = out.createGraphics(); gg.color = java.awt.Color(0x5E625C); gg.fillRect(0, 0, out.width, out.height)
+    for ((ri, k) in kits.withIndex()) {
+        val st = F.stance(k.second.items[de.bornim.core.GearSlot.MAIN_HAND]?.def)
+        val rest = F.sequence(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, st)[0]
+        for ((ci, c) in cols.withIndex()) {
+            val rig = when (c.second) {
+                0 -> rest; 1 -> rest.copy(yaw = 90.0); 2 -> rest.copy(yaw = 30.0)
+                3 -> F.sequence(de.bornim.core.art.HeroFigure.Act.INTRO, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, st)[0]
+                else -> F.sequence(de.bornim.core.art.HeroFigure.Act.VICTORY, de.bornim.core.art.HeroFigure.Strike.SLASH, c.second - 4, st).last()
+            }
+            val im = k.first.render(cw, ch, cw / 2.0, ch - 8.0, 1.2, rig, k.second).img
+            for (y in 0 until ch) for (x in 0 until cw) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(ci * cw + x, ri * ch + y, q) }
+            gg.color = java.awt.Color(0xF0E8D8); gg.drawString("${k.third} – ${c.first}", ci * cw + 6, ri * ch + 16)
+        }
+    }
+    ImageIO.write(out, "png", File("build/screens/stance_views.png"))
+    println("wrote stance views")
+}

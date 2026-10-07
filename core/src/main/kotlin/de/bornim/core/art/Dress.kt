@@ -400,6 +400,9 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val aim = (if (draw > 0.05) grip - nock else sk.upper.dir(P3.Z)).norm()
         var up = (P3.Y - aim * (P3.Y dot aim)).norm()
         up = (up + (aim cross up) * 0.15).norm()
+        // carried undrawn, the bow leans its upper limb towards the foe
+        val tilt = Math.toRadians(sk.rig.bowTilt * (1 - draw.coerceIn(0.0, 1.0)))
+        if (abs(tilt) > 1e-3) up = (up * kotlin.math.cos(tilt) + aim * kotlin.math.sin(tilt)).norm()
         val bend = len * (0.09 + 0.1 * draw)
         fun at(t: Double) = grip + up * (t * len / 2) + aim * (-bend * t * t + bend * 0.15)
         fun thick(t: Double) = (0.012 - 0.0065 * abs(t)) * h
@@ -484,7 +487,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val r = main.rarity
         val dir = sk.weapon.norm()
         val hand = sk.hand(1)
-        val k = sqrt(h / 175.0)
+        // staves are cut to the bearer: a halfling's staff is as tall as a halfling
+        val k = h / 175.0
         val side = (if (abs(dir.y) > 0.9) P3.X else (P3.Y cross dir)).norm()
         val glowRgb = glowColour()
         fun cone(a: P3, b: P3, ra: Double, rb: Double, mat: Mat, group: Int = Doll.ITEM) = add(RoundCone(a, b, ra, rb, BodyPart.GEAR, group), mat)
@@ -539,7 +543,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     fun glowPoint(): P3 {
         val main = o.items[GearSlot.MAIN_HAND]
         if (sk.rig.glowAt > 0.5) return sk.hand(0) + P3(0.0, 0.035 * h, 0.01 * h)
-        val k = sqrt(h / 175.0)
+        val k = h / 175.0
         return when (main?.base) {
             null -> sk.hand(1) + P3(0.0, 0.02 * h, 0.0)
             "wand" -> sk.hand(1) + sk.weapon * (0.1 * h * k + 0.004 * h)
@@ -659,7 +663,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val main = o.items[GearSlot.MAIN_HAND] ?: return null
         if (main.def.ranged) return null
         // staves and wands are built to the body's size, as they are drawn
-        val len = if (main.base in ROUND) reach(main.base) * sqrt(h / 175.0) * 0.95 else reach(main.base)
+        val len = if (main.base in ROUND) reach(main.base) * (h / 175.0) * 0.95 else reach(main.base)
         val hand = sk.hand(1)
         // the hands holding it are not in its way; with two hands or a bracing forearm, neither is the free arm
         val holding = if (o.twoHands) setOf("hand1", "fore1", "upper1", "delt1", "hand0", "fore0") else setOf("hand1", "fore1", "upper1", "delt1")
