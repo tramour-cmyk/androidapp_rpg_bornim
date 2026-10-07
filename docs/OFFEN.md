@@ -19,13 +19,7 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 Mit der neuesten Version (Releases auf GitHub, `bornim.apk`):
 
-- **Hinterhalt:** Der Held steht zugewandt, bis der Schlag von hinten trifft, taumelt dann nach vorn und dreht sich um.
 - **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln, Drehung langsamer; die Schläge selbst so schnell wie bisher.
-- **Vielseitige Waffen:** Langschwert, Streitaxt, Kriegshammer, Speer, Kampfstab ohne Schild: mehr Schaden (Kampfwerte im Ausrüstungsreiter) und beidhändige Haltung im Kampf; mit Schild wie bisher.
-- **Tasche, Laden, Dialog:** kürzere Zeilen ohne Dopplungen.
-- **Gegenstandsvergleich:** Tabelle „Angelegt | Neu“ im Dialog, Urteil oben, Obergrenzen-Hinweise; Pfeil in der Tasche passt zum Urteil.
-- **Vorräte:** neue räumliche Bilder in Tasche, Laden, Brauen und Kampf.
-- **Rundschild beim Drehen:** im Ausrüstungsbild nicht mehr im Bauch.
 - **Abwehr und Treffer:** In Abwehrhaltung getroffen, bleibt der Held in Deckung bis zu seinem nächsten Zug.
 
 ## Geplant
