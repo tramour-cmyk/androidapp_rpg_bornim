@@ -19,8 +19,8 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 Mit dem Testbuild vom Zweig `neue-gegner` (Link im Chat):
 
-- **Gehaltene Haltungen:** Ausholen beim Angriff bleibt stehen bis zum Schlag (kein Zurück in die Ruhe dazwischen); Abwehr bleibt stehen bis zum nächsten eigenen Zug, auch nach Treffer oder Verfehlen; ebenso Zauber sammeln und Wurf. Am besten mit Kleriker und Kampfstab und mit einer weiteren Klasse.
-- **Konter:** Abwehr, Gegner verfehlt („Lücke“), dann angreifen: erst „nutzt die Lücke!“, dann Ausholen und Schlag in einem Zug. Auch mit Feuerpfeil.
+- **Gehaltene Haltungen (schon in v0.1.168):** Ausholen beim Angriff bleibt stehen bis zum Schlag (kein Zurück in die Ruhe dazwischen); Abwehr bleibt stehen bis zum nächsten eigenen Zug, auch nach Treffer oder Verfehlen; ebenso Zauber sammeln und Wurf. Am besten mit Kleriker und Kampfstab und mit einer weiteren Klasse.
+- **Konter (schon in v0.1.168):** Abwehr, Gegner verfehlt („Lücke“), dann angreifen: erst „nutzt die Lücke!“, dann Ausholen und Schlag in einem Zug. Auch mit Feuerpfeil.
 - **Neue Gegner:** Kobold (auch im Rudel), Zombie, Krogg und Grak im Kampf: Aussehen, Ausrüstungsvarianten, Bewegungen, Stürze (Kobold-Schwanz); Morgenstern als Beute.
 - **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln, Drehung langsamer; die Schläge selbst so schnell wie bisher.
 
