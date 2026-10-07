@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 22:50 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 23:20 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -13,7 +13,7 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## In Arbeit
 
-- **Gegner im neuen Stil:** Goblin, Goblin-Späher, Skelett, Wolf (mit Grimmzahn), Kobold, Zombie, Krogg und Grak sind eingebaut. Wildschwein und Riesenratte als Vierbeiner sind auf dem Zweig `vierbeiner` fertig und warten auf deine Abnahme; danach Goblin-Schamane und Ghul auf der Puppe, später Spinne, Hundertfüßer, Fledermaus, Stirge und Ockergallerte mit eigenen Körpern.
+- **Gegner im neuen Stil:** Goblin, Goblin-Späher, Skelett, Wolf (mit Grimmzahn), Kobold, Zombie, Krogg und Grak sind eingebaut. Wildschwein und Riesenratte als Vierbeiner sind auf dem Zweig `vierbeiner` fertig und warten auf deine Abnahme. Goblin-Schamane und Ghul auf der Puppe liegen als Entwürfe vor (Bilder im Chat) und werden nach deinem Okay eingebaut; später Spinne, Hundertfüßer, Fledermaus, Stirge und Ockergallerte mit eigenen Körpern.
 
 ## Zu testen
 
@@ -27,7 +27,8 @@ Mit der neuesten Version (Releases auf GitHub, `bornim.apk`):
 - **Killerschlag:** Ein kritischer Treffer, der ein Monster tötet, bekommt einen besonderen Schlag des Helden in mindestens drei Varianten. Das Trefferbild zerfetzt den Gegner, abgestuft nach der Blutstufe: bei „Aus“ ohne Blut, etwa ein Zerbrechen oder Zusammensacken; bei „Dezent“ und „Deutlich“ immer stärker. Skelette zerspringen in Knochen. Gilt für alle Gegner im neuen Stil.
 - **Sterbeanimationen für alle Gegner:** Goblin, Späher und Skelett haben sie schon (drei Varianten: vornüber, rücklings, seitlich, mit echtem Sturz zu Boden). Die Wölfe haben sie jetzt auch (drei Stürze); die übrigen Gegner bekommen sie beim Umzug auf die Puppe.
 
-- **Klänge überarbeiten** nach den [Stil-Leitlinien](STIL.md): weg von quietschenden Nintendo-Tönen, hin zu glaubwürdigen Geräuschen. Die Kampfgeräusche (Hiebe, Stiche, Schläge, Biss, Pfeil, Schwung, Wolfsheulen) wurden schon einmal realistischer gemacht und werden mit geprüft; Abwehr („Klonk“) und Fehlschlag („Wusch“) sind schon neu. Noch im alten Stil sind vermutlich:
+- **Klänge überarbeiten**: Hörproben liegen vor (`klangproben.zip` im Chat: je alt und drei neue Vorschläge für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt); nach deiner Auswahl werden sie umgestellt.
+- **Klänge überarbeiten (Rest)** nach den [Stil-Leitlinien](STIL.md): weg von quietschenden Nintendo-Tönen, hin zu glaubwürdigen Geräuschen. Die Kampfgeräusche (Hiebe, Stiche, Schläge, Biss, Pfeil, Schwung, Wolfsheulen) wurden schon einmal realistischer gemacht und werden mit geprüft; Abwehr („Klonk“) und Fehlschlag („Wusch“) sind schon neu. Noch im alten Stil sind vermutlich:
   - Menü und Bedienung: Klick.
   - Belohnungen: Stufenaufstieg, Beute, epische Beute, Münzen, Truhe.
   - Welt: Tür, Begegnung, Alarm (Gegner bemerkt dich), Hinterhalt.
