@@ -2,7 +2,7 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
-## Unveröffentlicht
+## v0.1.158 – 07.10.2026, 20:38
 
 **Behoben**
 - Wurde der Held in Abwehrhaltung trotzdem getroffen, ließ er die Deckung fallen und stand in Ruhehaltung, obwohl die Abwehr bis zu seinem nächsten Zug gilt. Jetzt bleibt er in Deckung; der Treffer zeigt sich am Aufblitzen.
