@@ -2,7 +2,7 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
-## Unveröffentlicht
+## v0.1.172 – 07.10.2026, 22:38
 
 **Neu – Kobold, Zombie, Krogg und Grak im neuen Stil**
 - **Kobold** (SRD: klein, etwa 72–88 cm): kleiner Drachenkopf mit weit offenem Rachen voller Nadelzähne, zurückgebogenen Hörnern, Stachelkamm und glühenden Schlitzaugen; Schuppen in Rostrot, Ocker, Ziegel oder Umbra, Klauenfüße und langer Schwanz. Drei Ausrüstungen: Speer mit Lederkappe, Speer mit grobem Schild, Dolch mit Fellumhang. Auch die Kobolde im Rudel.
