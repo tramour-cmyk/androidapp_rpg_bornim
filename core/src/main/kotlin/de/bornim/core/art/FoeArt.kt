@@ -152,10 +152,10 @@ object FoeArt {
         val slack = r.copy(weapon = limp, aim = 1.0, grip = 30.0)
         return listOf(
             // the knees give, then it pitches forward onto its face, the arms thrown out before it
-            Seq(tween(r to 1, reel to 3, slack.copy(crouch = 12.0, lean = 0.6, headDown = 6.0, rh = V(14.0, 50.0, 14.0), lh = V(-14.0, 50.0, 14.0), fallF = 8.0) to 4,
+            Seq(tween(r to 1, reel to 3, slack.copy(crouch = 12.0, lean = 0.6, headDown = 6.0, rh = V(14.0, 50.0, 14.0), lh = V(-22.0, 50.0, 14.0), fallF = 8.0) to 4,
                 // the arms reach out over the head as it goes down, so they lie flat before it on the ground
-                slack.copy(crouch = 4.0, lean = 0.1, headDown = 2.0, rh = V(16.0, 112.0, 16.0), lh = V(-16.0, 112.0, 16.0), fallF = 82.0) to 6,
-                slack.copy(crouch = 4.0, lean = 0.1, headDown = 2.0, rh = V(16.0, 114.0, 14.0), lh = V(-16.0, 114.0, 14.0), fallF = 86.0) to 1)),
+                slack.copy(crouch = 4.0, lean = 0.1, headDown = 2.0, rh = V(16.0, 112.0, 16.0), lh = V(-24.0, 112.0, 16.0), fallF = 82.0) to 6,
+                slack.copy(crouch = 4.0, lean = 0.1, headDown = 2.0, rh = V(16.0, 114.0, 14.0), lh = V(-24.0, 114.0, 14.0), fallF = 86.0) to 1)),
             // thrown back by the blow: it staggers, then falls flat on its back, arms flung wide
             Seq(tween(r to 1, reel.copy(lean = -0.6, stride = -6.0) to 3, slack.copy(crouch = 6.0, lean = -0.5, stride = -7.0, headDown = -6.0, rh = V(26.0, 80.0, -4.0), lh = V(-26.0, 80.0, -4.0), fallF = -20.0) to 4,
                 slack.copy(crouch = 3.0, lean = -0.2, stride = -4.0, headDown = -4.0, rh = V(30.0, 96.0, -2.0), lh = V(-30.0, 96.0, -2.0), fallF = -84.0) to 6,
