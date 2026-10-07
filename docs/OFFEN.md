@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 11:41 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 12:06 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -22,19 +22,21 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 - **Titelbild und Spielstände:** neue Figuren, still in Ruhehaltung.
 - **Figurgröße in den Menüs:** Halbling und Zwerg im Reiter „Held“ und im Ausrüstungsbild groß und mittig; bei der Erstellung maßstabsgetreu und mittig.
 - **Kampfablauf:** Ansage mit Ausholen → Tippen → Schlag oder Zauber zusammen mit Treffer/Fehlschlag; auch beim Kobold.
-- **Abwehr:** Untermenü „Angreifen/Abwehr“, Konter-Hinweis.
+- **Abwehr:** Untermenü „Angreifen/Abwehr“, Konter-Hinweis; danach fließender Übergang in den nächsten Zug.
+- **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
 
 ## Zu entscheiden
 
 1. **Veröffentlichen:** `hero-figure` nach `main` übernehmen. Das baut automatisch die nächste Version (v0.1.x). Danach bekommt die Änderungshistorie den Versionseintrag mit Datum und Uhrzeit. Vorschlag: nach deinem Test.
-2. **Alte Kampfszenen:** Außerhalb von Wald und Höhle kämpft noch das alte 64-px-Männchen. Auch dort die neue Figur einsetzen? Mittlerer Aufwand (Platzierung und Ausfallschritt je Szene).
-3. **Blut-Stufe:** Wunden am Helden gibt es nur bei voll eingeschaltetem Blut. Bei der schwächeren Stufe leichte Flecken zeigen oder keine?
-4. **Übergang nach „Abwehr“:** Die Figur springt aus der Abwehrhaltung direkt in den nächsten Angriff. Kurzen fließenden Übergang einbauen? Geringer Aufwand.
-5. **Figurgröße im Reiter „Held“:** etwa 90 × 140 dp, jetzt für jedes Volk gleich groß gefüllt. Passt das?
-6. **Kampfablauf endgültig?** Ansage mit Ausholen → Tippen → Schlag mit Treffer/Fehlschlag. So lassen oder ändern?
-7. **Rundschild auf der Karte:** Das Kartenmännchen (alter Stil) zeigt den Rundschild noch als Wappenschild. Anpassen oder so lassen, bis die Karte die neue Figur bekommt?
-8. **Setup-Skript für das Android-SDK** in den Umgebungseinstellungen eintragen (am PC in der Web-Ansicht)? Dann ist das SDK in neuen Sitzungen sofort da.
+2. **Erstellungsbildschirm:** Figur und Werte oben fest, nur die Eingaben darunter scrollen. Vorschlag liegt vor, wartet auf dein Ja.
+3. **Rundschild auf der Karte:** Das Kartenmännchen (alter Stil) zeigt den Rundschild noch als Wappenschild. Anpassen oder so lassen, bis die Karte die neue Figur bekommt?
+
+## Bei dir
+
+- **Setup-Skript für das Android-SDK** in den Umgebungseinstellungen eintragen (am PC in der Web-Ansicht) – machst du zu Hause.
 
 ## Bewusst so gelassen
 
 - **Kartenfigur:** bleibt vorerst das alte Männchen.
+- **Dorf und Häuser:** Dort gibt es keine Kämpfe (nur Testkämpfe über den Test-Reiter). Die alten Kulissen bleiben; bekommt das Dorf später echte Begegnungen, gibt es eine Kulisse im neuen Stil.
+- **Figurgröße im Reiter „Held“** und **Kampfablauf** (Ansage mit Ausholen → Tippen → Schlag mit Treffer/Fehlschlag): so bestätigt.

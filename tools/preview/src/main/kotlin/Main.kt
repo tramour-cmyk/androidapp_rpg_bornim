@@ -292,6 +292,14 @@ fun main() {
     }
     shot("70_cave_entrance_night") { vm -> wolfFight(vm, "cave", 10, 17, 23 * 60) }
     shot("70_battle_menu", taps = List(4) { msgBox }) { vm -> wolfFight(vm, "forest", 10, 20, 12 * 60) }
+    val fightBtn0 = Offset(300f, 1975f)
+    // fights in the village and in a house (test fights only): the hero is the doll there too
+    shot("77_town", lastFrames = 60, taps = List(4) { msgBox }) { vm -> wolfFight(vm, "village", 12, 12, 12 * 60, id = "goblin", cls = CharClass.CLERIC) }
+    shot("77_inn", lastFrames = 60, taps = List(4) { msgBox }) { vm -> wolfFight(vm, "inn", 5, 5, 20 * 60, id = "giant_rat") }
+    for ((i, f) in listOf(2, 5, 8, 12).withIndex()) {
+        shot("77_town_lunge_$i", taps = List(4) { msgBox } + listOf(fightBtn0, fightBtn0, msgBox, msgBox), lastFrames = f) { vm -> wolfFight(vm, "village", 12, 12, 12 * 60, id = "goblin") }
+    }
+    shot("77_town_fightmenu", taps = List(4) { msgBox } + listOf(fightBtn0)) { vm -> wolfFight(vm, "village", 12, 12, 12 * 60, id = "goblin", cls = CharClass.CLERIC) }
     val fightBtn = Offset(300f, 1975f)
     for ((i, f) in listOf(3, 6, 10, 16).withIndex()) {
         shot("71_hit_$i", taps = List(4) { msgBox } + listOf(fightBtn, msgBox), lastFrames = f) { vm -> vm.changeBlood(2); wolfFight(vm, "forest", 10, 20, 12 * 60) }

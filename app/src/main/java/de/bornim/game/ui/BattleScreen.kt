@@ -64,7 +64,6 @@ import de.bornim.core.art.CaveScene
 import de.bornim.core.art.Glow
 import de.bornim.core.art.CharacterArt
 import de.bornim.core.art.IconArt
-import de.bornim.core.art.HeroArt
 import de.bornim.core.art.HeroBattle
 import de.bornim.core.art.HeroFigure
 import de.bornim.core.art.MonsterArt
@@ -98,8 +97,11 @@ private class BattleUi(val battle: Battle) {
     var howlSound = Sound.HOWL_1
     private val howls = MonsterArt.isNewStyle(battle.monster.id) && battle.monster.id.contains("wolf")
 
-    /** What the hero's doll is playing: frames [from]..[to] of an act over [ms] from [start], then back to rest unless it [hold]s. */
-    class HeroMotion(val act: HeroFigure.Act, val strike: HeroFigure.Strike, val variant: Int, val from: Int, val to: Int, val start: Long, val ms: Long, val hold: Boolean = false)
+    /**
+     * What the hero's doll is playing: frames [from]..[to] of an act over [ms] from [start], then back to rest unless it
+     * [hold]s. A [lead] is played before it starts: the way down out of a held guard.
+     */
+    class HeroMotion(val act: HeroFigure.Act, val strike: HeroFigure.Strike, val variant: Int, val from: Int, val to: Int, val start: Long, val ms: Long, val hold: Boolean = false, val lead: HeroMotion? = null)
     var motion by mutableStateOf<HeroMotion?>(null)
     private var blows = 0
     /** Which victory pose this fight ends in. */
@@ -119,7 +121,17 @@ private class BattleUi(val battle: Battle) {
     private fun play(act: HeroFigure.Act, strike: HeroFigure.Strike = HeroFigure.Strike.SLASH, variant: Int = 0, from: Int = 0, to: Int = -1, perFrame: Long = 60, delayMs: Long = 0, hold: Boolean = false) {
         val n = HeroBattle.frameCount(battle.hero, act, strike, variant)
         val end = if (to < 0) n - 1 else to.coerceAtMost(n - 1)
-        motion = HeroMotion(act, strike, variant, from, end, System.currentTimeMillis() + delayMs, (end - from + 1) * perFrame, hold)
+        val now = System.currentTimeMillis()
+        // out of a held guard the shield or weapon first comes down smoothly to the rest, then the next move begins;
+        // being struck breaks the guard faster
+        val m = motion
+        val lead = if (m != null && m.hold && m.act == HeroFigure.Act.BLOCK && act != HeroFigure.Act.BLOCK) {
+            val last = HeroBattle.frameCount(battle.hero, m.act, m.strike, m.variant) - 1
+            val per = if (act == HeroFigure.Act.HURT) 28L else 45L
+            HeroMotion(m.act, m.strike, m.variant, m.to, last, now, (last - m.to + 1) * per)
+        } else null
+        val start = maxOf(now + delayMs, (lead?.let { it.start + it.ms } ?: 0L))
+        motion = HeroMotion(act, strike, variant, from, end, start, (end - from + 1) * perFrame, hold, lead)
     }
 
     /** Sets the doll going for a new message: blows, spells, hits, blocks, the start of the fight and the victory. */
@@ -174,6 +186,10 @@ private class BattleUi(val battle: Battle) {
             s.anim == Anim.HERO_HIT -> play(HeroFigure.Act.HURT, perFrame = 65)
             s.anim == Anim.HERO_FAINT -> play(HeroFigure.Act.HURT, to = 3, perFrame = 90, hold = true)
             // the defensive stance: up into the guard, held until the hero's next turn
+            // a draught drunk on guard: the guard comes down first
+            s.anim == Anim.HERO_HEAL && m != null && m.act == HeroFigure.Act.BLOCK && m.hold -> play(HeroFigure.Act.IDLE, from = 0, to = 0)
+            // already on guard: it simply stays up
+            s.anim == Anim.DEFEND && m != null && m.act == HeroFigure.Act.BLOCK && m.hold -> {}
             s.anim == Anim.DEFEND -> play(HeroFigure.Act.BLOCK, variant = HeroBattle.blockVariant(hero, battle.monster.id), from = 0, to = 7, perFrame = 50, hold = true)
             // fended off from the guard: the guard stays up
             s.anim == Anim.MISS && fx?.onHero == true && m != null && m.act == HeroFigure.Act.BLOCK && m.hold -> {}
@@ -286,7 +302,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
     }
     // the swish of a blow, as the weapon comes down: heavier for great weapons and hammers
     LaunchedEffect(ui.swingKey) {
-        if (ui.swingKey == 0 || game.map.kind != MapKind.FOREST && game.map.kind != MapKind.CAVE) return@LaunchedEffect
+        if (ui.swingKey == 0) return@LaunchedEffect
         delay(ui.swingDelay)
         val w = battle.hero.item(de.bornim.core.GearSlot.MAIN_HAND)?.def
         val heavy = w != null && (w.twoHanded || w.icon == de.bornim.core.Icon.HAMMER || w.icon == de.bornim.core.Icon.MACE)
@@ -408,6 +424,9 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 ui.enemyHp * 2 <= battle.enemyMaxHp -> 1
                 else -> 0
             }
+            // How much of it shows, for foe and hero alike: nothing with blood off, a few stains when subtle, all of them in full
+            val woundCap = vm.bloodLevel.coerceIn(0, 2)
+            val foeStains = minOf(foeWound, woundCap)
             // Overlays (wounds, glow, sheen) stay while the foe sinks down and fade with it.
             val foeShown = !ui.enemyGone || a == Anim.ENEMY_FAINT
             // Hurt monsters breathe faster. New-style monsters have many more idle frames, shown faster.
@@ -542,7 +561,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                         flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f, shade = shade,
                     )
                     if (glow != null && foeShown) PixelSprite(Glow.rim(enemyFrame, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.22f + 0.18f * pulse))
-                    if (vm.bloodLevel > 0 && foeWound > 0 && foeShown) PixelSprite(woundsOf(enemyFrame, foeWound, id, battle.look.seed), artDp, alpha = enemyAlpha, shade = shade)
+                    if (foeStains > 0 && foeShown) PixelSprite(woundsOf(enemyFrame, foeStains, id, battle.look.seed), artDp, alpha = enemyAlpha, shade = shade)
                     // a band of light wanders over a shimmering coat every few seconds
                     if (battle.shiny && foeShown) {
                         val steps = 12
@@ -552,7 +571,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 } else {
                     val img = MonsterArt.frame(battle.monster.id, battle.look, enemyPose, if (foeWound > 0) idleIdx else idle)
                     PixelImageView(img, monsterSize, alpha = enemyAlpha, flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f, shade = shade)
-                    if (vm.bloodLevel > 0 && foeWound > 0 && foeShown) PixelImageView(woundsOf(img, foeWound, id, battle.look.seed), monsterSize, alpha = enemyAlpha, shade = shade)
+                    if (foeStains > 0 && foeShown) PixelImageView(woundsOf(img, foeStains, id, battle.look.seed), monsterSize, alpha = enemyAlpha, shade = shade)
                 }
                 if (battle.shiny && foeShown) {
                     // sparkles around the body: centre their square on the wide new-style sprite
@@ -566,38 +585,33 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 ui.heroGone -> 0f
                 else -> 1f
             }
-            val heroPose = when {
-                (a == Anim.HERO_ACT || a == Anim.SPELL || a == Anim.THROW) && moving -> Pose.ATTACK
-                a == Anim.ENEMY_HIT && fx?.onHero == false && t < 0.5f -> Pose.ATTACK
-                (a == Anim.HERO_HIT || a == Anim.HERO_FAINT) && moving -> Pose.HURT
-                else -> Pose.IDLE
-            }
-            val heroSize = 168.dp
-            // In the new scenes the hero is the doll, seen from behind over the shoulder, its frames drawn ahead in the background.
-            // the hero bleeds like the foe: a few stains below half health, more below a quarter, if blood is shown at all
-            val heroWound = when {
-                vm.bloodLevel == 0 -> 0
+            // The hero is the doll, seen from behind over the shoulder, its frames drawn ahead in the background.
+            // the hero bleeds like the foe: a few stains below half health, more below a quarter, as far as the blood setting shows
+            val heroWound = minOf(woundCap, when {
                 ui.heroHp * 4 <= battle.hero.maxHp -> 2
                 ui.heroHp * 2 <= battle.hero.maxHp -> 1
                 else -> 0
-            }
+            })
             LaunchedEffect(battle, heroWound) {
-                if (newScene) kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
                     val job = coroutineContext[kotlinx.coroutines.Job]
                     HeroBattle.prepare(battle.hero, battle.monster.id, battle.opening == de.bornim.core.Opening.AMBUSHED, ui.victoryPick, heroWound) { job?.isActive == false }
                 }
             }
-            val doll = if (!newScene) null else heroDollFrame(ui, clockMs, heroWound)
-            val dollFrame = doll?.first
+            val doll = heroDollFrame(ui, clockMs, heroWound)
+            val dollFrame = doll.first
             // a melee blow steps in towards the foe, so the weapon lands on it, and back again
-            val lungeF = (doll?.second ?: 0.0).toFloat()
-            val lungeOff = if (lungeF <= 0f || ui.motion == null) androidx.compose.ui.unit.DpOffset.Zero else {
+            val lungeF = doll.second.toFloat()
+            val lungeOff = if (lungeF <= 0f || ui.motion == null) androidx.compose.ui.unit.DpOffset.Zero
+            // the old village and house scenes have their foe far off up the field: only a short step forward there
+            else if (!newScene) androidx.compose.ui.unit.DpOffset((lungeF * 30).dp, -(lungeF * 16).dp)
+            else {
                 val aim = HeroBattle.aimAt((sceneW * foeX / artDp).toDouble(), (sceneH * foeY / artDp).toDouble(), (foeW / artDp).toDouble(), (foeFeet / artDp).toDouble())
                 val (ox, oy) = HeroBattle.lungeOffset(battle.hero, ui.motion!!.strike, (sceneW * heroX / artDp).toDouble(), (sceneH * heroY / artDp).toDouble(), aim.first, aim.second)
                 androidx.compose.ui.unit.DpOffset(artDp * (ox * lungeF).toFloat(), artDp * (oy * lungeF).toFloat())
             }
-            val lungeScale = 1f - (1f - HeroBattle.LUNGE_SCALE.toFloat()) * lungeF
-            if (dollFrame != null) Box(
+            val lungeScale = if (newScene) 1f - (1f - HeroBattle.LUNGE_SCALE.toFloat()) * lungeF else 1f
+            Box(
                 Modifier
                     .offset(
                         x = sceneW * heroX - artDp * HeroBattle.ANCHOR_X.toFloat() + shakeX - (intro.value * 260).dp + dodge(true) + lungeOff.x,
@@ -609,28 +623,15 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     }
             ) {
                 PixelSprite(dollFrame, artDp, alpha = heroAlpha, flash = if (a == Anim.HERO_HIT && blink) 0.85f else 0f, shade = shade)
-            } else Box(
-                Modifier.offset(
-                    x = sceneW * heroX - heroSize / 2 + shakeX - (intro.value * 260).dp + dodge(true) +
-                        (if (a == Anim.HERO_ACT) (lunge * 30).dp else 0.dp),
-                    y = sceneH * heroY - heroSize * 0.97f - (if (a == Anim.HERO_ACT) (lunge * 16).dp else 0.dp),
-                )
-            ) {
-                PixelImageView(
-                    HeroArt.battle(battle.hero, heroPose, idle + 2), heroSize, alpha = heroAlpha,
-                    flash = if (a == Anim.HERO_HIT && blink) 0.85f else 0f, shade = shade,
-                )
             }
-
             // Attack and spell effects, and blood
             with(density) {
                 val enemyC = Offset((sceneW * foeX).toPx(), (sceneH * foeY - (if (newStyle) foeFeet * 0.55f else monsterSize * 0.45f)).toPx())
                 // the doll stands about 130 art pixels tall: spells and blows start from its chest
-                val heroC = if (newScene) Offset((sceneW * heroX).toPx(), (sceneH * heroY - artDp * 78f).toPx())
-                    else Offset((sceneW * heroX).toPx(), (sceneH * heroY - heroSize * 0.5f).toPx())
+                val heroC = Offset((sceneW * heroX).toPx(), (sceneH * heroY - artDp * 78f).toPx())
                 val unit = (if (newStyle) foeW / 90 else monsterSize / 64).toPx()
                 // a spell or shot starts where it leaves the hero: the staff's crystal, the wand, the hand, the bow
-                val launch = ui.release?.takeIf { newScene }?.let { (act, v) -> HeroBattle.launch(battle.hero, act, v) }
+                val launch = ui.release?.let { (act, v) -> HeroBattle.launch(battle.hero, act, v) }
                 val launchC = launch?.let {
                     Offset((sceneW * heroX + artDp * (it.x - HeroBattle.ANCHOR_X).toFloat()).toPx(), (sceneH * heroY + artDp * (it.y - HeroBattle.GROUND).toFloat()).toPx())
                 }
@@ -1015,6 +1016,11 @@ private fun heroDollFrame(ui: BattleUi, clockMs: Long, wounds: Int): Pair<de.bor
     val hero = ui.battle.hero
     val now = System.currentTimeMillis()
     val m = ui.motion
+    // the way down out of a guard, before the next move starts
+    m?.lead?.takeIf { now < m.start }?.let { l ->
+        val i = (l.from + ((l.to - l.from + 1) * ((now - l.start).toDouble() / l.ms)).toInt()).coerceIn(l.from, l.to)
+        for (k in i downTo l.from) HeroBattle.ready(hero, l.act, l.strike, l.variant, k, wounds)?.let { return it to 0.0 }
+    }
     if (m != null) {
         val p = (now - m.start).toDouble() / m.ms
         if (p < 1.0 || m.hold) {
