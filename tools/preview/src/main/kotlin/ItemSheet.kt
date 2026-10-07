@@ -184,3 +184,31 @@ fun renderSupplySheet() {
     ImageIO.write(img, "png", File("build/screens/supply_sheet.png"))
     println("wrote supply sheet")
 }
+
+/** The new foes on the doll, three of each kind (tone, build and size apart), each filling its frame, and their heads close. */
+fun renderCreatureDrafts() {
+    val only = System.getenv("CREATURES")?.takeIf { it.length > 1 }
+    val kinds = listOf(de.bornim.core.art.Doll.Creature.KOBOLD, de.bornim.core.art.Doll.Creature.ZOMBIE, de.bornim.core.art.Doll.Creature.BUGBEAR, de.bornim.core.art.Doll.Creature.HOBGOBLIN)
+        .filter { only == null || it.name == only }
+    val W = 150; val H = 230; val sc = 2
+    val HW = 110; val HH = 110
+    for (kind in kinds) {
+        val img = BufferedImage((W * 3 + HW * 3) * sc, H * sc, BufferedImage.TYPE_INT_ARGB)
+        val g = img.createGraphics(); g.color = Color(0x3A4436); g.fillRect(0, 0, img.width, img.height)
+        for (v in 0 until 3) {
+            val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.entries[v], v, v, kind, 0.95 + 0.05 * v)
+            val rest = de.bornim.core.art.HeroFigure.STAND.copy(yaw = listOf(20.0, 340.0, 200.0)[v], rh = de.bornim.core.art.HeroFigure.V(18.0, 55.0, 4.0), lh = de.bornim.core.art.HeroFigure.V(-18.0, 55.0, 4.0))
+            val px = (H - 20) / (doll.height * 1.08)
+            val p = doll.render(W, H, W / 2.0, H - 10.0, px, rest, null).img
+            for (y in 0 until H) for (x in 0 until W) { val q = p[x, y]; if ((q ushr 24) < 128) continue
+                g.color = Color(q, true); g.fillRect(v * W * sc + x * sc, y * sc, sc, sc) }
+            // the head close, half towards us
+            val hp = 85.0 / doll.hh
+            val h2 = doll.render(HW, HH, HW / 2.0, HH / 2.0 + (doll.height - doll.hh * 0.5) * 0.966 * hp, hp, rest.copy(yaw = listOf(25.0, 0.0, 330.0)[v]), null).img
+            for (y in 0 until HH) for (x in 0 until HW) { val q = h2[x, y]; if ((q ushr 24) < 128) continue
+                g.color = Color(q, true); g.fillRect((3 * W + v * HW) * sc + x * sc, 20 * sc + y * sc, sc, sc) }
+        }
+        ImageIO.write(img, "png", File("build/screens/creature_${kind.name.lowercase()}.png"))
+    }
+    println("wrote creatures")
+}

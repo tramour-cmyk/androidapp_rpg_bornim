@@ -70,6 +70,9 @@ object MonsterKits {
         return when (id) {
             "goblin", "goblin_archer" -> 0.91 + 0.18 * t
             "skeleton" -> 0.93 + 0.145 * t
+            // SRD kobold: Small, 2–2.5 ft (about 72–88 cm); the dead as tall as they were in life
+            "kobold" -> 0.9 + 0.2 * t
+            "zombie" -> 0.92 + 0.16 * t
             else -> 1.0
         }
     }

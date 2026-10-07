@@ -28,7 +28,14 @@ object FoeArt {
     /** Foes drawn this way. */
     val KINDS = setOf("goblin", "goblin_archer", "skeleton")
 
-    private fun creature(id: String) = if (id == "skeleton") Doll.Creature.SKELETON else Doll.Creature.GOBLIN
+    fun creature(id: String) = when (id) {
+        "skeleton" -> Doll.Creature.SKELETON
+        "kobold" -> Doll.Creature.KOBOLD
+        "zombie" -> Doll.Creature.ZOMBIE
+        "bugbear" -> Doll.Creature.BUGBEAR
+        "hobgoblin_captain" -> Doll.Creature.HOBGOBLIN
+        else -> Doll.Creature.GOBLIN
+    }
 
     fun doll(id: String, look: MonsterLook) =
         Doll(Race.HUMAN, Sex.MALE, MonsterKits.build(look.seed), MonsterKits.tone(look.seed), 0, creature(id), MonsterKits.size(id, look.seed))
@@ -61,6 +68,14 @@ object FoeArt {
     private fun manner(kind: Doll.Creature, r: Rig): Rig = when (kind) {
         Doll.Creature.GOBLIN -> r.copy(lean = r.lean + 0.35, crouch = r.crouch + 4.0, headDown = r.headDown - 2.5)
         Doll.Creature.SKELETON -> r.copy(lean = r.lean * 0.7, headTurn = r.headTurn + 6.0)
+        // a kobold skulks lower still, snout forward
+        Doll.Creature.KOBOLD -> r.copy(lean = r.lean + 0.45, crouch = r.crouch + 5.0, headDown = r.headDown - 1.5)
+        // the dead stand slack, the head lolling to one side
+        Doll.Creature.ZOMBIE -> r.copy(lean = r.lean + 0.25, headDown = r.headDown + 4.0, headTurn = r.headTurn + 12.0)
+        // a bugbear hunches its great shoulders
+        Doll.Creature.BUGBEAR -> r.copy(lean = r.lean + 0.3, crouch = r.crouch + 3.0, headDown = r.headDown - 1.0)
+        // a hobgoblin stands drilled and upright
+        Doll.Creature.HOBGOBLIN -> r.copy(lean = r.lean * 0.6)
     }
 
     /** A sequence with the strike frame at which the blow lands, the arrow flies, or nothing (-1). */
