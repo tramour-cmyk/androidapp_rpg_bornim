@@ -37,9 +37,9 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 
 ## Zu entscheiden
 
-2. **Wolf bei Nacht:** Wölfe bekommen das Szenenlicht (nachts kühl und dunkel, Augen leuchten), wie die Gegner in der Höhle? Vorschlag: ja.
 
 1. **Veröffentlichen:** `hero-figure` nach `main` übernehmen. Das baut automatisch die nächste Version (v0.1.x). Danach bekommt die Änderungshistorie den Versionseintrag mit Datum und Uhrzeit. Vorschlag: nach deinem Test.
+2. **Wolf bei Nacht:** Wölfe bekommen das Szenenlicht (nachts kühl und dunkel, Augen leuchten), wie die Gegner in der Höhle? Vorschlag: ja.
 
 ## Geplant
 
