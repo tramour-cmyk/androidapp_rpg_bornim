@@ -574,7 +574,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // drawn larger as it comes nearer
             val foeLungeF = if (dollFoe && foeAttackIdx != null) {
                 // while it is named it only starts the step; the rest comes with the blow
-                FoeArt.lungeAt(id, battle.look, variant, foeAttackIdx).toFloat()
+                FoeArt.lungeAt(id, battle.look, variant, foeAttackIdx).toFloat() * (if (a == Anim.ENEMY_ACT) FOE_WIND_STEP else 1f)
             } else 0f
             val foeLunge = if (foeLungeF <= 0f || enemyFrame == null) androidx.compose.ui.unit.DpOffset.Zero else {
                 val (ox, oy) = FoeArt.lungeOffset(id, battle.look, variant, (sceneW * foeX / artDp).toDouble(), (sceneH * foeY / artDp).toDouble(),
@@ -993,6 +993,9 @@ private fun rememberPulse(): Float {
     )
     return p
 }
+
+/** How far into its step a foe on the doll goes while its attack is named: the rest of the step comes with the blow. */
+private const val FOE_WIND_STEP = 0.45f
 
 /** How long the leader's howl animation runs, and how long it takes to raise its head. */
 private const val HOWL_MS = 1900L

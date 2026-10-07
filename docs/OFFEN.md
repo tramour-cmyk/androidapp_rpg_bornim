@@ -30,7 +30,7 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 - **Karte:** Kleriker mit Rundschild (hell, goldene Sonne) und Kampfstab mit Eisenkappen.
 - **Heldenerstellung:** Figur und Werte bleiben oben stehen, nur die Eingaben darunter scrollen.
 - **Heilige Flamme:** bei Treffer mitten auf dem Gegner, beim Ausweichen schlägt sie neben ihm ein (bei allen Gegnern, auch Grimmzahn, Krogg, Grak).
-- **Goblins und Skelette im Kampf:** verschiedene Ausrüstungen, Größen und Hauttöne; Angriffe, Treffer, Ausweichen und Zusammenbrechen in Varianten; Goblin-Späher schießt mit dem Bogen; Angriffsname im Text passt zur Waffe.
+- **Goblins und Skelette im Kampf:** verschiedene Ausrüstungen, Größen und Hauttöne; Angriffe, Treffer, Ausweichen und Zusammenbrechen in Varianten; Goblin-Späher schießt mit dem Bogen; Angriffsname im Text passt zur Waffe; ihre Schläge erreichen den Helden (Ausfallschritt).
 - **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
 
 ## Zu entscheiden

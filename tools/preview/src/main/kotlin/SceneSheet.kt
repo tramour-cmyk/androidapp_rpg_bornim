@@ -1501,3 +1501,46 @@ fun renderFoeFalls() {
     ImageIO.write(out, "png", File("build/screens/foe_falls.png"))
     println("wrote foe falls")
 }
+
+/** The foe's lunge as the battle places it: scene, hero, and the foe frame by frame with its step and growth. */
+fun renderFoeLunge() {
+    val F = de.bornim.core.art.FoeArt
+    val BS = de.bornim.core.art.BattleScene
+    val B = de.bornim.core.art.HeroBattle
+    val sw = 270; val sh = 410
+    val hero = de.bornim.core.Hero.create("Borin", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER)
+    val heroImg = B.frame(hero, de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, 0)
+    val forest = BS.forest(sw, sh, de.bornim.core.art.BattleScene.Spot.entries[0], de.bornim.core.art.BattleScene.Light.DAY, false, 7)
+    val cases = listOf(Triple("goblin", 0, 0), Triple("goblin", 1, 2), Triple("skeleton", 2, 0), Triple("skeleton", 0, 1))
+    val picks = 5
+    val out = BufferedImage(sw * picks, sh * cases.size, BufferedImage.TYPE_INT_RGB)
+    for ((r, c) in cases.withIndex()) {
+        val (id, seed, v) = c
+        val look = de.bornim.core.MonsterLook(seed)
+        val seq = F.sequence(id, look, de.bornim.core.art.Act.ATTACK, v)
+        val idx = listOf(0, (seq.strike - 2).coerceAtLeast(0), seq.strike, (seq.strike + seq.rigs.size) / 2, seq.rigs.size - 1)
+        for ((k, i) in idx.withIndex()) {
+            val canvas = IntArray(sw * sh) { forest.pixels[it] }
+            val im = F.frame(id, look, de.bornim.core.art.Act.ATTACK, v, i)
+            // the held wind-up (the second picture) only starts the step, as in battle
+            val f = F.lungeAt(id, look, v, i) * (if (k == 1) 0.45 else 1.0)
+            val feetX = sw * BS.FOE_X.toDouble(); val feetY = sh * BS.FOE_Y.toDouble()
+            val (ox, oy) = F.lungeOffset(id, look, v, feetX, feetY, sw * BS.HERO_X + 8.0, sh * BS.HERO_Y - 82.0)
+            val sc = 1.0 + (F.LUNGE_SCALE - 1.0) * f
+            // the foe scaled about its feet, then moved
+            for (y in 0 until sh) for (x in 0 until sw) {
+                val fx = (x - (feetX + ox * f)) / sc + F.ANCHOR_X; val fy = (y - (feetY + oy * f)) / sc + F.GROUND
+                val ix = fx.toInt(); val iy = fy.toInt()
+                if (ix in 0 until im.width && iy in 0 until im.height) { val q = im[ix, iy]; if ((q ushr 24) >= 128) canvas[y * sw + x] = q }
+            }
+            // the hero in front
+            val hx0 = (sw * BS.HERO_X - B.ANCHOR_X).toInt(); val hy0 = (sh * BS.HERO_Y - B.GROUND).toInt()
+            for (y in 0 until heroImg.height) for (x in 0 until heroImg.width) { val q = heroImg[x, y]; val X = hx0 + x; val Y = hy0 + y
+                if ((q ushr 24) >= 128 && X in 0 until sw && Y in 0 until sh) canvas[Y * sw + X] = q }
+            for (y in 0 until sh) for (x in 0 until sw) out.setRGB(k * sw + x, r * sh + y, canvas[y * sw + x] and 0xFFFFFF)
+            if (i == seq.strike) { val g = out.createGraphics(); g.color = java.awt.Color(0xC04030); g.drawRect(k * sw, r * sh, sw - 1, sh - 1) }
+        }
+    }
+    ImageIO.write(out, "png", File("build/screens/foe_lunge.png"))
+    println("wrote foe lunge")
+}
