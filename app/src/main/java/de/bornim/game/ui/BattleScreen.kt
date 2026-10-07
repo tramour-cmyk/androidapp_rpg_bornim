@@ -127,8 +127,20 @@ private class BattleUi(val battle: Battle) {
         val hero = battle.hero
         val m = motion
         val fx = s.fx
+        // a spell with several bolts (the three scorching rays): each further one leaves the same staff or hand,
+        // with a short thrust of the spell again
+        val again = release?.takeIf { (act, _) -> act == HeroFigure.Act.CAST && fx != null && !fx.onHero && s.anim != Anim.SPELL && s.anim != Anim.HERO_ACT &&
+            (fx.kind in FLYING || fx.past in FLYING) }
         release = null
         fxDelay = 0L
+        if (again != null) {
+            val hit = HeroBattle.strikeFrame(HeroFigure.Strike.CAST)
+            play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, again.second, hit - 1, hit + 1, perFrame = 50)
+            release = again
+            fxDelay = 50L
+            flashKey++
+            return
+        }
         when {
             s.anim == Anim.HERO_ACT -> {
                 val list = HeroBattle.strikes(hero)

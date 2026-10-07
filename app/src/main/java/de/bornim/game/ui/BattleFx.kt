@@ -247,8 +247,9 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
             }
         }
         FxKind.RAYS -> {
-            val off = (r.nextFloat() - 0.5f) * 30 * u
-            val start = Offset(source.x, source.y - 10 * u + off)
+            // from the staff or hand itself, the rays only fanning a little
+            val off = (r.nextFloat() - 0.5f) * 4 * u
+            val start = Offset(source.x, source.y + off)
             val w = (3 + r.nextFloat() * 3) * u * fade(p)
             val reach = (p / 0.25f).coerceAtMost(1f)
             val end = lerp(start, hit, reach)
