@@ -108,6 +108,9 @@ private class BattleUi(val battle: Battle) {
     var swingKey by mutableIntStateOf(0)
     var swingDelay = 0L
 
+    /** The last frame before a blow lands: a blade still coming down, an arrow still on the string. */
+    private fun windUpEnd(strike: HeroFigure.Strike) = HeroBattle.strikeFrame(strike) - (if (strike == HeroFigure.Strike.SHOOT) 1 else 2)
+
     private fun play(act: HeroFigure.Act, strike: HeroFigure.Strike = HeroFigure.Strike.SLASH, variant: Int = 0, from: Int = 0, to: Int = -1, perFrame: Long = 60, delayMs: Long = 0, hold: Boolean = false) {
         val n = HeroBattle.frameCount(battle.hero, act, strike, variant)
         val end = if (to < 0) n - 1 else to.coerceAtMost(n - 1)
@@ -123,15 +126,18 @@ private class BattleUi(val battle: Battle) {
             s.anim == Anim.HERO_ACT -> {
                 val list = HeroBattle.strikes(hero)
                 val strike = list[blows++ % list.size]
-                val hit = HeroBattle.strikeFrame(strike)
-                // the wind-up and the blow up to the moment it lands; the rest comes with the hit or the miss
-                play(HeroFigure.Act.ATTACK, strike, 0, 0, hit, perFrame = 55, hold = true)
-                if (strike != HeroFigure.Strike.SHOOT) { swingDelay = (hit - 3).coerceAtLeast(0) * 55L; swingKey++ }
+                // while the attack is named, only the wind-up: the blow comes with the hit or the miss
+                play(HeroFigure.Act.ATTACK, strike, 0, 0, windUpEnd(strike), perFrame = 55, hold = true)
             }
             (s.anim == Anim.ENEMY_HIT || s.anim == Anim.ENEMY_FAINT || s.anim == Anim.MISS) && fx?.onHero == false &&
-                m != null && m.act == HeroFigure.Act.ATTACK && m.hold ->
+                m != null && m.act == HeroFigure.Act.ATTACK && m.hold -> {
                 play(HeroFigure.Act.ATTACK, m.strike, 0, m.to, -1, perFrame = 55)
-            s.anim == Anim.SPELL -> play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, HeroBattle.castVariant(hero), perFrame = 50)
+                if (m.strike != HeroFigure.Strike.SHOOT) { swingDelay = 0L; swingKey++ }
+            }
+            // while the spell is named, it gathers and glows; it is let go with its effect on the next message
+            s.anim == Anim.SPELL -> play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, HeroBattle.castVariant(hero), 0, HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - 1, perFrame = 50, hold = true)
+            m != null && m.act == HeroFigure.Act.CAST && m.hold && (fx != null || s.anim != Anim.NONE) ->
+                play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, m.variant, m.to, -1, perFrame = 50)
             s.anim == Anim.HERO_HIT -> play(HeroFigure.Act.HURT, perFrame = 65)
             s.anim == Anim.HERO_FAINT -> play(HeroFigure.Act.HURT, to = 3, perFrame = 90, hold = true)
             s.anim == Anim.MISS && fx?.onHero == true &&
