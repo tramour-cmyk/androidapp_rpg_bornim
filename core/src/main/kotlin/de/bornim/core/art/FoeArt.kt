@@ -279,7 +279,12 @@ object FoeArt {
 
     /** Draws every frame ahead, the rest first; off the main thread. */
     fun prepare(id: String, look: MonsterLook, cancelled: () -> Boolean = { false }) {
-        for (act in listOf(Act.IDLE, Act.ATTACK, Act.HURT, Act.DODGE, Act.DIE)) for (v in 0 until variants(act))
+        // the guard first, then this foe's one fall (a short fight may end before the rest is drawn), then the rest
+        val plan = listOf(Act.IDLE to listOf(0), Act.DIE to listOf(dieVariant(look)), Act.ATTACK to (0..2).toList(), Act.HURT to (0..2).toList(), Act.DODGE to (0..2).toList())
+        for ((act, vs) in plan) for (v in vs)
             for (i in sequence(id, look, act, v).rigs.indices) { if (cancelled()) return; frame(id, look, act, v, i) }
     }
+
+    /** The one way this foe falls: fixed by its look, so the killing blow and the defeat play the same fall. */
+    fun dieVariant(look: MonsterLook): Int = look.seed.mod(3)
 }

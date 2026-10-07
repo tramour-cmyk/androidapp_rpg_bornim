@@ -470,7 +470,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 val react = ui.animKey.mod(MonsterArt.reactVariants(id))
                 fun whole(act: Act) = seq(act, 0, MonsterArt.frameCount(id, battle.look, act, react) - 1, react)
                 // one fall for this foe, begun with the killing blow (it reels) and ended with its defeat (it goes down)
-                val dieV = battle.look.seed.mod(MonsterArt.reactVariants(id))
+                val dieV = MonsterArt.dieVariant(id, battle.look)
                 val dieLast = MonsterArt.frameCount(id, battle.look, Act.DIE, dieV) - 1
                 val reel = DIE_REEL.coerceAtMost(dieLast)
                 when {

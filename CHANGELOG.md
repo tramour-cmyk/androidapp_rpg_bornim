@@ -69,6 +69,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 **Behoben**
 - Beim tödlichen Treffer knickte ein Gegner erst mit der Trefferbewegung ein, stand wieder auf und brach dann mit dem Sturz ein zweites Mal zusammen. Jetzt taumelt er mit dem tödlichen Treffer, bleibt so, und fällt mit „besiegt“ in einem Zug zu Boden (Goblins, Skelette, Wölfe).
+- In kurzen Kämpfen waren die Sturzbilder oft noch nicht fertig berechnet, sodass der Gegner beim Sturz zwischen Stehen und Fallen sprang. Jetzt wird gleich nach den Ruhebildern der Sturz vorbereitet, und zwar nur die eine Variante, die der Gegner nutzt; beim Wolf auch nicht mehr neu für jede Verwundungsstufe.
 - Goblins, Skelette und Wölfe wurden im Kampf etwas gestaucht und versetzt gezeichnet, weil ihr Bild (mit Platz für Ausfallschritt und Biss) breiter als die Szene ist. Dadurch saßen Treffer, Zauber, Funkeln und Schimmer nicht genau auf dem Körper. Jetzt werden sie in voller Größe gezeichnet, und alle Effekte landen auf dem Gegner; das Schimmerband läuft nur noch über den Körper.
 - Beim schimmernden Wolf (und schimmernden Goblins und Skeletten) funkelte es weit links am Bildrand statt am Tier. Das Funkeln sitzt jetzt um den Körper.
 - Überraschte der Held einen Gegner von hinten (Erstschlag), sprang er schon bei der Ansage zum Angriff vor, noch bevor man Angreifen oder Abwehr wählen konnte. Jetzt wartet er in Ruhehaltung, und erst die Wahl löst die passende Bewegung aus.

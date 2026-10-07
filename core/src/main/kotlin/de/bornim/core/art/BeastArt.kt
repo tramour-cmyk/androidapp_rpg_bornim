@@ -177,7 +177,9 @@ object BeastArt {
     private fun key(id: String, look: MonsterLook, act: Act, variant: Int, i: Int, wound: Int) =
         "$id/${look.seed}/${look.shiny}/$act/${if (variants(act) > 1) variant.mod(3) else 0}/$i/$wound"
 
-    fun frame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound: Int = 0): PixelImage {
+    fun frame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound0: Int = 0): PixelImage {
+        // a fall looks the same however hurt the wolf was: drawn once, not again for each wound
+        val wound = if (act == Act.DIE) 0 else wound0
         val seq = sequence(act, variant).rigs
         val i = if (act == Act.IDLE) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         val k = key(id, look, act, variant, i, wound)
@@ -188,7 +190,8 @@ object BeastArt {
     }
 
     /** The frame if drawn already, else the nearest earlier one, else the first of the guard: the battle never waits. */
-    fun shown(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound: Int = 0): PixelImage {
+    fun shown(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound0: Int = 0): PixelImage {
+        val wound = if (act == Act.DIE) 0 else wound0
         val seq = sequence(act, variant).rigs
         val i = if (act == Act.IDLE) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         synchronized(cache) {
@@ -201,9 +204,15 @@ object BeastArt {
 
     /** Draws every frame ahead, the guard first; off the main thread. */
     fun prepare(id: String, look: MonsterLook, wound: Int = 0, cancelled: () -> Boolean = { false }) {
-        for (act in listOf(Act.IDLE, Act.ATTACK, Act.HURT, Act.DODGE, Act.DIE, Act.HOWL)) for (v in 0 until variants(act))
+        // the guard first, then this wolf's one fall (a short fight may end before the rest is drawn), then the rest
+        val plan = listOf(Act.IDLE to listOf(0), Act.DIE to listOf(dieVariant(look)), Act.ATTACK to (0..2).toList(), Act.HURT to (0..2).toList(),
+            Act.DODGE to (0..2).toList(), Act.HOWL to listOf(0))
+        for ((act, vs) in plan) for (v in vs)
             for (i in sequence(act, v).rigs.indices) { if (cancelled()) return; frame(id, look, act, v, i, wound) }
     }
+
+    /** The one way this wolf falls: fixed by its look, so the killing bite and the defeat play the same fall. */
+    fun dieVariant(look: MonsterLook): Int = look.seed.mod(3)
 
     /** How long and how tall the animal itself is in a frame, in art pixels. */
     fun bodySize(id: String, look: MonsterLook): Pair<Double, Double> {

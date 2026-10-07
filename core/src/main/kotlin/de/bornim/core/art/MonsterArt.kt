@@ -92,6 +92,9 @@ object MonsterArt {
     /** Number of different attack animations of a monster. */
     fun attackVariants(id: String): Int = if (isSolid(id)) 3 else if (isNewStyle(id)) 2 else 1
 
+    /** The one way a foe built in the round falls, fixed by its look. */
+    fun dieVariant(id: String, look: MonsterLook): Int = if (isBeast(id)) BeastArt.dieVariant(look) else FoeArt.dieVariant(look)
+
     /** Number of variants of being hit, dodging and falling. */
     fun reactVariants(id: String): Int = if (isSolid(id)) 3 else 1
 
