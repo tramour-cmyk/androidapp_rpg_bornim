@@ -1157,3 +1157,20 @@ fun renderTurntable() {
     }
     println("wrote turntable")
 }
+
+/** The four heroes of the title screen, as it draws them. */
+fun renderTitleHeroes() {
+    val P = de.bornim.core.art.HeroPortrait
+    val races = listOf(de.bornim.core.Race.HUMAN, de.bornim.core.Race.ELF, de.bornim.core.Race.DWARF, de.bornim.core.Race.HALF_ORC)
+    val out = BufferedImage(P.W * 4, P.H, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x1C2030); g.fillRect(0, 0, out.width, out.height)
+    de.bornim.core.CharClass.entries.forEachIndexed { i, cls ->
+        val h = de.bornim.core.Hero.create("Held $i", races[i % 4], cls).also {
+            it.sex = if (i % 2 == 1) de.bornim.core.Sex.FEMALE else de.bornim.core.Sex.MALE; it.skin = (i * 3 + 1) % 4; it.hair = i % 4
+        }
+        val im = P.render(h, P.YAWS[0])
+        for (y in 0 until P.H) for (x in 0 until P.W) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(i * P.W + x, y, q) }
+    }
+    ImageIO.write(out, "png", File("build/screens/title_heroes.png"))
+    println("wrote title heroes")
+}
