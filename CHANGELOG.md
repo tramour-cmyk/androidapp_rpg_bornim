@@ -2,6 +2,14 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
+## Unveröffentlicht
+
+**Neu – Wildschwein und Riesenratte im neuen Stil**
+- **Wildschwein:** schwerer, hoher Vorderleib unter einem Kamm aus Borsten, der sich im Zorn aufstellt, langer Keilkopf mit Rüsselscheibe, gebogene Hauer aus Unter- und Oberkiefer, kleine rot glühende Augen, dünne Beine auf Klauen, Schwanz mit Quaste. Drei Fellvarianten (fast schwarz, grau mit Narben, rostbraun mit zerfetztem Ohr), Größe 88–110 %.
+- **Riesenratte:** groß wie ein Hund, gekrümmter Rücken, räudiges Fell mit wunden, verschorften Stellen, langer spitzer Kopf mit orangen Nagezähnen, rot glühende Knopfaugen, runde nackte Ohren (eines zerfetzt), rosa Krallenhände und ein langer, nackter, geringelter Schwanz, der über den Boden schleift. Drei Fellvarianten (braun, grau und räudig, schwarz), Größe 140–170 % einer gewöhnlichen.
+- Je drei Angriffe: das Wildschwein stürmt an und reißt die Hauer hoch, schlitzt seitlich, rammt; die Ratte springt vor und beißt, springt an, nagt tief an den Beinen. Dazu je drei Treffer, Ausweichen und Stürze. Durch die echte Oberfläche gefilmt.
+- Auf der Karte behalten beide vorerst ihre kleine Figur.
+
 ## v0.1.173 – 07.10.2026, 22:48
 
 **Geändert – keine EP mehr ab Erreichen von Stufe 6**

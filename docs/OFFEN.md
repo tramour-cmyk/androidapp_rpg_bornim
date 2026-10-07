@@ -13,7 +13,7 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## In Arbeit
 
-- **Gegner im neuen Stil:** Goblin, Goblin-Späher, Skelett, Wolf (mit Grimmzahn), Kobold, Zombie, Krogg und Grak sind eingebaut. Als Nächstes Wildschwein und Riesenratte als Vierbeiner; danach Goblin-Schamane und Ghul auf der Puppe, später Spinne, Hundertfüßer, Fledermaus, Stirge und Ockergallerte mit eigenen Körpern.
+- **Gegner im neuen Stil:** Goblin, Goblin-Späher, Skelett, Wolf (mit Grimmzahn), Kobold, Zombie, Krogg und Grak sind eingebaut. Wildschwein und Riesenratte als Vierbeiner sind auf dem Zweig `vierbeiner` fertig und warten auf deine Abnahme; danach Goblin-Schamane und Ghul auf der Puppe, später Spinne, Hundertfüßer, Fledermaus, Stirge und Ockergallerte mit eigenen Körpern.
 
 ## Zu testen
 

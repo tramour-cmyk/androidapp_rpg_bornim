@@ -1731,13 +1731,14 @@ fun renderBeastAnims() {
     val BA = de.bornim.core.art.BeastArt
     val acts = listOf(de.bornim.core.art.Act.IDLE to 0, de.bornim.core.art.Act.HOWL to 0) + listOf(de.bornim.core.art.Act.ATTACK, de.bornim.core.art.Act.HURT, de.bornim.core.art.Act.DODGE, de.bornim.core.art.Act.DIE).flatMap { a -> (0..2).map { a to it } }
     val cw = 200; val cols = 7
-    for ((id, seed) in listOf("wolf" to 3, "dire_wolf" to 0)) {
+    val only = System.getenv("BEASTANIM")?.takeIf { it.contains("_") || it in setOf("boar", "wolf") }
+    for ((id, seed) in listOf("wolf" to 3, "dire_wolf" to 0, "boar" to 1, "boar" to 4, "giant_rat" to 2, "giant_rat" to 5).filter { only == null || it.first == only }) {
         val look = de.bornim.core.MonsterLook(seed)
         val out = BufferedImage(cw * cols, BA.H * acts.size, BufferedImage.TYPE_INT_RGB)
         val g = out.createGraphics(); g.color = java.awt.Color(0x3C3A36); g.fillRect(0, 0, out.width, out.height)
         for ((r, av) in acts.withIndex()) {
             val (act, v) = av
-            val seq = BA.sequence(act, v)
+            val seq = BA.sequence(id, act, v)
             val n = seq.rigs.size
             val picks = (0 until cols).map { it * (n - 1) / (cols - 1) }.toMutableList().also { l -> if (seq.strike >= 0 && seq.strike !in l) l[l.indexOfFirst { it > seq.strike }.coerceAtLeast(0)] = seq.strike }
             for ((c, i) in picks.withIndex()) {
@@ -1748,7 +1749,7 @@ fun renderBeastAnims() {
             }
             g.color = java.awt.Color(0xE0D8C0); g.drawString("$act/$v", 2, r * BA.H + 12)
         }
-        ImageIO.write(out, "png", File("build/screens/beastanim_$id.png"))
+        ImageIO.write(out, "png", File("build/screens/beastanim_${id}_$seed.png"))
         println("wrote beastanim $id")
     }
 }

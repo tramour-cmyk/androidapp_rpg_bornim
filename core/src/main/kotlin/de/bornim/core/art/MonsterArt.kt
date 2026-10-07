@@ -36,7 +36,7 @@ object MonsterArt {
         val n = (SIZE / 2 * scale).roundToInt().coerceIn(8, SIZE / 2)
         val key = "map/$id/${look.seed}/${look.shiny}/${look.glow}/$f/$mirrored/$n"
         synchronized(cache) { cache[key]?.let { return it } }
-        if (isNewStyle(id) && !isDoll(id)) {
+        if (mapWolf(id)) {
             // New-style monsters are wider than tall: shrink to the map size, feet on the bottom row.
             val src = legacy(id, look, Act.IDLE, 0, f * WolfArt.IDLE_FRAMES / IDLE_FRAMES)
             val small = shrink(src, (n * (if (id == "dire_wolf") 1.25 else 1.0)).roundToInt())
@@ -67,13 +67,16 @@ object MonsterArt {
 
     /** The default look in its first idle frame, e.g. for bosses standing on the map. */
     fun get(id: String): PixelImage =
-        if (isNewStyle(id) && !isDoll(id)) synchronized(cache) { cache.getOrPut("get/$id") { shrink(legacy(id, MonsterLook(), Act.IDLE, 0, 0), SIZE).also { Pen(it).outline(Pal.OUTLINE) } } }
+        if (mapWolf(id)) synchronized(cache) { cache.getOrPut("get/$id") { shrink(legacy(id, MonsterLook(), Act.IDLE, 0, 0), SIZE).also { Pen(it).outline(Pal.OUTLINE) } } }
         else frame(id, MonsterLook(), Pose.IDLE, 0)
 
     // ---------------------------------------------------------------- monsters in the new battle style
 
     /** Monsters already drawn in the new, larger battle style with frame sequences. */
-    private val NEW_STYLE = setOf("wolf", "dire_wolf") + FoeArt.KINDS
+    private val NEW_STYLE = setOf("wolf", "dire_wolf") + FoeArt.KINDS + BeastArt.KINDS
+
+    /** The wolves keep their drawn figure on the map; the other animals in the round keep their old small one there. */
+    private fun mapWolf(id: String) = id == "wolf" || id == "dire_wolf"
 
     fun isNewStyle(id: String) = id in NEW_STYLE
 
@@ -100,14 +103,14 @@ object MonsterArt {
 
     fun frameCount(id: String, act: Act, variant: Int): Int =
         if (isDoll(id)) FoeArt.sequence(id, MonsterLook(), act, variant).rigs.size
-        else if (isBeast(id)) BeastArt.sequence(act, variant).rigs.size else WolfArt.sequence(act, variant).size
+        else if (isBeast(id)) BeastArt.sequence(id, act, variant).rigs.size else WolfArt.sequence(act, variant).size
 
     /** The frame count of one foe, whose kit (one blade, a spear, a bow) shapes its moves. */
     fun frameCount(id: String, look: MonsterLook, act: Act, variant: Int): Int =
         if (isDoll(id)) FoeArt.sequence(id, look, act, variant).rigs.size else frameCount(id, act, variant)
 
     /** The frame in which an attack lands; frames before it play while the monster attacks, the rest while the hit shows. */
-    fun strikeFrame(id: String, variant: Int): Int = if (isBeast(id)) BeastArt.sequence(Act.ATTACK, variant).strike else WolfArt.strikeFrame(variant)
+    fun strikeFrame(id: String, variant: Int): Int = if (isBeast(id)) BeastArt.sequence(id, Act.ATTACK, variant).strike else WolfArt.strikeFrame(variant)
 
     fun strikeFrame(id: String, look: MonsterLook, variant: Int): Int =
         if (isDoll(id)) FoeArt.sequence(id, look, Act.ATTACK, variant).strike else strikeFrame(id, variant)
@@ -156,7 +159,7 @@ object MonsterArt {
 
     /** How far along its lunge the foe is at frame [index] of an attack, 0 to 1. */
     fun lungeAt(id: String, look: MonsterLook, variant: Int, index: Int): Double =
-        if (isDoll(id)) FoeArt.lungeAt(id, look, variant, index) else if (isBeast(id)) BeastArt.lungeAt(variant, index) else 0.0
+        if (isDoll(id)) FoeArt.lungeAt(id, look, variant, index) else if (isBeast(id)) BeastArt.lungeAt(id, variant, index) else 0.0
 
     /** The step for a blow or a bite, in art pixels, so that it lands on ([toX], [toY]). */
     fun lungeOffset(id: String, look: MonsterLook, variant: Int, feetX: Double, feetY: Double, toX: Double, toY: Double): Pair<Double, Double> =
@@ -183,7 +186,7 @@ object MonsterArt {
     }
 
     fun frame(id: String, look: MonsterLook, pose: Pose, idleFrame: Int = 0): PixelImage {
-        if (isNewStyle(id) && !isDoll(id)) return when (pose) {
+        if (mapWolf(id)) return when (pose) {
             Pose.IDLE -> legacy(id, look, Act.IDLE, 0, idleFrame.mod(WolfArt.IDLE_FRAMES))
             Pose.ATTACK -> legacy(id, look, Act.ATTACK, 0, WolfArt.strikeFrame(0))
             Pose.HURT -> legacy(id, look, Act.HURT, 0, 2)
