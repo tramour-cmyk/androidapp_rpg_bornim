@@ -110,10 +110,14 @@ private class BattleUi(val battle: Battle) {
         fun index(now: Long): Int {
             val el = (now - start).toDouble()
             if (el <= 0) return from
-            val fast = (minOf(slowFrom, to + 1) - from).coerceAtLeast(0)
-            val slow = (to + 1 - maxOf(slowFrom, from)).coerceAtLeast(0)
+            // played through: the last frame (a held guard or wind-up stays there)
+            if (el >= ms) return to
+            // the slow part starts at [slowFrom], or never (then past the end: no overflow from Int.MAX_VALUE)
+            val slowStart = slowFrom.coerceIn(from, to + 1)
+            val fast = slowStart - from
+            val slow = to + 1 - slowStart
             val per = ms / (fast + slow * slowK)
-            val i = if (el < fast * per) from + (el / per).toInt() else maxOf(slowFrom, from) + ((el - fast * per) / (per * slowK)).toInt()
+            val i = if (el < fast * per) from + (el / per).toInt() else slowStart + ((el - fast * per) / (per * slowK)).toInt()
             return i.coerceIn(from, to)
         }
     }

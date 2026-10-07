@@ -17,8 +17,9 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 **Behoben – Konter wirkte wie zwei Angriffe**
 - Nutzt der Held eine Lücke, kam die Ansage „nutzt die Lücke!“ zwischen Ausholen und Schlag; das sah aus wie zwei Angriffe. Jetzt kommt die Ansage zuerst, dann Ausholen und Schlag in einem Zug. Ebenso bei Feuerpfeil und Sengenden Strahlen.
 
-**Behoben – Abwehrhaltung fiel zurück**
-- Nach einem Treffer werden die Bilder des Helden mit den neuen Wunden neu gezeichnet; die Abwehr kam dabei erst spät an die Reihe, und bis dahin stand der Held in Ruhehaltung. Jetzt werden Abwehr und Treffer gleich nach der Ruhe gezeichnet, eine gehaltene Abwehr zuerst, und eine gehaltene Haltung fällt nie mehr in die Ruhe zurück.
+**Behoben – gehaltene Haltungen fielen in die Ruhe zurück**
+- Ausholen, Abwehr, Zauber sammeln und Wurf sollen stehen bleiben, bis die nächste Meldung sie auflöst. Seit den ruhigeren Bewegungen sprang die Figur nach dem Ende der Bewegung durch einen Rechenfehler (Zahlenüberlauf) aufs erste Bild zurück, also in die Ruhe: Der Held holte aus, stand wieder ruhig da und schlug erst mit der nächsten Meldung zu; die Abwehr sank vor dem Zug des Gegners. Behoben, mit der echten Oberfläche in Echtzeit nachgefilmt (Kleriker, Kämpfer, Magier, Schurke; Angriff und Abwehr).
+- Zusätzlich werden Abwehr und Treffer nach einer Verwundung früher neu gezeichnet, und eine gehaltene Haltung fällt auch dann nicht in die Ruhe, wenn ihr Bild noch fehlt.
 
 ## v0.1.159 – 07.10.2026, 20:45
 
