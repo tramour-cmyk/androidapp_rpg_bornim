@@ -2,6 +2,11 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
+## Unveröffentlicht
+
+**Behoben**
+- Der Dialog einer vielseitigen Waffe zeigte immer den Einhand-Schaden, auch wenn der Schild abgelegt war und die Waffe beidhändig geführt wird. Jetzt steht oben der Schaden, der gerade gilt (z. B. „1W8 Wucht (beide Hände)“), darunter der andere Fall.
+
 ## v0.1.158 – 07.10.2026, 20:38
 
 **Behoben**
