@@ -123,7 +123,7 @@ object HeroFigure {
     val TURNING = Rig(yaw = 80.0, bodyY = 1.0, stride = 4.0, spread = 5.0, rh = V(13.0, 70.0, 10.0), weapon = V(0.3, 0.85, 0.4), lh = V(-10.0, 72.0, 17.0), shieldFace = V(-0.7, 0.0, 0.8), cloak = -2.0)
 
     /** Struck from behind while still facing us: thrown forward, then turning round. */
-    val STAGGER = Rig(yaw = 10.0, bodyY = 2.0, lean = 0.6, crouch = 2.0, stride = -3.0, rh = V(14.0, 64.0, 6.0), weapon = V(0.6, -0.3, 0.7), lh = V(-15.0, 66.0, 5.0), headDown = 4.0, cloak = 3.0, grip = 40.0)
+    val STAGGER = Rig(yaw = 10.0, bodyY = 2.0, lean = 0.6, crouch = 2.0, stride = -3.0, rh = V(16.0, 64.0, 6.0), weapon = V(0.6, -0.45, 0.65), lh = V(-15.0, 66.0, 5.0), headDown = 4.0, cloak = 3.0, grip = 40.0, aim = 1.0)
 
     // a diagonal cut from high over the right shoulder down across, forward into the foe
     // wound up: the chest turned away, the weapon shoulder back, the elbow high and out, the blade over the shoulder
@@ -214,18 +214,21 @@ object HeroFigure {
     // two-handed parry, high (big foes striking down): the weapon across above the brow, braced the same way at its head
     val PARRY_HIGH = Rig(lean = -0.05, crouch = 2.5, stride = 3.0, rh = V(12.0, 100.0, 10.0), weapon = V(-1.0, 0.08, 0.15), lh = V(-12.0, 96.0, 12.0), headDown = 2.0,
         twist = 5.0, grip = 88.0, aim = 1.0, brace = 1.0)
-    val HURT = Rig(lean = -0.45, crouch = 2.0, stride = -2.0, rh = V(15.0, 66.0, 4.0), weapon = V(0.6, 0.5, 0.3), lh = V(-15.0, 68.0, 4.0), headDown = -3.0, cloak = -2.0, grip = 45.0)
+    // struck: thrown back a step, the chest twisting away from the blow, the weapon arm flung out and down, the shield
+    // pulled in before the body
+    val HURT = Rig(lean = -0.35, crouch = 2.5, stride = -3.0, rh = V(19.0, 66.0, 6.0), weapon = V(0.55, -0.35, 0.75), lh = V(-6.0, 74.0, 15.0), headDown = -2.5, cloak = -2.0,
+        grip = 35.0, aim = 1.0, twist = 12.0)
 
     /** Earnest victory poses, facing us again. */
     val VICTORY_POSES = listOf(
         // the blade raised upright before the face: a salute to the fallen
-        Rig(yaw = 14.0, stride = 1.0, spread = 7.0, rh = V(2.0, 90.0, 9.0), weapon = V(0.0, 1.0, 0.06), lh = V(-17.0, 64.0, 3.0), shieldFace = V(-1.0, 0.0, 0.35), headDown = 1.5, grip = 10.0),
+        Rig(yaw = 14.0, stride = 1.0, spread = 7.0, rh = V(3.0, 88.0, 10.0), weapon = V(0.0, 1.0, 0.06), lh = V(-17.0, 64.0, 3.0), shieldFace = V(-1.0, 0.0, 0.35), headDown = 1.5, grip = 75.0, aim = 1.0),
         // resting on the weapon, point to the ground, both hands on the hilt
-        Rig(yaw = 20.0, stride = 0.0, spread = 8.0, rh = V(0.5, 66.0, 10.0), weapon = V(0.0, -1.0, 0.05), lh = V(-1.5, 64.0, 10.0), shieldFace = V(-0.6, 0.0, 0.8), headDown = 3.0, grip = -10.0),
+        Rig(yaw = 20.0, stride = 0.0, spread = 8.0, rh = V(0.5, 66.0, 12.0), weapon = V(0.0, -1.0, 0.05), lh = V(-1.5, 64.0, 10.0), shieldFace = V(-0.6, 0.0, 0.8), headDown = 3.0, grip = 80.0, aim = 1.0),
         // the weapon lowered at the side, looking back at the fallen foe
-        Rig(yaw = 28.0, stride = 3.0, spread = 7.0, rh = V(14.0, 60.0, 5.0), weapon = V(0.3, -0.85, 0.35), lh = V(-17.0, 64.0, 4.0), shieldFace = V(-1.0, 0.0, 0.35), headTurn = 30.0, headDown = 1.0, grip = 35.0),
+        Rig(yaw = 28.0, stride = 3.0, spread = 7.0, rh = V(15.0, 60.0, 6.0), weapon = V(0.3, -0.85, 0.35), lh = V(-17.0, 64.0, 4.0), shieldFace = V(-1.0, 0.0, 0.35), headTurn = 30.0, headDown = 1.0, grip = 35.0, aim = 1.0),
         // the weapon held high, calm and upright
-        Rig(yaw = 12.0, stride = 1.0, spread = 8.0, rh = V(18.0, 104.0, 6.0), weapon = V(0.4, 1.0, 0.1), lh = V(-17.0, 64.0, 4.0), shieldFace = V(-1.0, 0.0, 0.35), headTurn = 6.0, grip = 20.0),
+        Rig(yaw = 12.0, stride = 1.0, spread = 8.0, rh = V(18.0, 104.0, 6.0), weapon = V(0.15, 1.0, 0.1), lh = V(-17.0, 64.0, 4.0), shieldFace = V(-1.0, 0.0, 0.35), headTurn = 6.0, grip = 20.0, aim = 1.0),
     )
 
     fun tween(vararg keys: Pair<Rig, Int>): List<Rig> {

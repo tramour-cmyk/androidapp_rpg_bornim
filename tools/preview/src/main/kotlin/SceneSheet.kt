@@ -445,6 +445,8 @@ fun checkClashes() {
             Triple(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0), Triple(de.bornim.core.art.HeroFigure.Act.BLOCK, de.bornim.core.art.HeroFigure.Strike.SLASH, 1), Triple(de.bornim.core.art.HeroFigure.Act.BLOCK, de.bornim.core.art.HeroFigure.Strike.SLASH, 3),
             Triple(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SLASH, 0), Triple(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SMASH, 0),
             Triple(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.THRUST, 0))
+            // staves are never thrust (see HeroFigure.strikes): their back end would run through the hip
+            .filter { weapon != "quarterstaff" || it.second != de.bornim.core.art.HeroFigure.Strike.THRUST }
         for (run in runs) for ((i, rig) in F.sequence(run.first, run.second, run.third).withIndex()) {
             twoTotal++
             val dress = doll.fit(rig, outfit).second!!.first
@@ -489,6 +491,10 @@ fun renderDollAnims() {
         "parade" to (idle + de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.BLOCK, de.bornim.core.art.HeroFigure.Strike.SLASH, 1) + idle.take(6)),
         "zweihand" to (idle + seq(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SMASH) + idle.take(6)),
         "bogen" to (idle + seq(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SHOOT) + idle.take(6)),
+        "zauber_stab" to (idle + de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.CAST, de.bornim.core.art.HeroFigure.Strike.CAST, 0) + idle.take(6)),
+        "zauber_schild" to (idle + de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.CAST, de.bornim.core.art.HeroFigure.Strike.CAST, 3) + idle.take(6)),
+        "treffer" to (idle + de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.HURT, de.bornim.core.art.HeroFigure.Strike.SLASH, 0) + idle.take(6)),
+        "sieg" to (idle.take(4) + de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.VICTORY, de.bornim.core.art.HeroFigure.Strike.SLASH, 0) + List(8) { de.bornim.core.art.HeroFigure.VICTORY_POSES[0] }),
         "armbrust" to (List(6) { de.bornim.core.art.HeroFigure.XBOW_LOW } + de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SHOOT, 1) + List(6) { de.bornim.core.art.HeroFigure.XBOW_LOW.copy(draw = 0.0) }),
     )
     val dir0 = File("build/screens/dollanim"); dir0.deleteRecursively(); dir0.mkdirs()
@@ -499,6 +505,7 @@ fun renderDollAnims() {
             val kit = when (name) {
                 "schlag" -> de.bornim.core.art.Outfit(outfit.cls, outfit.items + (de.bornim.core.GearSlot.MAIN_HAND to g("warhammer", de.bornim.core.Rarity.RARE)))
                 "parade", "zweihand" -> de.bornim.core.art.Outfit(outfit.cls, (outfit.items - de.bornim.core.GearSlot.OFF_HAND) + (de.bornim.core.GearSlot.MAIN_HAND to g("greatsword", de.bornim.core.Rarity.RARE)))
+                "zauber_stab" -> de.bornim.core.art.Outfit(de.bornim.core.CharClass.WIZARD, mapOf(de.bornim.core.GearSlot.CHEST to g("robe", de.bornim.core.Rarity.RARE), de.bornim.core.GearSlot.MAIN_HAND to g("staff", de.bornim.core.Rarity.RARE)))
                 "bogen" -> de.bornim.core.art.Outfit(outfit.cls, (outfit.items - de.bornim.core.GearSlot.OFF_HAND) + (de.bornim.core.GearSlot.MAIN_HAND to g("longbow", de.bornim.core.Rarity.RARE)))
                 "armbrust" -> de.bornim.core.art.Outfit(outfit.cls, (outfit.items - de.bornim.core.GearSlot.OFF_HAND) + (de.bornim.core.GearSlot.MAIN_HAND to g("light_crossbow", de.bornim.core.Rarity.RARE)))
                 else -> outfit
@@ -738,3 +745,26 @@ fun renderCastViews() {
     println("wrote cast views")
 }
 
+
+/** Hurt, ambush and victory, large, for sword and shield and for a two-handed weapon: the key poses from the battle view and from the side. */
+fun renderReactViews() {
+    var uid = 1L
+    fun g(base: String) = de.bornim.core.Gear(uid++, base, de.bornim.core.Rarity.UNCOMMON, 3)
+    val F = de.bornim.core.art.HeroFigure
+    val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 0)
+    val sword = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.CHEST to g("chain_shirt"), de.bornim.core.GearSlot.MAIN_HAND to g("longsword"), de.bornim.core.GearSlot.OFF_HAND to g("shield")))
+    val great = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.CHEST to g("half_plate"), de.bornim.core.GearSlot.MAIN_HAND to g("greatsword")))
+    val poses = listOf("Treffer" to F.HURT, "Hinterhalt" to F.STAGGER, "Sieg 1" to F.VICTORY_POSES[0], "Sieg 2" to F.VICTORY_POSES[1], "Sieg 3" to F.VICTORY_POSES[2], "Sieg 4" to F.VICTORY_POSES[3])
+    val cw = 230; val ch = 280
+    val rows = listOf(sword to null, sword to 90.0, great to null, great to 90.0)
+    val out = BufferedImage(cw * poses.size, ch * rows.size, BufferedImage.TYPE_INT_RGB)
+    val gg = out.createGraphics(); gg.color = java.awt.Color(0x5E625C); gg.fillRect(0, 0, out.width, out.height)
+    for ((ri, row) in rows.withIndex()) for ((ci, p) in poses.withIndex()) {
+        val rig = if (row.second == null) p.second else p.second.copy(yaw = p.second.yaw + row.second!!)
+        val im = doll.render(cw, ch, cw / 2.0, ch - 8.0, 1.3, rig, row.first).img
+        for (y in 0 until ch) for (x in 0 until cw) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(ci * cw + x, ri * ch + y, q) }
+        gg.color = java.awt.Color(0xF0E8D8); gg.drawString("${p.first}${if (row.second != null) " – seitlich" else ""}", ci * cw + 6, ri * ch + 16)
+    }
+    ImageIO.write(out, "png", File("build/screens/react_views.png"))
+    println("wrote react views")
+}
