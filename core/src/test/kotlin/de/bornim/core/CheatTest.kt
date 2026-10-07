@@ -63,6 +63,28 @@ class CheatTest {
     }
 
     @Test
+    fun fightWithKitOpeningAndWeapons() {
+        val g = game()
+        for (k in 0 until 3) {
+            g.cheatFight("skeleton", null, false, Opening.AMBUSHED, k)
+            val b = (g.mode as Mode.Fight).battle
+            assertEquals(Opening.AMBUSHED, b.opening)
+            assertEquals(MonsterKits.of("skeleton", k), MonsterKits.of("skeleton", b.look.seed))
+            g.endBattle()
+        }
+        g.cheatWeapon("greatsword")
+        assertEquals("greatsword", g.hero.item(GearSlot.MAIN_HAND)?.base)
+        g.cheatOffHand("round_shield")
+        assertEquals("round_shield", g.hero.item(GearSlot.OFF_HAND)?.base)
+        // a shield on the arm leaves no hand for a two-handed sword
+        assertEquals(null, g.hero.item(GearSlot.MAIN_HAND))
+        g.cheatWeapon("spear")
+        g.cheatOffHand(null)
+        assertEquals("spear", g.hero.item(GearSlot.MAIN_HAND)?.base)
+        assertEquals(null, g.hero.item(GearSlot.OFF_HAND))
+    }
+
+    @Test
     fun loot() {
         val g = game()
         val item = g.cheatLoot(Rarity.DIVINE)

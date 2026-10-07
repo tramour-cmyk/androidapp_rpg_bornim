@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 16:03 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 16:20 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -34,6 +34,7 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 - **Waffen als Körper:** alle Nahkampfwaffen bei Held und Gegnern räumlich (Klinge, Parierstange, Knauf, Axtblatt, Kopf); in Ruhe, bei Hieb, Überkopfschlag und Stich gut erkennbar; rostige Gegnerwaffen grau mit Rostflecken.
 - **Speer:** Stoß von unten (waagerecht) und Stoß über Kopf (wie ein Speerwerfer) beim Helden mit Speer und beim Skelett.
 - **Wölfe und Grimmzahn:** neues Aussehen, Größen und Felle; Biss, Sprung und tiefer Biss erreichen den Helden; Treffer, Ausweichen und Sterben in Varianten; Heulen; verwundete Haltung; bei Nacht abgedunkelt. Rudel: die Begleitwölfe beißen von ihrem Platz aus.
+- **Testmodus, Kampf auslösen:** Eröffnung (normal / Hinterhalt / Held zuerst), Waffe des Helden und andere Hand, Gegner mit bestimmter Ausrüstung.
 - **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
 
 ## Zu entscheiden

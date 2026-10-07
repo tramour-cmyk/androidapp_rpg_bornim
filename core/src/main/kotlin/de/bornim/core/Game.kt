@@ -800,9 +800,36 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     }
 
     /** Starts a fight against [monster] right here, optionally as elite or shimmering variant. */
-    fun cheatFight(monster: String, trait: EliteTrait?, shiny: Boolean) {
+    /**
+     * Starts a fight with [monster] for testing: an elite [trait] or [shiny], who strikes first ([opening]), and for foes
+     * with several kits which one it carries ([kit], or null for any).
+     */
+    fun cheatFight(monster: String, trait: EliteTrait?, shiny: Boolean, opening: Opening = Opening.NORMAL, kit: Int? = null) {
         if (mode !is Mode.Explore) return
-        startBattle(monster, null, trait to shiny)
+        val kits = MonsterKits.variants(monster)
+        // the kit follows from the look's seed: pick a seed that lands on the one asked for
+        val look = if (kit != null && kits > 0) {
+            val r = kotlin.random.Random.nextInt(0, 1 shl 20) * kits
+            MonsterLook(r + kit.mod(kits), shiny, trait?.color)
+        } else null
+        startBattle(monster, null, trait to shiny, opening, look)
+    }
+
+    /** Arms the hero for testing: a plain weapon of [base] in the weapon hand, or none; what it held goes into the bag. */
+    fun cheatWeapon(base: String?) {
+        hero.unequip(GearSlot.MAIN_HAND)?.let { state.bag += it }
+        if (base != null) state.addGear(Gear(0, base, Rarity.COMMON, hero.level)).also { g -> state.bag.remove(g); hero.equip(g).forEach { state.bag += it } }
+        changed()
+    }
+
+    /** Fills the hero's other hand for testing: a shield, a second weapon, or nothing. */
+    fun cheatOffHand(base: String?) {
+        hero.unequip(GearSlot.OFF_HAND)?.let { state.bag += it }
+        if (base != null) state.addGear(Gear(0, base, Rarity.COMMON, hero.level)).also { g ->
+            state.bag.remove(g)
+            (if (g.def.isWeapon) hero.equipOffHand(g) else hero.equip(g)).forEach { state.bag += it }
+        }
+        changed()
     }
 
     /** Puts a random piece of gear of [rarity] for the hero's level and class into the bag. */
