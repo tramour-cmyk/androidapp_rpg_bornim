@@ -67,6 +67,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 ## v0.1.59 – 06.10.2026, 14:02
 
 **Behoben**
+- Überraschte der Held einen Gegner von hinten (Erstschlag), sprang er schon bei der Ansage zum Angriff vor, noch bevor man Angreifen oder Abwehr wählen konnte. Jetzt wartet er in Ruhehaltung, und erst die Wahl löst die passende Bewegung aus.
 - Am unterirdischen See sah es aus, als flösse das Wasser in den dunklen Gang hinein. Der Gang liegt jetzt neben dem See.
 
 ## v0.1.58 – 06.10.2026, 13:58

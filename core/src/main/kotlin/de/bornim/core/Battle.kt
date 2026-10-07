@@ -172,7 +172,8 @@ class Battle(
     fun start(): List<Step> {
         when (opening) {
             Opening.AMBUSHED -> say(Msg.ambush.f(lang, foe), Anim.ENEMY_ACT)
-            Opening.HERO_FIRST -> say(Msg.firstStrike.f(lang, name, foe), Anim.HERO_ACT)
+            // only named here: the hero does not move until the player has chosen what to do with the first turn
+            Opening.HERO_FIRST -> say(Msg.firstStrike.f(lang, name, foe))
             Opening.NORMAL -> say(if (monster.boss) Msg.bossAppears.f(lang, foe) else Msg.appears.f(lang, foe))
         }
         if (shiny) say(Msg.shiny(lang))

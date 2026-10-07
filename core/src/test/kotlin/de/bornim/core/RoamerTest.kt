@@ -97,6 +97,8 @@ class RoamerTest {
         assertEquals(Opening.HERO_FIRST, b.opening)
         val steps = b.start()
         assertTrue(steps.any { it.text.contains("Erstschlag") })
+        // the first strike is only named: the hero does not move before the player chooses
+        assertTrue(steps.none { it.anim == Anim.HERO_ACT || it.anim == Anim.SPELL || it.anim == Anim.THROW })
         // the hero acts, the surprised monster cannot answer in the first round
         val round = b.act(Action.Attack)
         assertTrue(round.any { it.text.contains("noch überrascht") } || b.outcome != Outcome.ONGOING)

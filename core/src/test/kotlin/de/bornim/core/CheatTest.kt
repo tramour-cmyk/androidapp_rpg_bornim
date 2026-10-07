@@ -72,6 +72,13 @@ class CheatTest {
             assertEquals(MonsterKits.of("skeleton", k), MonsterKits.of("skeleton", b.look.seed))
             g.endBattle()
         }
+        // whatever the opening, the hero never moves on its own before the player has chosen
+        for (o in Opening.entries) {
+            g.cheatFight("goblin", null, false, o)
+            val steps = (g.mode as Mode.Fight).battle.start()
+            assertTrue(steps.none { it.anim == Anim.HERO_ACT || it.anim == Anim.SPELL || it.anim == Anim.THROW || it.anim == Anim.DEFEND }, "$o")
+            g.endBattle()
+        }
         g.cheatWeapon("greatsword")
         assertEquals("greatsword", g.hero.item(GearSlot.MAIN_HAND)?.base)
         g.cheatOffHand("round_shield")
