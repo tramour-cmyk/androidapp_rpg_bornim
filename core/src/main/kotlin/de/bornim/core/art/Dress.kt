@@ -117,6 +117,25 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         return out
     }
 
+    /** Whether a bow comes with its quiver on the back. */
+    private var quiver = true
+
+    /** Only what is worn in [slot], built as on the body: for the item's own picture. */
+    fun only(slot: GearSlot): List<Solid> {
+        out.clear()
+        when (slot) {
+            GearSlot.MAIN_HAND -> { quiver = false; bow(); crossbow(); staff(); arms3d() }
+            GearSlot.OFF_HAND -> { offHand(); arms3d() }
+            GearSlot.CHEST -> if (robe) clothes() else { armour(); belt() }
+            GearSlot.HEAD -> headgear()
+            GearSlot.CLOAK -> cloak()
+            GearSlot.ARMS -> arms()
+            GearSlot.LEGS -> legs()
+            else -> {}
+        }
+        return out.toList()
+    }
+
     // ---------------------------------------------------------------- plain clothes
 
     private fun clothes() {
@@ -467,6 +486,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             add(Ellipsoid(mid + aim * (0.03 * h), P3(0.006 * h, 0.03 * h, 0.006 * h), Frame.along(aim), BodyPart.GEAR, Doll.ITEM), m(argb(0xB8B0A0)))
         }
         // the quiver on the back, its fletchings showing over the shoulder
+        if (!quiver) return
         val top = sk.upper.apply(P3(d.shoulderX * 0.45, d.shoulderY - 0.01 * h, -d.chestDepth - 0.035 * h))
         val bottom = sk.upper.apply(P3(-d.shoulderX * 0.15, d.hipY + 0.15 * d.trunk, -d.chestDepth - 0.035 * h))
         add(RoundCone(bottom, top, 0.03 * h, 0.034 * h, BodyPart.GEAR, Doll.ITEM), leather)

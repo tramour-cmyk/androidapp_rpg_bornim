@@ -103,6 +103,7 @@ fun main() {
     if (System.getenv("FOELUNGE") != null) { renderFoeLunge(); System.exit(0) }
     if (System.getenv("FOEFALLS") != null) { renderFoeFalls(); System.exit(0) }
     if (System.getenv("FOEANIM") != null) { renderFoeAnims(); System.exit(0) }
+    if (System.getenv("ITEMS") != null) { renderItemSheet(); System.exit(0) }
     if (System.getenv("HEROSPEAR") != null) { renderHeroSpear(); System.exit(0) }
     if (System.getenv("ARMS3D") != null) { renderArms3d(); System.exit(0) }
     if (System.getenv("BEAST") != null) { renderBeastDraft(); System.exit(0) }
