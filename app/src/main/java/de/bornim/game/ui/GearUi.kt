@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +35,7 @@ import de.bornim.core.Rules
 import de.bornim.core.Ui
 import de.bornim.core.Weight
 import de.bornim.core.art.IconArt
+import de.bornim.core.art.ItemArt
 
 /** Rarity colors, dark enough to read on the light panels. */
 fun rarityColor(r: Rarity): Color = when (r) {
@@ -67,12 +69,12 @@ fun GearIcon(g: Gear?, size: Dp, modifier: Modifier = Modifier) {
             .border(if (g != null && g.rarity >= Rarity.EPIC) 3.dp else 2.dp, g?.let { rarityColor(it.rarity) } ?: Color(0xFFB8B0A0), shape),
         contentAlignment = Alignment.Center,
     ) {
-        if (g != null) PixelImageView(IconArt.get(g.def.icon), size * 0.78f)
-        // Two-handed weapons carry a small "2H" tag.
+        if (g != null) GearPicture(g.base, g.rarity, size * 0.78f)
+        // Two-handed weapons carry a small "2H" tag, at the top: the rarity's stones sit at the foot.
         if (g != null && g.def.isWeapon && g.def.twoHanded) {
             Box(
                 Modifier
-                    .align(Alignment.BottomEnd)
+                    .align(Alignment.TopEnd)
                     .padding(2.dp)
                     .clip(RoundedCornerShape(3.dp))
                     .background(Color(0xE0302838))
@@ -80,6 +82,18 @@ fun GearIcon(g: Gear?, size: Dp, modifier: Modifier = Modifier) {
             ) { Txt("2H", size = (size.value / 5f).coerceIn(8f, 12f).sp, color = Color.White, bold = true) }
         }
     }
+}
+
+/**
+ * A piece of gear as it looks when worn, built from its solids, with a stone for each step of rarity. It is drawn in
+ * the background the first time; until then its old drawn icon stands in.
+ */
+@Composable
+fun GearPicture(base: String, rarity: Rarity, size: Dp, modifier: Modifier = Modifier) {
+    val img by androidx.compose.runtime.produceState(ItemArt.ready(base, rarity), base, rarity) {
+        if (value == null) value = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { ItemArt.get(base, rarity) }
+    }
+    PixelImageView(img ?: IconArt.get(de.bornim.core.GearBases[base].icon), size, modifier)
 }
 
 /** One line in the bag or shop: icon, colored name, rarity and type, optional trailing text. */

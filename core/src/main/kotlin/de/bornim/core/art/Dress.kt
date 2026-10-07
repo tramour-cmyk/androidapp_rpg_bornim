@@ -119,12 +119,14 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
 
     /** Whether a bow comes with its quiver on the back. */
     private var quiver = true
+    /** How thick a bowstring is, in cm: thicker when the bow is drawn small on its own, or it falls apart into dots. */
+    private var string = 0.25
 
     /** Only what is worn in [slot], built as on the body: for the item's own picture. */
     fun only(slot: GearSlot): List<Solid> {
         out.clear()
         when (slot) {
-            GearSlot.MAIN_HAND -> { quiver = false; bow(); crossbow(); staff(); arms3d() }
+            GearSlot.MAIN_HAND -> { quiver = false; string = 0.9; bow(); crossbow(); staff(); arms3d() }
             GearSlot.OFF_HAND -> { offHand(); arms3d() }
             GearSlot.CHEST -> if (robe) clothes() else { armour(); belt() }
             GearSlot.HEAD -> headgear()
@@ -475,8 +477,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val str = m(argb(0xD8D0C0))
         val tipA = at(-1.0); val tipB = at(1.0)
         val mid = if (draw > 0.05) nock + aim * (0.01 * h) else tipA.lerp(tipB, 0.5)
-        add(RoundCone(tipA, mid, 0.25, 0.25, BodyPart.GEAR, Doll.ITEM), str)
-        add(RoundCone(mid, tipB, 0.25, 0.25, BodyPart.GEAR, Doll.ITEM), str)
+        add(RoundCone(tipA, mid, string, string, BodyPart.GEAR, Doll.ITEM), str)
+        add(RoundCone(mid, tipB, string, string, BodyPart.GEAR, Doll.ITEM), str)
         // the arrow on the string
         if (draw > 0.2) {
             val shaft = m(argb(0x8A6A44), grain = 0.05)
@@ -526,7 +528,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val nut = s0 + aim * (0.08 * h) + up * (0.011 * h)
         val mid = at(1.0).lerp(at(-1.0), 0.5).lerp(nut, draw)
         val str = m(argb(0xD8D0C0))
-        cone(at(-1.0), mid, 0.25, 0.25, str); cone(mid, at(1.0), 0.25, 0.25, str)
+        cone(at(-1.0), mid, string, string, str); cone(mid, at(1.0), string, string, str)
         // the bolt in its groove
         if (draw > 0.5) {
             val tip = prod + aim * (0.05 * h) + up * (0.008 * h)

@@ -71,6 +71,22 @@ private fun shot(name: String, lang: Lang = Lang.DE, taps: List<Offset> = emptyL
     println("wrote $name")
 }
 
+fun geared(vm: GameViewModel, cls: CharClass, race: Race = Race.DWARF) {
+    vm.newGame("Thora", race, cls)
+    val g = vm.game!!
+    g.skipDialogs()
+    val s = g.state
+    s.hero.gainXp(Rules.xpForLevel[9])
+    val dice = Dice(kotlin.random.Random(4))
+    for (slot in GearSlot.entries) {
+        val r = Rarity.entries[(slot.ordinal * 2) % 6]
+        val item = Loot.generate(s, dice, 9, r, cls, slot)
+        if (s.hero.canWear(item)) s.equipFromBag(s.addGear(item))
+    }
+    repeat(14) { i -> s.addGear(Loot.generate(s, dice, 9, Rarity.entries[i % 6], if (i % 3 == 0) null else cls)) }
+    s.hero.restoreFully()
+}
+
 fun main() {
     if (System.getenv("RUNS") != null) {
         battleRuns()
@@ -103,6 +119,7 @@ fun main() {
     if (System.getenv("FOELUNGE") != null) { renderFoeLunge(); System.exit(0) }
     if (System.getenv("FOEFALLS") != null) { renderFoeFalls(); System.exit(0) }
     if (System.getenv("FOEANIM") != null) { renderFoeAnims(); System.exit(0) }
+    if (System.getenv("XBOW") != null) { renderCrossbowProbe(); System.exit(0) }
     if (System.getenv("ITEMS") != null) { renderItemSheet(); System.exit(0) }
     if (System.getenv("HEROSPEAR") != null) { renderHeroSpear(); System.exit(0) }
     if (System.getenv("ARMS3D") != null) { renderArms3d(); System.exit(0) }
@@ -142,6 +159,14 @@ fun main() {
     if (System.getenv("ABOUT") != null) {
         shot("31_about") { it.screen = Screen.ABOUT }
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }
+        System.exit(0)
+    }
+    if (System.getenv("GEARSHOTS") != null) {
+        // drawn ahead, so the shots show the built pictures rather than the stand-ins
+        for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
+        shot("34_gear_halfling", taps = listOf(Offset(680f, 95f))) { vm -> geared(vm, CharClass.CLERIC, Race.HALFLING); vm.menuOpen = true }
+        shot("15_bag_tab", taps = listOf(Offset(410f, 95f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }
+        shot("16_bag_dialog", taps = listOf(Offset(410f, 95f), Offset(540f, 560f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }
         System.exit(0)
     }
     hudCheck()
@@ -251,21 +276,6 @@ fun main() {
         g.state.place = Place("forest", 10, 20, Facing.UP)
         g.enqueue(listOf(Cmd.Fight("wolf")))
         vm.refresh()
-    }
-    fun geared(vm: GameViewModel, cls: CharClass, race: Race = Race.DWARF) {
-        vm.newGame("Thora", race, cls)
-        val g = vm.game!!
-        g.skipDialogs()
-        val s = g.state
-        s.hero.gainXp(Rules.xpForLevel[9])
-        val dice = Dice(kotlin.random.Random(4))
-        for (slot in GearSlot.entries) {
-            val r = Rarity.entries[(slot.ordinal * 2) % 6]
-            val item = Loot.generate(s, dice, 9, r, cls, slot)
-            if (s.hero.canWear(item)) s.equipFromBag(s.addGear(item))
-        }
-        repeat(14) { i -> s.addGear(Loot.generate(s, dice, 9, Rarity.entries[i % 6], if (i % 3 == 0) null else cls)) }
-        s.hero.restoreFully()
     }
     shot("32_hero_gear") { vm -> geared(vm, CharClass.WIZARD); vm.menuOpen = true }
     shot("33_hero_halfling") { vm -> geared(vm, CharClass.CLERIC, Race.HALFLING); vm.menuOpen = true }

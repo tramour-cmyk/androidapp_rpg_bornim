@@ -41,6 +41,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Jeder Angriff ist zu sehen, auch ein verfehlter: Pfeile, Bolzen und Zauber fliegen am Ziel vorbei. Ansage mit Ausholen, dann Schlag mit Treffer oder Fehlschlag – beim Helden wie bei den Gegnern.
 
 **Verbessert**
+- **Ausrüstungssymbole wie die 3D-Modelle:** In Ausrüstungsplätzen, Tasche, Laden und Dialogen ist jedes Stück aus denselben Körpern gebaut, mit denen der Held es trägt. So sieht der Kampfstab aus wie in der Hand, Schilde, Helme, Rüstungen, Stiefel und Umhänge wie an der Figur. Lange Waffen (Speer, Hellebarde, Stäbe) sind groß gezeigt, ihr Schaft läuft aus dem Bild. Die Armbrust liegt gespannt und geladen schräg im Bild. Ringe, Amulette, Stirnreif und Heiligensymbol sind neu in 3D gebaut, ihr Stein in der Farbe der Seltenheit.
+- Die Seltenheit zeigt ein Zeichen unten rechts: ein farbiger Stein pro Stufe über gewöhnlich (ungewöhnlich 1 bis göttlich 5). Das „2H“ der Zweihänder steht jetzt oben rechts.
 - Bewegungen im Kampf laufen ruhiger, die Schläge selbst bleiben so schnell wie bisher: Treffer-Reaktionen, Ausweichen und Schildblock von Held und Gegnern, der Schritt zurück nach einem Schlag, das Taumeln im Hinterhalt, die Drehung zu Kampfbeginn und das Einnehmen der Abwehrhaltung.
 - Neue Klänge, wenn ein Angriff abgewehrt wird oder danebengeht: statt eines hellen „Ping“ wie von einer alten Ladenkasse ein dumpfes „Klonk“ auf Schild oder Klinge, und beim Fehlschlag nur ein Luftzug („Wusch“). Je drei verschiedene Varianten, die zufällig wechseln: bei der Abwehr Klonk, hölzernes Pochen und kurzes Klirren von Klinge auf Klinge; beim Fehlschlag voller Luftzug, kurzes Zischen und schwerer, tiefer Luftzug.
 

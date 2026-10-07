@@ -177,7 +177,7 @@ fun ShopScreen(vm: GameViewModel, game: Game, stock: List<String>, brewing: Bool
                             GearRow(g, lang, game, vm.tick, trailing = Ui.price.f(lang, price)) {
                                 val buy = buying
                                 dialog = DialogSpec(
-                                    title = g.name(lang), icon = g.def.icon, titleColor = rarityColor(g.rarity),
+                                    title = g.name(lang), icon = g.def.icon, gear = g, titleColor = rarityColor(g.rarity),
                                     confirm = (if (buy) Ui.buy(lang) else Ui.sell(lang)) + " · " + Ui.price.f(lang, price),
                                     cancel = cancel, confirmEnabled = !buy || game.state.gold >= price,
                                     onConfirm = {

@@ -36,6 +36,8 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 - **Wölfe und Grimmzahn:** neues Aussehen, Größen und Felle; Biss, Sprung und tiefer Biss erreichen den Helden; Treffer, Ausweichen und Sterben in Varianten; Heulen; verwundete Haltung; bei Nacht abgedunkelt. Rudel: die Begleitwölfe beißen von ihrem Platz aus.
 - **Testmodus, Kampf auslösen:** Eröffnung (normal / Hinterhalt / Held zuerst), Waffe des Helden und andere Hand, Gegner mit bestimmter Ausrüstung.
 - **Klänge:** Abwehr klingt dumpf („Klonk“), Fehlschlag als Luftzug („Wusch“).
+- **Ausrüstungssymbole:** in Ausrüstungsplätzen, Tasche, Laden und Dialogen wie die 3D-Modelle; Seltenheit als 1–5 farbige Steine unten rechts; Zweihänder-Zeichen „2H“ jetzt oben rechts. Das erste Anzeigen eines Symbols dauert kurz, bis dahin steht das alte da.
+- **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln im Hinterhalt, Drehung; die Schläge selbst so schnell wie bisher.
 - **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
 
 ## Zu entscheiden

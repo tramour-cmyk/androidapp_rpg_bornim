@@ -280,7 +280,7 @@ private fun BagTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec) 
             val canWear = game.hero.canWear(g)
             val oneHanded = g.def.isWeapon && !g.def.twoHanded
             ask(DialogSpec(
-                title = g.name(lang), icon = g.def.icon, titleColor = rarityColor(g.rarity),
+                title = g.name(lang), icon = g.def.icon, gear = g, titleColor = rarityColor(g.rarity),
                 confirm = Ui.equip(lang), cancel = cancel, confirmEnabled = canWear,
                 extra = buildList {
                     if (oneHanded && canWear) add((if (de) "Nebenhand" else "Off hand") to {
@@ -296,7 +296,7 @@ private fun BagTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec) 
                         }
                         if (!vm.confirmations) discard()
                         else ask(DialogSpec(
-                            title = if (de) "Wirklich wegwerfen?" else "Really discard?", icon = g.def.icon, titleColor = rarityColor(g.rarity),
+                            title = if (de) "Wirklich wegwerfen?" else "Really discard?", icon = g.def.icon, gear = g, titleColor = rarityColor(g.rarity),
                             confirm = if (de) "Wegwerfen" else "Discard", cancel = cancel, onConfirm = { discard() },
                         ) {
                             Txt("${g.name(lang)} (${g.rarity.title(lang)})", size = 16.sp, bold = true, color = rarityColor(g.rarity))
@@ -328,7 +328,7 @@ private fun GearTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
             vm.toast = slot.title(lang) + ": " + Ui.empty(lang)
         } else {
             ask(DialogSpec(
-                title = g.name(lang), icon = g.def.icon, titleColor = rarityColor(g.rarity),
+                title = g.name(lang), icon = g.def.icon, gear = g, titleColor = rarityColor(g.rarity),
                 confirm = Ui.unequip(lang), cancel = if (de) "Schließen" else "Close",
                 onConfirm = {
                     game.state.unequipToBag(slot)
