@@ -392,10 +392,11 @@ object Sfx {
             for (k in 0 until 2 + vi) band(0.02 + k * 0.025, 0.04, 0.3, 2600.0, 1800.0, 4.0, 106 + k, decay = 0.01)
             room(0.3)
         }
-        Sound.MISS -> Buf(0.6).apply {
-            band(0.0, 0.32, 0.55, 500.0, 2400.0, 1.6, 109, swell = true)
-            band(0.18, 0.2, 0.25, 2400.0, 700.0, 1.6, 110, swell = true)
-            room(0.2)
+        // a miss: just the whoosh of the blow going past, quick and full
+        Sound.MISS -> Buf(0.45).apply {
+            band(0.0, 0.24, 0.75, 260.0, 1250.0, 1.2, 109, swell = true)
+            band(0.1, 0.2, 0.35, 1250.0, 420.0, 1.2, 110, swell = true)
+            room(0.12)
         }
         Sound.CRIT -> Buf(1.1).apply {
             band(0.0, 0.12, 0.55, 4800.0, 1200.0, 1.3, 111, decay = 0.05)
@@ -404,12 +405,13 @@ object Sfx {
             ring(0.04, 0.7, 610.0, 0.18)
             room(0.4)
         }
-        // shield block: wood takes the blow, the metal rim rings
-        Sound.BLOCK -> Buf(0.9).apply {
-            band(0.0, 0.1, 0.8, 520.0, 380.0, 4.0, 113, decay = 0.03)
-            thud(0.0, 0.2, 210.0, 120.0, 0.6)
-            ring(0.005, 0.6, 1180.0, 0.22)
-            room(0.3)
+        // a blow caught on the shield or the blade: a dull klonk of wood and iron, short, without ringing on
+        Sound.BLOCK -> Buf(0.5).apply {
+            thud(0.0, 0.22, 230.0, 115.0, 0.95)
+            band(0.0, 0.07, 0.9, 720.0, 440.0, 3.0, 113, decay = 0.02)
+            band(0.0, 0.025, 0.16, 2100.0, 1600.0, 2.5, 114, decay = 0.008)
+            ring(0.0, 0.11, 360.0, 0.07)
+            room(0.15)
         }
         // snarl, the snap of jaws and the bite going in
         Sound.BITE -> Buf(0.7).apply {

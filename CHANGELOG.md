@@ -62,6 +62,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - **Karte und Kampf passen zusammen:** Wo du kämpfst, siehst du denselben Ort: am See den See, im Pilzraum das Pilzlicht, bei Krogg den Lichtstrahl, im Lager das Feuer, im dunklen Gang nur die Laterne.
 
 **Verbessert**
+- Neue Klänge, wenn ein Angriff abgewehrt wird oder danebengeht: statt eines hellen „Ping“ wie von einer alten Ladenkasse ein dumpfes „Klonk“ auf Schild oder Klinge, und beim Fehlschlag nur ein kurzer Luftzug („Wusch“).
 - Der Nebel über unerkundeten und nicht sichtbaren Bereichen hat weichere Kanten.
 
 ## v0.1.59 – 06.10.2026, 14:02

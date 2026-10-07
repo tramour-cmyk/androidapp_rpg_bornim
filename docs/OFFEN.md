@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 16:20 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 16:45 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -35,6 +35,7 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 - **Speer:** Stoß von unten (waagerecht) und Stoß über Kopf (wie ein Speerwerfer) beim Helden mit Speer und beim Skelett.
 - **Wölfe und Grimmzahn:** neues Aussehen, Größen und Felle; Biss, Sprung und tiefer Biss erreichen den Helden; Treffer, Ausweichen und Sterben in Varianten; Heulen; verwundete Haltung; bei Nacht abgedunkelt. Rudel: die Begleitwölfe beißen von ihrem Platz aus.
 - **Testmodus, Kampf auslösen:** Eröffnung (normal / Hinterhalt / Held zuerst), Waffe des Helden und andere Hand, Gegner mit bestimmter Ausrüstung.
+- **Klänge:** Abwehr klingt dumpf („Klonk“), Fehlschlag als Luftzug („Wusch“).
 - **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
 
 ## Zu entscheiden
@@ -47,7 +48,7 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 - **Killerschlag:** Ein kritischer Treffer, der ein Monster tötet, bekommt einen besonderen Schlag des Helden in mindestens drei Varianten. Das Trefferbild zerfetzt den Gegner, abgestuft nach der Blutstufe: bei „Aus“ ohne Blut, etwa ein Zerbrechen oder Zusammensacken; bei „Dezent“ und „Deutlich“ immer stärker. Skelette zerspringen in Knochen. Gilt für alle Gegner im neuen Stil.
 - **Sterbeanimationen für alle Gegner:** Goblin, Späher und Skelett haben sie schon (drei Varianten: vornüber, rücklings, seitlich, mit echtem Sturz zu Boden). Die Wölfe haben sie jetzt auch (drei Stürze); die übrigen Gegner bekommen sie beim Umzug auf die Puppe.
 
-- **Klänge überarbeiten** nach den [Stil-Leitlinien](STIL.md): weg von quietschenden Nintendo-Tönen, hin zu glaubwürdigen Geräuschen. Die Kampfgeräusche (Hiebe, Stiche, Schläge, Biss, Pfeil, Schwung, Wolfsheulen) wurden schon einmal realistischer gemacht und werden mit geprüft. Noch im alten Stil sind vermutlich:
+- **Klänge überarbeiten** nach den [Stil-Leitlinien](STIL.md): weg von quietschenden Nintendo-Tönen, hin zu glaubwürdigen Geräuschen. Die Kampfgeräusche (Hiebe, Stiche, Schläge, Biss, Pfeil, Schwung, Wolfsheulen) wurden schon einmal realistischer gemacht und werden mit geprüft; Abwehr („Klonk“) und Fehlschlag („Wusch“) sind schon neu. Noch im alten Stil sind vermutlich:
   - Menü und Bedienung: Klick.
   - Belohnungen: Stufenaufstieg, Beute, epische Beute, Münzen, Truhe.
   - Welt: Tür, Begegnung, Alarm (Gegner bemerkt dich), Hinterhalt.

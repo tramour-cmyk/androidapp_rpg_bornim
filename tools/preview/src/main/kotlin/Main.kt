@@ -108,6 +108,7 @@ fun main() {
     if (System.getenv("BEAST") != null) { renderBeastDraft(); System.exit(0) }
     if (System.getenv("BEASTSCENE") != null) { renderBeastScene(); System.exit(0) }
     if (System.getenv("BEASTANIM") != null) { renderBeastAnims(); System.exit(0) }
+    System.getenv("SOUNDS")?.let { writeSounds(it.split(",")); System.exit(0) }
     if (System.getenv("FOECLASH") != null) { checkFoeClashes(); System.exit(0) }
     if (System.getenv("FOEKITS") != null) { renderFoeKits(); System.exit(0) }
     if (System.getenv("FOESCENE") != null) { renderFoeInScene(); System.exit(0) }

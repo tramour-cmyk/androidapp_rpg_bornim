@@ -1752,3 +1752,18 @@ fun renderBeastAnims() {
     }
 }
 
+
+/** Sound samples as WAV files to listen to: [names] of [de.bornim.core.audio.Sound], every take. */
+fun writeSounds(names: List<String>) {
+    for (n in names) {
+        val s = de.bornim.core.audio.Sound.valueOf(n)
+        for (v in 0 until de.bornim.core.audio.Sfx.variants(s)) {
+            val pcm = de.bornim.core.audio.Sfx.render(s, v)
+            val bytes = java.nio.ByteBuffer.allocate(pcm.size * 2).order(java.nio.ByteOrder.LITTLE_ENDIAN).also { b -> pcm.forEach { b.putShort(it) } }.array()
+            val fmt = javax.sound.sampled.AudioFormat(de.bornim.core.audio.Synth.SAMPLE_RATE.toFloat(), 16, 1, true, false)
+            javax.sound.sampled.AudioSystem.write(javax.sound.sampled.AudioInputStream(java.io.ByteArrayInputStream(bytes), fmt, pcm.size.toLong()),
+                javax.sound.sampled.AudioFileFormat.Type.WAVE, File("build/screens/klang/${n.lowercase()}_${v + 1}.wav"))
+        }
+        println("wrote $n")
+    }
+}
