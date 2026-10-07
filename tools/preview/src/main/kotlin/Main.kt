@@ -100,6 +100,8 @@ fun main() {
     if (System.getenv("TURN") != null) { renderTurntable(); System.exit(0) }
     if (System.getenv("TITLE") != null) { renderTitleHeroes(); System.exit(0) }
     if (System.getenv("CLERIC") != null) { renderClericShield(); System.exit(0) }
+    if (System.getenv("FOESCENE") != null) { renderFoeInScene(); System.exit(0) }
+    if (System.getenv("FOES") != null) { renderFoeDrafts(); System.exit(0) }
     if (System.getenv("FLAMEDODGE") != null) { renderFlameDodge(); System.exit(0) }
     if (System.getenv("MAPSHIELD") != null) { renderMapShields(); System.exit(0) }
     if (System.getenv("PORTFILL") != null) { renderPortraitFill(); System.exit(0) }

@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 12:55 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 13:10 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -31,6 +31,8 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 - **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
 
 ## Zu entscheiden
+
+- **Gegner im neuen Stil, Entwurf Goblin und Skelett:** auf der Heldenpuppe gebaut (Bilder im Chat vom 07.10., 13:08). Rückmeldung zu Aussehen, Größe und Ausrüstung abwarten; danach Bewegungen (Angriff, Treffer, Tod) und Einbau, dann die übrigen menschenähnlichen Gegner, danach die Tiere als 3D-Vierbeiner.
 
 1. **Veröffentlichen:** `hero-figure` nach `main` übernehmen. Das baut automatisch die nächste Version (v0.1.x). Danach bekommt die Änderungshistorie den Versionseintrag mit Datum und Uhrzeit. Vorschlag: nach deinem Test.
 

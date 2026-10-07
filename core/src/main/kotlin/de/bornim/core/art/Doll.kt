@@ -18,55 +18,72 @@ import kotlin.math.sqrt
  * Poses are the [HeroFigure.Rig]s of the hand-drawn figure: its numbers are mapped onto this body's
  * landmarks, so every pose fits every people.
  */
-class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, val hairTone: Int = 0) {
+class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, val hairTone: Int = 0, val kind: Creature? = null) {
+
+    /** Foes built on the same doll: their own measures, head and skin, or a body of bare bones. */
+    enum class Creature { GOBLIN, SKELETON }
+    private val goblin = kind == Creature.GOBLIN
+    private val bones = kind == Creature.SKELETON
 
     // ---------------------------------------------------------------- measures (cm)
 
     val female = sex == Sex.FEMALE
     /** Standing height. SRD: dwarves 4–5 ft, halflings about 3 ft (raised to 60 % of a human so their gear reads), half-orcs larger than humans. */
-    val height = when (race) {
-        Race.HUMAN -> 175.0; Race.ELF -> 172.0; Race.DWARF -> 135.0; Race.HALFLING -> 105.0; Race.HALF_ORC -> 185.0
+    val height = when {
+        goblin -> 108.0; bones -> 172.0
+        else -> when (race) { Race.HUMAN -> 175.0; Race.ELF -> 172.0; Race.DWARF -> 135.0; Race.HALFLING -> 105.0; Race.HALF_ORC -> 185.0 }
     } * (if (female) 0.93 else 1.0)
-    private val heads = when (race) { Race.HUMAN -> 7.5; Race.ELF -> 7.9; Race.DWARF -> 5.3; Race.HALFLING -> 5.9; Race.HALF_ORC -> 7.3 }
+    // goblins: a big head on a small wiry body, long arms and big hands and feet
+    private val heads = if (goblin) 4.2 else if (bones) 7.6 else when (race) { Race.HUMAN -> 7.5; Race.ELF -> 7.9; Race.DWARF -> 5.3; Race.HALFLING -> 5.9; Race.HALF_ORC -> 7.3 }
     /** Height of the head, chin to crown. */
     val hh = height / heads
-    private val legF = when (race) { Race.HUMAN -> 0.51; Race.ELF -> 0.535; Race.DWARF -> 0.39; Race.HALFLING -> 0.46; Race.HALF_ORC -> 0.5 }
+    private val legF = if (goblin) 0.42 else if (bones) 0.51 else when (race) { Race.HUMAN -> 0.51; Race.ELF -> 0.535; Race.DWARF -> 0.39; Race.HALFLING -> 0.46; Race.HALF_ORC -> 0.5 }
     private val buildK = when (build) { Build.SLIM -> 0.86; Build.AVERAGE -> 1.0; Build.STRONG -> 1.17 }
     /** Thickness of trunk and limbs relative to a human: dwarves are as heavy as a human two feet taller. */
-    val girth = when (race) { Race.HUMAN -> 1.0; Race.ELF -> 0.86; Race.DWARF -> 1.5; Race.HALFLING -> 1.08; Race.HALF_ORC -> 1.22 } * buildK
+    val girth = (if (goblin) 0.84 else if (bones) 0.7 else when (race) { Race.HUMAN -> 1.0; Race.ELF -> 0.86; Race.DWARF -> 1.5; Race.HALFLING -> 1.08; Race.HALF_ORC -> 1.22 }) * buildK
     val limbK = girth * (if (female) 0.9 else 1.0) * (if (build == Build.STRONG) 1.05 else 1.0)
-    private val shoulderK = when (race) { Race.HUMAN -> 1.0; Race.ELF -> 0.92; Race.DWARF -> 1.55; Race.HALFLING -> 1.0; Race.HALF_ORC -> 1.12 } *
+    private val shoulderK = (if (goblin) 1.0 else if (bones) 0.95 else when (race) { Race.HUMAN -> 1.0; Race.ELF -> 0.92; Race.DWARF -> 1.55; Race.HALFLING -> 1.0; Race.HALF_ORC -> 1.12 }) *
         (if (female) 0.87 else 1.0) * (if (build == Build.STRONG) 1.05 else if (build == Build.SLIM) 0.96 else 1.0)
-    private val hipK = (if (female) 1.16 else 1.0) * (if (race == Race.DWARF) 1.15 else 1.0) * (if (build == Build.STRONG) 1.04 else 1.0)
-    val handK = when (race) { Race.DWARF -> 1.2; Race.HALF_ORC -> 1.15; Race.HALFLING -> 1.05; Race.ELF -> 0.95; else -> 1.0 }
-    val footK = when (race) { Race.HALFLING -> 1.25; Race.DWARF -> 1.05; Race.HALF_ORC -> 1.05; Race.ELF -> 0.92; else -> 0.95 } * (if (female) 0.92 else 1.0)
+    private val hipK = (if (female) 1.16 else 1.0) * (if (race == Race.DWARF && kind == null) 1.15 else 1.0) * (if (build == Build.STRONG) 1.04 else 1.0)
+    val handK = if (goblin) 1.3 else if (kind != null) 1.0 else when (race) { Race.DWARF -> 1.2; Race.HALF_ORC -> 1.15; Race.HALFLING -> 1.05; Race.ELF -> 0.95; else -> 1.0 }
+    val footK = (if (goblin) 1.3 else if (kind != null) 0.95 else when (race) { Race.HALFLING -> 1.25; Race.DWARF -> 1.05; Race.HALF_ORC -> 1.05; Race.ELF -> 0.92; else -> 0.95 }) * (if (female) 0.92 else 1.0)
 
     val ankleY = 0.045 * height
     val hipY = legF * height
     val kneeY = ankleY + (hipY - ankleY) * 0.52
     val chinY = height - hh * 0.98
-    val shoulderY = chinY - 0.055 * height * (if (race == Race.DWARF) 0.72 else if (race == Race.HALF_ORC) 0.85 else 1.0)
+    val shoulderY = chinY - 0.055 * height * (if (goblin) 0.6 else if (kind != null) 1.0 else if (race == Race.DWARF) 0.72 else if (race == Race.HALF_ORC) 0.85 else 1.0)
     val shoulderX = 0.105 * height * shoulderK
     val hipX = 0.052 * height * hipK
     val trunk = shoulderY - hipY
-    val upperArm = 0.172 * height * (if (race == Race.DWARF) 1.05 else 1.0)
-    val foreArm = 0.155 * height * (if (race == Race.DWARF) 1.05 else 1.0)
+    private val armK = if (goblin) 1.16 else if (kind == null && race == Race.DWARF) 1.05 else 1.0
+    val upperArm = 0.172 * height * armK
+    val foreArm = 0.155 * height * armK
     val headC = P3(0.0, height - hh * 0.5, 0.0)
     val neckTop = P3(0.0, chinY + 0.01 * height, 0.0)
     /** Depth of the chest from the spine to the front, for clothes laid over it. */
     val chestDepth = 0.066 * height * girth
 
-    val skinRgb = Appearance.skins(race)[skin.mod(4)].rgb
-    val hairRgb = Appearance.hairs(race)[hairTone.mod(4)].rgb
+    val skinRgb = when (kind) {
+        // goblins: olive, mossy, sallow and dark green hides
+        Creature.GOBLIN -> intArrayOf(0x5E6838, 0x4E5C32, 0x6C683C, 0x445030)[skin.mod(4)]
+        // old bone, yellowed and stained
+        Creature.SKELETON -> intArrayOf(0xB4A684, 0xA49674, 0xBEB294, 0x968866)[skin.mod(4)]
+        null -> Appearance.skins(race)[skin.mod(4)].rgb
+    }
+    val hairRgb = if (kind != null) 0x24201C else Appearance.hairs(race)[hairTone.mod(4)].rgb
 
     // ---------------------------------------------------------------- materials
 
     private fun m(rgb: Int, shine: Double = 0.0, grain: Double = 0.0) = Mat(Ramp.of(argb(rgb)), shine, grain)
-    val skinMat = Mat(Ramp.of(argb(skinRgb), sat = 0.8), shine = 0.05, grain = 0.02)
+    val skinMat = Mat(Ramp.of(argb(skinRgb), sat = 0.8), shine = 0.05, grain = if (kind == Creature.GOBLIN) 0.14 else 0.02)
     private val footMat = skinMat.copy(bias = -0.1)
     val hairMat = m(hairRgb, shine = 0.15, grain = 0.22)
     private val shirtMat = m(0xC9BDA2, grain = 0.06)
-    private val shortsMat = m(0x7E6E58, grain = 0.06)
+    /** Short trousers; a goblin's loincloth is a grimy rag. */
+    private val shortsMat = if (goblin) m(0x4E4232, grain = 0.25) else m(0x7E6E58, grain = 0.06)
+    private val boneMat = Mat(Ramp.of(argb(skinRgb), sat = 0.7), shine = 0.1, grain = 0.32)
+    private val socketMat = m(0x1A1410)
     private val tuskMat = m(0xE8E0C8, shine = 0.3)
 
     // ---------------------------------------------------------------- the skeleton in a pose
@@ -247,6 +264,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     // ---------------------------------------------------------------- the body
 
     fun body(sk: Skeleton): List<Solid> {
+        if (bones) return boneBody(sk)
         val out = mutableListOf<Solid>()
         val h = height
         val g = girth
@@ -346,6 +364,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     }
 
     private fun head(sk: Skeleton, out: MutableList<Solid>) {
+        if (goblin) { goblinHead(sk, out); return }
         val c = headC
         val k = hh
         val hx = sk.head
@@ -405,6 +424,14 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         s.mat?.let { return it }
         val q = s.restOf(p)
         val shirtHem = hipY + 0.22 * trunk
+        if (bones) return boneMat
+        // a goblin goes bare-chested and barefoot, a rag round its loins
+        if (goblin) return when (s.part) {
+            BodyPart.HAIR -> hairMat
+            BodyPart.TUSK -> tuskMat
+            BodyPart.PELVIS -> shortsMat
+            else -> skinMat
+        }
         return when (s.part) {
             BodyPart.HAIR -> hairMat
             BodyPart.TUSK -> tuskMat
@@ -423,6 +450,13 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     /** How the groups melt into each other in this pose. */
     fun groups(sk: Skeleton): Groups {
         val g = Groups(GROUPS)
+        if (bones) {
+            // bones do not melt into each other: only a slight rounding where they meet
+            g.reach = 0.02 * height
+            for (i in 0 until GROUPS) g.set(i, 0.25)
+            g.set(TRUNK, 0.35); g.set(HEAD, 0.3)
+            return g
+        }
         g.reach = 0.09 * height
         g.set(TRUNK, 4.5); g.set(HEAD, 2.6, TRUNK, sk.head.apply(neckTop))
         g.set(LEG_L, 2.6, TRUNK, sk.hip[0]); g.set(LEG_R, 2.6, TRUNK, sk.hip[1])
@@ -438,6 +472,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
 
     /** Eyes, brows and mouth, painted where the face is visible. */
     fun face(img: DepthImage, sk: Skeleton) {
+        if (bones) { skullFace(img, sk); return }
+        if (goblin) { goblinFace(img, sk); return }
         val hx = sk.head
         fun put(p: P3, c: Int) {
             val q = hx.apply(p)
@@ -465,6 +501,203 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             line(c + P3(-0.08 * k, -0.27 * k, 0.385 * k), c + P3(0.08 * k, -0.27 * k, 0.385 * k), lip)
         }
         put(c + P3(0.05 * k, -0.15 * k, 0.43 * k), shade)
+    }
+
+    // ---------------------------------------------------------------- goblin
+
+    /**
+     * A goblin's head: a broad low skull, ears standing far out to the sides and up, a long hooked nose, a heavy brow,
+     * a wide jaw with an underbite and two small fangs. No hair but a few strands.
+     */
+    private fun goblinHead(sk: Skeleton, out: MutableList<Solid>) {
+        val c = headC
+        val k = hh
+        val hx = sk.head
+        fun place(s: Solid, key: String) { s.key = key; s.rest = hx::inverse; out += s }
+        fun ell(at: P3, r: P3, part: BodyPart = BodyPart.HEAD, key: String = "head") =
+            place(Ellipsoid(hx.apply(c + at), r, hx.frame(Frame.IDENTITY), part, HEAD), key)
+        fun cone(a: P3, b: P3, ra: Double, rb: Double, part: BodyPart = BodyPart.HEAD, group: Int = HEAD, key: String = "head") =
+            place(RoundCone(hx.apply(c + a), hx.apply(c + b), ra, rb, part, group), key)
+        val skullC = P3(0.0, 0.08 * k, -0.06 * k)
+        ell(skullC, P3(0.4 * k, 0.4 * k, 0.44 * k), key = "skull")
+        // cheeks and the wide jaw, pushed forward
+        ell(P3(0.0, -0.2 * k, 0.1 * k), P3(0.33 * k, 0.25 * k, 0.33 * k), key = "jaw")
+        ell(P3(0.0, -0.3 * k, 0.2 * k), P3(0.25 * k, 0.12 * k, 0.22 * k), key = "jaw")
+        // the brow ridge, low over the eyes
+        ell(P3(0.0, 0.07 * k, 0.32 * k), P3(0.3 * k, 0.07 * k, 0.11 * k))
+        // a long nose hooked down at the tip
+        cone(P3(0.0, 0.03 * k, 0.38 * k), P3(0.0, -0.12 * k, 0.66 * k), 0.085 * k, 0.065 * k)
+        cone(P3(0.0, -0.12 * k, 0.66 * k), P3(0.0, -0.22 * k, 0.6 * k), 0.065 * k, 0.035 * k)
+        for (s in listOf(-1.0, 1.0)) {
+            // the ears: wide at the head, out to the side and up and back to a point
+            cone(P3(s * 0.36 * k, -0.02 * k, -0.04 * k), P3(s * 0.62 * k, 0.12 * k, -0.12 * k), 0.12 * k, 0.07 * k, key = "ear")
+            cone(P3(s * 0.62 * k, 0.12 * k, -0.12 * k), P3(s * 0.98 * k, 0.32 * k, -0.22 * k), 0.07 * k, 0.012 * k, key = "ear")
+            // two lower fangs over the upper lip
+            cone(P3(s * 0.13 * k, -0.36 * k, 0.33 * k), P3(s * 0.14 * k, -0.24 * k, 0.37 * k), 0.028 * k, 0.008 * k, BodyPart.TUSK, TUSK, "tusk")
+        }
+        // a few lank strands on top of the skull
+        place(RoundCone(hx.apply(c + P3(0.0, 0.42 * k, -0.1 * k)), hx.apply(c + P3(0.06 * k, 0.3 * k, -0.42 * k)), 0.1 * k, 0.03 * k, BodyPart.HAIR, HAIR), "hair")
+    }
+
+    /** Small yellow eyes under the brow, a wide grim mouth. */
+    private fun goblinFace(img: DepthImage, sk: Skeleton) {
+        val hx = sk.head
+        fun put(p: P3, col: Int) {
+            val q = hx.apply(p)
+            if (!img.visible(q, 0.05 * hh + 0.8)) return
+            val (x, y, _) = img.project(q)
+            img.img.set(x.toInt(), y.toInt(), col)
+        }
+        fun line(a: P3, b: P3, col: Int) { val n = 2 + (img.px * (b - a).len()).toInt() * 2; for (i in 0..n) put(a.lerp(b, i.toDouble() / n), col) }
+        val k = hh; val c = headC
+        val shade = mix(argb(skinRgb), argb(0x1A1A0E), 0.55)
+        for (sd in listOf(-1.0, 1.0)) {
+            // deep-set under the brow: a shadow, then a narrow yellow eye with a dark slit
+            line(c + P3(sd * 0.07 * k, 0.03 * k, 0.4 * k), c + P3(sd * 0.27 * k, 0.04 * k, 0.32 * k), shade)
+            line(c + P3(sd * 0.1 * k, -0.01 * k, 0.39 * k), c + P3(sd * 0.22 * k, 0.0, 0.35 * k), argb(0xE8B828))
+            put(c + P3(sd * 0.15 * k, -0.01 * k, 0.38 * k), argb(0x1A0C04))
+        }
+        line(c + P3(-0.2 * k, -0.3 * k, 0.36 * k), c + P3(0.2 * k, -0.3 * k, 0.36 * k), argb(0x2A1810))
+    }
+
+    // ---------------------------------------------------------------- skeleton
+
+    /**
+     * Bare bones on the same joints: a skull with its jaw, the spine, a cage of ribs bowed round from the spine to
+     * the breastbone, collarbones and shoulder blades, the pelvis, and the long bones of arms and legs with knobs at
+     * their ends. Bones are drawn somewhat thicker than real ones, so they read at a few pixels.
+     */
+    private fun boneBody(sk: Skeleton): List<Solid> {
+        val out = mutableListOf<Solid>()
+        val h = height
+        val b = 0.009 * h
+        fun cone(a: P3, e: P3, ra: Double, rb: Double, part: BodyPart, group: Int, key: String) = RoundCone(a, e, ra, rb, part, group).also { it.key = key; out += it }
+        fun ell(c: P3, r: P3, part: BodyPart, group: Int, key: String, f: Frame = Frame.IDENTITY) = Ellipsoid(c, r, f, part, group).also { it.key = key; out += it }
+        fun up(c: P3) = sk.upper.apply(c)
+        fun low(c: P3) = sk.lower.apply(c)
+        fun upEll(c: P3, r: P3, key: String, part: BodyPart = BodyPart.TORSO) =
+            Ellipsoid(up(c), r, sk.upper.frame(Frame.IDENTITY), part, TRUNK).also { it.key = key; it.rest = sk.upper::inverse; out += it }
+        val depth = 0.06 * h
+        val ribX = 0.72 * shoulderX
+        // the spine, from the pelvis up to the skull: a row of knobs
+        val spineN = 12
+        for (i in 0..spineN) {
+            val t = i.toDouble() / spineN
+            val y = hipY + 0.05 * trunk + t * (chinY + 0.02 * h - hipY - 0.05 * trunk)
+            val z = -depth * (0.55 + 0.25 * kotlin.math.sin(t * Math.PI))
+            upEll(P3(0.0, y, z), P3(b * 1.25, b * 0.8, b * 1.15), if (t > 0.85) "neck" else "torso", if (t > 0.85) BodyPart.NECK else BodyPart.TORSO)
+        }
+        // the ribs: each bowed round from the spine, out to the side and in to the breastbone, the lower ones shorter
+        val ribs = 7
+        for (j in 0 until ribs) {
+            val t = j.toDouble() / (ribs - 1)
+            val y = shoulderY - 0.1 * trunk - t * 0.42 * trunk
+            val wide = ribX * (0.78 + 0.3 * kotlin.math.sin((t * 0.8 + 0.15) * Math.PI))
+            val front = depth * (0.95 - 0.25 * t)
+            for (s in listOf(-1.0, 1.0)) {
+                val pts = listOf(
+                    P3(s * 0.02 * h, y + 0.012 * h, -depth * 0.7), P3(s * wide * 0.75, y + 0.01 * h, -depth * 0.6),
+                    P3(s * wide, y - 0.005 * h, 0.0), P3(s * wide * 0.8, y - 0.025 * h, front * 0.7),
+                    P3(s * wide * 0.3 * (1 - t * 0.5), y - 0.035 * h, front),
+                )
+                for (q in 0 until pts.size - 1) cone(up(pts[q]), up(pts[q + 1]), b * 0.75, b * 0.7, BodyPart.TORSO, TRUNK, "torso").also { it.rest = sk.upper::inverse }
+            }
+        }
+        // the breastbone, the collarbones and the shoulder blades
+        cone(up(P3(0.0, shoulderY - 0.07 * trunk, depth * 0.98)), up(P3(0.0, shoulderY - 0.52 * trunk, depth * 0.85)), b * 1.2, b * 0.9, BodyPart.TORSO, TRUNK, "torso").also { it.rest = sk.upper::inverse }
+        for (i in 0..1) {
+            val s = sk.side(i)
+            cone(up(P3(s * 0.02 * h, shoulderY - 0.04 * trunk, depth * 0.95)), sk.shoulder[i] + sk.upper.dir(P3(0.0, 0.006 * h, 0.01 * h)), b, b * 0.9, BodyPart.TORSO, TRUNK, "torso")
+            upEll(P3(s * 0.5 * shoulderX, shoulderY - 0.17 * trunk, -depth * 0.85), P3(0.22 * shoulderX, 0.17 * trunk, b * 0.7), "torso")
+        }
+        // the pelvis: two wings of the hip bones and the sacrum, the hip joints below them
+        for (s in listOf(-1.0, 1.0))
+            Ellipsoid(low(P3(s * 0.85 * hipX, hipY + 0.11 * trunk, -0.01 * h)), P3(0.75 * hipX, 0.12 * trunk, b * 1.4), Frame(P3(1.0, 0.0, s * 0.5).norm(), P3.Y, P3(-s * 0.5, 0.0, 1.0).norm()), BodyPart.PELVIS, TRUNK)
+                .also { it.key = "pelvis"; it.rest = sk.lower::inverse; out += it }
+        Ellipsoid(low(P3(0.0, hipY + 0.06 * trunk, -0.03 * h)), P3(0.5 * hipX, 0.11 * trunk, b * 1.6), Frame.IDENTITY, BodyPart.PELVIS, TRUNK).also { it.key = "pelvis"; it.rest = sk.lower::inverse; out += it }
+        Ellipsoid(low(P3(0.0, hipY - 0.01 * trunk, 0.025 * h)), P3(0.7 * hipX, 0.035 * trunk, b * 1.2), Frame.IDENTITY, BodyPart.PELVIS, TRUNK).also { it.key = "pelvis"; it.rest = sk.lower::inverse; out += it }
+        // arms: the upper arm bone, the two of the forearm side by side, a small hand of bones
+        for (i in 0..1) {
+            val grp = if (i == 0) ARM_L else ARM_R
+            val sh = sk.shoulder[i]; val el = sk.elbow[i]; val wr = sk.wrist[i]
+            ell(sh, P3(b * 1.9, b * 1.9, b * 1.9), BodyPart.ARM, grp, "delt$i")
+            cone(sh, el, b * 1.2, b * 1.05, BodyPart.ARM, grp, "upper$i")
+            ell(el, P3(b * 1.5, b * 1.5, b * 1.5), BodyPart.ARM, grp, "upper$i")
+            val dir = (wr - el).norm()
+            val across = (dir cross sk.thumb(i)).norm()
+            for (q in listOf(-1.0, 1.0)) cone(el + across * (q * b * 0.6), wr + across * (q * b * 0.9), b * 0.75, b * 0.7, BodyPart.ARM, grp, "fore$i")
+            val hf = Frame.along(dir, sk.thumb(i))
+            ell(wr + dir * (0.022 * h), P3(0.02 * h, 0.024 * h, b * 0.9), BodyPart.HAND, grp, "hand$i", hf)
+            for (f in -1..2) cone(wr + dir * (0.035 * h) + across * (f * b * 0.9), wr + dir * (0.07 * h) + across * (f * b * 0.8) + sk.thumb(i) * (-0.01 * h), b * 0.45, b * 0.35, BodyPart.HAND, grp, "hand$i")
+        }
+        // legs: thigh bone, kneecap, the two shin bones, the bones of the foot
+        for (i in 0..1) {
+            val s = sk.side(i)
+            val lg = if (i == 0) LEG_L else LEG_R
+            val hip = sk.hip[i]; val knee = sk.knee[i]; val ankle = sk.ankle[i]
+            ell(hip, P3(b * 1.8, b * 1.8, b * 1.8), BodyPart.THIGH, lg, "thigh$i")
+            cone(hip, knee, b * 1.4, b * 1.2, BodyPart.THIGH, lg, "thigh$i")
+            val shinDir = (ankle - knee).norm()
+            val front = (shinDir cross P3.X).let { if (it.z < 0) -it else it }.norm()
+            ell(knee + front * (b * 1.2), P3(b * 1.5, b * 1.6, b * 1.1), BodyPart.SHIN, lg, "knee$i", Frame.along(shinDir))
+            ell(knee, P3(b * 1.7, b * 1.4, b * 1.6), BodyPart.SHIN, lg, "knee$i")
+            cone(knee, ankle, b * 1.15, b * 0.95, BodyPart.SHIN, lg, "shin$i")
+            cone(knee + P3(s * b * 1.4, 0.0, -b), ankle + P3(s * b * 1.2, 0.0, -b * 0.5), b * 0.6, b * 0.55, BodyPart.SHIN, lg, "shin$i")
+            val fw = P3(s * 0.08, 0.0, 1.0).norm()
+            val heel = ankle + P3(0.0, -0.026 * h, 0.0) - fw * (0.012 * h)
+            ell(ankle, P3(b * 1.4, b * 1.3, b * 1.4), BodyPart.FOOT, lg, "foot$i")
+            cone(heel, ankle + P3(0.0, -0.03 * h, 0.0) + fw * (0.05 * h), b * 1.2, b, BodyPart.FOOT, lg, "foot$i")
+            for (f in -1..1) cone(ankle + P3(f * b * 1.1, -0.03 * h, 0.0) + fw * (0.05 * h), ankle + P3(f * b * 1.6, -0.038 * h, 0.0) + fw * (0.1 * h), b * 0.55, b * 0.45, BodyPart.FOOT, lg, "foot$i")
+        }
+        skull(sk, out)
+        return out
+    }
+
+    /** The skull: the brain case, cheekbones, the upper jaw and the lower one hanging a little open. */
+    private fun skull(sk: Skeleton, out: MutableList<Solid>) {
+        val c = headC
+        val k = hh
+        val hx = sk.head
+        fun place(s: Solid, key: String) { s.key = key; s.rest = hx::inverse; out += s }
+        fun ell(at: P3, r: P3, key: String = "head") = place(Ellipsoid(hx.apply(c + at), r, hx.frame(Frame.IDENTITY), BodyPart.HEAD, HEAD), key)
+        ell(P3(0.0, 0.08 * k, -0.04 * k), P3(0.33 * k, 0.42 * k, 0.43 * k), "skull")
+        // the face narrows below the eyes: cheekbones, the upper jaw with its teeth
+        for (s in listOf(-1.0, 1.0)) ell(P3(s * 0.22 * k, -0.1 * k, 0.22 * k), P3(0.1 * k, 0.08 * k, 0.12 * k))
+        ell(P3(0.0, -0.2 * k, 0.24 * k), P3(0.2 * k, 0.12 * k, 0.16 * k))
+        // the lower jaw, a little open
+        place(RoundCone(hx.apply(c + P3(0.0, -0.38 * k, 0.24 * k)), hx.apply(c + P3(0.0, -0.3 * k, 0.05 * k)), 0.12 * k, 0.17 * k, BodyPart.HEAD, HEAD), "jaw")
+        for (s in listOf(-1.0, 1.0)) place(RoundCone(hx.apply(c + P3(s * 0.22 * k, -0.28 * k, 0.02 * k)), hx.apply(c + P3(s * 0.24 * k, -0.05 * k, -0.04 * k)), 0.05 * k, 0.04 * k, BodyPart.HEAD, HEAD), "jaw")
+    }
+
+    /** Deep dark sockets, the hole of the nose, and the teeth in both jaws. */
+    private fun skullFace(img: DepthImage, sk: Skeleton) {
+        val hx = sk.head
+        fun put(p: P3, col: Int) {
+            val q = hx.apply(p)
+            if (!img.visible(q, 0.06 * hh + 0.8)) return
+            val (x, y, _) = img.project(q)
+            img.img.set(x.toInt(), y.toInt(), col)
+        }
+        val k = hh; val c = headC
+        val dark = argb(0x140E0A)
+        // the sockets: a disc of darkness each, a faint ember deep inside
+        for (sd in listOf(-1.0, 1.0)) {
+            val e = c + P3(sd * 0.14 * k, 0.0, 0.38 * k)
+            val n = 6
+            for (yy in -n..n) for (xx in -n..n) {
+                val dx = xx / n.toDouble(); val dy = yy / n.toDouble()
+                if (dx * dx + dy * dy <= 1.0) put(e + P3(dx * 0.1 * k, dy * 0.09 * k, -0.02 * k * (1 - dx * dx - dy * dy)), dark)
+            }
+            put(e + P3(0.0, 0.0, -0.02 * k), argb(0x8A2A14))
+        }
+        // the nose: a dark notch
+        for (t in 0..4) put(c + P3((t % 2 - 0.5) * 0.03 * k, -0.11 * k - t * 0.012 * k, 0.4 * k), dark)
+        // teeth: a row of light and dark between the jaws
+        for (t in -4..4) {
+            val x = t * 0.035 * k
+            put(c + P3(x, -0.29 * k, 0.37 * k), if (t % 2 == 0) argb(0x3A3026) else argb(0xE6DCC2))
+            put(c + P3(x, -0.33 * k, 0.35 * k), if (t % 2 != 0) argb(0x3A3026) else argb(0xDCD2B8))
+        }
     }
 
     // ---------------------------------------------------------------- rendering

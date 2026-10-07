@@ -91,11 +91,13 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     }
 
     fun solids(): List<Solid> {
-        clothes()
+        // creatures bring their own: a goblin's rag, a skeleton's bare bones
+        if (d.kind == null) clothes()
         armour()
         arms()
-        legs()
-        belt()
+        // a creature goes barefoot and beltless unless it wears something there
+        if (d.kind == null || o.items[GearSlot.LEGS] != null) legs()
+        if (d.kind == null || chest != null) belt()
         cloak()
         headgear()
         offHand()

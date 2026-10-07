@@ -1316,3 +1316,92 @@ fun renderMapShields() {
     }
     ImageIO.write(out, "png", File("build/screens/map_shields.png"))
 }
+
+/** Draft: goblin and skeleton on the hero's doll, bare and armed, from several sides, a human beside them for size. */
+fun renderFoeDrafts() {
+    val HF = de.bornim.core.art.HeroFigure
+    var uid = 1L
+    fun g(base: String) = de.bornim.core.Gear(uid++, base, de.bornim.core.Rarity.COMMON, 1)
+    val W = 150; val H = 230; val px = 0.9
+    val rest = HF.sequence(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, de.bornim.core.art.HeroFigure.Stance.MELEE)[0]
+    // a goblin stoops, knees bent, head pushed forward
+    val stoop = rest.copy(lean = 0.42, crouch = 4.5, headDown = -2.5)
+    val yaws = listOf(-30.0, 0.0, -90.0, 160.0)
+    val G = de.bornim.core.art.Doll.Creature.GOBLIN; val S = de.bornim.core.art.Doll.Creature.SKELETON
+    val gob = { sex: de.bornim.core.Sex, skin: Int -> de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, sex, de.bornim.core.Build.AVERAGE, skin, 0, G) }
+    val skel = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 0, 0, S)
+    val human = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 0)
+    val gobKit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.ROGUE, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("scimitar"), de.bornim.core.GearSlot.CHEST to g("leather")))
+    val skelKit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("shortsword")))
+    val heroKit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("longsword"), de.bornim.core.GearSlot.CHEST to g("chain_shirt"), de.bornim.core.GearSlot.OFF_HAND to g("shield")))
+    data class Cell(val doll: de.bornim.core.art.Doll, val rig: de.bornim.core.art.HeroFigure.Rig, val kit: de.bornim.core.art.Outfit?)
+    val rows = listOf(
+        yaws.map { Cell(gob(de.bornim.core.Sex.MALE, 0), stoop.copy(yaw = it), null) },
+        yaws.map { Cell(gob(de.bornim.core.Sex.MALE, 1), stoop.copy(yaw = it), gobKit) },
+        yaws.map { Cell(skel, rest.copy(yaw = it), null) },
+        yaws.map { Cell(skel, rest.copy(yaw = it), skelKit) },
+    )
+    val cols = yaws.size + 1
+    val out = BufferedImage(W * cols, H * rows.size, BufferedImage.TYPE_INT_RGB)
+    val gg = out.createGraphics(); gg.color = java.awt.Color(0x3C3A36); gg.fillRect(0, 0, out.width, out.height)
+    fun put(im: de.bornim.core.art.PixelImage, ox: Int, oy: Int) { for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(ox + x, oy + y, q) } }
+    for ((r, row) in rows.withIndex()) {
+        for ((c, cell) in row.withIndex()) put(cell.doll.render(W, H, W / 2.0, H - 6.0, px, cell.rig, cell.kit).img, c * W, r * H)
+        // the hero for size, turned towards them
+        put(human.render(W, H, W / 2.0, H - 6.0, px, rest.copy(yaw = 30.0), heroKit).img, yaws.size * W, r * H)
+    }
+    ImageIO.write(out, "png", File("build/screens/foe_drafts.png"))
+    println("wrote foe drafts")
+}
+
+/** Draft in place: goblin and skeleton where the foe stands, in the forest and the cave, the hero in front; the wolf for comparison. */
+fun renderFoeInScene() {
+    val HF = de.bornim.core.art.HeroFigure
+    val B = de.bornim.core.art.HeroBattle
+    val BS = de.bornim.core.art.BattleScene
+    var uid = 1L
+    fun g(base: String) = de.bornim.core.Gear(uid++, base, de.bornim.core.Rarity.COMMON, 1)
+    val sw = 270; val sh = 410
+    val hero = de.bornim.core.Hero.create("Borin", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER)
+    val heroImg = B.frame(hero, de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, 0)
+    val rest = HF.sequence(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, de.bornim.core.art.HeroFigure.Stance.MELEE)[0]
+    val stoop = rest.copy(lean = 0.42, crouch = 4.5, headDown = -2.5)
+    val gob = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 0, de.bornim.core.art.Doll.Creature.GOBLIN)
+    val skel = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 0, 0, de.bornim.core.art.Doll.Creature.SKELETON)
+    val gobKit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.ROGUE, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("scimitar"), de.bornim.core.GearSlot.CHEST to g("leather")))
+    val skelKit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g("shortsword")))
+    // the foe stands further off than the hero: a little smaller per centimetre
+    val foePx = 0.66
+    val fw = 150; val fh = 200
+    // turned to face the hero, down at the left
+    val gobImg = gob.render(fw, fh, fw / 2.0, fh - 6.0, foePx, stoop.copy(yaw = -35.0), gobKit).img
+    val skelImg = skel.render(fw, fh, fw / 2.0, fh - 6.0, foePx, rest.copy(yaw = -35.0), skelKit).img
+    val wolfImg = de.bornim.core.art.MonsterArt.battleFrame("wolf", de.bornim.core.MonsterLook(3), de.bornim.core.art.Act.IDLE, 0, 0)
+    val forest = BS.forest(sw, sh, de.bornim.core.art.BattleScene.Spot.entries[0], de.bornim.core.art.BattleScene.Light.DAY, false, 7)
+    val CS = de.bornim.core.art.CaveScene
+    val cave = CS.cave(sw, sh, de.bornim.core.art.CaveScene.Spot.HALL, de.bornim.core.art.CaveScene.Light.TORCH, 7)
+    val tint = CS.tint(de.bornim.core.art.CaveScene.Spot.HALL, de.bornim.core.art.CaveScene.Light.TORCH)
+    fun shade(c: Int, t: Int?): Int {
+        if (t == null) return c
+        val r = ((c shr 16) and 255) * ((t shr 16) and 255) / 255; val gg = ((c shr 8) and 255) * ((t shr 8) and 255) / 255; val b = (c and 255) * (t and 255) / 255
+        return (c and 0xFF000000.toInt()) or (r shl 16) or (gg shl 8) or b
+    }
+    val k = 2
+    val panels = listOf(Triple(forest, gobImg, null as Int?), Triple(cave, skelImg, tint), Triple(forest, wolfImg, null as Int?))
+    val out = BufferedImage((sw * panels.size + 10 * (panels.size - 1)) * k, sh * k, BufferedImage.TYPE_INT_RGB)
+    for ((pi, pan) in panels.withIndex()) {
+        val (bg, foe, t) = pan
+        val canvas = IntArray(sw * sh) { bg.pixels[it] }
+        fun blit(im: de.bornim.core.art.PixelImage, ox: Int, oy: Int, tt: Int?) {
+            for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; val X = ox + x; val Y = oy + y
+                if ((q ushr 24) >= 128 && X in 0 until sw && Y in 0 until sh) canvas[Y * sw + X] = shade(q, tt) }
+        }
+        val isWolf = foe === wolfImg
+        val feet = if (isWolf) de.bornim.core.art.MonsterArt.groundLine("wolf").toInt() else fh - 6
+        blit(foe, (sw * BS.FOE_X).toInt() - foe.width / 2, (sh * BS.FOE_Y).toInt() - feet, t)
+        blit(heroImg, (sw * BS.HERO_X - B.ANCHOR_X).toInt(), (sh * BS.HERO_Y - B.GROUND).toInt(), t)
+        for (y in 0 until sh * k) for (x in 0 until sw * k) out.setRGB(pi * (sw + 10) * k + x, y, canvas[(y / k) * sw + x / k] and 0xFFFFFF)
+    }
+    ImageIO.write(out, "png", File("build/screens/foe_in_scene.png"))
+    println("wrote foe in scene")
+}
