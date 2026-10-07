@@ -186,19 +186,23 @@ object HeroBattle {
      * ambush), the rest, then blows, spells, blocks, being hit and the victory. Call it off the main thread; it stops
      * early when [cancelled] says so.
      */
-    fun prepare(hero: Hero, foeId: String, ambushed: Boolean, victoryPick: Int = 0, wounds: Int = 0, cancelled: () -> Boolean = { false }) {
+    fun prepare(hero: Hero, foeId: String, ambushed: Boolean, victoryPick: Int = 0, wounds: Int = 0,
+        first: Triple<Act, Strike, Int>? = null, cancelled: () -> Boolean = { false }) {
         val plan = mutableListOf<Triple<Act, Strike, Int>>()
+        // what the hero is doing right now (a guard held while struck) is drawn with the new wounds before all else
+        first?.let { plan += it }
         if (ambushed) plan += Triple(Act.AMBUSHED, Strike.SLASH, 0)
         else { plan += Triple(Act.INTRO, Strike.SLASH, 0); plan += Triple(Act.TURN, Strike.SLASH, 0) }
         plan += Triple(Act.IDLE, Strike.SLASH, 0)
-        for (s in strikes(hero)) { plan += Triple(Act.ATTACK, s, 0); if (!cancelled()) tip(hero, s) }
-        plan += Triple(Act.HURT, Strike.SLASH, 0)
+        // the guard and being hit early: they come with the foe's first blow, and a guard must not drop for want of frames
         plan += Triple(Act.BLOCK, Strike.SLASH, blockVariant(hero, foeId))
+        plan += Triple(Act.HURT, Strike.SLASH, 0)
+        for (s in strikes(hero)) { plan += Triple(Act.ATTACK, s, 0); if (!cancelled()) tip(hero, s) }
         plan += Triple(Act.CAST, Strike.CAST, castVariant(hero))
         plan += Triple(Act.THROW, Strike.CAST, throwVariant(hero))
         if (!cancelled()) { launch(hero, Act.CAST, castVariant(hero)); launch(hero, Act.THROW, throwVariant(hero)); if (hero.weapon?.def?.ranged == true) launch(hero, Act.ATTACK, 0) }
         plan += Triple(Act.VICTORY, Strike.SLASH, variant(hero, Act.VICTORY, foeId, victoryPick))
-        for ((act, strike, v) in plan) for (i in 0 until frameCount(hero, act, strike, v)) {
+        for ((act, strike, v) in plan.distinct()) for (i in 0 until frameCount(hero, act, strike, v)) {
             if (cancelled()) return
             frame(hero, act, strike, v, i, wounds)
         }

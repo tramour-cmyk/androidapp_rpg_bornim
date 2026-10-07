@@ -110,10 +110,14 @@ private class BattleUi(val battle: Battle) {
         fun index(now: Long): Int {
             val el = (now - start).toDouble()
             if (el <= 0) return from
-            val fast = (minOf(slowFrom, to + 1) - from).coerceAtLeast(0)
-            val slow = (to + 1 - maxOf(slowFrom, from)).coerceAtLeast(0)
+            // played through: the last frame (a held guard or wind-up stays there)
+            if (el >= ms) return to
+            // the slow part starts at [slowFrom], or never (then past the end: no overflow from Int.MAX_VALUE)
+            val slowStart = slowFrom.coerceIn(from, to + 1)
+            val fast = slowStart - from
+            val slow = to + 1 - slowStart
             val per = ms / (fast + slow * slowK)
-            val i = if (el < fast * per) from + (el / per).toInt() else maxOf(slowFrom, from) + ((el - fast * per) / (per * slowK)).toInt()
+            val i = if (el < fast * per) from + (el / per).toInt() else slowStart + ((el - fast * per) / (per * slowK)).toInt()
             return i.coerceIn(from, to)
         }
     }
@@ -725,7 +729,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             LaunchedEffect(battle, heroWound) {
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
                     val job = coroutineContext[kotlinx.coroutines.Job]
-                    HeroBattle.prepare(battle.hero, battle.monster.id, battle.opening == de.bornim.core.Opening.AMBUSHED, ui.victoryPick, heroWound) { job?.isActive == false }
+                    HeroBattle.prepare(battle.hero, battle.monster.id, battle.opening == de.bornim.core.Opening.AMBUSHED, ui.victoryPick, heroWound,
+                        ui.motion?.takeIf { it.hold }?.let { Triple(it.act, it.strike, it.variant) }) { job?.isActive == false }
                 }
             }
             val doll = heroDollFrame(ui, clockMs, heroWound)
@@ -1172,6 +1177,8 @@ private fun heroDollFrame(ui: BattleUi, clockMs: Long, wounds: Int): Pair<de.bor
             // how far the blow has stepped in, by the frame it has reached
             val lunge = if (m.act == HeroFigure.Act.ATTACK) HeroBattle.lungeAt(hero, m.strike, i) else 0.0
             for (k in i downTo m.from) HeroBattle.ready(hero, m.act, m.strike, m.variant, k, wounds)?.let { return it to lunge }
+            // a held pose (a guard, a wind-up) never falls back to the rest: drawn now if no frame of it is kept
+            if (m.hold && now >= m.start) return HeroBattle.frame(hero, m.act, m.strike, m.variant, i, wounds) to lunge
         }
     }
     val idle = (clockMs / 110).toInt()

@@ -10,6 +10,7 @@ Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistori
 - Bessere Grafik: echte Formen, Licht und Schatten, glaubwürdige Proportionen (Körpermaße, Waffengrößen nach realen Vorbildern).
 - Bessere Übergänge: keine Sprünge zwischen Haltungen, Bewegungen gehen fließend ineinander über.
 - Licht kommt von sichtbaren Quellen (Sonne, Mond, Fackeln, Feuer, Pilze, Fenster). Dunkelheit ist erlaubt.
+- **Monster sind düster und gefährlich:** böse Mäuler, große Zähne und Klauen, Narben, glühende oder tote Augen, zerfetzte Kleidung. Nie niedlich, nie knuffig.
 - Blut und Wunden gehören dazu, abgestuft über die Menüeinstellung „Blut bei Treffern“ (Aus, Dezent, Deutlich), für Held und Gegner gleich.
 
 ## Abwechslung: mindestens drei Varianten
@@ -20,6 +21,7 @@ Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistori
 - **Kein Gegner verschwindet einfach:** Jede Gegnerart bekommt eigene Sterbeanimationen (mindestens drei), erst danach blendet sie aus. Ein tödlicher kritischer Treffer bekommt einen eigenen Killerschlag (siehe Liste [Offen](OFFEN.md) unter „Geplant“).
 - **Größe und Körperbau variieren** im Rahmen des SRD, zum Beispiel Goblins 98–118 cm (Small), Skelette 160–185 cm, dazu schlank, normal oder kräftig. Größe, Körperbau, Ausrüstung und Hautton werden unabhängig voneinander gewählt.
 - Die Variante wird beim Kampfbeginn aus dem Erscheinungsbild-Zufall des Gegners gewählt und bleibt für diesen Gegner im ganzen Kampf gleich.
+- **Ausnahme einmalige Monster:** Bosse und andere einzigartige Monster (etwa Krogg, Grak, Grimmzahn) erscheinen nur in einer Form, ohne Varianten in Aussehen und Ausrüstung, damit man sie wiedererkennt; ihre Bewegungen haben trotzdem je drei Varianten.
 - Gilt für alle künftigen Gegner, Tiere, Begleiter und Figuren.
 
 ## Ausrüstung der Gegner
@@ -35,6 +37,8 @@ Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistori
 - Jede Bewegung wird als Bildfolge angesehen, nicht nur ein Standbild: Ausholen, Treffer, Rückweg, Übergänge.
 - Jeder Angriff ist sichtbar, auch ein Fehlschlag: Geschosse fliegen vorbei, Flammen schlagen neben dem Ziel ein.
 - Umgang mit Waffen muss stimmen: Griff, Abstützen, Rückstoß, Haltung in Ruhe.
+- **Kampfabläufe selbst durchspielen**, eigenverantwortlich und genau, bei jedem neuen Monster und jeder Änderung an Kampf oder Bewegung: Passt die Haltung zu jeder Meldung (Angriff, Treffer, Verfehlen, Abwehr, Konter, Zauber, Wurf, Sturz)? Wird keine Bewegung unterbrochen, doppelt gespielt oder fällt zu früh in die Ruhe zurück? Bleiben gehaltene Haltungen (Ausholen, Abwehr, Zauber sammeln) stehen, bis die nächste Meldung sie auflöst?
+  - Nicht nur die Logik lesen, sondern durch die echte Oberfläche filmen und die Bildfolge ansehen: Vorschau `FILM=klasse:gegner FILMTAPS=SFASSS` (S Szene/Weiter, F Kampf, A Angriff, D Abwehr) legt in Echtzeit alle 80 ms ein Bild ab. Mehrere Klassen und Waffen, mit und ohne Abwehr.
 
 ## Klang
 

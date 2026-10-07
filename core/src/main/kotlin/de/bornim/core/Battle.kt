@@ -235,6 +235,7 @@ class Battle(
         check(outcome == Outcome.ONGOING) { "Battle is over" }
         // the stance lasts until the start of the hero's next turn
         defending = false
+        counterNamed = false
         val tookTurn = when (action) {
             Action.Defend -> { defending = true; say(Msg.defends.f(lang, name), Anim.DEFEND); true }
             Action.Attack -> { attackAction(advantage = 0); true }
@@ -257,12 +258,14 @@ class Battle(
     }
 
     private fun weaponAttack(advantage: Int, w: Gear?, offHand: Boolean) {
+        // the counter is named before the blow, so wind-up and blow follow each other without a message between
+        val counterMode = takeCounter()
         say(Msg.attacksWith.f(lang, name, w?.name(lang) ?: Msg.fists(lang)), Anim.HERO_ACT)
         if (monster.special == MonsterSpecial.EVASIVE && w?.def?.ranged != true && dice.chance(0.2)) {
             say(Msg.flutters.f(lang, foe), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false))
             return
         }
-        var mode = advantage + takeCounter()
+        var mode = advantage + counterMode
         if (heroProne) {
             mode -= 1
             heroProne = false
@@ -308,10 +311,20 @@ class Battle(
 
     /** Uses up a waiting counter: +1 to the attack's advantage, once. */
     private fun takeCounter(): Int {
+        if (counterNamed) { counterNamed = false; return 1 }
         if (!counter) return 0
         counter = false
         say(Msg.counterStrike.f(lang, name))
         return 1
+    }
+
+    /** A counter named before the spell is cast, so the spell gathers and is let go without a message between. */
+    private var counterNamed = false
+    private fun nameCounter() {
+        if (!counter) return
+        counter = false
+        counterNamed = true
+        say(Msg.counterStrike.f(lang, name))
     }
 
     /** A foe's attack on the defending hero has disadvantage, on top of anything else. */
@@ -345,6 +358,7 @@ class Battle(
             else -> {}
         }
         if (skill == Skill.FIREBALL) fireballUsed = true
+        if (skill == Skill.FIRE_BOLT || skill == Skill.SCORCHING_RAY) nameCounter()
         say(Msg.uses.f(lang, name, skill.title(lang)), Anim.SPELL)
         when (skill) {
             Skill.SECOND_WIND -> healHero(dice.roll(1, 10) + hero.level)

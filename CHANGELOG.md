@@ -2,6 +2,15 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
+## Unveröffentlicht
+
+**Behoben – gehaltene Haltungen fielen in die Ruhe zurück**
+- Ausholen, Abwehr, Zauber sammeln und Wurf bleiben jetzt stehen, bis die nächste Meldung sie auflöst. Seit den ruhigeren Bewegungen sprang die Figur nach dem Ende einer Bewegung durch einen Rechenfehler (Zahlenüberlauf) aufs erste Bild zurück, also in die Ruhe: Der Held holte aus, stand wieder ruhig da und schlug erst mit der nächsten Meldung zu; die Abwehr sank vor dem Zug des Gegners. Mit der echten Oberfläche in Echtzeit nachgefilmt (Kleriker, Kämpfer, Magier, Schurke; Angriff und Abwehr).
+- Zusätzlich werden Abwehr und Treffer nach einer Verwundung früher neu gezeichnet, und eine gehaltene Haltung fällt auch dann nicht in die Ruhe, wenn ihr Bild noch fehlt.
+
+**Behoben – Konter wirkte wie zwei Angriffe**
+- „… nutzt die Lücke!“ kam zwischen Ausholen und Schlag. Jetzt kommt die Ansage zuerst, dann Ausholen und Schlag in einem Zug. Ebenso bei Feuerpfeil und Sengenden Strahlen.
+
 ## v0.1.159 – 07.10.2026, 20:45
 
 **Behoben**
