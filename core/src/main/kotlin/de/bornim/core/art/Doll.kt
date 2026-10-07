@@ -118,6 +118,9 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     private val rotDark = m(0x3A2A24, grain = 0.3)
     /** A bugbear's dark wet nose, and the hide round its loins. */
     private val noseMat = m(0x1E1612, shine = 0.5)
+    /** The inside of an open maw, wet and dark red; old bone showing through torn flesh. */
+    private val mawMat = m(0x3A0C0C, shine = 0.6)
+    private val boneShow = m(0xC8BCA0, shine = 0.2, grain = 0.3)
     private val hideMat = m(0x3A2A1E, grain = 0.45)
     /** A hobgoblin's soldierly underclothes: a dark red quilted coat, dark breeches, black boots. */
     private val coatMat = m(0x5A2622, grain = 0.2)
@@ -456,7 +459,17 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         val skull = P3(0.34 * k * wide, 0.46 * k, 0.43 * k)
         val skullC = P3(0.0, 0.06 * k, -0.03 * k)
         ell(skullC, skull, key = "skull")
-        ell(P3(0.0, -0.2 * k, 0.08 * k), P3(0.27 * k * jaw, 0.27 * k, 0.32 * k), key = "jaw")
+        if (zombie) {
+            // the jaw hangs slack and open on broken teeth; the flesh of one cheek is gone to the bone
+            ell(P3(0.0, -0.13 * k, 0.08 * k), P3(0.26 * k, 0.2 * k, 0.3 * k), key = "jaw")
+            ell(P3(0.0, -0.38 * k, 0.06 * k), P3(0.21 * k, 0.11 * k, 0.27 * k), key = "jaw")
+            place(Ellipsoid(hx.apply(c + P3(0.0, -0.27 * k, 0.16 * k)), P3(0.15 * k, 0.1 * k, 0.2 * k), hx.frame(Frame.IDENTITY), BodyPart.HEAD, HEAD).also { it.mat = mawMat }, "head")
+            for (t in -2..2) if (t != 1) {
+                place(RoundCone(hx.apply(c + P3(t * 0.045 * k, -0.2 * k, 0.33 * k)), hx.apply(c + P3(t * 0.045 * k, -0.27 * k + 0.02 * k * (t % 2), 0.34 * k)), 0.022 * k, 0.012 * k, BodyPart.TUSK, TUSK), "tusk")
+                place(RoundCone(hx.apply(c + P3(t * 0.04 * k, -0.4 * k, 0.29 * k)), hx.apply(c + P3(t * 0.04 * k, -0.33 * k, 0.31 * k)), 0.02 * k, 0.01 * k, BodyPart.TUSK, TUSK), "tusk")
+            }
+            place(Ellipsoid(hx.apply(c + P3(0.2 * k, -0.15 * k, 0.24 * k)), P3(0.09 * k, 0.12 * k, 0.07 * k), hx.frame(Frame.IDENTITY), BodyPart.HEAD, HEAD).also { it.mat = boneShow }, "head")
+        } else ell(P3(0.0, -0.2 * k, 0.08 * k), P3(0.27 * k * jaw, 0.27 * k, 0.32 * k), key = "jaw")
         val nose = when (race) { Race.DWARF -> P3(0.075, 0.14, 0.1); Race.HALF_ORC -> P3(0.085, 0.11, 0.075); Race.ELF -> P3(0.045, 0.11, 0.07); else -> P3(0.055, 0.12, 0.08) }
         ell(P3(0.0, -0.08 * k, 0.37 * k), nose * k)
         val brow = if (race == Race.HALF_ORC) 1.35 else if (race == Race.DWARF) 1.15 else 1.0
@@ -702,6 +715,11 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             place(Ellipsoid(hx.apply(c + at), r, hx.frame(Frame.along(along.norm())), part, group), key)
         fun cone(a: P3, b: P3, ra: Double, rb: Double, part: BodyPart = BodyPart.HEAD, group: Int = HEAD, key: String = "head") =
             place(RoundCone(hx.apply(c + a), hx.apply(c + b), ra, rb, part, group), key)
+        /** A solid of its own [mat]: the inside of the maw, a nose. */
+        fun matEll(at: P3, r: P3, mat: Mat, along: P3? = null, group: Int = HEAD, key: String = "head") =
+            place(Ellipsoid(hx.apply(c + at), r, hx.frame(if (along == null) Frame.IDENTITY else Frame.along(along.norm())), BodyPart.HEAD, group).also { it.mat = mat }, key)
+        /** A tooth from [root] to its [tip], of yellowed bone. */
+        fun tooth(root: P3, tip: P3, r: Double) = cone(root, tip, r, r * 0.18, BodyPart.TUSK, TUSK, "tusk")
     }
 
     /**
@@ -712,16 +730,20 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         ell(P3(0.0, 0.12 * k, -0.1 * k), P3(0.3 * k, 0.3 * k, 0.34 * k), key = "skull")
         // the snout, long and narrow, a little down at its end, and the jaw under it
         tilted(P3(0.0, -0.04 * k, 0.36 * k), P3(0.15 * k, 0.44 * k, 0.12 * k), P3(0.0, -0.18, 1.0))
-        tilted(P3(0.0, -0.17 * k, 0.32 * k), P3(0.11 * k, 0.38 * k, 0.06 * k), P3(0.0, -0.4, 1.0), key = "jaw")
+        // the jaw dropped open, the wet dark maw behind rows of needle teeth
+        tilted(P3(0.0, -0.24 * k, 0.28 * k), P3(0.11 * k, 0.37 * k, 0.06 * k), P3(0.0, -0.75, 1.0), key = "jaw")
+        matEll(P3(0.0, -0.15 * k, 0.33 * k), P3(0.1 * k, 0.07 * k, 0.26 * k), mawMat, P3(0.0, -0.5, 1.0))
+        for (sd in listOf(-1.0, 1.0)) for (t in 0..4) {
+            val z = (0.3 + 0.075 * t) * k; val x = sd * (0.11 - 0.015 * t) * k
+            tooth(P3(x, -0.1 * k - 0.02 * t * k, z), P3(x, -0.2 * k - 0.02 * t * k, z + 0.01 * k), 0.022 * k)
+            tooth(P3(x * 0.9, -0.28 * k - 0.07 * t * k, z - 0.03 * k), P3(x * 0.9, -0.19 * k - 0.07 * t * k, z - 0.02 * k), 0.018 * k)
+        }
         // heavy scales over the eyes
         for (sd in listOf(-1.0, 1.0)) {
             ell(P3(sd * 0.15 * k, 0.12 * k, 0.16 * k), P3(0.09 * k, 0.06 * k, 0.12 * k))
             // horns: from behind the brow, back and out, curving down at the tips
             cone(P3(sd * 0.16 * k, 0.26 * k, -0.08 * k), P3(sd * 0.24 * k, 0.38 * k, -0.42 * k), 0.07 * k, 0.04 * k, BodyPart.TUSK, TUSK, "horn")
             cone(P3(sd * 0.24 * k, 0.38 * k, -0.42 * k), P3(sd * 0.27 * k, 0.28 * k, -0.66 * k), 0.04 * k, 0.012 * k, BodyPart.TUSK, TUSK, "horn")
-            // small teeth along the jaw's edge
-            for (t in 0..2) cone(P3(sd * (0.08 - 0.012 * t) * k, -0.16 * k, (0.42 + 0.08 * t) * k), P3(sd * (0.08 - 0.012 * t) * k, -0.11 * k, (0.43 + 0.08 * t) * k),
-                0.018 * k, 0.005 * k, BodyPart.TUSK, TUSK, "tusk")
             // the frill behind the jaw
             cone(P3(sd * 0.22 * k, -0.08 * k, -0.08 * k), P3(sd * 0.36 * k, 0.02 * k, -0.22 * k), 0.07 * k, 0.015 * k, key = "ear")
         }
@@ -733,7 +755,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     /** Slit-pupilled yellow eyes set on the sides of the snout's root, nostrils at its tip, the dark line of the jaw. */
     private fun koboldFace(img: DepthImage, sk: Skeleton) = paintFace(img, sk) { put, line, k, c ->
         for (sd in listOf(-1.0, 1.0)) {
-            line(c + P3(sd * 0.13 * k, 0.07 * k, 0.24 * k), c + P3(sd * 0.21 * k, 0.07 * k, 0.17 * k), argb(0xE8C030))
+            line(c + P3(sd * 0.13 * k, 0.07 * k, 0.24 * k), c + P3(sd * 0.21 * k, 0.07 * k, 0.17 * k), argb(0xFF9A20))
             put(c + P3(sd * 0.17 * k, 0.07 * k, 0.215 * k), argb(0x100804))
             put(c + P3(sd * 0.05 * k, -0.08 * k, 0.66 * k), argb(0x1A0C08))
         }
@@ -747,12 +769,20 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
      */
     private fun bugbearHead(sk: Skeleton, out: MutableList<Solid>) = with(HeadKit(sk, out)) {
         ell(P3(0.0, 0.06 * k, -0.04 * k), P3(0.42 * k, 0.42 * k, 0.44 * k), key = "skull")
-        ell(P3(0.0, -0.17 * k, 0.24 * k), P3(0.25 * k, 0.21 * k, 0.24 * k), key = "jaw")
+        // the muzzle wrinkled back in a snarl over the upper fangs, the lower jaw dropped, the maw open between
+        ell(P3(0.0, -0.1 * k, 0.26 * k), P3(0.25 * k, 0.16 * k, 0.25 * k), key = "jaw")
+        ell(P3(0.0, -0.36 * k, 0.2 * k), P3(0.21 * k, 0.11 * k, 0.22 * k), key = "jaw")
+        matEll(P3(0.0, -0.24 * k, 0.26 * k), P3(0.17 * k, 0.1 * k, 0.2 * k), mawMat)
+        for (sd in listOf(-1.0, 1.0)) {
+            // great fangs above and below, and a row of jagged teeth between them
+            tooth(P3(sd * 0.13 * k, -0.2 * k, 0.4 * k), P3(sd * 0.14 * k, -0.38 * k, 0.42 * k), 0.04 * k)
+            tooth(P3(sd * 0.12 * k, -0.33 * k, 0.37 * k), P3(sd * 0.13 * k, -0.18 * k, 0.4 * k), 0.035 * k)
+            for (t in 0..1) tooth(P3(sd * (0.04 + 0.04 * t) * k, -0.21 * k, 0.43 * k), P3(sd * (0.04 + 0.04 * t) * k, -0.27 * k, 0.43 * k), 0.018 * k)
+        }
         place(Ellipsoid(hx.apply(c + P3(0.0, -0.06 * k, 0.47 * k)), P3(0.11 * k, 0.07 * k, 0.07 * k), hx.frame(Frame.IDENTITY), BodyPart.HEAD, HEAD).also { it.mat = noseMat }, "nose")
         ell(P3(0.0, 0.1 * k, 0.34 * k), P3(0.3 * k, 0.07 * k, 0.12 * k))
         for (sd in listOf(-1.0, 1.0)) {
             ell(P3(sd * 0.36 * k, 0.32 * k, -0.06 * k), P3(0.12 * k, 0.13 * k, 0.06 * k), key = "ear")
-            cone(P3(sd * 0.13 * k, -0.33 * k, 0.32 * k), P3(sd * 0.15 * k, -0.16 * k, 0.37 * k), 0.04 * k, 0.012 * k, BodyPart.TUSK, TUSK, "tusk")
         }
         // the mane over the back of the head down to the shoulders, and a shaggy beard under the jaw
         val backZ = -(chestDepth + 0.01 * height)
@@ -766,9 +796,11 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     private fun bugbearFace(img: DepthImage, sk: Skeleton) = paintFace(img, sk) { put, line, k, c ->
         for (sd in listOf(-1.0, 1.0)) {
             line(c + P3(sd * 0.08 * k, 0.04 * k, 0.42 * k), c + P3(sd * 0.24 * k, 0.05 * k, 0.36 * k), mix(argb(skinRgb), argb(0x0A0604), 0.65))
-            put(c + P3(sd * 0.15 * k, 0.03 * k, 0.41 * k), argb(0xC82818))
+            put(c + P3(sd * 0.15 * k, 0.03 * k, 0.41 * k), argb(0xFF3018))
+            put(c + P3(sd * 0.17 * k, 0.03 * k, 0.405 * k), argb(0xA01810))
         }
-        line(c + P3(-0.16 * k, -0.26 * k, 0.44 * k), c + P3(0.16 * k, -0.26 * k, 0.44 * k), argb(0x1A0C08))
+        // three old claw scars raked across the snout
+        for (t in 0..2) line(c + P3(-0.2 * k, (0.05 - 0.05 * t) * k, 0.38 * k), c + P3(0.05 * k, (-0.08 - 0.05 * t) * k, 0.46 * k), mix(argb(skinRgb), argb(0xD8A890), 0.5))
     }
 
     /**
@@ -784,7 +816,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         ell(P3(0.0, 0.1 * k, 0.3 * k), P3(0.31 * k, 0.08 * k, 0.13 * k))
         for (sd in listOf(-1.0, 1.0)) {
             cone(P3(sd * 0.34 * k, -0.02 * k, -0.04 * k), P3(sd * 0.58 * k, 0.14 * k, -0.2 * k), 0.08 * k, 0.012 * k, key = "ear")
-            cone(P3(sd * 0.13 * k, -0.31 * k, 0.3 * k), P3(sd * 0.15 * k, -0.17 * k, 0.36 * k), 0.032 * k, 0.01 * k, BodyPart.TUSK, TUSK, "tusk")
+            // long tusks jutting up from the underbite, past the upper lip
+            tooth(P3(sd * 0.14 * k, -0.33 * k, 0.3 * k), P3(sd * 0.19 * k, -0.08 * k, 0.37 * k), 0.045 * k)
         }
         // the head shaven but for a warrior's topknot at the crown, its tail falling down the back
         ell(P3(0.0, 0.47 * k, -0.2 * k), P3(0.11 * k, 0.09 * k, 0.11 * k), BodyPart.HAIR, "hair", HAIR)
@@ -800,7 +833,13 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             line(c + P3(sd * 0.1 * k, 0.0, 0.39 * k), c + P3(sd * 0.2 * k, 0.005 * k, 0.36 * k), argb(0xE0A030))
             put(c + P3(sd * 0.14 * k, 0.0, 0.385 * k), argb(0x180A04))
         }
-        line(c + P3(-0.12 * k, -0.27 * k, 0.39 * k), c + P3(0.12 * k, -0.27 * k, 0.39 * k), argb(0x2A100C))
+        // lips drawn back from clenched teeth
+        line(c + P3(-0.13 * k, -0.24 * k, 0.39 * k), c + P3(0.13 * k, -0.24 * k, 0.39 * k), argb(0x1A0808))
+        line(c + P3(-0.11 * k, -0.27 * k, 0.395 * k), c + P3(0.11 * k, -0.27 * k, 0.395 * k), argb(0xC8B890))
+        line(c + P3(-0.13 * k, -0.3 * k, 0.385 * k), c + P3(0.13 * k, -0.3 * k, 0.385 * k), argb(0x1A0808))
+        // black war paint across the eyes, and a scar down the cheek
+        for (sd in listOf(-1.0, 1.0)) line(c + P3(sd * 0.05 * k, 0.06 * k, 0.42 * k), c + P3(sd * 0.32 * k, -0.06 * k, 0.28 * k), argb(0x121010))
+        line(c + P3(0.2 * k, 0.12 * k, 0.34 * k), c + P3(0.26 * k, -0.22 * k, 0.32 * k), mix(argb(skinRgb), argb(0xE0B090), 0.55))
     }
 
     /** Milky dead eyes in dark sunken sockets, the mouth hanging open on a few broken teeth, a torn cheek. */
@@ -811,9 +850,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             line(c + P3(sd * 0.08 * k, -0.04 * k, 0.4 * k), c + P3(sd * 0.21 * k, -0.04 * k, 0.35 * k), socket)
             put(c + P3(sd * 0.14 * k, -0.005 * k, 0.385 * k), argb(0xD8D8C8))
         }
-        for (y in listOf(-0.25, -0.29, -0.33)) line(c + P3(-0.1 * k, y * k, 0.37 * k), c + P3(0.1 * k, y * k, 0.37 * k), argb(0x1A0A0A))
-        for (t in listOf(-2, 0, 1)) put(c + P3(t * 0.04 * k, -0.25 * k, 0.375 * k), argb(0xB8A880))
-        line(c + P3(0.14 * k, -0.12 * k, 0.36 * k), c + P3(0.22 * k, -0.3 * k, 0.3 * k), argb(0x5A1E1A))
+        // old blood down the chin from the corners of the mouth
+        for (sd in listOf(-1.0, 1.0)) line(c + P3(sd * 0.12 * k, -0.3 * k, 0.33 * k), c + P3(sd * 0.1 * k, -0.48 * k, 0.26 * k), argb(0x4A1210))
     }
 
     /** Runs [paint] with a way to set one pixel of the face where it is seen, and to draw a line of them. */
