@@ -379,9 +379,19 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 ui.enemyGone -> 0f
                 else -> 1f
             }
+            // the foe's own blow landing on the hero, or missing: the second half of its attack
+            val foeLanding = (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && fx?.onHero == true && (step?.packActor ?: -1) < 0
+            // old-style foes, like the hero: while the attack is named they leap in and stay poised, then strike and
+            // spring back with the hit or the miss
+            val leap = if (t >= 0.99f) 1f else (t * t * (3 - 2 * t))
+            val foeIn = when {
+                a == Anim.ENEMY_ACT -> leap
+                foeLanding -> 1f - leap
+                else -> 0f
+            }
             val enemyPose = when {
-                a == Anim.ENEMY_ACT && moving -> Pose.ATTACK
-                a == Anim.HERO_HIT && fx?.onHero == true && (step?.packActor ?: -1) < 0 && t < 0.5f -> Pose.ATTACK
+                a == Anim.ENEMY_ACT -> Pose.ATTACK
+                foeLanding && t < 0.5f -> Pose.ATTACK
                 (a == Anim.ENEMY_HIT || a == Anim.ENEMY_FAINT) && moving -> Pose.HURT
                 else -> Pose.IDLE
             }
@@ -419,7 +429,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 val strike = MonsterArt.strikeFrame(id, variant)
                 val n = MonsterArt.frameCount(id, Act.ATTACK, variant)
                 when {
-                    a == Anim.ENEMY_ACT && moving -> seq(Act.ATTACK, 0, strike)
+                    // the wind-up, held poised until the blow lands with the next message
+                    a == Anim.ENEMY_ACT -> seq(Act.ATTACK, 0, strike)
                     // only the leader's own hits: a pack mate's hit belongs to that mate
                     (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && fx?.onHero == true && (step?.packActor ?: -1) < 0 && moving -> seq(Act.ATTACK, strike, n - 1)
                     (a == Anim.ENEMY_HIT || a == Anim.ENEMY_FAINT) && moving -> seq(Act.HURT, 0, MonsterArt.frameCount(id, Act.HURT, 0) - 1)
@@ -439,11 +450,10 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             }
             val enemyDx = when {
                 newStyle -> 0.dp
-                a == Anim.ENEMY_ACT -> -(lunge * 30).dp
                 a == Anim.ENEMY_HIT -> (lunge * 10 * (1 - t)).dp
-                else -> 0.dp
+                else -> -(foeIn * 30).dp
             }
-            val enemyDy = if (a == Anim.ENEMY_ACT && !newStyle) (lunge * 16).dp else 0.dp
+            val enemyDy = if (!newStyle) (foeIn * 16).dp else 0.dp
             val foeW = if (enemyFrame != null) artDp * enemyFrame.width else monsterSize
             val foeH = if (enemyFrame != null) artDp * enemyFrame.height else monsterSize
             /** From the top of the picture down to the feet. */
@@ -460,9 +470,10 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             val mateCount = if (fleeing) ui.packBefore else ui.pack
             val packDef = battle.pack
             if (packDef != null) for (i in 0 until mateCount) {
-                val acting = a == Anim.PACK_ACT && step?.packActor == i && moving
+                val acting = a == Anim.PACK_ACT && step?.packActor == i
                 // the mate's own hit or miss right after its attack: the strike and the way back
                 val landing = (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && step?.packActor == i && moving
+                val mateIn = when { acting -> leap; landing -> 1f - leap; else -> 0f }
                 val mateLook = MonsterLook(battle.look.seed + 101 * (i + 1))
                 val mateNew = MonsterArt.isNewStyle(packDef.mate)
                 val mateFrame = if (!mateNew) null else if (acting || landing) {
@@ -493,14 +504,15 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 }
                 Box(
                     Modifier.offset(
-                        x = baseX - mateW / 2 + (intro.value * 260).dp + (if (acting && !mateNew) -(lunge * 26).dp else 0.dp) + (if (fleeing) (t * 140).dp else 0.dp),
-                        y = baseY - mateFeet + (if (acting && !mateNew) (lunge * 12).dp else 0.dp),
+                        // old-style mates leap in while their attack is named and spring back with the hit or the miss
+                        x = baseX - mateW / 2 + (intro.value * 260).dp + (if (!mateNew) -(mateIn * 26).dp else 0.dp) + (if (fleeing) (t * 140).dp else 0.dp),
+                        y = baseY - mateFeet + (if (!mateNew) (mateIn * 12).dp else 0.dp),
                     )
                 ) {
                     val mAlpha = (if (fleeing) 1f - t else 1f) * enemyAlphaBase(a, ui.enemyGone, t)
                     if (mateFrame != null) PixelSprite(mateFrame, mPx, alpha = mAlpha, shade = shade)
                     else PixelImageView(
-                        MonsterArt.frame(packDef.mate, mateLook, if (acting) Pose.ATTACK else Pose.IDLE, idle + i + 1),
+                        MonsterArt.frame(packDef.mate, mateLook, if (acting || landing && t < 0.5f) Pose.ATTACK else Pose.IDLE, idle + i + 1),
                         mateSize, alpha = mAlpha, shade = shade,
                     )
                 }
