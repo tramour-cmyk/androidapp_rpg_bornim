@@ -927,11 +927,14 @@ class Battle(
         val owned = gear.map { state.addGear(it) }
         state.battlesWon++
         val oldLevel = hero.level
+        val xpBefore = hero.xp
         val gained = hero.gainXp(xp, Story.levelCap(state))
-        rewards = Rewards(xp, gold, items, owned, gained)
+        // at the level cap only what was still missing to it counts
+        val earned = hero.xp - xpBefore
+        rewards = Rewards(earned, gold, items, owned, gained)
 
-        say(Msg.gainXp.f(lang, name, xp))
-        if (gained == 0 && Story.capped(state)) say(Msg.capped(lang))
+        if (earned > 0) say(Msg.gainXp.f(lang, name, earned))
+        if (earned < xp && Story.capped(state)) say(Msg.capped(lang))
         if (gold > 0) say(Msg.gainGold.f(lang, gold), Anim.COINS)
         items.forEach { say(Msg.loot.f(lang, Items[it].name(lang)), Anim.LOOT) }
         owned.sortedByDescending { it.rarity }.forEach {
@@ -1021,7 +1024,7 @@ private object Msg {
     val knows = T("{0} erkennt: {1}.", "{0} recognises: {1}.")
     val cowed = T("{0} zögert, eingeschüchtert von {1}!", "{0} hesitates, cowed by {1}!")
     val fed = T("{0} ist gut gestärkt: +1 auf Angriffe und Schaden.", "{0} is well fed: +1 to attacks and damage.")
-    val capped = T("Höchststufe für Kapitel 1 erreicht – die EP werden für Kapitel 2 aufgehoben.", "Highest level for chapter 1 reached – the XP are kept for chapter 2.")
+    val capped = T("Höchststufe für Kapitel 1 erreicht – keine weiteren EP in diesem Kapitel. Beute und Ausrüstung gibt es weiterhin.", "Highest level for chapter 1 reached – no further XP in this chapter. Loot and gear still drop.")
     val gainGold = T("Du erbeutest {0} Gold.", "You got {0} gold.")
     val loot = T("Beute: {0}!", "Loot: {0}!")
     val gearLoot = T("Beute: {0} ({1})!", "Loot: {0} ({1})!")

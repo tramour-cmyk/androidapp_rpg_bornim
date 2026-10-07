@@ -119,8 +119,8 @@ private fun HeroTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
         // At the chapter's level cap the XP keep counting for later.
         LabeledBar(Ui.xp(lang), 1, 1, Colors.xp, "${h.xp}")
         Txt(
-            if (lang == Lang.DE) "Höchststufe für Kapitel 1 erreicht. Weitere EP werden ab Kapitel 2 angerechnet."
-            else "Highest level for chapter 1 reached. Further XP count from chapter 2 on.",
+            if (lang == Lang.DE) "Höchststufe für Kapitel 1 erreicht. In diesem Kapitel gibt es keine weiteren EP; Kämpfe lohnen sich weiter für Beute und Ausrüstung."
+            else "Highest level for chapter 1 reached. No further XP in this chapter; fights still pay in loot and gear.",
             size = 13.sp, color = Colors.textDim,
         )
     } else if (next != null) LabeledBar(Ui.xp(lang), h.xp - prev, next - prev, Colors.xp, "${h.xp} / $next")

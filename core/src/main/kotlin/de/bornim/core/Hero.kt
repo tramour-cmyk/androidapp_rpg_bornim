@@ -226,6 +226,8 @@ class Hero(
             level++
             unspentPoints += Rules.abilityPoints(level) - Rules.abilityPoints(level - 1)
         }
+        // at a chapter's level cap no further experience is gathered: nothing is kept for later
+        if (cap < Rules.MAX_LEVEL) xp = minOf(xp, Rules.xpForLevel[cap])
         // A level up fully restores HP and SP.
         if (level > before) restoreFully()
         clamp()

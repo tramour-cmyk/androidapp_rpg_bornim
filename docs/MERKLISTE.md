@@ -24,7 +24,7 @@ Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md), w
   - **Stimmung wie im Kampf:** erwachsener, etwas düsterer Stil. Licht kommt von sichtbaren Quellen (Sonne/Mond, Fackeln, Feuer, Pilze, Fenster), Dunkelheit ist erlaubt, die Laterne des Helden leuchtet. Kleine Bewegung (Flackern, Tropfen, Funken, Staub) und passende Umgebungsgeräusche.
   - Jede neue Kampfkulisse bekommt Orte, die auf der Karte als Gegenstücke vorkommen, und umgekehrt.
 - **Technisch beim Start von Kapitel 2:** den Merker `chapter2_started` setzen. Damit gelten automatisch:
-  - die Stufengrenze 6 fällt, aufgehobene EP werden angerechnet;
+  - die Stufengrenze 6 fällt; EP werden ab dann wieder gesammelt (aus Kapitel 1 wird nichts nachträglich angerechnet);
   - bessere Beute (normal bis „selten“, besondere Beute bis „sehr selten“);
   - höhere Obergrenzen für Ausrüstungsboni (+2).
 - **Neue Monster (SRD):** Banditen und Kultisten, Gnoll, Worg, Harpyie (Gesang/Bezauberung), Belebte Rüstung, Mimik (Klammern), Oger, Eulenbär.

@@ -35,10 +35,10 @@ object Story {
     /** The chapter the hero is playing: it sets the level cap, the best loot and the gear limits. */
     fun chapter(s: GameState): Int = if (s.has(CHAPTER2_STARTED)) 2 else 1
 
-    /** Highest level the hero can reach in the current chapter. Experience beyond it is kept. */
+    /** Highest level the hero can reach in the current chapter. Experience beyond it is not gathered. */
     fun levelCap(s: GameState): Int = if (s.has(CHAPTER2_STARTED)) Rules.MAX_LEVEL else CHAPTER1_LEVEL_CAP
 
-    /** Whether the hero stands at the level cap of the chapter and banks further experience. */
+    /** Whether the hero stands at the level cap of the chapter and gathers no further experience. */
     fun capped(s: GameState): Boolean = levelCap(s) < Rules.MAX_LEVEL && s.hero.level >= levelCap(s)
 
     val START = Place("inn", 7, 2, Facing.DOWN)

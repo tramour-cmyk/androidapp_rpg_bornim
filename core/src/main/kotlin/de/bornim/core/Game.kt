@@ -209,7 +209,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     /** Call once after creating or loading a game. */
     fun begin() {
-        // Experience banked at a chapter's level cap counts once the cap is lifted.
+        // experience beyond a chapter's level cap is not kept (older saves kept it): cut back to the cap
         hero.gainXp(0, Story.levelCap(state))
         unstick()
         if (state.flags.remove(GameState.POINTS_REFIT)) {
