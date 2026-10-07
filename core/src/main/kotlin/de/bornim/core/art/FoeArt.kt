@@ -279,8 +279,9 @@ object FoeArt {
 
     /** Draws every frame ahead, the rest first; off the main thread. */
     fun prepare(id: String, look: MonsterLook, cancelled: () -> Boolean = { false }) {
-        // the guard first, then this foe's one fall (a short fight may end before the rest is drawn), then the rest
-        val plan = listOf(Act.IDLE to listOf(0), Act.DIE to listOf(dieVariant(look)), Act.ATTACK to (0..2).toList(), Act.HURT to (0..2).toList(), Act.DODGE to (0..2).toList())
+        // the first frame of the guard, then this foe's one fall (a short fight may end before the rest is drawn), then the rest
+        if (!cancelled()) frame(id, look, Act.IDLE, 0, 0)
+        val plan = listOf(Act.DIE to listOf(dieVariant(look)), Act.IDLE to listOf(0), Act.ATTACK to (0..2).toList(), Act.HURT to (0..2).toList(), Act.DODGE to (0..2).toList())
         for ((act, vs) in plan) for (v in vs)
             for (i in sequence(id, look, act, v).rigs.indices) { if (cancelled()) return; frame(id, look, act, v, i) }
     }

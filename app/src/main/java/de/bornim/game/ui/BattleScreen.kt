@@ -84,6 +84,8 @@ private class BattleUi(val battle: Battle) {
     var menu by mutableStateOf(BattleMenu.MAIN)
     var animKey by mutableIntStateOf(0)
     var enemyGone by mutableStateOf(false)
+    /** A foe built in the round is falling: the next message waits until it lies on the ground. */
+    var falling by mutableStateOf(false)
     var heroStatus by mutableStateOf<Map<de.bornim.core.Status, Int>>(emptyMap())
     var foeStatus by mutableStateOf<Map<de.bornim.core.Status, Int>>(emptyMap())
     var pack by mutableIntStateOf(battle.packSize)
@@ -266,6 +268,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             revealed = step.text.length
             return
         }
+        // a fall is not cut short: it plays out before the next message
+        if (ui.falling) return
         ui.next()
         if (ui.current == null && battle.outcome != Outcome.ONGOING) {
             game.endBattle()
@@ -320,13 +324,31 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
         }
         if (ui.fxDelay > 0) kotlinx.coroutines.delay(ui.fxDelay)
         if (flight > 0f) kotlinx.coroutines.delay((fxDuration(ui.current!!.fx!!.kind) * flight).toLong())
-        val an = ui.current?.anim
-        when (an) {
-            Anim.ENEMY_HIT, Anim.HERO_HIT, Anim.SPELL, Anim.LEVEL_UP, Anim.ENEMY_FAINT, Anim.HERO_FAINT, Anim.LOOT, Anim.MISS ->
-                // a foe on the doll takes its time to fall before it fades
-                shake.animateTo(1f, tween(if (an == Anim.ENEMY_FAINT && MonsterArt.isSolid(battle.monster.id)) 1400 else if (an == Anim.ENEMY_FAINT || an == Anim.HERO_FAINT) 700 else 450))
-            Anim.HERO_ACT, Anim.ENEMY_ACT -> shake.animateTo(1f, tween(380))
-            else -> {}
+        // a foe built in the round falls only once its fall is drawn: the killing blow waits for the first frames of it,
+        // the defeat for all of them (drawn now if the background has not got to them yet), so it never just stands and fades
+        val foeId = battle.monster.id
+        val cur = ui.current
+        val fall = cur != null && cur.anim == Anim.ENEMY_FAINT && MonsterArt.isSolid(foeId)
+        if (fall) ui.falling = true
+        try {
+            if (cur != null && MonsterArt.isSolid(foeId) && (cur.anim == Anim.ENEMY_FAINT || (cur.anim == Anim.ENEMY_HIT && cur.enemyHp <= 0))) {
+                val dieV = MonsterArt.dieVariant(foeId, battle.look)
+                val n = MonsterArt.frameCount(foeId, battle.look, Act.DIE, dieV)
+                val upTo = if (cur.anim == Anim.ENEMY_FAINT) n - 1 else DIE_REEL.coerceAtMost(n - 1)
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                    for (i in 0..upTo) MonsterArt.battleFrame(foeId, battle.look, Act.DIE, dieV, i)
+                }
+            }
+            val an = ui.current?.anim
+            when (an) {
+                Anim.ENEMY_HIT, Anim.HERO_HIT, Anim.SPELL, Anim.LEVEL_UP, Anim.ENEMY_FAINT, Anim.HERO_FAINT, Anim.LOOT, Anim.MISS ->
+                    // a foe on the doll takes its time to fall before it fades
+                    shake.animateTo(1f, tween(if (an == Anim.ENEMY_FAINT && MonsterArt.isSolid(battle.monster.id)) 1400 else if (an == Anim.ENEMY_FAINT || an == Anim.HERO_FAINT) 700 else 450))
+                Anim.HERO_ACT, Anim.ENEMY_ACT -> shake.animateTo(1f, tween(380))
+                else -> {}
+            }
+        } finally {
+            if (fall) ui.falling = false
         }
     }
     val a = step?.anim
