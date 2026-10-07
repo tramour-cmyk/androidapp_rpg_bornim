@@ -119,7 +119,7 @@ class GearTest {
         val s = GameState.fromJson(json)
         assertEquals("mace_of_dawn", s.hero.weapon?.unique)
         assertEquals("chain_shirt", s.hero.item(GearSlot.CHEST)?.base)
-        assertEquals("shield", s.hero.item(GearSlot.OFF_HAND)?.base)
+        assertEquals("round_shield", s.hero.item(GearSlot.OFF_HAND)?.base)
         assertEquals("ring_protection", s.hero.item(GearSlot.RING)?.unique)
         assertEquals(3, s.count("potion"))
         assertEquals(listOf("studded_leather"), s.bag.map { it.base })

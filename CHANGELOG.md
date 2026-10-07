@@ -8,6 +8,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - In Wald und Höhle kämpft der Held als neu gezeichnete Figur, von hinten über die Schulter gesehen: Zu Beginn wendet er sich dem Spieler zu und dreht sich dann zum Gegner, im Hinterhalt wird er nach vorn geworfen.
 - Echte Bewegungen statt Standbilder: Hieb, Stich und Überkopfschlag im Wechsel mit gleichbleibendem Griff, Bogenschuss mit Auflegen, Ausziehen und Lösen, Armbrust an der Schulter, Zauber je nach Stab, Zauberstab, Buch, Kugel oder Heiligensymbol mit Leuchten, Treffer, Sieg.
 - Der Kleriker startet mit mannshohem Kampfstab und Rundschild mit goldener Sonne statt Streitkolben und Wappenschild; Rundschilde gibt es auch als Beute (gleiche Werte wie der Schild). Mit Stab und Schild blockt er mit dem Schild, der Stab bleibt aufrecht stehen, und Flaschen wirft er mit der Schildhand.
+- Der Wappenrock des Klerikers trägt die goldene Sonne auf Brust und Rücken. Alte Spielstände: unveränderter Streitkolben und Schild eines Klerikers werden beim Laden zu Kampfstab und Rundschild; verbesserte oder gefundene Stücke bleiben.
+- Neue Liste [Offen](docs/OFFEN.md): was gerade in Arbeit, zu testen oder zu entscheiden ist.
 - Abwehr nach Gegner: gegen Wölfe und anderes Getier mit tiefem Schild oder tiefer Zweihandparade, gegen große Gegner hoch; beim Zweihänder stützt der freie Unterarm die Waffe am Kopf ab.
 - Jede Waffe in wahrer Größe, Kleidung und Rüstung in Schichten, Umhang fällt über Rücken und schwingt nach. Schwungsound beim Schlag.
 - Bei der Heldenerschaffung wählbar: Geschlecht, Statur, Haut- und Haarton je Volk, mit drehender Vorschau. Die Körpergrößen folgen dem SRD (Halbling 60 % eines Menschen).

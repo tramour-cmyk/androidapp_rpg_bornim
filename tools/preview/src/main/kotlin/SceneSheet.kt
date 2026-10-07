@@ -1269,3 +1269,18 @@ fun renderHalflingBlock() {
     for (i in 0..3) { val im = B.frame(c, de.bornim.core.art.HeroFigure.Act.BLOCK, de.bornim.core.art.HeroFigure.Strike.SLASH, 2, i); for (y in 0 until im.height) for (x in 20 until im.width) { val q = im[x, y]; if ((q ushr 24) >= 128 && i * 110 + x - 20 < out.width) out.setRGB(i * 110 + x - 20, y, q) } }
     ImageIO.write(out, "png", File("build/screens/halfling_block.png"))
 }
+
+/** The cleric's tabard without the shield in front of it, to see the sun on the breast. */
+fun renderClericSun() {
+    val P = de.bornim.core.art.HeroPortrait
+    val yaws = listOf(0.0, 20.0, 340.0, 60.0)
+    val out = BufferedImage(P.W * yaws.size, P.H, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x3C3A36); g.fillRect(0, 0, out.width, out.height)
+    for ((i, y) in yaws.withIndex()) {
+        val c = de.bornim.core.Hero.create("Sonne$i", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.CLERIC).also { it.skin = 1; it.hair = 0 }
+        c.unequip(de.bornim.core.GearSlot.OFF_HAND)
+        val im = P.render(c, y)
+        for (yy in 0 until im.height) for (x in 0 until im.width) { val q = im[x, yy]; if ((q ushr 24) >= 128) out.setRGB(i * P.W + x, yy, q) }
+    }
+    ImageIO.write(out, "png", File("build/screens/cleric_sun.png"))
+}

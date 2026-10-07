@@ -118,6 +118,21 @@ class GameState(
             // Version 4: a barrier on the north road, raised by Jorin. Heroes already on the quest find it open.
             if (Story.QUEST_STARTED in flags) flags += Story.BARRIER_OPEN
         }
+        if (version < 5) {
+            // Version 5: clerics start with a quarterstaff and a round shield. Plain starting mace and shield are
+            // swapped for them; anything found, bought or bettered stays as it is.
+            if (hero.cls == CharClass.CLERIC) {
+                fun plain(g: Gear) = g.rarity == Rarity.COMMON && g.plus == 0 && g.rolls.isEmpty() && g.unique == null
+                fun swap(g: Gear) = when {
+                    !plain(g) -> g
+                    g.base == "mace" -> g.copy(base = "quarterstaff")
+                    g.base == "shield" -> g.copy(base = "round_shield")
+                    else -> g
+                }
+                for (slot in hero.gear.keys.toList()) hero.gear[slot] = swap(hero.gear.getValue(slot))
+                bag.replaceAll { swap(it) }
+            }
+        }
         version = SAVE_VERSION
         hero.clamp()
     }
@@ -125,7 +140,7 @@ class GameState(
     fun toJson(): String = json.encodeToString(this)
 
     companion object {
-        const val SAVE_VERSION = 4
+        const val SAVE_VERSION = 5
         /** Set when loading recalculated the hero's ability points; the game tells the player once. */
         const val POINTS_REFIT = "points_refit"
         private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true; allowStructuredMapKeys = true }

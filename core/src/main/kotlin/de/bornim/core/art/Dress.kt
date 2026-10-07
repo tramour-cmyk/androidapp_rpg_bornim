@@ -217,8 +217,15 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     private fun tabard(over: Double) {
         val col = m(worn(look.cloth, 0.2), grain = 0.05)
         val half = d.shoulderX * 0.34
+        // a cleric's tabard bears the golden sun of the shield on breast and back: a disc, a ring and eight rays
+        val sunY = beltY + (d.shoulderY - beltY) * 0.58
+        val sun: ((P3) -> Mat)? = if (o.cls != CharClass.CLERIC) null else { p ->
+            val rr = sqrt(p.x * p.x + (p.y - sunY) * (p.y - sunY))
+            val ray = abs(frac(atan2(p.y - sunY, p.x) / (2 * PI) * 8 + 0.5) - 0.5) * rr
+            if ((rr < 0.012 * h || abs(rr - 0.021 * h) < 0.0045 * h || (rr in 0.021 * h..0.034 * h && ray < 0.005 * h))) gold else col
+        }
         for (b in bones("torso", "waist")) {
-            val s = add(Shell(b, over + 0.5, BodyPart.GEAR, Doll.TRIM), col, null, b.rest)
+            val s = add(Shell(b, over + 0.5, BodyPart.GEAR, Doll.TRIM), col, sun, b.rest)
             s.cut(sk.upper.dir(P3.X), sk.upper.apply(P3(half, 0.0, 0.0)))
             s.cut(sk.upper.dir(-P3.X), sk.upper.apply(P3(-half, 0.0, 0.0)))
             s.cut(sk.upper.dir(P3.Y), sk.upper.apply(P3(0.0, d.shoulderY - 0.02 * h, 0.0)))
