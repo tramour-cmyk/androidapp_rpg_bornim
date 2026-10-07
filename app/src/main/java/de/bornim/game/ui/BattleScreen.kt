@@ -469,11 +469,18 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 // being hit, dodging and falling come in variants too, taken in turn
                 val react = ui.animKey.mod(MonsterArt.reactVariants(id))
                 fun whole(act: Act) = seq(act, 0, MonsterArt.frameCount(id, battle.look, act, react) - 1, react)
+                // one fall for this foe, begun with the killing blow (it reels) and ended with its defeat (it goes down)
+                val dieV = battle.look.seed.mod(MonsterArt.reactVariants(id))
+                val dieLast = MonsterArt.frameCount(id, battle.look, Act.DIE, dieV) - 1
+                val reel = DIE_REEL.coerceAtMost(dieLast)
                 when {
                     // the wind-up, held poised until the blow lands with the next message; then the blow
                     foeAttackIdx != null -> MonsterArt.shownFrame(id, battle.look, Act.ATTACK, variant, foeAttackIdx, foeWound)
-                    // falling: held on its last frame while it fades
-                    a == Anim.ENEMY_FAINT && dollFoe -> if (moving) whole(Act.DIE) else seq(Act.DIE, MonsterArt.frameCount(id, battle.look, Act.DIE, react) - 1, MonsterArt.frameCount(id, battle.look, Act.DIE, react) - 1, react)
+                    // struck down: it reels with the blow and stays reeling through any further word, never getting up again
+                    dollFoe && ui.enemyHp <= 0 && a != Anim.ENEMY_FAINT && !ui.enemyGone ->
+                        if (a == Anim.ENEMY_HIT && moving) seq(Act.DIE, 0, reel, dieV) else seq(Act.DIE, reel, reel, dieV)
+                    // falling: from the reel on to the ground (from the start if nothing struck it down first), then held while it fades
+                    a == Anim.ENEMY_FAINT && dollFoe -> if (moving) seq(Act.DIE, if (fx?.kind == de.bornim.core.FxKind.TURN) 0 else reel, dieLast, dieV) else seq(Act.DIE, dieLast, dieLast, dieV)
                     // a blow or a spell turned aside: the foe ducks, steps back or springs aside, or takes it on its shield
                     a == Anim.MISS && fx?.onHero == false && dollFoe && moving -> whole(Act.DODGE)
                     (a == Anim.ENEMY_HIT || a == Anim.ENEMY_FAINT) && moving -> if (dollFoe) whole(Act.HURT) else seq(Act.HURT, 0, MonsterArt.frameCount(id, Act.HURT, 0) - 1)
@@ -994,6 +1001,9 @@ private fun rememberPulse(): Float {
     )
     return p
 }
+
+/** The frame of a fall at which the foe has taken the killing blow and reels, before it goes down. */
+private const val DIE_REEL = 4
 
 /** How far into its step a foe on the doll goes while its attack is named: the rest of the step comes with the blow. */
 private const val FOE_WIND_STEP = 0.45f
