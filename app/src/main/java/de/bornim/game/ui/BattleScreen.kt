@@ -65,6 +65,8 @@ import de.bornim.core.art.Glow
 import de.bornim.core.art.CharacterArt
 import de.bornim.core.art.IconArt
 import de.bornim.core.art.HeroArt
+import de.bornim.core.art.HeroBattle
+import de.bornim.core.art.HeroFigure
 import de.bornim.core.art.MonsterArt
 import de.bornim.core.art.Pose
 import de.bornim.game.GameViewModel
@@ -96,7 +98,54 @@ private class BattleUi(val battle: Battle) {
     var howlSound = Sound.HOWL_1
     private val howls = MonsterArt.isNewStyle(battle.monster.id) && battle.monster.id.contains("wolf")
 
+    /** What the hero's doll is playing: frames [from]..[to] of an act over [ms] from [start], then back to rest unless it [hold]s. */
+    class HeroMotion(val act: HeroFigure.Act, val strike: HeroFigure.Strike, val variant: Int, val from: Int, val to: Int, val start: Long, val ms: Long, val hold: Boolean = false)
+    var motion by mutableStateOf<HeroMotion?>(null)
+    private var blows = 0
+    /** Which victory pose this fight ends in. */
+    val victoryPick = kotlin.random.Random.nextInt(8)
+    /** The swing to sound with a blow, after [swingDelay] ms; set when a blow starts. */
+    var swingKey by mutableIntStateOf(0)
+    var swingDelay = 0L
+
+    private fun play(act: HeroFigure.Act, strike: HeroFigure.Strike = HeroFigure.Strike.SLASH, variant: Int = 0, from: Int = 0, to: Int = -1, perFrame: Long = 60, delayMs: Long = 0, hold: Boolean = false) {
+        val n = HeroBattle.frameCount(battle.hero, act, strike, variant)
+        val end = if (to < 0) n - 1 else to.coerceAtMost(n - 1)
+        motion = HeroMotion(act, strike, variant, from, end, System.currentTimeMillis() + delayMs, (end - from + 1) * perFrame, hold)
+    }
+
+    /** Sets the doll going for a new message: blows, spells, hits, blocks, the start of the fight and the victory. */
+    private fun moveHero(s: Step) {
+        val hero = battle.hero
+        val m = motion
+        val fx = s.fx
+        when {
+            s.anim == Anim.HERO_ACT -> {
+                val list = HeroBattle.strikes(hero)
+                val strike = list[blows++ % list.size]
+                val hit = HeroBattle.strikeFrame(strike)
+                // the wind-up and the blow up to the moment it lands; the rest comes with the hit or the miss
+                play(HeroFigure.Act.ATTACK, strike, 0, 0, hit, perFrame = 55, hold = true)
+                if (strike != HeroFigure.Strike.SHOOT) { swingDelay = (hit - 3).coerceAtLeast(0) * 55L; swingKey++ }
+            }
+            (s.anim == Anim.ENEMY_HIT || s.anim == Anim.ENEMY_FAINT || s.anim == Anim.MISS) && fx?.onHero == false &&
+                m != null && m.act == HeroFigure.Act.ATTACK && m.hold ->
+                play(HeroFigure.Act.ATTACK, m.strike, 0, m.to, -1, perFrame = 55)
+            s.anim == Anim.SPELL -> play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, HeroBattle.castVariant(hero), perFrame = 50)
+            s.anim == Anim.HERO_HIT -> play(HeroFigure.Act.HURT, perFrame = 65)
+            s.anim == Anim.HERO_FAINT -> play(HeroFigure.Act.HURT, to = 3, perFrame = 90, hold = true)
+            s.anim == Anim.MISS && fx?.onHero == true &&
+                (fx.kind == de.bornim.core.FxKind.BLOCK || HeroBattle.outfit(hero).twoHands) ->
+                play(HeroFigure.Act.BLOCK, variant = HeroBattle.blockVariant(hero, battle.monster.id), perFrame = 50)
+            enemyGone && s.anim != Anim.ENEMY_FAINT && m?.act != HeroFigure.Act.VICTORY ->
+                play(HeroFigure.Act.VICTORY, variant = HeroBattle.variant(hero, HeroFigure.Act.VICTORY, battle.monster.id, victoryPick), perFrame = 70, delayMs = 250, hold = true)
+        }
+    }
+
     init {
+        // the fight begins with the hero facing us and turning to the foe, or thrown forward by an ambush
+        if (battle.opening == de.bornim.core.Opening.AMBUSHED) play(HeroFigure.Act.AMBUSHED, perFrame = 75, delayMs = 250)
+        else play(HeroFigure.Act.TURN, perFrame = 70, delayMs = 700)
         push(battle.start())
     }
 
@@ -118,6 +167,7 @@ private class BattleUi(val battle: Battle) {
             pack = s.pack
             if (s.anim == Anim.ENEMY_FAINT) enemyGone = true
             if (s.anim == Anim.HERO_FAINT) heroGone = true
+            moveHero(s)
             if (s.anim == Anim.ENEMY_ACT) attackVariant = kotlin.random.Random.nextInt(MonsterArt.attackVariants(battle.monster.id))
             // Wolves howl now and then, not every time: when they appear, and when a pack mate falls or flees.
             val chance = when {
@@ -190,6 +240,14 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
         // the sound starts once the head is raised
         delay(HOWL_RAISE_MS)
         vm.play(ui.howlSound)
+    }
+    // the swish of a blow, as the weapon comes down: heavier for great weapons and hammers
+    LaunchedEffect(ui.swingKey) {
+        if (ui.swingKey == 0 || game.map.kind != MapKind.FOREST && game.map.kind != MapKind.CAVE) return@LaunchedEffect
+        delay(ui.swingDelay)
+        val w = battle.hero.item(de.bornim.core.GearSlot.MAIN_HAND)?.def
+        val heavy = w != null && (w.twoHanded || w.icon == de.bornim.core.Icon.HAMMER || w.icon == de.bornim.core.Icon.MACE)
+        vm.play(if (heavy) Sound.SWING_HEAVY else Sound.SWING)
     }
     LaunchedEffect(ui.animKey) {
         ui.current?.let { st -> soundFor(st)?.let { vm.play(it) } }
@@ -459,7 +517,22 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 else -> Pose.IDLE
             }
             val heroSize = 168.dp
-            Box(
+            // In the new scenes the hero is the doll, seen from behind over the shoulder, its frames drawn ahead in the background.
+            LaunchedEffect(battle) {
+                if (newScene) kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                    val job = coroutineContext[kotlinx.coroutines.Job]
+                    HeroBattle.prepare(battle.hero, battle.monster.id, battle.opening == de.bornim.core.Opening.AMBUSHED, ui.victoryPick) { job?.isActive == false }
+                }
+            }
+            val dollFrame = if (!newScene) null else heroDollFrame(ui, clockMs)
+            if (dollFrame != null) Box(
+                Modifier.offset(
+                    x = sceneW * heroX - artDp * HeroBattle.ANCHOR_X.toFloat() + shakeX - (intro.value * 260).dp + dodge(true),
+                    y = sceneH * heroY - artDp * HeroBattle.GROUND.toFloat(),
+                )
+            ) {
+                PixelSprite(dollFrame, artDp, alpha = heroAlpha, flash = if (a == Anim.HERO_HIT && blink) 0.85f else 0f, shade = shade)
+            } else Box(
                 Modifier.offset(
                     x = sceneW * heroX - heroSize / 2 + shakeX - (intro.value * 260).dp + dodge(true) +
                         (if (a == Anim.HERO_ACT) (lunge * 30).dp else 0.dp),
@@ -475,7 +548,9 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // Attack and spell effects, and blood
             with(density) {
                 val enemyC = Offset((sceneW * foeX).toPx(), (sceneH * foeY - (if (newStyle) foeFeet * 0.55f else monsterSize * 0.45f)).toPx())
-                val heroC = Offset((sceneW * heroX).toPx(), (sceneH * heroY - heroSize * 0.5f).toPx())
+                // the doll stands about 130 art pixels tall: spells and blows start from its chest
+                val heroC = if (newScene) Offset((sceneW * heroX).toPx(), (sceneH * heroY - artDp * 78f).toPx())
+                    else Offset((sceneW * heroX).toPx(), (sceneH * heroY - heroSize * 0.5f).toPx())
                 val unit = (if (newStyle) foeW / 90 else monsterSize / 64).toPx()
                 BattleFxLayer(fx, ui.animKey, enemyC, heroC, unit, Modifier.matchParentSize())
                 BloodLayer(
@@ -823,4 +898,26 @@ private fun Sparkles(seed: Int, size: androidx.compose.ui.unit.Dp, alpha: Float)
             drawRect(c, Offset(x - s, y - s / 4), Size(s * 2, s / 2))
         }
     }
+}
+
+
+/**
+ * The doll's frame for this moment: the act it is playing, or its rest. A frame not drawn yet is stood in for by the
+ * nearest earlier one of the same act, then by the rest, which is drawn at once if need be.
+ */
+private fun heroDollFrame(ui: BattleUi, clockMs: Long): de.bornim.core.art.PixelImage {
+    val hero = ui.battle.hero
+    val now = System.currentTimeMillis()
+    val m = ui.motion
+    if (m != null) {
+        val p = (now - m.start).toDouble() / m.ms
+        if (p < 1.0 || m.hold) {
+            val i = if (p <= 0) m.from else (m.from + ((m.to - m.from + 1) * p).toInt()).coerceAtMost(m.to)
+            for (k in i downTo m.from) HeroBattle.ready(hero, m.act, m.strike, m.variant, k)?.let { return it }
+        }
+    }
+    val idle = (clockMs / 110).toInt()
+    return HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
+        ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
+        ?: HeroBattle.frame(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
 }
