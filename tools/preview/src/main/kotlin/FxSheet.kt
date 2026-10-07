@@ -65,7 +65,7 @@ fun renderFlameDodge() {
                     val hop = if (saved) (kotlin.math.sin(t * Math.PI.toFloat()) * 26 * side) else 0f
                     val fw = frame.width * px; val feet = (de.bornim.core.art.MonsterArt.groundLine(id) * px).toFloat()
                     androidx.compose.foundation.layout.Box(Modifier.offset((feetX - fw / 2 + hop).dp, (feetY - feet).dp)) {
-                        de.bornim.game.ui.PixelSprite(frame, px.dp)
+                        de.bornim.game.ui.PixelSprite(frame, px.dp, overflow = true)
                     }
                     Canvas(Modifier.size(cw.dp, ch.dp)) {
                         val enemy = Offset(feetX, feetY - feet * 0.55f)
@@ -85,4 +85,48 @@ fun renderFlameDodge() {
     File("build/screens/flame_dodge.png").writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
     scene.close()
     println("wrote flame_dodge")
+}
+
+/**
+ * Where effects land on the foes built in the round, placed exactly as the battle screen places them: the frame by its
+ * feet, the effects on the body's middle, the shimmer band and wounds laid over the frame.
+ */
+fun renderFxOnFoes() {
+    val M = de.bornim.core.art.MonsterArt
+    val foes = listOf("wolf" to 3, "dire_wolf" to 0, "goblin" to 0, "skeleton" to 2)
+    val kinds = listOf(FxKind.SLASH, FxKind.PIERCE, FxKind.SMASH, FxKind.FIRE_BOLT, FxKind.SACRED_FLAME, FxKind.BITE, FxKind.POISON)
+    val px = 1.5f
+    val cw = 300; val ch = 300
+    val scene = ImageComposeScene(cw * (kinds.size + 1), ch * foes.size, Density(1f)) {
+        Column(Modifier.background(Color(0xFF2A3A2A))) {
+            for ((id, seed) in foes) Row {
+                val look = de.bornim.core.MonsterLook(seed, shiny = true)
+                val frame = M.battleFrame(id, look, de.bornim.core.art.Act.IDLE, 0, 0)
+                val (bodyW, bodyH) = M.bodySize(id, look, frame.width, frame.height)
+                for (c in 0..kinds.size) androidx.compose.foundation.layout.Box(Modifier.size(cw.dp, ch.dp).background(Color(0xFF3A5A3A))) {
+                    val feetX = cw * 0.55f; val feetY = ch * 0.8f
+                    val anchor = (M.anchorX(id, frame.width) * px).toFloat(); val feet = (M.groundLine(id) * px).toFloat()
+                    androidx.compose.foundation.layout.Box(Modifier.offset((feetX - anchor).dp, (feetY - feet).dp)) {
+                        de.bornim.game.ui.PixelSprite(frame, px.dp, overflow = true)
+                        if (c == kinds.size) {
+                            de.bornim.game.ui.PixelSprite(de.bornim.core.art.Glow.sheen(frame, 5, 12), px.dp, alpha = 0.75f, overflow = true)
+                            de.bornim.game.ui.PixelSprite(de.bornim.core.art.Glow.wounds(frame, 2, 0x8A1010, seed), px.dp, overflow = true)
+                        }
+                    }
+                    Canvas(Modifier.size(cw.dp, ch.dp)) {
+                        // as the battle screen: on the feet's line, at 55 % of the body's height
+                        val enemy = Offset(feetX, feetY - (bodyH * px).toFloat() * 0.55f)
+                        val hero = Offset(20f, ch.toFloat())
+                        val u = (bodyW * px).toFloat() / 90
+                        if (c < kinds.size) drawFx(Fx(kinds[c], false, false, 7), 0.62f, hero, enemy, u)
+                        drawCircle(Color.Red, 2.5f, enemy)
+                    }
+                }
+            }
+        }
+    }
+    val img = scene.render(0)
+    File("build/screens/fx_on_foes.png").writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
+    scene.close()
+    println("wrote fx on foes")
 }

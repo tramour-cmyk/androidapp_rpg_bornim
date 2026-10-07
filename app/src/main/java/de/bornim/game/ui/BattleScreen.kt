@@ -560,7 +560,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     )
                 ) {
                     val mAlpha = (if (fleeing) 1f - t else 1f) * enemyAlphaBase(a, ui.enemyGone, t)
-                    if (mateFrame != null) PixelSprite(mateFrame, mPx, alpha = mAlpha, shade = shade)
+                    if (mateFrame != null) PixelSprite(mateFrame, mPx, alpha = mAlpha, shade = shade, overflow = true)
                     else PixelImageView(
                         MonsterArt.frame(packDef.mate, mateLook, if (acting || landing && t < 0.5f) Pose.ATTACK else Pose.IDLE, idle + i + 1),
                         mateSize, alpha = mAlpha, shade = shade,
@@ -598,20 +598,20 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 val pulse = rememberPulse()
                 // New-style elites shimmer along their outline; the old sprites keep the round aura.
                 if (glow != null && foeShown && enemyFrame != null) Box(Modifier.offset(x = -artDp * Glow.PAD, y = -artDp * Glow.PAD)) {
-                    PixelSprite(Glow.halo(enemyFrame, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.55f + 0.4f * pulse))
+                    PixelSprite(Glow.halo(enemyFrame, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.55f + 0.4f * pulse), overflow = true)
                 } else if (glow != null && foeShown) EliteAura(glow, monsterSize, enemyAlpha)
                 if (enemyFrame != null) {
                     PixelSprite(
                         enemyFrame, artDp, alpha = enemyAlpha,
-                        flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f, shade = shade,
+                        flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f, shade = shade, overflow = true,
                     )
-                    if (glow != null && foeShown) PixelSprite(Glow.rim(enemyFrame, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.22f + 0.18f * pulse))
-                    if (foeStains > 0 && foeShown) PixelSprite(woundsOf(enemyFrame, foeStains, id, battle.look.seed), artDp, alpha = enemyAlpha, shade = shade)
+                    if (glow != null && foeShown) PixelSprite(Glow.rim(enemyFrame, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.22f + 0.18f * pulse), overflow = true)
+                    if (foeStains > 0 && foeShown) PixelSprite(woundsOf(enemyFrame, foeStains, id, battle.look.seed), artDp, alpha = enemyAlpha, shade = shade, overflow = true)
                     // a band of light wanders over a shimmering coat every few seconds
                     if (battle.shiny && foeShown) {
                         val steps = 12
                         val phase = ((pulseClock() / 120) % 30).toInt()
-                        if (phase < steps) PixelSprite(Glow.sheen(enemyFrame, phase, steps), artDp, alpha = enemyAlpha * 0.75f)
+                        if (phase < steps) PixelSprite(Glow.sheen(enemyFrame, phase, steps), artDp, alpha = enemyAlpha * 0.75f, overflow = true)
                     }
                 } else {
                     val img = MonsterArt.frame(battle.monster.id, battle.look, enemyPose, if (foeWound > 0) idleIdx else idle)

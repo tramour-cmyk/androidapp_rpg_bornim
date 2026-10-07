@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
@@ -99,11 +100,13 @@ fun PixelImageView(image: PixelImage, size: Dp, modifier: Modifier = Modifier, a
 
 /** A pixel image at [px] dp per art pixel, keeping its own aspect ratio. */
 @Composable
-fun PixelSprite(image: PixelImage, px: Dp, modifier: Modifier = Modifier, alpha: Float = 1f, flash: Float = 0f, shade: Color? = null) {
+fun PixelSprite(image: PixelImage, px: Dp, modifier: Modifier = Modifier, alpha: Float = 1f, flash: Float = 0f, shade: Color? = null, overflow: Boolean = false) {
     Image(
         bitmap = Bitmaps.of(image),
         contentDescription = null,
-        modifier = modifier.size(px * image.width, px * image.height),
+        // with [overflow], drawn at its full size from its top left corner even where it is wider than the room around it
+        // (a foe's frame leaves space for its lunge and is wider than the scene): never squeezed, so feet and body stay put
+        modifier = (if (overflow) modifier.wrapContentSize(Alignment.TopStart, unbounded = true) else modifier).size(px * image.width, px * image.height),
         alpha = alpha,
         filterQuality = FilterQuality.None,
         colorFilter = when {

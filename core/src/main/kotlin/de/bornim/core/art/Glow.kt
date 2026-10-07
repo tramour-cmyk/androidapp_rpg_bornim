@@ -107,7 +107,13 @@ object Glow {
      */
     fun sheen(src: PixelImage, phase: Int, steps: Int = 12): PixelImage = cached("sheen/${System.identityHashCode(src)}/$phase/$steps") {
         val out = PixelImage(src.width, src.height)
-        val centre = -6 + (src.width + src.height * 0.6 + 12) * phase / (steps - 1)
+        // the band crosses the body itself, not the whole picture: a foe may stand in a frame far wider than it is
+        var x0 = src.width; var x1 = 0; var y0 = src.height; var y1 = 0
+        for (y in 0 until src.height) for (x in 0 until src.width) if (src.opaque(x, y)) {
+            x0 = minOf(x0, x); x1 = maxOf(x1, x); y0 = minOf(y0, y); y1 = maxOf(y1, y)
+        }
+        if (x1 < x0) return@cached out
+        val centre = x0 + y0 * 0.6 - 6 + ((x1 - x0) + (y1 - y0) * 0.6 + 12) * phase / (steps - 1)
         for (y in 0 until src.height) for (x in 0 until src.width) {
             if (!src.opaque(x, y)) continue
             val d = kotlin.math.abs(x + y * 0.6 - centre)
