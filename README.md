@@ -2,7 +2,7 @@
 
 Ein Fantasy-Rollenspiel für Android: Erkunde das Dorf Bornim und seine Umgebung aus der Vogelperspektive, stelle dich in rundenbasierten Kämpfen 17 Monsterarten, sammle Beute in sechs Seltenheitsstufen und entwickle deinen Helden bis Stufe 20. Mit Touch-Steuerung, animierter Pixel-Grafik, eigener Musik und einem vereinfachten Regelsystem auf Basis des SRD 5.1. Auf Deutsch und Englisch.
 
-**Download:** [bornim.apk (neueste Version)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/latest/download/bornim.apk) · [Änderungshistorie](CHANGELOG.md) · [Merkliste](docs/MERKLISTE.md) · [Offen](docs/OFFEN.md)
+**Download:** [bornim.apk (neueste Version)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/latest/download/bornim.apk) · [Änderungshistorie](CHANGELOG.md) · [Merkliste](docs/MERKLISTE.md) · [Offen](docs/OFFEN.md) · [Stil](docs/STIL.md)
 
 ## Features
 

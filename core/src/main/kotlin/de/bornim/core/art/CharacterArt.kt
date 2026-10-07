@@ -16,7 +16,7 @@ enum class Headgear { NONE, HAT, HELMET, HOOD, CIRCLET, BALD, BEARD_HOOD }
 private val SHORT_WEAPONS = setOf(HandItem.BLADE, HandItem.DAGGER, HandItem.AXE, HandItem.MACE, HandItem.WAND)
 
 /** What a character carries in the weapon hand on the map. */
-enum class HandItem { NONE, BLADE, DAGGER, AXE, MACE, STAFF, WAND, BOW, SPEAR }
+enum class HandItem { NONE, BLADE, DAGGER, AXE, MACE, STAFF, QUARTERSTAFF, WAND, BOW, SPEAR }
 
 data class Look(
     val skin: Int,
@@ -138,7 +138,8 @@ object CharacterArt {
                 Icon.DAGGER -> HandItem.DAGGER
                 Icon.AXE -> HandItem.AXE
                 Icon.MACE, Icon.HAMMER -> HandItem.MACE
-                Icon.STAFF -> HandItem.STAFF
+                // the plain fighting staff has iron caps, the mage's staff its crystal
+                Icon.STAFF -> if (g.base == "quarterstaff") HandItem.QUARTERSTAFF else HandItem.STAFF
                 Icon.WAND -> HandItem.WAND
                 Icon.BOW, Icon.CROSSBOW -> HandItem.BOW
                 Icon.SPEAR -> HandItem.SPEAR
@@ -364,6 +365,12 @@ object CharacterArt {
             HandItem.MACE -> {
                 rect(x, hand - 8, x, hand + 3, wood)
                 ellipse(x + 0.5, hand - 9.5, 2.2, 2.2, m); px(x, hand - 11, mL)
+            }
+            HandItem.QUARTERSTAFF -> {
+                rect(x, hand - 14, x, hand + 9, wood); rect(x + 1, hand - 14, x + 1, hand + 9, woodD)
+                // iron caps at both ends
+                rect(x, hand - 16, x + 1, hand - 14, m); px(x, hand - 16, mL)
+                rect(x, hand + 9, x + 1, hand + 10, mD)
             }
             HandItem.STAFF -> {
                 rect(x, hand - 14, x, hand + 9, wood); rect(x + 1, hand - 14, x + 1, hand + 9, woodD)

@@ -2,7 +2,7 @@
 
 Ideen und Vorschläge aus der bisherigen Entwicklung, die noch **nicht umgesetzt** sind. Gesammelt, damit wir sie später prüfen, neu bewerten oder verwerfen können. Stand: 06.10.2026, 07:50 (Berliner Zeit).
 
-Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md), was gerade ansteht oder zu entscheiden ist in der Liste [Offen](OFFEN.md).
+Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md), was gerade ansteht oder zu entscheiden ist in der Liste [Offen](OFFEN.md). Für alle Ideen gelten die [Stil-Leitlinien](STIL.md).
 
 ## Attribute (Rest aus dem Attribut-Paket)
 
