@@ -31,6 +31,7 @@ import de.bornim.core.Gear
 import de.bornim.core.GearSlot
 import de.bornim.core.Lang
 import de.bornim.core.Rarity
+import de.bornim.core.GearCompare
 import de.bornim.core.Rules
 import de.bornim.core.Ui
 import de.bornim.core.Weight
@@ -123,29 +124,13 @@ fun GearRow(g: Gear, lang: Lang, game: Game, revision: Int, trailing: String? = 
     }
 }
 
-/** ▲ green if the item looks like an upgrade, ▼ red if worse, nothing if unclear. */
+/** ▲ green if the piece would be better all round, ▼ red if worse; nothing if mixed or no change (see [GearCompare]). */
 private fun upgradeVerdict(g: Gear, game: Game): Pair<String, Color>? {
     val hero = game.hero
-    if (!hero.canWear(g)) return null
-    val current = hero.item(g.slot)
-    fun score(x: Gear?): Double {
-        if (x == null) return 0.0
-        var s = x.rolls.sumOf { r ->
-            when (r.affix) {
-                Affix.HP, Affix.GOLD_FIND, Affix.MAGIC_FIND, Affix.XP, Affix.LIFESTEAL -> r.value / 5.0
-                Affix.ALL_STATS -> r.value * 6.0
-                else -> r.value * 1.5
-            }
-        } + x.plus * 2
-        x.def.damage?.let { s += (it.count * (it.sides + 1)) / 2.0 }
-        s += x.def.armor + x.def.focus * 2
-        return s
-    }
-    val a = score(g)
-    val b = score(current)
-    return when {
-        a > b + 0.5 -> "▲" to Color(0xFF2A8A3A)
-        a < b - 0.5 -> "▼" to Colors.accent
+    if (!hero.canWear(g) || hero.gear.values.any { it.uid == g.uid }) return null
+    return when (GearCompare.of(hero, g).verdict) {
+        1 -> "▲" to Color(0xFF2A8A3A)
+        -1 -> "▼" to Colors.accent
         else -> null
     }
 }
@@ -161,15 +146,15 @@ fun GearDetails(g: Gear, game: Game, lang: Lang) {
     Txt(g.wearLine(lang) + " · " + (if (de) "Stufe " else "Level ") + g.ilvl +
         (if (d.weight != Weight.NONE) " · " + d.weight.title(lang) else ""), size = 13.sp, bold = d.isWeapon && d.twoHanded,
         color = if (d.isWeapon && d.twoHanded) Colors.accent else Colors.textDim)
-    // What else has to come off when this is put on
-    val inBag = g in game.state.bag
-    val swapped = when {
-        !inBag -> null
-        d.isWeapon && d.twoHanded -> hero.item(GearSlot.OFF_HAND)?.takeIf { it.uid != hero.weapon?.uid }
-        d.slot == GearSlot.OFF_HAND -> hero.weapon?.takeIf { it.def.twoHanded }
-        else -> null
+    // what comes off for it: the piece in its place, and a shield for a two-handed weapon (or the other way round)
+    val cmp = if (g in game.state.bag && hero.canWear(g)) GearCompare.of(hero, g) else null
+    cmp?.replaced?.takeIf { it.isNotEmpty() }?.let { off ->
+        val other = off.any { it.slot != d.slot }
+        Txt((if (de) "Ersetzt: " else "Replaces: ") + off.joinToString(", ") { it.name(lang) }, size = 13.sp, bold = other,
+            color = if (other) Colors.accent else Colors.textDim)
     }
-    swapped?.let { Txt((if (de) "Beim Anlegen wird abgelegt: " else "Equipping removes: ") + it.name(lang), size = 13.sp, color = Colors.accent) }
+    // the verdict at once, so it is seen without scrolling; the table below says why
+    cmp?.let { c -> Txt(c.summary(lang), size = 14.sp, bold = true, color = when (c.verdict) { 1 -> Color(0xFF2A8A3A); -1 -> Colors.accent; else -> Colors.text }) }
     Spacer(Modifier.height(6.dp))
     // base numbers
     d.damage?.let { dmg ->
@@ -213,31 +198,25 @@ fun GearDetails(g: Gear, game: Game, lang: Lang) {
     }
     if (d.focus > 0 && !hero.cls.caster) Txt(if (de) "Zauberkraft nützt nur Zauberwirkern." else "Spell power only helps spellcasters.", size = 13.sp, color = Colors.textDim)
 
-    // comparison
-    val current = hero.item(g.slot)
-    if (current != null && current.uid != g.uid) {
-        Txt((if (de) "Angelegt: " else "Equipped: ") + current.name(lang), size = 14.sp, color = rarityColor(current.rarity))
+    // comparison: everything that changes, what is worn now beside what it would be, gains green and losses red
+    if (cmp == null) return
+    Spacer(Modifier.height(8.dp))
+    Row(Modifier.fillMaxWidth()) {
+        Txt(if (de) "Vergleich" else "Compare", Modifier.weight(1.8f), size = 15.sp, bold = true)
+        Txt(if (de) "Angelegt" else "Worn", Modifier.weight(0.9f), size = 13.sp, color = Colors.textDim)
+        Txt(if (de) "Neu" else "New", Modifier.weight(0.9f), size = 13.sp, color = Colors.textDim)
     }
-    if (!hero.canWear(g) || hero.gear.values.any { it.uid == g.uid }) return
-    val c = hero.compare(g)
-    @Composable
-    fun line(label: String, before: String, after: String, better: Boolean?) {
-        if (before == after) return
-        val color = when (better) {
-            true -> Color(0xFF2A8A3A)
-            false -> Colors.accent
-            null -> Colors.text
+    Box(Modifier.fillMaxWidth().padding(vertical = 3.dp).height(1.dp).background(Colors.textDim.copy(alpha = 0.35f)))
+    val good = Color(0xFF2A8A3A)
+    cmp.rows.forEach { r ->
+        Row(Modifier.fillMaxWidth()) {
+            Txt(r.label(lang), Modifier.weight(1.8f), size = 15.sp, maxLines = 2)
+            Txt(r.before, Modifier.weight(0.9f), size = 15.sp, color = Colors.textDim)
+            Txt(r.after, Modifier.weight(0.9f), size = 15.sp, bold = r.better != null,
+                color = when (r.better) { true -> good; false -> Colors.accent; null -> Colors.textDim })
         }
-        Txt("$label: $before → $after", size = 16.sp, bold = true, color = color)
+        r.note?.let { Txt(it(lang), Modifier.padding(start = 10.dp), size = 12.sp, color = Colors.textDim) }
     }
-    line(if (de) "Rüstungsklasse" else "Armor Class", "${c.acBefore}", "${c.acAfter}", c.acAfter > c.acBefore)
-    line(if (de) "Angriff" else "Attack", Rules.signed(c.attackBefore), Rules.signed(c.attackAfter), c.attackAfter > c.attackBefore)
-    fun avg(x: DiceExpr) = x.count * (x.sides + 1) / 2.0 + x.bonus
-    line(
-        if (de) "Schaden" else "Damage", c.damageBefore.label(lang), c.damageAfter.label(lang),
-        if (avg(c.damageAfter) == avg(c.damageBefore)) null else avg(c.damageAfter) > avg(c.damageBefore),
-    )
-    line(Ui.hp(lang), "${c.hpBefore}", "${c.hpAfter}", c.hpAfter > c.hpBefore)
 }
 
 /** Paper doll: the hero as the doll in the middle, slowly turning, and the nine equipment slots on both sides. */

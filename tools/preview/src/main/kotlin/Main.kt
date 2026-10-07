@@ -170,6 +170,8 @@ fun main() {
         shot("34_gear_halfling", taps = listOf(Offset(680f, 95f))) { vm -> geared(vm, CharClass.CLERIC, Race.HALFLING); vm.menuOpen = true }
         shot("15_bag_tab", taps = listOf(Offset(410f, 95f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }
         shot("16_bag_dialog", taps = listOf(Offset(410f, 95f), Offset(540f, 560f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }
+        shot("16b_bag_dialog", taps = listOf(Offset(410f, 95f), Offset(540f, 760f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }
+        shot("16c_bag_dialog", taps = listOf(Offset(410f, 95f), Offset(540f, 1200f))) { vm -> geared(vm, CharClass.FIGHTER); vm.menuOpen = true }
         System.exit(0)
     }
     hudCheck()

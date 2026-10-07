@@ -203,7 +203,7 @@ data class Gear(
         val shown = name(lang)
         val hasType = shown.contains(def.name(lang), ignoreCase = true)
         return when {
-            hasType && shown.contains(rarity.title(lang), ignoreCase = true) -> if (plus > 0) plusText.trim() else null
+            hasType && shown.contains(rarity.title(lang), ignoreCase = true) -> null
             hasType -> r + plusText
             lang == Lang.DE -> r + def.gender.ending + " " + def.de + plusText
             else -> "$r ${def.en}$plusText"

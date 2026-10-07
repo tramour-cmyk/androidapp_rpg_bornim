@@ -70,7 +70,7 @@ fun ConfirmDialog(spec: DialogSpec, onDismiss: () -> Unit) {
                 Spacer(Modifier.height(8.dp))
                 Column(
                     Modifier
-                        .heightIn(max = 420.dp)
+                        .heightIn(max = 520.dp)
                         .verticalScroll(rememberScrollState())
                 ) { spec.body() }
                 Spacer(Modifier.height(12.dp))

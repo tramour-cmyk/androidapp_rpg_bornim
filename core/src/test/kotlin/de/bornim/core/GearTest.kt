@@ -144,4 +144,24 @@ class GearTest {
         // the list line names both dice
         assertTrue(Gear(903, "quarterstaff", Rarity.COMMON, 1).listLine(Lang.DE).contains("1W6/1W8"))
     }
+
+    @Test
+    fun comparisonShowsGainsLossesAndLimits() {
+        val s = GameState.newGame("C", Race.HUMAN, CharClass.FIGHTER)
+        val hero = s.hero
+        hero.equip(Gear(910, "longsword", Rarity.COMMON, 1))
+        hero.equip(Gear(911, "shield", Rarity.COMMON, 1))
+        // a greatsword: more damage, but the shield comes off
+        val c = GearCompare.of(hero, Gear(912, "greatsword", Rarity.COMMON, 1))
+        assertTrue(c.replaced.any { it.base == "shield" }, "the shield comes off")
+        assertEquals(0, c.verdict, "mixed: damage up, AC down")
+        assertTrue(c.rows.any { it.label.de == "Rüstungsklasse" && it.better == false })
+        assertTrue(c.rows.any { it.label.de == "Schaden" && it.better == true })
+        // AC beyond the chapter's limit is named, not hidden
+        hero.equip(Gear(913, "helmet", Rarity.RARE, 1, 0, listOf(Roll(Affix.AC, 1))))
+        val more = GearCompare.of(hero, Gear(914, "gloves", Rarity.RARE, 1, 0, listOf(Roll(Affix.AC, 1))))
+        assertTrue(more.rows.any { it.note != null }, "a swallowed bonus is named")
+        // the hero is left as it was
+        assertEquals("longsword", hero.weapon?.base)
+    }
 }
