@@ -12,6 +12,10 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Alle bewegen sich in je drei Varianten (Angriff, Treffer, Ausweichen, Sterben), jeder in seiner Art: der Kobold geduckt mit vorgestreckter Schnauze, der Zombie schlaff mit hängendem Kopf, Krogg mit gebeugten Schultern, Grak aufrecht und gedrillt. Kollisionsprüfung: 0 Durchdringungen in 13 364 Bildern aller Gegner.
 - Krogg und Grak sind feste Bosse und sehen immer gleich aus; die übrigen variieren in Haut, Statur, Größe und Ausrüstung.
 - Neu als Waffe nach SRD: der Morgenstern (1W8 Stich), auch als Beute.
+- Der Schwanz des Kobolds liegt beim Sturz entlang der Beine statt in den Himmel oder in den Boden zu zeigen.
+
+**Behoben – Abwehrhaltung fiel zurück**
+- Nach einem Treffer werden die Bilder des Helden mit den neuen Wunden neu gezeichnet; die Abwehr kam dabei erst spät an die Reihe, und bis dahin stand der Held in Ruhehaltung. Jetzt werden Abwehr und Treffer gleich nach der Ruhe gezeichnet, eine gehaltene Abwehr zuerst, und eine gehaltene Haltung fällt nie mehr in die Ruhe zurück.
 
 ## v0.1.159 – 07.10.2026, 20:45
 
