@@ -400,7 +400,7 @@ fun checkClashes() {
     val byAct = sortedMapOf<String, Int>()
     var bodyBad = 0
     val bodyAct = sortedMapOf<String, Int>()
-    for (race in de.bornim.core.Race.entries) for (weapon in listOf("longsword", "mace", "shortsword", "warhammer")) {
+    for (race in de.bornim.core.Race.entries) for (weapon in listOf("longsword", "mace", "shortsword", "warhammer", "spear", "scimitar")) {
         val doll = de.bornim.core.art.Doll(race, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE)
         val outfit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g(weapon), de.bornim.core.GearSlot.OFF_HAND to g("shield")))
         val runs = listOf(de.bornim.core.art.HeroFigure.Act.IDLE to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.INTRO to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.TURN to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.AMBUSHED to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.BLOCK to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.HURT to de.bornim.core.art.HeroFigure.Strike.SLASH,
@@ -438,7 +438,7 @@ fun checkClashes() {
     }
     // two-handed: both hands on the grip in every blow, the parry braced by the free forearm
     var twoBad = 0; var twoTotal = 0
-    for (race in de.bornim.core.Race.entries) for (weapon in listOf("greatsword", "greataxe", "quarterstaff")) {
+    for (race in de.bornim.core.Race.entries) for (weapon in listOf("greatsword", "greataxe", "quarterstaff", "halberd", "maul")) {
         val doll = de.bornim.core.art.Doll(race, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE)
         val outfit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g(weapon)))
         val runs = listOf(
@@ -823,4 +823,50 @@ fun renderStanceViews() {
     }
     ImageIO.write(out, "png", File("build/screens/stance_views.png"))
     println("wrote stance views")
+}
+
+/** How long each weapon drawing is, in cm on a human, before and behind the hand; and how its reach for the checks compares. */
+fun measureWeapons() {
+    val bases = de.bornim.core.GearBases.all.filter { it.slot == de.bornim.core.GearSlot.MAIN_HAND || it.slot == de.bornim.core.GearSlot.OFF_HAND }.filter { it.isWeapon }.map { it.id }
+    val k = 1.636
+    for (b in bases) {
+        val s = de.bornim.core.art.Sculpt(900, 200, 31)
+        s.transform(0.0, 0.0, 1.0, 1.0, 450.0, 100.0)
+        de.bornim.core.art.WeaponArt(s).draw(b, de.bornim.core.Rarity.COMMON, 450.0, 100.0, 0.0, 0.0, 1.0)
+        var lo = 9999; var hi = -9999; var top = 9999; var bot = -9999
+        for (y in 0 until 200) for (x in 0 until 900) if ((s.img[x, y] ushr 24) >= 128) { lo = minOf(lo, x); hi = maxOf(hi, x); top = minOf(top, y); bot = maxOf(bot, y) }
+        if (hi < 0) { println("WAFFE $b: nicht gezeichnet"); continue }
+        val front = (hi - 450) * k; val back = (450 - lo) * k
+        println("WAFFE $b: vorn ${"%.0f".format(front)} cm, hinten ${"%.0f".format(back)} cm, gesamt ${"%.0f".format(front + back)} cm, quer ${"%.0f".format((bot - top) * k)} cm; Prüflänge ${de.bornim.core.art.Dress.reach(b).toInt()} cm")
+    }
+}
+
+
+/** Every weapon in a hand, human and halfling side by side, to judge their sizes against the body. */
+fun renderWeaponSizes() {
+    var uid = 1L
+    fun g(base: String) = de.bornim.core.Gear(uid++, base, de.bornim.core.Rarity.COMMON, 3)
+    val F = de.bornim.core.art.HeroFigure
+    val weapons = listOf("dagger", "shortsword", "scimitar", "rapier", "longsword", "greatsword", "handaxe", "battleaxe", "greataxe", "mace", "warhammer", "maul", "spear", "halberd", "quarterstaff", "staff")
+    val dolls = listOf(de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE), de.bornim.core.art.Doll(de.bornim.core.Race.HALFLING, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE))
+    val cw = 150; val ch = 300
+    val out = BufferedImage(cw * weapons.size, ch, BufferedImage.TYPE_INT_RGB)
+    val gg = out.createGraphics(); gg.color = java.awt.Color(0x5E625C); gg.fillRect(0, 0, out.width, out.height)
+    for ((i, w) in weapons.withIndex()) {
+        val o = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.MAIN_HAND to g(w)))
+        val st = F.stance(o.items[de.bornim.core.GearSlot.MAIN_HAND]?.def)
+        // the weapon held out level to the side, so its whole length shows
+        val rig = if (st == de.bornim.core.art.HeroFigure.Stance.STAFF) F.sequence(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, st)[0].copy(yaw = 0.0)
+            else F.VICTORY_POSES[0].copy(yaw = 0.0, rh = de.bornim.core.art.HeroFigure.V(16.0, 70.0, 10.0), weapon = de.bornim.core.art.HeroFigure.V(0.15, 1.0, 0.0))
+        for ((di, d) in dolls.withIndex()) {
+            val im = d.render(cw, ch, cw / 2.0 + (if (di == 0) -22.0 else 30.0), ch - 6.0, 0.95, rig, o).img
+            for (y in 0 until ch) for (x in 0 until cw) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(i * cw + x, y, q) }
+        }
+        gg.color = java.awt.Color(0xF0E8D8); gg.drawString(w, i * cw + 4, 14)
+    }
+    // a scale: one metre marks
+    gg.color = java.awt.Color(0xC8C0B0)
+    for (m in 0..2) { val y = (ch - 6 - m * 100 * 0.95).toInt(); gg.drawLine(0, y, out.width, y) }
+    ImageIO.write(out, "png", File("build/screens/weapon_sizes.png"))
+    println("wrote weapon sizes")
 }

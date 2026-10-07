@@ -696,9 +696,10 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val dx = tx - hx; val dy = ty - hy
         val len = sqrt(dx * dx + dy * dy)
         // weapon drawings are in units of the old figure; small folk carry somewhat smaller arms
-        val k = img.px * 1.636 * sqrt(h / 175.0)
+        val (along, across) = proportion(base)
+        val k = img.px * 1.636 * sqrt(h / 175.0) * across
         layer.transform(0.0, 0.0, k, k, hx, hy)
-        WeaponArt(layer).draw(base, r, hx, hy, Math.toDegrees(atan2(dy, dx)), 0.0, (len / (20.0 * img.px)).coerceIn(0.2, 1.15))
+        WeaponArt(layer).draw(base, r, hx, hy, Math.toDegrees(atan2(dy, dx)), 0.0, (len / (20.0 * img.px)).coerceIn(0.2, 1.15) * along / across)
         val l2 = (dx * dx + dy * dy).coerceAtLeast(1e-6)
         for (y in 0 until hgt) for (x in 0 until w) {
             val p = layer.img[x, y]
@@ -717,10 +718,25 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val ROUND = setOf("staff", "quarterstaff", "wand")
         /** How far a staff reaches back past the hand, as a part of its reach: a wizard's staff is held high, a fighting staff in the middle. */
         fun buttPart(base: String) = when (base) { "staff" -> 1.45; "quarterstaff" -> 1.0; else -> 0.0 }
-        /** About how far a weapon reaches beyond the hand, in cm. */
+        /**
+         * How a weapon drawing is stretched along its length and across it to true size on a human: swords and pole arms
+         * were drawn short, the heads of axes, maces and hammers far too broad. Lengths after it: dagger 38 cm, short sword
+         * 68, scimitar 85, longsword and rapier 105, greatsword 145, hand axe 48, battleaxe 85, greataxe 130, mace 65,
+         * war hammer 70, maul 120, spear 175, halberd 185.
+         */
+        fun proportion(base: String): Pair<Double, Double> = when (base) {
+            "dagger" -> 1.0 to 0.8; "shortsword" -> 1.3 to 1.0; "scimitar" -> 1.27 to 1.0; "rapier" -> 1.4 to 1.0
+            "longsword" -> 1.33 to 1.0; "greatsword" -> 1.37 to 1.0; "handaxe" -> 1.05 to 0.8; "battleaxe" -> 1.3 to 0.8
+            "greataxe" -> 1.33 to 0.5; "mace" -> 1.1 to 0.65; "warhammer" -> 1.15 to 0.65; "maul" -> 1.3 to 0.8
+            "spear" -> 1.5 to 1.0; "halberd" -> 1.6 to 0.9
+            else -> 1.0 to 1.0
+        }
+
+        /** About how far a weapon reaches beyond the hand, in cm: the front of its drawing at true size. */
         fun reach(base: String) = when (base) {
-            "dagger" -> 30.0; "shortsword", "handaxe", "wand" -> 60.0; "mace", "scimitar" -> 75.0
-            "longsword", "rapier", "battleaxe", "warhammer" -> 90.0; "greatsword" -> 125.0; "greataxe", "maul" -> 105.0; "quarterstaff" -> 85.0; "staff" -> 70.0; else -> 100.0
+            "dagger" -> 28.0; "shortsword" -> 47.0; "scimitar" -> 65.0; "rapier" -> 80.0; "longsword" -> 75.0; "greatsword" -> 103.0
+            "handaxe" -> 36.0; "battleaxe" -> 64.0; "greataxe" -> 96.0; "mace" -> 54.0; "warhammer" -> 53.0; "maul" -> 85.0
+            "spear" -> 123.0; "halberd" -> 131.0; "wand" -> 60.0; "quarterstaff" -> 85.0; "staff" -> 70.0; else -> 100.0
         }
 
         fun frac(v: Double) = v - floor(v)
