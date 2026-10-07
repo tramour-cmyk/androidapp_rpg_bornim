@@ -24,7 +24,9 @@ class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Bool
     /** A versatile weapon held in both hands, the other hand being empty (see [Hero.bothHands]). */
     val bothHands: Boolean = false,
     /** A cloak of this colour rather than its rarity's. */
-    val cloakRgb: Int? = null) {
+    val cloakRgb: Int? = null,
+    /** A shaman's trappings: a necklace of bones and teeth, a horned skull worn on the head, a skull on the staff. */
+    val fetish: Boolean = false) {
     fun base(slot: GearSlot): String? = items[slot]?.base
     fun rarity(slot: GearSlot): Rarity = items[slot]?.rarity ?: Rarity.COMMON
     val twoHands: Boolean get() = items[GearSlot.MAIN_HAND]?.def?.let { (it.twoHanded || bothHands && it.versatile != null) && !it.ranged } == true
@@ -57,8 +59,9 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     private val darkLeather = m(argb(0x3E2C22), grain = 0.05)
     private val gold = m(argb(0xB8904A), shine = 0.7)
     private val wood = m(argb(0x6E4A2C), grain = 0.12)
-    private val cloth = m(worn(look.cloth), grain = 0.05)
-    private val clothDark = m(worn(look.clothDark, 0.45), grain = 0.05)
+    // a creature's robe is filthy homespun, stained dark; a hero's is in the colours of the class
+    private val cloth = if (d.kind != null) m(argb(0x4A382A), grain = 0.32) else m(worn(look.cloth), grain = 0.05)
+    private val clothDark = if (d.kind != null) m(argb(0x2E241C), grain = 0.32) else m(worn(look.clothDark, 0.45), grain = 0.05)
     private val pants = m(worn(look.pants, 0.3), grain = 0.05)
     private fun chain(r: Rarity) = if (o.rusty) m(argb(0x5E4A3C), shine = 0.2, grain = 0.6) else m(mix(argb(0x8A9098), r.color.toInt(), if (r >= Rarity.RARE) 0.12 else 0.0), shine = 0.4, grain = 0.45)
     private fun cloakColor(r: Rarity) = o.cloakRgb?.let { worn(argb(it), 0.2) } ?: worn(argb(when (r) {
@@ -104,9 +107,10 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
 
     fun solids(): List<Solid> {
         // creatures bring their own: a goblin's rag, a skeleton's bare bones
-        if (d.kind == null) clothes()
+        if (d.kind == null || (chest != null && robe)) clothes()
         armour()
         if (o.pelt) furMantle()
+        if (o.fetish) fetishes()
         arms()
         // a creature goes barefoot and beltless unless it wears something there
         if (d.kind == null || o.items[GearSlot.LEGS] != null) legs()
@@ -306,6 +310,38 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             it.cut(-upN, upY(edge))
         }
         for (i in 0..1) shell(2.2, armGroup(i, Doll.CLOTH), fur, "delt$i", paint = paint)
+    }
+
+    /** A shaman's necklace of bones and teeth on a thong, and the horned skull of some beast worn as a cap. */
+    private fun fetishes() {
+        val h = d.height
+        val bone = m(argb(0xA89C7C), shine = 0.15, grain = 0.35)
+        val thong = m(argb(0x2A1E16), grain = 0.2)
+        val dark = m(argb(0x140C0A))
+        // round the neck: a thong with bones, fangs and a small skull hanging off it
+        val neckY = d.shoulderY + 0.01 * h
+        for (t in 0..10) {
+            val a = Math.PI * (0.15 + 0.7 * t / 10.0)
+            val drop = 0.05 * h * kotlin.math.sin(a)
+            val at = sk.upper.apply(P3(kotlin.math.cos(a) * d.shoulderX * 0.62, neckY - drop, d.chestDepth * (0.55 + 0.6 * kotlin.math.sin(a))))
+            add(Ellipsoid(at, P3(0.006 * h, 0.006 * h, 0.006 * h), Frame.IDENTITY, BodyPart.GEAR, Doll.TRIM), thong)
+            if (t % 2 == 0) add(RoundCone(at, at - upN * (0.022 * h) + sk.upper.dir(P3.Z) * (0.004 * h), 0.006 * h, 0.0015 * h, BodyPart.GEAR, Doll.ITEM), bone)
+        }
+        val mid = sk.upper.apply(P3(0.0, neckY - 0.06 * h, d.chestDepth * 1.18))
+        add(Ellipsoid(mid, P3(0.016 * h, 0.018 * h, 0.014 * h), Frame.IDENTITY, BodyPart.GEAR, Doll.ITEM), bone)
+        for (s in listOf(-1.0, 1.0)) add(Ellipsoid(mid + sk.upper.dir(P3(s * 0.006 * h, 0.003 * h, 0.012 * h)), P3(0.004 * h, 0.005 * h, 0.003 * h), Frame.IDENTITY, BodyPart.GEAR, Doll.TRIM), dark)
+        // on the head: the skull of a horned beast, its snout over the brow, horns curving out and back
+        val hx = sk.head
+        val c = d.headC; val k = d.hh
+        fun hp(x: Double, y: Double, z: Double) = hx.apply(c + P3(x * k, y * k, z * k))
+        add(Ellipsoid(hp(0.0, 0.42, 0.0), P3(0.36 * k, 0.2 * k, 0.4 * k), hx.frame(Frame.IDENTITY), BodyPart.GEAR, Doll.HELM), bone)
+        add(RoundCone(hp(0.0, 0.42, 0.2), hp(0.0, 0.3, 0.62), 0.16 * k, 0.08 * k, BodyPart.GEAR, Doll.HELM), bone)
+        for (s in listOf(-1.0, 1.0)) {
+            add(Ellipsoid(hp(s * 0.15, 0.42, 0.3), P3(0.1 * k, 0.08 * k, 0.07 * k), hx.frame(Frame.IDENTITY), BodyPart.GEAR, Doll.TRIM), dark)
+            val horn = m(argb(0x3A3028), shine = 0.2, grain = 0.2)
+            add(RoundCone(hp(s * 0.26, 0.55, -0.05), hp(s * 0.62, 0.78, -0.3), 0.08 * k, 0.05 * k, BodyPart.GEAR, Doll.HELM), horn)
+            add(RoundCone(hp(s * 0.62, 0.78, -0.3), hp(s * 0.72, 0.62, -0.62), 0.05 * k, 0.012 * k, BodyPart.GEAR, Doll.HELM), horn)
+        }
     }
 
     // ---------------------------------------------------------------- arms and legs
@@ -586,6 +622,19 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
                         cone(at(0.95), crystal + out * (0.013 * h) + dir * (0.012 * h), 0.004 * h, 0.0018 * h, wood, Doll.TRIM)
                     }
                     val big = if (alone) 2.3 else 1.0
+                    if (o.fetish) {
+                        // a shaman's staff: a small skull bound on top, its sockets glowing, feathers and bones hanging off it
+                        val bone = m(argb(0xC8BC9C), shine = 0.2, grain = 0.25)
+                        val face = (up2 * -1.0 + side * 0.3).norm()
+                        val u = 6.5
+                        add(Ellipsoid(crystal + dir * (0.012 * h), P3(0.02 * h * u / 2.6, 0.022 * h * u / 2.6, 0.019 * h * u / 2.6), Frame.along(dir, face), BodyPart.GEAR, Doll.TRIM), bone)
+                        add(Ellipsoid(crystal - dir * (0.02 * h) + face * (0.02 * h), P3(0.03 * h, 0.022 * h, 0.03 * h), Frame.along(dir, face), BodyPart.GEAR, Doll.TRIM), bone)
+                        for (s2 in listOf(-1.0, 1.0)) add(Ellipsoid(crystal + dir * (0.018 * h) + face * (0.045 * h) + (dir cross face).norm() * (s2 * 0.02 * h), P3(0.012 * h, 0.012 * h, 0.01 * h), Frame.IDENTITY, BodyPart.GEAR, Doll.TRIM), shine)
+                        for (f in 0..2) {
+                            val root = at(0.9) + side * ((f - 1) * 0.008 * h)
+                            add(RoundCone(root, root - P3(0.0, 0.05 * h, 0.0) + side * ((f - 1) * 0.006 * h), 0.004 * h, 0.0015 * h, BodyPart.GEAR, Doll.ITEM), if (f == 1) bone else m(argb(0x2A2220), grain = 0.3))
+                        }
+                    } else
                     add(Ellipsoid(crystal, P3(0.011 * h * big, 0.019 * h * big, 0.011 * h * big), Frame.along(dir), BodyPart.GEAR, Doll.TRIM), shine)
                 } else if (main.base == "spear") {
                     // an ash shaft with a socketed iron leaf, ridged down the middle, and an iron shoe at the butt

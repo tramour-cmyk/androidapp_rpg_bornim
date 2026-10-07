@@ -34,3 +34,38 @@ fun renderBeastDrafts() {
         println("wrote draft $kind")
     }
 }
+
+/** Drafts of the goblin shaman (a goblin in its trappings, three kits) and the ghoul (three looks), whole and the head close. */
+fun renderShamanGhoulDrafts() {
+    val D = de.bornim.core.art.Doll
+    val W = 150; val H = 230; val sc = 2
+    val HW = 110; val HH = 110
+    fun gear(slot: de.bornim.core.GearSlot, base: String) = slot to de.bornim.core.Gear(0, base, de.bornim.core.Rarity.COMMON, 1)
+    val shamanKits = listOf(
+        de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(gear(de.bornim.core.GearSlot.CHEST, "robe"), gear(de.bornim.core.GearSlot.MAIN_HAND, "staff")), rusty = true, crude = true, fetish = true),
+        de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(gear(de.bornim.core.GearSlot.MAIN_HAND, "staff")), rusty = true, crude = true, pelt = true, fetish = true),
+        de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(gear(de.bornim.core.GearSlot.CHEST, "robe"), gear(de.bornim.core.GearSlot.MAIN_HAND, "staff")), rusty = true, crude = true, pelt = true, fetish = true))
+    val ghoulKits = listOf(
+        null,
+        de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(gear(de.bornim.core.GearSlot.CHEST, "leather")), rusty = true, crude = true),
+        de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(gear(de.bornim.core.GearSlot.CHEST, "robe")), rusty = true, crude = true))
+    for ((name, kind, kits) in listOf(Triple("schamane", de.bornim.core.art.Doll.Creature.GOBLIN, shamanKits), Triple("ghul", de.bornim.core.art.Doll.Creature.GHOUL, ghoulKits))) {
+        val img = BufferedImage((W * 3 + HW * 3) * sc, H * sc, BufferedImage.TYPE_INT_ARGB)
+        val g = img.createGraphics(); g.color = java.awt.Color(0x3A4436); g.fillRect(0, 0, img.width, img.height)
+        for (v in 0 until 3) {
+            val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.entries[v], v, v, kind, 0.95 + 0.05 * v)
+            val base = de.bornim.core.art.HeroFigure.STAND.copy(lean = 0.4, crouch = 4.0, rh = de.bornim.core.art.HeroFigure.V(18.0, 55.0, 4.0), lh = de.bornim.core.art.HeroFigure.V(-18.0, 55.0, 4.0))
+            val rest = base.copy(yaw = listOf(20.0, 340.0, 200.0)[v])
+            val px = (H - 20) / (doll.height * 1.08)
+            val p = doll.render(W, H, W / 2.0, H - 10.0, px, rest, kits[v]).img
+            for (y in 0 until H) for (x in 0 until W) { val q = p[x, y]; if ((q ushr 24) < 128) continue
+                g.color = java.awt.Color(q, true); g.fillRect(v * W * sc + x * sc, y * sc, sc, sc) }
+            val hp = 85.0 / doll.hh
+            val h2 = doll.render(HW, HH, HW / 2.0, HH / 2.0 + (doll.height - doll.hh * 0.5) * 0.966 * hp, hp, base.copy(lean = 0.0, crouch = 0.0, yaw = listOf(25.0, 0.0, 330.0)[v]), kits[v]).img
+            for (y in 0 until HH) for (x in 0 until HW) { val q = h2[x, y]; if ((q ushr 24) < 128) continue
+                g.color = java.awt.Color(q, true); g.fillRect((3 * W + v * HW) * sc + x * sc, 20 * sc + y * sc, sc, sc) }
+        }
+        ImageIO.write(img, "png", File("build/screens/entwurf_$name.png"))
+    }
+    println("wrote shaman ghoul drafts")
+}

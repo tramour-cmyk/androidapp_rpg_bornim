@@ -23,7 +23,7 @@ import kotlin.math.sqrt
 class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, val hairTone: Int = 0, val kind: Creature? = null, val sizeK: Double = 1.0) {
 
     /** Foes built on the same doll: their own measures, head and skin, or a body of bare bones. */
-    enum class Creature { GOBLIN, SKELETON, KOBOLD, ZOMBIE, BUGBEAR, HOBGOBLIN }
+    enum class Creature { GOBLIN, SKELETON, KOBOLD, ZOMBIE, BUGBEAR, HOBGOBLIN, GHOUL }
 
     /**
      * The measures of the foes added after the goblin and the skeleton: height in cm, head lengths to the height, leg
@@ -40,12 +40,15 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         Creature.BUGBEAR -> Measures(212.0, 6.8, 0.47, 1.38, 1.3, 1.35, 1.15, 0.78, 1.14)
         // SRD hobgoblin: Medium, a little taller and broader than a man, upright and drilled
         Creature.HOBGOBLIN -> Measures(186.0, 7.2, 0.51, 1.1, 1.1, 1.08, 1.0, 0.88, 1.0)
+        // the ghoul: a corpse gone to a starved hunter, all sinew and bone, long arms ending in big clawed hands
+        Creature.GHOUL -> Measures(170.0, 7.4, 0.5, 0.7, 0.96, 1.45, 1.12, 0.92, 1.14)
         else -> null
     }
     private val kobold = kind == Creature.KOBOLD
     private val zombie = kind == Creature.ZOMBIE
     private val bugbear = kind == Creature.BUGBEAR
     private val hobgoblin = kind == Creature.HOBGOBLIN
+    private val ghoul = kind == Creature.GHOUL
     private val goblin = kind == Creature.GOBLIN
     private val bones = kind == Creature.SKELETON
 
@@ -101,6 +104,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         Creature.BUGBEAR -> intArrayOf(0x7A5A30, 0x4E3622, 0x7A4628, 0x8A7450)[skin.mod(4)]
         // hobgoblins: dark orange, red-brown, ochre-red and dusky red hides
         Creature.HOBGOBLIN -> intArrayOf(0xA8502A, 0x8A3E28, 0xA86A34, 0x7E3426)[skin.mod(4)]
+        // ghouls: grave-grey with a blue cast, sallow, dark ash, bruised and livid
+        Creature.GHOUL -> intArrayOf(0x6A7676, 0x7C7864, 0x58605C, 0x847A84)[skin.mod(4)]
         null -> Appearance.skins(race)[skin.mod(4)].rgb
     }
     val hairRgb = if (bugbear) mix(argb(skinRgb), argb(0x1A1410), 0.45) and 0xFFFFFF else if (zombie) intArrayOf(0x3A342C, 0x5A5448, 0x2A2420, 0x6A6458)[hairTone.mod(4)] else if (kind != null) 0x24201C else Appearance.hairs(race)[hairTone.mod(4)].rgb
@@ -108,7 +113,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     // ---------------------------------------------------------------- materials
 
     private fun m(rgb: Int, shine: Double = 0.0, grain: Double = 0.0) = Mat(Ramp.of(argb(rgb)), shine, grain)
-    val skinMat = Mat(Ramp.of(argb(skinRgb), sat = 0.8), shine = 0.05, grain = when (kind) { Creature.GOBLIN -> 0.14; Creature.KOBOLD -> 0.26; Creature.BUGBEAR -> 0.55; Creature.ZOMBIE -> 0.2; Creature.HOBGOBLIN -> 0.08; else -> 0.02 })
+    val skinMat = Mat(Ramp.of(argb(skinRgb), sat = 0.8), shine = 0.05, grain = when (kind) { Creature.GOBLIN -> 0.14; Creature.KOBOLD -> 0.26; Creature.BUGBEAR -> 0.55; Creature.ZOMBIE -> 0.2; Creature.HOBGOBLIN -> 0.08; Creature.GHOUL -> 0.24; else -> 0.02 })
     private val footMat = skinMat.copy(bias = -0.1)
     val hairMat = m(hairRgb, shine = 0.15, grain = 0.22)
     private val shirtMat = m(0xC9BDA2, grain = 0.06)
@@ -126,11 +131,15 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     private val coatMat = m(0x5A2622, grain = 0.2)
     private val breechMat = m(0x2E2A26, grain = 0.12)
     private val bootMat = m(0x241C16, shine = 0.2, grain = 0.15)
+    /** A ghoul's claws, black and wet; its long tongue. */
+    private val clawMat = m(0x161010, shine = 0.5)
+    private val tongueMat = m(0x5A1A22, shine = 0.6)
 
     /** The thigh: under the shorts or loincloth near the hip, bare below; breeches all the way for a hobgoblin. */
     private fun thighMat(p: P3, nearHip: Boolean): Mat = when {
         hobgoblin -> breechMat
         zombie -> rot(p, ragMat)
+        ghoul -> if (nearHip) rot(p, ragMat) else rot(p, skinMat, 0.0)
         bugbear -> if (nearHip) hideMat else skinMat
         nearHip -> shortsMat
         else -> skinMat
@@ -399,8 +408,16 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             ell(el.lerp(wr, 0.28), P3(0.022 * h * l, 0.06 * h, 0.02 * h * l), BodyPart.ARM, grp, "fore$i", Frame.along(wr - el))
             val dir = (wr - el).norm()
             val hf = Frame.along(dir, sk.thumb(i))
-            if (sk.fists) ell(wr + dir * (0.03 * h * handK), P3(0.026 * h * handK, 0.034 * h * handK, 0.022 * h * handK), BodyPart.HAND, grp, "hand$i", hf)
+            if (sk.fists && !ghoul) ell(wr + dir * (0.03 * h * handK), P3(0.026 * h * handK, 0.034 * h * handK, 0.022 * h * handK), BodyPart.HAND, grp, "hand$i", hf)
             else ell(wr + dir * (0.045 * h * handK), P3(0.029 * h * handK, 0.054 * h * handK, 0.014 * h * handK), BodyPart.HAND, grp, "hand$i", hf)
+            // a ghoul's long, hooked, black claws from every finger
+            if (ghoul) for (f in 0..3) {
+                val across = hf.x * ((f - 1.5) * 0.014 * h * handK)
+                val root = wr + dir * (0.085 * h * handK) + across
+                val mid = root + dir * (0.045 * h) + hf.z * (0.012 * h)
+                cone(root, mid, 0.01 * h, 0.007 * h, BodyPart.TUSK, TUSK, "claw$i").also { it.mat = clawMat }
+                cone(mid, mid + dir * (0.03 * h) + hf.z * (0.03 * h), 0.007 * h, 0.0015 * h, BodyPart.TUSK, TUSK, "claw$i").also { it.mat = clawMat }
+            }
         }
 
         // legs
@@ -449,6 +466,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         if (kobold) { koboldHead(sk, out); return }
         if (bugbear) { bugbearHead(sk, out); return }
         if (hobgoblin) { hobgoblinHead(sk, out); return }
+        if (ghoul) { ghoulHead(sk, out); return }
         val c = headC
         val k = hh
         val hx = sk.head
@@ -557,6 +575,20 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             BodyPart.FOOT -> bootMat
             else -> skinMat
         }
+        // a ghoul: naked grey flesh drawn tight over the ribs, a filthy rag round the loins
+        if (ghoul) return when (s.part) {
+            BodyPart.HAIR -> hairMat
+            BodyPart.TUSK -> tuskMat
+            BodyPart.PELVIS -> rot(q, ragMat)
+            BodyPart.TORSO -> when {
+                q.y < hipY + 0.12 * trunk -> rot(q, ragMat)
+                // the ribs: dark furrows between them down the chest and the flanks
+                q.y in hipY + 0.42 * trunk..shoulderY - 0.12 * trunk && (q.y / (0.026 * height)).let { it - kotlin.math.floor(it) } < 0.32 -> skinMat.copy(bias = -0.2)
+                else -> rot(q, skinMat, 0.0)
+            }
+            BodyPart.FOOT -> footMat
+            else -> rot(q, skinMat, 0.0)
+        }
         // the dead: grey flesh through a torn, filthy shirt and breeches, dark stains, bare rotting feet
         if (zombie) return when (s.part) {
             BodyPart.HAIR -> hairMat
@@ -613,6 +645,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         if (bugbear) { bugbearFace(img, sk); return }
         if (hobgoblin) { hobgoblinFace(img, sk); return }
         if (zombie) { zombieFace(img, sk); return }
+        if (ghoul) { ghoulFace(img, sk); return }
         val hx = sk.head
         fun put(p: P3, c: Int) {
             val q = hx.apply(p)
@@ -855,6 +888,51 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         }
         // old blood down the chin from the corners of the mouth
         for (sd in listOf(-1.0, 1.0)) line(c + P3(sd * 0.12 * k, -0.3 * k, 0.33 * k), c + P3(sd * 0.1 * k, -0.48 * k, 0.26 * k), argb(0x4A1210))
+    }
+
+    /**
+     * A ghoul's head: a long narrow skull with the skin shrunk onto it, high pointed ears, no nose but two slits, the
+     * jaw hanging open on rows of needle teeth and a long dark tongue lolling out over them.
+     */
+    private fun ghoulHead(sk: Skeleton, out: MutableList<Solid>) = with(HeadKit(sk, out)) {
+        ell(P3(0.0, 0.1 * k, -0.06 * k), P3(0.3 * k, 0.48 * k, 0.44 * k), key = "skull")
+        // the cheekbones standing out over sunken cheeks, the heavy brow
+        for (sd in listOf(-1.0, 1.0)) ell(P3(sd * 0.2 * k, -0.06 * k, 0.24 * k), P3(0.09 * k, 0.07 * k, 0.12 * k))
+        ell(P3(0.0, 0.12 * k, 0.3 * k), P3(0.25 * k, 0.07 * k, 0.1 * k))
+        ell(P3(0.0, -0.02 * k, 0.36 * k), P3(0.08 * k, 0.1 * k, 0.06 * k))
+        // the jaw dropped wide, the maw behind it, teeth like needles above and below
+        tilted(P3(0.0, -0.36 * k, 0.16 * k), P3(0.2 * k, 0.32 * k, 0.09 * k), P3(0.0, -0.9, 1.0), key = "jaw")
+        matEll(P3(0.0, -0.25 * k, 0.22 * k), P3(0.15 * k, 0.15 * k, 0.16 * k), mawMat)
+        for (t in -3..3) {
+            val x = t * 0.04 * k
+            tooth(P3(x, -0.18 * k, 0.31 * k - abs(t) * 0.012 * k), P3(x, -0.3 * k, 0.32 * k - abs(t) * 0.012 * k), 0.018 * k)
+            tooth(P3(x * 0.95, -0.47 * k, 0.26 * k - abs(t) * 0.014 * k), P3(x * 0.95, -0.36 * k, 0.28 * k - abs(t) * 0.014 * k), 0.016 * k)
+        }
+        // the tongue, long and dark, hanging out over the lower teeth
+        place(RoundCone(hx.apply(c + P3(0.0, -0.32 * k, 0.18 * k)), hx.apply(c + P3(0.02 * k, -0.5 * k, 0.34 * k)), 0.06 * k, 0.045 * k, BodyPart.HEAD, TUSK).also { it.mat = tongueMat }, "tongue")
+        place(RoundCone(hx.apply(c + P3(0.02 * k, -0.5 * k, 0.34 * k)), hx.apply(c + P3(0.05 * k, -0.74 * k, 0.32 * k)), 0.045 * k, 0.025 * k, BodyPart.HEAD, TUSK).also { it.mat = tongueMat }, "tongue")
+        // the ears, long and pointed, swept up and back
+        for (sd in listOf(-1.0, 1.0)) {
+            cone(P3(sd * 0.28 * k, 0.0, -0.04 * k), P3(sd * 0.46 * k, 0.3 * k, -0.2 * k), 0.08 * k, 0.04 * k, key = "ear")
+            cone(P3(sd * 0.46 * k, 0.3 * k, -0.2 * k), P3(sd * 0.54 * k, 0.56 * k, -0.34 * k), 0.04 * k, 0.008 * k, key = "ear")
+        }
+        // a few lank strands left on the scalp
+        for ((x, z) in listOf(-0.18 to -0.2, 0.04 to -0.36, 0.2 to -0.16)) {
+            val top = P3(x * k, 0.5 * k, z * k)
+            place(RoundCone(hx.apply(c + top), hx.apply(c + P3(x * k * 1.5, -0.3 * k, (z - 0.2) * k)), 0.03 * k, 0.01 * k, BodyPart.HAIR, HAIR), "hair")
+        }
+    }
+
+    /** Eyes glowing a sick pale yellow in deep sockets, two slits for a nose, old blood round the maw. */
+    private fun ghoulFace(img: DepthImage, sk: Skeleton) = paintFace(img, sk) { put, line, k, c ->
+        val socket = mix(argb(skinRgb), argb(0x0C0808), 0.75)
+        for (sd in listOf(-1.0, 1.0)) {
+            line(c + P3(sd * 0.06 * k, 0.04 * k, 0.4 * k), c + P3(sd * 0.22 * k, 0.03 * k, 0.33 * k), socket)
+            line(c + P3(sd * 0.07 * k, -0.03 * k, 0.4 * k), c + P3(sd * 0.21 * k, -0.04 * k, 0.33 * k), socket)
+            line(c + P3(sd * 0.09 * k, 0.0, 0.405 * k), c + P3(sd * 0.18 * k, 0.0, 0.37 * k), argb(0xE8E070))
+            put(c + P3(sd * 0.03 * k, -0.1 * k, 0.42 * k), argb(0x100808))
+        }
+        for (sd in listOf(-1.0, 1.0)) line(c + P3(sd * 0.16 * k, -0.24 * k, 0.3 * k), c + P3(sd * 0.14 * k, -0.52 * k, 0.24 * k), argb(0x4A1210))
     }
 
     /** Runs [paint] with a way to set one pixel of the face where it is seen, and to draw a line of them. */

@@ -82,6 +82,8 @@ object FoeArt {
         Doll.Creature.BUGBEAR -> r.copy(lean = r.lean + 0.3, crouch = r.crouch + 3.0, headDown = r.headDown - 1.0)
         // a hobgoblin stands drilled and upright
         Doll.Creature.HOBGOBLIN -> r.copy(lean = r.lean * 0.6)
+        // a ghoul crouches low like a beast about to spring, the head thrust forward
+        Doll.Creature.GHOUL -> r.copy(lean = r.lean + 0.55, crouch = r.crouch + 8.0, headDown = r.headDown - 3.0)
     }
 
     /** A sequence with the strike frame at which the blow lands, the arrow flies, or nothing (-1). */
