@@ -139,3 +139,29 @@ fun renderVersatile() {
     ImageIO.write(img, "png", File("build/screens/versatile.png"))
     println("wrote versatile")
 }
+
+/** The cleric's rest with the round shield, turned all the way round: does the shield go into the belly? */
+fun checkShieldTurn() {
+    val P = de.bornim.core.art.HeroPortrait
+    for (race in de.bornim.core.Race.entries) for (sex in de.bornim.core.Sex.entries) {
+        val h = de.bornim.core.Hero.create("K", race, de.bornim.core.CharClass.CLERIC).also { it.sex = sex }
+        val rest = de.bornim.core.art.HeroFigure.sequence(Act.IDLE, Strike.SLASH, 0, de.bornim.core.art.HeroFigure.stance(h))[0]
+        val doll = de.bornim.core.art.HeroBattle.doll(h)
+        val (sk, fitted) = doll.fit(rest, de.bornim.core.art.HeroBattle.outfit(h))
+        val dress = fitted!!.first; val body = fitted.second
+        val board = dress.shieldBoard ?: continue
+        var worst = 0.0; var where = ""
+        for (b in body) { if (b.part == de.bornim.core.art.BodyPart.HAIR) continue
+            val c = b.center; val r = b.bound * 0.6
+            for (dx in -2..2) for (dy in -2..2) for (dz in -2..2) {
+                val p = c + de.bornim.core.art.P3(dx * r / 2, dy * r / 2, dz * r / 2)
+                if (b.dist(p) > -0.3) continue
+                val d = board.dist(p); if (d < worst) { worst = d; where = b.key } } }
+        println("SCHILD ${race.name} ${sex.name}: tiefste Stelle im Körper ${"%.1f".format(-worst)} cm in $where")
+    }
+    val h = de.bornim.core.Hero.create("K", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.CLERIC).also { it.sex = de.bornim.core.Sex.FEMALE }
+    val out = BufferedImage(P.W * 8, P.H * 3, BufferedImage.TYPE_INT_RGB)
+    for ((i, y) in P.YAWS.withIndex()) { val im = P.render(h, y)
+        for (yy in 0 until P.H) for (x in 0 until P.W) { val q = im[x, yy]; out.setRGB((i % 8) * P.W + x, (i / 8) * P.H + yy, if ((q ushr 24) >= 128) q else 0xE9E3D3) } }
+    ImageIO.write(out, "png", File("build/screens/shield_turn.png"))
+}

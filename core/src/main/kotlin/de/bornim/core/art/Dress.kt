@@ -707,7 +707,25 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             round -> { x, y -> sqrt(x * x + y * y) - hw }
             else -> heater(hw, ht)
         }
-        val c0 = center - up * strapY
+        var c0 = center - up * strapY
+        // held a little off the belly and hip: as the hero turns, the board's edge must not cut into the body or the
+        // armour over it, so it is moved out sideways, away from the trunk, until it is clear
+        run {
+            val trunk = body.filter { it.key == "torso" || it.key == "waist" || it.key == "pelvis" }
+            if (trunk.isEmpty()) return@run
+            val inside = trunk.flatMap { b ->
+                val r = b.bound * 0.6
+                (-2..2).flatMap { dx -> (-2..2).flatMap { dy -> (-2..2).map { dz -> b.center + P3(dx * r / 2, dy * r / 2, dz * r / 2) } } }.filter { b.dist(it) < -0.3 }
+            }
+            val mid = trunk.map { it.center }.reduce { a, b -> a + b } * (1.0 / trunk.size)
+            val away = (c0 - mid).let { P3(it.x, 0.0, it.z) }.let { if (it.len() < 1e-6) P3.X else it.norm() }
+            val probe = { c: P3 -> Board(c, f, max(hw, ht / 2) * 1.2, 0.022 * h, 0.08 * h, outline, BodyPart.GEAR, Doll.SHIELD) }
+            for (k in 0 until 20) {
+                val b = probe(c0)
+                if (inside.none { b.dist(it) < CLEAR }) break
+                c0 += away * 0.8
+            }
+        }
         val paintRgb = when {
             // a crude shield is bare planks, grey with age
             o.crude -> argb(0x5A4632)
@@ -1072,6 +1090,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         /** How far a weapon may be turned in the fist to show its flat, in radians. */
         private val MAX_TURN = Math.toRadians(40.0)
         /** Staves, wands and spears, built in the round rather than drawn over the doll. */
+        /** How far, in cm, a shield's board keeps from the inside of the trunk: room for the armour over it. */
+        const val CLEAR = 2.0
         val ROUND = setOf("staff", "quarterstaff", "wand", "spear")
         /**
          * How far a staff reaches back past the hand, as a part of its reach: a wizard's staff is held high, a fighting
