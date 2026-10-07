@@ -294,6 +294,88 @@ object Sfx {
         return ShortArray(size) { (d[it] * gain * Short.MAX_VALUE).toInt().coerceIn(-32767, 32767).toShort() }
     }
 
+    /**
+     * A creak of old wood or iron: the stick and slip of a hinge, quick ticks whose rate glides from [rate0] to
+     * [rate1] per second, each ringing a narrow band round [f] Hz.
+     */
+    private fun Buf.creak(at: Double, dur: Double, rate0: Double, rate1: Double, f: Double, vol: Double, seed: Int) {
+        val rng = Random(seed + vs)
+        var t = 0.0
+        var k = 0
+        while (t < dur) {
+            val x = t / dur
+            val rate = rate0 + (rate1 - rate0) * x
+            val env = kotlin.math.sin(PI * x).pow(0.6)
+            band(at + t, 0.02, vol * env * (0.7 + 0.6 * rng.nextDouble()), f * (0.95 + 0.1 * rng.nextDouble()), f * 0.9, 9.0, seed + k, decay = 0.006)
+            t += 1.0 / rate * (0.8 + 0.4 * rng.nextDouble())
+            k++
+        }
+    }
+
+    /** Sounds proposed for the overhaul, to be heard side by side with the ones in the game; not used in the game yet. */
+    val PROPOSED = listOf(Sound.CLICK, Sound.LOOT, Sound.LOOT_EPIC, Sound.COINS, Sound.CHEST, Sound.DOOR, Sound.LEVEL_UP, Sound.ENEMY_DOWN)
+
+    /** Take [variant] (0 to 2) of the proposed new [s]. */
+    @Synchronized
+    fun proposal(s: Sound, variant: Int): ShortArray {
+        vi = variant; vp = 1.0; vs = variant * 1009
+        try {
+            return proposed(s, variant).pcm()
+        } finally { vi = 0; vp = 1.0; vs = 0 }
+    }
+
+    private fun proposed(s: Sound, v: Int): Buf = when (s) {
+        // a tap on the page: leather, wood, a dry knock of bone
+        Sound.CLICK -> when (v) {
+            0 -> Buf(0.08).apply { band(0.0, 0.03, 0.6, 900.0, 700.0, 3.0, 301, decay = 0.006); thud(0.0, 0.05, 260.0, 180.0, 0.25) }
+            1 -> Buf(0.08).apply { band(0.0, 0.025, 0.7, 1600.0, 1300.0, 6.0, 302, decay = 0.004); thud(0.0, 0.04, 420.0, 300.0, 0.18) }
+            else -> Buf(0.08).apply { band(0.0, 0.02, 0.5, 2400.0, 2000.0, 8.0, 303, decay = 0.003); band(0.004, 0.02, 0.3, 700.0, 600.0, 4.0, 304, decay = 0.004) }
+        }
+        // a find picked up: a leather pouch shut on it, a buckle; a bundle dropped in the pack; a blade slid into a sheath
+        Sound.LOOT -> when (v) {
+            0 -> Buf(0.5).apply { band(0.0, 0.18, 0.35, 900.0, 600.0, 1.2, 311, swell = true); thud(0.16, 0.12, 180.0, 110.0, 0.4); ring(0.2, 0.18, 1450.0, 0.06); room(0.12) }
+            1 -> Buf(0.5).apply { band(0.0, 0.12, 0.3, 1400.0, 700.0, 1.0, 312, swell = true); thud(0.1, 0.18, 120.0, 70.0, 0.6); band(0.1, 0.08, 0.3, 500.0, 300.0, 2.0, 313, decay = 0.02); room(0.1) }
+            else -> Buf(0.6).apply { band(0.0, 0.32, 0.45, 2600.0, 4200.0, 3.0, 314, swell = true); ring(0.3, 0.25, 980.0, 0.08); thud(0.3, 0.1, 220.0, 140.0, 0.3); room(0.15) }
+        }
+        // a rare find: no glitter, but something old and heavy; a deep bell in a vault, a low horn, a dark choir
+        Sound.LOOT_EPIC -> when (v) {
+            0 -> Buf(2.2).apply { ring(0.0, 2.0, 98.0, 0.5); bell(0.0, 1.6, 196.0, 0.15); pad(0.1, 1.8, 98.0, 0.18, 500.0, 0.4); reverb(0.6) }
+            1 -> Buf(2.2).apply { thud(0.0, 0.8, 55.0, 36.0, 0.9); for (f in listOf(110.0, 130.8, 164.8)) pad(0.05, 1.8, f, 0.2, 800.0, 0.5, 0.004); reverb(0.55) }
+            else -> Buf(2.2).apply { for ((k, f) in listOf(146.8, 174.6, 220.0, 261.6).withIndex()) { pad(k * 0.12, 1.7, f, 0.13, 1100.0, 0.45, 0.006); pad(k * 0.12, 1.7, f * 1.005, 0.1, 1100.0, 0.5, 0.007) }; ring(0.5, 1.4, 293.6, 0.12); reverb(0.6) }
+        }
+        // coins: a few struck and clinking together, then the purse; more of them; a single heavy coin spinning out
+        Sound.COINS -> when (v) {
+            0 -> Buf(0.6).apply { val rng = Random(321); for (i in 0 until 6) ring(i * 0.035 + rng.nextDouble() * 0.02, 0.18, 2600.0 + rng.nextDouble() * 1400, 0.12); thud(0.24, 0.1, 160.0, 100.0, 0.35); room(0.12) }
+            1 -> Buf(0.9).apply { val rng = Random(322); for (i in 0 until 12) ring(i * 0.03 + rng.nextDouble() * 0.03, 0.15, 2200.0 + rng.nextDouble() * 1800, 0.09); band(0.0, 0.45, 0.2, 1200.0, 800.0, 1.0, 323, swell = true); room(0.15) }
+            else -> Buf(1.0).apply { for (i in 0 until 9) { val t = 0.6 * (1 - 0.88.pow(i.toDouble())); ring(t, 0.12, 3100.0 - i * 40, 0.12 * (1 - i / 12.0)) }; room(0.15) }
+        }
+        // a chest opened: an iron hasp, a creaking lid, the lid falling back against the hinges
+        Sound.CHEST -> when (v) {
+            0 -> Buf(1.3).apply { ring(0.0, 0.12, 820.0, 0.12); band(0.0, 0.04, 0.5, 1800.0, 1200.0, 5.0, 331, decay = 0.01); creak(0.12, 0.75, 22.0, 45.0, 640.0, 0.5, 332); thud(0.9, 0.3, 110.0, 60.0, 0.7); room(0.25) }
+            1 -> Buf(1.2).apply { creak(0.0, 0.6, 35.0, 18.0, 420.0, 0.55, 333); thud(0.62, 0.35, 95.0, 50.0, 0.8); band(0.62, 0.15, 0.4, 400.0, 250.0, 1.5, 334, decay = 0.05); room(0.25) }
+            else -> Buf(1.3).apply { ring(0.0, 0.2, 520.0, 0.15); ring(0.05, 0.25, 660.0, 0.1); creak(0.2, 0.55, 30.0, 60.0, 900.0, 0.4, 335); thud(0.8, 0.3, 120.0, 70.0, 0.6); room(0.3) }
+        }
+        // a door: a heavy creak and the slam; a latch lifted and a quick push; an iron-bound door grinding over stone
+        Sound.DOOR -> when (v) {
+            0 -> Buf(1.2).apply { creak(0.0, 0.7, 18.0, 30.0, 360.0, 0.55, 341); thud(0.72, 0.4, 85.0, 45.0, 0.9); band(0.72, 0.2, 0.4, 500.0, 250.0, 1.3, 342, decay = 0.06); room(0.35) }
+            1 -> Buf(0.7).apply { ring(0.0, 0.08, 1100.0, 0.12); band(0.0, 0.03, 0.4, 2200.0, 1600.0, 5.0, 343, decay = 0.008); creak(0.08, 0.3, 40.0, 25.0, 520.0, 0.35, 344); thud(0.4, 0.2, 140.0, 80.0, 0.5); room(0.25) }
+            else -> Buf(1.4).apply { band(0.0, 1.0, 0.5, 180.0, 260.0, 1.5, 345, swell = true); creak(0.05, 0.9, 12.0, 20.0, 260.0, 0.4, 346); thud(1.05, 0.35, 70.0, 40.0, 0.8); ring(1.05, 0.3, 310.0, 0.08); room(0.4) }
+        }
+        // growing stronger: a war drum and a low horn call; a deep bell over a swelling chord; a choir rising in a minor key
+        Sound.LEVEL_UP -> when (v) {
+            0 -> Buf(2.2).apply { thud(0.0, 0.6, 60.0, 40.0, 1.0); thud(0.3, 0.6, 60.0, 40.0, 0.9); pad(0.3, 1.6, 98.0, 0.3, 700.0, 0.2, 0.003); pad(0.7, 1.2, 146.8, 0.25, 800.0, 0.2, 0.003); room(0.45) }
+            1 -> Buf(2.4).apply { ring(0.0, 2.2, 130.8, 0.35); for (f in listOf(65.4, 98.0, 130.8, 155.6)) pad(0.1, 2.0, f, 0.14, 900.0, 0.8, 0.004); reverb(0.55) }
+            else -> Buf(2.4).apply { for ((k, f) in listOf(110.0, 130.8, 164.8, 220.0).withIndex()) { pad(k * 0.2, 2.0 - k * 0.2, f, 0.13, 1200.0, 0.4, 0.006); pad(k * 0.2, 2.0 - k * 0.2, f * 1.005, 0.1, 1200.0, 0.45, 0.007) }; thud(0.0, 0.7, 55.0, 38.0, 0.6); reverb(0.6) }
+        }
+        // a foe goes down: a gasp and the body hitting the ground; armour clattering with it; a heavy body on wet earth
+        Sound.ENEMY_DOWN -> when (v) {
+            0 -> Buf(1.1).apply { band(0.0, 0.35, 0.35, 500.0, 250.0, 2.0, 351, swell = true); thud(0.34, 0.5, 75.0, 38.0, 1.0); band(0.34, 0.2, 0.5, 350.0, 180.0, 1.3, 352, decay = 0.07); room(0.3) }
+            1 -> Buf(1.2).apply { thud(0.2, 0.45, 80.0, 40.0, 0.9); for (k in 0 until 5) ring(0.2 + k * 0.05, 0.15, 900.0 + k * 230, 0.06); band(0.2, 0.25, 0.4, 1500.0, 800.0, 2.0, 353, decay = 0.06); room(0.3) }
+            else -> Buf(1.2).apply { thud(0.1, 0.6, 60.0, 32.0, 1.0); band(0.1, 0.4, 0.6, 300.0, 140.0, 1.0, 354, decay = 0.12); band(0.14, 0.3, 0.25, 900.0, 500.0, 1.5, 355, decay = 0.05); room(0.3) }
+        }
+        else -> Buf(0.1)
+    }
+
     fun render(s: Sound): ShortArray = when (s) {
         // A soft, low wooden tick rather than a bright beep.
         Sound.CLICK -> Buf(0.05).apply { tone(0.0, 0.04, 820.0, 640.0, 0.26, Wave.TRIANGLE, 0.01) }

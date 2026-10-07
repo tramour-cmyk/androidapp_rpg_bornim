@@ -69,3 +69,20 @@ fun renderShamanGhoulDrafts() {
     }
     println("wrote shaman ghoul drafts")
 }
+
+/** The proposed new sounds next to the ones in the game now, as WAV files: alt_NAME_n.wav and neu_NAME_n.wav. */
+fun writeSoundProposals() {
+    val dir = File("build/screens/klangproben").apply { deleteRecursively(); mkdirs() }
+    fun wav(pcm: ShortArray, f: File) {
+        val bytes = java.nio.ByteBuffer.allocate(pcm.size * 2).order(java.nio.ByteOrder.LITTLE_ENDIAN).also { b -> pcm.forEach { b.putShort(it) } }.array()
+        val fmt = javax.sound.sampled.AudioFormat(de.bornim.core.audio.Synth.SAMPLE_RATE.toFloat(), 16, 1, true, false)
+        javax.sound.sampled.AudioSystem.write(javax.sound.sampled.AudioInputStream(java.io.ByteArrayInputStream(bytes), fmt, pcm.size.toLong()),
+            javax.sound.sampled.AudioFileFormat.Type.WAVE, f)
+    }
+    for (s in de.bornim.core.audio.Sfx.PROPOSED) {
+        val n = s.name.lowercase()
+        for (v in 0 until de.bornim.core.audio.Sfx.variants(s)) wav(de.bornim.core.audio.Sfx.render(s, v), File(dir, "alt_${n}_${v + 1}.wav"))
+        for (v in 0..2) wav(de.bornim.core.audio.Sfx.proposal(s, v), File(dir, "neu_${n}_${v + 1}.wav"))
+    }
+    println("wrote sound proposals")
+}

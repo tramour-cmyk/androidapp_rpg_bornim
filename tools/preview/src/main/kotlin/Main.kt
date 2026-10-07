@@ -91,6 +91,7 @@ fun main() {
     System.getenv("FILM")?.let { fightFilm(it); System.exit(0) }
     if (System.getenv("BEASTDRAFT") != null) { renderBeastDrafts(); System.exit(0) }
     if (System.getenv("DOLLDRAFT") != null) { renderShamanGhoulDrafts(); System.exit(0) }
+    if (System.getenv("KLANGPROBEN") != null) { writeSoundProposals(); System.exit(0) }
     if (System.getenv("RUNS") != null) {
         battleRuns()
         System.exit(0)
