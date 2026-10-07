@@ -100,6 +100,7 @@ fun main() {
     if (System.getenv("TURN") != null) { renderTurntable(); System.exit(0) }
     if (System.getenv("TITLE") != null) { renderTitleHeroes(); System.exit(0) }
     if (System.getenv("CLERIC") != null) { renderClericShield(); System.exit(0) }
+    if (System.getenv("FOEFALLS") != null) { renderFoeFalls(); System.exit(0) }
     if (System.getenv("FOEANIM") != null) { renderFoeAnims(); System.exit(0) }
     if (System.getenv("FOECLASH") != null) { checkFoeClashes(); System.exit(0) }
     if (System.getenv("FOEKITS") != null) { renderFoeKits(); System.exit(0) }

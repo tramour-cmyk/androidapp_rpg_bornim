@@ -755,7 +755,11 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         val ax = anchorX + rig.bodyX * sk.s * px
         val gr = ground + rig.bodyY * sk.s * px
         val mat: (Solid, P3) -> Mat = if (wounds > 0) { so, p -> woundAt(sk, so, p, wounds) ?: material(so, p) } else ::material
-        val img = SdfRender.render(body + clothes, groups(sk), mat, w, h, ax, gr, px, rig.yaw, pitch, fallF = rig.fallF, fallS = rig.fallS)
+        // a fallen body rests on its front, back or side: lifted by that much, so it lies on the ground
+        val lift = kotlin.math.abs(kotlin.math.sin(Math.toRadians(rig.fallF))) * chestDepth * 1.3 +
+            kotlin.math.abs(kotlin.math.sin(Math.toRadians(rig.fallS))) * shoulderX * 1.1
+        // the lift moves the whole picture up, not the figure in its own space, so rays and light stay as they are
+        val img = SdfRender.render(body + clothes, groups(sk), mat, w, h, ax, gr - lift * px * kotlin.math.cos(Math.toRadians(pitch)), px, rig.yaw, pitch, fallF = rig.fallF, fallS = rig.fallS)
         face(img, sk)
         dress?.overlay(img)
         outline(img.img)

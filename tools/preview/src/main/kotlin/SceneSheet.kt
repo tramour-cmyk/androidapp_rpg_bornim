@@ -1483,3 +1483,21 @@ fun renderFoeAnims() {
         println("wrote foeanim $id $seed")
     }
 }
+
+/** The last frame of every fall, whole and uncut, with the frame's edges and the ground line marked. */
+fun renderFoeFalls() {
+    val F = de.bornim.core.art.FoeArt
+    val cases = listOf("goblin" to 0, "goblin" to 1, "skeleton" to 2, "skeleton" to 0)
+    val out = BufferedImage((F.W + 4) * 3, (F.H + 4) * cases.size, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x3C3A36); g.fillRect(0, 0, out.width, out.height)
+    for ((r, c) in cases.withIndex()) for (v in 0..2) {
+        val look = de.bornim.core.MonsterLook(c.second)
+        val n = F.sequence(c.first, look, de.bornim.core.art.Act.DIE, v).rigs.size
+        val im = F.frame(c.first, look, de.bornim.core.art.Act.DIE, v, n - 1)
+        val ox = v * (F.W + 4); val oy = r * (F.H + 4)
+        g.color = java.awt.Color(0x6A665E); g.drawRect(ox, oy, F.W - 1, F.H - 1); g.drawLine(ox, oy + F.GROUND.toInt(), ox + F.W, oy + F.GROUND.toInt())
+        for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(ox + x, oy + y, q and 0xFFFFFF) }
+    }
+    ImageIO.write(out, "png", File("build/screens/foe_falls.png"))
+    println("wrote foe falls")
+}
