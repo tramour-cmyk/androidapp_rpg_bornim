@@ -18,7 +18,7 @@ import kotlin.math.sqrt
  * Poses are the [HeroFigure.Rig]s of the hand-drawn figure: its numbers are mapped onto this body's
  * landmarks, so every pose fits every people.
  */
-class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, val hairTone: Int = 0, val kind: Creature? = null) {
+class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, val hairTone: Int = 0, val kind: Creature? = null, val sizeK: Double = 1.0) {
 
     /** Foes built on the same doll: their own measures, head and skin, or a body of bare bones. */
     enum class Creature { GOBLIN, SKELETON }
@@ -32,7 +32,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     val height = when {
         goblin -> 108.0; bones -> 172.0
         else -> when (race) { Race.HUMAN -> 175.0; Race.ELF -> 172.0; Race.DWARF -> 135.0; Race.HALFLING -> 105.0; Race.HALF_ORC -> 185.0 }
-    } * (if (female) 0.93 else 1.0)
+    } * (if (female) 0.93 else 1.0) * sizeK
     // goblins: a big head on a small wiry body, long arms and big hands and feet
     private val heads = if (goblin) 4.2 else if (bones) 7.6 else when (race) { Race.HUMAN -> 7.5; Race.ELF -> 7.9; Race.DWARF -> 5.3; Race.HALFLING -> 5.9; Race.HALF_ORC -> 7.3 }
     /** Height of the head, chin to crown. */

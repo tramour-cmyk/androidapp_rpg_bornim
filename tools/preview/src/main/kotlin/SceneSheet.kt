@@ -1412,12 +1412,17 @@ fun renderFoeKits() {
     val ids = listOf("goblin", "goblin_archer", "skeleton")
     val out = BufferedImage(W * 6, H * ids.size, BufferedImage.TYPE_INT_RGB)
     val gg = out.createGraphics(); gg.color = java.awt.Color(0x3C3A36); gg.fillRect(0, 0, out.width, out.height)
+    // a line at the usual height of the kind, to see who is taller or smaller
     fun put(im: de.bornim.core.art.PixelImage, ox: Int, oy: Int) { for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(ox + x, oy + y, q) } }
+    for ((r, id) in ids.withIndex()) {
+        val usual = (if (id == "skeleton") 172.0 else 108.0) * px
+        gg.color = java.awt.Color(0x5A564E); gg.drawLine(0, r * H + H - 6 - usual.toInt(), out.width, r * H + H - 6 - usual.toInt())
+    }
     for ((r, id) in ids.withIndex()) for (c in 0 until 6) {
-        val seed = c % 3 + 3 * (c / 3) * 5
+        val seed = c % 3 + 3 * (c / 3) * 5 + 40 * r
         val kit = de.bornim.core.MonsterKits.of(id, seed)!!
         val creature = if (id == "skeleton") de.bornim.core.art.Doll.Creature.SKELETON else de.bornim.core.art.Doll.Creature.GOBLIN
-        val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, de.bornim.core.MonsterKits.tone(seed), 0, creature)
+        val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.MonsterKits.build(seed), de.bornim.core.MonsterKits.tone(seed), 0, creature, de.bornim.core.MonsterKits.size(id, seed))
         val stance = de.bornim.core.art.HeroFigure.stance(de.bornim.core.GearBases[kit.items.getValue(de.bornim.core.GearSlot.MAIN_HAND)])
         val base = if (stance == de.bornim.core.art.HeroFigure.Stance.MELEE) de.bornim.core.art.HeroFigure.READY.copy(headTurn = 0.0)
             else de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, stance)[0]

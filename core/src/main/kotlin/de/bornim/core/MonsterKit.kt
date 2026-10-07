@@ -54,4 +54,26 @@ object MonsterKits {
 
     /** The skin, hide or bone tone of one foe, chosen apart from its kit so the two vary on their own. */
     fun tone(seed: Int): Int = (seed / 3).mod(4)
+
+    private fun mixed(seed: Int, salt: Int): Int {
+        var n = seed * 374761393 + salt * 668265263
+        n = (n xor (n ushr 13)) * 1274126177
+        return (n xor (n ushr 16)) and 0x7FFFFFFF
+    }
+
+    /**
+     * How tall one foe stands against the usual height of its kind, within the SRD's size: goblins 98–118 cm
+     * (Small, 3–4 ft), the risen dead as tall as the people they were, about 160–185 cm.
+     */
+    fun size(id: String, seed: Int): Double {
+        val t = (mixed(seed, 7) % 1000) / 999.0
+        return when (id) {
+            "goblin", "goblin_archer" -> 0.91 + 0.18 * t
+            "skeleton" -> 0.93 + 0.145 * t
+            else -> 1.0
+        }
+    }
+
+    /** Slim, average or strong, apart from size and kit. */
+    fun build(seed: Int): Build = Build.entries[mixed(seed, 11) % Build.entries.size]
 }
