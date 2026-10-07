@@ -322,12 +322,18 @@ object HeroFigure {
             xbow = tween(r to 3, XBOW_AIM to 5, XBOW_AIM to 3, XBOW_RECOIL to 2, XBOW_AIM.copy(draw = 0.0) to 4, r to 2),
             casts = CAST_KEYS.indices.map { cast(it) },
             // a flask thrown like a spell let go, without its light: 0 with the free hand, 1 with the weapon hand
-            throws = listOf(FOCUS_RAISE to FOCUS_RELEASE, WAND_RAISE to WAND_RELEASE).map { (a, b) ->
-                val up = a.copy(glow = 0.0); val go = b.copy(glow = 0.0)
+            // with a staff the other hand throws and the staff stays planted as it stood
+            throws = listOf(FOCUS_RAISE to FOCUS_RELEASE, WAND_RAISE to WAND_RELEASE).mapIndexed { v, (a, b) ->
+                fun planted(k: Rig) = if (v == 0 && st == Stance.STAFF) k.copy(rh = r.rh, weapon = r.weapon, grip = r.grip, aim = r.aim) else k
+                val up = planted(a.copy(glow = 0.0)); val go = planted(b.copy(glow = 0.0))
                 tween(r to 5, up to 3, up to 2, go to 3, go to 3, up to 2, r to 1)
             },
             // 0 shield high, 1 two-handed low, 2 shield low, 3 two-handed high
-            blocks = listOf(BLOCK, PARRY, BLOCK_LOW, PARRY_HIGH).map { tween(r to 3, it to 4, it to 5, r to 1) },
+            // a staff beside a shield is not cocked like a blade: it stays planted while the shield takes the blow
+            blocks = listOf(BLOCK, PARRY, BLOCK_LOW, PARRY_HIGH).mapIndexed { v, k ->
+                val key = if (st == Stance.STAFF && (v == 0 || v == 2)) k.copy(rh = r.rh + V(5.0, 2.0, 6.0), weapon = V(-0.15, 1.0, 0.15), grip = r.grip, aim = r.aim) else k
+                tween(r to 3, key to 4, key to 5, r to 1)
+            },
             hurt = tween(r to 2, hurtKey to 4, r to 1),
             /** Facing us, then a smooth turn of the whole body to the foe, with a step. */
             turn = tween(ready to 2, turning to 7, r to 7),

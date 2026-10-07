@@ -37,8 +37,15 @@ object HeroBattle {
 
     fun castVariant(hero: Hero) = HeroFigure.castVariant(hero)
 
-    /** A flask is thrown with the free hand, or with the weapon hand when the other carries a shield or a two-handed grip. */
-    fun throwVariant(hero: Hero): Int = if (outfit(hero).hasShield || outfit(hero).twoHands) 1 else 0
+    /**
+     * A flask is thrown with the free hand, or with the weapon hand when the other carries a shield or a two-handed grip;
+     * a staff stays planted beside the foot, so with a shield it is the shield hand that throws.
+     */
+    fun throwVariant(hero: Hero): Int = when {
+        stance(hero) == HeroFigure.Stance.STAFF && outfit(hero).hasShield -> 0
+        outfit(hero).hasShield || outfit(hero).twoHands -> 1
+        else -> 0
+    }
 
     fun victoryVariants(hero: Hero) = HeroFigure.victoryPoses(hero)
 

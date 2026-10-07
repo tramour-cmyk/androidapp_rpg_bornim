@@ -1198,3 +1198,74 @@ fun renderClericShield() {
     ImageIO.write(out, "png", File("build/screens/cleric_shield.png"))
     println("wrote cleric shield")
 }
+
+/** The cleric with a quarterstaff and round shield: from every side, then every act of a fight frame by frame. */
+fun renderClericStaff() {
+    val P = de.bornim.core.art.HeroPortrait
+    val B = de.bornim.core.art.HeroBattle
+    val Act = de.bornim.core.art.HeroFigure.Act.entries.associateBy { it.name }
+    val St = de.bornim.core.art.HeroFigure.Strike.entries.associateBy { it.name }
+    val c = de.bornim.core.Hero.create("Held", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.CLERIC).also { it.sex = de.bornim.core.Sex.MALE; it.skin = 1; it.hair = 0 }
+    c.equip(de.bornim.core.Gear(9001, "quarterstaff", de.bornim.core.Rarity.COMMON, 1))
+    val strikes = B.strikes(c)
+    val rows = mutableListOf<Pair<String, List<de.bornim.core.art.PixelImage>>>()
+    for (s in strikes) rows += "ATTACK/$s" to List(B.frameCount(c, Act["ATTACK"]!!, s)) { B.frame(c, Act["ATTACK"]!!, s, 0, it) }
+    for ((a, v) in listOf("IDLE" to 0, "INTRO" to 0, "TURN" to 0, "BLOCK" to 0, "BLOCK" to 2, "CAST" to B.castVariant(c), "THROW" to B.throwVariant(c), "HURT" to 0, "AMBUSHED" to 0) + B.victoryVariants(c).map { "VICTORY" to it }) {
+        val act = Act[a]!!; val s = if (a == "CAST" || a == "THROW") St["CAST"]!! else St["SLASH"]!!
+        rows += "$a/$v" to List(B.frameCount(c, act, s, v)) { B.frame(c, act, s, v, it) }
+    }
+    val cols = maxOf(8, rows.maxOf { it.second.size }).coerceAtMost(12)
+    val yaws = listOf(20.0, 95.0, 160.0, 250.0, 340.0)
+    val fw = 110; val fh = B.H
+    val out = BufferedImage(maxOf(cols * fw, yaws.size * P.W), P.H + rows.size * fh, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x3C3A36); g.fillRect(0, 0, out.width, out.height)
+    fun put(im: de.bornim.core.art.PixelImage, ox: Int, oy: Int, cut: Int = 0) { for (y in 0 until im.height) for (x in cut until im.width) { val q = im[x, y]; val X = ox + x - cut; if ((q ushr 24) >= 128 && X < out.width && X >= 0) out.setRGB(X, oy + y, q) } }
+    for ((i, y) in yaws.withIndex()) put(P.render(c, y), i * P.W, 0)
+    g.color = java.awt.Color(0xE0D8C0)
+    for ((r, row) in rows.withIndex()) {
+        val step = maxOf(1, (row.second.size + cols - 1) / cols)
+        row.second.filterIndexed { i, _ -> i % step == 0 }.take(cols).forEachIndexed { i, im -> put(im, i * fw, P.H + r * fh, 20) }
+        g.drawString(row.first, 2, P.H + r * fh + 12)
+    }
+    ImageIO.write(out, "png", File("build/screens/cleric_staff.png"))
+    println("wrote cleric staff, strikes $strikes")
+}
+
+/** Counts frames in which the cleric's quarterstaff passes through body or round shield, every people, sex and build. */
+fun checkClericStaff() {
+    val F = de.bornim.core.art.HeroFigure
+    var total = 0; var body = 0; var shield = 0
+    val where = sortedMapOf<String, Int>()
+    for (race in de.bornim.core.Race.entries) for (sex in de.bornim.core.Sex.entries) for (build in de.bornim.core.Build.entries) {
+        val hero = de.bornim.core.Hero.create("Held", race, de.bornim.core.CharClass.CLERIC).also { it.sex = sex; it.build = build }
+        hero.equip(de.bornim.core.Gear(9001, "quarterstaff", de.bornim.core.Rarity.COMMON, 1))
+        val B = de.bornim.core.art.HeroBattle
+        val doll = B.doll(hero); val outfit = B.outfit(hero)
+        val acts = mutableListOf<Triple<de.bornim.core.art.HeroFigure.Act, de.bornim.core.art.HeroFigure.Strike, Int>>()
+        for (s in B.strikes(hero)) acts += Triple(de.bornim.core.art.HeroFigure.Act.ATTACK, s, 0)
+        for (a in listOf(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Act.INTRO, de.bornim.core.art.HeroFigure.Act.TURN, de.bornim.core.art.HeroFigure.Act.HURT, de.bornim.core.art.HeroFigure.Act.AMBUSHED)) acts += Triple(a, de.bornim.core.art.HeroFigure.Strike.SLASH, 0)
+        acts += Triple(de.bornim.core.art.HeroFigure.Act.BLOCK, de.bornim.core.art.HeroFigure.Strike.SLASH, 0); acts += Triple(de.bornim.core.art.HeroFigure.Act.BLOCK, de.bornim.core.art.HeroFigure.Strike.SLASH, 2)
+        acts += Triple(de.bornim.core.art.HeroFigure.Act.CAST, de.bornim.core.art.HeroFigure.Strike.CAST, B.castVariant(hero)); acts += Triple(de.bornim.core.art.HeroFigure.Act.THROW, de.bornim.core.art.HeroFigure.Strike.CAST, B.throwVariant(hero))
+        for (v in B.victoryVariants(hero)) acts += Triple(de.bornim.core.art.HeroFigure.Act.VICTORY, de.bornim.core.art.HeroFigure.Strike.SLASH, v)
+        for ((a, s, v) in acts) for ((i, rig) in B.frames(hero, a, s, v).withIndex()) {
+            total++
+            val dress = doll.fit(rig, outfit).second!!.first
+            val k = "$a/$s/$v"
+            dress.weaponThroughBody()?.let { t -> body++; where["K $k"] = (where["K $k"] ?: 0) + 1; if (body <= 25) println("KÖRPER $race $sex $build $k Bild $i bei ${(t * 100).toInt()} %") }
+            dress.weaponThroughShield()?.let { t -> shield++; where["S $k"] = (where["S $k"] ?: 0) + 1; if (shield <= 25) println("SCHILD $race $sex $build $k Bild $i bei ${(t * 100).toInt()} %") }
+        }
+    }
+    println("Bilder $total, durch Körper $body, durch Schild $shield")
+    where.forEach { (k, n) -> println("  $k: $n") }
+}
+
+/** One halfling cleric's low block, frames 0–6, large. */
+fun renderHalflingBlock() {
+    val B = de.bornim.core.art.HeroBattle
+    val c = de.bornim.core.Hero.create("Held", de.bornim.core.Race.HALFLING, de.bornim.core.CharClass.CLERIC).also { it.sex = de.bornim.core.Sex.FEMALE; it.build = de.bornim.core.Build.SLIM }
+    c.equip(de.bornim.core.Gear(9001, "quarterstaff", de.bornim.core.Rarity.COMMON, 1))
+    val out = BufferedImage(110 * 4, B.H, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x3C3A36); g.fillRect(0, 0, out.width, out.height)
+    for (i in 0..3) { val im = B.frame(c, de.bornim.core.art.HeroFigure.Act.BLOCK, de.bornim.core.art.HeroFigure.Strike.SLASH, 2, i); for (y in 0 until im.height) for (x in 20 until im.width) { val q = im[x, y]; if ((q ushr 24) >= 128 && i * 110 + x - 20 < out.width) out.setRGB(i * 110 + x - 20, y, q) } }
+    ImageIO.write(out, "png", File("build/screens/halfling_block.png"))
+}
