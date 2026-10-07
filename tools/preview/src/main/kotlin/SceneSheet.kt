@@ -1050,3 +1050,67 @@ fun measureReach() {
         }
     }
 }
+
+/** The moment a spell or shot is let go: where it leaves the hero, the flash there, and its path to the foe. */
+fun renderLaunch() {
+    val B = de.bornim.core.art.HeroBattle
+    val F = de.bornim.core.art.HeroFigure
+    val w = 270; val h = 370
+    fun hero(name: String, race: de.bornim.core.Race, cls: de.bornim.core.CharClass, vararg gear: Pair<de.bornim.core.GearSlot, String>) =
+        de.bornim.core.GameState.newGame(name, race, cls).hero.also { hr -> var u = 900L; for ((sl, b) in gear) hr.gear[sl] = de.bornim.core.Gear(u++, b, de.bornim.core.Rarity.UNCOMMON, 3) }
+    val casters = listOf(
+        "Stab" to hero("Ilse", de.bornim.core.Race.ELF, de.bornim.core.CharClass.WIZARD, de.bornim.core.GearSlot.MAIN_HAND to "staff"),
+        "Zauberstab und Buch" to hero("Ilse", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.WIZARD, de.bornim.core.GearSlot.MAIN_HAND to "wand", de.bornim.core.GearSlot.OFF_HAND to "tome"),
+        "Heiligensymbol" to hero("Hedwig", de.bornim.core.Race.DWARF, de.bornim.core.CharClass.CLERIC, de.bornim.core.GearSlot.OFF_HAND to "holy_symbol"),
+        "Bogen" to hero("Fenn", de.bornim.core.Race.ELF, de.bornim.core.CharClass.ROGUE, de.bornim.core.GearSlot.MAIN_HAND to "longbow"),
+    )
+    val bg = BattleScene.forest(w, h, BattleScene.Spot.CLEARING, BattleScene.Light.DUSK, false, 12)
+    val wolf = MonsterArt.battleFrame("wolf", MonsterLook(1), Act.IDLE, 0, 0)
+    val cols = 5
+    val out = BufferedImage(w * cols, (h - 130) * casters.size, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON)
+    for ((ri, c) in casters.withIndex()) {
+        val (label, hr) = c
+        val cast = hr.weapon?.def?.ranged != true
+        val act = if (cast) de.bornim.core.art.HeroFigure.Act.CAST else de.bornim.core.art.HeroFigure.Act.ATTACK
+        val strike = if (cast) de.bornim.core.art.HeroFigure.Strike.CAST else de.bornim.core.art.HeroFigure.Strike.SHOOT
+        val v = if (cast) B.castVariant(hr) else 0
+        val rel = B.strikeFrame(strike)
+        val l = B.launch(hr, act, v)
+        val feetX = w * BattleScene.HERO_X; val feetY = h * BattleScene.HERO_Y
+        val lx = feetX + l.x - B.ANCHOR_X; val ly = feetY + l.y - B.GROUND
+        val fx = w * BattleScene.FOE_X; val fy = h * BattleScene.FOE_Y - MonsterArt.groundLine("wolf") * 0.55
+        for (ci in 0 until cols) {
+            val i = rel - 2 + ci
+            val im = B.frame(hr, act, strike, v, i)
+            val tile = BufferedImage(w, h, BufferedImage.TYPE_INT_RGB)
+            for (y in 0 until h) for (x in 0 until w) tile.setRGB(x, y, bg[x, y])
+            fun paste(img: de.bornim.core.art.PixelImage, ox: Int, oy: Int) {
+                for (y in 0 until img.height) for (x in 0 until img.width) { val p = img[x, y]; val al = (p ushr 24) / 255.0; if (al <= 0.02) continue
+                    val px = ox + x; val py = oy + y; if (px !in 0 until w || py !in 0 until h) continue
+                    val q = tile.getRGB(px, py); fun ch(sh: Int) = (((p shr sh) and 0xFF) * al + ((q shr sh) and 0xFF) * (1 - al)).toInt()
+                    tile.setRGB(px, py, (ch(16) shl 16) or (ch(8) shl 8) or ch(0)) }
+            }
+            paste(wolf, (fx - wolf.width / 2).toInt(), (h * BattleScene.FOE_Y - MonsterArt.groundLine("wolf")).toInt())
+            paste(im, (feetX - B.ANCHOR_X).toInt(), (feetY - B.GROUND).toInt())
+            val tg = tile.createGraphics(); tg.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON)
+            val col = java.awt.Color(l.rgb)
+            // from the release on: the flash at the point it leaves, and the bolt on its way, a quarter of the path per frame
+            val k = i - rel
+            if (k >= 0 && cast) for ((r, a) in listOf(9.0 + 5 * k to 80, 5.0 + 2 * k to 170, 2.5 to 240)) {
+                tg.color = java.awt.Color(if (r < 3) 0xFFFFFF else l.rgb).let { java.awt.Color(it.red, it.green, it.blue, (a * (1 - k / 3.0)).toInt().coerceIn(0, 255)) }
+                tg.fill(java.awt.geom.Ellipse2D.Double(lx - r, ly - r, 2 * r, 2 * r))
+            }
+            if (k >= 0) {
+                val t = ((k + 1) / 4.0).coerceAtMost(1.0)
+                tg.color = col; tg.stroke = java.awt.BasicStroke(2f)
+                tg.draw(java.awt.geom.Line2D.Double(lx, ly, lx + (fx - lx) * t, ly + (fy - ly) * t))
+                tg.fill(java.awt.geom.Ellipse2D.Double(lx + (fx - lx) * t - 3, ly + (fy - ly) * t - 3, 6.0, 6.0))
+            }
+            tg.color = java.awt.Color(0xF0E8D8); tg.drawString("$label – " + (if (k < 0) "sammeln" else if (k == 0) "loslassen" else "+$k"), 6, 144)
+            g.drawImage(tile.getSubimage(0, 130, w, h - 130), ci * w, ri * (h - 130), null)
+        }
+    }
+    ImageIO.write(out, "png", File("build/screens/launch.png"))
+    println("wrote launch")
+}

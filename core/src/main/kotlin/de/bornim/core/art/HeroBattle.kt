@@ -104,6 +104,37 @@ object HeroBattle {
         return Pair(foeX - feetX - (tx - ANCHOR_X) * LUNGE_SCALE, foeY - feetY - (ty - GROUND) * LUNGE_SCALE)
     }
 
+    // ---------------------------------------------------------------- where shots and spells leave the hero
+
+    /** Where a spell or a shot leaves the hero, in art pixels of the frame, and the colour of a spell's light. */
+    class Launch(val x: Double, val y: Double, val rgb: Int)
+
+    private val launches = HashMap<String, Launch>()
+
+    /**
+     * The point a spell or shot starts from at the moment it is let go: the staff's crystal, the wand's tip, the orb or
+     * symbol in the hand, the open palm; the arrow on the bow, the bolt at the front of the crossbow.
+     */
+    fun launch(hero: Hero, act: Act, variant: Int): Launch {
+        val strike = if (act == Act.CAST) Strike.CAST else Strike.SHOOT
+        val k = "${look(hero)}|$act/$variant"
+        synchronized(launches) { launches[k]?.let { return it } }
+        val doll = doll(hero); val o = outfit(hero)
+        val rig = frames(hero, act, strike, variant)[strikeFrame(strike)]
+        val img = doll.render(W, H, ANCHOR_X, GROUND, PX, rig, o)
+        val (sk, fitted) = doll.fit(rig, o)
+        val dress = fitted?.first ?: Dress(doll, sk, doll.body(sk), o)
+        val at = when {
+            act == Act.CAST -> dress.glowPoint()
+            stance(hero) == HeroFigure.Stance.CROSSBOW -> sk.hand(1) + sk.weapon * (0.31 * doll.height)
+            else -> sk.hand(0)
+        }
+        val (x, y, _) = img.project(at)
+        val l = Launch(x, y, if (act == Act.CAST) dress.glowColour() else 0xFFF0D0)
+        synchronized(launches) { launches[k] = l }
+        return l
+    }
+
     // ---------------------------------------------------------------- the frames, kept
 
     private fun look(hero: Hero) = "${hero.race}/${hero.sex}/${hero.build}/${hero.skinTone}/${hero.hairTone}/${hero.cls}/" +
@@ -150,6 +181,7 @@ object HeroBattle {
         plan += Triple(Act.HURT, Strike.SLASH, 0)
         plan += Triple(Act.BLOCK, Strike.SLASH, blockVariant(hero, foeId))
         plan += Triple(Act.CAST, Strike.CAST, castVariant(hero))
+        if (!cancelled()) { launch(hero, Act.CAST, castVariant(hero)); if (hero.weapon?.def?.ranged == true) launch(hero, Act.ATTACK, 0) }
         plan += Triple(Act.VICTORY, Strike.SLASH, variant(hero, Act.VICTORY, foeId, victoryPick))
         for ((act, strike, v) in plan) for (i in 0 until frameCount(hero, act, strike, v)) {
             if (cancelled()) return

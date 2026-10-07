@@ -107,6 +107,11 @@ private class BattleUi(val battle: Battle) {
     /** The swing to sound with a blow, after [swingDelay] ms; set when a blow starts. */
     var swingKey by mutableIntStateOf(0)
     var swingDelay = 0L
+    /** A spell or shot let go with this message: from which act it leaves the hero, and how long until it does. */
+    var release by mutableStateOf<Pair<HeroFigure.Act, Int>?>(null)
+    var fxDelay = 0L
+    /** Counts spells let go, for the flash of light at the staff or hand. */
+    var flashKey by mutableIntStateOf(0)
 
     /** The last frame before a blow lands: a blade still coming down, an arrow still on the string. */
     private fun windUpEnd(strike: HeroFigure.Strike) = HeroBattle.strikeFrame(strike) - (if (strike == HeroFigure.Strike.SHOOT) 1 else 2)
@@ -122,6 +127,8 @@ private class BattleUi(val battle: Battle) {
         val hero = battle.hero
         val m = motion
         val fx = s.fx
+        release = null
+        fxDelay = 0L
         when {
             s.anim == Anim.HERO_ACT -> {
                 val list = HeroBattle.strikes(hero)
@@ -133,11 +140,18 @@ private class BattleUi(val battle: Battle) {
                 m != null && m.act == HeroFigure.Act.ATTACK && m.hold -> {
                 play(HeroFigure.Act.ATTACK, m.strike, 0, m.to, -1, perFrame = 55)
                 if (m.strike != HeroFigure.Strike.SHOOT) { swingDelay = 0L; swingKey++ }
+                // the arrow or bolt leaves the bow on the frame the string is let go
+                else { release = HeroFigure.Act.ATTACK to 0; fxDelay = (HeroBattle.strikeFrame(m.strike) - m.to) * 55L }
             }
             // while the spell is named, it gathers and glows; it is let go with its effect on the next message
             s.anim == Anim.SPELL -> play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, HeroBattle.castVariant(hero), 0, HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - 1, perFrame = 50, hold = true)
-            m != null && m.act == HeroFigure.Act.CAST && m.hold && (fx != null || s.anim != Anim.NONE) ->
+            m != null && m.act == HeroFigure.Act.CAST && m.hold && (fx != null || s.anim != Anim.NONE) -> {
                 play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, m.variant, m.to, -1, perFrame = 50)
+                // the spell leaves the staff, wand or hand on the frame it is let go, in a flash of light
+                release = HeroFigure.Act.CAST to m.variant
+                fxDelay = (HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - m.to) * 50L
+                flashKey++
+            }
             s.anim == Anim.HERO_HIT -> play(HeroFigure.Act.HURT, perFrame = 65)
             s.anim == Anim.HERO_FAINT -> play(HeroFigure.Act.HURT, to = 3, perFrame = 90, hold = true)
             s.anim == Anim.MISS && fx?.onHero == true &&
@@ -265,6 +279,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             de.bornim.core.FxKind.FIREBALL -> 0.45f
             else -> 0f
         }
+        if (ui.fxDelay > 0) kotlinx.coroutines.delay(ui.fxDelay)
         if (flight > 0f) kotlinx.coroutines.delay((fxDuration(ui.current!!.fx!!.kind) * flight).toLong())
         val an = ui.current?.anim
         when (an) {
@@ -572,7 +587,14 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 val heroC = if (newScene) Offset((sceneW * heroX).toPx(), (sceneH * heroY - artDp * 78f).toPx())
                     else Offset((sceneW * heroX).toPx(), (sceneH * heroY - heroSize * 0.5f).toPx())
                 val unit = (if (newStyle) foeW / 90 else monsterSize / 64).toPx()
-                BattleFxLayer(fx, ui.animKey, enemyC, heroC, unit, Modifier.matchParentSize())
+                // a spell or shot starts where it leaves the hero: the staff's crystal, the wand, the hand, the bow
+                val launch = ui.release?.takeIf { newScene }?.let { (act, v) -> HeroBattle.launch(battle.hero, act, v) }
+                val launchC = launch?.let {
+                    Offset((sceneW * heroX + artDp * (it.x - HeroBattle.ANCHOR_X).toFloat()).toPx(), (sceneH * heroY + artDp * (it.y - HeroBattle.GROUND).toFloat()).toPx())
+                }
+                val source = if (launchC != null && fx?.onHero == false) launchC else heroC
+                BattleFxLayer(fx, ui.animKey, enemyC, source, unit, Modifier.matchParentSize(), startDelay = ui.fxDelay)
+                if (launchC != null && ui.release?.first == HeroFigure.Act.CAST) CastFlash(ui.flashKey, launchC, Color(0xFF000000 or launch.rgb.toLong()), artDp.toPx(), ui.fxDelay, Modifier.matchParentSize())
                 BloodLayer(
                     a, fx, ui.animKey, enemyC, (sceneH * foeY).toPx(), heroC, (sceneH * heroY).toPx(), vm.bloodLevel, goreFor(id), (monsterSize / 64).toPx(),
                     foeHurt = 1f - ui.enemyHp.toFloat() / battle.enemyMaxHp, heroHurt = 1f - ui.heroHp.toFloat() / battle.hero.maxHp, modifier = Modifier.matchParentSize(),
@@ -943,4 +965,23 @@ private fun heroDollFrame(ui: BattleUi, clockMs: Long): Pair<de.bornim.core.art.
         ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
         ?: HeroBattle.frame(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
     return img to 0.0
+}
+
+
+/** A burst of light where a spell leaves the hero: bright at once, then fading and widening. */
+@Composable
+private fun CastFlash(key: Int, at: Offset, colour: Color, px: Float, delayMs: Long, modifier: Modifier) {
+    val p = remember(key) { Animatable(0f) }
+    LaunchedEffect(key) {
+        delay(delayMs)
+        p.animateTo(1f, tween(260, easing = androidx.compose.animation.core.LinearEasing))
+    }
+    val t = p.value
+    if (t <= 0f || t >= 1f) return
+    Canvas(modifier) {
+        val fade = 1f - t
+        drawCircle(colour.copy(alpha = 0.35f * fade), radius = px * (10f + 16f * t), center = at)
+        drawCircle(colour.copy(alpha = 0.7f * fade), radius = px * (5f + 6f * t), center = at)
+        drawCircle(Color.White.copy(alpha = 0.9f * fade), radius = px * (2.5f + 2f * t), center = at)
+    }
 }

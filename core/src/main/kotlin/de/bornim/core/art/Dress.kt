@@ -537,7 +537,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     }
 
     /** The colour a spell glows in: holy gold with a symbol, otherwise arcane blue, tinted by the focus's rarity. */
-    private fun glowColour(): Int {
+    fun glowColour(): Int {
         val off = o.items[GearSlot.OFF_HAND]
         val main = o.items[GearSlot.MAIN_HAND]
         val holy = off?.def?.icon == Icon.SYMBOL || (o.cls == CharClass.CLERIC && off?.def?.icon != Icon.ORB)

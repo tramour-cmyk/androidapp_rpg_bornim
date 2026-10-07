@@ -7,6 +7,8 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -78,12 +80,17 @@ fun soundFor(step: Step): Sound? {
  * [enemy] and [hero] are the sprite centres in pixels, [unit] is roughly one sprite pixel.
  */
 @Composable
-fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, modifier: Modifier) {
+fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, modifier: Modifier, startDelay: Long = 0L) {
     if (fx == null) return
     val progress = remember(key) { Animatable(0f) }
-    LaunchedEffect(key) { progress.animateTo(1f, tween(fxDuration(fx.kind), easing = LinearEasing)) }
+    // a spell or shot waits for the frame on which the hero lets it go
+    var started by remember(key) { androidx.compose.runtime.mutableStateOf(startDelay <= 0L) }
+    LaunchedEffect(key) {
+        if (startDelay > 0) { kotlinx.coroutines.delay(startDelay); started = true }
+        progress.animateTo(1f, tween(fxDuration(fx.kind), easing = LinearEasing))
+    }
     val p = progress.value
-    if (p >= 1f) return
+    if (!started || p >= 1f) return
     Canvas(modifier) {
         val target = if (fx.onHero) hero else enemy
         val source = if (fx.onHero) enemy else hero
