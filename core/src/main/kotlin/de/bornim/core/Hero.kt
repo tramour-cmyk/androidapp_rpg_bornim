@@ -20,7 +20,16 @@ class Hero(
     val gear: MutableMap<GearSlot, Gear> = mutableMapOf(),
     /** Scores at creation, race bonus included; empty for heroes from before point buy. */
     val start: MutableMap<Ability, Int> = mutableMapOf(),
+    /** How the hero looks: body form, build, and skin and hair tone (indices into [Appearance]; -1 picks one from the name). */
+    var sex: Sex = Sex.MALE,
+    var build: Build = Build.AVERAGE,
+    var skin: Int = -1,
+    var hair: Int = -1,
 ) {
+    /** The skin tone shown: chosen at creation, or for heroes from before that, one picked steadily from the name. */
+    val skinTone: Int get() = if (skin >= 0) skin else (name.hashCode() ushr 3).mod(4)
+    val hairTone: Int get() = if (hair >= 0) hair else (name.hashCode() ushr 7).mod(4)
+
     /** The chapter being played; it limits what gear can add (see [Rules.gearCap]). */
     @Transient var chapter: Int = 1
 

@@ -1,12 +1,16 @@
 package de.bornim.core
 
+import kotlinx.serialization.Serializable
+
 /** Body form of a hero, chosen at creation. */
+@Serializable
 enum class Sex(val title: T) {
     MALE(T("Männlich", "Male")),
     FEMALE(T("Weiblich", "Female")),
 }
 
 /** How heavily a hero is built, chosen at creation. */
+@Serializable
 enum class Build(val title: T) {
     SLIM(T("Schlank", "Slim")),
     AVERAGE(T("Normal", "Average")),

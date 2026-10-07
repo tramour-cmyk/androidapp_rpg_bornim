@@ -891,3 +891,56 @@ fun renderArmsAndCloak() {
     ImageIO.write(out, "png", File("build/screens/arms_cloak.png"))
     println("wrote arms and cloak")
 }
+
+/** Time per battle frame, dressed, for a fighter and a wizard, as the battle will draw them. */
+fun benchRender() {
+    run {
+        val hero = de.bornim.core.GameState.newGame("Alrik", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER).hero
+        var n = 0
+        val t0 = System.nanoTime()
+        de.bornim.core.art.HeroBattle.prepare(hero, "wolf", false)
+        val ms = (System.nanoTime() - t0) / 1e6
+        println("VORAB: alle Kampfbilder eines Kämpfers in ${"%.1f".format(ms / 1000)} s; Ausrüstung: ${hero.gear.values.joinToString { it.base }}")
+    }
+    var uid = 1L
+    fun g(base: String, r: de.bornim.core.Rarity = de.bornim.core.Rarity.RARE) = de.bornim.core.Gear(uid++, base, r, 3)
+    val F = de.bornim.core.art.HeroFigure
+    val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 0)
+    val kits = listOf(
+        "Kämpfer" to de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.CHEST to g("plate"), de.bornim.core.GearSlot.HEAD to g("helmet"), de.bornim.core.GearSlot.CLOAK to g("cloak"),
+            de.bornim.core.GearSlot.ARMS to g("gauntlets"), de.bornim.core.GearSlot.LEGS to g("greaves"), de.bornim.core.GearSlot.MAIN_HAND to g("longsword"), de.bornim.core.GearSlot.OFF_HAND to g("shield"))),
+        "Magier" to de.bornim.core.art.Outfit(de.bornim.core.CharClass.WIZARD, mapOf(de.bornim.core.GearSlot.CHEST to g("robe"), de.bornim.core.GearSlot.CLOAK to g("mantle"), de.bornim.core.GearSlot.MAIN_HAND to g("staff"))))
+    for ((name, o) in kits) {
+        val st = F.stance(o.items[de.bornim.core.GearSlot.MAIN_HAND]?.def)
+        val rigs = F.sequence(de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, st) + F.sequence(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, st)
+        repeat(3) { doll.render(150, 190, 70.0, 184.0, 0.75, rigs[it], o) }
+        val t0 = System.nanoTime()
+        for (r in rigs) doll.render(150, 190, 70.0, 184.0, 0.75, r, o)
+        val ms = (System.nanoTime() - t0) / 1e6 / rigs.size
+        val t1 = System.nanoTime()
+        for (r in rigs.take(6)) doll.render(300, 380, 140.0, 368.0, 1.5, r, o)
+        val ms2 = (System.nanoTime() - t1) / 1e6 / 6
+        val t2 = System.nanoTime()
+        for (r in rigs) doll.fit(r, o)
+        val fitMs = (System.nanoTime() - t2) / 1e6 / rigs.size
+        println("ANPASSEN $name: ${"%.0f".format(fitMs)} ms je Bild")
+        println("TEMPO $name: ${"%.0f".format(ms)} ms je Kampfbild (${rigs.size} Bilder), ${"%.0f".format(ms2)} ms je doppelt großem Bild")
+    }
+}
+
+/** A few frames written raw, to compare the renderer's output before and after a change. */
+fun dumpFrames(dir: String) {
+    var uid = 1L
+    fun g(base: String, r: de.bornim.core.Rarity = de.bornim.core.Rarity.RARE) = de.bornim.core.Gear(uid++, base, r, 3)
+    val F = de.bornim.core.art.HeroFigure
+    val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 0)
+    val o = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(de.bornim.core.GearSlot.CHEST to g("plate"), de.bornim.core.GearSlot.HEAD to g("helmet"), de.bornim.core.GearSlot.CLOAK to g("cloak"), de.bornim.core.GearSlot.MAIN_HAND to g("longsword"), de.bornim.core.GearSlot.OFF_HAND to g("shield")))
+    File(dir).mkdirs()
+    for ((i, r) in listOf(F.STAND, F.SLASH_WIND, F.SLASH_HIT, F.BLOCK, F.THRUST_HIT, F.STAND.copy(yaw = 30.0)).withIndex()) {
+        val im = doll.render(150, 190, 70.0, 184.0, 0.75, r, o).img
+        val b = BufferedImage(150, 190, BufferedImage.TYPE_INT_ARGB)
+        for (y in 0 until 190) for (x in 0 until 150) b.setRGB(x, y, im[x, y])
+        ImageIO.write(b, "png", File(dir, "f$i.png"))
+    }
+    println("dumped")
+}

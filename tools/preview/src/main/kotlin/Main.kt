@@ -91,6 +91,8 @@ fun main() {
     if (System.getenv("CAST") != null) { renderCastViews(); System.exit(0) }
     if (System.getenv("STANCE") != null) { renderStanceViews(); System.exit(0) }
     if (System.getenv("ARMS") != null) { renderArmsAndCloak(); System.exit(0) }
+    if (System.getenv("BENCH") != null) { benchRender(); System.exit(0) }
+    System.getenv("DUMP")?.let { dumpFrames(it); System.exit(0) }
     if (System.getenv("WEAPONS") != null) { measureWeapons(); renderWeaponSizes(); System.exit(0) }
     if (System.getenv("REACT") != null) { renderReactViews(); System.exit(0) }
     if (System.getenv("DOLLANIM") != null) { renderDollAnims(); System.exit(0) }

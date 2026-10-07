@@ -271,6 +271,8 @@ class SdfView(yawDeg: Double, pitchDeg: Double = 15.0) {
  * which is then lit and dithered like every other sprite, given soft inner lines and an outline.
  */
 object SdfRender {
+    /** Rows are shared out among the processor's cores; off for tests that compare pictures bit for bit. */
+    @Volatile var PARALLEL = true
     private val NEIGH = intArrayOf(1, 0, -1, 0, 0, 1, 0, -1)
 
     fun smin(a: Double, b: Double, k: Double): Double {
@@ -297,65 +299,95 @@ object SdfRender {
             cx[i] = anchorX + v.x * px; cy[i] = ground - v.y * px; cz[i] = v.z; cr[i] = (so.bound + pad) * px + 1
         }
         val dirL = view.toLocal(P3.Z)
-        val cand = IntArray(n0)
-        val gd = DoubleArray(groups.count)
-        fun field(p: P3, n: Int): Double {
-            java.util.Arrays.fill(gd, Double.MAX_VALUE)
-            for (j in 0 until n) {
-                val so = solids[cand[j]]
-                val d = so.dist(p)
-                val g = so.group
-                gd[g] = if (gd[g] == Double.MAX_VALUE) d else smin(gd[g], d, groups.smooth[g])
+        // which solids can touch which 8×8 tile of the picture, so a pixel tests only its own tile's few
+        val tile = 8
+        val tw = (w + tile - 1) / tile; val th = (h + tile - 1) / tile
+        val bins = Array(tw * th) { IntArray(8) }
+        val binN = IntArray(tw * th)
+        for (i in 0 until n0) {
+            val tx0 = ((cx[i] - cr[i]) / tile).toInt().coerceIn(0, tw - 1); val tx1 = ((cx[i] + cr[i]) / tile).toInt().coerceIn(0, tw - 1)
+            val ty0 = ((cy[i] - cr[i]) / tile).toInt().coerceIn(0, th - 1); val ty1 = ((cy[i] + cr[i]) / tile).toInt().coerceIn(0, th - 1)
+            if (cx[i] + cr[i] < 0 || cx[i] - cr[i] > w || cy[i] + cr[i] < 0 || cy[i] - cr[i] > h) continue
+            for (ty in ty0..ty1) for (tx in tx0..tx1) {
+                val b = ty * tw + tx
+                if (binN[b] == bins[b].size) bins[b] = bins[b].copyOf(bins[b].size * 2)
+                bins[b][binN[b]++] = i
             }
-            // children melt into their parent near the joint only
-            for (g in groups.count - 1 downTo 0) {
-                val par = groups.parent[g]
-                if (par < 0 || gd[g] == Double.MAX_VALUE || gd[par] == Double.MAX_VALUE) continue
-                val wgt = (1 - (p - groups.joint[g]!!).len() / groups.reach).coerceIn(0.0, 1.0)
-                gd[par] = if (wgt > 0.05) smin(gd[par], gd[g], groups.smooth[par] * 1.4 * wgt) else min(gd[par], gd[g])
-                gd[g] = Double.MAX_VALUE
-            }
-            var best = Double.MAX_VALUE
-            for (d in gd) if (d < best) best = d
-            return best
         }
-        for (y in 0 until h) for (x in 0 until w) {
-            val sx = x + 0.5; val sy = y + 0.5
-            var n = 0
-            var zTop = Double.NEGATIVE_INFINITY; var zBot = Double.POSITIVE_INFINITY
-            for (i in 0 until n0) {
-                val dx = sx - cx[i]; val dy = sy - cy[i]
-                if (dx * dx + dy * dy <= cr[i] * cr[i]) {
-                    cand[n++] = i
-                    val rr = solids[i].bound + pad
-                    zTop = max(zTop, cz[i] + rr); zBot = min(zBot, cz[i] - rr)
+        val boundPad = DoubleArray(n0) { solids[it].bound + pad }
+        /** One worker's scratch space; the rows are shared out among the processor's cores. */
+        class Row {
+            val cand = IntArray(n0)
+            val gd = DoubleArray(groups.count)
+            fun field(p: P3, n: Int): Double {
+                java.util.Arrays.fill(gd, Double.MAX_VALUE)
+                for (j in 0 until n) {
+                    val so = solids[cand[j]]
+                    val g = so.group
+                    val cur = gd[g]
+                    val d = so.dist(p)
+                    gd[g] = if (cur == Double.MAX_VALUE) d else smin(cur, d, groups.smooth[g])
+                }
+                // children melt into their parent near the joint only
+                for (g in groups.count - 1 downTo 0) {
+                    val par = groups.parent[g]
+                    if (par < 0 || gd[g] == Double.MAX_VALUE || gd[par] == Double.MAX_VALUE) continue
+                    val wgt = (1 - (p - groups.joint[g]!!).len() / groups.reach).coerceIn(0.0, 1.0)
+                    gd[par] = if (wgt > 0.05) smin(gd[par], gd[g], groups.smooth[par] * 1.4 * wgt) else min(gd[par], gd[g])
+                    gd[g] = Double.MAX_VALUE
+                }
+                var best = Double.MAX_VALUE
+                for (d in gd) if (d < best) best = d
+                return best
+            }
+            fun line(y: Int) {
+                for (x in 0 until w) {
+                    val sx = x + 0.5; val sy = y + 0.5
+                    var n = 0
+                    var zTop = Double.NEGATIVE_INFINITY; var zBot = Double.POSITIVE_INFINITY
+                    val b = (y / tile) * tw + x / tile
+                    val list = bins[b]
+                    for (k in 0 until binN[b]) {
+                        val i = list[k]
+                        val dx = sx - cx[i]; val dy = sy - cy[i]
+                        if (dx * dx + dy * dy <= cr[i] * cr[i]) {
+                            cand[n++] = i
+                            val rr = boundPad[i]
+                            zTop = max(zTop, cz[i] + rr); zBot = min(zBot, cz[i] - rr)
+                        }
+                    }
+                    if (n == 0) continue
+                    // keep the solids in their original order, as the melting of a group depends on it
+                    java.util.Arrays.sort(cand, 0, n)
+                    val o = view.toLocal(P3((sx - anchorX) / px, (ground - sy) / px, 0.0))
+                    var z = zTop
+                    var hit = false
+                    var steps = 0
+                    while (z > zBot && steps < 110) {
+                        val d = field(o + dirL * z, n)
+                        if (d < 0.1) { hit = true; break }
+                        z -= max(d * 0.85, 0.07)
+                        steps++
+                    }
+                    if (!hit) continue
+                    val p = o + dirL * z
+                    val e = 0.22
+                    val k1 = field(p + P3(e, -e, -e), n); val k2 = field(p + P3(-e, -e, e), n)
+                    val k3 = field(p + P3(-e, e, -e), n); val k4 = field(p + P3(e, e, e), n)
+                    val nl = P3(k1 - k2 - k3 + k4, -k1 - k2 + k3 + k4, -k1 + k2 - k3 + k4).norm()
+                    val nv = view.toView(nl)
+                    var bi = cand[0]; var bd = Double.MAX_VALUE
+                    for (j in 0 until n) { val d = solids[cand[j]].dist(p); if (d < bd) { bd = d; bi = cand[j] } }
+                    val mat = material(solids[bi], p)
+                    val at = y * w + x
+                    depth[at] = z; mats[at] = mat
+                    idx[at] = s.litIndex(x, y, nv.x, -nv.y, nv.z, mat)
                 }
             }
-            if (n == 0) continue
-            val o = view.toLocal(P3((sx - anchorX) / px, (ground - sy) / px, 0.0))
-            var z = zTop
-            var hit = false
-            var steps = 0
-            while (z > zBot && steps < 110) {
-                val d = field(o + dirL * z, n)
-                if (d < 0.1) { hit = true; break }
-                z -= max(d * 0.85, 0.07)
-                steps++
-            }
-            if (!hit) continue
-            val p = o + dirL * z
-            val e = 0.22
-            val k1 = field(p + P3(e, -e, -e), n); val k2 = field(p + P3(-e, -e, e), n)
-            val k3 = field(p + P3(-e, e, -e), n); val k4 = field(p + P3(e, e, e), n)
-            val nl = P3(k1 - k2 - k3 + k4, -k1 - k2 + k3 + k4, -k1 + k2 - k3 + k4).norm()
-            val nv = view.toView(nl)
-            var bi = cand[0]; var bd = Double.MAX_VALUE
-            for (j in 0 until n) { val d = solids[cand[j]].dist(p); if (d < bd) { bd = d; bi = cand[j] } }
-            val mat = material(solids[bi], p)
-            val at = y * w + x
-            depth[at] = z; mats[at] = mat
-            idx[at] = s.litIndex(x, y, nv.x, -nv.y, nv.z, mat)
         }
+        val workers = ThreadLocal.withInitial { Row() }
+        if (PARALLEL) java.util.stream.IntStream.range(0, h).parallel().forEach { workers.get().line(it) }
+        else { val r = Row(); for (y in 0 until h) r.line(y) }
         // a soft inner line where a nearer part overlaps a farther one
         for (y in 0 until h) for (x in 0 until w) {
             val at = y * w + x
