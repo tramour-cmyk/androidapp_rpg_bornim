@@ -28,6 +28,15 @@ Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md), w
   - bessere Beute (normal bis „selten“, besondere Beute bis „sehr selten“);
   - höhere Obergrenzen für Ausrüstungsboni (+2).
 - **Neue Monster (SRD):** Banditen und Kultisten, Gnoll, Worg, Harpyie (Gesang/Bezauberung), Belebte Rüstung, Mimik (Klammern), Oger, Eulenbär.
+  - **Gebaut auf den 3D-Grundmodellen** (Heldenpuppe für Menschenähnliche, Vierbeiner-Modell wie beim Wolf): Rig, Bewegungen, Ausfallschritt und Stürze sind schon da; ein neues Monster braucht vor allem Ausrüstung, Maße, Kopf und eigene Haltungen. Es gelten die [Stil-Leitlinien](STIL.md) (je drei Varianten in Aussehen und Bewegung).
+  - Aufwand nach heutiger Einschätzung:
+    - sehr gering: Banditen und Kultisten (Puppe als Mensch mit Ausrüstung), Worg (Wolf, größer und dunkler);
+    - gering: Belebte Rüstung (Puppe nur aus Rüstung, innen hohl, wie beim Skelett);
+    - gering bis mittel: Oger (Puppe, Large, um 2,7 m, grob und schwer);
+    - mittel: Gnoll (Puppe mit Hyänenkopf), Eulenbär (Vierbeiner mit Bärenkörper und Eulenkopf);
+    - eher hoch: Harpyie (Puppe mit Flügeln und Vogelbeinen);
+    - eigenes Modell: Mimik (Truhe mit Maul).
+  - Was jetzt für Kobold, Zombie, Krogg, Grak, Wildschwein und Ratte entsteht (Kopfformen, große Statur, Vierbeiner-Varianten), macht diese Monster günstiger.
 - **Neue Untote:** Schatten (Stärke entziehen), Gruft-Unhold (Lebensraub), Irrlicht (unsichtbar).
 - **Neue Bosse:** Banditenhauptmann, Ogerhäuptling, Gelatinewürfel; mehrphasig, rufen Verstärkung.
 
