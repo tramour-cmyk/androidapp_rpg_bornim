@@ -2,7 +2,7 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
-## Unveröffentlicht
+## v0.1.157 – 07.10.2026, 20:31
 
 **Verbessert – Vorräte im neuen Stil**
 - Alle Vorräte haben jetzt räumliche Bilder wie die Ausrüstung, jedes sein eigenes: Heiltrank (rund, rot), Großer Heiltrank (rosé, Goldband), Überragender Heiltrank (hoch, violett, vergoldete Kappe), Kräutertrank (grün, mit Kräuterzweig), Alchemistenfeuer (glühend orange, Lumpen als Docht), Weihwasser (schlanke Phiole mit goldener Sonne), rohes und gebratenes Fleisch, Heilkräuterbund, Wolfsfell, Keilerhauer, Giftdrüse, Fledermausflügel, rostiger Schlüssel, Sonnenamulett und versiegelter Brief. Die Tränke zeigen Glas mit Flüssigkeitsstand.
