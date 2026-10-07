@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 14:05 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 14:58 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -15,7 +15,7 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 - **Branch `hero-figure`** (noch nicht in `main`, also noch nicht veröffentlicht): der Held als bewegliche Figur im Kampf, im Ausrüstungsbild, bei der Erstellung, auf dem Titelbild und bei den Spielständen; Kampfmenü „Angreifen/Abwehr“ mit Konter; Kleriker mit Kampfstab, Rundschild und Sonne auf dem Wappenrock.
 
-- **Gegner im neuen Stil:** Goblin, Goblin-Späher und Skelett sind eingebaut (Aussehen, Ausrüstung, Bewegungen in je drei Varianten). Als Nächstes die übrigen menschenähnlichen Gegner (Kobold, Zombie, Krogg, Grak), danach die Tiere als 3D-Vierbeiner.
+- **Gegner im neuen Stil:** Goblin, Goblin-Späher und Skelett sind eingebaut (Aussehen, Ausrüstung, Bewegungen in je drei Varianten). Jetzt: der Wolf als 3D-Vierbeiner (erst Entwurfsbilder). Danach die übrigen menschenähnlichen Gegner (Kobold, Zombie, Krogg, Grak) und die übrigen Tiere.
 
 ## Zu testen
 
@@ -30,7 +30,7 @@ Mit der APK vom letzten Build des Branches `hero-figure` (Seite des CI-Laufs, Ar
 - **Karte:** Kleriker mit Rundschild (hell, goldene Sonne) und Kampfstab mit Eisenkappen.
 - **Heldenerstellung:** Figur und Werte bleiben oben stehen, nur die Eingaben darunter scrollen.
 - **Heilige Flamme:** bei Treffer mitten auf dem Gegner, beim Ausweichen schlägt sie neben ihm ein (bei allen Gegnern, auch Grimmzahn, Krogg, Grak).
-- **Goblins und Skelette im Kampf:** verschiedene Ausrüstungen, Größen und Hauttöne; Angriffe, Treffer, Ausweichen und Zusammenbrechen in Varianten; Goblin-Späher schießt mit dem Bogen; Angriffsname im Text passt zur Waffe; ihre Schläge erreichen den Helden (Ausfallschritt).
+- **Goblins und Skelette im Kampf:** verschiedene Ausrüstungen, Größen und Hauttöne; Angriffe, Treffer, Ausweichen und Zusammenbrechen in Varianten; Goblin-Späher schießt mit dem Bogen; der Speer des Skeletts ist räumlich und sticht schräg auf den Helden zu; Angriffsname im Text passt zur Waffe; ihre Schläge erreichen den Helden (Ausfallschritt).
 - **Blutstufen:** „Dezent“ zeigt bei Held und Gegner leichte Wunden, „Deutlich“ die vollen.
 
 ## Zu entscheiden

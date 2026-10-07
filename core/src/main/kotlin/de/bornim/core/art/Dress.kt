@@ -540,8 +540,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             }
             else -> {
                 val len = reach(main.base) * k * 0.95
-                val top = hand + dir * len
-                val butt = hand - dir * (len * buttPart(main.base))
+                val top = hand + dir * (len + slide)
+                val butt = hand - dir * (len * buttPart(main.base) - slide)
                 val wood = m(mix(argb(if (main.base == "staff") 0x3E2A1C else 0x6A5034), r.color.toInt(), if (r >= Rarity.RARE) 0.25 else 0.0), grain = 0.08)
                 if (main.base == "staff") {
                     // a gnarled shaft, thickening to a knot under three carved claws that hold the crystal
@@ -557,6 +557,20 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
                         cone(at(0.95), crystal + out * (0.013 * h) + dir * (0.012 * h), 0.004 * h, 0.0018 * h, wood, Doll.TRIM)
                     }
                     add(Ellipsoid(crystal, P3(0.011 * h, 0.019 * h, 0.011 * h), Frame.along(dir), BodyPart.GEAR, Doll.TRIM), shine)
+                } else if (main.base == "spear") {
+                    // an ash shaft with a socketed iron leaf, ridged down the middle, and an iron shoe at the butt
+                    val u = h / 175.0
+                    val up2 = (dir cross side).norm()
+                    val ash = if (o.rusty) m(argb(0x4E463C), grain = 0.1) else m(mix(argb(0x5C4630), r.color.toInt(), if (r >= Rarity.RARE) 0.25 else 0.0), grain = 0.08)
+                    val iron = metal(r)
+                    cone(butt + dir * (5.0 * u), top - dir * (24.0 * u), 0.0088 * h, 0.0082 * h, ash)
+                    cone(butt, butt + dir * (6.0 * u), 0.0068 * h, 0.0086 * h, iron, Doll.TRIM)
+                    cone(top - dir * (27.0 * u), top - dir * (25.0 * u), 0.0094 * h, 0.0094 * h, darkLeather, Doll.TRIM)
+                    cone(top - dir * (25.0 * u), top - dir * (17.0 * u), 0.0102 * h, 0.007 * h, iron, Doll.TRIM)
+                    // the leaf lies flat across the shaft's upright plane, its broad side to the onlooker
+                    add(Ellipsoid(top - dir * (9.5 * u), P3(3.6 * u, 9.6 * u, 0.6 * u), Frame.along(dir, side), BodyPart.GEAR, Doll.TRIM), iron)
+                    cone(top - dir * (18.0 * u), top - dir * (0.6 * u), 0.9 * u, 0.25 * u, iron, Doll.TRIM)
+                    cone(hand - dir * (0.09 * h), hand + dir * (0.03 * h), 0.0092 * h, 0.0092 * h, darkLeather, Doll.TRIM)
                 } else {
                     // a plain fighting staff, shod with iron at both ends and wrapped where the hands go
                     cone(butt, top, 0.0095 * h, 0.0095 * h, wood)
@@ -723,6 +737,28 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         return null
     }
 
+    /** What the main weapon could strike its own bearer with: head and body, not the hands and arms holding it. */
+    private val ownSolids: List<Solid> by lazy {
+        // the hands holding it are not in its way; with two hands or a bracing forearm, neither is the free arm
+        val holding = if (o.twoHands) setOf("hand1", "fore1", "upper1", "delt1", "hand0", "fore0") else setOf("hand1", "fore1", "upper1", "delt1")
+        body.filter { it.key !in holding && it.part != BodyPart.HAIR }
+    }
+
+    /**
+     * How far, in cm, a spear is slid forward through the hand: where its butt would run into the bearer's own body,
+     * the grip moves back along the shaft (as a spearman shortens his hold) until the butt is clear.
+     */
+    private val slide: Double by lazy {
+        val main = o.items[GearSlot.MAIN_HAND]
+        if (main?.base != "spear") return@lazy 0.0
+        val back = reach("spear") * (h / 175.0) * 0.95 * buttPart("spear")
+        val hand = sk.hand(1)
+        val step = back / 12
+        val len = reach("spear") * (h / 175.0) * 0.95
+        // the same points the check below tests, from just behind the fist to the butt
+        (0..11).map { it * step }.firstOrNull { s -> (3..(40 * (back - s) / len).toInt()).none { i -> ownSolids.any { b -> b.dist(hand - sk.weapon * (len * i / 40.0)) < -0.5 } } } ?: (back - 2 * step)
+    }
+
     /** Where along the main weapon it would pass through the hero's own head or body (not the hand holding it), or null. */
     fun weaponThroughBody(): Double? {
         val main = o.items[GearSlot.MAIN_HAND] ?: return null
@@ -730,14 +766,12 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         // staves and wands are built to the body's size, as they are drawn
         val len = if (main.base in ROUND) reach(main.base) * (h / 175.0) * 0.95 else reach(main.base)
         val hand = sk.hand(1)
-        // the hands holding it are not in its way; with two hands or a bracing forearm, neither is the free arm
-        val holding = if (o.twoHands) setOf("hand1", "fore1", "upper1", "delt1", "hand0", "fore0") else setOf("hand1", "fore1", "upper1", "delt1")
-        val solid = body.filter { it.key !in holding && it.part != BodyPart.HAIR }
+        val solid = ownSolids
         // the grip is inside the fist; check from just beyond it
-        for (i in 4..40) { val t = i / 40.0; val p = hand + sk.weapon * (len * t); if (solid.any { it.dist(p) < -0.5 }) return t }
+        for (i in 4..40) { val t = i / 40.0; val p = hand + sk.weapon * ((len + slide) * t); if (solid.any { it.dist(p) < -0.5 }) return t }
         // a staff reaches back past the hand as well
-        val back = buttPart(main.base)
-        if (back > 0) for (i in 3..(40 * back).toInt()) { val t = i / 40.0; val p = hand - sk.weapon * (len * t); if (solid.any { it.dist(p) < -0.5 }) return -t }
+        val back = len * buttPart(main.base) - slide
+        if (back > 0) for (i in 3..(40 * back / len).toInt()) { val t = i / 40.0; val p = hand - sk.weapon * (len * t); if (solid.any { it.dist(p) < -0.5 }) return -t }
         return null
     }
 
@@ -810,10 +844,13 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     }
 
     companion object {
-        /** Staves and wands, built in the round rather than drawn over the doll. */
-        val ROUND = setOf("staff", "quarterstaff", "wand")
-        /** How far a staff reaches back past the hand, as a part of its reach: a wizard's staff is held high, a fighting staff in the middle. */
-        fun buttPart(base: String) = when (base) { "staff" -> 1.45; "quarterstaff" -> 1.0; else -> 0.0 }
+        /** Staves, wands and spears, built in the round rather than drawn over the doll. */
+        val ROUND = setOf("staff", "quarterstaff", "wand", "spear")
+        /**
+         * How far a staff reaches back past the hand, as a part of its reach: a wizard's staff is held high, a fighting
+         * staff in the middle, a spear (175 cm on a human) in its back third.
+         */
+        fun buttPart(base: String) = when (base) { "staff" -> 1.45; "quarterstaff" -> 1.0; "spear" -> 0.42; else -> 0.0 }
         /**
          * How a weapon drawing is stretched along its length and across it to true size on a human: swords and pole arms
          * were drawn short, the heads of axes, maces and hammers far too broad. Lengths after it: dagger 38 cm, short sword

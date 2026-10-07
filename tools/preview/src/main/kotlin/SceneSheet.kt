@@ -1544,3 +1544,26 @@ fun renderFoeLunge() {
     ImageIO.write(out, "png", File("build/screens/foe_lunge.png"))
     println("wrote foe lunge")
 }
+
+/** A hero with a spear through every act: the 3D spear and its sliding grip, row by row. */
+fun renderHeroSpear() {
+    val B = de.bornim.core.art.HeroBattle
+    val hero = de.bornim.core.Hero.create("Borin", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER)
+    hero.gear[de.bornim.core.GearSlot.MAIN_HAND] = de.bornim.core.Gear(900, "spear", de.bornim.core.Rarity.COMMON, 1)
+    val runs = listOf(de.bornim.core.art.HeroFigure.Act.IDLE to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.ATTACK to de.bornim.core.art.HeroFigure.Strike.THRUST, de.bornim.core.art.HeroFigure.Act.ATTACK to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.BLOCK to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.HURT to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.AMBUSHED to de.bornim.core.art.HeroFigure.Strike.SLASH, de.bornim.core.art.HeroFigure.Act.VICTORY to de.bornim.core.art.HeroFigure.Strike.SLASH)
+    val cols = 7; val cw = 170; val ch = B.H.toInt()
+    val out = BufferedImage(cw * cols, ch * runs.size, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x4A4C46); g.fillRect(0, 0, out.width, out.height); g.color = java.awt.Color(0xE0D8C0)
+    for ((r, run) in runs.withIndex()) {
+        val n = B.frameCount(hero, run.first, run.second, 0)
+        val picks = (0 until cols).map { it * (n - 1) / (cols - 1) }
+        for ((c, i) in picks.withIndex()) {
+            val im = B.frame(hero, run.first, run.second, 0, i)
+            val ox = c * cw - (B.ANCHOR_X.toInt() - cw / 2)
+            for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; val X = ox + x; if ((q ushr 24) >= 128 && X in c * cw until (c + 1) * cw) out.setRGB(X, r * ch + y, q and 0xFFFFFF) }
+        }
+        g.drawString("${run.first}/${run.second}", 2, r * ch + 12)
+    }
+    ImageIO.write(out, "png", File("build/screens/hero_spear.png"))
+    println("wrote hero spear")
+}

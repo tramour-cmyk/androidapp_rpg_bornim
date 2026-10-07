@@ -77,9 +77,9 @@ object FoeArt {
         Style.BLADE -> HeroFigure.STAND
     }
 
-    // the hero's lunge, the point angled across towards the hero rather than straight at us
-    private val THRUST_W = HeroFigure.THRUST_WIND.copy(weapon = V(0.45, 0.12, 0.88), aim = 1.0)
-    private val THRUST_H = HeroFigure.THRUST_HIT.copy(weapon = V(0.55, 0.04, 0.83), aim = 1.0)
+    // the hero's lunge, the point driven on and down at the hero, coming out of the picture
+    private val THRUST_W = HeroFigure.THRUST_WIND.copy(weapon = V(0.1, 0.02, 0.99), aim = 1.0)
+    private val THRUST_H = HeroFigure.THRUST_HIT.copy(weapon = V(0.12, -0.2, 0.97), aim = 1.0)
 
     private fun attacks(s: Style): List<Seq> {
         val r = rest(s)
