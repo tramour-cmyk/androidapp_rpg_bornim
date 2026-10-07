@@ -101,9 +101,22 @@ private class BattleUi(val battle: Battle) {
 
     /**
      * What the hero's doll is playing: frames [from]..[to] of an act over [ms] from [start], then back to rest unless it
-     * [hold]s. A [lead] is played before it starts: the way down out of a held guard.
+     * [hold]s. A [lead] is played before it starts: the way down out of a held guard. From frame [slowFrom] on each
+     * frame takes [slowK] times as long: a blow struck fast, the step back after it taken at ease.
      */
-    class HeroMotion(val act: HeroFigure.Act, val strike: HeroFigure.Strike, val variant: Int, val from: Int, val to: Int, val start: Long, val ms: Long, val hold: Boolean = false, val lead: HeroMotion? = null)
+    class HeroMotion(val act: HeroFigure.Act, val strike: HeroFigure.Strike, val variant: Int, val from: Int, val to: Int, val start: Long, val ms: Long, val hold: Boolean = false, val lead: HeroMotion? = null,
+        val slowFrom: Int = Int.MAX_VALUE, val slowK: Double = 1.0) {
+        /** The frame shown [now]. */
+        fun index(now: Long): Int {
+            val el = (now - start).toDouble()
+            if (el <= 0) return from
+            val fast = (minOf(slowFrom, to + 1) - from).coerceAtLeast(0)
+            val slow = (to + 1 - maxOf(slowFrom, from)).coerceAtLeast(0)
+            val per = ms / (fast + slow * slowK)
+            val i = if (el < fast * per) from + (el / per).toInt() else maxOf(slowFrom, from) + ((el - fast * per) / (per * slowK)).toInt()
+            return i.coerceIn(from, to)
+        }
+    }
     var motion by mutableStateOf<HeroMotion?>(null)
     private var blows = 0
     /** Which victory pose this fight ends in. */
@@ -120,7 +133,8 @@ private class BattleUi(val battle: Battle) {
     /** The last frame before a blow lands: a blade still coming down, an arrow still on the string. */
     private fun windUpEnd(strike: HeroFigure.Strike) = HeroBattle.strikeFrame(strike) - (if (strike == HeroFigure.Strike.SHOOT) 1 else 2)
 
-    private fun play(act: HeroFigure.Act, strike: HeroFigure.Strike = HeroFigure.Strike.SLASH, variant: Int = 0, from: Int = 0, to: Int = -1, perFrame: Long = 60, delayMs: Long = 0, hold: Boolean = false) {
+    private fun play(act: HeroFigure.Act, strike: HeroFigure.Strike = HeroFigure.Strike.SLASH, variant: Int = 0, from: Int = 0, to: Int = -1, perFrame: Long = 60, delayMs: Long = 0, hold: Boolean = false,
+        slowFrom: Int = Int.MAX_VALUE, slowK: Double = 1.0) {
         val n = HeroBattle.frameCount(battle.hero, act, strike, variant)
         val end = if (to < 0) n - 1 else to.coerceAtMost(n - 1)
         val now = System.currentTimeMillis()
@@ -133,7 +147,9 @@ private class BattleUi(val battle: Battle) {
             HeroMotion(m.act, m.strike, m.variant, m.to, last, now, (last - m.to + 1) * per)
         } else null
         val start = maxOf(now + delayMs, (lead?.let { it.start + it.ms } ?: 0L))
-        motion = HeroMotion(act, strike, variant, from, end, start, (end - from + 1) * perFrame, hold, lead)
+        val slowN = (end + 1 - maxOf(slowFrom, from)).coerceAtLeast(0)
+        val ms = ((end - from + 1 - slowN) * perFrame + slowN * perFrame * slowK).toLong()
+        motion = HeroMotion(act, strike, variant, from, end, start, ms, hold, lead, slowFrom, slowK)
     }
 
     /** Sets the doll going for a new message: blows, spells, hits, blocks, the start of the fight and the victory. */
@@ -161,10 +177,10 @@ private class BattleUi(val battle: Battle) {
             // ambushed: still facing us, the hero is caught from behind by the foe's first blow, staggers and only then
             // turns to it; struck down by it, the hero stays down in the stagger
             s.anim == Anim.HERO_FAINT && m != null && m.act == HeroFigure.Act.AMBUSHED ->
-                play(HeroFigure.Act.AMBUSHED, to = AMBUSH_DOWN, perFrame = 90, hold = true)
+                play(HeroFigure.Act.AMBUSHED, to = AMBUSH_DOWN, perFrame = 130, hold = true)
             m != null && m.act == HeroFigure.Act.AMBUSHED && m.hold &&
                 (s.anim == Anim.HERO_HIT || (s.anim == Anim.MISS && fx?.onHero == true)) ->
-                play(HeroFigure.Act.AMBUSHED, perFrame = 75)
+                play(HeroFigure.Act.AMBUSHED, perFrame = 120)
             s.anim == Anim.HERO_ACT -> {
                 val list = HeroBattle.strikes(hero)
                 val strike = list[blows++ % list.size]
@@ -173,7 +189,7 @@ private class BattleUi(val battle: Battle) {
             }
             (s.anim == Anim.ENEMY_HIT || s.anim == Anim.ENEMY_FAINT || s.anim == Anim.MISS) && fx?.onHero == false &&
                 m != null && m.act == HeroFigure.Act.ATTACK && m.hold -> {
-                play(HeroFigure.Act.ATTACK, m.strike, 0, m.to, -1, perFrame = 55)
+                play(HeroFigure.Act.ATTACK, m.strike, 0, m.to, -1, perFrame = 55, slowFrom = HeroBattle.strikeFrame(m.strike) + 1, slowK = MOVE_SLOW)
                 if (m.strike != HeroFigure.Strike.SHOOT) { swingDelay = 0L; swingKey++ }
                 // the arrow or bolt leaves the bow on the frame the string is let go
                 else { release = HeroFigure.Act.ATTACK to 0; fxDelay = (HeroBattle.strikeFrame(m.strike) - m.to) * 55L }
@@ -194,19 +210,19 @@ private class BattleUi(val battle: Battle) {
                 fxDelay = (HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - m.to) * 50L
                 flashKey++
             }
-            s.anim == Anim.HERO_HIT -> play(HeroFigure.Act.HURT, perFrame = 65)
-            s.anim == Anim.HERO_FAINT -> play(HeroFigure.Act.HURT, to = 3, perFrame = 90, hold = true)
+            s.anim == Anim.HERO_HIT -> play(HeroFigure.Act.HURT, perFrame = 95)
+            s.anim == Anim.HERO_FAINT -> play(HeroFigure.Act.HURT, to = 3, perFrame = 130, hold = true)
             // the defensive stance: up into the guard, held until the hero's next turn
             // a draught drunk on guard: the guard comes down first
             s.anim == Anim.HERO_HEAL && m != null && m.act == HeroFigure.Act.BLOCK && m.hold -> play(HeroFigure.Act.IDLE, from = 0, to = 0)
             // already on guard: it simply stays up
             s.anim == Anim.DEFEND && m != null && m.act == HeroFigure.Act.BLOCK && m.hold -> {}
-            s.anim == Anim.DEFEND -> play(HeroFigure.Act.BLOCK, variant = HeroBattle.blockVariant(hero, battle.monster.id), from = 0, to = 7, perFrame = 50, hold = true)
+            s.anim == Anim.DEFEND -> play(HeroFigure.Act.BLOCK, variant = HeroBattle.blockVariant(hero, battle.monster.id), from = 0, to = 7, perFrame = 70, hold = true)
             // fended off from the guard: the guard stays up
             s.anim == Anim.MISS && fx?.onHero == true && m != null && m.act == HeroFigure.Act.BLOCK && m.hold -> {}
             s.anim == Anim.MISS && fx?.onHero == true &&
                 (fx.kind == de.bornim.core.FxKind.BLOCK || HeroBattle.outfit(hero).twoHands) ->
-                play(HeroFigure.Act.BLOCK, variant = HeroBattle.blockVariant(hero, battle.monster.id), perFrame = 50)
+                play(HeroFigure.Act.BLOCK, variant = HeroBattle.blockVariant(hero, battle.monster.id), perFrame = 70)
             enemyGone && s.anim != Anim.ENEMY_FAINT && m?.act != HeroFigure.Act.VICTORY ->
                 play(HeroFigure.Act.VICTORY, variant = HeroBattle.variant(hero, HeroFigure.Act.VICTORY, battle.monster.id, victoryPick), perFrame = 70, delayMs = 250, hold = true)
         }
@@ -216,7 +232,7 @@ private class BattleUi(val battle: Battle) {
         // the fight begins with the hero facing us and turning to the foe; in an ambush the hero stays facing us,
         // unaware, until the foe's blow lands from behind
         if (battle.opening == de.bornim.core.Opening.AMBUSHED) play(HeroFigure.Act.AMBUSHED, from = 0, to = 0, hold = true)
-        else play(HeroFigure.Act.TURN, perFrame = 70, delayMs = 700)
+        else play(HeroFigure.Act.TURN, perFrame = 90, delayMs = 700)
         push(battle.start())
     }
 
@@ -353,7 +369,13 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             when (an) {
                 Anim.ENEMY_HIT, Anim.HERO_HIT, Anim.SPELL, Anim.LEVEL_UP, Anim.ENEMY_FAINT, Anim.HERO_FAINT, Anim.LOOT, Anim.MISS ->
                     // a foe on the doll takes its time to fall before it fades
-                    shake.animateTo(1f, tween(if (an == Anim.ENEMY_FAINT && MonsterArt.isSolid(battle.monster.id)) 1400 else if (an == Anim.ENEMY_FAINT || an == Anim.HERO_FAINT) 700 else 450))
+                    shake.animateTo(1f, tween(when {
+                        an == Anim.ENEMY_FAINT && MonsterArt.isSolid(battle.monster.id) -> 1400
+                        an == Anim.ENEMY_FAINT || an == Anim.HERO_FAINT -> 700
+                        // being struck, ducking aside and the step back after a blow are taken at ease
+                        an == Anim.ENEMY_HIT || an == Anim.HERO_HIT || an == Anim.MISS -> REACT_MS
+                        else -> 450
+                    }))
                 Anim.HERO_ACT, Anim.ENEMY_ACT -> shake.animateTo(1f, tween(380))
                 else -> {}
             }
@@ -491,7 +513,12 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             val foeAttackIdx: Int? = when {
                 !newStyle -> null
                 a == Anim.ENEMY_ACT -> span(0, windEnd)
-                foeLanding && moving -> span(windEnd, foeN - 1)
+                foeLanding && moving -> {
+                    // the blow lands as fast as ever; only the way back takes the longer time
+                    val q = ((foeStrike - windEnd + 1).toFloat() / (foeN - windEnd)) * 450f / REACT_MS
+                    if (t < q) windEnd + ((foeStrike - windEnd + 1) * t / q).toInt().coerceAtMost(foeStrike - windEnd)
+                    else foeStrike + ((foeN - foeStrike) * (t - q) / (1 - q)).toInt().coerceIn(0, foeN - 1 - foeStrike)
+                }
                 // the blow not begun yet (an arrow still in flight): still poised in the wind-up, not back at rest
                 foeLanding && t < 0.01f -> windEnd
                 else -> null
@@ -1052,6 +1079,10 @@ private fun rememberPulse(): Float {
 private const val DIE_REEL = 4
 /** The ambushed hero's last frame of the stagger, before the turn to the foe begins. */
 private const val AMBUSH_DOWN = 7
+/** How long being struck, ducking aside and the step back after a blow take, in ms (the blows themselves keep their pace). */
+private const val REACT_MS = 750
+/** How much slower than the blow the hero steps back after it. */
+private const val MOVE_SLOW = 1.6
 /** What the hero does on the hero's own turn. */
 private val HERO_MOVES = setOf(Anim.HERO_ACT, Anim.SPELL, Anim.THROW, Anim.DEFEND, Anim.HERO_HEAL)
 
@@ -1134,7 +1165,7 @@ private fun heroDollFrame(ui: BattleUi, clockMs: Long, wounds: Int): Pair<de.bor
     if (m != null) {
         val p = (now - m.start).toDouble() / m.ms
         if (p < 1.0 || m.hold) {
-            val i = if (p <= 0) m.from else (m.from + ((m.to - m.from + 1) * p).toInt()).coerceAtMost(m.to)
+            val i = m.index(now)
             // how far the blow has stepped in, by the frame it has reached
             val lunge = if (m.act == HeroFigure.Act.ATTACK) HeroBattle.lungeAt(hero, m.strike, i) else 0.0
             for (k in i downTo m.from) HeroBattle.ready(hero, m.act, m.strike, m.variant, k, wounds)?.let { return it to lunge }
