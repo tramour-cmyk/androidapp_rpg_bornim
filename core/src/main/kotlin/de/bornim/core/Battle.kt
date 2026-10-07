@@ -1,6 +1,6 @@
 package de.bornim.core
 
-enum class Anim { NONE, HERO_ACT, ENEMY_ACT, PACK_ACT, PACK_FLEE, ENEMY_HIT, HERO_HIT, HERO_HEAL, ENEMY_HEAL, MISS, SPELL, ENEMY_FAINT, HERO_FAINT, LEVEL_UP, LOOT, COINS }
+enum class Anim { NONE, HERO_ACT, ENEMY_ACT, PACK_ACT, PACK_FLEE, ENEMY_HIT, HERO_HIT, HERO_HEAL, ENEMY_HEAL, MISS, SPELL, ENEMY_FAINT, HERO_FAINT, LEVEL_UP, LOOT, COINS, THROW }
 
 /** Visual effect kinds for the battle screen. */
 enum class FxKind {
@@ -412,7 +412,7 @@ class Battle(
             }
             ItemKind.BOMB -> {
                 state.remove(id)
-                say(Msg.throws.f(lang, name, def.name(lang)))
+                say(Msg.throws.f(lang, name, def.name(lang)), Anim.THROW)
                 val d = def.damage!!
                 val dmg = if (id == "holy_water" && monster.undead) d.copy(count = d.count * 2) else d
                 hitEnemy(dice.roll(dmg) + Perks.throwBonus(hero), def.damageType, false, fx(if (id == "holy_water") FxKind.BOMB_HOLY else FxKind.BOMB_FIRE, false))

@@ -1115,3 +1115,31 @@ fun renderLaunch() {
     ImageIO.write(out, "png", File("build/screens/launch.png"))
     println("wrote launch")
 }
+
+/** The hero hurt: no, few and many wounds from the front and the back, the stains following a blow; and a flask thrown. */
+fun renderWounds() {
+    val B = de.bornim.core.art.HeroBattle
+    val F = de.bornim.core.art.HeroFigure
+    val fighter = de.bornim.core.GameState.newGame("Alrik", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER).hero
+    val rogue = de.bornim.core.GameState.newGame("Fenn", de.bornim.core.Race.HALFLING, de.bornim.core.CharClass.ROGUE).hero
+    val cw = 200; val ch = 250
+    val out = BufferedImage(cw * 6, ch * 3, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x5E625C); g.fillRect(0, 0, out.width, out.height)
+    fun put(im: de.bornim.core.art.PixelImage, c: Int, r: Int, label: String) {
+        for (y in 0 until ch) for (x in 0 until cw) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(c * cw + x, r * ch + y, q) }
+        g.color = java.awt.Color(0xF0E8D8); g.drawString(label, c * cw + 4, r * ch + 14)
+    }
+    val d = B.doll(fighter); val o = B.outfit(fighter)
+    for (w in 0..2) {
+        put(d.render(cw, ch, cw / 2.0, ch - 6.0, 1.1, F.STAND.copy(yaw = 20.0), o, wounds = w).img, w * 2, 0, "Wunden $w – vorn")
+        put(d.render(cw, ch, cw / 2.0, ch - 6.0, 1.1, F.STAND.copy(yaw = 200.0), o, wounds = w).img, w * 2 + 1, 0, "Wunden $w – hinten")
+    }
+    val seq = B.frames(fighter, de.bornim.core.art.HeroFigure.Act.ATTACK, de.bornim.core.art.HeroFigure.Strike.SLASH, 0)
+    for ((c, i) in listOf(0, 4, 7, 9, 12, 16).withIndex()) put(d.render(cw, ch, cw / 2.0, ch - 6.0, 1.1, seq[i].copy(yaw = 60.0), o, wounds = 2).img, c, 1, "Hieb, Bild $i")
+    val t = B.frames(rogue, de.bornim.core.art.HeroFigure.Act.THROW, de.bornim.core.art.HeroFigure.Strike.CAST, B.throwVariant(rogue))
+    val dr = B.doll(rogue); val or = B.outfit(rogue)
+    for ((c, i) in listOf(0, 4, 8, 9, 10, 12).withIndex()) put(dr.render(cw, ch, cw / 2.0, ch - 6.0, 1.1, t[i].copy(yaw = 90.0), or, wounds = 1).img, c, 2, "Wurf, Bild $i")
+    ImageIO.write(out, "png", File("build/screens/wounds.png"))
+    println("wrote wounds")
+}
+

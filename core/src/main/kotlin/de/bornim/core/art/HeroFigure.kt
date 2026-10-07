@@ -43,7 +43,7 @@ object HeroFigure {
     /** Facing in degrees: 0 looks at us, 180 away from us; the foe stands at about 140 (behind and to the right). */
     const val FIGHT_YAW = 138.0
 
-    enum class Act { IDLE, ATTACK, CAST, BLOCK, HURT, INTRO, TURN, AMBUSHED, VICTORY }
+    enum class Act { IDLE, ATTACK, CAST, BLOCK, HURT, INTRO, TURN, AMBUSHED, VICTORY, THROW }
 
     /** How a weapon strikes. */
     enum class Strike { SLASH, THRUST, SMASH, SHOOT, CAST }
@@ -291,7 +291,7 @@ object HeroFigure {
     )
 
     /** Everything one stance can do, built once. */
-    private class Kit(val idle: List<Rig>, val intro: List<Rig>, val seq: Map<Strike, List<Rig>>, val xbow: List<Rig>, val casts: List<List<Rig>>,
+    private class Kit(val idle: List<Rig>, val intro: List<Rig>, val seq: Map<Strike, List<Rig>>, val xbow: List<Rig>, val casts: List<List<Rig>>, val throws: List<List<Rig>>,
         val blocks: List<List<Rig>>, val hurt: List<Rig>, val turn: List<Rig>, val ambush: List<Rig>, val victories: List<List<Rig>>)
 
     private fun kit(st: Stance): Kit {
@@ -321,6 +321,11 @@ object HeroFigure {
             ),
             xbow = tween(r to 3, XBOW_AIM to 5, XBOW_AIM to 3, XBOW_RECOIL to 2, XBOW_AIM.copy(draw = 0.0) to 4, r to 2),
             casts = CAST_KEYS.indices.map { cast(it) },
+            // a flask thrown like a spell let go, without its light: 0 with the free hand, 1 with the weapon hand
+            throws = listOf(FOCUS_RAISE to FOCUS_RELEASE, WAND_RAISE to WAND_RELEASE).map { (a, b) ->
+                val up = a.copy(glow = 0.0); val go = b.copy(glow = 0.0)
+                tween(r to 5, up to 3, up to 2, go to 3, go to 3, up to 2, r to 1)
+            },
             // 0 shield high, 1 two-handed low, 2 shield low, 3 two-handed high
             blocks = listOf(BLOCK, PARRY, BLOCK_LOW, PARRY_HIGH).map { tween(r to 3, it to 4, it to 5, r to 1) },
             hurt = tween(r to 2, hurtKey to 4, r to 1),
@@ -387,6 +392,7 @@ object HeroFigure {
             Act.IDLE -> k.idle
             Act.ATTACK -> if (strike == Strike.SHOOT && (variant == 1 || stance == Stance.CROSSBOW)) k.xbow else k.seq.getValue(strike)
             Act.CAST -> k.casts[variant.mod(k.casts.size)]
+            Act.THROW -> k.throws[variant.mod(k.throws.size)]
             Act.BLOCK -> k.blocks[variant.mod(k.blocks.size)]
             Act.HURT -> k.hurt
             Act.INTRO -> k.intro

@@ -37,11 +37,15 @@ object HeroBattle {
 
     fun castVariant(hero: Hero) = HeroFigure.castVariant(hero)
 
+    /** A flask is thrown with the free hand, or with the weapon hand when the other carries a shield or a two-handed grip. */
+    fun throwVariant(hero: Hero): Int = if (outfit(hero).hasShield || outfit(hero).twoHands) 1 else 0
+
     fun victoryVariants(hero: Hero) = HeroFigure.victoryPoses(hero)
 
     /** The variant an act is played in: casts by what is held, blocks by the foe, victories by [pick]. */
     fun variant(hero: Hero, act: Act, foeId: String, pick: Int = 0): Int = when (act) {
         Act.CAST -> castVariant(hero)
+        Act.THROW -> throwVariant(hero)
         Act.BLOCK -> blockVariant(hero, foeId)
         Act.VICTORY -> victoryVariants(hero).let { it[pick.mod(it.size)] }
         else -> 0
@@ -116,7 +120,7 @@ object HeroBattle {
      * symbol in the hand, the open palm; the arrow on the bow, the bolt at the front of the crossbow.
      */
     fun launch(hero: Hero, act: Act, variant: Int): Launch {
-        val strike = if (act == Act.CAST) Strike.CAST else Strike.SHOOT
+        val strike = if (act == Act.CAST || act == Act.THROW) Strike.CAST else Strike.SHOOT
         val k = "${look(hero)}|$act/$variant"
         synchronized(launches) { launches[k]?.let { return it } }
         val doll = doll(hero); val o = outfit(hero)
@@ -126,6 +130,7 @@ object HeroBattle {
         val dress = fitted?.first ?: Dress(doll, sk, doll.body(sk), o)
         val at = when {
             act == Act.CAST -> dress.glowPoint()
+            act == Act.THROW -> sk.hand(if (variant == 0) 0 else 1)
             stance(hero) == HeroFigure.Stance.CROSSBOW -> sk.hand(1) + sk.weapon * (0.31 * doll.height)
             else -> sk.hand(0)
         }
@@ -147,24 +152,26 @@ object HeroBattle {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > capacity
     }
 
-    private fun key(hero: Hero, act: Act, strike: Strike, variant: Int, i: Int) = "${look(hero)}|$act/$strike/$variant/$i"
+    private fun key(hero: Hero, act: Act, strike: Strike, variant: Int, i: Int, wounds: Int) = "${look(hero)}|$act/$strike/$variant/$i/$wounds"
 
     /** Frame [index] of an act, drawn now if it is not kept yet. Idle and intro loop. */
-    fun frame(hero: Hero, act: Act, strike: Strike, variant: Int, index: Int): PixelImage {
+    fun frame(hero: Hero, act: Act, strike: Strike, variant: Int, index: Int, wounds: Int = 0): PixelImage {
         val seq = frames(hero, act, strike, variant)
         val i = if (act == Act.IDLE || act == Act.INTRO) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
-        val k = key(hero, act, strike, variant, i)
+        val k = key(hero, act, strike, variant, i, wounds)
         synchronized(cache) { cache[k]?.let { return it } }
-        val img = doll(hero).render(W, H, ANCHOR_X, GROUND, PX, seq[i], outfit(hero)).img
+        val img = doll(hero).render(W, H, ANCHOR_X, GROUND, PX, seq[i], outfit(hero), wounds = wounds).img
         synchronized(cache) { cache[k] = img }
         return img
     }
 
     /** The frame if it is drawn already, else null: the battle shows the nearest drawn one meanwhile. */
-    fun ready(hero: Hero, act: Act, strike: Strike, variant: Int, index: Int): PixelImage? {
+    fun ready(hero: Hero, act: Act, strike: Strike, variant: Int, index: Int, wounds: Int = 0): PixelImage? {
         val n = frameCount(hero, act, strike, variant)
         val i = if (act == Act.IDLE || act == Act.INTRO) index.mod(n) else index.coerceIn(0, n - 1)
-        return synchronized(cache) { cache[key(hero, act, strike, variant, i)] }
+        // a hurt hero is shown as the frame is drawn so far: with fewer wounds, if the new ones are not drawn yet
+        for (w in wounds downTo 0) synchronized(cache) { cache[key(hero, act, strike, variant, i, w)] }?.let { return it }
+        return null
     }
 
     /**
@@ -172,7 +179,7 @@ object HeroBattle {
      * ambush), the rest, then blows, spells, blocks, being hit and the victory. Call it off the main thread; it stops
      * early when [cancelled] says so.
      */
-    fun prepare(hero: Hero, foeId: String, ambushed: Boolean, victoryPick: Int = 0, cancelled: () -> Boolean = { false }) {
+    fun prepare(hero: Hero, foeId: String, ambushed: Boolean, victoryPick: Int = 0, wounds: Int = 0, cancelled: () -> Boolean = { false }) {
         val plan = mutableListOf<Triple<Act, Strike, Int>>()
         if (ambushed) plan += Triple(Act.AMBUSHED, Strike.SLASH, 0)
         else { plan += Triple(Act.INTRO, Strike.SLASH, 0); plan += Triple(Act.TURN, Strike.SLASH, 0) }
@@ -181,11 +188,12 @@ object HeroBattle {
         plan += Triple(Act.HURT, Strike.SLASH, 0)
         plan += Triple(Act.BLOCK, Strike.SLASH, blockVariant(hero, foeId))
         plan += Triple(Act.CAST, Strike.CAST, castVariant(hero))
-        if (!cancelled()) { launch(hero, Act.CAST, castVariant(hero)); if (hero.weapon?.def?.ranged == true) launch(hero, Act.ATTACK, 0) }
+        plan += Triple(Act.THROW, Strike.CAST, throwVariant(hero))
+        if (!cancelled()) { launch(hero, Act.CAST, castVariant(hero)); launch(hero, Act.THROW, throwVariant(hero)); if (hero.weapon?.def?.ranged == true) launch(hero, Act.ATTACK, 0) }
         plan += Triple(Act.VICTORY, Strike.SLASH, variant(hero, Act.VICTORY, foeId, victoryPick))
         for ((act, strike, v) in plan) for (i in 0 until frameCount(hero, act, strike, v)) {
             if (cancelled()) return
-            frame(hero, act, strike, v, i)
+            frame(hero, act, strike, v, i, wounds)
         }
     }
 }

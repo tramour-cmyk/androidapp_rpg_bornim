@@ -143,6 +143,13 @@ private class BattleUi(val battle: Battle) {
                 // the arrow or bolt leaves the bow on the frame the string is let go
                 else { release = HeroFigure.Act.ATTACK to 0; fxDelay = (HeroBattle.strikeFrame(m.strike) - m.to) * 55L }
             }
+            // a flask: drawn back while it is named, thrown with the next message
+            s.anim == Anim.THROW -> play(HeroFigure.Act.THROW, HeroFigure.Strike.CAST, HeroBattle.throwVariant(hero), 0, HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - 1, perFrame = 50, hold = true)
+            m != null && m.act == HeroFigure.Act.THROW && m.hold && (fx != null || s.anim != Anim.NONE) -> {
+                play(HeroFigure.Act.THROW, HeroFigure.Strike.CAST, m.variant, m.to, -1, perFrame = 50)
+                release = HeroFigure.Act.THROW to m.variant
+                fxDelay = (HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - m.to) * 50L
+            }
             // while the spell is named, it gathers and glows; it is let go with its effect on the next message
             s.anim == Anim.SPELL -> play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, HeroBattle.castVariant(hero), 0, HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - 1, perFrame = 50, hold = true)
             m != null && m.act == HeroFigure.Act.CAST && m.hold && (fx != null || s.anim != Anim.NONE) -> {
@@ -532,20 +539,27 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 else -> 1f
             }
             val heroPose = when {
-                (a == Anim.HERO_ACT || a == Anim.SPELL) && moving -> Pose.ATTACK
+                (a == Anim.HERO_ACT || a == Anim.SPELL || a == Anim.THROW) && moving -> Pose.ATTACK
                 a == Anim.ENEMY_HIT && fx?.onHero == false && t < 0.5f -> Pose.ATTACK
                 (a == Anim.HERO_HIT || a == Anim.HERO_FAINT) && moving -> Pose.HURT
                 else -> Pose.IDLE
             }
             val heroSize = 168.dp
             // In the new scenes the hero is the doll, seen from behind over the shoulder, its frames drawn ahead in the background.
-            LaunchedEffect(battle) {
+            // the hero bleeds like the foe: a few stains below half health, more below a quarter, if blood is shown at all
+            val heroWound = when {
+                vm.bloodLevel == 0 -> 0
+                ui.heroHp * 4 <= battle.hero.maxHp -> 2
+                ui.heroHp * 2 <= battle.hero.maxHp -> 1
+                else -> 0
+            }
+            LaunchedEffect(battle, heroWound) {
                 if (newScene) kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
                     val job = coroutineContext[kotlinx.coroutines.Job]
-                    HeroBattle.prepare(battle.hero, battle.monster.id, battle.opening == de.bornim.core.Opening.AMBUSHED, ui.victoryPick) { job?.isActive == false }
+                    HeroBattle.prepare(battle.hero, battle.monster.id, battle.opening == de.bornim.core.Opening.AMBUSHED, ui.victoryPick, heroWound) { job?.isActive == false }
                 }
             }
-            val doll = if (!newScene) null else heroDollFrame(ui, clockMs)
+            val doll = if (!newScene) null else heroDollFrame(ui, clockMs, heroWound)
             val dollFrame = doll?.first
             // a melee blow steps in towards the foe, so the weapon lands on it, and back again
             val lungeF = (doll?.second ?: 0.0).toFloat()
@@ -947,7 +961,7 @@ private fun Sparkles(seed: Int, size: androidx.compose.ui.unit.Dp, alpha: Float)
  * The doll's frame for this moment: the act it is playing, or its rest. A frame not drawn yet is stood in for by the
  * nearest earlier one of the same act, then by the rest, which is drawn at once if need be.
  */
-private fun heroDollFrame(ui: BattleUi, clockMs: Long): Pair<de.bornim.core.art.PixelImage, Double> {
+private fun heroDollFrame(ui: BattleUi, clockMs: Long, wounds: Int): Pair<de.bornim.core.art.PixelImage, Double> {
     val hero = ui.battle.hero
     val now = System.currentTimeMillis()
     val m = ui.motion
@@ -957,12 +971,12 @@ private fun heroDollFrame(ui: BattleUi, clockMs: Long): Pair<de.bornim.core.art.
             val i = if (p <= 0) m.from else (m.from + ((m.to - m.from + 1) * p).toInt()).coerceAtMost(m.to)
             // how far the blow has stepped in, by the frame it has reached
             val lunge = if (m.act == HeroFigure.Act.ATTACK) HeroBattle.lungeAt(hero, m.strike, i) else 0.0
-            for (k in i downTo m.from) HeroBattle.ready(hero, m.act, m.strike, m.variant, k)?.let { return it to lunge }
+            for (k in i downTo m.from) HeroBattle.ready(hero, m.act, m.strike, m.variant, k, wounds)?.let { return it to lunge }
         }
     }
     val idle = (clockMs / 110).toInt()
-    val img = HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
-        ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
+    val img = HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle, wounds)
+        ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0, wounds)
         ?: HeroBattle.frame(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
     return img to 0.0
 }

@@ -473,7 +473,42 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
      * Renders the doll in [rig] (its yaw: 0 faces us, 90 shows its right side, 180 its back) into a picture of
      * [w]×[h] pixels, feet at ([anchorX], [ground]), [px] pixels per centimetre, dressed in [outfit].
      */
-    fun render(w: Int, h: Int, anchorX: Double, ground: Double, px: Double, rig: HeroFigure.Rig = REST, outfit: Outfit? = null, pitch: Double = 15.0): DepthImage {
+    // ---------------------------------------------------------------- wounds
+
+    private val bloodMat = Mat(Ramp.of(argb(0xB4231A), sat = 1.0), shine = 0.35, grain = 0.12, bias = 0.05)
+    private val bloodDark = Mat(Ramp.of(argb(0x6E140E), sat = 1.0), shine = 0.4, grain = 0.1)
+
+    /** Where the wounds sit on the trunk, in its rest space: side (fraction of the shoulders), height up the trunk, front or back. */
+    private class Wound(val x: Double, val y: Double, val front: Boolean, val r: Double)
+    private val WOUNDS = listOf(
+        Wound(0.35, 0.74, true, 1.0), Wound(-0.5, 0.42, true, 0.8), Wound(0.3, 0.6, false, 0.9),
+        Wound(0.05, 0.28, true, 0.9), Wound(-0.32, 0.82, true, 0.7), Wound(-0.4, 0.34, false, 1.0), Wound(0.62, 0.4, true, 0.7),
+    )
+
+    /**
+     * Blood on the trunk and what is worn over it, at fixed places so it moves with the body: three stains when hurt
+     * ([level] 1), seven and darker when badly hurt (2). Arms and legs stay clean, so stains never slide over a limb.
+     */
+    private fun woundAt(sk: Skeleton, s: Solid, p: P3, level: Int): Mat? {
+        if (level <= 0 || s.group !in WOUNDABLE) return null
+        val q = sk.upper.inverse(p)
+        val fy = (q.y - hipY) / trunk
+        if (fy < 0.1 || fy > 1.0) return null
+        val n = if (level >= 2) WOUNDS.size else 3
+        for (i in 0 until n) {
+            val wd = WOUNDS[i]
+            if ((q.z > 0) != wd.front) continue
+            val dx = q.x - wd.x * shoulderX; val dy = (fy - wd.y) * trunk
+            val d = kotlin.math.sqrt(dx * dx + dy * dy)
+            // a ragged edge, darker at the heart of it
+            val a = kotlin.math.atan2(dy, dx)
+            val r = 0.036 * height * wd.r * (if (level >= 2) 1.25 else 1.0) * (0.8 + 0.25 * kotlin.math.sin(a * 3 + i * 1.7) + 0.1 * kotlin.math.sin(a * 7 + i))
+            if (d < r) return if (d < r * 0.45 || level >= 2 && d < r * 0.7) bloodDark else bloodMat
+        }
+        return null
+    }
+
+    fun render(w: Int, h: Int, anchorX: Double, ground: Double, px: Double, rig: HeroFigure.Rig = REST, outfit: Outfit? = null, pitch: Double = 15.0, wounds: Int = 0): DepthImage {
         val (sk, fitted) = fit(rig, outfit)
         var body = fitted?.second ?: body(sk)
         val dress = fitted?.first ?: outfit?.let { Dress(this, sk, body, it) }
@@ -481,7 +516,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         dress?.hidden?.let { hide -> body = body.filter { it.key !in hide } }
         val ax = anchorX + rig.bodyX * sk.s * px
         val gr = ground + rig.bodyY * sk.s * px
-        val img = SdfRender.render(body + clothes, groups(sk), ::material, w, h, ax, gr, px, rig.yaw, pitch)
+        val mat: (Solid, P3) -> Mat = if (wounds > 0) { so, p -> woundAt(sk, so, p, wounds) ?: material(so, p) } else ::material
+        val img = SdfRender.render(body + clothes, groups(sk), mat, w, h, ax, gr, px, rig.yaw, pitch)
         face(img, sk)
         dress?.overlay(img)
         outline(img.img)
@@ -527,6 +563,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         const val BELT = 12; const val SKIRT = 13; const val CLOAK = 14; const val HELM = 15; const val SHIELD = 16; const val ITEM = 17; const val BOOTS = 18; const val TRIM = 19
         const val LEG_L = 20; const val LEG_R = 21
         const val GROUPS = 22
+        /** The groups a wound shows on: the trunk and what is worn over it. */
+        private val WOUNDABLE = setOf(TRUNK, CLOTH, ARMOR, BELT, CLOAK)
         /** How far, in body heights, a crossbow's stock lies above the middle of the trigger hand. */
         const val STOCK_ABOVE_HAND = 0.03
         /** How far, in body heights, the butt plate lies behind the trigger hand along the stock. */
