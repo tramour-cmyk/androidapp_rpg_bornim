@@ -13,6 +13,10 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Im Ausrüstungsmenü steht der Held als drehende Figur zwischen den Ausrüstungsplätzen und zeigt alles, was er trägt.
 - Bestehende Spielstände laden weiter; ihr Held bekommt einen festen Haut- und Haarton.
 
+**Neu – Abwehr im Kampf**
+- „Kämpfen“ öffnet jetzt „Angreifen“ und „Abwehr“. In Abwehrhaltung (nach SRD „Ausweichen“) greift der Gegner bis zum nächsten Zug mit Nachteil an, Geschicklichkeitsrettungswürfe haben Vorteil. Verfehlt er, bietet sich ein Konter: der nächste Angriff hat Vorteil.
+- Jeder Angriff ist zu sehen, auch ein verfehlter: Pfeile, Bolzen und Zauber fliegen am Ziel vorbei. Ansage mit Ausholen, dann Schlag mit Treffer oder Fehlschlag – beim Helden wie bei den Gegnern.
+
 ## v0.1.63 – 06.10.2026, 15:20
 
 **Neu – Kapitel 1 in neuem Gewand**

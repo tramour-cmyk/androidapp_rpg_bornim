@@ -73,7 +73,7 @@ import de.bornim.game.GameViewModel
 import kotlinx.coroutines.delay
 import kotlin.math.sin
 
-private enum class BattleMenu { MAIN, SKILLS, BAG }
+private enum class BattleMenu { MAIN, FIGHT, SKILLS, BAG }
 
 /** UI-side state of a battle: plays the log step by step and animates the numbers. */
 private class BattleUi(val battle: Battle) {
@@ -173,6 +173,10 @@ private class BattleUi(val battle: Battle) {
             }
             s.anim == Anim.HERO_HIT -> play(HeroFigure.Act.HURT, perFrame = 65)
             s.anim == Anim.HERO_FAINT -> play(HeroFigure.Act.HURT, to = 3, perFrame = 90, hold = true)
+            // the defensive stance: up into the guard, held until the hero's next turn
+            s.anim == Anim.DEFEND -> play(HeroFigure.Act.BLOCK, variant = HeroBattle.blockVariant(hero, battle.monster.id), from = 0, to = 7, perFrame = 50, hold = true)
+            // fended off from the guard: the guard stays up
+            s.anim == Anim.MISS && fx?.onHero == true && m != null && m.act == HeroFigure.Act.BLOCK && m.hold -> {}
             s.anim == Anim.MISS && fx?.onHero == true &&
                 (fx.kind == de.bornim.core.FxKind.BLOCK || HeroBattle.outfit(hero).twoHands) ->
                 play(HeroFigure.Act.BLOCK, variant = HeroBattle.blockVariant(hero, battle.monster.id), perFrame = 50)
@@ -671,8 +675,9 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 }
             } else {
                 when (ui.menu) {
-                    BattleMenu.MAIN -> MainMenu(battle, lang, onAttack = { act(Action.Attack) }, onSkills = { ui.menu = BattleMenu.SKILLS },
+                    BattleMenu.MAIN -> MainMenu(battle, lang, onAttack = { ui.menu = BattleMenu.FIGHT }, onSkills = { ui.menu = BattleMenu.SKILLS },
                         onBag = { ui.menu = BattleMenu.BAG }, onFlee = { act(Action.Flee) })
+                    BattleMenu.FIGHT -> FightMenu(battle, lang, onAttack = { act(Action.Attack) }, onDefend = { act(Action.Defend) }, onBack = { ui.menu = BattleMenu.MAIN })
                     BattleMenu.SKILLS -> SkillMenu(battle, lang, onPick = { act(Action.UseSkill(it)) }, onBack = { ui.menu = BattleMenu.MAIN })
                     BattleMenu.BAG -> BagMenu(game, lang, onPick = { act(Action.UseItem(it)) }, onBack = { ui.menu = BattleMenu.MAIN })
                 }
@@ -838,6 +843,27 @@ private fun MainMenu(battle: Battle, lang: Lang, onAttack: () -> Unit, onSkills:
                 PixelButton(Ui.bag(lang), Modifier.weight(1f).height(60.dp), onClick = onBag)
                 PixelButton(Ui.flee(lang), Modifier.weight(1f).height(60.dp), onClick = onFlee)
             }
+        }
+    }
+}
+
+/** Fighting: strike, or take a defensive stance until the next turn (the foe attacks at a disadvantage; a miss opens a counter). */
+@Composable
+private fun FightMenu(battle: Battle, lang: Lang, onAttack: () -> Unit, onDefend: () -> Unit, onBack: () -> Unit) {
+    val de = lang == Lang.DE
+    Panel(Modifier.fillMaxSize()) {
+        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                PixelButton(if (de) "Angreifen" else "Attack", Modifier.weight(1f).height(56.dp), onClick = onAttack)
+                PixelButton(if (de) "Abwehr" else "Defend", Modifier.weight(1f).height(56.dp), onClick = onDefend)
+            }
+            Txt(
+                if (battle.counter) (if (de) "Konter bereit: der nächste Angriff hat Vorteil." else "Counter ready: the next attack has advantage.")
+                else if (de) "Abwehr: Bis zum nächsten Zug greift der Gegner mit Nachteil an. Verfehlt er, bietet sich ein Konter: der nächste Angriff hat Vorteil."
+                else "Defend: until your next turn the foe attacks at a disadvantage. If it misses, you may counter: your next attack has advantage.",
+                size = 13.sp, color = if (battle.counter) Colors.accent else Colors.textDim,
+            )
+            PixelButton(if (de) "Zurück" else "Back", Modifier.fillMaxWidth().height(40.dp), size = 14.sp, onClick = onBack)
         }
     }
 }

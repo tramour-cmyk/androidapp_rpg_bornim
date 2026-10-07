@@ -1,6 +1,6 @@
 package de.bornim.core
 
-enum class Anim { NONE, HERO_ACT, ENEMY_ACT, PACK_ACT, PACK_FLEE, ENEMY_HIT, HERO_HIT, HERO_HEAL, ENEMY_HEAL, MISS, SPELL, ENEMY_FAINT, HERO_FAINT, LEVEL_UP, LOOT, COINS, THROW }
+enum class Anim { NONE, HERO_ACT, ENEMY_ACT, PACK_ACT, PACK_FLEE, ENEMY_HIT, HERO_HIT, HERO_HEAL, ENEMY_HEAL, MISS, SPELL, ENEMY_FAINT, HERO_FAINT, LEVEL_UP, LOOT, COINS, THROW, DEFEND }
 
 /** Visual effect kinds for the battle screen. */
 enum class FxKind {
@@ -41,6 +41,8 @@ sealed interface Action {
     data class UseSkill(val skill: Skill) : Action
     data class UseItem(val item: String) : Action
     data object Flee : Action
+    /** The SRD Dodge action: attacks on the hero have disadvantage until its next turn; a foe that misses opens itself to a counter. */
+    data object Defend : Action
 }
 
 data class Rewards(val xp: Int, val gold: Int, val items: List<String>, val gear: List<Gear>, val levelsGained: Int)
@@ -221,9 +223,19 @@ class Battle(
         else -> null
     }
 
+    /** The hero stands in a defensive stance until its next turn (the SRD Dodge action). */
+    var defending = false
+        private set
+    /** A foe missed the defending hero: the hero's next attack has advantage (a house rule on top of the SRD). */
+    var counter = false
+        private set
+
     fun act(action: Action): List<Step> {
         check(outcome == Outcome.ONGOING) { "Battle is over" }
+        // the stance lasts until the start of the hero's next turn
+        defending = false
         val tookTurn = when (action) {
+            Action.Defend -> { defending = true; say(Msg.defends.f(lang, name), Anim.DEFEND); true }
             Action.Attack -> { attackAction(advantage = 0); true }
             is Action.UseSkill -> useSkill(action.skill)
             is Action.UseItem -> useItem(action.item)
@@ -249,7 +261,7 @@ class Battle(
             say(Msg.flutters.f(lang, foe), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false))
             return
         }
-        var mode = advantage
+        var mode = advantage + takeCounter()
         if (heroProne) {
             mode -= 1
             heroProne = false
@@ -293,8 +305,24 @@ class Battle(
         }
     }
 
+    /** Uses up a waiting counter: +1 to the attack's advantage, once. */
+    private fun takeCounter(): Int {
+        if (!counter) return 0
+        counter = false
+        say(Msg.counterStrike.f(lang, name))
+        return 1
+    }
+
+    /** A foe's attack on the defending hero has disadvantage, on top of anything else. */
+    private fun foeMode(base: Int) = (base - (if (defending) 1 else 0)).coerceIn(-1, 1)
+
+    /** A foe missed the defending hero: an opening for a counter. */
+    private fun openedUp() {
+        if (defending && !counter) { counter = true; say(Msg.opening.f(lang, name)) }
+    }
+
     private fun spellAttack(dmg: DiceExpr, type: DamageType, kind: FxKind): Boolean {
-        val roll = heroD20(if (Status.BLIND in heroStatus) -1 else 0)
+        val roll = heroD20(((if (Status.BLIND in heroStatus) -1 else 0) + takeCounter()).coerceIn(-1, 1))
         val crit = roll == 20
         if (roll == 1 || (!crit && roll + hero.spellAttack + blessBonus() + fedBonus() - attackPenalty(onHero = true) < enemyAc)) {
             say(Msg.miss(lang), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false, past = kind))
@@ -492,9 +520,10 @@ class Battle(
             }
             if (enemyTurns % 2 == 1) {
                 say(Msg.shamanBolt.f(lang, foe), Anim.ENEMY_ACT)
-                val roll = dice.d20(if (Status.BLIND in foeStatus) -1 else 0)
+                val roll = dice.d20(foeMode(if (Status.BLIND in foeStatus) -1 else 0))
                 if (roll == 1 || (roll != 20 && roll + enemyAttack + 1 - attackPenalty(onHero = false) < heroAc)) {
-                    say(Msg.foeMisses.f(lang, foe), Anim.MISS, fx = fx(FxKind.DODGE, onHero = true, past = FxKind.FIRE_BOLT))
+                    say(Msg.foeMisses.f(lang, foe), Anim.MISS, fx = fx(defenceFx(), onHero = true, past = FxKind.FIRE_BOLT))
+                    openedUp()
                 } else {
                     val d = dice(if (roll == 20) 4 else 2, 6, enemyDamageBonus - damagePenalty(onHero = false))
                     hitHero(dice.roll(d), fx(FxKind.FIRE_BOLT, true, roll == 20))
@@ -514,9 +543,10 @@ class Battle(
             if (outcome != Outcome.ONGOING || !dice.chance(p.chance)) continue
             packActor = i
             say(p.attack(lang), Anim.PACK_ACT)
-            val roll = dice.d20()
+            val roll = dice.d20(foeMode(0))
             if (roll == 1 || (roll != 20 && roll + monster.attackBonus + p.attackShift + over / 2 < heroAc)) {
-                say(Msg.foeMisses.f(lang, p.one(lang)), Anim.MISS, fx = fx(FxKind.DODGE, onHero = true, past = p.fx))
+                say(Msg.foeMisses.f(lang, p.one(lang)), Anim.MISS, fx = fx(defenceFx(), onHero = true, past = p.fx))
+                openedUp()
             } else {
                 val d = p.damage
                 hitHero(dice.roll(dice(if (roll == 20) d.count * 2 else d.count, d.sides, d.bonus + over / 2)), fx(p.fx, true, roll == 20))
@@ -527,12 +557,14 @@ class Battle(
 
     private fun enemyAttack() {
         say(Msg.foeAttacks.f(lang, foe, monster.attackName(lang)), Anim.ENEMY_ACT)
-        val mode = if (Status.BLIND in foeStatus) -1 else 0
+        val mode = foeMode(if (Status.BLIND in foeStatus) -1 else 0)
         val roll = dice.d20(mode)
         val crit = roll == 20
         if (roll == 1 || (!crit && roll + enemyAttack - attackPenalty(onHero = false) < heroAc)) {
             val shield = hero.item(GearSlot.OFF_HAND)?.def?.kind == BaseKind.SHIELD
-            say(Msg.foeMisses.f(lang, foe), Anim.MISS, fx = fx(if (shield && dice.chance(0.6)) FxKind.BLOCK else FxKind.DODGE, onHero = true, past = monster.attackFx))
+            val kind = if (defending) defenceFx() else if (shield && dice.chance(0.6)) FxKind.BLOCK else FxKind.DODGE
+            say(Msg.foeMisses.f(lang, foe), Anim.MISS, fx = fx(kind, onHero = true, past = monster.attackFx))
+            openedUp()
             return
         }
         val d = monster.damage.let { it.copy(bonus = it.bonus + enemyDamageBonus - damagePenalty(onHero = false)) }
@@ -767,7 +799,15 @@ class Battle(
 
     private fun heroSave(a: Ability, dc: Int): Boolean {
         val prof = if (a in savingThrows.getValue(hero.cls)) hero.proficiency else 0
-        return dice.d20() + hero.mod(a) + prof >= dc
+        // in the defensive stance, Dexterity saves have advantage (SRD Dodge)
+        return dice.d20(if (defending && a == Ability.DEX) 1 else 0) + hero.mod(a) + prof >= dc
+    }
+
+    /** How a defending hero turns an attack aside: on the shield or the weapon if it has one, else by stepping out of the way. */
+    private fun defenceFx(): FxKind {
+        val shield = hero.item(GearSlot.OFF_HAND)?.def?.kind == BaseKind.SHIELD
+        val w = hero.weapon?.def
+        return if (shield || (w != null && !w.ranged)) FxKind.BLOCK else FxKind.DODGE
     }
 
     private fun hitEnemy(raw: Int, type: DamageType, crit: Boolean, effect: Fx? = null, quiet: Boolean = false): Int {
@@ -937,6 +977,9 @@ private object Msg {
     val foeDrinks = T("{0} trinkt einen Heiltrank und heilt {1} TP!", "{0} drinks a potion and heals {1} HP!")
     val foeAttacks = T("{0} greift an: {1}!", "{0} attacks: {1}!")
     val foeMisses = T("{0} verfehlt!", "{0} misses!")
+    val defends = T("{0} geht in Abwehrhaltung.", "{0} takes a defensive stance.")
+    val opening = T("Abgewehrt – {0} sieht eine Lücke für einen Konter!", "Fended off – {0} sees an opening to strike back!")
+    val counterStrike = T("{0} nutzt die Lücke!", "{0} strikes into the opening!")
     val brutal = T("Ein brutaler Überraschungsschlag!", "A brutal surprise blow!")
     val martial = T("{0} nutzt eine Lücke in deiner Deckung!", "{0} exploits a gap in your guard!")
     val uncanny = T("{0} weicht geschickt aus und halbiert den Schaden!", "{0} deftly dodges and halves the damage!")
