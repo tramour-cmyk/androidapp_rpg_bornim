@@ -13,7 +13,8 @@ enum class FxKind {
 }
 
 /** An effect to play with a battle message. [seed] varies angles and particles so repeats look different. */
-data class Fx(val kind: FxKind, val onHero: Boolean, val crit: Boolean = false, val seed: Int = 0)
+/** An effect on screen; with a miss, [past] is the attack that went wide (a bolt, an arrow, a flame), drawn going by. */
+data class Fx(val kind: FxKind, val onHero: Boolean, val crit: Boolean = false, val seed: Int = 0, val past: FxKind? = null)
 
 /** One message of the battle log, with a snapshot of the numbers after it happened. */
 data class Step(
@@ -142,7 +143,7 @@ class Battle(
     private fun damagePenalty(onHero: Boolean): Int = if (Status.WEAK in (if (onHero) heroStatus else foeStatus)) 2 else 0
 
     // Cosmetic randomness has its own generator so it never changes the outcome of a fight.
-    private fun fx(kind: FxKind, onHero: Boolean, crit: Boolean = false) = Fx(kind, onHero, crit, kotlin.random.Random.nextInt(1_000_000))
+    private fun fx(kind: FxKind, onHero: Boolean, crit: Boolean = false, past: FxKind? = null) = Fx(kind, onHero, crit, kotlin.random.Random.nextInt(1_000_000), past)
 
     private fun weaponFx(w: Gear?): FxKind = when {
         w == null -> FxKind.SMASH
@@ -258,7 +259,7 @@ class Battle(
         val crit = roll >= hero.critFrom
         val total = roll + hero.attackBonus(w) + blessBonus() + fedBonus() - attackPenalty(onHero = true)
         if (roll == 1 || (!crit && total < enemyAc)) {
-            say(Msg.miss(lang), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false))
+            say(Msg.miss(lang), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false, past = if (w?.def?.ranged == true) FxKind.ARROW else null))
             return
         }
         val base = hero.weaponDamage(w, offHand)
@@ -296,7 +297,7 @@ class Battle(
         val roll = heroD20(if (Status.BLIND in heroStatus) -1 else 0)
         val crit = roll == 20
         if (roll == 1 || (!crit && roll + hero.spellAttack + blessBonus() + fedBonus() - attackPenalty(onHero = true) < enemyAc)) {
-            say(Msg.miss(lang), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false))
+            say(Msg.miss(lang), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false, past = kind))
             return false
         }
         if (crit) say(Msg.crit(lang))
@@ -383,7 +384,7 @@ class Battle(
                 say(Msg.partlyDodges.f(lang, foe))
                 hitEnemy(maxOf(1, amount / 2), type, false, fx(kind, false))
             } else {
-                say(Msg.dodges.f(lang, foe), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false))
+                say(Msg.dodges.f(lang, foe), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false, past = kind))
             }
             return false
         }
@@ -449,7 +450,7 @@ class Battle(
             if (roll != 1 && (roll == 20 || roll + hero.spellAttack >= enemyAc)) {
                 hitEnemy(dice.roll(1, 8) + hero.mod(Ability.WIS), DamageType.FORCE, roll == 20, fx(FxKind.SPIRIT_WEAPON, false, roll == 20))
             } else {
-                say(Msg.miss(lang), Anim.MISS)
+                say(Msg.miss(lang), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false, past = FxKind.SPIRIT_WEAPON))
             }
         }
         if (guardians && outcome == Outcome.ONGOING) {
@@ -493,7 +494,7 @@ class Battle(
                 say(Msg.shamanBolt.f(lang, foe), Anim.ENEMY_ACT)
                 val roll = dice.d20(if (Status.BLIND in foeStatus) -1 else 0)
                 if (roll == 1 || (roll != 20 && roll + enemyAttack + 1 - attackPenalty(onHero = false) < heroAc)) {
-                    say(Msg.foeMisses.f(lang, foe), Anim.MISS, fx = fx(FxKind.DODGE, onHero = true))
+                    say(Msg.foeMisses.f(lang, foe), Anim.MISS, fx = fx(FxKind.DODGE, onHero = true, past = FxKind.FIRE_BOLT))
                 } else {
                     val d = dice(if (roll == 20) 4 else 2, 6, enemyDamageBonus - damagePenalty(onHero = false))
                     hitHero(dice.roll(d), fx(FxKind.FIRE_BOLT, true, roll == 20))
@@ -515,7 +516,7 @@ class Battle(
             say(p.attack(lang), Anim.PACK_ACT)
             val roll = dice.d20()
             if (roll == 1 || (roll != 20 && roll + monster.attackBonus + p.attackShift + over / 2 < heroAc)) {
-                say(Msg.foeMisses.f(lang, p.one(lang)), Anim.MISS, fx = fx(FxKind.DODGE, onHero = true))
+                say(Msg.foeMisses.f(lang, p.one(lang)), Anim.MISS, fx = fx(FxKind.DODGE, onHero = true, past = p.fx))
             } else {
                 val d = p.damage
                 hitHero(dice.roll(dice(if (roll == 20) d.count * 2 else d.count, d.sides, d.bonus + over / 2)), fx(p.fx, true, roll == 20))
@@ -531,7 +532,7 @@ class Battle(
         val crit = roll == 20
         if (roll == 1 || (!crit && roll + enemyAttack - attackPenalty(onHero = false) < heroAc)) {
             val shield = hero.item(GearSlot.OFF_HAND)?.def?.kind == BaseKind.SHIELD
-            say(Msg.foeMisses.f(lang, foe), Anim.MISS, fx = fx(if (shield && dice.chance(0.6)) FxKind.BLOCK else FxKind.DODGE, onHero = true))
+            say(Msg.foeMisses.f(lang, foe), Anim.MISS, fx = fx(if (shield && dice.chance(0.6)) FxKind.BLOCK else FxKind.DODGE, onHero = true, past = monster.attackFx))
             return
         }
         val d = monster.damage.let { it.copy(bonus = it.bonus + enemyDamageBonus - damagePenalty(onHero = false)) }

@@ -30,6 +30,37 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
 
+/** Effects that fly from the attacker to the target: when they miss, they are drawn going wide. */
+val FLYING = setOf(
+    FxKind.ARROW, FxKind.FIRE_BOLT, FxKind.MISSILES, FxKind.RAYS, FxKind.FIREBALL, FxKind.SACRED_FLAME,
+    FxKind.SPIRIT_WEAPON, FxKind.BOMB_FIRE, FxKind.BOMB_HOLY, FxKind.GUARDIANS, FxKind.TURN,
+)
+
+private fun kindSound(kind: FxKind, crit: Boolean): Sound = when (kind) {
+        FxKind.SLASH -> if (crit) Sound.CRIT else Sound.HIT_SLASH
+        FxKind.PIERCE -> if (crit) Sound.CRIT else Sound.HIT_PIERCE
+        FxKind.SMASH -> if (crit) Sound.CRIT else Sound.HIT_SMASH
+        FxKind.ARROW -> Sound.ARROW
+        FxKind.FIRE_BOLT, FxKind.RAYS, FxKind.FIREBALL -> Sound.FIRE
+        FxKind.BOMB_FIRE, FxKind.BOMB_HOLY -> Sound.THROW
+        FxKind.MISSILES, FxKind.SPIRIT_WEAPON, FxKind.MAGE_ARMOR -> Sound.MAGIC
+        FxKind.SACRED_FLAME, FxKind.GUARDIANS, FxKind.TURN -> Sound.HOLY
+        FxKind.HEAL -> Sound.HEAL
+        FxKind.BLESS -> Sound.BUFF
+        FxKind.ENEMY_HEAL -> Sound.POTION
+        FxKind.BITE -> Sound.BITE
+        FxKind.POISON -> Sound.POISON
+        FxKind.DODGE -> Sound.MISS
+        FxKind.BLOCK -> Sound.BLOCK
+        FxKind.DRAIN -> Sound.BITE
+        FxKind.ACID -> Sound.POISON
+        FxKind.PARALYZE -> Sound.MAGIC
+        FxKind.BURN -> Sound.FIRE
+        FxKind.BLEED -> Sound.HIT_SLASH
+        FxKind.STUN -> Sound.HIT_SMASH
+        FxKind.CURSE -> Sound.MAGIC
+}
+
 /** How long each effect plays, in ms. */
 fun fxDuration(kind: FxKind): Int = when (kind) {
     FxKind.FIREBALL, FxKind.SACRED_FLAME, FxKind.GUARDIANS, FxKind.TURN -> 900
@@ -40,30 +71,9 @@ fun fxDuration(kind: FxKind): Int = when (kind) {
 /** The sound for a battle message. */
 fun soundFor(step: Step): Sound? {
     step.fx?.let { fx ->
-        return when (fx.kind) {
-            FxKind.SLASH -> if (fx.crit) Sound.CRIT else Sound.HIT_SLASH
-            FxKind.PIERCE -> if (fx.crit) Sound.CRIT else Sound.HIT_PIERCE
-            FxKind.SMASH -> if (fx.crit) Sound.CRIT else Sound.HIT_SMASH
-            FxKind.ARROW -> Sound.ARROW
-            FxKind.FIRE_BOLT, FxKind.RAYS, FxKind.FIREBALL -> Sound.FIRE
-            FxKind.BOMB_FIRE, FxKind.BOMB_HOLY -> Sound.THROW
-            FxKind.MISSILES, FxKind.SPIRIT_WEAPON, FxKind.MAGE_ARMOR -> Sound.MAGIC
-            FxKind.SACRED_FLAME, FxKind.GUARDIANS, FxKind.TURN -> Sound.HOLY
-            FxKind.HEAL -> Sound.HEAL
-            FxKind.BLESS -> Sound.BUFF
-            FxKind.ENEMY_HEAL -> Sound.POTION
-            FxKind.BITE -> Sound.BITE
-            FxKind.POISON -> Sound.POISON
-            FxKind.DODGE -> Sound.MISS
-            FxKind.BLOCK -> Sound.BLOCK
-            FxKind.DRAIN -> Sound.BITE
-            FxKind.ACID -> Sound.POISON
-            FxKind.PARALYZE -> Sound.MAGIC
-            FxKind.BURN -> Sound.FIRE
-            FxKind.BLEED -> Sound.HIT_SLASH
-            FxKind.STUN -> Sound.HIT_SMASH
-            FxKind.CURSE -> Sound.MAGIC
-        }
+        // a bolt or arrow that goes wide still sounds as it is let go
+        if ((fx.kind == FxKind.DODGE) && fx.past in FLYING) return kindSound(fx.past!!, false)
+        return kindSound(fx.kind, fx.crit)
     }
     return when (step.anim) {
         Anim.ENEMY_FAINT -> Sound.ENEMY_DOWN
@@ -82,19 +92,32 @@ fun soundFor(step: Step): Sound? {
 @Composable
 fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, modifier: Modifier, startDelay: Long = 0L) {
     if (fx == null) return
+    // a miss with something flying: the bolt goes wide past the target, which then dodges
+    val wide = fx.past?.takeIf { it in FLYING && (fx.kind == FxKind.DODGE || fx.kind == FxKind.BLOCK) }
     val progress = remember(key) { Animatable(0f) }
     // a spell or shot waits for the frame on which the hero lets it go
     var started by remember(key) { androidx.compose.runtime.mutableStateOf(startDelay <= 0L) }
     LaunchedEffect(key) {
         if (startDelay > 0) { kotlinx.coroutines.delay(startDelay); started = true }
-        progress.animateTo(1f, tween(fxDuration(fx.kind), easing = LinearEasing))
+        progress.animateTo(1f, tween(fxDuration(wide ?: fx.kind), easing = LinearEasing))
     }
     val p = progress.value
     if (!started || p >= 1f) return
     Canvas(modifier) {
         val target = if (fx.onHero) hero else enemy
         val source = if (fx.onHero) enemy else hero
-        drawFx(fx, p, source, target, unit * (if (fx.crit) 1.35f else 1f))
+        val u = unit * (if (fx.crit) 1.35f else 1f)
+        if (wide == null) { drawFx(fx, p, source, target, u); return@Canvas }
+        // past the target and on behind it, to one side; a shield stops it where it is
+        val dx = target.x - source.x; val dy = target.y - source.y
+        val len = kotlin.math.sqrt(dx * dx + dy * dy).coerceAtLeast(1f)
+        val side = if (fx.seed % 2 == 0) 1f else -1f
+        val by = if (fx.kind == FxKind.BLOCK) target
+            else Offset(target.x + dx / len * 34 * u - dy / len * side * 30 * u, target.y + dy / len * 34 * u + dx / len * side * 30 * u)
+        drawFx(Fx(wide, fx.onHero, false, fx.seed), p, source, by, u * 0.8f)
+        // the dodge or the block as it arrives
+        val q = (p - 0.45f) / 0.55f
+        if (q in 0f..1f) drawFx(fx, q, source, target, u)
     }
 }
 

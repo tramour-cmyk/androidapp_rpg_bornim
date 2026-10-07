@@ -273,7 +273,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
         ui.current?.let { st -> soundFor(st)?.let { vm.play(it) } }
         shake.snapTo(0f)
         // Projectiles first have to fly; the target reacts when they arrive.
-        val flight = when (ui.current?.fx?.kind) {
+        val flight = when (ui.current?.fx?.let { f -> f.past?.takeIf { it in FLYING && (f.kind == de.bornim.core.FxKind.DODGE || f.kind == de.bornim.core.FxKind.BLOCK) } ?: f.kind }) {
             de.bornim.core.FxKind.FIRE_BOLT, de.bornim.core.FxKind.MISSILES, de.bornim.core.FxKind.ARROW,
             de.bornim.core.FxKind.BOMB_FIRE, de.bornim.core.FxKind.BOMB_HOLY -> 0.5f
             de.bornim.core.FxKind.FIREBALL -> 0.45f
