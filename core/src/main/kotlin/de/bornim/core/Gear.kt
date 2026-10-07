@@ -157,18 +157,65 @@ data class Gear(
         return if (lang == Lang.DE) epicFirst[a].de + epicSecond[b].de else epicFirst[a].en + epicSecond[b].en
     }
 
-    /** "Episch · Langschwert" – rarity and base type, shown under the name. */
-    fun subtitle(lang: Lang): String {
-        val plusText = if (plus > 0) " +$plus" else ""
-        return "${rarity.title(lang).replaceFirstChar { it.uppercase() }} · ${def.name(lang)}$plusText" + (hands(lang)?.let { " · $it" } ?: "")
+    /**
+     * The line under the name in the bag and the shop: what it is (only when the name does not say so already), where
+     * it is worn and the number that matters most. Rarity and two hands are not repeated: the picture shows them.
+     */
+    fun listLine(lang: Lang): String {
+        val de = lang == Lang.DE
+        val type = def.name(lang)
+        val shown = name(lang)
+        val parts = mutableListOf<String>()
+        if (!shown.contains(type, ignoreCase = true)) parts += type + (if (plus > 0) " +$plus" else "")
+        val where = when {
+            def.isWeapon && def.ranged -> if (de) "Fernwaffe" else "Ranged weapon"
+            def.isWeapon -> if (de) "Waffe" else "Weapon"
+            else -> def.slot.title(lang)
+        }
+        if (!shown.contains(where, ignoreCase = true) && !type.equals(where, ignoreCase = true)) parts += where
+        keyValue(lang)?.let { parts += it }
+        return parts.joinToString(" · ")
     }
 
-    /** "Zweihändig", "Einhändig" or "Nebenhand", so it is clear how many hands an item takes. */
-    fun hands(lang: Lang): String? = when {
-        def.isWeapon && def.twoHanded -> if (lang == Lang.DE) "Zweihändig" else "Two-handed"
-        def.isWeapon -> if (lang == Lang.DE) "Einhändig" else "One-handed"
-        def.slot == GearSlot.OFF_HAND -> if (lang == Lang.DE) "Nebenhand" else "Off hand"
-        else -> null
+    /** The one number that tells most about it: a weapon's damage, armour's or a shield's AC, a focus's spell power. */
+    fun keyValue(lang: Lang): String? {
+        val de = lang == Lang.DE
+        val dmg = def.damage
+        return when {
+            dmg != null -> dmg.copy(bonus = dmg.bonus + plus).label(lang) + " " + def.damageType.title(lang)
+            def.slot == GearSlot.CHEST && def.armor > 0 -> (if (de) "RK " else "AC ") + (def.armor + plus)
+            def.kind == BaseKind.SHIELD -> (if (de) "RK +" else "AC +") + (def.armor + plus)
+            def.focus > 0 -> (if (de) "Zauberkraft +" else "Spell power +") + def.focus
+            else -> null
+        }
+    }
+
+    /**
+     * The rarity in words once, at the head of its details, with the base type unless the name says it already:
+     * "Epischer Topfhelm" for "Eisenbrecher", "Ungewöhnlich" for "Streitkolben des Donners"; nothing when the name
+     * says both ("Göttliche Kettenbeinlinge des Morgenlichts").
+     */
+    fun kindLine(lang: Lang): String? {
+        val plusText = if (plus > 0) " +$plus" else ""
+        val r = rarity.title(lang).replaceFirstChar { it.uppercase() }
+        val shown = name(lang)
+        val hasType = shown.contains(def.name(lang), ignoreCase = true)
+        return when {
+            hasType && shown.contains(rarity.title(lang), ignoreCase = true) -> if (plus > 0) plusText.trim() else null
+            hasType -> r + plusText
+            lang == Lang.DE -> r + def.gender.ending + " " + def.de + plusText
+            else -> "$r ${def.en}$plusText"
+        }
+    }
+
+    /** Where it goes: "Haupt- oder Nebenhand", "Beide Hände", "Kopf" … */
+    fun wearLine(lang: Lang): String {
+        val de = lang == Lang.DE
+        return when {
+            def.isWeapon && def.twoHanded -> if (de) "Beide Hände" else "Both hands"
+            def.isWeapon -> if (de) "Haupt- oder Nebenhand" else "Main or off hand"
+            else -> def.slot.title(lang)
+        }
     }
 
     val price: Int
