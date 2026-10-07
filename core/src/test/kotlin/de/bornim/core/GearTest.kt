@@ -164,4 +164,25 @@ class GearTest {
         // the hero is left as it was
         assertEquals("longsword", hero.weapon?.base)
     }
+
+    @Test
+    fun everyVersatileWeaponUsesTheRightDie() {
+        val expect = mapOf("quarterstaff" to (6 to 8), "spear" to (6 to 8), "longsword" to (8 to 10), "battleaxe" to (8 to 10), "warhammer" to (8 to 10))
+        assertEquals(expect.keys, GearBases.all.filter { it.versatile != null }.map { it.id }.toSet(), "the versatile weapons")
+        var uid = 2000L
+        for ((base, dice) in expect) for (cls in CharClass.entries) {
+            val hero = GameState.newGame("V", Race.HUMAN, cls).hero
+            hero.gear.clear()
+            hero.equip(Gear(uid++, base, Rarity.COMMON, 1))
+            assertEquals(dice.second, hero.weaponDamage.sides, "$base $cls, other hand empty")
+            hero.equip(Gear(uid++, "round_shield", Rarity.COMMON, 1))
+            assertEquals(dice.first, hero.weaponDamage.sides, "$base $cls, with a shield")
+            hero.unequip(GearSlot.OFF_HAND)
+            hero.equipOffHand(Gear(uid++, "dagger", Rarity.COMMON, 1))
+            assertEquals(dice.first, hero.weaponDamage.sides, "$base $cls, with a dagger in the other hand")
+            hero.unequip(GearSlot.OFF_HAND)
+            hero.equip(Gear(uid++, "orb", Rarity.COMMON, 1))
+            assertEquals(dice.first, hero.weaponDamage.sides, "$base $cls, with a focus in the other hand")
+        }
+    }
 }
