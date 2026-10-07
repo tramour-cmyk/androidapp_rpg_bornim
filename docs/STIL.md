@@ -1,6 +1,6 @@
 # Stil-Leitlinien
 
-Gilt für **alle** künftigen Arbeiten und Überarbeitungen an Grafik, Animation und Klang. Stand: 07.10.2026, 12:55 (Berliner Zeit).
+Gilt für **alle** künftigen Arbeiten und Überarbeitungen an Grafik, Animation und Klang. Stand: 07.10.2026, 13:20 (Berliner Zeit).
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
@@ -11,6 +11,20 @@ Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistori
 - Bessere Übergänge: keine Sprünge zwischen Haltungen, Bewegungen gehen fließend ineinander über.
 - Licht kommt von sichtbaren Quellen (Sonne, Mond, Fackeln, Feuer, Pilze, Fenster). Dunkelheit ist erlaubt.
 - Blut und Wunden gehören dazu, abgestuft über die Menüeinstellung „Blut bei Treffern“ (Aus, Dezent, Deutlich), für Held und Gegner gleich.
+
+## Abwechslung: mindestens drei Varianten
+
+- **Kein Gegner sieht aus wie der vorige seiner Art.** Jede Gegnerart bekommt mindestens drei Varianten in Aussehen und Ausrüstung, zum Beispiel ein Goblin mit Krummsäbel und Schild, einer mit Speer, einer mit Keule und Helm. Dazu kommen Hautton, Fell oder Narben.
+- **Die Werte bleiben gleich:** Varianten sind Optik. Schaden, Rüstungsklasse und Trefferpunkte kommen aus den Monsterdaten.
+- **Jede Bewegung in mindestens drei Varianten:** Angriff, Treffer, Ausweichen und Sieg oder Niederlage, damit Kämpfe nicht gleichförmig wirken. Das gilt für Gegner wie für den Helden.
+- Die Variante wird beim Kampfbeginn aus dem Erscheinungsbild-Zufall des Gegners gewählt und bleibt für diesen Gegner im ganzen Kampf gleich.
+- Gilt für alle künftigen Gegner, Tiere, Begleiter und Figuren.
+
+## Ausrüstung der Gegner
+
+- Feste Ausrüstung je Gegnerart nach SRD, in mindestens drei Varianten.
+- Zustände wie „rostig“ (altes Eisen) und „grob“ (Holzschild aus Planken) sind reine Optik. Sie kommen nicht in Beute- oder Händlerlisten.
+- Die Ausrüstung passt zum Angriffsnamen des Gegners, etwa „Morgenstern“ bei Krogg oder „Kurzbogen“ beim Goblin-Späher.
 
 ## Selbst prüfen, bevor etwas gezeigt wird
 
