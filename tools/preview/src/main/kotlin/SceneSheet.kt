@@ -679,3 +679,62 @@ fun renderRangedViews() {
     ImageIO.write(out3, "png", File("build/screens/ranged_seq.png"))
     println("wrote ranged views")
 }
+
+
+/** Spells by what is cast with: key poses large from all round, every frame of each, and a check for staves through the body. */
+fun renderCastViews() {
+    var uid = 1L
+    fun g(base: String, r: de.bornim.core.Rarity = de.bornim.core.Rarity.UNCOMMON) = de.bornim.core.Gear(uid++, base, r, 3)
+    val F = de.bornim.core.art.HeroFigure
+    fun kit(cls: de.bornim.core.CharClass, vararg items: Pair<de.bornim.core.GearSlot, String>) = de.bornim.core.art.Outfit(cls, items.associate { it.first to g(it.second) })
+    val casters = listOf(
+        Triple(de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 2), kit(de.bornim.core.CharClass.WIZARD, de.bornim.core.GearSlot.CHEST to "robe", de.bornim.core.GearSlot.MAIN_HAND to "staff"), "Stab"),
+        Triple(de.bornim.core.art.Doll(de.bornim.core.Race.ELF, de.bornim.core.Sex.FEMALE, de.bornim.core.Build.SLIM, 1, 0), kit(de.bornim.core.CharClass.WIZARD, de.bornim.core.GearSlot.CHEST to "robe", de.bornim.core.GearSlot.MAIN_HAND to "wand", de.bornim.core.GearSlot.OFF_HAND to "tome"), "Zauberstab und Buch"),
+        Triple(de.bornim.core.art.Doll(de.bornim.core.Race.HALFLING, de.bornim.core.Sex.FEMALE, de.bornim.core.Build.AVERAGE, 2, 1), kit(de.bornim.core.CharClass.WIZARD, de.bornim.core.GearSlot.CHEST to "robe", de.bornim.core.GearSlot.MAIN_HAND to "dagger", de.bornim.core.GearSlot.OFF_HAND to "orb"), "Kugel"),
+        Triple(de.bornim.core.art.Doll(de.bornim.core.Race.DWARF, de.bornim.core.Sex.MALE, de.bornim.core.Build.STRONG, 1, 3), kit(de.bornim.core.CharClass.CLERIC, de.bornim.core.GearSlot.CHEST to "chain_shirt", de.bornim.core.GearSlot.MAIN_HAND to "mace", de.bornim.core.GearSlot.OFF_HAND to "holy_symbol"), "Heiligensymbol"),
+        Triple(de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.FEMALE, de.bornim.core.Build.AVERAGE, 0, 1), kit(de.bornim.core.CharClass.CLERIC, de.bornim.core.GearSlot.CHEST to "chain_shirt", de.bornim.core.GearSlot.MAIN_HAND to "mace", de.bornim.core.GearSlot.OFF_HAND to "shield"), "Waffe und Schild"),
+        Triple(de.bornim.core.art.Doll(de.bornim.core.Race.HALF_ORC, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE, 1, 0), kit(de.bornim.core.CharClass.WIZARD, de.bornim.core.GearSlot.MAIN_HAND to "staff"), "Stab, ohne Rüstung"),
+    )
+    fun variant(o: de.bornim.core.art.Outfit) = F.castVariant(o.items[de.bornim.core.GearSlot.MAIN_HAND]?.def, o.items[de.bornim.core.GearSlot.OFF_HAND]?.def)
+    // the check: no staff, wand or weapon through head or body in any frame, for every people
+    var bad = 0; var total = 0
+    for (race in de.bornim.core.Race.entries) for ((_, o, name) in casters) {
+        val d = de.bornim.core.art.Doll(race, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE)
+        for ((i, rig) in F.sequence(de.bornim.core.art.HeroFigure.Act.CAST, de.bornim.core.art.HeroFigure.Strike.CAST, variant(o)).withIndex()) {
+            total++
+            val dress = d.fit(rig, o).second!!.first
+            (dress.weaponThroughBody() ?: dress.weaponThroughShield())?.let { t -> bad++; if (bad <= 30) println("ZAUBER DURCH: ${race.name} $name Bild $i bei ${(t * 100).toInt()} %") }
+        }
+    }
+    println("Zauber: $total Bilder, Waffe/Stab durch Körper oder Schild: $bad")
+    val cams = listOf(20.0, 90.0, 138.0, 180.0, 270.0)
+    val cw = 220; val ch = 270
+    val keys = casters.flatMap { c -> val seq = F.sequence(de.bornim.core.art.HeroFigure.Act.CAST, de.bornim.core.art.HeroFigure.Strike.CAST, variant(c.second)); listOf(Triple(c, seq[7], "sammeln"), Triple(c, seq[10], "loslassen")) }
+    val out = BufferedImage(cw * cams.size, ch * keys.size, BufferedImage.TYPE_INT_RGB)
+    val gg = out.createGraphics(); gg.color = java.awt.Color(0x4A4E48); gg.fillRect(0, 0, out.width, out.height)
+    fun blend(dst: BufferedImage, x: Int, y: Int, p: Int) {
+        val a = (p ushr 24) / 255.0; if (a <= 0.0) return
+        val q = dst.getRGB(x, y)
+        fun ch(sh: Int) = (((p shr sh) and 0xFF) * a + ((q shr sh) and 0xFF) * (1 - a)).toInt()
+        dst.setRGB(x, y, (ch(16) shl 16) or (ch(8) shl 8) or ch(0))
+    }
+    for ((ri, k) in keys.withIndex()) for ((ci, yaw) in cams.withIndex()) {
+        val im = k.first.first.render(cw, ch, cw / 2.0, ch - 8.0, 1.25, k.second.copy(yaw = k.second.yaw - F.FIGHT_YAW + yaw), k.first.second).img
+        for (y in 0 until ch) for (x in 0 until cw) blend(out, ci * cw + x, ri * ch + y, im[x, y])
+        gg.color = java.awt.Color(0xF0E8D8); gg.drawString("${k.first.third} – ${k.third} – ${yaw.toInt()}°", ci * cw + 6, ri * ch + 16)
+    }
+    ImageIO.write(out, "png", File("build/screens/cast_views.png"))
+    val sw = 120; val sh = 160
+    val n = 19
+    val out2 = BufferedImage(sw * n, sh * casters.size * 2, BufferedImage.TYPE_INT_RGB)
+    val g2 = out2.createGraphics(); g2.color = java.awt.Color(0x4A4E48); g2.fillRect(0, 0, out2.width, out2.height)
+    for ((ci, c) in casters.withIndex()) for ((vi, yaw) in listOf(F.FIGHT_YAW, 60.0).withIndex()) for ((fi, rig) in F.sequence(de.bornim.core.art.HeroFigure.Act.CAST, de.bornim.core.art.HeroFigure.Strike.CAST, variant(c.second)).withIndex()) {
+        val im = c.first.render(sw, sh, sw / 2.0, sh - 6.0, 0.75, rig.copy(yaw = rig.yaw - F.FIGHT_YAW + yaw), c.second).img
+        val oy = (ci * 2 + vi) * sh
+        for (y in 0 until sh) for (x in 0 until sw) blend(out2, fi * sw + x, oy + y, im[x, y])
+        g2.color = java.awt.Color(0xF0E8D8); g2.drawString("$fi", fi * sw + 4, oy + 14)
+    }
+    ImageIO.write(out2, "png", File("build/screens/cast_seq.png"))
+    println("wrote cast views")
+}
+

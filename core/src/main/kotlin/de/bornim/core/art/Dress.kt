@@ -100,6 +100,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         offHand()
         bow()
         crossbow()
+        staff()
         return out
     }
 
@@ -476,6 +477,103 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         cone(front - side * (0.022 * h), front + aim * (0.05 * h), 0.0028 * h, 0.0028 * h, metal(r), Doll.TRIM)
     }
 
+    /** Staves and wands, built in the round: a long shaft held below its middle, or a short rod in line with the hand. */
+    private fun staff() {
+        val main = o.items[GearSlot.MAIN_HAND] ?: return
+        if (main.base !in ROUND) return
+        val r = main.rarity
+        val dir = sk.weapon.norm()
+        val hand = sk.hand(1)
+        val k = sqrt(h / 175.0)
+        val side = (if (abs(dir.y) > 0.9) P3.X else (P3.Y cross dir)).norm()
+        val glowRgb = glowColour()
+        fun cone(a: P3, b: P3, ra: Double, rb: Double, mat: Mat, group: Int = Doll.ITEM) = add(RoundCone(a, b, ra, rb, BodyPart.GEAR, group), mat)
+        val shine = m(glowRgb, shine = 1.0, bias = 0.12 + 0.3 * sk.rig.glow)
+        when (main.base) {
+            "wand" -> {
+                val tip = hand + dir * (0.1 * h * k)
+                cone(hand - dir * (0.015 * h), tip, 0.0055 * h, 0.0035 * h, m(argb(0x3A2618), grain = 0.05))
+                cone(tip - dir * (0.012 * h), tip - dir * (0.006 * h), 0.0048 * h, 0.0048 * h, gold, Doll.TRIM)
+                add(Ellipsoid(tip + dir * (0.004 * h), P3(0.0055 * h, 0.0055 * h, 0.0055 * h), Frame.IDENTITY, BodyPart.GEAR, Doll.TRIM), shine)
+            }
+            else -> {
+                val len = reach(main.base) * k * 0.95
+                val top = hand + dir * len
+                val butt = hand - dir * (len * buttPart(main.base))
+                val wood = m(mix(argb(if (main.base == "staff") 0x3E2A1C else 0x6A5034), r.color.toInt(), if (r >= Rarity.RARE) 0.25 else 0.0), grain = 0.08)
+                if (main.base == "staff") {
+                    // a gnarled shaft, thickening to a knot under three carved claws that hold the crystal
+                    val n = 7
+                    val up2 = (dir cross side).norm()
+                    fun at(t: Double) = butt.lerp(top, t) + side * (0.004 * h * kotlin.math.sin(t * 17.0)) + up2 * (0.003 * h * kotlin.math.cos(t * 11.0))
+                    for (i in 0 until n) { val t0 = i / n.toDouble() * 0.96; val t1 = (i + 1) / n.toDouble() * 0.96; cone(at(t0), at(t1), (0.0085 + 0.002 * t0) * h, (0.0085 + 0.002 * t1) * h, wood) }
+                    add(Ellipsoid(at(0.93), P3(0.014 * h, 0.018 * h, 0.014 * h), Frame.along(dir), BodyPart.GEAR, Doll.ITEM), wood)
+                    val crystal = top + dir * (0.012 * h)
+                    for (c in 0..2) {
+                        val a = c * 2.0 * Math.PI / 3
+                        val out = side * kotlin.math.cos(a) + up2 * kotlin.math.sin(a)
+                        cone(at(0.95), crystal + out * (0.013 * h) + dir * (0.012 * h), 0.004 * h, 0.0018 * h, wood, Doll.TRIM)
+                    }
+                    add(Ellipsoid(crystal, P3(0.011 * h, 0.019 * h, 0.011 * h), Frame.along(dir), BodyPart.GEAR, Doll.TRIM), shine)
+                } else {
+                    // a plain fighting staff, shod with iron at both ends and wrapped where the hands go
+                    cone(butt, top, 0.0095 * h, 0.0095 * h, wood)
+                    cone(butt, butt + dir * (0.04 * h), 0.0105 * h, 0.0105 * h, metal(r), Doll.TRIM)
+                    cone(top - dir * (0.04 * h), top, 0.0105 * h, 0.0105 * h, metal(r), Doll.TRIM)
+                    cone(hand - dir * (0.1 * h), hand + dir * (0.03 * h), 0.0105 * h, 0.0105 * h, darkLeather, Doll.TRIM)
+                }
+            }
+        }
+    }
+
+    /** The colour a spell glows in: holy gold with a symbol, otherwise arcane blue, tinted by the focus's rarity. */
+    private fun glowColour(): Int {
+        val off = o.items[GearSlot.OFF_HAND]
+        val main = o.items[GearSlot.MAIN_HAND]
+        val holy = off?.def?.icon == Icon.SYMBOL || (o.cls == CharClass.CLERIC && off?.def?.icon != Icon.ORB)
+        val r = (if (sk.rig.glowAt > 0.5) off?.rarity else main?.rarity) ?: Rarity.COMMON
+        return mix(argb(if (holy) 0xFFD87A else 0x80C8FF), r.color.toInt(), if (r >= Rarity.UNCOMMON) 0.35 else 0.0)
+    }
+
+    /** Where the spell gathers: the staff's crystal, the wand's tip, the weapon's head, or the free hand and its focus. */
+    fun glowPoint(): P3 {
+        val main = o.items[GearSlot.MAIN_HAND]
+        if (sk.rig.glowAt > 0.5) return sk.hand(0) + P3(0.0, 0.035 * h, 0.01 * h)
+        val k = sqrt(h / 175.0)
+        return when (main?.base) {
+            null -> sk.hand(1) + P3(0.0, 0.02 * h, 0.0)
+            "wand" -> sk.hand(1) + sk.weapon * (0.1 * h * k + 0.004 * h)
+            "staff" -> sk.hand(1) + sk.weapon * (reach("staff") * k * 0.95 + 0.012 * h)
+            else -> sk.hand(1) + sk.weapon * (reach(main.base) * k * 0.85)
+        }
+    }
+
+    /** The light of a spell: a soft halo over everything near where it gathers, brighter as it is let go. */
+    fun glowHalo(img: DepthImage) {
+        val g = sk.rig.glow
+        if (g < 0.02) return
+        val (cx, cy, _) = img.project(glowPoint())
+        val rad = (0.03 + 0.05 * g) * h * img.px
+        val c = glowColour()
+        val w = img.img.width; val hgt = img.img.height
+        val x0 = max(0, (cx - rad).toInt()); val x1 = min(w - 1, (cx + rad).toInt())
+        val y0 = max(0, (cy - rad).toInt()); val y1 = min(hgt - 1, (cy + rad).toInt())
+        for (y in y0..y1) for (x in x0..x1) {
+            val d = sqrt((x + 0.5 - cx) * (x + 0.5 - cx) + (y + 0.5 - cy) * (y + 0.5 - cy)) / rad
+            if (d >= 1) continue
+            val a = (1 - d) * (1 - d) * (0.35 + 0.55 * g)
+            val p = img.img[x, y]
+            // over the figure the light tints it; in the air around it, it is the light alone, see-through at its edge
+            val solid = (p ushr 24) >= 128
+            val base = if (solid) p else c
+            val outA = if (solid) 0xFF else max(p ushr 24, (a * 255).toInt().coerceIn(0, 255))
+            val rr = ((base shr 16 and 0xFF) * (1 - a) + (c shr 16 and 0xFF) * a).toInt()
+            val gg = ((base shr 8 and 0xFF) * (1 - a) + (c shr 8 and 0xFF) * a).toInt()
+            val bb = ((base and 0xFF) * (1 - a) + (c and 0xFF) * a).toInt()
+            img.img.set(x, y, (outA shl 24) or (rr shl 16) or (gg shl 8) or bb)
+        }
+    }
+
     // ---------------------------------------------------------------- off hand: shield and foci
 
     /** The shield's face, square to the forearm it is strapped to. */
@@ -560,13 +658,17 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     fun weaponThroughBody(): Double? {
         val main = o.items[GearSlot.MAIN_HAND] ?: return null
         if (main.def.ranged) return null
-        val len = reach(main.base)
+        // staves and wands are built to the body's size, as they are drawn
+        val len = if (main.base in ROUND) reach(main.base) * sqrt(h / 175.0) * 0.95 else reach(main.base)
         val hand = sk.hand(1)
         // the hands holding it are not in its way; with two hands or a bracing forearm, neither is the free arm
         val holding = if (o.twoHands) setOf("hand1", "fore1", "upper1", "delt1", "hand0", "fore0") else setOf("hand1", "fore1", "upper1", "delt1")
         val solid = body.filter { it.key !in holding && it.part != BodyPart.HAIR }
         // the grip is inside the fist; check from just beyond it
         for (i in 4..40) { val t = i / 40.0; val p = hand + sk.weapon * (len * t); if (solid.any { it.dist(p) < -0.5 }) return t }
+        // a staff reaches back past the hand as well
+        val back = buttPart(main.base)
+        if (back > 0) for (i in 3..(40 * back).toInt()) { val t = i / 40.0; val p = hand - sk.weapon * (len * t); if (solid.any { it.dist(p) < -0.5 }) return -t }
         return null
     }
 
@@ -577,7 +679,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     /** Draws the weapons into [img], pixel by pixel in front of or behind the doll. */
     fun overlay(img: DepthImage) {
         val main = o.items[GearSlot.MAIN_HAND]
-        if (main != null && !main.def.ranged) weapon(img, main.base, main.rarity, sk.hand(1), sk.weapon)
+        if (main != null && !main.def.ranged && main.base !in ROUND) weapon(img, main.base, main.rarity, sk.hand(1), sk.weapon)
         val off = o.items[GearSlot.OFF_HAND]
         if (off != null && off.def.isWeapon && !o.twoHands) weapon(img, off.base, off.rarity, sk.hand(0), P3(sk.weapon.x * -0.5, sk.weapon.y, sk.weapon.z).norm())
     }
@@ -607,10 +709,14 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     }
 
     companion object {
+        /** Staves and wands, built in the round rather than drawn over the doll. */
+        val ROUND = setOf("staff", "quarterstaff", "wand")
+        /** How far a staff reaches back past the hand, as a part of its reach: a wizard's staff is held high, a fighting staff in the middle. */
+        fun buttPart(base: String) = when (base) { "staff" -> 1.45; "quarterstaff" -> 1.0; else -> 0.0 }
         /** About how far a weapon reaches beyond the hand, in cm. */
         fun reach(base: String) = when (base) {
             "dagger" -> 30.0; "shortsword", "handaxe", "wand" -> 60.0; "mace", "scimitar" -> 75.0
-            "longsword", "rapier", "battleaxe", "warhammer" -> 90.0; "greatsword" -> 125.0; "greataxe", "maul" -> 105.0; "quarterstaff", "staff" -> 120.0; else -> 100.0
+            "longsword", "rapier", "battleaxe", "warhammer" -> 90.0; "greatsword" -> 125.0; "greataxe", "maul" -> 105.0; "quarterstaff" -> 85.0; "staff" -> 70.0; else -> 100.0
         }
 
         fun frac(v: Double) = v - floor(v)

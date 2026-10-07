@@ -188,8 +188,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
                 var target = lAt
                 var pole = if (shieldArm) P3(-1.0, -0.5, 0.35) else if (rig.stock > 0.01) P3(-0.3, -1.0, -0.2) else P3(-0.6, -1.0, -0.5)
                 if (twoHands) {
-                    // both hands on the grip, the free one below the weapon hand
-                    target = handR - weapon * (0.06 * height)
+                    // both hands on the grip, the free one below the weapon hand, unless it lets go to cast
+                    target = (handR - weapon * (0.06 * height)).lerp(target, rig.freeHand)
                 }
                 var (el, wr) = ik(shoulder[i], target, upperArm, foreArm, pole)
                 if (twoHands && rig.brace > 0.01) {
@@ -477,6 +477,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         face(img, sk)
         dress?.overlay(img)
         outline(img.img)
+        dress?.glowHalo(img)
         return img
     }
 

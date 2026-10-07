@@ -88,6 +88,7 @@ fun main() {
     if (System.getenv("DOLL3D") != null) { renderDollModels(); System.exit(0) }
     if (System.getenv("DRESS") != null) { renderDollDressed(); System.exit(0) }
     if (System.getenv("CLASH") != null) { checkClashes(); System.exit(0) }
+    if (System.getenv("CAST") != null) { renderCastViews(); System.exit(0) }
     if (System.getenv("DOLLANIM") != null) { renderDollAnims(); System.exit(0) }
     if (System.getenv("BLOCKVIEW") != null) { renderBlockViews(); System.exit(0) }
     if (System.getenv("BACKVIEW") != null) { renderBackViews(); System.exit(0) }

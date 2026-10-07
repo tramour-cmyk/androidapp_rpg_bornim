@@ -95,6 +95,10 @@ object HeroFigure {
         val rPole: V = V(0.6, -1.0, -0.5),
         /** 0..1: how far a crossbow is shouldered: butt in the shoulder, stock level at the cheek, the free hand under its fore end. */
         val stock: Double = 0.0,
+        /** 0..1: where a spell gathers: 0 at the weapon's head (or the empty weapon hand), 1 at the free hand and its focus. */
+        val glowAt: Double = 0.0,
+        /** 0..1: how far the free hand lets go of a two-handed staff to cast with an open palm. */
+        val freeHand: Double = 0.0,
     ) {
         fun lerp(o: Rig, t: Double): Rig {
             fun l(a: Double, b: Double) = a + (b - a) * t
@@ -102,7 +106,7 @@ object HeroFigure {
                 l(yaw, o.yaw), l(bodyX, o.bodyX), l(bodyY, o.bodyY), l(lean, o.lean), l(crouch, o.crouch), l(stride, o.stride), l(spread, o.spread),
                 rh.lerp(o.rh, t), weapon.lerp(o.weapon, t).norm(), lh.lerp(o.lh, t), shieldFace.lerp(o.shieldFace, t).norm(),
                 l(headTurn, o.headTurn), l(headDown, o.headDown), l(cloak, o.cloak), l(glow, o.glow), l(draw, o.draw), l(trail, o.trail),
-                l(elbowUp, o.elbowUp), elbowAt.lerp(o.elbowAt, t), l(twist, o.twist), l(grip, o.grip), l(roll, o.roll), l(foreLevel, o.foreLevel), l(aim, o.aim), l(brace, o.brace), rPole.lerp(o.rPole, t), l(stock, o.stock),
+                l(elbowUp, o.elbowUp), elbowAt.lerp(o.elbowAt, t), l(twist, o.twist), l(grip, o.grip), l(roll, o.roll), l(foreLevel, o.foreLevel), l(aim, o.aim), l(brace, o.brace), rPole.lerp(o.rPole, t), l(stock, o.stock), l(glowAt, o.glowAt), l(freeHand, o.freeHand),
             )
         }
     }
@@ -165,8 +169,36 @@ object HeroFigure {
     // carried low before and after: both hands on it, the point forward and a little down, never up past the face
     val XBOW_LOW = Rig(stride = -3.0, spread = 7.0, twist = 25.0, rh = V(11.0, 64.0, 12.0), lh = V(-2.0, 64.0, 26.0), weapon = V(0.05, -0.25, 1.0), grip = 10.0, aim = 1.0, draw = 1.0, rPole = V(1.0, -0.6, -0.3))
     val XBOW_RECOIL = XBOW_AIM.copy(weapon = V(0.0, 0.07, 1.0), lean = -0.08, draw = 0.0)
-    val CAST_RAISE = Rig(lean = -0.15, rh = V(12.0, 104.0, 8.0), weapon = V(0.0, 1.0, 0.25), lh = V(-10.0, 86.0, 16.0), glow = 0.6)
-    val CAST_RELEASE = Rig(lean = 0.4, stride = 6.0, rh = V(6.0, 88.0, 25.0), weapon = V(0.0, 0.3, 1.0), lh = V(-8.0, 86.0, 21.0), glow = 1.0, cloak = 1.5)
+
+    // spells, by what the hero casts with; the grip on a weapon never changes, as in the blows
+    // a staff: raised upright before the body, the crystal gathering light, the free palm under it; then the head of
+    // the staff swung down at the foe while the open palm drives forward beside it
+    val STAFF_GATHER = Rig(lean = -0.1, stride = 2.0, rh = V(14.0, 89.0, 12.0), weapon = V(-0.04, 1.0, 0.06), lh = V(-9.0, 80.0, 14.0), grip = 70.0, aim = 1.0,
+        twist = 8.0, headDown = -1.5, glow = 0.7, freeHand = 1.0, cloak = -0.5)
+    val STAFF_RELEASE = Rig(lean = 0.3, crouch = 1.5, stride = 7.0, rh = V(12.0, 88.0, 26.0), weapon = V(-0.2, 0.8, 0.55), lh = V(-11.0, 89.0, 38.0), grip = 70.0, aim = 1.0,
+        twist = -8.0, glow = 1.0, freeHand = 1.0, cloak = 1.5)
+    // a wand or an empty hand (a tome open in the other): drawn up beside the shoulder, then the arm thrust out at the
+    // foe like a point, the forearm level and the wand in line with it
+    val WAND_RAISE = Rig(lean = -0.1, stride = 2.0, rh = V(17.0, 97.0, 2.0), weapon = V(0.1, 0.9, -0.35), lh = V(-7.0, 78.0, 17.0), grip = 15.0, aim = 1.0,
+        twist = 25.0, glow = 0.6, cloak = -0.5, shieldFace = V(0.2, 0.6, 0.8))
+    val WAND_RELEASE = Rig(lean = 0.3, crouch = 1.5, stride = 7.0, rh = V(7.0, 87.0, 40.0), weapon = V(-0.03, 0.06, 1.0), lh = V(-9.0, 78.0, 15.0), grip = 8.0, foreLevel = 1.0, aim = 1.0,
+        twist = -22.0, glow = 1.0, cloak = 1.5, shieldFace = V(0.2, 0.6, 0.8))
+    // an orb or holy symbol in the free hand: brought up before the face, then held out at the foe on a straight arm,
+    // the focus shoulder leading; the weapon hangs low and ready
+    val FOCUS_RAISE = Rig(lean = -0.05, stride = -2.0, rh = V(15.0, 64.0, 8.0), weapon = V(0.3, -0.6, 0.6), lh = V(-3.0, 93.0, 17.0), grip = 35.0,
+        twist = 15.0, headDown = 0.5, glow = 0.6, glowAt = 1.0, cloak = -0.5)
+    val FOCUS_RELEASE = Rig(lean = 0.25, crouch = 1.5, stride = -5.0, rh = V(16.0, 64.0, 6.0), weapon = V(0.3, -0.6, 0.6), lh = V(-2.0, 92.0, 46.0), grip = 35.0,
+        twist = 32.0, glow = 1.0, glowAt = 1.0, cloak = 1.5)
+    // shield on the arm: the weapon raised upright to the sky in a prayer, then its head brought down to point at the foe
+    val PRAY_RAISE = Rig(lean = -0.12, stride = 2.0, rh = V(12.0, 110.0, 9.0), weapon = V(0.05, 1.0, 0.08), lh = V(-9.0, 70.0, 16.0), grip = 20.0, aim = 1.0,
+        headDown = -3.0, glow = 0.7, cloak = -0.5)
+    val PRAY_RELEASE = Rig(lean = 0.25, crouch = 1.5, stride = 6.0, rh = V(9.0, 90.0, 34.0), weapon = V(0.0, 0.25, 1.0), lh = V(-12.0, 70.0, 12.0), grip = 15.0, aim = 1.0, foreLevel = 0.6,
+        twist = -15.0, glow = 1.0, cloak = 1.5)
+    private val CAST_KEYS = listOf(STAFF_GATHER to STAFF_RELEASE, WAND_RAISE to WAND_RELEASE, FOCUS_RAISE to FOCUS_RELEASE, PRAY_RAISE to PRAY_RELEASE)
+    // the flat battle figure still in the game casts as it always has, until the doll takes its place
+    private val OLD_CAST = tween(STAND to 3, Rig(lean = -0.15, rh = V(12.0, 104.0, 8.0), weapon = V(0.0, 1.0, 0.25), lh = V(-10.0, 86.0, 16.0), glow = 0.6) to 7,
+        Rig(lean = 0.4, stride = 6.0, rh = V(6.0, 88.0, 25.0), weapon = V(0.0, 0.3, 1.0), lh = V(-8.0, 86.0, 21.0), glow = 1.0, cloak = 1.5) to 3,
+        Rig(lean = 0.4, stride = 6.0, rh = V(6.0, 88.0, 25.0), weapon = V(0.0, 0.3, 1.0), lh = V(-8.0, 86.0, 21.0), glow = 1.0, cloak = 1.5) to 5, STAND to 1)
 
     // the shield goes up in front of the face
     // the chest turns so the shield shoulder leads into the blow; the weapon arm comes up in front, upper arm about level,
@@ -217,7 +249,7 @@ object HeroFigure {
         Strike.THRUST to tween(STAND to 3, THRUST_WIND to 5, THRUST_HIT to 3, THRUST_HIT.copy(trail = 0.0) to 5, STAND to 1),
         Strike.SMASH to tween(STAND to 2, SMASH_RAISE to 2, SMASH_WIND to 4, SMASH_OVER to 2, SMASH_HIT to 3, SMASH_HIT.copy(trail = 0.0) to 5, STAND to 1),
         Strike.SHOOT to tween(STAND to 3, BOW_NOCK to 3, BOW_AIM to 4, BOW_AIM to 1, BOW_RELEASE to 2, BOW_RELEASE to 4, STAND to 2),
-        Strike.CAST to tween(STAND to 3, CAST_RAISE to 7, CAST_RELEASE to 3, CAST_RELEASE to 5, STAND to 1),
+        Strike.CAST to cast(1),
     )
 
     /** The frame of each strike at which the blow lands (or the arrow and spell fly). */
@@ -228,6 +260,22 @@ object HeroFigure {
         Strike.SHOOT -> 11
         Strike.CAST -> 10
     }
+
+    private fun cast(v: Int): List<Rig> {
+        val (raise, release) = CAST_KEYS[v.mod(CAST_KEYS.size)]
+        // the spell gathers slowly and is let go in a rush; the release lands on the strike frame
+        return tween(STAND to 5, raise to 3, raise.copy(glow = 1.0) to 2, release to 3, release.copy(glow = 0.25) to 3, raise.copy(glow = 0.0) to 2, STAND to 1)
+    }
+    private val CASTS = CAST_KEYS.indices.map { cast(it) }
+
+    /** How this hero casts: 0 with a staff, 1 a wand or bare hand (a tome in the other), 2 an orb or holy symbol, 3 a weapon with a shield on the arm. */
+    fun castVariant(main: de.bornim.core.GearBase?, off: de.bornim.core.GearBase?): Int = when {
+        main?.icon == Icon.STAFF -> 0
+        off?.icon == Icon.ORB || off?.icon == Icon.SYMBOL -> 2
+        off?.kind == de.bornim.core.BaseKind.SHIELD -> 3
+        else -> 1
+    }
+    fun castVariant(hero: Hero): Int = castVariant(hero.item(GearSlot.MAIN_HAND)?.def, hero.item(GearSlot.OFF_HAND)?.def)
 
     private val XBOW_SEQ = tween(XBOW_LOW to 3, XBOW_AIM to 5, XBOW_AIM to 3, XBOW_RECOIL to 2, XBOW_AIM.copy(draw = 0.0) to 4, XBOW_LOW.copy(draw = 0.0) to 2)
     private val PARRY_SEQ = tween(STAND to 3, PARRY to 4, PARRY to 5, STAND to 1)
@@ -271,7 +319,7 @@ object HeroFigure {
     fun sequence(act: Act, strike: Strike, variant: Int): List<Rig> = when (act) {
         Act.IDLE -> IDLE
         Act.ATTACK -> if (strike == Strike.SHOOT && variant == 1) XBOW_SEQ else SEQ.getValue(strike)
-        Act.CAST -> SEQ.getValue(Strike.CAST)
+        Act.CAST -> CASTS[variant.mod(CASTS.size)]
         // 0 shield high, 1 two-handed low, 2 shield low, 3 two-handed high
         Act.BLOCK -> when (variant) { 1 -> PARRY_SEQ; 2 -> BLOCK_LOW_SEQ; 3 -> PARRY_HIGH_SEQ; else -> BLOCK_SEQ }
         Act.HURT -> HURT_SEQ
@@ -293,7 +341,7 @@ object HeroFigure {
 
     /** Frame [index] of [act]; attacks use [strike], victories [variant]. Idle and intro loop. */
     fun frame(hero: Hero, act: Act, index: Int = 0, strike: Strike = strikes(hero).first(), variant: Int = 0): PixelImage {
-        val seq = sequence(act, strike, variant)
+        val seq = if (act == Act.CAST) OLD_CAST else sequence(act, strike, variant)
         val i = if (act == Act.IDLE || act == Act.INTRO) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         var rig = seq[i]
         // two-handed weapons: both hands on the haft
