@@ -6,8 +6,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 **Neu – flüssigere Kämpfe**
 - **Eine Aktion ist ein Stück:** Nach der Wahl läuft die ganze Bewegung (Ausholen, Schlag, Treffer oder Fehlschlag), und erst mit dem Aufprall erscheint der Text, alles in einer Zeile: „Alrik greift mit Kampfstab an! Krogg erleidet 8 Schaden.“ Zwischenworte wie „kritischer Treffer“ oder „Überraschungsschlag“ stehen in derselben Zeile.
-- **Der Kampf läuft von selbst weiter:** Nach einer Lesepause folgt der Gegnerzug ohne Tippen; Tippen beschleunigt. Das Kampfende (tödlicher Schlag, Sturz, Beute) wartet auf ein Tippen.
-- **Kampftempo** im Menü: Ruhig, Normal, Schnell (Lesepausen und Textgeschwindigkeit).
+- **Zwei Tipper pro Runde statt vier:** Jede Ergebniszeile (deine und die des Gegners) wartet auf ein Tippen; was dazwischen liegt (Ausholen, Schlag, der Gegner holt aus und schlägt), läuft von selbst. Im Menü lässt sich „Kampftext: weiter automatisch“ einstellen: dann geht es nach einer Lesepause von selbst weiter, Tippen beschleunigt; das Kampfende (tödlicher Schlag, Sturz, Beute) wartet immer auf ein Tippen.
+- **Kampftempo** im Menü: Ruhig, Normal, Schnell (Textgeschwindigkeit und Lesepausen).
 - **Angriffe, Zauber und Würfe etwas langsamer**, passend zu den ruhigeren Bewegungen.
 
 **Neu – Wildschwein und Riesenratte im neuen Stil**

@@ -344,9 +344,9 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             delay(perChar)
             revealed++
         }
-        // while the fight goes on, it goes on by itself after a pause to read; a tap goes on at once. The end of the
-        // fight (the killing blow, the fall, the rewards) waits for a tap.
-        if (battle.outcome != Outcome.ONGOING) return@LaunchedEffect
+        // each line waits for a tap, unless the fight is set to go on by itself: then after a pause to read, a tap
+        // going on at once. The end of the fight (the killing blow, the fall, the rewards) always waits for a tap.
+        if (!vm.battleAuto || battle.outcome != Outcome.ONGOING) return@LaunchedEffect
         val read = when (tempo) { 0 -> 1500L + 28L * step.text.length; 2 -> 500L + 9L * step.text.length; else -> 950L + 18L * step.text.length }
         delay(read)
         while (ui.falling) delay(50L)

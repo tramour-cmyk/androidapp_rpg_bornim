@@ -112,6 +112,15 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     var battleTempo by mutableStateOf(prefs.getInt(KEY_TEMPO, 1).coerceIn(0, 2))
         private set
 
+    /** Whether a fight goes on by itself after each line (after a pause to read), or each line waits for a tap (default). */
+    var battleAuto by mutableStateOf(prefs.getBoolean(KEY_AUTO, false))
+        private set
+
+    fun toggleBattleAuto() {
+        battleAuto = !battleAuto
+        prefs.edit().putBoolean(KEY_AUTO, battleAuto).apply()
+    }
+
     fun changeTempo(level: Int) {
         battleTempo = level.coerceIn(0, 2)
         prefs.edit().putInt(KEY_TEMPO, battleTempo).apply()
@@ -277,6 +286,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_CONFIRM = "confirmations"
         private const val KEY_BLOOD = "blood"
         private const val KEY_TEMPO = "battle_tempo"
+        private const val KEY_AUTO = "battle_auto"
     }
 }
 

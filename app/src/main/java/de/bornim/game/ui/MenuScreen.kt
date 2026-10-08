@@ -390,6 +390,8 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
             val names = if (lang == Lang.DE) listOf("Ruhig", "Normal", "Schnell") else listOf("Calm", "Normal", "Fast")
             names.forEachIndexed { i, label -> PixelButton(label, Modifier.weight(1f), selected = vm.battleTempo == i, size = 15.sp) { vm.changeTempo(i) } }
         }
+        PixelButton(if (lang == Lang.DE) (if (vm.battleAuto) "Kampftext: weiter automatisch" else "Kampftext: weiter mit Antippen")
+            else (if (vm.battleAuto) "Battle text: goes on by itself" else "Battle text: tap to go on"), Modifier.fillMaxWidth()) { vm.toggleBattleAuto() }
         PixelButton((if (vm.touchControls) Ui.controlsTouch else Ui.controlsClassic)(lang), Modifier.fillMaxWidth()) { vm.toggleControls() }
         if (vm.touchControls) Txt(Ui.touchHint(lang), size = 13.sp, color = Colors.textDim)
         PixelButton((if (vm.leftHanded) Ui.actionLeft else Ui.actionRight)(lang), Modifier.fillMaxWidth()) { vm.toggleLeftHanded() }
