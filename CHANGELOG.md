@@ -4,6 +4,31 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Geändert – mehr Abwechslung in den Bewegungen**
+- **Gegner:** Angriff, Getroffenwerden und Ausweichen werden jedes Mal zufällig aus den drei Varianten gewählt, nie zweimal hintereinander dieselbe. Bisher hing die Wahl beim Getroffenwerden und Ausweichen an der Nummer der Meldung, sodass bei gleichförmigen Runden oft dieselbe kam. Der Sturz bleibt eine von drei, fest pro Gegner (Taumeln und Fallen gehören zusammen).
+- **Held, getroffen:** drei Bewegungen statt einer: zurückgeworfen, zusammengekrümmt, zur Seite gerissen.
+- **Held, Abwehr:** drei Haltungen je Waffenart statt einer. Mit Schild: hoch (gegen Tiere und Kleine tief), dahinter geduckt, schräg zum Abgleiten. Mit Zweihänder: quer hoch (oder tief), schräg, hängende Deckung.
+- **Held, Schläge:** drei Schläge je Nahkampfwaffe statt zwei (Hieb, Stoß, Schlag von oben), beim Kampfstab mit einem Stoß, bei dem das Stabende frei bleibt. Gewählt wird zufällig, nie zweimal hintereinander derselbe. Der Speer behält seine zwei Stöße, Bogen und Armbrust ihren Schuss.
+- Alle neuen Bewegungen sind für alle Völker auf Kollisionen geprüft (Waffe durch Körper oder Schild: 0).
+- Der Stab des Schamanen fällt beim seitlichen Sturz nicht mehr durch den Körper.
+
+**Neu – Goblin-Schamane im neuen Stil**
+- Der Schamane steht auf der Puppe: fast schwarze, rußige Robe (oder ein räudiges Fell), gehörnter Tierschädel als Kappe, Knochenkette, rußig eingesunkene Augen mit grün glühendem Blick, ein Streifen alten Bluts über der Nase. Auf seinem Knotenstab sitzt ein Schädel, dessen Augen grün glimmen.
+- Er zeigt, was er tut: Beim Feuerpfeil sammelt er die Kraft am erhobenen Stab und stößt ihn vor, beim Fluch zieht er grünes Licht in der freien Hand hoch und schleudert es auf den Held, im Nahkampf schlägt er mit dem Stab zu. Für Zauber tritt er nicht vor.
+- Drei Varianten: Robe, Fell, Robe mit Fell. Treffer, Ausweichen und Sturz je dreimal.
+
+**Behoben – Schüsse und Zauber der Gegner**
+- Ein Gegner, der aus der Entfernung angreift (Schamane, nach dem Code auch der Goblin-Späher mit dem Bogen), lässt Pfeil, Feuerpfeil oder Fluch jetzt im Moment los, in dem er abfliegt. Bisher stand er in der Ausholhaltung, bis das Geschoss schon eingeschlagen war, und schoss erst dann.
+- Der Held blinkt beim Treffer wieder so lange wie früher; durch den längeren Rückweg der Gegner (v0.1.210) blinkte er doppelt so lange.
+
+**Neu – Ghul im neuen Stil**
+- Der Ghul steht jetzt auf der Puppe wie Goblin, Skelett und Zombie: hager und grau, mit aufgerissenem, blutigem Maul, spitzen Ohren und langen, schwarzen, gespreizten Klauen. Er kauert tief und vorgebeugt, die Klauen vor sich.
+- Drei Varianten: fast nackt in Lumpen, in einer verrotteten Lederrüstung oder in einer zerschlissenen Robe. Größe und Körperbau variieren.
+- Drei eigene Klauenangriffe: Hieb mit einer Klaue über den Kopf hinweg, Rechen mit beiden Klauen, Sprung aus der Hocke. Dazu je drei Arten, getroffen zu werden, auszuweichen und zu sterben.
+- Kreaturen in Roben tragen darunter keine farbigen Hosen mehr, sondern dunkles Tuch.
+
+## v0.1.210 – 08.10.2026, 16:46
+
 **Geändert – flüssigere Bewegungen im Kampf**
 - **Schritt beim Angriff gleitet:** Geht der Held oder ein Gegner zum Schlag vor und wieder zurück, gleitet die Figur jetzt durch, statt im Takt der Bewegungsbilder in großen Sprüngen über den Bildschirm zu setzen (bisher bis zu einem Sechstel der Bildbreite auf einmal). Gilt für den Helden und alle Gegner im neuen Stil.
 - **Gegner: zweiter Teil des Schritts mit dem Schlag:** Hält ein Gegner nach dem Ausholen inne und schlägt dann zu, kommt der Rest des Schritts gleitend mit dem Schlag, statt sofort ganz nach vorn zu springen.

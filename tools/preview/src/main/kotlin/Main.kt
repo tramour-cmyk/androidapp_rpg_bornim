@@ -92,6 +92,7 @@ fun main() {
     System.getenv("FILMBATCH")?.let { fightBatch(it); System.exit(0) }
     if (System.getenv("BEASTDRAFT") != null) { renderBeastDrafts(); System.exit(0) }
     if (System.getenv("DOLLDRAFT") != null) { renderShamanGhoulDrafts(); System.exit(0) }
+    if (System.getenv("SHAMANDRAFT") != null) { renderShamanDraft(); System.exit(0) }
     if (System.getenv("DRINKDRAFT") != null) { renderDrinkDrafts(); System.exit(0) }
     if (System.getenv("HEROFALL") != null) { renderHeroFallDrafts(); System.exit(0) }
     if (System.getenv("RUNS") != null) {
@@ -140,9 +141,11 @@ fun main() {
     if (System.getenv("BEASTANIM") != null) { renderBeastAnims(); System.exit(0) }
     System.getenv("SOUNDS")?.let { writeSounds(it.split(",")); System.exit(0) }
     if (System.getenv("FOECLASH") != null) { checkFoeClashes(); System.exit(0) }
+    if (System.getenv("HEROVAR") != null) { checkHeroVariants(); System.exit(0) }
     if (System.getenv("FOEKITS") != null) { renderFoeKits(); System.exit(0) }
     if (System.getenv("FOESCENE") != null) { renderFoeInScene(); System.exit(0) }
     if (System.getenv("FOES") != null) { renderFoeDrafts(); System.exit(0) }
+    if (System.getenv("FOECLOSE") != null) { renderFoeClose(); System.exit(0) }
     if (System.getenv("FLAMEDODGE") != null) { renderFlameDodge(); System.exit(0) }
     if (System.getenv("FXFOES") != null) { renderFxOnFoes(); System.exit(0) }
     if (System.getenv("ABILITYFX") != null) { renderAbilityFx(); System.exit(0) }

@@ -411,13 +411,15 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             val hf = Frame.along(dir, sk.thumb(i))
             if (sk.fists && !ghoul) ell(wr + dir * (0.03 * h * handK), P3(0.026 * h * handK, 0.034 * h * handK, 0.022 * h * handK), BodyPart.HAND, grp, "hand$i", hf)
             else ell(wr + dir * (0.045 * h * handK), P3(0.029 * h * handK, 0.054 * h * handK, 0.014 * h * handK), BodyPart.HAND, grp, "hand$i", hf)
-            // a ghoul's long, hooked, black claws from every finger
+            // a ghoul's long, hooked, black claws from every finger, spread like a rake: they must read at a few
+            // pixels as the weapon they are
             if (ghoul) for (f in 0..3) {
-                val across = hf.x * ((f - 1.5) * 0.014 * h * handK)
-                val root = wr + dir * (0.085 * h * handK) + across
-                val mid = root + dir * (0.045 * h) + hf.z * (0.012 * h)
-                cone(root, mid, 0.01 * h, 0.007 * h, BodyPart.TUSK, TUSK, "claw$i").also { it.mat = clawMat }
-                cone(mid, mid + dir * (0.03 * h) + hf.z * (0.03 * h), 0.007 * h, 0.0015 * h, BodyPart.TUSK, TUSK, "claw$i").also { it.mat = clawMat }
+                val across = hf.x * ((f - 1.5) * 0.016 * h * handK)
+                val fan = hf.x * ((f - 1.5) * 0.012 * h)
+                val root = wr + dir * (0.08 * h * handK) + across
+                val mid = root + dir * (0.07 * h) + hf.z * (0.016 * h) + fan
+                cone(root, mid, 0.012 * h, 0.008 * h, BodyPart.TUSK, TUSK, "claw$i").also { it.mat = clawMat }
+                cone(mid, mid + dir * (0.045 * h) + hf.z * (0.042 * h) + fan * 0.5, 0.008 * h, 0.0015 * h, BodyPart.TUSK, TUSK, "claw$i").also { it.mat = clawMat }
             }
         }
 
@@ -736,6 +738,42 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         for (t in -3..3) put(c + P3(t * 0.045 * k, -0.3 * k, 0.375 * k), if (t % 2 == 0) argb(0xC8B880) else argb(0x9A8A58))
         // an old scar down over the left eye
         line(c + P3(-0.2 * k, 0.16 * k, 0.33 * k), c + P3(-0.1 * k, -0.12 * k, 0.4 * k), mix(argb(skinRgb), argb(0xC09A80), 0.5))
+    }
+
+    /**
+     * A shaman's face: daubed bone-white round the eyes and down over the mouth like a skull, black about the sockets,
+     * the eyes burning the green of its curses.
+     */
+    private fun shamanPaint(img: DepthImage, sk: Skeleton) = paintFace(img, sk) { put, line, k, c ->
+        // the face's surface, roughly: further back the further out from the middle
+        fun z(x: Double) = (0.425 - 0.34 * kotlin.math.abs(x)) * k
+        // a point of paint laid on the face where it is, found by going in from the front until the skin is met
+        fun onSkin(at: P3, col: Int) {
+            for (o in 0..40) {
+                val q = sk.head.apply(c + P3(at.x, at.y, (0.6 - o * 0.012) * k))
+                if (img.visible(q, 0.05 * hh + 0.8)) { val (x, y, _) = img.project(q); img.img.set(x.toInt(), y.toInt(), col); return }
+            }
+        }
+        val soot = mix(argb(skinRgb), argb(0x080604), 0.78)
+        val sootEdge = mix(argb(skinRgb), argb(0x080604), 0.45)
+        for (sd in listOf(-1.0, 1.0)) {
+            // the sockets rubbed black with soot, ragged at the edges and running down the cheek
+            for (j in -16..22) for (i in -26..26) {
+                val dx = i / 26.0; val dy = j / 16.0
+                val ragged = 1.0 + 0.18 * kotlin.math.sin(i * 1.3 + j * 0.7 + sd) + (if (j > 0 && kotlin.math.abs(i - 4 * sd.toInt()) < 3) 0.9 else 0.0)
+                val d = dx * dx + dy * dy
+                if (d > ragged) continue
+                val x = sd * 0.16 + i * 0.0045
+                onSkin(P3(x * k, -j * 0.0045 * k, 0.0), if (d > ragged * 0.7) sootEdge else soot)
+            }
+            // and in them the eyes, burning the green of its curses
+            line(c + P3(sd * 0.1 * k, 0.0, z(0.1)), c + P3(sd * 0.22 * k, 0.006 * k, z(0.22)), argb(0x9CF050))
+            line(c + P3(sd * 0.12 * k, -0.01 * k, z(0.12)), c + P3(sd * 0.2 * k, -0.008 * k, z(0.2)), argb(0x5AB028))
+            put(c + P3(sd * 0.16 * k, 0.0, z(0.16)), argb(0xF0FFD0))
+        }
+        // a stripe of old blood from the brow down over the nose
+        val blood = argb(0x5A1410)
+        for (w in -2..2) line(c + P3(w * 0.006 * k, 0.16 * k, z(0.0)), c + P3(w * 0.005 * k, -0.08 * k, 0.6 * k), blood)
     }
 
     // ---------------------------------------------------------------- kobold, bugbear, hobgoblin, the dead
@@ -1143,6 +1181,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         // the lift moves the whole picture up, not the figure in its own space, so rays and light stay as they are
         val img = SdfRender.render(body + clothes, groups(sk), mat, w, h, ax, gr - lift * px * kotlin.math.cos(Math.toRadians(pitch)), px, rig.yaw, pitch, fallF = rig.fallF, fallS = rig.fallS)
         face(img, sk)
+        if (goblin && outfit?.fetish == true) shamanPaint(img, sk)
         outline(img.img)
         dress?.glowHalo(img)
         return img

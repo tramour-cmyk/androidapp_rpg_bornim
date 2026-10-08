@@ -150,3 +150,40 @@ fun renderHeroFallDrafts() {
     ImageIO.write(img, "png", File("build/screens/entwurf_heldensturz.png"))
     println("wrote hero falls")
 }
+
+/**
+ * The goblin shaman reworked (SHAMANDRAFT=1): in each of its three kits, as it stands in battle, gathering a curse at
+ * the staff's skull, and thrusting the curse out of its free hand; below, the painted faces close.
+ */
+fun renderShamanDraft() {
+    val W = 170; val H = 200; val sc = 3
+    fun gear(slot: de.bornim.core.GearSlot, base: String) = slot to de.bornim.core.Gear(0, base, de.bornim.core.Rarity.COMMON, 1)
+    val kits = listOf(
+        de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(gear(de.bornim.core.GearSlot.CHEST, "robe"), gear(de.bornim.core.GearSlot.MAIN_HAND, "staff")), rusty = true, crude = true, fetish = true),
+        de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(gear(de.bornim.core.GearSlot.MAIN_HAND, "staff")), rusty = true, crude = true, pelt = true, fetish = true),
+        de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, mapOf(gear(de.bornim.core.GearSlot.CHEST, "robe"), gear(de.bornim.core.GearSlot.MAIN_HAND, "staff")), rusty = true, crude = true, pelt = true, fetish = true))
+    // as the battle shows a goblin: stooped, knees bent, turned to face the hero on the left
+    fun goblin(r: de.bornim.core.art.HeroFigure.Rig) = r.copy(lean = r.lean + 0.35, crouch = r.crouch + 4.0, headDown = r.headDown - 2.5, yaw = r.yaw - 180.0)
+    val rest = de.bornim.core.art.HeroFigure.STAFF_REST.copy(lh = de.bornim.core.art.HeroFigure.V(-24.0, 70.0, 24.0), glow = 0.35, freeHand = 1.0)
+    val gather = de.bornim.core.art.HeroFigure.STAFF_GATHER.copy(lh = de.bornim.core.art.HeroFigure.V(-28.0, 84.0, 30.0))
+    val curse = de.bornim.core.art.HeroFigure.STAFF_REST.copy(rh = de.bornim.core.art.HeroFigure.V(19.0, 66.0, 6.0), lh = de.bornim.core.art.HeroFigure.V(-12.0, 86.0, 44.0), glow = 1.0, glowAt = 1.0, freeHand = 1.0, lean = 0.3, stride = 6.0)
+    val poses = listOf(rest, gather, curse).map(::goblin)
+    val img = BufferedImage(W * 3 * sc, (H * 3 + 110) * sc, BufferedImage.TYPE_INT_ARGB)
+    val g = img.createGraphics(); g.color = java.awt.Color(0x2E3530); g.fillRect(0, 0, img.width, img.height)
+    for (v in 0 until 3) {
+        val doll = de.bornim.core.art.Doll(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, de.bornim.core.Build.entries[v], v, v, de.bornim.core.art.Doll.Creature.GOBLIN, 1.0 + 0.05 * v)
+        val px = 1.25
+        for ((row, rig) in poses.withIndex()) {
+            val p = doll.render(W, H, W / 2.0 + 15, H - 12.0, px, rig, kits[v]).img
+            for (y in 0 until H) for (x in 0 until W) { val q = p[x, y]; if ((q ushr 24) < 128) continue
+                g.color = java.awt.Color(q, true); g.fillRect((v * W + x) * sc, (row * H + y) * sc, sc, sc) }
+        }
+        val hp = 85.0 / doll.hh
+        val HW = 110; val HH = 110
+        val h2 = doll.render(HW, HH, HW / 2.0, HH / 2.0 + (doll.height - doll.hh * 0.5) * 0.966 * hp, hp, de.bornim.core.art.HeroFigure.STAFF_REST.copy(yaw = listOf(-20.0, 0.0, 20.0)[v]), kits[v]).img
+        for (y in 0 until HH) for (x in 0 until HW) { val q = h2[x, y]; if ((q ushr 24) < 128) continue
+            g.color = java.awt.Color(q, true); g.fillRect((v * W + 30 + x) * sc, (3 * H + y) * sc, sc, sc) }
+    }
+    ImageIO.write(img, "png", File("build/screens/entwurf_schamane2.png"))
+    println("wrote shaman draft")
+}

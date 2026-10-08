@@ -239,10 +239,23 @@ object HeroFigure {
     // two-handed parry, high (big foes striking down): the weapon across above the brow, braced the same way at its head
     val PARRY_HIGH = Rig(lean = -0.05, crouch = 2.5, stride = 3.0, rh = V(12.0, 100.0, 10.0), weapon = V(-1.0, 0.08, 0.15), lh = V(-12.0, 96.0, 12.0), headDown = 2.0,
         twist = 5.0, grip = 88.0, aim = 1.0, brace = 1.0)
+    // a shield set low and braced, the hero crouched in behind it with the shoulder in, against anything big or small
+    val BLOCK_BRACED = BLOCK_LOW.copy(crouch = 7.5, lean = 0.4, stride = 6.0, lh = V(-2.0, 82.0, 26.0), shieldFace = V(0.05, 0.05, 1.0), headDown = 6.0)
+    // the shield turned to glance the blow off to the side, the shield shoulder well forward
+    val BLOCK_TURN = BLOCK.copy(lean = 0.05, stride = 5.0, twist = 34.0, lh = V(-6.0, 86.0, 22.0), shieldFace = V(-0.3, 0.1, 1.0))
+    // two-handed, slanted across the body from high to low, so the blow runs off down the blade
+    val PARRY_SLANT = PARRY.copy(crouch = 3.0, rh = V(12.0, 90.0, 14.0), weapon = V(-0.85, 0.5, 0.2), lh = V(-12.0, 82.0, 14.0), twist = 12.0)
+    // two-handed hanging guard: the hands high, the weapon's head down before the body
+    val PARRY_HANG = PARRY_HIGH.copy(rh = V(16.0, 102.0, 12.0), weapon = V(-0.5, -0.78, 0.38), lh = V(-6.0, 96.0, 14.0), twist = 10.0, brace = 0.0)
+
     // struck: thrown back a step, the chest twisting away from the blow, the weapon arm flung out and down, the shield
     // pulled in before the body
     val HURT = Rig(lean = -0.35, crouch = 2.5, stride = -3.0, rh = V(19.0, 66.0, 6.0), weapon = V(0.55, -0.35, 0.75), lh = V(-6.0, 74.0, 15.0), headDown = -2.5, cloak = -2.0,
         grip = 35.0, aim = 1.0, twist = 12.0)
+    // struck in the belly: doubled over, the head going down, the arms pulled in
+    val HURT_DOUBLE = HURT.copy(lean = 0.55, crouch = 5.5, stride = -1.5, headDown = 6.0, twist = 18.0, rh = V(17.0, 60.0, 10.0), lh = V(-8.0, 66.0, 18.0))
+    // struck from the side: wrenched round, the head snapping aside, a stumbling step back
+    val HURT_WRENCH = HURT.copy(lean = -0.1, crouch = 3.0, stride = -5.0, twist = -26.0, headTurn = 22.0, headDown = 1.0, rh = V(21.0, 70.0, 2.0), lh = V(-10.0, 78.0, 12.0))
 
     /** Earnest victory poses, facing us again. */
     val VICTORY_POSES = listOf(
@@ -382,7 +395,7 @@ object HeroFigure {
 
     /** Everything one stance can do, built once. */
     private class Kit(val idle: List<Rig>, val intro: List<Rig>, val seq: Map<Strike, List<Rig>>, val xbow: List<Rig>, val casts: List<List<Rig>>, val throws: List<List<Rig>>,
-        val blocks: List<List<Rig>>, val hurt: List<Rig>, val turn: List<Rig>, val ambush: List<Rig>, val victories: List<List<Rig>>)
+        val blocks: List<List<Rig>>, val hurts: List<List<Rig>>, val turn: List<Rig>, val ambush: List<Rig>, val victories: List<List<Rig>>)
 
     private fun kit(st: Stance): Kit {
         val r = restOf(st)
@@ -395,7 +408,7 @@ object HeroFigure {
         val wins = RANGED_VICTORY[st] ?: VICTORY_POSES
         // a long staff is not flung about like a blade: when struck it stays upright, its top tipped back, its foot clear in front
         fun held(k: Rig, w: V = V(0.1, 1.0, -0.2)) = if (st == Stance.STAFF) k.copy(weapon = w, grip = 70.0, aim = 1.0, freeHand = 1.0) else k
-        val hurtKey = held(HURT)
+        val hurtKeys = listOf(HURT, HURT_DOUBLE, HURT_WRENCH).map { held(it) }
         // stumbling forward, the head comes down: the staff's top is kept out to the side of it
         val stagger = held(STAGGER, V(0.55, 1.0, -0.12))
         val turning = held(TURNING, V(0.05, 1.0, -0.15))
@@ -406,6 +419,8 @@ object HeroFigure {
                 Strike.SLASH to tween(r to 3, SLASH_WIND to 4, SLASH_OVER to 2, SLASH_HIT to 3, SLASH_FOLLOW to 5, r to 1),
                 // with a spear the thrust comes from below, the smash over the shoulder like a javelin
                 Strike.THRUST to if (st == Stance.SPEAR) SPEAR_LOW
+                    // a long staff drawn back out to the side, so its foot stays clear of the body behind the hand
+                    else if (st == Stance.STAFF) tween(r to 3, THRUST_WIND.copy(rh = V(28.0, 72.0, -2.0), weapon = V(0.32, 0.1, 0.94)) to 5, THRUST_HIT to 3, THRUST_HIT.copy(trail = 0.0) to 5, r to 1)
                     else tween(r to 3, THRUST_WIND to 5, THRUST_HIT to 3, THRUST_HIT.copy(trail = 0.0) to 5, r to 1),
                 Strike.SMASH to if (st == Stance.SPEAR) SPEAR_HIGH
                     else tween(r to 2, SMASH_RAISE to 2, SMASH_WIND to 4, SMASH_OVER to 2, SMASH_HIT to 3, SMASH_HIT.copy(trail = 0.0) to 5, r to 1),
@@ -421,13 +436,14 @@ object HeroFigure {
                 val up = planted(a.copy(glow = 0.0)); val go = planted(b.copy(glow = 0.0))
                 tween(r to 5, up to 3, up to 2, go to 3, go to 3, up to 2, r to 1)
             },
-            // 0 shield high, 1 two-handed low, 2 shield low, 3 two-handed high
+            // 0 shield high, 1 two-handed low, 2 shield low, 3 two-handed high, 4 shield braced, 5 shield turned,
+            // 6 two-handed slanted, 7 two-handed hanging
             // a staff beside a shield is not cocked like a blade: it stays planted while the shield takes the blow
-            blocks = listOf(BLOCK, PARRY, BLOCK_LOW, PARRY_HIGH).mapIndexed { v, k ->
-                val key = if (st == Stance.STAFF && (v == 0 || v == 2)) k.copy(rh = r.rh + V(5.0, 2.0, 6.0), weapon = V(-0.15, 1.0, 0.15), grip = r.grip, aim = r.aim) else k
+            blocks = listOf(BLOCK, PARRY, BLOCK_LOW, PARRY_HIGH, BLOCK_BRACED, BLOCK_TURN, PARRY_SLANT, PARRY_HANG).mapIndexed { v, k ->
+                val key = if (st == Stance.STAFF && v in SHIELD_BLOCKS) k.copy(rh = r.rh + V(5.0, 2.0, 6.0), weapon = V(-0.15, 1.0, 0.15), grip = r.grip, aim = r.aim) else k
                 tween(r to 3, key to 4, key to 5, r to 1)
             },
-            hurt = tween(r to 2, hurtKey to 4, r to 1),
+            hurts = hurtKeys.map { tween(r to 2, it to 4, r to 1) },
             /** Facing us, then a smooth turn of the whole body to the foe, with a step. */
             turn = tween(ready to 2, turning to 7, r to 7),
             ambush = tween(ready to 1, stagger to 3, stagger.copy(bodyY = 1.0, lean = 0.3) to 4, turning to 6, r to 7),
@@ -440,6 +456,9 @@ object HeroFigure {
 
     private val kits = java.util.concurrent.ConcurrentHashMap<Stance, Kit>()
     private fun kitOf(st: Stance) = kits.getOrPut(st) { kit(st) }
+
+    /** The guards taken with a shield; the others are two-handed parries. */
+    val SHIELD_BLOCKS = setOf(0, 2, 4, 5)
 
     /** The frame of each strike at which the blow lands (or the arrow and spell fly). */
     fun strikeFrame(s: Strike): Int = when (s) {
@@ -479,14 +498,15 @@ object HeroFigure {
     fun strikes(hero: Hero): List<Strike> {
         val w = hero.item(GearSlot.MAIN_HAND)?.def
         return when {
-            w == null -> if (hero.cls == CharClass.WIZARD || hero.cls == CharClass.CLERIC) listOf(Strike.SMASH) else listOf(Strike.SMASH, Strike.THRUST)
+            w == null -> if (hero.cls == CharClass.WIZARD || hero.cls == CharClass.CLERIC) listOf(Strike.SMASH) else listOf(Strike.SMASH, Strike.THRUST, Strike.SLASH)
             w.ranged -> listOf(Strike.SHOOT)
             // a spear is not swung like a blade: thrust from below, or driven down over the shoulder
             w.id == "spear" -> listOf(Strike.THRUST, Strike.SMASH)
-            w.icon == Icon.DAGGER || w.icon == Icon.SPEAR -> listOf(Strike.THRUST, Strike.SLASH)
-            w.icon == Icon.MACE || w.icon == Icon.HAMMER || w.icon == Icon.STAFF -> listOf(Strike.SMASH, Strike.SLASH)
-            w.twoHanded -> listOf(Strike.SMASH, Strike.SLASH)
-            else -> listOf(Strike.SLASH, Strike.THRUST)
+            // three blows with every hand weapon: a cut, a thrust and one struck down from above, each first where it suits
+            w.icon == Icon.DAGGER || w.icon == Icon.SPEAR -> listOf(Strike.THRUST, Strike.SLASH, Strike.SMASH)
+            w.icon == Icon.MACE || w.icon == Icon.HAMMER || w.icon == Icon.STAFF -> listOf(Strike.SMASH, Strike.SLASH, Strike.THRUST)
+            w.twoHanded -> listOf(Strike.SMASH, Strike.SLASH, Strike.THRUST)
+            else -> listOf(Strike.SLASH, Strike.THRUST, Strike.SMASH)
         }
     }
 
@@ -499,7 +519,7 @@ object HeroFigure {
             Act.CAST -> k.casts[variant.mod(k.casts.size)]
             Act.THROW -> k.throws[variant.mod(k.throws.size)]
             Act.BLOCK -> k.blocks[variant.mod(k.blocks.size)]
-            Act.HURT -> k.hurt
+            Act.HURT -> k.hurts[variant.mod(k.hurts.size)]
             Act.INTRO -> k.intro
             Act.TURN -> k.turn
             Act.AMBUSHED -> k.ambush

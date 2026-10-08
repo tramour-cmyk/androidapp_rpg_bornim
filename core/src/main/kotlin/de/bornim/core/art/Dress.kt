@@ -42,7 +42,7 @@ class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Bool
 
         /** A foe's kit as an outfit to dress its doll in. */
         fun of(kit: de.bornim.core.MonsterKit) = Outfit(CharClass.FIGHTER,
-            kit.items.mapValues { (_, base) -> Gear(0, base, Rarity.COMMON, 1) }, kit.rusty, kit.crude, kit.pelt, kit.bothHands, kit.cloak)
+            kit.items.mapValues { (_, base) -> Gear(0, base, Rarity.COMMON, 1) }, kit.rusty, kit.crude, kit.pelt, kit.bothHands, kit.cloak, fetish = kit.fetish)
     }
 }
 
@@ -65,9 +65,11 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     private val gold = m(argb(0xB8904A), shine = 0.7)
     private val wood = m(argb(0x6E4A2C), grain = 0.12)
     // a creature's robe is filthy homespun, stained dark; a hero's is in the colours of the class
-    private val cloth = if (d.kind != null) m(argb(0x4A382A), grain = 0.32) else m(worn(look.cloth), grain = 0.05)
+    // a shaman's robe is near black, crusted with old blood and soot
+    private val cloth = if (o.fetish) m(argb(0x221816), grain = 0.45) else if (d.kind != null) m(argb(0x4A382A), grain = 0.32) else m(worn(look.cloth), grain = 0.05)
     private val clothDark = if (d.kind != null) m(argb(0x2E241C), grain = 0.32) else m(worn(look.clothDark, 0.45), grain = 0.05)
-    private val pants = m(worn(look.pants, 0.3), grain = 0.05)
+    // a creature's legs under a robe are its own or in the same filthy cloth, never a hero's coloured hose
+    private val pants = if (d.kind != null) clothDark else m(worn(look.pants, 0.3), grain = 0.05)
     private fun chain(r: Rarity) = if (o.rusty) m(argb(0x5E4A3C), shine = 0.2, grain = 0.6) else m(mix(argb(0x8A9098), r.color.toInt(), if (r >= Rarity.RARE) 0.12 else 0.0), shine = 0.4, grain = 0.45)
     private fun cloakColor(r: Rarity) = o.cloakRgb?.let { worn(argb(it), 0.2) } ?: worn(argb(when (r) {
         Rarity.COMMON -> 0x5A4A3A; Rarity.UNCOMMON -> 0x3E5A3A; Rarity.RARE -> 0x34486E; Rarity.VERY_RARE -> 0x5A3A6E; Rarity.EPIC -> 0x7A4A22; Rarity.DIVINE -> 0x8A7A3A
@@ -697,6 +699,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val main = o.items[GearSlot.MAIN_HAND]
         val holy = off?.def?.icon == Icon.SYMBOL || (o.cls == CharClass.CLERIC && off?.def?.icon != Icon.ORB)
         val r = (if (sk.rig.glowAt > 0.5) off?.rarity else main?.rarity) ?: Rarity.COMMON
+        // a shaman's curse burns a sickly green
+        if (o.fetish) return argb(0x9CE85A)
         return mix(argb(if (holy) 0xFFD87A else 0x80C8FF), r.color.toInt(), if (r >= Rarity.UNCOMMON) 0.35 else 0.0)
     }
 

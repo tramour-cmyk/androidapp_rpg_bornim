@@ -1458,7 +1458,10 @@ fun checkFoeClashes() {
 
 /** Every act of one foe as a strip of frames, one row per act and variant. */
 fun renderFoeAnims() {
-    val cases = if (System.getenv("FOEANIM") == "neu") listOf("kobold" to 0, "kobold" to 2, "zombie" to 0, "zombie" to 2, "bugbear" to 0, "hobgoblin_captain" to 0)
+    val arg = System.getenv("FOEANIM")
+    // FOEANIM=ghoul:0,ghoul:1 for chosen foes and look seeds
+    val cases = if (arg.contains(":")) arg.split(",").map { it.substringBefore(":") to it.substringAfter(":").toInt() }
+        else if (arg == "neu") listOf("kobold" to 0, "kobold" to 2, "zombie" to 0, "zombie" to 2, "bugbear" to 0, "hobgoblin_captain" to 0)
         else listOf("goblin" to 0, "goblin" to 2, "goblin_archer" to 0, "skeleton" to 2, "skeleton" to 1)
     val acts = listOf(de.bornim.core.art.Act.IDLE to 0) + listOf(de.bornim.core.art.Act.ATTACK, de.bornim.core.art.Act.HURT, de.bornim.core.art.Act.DODGE, de.bornim.core.art.Act.DIE).flatMap { a -> (0..2).map { a to it } }
     val cw = 150; val cols = 8; val F = de.bornim.core.art.FoeArt
@@ -1788,4 +1791,70 @@ fun renderFallSequence(spec: String) {
     }
     ImageIO.write(out, "png", File("build/screens/fall_${id}_$v.png"))
     println("wrote fall $id $v ($n frames)")
+}
+
+/**
+ * One foe close up, large, for judging its look (FOECLOSE=ghoul): per look seed the rest, the wind-up and the blow of
+ * each attack, three times as large.
+ */
+fun renderFoeClose() {
+    val id = System.getenv("FOECLOSE")
+    val F = de.bornim.core.art.FoeArt
+    val sc = 3; val cw = 170; val top = 30
+    val picks = listOf(Triple(de.bornim.core.art.Act.IDLE, 0, 0)) + (0..2).flatMap { v ->
+        val st = F.sequence(id, de.bornim.core.MonsterLook(0), de.bornim.core.art.Act.ATTACK, v).strike
+        listOf(Triple(de.bornim.core.art.Act.ATTACK, v, st - 3), Triple(de.bornim.core.art.Act.ATTACK, v, st))
+    }
+    val h = F.height(id) - top
+    val out = BufferedImage(cw * sc * picks.size, h * sc * 3, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x3A4436); g.fillRect(0, 0, out.width, out.height)
+    for (seed in 0..2) for ((c, p) in picks.withIndex()) {
+        val im = F.frame(id, de.bornim.core.MonsterLook(seed), p.first, p.second, p.third)
+        val ox = (F.ANCHOR_X.toInt() - cw / 2 - 20)
+        for (y in top until im.height) for (x in 0 until im.width) {
+            val X = x - ox; if (X !in 0 until cw) continue
+            val q = im[x, y]; if ((q ushr 24) < 128) continue
+            g.color = java.awt.Color(q and 0xFFFFFF); g.fillRect((c * cw + X) * sc, (seed * h + y - top) * sc, sc, sc)
+        }
+    }
+    ImageIO.write(out, "png", File("build/screens/foeclose_$id.png"))
+    println("wrote foeclose $id")
+}
+
+/**
+ * The hero's new variants (HEROVAR=1): every way of being struck, every guard that suits the kit, every blow of the
+ * weapon, for every race and several kits: frames where a weapon passes through the body or the shield.
+ */
+fun checkHeroVariants() {
+    val F = de.bornim.core.art.HeroFigure
+    val B = de.bornim.core.art.HeroBattle
+    var uid = 1L
+    fun g(base: String) = de.bornim.core.Gear(uid++, base, de.bornim.core.Rarity.COMMON, 3)
+    val kits = listOf(listOf("longsword", "shield"), listOf("mace", "shield"), listOf("dagger", "shield"), listOf("scimitar", "shield"),
+        listOf("greatsword"), listOf("greataxe"), listOf("quarterstaff"), listOf("spear", "shield"), listOf("handaxe"))
+    var total = 0; var body = 0; var shield = 0
+    val where = sortedMapOf<String, Int>()
+    for (race in de.bornim.core.Race.entries) for (kit in kits) {
+        val hero = de.bornim.core.Hero.create("T", race, de.bornim.core.CharClass.FIGHTER)
+        val items = mutableMapOf(de.bornim.core.GearSlot.MAIN_HAND to g(kit[0]))
+        if (kit.size > 1) items[de.bornim.core.GearSlot.OFF_HAND] = g(kit[1])
+        val outfit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, items)
+        val doll = de.bornim.core.art.Doll(race, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE)
+        val stance = F.stance(de.bornim.core.GearBases[kit[0]])
+        val twoH = outfit.twoHands
+        val guards = if (twoH) listOf(1, 3, 6, 7) else listOf(0, 2, 4, 5)
+        // the strikes as the hero would have them with this weapon in hand
+        hero.equip(items.getValue(de.bornim.core.GearSlot.MAIN_HAND))
+        val strikes = B.strikes(hero)
+        val runs = (0..2).map { Triple(de.bornim.core.art.HeroFigure.Act.HURT, de.bornim.core.art.HeroFigure.Strike.SLASH, it) } + guards.map { Triple(de.bornim.core.art.HeroFigure.Act.BLOCK, de.bornim.core.art.HeroFigure.Strike.SLASH, it) } + strikes.map { Triple(de.bornim.core.art.HeroFigure.Act.ATTACK, it, 0) }
+        for ((act, strike, v) in runs) for ((i, rig) in F.sequence(act, strike, v, stance).withIndex()) {
+            total++
+            val dress = doll.fit(rig, outfit).second!!.first
+            val k = "${kit[0]} $act/$strike/$v"
+            dress.weaponThroughBody()?.let { t -> body++; where["K $k"] = (where["K $k"] ?: 0) + 1; if (body <= 40) println("KOERPER ${race.name} $k Bild $i ${(t * 100).toInt()} % ${dress.lastClash}") }
+            if (!twoH && kit.size > 1) dress.weaponThroughShield()?.let { t -> shield++; where["S $k"] = (where["S $k"] ?: 0) + 1; if (shield <= 40) println("SCHILD ${race.name} $k Bild $i ${(t * 100).toInt()} %") }
+        }
+    }
+    println("Held-Varianten: $total Bilder, durch Koerper $body, durch Schild $shield")
+    where.forEach { (k, n) -> println("  $k: $n") }
 }

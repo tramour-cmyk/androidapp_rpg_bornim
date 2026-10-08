@@ -50,6 +50,8 @@ Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md), w
 - **Neue Ausrüstungseigenschaft:** Giftresistenz.
 - **Monster-Geräusche:** eigene Laute je Gegnerart, jeweils in mehreren zufälligen Varianten wie beim Wolfsheulen. Zum Beispiel Knurren vor dem Angriff, Fauchen, Schmerzlaute bei Treffern und Todeslaute. Dazu Klappern bei Skeletten, Stöhnen bei Zombies, Schmatzen beim Ockergallert, Kreischen bei Fledermäusen, Kampfrufe bei Goblins und Kobolden, Brüllen bei Bossen. Elite-Gegner und Grimmzahn klingen tiefer.
 
+- **Rudelwölfe beißen ins Leere (gemeldet 08.10., v0.1.210):** Der Leitwolf springt beim Biss zum Helden, die anderen Wölfe des Rudels beißen nur auf ihrem Platz im Hintergrund (im Film bestätigt). Vorschlag: Rudelwölfe springen wie der Leitwolf zum Helden und zurück, gleitend und im selben Takt; wer beißt, wird vor den anderen gezeichnet.
+
 ## Welt und Leben auf der Karte
 
 - **Wegesystem:** geschwungene Wege statt Treppenstufen aus Kacheln. Wege werden als Linien mit Breite über die Karte gelegt (Kurven, Abzweigungen, ausgefranste Ränder, Fahrspuren) und nicht mehr Kachel für Kachel gezeichnet. Gilt für Waldpfade, Dorfwege und spätere Straßen; Begehbarkeit bleibt wie bisher an den Kacheln.

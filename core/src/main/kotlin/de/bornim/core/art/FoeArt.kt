@@ -32,7 +32,7 @@ object FoeArt {
     const val PX = 0.66
 
     /** Foes drawn this way. */
-    val KINDS = setOf("goblin", "goblin_archer", "skeleton", "kobold", "zombie", "bugbear", "hobgoblin_captain")
+    val KINDS = setOf("goblin", "goblin_archer", "skeleton", "kobold", "zombie", "bugbear", "hobgoblin_captain", "ghoul", "goblin_shaman")
 
     fun creature(id: String) = when (id) {
         "skeleton" -> Doll.Creature.SKELETON
@@ -40,6 +40,7 @@ object FoeArt {
         "zombie" -> Doll.Creature.ZOMBIE
         "bugbear" -> Doll.Creature.BUGBEAR
         "hobgoblin_captain" -> Doll.Creature.HOBGOBLIN
+        "ghoul" -> Doll.Creature.GHOUL
         else -> Doll.Creature.GOBLIN
     }
 
@@ -48,14 +49,16 @@ object FoeArt {
 
     fun outfit(id: String, look: MonsterLook) = Outfit.of(MonsterKits.of(id, look.seed)!!)
 
-    /** How the foe fights: with a bow, a spear, two blades, or one blade (with or without a shield). */
-    private enum class Style { BLADE, SPEAR, TWO_BLADES, BOW }
+    /** How the foe fights: with a bow, a spear, two blades, one blade (with or without a shield), its claws, or spells from a staff. */
+    private enum class Style { BLADE, SPEAR, TWO_BLADES, BOW, CLAWS, STAFF }
 
     private fun style(id: String, look: MonsterLook): Style {
         val kit = MonsterKits.of(id, look.seed)!!
         val main = kit.items[GearSlot.MAIN_HAND]?.let { GearBases[it] }
         val off = kit.items[GearSlot.OFF_HAND]?.let { GearBases[it] }
         return when {
+            creature(id) == Doll.Creature.GHOUL -> Style.CLAWS
+            kit.items[GearSlot.MAIN_HAND] == "staff" -> Style.STAFF
             main?.ranged == true -> Style.BOW
             kit.items[GearSlot.MAIN_HAND] == "spear" -> Style.SPEAR
             off?.isWeapon == true -> Style.TWO_BLADES
@@ -83,7 +86,7 @@ object FoeArt {
         // a hobgoblin stands drilled and upright
         Doll.Creature.HOBGOBLIN -> r.copy(lean = r.lean * 0.6)
         // a ghoul crouches low like a beast about to spring, the head thrust forward
-        Doll.Creature.GHOUL -> r.copy(lean = r.lean + 0.55, crouch = r.crouch + 8.0, headDown = r.headDown - 3.0)
+        Doll.Creature.GHOUL -> r.copy(lean = r.lean + 1.7, crouch = r.crouch + 10.0, headDown = r.headDown - 10.0)
     }
 
     /** A sequence with the strike frame at which the blow lands, the arrow flies, or nothing (-1). */
@@ -98,7 +101,30 @@ object FoeArt {
         Style.TWO_BLADES -> HeroFigure.STAND.copy(lh = V(-16.0, 66.0, 18.0), spread = 8.0)
         Style.SPEAR -> HeroFigure.STAND.copy(rh = V(12.0, 74.0, 10.0), weapon = V(0.25, 0.65, 0.7), aim = 1.0, grip = 15.0)
         Style.BLADE -> HeroFigure.STAND
+        // both clawed hands held out before it, low and spread, ready to rake
+        Style.CLAWS -> CLAW_REST
+        // the staff planted, the skull on it glowing faintly; the free hand held out before it, fingers hooked
+        Style.STAFF -> SHAMAN_REST
     }
+
+    // a shaman: struck with the staff like a club, a fire bolt gathered at the skull and flung, a curse thrust from the hand
+    private val SHAMAN_REST = HeroFigure.STAFF_REST.copy(lh = V(-24.0, 70.0, 24.0), glow = 0.25, freeHand = 1.0)
+    private val SHAMAN_GATHER = HeroFigure.STAFF_GATHER.copy(lh = V(-28.0, 84.0, 30.0))
+    private val SHAMAN_RELEASE = HeroFigure.STAFF_RELEASE
+    private val CURSE_GATHER = SHAMAN_REST.copy(lh = V(-16.0, 84.0, 8.0), glow = 0.7, glowAt = 1.0, lean = -0.1, headDown = -2.0)
+    private val CURSE_RELEASE = SHAMAN_REST.copy(lh = V(-12.0, 86.0, 44.0), glow = 1.0, glowAt = 1.0, lean = 0.3, stride = 6.0)
+
+    // a ghoul's claws: held out low and wide, raised high behind the head, raked down across the hero
+    private val CLAW_REST = HeroFigure.STAND.copy(rh = V(32.0, 62.0, 24.0), lh = V(-30.0, 60.0, 26.0), spread = 12.0, headDown = -3.0)
+    private val CLAW_WIND = CLAW_REST.copy(rh = V(34.0, 82.0, -14.0), lh = V(-24.0, 58.0, 30.0), twist = -26.0, lean = -0.1, headDown = -6.0)
+    private val CLAW_HIT = CLAW_REST.copy(rh = V(4.0, 66.0, 50.0), lh = V(-24.0, 56.0, 22.0), twist = 28.0, lean = 0.3, stride = 8.0)
+    private val CLAW_FOLLOW = CLAW_HIT.copy(rh = V(-12.0, 48.0, 34.0), twist = 34.0)
+    // both claws together, from high over the shoulders down into the hero
+    private val BOTH_WIND = CLAW_REST.copy(rh = V(34.0, 80.0, -10.0), lh = V(-34.0, 79.0, -10.0), lean = -0.2, headDown = -8.0, spread = 13.0)
+    private val BOTH_HIT = CLAW_REST.copy(rh = V(12.0, 62.0, 50.0), lh = V(-14.0, 60.0, 50.0), lean = 0.45, stride = 9.0, headDown = -2.0)
+    // a spring from the crouch, claws driven at the belly and the jaws after them
+    private val LEAP_WIND = CLAW_REST.copy(rh = V(18.0, 50.0, -6.0), lh = V(-16.0, 50.0, -4.0), crouch = 9.0, lean = 0.35, headDown = -6.0)
+    private val LEAP_HIT = CLAW_REST.copy(rh = V(10.0, 72.0, 56.0), lh = V(-10.0, 70.0, 54.0), lean = 0.65, stride = 12.0, headDown = -8.0)
 
     // the hero's lunge, the point driven on and down at the hero, coming out of the picture
     private val THRUST_W = HeroFigure.THRUST_WIND.copy(weapon = V(0.1, 0.02, 0.99), aim = 1.0)
@@ -139,6 +165,19 @@ object FoeArt {
                     Seq(tween(r to 3, HeroFigure.SLASH_WIND to 4, HeroFigure.SLASH_HIT to 3, stab to 3, stab to 4, r to 1), 7),
                 )
             }
+            Style.STAFF -> listOf(
+                // the staff swung down like a club
+                Seq(tween(r to 2, HeroFigure.SMASH_RAISE.copy(rh = V(24.0, 96.0, 9.0)) to 2, HeroFigure.SMASH_WIND to 4, HeroFigure.SMASH_OVER to 2, HeroFigure.SMASH_HIT to 3, HeroFigure.SMASH_HIT.copy(trail = 0.0) to 5, r to 1), 10),
+                // a fire bolt: gathered at the skull on the raised staff, flung with the staff thrust out
+                Seq(tween(r to 3, SHAMAN_GATHER to 5, SHAMAN_GATHER.copy(glow = 1.0) to 2, SHAMAN_RELEASE to 3, SHAMAN_RELEASE.copy(glow = 0.3) to 5, r to 1), 10),
+                // a curse: drawn up green in the free hand, then thrust out at the hero
+                Seq(tween(r to 3, CURSE_GATHER to 5, CURSE_GATHER.copy(glow = 1.0) to 2, CURSE_RELEASE to 3, CURSE_RELEASE.copy(glow = 0.3) to 5, r to 1), 10),
+            )
+            Style.CLAWS -> listOf(
+                Seq(tween(r to 3, CLAW_WIND to 4, CLAW_HIT to 3, CLAW_FOLLOW to 5, r to 1), 7),
+                Seq(tween(r to 3, BOTH_WIND to 4, BOTH_HIT to 3, BOTH_HIT to 5, r to 1), 7),
+                Seq(tween(r to 3, LEAP_WIND to 5, LEAP_HIT to 3, LEAP_HIT to 5, r to 1), 8),
+            )
             Style.BLADE -> listOf(
                 Seq(tween(r to 3, HeroFigure.SLASH_WIND to 4, HeroFigure.SLASH_OVER to 2, HeroFigure.SLASH_HIT to 3, HeroFigure.SLASH_FOLLOW to 5, r to 1), 9),
                 // the blade raised wide of the big head
@@ -176,8 +215,8 @@ object FoeArt {
     private fun deaths(s: Style): List<Seq> {
         val r = rest(s)
         val reel = HeroFigure.HURT.copy(rh = r.rh, weapon = r.weapon, aim = r.aim, grip = r.grip, lh = r.lh)
-        // the weapon hand goes slack, the blade hanging down
-        val limp = V(0.2, -1.0, 0.25)
+        // the weapon hand goes slack, the blade hanging down; a long staff falls away to the side, clear of the body
+        val limp = if (s == Style.STAFF) V(0.85, -0.45, 0.25) else V(0.2, -1.0, 0.25)
         val slack = r.copy(weapon = limp, aim = 1.0, grip = 30.0)
         return listOf(
             // the knees give, then it pitches forward onto its face, the arms thrown out before it
@@ -226,8 +265,17 @@ object FoeArt {
 
     // ---------------------------------------------------------------- the lunge
 
-    /** Whether the foe steps in to strike: all but the archers, who shoot from where they stand. */
-    fun lunges(id: String, look: MonsterLook) = style(id, look) != Style.BOW
+    /** Whether the foe steps in to strike: all but the archers, who shoot from where they stand, and spells. */
+    fun lunges(id: String, look: MonsterLook, variant: Int = 0) = when (style(id, look)) {
+        Style.BOW -> false
+        Style.STAFF -> variant.mod(3) == SHAMAN_STAFF
+        else -> true
+    }
+
+    /** A shaman's attacks: the staff swung as a club, the fire bolt, the curse. */
+    const val SHAMAN_STAFF = 0
+    const val SHAMAN_BOLT = 1
+    const val SHAMAN_CURSE = 2
 
     /** How much larger the foe is drawn at the end of its lunge: it comes nearer to us, towards the hero. */
     const val LUNGE_SCALE = 1.18
@@ -252,7 +300,7 @@ object FoeArt {
      * through it, all the way when the blow lands, and back through the follow-through.
      */
     fun lungeAt(id: String, look: MonsterLook, variant: Int, index: Double): Double {
-        if (!lunges(id, look)) return 0.0
+        if (!lunges(id, look, variant)) return 0.0
         val seq = sequence(id, look, Act.ATTACK, variant)
         val hit = seq.strike.coerceAtLeast(1)
         val n = seq.rigs.size
