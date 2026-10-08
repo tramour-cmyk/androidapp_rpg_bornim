@@ -56,14 +56,13 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
   - Gegner getroffen/ausweichen: nicht zufällig, sondern nach der Nummer der Meldung (durch drei geteilt); bei gleichförmigen Runden kann das immer dieselbe Variante treffen.
   - Gegner-Sturz: eine von drei, fest pro Gegner (auch für Taumeln beim tödlichen Treffer); wechselt nur von Kampf zu Kampf.
   - Held-Angriff: nur zwei Schläge je Waffe, abwechselnd. Held getroffen: nur eine Bewegung. Held-Abwehr: fest je Waffe und Gegnerart. Held-Zauber: fest je Fokus. Held-Ausweichen: ein Hüpfer, zwei Seiten.
-  - Vorschlag: (1) Gegner: Angriff, Treffer und Ausweichen zufällig, aber nie zweimal hintereinander gleich. (2) Held: zwei weitere Treffer-Bewegungen, eine dritte Abwehr je Waffenart, ein dritter Schlag je Waffe. Von dir freigegeben (08.10.), beide umgesetzt (siehe „Zu testen“). Noch offen: Ausweichen des Helden ist weiter nur ein Hüpfer (zwei Seiten); Speer zwei Stöße; Zauber eine Bewegung je Fokus.
+  - Vorschlag: (1) Gegner: Angriff, Treffer und Ausweichen zufällig, aber nie zweimal hintereinander gleich. (2) Held: zwei weitere Treffer-Bewegungen, eine dritte Abwehr je Waffenart, ein dritter Schlag je Waffe. Von dir freigegeben (08.10.), beide umgesetzt, von dir freigegeben und auf `main` übernommen. Noch offen: Ausweichen des Helden ist weiter nur ein Hüpfer (zwei Seiten); Speer zwei Stöße; Zauber eine Bewegung je Fokus.
 - **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Ghul seit 08.10. ebenfalls (von dir bestätigt, Zweig). Goblin-Schamane seit 08.10. ebenfalls (von dir bestätigt, Zweig). Noch im alten Stil: Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
 
 ## Zu testen
 
-**Mehr Abwechslung in den Bewegungen, Zweig-Build 0.1.222**. Worauf achten:
-- Held: wechseln die Schläge (Hieb, Stoß, Schlag von oben), die Abwehr (drei Haltungen) und das Getroffenwerden (drei Bewegungen)? Sieht eine davon falsch aus?
-- Gegner: wechseln Angriff, Getroffenwerden und Ausweichen, ohne dass dieselbe zweimal hintereinander kommt?
+**Zweig-Build 0.1.222** (Ghul, Schamane, Fernangriffe, mehr Varianten): von dir freigegeben, am 08.10. auf `main` übernommen.
+
 
 
 **Version v0.1.210** (veröffentlicht 08.10., 16:46; enthält die bestätigten Zweig-Builds 0.1.207 und 0.1.208). Worauf achten:
