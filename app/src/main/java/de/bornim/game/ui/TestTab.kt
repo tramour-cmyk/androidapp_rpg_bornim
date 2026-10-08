@@ -80,6 +80,12 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.refresh()
             vm.toast = t("Tränke, Flaschen, Essen und Zutaten aufgefüllt.", "Draughts, flasks, food and ingredients filled up.")
         }
+        var failSaves by remember { mutableStateOf(de.bornim.core.Battle.foesFailSaves) }
+        PixelButton(t("Gegner bestehen keine Rettungswürfe: ", "Foes fail every save: ") + (if (failSaves) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.Battle.foesFailSaves = !de.bornim.core.Battle.foesFailSaves
+            failSaves = de.bornim.core.Battle.foesFailSaves
+            vm.toast = if (failSaves) t("Untote vertreiben, Heilige Flamme und Co. gelingen jetzt immer.", "Turn Undead, Sacred Flame and the like now always work.") else t("Rettungswürfe wieder normal.", "Saves back to normal.")
+        }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()
             vm.refresh()

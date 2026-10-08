@@ -392,7 +392,7 @@ class Battle(
                     inflict(onHero = false, Status.BURN, 2)
                 }
                 // The blast also catches the pack in the background; they flee unless they dodge it.
-                if (pack != null && packLeft > 0 && outcome == Outcome.ONGOING && dice.d20() + monster.dexSave < hero.spellDc) {
+                if (pack != null && packLeft > 0 && outcome == Outcome.ONGOING && !foeSaves(monster.dexSave)) {
                     packLeft = 0
                     say(pack.burned(lang), Anim.PACK_FLEE)
                 }
@@ -407,7 +407,7 @@ class Battle(
                 say(Msg.blessed.f(lang, name), fx = fx(FxKind.BLESS, true))
             }
             Skill.TURN_UNDEAD -> {
-                if (dice.d20() + monster.wisSave >= hero.spellDc) {
+                if (foeSaves(monster.wisSave)) {
                     say(Msg.resists.f(lang, foe))
                 } else if (hero.level >= DESTROY_UNDEAD_LEVEL && crValue(monster.cr) <= 0.5) {
                     // Destroy Undead (SRD): from the cleric's 5th level a weak undead that fails is destroyed outright
@@ -435,7 +435,7 @@ class Battle(
     /** Returns true if the foe failed its save and took the full effect. */
     private fun saveSpell(dmg: DiceExpr, type: DamageType, saveMod: Int, half: Boolean, kind: FxKind): Boolean {
         val amount = dice.roll(dmg)
-        if (dice.d20() + saveMod >= hero.spellDc) {
+        if (foeSaves(saveMod)) {
             if (half) {
                 say(Msg.partlyDodges.f(lang, foe))
                 hitEnemy(maxOf(1, amount / 2), type, false, fx(kind, false))
@@ -979,12 +979,18 @@ class Battle(
 
     private fun flush(): List<Step> = merged(steps.toList()).also { steps.clear() }
 
+    /** The foe's saving throw against the hero's spell DC (never made in the test mode's "foes fail every save"). */
+    private fun foeSaves(mod: Int): Boolean = !foesFailSaves && dice.d20() + mod >= hero.spellDc
+
     /** A challenge rating as a number: "1/4" is 0.25. */
     private fun crValue(cr: String): Double = cr.split("/").let { if (it.size == 2) it[0].toDouble() / it[1].toDouble() else it[0].toDouble() }
 
     companion object {
         /** From this cleric level Turn Undead destroys undead of challenge rating 1/2 or lower (SRD: Destroy Undead). */
         const val DESTROY_UNDEAD_LEVEL = 5
+
+        /** Test mode only: foes fail every saving throw against the hero's spells (Turn Undead, Sacred Flame and the like). */
+        @Volatile var foesFailSaves = false
 
         /** The steps that start an action whose end is told by a later step. */
         val OPENERS = setOf(Anim.HERO_ACT, Anim.ENEMY_ACT, Anim.PACK_ACT, Anim.SPELL, Anim.THROW, Anim.DRINK)

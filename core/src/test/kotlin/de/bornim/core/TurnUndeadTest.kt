@@ -37,4 +37,16 @@ class TurnUndeadTest {
         assertTrue(Outcome.ENEMY_FLED in o)
         assertTrue(Outcome.WON !in o)
     }
+
+    @Test
+    fun testModeMakesEverySaveFail() {
+        Battle.foesFailSaves = true
+        try {
+            val o = outcomes(4, "zombie")
+            assertTrue(o == setOf(Outcome.ENEMY_FLED), "turned every time below level 5: $o")
+            assertTrue(outcomes(5, "skeleton") == setOf(Outcome.WON), "destroyed every time from level 5")
+        } finally {
+            Battle.foesFailSaves = false
+        }
+    }
 }

@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 13:07 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 13:13 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -22,15 +22,14 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## Zu testen
 
-**Version v0.1.196** (veröffentlicht). Worauf achten:
-- **Tödlicher Treffer gegen eine Schwäche** (z. B. Heilige Flamme gegen Skelett, Wucht gegen Skelett): kein Text, während der Gegner taumelt; „Das ist sehr effektiv!“ steht im Siegesfeld in der Trefferzeile.
-- **Spirituelle Waffe:** Beim Herbeirufen erscheint die Waffe neben dem Helden und schwebt, ohne zuzuschlagen. Danach schlägt sie einmal zu, der Text „schlägt zu“ steht mit dem Schaden in einer Zeile.
-- **Testreiter:** „Alle Vorräte auf mindestens 10“ füllt Tränke, Alchemistenfeuer, Weihwasser, Essen und Zutaten auf.
-- **Alchemistenfeuer** (jetzt leicht zu bekommen): Flasche mit brennendem Lappen, Scherben, haftende Flammen, danach brennt der Gegner.
+**Version v0.1.197** (veröffentlicht). Worauf achten:
+- **Untote vertreiben / zerstören** mit dem neuen Schalter im Testreiter „Gegner bestehen keine Rettungswürfe“: Kleriker unter Stufe 5 gegen Zombie oder Skelett → der Untote weicht zurück und flieht (EP, kein Gold, keine Beute). Ab Stufe 5 → er glüht auf und zerfällt zu Staub (mit Gold und Beute). Gegen den Ghul flieht er immer.
+- **Tödlicher Treffer gegen eine Schwäche** (z. B. Heilige Flamme gegen Skelett): kein Text, während der Gegner taumelt; „Das ist sehr effektiv!“ steht im Siegesfeld in der Trefferzeile.
+- **Alchemistenfeuer:** Flasche mit brennendem Lappen, Scherben, haftende Flammen, danach brennt der Gegner.
 - **Weitere Zustände**, sobald sie vorkommen: Vergiftet (Spinne, Hundertfüßer), Blutend (nach Blutstufe; bei „Aus“ nichts), Betäubt, Verlangsamt, Geschwächt (Fluch des Schamanen), Geblendet (Heilige Flamme). Zu schwach, zu stark, stören sie?
-- **Noch nicht bestätigt aus v0.1.194:** Kampftempo und „Kampftext: weiter automatisch“, Untote vertreiben/zerstören, Nebel in der Höhle.
+- **Noch nicht bestätigt aus v0.1.194:** Kampftempo und „Kampftext: weiter automatisch“, Nebel in der Höhle.
 
-Von dir bestätigt: Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden, Trinken im Kampf (schon am Vormittag: „Trank trinken sah top aus“).
+Von dir bestätigt: Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden, Spirituelle Waffe (Erscheinen ohne Schlag), Vorräte-Knopf im Testreiter, Trinken im Kampf (schon am Vormittag: „Trank trinken sah top aus“).
 
 Mit v0.1.186 (main): **Wildschwein und Riesenratte** in freier Wildbahn.
 
@@ -44,8 +43,9 @@ Mit v0.1.186 (main): **Wildschwein und Riesenratte** in freier Wildbahn.
 - **Gegner hinter der Wand sichtbar (Höhle):** behoben (v0.1.194).
 - **Treffermeldung mitten im tödlichen Treffer:** behoben (v0.1.194).
 - **Glutstab zeigt Armbrust-Bild:** behoben, von dir bestätigt.
-- **Spirituelle Waffe schlägt scheinbar doppelt zu:** behoben in v0.1.195 (zu testen).
-- **Wunsch: Vorräte im Testreiter auffüllen:** umgesetzt in v0.1.195 (zu testen).
+- **Spirituelle Waffe schlägt scheinbar doppelt zu:** behoben in v0.1.195, von dir bestätigt.
+- **Wunsch: Vorräte im Testreiter auffüllen:** umgesetzt in v0.1.195, von dir bestätigt.
+- **Untote vertreiben schwer zu testen (nur einmal pro Kampf, Rettungswurf gelang):** Testschalter „Gegner bestehen keine Rettungswürfe“ in v0.1.197 (zu testen).
 - **Text kam beim finalen Schlag, während das Skelett noch taumelte (Heilige Flamme):** behoben in v0.1.196 (zu testen).
 
 ## Zu entscheiden

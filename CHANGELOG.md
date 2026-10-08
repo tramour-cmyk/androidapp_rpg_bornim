@@ -2,6 +2,11 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
+## v0.1.197 – 08.10.2026, 13:13
+
+**Neu – Testreiter**
+- Schalter „Gegner bestehen keine Rettungswürfe“: Solange er an ist, misslingt jeder Rettungswurf eines Gegners gegen die Zauber des Helden. So lassen sich Untote vertreiben (unter Stufe 5: Flucht) und Untote zerstören (ab Stufe 5: Zerfall zu Staub) gezielt testen, ebenso Heilige Flamme und Co. Die Stufe lässt sich im Testreiter mit −1/+1 einstellen.
+
 ## v0.1.196 – 08.10.2026, 13:07
 
 **Behoben**
