@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.210 – 08.10.2026, 16:46
+
 **Geändert – flüssigere Bewegungen im Kampf**
 - **Schritt beim Angriff gleitet:** Geht der Held oder ein Gegner zum Schlag vor und wieder zurück, gleitet die Figur jetzt durch, statt im Takt der Bewegungsbilder in großen Sprüngen über den Bildschirm zu setzen (bisher bis zu einem Sechstel der Bildbreite auf einmal). Gilt für den Helden und alle Gegner im neuen Stil.
 - **Gegner: zweiter Teil des Schritts mit dem Schlag:** Hält ein Gegner nach dem Ausholen inne und schlägt dann zu, kommt der Rest des Schritts gleitend mit dem Schlag, statt sofort ganz nach vorn zu springen.

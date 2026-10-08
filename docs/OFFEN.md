@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 16:39 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 16:47 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -20,7 +20,7 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im Hauptordner fasst die Regeln kurz zusammen und wird zu Beginn jeder Sitzung automatisch gelesen. Wer hier weitermacht, liest zuerst diese Notiz, dann den Rest dieser Liste, die [Stil-Leitlinien](STIL.md) und den Anfang der [Änderungshistorie](../CHANGELOG.md).
 
-**Projekt:** „Chroniken von Bornim“, Rollenspiel für Android (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `core` (Spielregeln, Kampf, Karten, Zeichnung der Figuren und Gegner), `app` (Oberfläche), `tools/preview` (Vorschau- und Testwerkzeug am Rechner). Aktueller Stand: v0.1.204 auf `main`.
+**Projekt:** „Chroniken von Bornim“, Rollenspiel für Android (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `core` (Spielregeln, Kampf, Karten, Zeichnung der Figuren und Gegner), `app` (Oberfläche), `tools/preview` (Vorschau- und Testwerkzeug am Rechner). Aktueller Stand: v0.1.210 auf `main`.
 
 **Feste Regeln im Umgang mit dir:**
 - Antworten auf Deutsch, Zeiten in Berliner Zeit.
@@ -54,13 +54,11 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
-**Zweig-Build 0.1.208** (Zweig `claude/status-next-steps-pqvzz8`, PR #2): von dir getestet, „alles gut, keine Fehler“ (08.10., 16:39); am 08.10. auf `main` übernommen.
-
-**Version v0.1.204** (veröffentlicht). Worauf achten:
+**Version v0.1.210** (veröffentlicht 08.10., 16:46; enthält die bestätigten Zweig-Builds 0.1.207 und 0.1.208). Worauf achten:
 - **Weitere Zustände**, sobald sie vorkommen: Vergiftet (Spinne, Hundertfüßer), Blutend (nach Blutstufe; bei „Aus“ nichts), Verlangsamt, Geschwächt (Fluch des Schamanen). Zu schwach, zu stark, stören sie?
 - **Noch nicht bestätigt aus v0.1.194:** „Kampftext: weiter automatisch“.
 
-Von dir bestätigt: Zustand „Betäubt“ (08.10., „funktioniert sehr gut“), Flüssigere Bewegungen (Schritt gleitet, kein Aufblitzen der Endhaltung; Zweig-Build 0.1.207) und Gegner im Takt des Helden (Wolf/Ratte flinker, Bosse langsamer; Zweig-Build 0.1.208), Kampftempo für alle Animationen und langsamere Schläge/Zauber (Zweig-Build 0.1.201, „läuft alles soweit“; seit v0.1.204 auf main), Wildschwein und Riesenratte (neue Figuren, Begegnungen), Stufengrenze 6 (keine EP mehr ab Stufe 6, Beute weiter; seit v0.1.173, steht im Changelog), Tödlicher Treffer gegen eine Schwäche (kein Text beim Taumeln), Zustand „Geblendet“, Blutlache bleibt am Boden liegen, Nebel in der Höhle (Gegner und Lichter nur in Sicht), Abschlusszeile nach Vertreiben und Vernichten, Alchemistenfeuer, Untote zerstören ab Stufe 5, Zustände gehen beim Monster jede Bewegung mit (beim Helden von mir im Film geprüft: Angriff, Ausfallschritt, Zauber), Untote vertreiben unter Stufe 5 (Flucht, nur EP), Zustände am Körper (Aussehen; „behalten wir bei“), Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden, Spirituelle Waffe (Erscheinen ohne Schlag), Vorräte-Knopf im Testreiter, Trinken im Kampf (schon am Vormittag: „Trank trinken sah top aus“).
+Von dir bestätigt: Zustand „Betäubt“ (08.10., „funktioniert sehr gut“), Flüssigere Bewegungen (Schritt gleitet, kein Aufblitzen der Endhaltung; Zweig-Build 0.1.207) und Gegner im Takt des Helden (Wolf/Ratte flinker, Bosse langsamer; Zweig-Build 0.1.208; beides seit v0.1.210 auf main), Kampftempo für alle Animationen und langsamere Schläge/Zauber (Zweig-Build 0.1.201, „läuft alles soweit“; seit v0.1.204 auf main), Wildschwein und Riesenratte (neue Figuren, Begegnungen), Stufengrenze 6 (keine EP mehr ab Stufe 6, Beute weiter; seit v0.1.173, steht im Changelog), Tödlicher Treffer gegen eine Schwäche (kein Text beim Taumeln), Zustand „Geblendet“, Blutlache bleibt am Boden liegen, Nebel in der Höhle (Gegner und Lichter nur in Sicht), Abschlusszeile nach Vertreiben und Vernichten, Alchemistenfeuer, Untote zerstören ab Stufe 5, Zustände gehen beim Monster jede Bewegung mit (beim Helden von mir im Film geprüft: Angriff, Ausfallschritt, Zauber), Untote vertreiben unter Stufe 5 (Flucht, nur EP), Zustände am Körper (Aussehen; „behalten wir bei“), Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden, Spirituelle Waffe (Erscheinen ohne Schlag), Vorräte-Knopf im Testreiter, Trinken im Kampf (schon am Vormittag: „Trank trinken sah top aus“).
 
 Älter, noch nicht bestätigt:
 
