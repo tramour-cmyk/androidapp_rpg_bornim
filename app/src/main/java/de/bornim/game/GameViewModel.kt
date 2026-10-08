@@ -108,6 +108,15 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     var bloodLevel by mutableStateOf(prefs.getInt(KEY_BLOOD, 1).coerceIn(0, 2))
         private set
 
+    /** How fast a fight runs on by itself: 0 calm, 1 normal (default), 2 fast. For all heroes, not per save. */
+    var battleTempo by mutableStateOf(prefs.getInt(KEY_TEMPO, 1).coerceIn(0, 2))
+        private set
+
+    fun changeTempo(level: Int) {
+        battleTempo = level.coerceIn(0, 2)
+        prefs.edit().putInt(KEY_TEMPO, battleTempo).apply()
+    }
+
     fun changeBlood(level: Int) {
         bloodLevel = level.coerceIn(0, 2)
         prefs.edit().putInt(KEY_BLOOD, bloodLevel).apply()
@@ -267,6 +276,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_HAPTICS = "haptics"
         private const val KEY_CONFIRM = "confirmations"
         private const val KEY_BLOOD = "blood"
+        private const val KEY_TEMPO = "battle_tempo"
     }
 }
 

@@ -385,6 +385,11 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
             val names = if (lang == Lang.DE) listOf("Aus", "Dezent", "Deutlich") else listOf("Off", "Subtle", "More")
             names.forEachIndexed { i, label -> PixelButton(label, Modifier.weight(1f), selected = vm.bloodLevel == i, size = 15.sp) { vm.changeBlood(i) } }
         }
+        Txt(if (lang == Lang.DE) "Kampftempo" else "Battle pace", size = 15.sp, bold = true)
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            val names = if (lang == Lang.DE) listOf("Ruhig", "Normal", "Schnell") else listOf("Calm", "Normal", "Fast")
+            names.forEachIndexed { i, label -> PixelButton(label, Modifier.weight(1f), selected = vm.battleTempo == i, size = 15.sp) { vm.changeTempo(i) } }
+        }
         PixelButton((if (vm.touchControls) Ui.controlsTouch else Ui.controlsClassic)(lang), Modifier.fillMaxWidth()) { vm.toggleControls() }
         if (vm.touchControls) Txt(Ui.touchHint(lang), size = 13.sp, color = Colors.textDim)
         PixelButton((if (vm.leftHanded) Ui.actionLeft else Ui.actionRight)(lang), Modifier.fillMaxWidth()) { vm.toggleLeftHanded() }

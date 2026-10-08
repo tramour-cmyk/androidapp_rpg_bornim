@@ -32,6 +32,12 @@ data class Step(
     /** Pack mates still in the fight, and which one acts in this message (for [Anim.PACK_ACT]). */
     val pack: Int = 0,
     val packActor: Int = -1,
+    /**
+     * A lead-in: the start of a blow, a spell, a throw or a foe's attack. It shows no words of its own and waits for
+     * no tap; its words come first in the text of the step that resolves it (the hit or the miss), so a whole action
+     * plays as one piece.
+     */
+    val lead: Boolean = false,
 )
 
 enum class Outcome { ONGOING, WON, LOST, FLED, ENEMY_FLED }
@@ -956,9 +962,45 @@ class Battle(
         steps += Step(text, hero.hp, enemyHp, hero.sp, anim, rarity, fx, LinkedHashMap(heroStatus), LinkedHashMap(foeStatus), packLeft, packActor)
     }
 
-    private fun flush(): List<Step> = steps.toList().also { steps.clear() }
+    private fun flush(): List<Step> = merged(steps.toList()).also { steps.clear() }
 
     companion object {
+        /** The steps that start an action whose end is told by a later step. */
+        val OPENERS = setOf(Anim.HERO_ACT, Anim.ENEMY_ACT, Anim.PACK_ACT, Anim.SPELL, Anim.THROW)
+
+        /** Whether [s] ends the action [open] started: the hit or the miss, the spell or flask let go. */
+        fun resolves(open: Step, s: Step): Boolean = when (open.anim) {
+            Anim.ENEMY_ACT -> (s.anim == Anim.HERO_HIT || s.anim == Anim.HERO_FAINT || s.anim == Anim.MISS || s.anim == Anim.NONE) && s.fx?.onHero == true
+            Anim.PACK_ACT -> (s.anim == Anim.HERO_HIT || s.anim == Anim.HERO_FAINT || s.anim == Anim.MISS) && s.fx?.onHero == true
+            Anim.HERO_ACT -> (s.anim == Anim.ENEMY_HIT || s.anim == Anim.ENEMY_FAINT || s.anim == Anim.MISS) && s.fx?.onHero == false
+            else -> s.fx != null || s.anim != Anim.NONE
+        }
+
+        /**
+         * Each action as one piece: its opening words, any plain words in between ("A critical hit!") and the words
+         * of its end become one text on the step that ends it; the opening step stays, without words of its own, as
+         * the [Step.lead] that starts the move.
+         */
+        fun merged(list: List<Step>): List<Step> {
+            val out = list.toMutableList()
+            var i = 0
+            while (i < out.size) {
+                val open = out[i]
+                if (open.anim in OPENERS && !open.lead) {
+                    var j = i + 1
+                    while (j < out.size && out[j].anim == Anim.NONE && out[j].fx == null && !resolves(open, out[j])) j++
+                    if (j < out.size && resolves(open, out[j])) {
+                        val words = (i until j).map { out[it].text } + out[j].text
+                        out[j] = out[j].copy(text = words.joinToString(" "))
+                        for (k in j - 1 downTo i + 1) out.removeAt(k)
+                        out[i] = open.copy(lead = true)
+                    }
+                }
+                i++
+            }
+            return out
+        }
+
         /** Extra HP per level above the area: ordinary monsters keep up with the hero, bosses less so. */
         const val HP_PER_LEVEL = 0.6
         const val BOSS_HP_PER_LEVEL = 0.35

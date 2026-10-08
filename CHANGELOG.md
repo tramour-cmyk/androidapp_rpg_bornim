@@ -4,6 +4,12 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – flüssigere Kämpfe**
+- **Eine Aktion ist ein Stück:** Nach der Wahl läuft die ganze Bewegung (Ausholen, Schlag, Treffer oder Fehlschlag), und erst mit dem Aufprall erscheint der Text, alles in einer Zeile: „Alrik greift mit Kampfstab an! Krogg erleidet 8 Schaden.“ Zwischenworte wie „kritischer Treffer“ oder „Überraschungsschlag“ stehen in derselben Zeile.
+- **Der Kampf läuft von selbst weiter:** Nach einer Lesepause folgt der Gegnerzug ohne Tippen; Tippen beschleunigt. Das Kampfende (tödlicher Schlag, Sturz, Beute) wartet auf ein Tippen.
+- **Kampftempo** im Menü: Ruhig, Normal, Schnell (Lesepausen und Textgeschwindigkeit).
+- **Angriffe, Zauber und Würfe etwas langsamer**, passend zu den ruhigeren Bewegungen.
+
 **Neu – Wildschwein und Riesenratte im neuen Stil**
 - **Wildschwein:** schwerer, hoher Vorderleib unter einem Kamm aus Borsten, der sich im Zorn aufstellt, langer Keilkopf mit Rüsselscheibe, gebogene Hauer aus Unter- und Oberkiefer, kleine rot glühende Augen, dünne Beine auf Klauen, Schwanz mit Quaste. Drei Fellvarianten (fast schwarz, grau mit Narben, rostbraun mit zerfetztem Ohr), Größe 88–110 %.
 - **Riesenratte:** groß wie ein Hund, gekrümmter Rücken, räudiges Fell mit wunden, verschorften Stellen, langer spitzer Kopf mit orangen Nagezähnen, rot glühende Knopfaugen, runde nackte Ohren (eines zerfetzt), rosa Krallenhände und ein langer, nackter, geringelter Schwanz, der über den Boden schleift. Drei Fellvarianten (braun, grau und räudig, schwarz), Größe 140–170 % einer gewöhnlichen.

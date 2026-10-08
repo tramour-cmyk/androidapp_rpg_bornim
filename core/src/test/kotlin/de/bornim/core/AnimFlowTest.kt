@@ -11,12 +11,7 @@ import kotlin.test.Test
 class AnimFlowTest {
     private val openers = setOf(Anim.ENEMY_ACT, Anim.PACK_ACT, Anim.HERO_ACT, Anim.SPELL, Anim.THROW)
 
-    private fun resolves(open: Step, s: Step): Boolean = when (open.anim) {
-        Anim.ENEMY_ACT -> (s.anim == Anim.HERO_HIT || s.anim == Anim.HERO_FAINT || s.anim == Anim.MISS || s.anim == Anim.NONE) && s.fx?.onHero == true
-        Anim.PACK_ACT -> (s.anim == Anim.HERO_HIT || s.anim == Anim.HERO_FAINT || s.anim == Anim.MISS) && s.fx?.onHero == true
-        Anim.HERO_ACT -> (s.anim == Anim.ENEMY_HIT || s.anim == Anim.ENEMY_FAINT || s.anim == Anim.MISS) && s.fx?.onHero == false
-        else -> s.fx != null || s.anim != Anim.NONE
-    }
+    private fun resolves(open: Step, s: Step): Boolean = Battle.resolves(open, s)
 
     /** Signatures of flows the screen does not expect, with an example each. */
     fun survey(): Map<String, String> {
@@ -44,11 +39,11 @@ class AnimFlowTest {
             while (i < steps.size) {
                 val open = steps[i]
                 if (open.anim !in openers) { i++; continue }
-                var j = i + 1
-                val between = mutableListOf<Step>()
-                while (j < steps.size && !resolves(open, steps[j]) && steps[j].anim == Anim.NONE && steps[j].fx == null) { between += steps[j]; j++ }
+                // every action is one piece now: a lead-in followed straight by the step that ends it
+                val j = i + 1
+                val between = emptyList<Step>()
                 val end = steps.getOrNull(j)
-                val ok = end != null && resolves(open, end)
+                val ok = open.lead && end != null && resolves(open, end)
                 if (!ok) {
                     val sig = "${open.anim} -> " + (between.map { "NONE" } + listOf(end?.let { "${it.anim}/${it.fx?.kind}/${it.fx?.onHero}" } ?: "END")).joinToString(" ")
                     odd.putIfAbsent(sig, "$id $cls: " + (listOf(open) + between + listOfNotNull(end)).joinToString(" | ") { it.text })

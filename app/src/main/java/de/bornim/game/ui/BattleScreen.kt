@@ -174,7 +174,7 @@ private class BattleUi(val battle: Battle) {
         fxDelay = 0L
         if (again != null) {
             val hit = HeroBattle.strikeFrame(HeroFigure.Strike.CAST)
-            play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, again.second, hit - 1, hit + 1, perFrame = 50)
+            play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, again.second, hit - 1, hit + 1, perFrame = CAST_FRAME_MS)
             release = again
             fxDelay = 50L
             flashKey++
@@ -194,29 +194,29 @@ private class BattleUi(val battle: Battle) {
                 val list = HeroBattle.strikes(hero)
                 val strike = list[blows++ % list.size]
                 // while the attack is named, only the wind-up: the blow comes with the hit or the miss
-                play(HeroFigure.Act.ATTACK, strike, 0, 0, windUpEnd(strike), perFrame = 55, hold = true)
+                play(HeroFigure.Act.ATTACK, strike, 0, 0, windUpEnd(strike), perFrame = ATTACK_FRAME_MS, hold = true)
             }
             (s.anim == Anim.ENEMY_HIT || s.anim == Anim.ENEMY_FAINT || s.anim == Anim.MISS) && fx?.onHero == false &&
                 m != null && m.act == HeroFigure.Act.ATTACK && m.hold -> {
-                play(HeroFigure.Act.ATTACK, m.strike, 0, m.to, -1, perFrame = 55, slowFrom = HeroBattle.strikeFrame(m.strike) + 1, slowK = MOVE_SLOW)
+                play(HeroFigure.Act.ATTACK, m.strike, 0, m.to, -1, perFrame = ATTACK_FRAME_MS, slowFrom = HeroBattle.strikeFrame(m.strike) + 1, slowK = MOVE_SLOW)
                 if (m.strike != HeroFigure.Strike.SHOOT) { swingDelay = 0L; swingKey++ }
                 // the arrow or bolt leaves the bow on the frame the string is let go
-                else { release = HeroFigure.Act.ATTACK to 0; fxDelay = (HeroBattle.strikeFrame(m.strike) - m.to) * 55L }
+                else { release = HeroFigure.Act.ATTACK to 0; fxDelay = (HeroBattle.strikeFrame(m.strike) - m.to) * ATTACK_FRAME_MS }
             }
             // a flask: drawn back while it is named, thrown with the next message
-            s.anim == Anim.THROW -> play(HeroFigure.Act.THROW, HeroFigure.Strike.CAST, HeroBattle.throwVariant(hero), 0, HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - 1, perFrame = 50, hold = true)
+            s.anim == Anim.THROW -> play(HeroFigure.Act.THROW, HeroFigure.Strike.CAST, HeroBattle.throwVariant(hero), 0, HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - 1, perFrame = CAST_FRAME_MS, hold = true)
             m != null && m.act == HeroFigure.Act.THROW && m.hold && (fx != null || s.anim != Anim.NONE) -> {
-                play(HeroFigure.Act.THROW, HeroFigure.Strike.CAST, m.variant, m.to, -1, perFrame = 50)
+                play(HeroFigure.Act.THROW, HeroFigure.Strike.CAST, m.variant, m.to, -1, perFrame = CAST_FRAME_MS)
                 release = HeroFigure.Act.THROW to m.variant
-                fxDelay = (HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - m.to) * 50L
+                fxDelay = (HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - m.to) * CAST_FRAME_MS
             }
             // while the spell is named, it gathers and glows; it is let go with its effect on the next message
-            s.anim == Anim.SPELL -> play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, HeroBattle.castVariant(hero), 0, HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - 1, perFrame = 50, hold = true)
+            s.anim == Anim.SPELL -> play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, HeroBattle.castVariant(hero), 0, HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - 1, perFrame = CAST_FRAME_MS, hold = true)
             m != null && m.act == HeroFigure.Act.CAST && m.hold && (fx != null || s.anim != Anim.NONE) -> {
-                play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, m.variant, m.to, -1, perFrame = 50)
+                play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, m.variant, m.to, -1, perFrame = CAST_FRAME_MS)
                 // the spell leaves the staff, wand or hand on the frame it is let go, in a flash of light
                 release = HeroFigure.Act.CAST to m.variant
-                fxDelay = (HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - m.to) * 50L
+                fxDelay = (HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - m.to) * CAST_FRAME_MS
                 flashKey++
             }
             // struck through the guard: the guard holds until the hero's next turn, as the defence does; the blow shows
@@ -253,7 +253,11 @@ private class BattleUi(val battle: Battle) {
         if (current == null) next()
     }
 
+    /** The message now shown ends a lead-in: its words wait until the blow lands or the spell arrives. */
+    var afterLead = false
+
     fun next() {
+        afterLead = current?.lead == true
         val s = if (queue.isEmpty()) null else queue.removeAt(0)
         current = s
         if (s != null) {
@@ -295,11 +299,13 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
     var revealed by remember(step) { mutableIntStateOf(0) }
     val textDone = step == null || revealed >= step.text.length
 
-    LaunchedEffect(step) {
-        if (step == null) return@LaunchedEffect
-        while (revealed < step.text.length) {
-            delay(16)
-            revealed++
+    /** On to the next message; a fall is not cut short, it plays out first. */
+    fun goOn() {
+        if (ui.falling) return
+        ui.next()
+        if (ui.current == null && battle.outcome != Outcome.ONGOING) {
+            game.endBattle()
+            vm.refresh()
         }
     }
 
@@ -315,6 +321,36 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             game.endBattle()
             vm.refresh()
         }
+    }
+
+    LaunchedEffect(step) {
+        if (step == null) return@LaunchedEffect
+        if (step.lead) {
+            // a lead-in has no words of its own: the move starts at once, and its end (the hit or the miss, with all
+            // the words) follows by itself as soon as the wind-up is done
+            revealed = step.text.length
+            val m = ui.motion
+            val wait = if (step.anim in HERO_LEADS && m != null) (m.start + m.ms - System.currentTimeMillis()).coerceAtLeast(0L) else WINDUP_MS.toLong()
+            delay(wait + 40L)
+            while (ui.falling) delay(50L)
+            if (ui.current === step) goOn()
+            return@LaunchedEffect
+        }
+        val tempo = vm.battleTempo
+        val perChar = when (tempo) { 0 -> 22L; 2 -> 9L; else -> 15L }
+        // the words of an action come once it lands: the blow struck, the spell or flask arrived
+        if (ui.afterLead) delay(160L + ui.fxDelay + (step.fx?.let { if (it.kind in FLYING || it.past in FLYING) 260L else 0L } ?: 0L))
+        while (revealed < step.text.length) {
+            delay(perChar)
+            revealed++
+        }
+        // while the fight goes on, it goes on by itself after a pause to read; a tap goes on at once. The end of the
+        // fight (the killing blow, the fall, the rewards) waits for a tap.
+        if (battle.outcome != Outcome.ONGOING) return@LaunchedEffect
+        val read = when (tempo) { 0 -> 1500L + 28L * step.text.length; 2 -> 500L + 9L * step.text.length; else -> 950L + 18L * step.text.length }
+        delay(read)
+        while (ui.falling) delay(50L)
+        if (ui.current === step) goOn()
     }
 
     fun act(action: Action) {
@@ -390,7 +426,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                         an == Anim.ENEMY_HIT || an == Anim.HERO_HIT || an == Anim.MISS -> REACT_MS
                         else -> 450
                     }))
-                Anim.HERO_ACT, Anim.ENEMY_ACT -> shake.animateTo(1f, tween(380))
+                Anim.HERO_ACT, Anim.ENEMY_ACT, Anim.PACK_ACT -> shake.animateTo(1f, tween(WINDUP_MS))
                 // a foe's spell let go on the hero (a curse): it lands like a blow
                 else -> if (ui.foeCastLands) shake.animateTo(1f, tween(REACT_MS))
             }
@@ -534,7 +570,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 poised -> windEnd
                 foeLanding && moving -> {
                     // the blow lands as fast as ever; only the way back takes the longer time
-                    val q = ((foeStrike - windEnd + 1).toFloat() / (foeN - windEnd)) * 450f / REACT_MS
+                    val q = ((foeStrike - windEnd + 1).toFloat() / (foeN - windEnd)) * BLOW_MS.toFloat() / REACT_MS
                     if (t < q) windEnd + ((foeStrike - windEnd + 1) * t / q).toInt().coerceAtMost(foeStrike - windEnd)
                     else foeStrike + ((foeN - foeStrike) * (t - q) / (1 - q)).toInt().coerceIn(0, foeN - 1 - foeStrike)
                 }
@@ -816,7 +852,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                         .tap { advance() }
                 ) {
                     Txt(
-                        step?.text?.take(revealed) ?: "", size = 20.sp,
+                        step?.takeIf { !it.lead }?.text?.take(revealed) ?: "", size = 20.sp,
                         color = step?.rarity?.let { rarityColor(it) } ?: Colors.text,
                     )
                     if (textDone) Txt("▼", Modifier.align(Alignment.BottomEnd), size = 16.sp, color = Colors.accent)
@@ -1101,6 +1137,15 @@ private const val DIE_REEL = 4
 private const val AMBUSH_DOWN = 7
 /** How long being struck, ducking aside and the step back after a blow take, in ms (the blows themselves keep their pace). */
 private const val REACT_MS = 750
+/** A blow, as the hero strikes it: each frame of the swing and of the way back. Slower than it was, with the rest of the moves. */
+private const val ATTACK_FRAME_MS = 70L
+/** Each frame of a spell gathered and let go, or a flask drawn back and thrown. */
+private const val CAST_FRAME_MS = 62L
+/** A foe's wind-up, and how long its blow takes to land. */
+private const val WINDUP_MS = 520
+private const val BLOW_MS = 560
+/** The hero's own lead-ins: the move is played from the hero's doll, and its end comes when the wind-up is done. */
+private val HERO_LEADS = setOf(Anim.HERO_ACT, Anim.SPELL, Anim.THROW)
 /** How much slower than the blow the hero steps back after it. */
 private const val MOVE_SLOW = 1.6
 /** What the hero does on the hero's own turn. */

@@ -44,9 +44,12 @@ fun fightFilm(spec: String) {
     val where = mapOf('F' to Offset(135f, 990f), 'A' to Offset(150f, 940f), 'D' to Offset(390f, 940f), 'S' to Offset(270f, 400f))
     val plan = System.getenv("FILMTAPS") ?: "FASSSS"
     for ((t, c) in plan.withIndex()) {
-        val tap = where.getValue(c)
-        scene.sendPointerEvent(PointerEventType.Press, tap); frames(1, "t$t$c", true)
-        scene.sendPointerEvent(PointerEventType.Release, tap)
+        // W: no tap, only wait and film
+        if (c != 'W') {
+            val tap = where.getValue(c)
+            scene.sendPointerEvent(PointerEventType.Press, tap); frames(1, "t$t$c", true)
+            scene.sendPointerEvent(PointerEventType.Release, tap)
+        }
         frames(28, "t$t$c", true)
     }
     scene.close()
