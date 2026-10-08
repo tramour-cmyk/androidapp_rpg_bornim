@@ -2,7 +2,7 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
-## Unveröffentlicht
+## v0.1.186 – 08.10.2026, 11:09
 
 **Neu – flüssigere Kämpfe**
 - **Eine Aktion ist ein Stück:** Nach der Wahl läuft die ganze Bewegung (Ausholen, Schlag, Treffer oder Fehlschlag), und erst mit dem Aufprall erscheint der Text, alles in einer Zeile: „Alrik greift mit Kampfstab an! Krogg erleidet 8 Schaden.“ Zwischenworte wie „kritischer Treffer“ oder „Überraschungsschlag“ stehen in derselben Zeile.
