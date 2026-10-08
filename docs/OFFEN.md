@@ -50,7 +50,13 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
-- **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Ghul seit 08.10. ebenfalls (Zweig, zu testen). Goblin-Schamane seit 08.10. ebenfalls (Zweig, zu testen). Noch im alten Stil: Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
+- **Läuft immer dieselbe Variante? (gefragt 08.10., 17:2x)** Im Code nachgesehen:
+  - Gegner-Angriffe: Zufall unter drei, kann aber zweimal hintereinander gleich sein.
+  - Gegner getroffen/ausweichen: nicht zufällig, sondern nach der Nummer der Meldung (durch drei geteilt); bei gleichförmigen Runden kann das immer dieselbe Variante treffen.
+  - Gegner-Sturz: eine von drei, fest pro Gegner (auch für Taumeln beim tödlichen Treffer); wechselt nur von Kampf zu Kampf.
+  - Held-Angriff: nur zwei Schläge je Waffe, abwechselnd. Held getroffen: nur eine Bewegung. Held-Abwehr: fest je Waffe und Gegnerart. Held-Zauber: fest je Fokus. Held-Ausweichen: ein Hüpfer, zwei Seiten.
+  - Vorschlag: (1) Gegner: Angriff, Treffer und Ausweichen zufällig, aber nie zweimal hintereinander gleich. (2) Held: zwei weitere Treffer-Bewegungen, eine dritte Abwehr je Waffenart, ein dritter Schlag je Waffe. Wartet auf deine Freigabe.
+- **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Ghul seit 08.10. ebenfalls (von dir bestätigt, Zweig). Goblin-Schamane seit 08.10. ebenfalls (Zweig, zu testen). Noch im alten Stil: Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
 
 ## Zu testen
 
@@ -63,17 +69,11 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - Blinken des Helden bei Treffern: wieder normal kurz?
 - Von mir im Film bemerkt, noch nicht geändert: Beim Goblin-Späher steht der Bogen nach dem Schuss für einen Augenblick waagerecht wie ein Speer vor ihm (Übergang zurück in die Ruhe). Fällt dir das auf?
 
-**Ghul im neuen Stil, Zweig-Build 0.1.214** (Testreiter: Testkampf gegen Ghul). Worauf achten:
-- Wirkt er bedrohlich genug (geduckt, Klauen, Maul)? Sind die Klauen gut zu erkennen?
-- Seine drei Angriffe: Erreicht er den Helden mit den Klauen, oder schlägt er ins Leere?
-- Treffer, Ausweichen, Sturz: Passt alles, bleibt er liegen?
-- Die drei Varianten (Lumpen, Leder, Robe).
-
 **Version v0.1.210** (veröffentlicht 08.10., 16:46; enthält die bestätigten Zweig-Builds 0.1.207 und 0.1.208). Worauf achten:
 - **Weitere Zustände**, sobald sie vorkommen: Vergiftet (Spinne, Hundertfüßer), Blutend (nach Blutstufe; bei „Aus“ nichts), Verlangsamt, Geschwächt (Fluch des Schamanen). Zu schwach, zu stark, stören sie?
 - **Noch nicht bestätigt aus v0.1.194:** „Kampftext: weiter automatisch“.
 
-Von dir bestätigt: Zustand „Betäubt“ (08.10., „funktioniert sehr gut“), Flüssigere Bewegungen (Schritt gleitet, kein Aufblitzen der Endhaltung; Zweig-Build 0.1.207) und Gegner im Takt des Helden (Wolf/Ratte flinker, Bosse langsamer; Zweig-Build 0.1.208; beides seit v0.1.210 auf main), Kampftempo für alle Animationen und langsamere Schläge/Zauber (Zweig-Build 0.1.201, „läuft alles soweit“; seit v0.1.204 auf main), Wildschwein und Riesenratte (neue Figuren, Begegnungen), Stufengrenze 6 (keine EP mehr ab Stufe 6, Beute weiter; seit v0.1.173, steht im Changelog), Tödlicher Treffer gegen eine Schwäche (kein Text beim Taumeln), Zustand „Geblendet“, Blutlache bleibt am Boden liegen, Nebel in der Höhle (Gegner und Lichter nur in Sicht), Abschlusszeile nach Vertreiben und Vernichten, Alchemistenfeuer, Untote zerstören ab Stufe 5, Zustände gehen beim Monster jede Bewegung mit (beim Helden von mir im Film geprüft: Angriff, Ausfallschritt, Zauber), Untote vertreiben unter Stufe 5 (Flucht, nur EP), Zustände am Körper (Aussehen; „behalten wir bei“), Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden, Spirituelle Waffe (Erscheinen ohne Schlag), Vorräte-Knopf im Testreiter, Trinken im Kampf (schon am Vormittag: „Trank trinken sah top aus“).
+Von dir bestätigt: Ghul im neuen Stil (08.10., „passt soweit“, Zweig-Build 0.1.214/0.1.218), Zustand „Betäubt“ (08.10., „funktioniert sehr gut“), Flüssigere Bewegungen (Schritt gleitet, kein Aufblitzen der Endhaltung; Zweig-Build 0.1.207) und Gegner im Takt des Helden (Wolf/Ratte flinker, Bosse langsamer; Zweig-Build 0.1.208; beides seit v0.1.210 auf main), Kampftempo für alle Animationen und langsamere Schläge/Zauber (Zweig-Build 0.1.201, „läuft alles soweit“; seit v0.1.204 auf main), Wildschwein und Riesenratte (neue Figuren, Begegnungen), Stufengrenze 6 (keine EP mehr ab Stufe 6, Beute weiter; seit v0.1.173, steht im Changelog), Tödlicher Treffer gegen eine Schwäche (kein Text beim Taumeln), Zustand „Geblendet“, Blutlache bleibt am Boden liegen, Nebel in der Höhle (Gegner und Lichter nur in Sicht), Abschlusszeile nach Vertreiben und Vernichten, Alchemistenfeuer, Untote zerstören ab Stufe 5, Zustände gehen beim Monster jede Bewegung mit (beim Helden von mir im Film geprüft: Angriff, Ausfallschritt, Zauber), Untote vertreiben unter Stufe 5 (Flucht, nur EP), Zustände am Körper (Aussehen; „behalten wir bei“), Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden, Spirituelle Waffe (Erscheinen ohne Schlag), Vorräte-Knopf im Testreiter, Trinken im Kampf (schon am Vormittag: „Trank trinken sah top aus“).
 
 Älter, noch nicht bestätigt:
 
