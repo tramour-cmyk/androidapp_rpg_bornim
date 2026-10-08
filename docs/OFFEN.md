@@ -57,7 +57,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
   - Gegner-Sturz: eine von drei, fest pro Gegner (auch für Taumeln beim tödlichen Treffer); wechselt nur von Kampf zu Kampf.
   - Held-Angriff: nur zwei Schläge je Waffe, abwechselnd. Held getroffen: nur eine Bewegung. Held-Abwehr: fest je Waffe und Gegnerart. Held-Zauber: fest je Fokus. Held-Ausweichen: ein Hüpfer, zwei Seiten.
   - Vorschlag: (1) Gegner: Angriff, Treffer und Ausweichen zufällig, aber nie zweimal hintereinander gleich. (2) Held: zwei weitere Treffer-Bewegungen, eine dritte Abwehr je Waffenart, ein dritter Schlag je Waffe. Von dir freigegeben (08.10.), beide umgesetzt, von dir freigegeben und auf `main` übernommen. Noch offen: Ausweichen des Helden ist weiter nur ein Hüpfer (zwei Seiten); Speer zwei Stöße; Zauber eine Bewegung je Fokus.
-- **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Ghul seit 08.10. ebenfalls (von dir bestätigt, Zweig). Goblin-Schamane seit 08.10. ebenfalls (von dir bestätigt, Zweig). Noch im alten Stil: Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
+- **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Ghul seit 08.10. ebenfalls (von dir bestätigt, Zweig). Goblin-Schamane seit 08.10. ebenfalls (von dir bestätigt, Zweig). Noch im alten Stil: Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper im Entwurf, siehe „Zu entscheiden“).
 
 ## Zu testen
 
@@ -92,6 +92,7 @@ Von dir bestätigt: Goblin-Schamane im neuen Stil, Ghul und Goblin-Späher (08.1
 
 ## Zu entscheiden
 
+- **Neue Tiere, Entwurf (08.10., 19:24):** Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte haben eigene Körper (`Vermin.kt`), je drei Varianten; Übersichtsbild als Standbild (Vorschau `VERMINSHEET=1`). Wartet auf deine Rückmeldung zum Aussehen; danach Bewegungen (Angriff, Treffer, Ausweichen, Sturz, je drei) und Einbau in den Kampf.
 - **Noch mehr Zwischenbilder?** Die Haltungen selbst (Arme, Beine, Waffe) wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Nach deinem Test von 0.1.208 vorerst nicht nötig; bei Bedarf als eigener, größerer Umbau (mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn).
 - **Zustände am Körper:** Sind Verlangsamt, Geschwächt und Geblendet auf kleinen Gegnern stark genug?
 - **Goblin-Schamane (Rückmeldung 08.10.):** erster Entwurf nicht gut, wirkt nicht bedrohlich, ein Arm schien zu fehlen (er lag in der Robe). Zweiter Entwurf (17:03): fast schwarze Robe, rußige Augenhöhlen mit grün glühenden Augen, Blutstreifen über die Nase, Schädelstab mit grün glühenden Augen, grünes Fluchlicht in der freien Hand; drei Haltungen (Stehen, Fluch sammeln, Fluch schleudern). Von dir am 08.10. für gut befunden und freigegeben; eingebaut (Zweig, zu testen).

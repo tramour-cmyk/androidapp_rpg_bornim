@@ -93,6 +93,8 @@ fun main() {
     if (System.getenv("BEASTDRAFT") != null) { renderBeastDrafts(); System.exit(0) }
     if (System.getenv("DOLLDRAFT") != null) { renderShamanGhoulDrafts(); System.exit(0) }
     if (System.getenv("SHAMANDRAFT") != null) { renderShamanDraft(); System.exit(0) }
+    if (System.getenv("VERMINDRAFT") != null) { renderVerminDrafts(); System.exit(0) }
+    if (System.getenv("VERMINSHEET") != null) { renderVerminSheet(); System.exit(0) }
     if (System.getenv("DRINKDRAFT") != null) { renderDrinkDrafts(); System.exit(0) }
     if (System.getenv("HEROFALL") != null) { renderHeroFallDrafts(); System.exit(0) }
     if (System.getenv("RUNS") != null) {

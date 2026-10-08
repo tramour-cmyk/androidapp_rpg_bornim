@@ -187,3 +187,60 @@ fun renderShamanDraft() {
     ImageIO.write(img, "png", File("build/screens/entwurf_schamane2.png"))
     println("wrote shaman draft")
 }
+
+/** Drafts of the vermin (VERMINDRAFT=1 or a kind): each kind in its three looks, as it threatens and from the side. */
+fun renderVerminDrafts() {
+    val arg = System.getenv("VERMINDRAFT")
+    val kinds = de.bornim.core.art.Vermin.Kind.entries.filter { arg == "1" || it.name.equals(arg, true) }
+    for (kind in kinds) {
+        val (px, groundK) = when (kind) {
+            de.bornim.core.art.Vermin.Kind.SPIDER -> 1.0 to 0.9
+            de.bornim.core.art.Vermin.Kind.CENTIPEDE -> 1.7 to 0.8
+            de.bornim.core.art.Vermin.Kind.BAT -> 0.95 to 0.95
+            de.bornim.core.art.Vermin.Kind.STIRGE -> 2.6 to 0.95
+            de.bornim.core.art.Vermin.Kind.JELLY -> 1.5 to 0.85
+        }
+        val threat = when (kind) {
+            de.bornim.core.art.Vermin.Kind.SPIDER -> de.bornim.core.art.Vermin.Rig(rear = 30.0, jaw = 0.8)
+            de.bornim.core.art.Vermin.Kind.CENTIPEDE -> de.bornim.core.art.Vermin.Rig(rear = 25.0, jaw = 0.9)
+            de.bornim.core.art.Vermin.Kind.JELLY -> de.bornim.core.art.Vermin.Rig(rear = 10.0, surge = 0.3)
+            else -> de.bornim.core.art.Vermin.Rig(jaw = 0.9, spread = 1.0, beat = -0.3)
+        }
+        val poses = listOf("droht" to threat, "seitlich" to threat.copy(yaw = -95.0), "von vorn" to threat.copy(yaw = -20.0))
+        val cw = 380; val ch = 300
+        val out = BufferedImage(cw * poses.size, ch * 3, BufferedImage.TYPE_INT_RGB)
+        val g = out.createGraphics(); g.color = java.awt.Color(0x2E3530); g.fillRect(0, 0, out.width, out.height)
+        for (v in 0..2) for ((ci, pp) in poses.withIndex()) {
+            val im = de.bornim.core.art.Vermin(kind, v).render(cw, ch, cw / 2.0, ch * groundK, px, pp.second)
+            for (y in 0 until ch) for (x in 0 until cw) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(ci * cw + x, v * ch + y, q and 0xFFFFFF) }
+            g.color = java.awt.Color(0xF0E8D8); g.drawString("Variante ${v + 1} – ${pp.first}", ci * cw + 4, v * ch + 14)
+        }
+        ImageIO.write(out, "png", File("build/screens/entwurf_${kind.name.lowercase()}.png"))
+        println("wrote draft $kind")
+    }
+}
+
+/** One sheet of all the vermin (VERMINSHEET=1): a row per kind, its three looks side by side as it threatens. */
+fun renderVerminSheet() {
+    val cw = 360; val ch = 270
+    val kinds = de.bornim.core.art.Vermin.Kind.entries
+    val out = BufferedImage(cw * 3, ch * kinds.size, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x262B28); g.fillRect(0, 0, out.width, out.height)
+    val names = mapOf("SPIDER" to "Riesenspinne", "CENTIPEDE" to "Riesenhundertfüßer", "BAT" to "Riesenfledermaus", "STIRGE" to "Stirge", "JELLY" to "Ockergallerte")
+    for ((ri, kind) in kinds.withIndex()) {
+        val (px, groundK, rig) = when (kind) {
+            de.bornim.core.art.Vermin.Kind.SPIDER -> Triple(1.15, 0.92, de.bornim.core.art.Vermin.Rig(rear = 30.0, jaw = 0.8, yaw = -50.0))
+            de.bornim.core.art.Vermin.Kind.CENTIPEDE -> Triple(1.9, 0.8, de.bornim.core.art.Vermin.Rig(rear = 28.0, jaw = 0.9, yaw = -50.0))
+            de.bornim.core.art.Vermin.Kind.BAT -> Triple(1.1, 1.05, de.bornim.core.art.Vermin.Rig(jaw = 0.9, spread = 1.0, beat = -0.3, yaw = -35.0))
+            de.bornim.core.art.Vermin.Kind.STIRGE -> Triple(2.6, 0.98, de.bornim.core.art.Vermin.Rig(jaw = 0.9, spread = 1.0, beat = -0.3, yaw = -40.0))
+            de.bornim.core.art.Vermin.Kind.JELLY -> Triple(1.9, 0.88, de.bornim.core.art.Vermin.Rig(rear = 10.0, surge = 0.3, yaw = -45.0))
+        }
+        for (v in 0..2) {
+            val im = de.bornim.core.art.Vermin(kind, v).render(cw, ch, cw / 2.0 + 20, ch * groundK, px, rig)
+            for (y in 0 until ch) for (x in 0 until cw) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(v * cw + x, ri * ch + y, q and 0xFFFFFF) }
+            g.color = java.awt.Color(0xF0E8D8); g.drawString("${names[kind.name]} – Variante ${v + 1}", v * cw + 6, ri * ch + 16)
+        }
+    }
+    ImageIO.write(out, "png", File("build/screens/tiere_uebersicht.png"))
+    println("wrote vermin sheet")
+}
