@@ -61,7 +61,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
-**Mehr Abwechslung in den Bewegungen** (Zweig-Build folgt). Worauf achten:
+**Mehr Abwechslung in den Bewegungen, Zweig-Build 0.1.222**. Worauf achten:
 - Held: wechseln die Schläge (Hieb, Stoß, Schlag von oben), die Abwehr (drei Haltungen) und das Getroffenwerden (drei Bewegungen)? Sieht eine davon falsch aus?
 - Gegner: wechseln Angriff, Getroffenwerden und Ausweichen, ohne dass dieselbe zweimal hintereinander kommt?
 
