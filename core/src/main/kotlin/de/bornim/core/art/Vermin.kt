@@ -274,66 +274,14 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
         val maw = m(0x2A0A0C, shine = 0.4)
         val eye = m(0xD02018, shine = 1.0, bias = 0.3)
         val body0 = P3(0.0, (if (stirge) 46.0 else 92.0) + r.hover - r.crouch, r.fwd) * k
-        // the stirge is lean and hard; the bat heavy-bodied with a big head
-        val bk = if (stirge) 0.72 else 1.6
         val beat = r.beat
         // the body hangs upright, a little forward
         val tilt = Frame(P3.X, P3(0.0, 0.92, 0.38), P3(0.0, -0.38, 0.92))
-        val torso = add(Ellipsoid(body0, P3(13.0 * bk, 18.0 * bk, 12.0 * bk) * k, tilt, BodyPart.TORSO, BODY), fur)
-        fuzz(torso, if (stirge) 0.6 else 1.6, 2.0)
-        // the stirge's belly, swollen dark red with the blood it has drunk
-        if (stirge) {
-            val full = if (v == 2) 1.35 else 0.8
-            add(Ellipsoid(body0 + p(0.0, -12.0, -5.0), P3(8.0 * full, 10.0 * full, 9.0 * full) * k, tilt, BodyPart.TORSO, BODY), m(if (v == 2) 0x5A0C14 else 0x3A1410, shine = 0.7, grain = 0.15))
-        }
-        // the head on top, turned to the hero
-        val head = body0 + p(0.0, 21.0 * bk, 6.0)
-        val hk = if (stirge) 0.75 else 1.6
-        val hd = add(Ellipsoid(head, P3(10.0 * hk, 9.0 * hk, 10.0 * hk) * k, Frame.IDENTITY, BodyPart.HEAD, HEAD), fur)
-        fuzz(hd, 1.0, 5.0)
-        for (s in listOf(-1.0, 1.0)) {
-            // the ears: tall, pointed, flaring back (small and laid flat on the stirge)
-            val e0 = head + p(s * 6.0 * hk, 6.0 * hk, -1.0)
-            val e1 = e0 + if (stirge) p(s * 5.0, 4.0, -6.0) else p(s * 12.0, 26.0, -5.0)
-            cone(e0, e1, 4.5 * hk, 0.8, skin, EAR)
-            ell(head + p(s * 4.0 * hk, 2.0 * hk, 8.6 * hk), 1.6 * hk, 1.6 * hk, 1.6 * hk, eye, EYE)
-        }
-        if (stirge) {
-            // the proboscis: long, thin, hard, a little curved, pointing down at the prey
-            val pr0 = head + p(0.0, -2.0, 7.0)
-            val pr1 = pr0 + p(0.0, -10.0 - 6.0 * r.jaw, 30.0)
-            cone(pr0, pr1, 2.2, 0.5, m(0x1A0E0C, shine = 0.7), DETAIL)
-            tip = pr1
-            // four legs with hooked claws hanging under it
-            for (s in listOf(-1.0, 1.0)) for (i in 0..1) {
-                val l0 = body0 + p(s * 5.0, -8.0, 4.0 - i * 7.0)
-                val l1 = l0 + p(s * 9.0, -12.0, 8.0)
-                val l2 = l1 + p(-s * 1.0, -10.0, 8.0)
-                cone(l0, l1, 1.6, 1.1, skin, LEG); cone(l1, l2, 1.1, 0.3, bone, LEG)
-                cone(l2, l2 + p(0.0, 2.0, 3.0), 0.6, 0.2, bone, DETAIL)
-            }
-        } else {
-            // the creased snout, the lips peeled back from the teeth, the jaw hanging open
-            val snout = head + p(0.0, -2.5, 11.0)
-            ell(snout, 5.0, 4.0, 4.0, skin, HEAD)
-            ell(snout + p(0.0, 2.6, 2.6), 3.2, 2.4, 1.6, skin, DETAIL)
-            ell(snout + p(0.0, -3.0 - 3.0 * r.jaw, 1.0), 4.4, 2.0 + 1.6 * r.jaw, 3.4, maw, JAW)
-            for (s in listOf(-1.0, 1.0)) {
-                cone(snout + p(s * 2.4, -1.0, 3.0), snout + p(s * 2.2, -5.0 - 2.0 * r.jaw, 3.2), 0.9, 0.2, tooth, DETAIL)
-                cone(snout + p(s * 2.0, -6.0 - 4.0 * r.jaw, 3.0), snout + p(s * 1.8, -3.0 - 3.0 * r.jaw, 3.2), 0.8, 0.2, tooth, DETAIL)
-            }
-            tip = snout + p(0.0, -4.0, 6.0)
-            // hind feet with hooked claws hanging under it
-            for (s in listOf(-1.0, 1.0)) {
-                val l0 = body0 + p(s * 7.0, -14.0, -4.0)
-                val l1 = l0 + p(s * 3.0, -16.0, 2.0)
-                cone(l0, l1, 2.6, 1.6, skin, LEG); cone(l1, l1 + p(0.0, -6.0, 4.0), 1.4, 0.3, bone, LEG)
-            }
-        }
+        if (stirge) stirgeBody(r, body0, tilt, skin, bone) else batBody(r, body0, tilt, fur, skin, bone, tooth, maw, eye)
         // the wings: the arm out from the shoulder, the long fingers fanning out, the skin stretched between them
         val span = (if (stirge) 46.0 else 108.0) * (0.35 + 0.65 * r.spread)
         for (s in listOf(-1.0, 1.0)) {
-            val sh = body0 + p(s * 10.0, 10.0, 2.0)
+            val sh = body0 + if (stirge) p(s * 6.0, 6.0, 0.0) else p(s * 12.0, 14.0, 2.0)
             val lift = -beat * 0.5
             val elbow = sh + p(s * span * 0.32, span * (0.12 + lift * 0.4), -span * 0.08)
             val wrist = elbow + p(s * span * 0.3, span * (0.06 + lift * 0.5), span * 0.06)
@@ -349,7 +297,7 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
             val skinM = m(mix(argb(skinC), argb(0x000000), 0.15), shine = 0.2, grain = 0.25)
             for (i in 0 until tips.size) {
                 val a = wrist; val b = tips[i]; val c = if (i + 1 < tips.size) tips[i + 1] else body0 + p(s * 6.0, -16.0, -2.0)
-                membrane(a, b, c, skinM, torn = !stirge && v == 1 && i == 1)
+                membrane(a, b, c, skinM, torn = (stirge && i != 0 && (i + v) % 2 == 1) || (!stirge && v == 1 && i == 1))
             }
             membrane(sh, elbow, wrist, skinM, torn = false)
             membrane(sh, wrist, tips.last(), skinM, torn = false)
@@ -357,6 +305,121 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
         }
         // old scars on the grey bat's body
         if (!stirge && v == 2) cone(body0 + p(-8.0, 8.0, 9.0), body0 + p(4.0, -6.0, 11.0), 0.9, 0.9, m(0x8A7A74), DETAIL)
+    }
+
+    /**
+     * The giant bat: a lean, shaggy body, a long head with a creased, wrinkled snout and a spiked nose leaf, the jaws
+     * gaping on long fangs and rows of needle teeth, drool hanging from them, small red eyes sunk deep, tall ragged ears.
+     */
+    private fun batBody(r: Rig, body0: P3, tilt: Frame, fur: Mat, skin: Mat, bone: Mat, tooth: Mat, maw: Mat, eye: Mat) {
+        val torso = add(Ellipsoid(body0, P3(15.0, 26.0, 13.0) * k, tilt, BodyPart.TORSO, BODY), fur)
+        fuzz(torso, 2.6, 2.0)
+        val head = body0 + p(0.0, 32.0, 8.0)
+        val hd = add(Ellipsoid(head, P3(13.0, 12.0, 15.0) * k, Frame.IDENTITY, BodyPart.HEAD, HEAD), fur)
+        fuzz(hd, 1.6, 5.0)
+        val tongue = m(0x6A1E24, shine = 0.6)
+        for (s in listOf(-1.0, 1.0)) {
+            // tall ears, notched and ragged at the edge
+            // a thin leaf of skin, broad at the root and drawn out to a sharp point, a ragged notch in its rim, the
+            // inside dark
+            val e0 = head + p(s * 8.0, 8.0, -2.0)
+            val up = P3(s * 0.62, 0.78, -0.1).norm()
+            val face = P3(s * 0.25, 0.0, 1.0).norm()
+            val across = (up cross face).norm()
+            val earF = Frame(across, up, (across cross up).norm())
+            val hgt = 30.0 * k; val half = 8.0 * k
+            fun earShape(scale: Double, notch: Boolean): (Double, Double) -> Double = { x, y ->
+                val t = ((y + hgt * 0.5) / hgt).coerceIn(0.0, 1.0)
+                val w = half * scale * Math.pow(1 - t, 0.75) * (0.75 + 0.5 * kotlin.math.sqrt(t * (1 - t)) * 2)
+                var d = max(abs(x) - w, max(-(y + hgt * 0.5), y - hgt * 0.5))
+                if (notch) d = max(d, 2.2 * k - kotlin.math.sqrt((x - s * w * 0.9) * (x - s * w * 0.9) + (y - hgt * 0.05) * (y - hgt * 0.05)))
+                d
+            }
+            add(Board(e0 + up * (hgt * 0.5), earF, hgt, 1.6 * k, 0.6 * k, earShape(1.0, true), BodyPart.HEAD, EAR), skin)
+            add(Board(e0 + up * (hgt * 0.45) + earF.z * (0.9 * k), earF, hgt, 0.6 * k, 0.6 * k, earShape(0.6, false), BodyPart.HEAD, DETAIL), maw)
+            // the eyes, small and red, deep under a heavy brow
+            ell(head + p(s * 5.6, 4.0, 11.6), 2.4, 2.0, 2.0, eye, EYE)
+            ell(head + p(s * 5.6, 6.6, 11.0), 3.6, 1.6, 2.6, skin, DETAIL)
+        }
+        // the snout: pushed forward, creased in folds, the nose leaf standing up from it like a spike
+        val snout = head + p(0.0, -3.0, 15.0)
+        ell(snout, 7.0, 5.6, 6.0, skin, HEAD)
+        for (i in 0..2) ell(snout + p(0.0, 3.0 - i * 1.4, -1.0 + i * 2.2), 6.0 - i, 1.0, 1.4, skin, DETAIL)
+        cone(snout + p(0.0, 4.0, 4.0), snout + p(0.0, 13.0, 3.0), 3.4, 0.6, skin, DETAIL)
+        // the jaws gaping wide: the mouth dark red, a tongue, two long fangs above and below and needle teeth between
+        val gape = 0.4 + 0.6 * r.jaw
+        val lowJaw = snout + p(0.0, -6.0 - 8.0 * gape, -1.0)
+        ell(snout + p(0.0, -4.0 - 4.0 * gape, 2.0), 6.0, 2.0 + 4.0 * gape, 5.0, maw, JAW)
+        add(Ellipsoid(lowJaw, P3(6.0, 2.2, 6.0) * k, Frame.IDENTITY, BodyPart.HEAD, JAW), skin)
+        ell(lowJaw + p(0.0, 2.2, 1.0), 3.0, 1.2, 3.6, tongue, DETAIL)
+        for (s in listOf(-1.0, 1.0)) {
+            cone(snout + p(s * 3.6, -2.0, 4.6), snout + p(s * 3.2, -9.0 - 3.0 * gape, 5.0), 1.5, 0.2, tooth, DETAIL)
+            cone(lowJaw + p(s * 3.2, 1.0, 4.4), lowJaw + p(s * 3.0, 7.0 + 2.0 * gape, 4.8), 1.3, 0.2, tooth, DETAIL)
+            for (t in 1..2) {
+                cone(snout + p(s * (3.6 - t * 1.3), -2.4, 5.4), snout + p(s * (3.4 - t * 1.3), -5.0, 5.6), 0.6, 0.15, tooth, DETAIL)
+                cone(lowJaw + p(s * (3.2 - t * 1.2), 1.6, 5.0), lowJaw + p(s * (3.0 - t * 1.2), 4.0, 5.2), 0.55, 0.15, tooth, DETAIL)
+            }
+        }
+        // a string of drool from the lower lip
+        cone(lowJaw + p(1.6, -1.0, 5.0), lowJaw + p(2.0, -9.0, 5.4), 0.5, 0.3, m(0xC8C0B0, shine = 1.0), DETAIL)
+        tip = snout + p(0.0, -6.0, 8.0)
+        // hind feet with hooked claws hanging under it
+        for (s in listOf(-1.0, 1.0)) {
+            val l0 = body0 + p(s * 8.0, -22.0, -4.0)
+            val l1 = l0 + p(s * 3.0, -16.0, 2.0)
+            cone(l0, l1, 2.8, 1.8, skin, LEG); cone(l1, l1 + p(0.0, -7.0, 5.0), 1.6, 0.3, bone, LEG)
+        }
+        // old scars on the grey bat
+        if (v == 2) cone(body0 + p(-9.0, 12.0, 11.0), body0 + p(5.0, -8.0, 13.0), 1.0, 1.0, m(0x8A7A74), DETAIL)
+    }
+
+    /**
+     * The stirge: half bat, half gnat and nothing soft about it. A hard, wrinkled hide with spines down the back, a
+     * belly in ringed segments that swells with blood, a small head with two bulging red insect eyes and a long barbed
+     * proboscis with blood at its point, four long jointed legs reaching forward with hooked claws.
+     */
+    private fun stirgeBody(r: Rig, body0: P3, tilt: Frame, skin: Mat, bone: Mat) {
+        val hideC = intArrayOf(0x4A3026, 0x4A4846, 0x2E2220)[v]
+        val hide = m(hideC, shine = 0.35, grain = 0.45)
+        val chitin = m(mix(argb(hideC), argb(0x000000), 0.45), shine = 0.6, grain = 0.1)
+        val blood = m(0x7A0E16, shine = 0.85, grain = 0.05)
+        val eyeM = m(0xC0140E, shine = 0.9, grain = 0.5, bias = 0.15)
+        // the thorax: lean and hard, wrinkled
+        val th = add(Ellipsoid(body0, P3(7.5, 10.0, 8.0) * k, tilt, BodyPart.TORSO, BODY), hide)
+        fuzz(th, 0.5, 4.0)
+        // spines down its back
+        for (i in 0..3) cone(body0 + p(0.0, 8.0 - i * 5.0, -6.0), body0 + p(0.0, 11.0 - i * 5.0, -12.0), 1.4, 0.2, chitin, DETAIL)
+        // the belly: ringed segments hanging down and back, swelling dark red with blood (bloated on the third)
+        val full = when (v) { 2 -> 1.5; 0 -> 1.0; else -> 0.85 }
+        for (i in 0..3) {
+            val c = body0 + p(0.0, -9.0 - i * 3.8 * full, -4.0 - i * 2.6)
+            val rr = (6.5 - i * 1.2) * full
+            add(Ellipsoid(c, P3(rr, 3.6 * full, rr) * k, tilt, BodyPart.TORSO, BODY), if (i % 2 == 0) blood else chitin)
+        }
+        // the head: small, two great bulging eyes, the proboscis long and barbed, wet with blood at its point
+        val head = body0 + p(0.0, 13.0, 6.0)
+        add(Ellipsoid(head, P3(5.0, 4.6, 5.4) * k, Frame.IDENTITY, BodyPart.HEAD, HEAD), chitin)
+        for (s in listOf(-1.0, 1.0)) ell(head + p(s * 4.2, 1.2, 2.6), 3.4, 3.8, 3.4, eyeM, EYE)
+        val pr0 = head + p(0.0, -1.5, 5.0)
+        val pr1 = pr0 + p(0.0, -12.0 - 6.0 * r.jaw, 34.0)
+        cone(pr0, pr1, 1.8, 0.35, m(0x140A08, shine = 0.8), DETAIL)
+        for (b in 1..3) {
+            val at = pr0.lerp(pr1, 0.45 + b * 0.13)
+            cone(at, at + p(0.0, 1.6, -2.4), 0.6, 0.1, chitin, DETAIL)
+        }
+        ell(pr1 + p(0.0, -1.0, 0.0), 1.2, 1.8, 1.2, blood, DETAIL)
+        tip = pr1
+        // feelers swept back from the head
+        for (s in listOf(-1.0, 1.0)) cone(head + p(s * 2.0, 4.0, 3.0), head + p(s * 8.0, 14.0, -6.0), 0.6, 0.2, chitin, DETAIL)
+        // four long legs, jointed like an insect's, reaching forward and down with hooked claws to seize
+        for (s in listOf(-1.0, 1.0)) for (i in 0..1) {
+            val l0 = body0 + p(s * 5.0, -4.0, 4.0 - i * 6.0)
+            val l1 = l0 + p(s * 12.0, 4.0, 10.0 - i * 4.0)
+            val l2 = l1 + p(s * 2.0, -18.0, 10.0)
+            val l3 = l2 + p(-s * 1.0, -2.0, 5.0)
+            cone(l0, l1, 1.5, 1.1, chitin, LEG); ell(l1, 1.3, 1.3, 1.3, chitin, LEG)
+            cone(l1, l2, 1.1, 0.7, chitin, LEG); cone(l2, l3, 0.7, 0.15, bone, LEG)
+        }
     }
 
     /** A thin sheet of skin over the triangle [a] [b] [c], its free edge sagging; [torn] leaves a ragged hole in it. */
@@ -422,36 +485,44 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
         fun lump(at: P3, rx: Double, ry: Double, rz: Double, seed: Double) {
             val e = Ellipsoid(at, P3(rx, ry, rz) * k, Frame.IDENTITY, BodyPart.TORSO, BODY)
             e.mat = ooze; e.paint = mottle
-            val l = Lumps(e, 3.5 * k, seed, 26.0 * k); l.mat = ooze; l.paint = mottle; out += l
+            val l = Lumps(e, 5.0 * k, seed, 22.0 * k); l.mat = ooze; l.paint = mottle; out += l
         }
         // the heap: a big mound and smaller ones melting into it, uneven, sagging
         val mound = base + P3(0.0, 24.0 * tall, 0.0) * k
-        val mr = P3(54.0 * wide, 28.0 * tall, 44.0 * wide) * k
-        lump(mound, 54.0 * wide, 28.0 * tall, 44.0 * wide, 0.0)
+        val mr = P3(58.0 * wide, 26.0 * tall, 50.0 * wide) * k
+        lump(mound, 58.0 * wide, 26.0 * tall, 50.0 * wide, 0.0)
         /** The point of the mound's skin in direction ([dx], [dy], [dz]) from its middle, [out] of the way out to it. */
         fun skin(dx: Double, dy: Double, dz: Double, out: Double = 1.0): P3 {
             val d = P3(dx, dy, dz).norm()
             val t = 1.0 / kotlin.math.sqrt((d.x / mr.x) * (d.x / mr.x) + (d.y / mr.y) * (d.y / mr.y) + (d.z / mr.z) * (d.z / mr.z))
             return mound + d * (t * out)
         }
-        for ((i, q) in listOf(P3(-30.0, 16.0, 20.0), P3(28.0, 20.0, -18.0), P3(6.0, 40.0, 6.0), P3(-22.0, 12.0, -30.0), P3(34.0, 10.0, 26.0)).withIndex())
+        for ((i, q) in listOf(P3(-34.0, 14.0, 16.0), P3(30.0, 18.0, -20.0), P3(4.0, 36.0, -4.0), P3(-24.0, 12.0, -32.0), P3(30.0, 10.0, 22.0)).withIndex())
             lump(base + P3(q.x * wide, q.y * tall, q.z * wide) * k, 22.0 - i * 2.0, 16.0 * tall, 20.0 - i, i * 1.7 + 1.0)
         // a puddle of it spreading round its foot
         add(Ellipsoid(base + p(0.0, 1.0, 4.0), P3(66.0 * wide, 3.0, 56.0 * wide) * k, Frame.IDENTITY, BodyPart.TORSO, BODY), dark).also { it.paint = mottle }
         // pseudopods: one reaching for the hero, lifted as it strikes, two smaller ones groping at the ground
         val reach = 0.4 + r.rear / 40.0
-        val root = skin(0.35, -0.1, 1.0, 0.85)
-        val mid = root + p(6.0, 6.0 + 18.0 * reach, 22.0 * reach + 10.0)
-        val end = mid + p(4.0, 8.0 * reach - 8.0, 24.0 * reach + 8.0)
-        cone(root, mid, 13.0, 8.0, ooze, BODY).paint = mottle
-        cone(mid, end, 8.0, 3.0, ooze, BODY).paint = mottle
-        // it splits at the end into groping fingers of ooze
-        for (f in listOf(-1.0, 1.0)) cone(end, end + p(f * 7.0, -4.0, 9.0), 3.4, 1.0, ooze, BODY).paint = mottle
-        tip = end + p(0.0, 0.0, 6.0)
-        for ((i, sd) in listOf(-1.0, 1.0).withIndex()) {
-            val r0 = base + p(sd * 40.0, 12.0, 14.0 + i * 10.0)
-            cone(r0, r0 + p(sd * 18.0, -6.0, 20.0), 9.0, 4.0, ooze, BODY).paint = mottle
+        // no front to it, nothing like a head: humps of different heights all over, and at its foot the ooze runs out
+        // over the ground in flat tongues, the nearest ones creeping towards the hero (further as it strikes)
+        for ((i, q) in listOf(P3(-24.0, 44.0, -18.0), P3(20.0, 38.0, 6.0), P3(-6.0, 32.0, 28.0), P3(38.0, 24.0, -12.0)).withIndex()) {
+            val e = Ellipsoid(base + P3(q.x * wide, q.y * tall, q.z * wide) * k, P3(17.0 - i * 2.0, (18.0 - i * 2.0) * tall, 16.0 - i) * k, Frame.IDENTITY, BodyPart.TORSO, BODY)
+            e.mat = ooze; e.paint = mottle; val l = Lumps(e, 4.0 * k, i * 2.3 + 5.0, 18.0 * k); l.mat = ooze; l.paint = mottle; out += l
         }
+        for ((i, a0) in listOf(-0.9, -0.35, 0.15, 0.6, 1.1, 2.4, 3.3).withIndex()) {
+            val dir = P3(sin(a0), 0.0, cos(a0))
+            val creep = if (i in 1..3) 1.0 + 0.6 * reach else 0.8
+            // a flat lobe of ooze spreading over the ground, not a limb
+            val at = base + dir * ((58.0 + 8.0 * (i % 2)) * creep * k) + p(0.0, 2.5, 0.0)
+            val across = P3(dir.z, 0.0, -dir.x)
+            add(Ellipsoid(at, P3(14.0 + 4.0 * (i % 3), 3.2, 12.0 * creep) * k, Frame(across, P3.Y, dir), BodyPart.TORSO, BODY), ooze).also { it.paint = mottle }
+        }
+        // it drips: long strings hanging from the overhang of its humps
+        for ((i, q) in listOf(P3(-30.0, 22.0, 14.0), P3(26.0, 14.0, 24.0), P3(4.0, 16.0, 34.0), P3(-40.0, 14.0, -8.0)).withIndex()) {
+            val at = base + P3(q.x * wide, q.y * tall, q.z * wide) * k
+            cone(at, at + p(0.0, -6.0 - i * 2.0, 1.0), 1.8, 0.6, ooze, BODY).paint = mottle
+        }
+        tip = base + p(0.0, 20.0, 60.0 + 20.0 * reach)
         // bubbles swelling on its skin
         for ((i, q) in listOf(P3(-18.0, 46.0, 22.0), P3(24.0, 38.0, 30.0), P3(-40.0, 26.0, -4.0), P3(10.0, 54.0, -6.0), P3(30.0, 20.0, 40.0)).withIndex())
             ell(base + P3(q.x * wide, q.y * tall, q.z * wide) * k, 2.6 + i % 3, 2.6 + i % 3, 2.6 + i % 3, pale, DETAIL)
@@ -486,11 +557,22 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
             }
             else -> {
                 // a dented iron helm and the hilt and blade of a sword sticking out of it, eaten brown
-                val helm = skin(-0.5, 0.75, 0.45, 0.95)
-                add(Ellipsoid(helm, P3(11.0, 8.5, 12.0) * k, Frame.IDENTITY, BodyPart.GEAR, DETAIL), rust)
-                val hilt = skin(0.4, 1.0, -0.3, 0.9)
-                cone(hilt, hilt + p(8.0, 30.0, -8.0), 2.0, 1.4, rust, DETAIL)
-                cone(hilt + p(4.0, 20.0, -10.0), hilt + p(12.0, 22.0, 0.0), 1.6, 1.6, rust, DETAIL)
+                // a helm: the dome, a rim round it, a nose guard and the dark eye slits, tilted half out of the ooze
+                val helm = skin(-0.6, 0.6, 0.55, 1.02)
+                val hf = Frame(P3(0.9, -0.3, 0.3).norm(), P3(0.35, 0.93, 0.0).norm(), P3(-0.25, 0.1, 0.96).norm())
+                add(Ellipsoid(helm, P3(10.5, 9.0, 11.5) * k, hf, BodyPart.GEAR, DETAIL), rust).cut(hf.y * -1.0, helm - hf.y * (3.0 * k))
+                add(Ellipsoid(helm - hf.y * (3.0 * k), P3(12.5, 1.6, 13.5) * k, hf, BodyPart.GEAR, DETAIL), rust)
+                cone(helm + hf.z * (11.0 * k) + hf.y * (2.0 * k), helm + hf.z * (11.8 * k) - hf.y * (9.0 * k), 1.4, 1.2, rust, DETAIL)
+                for (sd in listOf(-1.0, 1.0)) ell(helm + hf.z * (10.6 * k) + hf.x * (sd * 4.4 * k) - hf.y * (1.0 * k), 3.0, 1.0, 1.0, m(0x0C0806), DETAIL)
+                // a sword thrust into it at a slant: a broad blade, the crossguard, the grip and pommel
+                val hilt = skin(0.5, 0.8, -0.3, 0.92)
+                val dir = P3(0.45, 0.85, -0.25).norm()
+                val crossD = (dir cross P3.Z).norm()
+                add(Ellipsoid(hilt - dir * (6.0 * k), P3(2.4, 16.0, 0.6) * k, Frame(crossD, dir, (crossD cross dir).norm()), BodyPart.GEAR, DETAIL), rust)
+                val guard = hilt + dir * (10.0 * k)
+                cone(guard - crossD * (7.0 * k), guard + crossD * (7.0 * k), 1.3, 1.3, rust, DETAIL)
+                cone(guard, guard + dir * (10.0 * k), 1.2, 1.2, m(0x2A1A10, grain = 0.4), DETAIL)
+                ell(guard + dir * (11.5 * k), 2.0, 2.0, 2.0, rust, DETAIL)
             }
         }
     }

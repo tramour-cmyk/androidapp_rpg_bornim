@@ -233,7 +233,7 @@ fun renderVerminSheet() {
             de.bornim.core.art.Vermin.Kind.CENTIPEDE -> Triple(1.9, 0.8, de.bornim.core.art.Vermin.Rig(rear = 28.0, jaw = 0.9, yaw = -50.0))
             de.bornim.core.art.Vermin.Kind.BAT -> Triple(1.1, 1.05, de.bornim.core.art.Vermin.Rig(jaw = 0.9, spread = 1.0, beat = -0.3, yaw = -35.0))
             de.bornim.core.art.Vermin.Kind.STIRGE -> Triple(2.6, 0.98, de.bornim.core.art.Vermin.Rig(jaw = 0.9, spread = 1.0, beat = -0.3, yaw = -40.0))
-            de.bornim.core.art.Vermin.Kind.JELLY -> Triple(1.9, 0.88, de.bornim.core.art.Vermin.Rig(rear = 10.0, surge = 0.3, yaw = -45.0))
+            de.bornim.core.art.Vermin.Kind.JELLY -> Triple(1.35, 0.86, de.bornim.core.art.Vermin.Rig(rear = 10.0, surge = 0.3, yaw = -45.0))
         }
         for (v in 0..2) {
             val im = de.bornim.core.art.Vermin(kind, v).render(cw, ch, cw / 2.0 + 20, ch * groundK, px, rig)
@@ -243,4 +243,24 @@ fun renderVerminSheet() {
     }
     ImageIO.write(out, "png", File("build/screens/tiere_uebersicht.png"))
     println("wrote vermin sheet")
+}
+
+/** One vermin close (VERMINCLOSE=bat): its three looks at three times the size, to judge the face. */
+fun renderVerminClose() {
+    val kind = de.bornim.core.art.Vermin.Kind.valueOf(System.getenv("VERMINCLOSE").uppercase())
+    val cw = 420; val ch = 380
+    val out = BufferedImage(cw * 3, ch, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x262B28); g.fillRect(0, 0, out.width, out.height)
+    val (px, ground) = when (kind) {
+        de.bornim.core.art.Vermin.Kind.BAT -> 3.2 to 640.0
+        de.bornim.core.art.Vermin.Kind.STIRGE -> 5.0 to 560.0
+        de.bornim.core.art.Vermin.Kind.CENTIPEDE -> 4.0 to 560.0
+        else -> 2.0 to 360.0
+    }
+    for (v in 0..2) {
+        val im = de.bornim.core.art.Vermin(kind, v).render(cw, ch, cw / 2.0, ground, px, de.bornim.core.art.Vermin.Rig(jaw = 0.9, rear = 28.0, beat = -0.3, yaw = -30.0))
+        for (y in 0 until ch) for (x in 0 until cw) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(v * cw + x, y, q and 0xFFFFFF) }
+    }
+    ImageIO.write(out, "png", File("build/screens/nah_${kind.name.lowercase()}.png"))
+    println("wrote close $kind")
 }
