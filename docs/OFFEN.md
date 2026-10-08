@@ -59,7 +59,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
-**Zweig-Build „flüssigere Bewegungen“** (Kampftempo „Normal“). Worauf achten:
+**Zweig-Build 0.1.207 „flüssigere Bewegungen“** (bei dir im Test seit 08.10., 16:12; Kampftempo „Normal“). Worauf achten:
 - Held geht zum Schlag vor und zurück: gleitet er, oder springt er noch?
 - Gegner im neuen Stil (Goblin, Skelett, Krogg, Wolf …): Ausholen, kurzes Innehalten, Schlag, Rückweg. Springt er irgendwo nach vorn oder zurück?
 - Tödlicher Treffer: Liegt der Gegner kurz am Boden, bevor er taumelt und fällt? (sollte nicht mehr passieren)
