@@ -26,7 +26,7 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 **Test-Build v0.1.193** (Zweig `effekte`, enthält alles aus `kampffluss`).
 
-Von dir bestätigt (08.10., 12:38): Magier-Effekte, Feuerball, Kleriker-Effekte, Weihwasser, Zustand „Brennend“.
+Von dir bestätigt (08.10.): Magier-Effekte, Feuerball, Kleriker-Effekte, Weihwasser, Zustand „Brennend“.
 
 Noch offen, worauf achten:
 - **Alchemistenfeuer:** Flasche mit brennendem Lappen, Scherben, haftende Flammen, danach brennt der Gegner.
