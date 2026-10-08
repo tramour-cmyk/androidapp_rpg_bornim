@@ -92,12 +92,15 @@ object HeroBattle {
      * How far along the lunge of a melee blow the hero is at frame [index]: still at the start of the wind-up, stepping
      * in through it, all the way at the moment the blow lands, and back again through the follow-through. 0 for shots.
      */
-    fun lungeAt(hero: Hero, strike: Strike, index: Int): Double {
+    fun lungeAt(hero: Hero, strike: Strike, index: Int): Double = lungeAt(hero, strike, index.toDouble())
+
+    /** The same between two frames ([index] 3.4: four tenths on from frame 3), so the step glides instead of jumping frame by frame. */
+    fun lungeAt(hero: Hero, strike: Strike, index: Double): Double {
         if (strike == Strike.SHOOT || strike == Strike.CAST) return 0.0
         val hit = strikeFrame(strike)
         val n = frameCount(hero, Act.ATTACK, strike, 0)
         fun smooth(x: Double) = x.coerceIn(0.0, 1.0).let { it * it * (3 - 2 * it) }
-        return if (index <= hit) smooth((index - hit * 0.3) / (hit * 0.7)) else 1 - smooth((index - hit).toDouble() / (n - 1 - hit).coerceAtLeast(1))
+        return if (index <= hit) smooth((index - hit * 0.3) / (hit * 0.7)) else 1 - smooth((index - hit) / (n - 1 - hit).coerceAtLeast(1))
     }
 
     /**
