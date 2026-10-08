@@ -86,6 +86,8 @@ private class BattleUi(val battle: Battle) {
     var enemyGone by mutableStateOf(false)
     /** The foe did not fall but fled (turned by the cleric): it shrinks back, draws off and is gone. */
     var foeFled by mutableStateOf(false)
+    /** The foe was destroyed by the cleric's holy light: it flares up white and falls to ash. */
+    var foeDestroyed by mutableStateOf(false)
     /** A foe built in the round is falling: the next message waits until it lies on the ground. */
     var falling by mutableStateOf(false)
     var heroStatus by mutableStateOf<Map<de.bornim.core.Status, Int>>(emptyMap())
@@ -300,7 +302,7 @@ private class BattleUi(val battle: Battle) {
             foeStatus = s.foeStatus
             packBefore = pack
             pack = s.pack
-            if (s.anim == Anim.ENEMY_FAINT) { enemyGone = true; foeFled = s.fx?.kind == de.bornim.core.FxKind.TURN }
+            if (s.anim == Anim.ENEMY_FAINT) { enemyGone = true; foeFled = s.fx?.kind == de.bornim.core.FxKind.TURN; foeDestroyed = s.fx?.kind == de.bornim.core.FxKind.DESTROY }
             if (s.anim == Anim.HERO_FAINT) heroGone = true
             moveHero(s)
             foeCastLands = foePoised && s.anim == Anim.NONE && s.fx?.onHero == true
@@ -576,8 +578,11 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             val dollFoe = MonsterArt.isSolid(battle.monster.id)
             // a turned foe shrinks back from the holy light, draws off into the distance and is gone
             val fleeT = if (ui.foeFled) (if (a == Anim.ENEMY_FAINT) t else 1f) else 0f
+            // a destroyed one: it reels, glows white from within and crumbles away
+            val crumbleT = if (ui.foeDestroyed) (if (a == Anim.ENEMY_FAINT) t else 1f) else 0f
             val enemyAlpha = when {
                 ui.foeFled -> 1f - ((fleeT - 0.3f) / 0.7f).coerceIn(0f, 1f)
+                ui.foeDestroyed -> 1f - ((crumbleT - 0.4f) / 0.45f).coerceIn(0f, 1f)
                 // foes built in the round fall and stay lying there; the others still fade as they sink
                 a == Anim.ENEMY_FAINT -> if (dollFoe) 1f else 1f - t
                 ui.enemyGone -> if (dollFoe) 1f else 0f
@@ -679,6 +684,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     // lying dead where it fell, to the end of the fight
                     dollFoe && ui.enemyGone && a != Anim.ENEMY_FAINT -> seq(Act.DIE, dieLast, dieLast, dieV)
                     // falling: from the reel on to the ground (from the start if nothing struck it down first), then held while it fades
+                    ui.foeDestroyed -> if (a == Anim.ENEMY_FAINT && moving) (if (dollFoe) seq(Act.DIE, 0, reel, dieV) else whole(Act.HURT))
+                        else MonsterArt.shownFrame(id, battle.look, Act.IDLE, 0, 0, foeWound)
                     ui.foeFled -> if (a == Anim.ENEMY_FAINT && moving) whole(Act.DODGE)
                         else MonsterArt.shownFrame(id, battle.look, Act.IDLE, 0, idleIdx % MonsterArt.frameCount(id, battle.look, Act.IDLE, 0), foeWound)
                     a == Anim.ENEMY_FAINT && dollFoe -> {
@@ -802,7 +809,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     // a foe on the doll steps aside in its own frames rather than hopping
                     x = sceneW * foeX - foeAnchor + (intro.value * 260).dp + (if (dollFoe) 0.dp else dodge(false)) + enemyDx + foeLunge.x + (fleeT * fleeT * 70).dp,
                     // old-style sprites sag a little when badly hurt; new ones change their posture
-                    y = sceneH * foeY - foeFeet + enemyDy + (if (a == Anim.ENEMY_FAINT && !dollFoe && !ui.foeFled) (t * 40).dp else 0.dp) - (fleeT * fleeT * 46).dp + (if (newStyle) 0.dp else (foeWound * 3).dp) + foeLunge.y,
+                    y = sceneH * foeY - foeFeet + enemyDy + (if (a == Anim.ENEMY_FAINT && !dollFoe && !ui.foeFled) (t * 40).dp else 0.dp) - (fleeT * fleeT * 46).dp + (crumbleT * crumbleT * 14).dp + (if (newStyle) 0.dp else (foeWound * 3).dp) + foeLunge.y,
                 ).graphicsLayer {
                     val sc = foeScale * (1f - 0.35f * fleeT * fleeT)
                     if (sc != 1f && enemyFrame != null) {
@@ -819,7 +826,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 if (enemyFrame != null) {
                     PixelSprite(
                         enemyFrame, artDp, alpha = enemyAlpha,
-                        flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f, shade = shade, overflow = true,
+                        flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else if (ui.foeDestroyed) (crumbleT * 2.2f).coerceAtMost(0.9f) else 0f, shade = shade, overflow = true,
                     )
                     if (glow != null && foeShown) PixelSprite(Glow.rim(enemyFrame, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.22f + 0.18f * pulse), overflow = true)
                     if (foeStains > 0 && foeShown) PixelSprite(woundsOf(enemyFrame, foeStains, id, battle.look.seed), artDp, alpha = enemyAlpha, shade = shade, overflow = true)
@@ -831,7 +838,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     }
                 } else {
                     val img = MonsterArt.frame(battle.monster.id, battle.look, enemyPose, if (foeWound > 0) idleIdx else idle)
-                    PixelImageView(img, monsterSize, alpha = enemyAlpha, flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else 0f, shade = shade)
+                    PixelImageView(img, monsterSize, alpha = enemyAlpha, flash = if (a == Anim.ENEMY_HIT && blink) 0.85f else if (ui.foeDestroyed) (crumbleT * 2.2f).coerceAtMost(0.9f) else 0f, shade = shade)
                     if (foeStains > 0 && foeShown) PixelImageView(woundsOf(img, foeStains, id, battle.look.seed), monsterSize, alpha = enemyAlpha, shade = shade)
                 }
                 if (battle.shiny && foeShown) {
@@ -901,7 +908,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     Offset((sceneW * heroX + artDp * (it.x - HeroBattle.ANCHOR_X).toFloat()).toPx(), (sceneH * heroY + artDp * (it.y - HeroBattle.GROUND).toFloat()).toPx())
                 }
                 val source = if (launchC != null && fx?.onHero == false) launchC else heroC
-                BattleFxLayer(fx, ui.animKey, enemyC, source, unit, Modifier.matchParentSize(), startDelay = ui.fxDelay)
+                BattleFxLayer(fx, ui.animKey, enemyC, source, unit, Modifier.matchParentSize(), startDelay = ui.fxDelay, foeGround = (sceneH * foeY).toPx())
                 if (launchC != null && ui.release?.first == HeroFigure.Act.CAST) CastFlash(ui.flashKey, launchC, Color(0xFF000000 or launch.rgb.toLong()), artDp.toPx(), ui.fxDelay, Modifier.matchParentSize())
                 BloodLayer(
                     a, fx, ui.animKey, enemyC, (sceneH * foeY).toPx(), heroC, (sceneH * heroY).toPx(), vm.bloodLevel, goreFor(id), (monsterSize / 64).toPx(),

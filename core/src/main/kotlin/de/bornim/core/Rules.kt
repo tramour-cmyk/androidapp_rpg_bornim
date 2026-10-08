@@ -242,7 +242,7 @@ enum class Skill(
     BLESS(CharClass.CLERIC, 1, T("Segnen", "Bless"),
         T("Für diesen Kampf +1W4 auf deine Angriffswürfe.", "+1d4 to your attack rolls for this battle."), SkillCost.SPELL_POINTS, 2),
     TURN_UNDEAD(CharClass.CLERIC, 2, T("Untote vertreiben", "Turn Undead"),
-        T("Ein Untoter muss einen WEI-Rettungswurf bestehen oder flieht. Einmal pro Kampf.", "An undead must succeed on a WIS save or flee. Once per battle."), SkillCost.PER_BATTLE, 1),
+        T("Ein Untoter muss einen WEI-Rettungswurf bestehen oder flieht. Ab Stufe 5 zerfallen schwache Untote (Herausforderungsgrad ½ oder weniger) stattdessen zu Staub. Einmal pro Kampf.", "An undead must succeed on a WIS save or flee. From level 5, weak undead (challenge rating 1/2 or lower) crumble to dust instead. Once per battle."), SkillCost.PER_BATTLE, 1),
     SPIRITUAL_WEAPON(CharClass.CLERIC, 3, T("Spirituelle Waffe", "Spiritual Weapon"),
         T("Eine schwebende Waffe greift jede Runde zusätzlich an (1W8 + WEI-Mod).", "A floating weapon attacks every round as well (1d8 + WIS mod)."), SkillCost.SPELL_POINTS, 3),
     SPIRIT_GUARDIANS(CharClass.CLERIC, 5, T("Geisterwächter", "Spirit Guardians"),

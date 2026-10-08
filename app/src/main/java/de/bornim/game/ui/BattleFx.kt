@@ -33,7 +33,7 @@ import kotlin.random.Random
 /** Effects that fly from the attacker to the target: when they miss, they are drawn going wide. */
 val FLYING = setOf(
     FxKind.ARROW, FxKind.FIRE_BOLT, FxKind.MISSILES, FxKind.RAYS, FxKind.FIREBALL, FxKind.SACRED_FLAME,
-    FxKind.SPIRIT_WEAPON, FxKind.BOMB_FIRE, FxKind.BOMB_HOLY, FxKind.GUARDIANS, FxKind.TURN,
+    FxKind.SPIRIT_WEAPON, FxKind.BOMB_FIRE, FxKind.BOMB_HOLY, FxKind.GUARDIANS, FxKind.TURN, FxKind.DESTROY,
 )
 
 private fun kindSound(kind: FxKind, crit: Boolean): Sound = when (kind) {
@@ -44,7 +44,7 @@ private fun kindSound(kind: FxKind, crit: Boolean): Sound = when (kind) {
         FxKind.FIRE_BOLT, FxKind.RAYS, FxKind.FIREBALL -> Sound.FIRE
         FxKind.BOMB_FIRE, FxKind.BOMB_HOLY -> Sound.THROW
         FxKind.MISSILES, FxKind.SPIRIT_WEAPON, FxKind.MAGE_ARMOR -> Sound.MAGIC
-        FxKind.SACRED_FLAME, FxKind.GUARDIANS, FxKind.TURN -> Sound.HOLY
+        FxKind.SACRED_FLAME, FxKind.GUARDIANS, FxKind.TURN, FxKind.DESTROY -> Sound.HOLY
         FxKind.HEAL -> Sound.HEAL
         FxKind.BLESS -> Sound.BUFF
         FxKind.ENEMY_HEAL -> Sound.POTION
@@ -63,6 +63,7 @@ private fun kindSound(kind: FxKind, crit: Boolean): Sound = when (kind) {
 
 /** How long each effect plays, in ms. */
 fun fxDuration(kind: FxKind): Int = when (kind) {
+    FxKind.DESTROY -> 1400
     FxKind.FIREBALL, FxKind.SACRED_FLAME, FxKind.GUARDIANS, FxKind.TURN -> 900
     FxKind.MISSILES, FxKind.FIRE_BOLT, FxKind.ARROW, FxKind.BOMB_FIRE, FxKind.BOMB_HOLY, FxKind.HEAL, FxKind.BLESS -> 750
     else -> 520
@@ -90,7 +91,7 @@ fun soundFor(step: Step): Sound? {
  * [enemy] and [hero] are the sprite centres in pixels, [unit] is roughly one sprite pixel.
  */
 @Composable
-fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, modifier: Modifier, startDelay: Long = 0L) {
+fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, modifier: Modifier, startDelay: Long = 0L, foeGround: Float? = null) {
     if (fx == null) return
     // a miss with something flying: the bolt goes wide past the target, which then dodges
     val wide = fx.past?.takeIf { it in FLYING && (fx.kind == FxKind.DODGE || fx.kind == FxKind.BLOCK) }
@@ -109,24 +110,26 @@ fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, m
         val target = if (fx.onHero) hero else enemy
         val source = if (fx.onHero) enemy else hero
         val u = unit * (if (fx.crit) 1.35f else 1f)
+        // where the foe's feet stand: a flame from above comes down to the ground there
+        val ground = if (!fx.onHero && foeGround != null) foeGround else target.y + 45 * u
         if (onSpot != null) {
             // the foe hops to one side (see the battle screen's dodge): the flame comes down a little to the other
             val away = if (fx.seed % 2 == 0) -1f else 1f
-            drawFx(Fx(onSpot, fx.onHero, false, fx.seed), p, source, Offset(target.x + away * 30 * u, target.y), u)
-            drawFx(fx, p, source, target, u)
+            drawFx(Fx(onSpot, fx.onHero, false, fx.seed), p, source, Offset(target.x + away * 30 * u, target.y), u, ground)
+            drawFx(fx, p, source, target, u, ground)
             return@Canvas
         }
-        if (wide == null) { drawFx(fx, p, source, target, u); return@Canvas }
+        if (wide == null) { drawFx(fx, p, source, target, u, ground); return@Canvas }
         // past the target and on behind it, to one side; a shield stops it where it is
         val dx = target.x - source.x; val dy = target.y - source.y
         val len = kotlin.math.sqrt(dx * dx + dy * dy).coerceAtLeast(1f)
         val side = if (fx.seed % 2 == 0) 1f else -1f
         val by = if (fx.kind == FxKind.BLOCK) target
             else Offset(target.x + dx / len * 34 * u - dy / len * side * 30 * u, target.y + dy / len * 34 * u + dx / len * side * 30 * u)
-        drawFx(Fx(wide, fx.onHero, false, fx.seed), p, source, by, u * 0.8f)
+        drawFx(Fx(wide, fx.onHero, false, fx.seed), p, source, by, u * 0.8f, ground)
         // the dodge or the block as it arrives
         val q = (p - 0.45f) / 0.55f
-        if (q in 0f..1f) drawFx(fx, q, source, target, u)
+        if (q in 0f..1f) drawFx(fx, q, source, target, u, ground)
     }
 }
 
@@ -164,6 +167,59 @@ private fun fade(p: Float) = if (p < 0.15f) p / 0.15f else if (p > 0.6f) (1 - p)
 private fun DrawScope.square(c: Color, at: Offset, s: Float, alpha: Float = 1f) =
     drawRect(c.copy(alpha = alpha.coerceIn(0f, 1f)), Offset(at.x - s / 2, at.y - s / 2), Size(s, s))
 
+/**
+ * Sacred flame: radiance like a flame comes down from above onto the foe. The column narrows and softens as it falls,
+ * and where it reaches the ground white-gold tongues of fire lick up around the feet, a glow on the floor beneath:
+ * no hard edge anywhere.
+ */
+private fun DrawScope.sacredFlame(r: Random, p: Float, x: Float, ground: Float, u: Float) {
+    val f = fade(p)
+    // the light comes down from the top of the scene and reaches the ground at a third of the time
+    val down = (p / 0.3f).coerceAtMost(1f)
+    val front = ground * (1f - (1f - down) * (1f - down))
+    val sway = sin(p * 9f) * 1.5f * u
+    fun column(wTop: Float, wLow: Float, c: Color, a: Float) {
+        val path = Path().apply {
+            moveTo(x - wTop / 2, 0f); lineTo(x + wTop / 2, 0f)
+            lineTo(x + sway + wLow / 2, front); lineTo(x + sway - wLow / 2, front); close()
+        }
+        drawPath(path, Brush.verticalGradient(listOf(c.copy(alpha = 0f), c.copy(alpha = a * 0.5f * f), c.copy(alpha = a * f), c.copy(alpha = 0f)), 0f, front + 6 * u))
+    }
+    column(46 * u, 26 * u, HOLY, 0.28f)
+    column(24 * u, 13 * u, HOLY, 0.6f)
+    column(9 * u, 5 * u, WHITE, 0.95f)
+    if (down < 1f) return
+    // on the ground: a soft glow, then the flames
+    val burn = ((p - 0.28f) / 0.2f).coerceIn(0f, 1f) * f
+    drawOval(Brush.radialGradient(listOf(HOLY.copy(alpha = 0.55f * burn), HOLY.copy(alpha = 0.18f * burn), Color.Transparent), Offset(x, ground), 40 * u),
+        Offset(x - 40 * u, ground - 10 * u), Size(80 * u, 20 * u))
+    repeat(11) { i ->
+        val bx = x + (i - 5) * 4.2f * u + (r.nextFloat() - 0.5f) * 3 * u
+        val edge = 1f - kotlin.math.abs(i - 5) / 6f
+        val h = (16 + 30 * edge + r.nextFloat() * 12) * u * burn * (0.75f + 0.25f * sin(p * 38f + i * 1.9f))
+        val w = (6 + 4 * edge) * u
+        val lean = sin(p * 21f + i) * 3 * u + (i - 5) * 0.8f * u
+        fun tongue(scale: Float, c: Color, a: Float) {
+            val hh = h * scale; val ww = w * scale
+            val path = Path().apply {
+                moveTo(bx - ww / 2, ground + 2 * u)
+                quadraticBezierTo(bx - ww * 0.6f, ground - hh * 0.45f, bx + lean, ground - hh)
+                quadraticBezierTo(bx + ww * 0.6f, ground - hh * 0.45f, bx + ww / 2, ground + 2 * u)
+                close()
+            }
+            drawPath(path, Brush.verticalGradient(listOf(c.copy(alpha = 0f), c.copy(alpha = a), c.copy(alpha = a * 0.6f)), ground - hh, ground + 2 * u))
+        }
+        tongue(1f, HOLY, 0.75f * burn)
+        tongue(0.55f, WHITE, 0.9f * burn)
+    }
+    // embers rising out of the fire
+    repeat(12) {
+        val t = ((p - 0.3f) / 0.7f * (0.6f + r.nextFloat() * 0.6f) + r.nextFloat() * 0.2f).coerceIn(0f, 1f)
+        val ex = x + (r.nextFloat() - 0.5f) * 40 * u + sin(t * 8f + it) * 3 * u
+        square(if (it % 2 == 0) HOLY else WHITE, Offset(ex, ground - t * 70 * u), 2.5f * u, (1f - t) * f)
+    }
+}
+
 /** Sparks flying out of a point. */
 private fun DrawScope.burst(r: Random, at: Offset, t: Float, u: Float, colors: List<Color>, n: Int = 10, reach: Float = 18f) {
     if (t <= 0f || t >= 1f) return
@@ -175,7 +231,7 @@ private fun DrawScope.burst(r: Random, at: Offset, t: Float, u: Float, colors: L
     }
 }
 
-internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, u: Float) {
+internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, u: Float, ground: Float = target.y + 45 * u) {
     val r = Random(fx.seed)
     // Small random offset so the impact point is never exactly the same.
     val hit = Offset(target.x + (r.nextFloat() - 0.5f) * 14 * u, target.y + (r.nextFloat() - 0.5f) * 14 * u)
@@ -266,20 +322,7 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
             drawLine(FIRE_HOT.copy(alpha = fade(p)), start, end, w, StrokeCap.Round)
             burst(r, hit, (p - 0.25f) / 0.75f, u, listOf(FIRE_HOT, FIRE), 8, 16f)
         }
-        FxKind.SACRED_FLAME -> {
-            val grow = (p / 0.3f).coerceAtMost(1f)
-            val w = (16 + 8 * r.nextFloat()) * u * grow
-            val top = Offset(hit.x - w / 2, 0f)
-            drawRect(
-                Brush.verticalGradient(listOf(Color.Transparent, HOLY.copy(alpha = 0.9f * fade(p)), WHITE.copy(alpha = fade(p)))),
-                top, Size(w, hit.y + 20 * u),
-            )
-            repeat(10) {
-                val x = hit.x + (r.nextFloat() - 0.5f) * 40 * u
-                val y = hit.y + 20 * u - (p * 80 * u * (0.5f + r.nextFloat()))
-                square(HOLY, Offset(x, y), 3 * u, fade(p))
-            }
-        }
+        FxKind.SACRED_FLAME -> sacredFlame(r, p, hit.x, ground, u)
         FxKind.SPIRIT_WEAPON -> {
             val start = -70f + r.nextFloat() * 20f
             val angle = start + 140f * (p / 0.6f).coerceAtMost(1f)
@@ -298,6 +341,25 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
                 val a = (i * 2 * PI / n + p * 5).toFloat()
                 square(HOLY, Offset(target.x + cos(a) * radius, target.y + sin(a) * radius * 0.6f), 5 * u, fade(p))
                 square(WHITE, Offset(target.x + cos(a) * radius, target.y + sin(a) * radius * 0.6f), 2 * u, fade(p))
+            }
+        }
+        FxKind.DESTROY -> {
+            // the light of the god reaches the undead, which flares up and falls to ash and embers
+            val q = (p / 0.35f).coerceAtMost(1f)
+            repeat(3) { i ->
+                val t = ((q - i * 0.15f) / 0.7f).coerceIn(0f, 1f)
+                if (t > 0f && t < 1f) drawCircle(HOLY.copy(alpha = 1 - t), 10 * u + 70 * u * t, lerp(source, hit, t), style = Stroke(3 * u))
+            }
+            val glow = ((p - 0.3f) / 0.25f).coerceIn(0f, 1f) * (1f - ((p - 0.55f) / 0.45f).coerceIn(0f, 1f))
+            if (glow > 0f) drawCircle(Brush.radialGradient(listOf(WHITE.copy(alpha = 0.7f * glow), HOLY.copy(alpha = 0.35f * glow), Color.Transparent), Offset(target.x, (target.y + ground) / 2), 60 * u), 60 * u, Offset(target.x, (target.y + ground) / 2))
+            val ash = Color(0xFF8E887E)
+            repeat(34) { i ->
+                val born = 0.32f + r.nextFloat() * 0.3f
+                val t = ((p - born) / (1f - born)).coerceIn(0f, 1f)
+                val x0 = target.x + (r.nextFloat() - 0.5f) * 36 * u
+                val y0 = ground - r.nextFloat() * (ground - target.y) * 1.7f
+                val drift = (r.nextFloat() - 0.3f) * 30 * u
+                if (t > 0f && t < 1f) square(if (i % 3 == 0) HOLY else ash, Offset(x0 + drift * t, y0 - 46 * u * t * (0.5f + r.nextFloat())), u * (3f - 2f * t), (1f - t) * 0.95f)
             }
         }
         FxKind.TURN -> {

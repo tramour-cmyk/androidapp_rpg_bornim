@@ -5,7 +5,7 @@ enum class Anim { NONE, HERO_ACT, ENEMY_ACT, PACK_ACT, PACK_FLEE, ENEMY_HIT, HER
 /** Visual effect kinds for the battle screen. */
 enum class FxKind {
     SLASH, PIERCE, SMASH, ARROW,
-    FIRE_BOLT, MISSILES, RAYS, FIREBALL, SACRED_FLAME, SPIRIT_WEAPON, GUARDIANS, TURN,
+    FIRE_BOLT, MISSILES, RAYS, FIREBALL, SACRED_FLAME, SPIRIT_WEAPON, GUARDIANS, TURN, DESTROY,
     BOMB_FIRE, BOMB_HOLY, HEAL, BLESS, MAGE_ARMOR, ENEMY_HEAL,
     BITE, POISON, DODGE, BLOCK,
     DRAIN, ACID, PARALYZE, BURN,
@@ -409,6 +409,11 @@ class Battle(
             Skill.TURN_UNDEAD -> {
                 if (dice.d20() + monster.wisSave >= hero.spellDc) {
                     say(Msg.resists.f(lang, foe))
+                } else if (hero.level >= DESTROY_UNDEAD_LEVEL && crValue(monster.cr) <= 0.5) {
+                    // Destroy Undead (SRD): from the cleric's 5th level a weak undead that fails is destroyed outright
+                    enemyHp = 0
+                    say(Msg.destroyed.f(lang, foe), Anim.ENEMY_FAINT, fx = fx(FxKind.DESTROY, false))
+                    finishWin(fled = false)
                 } else {
                     say(Msg.turned.f(lang, foe), Anim.ENEMY_FAINT, fx = fx(FxKind.TURN, false))
                     finishWin(fled = true)
@@ -966,7 +971,13 @@ class Battle(
 
     private fun flush(): List<Step> = merged(steps.toList()).also { steps.clear() }
 
+    /** A challenge rating as a number: "1/4" is 0.25. */
+    private fun crValue(cr: String): Double = cr.split("/").let { if (it.size == 2) it[0].toDouble() / it[1].toDouble() else it[0].toDouble() }
+
     companion object {
+        /** From this cleric level Turn Undead destroys undead of challenge rating 1/2 or lower (SRD: Destroy Undead). */
+        const val DESTROY_UNDEAD_LEVEL = 5
+
         /** The steps that start an action whose end is told by a later step. */
         val OPENERS = setOf(Anim.HERO_ACT, Anim.ENEMY_ACT, Anim.PACK_ACT, Anim.SPELL, Anim.THROW, Anim.DRINK)
 
@@ -1031,6 +1042,7 @@ private object Msg {
     val blessed = T("{0} fühlt sich gesegnet.", "{0} feels blessed.")
     val resists = T("{0} widersteht!", "{0} resists!")
     val turned = T("{0} flieht in panischer Angst!", "{0} flees in terror!")
+    val destroyed = T("{0} zerfällt im heiligen Licht zu Staub!", "{0} crumbles to dust in the holy light!")
     val weaponAppears = T("Eine leuchtende Waffe erscheint!", "A glowing weapon appears!")
     val weaponStrikes = T("Die spirituelle Waffe schlägt zu!", "The spiritual weapon strikes!")
     val guardiansAppear = T("Schützende Geister umkreisen dich!", "Protective spirits circle you!")
