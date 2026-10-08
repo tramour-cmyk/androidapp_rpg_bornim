@@ -788,6 +788,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         changed()
     }
 
+    /** Fills every supply (draughts, flasks, food, ingredients; not keys) up to at least [n]. */
+    fun cheatSupplies(n: Int = 10) {
+        for (d in Items.all) if (d.kind != ItemKind.KEY && state.count(d.id) < n) state.add(d.id, n - state.count(d.id))
+        changed()
+    }
+
     fun cheatHeal() {
         hero.restoreFully()
         changed()

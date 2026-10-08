@@ -43,7 +43,7 @@ private fun kindSound(kind: FxKind, crit: Boolean): Sound = when (kind) {
         FxKind.ARROW -> Sound.ARROW
         FxKind.FIRE_BOLT, FxKind.RAYS, FxKind.FIREBALL -> Sound.FIRE
         FxKind.BOMB_FIRE, FxKind.BOMB_HOLY -> Sound.THROW
-        FxKind.MISSILES, FxKind.SPIRIT_WEAPON, FxKind.MAGE_ARMOR -> Sound.MAGIC
+        FxKind.MISSILES, FxKind.SPIRIT_WEAPON, FxKind.SPIRIT_SUMMON, FxKind.MAGE_ARMOR -> Sound.MAGIC
         FxKind.SACRED_FLAME, FxKind.GUARDIANS, FxKind.TURN, FxKind.DESTROY -> Sound.HOLY
         FxKind.HEAL -> Sound.HEAL
         FxKind.BLESS -> Sound.BUFF
@@ -519,6 +519,49 @@ private fun DrawScope.holyWave(r: Random, p: Float, from: Offset, to: Offset, gr
     }
 }
 
+/** The spiritual weapon itself: a great flanged mace of pale light, held at [pivot] and turned by [angle]. */
+private fun DrawScope.spectralMace(pivot: Offset, angle: Float, a: Float, u: Float) {
+    if (a <= 0.01f) return
+    rotate(angle, pivot) {
+        val len = 56 * u
+        val head = pivot + Offset(0f, len)
+        drawCircle(Brush.radialGradient(listOf(SPIRIT.copy(alpha = 0.45f * a), Color.Transparent), head, 24 * u), 24 * u, head)
+        // haft with a pommel
+        drawLine(SPIRIT.copy(alpha = 0.6f * a), pivot, head, 5f * u, StrokeCap.Round)
+        drawLine(WHITE.copy(alpha = 0.55f * a), pivot, head, 1.6f * u, StrokeCap.Round)
+        drawCircle(SPIRIT.copy(alpha = 0.7f * a), 3.4f * u, pivot)
+        // the flanged head: a heavy core with blades standing out on either side
+        drawOval(SPIRIT.copy(alpha = 0.75f * a), Offset(head.x - 7 * u, head.y - 11 * u), Size(14 * u, 22 * u))
+        for (side in listOf(-1f, 1f)) for (k in 0..2) {
+            val y = head.y - 8 * u + k * 8 * u
+            val path = Path().apply {
+                moveTo(head.x + side * 5 * u, y - 3.5f * u); lineTo(head.x + side * 13 * u, y)
+                lineTo(head.x + side * 5 * u, y + 3.5f * u); close()
+            }
+            drawPath(path, SPIRIT.copy(alpha = 0.8f * a))
+        }
+        drawOval(WHITE.copy(alpha = 0.65f * a), Offset(head.x - 3 * u, head.y - 8 * u), Size(6 * u, 16 * u))
+    }
+}
+
+/**
+ * The spiritual weapon called up: motes of pale light gather beside the hero and the mace takes shape among them,
+ * hovering upright, slowly turning, waiting to strike; it does not strike yet.
+ */
+private fun DrawScope.spiritSummon(r: Random, p: Float, hero: Offset, u: Float) {
+    val at = Offset(hero.x + 46 * u, hero.y + 10 * u + sin(p * 9f) * 2 * u)
+    val gather = (p / 0.45f).coerceIn(0f, 1f)
+    repeat(18) {
+        val a = r.nextFloat() * 2 * PI.toFloat()
+        val d = (40 + r.nextFloat() * 30) * u * (1 - gather)
+        val pos = at + Offset(cos(a) * d, sin(a) * d * 0.8f - 28 * u)
+        square(if (it % 3 == 0) WHITE else SPIRIT, pos, 1.8f * u, (1 - gather * 0.8f) * fade(p))
+    }
+    val form = ((p - 0.2f) / 0.4f).coerceIn(0f, 1f) * (1f - ((p - 0.8f) / 0.2f).coerceIn(0f, 1f) * 0.5f)
+    drawCircle(Brush.radialGradient(listOf(SPIRIT.copy(alpha = 0.35f * form), Color.Transparent), at + Offset(0f, -28 * u), 40 * u), 40 * u, at + Offset(0f, -28 * u))
+    spectralMace(at, 180f + sin(p * 5f) * 8f, form, u)
+}
+
 /** Spiritual weapon: a great spectral mace of pale light comes down on the foe, its afterimages trailing it, and strikes in a burst of cold light. */
 private fun DrawScope.spiritWeapon(r: Random, p: Float, hit: Offset, u: Float) {
     val pivot = Offset(hit.x + 30 * u, hit.y - 52 * u)
@@ -526,29 +569,7 @@ private fun DrawScope.spiritWeapon(r: Random, p: Float, hit: Offset, u: Float) {
     val ease = swing * swing * (3 - 2 * swing)
     val appear = (p / 0.12f).coerceAtMost(1f)
     val gone = 1f - ((p - 0.55f) / 0.35f).coerceIn(0f, 1f)
-    fun mace(angle: Float, a: Float) {
-        if (a <= 0.01f) return
-        rotate(angle, pivot) {
-            val len = 56 * u
-            val head = pivot + Offset(0f, len)
-            drawCircle(Brush.radialGradient(listOf(SPIRIT.copy(alpha = 0.45f * a), Color.Transparent), head, 24 * u), 24 * u, head)
-            // haft with a pommel
-            drawLine(SPIRIT.copy(alpha = 0.6f * a), pivot, head, 5f * u, StrokeCap.Round)
-            drawLine(WHITE.copy(alpha = 0.55f * a), pivot, head, 1.6f * u, StrokeCap.Round)
-            drawCircle(SPIRIT.copy(alpha = 0.7f * a), 3.4f * u, pivot)
-            // the flanged head: a heavy core with blades standing out on either side
-            drawOval(SPIRIT.copy(alpha = 0.75f * a), Offset(head.x - 7 * u, head.y - 11 * u), Size(14 * u, 22 * u))
-            for (side in listOf(-1f, 1f)) for (k in 0..2) {
-                val y = head.y - 8 * u + k * 8 * u
-                val path = Path().apply {
-                    moveTo(head.x + side * 5 * u, y - 3.5f * u); lineTo(head.x + side * 13 * u, y)
-                    lineTo(head.x + side * 5 * u, y + 3.5f * u); close()
-                }
-                drawPath(path, SPIRIT.copy(alpha = 0.8f * a))
-            }
-            drawOval(WHITE.copy(alpha = 0.65f * a), Offset(head.x - 3 * u, head.y - 8 * u), Size(6 * u, 16 * u))
-        }
-    }
+    fun mace(angle: Float, a: Float) = spectralMace(pivot, angle, a, u)
     val angle = -120f + 150f * ease
     for (k in 3 downTo 1) mace(angle - k * 16f * (1 - ease * 0.6f), 0.22f * appear * gone * (1f - k * 0.2f) * (if (swing in 0.05f..0.95f) 1f else 0.3f))
     mace(angle, appear * gone)
@@ -777,6 +798,7 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
         FxKind.RAYS -> scorchingRay(r, p, source, hit, u)
         FxKind.SACRED_FLAME -> sacredFlame(r, p, hit.x, ground, u)
         FxKind.SPIRIT_WEAPON -> spiritWeapon(r, p, hit, u)
+        FxKind.SPIRIT_SUMMON -> spiritSummon(r, p, target, u)
         FxKind.GUARDIANS -> guardians(r, p, target, u)
         FxKind.DESTROY -> {
             // the light of the god reaches the undead, which flares up and falls to ash and embers

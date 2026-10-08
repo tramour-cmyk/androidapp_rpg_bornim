@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 12:42 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 12:50 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -22,19 +22,14 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## Zu testen
 
-**Version v0.1.194** (veröffentlicht; enthält `kampffluss` und `effekte`).
+**Version v0.1.195** (veröffentlicht). Worauf achten:
+- **Spirituelle Waffe:** Beim Herbeirufen erscheint die Waffe neben dem Helden und schwebt, ohne zuzuschlagen. Danach schlägt sie einmal zu, der Text „schlägt zu“ steht mit dem Schaden in einer Zeile.
+- **Testreiter:** „Alle Vorräte auf mindestens 10“ füllt Tränke, Alchemistenfeuer, Weihwasser, Essen und Zutaten auf.
+- **Alchemistenfeuer** (jetzt leicht zu bekommen): Flasche mit brennendem Lappen, Scherben, haftende Flammen, danach brennt der Gegner.
+- **Weitere Zustände**, sobald sie vorkommen: Vergiftet (Spinne, Hundertfüßer), Blutend (nach Blutstufe; bei „Aus“ nichts), Betäubt, Verlangsamt, Geschwächt (Fluch des Schamanen), Geblendet (Heilige Flamme). Zu schwach, zu stark, stören sie?
+- **Noch nicht bestätigt aus v0.1.194:** Kampftempo und „Kampftext: weiter automatisch“, Trinken, Untote vertreiben/zerstören, Nebel in der Höhle.
 
-Von dir schon bestätigt: Magier-Effekte, Feuerball, Kleriker-Effekte, Weihwasser, Zustand „Brennend“, Tasche (Bilder).
-
-Noch offen, worauf achten:
-- **Alchemistenfeuer:** Flasche mit brennendem Lappen, Scherben, haftende Flammen, danach brennt der Gegner.
-- **Weitere Zustände**, sobald sie im Spiel vorkommen: Vergiftet (Spinne, Hundertfüßer), Blutend (nach Blutstufe; bei „Aus“ nichts), Betäubt, Verlangsamt, Geschwächt (Fluch des Schamanen), Geblendet (Heilige Flamme). Zu schwach, zu stark, stören sie?
-
-Ebenfalls in v0.1.194, noch nicht bestätigt:
-- **Kampffluss:** Jede Aktion läuft am Stück; Kampftempo und „Kampftext: weiter automatisch“ im Menü.
-- **Kampfende:** tödlicher Treffer ohne Text, Gegner bleibt liegen, Siegpose, Siegesfeld; bei Niederlage stürzt der Held und bleibt liegen.
-- **Untote vertreiben / zerstören:** unter Stufe 5 (und beim Ghul) Flucht; ab Stufe 5 zerfallen Skelett und Zombie zu Staub.
-- **Höhle:** Krogg und Grak nur in Sicht; Lichter leuchten nicht mehr in verborgene Räume.
+Von dir bestätigt: Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden.
 
 Mit v0.1.186 (main): **Wildschwein und Riesenratte** in freier Wildbahn.
 
@@ -48,6 +43,8 @@ Mit v0.1.186 (main): **Wildschwein und Riesenratte** in freier Wildbahn.
 - **Gegner hinter der Wand sichtbar (Höhle):** behoben (v0.1.194).
 - **Treffermeldung mitten im tödlichen Treffer:** behoben (v0.1.194).
 - **Glutstab zeigt Armbrust-Bild:** behoben, von dir bestätigt.
+- **Spirituelle Waffe schlägt scheinbar doppelt zu:** behoben in v0.1.195 (zu testen).
+- **Wunsch: Vorräte im Testreiter auffüllen:** umgesetzt in v0.1.195 (zu testen).
 
 ## Zu entscheiden
 

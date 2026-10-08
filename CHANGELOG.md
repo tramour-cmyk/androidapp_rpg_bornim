@@ -2,6 +2,14 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
+## v0.1.195 – 08.10.2026, 12:50
+
+**Behoben**
+- **Spirituelle Waffe:** Beim Herbeirufen sah es aus, als würde die Waffe schon zuschlagen, und danach schlug sie noch einmal zu. Jetzt nimmt sie beim Herbeirufen neben dem Helden Gestalt an und schwebt dort; zuschlagen tut sie erst danach, und „Die spirituelle Waffe schlägt zu!“ steht mit Treffer und Schaden in einer Zeile.
+
+**Neu – Testreiter**
+- Knopf „Alle Vorräte auf mindestens 10“: füllt Tränke, Flaschen, Essen und Zutaten auf je mindestens 10 auf (keine Schlüssel).
+
 ## v0.1.194 – 08.10.2026, 12:42
 
 **Neu – Fähigkeits-Effekte im düsteren Stil**

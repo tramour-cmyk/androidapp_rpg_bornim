@@ -98,4 +98,14 @@ class CheatTest {
         assertEquals(Rarity.DIVINE, item.rarity)
         assertTrue(g.state.bag.any { it.uid == item.uid })
     }
+
+    @Test
+    fun suppliesFilledToTen() {
+        val g = game()
+        g.state.add("potion", 14)
+        g.cheatSupplies(10)
+        for (d in Items.all.filter { it.kind != ItemKind.KEY }) kotlin.test.assertTrue(g.state.count(d.id) >= 10, d.id)
+        kotlin.test.assertTrue(g.state.count("potion") >= 14, "more than ten stays")
+        for (d in Items.all.filter { it.kind == ItemKind.KEY }) assertEquals(0, g.state.count(d.id), "no keys")
+    }
 }

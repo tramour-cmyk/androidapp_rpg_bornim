@@ -5,7 +5,7 @@ enum class Anim { NONE, HERO_ACT, ENEMY_ACT, PACK_ACT, PACK_FLEE, ENEMY_HIT, HER
 /** Visual effect kinds for the battle screen. */
 enum class FxKind {
     SLASH, PIERCE, SMASH, ARROW,
-    FIRE_BOLT, MISSILES, RAYS, FIREBALL, SACRED_FLAME, SPIRIT_WEAPON, GUARDIANS, TURN, DESTROY,
+    FIRE_BOLT, MISSILES, RAYS, FIREBALL, SACRED_FLAME, SPIRIT_WEAPON, SPIRIT_SUMMON, GUARDIANS, TURN, DESTROY,
     BOMB_FIRE, BOMB_HOLY, HEAL, BLESS, MAGE_ARMOR, ENEMY_HEAL,
     BITE, POISON, DODGE, BLOCK,
     DRAIN, ACID, PARALYZE, BURN,
@@ -421,7 +421,7 @@ class Battle(
             }
             Skill.SPIRITUAL_WEAPON -> {
                 spiritualWeapon = true
-                say(Msg.weaponAppears(lang), fx = fx(FxKind.SPIRIT_WEAPON, false))
+                say(Msg.weaponAppears(lang), fx = fx(FxKind.SPIRIT_SUMMON, true))
             }
             Skill.SPIRIT_GUARDIANS -> {
                 guardians = true
@@ -501,7 +501,8 @@ class Battle(
     /** Ongoing effects that act after the hero's action. */
     private fun bonusEffects() {
         if (spiritualWeapon) {
-            say(Msg.weaponStrikes(lang))
+            // the strike and what it does in one line, as the weapon comes down
+            lineStart = Msg.weaponStrikes(lang)
             val roll = dice.d20()
             if (roll != 1 && (roll == 20 || roll + hero.spellAttack >= enemyAc)) {
                 hitEnemy(dice.roll(1, 8) + hero.mod(Ability.WIS), DamageType.FORCE, roll == 20, fx(FxKind.SPIRIT_WEAPON, false, roll == 20))
@@ -965,7 +966,12 @@ class Battle(
         }
     }
 
-    private fun say(text: String, anim: Anim = Anim.NONE, rarity: Rarity? = null, fx: Fx? = null, item: String? = null) {
+    /** Words that open the next message in the same line (the spiritual weapon's strike and its outcome as one piece). */
+    private var lineStart: String? = null
+
+    private fun say(text0: String, anim: Anim = Anim.NONE, rarity: Rarity? = null, fx: Fx? = null, item: String? = null) {
+        val text = lineStart?.let { "$it $text0" } ?: text0
+        lineStart = null
         steps += Step(text, hero.hp, enemyHp, hero.sp, anim, rarity, fx, LinkedHashMap(heroStatus), LinkedHashMap(foeStatus), packLeft, packActor, item = item)
     }
 
