@@ -130,3 +130,49 @@ fun renderFxOnFoes() {
     scene.close()
     println("wrote fx on foes")
 }
+
+/** Every ability's effect at six moments, on a goblin (foe, right) and the hero's place (left): for a style check. */
+fun renderAbilityFx() {
+    val M = de.bornim.core.art.MonsterArt
+    val rows = listOf(
+        "Feuerpfeil" to Fx(FxKind.FIRE_BOLT, false, false, 7), "Magisches Geschoss" to Fx(FxKind.MISSILES, false, false, 7),
+        "Sengender Strahl" to Fx(FxKind.RAYS, false, false, 7), "Feuerball" to Fx(FxKind.FIREBALL, false, false, 7),
+        "Magierrüstung" to Fx(FxKind.MAGE_ARMOR, true, false, 7), "Heilige Flamme" to Fx(FxKind.SACRED_FLAME, false, false, 7),
+        "Wunden heilen / Trank" to Fx(FxKind.HEAL, true, false, 7), "Segnen" to Fx(FxKind.BLESS, true, false, 7),
+        "Untote vertreiben" to Fx(FxKind.TURN, false, false, 7), "Untote zerstören" to Fx(FxKind.DESTROY, false, false, 7),
+        "Spirituelle Waffe" to Fx(FxKind.SPIRIT_WEAPON, false, false, 7), "Geisterwächter" to Fx(FxKind.GUARDIANS, true, false, 7),
+        "Alchemistenfeuer" to Fx(FxKind.BOMB_FIRE, false, false, 7), "Weihwasser" to Fx(FxKind.BOMB_HOLY, false, false, 7),
+    )
+    val ps = listOf(0.1f, 0.25f, 0.4f, 0.55f, 0.7f, 0.85f)
+    val px = 1.5f
+    val cw = 300; val ch = 280
+    val look = de.bornim.core.MonsterLook(3)
+    val frame = M.battleFrame("goblin", look, de.bornim.core.art.Act.IDLE, 0, 0)
+    val (bodyW, bodyH) = M.bodySize("goblin", look, frame.width, frame.height)
+    val scene = ImageComposeScene(cw * ps.size, ch * rows.size, Density(1f)) {
+        Column(Modifier.background(Color(0xFF1E2A20))) {
+            for ((name, fx) in rows) Row {
+                for (p in ps) androidx.compose.foundation.layout.Box(Modifier.size(cw.dp, ch.dp).background(Color(0xFF34482F))) {
+                    val feetX = cw * 0.72f; val feetY = ch * 0.62f
+                    val heroX = cw * 0.18f; val heroY = ch * 0.97f
+                    val anchor = (M.anchorX("goblin", frame.width) * px).toFloat(); val feet = (M.groundLine("goblin") * px).toFloat()
+                    androidx.compose.foundation.layout.Box(Modifier.offset((feetX - anchor).dp, (feetY - feet).dp)) { de.bornim.game.ui.PixelSprite(frame, px.dp, overflow = true) }
+                    Canvas(Modifier.size(cw.dp, ch.dp)) {
+                        val enemy = Offset(feetX, feetY - (bodyH * px).toFloat() * 0.55f)
+                        val hero = Offset(heroX, heroY - 110f)
+                        drawRect(Color(0xFF8090A0), Offset(heroX - 14f, heroY - 190f), androidx.compose.ui.geometry.Size(28f, 190f))
+                        val u = (bodyW * px).toFloat() / 90
+                        val target = if (fx.onHero) hero else enemy
+                        val source = if (fx.onHero) enemy else Offset(heroX + 10f, heroY - 150f)
+                        drawFx(fx, p, source, target, u, if (fx.onHero) heroY else feetY)
+                    }
+                    androidx.compose.material3.Text(if (p == ps[0]) name else "", color = Color.White, modifier = Modifier.offset(6.dp, 4.dp))
+                }
+            }
+        }
+    }
+    val img = scene.render(0)
+    File("build/screens/ability_fx.png").writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
+    scene.close()
+    println("wrote ability fx")
+}

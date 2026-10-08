@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 07.10.2026, 23:20 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 11:20 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -13,21 +13,38 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## In Arbeit
 
-- **Gegner im neuen Stil:** Goblin, Goblin-Späher, Skelett, Wolf (mit Grimmzahn), Kobold, Zombie, Krogg und Grak sind eingebaut. Wildschwein und Riesenratte als Vierbeiner sind auf dem Zweig `vierbeiner` fertig und warten auf deine Abnahme. Goblin-Schamane und Ghul auf der Puppe liegen als Entwürfe vor (Bilder im Chat) und werden nach deinem Okay eingebaut; später Spinne, Hundertfüßer, Fledermaus, Stirge und Ockergallerte mit eigenen Körpern.
+- **Zweig `kampffluss`** (Test-Build v0.1.187, noch nicht auf main): Kampffluss am Stück, Kampftempo und „Kampftext: weiter automatisch“, Kampfende mit Siegesfeld und Sturz des Helden, Trinken im Kampf, tödlicher Treffer ohne Zwischentext, Untote vertreiben (Flucht) und Untote zerstören (ab Stufe 5), neue Heilige Flamme, Nebel in der Höhle. Kommt nach deinem Test auf main.
+- **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte (v0.1.186). Noch im alten Stil: Goblin-Schamane und Ghul (Entwürfe auf der Puppe liegen vor), Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
 
 ## Zu testen
 
-Mit der neuesten Version (Releases auf GitHub, `bornim.apk`):
+Mit dem Test-Build v0.1.187 (Zweig `kampffluss`):
 
-- **Stufengrenze (v0.1.173):** Ab Erreichen von Stufe 6 nennt der Kampf keine EP mehr (die EP bleiben auf dem Wert für Stufe 6), sondern „keine weiteren EP in diesem Kapitel“; Beute kommt weiter. Ein Spielstand mit aufgehobenen EP bleibt auf Stufe 6.
-- **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln, Drehung langsamer; die Schläge selbst so schnell wie bisher.
+- **Kampffluss:** Jede Aktion läuft am Stück (Bewegung, dann eine Textzeile); jede Ergebniszeile wartet auf Tippen. Im Menü „Kampftext: weiter automatisch“ und Kampftempo (Ruhig, Normal, Schnell).
+- **Kampfende:** Der tödliche Treffer läuft ohne Text durch, der Gegner bleibt liegen, Siegpose, dann das Siegesfeld (Trefferzeile, EP, Gold, Beute; Stufenaufstieg eigenes Feld). Bei einer Niederlage stürzt der Held und bleibt liegen, erst dann der Text.
+- **Trinken:** drei Varianten, Schildträger mit Schild am Arm; rot für Heiltrank, grün für Gegenmittel.
+- **Untote vertreiben / zerstören:** unter Stufe 5 (und beim Ghul) flieht der Untote; ab Stufe 5 zerfallen Skelett und Zombie zu Staub, mit Gold und Beute.
+- **Heilige Flamme:** Licht von oben mit Flammenfuß am Boden, beim Ausweichen neben dem Gegner.
+- **Höhle:** Krogg und Grak nur in Sicht; Lichtschacht und Feuer leuchten nicht mehr in verborgene Räume.
+
+Mit v0.1.186 (main): **Wildschwein und Riesenratte** in freier Wildbahn.
+
+Älter, noch nicht bestätigt:
+- **Stufengrenze (v0.1.173):** Ab Stufe 6 keine EP mehr, Beute weiter.
+- **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln, Drehung langsamer.
+
+## Zu entscheiden
+
+- **Fähigkeits-Effekte im düsteren Stil** (Prüfung vom 08.10.): Feuerpfeil, Magisches Geschoss, Sengender Strahl, Magierrüstung, Heilen, Segnen, Untote vertreiben, Spirituelle Waffe, Geisterwächter, Alchemistenfeuer und Weihwasser wirken noch wie Spielzeug oder Spielesymbole; Vorschläge im Chat, Entwürfe nach deiner Freigabe. Feuerball (Variante C) und Heilige Flamme passen.
+- **Goblin-Schamane und Ghul:** Rückmeldung zu den Entwürfen, dann Einbau in den Kampf.
+- **Hörproben:** Auswahl für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt.
+- **Kampftempo:** Soll es neben Text und Pausen auch die Bewegungen beschleunigen oder verlangsamen?
 
 ## Geplant
 
 - **Killerschlag:** Ein kritischer Treffer, der ein Monster tötet, bekommt einen besonderen Schlag des Helden in mindestens drei Varianten. Das Trefferbild zerfetzt den Gegner, abgestuft nach der Blutstufe: bei „Aus“ ohne Blut, etwa ein Zerbrechen oder Zusammensacken; bei „Dezent“ und „Deutlich“ immer stärker. Skelette zerspringen in Knochen. Gilt für alle Gegner im neuen Stil.
-- **Sterbeanimationen für alle Gegner:** Goblin, Späher und Skelett haben sie schon (drei Varianten: vornüber, rücklings, seitlich, mit echtem Sturz zu Boden). Die Wölfe haben sie jetzt auch (drei Stürze); die übrigen Gegner bekommen sie beim Umzug auf die Puppe.
+- **Sterbeanimationen für alle Gegner:** Alle Gegner im neuen Stil haben je drei Stürze und bleiben liegen. Die übrigen (Schamane, Ghul, Spinne, Hundertfüßer, Fledermaus, Stirge, Ockergallerte) bekommen sie beim Umzug in den neuen Stil.
 
-- **Klänge überarbeiten**: Hörproben liegen vor (`klangproben.zip` im Chat: je alt und drei neue Vorschläge für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt); nach deiner Auswahl werden sie umgestellt.
 - **Klänge überarbeiten (Rest)** nach den [Stil-Leitlinien](STIL.md): weg von quietschenden Nintendo-Tönen, hin zu glaubwürdigen Geräuschen. Die Kampfgeräusche (Hiebe, Stiche, Schläge, Biss, Pfeil, Schwung, Wolfsheulen) wurden schon einmal realistischer gemacht und werden mit geprüft; Abwehr („Klonk“) und Fehlschlag („Wusch“) sind schon neu. Noch im alten Stil sind vermutlich:
   - Menü und Bedienung: Klick.
   - Belohnungen: Stufenaufstieg, Beute, epische Beute, Münzen, Truhe.
