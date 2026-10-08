@@ -43,7 +43,7 @@ object HeroFigure {
     /** Facing in degrees: 0 looks at us, 180 away from us; the foe stands at about 140 (behind and to the right). */
     const val FIGHT_YAW = 138.0
 
-    enum class Act { IDLE, ATTACK, CAST, BLOCK, HURT, INTRO, TURN, AMBUSHED, VICTORY, THROW }
+    enum class Act { IDLE, ATTACK, CAST, BLOCK, HURT, INTRO, TURN, AMBUSHED, VICTORY, THROW, DRINK, DIE }
 
     /** How a weapon strikes. */
     enum class Strike { SLASH, THRUST, SMASH, SHOOT, CAST }
@@ -322,6 +322,32 @@ object HeroFigure {
         }
     }
 
+    private val drinks = java.util.concurrent.ConcurrentHashMap<Pair<Stance, Int>, List<Rig>>()
+    private val deaths = java.util.concurrent.ConcurrentHashMap<Pair<Stance, Int>, List<Rig>>()
+
+    /**
+     * The hero struck down, in three ways, lying on the ground at the end: 0 the knees give and it pitches forward
+     * onto its face, arms out before it; 1 thrown back flat, arms flung wide; 2 spun round, down on one knee and over
+     * onto its side. The weapon hand goes slack, the weapon hanging from it.
+     */
+    fun die(st: Stance, variant: Int): List<Rig> {
+        val r = restOf(st)
+        val reel = HURT.copy(rh = r.rh, weapon = r.weapon, aim = r.aim, grip = r.grip, lh = r.lh, freeHand = r.freeHand)
+        val slack = r.copy(weapon = V(0.2, -1.0, 0.25), aim = 1.0, grip = 30.0, cloak = 2.0)
+        return when (variant.mod(3)) {
+            // turned a little further towards the foe as it goes down, so it falls away into the picture, not out of it
+            0 -> tween(r to 1, reel to 4, slack.copy(yaw = r.yaw + 10.0, crouch = 14.0, lean = 0.6, headDown = 8.0, rh = V(14.0, 48.0, 14.0), lh = V(-22.0, 48.0, 14.0), fallF = 8.0) to 6,
+                slack.copy(yaw = r.yaw + 18.0, crouch = 4.0, lean = 0.1, headDown = 2.0, rh = V(16.0, 112.0, 16.0), lh = V(-24.0, 112.0, 16.0), fallF = 82.0) to 8,
+                slack.copy(yaw = r.yaw + 18.0, crouch = 4.0, lean = 0.1, headDown = 2.0, rh = V(16.0, 114.0, 14.0), lh = V(-24.0, 114.0, 14.0), fallF = 86.0) to 1)
+            1 -> tween(r to 1, reel.copy(lean = -0.6, stride = -6.0) to 4, slack.copy(crouch = 6.0, lean = -0.5, stride = -7.0, headDown = -6.0, rh = V(26.0, 80.0, -4.0), lh = V(-26.0, 80.0, -4.0), fallF = -20.0) to 5,
+                slack.copy(crouch = 3.0, lean = -0.2, stride = -4.0, headDown = -4.0, rh = V(30.0, 96.0, -2.0), lh = V(-30.0, 96.0, -2.0), fallF = -84.0) to 8,
+                slack.copy(crouch = 3.0, lean = -0.2, stride = -4.0, headDown = -4.0, rh = V(30.0, 96.0, -2.0), lh = V(-30.0, 96.0, -2.0), fallF = -88.0) to 1)
+            else -> tween(r to 1, reel.copy(twist = 30.0) to 4, slack.copy(crouch = 16.0, lean = 0.4, twist = 35.0, headTurn = 30.0, headDown = 6.0, rh = V(20.0, 46.0, 4.0), lh = V(-24.0, 46.0, 10.0), fallS = -10.0) to 6,
+                slack.copy(crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(22.0, 56.0, 6.0), lh = V(-26.0, 56.0, 10.0), fallS = -80.0) to 8,
+                slack.copy(crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(22.0, 56.0, 6.0), lh = V(-26.0, 56.0, 10.0), fallS = -84.0) to 1)
+        }
+    }
+
     private fun restOf(st: Stance) = when (st) { Stance.MELEE, Stance.SPEAR -> STAND; Stance.BOW -> BOW_REST; Stance.CROSSBOW -> XBOW_LOW.copy(draw = 0.0); Stance.STAFF -> STAFF_REST }
     /** The rest turned towards us, for the start of a fight. */
     private fun readyOf(st: Stance) = if (st == Stance.MELEE || st == Stance.SPEAR) READY else restOf(st).copy(yaw = 16.0, headTurn = -8.0, twist = restOf(st).twist * 0.5)
@@ -468,6 +494,8 @@ object HeroFigure {
             Act.TURN -> k.turn
             Act.AMBUSHED -> k.ambush
             Act.VICTORY -> k.victories[variant.mod(k.victories.size)]
+            Act.DRINK -> drinks.getOrPut(stance to variant.mod(3)) { drink(stance, variant) }
+            Act.DIE -> deaths.getOrPut(stance to variant.mod(3)) { die(stance, variant) }
         }
     }
 

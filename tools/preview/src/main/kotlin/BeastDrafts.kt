@@ -122,3 +122,31 @@ fun renderDrinkDrafts() {
     ImageIO.write(img, "png", File("build/screens/entwurf_trinken.png"))
     println("wrote drink drafts")
 }
+
+/** Drafts of the hero struck down: three falls for a few heroes, in the battle frame (its edge drawn) to see what is cut off. */
+fun renderHeroFallDrafts() {
+    val B = de.bornim.core.art.HeroBattle
+    val heroes = listOf(de.bornim.core.CharClass.FIGHTER to de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.CLERIC to de.bornim.core.Race.DWARF,
+        de.bornim.core.CharClass.WIZARD to de.bornim.core.Race.ELF, de.bornim.core.CharClass.ROGUE to de.bornim.core.Race.HALFLING)
+    val cols = 7
+    val fw = B.W; val fh = B.H
+    val img = BufferedImage(fw * cols, fh * heroes.size * 3, BufferedImage.TYPE_INT_RGB)
+    val g = img.createGraphics(); g.color = java.awt.Color(0x3A4436); g.fillRect(0, 0, img.width, img.height)
+    var row = 0
+    for ((cls, race) in heroes) {
+        val hero = de.bornim.core.GameState.newGame("Alrik", race, cls).hero
+        for (v in 0..2) {
+            val n = B.frameCount(hero, de.bornim.core.art.HeroFigure.Act.DIE, de.bornim.core.art.HeroFigure.Strike.SLASH, v)
+            for (c in 0 until cols) {
+                val i = c * (n - 1) / (cols - 1)
+                val im = B.frame(hero, de.bornim.core.art.HeroFigure.Act.DIE, de.bornim.core.art.HeroFigure.Strike.SLASH, v, i)
+                for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; if ((q ushr 24) >= 128) img.setRGB(c * fw + x, row * fh + y, q and 0xFFFFFF) }
+                g.color = java.awt.Color(0x6A5040); g.drawRect(c * fw, row * fh, fw - 1, fh - 1)
+            }
+            g.color = java.awt.Color(0xF0E8D8); g.drawString("${cls.name.lowercase()} – Sturz ${v + 1}", 4, row * fh + 14)
+            row++
+        }
+    }
+    ImageIO.write(img, "png", File("build/screens/entwurf_heldensturz.png"))
+    println("wrote hero falls")
+}
