@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.204 – 08.10.2026, 15:44
+
 **Geändert – Kampftempo für alle Animationen**
 - Die Einstellung Ruhig / Normal / Schnell wirkt jetzt auf alle Kampf-Animationen: Schläge, Zauber, Würfe, Reaktionen (Treffer, Ausweichen, Block), Effekte, Blutspritzer, Stürze und das Heulen, nicht mehr nur auf Textgeschwindigkeit und Lesepausen. Ruhig dehnt die Zeiten auf das 1,35-fache, Schnell kürzt sie auf das 0,7-fache.
 - Schläge und Zauber sind bei „Normal“ etwas langsamer als bisher, damit sie zu den ruhigeren Reaktionen passen (Held: Schlag- und Zauberbilder, Gegner: Ausholen und Zuschlagen).
