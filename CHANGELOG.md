@@ -4,6 +4,18 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – Fähigkeits-Effekte im düsteren Stil**
+- **Magier:** Feuerpfeil mit glühendem Kopf, Flammenspur, Rauch und kurz haftenden Flammen; Magisches Geschoss als drei kalt-violette Kraftsplitter; Sengender Strahl flackernd mit Hitzeflimmern und Glut; Magierrüstung als Runenschleier mit Schimmer. Beim Zaubern blitzt nicht mehr der ganze Bildschirm weiß.
+- **Feuerball:** brodelnde Feuermasse mit Rauchspur statt Kugel mit Ringen; Explosion aus Flammenwolken, die zu Rauch dunkeln, brennender Boden, Rauchsäule.
+- **Kleriker:** Heilen und Heiltränke als warmes, goldenes Licht statt grünem Kreis; Segnen als Lichteinfall von oben mit Sonnenzeichen statt Heiligenschein; Untote vertreiben als Lichtwelle über den Boden; Spirituelle Waffe als Geister-Streitkolben mit Nachbildern; Geisterwächter als kreisende Geistgestalten.
+- **Wurfgegenstände:** Flaschen aus Glas, die im Bogen fliegen und in Scherben zerspringen; Alchemistenfeuer spritzt brennend und haftet, Weihwasser spritzt und zischt zu Dampf.
+
+**Neu – Zustände am Körper**
+- Solange ein Zustand anhält, ist er an Held und Gegner zu sehen: Brennend (Flammen am Umriss und an den Füßen), Vergiftet (grünlicher Dunst), Blutend (Tropfen und Lache, nach Blutstufe), Betäubt (Schwanken), Verlangsamt (Reif, langsamere Ruhebewegung), Geschwächt (violetter Schleier), Geblendet (Restlicht vor den Augen).
+
+**Behoben**
+- **Tasche und Laden:** Nach dem Anlegen eines Gegenstands verrutschten die Bilder um eine Zeile (der Glutstab zeigte eine Armbrust). Jede Zeile zeigt jetzt ihr eigenes Bild.
+
 **Neu – flüssigere Kämpfe**
 - **Eine Aktion ist ein Stück:** Nach der Wahl läuft die ganze Bewegung (Ausholen, Schlag, Treffer oder Fehlschlag), und erst mit dem Aufprall erscheint der Text, alles in einer Zeile: „Alrik greift mit Kampfstab an! Krogg erleidet 8 Schaden.“ Zwischenworte wie „kritischer Treffer“ oder „Überraschungsschlag“ stehen in derselben Zeile.
 - **Zwei Tipper pro Runde statt vier:** Jede Ergebniszeile (deine und die des Gegners) wartet auf ein Tippen; was dazwischen liegt (Ausholen, Schlag, der Gegner holt aus und schlägt), läuft von selbst. Im Menü lässt sich „Kampftext: weiter automatisch“ einstellen: dann geht es nach einer Lesepause von selbst weiter, Tippen beschleunigt; das Kampfende (tödlicher Schlag, Sturz, Beute) wartet immer auf ein Tippen.
