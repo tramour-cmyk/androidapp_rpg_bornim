@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 12:36 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 12:35 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
