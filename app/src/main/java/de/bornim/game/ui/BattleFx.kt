@@ -91,7 +91,7 @@ fun soundFor(step: Step): Sound? {
  * [enemy] and [hero] are the sprite centres in pixels, [unit] is roughly one sprite pixel.
  */
 @Composable
-fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, modifier: Modifier, startDelay: Long = 0L, foeGround: Float? = null) {
+fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, modifier: Modifier, startDelay: Long = 0L, foeGround: Float? = null, heroGround: Float? = null) {
     if (fx == null) return
     // a miss with something flying: the bolt goes wide past the target, which then dodges
     val wide = fx.past?.takeIf { it in FLYING && (fx.kind == FxKind.DODGE || fx.kind == FxKind.BLOCK) }
@@ -111,7 +111,7 @@ fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, m
         val source = if (fx.onHero) enemy else hero
         val u = unit * (if (fx.crit) 1.35f else 1f)
         // where the foe's feet stand: a flame from above comes down to the ground there
-        val ground = if (!fx.onHero && foeGround != null) foeGround else target.y + 45 * u
+        val ground = (if (fx.onHero) heroGround else foeGround) ?: (target.y + 45 * u)
         if (onSpot != null) {
             // the foe hops to one side (see the battle screen's dodge): the flame comes down a little to the other
             val away = if (fx.seed % 2 == 0) -1f else 1f
@@ -148,6 +148,10 @@ private val ACID = Color(0xFFC8E040)
 private val FROST = Color(0xFFBFE8FF)
 private val STAR = Color(0xFFFFE070)
 private val CURSE = Color(0xFF8A58C8)
+private val SMOKE = Color(0xFF2E2A28)
+private val FORCE = Color(0xFF8C6CFF)
+private val FORCE_CORE = Color(0xFFEDE6FF)
+private val RUNE = Color(0xFFC4D6F0)
 
 private fun lerp(a: Offset, b: Offset, t: Float) = Offset(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t)
 
@@ -217,6 +221,211 @@ private fun DrawScope.sacredFlame(r: Random, p: Float, x: Float, ground: Float, 
         val t = ((p - 0.3f) / 0.7f * (0.6f + r.nextFloat() * 0.6f) + r.nextFloat() * 0.2f).coerceIn(0f, 1f)
         val ex = x + (r.nextFloat() - 0.5f) * 40 * u + sin(t * 8f + it) * 3 * u
         square(if (it % 2 == 0) HOLY else WHITE, Offset(ex, ground - t * 70 * u), 2.5f * u, (1f - t) * f)
+    }
+}
+
+/** One tongue of fire standing on [base], [h] high, leaning by [lean]: soft at the root, bright in the body. */
+private fun DrawScope.tongue(base: Offset, h: Float, w: Float, lean: Float, c: Color, a: Float) {
+    if (h <= 0.5f || a <= 0.01f) return
+    val path = Path().apply {
+        moveTo(base.x - w / 2, base.y)
+        quadraticBezierTo(base.x - w * 0.6f, base.y - h * 0.45f, base.x + lean, base.y - h)
+        quadraticBezierTo(base.x + w * 0.6f, base.y - h * 0.45f, base.x + w / 2, base.y)
+        close()
+    }
+    drawPath(path, Brush.verticalGradient(listOf(c.copy(alpha = 0f), c.copy(alpha = a), c.copy(alpha = a * 0.5f)), base.y - h, base.y))
+}
+
+/** Dark smoke: soft grey puffs that swell and thin out as they rise. */
+private fun DrawScope.smoke(r: Random, at: Offset, t: Float, u: Float, n: Int, rise: Float, a: Float) {
+    if (t <= 0f || t >= 1f) return
+    repeat(n) {
+        val d = r.nextFloat(); val side = (r.nextFloat() - 0.5f) * 16 * u
+        val c = Offset(at.x + side + sin(t * 4f + it) * 3 * u, at.y - rise * u * t * (0.5f + d))
+        val rad = (4 + 7 * t + 3 * d) * u
+        drawCircle(Brush.radialGradient(listOf(SMOKE.copy(alpha = a * (1 - t)), SMOKE.copy(alpha = 0f)), c, rad), rad, c)
+    }
+}
+
+/** Flames clinging to what was struck, burning down with [t], with smoke and embers. */
+private fun DrawScope.clingingFire(r: Random, at: Offset, t: Float, u: Float, size: Float = 1f) {
+    if (t <= 0f || t >= 1f) return
+    val f = if (t < 0.15f) t / 0.15f else (1 - t) / 0.85f
+    drawCircle(Brush.radialGradient(listOf(FIRE.copy(alpha = 0.45f * f), FIRE_DARK.copy(alpha = 0.15f * f), Color.Transparent), at, 22 * u * size), 22 * u * size, at)
+    repeat(6) { i ->
+        val bx = at.x + (r.nextFloat() - 0.5f) * 22 * u * size
+        val by = at.y + (r.nextFloat() - 0.2f) * 14 * u * size
+        val h = (8 + r.nextFloat() * 12) * u * size * f * (0.7f + 0.3f * sin(t * 40f + i * 2.1f))
+        val lean = sin(t * 23f + i) * 2.5f * u
+        tongue(Offset(bx, by), h, 6 * u * size, lean, FIRE_DARK, 0.8f)
+        tongue(Offset(bx, by), h * 0.75f, 4 * u * size, lean, FIRE, 0.85f)
+        tongue(Offset(bx, by), h * 0.4f, 2.4f * u * size, lean * 0.5f, FIRE_HOT, 0.9f)
+    }
+    smoke(r, Offset(at.x, at.y - 8 * u), t, u, 4, 40f, 0.45f)
+    repeat(6) {
+        val e = (t * (0.7f + r.nextFloat() * 0.6f)).coerceIn(0f, 1f)
+        square(if (it % 2 == 0) FIRE_HOT else FIRE, Offset(at.x + (r.nextFloat() - 0.5f) * 26 * u + sin(e * 9f + it) * 3 * u, at.y - e * 46 * u), 1.8f * u, (1 - e) * f)
+    }
+}
+
+/**
+ * Fire bolt: a hissing mote of fire, white-hot at the head, trailing flame and dark smoke, that bursts on the foe
+ * and leaves flames clinging to it for a moment.
+ */
+private fun DrawScope.fireBolt(r: Random, p: Float, from: Offset, to: Offset, u: Float) {
+    val travel = 0.42f
+    val bend = (r.nextFloat() - 0.5f) * 50 * u
+    val t = (p / travel).coerceAtMost(1f)
+    // smoke left hanging along the way, thinning out
+    for (k in 1..9) {
+        val tt = t - k * 0.06f
+        if (tt <= 0f) continue
+        val age = ((p - tt * travel) / 0.5f).coerceIn(0f, 1f)
+        val c = arc(from, to, tt, bend) + Offset(0f, -age * 8 * u)
+        val rad = (5 + 9 * age) * u
+        drawCircle(Brush.radialGradient(listOf(SMOKE.copy(alpha = 0.5f * (1 - age)), SMOKE.copy(alpha = 0f)), c, rad), rad, c)
+    }
+    if (p < travel) {
+        val head = arc(from, to, t, bend)
+        val back = arc(from, to, (t - 0.05f).coerceAtLeast(0f), bend)
+        val dir = (head - back).let { val l = it.getDistance().coerceAtLeast(0.01f); Offset(it.x / l, it.y / l) }
+        // the trailing flame: overlapping blobs, darker and thinner towards the tail, flickering
+        for (k in 11 downTo 0) {
+            val d = k * 3.6f * u
+            val wob = sin(p * 60f + k * 1.7f) * 1.2f * u
+            val c = Offset(head.x - dir.x * d - dir.y * wob, head.y - dir.y * d + dir.x * wob)
+            val rad = (8f - k * 0.6f) * u
+            val col = when { k == 0 -> FIRE_HOT; k < 4 -> FIRE; else -> FIRE_DARK }
+            drawCircle(col.copy(alpha = 1f - k * 0.075f), rad, c)
+        }
+        drawCircle(Brush.radialGradient(listOf(FIRE.copy(alpha = 0.4f), Color.Transparent), head, 24 * u), 24 * u, head)
+        drawCircle(WHITE.copy(alpha = 0.9f), 3.2f * u, head)
+        // sparks shed on the way
+        repeat(5) {
+            val st = (t - r.nextFloat() * 0.3f).coerceAtLeast(0f)
+            val sp = arc(from, to, st, bend) + Offset((r.nextFloat() - 0.5f) * 8 * u, (t - st) * 30 * u)
+            square(FIRE_HOT, sp, 1.6f * u, 1f - (t - st) * 3f)
+        }
+    } else {
+        val s = (p - travel) / (1 - travel)
+        val flash = (1 - s / 0.3f).coerceIn(0f, 1f)
+        if (flash > 0f) drawCircle(Brush.radialGradient(listOf(WHITE.copy(alpha = 0.8f * flash), FIRE_HOT.copy(alpha = 0.5f * flash), FIRE.copy(alpha = 0.2f * flash), Color.Transparent), to, 24 * u), 24 * u, to)
+        burst(r, to, s / 0.5f, u, listOf(FIRE_HOT, FIRE, FIRE_DARK), 10, 20f)
+        clingingFire(r, to, s, u, 1.35f)
+    }
+}
+
+/**
+ * Magic missile: a bolt of pure force, a slim shard of cold violet light that strikes with a sharp crack; three of
+ * them, each on its own curve, one after the other.
+ */
+private fun DrawScope.forceDart(r0: Random, p: Float, i: Int, from: Offset, to0: Offset, u: Float) {
+    val r = Random(r0.nextInt() + i * 977)
+    val to = Offset(to0.x + (r.nextFloat() - 0.5f) * 16 * u, to0.y + (r.nextFloat() - 0.5f) * 20 * u)
+    val delay = i * 0.13f
+    val travel = 0.42f
+    val t = ((p - delay) / travel).coerceIn(0f, 1f)
+    val bend = (if (i % 2 == 0) 1 else -1) * (40 + r.nextFloat() * 50) * u
+    if (t > 0f && t < 1f) {
+        // a fading ribbon behind it
+        var prev = arc(from, to, (t - 0.22f).coerceAtLeast(0f), bend)
+        for (k in 1..8) {
+            val tt = (t - 0.22f + k * 0.0275f).coerceAtLeast(0f)
+            val pt = arc(from, to, tt, bend)
+            drawLine(FORCE.copy(alpha = 0.06f * k), prev, pt, (0.6f + 0.35f * k) * u, StrokeCap.Round)
+            prev = pt
+        }
+        val head = arc(from, to, t, bend)
+        val back = arc(from, to, (t - 0.07f).coerceAtLeast(0f), bend)
+        drawCircle(Brush.radialGradient(listOf(FORCE.copy(alpha = 0.4f), Color.Transparent), head, 12 * u), 12 * u, head)
+        drawLine(FORCE, back, head, 3.2f * u, StrokeCap.Round)
+        drawLine(FORCE_CORE, lerp(back, head, 0.4f), head, 1.4f * u, StrokeCap.Round)
+    }
+    val s = (p - delay - travel) / 0.32f
+    if (s > 0f && s < 1f) {
+        drawCircle(Brush.radialGradient(listOf(FORCE_CORE.copy(alpha = 0.85f * (1 - s)), FORCE.copy(alpha = 0.4f * (1 - s)), Color.Transparent), to, 14 * u), 14 * u, to)
+        repeat(6) { k ->
+            val a = (k * PI / 3).toFloat() + r.nextFloat() * 0.5f
+            val len = (6 + 12 * s) * u
+            drawLine(FORCE_CORE.copy(alpha = 1 - s), to + Offset(cos(a) * len * 0.4f, sin(a) * len * 0.4f), to + Offset(cos(a) * len, sin(a) * len), 1.2f * u)
+        }
+    }
+}
+
+/**
+ * Scorching ray: a ray of fire from the staff, its edge flickering and wavering in its own heat, dark red outside,
+ * white-yellow in the core; where it strikes, the foe smoulders.
+ */
+private fun DrawScope.scorchingRay(r: Random, p: Float, from0: Offset, to: Offset, u: Float) {
+    val from = Offset(from0.x, from0.y + (r.nextFloat() - 0.5f) * 4 * u)
+    val reach = (p / 0.22f).coerceAtMost(1f)
+    val life = if (p < 0.5f) 1f else ((1 - p) / 0.5f)
+    val end = lerp(from, to, reach)
+    val dx = end.x - from.x; val dy = end.y - from.y
+    val len = kotlin.math.sqrt(dx * dx + dy * dy).coerceAtLeast(1f)
+    val nx = -dy / len; val ny = dx / len
+    fun wavy(width: Float, c: Color, a: Float, amp: Float, ph: Float) {
+        val n = 14
+        var prev = from
+        for (k in 1..n) {
+            val f = k / n.toFloat()
+            val w = sin(f * 19f + p * 70f + ph) * amp * u * sin(f * PI.toFloat())
+            val pt = Offset(from.x + dx * f + nx * w, from.y + dy * f + ny * w)
+            drawLine(c.copy(alpha = a * life), prev, pt, width * u * (0.6f + 0.4f * f), StrokeCap.Round)
+            prev = pt
+        }
+    }
+    wavy(11f, FIRE_DARK, 0.25f, 2.5f, 0f)
+    wavy(6f, FIRE, 0.65f, 1.6f, 1.3f)
+    wavy(2.4f, FIRE_HOT, 0.95f, 0.8f, 2.1f)
+    // heat shimmer just above the ray
+    wavy(1f, Color(0xFFFFE8C0), 0.18f, 4f, 4f)
+    if (reach >= 1f) {
+        val s = (p - 0.22f) / 0.78f
+        val flash = (1 - s / 0.25f).coerceIn(0f, 1f)
+        if (flash > 0f) drawCircle(Brush.radialGradient(listOf(FIRE_HOT.copy(alpha = 0.7f * flash), FIRE.copy(alpha = 0.25f * flash), Color.Transparent), to, 18 * u), 18 * u, to)
+        clingingFire(r, to, s, u, 0.7f)
+    }
+}
+
+/**
+ * Mage armor: a veil of pale runes gathers from the air around the hero, settles onto the body, and a cold sheen
+ * runs up from the feet to the head and fades into it.
+ */
+private fun DrawScope.mageArmor(r: Random, p: Float, chest: Offset, ground: Float, u: Float) {
+    val top = chest.y - (ground - chest.y) * 0.55f
+    val bodyW = (ground - top) * 0.17f
+    repeat(14) { i ->
+        val born = i * 0.025f
+        val t = ((p - born) / 0.5f).coerceIn(0f, 1f)
+        if (t <= 0f) return@repeat
+        val a0 = r.nextFloat() * 2 * PI.toFloat()
+        val far = 1.6f - 1.1f * t * t
+        val ty = top + (ground - top) * (0.1f + 0.8f * r.nextFloat())
+        val c = Offset(chest.x + cos(a0 + t * 2f) * bodyW * far, ty + sin(a0 + t * 2f) * 10 * u * far)
+        val alpha = (if (t < 0.2f) t / 0.2f else 1f) * (1f - ((p - 0.65f) / 0.35f).coerceIn(0f, 1f))
+        // a rune: three short strokes in a small box
+        val g = 3.6f * u
+        repeat(3) { k ->
+            val x0 = (r.nextInt(3) - 1) * g; val y0 = (r.nextInt(3) - 1) * g
+            val x1 = (r.nextInt(3) - 1) * g; val y1 = (r.nextInt(3) - 1) * g
+            drawLine(RUNE.copy(alpha = alpha), c + Offset(x0, y0), c + Offset(x1, y1), 1.4f * u, StrokeCap.Round)
+        }
+        drawCircle(Brush.radialGradient(listOf(RUNE.copy(alpha = 0.25f * alpha), Color.Transparent), c, 6 * u), 6 * u, c)
+    }
+    // the sheen running up the body
+    val run = ((p - 0.45f) / 0.35f).coerceIn(0f, 1f)
+    if (run > 0f && run < 1f) {
+        val y = ground - (ground - top) * run
+        drawRect(Brush.verticalGradient(listOf(Color.Transparent, RUNE.copy(alpha = 0.4f * (1 - run * 0.5f)), Color.Transparent), y - 16 * u, y + 16 * u),
+            Offset(chest.x - bodyW, y - 16 * u), Size(bodyW * 2, 32 * u))
+    }
+    // and the body keeps a faint cold shimmer for a moment
+    val keep = ((p - 0.7f) / 0.3f).coerceIn(0f, 1f)
+    if (p > 0.55f) {
+        val a = 0.16f * (if (p < 0.7f) (p - 0.55f) / 0.15f else 1f - keep)
+        drawOval(Brush.radialGradient(listOf(RUNE.copy(alpha = a), Color.Transparent), Offset(chest.x, (top + ground) / 2), (ground - top) * 0.6f),
+            Offset(chest.x - bodyW * 1.3f, top), Size(bodyW * 2.6f, ground - top))
     }
 }
 
@@ -295,33 +504,10 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
             }
             burst(r, hit, (p - 0.55f) / 0.45f, u, listOf(WHITE, if (fx.onHero) BLOOD else STEEL), 8, 14f)
         }
-        FxKind.FIRE_BOLT -> projectile(r, p, source, hit, u, listOf(FIRE_HOT, FIRE, FIRE_DARK), size = 6f, explosion = 26f)
+        FxKind.FIRE_BOLT -> fireBolt(r, p, source, hit, u)
         FxKind.FIREBALL -> projectile(r, p, source, hit, u, listOf(FIRE_HOT, FIRE, FIRE_DARK), size = 9f, explosion = 60f, travel = 0.45f)
-        FxKind.MISSILES -> {
-            repeat(3) { i ->
-                val delay = i * 0.12f + r.nextFloat() * 0.05f
-                val t = ((p - delay) / 0.5f).coerceIn(0f, 1f)
-                val bend = (r.nextFloat() - 0.5f) * 140 * u
-                if (t in 0.001f..0.999f) {
-                    for (k in 0 until 5) {
-                        val tt = (t - k * 0.04f).coerceAtLeast(0f)
-                        square(if (k == 0) ARCANE_LIGHT else ARCANE, arc(source, hit, tt, bend), (5 - k) * u, 1f - k * 0.18f)
-                    }
-                }
-                burst(r, hit, ((p - delay - 0.5f) / 0.3f), u, listOf(ARCANE_LIGHT, ARCANE), 6, 12f)
-            }
-        }
-        FxKind.RAYS -> {
-            // from the staff or hand itself, the rays only fanning a little
-            val off = (r.nextFloat() - 0.5f) * 4 * u
-            val start = Offset(source.x, source.y + off)
-            val w = (3 + r.nextFloat() * 3) * u * fade(p)
-            val reach = (p / 0.25f).coerceAtMost(1f)
-            val end = lerp(start, hit, reach)
-            drawLine(FIRE.copy(alpha = fade(p)), start, end, w * 1.8f, StrokeCap.Round)
-            drawLine(FIRE_HOT.copy(alpha = fade(p)), start, end, w, StrokeCap.Round)
-            burst(r, hit, (p - 0.25f) / 0.75f, u, listOf(FIRE_HOT, FIRE), 8, 16f)
-        }
+        FxKind.MISSILES -> repeat(3) { i -> forceDart(r, p, i, source, hit, u) }
+        FxKind.RAYS -> scorchingRay(r, p, source, hit, u)
         FxKind.SACRED_FLAME -> sacredFlame(r, p, hit.x, ground, u)
         FxKind.SPIRIT_WEAPON -> {
             val start = -70f + r.nextFloat() * 20f
@@ -408,18 +594,7 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
                 square(if (it % 2 == 0) HOLY else WHITE, Offset(x, y), 3 * u, fade(p))
             }
         }
-        FxKind.MAGE_ARMOR -> {
-            val s = (p / 0.4f).coerceAtMost(1f)
-            val radius = 36 * u * (0.6f + 0.4f * s)
-            val path = Path()
-            for (k in 0..6) {
-                val a = (k * PI / 3 + PI / 6).toFloat()
-                val pt = Offset(target.x + cos(a) * radius, target.y + sin(a) * radius)
-                if (k == 0) path.moveTo(pt.x, pt.y) else path.lineTo(pt.x, pt.y)
-            }
-            drawPath(path, Color(0xFF7AB8FF).copy(alpha = 0.25f * fade(p)))
-            drawPath(path, Color(0xFFBFE0FF).copy(alpha = fade(p)), style = Stroke(3 * u))
-        }
+        FxKind.MAGE_ARMOR -> mageArmor(r, p, target, ground, u)
         FxKind.BITE -> {
             val close = (p / 0.35f).coerceAtMost(1f)
             val gap = 22 * u * (1 - close)

@@ -908,7 +908,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     Offset((sceneW * heroX + artDp * (it.x - HeroBattle.ANCHOR_X).toFloat()).toPx(), (sceneH * heroY + artDp * (it.y - HeroBattle.GROUND).toFloat()).toPx())
                 }
                 val source = if (launchC != null && fx?.onHero == false) launchC else heroC
-                BattleFxLayer(fx, ui.animKey, enemyC, source, unit, Modifier.matchParentSize(), startDelay = ui.fxDelay, foeGround = (sceneH * foeY).toPx())
+                BattleFxLayer(fx, ui.animKey, enemyC, source, unit, Modifier.matchParentSize(), startDelay = ui.fxDelay, foeGround = (sceneH * foeY).toPx(), heroGround = (sceneH * heroY).toPx())
                 if (launchC != null && ui.release?.first == HeroFigure.Act.CAST) CastFlash(ui.flashKey, launchC, Color(0xFF000000 or launch.rgb.toLong()), artDp.toPx(), ui.fxDelay, Modifier.matchParentSize())
                 BloodLayer(
                     a, fx, ui.animKey, enemyC, (sceneH * foeY).toPx(), heroC, (sceneH * heroY).toPx(), vm.bloodLevel, goreFor(id), (monsterSize / 64).toPx(),
@@ -921,8 +921,9 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
 
             // Flashes for spells and level ups
             val bigLoot = a == Anim.LOOT && (step?.rarity ?: de.bornim.core.Rarity.COMMON) >= de.bornim.core.Rarity.EPIC
-            if ((a == Anim.SPELL || a == Anim.LEVEL_UP || bigLoot) && t in 0.01f..0.99f) {
-                val c = if (a == Anim.SPELL) Color.White else Colors.gold
+            // (a spell no longer flashes the whole scene white: it lights up at the staff or hand that casts it)
+            if ((a == Anim.LEVEL_UP || bigLoot) && t in 0.01f..0.99f) {
+                val c = Colors.gold
                 Box(Modifier.matchParentSize().graphicsLayer { alpha = (1f - t) * 0.6f }.background(c))
             }
         }

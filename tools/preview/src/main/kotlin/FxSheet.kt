@@ -134,7 +134,7 @@ fun renderFxOnFoes() {
 /** Every ability's effect at six moments, on a goblin (foe, right) and the hero's place (left): for a style check. */
 fun renderAbilityFx() {
     val M = de.bornim.core.art.MonsterArt
-    val rows = listOf(
+    val all = listOf(
         "Feuerpfeil" to Fx(FxKind.FIRE_BOLT, false, false, 7), "Magisches Geschoss" to Fx(FxKind.MISSILES, false, false, 7),
         "Sengender Strahl" to Fx(FxKind.RAYS, false, false, 7), "Feuerball" to Fx(FxKind.FIREBALL, false, false, 7),
         "Magierrüstung" to Fx(FxKind.MAGE_ARMOR, true, false, 7), "Heilige Flamme" to Fx(FxKind.SACRED_FLAME, false, false, 7),
@@ -143,7 +143,9 @@ fun renderAbilityFx() {
         "Spirituelle Waffe" to Fx(FxKind.SPIRIT_WEAPON, false, false, 7), "Geisterwächter" to Fx(FxKind.GUARDIANS, true, false, 7),
         "Alchemistenfeuer" to Fx(FxKind.BOMB_FIRE, false, false, 7), "Weihwasser" to Fx(FxKind.BOMB_HOLY, false, false, 7),
     )
-    val ps = listOf(0.1f, 0.25f, 0.4f, 0.55f, 0.7f, 0.85f)
+    val only = System.getenv("ABILITYFX")?.split(",")?.filter { it.isNotBlank() && it != "1" }
+    val rows = if (only.isNullOrEmpty()) all else all.filter { (n, _) -> only.any { n.startsWith(it) } }
+    val ps = if (only.isNullOrEmpty()) listOf(0.1f, 0.25f, 0.4f, 0.55f, 0.7f, 0.85f) else listOf(0.08f, 0.2f, 0.32f, 0.44f, 0.56f, 0.68f, 0.8f, 0.92f)
     val px = 1.5f
     val cw = 300; val ch = 280
     val look = de.bornim.core.MonsterLook(3)
