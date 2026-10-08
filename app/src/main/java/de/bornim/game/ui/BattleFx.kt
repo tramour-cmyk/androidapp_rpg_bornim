@@ -638,6 +638,64 @@ private fun DrawScope.flask(r: Random, p: Float, from: Offset, to: Offset, u: Fl
     }
 }
 
+/**
+ * Fireball: a roiling mass of fire, not a ball, churning as it flies and trailing thick smoke; it bursts into billows
+ * of flame that darken to smoke as they swell, the ground beneath catches fire and black smoke climbs away.
+ */
+private fun DrawScope.fireball(r: Random, p: Float, from: Offset, to: Offset, ground: Float, u: Float) {
+    val travel = 0.42f
+    val bend = (r.nextFloat() - 0.5f) * 60 * u
+    val t = (p / travel).coerceAtMost(1f)
+    for (k in 1..10) {
+        val tt = t - k * 0.055f
+        if (tt <= 0f) continue
+        val age = ((p - tt * travel) / 0.55f).coerceIn(0f, 1f)
+        val c = arc(from, to, tt, bend) + Offset(0f, -age * 12 * u)
+        val rad = (8 + 12 * age) * u
+        drawCircle(Brush.radialGradient(listOf(SMOKE.copy(alpha = 0.55f * (1 - age)), SMOKE.copy(alpha = 0f)), c, rad), rad, c)
+    }
+    if (p < travel) {
+        val head = arc(from, to, t, bend)
+        drawCircle(Brush.radialGradient(listOf(FIRE.copy(alpha = 0.45f), FIRE_DARK.copy(alpha = 0.15f), Color.Transparent), head, 34 * u), 34 * u, head)
+        // the churning mass: blobs rolling round the core, dark at the rim, white-hot within
+        repeat(16) { k ->
+            val a = r.nextFloat() * 2 * PI.toFloat() + p * (8f + k)
+            val d = (4 + r.nextFloat() * 10) * u
+            val c = head + Offset(cos(a) * d, sin(a) * d)
+            val rad = (6.5f + r.nextFloat() * 6f) * u
+            val col = if (k < 7) FIRE_DARK else if (k < 13) FIRE else FIRE_HOT
+            drawCircle(Brush.radialGradient(listOf(col, col.copy(alpha = 0f)), c, rad), rad, c)
+        }
+        drawCircle(Brush.radialGradient(listOf(WHITE.copy(alpha = 0.85f), FIRE_HOT.copy(alpha = 0f)), head, 6 * u), 6 * u, head)
+        repeat(6) {
+            val st = (t - r.nextFloat() * 0.25f).coerceAtLeast(0f)
+            val sp = arc(from, to, st, bend) + Offset((r.nextFloat() - 0.5f) * 12 * u, (t - st) * 40 * u)
+            square(if (it % 2 == 0) FIRE_HOT else FIRE, sp, 1.8f * u, 1f - (t - st) * 3f)
+        }
+        return
+    }
+    val s = (p - travel) / (1 - travel)
+    val flash = (1 - s / 0.18f).coerceIn(0f, 1f)
+    if (flash > 0f) drawCircle(Brush.radialGradient(listOf(WHITE.copy(alpha = 0.85f * flash), FIRE_HOT.copy(alpha = 0.6f * flash), FIRE.copy(alpha = 0.25f * flash), Color.Transparent), to, 70 * u), 70 * u, to)
+    // the ground below catches fire
+    clingingFire(r, Offset(to.x, ground), s, u, 1.9f)
+    // billows of flame swelling and darkening into smoke
+    val ease = 1f - (1f - s) * (1f - s)
+    repeat(30) { k ->
+        val a = r.nextFloat() * 2 * PI.toFloat()
+        val d = (6 + r.nextFloat() * 50) * u * ease
+        val c = to + Offset(cos(a) * d, sin(a) * d * 0.75f - s * 18 * u)
+        val rad = (14 + r.nextFloat() * 14) * u * (0.45f + 0.75f * ease)
+        val heat = (1f - s * (1.0f + r.nextFloat() * 0.7f) + (1f - d / (56 * u)) * 0.25f).coerceIn(0f, 1f)
+        val col = when { heat > 0.7f -> FIRE_HOT; heat > 0.4f -> FIRE; heat > 0.15f -> FIRE_DARK; else -> SMOKE }
+        val a0 = if (col == SMOKE) 0.6f * (1 - s) else (1 - s * 0.7f)
+        drawCircle(Brush.radialGradient(listOf(col.copy(alpha = a0), col.copy(alpha = a0 * 0.4f), col.copy(alpha = 0f)), c, rad), rad, c)
+    }
+    // black smoke climbing away
+    smoke(r, to + Offset(0f, -10 * u), ((s - 0.25f) / 0.75f), u, 6, 70f, 0.55f)
+    burst(r, to, s, u, listOf(FIRE_HOT, FIRE, FIRE_DARK), 16, 50f)
+}
+
 /** Sparks flying out of a point. */
 private fun DrawScope.burst(r: Random, at: Offset, t: Float, u: Float, colors: List<Color>, n: Int = 10, reach: Float = 18f) {
     if (t <= 0f || t >= 1f) return
@@ -714,7 +772,7 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
             burst(r, hit, (p - 0.55f) / 0.45f, u, listOf(WHITE, if (fx.onHero) BLOOD else STEEL), 8, 14f)
         }
         FxKind.FIRE_BOLT -> fireBolt(r, p, source, hit, u)
-        FxKind.FIREBALL -> projectile(r, p, source, hit, u, listOf(FIRE_HOT, FIRE, FIRE_DARK), size = 9f, explosion = 60f, travel = 0.45f)
+        FxKind.FIREBALL -> fireball(r, p, source, hit, ground, u)
         FxKind.MISSILES -> repeat(3) { i -> forceDart(r, p, i, source, hit, u) }
         FxKind.RAYS -> scorchingRay(r, p, source, hit, u)
         FxKind.SACRED_FLAME -> sacredFlame(r, p, hit.x, ground, u)

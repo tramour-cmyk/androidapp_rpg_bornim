@@ -435,6 +435,12 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
 
     BackHandler { if (ui.menu != BattleMenu.MAIN) ui.menu = BattleMenu.MAIN }
 
+    // the preview's battle films act straight away, without tapping through the menus
+    LaunchedEffect(vm.testAction, ui.current, ui.panels) {
+        val a = vm.testAction ?: return@LaunchedEffect
+        if (ui.current == null && ui.panels.isEmpty() && battle.outcome == Outcome.ONGOING) { delay(300); vm.testAction = null; act(a) }
+    }
+
     // Idle animation: monster and hero breathe in a slow loop of frames.
     var idle by remember { mutableIntStateOf(0) }
     LaunchedEffect(Unit) {

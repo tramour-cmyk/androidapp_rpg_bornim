@@ -89,6 +89,7 @@ fun geared(vm: GameViewModel, cls: CharClass, race: Race = Race.DWARF) {
 
 fun main() {
     System.getenv("FILM")?.let { fightFilm(it); System.exit(0) }
+    System.getenv("FILMBATCH")?.let { fightBatch(it); System.exit(0) }
     if (System.getenv("BEASTDRAFT") != null) { renderBeastDrafts(); System.exit(0) }
     if (System.getenv("DOLLDRAFT") != null) { renderShamanGhoulDrafts(); System.exit(0) }
     if (System.getenv("DRINKDRAFT") != null) { renderDrinkDrafts(); System.exit(0) }

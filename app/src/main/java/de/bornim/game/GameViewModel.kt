@@ -112,6 +112,9 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     var battleTempo by mutableStateOf(prefs.getInt(KEY_TEMPO, 1).coerceIn(0, 2))
         private set
 
+    /** For the preview's battle films only: an action the battle screen takes as soon as the hero may act. */
+    var testAction by mutableStateOf<de.bornim.core.Action?>(null)
+
     /** Whether a fight goes on by itself after each line (after a pause to read), or each line waits for a tap (default). */
     var battleAuto by mutableStateOf(prefs.getBoolean(KEY_AUTO, false))
         private set
