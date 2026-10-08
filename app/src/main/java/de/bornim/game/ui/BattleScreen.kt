@@ -149,6 +149,9 @@ private class BattleUi(val battle: Battle) {
 
     private fun play(act: HeroFigure.Act, strike: HeroFigure.Strike = HeroFigure.Strike.SLASH, variant: Int = 0, from: Int = 0, to: Int = -1, perFrame: Long = 60, delayMs: Long = 0, hold: Boolean = false,
         slowFrom: Int = Int.MAX_VALUE, slowK: Double = 1.0) {
+        // the pace set in the menu (calm, normal, fast) speeds up or slows down every move; the callers' times are for normal
+        val perFrame = BattlePace.ms(perFrame)
+        val delayMs = BattlePace.ms(delayMs)
         val n = HeroBattle.frameCount(battle.hero, act, strike, variant)
         val end = if (to < 0) n - 1 else to.coerceAtMost(n - 1)
         val now = System.currentTimeMillis()
@@ -157,7 +160,7 @@ private class BattleUi(val battle: Battle) {
         val m = motion
         val lead = if (m != null && m.hold && m.act == HeroFigure.Act.BLOCK && act != HeroFigure.Act.BLOCK) {
             val last = HeroBattle.frameCount(battle.hero, m.act, m.strike, m.variant) - 1
-            val per = if (act == HeroFigure.Act.HURT) 28L else 45L
+            val per = BattlePace.ms(if (act == HeroFigure.Act.HURT) 28L else 45L)
             HeroMotion(m.act, m.strike, m.variant, m.to, last, now, (last - m.to + 1) * per)
         } else null
         val start = maxOf(now + delayMs, (lead?.let { it.start + it.ms } ?: 0L))
@@ -208,14 +211,14 @@ private class BattleUi(val battle: Battle) {
                 play(HeroFigure.Act.ATTACK, m.strike, 0, m.to, -1, perFrame = ATTACK_FRAME_MS, slowFrom = HeroBattle.strikeFrame(m.strike) + 1, slowK = MOVE_SLOW)
                 if (m.strike != HeroFigure.Strike.SHOOT) { swingDelay = 0L; swingKey++ }
                 // the arrow or bolt leaves the bow on the frame the string is let go
-                else { release = HeroFigure.Act.ATTACK to 0; fxDelay = (HeroBattle.strikeFrame(m.strike) - m.to) * ATTACK_FRAME_MS }
+                else { release = HeroFigure.Act.ATTACK to 0; fxDelay = (HeroBattle.strikeFrame(m.strike) - m.to) * BattlePace.ms(ATTACK_FRAME_MS) }
             }
             // a flask: drawn back while it is named, thrown with the next message
             s.anim == Anim.THROW -> play(HeroFigure.Act.THROW, HeroFigure.Strike.CAST, HeroBattle.throwVariant(hero), 0, HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - 1, perFrame = CAST_FRAME_MS, hold = true)
             m != null && m.act == HeroFigure.Act.THROW && m.hold && (fx != null || s.anim != Anim.NONE) -> {
                 play(HeroFigure.Act.THROW, HeroFigure.Strike.CAST, m.variant, m.to, -1, perFrame = CAST_FRAME_MS)
                 release = HeroFigure.Act.THROW to m.variant
-                fxDelay = (HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - m.to) * CAST_FRAME_MS
+                fxDelay = (HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - m.to) * BattlePace.ms(CAST_FRAME_MS)
             }
             // while the spell is named, it gathers and glows; it is let go with its effect on the next message
             s.anim == Anim.SPELL -> play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, HeroBattle.castVariant(hero), 0, HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - 1, perFrame = CAST_FRAME_MS, hold = true)
@@ -223,7 +226,7 @@ private class BattleUi(val battle: Battle) {
                 play(HeroFigure.Act.CAST, HeroFigure.Strike.CAST, m.variant, m.to, -1, perFrame = CAST_FRAME_MS)
                 // the spell leaves the staff, wand or hand on the frame it is let go, in a flash of light
                 release = HeroFigure.Act.CAST to m.variant
-                fxDelay = (HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - m.to) * CAST_FRAME_MS
+                fxDelay = (HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - m.to) * BattlePace.ms(CAST_FRAME_MS)
                 flashKey++
             }
             // struck through the guard: the guard holds until the hero's next turn, as the defence does; the blow shows
@@ -337,6 +340,7 @@ private class BattleUi(val battle: Battle) {
 fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
     vm.tick
     val lang = vm.lang
+    BattlePace.set(vm.battleTempo)
     val ui = remember(battle) { BattleUi(battle) }
     val step = ui.current
     var revealed by remember(step) { mutableIntStateOf(0) }
@@ -404,7 +408,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             revealed = step.text.length
             ui.killWords = step.text
             // the blow or the spell lands, the foe (or the hero) reels; then on into the fall
-            val flight = step.fx?.let { if (it.kind in FLYING || it.past in FLYING) 260L else 0L } ?: 0L
+            val flight = step.fx?.let { if (it.kind in FLYING || it.past in FLYING) BattlePace.ms(260L) else 0L } ?: 0L
             delay(ui.fxDelay + flight + REACT_MS.toLong() + 150L)
             while (ui.falling) delay(50L)
             if (ui.current === step) goOn()
@@ -421,7 +425,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
         val tempo = vm.battleTempo
         val perChar = when (tempo) { 0 -> 22L; 2 -> 9L; else -> 15L }
         // the words of an action come once it lands: the blow struck, the spell or flask arrived
-        if (ui.afterLead) delay(160L + ui.fxDelay + (step.fx?.let { if (it.kind in FLYING || it.past in FLYING) 260L else 0L } ?: 0L))
+        if (ui.afterLead) delay(160L + ui.fxDelay + (step.fx?.let { if (it.kind in FLYING || it.past in FLYING) BattlePace.ms(260L) else 0L } ?: 0L))
         val shown = words(step)
         while (revealed < shown.length) {
             delay(perChar)
@@ -462,7 +466,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
     // Hit animations
     val shake = remember { Animatable(0f) }
     val intro = remember(battle) { Animatable(1f) }
-    LaunchedEffect(battle) { intro.animateTo(0f, tween(600)) }
+    LaunchedEffect(battle) { intro.animateTo(0f, tween(BattlePace.ms(600))) }
     LaunchedEffect(ui.howlKey) {
         if (ui.howlKey == 0) return@LaunchedEffect
         // the sound starts once the head is raised
@@ -509,11 +513,11 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 Anim.ENEMY_HIT, Anim.HERO_HIT, Anim.SPELL, Anim.LEVEL_UP, Anim.ENEMY_FAINT, Anim.HERO_FAINT, Anim.LOOT, Anim.MISS ->
                     // a foe on the doll takes its time to fall before it fades
                     shake.animateTo(1f, tween(when {
-                        an == Anim.ENEMY_FAINT && MonsterArt.isSolid(battle.monster.id) -> 1400
-                        an == Anim.ENEMY_FAINT || an == Anim.HERO_FAINT -> 700
+                        an == Anim.ENEMY_FAINT && MonsterArt.isSolid(battle.monster.id) -> BattlePace.ms(1400)
+                        an == Anim.ENEMY_FAINT || an == Anim.HERO_FAINT -> BattlePace.ms(700)
                         // being struck, ducking aside and the step back after a blow are taken at ease
                         an == Anim.ENEMY_HIT || an == Anim.HERO_HIT || an == Anim.MISS -> REACT_MS
-                        else -> 450
+                        else -> BattlePace.ms(450)
                     }))
                 Anim.HERO_ACT, Anim.ENEMY_ACT, Anim.PACK_ACT -> shake.animateTo(1f, tween(WINDUP_MS))
                 // a foe's spell let go on the hero (a curse): it lands like a blow
@@ -1278,15 +1282,15 @@ private fun rememberPulse(): Float {
 /** The frame of a fall at which the foe has taken the killing blow and reels, before it goes down. */
 private const val DIE_REEL = 4
 /** The ambushed hero's last frame of the stagger, before the turn to the foe begins. */
-/** How long being struck, ducking aside and the step back after a blow take, in ms (the blows themselves keep their pace). */
-private const val REACT_MS = 750
-/** A blow, as the hero strikes it: each frame of the swing and of the way back. Slower than it was, with the rest of the moves. */
-private const val ATTACK_FRAME_MS = 70L
+/** How long being struck, ducking aside and the step back after a blow take, in ms at normal pace. */
+private val REACT_MS: Int get() = BattlePace.ms(750)
+/** A blow, as the hero strikes it: each frame of the swing and of the way back, at normal pace (play() applies the menu pace). */
+private const val ATTACK_FRAME_MS = 92L
 /** Each frame of a spell gathered and let go, or a flask drawn back and thrown. */
-private const val CAST_FRAME_MS = 62L
+private const val CAST_FRAME_MS = 74L
 /** A foe's wind-up, and how long its blow takes to land. */
-private const val WINDUP_MS = 520
-private const val BLOW_MS = 560
+private val WINDUP_MS: Int get() = BattlePace.ms(650)
+private val BLOW_MS: Int get() = BattlePace.ms(720)
 /** The hero's own lead-ins: the move is played from the hero's doll, and its end comes when the wind-up is done. */
 private val HERO_LEADS = setOf(Anim.HERO_ACT, Anim.SPELL, Anim.THROW, Anim.DRINK)
 /** How much slower than the blow the hero steps back after it. */
@@ -1298,8 +1302,8 @@ private val HERO_MOVES = setOf(Anim.HERO_ACT, Anim.SPELL, Anim.THROW, Anim.DEFEN
 private const val FOE_WIND_STEP = 0.45f
 
 /** How long the leader's howl animation runs, and how long it takes to raise its head. */
-private const val HOWL_MS = 1900L
-private const val HOWL_RAISE_MS = 330L
+private val HOWL_MS: Long get() = BattlePace.ms(1900L)
+private val HOWL_RAISE_MS: Long get() = BattlePace.ms(330L)
 
 /** Milliseconds that keep counting, to drive slow effects. */
 @Composable
@@ -1400,7 +1404,7 @@ private fun CastFlash(key: Int, at: Offset, colour: Color, px: Float, delayMs: L
     val p = remember(key) { Animatable(0f) }
     LaunchedEffect(key) {
         delay(delayMs)
-        p.animateTo(1f, tween(260, easing = androidx.compose.animation.core.LinearEasing))
+        p.animateTo(1f, tween(BattlePace.ms(260), easing = androidx.compose.animation.core.LinearEasing))
     }
     val t = p.value
     if (t <= 0f || t >= 1f) return

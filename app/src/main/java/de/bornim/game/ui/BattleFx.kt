@@ -62,7 +62,9 @@ private fun kindSound(kind: FxKind, crit: Boolean): Sound = when (kind) {
 }
 
 /** How long each effect plays, in ms. */
-fun fxDuration(kind: FxKind): Int = when (kind) {
+fun fxDuration(kind: FxKind): Int = BattlePace.ms(baseFxDuration(kind))
+
+private fun baseFxDuration(kind: FxKind): Int = when (kind) {
     FxKind.DESTROY -> 1400
     FxKind.FIREBALL, FxKind.SACRED_FLAME, FxKind.GUARDIANS, FxKind.TURN -> 900
     FxKind.MISSILES, FxKind.FIRE_BOLT, FxKind.ARROW, FxKind.BOMB_FIRE, FxKind.BOMB_HOLY, FxKind.HEAL, FxKind.BLESS -> 750
@@ -1057,3 +1059,14 @@ internal fun DrawScope.drawStatus(s: de.bornim.core.Status, t: Float, chest: Off
 
 private val BILE = Color(0xFF9AB040)
 private val BLOOD_DARK = Color(0xFF7A0E12)
+
+/**
+ * The pace of the fight's moves, set in the menu: every animation of a fight (blows, spells, reactions, effects, falls)
+ * takes its normal time times [factor]. Calm is slower, fast is quicker.
+ */
+object BattlePace {
+    var factor = 1.0
+    fun set(level: Int) { factor = when (level) { 0 -> 1.35; 2 -> 0.7; else -> 1.0 } }
+    fun ms(v: Int): Int = (v * factor).toInt()
+    fun ms(v: Long): Long = (v * factor).toLong()
+}

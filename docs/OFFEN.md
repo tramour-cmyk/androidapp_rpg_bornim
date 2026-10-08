@@ -56,15 +56,11 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 **Version v0.1.200** (veröffentlicht). Worauf achten:
 - **Weitere Zustände**, sobald sie vorkommen: Vergiftet (Spinne, Hundertfüßer), Blutend (nach Blutstufe; bei „Aus“ nichts), Betäubt, Verlangsamt, Geschwächt (Fluch des Schamanen). Zu schwach, zu stark, stören sie?
-- **Noch nicht bestätigt aus v0.1.194:** Kampftempo und „Kampftext: weiter automatisch“.
+- **Noch nicht bestätigt aus v0.1.194:** „Kampftext: weiter automatisch“.
 
-Von dir bestätigt: Tödlicher Treffer gegen eine Schwäche (kein Text beim Taumeln), Zustand „Geblendet“, Blutlache bleibt am Boden liegen, Nebel in der Höhle (Gegner und Lichter nur in Sicht), Abschlusszeile nach Vertreiben und Vernichten, Alchemistenfeuer, Untote zerstören ab Stufe 5, Zustände gehen beim Monster jede Bewegung mit (beim Helden von mir im Film geprüft: Angriff, Ausfallschritt, Zauber), Untote vertreiben unter Stufe 5 (Flucht, nur EP), Zustände am Körper (Aussehen; „behalten wir bei“), Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden, Spirituelle Waffe (Erscheinen ohne Schlag), Vorräte-Knopf im Testreiter, Trinken im Kampf (schon am Vormittag: „Trank trinken sah top aus“).
-
-Mit v0.1.186 (main): **Wildschwein und Riesenratte** in freier Wildbahn.
+Von dir bestätigt: Kampftempo für alle Animationen und langsamere Schläge/Zauber (Zweig-Build 0.1.201, „läuft alles soweit“; noch nicht auf main), Wildschwein und Riesenratte (neue Figuren, Begegnungen), Stufengrenze 6 (keine EP mehr ab Stufe 6, Beute weiter; seit v0.1.173, steht im Changelog), Tödlicher Treffer gegen eine Schwäche (kein Text beim Taumeln), Zustand „Geblendet“, Blutlache bleibt am Boden liegen, Nebel in der Höhle (Gegner und Lichter nur in Sicht), Abschlusszeile nach Vertreiben und Vernichten, Alchemistenfeuer, Untote zerstören ab Stufe 5, Zustände gehen beim Monster jede Bewegung mit (beim Helden von mir im Film geprüft: Angriff, Ausfallschritt, Zauber), Untote vertreiben unter Stufe 5 (Flucht, nur EP), Zustände am Körper (Aussehen; „behalten wir bei“), Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden, Spirituelle Waffe (Erscheinen ohne Schlag), Vorräte-Knopf im Testreiter, Trinken im Kampf (schon am Vormittag: „Trank trinken sah top aus“).
 
 Älter, noch nicht bestätigt:
-- **Stufengrenze (v0.1.173):** Ab Stufe 6 keine EP mehr, Beute weiter.
-- **Ruhigere Bewegungen im Kampf:** Treffer, Ausweichen, Block, Schritt zurück, Taumeln, Drehung langsamer.
 
 ## Gemeldet und geklärt (08.10.)
 
@@ -86,7 +82,6 @@ Mit v0.1.186 (main): **Wildschwein und Riesenratte** in freier Wildbahn.
 - **Zustände am Körper:** Sind Verlangsamt, Geschwächt und Geblendet auf kleinen Gegnern stark genug?
 - **Goblin-Schamane und Ghul:** Rückmeldung zu den Entwürfen, dann Einbau in den Kampf.
 - **Hörproben:** Auswahl für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt.
-- **Kampftempo:** Soll es neben Text und Pausen auch die Bewegungen beschleunigen oder verlangsamen?
 
 ## Geplant
 

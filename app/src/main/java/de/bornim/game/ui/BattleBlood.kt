@@ -55,7 +55,7 @@ fun BloodLayer(
         else -> return
     }
     val gore = if (onHero) Gore.BLOOD else foe
-    val duration = if (level >= 2) 1300 else 750
+    val duration = BattlePace.ms(if (level >= 2) 1300 else 750)
     val progress = remember(key) { Animatable(0f) }
     LaunchedEffect(key) { progress.animateTo(1f, tween(duration, easing = LinearEasing)) }
     val p = progress.value
