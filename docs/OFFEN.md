@@ -50,6 +50,11 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
+- **Animationen weicher und flüssiger (gemeldet 08.10., 15:50):** Bei normalem Kampftempo wirken Bewegungen von Held und Gegnern teils flüssig, teils springend. Untersucht im Film (Kämpfer gegen Goblin). Ursachen:
+  1. Der Vorschritt beim Schlag (Ort und Größe der Figur) springt mit jedem Bild der Bewegung mit, statt durchzugleiten. Beim Helden ist das fast eine halbe Bildschirmbreite in 2 bis 3 Stufen. Betrifft den Helden und die Gegner auf der Puppe.
+  2. Am Anfang jeder neuen Meldung wird für ein Bild schon das Ende der Bewegung gezeigt, danach geht es von vorn los (im Film: der Goblin liegt kurz, steht wieder und fällt dann).
+  3. Haltungen wechseln nur etwa 11- bis 13-mal pro Sekunde (Schlag des Helden 92 ms pro Bild), und an jeder Zwischenhaltung bremst die Bewegung bis zum Stillstand ab.
+  Vorschlag: zuerst 1 und 2 beheben (klein, ohne neue Bilder), danach 3 (mehr Zwischenbilder, gleichmäßiger Fluss). Wartet auf deine Freigabe.
 - **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Noch im alten Stil: Goblin-Schamane und Ghul (Entwürfe auf der Puppe liegen vor), Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
 
 ## Zu testen
