@@ -54,6 +54,11 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
+**Zweig `claude/was-ist-zu-tun-3z6ogf` (noch nicht auf main, Build per Actions-Artefakt `bornim-apk`; im Kampf-Film nicht geprüft, weil hier kein Android-SDK):** Kampftempo steuert jetzt alle Kampf-Animationen. Worauf achten:
+- **Normal:** Schläge (Held und Gegner), Zauber und Würfe etwas langsamer als bisher, passend zu den Reaktionen (Zahlen sind meine Schätzung: Schlagbild 70→92 ms, Zauberbild 62→74 ms, Gegner-Ausholen 520→650 ms, Gegner-Schlag 560→720 ms). Wirkt es stimmig, oder noch zu hastig/zäh?
+- **Ruhig / Schnell** (Menü): ändern jetzt auch alle Bewegungen, Effekte, Blut und Stürze (Ruhig ×1,35, Schnell ×0,7), nicht nur Text und Lesepausen.
+- Ein Zweig-Build braucht eine höhere Laufnummer als das installierte Release.
+
 **Version v0.1.200** (veröffentlicht). Worauf achten:
 - **Weitere Zustände**, sobald sie vorkommen: Vergiftet (Spinne, Hundertfüßer), Blutend (nach Blutstufe; bei „Aus“ nichts), Betäubt, Verlangsamt, Geschwächt (Fluch des Schamanen). Zu schwach, zu stark, stören sie?
 - **Noch nicht bestätigt aus v0.1.194:** Kampftempo und „Kampftext: weiter automatisch“.
@@ -83,7 +88,6 @@ Von dir bestätigt: Wildschwein und Riesenratte (neue Figuren, Begegnungen), Stu
 - **Zustände am Körper:** Sind Verlangsamt, Geschwächt und Geblendet auf kleinen Gegnern stark genug?
 - **Goblin-Schamane und Ghul:** Rückmeldung zu den Entwürfen, dann Einbau in den Kampf.
 - **Hörproben:** Auswahl für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt.
-- **Kampftempo:** Soll es neben Text und Pausen auch die Bewegungen beschleunigen oder verlangsamen?
 
 ## Geplant
 
