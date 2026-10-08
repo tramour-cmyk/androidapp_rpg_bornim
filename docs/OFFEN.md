@@ -92,7 +92,6 @@ Von dir bestätigt: Goblin-Schamane im neuen Stil, Ghul und Goblin-Späher (08.1
 
 ## Zu entscheiden
 
-- **Testkämpfe im Dorf: Angriffe treffen nicht (gemeldet 08.10., v0.1.226):** Von dir eingegrenzt: nur im Dorf, im Wald einwandfrei. Im Film bestätigt: In der alten Dorfkulisse geht der Held beim Schlag nur ein kurzes festes Stück vor (nicht bis zum Gegner wie im Wald), und der Gegner landet beim Angriff neben dem Helden. Im Dorf gibt es keine echten Kämpfe (nur Testkämpfe), die alte Kulisse ist bewusst so gelassen. Möglichkeiten: (a) so lassen, Testkämpfe im Wald machen; (b) den Schritt im Dorf genauso berechnen wie im Wald (klein); (c) Testkämpfe aus dem Dorf in der Waldkulisse zeigen.
 - **Noch mehr Zwischenbilder?** Die Haltungen selbst (Arme, Beine, Waffe) wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Nach deinem Test von 0.1.208 vorerst nicht nötig; bei Bedarf als eigener, größerer Umbau (mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn).
 - **Zustände am Körper:** Sind Verlangsamt, Geschwächt und Geblendet auf kleinen Gegnern stark genug?
 - **Goblin-Schamane (Rückmeldung 08.10.):** erster Entwurf nicht gut, wirkt nicht bedrohlich, ein Arm schien zu fehlen (er lag in der Robe). Zweiter Entwurf (17:03): fast schwarze Robe, rußige Augenhöhlen mit grün glühenden Augen, Blutstreifen über die Nase, Schädelstab mit grün glühenden Augen, grünes Fluchlicht in der freien Hand; drei Haltungen (Stehen, Fluch sammeln, Fluch schleudern). Von dir am 08.10. für gut befunden und freigegeben; eingebaut (Zweig, zu testen).
@@ -120,5 +119,5 @@ Von dir bestätigt: Goblin-Schamane im neuen Stil, Ghul und Goblin-Späher (08.1
 ## Bewusst so gelassen
 
 - **Kartenfigur:** bleibt vorerst das alte Männchen. Auch die Wölfe auf der Karte behalten vorerst ihr gezeichnetes Bild.
-- **Dorf und Häuser:** Dort gibt es keine Kämpfe (nur Testkämpfe über den Test-Reiter). Die alten Kulissen bleiben; bekommt das Dorf später echte Begegnungen, gibt es eine Kulisse im neuen Stil.
+- **Dorf und Häuser:** Dort gibt es keine Kämpfe (nur Testkämpfe über den Test-Reiter). In Testkämpfen im Dorf erreichen sich Held und Gegner beim Angriff nicht (alte Kulisse ohne berechneten Schritt); kein Fehler, so gelassen (08.10.). Testkämpfe im Wald oder in der Höhle machen. Die alten Kulissen bleiben; bekommt das Dorf später echte Begegnungen, gibt es eine Kulisse im neuen Stil.
 - **Figurgröße im Reiter „Held“** und **Kampfablauf** (Ansage mit Ausholen → Tippen → Schlag mit Treffer/Fehlschlag): so bestätigt.
