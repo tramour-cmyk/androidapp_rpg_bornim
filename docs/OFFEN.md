@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 14:14 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 14:23 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -18,7 +18,7 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## Übergabe-Notiz (für jede neue Sitzung)
 
-Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Wer hier weitermacht, liest zuerst diese Notiz, dann den Rest dieser Liste, die [Stil-Leitlinien](STIL.md) und den Anfang der [Änderungshistorie](../CHANGELOG.md).
+Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im Hauptordner fasst die Regeln kurz zusammen und wird zu Beginn jeder Sitzung automatisch gelesen. Wer hier weitermacht, liest zuerst diese Notiz, dann den Rest dieser Liste, die [Stil-Leitlinien](STIL.md) und den Anfang der [Änderungshistorie](../CHANGELOG.md).
 
 **Projekt:** „Chroniken von Bornim“, Rollenspiel für Android (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `core` (Spielregeln, Kampf, Karten, Zeichnung der Figuren und Gegner), `app` (Oberfläche), `tools/preview` (Vorschau- und Testwerkzeug am Rechner). Aktueller Stand: v0.1.200 auf `main`.
 
@@ -71,6 +71,7 @@ Mit v0.1.186 (main): **Wildschwein und Riesenratte** in freier Wildbahn.
 - **Trank wird zweimal getrunken (Magier gegen Skelett):** kein Fehler, das ist die Trinkvariante „zwei hastige Schlucke“. Bleibt so.
 - **Gegner hinter der Wand sichtbar (Höhle):** behoben (v0.1.194), von dir bestätigt.
 - **Treffermeldung mitten im tödlichen Treffer:** behoben (v0.1.194).
+- **Wie das Projekt weiterbetreiben (neue Sitzungen, richtige Stelle)?** `CLAUDE.md` angelegt (08.10.); für jedes größere Thema eine neue Sitzung, alles Wichtige steht im Repository.
 - **Glutstab zeigt Armbrust-Bild:** behoben, von dir bestätigt.
 - **Spirituelle Waffe schlägt scheinbar doppelt zu:** behoben in v0.1.195, von dir bestätigt.
 - **Wunsch: Vorräte im Testreiter auffüllen:** umgesetzt in v0.1.195, von dir bestätigt.
