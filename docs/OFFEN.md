@@ -57,7 +57,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
   1 und 2 sind behoben (Zweig `claude/status-next-steps-pqvzz8`, siehe „Zu testen“). 3 (mehr Zwischenbilder, Schwung über die Zwischenhaltungen) folgt nach deinem Test, falls es dann noch nicht rund wirkt.
 - **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Noch im alten Stil: Goblin-Schamane und Ghul (Entwürfe auf der Puppe liegen vor), Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
 
-- **Gegner schlagen schneller zu als der Held (gemeldet 08.10., Build 0.1.207, Tempo „Normal“):** Krogg wirkt deutlich schneller als der Held. Geklärt: Das Kampftempo wirkt auf beide gleich (Ruhig ×1,35, Schnell ×0,7), aber die Grundzeiten sind verschieden. Held: 92 ms pro Bild, Rückweg 1,6-mal langsamer (Schwerthieb etwa 2,2 s). Gegner: Ausholen in 650 ms, Schlag und Rückweg in 750 ms, also etwa 60–70 ms pro Bild (Kroggs Morgenstern etwa 1,4 s). Umgesetzt nach deiner Freigabe (08.10.): gleiche Zeit pro Bild wie der Held, Wolf und Riesenratte 15 % schneller, Bosse 12 % langsamer, gleichmäßiger Lauf statt schnellem Anlauf. Zu testen im nächsten Zweig-Build.
+- **Gegner schlagen schneller zu als der Held (gemeldet 08.10., Build 0.1.207, Tempo „Normal“):** Krogg wirkt deutlich schneller als der Held. Geklärt: Das Kampftempo wirkt auf beide gleich (Ruhig ×1,35, Schnell ×0,7), aber die Grundzeiten sind verschieden. Held: 92 ms pro Bild, Rückweg 1,6-mal langsamer (Schwerthieb etwa 2,2 s). Gegner: Ausholen in 650 ms, Schlag und Rückweg in 750 ms, also etwa 60–70 ms pro Bild (Kroggs Morgenstern etwa 1,4 s). Umgesetzt nach deiner Freigabe (08.10.): gleiche Zeit pro Bild wie der Held, Wolf und Riesenratte 15 % schneller, Bosse 12 % langsamer, gleichmäßiger Lauf statt schnellem Anlauf. Zu testen im Zweig-Build 0.1.208.
 
 ## Zu testen
 
@@ -67,7 +67,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - Tödlicher Treffer: Liegt der Gegner kurz am Boden, bevor er taumelt und fällt? (sollte nicht mehr passieren)
 - Wirkt es insgesamt runder, oder fehlen noch Zwischenbilder in den Haltungen selbst (Arme, Beine)?
 
-**Nächster Zweig-Build „Gegner im Takt des Helden“** (Kampftempo „Normal“). Worauf achten:
+**Zweig-Build 0.1.208 „Gegner im Takt des Helden“** (Kampftempo „Normal“). Worauf achten:
 - Krogg (und andere Gegner im neuen Stil): Wirkt sein Angriff jetzt etwa so schnell wie der des Helden, Krogg eher etwas wuchtiger?
 - Wolf und Riesenratte: etwas flinker als der Held, aber nicht hektisch?
 - Passt der Moment des Treffers noch zu Blut und Zucken des Helden?
