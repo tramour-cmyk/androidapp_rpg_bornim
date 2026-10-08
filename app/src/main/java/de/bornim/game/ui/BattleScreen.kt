@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -858,6 +859,13 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     else if (newStyle) Box(Modifier.offset(y = (foeH - foeW) / 2 - foeH * 0.22f)) { Sparkles(battle.look.seed, foeW, enemyAlpha) }
                     else Sparkles(battle.look.seed, monsterSize, enemyAlpha)
                 }
+                // lasting statuses show on the body as long as they hold (flames, a sickly vapour, dripping blood, frost);
+                // drawn in the foe's own frame, they go with it when it lunges, dodges or reels
+                if (ui.foeStatus.isNotEmpty() && !ui.enemyGone) Canvas(Modifier.size(1.dp)) {
+                    val chest = Offset(foeAnchor.toPx(), (foeFeet - (if (newStyle) foeTall * 0.55f else monsterSize * 0.45f)).toPx())
+                    val u = (if (newStyle) foeW / 90 else monsterSize / 64).toPx()
+                    for (st in ui.foeStatus.keys) drawStatus(st, clockMs / 1000f, chest, foeFeet.toPx(), u, vm.bloodLevel)
+                }
             }
             // Hero (seen from behind)
             val heroAlpha = when {
@@ -905,6 +913,12 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     }
             ) {
                 PixelSprite(dollFrame, artDp, alpha = heroAlpha, flash = if (a == Anim.HERO_HIT && blink) 0.85f else 0f, shade = shade)
+                // the hero's lasting statuses, in its own frame so they go with every move
+                if (ui.heroStatus.isNotEmpty() && !ui.heroGone) Canvas(Modifier.size(1.dp)) {
+                    val feet = (artDp * HeroBattle.GROUND.toFloat()).toPx()
+                    val chest = Offset((artDp * HeroBattle.ANCHOR_X.toFloat()).toPx(), feet - (artDp * 78f).toPx())
+                    for (st in ui.heroStatus.keys) drawStatus(st, clockMs / 1000f + 0.7f, chest, feet, (artDp * 78f / 70f).toPx(), vm.bloodLevel)
+                }
             }
             // Attack and spell effects, and blood
             with(density) {
@@ -924,14 +938,6 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     a, fx, ui.animKey, enemyC, (sceneH * foeY).toPx(), heroC, (sceneH * heroY).toPx(), vm.bloodLevel, goreFor(id), (monsterSize / 64).toPx(),
                     foeHurt = 1f - ui.enemyHp.toFloat() / battle.enemyMaxHp, heroHurt = 1f - ui.heroHp.toFloat() / battle.hero.maxHp, modifier = Modifier.matchParentSize(),
                 )
-                // lasting statuses show on the body as long as they hold: flames, a sickly vapour, dripping blood, frost
-                val secs = clockMs / 1000f
-                if (ui.foeStatus.isNotEmpty() && !ui.enemyGone) Canvas(Modifier.matchParentSize()) {
-                    for (st in ui.foeStatus.keys) drawStatus(st, secs, enemyC + Offset(foeSway.toPx(), 0f), (sceneH * foeY).toPx(), unit, vm.bloodLevel)
-                }
-                if (ui.heroStatus.isNotEmpty() && !ui.heroGone) Canvas(Modifier.matchParentSize()) {
-                    for (st in ui.heroStatus.keys) drawStatus(st, secs + 0.7f, heroC + Offset(heroSway.toPx(), 0f), (sceneH * heroY).toPx(), (artDp * 78f / 70f).toPx(), vm.bloodLevel)
-                }
             }
 
             EnemyBox(battle, ui.enemyHp, ui.foeStatus, lang, Modifier.align(Alignment.TopStart).padding(10.dp))

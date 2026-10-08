@@ -2,6 +2,11 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
+## v0.1.198 – 08.10.2026, 13:20
+
+**Behoben**
+- **Zustände bewegen sich mit:** Flammen, Dunst, Tropfen und die anderen Zustandsbilder blieben am Ruheplatz stehen, wenn der Gegner (oder der Held) zum Angriff vorsprang, auswich oder taumelte. Jetzt werden sie mit der Figur selbst gezeichnet und gehen jede Bewegung mit.
+
 ## v0.1.197 – 08.10.2026, 13:13
 
 **Neu – Testreiter**
