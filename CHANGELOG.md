@@ -2,7 +2,7 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
-## Unveröffentlicht
+## v0.1.194 – 08.10.2026, 12:42
 
 **Neu – Fähigkeits-Effekte im düsteren Stil**
 - **Magier:** Feuerpfeil mit glühendem Kopf, Flammenspur, Rauch und kurz haftenden Flammen; Magisches Geschoss als drei kalt-violette Kraftsplitter; Sengender Strahl flackernd mit Hitzeflimmern und Glut; Magierrüstung als Runenschleier mit Schimmer. Beim Zaubern blitzt nicht mehr der ganze Bildschirm weiß.

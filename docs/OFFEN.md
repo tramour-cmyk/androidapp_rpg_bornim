@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 12:39 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 12:42 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -18,22 +18,19 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## In Arbeit
 
-- **Zweig `effekte`** (aufgebaut auf `kampffluss`, Test-Build v0.1.193, noch nicht auf main): neue Fähigkeits-Effekte (Magier, Kleriker, Wurfgegenstände, Feuerball), Zustände sichtbar am Körper, Fehlerbehebung Taschenbilder. Kommt nach deinem Test zusammen mit `kampffluss` auf main.
-- **Zweig `kampffluss`** (Stand v0.1.187): Kampffluss am Stück, Kampftempo, „Kampftext: weiter automatisch“, Kampfende mit Siegesfeld und Sturz des Helden, Trinken, tödlicher Treffer ohne Zwischentext, Untote vertreiben/zerstören, Heilige Flamme, Nebel in der Höhle.
-- **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte (v0.1.186). Noch im alten Stil: Goblin-Schamane und Ghul (Entwürfe auf der Puppe liegen vor), Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
+- **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Noch im alten Stil: Goblin-Schamane und Ghul (Entwürfe auf der Puppe liegen vor), Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
 
 ## Zu testen
 
-**Test-Build v0.1.193** (Zweig `effekte`, enthält alles aus `kampffluss`).
+**Version v0.1.194** (veröffentlicht; enthält `kampffluss` und `effekte`).
 
-Von dir bestätigt (08.10.): Magier-Effekte, Feuerball, Kleriker-Effekte, Weihwasser, Zustand „Brennend“.
+Von dir schon bestätigt: Magier-Effekte, Feuerball, Kleriker-Effekte, Weihwasser, Zustand „Brennend“, Tasche (Bilder).
 
 Noch offen, worauf achten:
 - **Alchemistenfeuer:** Flasche mit brennendem Lappen, Scherben, haftende Flammen, danach brennt der Gegner.
 - **Weitere Zustände**, sobald sie im Spiel vorkommen: Vergiftet (Spinne, Hundertfüßer), Blutend (nach Blutstufe; bei „Aus“ nichts), Betäubt, Verlangsamt, Geschwächt (Fluch des Schamanen), Geblendet (Heilige Flamme). Zu schwach, zu stark, stören sie?
-- **Tasche:** Nach dem Anlegen eines Gegenstands zeigt jede Zeile ihr eigenes Bild (vorher zeigte der Glutstab eine Armbrust).
 
-Dazu aus `kampffluss` (noch nicht bestätigt):
+Ebenfalls in v0.1.194, noch nicht bestätigt:
 - **Kampffluss:** Jede Aktion läuft am Stück; Kampftempo und „Kampftext: weiter automatisch“ im Menü.
 - **Kampfende:** tödlicher Treffer ohne Text, Gegner bleibt liegen, Siegpose, Siegesfeld; bei Niederlage stürzt der Held und bleibt liegen.
 - **Untote vertreiben / zerstören:** unter Stufe 5 (und beim Ghul) Flucht; ab Stufe 5 zerfallen Skelett und Zombie zu Staub.
@@ -48,9 +45,9 @@ Mit v0.1.186 (main): **Wildschwein und Riesenratte** in freier Wildbahn.
 ## Gemeldet und geklärt (08.10.)
 
 - **Trank wird zweimal getrunken (Magier gegen Skelett):** kein Fehler, das ist die Trinkvariante „zwei hastige Schlucke“. Bleibt so.
-- **Gegner hinter der Wand sichtbar (Höhle):** behoben in `kampffluss`.
-- **Treffermeldung mitten im tödlichen Treffer:** behoben in `kampffluss`.
-- **Glutstab zeigt Armbrust-Bild:** behoben in `effekte` (zu testen, siehe oben).
+- **Gegner hinter der Wand sichtbar (Höhle):** behoben (v0.1.194).
+- **Treffermeldung mitten im tödlichen Treffer:** behoben (v0.1.194).
+- **Glutstab zeigt Armbrust-Bild:** behoben, von dir bestätigt.
 
 ## Zu entscheiden
 
