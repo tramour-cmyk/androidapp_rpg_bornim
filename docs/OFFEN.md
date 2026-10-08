@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 15:44 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 16:39 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -50,39 +50,24 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
-- **Animationen weicher und flüssiger (gemeldet 08.10., 15:50):** Bei normalem Kampftempo wirken Bewegungen von Held und Gegnern teils flüssig, teils springend. Untersucht im Film (Kämpfer gegen Goblin). Ursachen:
-  1. Der Vorschritt beim Schlag (Ort und Größe der Figur) springt mit jedem Bild der Bewegung mit, statt durchzugleiten. Beim Helden ist das fast eine halbe Bildschirmbreite in 2 bis 3 Stufen. Betrifft den Helden und die Gegner auf der Puppe.
-  2. Am Anfang jeder neuen Meldung wird für ein Bild schon das Ende der Bewegung gezeigt, danach geht es von vorn los (im Film: der Goblin liegt kurz, steht wieder und fällt dann).
-  3. Haltungen wechseln nur etwa 11- bis 13-mal pro Sekunde (Schlag des Helden 92 ms pro Bild), und an jeder Zwischenhaltung bremst die Bewegung bis zum Stillstand ab.
-  1 und 2 sind behoben (Zweig `claude/status-next-steps-pqvzz8`, siehe „Zu testen“). 3 (mehr Zwischenbilder, Schwung über die Zwischenhaltungen) folgt nach deinem Test, falls es dann noch nicht rund wirkt.
 - **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Noch im alten Stil: Goblin-Schamane und Ghul (Entwürfe auf der Puppe liegen vor), Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
-
-- **Gegner schlagen schneller zu als der Held (gemeldet 08.10., Build 0.1.207, Tempo „Normal“):** Krogg wirkt deutlich schneller als der Held. Geklärt: Das Kampftempo wirkt auf beide gleich (Ruhig ×1,35, Schnell ×0,7), aber die Grundzeiten sind verschieden. Held: 92 ms pro Bild, Rückweg 1,6-mal langsamer (Schwerthieb etwa 2,2 s). Gegner: Ausholen in 650 ms, Schlag und Rückweg in 750 ms, also etwa 60–70 ms pro Bild (Kroggs Morgenstern etwa 1,4 s). Umgesetzt nach deiner Freigabe (08.10.): gleiche Zeit pro Bild wie der Held, Wolf und Riesenratte 15 % schneller, Bosse 12 % langsamer, gleichmäßiger Lauf statt schnellem Anlauf. Zu testen im Zweig-Build 0.1.208.
 
 ## Zu testen
 
-**Zweig-Build 0.1.207 „flüssigere Bewegungen“** (bei dir im Test seit 08.10., 16:12; Kampftempo „Normal“). Worauf achten:
-- Held geht zum Schlag vor und zurück: gleitet er, oder springt er noch?
-- Gegner im neuen Stil (Goblin, Skelett, Krogg, Wolf …): Ausholen, kurzes Innehalten, Schlag, Rückweg. Springt er irgendwo nach vorn oder zurück?
-- Tödlicher Treffer: Liegt der Gegner kurz am Boden, bevor er taumelt und fällt? (sollte nicht mehr passieren)
-- Wirkt es insgesamt runder, oder fehlen noch Zwischenbilder in den Haltungen selbst (Arme, Beine)?
-
-**Zweig-Build 0.1.208 „Gegner im Takt des Helden“** (Kampftempo „Normal“). Worauf achten:
-- Krogg (und andere Gegner im neuen Stil): Wirkt sein Angriff jetzt etwa so schnell wie der des Helden, Krogg eher etwas wuchtiger?
-- Wolf und Riesenratte: etwas flinker als der Held, aber nicht hektisch?
-- Passt der Moment des Treffers noch zu Blut und Zucken des Helden?
-- Ruhig und Schnell: bleibt das Verhältnis zwischen Held und Gegner gleich?
+**Zweig-Build 0.1.208** (Zweig `claude/status-next-steps-pqvzz8`, PR #2): von dir getestet, „alles gut, keine Fehler“ (08.10., 16:39). Wartet auf die Übernahme nach `main`.
 
 **Version v0.1.204** (veröffentlicht). Worauf achten:
 - **Weitere Zustände**, sobald sie vorkommen: Vergiftet (Spinne, Hundertfüßer), Blutend (nach Blutstufe; bei „Aus“ nichts), Betäubt, Verlangsamt, Geschwächt (Fluch des Schamanen). Zu schwach, zu stark, stören sie?
 - **Noch nicht bestätigt aus v0.1.194:** „Kampftext: weiter automatisch“.
 
-Von dir bestätigt: Kampftempo für alle Animationen und langsamere Schläge/Zauber (Zweig-Build 0.1.201, „läuft alles soweit“; seit v0.1.204 auf main), Wildschwein und Riesenratte (neue Figuren, Begegnungen), Stufengrenze 6 (keine EP mehr ab Stufe 6, Beute weiter; seit v0.1.173, steht im Changelog), Tödlicher Treffer gegen eine Schwäche (kein Text beim Taumeln), Zustand „Geblendet“, Blutlache bleibt am Boden liegen, Nebel in der Höhle (Gegner und Lichter nur in Sicht), Abschlusszeile nach Vertreiben und Vernichten, Alchemistenfeuer, Untote zerstören ab Stufe 5, Zustände gehen beim Monster jede Bewegung mit (beim Helden von mir im Film geprüft: Angriff, Ausfallschritt, Zauber), Untote vertreiben unter Stufe 5 (Flucht, nur EP), Zustände am Körper (Aussehen; „behalten wir bei“), Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden, Spirituelle Waffe (Erscheinen ohne Schlag), Vorräte-Knopf im Testreiter, Trinken im Kampf (schon am Vormittag: „Trank trinken sah top aus“).
+Von dir bestätigt: Flüssigere Bewegungen (Schritt gleitet, kein Aufblitzen der Endhaltung; Zweig-Build 0.1.207) und Gegner im Takt des Helden (Wolf/Ratte flinker, Bosse langsamer; Zweig-Build 0.1.208), Kampftempo für alle Animationen und langsamere Schläge/Zauber (Zweig-Build 0.1.201, „läuft alles soweit“; seit v0.1.204 auf main), Wildschwein und Riesenratte (neue Figuren, Begegnungen), Stufengrenze 6 (keine EP mehr ab Stufe 6, Beute weiter; seit v0.1.173, steht im Changelog), Tödlicher Treffer gegen eine Schwäche (kein Text beim Taumeln), Zustand „Geblendet“, Blutlache bleibt am Boden liegen, Nebel in der Höhle (Gegner und Lichter nur in Sicht), Abschlusszeile nach Vertreiben und Vernichten, Alchemistenfeuer, Untote zerstören ab Stufe 5, Zustände gehen beim Monster jede Bewegung mit (beim Helden von mir im Film geprüft: Angriff, Ausfallschritt, Zauber), Untote vertreiben unter Stufe 5 (Flucht, nur EP), Zustände am Körper (Aussehen; „behalten wir bei“), Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden, Spirituelle Waffe (Erscheinen ohne Schlag), Vorräte-Knopf im Testreiter, Trinken im Kampf (schon am Vormittag: „Trank trinken sah top aus“).
 
 Älter, noch nicht bestätigt:
 
 ## Gemeldet und geklärt (08.10.)
 
+- **Bewegungen wirken teils springend:** Schritt beim Angriff sprang im Bildtakt, Endhaltung blitzte beim Meldungswechsel auf. Behoben im Zweig-Build 0.1.207, von dir bestätigt.
+- **Gegner schneller als der Held:** verschiedene Grundzeiten (Gegner etwa 1,5-mal so schnell, dazu schneller Anlauf). Angeglichen im Zweig-Build 0.1.208 (Wolf/Ratte 15 % flinker, Bosse 12 % langsamer), von dir bestätigt.
 - **Trank wird zweimal getrunken (Magier gegen Skelett):** kein Fehler, das ist die Trinkvariante „zwei hastige Schlucke“. Bleibt so.
 - **Gegner hinter der Wand sichtbar (Höhle):** behoben (v0.1.194), von dir bestätigt.
 - **Treffermeldung mitten im tödlichen Treffer:** behoben (v0.1.194).
@@ -98,6 +83,7 @@ Von dir bestätigt: Kampftempo für alle Animationen und langsamere Schläge/Zau
 
 ## Zu entscheiden
 
+- **Noch mehr Zwischenbilder?** Die Haltungen selbst (Arme, Beine, Waffe) wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Nach deinem Test von 0.1.208 vorerst nicht nötig; bei Bedarf als eigener, größerer Umbau (mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn).
 - **Zustände am Körper:** Sind Verlangsamt, Geschwächt und Geblendet auf kleinen Gegnern stark genug?
 - **Goblin-Schamane und Ghul:** Rückmeldung zu den Entwürfen, dann Einbau in den Kampf.
 - **Hörproben:** Auswahl für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt.
