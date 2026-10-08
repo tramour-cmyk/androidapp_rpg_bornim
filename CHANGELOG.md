@@ -2,7 +2,7 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
-## Unveröffentlicht
+## v0.1.204 – 08.10.2026, 15:44
 
 **Geändert – Kampftempo für alle Animationen**
 - Die Einstellung Ruhig / Normal / Schnell wirkt jetzt auf alle Kampf-Animationen: Schläge, Zauber, Würfe, Reaktionen (Treffer, Ausweichen, Block), Effekte, Blutspritzer, Stürze und das Heulen, nicht mehr nur auf Textgeschwindigkeit und Lesepausen. Ruhig dehnt die Zeiten auf das 1,35-fache, Schnell kürzt sie auf das 0,7-fache.
