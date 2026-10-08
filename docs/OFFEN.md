@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 12:50 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 12:59 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -27,9 +27,9 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 - **Testreiter:** „Alle Vorräte auf mindestens 10“ füllt Tränke, Alchemistenfeuer, Weihwasser, Essen und Zutaten auf.
 - **Alchemistenfeuer** (jetzt leicht zu bekommen): Flasche mit brennendem Lappen, Scherben, haftende Flammen, danach brennt der Gegner.
 - **Weitere Zustände**, sobald sie vorkommen: Vergiftet (Spinne, Hundertfüßer), Blutend (nach Blutstufe; bei „Aus“ nichts), Betäubt, Verlangsamt, Geschwächt (Fluch des Schamanen), Geblendet (Heilige Flamme). Zu schwach, zu stark, stören sie?
-- **Noch nicht bestätigt aus v0.1.194:** Kampftempo und „Kampftext: weiter automatisch“, Trinken, Untote vertreiben/zerstören, Nebel in der Höhle.
+- **Noch nicht bestätigt aus v0.1.194:** Kampftempo und „Kampftext: weiter automatisch“, Untote vertreiben/zerstören, Nebel in der Höhle.
 
-Von dir bestätigt: Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden.
+Von dir bestätigt: Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden, Trinken im Kampf (schon am Vormittag: „Trank trinken sah top aus“).
 
 Mit v0.1.186 (main): **Wildschwein und Riesenratte** in freier Wildbahn.
 
