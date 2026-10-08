@@ -54,7 +54,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
-**Ghul im neuen Stil** (Zweig-Build folgt, Testreiter: Testkampf gegen Ghul). Worauf achten:
+**Ghul im neuen Stil, Zweig-Build 0.1.214** (Testreiter: Testkampf gegen Ghul). Worauf achten:
 - Wirkt er bedrohlich genug (geduckt, Klauen, Maul)? Sind die Klauen gut zu erkennen?
 - Seine drei Angriffe: Erreicht er den Helden mit den Klauen, oder schlägt er ins Leere?
 - Treffer, Ausweichen, Sturz: Passt alles, bleibt er liegen?
