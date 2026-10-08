@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 13:44 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 13:47 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -22,7 +22,8 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## Zu testen
 
-**Version v0.1.199** (veröffentlicht). Worauf achten:
+**Version v0.1.200** (veröffentlicht). Worauf achten:
+- **Blutlache:** Bei „Blutend“ bleibt die Lache am Boden liegen, wenn Held oder Gegner vorspringen; nur die Tropfen gehen mit.
 - **Abschluss nach Untote vertreiben:** Das Siegesfeld beginnt mit „… wurde vertrieben!“ (unter Stufe 5) bzw. „… wurde vernichtet!“ (ab Stufe 5).
 - **Tödlicher Treffer gegen eine Schwäche** (z. B. Heilige Flamme gegen Skelett): kein Text, während der Gegner taumelt; „Das ist sehr effektiv!“ steht im Siegesfeld in der Trefferzeile.
 - **Weitere Zustände**, sobald sie vorkommen: Vergiftet (Spinne, Hundertfüßer), Blutend (nach Blutstufe; bei „Aus“ nichts), Betäubt, Verlangsamt, Geschwächt (Fluch des Schamanen), Geblendet (Heilige Flamme). Zu schwach, zu stark, stören sie?
@@ -45,6 +46,7 @@ Mit v0.1.186 (main): **Wildschwein und Riesenratte** in freier Wildbahn.
 - **Spirituelle Waffe schlägt scheinbar doppelt zu:** behoben in v0.1.195, von dir bestätigt.
 - **Wunsch: Vorräte im Testreiter auffüllen:** umgesetzt in v0.1.195, von dir bestätigt.
 - **Nach Untote vertreiben fehlte eine Abschlussmeldung für den Kampf** (nur „EP erhalten“): Siegesfeld beginnt jetzt mit „… wurde vertrieben!“ bzw. „… wurde vernichtet!“, umgesetzt in v0.1.199 (zu testen). Kein Gold und keine Beute beim Vertreiben ist so gewollt.
+- **Blutlache hüpfte bei Bewegungen mit:** behoben in v0.1.200 (zu testen).
 - **Zustandsbild blieb beim Angriff am Ruheplatz stehen:** behoben in v0.1.198, beim Monster von dir bestätigt, beim Helden im Film geprüft.
 - **Untote vertreiben schwer zu testen (nur einmal pro Kampf, Rettungswurf gelang):** Testschalter „Gegner bestehen keine Rettungswürfe“ in v0.1.197 (zu testen).
 - **Text kam beim finalen Schlag, während das Skelett noch taumelte (Heilige Flamme):** behoben in v0.1.196 (zu testen).

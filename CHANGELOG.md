@@ -2,6 +2,11 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
+## v0.1.200 – 08.10.2026, 13:47
+
+**Geändert**
+- **Blutlache bleibt am Boden:** Bei „Blutend“ liegt die Lache jetzt fest am Platz der Figur auf dem Boden und hüpft nicht mehr mit, wenn Held oder Gegner vorspringen, ausweichen oder taumeln. Die fallenden Tropfen gehen weiter mit dem Körper.
+
 ## v0.1.199 – 08.10.2026, 13:39
 
 **Geändert – Abschlussmeldung nach Untote vertreiben**

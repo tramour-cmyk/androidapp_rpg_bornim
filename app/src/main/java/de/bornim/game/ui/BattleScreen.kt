@@ -754,6 +754,11 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 if (foeShown) drawOval(Color.Black.copy(alpha = 0.32f * enemyAlpha), Offset(gx - foeW.toPx() * 0.36f, gy - 7.dp.toPx()), Size(foeW.toPx() * 0.72f, 12.dp.toPx()))
                 val hx = (sceneW * heroX).toPx(); val hy = (sceneH * heroY).toPx()
                 if (!ui.heroGone) drawOval(Color.Black.copy(alpha = 0.32f), Offset(hx - 70.dp.toPx(), hy - 10.dp.toPx()), Size(140.dp.toPx(), 18.dp.toPx()))
+                // a bleeding body's pool lies here on the ground, where it stands, and stays when the body moves
+                if (de.bornim.core.Status.BLEED in ui.foeStatus && !ui.enemyGone)
+                    drawBloodPool(clockMs / 1000f, gx, gy, (if (newStyle) foeW / 90 else monsterSize / 64).toPx(), vm.bloodLevel)
+                if (de.bornim.core.Status.BLEED in ui.heroStatus && !ui.heroGone)
+                    drawBloodPool(clockMs / 1000f + 0.7f, hx, hy, (artDp * 78f / 70f).toPx(), vm.bloodLevel)
             }
             // Pack mates stand behind the leader, smaller, and jab when it is their turn.
             val fleeing = a == Anim.PACK_FLEE && moving

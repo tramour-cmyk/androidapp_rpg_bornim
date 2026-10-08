@@ -946,6 +946,13 @@ private fun DrawScope.projectile(
  * What a lasting status looks like on a body, drawn as long as it holds: [t] runs on in seconds, [chest] and [ground]
  * place the body, [blood] is the blood setting (0 off). Quiet on purpose; the round's damage flares in its own effect.
  */
+/** The pool a bleeding body leaves where it stands: on the ground, it stays put when the body lunges or dodges. */
+internal fun DrawScope.drawBloodPool(t: Float, x: Float, ground: Float, u: Float, blood: Int) {
+    if (blood <= 0) return
+    val pool = (0.6f + 0.4f * ((t / 6f).coerceAtMost(1f))) * (if (blood >= 2) 1f else 0.6f)
+    drawOval(BLOOD_DARK.copy(alpha = 0.8f), Offset(x - 14 * u * pool, ground - 3 * u * pool), Size(28 * u * pool, 7 * u * pool))
+}
+
 internal fun DrawScope.drawStatus(s: de.bornim.core.Status, t: Float, chest: Offset, ground: Float, u: Float, blood: Int) {
     val h = ground - chest.y
     val top = chest.y - h * 0.8f
@@ -997,9 +1004,7 @@ internal fun DrawScope.drawStatus(s: de.bornim.core.Status, t: Float, chest: Off
         }
         de.bornim.core.Status.BLEED -> {
             if (blood <= 0) return
-            // drops falling from the wound, a small pool spreading beneath
-            val pool = (0.6f + 0.4f * ((t / 6f).coerceAtMost(1f))) * (if (blood >= 2) 1f else 0.6f)
-            drawOval(BLOOD_DARK.copy(alpha = 0.8f), Offset(chest.x - 14 * u * pool, ground - 3 * u * pool), Size(28 * u * pool, 7 * u * pool))
+            // drops falling from the wound (the pool they make lies on the ground: see [drawBloodPool])
             repeat(if (blood >= 2) 3 else 1) { i ->
                 val c = cyc(i, 0.8f)
                 val x = chest.x + (hash(i, 7) - 0.5f) * w * 0.6f
