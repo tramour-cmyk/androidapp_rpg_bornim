@@ -15,6 +15,12 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - **Der tödliche Treffer läuft ohne Text durch:** Schlag oder Zauber, Taumeln und Sturz gehen ohne Unterbrechung ineinander über; die Trefferzeile („… erleidet 9 Schaden.“) steht dann oben im Siegesfeld, bei einer Niederlage zusammen mit dem Sturz des Helden.
 - **Niederlage:** Der Held stürzt in drei Varianten (vornüber, zur Seite geworfen, auf ein Knie und seitlich um) und bleibt liegen; die Waffe sinkt neben ihn zu Boden. Erst wenn er liegt, kommt der Text (auch wenn der Sturz noch nicht vorgerechnet war).
 
+**Neu – Untote zerstören (SRD)**
+- Ab Klerikerstufe 5 zerfallen schwache Untote (Herausforderungsgrad ½ oder weniger, also Skelett und Zombie) bei misslungenem Rettungswurf gegen „Untote vertreiben“ zu Staub, statt zu fliehen: Sie glühen im heiligen Licht weiß auf und zerfallen zu Asche und Glut. Das zählt als Sieg mit Gold und Beute. Stärkere Untote (Ghul) fliehen weiterhin, dann ohne Gold und Beute.
+
+**Geändert – Heiliger Strahl**
+- Statt eines geraden, unten hart abgeschnittenen Lichtbands senkt sich das Licht von oben auf den Gegner, wird nach unten schmaler und weicher, und am Boden schlagen weiß-goldene Flammenzungen um seine Füße hoch, mit Lichtschein am Boden und aufsteigender Glut. Weicht der Gegner aus, schlägt die Flamme neben ihm am Boden ein.
+
 **Behoben**
 - **Untote vertreiben:** Der vertriebene Untote fiel tot um und blieb liegen, obwohl er laut Text flieht. Jetzt zuckt er im heiligen Licht zurück, weicht in die Ferne und verblasst; danach Siegpose und Siegesfeld.
 - **Höhle, Nebel des Krieges:** Gegner in ihrem Lager (Krogg, Grak) waren auch ohne Sichtlinie zu sehen, und Lichtquellen (Lichtschacht, Fackeln, Feuer) leuchteten durch den Nebel in nie gesehene oder gerade nicht sichtbare Räume. Jetzt erscheinen solche Gegner nur, wenn der Held sie sieht; Lichter in nie gesehenen Bereichen bleiben dunkel, außer Sicht nur gedämpft.
