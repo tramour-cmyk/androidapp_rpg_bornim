@@ -54,7 +54,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
-**Zweig-Build 0.1.208** (Zweig `claude/status-next-steps-pqvzz8`, PR #2): von dir getestet, „alles gut, keine Fehler“ (08.10., 16:39). Wartet auf die Übernahme nach `main`.
+**Zweig-Build 0.1.208** (Zweig `claude/status-next-steps-pqvzz8`, PR #2): von dir getestet, „alles gut, keine Fehler“ (08.10., 16:39); am 08.10. auf `main` übernommen.
 
 **Version v0.1.204** (veröffentlicht). Worauf achten:
 - **Weitere Zustände**, sobald sie vorkommen: Vergiftet (Spinne, Hundertfüßer), Blutend (nach Blutstufe; bei „Aus“ nichts), Verlangsamt, Geschwächt (Fluch des Schamanen). Zu schwach, zu stark, stören sie?
