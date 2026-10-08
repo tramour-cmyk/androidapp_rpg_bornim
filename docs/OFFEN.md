@@ -50,17 +50,18 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
-- **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Ghul seit 08.10. ebenfalls (Zweig, zu testen). Goblin-Schamane seit 08.10. ebenfalls (Zweig, zu testen). Noch im alten Stil:, Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
+- **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Ghul seit 08.10. ebenfalls (Zweig, zu testen). Goblin-Schamane seit 08.10. ebenfalls (Zweig, zu testen). Noch im alten Stil: Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
 
 ## Zu testen
 
-**Goblin-Schamane im neuen Stil** (Zweig-Build folgt, Testreiter: Testkampf gegen Goblin-Schamane). Worauf achten:
+**Goblin-Schamane im neuen Stil, Zweig-Build 0.1.218** (enthält auch den Ghul; Testreiter: Testkampf gegen Goblin-Schamane). Worauf achten:
 - Feuerpfeil: sammelt er am Stab, und fliegt der Pfeil los, wenn er den Stab vorstößt?
 - Fluch: grünes Licht in der Hand, dann geschleudert; passt das zum Text „spricht einen Fluch“?
 - Nahkampf mit dem Stab: geht er vor und trifft den Helden?
 - Wirkt er im Kampf bedrohlich genug, ist das grüne Glühen zu sehen (er ist klein)?
 - Goblin-Späher (Bogen): lässt er den Pfeil jetzt beim Abschuss los statt erst nach dem Einschlag?
 - Blinken des Helden bei Treffern: wieder normal kurz?
+- Von mir im Film bemerkt, noch nicht geändert: Beim Goblin-Späher steht der Bogen nach dem Schuss für einen Augenblick waagerecht wie ein Speer vor ihm (Übergang zurück in die Ruhe). Fällt dir das auf?
 
 **Ghul im neuen Stil, Zweig-Build 0.1.214** (Testreiter: Testkampf gegen Ghul). Worauf achten:
 - Wirkt er bedrohlich genug (geduckt, Klauen, Maul)? Sind die Klauen gut zu erkennen?
