@@ -2,6 +2,11 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
+## v0.1.199 – 08.10.2026, 13:39
+
+**Geändert – Abschlussmeldung nach Untote vertreiben**
+- Das Siegesfeld hat nach Untote vertreiben eine klare Abschlusszeile wie nach einem normalen Sieg: „Zombie wurde vertrieben!“ bzw. ab Stufe 5 „Zombie wurde vernichtet!“. Darunter stehen die Worte des Vertreibens, die EP und (nur beim Vernichten) Gold und Beute.
+
 ## v0.1.198 – 08.10.2026, 13:20
 
 **Behoben**

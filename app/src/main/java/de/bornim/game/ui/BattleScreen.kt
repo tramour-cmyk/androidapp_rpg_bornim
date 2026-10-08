@@ -277,9 +277,17 @@ private class BattleUi(val battle: Battle) {
         queue.clear()
         rest.lastOrNull()?.let { heroHp = it.heroHp; heroSp = it.heroSp; heroStatus = it.heroStatus }
         pack = 0
-        val title = current?.text ?: ""
+        // a foe driven off or destroyed by the cleric's holy power: a plain closing line as the title, like "… was
+        // defeated!", and the words of the turning first in the field
+        val turnedBy = current?.fx?.kind?.takeIf { it == de.bornim.core.FxKind.TURN || it == de.bornim.core.FxKind.DESTROY }
+        val foeName = battle.monster.name(lang)
+        val title = when (turnedBy) {
+            de.bornim.core.FxKind.TURN -> de.bornim.core.T("{0} wurde vertrieben!", "{0} was driven off!")(lang).replace("{0}", foeName)
+            de.bornim.core.FxKind.DESTROY -> de.bornim.core.T("{0} wurde vernichtet!", "{0} was destroyed!")(lang).replace("{0}", foeName)
+            else -> current?.text ?: ""
+        }
         // the killing blow's words first in the field, then the spoils
-        val blow = killWords?.let { w -> current?.copy(text = w, anim = Anim.NONE, rarity = null) }
+        val blow = (if (turnedBy != null) current?.text else killWords)?.let { w -> current?.copy(text = w, anim = Anim.NONE, rarity = null) }
         current = null
         val lvl = rest.indexOfFirst { it.anim == Anim.LEVEL_UP }
         val spoils = if (lvl < 0) rest else rest.subList(0, lvl)

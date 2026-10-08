@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 13:36 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 13:39 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -22,7 +22,8 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## Zu testen
 
-**Version v0.1.198** (veröffentlicht). Worauf achten:
+**Version v0.1.199** (veröffentlicht). Worauf achten:
+- **Abschluss nach Untote vertreiben:** Das Siegesfeld beginnt mit „… wurde vertrieben!“ (unter Stufe 5) bzw. „… wurde vernichtet!“ (ab Stufe 5).
 - **Zustände bei Bewegung:** Ein brennender (vergifteter, blutender …) Gegner springt zum Angriff vor: die Flammen gehen mit, nichts bleibt am Ruheplatz stehen. Ebenso beim Held (Abwehr, Angriff, Zauber).
 - **Untote zerstören** mit dem Schalter „Gegner bestehen keine Rettungswürfe“: Kleriker ab Stufe 5 gegen Zombie oder Skelett → er glüht auf und zerfällt zu Staub (mit Gold und Beute). (Vertreiben unter Stufe 5 ist bestätigt.)
 - **Tödlicher Treffer gegen eine Schwäche** (z. B. Heilige Flamme gegen Skelett): kein Text, während der Gegner taumelt; „Das ist sehr effektiv!“ steht im Siegesfeld in der Trefferzeile.
@@ -46,7 +47,7 @@ Mit v0.1.186 (main): **Wildschwein und Riesenratte** in freier Wildbahn.
 - **Glutstab zeigt Armbrust-Bild:** behoben, von dir bestätigt.
 - **Spirituelle Waffe schlägt scheinbar doppelt zu:** behoben in v0.1.195, von dir bestätigt.
 - **Wunsch: Vorräte im Testreiter auffüllen:** umgesetzt in v0.1.195, von dir bestätigt.
-- **Nach Untote vertreiben nur „70 EP erhalten“:** so gewollt – ein geflohener Gegner lässt kein Gold und keine Beute zurück (nach Regeln flieht er nur, er wird nicht besiegt).
+- **Nach Untote vertreiben fehlte eine Abschlussmeldung für den Kampf** (nur „EP erhalten“): Siegesfeld beginnt jetzt mit „… wurde vertrieben!“ bzw. „… wurde vernichtet!“, umgesetzt in v0.1.199 (zu testen). Kein Gold und keine Beute beim Vertreiben ist so gewollt.
 - **Zustandsbild blieb beim Angriff am Ruheplatz stehen:** behoben in v0.1.198 (zu testen).
 - **Untote vertreiben schwer zu testen (nur einmal pro Kampf, Rettungswurf gelang):** Testschalter „Gegner bestehen keine Rettungswürfe“ in v0.1.197 (zu testen).
 - **Text kam beim finalen Schlag, während das Skelett noch taumelte (Heilige Flamme):** behoben in v0.1.196 (zu testen).
