@@ -50,6 +50,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
+- **Wölfe beißen ins Leere (gemeldet 08.10., v0.1.210):** Im Film bestätigt: Der Leitwolf springt zum Helden, die anderen Wölfe des Rudels spielen ihren Biss aber nur auf ihrem Platz im Hintergrund, ohne Schritt zum Helden. Krogg und andere Einzelgegner mit Waffe treffen richtig. Vorschlag: Rudelwölfe springen beim Biss wie der Leitwolf zum Helden und zurück (gleitend, im selben Takt). Wartet auf deine Freigabe.
 - **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Noch im alten Stil: Goblin-Schamane und Ghul (Entwürfe auf der Puppe liegen vor), Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
 
 ## Zu testen
