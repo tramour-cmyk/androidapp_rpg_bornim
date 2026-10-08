@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 12:35 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 12:39 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -24,12 +24,13 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## Zu testen
 
-**Test-Build v0.1.193** (Zweig `effekte`, enthält alles aus `kampffluss`). Worauf achten:
-- **Magier:** Feuerpfeil (glühender Kopf, Flammenspur, Rauch, Flammen haften kurz am Gegner), Magisches Geschoss (drei violette Kraftsplitter nacheinander), Sengender Strahl (flackernder Feuerstrahl, Glut am Ziel), Magierrüstung (Runen sammeln sich am Körper, Schimmer läuft hoch). Beim Zaubern blitzt nicht mehr der ganze Bildschirm weiß. Passt das Timing: erscheint der Text erst, wenn der Zauber trifft?
-- **Feuerball (neu):** brodelnde Feuermasse statt Kugel, Explosion aus Flammenwolken, brennender Boden, Rauch. Wirkt es nicht mehr wie ein Spielball?
-- **Kleriker:** Wunden heilen und Heiltränke (goldenes Licht statt grünem Kreis), Segnen (Lichteinfall von oben, Sonnenzeichen an der Brust), Untote vertreiben (Lichtwelle über den Boden), Spirituelle Waffe (Geister-Streitkolben), Geisterwächter (kreisende Geistgestalten, beim Angriff um den Gegner).
-- **Wurfgegenstände:** Alchemistenfeuer (Flasche mit brennendem Lappen, Scherben, haftende Flammen), Weihwasser (Scherben, Spritzer, zischender Dampf).
-- **Zustände am Körper:** Brennend, Vergiftet, Blutend (nach Blutstufe; bei „Aus“ nichts), Betäubt (Schwanken), Verlangsamt (Reif, langsamere Ruhebewegung), Geschwächt (violetter Schleier), Geblendet (Restlicht vor den Augen). Bei Held und Gegner. Zu schwach, zu stark, stören sie?
+**Test-Build v0.1.193** (Zweig `effekte`, enthält alles aus `kampffluss`).
+
+Von dir bestätigt (08.10., 12:38): Magier-Effekte, Feuerball, Kleriker-Effekte, Weihwasser, Zustand „Brennend“.
+
+Noch offen, worauf achten:
+- **Alchemistenfeuer:** Flasche mit brennendem Lappen, Scherben, haftende Flammen, danach brennt der Gegner.
+- **Weitere Zustände**, sobald sie im Spiel vorkommen: Vergiftet (Spinne, Hundertfüßer), Blutend (nach Blutstufe; bei „Aus“ nichts), Betäubt, Verlangsamt, Geschwächt (Fluch des Schamanen), Geblendet (Heilige Flamme). Zu schwach, zu stark, stören sie?
 - **Tasche:** Nach dem Anlegen eines Gegenstands zeigt jede Zeile ihr eigenes Bild (vorher zeigte der Glutstab eine Armbrust).
 
 Dazu aus `kampffluss` (noch nicht bestätigt):
