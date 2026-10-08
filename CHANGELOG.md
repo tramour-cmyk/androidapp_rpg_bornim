@@ -12,7 +12,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 **Neu – Kampfende am Stück**
 - **Sieg:** Nach dem tödlichen Schlag läuft alles ohne Tippen durch: Der Gegner stürzt und bleibt liegen (bis zum Ende des Kampfbildschirms), der Held geht in seine Siegpose, dann kommt das **Siegesfeld** mit EP, Gold und Beute auf einen Blick (Beute in Seltenheitsfarbe). Ein Stufenaufstieg mit neuen Fähigkeiten bekommt ein eigenes Feld.
-- **Niederlage:** Der Held stürzt in drei Varianten (vornüber, zur Seite geworfen, auf ein Knie und seitlich um) und bleibt liegen; die Waffe sinkt neben ihn zu Boden. Erst dann kommt der Text.
+- **Der tödliche Treffer läuft ohne Text durch:** Schlag oder Zauber, Taumeln und Sturz gehen ohne Unterbrechung ineinander über; die Trefferzeile („… erleidet 9 Schaden.“) steht dann oben im Siegesfeld, bei einer Niederlage zusammen mit dem Sturz des Helden.
+- **Niederlage:** Der Held stürzt in drei Varianten (vornüber, zur Seite geworfen, auf ein Knie und seitlich um) und bleibt liegen; die Waffe sinkt neben ihn zu Boden. Erst wenn er liegt, kommt der Text (auch wenn der Sturz noch nicht vorgerechnet war).
 
 **Neu – Trinken im Kampf**
 - Der Held greift zur Gürteltasche, zieht den Korken und trinkt, in drei Varianten (ein langer Zug, zwei hastige Schlucke mit Blick zum Gegner, gierig trinken und die Flasche wegwerfen). Die Flasche ist rot für Heiltränke, grünlich für das Gegenmittel. Danach Heil-Leuchten und eine Zeile mit dem Ergebnis.

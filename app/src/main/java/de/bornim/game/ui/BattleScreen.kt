@@ -257,6 +257,8 @@ private class BattleUi(val battle: Battle) {
     /** A field at the end of a won fight: what was won, then (a second one) how the hero grew. */
     class EndPanel(val title: String, val lines: List<Step>)
     var panels by mutableStateOf<List<EndPanel>>(emptyList())
+    /** The words of the killing blow, held back while the move runs on into the fall. */
+    var killWords: String? = null
 
     /** The foe lies dead: the hero takes up its victory pose. */
     fun victory() {
@@ -271,11 +273,13 @@ private class BattleUi(val battle: Battle) {
         rest.lastOrNull()?.let { heroHp = it.heroHp; heroSp = it.heroSp; heroStatus = it.heroStatus }
         pack = 0
         val title = current?.text ?: ""
+        // the killing blow's words first in the field, then the spoils
+        val blow = killWords?.let { w -> current?.copy(text = w, anim = Anim.NONE, rarity = null) }
         current = null
         val lvl = rest.indexOfFirst { it.anim == Anim.LEVEL_UP }
         val spoils = if (lvl < 0) rest else rest.subList(0, lvl)
         val grow = if (lvl < 0) emptyList() else rest.subList(lvl, rest.size)
-        panels = listOfNotNull(EndPanel(title, spoils), grow.takeIf { it.isNotEmpty() }?.let {
+        panels = listOfNotNull(EndPanel(title, listOfNotNull(blow) + spoils), grow.takeIf { it.isNotEmpty() }?.let {
             EndPanel(if (lang == de.bornim.core.Lang.DE) "Stärker geworden" else "Grown stronger", it) })
     }
 
@@ -323,7 +327,13 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
     val ui = remember(battle) { BattleUi(battle) }
     val step = ui.current
     var revealed by remember(step) { mutableIntStateOf(0) }
-    val textDone = step == null || revealed >= step.text.length
+    // a killing blow shows no words of its own: the move runs straight on into the fall, and its words come at the
+    // end (in the victory field, or before "… collapses")
+    val silent = step != null && !step.lead && step.anim != Anim.ENEMY_FAINT && step.anim != Anim.HERO_FAINT &&
+        ui.queue.firstOrNull()?.anim.let { it == Anim.ENEMY_FAINT || it == Anim.HERO_FAINT }
+    /** The words shown for a message: the hero's fall comes with the words of the blow that felled it. */
+    fun words(st: Step): String = if (st.anim == Anim.HERO_FAINT) listOfNotNull(ui.killWords, st.text).joinToString(" ") else st.text
+    val textDone = step == null || revealed >= words(step).length
 
     /** On to the next message; a fall is not cut short, it plays out first. */
     fun goOn() {
@@ -337,7 +347,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
 
     fun advance() {
         if (step != null && !textDone) {
-            revealed = step.text.length
+            revealed = words(step).length
             return
         }
         // a fall is not cut short: it plays out before the next message
@@ -377,8 +387,21 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             }
             return@LaunchedEffect
         }
+        if (silent) {
+            revealed = step.text.length
+            ui.killWords = step.text
+            // the blow or the spell lands, the foe (or the hero) reels; then on into the fall
+            val flight = step.fx?.let { if (it.kind in FLYING || it.past in FLYING) 260L else 0L } ?: 0L
+            delay(ui.fxDelay + flight + REACT_MS.toLong() + 150L)
+            while (ui.falling) delay(50L)
+            if (ui.current === step) goOn()
+            return@LaunchedEffect
+        }
         // the hero struck down: the words come once it lies on the ground
         if (step.anim == Anim.HERO_FAINT) {
+            // the fall may not have started yet when this step arrives
+            var waited = 0L
+            while (ui.motion?.act != HeroFigure.Act.DIE && waited < 1000L) { delay(30L); waited += 30L }
             val m = ui.motion
             delay(((m?.let { it.start + it.ms - System.currentTimeMillis() }) ?: 0L).coerceIn(0L, 3000L) + 300L)
         }
@@ -386,17 +409,10 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
         val perChar = when (tempo) { 0 -> 22L; 2 -> 9L; else -> 15L }
         // the words of an action come once it lands: the blow struck, the spell or flask arrived
         if (ui.afterLead) delay(160L + ui.fxDelay + (step.fx?.let { if (it.kind in FLYING || it.past in FLYING) 260L else 0L } ?: 0L))
-        while (revealed < step.text.length) {
+        val shown = words(step)
+        while (revealed < shown.length) {
             delay(perChar)
             revealed++
-        }
-        // a killing blow runs straight on into the fall, without a tap
-        val nextAnim = ui.queue.firstOrNull()?.anim
-        if (nextAnim == Anim.ENEMY_FAINT || nextAnim == Anim.HERO_FAINT) {
-            delay(REACT_MS.toLong() + 250L)
-            while (ui.falling) delay(50L)
-            if (ui.current === step) goOn()
-            return@LaunchedEffect
         }
         // each line waits for a tap, unless the fight is set to go on by itself: then after a pause to read, a tap
         // going on at once. The hero's fall always waits for a tap (the spoils of a won fight wait in their own field).
@@ -927,7 +943,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                         .tap { advance() }
                 ) {
                     Txt(
-                        step?.takeIf { !it.lead && it.anim != Anim.ENEMY_FAINT }?.text?.take(revealed) ?: "", size = 20.sp,
+                        step?.takeIf { !it.lead && it.anim != Anim.ENEMY_FAINT && !silent }?.let { words(it).take(revealed) } ?: "", size = 20.sp,
                         color = step?.rarity?.let { rarityColor(it) } ?: Colors.text,
                     )
                     if (textDone) Txt("▼", Modifier.align(Alignment.BottomEnd), size = 16.sp, color = Colors.accent)
@@ -1307,6 +1323,10 @@ private fun heroDollFrame(ui: BattleUi, clockMs: Long, wounds: Int): Pair<de.bor
             val i = m.index(now)
             // how far the blow has stepped in, by the frame it has reached
             val lunge = if (m.act == HeroFigure.Act.ATTACK) HeroBattle.lungeAt(hero, m.strike, i) else 0.0
+            // the fall is the last thing of a lost fight and may not be drawn ahead yet: drawn now, frame by frame, so the
+            // hero does not stand on while its words wait for it to lie
+            if (m.act == HeroFigure.Act.DIE && now >= m.start && HeroBattle.ready(hero, m.act, m.strike, m.variant, i, wounds) == null)
+                return HeroBattle.frame(hero, m.act, m.strike, m.variant, i, wounds) to 0.0
             for (k in i downTo m.from) HeroBattle.ready(hero, m.act, m.strike, m.variant, k, wounds)?.let { return it to lunge }
             // a held pose (a guard, a wind-up) or a move under way never falls back to the rest: drawn now if no frame of
             // it is kept (a remedy's green flask, say, that was not drawn ahead)
