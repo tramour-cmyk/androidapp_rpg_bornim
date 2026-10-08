@@ -42,7 +42,7 @@ class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Bool
 
         /** A foe's kit as an outfit to dress its doll in. */
         fun of(kit: de.bornim.core.MonsterKit) = Outfit(CharClass.FIGHTER,
-            kit.items.mapValues { (_, base) -> Gear(0, base, Rarity.COMMON, 1) }, kit.rusty, kit.crude, kit.pelt, kit.bothHands, kit.cloak)
+            kit.items.mapValues { (_, base) -> Gear(0, base, Rarity.COMMON, 1) }, kit.rusty, kit.crude, kit.pelt, kit.bothHands, kit.cloak, fetish = kit.fetish)
     }
 }
 

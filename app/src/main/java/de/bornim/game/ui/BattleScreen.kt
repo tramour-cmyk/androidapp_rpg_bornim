@@ -316,7 +316,25 @@ private class BattleUi(val battle: Battle) {
     /** The message now shown ends a lead-in: its words wait until the blow lands or the spell arrives. */
     var afterLead = false
 
+    /**
+     * A shaman on the doll shows what it is about to do, read from the message that follows its wind-up: a fire bolt
+     * (it flies, hit or miss), a curse (it lands or is shrugged off, with no blow), or the staff swung as a club.
+     */
+    private fun shamanMove(after: Step?): Int? {
+        if (battle.monster.id != "goblin_shaman" || !MonsterArt.isDoll(battle.monster.id)) return null
+        val f = after?.fx
+        return when {
+            f != null && (f.kind == de.bornim.core.FxKind.FIRE_BOLT || f.past == de.bornim.core.FxKind.FIRE_BOLT) -> de.bornim.core.art.FoeArt.SHAMAN_BOLT
+            after?.anim == Anim.NONE && f?.onHero == true -> de.bornim.core.art.FoeArt.SHAMAN_CURSE
+            else -> de.bornim.core.art.FoeArt.SHAMAN_STAFF
+        }
+    }
+
+    /** When the message now shown came up, for moves timed from it while the main motion waits (a bolt in flight). */
+    var stepAt = 0L
+
     fun next() {
+        stepAt = System.currentTimeMillis()
         afterLead = current?.lead == true
         val s = if (queue.isEmpty()) null else queue.removeAt(0)
         current = s
@@ -333,7 +351,7 @@ private class BattleUi(val battle: Battle) {
             moveHero(s)
             foeCastLands = foePoised && s.anim == Anim.NONE && s.fx?.onHero == true
             foePoised = s.anim == Anim.ENEMY_ACT || (foePoised && s.anim == Anim.NONE && s.fx == null)
-            if (s.anim == Anim.ENEMY_ACT) attackVariant = kotlin.random.Random.nextInt(MonsterArt.attackVariants(battle.monster.id))
+            if (s.anim == Anim.ENEMY_ACT) attackVariant = shamanMove(queue.firstOrNull()) ?: kotlin.random.Random.nextInt(MonsterArt.attackVariants(battle.monster.id))
             // Wolves howl now and then, not every time: when they appear, and when a pack mate falls or flees.
             val chance = when {
                 animKey == 0 -> 0.5
@@ -703,17 +721,32 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             val foeN = if (newStyle) MonsterArt.frameCount(id, battle.look, Act.ATTACK, variant) else 0
             val windEnd = if (dollFoe) (foeStrike - 2).coerceAtLeast(0) else foeStrike
             fun span(from: Int, to: Int) = from + ((to - from + 1) * t).toInt().coerceAtMost(to - from)
+            // a foe that shoots or casts from where it stands, rather than stepping in with a blow
+            val shoots = dollFoe && MonsterArt.isDoll(id) && !de.bornim.core.art.FoeArt.lunges(id, battle.look, variant)
+            fun releaseIdx(): Int {
+                val per = ((foeTiming(battle, variant)?.blowMs ?: BLOW_MS) / (foeStrike - windEnd + 1).coerceAtLeast(1)).coerceAtLeast(1)
+                // read with the clock, so the frames go on while nothing else changes
+                val since = if (clockMs >= 0) System.currentTimeMillis() - ui.stepAt else 0L
+                return windEnd + (since / per).toInt().coerceIn(0, foeStrike - windEnd)
+            }
             val foeAttackIdx: Int? = when {
                 !newStyle -> null
                 a == Anim.ENEMY_ACT -> span(0, windEnd)
                 poised -> windEnd
+                // a shot or a spell: let go as the message comes up (timed from it, as it may fly before the rest
+                // moves), held in the release, then the way back
+                foeLanding && moving && shoots -> if (t < blowShare) releaseIdx()
+                    else foeStrike + ((foeN - foeStrike) * (t - blowShare) / (1 - blowShare)).toInt().coerceIn(0, foeN - 1 - foeStrike)
                 foeLanding && moving -> {
                     // the blow lands as fast as ever; only the way back takes the longer time
                     val q = blowShare
                     if (t < q) windEnd + ((foeStrike - windEnd + 1) * t / q).toInt().coerceAtMost(foeStrike - windEnd)
                     else foeStrike + ((foeN - foeStrike) * (t - q) / (1 - q)).toInt().coerceIn(0, foeN - 1 - foeStrike)
                 }
-                // the blow not begun yet (an arrow still in flight): still poised in the wind-up, not back at rest
+                // an arrow, bolt or curse in flight: it is let go at once, the bow string or the staff or hand coming
+                // through to the release as it leaves, before it arrives
+                foeLanding && t < 0.01f && shoots -> releaseIdx()
+                // the blow not begun yet: still poised in the wind-up, not back at rest
                 foeLanding && t < 0.01f -> windEnd
                 else -> null
             }
@@ -978,7 +1011,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                         transformOrigin = androidx.compose.ui.graphics.TransformOrigin((HeroBattle.ANCHOR_X / HeroBattle.W).toFloat(), (HeroBattle.GROUND / HeroBattle.H).toFloat())
                     }
             ) {
-                PixelSprite(dollFrame, artDp, alpha = heroAlpha, flash = if (a == Anim.HERO_HIT && blink) 0.85f else 0f, shade = shade)
+                PixelSprite(dollFrame, artDp, alpha = heroAlpha, flash = if (a == Anim.HERO_HIT && heroT in 0.01f..0.99f && ((heroT * 8).toInt() % 2 == 0)) 0.85f else 0f, shade = shade)
                 // the hero's lasting statuses, in its own frame so they go with every move
                 if (ui.heroStatus.isNotEmpty() && !ui.heroGone) Canvas(Modifier.size(1.dp)) {
                     val feet = (artDp * HeroBattle.GROUND.toFloat()).toPx()

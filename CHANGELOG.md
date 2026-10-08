@@ -4,6 +4,15 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – Goblin-Schamane im neuen Stil**
+- Der Schamane steht auf der Puppe: fast schwarze, rußige Robe (oder ein räudiges Fell), gehörnter Tierschädel als Kappe, Knochenkette, rußig eingesunkene Augen mit grün glühendem Blick, ein Streifen alten Bluts über der Nase. Auf seinem Knotenstab sitzt ein Schädel, dessen Augen grün glimmen.
+- Er zeigt, was er tut: Beim Feuerpfeil sammelt er die Kraft am erhobenen Stab und stößt ihn vor, beim Fluch zieht er grünes Licht in der freien Hand hoch und schleudert es auf den Held, im Nahkampf schlägt er mit dem Stab zu. Für Zauber tritt er nicht vor.
+- Drei Varianten: Robe, Fell, Robe mit Fell. Treffer, Ausweichen und Sturz je dreimal.
+
+**Behoben – Schüsse und Zauber der Gegner**
+- Ein Gegner, der aus der Entfernung angreift (Schamane, nach dem Code auch der Goblin-Späher mit dem Bogen), lässt Pfeil, Feuerpfeil oder Fluch jetzt im Moment los, in dem er abfliegt. Bisher stand er in der Ausholhaltung, bis das Geschoss schon eingeschlagen war, und schoss erst dann.
+- Der Held blinkt beim Treffer wieder so lange wie früher; durch den längeren Rückweg der Gegner (v0.1.210) blinkte er doppelt so lange.
+
 **Neu – Ghul im neuen Stil**
 - Der Ghul steht jetzt auf der Puppe wie Goblin, Skelett und Zombie: hager und grau, mit aufgerissenem, blutigem Maul, spitzen Ohren und langen, schwarzen, gespreizten Klauen. Er kauert tief und vorgebeugt, die Klauen vor sich.
 - Drei Varianten: fast nackt in Lumpen, in einer verrotteten Lederrüstung oder in einer zerschlissenen Robe. Größe und Körperbau variieren.

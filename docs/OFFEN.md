@@ -50,9 +50,17 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
-- **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Ghul seit 08.10. ebenfalls (Zweig, zu testen). Noch im alten Stil: Goblin-Schamane (Entwurf liegt vor), Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
+- **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Ghul seit 08.10. ebenfalls (Zweig, zu testen). Goblin-Schamane seit 08.10. ebenfalls (Zweig, zu testen). Noch im alten Stil:, Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
 
 ## Zu testen
+
+**Goblin-Schamane im neuen Stil** (Zweig-Build folgt, Testreiter: Testkampf gegen Goblin-Schamane). Worauf achten:
+- Feuerpfeil: sammelt er am Stab, und fliegt der Pfeil los, wenn er den Stab vorstößt?
+- Fluch: grünes Licht in der Hand, dann geschleudert; passt das zum Text „spricht einen Fluch“?
+- Nahkampf mit dem Stab: geht er vor und trifft den Helden?
+- Wirkt er im Kampf bedrohlich genug, ist das grüne Glühen zu sehen (er ist klein)?
+- Goblin-Späher (Bogen): lässt er den Pfeil jetzt beim Abschuss los statt erst nach dem Einschlag?
+- Blinken des Helden bei Treffern: wieder normal kurz?
 
 **Ghul im neuen Stil, Zweig-Build 0.1.214** (Testreiter: Testkampf gegen Ghul). Worauf achten:
 - Wirkt er bedrohlich genug (geduckt, Klauen, Maul)? Sind die Klauen gut zu erkennen?
@@ -89,7 +97,7 @@ Von dir bestätigt: Zustand „Betäubt“ (08.10., „funktioniert sehr gut“)
 
 - **Noch mehr Zwischenbilder?** Die Haltungen selbst (Arme, Beine, Waffe) wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Nach deinem Test von 0.1.208 vorerst nicht nötig; bei Bedarf als eigener, größerer Umbau (mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn).
 - **Zustände am Körper:** Sind Verlangsamt, Geschwächt und Geblendet auf kleinen Gegnern stark genug?
-- **Goblin-Schamane (Rückmeldung 08.10.):** erster Entwurf nicht gut, wirkt nicht bedrohlich, ein Arm schien zu fehlen (er lag in der Robe). Zweiter Entwurf (17:03): fast schwarze Robe, rußige Augenhöhlen mit grün glühenden Augen, Blutstreifen über die Nase, Schädelstab mit grün glühenden Augen, grünes Fluchlicht in der freien Hand; drei Haltungen (Stehen, Fluch sammeln, Fluch schleudern). Von dir am 08.10. für gut befunden („Das sieht gut aus“); Einbau in den Kampf nach deinem Go.
+- **Goblin-Schamane (Rückmeldung 08.10.):** erster Entwurf nicht gut, wirkt nicht bedrohlich, ein Arm schien zu fehlen (er lag in der Robe). Zweiter Entwurf (17:03): fast schwarze Robe, rußige Augenhöhlen mit grün glühenden Augen, Blutstreifen über die Nase, Schädelstab mit grün glühenden Augen, grünes Fluchlicht in der freien Hand; drei Haltungen (Stehen, Fluch sammeln, Fluch schleudern). Von dir am 08.10. für gut befunden und freigegeben; eingebaut (Zweig, zu testen).
 - **Hörproben:** Auswahl für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt.
 
 ## Geplant
