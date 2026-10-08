@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.226 – 08.10.2026, 18:53
+
 **Geändert – mehr Abwechslung in den Bewegungen**
 - **Gegner:** Angriff, Getroffenwerden und Ausweichen werden jedes Mal zufällig aus den drei Varianten gewählt, nie zweimal hintereinander dieselbe. Bisher hing die Wahl beim Getroffenwerden und Ausweichen an der Nummer der Meldung, sodass bei gleichförmigen Runden oft dieselbe kam. Der Sturz bleibt eine von drei, fest pro Gegner (Taumeln und Fallen gehören zusammen).
 - **Held, getroffen:** drei Bewegungen statt einer: zurückgeworfen, zusammengekrümmt, zur Seite gerissen.
