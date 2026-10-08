@@ -2,6 +2,11 @@
 
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
+## v0.1.196 – 08.10.2026, 13:07
+
+**Behoben**
+- **Tödlicher Treffer mit „Das ist sehr effektiv!“:** Traf ein Zauber oder Schlag eine Schwäche des Gegners (etwa die Heilige Flamme ein Skelett), stand der Hinweis als eigene Zeile zwischen Treffer und Sturz. Dadurch kam der Text, während der Gegner noch taumelte. Der Hinweis steht jetzt in der Trefferzeile, der tödliche Treffer läuft wieder ohne Text bis zum Sturz durch. Ein neuer Test prüft das für alle Klassen und Gegner.
+
 ## v0.1.195 – 08.10.2026, 12:50
 
 **Behoben**

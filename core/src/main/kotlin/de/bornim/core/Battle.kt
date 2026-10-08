@@ -883,8 +883,10 @@ class Battle(
             say(Msg.fortitude.f(lang, foe))
             return dmg
         }
-        say(Msg.damageTo.f(lang, foe, dmg), Anim.ENEMY_HIT, fx = effect)
-        if (!quiet) note?.let { say(it(lang)) }
+        // how well it bit (immune, resisted, very effective) belongs to the blow's own line: a killing blow runs
+        // straight on into the fall, with nothing in between
+        val how = if (!quiet) note?.let { " " + it(lang) } ?: "" else ""
+        say(Msg.damageTo.f(lang, foe, dmg) + how, Anim.ENEMY_HIT, fx = effect)
         if (enemyHp == 0) {
             say(Msg.defeated.f(lang, foe), Anim.ENEMY_FAINT)
             finishWin(fled = false)

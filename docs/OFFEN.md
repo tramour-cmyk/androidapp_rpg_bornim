@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 12:59 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 13:07 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -22,7 +22,8 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 ## Zu testen
 
-**Version v0.1.195** (veröffentlicht). Worauf achten:
+**Version v0.1.196** (veröffentlicht). Worauf achten:
+- **Tödlicher Treffer gegen eine Schwäche** (z. B. Heilige Flamme gegen Skelett, Wucht gegen Skelett): kein Text, während der Gegner taumelt; „Das ist sehr effektiv!“ steht im Siegesfeld in der Trefferzeile.
 - **Spirituelle Waffe:** Beim Herbeirufen erscheint die Waffe neben dem Helden und schwebt, ohne zuzuschlagen. Danach schlägt sie einmal zu, der Text „schlägt zu“ steht mit dem Schaden in einer Zeile.
 - **Testreiter:** „Alle Vorräte auf mindestens 10“ füllt Tränke, Alchemistenfeuer, Weihwasser, Essen und Zutaten auf.
 - **Alchemistenfeuer** (jetzt leicht zu bekommen): Flasche mit brennendem Lappen, Scherben, haftende Flammen, danach brennt der Gegner.
@@ -45,6 +46,7 @@ Mit v0.1.186 (main): **Wildschwein und Riesenratte** in freier Wildbahn.
 - **Glutstab zeigt Armbrust-Bild:** behoben, von dir bestätigt.
 - **Spirituelle Waffe schlägt scheinbar doppelt zu:** behoben in v0.1.195 (zu testen).
 - **Wunsch: Vorräte im Testreiter auffüllen:** umgesetzt in v0.1.195 (zu testen).
+- **Text kam beim finalen Schlag, während das Skelett noch taumelte (Heilige Flamme):** behoben in v0.1.196 (zu testen).
 
 ## Zu entscheiden
 
