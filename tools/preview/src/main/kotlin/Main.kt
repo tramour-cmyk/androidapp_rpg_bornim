@@ -253,6 +253,20 @@ fun main() {
             vm.refresh()
         }
     }
+    // Fog of war in the cave: Grak's hall behind the wall, never seen and once seen, the hero facing away
+    for ((n, known) in listOf("fresh" to false, "known" to true)) {
+        shot("82_cavefog_$n") { vm ->
+            vm.newGame("Grom", Race.HALF_ORC, CharClass.FIGHTER)
+            val g = vm.game!!
+            g.skipDialogs()
+            g.state.flags += Story.GATE_OPEN
+            g.state.minutes = 2 * 60
+            // seen once: the hero stood in the doorway looking up into the hall, then walked on
+            if (known) { g.state.place = Place("cave", 16, 12, Facing.UP); g.fog(16, 12) }
+            g.state.place = Place("cave", 19, 14, Facing.DOWN)
+            vm.refresh()
+        }
+    }
     // Chapter 1 maps in their new light
     for ((n, spec) in listOf(
         "forest_day" to Triple("forest", 15 to 26, 12 * 60), "forest_dusk" to Triple("forest", 4 to 19, 19 * 60 + 30), "forest_night" to Triple("forest", 11 to 9, 23 * 60),

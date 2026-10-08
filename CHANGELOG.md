@@ -15,6 +15,10 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - **Der tödliche Treffer läuft ohne Text durch:** Schlag oder Zauber, Taumeln und Sturz gehen ohne Unterbrechung ineinander über; die Trefferzeile („… erleidet 9 Schaden.“) steht dann oben im Siegesfeld, bei einer Niederlage zusammen mit dem Sturz des Helden.
 - **Niederlage:** Der Held stürzt in drei Varianten (vornüber, zur Seite geworfen, auf ein Knie und seitlich um) und bleibt liegen; die Waffe sinkt neben ihn zu Boden. Erst wenn er liegt, kommt der Text (auch wenn der Sturz noch nicht vorgerechnet war).
 
+**Behoben**
+- **Untote vertreiben:** Der vertriebene Untote fiel tot um und blieb liegen, obwohl er laut Text flieht. Jetzt zuckt er im heiligen Licht zurück, weicht in die Ferne und verblasst; danach Siegpose und Siegesfeld.
+- **Höhle, Nebel des Krieges:** Gegner in ihrem Lager (Krogg, Grak) waren auch ohne Sichtlinie zu sehen, und Lichtquellen (Lichtschacht, Fackeln, Feuer) leuchteten durch den Nebel in nie gesehene oder gerade nicht sichtbare Räume. Jetzt erscheinen solche Gegner nur, wenn der Held sie sieht; Lichter in nie gesehenen Bereichen bleiben dunkel, außer Sicht nur gedämpft.
+
 **Neu – Trinken im Kampf**
 - Der Held greift zur Gürteltasche, zieht den Korken und trinkt, in drei Varianten (ein langer Zug, zwei hastige Schlucke mit Blick zum Gegner, gierig trinken und die Flasche wegwerfen). Die Flasche ist rot für Heiltränke, grünlich für das Gegenmittel. Danach Heil-Leuchten und eine Zeile mit dem Ergebnis.
 

@@ -47,9 +47,14 @@ fun fightFilm(spec: String) {
     val plan = System.getenv("FILMTAPS") ?: "FASSSS"
     for ((t, c) in plan.withIndex()) {
         // W: no tap, only wait and film
+        // V: scroll a list (the abilities, the bag) one step down
+        if (c == 'V') {
+            scene.sendPointerEvent(PointerEventType.Scroll, Offset(270f, 990f), scrollDelta = Offset(0f, 5f)); frames(12, "t$t$c", true)
+            continue
+        }
         if (c != 'W') {
             val tap = where.getValue(c)
-            scene.sendPointerEvent(PointerEventType.Press, tap); frames(1, "t$t$c", true)
+            scene.sendPointerEvent(PointerEventType.Press, tap); if (System.getenv("FILMQUICK") == null) frames(1, "t$t$c", true)
             scene.sendPointerEvent(PointerEventType.Release, tap)
         }
         frames(28, "t$t$c", true)

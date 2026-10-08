@@ -489,6 +489,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         for (npc in visibleNpcs) {
             val bottom = npc.y * T + T - 1
             if (npc.look.startsWith("monster:")) {
+                // a foe waiting in its lair, like the wandering ones, only shows while the hero can see it
+                if (game.fog(npc.x, npc.y) != de.bornim.core.Fog.VISIBLE) continue
                 val id = npc.look.removePrefix("monster:")
                 val img = MonsterArt.get(id)
                 sprites += Sprite(bottom.toFloat()) { put(img, npc.x * T + T / 2 - img.width / 2, bottom + 1 - img.height) }
@@ -815,7 +817,14 @@ private fun DrawScope.drawMapLight(
     for ((i, src) in MapLight.sources(map).withIndex()) {
         val c = at(src.x, src.y)
         val r = (src.reach * 0.75 * scale).toFloat()
-        val on = MapLight.strength(map, src.shines, day).toFloat()
+        // a light the hero has never seen stays dark, one out of sight shines dimmed: it must not light up what the
+        // fog of war hides
+        val seen = when (game.fog(floor(src.x / T).toInt(), floor(src.y / T).toInt())) {
+            de.bornim.core.Fog.HIDDEN -> 0f
+            de.bornim.core.Fog.SEEN -> 0.4f
+            de.bornim.core.Fog.VISIBLE -> 1f
+        }
+        val on = MapLight.strength(map, src.shines, day).toFloat() * seen
         if (on <= 0.02f || !visible(c, r)) continue
         val t = clock.toFloat()
         val (color, a) = when (src.kind) {
@@ -844,7 +853,7 @@ private fun DrawScope.drawMapLight(
                 val ph = ((clock + k * 517 + i * 131) % period) / period.toFloat()
                 val sx = src.x + kotlin.math.sin(ph * 6f + k) * 4 + (k - 2) * 2
                 val sy = src.y - 6 - ph * 26
-                drawRect(Color(0xFFFFC060).copy(alpha = (1 - ph) * 0.9f), at(sx, sy.toDouble()), androidx.compose.ui.geometry.Size(px, px))
+                drawRect(Color(0xFFFFC060).copy(alpha = (1 - ph) * 0.9f * seen), at(sx, sy.toDouble()), androidx.compose.ui.geometry.Size(px, px))
             }
             MapLight.Kind.SHROOM -> for (k in 0 until 3) {
                 // spores drifting up from the mushrooms
@@ -852,7 +861,7 @@ private fun DrawScope.drawMapLight(
                 val ph = ((clock + k * 1100 + i * 377) % period) / period.toFloat()
                 val sx = src.x + (k - 1) * 7 + kotlin.math.sin(ph * 9f + i) * 3
                 val sy = src.y + 4 - ph * 30
-                drawRect(Color(0xFFA8FFF0).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * 0.8f), at(sx, sy.toDouble()), androidx.compose.ui.geometry.Size(px, px))
+                drawRect(Color(0xFFA8FFF0).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * 0.8f * seen), at(sx, sy.toDouble()), androidx.compose.ui.geometry.Size(px, px))
             }
             MapLight.Kind.SKY -> {
                 // a slanted shaft of light from the roof, dust dancing in it
@@ -862,13 +871,13 @@ private fun DrawScope.drawMapLight(
                     val b = at(src.x, src.y)
                     lineTo(b.x + 16 * px, b.y + 8 * px); lineTo(b.x - 16 * px, b.y + 8 * px); close()
                 }
-                drawPath(path, androidx.compose.ui.graphics.Brush.verticalGradient(listOf(Color(0x10E8F0FF), Color(0x66E8F0FF), Color(0x30E8F0FF)), top.y, at(src.x, src.y).y + 8 * px), blendMode = androidx.compose.ui.graphics.BlendMode.Plus)
+                drawPath(path, androidx.compose.ui.graphics.Brush.verticalGradient(listOf(Color(0x10E8F0FF), Color(0x66E8F0FF), Color(0x30E8F0FF)).map { it.copy(alpha = it.alpha * seen) }, top.y, at(src.x, src.y).y + 8 * px), blendMode = androidx.compose.ui.graphics.BlendMode.Plus)
                 for (k in 0 until 6) {
                     val period = 4000 + k * 650
                     val ph = ((clock + k * 900) % period) / period.toFloat()
                     val sx = src.x - 8 + ph * 12 + kotlin.math.sin(ph * 7f + k) * 5
                     val sy = src.y - T * 2.2 + ((k * 13) % 50) + ph * 20
-                    drawRect(Color(0xFFFFFFFF).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * 0.7f), at(sx, sy), androidx.compose.ui.geometry.Size(px, px))
+                    drawRect(Color(0xFFFFFFFF).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * 0.7f * seen), at(sx, sy), androidx.compose.ui.geometry.Size(px, px))
                 }
             }
             else -> {}
