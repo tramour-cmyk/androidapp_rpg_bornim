@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import de.bornim.core.Fx
 import de.bornim.core.FxKind
 import de.bornim.game.ui.drawFx
+import de.bornim.game.ui.drawStatus
 import org.jetbrains.skia.EncodedImageFormat
 import java.io.File
 
@@ -177,4 +178,40 @@ fun renderAbilityFx() {
     File("build/screens/ability_fx.png").writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
     scene.close()
     println("wrote ability fx")
+}
+
+/** Every lasting status on a goblin (three moments) and on the hero's place (three moments): STATUSFX=1. */
+fun renderStatusFx() {
+    val M = de.bornim.core.art.MonsterArt
+    val px = 1.5f
+    val cw = 220; val ch = 260
+    val look = de.bornim.core.MonsterLook(3)
+    val frame = M.battleFrame("goblin", look, de.bornim.core.art.Act.IDLE, 0, 0)
+    val (bodyW, bodyH) = M.bodySize("goblin", look, frame.width, frame.height)
+    val ts = listOf(0.4f, 1.3f, 2.2f)
+    val scene = ImageComposeScene(cw * 6, ch * de.bornim.core.Status.entries.size, Density(1f)) {
+        Column(Modifier.background(Color(0xFF1E2A20))) {
+            for (s in de.bornim.core.Status.entries) Row {
+                for (c in 0 until 6) androidx.compose.foundation.layout.Box(Modifier.size(cw.dp, ch.dp).background(Color(0xFF34482F))) {
+                    val onFoe = c < 3
+                    val feetX = cw * 0.5f; val feetY = ch * 0.9f
+                    if (onFoe) {
+                        val anchor = (M.anchorX("goblin", frame.width) * px).toFloat(); val feet = (M.groundLine("goblin") * px).toFloat()
+                        androidx.compose.foundation.layout.Box(Modifier.offset((feetX - anchor).dp, (feetY - feet).dp)) { de.bornim.game.ui.PixelSprite(frame, px.dp, overflow = true) }
+                    }
+                    Canvas(Modifier.size(cw.dp, ch.dp)) {
+                        val u = (bodyW * px).toFloat() / 90
+                        if (!onFoe) drawRect(Color(0xFF8090A0), Offset(feetX - 14f, feetY - 190f), androidx.compose.ui.geometry.Size(28f, 190f))
+                        val chest = if (onFoe) Offset(feetX, feetY - (bodyH * px).toFloat() * 0.55f) else Offset(feetX, feetY - 110f)
+                        drawStatus(s, ts[c % 3], chest, feetY, if (onFoe) u else 1.6f, 2)
+                    }
+                    androidx.compose.material3.Text(if (c == 0) s.name else "", color = Color.White, modifier = Modifier.offset(6.dp, 4.dp))
+                }
+            }
+        }
+    }
+    val img = scene.render(0)
+    File("build/screens/status_fx.png").writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
+    scene.close()
+    println("wrote status fx")
 }

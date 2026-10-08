@@ -919,3 +919,114 @@ private fun DrawScope.projectile(
         burst(r, to, s, u, colors, 14, explosion * 0.9f)
     }
 }
+
+/**
+ * What a lasting status looks like on a body, drawn as long as it holds: [t] runs on in seconds, [chest] and [ground]
+ * place the body, [blood] is the blood setting (0 off). Quiet on purpose; the round's damage flares in its own effect.
+ */
+internal fun DrawScope.drawStatus(s: de.bornim.core.Status, t: Float, chest: Offset, ground: Float, u: Float, blood: Int) {
+    val h = ground - chest.y
+    val top = chest.y - h * 0.8f
+    val w = h * 0.36f
+    fun cyc(i: Int, speed: Float) = ((t * speed + i * 0.6180339f) % 1f + 1f) % 1f
+    fun hash(i: Int, k: Int) = (((i * 73856093) xor (k * 19349663)) and 0xFFFF) / 65535f
+    when (s) {
+        de.bornim.core.Status.BURN -> {
+            // small flames licking up the body and round the feet, embers and thin smoke
+            // they cling to the outline and the feet, not pasted over the middle of the body
+            repeat(7) { i ->
+                val side = if (i % 2 == 0) -1f else 1f
+                val bx = chest.x + side * w * (0.42f + 0.22f * hash(i, 1)) * (if (i == 6) 0f else 1f)
+                val by = ground - hash(i, 2) * h * (if (i == 6) 0.05f else 1.3f)
+                val life = cyc(i, 1.3f)
+                val hh = (9 + 13 * hash(i, 3)) * u * sin(life * PI.toFloat()) * (0.8f + 0.2f * sin(t * 17f + i))
+                val lean = sin(t * 7f + i) * 2f * u
+                tongue(Offset(bx, by), hh, 6.5f * u, lean, FIRE_DARK, 0.8f)
+                tongue(Offset(bx, by), hh * 0.7f, 4.4f * u, lean, FIRE, 0.9f)
+                tongue(Offset(bx, by), hh * 0.35f, 2f * u, lean * 0.5f, FIRE_HOT, 0.9f)
+            }
+            repeat(5) { i ->
+                val c = cyc(i, 0.5f)
+                val p = Offset(chest.x + (hash(i, 4) - 0.5f) * w + sin(c * 6f + i) * 4 * u, chest.y - c * h * 0.9f)
+                val rad = (4 + 7 * c) * u
+                drawCircle(Brush.radialGradient(listOf(SMOKE.copy(alpha = 0.35f * (1 - c)), SMOKE.copy(alpha = 0f)), p, rad), rad, p)
+            }
+            repeat(6) { i ->
+                val c = cyc(i, 0.9f)
+                square(if (i % 2 == 0) FIRE_HOT else FIRE, Offset(chest.x + (hash(i, 5) - 0.5f) * w * 1.2f + sin(c * 9f + i) * 3 * u, ground - h * 0.3f - c * h), 1.6f * u, 1f - c)
+            }
+        }
+        de.bornim.core.Status.POISON -> {
+            // a sickly green vapour rising off the body, now and then a drop of bile
+            repeat(7) { i ->
+                val c = cyc(i, 0.35f)
+                val p = Offset(chest.x + (if (i % 2 == 0) -1f else 1f) * w * (0.35f + 0.3f * hash(i, 1)) + sin(c * 5f + i) * 5 * u, ground - h * 0.4f - c * h * 1.3f)
+                val rad = (9 + 12 * c) * u
+                drawCircle(Brush.radialGradient(listOf(BILE.copy(alpha = 0.3f * sin(c * PI.toFloat())), BILE.copy(alpha = 0f)), p, rad), rad, p)
+            }
+            repeat(2) { i ->
+                val c = cyc(i, 0.45f)
+                if (c < 0.6f) {
+                    val f = c / 0.6f
+                    val x = chest.x + (hash(i, 6) - 0.5f) * w * 0.5f
+                    square(BILE, Offset(x, chest.y + 6 * u + f * f * (ground - chest.y - 6 * u)), 3f * u, 0.9f)
+                }
+            }
+        }
+        de.bornim.core.Status.BLEED -> {
+            if (blood <= 0) return
+            // drops falling from the wound, a small pool spreading beneath
+            val pool = (0.6f + 0.4f * ((t / 6f).coerceAtMost(1f))) * (if (blood >= 2) 1f else 0.6f)
+            drawOval(BLOOD_DARK.copy(alpha = 0.8f), Offset(chest.x - 14 * u * pool, ground - 3 * u * pool), Size(28 * u * pool, 7 * u * pool))
+            repeat(if (blood >= 2) 3 else 1) { i ->
+                val c = cyc(i, 0.8f)
+                val x = chest.x + (hash(i, 7) - 0.5f) * w * 0.6f
+                val y0 = chest.y + (hash(i, 8) - 0.3f) * h * 0.4f
+                square(BLOOD_DARK, Offset(x, y0 + c * c * (ground - y0)), 3f * u, 0.95f)
+            }
+        }
+        de.bornim.core.Status.STUN -> {
+            // dazed: a dull haze about the head (the body itself sways, see the battle screen)
+            val head = Offset(chest.x, top + h * 0.12f)
+            repeat(3) { i ->
+                val a = t * 2.2f + i * 2.1f
+                val p = head + Offset(cos(a) * 10 * u, sin(a) * 3 * u - 4 * u)
+                drawCircle(Brush.radialGradient(listOf(Color(0xFFD8D0B0).copy(alpha = 0.25f), Color.Transparent), p, 8 * u), 8 * u, p)
+            }
+        }
+        de.bornim.core.Status.SLOW -> {
+            // cold: a pale breath of frost round the body and rime glinting on it
+            repeat(6) { i ->
+                val c = cyc(i, 0.25f)
+                val p = Offset(chest.x + (hash(i, 1) - 0.5f) * w * 1.4f + sin(c * 4f + i) * 4 * u, ground - c * h * 0.9f)
+                val rad = (7 + 8 * c) * u
+                drawCircle(Brush.radialGradient(listOf(FROST.copy(alpha = 0.22f * sin(c * PI.toFloat())), FROST.copy(alpha = 0f)), p, rad), rad, p)
+            }
+            repeat(9) { i ->
+                val glint = (sin(t * 3f + i * 1.7f) + 1f) / 2f
+                square(FROST, Offset(chest.x + (hash(i, 2) - 0.5f) * w, top + hash(i, 3) * (ground - top)), 1.5f * u, 0.3f + 0.6f * glint * glint)
+            }
+        }
+        de.bornim.core.Status.WEAK -> {
+            // a dark violet veil clinging to the body and drifting off it
+            val mid = Offset(chest.x, (top + ground) / 2)
+            drawOval(Brush.radialGradient(listOf(CURSE.copy(alpha = 0.22f), CURSE.copy(alpha = 0.08f), Color.Transparent), mid, h), Offset(chest.x - w, top), Size(w * 2, ground - top))
+            repeat(5) { i ->
+                val c = cyc(i, 0.3f)
+                val p = Offset(chest.x + (hash(i, 1) - 0.5f) * w * 1.2f + sin(c * 3f + i) * 6 * u, ground - h * 0.2f - c * h * 1.2f)
+                val rad = (5 + 7 * c) * u
+                drawCircle(Brush.radialGradient(listOf(Color(0xFF3A2050).copy(alpha = 0.35f * (1 - c)), Color.Transparent), p, rad), rad, p)
+            }
+        }
+        de.bornim.core.Status.BLIND -> {
+            // a harsh after-glare flickering before the eyes
+            val eyes = Offset(chest.x, top + h * 0.13f)
+            val flick = 0.6f + 0.4f * sin(t * 13f) * sin(t * 5.3f)
+            drawCircle(Brush.radialGradient(listOf(WHITE.copy(alpha = 0.45f * flick), WHITE.copy(alpha = 0.12f * flick), Color.Transparent), eyes, 14 * u), 14 * u, eyes)
+            drawLine(WHITE.copy(alpha = 0.35f * flick), eyes + Offset(-14 * u, 0f), eyes + Offset(14 * u, 0f), 1.2f * u)
+        }
+    }
+}
+
+private val BILE = Color(0xFF9AB040)
+private val BLOOD_DARK = Color(0xFF7A0E12)

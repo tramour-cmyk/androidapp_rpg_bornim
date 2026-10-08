@@ -21,6 +21,7 @@ class FilmSpec(
     val name: String, val spec: String, val level: Int? = null, val seed: Int = 1, val plan: String = "FASSSS",
     val actions: List<Action> = emptyList(), val hurt: Boolean = false, val heroFirst: Boolean = false,
     val auto: Boolean = false, val wait: Long = 4000L,
+    val heroStatus: List<Status> = emptyList(), val foeStatus: List<Status> = emptyList(),
 )
 
 /** The env-driven single film (FILM=…), into build/screens/film. */
@@ -48,8 +49,12 @@ fun parseAction(s: String): Action = when {
 fun fightBatch(file: String) {
     for (line in File(file).readLines().map { it.trim() }.filter { it.isNotEmpty() && !it.startsWith("#") }) {
         val w = line.split(Regex("\\s+"))
-        film(FilmSpec(w[0], w[1], w[2].toInt(), w[3].toInt(), w[4], w.getOrNull(5)?.split(",")?.map(::parseAction) ?: emptyList(),
-            hurt = true, heroFirst = true, auto = true, wait = 1500L), File("build/screens/films/${w[0]}"))
+        // optional words after the plan: actions (attack,skill=…), hero=POISON+BLEED, foe=BURN
+        val extra = w.drop(5)
+        fun statuses(k: String) = extra.firstOrNull { it.startsWith("$k=") }?.removePrefix("$k=")?.split("+")?.map { Status.valueOf(it) } ?: emptyList()
+        val acts = extra.firstOrNull { !it.startsWith("hero=") && !it.startsWith("foe=") }?.split(",")?.map(::parseAction) ?: emptyList()
+        film(FilmSpec(w[0], w[1], w[2].toInt(), w[3].toInt(), w[4], acts,
+            hurt = true, heroFirst = true, auto = true, wait = 1500L, heroStatus = statuses("hero"), foeStatus = statuses("foe")), File("build/screens/films/${w[0]}"))
     }
 }
 
@@ -73,6 +78,8 @@ fun film(f: FilmSpec, outDir: File) {
     val seed = f.seed
     val battle = Battle(g.state, Monsters[foe], g.lang, Dice(kotlin.random.Random(seed)), 1, false, 1, null, false, MonsterLook(seed),
         if (f.heroFirst) Opening.HERO_FIRST else Opening.NORMAL)
+    f.heroStatus.forEach { battle.heroStatus[it] = 9 }
+    f.foeStatus.forEach { battle.foeStatus[it] = 9 }
     g.fight(battle)
     vm.refresh()
     val actions = ArrayDeque(f.actions)

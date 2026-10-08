@@ -629,7 +629,11 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             val foeShown = !ui.enemyGone || a == Anim.ENEMY_FAINT || MonsterArt.isSolid(battle.monster.id)
             // Hurt monsters breathe faster. New-style monsters have many more idle frames, shown faster.
             val clockMs = pulseClock()
-            val idleIdx = (clockMs / ((if (newStyle) 86 else 230) / (1 + 0.6 * foeWound))).toInt()
+            // stunned: the body sways, dazed; slowed: its breathing and shifting run slower
+            val foeSway = if (de.bornim.core.Status.STUN in ui.foeStatus && !ui.enemyGone) (sin(clockMs / 380f) * 3.5f).dp else 0.dp
+            val heroSway = if (de.bornim.core.Status.STUN in ui.heroStatus && !ui.heroGone) (sin(clockMs / 410f + 1f) * 3.5f).dp else 0.dp
+            val foeSlow = if (de.bornim.core.Status.SLOW in ui.foeStatus) 1.8 else 1.0
+            val idleIdx = (clockMs / ((if (newStyle) 86 else 230) * foeSlow / (1 + 0.6 * foeWound))).toInt()
             // Draw all frames ahead in the background: at the start, and again once the foe is badly hurt.
             LaunchedEffect(battle, foeWound) {
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
@@ -813,7 +817,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             Box(
                 Modifier.offset(
                     // a foe on the doll steps aside in its own frames rather than hopping
-                    x = sceneW * foeX - foeAnchor + (intro.value * 260).dp + (if (dollFoe) 0.dp else dodge(false)) + enemyDx + foeLunge.x + (fleeT * fleeT * 70).dp,
+                    x = sceneW * foeX - foeAnchor + (intro.value * 260).dp + (if (dollFoe) 0.dp else dodge(false)) + enemyDx + foeLunge.x + (fleeT * fleeT * 70).dp + foeSway,
                     // old-style sprites sag a little when badly hurt; new ones change their posture
                     y = sceneH * foeY - foeFeet + enemyDy + (if (a == Anim.ENEMY_FAINT && !dollFoe && !ui.foeFled) (t * 40).dp else 0.dp) - (fleeT * fleeT * 46).dp + (crumbleT * crumbleT * 14).dp + (if (newStyle) 0.dp else (foeWound * 3).dp) + foeLunge.y,
                 ).graphicsLayer {
@@ -876,7 +880,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                         ui.motion?.takeIf { it.hold }?.let { Triple(it.act, it.strike, it.variant) }) { job?.isActive == false }
                 }
             }
-            val doll = heroDollFrame(ui, clockMs, heroWound)
+            val doll = heroDollFrame(ui, if (de.bornim.core.Status.SLOW in ui.heroStatus) (clockMs / 1.8).toLong() else clockMs, heroWound)
             val dollFrame = doll.first
             // a melee blow steps in towards the foe, so the weapon lands on it, and back again
             val lungeF = doll.second.toFloat()
@@ -892,7 +896,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             Box(
                 Modifier
                     .offset(
-                        x = sceneW * heroX - artDp * HeroBattle.ANCHOR_X.toFloat() + shakeX - (intro.value * 260).dp + dodge(true) + lungeOff.x,
+                        x = sceneW * heroX - artDp * HeroBattle.ANCHOR_X.toFloat() + shakeX - (intro.value * 260).dp + dodge(true) + lungeOff.x + heroSway,
                         y = sceneH * heroY - artDp * HeroBattle.GROUND.toFloat() + lungeOff.y,
                     )
                     .graphicsLayer {
@@ -920,6 +924,14 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     a, fx, ui.animKey, enemyC, (sceneH * foeY).toPx(), heroC, (sceneH * heroY).toPx(), vm.bloodLevel, goreFor(id), (monsterSize / 64).toPx(),
                     foeHurt = 1f - ui.enemyHp.toFloat() / battle.enemyMaxHp, heroHurt = 1f - ui.heroHp.toFloat() / battle.hero.maxHp, modifier = Modifier.matchParentSize(),
                 )
+                // lasting statuses show on the body as long as they hold: flames, a sickly vapour, dripping blood, frost
+                val secs = clockMs / 1000f
+                if (ui.foeStatus.isNotEmpty() && !ui.enemyGone) Canvas(Modifier.matchParentSize()) {
+                    for (st in ui.foeStatus.keys) drawStatus(st, secs, enemyC + Offset(foeSway.toPx(), 0f), (sceneH * foeY).toPx(), unit, vm.bloodLevel)
+                }
+                if (ui.heroStatus.isNotEmpty() && !ui.heroGone) Canvas(Modifier.matchParentSize()) {
+                    for (st in ui.heroStatus.keys) drawStatus(st, secs + 0.7f, heroC + Offset(heroSway.toPx(), 0f), (sceneH * heroY).toPx(), (artDp * 78f / 70f).toPx(), vm.bloodLevel)
+                }
             }
 
             EnemyBox(battle, ui.enemyHp, ui.foeStatus, lang, Modifier.align(Alignment.TopStart).padding(10.dp))
