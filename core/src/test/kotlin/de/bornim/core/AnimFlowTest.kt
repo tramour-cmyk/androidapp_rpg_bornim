@@ -9,7 +9,7 @@ import kotlin.test.Test
  * action and lists each opener whose resolution is not what the screen waits for.
  */
 class AnimFlowTest {
-    private val openers = setOf(Anim.ENEMY_ACT, Anim.PACK_ACT, Anim.HERO_ACT, Anim.SPELL, Anim.THROW)
+    private val openers = Battle.OPENERS
 
     private fun resolves(open: Step, s: Step): Boolean = Battle.resolves(open, s)
 

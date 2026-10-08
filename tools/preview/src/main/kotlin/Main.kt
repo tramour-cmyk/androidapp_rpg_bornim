@@ -93,7 +93,6 @@ fun main() {
     if (System.getenv("DOLLDRAFT") != null) { renderShamanGhoulDrafts(); System.exit(0) }
     if (System.getenv("DRINKDRAFT") != null) { renderDrinkDrafts(); System.exit(0) }
     if (System.getenv("HEROFALL") != null) { renderHeroFallDrafts(); System.exit(0) }
-    if (System.getenv("KLANGPROBEN") != null) { writeSoundProposals(); System.exit(0) }
     if (System.getenv("RUNS") != null) {
         battleRuns()
         System.exit(0)

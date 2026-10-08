@@ -34,6 +34,9 @@ class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Bool
     val twoHands: Boolean get() = items[GearSlot.MAIN_HAND]?.def?.let { (it.twoHanded || bothHands && it.versatile != null) && !it.ranged } == true
     val hasShield: Boolean get() = items[GearSlot.OFF_HAND]?.def?.kind == BaseKind.SHIELD && !twoHands
 
+    /** The same outfit with a draught of [rgb] in the flask. */
+    fun withFlask(rgb: Int) = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, rgb, fetish)
+
     companion object {
         fun of(hero: Hero) = Outfit(hero.cls, GearSlot.entries.mapNotNull { s -> hero.item(s)?.let { s to it } }.toMap(), bothHands = hero.bothHands())
 
@@ -167,7 +170,9 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             val waist = sk.lower.apply(P3(0.0, d.hipY + 0.12 * d.trunk, 0.0))
             val stride = sk.rig.stride * sk.s
             val foot = P3(0.0, hem, stride * 0.35)
-            val bell = RoundCone(waist, foot, d.hipX * 1.9, d.hipX * 2.7 + 0.02 * h, BodyPart.GEAR, Doll.SKIRT)
+            // fallen, the cloth no longer hangs in a bell: it lies close about the legs
+            val lying = abs(sk.rig.fallF) + abs(sk.rig.fallS) > 30.0
+            val bell = RoundCone(waist, foot, d.hipX * (if (lying) 1.55 else 1.9), d.hipX * (if (lying) 1.7 else 2.7) + 0.02 * h, BodyPart.GEAR, Doll.SKIRT)
             add(Squash(bell, waist, Frame.IDENTITY, P3(1.0, 1.0, 0.72), BodyPart.GEAR, Doll.SKIRT), cloth).also {
                 it.cut(P3(0.0, -1.0, 0.0), P3(0.0, hem, 0.0)); it.cut(P3.Y, waist)
             }

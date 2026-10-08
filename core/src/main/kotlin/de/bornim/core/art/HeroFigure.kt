@@ -334,18 +334,28 @@ object HeroFigure {
         val r = restOf(st)
         val reel = HURT.copy(rh = r.rh, weapon = r.weapon, aim = r.aim, grip = r.grip, lh = r.lh, freeHand = r.freeHand)
         val slack = r.copy(weapon = V(0.2, -1.0, 0.25), aim = 1.0, grip = 30.0, cloak = 2.0)
-        return when (variant.mod(3)) {
+        // as the body comes down, the weapon (a staff above all) comes to lie on the ground beside it, not stand up off it
+        val beside = V(0.9, -0.1, 0.3)
+        fun settle(rigs: List<Rig>) = rigs.map { k ->
+            val down = ((kotlin.math.abs(k.fallF) + kotlin.math.abs(k.fallS) - 30.0) / 50.0).coerceIn(0.0, 1.0)
+            // on its side, "beside" would point at the sky: then the weapon lies along the body
+            val to = if (kotlin.math.abs(k.fallS) > kotlin.math.abs(k.fallF)) V(0.1, -0.3, 1.0) else beside
+            if (down > 0) k.copy(weapon = k.weapon.lerp(to, down).norm()) else k
+        }
+        return settle(when (variant.mod(3)) {
             // turned a little further towards the foe as it goes down, so it falls away into the picture, not out of it
             0 -> tween(r to 1, reel to 4, slack.copy(yaw = r.yaw + 10.0, crouch = 14.0, lean = 0.6, headDown = 8.0, rh = V(14.0, 48.0, 14.0), lh = V(-22.0, 48.0, 14.0), fallF = 8.0) to 6,
                 slack.copy(yaw = r.yaw + 18.0, crouch = 4.0, lean = 0.1, headDown = 2.0, rh = V(16.0, 112.0, 16.0), lh = V(-24.0, 112.0, 16.0), fallF = 82.0) to 8,
                 slack.copy(yaw = r.yaw + 18.0, crouch = 4.0, lean = 0.1, headDown = 2.0, rh = V(16.0, 114.0, 14.0), lh = V(-24.0, 114.0, 14.0), fallF = 86.0) to 1)
-            1 -> tween(r to 1, reel.copy(lean = -0.6, stride = -6.0) to 4, slack.copy(crouch = 6.0, lean = -0.5, stride = -7.0, headDown = -6.0, rh = V(26.0, 80.0, -4.0), lh = V(-26.0, 80.0, -4.0), fallF = -20.0) to 5,
-                slack.copy(crouch = 3.0, lean = -0.2, stride = -4.0, headDown = -4.0, rh = V(30.0, 96.0, -2.0), lh = V(-30.0, 96.0, -2.0), fallF = -84.0) to 8,
-                slack.copy(crouch = 3.0, lean = -0.2, stride = -4.0, headDown = -4.0, rh = V(30.0, 96.0, -2.0), lh = V(-30.0, 96.0, -2.0), fallF = -88.0) to 1)
+            // thrown back by the blow, it staggers and goes down onto its right side, into the picture (flat on its back
+            // it would fall towards us, out of it)
+            1 -> tween(r to 1, reel.copy(lean = -0.6, stride = -6.0) to 4, slack.copy(crouch = 8.0, lean = -0.4, stride = -7.0, headDown = -6.0, rh = V(26.0, 80.0, -4.0), lh = V(-26.0, 80.0, -4.0), fallS = 20.0) to 5,
+                slack.copy(crouch = 4.0, lean = -0.2, stride = -4.0, headDown = -4.0, headTurn = -20.0, rh = V(30.0, 96.0, -2.0), lh = V(-30.0, 96.0, -2.0), fallS = 82.0) to 8,
+                slack.copy(crouch = 4.0, lean = -0.2, stride = -4.0, headDown = -4.0, headTurn = -20.0, rh = V(30.0, 96.0, -2.0), lh = V(-30.0, 96.0, -2.0), fallS = 86.0) to 1)
             else -> tween(r to 1, reel.copy(twist = 30.0) to 4, slack.copy(crouch = 16.0, lean = 0.4, twist = 35.0, headTurn = 30.0, headDown = 6.0, rh = V(20.0, 46.0, 4.0), lh = V(-24.0, 46.0, 10.0), fallS = -10.0) to 6,
                 slack.copy(crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(22.0, 56.0, 6.0), lh = V(-26.0, 56.0, 10.0), fallS = -80.0) to 8,
                 slack.copy(crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(22.0, 56.0, 6.0), lh = V(-26.0, 56.0, 10.0), fallS = -84.0) to 1)
-        }
+        })
     }
 
     private fun restOf(st: Stance) = when (st) { Stance.MELEE, Stance.SPEAR -> STAND; Stance.BOW -> BOW_REST; Stance.CROSSBOW -> XBOW_LOW.copy(draw = 0.0); Stance.STAFF -> STAFF_REST }

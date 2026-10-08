@@ -22,6 +22,7 @@ fun fightFilm(spec: String) {
     val out = File("build/screens/film").apply { deleteRecursively(); mkdirs() }
     val vm = GameViewModel(Application())
     vm.newGame("Test", Race.HUMAN, CharClass.valueOf(clsName.uppercase()))
+    if (System.getenv("FILMAUTO") != null && !vm.battleAuto) vm.toggleBattleAuto()
     val g = vm.game!!
     var guard = 0
     while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
@@ -41,7 +42,7 @@ fun fightFilm(spec: String) {
     val wait = (System.getenv("FILMWAIT")?.toLong() ?: 4000L) / 80
     frames(wait.toInt(), "w", false)
     // F: Fight, A: Attack, D: Defend, S: the scene (next message)
-    val where = mapOf('F' to Offset(135f, 990f), 'A' to Offset(150f, 940f), 'D' to Offset(390f, 940f), 'S' to Offset(270f, 400f))
+    val where = mapOf('F' to Offset(135f, 990f), 'A' to Offset(150f, 940f), 'D' to Offset(390f, 940f), 'S' to Offset(270f, 400f), 'B' to Offset(150f, 1085f), 'I' to Offset(270f, 935f))
     val plan = System.getenv("FILMTAPS") ?: "FASSSS"
     for ((t, c) in plan.withIndex()) {
         // W: no tap, only wait and film

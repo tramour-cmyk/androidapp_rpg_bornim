@@ -1,6 +1,6 @@
 package de.bornim.core
 
-enum class Anim { NONE, HERO_ACT, ENEMY_ACT, PACK_ACT, PACK_FLEE, ENEMY_HIT, HERO_HIT, HERO_HEAL, ENEMY_HEAL, MISS, SPELL, ENEMY_FAINT, HERO_FAINT, LEVEL_UP, LOOT, COINS, THROW, DEFEND }
+enum class Anim { NONE, HERO_ACT, ENEMY_ACT, PACK_ACT, PACK_FLEE, ENEMY_HIT, HERO_HIT, HERO_HEAL, ENEMY_HEAL, MISS, SPELL, ENEMY_FAINT, HERO_FAINT, LEVEL_UP, LOOT, COINS, THROW, DEFEND, DRINK }
 
 /** Visual effect kinds for the battle screen. */
 enum class FxKind {
@@ -38,6 +38,8 @@ data class Step(
      * plays as one piece.
      */
     val lead: Boolean = false,
+    /** The item used in this message (the flask drunk), for its picture. */
+    val item: String? = null,
 )
 
 enum class Outcome { ONGOING, WON, LOST, FLED, ENEMY_FLED }
@@ -452,7 +454,7 @@ class Battle(
                     return false
                 }
                 state.remove(id)
-                say(Msg.drinks.f(lang, name, def.name(lang)))
+                say(Msg.drinks.f(lang, name, def.name(lang)), Anim.DRINK, item = id)
                 if (curable) {
                     heroStatus.clear()
                     say(Msg.cured.f(lang, name), fx = fx(FxKind.HEAL, true))
@@ -958,15 +960,15 @@ class Battle(
         }
     }
 
-    private fun say(text: String, anim: Anim = Anim.NONE, rarity: Rarity? = null, fx: Fx? = null) {
-        steps += Step(text, hero.hp, enemyHp, hero.sp, anim, rarity, fx, LinkedHashMap(heroStatus), LinkedHashMap(foeStatus), packLeft, packActor)
+    private fun say(text: String, anim: Anim = Anim.NONE, rarity: Rarity? = null, fx: Fx? = null, item: String? = null) {
+        steps += Step(text, hero.hp, enemyHp, hero.sp, anim, rarity, fx, LinkedHashMap(heroStatus), LinkedHashMap(foeStatus), packLeft, packActor, item = item)
     }
 
     private fun flush(): List<Step> = merged(steps.toList()).also { steps.clear() }
 
     companion object {
         /** The steps that start an action whose end is told by a later step. */
-        val OPENERS = setOf(Anim.HERO_ACT, Anim.ENEMY_ACT, Anim.PACK_ACT, Anim.SPELL, Anim.THROW)
+        val OPENERS = setOf(Anim.HERO_ACT, Anim.ENEMY_ACT, Anim.PACK_ACT, Anim.SPELL, Anim.THROW, Anim.DRINK)
 
         /** Whether [s] ends the action [open] started: the hit or the miss, the spell or flask let go. */
         fun resolves(open: Step, s: Step): Boolean = when (open.anim) {

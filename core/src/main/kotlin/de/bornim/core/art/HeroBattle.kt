@@ -167,10 +167,23 @@ object HeroBattle {
         val i = if (act == Act.IDLE || act == Act.INTRO) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         val k = key(hero, act, strike, variant, i, wounds)
         synchronized(cache) { cache[k]?.let { return it } }
-        val img = doll(hero).render(W, H, ANCHOR_X, GROUND, PX, seq[i], outfit(hero), wounds = wounds).img
+        // a draught: variants 0 to 2 a healing potion (red), 3 to 5 the remedy (sickly green)
+        val o = if (act == Act.DRINK) outfit(hero).withFlask(if (variant >= 3) REMEDY_RGB else POTION_RGB) else outfit(hero)
+        // a falling hero lies stretched out: its frames are wider, to the right, the feet staying where they stood
+        val img = doll(hero).render(if (act == Act.DIE) W_FALL else W, H, ANCHOR_X, GROUND, PX, seq[i], o, wounds = wounds).img
         synchronized(cache) { cache[k] = img }
         return img
     }
+
+    /** The width of the frames of a fall. */
+    const val W_FALL = 250
+
+    const val POTION_RGB = 0x9A1C1C
+    const val REMEDY_RGB = 0x5A8A2A
+
+    /** How this hero falls in this fight, and how it drinks: fixed by the fight's [pick], so they can be drawn ahead. */
+    fun diePick(pick: Int) = pick.mod(3)
+    fun drinkPick(pick: Int) = (pick / 3).mod(3)
 
     /** The frame if it is drawn already, else null: the battle shows the nearest drawn one meanwhile. */
     fun ready(hero: Hero, act: Act, strike: Strike, variant: Int, index: Int, wounds: Int = 0): PixelImage? {
@@ -202,6 +215,9 @@ object HeroBattle {
         plan += Triple(Act.THROW, Strike.CAST, throwVariant(hero))
         if (!cancelled()) { launch(hero, Act.CAST, castVariant(hero)); launch(hero, Act.THROW, throwVariant(hero)); if (hero.weapon?.def?.ranged == true) launch(hero, Act.ATTACK, 0) }
         plan += Triple(Act.VICTORY, Strike.SLASH, variant(hero, Act.VICTORY, foeId, victoryPick))
+        // last: the fall, and a healing draught, in this fight's ways
+        plan += Triple(Act.DIE, Strike.SLASH, diePick(victoryPick))
+        plan += Triple(Act.DRINK, Strike.SLASH, drinkPick(victoryPick))
         for ((act, strike, v) in plan.distinct()) for (i in 0 until frameCount(hero, act, strike, v)) {
             if (cancelled()) return
             frame(hero, act, strike, v, i, wounds)

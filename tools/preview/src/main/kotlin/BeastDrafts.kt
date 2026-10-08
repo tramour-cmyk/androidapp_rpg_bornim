@@ -129,7 +129,7 @@ fun renderHeroFallDrafts() {
     val heroes = listOf(de.bornim.core.CharClass.FIGHTER to de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.CLERIC to de.bornim.core.Race.DWARF,
         de.bornim.core.CharClass.WIZARD to de.bornim.core.Race.ELF, de.bornim.core.CharClass.ROGUE to de.bornim.core.Race.HALFLING)
     val cols = 7
-    val fw = B.W; val fh = B.H
+    val fw = B.W_FALL; val fh = B.H
     val img = BufferedImage(fw * cols, fh * heroes.size * 3, BufferedImage.TYPE_INT_RGB)
     val g = img.createGraphics(); g.color = java.awt.Color(0x3A4436); g.fillRect(0, 0, img.width, img.height)
     var row = 0

@@ -10,6 +10,13 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - **Kampftempo** im Menü: Ruhig, Normal, Schnell (Textgeschwindigkeit und Lesepausen).
 - **Angriffe, Zauber und Würfe etwas langsamer**, passend zu den ruhigeren Bewegungen.
 
+**Neu – Kampfende am Stück**
+- **Sieg:** Nach dem tödlichen Schlag läuft alles ohne Tippen durch: Der Gegner stürzt und bleibt liegen (bis zum Ende des Kampfbildschirms), der Held geht in seine Siegpose, dann kommt das **Siegesfeld** mit EP, Gold und Beute auf einen Blick (Beute in Seltenheitsfarbe). Ein Stufenaufstieg mit neuen Fähigkeiten bekommt ein eigenes Feld.
+- **Niederlage:** Der Held stürzt in drei Varianten (vornüber, zur Seite geworfen, auf ein Knie und seitlich um) und bleibt liegen; die Waffe sinkt neben ihn zu Boden. Erst dann kommt der Text.
+
+**Neu – Trinken im Kampf**
+- Der Held greift zur Gürteltasche, zieht den Korken und trinkt, in drei Varianten (ein langer Zug, zwei hastige Schlucke mit Blick zum Gegner, gierig trinken und die Flasche wegwerfen). Die Flasche ist rot für Heiltränke, grünlich für das Gegenmittel. Danach Heil-Leuchten und eine Zeile mit dem Ergebnis.
+
 **Neu – Wildschwein und Riesenratte im neuen Stil**
 - **Wildschwein:** schwerer, hoher Vorderleib unter einem Kamm aus Borsten, der sich im Zorn aufstellt, langer Keilkopf mit Rüsselscheibe, gebogene Hauer aus Unter- und Oberkiefer, kleine rot glühende Augen, dünne Beine auf Klauen, Schwanz mit Quaste. Drei Fellvarianten (fast schwarz, grau mit Narben, rostbraun mit zerfetztem Ohr), Größe 88–110 %.
 - **Riesenratte:** groß wie ein Hund, gekrümmter Rücken, räudiges Fell mit wunden, verschorften Stellen, langer spitzer Kopf mit orangen Nagezähnen, rot glühende Knopfaugen, runde nackte Ohren (eines zerfetzt), rosa Krallenhände und ein langer, nackter, geringelter Schwanz, der über den Boden schleift. Drei Fellvarianten (braun, grau und räudig, schwarz), Größe 140–170 % einer gewöhnlichen.
