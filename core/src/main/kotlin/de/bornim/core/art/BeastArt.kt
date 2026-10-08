@@ -267,12 +267,12 @@ object BeastArt {
     }
 
     /** How far along its lunge the wolf is at frame [index] of an attack (0 to 1); see [FoeArt.lungeAt]. */
-    fun lungeAt(id: String, variant: Int, index: Int): Double {
+    fun lungeAt(id: String, variant: Int, index: Double): Double {
         val seq = sequence(id, Act.ATTACK, variant)
         val hit = seq.strike.coerceAtLeast(1)
         val n = seq.rigs.size
         fun smooth(x: Double) = x.coerceIn(0.0, 1.0).let { it * it * (3 - 2 * it) }
-        return if (index <= hit) smooth((index - hit * 0.3) / (hit * 0.7)) else 1 - smooth((index - hit).toDouble() / (n - 1 - hit).coerceAtLeast(1))
+        return if (index <= hit) smooth((index - hit * 0.3) / (hit * 0.7)) else 1 - smooth((index - hit) / (n - 1 - hit).coerceAtLeast(1))
     }
 
     /** The step for a bite, in art pixels, so the jaws land on ([toX], [toY]); see [FoeArt.lungeOffset]. */

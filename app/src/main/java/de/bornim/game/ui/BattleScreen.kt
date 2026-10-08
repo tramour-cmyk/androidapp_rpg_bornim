@@ -130,6 +130,20 @@ private class BattleUi(val battle: Battle) {
             val i = if (el < fast * per) from + (el / per).toInt() else slowStart + ((el - fast * per) / (per * slowK)).toInt()
             return i.coerceIn(from, to)
         }
+
+        /** How far along [from]..[to] the move is [now], between frames too: for the step in, which glides rather than jumping frame by frame. */
+        fun pos(now: Long): Double {
+            val el = (now - start).toDouble()
+            if (el <= 0 || to <= from) return from.toDouble()
+            if (el >= ms) return to.toDouble()
+            val slowStart = slowFrom.coerceIn(from, to + 1)
+            val fast = slowStart - from
+            val slow = to + 1 - slowStart
+            val per = ms / (fast + slow * slowK)
+            val f = if (el < fast * per) el / per else fast + (el - fast * per) / (per * slowK)
+            // the frames take [from]..[to]+1 between them; the step reaches [to] as the last frame ends, not as it starts
+            return from + f * (to - from) / (to + 1 - from)
+        }
     }
     var motion by mutableStateOf<HeroMotion?>(null)
     private var blows = 0
@@ -481,9 +495,13 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
         val heavy = w != null && (w.twoHanded || w.icon == de.bornim.core.Icon.HAMMER || w.icon == de.bornim.core.Icon.MACE)
         vm.play(if (heavy) Sound.SWING_HEAVY else Sound.SWING)
     }
+    // the message whose motion [shake] runs: until its effect has started, a new message's motion stands at 0, not at
+    // the end of the last one (else its last picture shows for a moment before it starts)
+    var shakeFor by remember { mutableIntStateOf(-1) }
     LaunchedEffect(ui.animKey) {
         ui.current?.let { st -> soundFor(st)?.let { vm.play(it) } }
         shake.snapTo(0f)
+        shakeFor = ui.animKey
         // Projectiles first have to fly; the target reacts when they arrive.
         val flight = when (ui.current?.fx?.let { f -> f.past?.takeIf { it in FLYING && (f.kind == de.bornim.core.FxKind.DODGE || f.kind == de.bornim.core.FxKind.BLOCK) } ?: f.kind }) {
             de.bornim.core.FxKind.FIRE_BOLT, de.bornim.core.FxKind.MISSILES, de.bornim.core.FxKind.ARROW,
@@ -528,7 +546,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
         }
     }
     val a = step?.anim
-    val t = shake.value
+    val t = if (shakeFor == ui.animKey) shake.value else 0f
     val blink = t in 0.01f..0.99f && ((t * 8).toInt() % 2 == 0)
 
     Column(Modifier.fillMaxSize().background(Colors.night)) {
@@ -682,6 +700,17 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 foeLanding && t < 0.01f -> windEnd
                 else -> null
             }
+            // the same between two frames, for the step in, which glides rather than jumping frame by frame
+            val foeAttackPos: Double? = when {
+                foeAttackIdx == null -> null
+                a == Anim.ENEMY_ACT -> windEnd * t.toDouble()
+                foeLanding && moving -> {
+                    val q = ((foeStrike - windEnd + 1).toFloat() / (foeN - windEnd)) * BLOW_MS.toFloat() / REACT_MS
+                    if (t < q) windEnd + (foeStrike - windEnd) * (t / q).toDouble()
+                    else foeStrike + (foeN - 1 - foeStrike) * ((t - q) / (1 - q)).toDouble()
+                }
+                else -> foeAttackIdx.toDouble()
+            }
             val enemyFrame = if (!newStyle) null else {
                 fun seq(act: Act, from: Int, to: Int, v: Int = variant) = MonsterArt.shownFrame(id, battle.look, act, v, from + ((to - from + 1) * t).toInt().coerceAtMost(to - from), foeWound)
                 val strike = foeStrike
@@ -823,7 +852,10 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // drawn larger as it comes nearer
             val foeLungeF = if (dollFoe && foeAttackIdx != null) {
                 // while it is named it only starts the step; the rest comes with the blow
-                MonsterArt.lungeAt(id, battle.look, variant, foeAttackIdx).toFloat() * (if (a == Anim.ENEMY_ACT) FOE_WIND_STEP else 1f)
+                // (held poised, it stays where the wind-up left it; the blow takes it on to the full step as it comes down)
+                val q = ((foeStrike - windEnd + 1).toFloat() / (foeN - windEnd)) * BLOW_MS.toFloat() / REACT_MS
+                val rest = if (foeLanding && moving) (t / q).coerceIn(0f, 1f).let { it * it * (3 - 2 * it) } else 0f
+                MonsterArt.lungeAt(id, battle.look, variant, foeAttackPos!!).toFloat() * (if (a == Anim.ENEMY_ACT || poised || (foeLanding && !moving)) FOE_WIND_STEP else FOE_WIND_STEP + (1f - FOE_WIND_STEP) * rest)
             } else 0f
             val foeLunge = if (foeLungeF <= 0f || enemyFrame == null) androidx.compose.ui.unit.DpOffset.Zero else {
                 val (ox, oy) = MonsterArt.lungeOffset(id, battle.look, variant, (sceneW * foeX / artDp).toDouble(), (sceneH * foeY / artDp).toDouble(),
@@ -1378,8 +1410,8 @@ private fun heroDollFrame(ui: BattleUi, clockMs: Long, wounds: Int): Pair<de.bor
         val p = (now - m.start).toDouble() / m.ms
         if (p < 1.0 || m.hold) {
             val i = m.index(now)
-            // how far the blow has stepped in, by the frame it has reached
-            val lunge = if (m.act == HeroFigure.Act.ATTACK) HeroBattle.lungeAt(hero, m.strike, i) else 0.0
+            // how far the blow has stepped in: between frames too, so the step glides
+            val lunge = if (m.act == HeroFigure.Act.ATTACK) HeroBattle.lungeAt(hero, m.strike, m.pos(now)) else 0.0
             // the fall is the last thing of a lost fight and may not be drawn ahead yet: drawn now, frame by frame, so the
             // hero does not stand on while its words wait for it to lie
             if (m.act == HeroFigure.Act.DIE && now >= m.start && HeroBattle.ready(hero, m.act, m.strike, m.variant, i, wounds) == null)

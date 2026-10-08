@@ -54,10 +54,16 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
   1. Der Vorschritt beim Schlag (Ort und Größe der Figur) springt mit jedem Bild der Bewegung mit, statt durchzugleiten. Beim Helden ist das fast eine halbe Bildschirmbreite in 2 bis 3 Stufen. Betrifft den Helden und die Gegner auf der Puppe.
   2. Am Anfang jeder neuen Meldung wird für ein Bild schon das Ende der Bewegung gezeigt, danach geht es von vorn los (im Film: der Goblin liegt kurz, steht wieder und fällt dann).
   3. Haltungen wechseln nur etwa 11- bis 13-mal pro Sekunde (Schlag des Helden 92 ms pro Bild), und an jeder Zwischenhaltung bremst die Bewegung bis zum Stillstand ab.
-  Vorschlag: zuerst 1 und 2 beheben (klein, ohne neue Bilder), danach 3 (mehr Zwischenbilder, gleichmäßiger Fluss). Wartet auf deine Freigabe.
+  1 und 2 sind behoben (Zweig `claude/status-next-steps-pqvzz8`, siehe „Zu testen“). 3 (mehr Zwischenbilder, Schwung über die Zwischenhaltungen) folgt nach deinem Test, falls es dann noch nicht rund wirkt.
 - **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Noch im alten Stil: Goblin-Schamane und Ghul (Entwürfe auf der Puppe liegen vor), Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
 
 ## Zu testen
+
+**Zweig-Build „flüssigere Bewegungen“** (Kampftempo „Normal“). Worauf achten:
+- Held geht zum Schlag vor und zurück: gleitet er, oder springt er noch?
+- Gegner im neuen Stil (Goblin, Skelett, Krogg, Wolf …): Ausholen, kurzes Innehalten, Schlag, Rückweg. Springt er irgendwo nach vorn oder zurück?
+- Tödlicher Treffer: Liegt der Gegner kurz am Boden, bevor er taumelt und fällt? (sollte nicht mehr passieren)
+- Wirkt es insgesamt runder, oder fehlen noch Zwischenbilder in den Haltungen selbst (Arme, Beine)?
 
 **Version v0.1.204** (veröffentlicht). Worauf achten:
 - **Weitere Zustände**, sobald sie vorkommen: Vergiftet (Spinne, Hundertfüßer), Blutend (nach Blutstufe; bei „Aus“ nichts), Betäubt, Verlangsamt, Geschwächt (Fluch des Schamanen). Zu schwach, zu stark, stören sie?

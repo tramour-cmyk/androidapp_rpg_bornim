@@ -86,12 +86,20 @@ fun film(f: FilmSpec, outDir: File) {
     vm.refresh()
     val actions = ArrayDeque(f.actions)
     val scene = ImageComposeScene(540, 1170, Density(1.375f)) { BornimApp(vm) }
-    var time = 0L
     var n = 0
-    fun frames(k: Int, tag: String, save: Boolean) = repeat(k) {
-        val img = scene.render(time); time += 80_000_000L
-        if (save) File(out, "f_%03d_%s.png".format(n++, tag)).writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
-        Thread.sleep(80)
+    // FILMSTEP=ms between frames (80 by default; finer, say 40, to judge how smoothly a move runs). The film's clock is
+    // the wall clock, as on the phone: moves timed by the clock and those timed by frames stay together even when a
+    // frame takes longer to draw than the step (then frames are farther apart, each named by its time in the film)
+    val stepMs = System.getenv("FILMSTEP")?.toLong() ?: 80L
+    val t0 = System.nanoTime()
+    fun frames(k: Int, tag: String, save: Boolean) {
+        val until = System.nanoTime() + k * 80L * 1_000_000L
+        while (System.nanoTime() < until) {
+            val begun = System.nanoTime()
+            val img = scene.render(begun - t0)
+            if (save) File(out, "f_%03d_%s_%05d.png".format(n++, tag, (begun - t0) / 1_000_000L)).writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
+            Thread.sleep(maxOf(0L, stepMs - (System.nanoTime() - begun) / 1_000_000L))
+        }
     }
     frames((f.wait / 80).toInt(), "w", false)
     // F: Fight, A: Attack, D: Defend, S: the scene (next message)

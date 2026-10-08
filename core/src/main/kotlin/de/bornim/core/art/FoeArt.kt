@@ -251,13 +251,13 @@ object FoeArt {
      * How far along its lunge the foe is at frame [index] of an attack: still at the start of the wind-up, stepping in
      * through it, all the way when the blow lands, and back through the follow-through.
      */
-    fun lungeAt(id: String, look: MonsterLook, variant: Int, index: Int): Double {
+    fun lungeAt(id: String, look: MonsterLook, variant: Int, index: Double): Double {
         if (!lunges(id, look)) return 0.0
         val seq = sequence(id, look, Act.ATTACK, variant)
         val hit = seq.strike.coerceAtLeast(1)
         val n = seq.rigs.size
         fun smooth(x: Double) = x.coerceIn(0.0, 1.0).let { it * it * (3 - 2 * it) }
-        return if (index <= hit) smooth((index - hit * 0.3) / (hit * 0.7)) else 1 - smooth((index - hit).toDouble() / (n - 1 - hit).coerceAtLeast(1))
+        return if (index <= hit) smooth((index - hit * 0.3) / (hit * 0.7)) else 1 - smooth((index - hit) / (n - 1 - hit).coerceAtLeast(1))
     }
 
     /**

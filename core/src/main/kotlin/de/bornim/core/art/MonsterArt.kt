@@ -158,7 +158,10 @@ object MonsterArt {
     const val LUNGE_SCALE = 1.18
 
     /** How far along its lunge the foe is at frame [index] of an attack, 0 to 1. */
-    fun lungeAt(id: String, look: MonsterLook, variant: Int, index: Int): Double =
+    fun lungeAt(id: String, look: MonsterLook, variant: Int, index: Int): Double = lungeAt(id, look, variant, index.toDouble())
+
+    /** The same between two frames ([index] 3.4: four tenths on from frame 3), so the step glides instead of jumping frame by frame. */
+    fun lungeAt(id: String, look: MonsterLook, variant: Int, index: Double): Double =
         if (isDoll(id)) FoeArt.lungeAt(id, look, variant, index) else if (isBeast(id)) BeastArt.lungeAt(id, variant, index) else 0.0
 
     /** The step for a blow or a bite, in art pixels, so that it lands on ([toX], [toY]). */
