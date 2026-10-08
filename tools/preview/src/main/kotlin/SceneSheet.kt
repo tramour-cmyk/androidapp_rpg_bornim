@@ -1820,3 +1820,41 @@ fun renderFoeClose() {
     ImageIO.write(out, "png", File("build/screens/foeclose_$id.png"))
     println("wrote foeclose $id")
 }
+
+/**
+ * The hero's new variants (HEROVAR=1): every way of being struck, every guard that suits the kit, every blow of the
+ * weapon, for every race and several kits: frames where a weapon passes through the body or the shield.
+ */
+fun checkHeroVariants() {
+    val F = de.bornim.core.art.HeroFigure
+    val B = de.bornim.core.art.HeroBattle
+    var uid = 1L
+    fun g(base: String) = de.bornim.core.Gear(uid++, base, de.bornim.core.Rarity.COMMON, 3)
+    val kits = listOf(listOf("longsword", "shield"), listOf("mace", "shield"), listOf("dagger", "shield"), listOf("scimitar", "shield"),
+        listOf("greatsword"), listOf("greataxe"), listOf("quarterstaff"), listOf("spear", "shield"), listOf("handaxe"))
+    var total = 0; var body = 0; var shield = 0
+    val where = sortedMapOf<String, Int>()
+    for (race in de.bornim.core.Race.entries) for (kit in kits) {
+        val hero = de.bornim.core.Hero.create("T", race, de.bornim.core.CharClass.FIGHTER)
+        val items = mutableMapOf(de.bornim.core.GearSlot.MAIN_HAND to g(kit[0]))
+        if (kit.size > 1) items[de.bornim.core.GearSlot.OFF_HAND] = g(kit[1])
+        val outfit = de.bornim.core.art.Outfit(de.bornim.core.CharClass.FIGHTER, items)
+        val doll = de.bornim.core.art.Doll(race, de.bornim.core.Sex.MALE, de.bornim.core.Build.AVERAGE)
+        val stance = F.stance(de.bornim.core.GearBases[kit[0]])
+        val twoH = outfit.twoHands
+        val guards = if (twoH) listOf(1, 3, 6, 7) else listOf(0, 2, 4, 5)
+        // the strikes as the hero would have them with this weapon in hand
+        hero.equip(items.getValue(de.bornim.core.GearSlot.MAIN_HAND))
+        val strikes = B.strikes(hero)
+        val runs = (0..2).map { Triple(de.bornim.core.art.HeroFigure.Act.HURT, de.bornim.core.art.HeroFigure.Strike.SLASH, it) } + guards.map { Triple(de.bornim.core.art.HeroFigure.Act.BLOCK, de.bornim.core.art.HeroFigure.Strike.SLASH, it) } + strikes.map { Triple(de.bornim.core.art.HeroFigure.Act.ATTACK, it, 0) }
+        for ((act, strike, v) in runs) for ((i, rig) in F.sequence(act, strike, v, stance).withIndex()) {
+            total++
+            val dress = doll.fit(rig, outfit).second!!.first
+            val k = "${kit[0]} $act/$strike/$v"
+            dress.weaponThroughBody()?.let { t -> body++; where["K $k"] = (where["K $k"] ?: 0) + 1; if (body <= 40) println("KOERPER ${race.name} $k Bild $i ${(t * 100).toInt()} % ${dress.lastClash}") }
+            if (!twoH && kit.size > 1) dress.weaponThroughShield()?.let { t -> shield++; where["S $k"] = (where["S $k"] ?: 0) + 1; if (shield <= 40) println("SCHILD ${race.name} $k Bild $i ${(t * 100).toInt()} %") }
+        }
+    }
+    println("Held-Varianten: $total Bilder, durch Koerper $body, durch Schild $shield")
+    where.forEach { (k, n) -> println("  $k: $n") }
+}

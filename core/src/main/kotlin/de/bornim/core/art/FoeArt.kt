@@ -215,8 +215,8 @@ object FoeArt {
     private fun deaths(s: Style): List<Seq> {
         val r = rest(s)
         val reel = HeroFigure.HURT.copy(rh = r.rh, weapon = r.weapon, aim = r.aim, grip = r.grip, lh = r.lh)
-        // the weapon hand goes slack, the blade hanging down
-        val limp = V(0.2, -1.0, 0.25)
+        // the weapon hand goes slack, the blade hanging down; a long staff falls away to the side, clear of the body
+        val limp = if (s == Style.STAFF) V(0.85, -0.45, 0.25) else V(0.2, -1.0, 0.25)
         val slack = r.copy(weapon = limp, aim = 1.0, grip = 30.0)
         return listOf(
             // the knees give, then it pitches forward onto its face, the arms thrown out before it

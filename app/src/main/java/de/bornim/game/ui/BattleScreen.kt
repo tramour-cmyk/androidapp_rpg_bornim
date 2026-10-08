@@ -98,6 +98,8 @@ private class BattleUi(val battle: Battle) {
     var heroGone by mutableStateOf(false)
     /** Which attack animation the foe plays for its current attack. */
     var attackVariant by mutableIntStateOf(0)
+    /** Which way the foe takes a blow or turns one aside: picked anew each time, never the same twice running. */
+    var reactVariant by mutableIntStateOf(0)
     /** The foe is wound up for its blow and holds it through any word in between (a critical hit, a surprise attack),
      *  until the blow lands or misses. */
     var foePoised by mutableStateOf(false)
@@ -146,7 +148,17 @@ private class BattleUi(val battle: Battle) {
         }
     }
     var motion by mutableStateOf<HeroMotion?>(null)
-    private var blows = 0
+    /** The hero's last blow, way of being struck and guard, so the next is another one. */
+    private var lastStrike = -1
+    private var lastHurt = -1
+    private var lastGuard = -1
+
+    /** One of the guards that suit this hero against this foe, not the last one again. */
+    private fun guard(): Int {
+        val list = HeroBattle.blockVariants(battle.hero, battle.monster.id)
+        lastGuard = another(list.size, lastGuard)
+        return list[lastGuard]
+    }
     /** Which victory pose this fight ends in. */
     val victoryPick = kotlin.random.Random.nextInt(8)
     /** The swing to sound with a blow, after [swingDelay] ms; set when a blow starts. */
@@ -216,7 +228,8 @@ private class BattleUi(val battle: Battle) {
                 play(HeroFigure.Act.AMBUSHED, perFrame = 120)
             s.anim == Anim.HERO_ACT -> {
                 val list = HeroBattle.strikes(hero)
-                val strike = list[blows++ % list.size]
+                lastStrike = another(list.size, lastStrike)
+                val strike = list[lastStrike]
                 // while the attack is named, only the wind-up: the blow comes with the hit or the miss
                 play(HeroFigure.Act.ATTACK, strike, 0, 0, windUpEnd(strike), perFrame = ATTACK_FRAME_MS, hold = true)
             }
@@ -246,18 +259,18 @@ private class BattleUi(val battle: Battle) {
             // struck through the guard: the guard holds until the hero's next turn, as the defence does; the blow shows
             // in the flash of the hit
             s.anim == Anim.HERO_HIT && m != null && m.act == HeroFigure.Act.BLOCK && m.hold -> {}
-            s.anim == Anim.HERO_HIT -> play(HeroFigure.Act.HURT, perFrame = 95)
+            s.anim == Anim.HERO_HIT -> play(HeroFigure.Act.HURT, variant = another(3, m?.takeIf { it.act == HeroFigure.Act.HURT }?.variant ?: lastHurt).also { lastHurt = it }, perFrame = 95)
             // the defensive stance: up into the guard, held until the hero's next turn
             // a draught drunk on guard: the guard comes down first
             s.anim == Anim.HERO_HEAL && m != null && m.act == HeroFigure.Act.BLOCK && m.hold -> play(HeroFigure.Act.IDLE, from = 0, to = 0)
             // already on guard: it simply stays up
             s.anim == Anim.DEFEND && m != null && m.act == HeroFigure.Act.BLOCK && m.hold -> {}
-            s.anim == Anim.DEFEND -> play(HeroFigure.Act.BLOCK, variant = HeroBattle.blockVariant(hero, battle.monster.id), from = 0, to = 7, perFrame = 70, hold = true)
+            s.anim == Anim.DEFEND -> play(HeroFigure.Act.BLOCK, variant = guard(), from = 0, to = 7, perFrame = 70, hold = true)
             // fended off from the guard: the guard stays up
             s.anim == Anim.MISS && fx?.onHero == true && m != null && m.act == HeroFigure.Act.BLOCK && m.hold -> {}
             s.anim == Anim.MISS && fx?.onHero == true &&
                 (fx.kind == de.bornim.core.FxKind.BLOCK || HeroBattle.outfit(hero).twoHands) ->
-                play(HeroFigure.Act.BLOCK, variant = HeroBattle.blockVariant(hero, battle.monster.id), perFrame = 70)
+                play(HeroFigure.Act.BLOCK, variant = guard(), perFrame = 70)
             enemyGone && s.anim != Anim.ENEMY_FAINT && m?.act != HeroFigure.Act.VICTORY ->
                 play(HeroFigure.Act.VICTORY, variant = HeroBattle.variant(hero, HeroFigure.Act.VICTORY, battle.monster.id, victoryPick), perFrame = 70, delayMs = 250, hold = true)
         }
@@ -333,6 +346,13 @@ private class BattleUi(val battle: Battle) {
     /** When the message now shown came up, for moves timed from it while the main motion waits (a bolt in flight). */
     var stepAt = 0L
 
+    /** One of [n] variants at random, but not [last] again (when there is a choice). */
+    fun another(n: Int, last: Int): Int {
+        if (n <= 1) return 0
+        val k = kotlin.random.Random.nextInt(n - 1)
+        return if (k >= last.mod(n)) k + 1 else k
+    }
+
     fun next() {
         stepAt = System.currentTimeMillis()
         afterLead = current?.lead == true
@@ -351,7 +371,8 @@ private class BattleUi(val battle: Battle) {
             moveHero(s)
             foeCastLands = foePoised && s.anim == Anim.NONE && s.fx?.onHero == true
             foePoised = s.anim == Anim.ENEMY_ACT || (foePoised && s.anim == Anim.NONE && s.fx == null)
-            if (s.anim == Anim.ENEMY_ACT) attackVariant = shamanMove(queue.firstOrNull()) ?: kotlin.random.Random.nextInt(MonsterArt.attackVariants(battle.monster.id))
+            if (s.anim == Anim.ENEMY_ACT) attackVariant = shamanMove(queue.firstOrNull()) ?: another(MonsterArt.attackVariants(battle.monster.id), attackVariant)
+            if (s.fx?.onHero == false && (s.anim == Anim.ENEMY_HIT || s.anim == Anim.MISS)) reactVariant = another(MonsterArt.reactVariants(battle.monster.id), reactVariant)
             // Wolves howl now and then, not every time: when they appear, and when a pack mate falls or flees.
             val chance = when {
                 animKey == 0 -> 0.5
@@ -766,7 +787,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 val strike = foeStrike
                 val n = foeN
                 // being hit, dodging and falling come in variants too, taken in turn
-                val react = ui.animKey.mod(MonsterArt.reactVariants(id))
+                val react = ui.reactVariant.mod(MonsterArt.reactVariants(id))
                 fun whole(act: Act) = seq(act, 0, MonsterArt.frameCount(id, battle.look, act, react) - 1, react)
                 // one fall for this foe, begun with the killing blow (it reels) and ended with its defeat (it goes down)
                 val dieV = MonsterArt.dieVariant(id, battle.look)

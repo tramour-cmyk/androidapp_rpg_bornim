@@ -27,9 +27,15 @@ object HeroBattle {
     fun stance(hero: Hero) = HeroFigure.stance(hero)
 
     /** How the hero blocks this foe: with a shield high or low, or two-handed high or low (see [HeroFigure.sequence]). */
-    fun blockVariant(hero: Hero, foeId: String): Int {
+    fun blockVariant(hero: Hero, foeId: String): Int = blockVariants(hero, foeId).first()
+
+    /**
+     * The three guards that suit this hero against this foe: with a shield high (or low against beasts and the small),
+     * braced or turned; two-handed across high (or low), slanted or hanging.
+     */
+    fun blockVariants(hero: Hero, foeId: String): List<Int> {
         val low = foeId in LOW_FOES
-        return if (outfit(hero).twoHands) (if (low) 1 else 3) else (if (low) 2 else 0)
+        return if (outfit(hero).twoHands) listOf(if (low) 1 else 3, 6, 7) else listOf(if (low) 2 else 0, 4, 5)
     }
 
     /** The blows this hero strikes, taken in turn. */
@@ -211,8 +217,8 @@ object HeroBattle {
         else { plan += Triple(Act.INTRO, Strike.SLASH, 0); plan += Triple(Act.TURN, Strike.SLASH, 0) }
         plan += Triple(Act.IDLE, Strike.SLASH, 0)
         // the guard and being hit early: they come with the foe's first blow, and a guard must not drop for want of frames
-        plan += Triple(Act.BLOCK, Strike.SLASH, blockVariant(hero, foeId))
-        plan += Triple(Act.HURT, Strike.SLASH, 0)
+        for (v in blockVariants(hero, foeId)) plan += Triple(Act.BLOCK, Strike.SLASH, v)
+        for (v in 0..2) plan += Triple(Act.HURT, Strike.SLASH, v)
         for (s in strikes(hero)) { plan += Triple(Act.ATTACK, s, 0); if (!cancelled()) tip(hero, s) }
         plan += Triple(Act.CAST, Strike.CAST, castVariant(hero))
         plan += Triple(Act.THROW, Strike.CAST, throwVariant(hero))

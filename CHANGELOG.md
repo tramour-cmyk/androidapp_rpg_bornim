@@ -4,6 +4,14 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Geändert – mehr Abwechslung in den Bewegungen**
+- **Gegner:** Angriff, Getroffenwerden und Ausweichen werden jedes Mal zufällig aus den drei Varianten gewählt, nie zweimal hintereinander dieselbe. Bisher hing die Wahl beim Getroffenwerden und Ausweichen an der Nummer der Meldung, sodass bei gleichförmigen Runden oft dieselbe kam. Der Sturz bleibt eine von drei, fest pro Gegner (Taumeln und Fallen gehören zusammen).
+- **Held, getroffen:** drei Bewegungen statt einer: zurückgeworfen, zusammengekrümmt, zur Seite gerissen.
+- **Held, Abwehr:** drei Haltungen je Waffenart statt einer. Mit Schild: hoch (gegen Tiere und Kleine tief), dahinter geduckt, schräg zum Abgleiten. Mit Zweihänder: quer hoch (oder tief), schräg, hängende Deckung.
+- **Held, Schläge:** drei Schläge je Nahkampfwaffe statt zwei (Hieb, Stoß, Schlag von oben), beim Kampfstab mit einem Stoß, bei dem das Stabende frei bleibt. Gewählt wird zufällig, nie zweimal hintereinander derselbe. Der Speer behält seine zwei Stöße, Bogen und Armbrust ihren Schuss.
+- Alle neuen Bewegungen sind für alle Völker auf Kollisionen geprüft (Waffe durch Körper oder Schild: 0).
+- Der Stab des Schamanen fällt beim seitlichen Sturz nicht mehr durch den Körper.
+
 **Neu – Goblin-Schamane im neuen Stil**
 - Der Schamane steht auf der Puppe: fast schwarze, rußige Robe (oder ein räudiges Fell), gehörnter Tierschädel als Kappe, Knochenkette, rußig eingesunkene Augen mit grün glühendem Blick, ein Streifen alten Bluts über der Nase. Auf seinem Knotenstab sitzt ein Schädel, dessen Augen grün glimmen.
 - Er zeigt, was er tut: Beim Feuerpfeil sammelt er die Kraft am erhobenen Stab und stößt ihn vor, beim Fluch zieht er grünes Licht in der freien Hand hoch und schleudert es auf den Held, im Nahkampf schlägt er mit dem Stab zu. Für Zauber tritt er nicht vor.
