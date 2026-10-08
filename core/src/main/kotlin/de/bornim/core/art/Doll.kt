@@ -281,10 +281,11 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
                 val i = 0
                 val handR = w[1] + fore * (0.035 * height * handK)
                 var target = lAt
-                var pole = if (shieldArm) P3(-1.0, -0.5, 0.35) else if (rig.stock > 0.01) P3(-0.3, -1.0, -0.2) else P3(-0.6, -1.0, -0.5)
+                // drinking, the elbow hangs low under the flask, so a shield on that arm stands upright before the chest
+                var pole = if (rig.flask > 0.5) P3(-0.35, -1.0, -0.1) else if (shieldArm) P3(-1.0, -0.5, 0.35) else if (rig.stock > 0.01) P3(-0.3, -1.0, -0.2) else P3(-0.6, -1.0, -0.5)
                 if (twoHands) {
-                    // both hands on the grip, the free one below the weapon hand, unless it lets go to cast
-                    target = (handR - weapon * (0.06 * height)).lerp(target, rig.freeHand)
+                    // both hands on the grip, the free one below the weapon hand, unless it lets go to cast or to drink
+                    target = (handR - weapon * (0.06 * height)).lerp(target, max(rig.freeHand, if (rig.flask > 0.5) 1.0 else 0.0))
                 }
                 var (el, wr) = ik(shoulder[i], target, upperArm, foreArm, pole)
                 if (twoHands && rig.brace > 0.01) {

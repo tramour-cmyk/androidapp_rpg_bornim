@@ -86,3 +86,39 @@ fun writeSoundProposals() {
     }
     println("wrote sound proposals")
 }
+
+/** Drafts of drinking a draught in battle: three ways, for a few heroes, as seen in battle and turned towards us. */
+fun renderDrinkDrafts() {
+    val B = de.bornim.core.art.HeroBattle
+    val heroes = listOf(
+        Triple(de.bornim.core.CharClass.FIGHTER, de.bornim.core.Race.HUMAN, 0x9A1C1C),
+        Triple(de.bornim.core.CharClass.CLERIC, de.bornim.core.Race.DWARF, 0x5A8A2A),
+        Triple(de.bornim.core.CharClass.WIZARD, de.bornim.core.Race.ELF, 0x9A1C1C))
+    val cols = 8; val cw = 150; val ch = 190
+    val rows = heroes.size * 3 * 2
+    val img = BufferedImage(cw * cols, ch * rows, BufferedImage.TYPE_INT_RGB)
+    val g = img.createGraphics(); g.color = java.awt.Color(0x3A4436); g.fillRect(0, 0, img.width, img.height)
+    var row = 0
+    for ((cls, race, rgb) in heroes) {
+        val hero = de.bornim.core.GameState.newGame("Alrik", race, cls).hero
+        val base = B.outfit(hero)
+        val outfit = de.bornim.core.art.Outfit(base.cls, base.items, bothHands = base.bothHands, flaskRgb = rgb)
+        val doll = B.doll(hero)
+        val st = de.bornim.core.art.HeroFigure.stance(hero)
+        for (v in 0..2) {
+            val seq = de.bornim.core.art.HeroFigure.drink(st, v)
+            for (view in 0..1) {
+                for (c in 0 until cols) {
+                    val i = c * (seq.size - 1) / (cols - 1)
+                    val rig = if (view == 0) seq[i] else seq[i].copy(yaw = seq[i].yaw + 150.0)
+                    val p = doll.render(cw, ch, cw / 2.0, ch - 12.0, 1.0, rig, outfit).img
+                    for (y in 0 until ch) for (x in 0 until cw) { val q = p[x, y]; if ((q ushr 24) >= 128) img.setRGB(c * cw + x, row * ch + y, q and 0xFFFFFF) }
+                }
+                g.color = java.awt.Color(0xF0E8D8); g.drawString("${cls.name.lowercase()} – Variante ${v + 1} – ${if (view == 0) "im Kampf" else "von vorn"}", 4, row * ch + 14)
+                row++
+            }
+        }
+    }
+    ImageIO.write(img, "png", File("build/screens/entwurf_trinken.png"))
+    println("wrote drink drafts")
+}

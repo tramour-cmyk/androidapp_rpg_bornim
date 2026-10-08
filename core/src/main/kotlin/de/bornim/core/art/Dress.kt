@@ -25,6 +25,8 @@ class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Bool
     val bothHands: Boolean = false,
     /** A cloak of this colour rather than its rarity's. */
     val cloakRgb: Int? = null,
+    /** The colour of the draught in a flask the hero drinks from: red for healing, sickly green for the remedy. */
+    val flaskRgb: Int = 0x9A1C1C,
     /** A shaman's trappings: a necklace of bones and teeth, a horned skull worn on the head, a skull on the staff. */
     val fetish: Boolean = false) {
     fun base(slot: GearSlot): String? = items[slot]?.base
@@ -121,6 +123,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         bow()
         crossbow()
         staff()
+        flask()
         arms3d()
         return out
     }
@@ -584,6 +587,28 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     }
 
     /** Staves and wands, built in the round: a long shaft held below its middle, or a short rod in line with the hand. */
+    /**
+     * A flask in the free hand while the hero drinks: a round belly of dark glass with the draught glowing through,
+     * a short neck and the cork, tipped towards the mouth by the rig.
+     */
+    private fun flask() {
+        if (sk.rig.flask < 0.5) return
+        val hand = sk.hand(0)
+        val across = sk.upper.dir(P3.X)
+        val a = Math.toRadians(sk.rig.flaskTilt)
+        // upright, then tipped back over the hand towards the face
+        val up = (sk.upper.dir(P3.Y) * kotlin.math.cos(a) - sk.upper.dir(P3.Z) * kotlin.math.sin(a)).norm()
+        // drawn somewhat larger than life, so it reads at battle size
+        val u = h / 175.0 * 1.6
+        val glass = m(mix(argb(o.flaskRgb), argb(0x101010), 0.35), shine = 1.0, bias = 0.05)
+        val draught = m(argb(o.flaskRgb), shine = 0.9, bias = 0.15)
+        val belly = hand + up * (2.5 * u) + across * (-0.5 * u)
+        add(Ellipsoid(belly, P3(3.4 * u, 4.2 * u, 3.4 * u), Frame.along(up), BodyPart.GEAR, Doll.ITEM), glass)
+        add(Ellipsoid(belly + up * (0.6 * u) + sk.upper.dir(P3.Z) * (1.2 * u), P3(1.6 * u, 2.2 * u, 1.2 * u), Frame.along(up), BodyPart.GEAR, Doll.TRIM), draught)
+        add(RoundCone(belly + up * (3.6 * u), belly + up * (7.0 * u), 1.3 * u, 1.0 * u, BodyPart.GEAR, Doll.ITEM), glass)
+        if (sk.rig.cork > 0.5) add(RoundCone(belly + up * (7.0 * u), belly + up * (8.6 * u), 1.15 * u, 1.05 * u, BodyPart.GEAR, Doll.TRIM), m(argb(0x6A4E32), grain = 0.2))
+    }
+
     private fun staff() {
         val main = o.items[GearSlot.MAIN_HAND] ?: return
         if (main.base !in ROUND) return

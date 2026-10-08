@@ -105,6 +105,10 @@ object HeroFigure {
         val fallF: Double = 0.0,
         /** Degrees the whole figure tips over to its right side (negative: its left). */
         val fallS: Double = 0.0,
+        /** 0..1: a flask in the free hand (shown above one half); [flaskTilt] degrees it tips from upright towards the mouth. */
+        val flask: Double = 0.0, val flaskTilt: Double = 0.0,
+        /** 0..1: the cork still in the flask's neck (shown above one half). */
+        val cork: Double = 1.0,
     ) {
         fun lerp(o: Rig, t: Double): Rig {
             fun l(a: Double, b: Double) = a + (b - a) * t
@@ -113,7 +117,7 @@ object HeroFigure {
                 rh.lerp(o.rh, t), weapon.lerp(o.weapon, t).norm(), lh.lerp(o.lh, t), shieldFace.lerp(o.shieldFace, t).norm(),
                 l(headTurn, o.headTurn), l(headDown, o.headDown), l(cloak, o.cloak), l(glow, o.glow), l(draw, o.draw), l(trail, o.trail),
                 l(elbowUp, o.elbowUp), elbowAt.lerp(o.elbowAt, t), l(twist, o.twist), l(grip, o.grip), l(roll, o.roll), l(foreLevel, o.foreLevel), l(aim, o.aim), l(brace, o.brace), rPole.lerp(o.rPole, t), l(stock, o.stock), l(glowAt, o.glowAt), l(freeHand, o.freeHand), l(bowTilt, o.bowTilt),
-                l(fallF, o.fallF), l(fallS, o.fallS),
+                l(fallF, o.fallF), l(fallS, o.fallS), l(flask, o.flask), l(flaskTilt, o.flaskTilt), l(cork, o.cork),
             )
         }
     }
@@ -287,6 +291,36 @@ object HeroFigure {
     val BOW_REST = Rig(stride = -2.0, spread = 7.0, twist = 15.0, rh = V(13.0, 64.0, 6.0), lh = V(-14.0, 63.0, 10.0), grip = 10.0, bowTilt = 38.0)
     // the staff stood upright beside the foot, the hand round it at the hip, the other hand free
     val STAFF_REST = Rig(stride = 1.0, spread = 7.0, rh = V(19.0, 64.0, 8.0), weapon = V(0.03, 1.0, 0.06), lh = V(-15.0, 64.0, 5.0), grip = 70.0, aim = 1.0, freeHand = 1.0)
+
+    /**
+     * Drinking a draught in battle, in three ways, the flask always in the free hand: a reach to the belt pouch, the
+     * cork pulled, then 0 one long draught with the head thrown back, 1 two hasty sips with the eyes kept on the foe,
+     * 2 a greedy pull and the empty flask flung away. The shield arm turns its shield aside to drink.
+     */
+    fun drink(st: Stance, variant: Int): List<Rig> {
+        val r = restOf(st)
+        val aside = V(-1.0, 0.0, 0.25)
+        val pouch = r.copy(lh = V(-13.0, 60.0, 0.0), headDown = 10.0, headTurn = -10.0, flask = 1.0, flaskTilt = 0.0, cork = 1.0)
+        val back = pouch.copy(cork = 0.0, headDown = 2.0, headTurn = 0.0)
+        val uncork = r.copy(lh = V(-5.0, 82.0, 18.0), headDown = 6.0, flask = 1.0, flaskTilt = 10.0, cork = 0.0, shieldFace = aside)
+        val lower = r.copy(lh = V(-8.0, 76.0, 15.0), flask = 1.0, flaskTilt = 25.0, cork = 0.0, shieldFace = aside)
+        return when (variant.mod(3)) {
+            0 -> {
+                val draught = r.copy(lean = -0.15, lh = V(-1.0, 103.0, 8.0), headDown = -24.0, flask = 1.0, flaskTilt = 140.0, cork = 0.0, shieldFace = aside)
+                tween(r to 2, pouch to 3, uncork to 3, draught to 6, draught.copy(flaskTilt = 150.0) to 2, lower to 3, back to 3, r to 1)
+            }
+            1 -> {
+                val sip = r.copy(lh = V(-2.0, 100.0, 10.0), headDown = -6.0, flask = 1.0, flaskTilt = 105.0, cork = 0.0, shieldFace = aside)
+                val watch = r.copy(lh = V(-6.0, 88.0, 16.0), headDown = 0.0, headTurn = 6.0, flask = 1.0, flaskTilt = 40.0, cork = 0.0, shieldFace = aside)
+                tween(r to 2, pouch to 3, uncork to 3, sip to 3, watch to 3, sip to 3, watch to 3, back to 3, r to 1)
+            }
+            else -> {
+                val greedy = r.copy(lean = -0.2, lh = V(-1.0, 104.0, 7.0), headDown = -30.0, flask = 1.0, flaskTilt = 165.0, cork = 0.0, shieldFace = aside)
+                val fling = r.copy(lean = 0.1, lh = V(-34.0, 92.0, -6.0), headDown = 0.0, headTurn = 12.0, flask = 1.0, flaskTilt = 60.0, cork = 0.0, shieldFace = aside)
+                tween(r to 2, pouch to 3, uncork to 2, greedy to 6, greedy.copy(flaskTilt = 175.0) to 2, fling to 3, r.copy(flask = 0.0) to 3, r to 1)
+            }
+        }
+    }
 
     private fun restOf(st: Stance) = when (st) { Stance.MELEE, Stance.SPEAR -> STAND; Stance.BOW -> BOW_REST; Stance.CROSSBOW -> XBOW_LOW.copy(draw = 0.0); Stance.STAFF -> STAFF_REST }
     /** The rest turned towards us, for the start of a fight. */
