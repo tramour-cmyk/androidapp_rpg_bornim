@@ -63,6 +63,13 @@ object MonsterKits {
             // bare-headed, so his face, war paint and topknot are seen
             MonsterKit(mapOf(S to "battleaxe", C to "half_plate", GearSlot.CLOAK to "cloak"), bothHands = true, cloak = 0x6A1A16),
         ),
+        // the ghoul fights with its claws alone: naked but for a rag, in a rotten leather jerkin, or a grave-robber's
+        // tattered robe
+        "ghoul" to listOf(
+            MonsterKit(emptyMap()),
+            MonsterKit(mapOf(C to "leather"), rusty = true),
+            MonsterKit(mapOf(C to "robe"), rusty = true),
+        ),
         // SRD skeleton: shortsword, scraps of armour; the spear pierces the same
         "skeleton" to listOf(
             MonsterKit(mapOf(S to "shortsword", H to "helmet"), rusty = true),
@@ -99,6 +106,8 @@ object MonsterKits {
             // SRD kobold: Small, 2–2.5 ft (about 72–88 cm); the dead as tall as they were in life
             "kobold" -> 0.9 + 0.2 * t
             "zombie" -> 0.92 + 0.16 * t
+            // the ghouls were people too, starved long and bent
+            "ghoul" -> 0.93 + 0.14 * t
             else -> 1.0
         }
     }

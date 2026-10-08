@@ -32,7 +32,7 @@ object FoeArt {
     const val PX = 0.66
 
     /** Foes drawn this way. */
-    val KINDS = setOf("goblin", "goblin_archer", "skeleton", "kobold", "zombie", "bugbear", "hobgoblin_captain")
+    val KINDS = setOf("goblin", "goblin_archer", "skeleton", "kobold", "zombie", "bugbear", "hobgoblin_captain", "ghoul")
 
     fun creature(id: String) = when (id) {
         "skeleton" -> Doll.Creature.SKELETON
@@ -40,6 +40,7 @@ object FoeArt {
         "zombie" -> Doll.Creature.ZOMBIE
         "bugbear" -> Doll.Creature.BUGBEAR
         "hobgoblin_captain" -> Doll.Creature.HOBGOBLIN
+        "ghoul" -> Doll.Creature.GHOUL
         else -> Doll.Creature.GOBLIN
     }
 
@@ -48,14 +49,15 @@ object FoeArt {
 
     fun outfit(id: String, look: MonsterLook) = Outfit.of(MonsterKits.of(id, look.seed)!!)
 
-    /** How the foe fights: with a bow, a spear, two blades, or one blade (with or without a shield). */
-    private enum class Style { BLADE, SPEAR, TWO_BLADES, BOW }
+    /** How the foe fights: with a bow, a spear, two blades, one blade (with or without a shield), or its claws. */
+    private enum class Style { BLADE, SPEAR, TWO_BLADES, BOW, CLAWS }
 
     private fun style(id: String, look: MonsterLook): Style {
         val kit = MonsterKits.of(id, look.seed)!!
         val main = kit.items[GearSlot.MAIN_HAND]?.let { GearBases[it] }
         val off = kit.items[GearSlot.OFF_HAND]?.let { GearBases[it] }
         return when {
+            creature(id) == Doll.Creature.GHOUL -> Style.CLAWS
             main?.ranged == true -> Style.BOW
             kit.items[GearSlot.MAIN_HAND] == "spear" -> Style.SPEAR
             off?.isWeapon == true -> Style.TWO_BLADES
@@ -83,7 +85,7 @@ object FoeArt {
         // a hobgoblin stands drilled and upright
         Doll.Creature.HOBGOBLIN -> r.copy(lean = r.lean * 0.6)
         // a ghoul crouches low like a beast about to spring, the head thrust forward
-        Doll.Creature.GHOUL -> r.copy(lean = r.lean + 0.55, crouch = r.crouch + 8.0, headDown = r.headDown - 3.0)
+        Doll.Creature.GHOUL -> r.copy(lean = r.lean + 1.7, crouch = r.crouch + 10.0, headDown = r.headDown - 10.0)
     }
 
     /** A sequence with the strike frame at which the blow lands, the arrow flies, or nothing (-1). */
@@ -98,7 +100,21 @@ object FoeArt {
         Style.TWO_BLADES -> HeroFigure.STAND.copy(lh = V(-16.0, 66.0, 18.0), spread = 8.0)
         Style.SPEAR -> HeroFigure.STAND.copy(rh = V(12.0, 74.0, 10.0), weapon = V(0.25, 0.65, 0.7), aim = 1.0, grip = 15.0)
         Style.BLADE -> HeroFigure.STAND
+        // both clawed hands held out before it, low and spread, ready to rake
+        Style.CLAWS -> CLAW_REST
     }
+
+    // a ghoul's claws: held out low and wide, raised high behind the head, raked down across the hero
+    private val CLAW_REST = HeroFigure.STAND.copy(rh = V(32.0, 62.0, 24.0), lh = V(-30.0, 60.0, 26.0), spread = 12.0, headDown = -3.0)
+    private val CLAW_WIND = CLAW_REST.copy(rh = V(34.0, 82.0, -14.0), lh = V(-24.0, 58.0, 30.0), twist = -26.0, lean = -0.1, headDown = -6.0)
+    private val CLAW_HIT = CLAW_REST.copy(rh = V(4.0, 66.0, 50.0), lh = V(-24.0, 56.0, 22.0), twist = 28.0, lean = 0.3, stride = 8.0)
+    private val CLAW_FOLLOW = CLAW_HIT.copy(rh = V(-12.0, 48.0, 34.0), twist = 34.0)
+    // both claws together, from high over the shoulders down into the hero
+    private val BOTH_WIND = CLAW_REST.copy(rh = V(34.0, 80.0, -10.0), lh = V(-34.0, 79.0, -10.0), lean = -0.2, headDown = -8.0, spread = 13.0)
+    private val BOTH_HIT = CLAW_REST.copy(rh = V(12.0, 62.0, 50.0), lh = V(-14.0, 60.0, 50.0), lean = 0.45, stride = 9.0, headDown = -2.0)
+    // a spring from the crouch, claws driven at the belly and the jaws after them
+    private val LEAP_WIND = CLAW_REST.copy(rh = V(18.0, 50.0, -6.0), lh = V(-16.0, 50.0, -4.0), crouch = 9.0, lean = 0.35, headDown = -6.0)
+    private val LEAP_HIT = CLAW_REST.copy(rh = V(10.0, 72.0, 56.0), lh = V(-10.0, 70.0, 54.0), lean = 0.65, stride = 12.0, headDown = -8.0)
 
     // the hero's lunge, the point driven on and down at the hero, coming out of the picture
     private val THRUST_W = HeroFigure.THRUST_WIND.copy(weapon = V(0.1, 0.02, 0.99), aim = 1.0)
@@ -139,6 +155,11 @@ object FoeArt {
                     Seq(tween(r to 3, HeroFigure.SLASH_WIND to 4, HeroFigure.SLASH_HIT to 3, stab to 3, stab to 4, r to 1), 7),
                 )
             }
+            Style.CLAWS -> listOf(
+                Seq(tween(r to 3, CLAW_WIND to 4, CLAW_HIT to 3, CLAW_FOLLOW to 5, r to 1), 7),
+                Seq(tween(r to 3, BOTH_WIND to 4, BOTH_HIT to 3, BOTH_HIT to 5, r to 1), 7),
+                Seq(tween(r to 3, LEAP_WIND to 5, LEAP_HIT to 3, LEAP_HIT to 5, r to 1), 8),
+            )
             Style.BLADE -> listOf(
                 Seq(tween(r to 3, HeroFigure.SLASH_WIND to 4, HeroFigure.SLASH_OVER to 2, HeroFigure.SLASH_HIT to 3, HeroFigure.SLASH_FOLLOW to 5, r to 1), 9),
                 // the blade raised wide of the big head

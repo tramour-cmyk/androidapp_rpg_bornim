@@ -1458,7 +1458,10 @@ fun checkFoeClashes() {
 
 /** Every act of one foe as a strip of frames, one row per act and variant. */
 fun renderFoeAnims() {
-    val cases = if (System.getenv("FOEANIM") == "neu") listOf("kobold" to 0, "kobold" to 2, "zombie" to 0, "zombie" to 2, "bugbear" to 0, "hobgoblin_captain" to 0)
+    val arg = System.getenv("FOEANIM")
+    // FOEANIM=ghoul:0,ghoul:1 for chosen foes and look seeds
+    val cases = if (arg.contains(":")) arg.split(",").map { it.substringBefore(":") to it.substringAfter(":").toInt() }
+        else if (arg == "neu") listOf("kobold" to 0, "kobold" to 2, "zombie" to 0, "zombie" to 2, "bugbear" to 0, "hobgoblin_captain" to 0)
         else listOf("goblin" to 0, "goblin" to 2, "goblin_archer" to 0, "skeleton" to 2, "skeleton" to 1)
     val acts = listOf(de.bornim.core.art.Act.IDLE to 0) + listOf(de.bornim.core.art.Act.ATTACK, de.bornim.core.art.Act.HURT, de.bornim.core.art.Act.DODGE, de.bornim.core.art.Act.DIE).flatMap { a -> (0..2).map { a to it } }
     val cw = 150; val cols = 8; val F = de.bornim.core.art.FoeArt
@@ -1788,4 +1791,32 @@ fun renderFallSequence(spec: String) {
     }
     ImageIO.write(out, "png", File("build/screens/fall_${id}_$v.png"))
     println("wrote fall $id $v ($n frames)")
+}
+
+/**
+ * One foe close up, large, for judging its look (FOECLOSE=ghoul): per look seed the rest, the wind-up and the blow of
+ * each attack, three times as large.
+ */
+fun renderFoeClose() {
+    val id = System.getenv("FOECLOSE")
+    val F = de.bornim.core.art.FoeArt
+    val sc = 3; val cw = 170; val top = 30
+    val picks = listOf(Triple(de.bornim.core.art.Act.IDLE, 0, 0)) + (0..2).flatMap { v ->
+        val st = F.sequence(id, de.bornim.core.MonsterLook(0), de.bornim.core.art.Act.ATTACK, v).strike
+        listOf(Triple(de.bornim.core.art.Act.ATTACK, v, st - 3), Triple(de.bornim.core.art.Act.ATTACK, v, st))
+    }
+    val h = F.height(id) - top
+    val out = BufferedImage(cw * sc * picks.size, h * sc * 3, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x3A4436); g.fillRect(0, 0, out.width, out.height)
+    for (seed in 0..2) for ((c, p) in picks.withIndex()) {
+        val im = F.frame(id, de.bornim.core.MonsterLook(seed), p.first, p.second, p.third)
+        val ox = (F.ANCHOR_X.toInt() - cw / 2 - 20)
+        for (y in top until im.height) for (x in 0 until im.width) {
+            val X = x - ox; if (X !in 0 until cw) continue
+            val q = im[x, y]; if ((q ushr 24) < 128) continue
+            g.color = java.awt.Color(q and 0xFFFFFF); g.fillRect((c * cw + X) * sc, (seed * h + y - top) * sc, sc, sc)
+        }
+    }
+    ImageIO.write(out, "png", File("build/screens/foeclose_$id.png"))
+    println("wrote foeclose $id")
 }

@@ -4,6 +4,12 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – Ghul im neuen Stil**
+- Der Ghul steht jetzt auf der Puppe wie Goblin, Skelett und Zombie: hager und grau, mit aufgerissenem, blutigem Maul, spitzen Ohren und langen, schwarzen, gespreizten Klauen. Er kauert tief und vorgebeugt, die Klauen vor sich.
+- Drei Varianten: fast nackt in Lumpen, in einer verrotteten Lederrüstung oder in einer zerschlissenen Robe. Größe und Körperbau variieren.
+- Drei eigene Klauenangriffe: Hieb mit einer Klaue über den Kopf hinweg, Rechen mit beiden Klauen, Sprung aus der Hocke. Dazu je drei Arten, getroffen zu werden, auszuweichen und zu sterben.
+- Kreaturen in Roben tragen darunter keine farbigen Hosen mehr, sondern dunkles Tuch.
+
 ## v0.1.210 – 08.10.2026, 16:46
 
 **Geändert – flüssigere Bewegungen im Kampf**

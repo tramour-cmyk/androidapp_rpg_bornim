@@ -50,9 +50,15 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
-- **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Noch im alten Stil: Goblin-Schamane und Ghul (Entwürfe auf der Puppe liegen vor), Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
+- **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Ghul seit 08.10. ebenfalls (Zweig, zu testen). Noch im alten Stil: Goblin-Schamane (Entwurf liegt vor), Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
 
 ## Zu testen
+
+**Ghul im neuen Stil** (Zweig-Build folgt, Testreiter: Testkampf gegen Ghul). Worauf achten:
+- Wirkt er bedrohlich genug (geduckt, Klauen, Maul)? Sind die Klauen gut zu erkennen?
+- Seine drei Angriffe: Erreicht er den Helden mit den Klauen, oder schlägt er ins Leere?
+- Treffer, Ausweichen, Sturz: Passt alles, bleibt er liegen?
+- Die drei Varianten (Lumpen, Leder, Robe).
 
 **Version v0.1.210** (veröffentlicht 08.10., 16:46; enthält die bestätigten Zweig-Builds 0.1.207 und 0.1.208). Worauf achten:
 - **Weitere Zustände**, sobald sie vorkommen: Vergiftet (Spinne, Hundertfüßer), Blutend (nach Blutstufe; bei „Aus“ nichts), Verlangsamt, Geschwächt (Fluch des Schamanen). Zu schwach, zu stark, stören sie?
@@ -83,7 +89,7 @@ Von dir bestätigt: Zustand „Betäubt“ (08.10., „funktioniert sehr gut“)
 
 - **Noch mehr Zwischenbilder?** Die Haltungen selbst (Arme, Beine, Waffe) wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Nach deinem Test von 0.1.208 vorerst nicht nötig; bei Bedarf als eigener, größerer Umbau (mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn).
 - **Zustände am Körper:** Sind Verlangsamt, Geschwächt und Geblendet auf kleinen Gegnern stark genug?
-- **Goblin-Schamane und Ghul:** Rückmeldung zu den Entwürfen, dann Einbau in den Kampf.
+- **Goblin-Schamane (Rückmeldung 08.10.):** erster Entwurf nicht gut, wirkt nicht bedrohlich, ein Arm schien zu fehlen (er lag in der Robe). Zweiter Entwurf (17:03): fast schwarze Robe, rußige Augenhöhlen mit grün glühenden Augen, Blutstreifen über die Nase, Schädelstab mit grün glühenden Augen, grünes Fluchlicht in der freien Hand; drei Haltungen (Stehen, Fluch sammeln, Fluch schleudern). Wartet auf deine Rückmeldung, erst danach Einbau in den Kampf.
 - **Hörproben:** Auswahl für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt.
 
 ## Geplant
