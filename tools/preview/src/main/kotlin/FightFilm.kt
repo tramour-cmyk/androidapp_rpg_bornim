@@ -28,6 +28,11 @@ fun fightFilm(spec: String) {
     while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
     System.getenv("FILMLEVEL")?.toInt()?.let { g.state.hero.gainXp(Rules.xpForLevel[it]); g.state.hero.restoreFully() }
     g.state.place = Place("forest", 10, 20, Facing.UP); g.state.minutes = 12 * 60
+    // FILMHURT: the hero starts the fight hurt, with a few potions of each kind to drink
+    if (System.getenv("FILMHURT") != null) {
+        g.state.hero.hp = maxOf(1, g.state.hero.maxHp / 3)
+        listOf("greater_potion", "potion", "remedy").forEach { g.state.add(it, 2) }
+    }
     val seed = System.getenv("FILMSEED")?.toInt() ?: 1
     val battle = Battle(g.state, Monsters[foe], g.lang, Dice(kotlin.random.Random(seed)), 1, false, 1, null, false, MonsterLook(seed))
     g.fight(battle)
