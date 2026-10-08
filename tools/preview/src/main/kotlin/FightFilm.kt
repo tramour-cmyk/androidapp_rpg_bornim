@@ -31,7 +31,7 @@ fun fightFilm(spec: String) {
     // FILMHURT: the hero starts the fight hurt, with a few potions of each kind to drink
     if (System.getenv("FILMHURT") != null) {
         g.state.hero.hp = maxOf(1, g.state.hero.maxHp / 3)
-        listOf("greater_potion", "potion", "remedy").forEach { g.state.add(it, 2) }
+        listOf("greater_potion", "potion", "remedy", "alchemist_fire", "holy_water").forEach { g.state.add(it, 2) }
     }
     val seed = System.getenv("FILMSEED")?.toInt() ?: 1
     val battle = Battle(g.state, Monsters[foe], g.lang, Dice(kotlin.random.Random(seed)), 1, false, 1, null, false, MonsterLook(seed))
@@ -48,7 +48,7 @@ fun fightFilm(spec: String) {
     val wait = (System.getenv("FILMWAIT")?.toLong() ?: 4000L) / 80
     frames(wait.toInt(), "w", false)
     // F: Fight, A: Attack, D: Defend, S: the scene (next message)
-    val where = mapOf('F' to Offset(135f, 990f), 'A' to Offset(150f, 940f), 'D' to Offset(390f, 940f), 'S' to Offset(270f, 400f), 'B' to Offset(150f, 1085f), 'I' to Offset(270f, 935f), 'K' to Offset(390f, 990f))
+    val where = mapOf('F' to Offset(135f, 990f), 'A' to Offset(150f, 940f), 'D' to Offset(390f, 940f), 'S' to Offset(270f, 400f), 'B' to Offset(150f, 1085f), 'I' to Offset(270f, 935f), 'K' to Offset(390f, 990f), 'J' to Offset(270f, 1010f))
     val plan = System.getenv("FILMTAPS") ?: "FASSSS"
     for ((t, c) in plan.withIndex()) {
         // W: no tap, only wait and film

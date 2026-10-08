@@ -112,14 +112,16 @@ fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, m
         val u = unit * (if (fx.crit) 1.35f else 1f)
         // where the foe's feet stand: a flame from above comes down to the ground there
         val ground = (if (fx.onHero) heroGround else foeGround) ?: (target.y + 45 * u)
+        // and under the one it comes from
+        val back = (if (fx.onHero) foeGround else heroGround) ?: (source.y + 60 * u)
         if (onSpot != null) {
             // the foe hops to one side (see the battle screen's dodge): the flame comes down a little to the other
             val away = if (fx.seed % 2 == 0) -1f else 1f
-            drawFx(Fx(onSpot, fx.onHero, false, fx.seed), p, source, Offset(target.x + away * 30 * u, target.y), u, ground)
-            drawFx(fx, p, source, target, u, ground)
+            drawFx(Fx(onSpot, fx.onHero, false, fx.seed), p, source, Offset(target.x + away * 30 * u, target.y), u, ground, back)
+            drawFx(fx, p, source, target, u, ground, back)
             return@Canvas
         }
-        if (wide == null) { drawFx(fx, p, source, target, u, ground); return@Canvas }
+        if (wide == null) { drawFx(fx, p, source, target, u, ground, back); return@Canvas }
         // past the target and on behind it, to one side; a shield stops it where it is
         val dx = target.x - source.x; val dy = target.y - source.y
         val len = kotlin.math.sqrt(dx * dx + dy * dy).coerceAtLeast(1f)
@@ -129,7 +131,7 @@ fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, m
         drawFx(Fx(wide, fx.onHero, false, fx.seed), p, source, by, u * 0.8f, ground)
         // the dodge or the block as it arrives
         val q = (p - 0.45f) / 0.55f
-        if (q in 0f..1f) drawFx(fx, q, source, target, u, ground)
+        if (q in 0f..1f) drawFx(fx, q, source, target, u, ground, back)
     }
 }
 
@@ -152,6 +154,10 @@ private val SMOKE = Color(0xFF2E2A28)
 private val FORCE = Color(0xFF8C6CFF)
 private val FORCE_CORE = Color(0xFFEDE6FF)
 private val RUNE = Color(0xFFC4D6F0)
+private val HEAL_LIGHT = Color(0xFFFFE2A0)
+private val GOLD_LIGHT = Color(0xFFFFE6A8)
+private val SPIRIT = Color(0xFFCFE0FF)
+private val STEAM = Color(0xFFE8ECEE)
 
 private fun lerp(a: Offset, b: Offset, t: Float) = Offset(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t)
 
@@ -429,6 +435,209 @@ private fun DrawScope.mageArmor(r: Random, p: Float, chest: Offset, ground: Floa
     }
 }
 
+/** Warm light gathering into the body: motes drawn in from around it, a glow that swells in the chest and fades. */
+private fun DrawScope.mending(r: Random, p: Float, chest: Offset, u: Float, c: Color, core: Color) {
+    val f = fade(p)
+    val swell = sin((p.coerceIn(0f, 1f)) * PI.toFloat())
+    drawCircle(Brush.radialGradient(listOf(core.copy(alpha = 0.55f * swell), c.copy(alpha = 0.3f * swell), Color.Transparent), chest, 46 * u), 46 * u, chest)
+    // a soft shimmer along the body
+    drawOval(Brush.radialGradient(listOf(c.copy(alpha = 0.22f * swell), Color.Transparent), chest, 60 * u), Offset(chest.x - 26 * u, chest.y - 60 * u), Size(52 * u, 120 * u))
+    repeat(24) {
+        val a = r.nextFloat() * 2 * PI.toFloat()
+        val d0 = (30 + r.nextFloat() * 22) * u
+        val t = ((p - r.nextFloat() * 0.35f) / 0.6f).coerceIn(0f, 1f)
+        if (t <= 0f || t >= 1f) return@repeat
+        val d = d0 * (1 - t * t)
+        val pos = Offset(chest.x + cos(a) * d * 0.7f, chest.y + sin(a) * d - t * 6 * u)
+        drawCircle(Brush.radialGradient(listOf(core.copy(alpha = 0.95f * f), c.copy(alpha = 0f)), pos, 4.6f * u), 4.6f * u, pos)
+    }
+}
+
+/** Bless: a soft fall of golden light from above onto the hero, dust drifting in it, and the god's sun sign glowing briefly at the breast. */
+private fun DrawScope.blessing(r: Random, p: Float, chest: Offset, ground: Float, u: Float) {
+    val f = fade(p)
+    val down = (p / 0.3f).coerceAtMost(1f)
+    val front = ground * (1f - (1f - down) * (1f - down))
+    val x = chest.x
+    val path = Path().apply { moveTo(x - 14 * u, 0f); lineTo(x + 14 * u, 0f); lineTo(x + 32 * u, front); lineTo(x - 32 * u, front); close() }
+    drawPath(path, Brush.verticalGradient(listOf(GOLD_LIGHT.copy(alpha = 0f), GOLD_LIGHT.copy(alpha = 0.16f * f), GOLD_LIGHT.copy(alpha = 0.3f * f), GOLD_LIGHT.copy(alpha = 0f)), 0f, front + 8 * u))
+    repeat(14) {
+        val t = (p * (0.7f + r.nextFloat() * 0.5f) + r.nextFloat() * 0.3f) % 1f
+        val dx = (r.nextFloat() - 0.5f) * 44 * u + sin(t * 6f + it) * 3 * u
+        val y = front * (0.2f + 0.8f * t)
+        square(GOLD_LIGHT, Offset(x + dx * (0.5f + 0.5f * t), y), 1.6f * u, f * 0.8f * sin(t * PI.toFloat()))
+    }
+    val sign = ((p - 0.3f) / 0.25f).coerceIn(0f, 1f) * (1f - ((p - 0.65f) / 0.35f).coerceIn(0f, 1f))
+    if (sign > 0f) {
+        val c = Offset(x, chest.y + 4 * u)
+        drawCircle(Brush.radialGradient(listOf(GOLD_LIGHT.copy(alpha = 0.6f * sign), Color.Transparent), c, 16 * u), 16 * u, c)
+        drawCircle(WHITE.copy(alpha = 0.85f * sign), 3.2f * u, c, style = Stroke(1.2f * u))
+        repeat(8) { k ->
+            val a = (k * PI / 4).toFloat()
+            drawLine(GOLD_LIGHT.copy(alpha = 0.85f * sign), c + Offset(cos(a) * 5 * u, sin(a) * 5 * u), c + Offset(cos(a) * (if (k % 2 == 0) 9 else 7) * u, sin(a) * (if (k % 2 == 0) 9 else 7) * u), 1.1f * u)
+        }
+    }
+}
+
+/**
+ * Turning the undead: the holy symbol flares at the hero, and a wave of light rolls over the ground to the undead and
+ * breaks against it in a pale blaze.
+ */
+private fun DrawScope.holyWave(r: Random, p: Float, from: Offset, to: Offset, ground: Float, heroGround: Float, u: Float) {
+    val flare = (1f - p / 0.3f).coerceIn(0f, 1f)
+    if (flare > 0f) drawCircle(Brush.radialGradient(listOf(WHITE.copy(alpha = 0.8f * flare), HOLY.copy(alpha = 0.35f * flare), Color.Transparent), from, 26 * u), 26 * u, from)
+    val t = ((p - 0.08f) / 0.55f).coerceIn(0f, 1f)
+    // the wave runs over the ground, from under the hero to under the foe
+    if (t > 0f && t < 1f) {
+        val gx = from.x + (to.x - from.x) * t
+        val gy = heroGround + (ground - heroGround) * t
+        val w = (26 + 30 * t) * u
+        val h = (6 + 6 * t) * u
+        // the light it leaves behind on the ground
+        for (k in 1..6) {
+            val tt = (t - k * 0.06f).coerceAtLeast(0f)
+            val bx = from.x + (to.x - from.x) * tt; val by = heroGround + (ground - heroGround) * tt
+            drawOval(Brush.radialGradient(listOf(HOLY.copy(alpha = 0.18f * (1 - k / 7f)), Color.Transparent), Offset(bx, by), w), Offset(bx - w, by - h), Size(w * 2, h * 2))
+        }
+        drawOval(Brush.radialGradient(listOf(WHITE.copy(alpha = 0.7f), HOLY.copy(alpha = 0.45f), Color.Transparent), Offset(gx, gy), w), Offset(gx - w, gy - h * 1.4f), Size(w * 2, h * 2.8f))
+        // the crest of the wave: light rising off it
+        repeat(10) {
+            val ox = (r.nextFloat() - 0.5f) * w * 1.6f
+            val rise = r.nextFloat() * 26 * u * (0.4f + t)
+            square(if (it % 2 == 0) WHITE else HOLY, Offset(gx + ox, gy - rise), 1.8f * u, 0.8f * (1f - rise / (40 * u)).coerceIn(0f, 1f))
+        }
+    }
+    val b = ((p - 0.6f) / 0.4f).coerceIn(0f, 1f)
+    if (b > 0f && b < 1f) {
+        val mid = Offset(to.x, (to.y + ground) / 2)
+        drawCircle(Brush.radialGradient(listOf(WHITE.copy(alpha = 0.55f * (1 - b)), HOLY.copy(alpha = 0.3f * (1 - b)), Color.Transparent), mid, 54 * u), 54 * u, mid)
+        repeat(12) {
+            val x = to.x + (r.nextFloat() - 0.5f) * 40 * u
+            val y = ground - b * (30 + 50 * r.nextFloat()) * u
+            square(HOLY, Offset(x, y), 2f * u, (1 - b))
+        }
+    }
+}
+
+/** Spiritual weapon: a great spectral mace of pale light comes down on the foe, its afterimages trailing it, and strikes in a burst of cold light. */
+private fun DrawScope.spiritWeapon(r: Random, p: Float, hit: Offset, u: Float) {
+    val pivot = Offset(hit.x + 30 * u, hit.y - 52 * u)
+    val swing = ((p - 0.05f) / 0.4f).coerceIn(0f, 1f)
+    val ease = swing * swing * (3 - 2 * swing)
+    val appear = (p / 0.12f).coerceAtMost(1f)
+    val gone = 1f - ((p - 0.55f) / 0.35f).coerceIn(0f, 1f)
+    fun mace(angle: Float, a: Float) {
+        if (a <= 0.01f) return
+        rotate(angle, pivot) {
+            val len = 56 * u
+            val head = pivot + Offset(0f, len)
+            drawCircle(Brush.radialGradient(listOf(SPIRIT.copy(alpha = 0.45f * a), Color.Transparent), head, 24 * u), 24 * u, head)
+            // haft with a pommel
+            drawLine(SPIRIT.copy(alpha = 0.6f * a), pivot, head, 5f * u, StrokeCap.Round)
+            drawLine(WHITE.copy(alpha = 0.55f * a), pivot, head, 1.6f * u, StrokeCap.Round)
+            drawCircle(SPIRIT.copy(alpha = 0.7f * a), 3.4f * u, pivot)
+            // the flanged head: a heavy core with blades standing out on either side
+            drawOval(SPIRIT.copy(alpha = 0.75f * a), Offset(head.x - 7 * u, head.y - 11 * u), Size(14 * u, 22 * u))
+            for (side in listOf(-1f, 1f)) for (k in 0..2) {
+                val y = head.y - 8 * u + k * 8 * u
+                val path = Path().apply {
+                    moveTo(head.x + side * 5 * u, y - 3.5f * u); lineTo(head.x + side * 13 * u, y)
+                    lineTo(head.x + side * 5 * u, y + 3.5f * u); close()
+                }
+                drawPath(path, SPIRIT.copy(alpha = 0.8f * a))
+            }
+            drawOval(WHITE.copy(alpha = 0.65f * a), Offset(head.x - 3 * u, head.y - 8 * u), Size(6 * u, 16 * u))
+        }
+    }
+    val angle = -120f + 150f * ease
+    for (k in 3 downTo 1) mace(angle - k * 16f * (1 - ease * 0.6f), 0.22f * appear * gone * (1f - k * 0.2f) * (if (swing in 0.05f..0.95f) 1f else 0.3f))
+    mace(angle, appear * gone)
+    val s = (p - 0.45f) / 0.45f
+    if (s > 0f && s < 1f) {
+        drawCircle(Brush.radialGradient(listOf(WHITE.copy(alpha = 0.7f * (1 - s)), SPIRIT.copy(alpha = 0.35f * (1 - s)), Color.Transparent), hit, 26 * u), 26 * u, hit)
+        burst(r, hit, s, u, listOf(SPIRIT, WHITE), 10, 22f)
+    }
+}
+
+/** Spirit guardians: pale spirits trailing veils of cold light wheel round the one they guard, those behind dimmer. */
+private fun DrawScope.guardians(r: Random, p: Float, centre: Offset, u: Float) {
+    val f = fade(p)
+    val n = 5
+    repeat(n) { i ->
+        val a = (i * 2 * PI / n + p * 4.2).toFloat()
+        val front = (sin(a) + 1f) / 2f
+        val rx = 40 * u; val ry = 13 * u
+        val pos = Offset(centre.x + cos(a) * rx, centre.y + 12 * u + sin(a) * ry - 6 * u * sin(p * 9f + i))
+        val alpha = f * (0.35f + 0.55f * front)
+        // the veil trailing behind, along the way it came
+        for (k in 1..6) {
+            val ab = a - k * 0.13f
+            val pb = Offset(centre.x + cos(ab) * rx, centre.y + 12 * u + sin(ab) * ry - 6 * u * sin(p * 9f + i) + k * 2.2f * u)
+            drawCircle(SPIRIT.copy(alpha = alpha * 0.28f * (1 - k / 7f)), (5.5f - k * 0.6f) * u, pb)
+        }
+        // the spirit: a hooded head and a body that thins away
+        val body = Path().apply {
+            moveTo(pos.x - 5 * u, pos.y - 4 * u)
+            quadraticBezierTo(pos.x - 6 * u, pos.y + 8 * u, pos.x + sin(p * 11f + i) * 2 * u, pos.y + 16 * u)
+            quadraticBezierTo(pos.x + 6 * u, pos.y + 8 * u, pos.x + 5 * u, pos.y - 4 * u)
+            close()
+        }
+        drawPath(body, Brush.verticalGradient(listOf(SPIRIT.copy(alpha = alpha * 0.8f), SPIRIT.copy(alpha = 0f)), pos.y - 4 * u, pos.y + 16 * u))
+        drawCircle(Brush.radialGradient(listOf(WHITE.copy(alpha = alpha), SPIRIT.copy(alpha = alpha * 0.5f), Color.Transparent), pos + Offset(0f, -6 * u), 6 * u), 6 * u, pos + Offset(0f, -6 * u))
+    }
+}
+
+/**
+ * A thrown flask: glass with its liquid catching the light, tumbling through the air; it bursts on the foe in glass
+ * shards. Alchemist's fire splashes burning and clings; holy water splashes cold and hisses into steam.
+ */
+private fun DrawScope.flask(r: Random, p: Float, from: Offset, to: Offset, u: Float, holy: Boolean) {
+    val liquid = if (holy) Color(0xFF9CC8E8) else Color(0xFFFF8A2A)
+    if (p < 0.5f) {
+        val t = p / 0.5f
+        val pos = arc(from, to, t, -80 * u)
+        rotate(p * 760, pos) {
+            drawOval(Color(0xFFDDE6EA).copy(alpha = 0.55f), Offset(pos.x - 7 * u, pos.y - 4.5f * u), Size(14 * u, 14 * u))
+            drawOval(liquid.copy(alpha = 0.9f), Offset(pos.x - 5.5f * u, pos.y + 0.5f * u), Size(11 * u, 8 * u))
+            drawOval(WHITE.copy(alpha = 0.6f), Offset(pos.x - 4.5f * u, pos.y - 3 * u), Size(3 * u, 4 * u))
+            drawRect(Color(0xFFDDE6EA).copy(alpha = 0.7f), Offset(pos.x - 2.2f * u, pos.y - 11 * u), Size(4.4f * u, 7 * u))
+            drawRect(Color(0xFF6A4A2A), Offset(pos.x - 2.6f * u, pos.y - 13.5f * u), Size(5.2f * u, 3 * u))
+        }
+        // a burning rag in the neck of the fire flask
+        if (!holy) { tongue(pos + Offset(0f, -13 * u), 7 * u, 3.5f * u, sin(p * 50f) * 1.5f * u, FIRE, 0.9f); tongue(pos + Offset(0f, -13 * u), 4 * u, 2f * u, 0f, FIRE_HOT, 0.9f) }
+        return
+    }
+    val s = (p - 0.5f) / 0.5f
+    // glass shards
+    repeat(9) {
+        val a = r.nextFloat() * 2 * PI.toFloat()
+        val d = (10 + r.nextFloat() * 22) * u * s
+        val pos = Offset(to.x + cos(a) * d, to.y + sin(a) * d * 0.7f + s * s * 18 * u)
+        drawLine(Color(0xFFE8F0F4).copy(alpha = 1 - s), pos, pos + Offset(cos(a + 1f) * 2.5f * u, sin(a + 1f) * 2.5f * u), 1f * u)
+    }
+    // the splash: drops flung out and falling
+    repeat(14) {
+        val a = PI.toFloat() + r.nextFloat() * PI.toFloat()
+        val d = (12 + r.nextFloat() * 20) * u * s
+        val pos = Offset(to.x + cos(a) * d, to.y + sin(a) * d * 0.8f + s * s * 26 * u)
+        square(liquid, pos, (2.6f - s) * u, (1 - s) * 0.9f)
+    }
+    val flash = (1 - s / 0.25f).coerceIn(0f, 1f)
+    if (holy) {
+        if (flash > 0f) drawCircle(Brush.radialGradient(listOf(WHITE.copy(alpha = 0.6f * flash), liquid.copy(alpha = 0.25f * flash), Color.Transparent), to, 20 * u), 20 * u, to)
+        // it hisses into steam on the foe
+        repeat(6) {
+            val t = (s * (0.7f + r.nextFloat() * 0.5f)).coerceIn(0f, 1f)
+            val c = Offset(to.x + (r.nextFloat() - 0.5f) * 24 * u + sin(t * 5f + it) * 3 * u, to.y - t * 34 * u)
+            val rad = (4 + 7 * t) * u
+            drawCircle(Brush.radialGradient(listOf(STEAM.copy(alpha = 0.4f * (1 - t)), STEAM.copy(alpha = 0f)), c, rad), rad, c)
+        }
+    } else {
+        if (flash > 0f) drawCircle(Brush.radialGradient(listOf(FIRE_HOT.copy(alpha = 0.8f * flash), FIRE.copy(alpha = 0.35f * flash), Color.Transparent), to, 26 * u), 26 * u, to)
+        clingingFire(r, to, s, u, 1.5f)
+    }
+}
+
 /** Sparks flying out of a point. */
 private fun DrawScope.burst(r: Random, at: Offset, t: Float, u: Float, colors: List<Color>, n: Int = 10, reach: Float = 18f) {
     if (t <= 0f || t >= 1f) return
@@ -440,7 +649,7 @@ private fun DrawScope.burst(r: Random, at: Offset, t: Float, u: Float, colors: L
     }
 }
 
-internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, u: Float, ground: Float = target.y + 45 * u) {
+internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, u: Float, ground: Float = target.y + 45 * u, back: Float = source.y + 60 * u) {
     val r = Random(fx.seed)
     // Small random offset so the impact point is never exactly the same.
     val hit = Offset(target.x + (r.nextFloat() - 0.5f) * 14 * u, target.y + (r.nextFloat() - 0.5f) * 14 * u)
@@ -509,33 +718,11 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
         FxKind.MISSILES -> repeat(3) { i -> forceDart(r, p, i, source, hit, u) }
         FxKind.RAYS -> scorchingRay(r, p, source, hit, u)
         FxKind.SACRED_FLAME -> sacredFlame(r, p, hit.x, ground, u)
-        FxKind.SPIRIT_WEAPON -> {
-            val start = -70f + r.nextFloat() * 20f
-            val angle = start + 140f * (p / 0.6f).coerceAtMost(1f)
-            rotate(angle, Offset(hit.x, hit.y + 20 * u)) {
-                val c = Color(0xFF9FD0FF).copy(alpha = 0.85f * fade(p))
-                drawRect(c, Offset(hit.x - 2.5f * u, hit.y - 30 * u), Size(5 * u, 34 * u))
-                drawRect(c, Offset(hit.x - 9 * u, hit.y + 4 * u), Size(18 * u, 4 * u))
-                drawRect(WHITE.copy(alpha = fade(p)), Offset(hit.x - 1 * u, hit.y - 28 * u), Size(2 * u, 30 * u))
-            }
-            burst(r, hit, (p - 0.45f) / 0.55f, u, listOf(Color(0xFF9FD0FF), WHITE), 8, 16f)
-        }
-        FxKind.GUARDIANS -> {
-            val n = 5 + r.nextInt(3)
-            val radius = 30 * u + 6 * u * sin(p * 6f)
-            repeat(n) { i ->
-                val a = (i * 2 * PI / n + p * 5).toFloat()
-                square(HOLY, Offset(target.x + cos(a) * radius, target.y + sin(a) * radius * 0.6f), 5 * u, fade(p))
-                square(WHITE, Offset(target.x + cos(a) * radius, target.y + sin(a) * radius * 0.6f), 2 * u, fade(p))
-            }
-        }
+        FxKind.SPIRIT_WEAPON -> spiritWeapon(r, p, hit, u)
+        FxKind.GUARDIANS -> guardians(r, p, target, u)
         FxKind.DESTROY -> {
             // the light of the god reaches the undead, which flares up and falls to ash and embers
-            val q = (p / 0.35f).coerceAtMost(1f)
-            repeat(3) { i ->
-                val t = ((q - i * 0.15f) / 0.7f).coerceIn(0f, 1f)
-                if (t > 0f && t < 1f) drawCircle(HOLY.copy(alpha = 1 - t), 10 * u + 70 * u * t, lerp(source, hit, t), style = Stroke(3 * u))
-            }
+            holyWave(r, (p / 0.4f).coerceAtMost(1f), source, target, ground, back, u)
             val glow = ((p - 0.3f) / 0.25f).coerceIn(0f, 1f) * (1f - ((p - 0.55f) / 0.45f).coerceIn(0f, 1f))
             if (glow > 0f) drawCircle(Brush.radialGradient(listOf(WHITE.copy(alpha = 0.7f * glow), HOLY.copy(alpha = 0.35f * glow), Color.Transparent), Offset(target.x, (target.y + ground) / 2), 60 * u), 60 * u, Offset(target.x, (target.y + ground) / 2))
             val ash = Color(0xFF8E887E)
@@ -548,52 +735,11 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
                 if (t > 0f && t < 1f) square(if (i % 3 == 0) HOLY else ash, Offset(x0 + drift * t, y0 - 46 * u * t * (0.5f + r.nextFloat())), u * (3f - 2f * t), (1f - t) * 0.95f)
             }
         }
-        FxKind.TURN -> {
-            repeat(3) { i ->
-                val t = ((p - i * 0.15f) / 0.7f).coerceIn(0f, 1f)
-                if (t > 0f && t < 1f) drawCircle(HOLY.copy(alpha = 1 - t), 10 * u + 70 * u * t, lerp(source, hit, t), style = Stroke(3 * u))
-            }
-        }
-        FxKind.BOMB_FIRE, FxKind.BOMB_HOLY -> {
-            val holy = fx.kind == FxKind.BOMB_HOLY
-            val t = (p / 0.5f).coerceAtMost(1f)
-            if (p < 0.5f) {
-                val pos = arc(source, hit, t, -80 * u)
-                rotate(p * 900, pos) { drawRect(if (holy) Color(0xFF8FC8FF) else FIRE, Offset(pos.x - 3 * u, pos.y - 4 * u), Size(6 * u, 8 * u)) }
-            } else {
-                val s = (p - 0.5f) / 0.5f
-                if (holy) {
-                    repeat(14) {
-                        val a = r.nextFloat() * PI.toFloat() + PI.toFloat()
-                        val d = 26 * u * s
-                        square(Color(0xFFBFE4FF), Offset(hit.x + cos(a) * d, hit.y + sin(a) * d + s * s * 20 * u), 3 * u, 1 - s)
-                    }
-                    drawCircle(WHITE.copy(alpha = 1 - s), 30 * u * s, hit, style = Stroke(2 * u))
-                } else {
-                    drawCircle(FIRE.copy(alpha = 0.8f * (1 - s)), 10 * u + 26 * u * s, hit)
-                    drawCircle(FIRE_HOT.copy(alpha = 1 - s), 6 * u + 14 * u * s, hit)
-                    burst(r, hit, s, u, listOf(FIRE_HOT, FIRE, FIRE_DARK), 12, 30f)
-                }
-            }
-        }
-        FxKind.HEAL, FxKind.ENEMY_HEAL -> {
-            repeat(9) {
-                val x = target.x + (r.nextFloat() - 0.5f) * 50 * u
-                val y = target.y + 25 * u - p * (40 + 30 * r.nextFloat()) * u
-                val c = if (it % 3 == 0) WHITE else HEAL
-                drawRect(c.copy(alpha = fade(p)), Offset(x - u, y - 3 * u), Size(2 * u, 6 * u))
-                drawRect(c.copy(alpha = fade(p)), Offset(x - 3 * u, y - u), Size(6 * u, 2 * u))
-            }
-            drawCircle(HEAL.copy(alpha = 0.25f * fade(p)), 34 * u, target)
-        }
-        FxKind.BLESS -> {
-            drawOval(HOLY.copy(alpha = fade(p)), Offset(target.x - 18 * u, target.y - 40 * u), Size(36 * u, 9 * u), style = Stroke(2.5f * u))
-            repeat(12) {
-                val x = target.x + (r.nextFloat() - 0.5f) * 56 * u
-                val y = target.y - 50 * u + p * (60 + 30 * r.nextFloat()) * u
-                square(if (it % 2 == 0) HOLY else WHITE, Offset(x, y), 3 * u, fade(p))
-            }
-        }
+        FxKind.TURN -> holyWave(r, p, source, target, ground, back, u)
+        FxKind.BOMB_FIRE, FxKind.BOMB_HOLY -> flask(r, p, source, hit, u, holy = fx.kind == FxKind.BOMB_HOLY)
+        FxKind.HEAL -> mending(r, p, target, u, HEAL_LIGHT, WHITE)
+        FxKind.ENEMY_HEAL -> mending(r, p, target, u, Color(0xFFC89A50), Color(0xFFE8D0A0))
+        FxKind.BLESS -> blessing(r, p, target, ground, u)
         FxKind.MAGE_ARMOR -> mageArmor(r, p, target, ground, u)
         FxKind.BITE -> {
             val close = (p / 0.35f).coerceAtMost(1f)

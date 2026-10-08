@@ -90,18 +90,19 @@ fun GearIcon(g: Gear?, size: Dp, modifier: Modifier = Modifier) {
  * the background the first time; until then its old drawn icon stands in.
  */
 @Composable
-fun GearPicture(base: String, rarity: Rarity, size: Dp, modifier: Modifier = Modifier) {
+fun GearPicture(base: String, rarity: Rarity, size: Dp, modifier: Modifier = Modifier) = androidx.compose.runtime.key(base, rarity) {
     val img by androidx.compose.runtime.produceState(ItemArt.ready(base, rarity), base, rarity) {
-        if (value == null) value = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { ItemArt.get(base, rarity) }
+        // the slot may have shown another piece before (the list moved): always take this one's picture
+        value = ItemArt.ready(base, rarity) ?: kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { ItemArt.get(base, rarity) }
     }
     PixelImageView(img ?: IconArt.get(de.bornim.core.GearBases[base].icon), size, modifier)
 }
 
 /** A supply (draught, food, ingredient, key) as built in the round; its old drawn icon stands in until it is drawn. */
 @Composable
-fun SupplyPicture(id: String, size: Dp, modifier: Modifier = Modifier) {
+fun SupplyPicture(id: String, size: Dp, modifier: Modifier = Modifier) = androidx.compose.runtime.key(id) {
     val img by androidx.compose.runtime.produceState(de.bornim.core.art.SupplyArt.ready(id), id) {
-        if (value == null) value = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { de.bornim.core.art.SupplyArt.get(id) }
+        value = de.bornim.core.art.SupplyArt.ready(id) ?: kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { de.bornim.core.art.SupplyArt.get(id) }
     }
     PixelImageView(img ?: IconArt.get(de.bornim.core.Items[id].icon), size, modifier)
 }

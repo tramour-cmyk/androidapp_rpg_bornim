@@ -166,7 +166,7 @@ fun renderAbilityFx() {
                         val u = (bodyW * px).toFloat() / 90
                         val target = if (fx.onHero) hero else enemy
                         val source = if (fx.onHero) enemy else Offset(heroX + 10f, heroY - 150f)
-                        drawFx(fx, p, source, target, u, if (fx.onHero) heroY else feetY)
+                        drawFx(fx, p, source, target, u, if (fx.onHero) heroY else feetY, if (fx.onHero) feetY else heroY)
                     }
                     androidx.compose.material3.Text(if (p == ps[0]) name else "", color = Color.White, modifier = Modifier.offset(6.dp, 4.dp))
                 }
