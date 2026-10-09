@@ -15,7 +15,7 @@ fun renderCaveThings() {
     val kinds = listOf<Pair<String, (Int) -> MapCave.Sprite>>(
         "stalagmit" to MapCave::stalagmite, "kisten" to MapCave::crates, "knochen" to MapCave::bones, "schlafplatz" to MapCave::bedroll,
         "felsblock" to MapCave::boulder, "geroell" to MapCave::rubble, "leuchtpilze" to MapCave::mushrooms, "kristalle" to MapCave::crystals,
-        "stuetzbalken" to MapCave::support, "gitter" to MapCave::gate, "lagerfeuer" to MapCave::campfire, "truhe" to MapCave::chest,
+        "stuetzbalken" to MapCave::support, "gitter" to MapCave::gate, "lagerfeuer" to { v: Int -> MapCave.campfire(v) }, "truhe" to { v: Int -> MapCave.chest(v) },
         "wurzeln" to MapCave::roots,
     )
     for ((name, make) in kinds) for (v in 0..2) {

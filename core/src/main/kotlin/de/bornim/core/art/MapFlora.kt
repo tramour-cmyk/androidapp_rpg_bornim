@@ -493,6 +493,8 @@ object MapFlora {
      * comes from the upper left). Drawn under everything that stands, faded by the time of day.
      */
     fun shadows(map: MapDef): List<WorldArt.Obj> = synchronized(shadowCache) {
+        // no sun in the cave: the things there have their shadows in the ground
+        if (map.kind != de.bornim.core.MapKind.FOREST) return emptyList()
         shadowCache.getOrPut(map.id) {
             val out = ArrayList<WorldArt.Obj>()
             for (ty in 0 until map.height) for (tx in 0 until map.width) {

@@ -4,6 +4,11 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – Höhle im neuen Stil (Zweig `karte-hoehle`, zum Testen)**
+- Die Blutzahnhöhle hat einen neuen Boden in doppelter Auflösung und ohne Raster: Fels in flachen Absätzen, lange Risse, Grus, Staub auf den Wegen, feuchte Stellen, Pfützen und Moos, ein schwarzer Tümpel; am Ausgang ziehen Erde, Laub und Wurzeln aus dem Wald herein.
+- Die Wände haben eine dunkle Oberseite und eine sichtbare Felskante mit Schichten und nassen Streifen, damit man die Räume erkennt; Schatten unter allem, was steht.
+- Alle Dinge der Höhle sind neu gezeichnet wie Ausrüstung und Gegner, je in drei Varianten: Stalagmiten, Kisten und Fässer, Knochen, Schlafplätze, Felsen, Geröll, Leuchtpilze, Kristalle, Stützbalken, Gitter, Lagerfeuer (flackernd), Truhen (auch geöffnet), Wandfackeln, Wurzeln am Lichtschacht.
+
 **Neu – der Held auf der Karte als Puppe (Zweig `karte-neuer-stil`)**
 - **Garrick als Puppe auf der Karte (09.10., Zweig `karte-neuer-stil`):** Der Jäger am Lagerfeuer ist jetzt dieselbe Puppe wie der Held: kurzer Vollbart, Kapuze und Umhang in dunklem Oliv, dunkles Leder, Langbogen und Köcher quer über dem Rücken, die Hände frei. Er dreht sich fließend und schaut dem Helden nach, solange der in seiner Nähe (bis 4 Felder) ist. Die übrigen Leute sind noch die alten Figuren. Nach einem Gespräch dreht er sich wieder zum Feuer, sobald der Held weggeht. Held und Garrick erscheinen sofort als Puppe, nicht mehr kurz als alte Figur (Puppen werden beim Laden und Kartenwechsel vorgezeichnet).
 - Auf allen Karten ist der Held jetzt dieselbe Figur wie im Kampf, schräg von oben, in wahrer Größe je Volk, mit seiner echten Ausrüstung. Beim Herumlaufen trägt er kurze Waffen (Schwert, Streitkolben, Axt, Dolch) tief in der rechten Hand, die Spitze nach vorn unten, lange Waffen (Zweihänder, Speer, Stab, Hellebarde, Bogen, Armbrust) fast aufrecht an der rechten Schulter, und den Schild auf dem Rücken (Rund-, Spitz- und Turmschild in ihrer Form, Oberkante knapp über den Schultern, mit Riemen über der Brust); die linke Hand ist frei.
