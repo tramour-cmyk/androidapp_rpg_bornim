@@ -96,6 +96,17 @@ object MapFigure {
     fun draw(hero: Hero, slot: Int, step: Int): PixelImage =
         render(HeroBattle.doll(hero), HeroBattle.outfit(hero).withShieldOnBack(), rig(slot * 360.0 / YAWS, step, if (shouldered(hero)) Carry.SHOULDER else Carry.LOW))
 
+    private fun carry(hero: Hero) = if (shouldered(hero)) Carry.SHOULDER else Carry.LOW
+
+    /** [hero] standing in [rest], breathing in or out: drawn in the background when first wanted, null until then. */
+    fun restFrame(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int): PixelImage? =
+        if (rest == MapRest.Rest.NEUTRAL && breath == 0) frame(hero, slot, 0)
+        else MapRest.picture("hero|${look(hero)}|$slot|$rest|$breath") { drawRest(hero, slot, rest, breath) }
+
+    /** One resting picture of [hero], drawn now. */
+    fun drawRest(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int): PixelImage =
+        render(HeroBattle.doll(hero), HeroBattle.outfit(hero).withShieldOnBack(), MapRest.rig(rig(slot * 360.0 / YAWS, 0, carry(hero)), rest, breath))
+
     /** The picture of [hero] turned to direction [slot] at [step] of a walk, or null while it is not drawn yet. */
     fun frame(hero: Hero, slot: Int, step: Int): PixelImage? = synchronized(cache) { cache["${look(hero)}|$slot|${Math.floorMod(step, STEPS)}"] }
 

@@ -59,6 +59,7 @@ import de.bornim.core.Story
 import de.bornim.core.Tile
 import de.bornim.core.art.MapFigure
 import de.bornim.core.art.MapFolk
+import de.bornim.core.art.MapRest
 import de.bornim.core.art.MapFlora
 import de.bornim.core.art.MapGround
 import de.bornim.core.art.MapLight
@@ -573,7 +574,12 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     val idleImg = doing?.let { d ->
                         if (slotNow == Math.floorMod(homeSlot + d.slotOffset, MapFigure.YAWS)) MapFolk.idleFrame(f, slotNow, d.idle, d.frame) else null
                     }
-                    idleImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 160).toInt(), MapFigure.STEPS) else 0)
+                    // otherwise, standing, the small movements everyone has: breathing, shifting weight, a glance, hands to the belt
+                    val restImg = if (idleImg == null && doing == null && !walkingNow && slotNow == MapFigure.slot(target)) {
+                        val (rest, breath) = MapRest.at(f.id.hashCode(), clock, handsFree = true, mayLook = !near)
+                        MapFolk.restFrame(f, slotNow, rest, breath)
+                    } else null
+                    idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 160).toInt(), MapFigure.STEPS) else 0)
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
                 sprites += Sprite((ny + T - 1).toFloat()) {
@@ -641,7 +647,13 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         val target = MapFigure.yawOf(p.facing)
         HeroTurn.update(target, clock)
         val walkStep = if (!walking) 0 else Math.floorMod(state.steps * 2 + (progress * 2).toInt(), MapFigure.STEPS)
-        val doll = MapFigure.frameNow(state.hero, MapFigure.slot(HeroTurn.yaw), walkStep)
+        // standing a moment, the hero too breathes, shifts its weight and glances about
+        val heroSlot = MapFigure.slot(HeroTurn.yaw)
+        val heroRest = if (!walking && heroSlot == MapFigure.slot(target) && HeroStill.forMs(heroX, heroY, clock) > 1_500L) {
+            val (rest, breath) = MapRest.at(7, clock, handsFree = false, mayLook = true)
+            MapFigure.restFrame(state.hero, heroSlot, rest, breath)
+        } else null
+        val doll = heroRest ?: MapFigure.frameNow(state.hero, heroSlot, walkStep)
         // +0.5 so the hero is drawn after objects standing on the same row
         sprites += Sprite(heroY + T - 0.5f) {
             put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
