@@ -93,6 +93,8 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
+**Zweig-Build 0.1.347** (09.10., 20:05; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37970423837/artifacts/11635267531), APK auch im Chat): Garrick dreht sich nach einem Gespräch zurück zum Feuer, wenn du weggehst; keine alte Figur mehr beim Betreten (Held und Garrick). Achten auf: kurzer Hänger beim ersten Erscheinen? Wie lange?
+
 **Zweig-Build 0.1.341** (Zweig `karte-neuer-stil`, 09.10., 19:36; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37967016033/artifacts/11634541504), APK auch im Chat): **Garrick als Puppe** am Lagerfeuer im Flüsterwald. Achten auf: Erkennst du ihn als Jäger (Kapuze, Bart, Bogen)? Dreht er sich weich zu dir, wenn du dich näherst, und zurück, wenn du gehst? Erscheint beim Betreten kurz die alte Figur? Passt er nachts im Feuerschein? Gespräch mit ihm unverändert?
 
 **Zweig-Build 0.1.327** (Zweig `karte-neuer-stil`: naher Zoom, gemächlicheres Tempo, neuer Boden mit breitem Karrenweg, neue Bäume, Felsen und Unterholz im Wald; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37951517297/artifacts/11626222809)); dazu Wege als zusammenhängendes Netz, Feuer, Truhe und Schild neu, Bäume niedriger, Kronen vor dem Helden halb durchsichtig, **Held als Puppe** (Schild auf dem Rücken, weiches Umdrehen). Achten auf: Umdrehen weich genug? Schritte stimmig? Erscheint beim Betreten kurz die alte Figur, und wie lange? Ruckeln? Enthält auch den Stand von main v0.1.279 (von der anderen Sitzung hereingeführt). Grafik vorgezogen auf deinen Wunsch (11:49). Worauf achten:
