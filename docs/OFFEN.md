@@ -63,6 +63,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
+- **Rückmeldung zu 0.1.365 (09.10., 21:54):** Ruhebewegungen: „Es passt alles.“ Erledigt.
 - **Rückmeldung zu 0.1.361 (09.10., 21:30):** Garrick passt und ist geprüft.
 - **Lebendige Welt, Ruhebewegungen für alle Figuren (Idee 09.10., 21:30):** Alle Leute (als Grundannahme) sollen auch im Stehen leben: atmen, Gewicht verlagern, kleine Armbewegungen; nur, wenn nicht zu aufwendig. Zugestimmt 21:33, umgesetzt 21:38: gemeinsamer Baustein `MapRest` für Held und Leute: Atmen (etwa alle 4 s, je Figur versetzt), Gewicht verlagern, kurz zur Seite schauen, Hände in die Hüften (nur Leute ohne Waffe in der Hand); Zufallstakt je Figur (Kerntest `MapRestTest`). Arme verschränken ausprobiert und weggelassen: sah schräg von vorn falsch aus (ein Unterarm stand seitlich ab). Grundsatz in `docs/STIL.md` aufgenommen.
 - **Garrick Leerlauf unregelmäßig (gemeldet 09.10., 20:53):** Gleichmäßiger Takt wirkt wie ein Roboter. Umgesetzt: Zufall bestimmt je Abschnitt, ob, wann, wie lange, was und wie schnell; Pausen etwa 5 bis 33 s, Handlungen 3½ bis 6½ s (Kerntest `MapFolkTest`).
