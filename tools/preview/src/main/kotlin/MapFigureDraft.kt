@@ -19,7 +19,7 @@ private fun mapRig(yaw: Double, step: Int): HeroFigure.Rig {
     return Doll.REST.copy(
         yaw = yaw, stride = st, spread = 5.0,
         // the weapon hangs down along the leg, the shield at the side, the arms swing a little with the step
-        rh = HeroFigure.V(17.0, 56.0, 2.0 - st * 0.35), lh = HeroFigure.V(-18.0, 58.0, 2.0 + st * 0.35),
+        rh = HeroFigure.V(17.0, 56.0, 2.0 - st * 0.35), lh = HeroFigure.V(-17.0, 54.0, 3.0 + st * 0.6),
         weapon = HeroFigure.V(0.08, -1.0, 0.12), aim = 1.0,
         shieldFace = HeroFigure.V(-1.0, 0.0, 0.25),
         bodyY = if (step % 2 == 1) 1.0 else 0.0,
@@ -30,7 +30,7 @@ private const val PITCH = 38.0
 private const val PX = 0.5
 
 fun mapFigure(hero: Hero, yaw: Double, step: Int, w: Int = 110, h: Int = 120): PixelImage =
-    HeroBattle.doll(hero).render(w, h, w / 2.0, h - 8.0, PX, mapRig(yaw, step), HeroBattle.outfit(hero), pitch = PITCH).img
+    HeroBattle.doll(hero).render(w, h, w / 2.0, h - 8.0, PX, mapRig(yaw, step), HeroBattle.outfit(hero).withShieldOnBack(), pitch = PITCH).img
 
 /** MAPFIG: drafts of the doll on the map — the four ways to walk, a step, the classes, and a scene in the clearing. */
 fun renderMapFigureDraft() {
