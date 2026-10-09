@@ -50,7 +50,7 @@ fun walkFilm(spec: String) {
     g.state.minutes = 12 * 60
     val m = de.bornim.core.World[map]
     g.state.explored[map] = "f".repeat((m.width * m.height + 3) / 4)
-    de.bornim.core.art.MapGround.prepareNow(m)
+    if (System.getenv("NOPREP") == null) de.bornim.core.art.MapGround.prepareNow(m)
     // NOPREP: as on the phone, the dolls are drawn in the background while the film runs
     if (System.getenv("NOPREP") == null) {
         de.bornim.core.art.MapFigure.prepareNow(g.state.hero)

@@ -466,12 +466,15 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             MapGround.prepare(map, p.x, p.y)
             val ch = MapGround.CH
             for (cy in Math.floorDiv(y0, ch)..Math.floorDiv(y1, ch)) for (cx in Math.floorDiv(x0, ch)..Math.floorDiv(x1, ch)) {
-                MapGround.chunk(map, cx, cy)?.let { put(it, cx * ch * T, cy * ch * T, MapGround.D) }
+                // never the former tiles while the new ground is drawn (23:04): the piece the hero stands on right away,
+                // the rest stays dark for the moment it takes, drawn on several cores
+                val here = cx == Math.floorDiv(p.x, ch) && cy == Math.floorDiv(p.y, ch)
+                (if (here) MapGround.chunkNow(map, cx, cy) else MapGround.chunk(map, cx, cy))?.let { put(it, cx * ch * T, cy * ch * T, MapGround.D) }
             }
         }
         for (ty in y0..y1) for (tx in x0..x1) {
             if (!map.inside(tx, ty)) continue
-            if (fine && MapGround.chunk(map, Math.floorDiv(tx, MapGround.CH), Math.floorDiv(ty, MapGround.CH)) != null && !MapGround.keepsOldTile(map.tile(tx, ty))) continue
+            if (fine && !MapGround.keepsOldTile(map, map.tile(tx, ty))) continue
             put(WorldArt.ground(map, tx, ty, state, frame), tx * T, ty * T)
         }
 

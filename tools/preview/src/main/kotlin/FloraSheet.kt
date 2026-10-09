@@ -37,7 +37,7 @@ fun renderFloraSheet(spec: String) {
     val state = de.bornim.core.GameState.newGame("X", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER)
     val ch = MapGround.CH
     for (cy in 0..(map.height / ch)) for (cx in 0..(map.width / ch)) MapGround.chunk(map, cx, cy)?.let { blend(it, cx * ch * S, cy * ch * S, 1) }
-    for (ty in 0 until map.height) for (tx in 0 until map.width) if (MapGround.keepsOldTile(map.tile(tx, ty))) blend(WorldArt.ground(map, tx, ty, state, 0), tx * S, ty * S, 2)
+    for (ty in 0 until map.height) for (tx in 0 until map.width) if (MapGround.keepsOldTile(map, map.tile(tx, ty))) blend(WorldArt.ground(map, tx, ty, state, 0), tx * S, ty * S, 2)
     for (o in MapFlora.shadows(map)) blend(o.img, o.x * D, o.y * D, 1)
     for (o in WorldArt.objects(map, state, 0).sortedBy { it.sortY }) blend(o.img, o.x * D, o.y * D, D / o.density)
     File("build/screens").mkdirs()

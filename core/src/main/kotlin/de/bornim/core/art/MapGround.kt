@@ -35,12 +35,16 @@ object MapGround {
     private val drawn = setOf(
         Tile.GRASS, Tile.TALL_GRASS, Tile.FLOWERS, Tile.PATH, Tile.TREE, Tile.WATER,
         Tile.ROCK, Tile.LOG, Tile.MENHIR, Tile.SIGN, Tile.CHEST, Tile.CAMPFIRE,
-        // the cave
+    )
+
+    /** Tiles drawn by the cave's ground ([MapCave]); only inside the cave (09.10., 23:04: the cliff about the cave mouth in the woods is still the former one). */
+    private val caveDrawn = setOf(
         Tile.CAVE_WALL, Tile.CAVE_FLOOR, Tile.CAVE_EXIT, Tile.RUBBLE, Tile.BONES, Tile.GLOWSHROOM, Tile.CRYSTAL,
         Tile.STALAGMITE, Tile.CRATE, Tile.BEDROLL, Tile.SUPPORT, Tile.SKYLIGHT, Tile.TORCH, Tile.GATE,
     )
 
-    fun keepsOldTile(tile: Tile) = tile !in drawn
+    /** Whether [tile] on [map] keeps its former picture over the new ground. */
+    fun keepsOldTile(map: MapDef, tile: Tile) = tile !in drawn && (map.kind != MapKind.CAVE || tile !in caveDrawn)
 
     private val chunks = HashMap<String, PixelImage>()
     private val preparing = HashSet<String>()
@@ -48,22 +52,31 @@ object MapGround {
     /** The chunk ([cx], [cy]) of [map], or null while it is not drawn yet. */
     fun chunk(map: MapDef, cx: Int, cy: Int): PixelImage? = synchronized(chunks) { chunks["${map.id}/$cx/$cy"] }
 
+    /** The chunk ([cx], [cy]) of [map], drawn right away when it is not ready yet (a brief pause, once), so the former tiles never show. */
+    fun chunkNow(map: MapDef, cx: Int, cy: Int): PixelImage? {
+        if (!supports(map) || cx < 0 || cy < 0 || cx * CH >= map.width || cy * CH >= map.height) return null
+        chunk(map, cx, cy)?.let { return it }
+        val img = draw(map, cx, cy)
+        synchronized(chunks) { chunks.getOrPut("${map.id}/$cx/$cy") { img } }
+        return chunk(map, cx, cy)
+    }
+
     /** Draws all chunks of [map] in the background, nearest to ([nearX], [nearY]) first (tiles). */
     fun prepare(map: MapDef, nearX: Int = 0, nearY: Int = 0) {
         if (!supports(map)) return
         synchronized(preparing) { if (!preparing.add(map.id)) return }
-        val t = Thread {
-            for ((cx, cy) in order(map, nearX, nearY)) {
-                val k = "${map.id}/$cx/$cy"
-                if (synchronized(chunks) { k in chunks }) continue
-                val img = draw(map, cx, cy)
-                synchronized(chunks) { chunks[k] = img }
-            }
+        // on several cores at once, nearest first (23:04: so the ground is there almost as soon as the map shows)
+        for ((cx, cy) in order(map, nearX, nearY)) workers.execute {
+            val k = "${map.id}/$cx/$cy"
+            if (synchronized(chunks) { k in chunks }) return@execute
+            val img = draw(map, cx, cy)
+            synchronized(chunks) { chunks.getOrPut(k) { img } }
         }
-        t.isDaemon = true
-        t.priority = Thread.MIN_PRIORITY
-        t.start()
     }
+
+    private val workers = java.util.concurrent.Executors.newFixedThreadPool(
+        (Runtime.getRuntime().availableProcessors() - 1).coerceIn(2, 4),
+    ) { r -> Thread(r, "map-ground").also { it.isDaemon = true; it.priority = Thread.NORM_PRIORITY - 1 } }
 
     /** Draws all chunks of [map] right away (for previews and tests). */
     fun prepareNow(map: MapDef) {
