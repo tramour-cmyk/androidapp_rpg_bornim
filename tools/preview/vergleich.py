@@ -60,6 +60,16 @@ def footer(img):
     return out_img
 
 
+if ref == "none":
+    # new drafts: nothing to compare with, the pictures go out as they are
+    import shutil
+    for n in sorted(os.listdir(nachher)):
+        if n.endswith(".png"):
+            shutil.copy(os.path.join(nachher, n), os.path.join(out, n))
+    with open(os.path.join(out, "LIESMICH.txt"), "w") as f:
+        f.write(f"Vorschau vom {stamp} (Berliner Zeit), Zweig {branch}, ohne Vergleich.\n")
+    sys.exit(0)
+
 names = sorted(n for n in os.listdir(nachher) if n.endswith(".png")) if os.path.isdir(nachher) else []
 maps = {}
 for n in names:
