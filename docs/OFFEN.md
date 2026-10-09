@@ -63,6 +63,11 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
+**Zweig-Build 0.1.236** (09.10., 07:22): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37887964935/artifacts/11596269901). Worauf achten:
+- Ghul: Ist der Klauenhieb jetzt zu sehen (einhändig, beidhändig, Sprung)?
+- Goblin-Späher: Startet der Pfeil am Bogen?
+- Goblin-Schamane: Feuerpfeil vom Schädel auf dem Stab, Fluch aus der freien Hand?
+
 **Version v0.1.226** (veröffentlicht 08.10., 18:53): Ghul, Schamane, Fernangriffe, mehr Varianten; inhaltlich wie der freigegebene Zweig-Build 0.1.222.
 
 
