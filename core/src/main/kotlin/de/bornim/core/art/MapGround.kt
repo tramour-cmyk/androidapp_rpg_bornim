@@ -156,64 +156,80 @@ object MapGround {
 
     // ------------------------------------------------------------------ the path
 
-    /** The path as curves in art pixels: one point per row in the middle of the trodden strip. */
-    private val curveCache = HashMap<String, List<DoubleArray>>()
+    /**
+     * The path as a network of short pieces in art pixels, made from the path tiles: narrow
+     * stretches (up to three tiles across a row) become one point in their middle, long runs
+     * across a row one point per tile; points whose tiles touch are joined. Then every point that
+     * just continues the way (two neighbours) is moved towards the middle of its neighbours a few
+     * times, so a staircase of tiles becomes a bend, while crossings and ends stay where they are.
+     * Ends at the edge of the map go on beyond it; other ends fade out. Each piece is
+     * ax, ay, bx, by, a-is-a-dead-end, b-is-a-dead-end.
+     */
+    private val pathCache = HashMap<String, List<DoubleArray>>()
 
-    private fun curves(map: MapDef): List<DoubleArray> = synchronized(curveCache) {
-        curveCache.getOrPut(map.id) {
+    private fun pathPieces(map: MapDef): List<DoubleArray> = synchronized(pathCache) {
+        pathCache.getOrPut(map.id) {
             fun isPath(x: Int, y: Int) = map.inside(x, y) && (map.tile(x, y) == Tile.PATH || map.tile(x, y) == Tile.CAVE_ENTRANCE)
-            fun cx(tx: Double) = (tx + 0.5) * S
-            fun cy(ty: Int) = (ty + 0.5) * S
-            val chains = mutableListOf<MutableList<Pair<Double, Double>>>()
-            var open = listOf<Pair<MutableList<Pair<Double, Double>>, IntRange>>()
+            // nodes: position and the tiles they stand for
+            val px = ArrayList<Double>(); val py = ArrayList<Double>(); val tiles = ArrayList<IntRange>(); val rows = ArrayList<Int>()
+            val nodeAt = HashMap<Long, Int>()
+            fun key(x: Int, y: Int) = x.toLong() * 100000 + y
             for (y in 0 until map.height) {
-                val runs = mutableListOf<IntRange>()
                 var x = 0
-                while (x < map.width) { if (isPath(x, y)) { val a = x; while (x < map.width && isPath(x, y)) x++; runs += a until x } else x++ }
-                val next = mutableListOf<Pair<MutableList<Pair<Double, Double>>, IntRange>>()
-                for (r in runs) {
-                    if (r.count() >= 4) {
-                        // a way off to the side: from its inner end to the edge of the map and beyond
-                        val left = r.first == 0; val right = r.last == map.width - 1
-                        val a = if (left) -1.5 else r.first.toDouble(); val b = if (right) map.width + 0.5 else r.last.toDouble()
-                        chains += mutableListOf(cx(a) to cy(y), cx((a + b) / 2) to cy(y) + S * 0.08, cx(b) to cy(y))
-                        continue
+                while (x < map.width) {
+                    if (!isPath(x, y)) { x++; continue }
+                    val a = x; while (x < map.width && isPath(x, y)) x++
+                    val run = a until x
+                    val parts = if (run.count() <= 3) listOf(run) else run.map { it..it }
+                    for (r in parts) {
+                        val i = px.size
+                        px += (r.first + r.last + 1) / 2.0 * S; py += (y + 0.5) * S; tiles += r; rows += y
+                        for (t in r) nodeAt[key(t, y)] = i
                     }
-                    val mid = (cx(r.first.toDouble()) + cx(r.last.toDouble())) / 2 to cy(y)
-                    val prev = open.firstOrNull { (_, pr) -> r.first <= pr.last + 1 && r.last >= pr.first - 1 }
-                    val chain = prev?.first ?: mutableListOf<Pair<Double, Double>>().also { chains += it }
-                    // a path running off the top of the map goes on beyond it
-                    if (chain.isEmpty() && y == 0) chain += mid.first to -S.toDouble()
-                    chain += mid
-                    next += chain to r
                 }
-                open = next
             }
-            for (c in chains) if (c.size >= 2 && c.last().second >= cy(map.height - 1) - 1) c += c.last().first to (map.height + 1.0) * S
-            chains.filter { it.size >= 2 }.map { c ->
-                // a gentle average, so a staircase of tiles becomes a bend, then a smooth curve through it
-                val sm = if (c.size < 4) c else c.indices.map { i ->
-                    val a = c[maxOf(i - 1, 0)]; val b = c[minOf(i + 1, c.size - 1)]
-                    (a.first + c[i].first * 2 + b.first) / 4 to c[i].second
+            // links between nodes whose tiles touch (also across a corner)
+            val links = HashSet<Long>()
+            val nb = Array(px.size) { ArrayList<Int>() }
+            fun link(i: Int, j: Int) {
+                if (i == j) return
+                val k = minOf(i, j).toLong() * 1_000_000 + maxOf(i, j)
+                if (links.add(k)) { nb[i] += j; nb[j] += i }
+            }
+            for (i in px.indices) for (t in tiles[i]) for (dy in -1..1) for (dx in -1..1) {
+                if (dx == 0 && dy == 0) continue
+                val j = nodeAt[key(t + dx, rows[i] + dy)] ?: continue
+                // a corner link only where the two are not already joined straight
+                if (dx != 0 && dy != 0 && (nodeAt[key(t + dx, rows[i])] != null || nodeAt[key(t, rows[i] + dy)] != null)) continue
+                link(i, j)
+            }
+            // smoothing: points that only continue the way move towards their neighbours
+            repeat(4) {
+                val nx = px.toDoubleArray(); val ny = py.toDoubleArray()
+                for (i in px.indices) if (nb[i].size == 2) {
+                    val (a, b) = nb[i]
+                    nx[i] = px[i] * 0.5 + (px[a] + px[b]) * 0.25
+                    ny[i] = py[i] * 0.5 + (py[a] + py[b]) * 0.25
                 }
-                catmull(sm)
+                for (i in px.indices) { px[i] = nx[i]; py[i] = ny[i] }
             }
-        }
-    }
-
-    /** Catmull-Rom through the points, sampled densely; returned as x0, y0, x1, y1, … */
-    private fun catmull(p: List<Pair<Double, Double>>, n: Int = 10): DoubleArray {
-        val out = ArrayList<Double>()
-        for (i in 0 until p.size - 1) {
-            val p0 = p[maxOf(i - 1, 0)]; val p1 = p[i]; val p2 = p[i + 1]; val p3 = p[minOf(i + 2, p.size - 1)]
-            for (k in 0 until n) {
-                val t = k / n.toDouble(); val t2 = t * t; val t3 = t2 * t
-                fun c(a: Double, b: Double, cc: Double, d: Double) = 0.5 * (2 * b + (-a + cc) * t + (2 * a - 5 * b + 4 * cc - d) * t2 + (-a + 3 * b - 3 * cc + d) * t3)
-                out += c(p0.first, p1.first, p2.first, p3.first); out += c(p0.second, p1.second, p2.second, p3.second)
+            val out = ArrayList<DoubleArray>()
+            fun deadEnd(i: Int) = nb[i].size <= 1
+            for (k in links) {
+                val i = (k / 1_000_000).toInt(); val j = (k % 1_000_000).toInt()
+                out += doubleArrayOf(px[i], py[i], px[j], py[j], if (deadEnd(i)) 1.0 else 0.0, if (deadEnd(j)) 1.0 else 0.0)
             }
+            // ends at the edge of the map run on beyond it
+            for (i in px.indices) if (deadEnd(i)) {
+                val r = tiles[i]; val y = rows[i]
+                val ex = when { r.first == 0 -> -1.5 * S; r.last == map.width - 1 -> (map.width + 1.5) * S; else -> null }
+                val ey = when { y == 0 -> -1.5 * S; y == map.height - 1 -> (map.height + 1.5) * S; else -> null }
+                if (ex != null || ey != null) out += doubleArrayOf(px[i], py[i], ex ?: px[i], ey ?: py[i], 0.0, 0.0)
+                // a lone point (a path of one tile) still shows as a small patch
+                if (nb[i].isEmpty() && ex == null && ey == null) out += doubleArrayOf(px[i], py[i], px[i], py[i], 1.0, 1.0)
+            }
+            out
         }
-        out += p.last().first; out += p.last().second
-        return out.toDoubleArray()
     }
 
     /** Distance to the piece from a to b; where along it the nearest point lies (0 start, 1 end) goes into [where]. */
@@ -235,16 +251,9 @@ object MapGround {
         // the parts of the path near this chunk
         val margin = 80.0
         val segs = ArrayList<DoubleArray>()
-        for (c in curves(map)) {
-            var i = 0
-            while (i + 3 < c.size) {
-                val ax = c[i]; val ay = c[i + 1]; val bx = c[i + 2]; val by = c[i + 3]
-                // whether this piece starts or ends the whole path (there it fades out, without ruts)
-                val first = if (i == 0) 1.0 else 0.0; val last = if (i + 4 >= c.size) 1.0 else 0.0
-                if (maxOf(ax, bx) >= ox - margin && minOf(ax, bx) <= ox + size + margin && maxOf(ay, by) >= oy - margin && minOf(ay, by) <= oy + size + margin)
-                    segs += doubleArrayOf(ax, ay, bx, by, first, last)
-                i += 2
-            }
+        for (s in pathPieces(map)) {
+            val ax = s[0]; val ay = s[1]; val bx = s[2]; val by = s[3]
+            if (maxOf(ax, bx) >= ox - margin && minOf(ax, bx) <= ox + size + margin && maxOf(ay, by) >= oy - margin && minOf(ay, by) <= oy + size + margin) segs += s
         }
         val col = DoubleArray(3); val tmp = DoubleArray(3); val where = DoubleArray(1)
         val tall = BooleanArray(size * size)
@@ -269,10 +278,25 @@ object MapGround {
             // the path: a broad cart track about a tile wide, a trampled verge of flattened grass
             // beside it, lighter where feet go in the middle, two ruts with puddles here and there
             if (segs.isNotEmpty()) {
-                var d = Double.MAX_VALUE; var cap = false
+                var d = Double.MAX_VALUE; var cap = false; var near: DoubleArray? = null
                 for (s in segs) {
                     val dd = segDist(x, y, s[0], s[1], s[2], s[3], where)
-                    if (dd < d) { d = dd; cap = (s[4] > 0 && where[0] <= 0.0) || (s[5] > 0 && where[0] >= 1.0) }
+                    if (dd < d) { d = dd; near = s; cap = (s[4] > 0 && where[0] <= 0.0) || (s[5] > 0 && where[0] >= 1.0) }
+                }
+                // at crossings and where the way is wider than one track, no ruts: they would run in rings
+                var other = Double.MAX_VALUE
+                val n0 = near
+                if (n0 != null) for (s in segs) {
+                    if (s === n0) continue
+                    val touches = (s[0] == n0[0] && s[1] == n0[1]) || (s[0] == n0[2] && s[1] == n0[3]) || (s[2] == n0[0] && s[3] == n0[1]) || (s[2] == n0[2] && s[3] == n0[3])
+                    if (touches) {
+                        // a piece that continues this one only counts if it bends away sharply
+                        val ax = n0[2] - n0[0]; val ay = n0[3] - n0[1]; val bx = s[2] - s[0]; val by = s[3] - s[1]
+                        val la = sqrt(ax * ax + ay * ay); val lb = sqrt(bx * bx + by * by)
+                        if (la == 0.0 || lb == 0.0 || abs(ax * bx + ay * by) / (la * lb) > 0.5) continue
+                    }
+                    val dd = segDist(x, y, s[0], s[1], s[2], s[3], where)
+                    if (dd < other) other = dd
                 }
                 // past the end of the path: the track narrows and fades into the grass
                 if (cap) d *= 1.6
@@ -285,7 +309,7 @@ object MapGround {
                     // the middle, between the ruts, is trodden lighter; the ruts are deep and dark
                     val mid = (1 - d / 10).coerceIn(0.0, 1.0)
                     for (i in 0..2) tmp[i] += (PATH_HI[i] - tmp[i]) * mid * 0.35
-                    val rut = !cap && abs(d - 14) < 2.4 + (vnoise(x, y, 14.0, 19) - 0.5) * 1.6
+                    val rut = !cap && other > 46 && abs(d - 14) < 2.4 + (vnoise(x, y, 14.0, 19) - 0.5) * 1.6
                     if (rut) {
                         if (vnoise(x, y, 30.0, 20) > 0.72) { for (i in 0..2) tmp[i] = PUDDLE[i].toDouble(); if (vnoise(x, y, 3.0, 21) > 0.8) for (i in 0..2) tmp[i] += (GLINT[i] - tmp[i]) * 0.4 }
                         else for (i in 0..2) tmp[i] += (RUT[i] - tmp[i]) * 0.6
