@@ -48,8 +48,9 @@ object MapGrade {
     /** The outline colors that are replaced by a darker shade of the neighbouring color. */
     private val outlines = setOf(Pal.OUTLINE and 0xFFFFFF, Pal.BLACK and 0xFFFFFF, 0x0E1610)
 
-    /** Width of a key's pull in RGB distance. */
-    private const val REACH = 34.0
+    /** Width of a key's pull in RGB distance: wide enough for the shading around a key color, narrow
+     *  enough that colors which are already muted (caves, the newer trees) are left mostly alone. */
+    private const val REACH = 24.0
 
     private val memo = HashMap<Int, Int>()
 
@@ -62,17 +63,20 @@ object MapGrade {
 
     private fun shift(rgb: Int): Int {
         val r = (rgb shr 16) and 0xFF; val g = (rgb shr 8) and 0xFF; val b = rgb and 0xFF
-        var wSum = 0.0; var dr = 0.0; var dg = 0.0; var db = 0.0
+        // the shift is a mix of the keys' shifts, the nearest weighing most (an exact key keeps its
+        // own target); how much of it applies depends on how near any key is at all
+        var wSum = 0.0; var near = 0.0; var dr = 0.0; var dg = 0.0; var db = 0.0
         for ((from, to) in keys) {
             val fr = (from shr 16) and 0xFF; val fg = (from shr 8) and 0xFF; val fb = from and 0xFF
             val d2 = ((r - fr) * (r - fr) + (g - fg) * (g - fg) + (b - fb) * (b - fb)).toDouble()
-            val w = exp(-d2 / (REACH * REACH))
-            if (w < 1e-4) continue
-            wSum += w
+            val e = exp(-d2 / (REACH * REACH))
+            if (e < 1e-4) continue
+            val w = e / (d2 + 1)
+            near += e; wSum += w
             dr += w * (((to shr 16) and 0xFF) - fr); dg += w * (((to shr 8) and 0xFF) - fg); db += w * ((to and 0xFF) - fb)
         }
         // near a key: its shift; far from all keys: a general muting; in between a blend
-        val k = wSum.coerceAtMost(1.0)
+        val k = near.coerceAtMost(1.0)
         val kr: Double; val kg: Double; val kb: Double
         if (wSum > 0) { kr = r + dr / wSum; kg = g + dg / wSum; kb = b + db / wSum } else { kr = r.toDouble(); kg = g.toDouble(); kb = b.toDouble() }
         val (mr, mg, mb) = mute(r, g, b)
@@ -80,12 +84,14 @@ object MapGrade {
         return (ch(kr, mr) shl 16) or (ch(kg, mg) shl 8) or ch(kb, mb)
     }
 
-    /** General muting: less saturation, a touch darker, slightly warm and earthy. */
+    /** General muting: less saturation, a touch darker, slightly warm and earthy; the more colorful
+     *  a color is, the more it is muted, so earthy colors stay as they are. */
     private fun mute(r: Int, g: Int, b: Int): Triple<Double, Double, Double> {
         val lum = 0.3 * r + 0.59 * g + 0.11 * b
-        val sat = 0.62
-        val dark = 0.86
-        fun m(c: Int, warm: Double) = ((lum + (c - lum) * sat) * dark + warm).coerceIn(0.0, 255.0)
+        val st = ((maxOf(r, g, b) - minOf(r, g, b)) / 110.0).coerceAtMost(1.0)
+        val sat = 1 - 0.4 * st
+        val dark = 1 - 0.14 * st
+        fun m(c: Int, warm: Double) = ((lum + (c - lum) * sat) * dark + warm * st).coerceIn(0.0, 255.0)
         return Triple(m(r, 2.0), m(g, 0.0), m(b, -4.0))
     }
 
