@@ -729,7 +729,6 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 light == BattleArt.Light.DUSK -> Color(0xFFF4D2C4)
                 else -> null
             }
-            val shakeX = if (a == Anim.HERO_HIT && heroT < 0.99f) (sin(heroT * 40) * 8).dp else 0.dp
 
             val moving = t in 0.01f..0.99f
             // the foe struck: darkened towards blood red, fading
@@ -1099,7 +1098,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             Box(
                 Modifier
                     .offset(
-                        x = sceneW * heroX - artDp * HeroBattle.ANCHOR_X.toFloat() + shakeX - (intro.value * 260).dp + dodge(true) + lungeOff.x + heroSway,
+                        x = sceneW * heroX - artDp * HeroBattle.ANCHOR_X.toFloat() - (intro.value * 260).dp + dodge(true) + lungeOff.x + heroSway,
                         y = sceneH * heroY - artDp * HeroBattle.GROUND.toFloat() + lungeOff.y,
                     )
                     .graphicsLayer {

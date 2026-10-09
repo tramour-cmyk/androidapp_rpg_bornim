@@ -60,7 +60,9 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - Kritische Treffer: kurzes Rütteln des Bildes. Störend oder passend?
 - Zuckt der Getroffene im richtigen Moment, kommen Blut und Geräusch mit dem Aufprall?
 - **Ghul** (gemeldet 08.10.: Klauenangriff nicht zu sehen): Ist der Klauenhieb jetzt zu sehen (einhändig, beidhändig, Sprung)?
-- **Goblin-Späher** (gemeldet 08.10.: Pfeil startet nicht am Bogen): Startet der Pfeil am Bogen? Beim Schamanen: Feuerpfeil vom Schädel auf dem Stab, Fluch aus der freien Hand?
+- **Goblin-Späher** (gemeldet 08.10.: Pfeil startet nicht am Bogen): von dir bestätigt (09.10.). Beim Schamanen noch offen: Feuerpfeil vom Schädel auf dem Stab, Fluch aus der freien Hand?
+- Treffer am Monster: von dir bestätigt (09.10.).
+- **Held zittert bei jedem Treffer (gemeldet 09.10.):** Das war ein altes seitliches Wackeln des Helden bei jedem Treffer, unabhängig vom neuen Rütteln bei kritischen Treffern. Entfernt; kommt mit dem nächsten Build.
 
 **Folgt im nächsten Build: Tatendrang einmal pro Rast** (deine Entscheidung 09.10., Möglichkeit c): Tatendrang steht nach dem Einsatz erst nach einer Rast am Lagerfeuer oder im Gasthaus wieder bereit (auch ein Stufenaufstieg füllt auf). Im Kampfmenü steht „0/1“, solange er verbraucht ist.
 
