@@ -380,7 +380,7 @@ private fun travelMap(cell: Int, heroX: Int, heroY: Int, explored: Boolean): Buf
     if (seen(10, 1)) {
         // the cave: a dark arch in the rock line at the top
         val px = cx(10); val py = cy(0) + cell * 0.2
-        g.color = Color(40, 30, 24); g.fill(java.awt.geom.Arc2D.Double(px - 14, py - 14, 28, 28, 0.0, 180.0, java.awt.geom.Arc2D.CHORD))
+        g.color = Color(40, 30, 24); g.fill(java.awt.geom.Arc2D.Double(px - 14, py - 14, 28.0, 28.0, 0.0, 180.0, java.awt.geom.Arc2D.CHORD))
         label("Blutzahn-Höhle", px, py - 22)
     }
     label("Garricks Feuer", cx(11), cy(9) + cell * 1.4)
