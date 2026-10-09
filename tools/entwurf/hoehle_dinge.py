@@ -509,6 +509,59 @@ def sheet():
     return big, lamp
 
 
+ALL = [("Stalagmit", "stalagmit"), ("Kisten und Vorräte", "kisten"), ("Knochen", "knochen"), ("Schlafplatz", "schlafplatz"),
+       ("Felsblock", "felsblock"), ("Geröll", "geroell"), ("Leuchtpilze", "leuchtpilze"), ("Kristalle", "kristalle"),
+       ("Stützbalken", "stuetzbalken"), ("Gitter", "gitter"), ("Lagerfeuer", "lagerfeuer"), ("Truhe", "truhe"), ("Wurzeln am Lichtschacht", "wurzeln")]
+
+
+def sheet_all(part):
+    """All things in three looks each, on the cave floor, in two halves; and once more in lantern light."""
+    keep = old.ROWS
+    old.ROWS = ["_" * len(keep[0])] * len(keep)
+    g, *_ = old.ground()
+    old.ROWS = keep
+    rows = ALL[:7] if part == 1 else ALL[7:]
+    lw, cw, ch = 130, 190, 175
+    Wd, Hd = lw + 3 * cw, len(rows) * ch + 30
+    bg = np.zeros((Hd, Wd, 3))
+    for y in range(0, Hd, g.shape[0]):
+        hh = min(g.shape[0], Hd - y); bg[y:y + hh] = g[:hh, :Wd]
+    cv = bg.copy()
+    for r, (label, name) in enumerate(rows):
+        for v in range(3):
+            im, ax, ay = kotlin(name, v)
+            if name == "wurzeln":
+                old.blit_any(cv, im, int(lw + v * cw + cw / 2 - ax), int(30 + r * ch + 10))
+            else:
+                old.blit_any(cv, im, int(lw + v * cw + cw / 2 - ax), int(30 + r * ch + ch - 18 - ay))
+    out = Image.fromarray(np.clip(cv, 0, 255).astype(np.uint8))
+    d = ImageDraw.Draw(out)
+    d.rectangle([0, 0, Wd, 26], fill=(18, 16, 16))
+    for v in range(3):
+        d.text((lw + v * cw + 12, 8), f"Variante {v + 1}", fill=(224, 216, 200))
+    for r, (label, _) in enumerate(rows):
+        d.rectangle([0, 30 + r * ch, lw - 8, 30 + r * ch + ch], fill=(18, 16, 16))
+        d.text((8, 30 + r * ch + ch / 2 - 6), label, fill=(224, 216, 200))
+    a = np.array(out).astype(float)
+    yy, xx = np.mgrid[0:Hd, 0:Wd]
+    # lantern light moving along each row, as in the game (MapLight: ambient and a warm light)
+    lc = np.ones((Hd, Wd, 3)) * np.array([0.13, 0.13, 0.18])
+    for r in range(len(rows)):
+        lc += np.exp(-(((xx - lw - 1.5 * cw) / (2.2 * cw)) ** 2 + ((yy - 30 - r * ch - ch * 0.6) / (0.9 * ch)) ** 2) * 2)[..., None] * (col(0xFFD4A8) / 255) * 0.95
+    lit_ = a.copy(); lit_[30:, lw:] = a[30:, lw:] * np.clip(lc[30:, lw:], 0, 1.2)
+    big = out.resize((Wd * 2, Hd * 2), Image.NEAREST)
+    lamp = Image.fromarray(np.clip(lit_, 0, 255).astype(np.uint8)).resize((Wd * 2, Hd * 2), Image.NEAREST)
+    return big, lamp
+
+
+if __name__ == "__main__" and len(sys.argv) > 2 and sys.argv[2] == "alle":
+    for part in (1, 2):
+        big, lamp = sheet_all(part)
+        big.save(f"{OUT}/hoehle_dinge_alle_{part}.png")
+        lamp.save(f"{OUT}/hoehle_dinge_alle_{part}_licht.png")
+    print("ok")
+    sys.exit(0)
+
 if __name__ == "__main__":
     big, lamp = sheet()
     big.save(f"{OUT}/hoehle_dinge_muster.png")

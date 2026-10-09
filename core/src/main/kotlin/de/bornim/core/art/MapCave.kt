@@ -1,6 +1,7 @@
 package de.bornim.core.art
 
 import kotlin.math.PI
+import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -9,7 +10,7 @@ import kotlin.math.sin
  * gear and the foes: real shapes lit from the upper left, the materials' ramps (drip-stone, old wood, bone, fur,
  * straw, sacking), grain and dirt. At double resolution like [MapGround]; seen at a slant from above.
  *
- * Draft stage (09.10.): a sample of four kinds with two looks each, for the preview sheet (HOEHLEDINGE=1).
+ * Draft stage (09.10.): every kind in three looks, for the preview sheet (HOEHLEDINGE=1); not used on the map yet.
  */
 object MapCave {
     class Sprite(val img: PixelImage, val ax: Int, val ay: Int)
@@ -32,7 +33,20 @@ object MapCave {
     // the goblins' timber: grey, weathered, dark where hands and soot have been
     private val plank = m(0x5E4C3A, grain = 0.22, sat = 0.75, value = 0.82)
     private val plankDark = m(0x40322A, grain = 0.2, sat = 0.75, value = 0.85)
+    private val plankLid = m(0x524236, grain = 0.22, sat = 0.75, value = 0.7)
     private val iron = m(0x4A4440, shine = 0.35, grain = 0.25, sat = 0.6)
+    private val rust = m(0x5A3E2C, shine = 0.15, grain = 0.35, sat = 0.8, value = 0.85)
+    // cave rock, lichen; the things that glow; fire
+    private val rock = m(0x5E564C, grain = 0.26, sat = 0.7, value = 0.85)
+    private val rockDark = m(0x3E3832, grain = 0.26, sat = 0.7)
+    private val stem = m(0x8C9A90, grain = 0.15, sat = 0.5)
+    private val cap = m(0x2E8C88, shine = 0.4, grain = 0.12, value = 0.95)
+    private val crystal = m(0x7A52C8, shine = 0.9, grain = 0.05, value = 0.95)
+    private val crystalDark = m(0x4A2E86, shine = 0.6, grain = 0.05)
+    private val charred = m(0x2A2220, grain = 0.3, sat = 0.5)
+    private val root = m(0x4A3A2A, grain = 0.25, sat = 0.75)
+    private val moss = m(0x3E4A2A, grain = 0.4, sat = 0.7, value = 0.8)
+    private val meat = m(0x6A2E24, shine = 0.3, grain = 0.25, value = 0.8)
     // old bone, yellowed and stained
     private val bone = m(0xA89A7C, shine = 0.08, grain = 0.22, sat = 0.75)
     private val boneDark = m(0x7A6C54, grain = 0.25, sat = 0.75)
@@ -71,9 +85,18 @@ object MapCave {
         s.chain(sinter, *pts.subList(9, pts.size).toDoubleArray())
         val tx = pts[pts.size - 3]; val ty = pts[pts.size - 2]; val tr = pts[pts.size - 1]
         if (broken) {
-            // the break: a rough, pale face looking up
-            s.blob(tx, ty, tr * 1.05, tr * 0.45, sinterBreak, depth = 0.35)
-            s.line(tx - tr * 0.5, ty, tx + tr * 0.3, ty - 1, crackColor)
+            // the break: a jagged, pale face looking up that hides the round end of the column
+            val b = ArrayList<Double>()
+            val nb = 9
+            for (i in 0..nb) {
+                val f = i.toDouble() / nb
+                b += tx - tr * 1.08 + f * tr * 2.16; b += ty - tr * (0.15 + 0.55 * rnd(seed, i, 6)) - tr * 0.35 * sin(f * PI)
+            }
+            b += tx + tr * 1.05; b += ty + tr * 0.55
+            b += tx - tr * 1.05; b += ty + tr * 0.55
+            s.poly(sinterBreak, *b.toDoubleArray(), tiltY = -0.65, bevel = 1.8)
+            s.line(tx - tr * 0.5, ty - tr * 0.2, tx + tr * 0.3, ty - tr * 0.35, crackColor)
+            s.line(tx - tr * 1.04, ty + tr * 0.5, tx + tr * 1.04, ty + tr * 0.5, argb(0x4A4236))
         } else {
             s.blob(tx, ty - tr * 0.2, tr * 0.95, tr * 0.8, sinter)
             s.flat(tx + 0.5, ty - tr * 0.45, 1.2, 0.7, crackColor)       // where the drop falls
@@ -91,19 +114,16 @@ object MapCave {
         val cx = w / 2.0; val foot = h - 14.0
         // flowstone spreading over the floor at the foot
         s.blob(cx, foot - 2, 34.0, 9.0, sinterLow, depth = 0.4)
-        when (variant % 2) {
+        when (variant % 3) {
             0 -> {
                 column(s, cx + 18, foot, 46.0, 11.0, 11)
                 column(s, cx, foot, 96.0, 20.0, 12)
                 column(s, cx - 20, foot + 2, 36.0, 10.0, 13)
             }
-            else -> {
+            1 -> {
                 // an old column snapped off at knee height: a wide, low stump with a jagged break,
                 // the rest lying shattered in pieces around it
-                column(s, cx - 2, foot, 64.0, 26.0, 21, broken = true)
-                val bx = cx - 2; val by = foot - 64 * 0.55 + 2
-                s.poly(sinterBreak, bx - 21, by + 3, bx - 12, by - 7, bx - 3, by - 1, bx + 5, by - 11, bx + 13, by - 3, bx + 21, by + 2, bx + 12, by + 8, bx - 10, by + 8, tiltY = -0.6, bevel = 1.5)
-                s.line(bx - 8, by - 1, bx + 6, by - 3, crackColor)
+                column(s, cx - 2, foot, 70.0, 26.0, 21, broken = true)
                 for ((i, p) in listOf(Triple(30.0, 2.0, 8.0), Triple(42.0, -4.0, 6.0), Triple(-34.0, 3.0, 7.0), Triple(22.0, 8.0, 4.0)).withIndex()) {
                     val (ox, oy, r) = p
                     val x = cx + ox; val y = foot + oy
@@ -111,6 +131,15 @@ object MapCave {
                     s.line(x - r * 0.3, y - r * 0.5, x + r * 0.2, y + r * 0.2, crackColor)
                     if (i == 0) s.poly(sinterBreak, x - r * 0.4, y - r * 0.8, x + r * 0.6, y - r * 0.6, x + r * 0.2, y - r * 0.2, tiltY = -0.7, bevel = 0.8)
                 }
+            }
+            else -> {
+                // two columns grown into one over a wide skirt of flowstone, a thin straw between them
+                s.blob(cx, foot - 4, 40.0, 11.0, sinterLow, depth = 0.5)
+                column(s, cx - 13, foot, 88.0, 17.0, 31)
+                column(s, cx + 12, foot, 70.0, 16.0, 32)
+                s.blob(cx, foot - 30, 13.0, 16.0, sinter)
+                s.blob(cx - 1, foot - 52, 9.0, 11.0, sinter)
+                column(s, cx + 30, foot + 3, 22.0, 6.0, 33)
             }
         }
         return done(s, w / 2, h - 14)
@@ -125,7 +154,7 @@ object MapCave {
         val l = cx - half; val r = cx + half
         // front, facing us; lid, facing up
         s.poly(plank, l, by, r, by, r + skew, by - fh, l + skew, by - fh, tiltY = 0.25, bevel = 1.6)
-        s.poly(plank, l + skew, by - fh, r + skew, by - fh, r + skew * 1.4, by - fh - th, l + skew * 1.4, by - fh - th, tiltY = -0.75, bevel = 1.2)
+        s.poly(plankLid, l + skew, by - fh, r + skew, by - fh, r + skew * 1.4, by - fh - th, l + skew * 1.4, by - fh - th, tiltY = -0.55, bevel = 1.2)
         // planks: gaps across the front, along the lid
         var y = by
         var k = 0
@@ -170,13 +199,26 @@ object MapCave {
         val w = 100; val h = 110
         val s = Sculpt(w, h, 600 + variant)
         val cx = w / 2.0; val foot = h - 12.0
-        if (variant % 2 == 0) {
+        if (variant % 3 == 2) {
+            // a barrel, its staves swelling, iron hoops, the lid knocked askew
+            s.chain(plank, cx, foot - 2, 15.0, cx, foot - 20, 18.0, cx, foot - 40, 15.0)
+            for (k in -3..3) s.line(cx + k * 4.6, foot - 38, cx + k * 5.2, foot - 3, crackColor)
+            for (hy in doubleArrayOf(foot - 7, foot - 21, foot - 35)) {
+                val r = if (hy == foot - 21) 18.2 else 16.0
+                s.poly(iron, cx - r, hy - 1.6, cx + r, hy - 1.6, cx + r, hy + 1.6, cx - r, hy + 1.6, tiltY = 0.1, bevel = 0.8)
+            }
+            s.blob(cx, foot - 42, 14.5, 5.0, plankDark, depth = 0.2)
+            s.flat(cx + 2, foot - 42, 10.0, 3.0, holeColor)
+            s.poly(plankLid, cx - 6, foot - 46, cx + 18, foot - 52, cx + 21, foot - 47, cx - 3, foot - 41, tiltY = -0.6, bevel = 1.0)
+            s.tint(cx, foot - 4, 18.0, 8.0, argb(0x1E1812), 0.35)
+        } else if (variant % 3 == 0) {
             crate(s, cx - 3, foot, 22.0, 31)
             crate(s, cx + 4, foot - 36, 16.0, 32)
         } else {
             crate(s, cx + 6, foot, 18.0, 41, smashed = true)
             // a sack slumped against it
-            s.blob(cx - 18, foot - 11, 11.0, 12.0, sacking, depth = 0.8)
+            s.blob(cx - 18, foot - 9, 12.0, 10.0, sacking, depth = 0.8)
+            s.blob(cx - 17, foot - 17, 9.0, 7.0, sacking, depth = 0.8)
             s.blob(cx - 19, foot - 24, 6.0, 4.0, sacking)
             s.limb(cx - 21, foot - 27, cx - 18, foot - 33, 2.0, 1.4, sacking)
             s.line(cx - 24, foot - 25, cx - 14, foot - 26, argb(0x2A2016))
@@ -215,7 +257,18 @@ object MapCave {
         val w = 120; val h = 80
         val s = Sculpt(w, h, 700 + variant)
         val cx = w / 2.0; val foot = h - 16.0
-        if (variant % 2 == 0) {
+        if (variant % 3 == 2) {
+            // what is left of a goblin: scattered bones, the small skull, a dented iron cap, a broken blade
+            for (i in 0 until 7) boneAt(s, cx - 34 + rnd(i, 1, 72) * 64, foot - 2 - rnd(i, 2, 72) * 14, rnd(i, 3, 72) * 180, 8 + rnd(i, 4, 72) * 9, 1.3, if (i % 2 == 0) bone else boneDark)
+            for (k in 0 until 4) s.chain(boneDark, cx - 4 + k * 4.0, foot - 12.0, 1.0, cx - 1 + k * 4.0, foot - 6.0, 1.0, cx - 3 + k * 4.0, foot - 1.0, 0.8)
+            skull(s, cx + 14, foot - 10, 0.8)
+            s.blob(cx - 18, foot - 12, 9.0, 6.5, rust)
+            s.poly(rust, cx - 28, foot - 10, cx - 8, foot - 10, cx - 9, foot - 7, cx - 27, foot - 7, tiltY = 0.3, bevel = 1.0)
+            s.line(cx - 22, foot - 16, cx - 17, foot - 13, holeColor)
+            s.poly(iron, cx + 4, foot + 2, cx + 26, foot - 4, cx + 27, foot - 1, cx + 6, foot + 5, tiltY = -0.4, bevel = 0.8)
+            s.poly(iron, cx + 27, foot - 4, cx + 31, foot - 6, cx + 30, foot - 1, cx + 27, foot - 1, tiltY = -0.4, bevel = 0.6)
+            s.limb(cx - 2, foot + 5, cx + 4, foot + 3, 1.6, 1.6, plankDark)
+        } else if (variant % 3 == 0) {
             // a heap pushed together: long bones crossing, three skulls on top
             for (i in 0 until 14) {
                 boneAt(s, cx - 26 + rnd(i, 1, 70) * 52, foot - 4 - rnd(i, 2, 70) * 14, rnd(i, 3, 70) * 180, 10 + rnd(i, 4, 70) * 12, 1.4 + rnd(i, 5, 70) * 0.8, if (i % 3 == 0) boneDark else bone)
@@ -260,7 +313,18 @@ object MapCave {
         val w = 120; val h = 70
         val s = Sculpt(w, h, 800 + variant)
         val cx = w / 2.0; val cy = h - 26.0
-        if (variant % 2 == 0) {
+        if (variant % 3 == 2) {
+            // a bedroll still tied up, a bundle and a water skin beside it
+            s.limb(cx - 26, cy + 2, cx + 18, cy + 2, 8.0, 8.0, sacking)
+            s.blob(cx + 18, cy + 2, 4.5, 8.0, sacking, depth = 0.5)
+            s.flat(cx + 19, cy + 2, 3.0, 5.5, argb(0x3A3024))
+            s.flat(cx + 19, cy + 2, 1.4, 2.5, argb(0x5E4E3A))
+            for (sx in doubleArrayOf(cx - 14, cx + 6)) s.poly(plankDark, sx - 2, cy - 7, sx + 2, cy - 7, sx + 2, cy + 10, sx - 2, cy + 10, tiltY = 0.1, bevel = 0.8)
+            s.blob(cx - 38, cy + 4, 9.0, 7.0, sacking)
+            s.limb(cx - 38, cy - 3, cx - 36, cy - 8, 2.4, 1.6, sacking)
+            s.blob(cx + 36, cy + 6, 7.0, 5.0, hideDark)
+            s.limb(cx + 36, cy + 1, cx + 38, cy - 3, 1.8, 1.2, hideDark)
+        } else if (variant % 3 == 0) {
             // a wolf hide, flat on the stone: head with ears and empty eyes, legs spread, tail
             for ((lx, sy) in listOf(-20.0 to -1.0, -20.0 to 1.0, 20.0 to -1.0, 20.0 to 1.0)) {
                 val ox = if (lx > 0) 7.0 else -7.0
@@ -303,7 +367,7 @@ object MapCave {
                 s.line(x0, y0, x0 + cos(a) * len, y0 + sin(a) * len * 0.5, colors[i % 4])
             }
             // a torn sack laid flat over one end, rumpled
-            s.poly(sacking, cx + 2, cy - 9, cx + 22, cy - 11, cx + 34, cy - 4, cx + 30, cy + 8, cx + 12, cy + 10, cx + 4, cy + 4, tiltY = -0.45, bevel = 2.5)
+            s.poly(hideDark, cx + 2, cy - 9, cx + 22, cy - 11, cx + 34, cy - 4, cx + 30, cy + 8, cx + 12, cy + 10, cx + 4, cy + 4, tiltY = -0.3, bevel = 2.5)
             for (j in 0 until 3) s.line(cx + 8 + j * 8, cy - 9, cx + 6 + j * 8, cy + 8, argb(0x3A3024))
             s.poly(Mat(Ramp.of(argb(0x2A2016)), inline = false), cx + 18, cy + 1, cx + 24, cy - 1, cx + 22, cy + 4, bevel = 0.0)
             // a few straws lying over its edge
@@ -313,5 +377,292 @@ object MapCave {
             }
         }
         return done(s, w / 2, h - 14)
+    }
+
+    // ------------------------------------------------------------------ rock
+
+    /** An irregular stone: a faceted outline, rounded at the edges, with a lit top face. */
+    private fun stone(s: Sculpt, x: Double, y: Double, r: Double, seed: Int, mat: Mat = rock, squash: Double = 0.7) {
+        val n = 8
+        val pts = DoubleArray(n * 2)
+        for (i in 0 until n) {
+            val a = i * 2 * PI / n + rnd(seed, i, 1) * 0.5
+            val rr = r * (0.78 + rnd(seed, i, 2) * 0.4)
+            pts[i * 2] = x + cos(a) * rr; pts[i * 2 + 1] = y + sin(a) * rr * squash
+        }
+        s.poly(mat, *pts, tiltY = -0.15, bevel = r * 0.55)
+        // the top: a flatter face catching the light
+        s.poly(mat, x - r * 0.55, y - r * squash * 0.35, x + r * 0.1, y - r * squash * 0.8, x + r * 0.6, y - r * squash * 0.45, x + r * 0.2, y - r * squash * 0.05, tiltY = -0.7, bevel = r * 0.2)
+    }
+
+    fun boulder(variant: Int): Sprite {
+        val w = 110; val h = 90
+        val s = Sculpt(w, h, 900 + variant)
+        val cx = w / 2.0; val foot = h - 14.0
+        when (variant % 3) {
+            0 -> {
+                stone(s, cx + 22, foot - 6, 12.0, 91, rockDark)
+                stone(s, cx - 4, foot - 20, 30.0, 92)
+                stone(s, cx - 30, foot - 4, 9.0, 93)
+            }
+            1 -> {
+                // split in two by frost and water, the halves leaning apart
+                stone(s, cx - 13, foot - 18, 22.0, 94)
+                stone(s, cx + 15, foot - 16, 20.0, 95, rockDark)
+                s.poly(Mat(Ramp.of(holeColor), inline = false), cx + 1, foot - 36, cx + 4, foot - 36, cx + 3, foot - 2, cx, foot - 2, bevel = 0.0)
+            }
+            else -> {
+                // a flat slab tipped against a smaller stone
+                stone(s, cx + 18, foot - 8, 11.0, 96, rockDark)
+                s.poly(rock, cx - 36, foot - 4, cx + 22, foot - 22, cx + 30, foot - 14, cx - 28, foot + 4, tiltY = -0.5, bevel = 3.0)
+                s.poly(rockDark, cx - 28, foot + 4, cx + 30, foot - 14, cx + 30, foot - 10, cx - 27, foot + 7, tiltY = 0.4, bevel = 1.0)
+            }
+        }
+        // lichen and grime
+        for (i in 0 until 4) s.tint(cx - 20 + rnd(i, variant, 97) * 40, foot - 30 + rnd(i, variant, 98) * 22, 5.0, 3.0, argb(0x4A5236), 0.35)
+        return done(s, w / 2, h - 14)
+    }
+
+    fun rubble(variant: Int): Sprite {
+        val w = 120; val h = 80
+        val s = Sculpt(w, h, 1000 + variant)
+        val cx = w / 2.0; val foot = h - 14.0
+        val count = when (variant % 3) { 0 -> 22; 1 -> 14; else -> 12 }
+        val spread = when (variant % 3) { 0 -> 26.0; 1 -> 44.0; else -> 36.0 }
+        val pile = (0 until count).map { i ->
+            val big = 1 - rnd(i, variant, 2) * 0.8
+            Triple(cx + (rnd(i, variant, 3) - 0.5) * spread * 2 * (1.2 - big * 0.5), foot - 4 - rnd(i, variant, 4) * (if (variant % 3 == 0) 16.0 else 8.0) * big, 3 + big * big * 10)
+        }.sortedBy { it.second }
+        for ((i, p) in pile.withIndex()) stone(s, p.first, p.second, p.third, 1000 + i + variant * 50, if (i % 3 == 0) rockDark else rock)
+        if (variant % 3 == 2) {
+            // a broken prop of timber in the fall of stones
+            s.poly(plankDark, cx - 34, foot - 2, cx + 18, foot - 16, cx + 21, foot - 11, cx - 31, foot + 3, tiltY = -0.3, bevel = 1.5)
+            for (j in 0 until 4) s.limb(cx + 19, foot - 13, cx + 24 + j, foot - 18 + j * 3, 1.0, 0.4, plank)
+            stone(s, cx - 6, foot - 8, 7.0, 1099)
+        }
+        return done(s, w / 2, h - 14)
+    }
+
+    // ------------------------------------------------------------------ things that glow
+
+    fun mushrooms(variant: Int): Sprite {
+        val w = 90; val h = 70
+        val s = Sculpt(w, h, 1100 + variant)
+        val cx = w / 2.0; val foot = h - 14.0
+        if (variant % 3 == 1) {
+            // shelf fungi on a rotting stump
+            s.chain(root, cx, foot, 10.0, cx + 1, foot - 18, 9.0)
+            s.blob(cx + 1, foot - 26, 9.0, 3.5, charred, depth = 0.3)
+            for (k in 0 until 5) {
+                val y = foot - 4 - k * 4.5; val side = if (k % 2 == 0) -1 else 1
+                s.blob(cx + side * 11, y, 8.0 - k * 0.6, 2.6, cap, depth = 0.5)
+            }
+        } else {
+            val n = if (variant % 3 == 0) 9 else 4
+            val items = (0 until n).map { i -> Triple(cx + (rnd(i, variant, 1) - 0.5) * 50, foot - rnd(i, variant, 2) * 12, (if (variant % 3 == 0) 3.5 else 6.5) + rnd(i, variant, 3) * 4) }.sortedBy { it.second }
+            for ((i, it) in items.withIndex()) {
+                val (x, y, r) = it
+                val hgt = r * (1.6 + rnd(i, variant, 4))
+                s.limb(x, y, x + (rnd(i, variant, 5) - 0.5) * 3, y - hgt, r * 0.28, r * 0.22, stem)
+                s.blob(x, y - hgt, r, r * 0.55, cap)
+                s.flat(x - r * 0.3, y - hgt - r * 0.2, r * 0.25, r * 0.12, argb(0xB8FFF4))
+            }
+        }
+        return done(s, w / 2, h - 14)
+    }
+
+    fun crystals(variant: Int): Sprite {
+        val w = 100; val h = 110
+        val s = Sculpt(w, h, 1200 + variant)
+        val cx = w / 2.0; val foot = h - 14.0
+        s.blob(cx, foot - 4, 26.0, 8.0, rockDark, depth = 0.5)
+        val shards = when (variant % 3) {
+            0 -> listOf(Triple(-14.0, 40.0, -20.0), Triple(2.0, 66.0, -4.0), Triple(14.0, 46.0, 14.0), Triple(-4.0, 30.0, 30.0), Triple(22.0, 26.0, 34.0))
+            1 -> listOf(Triple(0.0, 82.0, 6.0), Triple(-12.0, 24.0, -30.0))
+            else -> listOf(Triple(-18.0, 30.0, -40.0), Triple(-6.0, 44.0, -16.0), Triple(8.0, 22.0, 10.0), Triple(16.0, 18.0, 52.0), Triple(-24.0, 16.0, -70.0))
+        }
+        for ((i, sh) in shards.withIndex()) {
+            val (dx, len, deg) = sh
+            val a = deg * PI / 180
+            val bx = cx + dx; val by = foot - 4
+            val tx = bx + sin(a) * len; val ty = by - cos(a) * len
+            val wd = 4.0 + len * 0.08
+            val nx = cos(a) * wd; val ny = sin(a) * wd
+            // two faces: the one towards the light and the one away; a tip
+            s.poly(crystal, bx - nx, by - ny, bx, by, tx, ty, tx - nx * 0.6 + sin(a) * -5, ty - ny * 0.6 + cos(a) * 5, tiltX = -0.5, bevel = 0.8)
+            s.poly(crystalDark, bx, by, bx + nx, by + ny, tx + nx * 0.6 - sin(a) * 5, ty + ny * 0.6 + cos(a) * 5, tx, ty, tiltX = 0.5, bevel = 0.8)
+            s.line(bx, by, tx, ty, argb(0xD8C8FF))
+            if (variant % 3 == 2 && i == 1) s.line(bx + (tx - bx) * 0.5 - 3, by + (ty - by) * 0.5, bx + (tx - bx) * 0.5 + 3, by + (ty - by) * 0.5 - 2, holeColor)
+        }
+        return done(s, w / 2, h - 14)
+    }
+
+    // ------------------------------------------------------------------ timber and iron in the passages
+
+    /** Two old posts at the sides of a passage two tiles wide, with a beam over it. */
+    fun support(variant: Int): Sprite {
+        val w = 2 * 64 + 40; val h = 160
+        val s = Sculpt(w, h, 1300 + variant)
+        val foot = h - 18.0
+        val lx = 26.0; val rx = w - 26.0; val top = foot - 112
+        val lean = doubleArrayOf((rnd(variant, 1, 13) - 0.5) * 8, (rnd(variant, 2, 13) - 0.5) * 8)
+        for ((i, x) in doubleArrayOf(lx, rx).withIndex()) {
+            val tx = x + lean[i]
+            s.poly(plankDark, x - 7, foot, x + 7, foot, tx + 7, top, tx - 7, top, tiltX = -0.2, bevel = 3.0)
+            for (k in 0 until 4) {
+                val y0 = foot - 10 - rnd(variant, i * 10 + k, 14) * 90
+                val xx = x + (tx - x) * (foot - y0) / 112 + (rnd(variant, i * 10 + k, 15) - 0.5) * 6
+                s.line(xx, y0, xx + (tx - x) * 0.15, y0 - 12 - rnd(variant, k, 16) * 12, holeColor)
+            }
+            // a rotten foot, dark with damp
+            s.tint(x, foot - 4, 8.0, 6.0, argb(0x1A1410), 0.5)
+        }
+        val sag = 4 + rnd(variant, 3, 17) * 6
+        val ax = lx + lean[0]; val bx = rx + lean[1]; val mx = (ax + bx) / 2
+        if (variant % 3 == 2) {
+            // the beam has cracked in the middle; a crooked prop holds it up
+            s.poly(plankDark, ax - 14, top - 14, mx - 2, top - 14 + sag * 1.6, mx - 2, top + 2 + sag * 1.6, ax - 14, top + 2, tiltY = -0.4, bevel = 2.0)
+            s.poly(plankDark, mx + 2, top - 13 + sag * 1.6, bx + 14, top - 14, bx + 14, top + 2, mx + 2, top + 3 + sag * 1.6, tiltY = -0.4, bevel = 2.0)
+            for (j in 0 until 5) s.limb(mx - 2, top - 6 + sag * 1.6 + j * 2, mx + 1 + j * 0.6, top - 1 + sag * 1.6 + j * 2, 1.0, 0.4, plank)
+            s.poly(plank, mx - 4, foot, mx + 4, foot, mx + 9, top + 3 + sag * 1.6, mx + 1, top + 3 + sag * 1.6, tiltX = -0.2, bevel = 2.0)
+        } else {
+            s.poly(plankDark, ax - 14, top - 14, mx, top - 14 + sag, bx + 14, top - 14, bx + 14, top + 2, mx, top + 2 + sag, ax - 14, top + 2, tiltY = -0.4, bevel = 2.5)
+            s.line(ax + 6, top - 6, mx - 10, top - 6 + sag, holeColor)
+        }
+        // wedges driven in above the beam, stones resting on it
+        for (f in doubleArrayOf(0.15, 0.5, 0.85)) {
+            val x = ax + (bx - ax) * f; val y = top - 14 + sag * (1 - abs(f - 0.5) * 2)
+            s.poly(plank, x - 6, y, x + 6, y, x + 2, y - 9, x - 3, y - 9, tiltY = -0.3, bevel = 1.2)
+        }
+        for (k in 0 until 6) stone(s, ax + 10 + rnd(variant, k, 18) * (bx - ax - 20), top - 15 + sag * 0.6, 3 + rnd(variant, k, 19) * 3, 1300 + k, rockDark)
+        if (variant % 3 == 1) {
+            // an iron cramp and a rope of offerings: a goblin's charm of small bones
+            s.poly(iron, ax - 6, top - 4, ax + 10, top - 4, ax + 10, top + 1, ax - 6, top + 1, tiltY = 0.2, bevel = 0.8)
+            s.line(mx - 6, top + 2 + sag, mx - 8, top + 22 + sag, argb(0x3A3024))
+            for (j in 0 until 3) boneAt(s, mx - 8, top + 10 + sag + j * 6, 80.0 + j * 20, 4.0, 0.9)
+        }
+        return done(s, w / 2, h - 18)
+    }
+
+    /** The iron gate across the passage before Grak's hall. */
+    fun gate(variant: Int): Sprite {
+        val w = 2 * 64 + 20; val h = 150
+        val s = Sculpt(w, h, 1400 + variant)
+        val foot = h - 20.0
+        val n = 9
+        for (i in 0 until n) {
+            val x = 10 + i * (w - 20.0) / (n - 1)
+            val bend = if (variant % 3 == 1 && (i == 4 || i == 5)) (if (i == 4) -7.0 else 7.0) else 0.0
+            s.chain(iron, x, foot, 2.4, x + bend, foot - 60, 2.4, x, foot - 116, 2.2)
+            s.poly(iron, x - 4, foot - 116, x + 4, foot - 116, x, foot - 128, tiltX = -0.3, bevel = 1.0)
+            for (k in 0 until 2) s.tint(x, foot - 20 - rnd(i, k, 14) * 90, 2.6, 5.0, argb(0x6A3A1E), 0.55)
+        }
+        for (y in doubleArrayOf(foot - 26, foot - 90)) s.poly(iron, 6.0, y - 3, w - 6.0, y - 3, w - 6.0, y + 3, 6.0, y + 3, tiltY = -0.2, bevel = 1.5)
+        if (variant % 3 == 2) {
+            // a chain wound through the bars, a heavy padlock
+            for (k in 0 until 10) s.blob(w / 2.0 - 22 + k * 4.6, foot - 58 + sin(k * 0.9) * 2, 2.8, 1.8, rust, rot = if (k % 2 == 0) 0.0 else PI / 2)
+            s.blob(w / 2.0 + 4, foot - 48, 7.0, 8.0, iron)
+            s.flat(w / 2.0 + 4, foot - 47, 1.4, 2.4, holeColor)
+        } else {
+            s.poly(iron, w / 2.0 - 9, foot - 64, w / 2.0 + 9, foot - 64, w / 2.0 + 9, foot - 48, w / 2.0 - 9, foot - 48, bevel = 2.0)
+            s.flat(w / 2.0, foot - 57, 1.6, 3.0, holeColor)
+        }
+        return done(s, w / 2, h - 20)
+    }
+
+    // ------------------------------------------------------------------ fire and chest
+
+    fun campfire(variant: Int): Sprite {
+        val w = 110; val h = 110
+        val s = Sculpt(w, h, 1500 + variant)
+        val cx = w / 2.0; val by = h - 34.0
+        // soot on the ground, a ring of stones, charred logs
+        s.blob(cx, by, 34.0, 14.0, Mat(Ramp.of(argb(0x1E1A16)), grain = 0.3, inline = false), depth = 0.1)
+        for (i in 0 until 11) {
+            val a = i * 2 * PI / 11
+            stone(s, cx + cos(a) * 26, by + sin(a) * 12, 5.5 + rnd(i, variant, 1) * 2, 1500 + i, if (i % 2 == 0) rock else rockDark)
+        }
+        for (a in doubleArrayOf(0.3, 1.9, 3.3)) s.limb(cx - cos(a) * 17, by - sin(a) * 7, cx + cos(a) * 17, by + sin(a) * 7, 3.0, 2.4, charred)
+        val flame = when (variant % 3) { 0 -> 1.0; 1 -> 0.35; else -> 0.8 }
+        s.flat(cx, by, 11.0, 5.0, argb(0x8A2A10))
+        s.flat(cx, by, 6.0, 3.0, argb(0xE06A20))
+        if (flame > 0.5) {
+            for ((k, c) in listOf(argb(0xB8401A), argb(0xE88A2A), argb(0xFFD890)).withIndex()) {
+                val r = (14 - k * 4) * flame
+                s.poly(Mat(Ramp.of(c), inline = false), cx - r, by + 2, cx - r * 0.3, by - r * 2.2, cx, by - r * 1.3, cx + r * 0.4, by - r * 2.6, cx + r, by + 2, bevel = 0.0)
+            }
+        } else {
+            for (i in 0 until 8) s.dot(cx - 8 + rnd(i, 1, 15) * 16, by - 2 + rnd(i, 2, 15) * 4, argb(0xFFB040))
+        }
+        if (variant % 3 == 2) {
+            // a spit over the fire with a skinned rat turning on it, forked sticks either side
+            for (x in doubleArrayOf(cx - 30, cx + 30)) {
+                s.limb(x, by + 2, x, by - 34, 1.6, 1.4, plankDark)
+                s.limb(x, by - 34, x - 4, by - 40, 1.2, 0.8, plankDark); s.limb(x, by - 34, x + 4, by - 40, 1.2, 0.8, plankDark)
+            }
+            s.limb(cx - 34, by - 36, cx + 34, by - 36, 1.2, 1.2, plankDark)
+            s.blob(cx, by - 36, 11.0, 5.5, meat)
+            s.limb(cx + 10, by - 36, cx + 22, by - 33, 1.2, 0.6, meat)
+            s.blob(cx - 12, by - 36, 4.0, 3.5, meat)
+        }
+        return done(s, w / 2, h - 30)
+    }
+
+    fun chest(variant: Int): Sprite {
+        val w = 90; val h = 90
+        val s = Sculpt(w, h, 1600 + variant)
+        val cx = w / 2.0; val by = h - 14.0
+        val wood = if (variant % 3 == 1) plankDark else plank
+        // box and rounded lid, iron bands, a lock
+        s.poly(wood, cx - 24, by, cx + 24, by, cx + 24, by - 24, cx - 24, by - 24, tiltY = 0.25, bevel = 1.6)
+        s.chain(plankLid, cx - 24, by - 30, 9.0, cx + 24, by - 30, 9.0)
+        for (k in -1..1) s.line(cx - 22, by - 8 + k * 8, cx + 22, by - 8 + k * 8, crackColor)
+        for (bx in doubleArrayOf(cx - 15, cx + 15)) {
+            s.poly(iron, bx - 2.5, by, bx + 2.5, by, bx + 2.5, by - 24, bx - 2.5, by - 24, tiltY = 0.2, bevel = 0.8)
+            s.limb(bx, by - 24, bx, by - 36, 2.6, 2.6, iron)
+        }
+        s.poly(iron, cx - 5, by - 27, cx + 5, by - 27, cx + 5, by - 16, cx - 5, by - 16, bevel = 1.2)
+        s.flat(cx, by - 21, 1.2, 2.4, holeColor)
+        if (variant % 3 == 1) {
+            // studded, a crude skull scratched into the lid
+            for (k in 0 until 6) s.dot(cx - 22 + k * 8.8, by - 3, argb(0x8A8278))
+            s.line(cx - 8, by - 36, cx - 4, by - 33, crackColor); s.line(cx + 4, by - 33, cx + 8, by - 36, crackColor)
+            s.line(cx - 5, by - 31, cx + 5, by - 31, crackColor)
+        }
+        if (variant % 3 == 2) {
+            // a rusty chain thrown round it
+            for (k in 0 until 12) s.blob(cx - 26 + k * 4.7, by - 12 + sin(k * 0.7) * 1.5, 2.6, 1.7, rust, rot = if (k % 2 == 0) 0.0 else PI / 2)
+        }
+        s.tint(cx, by - 3, 26.0, 8.0, argb(0x1E1812), 0.35)
+        return done(s, w / 2, h - 14)
+    }
+
+    // ------------------------------------------------------------------ roots where daylight falls in
+
+    fun roots(variant: Int): Sprite {
+        val w = 140; val h = 120
+        val s = Sculpt(w, h, 1700 + variant)
+        val n = when (variant % 3) { 0 -> 11; 1 -> 5; else -> 8 }
+        for (i in 0 until n) {
+            val x = 14 + rnd(i, variant, 1) * (w - 28)
+            val len = (if (variant % 3 == 1) 60.0 else 30.0) + rnd(i, variant, 2) * 50
+            val pts = ArrayList<Double>()
+            for (k in 0..6) {
+                val t = k / 6.0
+                pts += x + sin(t * 3 + i) * 4 * t; pts += 4 + t * len; pts += 2.6 * (1 - t * 0.75)
+            }
+            s.chain(root, *pts.toDoubleArray())
+            // hair roots at the tip
+            val ex = pts[pts.size - 3]; val ey = pts[pts.size - 2]
+            for (j in -1..1) s.line(ex, ey, ex + j * 3, ey + 4 + abs(j) * 2, argb(0x5A4A36))
+        }
+        if (variant % 3 != 1) {
+            // moss hanging in beards between the roots
+            for (i in 0 until (if (variant % 3 == 2) 7 else 4)) {
+                val x = 20 + rnd(i, variant, 5) * (w - 40); val len = 10 + rnd(i, variant, 6) * 18
+                s.chain(moss, x, 2.0, 4.0, x + 1, 2 + len * 0.6, 3.0, x - 1, 2 + len, 1.0)
+            }
+        }
+        return done(s, w / 2, 0)
     }
 }

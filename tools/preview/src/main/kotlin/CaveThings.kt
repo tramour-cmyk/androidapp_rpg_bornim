@@ -14,8 +14,11 @@ fun renderCaveThings() {
     val anchors = StringBuilder()
     val kinds = listOf<Pair<String, (Int) -> MapCave.Sprite>>(
         "stalagmit" to MapCave::stalagmite, "kisten" to MapCave::crates, "knochen" to MapCave::bones, "schlafplatz" to MapCave::bedroll,
+        "felsblock" to MapCave::boulder, "geroell" to MapCave::rubble, "leuchtpilze" to MapCave::mushrooms, "kristalle" to MapCave::crystals,
+        "stuetzbalken" to MapCave::support, "gitter" to MapCave::gate, "lagerfeuer" to MapCave::campfire, "truhe" to MapCave::chest,
+        "wurzeln" to MapCave::roots,
     )
-    for ((name, make) in kinds) for (v in 0..1) {
+    for ((name, make) in kinds) for (v in 0..2) {
         val sp = make(v)
         val img = BufferedImage(sp.img.width, sp.img.height, BufferedImage.TYPE_INT_ARGB)
         for (y in 0 until sp.img.height) for (x in 0 until sp.img.width) img.setRGB(x, y, sp.img[x, y])
