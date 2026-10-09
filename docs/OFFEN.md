@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 11:19 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 11:29 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -84,6 +84,12 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Ghul seit 08.10. ebenfalls (von dir bestätigt, Zweig). Goblin-Schamane seit 08.10. ebenfalls (von dir bestätigt, Zweig). Noch im alten Stil: Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper geplant).
 
 ## Zu testen
+
+**Zweig-Build 0.1.281** (Zweig `karte-neuer-stil`, Stufe 1 der neuen Karte; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37911208049/artifacts/11606372317)). Worauf achten:
+- **Naher Zoom:** etwa 5½ Kacheln Breite. Fühlt sich das Laufen und Scrollen gut an? Sieht man genug, um sich zurechtzufinden? Im Testreiter „Kartenzoom“ zwischen nah und weit wechseln zum Vergleich. Die alten Kartenbilder wirken nah gröber, das ändert sich mit den neuen Bildern (Stufen 3 und 4).
+- **Rand des Unerkundeten:** weich und rund statt Treppenstufen, Licht ohne Stufen.
+- **Gelände-Tempo:** auf dem Weg spürbar flotter, im hohen Gras deutlich zäher, Blumen kaum merklich. Wandernde Monster im hohen Gras ebenfalls langsamer.
+- Dorf, Gasthaus, Höhle: passt der nahe Zoom auch dort? Keine abgeschnittenen Eingänge, Schilder oder Figuren an der Anzeige oben?
 
 **Zweig-Build 0.1.222** (Ghul, Schamane, Fernangriffe, mehr Varianten): von dir freigegeben, am 08.10. auf `main` übernommen.
 
