@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.325 – 09.10.2026, 17:17
+
 **Behoben**
 - Goblin-Späher (Begleiter des Goblins): Sein Pfeil flog vom Haupt-Goblin los, als hätte dieser geschossen. Jetzt verlässt er den Bogen des Spähers.
 

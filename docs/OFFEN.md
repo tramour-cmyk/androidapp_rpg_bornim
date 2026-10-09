@@ -61,6 +61,8 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
+**Version v0.1.325** (veröffentlicht 09.10., 17:17): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.325/bornim.apk). Pfeil des Goblin-Spähers startet an seinem Bogen; von dir im Zweig-Build bestätigt (09.10.).
+
 **Version v0.1.317** (veröffentlicht 09.10., 16:23): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.317/bornim.apk). Killerschlag, vollständig von dir bestätigt (09.10.).
 
 **Version v0.1.279** (veröffentlicht 09.10., 11:16): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.279/bornim.apk). Vollständig von dir bestätigt (09.10.), zuletzt Tatendrang einmal pro Rast („funktioniert“).
