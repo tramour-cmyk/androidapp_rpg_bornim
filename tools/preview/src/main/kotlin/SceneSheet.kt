@@ -105,8 +105,9 @@ fun renderMapOverview(map: de.bornim.core.MapDef, lit: Boolean = true, daylight:
         for (y in 0 until T) for (x in 0 until T) pix[(ty * T + y) * w + tx * T + x] = g[x, y]
     }
     for (o in de.bornim.core.art.WorldArt.objects(map, state, 0).sortedBy { it.sortY }) {
-        for (y in 0 until o.img.height) for (x in 0 until o.img.width) {
-            val p = o.img[x, y]; val px = o.x + x; val py = o.y + y
+        val k = o.density
+        for (y in 0 until o.img.height / k) for (x in 0 until o.img.width / k) {
+            val p = o.img[x * k, y * k]; val px = o.x + x; val py = o.y + y
             if ((p ushr 24) > 128 && px in 0 until w && py in 0 until h) pix[py * w + px] = p
         }
     }

@@ -21,8 +21,8 @@ import de.bornim.core.WallKind
 object WorldArt {
     const val T = 32
 
-    /** A drawable at map pixel position ([x], [y]) = top-left, ordered by [sortY]. */
-    class Obj(val img: PixelImage, val x: Int, val y: Int, val sortY: Int)
+    /** A drawable at map pixel position ([x], [y]) = top-left, ordered by [sortY]; [density] art pixels per map pixel (2 for the finer new pictures). */
+    class Obj(val img: PixelImage, val x: Int, val y: Int, val sortY: Int, val density: Int = 1)
 
     private val cache = HashMap<String, PixelImage>()
     private fun cached(key: String, w: Int = T, h: Int = T, block: Pen.() -> Unit) = cache.getOrPut(key) { draw(w, h, block = block) }
@@ -832,7 +832,12 @@ object WorldArt {
     private fun buildObjects(map: MapDef, state: GameState, frame: Int): List<Obj> {
         val out = mutableListOf<Obj>()
         val seen = HashSet<Pair<Int, Int>>()
+        // the woods have new, finer trees, rocks and stones, and undergrowth
+        val fine = MapGround.supports(map)
+        if (fine) out += MapFlora.undergrowth(map)
         for (ty in 0 until map.height) for (tx in 0 until map.width) {
+            val flora = if (fine) MapFlora.objects(map, tx, ty) else null
+            if (flora != null) { out += flora; continue }
             val t = map.tile(tx, ty)
             val px = tx * T
             val py = ty * T

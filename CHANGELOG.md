@@ -4,6 +4,12 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – Bäume, Felsen und Unterholz im Wald (Zweig `karte-neuer-stil`)**
+- Im Flüsterwald und im Tiefen Wald stehen neue Bäume in doppelter Auflösung, schräg von oben, mit Licht von links oben: Eichen mit Stamm, gefurchter Rinde, Wurzeln und knolliger Krone in zehn Varianten und drei Größen; Fichten in hängenden Stufen; tote, graue Bäume mit kahlen Ästen (im Tiefen Wald öfter, dort auch dunkleres Laub). Auf manchen Waldkacheln stehen zwei Bäume, leicht versetzt.
+- Felsen sind Blockgruppen mit beschatteter Vorderseite und Moos auf der Nordseite, umgestürzte Stämme tragen Moos, Steinkreise haben hohe, verwitterte Steine mit Flechten.
+- Auf der Wiese, dichter am Waldrand, wachsen Büsche und Farne; nie auf dem Weg.
+- Bäume, Felsen und Steine werfen Schatten nach rechts unten auf den Boden, kräftig am Tag, in der Dämmerung schwächer, nachts keine.
+
 **Neu – Boden im Wald ohne Raster (Zweig `karte-neuer-stil`)**
 - Im Flüsterwald und im Tiefen Wald ist der Boden neu gezeichnet, in doppelter Auflösung und ohne sichtbare Kacheln: Waldboden aus Moos, nackter Erde und altem Laub, unter dem Waldrand dunkler. Wiese, hohes Gras, Blumen und Wasser gehen unregelmäßig ineinander über.
 - Der Weg ist ein breiter, geschwungener Karrenweg aus festgetretener Erde, etwa eine Kachel breit, statt einer Treppe aus Kacheln: niedergetretenes Gras am Rand, hellere, ausgetretene Mitte, zwei tiefe Fahrspuren mit Pfützen, Steine, hineinwachsendes Gras. An seinen Enden läuft er schmaler aus. Wo man laufen kann, richtet sich weiter nach den Kacheln.

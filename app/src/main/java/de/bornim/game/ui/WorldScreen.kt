@@ -57,6 +57,7 @@ import de.bornim.core.Mode
 import de.bornim.core.Move
 import de.bornim.core.Story
 import de.bornim.core.Tile
+import de.bornim.core.art.MapFlora
 import de.bornim.core.art.MapGround
 import de.bornim.core.art.MapLight
 import de.bornim.core.Ui
@@ -435,7 +436,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         val camY = cam.y
 
         /** Draws [img] at map pixel ([x], [y]); [density] art pixels per map pixel (2 for the new, finer pictures). */
-        fun put(img: PixelImage, x: Int, y: Int, density: Int = 1) {
+        fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f) {
             val sx = (x - camX) * scale
             val sy = (y - camY) * scale
             val dw = img.width * scale / density; val dh = img.height * scale / density
@@ -446,6 +447,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 srcSize = IntSize(img.width, img.height),
                 dstOffset = IntOffset(sx, sy),
                 dstSize = IntSize(dw, dh),
+                alpha = alpha,
                 filterQuality = FilterQuality.None,
             )
         }
@@ -467,6 +469,12 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             if (!map.inside(tx, ty)) continue
             if (fine && MapGround.chunk(map, Math.floorDiv(tx, MapGround.CH), Math.floorDiv(ty, MapGround.CH)) != null && !MapGround.keepsOldTile(map.tile(tx, ty))) continue
             put(WorldArt.ground(map, tx, ty, state, frame), tx * T, ty * T)
+        }
+
+        // shadows of trees, rocks and stones on the ground, strong by day, gone at night
+        if (fine) {
+            val sun = ((game.daylight - 0.2f) / 0.6f).coerceIn(0f, 1f)
+            if (sun > 0.02f) for (o in MapFlora.shadows(map)) put(o.img, o.x, o.y, o.density, sun)
         }
 
         // Target of a tapped walk: a softly pulsing frame.
@@ -497,7 +505,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 
         // 3) objects and characters, sorted by their foot line
         val sprites = mutableListOf<Sprite>()
-        for (o in WorldArt.objects(map, state, frame)) sprites += Sprite(o.sortY.toFloat()) { put(o.img, o.x, o.y) }
+        for (o in WorldArt.objects(map, state, frame)) sprites += Sprite(o.sortY.toFloat()) { put(o.img, o.x, o.y, o.density) }
         // Healing herbs on the flower meadows, swaying gently so they catch the eye.
         if (map.kind == MapKind.FOREST) for (ty in 0 until map.height) for (tx in 0 until map.width) {
             if (map.tile(tx, ty) != Tile.FLOWERS || !game.herbAt(tx, ty)) continue

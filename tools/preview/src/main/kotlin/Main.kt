@@ -91,6 +91,7 @@ fun main() {
     System.getenv("FILM")?.let { fightFilm(it); System.exit(0) }
     System.getenv("FILMBATCH")?.let { fightBatch(it); System.exit(0) }
     if (System.getenv("WEGE") != null) { renderWayDrafts(); System.exit(0) }
+    System.getenv("FLORA")?.let { renderFloraSheet(it); System.exit(0) }
     if (System.getenv("KARTENZOOM") != null) {
         // the map near (new) and far (former), at noon and at night, in the forest, the village, an inn and the cave
         fun place(vm: GameViewModel, map: String, x: Int, y: Int, minutes: Int) {
