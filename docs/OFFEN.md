@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 12:00 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 12:21 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -85,9 +85,10 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
-**Zweig-Build 0.1.285** (Zweig `karte-neuer-stil`: naher Zoom, gemächlicheres Tempo, neuer Boden im Wald; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37913992578/artifacts/11609290514)). Grafik vorgezogen auf deinen Wunsch (11:49). Worauf achten:
+**Zweig-Build 0.1.289** (Zweig `karte-neuer-stil`: naher Zoom, gemächlicheres Tempo, neuer Boden im Wald mit breitem Karrenweg; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37916429682/artifacts/11610515269)). Enthält auch den Stand von main v0.1.279 (von der anderen Sitzung hereingeführt). Grafik vorgezogen auf deinen Wunsch (11:49). Worauf achten:
 - **Neuer Boden im Flüsterwald und Tiefen Wald:** kein Raster, geschwungener Weg mit Fahrspuren, hohes Gras mit Halmen, Weiher. Gefällt die Richtung? Zu dunkel, zu matschig, zu gleichförmig? Kommen beim Betreten kurz die alten Kacheln, bevor der neue Boden erscheint, und stört das? Ruckelt etwas?
 - Bäume, Felsen, Schild und Figuren sind noch die alten Bilder (kommen in der nächsten Stufe).
+- **Weg (gemeldet 12:02: zu klein und mickrig):** jetzt ein breiter Karrenweg, etwa eine Kachel breit, mit Trampelrand, hellerer Mitte, tiefen Fahrspuren, Pfützen und Steinen; läuft an den Enden aus. Passt das so?
 - **Naher Zoom:** etwa 5½ Kacheln Breite. Fühlt sich das Laufen und Scrollen gut an? Sieht man genug, um sich zurechtzufinden? Im Testreiter „Kartenzoom“ zwischen nah und weit wechseln zum Vergleich. Die alten Kartenbilder wirken nah gröber, das ändert sich mit den neuen Bildern (Stufen 3 und 4).
 - **Rand des Unerkundeten:** weich und rund statt Treppenstufen, Licht ohne Stufen.
 - **Tempo insgesamt:** jetzt ruhiger (jeder Schritt 1,6-mal so lang). Passt es, oder noch langsamer bzw. wieder etwas schneller?
