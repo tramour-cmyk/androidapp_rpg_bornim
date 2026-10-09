@@ -72,3 +72,40 @@ fun walkFilm(spec: String) {
     scene.close()
     println("wrote walk film ($n pictures)")
 }
+
+/**
+ * IDLEFILM=map:x:y:seconds:minutes: the hero stands still at (x, y) while the folk nearby go about
+ * their idle loops; a picture every 250 ms under build/screens/films/idle/.
+ */
+@OptIn(ExperimentalComposeUiApi::class)
+fun idleFilm(spec: String) {
+    val p = spec.split(":")
+    val vm = GameViewModel(Application())
+    vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
+    val g = vm.game!!
+    var guard = 0
+    while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
+    val map = p.getOrElse(0) { "forest" }
+    g.state.place = Place(map, p.getOrElse(1) { "10" }.toInt(), p.getOrElse(2) { "14" }.toInt(), Facing.UP)
+    g.state.minutes = p.getOrElse(4) { "${12 * 60}" }.toInt()
+    val m = de.bornim.core.World[map]
+    g.state.explored[map] = "f".repeat((m.width * m.height + 3) / 4)
+    de.bornim.core.art.MapGround.prepareNow(m)
+    de.bornim.core.art.MapFigure.prepareNow(g.state.hero)
+    de.bornim.core.art.MapFolk.prepareNow(de.bornim.core.art.MapFolk.garrick)
+    vm.refresh()
+    val scene = ImageComposeScene(1080, 2340, Density(2.75f)) { BornimApp(vm) }
+    val dir = File("build/screens/films/idle"); dir.deleteRecursively(); dir.mkdirs()
+    var time = 0L
+    var n = 0
+    val total = p.getOrElse(3) { "24" }.toInt() * 1000
+    var t = 0
+    while (t < total) {
+        val img = scene.render(time)
+        if (t % 250 < 40) File(dir, "f%03d.png".format(n++)).writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
+        img.close()
+        time += 40_000_000L; t += 40
+    }
+    scene.close()
+    println("wrote idle film ($n pictures)")
+}
