@@ -51,7 +51,6 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
-- **Neue Tiere im Kampf (Entwurf am 09.10. von dir freigegeben):** Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte bekommen ihre eigenen Körper aus dem Entwurf (`Vermin.kt`, je drei Varianten). Als Nächstes: Bewegungen (Stehen, Angriff, getroffen, Ausweichen, drei Stürze) und Einbau in den Kampf.
 
 ## Zu testen
 
@@ -63,6 +62,8 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - **Goblin-Späher und Schamane** (gemeldet 08.10.: Pfeil startet nicht am Bogen): Pfeil vom Bogen, Feuerpfeil und Fluch des Schamanen von dir bestätigt (09.10.).
 - Treffer am Monster: von dir bestätigt (09.10.).
 - **Held zittert bei jedem Treffer (gemeldet 09.10.):** Das war ein altes seitliches Wackeln des Helden bei jedem Treffer, unabhängig vom neuen Rütteln bei kritischen Treffern. Entfernt im Zweig-Build 0.1.246 (09.10., 08:43): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37894682693/artifacts/11599822324). Jetzt gilt für Held und Gegner gleich: normaler Treffer = Innehalten (Nahkampf) und dunkelrote Färbung, kritischer Treffer zusätzlich Rütteln des Bildes.
+
+**Folgt im nächsten Build: Neue Tiere im Kampf** (Entwurf am 09.10. von dir freigegeben): Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte im neuen Stil, im Film geprüft. Worauf achten: Größe im Bild (gegenüber Wolf und Held kleiner als nach SRD, damit sie ins Bild passen), Angriffe treffen sichtbar, Stürze, Aussehen im Kampflicht (Höhle, Nacht). Testkämpfe im Test-Reiter.
 
 **Folgt im nächsten Build: Tatendrang einmal pro Rast** (deine Entscheidung 09.10., Möglichkeit c): Tatendrang steht nach dem Einsatz erst nach einer Rast am Lagerfeuer oder im Gasthaus wieder bereit (auch ein Stufenaufstieg füllt auf). Im Kampfmenü steht „0/1“, solange er verbraucht ist.
 
@@ -78,7 +79,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 ## Geplant
 
 - **Killerschlag:** Ein kritischer Treffer, der ein Monster tötet, bekommt einen besonderen Schlag des Helden in mindestens drei Varianten. Das Trefferbild zerfetzt den Gegner, abgestuft nach der Blutstufe: bei „Aus“ ohne Blut, etwa ein Zerbrechen oder Zusammensacken; bei „Dezent“ und „Deutlich“ immer stärker. Skelette zerspringen in Knochen. Gilt für alle Gegner im neuen Stil.
-- **Sterbeanimationen für alle Gegner:** Alle Gegner im neuen Stil haben je drei Stürze und bleiben liegen. Die übrigen (Schamane, Ghul, Spinne, Hundertfüßer, Fledermaus, Stirge, Ockergallerte) bekommen sie beim Umzug in den neuen Stil.
+- **Sterbeanimationen für alle Gegner:** Alle Gegner im neuen Stil haben je drei Stürze und bleiben liegen. Seit 09.10. sind alle Gegner im neuen Stil; Schamane und Ghul fallen wie die Goblins, die Tiere aus dem Entwurf haben ihre eigenen Stürze.
 
 - **Klänge überarbeiten (Rest)** nach den [Stil-Leitlinien](STIL.md): weg von quietschenden Nintendo-Tönen, hin zu glaubwürdigen Geräuschen. Die Kampfgeräusche (Hiebe, Stiche, Schläge, Biss, Pfeil, Schwung, Wolfsheulen) wurden schon einmal realistischer gemacht und werden mit geprüft; Abwehr („Klonk“) und Fehlschlag („Wusch“) sind schon neu. Noch im alten Stil sind vermutlich:
   - Menü und Bedienung: Klick.

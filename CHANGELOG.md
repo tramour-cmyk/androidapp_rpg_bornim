@@ -4,6 +4,11 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte im neuen Stil**
+- Die fünf haben jetzt eigene, räumliche Körper nach dem von dir freigegebenen Entwurf, je drei Aussehen, und bewegen sich wie die übrigen Gegner im neuen Stil: drei Angriffe, drei Arten, getroffen zu werden, drei Ausweichbewegungen und drei Stürze; sie bleiben liegen.
+- Spinne: Biss nach dem Aufbäumen, Sprung, Stich mit den Vorderbeinen; stirbt mit eingezogenen Beinen. Hundertfüßer: Stoß von oben, flach an die Beine, Peitschen; rollt sich im Tod ein. Fledermaus und Stirge schweben mit schlagenden Flügeln, stoßen herab, beißen oder stechen; im Tod stürzen sie zu Boden. Gallerte: schlägt zu, wälzt sich über den Helden, kriecht an die Beine; zerfließt im Tod zu einer Lache.
+- Auf der Karte behalten sie vorerst ihre alten Figuren.
+
 **Geändert – Tatendrang nach SRD**
 - Tatendrang (Kämpfer) gilt jetzt einmal pro Rast statt einmal pro Kampf: Nach dem Einsatz steht er erst nach einer Rast am Lagerfeuer oder im Gasthaus wieder bereit (ein Stufenaufstieg füllt ebenfalls auf). Die Beschreibung stimmt jetzt auch ab Stufe 5: eine zusätzliche Angriffsaktion, mit „Zusätzlicher Angriff“ also zwei weitere Schläge.
 

@@ -194,7 +194,7 @@ object VerminArt {
     }
 
     private val BAT = flyer(Rig(jaw = 0.6, spread = 1.0, yaw = -40.0), 1.0, 66.0)
-    private val STIRGE = flyer(Rig(jaw = 0.5, spread = 1.0, hover = 6.0, yaw = -42.0), 0.55, 40.0)
+    private val STIRGE = flyer(Rig(jaw = 0.5, spread = 1.0, hover = 6.0, yaw = -42.0), 0.55, 28.0)
 
     // ---- the ochre jelly: a heap that heaves; it reaches out and slams down, surges over the hero, spreads at the legs
     private val J_STAND = Rig(rear = 4.0, jaw = 0.0, yaw = -45.0)
