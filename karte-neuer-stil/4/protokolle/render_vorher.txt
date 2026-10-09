@@ -1,0 +1,9 @@
+wrote map village
+wrote map village
+wrote map village
+wrote map forest
+wrote map forest
+wrote map forest
+wrote map deep_forest
+wrote map deep_forest
+wrote map deep_forest
