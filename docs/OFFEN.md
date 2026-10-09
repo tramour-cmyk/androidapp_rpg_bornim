@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 11:55 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 12:00 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -81,11 +81,13 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
   - **Frage (11:15): freies Laufen statt nur rauf, runter, links, rechts?** Befund: Der Held geht heute Kachel für Kachel in vier Richtungen; der Wisch-Joystick rastet auf vier Richtungen ein, Tippen sucht einen Weg über Kacheln. Vorschlag (Mischform): Spiellogik bleibt auf Kacheln (Begegnungen, Truhen, Auslöser, Speicherstand, Tests), aber der Held bewegt sich frei in jede Richtung mit stufenloser Position; der Joystick rastet nicht mehr ein, Tippen läuft gerade Linien, wo der Blick frei ist, statt Treppenstufen; Hindernisse als Kreis gegen Kacheln. Die Geländegeschwindigkeit wird dabei Bildpunkte pro Sekunde je Untergrund. Als eigene Stufe nach Zoom und Auflösung, weil sie die Spiellogik berührt.
   - **Reihenfolge, von dir freigegeben (11:17):** 1. Zoom, doppelte Auflösung, Gelände-Tempo; 2. freies Laufen; 3. Boden ohne Raster; 4. Bäume, Felsen, Unterholz mit Schatten; 5. Licht mit Sichtlinie, Nebel; 6. Dinge zum Entdecken, Bodennebel; 7. Kartenansicht im Menü; später Figuren aus der Puppe. Zuerst der Flüsterwald.
   - **Stufe 1 in Arbeit (11:19):** naher Zoom (etwa 5½ Kacheln, im Testreiter umschaltbar), Gelände-Tempo für Held und Monster. Die Farbstimmung vom Morgen ist wieder heraus (kaum Unterschied, siehe oben). Doppelte Auflösung: der Zoom ist dafür vorbereitet; die neuen Bilder selbst kommen mit Stufe 3 und 4, bis dahin wirken die alten Kartenbilder nah größer und gröber.
-  - **Übernommen (11:55):** in die Sitzung mit funktionierendem Gradle; `main` (v0.1.279) in den Zweig geführt. Der Zweig-Build 0.1.284 war noch ohne v0.1.279 (neue Ungeziefer-Gegner, Tatendrang, Treffer ohne Flackern); der nächste Zweig-Build enthält beides.
+  - **Übernommen (11:55):** in die Sitzung mit funktionierendem Gradle; `main` (v0.1.279) in den Zweig geführt. Die Zweig-Builds bis 0.1.285 waren noch ohne v0.1.279 (neue Ungeziefer-Gegner, Tatendrang, Treffer ohne Flackern); der nächste Zweig-Build enthält beides.
 
 ## Zu testen
 
-**Zweig-Build 0.1.284** (Zweig `karte-neuer-stil`, Stufe 1 der neuen Karte, gemächlicheres Tempo; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37913034064/artifacts/11607562219)). Vorher 0.1.281 ohne das langsamere Tempo. Worauf achten:
+**Zweig-Build 0.1.285** (Zweig `karte-neuer-stil`: naher Zoom, gemächlicheres Tempo, neuer Boden im Wald; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37913992578/artifacts/11609290514)). Grafik vorgezogen auf deinen Wunsch (11:49). Worauf achten:
+- **Neuer Boden im Flüsterwald und Tiefen Wald:** kein Raster, geschwungener Weg mit Fahrspuren, hohes Gras mit Halmen, Weiher. Gefällt die Richtung? Zu dunkel, zu matschig, zu gleichförmig? Kommen beim Betreten kurz die alten Kacheln, bevor der neue Boden erscheint, und stört das? Ruckelt etwas?
+- Bäume, Felsen, Schild und Figuren sind noch die alten Bilder (kommen in der nächsten Stufe).
 - **Naher Zoom:** etwa 5½ Kacheln Breite. Fühlt sich das Laufen und Scrollen gut an? Sieht man genug, um sich zurechtzufinden? Im Testreiter „Kartenzoom“ zwischen nah und weit wechseln zum Vergleich. Die alten Kartenbilder wirken nah gröber, das ändert sich mit den neuen Bildern (Stufen 3 und 4).
 - **Rand des Unerkundeten:** weich und rund statt Treppenstufen, Licht ohne Stufen.
 - **Tempo insgesamt:** jetzt ruhiger (jeder Schritt 1,6-mal so lang). Passt es, oder noch langsamer bzw. wieder etwas schneller?

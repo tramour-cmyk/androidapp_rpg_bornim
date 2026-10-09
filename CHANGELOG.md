@@ -4,6 +4,12 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – Boden im Wald ohne Raster (Zweig `karte-neuer-stil`)**
+- Im Flüsterwald und im Tiefen Wald ist der Boden neu gezeichnet, in doppelter Auflösung und ohne sichtbare Kacheln: Waldboden aus Moos, nackter Erde und altem Laub, unter dem Waldrand dunkler. Wiese, hohes Gras, Blumen und Wasser gehen unregelmäßig ineinander über.
+- Der Weg ist ein geschwungenes Band aus festgetretener Erde mit zwei Fahrspuren, ausgefransten Rändern, hineinwachsendem Gras und Steinen, statt einer Treppe aus Kacheln. Wo man laufen kann, richtet sich weiter nach den Kacheln.
+- Hohes Gras ist dicht und dunkel mit einzelnen, im Wind geneigten Halmen; überall auf der Wiese kurze Grasbüschel. Der Weiher ist dunkel und tief, mit schlammigem Rand und dünnen Lichtstreifen auf dem Wasser.
+- Der Boden wird beim Betreten im Hintergrund vorgezeichnet, die nächste Umgebung zuerst; bis dahin stehen dort kurz die alten Kacheln.
+
 **Geändert – Karte näher heran, Gelände bremst (Zweig `karte-neuer-stil`, Stufe 1 der neuen Karte)**
 - Die Karte ist näher herangezoomt: etwa 5½ statt 10½ Kacheln Bildschirmbreite. Die Kamera folgt dem Helden wie bisher, man scrollt mehr und sieht mehr vom Einzelnen. Im Testreiter lässt sich mit „Kartenzoom“ zwischen nah und weit (bisher) wechseln.
 - Das Gelände bestimmt das Tempo: Auf Weg, Pflaster und Brücke geht ein Schritt etwas schneller (× 0,85), über Blumen, Knochen und Leuchtpilze etwas langsamer (× 1,1), über Geröll langsamer (× 1,3) und durch hohes Gras deutlich langsamer (× 1,5). Wandernde Monster bremst der Boden genauso.
