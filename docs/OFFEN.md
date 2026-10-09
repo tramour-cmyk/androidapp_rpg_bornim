@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 10:48 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 11:05 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -67,6 +67,8 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
   - Ausschnitt für die Entwürfe: der Wald (deine Wahl, 10:19). **Entwürfe gezeigt (10:32, Bilder von 10:31):** B Ansicht wie im Kampf mit Wegweisern voraus/zurück/abbiegen (Waldweg, Garricks Feuer, Weiher; Lichtung bei Tag, Dämmerung, Nacht), C gezeichnete Reisekarte des Flüsterwalds aus den Kartendaten (ganz und so weit erkundet), D beides. Nur Bilder (Vorschau `WEGE=1`), nichts davon im Spiel. Bekannte Schwächen der Entwürfe: Garrick steht mit dem Rücken zum Betrachter (die Figuren gibt es bisher nur in Kampfhaltung von hinten), das Schild „zurück“ liegt über den Beinen. Wartet auf deine Wahl.
   - **Gemeldet (10:41): Held sieht schrecklich und anatomisch falsch aus.** Ursache: In den Entwürfen war versehentlich die alte Entwurfsfigur (`HeroFigure`) statt der Kampffigur (Puppe, `HeroBattle`). Behoben, B und D neu gezeigt (Bilder von 10:43); das Schild „zurück“ sitzt jetzt unten rechts. Garrick ist weiter von hinten zu sehen.
   - **Deine Entscheidung (10:47): Erkunden bleibt.** B, C und D nehmen das Entdecken weg (man tippt nur noch Orte an, der Weg fehlt). Die bestehende Draufsicht-Karte soll erwachsener und düsterer werden, das freie Erkunden bleibt. Vorschläge dazu im Chat (10:48): feinere Auflösung, Raster auflösen, Licht und Sicht als Spielelement, Atmosphäre, Dinge zum Entdecken, Figuren aus der Puppe. Nächster Schritt: Entwurf eines Ausschnitts (Lichtung) in neuer Machart, nach deiner Auswahl.
+  - Von dir freigegeben (10:57). Dazu deine Anregungen: näher heranzoomen für mehr Details (11:00), schräg von oben statt reiner Draufsicht, dreidimensionaler (11:01; beides übernommen).
+  - **Entwurf gezeigt (11:05, Bilder von 11:04):** Lichtung im Flüsterwald schräg von oben, doppelte Auflösung (64 statt 32 Bildpunkte je Kachel), etwa 7 statt 11 Kacheln Bildschirmbreite; kein sichtbares Raster, geschwungener Weg mit Fahrspuren, Eichen, Fichten und tote Bäume mit Stamm, Wurzeln und Schatten nach der Sonne, Unterholz (Büsche, Farne, Äste), hohes Gras mit Halmen, dunkler Weiher mit Bodennebel. Nachts nur Licht, wo Feuer und Laterne hinsehen (Bäume verdecken), der Rest im Nebel. Zum Entdecken: gerissener Hirsch mit Krähen und Schleifspur, altes Grab am Weiher, Knochen am Höhlenweg, Krallenspuren am Schild. Figuren sind Platzhalter. Prototyp in `tools/entwurf/lichtung.py` (Python, aus den echten Kartenzeilen), nicht im Spiel. Wartet auf deine Rückmeldung.
 
 - **Läuft immer dieselbe Variante? (gefragt 08.10., 17:2x)** Im Code nachgesehen:
   - Gegner-Angriffe: Zufall unter drei, kann aber zweimal hintereinander gleich sein.
