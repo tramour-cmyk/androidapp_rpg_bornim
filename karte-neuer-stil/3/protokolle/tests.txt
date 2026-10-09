@@ -1,0 +1,36 @@
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :processResources NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :compileKotlin
+> Task :compileJava NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :jar
+> Task :compileTestKotlin
+> Task :compileTestJava NO-SOURCE
+> Task :testClasses UP-TO-DATE
+
+> Task :test
+
+MapGradeTest > brightMapColorsBecomeMuted() FAILED
+    org.opentest4j.AssertionFailedError at MapGradeTest.kt:25
+
+MapGradeTest > lightSourcesKeepTheirColor() FAILED
+    org.opentest4j.AssertionFailedError at MapGradeTest.kt:31
+
+120 tests completed, 2 failed
+
+> Task :test FAILED
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1791533363326.json
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///home/runner/work/androidapp_rpg_bornim/androidapp_rpg_bornim/nachher/core/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+BUILD FAILED in 49s
+4 actionable tasks: 4 executed
