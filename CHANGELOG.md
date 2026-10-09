@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.386 – 09.10.2026, 23:10
+
 **Werkzeuge (nur Entwicklung, im Spiel ändert sich nichts)**
 - Testumgebung für Cloud-Sitzungen: Gradle lädt über einen Spiegel von Maven Central, beim Sitzungsstart werden die Kerntests im Hintergrund vorübersetzt, `tools/t` wählt je Anlass das passende Werkzeug.
 - Reine Änderungen an Werkzeugen (`tools/`, `.claude/`) bauen keine APK mehr und erzeugen auf `main` kein Release.
