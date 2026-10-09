@@ -51,23 +51,40 @@ object MapFigure {
         return d.twoHanded || d.ranged || d.id in LONG || hero.bothHands()
     }
 
+    /** What the hands are doing while walking about. */
+    enum class Carry { LOW, SHOULDER, FREE }
+
     /**
      * Walking about: the left arm swings a little with the step, the shield is on the back. A long
      * weapon rests on the right shoulder, pointing up and back; a short one (sword, mace, axe,
      * dagger) is carried low in the right hand, its point forward and down, clear of the ground and
-     * of the head from every side.
+     * of the head from every side. With nothing in hand ([Carry.FREE], folk with the bow slung) both
+     * arms hang and swing with the step.
      */
-    private fun rig(yaw: Double, step: Int, shoulder: Boolean): HeroFigure.Rig {
+    fun rig(yaw: Double, step: Int, carry: Carry): HeroFigure.Rig {
         val st = listOf(0.0, 11.0, 0.0, -11.0)[Math.floorMod(step, STEPS)]
         return Doll.REST.copy(
             yaw = yaw, stride = st, spread = 5.0,
-            rh = if (shoulder) HeroFigure.V(19.0, 78.0, 8.0) else HeroFigure.V(18.0, 64.0, 10.0 - st * 0.3),
-            lh = HeroFigure.V(-17.0, 54.0, 3.0 + st * 0.6),
-            weapon = if (shoulder) HeroFigure.V(0.2, 0.96, -0.2) else HeroFigure.V(0.12, -0.6, 0.79), aim = 1.0,
+            rh = when (carry) {
+                Carry.SHOULDER -> HeroFigure.V(19.0, 78.0, 8.0)
+                Carry.LOW -> HeroFigure.V(18.0, 64.0, 10.0 - st * 0.3)
+                Carry.FREE -> HeroFigure.V(17.0, 52.0, 3.0 - st * 0.6)
+            },
+            lh = HeroFigure.V(-17.0, if (carry == Carry.FREE) 52.0 else 54.0, 3.0 + st * 0.6),
+            weapon = when (carry) {
+                Carry.SHOULDER -> HeroFigure.V(0.2, 0.96, -0.2)
+                Carry.LOW -> HeroFigure.V(0.12, -0.6, 0.79)
+                Carry.FREE -> HeroFigure.V(0.0, -1.0, 0.0)
+            },
+            aim = 1.0,
             shieldFace = HeroFigure.V(-1.0, 0.0, 0.25),
             bodyY = if (step % 2 == 1) 1.0 else 0.0,
         )
     }
+
+    /** Draws [doll] in [outfit] in [rig] as a map picture. */
+    fun render(doll: Doll, outfit: Outfit, rig: HeroFigure.Rig): PixelImage =
+        doll.render(W, H, ANCHOR_X.toDouble(), GROUND.toDouble(), PX, rig, outfit, pitch = PITCH).img
 
     private fun look(hero: Hero) = "${hero.race}/${hero.sex}/${hero.build}/${hero.skinTone}/${hero.hairTone}/${hero.cls}/${hero.bothHands()}/" +
         GearSlot.entries.joinToString(",") { s -> hero.item(s)?.let { "${it.base}:${it.rarity}" } ?: "-" }
@@ -77,7 +94,7 @@ object MapFigure {
 
     /** Draws one picture now. */
     fun draw(hero: Hero, slot: Int, step: Int): PixelImage =
-        HeroBattle.doll(hero).render(W, H, ANCHOR_X.toDouble(), GROUND.toDouble(), PX, rig(slot * 360.0 / YAWS, step, shouldered(hero)), HeroBattle.outfit(hero).withShieldOnBack(), pitch = PITCH).img
+        render(HeroBattle.doll(hero), HeroBattle.outfit(hero).withShieldOnBack(), rig(slot * 360.0 / YAWS, step, if (shouldered(hero)) Carry.SHOULDER else Carry.LOW))
 
     /** The picture of [hero] turned to direction [slot] at [step] of a walk, or null while it is not drawn yet. */
     fun frame(hero: Hero, slot: Int, step: Int): PixelImage? = synchronized(cache) { cache["${look(hero)}|$slot|${Math.floorMod(step, STEPS)}"] }
