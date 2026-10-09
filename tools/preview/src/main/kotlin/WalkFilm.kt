@@ -17,6 +17,22 @@ import org.jetbrains.skia.EncodedImageFormat
 import java.io.File
 
 /**
+ * Saves one film picture, cut to CROP=x0:y0:x1:y1 when given (only the part that is looked at is
+ * encoded, which is most of the cost of a picture).
+ */
+internal fun saveFilmPicture(img: org.jetbrains.skia.Image, file: File) {
+    val c = System.getenv("CROP")?.split(":")?.map { it.toInt() }
+    val out = if (c == null) img else {
+        val bmp = org.jetbrains.skia.Bitmap()
+        bmp.allocN32Pixels(c[2] - c[0], c[3] - c[1])
+        img.readPixels(bmp, c[0], c[1])
+        org.jetbrains.skia.Image.makeFromBitmap(bmp)
+    }
+    file.writeBytes(out.encodeToData(EncodedImageFormat.PNG)!!.bytes)
+    if (out !== img) out.close()
+}
+
+/**
  * WALKFILM=map:x:y: walks the hero through the real map screen with the touch stick — left, down,
  * right, up, through tall grass and over the path — and saves a picture every 80 ms (real time of
  * the game clock), cut to the hero's surroundings, under build/screens/films/walk/.
@@ -46,16 +62,15 @@ fun walkFilm(spec: String) {
     val dir = File("build/screens/films/walk"); dir.deleteRecursively(); dir.mkdirs()
     var time = 0L
     var n = 0
-    val frameNs = 16_000_000L
+    // only the pictures that are kept are drawn: one every 80 ms of game time (was every 16 ms, five times the work)
+    val stepMs = 80
     fun run(ms: Int, save: Boolean = true) {
         var t = 0
         while (t < ms) {
             val img = scene.render(time)
-            if (save && t % 80 < 16) {
-                val bytes = img.encodeToData(EncodedImageFormat.PNG)!!.bytes
-                File(dir, "f%03d.png".format(n++)).writeBytes(bytes)
-            }
-            time += frameNs; t += 16
+            if (save) saveFilmPicture(img, File(dir, "f%03d.png".format(n++)))
+            img.close()
+            time += stepMs * 1_000_000L; t += stepMs
             Thread.sleep(2)
         }
     }
@@ -75,7 +90,8 @@ fun walkFilm(spec: String) {
 
 /**
  * IDLEFILM=map:x:y:seconds:minutes: the hero stands still at (x, y) while the folk nearby go about
- * their idle loops; a picture every 250 ms under build/screens/films/idle/.
+ * their idle loops; a picture every STEPMS (250 ms) under build/screens/films/idle/, from FROM seconds on,
+ * cut to CROP.
  */
 @OptIn(ExperimentalComposeUiApi::class)
 fun idleFilm(spec: String) {
@@ -99,12 +115,18 @@ fun idleFilm(spec: String) {
     var time = 0L
     var n = 0
     val total = p.getOrElse(3) { "24" }.toInt() * 1000
-    var t = 0
+    // one picture every STEPMS (default 250 ms) of game time, nothing drawn in between (turning copes
+    // with jumps of up to 200 ms per picture, so keep STEPMS at most 250); FROM=s skips ahead without drawing
+    val stepMs = System.getenv("STEPMS")?.toInt() ?: 250
+    val from = (System.getenv("FROM")?.toDouble() ?: 0.0).times(1000).toInt()
+    scene.render(0L).close()
+    var t = from
+    time = from * 1_000_000L
     while (t < total) {
         val img = scene.render(time)
-        if (t % 250 < 40) File(dir, "f%03d.png".format(n++)).writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
+        saveFilmPicture(img, File(dir, "f%03d.png".format(n++)))
         img.close()
-        time += 40_000_000L; t += 40
+        time += stepMs * 1_000_000L; t += stepMs
     }
     scene.close()
     println("wrote idle film ($n pictures)")

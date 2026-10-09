@@ -125,3 +125,67 @@ fun renderNpcIdle() {
     ImageIO.write(out, "png", File("build/screens/npc_garrick_leerlauf.png"))
     println("wrote idle draft")
 }
+
+/** Draft (09.10.): the resting stances every figure gets, for Garrick and the hero, each breathing out and in. NPCREST=1 */
+fun renderNpcRest() {
+    val folk = de.bornim.core.art.MapFolk
+    val F = MapFigure
+    val hero = GameState.newGame("Mira", Race.HUMAN, CharClass.FIGHTER).hero
+    val rests = de.bornim.core.art.MapRest.Rest.entries
+    val k = 3
+    val lab = 26
+    val rows = listOf("Garrick von vorn" to 0, "Garrick schräg" to 2, "Held von vorn" to -1)
+    val out = BufferedImage(F.W * k * rests.size, (F.H * k + lab) * rows.size * 2, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics()
+    g.color = Color(0x2E3628); g.fillRect(0, 0, out.width, out.height)
+    g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
+    g.font = Font(Font.SANS_SERIF, Font.BOLD, 18); g.color = Color(0xE8DCC0)
+    var row = 0
+    for ((title, slot) in rows) for (breath in 0..1) {
+        val y0 = row * (F.H * k + lab)
+        rests.forEachIndexed { i, rest ->
+            if (slot < 0 && rest.handsFree) return@forEachIndexed
+            g.drawString((if (i == 0) "$title, " + (if (breath == 1) "einatmen: " else "ausatmen: ") else "") + rest.name, i * F.W * k + 8, y0 + 20)
+            val img = if (slot < 0) F.drawRest(hero, 0, rest, breath) else folk.drawRest(folk.garrick, slot, rest, breath)
+            for (y in 0 until F.H * k) for (x in 0 until F.W * k) {
+                val q = img[x / k, y / k]; if ((q ushr 24) < 128) continue
+                out.setRGB(i * F.W * k + x, y0 + lab + y, q)
+            }
+        }
+        row++
+    }
+    g.dispose()
+    ImageIO.write(out, "png", File("build/screens/ruhe_entwurf.png"))
+    println("wrote rest draft")
+}
+
+/** Draft (09.10.): Garrick warding off a beast with a brand from the fire. NPCTORCH=1 */
+fun renderNpcTorch() {
+    val folk = de.bornim.core.art.MapFolk
+    val F = MapFigure
+    val wards = de.bornim.core.art.MapFolk.Ward.entries
+    val k = 3
+    val lab = 26
+    val rows = listOf("zum Feuer (links)" to 12, "schräg vorn" to 14, "von vorn" to 0, "von der Seite" to 4, "von hinten" to 8)
+    val WW = de.bornim.core.art.MapFolk.WARD_W; val WH = de.bornim.core.art.MapFolk.WARD_H
+    val out = BufferedImage(WW * k * (wards.size + 2), (WH * k + lab) * rows.size, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics()
+    g.color = Color(0x1E2418); g.fillRect(0, 0, out.width, out.height)
+    g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
+    g.font = Font(Font.SANS_SERIF, Font.BOLD, 18); g.color = Color(0xE8DCC0)
+    rows.forEachIndexed { r, (title, slot) ->
+        val y0 = r * (WH * k + lab)
+        val cells = wards.map { it to 0 } + listOf(de.bornim.core.art.MapFolk.Ward.LEFT to 1, de.bornim.core.art.MapFolk.Ward.LEFT to 2)
+        cells.forEachIndexed { i, (w, fl) ->
+            g.drawString((if (i == 0) "$title: " else "") + w.name + (if (fl > 0) " Flamme $fl" else ""), i * WW * k + 8, y0 + 20)
+            val img = folk.drawWard(folk.garrick, slot, w, fl)
+            for (y in 0 until WH * k) for (x in 0 until WW * k) {
+                val q = img[x / k, y / k]; if ((q ushr 24) < 128) continue
+                out.setRGB(i * WW * k + x, y0 + lab + y, q)
+            }
+        }
+    }
+    g.dispose()
+    ImageIO.write(out, "png", File("build/screens/fackel_entwurf.png"))
+    println("wrote torch draft")
+}

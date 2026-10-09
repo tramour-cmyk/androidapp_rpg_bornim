@@ -138,6 +138,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         crossbow()
         staff()
         flask()
+        torch()
         arms3d()
         return out
     }
@@ -614,6 +615,35 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
      * A flask in the free hand while the hero drinks: a round belly of dark glass with the draught glowing through,
      * a short neck and the cork, tipped towards the mouth by the rig.
      */
+    /**
+     * A burning torch in the weapon hand (folk on the map warding off beasts, 09.10.): a rough branch
+     * along the weapon direction, its head wound with pitch-soaked rag, and the flame on it, licking
+     * upwards whichever way the torch is held, its shape changing with [HeroFigure.Rig.flicker].
+     */
+    private fun torch() {
+        if (sk.rig.torch < 0.5) return
+        val dir = sk.weapon.norm()
+        val hand = sk.hand(1)
+        val butt = hand - dir * (0.05 * h)
+        val head = hand + dir * (0.27 * h)
+        add(RoundCone(butt, head, 0.011 * h, 0.014 * h, BodyPart.GEAR, Doll.ITEM), wood)
+        add(Ellipsoid(head, P3(0.028 * h, 0.036 * h, 0.028 * h), Frame.along(dir), BodyPart.GEAR, Doll.ITEM), m(argb(0x2A1E16), grain = 0.4))
+        // the flame always rises; three tongues of it, their lean and length from the flicker
+        val fire = Mat(Ramp(intArrayOf(argb(0x9A2A10), argb(0xC8441A), argb(0xE8701E), argb(0xF8A030), argb(0xFFD060), argb(0xFFF4C0))), bias = 0.35, inline = false)
+        val core = Mat(Ramp(intArrayOf(argb(0xF8A030), argb(0xFFC850), argb(0xFFE080), argb(0xFFF0B0), argb(0xFFF8D8), argb(0xFFFFF0))), bias = 0.4, inline = false)
+        val rnd = java.util.Random(sk.rig.flicker * 7919L + 17)
+        val across = sk.upper.dir(P3.X)
+        for (k in 0..2) {
+            // drawn larger than life, as the flask is, so the flame reads at map size
+            val side = (k - 1) * 0.02 * h + (rnd.nextDouble() - 0.5) * 0.016 * h
+            val tall = (0.12 + rnd.nextDouble() * 0.07) * h * (if (k == 1) 1.35 else 0.6)
+            val base = head + P3.Y * (0.015 * h) + across * side
+            val tip = base + P3.Y * tall + across * ((rnd.nextDouble() - 0.5) * 0.05 * h)
+            add(RoundCone(base, tip, (if (k == 1) 0.04 else 0.028) * h, 0.004 * h, BodyPart.GEAR, Doll.TRIM), fire)
+        }
+        add(Ellipsoid(head + P3.Y * (0.045 * h), P3(0.025 * h, 0.045 * h, 0.025 * h), Frame.IDENTITY, BodyPart.GEAR, Doll.TRIM), core)
+    }
+
     private fun flask() {
         if (sk.rig.flask < 0.5) return
         val hand = sk.hand(0)

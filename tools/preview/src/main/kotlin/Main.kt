@@ -97,6 +97,8 @@ fun main() {
     if (System.getenv("MAPFIGYAWS") != null) { renderMapFigureYaws(); System.exit(0) }
     if (System.getenv("NPCDRAFT") != null) { renderNpcDraft(); System.exit(0) }
     if (System.getenv("NPCIDLE") != null) { renderNpcIdle(); System.exit(0) }
+    if (System.getenv("NPCREST") != null) { renderNpcRest(); System.exit(0) }
+    if (System.getenv("NPCTORCH") != null) { renderNpcTorch(); System.exit(0) }
     System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
     System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
     if (System.getenv("KARTENZOOM") != null) {

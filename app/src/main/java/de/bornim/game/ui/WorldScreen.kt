@@ -59,9 +59,11 @@ import de.bornim.core.Story
 import de.bornim.core.Tile
 import de.bornim.core.art.MapFigure
 import de.bornim.core.art.MapFolk
+import de.bornim.core.art.MapRest
+import de.bornim.core.art.MapGlow
+import de.bornim.core.art.MapLight
 import de.bornim.core.art.MapFlora
 import de.bornim.core.art.MapGround
-import de.bornim.core.art.MapLight
 import de.bornim.core.Ui
 import de.bornim.core.Route
 import de.bornim.core.actionAhead
@@ -491,6 +493,19 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             )
         }
 
+        // a figure near a flame catches its light on the near side, more so at night (09.10.)
+        val flames = MapLight.sources(map).filter { it.kind == MapLight.Kind.FIRE || it.kind == MapLight.Kind.TORCH ||
+            (it.kind == MapLight.Kind.LAMP && game.daylight < 0.6f) }
+        fun warmEdge(img: de.bornim.core.art.PixelImage, fx: Int, fy: Int): de.bornim.core.art.PixelImage {
+            if (flames.isEmpty()) return img
+            // from the figure's chest, a little over a tile above its feet
+            val cx = fx + T / 2.0; val cy = fy + T - 22.0
+            val f = flames.minBy { (it.x - cx) * (it.x - cx) + (it.y - cy) * (it.y - cy) }
+            val dx = (f.x - cx) / T; val dy = (f.y - cy) / T
+            val level = MapGlow.level(kotlin.math.sqrt(dx * dx + dy * dy), game.daylight.toDouble())
+            return MapGlow.litCached(img, MapGlow.dir(dx, dy), level)
+        }
+
         // 2) shadows under characters
         val visibleNpcs = map.npcs.filter { it.visible(state) }
         // Strolling villagers slide between tiles like the hero.
@@ -558,12 +573,12 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     MapFolk.prepare(f, MapFigure.slot(turn.yaw))
                     val dx = heroX - nx; val dy = heroY - ny
                     // a hero standing still nearby for 20 s is no longer worth watching: back to the fire (20:56)
-                    val near = kotlin.math.abs(dx) <= 4 * T && kotlin.math.abs(dy) <= 4 * T && HeroStill.forMs(heroX, heroY, clock) < 20_000L
+                    val near = MapFolk.watches(dx.toDouble() / T, dy.toDouble() / T, HeroStill.forMs(heroX, heroY, clock))
                     // left alone and standing, they go about their idle loops (Garrick: warming his hands, peering into the woods)
                     val doing = if (near || w != null) null else MapFolk.doing(f, clock)
                     val homeSlot = MapFigure.slot(home)
                     val target = when {
-                        near && (dx != 0 || dy != 0) -> Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))
+                        near -> Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))
                         doing != null -> (homeSlot + doing.slotOffset) * 360.0 / MapFigure.YAWS
                         else -> home
                     }
@@ -573,11 +588,17 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     val idleImg = doing?.let { d ->
                         if (slotNow == Math.floorMod(homeSlot + d.slotOffset, MapFigure.YAWS)) MapFolk.idleFrame(f, slotNow, d.idle, d.frame) else null
                     }
-                    idleImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 160).toInt(), MapFigure.STEPS) else 0)
+                    // otherwise, standing, the small movements everyone has: breathing, shifting weight, a glance, hands to the belt
+                    val restImg = if (idleImg == null && doing == null && !walkingNow && slotNow == MapFigure.slot(target)) {
+                        val (rest, breath) = MapRest.at(f.id.hashCode(), clock, handsFree = true, mayLook = !near)
+                        MapFolk.restFrame(f, slotNow, rest, breath)
+                    } else null
+                    idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 160).toInt(), MapFigure.STEPS) else 0)
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
+                val dollLit = doll?.let { warmEdge(it, nx, ny) }
                 sprites += Sprite((ny + T - 1).toFloat()) {
-                    if (doll != null) put(doll, nx + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, ny + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
+                    if (dollLit != null) put(dollLit, nx + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, ny + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
                     else put(img, nx, ny - 2)
                 }
             }
@@ -641,7 +662,13 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         val target = MapFigure.yawOf(p.facing)
         HeroTurn.update(target, clock)
         val walkStep = if (!walking) 0 else Math.floorMod(state.steps * 2 + (progress * 2).toInt(), MapFigure.STEPS)
-        val doll = MapFigure.frameNow(state.hero, MapFigure.slot(HeroTurn.yaw), walkStep)
+        // standing a moment, the hero too breathes, shifts its weight and glances about
+        val heroSlot = MapFigure.slot(HeroTurn.yaw)
+        val heroRest = if (!walking && heroSlot == MapFigure.slot(target) && HeroStill.forMs(heroX, heroY, clock) > 1_500L) {
+            val (rest, breath) = MapRest.at(7, clock, handsFree = false, mayLook = true)
+            MapFigure.restFrame(state.hero, heroSlot, rest, breath)
+        } else null
+        val doll = warmEdge(heroRest ?: MapFigure.frameNow(state.hero, heroSlot, walkStep), heroX, heroY)
         // +0.5 so the hero is drawn after objects standing on the same row
         sprites += Sprite(heroY + T - 0.5f) {
             put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
@@ -681,16 +708,7 @@ private class Sprite(val y: Float, val draw: () -> Unit)
 private object HeroTurn : Turn()
 
 /** How long the hero has stood on the same spot of the map. */
-private object HeroStill {
-    private var x = Int.MIN_VALUE
-    private var y = Int.MIN_VALUE
-    private var since = 0L
-
-    fun forMs(heroX: Int, heroY: Int, now: Long): Long {
-        if (heroX != x || heroY != y || now < since) { x = heroX; y = heroY; since = now }
-        return now - since
-    }
-}
+private val HeroStill = MapFolk.Stillness()
 
 /** How each of the folk drawn as dolls faces, turning smoothly like the hero. */
 private object FolkTurn {

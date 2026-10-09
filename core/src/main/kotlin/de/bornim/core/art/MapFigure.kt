@@ -83,8 +83,11 @@ object MapFigure {
     }
 
     /** Draws [doll] in [outfit] in [rig] as a map picture. */
-    fun render(doll: Doll, outfit: Outfit, rig: HeroFigure.Rig): PixelImage =
-        doll.render(W, H, ANCHOR_X.toDouble(), GROUND.toDouble(), PX, rig, outfit, pitch = PITCH).img
+    fun render(doll: Doll, outfit: Outfit, rig: HeroFigure.Rig, w: Int = W, h: Int = H): PixelImage =
+        doll.render(w, h, w / 2.0, h - (H - GROUND).toDouble(), PX, rig, outfit, pitch = PITCH).img
+
+    /** Pictures are drawn with the feet in the middle, [H] − [GROUND] pixels above the bottom; a wider one (a raised torch) keeps that. */
+    const val FOOT_BELOW = H - GROUND
 
     private fun look(hero: Hero) = "${hero.race}/${hero.sex}/${hero.build}/${hero.skinTone}/${hero.hairTone}/${hero.cls}/${hero.bothHands()}/" +
         GearSlot.entries.joinToString(",") { s -> hero.item(s)?.let { "${it.base}:${it.rarity}" } ?: "-" }
@@ -95,6 +98,17 @@ object MapFigure {
     /** Draws one picture now. */
     fun draw(hero: Hero, slot: Int, step: Int): PixelImage =
         render(HeroBattle.doll(hero), HeroBattle.outfit(hero).withShieldOnBack(), rig(slot * 360.0 / YAWS, step, if (shouldered(hero)) Carry.SHOULDER else Carry.LOW))
+
+    private fun carry(hero: Hero) = if (shouldered(hero)) Carry.SHOULDER else Carry.LOW
+
+    /** [hero] standing in [rest], breathing in or out: drawn in the background when first wanted, null until then. */
+    fun restFrame(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int): PixelImage? =
+        if (rest == MapRest.Rest.NEUTRAL && breath == 0) frame(hero, slot, 0)
+        else MapRest.picture("hero|${look(hero)}|$slot|$rest|$breath") { drawRest(hero, slot, rest, breath) }
+
+    /** One resting picture of [hero], drawn now. */
+    fun drawRest(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int): PixelImage =
+        render(HeroBattle.doll(hero), HeroBattle.outfit(hero).withShieldOnBack(), MapRest.rig(rig(slot * 360.0 / YAWS, 0, carry(hero)), rest, breath))
 
     /** The picture of [hero] turned to direction [slot] at [step] of a walk, or null while it is not drawn yet. */
     fun frame(hero: Hero, slot: Int, step: Int): PixelImage? = synchronized(cache) { cache["${look(hero)}|$slot|${Math.floorMod(step, STEPS)}"] }

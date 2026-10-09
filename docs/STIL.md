@@ -24,6 +24,14 @@ Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistori
 - **Ausnahme einmalige Monster:** Bosse und andere einzigartige Monster (etwa Krogg, Grak, Grimmzahn) erscheinen nur in einer Form, ohne Varianten in Aussehen und Ausrüstung, damit man sie wiedererkennt; ihre Bewegungen haben trotzdem je drei Varianten.
 - Gilt für alle künftigen Gegner, Tiere, Begleiter und Figuren.
 
+## Lebendige Welt: keine Figur steht starr
+
+Wunsch des Nutzers (09.10.): Wer auf der Karte steht, lebt. Jede Figur, auch der Held, atmet, verlagert ab und zu das Gewicht, schaut kurz zur Seite oder stützt die Hände in die Hüften (Baustein `MapRest`, bekommen neue Figuren automatisch). Figuren mit eigener Aufgabe bekommen eigene Handlungen obendrauf (Garrick: Hände am Feuer wärmen, in den Wald spähen).
+
+- Nie im Takt: Ob, wann, was und wie lange, entscheidet der Zufall, mit eigenem Startwert je Figur, damit zwei Figuren nebeneinander nie gleichzeitig dasselbe tun. Ein gleichmäßiger Rhythmus wirkt wie ein Roboter.
+- Figuren schauen den Helden an, wenn er nahe ist, verlieren aber nach etwa 20 s Stillstand das Interesse.
+- Haltungen vorher in allen Blickrichtungen prüfen (vorn, schräg, Seite, hinten); was von einer Seite falsch aussieht, fliegt raus.
+
 ## Ausrüstung der Gegner
 
 - Feste Ausrüstung je Gegnerart nach SRD, in mindestens drei Varianten.
