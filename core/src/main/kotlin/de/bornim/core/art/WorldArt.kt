@@ -28,8 +28,8 @@ object WorldArt {
     private fun cached(key: String, w: Int = T, h: Int = T, block: Pen.() -> Unit) = cache.getOrPut(key) { draw(w, h, block = block) }
 
     /** Map pictures in the look of the battle scenes (see [MapGrade]), once per drawn picture. */
-    private val graded = java.util.IdentityHashMap<PixelImage, PixelImage>()
-    private fun graded(img: PixelImage): PixelImage = synchronized(graded) { graded.getOrPut(img) { MapGrade.grade(img) } }
+    private val gradedCache = java.util.IdentityHashMap<PixelImage, PixelImage>()
+    private fun graded(img: PixelImage): PixelImage = synchronized(gradedCache) { gradedCache.getOrPut(img) { MapGrade.grade(img) } }
 
     private val SHADOW = alpha(0x0C0E14, 0x70)
     private val SHADOW_SOFT = alpha(0x101020, 0x30)

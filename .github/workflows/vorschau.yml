@@ -56,28 +56,35 @@ jobs:
         if: steps.env.outputs.skip != 'true'
       - name: Test game logic
         if: steps.env.outputs.skip != 'true'
-        working-directory: nachher
-        run: ./gradlew -p core test
+        run: |
+          mkdir -p out/protokolle
+          set -o pipefail
+          (cd nachher && ./gradlew -p core test --console=plain) 2>&1 | tee out/protokolle/tests.txt
       - name: Render
         if: steps.env.outputs.skip != 'true'
         run: |
-          set -e
+          set -e -o pipefail
           set -a; . ./switches.env; set +a
           for side in vorher nachher; do
-            (cd $side/tools/preview && ../../gradlew -q run -Djava.awt.headless=true)
+            (cd $side/tools/preview && ../../gradlew -q run -Djava.awt.headless=true --console=plain) 2>&1 | tee out/protokolle/render_$side.txt
           done
       - name: Compare
         if: steps.env.outputs.skip != 'true'
         run: |
           pip install --quiet pillow
           python3 nachher/tools/preview/vergleich.py vorher/tools/preview/build/screens nachher/tools/preview/build/screens out "${GITHUB_REF_NAME}" "${{ steps.env.outputs.ref }}"
+      - name: Failed test reports
+        if: failure() && steps.env.outputs.skip != 'true'
+        run: |
+          mkdir -p out/protokolle
+          find nachher/core/build/test-results -name '*.xml' -exec grep -l '<failure' {} + 2>/dev/null | xargs -r cp -t out/protokolle/ || true
       - uses: actions/upload-artifact@v4
-        if: steps.env.outputs.skip != 'true'
+        if: always() && steps.env.outputs.skip != 'true'
         with:
           name: vorschau
           path: out
       - name: Publish to branch vorschau-bilder
-        if: steps.env.outputs.skip != 'true'
+        if: always() && steps.env.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
