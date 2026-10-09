@@ -25,6 +25,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 **Feste Regeln im Umgang mit dir:**
 - Antworten auf Deutsch, Zeiten in Berliner Zeit.
+- Erklärungen kurz und präzise; Mutmaßungen klar als solche kennzeichnen, nur Gesichertes als gesichert (wenn möglich mit Quelle). Kein Smalltalk, Fokus auf die Aufgabe, außer du sagst, dass du plaudern willst. (Aus deinem Claude-Profil übernommen am 09.10., damit es für jeden Account gilt.)
 - Vor jeder Antwort ein Zeitstempel „[TT.MM., HH:MM]“, immer von der Systemuhr abgelesen (`TZ=Europe/Berlin date`), nie geschätzt. Stempel und Korrekturen stehen in der Antwort am Ende, nicht in Zwischenmeldungen (die siehst du nicht).
 - Zu jedem Build der direkte Link (Release oder Artefakt) und eine Liste, worauf beim Testen zu achten ist.
 - Neue Bilder immer mit der Uhrzeit, zu der sie entstanden sind.
