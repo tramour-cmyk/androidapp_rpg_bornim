@@ -1,0 +1,13 @@
+wrote zoom_nah_1_wald_tag
+wrote zoom_nah_2_wald_nacht
+wrote zoom_nah_3_dorf
+wrote zoom_nah_4_gasthaus
+wrote zoom_nah_5_hoehle
+wrote zoom_nah_6_weiher
+wrote zoom_nah_7_steinkreis
+wrote zoom_nah_8_tiefer_wald
+wrote zoom_weit_1_wald_tag
+wrote zoom_weit_2_wald_nacht
+wrote zoom_weit_3_dorf
+wrote zoom_weit_4_gasthaus
+wrote zoom_weit_5_hoehle
