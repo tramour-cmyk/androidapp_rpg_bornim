@@ -34,13 +34,15 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
         val surge: Double = 0.0,
         /** Falling over: forward and to its right side, in degrees. */
         val fallF: Double = 0.0, val fallS: Double = 0.0,
+        /** Dying: a spider's legs drawn in under it, a centipede coiling up, a jelly melting away, 0 to 1. */
+        val curl: Double = 0.0,
         /** Which way it faces in the picture. */
         val yaw: Double = -60.0,
     ) {
         fun lerp(o: Rig, t: Double): Rig {
             fun l(a: Double, b: Double) = a + (b - a) * t
             return Rig(l(fwd, o.fwd), l(crouch, o.crouch), l(side, o.side), l(rear, o.rear), l(jaw, o.jaw), l(spread, o.spread), l(beat, o.beat),
-                l(hover, o.hover), l(step, o.step), l(surge, o.surge), l(fallF, o.fallF), l(fallS, o.fallS), l(yaw, o.yaw))
+                l(hover, o.hover), l(step, o.step), l(surge, o.surge), l(fallF, o.fallF), l(fallS, o.fallS), l(curl, o.curl), l(yaw, o.yaw))
         }
     }
 
@@ -169,6 +171,13 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
                 ankle = ankle.lerp(hip + d * (60.0 * k) + p(0.0, 92.0, 46.0), up)
                 foot = foot.lerp(hip + d * (70.0 * k) + p(0.0, 70.0, 82.0), up)
             }
+            // dying, the legs draw in under the body like a dead spider's
+            if (r.curl > 0) {
+                val c = r.curl
+                knee = knee.lerp(hip + d * (26.0 * k) + p(0.0, 14.0, 6.0), c)
+                ankle = ankle.lerp(hip + d * (16.0 * k) + p(0.0, -4.0, 10.0 - i * 4.0), c)
+                foot = foot.lerp(hip + d * (6.0 * k) + p(0.0, -10.0, 4.0 - i * 2.0), c)
+            }
             // thick, hairy thighs, thinner shanks, the foot a hooked point
             fuzz(cone(hip, knee, 7.5, 5.8, leg, LEG), 1.3, i + s * 3)
             ell(knee, 6.0, 6.0, 6.0, joint, LEG)
@@ -203,8 +212,9 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
         val raised = 34.0 + r.rear * 0.6
         val bend = Math.toRadians(r.rear / 30.0 * 75.0)
         fun at(t: Double): P3 {
-            val sl = t * len
-            val wig = sin(t * PI * 2.2 + r.step * 2 * PI) * 9.0 * (1 - t) * (1 - t * 0.5)
+            // dying, it coils up: the body drawn into a tight curve
+            val sl = t * len * (1 - 0.35 * r.curl)
+            val wig = sin(t * PI * 2.2 + r.step * 2 * PI) * 9.0 * (1 - t) * (1 - t * 0.5) + r.curl * 46.0 * sin(t * PI)
             val flat = len - raised
             if (sl <= flat || bend < 1e-3) return p(wig, 7.0 - r.crouch, -90.0 + sl + r.fwd)
             val th = (sl - flat) / raised * bend
@@ -474,8 +484,9 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
         val bone = m(0xBEB094, shine = 0.25, grain = 0.35)
         // bubbles and the remains in it stand out with their own edge
         val rust = m(0x4E3424, shine = 0.35, grain = 0.5)
-        val tall = 1.0 + r.surge * 0.35 + r.rear / 60.0
-        val wide = 1.0 - r.surge * 0.2
+        // dying, it runs out flat over the ground
+        val tall = (1.0 + r.surge * 0.35 + r.rear / 60.0) * (1 - 0.7 * r.curl)
+        val wide = (1.0 - r.surge * 0.2) * (1 + 0.35 * r.curl)
         val base = P3(r.side, 0.0, r.fwd) * k
         // its skin mottled darker where the ooze is thick, paler in streaks where it runs thin
         val mottle: (P3) -> Mat = { q ->
@@ -593,6 +604,12 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
 
     // ---------------------------------------------------------------- rendering
 
+    /** Where the point [q] of pose [r] lands in a picture rendered with these numbers. */
+    fun project(q: P3, r: Rig, anchorX: Double, ground: Double, px: Double, pitch: Double = 15.0): Pair<Double, Double> {
+        val vw = SdfView(r.yaw, pitch, r.fallF, r.fallS).toView(q)
+        return Pair(anchorX + vw.x * px, ground - vw.y * px)
+    }
+
     /** How the parts melt into each other. */
     fun groups(): Groups {
         val g = Groups(COUNT)
@@ -612,7 +629,11 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
     /** Renders pose [r] into a [w] × [h] picture with its feet (or the ground under it) on [ground] at [anchorX]. */
     fun render(w: Int, h: Int, anchorX: Double, ground: Double, px: Double, r: Rig, pitch: Double = 15.0): PixelImage {
         val so = solids(r)
-        val img = SdfRender.render(so, groups(), { s, q -> s.paint?.invoke(q) ?: s.mat!! }, w, h, anchorX, ground, px, r.yaw, pitch, fallF = r.fallF, fallS = r.fallS, maxSteps = 320, innerLines = kind != Kind.JELLY)
+        // a body on its side rests on its flank, not sunk into the ground
+        val flank = when (kind) { Kind.SPIDER -> 16.0; Kind.CENTIPEDE -> 8.0; Kind.BAT -> 14.0; Kind.STIRGE -> 8.0; Kind.JELLY -> 0.0 }
+        val lift = (abs(sin(Math.toRadians(r.fallS))) * flank + abs(sin(Math.toRadians(r.fallF))) * flank * 0.75) * k
+        val img = SdfRender.render(so, groups(), { s, q -> s.paint?.invoke(q) ?: s.mat!! }, w, h, anchorX, ground - lift * px * cos(Math.toRadians(pitch)), px, r.yaw, pitch,
+            fallF = r.fallF, fallS = r.fallS, maxSteps = 320, innerLines = kind != Kind.JELLY)
         val s = Sculpt(w, h)
         for (y in 0 until h) for (x in 0 until w) s.img.set(x, y, img.img[x, y])
         s.outline(argb(0x100A0C))

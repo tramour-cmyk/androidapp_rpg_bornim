@@ -60,7 +60,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - Kritische Treffer: kurzes Rütteln des Bildes. Störend oder passend?
 - Zuckt der Getroffene im richtigen Moment, kommen Blut und Geräusch mit dem Aufprall?
 - **Ghul** (gemeldet 08.10.: Klauenangriff nicht zu sehen): Ist der Klauenhieb jetzt zu sehen (einhändig, beidhändig, Sprung)?
-- **Goblin-Späher** (gemeldet 08.10.: Pfeil startet nicht am Bogen): von dir bestätigt (09.10.). Beim Schamanen noch offen: Feuerpfeil vom Schädel auf dem Stab, Fluch aus der freien Hand?
+- **Goblin-Späher und Schamane** (gemeldet 08.10.: Pfeil startet nicht am Bogen): Pfeil vom Bogen, Feuerpfeil und Fluch des Schamanen von dir bestätigt (09.10.).
 - Treffer am Monster: von dir bestätigt (09.10.).
 - **Held zittert bei jedem Treffer (gemeldet 09.10.):** Das war ein altes seitliches Wackeln des Helden bei jedem Treffer, unabhängig vom neuen Rütteln bei kritischen Treffern. Entfernt; kommt mit dem nächsten Build.
 

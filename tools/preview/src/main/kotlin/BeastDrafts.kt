@@ -264,3 +264,30 @@ fun renderVerminClose() {
     ImageIO.write(out, "png", File("build/screens/nah_${kind.name.lowercase()}.png"))
     println("wrote close $kind")
 }
+
+/** VERMINANIM=giant_spider:0,stirge:2: every act of a vermin in battle, eight frames each, the strike framed red. */
+fun renderVerminAnim() {
+    val M = de.bornim.core.art.MonsterArt
+    val acts = listOf(de.bornim.core.art.Act.IDLE to 0) + listOf(de.bornim.core.art.Act.ATTACK, de.bornim.core.art.Act.HURT, de.bornim.core.art.Act.DODGE, de.bornim.core.art.Act.DIE).flatMap { a -> (0..2).map { a to it } }
+    val cw = 280; val chh = 200; val cols = 8
+    for (case in System.getenv("VERMINANIM").split(",")) {
+        val id = case.substringBefore(":"); val look = de.bornim.core.MonsterLook(case.substringAfter(":").toInt())
+        val out = BufferedImage(cw * cols, chh * acts.size, BufferedImage.TYPE_INT_RGB)
+        val g = out.createGraphics(); g.color = java.awt.Color(0x3C3A36); g.fillRect(0, 0, out.width, out.height)
+        for ((r, av) in acts.withIndex()) {
+            val (act, v) = av
+            val n = M.frameCount(id, look, act, v)
+            val strike = if (act == de.bornim.core.art.Act.ATTACK) M.strikeFrame(id, look, v) else -1
+            val picks = if (n <= cols) (0 until n).toList() else (0 until cols).map { it * (n - 1) / (cols - 1) }.toMutableList().also { l -> if (strike >= 0 && strike !in l) l[l.indexOfFirst { it > strike }.coerceAtLeast(0)] = strike }
+            for ((c, i) in picks.withIndex()) {
+                val im = M.battleFrame(id, look, act, v, i)
+                for (y in 0 until minOf(chh, im.height)) for (x in 0 until minOf(cw, im.width)) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(c * cw + x, r * chh + y, q and 0xFFFFFF) }
+                g.color = java.awt.Color(0x6A6A60); g.drawLine(c * cw, r * chh + M.groundLine(id).toInt(), (c + 1) * cw, r * chh + M.groundLine(id).toInt())
+                if (i == strike) { g.color = java.awt.Color(0xC04030); g.drawRect(c * cw, r * chh, cw - 1, chh - 1) }
+            }
+            g.color = java.awt.Color(0xE0D8C0); g.drawString("$act/$v", 2, r * chh + 12)
+        }
+        ImageIO.write(out, "png", File("build/screens/vermin_${id}_${look.seed}.png"))
+        println("wrote vermin anim $id")
+    }
+}
