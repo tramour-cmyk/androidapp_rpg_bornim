@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 11:12 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 11:15 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -70,6 +70,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
   - Von dir freigegeben (10:57). Dazu deine Anregungen: näher heranzoomen für mehr Details (11:00), schräg von oben statt reiner Draufsicht, dreidimensionaler (11:01; beides übernommen).
   - **Entwurf gezeigt (11:05, Bilder von 11:04):** Lichtung im Flüsterwald schräg von oben, doppelte Auflösung (64 statt 32 Bildpunkte je Kachel), etwa 7 statt 11 Kacheln Bildschirmbreite; kein sichtbares Raster, geschwungener Weg mit Fahrspuren, Eichen, Fichten und tote Bäume mit Stamm, Wurzeln und Schatten nach der Sonne, Unterholz (Büsche, Farne, Äste), hohes Gras mit Halmen, dunkler Weiher mit Bodennebel. Nachts nur Licht, wo Feuer und Laterne hinsehen (Bäume verdecken), der Rest im Nebel. Zum Entdecken: gerissener Hirsch mit Krähen und Schleifspur, altes Grab am Weiher, Knochen am Höhlenweg, Krallenspuren am Schild. Figuren sind Platzhalter. Prototyp in `tools/entwurf/lichtung.py` (Python, aus den echten Kartenzeilen), nicht im Spiel.
   - **Deine Rückmeldung (11:11):** Stil grundsätzlich die richtige Richtung. Gern noch ein Stück näher heran, noch mehr Details und feinere Grafik, Sichtlinie und Nebel des Unerkundeten wie bisher. Frage: scrollt die Karte dann? Antwort (11:12): ja; die Kamera folgt schon heute dem Helden und scrollt (etwa 10,5 Kacheln Breite, der Flüsterwald ist 20 × 32), näher heran heißt nur: mehr Scrollen. Als Ausgleich für den fehlenden Überblick die gezeichnete Karte aus Entwurf C als Kartenansicht im Menü (steht schon auf der Merkliste). Umsetzungsvorschlag in Stufen im Chat; wartet auf dein Go.
+  - **Idee (11:14): Gelände bestimmt die Geschwindigkeit.** Abseits des Weges langsamer. Befund: Ein Schritt dauert heute immer gleich lang (200 ms, auf einer Route 170 ms, rennend 110 ms, in `WorldScreen`), das lässt sich leicht je Gelände staffeln. Vorschlag: Weg und Pflaster etwas schneller (× 0,85), Wiese normal, Blumen × 1,1, hohes Gras und Unterholz deutlich langsamer (× 1,5, angelehnt an schwieriges Gelände im SRD), später Matsch und flaches Wasser × 2; für wandernde Monster ebenso. Dazu Schrittgeräusch und Bewegung des Grases je Gelände. Kommt mit in Stufe 1.
 
 - **Läuft immer dieselbe Variante? (gefragt 08.10., 17:2x)** Im Code nachgesehen:
   - Gegner-Angriffe: Zufall unter drei, kann aber zweimal hintereinander gleich sein.
