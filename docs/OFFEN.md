@@ -58,6 +58,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
+- **Killerschlag (09.10. begonnen):** Konzept vorgeschlagen (Antwort vom 09.10.), wartet auf deine Rückmeldung; danach Entwürfe als Standbilder, dann Umsetzung auf dem Zweig. Hinweis: Die Karten-Überarbeitung läuft parallel in einer anderen Sitzung (zweiter Account); Überschneidungen beim Zusammenführen auf `main` beachten.
 
 ## Zu testen
 
