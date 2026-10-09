@@ -92,6 +92,8 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 - **Testumgebung schnell, sparsam, für alle Accounts gleich (Aufträge 09.10., abends):** Zweig `claude/ecstatic-albattani-2ob0np`. Gradle lädt über den Google-Spiegel (Maven Central lieferte 429), ein Sitzungs-Hook wärmt im Hintergrund vor, `check-env.sh` prüft eine echte Datei und testet `core` direkt. Gemessen: Kaltstart 2 min 10 s, danach `check-env.sh --full` 11 s. Einzelheiten in [UMGEBUNG.md](UMGEBUNG.md). **Zu entscheiden:** Vorschläge zur Vereinheitlichung (Antwort 09.10., 21:35): auf `main` übernehmen, CLAUDE.md-Fassung aus `karte-neuer-stil` vorziehen, Netzregel der Chat-Sitzung um den Spiegel ergänzen.
 
+- **Eckpunkte der Testumgebung (deine Vorgabe 09.10., 21:40):** schnell genug, wenig Ressourcen, je Anlass das passende Werkzeug; menschliche Tests, Physik und Logik selbst und beschleunigt prüfen. Vorschläge dagegen geprüft (Antwort 09.10., 21:40); Umsetzung erst nach deiner Freigabe.
+
 ## Bewusst so gelassen
 
 - **Trank wird zweimal getrunken:** kein Fehler, das ist die Trinkvariante „zwei hastige Schlucke“ (08.10.).
