@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 09:34 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 10:06 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -16,6 +16,7 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 - Bildfolgen (Filmstreifen) schickst du dir ungern an, sie sind schlecht anzusehen (08.10.): Bewegungen prüfe ich selbst im Film; dir nur Einzelbilder oder Entwürfe des Aussehens, wenn nötig.
 - Nach jeder erledigten Arbeit (von dir getestet oder von mir umgesetzt) wird diese Liste geprüft: Erledigtes wandert in die Änderungshistorie, Offenes bleibt stehen.
 - Zu jedem neuen Test-Build steht unter „Zu testen“, worauf du achten sollst.
+- Zeitstempel (09.10., 10:02): Du siehst auch meine Zwischenmeldungen, also bekommt **jede** Nachricht an dich einen Stempel in Berliner Zeit, nicht nur die Antwort am Ende.
 
 ## Übergabe-Notiz (für jede neue Sitzung)
 
@@ -50,6 +51,16 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 **Im Spiel zum Testen:** Testmodus (7× auf das Copyright im Titel tippen), Reiter „Test“: Stufe, Gold, Vorräte auf 10, „Gegner bestehen keine Rettungswürfe“, Testkämpfe gegen jeden Gegner, Beute erzeugen.
 
 ## In Arbeit
+
+- **Karte im neuen Stil (gewünscht 09.10., 09:32; Zweig `karte-neuer-stil`):** Die Karte wirkt neben den Kämpfen noch nach Nintendo. Befund im Code: Die Karte nutzt eine kräftige, bunte Palette (Gras `#78C850`, Wasser `#4C8EF0`, rote und blaue Dächer) mit schwarzen Umrissen auf 32er-Kacheln; die Kampfkulissen haben gedeckte, erdige Farben mit Licht nach Tageszeit. Vorschlag in Stufen, damit es fließend übergeht:
+  1. **Farbe und Licht:** Kartenpalette aus den Kampfkulissen ableiten (gleiche Gras-, Weg-, Wasser-, Rinden- und Steinfarben je Tageszeit), schwarze Umrisse durch dunklere Eigenfarben ersetzen, gemeinsame Farbstimmung über die ganze Karte, Schatten nach Sonnenstand.
+  2. **Formen:** Kachelkanten auflösen (unregelmäßige Ränder, geschwungene Wege, siehe Merkliste), Bäume knorriger und in mehreren Arten (Eiche, Fichte, abgestorben), Unterholz, Wurzeln, Nebel in Senken; im Dorf verwitterte Häuser, Moos, Matsch, Rauch, gedeckte Dachfarben.
+  3. **Figuren:** Held und Monster auf der Karte aus denselben Modellen wie im Kampf, klein und schräg von oben.
+  4. **Übergang Karte → Kampf:** Kamera fährt auf die Stelle, Bild dunkelt ab, die Kampfkulisse entsteht aus genau diesem Ort.
+  5. **Feinere Grafik (größerer Umbau):** doppelte Auflösung der Kacheln oder Kacheln mit Höhen- und Lichtinformation, damit Fackeln und Mond echte Schatten werfen.
+  Empfehlung: mit 1 und 3 beginnen, vorher Entwürfe (vorher/nachher bei Tag, Dämmerung, Nacht). **Von dir gewählt (09.10., 09:58): Stufe 1 und 3, mit Blick auf die Stil-Leitlinien (Erinnerung 10:01).**
+  - Stand 10:06: Stufe 1, erster Teil eingebaut (Zweig): eine Farbstimmung für alle Kartenbilder (`MapGrade`), die die bunten Kartenfarben auf die Farben der Kampfkulissen schiebt (Gras, Weg, Wasser, Rinde, Stein, Dächer, Putz, Holz) und die schwarzen Umrisse durch eine dunklere Eigenfarbe ersetzt. Lichtquellen (Feuer, Leuchtpilze, Kristalle) behalten ihre Farbe. Tageszeit wie bisher über das Kartenlicht. Schatten nach Sonnenstand und Stufe 3 folgen nach deinem Blick auf die Entwürfe.
+  - Entwürfe kommen über GitHub (hier ist Gradle gesperrt): Lauf „Vorschau“ rendert bei jedem Push auf einen Zweig mit `tools/preview/vorschau.env` die Karten mit `main` (vorher) und dem Zweig (nachher) und legt die Vergleichsbilder auf den Zweig `vorschau-bilder`. `vorschau.env` vor der Übernahme nach `main` wieder entfernen.
 
 - **Läuft immer dieselbe Variante? (gefragt 08.10., 17:2x)** Im Code nachgesehen:
   - Gegner-Angriffe: Zufall unter drei, kann aber zweimal hintereinander gleich sein.
@@ -91,14 +102,6 @@ Von dir bestätigt: Goblin-Schamane im neuen Stil, Ghul und Goblin-Späher (08.1
 - **Text kam beim finalen Schlag, während das Skelett noch taumelte (Heilige Flamme):** behoben in v0.1.196, von dir bestätigt.
 
 ## Zu entscheiden
-
-- **Karte im neuen Stil (gewünscht 09.10., 09:32; Zweig `karte-neuer-stil`):** Die Karte wirkt neben den Kämpfen noch nach Nintendo. Befund im Code: Die Karte nutzt eine kräftige, bunte Palette (Gras `#78C850`, Wasser `#4C8EF0`, rote und blaue Dächer) mit schwarzen Umrissen auf 32er-Kacheln; die Kampfkulissen haben gedeckte, erdige Farben mit Licht nach Tageszeit. Vorschlag in Stufen, damit es fließend übergeht:
-  1. **Farbe und Licht:** Kartenpalette aus den Kampfkulissen ableiten (gleiche Gras-, Weg-, Wasser-, Rinden- und Steinfarben je Tageszeit), schwarze Umrisse durch dunklere Eigenfarben ersetzen, gemeinsame Farbstimmung über die ganze Karte, Schatten nach Sonnenstand.
-  2. **Formen:** Kachelkanten auflösen (unregelmäßige Ränder, geschwungene Wege, siehe Merkliste), Bäume knorriger und in mehreren Arten (Eiche, Fichte, abgestorben), Unterholz, Wurzeln, Nebel in Senken; im Dorf verwitterte Häuser, Moos, Matsch, Rauch, gedeckte Dachfarben.
-  3. **Figuren:** Held und Monster auf der Karte aus denselben Modellen wie im Kampf, klein und schräg von oben.
-  4. **Übergang Karte → Kampf:** Kamera fährt auf die Stelle, Bild dunkelt ab, die Kampfkulisse entsteht aus genau diesem Ort.
-  5. **Feinere Grafik (größerer Umbau):** doppelte Auflösung der Kacheln oder Kacheln mit Höhen- und Lichtinformation, damit Fackeln und Mond echte Schatten werfen.
-  Empfehlung: mit 1 und 3 beginnen, vorher Entwürfe (vorher/nachher bei Tag, Dämmerung, Nacht). Offen: deine Wahl der Richtung.
 
 - **Noch mehr Zwischenbilder?** Die Haltungen selbst (Arme, Beine, Waffe) wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Nach deinem Test von 0.1.208 vorerst nicht nötig; bei Bedarf als eigener, größerer Umbau (mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn).
 - **Zustände am Körper:** Sind Verlangsamt, Geschwächt und Geblendet auf kleinen Gegnern stark genug?

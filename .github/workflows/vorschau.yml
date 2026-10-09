@@ -1,0 +1,84 @@
+name: Vorschau
+
+# Renders drafts with the preview tool on GitHub, for sessions that cannot build locally.
+# Runs on pushes to work branches that carry tools/preview/vorschau.env. That file holds the
+# preview switches (one VAR=value per line, e.g. MAPS=village,forest) and VERGLEICH=<ref>, the
+# state to compare with (usually main). The pictures go to the artifact "vorschau" and, so they can
+# also be fetched with plain git, to the branch "vorschau-bilder" under <branch>/<run number>/.
+
+on:
+  push:
+    branches-ignore:
+      - main
+      - vorschau-bilder
+    paths:
+      - "core/**"
+      - "app/**"
+      - "tools/preview/**"
+      - ".github/workflows/vorschau.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vorschau-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  render:
+    if: hashFiles('tools/preview/vorschau.env') != ''
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          path: nachher
+      - name: Read switches
+        id: env
+        run: |
+          set -e
+          f=nachher/tools/preview/vorschau.env
+          ref=$(grep -E '^VERGLEICH=' "$f" | cut -d= -f2- || true)
+          echo "ref=${ref:-main}" >> "$GITHUB_OUTPUT"
+          grep -vE '^(#|VERGLEICH=|\s*$)' "$f" > switches.env
+          cat switches.env
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ steps.env.outputs.ref }}
+          path: vorher
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          # the preview needs 21; core targets 17 and builds with it as well
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Test game logic
+        working-directory: nachher
+        run: ./gradlew -p core test
+      - name: Render
+        run: |
+          set -e
+          set -a; . ./switches.env; set +a
+          for side in vorher nachher; do
+            (cd $side/tools/preview && ../../gradlew -q run -Djava.awt.headless=true)
+          done
+      - name: Compare
+        run: |
+          pip install --quiet pillow
+          python3 nachher/tools/preview/vergleich.py vorher/tools/preview/build/screens nachher/tools/preview/build/screens out "${GITHUB_REF_NAME}" "${{ steps.env.outputs.ref }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vorschau
+          path: out
+      - name: Publish to branch vorschau-bilder
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          dest="${GITHUB_REF_NAME}/${GITHUB_RUN_NUMBER}"
+          git clone --depth 1 --branch vorschau-bilder "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}" pub 2>/dev/null || {
+            mkdir pub && cd pub && git init -q -b vorschau-bilder && git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}" && cd ..; }
+          mkdir -p "pub/$dest" && cp -r out/. "pub/$dest/"
+          cd pub
+          git add -A
+          git -c user.name="tramour" -c user.email="tramour@gmail.com" commit -q -m "Vorschau ${dest} (${GITHUB_SHA::7})"
+          git push -q origin vorschau-bilder

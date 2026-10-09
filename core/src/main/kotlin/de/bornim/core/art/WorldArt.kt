@@ -27,12 +27,18 @@ object WorldArt {
     private val cache = HashMap<String, PixelImage>()
     private fun cached(key: String, w: Int = T, h: Int = T, block: Pen.() -> Unit) = cache.getOrPut(key) { draw(w, h, block = block) }
 
+    /** Map pictures in the look of the battle scenes (see [MapGrade]), once per drawn picture. */
+    private val graded = java.util.IdentityHashMap<PixelImage, PixelImage>()
+    private fun graded(img: PixelImage): PixelImage = synchronized(graded) { graded.getOrPut(img) { MapGrade.grade(img) } }
+
     private val SHADOW = alpha(0x0C0E14, 0x70)
     private val SHADOW_SOFT = alpha(0x101020, 0x30)
 
     // ================================================================== ground layer
 
-    fun ground(map: MapDef, tx: Int, ty: Int, state: GameState, frame: Int): PixelImage {
+    fun ground(map: MapDef, tx: Int, ty: Int, state: GameState, frame: Int): PixelImage = graded(rawGround(map, tx, ty, state, frame))
+
+    private fun rawGround(map: MapDef, tx: Int, ty: Int, state: GameState, frame: Int): PixelImage {
         val t = map.tile(tx, ty)
         val seed = Math.floorMod(tx * 7 + ty * 13, 4)
         fun at(dx: Int, dy: Int): Tile = if (map.inside(tx + dx, ty + dy)) map.tile(tx + dx, ty + dy) else t
@@ -265,7 +271,8 @@ object WorldArt {
     }
 
     /** Front blades only (transparent elsewhere), drawn over the lower half of a character standing in tall grass. */
-    fun tallGrassOverlay(): PixelImage = cached("tall-overlay") {
+    fun tallGrassOverlay(): PixelImage = graded(rawTallGrassOverlay())
+    private fun rawTallGrassOverlay(): PixelImage = cached("tall-overlay") {
         for (col in 0..4) blades(col * 7 - 2, 22, col + 40)
         for (col in 0..4) blades(col * 7 + 2, 25, col + 50)
     }
@@ -826,7 +833,7 @@ object WorldArt {
     fun objects(map: MapDef, state: GameState, frame: Int): List<Obj> {
         val opened = map.chests.filter { it.id in state.openedChests }.joinToString(",") { it.id }
         val key = "${map.id}/$opened/${state.has(Story.GATE_OPEN)}/${state.has(Story.BARRIER_OPEN)}/$frame/${state.has(Story.CHAPTER1_DONE)}"
-        return objCache.getOrPut(key) { buildObjects(map, state, frame) }
+        return objCache.getOrPut(key) { buildObjects(map, state, frame).map { Obj(graded(it.img), it.x, it.y, it.sortY) } }
     }
 
     private fun buildObjects(map: MapDef, state: GameState, frame: Int): List<Obj> {
@@ -1685,7 +1692,8 @@ object WorldArt {
     fun shadow(): PixelImage = cached("char-shadow", 24, 8) { ellipse(12.0, 4.0, 11.0, 3.5, SHADOW) }
 
     /** A healing herb ready to be picked: a bright light-green plant that stands out of the meadow. */
-    fun herb(): PixelImage = cached("herb", 20, 22) {
+    fun herb(): PixelImage = graded(rawHerb())
+    private fun rawHerb(): PixelImage = cached("herb", 20, 22) {
         val dark = argb(0x3E8A2A); val base = argb(0x8ED84A); val light = argb(0xD2F88A)
         // leaves fanning out from the root
         ball(5.0, 15.0, 4.2, 2.3, base, light, dark)
