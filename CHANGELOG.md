@@ -4,6 +4,11 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Geändert – Treffer ohne Flackern**
+- Ein Treffer lässt Held oder Gegner nicht mehr viermal weiß aufblinken. Stattdessen halten beide beim Aufprall eines Nahkampfschlags einen Augenblick inne (etwa 70 ms), dann färbt sich der Getroffene kurz dunkel blutrot und blasst in etwa einer Drittelsekunde wieder aus. Schattierung und Einzelheiten bleiben dabei sichtbar.
+- Der Getroffene zuckt jetzt erst, wenn der Schlag landet; Blut, Hiebspur und Treffergeräusch kommen ebenfalls mit dem Aufprall.
+- Kritische Treffer erschüttern kurz das ganze Kampfbild.
+
 **Behoben**
 - Ghul: Der Klauenangriff war nicht zu sehen. Er stürmte so dicht an den Helden heran, dass Arme und Klauen hinter ihm verschwanden. Jetzt treffen die Klauenspitzen, und der Hieb ist vor dem Helden zu sehen (alle drei Varianten).
 - Goblin-Späher: Der Pfeil flog aus der Körpermitte statt vom Bogen los. Jetzt startet er an der Bogenhand. Ebenso kommt der Feuerpfeil des Schamanen vom Schädel auf dem Stab und sein Fluch aus der Hand.
