@@ -60,9 +60,10 @@ import de.bornim.core.Tile
 import de.bornim.core.art.MapFigure
 import de.bornim.core.art.MapFolk
 import de.bornim.core.art.MapRest
+import de.bornim.core.art.MapGlow
+import de.bornim.core.art.MapLight
 import de.bornim.core.art.MapFlora
 import de.bornim.core.art.MapGround
-import de.bornim.core.art.MapLight
 import de.bornim.core.Ui
 import de.bornim.core.Route
 import de.bornim.core.actionAhead
@@ -492,6 +493,19 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             )
         }
 
+        // a figure near a flame catches its light on the near side, more so at night (09.10.)
+        val flames = MapLight.sources(map).filter { it.kind == MapLight.Kind.FIRE || it.kind == MapLight.Kind.TORCH ||
+            (it.kind == MapLight.Kind.LAMP && game.daylight < 0.6f) }
+        fun warmEdge(img: de.bornim.core.art.PixelImage, fx: Int, fy: Int): de.bornim.core.art.PixelImage {
+            if (flames.isEmpty()) return img
+            // from the figure's chest, a little over a tile above its feet
+            val cx = fx + T / 2.0; val cy = fy + T - 22.0
+            val f = flames.minBy { (it.x - cx) * (it.x - cx) + (it.y - cy) * (it.y - cy) }
+            val dx = (f.x - cx) / T; val dy = (f.y - cy) / T
+            val level = MapGlow.level(kotlin.math.sqrt(dx * dx + dy * dy), game.daylight.toDouble())
+            return MapGlow.litCached(img, MapGlow.dir(dx, dy), level)
+        }
+
         // 2) shadows under characters
         val visibleNpcs = map.npcs.filter { it.visible(state) }
         // Strolling villagers slide between tiles like the hero.
@@ -582,8 +596,9 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 160).toInt(), MapFigure.STEPS) else 0)
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
+                val dollLit = doll?.let { warmEdge(it, nx, ny) }
                 sprites += Sprite((ny + T - 1).toFloat()) {
-                    if (doll != null) put(doll, nx + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, ny + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
+                    if (dollLit != null) put(dollLit, nx + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, ny + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
                     else put(img, nx, ny - 2)
                 }
             }
@@ -653,7 +668,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             val (rest, breath) = MapRest.at(7, clock, handsFree = false, mayLook = true)
             MapFigure.restFrame(state.hero, heroSlot, rest, breath)
         } else null
-        val doll = heroRest ?: MapFigure.frameNow(state.hero, heroSlot, walkStep)
+        val doll = warmEdge(heroRest ?: MapFigure.frameNow(state.hero, heroSlot, walkStep), heroX, heroY)
         // +0.5 so the hero is drawn after objects standing on the same row
         sprites += Sprite(heroY + T - 0.5f) {
             put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)

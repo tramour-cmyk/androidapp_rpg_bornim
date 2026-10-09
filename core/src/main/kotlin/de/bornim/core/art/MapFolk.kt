@@ -74,6 +74,35 @@ object MapFolk {
         }
     }
 
+    /**
+     * Warding off a beast with a brand from the fire (09.10.): [GRAB] bent over the fire, the torch
+     * end in the flames; [HOLD] the torch raised before the chest; [LEFT] and [RIGHT] swung high to
+     * either side, back and forth at the beast.
+     */
+    enum class Ward { GRAB, HOLD, LEFT, RIGHT }
+
+    /** Pictures of the flame per stance, flickering in turn. */
+    const val FLICKERS = 3
+
+    /** The pose of [ward], the body turned to [yaw], the flame in its [flicker]th shape. */
+    fun wardRig(yaw: Double, ward: Ward, flicker: Int): HeroFigure.Rig {
+        val base = MapFigure.rig(yaw, 0, MapFigure.Carry.FREE).copy(torch = 1.0, flicker = flicker, aim = 1.0, grip = 10.0)
+        return when (ward) {
+            Ward.GRAB -> base.copy(lean = 0.45, crouch = 7.0, stride = 6.0, headDown = 3.0,
+                rh = HeroFigure.V(8.0, 48.0, 22.0), weapon = HeroFigure.V(0.05, -0.6, 0.8), lh = HeroFigure.V(-14.0, 52.0, 12.0))
+            Ward.HOLD -> base.copy(lean = 0.05, stride = 5.0,
+                rh = HeroFigure.V(12.0, 78.0, 22.0), weapon = HeroFigure.V(0.1, 0.85, 0.5), lh = HeroFigure.V(-15.0, 56.0, 8.0))
+            Ward.LEFT -> base.copy(lean = 0.12, stride = 8.0, twist = -14.0, headDown = -1.0,
+                rh = HeroFigure.V(0.0, 84.0, 28.0), weapon = HeroFigure.V(-0.7, 0.45, 0.55), lh = HeroFigure.V(-18.0, 66.0, 14.0))
+            Ward.RIGHT -> base.copy(lean = 0.12, stride = 8.0, twist = 14.0, headDown = -1.0,
+                rh = HeroFigure.V(26.0, 84.0, 22.0), weapon = HeroFigure.V(0.75, 0.42, 0.5), lh = HeroFigure.V(-16.0, 62.0, 16.0))
+        }
+    }
+
+    /** One warding picture of [f] turned to [slot]. */
+    fun drawWard(f: Folk, slot: Int, ward: Ward, flicker: Int): PixelImage =
+        MapFigure.render(f.doll, f.outfit, wardRig(slot * 360.0 / MapFigure.YAWS, ward, flicker))
+
     /** How near (in tiles each way) the hero must be for the folk to look at it. */
     const val WATCH_TILES = 4.0
 
