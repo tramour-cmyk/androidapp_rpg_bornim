@@ -6,6 +6,7 @@ import de.bornim.core.Race
 import de.bornim.core.Tile
 import de.bornim.core.World
 import de.bornim.core.art.BattleScene
+import de.bornim.core.art.HeroBattle
 import de.bornim.core.art.HeroFigure
 import de.bornim.core.art.PixelImage
 import java.awt.BasicStroke
@@ -213,18 +214,20 @@ private fun sideScene(spot: BattleScene.Spot, light: BattleScene.Light, fire: Bo
         fireLight(scene, fx.toDouble(), fy.toDouble() - 6, if (night) 120.0 else 95.0, if (night) 1.25 else if (dusk) 0.85 else 0.35, seed)
         campfire(scene, fx, fy, night)
         val garrick = GameState.newGame("Garrick", Race.HUMAN, CharClass.ROGUE).hero
-        val g = HeroFigure.frame(garrick, HeroFigure.Act.IDLE, 2).mirrored()
-        paste(scene, g, (SW * 0.80 - (g.width - HeroFigure.ANCHOR_X)).toInt(), (SH * 0.93 - HeroFigure.GROUND).toInt())
+        // the same doll as the hero in battle, turned to face the fire and the hero
+        val g = HeroBattle.frame(garrick, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 2).mirrored()
+        paste(scene, g, (SW * 0.80 - (g.width - HeroBattle.ANCHOR_X)).toInt(), (SH * 0.93 - HeroBattle.GROUND).toInt())
     }
-    val h = HeroFigure.frame(hero, HeroFigure.Act.IDLE, 3)
-    paste(scene, h, (SW * (if (fire) 0.17 else 0.42) - HeroFigure.ANCHOR_X).toInt(), (SH * 0.985 - HeroFigure.GROUND).toInt())
+    // the hero exactly as the battle shows it
+    val h = HeroBattle.frame(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 3)
+    paste(scene, h, (SW * (if (fire) 0.22 else 0.40) - HeroBattle.ANCHOR_X).toInt(), (SH * 0.985 - HeroBattle.GROUND).toInt())
     if (fire) fireLight(scene, fx.toDouble(), fy.toDouble() - 30, 60.0, if (night) 0.35 else 0.2, seed + 1)
     vignette(scene, if (night) 0.35 else 0.2)
     val big = scaled(scene, K)
     val g = big.createGraphics(); g.smooth()
     g.plate(title, big.width / 2, 18, serif, center = true)
     g.ahead((big.width * aheadX).toInt(), (big.height * 0.43).toInt(), ahead)
-    g.back(big.width / 2, big.height - 122, back)
+    g.back(big.width - 150, big.height - 60, back)
     branch?.let { g.chevron(big.width - 26, (big.height * 0.6).toInt(), false, it) }
     var bx = 18
     for (b in buttons) {
