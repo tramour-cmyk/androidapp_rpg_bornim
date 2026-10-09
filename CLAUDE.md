@@ -11,6 +11,8 @@ Rollenspiel für Android (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module:
 ## Feste Regeln
 
 - Antworten auf Deutsch, Zeiten in Berliner Zeit.
+- Erklärungen kurz und präzise. Mutmaßungen klar als solche kennzeichnen; nur Gesichertes als gesichert wiedergeben (wenn möglich mit Quelle).
+- Kein Smalltalk, Fokus auf die Aufgabe. Plaudern nur, wenn der Nutzer es ausdrücklich sagt.
 - Vor jeder Antwort ein Zeitstempel „[TT.MM., HH:MM]“, immer von der Systemuhr abgelesen (`TZ=Europe/Berlin date "+%d.%m., %H:%M"`), nie geschätzt. Stempel und Korrekturen gehören in die Antwort am Ende, nicht in Zwischenmeldungen.
 - Jede Meldung des Nutzers (Fehler, Idee, Frage zum Nachhalten) sofort in `docs/OFFEN.md` eintragen. Nach jeder erledigten Arbeit `docs/OFFEN.md` prüfen und Erledigtes in `CHANGELOG.md` übernehmen.
 - Zu jedem Build den direkten Link (Release oder Artefakt) und eine Liste, worauf beim Testen zu achten ist. Bilder mit der Uhrzeit, zu der sie entstanden sind.
