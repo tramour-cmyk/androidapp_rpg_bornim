@@ -67,6 +67,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - Blutstufe Aus (Zusammensacken, dunkler), Dezent (Blutschwall, Lache), Deutlich (Zerteilen bzw. Loch beim Durchbohren).
 - Skelett zerspringt: von dir bestätigt (09.10., Blutstufe Dezent, „super“). Zerteilen beim Zombie: von dir bestätigt (09.10.). Ghul bei Dezent: von dir bestätigt (09.10.). Noch offen: Gallerte platzt, Tiere und Fledermäuse. (Frage 09.10.: Skelett liegt im Entwurf als Haufen am unteren Bildrand – im Spiel liegen die Teile dort, wo es stand; Standbild 13:05 geschickt. Ob ein flacher Streifen aus Knochen und Schildstücken so passt, wartet auf deine Rückmeldung.)
 - Bleiben die Teile liegen, bis das Siegesfeld kommt?
+- **Mehr Wucht (gemeldet 09.10.: „wenig Animation drin“; Vorschläge 1–4 gewählt):** Halt oben beim Ausholen, schneller Schlag, Zeitlupe danach, Heranzoomen und zurück, dunkelrote Klingenspur im Bogen. Dazu behoben: Wundflecken erschienen schon beim Ausholen. Build: siehe unten (Zweig-Build nach 0.1.298). Worauf achten: Wirkt der Halt oben zu lang/zu kurz? Ist der Zoom (13 %) angenehm oder zu ruckartig? Sitzt die Spur auf der Klinge? Ist die Zeitlupe danach zu lang?
 - **Nachbesserung (gemeldet 09.10.: Zerteilen beim Wolf wirkt künstlich; Zombie passt):** Tiere bei „Deutlich“ jetzt mit klaffender Wunde statt Zerteilen (Vorschlag 3, von dir gewählt); menschenähnliche Gegner werden weiter zerteilt. Im Zweig-Build 0.1.298 (09.10., 14:42): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37931400026/artifacts/11616671720).
 
 **Version v0.1.279** (veröffentlicht 09.10., 11:16): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.279/bornim.apk). Vollständig von dir bestätigt (09.10.), zuletzt Tatendrang einmal pro Rast („funktioniert“).
@@ -77,7 +78,6 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu entscheiden
 
-- **Killerschläge des Helden wirken zu schwach (gemeldet 09.10.: „wenig Animation drin“):** Vorschläge in der Antwort vom 09.10. (Ausholen mit Halt, Zeitlupe am Aufprall, Heranzoomen, Klingenspur, Schlusshaltung); wartet auf deine Entscheidung.
 - **Noch mehr Zwischenbilder?** Die Haltungen selbst (Arme, Beine, Waffe) wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Nach deinem Test von 0.1.208 vorerst nicht nötig; bei Bedarf als eigener, größerer Umbau (mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn).
 - **Hörproben:** Auswahl für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt.
 

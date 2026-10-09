@@ -41,6 +41,9 @@ object HeroBattle {
     /** The killing blows of this hero's weapon (see [HeroFigure.killStrikes]). */
     fun killStrikes(hero: Hero): List<Strike> = HeroFigure.killStrikes(hero)
 
+    /** For films only: always this killing blow, when the weapon has it. */
+    @Volatile var killForTest: Strike? = null
+
     /** The blows this hero strikes, taken in turn. */
     fun strikes(hero: Hero): List<Strike> = HeroFigure.strikes(hero)
 
@@ -94,6 +97,32 @@ object HeroBattle {
         val (x, y, _) = img.project(sk.hand(1) + sk.weapon * reach)
         val t = Pair(x, y)
         synchronized(tips) { tips[k] = t }
+        return t
+    }
+
+    private val tipsAt = HashMap<String, DoubleArray>()
+
+    /** Where the weapon's point is in frame [index] of a blow, in art pixels: for the trail it leaves through the foe. */
+    fun tipAt(hero: Hero, strike: Strike, index: Int): Pair<Double, Double> = bladeAt(hero, strike, index).let { Pair(it[2], it[3]) }
+
+    /** Where the weapon hand is at frame [index] of a blow, in art pixels: the point the blade sweeps round. */
+    fun gripAt(hero: Hero, strike: Strike, index: Int): Pair<Double, Double> = bladeAt(hero, strike, index).let { Pair(it[0], it[1]) }
+
+    /** Hand and weapon's point at frame [index]: x, y of the hand, then of the point. */
+    private fun bladeAt(hero: Hero, strike: Strike, index: Int): DoubleArray {
+        val k = "${look(hero)}|$strike|$index"
+        synchronized(tipsAt) { tipsAt[k]?.let { return it } }
+        val seq = frames(hero, Act.ATTACK, strike, 0)
+        val rig = seq[index.coerceIn(0, seq.size - 1)]
+        val doll = doll(hero); val o = outfit(hero)
+        val sk = doll.fit(rig, o).first
+        val base = hero.weapon?.base
+        val reach = if (base == null) 0.0 else Dress.reach(base) * (if (base in Dress.ROUND) doll.height / 175.0 * 0.95 else 1.0)
+        val view = SdfView(rig.yaw, 15.0)
+        val ax = ANCHOR_X + rig.bodyX * sk.s * PX; val gr = GROUND + rig.bodyY * sk.s * PX
+        val h = view.toView(sk.hand(1)); val v = view.toView(sk.hand(1) + sk.weapon * reach)
+        val t = doubleArrayOf(ax + h.x * PX, gr - h.y * PX, ax + v.x * PX, gr - v.y * PX)
+        synchronized(tipsAt) { tipsAt[k] = t }
         return t
     }
 

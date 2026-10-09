@@ -224,3 +224,28 @@ fun renderKillSheet() {
     ImageIO.write(out, "png", File("build/screens/killerschlag_stuecke.png"))
     println("wrote kill sheet")
 }
+
+/** KILLTIPS=1: each frame of the hero's killing blows with the trail's points marked, to check they sit on the weapon's point. */
+fun renderKillTips() {
+    val B = de.bornim.core.art.HeroBattle
+    val vm = de.bornim.game.GameViewModel(android.app.Application())
+    vm.newGame("Test", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER)
+    val hero = vm.game!!.state.hero
+    val strikes = B.killStrikes(hero)
+    val n = 14
+    val out = BufferedImage(B.W * 2 * n, B.H * 2 * strikes.size, BufferedImage.TYPE_INT_RGB)
+    val g2 = out.createGraphics(); g2.color = Color(0x46583A); g2.fillRect(0, 0, out.width, out.height)
+    for ((row, s) in strikes.withIndex()) {
+        val count = B.frameCount(hero, de.bornim.core.art.HeroFigure.Act.ATTACK, s, 0)
+        for (i in 0 until minOf(n, count)) {
+            val im = toImage(B.frame(hero, de.bornim.core.art.HeroFigure.Act.ATTACK, s, 0, i))
+            g2.drawImage(im, i * B.W * 2, row * B.H * 2, B.W * 2, B.H * 2, null)
+            val (x, y) = B.tipAt(hero, s, i)
+            g2.color = if (i == B.strikeFrame(s)) Color.YELLOW else Color.RED
+            g2.fillOval(i * B.W * 2 + (x * 2).toInt() - 4, row * B.H * 2 + (y * 2).toInt() - 4, 8, 8)
+            g2.drawString("$s $i", i * B.W * 2 + 4, row * B.H * 2 + 14)
+        }
+    }
+    ImageIO.write(out, "png", File("build/screens/killerschlag_spitzen.png"))
+    println("wrote kill tips")
+}

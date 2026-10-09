@@ -515,6 +515,9 @@ object HeroFigure {
         Strike.KILL_SPIN -> 11
     }
 
+    /** The frame of a killing blow at which it is wound up furthest: held there a moment before it comes down. */
+    fun killPeak(s: Strike): Int = if (s == Strike.KILL_HIGH) 5 else 3
+
     /**
      * The killing blows this hero has, for a critical hit that ends the foe: none without a melee weapon. A blade or a
      * dagger runs the foe through, an axe, a mace or a hammer rises up through it instead; a spear has no turn.

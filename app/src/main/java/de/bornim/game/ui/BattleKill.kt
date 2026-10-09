@@ -28,7 +28,51 @@ fun Step.isKillBlow(): Boolean {
 }
 
 /** How long a killing blow halts as it lands. */
-val KILL_STOP_MS: Long get() = BattlePace.ms(260L)
+val KILL_STOP_MS: Long get() = BattlePace.ms(380L)
+/** How long the hero holds the killing blow wound up at its height before it comes down (at normal pace). */
+const val KILL_HOLD_MS = 330L
+/** Each frame of the killing blow coming down: faster than a plain blow (at normal pace). */
+const val KILL_FRAME_MS = 52L
+/** How much slower than its blow the hero comes back out of a killing blow. */
+const val KILL_SLOW = 3.2
+
+/** The slow motion of what the killing blow does: half speed for the first [ms] after it lands, then as fast as ever. */
+fun killTime(real: Float, ms: Float = 700f): Float = if (real < ms) real * 0.5f else ms * 0.5f + (real - ms)
+
+/**
+ * The way the weapon's point goes from frame [from] to [to] of a killing blow (fractional), in art pixels: between frames
+ * it swings round the hand, so the trail bends with the blow instead of cutting straight across.
+ */
+fun killTrailPoints(hero: de.bornim.core.Hero, strike: de.bornim.core.art.HeroFigure.Strike, from: Int, to: Double): List<Offset> {
+    val pts = ArrayList<Offset>()
+    var f = from.toDouble()
+    while (f <= to + 1e-6) {
+        val i = kotlin.math.floor(f).toInt(); val k = f - i
+        val h0 = de.bornim.core.art.HeroBattle.gripAt(hero, strike, i); val h1 = de.bornim.core.art.HeroBattle.gripAt(hero, strike, i + 1)
+        val t0 = de.bornim.core.art.HeroBattle.tipAt(hero, strike, i); val t1 = de.bornim.core.art.HeroBattle.tipAt(hero, strike, i + 1)
+        val a0 = kotlin.math.atan2(t0.second - h0.second, t0.first - h0.first)
+        var a1 = kotlin.math.atan2(t1.second - h1.second, t1.first - h1.first)
+        while (a1 - a0 > Math.PI) a1 -= 2 * Math.PI
+        while (a1 - a0 < -Math.PI) a1 += 2 * Math.PI
+        val r0 = kotlin.math.hypot(t0.first - h0.first, t0.second - h0.second); val r1 = kotlin.math.hypot(t1.first - h1.first, t1.second - h1.second)
+        val hx = h0.first + (h1.first - h0.first) * k; val hy = h0.second + (h1.second - h0.second) * k
+        val a = a0 + (a1 - a0) * k; val r = r0 + (r1 - r0) * k
+        pts += Offset((hx + r * cos(a)).toFloat(), (hy + r * sin(a)).toFloat())
+        f += 0.2
+    }
+    return pts
+}
+
+/** The trail of a killing blow, dark blood red, along [points] of the weapon's point, fading by [fade]: drawn in the hero's own frame at [u] px per art pixel. */
+fun DrawScope.drawKillTrail(points: List<Offset>, u: Float, fade: Float) {
+    if (points.size < 2 || fade <= 0f) return
+    for (i in 1 until points.size) {
+        val k = i / (points.size - 1f)
+        val a = points[i - 1] * u; val b = points[i] * u
+        drawLine(Color(0xFF3A0408).copy(alpha = 0.55f * fade * k), a, b, (1.5f + 4f * k) * u, androidx.compose.ui.graphics.StrokeCap.Round)
+        drawLine(Color(0xFF9A141C).copy(alpha = 0.8f * fade * k), a, b, (0.8f + 2f * k) * u, androidx.compose.ui.graphics.StrokeCap.Round)
+    }
+}
 
 /**
  * The pieces of a foe struck dead by a killing blow, [t] ms after it landed, in the foe's own frame: each at [u] px per

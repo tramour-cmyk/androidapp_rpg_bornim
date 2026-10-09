@@ -25,6 +25,8 @@ class FilmSpec(
     val failSaves: Boolean = false, val race: Race = Race.HUMAN, val place: String = "forest",
     /** Every weapon blow of the hero that hits is critical; the blood level (0 off, 1 subtle, 2 full); the weapon in hand. */
     val crits: Boolean = false, val blood: Int? = null, val weapon: String? = null,
+    /** The killing blow to show (KILL_HIGH, KILL_PIERCE, KILL_RISE, KILL_SPIN), when the weapon has it. */
+    val kill: String? = null,
 )
 
 /** The env-driven single film (FILM=…), into build/screens/film. */
@@ -55,13 +57,14 @@ fun fightBatch(file: String) {
         // optional words after the plan: actions (attack,skill=…), hero=POISON+BLEED, foe=BURN
         val extra = w.drop(5)
         fun statuses(k: String) = extra.firstOrNull { it.startsWith("$k=") }?.removePrefix("$k=")?.split("+")?.map { Status.valueOf(it) } ?: emptyList()
-        val acts = extra.firstOrNull { !it.startsWith("hero=") && !it.startsWith("foe=") && it != "foefirst" && it != "failsaves" && it != "crits" && !it.startsWith("race=") && !it.startsWith("place=") && !it.startsWith("blood=") && !it.startsWith("weapon=") }?.split(",")?.map(::parseAction) ?: emptyList()
+        val acts = extra.firstOrNull { !it.startsWith("hero=") && !it.startsWith("foe=") && it != "foefirst" && it != "failsaves" && it != "crits" && !it.startsWith("race=") && !it.startsWith("place=") && !it.startsWith("blood=") && !it.startsWith("weapon=") && !it.startsWith("kill=") }?.split(",")?.map(::parseAction) ?: emptyList()
         film(FilmSpec(w[0], w[1], w[2].toInt(), w[3].toInt(), w[4], acts,
             hurt = true, heroFirst = "foefirst" !in extra, auto = true, failSaves = "failsaves" in extra, wait = 1500L, heroStatus = statuses("hero"), foeStatus = statuses("foe"),
             race = extra.firstOrNull { it.startsWith("race=") }?.let { Race.valueOf(it.removePrefix("race=")) } ?: Race.HUMAN,
             place = extra.firstOrNull { it.startsWith("place=") }?.removePrefix("place=") ?: "forest",
             crits = "crits" in extra, blood = extra.firstOrNull { it.startsWith("blood=") }?.removePrefix("blood=")?.toInt(),
-            weapon = extra.firstOrNull { it.startsWith("weapon=") }?.removePrefix("weapon=")), File("build/screens/films/${w[0]}"))
+            weapon = extra.firstOrNull { it.startsWith("weapon=") }?.removePrefix("weapon="),
+            kill = extra.firstOrNull { it.startsWith("kill=") }?.removePrefix("kill=")), File("build/screens/films/${w[0]}"))
     }
 }
 
@@ -88,6 +91,7 @@ fun film(f: FilmSpec, outDir: File) {
         if (f.heroFirst) Opening.HERO_FIRST else Opening.NORMAL)
     Battle.foesFailSaves = f.failSaves
     Battle.heroCritsAlways = f.crits
+    de.bornim.core.art.HeroBattle.killForTest = f.kill?.let { de.bornim.core.art.HeroFigure.Strike.valueOf(it) }
     f.blood?.let { vm.changeBlood(it) }
     f.heroStatus.forEach { battle.heroStatus[it] = 9 }
     f.foeStatus.forEach { battle.foeStatus[it] = 9 }
