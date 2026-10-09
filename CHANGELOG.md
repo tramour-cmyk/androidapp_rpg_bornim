@@ -7,6 +7,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 **Geändert – Karte näher heran, Gelände bremst (Zweig `karte-neuer-stil`, Stufe 1 der neuen Karte)**
 - Die Karte ist näher herangezoomt: etwa 5½ statt 10½ Kacheln Bildschirmbreite. Die Kamera folgt dem Helden wie bisher, man scrollt mehr und sieht mehr vom Einzelnen. Im Testreiter lässt sich mit „Kartenzoom“ zwischen nah und weit (bisher) wechseln.
 - Das Gelände bestimmt das Tempo: Auf Weg, Pflaster und Brücke geht ein Schritt etwas schneller (× 0,85), über Blumen, Knochen und Leuchtpilze etwas langsamer (× 1,1), über Geröll langsamer (× 1,3) und durch hohes Gras deutlich langsamer (× 1,5). Wandernde Monster bremst der Boden genauso.
+- Gemächlicheres Tempo auf der Karte: Jeder Schritt dauert 1,6-mal so lange wie bisher, für den Helden wie für wandernde Monster. Nah herangezoomt wirkte das alte Tempo hektisch.
 - Vorbereitung für feinere Kartenbilder: Der nahe Zoom ist immer gerade, damit Bilder in doppelter Auflösung später auf ganze Bildschirmpunkte fallen.
 
 **Geändert – mehr Abwechslung in den Bewegungen**

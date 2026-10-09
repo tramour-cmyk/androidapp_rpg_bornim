@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 11:29 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 11:42 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -90,6 +90,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - **Rand des Unerkundeten:** weich und rund statt Treppenstufen, Licht ohne Stufen.
 - **Gelände-Tempo:** auf dem Weg spürbar flotter, im hohen Gras deutlich zäher, Blumen kaum merklich. Wandernde Monster im hohen Gras ebenfalls langsamer.
 - Dorf, Gasthaus, Höhle: passt der nahe Zoom auch dort? Keine abgeschnittenen Eingänge, Schilder oder Figuren an der Anzeige oben?
+- **Deine Rückmeldung zu 0.1.281 (11:4x, Nachricht 11:42):** außer dem Zoom kaum etwas anders (stimmt: die neuen Bilder kommen erst mit Stufe 3 und 4); Geländetempo leicht spürbar, insgesamt aber zu schnell und nah herangezoomt hektisch. Geändert: alle Schritte 1,6-mal so lang, für Held und Monster; neuer Build folgt.
 
 **Zweig-Build 0.1.222** (Ghul, Schamane, Fernangriffe, mehr Varianten): von dir freigegeben, am 08.10. auf `main` übernommen.
 

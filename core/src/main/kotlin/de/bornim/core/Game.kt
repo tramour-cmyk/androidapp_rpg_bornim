@@ -517,7 +517,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         var moved = false
         for (d in tried) if (moveRoamer(r, d, ms)) { moved = true; break }
         // the ground slows a monster as it slows the hero
-        r.nextMoveAt = now + (if (moved) r.moveMs else ms) + 40
+        r.nextMoveAt = now + (if (moved) r.moveMs else (ms * Terrain.PACE).toLong()) + 40
     }
 
     private fun moveRoamer(r: Roamer, d: Facing, ms: Long): Boolean {
@@ -529,7 +529,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         r.x = nx; r.y = ny
         r.facing = d
         r.movedAt = now
-        r.moveMs = (ms * Terrain.stepFactor(map.tile(nx, ny))).toLong()
+        r.moveMs = (ms * Terrain.PACE * Terrain.stepFactor(map.tile(nx, ny))).toLong()
         return true
     }
 

@@ -148,7 +148,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     vm.refresh()
                     // the ground sets the pace: brisk on the path, wading through tall grass
                     val ground = de.bornim.core.Terrain.stepFactor(game.map.tile(game.state.place.x, game.state.place.y)).toFloat()
-                    val duration = (if (running) 110f else if (routeDir != null) 170f else 200f) * ground
+                    val duration = (if (running) 110f else if (routeDir != null) 170f else 200f) * ground * de.bornim.core.Terrain.PACE.toFloat()
                     val start = withFrameMillis { it }
                     while (progress < 1f) {
                         withFrameMillis { progress = ((it - start) / duration).coerceAtMost(1f) }
