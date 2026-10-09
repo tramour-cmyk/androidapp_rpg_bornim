@@ -69,7 +69,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 **Zweig-Build 0.1.265** (09.10., 10:32; enthält alles aus 0.1.254): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37905252687/artifacts/11604391717). **Weiße Trefferzeichen entfernt** (gefragt 09.10., Vorschlag 1 von dir freigegeben): Kein weißes Zeichen mehr bei Biss, Hieb, Stich und stumpfen Waffen; der Treffer zeigt sich durch Innehalten, Rotfärbung und Blut im Augenblick des Aufpralls. Im Film geprüft (Goblin, Wolf, Skelett). Worauf achten: Fehlt dir etwas, ist der Treffer noch gut genug zu erkennen, auch bei Blutstufe „Aus“?
 
-**Folgt im nächsten Build: Wunden der Ockergallerte** (gefragt 09.10., Vorschlag 3 von dir freigegeben): fast schwarze Wunden, und je stärker verletzt, desto flacher und zerlaufener. Standbild 10:44 geprüft. Worauf achten: Sind die Wunden gut zu sehen, ist das Zerfließen deutlich genug?
+**Zweig-Build 0.1.273** (09.10., 10:48; enthält alles aus 0.1.265): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37906856503/artifacts/11605101270). **Wunden der Ockergallerte** (gefragt 09.10., Vorschlag 3 von dir freigegeben): fast schwarze Wunden, und je stärker verletzt, desto flacher und zerlaufener. Standbild 10:44 geprüft. Worauf achten: Sind die Wunden gut zu sehen, ist das Zerfließen deutlich genug?
 
 **Ebenfalls in 0.1.251: Tatendrang einmal pro Rast** (deine Entscheidung 09.10., Möglichkeit c): Tatendrang steht nach dem Einsatz erst nach einer Rast am Lagerfeuer oder im Gasthaus wieder bereit (auch ein Stufenaufstieg füllt auf). Im Kampfmenü steht „0/1“, solange er verbraucht ist.
 
