@@ -68,7 +68,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - Goblin-Späher: Startet der Pfeil am Bogen?
 - Goblin-Schamane: Feuerpfeil vom Schädel auf dem Stab, Fluch aus der freien Hand?
 
-**Zweig-Build (folgt, 09.10.): Treffer ohne Flackern** (gefragt 09.10., Vorschlag 1 + 2 + 3 von dir freigegeben). Worauf achten:
+**Zweig-Build 0.1.241** (09.10., 07:59; enthält auch 0.1.236): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37890923551/artifacts/11598626801). **Treffer ohne Flackern** (gefragt 09.10., Vorschlag 1 + 2 + 3 von dir freigegeben). Worauf achten:
 - Kein weißes Blinken mehr. Beim Aufprall eines Nahkampfschlags kurzes Innehalten, dann färbt sich der Getroffene kurz dunkelrot. Zu schwach, zu stark, zu lang?
 - Kritische Treffer: kurzes Rütteln des Bildes. Störend oder passend?
 - Zuckt der Getroffene im richtigen Moment, kommen Blut und Geräusch mit dem Aufprall?
