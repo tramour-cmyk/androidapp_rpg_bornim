@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 16:47 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 09:34 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -92,6 +92,14 @@ Von dir bestätigt: Goblin-Schamane im neuen Stil, Ghul und Goblin-Späher (08.1
 
 ## Zu entscheiden
 
+- **Karte im neuen Stil (gewünscht 09.10., 09:32; Zweig `karte-neuer-stil`):** Die Karte wirkt neben den Kämpfen noch nach Nintendo. Befund im Code: Die Karte nutzt eine kräftige, bunte Palette (Gras `#78C850`, Wasser `#4C8EF0`, rote und blaue Dächer) mit schwarzen Umrissen auf 32er-Kacheln; die Kampfkulissen haben gedeckte, erdige Farben mit Licht nach Tageszeit. Vorschlag in Stufen, damit es fließend übergeht:
+  1. **Farbe und Licht:** Kartenpalette aus den Kampfkulissen ableiten (gleiche Gras-, Weg-, Wasser-, Rinden- und Steinfarben je Tageszeit), schwarze Umrisse durch dunklere Eigenfarben ersetzen, gemeinsame Farbstimmung über die ganze Karte, Schatten nach Sonnenstand.
+  2. **Formen:** Kachelkanten auflösen (unregelmäßige Ränder, geschwungene Wege, siehe Merkliste), Bäume knorriger und in mehreren Arten (Eiche, Fichte, abgestorben), Unterholz, Wurzeln, Nebel in Senken; im Dorf verwitterte Häuser, Moos, Matsch, Rauch, gedeckte Dachfarben.
+  3. **Figuren:** Held und Monster auf der Karte aus denselben Modellen wie im Kampf, klein und schräg von oben.
+  4. **Übergang Karte → Kampf:** Kamera fährt auf die Stelle, Bild dunkelt ab, die Kampfkulisse entsteht aus genau diesem Ort.
+  5. **Feinere Grafik (größerer Umbau):** doppelte Auflösung der Kacheln oder Kacheln mit Höhen- und Lichtinformation, damit Fackeln und Mond echte Schatten werfen.
+  Empfehlung: mit 1 und 3 beginnen, vorher Entwürfe (vorher/nachher bei Tag, Dämmerung, Nacht). Offen: deine Wahl der Richtung.
+
 - **Noch mehr Zwischenbilder?** Die Haltungen selbst (Arme, Beine, Waffe) wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Nach deinem Test von 0.1.208 vorerst nicht nötig; bei Bedarf als eigener, größerer Umbau (mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn).
 - **Zustände am Körper:** Sind Verlangsamt, Geschwächt und Geblendet auf kleinen Gegnern stark genug?
 - **Goblin-Schamane (Rückmeldung 08.10.):** erster Entwurf nicht gut, wirkt nicht bedrohlich, ein Arm schien zu fehlen (er lag in der Robe). Zweiter Entwurf (17:03): fast schwarze Robe, rußige Augenhöhlen mit grün glühenden Augen, Blutstreifen über die Nase, Schädelstab mit grün glühenden Augen, grünes Fluchlicht in der freien Hand; drei Haltungen (Stehen, Fluch sammeln, Fluch schleudern). Von dir am 08.10. für gut befunden und freigegeben; eingebaut (Zweig, zu testen).
@@ -114,6 +122,7 @@ Von dir bestätigt: Goblin-Schamane im neuen Stil, Ghul und Goblin-Späher (08.1
 
 ## Bei dir
 
+- **Netzwerkzugriff im zweiten Claude-Account (09.10.):** In dieser Umgebung sind Gradle und Maven gesperrt, daher laufen hier weder Vorschau noch Tests. Netzwerk in den Umgebungseinstellungen wie beim ersten Account freigeben.
 - **Setup-Skript für das Android-SDK** in den Umgebungseinstellungen eintragen (am PC in der Web-Ansicht) – machst du zu Hause.
 
 ## Bewusst so gelassen
