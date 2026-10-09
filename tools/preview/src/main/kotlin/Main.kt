@@ -131,6 +131,8 @@ fun main() {
                 shot("zoom_${z}_7_steinkreis") { place(it, "forest", 10, 25, 17 * 60 + 30) }
                 shot("zoom_${z}_8_tiefer_wald") { place(it, "deep_forest", 22, 6, 12 * 60) }
                 shot("zoom_${z}_9_hinter_baum") { place(it, "forest", 12, 10, 12 * 60) }
+                shot("zoom_${z}_h1_hoehleneingang") { place(it, "forest", 10, 2, 12 * 60, Facing.UP) }
+                shot("zoom_${z}_h2_hoehleneingang_nacht") { place(it, "forest", 10, 2, 23 * 60, Facing.UP) }
                 shot("zoom_${z}_g1_garrick_tag") { place(it, "forest", 10, 9, 12 * 60, Facing.RIGHT) }
                 shot("zoom_${z}_g2_garrick_nacht") { place(it, "forest", 10, 10, 23 * 60, Facing.RIGHT) }
                 shot("zoom_${z}_g3_garrick_fern") { place(it, "forest", 9, 13, 12 * 60, Facing.UP) }

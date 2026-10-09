@@ -35,6 +35,8 @@ object MapGround {
     private val drawn = setOf(
         Tile.GRASS, Tile.TALL_GRASS, Tile.FLOWERS, Tile.PATH, Tile.TREE, Tile.WATER,
         Tile.ROCK, Tile.LOG, Tile.MENHIR, Tile.SIGN, Tile.CHEST, Tile.CAMPFIRE,
+        // the rock face about the cave mouth in the woods ([MapFlora.caveCliff], 1b)
+        Tile.CAVE_WALL, Tile.CAVE_ENTRANCE,
     )
 
     /** Tiles drawn by the cave's ground ([MapCave]); only inside the cave (09.10., 23:04: the cliff about the cave mouth in the woods is still the former one). */

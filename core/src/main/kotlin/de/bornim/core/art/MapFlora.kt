@@ -404,6 +404,99 @@ object MapFlora {
         Sprite(img, w / 2, base.toInt())
     }
 
+    /**
+     * The rock face the Bloodfang Cave opens into, [n] tiles wide, the mouth in tile [mouth] (or none):
+     * a bank of big weathered rocks heaped together, lower towards the ends, moss on their tops and roots
+     * hanging over, scree at the foot; the mouth a ragged dark hole, a few bones before it, and a
+     * goblin's warning, a skull on a stake (09.10., 1b).
+     */
+    fun caveCliff(n: Int, mouth: Int): Sprite = cached("cliff/$n/$mouth") {
+        // a margin either side, so the rocks run out into the wood instead of ending square
+        val pad = 26; val w = n * S + 2 * pad; val h = S + 14
+        val img = PixelImage(w, h)
+        val face0 = 20; val foot = h - 12
+        val mcx = pad + (mouth + 0.5) * S; val mw = 21.0; val mTop = face0 + 4.0
+        fun inMouth(x: Int, y: Int): Double {
+            if (mouth < 0) return 9.0
+            // a ragged arch: round above, wider at the foot
+            val dx = (x - mcx) / (mw + (y - mTop) * 0.12); val dy = (y - (foot + 2.0)) / (foot + 2.0 - mTop)
+            val e = dx * dx + (if (dy < 0) dy * dy else 0.0)
+            return e + (vnoise(x.toDouble(), y.toDouble(), 3.0, 77) - 0.5) * 0.18
+        }
+        // the rock: big rounded masses side by side, lower and smaller towards the ends, each lit
+        // from the upper left like the boulders, moss on their tops; the gaps between them dark
+        class Mass(val x: Double, val y: Double, val rx: Double, val ry: Double, val seed: Int)
+        val masses = ArrayList<Mass>()
+        var x0 = 4.0; var k = 0
+        while (x0 < w - 4) {
+            val endFade = minOf(x0 - 4, w - 4 - x0) / S.toDouble()
+            val rx = 16.0 + rnd(k, n, 90) * 14 * minOf(1.0, endFade + 0.4)
+            val ry = (if (endFade < 0.6) 18.0 else 30.0) + rnd(k, n, 91) * 10
+            masses += Mass(x0 + rx * 0.7, foot - ry * 0.55 + rnd(k, n, 92) * 6, rx, ry, k)
+            x0 += rx * 1.25; k++
+        }
+        val depth = Array(h) { DoubleArray(w) { -1.0 } }
+        for (ms in masses) for (y in (ms.y - ms.ry).toInt()..(ms.y + ms.ry).toInt()) for (x in (ms.x - ms.rx).toInt()..(ms.x + ms.rx).toInt()) {
+            if (x !in 0 until w || y !in 0 until h || y > foot + 3) continue
+            val nx = (x - ms.x) / ms.rx; val ny = (y - ms.y) / ms.ry
+            val d = nx * nx + ny * ny + (vnoise(x.toDouble(), y.toDouble(), 5.0, 93 + ms.seed) - 0.5) * 0.3
+            if (d > 1) continue
+            // the nearer (lower) mass in front; within one, the edge darker
+            val z = ms.y + ms.ry * 0.3
+            if (z < depth[y][x]) continue
+            depth[y][x] = z
+            // old, damp rock: mostly in the darker shades, only the upper left of each mass catches light
+            var t = 0.42 - nx * 0.3 - ny * 0.4 + (vnoise(x.toDouble(), y.toDouble(), 3.0, 94 + ms.seed) - 0.5) * 0.3 - d * 0.25
+            if (ny > 0.35) t -= 0.25
+            var c = STONE[((1 - t.coerceIn(0.0, 1.0)) * 3.99).toInt().coerceIn(0, 3)]
+            if (ny < -0.3 && vnoise(x.toDouble(), y.toDouble(), 6.0, 95 + ms.seed) > 0.38) c = mix(c, MOSS, 0.8)
+            if (abs(vnoise(x.toDouble(), y * 0.5, 9.0, 96 + ms.seed) - 0.5) < 0.01) c = argb(0x221E1A)
+            val m = inMouth(x, y)
+            if (m < 1.0) {
+                c = if (m > 0.8) mix(argb(0x0A0908), STONE[3], (m - 0.8) / 0.2) else argb(0x0A0908)
+                if (m < 0.6 && y > foot - 6) c = argb(0x14110E)
+            } else if (m < 1.22 && y > mTop - 4) c = mix(c, STONE[3], 0.5)
+            put(img, x, y, c)
+        }
+        // the mouth also where no mass reaches up to it
+        if (mouth >= 0) for (y in mTop.toInt()..foot) for (x in (mcx - mw * 1.3).toInt()..(mcx + mw * 1.3).toInt()) {
+            if (x !in 0 until w || depth[y][x] >= 0) continue
+            if (inMouth(x, y) < 1.0) put(img, x, y, argb(0x0A0908))
+        }
+        // roots hanging from the overhang, longer ones over the mouth
+        for (r in 0 until n * 4) {
+            val x = 3.0 + rnd(r, n, 78) * (w - 6)
+            val over = mouth >= 0 && abs(x - mcx) < mw
+            val y0 = (0 until h).firstOrNull { yy -> depth[yy][x.toInt().coerceIn(0, w - 1)] >= 0 } ?: continue
+            val len = 3 + rnd(r, n, 79) * (if (over) 14 else 7)
+            stroke(img, x, y0 + 2.0, x + (rnd(r, n, 80) - 0.5) * 4, y0 + 2 + len, 1.0, if (rnd(r, n, 81) < 0.5) BARK[2] else argb(0x3A2E22))
+        }
+        // scree along the foot
+        for (k in 0 until n * 6) {
+            val x = rnd(k, n, 82) * w; if (mouth >= 0 && abs(x - mcx) < mw * 0.8) continue
+            val y = foot - 2 + rnd(k, n, 83) * 8; val r = 1.5 + rnd(k, n, 84) * 2.5
+            for (yy in (y - r).toInt()..(y + r).toInt()) for (xx in (x - r).toInt()..(x + r).toInt()) {
+                val d = ((xx - x) * (xx - x) + (yy - y) * (yy - y) * 1.6) / (r * r); if (d > 1) continue
+                put(img, xx, yy, if (yy < y - r * 0.2) STONE[1] else STONE[2])
+            }
+        }
+        if (mouth >= 0) {
+            // bones before the mouth, and a skull on a stake beside it
+            for (k in 0 until 4) {
+                val x = mcx - mw * 0.6 + rnd(k, 1, 85) * mw * 1.2; val y = foot + 2.0 + rnd(k, 1, 86) * 5
+                stroke(img, x - 3, y, x + 3, y + (rnd(k, 1, 87) - 0.5) * 3, 1.2, argb(0xB8AC90))
+            }
+            val sx = mcx + mw + 9; val sb = foot + 6.0
+            stroke(img, sx, sb, sx, sb - 26, 1.6, BARK[1])
+            for (yy in -4..3) for (xx in -4..4) {
+                val d = xx * xx / 16.0 + yy * yy / (if (yy < 0) 16.0 else 9.0); if (d > 1) continue
+                put(img, (sx + xx).toInt(), (sb - 30 + yy).toInt(), if (yy < -1) argb(0xC8BCA0) else argb(0xA89C80))
+            }
+            put(img, (sx - 2).toInt(), (sb - 30).toInt(), argb(0x1A1410)); put(img, (sx + 2).toInt(), (sb - 30).toInt(), argb(0x1A1410))
+        }
+        Sprite(img, pad, h - 4)
+    }
+
     // ------------------------------------------------------------------ on the map
 
     private fun obj(s: Sprite, artX: Double, artY: Double): WorldArt.Obj {
@@ -446,6 +539,15 @@ object MapFlora {
             Tile.CAMPFIRE -> listOf(obj(campfire(frame), cx, cy + S * 0.2))
             Tile.CHEST -> listOf(obj(chest(chestOpen, hash(tx, ty, 14) % 3), cx, cy + S * 0.22))
             Tile.SIGN -> listOf(obj(sign(hash(tx, ty, 15) % 3), cx, cy + S * 0.3))
+            Tile.CAVE_WALL, Tile.CAVE_ENTRANCE -> {
+                // one picture for a whole run of rock along the row, given by its first tile
+                fun rock(x: Int) = map.tile(x, ty).let { it == Tile.CAVE_WALL || it == Tile.CAVE_ENTRANCE }
+                if (rock(tx - 1)) return emptyList()
+                var n = 0; var mouth = -1
+                while (rock(tx + n)) { if (map.tile(tx + n, ty) == Tile.CAVE_ENTRANCE) mouth = n; n++ }
+                // sorted a little before the row's foot, so the hero stepping into the mouth stands in front
+                listOf(obj(caveCliff(n, mouth), tx * S.toDouble(), (ty + 1.0) * S - 10))
+            }
             else -> null
         }
     }
