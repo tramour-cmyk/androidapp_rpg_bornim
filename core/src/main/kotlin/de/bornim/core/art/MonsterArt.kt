@@ -124,14 +124,14 @@ object MonsterArt {
     fun battleFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound: Int = 0): PixelImage =
         if (isDoll(id)) FoeArt.frame(id, look, act, variant, index)
         else if (isBeast(id)) BeastArt.frame(id, look, act, variant, index, wound)
-        else if (isVermin(id)) VerminArt.frame(id, look, act, variant, index)
+        else if (isVermin(id)) VerminArt.frame(id, look, act, variant, index, wound)
         else WolfArt.frame(look, id == "dire_wolf", act, variant, index, wound)
 
     /** The frame to show now: for foes on the doll the nearest one drawn so far, never waiting; see [FoeArt.shown]. */
     fun shownFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound: Int = 0): PixelImage =
         if (isDoll(id)) FoeArt.shown(id, look, act, variant, index)
         else if (isBeast(id)) BeastArt.shown(id, look, act, variant, index, wound)
-        else if (isVermin(id)) VerminArt.shown(id, look, act, variant, index) else battleFrame(id, look, act, variant, index, wound)
+        else if (isVermin(id)) VerminArt.shown(id, look, act, variant, index, wound) else battleFrame(id, look, act, variant, index, wound)
 
     /**
      * Draws every frame of a new-style monster ahead of time (call off the main thread at the
@@ -140,7 +140,7 @@ object MonsterArt {
     fun prepare(id: String, look: MonsterLook, wound: Int = 0) {
         if (isDoll(id)) { FoeArt.prepare(id, look); return }
         if (isBeast(id)) { BeastArt.prepare(id, look, wound); return }
-        if (isVermin(id)) { VerminArt.prepare(id, look); return }
+        if (isVermin(id)) { VerminArt.prepare(id, look, wound); return }
         if (!isNewStyle(id)) return
         for (act in Act.entries) {
             val variants = if (act == Act.ATTACK) attackVariants(id) else 1

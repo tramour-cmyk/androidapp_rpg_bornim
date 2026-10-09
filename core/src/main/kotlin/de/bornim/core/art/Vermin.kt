@@ -528,10 +528,14 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
             val across = P3(dir.z, 0.0, -dir.x)
             add(Ellipsoid(at, P3(14.0 + 4.0 * (i % 3), 3.2, 12.0 * creep) * k, Frame(across, P3.Y, dir), BodyPart.TORSO, BODY), ooze).also { it.paint = mottle }
         }
-        // it drips: long strings hanging from the overhang of its humps
-        for ((i, q) in listOf(P3(-30.0, 22.0, 14.0), P3(26.0, 14.0, 24.0), P3(4.0, 16.0, 34.0), P3(-40.0, 14.0, -8.0)).withIndex()) {
+        // it drips: long strings hanging from the overhang of its humps; the more it runs (hurt, or dying), the more
+        // and the longer
+        val drips = listOf(P3(-30.0, 22.0, 14.0), P3(26.0, 14.0, 24.0), P3(4.0, 16.0, 34.0), P3(-40.0, 14.0, -8.0),
+            P3(18.0, 20.0, 30.0), P3(-14.0, 18.0, 36.0), P3(40.0, 16.0, 6.0))
+        val dripN = if (r.curl > 0.2) 7 else if (r.curl > 0.05) 6 else 4
+        for ((i, q) in drips.take(dripN).withIndex()) {
             val at = base + P3(q.x * wide, q.y * tall, q.z * wide) * k
-            cone(at, at + p(0.0, -6.0 - i * 2.0, 1.0), 1.8, 0.6, ooze, BODY).paint = mottle
+            cone(at, at + p(0.0, (-6.0 - i * 2.0) * (1 + 1.5 * r.curl), 1.0), 1.8, 0.6, ooze, BODY).paint = mottle
         }
         tip = base + p(0.0, 20.0, 60.0 + 20.0 * reach)
         // bubbles swelling on its skin

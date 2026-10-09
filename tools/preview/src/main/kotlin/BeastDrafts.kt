@@ -291,3 +291,24 @@ fun renderVerminAnim() {
         println("wrote vermin anim $id")
     }
 }
+
+/** JELLYWOUND=1: the ochre jelly healthy, below half and below a quarter, with its wound stains, in the forest light. */
+fun renderJellyWounds() {
+    val M = de.bornim.core.art.MonsterArt
+    val look = de.bornim.core.MonsterLook(1)
+    val cw = 280; val chh = 200
+    val out = BufferedImage(cw * 3, chh, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x4E6A38); g.fillRect(0, 0, out.width, out.height)
+    for (w in 0..2) {
+        val base = M.battleFrame("ochre_jelly", look, de.bornim.core.art.Act.IDLE, 0, 0, w)
+        val im = if (w == 0) base else de.bornim.core.art.Glow.wounds(base, w, 0x241606, look.seed, cracks = false)
+        for (y in 0 until minOf(chh, base.height)) for (x in 0 until minOf(cw, base.width)) {
+            val q0 = base[x, y]; val q1 = im[x, y]
+            val q = if ((q1 ushr 24) >= 128) q1 else q0
+            if ((q ushr 24) >= 128) out.setRGB(w * cw + x, y, q and 0xFFFFFF)
+        }
+        g.color = java.awt.Color(0xF0E8D8); g.drawString(listOf("gesund", "unter halben TP", "unter einem Viertel")[w], w * cw + 6, 14)
+    }
+    ImageIO.write(out, "png", File("build/screens/gallerte_wunden.png"))
+    println("wrote jelly wounds")
+}

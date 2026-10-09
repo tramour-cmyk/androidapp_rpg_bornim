@@ -296,16 +296,26 @@ object VerminArt {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > capacity
     }
 
-    private fun key(id: String, look: MonsterLook, act: Act, variant: Int, i: Int) =
-        "$id/${look.seed}/${look.shiny}/${if (act == Act.HOWL) Act.IDLE else act}/${if (variants(act) > 1) variant.mod(3) else 0}/$i"
+    /** Only the jelly shows its wounds in its shape (see [wounded]); the others look the same however hurt. */
+    private fun woundOf(id: String, act: Act, wound: Int) = if (kindOf(id) == Vermin.Kind.JELLY && act != Act.DIE) wound.coerceIn(0, 2) else 0
 
-    /** One frame; how badly it is hurt does not change how it stands. */
-    fun frame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage {
+    private fun key(id: String, look: MonsterLook, act: Act, variant: Int, i: Int, wound: Int) =
+        "$id/${look.seed}/${look.shiny}/${if (act == Act.HOWL) Act.IDLE else act}/${if (variants(act) > 1) variant.mod(3) else 0}/$i/${woundOf(id, act, wound)}"
+
+    /**
+     * A badly hurt jelly ([wound] 1 below half its hit points, 2 below a quarter) runs: lower and wider, its puddle
+     * spreading, more of it dripping off.
+     */
+    private fun wounded(r: Rig, wound: Int): Rig = if (wound <= 0) r else r.copy(curl = r.curl + 0.25 * wound, surge = r.surge - 0.12 * wound)
+
+    /** One frame; [wound] changes only how the jelly stands. */
+    fun frame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound0: Int = 0): PixelImage {
+        val wound = woundOf(id, act, wound0)
         val seq = sequence(id, act, variant).rigs
         val i = if (act == Act.IDLE || act == Act.HOWL) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
-        val k = key(id, look, act, variant, i)
+        val k = key(id, look, act, variant, i, wound)
         synchronized(cache) { cache[k]?.let { return it } }
-        val img = vermin(id, look).render(W, H, ANCHOR_X, GROUND, PX, seq[i])
+        val img = vermin(id, look).render(W, H, ANCHOR_X, GROUND, PX, wounded(seq[i], wound))
         if (look.shiny) shimmer(img)
         synchronized(cache) { cache[k] = img }
         return img
@@ -321,23 +331,24 @@ object VerminArt {
     }
 
     /** The frame if drawn already, else the nearest earlier one, else the first of the guard: the battle never waits. */
-    fun shown(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage {
+    fun shown(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound: Int = 0): PixelImage {
         val seq = sequence(id, act, variant).rigs
         val i = if (act == Act.IDLE || act == Act.HOWL) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         synchronized(cache) {
-            for (j in i downTo 0) cache[key(id, look, act, variant, j)]?.let { return it }
-            for (j in 0 until IDLE_FRAMES) cache[key(id, look, Act.IDLE, 0, j)]?.let { return it }
+            for (j in i downTo 0) cache[key(id, look, act, variant, j, wound)]?.let { return it }
+            for (j in 0 until IDLE_FRAMES) cache[key(id, look, Act.IDLE, 0, j, wound)]?.let { return it }
+            for (j in 0 until IDLE_FRAMES) cache[key(id, look, Act.IDLE, 0, j, 0)]?.let { return it }
         }
-        return frame(id, look, Act.IDLE, 0, 0)
+        return frame(id, look, Act.IDLE, 0, 0, wound)
     }
 
     /** Draws every frame ahead, the guard first and its one fall next; off the main thread. */
-    fun prepare(id: String, look: MonsterLook, cancelled: () -> Boolean = { false }) {
-        if (!cancelled()) frame(id, look, Act.IDLE, 0, 0)
+    fun prepare(id: String, look: MonsterLook, wound: Int = 0, cancelled: () -> Boolean = { false }) {
+        if (!cancelled()) frame(id, look, Act.IDLE, 0, 0, wound)
         val plan = listOf(Act.DIE to listOf(dieVariant(look)), Act.IDLE to listOf(0), Act.ATTACK to (0..2).toList(), Act.HURT to (0..2).toList(),
             Act.DODGE to (0..2).toList())
         for ((act, vs) in plan) for (v in vs)
-            for (i in sequence(id, act, v).rigs.indices) { if (cancelled()) return; frame(id, look, act, v, i) }
+            for (i in sequence(id, act, v).rigs.indices) { if (cancelled()) return; frame(id, look, act, v, i, wound) }
     }
 
     /** The one way this one falls: fixed by its look. */

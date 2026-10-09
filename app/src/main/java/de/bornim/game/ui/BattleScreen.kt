@@ -1455,7 +1455,9 @@ private fun enemyAlphaBase(a: Anim?, gone: Boolean, t: Float): Float = if (gone 
 /** Stains on a hurt monster in the color of what it bleeds; skeletons crack instead. */
 private fun woundsOf(img: de.bornim.core.art.PixelImage, wound: Int, id: String, seed: Int): de.bornim.core.art.PixelImage {
     val gore = goreFor(id)
-    val c = (gore.main.red * 255).toInt() shl 16 or ((gore.main.green * 255).toInt() shl 8) or (gore.main.blue * 255).toInt()
+    // the ochre jelly's wounds are holes in the ooze, near black: in its own colour they would not show on it
+    val main = if (gore == Gore.SLIME) Color(0xFF241606) else gore.main
+    val c = (main.red * 255).toInt() shl 16 or ((main.green * 255).toInt() shl 8) or (main.blue * 255).toInt()
     return Glow.wounds(img, wound, c, seed, cracks = gore == Gore.BONE)
 }
 
