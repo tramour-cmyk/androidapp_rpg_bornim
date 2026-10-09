@@ -59,7 +59,7 @@ object MapFigure {
      * weapon rests on the right shoulder, pointing up and back; a short one (sword, mace, axe,
      * dagger) is carried low in the right hand, its point forward and down, clear of the ground and
      * of the head from every side. With nothing in hand ([Carry.FREE], folk with the bow slung) both
-     * arms hang and swing with the step.
+     * arms hang a little forward of the body, clear of a cloak, and swing with the step.
      */
     fun rig(yaw: Double, step: Int, carry: Carry): HeroFigure.Rig {
         val st = listOf(0.0, 11.0, 0.0, -11.0)[Math.floorMod(step, STEPS)]
@@ -68,9 +68,9 @@ object MapFigure {
             rh = when (carry) {
                 Carry.SHOULDER -> HeroFigure.V(19.0, 78.0, 8.0)
                 Carry.LOW -> HeroFigure.V(18.0, 64.0, 10.0 - st * 0.3)
-                Carry.FREE -> HeroFigure.V(17.0, 52.0, 3.0 - st * 0.6)
+                Carry.FREE -> HeroFigure.V(16.0, 53.0, 8.0 - st * 0.6)
             },
-            lh = HeroFigure.V(-17.0, if (carry == Carry.FREE) 52.0 else 54.0, 3.0 + st * 0.6),
+            lh = if (carry == Carry.FREE) HeroFigure.V(-16.0, 53.0, 8.0 + st * 0.6) else HeroFigure.V(-17.0, 54.0, 3.0 + st * 0.6),
             weapon = when (carry) {
                 Carry.SHOULDER -> HeroFigure.V(0.2, 0.96, -0.2)
                 Carry.LOW -> HeroFigure.V(0.12, -0.6, 0.79)

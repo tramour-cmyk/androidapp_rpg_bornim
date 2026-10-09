@@ -78,5 +78,16 @@ fun renderNpcDraft() {
     place(folk.draw(folk.garrick, F.slot(F.yawOf(Facing.LEFT)), 0), 12, 9)
     place(F.draw(hero, F.slot(F.yawOf(Facing.RIGHT)), 1), 10, 9)
     ImageIO.write(scene, "png", File("build/screens/npc_garrick_feuer.png"))
+    // all sixteen directions, three times enlarged, to check arms and the bow over the cloak
+    val k = 3
+    val all = BufferedImage(F.W * 8 * k, F.H * 2 * k, BufferedImage.TYPE_INT_RGB)
+    for (s in 0 until 16) {
+        val img = folk.draw(folk.garrick, s, 0)
+        for (y in 0 until F.H * k) for (x in 0 until F.W * k) {
+            val q = img[x / k, y / k]
+            all.setRGB((s % 8) * F.W * k + x, (s / 8) * F.H * k + y, if ((q ushr 24) >= 128) q else 0x2E3628)
+        }
+    }
+    ImageIO.write(all, "png", File("build/screens/npc_garrick_16.png"))
     println("wrote npc draft")
 }
