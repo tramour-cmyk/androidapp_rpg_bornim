@@ -95,14 +95,17 @@ fun main() {
     if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }
     if (System.getenv("KARTENZOOM") != null) {
         // the map near (new) and far (former), at noon and at night, in the forest, the village, an inn and the cave
-        fun place(vm: GameViewModel, map: String, x: Int, y: Int, minutes: Int) {
+        fun place(vm: GameViewModel, map: String, x: Int, y: Int, minutes: Int, facing: Facing = Facing.UP) {
             vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
             val g = vm.game!!; g.skipDialogs()
-            g.state.place = Place(map, x, y, Facing.UP); g.state.minutes = minutes
+            g.state.place = Place(map, x, y, facing); g.state.minutes = minutes
             // everything explored, so the shots show the ground; the new ground drawn right away
             val m = de.bornim.core.World[map]
             g.state.explored[map] = "f".repeat((m.width * m.height + 3) / 4)
             de.bornim.core.art.MapGround.prepareNow(m)
+            val t0 = System.currentTimeMillis()
+            de.bornim.core.art.MapFigure.prepareNow(g.state.hero)
+            println("map figure: ${System.currentTimeMillis() - t0} ms for 64 pictures")
             vm.refresh()
         }
         for (near in listOf(true, false)) {
@@ -118,6 +121,7 @@ fun main() {
                 shot("zoom_${z}_7_steinkreis") { place(it, "forest", 10, 25, 17 * 60 + 30) }
                 shot("zoom_${z}_8_tiefer_wald") { place(it, "deep_forest", 22, 6, 12 * 60) }
                 shot("zoom_${z}_9_hinter_baum") { place(it, "forest", 12, 10, 12 * 60) }
+                for (f in Facing.entries) shot("zoom_${z}_r_${f.name.lowercase()}") { place(it, "forest", 9, 12, 12 * 60, f) }
             }
         }
         System.exit(0)

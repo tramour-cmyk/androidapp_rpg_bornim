@@ -57,6 +57,7 @@ import de.bornim.core.Mode
 import de.bornim.core.Move
 import de.bornim.core.Story
 import de.bornim.core.Tile
+import de.bornim.core.art.MapFigure
 import de.bornim.core.art.MapFlora
 import de.bornim.core.art.MapGround
 import de.bornim.core.art.MapLight
@@ -509,7 +510,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         fun hides(o: WorldArt.Obj): Boolean {
             if (o.density < 2 || o.sortY <= heroY + T) return false
             val w = o.img.width / o.density; val h = o.img.height / o.density
-            return heroX + T - 6 > o.x && heroX + 6 < o.x + w && heroY + T > o.y && heroY - 10 < o.y + h - 6
+            return heroX + T - 8 > o.x && heroX + 8 < o.x + w && heroY + T > o.y && heroY - 30 < o.y + h - 6
         }
         for (o in WorldArt.objects(map, state, frame)) {
             val a = if (hides(o)) 0.45f else 1f
@@ -606,10 +607,17 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 
         val walking = progress < 1f
         val step = if (!walking) 0 else if (state.steps % 2 == 0) 1 else 2
+        // the hero as the doll from the battles, turning smoothly; the former figure until it is drawn
+        MapFigure.prepare(state.hero, HeroTurn.yaw)
+        val target = MapFigure.yawOf(p.facing)
+        HeroTurn.update(target, clock)
+        val walkStep = if (!walking) 0 else Math.floorMod(state.steps * 2 + (progress * 2).toInt(), MapFigure.STEPS)
+        val doll = MapFigure.frame(state.hero, MapFigure.slot(HeroTurn.yaw), walkStep)
         val hero = CharacterArt.hero(state.hero, p.facing, step)
         // +0.5 so the hero is drawn after objects standing on the same row
         sprites += Sprite(heroY + T - 0.5f) {
-            put(hero, heroX, heroY - 2)
+            if (doll != null) put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
+            else put(hero, heroX, heroY - 2)
             // Feet hidden in tall grass.
             if (map.tile(p.x, p.y) == Tile.TALL_GRASS && progress > 0.5f) put(WorldArt.tallGrassOverlay(), heroX, heroY)
         }
@@ -641,6 +649,22 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 }
 
 private class Sprite(val y: Float, val draw: () -> Unit)
+
+/** The way the hero faces on the map, turning smoothly towards where it walks instead of snapping round. */
+private object HeroTurn {
+    var yaw = 0.0
+    private var last = 0L
+
+    /** Turns towards [target] (degrees) by the shortest way, about half a turn in a quarter of a second. */
+    fun update(target: Double, now: Long) {
+        val dt = if (last == 0L) 1000L else (now - last).coerceIn(0L, 200L)
+        last = now
+        var d = ((target - yaw) % 360.0 + 540.0) % 360.0 - 180.0
+        val maxStep = dt * 0.75
+        if (kotlin.math.abs(d) <= maxStep) yaw = target else yaw += kotlin.math.sign(d) * maxStep
+        yaw = (yaw % 360.0 + 360.0) % 360.0
+    }
+}
 
 /**
  * Draws the fog in half-tile cells; each cell blends the fog of its tile with the neighbours

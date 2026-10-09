@@ -4,6 +4,11 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – der Held auf der Karte als Puppe (Zweig `karte-neuer-stil`)**
+- Auf allen Karten ist der Held jetzt dieselbe Figur wie im Kampf, schräg von oben, in wahrer Größe je Volk, mit seiner echten Ausrüstung. Beim Herumlaufen trägt er die Waffe gesenkt und den Schild auf dem Rücken (Rund-, Spitz- und Turmschild in ihrer Form, Oberkante knapp über den Schultern, mit Riemen über der Brust); die linke Hand ist frei.
+- Der Held dreht sich weich in die neue Richtung (16 Richtungen, eine halbe Drehung in etwa einer Viertelsekunde), statt eckig umzuspringen, und geht mit vier Schrittbildern.
+- Die Bilder werden beim Betreten der Karte im Hintergrund gezeichnet, die aktuelle Blickrichtung zuerst; bis dahin steht kurz die bisherige Figur da. Nach einem Ausrüstungswechsel werden sie neu gezeichnet.
+
 **Neu – Bäume, Felsen und Unterholz im Wald (Zweig `karte-neuer-stil`)**
 - Im Flüsterwald und im Tiefen Wald stehen neue Bäume in doppelter Auflösung, schräg von oben, mit Licht von links oben: Eichen mit Stamm, gefurchter Rinde, Wurzeln und knolliger Krone in zehn Varianten und drei Größen; Fichten in hängenden Stufen; tote, graue Bäume mit kahlen Ästen (im Tiefen Wald öfter, dort auch dunkleres Laub). Auf manchen Waldkacheln stehen zwei Bäume, leicht versetzt.
 - Felsen sind Blockgruppen mit beschatteter Vorderseite und Moos auf der Nordseite, umgestürzte Stämme tragen Moos, Steinkreise haben hohe, verwitterte Steine mit Flechten.
