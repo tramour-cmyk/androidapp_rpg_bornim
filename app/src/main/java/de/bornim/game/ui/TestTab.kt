@@ -92,6 +92,13 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             crits = de.bornim.core.Battle.heroCritsAlways
             vm.toast = if (crits) t("Jeder Waffentreffer ist kritisch: so lässt sich der Killerschlag testen.", "Every weapon hit is critical: to test the killing blow.") else t("Kritische Treffer wieder normal.", "Critical hits back to normal.")
         }
+        var near by remember { mutableStateOf(MapZoom.near) }
+        PixelButton(t("Kartenzoom: ", "Map zoom: ") + (if (near) t("nah", "near") else t("weit (bisher)", "far (former)")), Modifier.fillMaxWidth(), size = 14.sp) {
+            MapZoom.near = !MapZoom.near
+            near = MapZoom.near
+            vm.refresh()
+            vm.toast = if (near) t("Karte näher herangezoomt.", "Map zoomed in.") else t("Karte wieder weit wie bisher.", "Map zoomed out as before.")
+        }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()
             vm.refresh()

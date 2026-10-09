@@ -4,6 +4,40 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – Höhle im neuen Stil**
+- Die Blutzahnhöhle hat einen neuen Boden in doppelter Auflösung und ohne Raster: Fels in flachen Absätzen, lange Risse, Grus, Staub auf den Wegen, feuchte Stellen, Pfützen und Moos, ein schwarzer Tümpel; am Ausgang ziehen Erde, Laub und Wurzeln aus dem Wald herein.
+- Die Wände haben eine dunkle Oberseite und eine sichtbare Felskante mit Schichten und nassen Streifen, damit man die Räume erkennt; Schatten unter allem, was steht.
+- Felswände in der Höhle bleiben nach dem Erkunden nicht mehr schwarz: Gestein gilt als so erkundet wie der Boden davor, das Licht fällt ein Stück weit auf den Fels, und der Rand des Lichts ist weich statt eckig.
+- Alle Dinge der Höhle sind neu gezeichnet wie Ausrüstung und Gegner, je in drei Varianten: Stalagmiten, Kisten und Fässer, Knochen, Schlafplätze, Felsen, Geröll, Leuchtpilze, Kristalle, Stützbalken, Gitter, Lagerfeuer (flackernd), Truhen (auch geöffnet), Wandfackeln, Wurzeln am Lichtschacht.
+
+**Neu – der Held auf der Karte als Puppe (Zweig `karte-neuer-stil`)**
+- **Garrick als Puppe auf der Karte (09.10., Zweig `karte-neuer-stil`):** Der Jäger am Lagerfeuer ist jetzt dieselbe Puppe wie der Held: kurzer Vollbart, Kapuze und Umhang in dunklem Oliv, dunkles Leder, Langbogen und Köcher quer über dem Rücken, die Hände frei. Er dreht sich fließend und schaut dem Helden nach, solange der in seiner Nähe (bis 4 Felder) ist. Die übrigen Leute sind noch die alten Figuren. Nach einem Gespräch dreht er sich wieder zum Feuer, sobald der Held weggeht. Held und Garrick erscheinen sofort als Puppe, nicht mehr kurz als alte Figur (Puppen werden beim Laden und Kartenwechsel vorgezeichnet). Allein gelassen wärmt Garrick sich die Hände am Feuer oder dreht sich weg und späht, die Hand über den Augen, in den Wald, zu unregelmäßigen Zeiten und verschieden lang. Steht der Held 20 Sekunden still bei ihm, verliert er das Interesse und wendet sich wieder dem Feuer zu.
+- **Lebendige Welt (09.10.):** Wer auf der Karte steht, steht nicht mehr starr: Held und Leute atmen, verlagern ab und zu das Gewicht, schauen kurz zur Seite, Leute stützen auch die Hände in die Hüften, jede Figur in ihrem eigenen, unregelmäßigen Takt.
+- Auf allen Karten ist der Held jetzt dieselbe Figur wie im Kampf, schräg von oben, in wahrer Größe je Volk, mit seiner echten Ausrüstung. Beim Herumlaufen trägt er kurze Waffen (Schwert, Streitkolben, Axt, Dolch) tief in der rechten Hand, die Spitze nach vorn unten, lange Waffen (Zweihänder, Speer, Stab, Hellebarde, Bogen, Armbrust) fast aufrecht an der rechten Schulter, und den Schild auf dem Rücken (Rund-, Spitz- und Turmschild in ihrer Form, Oberkante knapp über den Schultern, mit Riemen über der Brust); die linke Hand ist frei.
+- Der Held dreht sich weich in die neue Richtung (16 Richtungen, eine halbe Drehung in etwa einer Viertelsekunde), statt eckig umzuspringen, und geht mit vier Schrittbildern.
+- Die Bilder werden beim Betreten der Karte im Hintergrund gezeichnet, die aktuelle Blickrichtung zuerst; bis dahin steht kurz die bisherige Figur da. Nach einem Ausrüstungswechsel werden sie neu gezeichnet.
+
+**Neu – Bäume, Felsen und Unterholz im Wald (Zweig `karte-neuer-stil`)**
+- Im Flüsterwald und im Tiefen Wald stehen neue Bäume in doppelter Auflösung, schräg von oben, mit Licht von links oben: Eichen mit Stamm, gefurchter Rinde, Wurzeln und knolliger Krone in zehn Varianten und drei Größen; Fichten in hängenden Stufen; tote, graue Bäume mit kahlen Ästen (im Tiefen Wald öfter, dort auch dunkleres Laub). Auf manchen Waldkacheln stehen zwei Bäume, leicht versetzt.
+- Felsen sind Blockgruppen mit beschatteter Vorderseite und Moos auf der Nordseite, umgestürzte Stämme tragen Moos, Steinkreise haben hohe, verwitterte Steine mit Flechten.
+- Auf der Wiese, dichter am Waldrand, wachsen Büsche und Farne; nie auf dem Weg.
+- Bäume, Felsen und Steine werfen Schatten nach rechts unten auf den Boden, kräftig am Tag, in der Dämmerung schwächer, nachts keine.
+- Lagerfeuer, Truhen und Schilder im Wald neu: Feuer in einem Ring rußiger Steine mit Asche, verkohlten Scheiten, flackernden Flammen, Glut und Funken; Truhen aus verwitterten Planken mit Eisenbändern, Schloss und Moos, offen mit hochgeklapptem Deckel; Schilder als grobe Bretter auf schiefem Pfahl, mit eingeritzter Schrift und Krallenspuren.
+- Steht der Held hinter einer Baumkrone, einem Felsen oder Busch, wird genau dieses Bild halb durchsichtig, damit er nicht verloren geht.
+- Die Bäume sind deutlich höher, passend zum Helden als Puppe: eine alte Eiche oder Fichte überragt ihn um mehr als das Doppelte. Wo eine Krone etwas verdecken würde, das man finden muss (Truhe, Feuer, Schild, Leute, Ausgänge), steht stattdessen eine junge Fichte.
+
+**Neu – Boden im Wald ohne Raster (Zweig `karte-neuer-stil`)**
+- Im Flüsterwald und im Tiefen Wald ist der Boden neu gezeichnet, in doppelter Auflösung und ohne sichtbare Kacheln: Waldboden aus Moos, nackter Erde und altem Laub, unter dem Waldrand dunkler. Wiese, hohes Gras, Blumen und Wasser gehen unregelmäßig ineinander über.
+- Der Weg ist ein breiter, geschwungener Karrenweg aus festgetretener Erde, etwa eine Kachel breit, statt einer Treppe aus Kacheln: niedergetretenes Gras am Rand, hellere, ausgetretene Mitte, zwei tiefe Fahrspuren mit Pfützen, Steine, hineinwachsendes Gras. An seinen Enden läuft er schmaler aus. Kreuzungen, Gabelungen und lange Querwege hängen zusammen (vorher rissen sie im Tiefen Wald mit geraden Kanten ab); an Kreuzungen und breiten Stellen keine Fahrspuren. Wo man laufen kann, richtet sich weiter nach den Kacheln.
+- Hohes Gras ist dicht und dunkel mit einzelnen, im Wind geneigten Halmen; überall auf der Wiese kurze Grasbüschel. Der Weiher ist dunkel und tief, mit schlammigem Rand und dünnen Lichtstreifen auf dem Wasser.
+- Der Boden wird beim Betreten im Hintergrund vorgezeichnet, die nächste Umgebung zuerst; bis dahin stehen dort kurz die alten Kacheln.
+
+**Geändert – Karte näher heran, Gelände bremst (Zweig `karte-neuer-stil`, Stufe 1 der neuen Karte)**
+- Die Karte ist näher herangezoomt: etwa 5½ statt 10½ Kacheln Bildschirmbreite. Die Kamera folgt dem Helden wie bisher, man scrollt mehr und sieht mehr vom Einzelnen. Im Testreiter lässt sich mit „Kartenzoom“ zwischen nah und weit (bisher) wechseln.
+- Das Gelände bestimmt das Tempo: Auf Weg, Pflaster und Brücke geht ein Schritt etwas schneller (× 0,85), über Blumen, Knochen und Leuchtpilze etwas langsamer (× 1,1), über Geröll langsamer (× 1,3) und durch hohes Gras deutlich langsamer (× 1,5). Wandernde Monster bremst der Boden genauso.
+- Gemächlicheres Tempo auf der Karte: Jeder Schritt dauert 1,6-mal so lange wie bisher, für den Helden wie für wandernde Monster. Nah herangezoomt wirkte das alte Tempo hektisch.
+- Vorbereitung für feinere Kartenbilder: Der nahe Zoom ist immer gerade, damit Bilder in doppelter Auflösung später auf ganze Bildschirmpunkte fallen.
+
 ## v0.1.325 – 09.10.2026, 17:17
 
 **Behoben**

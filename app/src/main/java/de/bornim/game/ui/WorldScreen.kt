@@ -57,7 +57,13 @@ import de.bornim.core.Mode
 import de.bornim.core.Move
 import de.bornim.core.Story
 import de.bornim.core.Tile
+import de.bornim.core.art.MapFigure
+import de.bornim.core.art.MapFolk
+import de.bornim.core.art.MapRest
+import de.bornim.core.art.MapGlow
 import de.bornim.core.art.MapLight
+import de.bornim.core.art.MapFlora
+import de.bornim.core.art.MapGround
 import de.bornim.core.Ui
 import de.bornim.core.Route
 import de.bornim.core.actionAhead
@@ -146,7 +152,9 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     fromY = result.fromY
                     progress = 0f
                     vm.refresh()
-                    val duration = if (running) 110f else if (routeDir != null) 170f else 200f
+                    // the ground sets the pace: brisk on the path, wading through tall grass
+                    val ground = de.bornim.core.Terrain.stepFactor(game.map.tile(game.state.place.x, game.state.place.y)).toFloat()
+                    val duration = (if (running) 110f else if (routeDir != null) 170f else 200f) * ground * de.bornim.core.Terrain.PACE.toFloat()
                     val start = withFrameMillis { it }
                     while (progress < 1f) {
                         withFrameMillis { progress = ((it - start) / duration).coerceAtMost(1f) }
@@ -305,11 +313,20 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
 /** Where the camera is: pixel zoom and the top-left corner of the view in art pixels. */
 private class Cam(val scale: Int, val x: Int, val y: Int, val heroX: Int, val heroY: Int)
 
+/** How close the map camera is. Near (the new default) shows about 5½ tiles across, far the former 10½. */
+object MapZoom {
+    @Volatile var near = true
+
+    /** Tiles across the screen. */
+    val tilesAcross get() = if (near) 5.6f else 10.5f
+}
+
 private fun camera(game: Game, w: Float, h: Float, progress: Float, fromX: Int, fromY: Int): Cam {
     val map = game.map
     val T = WorldArt.T
-    // Whole-number zoom so every art pixel is the same size on screen.
-    val scale = max(2, floor(w / (T * 10.5f)).toInt())
+    // Whole-number zoom so every art pixel is the same size on screen. Near, the zoom is even, so
+    // map pictures drawn at double resolution also land on whole screen pixels.
+    val scale = if (MapZoom.near) max(2, 2 * (w / (T * 2 * MapZoom.tilesAcross)).roundToInt()) else max(2, floor(w / (T * MapZoom.tilesAcross)).toInt())
     val viewW = w / scale
     val viewH = h / scale
     val p = game.state.place
@@ -422,28 +439,46 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         val camX = cam.x
         val camY = cam.y
 
-        fun put(img: PixelImage, x: Int, y: Int) {
+        /** Draws [img] at map pixel ([x], [y]); [density] art pixels per map pixel (2 for the new, finer pictures). */
+        fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f) {
             val sx = (x - camX) * scale
             val sy = (y - camY) * scale
-            if (sx > size.width || sy > size.height || sx + img.width * scale < 0 || sy + img.height * scale < 0) return
+            val dw = img.width * scale / density; val dh = img.height * scale / density
+            if (sx > size.width || sy > size.height || sx + dw < 0 || sy + dh < 0) return
             drawImage(
                 image = Bitmaps.of(img),
                 srcOffset = IntOffset.Zero,
                 srcSize = IntSize(img.width, img.height),
                 dstOffset = IntOffset(sx, sy),
-                dstSize = IntSize(img.width * scale, img.height * scale),
+                dstSize = IntSize(dw, dh),
+                alpha = alpha,
                 filterQuality = FilterQuality.None,
             )
         }
 
-        // 1) ground
+        // 1) ground: in the woods the new ground without a grid (drawn ahead in the background), else the tiles
         val x0 = floor(camX.toFloat() / T).toInt()
         val y0 = floor(camY.toFloat() / T).toInt()
         val x1 = ((camX + viewW) / T).toInt()
         val y1 = ((camY + viewH) / T).toInt()
+        val fine = MapGround.supports(map)
+        if (fine) {
+            MapGround.prepare(map, p.x, p.y)
+            val ch = MapGround.CH
+            for (cy in Math.floorDiv(y0, ch)..Math.floorDiv(y1, ch)) for (cx in Math.floorDiv(x0, ch)..Math.floorDiv(x1, ch)) {
+                MapGround.chunk(map, cx, cy)?.let { put(it, cx * ch * T, cy * ch * T, MapGround.D) }
+            }
+        }
         for (ty in y0..y1) for (tx in x0..x1) {
             if (!map.inside(tx, ty)) continue
+            if (fine && MapGround.chunk(map, Math.floorDiv(tx, MapGround.CH), Math.floorDiv(ty, MapGround.CH)) != null && !MapGround.keepsOldTile(map.tile(tx, ty))) continue
             put(WorldArt.ground(map, tx, ty, state, frame), tx * T, ty * T)
+        }
+
+        // shadows of trees, rocks and stones on the ground, strong by day, gone at night
+        if (fine) {
+            val sun = ((game.daylight - 0.2f) / 0.6f).coerceIn(0f, 1f)
+            if (sun > 0.02f) for (o in MapFlora.shadows(map)) put(o.img, o.x, o.y, o.density, sun)
         }
 
         // Target of a tapped walk: a softly pulsing frame.
@@ -456,6 +491,19 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 androidx.compose.ui.geometry.Size((T - 2 * inset) * scale, (T - 2 * inset) * scale),
                 style = androidx.compose.ui.graphics.drawscope.Stroke(1.5f * scale),
             )
+        }
+
+        // a figure near a flame catches its light on the near side, more so at night (09.10.)
+        val flames = MapLight.sources(map).filter { it.kind == MapLight.Kind.FIRE || it.kind == MapLight.Kind.TORCH ||
+            (it.kind == MapLight.Kind.LAMP && game.daylight < 0.6f) }
+        fun warmEdge(img: de.bornim.core.art.PixelImage, fx: Int, fy: Int): de.bornim.core.art.PixelImage {
+            if (flames.isEmpty()) return img
+            // from the figure's chest, a little over a tile above its feet
+            val cx = fx + T / 2.0; val cy = fy + T - 22.0
+            val f = flames.minBy { (it.x - cx) * (it.x - cx) + (it.y - cy) * (it.y - cy) }
+            val dx = (f.x - cx) / T; val dy = (f.y - cy) / T
+            val level = MapGlow.level(kotlin.math.sqrt(dx * dx + dy * dy), game.daylight.toDouble())
+            return MapGlow.litCached(img, MapGlow.dir(dx, dy), level)
         }
 
         // 2) shadows under characters
@@ -474,7 +522,16 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 
         // 3) objects and characters, sorted by their foot line
         val sprites = mutableListOf<Sprite>()
-        for (o in WorldArt.objects(map, state, frame)) sprites += Sprite(o.sortY.toFloat()) { put(o.img, o.x, o.y) }
+        // a tree crown standing in front of the hero turns half see-through, so the hero is not lost behind it
+        fun hides(o: WorldArt.Obj): Boolean {
+            if (o.density < 2 || o.sortY <= heroY + T) return false
+            val w = o.img.width / o.density; val h = o.img.height / o.density
+            return heroX + T - 8 > o.x && heroX + 8 < o.x + w && heroY + T > o.y && heroY - 30 < o.y + h - 6
+        }
+        for (o in WorldArt.objects(map, state, frame)) {
+            val a = if (hides(o)) 0.45f else 1f
+            sprites += Sprite(o.sortY.toFloat()) { put(o.img, o.x, o.y, o.density, a) }
+        }
         // Healing herbs on the flower meadows, swaying gently so they catch the eye.
         if (map.kind == MapKind.FOREST) for (ty in 0 until map.height) for (tx in 0 until map.width) {
             if (map.tile(tx, ty) != Tile.FLOWERS || !game.herbAt(tx, ty)) continue
@@ -507,8 +564,43 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 val (nx, ny) = npcPos(npc)
                 val w = game.walkerOf(npc)
                 val walkingNow = w != null && clock - w.movedAt < w.moveMs
+                val folk = MapFolk.of(npc.id)
+                // folk drawn as dolls: they turn smoothly, and look at the hero while the hero is near
+                val doll = folk?.let { f ->
+                    // away from the hero they keep their own way (Garrick: towards his fire), not the way they turned to talk
+                    val home = MapFigure.yawOf(w?.facing ?: npc.facing)
+                    val turn = FolkTurn.of(f.id, home)
+                    MapFolk.prepare(f, MapFigure.slot(turn.yaw))
+                    val dx = heroX - nx; val dy = heroY - ny
+                    // a hero standing still nearby for 20 s is no longer worth watching: back to the fire (20:56)
+                    val near = MapFolk.watches(dx.toDouble() / T, dy.toDouble() / T, HeroStill.forMs(heroX, heroY, clock))
+                    // left alone and standing, they go about their idle loops (Garrick: warming his hands, peering into the woods)
+                    val doing = if (near || w != null) null else MapFolk.doing(f, clock)
+                    val homeSlot = MapFigure.slot(home)
+                    val target = when {
+                        near -> Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))
+                        doing != null -> (homeSlot + doing.slotOffset) * 360.0 / MapFigure.YAWS
+                        else -> home
+                    }
+                    turn.update(target, clock)
+                    val slotNow = MapFigure.slot(turn.yaw)
+                    // the loop only once turned all the way, and only when its pictures are ready
+                    val idleImg = doing?.let { d ->
+                        if (slotNow == Math.floorMod(homeSlot + d.slotOffset, MapFigure.YAWS)) MapFolk.idleFrame(f, slotNow, d.idle, d.frame) else null
+                    }
+                    // otherwise, standing, the small movements everyone has: breathing, shifting weight, a glance, hands to the belt
+                    val restImg = if (idleImg == null && doing == null && !walkingNow && slotNow == MapFigure.slot(target)) {
+                        val (rest, breath) = MapRest.at(f.id.hashCode(), clock, handsFree = true, mayLook = !near)
+                        MapFolk.restFrame(f, slotNow, rest, breath)
+                    } else null
+                    idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 160).toInt(), MapFigure.STEPS) else 0)
+                }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
-                sprites += Sprite((ny + T - 1).toFloat()) { put(img, nx, ny - 2) }
+                val dollLit = doll?.let { warmEdge(it, nx, ny) }
+                sprites += Sprite((ny + T - 1).toFloat()) {
+                    if (dollLit != null) put(dollLit, nx + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, ny + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
+                    else put(img, nx, ny - 2)
+                }
             }
         }
         // Monsters walking around; only those in sight are shown, the "!" of a hunter is heard from anywhere.
@@ -565,11 +657,21 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         }
 
         val walking = progress < 1f
-        val step = if (!walking) 0 else if (state.steps % 2 == 0) 1 else 2
-        val hero = CharacterArt.hero(state.hero, p.facing, step)
+        // the hero as the doll from the battles, turning smoothly; the former figure until it is drawn
+        MapFigure.prepare(state.hero, HeroTurn.yaw)
+        val target = MapFigure.yawOf(p.facing)
+        HeroTurn.update(target, clock)
+        val walkStep = if (!walking) 0 else Math.floorMod(state.steps * 2 + (progress * 2).toInt(), MapFigure.STEPS)
+        // standing a moment, the hero too breathes, shifts its weight and glances about
+        val heroSlot = MapFigure.slot(HeroTurn.yaw)
+        val heroRest = if (!walking && heroSlot == MapFigure.slot(target) && HeroStill.forMs(heroX, heroY, clock) > 1_500L) {
+            val (rest, breath) = MapRest.at(7, clock, handsFree = false, mayLook = true)
+            MapFigure.restFrame(state.hero, heroSlot, rest, breath)
+        } else null
+        val doll = warmEdge(heroRest ?: MapFigure.frameNow(state.hero, heroSlot, walkStep), heroX, heroY)
         // +0.5 so the hero is drawn after objects standing on the same row
         sprites += Sprite(heroY + T - 0.5f) {
-            put(hero, heroX, heroY - 2)
+            put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
             // Feet hidden in tall grass.
             if (map.tile(p.x, p.y) == Tile.TALL_GRASS && progress > 0.5f) put(WorldArt.tallGrassOverlay(), heroX, heroY)
         }
@@ -601,6 +703,33 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 }
 
 private class Sprite(val y: Float, val draw: () -> Unit)
+
+/** The way the hero faces on the map, turning smoothly towards where it walks instead of snapping round. */
+private object HeroTurn : Turn()
+
+/** How long the hero has stood on the same spot of the map. */
+private val HeroStill = MapFolk.Stillness()
+
+/** How each of the folk drawn as dolls faces, turning smoothly like the hero. */
+private object FolkTurn {
+    private val turns = HashMap<String, Turn>()
+    fun of(id: String, start: Double): Turn = turns.getOrPut(id) { Turn().also { it.yaw = start } }
+}
+
+private open class Turn {
+    var yaw = 0.0
+    private var last = 0L
+
+    /** Turns towards [target] (degrees) by the shortest way, about half a turn in a quarter of a second. */
+    fun update(target: Double, now: Long) {
+        val dt = if (last == 0L) 1000L else (now - last).coerceIn(0L, 200L)
+        last = now
+        var d = ((target - yaw) % 360.0 + 540.0) % 360.0 - 180.0
+        val maxStep = dt * 0.75
+        if (kotlin.math.abs(d) <= maxStep) yaw = target else yaw += kotlin.math.sign(d) * maxStep
+        yaw = (yaw % 360.0 + 360.0) % 360.0
+    }
+}
 
 /**
  * Draws the fog in half-tile cells; each cell blends the fog of its tile with the neighbours
@@ -780,12 +909,24 @@ private fun DrawScope.drawMapLight(
             // darken by the fog of war, smoothly between tile centres: unexplored black, out of sight dim
             val tx0 = Math.floorDiv(x0, T) - 1; val ty0 = Math.floorDiv(y0, T) - 1
             val tw = w / T + 4; val th = h / T + 4
-            val fa = FloatArray(tw * th) { i ->
+            val raw = FloatArray(tw * th) { i ->
                 when (game.fog(tx0 + i % tw, ty0 + i / tw)) {
                     de.bornim.core.Fog.HIDDEN -> 1f
                     de.bornim.core.Fog.SEEN -> 0.5f
                     de.bornim.core.Fog.VISIBLE -> 0f
                 }
+            }
+            // softened over the neighbouring tiles, so the edge of the unknown is round, not a
+            // staircase of tiles (it shows when the map is zoomed in); what is in sight stays clear
+            val fa = FloatArray(tw * th) { i ->
+                val cx = i % tw; val cy = i / tw
+                var sum = 0f; var n = 0f
+                for (dy in -1..1) for (dx in -1..1) {
+                    val x = (cx + dx).coerceIn(0, tw - 1); val y = (cy + dy).coerceIn(0, th - 1)
+                    val wgt = if (dx == 0 && dy == 0) 4f else if (dx == 0 || dy == 0) 2f else 1f
+                    sum += raw[y * tw + x] * wgt; n += wgt
+                }
+                if (raw[i] == 0f) minOf(sum / n, 0.35f) else sum / n
             }
             for (yy in 0 until img.height) for (xx in 0 until img.width) {
                 val fx = (x0 + xx * res + res / 2f) / T - 0.5f - tx0; val fy = (y0 + yy * res + res / 2f) / T - 0.5f - ty0
@@ -809,7 +950,8 @@ private fun DrawScope.drawMapLight(
         srcSize = IntSize(grid.width, grid.height),
         dstOffset = IntOffset((x0 - camX) * scale, (y0 - camY) * scale),
         dstSize = IntSize(grid.width * res * scale, grid.height * res * scale),
-        filterQuality = FilterQuality.None,
+        // near, the light image is spread smoothly instead of in visible steps
+        filterQuality = if (MapZoom.near) FilterQuality.Low else FilterQuality.None,
         blendMode = androidx.compose.ui.graphics.BlendMode.Multiply,
     )
     fun at(x: Double, y: Double) = Offset(((x - camX) * scale).toFloat(), ((y - camY) * scale).toFloat())

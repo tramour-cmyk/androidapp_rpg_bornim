@@ -33,6 +33,10 @@ sudo apt-get update && sudo apt-get install -y openjdk-21-jdk imagemagick python
 
 **Damit es in jeder neuen Sitzung da ist:** dieselbe Zeile in den Umgebungseinstellungen als Setup-Skript eintragen (Umgebungsmenü in der Titelleiste der Sitzung → Bearbeiten → Setup script). Neue Sitzungen führen es beim Start aus. Solange die Standard-Umgebung alles schon mitbringt, ist das nur eine Absicherung.
 
+## Chat-Sitzung (claude.ai)
+
+Die Chat-Sitzung hat eine eigene Netzregel. Ohne Freigabe sind Maven Central, Google Maven und Gradle gesperrt, dann laufen weder Kerntests noch Vorschau (nur über GitHub Actions). Freigabe: Einstellungen → Capabilities → „Allow network egress“, mit allen Domains oder mit diesen: `repo.maven.apache.org`, `repo1.maven.org`, `dl.google.com`, `maven.google.com`, `services.gradle.org`, `downloads.gradle.org`, `plugins.gradle.org`. Am 09.10.2026, 12:36 freigegeben und geprüft. Maven Central antwortet beim ersten Laden oft mit 429 (zu viele Anfragen); dann noch einmal mit `--max-workers=1`.
+
 ## Bauen und Veröffentlichen (GitHub)
 
 - Workflow `.github/workflows/android.yml` („Build APK“): JDK 17, Android-SDK und Signatur laufen dort. Version `0.1.<Laufnummer>`.

@@ -232,6 +232,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         menuOpen = false
         screen = Screen.PLAYING
         g.begin()
+        prepareFigures(g)
         save()
         refresh()
     }
@@ -247,7 +248,14 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         menuOpen = false
         screen = Screen.PLAYING
         g.begin()
+        prepareFigures(g)
         refresh()
+    }
+
+    /** Starts drawing the hero and the folk of this map as dolls in the background, so they are ready when the map shows. */
+    private fun prepareFigures(g: Game) {
+        de.bornim.core.art.MapFigure.prepare(g.state.hero, de.bornim.core.art.MapFigure.yawOf(g.state.place.facing))
+        de.bornim.core.art.MapFolk.prepareFor(de.bornim.core.World[g.state.place.map])
     }
 
     fun save() {
@@ -262,6 +270,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         val g = game
         if (g != null && g.mapChanged) {
             g.mapChanged = false
+            de.bornim.core.art.MapFolk.prepareFor(de.bornim.core.World[g.state.place.map])
             save()
         }
         tick++

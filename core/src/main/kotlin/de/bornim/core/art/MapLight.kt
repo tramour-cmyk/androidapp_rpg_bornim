@@ -69,10 +69,14 @@ object MapLight {
         val dtx = (x / T).toInt(); val dty = (y / T).toInt()
         val dist = sqrt((x - sx) * (x - sx) + (y - sy) * (y - sy))
         val steps = (dist / 5).toInt()
+        // in a cave the light falls a little way onto the rock it meets (about a tile deep), so the rock
+        // round a room is lit with it instead of standing black; only for rock, never through a wall
+        val intoRock = map.kind == MapKind.CAVE && map.tile(dtx, dty) in opaque
         for (i in 1 until steps) {
             val f = i / steps.toDouble()
             val tx = ((sx + (x - sx) * f) / T).toInt(); val ty = ((sy + (y - sy) * f) / T).toInt()
             if ((tx == stx && ty == sty) || (tx == dtx && ty == dty)) continue
+            if (intoRock && dist * (1 - f) < T * 1.3) continue
             if (map.tile(tx, ty) in opaque) return false
         }
         return true
@@ -196,6 +200,18 @@ object MapLight {
             else -> 0.9 * kn
         }
         add(map, g, gw, gh, Source(heroX.toDouble(), heroY.toDouble(), Kind.TORCH, lanternColor, T * (if (map.kind == MapKind.TOWN) 2.2 else 3.4), 1.0), lantern, cx0, cy0)
+        // in a cave the light stops at the rock tile by tile; softened, the edge of the light is round, not a staircase
+        if (map.kind == MapKind.CAVE) repeat(2) {
+            val src = g.copyOf()
+            for (gy in 0 until gh) for (gx in 0 until gw) for (c in 0..2) {
+                var sum = 0.0; var n = 0
+                for (dy in -2..2) for (dx in -2..2) {
+                    val x = (gx + dx).coerceIn(0, gw - 1); val y = (gy + dy).coerceIn(0, gh - 1)
+                    sum += src[(y * gw + x) * 3 + c]; n++
+                }
+                g[(gy * gw + gx) * 3 + c] = sum / n
+            }
+        }
         val ow = w / RES; val oh = h / RES
         val img = PixelImage(ow, oh)
         for (y in 0 until oh) for (x in 0 until ow) {
@@ -210,7 +226,7 @@ object MapLight {
                 fun at(ax: Int, ay: Int) = g[(ay * gw + ax) * 3 + c]
                 val a = at(ix, iy) * (1 - fx) + at(ix + 1, iy) * fx
                 val b = at(ix, iy + 1) * (1 - fx) + at(ix + 1, iy + 1) * fx
-                val v = (a * (1 - fy) + b * fy) * (if (roof) 0.35 else 1.0)
+                val v = (a * (1 - fy) + b * fy) * (if (roof) 0.5 else 1.0)
                 return (v.coerceIn(0.0, 1.0) * 255).toInt()
             }
             img.pixels[y * ow + x] = (0xFF shl 24) or (ch(0) shl 16) or (ch(1) shl 8) or ch(2)
