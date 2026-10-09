@@ -120,7 +120,7 @@ def stalagmite(seed, variant=0):
     rng = np.random.default_rng(seed)
     foot = h - 22
     L = Layer(w, h)
-    cols = {0: [(0, 96, 19), (-21, 44, 11), (18, 60, 12)],
+    cols = {0: [(0, 92, 21), (-22, 42, 12), (19, 58, 13)],
             1: [(0, 62, 28)],
             2: [(-12, 98, 15), (11, 74, 14), (0, 36, 22)]}[variant]
     body = np.zeros((h, w), bool); top_of = np.zeros((h, w))
@@ -130,7 +130,8 @@ def stalagmite(seed, variant=0):
         # the width swells and narrows in rings of sinter, the column leans a little
         lean = (rng.random() - 0.5) * 10 * t
         ring = 1 + 0.07 * np.sin((foot - yy) * 0.42 + i * 2) + (noise(w, h, 14, seed + i) - 0.5) * 0.12
-        width = rw * np.clip(1 - t, 0, 1) ** 0.62 * ring + 1.5 * (t < 1.0)
+        # narrowing upwards, then a blunt, rounded top (where the drip lands it builds a dome, no spike)
+        width = rw * (1 - 0.55 * np.clip(t, 0, 1)) * np.sqrt(np.clip(1 - np.clip(t, 0, 1) ** 6, 0, 1)) * ring
         if variant == 1:
             width = rw * (1 - 0.45 * t) * ring          # a stump: its top broken off
         m = (np.abs(xx - cx - lean) < width) & (yy <= foot + 2) & (yy >= foot - hh)
@@ -159,6 +160,14 @@ def stalagmite(seed, variant=0):
     c = alb * shade_[..., None] * grain(w, h, seed)[..., None]
     sheen = shape & (shade_ > 1.0) & (flow > 0.5) & (up > 0.15)
     c[sheen] = c[sheen] * 0.6 + np.array([150, 150, 140]) * 0.4
+    if variant != 1:
+        # the wet crown of each column, where the drop falls, with a little dimple
+        for i, (dx, hh, rw) in enumerate(cols):
+            tx = w / 2 + dx; ty = foot - hh + 4
+            wetc = shape & (((xx - tx + 2) / (rw * 0.45)) ** 2 + ((yy - ty) / (rw * 0.22)) ** 2 < 1)
+            c[wetc] = c[wetc] * 0.55 + np.array([168, 166, 156]) * 0.45
+            dim = ((xx - tx) / 2.2) ** 2 + ((yy - ty + 1) / 1.2) ** 2 < 1
+            c[dim & shape] = c[dim & shape] * 0.55
     L.put(shape, c, hgt)
     if variant == 1:
         # the broken-off piece lying beside it, half in the dust
@@ -190,18 +199,29 @@ def crate(seed, variant=0):
         whole = broken(front | top, seedb, 1.0)
         front &= whole; top &= whole
         wood = col(0x5A4836)
-        # planks run left to right on both faces
+        # planks run left to right on the front; on the lid they run front to back (seen as upright stripes)
         edges_f = by - np.cumsum(rng.uniform(6, 11, 10))
-        edges_t = by - fh - np.cumsum(rng.uniform(6, 10, 10))
-        rowf = np.searchsorted(-edges_f, -yy); rowt = np.searchsorted(-edges_t, -yy)
+        edges_t = fx0 + np.cumsum(rng.uniform(7, 11, 10))
+        rowf = np.searchsorted(-edges_f, -yy); colt = np.searchsorted(edges_t, xx - sk)
         gap = np.zeros_like(front)
-        for e in list(edges_f) + list(edges_t):
-            gap |= np.abs(yy - e) < 0.8
+        for e in edges_f:
+            gap |= front & (np.abs(yy - e) < 0.8)
+        for e in edges_t:
+            gap |= top & (np.abs(xx - sk - e) < 0.7)
         gh = stretched(w, h, 10, 1.1, seedb)
-        tone = 0.78 + 0.4 * (old.hsh_arr(np.where(top, rowt + 50, rowf) + seedb) % 100) / 100
-        c = wood * (tone * (0.72 + 0.5 * gh))[..., None]
-        c = np.where(top[..., None], c * 1.18, c * 0.72)
-        c[gap & (front | top)] *= 0.35
+        gv = stretched(w, h, 1.1, 8, seedb + 3)
+        tone = 0.8 + 0.36 * (old.hsh_arr(np.where(top, colt + 50, rowf) + seedb) % 100) / 100
+        c = wood * (tone * np.where(top, 0.72 + 0.5 * gv, 0.72 + 0.5 * gh))[..., None]
+        c = np.where(top[..., None], c * 1.2, c * 0.7)
+        c[gap] *= 0.35
+        # two battens across the lid, nailed at the ends
+        for f in (0.22, 0.78):
+            by_ = by - fh - th * f
+            batt = top & (np.abs(yy - by_) < 2.6)
+            c[batt] = wood * 1.05 * (0.75 + 0.45 * gh[batt])[..., None]
+            c[top & (np.abs(yy - by_ - 2.6) < 0.8)] *= 0.55
+            for nx in (fx0 + 4, fx1 - 4):
+                c[top & ((xx - nx - sk) ** 2 + (yy - by_) ** 2 < 1.8)] = col(0x3A2418)
         # the near edge of the lid catches the light
         lip = top & (yy > by - fh - 2.5)
         c[lip] = c[lip] * 1.35
@@ -229,7 +249,7 @@ def crate(seed, variant=0):
 
     if variant == 0:
         m1 = box(w / 2 - 3, foot, 23, 1.0, seed)
-        m2 = box(w / 2 + 3, foot - 30, 17, -1.0, seed + 20)
+        m2 = box(w / 2 + 5, foot - 38, 16, -1.0, seed + 20)
         m = m1 | m2
     else:
         m = box(w / 2 + 6, foot - 2, 18, 0.5, seed, smashed=True)
@@ -287,24 +307,49 @@ def bones(seed, variant=0):
         for (dx, dy, s) in [(-10, -20, 1.0), (8, -18, 0.9), (-1, -30, 1.0)]:
             parts.append(skull(w / 2 + dx, foot + dy, 14 + (-dy) * 0.3, s))
     else:
-        # a beast's carcass: spine, ribs, the long skull
-        sx0 = w / 2 - 38
-        for k in range(12):
-            x = sx0 + k * 6; y = foot - 14 + math.sin(k * 0.5) * 3
-            m = ((xx - x) / 3.2) ** 2 + ((yy - y) / 2.6) ** 2 < 1
+        # what scavengers left of a beast: a crooked spine pulled apart, ribs broken and scattered,
+        # the skull twisted away, a dark old stain under it and tufts of hide
+        stm = ((xx - w / 2 + 4) / 44) ** 2 + ((yy - foot + 12) / 13) ** 2 + (noise(w, h, 6, seed + 20) - 0.5) * 1.1 < 1
+        L.put(stm, col(0x2A1E16) * (0.8 + 0.4 * noise(w, h, 4, seed + 21))[..., None], np.zeros((h, w)) - 1)
+        sx0 = w / 2 - 36
+        x, y, a = sx0, foot - 12, -0.15
+        spine = []
+        for k in range(13):
+            a += rng.normal(0, 0.18)
+            x += math.cos(a) * (5.2 + (4 if k in (5, 9) else 0)); y += math.sin(a) * 4
+            spine.append((x, y))
+        for k, (x, y) in enumerate(spine):
+            r = 3.2 - k * 0.08
+            m = ((xx - x) / r) ** 2 + ((yy - y) / (r * 0.8)) ** 2 < 1
             parts.append((m, inflate(m, 3) + 6, None))
-            if 2 <= k <= 8:
-                for side in (-1, 1):
-                    rib = np.abs(np.hypot((xx - x - 4) / 1.0, (yy - y) * (1.5 if side < 0 else 1.0)) - 11) < 1.4
-                    rib &= (yy - y) * side > 0
-                    rib &= np.abs(xx - x - 4) < 9
-                    parts.append((broken(rib, k * 7 + side, 0.5), inflate(rib, 2) + (8 if side < 0 else 3), None))
-        parts.append(skull(sx0 + 12 * 6 + 8, foot - 15, 10, 1.0, beast=True))
-        parts.append(bone(w / 2 - 30, foot + 2, 0.3, 22, 2.2, 1) + (None,))
+        for k in range(2, 10):
+            x, y = spine[k]
+            for side in (-1, 1):
+                if rng.random() < 0.25:
+                    continue                      # torn out
+                L_ = rng.uniform(7, 14) * (0.6 if rng.random() < 0.3 else 1)
+                bend = rng.uniform(0.6, 1.4)
+                pts = [(x + math.sin(u * bend) * L_ * 0.5 + u * 3, y + side * (u * L_ * 0.75)) for u in np.linspace(0, 1, 8)]
+                rib = np.zeros((h, w), bool)
+                for (px_, py_) in pts:
+                    rib |= (xx - px_) ** 2 + (yy - py_) ** 2 < 1.5 ** 2
+                parts.append((broken(rib, k * 7 + side, 0.4), inflate(rib, 2) + (8 if side < 0 else 3), None))
+        for i in range(3):
+            # loose ribs and a leg bone, dragged off
+            parts.append(bone(w / 2 + rng.uniform(-40, 30), foot + rng.uniform(-2, 6), rng.uniform(0, math.pi), rng.uniform(9, 20), 1.6 if i else 2.4, 1) + (None,))
+        hx, hy = spine[-1]
+        parts.append(skull(hx + 10, hy + 5, 10, 0.85, beast=True))
+        # tufts of hide still stuck to the bones
+        for i in range(5):
+            tx, ty = spine[int(rng.integers(1, 10))]
+            tuft = ((xx - tx - rng.normal(0, 3)) / 4) ** 2 + ((yy - ty - rng.normal(0, 3)) / 2.5) ** 2 + (np.random.default_rng(i).random((h, w)) - 0.5) * 0.8 < 1
+            L.put(tuft, col(0x3E3228) * (0.7 + 0.6 * np.random.default_rng(i + 9).random((h, w)))[..., None], np.zeros((h, w)) + 30)
     stain = col(0x5A4A32)
     for p in parts:
         m, hgt = p[0], p[1]
         allm |= m
+        if variant == 1:
+            allm |= stm
         a = ivory * (0.8 + 0.35 * noise(w, h, 3, seed + 3))[..., None]
         # yellowed, stained brown in places, pitted
         st = np.clip((noise(w, h, 6, seed + 4) - 0.45) * 3, 0, 1)
@@ -331,32 +376,52 @@ def bedroll(seed, variant=0):
     foot = h - 16
     cx, cy = w / 2, foot - 16
     if variant == 0:
-        # a mangy pelt: shape of a hide with stumps of legs, fur lying one way, bald patches
-        e = ((xx - cx) / 44) ** 2 + ((yy - cy) / 15) ** 2 < 1
-        for (lx, ly) in [(-30, -12), (28, -12), (-32, 12), (30, 12)]:
-            e |= ((xx - cx - lx) / 9) ** 2 + ((yy - cy - ly) / 5) ** 2 < 1
-        pelt = broken(e, seed, 3.0)
-        fur = stretched(w, h, 1.0, 1.0, seed)
-        strands = stretched(w, h, 4, 1.0, seed + 1) * 0.6 + np.random.default_rng(seed).random((h, w)) * 0.4
-        clumps = noise(w, h, 5, seed + 2)
-        a = col(0x5E4A36) * (0.45 + 0.95 * strands * (0.6 + 0.6 * clumps))[..., None]
-        spine = np.abs(yy - cy - np.sin(xx * 0.08) * 2) < 3 + clumps * 2
-        a[spine] *= 0.7
-        bald = (noise(w, h, 8, seed + 3) > 0.66) & pelt
-        a[bald] = col(0x5A4A3A) * (0.8 + 0.3 * fur[bald])[..., None]
-        hgt = inflate(pelt, 6) * 0.6 + strands * 2
-        c = a * lit(hgt, None, 1.0, amb=0.45)[..., None]
-        L.put(pelt, c, hgt)
-        m = pelt
-        # a stained rag thrown over the head end, with a coarse weave and folds
-        rag = ((xx - cx - 14) / 22) ** 2 + ((yy - cy + 1) / 12) ** 2 + (noise(w, h, 7, seed + 4) - 0.5) * 1.2 < 1
-        rag = broken(rag, seed + 5, 1.5) & pelt
-        weave = (np.sin(xx * 2.1) * np.sin(yy * 2.1) > 0).astype(float)
-        folds = np.sin((xx - cx) * 0.35 + noise(w, h, 9, seed + 6) * 5) * 2.5
-        stains = np.clip((noise(w, h, 6, seed + 7) - 0.5) * 3, 0, 1)
-        ra = col(0x7A6A54) * (0.85 + 0.15 * weave)[..., None] * (1 - stains * 0.4)[..., None]
-        rh = hgt + 4 + folds
-        L.put(rag, ra * lit(rh, None, 1.0, amb=0.45)[..., None], rh)
+        # a wolf hide: the head with ears and empty eyes at one end, legs spread, a tail; the fur lies
+        # outwards from the dark line of the back, light at the tips, dark at the roots, worn bald in places
+        e = ((xx - cx - 2) / 34) ** 2 + ((yy - cy) / 13) ** 2 < 1
+        head = ((xx - cx + 40) / 11) ** 2 + ((yy - cy) / 8) ** 2 < 1
+        snout = ((xx - cx + 52) / 8) ** 2 + ((yy - cy) / 4.5) ** 2 < 1
+        ears = ((xx - cx + 38) / 4) ** 2 + ((yy - cy + 9) / 4) ** 2 < 1
+        ears |= ((xx - cx + 38) / 4) ** 2 + ((yy - cy - 9) / 4) ** 2 < 1
+        tail = (np.abs(yy - cy - np.sin((xx - cx) * 0.1) * 2) < 4.5 * np.clip(1 - (xx - cx - 34) / 22, 0, 1)) & (xx > cx + 30)
+        legs = np.zeros((h, w), bool)
+        for (lx, sy) in [(-22, -1), (-22, 1), (22, -1), (22, 1)]:
+            for u in np.linspace(0, 1, 9):
+                px_ = cx + lx + (8 if lx > 0 else -8) * u * 0.6; py_ = cy + sy * (11 + 9 * u)
+                legs |= (xx - px_) ** 2 + (yy - py_) ** 2 < (3.6 - u * 1.4) ** 2
+        pelt = broken(e | head | snout | ears | tail | legs, seed, 1.2)
+        base = col(0x4A4038)
+        under = base * 0.45 * np.ones((h, w, 1))
+        img = Image.new("RGBA", (w, h), (0, 0, 0, 0)); d = ImageDraw.Draw(img)
+        for i in range(3200):
+            x = rng.uniform(0, w); y = rng.uniform(0, h)
+            if not pelt[int(y), int(x)]:
+                continue
+            side = 1 if y > cy else -1
+            ang = math.atan2(side * 1.0, 0.55 if x > cx - 30 else -0.4) + rng.normal(0, 0.35)
+            if tail[int(y), int(x)]:
+                ang = rng.normal(0, 0.3)
+            L_ = rng.uniform(3, 6)
+            back = abs(y - cy) < 3.5 and not head[int(y), int(x)]
+            k = 0.55 if back else rng.uniform(0.75, 1.2)
+            root = tuple(int(v) for v in base * 0.55 * k); tip = tuple(int(min(255, v)) for v in base * 1.35 * k + 14)
+            x1, y1 = x + math.cos(ang) * L_, y + math.sin(ang) * L_ * 0.6
+            d.line([(x, y), ((x + x1) / 2, (y + y1) / 2)], fill=root + (255,), width=1)
+            d.line([((x + x1) / 2, (y + y1) / 2), (x1, y1)], fill=tip + (255,), width=1)
+        fa = np.array(img).astype(float)
+        cover = fa[..., 3] > 0
+        bald = (noise(w, h, 7, seed + 3) > 0.68) & pelt & ~head
+        c = np.where(cover[..., None], fa[..., :3], under)
+        c[bald] = col(0x5E4E40) * (0.75 + 0.3 * noise(w, h, 2, seed + 4)[bald])[..., None]
+        m = pelt | (cover & nd.binary_dilation(pelt, iterations=3))
+        hgt = inflate(pelt, 5) * 0.7 + cover * 1.0
+        c = c * lit(hgt, None, 0.8, amb=0.55)[..., None]
+        # empty eye holes and the dark nose of the head
+        for ey in (-3.5, 3.5):
+            eye = ((xx - cx + 43) / 2.6) ** 2 + ((yy - cy - ey) / 1.4) ** 2 < 1
+            c[eye] = col(0x0E0A08)
+        c[((xx - cx + 59) / 2.2) ** 2 + ((yy - cy) / 2) ** 2 < 1] = col(0x16100C)
+        L.put(m, c, hgt)
     else:
         # old straw, trampled flat; a torn sack laid on it
         e = ((xx - cx) / 46) ** 2 + ((yy - cy) / 16) ** 2 + (noise(w, h, 6, seed) - 0.5) * 0.9 < 1
