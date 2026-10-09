@@ -114,10 +114,12 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
+**Version v0.1.377** (veröffentlicht 09.10., 22:31): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.377/bornim.apk). Karte im neuen Stil (Wald, Held und Garrick als Puppe, Ruhebewegungen) und Höhle im neuen Stil, zusammengeführt aus `karte-hoehle` (von dir als 0.1.374 getestet, „Passt alles“); dazu Killerschlag (v0.1.317) und Späher-Pfeil (v0.1.325) von `main`. Nicht enthalten: die neueren Änderungen von Account A auf `karte-neuer-stil` (0.1.376, Fackel-Szene). Achten auf: Läuft alles wie in 0.1.374? Killerschlag (Testreiter „Held trifft immer kritisch“) und Kartenzoom-Schalter stehen beide im Testreiter.
+
 **Version v0.1.325** (veröffentlicht 09.10., 17:17): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.325/bornim.apk). Pfeil des Goblin-Spähers startet an seinem Bogen; von dir im Zweig-Build bestätigt (09.10.).
 - **Wunsch (22:13 gelesen): „Bitte neuen build“.** 0.1.357 hat eine niedrigere Laufnummer als der inzwischen installierte 0.1.365 von Account A; neuer Build mit dem Stand von `karte-neuer-stil` bis 0.1.365 folgt.
 
-- **Rückmeldung zu 0.1.374 (22:25 gelesen): „Passt alles. Bitte mal zusammenführen auf Main.“** Zusammenführung von `karte-hoehle` (Stand 0.1.374, enthält `karte-neuer-stil` bis 0.1.365) mit `main` in Arbeit; die neueren, noch ungetesteten Änderungen von Account A (0.1.376, Fackel-Szene) bleiben auf `karte-neuer-stil`.
+- **Rückmeldung zu 0.1.374 (22:25 gelesen): „Passt alles. Bitte mal zusammenführen auf Main.“** **Erledigt (22:31): auf `main` zusammengeführt, Release v0.1.377** (`karte-hoehle` Stand 0.1.374, enthält `karte-neuer-stil` bis 0.1.365; Konflikte nur in `TestTab.kt` – beide Testschalter bleiben –, `CHANGELOG.md` und `OFFEN.md`); die neueren, noch ungetesteten Änderungen von Account A (0.1.376, Fackel-Szene) bleiben auf `karte-neuer-stil`.
 
 **Zweig-Build 0.1.374** (Zweig `karte-hoehle`, 09.10., 22:18; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37985694227/artifacts/11642986535)): Höhle wie 0.1.357 (neuer Stil, Felswand nach dem Erkunden sichtbar), dazu alles von `karte-neuer-stil` bis 0.1.365 (Garrick, Ruhebewegungen, Fackel). Achten auf: siehe 0.1.357 und 0.1.351.
 
