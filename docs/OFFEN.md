@@ -85,12 +85,13 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
-**Zweig-Build 0.1.281** (Zweig `karte-neuer-stil`, Stufe 1 der neuen Karte; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37911208049/artifacts/11606372317)). Worauf achten:
+**Zweig-Build 0.1.284** (Zweig `karte-neuer-stil`, Stufe 1 der neuen Karte, gemächlicheres Tempo; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37913034064/artifacts/11607562219)). Vorher 0.1.281 ohne das langsamere Tempo. Worauf achten:
 - **Naher Zoom:** etwa 5½ Kacheln Breite. Fühlt sich das Laufen und Scrollen gut an? Sieht man genug, um sich zurechtzufinden? Im Testreiter „Kartenzoom“ zwischen nah und weit wechseln zum Vergleich. Die alten Kartenbilder wirken nah gröber, das ändert sich mit den neuen Bildern (Stufen 3 und 4).
 - **Rand des Unerkundeten:** weich und rund statt Treppenstufen, Licht ohne Stufen.
+- **Tempo insgesamt:** jetzt ruhiger (jeder Schritt 1,6-mal so lang). Passt es, oder noch langsamer bzw. wieder etwas schneller?
 - **Gelände-Tempo:** auf dem Weg spürbar flotter, im hohen Gras deutlich zäher, Blumen kaum merklich. Wandernde Monster im hohen Gras ebenfalls langsamer.
 - Dorf, Gasthaus, Höhle: passt der nahe Zoom auch dort? Keine abgeschnittenen Eingänge, Schilder oder Figuren an der Anzeige oben?
-- **Deine Rückmeldung zu 0.1.281 (11:4x, Nachricht 11:42):** außer dem Zoom kaum etwas anders (stimmt: die neuen Bilder kommen erst mit Stufe 3 und 4); Geländetempo leicht spürbar, insgesamt aber zu schnell und nah herangezoomt hektisch. Geändert: alle Schritte 1,6-mal so lang, für Held und Monster; neuer Build folgt.
+- **Deine Rückmeldung zu 0.1.281 (11:42):** außer dem Zoom kaum etwas anders (stimmt: die neuen Bilder kommen erst mit Stufe 3 und 4); Geländetempo leicht spürbar, insgesamt aber zu schnell und nah herangezoomt hektisch. Geändert: alle Schritte 1,6-mal so lang, für Held und Monster, im Zweig-Build 0.1.284.
 
 **Zweig-Build 0.1.222** (Ghul, Schamane, Fernangriffe, mehr Varianten): von dir freigegeben, am 08.10. auf `main` übernommen.
 
