@@ -116,6 +116,8 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 - **Wunsch (22:13 gelesen): „Bitte neuen build“.** 0.1.357 hat eine niedrigere Laufnummer als der inzwischen installierte 0.1.365 von Account A; neuer Build mit dem Stand von `karte-neuer-stil` bis 0.1.365 folgt.
 
+- **Rückmeldung zu 0.1.374 (22:25 gelesen): „Passt alles. Bitte mal zusammenführen auf Main.“** Zusammenführung von `karte-hoehle` (Stand 0.1.374, enthält `karte-neuer-stil` bis 0.1.365) mit `main` in Arbeit; die neueren, noch ungetesteten Änderungen von Account A (0.1.376, Fackel-Szene) bleiben auf `karte-neuer-stil`.
+
 **Zweig-Build 0.1.374** (Zweig `karte-hoehle`, 09.10., 22:18; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37985694227/artifacts/11642986535)): Höhle wie 0.1.357 (neuer Stil, Felswand nach dem Erkunden sichtbar), dazu alles von `karte-neuer-stil` bis 0.1.365 (Garrick, Ruhebewegungen, Fackel). Achten auf: siehe 0.1.357 und 0.1.351.
 
 **Zweig-Build 0.1.357** (Zweig `karte-hoehle`, 09.10., 21:16; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37978638033/artifacts/11639349960)): wie 0.1.351, dazu Felswand in der Höhle nach dem Erkunden sichtbar (Nebel, Licht auf dem Gestein, weicher Lichtrand) und der Stand von `karte-neuer-stil` bis 0.1.354. Achten auf: Bleibt die Felswand nach dem Erkunden sichtbar? Wirkt der Rand zum Dunkel weich? Scheint irgendwo Licht durch eine Wand in einen Nachbarraum?
