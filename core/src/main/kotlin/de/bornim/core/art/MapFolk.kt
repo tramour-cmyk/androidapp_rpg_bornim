@@ -49,6 +49,21 @@ object MapFolk {
     fun frame(f: Folk, slot: Int, step: Int): PixelImage? =
         synchronized(cache) { cache["${f.id}|$slot|${Math.floorMod(step, MapFigure.STEPS)}"] }
 
+    /** The picture to show now, never nothing (see [MapFigure.frameNow]). */
+    fun frameNow(f: Folk, slot: Int, step: Int): PixelImage {
+        frame(f, slot, step)?.let { return it }
+        frame(f, slot, 0)?.let { return it }
+        for (d in 1..2) for (s in listOf(slot - d, slot + d)) frame(f, Math.floorMod(s, MapFigure.YAWS), 0)?.let { return it }
+        val img = draw(f, slot, 0)
+        synchronized(cache) { cache["${f.id}|$slot|0"] = img }
+        return img
+    }
+
+    /** Starts drawing the folk standing on [map] in the background, each facing its own way first. */
+    fun prepareFor(map: de.bornim.core.MapDef) {
+        for (npc in map.npcs) of(npc.id)?.let { prepare(it, MapFigure.slot(MapFigure.yawOf(npc.facing))) }
+    }
+
     /** Draws every picture of [f] in the background, the directions nearest to [nearSlot] first. */
     fun prepare(f: Folk, nearSlot: Int = 0) {
         synchronized(cache) { if (!preparing.add(f.id)) return }

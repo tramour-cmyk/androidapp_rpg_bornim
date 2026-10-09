@@ -552,13 +552,15 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 val folk = MapFolk.of(npc.id)
                 // folk drawn as dolls: they turn smoothly, and look at the hero while the hero is near
                 val doll = folk?.let { f ->
-                    val turn = FolkTurn.of(f.id, MapFigure.yawOf(game.npcFacing(npc)))
+                    // away from the hero they keep their own way (Garrick: towards his fire), not the way they turned to talk
+                    val home = MapFigure.yawOf(w?.facing ?: npc.facing)
+                    val turn = FolkTurn.of(f.id, home)
                     MapFolk.prepare(f, MapFigure.slot(turn.yaw))
                     val dx = heroX - nx; val dy = heroY - ny
                     val near = kotlin.math.abs(dx) <= 4 * T && kotlin.math.abs(dy) <= 4 * T
-                    val target = if (near && (dx != 0 || dy != 0)) Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble())) else MapFigure.yawOf(game.npcFacing(npc))
+                    val target = if (near && (dx != 0 || dy != 0)) Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble())) else home
                     turn.update(target, clock)
-                    MapFolk.frame(f, MapFigure.slot(turn.yaw), if (walkingNow) Math.floorMod((clock / 160).toInt(), MapFigure.STEPS) else 0)
+                    MapFolk.frameNow(f, MapFigure.slot(turn.yaw), if (walkingNow) Math.floorMod((clock / 160).toInt(), MapFigure.STEPS) else 0)
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
                 sprites += Sprite((ny + T - 1).toFloat()) {
@@ -621,18 +623,15 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         }
 
         val walking = progress < 1f
-        val step = if (!walking) 0 else if (state.steps % 2 == 0) 1 else 2
         // the hero as the doll from the battles, turning smoothly; the former figure until it is drawn
         MapFigure.prepare(state.hero, HeroTurn.yaw)
         val target = MapFigure.yawOf(p.facing)
         HeroTurn.update(target, clock)
         val walkStep = if (!walking) 0 else Math.floorMod(state.steps * 2 + (progress * 2).toInt(), MapFigure.STEPS)
-        val doll = MapFigure.frame(state.hero, MapFigure.slot(HeroTurn.yaw), walkStep)
-        val hero = CharacterArt.hero(state.hero, p.facing, step)
+        val doll = MapFigure.frameNow(state.hero, MapFigure.slot(HeroTurn.yaw), walkStep)
         // +0.5 so the hero is drawn after objects standing on the same row
         sprites += Sprite(heroY + T - 0.5f) {
-            if (doll != null) put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
-            else put(hero, heroX, heroY - 2)
+            put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
             // Feet hidden in tall grass.
             if (map.tile(p.x, p.y) == Tile.TALL_GRASS && progress > 0.5f) put(WorldArt.tallGrassOverlay(), heroX, heroY)
         }
