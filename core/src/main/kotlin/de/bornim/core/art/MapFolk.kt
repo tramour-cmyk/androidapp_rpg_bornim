@@ -74,6 +74,41 @@ object MapFolk {
         }
     }
 
+    /** What the folk do at [clockMs]: null while standing still, else the loop, its picture and which way the body turns. */
+    class Doing(val idle: Idle, val frame: Int, val slotOffset: Int)
+
+    /** Directions, in slots from the home direction, a peering one turns to: away from the fire, a little to either side. */
+    val PEER_OFFSETS = listOf(7, 9)
+
+    /**
+     * Garrick's day at the fire, never on a beat (20:53: a steady rhythm looks like a machine). Time
+     * is cut into blocks of [BLOCK_MS]; in each, chance picks whether he does anything at all, when he
+     * starts, for how long, and what: mostly warming his hands, now and then peering into the woods,
+     * and how fast his loop runs. So the pauses between run from about 2½ s to over half a minute.
+     */
+    fun doing(f: Folk, clockMs: Long): Doing? {
+        val n = Math.floorDiv(clockMs, BLOCK_MS)
+        val t = clockMs - n * BLOCK_MS
+        val r = java.util.Random(n * 1_000_003L + f.id.hashCode())
+        if (r.nextDouble() < 0.2) return null
+        val start = 2_000L + (r.nextDouble() * 7_000).toLong()
+        val length = 3_500L + (r.nextDouble() * 3_000).toLong()
+        val idle = if (r.nextDouble() < 0.35) Idle.PEER else Idle.WARM
+        val pace = 0.8 + r.nextDouble() * 0.45
+        val off = PEER_OFFSETS[r.nextInt(PEER_OFFSETS.size)]
+        if (t < start || t >= start + length) return null
+        val step = ((t - start) / (idle.frameMs * pace)).toInt()
+        // peering sweeps there and back; warming loops
+        val frame = if (idle == Idle.PEER) { val m = 2 * (idle.frames - 1); val q = Math.floorMod(step, m); if (q < idle.frames) q else m - q }
+            else Math.floorMod(step, idle.frames)
+        return Doing(idle, frame, if (idle == Idle.PEER) off else 0)
+    }
+
+    const val BLOCK_MS = 16_000L
+
+    /** The idle picture, or null while it is not drawn yet. */
+    fun idleFrame(f: Folk, slot: Int, idle: Idle, i: Int): PixelImage? = synchronized(cache) { cache["${f.id}|$slot|$idle|$i"] }
+
     /** One idle picture of [f] turned to [slot]. */
     fun drawIdle(f: Folk, slot: Int, idle: Idle, i: Int): PixelImage =
         MapFigure.render(f.doll, f.outfit, idleRig(slot * 360.0 / MapFigure.YAWS, idle, i))
@@ -95,9 +130,24 @@ object MapFolk {
         return img
     }
 
-    /** Starts drawing the folk standing on [map] in the background, each facing its own way first. */
+    /** Starts drawing the folk standing on [map] in the background, each facing its own way first, then their idle loops. */
     fun prepareFor(map: de.bornim.core.MapDef) {
         for (npc in map.npcs) of(npc.id)?.let { prepare(it, MapFigure.slot(MapFigure.yawOf(npc.facing))) }
+    }
+
+    /** Draws the idle loops of [f] about its home direction [homeSlot] in the background (after its walk). */
+    private fun prepareIdle(f: Folk, homeSlot: Int) {
+        val n = MapFigure.YAWS
+        val jobs = buildList {
+            for (i in 0 until Idle.WARM.frames) add(Triple(homeSlot, Idle.WARM, i))
+            for (o in PEER_OFFSETS) for (i in 0 until Idle.PEER.frames) add(Triple(Math.floorMod(homeSlot + o, n), Idle.PEER, i))
+        }
+        for ((s, idle, i) in jobs) {
+            val k = "${f.id}|$s|$idle|$i"
+            if (synchronized(cache) { k in cache }) continue
+            val img = drawIdle(f, s, idle, i)
+            synchronized(cache) { cache[k] = img }
+        }
     }
 
     /** Draws every picture of [f] in the background, the directions nearest to [nearSlot] first. */
@@ -106,20 +156,22 @@ object MapFolk {
         val n = MapFigure.YAWS
         val order = (0 until n).sortedBy { minOf(Math.floorMod(it - nearSlot, n), Math.floorMod(nearSlot - it, n)) }
         val t = Thread {
-            for (s in order) for (st in 0 until MapFigure.STEPS) {
+            // standing pictures all round first, then the walk, then the idle loops
+            for (st in listOf(0, 1, 2, 3)) for (s in order) {
                 val k = "${f.id}|$s|$st"
                 if (synchronized(cache) { k in cache }) continue
                 val img = draw(f, s, st)
                 synchronized(cache) { cache[k] = img }
             }
+            prepareIdle(f, nearSlot)
         }
         t.isDaemon = true
         t.priority = Thread.MIN_PRIORITY + 1
         t.start()
     }
 
-    /** Draws every picture of [f] right away (previews and tests). */
-    fun prepareNow(f: Folk) {
+    /** Draws every picture of [f] right away (previews and tests), the idle loops about [homeSlot]. */
+    fun prepareNow(f: Folk, homeSlot: Int = MapFigure.slot(270.0)) {
         synchronized(cache) { preparing += f.id }
         for (s in 0 until MapFigure.YAWS) for (st in 0 until MapFigure.STEPS) {
             val k = "${f.id}|$s|$st"
@@ -127,5 +179,6 @@ object MapFolk {
             val img = draw(f, s, st)
             synchronized(cache) { cache[k] = img }
         }
+        prepareIdle(f, homeSlot)
     }
 }
