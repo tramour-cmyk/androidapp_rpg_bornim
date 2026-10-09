@@ -110,11 +110,18 @@ fun renderMapFigureDraft() {
 /** MAPFIGYAWS: the in-game map figure in all 16 directions with every kind of weapon, to check every turn. */
 fun renderMapFigureYaws() {
     val F = de.bornim.core.art.MapFigure
-    val weapons = listOf("longsword", "spear", "quarterstaff", "greatsword", "greataxe", "halberd", "staff", "longbow", "light_crossbow", "dagger")
+    val weapons = listOf("longsword", "spear", "quarterstaff", "greatsword", "greataxe", "halberd", "staff", "longbow", "light_crossbow", "dagger", "-cleric", "-rogue", "-wizard", "-dwarf", "-halfling")
     var uid = 900L
-    val heroes = weapons.map { w -> GameState.newGame("Mira", Race.HUMAN, if (w == "staff") CharClass.WIZARD else CharClass.FIGHTER).hero.also { h ->
-        val g = de.bornim.core.Gear(uid++, w, de.bornim.core.Rarity.COMMON, 3)
-        h.equip(g) } }
+    val heroes = weapons.map { w ->
+        when (w) {
+            "-cleric" -> GameState.newGame("Mira", Race.HUMAN, CharClass.CLERIC).hero
+            "-rogue" -> GameState.newGame("Mira", Race.ELF, CharClass.ROGUE).hero
+            "-wizard" -> GameState.newGame("Mira", Race.ELF, CharClass.WIZARD).hero
+            "-dwarf" -> GameState.newGame("Mira", Race.DWARF, CharClass.CLERIC).hero
+            "-halfling" -> GameState.newGame("Mira", Race.HALFLING, CharClass.ROGUE).hero
+            else -> GameState.newGame("Mira", Race.HUMAN, if (w == "staff") CharClass.WIZARD else CharClass.FIGHTER).hero.also { h ->
+                h.equip(de.bornim.core.Gear(uid++, w, de.bornim.core.Rarity.COMMON, 3)) }
+        } }
     val out = BufferedImage(F.W * 16, F.H * heroes.size, BufferedImage.TYPE_INT_RGB)
     for (r in heroes.indices) for (s in 0 until 16) {
         val hero = heroes[r]

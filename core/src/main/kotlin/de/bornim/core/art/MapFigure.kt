@@ -43,15 +43,27 @@ object MapFigure {
     /** The drawn direction nearest to [yaw]. */
     fun slot(yaw: Double): Int = Math.floorMod(Math.round(yaw / (360.0 / YAWS)).toInt(), YAWS)
 
-    /** Walking about: arms down and swinging a little with the step, the weapon hanging, the shield on the back. */
-    private fun rig(yaw: Double, step: Int): HeroFigure.Rig {
+    /** Long weapons (two-handed, spears, staves, bows) go on the shoulder; short ones are carried low. */
+    private val LONG = setOf("spear", "quarterstaff", "staff", "halberd")
+
+    private fun shouldered(hero: Hero): Boolean {
+        val d = hero.weapon?.def ?: return false
+        return d.twoHanded || d.ranged || d.id in LONG || hero.bothHands()
+    }
+
+    /**
+     * Walking about: the left arm swings a little with the step, the shield is on the back. A long
+     * weapon rests on the right shoulder, pointing up and back; a short one (sword, mace, axe,
+     * dagger) is carried low in the right hand, its point forward and down, clear of the ground and
+     * of the head from every side.
+     */
+    private fun rig(yaw: Double, step: Int, shoulder: Boolean): HeroFigure.Rig {
         val st = listOf(0.0, 11.0, 0.0, -11.0)[Math.floorMod(step, STEPS)]
-        // the weapon rests on the right shoulder, pointing up and back, so it never drags on the ground;
-        // the right hand holds it in front of the shoulder, the left swings free
         return Doll.REST.copy(
             yaw = yaw, stride = st, spread = 5.0,
-            rh = HeroFigure.V(16.0, 80.0, 13.0), lh = HeroFigure.V(-17.0, 54.0, 3.0 + st * 0.6),
-            weapon = HeroFigure.V(0.22, 0.55, -0.8), aim = 1.0,
+            rh = if (shoulder) HeroFigure.V(19.0, 78.0, 8.0) else HeroFigure.V(18.0, 64.0, 10.0 - st * 0.3),
+            lh = HeroFigure.V(-17.0, 54.0, 3.0 + st * 0.6),
+            weapon = if (shoulder) HeroFigure.V(0.2, 0.96, -0.2) else HeroFigure.V(0.12, -0.6, 0.79), aim = 1.0,
             shieldFace = HeroFigure.V(-1.0, 0.0, 0.25),
             bodyY = if (step % 2 == 1) 1.0 else 0.0,
         )
@@ -65,7 +77,7 @@ object MapFigure {
 
     /** Draws one picture now. */
     fun draw(hero: Hero, slot: Int, step: Int): PixelImage =
-        HeroBattle.doll(hero).render(W, H, ANCHOR_X.toDouble(), GROUND.toDouble(), PX, rig(slot * 360.0 / YAWS, step), HeroBattle.outfit(hero).withShieldOnBack(), pitch = PITCH).img
+        HeroBattle.doll(hero).render(W, H, ANCHOR_X.toDouble(), GROUND.toDouble(), PX, rig(slot * 360.0 / YAWS, step, shouldered(hero)), HeroBattle.outfit(hero).withShieldOnBack(), pitch = PITCH).img
 
     /** The picture of [hero] turned to direction [slot] at [step] of a walk, or null while it is not drawn yet. */
     fun frame(hero: Hero, slot: Int, step: Int): PixelImage? = synchronized(cache) { cache["${look(hero)}|$slot|${Math.floorMod(step, STEPS)}"] }
