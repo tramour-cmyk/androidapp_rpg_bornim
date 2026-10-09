@@ -100,6 +100,8 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
+**Zweig-Build 0.1.365** (09.10., Ruhebewegungen; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37981645805/artifacts/11641460263), APK auch im Chat): Held und Garrick atmen, verlagern das Gewicht, schauen zur Seite, Garrick stützt die Hände in die Hüften. Achten auf: Wirkt das Atmen ruhig oder wie ein Zucken? Zu viel Bewegung, zu wenig? Erscheint beim Wechsel kurz ein falsches Bild?
+
 **Zweig-Build 0.1.361** (09.10., 21:20; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37979170883/artifacts/11640001934), APK auch im Chat): Garricks Leerlauf zu unregelmäßigen Zeiten; nach 20 s Stillstand neben ihm wendet er sich dem Feuer zu. Achten auf: Wirkt er jetzt natürlich? Sind die Pausen zu lang (bis etwa 33 s)?
 
 **Zweig-Build 0.1.354** (09.10., 20:50; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37975581393/artifacts/11639450538), APK auch im Chat): Garricks Leerlauf. Achten auf: Wirkt er lebendig? Takt zu schnell oder zu langsam? Hört er auf und schaut zu dir, wenn du näherkommst?
