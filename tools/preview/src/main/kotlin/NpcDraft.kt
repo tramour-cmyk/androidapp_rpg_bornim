@@ -30,10 +30,10 @@ fun renderNpcDraft() {
         for (b in items) { val g = Gear(uid++, b, Rarity.COMMON, 1); h.gear[g.def.slot] = g }
         return h
     }
+    val folk = de.bornim.core.art.MapFolk
     val variants = listOf(
-        "A: Kapuze, Umhang, Langbogen" to dressed("Garrick", Race.HUMAN, CharClass.ROGUE, Build.STRONG, 2, 1, "hood", "leather", "gloves", "boots", "cloak", "longbow"),
-        "B: Lederkappe, Speer" to dressed("Garrick", Race.HUMAN, CharClass.ROGUE, Build.STRONG, 2, 1, "leather_cap", "studded_leather", "wraps", "boots", "spear"),
-        "C: barhäuptig, Kurzbogen" to dressed("Garrick", Race.HUMAN, CharClass.ROGUE, Build.STRONG, 2, 2, "leather", "gloves", "boots", "cloak", "shortbow"),
+        "vorher: Variante A (18:53)" to { sl: Int, st: Int -> MapFigure.draw(dressed("Garrick", Race.HUMAN, CharClass.ROGUE, Build.STRONG, 2, 1, "hood", "leather", "gloves", "boots", "cloak", "longbow"), sl, st) },
+        "neu: Kapuze olivbraun, Bart, dunkles Leder, Bogen und Köcher auf dem Rücken" to { sl: Int, st: Int -> folk.draw(folk.garrick, sl, st) },
     )
     val F = MapFigure
     val slots = listOf(0, 2, 4, 6, 8, 10, 12, 14)
@@ -51,9 +51,9 @@ fun renderNpcDraft() {
         }
     }
     val old = CharacterArt.npc("hunter", Facing.DOWN)
-    variants.forEachIndexed { r, (title, hero) ->
+    variants.forEachIndexed { r, (title, draw) ->
         g.color = Color(0xE8DCC0); g.drawString(title, 6, r * rowH + 16)
-        slots.forEachIndexed { i, s -> paste(F.draw(hero, s, if (i % 2 == 0) 0 else 1), i * F.W, r * rowH + lab) }
+        slots.forEachIndexed { i, s -> paste(draw(s, 0), i * F.W, r * rowH + lab) }
     }
     // the former Garrick at the same scale, for comparison
     g.color = Color(0xE8DCC0); g.drawString("bisher", slots.size * F.W + 6, 16)
@@ -75,7 +75,7 @@ fun renderNpcDraft() {
         }
     }
     val hero = GameState.newGame("Mira", Race.HUMAN, CharClass.FIGHTER).hero
-    place(F.draw(variants[0].second, F.slot(F.yawOf(Facing.LEFT)), 0), 12, 9)
+    place(folk.draw(folk.garrick, F.slot(F.yawOf(Facing.LEFT)), 0), 12, 9)
     place(F.draw(hero, F.slot(F.yawOf(Facing.RIGHT)), 1), 10, 9)
     ImageIO.write(scene, "png", File("build/screens/npc_garrick_feuer.png"))
     println("wrote npc draft")
