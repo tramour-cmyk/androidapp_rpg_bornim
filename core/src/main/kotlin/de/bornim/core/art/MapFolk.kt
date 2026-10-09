@@ -101,7 +101,11 @@ object MapFolk {
 
     /** One warding picture of [f] turned to [slot]. */
     fun drawWard(f: Folk, slot: Int, ward: Ward, flicker: Int): PixelImage =
-        MapFigure.render(f.doll, f.outfit, wardRig(slot * 360.0 / MapFigure.YAWS, ward, flicker))
+        MapFigure.render(f.doll, f.outfit, wardRig(slot * 360.0 / MapFigure.YAWS, ward, flicker), WARD_W, WARD_H)
+
+    /** Warding pictures are wider and taller: the torch reaches far out and up. */
+    const val WARD_W = 152
+    const val WARD_H = 150
 
     /** How near (in tiles each way) the hero must be for the folk to look at it. */
     const val WATCH_TILES = 4.0

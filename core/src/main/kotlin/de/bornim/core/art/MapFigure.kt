@@ -83,8 +83,11 @@ object MapFigure {
     }
 
     /** Draws [doll] in [outfit] in [rig] as a map picture. */
-    fun render(doll: Doll, outfit: Outfit, rig: HeroFigure.Rig): PixelImage =
-        doll.render(W, H, ANCHOR_X.toDouble(), GROUND.toDouble(), PX, rig, outfit, pitch = PITCH).img
+    fun render(doll: Doll, outfit: Outfit, rig: HeroFigure.Rig, w: Int = W, h: Int = H): PixelImage =
+        doll.render(w, h, w / 2.0, h - (H - GROUND).toDouble(), PX, rig, outfit, pitch = PITCH).img
+
+    /** Pictures are drawn with the feet in the middle, [H] − [GROUND] pixels above the bottom; a wider one (a raised torch) keeps that. */
+    const val FOOT_BELOW = H - GROUND
 
     private fun look(hero: Hero) = "${hero.race}/${hero.sex}/${hero.build}/${hero.skinTone}/${hero.hairTone}/${hero.cls}/${hero.bothHands()}/" +
         GearSlot.entries.joinToString(",") { s -> hero.item(s)?.let { "${it.base}:${it.rarity}" } ?: "-" }
