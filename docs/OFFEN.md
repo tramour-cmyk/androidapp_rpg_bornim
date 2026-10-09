@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 10:44 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 10:48 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -66,6 +66,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
   - **Grundsatzfrage (10:18):** Halten wir an der Kachelkarte überhaupt fest, oder bewegt sich der Held ganz anders durch die Welt? Stil-Leitlinien beachten, der Spieler muss sich irgendwie fortbewegen, offen ist, wie konkret. Vorschläge dazu im Chat (10:20): (A) Draufsicht behalten, aber neu gemalt und ohne Raster, (B) Seitenansicht wie im Kampf mit verbundenen Szenen, (C) gezeichnete Reisekarte mit Orten, (D) Mischung aus C für die Reise und B für die Orte (Empfehlung). Nächster Schritt: je ein Entwurfsbild der Varianten, die du sehen willst.
   - Ausschnitt für die Entwürfe: der Wald (deine Wahl, 10:19). **Entwürfe gezeigt (10:32, Bilder von 10:31):** B Ansicht wie im Kampf mit Wegweisern voraus/zurück/abbiegen (Waldweg, Garricks Feuer, Weiher; Lichtung bei Tag, Dämmerung, Nacht), C gezeichnete Reisekarte des Flüsterwalds aus den Kartendaten (ganz und so weit erkundet), D beides. Nur Bilder (Vorschau `WEGE=1`), nichts davon im Spiel. Bekannte Schwächen der Entwürfe: Garrick steht mit dem Rücken zum Betrachter (die Figuren gibt es bisher nur in Kampfhaltung von hinten), das Schild „zurück“ liegt über den Beinen. Wartet auf deine Wahl.
   - **Gemeldet (10:41): Held sieht schrecklich und anatomisch falsch aus.** Ursache: In den Entwürfen war versehentlich die alte Entwurfsfigur (`HeroFigure`) statt der Kampffigur (Puppe, `HeroBattle`). Behoben, B und D neu gezeigt (Bilder von 10:43); das Schild „zurück“ sitzt jetzt unten rechts. Garrick ist weiter von hinten zu sehen.
+  - **Deine Entscheidung (10:47): Erkunden bleibt.** B, C und D nehmen das Entdecken weg (man tippt nur noch Orte an, der Weg fehlt). Die bestehende Draufsicht-Karte soll erwachsener und düsterer werden, das freie Erkunden bleibt. Vorschläge dazu im Chat (10:48): feinere Auflösung, Raster auflösen, Licht und Sicht als Spielelement, Atmosphäre, Dinge zum Entdecken, Figuren aus der Puppe. Nächster Schritt: Entwurf eines Ausschnitts (Lichtung) in neuer Machart, nach deiner Auswahl.
 
 - **Läuft immer dieselbe Variante? (gefragt 08.10., 17:2x)** Im Code nachgesehen:
   - Gegner-Angriffe: Zufall unter drei, kann aber zweimal hintereinander gleich sein.
