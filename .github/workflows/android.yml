@@ -2,9 +2,11 @@ name: Build APK
 
 on:
   push:
-    # Pure documentation changes need no new APK.
+    # Pure documentation and tooling changes need no new APK.
     paths-ignore:
       - "**.md"
+      - "tools/**"
+      - ".claude/**"
   pull_request:
   workflow_dispatch:
 

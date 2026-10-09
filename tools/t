@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# Ein Einstieg für alle Prüfungen, je Anlass das schnellste passende Werkzeug (siehe docs/UMGEBUNG.md).
+# Aufruf im Hauptordner: tools/t <befehl> …   (ohne Befehl: diese Übersicht)
+cd "$(dirname "$0")/.." || exit 1
+[ -f ~/.gradle/init.d/bornim-maven-mirror.gradle ] || tools/setup-session.sh >/dev/null
+
+# Die Cloud setzt JAVA_TOOL_OPTIONS; Java meldet das bei jedem Start, das ist nur Rauschen.
+exec 2> >(grep -v --line-buffered '^Picked up JAVA_TOOL_OPTIONS' >&2)
+stamp() { TZ=Europe/Berlin date "+%d.%m., %H:%M"; }
+timed() { local t0; t0=$(date +%s); "$@"; local rc=$?; echo "($(( $(date +%s) - t0 )) s, fertig $(stamp))"; return $rc; }
+
+case "$1" in
+logik)
+    # Kerntests, mit Muster nur die passenden: tools/t logik KillBlow
+    if [ -n "$2" ]; then timed ./gradlew -q -p core test --tests "*$2*"; else timed ./gradlew -q -p core test; fi ;;
+spieler)
+    # Zufallsspieler ohne Bild; Zahl = Eingaben je Spieler (Standard 1500)
+    PLAYSIM="${2:-1500}" timed ./gradlew -q -p core test --tests 'de.bornim.core.PlayerSimTest' --rerun -i 2>&1 \
+        | grep -E 'PlayerSim |Zufallsspieler|Absturz|außerhalb|hängt|Laden|FAILED|^ *[0-9]+ s, fertig|^\(' | sed 's/, gesehen:.*//' ;;
+bild|film)
+    # Vorschau mit Schaltern: tools/t bild FOEANIM=ghoul:0   ·   tools/t film FILMBATCH=datei FILMSTEP=40
+    # Filme laufen in Echtzeit: höchstens 4–5 Kämpfe je Aufruf, nur wenn sich eine Bewegung sichtbar ändert.
+    shift
+    [ $# -gt 0 ] || { echo "Schalter fehlen, z. B. tools/t bild VERMINANIM=stirge:0 (Liste: docs/OFFEN.md, Übergabe-Notiz)"; exit 2; }
+    mark=$(mktemp); timed env "$@" bash -c 'cd tools/preview && ../../gradlew -q run'; rc=$?
+    echo "Neue Bilder:"; find tools/preview/build/screens -newer "$mark" -type f | sort | head -40
+    n=$(find tools/preview/build/screens -newer "$mark" -type f | wc -l); [ "$n" -gt 40 ] && echo "… insgesamt $n"
+    rm -f "$mark"; exit $rc ;;
+pruef|check)
+    timed tools/check-env.sh --full ;;
+*)
+    cat <<'EOF'
+tools/t <befehl>, je Anlass:
+
+  Anlass                               Befehl                               Dauer (warm)
+  Regel, Wert, Ablauf der Meldungen    tools/t logik [Muster]               1–15 s
+  Bedienung, Spielfluss, Abstürze      tools/t spieler [Eingaben]           5 s
+  Aussehen einer Haltung, Kollision    tools/t bild SCHALTER=…              5–10 s
+  Fluss einer Bewegung                 tools/t film FILM…=…                 Echtzeit, je Kampf ~1 min
+  Umgebung in Ordnung?                 tools/t pruef                        ~10 s
+  Gesamteindruck am Gerät              Zweig pushen, Build von GitHub       Minuten, Test durch den Nutzer
+EOF
+    ;;
+esac
