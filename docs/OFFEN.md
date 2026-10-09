@@ -100,6 +100,8 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
   - **Geschätzt, nicht gemessen:** Filme ein Mehrfaches schneller als Echtzeit.
   - **Risiko:** Der Kampf auf dem Gerät hängt an dieser Taktung. Deshalb eigener Zweig, Filmvergleich vorher und nachher und dein Test am Gerät, bevor etwas auf `main` geht.
 
+- **Entwicklung beschleunigen (Frage 09.10., 22:01):** Antwort mit Vorschlägen im Chat (09.10., 22:01): die Testumgebung beschleunigt das Prüfen; daneben Rückfragen bündeln, kein APK-Build für reine Werkzeug-Änderungen, kürzere Pflichtlektüre zu Sitzungsbeginn, öfter kleine Stände auf `main`, Freigaberegel für das Zusammenführen. **Zu entscheiden.**
+
 ## Bewusst so gelassen
 
 - **Trank wird zweimal getrunken:** kein Fehler, das ist die Trinkvariante „zwei hastige Schlucke“ (08.10.).
