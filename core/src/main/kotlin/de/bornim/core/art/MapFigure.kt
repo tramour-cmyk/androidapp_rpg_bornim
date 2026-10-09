@@ -46,10 +46,12 @@ object MapFigure {
     /** Walking about: arms down and swinging a little with the step, the weapon hanging, the shield on the back. */
     private fun rig(yaw: Double, step: Int): HeroFigure.Rig {
         val st = listOf(0.0, 11.0, 0.0, -11.0)[Math.floorMod(step, STEPS)]
+        // the weapon rests on the right shoulder, pointing up and back, so it never drags on the ground;
+        // the right hand holds it in front of the shoulder, the left swings free
         return Doll.REST.copy(
             yaw = yaw, stride = st, spread = 5.0,
-            rh = HeroFigure.V(17.0, 56.0, 2.0 - st * 0.35), lh = HeroFigure.V(-17.0, 54.0, 3.0 + st * 0.6),
-            weapon = HeroFigure.V(0.08, -1.0, 0.12), aim = 1.0,
+            rh = HeroFigure.V(16.0, 80.0, 13.0), lh = HeroFigure.V(-17.0, 54.0, 3.0 + st * 0.6),
+            weapon = HeroFigure.V(0.22, 0.55, -0.8), aim = 1.0,
             shieldFace = HeroFigure.V(-1.0, 0.0, 0.25),
             bodyY = if (step % 2 == 1) 1.0 else 0.0,
         )

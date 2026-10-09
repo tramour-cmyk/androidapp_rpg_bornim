@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 16:48 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 16:55 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -101,6 +101,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
   - **Held im Spiel (16:24):** Puppe auf allen Karten, Schild auf dem Rücken, weiches Umdrehen (16 Richtungen), vier Schrittbilder. Noch alt: Garrick, Dorfbewohner, Monster auf der Karte.
   - **Rückmeldung (16:33, Bildschirmfoto aus dem Tiefen Wald):** Held im Verhältnis zu den Bäumen viel zu groß; mit der Durchsicht dürfen die Bäume wieder größer werden. Im Haus (16:34) und auf dem Marktplatz (16:35) passen die Proportionen. Geändert (16:48): Bäume deutlich höher (Eichen und Fichten mehr als doppelt so hoch wie der Held); wo eine Krone Truhe, Feuer, Schild, Leute oder Ausgänge verdecken würde, steht eine junge Fichte.
   - Aufgefallen auf deinem Bildschirmfoto: ein dunkler Stab ragt seitlich aus der Hand (vermutlich eine Armbrust, deren Bogen quer steht). Zu prüfen: Fernwaffen beim Laufen auf dem Rücken oder geschultert.
+  - **Rückmeldung (16:42, Bildschirmfoto Kleriker): Waffe schleift am Boden; lieber nach oben halten.** Geändert (16:55): alle Waffen auf der Karte geschultert (rechte Hand vor der Schulter, Waffe schräg nach hinten über die Schulter); für alle Waffenarten in 16 Richtungen geprüft (Schwert, Speer, Kampfstab, Zweihänder, Großaxt, Hellebarde, Magierstab, Langbogen, Armbrust, Dolch). Damit ist auch die quer stehende Armbrust erledigt.
   - **Idee (16:01): weiches Umdrehen statt hartem Wechsel zwischen den vier Richtungen.** Machbar mit wenig Aufwand: Die Puppe lässt sich in jede Richtung drehen; ich zeichne Zwischenrichtungen (16 statt 4) vorab und spiele beim Richtungswechsel die Drehung in etwa einer Achtelsekunde ab. Kommt mit dem Einbau der Figuren; die Zwischenrichtungen helfen später auch beim freien Laufen.
 - **Weg (gemeldet 12:02: zu klein und mickrig):** jetzt ein breiter Karrenweg, etwa eine Kachel breit, mit Trampelrand, hellerer Mitte, tiefen Fahrspuren, Pfützen und Steinen; läuft an den Enden aus. Passt das so?
 - **Gemeldet (13:12, mit Bildschirmfoto aus dem Tiefen Wald): Wege abgeschnitten.** Ursache: Die Weglinien wurden als einfache Linien von oben nach unten gebaut; Kreuzungen, Gabelungen und lange Querwege rissen ab. Jetzt als zusammenhängendes Netz aus den Wegkacheln, geglättet, Kreuzungen ohne Fahrspur-Ringe. **Von dir bestätigt (14:41, Build 0.1.295):** Wege, Kreuzungen und Gabelungen sehen gut aus, nichts Auffälliges.

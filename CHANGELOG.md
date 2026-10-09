@@ -5,7 +5,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 ## Unveröffentlicht
 
 **Neu – der Held auf der Karte als Puppe (Zweig `karte-neuer-stil`)**
-- Auf allen Karten ist der Held jetzt dieselbe Figur wie im Kampf, schräg von oben, in wahrer Größe je Volk, mit seiner echten Ausrüstung. Beim Herumlaufen trägt er die Waffe gesenkt und den Schild auf dem Rücken (Rund-, Spitz- und Turmschild in ihrer Form, Oberkante knapp über den Schultern, mit Riemen über der Brust); die linke Hand ist frei.
+- Auf allen Karten ist der Held jetzt dieselbe Figur wie im Kampf, schräg von oben, in wahrer Größe je Volk, mit seiner echten Ausrüstung. Beim Herumlaufen trägt er die Waffe geschultert (Klinge, Kopf oder Schaft ruht auf der rechten Schulter, schräg nach hinten) und den Schild auf dem Rücken (Rund-, Spitz- und Turmschild in ihrer Form, Oberkante knapp über den Schultern, mit Riemen über der Brust); die linke Hand ist frei.
 - Der Held dreht sich weich in die neue Richtung (16 Richtungen, eine halbe Drehung in etwa einer Viertelsekunde), statt eckig umzuspringen, und geht mit vier Schrittbildern.
 - Die Bilder werden beim Betreten der Karte im Hintergrund gezeichnet, die aktuelle Blickrichtung zuerst; bis dahin steht kurz die bisherige Figur da. Nach einem Ausrüstungswechsel werden sie neu gezeichnet.
 
