@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 15:58 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 16:02 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -95,6 +95,8 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - **Idee (15:24): Baumkrone halb durchsichtig, wenn der Held dahinter steht.** Umgesetzt (15:27): Krone, Fels oder Busch vor dem Helden werden halb durchsichtig. Figuren als Nächstes (deine Entscheidung 15:24).
 - **Figuren auf der Karte, erster Entwurf (15:30):** die Puppe aus dem Kampf schräg von oben (Blickwinkel 38°), in Kartengröße, wahre Größe je Volk; Ruhehaltung mit gesenkter Waffe, vier Laufrichtungen mit vier Schrittbildern; Szene an Garricks Feuer alt gegen neu. Vorschau `MAPFIG=1`. Offen: Schrittbewegung noch schlicht, Monster folgen nach deiner Rückmeldung.
   - **Idee (15:53): Schild beim Herumlaufen auf dem Rücken, Hände frei.** Umgesetzt im Entwurf (15:58): neue Lage „auf dem Rücken“ in der Puppe (über den Schulterblättern, Vorderseite nach außen, leicht schräg, über dem Umhang, mit Riemen über der Brust), Rund-, Spitz- und Turmschild behalten ihre Form; nur auf der Karte, im Kampf weiter am Arm.
+  - **Rückmeldung (16:00):** Vorder- und Seitenansicht gut, von hinten hing der Schild zu tief. Geändert (16:02): höher auf Schulterhöhe, etwas mehr nach hinten geneigt, damit er von vorn nicht wie eine Stuhllehne über den Kopf ragt.
+  - **Idee (16:01): weiches Umdrehen statt hartem Wechsel zwischen den vier Richtungen.** Machbar mit wenig Aufwand: Die Puppe lässt sich in jede Richtung drehen; ich zeichne Zwischenrichtungen (16 statt 4) vorab und spiele beim Richtungswechsel die Drehung in etwa einer Achtelsekunde ab. Kommt mit dem Einbau der Figuren; die Zwischenrichtungen helfen später auch beim freien Laufen.
 - **Weg (gemeldet 12:02: zu klein und mickrig):** jetzt ein breiter Karrenweg, etwa eine Kachel breit, mit Trampelrand, hellerer Mitte, tiefen Fahrspuren, Pfützen und Steinen; läuft an den Enden aus. Passt das so?
 - **Gemeldet (13:12, mit Bildschirmfoto aus dem Tiefen Wald): Wege abgeschnitten.** Ursache: Die Weglinien wurden als einfache Linien von oben nach unten gebaut; Kreuzungen, Gabelungen und lange Querwege rissen ab. Jetzt als zusammenhängendes Netz aus den Wegkacheln, geglättet, Kreuzungen ohne Fahrspur-Ringe. **Von dir bestätigt (14:41, Build 0.1.295):** Wege, Kreuzungen und Gabelungen sehen gut aus, nichts Auffälliges.
 - **Naher Zoom:** etwa 5½ Kacheln Breite. Fühlt sich das Laufen und Scrollen gut an? Sieht man genug, um sich zurechtzufinden? Im Testreiter „Kartenzoom“ zwischen nah und weit wechseln zum Vergleich. Die alten Kartenbilder wirken nah gröber, das ändert sich mit den neuen Bildern (Stufen 3 und 4).

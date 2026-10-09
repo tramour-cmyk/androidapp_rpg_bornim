@@ -805,11 +805,11 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             val upB = (P3(0.0, 1.0, 0.0) - across * across.y).norm()
             var back = across cross upB
             if (back.z > 0) back = -back
-            val tilt = (upB * 0.96 + back * 0.28).norm()
+            val tilt = (upB * 0.94 + back * 0.36).norm()
             val axB = (tilt cross back).norm()
             val fB = Frame(axB, tilt, (axB cross tilt).norm().let { if (it dot back < 0) -it else it })
             val mid = (sl + sr) * 0.5
-            val cB = mid - upB * (ht * (if (tower) 0.42 else 0.38)) + back * (d.chestDepth + 0.075 * h)
+            val cB = mid - upB * (ht * (if (tower) 0.34 else if (round) 0.17 else 0.27)) + back * (d.chestDepth + 0.075 * h)
             slungShield(base, r, cB, fB, hw, ht, outline, tower, round, back)
             return
         }
