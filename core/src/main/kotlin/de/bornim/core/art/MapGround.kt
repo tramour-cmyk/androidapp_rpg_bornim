@@ -216,10 +216,12 @@ object MapGround {
         return out.toDoubleArray()
     }
 
-    private fun segDist(px: Double, py: Double, ax: Double, ay: Double, bx: Double, by: Double): Double {
+    /** Distance to the piece from a to b; where along it the nearest point lies (0 start, 1 end) goes into [where]. */
+    private fun segDist(px: Double, py: Double, ax: Double, ay: Double, bx: Double, by: Double, where: DoubleArray): Double {
         val dx = bx - ax; val dy = by - ay
         val l2 = dx * dx + dy * dy
         val t = if (l2 == 0.0) 0.0 else (((px - ax) * dx + (py - ay) * dy) / l2).coerceIn(0.0, 1.0)
+        where[0] = t
         val qx = ax + dx * t - px; val qy = ay + dy * t - py
         return sqrt(qx * qx + qy * qy)
     }
@@ -237,12 +239,14 @@ object MapGround {
             var i = 0
             while (i + 3 < c.size) {
                 val ax = c[i]; val ay = c[i + 1]; val bx = c[i + 2]; val by = c[i + 3]
+                // whether this piece starts or ends the whole path (there it fades out, without ruts)
+                val first = if (i == 0) 1.0 else 0.0; val last = if (i + 4 >= c.size) 1.0 else 0.0
                 if (maxOf(ax, bx) >= ox - margin && minOf(ax, bx) <= ox + size + margin && maxOf(ay, by) >= oy - margin && minOf(ay, by) <= oy + size + margin)
-                    segs += doubleArrayOf(ax, ay, bx, by)
+                    segs += doubleArrayOf(ax, ay, bx, by, first, last)
                 i += 2
             }
         }
-        val col = DoubleArray(3); val tmp = DoubleArray(3)
+        val col = DoubleArray(3); val tmp = DoubleArray(3); val where = DoubleArray(1)
         val tall = BooleanArray(size * size)
         val pathK = DoubleArray(size * size)
         for (yy in 0 until size) for (xx in 0 until size) {
@@ -265,8 +269,13 @@ object MapGround {
             // the path: a broad cart track about a tile wide, a trampled verge of flattened grass
             // beside it, lighter where feet go in the middle, two ruts with puddles here and there
             if (segs.isNotEmpty()) {
-                var d = Double.MAX_VALUE
-                for (s in segs) { val dd = segDist(x, y, s[0], s[1], s[2], s[3]); if (dd < d) d = dd }
+                var d = Double.MAX_VALUE; var cap = false
+                for (s in segs) {
+                    val dd = segDist(x, y, s[0], s[1], s[2], s[3], where)
+                    if (dd < d) { d = dd; cap = (s[4] > 0 && where[0] <= 0.0) || (s[5] > 0 && where[0] >= 1.0) }
+                }
+                // past the end of the path: the track narrows and fades into the grass
+                if (cap) d *= 1.6
                 val edge = 33 + (fbm(x, y, 26.0, 9) - 0.5) * 18
                 val verge = ((edge + 9 - d) / 9).coerceIn(0.0, 1.0)
                 if (verge > 0) { mixInto(col, VERGE, verge * 0.45) }
@@ -276,7 +285,7 @@ object MapGround {
                     // the middle, between the ruts, is trodden lighter; the ruts are deep and dark
                     val mid = (1 - d / 10).coerceIn(0.0, 1.0)
                     for (i in 0..2) tmp[i] += (PATH_HI[i] - tmp[i]) * mid * 0.35
-                    val rut = abs(d - 14) < 2.4 + (vnoise(x, y, 14.0, 19) - 0.5) * 1.6
+                    val rut = !cap && abs(d - 14) < 2.4 + (vnoise(x, y, 14.0, 19) - 0.5) * 1.6
                     if (rut) {
                         if (vnoise(x, y, 30.0, 20) > 0.72) { for (i in 0..2) tmp[i] = PUDDLE[i].toDouble(); if (vnoise(x, y, 3.0, 21) > 0.8) for (i in 0..2) tmp[i] += (GLINT[i] - tmp[i]) * 0.4 }
                         else for (i in 0..2) tmp[i] += (RUT[i] - tmp[i]) * 0.6
