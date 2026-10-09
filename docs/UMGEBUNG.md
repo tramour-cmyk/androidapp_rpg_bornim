@@ -1,6 +1,6 @@
 # Arbeitsumgebung
 
-Was eine Sitzung (oder ein zweiter Account) braucht, um an „Chroniken von Bornim“ weiterzuarbeiten, und wie man prüft, ob alles da ist. Stand: 09.10.2026, 11:40 (Berliner Zeit).
+Was eine Sitzung (oder ein zweiter Account) braucht, um an „Chroniken von Bornim“ weiterzuarbeiten, und wie man prüft, ob alles da ist. Stand: 09.10.2026, 11:32 (Berliner Zeit).
 
 ## Schnellprüfung
 
@@ -11,7 +11,7 @@ tools/check-env.sh          # Programme, Repository, Netz (wenige Sekunden)
 tools/check-env.sh --full   # dazu Kerntests und ein Vorschaubild (beim ersten Mal einige Minuten, danach unter einer Minute)
 ```
 
-Am Ende steht „Ergebnis: … in Ordnung, 0 fehlen.“, wenn alles passt. Zuletzt geprüft am 09.10.2026, 11:40: 11 in Ordnung, 0 fehlen.
+Am Ende steht „Ergebnis: … in Ordnung, 0 fehlen.“, wenn alles passt. Zuletzt geprüft am 09.10.2026, 11:31: 11 in Ordnung, 0 fehlen.
 
 ## Was gebraucht wird
 
