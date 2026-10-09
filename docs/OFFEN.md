@@ -75,6 +75,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu entscheiden
 
+- **Weiße Trefferzeichen am Helden (gefragt 09.10.):** Beim Treffer liegt eine weiße Grafik auf dem Getroffenen: Zahnreihe beim Biss, weißer Ring mit Sternchen beim Schlag mit stumpfen Waffen, weiße Striche beim Hieb, weißer Stern beim Stich, weiße Funken. Das sind die alten Trefferzeichen aus der ersten Fassung. Vorschläge in der Antwort vom 09.10.; wartet auf deine Entscheidung.
 - **Noch mehr Zwischenbilder?** Die Haltungen selbst (Arme, Beine, Waffe) wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Nach deinem Test von 0.1.208 vorerst nicht nötig; bei Bedarf als eigener, größerer Umbau (mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn).
 - **Hörproben:** Auswahl für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt.
 
