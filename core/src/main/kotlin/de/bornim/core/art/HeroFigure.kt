@@ -165,6 +165,25 @@ object HeroFigure {
     // and down: the whole body drops behind the blow, chest turning in, knees bending
     val SMASH_HIT = Rig(lean = 0.5, crouch = 4.5, stride = 8.0, rh = V(6.0, 69.0, 40.0), weapon = V(0.0, -0.65, 0.76), lh = V(-12.0, 66.0, 9.0), cloak = 2.5, trail = 1.0, twist = -15.0, grip = 18.0)
 
+    // the killing blows, for a critical hit that ends the foe: wider, heavier and held longer than any other blow
+    // 1. a crushing blow from high over the head, the whole body thrown down behind it
+    val KILL_HIGH_RAISE = SMASH_WIND.copy(rh = V(12.0, 118.0, -10.0), weapon = V(0.05, 0.35, -0.94), lean = -0.35, bodyY = -2.5, stride = 4.0, twist = 20.0, headDown = -6.0)
+    val KILL_HIGH_HIT = SMASH_HIT.copy(lean = 0.8, crouch = 9.0, stride = 12.0, rh = V(4.0, 62.0, 44.0), weapon = V(0.0, -0.8, 0.6), twist = -20.0, trail = 1.0, headDown = 8.0, aim = 1.0)
+    val KILL_HIGH_DOWN = KILL_HIGH_HIT.copy(crouch = 11.0, rh = V(2.0, 50.0, 40.0), weapon = V(-0.05, -0.95, 0.3), trail = 0.0)
+    // 2. run through: drawn far back, driven deep into the foe, then wrenched out to the side
+    val KILL_IMPALE_WIND = THRUST_WIND.copy(rh = V(22.0, 72.0, -14.0), lean = -0.25, twist = 38.0, stride = 3.0, crouch = 2.0)
+    val KILL_IMPALE_HIT = THRUST_HIT.copy(lean = 0.6, crouch = 3.5, stride = 14.0, rh = V(6.0, 82.0, 48.0), twist = -28.0, trail = 0.8)
+    val KILL_IMPALE_TEAR = KILL_IMPALE_HIT.copy(lean = 0.3, rh = V(18.0, 84.0, 32.0), weapon = V(0.45, 0.25, 0.86), twist = 10.0, trail = 0.0, headTurn = 6.0, aim = 1.0)
+    // 3. a full turn: round with the back to the foe and the blade flat, then through it at waist height
+    val KILL_SPIN_WIND = SLASH_WIND.copy(rh = V(30.0, 86.0, -16.0), weapon = V(0.7, 0.05, -0.7), twist = 45.0, lean = -0.05, stride = 5.0, crouch = 2.0, elbowUp = 0.0, roll = 0.0, aim = 1.0, grip = 30.0)
+    val KILL_SPIN_TURN = KILL_SPIN_WIND.copy(yaw = FIGHT_YAW + 170.0, rh = V(26.0, 86.0, 10.0), weapon = V(0.95, 0.0, 0.3), twist = 20.0, crouch = 3.0, cloak = 3.0)
+    val KILL_SPIN_HIT = SLASH_HIT.copy(rh = V(-2.0, 66.0, 42.0), weapon = V(-0.85, -0.1, 0.5), twist = -35.0, lean = 0.4, crouch = 3.0, stride = 10.0, trail = 1.0, grip = 15.0, aim = 1.0)
+    val KILL_SPIN_END = KILL_SPIN_HIT.copy(rh = V(-14.0, 64.0, 24.0), weapon = V(-0.9, -0.15, -0.3), twist = -45.0, trail = 0.0)
+    // 2b. with an axe, a mace or a hammer, nothing to run the foe through with: a blow from low down rising up through it
+    val KILL_RISE_WIND = SMASH_HIT.copy(rh = V(24.0, 52.0, -8.0), weapon = V(0.45, -0.6, -0.65), lean = 0.1, crouch = 6.0, stride = 6.0, twist = 35.0, aim = 1.0, trail = 0.0)
+    val KILL_RISE_HIT = SMASH_HIT.copy(rh = V(8.0, 100.0, 38.0), weapon = V(0.05, 0.85, 0.5), lean = 0.15, crouch = 1.0, stride = 11.0, twist = -20.0, aim = 1.0, trail = 1.0, headDown = -6.0)
+    val KILL_RISE_END = KILL_RISE_HIT.copy(rh = V(10.0, 108.0, 22.0), weapon = V(0.1, 0.6, -0.78), trail = 0.0)
+
     // the spear: thrust from below, held low and level, or driven down from over the shoulder like a javelin
     // from below, drawn back: the hand at the hip, the shaft level along the side, the free hand forward
     val SPEAR_LOW_WIND = Rig(lean = -0.12, crouch = 1.5, stride = 3.0, rh = V(17.0, 58.0, -6.0), weapon = V(0.04, 0.0, 1.0), lh = V(-6.0, 64.0, 20.0), twist = 28.0, grip = 10.0, aim = 1.0)

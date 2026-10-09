@@ -58,7 +58,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
-- **Killerschlag (09.10. begonnen):** Konzept vorgeschlagen (Antwort vom 09.10.), wartet auf deine Rückmeldung; danach Entwürfe als Standbilder, dann Umsetzung auf dem Zweig. Hinweis: Die Karten-Überarbeitung läuft parallel in einer anderen Sitzung (zweiter Account); Überschneidungen beim Zusammenführen auf `main` beachten.
+- **Killerschlag (09.10. begonnen):** Konzept von dir freigegeben (09.10.: tödlicher kritischer Treffer mit Nahkampfwaffe; drei Schläge: Überkopfhieb, Durchbohren, Drehhieb; längeres Innehalten, stärkeres Rütteln; Blutstufe Aus = Zusammensacken, Dezent = Blutschwall, Deutlich = Zerteilen; Skelette zerspringen, Zombie/Ghul dunkler Schleim, Gallerte platzt). Entwürfe als Standbilder (09.10., 12:09, Vorschau `KILLDRAFT=1`): Held-Schläge mit Schwert und Schild sowie Zweihandaxt (Axt, Streitkolben und Hammer bekommen statt Durchbohren einen Aufwärtshieb); Goblin je Blutstufe, Skelett zerspringt. Wartet auf deine Rückmeldung zu den Entwürfen, dann Umsetzung. Fernkampf und Zauber: auf der Merkliste. Hinweis: Die Karten-Überarbeitung läuft parallel in einer anderen Sitzung (zweiter Account); Überschneidungen beim Zusammenführen auf `main` beachten.
 
 ## Zu testen
 
