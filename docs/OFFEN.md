@@ -47,7 +47,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - `FILM=klasse:gegner` mit `FILMTAPS` (Tipper durch die Menüs) für Einzelfilme.
 - `ABILITYFX=1` (alle Fähigkeits-Effekte in Phasen), `STATUSFX=1` (alle Zustände): Übersichtsblätter in Sekunden, für das Aussehen.
 - Bewegungsblätter: `FOEANIM=ghoul:0,goblin:2` (Gegner auf der Puppe), `VERMINANIM=giant_spider:0,stirge:2` (Ungeziefer), `CLASH=1`/`FOECLASH=1` (Durchdringungen), `JELLYWOUND=1` (Gallerte nach Verletzung); Entwürfe: `VERMINSHEET=1`, `VERMINCLOSE=bat`.
-- Ein Filmlauf mit 5 Kämpfen dauert gut 4 Minuten; Bash-Aufrufe brechen nach 10 Minuten ab, also höchstens 4–5 Filme pro Lauf oder im Hintergrund mit `timeout`. Bilder zum Ansehen mit ImageIO-`montage` zuschneiden und zusammensetzen.
+- Ein Filmlauf mit 5 Kämpfen dauert gut 4 Minuten; Bash-Aufrufe brechen nach 10 Minuten ab, also höchstens 4–5 Filme pro Lauf oder im Hintergrund mit `timeout`. Bilder zum Ansehen mit ImageMagick (`montage`, `convert`) zuschneiden und zusammensetzen.
 - Kerntests: `./gradlew :core:test` (u. a. Ablauf-, Tödlicher-Treffer- und Untote-Tests). Vor jedem Commit laufen lassen.
 
 **Kampfanzeige (Stand 09.10.):** Treffer = Innehalten beim Aufprall (70 ms, Nahkampf), dunkelrote Färbung (`hurt` in `PixelSprite`), Blut im Augenblick des Aufpralls; Rütteln des Bildes nur bei kritischen Treffern; keine weißen Trefferzeichen, kein Blinken. Gift/Brennen/Bluten (`isTick()`) sind kein Schlag des Gegners. Tatendrang gilt einmal pro Rast (`SkillCost.PER_REST`, `Hero.spent`).
