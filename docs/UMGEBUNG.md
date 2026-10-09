@@ -13,15 +13,36 @@ tools/check-env.sh --full   # dazu Kerntests und ein Vorschaubild (warm etwa 10 
 
 Am Ende steht „Ergebnis: … in Ordnung, 0 fehlen.“, wenn alles passt. Zuletzt geprüft am 09.10.2026, 21:31: 11 in Ordnung, 0 fehlen, 11 s.
 
+## Testen nach Anlass: `tools/t`
+
+Ein Einstieg für alle Prüfungen, gleich für jeden Account. `tools/t` ohne Befehl zeigt die Übersicht. Jede Ausgabe endet mit Dauer und Uhrzeit.
+
+| Anlass | Befehl | Dauer (warm, gemessen 09.10.) |
+|---|---|---|
+| Regel, Wert, Ablauf der Meldungen | `tools/t logik [Muster]` (Kerntests, mit Muster nur die passenden) | 2–3 s gezielt, 11 s alle |
+| Bedienung, Spielfluss, Abstürze | `tools/t spieler [Eingaben]` (Zufallsspieler `PlayerSimTest`) | 3 s, 10 000 Eingaben je Spieler 5 s |
+| Aussehen einer Haltung, Kollision | `tools/t bild SCHALTER=…` (Vorschau, listet die neuen Bilder) | 5 s |
+| Fluss einer Bewegung | `tools/t film FILM…=…` | Echtzeit (siehe „Film-Uhr“ in `docs/OFFEN.md`) |
+| Umgebung in Ordnung? | `tools/t pruef` | ~10 s |
+| Gesamteindruck am Gerät | Zweig pushen, Build von GitHub, Test durch den Nutzer | Minuten |
+
+Grundsatz: das schnellste Werkzeug, das den Anlass abdeckt. Filmen nur, wenn sich eine Bewegung sichtbar ändert.
+
+**Zufallsspieler (`core/src/test/.../PlayerSimTest.kt`):** spielt ohne Bild wie ein Tester. Er tippt Ziele an (Türen, Leute, Monster, irgendwohin), läuft über die Wegfindung des Spiels, redet, kauft, kämpft (Angriff, Abwehr, Fähigkeiten, Tränke), alles mit festem Seed. Einmal von Spielbeginn an (Dorf) und einmal in jedem Gebiet mit Begegnungen auf Stufe 2 oder 5. Nach jeder Eingabe prüft er: kein Absturz, kein hängender Dialog, TP, Gold und Ort im erlaubten Bereich; alle 250 Eingaben ergeben Speichern und Laden denselben Stand. Bei einem Fund nennt er Klasse, Seed und die letzten Eingaben. Er prüft die Spiellogik, nicht das Bild.
+
 ## Sitzungsstart: schnell und sparsam (seit 09.10.2026)
 
 Gilt für jede Cloud-Sitzung und jeden Account gleich, weil alles im Repository liegt:
 
 - `.claude/settings.json` startet beim Sitzungsbeginn `tools/setup-session.sh --warm` (nur in Cloud-Sitzungen). Der Hook kehrt sofort zurück.
 - `tools/setup-session.sh` legt `tools/gradle-mirror.gradle` nach `~/.gradle/init.d`. Gradle lädt Maven-Central-Dateien dann vom Google-Spiegel (`maven-central.storage-download.googleapis.com`). Grund: Maven Central weist Downloads aus der Cloud oft mit 429 („Too Many Requests“) ab, am 09.10. auch `repo1.maven.org`. GitHub Actions ist nicht betroffen.
-- Mit `--warm` werden im Hintergrund `core` (mit Tests) und `tools/preview` übersetzt, Log in `/tmp/bornim-warm.log`. Gemessen am 09.10. ohne Cache: rund 2 min 10 s und 550 MB. Danach brauchen Kerntests ohne Änderung etwa 1–2 s, die Testläufe selbst etwa 11 s, ein Vorschaubild 4–8 s.
-- **Kerntests immer mit `./gradlew -p core test`** (wie GitHub Actions). `./gradlew :core:test` aus dem Hauptordner lädt zusätzlich das Android-Plugin (über 70 MB), das ohne Android-SDK nichts nützt.
-- Gerät der Spiegel aus dem Tritt: `tools/setup-session.sh` von Hand, dann `tools/check-env.sh`.
+- `--warm` übersetzt im Hintergrund nur `core` mit Tests (Log `/tmp/bornim-warm.log`), denn das braucht jede Sitzung vor dem Commit. Die Vorschau übersetzt `tools/t bild` erst bei Bedarf. Kaltstart mit `core` und Vorschau zusammen gemessen (09.10.): rund 2 min 10 s, 550 MB. Wie viel der Teil nur für `core` braucht, ist nicht getrennt gemessen.
+- **Kerntests mit `./gradlew -p core test`** (wie GitHub Actions, auch über `tools/t logik`). `./gradlew :core:test` aus dem Hauptordner lädt zusätzlich das Android-Plugin (über 70 MB), das ohne Android-SDK nichts nützt.
+- Gerät der Spiegel aus dem Tritt: `tools/setup-session.sh` von Hand, dann `tools/t pruef`.
+
+## Android-SDK in der Sitzung?
+
+Nicht nötig, Stand 09.10. Die Vorschau übersetzt die ganze Oberfläche aus `app/src/main/java` am Rechner, ohne SDK; ausgenommen sind nur `MainActivity.kt`, `MusicPlayer.kt` und `SfxPlayer.kt` (`tools/preview/build.gradle.kts`). Ein Emulator ginge nur ohne Hardware-Beschleunigung, die Sitzung hat kein `/dev/kvm`; er wäre also sehr langsam (nicht gemessen). Das SDK würde nur die Übersetzung dieser drei Dateien, der Ressourcen und des Manifests vor dem Push prüfen. Das macht GitHub Actions bei jedem Push ohnehin.
 
 ## Was gebraucht wird
 

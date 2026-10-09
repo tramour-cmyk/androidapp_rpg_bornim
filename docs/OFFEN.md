@@ -90,9 +90,15 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 - **Setup-Skript (optional):** Die Cloud-Sitzung bringt alles mit (JDK 21, ImageMagick, Python, git; geprüft 09.10. mit `tools/check-env.sh`). Ein Android-SDK ist nicht nötig, die APK baut GitHub. Zur Absicherung kann die Installationszeile aus `docs/UMGEBUNG.md` als Setup-Skript in die Umgebungseinstellungen.
 
-- **Testumgebung schnell, sparsam, für alle Accounts gleich (Aufträge 09.10., abends):** Zweig `claude/ecstatic-albattani-2ob0np`. Gradle lädt über den Google-Spiegel (Maven Central lieferte 429), ein Sitzungs-Hook wärmt im Hintergrund vor, `check-env.sh` prüft eine echte Datei und testet `core` direkt. Gemessen: Kaltstart 2 min 10 s, danach `check-env.sh --full` 11 s. Einzelheiten in [UMGEBUNG.md](UMGEBUNG.md). **Zu entscheiden:** Vorschläge zur Vereinheitlichung (Antwort 09.10., 21:35): auf `main` übernehmen, CLAUDE.md-Fassung aus `karte-neuer-stil` vorziehen, Netzregel der Chat-Sitzung um den Spiegel ergänzen.
-
-- **Eckpunkte der Testumgebung (deine Vorgabe 09.10., 21:40):** schnell genug, wenig Ressourcen, je Anlass das passende Werkzeug; menschliche Tests, Physik und Logik selbst und beschleunigt prüfen. Vorschläge dagegen geprüft (Antwort 09.10., 21:40); Umsetzung erst nach deiner Freigabe.
+- **Testumgebung (Aufträge 09.10., abends; Eckpunkte 21:40: schnell, sparsam, Werkzeug je Anlass, Tests selbst und beschleunigt):** umgesetzt auf Zweig `claude/ecstatic-albattani-2ob0np`, siehe [UMGEBUNG.md](UMGEBUNG.md). Google-Spiegel für Gradle, Vorwärmen nur von `core`, `tools/t` mit Anlass-Tabelle, Zufallsspieler `PlayerSimTest` (alle Karten, Kämpfe, Laden, Speichern; 3 s, ohne Fund), CLAUDE.md-Regeln aus `karte-neuer-stil` übernommen. Nicht übernommen: `CROP`/`FROM`, die gibt es nur für Kartenfilme und sie hängen am Kartencode von `karte-neuer-stil`; sie kommen mit diesem Zweig auf `main`. **Zu entscheiden:** Zweig auf `main` übernehmen (erzeugt ein Release ohne Änderung im Spiel).
+- **Film-Uhr (Vorschlag A, Plan; zu entscheiden):** Kampffilme laufen in Echtzeit, weil `app/.../BattleScreen.kt` die Abläufe mit `System.currentTimeMillis()` (18 Stellen) und `delay` taktet. Plan:
+  1. Eine Uhr `BattleClock` im App-Code; auf dem Gerät ist sie die Systemuhr, alles bleibt wie bisher.
+  2. Die `delay`-Wartezeiten im Kampf werden zu Wartezeiten in Bildern (`withFrameMillis` bis zur Zielzeit). Auf dem Gerät gleich bis auf ±1 Bild (16 ms).
+  3. Die Vorschau stellt die Uhr selbst und zeichnet nur die gespeicherten Bilder (`FILMSTEP`). Ein Film rechnet dann so schnell, wie gezeichnet wird; gleicher Seed ergibt gleiche Bilder.
+  4. Prüfen: vorher und nachher je ein Film für Nahkampf, Fernkampf, Zauber und Killerschlag, Bild für Bild vergleichen; Kerntests; danach ein Zweig-Build für dich.
+  - **Danach möglich:** (B) ein Ablaufprotokoll aus demselben Lauf (Aufprall, Blut, Wundflecken, Geschossstart, Haltung) mit Prüfregeln in Sekunden; (D) Bildvergleich gegen Referenzbilder, du siehst nur, was sich geändert hat.
+  - **Geschätzt, nicht gemessen:** Filme ein Mehrfaches schneller als Echtzeit.
+  - **Risiko:** Der Kampf auf dem Gerät hängt an dieser Taktung. Deshalb eigener Zweig, Filmvergleich vorher und nachher und dein Test am Gerät, bevor etwas auf `main` geht.
 
 ## Bewusst so gelassen
 
