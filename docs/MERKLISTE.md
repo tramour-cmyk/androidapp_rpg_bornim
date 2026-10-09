@@ -4,6 +4,10 @@ Ideen und Vorschläge aus der bisherigen Entwicklung, die noch **nicht umgesetzt
 
 Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md), was gerade ansteht oder zu entscheiden ist in der Liste [Offen](OFFEN.md). Für alle Ideen gelten die [Stil-Leitlinien](STIL.md).
 
+## Werkzeuge
+
+- **Film-Uhr (ruht seit 09.10., 23:09, deine Entscheidung):** Zwischenstand auf Zweig `claude/film-uhr` (nicht installieren). Kampfbildschirm auf eine eigene Uhr `BattleClock` und Wartezeiten über Bilder (`pause`) umgestellt, Zufall der Anzeige säbar; Kampffilme damit vollständig (140 statt 76–102 Bilder), Speichern nebenher. Offen: Filme mit Angriffen bleiben beim ersten Hieb stehen; in 5 von 140 Bildern weichen einzelne Pixel ab (parallele Figurenzeichnung in `Sdf.kt`). Ergebnis bisher: kaum schneller als Echtzeit, etwa die Hälfte der Zeit ist das Vorzeichnen der Figuren. Danach wären Ablaufprotokoll (B) und Bildvergleich (D) möglich.
+
 ## Attribute (Rest aus dem Attribut-Paket)
 
 - **Stärke – rohe Gewalt:** Manche verschlossene Truhen oder Gitter lassen sich ab einem Mindestwert aufbrechen statt nur mit Schlüssel. Braucht neuen Karteninhalt, daher für Kapitel 2 gedacht.
