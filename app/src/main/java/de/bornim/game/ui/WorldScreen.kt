@@ -57,6 +57,7 @@ import de.bornim.core.Mode
 import de.bornim.core.Move
 import de.bornim.core.Story
 import de.bornim.core.Tile
+import de.bornim.core.art.MapGround
 import de.bornim.core.art.MapLight
 import de.bornim.core.Ui
 import de.bornim.core.Route
@@ -433,27 +434,38 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         val camX = cam.x
         val camY = cam.y
 
-        fun put(img: PixelImage, x: Int, y: Int) {
+        /** Draws [img] at map pixel ([x], [y]); [density] art pixels per map pixel (2 for the new, finer pictures). */
+        fun put(img: PixelImage, x: Int, y: Int, density: Int = 1) {
             val sx = (x - camX) * scale
             val sy = (y - camY) * scale
-            if (sx > size.width || sy > size.height || sx + img.width * scale < 0 || sy + img.height * scale < 0) return
+            val dw = img.width * scale / density; val dh = img.height * scale / density
+            if (sx > size.width || sy > size.height || sx + dw < 0 || sy + dh < 0) return
             drawImage(
                 image = Bitmaps.of(img),
                 srcOffset = IntOffset.Zero,
                 srcSize = IntSize(img.width, img.height),
                 dstOffset = IntOffset(sx, sy),
-                dstSize = IntSize(img.width * scale, img.height * scale),
+                dstSize = IntSize(dw, dh),
                 filterQuality = FilterQuality.None,
             )
         }
 
-        // 1) ground
+        // 1) ground: in the woods the new ground without a grid (drawn ahead in the background), else the tiles
         val x0 = floor(camX.toFloat() / T).toInt()
         val y0 = floor(camY.toFloat() / T).toInt()
         val x1 = ((camX + viewW) / T).toInt()
         val y1 = ((camY + viewH) / T).toInt()
+        val fine = MapGround.supports(map)
+        if (fine) {
+            MapGround.prepare(map, p.x, p.y)
+            val ch = MapGround.CH
+            for (cy in Math.floorDiv(y0, ch)..Math.floorDiv(y1, ch)) for (cx in Math.floorDiv(x0, ch)..Math.floorDiv(x1, ch)) {
+                MapGround.chunk(map, cx, cy)?.let { put(it, cx * ch * T, cy * ch * T, MapGround.D) }
+            }
+        }
         for (ty in y0..y1) for (tx in x0..x1) {
             if (!map.inside(tx, ty)) continue
+            if (fine && MapGround.chunk(map, Math.floorDiv(tx, MapGround.CH), Math.floorDiv(ty, MapGround.CH)) != null && !MapGround.keepsOldTile(map.tile(tx, ty))) continue
             put(WorldArt.ground(map, tx, ty, state, frame), tx * T, ty * T)
         }
 

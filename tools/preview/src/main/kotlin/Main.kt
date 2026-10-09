@@ -97,7 +97,10 @@ fun main() {
             vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
             val g = vm.game!!; g.skipDialogs()
             g.state.place = Place(map, x, y, Facing.UP); g.state.minutes = minutes
-            g.fog(x, y)
+            // everything explored, so the shots show the ground; the new ground drawn right away
+            val m = de.bornim.core.World[map]
+            g.state.explored[map] = "f".repeat((m.width * m.height + 3) / 4)
+            de.bornim.core.art.MapGround.prepareNow(m)
             vm.refresh()
         }
         for (near in listOf(true, false)) {
@@ -108,6 +111,11 @@ fun main() {
             shot("zoom_${z}_3_dorf") { place(it, "village", 11, 7, 12 * 60) }
             shot("zoom_${z}_4_gasthaus") { place(it, "inn", 5, 6, 12 * 60) }
             shot("zoom_${z}_5_hoehle") { place(it, "cave", 10, 5, 12 * 60) }
+            if (near) {
+                shot("zoom_${z}_6_weiher") { place(it, "forest", 7, 15, 12 * 60) }
+                shot("zoom_${z}_7_steinkreis") { place(it, "forest", 10, 25, 17 * 60 + 30) }
+                shot("zoom_${z}_8_tiefer_wald") { place(it, "deep_forest", 22, 6, 12 * 60) }
+            }
         }
         System.exit(0)
     }
