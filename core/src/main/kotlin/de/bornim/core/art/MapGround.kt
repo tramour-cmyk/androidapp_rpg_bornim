@@ -391,6 +391,31 @@ object MapGround {
         return img
     }
 
+    /**
+     * Tall grass standing in front of the feet of someone wading through it (09.10.: the former bright
+     * green patch did not fit the new ground): the same dark blades as on the ground, on a clear picture
+     * [S] wide and 26 high, its foot line 4 above the bottom; [variant] sways them a little.
+     */
+    fun tallFront(variant: Int): PixelImage = synchronized(fronts) {
+        fronts.getOrPut(variant) {
+            val w = S; val h = 26
+            val img = PixelImage(w, h)
+            for (k in 0 until 70) {
+                val x = 4 + (rnd(k, 1, 500) * (w - 8)).toInt()
+                // thicker in the middle, where the feet are
+                if (rnd(k, 2, 501) > 1.1 - abs(x - w / 2.0) / (w / 2.0)) continue
+                val y = h - 4 - (rnd(k, 3, 502) * 6).toInt()
+                val b = rnd(k, 4, 503)
+                val c = (0..2).map { (TALL_BLADE_D[it] + (TALL_BLADE_L[it] - TALL_BLADE_D[it]) * b).toInt() }
+                val len = 8 + hash(k, 5, 504) % 10
+                val lean = (hash(k, 6, 505) % 5) - 2 + (if (variant % 2 == 0) 1 else -1)
+                blade(img, x, y, len, lean, (c[0] shl 16) or (c[1] shl 8) or c[2], 1.0)
+            }
+            img
+        }
+    }
+    private val fronts = HashMap<Int, PixelImage>()
+
     /** A blade of grass from its foot ([x], [y]) up, leaning [lean] pixels to the side. */
     private fun blade(img: PixelImage, x: Int, y: Int, len: Int, lean: Int, rgb: Int, alpha: Double) {
         for (i in 0 until len) {

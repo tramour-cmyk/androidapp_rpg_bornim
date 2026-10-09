@@ -691,7 +691,11 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         sprites += Sprite(heroY + T - 0.5f) {
             put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
             // Feet hidden in tall grass.
-            if (map.tile(p.x, p.y) == Tile.TALL_GRASS && progress > 0.5f) put(WorldArt.tallGrassOverlay(), heroX, heroY)
+            if (map.tile(p.x, p.y) == Tile.TALL_GRASS && progress > 0.5f) {
+                // on the new ground the same dark blades stand before the feet; elsewhere the former patch
+                if (MapGround.supports(map)) put(MapGround.tallFront((state.steps + (clock / 400).toInt()) % 2), heroX, heroY + T - 14, MapGround.D)
+                else put(WorldArt.tallGrassOverlay(), heroX, heroY)
+            }
         }
         sprites.sortBy { it.y }
         sprites.forEach { it.draw() }
