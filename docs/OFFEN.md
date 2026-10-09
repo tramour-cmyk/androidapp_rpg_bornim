@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 08.10.2026, 18:54 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 07:08 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -51,6 +51,8 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
+- **Ghul-Klauenangriff ohne sichtbaren Schlag (gemeldet 08.10., Testkampf Kämpfer gegen Ghul):** „Er reißt die Klauen hoch, stürmt vorwärts auf den Kämpfer zu und zieht sich zurück ohne einen sichtbaren Angriff.“ Ursache: Die Hand statt der Klauenspitze zielte auf die Brust des Helden, Arme und Klauen lagen dahinter. Behoben (09.10.), im Film geprüft; zu testen im Zweig-Build.
+- **Pfeil des Goblin-Spähers startet nicht am Bogen (gemeldet 08.10.):** Der Pfeil beim Kurzbogenangriff fliegt nicht vom Bogen los. Ursache: Startpunkt war die Körpermitte. Behoben (09.10.), im Film geprüft (auch Feuerpfeil und Fluch des Schamanen); zu testen im Zweig-Build.
 - **Läuft immer dieselbe Variante? (gefragt 08.10., 17:2x)** Im Code nachgesehen:
   - Gegner-Angriffe: Zufall unter drei, kann aber zweimal hintereinander gleich sein.
   - Gegner getroffen/ausweichen: nicht zufällig, sondern nach der Nummer der Meldung (durch drei geteilt); bei gleichförmigen Runden kann das immer dieselbe Variante treffen.
@@ -66,10 +68,10 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 
 **Version v0.1.210** (veröffentlicht 08.10., 16:46; enthält die bestätigten Zweig-Builds 0.1.207 und 0.1.208). Worauf achten:
-- **Weitere Zustände**, sobald sie vorkommen: Vergiftet (Spinne, Hundertfüßer), Verlangsamt, Geschwächt (Fluch des Schamanen). Zu schwach, zu stark, stören sie?
+- **Weitere Zustände**, sobald sie vorkommen: Verlangsamt, Geschwächt (Fluch des Schamanen). Zu schwach, zu stark, stören sie?
 - **Noch nicht bestätigt aus v0.1.194:** „Kampftext: weiter automatisch“.
 
-Von dir bestätigt: Zustand „Blutend“ (08.10., „sieht gut aus, genehmigt“), Goblin-Schamane im neuen Stil, Ghul und Goblin-Späher (08.10., „passt soweit, alles okay“, Zweig-Build 0.1.218), Ghul im neuen Stil (08.10., „passt soweit“, Zweig-Build 0.1.214/0.1.218), Zustand „Betäubt“ (08.10., „funktioniert sehr gut“), Flüssigere Bewegungen (Schritt gleitet, kein Aufblitzen der Endhaltung; Zweig-Build 0.1.207) und Gegner im Takt des Helden (Wolf/Ratte flinker, Bosse langsamer; Zweig-Build 0.1.208; beides seit v0.1.210 auf main), Kampftempo für alle Animationen und langsamere Schläge/Zauber (Zweig-Build 0.1.201, „läuft alles soweit“; seit v0.1.204 auf main), Wildschwein und Riesenratte (neue Figuren, Begegnungen), Stufengrenze 6 (keine EP mehr ab Stufe 6, Beute weiter; seit v0.1.173, steht im Changelog), Tödlicher Treffer gegen eine Schwäche (kein Text beim Taumeln), Zustand „Geblendet“, Blutlache bleibt am Boden liegen, Nebel in der Höhle (Gegner und Lichter nur in Sicht), Abschlusszeile nach Vertreiben und Vernichten, Alchemistenfeuer, Untote zerstören ab Stufe 5, Zustände gehen beim Monster jede Bewegung mit (beim Helden von mir im Film geprüft: Angriff, Ausfallschritt, Zauber), Untote vertreiben unter Stufe 5 (Flucht, nur EP), Zustände am Körper (Aussehen; „behalten wir bei“), Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden, Spirituelle Waffe (Erscheinen ohne Schlag), Vorräte-Knopf im Testreiter, Trinken im Kampf (schon am Vormittag: „Trank trinken sah top aus“).
+Von dir bestätigt: Zustand „Vergiftet“ (08.10., „passt“), Zustand „Blutend“ (08.10., „sieht gut aus, genehmigt“), Goblin-Schamane im neuen Stil, Ghul und Goblin-Späher (08.10., „passt soweit, alles okay“, Zweig-Build 0.1.218), Ghul im neuen Stil (08.10., „passt soweit“, Zweig-Build 0.1.214/0.1.218), Zustand „Betäubt“ (08.10., „funktioniert sehr gut“), Flüssigere Bewegungen (Schritt gleitet, kein Aufblitzen der Endhaltung; Zweig-Build 0.1.207) und Gegner im Takt des Helden (Wolf/Ratte flinker, Bosse langsamer; Zweig-Build 0.1.208; beides seit v0.1.210 auf main), Kampftempo für alle Animationen und langsamere Schläge/Zauber (Zweig-Build 0.1.201, „läuft alles soweit“; seit v0.1.204 auf main), Wildschwein und Riesenratte (neue Figuren, Begegnungen), Stufengrenze 6 (keine EP mehr ab Stufe 6, Beute weiter; seit v0.1.173, steht im Changelog), Tödlicher Treffer gegen eine Schwäche (kein Text beim Taumeln), Zustand „Geblendet“, Blutlache bleibt am Boden liegen, Nebel in der Höhle (Gegner und Lichter nur in Sicht), Abschlusszeile nach Vertreiben und Vernichten, Alchemistenfeuer, Untote zerstören ab Stufe 5, Zustände gehen beim Monster jede Bewegung mit (beim Helden von mir im Film geprüft: Angriff, Ausfallschritt, Zauber), Untote vertreiben unter Stufe 5 (Flucht, nur EP), Zustände am Körper (Aussehen; „behalten wir bei“), Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden, Spirituelle Waffe (Erscheinen ohne Schlag), Vorräte-Knopf im Testreiter, Trinken im Kampf (schon am Vormittag: „Trank trinken sah top aus“).
 
 Älter, noch nicht bestätigt:
 

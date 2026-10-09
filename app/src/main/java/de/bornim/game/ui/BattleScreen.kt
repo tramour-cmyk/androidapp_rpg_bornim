@@ -1052,7 +1052,11 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     Offset((sceneW * heroX + artDp * (it.x - HeroBattle.ANCHOR_X).toFloat()).toPx(), (sceneH * heroY + artDp * (it.y - HeroBattle.GROUND).toFloat()).toPx())
                 }
                 val source = if (launchC != null && fx?.onHero == false) launchC else heroC
-                BattleFxLayer(fx, ui.animKey, enemyC, source, unit, Modifier.matchParentSize(), startDelay = ui.fxDelay, foeGround = (sceneH * foeY).toPx(), heroGround = (sceneH * heroY).toPx())
+                // and a foe's arrow or spell from its bow, the skull on its staff or its hand
+                val foeLaunchC = if (shoots && fx?.onHero == true) MonsterArt.launch(id, battle.look, variant)?.let { (x, y) ->
+                    Offset((sceneW * foeX + artDp * (x - MonsterArt.anchorX(id, 0)).toFloat()).toPx(), (sceneH * foeY + artDp * (y - MonsterArt.groundLine(id)).toFloat()).toPx())
+                } else null
+                BattleFxLayer(fx, ui.animKey, enemyC, source, unit, Modifier.matchParentSize(), startDelay = ui.fxDelay, foeGround = (sceneH * foeY).toPx(), heroGround = (sceneH * heroY).toPx(), foeSource = foeLaunchC)
                 if (launchC != null && ui.release?.first == HeroFigure.Act.CAST) CastFlash(ui.flashKey, launchC, Color(0xFF000000 or launch.rgb.toLong()), artDp.toPx(), ui.fxDelay, Modifier.matchParentSize())
                 BloodLayer(
                     a, fx, ui.animKey, enemyC, (sceneH * foeY).toPx(), heroC, (sceneH * heroY).toPx(), vm.bloodLevel, goreFor(id), (monsterSize / 64).toPx(),

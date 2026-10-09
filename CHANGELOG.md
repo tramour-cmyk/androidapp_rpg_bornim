@@ -4,6 +4,10 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Behoben**
+- Ghul: Der Klauenangriff war nicht zu sehen. Er stürmte so dicht an den Helden heran, dass Arme und Klauen hinter ihm verschwanden. Jetzt treffen die Klauenspitzen, und der Hieb ist vor dem Helden zu sehen (alle drei Varianten).
+- Goblin-Späher: Der Pfeil flog aus der Körpermitte statt vom Bogen los. Jetzt startet er an der Bogenhand. Ebenso kommt der Feuerpfeil des Schamanen vom Schädel auf dem Stab und sein Fluch aus der Hand.
+
 ## v0.1.226 – 08.10.2026, 18:53
 
 **Geändert – mehr Abwechslung in den Bewegungen**

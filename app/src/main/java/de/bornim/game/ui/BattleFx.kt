@@ -93,7 +93,7 @@ fun soundFor(step: Step): Sound? {
  * [enemy] and [hero] are the sprite centres in pixels, [unit] is roughly one sprite pixel.
  */
 @Composable
-fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, modifier: Modifier, startDelay: Long = 0L, foeGround: Float? = null, heroGround: Float? = null) {
+fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, modifier: Modifier, startDelay: Long = 0L, foeGround: Float? = null, heroGround: Float? = null, foeSource: Offset? = null) {
     if (fx == null) return
     // a miss with something flying: the bolt goes wide past the target, which then dodges
     val wide = fx.past?.takeIf { it in FLYING && (fx.kind == FxKind.DODGE || fx.kind == FxKind.BLOCK) }
@@ -110,7 +110,7 @@ fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, m
     if (!started || p >= 1f) return
     Canvas(modifier) {
         val target = if (fx.onHero) hero else enemy
-        val source = if (fx.onHero) enemy else hero
+        val source = if (fx.onHero) foeSource ?: enemy else hero
         val u = unit * (if (fx.crit) 1.35f else 1f)
         // where the foe's feet stand: a flame from above comes down to the ground there
         val ground = (if (fx.onHero) heroGround else foeGround) ?: (target.y + 45 * u)
