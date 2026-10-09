@@ -100,6 +100,20 @@ object MapFigure {
     fun frame(hero: Hero, slot: Int, step: Int): PixelImage? = synchronized(cache) { cache["${look(hero)}|$slot|${Math.floorMod(step, STEPS)}"] }
 
     /**
+     * The picture to show now, never nothing: the one asked for, else the standing picture of that
+     * direction, else the nearest direction already drawn, else that one picture drawn right away (a
+     * brief pause, once). So the former little figure no longer shows while the doll is being drawn.
+     */
+    fun frameNow(hero: Hero, slot: Int, step: Int): PixelImage {
+        frame(hero, slot, step)?.let { return it }
+        frame(hero, slot, 0)?.let { return it }
+        for (d in 1..2) for (s in listOf(slot - d, slot + d)) frame(hero, Math.floorMod(s, YAWS), 0)?.let { return it }
+        val img = draw(hero, slot, 0)
+        synchronized(cache) { cache["${look(hero)}|$slot|0"] = img }
+        return img
+    }
+
+    /**
      * Draws every picture of [hero] in the background, the directions nearest to [nearYaw] first.
      * Pictures of an earlier look (other gear) are dropped.
      */

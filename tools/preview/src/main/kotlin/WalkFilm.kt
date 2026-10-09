@@ -35,8 +35,11 @@ fun walkFilm(spec: String) {
     val m = de.bornim.core.World[map]
     g.state.explored[map] = "f".repeat((m.width * m.height + 3) / 4)
     de.bornim.core.art.MapGround.prepareNow(m)
-    de.bornim.core.art.MapFigure.prepareNow(g.state.hero)
-    de.bornim.core.art.MapFolk.prepareNow(de.bornim.core.art.MapFolk.garrick)
+    // NOPREP: as on the phone, the dolls are drawn in the background while the film runs
+    if (System.getenv("NOPREP") == null) {
+        de.bornim.core.art.MapFigure.prepareNow(g.state.hero)
+        de.bornim.core.art.MapFolk.prepareNow(de.bornim.core.art.MapFolk.garrick)
+    }
     vm.refresh()
     val W = 1080; val H = 2340
     val scene = ImageComposeScene(W, H, Density(2.75f)) { BornimApp(vm) }
