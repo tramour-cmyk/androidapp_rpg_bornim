@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 08:20 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 10:55 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -54,24 +54,9 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
-**Zweig-Build 0.1.241** (09.10., 07:59): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37890923551/artifacts/11598626801). Worauf achten:
-- **Treffer ohne Flackern** (gefragt 09.10., Vorschlag 1 + 2 + 3 von dir freigegeben): kein weißes Blinken mehr. Beim Aufprall eines Nahkampfschlags kurzes Innehalten, dann färbt sich der Getroffene kurz dunkelrot. Zu schwach, zu stark, zu lang?
-- Kritische Treffer: kurzes Rütteln des Bildes. Störend oder passend?
-- Zuckt der Getroffene im richtigen Moment, kommen Blut und Geräusch mit dem Aufprall?
-- **Ghul** (gemeldet 08.10.: Klauenangriff nicht zu sehen): Klauenhieb von dir bestätigt (09.10.).
-- **Goblin-Späher und Schamane** (gemeldet 08.10.: Pfeil startet nicht am Bogen): Pfeil vom Bogen, Feuerpfeil und Fluch des Schamanen von dir bestätigt (09.10.).
-- Treffer am Monster: von dir bestätigt (09.10.).
-- **Held zittert bei jedem Treffer (gemeldet 09.10.):** Das war ein altes seitliches Wackeln des Helden bei jedem Treffer, unabhängig vom neuen Rütteln bei kritischen Treffern. Entfernt im Zweig-Build 0.1.246 (09.10., 08:43): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37894682693/artifacts/11599822324). Jetzt gilt für Held und Gegner gleich: normaler Treffer = Innehalten (Nahkampf) und dunkelrote Färbung, kritischer Treffer zusätzlich Rütteln des Bildes.
+**Zweig `claude/status-next-steps-pqvzz8`, letzter Build 0.1.273** (09.10., 10:48): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37906856503/artifacts/11605101270). Von dir am 09.10. getestet und bestätigt: Treffer ohne Flackern (Innehalten, Rotfärbung, Rütteln nur bei kritischen Treffern), Ghul-Klauenhieb, Pfeil vom Bogen, Schamane, kein Wackeln des Helden, neue Tiere (Spinne, Hundertfüßer, Fledermaus, Gallerte; Stirge: „Stärke passt“ als „Stirge passt“ verstanden), Gift greift nicht mehr an, Treffer ohne weiße Zeichen, Wunden der Gallerte. Wartet auf dein Go für `main`.
 
-**Zweig-Build 0.1.251** (09.10., 09:35; enthält auch 0.1.246): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37899502580/artifacts/11601738421). **Neue Tiere im Kampf** (Entwurf am 09.10. von dir freigegeben): Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte im neuen Stil, im Film geprüft. Riesenspinne von dir bestätigt (09.10.: Aussehen, Angriffe, Sterbeanimation passen). Stürze von Hundertfüßer, Fledermaus und Gallerte von dir bestätigt (09.10.). Angriffe und Aussehen von Hundertfüßer, Fledermaus und Gallerte von dir bestätigt (09.10., „passt“). Noch offen: Stirge. Worauf achten: Größe im Bild (gegenüber Wolf und Held kleiner als nach SRD, damit sie ins Bild passen), Angriffe treffen sichtbar, Stürze, Aussehen im Kampflicht (Höhle, Nacht). Testkämpfe im Test-Reiter.
-
-**Zweig-Build 0.1.254** (09.10., 10:01; enthält alles aus 0.1.251): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37902087902/artifacts/11603220049). **Gift greift nicht mehr an** (gemeldet 09.10., zweimal: Riesenspinne schien nach „vergiftet“ und bei jedem Giftschaden erneut anzugreifen). Ursache: Der Giftschaden zu Beginn der Runde wurde wie ein Schlag des Gegners abgespielt; galt auch für Brennen und Bluten. Behoben, im Film geprüft.
-
-**Zweig-Build 0.1.265** (09.10., 10:32; enthält alles aus 0.1.254): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37905252687/artifacts/11604391717). **Weiße Trefferzeichen entfernt** (gefragt 09.10., Vorschlag 1 von dir freigegeben): Kein weißes Zeichen mehr bei Biss, Hieb, Stich und stumpfen Waffen; der Treffer zeigt sich durch Innehalten, Rotfärbung und Blut im Augenblick des Aufpralls. Im Film geprüft (Goblin, Wolf, Skelett). Worauf achten: Fehlt dir etwas, ist der Treffer noch gut genug zu erkennen, auch bei Blutstufe „Aus“?
-
-**Zweig-Build 0.1.273** (09.10., 10:48; enthält alles aus 0.1.265): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37906856503/artifacts/11605101270). **Wunden der Ockergallerte** (gefragt 09.10., Vorschlag 3 von dir freigegeben): fast schwarze Wunden, und je stärker verletzt, desto flacher und zerlaufener. Standbild 10:44 geprüft. Worauf achten: Sind die Wunden gut zu sehen, ist das Zerfließen deutlich genug?
-
-**Ebenfalls in 0.1.251: Tatendrang einmal pro Rast** (deine Entscheidung 09.10., Möglichkeit c): Tatendrang steht nach dem Einsatz erst nach einer Rast am Lagerfeuer oder im Gasthaus wieder bereit (auch ein Stufenaufstieg füllt auf). Im Kampfmenü steht „0/1“, solange er verbraucht ist.
+- **Noch nicht ausdrücklich bestätigt: Tatendrang einmal pro Rast** (deine Entscheidung 09.10., Möglichkeit c): Nach dem Einsatz erst nach einer Rast am Lagerfeuer oder im Gasthaus wieder bereit (auch ein Stufenaufstieg füllt auf); im Kampfmenü „0/1“, solange verbraucht.
 
 **Noch nicht bestätigt aus älteren Versionen:**
 - Zustände Verlangsamt und Geschwächt (Fluch des Schamanen), sobald sie vorkommen: zu schwach, zu stark, stören sie? Sind sie und „Geblendet“ auf kleinen Gegnern stark genug?
