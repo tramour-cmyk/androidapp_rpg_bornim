@@ -99,6 +99,15 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.refresh()
             vm.toast = if (near) t("Karte näher herangezoomt.", "Map zoomed in.") else t("Karte wieder weit wie bisher.", "Map zoomed out as before.")
         }
+        // the village and the rooms in the new style are drafts (night of 09.10.): to look at on the phone
+        var town by remember { mutableStateOf(de.bornim.core.art.MapGround.townDraft) }
+        PixelButton(t("Dorf und Räume: ", "Village and rooms: ") + (if (town) t("Entwurf neuer Stil", "draft new style") else t("bisher", "former")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.art.MapGround.townDraft = !de.bornim.core.art.MapGround.townDraft
+            town = de.bornim.core.art.MapGround.townDraft
+            game.state.place.let { p -> de.bornim.core.art.MapGround.prepare(de.bornim.core.World[p.map], p.x, p.y) }
+            vm.refresh()
+            vm.toast = if (town) t("Dorf und Innenräume im Entwurf des neuen Stils.", "Village and rooms in the draft of the new style.") else t("Dorf und Innenräume wieder wie bisher.", "Village and rooms as before.")
+        }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()
             vm.refresh()

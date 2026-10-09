@@ -825,7 +825,7 @@ object WorldArt {
     /** All static objects of a map for the current game state, in no particular order. */
     fun objects(map: MapDef, state: GameState, frame: Int): List<Obj> {
         val opened = map.chests.filter { it.id in state.openedChests }.joinToString(",") { it.id }
-        val key = "${map.id}/$opened/${state.has(Story.GATE_OPEN)}/${state.has(Story.BARRIER_OPEN)}/$frame/${state.has(Story.CHAPTER1_DONE)}"
+        val key = "${map.id}/$opened/${state.has(Story.GATE_OPEN)}/${state.has(Story.BARRIER_OPEN)}/$frame/${state.has(Story.CHAPTER1_DONE)}/${MapGround.townDraft}"
         return objCache.getOrPut(key) { buildObjects(map, state, frame) }
     }
 
