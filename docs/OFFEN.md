@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 07:08 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 08:20 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -51,48 +51,26 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
-- **Ghul-Klauenangriff ohne sichtbaren Schlag (gemeldet 08.10., Testkampf Kämpfer gegen Ghul):** „Er reißt die Klauen hoch, stürmt vorwärts auf den Kämpfer zu und zieht sich zurück ohne einen sichtbaren Angriff.“ Ursache: Die Hand statt der Klauenspitze zielte auf die Brust des Helden, Arme und Klauen lagen dahinter. Behoben (09.10.), im Film geprüft; zu testen im Zweig-Build.
-- **Pfeil des Goblin-Spähers startet nicht am Bogen (gemeldet 08.10.):** Der Pfeil beim Kurzbogenangriff fliegt nicht vom Bogen los. Ursache: Startpunkt war die Körpermitte. Behoben (09.10.), im Film geprüft (auch Feuerpfeil und Fluch des Schamanen); zu testen im Zweig-Build.
-- **Läuft immer dieselbe Variante? (gefragt 08.10., 17:2x)** Im Code nachgesehen:
-  - Gegner-Angriffe: Zufall unter drei, kann aber zweimal hintereinander gleich sein.
-  - Gegner getroffen/ausweichen: nicht zufällig, sondern nach der Nummer der Meldung (durch drei geteilt); bei gleichförmigen Runden kann das immer dieselbe Variante treffen.
-  - Gegner-Sturz: eine von drei, fest pro Gegner (auch für Taumeln beim tödlichen Treffer); wechselt nur von Kampf zu Kampf.
-  - Held-Angriff: nur zwei Schläge je Waffe, abwechselnd. Held getroffen: nur eine Bewegung. Held-Abwehr: fest je Waffe und Gegnerart. Held-Zauber: fest je Fokus. Held-Ausweichen: ein Hüpfer, zwei Seiten.
-  - Vorschlag: (1) Gegner: Angriff, Treffer und Ausweichen zufällig, aber nie zweimal hintereinander gleich. (2) Held: zwei weitere Treffer-Bewegungen, eine dritte Abwehr je Waffenart, ein dritter Schlag je Waffe. Von dir freigegeben (08.10.), beide umgesetzt, von dir freigegeben und auf `main` übernommen. Noch offen: Ausweichen des Helden ist weiter nur ein Hüpfer (zwei Seiten); Speer zwei Stöße; Zauber eine Bewegung je Fokus.
-- **Gegner im neuen Stil:** eingebaut sind Goblin, Goblin-Späher, Skelett, Kobold, Zombie, Krogg, Grak, Wolf, Grimmzahn, Wildschwein und Riesenratte. Ghul seit 08.10. ebenfalls (von dir bestätigt, Zweig). Goblin-Schamane seit 08.10. ebenfalls (von dir bestätigt, Zweig). Noch im alten Stil: Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte (eigene Körper im Entwurf, siehe „Zu entscheiden“).
+- **Neue Tiere im Kampf (Entwurf am 09.10. von dir freigegeben):** Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte bekommen ihre eigenen Körper aus dem Entwurf (`Vermin.kt`, je drei Varianten). Als Nächstes: Bewegungen (Stehen, Angriff, getroffen, Ausweichen, drei Stürze) und Einbau in den Kampf.
 
 ## Zu testen
 
-**Zweig-Build 0.1.236** (09.10., 07:22): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37887964935/artifacts/11596269901). Worauf achten:
-- Ghul: Ist der Klauenhieb jetzt zu sehen (einhändig, beidhändig, Sprung)?
-- Goblin-Späher: Startet der Pfeil am Bogen?
-- Goblin-Schamane: Feuerpfeil vom Schädel auf dem Stab, Fluch aus der freien Hand?
-
-**Zweig-Build 0.1.241** (09.10., 07:59; enthält auch 0.1.236): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37890923551/artifacts/11598626801). **Treffer ohne Flackern** (gefragt 09.10., Vorschlag 1 + 2 + 3 von dir freigegeben). Worauf achten:
-- Kein weißes Blinken mehr. Beim Aufprall eines Nahkampfschlags kurzes Innehalten, dann färbt sich der Getroffene kurz dunkelrot. Zu schwach, zu stark, zu lang?
+**Zweig-Build 0.1.241** (09.10., 07:59): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37890923551/artifacts/11598626801). Worauf achten:
+- **Treffer ohne Flackern** (gefragt 09.10., Vorschlag 1 + 2 + 3 von dir freigegeben): kein weißes Blinken mehr. Beim Aufprall eines Nahkampfschlags kurzes Innehalten, dann färbt sich der Getroffene kurz dunkelrot. Zu schwach, zu stark, zu lang?
 - Kritische Treffer: kurzes Rütteln des Bildes. Störend oder passend?
 - Zuckt der Getroffene im richtigen Moment, kommen Blut und Geräusch mit dem Aufprall?
+- **Ghul** (gemeldet 08.10.: Klauenangriff nicht zu sehen): Ist der Klauenhieb jetzt zu sehen (einhändig, beidhändig, Sprung)?
+- **Goblin-Späher** (gemeldet 08.10.: Pfeil startet nicht am Bogen): Startet der Pfeil am Bogen? Beim Schamanen: Feuerpfeil vom Schädel auf dem Stab, Fluch aus der freien Hand?
 
-**Version v0.1.226** (veröffentlicht 08.10., 18:53): Ghul, Schamane, Fernangriffe, mehr Varianten; inhaltlich wie der freigegebene Zweig-Build 0.1.222.
+**Folgt im nächsten Build: Tatendrang einmal pro Rast** (deine Entscheidung 09.10., Möglichkeit c): Tatendrang steht nach dem Einsatz erst nach einer Rast am Lagerfeuer oder im Gasthaus wieder bereit (auch ein Stufenaufstieg füllt auf). Im Kampfmenü steht „0/1“, solange er verbraucht ist.
 
-
-
-**Version v0.1.210** (veröffentlicht 08.10., 16:46; enthält die bestätigten Zweig-Builds 0.1.207 und 0.1.208). Worauf achten:
-- **Weitere Zustände**, sobald sie vorkommen: Verlangsamt, Geschwächt (Fluch des Schamanen). Zu schwach, zu stark, stören sie?
-- **Noch nicht bestätigt aus v0.1.194:** „Kampftext: weiter automatisch“.
-- **Noch nicht bestätigt aus v0.1.197:** Testschalter „Gegner bestehen keine Rettungswürfe“.
-
-Von dir bestätigt: Zustand „Vergiftet“ (08.10., „passt“), Zustand „Blutend“ (08.10., „sieht gut aus, genehmigt“), Goblin-Schamane im neuen Stil, Ghul und Goblin-Späher (08.10., „passt soweit, alles okay“, Zweig-Build 0.1.218), Ghul im neuen Stil (08.10., „passt soweit“, Zweig-Build 0.1.214/0.1.218), Zustand „Betäubt“ (08.10., „funktioniert sehr gut“), Flüssigere Bewegungen (Schritt gleitet, kein Aufblitzen der Endhaltung; Zweig-Build 0.1.207) und Gegner im Takt des Helden (Wolf/Ratte flinker, Bosse langsamer; Zweig-Build 0.1.208; beides seit v0.1.210 auf main), Kampftempo für alle Animationen und langsamere Schläge/Zauber (Zweig-Build 0.1.201, „läuft alles soweit“; seit v0.1.204 auf main), Wildschwein und Riesenratte (neue Figuren, Begegnungen), Stufengrenze 6 (keine EP mehr ab Stufe 6, Beute weiter; seit v0.1.173, steht im Changelog), Tödlicher Treffer gegen eine Schwäche (kein Text beim Taumeln), Zustand „Geblendet“, Blutlache bleibt am Boden liegen, Nebel in der Höhle (Gegner und Lichter nur in Sicht), Abschlusszeile nach Vertreiben und Vernichten, Alchemistenfeuer, Untote zerstören ab Stufe 5, Zustände gehen beim Monster jede Bewegung mit (beim Helden von mir im Film geprüft: Angriff, Ausfallschritt, Zauber), Untote vertreiben unter Stufe 5 (Flucht, nur EP), Zustände am Körper (Aussehen; „behalten wir bei“), Magier- und Kleriker-Effekte, Feuerball, Weihwasser, Zustand „Brennend“, Tasche (Bilder), Kampfende mit Siegesfeld und Sturz des Helden, Spirituelle Waffe (Erscheinen ohne Schlag), Vorräte-Knopf im Testreiter, Trinken im Kampf (schon am Vormittag: „Trank trinken sah top aus“).
-
-Älter, noch nicht bestätigt:
+**Noch nicht bestätigt aus älteren Versionen:**
+- Zustände Verlangsamt und Geschwächt (Fluch des Schamanen), sobald sie vorkommen: zu schwach, zu stark, stören sie? Sind sie und „Geblendet“ auf kleinen Gegnern stark genug?
+- „Kampftext: weiter automatisch“ (seit v0.1.194).
 
 ## Zu entscheiden
 
-- **Tatendrang des Kämpfers zu stark? (gefragt 08.10.):** Löst mit Einhandschwert vier Angriffe aus. Nach Code und SRD korrekt: Tatendrang gibt eine zweite Angriffsaktion, ab Stufe 5 hat jede Angriffsaktion durch „Zusätzlicher Angriff“ zwei Schläge. Abweichung vom SRD: bei uns einmal pro Kampf (SRD: einmal pro kurzer Rast). Beschreibung im Spiel („greifst zweimal an“) ist ab Stufe 5 irreführend. Möglichkeiten siehe Antwort; wartet auf deine Entscheidung.
-- **Neue Tiere, Entwurf (08.10., 19:24, nachgebessert 20:00):** Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte haben eigene Körper (`Vermin.kt`), je drei Varianten; Übersichtsbild als Standbild (Vorschau `VERMINSHEET=1`). Nach deiner Rückmeldung nachgebessert: Fledermaus bedrohlicher (spitze, gekerbte Ohren, aufgerissenes Maul, Reißzähne, Geifer, Nasenstachel), Stirge neu (harte Haut statt Fell, Rückenstacheln, Insektenaugen, Widerhaken-Rüssel, geringelter Blutbauch, Insektenbeine, zerfetzte Flügel), Gallerte ohne kopfartige Ausstülpung (zerfließender Haufen mit Lache). Wartet auf deine Rückmeldung; danach Bewegungen und Einbau.
 - **Noch mehr Zwischenbilder?** Die Haltungen selbst (Arme, Beine, Waffe) wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Nach deinem Test von 0.1.208 vorerst nicht nötig; bei Bedarf als eigener, größerer Umbau (mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn).
-- **Zustände am Körper:** Sind Verlangsamt, Geschwächt und Geblendet auf kleinen Gegnern stark genug?
-- **Goblin-Schamane (Rückmeldung 08.10.):** erster Entwurf nicht gut, wirkt nicht bedrohlich, ein Arm schien zu fehlen (er lag in der Robe). Zweiter Entwurf (17:03): fast schwarze Robe, rußige Augenhöhlen mit grün glühenden Augen, Blutstreifen über die Nase, Schädelstab mit grün glühenden Augen, grünes Fluchlicht in der freien Hand; drei Haltungen (Stehen, Fluch sammeln, Fluch schleudern). Von dir am 08.10. für gut befunden und freigegeben; eingebaut (Zweig, zu testen).
 - **Hörproben:** Auswahl für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt.
 
 ## Geplant

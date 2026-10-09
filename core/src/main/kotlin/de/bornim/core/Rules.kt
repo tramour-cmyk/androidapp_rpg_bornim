@@ -188,7 +188,8 @@ enum class CharClass(
 }
 
 /** How a skill is paid for. */
-enum class SkillCost { NONE, PER_BATTLE, SPELL_POINTS, PASSIVE }
+/** PER_REST: uses until the next rest at a campfire or an inn (SRD: per rest), kept across fights. */
+enum class SkillCost { NONE, PER_BATTLE, PER_REST, SPELL_POINTS, PASSIVE }
 
 enum class Skill(
     val cls: CharClass,
@@ -196,7 +197,7 @@ enum class Skill(
     val title: T,
     val desc: T,
     val cost: SkillCost,
-    /** Uses per battle for PER_BATTLE skills, spell point cost for SPELL_POINTS skills. */
+    /** Uses per battle for PER_BATTLE skills, per rest for PER_REST skills, spell point cost for SPELL_POINTS skills. */
     val amount: Int = 0,
     val heals: Boolean = false,
 ) {
@@ -206,7 +207,8 @@ enum class Skill(
     SECOND_WIND(CharClass.FIGHTER, 1, T("Zweiter Atem", "Second Wind"),
         T("Heilt 1W10 + Stufe TP. Einmal pro Kampf.", "Heals 1d10 + level HP. Once per battle."), SkillCost.PER_BATTLE, 1, heals = true),
     ACTION_SURGE(CharClass.FIGHTER, 2, T("Tatendrang", "Action Surge"),
-        T("Du greifst zweimal hintereinander an. Einmal pro Kampf.", "You attack twice in a row. Once per battle."), SkillCost.PER_BATTLE, 1),
+        T("Eine zusätzliche Angriffsaktion: Du greifst gleich noch einmal an, ab Stufe 5 (Zusätzlicher Angriff) mit zwei weiteren Schlägen. Einmal pro Rast (Lagerfeuer oder Gasthaus).",
+            "One more Attack action: you attack again at once, from level 5 (Extra Attack) with two more blows. Once per rest (campfire or inn)."), SkillCost.PER_REST, 1),
     IMPROVED_CRITICAL(CharClass.FIGHTER, 3, T("Verbesserter kritischer Treffer", "Improved Critical"),
         T("Kritische Treffer schon bei einer 19 oder 20.", "Critical hits on a 19 or 20."), SkillCost.PASSIVE),
     EXTRA_ATTACK(CharClass.FIGHTER, 5, T("Zusätzlicher Angriff", "Extra Attack"),

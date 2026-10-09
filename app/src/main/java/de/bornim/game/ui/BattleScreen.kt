@@ -1398,7 +1398,7 @@ private fun SkillMenu(battle: Battle, lang: Lang, onPick: (Skill) -> Unit, onBac
                     val cost = when (s.cost) {
                         SkillCost.NONE -> Ui.unlimited(lang)
                         SkillCost.SPELL_POINTS -> "${s.amount} ${Ui.sp(lang)}"
-                        SkillCost.PER_BATTLE -> Ui.usesLeft.f(lang, battle.usesLeft(s) ?: 0, s.amount)
+                        SkillCost.PER_BATTLE, SkillCost.PER_REST -> Ui.usesLeft.f(lang, battle.usesLeft(s) ?: 0, s.amount)
                         SkillCost.PASSIVE -> ""
                     }
                     val reason = battle.blocked(s)

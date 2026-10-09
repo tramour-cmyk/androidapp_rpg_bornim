@@ -4,6 +4,9 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Geändert – Tatendrang nach SRD**
+- Tatendrang (Kämpfer) gilt jetzt einmal pro Rast statt einmal pro Kampf: Nach dem Einsatz steht er erst nach einer Rast am Lagerfeuer oder im Gasthaus wieder bereit (ein Stufenaufstieg füllt ebenfalls auf). Die Beschreibung stimmt jetzt auch ab Stufe 5: eine zusätzliche Angriffsaktion, mit „Zusätzlicher Angriff“ also zwei weitere Schläge.
+
 **Geändert – Treffer ohne Flackern**
 - Ein Treffer lässt Held oder Gegner nicht mehr viermal weiß aufblinken. Stattdessen halten beide beim Aufprall eines Nahkampfschlags einen Augenblick inne (etwa 70 ms), dann färbt sich der Getroffene kurz dunkel blutrot und blasst in etwa einer Drittelsekunde wieder aus. Schattierung und Einzelheiten bleiben dabei sichtbar.
 - Der Getroffene zuckt jetzt erst, wenn der Schlag landet; Blut, Hiebspur und Treffergeräusch kommen ebenfalls mit dem Aufprall.
