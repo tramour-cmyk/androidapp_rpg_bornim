@@ -519,17 +519,18 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val len = (if (long) 0.8 else 0.58) * h
         val slung = o.bowOnBack
         val draw = if (slung) 0.0 else sk.rig.draw.coerceIn(0.0, 1.0)
-        // slung: across the back from the left hip to over the right shoulder, the string outwards, clear of a cloak
-        val behind = -d.chestDepth - (if (o.items[GearSlot.CLOAK] != null) 0.06 else 0.035) * h
+        // slung: across the back from the left hip to over the right shoulder, the string towards the back,
+        // so the tips rest on the cloak (or the jerkin) and the grip stands off a hand's breadth
+        val behind = -d.chestDepth - (if (o.items[GearSlot.CLOAK] != null) 0.075 else 0.05) * h
         val grip = if (slung) sk.upper.apply(P3(0.0, d.hipY + 0.55 * d.trunk, behind)) else sk.hand(0)
         val nock = sk.hand(1)
-        val aim = (if (slung) sk.upper.dir(P3.Z) else if (draw > 0.05) grip - nock else sk.upper.dir(P3.Z)).norm()
+        val aim = (if (slung) sk.upper.dir(-P3.Z) else if (draw > 0.05) grip - nock else sk.upper.dir(P3.Z)).norm()
         var up = if (slung) sk.upper.dir(P3(-0.55, 1.0, 0.0)).norm() else (P3.Y - aim * (P3.Y dot aim)).norm()
         if (!slung) up = (up + (aim cross up) * 0.15).norm()
         // carried undrawn, the bow leans its upper limb towards the foe
         val tilt = if (slung) 0.0 else Math.toRadians(sk.rig.bowTilt * (1 - draw.coerceIn(0.0, 1.0)))
         if (abs(tilt) > 1e-3) up = (up * kotlin.math.cos(tilt) + aim * kotlin.math.sin(tilt)).norm()
-        val bend = len * ((if (alone) 0.16 else 0.09) + 0.1 * draw)
+        val bend = len * ((if (alone) 0.16 else if (slung) 0.04 else 0.09) + 0.1 * draw)
         fun at(t: Double) = grip + up * (t * len / 2) + aim * (-bend * t * t + bend * 0.15)
         fun thick(t: Double) = (0.012 - 0.0065 * abs(t)) * h * (if (alone) 1.8 else 1.0)
         val woodMat = m(mix(argb(0x5E3E24), r.color.toInt(), if (r >= Rarity.RARE) 0.3 else 0.0), grain = 0.05)
