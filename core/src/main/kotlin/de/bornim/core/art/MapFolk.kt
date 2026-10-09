@@ -81,26 +81,30 @@ object MapFolk {
     val PEER_OFFSETS = listOf(7, 9)
 
     /**
-     * Garrick's day at the fire: in every stretch of [PERIOD_MS] he first stands a while, then either
-     * warms his hands or turns away to peer into the woods, two stretches out of three warming his hands, every third peering.
+     * Garrick's day at the fire, never on a beat (20:53: a steady rhythm looks like a machine). Time
+     * is cut into blocks of [BLOCK_MS]; in each, chance picks whether he does anything at all, when he
+     * starts, for how long, and what: mostly warming his hands, now and then peering into the woods,
+     * and how fast his loop runs. So the pauses between run from about 2½ s to over half a minute.
      */
     fun doing(f: Folk, clockMs: Long): Doing? {
-        val n = clockMs / PERIOD_MS
-        val t = clockMs % PERIOD_MS
-        if (t < REST_MS) return null
-        val h = ((n * 2654435761L + f.id.hashCode()) ushr 7).toInt()
-        // two of three stretches at the fire, every third one peering into the woods
-        val idle = if (Math.floorMod(n + f.id.length, 3L) == 2L) Idle.PEER else Idle.WARM
-        val step = ((t - REST_MS) / idle.frameMs).toInt()
+        val n = Math.floorDiv(clockMs, BLOCK_MS)
+        val t = clockMs - n * BLOCK_MS
+        val r = java.util.Random(n * 1_000_003L + f.id.hashCode())
+        if (r.nextDouble() < 0.2) return null
+        val start = 2_000L + (r.nextDouble() * 7_000).toLong()
+        val length = 3_500L + (r.nextDouble() * 3_000).toLong()
+        val idle = if (r.nextDouble() < 0.35) Idle.PEER else Idle.WARM
+        val pace = 0.8 + r.nextDouble() * 0.45
+        val off = PEER_OFFSETS[r.nextInt(PEER_OFFSETS.size)]
+        if (t < start || t >= start + length) return null
+        val step = ((t - start) / (idle.frameMs * pace)).toInt()
         // peering sweeps there and back; warming loops
         val frame = if (idle == Idle.PEER) { val m = 2 * (idle.frames - 1); val q = Math.floorMod(step, m); if (q < idle.frames) q else m - q }
             else Math.floorMod(step, idle.frames)
-        val off = if (idle == Idle.PEER) PEER_OFFSETS[Math.floorMod(h ushr 3, PEER_OFFSETS.size)] else 0
-        return Doing(idle, frame, off)
+        return Doing(idle, frame, if (idle == Idle.PEER) off else 0)
     }
 
-    const val PERIOD_MS = 11_000L
-    const val REST_MS = 4_500L
+    const val BLOCK_MS = 16_000L
 
     /** The idle picture, or null while it is not drawn yet. */
     fun idleFrame(f: Folk, slot: Int, idle: Idle, i: Int): PixelImage? = synchronized(cache) { cache["${f.id}|$slot|$idle|$i"] }

@@ -63,6 +63,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
+- **Garrick Leerlauf unregelmäßig (gemeldet 09.10., 20:53):** Gleichmäßiger Takt wirkt wie ein Roboter. Umgesetzt 20:58: Zufall bestimmt in jedem Abschnitt, ob, wann, wie lange, was und wie schnell; Pausen etwa 5 bis 33 s, Handlungen 3½ bis 6½ s (geprüft mit `MapFolkTest`).
 - **Rückmeldung zu 0.1.347 (09.10., 20:16):** Garrick dreht sich nach dem Gespräch weg zum Feuer, passt; alte Figur ist weg. Erledigt.
 - **Garrick Leerlauf (09.10., 20:45):** eingebaut. In jedem Abschnitt von 11 s steht er 4½ s still, dann wärmt er die Hände am Feuer (zwei von drei Abschnitten) oder dreht sich weg und späht in den Wald (jeder dritte). Nur, solange der Held mehr als 4 Felder entfernt ist. Bemerkt beim Film: Im hohen Gras liegt unter dem Helden ein hellgrünes Rechteck (die alte Gras-Überlagerung für die Füße), passt nicht zum neuen Boden.
 - **Rückmeldung zu 0.1.341 (09.10., 19:45):** Garrick erkannt, dreht sich weich, Gespräch normal. Behoben (19:58): (1) Nach einem Gespräch dreht er sich nicht wieder zum Feuer, weil die Figur die Gesprächsrichtung behielt; jetzt gilt außer Reichweite wieder seine eigene Richtung. (2) Kurz erscheint die alte Figur (Held und Garrick): Puppen werden jetzt beim Laden und beim Kartenwechsel vorgezeichnet, ein fehlendes Bild wird sofort gezeichnet, statt die alte Figur zu zeigen. (3) Im Feuerschein sieht er kaum anders aus: warmer Lichtsaum auf der Seite zur Flamme, kommt mit der Fackel-Szene (entschieden 19:54).
