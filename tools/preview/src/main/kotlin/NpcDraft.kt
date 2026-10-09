@@ -229,3 +229,31 @@ fun renderVillageDraft() {
     }
     println("wrote village draft")
 }
+
+/** Draft (night of 09.10.): Garrick down at his fire, squatting, stirring the embers, dozing. SQUATDRAFT=1 */
+fun renderSquatDraft() {
+    val folk = de.bornim.core.art.MapFolk
+    val F = MapFigure
+    val poses = de.bornim.core.art.MapFolk.Squat.entries
+    val rows = listOf("zum Feuer (links)" to 12, "schräg vorn" to 14, "von vorn" to 0, "von der Seite" to 4, "von hinten" to 8)
+    val k = 3; val lab = 24
+    val out = BufferedImage(F.W * k * poses.size, (F.H * k + lab) * rows.size, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics()
+    g.color = Color(0x2A3024); g.fillRect(0, 0, out.width, out.height)
+    g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
+    g.font = Font(Font.SANS_SERIF, Font.BOLD, 17); g.color = Color(0xE8DCC0)
+    rows.forEachIndexed { r, (title, slot) ->
+        val y0 = r * (F.H * k + lab)
+        poses.forEachIndexed { i, p ->
+            g.drawString((if (i == 0) "$title: " else "") + p.name, i * F.W * k + 6, y0 + 18)
+            val img = folk.drawSquat(folk.garrick, slot, p)
+            for (y in 0 until F.H * k) for (x in 0 until F.W * k) {
+                val q = img[x / k, y / k]; if ((q ushr 24) < 128) continue
+                out.setRGB(i * F.W * k + x, y0 + lab + y, q)
+            }
+        }
+    }
+    g.dispose()
+    ImageIO.write(out, "png", File("build/screens/garrick_hocken.png"))
+    println("wrote squat draft")
+}

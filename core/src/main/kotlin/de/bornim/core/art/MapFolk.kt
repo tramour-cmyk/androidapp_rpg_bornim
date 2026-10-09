@@ -195,6 +195,28 @@ object MapFolk {
     const val WARD_W = 152
     const val WARD_H = 150
 
+    /**
+     * Draft (night of 09.10.): Garrick down at his fire. [SQUAT] hunkered on his heels, forearms on
+     * the knees; [STOKE] leaning in, stirring the embers with a stick (two pictures); [DOZE] at night,
+     * the head sunk on the chest.
+     */
+    enum class Squat { SQUAT, STOKE_A, STOKE_B, DOZE }
+
+    fun squatRig(yaw: Double, pose: Squat): HeroFigure.Rig {
+        val base = MapFigure.rig(yaw, 0, MapFigure.Carry.FREE).copy(crouch = 40.0, spread = 11.0, stride = 4.0)
+        return when (pose) {
+            Squat.SQUAT -> base.copy(lean = 0.3, headDown = 1.0, rh = HeroFigure.V(9.0, 42.0, 24.0), lh = HeroFigure.V(-9.0, 42.0, 24.0))
+            Squat.STOKE_A -> base.copy(lean = 0.45, headDown = 3.0, torch = 1.0, flicker = -1, aim = 1.0, grip = 10.0,
+                rh = HeroFigure.V(8.0, 40.0, 30.0), weapon = HeroFigure.V(0.1, -0.8, 0.6), lh = HeroFigure.V(-9.0, 40.0, 22.0))
+            Squat.STOKE_B -> base.copy(lean = 0.48, headDown = 3.0, torch = 1.0, flicker = -1, aim = 1.0, grip = 10.0,
+                rh = HeroFigure.V(10.0, 37.0, 34.0), weapon = HeroFigure.V(0.25, -0.85, 0.46), lh = HeroFigure.V(-9.0, 40.0, 22.0))
+            Squat.DOZE -> base.copy(lean = 0.35, headDown = 9.0, rh = HeroFigure.V(4.0, 44.0, 22.0), lh = HeroFigure.V(-4.0, 45.0, 21.0))
+        }
+    }
+
+    fun drawSquat(f: Folk, slot: Int, pose: Squat): PixelImage =
+        MapFigure.render(f.doll, f.outfit, squatRig(slot * 360.0 / MapFigure.YAWS, pose))
+
     /** How near (in tiles each way) the hero must be for the folk to look at it. */
     const val WATCH_TILES = 4.0
 

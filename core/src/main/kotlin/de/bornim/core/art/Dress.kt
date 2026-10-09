@@ -632,6 +632,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val butt = hand - dir * (0.05 * h)
         val head = hand + dir * (0.27 * h)
         add(RoundCone(butt, head, 0.011 * h, 0.014 * h, BodyPart.GEAR, Doll.ITEM), wood)
+        // a flicker below zero: a plain stick to stir the embers with, its end charred, no flame
+        if (sk.rig.flicker < 0) { add(Ellipsoid(head, P3(0.012 * h, 0.02 * h, 0.012 * h), Frame.along(dir), BodyPart.GEAR, Doll.ITEM), m(argb(0x1A1410), grain = 0.4)); return }
         add(Ellipsoid(head, P3(0.028 * h, 0.036 * h, 0.028 * h), Frame.along(dir), BodyPart.GEAR, Doll.ITEM), m(argb(0x2A1E16), grain = 0.4))
         // the flame always rises; three tongues of it, their lean and length from the flicker
         val fire = Mat(Ramp(intArrayOf(argb(0x9A2A10), argb(0xC8441A), argb(0xE8701E), argb(0xF8A030), argb(0xFFD060), argb(0xFFF4C0))), bias = 0.35, inline = false)
