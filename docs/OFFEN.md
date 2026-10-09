@@ -115,6 +115,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 ## Zu testen
 
 **Version v0.1.377** (veröffentlicht 09.10., 22:31): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.377/bornim.apk). Karte im neuen Stil (Wald, Held und Garrick als Puppe, Ruhebewegungen) und Höhle im neuen Stil, zusammengeführt aus `karte-hoehle` (von dir als 0.1.374 getestet, „Passt alles“); dazu Killerschlag (v0.1.317) und Späher-Pfeil (v0.1.325) von `main`. Nicht enthalten: die neueren Änderungen von Account A auf `karte-neuer-stil` (0.1.376, Fackel-Szene). Achten auf: Läuft alles wie in 0.1.374? Killerschlag (Testreiter „Held trifft immer kritisch“) und Kartenzoom-Schalter stehen beide im Testreiter.
+- **Rückmeldung zu v0.1.377 (22:36 gelesen): „Testschalter passt“** – beide Schalter (kritische Treffer, Kartenzoom) bestätigt. Übrige Punkte des Releases noch ohne Rückmeldung.
 
 **Version v0.1.325** (veröffentlicht 09.10., 17:17): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.325/bornim.apk). Pfeil des Goblin-Spähers startet an seinem Bogen; von dir im Zweig-Build bestätigt (09.10.).
 - **Wunsch (22:13 gelesen): „Bitte neuen build“.** 0.1.357 hat eine niedrigere Laufnummer als der inzwischen installierte 0.1.365 von Account A; neuer Build mit dem Stand von `karte-neuer-stil` bis 0.1.365 folgt.
