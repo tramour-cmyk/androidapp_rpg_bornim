@@ -10,6 +10,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Auf der Wiese, dichter am Waldrand, wachsen Büsche und Farne; nie auf dem Weg.
 - Bäume, Felsen und Steine werfen Schatten nach rechts unten auf den Boden, kräftig am Tag, in der Dämmerung schwächer, nachts keine.
 - Lagerfeuer, Truhen und Schilder im Wald neu: Feuer in einem Ring rußiger Steine mit Asche, verkohlten Scheiten, flackernden Flammen, Glut und Funken; Truhen aus verwitterten Planken mit Eisenbändern, Schloss und Moos, offen mit hochgeklapptem Deckel; Schilder als grobe Bretter auf schiefem Pfahl, mit eingeritzter Schrift und Krallenspuren.
+- Steht der Held hinter einer Baumkrone, einem Felsen oder Busch, wird genau dieses Bild halb durchsichtig, damit er nicht verloren geht.
 - Die Bäume sind etwas niedriger, damit ihre Kronen weniger vom Weg verdecken; direkt südlich einer Truhe steht nur eine schlanke junge Fichte, damit die Truhe sichtbar bleibt.
 
 **Neu – Boden im Wald ohne Raster (Zweig `karte-neuer-stil`)**

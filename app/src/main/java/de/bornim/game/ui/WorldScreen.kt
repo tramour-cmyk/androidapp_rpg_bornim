@@ -505,7 +505,16 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 
         // 3) objects and characters, sorted by their foot line
         val sprites = mutableListOf<Sprite>()
-        for (o in WorldArt.objects(map, state, frame)) sprites += Sprite(o.sortY.toFloat()) { put(o.img, o.x, o.y, o.density) }
+        // a tree crown standing in front of the hero turns half see-through, so the hero is not lost behind it
+        fun hides(o: WorldArt.Obj): Boolean {
+            if (o.density < 2 || o.sortY <= heroY + T) return false
+            val w = o.img.width / o.density; val h = o.img.height / o.density
+            return heroX + T - 6 > o.x && heroX + 6 < o.x + w && heroY + T > o.y && heroY - 10 < o.y + h - 6
+        }
+        for (o in WorldArt.objects(map, state, frame)) {
+            val a = if (hides(o)) 0.45f else 1f
+            sprites += Sprite(o.sortY.toFloat()) { put(o.img, o.x, o.y, o.density, a) }
+        }
         // Healing herbs on the flower meadows, swaying gently so they catch the eye.
         if (map.kind == MapKind.FOREST) for (ty in 0 until map.height) for (tx in 0 until map.width) {
             if (map.tile(tx, ty) != Tile.FLOWERS || !game.herbAt(tx, ty)) continue

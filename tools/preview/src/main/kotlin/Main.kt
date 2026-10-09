@@ -116,6 +116,7 @@ fun main() {
                 shot("zoom_${z}_6_weiher") { place(it, "forest", 7, 15, 12 * 60) }
                 shot("zoom_${z}_7_steinkreis") { place(it, "forest", 10, 25, 17 * 60 + 30) }
                 shot("zoom_${z}_8_tiefer_wald") { place(it, "deep_forest", 22, 6, 12 * 60) }
+                shot("zoom_${z}_9_hinter_baum") { place(it, "forest", 12, 10, 12 * 60) }
             }
         }
         System.exit(0)

@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 15:10 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 15:27 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -92,6 +92,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 **Zweig-Build 0.1.302** (Zweig `karte-neuer-stil`: naher Zoom, gemächlicheres Tempo, neuer Boden mit breitem Karrenweg, neue Bäume, Felsen und Unterholz im Wald; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37934943419/artifacts/11618221515)); dazu Wege als zusammenhängendes Netz, Feuer, Truhe und Schild neu, Bäume niedriger. Enthält auch den Stand von main v0.1.279 (von der anderen Sitzung hereingeführt). Grafik vorgezogen auf deinen Wunsch (11:49). Worauf achten:
 - **Neuer Boden im Flüsterwald und Tiefen Wald:** kein Raster, geschwungener Weg mit Fahrspuren, hohes Gras mit Halmen, Weiher. Gefällt die Richtung? Zu dunkel, zu matschig, zu gleichförmig? Kommen beim Betreten kurz die alten Kacheln, bevor der neue Boden erscheint, und stört das? Ruckelt etwas?
 - **Neu: Bäume, Felsen, Unterholz im Wald** (Eichen, Fichten, tote Bäume, Felsgruppen, Stämme, Steinkreis, Büsche, Farne, Schatten nach der Sonne). Wirken sie stimmig neben dem Boden? Verdecken Kronen zu viel vom Weg oder vom Helden? Feuer, Truhe und Schild seit 15:10 ebenfalls neu (auf deinen Wunsch, 15:00). Noch alt: alle Figuren.
+- **Idee (15:24): Baumkrone halb durchsichtig, wenn der Held dahinter steht.** Umgesetzt (15:27): Krone, Fels oder Busch vor dem Helden werden halb durchsichtig. Figuren als Nächstes (deine Entscheidung 15:24).
 - **Weg (gemeldet 12:02: zu klein und mickrig):** jetzt ein breiter Karrenweg, etwa eine Kachel breit, mit Trampelrand, hellerer Mitte, tiefen Fahrspuren, Pfützen und Steinen; läuft an den Enden aus. Passt das so?
 - **Gemeldet (13:12, mit Bildschirmfoto aus dem Tiefen Wald): Wege abgeschnitten.** Ursache: Die Weglinien wurden als einfache Linien von oben nach unten gebaut; Kreuzungen, Gabelungen und lange Querwege rissen ab. Jetzt als zusammenhängendes Netz aus den Wegkacheln, geglättet, Kreuzungen ohne Fahrspur-Ringe. **Von dir bestätigt (14:41, Build 0.1.295):** Wege, Kreuzungen und Gabelungen sehen gut aus, nichts Auffälliges.
 - **Naher Zoom:** etwa 5½ Kacheln Breite. Fühlt sich das Laufen und Scrollen gut an? Sieht man genug, um sich zurechtzufinden? Im Testreiter „Kartenzoom“ zwischen nah und weit wechseln zum Vergleich. Die alten Kartenbilder wirken nah gröber, das ändert sich mit den neuen Bildern (Stufen 3 und 4).
