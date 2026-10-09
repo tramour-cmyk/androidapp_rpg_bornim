@@ -187,3 +187,128 @@ fun renderShamanDraft() {
     ImageIO.write(img, "png", File("build/screens/entwurf_schamane2.png"))
     println("wrote shaman draft")
 }
+
+/** Drafts of the vermin (VERMINDRAFT=1 or a kind): each kind in its three looks, as it threatens and from the side. */
+fun renderVerminDrafts() {
+    val arg = System.getenv("VERMINDRAFT")
+    val kinds = de.bornim.core.art.Vermin.Kind.entries.filter { arg == "1" || it.name.equals(arg, true) }
+    for (kind in kinds) {
+        val (px, groundK) = when (kind) {
+            de.bornim.core.art.Vermin.Kind.SPIDER -> 1.0 to 0.9
+            de.bornim.core.art.Vermin.Kind.CENTIPEDE -> 1.7 to 0.8
+            de.bornim.core.art.Vermin.Kind.BAT -> 0.95 to 0.95
+            de.bornim.core.art.Vermin.Kind.STIRGE -> 2.6 to 0.95
+            de.bornim.core.art.Vermin.Kind.JELLY -> 1.5 to 0.85
+        }
+        val threat = when (kind) {
+            de.bornim.core.art.Vermin.Kind.SPIDER -> de.bornim.core.art.Vermin.Rig(rear = 30.0, jaw = 0.8)
+            de.bornim.core.art.Vermin.Kind.CENTIPEDE -> de.bornim.core.art.Vermin.Rig(rear = 25.0, jaw = 0.9)
+            de.bornim.core.art.Vermin.Kind.JELLY -> de.bornim.core.art.Vermin.Rig(rear = 10.0, surge = 0.3)
+            else -> de.bornim.core.art.Vermin.Rig(jaw = 0.9, spread = 1.0, beat = -0.3)
+        }
+        val poses = listOf("droht" to threat, "seitlich" to threat.copy(yaw = -95.0), "von vorn" to threat.copy(yaw = -20.0))
+        val cw = 380; val ch = 300
+        val out = BufferedImage(cw * poses.size, ch * 3, BufferedImage.TYPE_INT_RGB)
+        val g = out.createGraphics(); g.color = java.awt.Color(0x2E3530); g.fillRect(0, 0, out.width, out.height)
+        for (v in 0..2) for ((ci, pp) in poses.withIndex()) {
+            val im = de.bornim.core.art.Vermin(kind, v).render(cw, ch, cw / 2.0, ch * groundK, px, pp.second)
+            for (y in 0 until ch) for (x in 0 until cw) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(ci * cw + x, v * ch + y, q and 0xFFFFFF) }
+            g.color = java.awt.Color(0xF0E8D8); g.drawString("Variante ${v + 1} – ${pp.first}", ci * cw + 4, v * ch + 14)
+        }
+        ImageIO.write(out, "png", File("build/screens/entwurf_${kind.name.lowercase()}.png"))
+        println("wrote draft $kind")
+    }
+}
+
+/** One sheet of all the vermin (VERMINSHEET=1): a row per kind, its three looks side by side as it threatens. */
+fun renderVerminSheet() {
+    val cw = 360; val ch = 270
+    val kinds = de.bornim.core.art.Vermin.Kind.entries
+    val out = BufferedImage(cw * 3, ch * kinds.size, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x262B28); g.fillRect(0, 0, out.width, out.height)
+    val names = mapOf("SPIDER" to "Riesenspinne", "CENTIPEDE" to "Riesenhundertfüßer", "BAT" to "Riesenfledermaus", "STIRGE" to "Stirge", "JELLY" to "Ockergallerte")
+    for ((ri, kind) in kinds.withIndex()) {
+        val (px, groundK, rig) = when (kind) {
+            de.bornim.core.art.Vermin.Kind.SPIDER -> Triple(1.15, 0.92, de.bornim.core.art.Vermin.Rig(rear = 30.0, jaw = 0.8, yaw = -50.0))
+            de.bornim.core.art.Vermin.Kind.CENTIPEDE -> Triple(1.9, 0.8, de.bornim.core.art.Vermin.Rig(rear = 28.0, jaw = 0.9, yaw = -50.0))
+            de.bornim.core.art.Vermin.Kind.BAT -> Triple(1.1, 1.05, de.bornim.core.art.Vermin.Rig(jaw = 0.9, spread = 1.0, beat = -0.3, yaw = -35.0))
+            de.bornim.core.art.Vermin.Kind.STIRGE -> Triple(2.6, 0.98, de.bornim.core.art.Vermin.Rig(jaw = 0.9, spread = 1.0, beat = -0.3, yaw = -40.0))
+            de.bornim.core.art.Vermin.Kind.JELLY -> Triple(1.35, 0.86, de.bornim.core.art.Vermin.Rig(rear = 10.0, surge = 0.3, yaw = -45.0))
+        }
+        for (v in 0..2) {
+            val im = de.bornim.core.art.Vermin(kind, v).render(cw, ch, cw / 2.0 + 20, ch * groundK, px, rig)
+            for (y in 0 until ch) for (x in 0 until cw) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(v * cw + x, ri * ch + y, q and 0xFFFFFF) }
+            g.color = java.awt.Color(0xF0E8D8); g.drawString("${names[kind.name]} – Variante ${v + 1}", v * cw + 6, ri * ch + 16)
+        }
+    }
+    ImageIO.write(out, "png", File("build/screens/tiere_uebersicht.png"))
+    println("wrote vermin sheet")
+}
+
+/** One vermin close (VERMINCLOSE=bat): its three looks at three times the size, to judge the face. */
+fun renderVerminClose() {
+    val kind = de.bornim.core.art.Vermin.Kind.valueOf(System.getenv("VERMINCLOSE").uppercase())
+    val cw = 420; val ch = 380
+    val out = BufferedImage(cw * 3, ch, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x262B28); g.fillRect(0, 0, out.width, out.height)
+    val (px, ground) = when (kind) {
+        de.bornim.core.art.Vermin.Kind.BAT -> 3.2 to 640.0
+        de.bornim.core.art.Vermin.Kind.STIRGE -> 5.0 to 560.0
+        de.bornim.core.art.Vermin.Kind.CENTIPEDE -> 4.0 to 560.0
+        else -> 2.0 to 360.0
+    }
+    for (v in 0..2) {
+        val im = de.bornim.core.art.Vermin(kind, v).render(cw, ch, cw / 2.0, ground, px, de.bornim.core.art.Vermin.Rig(jaw = 0.9, rear = 28.0, beat = -0.3, yaw = -30.0))
+        for (y in 0 until ch) for (x in 0 until cw) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(v * cw + x, y, q and 0xFFFFFF) }
+    }
+    ImageIO.write(out, "png", File("build/screens/nah_${kind.name.lowercase()}.png"))
+    println("wrote close $kind")
+}
+
+/** VERMINANIM=giant_spider:0,stirge:2: every act of a vermin in battle, eight frames each, the strike framed red. */
+fun renderVerminAnim() {
+    val M = de.bornim.core.art.MonsterArt
+    val acts = listOf(de.bornim.core.art.Act.IDLE to 0) + listOf(de.bornim.core.art.Act.ATTACK, de.bornim.core.art.Act.HURT, de.bornim.core.art.Act.DODGE, de.bornim.core.art.Act.DIE).flatMap { a -> (0..2).map { a to it } }
+    val cw = 280; val chh = 200; val cols = 8
+    for (case in System.getenv("VERMINANIM").split(",")) {
+        val id = case.substringBefore(":"); val look = de.bornim.core.MonsterLook(case.substringAfter(":").toInt())
+        val out = BufferedImage(cw * cols, chh * acts.size, BufferedImage.TYPE_INT_RGB)
+        val g = out.createGraphics(); g.color = java.awt.Color(0x3C3A36); g.fillRect(0, 0, out.width, out.height)
+        for ((r, av) in acts.withIndex()) {
+            val (act, v) = av
+            val n = M.frameCount(id, look, act, v)
+            val strike = if (act == de.bornim.core.art.Act.ATTACK) M.strikeFrame(id, look, v) else -1
+            val picks = if (n <= cols) (0 until n).toList() else (0 until cols).map { it * (n - 1) / (cols - 1) }.toMutableList().also { l -> if (strike >= 0 && strike !in l) l[l.indexOfFirst { it > strike }.coerceAtLeast(0)] = strike }
+            for ((c, i) in picks.withIndex()) {
+                val im = M.battleFrame(id, look, act, v, i)
+                for (y in 0 until minOf(chh, im.height)) for (x in 0 until minOf(cw, im.width)) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(c * cw + x, r * chh + y, q and 0xFFFFFF) }
+                g.color = java.awt.Color(0x6A6A60); g.drawLine(c * cw, r * chh + M.groundLine(id).toInt(), (c + 1) * cw, r * chh + M.groundLine(id).toInt())
+                if (i == strike) { g.color = java.awt.Color(0xC04030); g.drawRect(c * cw, r * chh, cw - 1, chh - 1) }
+            }
+            g.color = java.awt.Color(0xE0D8C0); g.drawString("$act/$v", 2, r * chh + 12)
+        }
+        ImageIO.write(out, "png", File("build/screens/vermin_${id}_${look.seed}.png"))
+        println("wrote vermin anim $id")
+    }
+}
+
+/** JELLYWOUND=1: the ochre jelly healthy, below half and below a quarter, with its wound stains, in the forest light. */
+fun renderJellyWounds() {
+    val M = de.bornim.core.art.MonsterArt
+    val look = de.bornim.core.MonsterLook(1)
+    val cw = 280; val chh = 200
+    val out = BufferedImage(cw * 3, chh, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = java.awt.Color(0x4E6A38); g.fillRect(0, 0, out.width, out.height)
+    for (w in 0..2) {
+        val base = M.battleFrame("ochre_jelly", look, de.bornim.core.art.Act.IDLE, 0, 0, w)
+        val im = if (w == 0) base else de.bornim.core.art.Glow.wounds(base, w, 0x241606, look.seed, cracks = false)
+        for (y in 0 until minOf(chh, base.height)) for (x in 0 until minOf(cw, base.width)) {
+            val q0 = base[x, y]; val q1 = im[x, y]
+            val q = if ((q1 ushr 24) >= 128) q1 else q0
+            if ((q ushr 24) >= 128) out.setRGB(w * cw + x, y, q and 0xFFFFFF)
+        }
+        g.color = java.awt.Color(0xF0E8D8); g.drawString(listOf("gesund", "unter halben TP", "unter einem Viertel")[w], w * cw + 6, 14)
+    }
+    ImageIO.write(out, "png", File("build/screens/gallerte_wunden.png"))
+    println("wrote jelly wounds")
+}

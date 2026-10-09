@@ -73,7 +73,7 @@ object MonsterArt {
     // ---------------------------------------------------------------- monsters in the new battle style
 
     /** Monsters already drawn in the new, larger battle style with frame sequences. */
-    private val NEW_STYLE = setOf("wolf", "dire_wolf") + FoeArt.KINDS + BeastArt.KINDS
+    private val NEW_STYLE = setOf("wolf", "dire_wolf") + FoeArt.KINDS + BeastArt.KINDS + VerminArt.KINDS
 
     /** The wolves keep their drawn figure on the map; the other animals in the round keep their old small one there. */
     private fun mapWolf(id: String) = id == "wolf" || id == "dire_wolf"
@@ -86,8 +86,11 @@ object MonsterArt {
     /** Animals built in the round ([BeastArt]); on the map they keep their drawn figures for now. */
     fun isBeast(id: String) = id in BeastArt.KINDS
 
+    /** The spider, centipede, bat, stirge and ochre jelly, each with a body of its own ([VerminArt]). */
+    fun isVermin(id: String) = id in VerminArt.KINDS
+
     /** Foes built in the round, on the doll or as animals: they step in to strike, dodge and fall in their own frames. */
-    fun isSolid(id: String) = isDoll(id) || isBeast(id)
+    fun isSolid(id: String) = isDoll(id) || isBeast(id) || isVermin(id)
 
     /** The drawn wolf, still used for the small figures on the map. */
     private fun legacy(id: String, look: MonsterLook, act: Act, variant: Int, index: Int) = WolfArt.frame(look, id == "dire_wolf", act, variant, index)
@@ -96,21 +99,23 @@ object MonsterArt {
     fun attackVariants(id: String): Int = if (isSolid(id)) 3 else if (isNewStyle(id)) 2 else 1
 
     /** The one way a foe built in the round falls, fixed by its look. */
-    fun dieVariant(id: String, look: MonsterLook): Int = if (isBeast(id)) BeastArt.dieVariant(look) else FoeArt.dieVariant(look)
+    fun dieVariant(id: String, look: MonsterLook): Int = if (isBeast(id)) BeastArt.dieVariant(look) else if (isVermin(id)) VerminArt.dieVariant(look) else FoeArt.dieVariant(look)
 
     /** Number of variants of being hit, dodging and falling. */
     fun reactVariants(id: String): Int = if (isSolid(id)) 3 else 1
 
     fun frameCount(id: String, act: Act, variant: Int): Int =
         if (isDoll(id)) FoeArt.sequence(id, MonsterLook(), act, variant).rigs.size
-        else if (isBeast(id)) BeastArt.sequence(id, act, variant).rigs.size else WolfArt.sequence(act, variant).size
+        else if (isBeast(id)) BeastArt.sequence(id, act, variant).rigs.size
+        else if (isVermin(id)) VerminArt.sequence(id, act, variant).rigs.size else WolfArt.sequence(act, variant).size
 
     /** The frame count of one foe, whose kit (one blade, a spear, a bow) shapes its moves. */
     fun frameCount(id: String, look: MonsterLook, act: Act, variant: Int): Int =
         if (isDoll(id)) FoeArt.sequence(id, look, act, variant).rigs.size else frameCount(id, act, variant)
 
     /** The frame in which an attack lands; frames before it play while the monster attacks, the rest while the hit shows. */
-    fun strikeFrame(id: String, variant: Int): Int = if (isBeast(id)) BeastArt.sequence(id, Act.ATTACK, variant).strike else WolfArt.strikeFrame(variant)
+    fun strikeFrame(id: String, variant: Int): Int = if (isBeast(id)) BeastArt.sequence(id, Act.ATTACK, variant).strike
+        else if (isVermin(id)) VerminArt.sequence(id, Act.ATTACK, variant).strike else WolfArt.strikeFrame(variant)
 
     fun strikeFrame(id: String, look: MonsterLook, variant: Int): Int =
         if (isDoll(id)) FoeArt.sequence(id, look, Act.ATTACK, variant).strike else strikeFrame(id, variant)
@@ -119,12 +124,14 @@ object MonsterArt {
     fun battleFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound: Int = 0): PixelImage =
         if (isDoll(id)) FoeArt.frame(id, look, act, variant, index)
         else if (isBeast(id)) BeastArt.frame(id, look, act, variant, index, wound)
+        else if (isVermin(id)) VerminArt.frame(id, look, act, variant, index, wound)
         else WolfArt.frame(look, id == "dire_wolf", act, variant, index, wound)
 
     /** The frame to show now: for foes on the doll the nearest one drawn so far, never waiting; see [FoeArt.shown]. */
     fun shownFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound: Int = 0): PixelImage =
         if (isDoll(id)) FoeArt.shown(id, look, act, variant, index)
-        else if (isBeast(id)) BeastArt.shown(id, look, act, variant, index, wound) else battleFrame(id, look, act, variant, index, wound)
+        else if (isBeast(id)) BeastArt.shown(id, look, act, variant, index, wound)
+        else if (isVermin(id)) VerminArt.shown(id, look, act, variant, index, wound) else battleFrame(id, look, act, variant, index, wound)
 
     /**
      * Draws every frame of a new-style monster ahead of time (call off the main thread at the
@@ -133,6 +140,7 @@ object MonsterArt {
     fun prepare(id: String, look: MonsterLook, wound: Int = 0) {
         if (isDoll(id)) { FoeArt.prepare(id, look); return }
         if (isBeast(id)) { BeastArt.prepare(id, look, wound); return }
+        if (isVermin(id)) { VerminArt.prepare(id, look, wound); return }
         if (!isNewStyle(id)) return
         for (act in Act.entries) {
             val variants = if (act == Act.ATTACK) attackVariants(id) else 1
@@ -141,16 +149,17 @@ object MonsterArt {
     }
 
     /** Where the feet are across a new-style frame, in sprite pixels from the left: foes on the doll stand off-centre. */
-    fun anchorX(id: String, width: Int): Double = if (isDoll(id)) FoeArt.ANCHOR_X else if (isBeast(id)) BeastArt.ANCHOR_X else width / 2.0
+    fun anchorX(id: String, width: Int): Double = if (isDoll(id)) FoeArt.ANCHOR_X else if (isBeast(id)) BeastArt.ANCHOR_X else if (isVermin(id)) VerminArt.ANCHOR_X else width / 2.0
 
     /** How tall and how wide the body itself stands in a new-style frame, in sprite pixels (the frame may be far larger). */
     fun bodySize(id: String, look: MonsterLook, frameW: Int, frameH: Int): Pair<Double, Double> =
         if (isDoll(id)) { val h = FoeArt.doll(id, look).height * FoeArt.PX; Pair(h * 0.75, h) }
         else if (isBeast(id)) BeastArt.bodySize(id, look)
+        else if (isVermin(id)) VerminArt.bodySize(id, look)
         else Pair(frameW.toDouble(), groundLine(id))
 
     /** Feet position of a new-style frame, in sprite pixels from the top. */
-    fun groundLine(id: String): Double = if (isDoll(id)) FoeArt.ground(id) else if (isBeast(id)) BeastArt.GROUND else WolfArt.GROUND * (if (id == "dire_wolf") 1.22 else 1.0)
+    fun groundLine(id: String): Double = if (isDoll(id)) FoeArt.ground(id) else if (isBeast(id)) BeastArt.GROUND else if (isVermin(id)) VerminArt.GROUND else WolfArt.GROUND * (if (id == "dire_wolf") 1.22 else 1.0)
 
     // ---------------------------------------------------------------- the lunge of foes built in the round
 
@@ -162,11 +171,16 @@ object MonsterArt {
 
     /** The same between two frames ([index] 3.4: four tenths on from frame 3), so the step glides instead of jumping frame by frame. */
     fun lungeAt(id: String, look: MonsterLook, variant: Int, index: Double): Double =
-        if (isDoll(id)) FoeArt.lungeAt(id, look, variant, index) else if (isBeast(id)) BeastArt.lungeAt(id, variant, index) else 0.0
+        if (isDoll(id)) FoeArt.lungeAt(id, look, variant, index) else if (isBeast(id)) BeastArt.lungeAt(id, variant, index)
+        else if (isVermin(id)) VerminArt.lungeAt(id, variant, index) else 0.0
 
     /** The step for a blow or a bite, in art pixels, so that it lands on ([toX], [toY]). */
+    /** Where a foe's shot or spell leaves it, in art pixels of its frame; null if it comes from the middle of it. */
+    fun launch(id: String, look: MonsterLook, variant: Int): Pair<Double, Double>? = if (isDoll(id)) FoeArt.launch(id, look, variant) else null
+
     fun lungeOffset(id: String, look: MonsterLook, variant: Int, feetX: Double, feetY: Double, toX: Double, toY: Double): Pair<Double, Double> =
-        if (isBeast(id)) BeastArt.lungeOffset(id, look, variant, feetX, feetY, toX, toY) else FoeArt.lungeOffset(id, look, variant, feetX, feetY, toX, toY)
+        if (isBeast(id)) BeastArt.lungeOffset(id, look, variant, feetX, feetY, toX, toY)
+        else if (isVermin(id)) VerminArt.lungeOffset(id, look, variant, feetX, feetY, toX, toY) else FoeArt.lungeOffset(id, look, variant, feetX, feetY, toX, toY)
 
     /** Shrinks [src] to [width] pixels by averaging, keeping the feet on the bottom row of a square image. */
     private fun shrink(src: PixelImage, width: Int): PixelImage {

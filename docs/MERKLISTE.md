@@ -99,3 +99,4 @@ Dorran wohnt heute nur hinter einer verschlossenen Tür („Er ist wohl in seine
 ## Sonstiges
 
 - **Rechtliches:** Vor einer Veröffentlichung im Play Store oder einer kommerziellen Nutzung eine kurze Prüfung durch einen Anwalt für Marken- und Urheberrecht.
+- **Mehr Abwechslung beim Helden (Rest aus 08.10.):** Ausweichen ist nur ein Hüpfer (zwei Seiten), der Speer hat zwei Stöße, Zauber eine Bewegung je Fokus.

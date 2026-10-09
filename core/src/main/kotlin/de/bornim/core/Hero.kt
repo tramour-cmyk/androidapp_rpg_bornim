@@ -25,6 +25,8 @@ class Hero(
     var build: Build = Build.AVERAGE,
     var skin: Int = -1,
     var hair: Int = -1,
+    /** Uses of once-per-rest skills spent since the last rest. */
+    val spent: MutableMap<Skill, Int> = mutableMapOf(),
 ) {
     /** The skin tone shown: chosen at creation, or for heroes from before that, one picked steadily from the name. */
     val skinTone: Int get() = if (skin >= 0) skin else (name.hashCode() ushr 3).mod(4)
@@ -212,6 +214,7 @@ class Hero(
     fun restoreFully() {
         hp = maxHp
         sp = maxSp
+        spent.clear()
     }
 
     /**

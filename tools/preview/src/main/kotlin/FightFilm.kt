@@ -22,7 +22,7 @@ class FilmSpec(
     val actions: List<Action> = emptyList(), val hurt: Boolean = false, val heroFirst: Boolean = false,
     val auto: Boolean = false, val wait: Long = 4000L,
     val heroStatus: List<Status> = emptyList(), val foeStatus: List<Status> = emptyList(),
-    val failSaves: Boolean = false,
+    val failSaves: Boolean = false, val race: Race = Race.HUMAN, val place: String = "forest",
 )
 
 /** The env-driven single film (FILM=…), into build/screens/film. */
@@ -53,9 +53,11 @@ fun fightBatch(file: String) {
         // optional words after the plan: actions (attack,skill=…), hero=POISON+BLEED, foe=BURN
         val extra = w.drop(5)
         fun statuses(k: String) = extra.firstOrNull { it.startsWith("$k=") }?.removePrefix("$k=")?.split("+")?.map { Status.valueOf(it) } ?: emptyList()
-        val acts = extra.firstOrNull { !it.startsWith("hero=") && !it.startsWith("foe=") && it != "foefirst" && it != "failsaves" }?.split(",")?.map(::parseAction) ?: emptyList()
+        val acts = extra.firstOrNull { !it.startsWith("hero=") && !it.startsWith("foe=") && it != "foefirst" && it != "failsaves" && !it.startsWith("race=") && !it.startsWith("place=") }?.split(",")?.map(::parseAction) ?: emptyList()
         film(FilmSpec(w[0], w[1], w[2].toInt(), w[3].toInt(), w[4], acts,
-            hurt = true, heroFirst = "foefirst" !in extra, auto = true, failSaves = "failsaves" in extra, wait = 1500L, heroStatus = statuses("hero"), foeStatus = statuses("foe")), File("build/screens/films/${w[0]}"))
+            hurt = true, heroFirst = "foefirst" !in extra, auto = true, failSaves = "failsaves" in extra, wait = 1500L, heroStatus = statuses("hero"), foeStatus = statuses("foe"),
+            race = extra.firstOrNull { it.startsWith("race=") }?.let { Race.valueOf(it.removePrefix("race=")) } ?: Race.HUMAN,
+            place = extra.firstOrNull { it.startsWith("place=") }?.removePrefix("place=") ?: "forest"), File("build/screens/films/${w[0]}"))
     }
 }
 
@@ -64,13 +66,13 @@ fun film(f: FilmSpec, outDir: File) {
     val (clsName, foe) = f.spec.split(":")
     val out = outDir.apply { deleteRecursively(); mkdirs() }
     val vm = GameViewModel(Application())
-    vm.newGame("Test", Race.HUMAN, CharClass.valueOf(clsName.uppercase()))
+    vm.newGame("Test", f.race, CharClass.valueOf(clsName.uppercase()))
     if (f.auto && !vm.battleAuto) vm.toggleBattleAuto()
     val g = vm.game!!
     var guard = 0
     while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
     f.level?.let { g.state.hero.gainXp(Rules.xpForLevel[it]); g.state.hero.restoreFully() }
-    g.state.place = Place("forest", 10, 20, Facing.UP); g.state.minutes = 12 * 60
+    g.state.place = Place(f.place, 10, if (f.place == "forest") 20 else 10, Facing.UP); g.state.minutes = 12 * 60
     // the hero starts the fight hurt, with a few potions and flasks of each kind
     if (f.hurt) {
         g.state.hero.hp = maxOf(1, g.state.hero.maxHp / 3)

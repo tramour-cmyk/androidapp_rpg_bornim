@@ -80,9 +80,9 @@ object Bitmaps {
     }
 }
 
-/** A pixel image; [flash] > 0 paints it towards white (hit flash). */
+/** A pixel image; [flash] > 0 paints it towards white (a crumbling undead), [hurt] > 0 darkens it towards blood red (a hit). */
 @Composable
-fun PixelImageView(image: PixelImage, size: Dp, modifier: Modifier = Modifier, alpha: Float = 1f, flash: Float = 0f, shade: Color? = null) {
+fun PixelImageView(image: PixelImage, size: Dp, modifier: Modifier = Modifier, alpha: Float = 1f, flash: Float = 0f, shade: Color? = null, hurt: Float = 0f) {
     Image(
         bitmap = Bitmaps.of(image),
         contentDescription = null,
@@ -91,8 +91,8 @@ fun PixelImageView(image: PixelImage, size: Dp, modifier: Modifier = Modifier, a
         filterQuality = FilterQuality.None,
         colorFilter = when {
             flash > 0f -> ColorFilter.tint(Color.White.copy(alpha = flash.coerceIn(0f, 1f)), BlendMode.SrcAtop)
-            // evening and night light on sprites
-            shade != null -> ColorFilter.tint(shade, BlendMode.Modulate)
+            // evening and night light on sprites, darkened towards blood red where struck
+            shade != null || hurt > 0f -> ColorFilter.tint(hurtTint(shade, hurt), BlendMode.Modulate)
             else -> null
         },
     )
@@ -100,7 +100,7 @@ fun PixelImageView(image: PixelImage, size: Dp, modifier: Modifier = Modifier, a
 
 /** A pixel image at [px] dp per art pixel, keeping its own aspect ratio. */
 @Composable
-fun PixelSprite(image: PixelImage, px: Dp, modifier: Modifier = Modifier, alpha: Float = 1f, flash: Float = 0f, shade: Color? = null, overflow: Boolean = false) {
+fun PixelSprite(image: PixelImage, px: Dp, modifier: Modifier = Modifier, alpha: Float = 1f, flash: Float = 0f, shade: Color? = null, overflow: Boolean = false, hurt: Float = 0f) {
     Image(
         bitmap = Bitmaps.of(image),
         contentDescription = null,
@@ -111,10 +111,17 @@ fun PixelSprite(image: PixelImage, px: Dp, modifier: Modifier = Modifier, alpha:
         filterQuality = FilterQuality.None,
         colorFilter = when {
             flash > 0f -> ColorFilter.tint(Color.White.copy(alpha = flash.coerceIn(0f, 1f)), BlendMode.SrcAtop)
-            shade != null -> ColorFilter.tint(shade, BlendMode.Modulate)
+            shade != null || hurt > 0f -> ColorFilter.tint(hurtTint(shade, hurt), BlendMode.Modulate)
             else -> null
         },
     )
+}
+
+/** The light on a sprite ([shade], or none), darkened towards blood red by [hurt] (0..1): the shading stays. */
+private fun hurtTint(shade: Color?, hurt: Float): Color {
+    val s = shade ?: Color.White
+    val h = hurt.coerceIn(0f, 1f)
+    return Color(s.red * (1f - 0.2f * h), s.green * (1f - 0.42f * h), s.blue * (1f - 0.42f * h), 1f)
 }
 
 @Composable
