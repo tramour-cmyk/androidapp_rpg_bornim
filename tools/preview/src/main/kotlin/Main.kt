@@ -94,6 +94,7 @@ fun main() {
     System.getenv("FLORA")?.let { renderFloraSheet(it); System.exit(0) }
     if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }
     if (System.getenv("MAPFIGYAWS") != null) { renderMapFigureYaws(); System.exit(0) }
+    if (System.getenv("NPCDRAFT") != null) { renderNpcDraft(); System.exit(0) }
     System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
     if (System.getenv("KARTENZOOM") != null) {
         // the map near (new) and far (former), at noon and at night, in the forest, the village, an inn and the cave
