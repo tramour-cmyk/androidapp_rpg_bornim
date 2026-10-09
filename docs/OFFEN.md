@@ -1,71 +1,32 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 10:55 (Berliner Zeit).
-
-Die drei Listen:
-- **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
-- [Merkliste](MERKLISTE.md): Ideen für später, noch nicht beschlossen.
-- [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist.
-
-Für alle Arbeiten gelten die [Stil-Leitlinien](STIL.md): erwachsener, düsterer, bessere Grafik und Übergänge, Kollisionen selbst prüfen.
-
-Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee vertagt, kommt sie auf die Merkliste.
-
-**Arbeitsweise (seit 08.10.2026):**
-- Jede Meldung von dir (Fehler, Anregung, Idee, Frage zum Nachhalten) kommt sofort hier hinein, auch wenn sie nicht gleich umgesetzt wird.
-- Bildfolgen (Filmstreifen) schickst du dir ungern an, sie sind schlecht anzusehen (08.10.): Bewegungen prüfe ich selbst im Film; dir nur Einzelbilder oder Entwürfe des Aussehens, wenn nötig.
-- Nach jeder erledigten Arbeit (von dir getestet oder von mir umgesetzt) wird diese Liste geprüft: Erledigtes wandert in die Änderungshistorie, Offenes bleibt stehen.
-- Zu jedem neuen Test-Build steht unter „Zu testen“, worauf du achten sollst.
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Stand: 09.10.2026, 22:10 (Berliner Zeit). Regeln: [CLAUDE.md](../CLAUDE.md) und [Stil-Leitlinien](STIL.md). Ideen für später: [Merkliste](MERKLISTE.md). Umgesetztes und von dir Bestätigtes: [Änderungshistorie](../CHANGELOG.md); bestätigte Punkte wandern sofort dorthin, damit diese Liste kurz bleibt.
 
 ## Übergabe-Notiz (für jede neue Sitzung)
 
-Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im Hauptordner fasst die Regeln kurz zusammen und wird zu Beginn jeder Sitzung automatisch gelesen. Wer hier weitermacht, liest zuerst diese Notiz, dann den Rest dieser Liste, die [Stil-Leitlinien](STIL.md) und den Anfang der [Änderungshistorie](../CHANGELOG.md).
+**Stand:** v0.1.325 auf `main`, von dir getestet. Alle 18 Gegner sind im neuen Stil (Puppenkörper `FoeArt`, Tiere `BeastArt`, Ungeziefer `VerminArt`/`Vermin.kt`). Die Kartenarbeit (Garrick, neuer Kartenstil, Höhle) läuft auf `karte-neuer-stil` und `karte-hoehle`.
 
-**Projekt:** „Chroniken von Bornim“, Rollenspiel für Android (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `core` (Spielregeln, Kampf, Karten, Zeichnung der Figuren und Gegner), `app` (Oberfläche), `tools/preview` (Vorschau- und Testwerkzeug am Rechner). Aktueller Stand: v0.1.279 auf `main`, von dir vollständig getestet; nichts in Arbeit. Alle 18 Gegner sind im neuen Stil (auf dem Puppenkörper `FoeArt`, als Tiere `BeastArt`, als Ungeziefer `VerminArt`/`Vermin.kt`).
-
-**Feste Regeln im Umgang mit dir:**
-- Antworten auf Deutsch, Zeiten in Berliner Zeit.
-- Vor jeder Antwort ein Zeitstempel „[TT.MM., HH:MM]“, immer von der Systemuhr abgelesen (`TZ=Europe/Berlin date`), nie geschätzt. Stempel und Korrekturen stehen in der Antwort am Ende, nicht in Zwischenmeldungen (die siehst du nicht).
-- Zu jedem Build der direkte Link (Release oder Artefakt) und eine Liste, worauf beim Testen zu achten ist.
-- Neue Bilder immer mit der Uhrzeit, zu der sie entstanden sind.
-- Erst besprechen und vorschlagen; vor großen optischen Änderungen Entwürfe zeigen. Erst nach deinem ausdrücklichen „setz um“/„ja“ umsetzen, eine Rückfrage ist keine Freigabe.
-- Keine Bildfolgen (Filmstreifen) an dich schicken; Bewegungen selbst im Film prüfen, dir nur Standbilder oder Entwürfe.
-- Jede Meldung von dir (Fehler, Idee, Frage) sofort in diese Liste; nach jeder erledigten Arbeit diese Liste prüfen, Erledigtes in die Änderungshistorie.
-- Änderungshistorie: neue Einträge unter „## Unveröffentlicht“, bei Veröffentlichung umbenannt in „## v0.1.X – TT.MM.JJJJ, HH:MM“ (X = Nummer des Build-Laufs).
-
-**Feste technische Regeln:**
-- Keystore und Signatur-Passwort nie committen; sie liegen nur als Secrets in GitHub. `local.properties` und SDK-Pfad nie committen.
-- Die App-Kennung `de.bornim.game` nie ändern.
-- Commits als Autor „tramour“ (`git -c user.name="tramour" -c user.email="tramour@gmail.com" commit …`), mit den Co-Author- und Sitzungszeilen am Ende der Nachricht. Keine Modellbezeichnungen in Dateien oder Commits.
-- Keine Verlaufsänderung, kein Force-Push. Keine Probe- oder Zwischenstände auf `main`; größere Arbeiten auf eigenen Zweigen, nach deinem Test auf `main`.
-- Bei offenen Änderungen am Ende einer Arbeit: committen und auf den Zweig pushen.
-
-**Bauen und veröffentlichen:** GitHub Actions „Build APK“ baut bei jedem Push (Version 0.1.<Laufnummer>). Ein Push auf `main` erzeugt ein Release mit `bornim.apk`; ein Zweig liefert das Artefakt `bornim-apk`. Ein Zweig-Build muss eine höhere Laufnummer als das installierte Release haben, sonst lässt er sich nicht installieren (dann den Lauf neu anstoßen).
-
-**Selbst prüfen (siehe Stil-Leitlinien):** Jede Änderung an Kampf, Bewegung oder Effekten durch die echte Oberfläche filmen und die Bildfolge ansehen, nicht nur Code lesen. Werkzeuge in `tools/preview` (Aufruf mit Umgebungsvariablen, `../../gradlew -q run`):
-- `FILMBATCH=datei` (dazu `FILMSTEP=40`): mehrere Kampffilme in einem Lauf, je Zeile `name klasse:gegner stufe seed plan [aktionen] [hero=…] [foe=…] [foefirst] [failsaves] [race=HALF_ORC] [place=village]`, z. B. `holy cleric:zombie 5 1 XWW item=holy_water`. X löst die nächste Aktion direkt aus, W wartet; Bilder unter `build/screens/films/<name>/`.
+**Prüfen:** `tools/t` (siehe [UMGEBUNG.md](UMGEBUNG.md)). Vorschau-Schalter für `tools/t bild`/`film`:
+- `FILMBATCH=datei` (dazu `FILMSTEP=40`): mehrere Kampffilme, je Zeile `name klasse:gegner stufe seed plan [aktionen] [hero=…] [foe=…] [foefirst] [failsaves] [crits] [race=HALF_ORC] [place=village] [blood=…] [weapon=…] [kill=…]`, z. B. `holy cleric:zombie 5 1 XWW item=holy_water`. X löst die nächste Aktion aus, W wartet; Bilder unter `tools/preview/build/screens/films/<name>/`. Filme laufen in Echtzeit (4 Kämpfe ≈ 1 min); Bash-Aufrufe brechen nach 10 min ab.
 - `FILM=klasse:gegner` mit `FILMTAPS` (Tipper durch die Menüs) für Einzelfilme.
-- `ABILITYFX=1` (alle Fähigkeits-Effekte in Phasen), `STATUSFX=1` (alle Zustände): Übersichtsblätter in Sekunden, für das Aussehen.
-- Bewegungsblätter: `FOEANIM=ghoul:0,goblin:2` (Gegner auf der Puppe), `VERMINANIM=giant_spider:0,stirge:2` (Ungeziefer), `CLASH=1`/`FOECLASH=1` (Durchdringungen), `JELLYWOUND=1` (Gallerte nach Verletzung); Entwürfe: `VERMINSHEET=1`, `VERMINCLOSE=bat`.
-- Ein Filmlauf mit 5 Kämpfen dauert gut 4 Minuten; Bash-Aufrufe brechen nach 10 Minuten ab, also höchstens 4–5 Filme pro Lauf oder im Hintergrund mit `timeout`. Bilder zum Ansehen mit ImageMagick (`montage`, `convert`) zuschneiden und zusammensetzen.
-- Kerntests: `./gradlew :core:test` (u. a. Ablauf-, Tödlicher-Treffer- und Untote-Tests). Vor jedem Commit laufen lassen.
+- Übersichtsblätter in Sekunden: `ABILITYFX=1`, `STATUSFX=1`, `FOEANIM=ghoul:0,goblin:2`, `VERMINANIM=giant_spider:0`, `CLASH=1`/`FOECLASH=1` (Durchdringungen, Ziel 0), `JELLYWOUND=1`; Entwürfe `VERMINSHEET=1`, `VERMINCLOSE=bat`.
+- Bilder zum Ansehen mit ImageMagick (`montage`, `convert`) zuschneiden.
 
-**Kampfanzeige (Stand 09.10.):** Treffer = Innehalten beim Aufprall (70 ms, Nahkampf), dunkelrote Färbung (`hurt` in `PixelSprite`), Blut im Augenblick des Aufpralls; Rütteln des Bildes nur bei kritischen Treffern; keine weißen Trefferzeichen, kein Blinken. Gift/Brennen/Bluten (`isTick()`) sind kein Schlag des Gegners. Tatendrang gilt einmal pro Rast (`SkillCost.PER_REST`, `Hero.spent`).
+**Kampfanzeige (Stand 09.10.):** Treffer = Innehalten beim Aufprall (70 ms, Nahkampf), dunkelrote Färbung (`hurt` in `PixelSprite`), Blut im Augenblick des Aufpralls; Rütteln nur bei kritischen Treffern; kein Blinken. Gift/Brennen/Bluten (`isTick()`) sind kein Schlag des Gegners. Tatendrang einmal pro Rast (`SkillCost.PER_REST`, `Hero.spent`).
 
-**Arbeitsumgebung:** siehe [UMGEBUNG.md](UMGEBUNG.md); Prüfung mit `tools/check-env.sh` (`--full` mit Kerntests und Vorschaubild).
+**Im Spiel zum Testen:** Testmodus (7× auf das Copyright im Titel tippen), Reiter „Test“: Stufe, Gold, Vorräte auf 10, „Gegner bestehen keine Rettungswürfe“, „Held trifft immer kritisch“, Testkämpfe gegen jeden Gegner, Beute erzeugen.
 
-**Im Spiel zum Testen:** Testmodus (7× auf das Copyright im Titel tippen), Reiter „Test“: Stufe, Gold, Vorräte auf 10, „Gegner bestehen keine Rettungswürfe“, Testkämpfe gegen jeden Gegner, Beute erzeugen.
+**Änderungshistorie:** neue Einträge unter „## Unveröffentlicht“, bei Veröffentlichung umbenannt in „## v0.1.X – TT.MM.JJJJ, HH:MM“ (X = Nummer des Build-Laufs).
 
 ## In Arbeit
 
+- **Testumgebung** (PR #9, Zweig `claude/ecstatic-albattani-2ob0np`, grün): Google-Spiegel für Gradle, Vorwärmen von `core`, `tools/t`, Zufallsspieler `PlayerSimTest`, CLAUDE.md-Regeln aus `karte-neuer-stil`, kein APK-Build für reine Werkzeug-Änderungen. Wartet aufs Zusammenführen durch dich (die Sitzung darf nicht selbst auf `main` zusammenführen).
+- **Film-Uhr (A), freigegeben 09.10., 22:08:** Kampffilme laufen in Echtzeit, weil `app/.../BattleScreen.kt` die Abfolge mit `delay` und `System.currentTimeMillis()` taktet; die Bewegungen (`Animatable`, `tween`) laufen schon auf der Bilduhr. Plan: Uhr `BattleClock` (auf dem Gerät die Systemuhr), Wartezeiten über Bilder statt `delay` (±1 Bild), die Vorschau stellt die Uhr selbst. Referenzfilme vom alten Stand liegen vor (Nahkampf, Fernkampf, Zauber, Killerschlag; 56 s). Eigener Zweig, Filmvergleich vorher/nachher, dann Zweig-Build für dich. Danach (B) Ablaufprotokoll mit Prüfregeln, (D) Bildvergleich.
+- **Fassungen zusammenführen (freigegeben 09.10., 22:08):** Nach PR #9 `main` in `karte-neuer-stil` übernehmen und die doppelten Fassungen von `CLAUDE.md`, `UMGEBUNG.md`, `check-env.sh` und `OFFEN.md` zusammenführen.
 
 ## Zu testen
 
-**Version v0.1.325** (veröffentlicht 09.10., 17:17): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.325/bornim.apk). Pfeil des Goblin-Spähers startet an seinem Bogen; von dir im Zweig-Build bestätigt (09.10.).
-
-**Version v0.1.317** (veröffentlicht 09.10., 16:23): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.317/bornim.apk). Killerschlag, vollständig von dir bestätigt (09.10.).
-
-**Version v0.1.279** (veröffentlicht 09.10., 11:16): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.279/bornim.apk). Vollständig von dir bestätigt (09.10.), zuletzt Tatendrang einmal pro Rast („funktioniert“).
+Nichts offen.
 
 ## Zu entscheiden
 
@@ -85,22 +46,6 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
   - Umgebung: Vögel, Grillen, Eule, Tropfen, Knistern.
   - Musik prüfen, ob sie zum düstereren Stil passt.
   - Vorgehen: erst Hörproben einzelner Geräusche zum Vergleich, dann nach deiner Freigabe umstellen.
-
-## Bei dir
-
-- **Setup-Skript (optional):** Die Cloud-Sitzung bringt alles mit (JDK 21, ImageMagick, Python, git; geprüft 09.10. mit `tools/check-env.sh`). Ein Android-SDK ist nicht nötig, die APK baut GitHub. Zur Absicherung kann die Installationszeile aus `docs/UMGEBUNG.md` als Setup-Skript in die Umgebungseinstellungen.
-
-- **Testumgebung (Aufträge 09.10., abends; Eckpunkte 21:40: schnell, sparsam, Werkzeug je Anlass, Tests selbst und beschleunigt):** umgesetzt auf Zweig `claude/ecstatic-albattani-2ob0np`, siehe [UMGEBUNG.md](UMGEBUNG.md). Google-Spiegel für Gradle, Vorwärmen nur von `core`, `tools/t` mit Anlass-Tabelle, Zufallsspieler `PlayerSimTest` (alle Karten, Kämpfe, Laden, Speichern; 3 s, ohne Fund), CLAUDE.md-Regeln aus `karte-neuer-stil` übernommen. Nicht übernommen: `CROP`/`FROM`, die gibt es nur für Kartenfilme und sie hängen am Kartencode von `karte-neuer-stil`; sie kommen mit diesem Zweig auf `main`. **Zu entscheiden:** Zweig auf `main` übernehmen (erzeugt ein Release ohne Änderung im Spiel).
-- **Film-Uhr (Vorschlag A, Plan; zu entscheiden):** Kampffilme laufen in Echtzeit, weil `app/.../BattleScreen.kt` die Abläufe mit `System.currentTimeMillis()` (18 Stellen) und `delay` taktet. Plan:
-  1. Eine Uhr `BattleClock` im App-Code; auf dem Gerät ist sie die Systemuhr, alles bleibt wie bisher.
-  2. Die `delay`-Wartezeiten im Kampf werden zu Wartezeiten in Bildern (`withFrameMillis` bis zur Zielzeit). Auf dem Gerät gleich bis auf ±1 Bild (16 ms).
-  3. Die Vorschau stellt die Uhr selbst und zeichnet nur die gespeicherten Bilder (`FILMSTEP`). Ein Film rechnet dann so schnell, wie gezeichnet wird; gleicher Seed ergibt gleiche Bilder.
-  4. Prüfen: vorher und nachher je ein Film für Nahkampf, Fernkampf, Zauber und Killerschlag, Bild für Bild vergleichen; Kerntests; danach ein Zweig-Build für dich.
-  - **Danach möglich:** (B) ein Ablaufprotokoll aus demselben Lauf (Aufprall, Blut, Wundflecken, Geschossstart, Haltung) mit Prüfregeln in Sekunden; (D) Bildvergleich gegen Referenzbilder, du siehst nur, was sich geändert hat.
-  - **Geschätzt, nicht gemessen:** Filme ein Mehrfaches schneller als Echtzeit.
-  - **Risiko:** Der Kampf auf dem Gerät hängt an dieser Taktung. Deshalb eigener Zweig, Filmvergleich vorher und nachher und dein Test am Gerät, bevor etwas auf `main` geht.
-
-- **Entwicklung beschleunigen (Frage 09.10., 22:01):** Antwort mit Vorschlägen im Chat (09.10., 22:01): die Testumgebung beschleunigt das Prüfen; daneben Rückfragen bündeln, kein APK-Build für reine Werkzeug-Änderungen, kürzere Pflichtlektüre zu Sitzungsbeginn, öfter kleine Stände auf `main`, Freigaberegel für das Zusammenführen. **Zu entscheiden.**
 
 ## Bewusst so gelassen
 

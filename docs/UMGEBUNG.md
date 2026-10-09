@@ -67,7 +67,7 @@ sudo apt-get update && sudo apt-get install -y openjdk-21-jdk imagemagick python
 ## Bauen und Veröffentlichen (GitHub)
 
 - Workflow `.github/workflows/android.yml` („Build APK“): JDK 17, Android-SDK und Signatur laufen dort. Version `0.1.<Laufnummer>`.
-- Push auf einen Zweig → Artefakt `bornim-apk`. Push auf `main` → Release mit `bornim.apk`. Reine `.md`-Änderungen bauen nicht.
+- Push auf einen Zweig → Artefakt `bornim-apk`. Push auf `main` → Release mit `bornim.apk`. Reine Änderungen an `.md`-Dateien, `tools/` und `.claude/` bauen nicht (seit 09.10.); auf `main` entsteht dann auch kein Release.
 - Signatur: Keystore und Passwort liegen nur als GitHub-Secrets. Nie committen, ebenso `local.properties`.
 - Ein zweiter GitHub-Account braucht Zugriff auf das private Repository (Settings → Collaborators) und, um aus Claude heraus zu arbeiten, die verbundene GitHub-App bzw. die Freigabe des Repositorys in den Claude-Einstellungen.
 

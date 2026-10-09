@@ -6,6 +6,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 **Werkzeuge (nur Entwicklung, im Spiel ändert sich nichts)**
 - Testumgebung für Cloud-Sitzungen: Gradle lädt über einen Spiegel von Maven Central, beim Sitzungsstart werden die Kerntests im Hintergrund vorübersetzt, `tools/t` wählt je Anlass das passende Werkzeug.
+- Reine Änderungen an Werkzeugen (`tools/`, `.claude/`) bauen keine APK mehr und erzeugen auf `main` kein Release.
 - Neuer Kerntest: Ein Zufallsspieler spielt ohne Bild durch Dorf, Wald und Höhle, kämpft, kauft und speichert und meldet Abstürze, hängende Dialoge und unmögliche Werte.
 
 ## v0.1.325 – 09.10.2026, 17:17
