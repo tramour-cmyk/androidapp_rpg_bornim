@@ -344,6 +344,10 @@ object SdfRender {
         solids: List<Solid>, groups: Groups, material: (Solid, P3) -> Mat,
         w: Int, h: Int, anchorX: Double, ground: Double, px: Double, yaw: Double, pitch: Double = 15.0, seed: Int = 23,
         sculpt: Sculpt = Sculpt(w, h, seed), fallF: Double = 0.0, fallS: Double = 0.0,
+        /** How many steps a ray may take: more for big soft shapes the rays graze along (an ooze). */
+        maxSteps: Int = 110,
+        /** Whether a dark line marks where a nearer part overlaps a farther one: off for one soft mass (an ooze). */
+        innerLines: Boolean = true,
     ): DepthImage {
         val s = sculpt
         val view = SdfView(yaw, pitch, fallF, fallS)
@@ -422,7 +426,7 @@ object SdfRender {
                     var z = zTop
                     var hit = false
                     var steps = 0
-                    while (z > zBot && steps < 110) {
+                    while (z > zBot && steps < maxSteps) {
                         val d = field(o + dirL * z, n)
                         if (d < 0.1) { hit = true; break }
                         z -= max(d * 0.85, 0.07)
@@ -458,7 +462,7 @@ object SdfRender {
                 k += 2
                 if (xx !in 0 until w || yy !in 0 until h) continue
                 val b = yy * w + xx
-                if (mats[b] != null && depth[at] - depth[b] > 3.0) { i = min(i, 1); break }
+                if (innerLines && mats[b] != null && depth[at] - depth[b] > 3.0) { i = min(i, 1); break }
             }
             s.img.set(x, y, m.ramp[i])
         }

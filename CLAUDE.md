@@ -7,6 +7,7 @@ Rollenspiel für Android (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module:
 1. `docs/OFFEN.md`, zuerst die **Übergabe-Notiz** oben, dann: was in Arbeit, zu testen und zu entscheiden ist.
 2. `docs/STIL.md`: Stil (düster, erwachsen), Abwechslung, selbst prüfen.
 3. Den Anfang von `CHANGELOG.md`: was zuletzt umgesetzt wurde.
+4. `docs/UMGEBUNG.md`: was installiert sein muss; mit `tools/check-env.sh` prüfen, ob die Sitzung alles hat.
 
 ## Feste Regeln
 

@@ -140,6 +140,8 @@ class Battle(
             if (turns > 0) heroStatus[st] = turns
         }
         hero.cls.skills().filter { it.cost == SkillCost.PER_BATTLE }.forEach { usesLeft[it] = it.amount }
+        // once per rest: what is left since the last rest
+        hero.cls.skills().filter { it.cost == SkillCost.PER_REST }.forEach { usesLeft[it] = (it.amount - (hero.spent[it] ?: 0)).coerceAtLeast(0) }
     }
 
     val heroAc: Int get() = hero.armorClass(mageArmor) - acid - (if (Status.SLOW in heroStatus) 2 else 0)
@@ -222,7 +224,7 @@ class Battle(
     fun blocked(skill: Skill): T? = when {
         !hero.has(skill) || skill.passive -> Msg.cannot
         skill == Skill.FIREBALL && fireballUsed -> Msg.noUses
-        skill.cost == SkillCost.PER_BATTLE && (usesLeft[skill] ?: 0) <= 0 -> Msg.noUses
+        (skill.cost == SkillCost.PER_BATTLE || skill.cost == SkillCost.PER_REST) && (usesLeft[skill] ?: 0) <= 0 -> Msg.noUses
         skill.cost == SkillCost.SPELL_POINTS && hero.sp < skill.amount -> Msg.noSp
         skill == Skill.MAGE_ARMOR && (mageArmor || (hero.item(GearSlot.CHEST)?.def?.armor ?: 0) > 0) -> Msg.noEffect
         skill == Skill.BLESS && blessed -> Msg.noEffect
@@ -362,6 +364,10 @@ class Battle(
         }
         when (skill.cost) {
             SkillCost.PER_BATTLE -> usesLeft[skill] = usesLeft.getValue(skill) - 1
+            SkillCost.PER_REST -> {
+                usesLeft[skill] = usesLeft.getValue(skill) - 1
+                hero.spent[skill] = (hero.spent[skill] ?: 0) + 1
+            }
             SkillCost.SPELL_POINTS -> hero.sp -= skill.amount
             else -> {}
         }

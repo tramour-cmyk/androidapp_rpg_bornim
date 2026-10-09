@@ -1,12 +1,7 @@
 package de.bornim.game.ui
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -26,6 +21,9 @@ enum class Gore(val main: Color, val light: Color) {
     SLIME(Color(0xFF9A7020), Color(0xFFD8A83A)),
 }
 
+/** How long the blood of a hit flies and lies, at blood level [level]. */
+fun bloodMs(level: Int) = BattlePace.ms(if (level >= 2) 1300 else 750)
+
 /** Undead leak ichor or splinter, the jelly splashes slime; everything else bleeds. */
 fun goreFor(monsterId: String): Gore = when (monsterId) {
     "skeleton" -> Gore.BONE
@@ -39,11 +37,12 @@ private val WOUNDS = setOf(FxKind.SLASH, FxKind.PIERCE, FxKind.SMASH, FxKind.ARR
 
 /**
  * A short spray of droplets from a hit, away from the attacker, falling to the ground.
- * [level] 1 is subtle (few small drops), 2 shows more and leaves splats on the ground that fade.
+ * [level] 1 is subtle (few small drops), 2 shows more and leaves splats on the ground that fade. [p] runs from 0 as
+ * the blow lands to 1 (see [bloodMs]); [key] tells one hit from the next.
  */
 @Composable
 fun BloodLayer(
-    anim: Anim?, fx: Fx?, key: Int, enemy: Offset, enemyFeet: Float, hero: Offset, heroFeet: Float, level: Int, foe: Gore, unit: Float,
+    anim: Anim?, fx: Fx?, key: Int, p: Float, enemy: Offset, enemyFeet: Float, hero: Offset, heroFeet: Float, level: Int, foe: Gore, unit: Float,
     /** How badly each side is hurt after the hit, 0..1: the worse the wounds, the more blood. */
     foeHurt: Float = 0f, heroHurt: Float = 0f,
     modifier: Modifier,
@@ -55,10 +54,6 @@ fun BloodLayer(
         else -> return
     }
     val gore = if (onHero) Gore.BLOOD else foe
-    val duration = BattlePace.ms(if (level >= 2) 1300 else 750)
-    val progress = remember(key) { Animatable(0f) }
-    LaunchedEffect(key) { progress.animateTo(1f, tween(duration, easing = LinearEasing)) }
-    val p = progress.value
     if (p >= 1f) return
     val rnd = Random(fx.seed * 31 + key)
     val hurt = (if (onHero) heroHurt else foeHurt).coerceIn(0f, 1f)
