@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 10:15 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 10:18 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -62,6 +62,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
   - Stand 10:06: Stufe 1, erster Teil eingebaut (Zweig): eine Farbstimmung für alle Kartenbilder (`MapGrade`), die die bunten Kartenfarben auf die Farben der Kampfkulissen schiebt (Gras, Weg, Wasser, Rinde, Stein, Dächer, Putz, Holz) und die schwarzen Umrisse durch eine dunklere Eigenfarbe ersetzt. Lichtquellen (Feuer, Leuchtpilze, Kristalle) behalten ihre Farbe. Tageszeit wie bisher über das Kartenlicht. Schatten nach Sonnenstand und Stufe 3 folgen nach deinem Blick auf die Entwürfe.
   - Entwürfe kommen über GitHub (hier ist Gradle gesperrt): Lauf „Vorschau“ rendert bei jedem Push auf einen Zweig mit `tools/preview/vorschau.env` die Karten mit `main` (vorher) und dem Zweig (nachher) und legt die Vergleichsbilder auf den Zweig `vorschau-bilder`. `vorschau.env` vor der Übernahme nach `main` wieder entfernen.
   - **Erster Entwurf gezeigt (10:15; Bilder von 10:14: Dorf bei Tag, Wald in der Dämmerung, Dorf bei Nacht).** Eigene Einschätzung: Die Stimmung geht in die richtige Richtung, wirkt aber noch flach und grau wie ein Filter. Hohes Gras verschwindet im Boden, das Gemüsebeet ist kaum noch zu sehen, die blauen Dächer haben sich kaum verändert, und bei Nacht ist fast kein Unterschied. Vorschlag für den zweiten Entwurf: Gras wieder grüner wie im Kampf, mehr Hell-Dunkel innerhalb der Flächen, hohes Gras dunkler und deutlich abgesetzt, Dächer und Wände gezielt nachfärben, dazu die Schatten nach Sonnenstand. Wartet auf deine Rückmeldung.
+  - **Deine Rückmeldung (10:18):** kaum ein Unterschied zu erkennen, so lohnt sich die Mühe nicht. Befund: `main` hatte schon gedeckte Farben (Entwurf „maps-mood“ vom 06.10. ist größtenteils drin), daher bringt Umfärben allein wenig. Der Nintendo-Eindruck kommt von den Formen: sichtbares Kachelraster, eckige Wege und Wiesenränder, kleine Spielzeughäuser, gleichförmige Bäume. Vorschlag: Farbstimmung zurückstellen, stattdessen einen Ausschnitt (Dorfplatz oder Lichtung) als Entwurf in neuer Machart zeigen (Formen, Licht, Schatten, Figur), bevor etwas eingebaut wird. Offen: deine Entscheidung.
 
 - **Läuft immer dieselbe Variante? (gefragt 08.10., 17:2x)** Im Code nachgesehen:
   - Gegner-Angriffe: Zufall unter drei, kann aber zweimal hintereinander gleich sein.
