@@ -67,6 +67,8 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 **Zweig-Build 0.1.254** (09.10., 10:01; enthält alles aus 0.1.251): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37902087902/artifacts/11603220049). **Gift greift nicht mehr an** (gemeldet 09.10., zweimal: Riesenspinne schien nach „vergiftet“ und bei jedem Giftschaden erneut anzugreifen). Ursache: Der Giftschaden zu Beginn der Runde wurde wie ein Schlag des Gegners abgespielt; galt auch für Brennen und Bluten. Behoben, im Film geprüft.
 
+**Folgt im nächsten Build: Weiße Trefferzeichen entfernt** (gefragt 09.10., Vorschlag 1 von dir freigegeben): Kein weißes Zeichen mehr bei Biss, Hieb, Stich und stumpfen Waffen; der Treffer zeigt sich durch Innehalten, Rotfärbung und Blut im Augenblick des Aufpralls. Im Film geprüft (Goblin, Wolf, Skelett). Worauf achten: Fehlt dir etwas, ist der Treffer noch gut genug zu erkennen, auch bei Blutstufe „Aus“?
+
 **Ebenfalls in 0.1.251: Tatendrang einmal pro Rast** (deine Entscheidung 09.10., Möglichkeit c): Tatendrang steht nach dem Einsatz erst nach einer Rast am Lagerfeuer oder im Gasthaus wieder bereit (auch ein Stufenaufstieg füllt auf). Im Kampfmenü steht „0/1“, solange er verbraucht ist.
 
 **Noch nicht bestätigt aus älteren Versionen:**
@@ -75,7 +77,6 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu entscheiden
 
-- **Weiße Trefferzeichen am Helden (gefragt 09.10.):** Beim Treffer liegt eine weiße Grafik auf dem Getroffenen: Zahnreihe beim Biss, weißer Ring mit Sternchen beim Schlag mit stumpfen Waffen, weiße Striche beim Hieb, weißer Stern beim Stich, weiße Funken. Das sind die alten Trefferzeichen aus der ersten Fassung. Vorschläge in der Antwort vom 09.10.; wartet auf deine Entscheidung.
 - **Noch mehr Zwischenbilder?** Die Haltungen selbst (Arme, Beine, Waffe) wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Nach deinem Test von 0.1.208 vorerst nicht nötig; bei Bedarf als eigener, größerer Umbau (mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn).
 - **Hörproben:** Auswahl für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt.
 

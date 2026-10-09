@@ -17,6 +17,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Der Getroffene zuckt jetzt erst, wenn der Schlag landet; Blut, Hiebspur und Treffergeräusch kommen ebenfalls mit dem Aufprall.
 - Kritische Treffer erschüttern kurz das ganze Kampfbild.
 - Der Held wackelt bei einem Treffer nicht mehr seitlich hin und her; nur kritische Treffer erschüttern das Bild.
+- Die weißen Trefferzeichen der ersten Fassung sind weg: Zahnreihe beim Biss, Ring mit Sternchen bei stumpfen Waffen, Striche beim Hieb, Stern beim Stich, weiße Splitter. Den Treffer zeigen jetzt Innehalten, die dunkelrote Färbung und Blut (bei Skeletten Knochensplitter, bei Untoten und der Gallerte dunkle Spritzer), und zwar erst im Augenblick des Aufpralls. Bei Blutstufe „Aus“ bleiben Innehalten und Färbung.
 
 **Behoben**
 - Gift, Brennen und Bluten am Helden: Der Schaden zu Beginn einer Runde sah aus wie ein zweiter Angriff des Gegners (er stürmte erneut vor). Jetzt bleibt der Gegner stehen, nur der Held zuckt und färbt sich kurz rot.

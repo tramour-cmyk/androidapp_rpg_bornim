@@ -551,6 +551,9 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
     val hurtGlow = remember { Animatable(0f) }
     var hitOnHero by remember { mutableStateOf(false) }
     val quake = remember { Animatable(0f) }
+    // the blood of a hit flies as the blow lands, not as the message begins
+    var bloodKey by remember { mutableIntStateOf(0) }
+    val bloodT = remember { Animatable(1f) }
     val intro = remember(battle) { Animatable(1f) }
     LaunchedEffect(battle) { intro.animateTo(0f, tween(BattlePace.ms(600))) }
     LaunchedEffect(ui.howlKey) {
@@ -580,6 +583,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
         // the blow lands: the one struck darkens towards blood red, fading; a critical one shakes the scene
         fun landed(onHero: Boolean) {
             hitOnHero = onHero
+            bloodKey++
+            launch { bloodT.snapTo(0f); bloodT.animateTo(1f, tween(bloodMs(vm.bloodLevel), easing = androidx.compose.animation.core.LinearEasing)) }
             launch { hurtGlow.snapTo(1f); hurtGlow.animateTo(0f, tween(BattlePace.ms(320))) }
             if (ui.current?.fx?.crit == true) launch { quake.snapTo(1f); quake.animateTo(0f, tween(BattlePace.ms(420), easing = androidx.compose.animation.core.LinearEasing)) }
         }
@@ -617,7 +622,11 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // a new-style foe's blow on the hero and its way back: evenly through its frames, as the hero's moves run
             fun foeBlow(an: Anim?) = (an == Anim.HERO_HIT || an == Anim.MISS) && ui.current?.fx?.onHero == true && !ui.current.isTick() &&
                 (ui.current?.packActor ?: -1) < 0 && foeTiming(battle, ui.attackVariant) != null
-            // any other hit lands as the message's motion begins (a shot or spell once it has flown)
+            // any other hit lands as the message's motion begins (a shot or spell once it has flown); a fall bleeds as it starts
+            if (an == Anim.HERO_FAINT || an == Anim.ENEMY_FAINT) {
+                bloodKey++
+                launch { bloodT.snapTo(0f); bloodT.animateTo(1f, tween(bloodMs(vm.bloodLevel), easing = androidx.compose.animation.core.LinearEasing)) }
+            }
             if (lands == null && !ui.hitStopped && ui.current?.fx != null &&
                 ((an == Anim.ENEMY_HIT && ui.current?.fx?.onHero == false) || (an == Anim.HERO_HIT && ui.current?.fx?.onHero == true))) landed(an == Anim.HERO_HIT)
             if (lands != null && an == Anim.HERO_HIT) {
@@ -1134,7 +1143,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 BattleFxLayer(fx, ui.animKey, enemyC, source, unit, Modifier.matchParentSize(), startDelay = ui.fxDelay, foeGround = (sceneH * foeY).toPx(), heroGround = (sceneH * heroY).toPx(), foeSource = foeLaunchC)
                 if (launchC != null && ui.release?.first == HeroFigure.Act.CAST) CastFlash(ui.flashKey, launchC, Color(0xFF000000 or launch.rgb.toLong()), artDp.toPx(), ui.fxDelay, Modifier.matchParentSize())
                 BloodLayer(
-                    a, fx, ui.animKey, enemyC, (sceneH * foeY).toPx(), heroC, (sceneH * heroY).toPx(), vm.bloodLevel, goreFor(id), (monsterSize / 64).toPx(),
+                    a, fx, bloodKey, bloodT.value, enemyC, (sceneH * foeY).toPx(), heroC, (sceneH * heroY).toPx(), vm.bloodLevel, goreFor(id), (monsterSize / 64).toPx(),
                     foeHurt = 1f - ui.enemyHp.toFloat() / battle.enemyMaxHp, heroHurt = 1f - ui.heroHp.toFloat() / battle.hero.maxHp, modifier = Modifier.matchParentSize(),
                 )
             }
