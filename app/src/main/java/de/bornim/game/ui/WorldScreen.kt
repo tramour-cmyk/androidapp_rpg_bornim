@@ -146,7 +146,9 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     fromY = result.fromY
                     progress = 0f
                     vm.refresh()
-                    val duration = if (running) 110f else if (routeDir != null) 170f else 200f
+                    // the ground sets the pace: brisk on the path, wading through tall grass
+                    val ground = de.bornim.core.Terrain.stepFactor(game.map.tile(game.state.place.x, game.state.place.y)).toFloat()
+                    val duration = (if (running) 110f else if (routeDir != null) 170f else 200f) * ground
                     val start = withFrameMillis { it }
                     while (progress < 1f) {
                         withFrameMillis { progress = ((it - start) / duration).coerceAtMost(1f) }
@@ -305,11 +307,20 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
 /** Where the camera is: pixel zoom and the top-left corner of the view in art pixels. */
 private class Cam(val scale: Int, val x: Int, val y: Int, val heroX: Int, val heroY: Int)
 
+/** How close the map camera is. Near (the new default) shows about 5½ tiles across, far the former 10½. */
+object MapZoom {
+    @Volatile var near = true
+
+    /** Tiles across the screen. */
+    val tilesAcross get() = if (near) 5.6f else 10.5f
+}
+
 private fun camera(game: Game, w: Float, h: Float, progress: Float, fromX: Int, fromY: Int): Cam {
     val map = game.map
     val T = WorldArt.T
-    // Whole-number zoom so every art pixel is the same size on screen.
-    val scale = max(2, floor(w / (T * 10.5f)).toInt())
+    // Whole-number zoom so every art pixel is the same size on screen. Near, the zoom is even, so
+    // map pictures drawn at double resolution also land on whole screen pixels.
+    val scale = if (MapZoom.near) max(2, 2 * (w / (T * 2 * MapZoom.tilesAcross)).roundToInt()) else max(2, floor(w / (T * MapZoom.tilesAcross)).toInt())
     val viewW = w / scale
     val viewH = h / scale
     val p = game.state.place

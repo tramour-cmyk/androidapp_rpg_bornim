@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 11:16 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 11:19 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -72,6 +72,8 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
   - **Deine Rückmeldung (11:11):** Stil grundsätzlich die richtige Richtung. Gern noch ein Stück näher heran, noch mehr Details und feinere Grafik, Sichtlinie und Nebel des Unerkundeten wie bisher. Frage: scrollt die Karte dann? Antwort (11:12): ja; die Kamera folgt schon heute dem Helden und scrollt (etwa 10,5 Kacheln Breite, der Flüsterwald ist 20 × 32), näher heran heißt nur: mehr Scrollen. Als Ausgleich für den fehlenden Überblick die gezeichnete Karte aus Entwurf C als Kartenansicht im Menü (steht schon auf der Merkliste). Umsetzungsvorschlag in Stufen im Chat; wartet auf dein Go.
   - **Idee (11:14): Gelände bestimmt die Geschwindigkeit.** Abseits des Weges langsamer. Befund: Ein Schritt dauert heute immer gleich lang (200 ms, auf einer Route 170 ms, rennend 110 ms, in `WorldScreen`), das lässt sich leicht je Gelände staffeln. Vorschlag: Weg und Pflaster etwas schneller (× 0,85), Wiese normal, Blumen × 1,1, hohes Gras und Unterholz deutlich langsamer (× 1,5, angelehnt an schwieriges Gelände im SRD), später Matsch und flaches Wasser × 2; für wandernde Monster ebenso. Dazu Schrittgeräusch und Bewegung des Grases je Gelände. Kommt mit in Stufe 1.
   - **Frage (11:15): freies Laufen statt nur rauf, runter, links, rechts?** Befund: Der Held geht heute Kachel für Kachel in vier Richtungen; der Wisch-Joystick rastet auf vier Richtungen ein, Tippen sucht einen Weg über Kacheln. Vorschlag (Mischform): Spiellogik bleibt auf Kacheln (Begegnungen, Truhen, Auslöser, Speicherstand, Tests), aber der Held bewegt sich frei in jede Richtung mit stufenloser Position; der Joystick rastet nicht mehr ein, Tippen läuft gerade Linien, wo der Blick frei ist, statt Treppenstufen; Hindernisse als Kreis gegen Kacheln. Die Geländegeschwindigkeit wird dabei Bildpunkte pro Sekunde je Untergrund. Als eigene Stufe nach Zoom und Auflösung, weil sie die Spiellogik berührt.
+  - **Reihenfolge, von dir freigegeben (11:17):** 1. Zoom, doppelte Auflösung, Gelände-Tempo; 2. freies Laufen; 3. Boden ohne Raster; 4. Bäume, Felsen, Unterholz mit Schatten; 5. Licht mit Sichtlinie, Nebel; 6. Dinge zum Entdecken, Bodennebel; 7. Kartenansicht im Menü; später Figuren aus der Puppe. Zuerst der Flüsterwald.
+  - **Stufe 1 in Arbeit (11:19):** naher Zoom (etwa 5½ Kacheln, im Testreiter umschaltbar), Gelände-Tempo für Held und Monster. Die Farbstimmung vom Morgen ist wieder heraus (kaum Unterschied, siehe oben). Doppelte Auflösung: der Zoom ist dafür vorbereitet; die neuen Bilder selbst kommen mit Stufe 3 und 4, bis dahin wirken die alten Kartenbilder nah größer und gröber.
 
 - **Läuft immer dieselbe Variante? (gefragt 08.10., 17:2x)** Im Code nachgesehen:
   - Gegner-Angriffe: Zufall unter drei, kann aber zweimal hintereinander gleich sein.

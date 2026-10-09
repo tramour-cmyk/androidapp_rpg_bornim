@@ -86,6 +86,13 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             failSaves = de.bornim.core.Battle.foesFailSaves
             vm.toast = if (failSaves) t("Untote vertreiben, Heilige Flamme und Co. gelingen jetzt immer.", "Turn Undead, Sacred Flame and the like now always work.") else t("Rettungswürfe wieder normal.", "Saves back to normal.")
         }
+        var near by remember { mutableStateOf(MapZoom.near) }
+        PixelButton(t("Kartenzoom: ", "Map zoom: ") + (if (near) t("nah", "near") else t("weit (bisher)", "far (former)")), Modifier.fillMaxWidth(), size = 14.sp) {
+            MapZoom.near = !MapZoom.near
+            near = MapZoom.near
+            vm.refresh()
+            vm.toast = if (near) t("Karte näher herangezoomt.", "Map zoomed in.") else t("Karte wieder weit wie bisher.", "Map zoomed out as before.")
+        }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()
             vm.refresh()

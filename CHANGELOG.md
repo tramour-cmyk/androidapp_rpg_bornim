@@ -4,6 +4,11 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Geändert – Karte näher heran, Gelände bremst (Zweig `karte-neuer-stil`, Stufe 1 der neuen Karte)**
+- Die Karte ist näher herangezoomt: etwa 5½ statt 10½ Kacheln Bildschirmbreite. Die Kamera folgt dem Helden wie bisher, man scrollt mehr und sieht mehr vom Einzelnen. Im Testreiter lässt sich mit „Kartenzoom“ zwischen nah und weit (bisher) wechseln.
+- Das Gelände bestimmt das Tempo: Auf Weg, Pflaster und Brücke geht ein Schritt etwas schneller (× 0,85), über Blumen, Knochen und Leuchtpilze etwas langsamer (× 1,1), über Geröll langsamer (× 1,3) und durch hohes Gras deutlich langsamer (× 1,5). Wandernde Monster bremst der Boden genauso.
+- Vorbereitung für feinere Kartenbilder: Der nahe Zoom ist immer gerade, damit Bilder in doppelter Auflösung später auf ganze Bildschirmpunkte fallen.
+
 **Geändert – mehr Abwechslung in den Bewegungen**
 - **Gegner:** Angriff, Getroffenwerden und Ausweichen werden jedes Mal zufällig aus den drei Varianten gewählt, nie zweimal hintereinander dieselbe. Bisher hing die Wahl beim Getroffenwerden und Ausweichen an der Nummer der Meldung, sodass bei gleichförmigen Runden oft dieselbe kam. Der Sturz bleibt eine von drei, fest pro Gegner (Taumeln und Fallen gehören zusammen).
 - **Held, getroffen:** drei Bewegungen statt einer: zurückgeworfen, zusammengekrümmt, zur Seite gerissen.

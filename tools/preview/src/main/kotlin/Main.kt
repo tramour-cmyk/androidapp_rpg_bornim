@@ -91,6 +91,26 @@ fun main() {
     System.getenv("FILM")?.let { fightFilm(it); System.exit(0) }
     System.getenv("FILMBATCH")?.let { fightBatch(it); System.exit(0) }
     if (System.getenv("WEGE") != null) { renderWayDrafts(); System.exit(0) }
+    if (System.getenv("KARTENZOOM") != null) {
+        // the map near (new) and far (former), at noon and at night, in the forest, the village, an inn and the cave
+        fun place(vm: GameViewModel, map: String, x: Int, y: Int, minutes: Int) {
+            vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
+            val g = vm.game!!; g.skipDialogs()
+            g.state.place = Place(map, x, y, Facing.UP); g.state.minutes = minutes
+            g.fog(x, y)
+            vm.refresh()
+        }
+        for (near in listOf(true, false)) {
+            de.bornim.game.ui.MapZoom.near = near
+            val z = if (near) "nah" else "weit"
+            shot("zoom_${z}_1_wald_tag") { place(it, "forest", 9, 10, 12 * 60) }
+            shot("zoom_${z}_2_wald_nacht") { place(it, "forest", 9, 10, 23 * 60) }
+            shot("zoom_${z}_3_dorf") { place(it, "village", 11, 7, 12 * 60) }
+            shot("zoom_${z}_4_gasthaus") { place(it, "inn", 5, 6, 12 * 60) }
+            shot("zoom_${z}_5_hoehle") { place(it, "cave", 10, 5, 12 * 60) }
+        }
+        System.exit(0)
+    }
     if (System.getenv("BEASTDRAFT") != null) { renderBeastDrafts(); System.exit(0) }
     if (System.getenv("DOLLDRAFT") != null) { renderShamanGhoulDrafts(); System.exit(0) }
     if (System.getenv("SHAMANDRAFT") != null) { renderShamanDraft(); System.exit(0) }

@@ -514,8 +514,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val v = if (dy > 0) Facing.DOWN else Facing.UP
         val order = if (kotlin.math.abs(dx) >= kotlin.math.abs(dy)) listOf(h, v) else listOf(v, h)
         val tried = order.filter { (if (it == h) dx else dy) != 0 } + Facing.entries.shuffled(roamRandom)
-        for (d in tried) if (moveRoamer(r, d, ms)) break
-        r.nextMoveAt = now + ms + 40
+        var moved = false
+        for (d in tried) if (moveRoamer(r, d, ms)) { moved = true; break }
+        // the ground slows a monster as it slows the hero
+        r.nextMoveAt = now + (if (moved) r.moveMs else ms) + 40
     }
 
     private fun moveRoamer(r: Roamer, d: Facing, ms: Long): Boolean {
@@ -527,7 +529,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         r.x = nx; r.y = ny
         r.facing = d
         r.movedAt = now
-        r.moveMs = ms
+        r.moveMs = (ms * Terrain.stepFactor(map.tile(nx, ny))).toLong()
         return true
     }
 
