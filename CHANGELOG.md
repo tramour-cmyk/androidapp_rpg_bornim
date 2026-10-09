@@ -19,6 +19,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Der Held wackelt bei einem Treffer nicht mehr seitlich hin und her; nur kritische Treffer erschüttern das Bild.
 
 **Behoben**
+- Gift, Brennen und Bluten am Helden: Der Schaden zu Beginn einer Runde sah aus wie ein zweiter Angriff des Gegners (er stürmte erneut vor). Jetzt bleibt der Gegner stehen, nur der Held zuckt und färbt sich kurz rot.
 - Ghul: Der Klauenangriff war nicht zu sehen. Er stürmte so dicht an den Helden heran, dass Arme und Klauen hinter ihm verschwanden. Jetzt treffen die Klauenspitzen, und der Hieb ist vor dem Helden zu sehen (alle drei Varianten).
 - Goblin-Späher: Der Pfeil flog aus der Körpermitte statt vom Bogen los. Jetzt startet er an der Bogenhand. Ebenso kommt der Feuerpfeil des Schamanen vom Schädel auf dem Stab und sein Fluch aus der Hand.
 

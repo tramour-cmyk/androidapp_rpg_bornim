@@ -615,7 +615,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             }
             val an = ui.current?.anim
             // a new-style foe's blow on the hero and its way back: evenly through its frames, as the hero's moves run
-            fun foeBlow(an: Anim?) = (an == Anim.HERO_HIT || an == Anim.MISS) && ui.current?.fx?.onHero == true &&
+            fun foeBlow(an: Anim?) = (an == Anim.HERO_HIT || an == Anim.MISS) && ui.current?.fx?.onHero == true && !ui.current.isTick() &&
                 (ui.current?.packActor ?: -1) < 0 && foeTiming(battle, ui.attackVariant) != null
             // any other hit lands as the message's motion begins (a shot or spell once it has flown)
             if (lands == null && !ui.hitStopped && ui.current?.fx != null &&
@@ -681,7 +681,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             val heroT = when {
                 // struck by a new-style foe's blow: from where it lands, after the halt there
                 lands != null -> if (t >= 0.99f) 1f else ((t * foeLandMs(battle, ui.attackVariant, a) - lands) / REACT_MS).coerceIn(0f, 1f)
-                (a == Anim.HERO_HIT || a == Anim.MISS) && fx?.onHero == true && (step?.packActor ?: -1) < 0 ->
+                (a == Anim.HERO_HIT || a == Anim.MISS) && fx?.onHero == true && !step.isTick() && (step?.packActor ?: -1) < 0 ->
                     (t * foeLandMs(battle, ui.attackVariant, a) / REACT_MS).coerceAtMost(1f)
                 else -> t
             }
@@ -753,7 +753,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 else -> 1f
             }
             // the foe's own blow landing on the hero, or missing: the second half of its attack
-            val foeLanding = (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT || ui.foeCastLands) && fx?.onHero == true && (step?.packActor ?: -1) < 0
+            // (poison, burning or bleeding eating at the hero is no blow: the foe stays where it is)
+            val foeLanding = (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT || ui.foeCastLands) && fx?.onHero == true && !step.isTick() && (step?.packActor ?: -1) < 0
             // how long the foe's blow and way back run, and which share of it the blow takes: it lands as fast as ever
             val foeLandMs = if (ui.foeCastLands && a != Anim.HERO_HIT && a != Anim.MISS && a != Anim.HERO_FAINT) REACT_MS else foeLandMs(battle, ui.attackVariant, a)
             val blowShare = ((foeTiming(battle, ui.attackVariant)?.blowMs ?: BLOW_MS).toFloat() / foeLandMs).coerceIn(0.05f, 1f)
@@ -945,7 +946,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             if (packDef != null) for (i in 0 until mateCount) {
                 val acting = a == Anim.PACK_ACT && step?.packActor == i
                 // the mate's own hit or miss right after its attack: the strike and the way back
-                val landing = (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && step?.packActor == i && moving
+                val landing = (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && step?.packActor == i && !step.isTick() && moving
                 val mateIn = when { acting -> leap; landing -> 1f - leap; else -> 0f }
                 val mateLook = MonsterLook(battle.look.seed + 101 * (i + 1))
                 val mateNew = MonsterArt.isNewStyle(packDef.mate)
@@ -1468,9 +1469,12 @@ private val REACT_MS: Int get() = BattlePace.ms(750)
 /** A blow that strikes home halts for a moment as it lands, giving it weight. */
 private val HIT_STOP_MS: Long get() = BattlePace.ms(70L)
 
+/** Poison, burning or bleeding eating at someone at the start of a turn: a hurt, but nobody's blow. */
+private fun Step?.isTick() = this?.fx?.kind in setOf(de.bornim.core.FxKind.POISON, de.bornim.core.FxKind.BURN, de.bornim.core.FxKind.BLEED)
+
 /** When a new-style foe's blow on the hero lands, into the message ([step] the hit); null for a miss, a shot, a spell, a pack. */
 private fun foeBlowLands(battle: Battle, variant: Int, step: Step): Long? {
-    if (step.anim != Anim.HERO_HIT || step.fx?.onHero != true || (step.packActor ?: -1) >= 0) return null
+    if (step.anim != Anim.HERO_HIT || step.fx?.onHero != true || step.isTick() || (step.packActor ?: -1) >= 0) return null
     val id = battle.monster.id
     if (MonsterArt.isDoll(id) && !de.bornim.core.art.FoeArt.lunges(id, battle.look, variant)) return null
     return foeTiming(battle, variant)?.blowMs?.toLong()
