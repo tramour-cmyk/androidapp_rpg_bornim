@@ -74,6 +74,27 @@ object MapFolk {
         }
     }
 
+    /** How near (in tiles each way) the hero must be for the folk to look at it. */
+    const val WATCH_TILES = 4.0
+
+    /** After the hero has stood this long on one spot, the folk lose interest and go back to what they did (20:56). */
+    const val BORED_MS = 20_000L
+
+    /** Whether one of the folk looks at a hero [dx], [dy] tiles away who has stood still for [stillMs]. */
+    fun watches(dx: Double, dy: Double, stillMs: Long): Boolean =
+        kotlin.math.abs(dx) <= WATCH_TILES && kotlin.math.abs(dy) <= WATCH_TILES && (dx != 0.0 || dy != 0.0) && stillMs < BORED_MS
+
+    /** How long the hero has stood on one spot: [forMs] restarts whenever the position changes. */
+    class Stillness {
+        private var x = Int.MIN_VALUE
+        private var y = Int.MIN_VALUE
+        private var since = 0L
+        fun forMs(px: Int, py: Int, now: Long): Long {
+            if (px != x || py != y || now < since) { x = px; y = py; since = now }
+            return now - since
+        }
+    }
+
     /** What the folk do at [clockMs]: null while standing still, else the loop, its picture and which way the body turns. */
     class Doing(val idle: Idle, val frame: Int, val slotOffset: Int)
 

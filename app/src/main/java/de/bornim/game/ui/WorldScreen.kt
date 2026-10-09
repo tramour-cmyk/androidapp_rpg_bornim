@@ -558,12 +558,12 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     MapFolk.prepare(f, MapFigure.slot(turn.yaw))
                     val dx = heroX - nx; val dy = heroY - ny
                     // a hero standing still nearby for 20 s is no longer worth watching: back to the fire (20:56)
-                    val near = kotlin.math.abs(dx) <= 4 * T && kotlin.math.abs(dy) <= 4 * T && HeroStill.forMs(heroX, heroY, clock) < 20_000L
+                    val near = MapFolk.watches(dx.toDouble() / T, dy.toDouble() / T, HeroStill.forMs(heroX, heroY, clock))
                     // left alone and standing, they go about their idle loops (Garrick: warming his hands, peering into the woods)
                     val doing = if (near || w != null) null else MapFolk.doing(f, clock)
                     val homeSlot = MapFigure.slot(home)
                     val target = when {
-                        near && (dx != 0 || dy != 0) -> Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))
+                        near -> Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))
                         doing != null -> (homeSlot + doing.slotOffset) * 360.0 / MapFigure.YAWS
                         else -> home
                     }
@@ -681,16 +681,7 @@ private class Sprite(val y: Float, val draw: () -> Unit)
 private object HeroTurn : Turn()
 
 /** How long the hero has stood on the same spot of the map. */
-private object HeroStill {
-    private var x = Int.MIN_VALUE
-    private var y = Int.MIN_VALUE
-    private var since = 0L
-
-    fun forMs(heroX: Int, heroY: Int, now: Long): Long {
-        if (heroX != x || heroY != y || now < since) { x = heroX; y = heroY; since = now }
-        return now - since
-    }
-}
+private val HeroStill = MapFolk.Stillness()
 
 /** How each of the folk drawn as dolls faces, turning smoothly like the hero. */
 private object FolkTurn {

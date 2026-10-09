@@ -63,6 +63,9 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
+- **Garrick Leerlauf unregelmäßig (gemeldet 09.10., 20:53):** Gleichmäßiger Takt wirkt wie ein Roboter. Umgesetzt: Zufall bestimmt je Abschnitt, ob, wann, wie lange, was und wie schnell; Pausen etwa 5 bis 33 s, Handlungen 3½ bis 6½ s (Kerntest `MapFolkTest`).
+- **Garrick verliert das Interesse (Idee 09.10., 20:56, zugestimmt 21:01):** Steht der Held 20 s still in seiner Nähe, dreht er sich zurück zum Feuer und macht weiter; bewegt sich der Held, schaut er wieder. Umgesetzt (Kerntest `MapFolkWatchTest`, Film 21:16: bei 20,0 s dreht er sich zum Feuer).
+- **Filme sparsamer (gemeldet 09.10., 21:04, zugestimmt 21:13):** Filme fraßen viele Ressourcen (36 s Spielzeit ≈ 5 min). Jetzt: nur gespeicherte Bilder zeichnen, `CROP=` Ausschnitt, `FROM=` Vorspulen; Logik per Kerntest. Ein Film der 20-s-Regel dauerte so 28 s. Regel in `CLAUDE.md` aufgenommen.
 - **Garrick Leerlauf unregelmäßig (gemeldet 09.10., 20:53):** Gleichmäßiger Takt wirkt wie ein Roboter. Umgesetzt 20:58: Zufall bestimmt in jedem Abschnitt, ob, wann, wie lange, was und wie schnell; Pausen etwa 5 bis 33 s, Handlungen 3½ bis 6½ s (geprüft mit `MapFolkTest`).
 - **Rückmeldung zu 0.1.347 (09.10., 20:16):** Garrick dreht sich nach dem Gespräch weg zum Feuer, passt; alte Figur ist weg. Erledigt.
 - **Garrick Leerlauf (09.10., 20:45):** eingebaut. In jedem Abschnitt von 11 s steht er 4½ s still, dann wärmt er die Hände am Feuer (zwei von drei Abschnitten) oder dreht sich weg und späht in den Wald (jeder dritte). Nur, solange der Held mehr als 4 Felder entfernt ist. Bemerkt beim Film: Im hohen Gras liegt unter dem Helden ein hellgrünes Rechteck (die alte Gras-Überlagerung für die Füße), passt nicht zum neuen Boden.

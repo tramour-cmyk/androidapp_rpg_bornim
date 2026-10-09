@@ -29,3 +29,20 @@ class MapFolkTest {
         println("pauses ${gaps.min()}..${gaps.max()} ms, loops ${lengths.min()}..${lengths.max()} ms")
     }
 }
+
+class MapFolkWatchTest {
+    /** The folk look at a hero nearby, but not once it has stood still for 20 s; moving wakes their interest again. */
+    @Test
+    fun loseInterestAfterTwentySeconds() {
+        val still = MapFolk.Stillness()
+        assertTrue(MapFolk.watches(-2.0, 0.0, still.forMs(64, 288, 0L)))
+        assertTrue(MapFolk.watches(-2.0, 0.0, still.forMs(64, 288, 19_900L)))
+        assertTrue(!MapFolk.watches(-2.0, 0.0, still.forMs(64, 288, 20_000L)))
+        assertTrue(!MapFolk.watches(-2.0, 0.0, still.forMs(64, 288, 45_000L)))
+        // one step, and he looks again
+        assertTrue(MapFolk.watches(-1.0, 0.0, still.forMs(96, 288, 45_100L)))
+        // too far away, or standing on his own spot
+        assertTrue(!MapFolk.watches(-5.0, 0.0, 0L))
+        assertTrue(!MapFolk.watches(0.0, 0.0, 0L))
+    }
+}
