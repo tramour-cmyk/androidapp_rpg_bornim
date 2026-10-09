@@ -29,7 +29,7 @@ object MapGround {
     const val CH = 4
 
     /** Whether this map has the new ground: the woods, and the cave ([MapCave.ground]). */
-    fun supports(map: MapDef) = map.kind == MapKind.FOREST || map.kind == MapKind.CAVE || (townDraft && map.kind == MapKind.TOWN)
+    fun supports(map: MapDef) = map.kind == MapKind.FOREST || map.kind == MapKind.CAVE || (townDraft && (map.kind == MapKind.TOWN || map.kind == MapKind.INTERIOR))
 
     /** The village in the new style is only a draft (night of 09.10.): on in the previews, off in the game. */
     @Volatile var townDraft = false
@@ -53,7 +53,7 @@ object MapGround {
         Tile.BARREL, Tile.LAMP, Tile.STALL, Tile.WELL, Tile.BENCH, Tile.HAY, Tile.BARRIER, Tile.FENCE, Tile.CROPS, Tile.VEG_BED, Tile.WASHLINE)
 
     /** Whether [tile] on [map] keeps its former picture over the new ground. */
-    fun keepsOldTile(map: MapDef, tile: Tile) = tile !in drawn && (map.kind != MapKind.CAVE || tile !in caveDrawn) &&
+    fun keepsOldTile(map: MapDef, tile: Tile) = map.kind != MapKind.INTERIOR && tile !in drawn && (map.kind != MapKind.CAVE || tile !in caveDrawn) &&
         (map.kind != MapKind.TOWN || tile !in townDrawn)
 
     private val chunks = HashMap<String, PixelImage>()
@@ -296,6 +296,7 @@ object MapGround {
 
     private fun draw(map: MapDef, cx: Int, cy: Int): PixelImage {
         if (map.kind == MapKind.CAVE) return MapCave.ground(map, cx, cy)
+        if (map.kind == MapKind.INTERIOR) return MapRoom.ground(map, cx, cy)
         val size = CH * S
         val ox = cx * size; val oy = cy * size
         val img = PixelImage(size, size)

@@ -835,7 +835,7 @@ object WorldArt {
         // the woods have new, finer trees, rocks and stones, and undergrowth
         val fine = MapGround.supports(map)
         val cave = map.kind == MapKind.CAVE
-        if (fine && !cave) out += MapFlora.undergrowth(map)
+        if (fine && !cave && map.kind != MapKind.INTERIOR) out += MapFlora.undergrowth(map)
         for (ty in 0 until map.height) for (tx in 0 until map.width) {
             val open = map.chestAt(tx, ty)?.id in state.openedChests
             val flora = when {
@@ -843,6 +843,7 @@ object WorldArt {
                 cave -> MapCave.objects(map, tx, ty, frame, open, state.has(Story.GATE_OPEN))
                 // the village in the new style (draft): houses and things, else the trees of the woods
                 map.kind == MapKind.TOWN -> MapTown.objects(map, tx, ty) ?: MapFlora.objects(map, tx, ty, frame, open)
+                map.kind == MapKind.INTERIOR -> MapRoom.objects(map, tx, ty)
                 else -> MapFlora.objects(map, tx, ty, frame, open)
             }
             if (flora != null) { out += flora; continue }

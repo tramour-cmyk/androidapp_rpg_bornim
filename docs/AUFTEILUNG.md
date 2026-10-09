@@ -56,3 +56,7 @@ Ziel: Die Blutzahnhöhle (`Story.cave` in `core/.../Story.kt`, `MapKind.CAVE`) s
 ## Einstieg für den Zweitaccount (zum Einfügen in die neue Sitzung)
 
 > Arbeite am Repo `tramour-cmyk/androidapp_rpg_bornim`. Lies `CLAUDE.md`, dann `docs/AUFTEILUNG.md`, dann `docs/OFFEN.md`. Du bist Account B: Lege vom Zweig `karte-neuer-stil` den Zweig `karte-hoehle` an und übernimm die dort beschriebene Aufgabe „Höhle im neuen Stil“. Fang mit dem Entwurf an und zeig ihn mir, bevor du etwas einbaust.
+
+## Nachtrag 09.10., 23:48: Dorf und Innenräume
+
+Auf Wunsch des Nutzers (23:29/23:30) hat Account A in der Nacht **Entwürfe** für das Dorf und die Innenräume im neuen Stil gemacht (`core/.../art/MapTown.kt`, `MapRoom.kt`, Bodenteile in `MapGround.kt`; nur in der Vorschau mit `TOWNDRAFT=1`, im Spiel aus). Laut Tabelle oben war das Dorf Aufgabe von Account B. **Account B: bitte nicht parallel am Dorf anfangen**, bis der Nutzer entschieden hat, wer weitermacht.
