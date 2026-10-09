@@ -101,3 +101,5 @@ Dorran wohnt heute nur hinter einer verschlossenen Tür („Er ist wohl in seine
 
 - **Rechtliches:** Vor einer Veröffentlichung im Play Store oder einer kommerziellen Nutzung eine kurze Prüfung durch einen Anwalt für Marken- und Urheberrecht.
 - **Mehr Abwechslung beim Helden (Rest aus 08.10.):** Ausweichen ist nur ein Hüpfer (zwei Seiten), der Speer hat zwei Stöße, Zauber eine Bewegung je Fokus.
+- **Todesstoß für Fernkampf und Zauber (gewünscht 09.10.):** Der Killerschlag gilt zunächst nur für Nahkampfwaffen. Für Bogen, Armbrust und Zauber soll später auch ein eigener tödlicher Treffer kommen (z. B. Pfeil, der den Gegner umreißt und festnagelt; Feuer, das ihn verzehrt; Kraft, die ihn zerreißt).
+- **Echtes Zerteilen in 3D (Killerschlag, gewählt als späterer Schritt am 09.10.):** Das Körpermodell selbst durchschneiden statt des flachen Bildes; Schnittflächen mit Fleisch und Knochen, beide Hälften fallen räumlich. Dann auch für Tiere. Aufwand grob ein bis zwei Arbeitstage.

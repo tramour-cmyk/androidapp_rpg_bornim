@@ -86,6 +86,12 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             failSaves = de.bornim.core.Battle.foesFailSaves
             vm.toast = if (failSaves) t("Untote vertreiben, Heilige Flamme und Co. gelingen jetzt immer.", "Turn Undead, Sacred Flame and the like now always work.") else t("Rettungswürfe wieder normal.", "Saves back to normal.")
         }
+        var crits by remember { mutableStateOf(de.bornim.core.Battle.heroCritsAlways) }
+        PixelButton(t("Held trifft immer kritisch: ", "Hero always crits: ") + (if (crits) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.Battle.heroCritsAlways = !de.bornim.core.Battle.heroCritsAlways
+            crits = de.bornim.core.Battle.heroCritsAlways
+            vm.toast = if (crits) t("Jeder Waffentreffer ist kritisch: so lässt sich der Killerschlag testen.", "Every weapon hit is critical: to test the killing blow.") else t("Kritische Treffer wieder normal.", "Critical hits back to normal.")
+        }
         var near by remember { mutableStateOf(MapZoom.near) }
         PixelButton(t("Kartenzoom: ", "Map zoom: ") + (if (near) t("nah", "near") else t("weit (bisher)", "far (former)")), Modifier.fillMaxWidth(), size = 14.sp) {
             MapZoom.near = !MapZoom.near

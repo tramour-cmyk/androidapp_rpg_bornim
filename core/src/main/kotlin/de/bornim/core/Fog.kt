@@ -11,6 +11,9 @@ private val opaque = setOf(
     Tile.TREE, Tile.ROCK, Tile.WALL, Tile.CAVE_WALL, Tile.ROOF, Tile.ROOF_BLUE, Tile.WINDOW, Tile.TORCH, Tile.SHELF, Tile.CRYSTAL,
 )
 
+/** The rock of a cave (see [Sight.fog]). */
+private val caveRock = setOf(Tile.CAVE_WALL, Tile.CRYSTAL, Tile.TORCH)
+
 /**
  * Sight of the hero: a cone of 160° in the walking direction plus a small circle around, blocked by
  * trees, rocks and walls. Everything ever seen stays explored (and is saved); only what is in sight
@@ -24,6 +27,21 @@ class Sight(private val state: GameState) {
     fun fog(map: MapDef, x: Int, y: Int, night: Boolean): Fog {
         if (!map.inside(x, y)) return Fog.HIDDEN
         update(map, night)
+        val own = raw(map, x, y)
+        // in a cave the sight stops at the first rock: the rock behind it would stay black for good. Rock
+        // counts as known as well as the nearest floor within two tiles, so a room shows with its walls.
+        if (map.kind != MapKind.CAVE || map.tile(x, y) !in caveRock) return own
+        var best = own
+        for (dy in -2..2) for (dx in -2..2) {
+            val nx = x + dx; val ny = y + dy
+            if (!map.inside(nx, ny) || map.tile(nx, ny) in caveRock) continue
+            val f = raw(map, nx, ny)
+            if (f.ordinal > best.ordinal) best = f
+        }
+        return best
+    }
+
+    private fun raw(map: MapDef, x: Int, y: Int): Fog {
         val i = y * map.width + x
         return when {
             visible[i] -> Fog.VISIBLE

@@ -282,7 +282,7 @@ class Battle(
         }
         if (Status.BLIND in heroStatus) mode -= 1
         val roll = heroD20(mode.coerceIn(-1, 1))
-        val crit = roll >= hero.critFrom
+        val crit = roll >= hero.critFrom || (heroCritsAlways && roll != 1)
         val total = roll + hero.attackBonus(w) + blessBonus() + fedBonus() - attackPenalty(onHero = true)
         if (roll == 1 || (!crit && total < enemyAc)) {
             say(Msg.miss(lang), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false, past = if (w?.def?.ranged == true) FxKind.ARROW else null))
@@ -997,6 +997,9 @@ class Battle(
 
         /** Test mode only: foes fail every saving throw against the hero's spells (Turn Undead, Sacred Flame and the like). */
         @Volatile var foesFailSaves = false
+
+        /** Test mode only: every weapon blow of the hero that hits is critical (to see the killing blow). */
+        @Volatile var heroCritsAlways = false
 
         /** The steps that start an action whose end is told by a later step. */
         val OPENERS = setOf(Anim.HERO_ACT, Anim.ENEMY_ACT, Anim.PACK_ACT, Anim.SPELL, Anim.THROW, Anim.DRINK)

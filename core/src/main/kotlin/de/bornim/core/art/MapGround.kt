@@ -28,13 +28,16 @@ object MapGround {
     /** Tiles per chunk side. */
     const val CH = 4
 
-    /** Whether this map has the new ground. */
-    fun supports(map: MapDef) = map.kind == MapKind.FOREST
+    /** Whether this map has the new ground: the woods, and the cave ([MapCave.ground]). */
+    fun supports(map: MapDef) = map.kind == MapKind.FOREST || map.kind == MapKind.CAVE
 
     /** Tiles drawn by this ground; anything else keeps its old picture on top. */
     private val drawn = setOf(
         Tile.GRASS, Tile.TALL_GRASS, Tile.FLOWERS, Tile.PATH, Tile.TREE, Tile.WATER,
         Tile.ROCK, Tile.LOG, Tile.MENHIR, Tile.SIGN, Tile.CHEST, Tile.CAMPFIRE,
+        // the cave
+        Tile.CAVE_WALL, Tile.CAVE_FLOOR, Tile.CAVE_EXIT, Tile.RUBBLE, Tile.BONES, Tile.GLOWSHROOM, Tile.CRYSTAL,
+        Tile.STALAGMITE, Tile.CRATE, Tile.BEDROLL, Tile.SUPPORT, Tile.SKYLIGHT, Tile.TORCH, Tile.GATE,
     )
 
     fun keepsOldTile(tile: Tile) = tile !in drawn
@@ -245,6 +248,7 @@ object MapGround {
     // ------------------------------------------------------------------ drawing a chunk
 
     private fun draw(map: MapDef, cx: Int, cy: Int): PixelImage {
+        if (map.kind == MapKind.CAVE) return MapCave.ground(map, cx, cy)
         val size = CH * S
         val ox = cx * size; val oy = cy * size
         val img = PixelImage(size, size)
