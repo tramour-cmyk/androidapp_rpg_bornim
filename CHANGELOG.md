@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.317 – 09.10.2026, 16:23
+
 **Neu – Killerschlag**
 - Tötet ein kritischer Treffer mit einer Nahkampfwaffe den Gegner, schlägt der Held einen besonderen Schlag: Überkopfhieb, Durchbohren (bei Axt, Streitkolben und Hammer stattdessen ein Aufwärtshieb) oder Drehhieb, zufällig. Mit dem Speer Aufspießen oder Überkopfstoß, mit dem Stab Überkopfhieb oder Durchstoßen. Der Schlag hält beim Aufprall länger inne (etwa eine Drittelsekunde), das Bild bebt stärker.
 - Mehr Wucht (gemeldet 09.10.: „wenig Animation drin“; Vorschläge 1–4 von dir gewählt): Der Held holt aus und verharrt kurz oben, dann kommt der Schlag schneller als jeder andere; danach läuft alles in Zeitlupe weiter (der Held kommt langsam aus dem Schlag, Blut und Teile fliegen anfangs halb so schnell); das Bild zoomt auf Held und Gegner heran und nach dem Fall wieder zurück; die Klinge zieht eine dunkelrote Spur im Bogen durch den Gegner, die rasch verblasst.

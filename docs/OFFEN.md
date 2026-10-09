@@ -59,11 +59,10 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 ## In Arbeit
 
 
-- **Killerschlag:** fertig und bestätigt; Übernahme auf `main` nach deiner Freigabe.
 
 ## Zu testen
 
-**Killerschlag (Zweig `claude/status-next-steps-pqvzz8`, PR #6, zuletzt Zweig-Build 0.1.309):** vollständig von dir bestätigt (09.10.): Überkopfhieb, Durchbohren und Drehhieb mit Halt, Zoom, Zeitlupe und Spur; Blutstufen Aus, Dezent und Deutlich; Tiere mit klaffender Wunde; Gallerte platzt; Skelett zerspringt, Knochen passen. Wartet nur noch auf deine Freigabe für `main`.
+**Version v0.1.317** (veröffentlicht 09.10., 16:23): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.317/bornim.apk). Killerschlag, vollständig von dir bestätigt (09.10.).
 
 **Version v0.1.279** (veröffentlicht 09.10., 11:16): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.279/bornim.apk). Vollständig von dir bestätigt (09.10.), zuletzt Tatendrang einmal pro Rast („funktioniert“).
 
