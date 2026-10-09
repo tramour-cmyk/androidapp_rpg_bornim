@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 13:18 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 13:23 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -25,6 +25,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 **Projekt:** „Chroniken von Bornim“, Rollenspiel für Android (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `core` (Spielregeln, Kampf, Karten, Zeichnung der Figuren und Gegner), `app` (Oberfläche), `tools/preview` (Vorschau- und Testwerkzeug am Rechner). Aktueller Stand: v0.1.279 auf `main`, von dir vollständig getestet; nichts in Arbeit. Alle 18 Gegner sind im neuen Stil (auf dem Puppenkörper `FoeArt`, als Tiere `BeastArt`, als Ungeziefer `VerminArt`/`Vermin.kt`).
 
 **Feste Regeln im Umgang mit dir:**
+- Frage 13:19: weniger Rückfragen zur Freigabe von Aktionen. Das steuert der Freigabe-Modus im Eingabefeld der App (Manuell/Automatisch), nicht der Code.
 - Seit 09.10. (13:03): Zu jedem Test-Build die APK zusätzlich direkt im Chat als Datei schicken (die Chat-Sitzung kann Artefakte jetzt herunterladen), dazu der Artefakt-Link.
 - Antworten auf Deutsch, Zeiten in Berliner Zeit.
 - Vor jeder Antwort ein Zeitstempel „[TT.MM., HH:MM]“, immer von der Systemuhr abgelesen (`TZ=Europe/Berlin date`), nie geschätzt. Stempel und Korrekturen stehen in der Antwort am Ende, nicht in Zwischenmeldungen (die siehst du nicht).
@@ -87,7 +88,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
-**Zweig-Build 0.1.290** (Zweig `karte-neuer-stil`: naher Zoom, gemächlicheres Tempo, neuer Boden mit breitem Karrenweg, neue Bäume, Felsen und Unterholz im Wald; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37920079383/artifacts/11611432609)). Enthält auch den Stand von main v0.1.279 (von der anderen Sitzung hereingeführt). Grafik vorgezogen auf deinen Wunsch (11:49). Worauf achten:
+**Zweig-Build 0.1.295** (Zweig `karte-neuer-stil`: naher Zoom, gemächlicheres Tempo, neuer Boden mit breitem Karrenweg, neue Bäume, Felsen und Unterholz im Wald; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37922931733/artifacts/11612782929)); dazu Wege als zusammenhängendes Netz. Enthält auch den Stand von main v0.1.279 (von der anderen Sitzung hereingeführt). Grafik vorgezogen auf deinen Wunsch (11:49). Worauf achten:
 - **Neuer Boden im Flüsterwald und Tiefen Wald:** kein Raster, geschwungener Weg mit Fahrspuren, hohes Gras mit Halmen, Weiher. Gefällt die Richtung? Zu dunkel, zu matschig, zu gleichförmig? Kommen beim Betreten kurz die alten Kacheln, bevor der neue Boden erscheint, und stört das? Ruckelt etwas?
 - **Neu: Bäume, Felsen, Unterholz im Wald** (Eichen, Fichten, tote Bäume, Felsgruppen, Stämme, Steinkreis, Büsche, Farne, Schatten nach der Sonne). Wirken sie stimmig neben dem Boden? Verdecken Kronen zu viel vom Weg oder vom Helden? Noch alt: Schild, Truhe, Feuer und Figuren.
 - **Weg (gemeldet 12:02: zu klein und mickrig):** jetzt ein breiter Karrenweg, etwa eine Kachel breit, mit Trampelrand, hellerer Mitte, tiefen Fahrspuren, Pfützen und Steinen; läuft an den Enden aus. Passt das so?
