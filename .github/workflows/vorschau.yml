@@ -26,7 +26,6 @@ concurrency:
 
 jobs:
   render:
-    if: hashFiles('tools/preview/vorschau.env') != ''
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
@@ -37,24 +36,30 @@ jobs:
         run: |
           set -e
           f=nachher/tools/preview/vorschau.env
+          if [ ! -f "$f" ]; then echo "skip=true" >> "$GITHUB_OUTPUT"; echo "no vorschau.env, nothing to render"; exit 0; fi
           ref=$(grep -E '^VERGLEICH=' "$f" | cut -d= -f2- || true)
           echo "ref=${ref:-main}" >> "$GITHUB_OUTPUT"
           grep -vE '^(#|VERGLEICH=|\s*$)' "$f" > switches.env
           cat switches.env
       - uses: actions/checkout@v5
+        if: steps.env.outputs.skip != 'true'
         with:
           ref: ${{ steps.env.outputs.ref }}
           path: vorher
       - uses: actions/setup-java@v5
+        if: steps.env.outputs.skip != 'true'
         with:
           distribution: temurin
           # the preview needs 21; core targets 17 and builds with it as well
           java-version: 21
       - uses: gradle/actions/setup-gradle@v4
+        if: steps.env.outputs.skip != 'true'
       - name: Test game logic
+        if: steps.env.outputs.skip != 'true'
         working-directory: nachher
         run: ./gradlew -p core test
       - name: Render
+        if: steps.env.outputs.skip != 'true'
         run: |
           set -e
           set -a; . ./switches.env; set +a
@@ -62,14 +67,17 @@ jobs:
             (cd $side/tools/preview && ../../gradlew -q run -Djava.awt.headless=true)
           done
       - name: Compare
+        if: steps.env.outputs.skip != 'true'
         run: |
           pip install --quiet pillow
           python3 nachher/tools/preview/vergleich.py vorher/tools/preview/build/screens nachher/tools/preview/build/screens out "${GITHUB_REF_NAME}" "${{ steps.env.outputs.ref }}"
       - uses: actions/upload-artifact@v4
+        if: steps.env.outputs.skip != 'true'
         with:
           name: vorschau
           path: out
       - name: Publish to branch vorschau-bilder
+        if: steps.env.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
