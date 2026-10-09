@@ -22,6 +22,8 @@ Ist ein Punkt erledigt, wandert er in die Änderungshistorie. Wird eine Idee ver
 
 Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im Hauptordner fasst die Regeln kurz zusammen und wird zu Beginn jeder Sitzung automatisch gelesen. Wer hier weitermacht, liest zuerst diese Notiz, dann den Rest dieser Liste, die [Stil-Leitlinien](STIL.md) und den Anfang der [Änderungshistorie](../CHANGELOG.md).
 
+**Zwei Accounts (ab 09.10., 18:50):** Die Arbeit an der Karte ist aufgeteilt: Account A macht Leute und Monster auf `karte-neuer-stil`, Account B die Höhle auf `karte-hoehle`. Wer was macht und wie man sich abstimmt: [Aufteilung](AUFTEILUNG.md).
+
 **Projekt:** „Chroniken von Bornim“, Rollenspiel für Android (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `core` (Spielregeln, Kampf, Karten, Zeichnung der Figuren und Gegner), `app` (Oberfläche), `tools/preview` (Vorschau- und Testwerkzeug am Rechner). Aktueller Stand: v0.1.279 auf `main`, von dir vollständig getestet; nichts in Arbeit. Alle 18 Gegner sind im neuen Stil (auf dem Puppenkörper `FoeArt`, als Tiere `BeastArt`, als Ungeziefer `VerminArt`/`Vermin.kt`).
 
 **Feste Regeln im Umgang mit dir:**
