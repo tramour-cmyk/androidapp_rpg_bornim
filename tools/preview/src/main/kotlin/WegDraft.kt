@@ -45,6 +45,16 @@ private fun hash(x: Int, y: Int, s: Int): Int {
 
 private fun rnd(x: Int, y: Int, s: Int) = (hash(x, y, s) % 10000) / 10000.0
 
+/** Smooth value noise, about one bump per [size] pixels. */
+private fun smoothNoise(x: Int, y: Int, size: Double, s: Int): Double {
+    val fx = x / size; val fy = y / size
+    val ix = kotlin.math.floor(fx).toInt(); val iy = kotlin.math.floor(fy).toInt()
+    val u = (fx - ix).let { it * it * (3 - 2 * it) }; val v = (fy - iy).let { it * it * (3 - 2 * it) }
+    val a = rnd(ix, iy, s) * (1 - u) + rnd(ix + 1, iy, s) * u
+    val b = rnd(ix, iy + 1, s) * (1 - u) + rnd(ix + 1, iy + 1, s) * u
+    return a * (1 - v) + b * v
+}
+
 private fun toImage(p: PixelImage): BufferedImage {
     val out = BufferedImage(p.width, p.height, BufferedImage.TYPE_INT_ARGB)
     for (y in 0 until p.height) for (x in 0 until p.width) out.setRGB(x, y, p[x, y])
@@ -70,7 +80,7 @@ private fun fireLight(img: BufferedImage, cx: Double, cy: Double, reach: Double,
         val dx = (x - cx) / reach; val dy = (y - cy) / (reach * 0.55)
         val d2 = dx * dx + dy * dy
         if (d2 > 4) continue
-        val k = power * exp(-d2 * 1.6) * (1 + 0.06 * sin(flicker + x * 0.05))
+        val k = power * exp(-d2 * 1.6)
         val c = img.getRGB(x, y)
         fun m(v: Int, tint: Double) = (v + (255 - v) * k * 0.35 * tint + v * k * 0.9 * tint).toInt().coerceIn(0, 255)
         img.setRGB(x, y, (0xFF shl 24) or (m(ch(c, 16), 1.0) shl 16) or (m(ch(c, 8), 0.62) shl 8) or m(ch(c, 0), 0.28))
@@ -160,6 +170,19 @@ private fun Graphics2D.plate(text: String, x: Int, y: Int, font: Font, center: B
     drawString(text, left + 12, y + 5 + fm.ascent)
 }
 
+/** An arrow pointing into the picture along the path, with the place it leads to. */
+private fun Graphics2D.ahead(x: Int, y: Int, label: String) {
+    stroke = BasicStroke(3.5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
+    color = Color(232, 222, 200, 220)
+    for (i in 0..1) { val oy = y + i * 12; drawPolyline(intArrayOf(x - 13, x, x + 13), intArrayOf(oy + 8, oy - 4, oy + 8), 3) }
+    plate(label, x, y + 28, sans, center = true, alpha = 150)
+}
+
+/** The way back, at the bottom edge. */
+private fun Graphics2D.back(x: Int, y: Int, label: String) {
+    plate("zurück: $label", x, y, sans, center = true, alpha = 150)
+}
+
 private fun Graphics2D.chevron(x: Int, y: Int, left: Boolean, label: String) {
     font = sans
     val fm = fontMetrics
@@ -179,7 +202,7 @@ private fun Graphics2D.chevron(x: Int, y: Int, left: Boolean, label: String) {
 }
 
 /** Scene B: one place in side view, as the phone would show it. */
-private fun sideScene(spot: BattleScene.Spot, light: BattleScene.Light, fire: Boolean, title: String, left: String, right: String, buttons: List<String>, seed: Int): BufferedImage {
+private fun sideScene(spot: BattleScene.Spot, light: BattleScene.Light, fire: Boolean, title: String, back: String, ahead: String, buttons: List<String>, seed: Int, branch: String? = null, aheadX: Double = 0.58): BufferedImage {
     val scene = toImage(BattleScene.forest(SW, SH, spot, light, false, seed))
     val night = light == BattleScene.Light.NIGHT
     val dusk = light == BattleScene.Light.DUSK
@@ -191,7 +214,7 @@ private fun sideScene(spot: BattleScene.Spot, light: BattleScene.Light, fire: Bo
         campfire(scene, fx, fy, night)
         val garrick = GameState.newGame("Garrick", Race.HUMAN, CharClass.ROGUE).hero
         val g = HeroFigure.frame(garrick, HeroFigure.Act.IDLE, 2).mirrored()
-        paste(scene, g, (SW * 0.86 - (g.width - HeroFigure.ANCHOR_X)).toInt(), (SH * 0.93 - HeroFigure.GROUND).toInt())
+        paste(scene, g, (SW * 0.80 - (g.width - HeroFigure.ANCHOR_X)).toInt(), (SH * 0.93 - HeroFigure.GROUND).toInt())
     }
     val h = HeroFigure.frame(hero, HeroFigure.Act.IDLE, 3)
     paste(scene, h, (SW * (if (fire) 0.17 else 0.42) - HeroFigure.ANCHOR_X).toInt(), (SH * 0.985 - HeroFigure.GROUND).toInt())
@@ -200,8 +223,9 @@ private fun sideScene(spot: BattleScene.Spot, light: BattleScene.Light, fire: Bo
     val big = scaled(scene, K)
     val g = big.createGraphics(); g.smooth()
     g.plate(title, big.width / 2, 18, serif, center = true)
-    g.chevron(26, (big.height * 0.55).toInt(), true, left)
-    g.chevron(big.width - 26, (big.height * 0.55).toInt(), false, right)
+    g.ahead((big.width * aheadX).toInt(), (big.height * 0.43).toInt(), ahead)
+    g.back(big.width / 2, big.height - 122, back)
+    branch?.let { g.chevron(big.width - 26, (big.height * 0.6).toInt(), false, it) }
     var bx = 18
     for (b in buttons) {
         g.font = sans
@@ -230,7 +254,7 @@ private fun travelMap(cell: Int, heroX: Int, heroY: Int, explored: Boolean): Buf
     val img = BufferedImage(w, h, BufferedImage.TYPE_INT_RGB)
     // parchment: warm, blotchy, darker at the edges, a few stains
     for (y in 0 until h) for (x in 0 until w) {
-        val n = (rnd(x / 6, y / 6, 1) * 0.5 + rnd(x / 23, y / 23, 2) * 0.35 + rnd(x, y, 3) * 0.15)
+        val n = smoothNoise(x, y, 9.0, 1) * 0.45 + smoothNoise(x, y, 41.0, 2) * 0.4 + rnd(x, y, 3) * 0.15
         val ex = (x - w / 2.0) / (w / 2.0); val ey = (y - h / 2.0) / (h / 2.0)
         val edge = (ex * ex + ey * ey).coerceIn(0.0, 1.6)
         val k = 1 - 0.1 * n - 0.32 * edge * edge
@@ -269,25 +293,54 @@ private fun travelMap(cell: Int, heroX: Int, heroY: Int, explored: Boolean): Buf
         if (t(x + 1, y) != Tile.WATER) g.draw(java.awt.geom.Line2D.Double(r + wob(7), tp, r + wob(8), b))
     }
 
-    // the path: a trodden band with a dotted middle
+    // the path: one point per row in the middle of the trodden strip, joined into smooth curves;
+    // long runs across a row are a side way of their own
     fun isPath(x: Int, y: Int) = t(x, y) == Tile.PATH || t(x, y) == Tile.CAVE_ENTRANCE
-    val links = mutableListOf<Pair<Pair<Int, Int>, Pair<Int, Int>>>()
-    for (y in 0 until mh) for (x in 0 until mw) if (isPath(x, y)) {
-        for ((dx, dy) in listOf(1 to 0, 0 to 1, 1 to 1, -1 to 1)) if (isPath(x + dx, y + dy)) {
-            // a diagonal only where the corner is not already joined straight
-            if (dx != 0 && dy != 0 && (isPath(x + dx, y) || isPath(x, y + dy))) continue
-            links += (x to y) to (x + dx to y + dy)
+    val chains = mutableListOf<MutableList<Pair<Double, Double>>>()
+    var open = mutableListOf<Pair<MutableList<Pair<Double, Double>>, IntRange>>()
+    for (y in 0 until mh) {
+        val runs = mutableListOf<IntRange>()
+        var x = 0
+        while (x < mw) { if (isPath(x, y)) { val a = x; while (x < mw && isPath(x, y)) x++; runs += a until x } else x++ }
+        val next = mutableListOf<Pair<MutableList<Pair<Double, Double>>, IntRange>>()
+        for (r in runs) {
+            if (r.count() >= 4) {
+                // a way off to the side: from its inner end to the map edge (and beyond)
+                val ends = if (r.last == mw - 1) mw + 1 else r.last
+                chains += mutableListOf(cx(r.first) to cy(y), cx(ends) to cy(y))
+                continue
+            }
+            val mid = (cx(r.first) + cx(r.last)) / 2 to cy(y)
+            val prev = open.firstOrNull { (_, pr) -> r.first <= pr.last + 1 && r.last >= pr.first - 1 }
+            val chain = prev?.first ?: mutableListOf<Pair<Double, Double>>().also { chains += it }
+            chain += mid
+            next += chain to r
         }
-        // off the map: to the village and the deep forest
-        if (y == mh - 1) links += (x to y) to (x to y + 1)
-        if (x == mw - 1) links += (x to y) to (x + 1 to y)
+        open = next
     }
-    g.stroke = BasicStroke(cell * 0.62f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
-    g.color = Color(150, 112, 70, 70)
-    for ((a, b) in links) if (seen(a.first, a.second)) g.draw(java.awt.geom.Line2D.Double(cx(a.first), cy(a.second), cx(b.first), cy(b.second)))
-    g.stroke = BasicStroke(1.6f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1f, floatArrayOf(5f, 5f), 0f)
-    g.color = SEPIA
-    for ((a, b) in links) if (seen(a.first, a.second)) g.draw(java.awt.geom.Line2D.Double(cx(a.first), cy(a.second), cx(b.first), cy(b.second)))
+    // the way goes on off the map at the bottom (to Bornim)
+    for (c in chains) if (c.last().second >= cy(mh - 1)) c += c.last().first to cy(mh) + cell
+    fun curve(c: List<Pair<Double, Double>>): Path2D.Double {
+        val p = Path2D.Double()
+        p.moveTo(c[0].first, c[0].second)
+        for (i in 0 until c.size - 1) {
+            val p0 = c[maxOf(i - 1, 0)]; val p1 = c[i]; val p2 = c[i + 1]; val p3 = c[minOf(i + 2, c.size - 1)]
+            p.curveTo(p1.first + (p2.first - p0.first) / 6, p1.second + (p2.second - p0.second) / 6,
+                p2.first - (p3.first - p1.first) / 6, p2.second - (p3.second - p1.second) / 6, p2.first, p2.second)
+        }
+        return p
+    }
+    // average a little, so a staircase of tiles becomes a gentle bend
+    val smoothChains = chains.filter { it.size >= 2 }.map { c ->
+        if (c.size < 4) c else c.indices.map { i -> val a = c[maxOf(i - 1, 0)]; val b = c[minOf(i + 1, c.size - 1)]; (a.first + c[i].first * 2 + b.first) / 4 to c[i].second }
+    }
+    for (c in smoothChains) {
+        fun seenAt(q: Pair<Double, Double>) = seen(((q.first - pad) / cell).toInt().coerceIn(0, mw - 1), ((q.second - pad - cell * 2) / cell).toInt().coerceIn(0, mh - 1))
+        if (c.none { seenAt(it) }) continue
+        val p = curve(c)
+        g.stroke = BasicStroke(cell * 0.7f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND); g.color = Color(150, 112, 70, 60); g.draw(p)
+        g.stroke = BasicStroke(1.7f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1f, floatArrayOf(6f, 5f), 0f); g.color = SEPIA; g.draw(p)
+    }
 
     // tall grass: little strokes; flowers: dots
     g.stroke = BasicStroke(1.1f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
@@ -351,9 +404,16 @@ private fun travelMap(cell: Int, heroX: Int, heroY: Int, explored: Boolean): Buf
     }
 
     // the fog of the unexplored: a faint wash, ragged edge
-    if (explored) for (y in 0 until mh) for (x in 0 until mw) if (!seen(x, y)) {
-        g.color = Color(196, 176, 136, 200)
-        g.fillRect((cx(x) - cell / 2).toInt(), (cy(y) - cell / 2).toInt(), cell + 1, cell + 1)
+    if (explored) {
+        // soft, cloudy patches over everything not yet seen, thicker the deeper into the unknown
+        for (y in 0 until mh) for (x in 0 until mw) if (!seen(x, y)) {
+            val r = cell * (1.05 + rnd(x, y, 11) * 0.5)
+            val px = cx(x) + (rnd(x, y, 12) - 0.5) * cell * 0.6; val py = cy(y) + (rnd(x, y, 13) - 0.5) * cell * 0.6
+            g.paint = java.awt.RadialGradientPaint(px.toFloat(), py.toFloat(), r.toFloat(), floatArrayOf(0f, 0.55f, 1f),
+                arrayOf(Color(206, 186, 146, 235), Color(206, 186, 146, 170), Color(206, 186, 146, 0)))
+            g.fill(java.awt.geom.Ellipse2D.Double(px - r, py - r, r * 2, r * 2))
+        }
+        g.paint = null
     }
 
     // places: the fire, the cave mouth, chests; labels in a hand
@@ -381,7 +441,7 @@ private fun travelMap(cell: Int, heroX: Int, heroY: Int, explored: Boolean): Buf
         // the cave: a dark arch in the rock line at the top
         val px = cx(10); val py = cy(0) + cell * 0.2
         g.color = Color(40, 30, 24); g.fill(java.awt.geom.Arc2D.Double(px - 14, py - 14, 28.0, 28.0, 0.0, 180.0, java.awt.geom.Arc2D.CHORD))
-        label("Blutzahn-Höhle", px, py - 22)
+        label("Blutzahn-Höhle", px + cell * 3.6, py + 4)
     }
     label("Garricks Feuer", cx(11), cy(9) + cell * 1.4)
     label("Weiher", cx(3), cy(14) + 6)
@@ -400,7 +460,7 @@ private fun travelMap(cell: Int, heroX: Int, heroY: Int, explored: Boolean): Buf
     // title and frame
     g.font = serif.deriveFont(Font.BOLD, 34f)
     val title = "Flüsterwald"
-    g.color = INK; g.drawString(title, (w - g.fontMetrics.stringWidth(title)) / 2f, pad + cell * 1.2f)
+    g.color = INK; g.drawString(title, (w - g.fontMetrics.stringWidth(title)) / 2f, pad + cell * 0.55f)
     g.stroke = BasicStroke(2.2f); g.drawRect(pad / 2, pad / 2, w - pad, h - pad)
     g.stroke = BasicStroke(1f); g.drawRect(pad / 2 + 5, pad / 2 + 5, w - pad - 10, h - pad - 10)
     // compass rose
@@ -448,17 +508,17 @@ fun renderWayDrafts() {
     val when_ = java.time.ZonedDateTime.now(java.time.ZoneId.of("Europe/Berlin")).format(java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm"))
     val lights = listOf(BattleScene.Light.DAY to "Tag", BattleScene.Light.DUSK to "Dämmerung", BattleScene.Light.NIGHT to "Nacht")
     // B: the clearing with the fire at three times of day, and the forest path
-    val clearing = lights.map { (l, _) -> sideScene(BattleScene.Spot.CLEARING, l, true, "Garricks Feuer", "Waldweg", "Höhle", listOf("Reden", "Rasten"), 21) }
-    ImageIO.write(stamp(row(*clearing.toTypedArray()), "Entwurf B: Seitenansicht wie im Kampf · Lichtung mit Feuer bei Tag, Dämmerung, Nacht · erstellt $when_ (Berliner Zeit)"), "png", File(dir, "weg_b_lichtung.png"))
-    val path = sideScene(BattleScene.Spot.EDGE, BattleScene.Light.DUSK, false, "Flüsterwald · Waldweg", "Bornim", "Lichtung", listOf("Umsehen"), 13)
-    val pond = sideScene(BattleScene.Spot.POND, BattleScene.Light.DUSK, false, "Flüsterwald · Weiher", "Waldweg", "Steinkreis", listOf("Kräuter sammeln"), 17)
-    ImageIO.write(stamp(row(path, clearing[1], pond), "Entwurf B: Szenen hintereinander, man geht seitlich von Ort zu Ort · Dämmerung · erstellt $when_ (Berliner Zeit)"), "png", File(dir, "weg_b_szenen.png"))
+    val clearing = lights.map { (l, _) -> sideScene(BattleScene.Spot.CLEARING, l, true, "Garricks Feuer", "Waldweg", "Blutzahn-Höhle", listOf("Reden", "Rasten"), 21, branch = "Tiefer Wald", aheadX = 0.62) }
+    ImageIO.write(stamp(row(*clearing.toTypedArray()), "Entwurf B: Blick hinter dem Helden wie im Kampf · Lichtung mit Feuer bei Tag, Dämmerung, Nacht · erstellt $when_ (Berliner Zeit)"), "png", File(dir, "weg_b_lichtung.png"))
+    val path = sideScene(BattleScene.Spot.EDGE, BattleScene.Light.DUSK, false, "Flüsterwald · Waldweg", "Bornim", "Garricks Feuer", listOf("Umsehen"), 13, branch = "Weiher", aheadX = 0.6)
+    val pond = sideScene(BattleScene.Spot.POND, BattleScene.Light.DUSK, false, "Flüsterwald · Weiher", "Waldweg", "Steinkreis", listOf("Kräuter sammeln"), 17, aheadX = 0.54)
+    ImageIO.write(stamp(row(path, clearing[1], pond), "Entwurf B: Orte hintereinander am Weg (voraus, zurück, abbiegen) · Waldweg, Lichtung, Weiher in der Dämmerung · erstellt $when_ (Berliner Zeit)"), "png", File(dir, "weg_b_szenen.png"))
     // C: the drawn travel map, fully and as far as explored
-    val full = travelMap(24, 11, 10, false)
-    val part = travelMap(24, 11, 10, true)
+    val full = travelMap(24, 10, 10, false)
+    val part = travelMap(24, 10, 10, true)
     ImageIO.write(stamp(row(full, part), "Entwurf C: gezeichnete Reisekarte des Flüsterwalds aus den Kartendaten · links ganz, rechts so weit erkundet · erstellt $when_ (Berliner Zeit)"), "png", File(dir, "weg_c_karte.png"))
     // D: the map for the way, the scene for the place
-    val small = travelMap(17, 11, 10, true)
-    ImageIO.write(stamp(row(small, clearing[1]), "Entwurf D: Reisekarte für den Weg, Seitenansicht am Ort (Tippen auf „Garricks Feuer“ öffnet die Szene) · erstellt $when_ (Berliner Zeit)"), "png", File(dir, "weg_d_beides.png"))
+    val small = travelMap(17, 10, 10, true)
+    ImageIO.write(stamp(row(small, clearing[1]), "Entwurf D: Reisekarte für den Weg, Ansicht wie im Kampf am Ort (Tippen auf „Garricks Feuer“ öffnet die Szene) · erstellt $when_ (Berliner Zeit)"), "png", File(dir, "weg_d_beides.png"))
     println("wrote way drafts")
 }
