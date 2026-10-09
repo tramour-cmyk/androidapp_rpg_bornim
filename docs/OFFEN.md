@@ -86,7 +86,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
-**Zweig-Build 0.1.289** (Zweig `karte-neuer-stil`: naher Zoom, gemächlicheres Tempo, neuer Boden im Wald mit breitem Karrenweg; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37916429682/artifacts/11610515269)). Enthält auch den Stand von main v0.1.279 (von der anderen Sitzung hereingeführt). Grafik vorgezogen auf deinen Wunsch (11:49). Worauf achten:
+**Zweig-Build 0.1.290** (Zweig `karte-neuer-stil`: naher Zoom, gemächlicheres Tempo, neuer Boden mit breitem Karrenweg, neue Bäume, Felsen und Unterholz im Wald; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37920079383/artifacts/11611432609)). Enthält auch den Stand von main v0.1.279 (von der anderen Sitzung hereingeführt). Grafik vorgezogen auf deinen Wunsch (11:49). Worauf achten:
 - **Neuer Boden im Flüsterwald und Tiefen Wald:** kein Raster, geschwungener Weg mit Fahrspuren, hohes Gras mit Halmen, Weiher. Gefällt die Richtung? Zu dunkel, zu matschig, zu gleichförmig? Kommen beim Betreten kurz die alten Kacheln, bevor der neue Boden erscheint, und stört das? Ruckelt etwas?
 - **Neu: Bäume, Felsen, Unterholz im Wald** (Eichen, Fichten, tote Bäume, Felsgruppen, Stämme, Steinkreis, Büsche, Farne, Schatten nach der Sonne). Wirken sie stimmig neben dem Boden? Verdecken Kronen zu viel vom Weg oder vom Helden? Noch alt: Schild, Truhe, Feuer und Figuren.
 - **Weg (gemeldet 12:02: zu klein und mickrig):** jetzt ein breiter Karrenweg, etwa eine Kachel breit, mit Trampelrand, hellerer Mitte, tiefen Fahrspuren, Pfützen und Steinen; läuft an den Enden aus. Passt das so?
