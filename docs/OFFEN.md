@@ -59,10 +59,10 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - **Treffer ohne Flackern** (gefragt 09.10., Vorschlag 1 + 2 + 3 von dir freigegeben): kein weißes Blinken mehr. Beim Aufprall eines Nahkampfschlags kurzes Innehalten, dann färbt sich der Getroffene kurz dunkelrot. Zu schwach, zu stark, zu lang?
 - Kritische Treffer: kurzes Rütteln des Bildes. Störend oder passend?
 - Zuckt der Getroffene im richtigen Moment, kommen Blut und Geräusch mit dem Aufprall?
-- **Ghul** (gemeldet 08.10.: Klauenangriff nicht zu sehen): Ist der Klauenhieb jetzt zu sehen (einhändig, beidhändig, Sprung)?
+- **Ghul** (gemeldet 08.10.: Klauenangriff nicht zu sehen): Klauenhieb von dir bestätigt (09.10.).
 - **Goblin-Späher und Schamane** (gemeldet 08.10.: Pfeil startet nicht am Bogen): Pfeil vom Bogen, Feuerpfeil und Fluch des Schamanen von dir bestätigt (09.10.).
 - Treffer am Monster: von dir bestätigt (09.10.).
-- **Held zittert bei jedem Treffer (gemeldet 09.10.):** Das war ein altes seitliches Wackeln des Helden bei jedem Treffer, unabhängig vom neuen Rütteln bei kritischen Treffern. Entfernt; kommt mit dem nächsten Build.
+- **Held zittert bei jedem Treffer (gemeldet 09.10.):** Das war ein altes seitliches Wackeln des Helden bei jedem Treffer, unabhängig vom neuen Rütteln bei kritischen Treffern. Entfernt im Zweig-Build 0.1.246 (09.10., 08:43): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37894682693/artifacts/11599822324). Jetzt gilt für Held und Gegner gleich: normaler Treffer = Innehalten (Nahkampf) und dunkelrote Färbung, kritischer Treffer zusätzlich Rütteln des Bildes.
 
 **Folgt im nächsten Build: Tatendrang einmal pro Rast** (deine Entscheidung 09.10., Möglichkeit c): Tatendrang steht nach dem Einsatz erst nach einer Rast am Lagerfeuer oder im Gasthaus wieder bereit (auch ein Stufenaufstieg füllt auf). Im Kampfmenü steht „0/1“, solange er verbraucht ist.
 
