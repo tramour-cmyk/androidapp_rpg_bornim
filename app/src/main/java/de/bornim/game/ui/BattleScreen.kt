@@ -71,7 +71,7 @@ import de.bornim.core.art.HeroFigure
 import de.bornim.core.art.MonsterArt
 import de.bornim.core.art.Pose
 import de.bornim.game.GameViewModel
-import kotlinx.coroutines.delay
+import androidx.compose.runtime.withFrameMillis
 import kotlinx.coroutines.launch
 import kotlin.math.sin
 
@@ -175,7 +175,7 @@ private class BattleUi(val battle: Battle) {
         return list[lastGuard]
     }
     /** Which victory pose this fight ends in. */
-    val victoryPick = kotlin.random.Random.nextInt(8)
+    val victoryPick = BattleClock.random.nextInt(8)
     /** The swing to sound with a blow, after [swingDelay] ms; set when a blow starts. */
     var swingKey by mutableIntStateOf(0)
     var swingDelay = 0L
@@ -205,7 +205,7 @@ private class BattleUi(val battle: Battle) {
         val delayMs = BattlePace.ms(delayMs) + pacedDelay
         val n = HeroBattle.frameCount(battle.hero, act, strike, variant)
         val end = if (to < 0) n - 1 else to.coerceAtMost(n - 1)
-        val now = System.currentTimeMillis()
+        val now = BattleClock.now()
         // out of a held guard the shield or weapon first comes down smoothly to the rest, then the next move begins;
         // being struck breaks the guard faster
         val m = motion
@@ -280,7 +280,7 @@ private class BattleUi(val battle: Battle) {
                         val land = b.start + (HeroBattle.strikeFrame(m.strike) - m.to) * BattlePace.ms(per)
                         stopMs = if (s === killStep) KILL_STOP_MS else HIT_STOP_MS
                         motion = b.halted(land, stopMs)
-                        fxDelay = (land - System.currentTimeMillis()).coerceAtLeast(0L) + stopMs
+                        fxDelay = (land - BattleClock.now()).coerceAtLeast(0L) + stopMs
                         hitStopped = true
                     }
                 }
@@ -398,12 +398,12 @@ private class BattleUi(val battle: Battle) {
     /** One of [n] variants at random, but not [last] again (when there is a choice). */
     fun another(n: Int, last: Int): Int {
         if (n <= 1) return 0
-        val k = kotlin.random.Random.nextInt(n - 1)
+        val k = BattleClock.random.nextInt(n - 1)
         return if (k >= last.mod(n)) k + 1 else k
     }
 
     fun next() {
-        stepAt = System.currentTimeMillis()
+        stepAt = BattleClock.now()
         afterLead = current?.lead == true
         val s = if (queue.isEmpty()) null else queue.removeAt(0)
         current = s
@@ -429,9 +429,9 @@ private class BattleUi(val battle: Battle) {
                 s.anim == Anim.PACK_FLEE -> 0.6
                 else -> 0.0
             }
-            if (howls && !enemyGone && kotlin.random.Random.nextDouble() < chance) {
-                howlStart = System.currentTimeMillis()
-                howlSound = listOf(Sound.HOWL_1, Sound.HOWL_2, Sound.HOWL_3).random()
+            if (howls && !enemyGone && BattleClock.random.nextDouble() < chance) {
+                howlStart = BattleClock.now()
+                howlSound = listOf(Sound.HOWL_1, Sound.HOWL_2, Sound.HOWL_3).random(BattleClock.random)
                 howlKey++
             }
             animKey++
@@ -486,22 +486,22 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // the words) follows by itself as soon as the wind-up is done
             revealed = step.text.length
             val m = ui.motion
-            val wait = if (step.anim in HERO_LEADS && m != null) (m.end - System.currentTimeMillis()).coerceAtLeast(0L)
+            val wait = if (step.anim in HERO_LEADS && m != null) (m.end - BattleClock.now()).coerceAtLeast(0L)
                 else if (step.anim == Anim.ENEMY_ACT) (foeTiming(battle, ui.attackVariant)?.windMs ?: WINDUP_MS).toLong() else WINDUP_MS.toLong()
-            delay(wait + 40L)
-            while (ui.falling) delay(50L)
+            pause(wait + 40L)
+            while (ui.falling) pause(50L)
             if (ui.current === step) goOn()
             return@LaunchedEffect
         }
         // the foe struck dead: it falls and lies there, the hero takes up its victory pose, then the spoils in one field
         if (step.anim == Anim.ENEMY_FAINT) {
             revealed = step.text.length
-            delay(250L)
-            while (ui.falling) delay(50L)
-            delay(if (MonsterArt.isSolid(battle.monster.id)) 250L else 700L)
+            pause(250L)
+            while (ui.falling) pause(50L)
+            pause(if (MonsterArt.isSolid(battle.monster.id)) 250L else 700L)
             ui.victory()
             val m = ui.motion
-            delay(((m?.let { it.end - System.currentTimeMillis() }) ?: 0L).coerceIn(0L, 2500L) + 200L)
+            pause(((m?.let { it.end - BattleClock.now() }) ?: 0L).coerceIn(0L, 2500L) + 200L)
             if (ui.current === step) {
                 ui.openPanels(lang)
                 ui.panels.firstOrNull()?.lines?.let { lines -> vm.play(if (lines.any { (it.rarity ?: de.bornim.core.Rarity.COMMON) >= de.bornim.core.Rarity.EPIC }) Sound.LOOT_EPIC else if (lines.any { it.anim == Anim.LOOT }) Sound.LOOT else Sound.COINS) }
@@ -513,8 +513,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             ui.killWords = step.text
             // the blow or the spell lands, the foe (or the hero) reels; then on into the fall
             val flight = step.fx?.let { if (it.kind in FLYING || it.past in FLYING) BattlePace.ms(260L) else 0L } ?: 0L
-            delay(ui.fxDelay + flight + REACT_MS.toLong() + 150L)
-            while (ui.falling) delay(50L)
+            pause(ui.fxDelay + flight + REACT_MS.toLong() + 150L)
+            while (ui.falling) pause(50L)
             if (ui.current === step) goOn()
             return@LaunchedEffect
         }
@@ -522,25 +522,27 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
         if (step.anim == Anim.HERO_FAINT) {
             // the fall may not have started yet when this step arrives
             var waited = 0L
-            while (ui.motion?.act != HeroFigure.Act.DIE && waited < 1000L) { delay(30L); waited += 30L }
+            while (ui.motion?.act != HeroFigure.Act.DIE && waited < 1000L) { pause(30L); waited += 30L }
             val m = ui.motion
-            delay(((m?.let { it.end - System.currentTimeMillis() }) ?: 0L).coerceIn(0L, 3000L) + 300L)
+            pause(((m?.let { it.end - BattleClock.now() }) ?: 0L).coerceIn(0L, 3000L) + 300L)
         }
         val tempo = vm.battleTempo
         val perChar = when (tempo) { 0 -> 22L; 2 -> 9L; else -> 15L }
         // the words of an action come once it lands: the blow struck, the spell or flask arrived
-        if (ui.afterLead) delay(160L + ui.fxDelay + (step.fx?.let { if (it.kind in FLYING || it.past in FLYING) BattlePace.ms(260L) else 0L } ?: 0L))
+        if (ui.afterLead) pause(160L + ui.fxDelay + (step.fx?.let { if (it.kind in FLYING || it.past in FLYING) BattlePace.ms(260L) else 0L } ?: 0L))
         val shown = words(step)
+        // as many letters as the time allows, whatever the frame rate (a wait is at least one frame)
+        val typing = BattleClock.now()
         while (revealed < shown.length) {
-            delay(perChar)
-            revealed++
+            pause(perChar)
+            revealed = minOf(shown.length, maxOf(revealed + 1, ((BattleClock.now() - typing) / perChar).toInt()))
         }
         // each line waits for a tap, unless the fight is set to go on by itself: then after a pause to read, a tap
         // going on at once. The hero's fall always waits for a tap (the spoils of a won fight wait in their own field).
         if (!vm.battleAuto || step.anim == Anim.HERO_FAINT) return@LaunchedEffect
         val read = when (tempo) { 0 -> 1500L + 28L * step.text.length; 2 -> 500L + 9L * step.text.length; else -> 950L + 18L * step.text.length }
-        delay(read)
-        while (ui.falling) delay(50L)
+        pause(read)
+        while (ui.falling) pause(50L)
         if (ui.current === step) goOn()
     }
 
@@ -555,14 +557,14 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
     // the preview's battle films act straight away, without tapping through the menus
     LaunchedEffect(vm.testAction, ui.current, ui.panels) {
         val a = vm.testAction ?: return@LaunchedEffect
-        if (ui.current == null && ui.panels.isEmpty() && battle.outcome == Outcome.ONGOING) { delay(300); vm.testAction = null; act(a) }
+        if (ui.current == null && ui.panels.isEmpty() && battle.outcome == Outcome.ONGOING) { pause(300); vm.testAction = null; act(a) }
     }
 
     // Idle animation: monster and hero breathe in a slow loop of frames.
     var idle by remember { mutableIntStateOf(0) }
     LaunchedEffect(Unit) {
         while (true) {
-            delay(230)
+            pause(230)
             idle++
         }
     }
@@ -579,7 +581,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
     LaunchedEffect(ui.killStep) { if (ui.killStep != null) killZoom.animateTo(1f, tween(BattlePace.ms(550), easing = androidx.compose.animation.core.FastOutSlowInEasing)) }
     LaunchedEffect(ui.killAt) {
         if (ui.killAt == 0L) return@LaunchedEffect
-        delay(BattlePace.ms(1800L))
+        pause(BattlePace.ms(1800L))
         killZoom.animateTo(0f, tween(BattlePace.ms(700), easing = androidx.compose.animation.core.FastOutSlowInEasing))
     }
     // what the killing blow will do to the foe, cut out ahead while the hero winds up
@@ -587,7 +589,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
     LaunchedEffect(ui.killStep) {
         val k = ui.killStep ?: return@LaunchedEffect
         if (!MonsterArt.isSolid(battle.monster.id)) return@LaunchedEffect
-        killPlan = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+        killPlan = offMain {
             de.bornim.core.art.KillPlan.of(battle.monster.id, battle.look, ui.killStrike, vm.bloodLevel, battle.look.seed * 31 + k.enemyHp)
         }
     }
@@ -599,13 +601,13 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
     LaunchedEffect(ui.howlKey) {
         if (ui.howlKey == 0) return@LaunchedEffect
         // the sound starts once the head is raised
-        delay(HOWL_RAISE_MS)
+        pause(HOWL_RAISE_MS)
         vm.play(ui.howlSound)
     }
     // the swish of a blow, as the weapon comes down: heavier for great weapons and hammers
     LaunchedEffect(ui.swingKey) {
         if (ui.swingKey == 0) return@LaunchedEffect
-        delay(ui.swingDelay)
+        pause(ui.swingDelay)
         val w = battle.hero.item(de.bornim.core.GearSlot.MAIN_HAND)?.def
         val heavy = w != null && (w.twoHanded || w.icon == de.bornim.core.Icon.HAMMER || w.icon == de.bornim.core.Icon.MACE)
         vm.play(if (heavy) Sound.SWING_HEAVY else Sound.SWING)
@@ -628,7 +630,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             launch { hurtGlow.snapTo(1f); hurtGlow.animateTo(0f, tween(BattlePace.ms(320))) }
             // the killing blow: it strikes home now; the scene shakes harder and longer
             val kill = !onHero && ui.current != null && ui.current === ui.killStep
-            if (kill) ui.killAt = System.currentTimeMillis()
+            if (kill) ui.killAt = BattleClock.now()
             if (!onHero) ui.woundHp = ui.enemyHp
             quakeK = if (kill) 1.8f else 1f
             if (ui.current?.fx?.crit == true) launch { quake.snapTo(1f); quake.animateTo(0f, tween(BattlePace.ms(if (kill) 650 else 420), easing = androidx.compose.animation.core.LinearEasing)) }
@@ -642,12 +644,12 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
         }
         if (ui.hitStopped) {
             // the hero's blow comes down, lands with its sound and halts there; the foe reels after the halt
-            kotlinx.coroutines.delay((ui.fxDelay - ui.stopMs).coerceAtLeast(0L))
+            pause((ui.fxDelay - ui.stopMs).coerceAtLeast(0L))
             ui.current?.let { st -> soundFor(st)?.let { vm.play(it) } }
             landed(false)
-            kotlinx.coroutines.delay(ui.stopMs)
-        } else if (ui.fxDelay > 0) kotlinx.coroutines.delay(ui.fxDelay)
-        if (flight > 0f) kotlinx.coroutines.delay((fxDuration(ui.current!!.fx!!.kind) * flight).toLong())
+            pause(ui.stopMs)
+        } else if (ui.fxDelay > 0) pause(ui.fxDelay)
+        if (flight > 0f) pause((fxDuration(ui.current!!.fx!!.kind) * flight).toLong())
         // a foe built in the round falls only once its fall is drawn: the killing blow waits for the first frames of it,
         // the defeat for all of them (drawn now if the background has not got to them yet), so it never just stands and fades
         val foeId = battle.monster.id
@@ -659,7 +661,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 val dieV = MonsterArt.dieVariant(foeId, battle.look)
                 val n = MonsterArt.frameCount(foeId, battle.look, Act.DIE, dieV)
                 val upTo = if (cur.anim == Anim.ENEMY_FAINT) n - 1 else DIE_REEL.coerceAtMost(n - 1)
-                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                offMain {
                     for (i in 0..upTo) MonsterArt.battleFrame(foeId, battle.look, Act.DIE, dieV, i)
                 }
             }
@@ -681,7 +683,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 shake.animateTo((lands.toFloat() / total).coerceIn(0.05f, 1f), tween(lands.toInt(), easing = androidx.compose.animation.core.LinearEasing))
                 ui.current?.let { st -> soundFor(st)?.let { vm.play(it) } }
                 landed(true)
-                kotlinx.coroutines.delay(HIT_STOP_MS)
+                pause(HIT_STOP_MS)
                 shake.animateTo(1f, tween((total - lands.toInt()).coerceAtLeast(1), easing = androidx.compose.animation.core.LinearEasing))
             } else when (an) {
                 Anim.ENEMY_HIT, Anim.HERO_HIT, Anim.SPELL, Anim.LEVEL_UP, Anim.ENEMY_FAINT, Anim.HERO_FAINT, Anim.LOOT, Anim.MISS ->
@@ -858,7 +860,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             val idleIdx = (clockMs / ((if (newStyle) 86 else 230) * foeSlow / (1 + 0.6 * foeWound))).toInt()
             // Draw all frames ahead in the background: at the start, and again once the foe is badly hurt.
             LaunchedEffect(battle, foeWound) {
-                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                offMain {
                     MonsterArt.prepare(id, battle.look, foeWound)
                     battle.trait?.let { tr ->
                         if (newStyle) for (act in Act.entries) for (v in 0 until (if (act == Act.ATTACK) MonsterArt.attackVariants(id) else if (act == Act.IDLE || act == Act.HOWL) 1 else MonsterArt.reactVariants(id)))
@@ -870,7 +872,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     battle.pack?.let { pk -> for (i in 0 until battle.packSize) MonsterArt.prepare(pk.mate, MonsterLook(battle.look.seed + 101 * (i + 1))) }
                 }
             }
-            val howling = ui.howlKey > 0 && !ui.enemyGone && System.currentTimeMillis() - ui.howlStart < HOWL_MS
+            val howling = ui.howlKey > 0 && !ui.enemyGone && BattleClock.now() - ui.howlStart < HOWL_MS
             // the leader's own blow: wound up while it is named, then struck with the hit or the miss. A foe on the doll
             // holds its wind-up two frames short of the blow, so the blow itself comes with the result, as the hero's does.
             val foeStrike = if (newStyle) MonsterArt.strikeFrame(id, battle.look, variant) else 0
@@ -882,7 +884,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             fun releaseIdx(): Int {
                 val per = ((foeTiming(battle, variant)?.blowMs ?: BLOW_MS) / (foeStrike - windEnd + 1).coerceAtLeast(1)).coerceAtLeast(1)
                 // read with the clock, so the frames go on while nothing else changes
-                val since = if (clockMs >= 0) System.currentTimeMillis() - ui.stepAt else 0L
+                val since = if (clockMs >= 0) BattleClock.now() - ui.stepAt else 0L
                 return windEnd + (since / per).toInt().coerceIn(0, foeStrike - windEnd)
             }
             val foeAttackIdx: Int? = when {
@@ -959,7 +961,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     (a == Anim.ENEMY_HIT || a == Anim.ENEMY_FAINT) && moving -> if (dollFoe) whole(Act.HURT) else seq(Act.HURT, 0, MonsterArt.frameCount(id, Act.HURT, 0) - 1)
                     howling -> {
                         val n = MonsterArt.frameCount(id, Act.HOWL, 0)
-                        val since = System.currentTimeMillis() - ui.howlStart
+                        val since = BattleClock.now() - ui.howlStart
                         // raise the head, hold the howl, lower it again
                         val i = when {
                             since < HOWL_RAISE_MS -> (since * 4 / HOWL_RAISE_MS).toInt()
@@ -1095,7 +1097,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 val pulse = rememberPulse()
                 val plan = killPlan
                 // (read on every tick of the clock, so the pieces move)
-                val killT = if (ui.killAt > 0L && plan != null) clockMs.let { killTime((System.currentTimeMillis() - ui.killAt).toFloat()) } else -1f
+                val killT = if (ui.killAt > 0L && plan != null) clockMs.let { killTime((BattleClock.now() - ui.killAt).toFloat()) } else -1f
                 val inPieces = killT >= 0f && plan != null && plan.pieces.isNotEmpty()
                 // New-style elites shimmer along their outline; the old sprites keep the round aura.
                 if (glow != null && foeShown && enemyFrame != null && !inPieces) Box(Modifier.offset(x = -artDp * Glow.PAD, y = -artDp * Glow.PAD)) {
@@ -1161,7 +1163,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 else -> 0
             })
             LaunchedEffect(battle, heroWound) {
-                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                offMain {
                     val job = coroutineContext[kotlinx.coroutines.Job]
                     HeroBattle.prepare(battle.hero, battle.monster.id, battle.opening == de.bornim.core.Opening.AMBUSHED, ui.victoryPick, heroWound,
                         ui.motion?.takeIf { it.hold }?.let { Triple(it.act, it.strike, it.variant) }) { job?.isActive == false }
@@ -1195,8 +1197,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 // the killing blow drags a trail of blood red behind the weapon's point, through the foe and out
                 ui.motion?.takeIf { it.act == HeroFigure.Act.ATTACK && it.strike.killing && !it.hold }?.let { km ->
                     val hit = HeroBattle.strikeFrame(km.strike)
-                    val pos = clockMs.let { km.pos(System.currentTimeMillis()) }
-                    val sinceLand = if (ui.killAt > 0L) (System.currentTimeMillis() - ui.killAt).toFloat() else 0f
+                    val pos = clockMs.let { km.pos(BattleClock.now()) }
+                    val sinceLand = if (ui.killAt > 0L) (BattleClock.now() - ui.killAt).toFloat() else 0f
                     val fade = 1f - (sinceLand / 500f).coerceIn(0f, 1f)
                     if (pos >= hit - 2 && fade > 0f) Canvas(Modifier.size(1.dp)) {
                         drawKillTrail(killTrailPoints(battle.hero, km.strike, hit - 2, minOf(pos, hit + 0.6)), artDp.toPx(), fade)
@@ -1317,7 +1319,7 @@ private fun CaveBackground(spot: CaveScene.Spot, light: CaveScene.Light, seed: I
     var dims by remember { mutableStateOf(androidx.compose.ui.unit.IntSize.Zero) }
     var img by remember { mutableStateOf<de.bornim.core.art.PixelImage?>(null) }
     LaunchedEffect(dims, spot, light, seed, night) {
-        if (dims.width > 0) img = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { CaveScene.cave(dims.width, dims.height, spot, light, seed, night) }
+        if (dims.width > 0) img = offMain { CaveScene.cave(dims.width, dims.height, spot, light, seed, night) }
     }
     Canvas(modifier.onSizeChanged { dims = androidx.compose.ui.unit.IntSize(kotlin.math.ceil(it.width / scale.toFloat()).toInt(), kotlin.math.ceil(it.height / scale.toFloat()).toInt()) }) {
         drawRect(Color(0xFF07080C))
@@ -1630,14 +1632,47 @@ private val HOWL_MS: Long get() = BattlePace.ms(1900L)
 private val HOWL_RAISE_MS: Long get() = BattlePace.ms(330L)
 
 /** Milliseconds that keep counting, to drive slow effects. */
+/**
+ * The battle's clock. On the phone it is the system clock; the preview sets its own, so a film runs as fast
+ * as it can be drawn and the same seed gives the same pictures.
+ */
+object BattleClock {
+    @Volatile var now: () -> Long = { System.currentTimeMillis() }
+    /** The screen's own choices (attack variant, victory pose, howl); a film sets a seeded one. */
+    @Volatile var random: kotlin.random.Random = kotlin.random.Random
+    /** Drawing work running in the background ([offMain]); a film waits for it, so its pictures do not depend on the computer's speed. */
+    val busy = java.util.concurrent.atomic.AtomicInteger(0)
+}
+
+/** Heavy drawing off the main thread, counted in [BattleClock.busy]. */
+private suspend fun <T> offMain(block: () -> T): T {
+    BattleClock.busy.incrementAndGet()
+    // counted down in the background itself: a film must not wait on a frame it has yet to draw
+    return kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+        try { block() } finally { BattleClock.busy.decrementAndGet() }
+    }
+}
+
+/**
+ * Waits [ms] of battle time frame by frame (instead of delay), so every wait of the battle follows
+ * [BattleClock]: on the phone within one frame of the old delay, in a film exactly on the film's clock.
+ */
+private suspend fun pause(ms: Long) {
+    if (ms <= 0L) return
+    val end = BattleClock.now() + ms
+    while (BattleClock.now() < end) withFrameMillis { }
+}
+
+private suspend fun pause(ms: Int) = pause(ms.toLong())
+
 @Composable
 private fun pulseClock(): Long {
     var now by remember { androidx.compose.runtime.mutableLongStateOf(0L) }
     LaunchedEffect(Unit) {
-        val start = System.currentTimeMillis()
+        val start = BattleClock.now()
         while (true) {
-            delay(33)
-            now = System.currentTimeMillis() - start
+            pause(33)
+            now = BattleClock.now() - start
         }
     }
     return now
@@ -1691,7 +1726,7 @@ private fun Sparkles(seed: Int, size: androidx.compose.ui.unit.Dp, alpha: Float)
  */
 private fun heroDollFrame(ui: BattleUi, clockMs: Long, wounds: Int): Pair<de.bornim.core.art.PixelImage, Double> {
     val hero = ui.battle.hero
-    val now = System.currentTimeMillis()
+    val now = BattleClock.now()
     val m = ui.motion
     // the way down out of a guard, before the next move starts
     m?.lead?.takeIf { now < m.start }?.let { l ->
@@ -1727,7 +1762,7 @@ private fun heroDollFrame(ui: BattleUi, clockMs: Long, wounds: Int): Pair<de.bor
 private fun CastFlash(key: Int, at: Offset, colour: Color, px: Float, delayMs: Long, modifier: Modifier) {
     val p = remember(key) { Animatable(0f) }
     LaunchedEffect(key) {
-        delay(delayMs)
+        pause(delayMs)
         p.animateTo(1f, tween(BattlePace.ms(260), easing = androidx.compose.animation.core.LinearEasing))
     }
     val t = p.value

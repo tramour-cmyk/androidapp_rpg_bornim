@@ -155,7 +155,7 @@ class Battle(
     private fun damagePenalty(onHero: Boolean): Int = if (Status.WEAK in (if (onHero) heroStatus else foeStatus)) 2 else 0
 
     // Cosmetic randomness has its own generator so it never changes the outcome of a fight.
-    private fun fx(kind: FxKind, onHero: Boolean, crit: Boolean = false, past: FxKind? = null) = Fx(kind, onHero, crit, kotlin.random.Random.nextInt(1_000_000), past)
+    private fun fx(kind: FxKind, onHero: Boolean, crit: Boolean = false, past: FxKind? = null) = Fx(kind, onHero, crit, fxRandom.nextInt(1_000_000), past)
 
     private fun weaponFx(w: Gear?): FxKind = when {
         w == null -> FxKind.SMASH
@@ -994,6 +994,9 @@ class Battle(
     companion object {
         /** From this cleric level Turn Undead destroys undead of challenge rating 1/2 or lower (SRD: Destroy Undead). */
         const val DESTROY_UNDEAD_LEVEL = 5
+
+        /** Where the look of effects (spray, sparks) comes from; only optics, the dice stay apart. Films set a seeded one. */
+        @Volatile var fxRandom: kotlin.random.Random = kotlin.random.Random
 
         /** Test mode only: foes fail every saving throw against the hero's spells (Turn Undead, Sacred Flame and the like). */
         @Volatile var foesFailSaves = false

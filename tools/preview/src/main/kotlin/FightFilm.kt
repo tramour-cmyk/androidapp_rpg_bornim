@@ -8,6 +8,7 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.unit.Density
 import de.bornim.core.*
 import de.bornim.game.GameViewModel
+import de.bornim.game.ui.BattleClock
 import de.bornim.game.ui.BornimApp
 import org.jetbrains.skia.EncodedImageFormat
 import java.io.File
@@ -98,20 +99,73 @@ fun film(f: FilmSpec, outDir: File) {
     g.fight(battle)
     vm.refresh()
     val actions = ArrayDeque(f.actions)
+    // FILMSTEP=ms between frames (80 by default; finer, say 40, to judge how smoothly a move runs). The film runs on
+    // its own clock (BattleClock), as fast as the frames can be drawn: every wait of the battle and every animation
+    // follows it, and the same seed gives the same pictures. FILMREAL=1 films on the wall clock as before.
+    val stepMs = System.getenv("FILMSTEP")?.toLong() ?: 80L
+    val real = System.getenv("FILMREAL") != null
+    val t0 = System.nanoTime()
+    // a clock well away from 0, since the battle reads 0 as "not yet"; set before the scene is made, which
+    // already starts the battle's first waits
+    var clock = 1_000_000L
+    val start = clock
+    if (!real) {
+        BattleClock.now = { clock }
+        BattleClock.random = kotlin.random.Random(f.seed * 7919L + 1)
+        Battle.fxRandom = kotlin.random.Random(f.seed * 104_729L + 3)
+        if (System.getenv("FILMSERIAL") != null) de.bornim.core.art.SdfRender.PARALLEL = false
+    }
     val scene = ImageComposeScene(540, 1170, Density(1.375f)) { BornimApp(vm) }
     var n = 0
-    // FILMSTEP=ms between frames (80 by default; finer, say 40, to judge how smoothly a move runs). The film's clock is
-    // the wall clock, as on the phone: moves timed by the clock and those timed by frames stay together even when a
-    // frame takes longer to draw than the step (then frames are farther apart, each named by its time in the film)
-    val stepMs = System.getenv("FILMSTEP")?.toLong() ?: 80L
-    val t0 = System.nanoTime()
+    var drawNs = 0L; var waitNs = 0L; var saveNs = 0L
+    // FROM=s: save pictures only from this second of the film on (the clock still runs through the start);
+    // CROP=x0:y0:x1:y1 saves only that part of the 540×1170 picture
+    val fromMs = ((System.getenv("FROM")?.toDouble() ?: 0.0) * 1000).toLong()
+    val cut = System.getenv("CROP")?.split(":")?.map { it.toInt() }
+    fun crop(img: org.jetbrains.skia.Image): org.jetbrains.skia.Image {
+        val c = cut ?: return img
+        val bmp = org.jetbrains.skia.Bitmap()
+        bmp.allocN32Pixels(c[2] - c[0], c[3] - c[1])
+        img.readPixels(bmp, c[0], c[1])
+        img.close()
+        return org.jetbrains.skia.Image.makeFromBitmap(bmp)
+    }
+    val encoders = java.util.concurrent.Executors.newFixedThreadPool(maxOf(1, Runtime.getRuntime().availableProcessors() - 1))
+    val pending = mutableListOf<java.util.concurrent.Future<*>>()
     fun frames(k: Int, tag: String, save: Boolean) {
-        val until = System.nanoTime() + k * 80L * 1_000_000L
-        while (System.nanoTime() < until) {
-            val begun = System.nanoTime()
-            val img = scene.render(begun - t0)
-            if (save) File(out, "f_%03d_%s_%05d.png".format(n++, tag, (begun - t0) / 1_000_000L)).writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
-            Thread.sleep(maxOf(0L, stepMs - (System.nanoTime() - begun) / 1_000_000L))
+        if (real) {
+            val until = System.nanoTime() + k * 80L * 1_000_000L
+            while (System.nanoTime() < until) {
+                val begun = System.nanoTime()
+                val img = scene.render(begun - t0)
+                if (save) File(out, "f_%03d_%s_%05d.png".format(n++, tag, (begun - t0) / 1_000_000L)).writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
+                img.close()
+                Thread.sleep(maxOf(0L, stepMs - (System.nanoTime() - begun) / 1_000_000L))
+            }
+            return
+        }
+        val until = clock + k * 80L
+        while (clock < until) {
+            clock += stepMs
+            var t = System.nanoTime()
+            var img = scene.render((clock - start) * 1_000_000L)
+            // background drawing counts as instant on the film's clock: wait for it, then draw the same moment again
+            if (BattleClock.busy.get() > 0) {
+                drawNs += System.nanoTime() - t; t = System.nanoTime()
+                val giveUp = System.nanoTime() + 20_000_000_000L
+                while (BattleClock.busy.get() > 0 && System.nanoTime() < giveUp) Thread.sleep(2)
+                if (BattleClock.busy.get() > 0) println("  Achtung: Vorzeichnen nach 20 s nicht fertig (bei ${clock - start} ms), weiter ohne")
+                waitNs += System.nanoTime() - t; t = System.nanoTime()
+                img.close(); img = scene.render((clock - start) * 1_000_000L)
+            }
+            drawNs += System.nanoTime() - t; t = System.nanoTime()
+            if (save && clock - start >= fromMs) {
+                val file = File(out, "f_%03d_%s_%05d.png".format(n++, tag, clock - start))
+                val pic = crop(img)
+                // encoded and written on the other cores while the next frame is drawn
+                pending += encoders.submit { file.writeBytes(pic.encodeToData(EncodedImageFormat.PNG)!!.bytes); pic.close() }
+            } else img.close()
+            saveNs += System.nanoTime() - t
         }
     }
     frames((f.wait / 80).toInt(), "w", false)
@@ -138,5 +192,13 @@ fun film(f: FilmSpec, outDir: File) {
         frames(28, "t$t$c", true)
     }
     scene.close()
-    println("filmed ${f.name}: $n frames")
+    val tw = System.nanoTime()
+    pending.forEach { it.get() }
+    encoders.shutdown()
+    saveNs += System.nanoTime() - tw
+    BattleClock.now = { System.currentTimeMillis() }
+    BattleClock.random = kotlin.random.Random
+    Battle.fxRandom = kotlin.random.Random
+    println("filmed ${f.name}: $n frames" + if (real) "" else
+        " (Zeichnen %.1f s, Vorzeichnen abwarten %.1f s, Speichern %.1f s)".format(drawNs / 1e9, waitNs / 1e9, saveNs / 1e9))
 }
