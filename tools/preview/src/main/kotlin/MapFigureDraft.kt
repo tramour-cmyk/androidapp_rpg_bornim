@@ -105,3 +105,22 @@ fun renderMapFigureDraft() {
     ImageIO.write(both, "png", File("build/screens/mapfig_scene.png"))
     println("wrote mapfig")
 }
+
+
+/** MAPFIGYAWS: the in-game map figure in all 16 directions with every kind of weapon, to check every turn. */
+fun renderMapFigureYaws() {
+    val F = de.bornim.core.art.MapFigure
+    val weapons = listOf("longsword", "spear", "quarterstaff", "greatsword", "greataxe", "halberd", "staff", "longbow", "light_crossbow", "dagger")
+    var uid = 900L
+    val heroes = weapons.map { w -> GameState.newGame("Mira", Race.HUMAN, if (w == "staff") CharClass.WIZARD else CharClass.FIGHTER).hero.also { h ->
+        val g = de.bornim.core.Gear(uid++, w, de.bornim.core.Rarity.COMMON, 3)
+        h.equip(g) } }
+    val out = BufferedImage(F.W * 16, F.H * heroes.size, BufferedImage.TYPE_INT_RGB)
+    for (r in heroes.indices) for (s in 0 until 16) {
+        val hero = heroes[r]
+        val img = F.draw(hero, s, 1)
+        for (y in 0 until F.H) for (x in 0 until F.W) { val q = img[x, y]; out.setRGB(s * F.W + x, r * F.H + y, if ((q ushr 24) >= 128) q else 0x3A4430) }
+    }
+    ImageIO.write(out, "png", File("build/screens/mapfig_16.png"))
+    println("wrote mapfig16")
+}

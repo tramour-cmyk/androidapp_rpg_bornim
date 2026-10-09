@@ -130,20 +130,22 @@ object MapFlora {
 
     /** An oak-like tree; [size] 0..2 small to large, [deep] the darker, older wood. */
     fun oak(variant: Int, size: Int, deep: Boolean): Sprite = cached("oak/$variant/$size/$deep") {
-        val r = S * (0.54 + size * 0.11) + variant % 3 * 2
-        val w = (r * 2.6).toInt(); val h = (r * 3.1).toInt()
+        // tall enough beside the hero: an old oak stands about two and a half times as tall as a man
+        val r = S * (0.95 + size * 0.17) + variant % 3 * 3
+        val w = (r * 2.6).toInt(); val h = (r * 3.4).toInt()
         val img = PixelImage(w, h)
         val base = h - 4.0
-        val cy = h - r * 1.75
+        val cy = h - r * 2.05
         trunk(img, w / 2.0, base, cy, r * (if (deep) 0.28 else 0.24), variant * 31 + size)
         crown(img, w / 2.0, cy, r, if (deep) LEAF_DEEP else LEAF, variant * 131 + size * 7 + (if (deep) 3 else 0))
         Sprite(img, w / 2, base.toInt())
     }
 
     /** A spruce in drooping tiers. */
-    fun spruce(variant: Int, size: Int): Sprite = cached("spruce/$variant/$size") {
-        val r = S * (0.44 + size * 0.09) + variant % 2 * 2
-        val w = (r * 2.1).toInt(); val h = (r * 3.7).toInt()
+    fun spruce(variant: Int, size: Int, young: Boolean = false): Sprite = cached("spruce/$variant/$size/$young") {
+        // a young spruce stays small (beside chests); grown ones tower over the hero
+        val r = if (young) S * 0.44 + variant % 2 * 2 else S * (0.78 + size * 0.14) + variant % 2 * 3
+        val w = (r * 2.1).toInt(); val h = (r * 3.9).toInt()
         val img = PixelImage(w, h)
         val base = h - 4.0
         trunk(img, w / 2.0, base, base - r * 0.7, r * 0.16, variant * 17)
@@ -170,8 +172,8 @@ object MapFlora {
 
     /** A dead tree, grey and bare, its branches reaching up. */
     fun deadTree(variant: Int): Sprite = cached("dead/$variant") {
-        val r = S * 0.66
-        val w = (r * 2.6).toInt(); val h = (r * 3.3).toInt()
+        val r = S * 1.0
+        val w = (r * 2.6).toInt(); val h = (r * 3.4).toInt()
         val img = PixelImage(w, h)
         var n = 0
         fun branch(x: Double, y: Double, a: Double, len: Double, wd: Double) {
@@ -417,7 +419,11 @@ object MapFlora {
             Tile.TREE -> {
                 val out = ArrayList<WorldArt.Obj>()
                 // a chest just north of this tree must stay visible: a slim young spruce instead of a broad crown
-                if ((-1..1).any { map.tile(tx + it, ty - 1) == Tile.CHEST }) return listOf(obj(spruce(hash(tx, ty, 6) % 6, 0), cx, cy + S * 0.6))
+                // the tall crowns reach up to three tiles north: where they would hide something one needs to
+                // find (a chest, the fire, a sign, someone to talk to, a way out), a young spruce stands instead
+                fun important(x: Int, y: Int) = map.tile(x, y).let { it == Tile.CHEST || it == Tile.CAMPFIRE || it == Tile.SIGN || it == Tile.CAVE_ENTRANCE } ||
+                    map.npcs.any { it.x == x && it.y == y } || map.warpAt(x, y) != null
+                if ((1..3).any { dy -> (-1..1).any { dx -> important(tx + dx, ty - dy) } }) return listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
                 val count = if (hash(tx, ty, 1) % 3 == 0) 2 else 1
                 for (k in 0 until count) {
                     val kind = hash(tx, ty, k * 7 + 2) % 10
