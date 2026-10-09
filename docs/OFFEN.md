@@ -116,6 +116,8 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
+**Zweig-Build 0.1.384** (09.10., 23:11; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37991519323/artifacts/11644998757), APK auch im Chat): Felswand am Höhleneingang im Wald wieder da (noch im bisherigen Stil); keine alten Kartenkacheln mehr beim Betreten. Achten auf: Steht der Eingang wieder im Fels? Beim Betreten von Wald und Höhle: kurz dunkle Flächen statt alter Kacheln, wie lange? Ein Hänger beim Betreten?
+
 **Zweig-Build 0.1.380** (09.10.; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37989786736/artifacts/11644607430), APK auch im Chat): `main` 0.1.377 (Höhle im neuen Stil, Todesstoß) in `karte-neuer-stil` zusammengeführt (Wunsch 22:48), dazu Ruhebewegungen und Fackel-Szene. Achten auf: Höhle wie in 0.1.377? Fackel-Szene wie in 0.1.379? Held in der Höhle als Puppe?
 
 **Zweig-Build 0.1.379** (09.10., 22:41; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37988257406/artifacts/11643094889), APK auch im Chat): derselbe Stand wie 0.1.376 (Fackel-Szene), neu gebaut auf Wunsch (22:37), weil inzwischen main 0.1.377 und karte-hoehle 0.1.378 mit höherer Nummer erschienen sind. Enthält die Höhle noch nicht.
