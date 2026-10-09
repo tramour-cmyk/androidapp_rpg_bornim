@@ -93,7 +93,7 @@ fun soundFor(step: Step): Sound? {
  * [enemy] and [hero] are the sprite centres in pixels, [unit] is roughly one sprite pixel.
  */
 @Composable
-fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, modifier: Modifier, startDelay: Long = 0L, foeGround: Float? = null, heroGround: Float? = null) {
+fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, modifier: Modifier, startDelay: Long = 0L, foeGround: Float? = null, heroGround: Float? = null, foeSource: Offset? = null) {
     if (fx == null) return
     // a miss with something flying: the bolt goes wide past the target, which then dodges
     val wide = fx.past?.takeIf { it in FLYING && (fx.kind == FxKind.DODGE || fx.kind == FxKind.BLOCK) }
@@ -110,7 +110,7 @@ fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, m
     if (!started || p >= 1f) return
     Canvas(modifier) {
         val target = if (fx.onHero) hero else enemy
-        val source = if (fx.onHero) enemy else hero
+        val source = if (fx.onHero) foeSource ?: enemy else hero
         val u = unit * (if (fx.crit) 1.35f else 1f)
         // where the foe's feet stand: a flame from above comes down to the ground there
         val ground = (if (fx.onHero) heroGround else foeGround) ?: (target.y + 45 * u)
@@ -735,52 +735,8 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
     // Small random offset so the impact point is never exactly the same.
     val hit = Offset(target.x + (r.nextFloat() - 0.5f) * 14 * u, target.y + (r.nextFloat() - 0.5f) * 14 * u)
     when (fx.kind) {
-        FxKind.SLASH -> {
-            val angle = (if (r.nextBoolean()) 1 else -1) * (20f + r.nextFloat() * 40f)
-            val lines = if (fx.crit) 3 else 1 + r.nextInt(2)
-            rotate(angle, hit) {
-                for (i in 0 until lines) {
-                    val off = (i - (lines - 1) / 2f) * 6 * u
-                    val grow = (p / 0.45f).coerceAtMost(1f)
-                    val from = Offset(hit.x - 26 * u, hit.y + off - 10 * u)
-                    val to = Offset(hit.x - 26 * u + 52 * u * grow, hit.y + off + 10 * u * grow - 10 * u * (1 - grow))
-                    drawLine(STEEL.copy(alpha = fade(p)), from, to, 4 * u, StrokeCap.Round)
-                    drawLine(WHITE.copy(alpha = fade(p)), from, to, 1.6f * u, StrokeCap.Round)
-                }
-            }
-            burst(r, hit, (p - 0.3f) / 0.7f, u, listOf(WHITE, if (fx.onHero) BLOOD else STEEL), if (fx.crit) 16 else 8)
-        }
-        FxKind.PIERCE -> {
-            val a = r.nextFloat() * 2 * PI.toFloat()
-            val dir = Offset(cos(a), sin(a))
-            val t = (p / 0.35f).coerceAtMost(1f)
-            val tip = Offset(hit.x - dir.x * 30 * u * (1 - t), hit.y - dir.y * 30 * u * (1 - t))
-            val tail = Offset(tip.x - dir.x * 22 * u, tip.y - dir.y * 22 * u)
-            if (p < 0.55f) {
-                drawLine(STEEL, tail, tip, 3 * u, StrokeCap.Square)
-                drawLine(WHITE, lerp(tail, tip, 0.5f), tip, 1.5f * u, StrokeCap.Square)
-            }
-            if (p > 0.3f) {
-                val s = (p - 0.3f) / 0.7f
-                for (k in 0 until 4) {
-                    val ang = a + k * PI.toFloat() / 2 + PI.toFloat() / 4
-                    drawLine(WHITE.copy(alpha = 1 - s), hit, Offset(hit.x + cos(ang) * 14 * u * s, hit.y + sin(ang) * 14 * u * s), 2 * u)
-                }
-            }
-            burst(r, hit, (p - 0.3f) / 0.7f, u, listOf(WHITE, if (fx.onHero) BLOOD else STEEL), 6, 12f)
-        }
-        FxKind.SMASH -> {
-            val s = (p / 0.6f).coerceAtMost(1f)
-            drawCircle(WHITE.copy(alpha = 1 - p), 8 * u + 22 * u * s, hit, style = Stroke(3 * u))
-            if (fx.crit) drawCircle(FIRE_HOT.copy(alpha = 1 - p), 4 * u + 34 * u * s, hit, style = Stroke(2 * u))
-            // impact stars
-            repeat(3 + r.nextInt(3)) {
-                val a = r.nextFloat() * 2 * PI.toFloat()
-                val d = 10 * u + 18 * u * s
-                square(FIRE_HOT, Offset(hit.x + cos(a) * d, hit.y + sin(a) * d), 3 * u, 1 - p)
-            }
-            burst(r, hit, s, u, listOf(Color(0xFFB0A090), WHITE), 8, 22f)
-        }
+        // blows and bites leave no mark of their own: the halt, the red of the one struck and the blood show the hit
+        FxKind.SLASH, FxKind.PIERCE, FxKind.SMASH, FxKind.BITE -> {}
         FxKind.ARROW -> {
             val bend = (r.nextFloat() - 0.5f) * 60 * u
             val t = (p / 0.6f).coerceAtMost(1f)
@@ -792,7 +748,7 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
                 square(STEEL, head, 7 * u)
                 square(WHITE, back, 5 * u)
             }
-            burst(r, hit, (p - 0.55f) / 0.45f, u, listOf(WHITE, if (fx.onHero) BLOOD else STEEL), 8, 14f)
+            // where it strikes home, the blood shows it
         }
         FxKind.FIRE_BOLT -> fireBolt(r, p, source, hit, u)
         FxKind.FIREBALL -> fireball(r, p, source, hit, ground, u)
@@ -823,27 +779,6 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
         FxKind.ENEMY_HEAL -> mending(r, p, target, u, Color(0xFFC89A50), Color(0xFFE8D0A0))
         FxKind.BLESS -> blessing(r, p, target, ground, u)
         FxKind.MAGE_ARMOR -> mageArmor(r, p, target, ground, u)
-        FxKind.BITE -> {
-            val close = (p / 0.35f).coerceAtMost(1f)
-            val gap = 22 * u * (1 - close)
-            val w = 34 * u
-            for (side in listOf(-1, 1)) {
-                val y = hit.y + side * (6 * u + gap)
-                for (k in 0 until 5) {
-                    val x = hit.x - w / 2 + k * w / 4
-                    val path = Path().apply {
-                        moveTo(x - 3.5f * u, y)
-                        lineTo(x + 3.5f * u, y)
-                        lineTo(x, y - side * 9 * u)
-                        close()
-                    }
-                    drawPath(path, WHITE.copy(alpha = fade(p)))
-                }
-            }
-            if (p > 0.35f) repeat(4) { k ->
-                square(BLOOD, Offset(hit.x - 12 * u + k * 8 * u, hit.y + (r.nextFloat() - 0.5f) * 6 * u), 3 * u, 1 - p)
-            }
-        }
         FxKind.POISON -> repeat(10) {
             val x = target.x + (r.nextFloat() - 0.5f) * 50 * u
             val y = target.y + 20 * u - p * (30 + 30 * r.nextFloat()) * u

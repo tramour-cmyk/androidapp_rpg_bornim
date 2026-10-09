@@ -10,6 +10,31 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Gemächlicheres Tempo auf der Karte: Jeder Schritt dauert 1,6-mal so lange wie bisher, für den Helden wie für wandernde Monster. Nah herangezoomt wirkte das alte Tempo hektisch.
 - Vorbereitung für feinere Kartenbilder: Der nahe Zoom ist immer gerade, damit Bilder in doppelter Auflösung später auf ganze Bildschirmpunkte fallen.
 
+## v0.1.279 – 09.10.2026, 11:16
+
+**Neu – Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte im neuen Stil**
+- Die fünf haben jetzt eigene, räumliche Körper nach dem von dir freigegebenen Entwurf, je drei Aussehen, und bewegen sich wie die übrigen Gegner im neuen Stil: drei Angriffe, drei Arten, getroffen zu werden, drei Ausweichbewegungen und drei Stürze; sie bleiben liegen.
+- Spinne: Biss nach dem Aufbäumen, Sprung, Stich mit den Vorderbeinen; stirbt mit eingezogenen Beinen. Hundertfüßer: Stoß von oben, flach an die Beine, Peitschen; rollt sich im Tod ein. Fledermaus und Stirge schweben mit schlagenden Flügeln, stoßen herab, beißen oder stechen; im Tod stürzen sie zu Boden. Gallerte: schlägt zu, wälzt sich über den Helden, kriecht an die Beine; zerfließt im Tod zu einer Lache.
+- Auf der Karte behalten sie vorerst ihre alten Figuren.
+- Ockergallerte: Verletzt bekommt sie fast schwarze Wunden wie Löcher im Schleim (vorher ockerfarben und kaum zu sehen). Je stärker verletzt, desto flacher sinkt sie zusammen, mit größerer Lache und mehr Tropfen.
+
+**Geändert – Tatendrang nach SRD**
+- Tatendrang (Kämpfer) gilt jetzt einmal pro Rast statt einmal pro Kampf: Nach dem Einsatz steht er erst nach einer Rast am Lagerfeuer oder im Gasthaus wieder bereit (ein Stufenaufstieg füllt ebenfalls auf). Die Beschreibung stimmt jetzt auch ab Stufe 5: eine zusätzliche Angriffsaktion, mit „Zusätzlicher Angriff“ also zwei weitere Schläge.
+
+**Geändert – Treffer ohne Flackern**
+- Ein Treffer lässt Held oder Gegner nicht mehr viermal weiß aufblinken. Stattdessen halten beide beim Aufprall eines Nahkampfschlags einen Augenblick inne (etwa 70 ms), dann färbt sich der Getroffene kurz dunkel blutrot und blasst in etwa einer Drittelsekunde wieder aus. Schattierung und Einzelheiten bleiben dabei sichtbar.
+- Der Getroffene zuckt jetzt erst, wenn der Schlag landet; Blut, Hiebspur und Treffergeräusch kommen ebenfalls mit dem Aufprall.
+- Kritische Treffer erschüttern kurz das ganze Kampfbild.
+- Der Held wackelt bei einem Treffer nicht mehr seitlich hin und her; nur kritische Treffer erschüttern das Bild.
+- Die weißen Trefferzeichen der ersten Fassung sind weg: Zahnreihe beim Biss, Ring mit Sternchen bei stumpfen Waffen, Striche beim Hieb, Stern beim Stich, weiße Splitter. Den Treffer zeigen jetzt Innehalten, die dunkelrote Färbung und Blut (bei Skeletten Knochensplitter, bei Untoten und der Gallerte dunkle Spritzer), und zwar erst im Augenblick des Aufpralls. Bei Blutstufe „Aus“ bleiben Innehalten und Färbung.
+
+**Behoben**
+- Gift, Brennen und Bluten am Helden: Der Schaden zu Beginn einer Runde sah aus wie ein zweiter Angriff des Gegners (er stürmte erneut vor). Jetzt bleibt der Gegner stehen, nur der Held zuckt und färbt sich kurz rot.
+- Ghul: Der Klauenangriff war nicht zu sehen. Er stürmte so dicht an den Helden heran, dass Arme und Klauen hinter ihm verschwanden. Jetzt treffen die Klauenspitzen, und der Hieb ist vor dem Helden zu sehen (alle drei Varianten).
+- Goblin-Späher: Der Pfeil flog aus der Körpermitte statt vom Bogen los. Jetzt startet er an der Bogenhand. Ebenso kommt der Feuerpfeil des Schamanen vom Schädel auf dem Stab und sein Fluch aus der Hand.
+
+## v0.1.226 – 08.10.2026, 18:53
+
 **Geändert – mehr Abwechslung in den Bewegungen**
 - **Gegner:** Angriff, Getroffenwerden und Ausweichen werden jedes Mal zufällig aus den drei Varianten gewählt, nie zweimal hintereinander dieselbe. Bisher hing die Wahl beim Getroffenwerden und Ausweichen an der Nummer der Meldung, sodass bei gleichförmigen Runden oft dieselbe kam. Der Sturz bleibt eine von drei, fest pro Gegner (Taumeln und Fallen gehören zusammen).
 - **Held, getroffen:** drei Bewegungen statt einer: zurückgeworfen, zusammengekrümmt, zur Seite gerissen.

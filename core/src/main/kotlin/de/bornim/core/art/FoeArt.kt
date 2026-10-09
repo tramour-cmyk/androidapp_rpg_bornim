@@ -291,8 +291,33 @@ object FoeArt {
         val sk = doll.fit(rig, o).first
         val base = o.base(GearSlot.MAIN_HAND)
         val reach = if (base == null) 0.0 else Dress.reach(base) * (if (base in Dress.ROUND) doll.height / 175.0 * 0.95 else 1.0)
-        val (x, y, _) = img.project(sk.hand(1) + sk.weapon * reach)
+        // bare clawed hands: the hooked claws' points land, not the palm, or the arms vanish behind the hero
+        val point = if (base == null && style(id, look) == Style.CLAWS) sk.wrist[1] + (sk.wrist[1] - sk.elbow[1]).norm() * (0.2 * doll.height)
+            else sk.hand(1) + sk.weapon * reach
+        val (x, y, _) = img.project(point)
         Pair(x, y)
+    }
+
+    private val launches = java.util.concurrent.ConcurrentHashMap<String, Pair<Double, Double>>()
+
+    /**
+     * Where a shot or spell leaves the foe at the moment it is let go, in art pixels of the frame: the bow hand for an
+     * archer, the skull on the staff for a shaman's bolt, the free hand for its curse; null for a blow.
+     */
+    fun launch(id: String, look: MonsterLook, variant: Int): Pair<Double, Double>? {
+        val s = style(id, look)
+        if (s != Style.BOW && s != Style.STAFF) return null
+        if (s == Style.STAFF && variant.mod(3) == SHAMAN_STAFF) return null
+        return launches.getOrPut("$id/${look.seed}/${variant.mod(3)}") {
+            val seq = sequence(id, look, Act.ATTACK, variant)
+            val rig = seq.rigs[seq.strike.coerceIn(0, seq.rigs.size - 1)]
+            val doll = doll(id, look); val o = outfit(id, look)
+            val img = doll.render(W, height(id), ANCHOR_X, ground(id), PX, rig, o)
+            val (sk, fitted) = doll.fit(rig, o)
+            val at = if (s == Style.BOW) sk.hand(0) else (fitted?.first ?: Dress(doll, sk, doll.body(sk), o)).glowPoint()
+            val (x, y, _) = img.project(at)
+            Pair(x, y)
+        }
     }
 
     /**
