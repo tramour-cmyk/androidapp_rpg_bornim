@@ -514,7 +514,9 @@ object MapFlora {
                 // a chest just north of this tree must stay visible: a slim young spruce instead of a broad crown
                 // the tall crowns reach up to three tiles north: where they would hide something one needs to
                 // find (a chest, the fire, a sign, someone to talk to, a way out), a young spruce stands instead
-                fun important(x: Int, y: Int) = map.tile(x, y).let { it == Tile.CHEST || it == Tile.CAMPFIRE || it == Tile.SIGN || it == Tile.CAVE_ENTRANCE } ||
+                fun important(x: Int, y: Int) = map.tile(x, y).let { it == Tile.CHEST || it == Tile.CAMPFIRE || it == Tile.SIGN || it == Tile.CAVE_ENTRANCE ||
+                    // in the village: the fields and yards behind the edge of the wood stay in sight
+                    (map.kind == de.bornim.core.MapKind.TOWN && (it == Tile.CROPS || it == Tile.VEG_BED || it == Tile.HAY || it == Tile.FENCE || it == Tile.WASHLINE)) } ||
                     map.npcs.any { it.x == x && it.y == y } || map.warpAt(x, y) != null
                 if ((1..3).any { dy -> (-1..1).any { dx -> important(tx + dx, ty - dy) } }) return listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
                 val count = if (hash(tx, ty, 1) % 3 == 0) 2 else 1

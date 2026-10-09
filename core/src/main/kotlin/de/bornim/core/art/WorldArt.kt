@@ -841,6 +841,8 @@ object WorldArt {
             val flora = when {
                 !fine -> null
                 cave -> MapCave.objects(map, tx, ty, frame, open, state.has(Story.GATE_OPEN))
+                // the village in the new style (draft): houses and things, else the trees of the woods
+                map.kind == MapKind.TOWN -> MapTown.objects(map, tx, ty) ?: MapFlora.objects(map, tx, ty, frame, open)
                 else -> MapFlora.objects(map, tx, ty, frame, open)
             }
             if (flora != null) { out += flora; continue }
