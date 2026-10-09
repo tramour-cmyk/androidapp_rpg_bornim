@@ -109,6 +109,7 @@ fun main() {
             de.bornim.core.art.MapGround.prepareNow(m)
             val t0 = System.currentTimeMillis()
             de.bornim.core.art.MapFigure.prepareNow(g.state.hero)
+            de.bornim.core.art.MapFolk.prepareNow(de.bornim.core.art.MapFolk.garrick)
             println("map figure: ${System.currentTimeMillis() - t0} ms for 64 pictures")
             vm.refresh()
         }
@@ -125,6 +126,9 @@ fun main() {
                 shot("zoom_${z}_7_steinkreis") { place(it, "forest", 10, 25, 17 * 60 + 30) }
                 shot("zoom_${z}_8_tiefer_wald") { place(it, "deep_forest", 22, 6, 12 * 60) }
                 shot("zoom_${z}_9_hinter_baum") { place(it, "forest", 12, 10, 12 * 60) }
+                shot("zoom_${z}_g1_garrick_tag") { place(it, "forest", 10, 9, 12 * 60, Facing.RIGHT) }
+                shot("zoom_${z}_g2_garrick_nacht") { place(it, "forest", 10, 10, 23 * 60, Facing.RIGHT) }
+                shot("zoom_${z}_g3_garrick_fern") { place(it, "forest", 9, 13, 12 * 60, Facing.UP) }
                 for (f in Facing.entries) shot("zoom_${z}_r_${f.name.lowercase()}") { place(it, "forest", 9, 12, 12 * 60, f) }
             }
         }

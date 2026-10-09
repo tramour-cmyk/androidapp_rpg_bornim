@@ -58,6 +58,7 @@ import de.bornim.core.Move
 import de.bornim.core.Story
 import de.bornim.core.Tile
 import de.bornim.core.art.MapFigure
+import de.bornim.core.art.MapFolk
 import de.bornim.core.art.MapFlora
 import de.bornim.core.art.MapGround
 import de.bornim.core.art.MapLight
@@ -548,8 +549,22 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 val (nx, ny) = npcPos(npc)
                 val w = game.walkerOf(npc)
                 val walkingNow = w != null && clock - w.movedAt < w.moveMs
+                val folk = MapFolk.of(npc.id)
+                // folk drawn as dolls: they turn smoothly, and look at the hero while the hero is near
+                val doll = folk?.let { f ->
+                    val turn = FolkTurn.of(f.id, MapFigure.yawOf(game.npcFacing(npc)))
+                    MapFolk.prepare(f, MapFigure.slot(turn.yaw))
+                    val dx = heroX - nx; val dy = heroY - ny
+                    val near = kotlin.math.abs(dx) <= 4 * T && kotlin.math.abs(dy) <= 4 * T
+                    val target = if (near && (dx != 0 || dy != 0)) Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble())) else MapFigure.yawOf(game.npcFacing(npc))
+                    turn.update(target, clock)
+                    MapFolk.frame(f, MapFigure.slot(turn.yaw), if (walkingNow) Math.floorMod((clock / 160).toInt(), MapFigure.STEPS) else 0)
+                }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
-                sprites += Sprite((ny + T - 1).toFloat()) { put(img, nx, ny - 2) }
+                sprites += Sprite((ny + T - 1).toFloat()) {
+                    if (doll != null) put(doll, nx + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, ny + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
+                    else put(img, nx, ny - 2)
+                }
             }
         }
         // Monsters walking around; only those in sight are shown, the "!" of a hunter is heard from anywhere.
@@ -651,7 +666,15 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 private class Sprite(val y: Float, val draw: () -> Unit)
 
 /** The way the hero faces on the map, turning smoothly towards where it walks instead of snapping round. */
-private object HeroTurn {
+private object HeroTurn : Turn()
+
+/** How each of the folk drawn as dolls faces, turning smoothly like the hero. */
+private object FolkTurn {
+    private val turns = HashMap<String, Turn>()
+    fun of(id: String, start: Double): Turn = turns.getOrPut(id) { Turn().also { it.yaw = start } }
+}
+
+private open class Turn {
     var yaw = 0.0
     private var last = 0L
 
