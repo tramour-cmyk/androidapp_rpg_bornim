@@ -1,0 +1,16 @@
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :processResources NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :compileKotlin
+> Task :compileJava NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :jar
+> Task :compileTestKotlin
+> Task :compileTestJava NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1791537615786.json
+
+BUILD SUCCESSFUL in 1m 8s
+4 actionable tasks: 4 executed
