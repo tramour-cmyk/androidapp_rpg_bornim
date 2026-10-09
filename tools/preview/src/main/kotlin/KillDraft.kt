@@ -190,3 +190,37 @@ private fun shards(img: BufferedImage, n: Int, rnd: java.util.Random): List<Pair
     }
     return parts.indices.filter { sums[it][2] > 0 }.map { parts[it] to Pair(sums[it][0] / sums[it][2], sums[it][1] / sums[it][2]) }
 }
+
+/** KILLSHEET=1: what the killing blow does to each kind of foe, the pieces at six moments after it lands. */
+fun renderKillSheet() {
+    val cases = listOf(
+        Triple("goblin", de.bornim.core.art.HeroFigure.Strike.KILL_HIGH, 2), Triple("goblin", de.bornim.core.art.HeroFigure.Strike.KILL_PIERCE, 2), Triple("bugbear", de.bornim.core.art.HeroFigure.Strike.KILL_SPIN, 2), Triple("skeleton", de.bornim.core.art.HeroFigure.Strike.KILL_HIGH, 0),
+        Triple("ochre_jelly", de.bornim.core.art.HeroFigure.Strike.KILL_RISE, 2), Triple("wolf", de.bornim.core.art.HeroFigure.Strike.KILL_RISE, 2), Triple("giant_bat", de.bornim.core.art.HeroFigure.Strike.KILL_SPIN, 2), Triple("giant_spider", de.bornim.core.art.HeroFigure.Strike.KILL_HIGH, 2),
+        Triple("ghoul", de.bornim.core.art.HeroFigure.Strike.KILL_SPIN, 2), Triple("giant_centipede", de.bornim.core.art.HeroFigure.Strike.KILL_PIERCE, 2))
+    val times = listOf(0, 150, 300, 500, 800, 1600)
+    val cw = 240; val ch = 170
+    val out = BufferedImage(cw * times.size, ch * cases.size, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics(); g.color = Color(0x46583A); g.fillRect(0, 0, out.width, out.height)
+    for ((r, c) in cases.withIndex()) {
+        val (id, strike, blood) = c
+        val look = de.bornim.core.MonsterLook(3)
+        val plan = de.bornim.core.art.KillPlan.of(id, look, strike, blood, 11)
+        val ax = de.bornim.core.art.MonsterArt.anchorX(id, 0)
+        for ((k, t) in times.withIndex()) {
+            val sub = g.create(k * cw, r * ch, cw, ch) as java.awt.Graphics2D
+            sub.translate((cw / 2 - ax).toInt(), (ch - 12 - plan.ground).toInt())
+            for (p in plan.pieces) {
+                val pose = de.bornim.core.art.KillArt.pose(p, t.toDouble(), plan.ground)
+                val tr = AffineTransform()
+                if (p.topple) tr.rotate(Math.toRadians(pose.angle), p.px, p.py)
+                else { tr.translate(pose.dx, pose.dy); tr.rotate(Math.toRadians(pose.angle), p.cx, p.cy) }
+                tr.translate(p.ox.toDouble(), p.oy.toDouble())
+                sub.drawImage(toImage(p.img), tr, null)
+            }
+            sub.dispose()
+            g.color = Color(0xF0E8D8); g.drawString("$id ${plan.kind} $t ms", k * cw + 4, r * ch + 12)
+        }
+    }
+    ImageIO.write(out, "png", File("build/screens/killerschlag_stuecke.png"))
+    println("wrote kill sheet")
+}

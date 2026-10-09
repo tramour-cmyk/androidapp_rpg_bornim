@@ -970,7 +970,7 @@ fun renderBattleRun() {
         }
         fun idle(n: Int) { for (i in 0 until n) { plan += B.frame(hero, de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, i); lunge += 0.0 to de.bornim.core.art.HeroFigure.Strike.SLASH } }
         seq(de.bornim.core.art.HeroFigure.Act.TURN); idle(6)
-        val strikes = B.strikes(hero)
+        val strikes = B.strikes(hero) + B.killStrikes(hero)
         seq(de.bornim.core.art.HeroFigure.Act.ATTACK, strikes[0]); idle(5)
         seq(de.bornim.core.art.HeroFigure.Act.BLOCK, v = B.blockVariant(hero, "wolf")); idle(4)
         seq(de.bornim.core.art.HeroFigure.Act.HURT); idle(4)
@@ -1845,7 +1845,7 @@ fun checkHeroVariants() {
         val guards = if (twoH) listOf(1, 3, 6, 7) else listOf(0, 2, 4, 5)
         // the strikes as the hero would have them with this weapon in hand
         hero.equip(items.getValue(de.bornim.core.GearSlot.MAIN_HAND))
-        val strikes = B.strikes(hero)
+        val strikes = B.strikes(hero) + B.killStrikes(hero)
         val runs = (0..2).map { Triple(de.bornim.core.art.HeroFigure.Act.HURT, de.bornim.core.art.HeroFigure.Strike.SLASH, it) } + guards.map { Triple(de.bornim.core.art.HeroFigure.Act.BLOCK, de.bornim.core.art.HeroFigure.Strike.SLASH, it) } + strikes.map { Triple(de.bornim.core.art.HeroFigure.Act.ATTACK, it, 0) }
         for ((act, strike, v) in runs) for ((i, rig) in F.sequence(act, strike, v, stance).withIndex()) {
             total++

@@ -46,7 +46,12 @@ object HeroFigure {
     enum class Act { IDLE, ATTACK, CAST, BLOCK, HURT, INTRO, TURN, AMBUSHED, VICTORY, THROW, DRINK, DIE }
 
     /** How a weapon strikes. */
-    enum class Strike { SLASH, THRUST, SMASH, SHOOT, CAST }
+    enum class Strike {
+        SLASH, THRUST, SMASH, SHOOT, CAST,
+        /** The killing blows of a critical hit that ends the foe: from high overhead, run through, rising up through it, a full turn. */
+        KILL_HIGH, KILL_PIERCE, KILL_RISE, KILL_SPIN;
+        val killing: Boolean get() = this == KILL_HIGH || this == KILL_PIERCE || this == KILL_RISE || this == KILL_SPIN
+    }
 
     /** A point in the hero's own space: r to the hero's right, u up from the ground, f forward. */
     data class V(val r: Double, val u: Double, val f: Double) {
@@ -444,6 +449,24 @@ object HeroFigure {
                 Strike.SMASH to if (st == Stance.SPEAR) SPEAR_HIGH
                     else tween(r to 2, SMASH_RAISE to 2, SMASH_WIND to 4, SMASH_OVER to 2, SMASH_HIT to 3, SMASH_HIT.copy(trail = 0.0) to 5, r to 1),
                 Strike.SHOOT to tween(r to 3, BOW_NOCK to 3, BOW_AIM to 4, BOW_AIM to 1, BOW_RELEASE to 2, BOW_RELEASE to 4, r to 2),
+                // the killing blows, held a moment where they land (see strikeFrame)
+                Strike.KILL_HIGH to if (st == Stance.SPEAR) tween(r to 3, SPEAR_HIGH_RAISE to 2, SPEAR_HIGH_WIND.copy(lean = -0.3, bodyY = -2.0) to 5, SPEAR_HIGH_DRIVE to 2,
+                        SPEAR_HIGH_HIT.copy(lean = 0.65, crouch = 5.0, stride = 13.0, weapon = V(-0.02, -0.5, 0.86)) to 3, SPEAR_HIGH_HIT.copy(lean = 0.6, crouch = 6.0, stride = 13.0, weapon = V(-0.02, -0.55, 0.83), trail = 0.0) to 6, r to 1)
+                    // a long staff comes back up the way the plain smash does, its foot clear of the body
+                    else if (st == Stance.STAFF) tween(r to 3, SMASH_RAISE to 2, KILL_HIGH_RAISE to 5, SMASH_OVER to 2, KILL_HIGH_HIT to 3, KILL_HIGH_DOWN to 3, SMASH_HIT.copy(trail = 0.0) to 3, r to 1)
+                    else tween(r to 3, SMASH_RAISE to 2, KILL_HIGH_RAISE to 5, SMASH_OVER to 2, KILL_HIGH_HIT to 3, KILL_HIGH_DOWN to 6, r to 1),
+                Strike.KILL_PIERCE to if (st == Stance.SPEAR) tween(r to 3, SPEAR_LOW_WIND.copy(rh = V(19.0, 58.0, -14.0), lean = -0.22, twist = 36.0) to 6,
+                        SPEAR_LOW_HIT.copy(lean = 0.6, stride = 14.0, rh = V(6.0, 64.0, 48.0)) to 4, SPEAR_LOW_HIT.copy(lean = 0.6, stride = 14.0, rh = V(6.0, 64.0, 48.0), trail = 0.0) to 3,
+                        SPEAR_LOW_HIT.copy(lean = 0.25, stride = 11.0, rh = V(14.0, 66.0, 34.0), weapon = V(0.35, 0.1, 0.93), trail = 0.0) to 5, r to 1)
+                    // a staff is wrenched out straight back along itself, not levered aside, so its foot stays out of the body
+                    else if (st == Stance.STAFF) tween(r to 3, KILL_IMPALE_WIND.copy(rh = V(28.0, 72.0, -6.0), weapon = V(0.32, 0.1, 0.94)) to 6, KILL_IMPALE_HIT to 4,
+                        KILL_IMPALE_HIT.copy(trail = 0.0) to 3, KILL_IMPALE_HIT.copy(trail = 0.0, rh = V(18.0, 80.0, 26.0), lean = 0.2, stride = 9.0) to 4,
+                        THRUST_WIND.copy(rh = V(28.0, 72.0, -2.0), weapon = V(0.32, 0.1, 0.94)) to 2, r to 1)
+                    else tween(r to 3, KILL_IMPALE_WIND to 6, KILL_IMPALE_HIT to 4, KILL_IMPALE_HIT.copy(trail = 0.0) to 3, KILL_IMPALE_TEAR to 5, r to 1),
+                Strike.KILL_RISE to tween(r to 3, KILL_RISE_WIND to 6, KILL_RISE_HIT to 3, KILL_RISE_END to 6, r to 1),
+                // all the way round: the hit and its end a full turn on, so the body turns on rather than back
+                Strike.KILL_SPIN to tween(r to 3, KILL_SPIN_WIND to 4, KILL_SPIN_TURN to 4, KILL_SPIN_HIT.copy(yaw = FIGHT_YAW + 360.0) to 3,
+                    KILL_SPIN_END.copy(yaw = FIGHT_YAW + 360.0) to 6, r to 1),
                 Strike.CAST to cast(1),
             ),
             xbow = tween(r to 3, XBOW_AIM to 5, XBOW_AIM to 3, XBOW_RECOIL to 2, XBOW_AIM.copy(draw = 0.0) to 4, r to 2),
@@ -486,6 +509,26 @@ object HeroFigure {
         Strike.SMASH -> 10
         Strike.SHOOT -> 11
         Strike.CAST -> 10
+        Strike.KILL_HIGH -> 12
+        Strike.KILL_PIERCE -> 9
+        Strike.KILL_RISE -> 9
+        Strike.KILL_SPIN -> 11
+    }
+
+    /**
+     * The killing blows this hero has, for a critical hit that ends the foe: none without a melee weapon. A blade or a
+     * dagger runs the foe through, an axe, a mace or a hammer rises up through it instead; a spear has no turn.
+     */
+    fun killStrikes(hero: Hero): List<Strike> {
+        val w = hero.item(GearSlot.MAIN_HAND)?.def ?: return emptyList()
+        return when {
+            w.ranged -> emptyList()
+            w.id == "spear" -> listOf(Strike.KILL_PIERCE, Strike.KILL_HIGH)
+            w.icon == Icon.AXE || w.icon == Icon.MACE || w.icon == Icon.HAMMER -> listOf(Strike.KILL_HIGH, Strike.KILL_RISE, Strike.KILL_SPIN)
+            // a long staff is not whirled round: crushed down from above, or driven through
+            w.icon == Icon.STAFF -> listOf(Strike.KILL_HIGH, Strike.KILL_PIERCE)
+            else -> listOf(Strike.KILL_HIGH, Strike.KILL_PIERCE, Strike.KILL_SPIN)
+        }
     }
 
     /** How this hero casts: 0 with a staff, 1 a wand or bare hand (a tome in the other), 2 an orb or holy symbol, 3 a weapon with a shield on the arm. */

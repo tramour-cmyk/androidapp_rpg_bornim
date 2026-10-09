@@ -38,6 +38,9 @@ object HeroBattle {
         return if (outfit(hero).twoHands) listOf(if (low) 1 else 3, 6, 7) else listOf(if (low) 2 else 0, 4, 5)
     }
 
+    /** The killing blows of this hero's weapon (see [HeroFigure.killStrikes]). */
+    fun killStrikes(hero: Hero): List<Strike> = HeroFigure.killStrikes(hero)
+
     /** The blows this hero strikes, taken in turn. */
     fun strikes(hero: Hero): List<Strike> = HeroFigure.strikes(hero)
 
@@ -227,6 +230,8 @@ object HeroBattle {
         // last: the fall, and a healing draught, in this fight's ways
         plan += Triple(Act.DIE, Strike.SLASH, diePick(victoryPick))
         plan += Triple(Act.DRINK, Strike.SLASH, drinkPick(victoryPick))
+        // the killing blows come rarely: drawn last
+        for (s in killStrikes(hero)) { plan += Triple(Act.ATTACK, s, 0); if (!cancelled()) tip(hero, s) }
         for ((act, strike, v) in plan.distinct()) for (i in 0 until frameCount(hero, act, strike, v)) {
             if (cancelled()) return
             frame(hero, act, strike, v, i, wounds)

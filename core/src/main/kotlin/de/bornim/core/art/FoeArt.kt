@@ -359,6 +359,15 @@ object FoeArt {
         return img
     }
 
+    /** The same frame without the weapon in the hand: what is left of the foe when its weapon falls away on its own. */
+    fun unarmedFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage {
+        val seq = sequence(id, look, act, variant).rigs
+        val i = if (act == Act.IDLE) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
+        val o = outfit(id, look)
+        val bare = Outfit(o.cls, o.items - GearSlot.MAIN_HAND, o.rusty, o.crude, o.pelt, o.bothHands, o.cloakRgb, o.flaskRgb, o.fetish)
+        return doll(id, look).render(W, height(id), ANCHOR_X, ground(id), PX, seq[i], bare).img
+    }
+
     /**
      * The frame if it is drawn already, else the nearest earlier one of the same act that is, else the first frame of
      * the guard (drawn now if need be, once): the battle never waits while frames are drawn in the background.

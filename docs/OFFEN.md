@@ -58,9 +58,15 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
-- **Killerschlag (09.10. begonnen):** Konzept von dir freigegeben (09.10.: tödlicher kritischer Treffer mit Nahkampfwaffe; drei Schläge: Überkopfhieb, Durchbohren, Drehhieb; längeres Innehalten, stärkeres Rütteln; Blutstufe Aus = Zusammensacken, Dezent = Blutschwall, Deutlich = Zerteilen; Skelette zerspringen, Zombie/Ghul dunkler Schleim, Gallerte platzt). Entwürfe als Standbilder (09.10., 12:09, Vorschau `KILLDRAFT=1`): Held-Schläge mit Schwert und Schild sowie Zweihandaxt (Axt, Streitkolben und Hammer bekommen statt Durchbohren einen Aufwärtshieb); Goblin je Blutstufe, Skelett zerspringt. Wartet auf deine Rückmeldung zu den Entwürfen, dann Umsetzung. Fernkampf und Zauber: auf der Merkliste. Hinweis: Die Karten-Überarbeitung läuft parallel in einer anderen Sitzung (zweiter Account); Überschneidungen beim Zusammenführen auf `main` beachten.
+- **Killerschlag:** umgesetzt (09.10.), im Film geprüft, Zweig-Build folgt (siehe „Zu testen“).
 
 ## Zu testen
+
+**Folgt im nächsten Zweig-Build: Killerschlag** (Entwürfe von dir am 09.10. freigegeben). Zum Testen im Test-Reiter „Held trifft immer kritisch“ einschalten, Blutstufe im Menü umstellen. Worauf achten:
+- Die drei Schläge des Helden (je Waffe): passen Bewegung und Wucht, ist das längere Innehalten gut?
+- Blutstufe Aus (Zusammensacken, dunkler), Dezent (Blutschwall, Lache), Deutlich (Zerteilen bzw. Loch beim Durchbohren).
+- Skelett zerspringt, Gallerte platzt, Zombie/Ghul dunkler Schleim; Tiere und Fledermäuse.
+- Bleiben die Teile liegen, bis das Siegesfeld kommt?
 
 **Version v0.1.279** (veröffentlicht 09.10., 11:16): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.279/bornim.apk). Vollständig von dir bestätigt (09.10.), zuletzt Tatendrang einmal pro Rast („funktioniert“).
 
@@ -75,7 +81,6 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Geplant
 
-- **Killerschlag:** Ein kritischer Treffer, der ein Monster tötet, bekommt einen besonderen Schlag des Helden in mindestens drei Varianten. Das Trefferbild zerfetzt den Gegner, abgestuft nach der Blutstufe: bei „Aus“ ohne Blut, etwa ein Zerbrechen oder Zusammensacken; bei „Dezent“ und „Deutlich“ immer stärker. Skelette zerspringen in Knochen. Gilt für alle Gegner im neuen Stil.
 - **Sterbeanimationen für alle Gegner:** Alle Gegner im neuen Stil haben je drei Stürze und bleiben liegen. Seit 09.10. sind alle Gegner im neuen Stil; Schamane und Ghul fallen wie die Goblins, die Tiere aus dem Entwurf haben ihre eigenen Stürze.
 
 - **Klänge überarbeiten (Rest)** nach den [Stil-Leitlinien](STIL.md): weg von quietschenden Nintendo-Tönen, hin zu glaubwürdigen Geräuschen. Die Kampfgeräusche (Hiebe, Stiche, Schläge, Biss, Pfeil, Schwung, Wolfsheulen) wurden schon einmal realistischer gemacht und werden mit geprüft; Abwehr („Klonk“) und Fehlschlag („Wusch“) sind schon neu. Noch im alten Stil sind vermutlich:
