@@ -95,6 +95,8 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
+**Zweig-Build 0.1.354** (09.10., 20:50; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37975581393/artifacts/11639450538), APK auch im Chat): Garricks Leerlauf. Achten auf: Wirkt er lebendig? Takt zu schnell oder zu langsam? Hört er auf und schaut zu dir, wenn du näherkommst?
+
 **Zweig-Build 0.1.347** (09.10., 20:05; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37970423837/artifacts/11635267531), APK auch im Chat): Garrick dreht sich nach einem Gespräch zurück zum Feuer, wenn du weggehst; keine alte Figur mehr beim Betreten (Held und Garrick). Achten auf: kurzer Hänger beim ersten Erscheinen? Wie lange?
 
 **Zweig-Build 0.1.341** (Zweig `karte-neuer-stil`, 09.10., 19:36; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37967016033/artifacts/11634541504), APK auch im Chat): **Garrick als Puppe** am Lagerfeuer im Flüsterwald. Achten auf: Erkennst du ihn als Jäger (Kapuze, Bart, Bogen)? Dreht er sich weich zu dir, wenn du dich näherst, und zurück, wenn du gehst? Erscheint beim Betreten kurz die alte Figur? Passt er nachts im Feuerschein? Gespräch mit ihm unverändert?
