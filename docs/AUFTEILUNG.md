@@ -1,6 +1,6 @@
 # Aufteilung der Arbeit auf zwei Accounts
 
-Stand: 09.10.2026, 18:50 (Berliner Zeit). Die Karte wird gerade im neuen Stil umgebaut (siehe [Offen](OFFEN.md), Abschnitt „Karte im neuen Stil“). Damit zwei Claude-Sitzungen (zwei Accounts) gleichzeitig daran arbeiten können, ohne sich in die Quere zu kommen, ist die Arbeit hier aufgeteilt. Wer eine Sitzung beginnt, liest zuerst `CLAUDE.md`, dann diese Datei, dann `docs/OFFEN.md`.
+Stand: 09.10.2026, 18:48 (Berliner Zeit). Die Karte wird gerade im neuen Stil umgebaut (siehe [Offen](OFFEN.md), Abschnitt „Karte im neuen Stil“). Damit zwei Claude-Sitzungen (zwei Accounts) gleichzeitig daran arbeiten können, ohne sich in die Quere zu kommen, ist die Arbeit hier aufgeteilt. Wer eine Sitzung beginnt, liest zuerst `CLAUDE.md`, dann diese Datei, dann `docs/OFFEN.md`.
 
 ## Wer macht was
 
