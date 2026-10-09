@@ -54,7 +54,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
-**Zweig `claude/status-next-steps-pqvzz8`, letzter Build 0.1.273** (09.10., 10:48): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37906856503/artifacts/11605101270). Von dir am 09.10. getestet und bestätigt: Treffer ohne Flackern (Innehalten, Rotfärbung, Rütteln nur bei kritischen Treffern), Ghul-Klauenhieb, Pfeil vom Bogen, Schamane, kein Wackeln des Helden, neue Tiere (Spinne, Hundertfüßer, Fledermaus, Gallerte; Stirge: „Stärke passt“ als „Stirge passt“ verstanden), Gift greift nicht mehr an, Treffer ohne weiße Zeichen, Wunden der Gallerte. Von dir am 09.10. zur Übernahme nach `main` freigegeben.
+**Version v0.1.279** (veröffentlicht 09.10., 11:16): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.279/bornim.apk). Inhaltlich wie der von dir getestete Zweig-Build 0.1.273; alles darin von dir bestätigt außer:
 
 - **Noch nicht ausdrücklich bestätigt: Tatendrang einmal pro Rast** (deine Entscheidung 09.10., Möglichkeit c): Nach dem Einsatz erst nach einer Rast am Lagerfeuer oder im Gasthaus wieder bereit (auch ein Stufenaufstieg füllt auf); im Kampfmenü „0/1“, solange verbraucht.
 
