@@ -106,6 +106,8 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
+**Zweig-Build 0.1.351** (Zweig `karte-hoehle`, 09.10., 20:29; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37973104597/artifacts/11638281882)): Höhle im neuen Stil (Boden, Wände, alle Dinge), dazu der Stand von `karte-neuer-stil` bis 0.1.347. Achten auf: Erkennt man die Räume und Gänge? Wirkt es zu dunkel oder zu hell? Läuft man irgendwo optisch durch Fels oder Dinge? Werden Dinge über dem Helden gezeichnet, wo er davor steht (Pilze, Knochen, Lager)? Gitter, Truhen (offen und zu), Fackeln, Feuer und Tümpel? Ruckelt es beim Betreten (der Boden wird im Hintergrund gezeichnet; bis dahin kurz die alten Kacheln)?
+
 **Zweig-Build 0.1.347** (09.10., 20:05; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37970423837/artifacts/11635267531), APK auch im Chat): Garrick dreht sich nach einem Gespräch zurück zum Feuer, wenn du weggehst; keine alte Figur mehr beim Betreten (Held und Garrick). Achten auf: kurzer Hänger beim ersten Erscheinen? Wie lange?
 
 **Zweig-Build 0.1.341** (Zweig `karte-neuer-stil`, 09.10., 19:36; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37967016033/artifacts/11634541504), APK auch im Chat): **Garrick als Puppe** am Lagerfeuer im Flüsterwald. Achten auf: Erkennst du ihn als Jäger (Kapuze, Bart, Bogen)? Dreht er sich weich zu dir, wenn du dich näherst, und zurück, wenn du gehst? Erscheint beim Betreten kurz die alte Figur? Passt er nachts im Feuerschein? Gespräch mit ihm unverändert?
