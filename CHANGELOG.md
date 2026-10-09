@@ -9,6 +9,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Felsen sind Blockgruppen mit beschatteter Vorderseite und Moos auf der Nordseite, umgestürzte Stämme tragen Moos, Steinkreise haben hohe, verwitterte Steine mit Flechten.
 - Auf der Wiese, dichter am Waldrand, wachsen Büsche und Farne; nie auf dem Weg.
 - Bäume, Felsen und Steine werfen Schatten nach rechts unten auf den Boden, kräftig am Tag, in der Dämmerung schwächer, nachts keine.
+- Lagerfeuer, Truhen und Schilder im Wald neu: Feuer in einem Ring rußiger Steine mit Asche, verkohlten Scheiten, flackernden Flammen, Glut und Funken; Truhen aus verwitterten Planken mit Eisenbändern, Schloss und Moos, offen mit hochgeklapptem Deckel; Schilder als grobe Bretter auf schiefem Pfahl, mit eingeritzter Schrift und Krallenspuren.
+- Die Bäume sind etwas niedriger, damit ihre Kronen weniger vom Weg verdecken; direkt südlich einer Truhe steht nur eine schlanke junge Fichte, damit die Truhe sichtbar bleibt.
 
 **Neu – Boden im Wald ohne Raster (Zweig `karte-neuer-stil`)**
 - Im Flüsterwald und im Tiefen Wald ist der Boden neu gezeichnet, in doppelter Auflösung und ohne sichtbare Kacheln: Waldboden aus Moos, nackter Erde und altem Laub, unter dem Waldrand dunkler. Wiese, hohes Gras, Blumen und Wasser gehen unregelmäßig ineinander über.

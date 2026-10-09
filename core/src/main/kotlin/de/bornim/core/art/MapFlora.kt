@@ -130,20 +130,20 @@ object MapFlora {
 
     /** An oak-like tree; [size] 0..2 small to large, [deep] the darker, older wood. */
     fun oak(variant: Int, size: Int, deep: Boolean): Sprite = cached("oak/$variant/$size/$deep") {
-        val r = S * (0.66 + size * 0.17) + variant % 3 * 2
-        val w = (r * 2.6).toInt(); val h = (r * 3.6).toInt()
+        val r = S * (0.54 + size * 0.11) + variant % 3 * 2
+        val w = (r * 2.6).toInt(); val h = (r * 3.1).toInt()
         val img = PixelImage(w, h)
         val base = h - 4.0
-        val cy = h - r * 2.15
-        trunk(img, w / 2.0, base, cy, r * (if (deep) 0.26 else 0.22), variant * 31 + size)
+        val cy = h - r * 1.75
+        trunk(img, w / 2.0, base, cy, r * (if (deep) 0.28 else 0.24), variant * 31 + size)
         crown(img, w / 2.0, cy, r, if (deep) LEAF_DEEP else LEAF, variant * 131 + size * 7 + (if (deep) 3 else 0))
         Sprite(img, w / 2, base.toInt())
     }
 
     /** A spruce in drooping tiers. */
     fun spruce(variant: Int, size: Int): Sprite = cached("spruce/$variant/$size") {
-        val r = S * (0.5 + size * 0.13) + variant % 2 * 2
-        val w = (r * 2.1).toInt(); val h = (r * 4.2).toInt()
+        val r = S * (0.44 + size * 0.09) + variant % 2 * 2
+        val w = (r * 2.1).toInt(); val h = (r * 3.7).toInt()
         val img = PixelImage(w, h)
         val base = h - 4.0
         trunk(img, w / 2.0, base, base - r * 0.7, r * 0.16, variant * 17)
@@ -151,7 +151,7 @@ object MapFlora {
         val tiers = 5
         for (k in 0 until tiers) {
             val f = k / (tiers - 1.0)
-            val ty = base - r * 0.55 - k * r * 0.62
+            val ty = base - r * 0.5 - k * r * 0.55
             val half = r * (0.95 - f * 0.6)
             val hh = r * 0.95
             for (y in (ty - hh).toInt()..ty.toInt()) for (x in (cx - half - 3).toInt()..(cx + half + 3).toInt()) {
@@ -170,8 +170,8 @@ object MapFlora {
 
     /** A dead tree, grey and bare, its branches reaching up. */
     fun deadTree(variant: Int): Sprite = cached("dead/$variant") {
-        val r = S * 0.8
-        val w = (r * 2.6).toInt(); val h = (r * 3.6).toInt()
+        val r = S * 0.66
+        val w = (r * 2.6).toInt(); val h = (r * 3.3).toInt()
         val img = PixelImage(w, h)
         var n = 0
         fun branch(x: Double, y: Double, a: Double, len: Double, wd: Double) {
@@ -273,6 +273,135 @@ object MapFlora {
         Sprite(img, w / 2, h - 6)
     }
 
+    private val WOOD = ramp(0x7A5E42, 0x5A4430, 0x3A2C20, 0x221A12)
+    private val IRON = ramp(0x8A8A86, 0x5C5C5A, 0x343434)
+
+    /**
+     * A camp fire in a ring of soot-blackened stones: ash, crossed logs charred in the middle,
+     * flames from deep red to a pale core, a few sparks. Two frames that flicker.
+     */
+    fun campfire(frame: Int): Sprite = cached("fire/${frame % 2}") {
+        val w = 72; val h = 84
+        val img = PixelImage(w, h)
+        val cx = w / 2.0; val by = h - 14.0
+        // ash bed
+        for (y in (by - 9).toInt()..(by + 6).toInt()) for (x in (cx - 20).toInt()..(cx + 20).toInt()) {
+            val dx = (x - cx) / 20; val dy = (y - by + 1) / 8.5
+            if (dx * dx + dy * dy < 1) put(img, x, y, if (rnd(x, y, 61) < 0.5) argb(0x2A2420) else argb(0x1A1614))
+        }
+        // crossed logs, charred where they meet
+        for ((a, b) in listOf(-14.0 to 6.0, 14.0 to 6.0)) {
+            for (t in 0..28) {
+                val f = t / 28.0
+                val x = cx - a + (2 * a) * f; val y = by - 2 - b + 2 * b * f * 0.0 + (if (a < 0) f else 1 - f) * 6 - 3
+                val charred = abs(f - 0.5) < 0.22
+                disc(img, x, y, 3.4, if (charred) argb(0x1E1410) else BARK[2])
+                disc(img, x - 0.8, y - 1.2, 1.6, if (charred) argb(0x5A2A14) else BARK[0])
+            }
+        }
+        // stones in a ring, the far ones higher; lit from above and from the fire
+        for (i in 0 until 11) {
+            val a = i * 2 * PI / 11 + 0.15
+            val sx = cx + cos(a) * 23; val sy = by + sin(a) * 11 + 1
+            val r = 5.2 + rnd(i, 1, 62) * 1.6
+            disc(img, sx, sy + 1.5, r, STONE[3])
+            disc(img, sx - 0.5, sy, r - 0.6, STONE[2])
+            disc(img, sx - 1.2, sy - 1.4, r * 0.55, if (sin(a) < 0) STONE[1] else mix(STONE[1], argb(0xC07040), 0.35))
+        }
+        // flames: tongues swaying with the frame
+        val f2 = frame % 2
+        val tongues = listOf(-7.0 to 22.0, -2.5 to 32.0, 3.0 to 27.0, 7.5 to 18.0, 0.5 to 38.0)
+        for ((k, tg) in tongues.withIndex()) {
+            val (ox, hgt0) = tg
+            val hgt = hgt0 * (if ((k + f2) % 2 == 0) 1.0 else 0.84)
+            for (yy in 0 until hgt.toInt()) {
+                val f = yy / hgt
+                val half = ((1 - f) * (5.2 - abs(ox) * 0.25) + 0.6).coerceAtLeast(0.6)
+                val sway = sin(f * 3.2 + ox + f2 * 1.7) * 2.6 * f
+                for (x in (-half).toInt()..half.toInt()) {
+                    val e = abs(x) / half
+                    val c = when {
+                        f < 0.42 && e < 0.42 -> argb(0xFFF0B8)
+                        f < 0.68 && e < 0.7 -> argb(0xFFB648)
+                        f < 0.9 -> argb(0xEA6A26)
+                        else -> argb(0xA83416)
+                    }
+                    put(img, (cx + ox + x + sway).toInt(), (by - 4 - yy).toInt(), c)
+                }
+            }
+        }
+        // glowing embers among the ash, and sparks rising
+        for (i in 0 until 14) put(img, (cx - 14 + rnd(i, 2, 63) * 28).toInt(), (by - 3 + rnd(i, 3, 63) * 7).toInt(), if (i % 2 == 0) argb(0xFF8A30) else argb(0xC84418))
+        for (i in 0 until 6) put(img, (cx - 9 + rnd(i, f2, 64) * 18).toInt(), (by - 46 - rnd(i, f2 + 4, 64) * 26).toInt(), if (i % 2 == 0) argb(0xFFD27A) else argb(0xFF8A3A))
+        Sprite(img, w / 2, (by + 8).toInt())
+    }
+
+    /** A weathered wooden chest with iron bands and a lock; open, the lid stands up behind it. */
+    fun chest(open: Boolean, variant: Int): Sprite = cached("chest/$open/$variant") {
+        val w = 52; val h = 56
+        val img = PixelImage(w, h)
+        val x0 = 7; val x1 = w - 8; val front0 = h - 26; val bottom = h - 6; val top0 = front0 - 11
+        // front: vertical planks, shade towards the right
+        for (y in front0..bottom) for (x in x0..x1) {
+            val plank = (x - x0) / 9
+            var c = WOOD[1 + (plank + variant) % 2]
+            if ((x - x0) % 9 == 0) c = WOOD[3]
+            if (x > x1 - 6) c = mix(c, WOOD[3], 0.5)
+            if (rnd(x, y, 71 + variant) < 0.12) c = mix(c, WOOD[3], 0.4)
+            if (y > bottom - 3 && vnoise(x.toDouble(), y.toDouble(), 4.0, 72) > 0.5) c = mix(c, MOSS, 0.6)
+            put(img, x, y, c)
+        }
+        if (!open) {
+            // the lid: top face, lit
+            for (y in top0 until front0) for (x in x0 + 2..x1 - 1) {
+                var c = WOOD[0]
+                if ((y - top0) % 4 == 0) c = WOOD[1]
+                if (x > x1 - 6) c = mix(c, WOOD[2], 0.5)
+                put(img, x, y, c)
+            }
+            for (x in x0..x1) put(img, x, front0, WOOD[3])
+        } else {
+            // the dark inside and the lid standing up behind
+            for (y in top0 - 18 until top0 + 2) for (x in x0 + 2..x1 - 1) put(img, x, y, if ((y - top0) % 5 == 0) WOOD[2] else WOOD[1])
+            for (y in top0 + 2 until front0) for (x in x0 + 2..x1 - 1) put(img, x, y, argb(0x0E0A08))
+        }
+        // iron bands and the lock
+        for (bx in listOf(x0 + 7, x1 - 7)) for (y in (if (open) top0 + 2 else top0)..bottom) { put(img, bx, y, IRON[1]); put(img, bx + 1, y, IRON[2]) }
+        if (!open) for (y in front0 + 2..front0 + 9) for (x in w / 2 - 3..w / 2 + 3) put(img, x, y, if (y == front0 + 2 || x == w / 2 - 3) IRON[0] else IRON[1])
+        if (!open) put(img, w / 2, front0 + 6, argb(0x101010))
+        Sprite(img, w / 2, bottom)
+    }
+
+    /** A rough wooden sign on a post, the board scratched by claws, leaning a little. */
+    fun sign(variant: Int): Sprite = cached("sign/$variant") {
+        val w = 64; val h = 72
+        val img = PixelImage(w, h)
+        val cx = w / 2.0; val base = h - 5.0
+        val lean = (variant - 1) * 0.06
+        // post
+        for (y in 26 until base.toInt()) {
+            val x = cx + (base - y) * lean
+            for (dx in -3..3) put(img, (x + dx).toInt(), y, if (dx < -1) WOOD[1] else if (dx > 1) WOOD[3] else WOOD[2])
+        }
+        // board: two planks, nailed, darker edges
+        val top = 10; val bot = 34
+        for (y in top..bot) {
+            val skew = (y - top) * lean
+            for (x in 6..w - 7) {
+                val px = (x + skew).toInt()
+                var c = if (y < (top + bot) / 2) WOOD[0] else WOOD[1]
+                if (y == (top + bot) / 2 || y == top || y == bot || x == 6 || x == w - 7) c = WOOD[3]
+                if (rnd(x, y, 81 + variant) < 0.1) c = mix(c, WOOD[3], 0.4)
+                put(img, px, y, c)
+            }
+        }
+        // carved lines (the writing) and the claw marks across it
+        for (k in 0 until 3) for (x in 12 until w - 14) if (rnd(x, k, 82 + variant) > 0.25) put(img, x, top + 6 + k * 6, WOOD[3])
+        for (k in 0 until 3) for (t in 0..18) put(img, 16 + k * 5 + t, top + 2 + t, argb(0x1A120C))
+        for (n in listOf(9 to top + 3, w - 10 to top + 3, 9 to bot - 3, w - 10 to bot - 3)) put(img, n.first, n.second, IRON[0])
+        Sprite(img, w / 2, base.toInt())
+    }
+
     // ------------------------------------------------------------------ on the map
 
     private fun obj(s: Sprite, artX: Double, artY: Double): WorldArt.Obj {
@@ -281,12 +410,14 @@ object MapFlora {
     }
 
     /** The new pictures for one tile, or null if this tile keeps its old picture. */
-    fun objects(map: MapDef, tx: Int, ty: Int): List<WorldArt.Obj>? {
+    fun objects(map: MapDef, tx: Int, ty: Int, frame: Int = 0, chestOpen: Boolean = false): List<WorldArt.Obj>? {
         val deep = map.id == "deep_forest"
         val cx = (tx + 0.5) * S; val cy = (ty + 0.5) * S
         return when (map.tile(tx, ty)) {
             Tile.TREE -> {
                 val out = ArrayList<WorldArt.Obj>()
+                // a chest just north of this tree must stay visible: a slim young spruce instead of a broad crown
+                if ((-1..1).any { map.tile(tx + it, ty - 1) == Tile.CHEST }) return listOf(obj(spruce(hash(tx, ty, 6) % 6, 0), cx, cy + S * 0.6))
                 val count = if (hash(tx, ty, 1) % 3 == 0) 2 else 1
                 for (k in 0 until count) {
                     val kind = hash(tx, ty, k * 7 + 2) % 10
@@ -306,6 +437,9 @@ object MapFlora {
             Tile.ROCK -> listOf(obj(boulders(hash(tx, ty, 12) % 4), cx, cy + S * 0.25))
             Tile.LOG -> listOf(obj(log(map.tile(tx - 1, ty) != Tile.LOG, map.tile(tx + 1, ty) != Tile.LOG), cx, cy + S * 0.2))
             Tile.MENHIR -> listOf(obj(menhir(hash(tx, ty, 13) % 4), cx, cy + S * 0.3))
+            Tile.CAMPFIRE -> listOf(obj(campfire(frame), cx, cy + S * 0.2))
+            Tile.CHEST -> listOf(obj(chest(chestOpen, hash(tx, ty, 14) % 3), cx, cy + S * 0.22))
+            Tile.SIGN -> listOf(obj(sign(hash(tx, ty, 15) % 3), cx, cy + S * 0.3))
             else -> null
         }
     }
@@ -362,6 +496,7 @@ object MapFlora {
                     val footX = o.x * D + w / 2; val footY = (o.sortY) * D
                     val (rx, ry, ox) = when (map.tile(tx, ty)) {
                         Tile.TREE -> Triple(w * 0.42, w * 0.22, w * 0.3)
+                        Tile.CAMPFIRE -> continue
                         Tile.MENHIR -> Triple(22.0, 9.0, 18.0)
                         else -> Triple(w * 0.45, 12.0, 8.0)
                     }

@@ -836,7 +836,7 @@ object WorldArt {
         val fine = MapGround.supports(map)
         if (fine) out += MapFlora.undergrowth(map)
         for (ty in 0 until map.height) for (tx in 0 until map.width) {
-            val flora = if (fine) MapFlora.objects(map, tx, ty) else null
+            val flora = if (fine) MapFlora.objects(map, tx, ty, frame, map.chestAt(tx, ty)?.id in state.openedChests) else null
             if (flora != null) { out += flora; continue }
             val t = map.tile(tx, ty)
             val px = tx * T
