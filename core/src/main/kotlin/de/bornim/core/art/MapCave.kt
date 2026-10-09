@@ -41,8 +41,8 @@ object MapCave {
     private val rockDark = m(0x3E3832, grain = 0.26, sat = 0.7)
     private val stem = m(0x8C9A90, grain = 0.15, sat = 0.5)
     private val cap = m(0x2E8C88, shine = 0.4, grain = 0.12, value = 0.95)
-    private val crystal = m(0x7A52C8, shine = 0.9, grain = 0.05, value = 0.95)
-    private val crystalDark = m(0x4A2E86, shine = 0.6, grain = 0.05)
+    private val crystal = m(0x6A5296, shine = 0.7, grain = 0.12, sat = 0.75, value = 0.82)
+    private val crystalDark = m(0x3E2E5E, shine = 0.45, grain = 0.12, sat = 0.75)
     private val charred = m(0x2A2220, grain = 0.3, sat = 0.5)
     private val root = m(0x4A3A2A, grain = 0.25, sat = 0.75)
     private val moss = m(0x3E4A2A, grain = 0.4, sat = 0.7, value = 0.8)
@@ -85,18 +85,20 @@ object MapCave {
         s.chain(sinter, *pts.subList(9, pts.size).toDoubleArray())
         val tx = pts[pts.size - 3]; val ty = pts[pts.size - 2]; val tr = pts[pts.size - 1]
         if (broken) {
-            // the break: a jagged, pale face looking up that hides the round end of the column
+            // the break: an uneven, pale face looking up, one side torn off higher than the other,
+            // with a few faint rings of the stone the column grew from
             val b = ArrayList<Double>()
-            val nb = 9
+            val nb = 7
             for (i in 0..nb) {
                 val f = i.toDouble() / nb
-                b += tx - tr * 1.08 + f * tr * 2.16; b += ty - tr * (0.15 + 0.55 * rnd(seed, i, 6)) - tr * 0.35 * sin(f * PI)
+                b += tx - tr * 1.02 + f * tr * 2.04; b += ty - tr * (0.25 + 0.3 * rnd(seed, i, 6)) - tr * 0.45 * f
             }
-            b += tx + tr * 1.05; b += ty + tr * 0.55
-            b += tx - tr * 1.05; b += ty + tr * 0.55
-            s.poly(sinterBreak, *b.toDoubleArray(), tiltY = -0.65, bevel = 1.8)
-            s.line(tx - tr * 0.5, ty - tr * 0.2, tx + tr * 0.3, ty - tr * 0.35, crackColor)
-            s.line(tx - tr * 1.04, ty + tr * 0.5, tx + tr * 1.04, ty + tr * 0.5, argb(0x4A4236))
+            b += tx + tr * 1.02; b += ty + tr * 0.35
+            b += tx - tr * 1.02; b += ty + tr * 0.35
+            s.poly(sinterBreak, *b.toDoubleArray(), tiltY = -0.7, tiltX = 0.15, bevel = 2.5)
+            s.line(tx - tr * 0.7, ty - tr * 0.1, tx - tr * 0.1, ty - tr * 0.3, argb(0x6E6656))
+            s.line(tx - tr * 0.2, ty + tr * 0.1, tx + tr * 0.6, ty - tr * 0.35, argb(0x6E6656))
+            s.line(tx - tr * 0.4, ty + tr * 0.15, tx + tr * 0.1, ty, crackColor)
         } else {
             s.blob(tx, ty - tr * 0.2, tr * 0.95, tr * 0.8, sinter)
             s.flat(tx + 0.5, ty - tr * 0.45, 1.2, 0.7, crackColor)       // where the drop falls
@@ -314,22 +316,26 @@ object MapCave {
         val s = Sculpt(w, h, 800 + variant)
         val cx = w / 2.0; val cy = h - 26.0
         if (variant % 3 == 2) {
-            // a bedroll still tied up, a bundle and a water skin beside it
-            s.limb(cx - 26, cy + 2, cx + 18, cy + 2, 8.0, 8.0, sacking)
-            s.blob(cx + 18, cy + 2, 4.5, 8.0, sacking, depth = 0.5)
-            s.flat(cx + 19, cy + 2, 3.0, 5.5, argb(0x3A3024))
-            s.flat(cx + 19, cy + 2, 1.4, 2.5, argb(0x5E4E3A))
-            for (sx in doubleArrayOf(cx - 14, cx + 6)) s.poly(plankDark, sx - 2, cy - 7, sx + 2, cy - 7, sx + 2, cy + 10, sx - 2, cy + 10, tiltY = 0.1, bevel = 0.8)
-            s.blob(cx - 38, cy + 4, 9.0, 7.0, sacking)
-            s.limb(cx - 38, cy - 3, cx - 36, cy - 8, 2.4, 1.6, sacking)
-            s.blob(cx + 36, cy + 6, 7.0, 5.0, hideDark)
-            s.limb(cx + 36, cy + 1, cx + 38, cy - 3, 1.8, 1.2, hideDark)
+            // a blanket half unrolled on the stone: the flat part with folds and a frayed edge, the rest still
+            // rolled up and tied at the head end; a bundle beside it
+            s.poly(sacking, cx - 30, cy - 9, cx + 10, cy - 10, cx + 12, cy + 12, cx - 28, cy + 13, cx - 32, cy + 2, tiltY = -0.6, bevel = 2.0)
+            for (k in 0 until 4) s.line(cx - 24 + k * 9.0, cy - 8, cx - 22 + k * 9.0, cy + 11, argb(0x3E3428))
+            for (k in 0 until 6) s.dot(cx - 28 + k * 7.0, cy + 13.5, argb(0x5E5040))
+            s.chain(sacking, cx + 16, cy - 10, 7.0, cx + 16, cy + 12, 7.0)
+            s.blob(cx + 16, cy - 11, 7.0, 3.0, sacking, depth = 0.3)
+            s.flat(cx + 16, cy - 11, 4.6, 1.8, argb(0x3A3024))
+            s.flat(cx + 16, cy - 11, 2.0, 0.8, argb(0x5E4E3A))
+            s.poly(plankDark, cx + 8, cy, cx + 24, cy, cx + 24, cy + 3, cx + 8, cy + 3, tiltY = -0.2, bevel = 0.8)
+            s.blob(cx + 38, cy + 5, 9.0, 7.0, hideDark)
+            s.limb(cx + 38, cy - 1, cx + 40, cy - 6, 2.2, 1.4, hideDark)
+            s.line(cx + 33, cy, cx + 43, cy, argb(0x2A2016))
         } else if (variant % 3 == 0) {
             // a wolf hide, flat on the stone: head with ears and empty eyes, legs spread, tail
+            // the legs lie flat and splayed, ragged at the paws
             for ((lx, sy) in listOf(-20.0 to -1.0, -20.0 to 1.0, 20.0 to -1.0, 20.0 to 1.0)) {
-                val ox = if (lx > 0) 7.0 else -7.0
-                s.limb(cx + lx, cy + sy * 8, cx + lx + ox, cy + sy * 18, 4.0, 2.4, hide)
-                for (j in -1..1) s.dot(cx + lx + ox + j, cy + sy * 19.5, argb(0x18120E))
+                val ox = if (lx > 0) 6.0 else -6.0
+                s.blob(cx + lx + ox * 0.5, cy + sy * 13, 5.5, 4.0, hide, rot = sy * (if (lx > 0) 0.5 else -0.5), depth = 0.3)
+                s.blob(cx + lx + ox, cy + sy * 17, 3.6, 2.6, hideDark, depth = 0.3)
             }
             s.chain(hide, cx + 28, cy, 5.0, cx + 40, cy + 2, 4.0, cx + 52, cy - 1, 1.8)
             s.blob(cx, cy, 32.0, 12.0, hide, depth = 0.35)
@@ -341,14 +347,10 @@ object MapCave {
             s.flat(cx - 40, cy - 2.6, 2.4, 1.2, holeColor)
             s.flat(cx - 40, cy + 2.6, 2.4, 1.2, holeColor)
             s.flat(cx - 54, cy + 1, 1.8, 1.6, holeColor)
-            // the fur lies outwards from the back: dark roots, light tips
-            val furDark = argb(0x2E2620); val furTip = argb(0x8A7E6E)
-            for (i in 0 until 260) {
-                val u = rnd(i, 1, 90) * 2 - 1; val side = if (rnd(i, 2, 90) < 0.5) -1 else 1
-                val fx = cx + u * 28; val fy = cy + side * (2 + rnd(i, 3, 90) * 9)
-                val len = 3 + rnd(i, 4, 90) * 3
-                s.line(fx, fy, fx + 1, fy + side * len * 0.5, furDark)
-                s.dot(fx + 1, fy + side * len * 0.6, furTip)
+            // a ragged rim: the edge of the hide frayed and uneven
+            for (i in 0 until 40) {
+                val a = i * 2 * PI / 40
+                s.blob(cx + cos(a) * (31 + rnd(i, 2, 90) * 2), cy + sin(a) * (11 + rnd(i, 3, 90)), 2.4 + rnd(i, 1, 90) * 1.4, 1.6, hide, depth = 0.12)
             }
             // a stained rag thrown over the hind part
             s.blob(cx + 14, cy + 1, 14.0, 9.0, sacking, depth = 0.4)
@@ -406,16 +408,21 @@ object MapCave {
                 stone(s, cx - 30, foot - 4, 9.0, 93)
             }
             1 -> {
-                // split in two by frost and water, the halves leaning apart
-                stone(s, cx - 13, foot - 18, 22.0, 94)
-                stone(s, cx + 15, foot - 16, 20.0, 95, rockDark)
-                s.poly(Mat(Ramp.of(holeColor), inline = false), cx + 1, foot - 36, cx + 4, foot - 36, cx + 3, foot - 2, cx, foot - 2, bevel = 0.0)
+                // split in two by frost and water, the halves leaning apart; a dark cleft with grit in it
+                s.poly(Mat(Ramp.of(argb(0x14100E)), inline = false), cx - 5, foot - 30, cx + 7, foot - 29, cx + 3, foot - 2, cx - 1, foot - 2, bevel = 0.0)
+                stone(s, cx - 17, foot - 20, 22.0, 94)
+                stone(s, cx + 18, foot - 17, 20.0, 95, rockDark)
+                for (i in 0 until 4) stone(s, cx - 1 + rnd(i, 1, 99) * 4, foot - 4 - i * 2.5, 2.4, 940 + i, rockDark)
+                s.line(cx - 22, foot - 30, cx - 12, foot - 24, crackColor)
             }
             else -> {
-                // a flat slab tipped against a smaller stone
-                stone(s, cx + 18, foot - 8, 11.0, 96, rockDark)
-                s.poly(rock, cx - 36, foot - 4, cx + 22, foot - 22, cx + 30, foot - 14, cx - 28, foot + 4, tiltY = -0.5, bevel = 3.0)
-                s.poly(rockDark, cx - 28, foot + 4, cx + 30, foot - 14, cx + 30, foot - 10, cx - 27, foot + 7, tiltY = 0.4, bevel = 1.0)
+                // a thick slab broken off the roof, lying tilted on a smaller stone: a top face, a thick front edge
+                stone(s, cx + 20, foot - 8, 11.0, 96, rockDark)
+                val top = doubleArrayOf(cx - 38, foot - 10, cx - 20, foot - 22, cx + 6, foot - 30, cx + 30, foot - 30, cx + 34, foot - 22, cx + 12, foot - 12, cx - 16, foot - 6)
+                s.poly(rock, *top, tiltY = -0.6, bevel = 3.5)
+                s.poly(rockDark, cx - 38, foot - 10, cx - 16, foot - 6, cx + 12, foot - 12, cx + 34, foot - 22, cx + 34, foot - 13, cx + 12, foot - 3, cx - 16, foot + 3, cx - 37, foot - 2, tiltY = 0.45, bevel = 2.0)
+                s.line(cx - 6, foot - 24, cx + 4, foot - 14, crackColor)
+                s.line(cx + 4, foot - 14, cx + 2, foot - 7, crackColor)
             }
         }
         // lichen and grime
@@ -491,9 +498,12 @@ object MapCave {
             // two faces: the one towards the light and the one away; a tip
             s.poly(crystal, bx - nx, by - ny, bx, by, tx, ty, tx - nx * 0.6 + sin(a) * -5, ty - ny * 0.6 + cos(a) * 5, tiltX = -0.5, bevel = 0.8)
             s.poly(crystalDark, bx, by, bx + nx, by + ny, tx + nx * 0.6 - sin(a) * 5, ty + ny * 0.6 + cos(a) * 5, tx, ty, tiltX = 0.5, bevel = 0.8)
-            s.line(bx, by, tx, ty, argb(0xD8C8FF))
+            s.line(bx + (tx - bx) * 0.35, by + (ty - by) * 0.35, tx, ty, argb(0x9A86C4))
             if (variant % 3 == 2 && i == 1) s.line(bx + (tx - bx) * 0.5 - 3, by + (ty - by) * 0.5, bx + (tx - bx) * 0.5 + 3, by + (ty - by) * 0.5 - 2, holeColor)
         }
+        // the crystals grow out of rock: broken stone and grit round their feet, dust on the lower parts
+        s.tint(cx, foot - 10, 30.0, 10.0, argb(0x3A342C), 0.45)
+        for (i in 0 until 6) stone(s, cx - 24 + i * 9.5 + (rnd(i, variant, 20) - 0.5) * 4, foot - 2 + (rnd(i, variant, 21) - 0.5) * 4, 4.0 + rnd(i, variant, 22) * 4, 1250 + i + variant * 10, if (i % 2 == 0) rock else rockDark)
         return done(s, w / 2, h - 14)
     }
 
@@ -642,19 +652,28 @@ object MapCave {
     fun roots(variant: Int): Sprite {
         val w = 140; val h = 120
         val s = Sculpt(w, h, 1700 + variant)
-        val n = when (variant % 3) { 0 -> 11; 1 -> 5; else -> 8 }
+        val n = when (variant % 3) { 0 -> 12; 1 -> 6; else -> 9 }
         for (i in 0 until n) {
-            val x = 14 + rnd(i, variant, 1) * (w - 28)
-            val len = (if (variant % 3 == 1) 60.0 else 30.0) + rnd(i, variant, 2) * 50
+            val x = 12 + rnd(i, variant, 1) * (w - 24)
+            val thick = rnd(i, variant, 3) < 0.3
+            val len = (if (variant % 3 == 1) 55.0 else 22.0) + rnd(i, variant, 2) * (if (thick) 60 else 40)
+            val r0 = if (thick) 3.6 else 1.4 + rnd(i, variant, 4)
             val pts = ArrayList<Double>()
-            for (k in 0..6) {
-                val t = k / 6.0
-                pts += x + sin(t * 3 + i) * 4 * t; pts += 4 + t * len; pts += 2.6 * (1 - t * 0.75)
+            var px = x; var a = (rnd(i, variant, 5) - 0.5) * 0.6
+            for (k in 0..7) {
+                val t = k / 7.0
+                a = a * 0.6 + (rnd(i, k, 6 + variant) - 0.5) * 0.35
+                px += sin(a) * len / 7 * 0.6
+                pts += px; pts += 2 + t * len; pts += (r0 * (1 - t * 0.85)).coerceAtLeast(0.5)
             }
             s.chain(root, *pts.toDoubleArray())
-            // hair roots at the tip
+            // side rootlets and hair at the end
+            for (k in 2..6 step 2) if (rnd(i, k, 7) < 0.6) {
+                val bx = pts[k * 3]; val by = pts[k * 3 + 1]; val side = if (rnd(i, k, 8) < 0.5) -1 else 1
+                s.line(bx, by, bx + side * (4 + rnd(i, k, 9) * 6), by + 5 + rnd(i, k, 10) * 8, argb(0x3A2E22))
+            }
             val ex = pts[pts.size - 3]; val ey = pts[pts.size - 2]
-            for (j in -1..1) s.line(ex, ey, ex + j * 3, ey + 4 + abs(j) * 2, argb(0x5A4A36))
+            for (j in -1..1) s.line(ex, ey, ex + j * 2 + (rnd(i, j, 11) - 0.5) * 2, ey + 3 + rnd(i, j, 12) * 4, argb(0x5A4A36))
         }
         if (variant % 3 != 1) {
             // moss hanging in beards between the roots
