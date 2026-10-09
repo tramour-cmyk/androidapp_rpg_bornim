@@ -11,7 +11,7 @@ tools/check-env.sh          # Programme, Repository, Netz (wenige Sekunden)
 tools/check-env.sh --full   # dazu Kerntests und ein Vorschaubild (warm etwa 10 s)
 ```
 
-Am Ende steht „Ergebnis: … in Ordnung, 0 fehlen.“, wenn alles passt. Zuletzt geprüft am 09.10.2026, 21:45: 11 in Ordnung, 0 fehlen, 11 s.
+Am Ende steht „Ergebnis: … in Ordnung, 0 fehlen.“, wenn alles passt. Zuletzt geprüft am 09.10.2026, 21:31: 11 in Ordnung, 0 fehlen, 11 s.
 
 ## Sitzungsstart: schnell und sparsam (seit 09.10.2026)
 
