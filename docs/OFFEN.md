@@ -67,7 +67,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - Blutstufe Aus (Zusammensacken, dunkler), Dezent (Blutschwall, Lache), Deutlich (Zerteilen bzw. Loch beim Durchbohren).
 - Skelett zerspringt, Gallerte platzt, Zombie/Ghul dunkler Schleim; Tiere und Fledermäuse. (Frage 09.10.: Skelett liegt im Entwurf als Haufen am unteren Bildrand – im Spiel liegen die Teile dort, wo es stand; Standbild 13:05 geschickt. Ob ein flacher Streifen aus Knochen und Schildstücken so passt, wartet auf deine Rückmeldung.)
 - Bleiben die Teile liegen, bis das Siegesfeld kommt?
-- **Nachbesserung (gemeldet 09.10.: Zerteilen beim Wolf wirkt künstlich; Zombie passt):** Tiere bei „Deutlich“ jetzt mit klaffender Wunde statt Zerteilen (Vorschlag 3, von dir gewählt); menschenähnliche Gegner werden weiter zerteilt. Folgt im nächsten Zweig-Build.
+- **Nachbesserung (gemeldet 09.10.: Zerteilen beim Wolf wirkt künstlich; Zombie passt):** Tiere bei „Deutlich“ jetzt mit klaffender Wunde statt Zerteilen (Vorschlag 3, von dir gewählt); menschenähnliche Gegner werden weiter zerteilt. Im Zweig-Build 0.1.298 (09.10., 14:42): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37931400026/artifacts/11616671720).
 
 **Version v0.1.279** (veröffentlicht 09.10., 11:16): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.279/bornim.apk). Vollständig von dir bestätigt (09.10.), zuletzt Tatendrang einmal pro Rast („funktioniert“).
 
