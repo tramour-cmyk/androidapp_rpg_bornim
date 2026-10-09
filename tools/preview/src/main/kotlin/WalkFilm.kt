@@ -36,6 +36,7 @@ fun walkFilm(spec: String) {
     g.state.explored[map] = "f".repeat((m.width * m.height + 3) / 4)
     de.bornim.core.art.MapGround.prepareNow(m)
     de.bornim.core.art.MapFigure.prepareNow(g.state.hero)
+    de.bornim.core.art.MapFolk.prepareNow(de.bornim.core.art.MapFolk.garrick)
     vm.refresh()
     val W = 1080; val H = 2340
     val scene = ImageComposeScene(W, H, Density(2.75f)) { BornimApp(vm) }
@@ -61,7 +62,7 @@ fun walkFilm(spec: String) {
     run(50, false)
     for ((dx, dy) in listOf(-140f to 0f, 0f to 140f, 140f to 0f, 0f to -140f)) {
         scene.sendPointerEvent(PointerEventType.Move, c + Offset(dx, dy))
-        run(1400)
+        run(System.getenv("WALKMS")?.toInt() ?: 1400)
     }
     scene.sendPointerEvent(PointerEventType.Release, c)
     run(600)
