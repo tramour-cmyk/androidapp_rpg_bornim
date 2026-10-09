@@ -42,6 +42,42 @@ object MapFolk {
     fun draw(f: Folk, slot: Int, step: Int): PixelImage =
         MapFigure.render(f.doll, f.outfit, MapFigure.rig(slot * 360.0 / MapFigure.YAWS, step, MapFigure.Carry.FREE))
 
+    /**
+     * What one of the folk does while standing about (09.10.): [WARM] holds both hands out to the fire
+     * and rubs them, [PEER] shades the eyes with the right hand and looks slowly from side to side.
+     * Each is a short loop of [frames] pictures, shown [frameMs] apiece.
+     */
+    enum class Idle(val frames: Int, val frameMs: Long) { WARM(4, 260), PEER(5, 420) }
+
+    /** The pose of [idle] at picture [i], the body turned to [yaw]. */
+    fun idleRig(yaw: Double, idle: Idle, i: Int): HeroFigure.Rig {
+        val base = MapFigure.rig(yaw, 0, MapFigure.Carry.FREE)
+        return when (idle) {
+            Idle.WARM -> {
+                // palms to the flames at belly height, the elbows bent; rubbing: the hands slide past each other
+                val k = listOf(0.0, 1.0, 0.0, -1.0)[Math.floorMod(i, 4)]
+                base.copy(
+                    lean = 0.1, headDown = 2.5, spread = 7.0,
+                    rh = HeroFigure.V(7.0 + k * 1.2, 64.0 + k * 1.2, 19.0),
+                    lh = HeroFigure.V(-7.0 + k * 1.2, 64.0 - k * 1.2, 19.0),
+                )
+            }
+            Idle.PEER -> {
+                // the right hand flat over the brow, the head sweeping slowly left and right
+                val turn = listOf(-28.0, -12.0, 4.0, 18.0, 30.0)[Math.floorMod(i, 5)]
+                base.copy(
+                    headDown = -1.5, headTurn = turn, twist = turn * 0.2,
+                    rh = HeroFigure.V(2.0, 95.0, 9.0), elbowUp = 0.7, elbowAt = HeroFigure.V(24.0, 86.0, 6.0),
+                    lh = HeroFigure.V(-16.0, 54.0, 6.0),
+                )
+            }
+        }
+    }
+
+    /** One idle picture of [f] turned to [slot]. */
+    fun drawIdle(f: Folk, slot: Int, idle: Idle, i: Int): PixelImage =
+        MapFigure.render(f.doll, f.outfit, idleRig(slot * 360.0 / MapFigure.YAWS, idle, i))
+
     private val cache = HashMap<String, PixelImage>()
     private val preparing = HashSet<String>()
 

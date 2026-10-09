@@ -91,3 +91,37 @@ fun renderNpcDraft() {
     ImageIO.write(all, "png", File("build/screens/npc_garrick_16.png"))
     println("wrote npc draft")
 }
+
+/** Draft (09.10.): Garrick's idle loops, warming his hands and peering into the woods. NPCIDLE=1 */
+fun renderNpcIdle() {
+    val folk = de.bornim.core.art.MapFolk
+    val F = MapFigure
+    val k = 3
+    val rows = listOf(
+        Triple("Hände wärmen, zum Feuer (links)", de.bornim.core.art.MapFolk.Idle.WARM, 12),
+        Triple("Hände wärmen, schräg vorn", de.bornim.core.art.MapFolk.Idle.WARM, 14),
+        Triple("in den Wald spähen, schräg vorn", de.bornim.core.art.MapFolk.Idle.PEER, 2),
+        Triple("in den Wald spähen, von der Seite", de.bornim.core.art.MapFolk.Idle.PEER, 4),
+        Triple("in den Wald spähen, von hinten", de.bornim.core.art.MapFolk.Idle.PEER, 8),
+    )
+    val lab = 26
+    val out = BufferedImage(F.W * k * 5, (F.H * k + lab) * rows.size, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics()
+    g.color = Color(0x2E3628); g.fillRect(0, 0, out.width, out.height)
+    g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
+    g.font = Font(Font.SANS_SERIF, Font.BOLD, 18); g.color = Color(0xE8DCC0)
+    rows.forEachIndexed { r, (title, idle, slot) ->
+        val y0 = r * (F.H * k + lab)
+        g.drawString(title, 8, y0 + 20)
+        for (i in 0 until idle.frames) {
+            val img = folk.drawIdle(folk.garrick, slot, idle, i)
+            for (y in 0 until F.H * k) for (x in 0 until F.W * k) {
+                val q = img[x / k, y / k]; if ((q ushr 24) < 128) continue
+                out.setRGB(i * F.W * k + x, y0 + lab + y, q)
+            }
+        }
+    }
+    g.dispose()
+    ImageIO.write(out, "png", File("build/screens/npc_garrick_leerlauf.png"))
+    println("wrote idle draft")
+}
