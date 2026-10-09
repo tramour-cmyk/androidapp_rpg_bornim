@@ -59,7 +59,6 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 ## In Arbeit
 
 
-
 ## Zu testen
 
 **Version v0.1.317** (veröffentlicht 09.10., 16:23): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.317/bornim.apk). Killerschlag, vollständig von dir bestätigt (09.10.).
