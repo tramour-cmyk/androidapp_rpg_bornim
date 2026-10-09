@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 12:21 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 12:31 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -125,6 +125,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 ## Bei dir
 
 - **Setup-Skript (optional):** Die Cloud-Sitzung bringt alles mit (JDK 21, ImageMagick, Python, git; geprüft 09.10. mit `tools/check-env.sh`). Ein Android-SDK ist nicht nötig, die APK baut GitHub. Zur Absicherung kann die Installationszeile aus `docs/UMGEBUNG.md` als Setup-Skript in die Umgebungseinstellungen.
+- **Zwei Sitzungen am selben Zweig (Frage 12:30):** Chat-Sitzung und Code-Sitzung haben beide auf `karte-neuer-stil` gearbeitet. Unterschied: In der Chat-Sitzung sind Maven und Google Maven weiter gesperrt (12:30 geprüft), dort laufen weder Kerntests noch Vorschau, alles geht über GitHub Actions und dauert pro Durchgang einige Minuten. Die Code-Sitzung hat laut `docs/UMGEBUNG.md` Netz und kann lokal testen und rendern. Vorschlag: Die Karte macht eine Sitzung allein (am besten die Code-Sitzung); die andere arbeitet an etwas anderem auf einem eigenen Zweig.
 - **Netzwerkzugriff im zweiten Claude-Account (09.10.):** In dieser Umgebung sind Gradle und Maven gesperrt, daher laufen hier weder Vorschau noch Tests. Netzwerk in den Umgebungseinstellungen wie beim ersten Account freigeben.
 
 ## Bewusst so gelassen
