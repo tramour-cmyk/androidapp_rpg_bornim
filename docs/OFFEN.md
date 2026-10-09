@@ -58,6 +58,8 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
+- **Goblin-Späher schießt aus dem Haupt-Goblin** (gemeldet 09.10.): Schoss der Späher (Begleiter des Goblins), flog der Pfeil von der Brust des Anführers los. Ursache: Der Pfeil eines Begleiters hatte keinen eigenen Startpunkt. Behoben auf Zweig `claude/goblin-archer-shot-bug-m562wx`: Der Pfeil startet jetzt an der Bogenhand des Spähers.
+
 
 
 ## Zu testen

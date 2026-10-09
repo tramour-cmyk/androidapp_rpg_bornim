@@ -1003,6 +1003,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             val fleeing = a == Anim.PACK_FLEE && moving
             val mateCount = if (fleeing) ui.packBefore else ui.pack
             val packDef = battle.pack
+            /** Where the acting mate's arrow leaves its bow, so it flies from the mate and not from the leader. */
+            var mateLaunch: androidx.compose.ui.unit.DpOffset? = null
             if (packDef != null) for (i in 0 until mateCount) {
                 val acting = a == Anim.PACK_ACT && step?.packActor == i
                 // the mate's own hit or miss right after its attack: the strike and the way back
@@ -1036,6 +1038,12 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     mateNew -> if (boss) 70.dp else 46.dp
                     i == 0 -> if (boss) 14.dp else 20.dp
                     else -> if (boss) 62.dp else 30.dp
+                }
+                if (step?.packActor == i && fx?.onHero == true) MonsterArt.launch(packDef.mate, mateLook, i)?.let { (lx, ly) ->
+                    mateLaunch = androidx.compose.ui.unit.DpOffset(
+                        baseX + (intro.value * 260).dp + mPx * (lx - MonsterArt.anchorX(packDef.mate, 0)).toFloat(),
+                        baseY + mPx * (ly - MonsterArt.groundLine(packDef.mate)).toFloat(),
+                    )
                 }
                 Box(
                     Modifier.offset(
@@ -1213,8 +1221,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     Offset((sceneW * heroX + artDp * (it.x - HeroBattle.ANCHOR_X).toFloat()).toPx(), (sceneH * heroY + artDp * (it.y - HeroBattle.GROUND).toFloat()).toPx())
                 }
                 val source = if (launchC != null && fx?.onHero == false) launchC else heroC
-                // and a foe's arrow or spell from its bow, the skull on its staff or its hand
-                val foeLaunchC = if (shoots && fx?.onHero == true) MonsterArt.launch(id, battle.look, variant)?.let { (x, y) ->
+                // and a foe's (or a pack mate's) arrow or spell from its bow, the skull on its staff or its hand
+                val foeLaunchC = mateLaunch?.let { Offset(it.x.toPx(), it.y.toPx()) } ?: if (shoots && fx?.onHero == true) MonsterArt.launch(id, battle.look, variant)?.let { (x, y) ->
                     Offset((sceneW * foeX + artDp * (x - MonsterArt.anchorX(id, 0)).toFloat()).toPx(), (sceneH * foeY + artDp * (y - MonsterArt.groundLine(id)).toFloat()).toPx())
                 } else null
                 BattleFxLayer(fx, ui.animKey, enemyC, source, unit, Modifier.matchParentSize(), startDelay = ui.fxDelay, foeGround = (sceneH * foeY).toPx(), heroGround = (sceneH * heroY).toPx(), foeSource = foeLaunchC)
