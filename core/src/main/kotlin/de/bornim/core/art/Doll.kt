@@ -20,7 +20,9 @@ import kotlin.math.sqrt
  * Poses are the [HeroFigure.Rig]s of the hand-drawn figure: its numbers are mapped onto this body's
  * landmarks, so every pose fits every people.
  */
-class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, val hairTone: Int = 0, val kind: Creature? = null, val sizeK: Double = 1.0) {
+class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, val hairTone: Int = 0, val kind: Creature? = null, val sizeK: Double = 1.0,
+    /** A full beard on a man of any people (folk about the map); dwarves always have one. */
+    val beard: Boolean = false) {
 
     /** Foes built on the same doll: their own measures, head and skin, or a body of bare bones. */
     enum class Creature { GOBLIN, SKELETON, KOBOLD, ZOMBIE, BUGBEAR, HOBGOBLIN, GHOUL }
@@ -530,11 +532,12 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             place(RoundCone(hx.apply(c + P3(0.0, -0.05 * k, -0.28 * k)), sk.upper.apply(P3(0.0, chinY - 0.02 * height, backZ * 0.6)), 0.31 * k, 0.24 * k, BodyPart.HAIR, HAIR)
                 .cut(sk.upper.dir(P3.Z), sk.upper.apply(c)), "hair")
         }
-        if (race == Race.DWARF && !female) {
-            // a full beard over jaw and chest, with a moustache
+        if ((race == Race.DWARF || beard) && !female) {
+            // a full beard over jaw and chest, with a moustache; a man of the other peoples wears it shorter, to the collar
+            val fall = if (race == Race.DWARF) 1.3 else 0.78
             place(Ellipsoid(hx.apply(c + P3(0.0, -0.34 * k, 0.2 * k)), P3(0.32 * k, 0.3 * k, 0.24 * k), hx.frame(Frame.IDENTITY), BodyPart.HAIR, HAIR)
                 .cut(hx.dir(P3.Y), hx.apply(c + P3(0.0, -0.24 * k, 0.0))), "beard")
-            place(RoundCone(hx.apply(c + P3(0.0, -0.5 * k, 0.24 * k)), hx.apply(c + P3(0.0, -1.3 * k, 0.34 * k)), 0.27 * k, 0.11 * k, BodyPart.HAIR, HAIR), "beard")
+            place(RoundCone(hx.apply(c + P3(0.0, -0.5 * k, 0.24 * k)), hx.apply(c + P3(0.0, -fall * k, 0.3 * k)), 0.27 * k, 0.14 * k, BodyPart.HAIR, HAIR), "beard")
             place(Ellipsoid(hx.apply(c + P3(0.0, -0.21 * k, 0.37 * k)), P3(0.17 * k, 0.05 * k, 0.07 * k), hx.frame(Frame.IDENTITY), BodyPart.HAIR, HAIR), "beard")
         }
         if (race == Race.DWARF && female) for (s in listOf(-1.0, 1.0))

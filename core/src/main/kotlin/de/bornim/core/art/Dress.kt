@@ -28,14 +28,23 @@ class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Bool
     /** The colour of the draught in a flask the hero drinks from: red for healing, sickly green for the remedy. */
     val flaskRgb: Int = 0x9A1C1C,
     /** A shaman's trappings: a necklace of bones and teeth, a horned skull worn on the head, a skull on the staff. */
-    val fetish: Boolean = false) {
+    val fetish: Boolean = false,
+    /** The shield slung on the back (walking about on the map), the left hand free. */
+    val shieldOnBack: Boolean = false,
+    /** The bow slung across the back over the quiver, both hands free (folk about the map). */
+    val bowOnBack: Boolean = false,
+    /** Leather of this colour rather than the usual brown, e.g. a hunter's dark earth. */
+    val leatherRgb: Int? = null) {
     fun base(slot: GearSlot): String? = items[slot]?.base
     fun rarity(slot: GearSlot): Rarity = items[slot]?.rarity ?: Rarity.COMMON
     val twoHands: Boolean get() = items[GearSlot.MAIN_HAND]?.def?.let { (it.twoHanded || bothHands && it.versatile != null) && !it.ranged } == true
     val hasShield: Boolean get() = items[GearSlot.OFF_HAND]?.def?.kind == BaseKind.SHIELD && !twoHands
 
     /** The same outfit with a draught of [rgb] in the flask. */
-    fun withFlask(rgb: Int) = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, rgb, fetish)
+    fun withFlask(rgb: Int) = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, rgb, fetish, shieldOnBack, bowOnBack, leatherRgb)
+
+    /** The same outfit with the shield slung on the back. */
+    fun withShieldOnBack() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, true, bowOnBack, leatherRgb)
 
     companion object {
         fun of(hero: Hero) = Outfit(hero.cls, GearSlot.entries.mapNotNull { s -> hero.item(s)?.let { s to it } }.toMap(), bothHands = hero.bothHands())
@@ -60,8 +69,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     private fun metal(r: Rarity, bias: Double = 0.0) = if (o.rusty) m(argb(0x6A5444), shine = 0.25, grain = 0.55, bias = bias - 0.04)
         else m(mix(argb(0x868E98), r.color.toInt(), if (r >= Rarity.RARE) 0.16 else 0.0), shine = 0.9, bias = bias - 0.04)
     private val darkSteel = m(argb(0x6E7680), shine = 0.6)
-    private val leather = m(argb(0x6A4A32), grain = 0.07)
-    private val darkLeather = m(argb(0x3E2C22), grain = 0.05)
+    private val leather = m(argb(o.leatherRgb ?: 0x6A4A32), grain = 0.07)
+    private val darkLeather = m(o.leatherRgb?.let { mix(argb(it), argb(0x1A1410), 0.45) } ?: argb(0x3E2C22), grain = 0.05)
     private val gold = m(argb(0xB8904A), shine = 0.7)
     private val wood = m(argb(0x6E4A2C), grain = 0.12)
     // a creature's robe is filthy homespun, stained dark; a hero's is in the colours of the class
@@ -129,6 +138,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         crossbow()
         staff()
         flask()
+        torch()
         arms3d()
         return out
     }
@@ -450,6 +460,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
                 // the cowl lying on the shoulders
                 val cowl = RoundCone(hp(P3(0.0, -0.4 * k, -0.05 * k)), sk.upper.apply(P3(0.0, d.shoulderY - 0.01 * h, -0.02 * h)), 0.4 * k, d.shoulderX * 0.85, BodyPart.GEAR, Doll.HELM)
                 add(Hollow(cowl, 0.6, BodyPart.GEAR, Doll.HELM), col).also { it.holes += face; it.cut(-upN, upY(d.shoulderY - 0.05 * h)) }
+                // folk on the map: the cloth gathers into a soft point falling down the back, so it reads as a hood from above
+                if (o.bowOnBack) add(RoundCone(hp(P3(0.0, 0.3 * k, -0.25 * k)), hp(P3(0.0, -0.35 * k, -0.85 * k)), 0.32 * k, 0.08 * k, BodyPart.GEAR, Doll.HELM), col)
             }
             "leather_cap" -> for (s in skull) add(Shell(s, 0.05 * k, BodyPart.GEAR, Doll.HELM), leather, null, s.rest).cut(hn(P3(0.0, -1.0, 0.45)), hp(P3(0.0, 0.12 * k, 0.0)))
             "helmet" -> {
@@ -506,16 +518,20 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val r = main.rarity
         val long = main.base == "longbow"
         val len = (if (long) 0.8 else 0.58) * h
-        val draw = sk.rig.draw.coerceIn(0.0, 1.0)
-        val grip = sk.hand(0)
+        val slung = o.bowOnBack
+        val draw = if (slung) 0.0 else sk.rig.draw.coerceIn(0.0, 1.0)
+        // slung: across the back from the left hip to over the right shoulder, the string towards the back,
+        // so the tips rest on the cloak (or the jerkin) and the grip stands off a hand's breadth
+        val behind = -d.chestDepth - (if (o.items[GearSlot.CLOAK] != null) 0.075 else 0.05) * h
+        val grip = if (slung) sk.upper.apply(P3(0.0, d.hipY + 0.55 * d.trunk, behind)) else sk.hand(0)
         val nock = sk.hand(1)
-        val aim = (if (draw > 0.05) grip - nock else sk.upper.dir(P3.Z)).norm()
-        var up = (P3.Y - aim * (P3.Y dot aim)).norm()
-        up = (up + (aim cross up) * 0.15).norm()
+        val aim = (if (slung) sk.upper.dir(-P3.Z) else if (draw > 0.05) grip - nock else sk.upper.dir(P3.Z)).norm()
+        var up = if (slung) sk.upper.dir(P3(-0.55, 1.0, 0.0)).norm() else (P3.Y - aim * (P3.Y dot aim)).norm()
+        if (!slung) up = (up + (aim cross up) * 0.15).norm()
         // carried undrawn, the bow leans its upper limb towards the foe
-        val tilt = Math.toRadians(sk.rig.bowTilt * (1 - draw.coerceIn(0.0, 1.0)))
+        val tilt = if (slung) 0.0 else Math.toRadians(sk.rig.bowTilt * (1 - draw.coerceIn(0.0, 1.0)))
         if (abs(tilt) > 1e-3) up = (up * kotlin.math.cos(tilt) + aim * kotlin.math.sin(tilt)).norm()
-        val bend = len * ((if (alone) 0.16 else 0.09) + 0.1 * draw)
+        val bend = len * ((if (alone) 0.16 else if (slung) 0.04 else 0.09) + 0.1 * draw)
         fun at(t: Double) = grip + up * (t * len / 2) + aim * (-bend * t * t + bend * 0.15)
         fun thick(t: Double) = (0.012 - 0.0065 * abs(t)) * h * (if (alone) 1.8 else 1.0)
         val woodMat = m(mix(argb(0x5E3E24), r.color.toInt(), if (r >= Rarity.RARE) 0.3 else 0.0), grain = 0.05)
@@ -541,8 +557,9 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         }
         // the quiver on the back, its fletchings showing over the shoulder
         if (!quiver) return
-        val top = sk.upper.apply(P3(d.shoulderX * 0.45, d.shoulderY - 0.01 * h, -d.chestDepth - 0.035 * h))
-        val bottom = sk.upper.apply(P3(-d.shoulderX * 0.15, d.hipY + 0.15 * d.trunk, -d.chestDepth - 0.035 * h))
+        val qz = -d.chestDepth - (if (slung && o.items[GearSlot.CLOAK] != null) 0.05 else 0.035) * h
+        val top = sk.upper.apply(P3(d.shoulderX * 0.45, d.shoulderY - 0.01 * h, qz))
+        val bottom = sk.upper.apply(P3(-d.shoulderX * 0.15, d.hipY + 0.15 * d.trunk, qz))
         add(RoundCone(bottom, top, 0.03 * h, 0.034 * h, BodyPart.GEAR, Doll.ITEM), leather)
         val dirQ = (top - bottom).norm()
         for (k in 0..2) add(Ellipsoid(top + dirQ * (0.03 * h) + sk.upper.dir(P3((k - 1) * 0.012 * h, 0.0, 0.0)), P3(0.006 * h, 0.022 * h, 0.006 * h), Frame.along(dirQ), BodyPart.GEAR, Doll.TRIM), m(argb(0xC8BCA0)))
@@ -598,6 +615,35 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
      * A flask in the free hand while the hero drinks: a round belly of dark glass with the draught glowing through,
      * a short neck and the cork, tipped towards the mouth by the rig.
      */
+    /**
+     * A burning torch in the weapon hand (folk on the map warding off beasts, 09.10.): a rough branch
+     * along the weapon direction, its head wound with pitch-soaked rag, and the flame on it, licking
+     * upwards whichever way the torch is held, its shape changing with [HeroFigure.Rig.flicker].
+     */
+    private fun torch() {
+        if (sk.rig.torch < 0.5) return
+        val dir = sk.weapon.norm()
+        val hand = sk.hand(1)
+        val butt = hand - dir * (0.05 * h)
+        val head = hand + dir * (0.27 * h)
+        add(RoundCone(butt, head, 0.011 * h, 0.014 * h, BodyPart.GEAR, Doll.ITEM), wood)
+        add(Ellipsoid(head, P3(0.028 * h, 0.036 * h, 0.028 * h), Frame.along(dir), BodyPart.GEAR, Doll.ITEM), m(argb(0x2A1E16), grain = 0.4))
+        // the flame always rises; three tongues of it, their lean and length from the flicker
+        val fire = Mat(Ramp(intArrayOf(argb(0x9A2A10), argb(0xC8441A), argb(0xE8701E), argb(0xF8A030), argb(0xFFD060), argb(0xFFF4C0))), bias = 0.35, inline = false)
+        val core = Mat(Ramp(intArrayOf(argb(0xF8A030), argb(0xFFC850), argb(0xFFE080), argb(0xFFF0B0), argb(0xFFF8D8), argb(0xFFFFF0))), bias = 0.4, inline = false)
+        val rnd = java.util.Random(sk.rig.flicker * 7919L + 17)
+        val across = sk.upper.dir(P3.X)
+        for (k in 0..2) {
+            // drawn larger than life, as the flask is, so the flame reads at map size
+            val side = (k - 1) * 0.02 * h + (rnd.nextDouble() - 0.5) * 0.016 * h
+            val tall = (0.12 + rnd.nextDouble() * 0.07) * h * (if (k == 1) 1.35 else 0.6)
+            val base = head + P3.Y * (0.015 * h) + across * side
+            val tip = base + P3.Y * tall + across * ((rnd.nextDouble() - 0.5) * 0.05 * h)
+            add(RoundCone(base, tip, (if (k == 1) 0.04 else 0.028) * h, 0.004 * h, BodyPart.GEAR, Doll.TRIM), fire)
+        }
+        add(Ellipsoid(head + P3.Y * (0.045 * h), P3(0.025 * h, 0.045 * h, 0.025 * h), Frame.IDENTITY, BodyPart.GEAR, Doll.TRIM), core)
+    }
+
     private fun flask() {
         if (sk.rig.flask < 0.5) return
         val hand = sk.hand(0)
@@ -793,6 +839,24 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             else -> heater(hw, ht)
         }
         var c0 = center - up * strapY
+        if (o.shieldOnBack) {
+            // slung on the back, over the cloak: across the shoulder blades, its face outwards, tilted a little
+            val sl = sk.shoulderRest[0]; val sr = sk.shoulderRest[1]
+            val across = (sr - sl).norm()
+            val upB = (P3(0.0, 1.0, 0.0) - across * across.y).norm()
+            var back = across cross upB
+            if (back.z > 0) back = -back
+            val tilt = (upB * 0.98 + back * 0.16).norm()
+            val axB = (tilt cross back).norm()
+            val fB = Frame(axB, tilt, (axB cross tilt).norm().let { if (it dot back < 0) -it else it })
+            val mid = (sl + sr) * 0.5
+            // the top edge a little above the shoulders (seen from above at a slant, a board on the back looks lower
+            // from behind and higher from the front than it is, so it must truly sit high to look right from both)
+            val topEdge = if (tower) ht / 2 else if (round) hw else ht * 0.3
+            val cB = mid + upB * (0.045 * h - topEdge) + back * (d.chestDepth + 0.03 * h)
+            slungShield(base, r, cB, fB, hw, ht, outline, tower, round, back)
+            return
+        }
         // held a little off the belly and hip: as the hero turns, the board's edge must not cut into the body or the
         // armour over it, so it is moved out sideways, away from the trunk, until it is clear
         run {
@@ -852,6 +916,41 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         }
         // the iron boss in the middle of the face, gilt on the round shield
         add(Ellipsoid(c0 + up * (ht * 0.0) + n * (0.012 * h), P3(0.035 * h, 0.035 * h, 0.022 * h), f, BodyPart.GEAR, Doll.ITEM), if (round && r < Rarity.RARE && !o.crude) gold else rim)
+    }
+
+    /** A shield slung on the back: the same board and paint as in the hand, placed at [c] with frame [f]. */
+    private fun slungShield(base: String, r: Rarity, c: P3, f: Frame, hw: Double, ht: Double, outline: (Double, Double) -> Double, tower: Boolean, round: Boolean, back: P3) {
+        val paintRgb = when {
+            o.crude -> argb(0x5A4632)
+            r >= Rarity.RARE -> worn(mix(argb(if (round) 0xE8E0C8 else 0x7A2A22), r.color.toInt(), 0.45), 0.15)
+            round -> worn(argb(0xE4DCC4), 0.15)
+            else -> worn(argb(0x6E2E24), 0.15)
+        }
+        val face = m(paintRgb)
+        val stripe = if (round) gold else m(argb(0xC8BCA0))
+        val rim = metal(r)
+        val board = Board(c, f, max(hw, ht / 2) * 1.2, 0.022 * h, 0.08 * h, outline, BodyPart.GEAR, Doll.SHIELD)
+        shieldBoard = board
+        add(board, face, { _ -> face }, null)
+        board.paint = { p ->
+            val l = board.local(p)
+            val edge = outline(l.x, l.y)
+            when {
+                edge > -0.02 * h -> rim
+                l.z > 0 && round -> {
+                    val rr = sqrt(l.x * l.x + l.y * l.y)
+                    val ray = abs(frac(atan2(l.y, l.x) / (2 * PI) * 8 + 0.5) - 0.5) * rr
+                    if (abs(rr - 0.07 * h) < 0.012 * h || (rr in 0.07 * h..0.13 * h && ray < 0.012 * h)) stripe else face
+                }
+                l.z > 0 -> if (abs(l.y - ht * 0.08) < 0.016 * h) stripe else face
+                else -> wood
+            }
+        }
+        add(Ellipsoid(c + f.z * (0.012 * h), P3(0.035 * h, 0.035 * h, 0.022 * h), f, BodyPart.GEAR, Doll.ITEM), if (round && r < Rarity.RARE && !o.crude) gold else rim)
+        // the strap it hangs from, across the chest from one shoulder down to the other side
+        val sl = sk.shoulderRest[0]; val sr = sk.shoulderRest[1]
+        val front = back * -(d.chestDepth + 0.02 * h)
+        add(RoundCone(sr + front * 0.6 + P3(0.0, 0.015 * h, 0.0), sl + front - P3(0.0, 0.2 * h, 0.0), 0.011 * h, 0.011 * h, BodyPart.GEAR, Doll.ITEM), darkLeather)
     }
 
     /** The shield's board once [solids] has run, for checks. */

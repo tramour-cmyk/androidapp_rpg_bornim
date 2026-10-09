@@ -90,6 +90,54 @@ fun geared(vm: GameViewModel, cls: CharClass, race: Race = Race.DWARF) {
 fun main() {
     System.getenv("FILM")?.let { fightFilm(it); System.exit(0) }
     System.getenv("FILMBATCH")?.let { fightBatch(it); System.exit(0) }
+    if (System.getenv("WEGE") != null) { renderWayDrafts(); System.exit(0) }
+    System.getenv("FLORA")?.let { renderFloraSheet(it); System.exit(0) }
+    if (System.getenv("HOEHLEDINGE") != null) { renderCaveThings(); System.exit(0) }
+    if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }
+    if (System.getenv("MAPFIGYAWS") != null) { renderMapFigureYaws(); System.exit(0) }
+    if (System.getenv("NPCDRAFT") != null) { renderNpcDraft(); System.exit(0) }
+    if (System.getenv("NPCIDLE") != null) { renderNpcIdle(); System.exit(0) }
+    if (System.getenv("NPCREST") != null) { renderNpcRest(); System.exit(0) }
+    if (System.getenv("NPCTORCH") != null) { renderNpcTorch(); System.exit(0) }
+    System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
+    System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
+    if (System.getenv("KARTENZOOM") != null) {
+        // the map near (new) and far (former), at noon and at night, in the forest, the village, an inn and the cave
+        fun place(vm: GameViewModel, map: String, x: Int, y: Int, minutes: Int, facing: Facing = Facing.UP) {
+            vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
+            val g = vm.game!!; g.skipDialogs()
+            g.state.place = Place(map, x, y, facing); g.state.minutes = minutes
+            // everything explored, so the shots show the ground; the new ground drawn right away
+            val m = de.bornim.core.World[map]
+            g.state.explored[map] = "f".repeat((m.width * m.height + 3) / 4)
+            de.bornim.core.art.MapGround.prepareNow(m)
+            val t0 = System.currentTimeMillis()
+            de.bornim.core.art.MapFigure.prepareNow(g.state.hero)
+            de.bornim.core.art.MapFolk.prepareNow(de.bornim.core.art.MapFolk.garrick)
+            println("map figure: ${System.currentTimeMillis() - t0} ms for 64 pictures")
+            vm.refresh()
+        }
+        for (near in listOf(true, false)) {
+            de.bornim.game.ui.MapZoom.near = near
+            val z = if (near) "nah" else "weit"
+            shot("zoom_${z}_1_wald_tag") { place(it, "forest", 9, 10, 12 * 60) }
+            shot("zoom_${z}_2_wald_nacht") { place(it, "forest", 9, 10, 23 * 60) }
+            shot("zoom_${z}_3_dorf") { place(it, "village", 11, 7, 12 * 60) }
+            shot("zoom_${z}_4_gasthaus") { place(it, "inn", 5, 6, 12 * 60) }
+            shot("zoom_${z}_5_hoehle") { place(it, "cave", 10, 5, 12 * 60) }
+            if (near) {
+                shot("zoom_${z}_6_weiher") { place(it, "forest", 7, 15, 12 * 60) }
+                shot("zoom_${z}_7_steinkreis") { place(it, "forest", 10, 25, 17 * 60 + 30) }
+                shot("zoom_${z}_8_tiefer_wald") { place(it, "deep_forest", 22, 6, 12 * 60) }
+                shot("zoom_${z}_9_hinter_baum") { place(it, "forest", 12, 10, 12 * 60) }
+                shot("zoom_${z}_g1_garrick_tag") { place(it, "forest", 10, 9, 12 * 60, Facing.RIGHT) }
+                shot("zoom_${z}_g2_garrick_nacht") { place(it, "forest", 10, 10, 23 * 60, Facing.RIGHT) }
+                shot("zoom_${z}_g3_garrick_fern") { place(it, "forest", 9, 13, 12 * 60, Facing.UP) }
+                for (f in Facing.entries) shot("zoom_${z}_r_${f.name.lowercase()}") { place(it, "forest", 9, 12, 12 * 60, f) }
+            }
+        }
+        System.exit(0)
+    }
     if (System.getenv("BEASTDRAFT") != null) { renderBeastDrafts(); System.exit(0) }
     if (System.getenv("DOLLDRAFT") != null) { renderShamanGhoulDrafts(); System.exit(0) }
     if (System.getenv("SHAMANDRAFT") != null) { renderShamanDraft(); System.exit(0) }

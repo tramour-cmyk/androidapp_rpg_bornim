@@ -114,6 +114,8 @@ object HeroFigure {
         val flask: Double = 0.0, val flaskTilt: Double = 0.0,
         /** 0..1: the cork still in the flask's neck (shown above one half). */
         val cork: Double = 1.0,
+        /** 0..1: a burning torch in the weapon hand, along [weapon] (shown above one half); [flicker] picks the flame's shape. */
+        val torch: Double = 0.0, val flicker: Int = 0,
     ) {
         fun lerp(o: Rig, t: Double): Rig {
             fun l(a: Double, b: Double) = a + (b - a) * t
