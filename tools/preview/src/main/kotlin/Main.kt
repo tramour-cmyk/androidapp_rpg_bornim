@@ -92,6 +92,7 @@ fun main() {
     System.getenv("FILMBATCH")?.let { fightBatch(it); System.exit(0) }
     if (System.getenv("WEGE") != null) { renderWayDrafts(); System.exit(0) }
     System.getenv("FLORA")?.let { renderFloraSheet(it); System.exit(0) }
+    if (System.getenv("HOEHLEDINGE") != null) { renderCaveThings(); System.exit(0) }
     if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }
     if (System.getenv("MAPFIGYAWS") != null) { renderMapFigureYaws(); System.exit(0) }
     if (System.getenv("NPCDRAFT") != null) { renderNpcDraft(); System.exit(0) }

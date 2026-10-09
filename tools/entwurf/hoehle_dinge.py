@@ -452,6 +452,23 @@ def bedroll(seed, variant=0):
 
 # ------------------------------------------------------------------ sample sheet
 
+KOTLIN = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "preview", "build", "screens", "hoehle_dinge")
+
+
+def kotlin(name, v):
+    """A thing painted in the game with Sculpt (preview HOEHLEDINGE=1), with a soft shadow under it."""
+    anchors = {l.split()[0]: (int(l.split()[1]), int(l.split()[2])) for l in open(os.path.join(KOTLIN, "anker.txt")) if l.strip()}
+    im = Image.open(os.path.join(KOTLIN, f"{name}_{v}.png")).convert("RGBA")
+    ax, ay = anchors[f"{name}_{v}"]
+    a = np.array(im).astype(float)
+    m = a[..., 3] > 0
+    sh = ground_shadow(im.width, im.height, m, ay - 2, 0.85)
+    out = np.zeros_like(a); out[..., :3] = 8; out[..., 3] = sh * 190
+    al = a[..., 3:4] / 255
+    out[..., :3] = out[..., :3] * (1 - al) + a[..., :3] * al
+    out[..., 3] = np.maximum(out[..., 3], a[..., 3])
+    return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8), "RGBA"), ax, ay
+
 def sheet():
     # plain cave floor without walls as the background (the same painting as in the cave)
     keep = old.ROWS
@@ -459,10 +476,10 @@ def sheet():
     g, *_ = old.ground()
     old.ROWS = keep
     rows = [
-        ("Stalagmit", lambda: old.stalagmite(5, 1.0, 0), lambda: stalagmite(5, 0), lambda: stalagmite(8, 1)),
-        ("Kisten", lambda: old.crate(7, True, 0), lambda: crate(7, 0), lambda: crate(11, 1)),
-        ("Knochen", lambda: old.bones(9, 2), lambda: bones(9, 0), lambda: bones(12, 1)),
-        ("Schlafplatz", lambda: old.bedroll(3, 0), lambda: bedroll(3, 0), lambda: bedroll(4, 1)),
+        ("Stalagmit", lambda: old.stalagmite(5, 1.0, 0), lambda: kotlin("stalagmit", 0), lambda: kotlin("stalagmit", 1)),
+        ("Kisten", lambda: old.crate(7, True, 0), lambda: kotlin("kisten", 0), lambda: kotlin("kisten", 1)),
+        ("Knochen", lambda: old.bones(9, 2), lambda: kotlin("knochen", 0), lambda: kotlin("knochen", 1)),
+        ("Schlafplatz", lambda: old.bedroll(3, 0), lambda: kotlin("schlafplatz", 0), lambda: kotlin("schlafplatz", 1)),
     ]
     cw, ch = 170, 160
     Wd, Hd = 4 * cw, len(rows) * ch + 34
@@ -478,7 +495,7 @@ def sheet():
     out = Image.fromarray(np.clip(cv, 0, 255).astype(np.uint8))
     d = ImageDraw.Draw(out)
     d.rectangle([0, 0, Wd, 30], fill=(18, 16, 16))
-    for k, t in enumerate(["", "bisher", "neu", "neu, zweite Variante"]):
+    for k, t in enumerate(["", "bisher", "neu (Sculpt)", "neu (Sculpt), Variante 2"]):
         d.text((k * cw + 12, 10), t, fill=(224, 216, 200))
     for r, (name, *_) in enumerate(rows):
         d.text((10, 34 + r * ch + ch / 2 - 6), name, fill=(224, 216, 200))
