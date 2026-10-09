@@ -113,7 +113,7 @@ object MapGround {
     private val EARTH_D = rgb(0x3A2E22); private val EARTH_L = rgb(0x6A5840)
     private val LITTER = rgb(0x5E4426)
     private val TALL_D = rgb(0x1A2412); private val TALL_BLADE_D = rgb(0x1E2A16); private val TALL_BLADE_L = rgb(0x6E7A44)
-    private val PATH_D = rgb(0x4A3A2A); private val PATH_L = rgb(0x7A6448); private val RUT = rgb(0x2E241A); private val CREEP = rgb(0x3A4A26)
+    private val PATH_D = rgb(0x4E3E2C); private val PATH_L = rgb(0x806A4C); private val PATH_HI = rgb(0x948062); private val VERGE = rgb(0x4A4630); private val PUDDLE = rgb(0x1E2224); private val RUT = rgb(0x2E241A); private val CREEP = rgb(0x3A4A26)
     private val WATER_S = rgb(0x2A3A3C); private val WATER_D = rgb(0x0E1A1E); private val GLINT = rgb(0x7A8E90); private val MUD = rgb(0x2A2218)
 
     private fun mixInto(out: DoubleArray, c: IntArray, t: Double) {
@@ -231,7 +231,7 @@ object MapGround {
         val ox = cx * size; val oy = cy * size
         val img = PixelImage(size, size)
         // the parts of the path near this chunk
-        val margin = 48.0
+        val margin = 80.0
         val segs = ArrayList<DoubleArray>()
         for (c in curves(map)) {
             var i = 0
@@ -262,17 +262,27 @@ object MapGround {
                 mixInto(col, TALL_D, 0.45)
                 tall[yy * size + xx] = true
             }
-            // the path
+            // the path: a broad cart track about a tile wide, a trampled verge of flattened grass
+            // beside it, lighter where feet go in the middle, two ruts with puddles here and there
             if (segs.isNotEmpty()) {
                 var d = Double.MAX_VALUE
                 for (s in segs) { val dd = segDist(x, y, s[0], s[1], s[2], s[3]); if (dd < d) d = dd }
-                val edge = 17 + (fbm(x, y, 20.0, 9) - 0.5) * 16
-                val p = ((edge - d) / 5).coerceIn(0.0, 1.0)
+                val edge = 33 + (fbm(x, y, 26.0, 9) - 0.5) * 18
+                val verge = ((edge + 9 - d) / 9).coerceIn(0.0, 1.0)
+                if (verge > 0) { mixInto(col, VERGE, verge * 0.45) }
+                val p = ((edge - d) / 6).coerceIn(0.0, 1.0)
                 if (p > 0) {
                     lerp(PATH_D, PATH_L, n3 * 0.8 + n2 * 0.3, tmp)
-                    if (abs(d - 7.5) < 1.6) for (i in 0..2) tmp[i] += (RUT[i] - tmp[i]) * 0.55
+                    // the middle, between the ruts, is trodden lighter; the ruts are deep and dark
+                    val mid = (1 - d / 10).coerceIn(0.0, 1.0)
+                    for (i in 0..2) tmp[i] += (PATH_HI[i] - tmp[i]) * mid * 0.35
+                    val rut = abs(d - 14) < 2.4 + (vnoise(x, y, 14.0, 19) - 0.5) * 1.6
+                    if (rut) {
+                        if (vnoise(x, y, 30.0, 20) > 0.72) { for (i in 0..2) tmp[i] = PUDDLE[i].toDouble(); if (vnoise(x, y, 3.0, 21) > 0.8) for (i in 0..2) tmp[i] += (GLINT[i] - tmp[i]) * 0.4 }
+                        else for (i in 0..2) tmp[i] += (RUT[i] - tmp[i]) * 0.6
+                    }
                     for (i in 0..2) col[i] += (tmp[i] - col[i]) * p
-                    if (p < 0.9 && n3 > 0.55) mixInto(col, CREEP, 0.6)
+                    if (p < 0.85 && n3 > 0.5) mixInto(col, CREEP, 0.6)
                     pathK[yy * size + xx] = p
                 }
             }
@@ -318,7 +328,7 @@ object MapGround {
                 pen.raw(ix, iy, c); pen.raw(ix + 1, iy, c); pen.raw(ix, iy + 1, c); pen.raw(ix + 1, iy + 1, mix(c, argb(0x101010), 0.4))
             }
             // stones on the path
-            for (k in 0 until 10) {
+            for (k in 0 until 18) {
                 val ix = (tx * S + rnd(tx, ty, k * 9 + 60) * S - ox).toInt(); val iy = (ty * S + rnd(tx, ty, k * 9 + 61) * S - oy).toInt()
                 if (ix !in 0 until size - 3 || iy !in 0 until size - 3 || pathK[iy * size + ix] < 0.6 || pathK[iy * size + ix] >= 1.0) continue
                 val r = 1 + hash(tx, ty, k + 70) % 2
