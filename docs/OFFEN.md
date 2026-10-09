@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 10:20 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 10:32 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -64,6 +64,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
   - **Erster Entwurf gezeigt (10:15; Bilder von 10:14: Dorf bei Tag, Wald in der Dämmerung, Dorf bei Nacht).** Eigene Einschätzung: Die Stimmung geht in die richtige Richtung, wirkt aber noch flach und grau wie ein Filter. Hohes Gras verschwindet im Boden, das Gemüsebeet ist kaum noch zu sehen, die blauen Dächer haben sich kaum verändert, und bei Nacht ist fast kein Unterschied. Vorschlag für den zweiten Entwurf: Gras wieder grüner wie im Kampf, mehr Hell-Dunkel innerhalb der Flächen, hohes Gras dunkler und deutlich abgesetzt, Dächer und Wände gezielt nachfärben, dazu die Schatten nach Sonnenstand. Wartet auf deine Rückmeldung.
   - **Deine Rückmeldung (10:18):** kaum ein Unterschied zu erkennen, so lohnt sich die Mühe nicht. Befund: `main` hatte schon gedeckte Farben (Entwurf „maps-mood“ vom 06.10. ist größtenteils drin), daher bringt Umfärben allein wenig. Der Nintendo-Eindruck kommt von den Formen: sichtbares Kachelraster, eckige Wege und Wiesenränder, kleine Spielzeughäuser, gleichförmige Bäume. Vorschlag: Farbstimmung zurückstellen, stattdessen einen Ausschnitt (Dorfplatz oder Lichtung) als Entwurf in neuer Machart zeigen (Formen, Licht, Schatten, Figur), bevor etwas eingebaut wird. Offen: deine Entscheidung.
   - **Grundsatzfrage (10:18):** Halten wir an der Kachelkarte überhaupt fest, oder bewegt sich der Held ganz anders durch die Welt? Stil-Leitlinien beachten, der Spieler muss sich irgendwie fortbewegen, offen ist, wie konkret. Vorschläge dazu im Chat (10:20): (A) Draufsicht behalten, aber neu gemalt und ohne Raster, (B) Seitenansicht wie im Kampf mit verbundenen Szenen, (C) gezeichnete Reisekarte mit Orten, (D) Mischung aus C für die Reise und B für die Orte (Empfehlung). Nächster Schritt: je ein Entwurfsbild der Varianten, die du sehen willst.
+  - Ausschnitt für die Entwürfe: der Wald (deine Wahl, 10:19). **Entwürfe gezeigt (10:32, Bilder von 10:31):** B Ansicht wie im Kampf mit Wegweisern voraus/zurück/abbiegen (Waldweg, Garricks Feuer, Weiher; Lichtung bei Tag, Dämmerung, Nacht), C gezeichnete Reisekarte des Flüsterwalds aus den Kartendaten (ganz und so weit erkundet), D beides. Nur Bilder (Vorschau `WEGE=1`), nichts davon im Spiel. Bekannte Schwächen der Entwürfe: Garrick steht mit dem Rücken zum Betrachter (die Figuren gibt es bisher nur in Kampfhaltung von hinten), das Schild „zurück“ liegt über den Beinen. Wartet auf deine Wahl.
 
 - **Läuft immer dieselbe Variante? (gefragt 08.10., 17:2x)** Im Code nachgesehen:
   - Gegner-Angriffe: Zufall unter drei, kann aber zweimal hintereinander gleich sein.
