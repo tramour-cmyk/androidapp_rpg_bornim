@@ -59,6 +59,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 ## In Arbeit
 
 - **Goblin-Späher schießt aus dem Haupt-Goblin** (gemeldet 09.10.): Schoss der Späher (Begleiter des Goblins), flog der Pfeil von der Brust des Anführers los. Ursache: Der Pfeil eines Begleiters hatte keinen eigenen Startpunkt. Behoben auf Zweig `claude/goblin-archer-shot-bug-m562wx`: Der Pfeil startet jetzt an der Bogenhand des Spähers.
+  - Auf deinen Wunsch alle Begleiter geprüft (Code, 09.10.): Kobold-Rudel (Stich), Jungwölfe und Grimmzahns Leibwache (Biss), Goblin-Späher (Pfeil). Nur der Pfeil ging vom Anführer aus; Stich und Biss zeichnen keine eigene Spur, Blut erscheint am Helden. Der Anführer bleibt beim Angriff eines Begleiters ruhig stehen, ein Treffer eines Begleiters überträgt keine Wirkungen des Anführers. Film steht noch aus (Maven Central lieferte HTTP 429).
 
 
 
