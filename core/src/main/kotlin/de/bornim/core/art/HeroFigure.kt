@@ -172,7 +172,10 @@ object HeroFigure {
 
     // the killing blows, for a critical hit that ends the foe: wider, heavier and held longer than any other blow
     // 1. a crushing blow from high over the head, the whole body thrown down behind it
-    val KILL_HIGH_RAISE = SMASH_WIND.copy(rh = V(12.0, 118.0, -10.0), weapon = V(0.05, 0.35, -0.94), lean = -0.35, bodyY = -2.5, stride = 4.0, twist = 20.0, headDown = -6.0)
+    // the blade held up and back on the hero's own side, the forearm turned along it from the start to the end of the blow:
+    // the grip never seems to change
+    val KILL_HIGH_RAISE = SMASH_WIND.copy(rh = V(14.0, 116.0, -8.0), weapon = V(0.4, 0.65, -0.65), grip = 40.0, lean = -0.35, bodyY = -2.5, stride = 4.0, twist = 20.0, headDown = -6.0, aim = 1.0)
+    val KILL_HIGH_OVER = SMASH_OVER.copy(aim = 1.0)
     val KILL_HIGH_HIT = SMASH_HIT.copy(lean = 0.8, crouch = 9.0, stride = 12.0, rh = V(4.0, 62.0, 44.0), weapon = V(0.0, -0.8, 0.6), twist = -20.0, trail = 1.0, headDown = 8.0, aim = 1.0)
     val KILL_HIGH_DOWN = KILL_HIGH_HIT.copy(crouch = 11.0, rh = V(2.0, 50.0, 40.0), weapon = V(-0.05, -0.95, 0.3), trail = 0.0)
     // 2. run through: drawn far back, driven deep into the foe, then wrenched out to the side
@@ -454,7 +457,7 @@ object HeroFigure {
                         SPEAR_HIGH_HIT.copy(lean = 0.65, crouch = 5.0, stride = 13.0, weapon = V(-0.02, -0.5, 0.86)) to 3, SPEAR_HIGH_HIT.copy(lean = 0.6, crouch = 6.0, stride = 13.0, weapon = V(-0.02, -0.55, 0.83), trail = 0.0) to 6, r to 1)
                     // a long staff comes back up the way the plain smash does, its foot clear of the body
                     else if (st == Stance.STAFF) tween(r to 3, SMASH_RAISE to 2, KILL_HIGH_RAISE to 5, SMASH_OVER to 2, KILL_HIGH_HIT to 3, KILL_HIGH_DOWN to 3, SMASH_HIT.copy(trail = 0.0) to 3, r to 1)
-                    else tween(r to 3, SMASH_RAISE to 2, KILL_HIGH_RAISE to 5, SMASH_OVER to 2, KILL_HIGH_HIT to 3, KILL_HIGH_DOWN to 6, r to 1),
+                    else tween(r to 3, SMASH_RAISE to 2, KILL_HIGH_RAISE to 5, KILL_HIGH_OVER to 2, KILL_HIGH_HIT to 3, KILL_HIGH_DOWN to 6, r to 1),
                 Strike.KILL_PIERCE to if (st == Stance.SPEAR) tween(r to 3, SPEAR_LOW_WIND.copy(rh = V(19.0, 58.0, -14.0), lean = -0.22, twist = 36.0) to 6,
                         SPEAR_LOW_HIT.copy(lean = 0.6, stride = 14.0, rh = V(6.0, 64.0, 48.0)) to 4, SPEAR_LOW_HIT.copy(lean = 0.6, stride = 14.0, rh = V(6.0, 64.0, 48.0), trail = 0.0) to 3,
                         SPEAR_LOW_HIT.copy(lean = 0.25, stride = 11.0, rh = V(14.0, 66.0, 34.0), weapon = V(0.35, 0.1, 0.93), trail = 0.0) to 5, r to 1)

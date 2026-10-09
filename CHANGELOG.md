@@ -13,6 +13,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - Testreiter: Schalter „Held trifft immer kritisch“, um den Killerschlag gezielt zu sehen.
 
 **Behoben**
+- Überkopfhieb (Killerschlag): Beim Ausholen hing die Klinge hinter dem Kopf nach unten wie im Untergriff, im Schlag schien der Griff zu wechseln. Jetzt steht die Klinge beim Ausholen nach oben und der Griff bleibt bis zum Treffer gleich.
 - Die Wundflecken eines Gegners erschienen schon, während der Held noch ausholte; jetzt erst, wenn der Schlag trifft.
 
 ## v0.1.279 – 09.10.2026, 11:16
