@@ -4,6 +4,18 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Neu – Killerschlag**
+- Tötet ein kritischer Treffer mit einer Nahkampfwaffe den Gegner, schlägt der Held einen besonderen Schlag: Überkopfhieb, Durchbohren (bei Axt, Streitkolben und Hammer stattdessen ein Aufwärtshieb) oder Drehhieb, zufällig. Mit dem Speer Aufspießen oder Überkopfstoß, mit dem Stab Überkopfhieb oder Durchstoßen. Der Schlag hält beim Aufprall länger inne (etwa eine Drittelsekunde), das Bild bebt stärker.
+- Mehr Wucht (gemeldet 09.10.: „wenig Animation drin“; Vorschläge 1–4 von dir gewählt): Der Held holt aus und verharrt kurz oben, dann kommt der Schlag schneller als jeder andere; danach läuft alles in Zeitlupe weiter (der Held kommt langsam aus dem Schlag, Blut und Teile fliegen anfangs halb so schnell); das Bild zoomt auf Held und Gegner heran und nach dem Fall wieder zurück; die Klinge zieht eine dunkelrote Spur im Bogen durch den Gegner, die rasch verblasst.
+- Was mit dem Gegner geschieht, richtet sich nach der Blutstufe: „Aus“ – er sackt verdunkelt zusammen; „Dezent“ – ein Blutschwall und eine große Lache, dann sein Sturz; „Deutlich“ – er wird entlang des Hiebs zerteilt, beim Durchbohren reißt ein Loch und er kippt um; die Teile fallen und bleiben in der Lache liegen.
+- Tiere (Wolf, Wildschwein, Ratte, Spinne, Hundertfüßer, Fledermaus, Stirge) werden bei „Deutlich“ nicht zerteilt (das wirkte ausgeschnitten), sondern bekommen eine tiefe, klaffende Wunde entlang des Hiebs, die beim Sturz mitgeht, mit Blutschwall und Lache.
+- Skelette zerspringen bei jeder Blutstufe in Knochen (Waffe und Schild fallen für sich), die Ockergallerte platzt (außer bei „Aus“), Zombie und Ghul bluten dunklen Schleim. Gilt für alle Gegner.
+- Testreiter: Schalter „Held trifft immer kritisch“, um den Killerschlag gezielt zu sehen.
+
+**Behoben**
+- Überkopfhieb (Killerschlag): Beim Ausholen hing die Klinge hinter dem Kopf nach unten wie im Untergriff, im Schlag schien der Griff zu wechseln. Jetzt steht die Klinge beim Ausholen nach oben und der Griff bleibt bis zum Treffer gleich.
+- Die Wundflecken eines Gegners erschienen schon, während der Held noch ausholte; jetzt erst, wenn der Schlag trifft.
+
 ## v0.1.279 – 09.10.2026, 11:16
 
 **Neu – Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte im neuen Stil**

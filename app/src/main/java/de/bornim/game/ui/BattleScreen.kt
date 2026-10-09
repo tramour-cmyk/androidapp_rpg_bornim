@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -83,6 +84,8 @@ private class BattleUi(val battle: Battle) {
     var heroHp by mutableIntStateOf(battle.hero.hp)
     var heroSp by mutableIntStateOf(battle.hero.sp)
     var enemyHp by mutableIntStateOf(battle.enemyHp)
+    /** The foe's hit points its wounds show: a blow of the hero's that halts as it lands opens them only as it lands. */
+    var woundHp by mutableIntStateOf(battle.enemyHp)
     var menu by mutableStateOf(BattleMenu.MAIN)
     var animKey by mutableIntStateOf(0)
     var enemyGone by mutableStateOf(false)
@@ -181,6 +184,13 @@ private class BattleUi(val battle: Battle) {
     var fxDelay = 0L
     /** This message's blow halts as it lands (see [HIT_STOP_MS]): its sound comes with the halt. */
     var hitStopped = false
+    /** How long it halts: longer for the killing blow. */
+    var stopMs = 0L
+    /** The message of the killing blow still to come or under way (see [isKillBlow]), and the blow the hero strikes it with. */
+    var killStep by mutableStateOf<Step?>(null)
+    var killStrike: HeroFigure.Strike? = null
+    /** When the killing blow landed (wall clock), 0 before. */
+    var killAt by androidx.compose.runtime.mutableLongStateOf(0L)
     /** Counts spells let go, for the flash of light at the staff or hand. */
     var flashKey by mutableIntStateOf(0)
 
@@ -243,23 +253,34 @@ private class BattleUi(val battle: Battle) {
                 (s.anim == Anim.HERO_HIT || (s.anim == Anim.MISS && fx?.onHero == true)) ->
                 play(HeroFigure.Act.AMBUSHED, perFrame = 120)
             s.anim == Anim.HERO_ACT -> {
-                val list = HeroBattle.strikes(hero)
-                lastStrike = another(list.size, lastStrike)
-                val strike = list[lastStrike]
-                // while the attack is named, only the wind-up: the blow comes with the hit or the miss
-                play(HeroFigure.Act.ATTACK, strike, 0, 0, windUpEnd(strike), perFrame = ATTACK_FRAME_MS, hold = true)
+                // the blow's end is already known: a critical hit that ends the foe is struck as a killing blow
+                val result = queue.firstOrNull { it.anim == Anim.ENEMY_HIT || it.anim == Anim.ENEMY_FAINT || it.anim == Anim.MISS }
+                val kills = HeroBattle.killStrikes(hero)
+                if (result != null && result.isKillBlow()) { killStep = result; killStrike = HeroBattle.killForTest?.takeIf { it in kills } ?: kills.randomOrNull() }
+                val strike = killStrike?.takeIf { result != null && result === killStep } ?: HeroBattle.strikes(hero).let { list ->
+                    lastStrike = another(list.size, lastStrike)
+                    list[lastStrike]
+                }
+                // while the attack is named, only the wind-up: the blow comes with the hit or the miss; a killing blow is
+                // wound up to its height and held there
+                play(HeroFigure.Act.ATTACK, strike, 0, 0, if (strike.killing) HeroFigure.killPeak(strike) else windUpEnd(strike), perFrame = ATTACK_FRAME_MS, hold = true)
             }
             (s.anim == Anim.ENEMY_HIT || s.anim == Anim.ENEMY_FAINT || s.anim == Anim.MISS) && fx?.onHero == false &&
                 m != null && m.act == HeroFigure.Act.ATTACK && m.hold -> {
-                play(HeroFigure.Act.ATTACK, m.strike, 0, m.to, -1, perFrame = ATTACK_FRAME_MS, slowFrom = HeroBattle.strikeFrame(m.strike) + 1, slowK = MOVE_SLOW)
+                // a killing blow: held a moment longer at its height, then down faster than any other, and out of it slowly
+                val killing = m.strike.killing
+                val per = if (killing) KILL_FRAME_MS else ATTACK_FRAME_MS
+                play(HeroFigure.Act.ATTACK, m.strike, 0, m.to, -1, perFrame = per, delayMs = if (killing) KILL_HOLD_MS else 0L,
+                    slowFrom = HeroBattle.strikeFrame(m.strike) + 1, slowK = if (killing) KILL_SLOW else MOVE_SLOW)
                 if (m.strike != HeroFigure.Strike.SHOOT) {
-                    swingDelay = 0L; swingKey++
+                    swingDelay = if (killing) BattlePace.ms(KILL_HOLD_MS) else 0L; swingKey++
                     // a blow that strikes home: hero and foe stand still for a moment as it lands; the foe reels, and
                     // the blood flies, only then
                     if (s.anim == Anim.ENEMY_HIT) motion?.let { b ->
-                        val land = b.start + (HeroBattle.strikeFrame(m.strike) - m.to) * BattlePace.ms(ATTACK_FRAME_MS)
-                        motion = b.halted(land, HIT_STOP_MS)
-                        fxDelay = (land - System.currentTimeMillis()).coerceAtLeast(0L) + HIT_STOP_MS
+                        val land = b.start + (HeroBattle.strikeFrame(m.strike) - m.to) * BattlePace.ms(per)
+                        stopMs = if (s === killStep) KILL_STOP_MS else HIT_STOP_MS
+                        motion = b.halted(land, stopMs)
+                        fxDelay = (land - System.currentTimeMillis()).coerceAtLeast(0L) + stopMs
                         hitStopped = true
                     }
                 }
@@ -397,6 +418,7 @@ private class BattleUi(val battle: Battle) {
             if (s.anim == Anim.ENEMY_FAINT) { enemyGone = true; foeFled = s.fx?.kind == de.bornim.core.FxKind.TURN; foeDestroyed = s.fx?.kind == de.bornim.core.FxKind.DESTROY }
             if (s.anim == Anim.HERO_FAINT) heroGone = true
             moveHero(s)
+            if (!hitStopped) woundHp = s.enemyHp
             foeCastLands = foePoised && s.anim == Anim.NONE && s.fx?.onHero == true
             foePoised = s.anim == Anim.ENEMY_ACT || (foePoised && s.anim == Anim.NONE && s.fx == null)
             if (s.anim == Anim.ENEMY_ACT) attackVariant = shamanMove(queue.firstOrNull()) ?: another(MonsterArt.attackVariants(battle.monster.id), attackVariant)
@@ -551,6 +573,24 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
     val hurtGlow = remember { Animatable(0f) }
     var hitOnHero by remember { mutableStateOf(false) }
     val quake = remember { Animatable(0f) }
+    var quakeK by remember { androidx.compose.runtime.mutableFloatStateOf(1f) }
+    // the killing blow: the scene draws in on hero and foe while it is wound up, and back once it is done
+    val killZoom = remember { Animatable(0f) }
+    LaunchedEffect(ui.killStep) { if (ui.killStep != null) killZoom.animateTo(1f, tween(BattlePace.ms(550), easing = androidx.compose.animation.core.FastOutSlowInEasing)) }
+    LaunchedEffect(ui.killAt) {
+        if (ui.killAt == 0L) return@LaunchedEffect
+        delay(BattlePace.ms(1800L))
+        killZoom.animateTo(0f, tween(BattlePace.ms(700), easing = androidx.compose.animation.core.FastOutSlowInEasing))
+    }
+    // what the killing blow will do to the foe, cut out ahead while the hero winds up
+    var killPlan by remember { mutableStateOf<de.bornim.core.art.KillPlan?>(null) }
+    LaunchedEffect(ui.killStep) {
+        val k = ui.killStep ?: return@LaunchedEffect
+        if (!MonsterArt.isSolid(battle.monster.id)) return@LaunchedEffect
+        killPlan = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+            de.bornim.core.art.KillPlan.of(battle.monster.id, battle.look, ui.killStrike, vm.bloodLevel, battle.look.seed * 31 + k.enemyHp)
+        }
+    }
     // the blood of a hit flies as the blow lands, not as the message begins
     var bloodKey by remember { mutableIntStateOf(0) }
     val bloodT = remember { Animatable(1f) }
@@ -586,7 +626,12 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             bloodKey++
             launch { bloodT.snapTo(0f); bloodT.animateTo(1f, tween(bloodMs(vm.bloodLevel), easing = androidx.compose.animation.core.LinearEasing)) }
             launch { hurtGlow.snapTo(1f); hurtGlow.animateTo(0f, tween(BattlePace.ms(320))) }
-            if (ui.current?.fx?.crit == true) launch { quake.snapTo(1f); quake.animateTo(0f, tween(BattlePace.ms(420), easing = androidx.compose.animation.core.LinearEasing)) }
+            // the killing blow: it strikes home now; the scene shakes harder and longer
+            val kill = !onHero && ui.current != null && ui.current === ui.killStep
+            if (kill) ui.killAt = System.currentTimeMillis()
+            if (!onHero) ui.woundHp = ui.enemyHp
+            quakeK = if (kill) 1.8f else 1f
+            if (ui.current?.fx?.crit == true) launch { quake.snapTo(1f); quake.animateTo(0f, tween(BattlePace.ms(if (kill) 650 else 420), easing = androidx.compose.animation.core.LinearEasing)) }
         }
         // Projectiles first have to fly; the target reacts when they arrive.
         val flight = when (ui.current?.fx?.let { f -> f.past?.takeIf { it in FLYING && (f.kind == de.bornim.core.FxKind.DODGE || f.kind == de.bornim.core.FxKind.BLOCK) } ?: f.kind }) {
@@ -597,10 +642,10 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
         }
         if (ui.hitStopped) {
             // the hero's blow comes down, lands with its sound and halts there; the foe reels after the halt
-            kotlinx.coroutines.delay((ui.fxDelay - HIT_STOP_MS).coerceAtLeast(0L))
+            kotlinx.coroutines.delay((ui.fxDelay - ui.stopMs).coerceAtLeast(0L))
             ui.current?.let { st -> soundFor(st)?.let { vm.play(it) } }
             landed(false)
-            kotlinx.coroutines.delay(HIT_STOP_MS)
+            kotlinx.coroutines.delay(ui.stopMs)
         } else if (ui.fxDelay > 0) kotlinx.coroutines.delay(ui.fxDelay)
         if (flight > 0f) kotlinx.coroutines.delay((fxDuration(ui.current!!.fx!!.kind) * flight).toLong())
         // a foe built in the round falls only once its fall is drawn: the killing blow waits for the first frames of it,
@@ -674,10 +719,16 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 // a critical hit shakes the scene, a little larger so its edges never show
                 .graphicsLayer {
                     val q = quake.value
+                    val z = 1f + 0.13f * killZoom.value
                     if (q > 0f) {
-                        translationX = sin(q * 47f) * q * 6.dp.toPx()
-                        translationY = kotlin.math.cos(q * 31f) * q * 4.dp.toPx()
-                        scaleX = 1f + 0.035f * q; scaleY = 1f + 0.035f * q
+                        translationX = sin(q * 47f) * q * 6.dp.toPx() * quakeK
+                        translationY = kotlin.math.cos(q * 31f) * q * 4.dp.toPx() * quakeK
+                    }
+                    val sc = (1f + 0.035f * q * quakeK) * z
+                    if (sc != 1f) {
+                        scaleX = sc; scaleY = sc
+                        // towards the two of them, between hero and foe
+                        transformOrigin = androidx.compose.ui.graphics.TransformOrigin((de.bornim.core.art.BattleScene.HERO_X + de.bornim.core.art.BattleScene.FOE_X) / 2f, 0.72f)
                     }
                 }
         ) {
@@ -789,8 +840,8 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             val variant = ui.attackVariant
             // How badly the foe is hurt: 1 below half its hit points, 2 below a quarter.
             val foeWound = when {
-                ui.enemyHp * 4 <= battle.enemyMaxHp -> 2
-                ui.enemyHp * 2 <= battle.enemyMaxHp -> 1
+                ui.woundHp * 4 <= battle.enemyMaxHp -> 2
+                ui.woundHp * 2 <= battle.enemyMaxHp -> 1
                 else -> 0
             }
             // How much of it shows, for foe and hero alike: nothing with blood off, a few stains when subtle, all of them in full
@@ -1034,24 +1085,40 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 }
             ) {
                 val pulse = rememberPulse()
+                val plan = killPlan
+                // (read on every tick of the clock, so the pieces move)
+                val killT = if (ui.killAt > 0L && plan != null) clockMs.let { killTime((System.currentTimeMillis() - ui.killAt).toFloat()) } else -1f
+                val inPieces = killT >= 0f && plan != null && plan.pieces.isNotEmpty()
                 // New-style elites shimmer along their outline; the old sprites keep the round aura.
-                if (glow != null && foeShown && enemyFrame != null) Box(Modifier.offset(x = -artDp * Glow.PAD, y = -artDp * Glow.PAD)) {
+                if (glow != null && foeShown && enemyFrame != null && !inPieces) Box(Modifier.offset(x = -artDp * Glow.PAD, y = -artDp * Glow.PAD)) {
                     PixelSprite(Glow.halo(enemyFrame, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.55f + 0.4f * pulse), overflow = true)
                 } else if (glow != null && foeShown) EliteAura(glow, monsterSize, enemyAlpha)
-                if (enemyFrame != null) {
+                // struck dead by a killing blow: in pieces from the moment it lands, with what runs out of it
+                if (killT >= 0f && plan != null && enemyFrame != null) Canvas(Modifier.wrapContentSize(androidx.compose.ui.Alignment.TopStart, unbounded = true).size(artDp * enemyFrame.width, artDp * enemyFrame.height)) {
+                    drawKillGore(plan, killT, artDp.toPx(), vm.bloodLevel, goreFor(id), MonsterArt.anchorX(id, enemyFrame.width).toFloat(), battle.look.seed, behind = true)
+                    if (inPieces) drawKillPieces(plan, killT, artDp.toPx(), shade)
+                    drawKillGore(plan, killT, artDp.toPx(), vm.bloodLevel, goreFor(id), MonsterArt.anchorX(id, enemyFrame.width).toFloat(), battle.look.seed, behind = false)
+                }
+                // without blood it sinks down darkened
+                val killDark = if (killT >= 0f && plan?.kind == de.bornim.core.art.KillArt.Kind.DARK) (killT / 500f).coerceIn(0f, 1f) else 0f
+                val foeShade = if (killDark > 0f) (shade ?: Color.White).let { c -> Color(c.red * (1 - 0.45f * killDark), c.green * (1 - 0.45f * killDark), c.blue * (1 - 0.45f * killDark)) } else shade
+                // a beast at full blood keeps its body, torn open along the blow, as it falls
+                val shownFoe = if (killT >= 0f && plan?.kind == de.bornim.core.art.KillArt.Kind.WOUND && enemyFrame != null)
+                    remember(enemyFrame) { de.bornim.core.art.KillArt.gash(enemyFrame, plan.cut, battle.look.seed) } else enemyFrame
+                if (shownFoe != null && !inPieces) {
                     PixelSprite(
-                        enemyFrame, artDp, alpha = enemyAlpha,
-                        flash = if (ui.foeDestroyed) (crumbleT * 2.2f).coerceAtMost(0.9f) else 0f, shade = shade, overflow = true, hurt = foeRed,
+                        shownFoe, artDp, alpha = enemyAlpha,
+                        flash = if (ui.foeDestroyed) (crumbleT * 2.2f).coerceAtMost(0.9f) else 0f, shade = foeShade, overflow = true, hurt = foeRed,
                     )
-                    if (glow != null && foeShown) PixelSprite(Glow.rim(enemyFrame, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.22f + 0.18f * pulse), overflow = true)
-                    if (foeStains > 0 && foeShown) PixelSprite(woundsOf(enemyFrame, foeStains, id, battle.look.seed), artDp, alpha = enemyAlpha, shade = shade, overflow = true)
+                    if (glow != null && foeShown && !inPieces) PixelSprite(Glow.rim(shownFoe, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.22f + 0.18f * pulse), overflow = true)
+                    if (foeStains > 0 && foeShown) PixelSprite(woundsOf(shownFoe, foeStains, id, battle.look.seed), artDp, alpha = enemyAlpha, shade = foeShade, overflow = true)
                     // a band of light wanders over a shimmering coat every few seconds
                     if (battle.shiny && foeShown) {
                         val steps = 12
                         val phase = ((pulseClock() / 120) % 30).toInt()
-                        if (phase < steps) PixelSprite(Glow.sheen(enemyFrame, phase, steps), artDp, alpha = enemyAlpha * 0.75f, overflow = true)
+                        if (phase < steps) PixelSprite(Glow.sheen(shownFoe, phase, steps), artDp, alpha = enemyAlpha * 0.75f, overflow = true)
                     }
-                } else {
+                } else if (enemyFrame == null) {
                     val img = MonsterArt.frame(battle.monster.id, battle.look, enemyPose, if (foeWound > 0) idleIdx else idle)
                     PixelImageView(img, monsterSize, alpha = enemyAlpha, flash = if (ui.foeDestroyed) (crumbleT * 2.2f).coerceAtMost(0.9f) else 0f, shade = shade, hurt = foeRed)
                     if (foeStains > 0 && foeShown) PixelImageView(woundsOf(img, foeStains, id, battle.look.seed), monsterSize, alpha = enemyAlpha, shade = shade)
@@ -1117,6 +1184,16 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     }
             ) {
                 PixelSprite(dollFrame, artDp, alpha = heroAlpha, shade = shade, hurt = if (hitOnHero) hurtGlow.value else 0f)
+                // the killing blow drags a trail of blood red behind the weapon's point, through the foe and out
+                ui.motion?.takeIf { it.act == HeroFigure.Act.ATTACK && it.strike.killing && !it.hold }?.let { km ->
+                    val hit = HeroBattle.strikeFrame(km.strike)
+                    val pos = clockMs.let { km.pos(System.currentTimeMillis()) }
+                    val sinceLand = if (ui.killAt > 0L) (System.currentTimeMillis() - ui.killAt).toFloat() else 0f
+                    val fade = 1f - (sinceLand / 500f).coerceIn(0f, 1f)
+                    if (pos >= hit - 2 && fade > 0f) Canvas(Modifier.size(1.dp)) {
+                        drawKillTrail(killTrailPoints(battle.hero, km.strike, hit - 2, minOf(pos, hit + 0.6)), artDp.toPx(), fade)
+                    }
+                }
                 // the hero's lasting statuses, in its own frame so they go with every move
                 if (ui.heroStatus.isNotEmpty() && !ui.heroGone) Canvas(Modifier.size(1.dp)) {
                     val feet = (artDp * HeroBattle.GROUND.toFloat()).toPx()

@@ -96,6 +96,9 @@ fun main() {
     if (System.getenv("VERMINDRAFT") != null) { renderVerminDrafts(); System.exit(0) }
     if (System.getenv("VERMINSHEET") != null) { renderVerminSheet(); System.exit(0) }
     if (System.getenv("VERMINANIM") != null) { renderVerminAnim(); System.exit(0) }
+    if (System.getenv("KILLDRAFT") != null) { renderKillDrafts(); System.exit(0) }
+    if (System.getenv("KILLSHEET") != null) { renderKillSheet(); System.exit(0) }
+    if (System.getenv("KILLTIPS") != null) { renderKillTips(); System.exit(0) }
     if (System.getenv("JELLYWOUND") != null) { renderJellyWounds(); System.exit(0) }
     if (System.getenv("VERMINCLOSE") != null) { renderVerminClose(); System.exit(0) }
     if (System.getenv("DRINKDRAFT") != null) { renderDrinkDrafts(); System.exit(0) }
