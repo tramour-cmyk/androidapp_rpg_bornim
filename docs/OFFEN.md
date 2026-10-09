@@ -65,7 +65,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 **Folgt im nächsten Zweig-Build: Killerschlag** (Entwürfe von dir am 09.10. freigegeben). Zum Testen im Test-Reiter „Held trifft immer kritisch“ einschalten, Blutstufe im Menü umstellen. Worauf achten:
 - Die drei Schläge des Helden (je Waffe): passen Bewegung und Wucht, ist das längere Innehalten gut?
 - Blutstufe Aus (Zusammensacken, dunkler), Dezent (Blutschwall, Lache), Deutlich (Zerteilen bzw. Loch beim Durchbohren).
-- Skelett zerspringt, Gallerte platzt, Zombie/Ghul dunkler Schleim; Tiere und Fledermäuse.
+- Skelett zerspringt, Gallerte platzt, Zombie/Ghul dunkler Schleim; Tiere und Fledermäuse. (Frage 09.10.: Skelett liegt im Entwurf als Haufen am unteren Bildrand – im Spiel liegen die Teile dort, wo es stand; Standbild 13:05 geschickt. Ob ein flacher Streifen aus Knochen und Schildstücken so passt, wartet auf deine Rückmeldung.)
 - Bleiben die Teile liegen, bis das Siegesfeld kommt?
 
 **Version v0.1.279** (veröffentlicht 09.10., 11:16): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.279/bornim.apk). Vollständig von dir bestätigt (09.10.), zuletzt Tatendrang einmal pro Rast („funktioniert“).
