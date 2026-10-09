@@ -65,7 +65,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 **Zweig-Build 0.1.251** (09.10., 09:35; enthält auch 0.1.246): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37899502580/artifacts/11601738421). **Neue Tiere im Kampf** (Entwurf am 09.10. von dir freigegeben): Riesenspinne, Riesenhundertfüßer, Riesenfledermaus, Stirge und Ockergallerte im neuen Stil, im Film geprüft. Worauf achten: Größe im Bild (gegenüber Wolf und Held kleiner als nach SRD, damit sie ins Bild passen), Angriffe treffen sichtbar, Stürze, Aussehen im Kampflicht (Höhle, Nacht). Testkämpfe im Test-Reiter.
 
-**Folgt im nächsten Build: Gift greift nicht mehr an** (gemeldet 09.10., Riesenspinne: nach „vergiftet“ schien sie ein zweites Mal anzugreifen). Ursache: Der Giftschaden zu Beginn der Runde wurde wie ein Schlag des Gegners abgespielt; galt auch für Brennen und Bluten. Behoben, im Film geprüft.
+**Zweig-Build 0.1.254** (09.10., 10:01; enthält alles aus 0.1.251): [Artefakt bornim-apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37902087902/artifacts/11603220049). **Gift greift nicht mehr an** (gemeldet 09.10., zweimal: Riesenspinne schien nach „vergiftet“ und bei jedem Giftschaden erneut anzugreifen). Ursache: Der Giftschaden zu Beginn der Runde wurde wie ein Schlag des Gegners abgespielt; galt auch für Brennen und Bluten. Behoben, im Film geprüft.
 
 **Ebenfalls in 0.1.251: Tatendrang einmal pro Rast** (deine Entscheidung 09.10., Möglichkeit c): Tatendrang steht nach dem Einsatz erst nach einer Rast am Lagerfeuer oder im Gasthaus wieder bereit (auch ein Stufenaufstieg füllt auf). Im Kampfmenü steht „0/1“, solange er verbraucht ist.
 
