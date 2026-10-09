@@ -8,10 +8,20 @@ Im Hauptordner des Repositorys:
 
 ```
 tools/check-env.sh          # Programme, Repository, Netz (wenige Sekunden)
-tools/check-env.sh --full   # dazu Kerntests und ein Vorschaubild (beim ersten Mal einige Minuten, danach unter einer Minute)
+tools/check-env.sh --full   # dazu Kerntests und ein Vorschaubild (warm etwa 10 s)
 ```
 
-Am Ende steht „Ergebnis: … in Ordnung, 0 fehlen.“, wenn alles passt. Zuletzt geprüft am 09.10.2026, 11:31: 11 in Ordnung, 0 fehlen.
+Am Ende steht „Ergebnis: … in Ordnung, 0 fehlen.“, wenn alles passt. Zuletzt geprüft am 09.10.2026, 21:45: 11 in Ordnung, 0 fehlen, 11 s.
+
+## Sitzungsstart: schnell und sparsam (seit 09.10.2026)
+
+Gilt für jede Cloud-Sitzung und jeden Account gleich, weil alles im Repository liegt:
+
+- `.claude/settings.json` startet beim Sitzungsbeginn `tools/setup-session.sh --warm` (nur in Cloud-Sitzungen). Der Hook kehrt sofort zurück.
+- `tools/setup-session.sh` legt `tools/gradle-mirror.gradle` nach `~/.gradle/init.d`. Gradle lädt Maven-Central-Dateien dann vom Google-Spiegel (`maven-central.storage-download.googleapis.com`). Grund: Maven Central weist Downloads aus der Cloud oft mit 429 („Too Many Requests“) ab, am 09.10. auch `repo1.maven.org`. GitHub Actions ist nicht betroffen.
+- Mit `--warm` werden im Hintergrund `core` (mit Tests) und `tools/preview` übersetzt, Log in `/tmp/bornim-warm.log`. Gemessen am 09.10. ohne Cache: rund 2 min 10 s und 550 MB. Danach brauchen Kerntests ohne Änderung etwa 1–2 s, die Testläufe selbst etwa 11 s, ein Vorschaubild 4–8 s.
+- **Kerntests immer mit `./gradlew -p core test`** (wie GitHub Actions). `./gradlew :core:test` aus dem Hauptordner lädt zusätzlich das Android-Plugin (über 70 MB), das ohne Android-SDK nichts nützt.
+- Gerät der Spiegel aus dem Tritt: `tools/setup-session.sh` von Hand, dann `tools/check-env.sh`.
 
 ## Was gebraucht wird
 
@@ -31,24 +41,6 @@ Betriebssystem der Cloud-Sitzung: Ubuntu 24.04. Fehlt etwas, lässt es sich so n
 sudo apt-get update && sudo apt-get install -y openjdk-21-jdk imagemagick python3 git
 ```
 
-**Maven Central sperrt zeitweise (429 „Too Many Requests“):** Am 09.10.2026, 21:05, lehnten `repo.maven.apache.org` und `repo1.maven.org` Gradle-Downloads ab; die Anfrage auf die Startseite, mit der `check-env.sh` prüft, ging trotzdem durch. Abhilfe nur für die Sitzung (nicht im Repository): ein Init-Skript, das Gradle auf den Google-Spiegel von Maven Central umleitet:
-
-```
-mkdir -p ~/.gradle/init.d && cat > ~/.gradle/init.d/maven-mirror.gradle <<'X'
-def fix = { RepositoryHandler repos ->
-    repos.withType(MavenArtifactRepository).configureEach { r ->
-        if (r.url.toString().startsWith("https://repo.maven.apache.org/maven2")) r.url = "https://maven-central.storage-download.googleapis.com/maven2/"
-    }
-}
-beforeSettings { s -> fix(s.pluginManagement.repositories); fix(s.buildscript.repositories)
-    s.dependencyResolutionManagement.repositories.whenObjectAdded { fix(s.dependencyResolutionManagement.repositories) } }
-allprojects { p -> fix(p.buildscript.repositories); fix(p.repositories)
-    p.repositories.whenObjectAdded { fix(p.repositories) }; p.buildscript.repositories.whenObjectAdded { fix(p.buildscript.repositories) } }
-X
-```
-
-Damit liefen am 09.10. Kerntests und Vorschau durch (`check-env.sh --full`: 11 in Ordnung, 0 fehlen).
-
 **Damit es in jeder neuen Sitzung da ist:** dieselbe Zeile in den Umgebungseinstellungen als Setup-Skript eintragen (Umgebungsmenü in der Titelleiste der Sitzung → Bearbeiten → Setup script). Neue Sitzungen führen es beim Start aus. Solange die Standard-Umgebung alles schon mitbringt, ist das nur eine Absicherung.
 
 ## Bauen und Veröffentlichen (GitHub)
@@ -60,7 +52,7 @@ Damit liefen am 09.10. Kerntests und Vorschau durch (`check-env.sh --full`: 11 i
 
 ## Werkzeuge im Repository
 
-- `./gradlew :core:test`: Kerntests, vor jedem Commit.
+- `./gradlew -p core test`: Kerntests, vor jedem Commit.
 - `tools/preview` (Aufruf: `cd tools/preview && VARIABLE=… ../../gradlew -q run`, Bilder unter `tools/preview/build/screens/`). Die wichtigsten Schalter stehen in der Übergabe-Notiz in `docs/OFFEN.md` (Kampffilme `FILMBATCH`, Bewegungsblätter `FOEANIM`/`VERMINANIM`, Effekte `ABILITYFX`/`STATUSFX`, Durchdringungen `CLASH`/`FOECLASH`).
 - Filmläufe sind langsam (5 Kämpfe gut 4 Minuten). Einzelne Shell-Befehle brechen nach 10 Minuten ab, darum lange Läufe aufteilen oder im Hintergrund mit `timeout` starten.
 

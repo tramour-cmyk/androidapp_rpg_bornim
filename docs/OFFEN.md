@@ -90,7 +90,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 - **Setup-Skript (optional):** Die Cloud-Sitzung bringt alles mit (JDK 21, ImageMagick, Python, git; geprüft 09.10. mit `tools/check-env.sh`). Ein Android-SDK ist nicht nötig, die APK baut GitHub. Zur Absicherung kann die Installationszeile aus `docs/UMGEBUNG.md` als Setup-Skript in die Umgebungseinstellungen.
 
-- **Umgebungsprüfung 09.10., 21:05** (deine Bitte: CLAUDE.md und Einrichtung prüfen): Regeln und Dokumente vollständig gelesen; `check-env.sh --full` zuerst 8/11, weil Maven Central Gradle mit 429 abwies. Mit sitzungslokalem Umleiten auf den Google-Spiegel (siehe [UMGEBUNG.md](UMGEBUNG.md)) 11/11. **Zu entscheiden:** (a) das Init-Skript ins Setup-Skript der Umgebung aufnehmen, damit neue Sitzungen es gleich haben; (b) `check-env.sh` soll eine echte Bibliotheksdatei statt der Startseite abfragen, damit die Sperre erkannt wird.
+- **Testumgebung schnell, sparsam, für alle Accounts gleich (Aufträge 09.10., 21:14 und 21:30):** Zweig `claude/ecstatic-albattani-2ob0np`. Gradle lädt über den Google-Spiegel (Maven Central lieferte 429), ein Sitzungs-Hook wärmt im Hintergrund vor, `check-env.sh` prüft eine echte Datei und testet `core` direkt. Gemessen: Kaltstart 2 min 10 s, danach `check-env.sh --full` 11 s. Einzelheiten in [UMGEBUNG.md](UMGEBUNG.md). **Zu entscheiden:** Vorschläge zur Vereinheitlichung (Antwort 09.10., 21:47): auf `main` übernehmen, CLAUDE.md-Fassung aus `karte-neuer-stil` vorziehen, Netzregel der Chat-Sitzung um den Spiegel ergänzen.
 
 ## Bewusst so gelassen
 
