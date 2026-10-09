@@ -17,6 +17,8 @@ object KillArt {
         DARK,
         /** A gush of blood and a pool; it falls in its own way. */
         GUSH,
+        /** A deep, gaping wound torn along the blow, a heavy gush and a pool; it falls in its own way (beasts at full blood). */
+        WOUND,
         /** Cut in two along the blow; the halves fall apart. */
         SPLIT,
         /** Run through: a hole torn in it; it topples. */
@@ -172,6 +174,39 @@ object KillArt {
         return out
     }
 
+    /**
+     * A gaping wound torn into [img] along a line at [deg]° through the middle of the body, wherever it is in this frame
+     * (so it goes with the body as it falls): a dark gash, raw at its rim, ragged, longest across the middle.
+     */
+    fun gash(img: PixelImage, deg: Double, seed: Int): PixelImage {
+        val b = bbox(img)
+        if (b[2] < 0) return img
+        val cx = (b[0] + b[2]) / 2.0; val cy = b[1] + (b[3] - b[1]) * 0.45
+        val half = minOf(b[2] - b[0], b[3] - b[1]).toDouble() * 0.42 + (b[2] - b[0]) * 0.1
+        val a = Math.toRadians(deg); val ux = cos(a); val uy = sin(a)
+        val out = PixelImage(img.width, img.height)
+        val deep = argb(0x2A0306); val raw = argb(0x7E0E14); val wet = argb(0xB0262A)
+        for (y in 0 until img.height) for (x in 0 until img.width) {
+            val q = img[x, y]
+            if ((q ushr 24) < 128) continue
+            val along = (x - cx) * ux + (y - cy) * uy
+            val across = -(x - cx) * uy + (y - cy) * ux
+            val k = 1 - (along / half) * (along / half)
+            if (k <= 0) { out.set(x, y, q); continue }
+            // wider across the middle, ragged at its edges
+            val ragged = ((x * 7 + y * 13 + seed) % 5) * 0.25
+            val w = (1.2 + 2.6 * k) + ragged * k
+            val d = abs(across)
+            out.set(x, y, when {
+                d < w * 0.55 -> deep
+                d < w -> if ((x + y + seed) % 3 == 0) wet else raw
+                d < w + 1.2 -> mix(q, raw, 0.5)
+                else -> q
+            })
+        }
+        return out
+    }
+
     /** The piece's picture back in the size of the whole frame. */
     fun Piece.full(): PixelImage {
         val o = PixelImage(img.width + ox, img.height + oy)
@@ -191,7 +226,7 @@ object KillArt {
 }
 
 /** What a killing blow does to one foe: the [kind], its pieces (empty for [KillArt.Kind.DARK] and [KillArt.Kind.GUSH]) and where the blow struck. */
-class KillPlan(val kind: KillArt.Kind, val pieces: List<KillArt.Piece>, val cx: Double, val cy: Double, val ground: Double) {
+class KillPlan(val kind: KillArt.Kind, val pieces: List<KillArt.Piece>, val cx: Double, val cy: Double, val ground: Double, val cut: Double = 30.0) {
     /** How long until every piece lies still, in ms. */
     val settles: Double = KillArt.settled(pieces, ground)
 
@@ -215,20 +250,24 @@ class KillPlan(val kind: KillArt.Kind, val pieces: List<KillArt.Piece>, val cx: 
                 id == "ochre_jelly" -> if (blood >= 1) KillArt.Kind.SHATTER else KillArt.Kind.DARK
                 blood <= 0 -> KillArt.Kind.DARK
                 blood == 1 -> KillArt.Kind.GUSH
-                strike == HeroFigure.Strike.KILL_PIERCE && MonsterArt.isDoll(id) -> KillArt.Kind.HOLE
+                // a beast cut apart in the flat picture looks cut out of paper: it keeps its body, with a gaping wound
+                !MonsterArt.isDoll(id) -> KillArt.Kind.WOUND
+                strike == HeroFigure.Strike.KILL_PIERCE -> KillArt.Kind.HOLE
                 else -> KillArt.Kind.SPLIT
+            }
+            // the line of the blow: steep from above, slanting up from below, level for the turn
+            val cut = when (strike) {
+                HeroFigure.Strike.KILL_HIGH -> 68.0
+                HeroFigure.Strike.KILL_RISE -> -40.0
+                HeroFigure.Strike.KILL_SPIN -> 8.0
+                else -> 30.0
             }
             var pieces = when (kind) {
                 KillArt.Kind.SHATTER -> if (MonsterArt.isDoll(id)) {
                     val bare = FoeArt.unarmedFrame(id, look, Act.DIE, dieV, 0)
                     KillArt.shatter(bare, cx, cy, 28, seed, KillArt.difference(img, bare))
                 } else KillArt.shatter(img, cx, cy, 22, seed, force = 1.25)
-                KillArt.Kind.SPLIT -> KillArt.split(img, cx, cy, when (strike) {
-                    HeroFigure.Strike.KILL_HIGH -> 68.0
-                    HeroFigure.Strike.KILL_RISE -> -40.0
-                    HeroFigure.Strike.KILL_SPIN -> 8.0
-                    else -> 30.0
-                }, anchor, ground, wound, fall)
+                KillArt.Kind.SPLIT -> KillArt.split(img, cx, cy, cut, anchor, ground, wound, fall)
                 KillArt.Kind.HOLE -> KillArt.hole(img, cx, cy, anchor, ground, wound, fall)
                 else -> emptyList()
             }
@@ -236,7 +275,7 @@ class KillPlan(val kind: KillArt.Kind, val pieces: List<KillArt.Piece>, val cx: 
             if (pieces.any { it.topple } && bottomOf(img) < ground - 8) pieces = pieces.map {
                 if (it.topple) KillArt.Piece(with(KillArt) { it.full() }, it.cx, it.cy, 0.01, -0.01, 0.25, rest = 3.0) else it
             }
-            return KillPlan(kind, pieces, cx, cy, ground)
+            return KillPlan(kind, pieces, cx, cy, ground, cut)
         }
 
         private fun bottomOf(img: PixelImage): Double {

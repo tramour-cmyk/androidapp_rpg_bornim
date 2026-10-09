@@ -1079,18 +1079,21 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 // without blood it sinks down darkened
                 val killDark = if (killT >= 0f && plan?.kind == de.bornim.core.art.KillArt.Kind.DARK) (killT / 500f).coerceIn(0f, 1f) else 0f
                 val foeShade = if (killDark > 0f) (shade ?: Color.White).let { c -> Color(c.red * (1 - 0.45f * killDark), c.green * (1 - 0.45f * killDark), c.blue * (1 - 0.45f * killDark)) } else shade
-                if (enemyFrame != null && !inPieces) {
+                // a beast at full blood keeps its body, torn open along the blow, as it falls
+                val shownFoe = if (killT >= 0f && plan?.kind == de.bornim.core.art.KillArt.Kind.WOUND && enemyFrame != null)
+                    remember(enemyFrame) { de.bornim.core.art.KillArt.gash(enemyFrame, plan.cut, battle.look.seed) } else enemyFrame
+                if (shownFoe != null && !inPieces) {
                     PixelSprite(
-                        enemyFrame, artDp, alpha = enemyAlpha,
+                        shownFoe, artDp, alpha = enemyAlpha,
                         flash = if (ui.foeDestroyed) (crumbleT * 2.2f).coerceAtMost(0.9f) else 0f, shade = foeShade, overflow = true, hurt = foeRed,
                     )
-                    if (glow != null && foeShown && !inPieces) PixelSprite(Glow.rim(enemyFrame, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.22f + 0.18f * pulse), overflow = true)
-                    if (foeStains > 0 && foeShown) PixelSprite(woundsOf(enemyFrame, foeStains, id, battle.look.seed), artDp, alpha = enemyAlpha, shade = foeShade, overflow = true)
+                    if (glow != null && foeShown && !inPieces) PixelSprite(Glow.rim(shownFoe, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.22f + 0.18f * pulse), overflow = true)
+                    if (foeStains > 0 && foeShown) PixelSprite(woundsOf(shownFoe, foeStains, id, battle.look.seed), artDp, alpha = enemyAlpha, shade = foeShade, overflow = true)
                     // a band of light wanders over a shimmering coat every few seconds
                     if (battle.shiny && foeShown) {
                         val steps = 12
                         val phase = ((pulseClock() / 120) % 30).toInt()
-                        if (phase < steps) PixelSprite(Glow.sheen(enemyFrame, phase, steps), artDp, alpha = enemyAlpha * 0.75f, overflow = true)
+                        if (phase < steps) PixelSprite(Glow.sheen(shownFoe, phase, steps), artDp, alpha = enemyAlpha * 0.75f, overflow = true)
                     }
                 } else if (enemyFrame == null) {
                     val img = MonsterArt.frame(battle.monster.id, battle.look, enemyPose, if (foeWound > 0) idleIdx else idle)

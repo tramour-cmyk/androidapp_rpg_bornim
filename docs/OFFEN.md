@@ -67,6 +67,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - Blutstufe Aus (Zusammensacken, dunkler), Dezent (Blutschwall, Lache), Deutlich (Zerteilen bzw. Loch beim Durchbohren).
 - Skelett zerspringt, Gallerte platzt, Zombie/Ghul dunkler Schleim; Tiere und Fledermäuse. (Frage 09.10.: Skelett liegt im Entwurf als Haufen am unteren Bildrand – im Spiel liegen die Teile dort, wo es stand; Standbild 13:05 geschickt. Ob ein flacher Streifen aus Knochen und Schildstücken so passt, wartet auf deine Rückmeldung.)
 - Bleiben die Teile liegen, bis das Siegesfeld kommt?
+- **Nachbesserung (gemeldet 09.10.: Zerteilen beim Wolf wirkt künstlich; Zombie passt):** Tiere bei „Deutlich“ jetzt mit klaffender Wunde statt Zerteilen (Vorschlag 3, von dir gewählt); menschenähnliche Gegner werden weiter zerteilt. Folgt im nächsten Zweig-Build.
 
 **Version v0.1.279** (veröffentlicht 09.10., 11:16): [bornim.apk](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/download/v0.1.279/bornim.apk). Vollständig von dir bestätigt (09.10.), zuletzt Tatendrang einmal pro Rast („funktioniert“).
 
@@ -76,7 +77,6 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu entscheiden
 
-- **Killerschlag: Zerteilen wirkt künstlich (gemeldet 09.10., Wolf bei Blutstufe „Deutlich“):** Ober- und Unterstück wirken wie ausgeschnitten und daneben gelegt. Vorschläge in der Antwort vom 09.10.; wartet auf deine Entscheidung.
 - **Noch mehr Zwischenbilder?** Die Haltungen selbst (Arme, Beine, Waffe) wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Nach deinem Test von 0.1.208 vorerst nicht nötig; bei Bedarf als eigener, größerer Umbau (mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn).
 - **Hörproben:** Auswahl für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt.
 

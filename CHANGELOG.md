@@ -7,6 +7,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 **Neu – Killerschlag**
 - Tötet ein kritischer Treffer mit einer Nahkampfwaffe den Gegner, schlägt der Held einen besonderen Schlag: Überkopfhieb, Durchbohren (bei Axt, Streitkolben und Hammer stattdessen ein Aufwärtshieb) oder Drehhieb, zufällig. Mit dem Speer Aufspießen oder Überkopfstoß, mit dem Stab Überkopfhieb oder Durchstoßen. Der Schlag hält beim Aufprall länger inne (etwa eine Viertelsekunde), das Bild bebt stärker.
 - Was mit dem Gegner geschieht, richtet sich nach der Blutstufe: „Aus“ – er sackt verdunkelt zusammen; „Dezent“ – ein Blutschwall und eine große Lache, dann sein Sturz; „Deutlich“ – er wird entlang des Hiebs zerteilt, beim Durchbohren reißt ein Loch und er kippt um; die Teile fallen und bleiben in der Lache liegen.
+- Tiere (Wolf, Wildschwein, Ratte, Spinne, Hundertfüßer, Fledermaus, Stirge) werden bei „Deutlich“ nicht zerteilt (das wirkte ausgeschnitten), sondern bekommen eine tiefe, klaffende Wunde entlang des Hiebs, die beim Sturz mitgeht, mit Blutschwall und Lache.
 - Skelette zerspringen bei jeder Blutstufe in Knochen (Waffe und Schild fallen für sich), die Ockergallerte platzt (außer bei „Aus“), Zombie und Ghul bluten dunklen Schleim. Gilt für alle Gegner.
 - Testreiter: Schalter „Held trifft immer kritisch“, um den Killerschlag gezielt zu sehen.
 
