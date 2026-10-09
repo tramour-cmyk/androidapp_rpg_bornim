@@ -56,6 +56,7 @@ Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md), w
 
 - **Wegesystem:** geschwungene Wege statt Treppenstufen aus Kacheln. Wege werden als Linien mit Breite über die Karte gelegt (Kurven, Abzweigungen, ausgefranste Ränder, Fahrspuren) und nicht mehr Kachel für Kachel gezeichnet. Gilt für Waldpfade, Dorfwege und spätere Straßen; Begehbarkeit bleibt wie bisher an den Kacheln.
 - **Kartenansicht** im Menü mit den bereits erkundeten Bereichen.
+- **Schnellreise über die Kartenübersicht (Idee 09.10., 12:49):** Die Pergamentkarte (Entwurf C, `tools/preview` Modus `WEGE`) als Übersicht, mit Nebel des Unerkundeten wie auf der Karte; einmal entdeckte Orte (z. B. Bornim, Garricks Feuer, Höhleneingang) sind Reiseziele, gegen Gold. Gedanken dazu: ein Fuhrmann in Bornim oder Garrick als Führer statt Teleport; Preis nach Entfernung; Zeit vergeht (wer abends aufbricht, kommt nachts an); unterwegs ein Wurf auf einen Überfall, nachts höher; nicht aus Höhlen heraus, nicht im Kampf.
 - **Bewohner mit Tagesablauf:** Die Wirtin fegt vor der Tür, Läden haben nachts geschlossen. (Jorins Streife am Schlagbaum gibt es schon.)
 - **Monsterverhalten:** Goblins patrouillieren auf Wegen, Fledermäuse hängen an der Höhlendecke und stürzen herab.
 - **Wetter:** Nebel; Windgeräusche als weiterer Umgebungsklang.
