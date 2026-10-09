@@ -809,7 +809,10 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             val axB = (tilt cross back).norm()
             val fB = Frame(axB, tilt, (axB cross tilt).norm().let { if (it dot back < 0) -it else it })
             val mid = (sl + sr) * 0.5
-            val cB = mid - upB * (ht * (if (tower) 0.34 else if (round) 0.17 else 0.27)) + back * (d.chestDepth + 0.035 * h)
+            // the top edge a little above the shoulders (seen from above at a slant, a board on the back looks lower
+            // from behind and higher from the front than it is, so it must truly sit high to look right from both)
+            val topEdge = if (tower) ht / 2 else if (round) hw else ht * 0.3
+            val cB = mid + upB * (0.045 * h - topEdge) + back * (d.chestDepth + 0.03 * h)
             slungShield(base, r, cB, fB, hw, ht, outline, tower, round, back)
             return
         }
