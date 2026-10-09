@@ -16,7 +16,8 @@ import de.bornim.core.Sex
  * Pictures are drawn ahead in the background ([prepare]) and kept by person, direction and pose.
  */
 object MapFolk {
-    class Folk(val id: String, val doll: Doll, val outfit: Outfit)
+    /** One of the folk: [carry] how the hands go walking about (a guard's spear or an elder's staff on the shoulder). */
+    class Folk(val id: String, val doll: Doll, val outfit: Outfit, val carry: MapFigure.Carry = MapFigure.Carry.FREE)
 
     private fun kit(vararg bases: String): Map<GearSlot, Gear> =
         bases.associate { b -> Gear(0, b, Rarity.COMMON, 1).let { it.def.slot to it } }
@@ -33,6 +34,52 @@ object MapFolk {
             cloakRgb = 0x36402A, bowOnBack = true, leatherRgb = 0x4A3826),
     )
 
+    // ------------------------------------------------------------ the village, drafts (night of 09.10.), not yet on the map
+
+    private fun human(sex: Sex, build: Build, skin: Int, hair: Int, beard: Boolean = false, grey: Int? = null, small: Double = 1.0) =
+        Doll(Race.HUMAN, sex, build, skin = skin, hairTone = hair, beard = beard, hairOverride = grey, sizeK = small)
+    private fun clothes(cloth: Int, dark: Int, pants: Int) = Triple(cloth, dark, pants)
+
+    /** Rowena, who keeps the inn: sturdy, sleeves rolled, a long dress of brown wool, an apron's pale. */
+    val rowena = Folk("rowena", human(Sex.FEMALE, Build.STRONG, 1, 3),
+        Outfit(CharClass.FIGHTER, kit("robe", "boots"), clothes = clothes(0x6A4A34, 0x9A8A70, 0x3E2E22)))
+    /** Elder Aldric: old and thin, white beard, a long robe of faded plum, a staff on his shoulder. */
+    val aldric = Folk("aldric", human(Sex.MALE, Build.SLIM, 0, 0, beard = true, grey = 0xC8C4BC),
+        Outfit(CharClass.FIGHTER, kit("robe", "mantle", "quarterstaff"), cloakRgb = 0x3A3040, clothes = clothes(0x5A4A5E, 0x3E3242, 0x2E2630)), MapFigure.Carry.SHOULDER)
+    /** Thessa the trader: well-to-do, a dyed tunic of rust and ochre, good boots, a cloak against the road. */
+    val thessa = Folk("thessa", human(Sex.FEMALE, Build.AVERAGE, 0, 2),
+        Outfit(CharClass.ROGUE, kit("leather", "boots", "gloves", "cloak"), cloakRgb = 0x5A3A26, clothes = clothes(0x8A5A2A, 0x6A3E20, 0x3A2E26)))
+    /** Brother Osric: shaven head, a robe of undyed wool, the sun on his breast. */
+    val osric = Folk("osric", human(Sex.MALE, Build.AVERAGE, 1, 0),
+        Outfit(CharClass.CLERIC, kit("robe", "holy_symbol"), clothes = clothes(0xB8AC90, 0x8A806A, 0x5A5244), bald = true))
+    /** Sister Lyra: a priestess of the sun, white robe and the circlet. */
+    val lyra = Folk("lyra", human(Sex.FEMALE, Build.SLIM, 0, 1),
+        Outfit(CharClass.CLERIC, kit("robe", "circlet"), clothes = clothes(0xD8D0C0, 0xA8A090, 0x7A7468)))
+    /** Guard Jorin: mail shirt, a helmet, the village's blue on his tabard, a spear on his shoulder. */
+    val jorin = Folk("jorin", human(Sex.MALE, Build.STRONG, 2, 0),
+        Outfit(CharClass.FIGHTER, kit("chain_shirt", "helmet", "boots", "gloves", "spear"), clothes = clothes(0x34486A, 0x223250, 0x3A3630)), MapFigure.Carry.SHOULDER)
+    /** Pim, a child of the village: small, a tunic too big for him. */
+    val pim = Folk("pim", human(Sex.MALE, Build.SLIM, 0, 1, small = 0.62),
+        Outfit(CharClass.FIGHTER, kit(), clothes = clothes(0x5A6A7A, 0x3E4A56, 0x4A3A2A)))
+    /** Farmer Bram: broad, sunburnt, a beard, a coarse linen shirt and earth-brown breeches. */
+    val bram = Folk("bram", human(Sex.MALE, Build.STRONG, 2, 0, beard = true),
+        Outfit(CharClass.FIGHTER, kit("boots"), clothes = clothes(0xA89A78, 0x7A6A50, 0x4A3A28)))
+    /** Liska, a maid: a dress of faded red, a kerchief's pale. */
+    val liska = Folk("liska", human(Sex.FEMALE, Build.SLIM, 0, 1),
+        Outfit(CharClass.FIGHTER, kit("robe"), clothes = clothes(0x7A3A3A, 0xA89A84, 0x4A2E2A)))
+    /** Gwenna, a fisherwoman: a dress of muddy green, a shawl. */
+    val gwenna = Folk("gwenna", human(Sex.FEMALE, Build.AVERAGE, 1, 0),
+        Outfit(CharClass.FIGHTER, kit("robe", "cloak"), cloakRgb = 0x4A4434, clothes = clothes(0x4E5A3A, 0x3A4430, 0x3A3428)))
+    /** Borin the dwarf: smith's leather and gloves, a hammer on his shoulder. */
+    val borin = Folk("borin", Doll(Race.DWARF, Sex.MALE, Build.STRONG, skin = 1, hairTone = 0),
+        Outfit(CharClass.FIGHTER, kit("leather", "gloves", "boots", "maul"), leatherRgb = 0x4A3424, clothes = clothes(0x5A4A3A, 0x3E3228, 0x3A3028)), MapFigure.Carry.SHOULDER)
+    /** Morwen the herbalist: old, grey hair under a hood, a robe of moss green. */
+    val morwen = Folk("morwen", human(Sex.FEMALE, Build.SLIM, 1, 0, grey = 0x9C9890),
+        Outfit(CharClass.ROGUE, kit("robe", "hood"), cloakRgb = 0x3E4A30, clothes = clothes(0x4A5A36, 0x34402A, 0x2E2A22)))
+
+    /** The village folk drawn as dolls so far only as drafts: shown on a sheet, not yet on the map. */
+    val drafts = listOf(rowena, aldric, thessa, osric, lyra, jorin, pim, bram, liska, gwenna, borin, morwen)
+
     private val all = listOf(garrick).associateBy { it.id }
 
     /** The doll for the person [npcId], or null when that one is still drawn the former way. */
@@ -40,7 +87,7 @@ object MapFolk {
 
     /** Standing still or walking: [step] as in [MapFigure.STEPS]. */
     fun draw(f: Folk, slot: Int, step: Int): PixelImage =
-        MapFigure.render(f.doll, f.outfit, MapFigure.rig(slot * 360.0 / MapFigure.YAWS, step, MapFigure.Carry.FREE))
+        MapFigure.render(f.doll, f.outfit, MapFigure.rig(slot * 360.0 / MapFigure.YAWS, step, f.carry))
 
     /**
      * What one of the folk does while standing about (09.10.): [WARM] holds both hands out to the fire

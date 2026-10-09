@@ -22,7 +22,9 @@ import kotlin.math.sqrt
  */
 class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, val hairTone: Int = 0, val kind: Creature? = null, val sizeK: Double = 1.0,
     /** A full beard on a man of any people (folk about the map); dwarves always have one. */
-    val beard: Boolean = false) {
+    val beard: Boolean = false,
+    /** Hair of this colour rather than one of the people's tones, e.g. grey with age (folk about the map). */
+    val hairOverride: Int? = null) {
 
     /** Foes built on the same doll: their own measures, head and skin, or a body of bare bones. */
     enum class Creature { GOBLIN, SKELETON, KOBOLD, ZOMBIE, BUGBEAR, HOBGOBLIN, GHOUL }
@@ -110,7 +112,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         Creature.GHOUL -> intArrayOf(0x6A7676, 0x7C7864, 0x58605C, 0x847A84)[skin.mod(4)]
         null -> Appearance.skins(race)[skin.mod(4)].rgb
     }
-    val hairRgb = if (bugbear) mix(argb(skinRgb), argb(0x1A1410), 0.45) and 0xFFFFFF else if (zombie) intArrayOf(0x3A342C, 0x5A5448, 0x2A2420, 0x6A6458)[hairTone.mod(4)] else if (kind != null) 0x24201C else Appearance.hairs(race)[hairTone.mod(4)].rgb
+    val hairRgb = if (bugbear) mix(argb(skinRgb), argb(0x1A1410), 0.45) and 0xFFFFFF else if (zombie) intArrayOf(0x3A342C, 0x5A5448, 0x2A2420, 0x6A6458)[hairTone.mod(4)] else if (kind != null) 0x24201C else hairOverride ?: Appearance.hairs(race)[hairTone.mod(4)].rgb
 
     // ---------------------------------------------------------------- materials
 
