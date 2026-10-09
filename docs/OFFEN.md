@@ -102,6 +102,8 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
+**Zweig-Build 0.1.379** (09.10., 22:41; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37988257406/artifacts/11643094889), APK auch im Chat): derselbe Stand wie 0.1.376 (Fackel-Szene), neu gebaut auf Wunsch (22:37), weil inzwischen main 0.1.377 und karte-hoehle 0.1.378 mit höherer Nummer erschienen sind. Enthält die Höhle noch nicht.
+
 **Zweig-Build 0.1.376** (09.10., Fackel-Szene; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37985796254/artifacts/11642991650), APK auch im Chat): Lass dich von einem Monster bis an Garricks Feuer jagen. Achten auf: Greift er die Fackel, schwenkt sie zum Monster, legt sie zurück? Zieht das Monster ab? Fackelschein und Lichtsaum nachts zu stark oder zu schwach?
 
 **Zweig-Build 0.1.365** (09.10., Ruhebewegungen; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37981645805/artifacts/11641460263), APK auch im Chat): Held und Garrick atmen, verlagern das Gewicht, schauen zur Seite, Garrick stützt die Hände in die Hüften. Achten auf: Wirkt das Atmen ruhig oder wie ein Zucken? Zu viel Bewegung, zu wenig? Erscheint beim Wechsel kurz ein falsches Bild?
