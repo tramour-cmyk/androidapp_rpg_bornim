@@ -65,6 +65,10 @@ class RoamerTest {
         assertTrue(!wolf.hunting)
         assertTrue(kotlin.math.abs(wolf.x - wolf.homeX) + kotlin.math.abs(wolf.y - wolf.homeY) <= 3, "wolf did not go home")
         assertTrue(g.notices.isNotEmpty(), "no notice from the hunter")
+        // Garrick at the camp wards it off with a torch (09.10.)
+        val w = g.lastWardOff
+        assertTrue(w != null && w.x == 12 && w.y == 9, "no torch scene at the camp")
+        assertTrue(kotlin.math.abs(w!!.beastX - 12) + kotlin.math.abs(w.beastY - 9) <= 8)
     }
 
     @Test

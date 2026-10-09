@@ -46,3 +46,19 @@ class MapFolkWatchTest {
         assertTrue(!MapFolk.watches(0.0, 0.0, 0L))
     }
 }
+
+class MapFolkWardTest {
+    /** The torch scene: brand out of the fire, swung at the beast back and forth, put back; then over. */
+    @Test
+    fun wardSceneRunsInOrder() {
+        val seq = (0L until MapFolk.WARD_MS step 50L).map { MapFolk.wardAt(it)!! }
+        assertTrue(seq.first().ward == MapFolk.Ward.GRAB && !seq.first().faceBeast)
+        assertTrue(seq.last().ward == MapFolk.Ward.GRAB && !seq.last().faceBeast)
+        val swings = seq.filter { it.ward == MapFolk.Ward.LEFT || it.ward == MapFolk.Ward.RIGHT }
+        assertTrue(swings.all { it.faceBeast })
+        // several changes of side while swinging
+        val changes = swings.zipWithNext().count { (a, b) -> a.ward != b.ward }
+        assertTrue(changes >= 6, "only $changes swings")
+        assertTrue(MapFolk.wardAt(-1) == null && MapFolk.wardAt(MapFolk.WARD_MS) == null)
+    }
+}

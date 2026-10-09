@@ -44,6 +44,13 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** Short messages for the app to show as a toast. */
     val notices = ArrayDeque<T>()
 
+    /** A beast turned back at a safe place (09.10.): the place, where the beast stood, and when (app clock); the folk there ward it off with a torch. */
+    class WardOff(val x: Int, val y: Int, val beastX: Int, val beastY: Int, val atMs: Long)
+
+    /** The latest beast turned back at a safe place, or null. */
+    var lastWardOff: WardOff? = null
+        private set
+
     /** Sound effects triggered by the last actions; the app plays and clears them. */
     val sounds = ArrayDeque<de.bornim.core.audio.Sound>()
     private var battleFromScript: Cmd.Fight? = null
@@ -454,7 +461,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                             r.hunting = false
                             r.returning = true
                             if (heroSafe?.notice != null && dist <= 7) notices += heroSafe.notice
-                            r.nextMoveAt = now + 600
+                            // the beast holds a moment while the torch comes out of the fire, then draws back
+                            if (heroSafe != null && dist <= 7) {
+                                lastWardOff = WardOff(heroSafe.x, heroSafe.y, r.x, r.y, now)
+                                r.nextMoveAt = now + 1_100
+                            } else r.nextMoveAt = now + 600
                         }
                         dist == 1 -> {
                             // Adjacent: attack. Coming from behind the hero is an ambush.

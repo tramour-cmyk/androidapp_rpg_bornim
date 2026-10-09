@@ -99,6 +99,47 @@ object MapFolk {
         }
     }
 
+    /** What the warding one does [tMs] after the beast came: the stance, the flame's shape, and whether it faces the beast (else its fire). */
+    class Warding(val ward: Ward, val flicker: Int, val faceBeast: Boolean)
+
+    /** How long the whole scene takes: torch out of the fire, swung at the beast, put back. */
+    const val WARD_MS = 3_700L
+
+    /**
+     * The scene in time: bent over the fire taking the brand (0.45 s), raising it while turning to
+     * the beast, swinging it left and right (about 2.2 s, a swing every 0.28 s), turning back and
+     * putting it into the fire again. Null before and after.
+     */
+    fun wardAt(tMs: Long): Warding? = when {
+        tMs < 0 || tMs >= WARD_MS -> null
+        tMs < 450 -> Warding(Ward.GRAB, ((tMs / 150) % FLICKERS).toInt(), faceBeast = false)
+        tMs < 700 -> Warding(Ward.HOLD, 0, faceBeast = true)
+        tMs < 2_900 -> {
+            val i = ((tMs - 700) / 280).toInt()
+            if (i % 2 == 0) Warding(Ward.LEFT, if (i % 4 == 0) 0 else 2, true) else Warding(Ward.RIGHT, 1, true)
+        }
+        tMs < 3_250 -> Warding(Ward.HOLD, 0, faceBeast = false)
+        else -> Warding(Ward.GRAB, ((tMs / 150) % FLICKERS).toInt(), faceBeast = false)
+    }
+
+    /** The warding picture, drawn in the background when first wanted, null until then. */
+    fun wardFrame(f: Folk, slot: Int, ward: Ward, flicker: Int): PixelImage? =
+        MapRest.picture("ward|${f.id}|$slot|$ward|$flicker") { drawWard(f, slot, ward, flicker) }
+
+    /** Draws ahead the warding pictures of [f]: taking the brand towards its fire at [homeSlot], swinging it every way. */
+    fun prepareWard(f: Folk, homeSlot: Int) {
+        for (fl in 0 until FLICKERS) wardFrame(f, homeSlot, Ward.GRAB, fl)
+        for (s in 0 until MapFigure.YAWS) {
+            wardFrame(f, s, Ward.HOLD, 0); wardFrame(f, s, Ward.LEFT, 0); wardFrame(f, s, Ward.RIGHT, 1); wardFrame(f, s, Ward.LEFT, 2)
+        }
+    }
+
+    /** Draws all warding pictures of [f] right away (previews and films). */
+    fun prepareWardNow(f: Folk) {
+        for (s in 0 until MapFigure.YAWS) for (w in Ward.entries) for (fl in 0 until FLICKERS)
+            MapRest.pictureNow("ward|${f.id}|$s|$w|$fl") { drawWard(f, s, w, fl) }
+    }
+
     /** One warding picture of [f] turned to [slot]. */
     fun drawWard(f: Folk, slot: Int, ward: Ward, flicker: Int): PixelImage =
         MapFigure.render(f.doll, f.outfit, wardRig(slot * 360.0 / MapFigure.YAWS, ward, flicker), WARD_W, WARD_H)
@@ -193,9 +234,13 @@ object MapFolk {
         return img
     }
 
-    /** Starts drawing the folk standing on [map] in the background, each facing its own way first, then their idle loops. */
+    /** Starts drawing the folk standing on [map] in the background, each facing its own way first, then their idle loops; those at a safe place also their torch. */
     fun prepareFor(map: de.bornim.core.MapDef) {
-        for (npc in map.npcs) of(npc.id)?.let { prepare(it, MapFigure.slot(MapFigure.yawOf(npc.facing))) }
+        for (npc in map.npcs) of(npc.id)?.let {
+            val home = MapFigure.slot(MapFigure.yawOf(npc.facing))
+            prepare(it, home)
+            if (map.safeZones.any { z -> z.x == npc.x && z.y == npc.y }) prepareWard(it, home)
+        }
     }
 
     /** Draws the idle loops of [f] about its home direction [homeSlot] in the background (after its walk). */

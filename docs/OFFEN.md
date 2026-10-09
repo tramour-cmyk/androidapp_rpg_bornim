@@ -63,6 +63,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
+- **Fackel-Szene und Lichtsaum (vereinbart 09.10., 19:09/19:54; Entwurf 22:02, zugestimmt 22:09):** eingebaut 22:15. Jagt ein Monster den Helden bis an Garricks Feuer, greift Garrick einen brennenden Ast aus dem Feuer, dreht sich zum Monster, schwenkt ihn etwa 2 s und legt ihn zurück (3,7 s). Das Monster hält kurz inne und zieht sich zurück. Die Fackel leuchtet mit warmem Schein. Warmer Lichtsaum für alle Figuren nahe einer Flamme (Feuer, Wandfackel, nachts Laternen). Kerntests: `MapFolkWardTest`, `RoamerTest` (Fackel-Szene am Lager); Film `WARDFILM=1`.
 - **Rückmeldung zu 0.1.365 (09.10., 21:54):** Ruhebewegungen: „Es passt alles.“ Erledigt.
 - **Rückmeldung zu 0.1.361 (09.10., 21:30):** Garrick passt und ist geprüft.
 - **Lebendige Welt, Ruhebewegungen für alle Figuren (Idee 09.10., 21:30):** Alle Leute (als Grundannahme) sollen auch im Stehen leben: atmen, Gewicht verlagern, kleine Armbewegungen; nur, wenn nicht zu aufwendig. Zugestimmt 21:33, umgesetzt 21:38: gemeinsamer Baustein `MapRest` für Held und Leute: Atmen (etwa alle 4 s, je Figur versetzt), Gewicht verlagern, kurz zur Seite schauen, Hände in die Hüften (nur Leute ohne Waffe in der Hand); Zufallstakt je Figur (Kerntest `MapRestTest`). Arme verschränken ausprobiert und weggelassen: sah schräg von vorn falsch aus (ein Unterarm stand seitlich ab). Grundsatz in `docs/STIL.md` aufgenommen.

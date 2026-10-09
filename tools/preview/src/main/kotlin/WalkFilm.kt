@@ -131,3 +131,44 @@ fun idleFilm(spec: String) {
     scene.close()
     println("wrote idle film ($n pictures)")
 }
+
+/**
+ * WARDFILM=1: a wolf hunts the hero, who stands at Garrick's camp; Garrick takes a brand from the fire
+ * and wards it off. A picture every STEPMS (150 ms) under build/screens/films/ward/, cut to CROP.
+ */
+@OptIn(ExperimentalComposeUiApi::class)
+fun wardFilm() {
+    val vm = GameViewModel(Application())
+    vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
+    val g = vm.game!!
+    var guard = 0
+    while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
+    g.state.flags += de.bornim.core.Story.QUEST_STARTED
+    g.state.place = Place("forest", 12, 11, Facing.DOWN)
+    g.state.minutes = (System.getenv("MINUTES") ?: "${22 * 60}").toInt()
+    val m = de.bornim.core.World["forest"]
+    g.state.explored["forest"] = "f".repeat((m.width * m.height + 3) / 4)
+    de.bornim.core.art.MapGround.prepareNow(m)
+    de.bornim.core.art.MapFigure.prepareNow(g.state.hero)
+    val gk = de.bornim.core.art.MapFolk.garrick
+    de.bornim.core.art.MapFolk.prepareNow(gk)
+    de.bornim.core.art.MapFolk.prepareWardNow(gk)
+    val herd = g.roamers as MutableList<de.bornim.core.Roamer>
+    herd.clear()
+    val wolf = de.bornim.core.Roamer(99, "wolf", 12, 14, 12, 18, null, false, de.bornim.core.MonsterLook())
+    wolf.hunting = true
+    herd += wolf
+    vm.refresh()
+    val scene = ImageComposeScene(1080, 2340, Density(2.75f)) { BornimApp(vm) }
+    val dir = File("build/screens/films/ward"); dir.deleteRecursively(); dir.mkdirs()
+    val stepMs = System.getenv("STEPMS")?.toInt() ?: 150
+    var time = 0L; var n = 0; var t = 0
+    while (t < 6_500) {
+        val img = scene.render(time)
+        saveFilmPicture(img, File(dir, "f%03d.png".format(n++)))
+        img.close()
+        time += stepMs * 1_000_000L; t += stepMs
+    }
+    scene.close()
+    println("wrote ward film ($n pictures), ward at ${g.lastWardOff?.atMs}")
+}
