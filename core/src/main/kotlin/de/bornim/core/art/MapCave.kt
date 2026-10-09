@@ -815,7 +815,7 @@ object MapCave {
     private val MOSS_G = c3(0x3A4A2C); private val POOL_RIM = c3(0x22201C); private val POOL_S = c3(0x1E2A2C); private val POOL_D = c3(0x06090A)
     private val PUD = c3(0x1E262A); private val SHEEN = c3(0x7A8890); private val EARTH = c3(0x3A2E22); private val MOSS_OUT = c3(0x3A4A26)
     private val FACE_L = c3(0x6E665C); private val FACE_D = c3(0x3A342F); private val STREAK = c3(0x2A3034)
-    private val TOP_D = c3(0x1E1C1E); private val TOP_L = c3(0x342E2A); private val LIP = c3(0x6A6258); private val EDGE = c3(0x7A7268)
+    private val TOP_D = c3(0x2A2624); private val TOP_L = c3(0x4A423A); private val LIP = c3(0x6A6258); private val EDGE = c3(0x7A7268)
 
     private fun mixIn(col: DoubleArray, c: DoubleArray, t: Double) {
         val k = t.coerceIn(0.0, 1.0)

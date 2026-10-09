@@ -7,6 +7,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 **Neu – Höhle im neuen Stil (Zweig `karte-hoehle`, zum Testen)**
 - Die Blutzahnhöhle hat einen neuen Boden in doppelter Auflösung und ohne Raster: Fels in flachen Absätzen, lange Risse, Grus, Staub auf den Wegen, feuchte Stellen, Pfützen und Moos, ein schwarzer Tümpel; am Ausgang ziehen Erde, Laub und Wurzeln aus dem Wald herein.
 - Die Wände haben eine dunkle Oberseite und eine sichtbare Felskante mit Schichten und nassen Streifen, damit man die Räume erkennt; Schatten unter allem, was steht.
+- Felswände in der Höhle bleiben nach dem Erkunden nicht mehr schwarz: Gestein gilt als so erkundet wie der Boden davor, das Licht fällt ein Stück weit auf den Fels, und der Rand des Lichts ist weich statt eckig.
 - Alle Dinge der Höhle sind neu gezeichnet wie Ausrüstung und Gegner, je in drei Varianten: Stalagmiten, Kisten und Fässer, Knochen, Schlafplätze, Felsen, Geröll, Leuchtpilze, Kristalle, Stützbalken, Gitter, Lagerfeuer (flackernd), Truhen (auch geöffnet), Wandfackeln, Wurzeln am Lichtschacht.
 
 **Neu – der Held auf der Karte als Puppe (Zweig `karte-neuer-stil`)**
