@@ -30,7 +30,20 @@ Gemeinsam genutzt (nur kleine, abgesprochene Änderungen): `WorldScreen.kt` (Bod
 - **Bäume, Felsen, Unterholz, Feuer, Truhe, Schild** im Wald (`MapFlora.kt`), mit Schatten nach der Sonne; Kronen, Felsen und Büsche vor dem Helden werden halb durchsichtig.
 - **Der Held als Puppe** (`MapFigure.kt`): schräg von oben, 16 Richtungen mit weichem Umdrehen, vier Schrittbilder, Schild auf dem Rücken, kurze Waffen tief, lange an der Schulter.
 
-## Aufgabe für Account B: die Höhle im neuen Stil
+## Stand Account B (09.10., 22:51)
+
+- **Höhle im neuen Stil: fertig und auf `main`** (Release v0.1.377, vom Nutzer vollständig bestätigt). `karte-hoehle` ist auf dem Stand von `main`. Darin: Boden und Wände der Höhle (`MapCave.ground`, eingebunden über `MapGround.supports`/`draw`), alle Dinge der Höhle mit `Sculpt` je dreifach (`MapCave.objects`, eingebunden in `WorldArt.buildObjects`), Nebel für Höhlengestein (`Fog.kt`), Licht auf dem Gestein und weicher Lichtrand (`MapLight.kt`, nur Höhle). Vorschau: `HOEHLEDINGE=1` (alle Dinge einzeln), `FLORA=cave:0:0:22:20` (ganze Höhle), Entwürfe in `tools/entwurf/hoehle.py` und `hoehle_dinge.py`.
+- **Für Account A:** `main` enthält jetzt `karte-neuer-stil` bis 0.1.365 plus Höhle, Killerschlag (v0.1.317) und Späher-Pfeil (v0.1.325). Vor dem nächsten Push bitte `git fetch origin main && git merge origin/main` auf `karte-neuer-stil`. In `TestTab.kt` stehen beide Schalter (kritische Treffer, Kartenzoom).
+- **Lehre aus der Höhle:** Dinge auf der Karte gleich in Kotlin mit `Sculpt` zeichnen (Werkstoffe mit Farbrampe, Glanz, Körnung), wie Ausrüstung und Gegner; Python-Prototypen nur für Boden und Licht. Eigene, freie Malweisen wirkten künstlich.
+
+## Nächste Aufgaben für Account B (Vorschlag, wartet auf Freigabe)
+
+1. **Dorf im neuen Stil** (wie oben vorgesehen): Pflaster, Häuser mit Dächern, Wänden und Fenstern, Brunnen, Marktstände, Zäune, Beete, Fässer, Laternen; Boden ohne Raster wie Wald und Höhle (`MapGround.supports` um `MapKind.TOWN` erweitern), Dinge mit `Sculpt` je dreifach. Entwurf zuerst (vorher/nachher), Tag und Nacht.
+2. **Innenräume** (Gasthaus, Laden, Tempel, Haus des Ältesten) auf dieselbe Weise.
+3. **Restpunkte der Höhle:** Flammen von Lagerfeuer und Wandfackeln noch flach gezeichnet (Glut und Flackern feiner); der Lichtstrahl am Lichtschacht aus dem Entwurf fehlt im Spiel; der Höhleneingang im Wald (`CAVE_ENTRANCE`) hat noch das alte Bild.
+4. Später: die Kampfkulisse der Höhle an die neue Karte angleichen (Übergang Karte → Kampf, Stufe 4 der Karte im neuen Stil).
+
+## Aufgabe für Account B: die Höhle im neuen Stil (erledigt)
 
 Ziel: Die Blutzahnhöhle (`Story.cave` in `core/.../Story.kt`, `MapKind.CAVE`) sieht so aus wie der neue Wald: doppelte Auflösung, kein Raster, düster, Licht nur von sichtbaren Quellen (Stil-Leitlinien in `docs/STIL.md`).
 
