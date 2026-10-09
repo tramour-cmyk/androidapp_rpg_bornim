@@ -77,6 +77,7 @@ Stand der Übergabe: 08.10.2026, 14:14 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu entscheiden
 
+- **Ockergallerte ohne sichtbare Schadensflecken (gefragt 09.10.):** Sie hat Flecken, aber in Ockerfarbe (wie ihre Spritzer) auf ockerfarbenem Körper, daher kaum zu sehen. Vorschläge in der Antwort vom 09.10.; wartet auf deine Entscheidung.
 - **Noch mehr Zwischenbilder?** Die Haltungen selbst (Arme, Beine, Waffe) wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Nach deinem Test von 0.1.208 vorerst nicht nötig; bei Bedarf als eigener, größerer Umbau (mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn).
 - **Hörproben:** Auswahl für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt.
 
