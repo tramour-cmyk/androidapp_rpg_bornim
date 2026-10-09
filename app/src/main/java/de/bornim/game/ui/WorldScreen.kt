@@ -791,12 +791,24 @@ private fun DrawScope.drawMapLight(
             // darken by the fog of war, smoothly between tile centres: unexplored black, out of sight dim
             val tx0 = Math.floorDiv(x0, T) - 1; val ty0 = Math.floorDiv(y0, T) - 1
             val tw = w / T + 4; val th = h / T + 4
-            val fa = FloatArray(tw * th) { i ->
+            val raw = FloatArray(tw * th) { i ->
                 when (game.fog(tx0 + i % tw, ty0 + i / tw)) {
                     de.bornim.core.Fog.HIDDEN -> 1f
                     de.bornim.core.Fog.SEEN -> 0.5f
                     de.bornim.core.Fog.VISIBLE -> 0f
                 }
+            }
+            // softened over the neighbouring tiles, so the edge of the unknown is round, not a
+            // staircase of tiles (it shows when the map is zoomed in); what is in sight stays clear
+            val fa = FloatArray(tw * th) { i ->
+                val cx = i % tw; val cy = i / tw
+                var sum = 0f; var n = 0f
+                for (dy in -1..1) for (dx in -1..1) {
+                    val x = (cx + dx).coerceIn(0, tw - 1); val y = (cy + dy).coerceIn(0, th - 1)
+                    val wgt = if (dx == 0 && dy == 0) 4f else if (dx == 0 || dy == 0) 2f else 1f
+                    sum += raw[y * tw + x] * wgt; n += wgt
+                }
+                if (raw[i] == 0f) minOf(sum / n, 0.35f) else sum / n
             }
             for (yy in 0 until img.height) for (xx in 0 until img.width) {
                 val fx = (x0 + xx * res + res / 2f) / T - 0.5f - tx0; val fy = (y0 + yy * res + res / 2f) / T - 0.5f - ty0
@@ -820,7 +832,8 @@ private fun DrawScope.drawMapLight(
         srcSize = IntSize(grid.width, grid.height),
         dstOffset = IntOffset((x0 - camX) * scale, (y0 - camY) * scale),
         dstSize = IntSize(grid.width * res * scale, grid.height * res * scale),
-        filterQuality = FilterQuality.None,
+        // near, the light image is spread smoothly instead of in visible steps
+        filterQuality = if (MapZoom.near) FilterQuality.Low else FilterQuality.None,
         blendMode = androidx.compose.ui.graphics.BlendMode.Multiply,
     )
     fun at(x: Double, y: Double) = Offset(((x - camX) * scale).toFloat(), ((y - camY) * scale).toFloat())
