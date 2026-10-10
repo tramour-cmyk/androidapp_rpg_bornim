@@ -1,6 +1,6 @@
 # Offen
 
-Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 09.10.2026, 18:34 (Berliner Zeit).
+Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Stand: 10.10.2026, 08:47 (Berliner Zeit).
 
 Die drei Listen:
 - **Offen** (diese Liste): was jetzt ansteht. Wird bei jeder Änderung mit gepflegt.
@@ -62,8 +62,6 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 **Im Spiel zum Testen:** Testmodus (7× auf das Copyright im Titel tippen), Reiter „Test“: Stufe, Gold, Vorräte auf 10, „Gegner bestehen keine Rettungswürfe“, Testkämpfe gegen jeden Gegner, Beute erzeugen.
 
 ## In Arbeit
-
-- **Testumgebung (PR #9, Zweig `claude/ecstatic-albattani-2ob0np`, 09.10. abends):** Google-Spiegel für Gradle (Maven Central lieferte aus der Cloud 429), Vorwärmen von `core` beim Sitzungsstart, `tools/t` je Anlass (Logik, Zufallsspieler, Bild, Film), Kerntest `PlayerSimTest` (Zufallsspieler ohne Bild), kein APK-Build für reine Werkzeug-Änderungen, Rückfragen gebündelt (CLAUDE.md). Siehe [UMGEBUNG.md](UMGEBUNG.md). Wartet aufs Zusammenführen durch dich (die Sitzung darf nicht selbst auf `main` zusammenführen). Vorschlag offen: diese Liste entschlacken (Regeln nur in CLAUDE.md, Bestätigtes in die Änderungshistorie), zwischen den Accounts abzustimmen.
 
 - **Karte: Höhle (Account B, Zweig `karte-hoehle`, ab 09.10., 18:45):** Blutzahnhöhle im neuen Stil, Aufgabe siehe [Aufteilung](AUFTEILUNG.md).
   - **Entwurf gezeigt (19:00, Bilder von 18:59, nichts eingebaut):** Prototyp `tools/entwurf/hoehle.py` (Python, aus den echten Kartenzeilen), Ausschnitt vom Eingang bis zu den vier Kammern, 64 Bildpunkte je Kachel. Felsboden aus Platten mit Fugen, Rissen, Geröll, feuchten Stellen, Pfützen und Moos am Wasser; Felswände unregelmäßig, mit dunkler Oberseite und sichtbarer Felskante (Schichten, nasse Streifen); Stalagmiten, Felsblock, Geröllhaufen, Knochen mit Schädeln, Kisten, Felle als Schlafplätze, Stützbalken, Gitter, Lagerfeuer, Leuchtpilze, Kristalle, Wurzeln und Lichtstrahl am Lichtschacht, schwarzer Tümpel. Licht nur aus den Quellen von `MapLight` (gleiche Farben und Reichweiten) und der Laterne des Helden; der Fels wirft Schatten entlang der gezeichneten Wände. Bilder: `tools/entwurf/bilder/hoehle_*_1859.png`. Bekannte Schwächen: Held ist Platzhalter; das Vorher-Bild aus dem Spiel zeigt Graks Halle, der Entwurf den Gang am Eingang (Graks Halle ist im Entwurf nicht enthalten); Fackeln gibt es laut Karte nur in Graks Halle, am Eingang leuchtet das Tageslicht. Wartet auf deine Rückmeldung.
@@ -174,6 +172,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu entscheiden
 
+- **Diese Liste entschlacken (Vorschlag 09.10. abends, aus PR #9):** Regeln nur noch in `CLAUDE.md`, Bestätigtes in die Änderungshistorie; zwischen den Accounts abzustimmen.
 - **Noch mehr Zwischenbilder?** Die Haltungen selbst (Arme, Beine, Waffe) wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Nach deinem Test von 0.1.208 vorerst nicht nötig; bei Bedarf als eigener, größerer Umbau (mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn).
 - **Hörproben:** Auswahl für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt.
 
