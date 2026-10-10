@@ -270,7 +270,7 @@ fun renderIsoThings() {
     val dir = File("build/screens/iso").apply { mkdirs() }
     val elder = System.getenv("ISODINGE") == "aeltester"
     val rows = if (elder) de.bornim.core.art.MapRoomIso.elderSheet() else de.bornim.core.art.MapRoomIso.sheet()
-    val cw = 150; val ch = 210
+    val cw = if (elder) 230 else 150; val ch = 210
     val img = PixelImage(cw * 3, ch * rows.size)
     for (y in 0 until img.height) for (x in 0 until img.width) img.set(x, y, argb(0x2A2018))
     for ((r, row) in rows.withIndex()) for ((k, p) in row.second.withIndex()) {

@@ -95,10 +95,10 @@ object MapRoomIso {
      * Local coordinates of the tile run from (−1, −1) at its back corner to (0, 0) at its front corner;
      * i along the map's x (down right on the screen), j along its y (down left).
      */
-    private class Canvas(val h: Int, seed: Int) {
-        val s = Sculpt(W, h, seed)
+    private class Canvas(val h: Int, seed: Int, val w: Int = W) {
+        val s = Sculpt(w, h, seed)
         val img: PixelImage get() = s.img
-        fun x(i: Double, j: Double) = W / 2.0 + (i - j) * TW / 2
+        fun x(i: Double, j: Double) = w / 2.0 + (i - j) * TW / 2
         fun y(i: Double, j: Double, z: Double = 0.0) = h + (i + j) * TH / 2 - z * ZS
     }
 
@@ -113,8 +113,8 @@ object MapRoomIso {
     private fun Canvas.floorShadow(i0: Double, j0: Double, i1: Double, j1: Double, a: Double = 0.5) {
         val ci = (i0 + i1) / 2; val cj = (j0 + j1) / 2
         val ri = (i1 - i0) / 2 + 0.08; val rj = (j1 - j0) / 2 + 0.08
-        for (py in 0 until h) for (px in 0 until W) {
-            val aa = (px + 0.5 - W / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
+        for (py in 0 until h) for (px in 0 until w) {
+            val aa = (px + 0.5 - w / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
             val i = (aa + bb) / 2; val j = (bb - aa) / 2
             val di = (i - ci) / ri; val dj = (j - cj) / rj
             val d = max(abs(di), abs(dj))
@@ -126,8 +126,8 @@ object MapRoomIso {
 
     /** Fills the footprint between (i0, j0) and (i1, j1) on the floor with [c]: the ground outside the room. */
     private fun Canvas.floorFill(i0: Double, j0: Double, i1: Double, j1: Double, c: Int) {
-        for (py in 0 until h) for (px in 0 until W) {
-            val aa = (px + 0.5 - W / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
+        for (py in 0 until h) for (px in 0 until w) {
+            val aa = (px + 0.5 - w / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
             val i = (aa + bb) / 2; val j = (bb - aa) / 2
             if (i < i0 || j < j0 || i > i1 || j > j1) continue
             img.set(px, py, c)
@@ -141,7 +141,7 @@ object MapRoomIso {
             val c = src[xx, yy]; val a = c ushr 24
             if (a == 0) continue
             val tx = x0 + xx; val ty = y0 + yy
-            if (tx !in 0 until W || ty !in 0 until h) continue
+            if (tx !in 0 until w || ty !in 0 until h) continue
             img.set(tx, ty, if (a == 255) c else mix(img[tx, ty], c or (0xFF shl 24), a / 255.0))
         }
     }
@@ -150,8 +150,8 @@ object MapRoomIso {
 
     /** Paints the face j = [j] between i0 and i1, z0 and z1, each pixel by [tex] (local i, z). */
     private fun Canvas.faceJ(j: Double, i0: Double, i1: Double, z0: Double, z1: Double, tex: (Double, Double) -> Int?) {
-        for (py in 0 until h) for (px in 0 until W) {
-            val i = (px + 0.5 - W / 2.0) / (TW / 2) + j
+        for (py in 0 until h) for (px in 0 until w) {
+            val i = (px + 0.5 - w / 2.0) / (TW / 2) + j
             if (i < i0 || i > i1) continue
             val z = (h + (i + j) * TH / 2 - (py + 0.5)) / ZS
             if (z < z0 || z > z1) continue
@@ -161,8 +161,8 @@ object MapRoomIso {
 
     /** Paints the face i = [i] between j0 and j1, z0 and z1, each pixel by [tex] (local j, z). */
     private fun Canvas.faceI(i: Double, j0: Double, j1: Double, z0: Double, z1: Double, tex: (Double, Double) -> Int?) {
-        for (py in 0 until h) for (px in 0 until W) {
-            val j = i - (px + 0.5 - W / 2.0) / (TW / 2)
+        for (py in 0 until h) for (px in 0 until w) {
+            val j = i - (px + 0.5 - w / 2.0) / (TW / 2)
             if (j < j0 || j > j1) continue
             val z = (h + (i + j) * TH / 2 - (py + 0.5)) / ZS
             if (z < z0 || z > z1) continue
@@ -327,8 +327,8 @@ object MapRoomIso {
 
     /** Paints the top of a wall over its footprint at height [z], dark with an edge where the cut catches a little light. */
     private fun Canvas.wallTop(i0: Double, j0: Double, i1: Double, j1: Double, z: Double, seed: Int) {
-        for (py in 0 until h) for (px in 0 until W) {
-            val a = (px + 0.5 - W / 2.0) / (TW / 2); val b = (py + 0.5 - h + z * ZS) / (TH / 2)
+        for (py in 0 until h) for (px in 0 until w) {
+            val a = (px + 0.5 - w / 2.0) / (TW / 2); val b = (py + 0.5 - h + z * ZS) / (TH / 2)
             val i = (a + b) / 2; val j = (b - a) / 2
             if (i < i0 || j < j0 || i > i1 || j > j1) continue
             var v = 0.5 + (rnd(px / 2, py, seed) - 0.5) * 0.3
@@ -861,7 +861,7 @@ object MapRoomIso {
     /** A soft round shadow on the floor around (ox, oy): a circle, so an ellipse twice as wide as high; laid after the outline, under the thing. */
     private fun Canvas.roundShadow(ox: Double, oy: Double, rcm: Double, a: Double = 0.5) {
         val r = rx(rcm) + 3
-        for (py in 0 until h) for (px in 0 until W) {
+        for (py in 0 until h) for (px in 0 until w) {
             val u = (px + 0.5 - ox) / r; val v = (py + 0.5 - oy) / (r / 2)
             val d = sqrt(u * u + v * v)
             if (d >= 1.0 || img.opaque(px, py)) continue
@@ -1423,31 +1423,61 @@ object MapRoomIso {
         return c.img
     }
 
-    /** A bed in an alcove: the bed of the inn with posts at the foot and a heavy curtain drawn half across. */
-    private fun alcoveBed(v: Int, head: Boolean, foot: Boolean, seed: Int): PixelImage {
-        val c = Canvas((128 + TH + 8).toInt().let { it + it % 2 }, seed)
+    /**
+     * The elder's bed (13q.7): a broad bed over two tiles by two, its head at the back (−j), a half canopy
+     * over the head with curtains tied back to its posts; drawn whole on its front tile. Three looks of curtain and cover.
+     */
+    private fun elderBed(v: Int, seed: Int): PixelImage {
+        val c = Canvas((128 + 2 * TH + 8).toInt().let { it + it % 2 }, seed, 196)
         val curtain = when (v % 3) { 0 -> clothRed; 1 -> clothBlue; else -> m(0x3A3228, grain = 0.3, sat = 0.5, value = 0.8) }
-        val i1 = -0.1
-        // a canopy along the far side (the wall, −i) and the head: the bed is set into the wall
-        c.box(-1.0, -1.0, -0.9, 0.0, 0.0, 124.0, oakDark, oakBack, oakBack)
-        val b = bed(v, head, foot, seed)
-        c.paste(b, W / 2, b.height, W / 2.0, c.h.toDouble())
-        // the post at the near corner and a beam overhead
-        if (foot) c.box(i1 - 0.06, -0.1, i1, -0.04, 0.0, 120.0, oakTop, oak, oak)
-        c.box(i1 - 0.06, if (head) -1.0 else -1.0, i1, 0.0, 116.0, 124.0, oakTop, oak, oak)
-        // the curtain hangs from the beam, gathered and tied at the post, in folds
-        if (foot) {
-            for (k in 0 until 6) {
-                val j = -0.72 + k * 0.12
-                val zb = 30.0 + k * 12
-                val x0 = c.x(i1 - 0.03, j); val y0 = c.y(i1 - 0.03, j, 116.0)
-                val x1 = c.x(i1 - 0.03, j + 0.12); val y1 = c.y(i1 - 0.03, j + 0.12, 116.0)
-                val x2 = c.x(i1 - 0.03, min(j + 0.12, -0.08)); val y2 = c.y(i1 - 0.03, min(j + 0.12, -0.08), zb + 10)
-                val x3 = c.x(i1 - 0.03, j); val y3 = c.y(i1 - 0.03, j, zb)
-                c.s.poly(curtain, x0, y0, x1, y1, x2, y2, x3, y3, tiltX = if (k % 2 == 0) 0.35 else 0.7, bevel = 1.6)
-            }
-            c.s.line(c.x(i1 - 0.03, -0.12), c.y(i1 - 0.03, -0.12, 74.0), c.x(i1 - 0.03, -0.06), c.y(i1 - 0.03, -0.06, 72.0), gold)
+        val cover = when (v % 3) {
+            0 -> m(0x4A3A2C, grain = 0.14, sat = 0.6, value = 0.8, bias = -0.55)
+            1 -> m(0x3E4632, grain = 0.12, sat = 0.6, value = 0.8, bias = -0.55)
+            else -> m(0x6A3A2E, grain = 0.12, sat = 0.75, value = 0.75, bias = -0.55)
         }
+        val i0 = -1.72; val i1 = -0.28; val j0 = -1.96; val j1 = -0.12
+        val zt = 118.0; val jc = j0 + 0.75
+        c.floorShadow(i0, j0, i1, j1, 0.5)
+        // the head: a panelled board between two tall posts, the tester beam over it
+        c.box(i0, j0, i1, j0 + 0.08, 0.0, 74.0, oakDark, oak, oak)
+        c.box(i0 - 0.02, j0 - 0.01, i1 + 0.02, j0 + 0.09, 74.0, 79.0, oakTop, oak, oak)
+        for (k in 1..3) { val ii = i0 + (i1 - i0) * k / 4; c.s.line(c.x(ii, j0 + 0.08), c.y(ii, j0 + 0.08, 30.0), c.x(ii, j0 + 0.08), c.y(ii, j0 + 0.08, 70.0), seam) }
+        c.box(i0 - 0.05, j0 - 0.02, i0 + 0.03, j0 + 0.06, 0.0, zt, oakTop, oak, oak)
+        // the canopy: cloth stretched over a frame reaching a third down the bed, the far curtain hanging down
+        c.s.poly(curtain, c.x(i0, j0), c.y(i0, j0, zt + 4), c.x(i1, j0), c.y(i1, j0, zt + 4), c.x(i1, jc), c.y(i1, jc, zt + 4), c.x(i0, jc), c.y(i0, jc, zt + 4), tiltY = 0.6, bevel = 1.0)
+        fun drape(i: Double) {
+            for (k in 0 until 5) {
+                val ja = j0 + 0.05 + k * 0.14; val jb = ja + 0.14
+                val za = 40.0 + k * 9; val zb = za + 9
+                c.s.poly(curtain, c.x(i, ja), c.y(i, ja, zt), c.x(i, jb), c.y(i, jb, zt), c.x(i, jb.coerceAtMost(jc)), c.y(i, jb.coerceAtMost(jc), zb), c.x(i, ja), c.y(i, ja, za),
+                    tiltX = if (k % 2 == 0) 0.4 else 0.75, bevel = 1.6)
+            }
+            // the tie at the post
+            c.s.line(c.x(i, j0 + 0.06), c.y(i, j0 + 0.06, 58.0), c.x(i, j0 + 0.2), c.y(i, j0 + 0.2, 56.0), gold)
+        }
+        drape(i0 + 0.01)
+        // the frame, the straw mattress and the linen, two pillows, the cover thrown back
+        c.box(i0, j0 + 0.08, i1, j1, 6.0, 20.0, oakTop, oak, oak)
+        c.box(i0 + 0.03, j0 + 0.1, i1 - 0.03, j1 - 0.04, 20.0, 31.0, m(0x6E5E44, grain = 0.14, sat = 0.6, value = 0.7, bias = -0.5), linen, linen, bevel = 2.0)
+        for (ii in listOf(-1.38, -0.7)) { val x = c.x(ii, j0 + 0.3); val y = c.y(ii, j0 + 0.3, 33.0); c.s.blob(x, y, 15.0, 6.0, m(0x8A7E66, grain = 0.1, sat = 0.5, value = 0.75, bias = -0.15), depth = 0.7); c.s.line(x - 8, y - 1, x + 7, y - 2, argb(0x4E4434)) }
+        c.box(i0 + 0.01, j0 + 0.62, i1 - 0.01, j1 - 0.02, 29.0, 36.0, cover, cover, cover, bevel = 2.4)
+        c.box(i0 + 0.01, j0 + 0.56, i1 - 0.01, j0 + 0.66, 33.0, 38.0, cover, cover, cover, bevel = 2.0)
+        for (k in 0..3) { val jj = j0 + 0.85 + k * 0.24 + rnd(k, v, seed) * 0.05; c.s.line(c.x(i0 + 0.15, jj), c.y(i0 + 0.15, jj, 36.0), c.x(i1 - 0.2, jj + 0.06), c.y(i1 - 0.2, jj + 0.06, 36.0), argb(0x24140E)) }
+        if (v % 3 == 1) {
+            // a grey fur over the foot
+            c.box(i0 + 0.04, j1 - 0.5, i1 - 0.04, j1 - 0.08, 36.0, 39.0, fur, fur, fur, bevel = 2.5)
+        }
+        // the foot: a low board and short posts
+        c.box(i0, j1 - 0.08, i1, j1, 0.0, 40.0, oakTop, oak, oak)
+        c.box(i0 - 0.03, j1 - 0.09, i0 + 0.05, j1 + 0.01, 0.0, 48.0, oakTop, oak, oak)
+        c.box(i1 - 0.05, j1 - 0.09, i1 + 0.03, j1 + 0.01, 0.0, 48.0, oakTop, oak, oak)
+        // the near post of the head and its curtain, in front of the bed
+        c.box(i1 - 0.03, j0 - 0.02, i1 + 0.05, j0 + 0.06, 0.0, zt, oakTop, oak, oak)
+        drape(i1 + 0.01)
+        c.box(i1 - 0.03, j0, i1 + 0.05, jc, zt, zt + 5, oakTop, oak, oak)
+        c.box(i0 - 0.05, j0, i0 + 0.03, jc, zt, zt + 5, oakTop, oak, oak)
+        c.box(i0 - 0.05, jc - 0.06, i1 + 0.05, jc, zt, zt + 5, oakTop, oak, oak)
+        if (v % 3 == 2) { val x = c.x(i1 + 0.12, j1 - 0.3); val y = c.y(i1 + 0.12, j1 - 0.3); c.s.limb(x, y - 1, x, y - 9, 2.6, 2.4, oakDark); c.s.limb(x + 6, y - 1, x + 6, y - 9, 2.6, 2.4, oakDark) }
         c.s.outline(outlineColor)
         return c.img
     }
@@ -1624,7 +1654,8 @@ object MapRoomIso {
                 val back = when { at(0, -1) == Tile.TABLE -> 1; at(0, 1) == Tile.TABLE -> -1; else -> 0 }
                 one("bench", low = back == 0) { bench(same(-1), same(1), seed, back) }
             }
-            Tile.BED -> if (elder) one("alcove", low = false) { alcoveBed(hash(tx, if (at(0, -1) == Tile.BED) ty - 1 else ty, 4), at(0, -1) != Tile.BED, at(0, 1) != Tile.BED, seed) }
+            // the elder's broad bed is one picture over its four tiles, laid on the front one
+            Tile.BED -> if (elder) { if (at(1, 0) == Tile.BED || at(0, 1) == Tile.BED) emptyList() else one("bigbed", low = false) { elderBed(hash(tx, ty, 4), seed) } }
                 else one("bed") { bed(hash(if (at(0, -1) == Tile.BED) tx else tx, if (at(0, -1) == Tile.BED) ty - 1 else ty, 4), at(0, -1) != Tile.BED, at(0, 1) != Tile.BED, seed) }
             Tile.CRATE -> one("crates") { crates(v, seed) }
             Tile.BARREL -> one("barrel") { barrel(v, seed) }
@@ -1672,7 +1703,7 @@ object MapRoomIso {
         "Truhe" to (0 until 3).map { chest(it, 161 + it) },
         "Lehnstuhl" to (0 until 3).map { armchair(it, 171 + it) },
         "Bücher" to (0 until 3).map { bookshelf(it, false, false, 181 + it) },
-        "Bettnische" to (0 until 3).map { alcoveBed(it, true, true, 191 + it) },
+        "Bett" to (0 until 3).map { elderBed(it, 191 + it) },
         "Wandbehang" to (0 until 3).map { wallCloth(it, 201 + it) },
         "Stock" to (0 until 3).map { stick(it, 211 + it) },
     )
