@@ -139,6 +139,13 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
+**v0.1.409 (10.10., 10:52) – Prüfliste für die nächste Sitzung (dem Nutzer zu Beginn so ausgeben):**
+- **1.4** Testreiter „Wetterleuchten mit Donner“ drücken, Menü schließen: der Himmel hellt zweimal auf (auch tagsüber sichtbar), Donner nach 2–4 s.
+- **3.3** „Garrick döst jetzt: an“: Garrick hockt, Kopf tief auf der Brust, zuckt ab und zu kurz hoch; mehr als 4 Felder Abstand; kommt der Held näher, steht er auf. Danach Knopf wieder entfernen.
+- **4** Glühwürmchen (erste Nacht mit Glühwürmchen: Tag 3, mit „Uhrzeit +3 h“ hinspulen): an festen Plätzen (Blumen, Weiher, Waldrand, im Dorf Felder und Fluss), bleiben beim Laufen an ihrem Ort, kurzes Aufblitzen, lange dunkel; zu wenige oder zu viele?
+- **6.7–6.13** Schalter „Dorf und Räume“ an, in die Schänke: Stimmung düster durch Licht und Schatten, aber nicht zu dunkel? Herdlicht flackert? Dampf und Rauch am Herd, Staub im Licht von Fenster und Tür? Gebrauchsspuren auf Tischen und Theke?
+- Danach: Freigabe der Schänke, dann Laden, Haus des Ältesten und Tempel genauso.
+
 **Zweig-Build 0.1.394** (09.10., 23:54; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37995770357/artifacts/11646709266), APK auch im Chat): Felshang am Höhleneingang, dunkle Halme im hohen Gras; im Testreiter neuer Schalter „Dorf und Räume: Entwurf neuer Stil“ (danach einmal die Karte wechseln). Achten auf: Felshang im Spiel; hohes Gras um die Füße; Dorf und Innenräume im Entwurf: Stimmung, Häuser, Platz, Dinge; ruckelt es im Dorf?
 
 **Zweig-Build 0.1.384** (09.10., 23:11; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/37991519323/artifacts/11644998757), APK auch im Chat): Felswand am Höhleneingang im Wald wieder da (noch im bisherigen Stil); keine alten Kartenkacheln mehr beim Betreten. Achten auf: Steht der Eingang wieder im Fels? Beim Betreten von Wald und Höhle: kurz dunkle Flächen statt alter Kacheln, wie lange? Ein Hänger beim Betreten?
