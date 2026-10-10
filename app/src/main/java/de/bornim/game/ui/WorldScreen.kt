@@ -430,7 +430,8 @@ object MapZoom {
      * 8.4 in between, 10.5 the former far view. Each is a whole-number zoom on a screen 1080 pixels wide.
      */
     val levels = floatArrayOf(5.6f, 6.75f, 8.4f, 10.5f)
-    @Volatile var level = 0
+    /** 6.75 tiles for now (10.10., 16:15; the final step is decided later). */
+    @Volatile var level = 1
 
     /** Near: any step but the former far one. */
     var near: Boolean
@@ -1434,15 +1435,18 @@ private fun DrawScope.drawMapLight(
                 val sy = src.y - 6 - ph * 26
                 drawRect(Color(0xFFFFC060).copy(alpha = (1 - ph) * 0.9f * seen), at(sx, sy.toDouble()), androidx.compose.ui.geometry.Size(px, px))
             }
-                // in a hearth: steam from the kettle, and smoke curling up the soot of the breast (6.11)
+                // in a hearth: steam from the kettle, and smoke rising from the embers and drawn up into the flue,
+                // gone where the mouth ends (6.11; 10.10., 16:15: it rose out of the wall above the hearth)
                 if (src.kind == MapLight.Kind.FIRE && indoor) for (k in 0 until 4) {
-                    val period = 2600 + k * 470
+                    val period = 2200 + k * 410
                     val ph = ((clock + k * 830 + i * 97) % period) / period.toFloat()
                     val steam = k < 2
-                    val sx = src.x + (if (steam) (k - 0.5) * 3 else (k - 2.5) * 10) + kotlin.math.sin(ph * 5f + k) * (2 + ph * 4)
-                    val sy = src.y - (if (steam) 22 else 30) - ph * (if (steam) 14 else 24)
-                    val rr = (1.5f + ph * (if (steam) 3f else 6f)) * px
-                    drawCircle(Color(if (steam) 0xFFC8C4BC else 0xFF6A625A).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * (if (steam) 0.22f else 0.16f) * seen), rr, at(sx, sy.toDouble()))
+                    val sx = src.x + (if (steam) (k - 0.5) * 3 else (k - 2.5) * 9 * (1 - ph)) + kotlin.math.sin(ph * 5f + k) * (1.5 + ph * 2)
+                    val sy = src.y - (if (steam) 14 else 4) - ph * (if (steam) 7 else 17)
+                    val rr = (1.5f + ph * (if (steam) 2.5f else 4f)) * px
+                    // strongest low down, thinning towards the flue
+                    val a = kotlin.math.sin(ph * Math.PI.toFloat() * 0.5f + 0.4f).coerceAtLeast(0f) * (1 - ph) * (if (steam) 0.26f else 0.22f)
+                    drawCircle(Color(if (steam) 0xFFC8C4BC else 0xFF5A524A).copy(alpha = a * seen), rr, at(sx, sy.toDouble()))
                 }
             }
             MapLight.Kind.WINDOW, MapLight.Kind.DOOR -> if (indoor && src.shines == MapLight.When.DAY) for (k in 0 until 7) {
