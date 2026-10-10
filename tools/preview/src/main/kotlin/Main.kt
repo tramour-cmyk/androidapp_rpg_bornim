@@ -137,6 +137,8 @@ fun main() {
                 shot("zoom_${z}_d1_dorf_markt") { place(it, "village", 17, 13, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_d2_dorf_haeuser") { place(it, "village", 8, 7, 17 * 60 + 30, Facing.UP) }
                 shot("zoom_${z}_d3_dorf_nacht") { place(it, "village", 28, 15, 23 * 60, Facing.UP) }
+                shot("zoom_${z}_i1_schaenke_tag") { place(it, "inn", 4, 5, 12 * 60, Facing.UP) }
+                shot("zoom_${z}_i2_schaenke_abend") { place(it, "inn", 6, 3, 21 * 60, Facing.LEFT) }
                 shot("zoom_${z}_t1_hohes_gras") { place(it, "forest", 16, 20, 12 * 60, Facing.DOWN) }
                 shot("zoom_${z}_h1_hoehleneingang") { place(it, "forest", 10, 2, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_h2_hoehleneingang_nacht") { place(it, "forest", 10, 2, 23 * 60, Facing.UP) }

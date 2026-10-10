@@ -52,6 +52,10 @@ object MapLight {
                     Tile.LAMP -> out += Source(cx, ty * T + 8.0, Kind.LAMP, argb(0xFFD49A), T * 2.6, 0.95, When.NIGHT)
                     // light falls out of a lit window onto the ground in front of the house
                     Tile.WINDOW -> if (!indoor && map.tile(tx, ty + 1).walkable) out += Source(cx, ty * T + T + 6.0, Kind.WINDOW, argb(0xFFC880), T * 1.6, 0.7, When.NIGHT)
+                        // indoors, a window lets in grey daylight
+                        else if (indoor && hasHearth(map)) out += Source(cx, ty * T + T + 8.0, Kind.WINDOW, argb(0xD8E0EC), T * 2.6, 0.55, When.DAY)
+                    // a fire in the back wall: the light comes out of its mouth onto the floor in front
+                    Tile.HEARTH -> if (map.tile(tx - 1, ty) != Tile.HEARTH) out += Source((tx + 1) * T.toDouble(), (ty + 1) * T + 4.0, Kind.FIRE, argb(0xFF9A48), T * 5.0, 1.45)
                     Tile.TABLE -> if (indoor) out += Source(cx, cy, Kind.CANDLE, argb(0xFFC078), T * 2.8, 0.6)
                     Tile.ALTAR -> out += Source(cx, cy, Kind.CANDLE, argb(0xFFE0A0), T * 3.2, 0.75)
                     Tile.COUNTER -> if (indoor) out += Source(cx, cy, Kind.CANDLE, argb(0xFFC078), T * 2.4, 0.45)
@@ -157,7 +161,9 @@ object MapLight {
         fun mix(a: DoubleArray, b: DoubleArray, t: Double) = DoubleArray(3) { a[it] + (b[it] - a[it]) * t.coerceIn(0.0, 1.0) }
         return when (map.kind) {
             MapKind.CAVE -> doubleArrayOf(0.13, 0.13, 0.18)
-            MapKind.INTERIOR -> mix(doubleArrayOf(0.36, 0.32, 0.3), doubleArrayOf(0.7, 0.64, 0.56), daylight.toDouble())
+            // a room with a fire (new style, 10.10.) is darker about its corners: the fire lights it, the window a little
+            MapKind.INTERIOR -> if (hasHearth(map)) mix(doubleArrayOf(0.16, 0.14, 0.15), doubleArrayOf(0.42, 0.4, 0.38), daylight.toDouble())
+                else mix(doubleArrayOf(0.36, 0.32, 0.3), doubleArrayOf(0.7, 0.64, 0.56), daylight.toDouble())
             else -> {
                 val day = if (deep) doubleArrayOf(0.8, 0.86, 0.8) else if (map.kind == MapKind.FOREST) doubleArrayOf(0.96, 0.98, 0.93) else doubleArrayOf(1.0, 0.99, 0.96)
                 val dusk = if (deep) doubleArrayOf(0.64, 0.5, 0.5) else doubleArrayOf(0.88, 0.68, 0.6)
@@ -167,6 +173,8 @@ object MapLight {
             }
         }
     }
+
+    private fun hasHearth(map: MapDef) = (0 until map.height).any { y -> (0 until map.width).any { x -> map.tile(x, y) == Tile.HEARTH } }
 
     /** Whether the map needs a light image at all (a village at noon does not). */
     fun needed(map: MapDef, daylight: Float): Boolean = map.kind != MapKind.TOWN || daylight < 0.85f

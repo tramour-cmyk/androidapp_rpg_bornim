@@ -97,7 +97,7 @@ object WorldArt {
                     }
                 }
             }
-            Tile.WALL -> when (kind) {
+            Tile.WALL, Tile.HEARTH -> when (kind) {
                 MapKind.INTERIOR -> if (at(0, 1) != Tile.WALL && map.inside(tx, ty + 1)) cached("iwallface${tx % 3}") { interiorWallFace(tx % 3) } else cached("iwalltop") { interiorWallTop() }
                 else -> cached("grass$seed") { grass(seed) }
             }
@@ -133,7 +133,7 @@ object WorldArt {
                 cached("obj-ground/$kind/$seed/false") { paste(base); blendEllipse(16.0, 27.0, 12.0, 4.0, SHADOW) }
             }
             Tile.CAVE_EXIT -> cached("caveexit") { caveFloor(0, 0); exitLight() }
-            Tile.WOOD_FLOOR -> {
+            Tile.WOOD_FLOOR, Tile.CLUTTER -> {
                 val shadow = map.inside(tx, ty - 1) && at(0, -1) == Tile.WALL
                 cached("wood$seed/$shadow") { woodFloor(seed); if (shadow) topShadow(7) }
             }
@@ -843,7 +843,7 @@ object WorldArt {
                 cave -> MapCave.objects(map, tx, ty, frame, open, state.has(Story.GATE_OPEN))
                 // the village in the new style (draft): houses and things, else the trees of the woods
                 map.kind == MapKind.TOWN -> MapTown.objects(map, tx, ty) ?: MapFlora.objects(map, tx, ty, frame, open)
-                map.kind == MapKind.INTERIOR -> MapRoom.objects(map, tx, ty)
+                map.kind == MapKind.INTERIOR -> MapRoom.objects(map, tx, ty, frame)
                 else -> MapFlora.objects(map, tx, ty, frame, open)
             }
             if (flora != null) { out += flora; continue }

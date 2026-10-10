@@ -16,7 +16,7 @@ object Terrain {
     fun stepFactor(tile: Tile): Double = when (tile) {
         Tile.PATH, Tile.COBBLE, Tile.BRIDGE -> 0.85
         Tile.FLOWERS, Tile.BONES, Tile.GLOWSHROOM -> 1.1
-        Tile.RUBBLE -> 1.3
+        Tile.RUBBLE, Tile.CLUTTER -> 1.3
         Tile.TALL_GRASS -> 1.5
         else -> 1.0
     }

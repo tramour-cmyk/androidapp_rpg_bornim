@@ -41,7 +41,7 @@ object Story {
     /** Whether the hero stands at the level cap of the chapter and gathers no further experience. */
     fun capped(s: GameState): Boolean = levelCap(s) < Rules.MAX_LEVEL && s.hero.level >= levelCap(s)
 
-    val START = Place("inn", 7, 2, Facing.DOWN)
+    val START = Place("inn", 8, 2, Facing.DOWN)
     val RESPAWN = Place("temple", 4, 4, Facing.UP)
 
     // Speakers
@@ -218,13 +218,13 @@ object Story {
         name = T("Zum Schlafenden Greif", "The Sleeping Griffin"),
         kind = MapKind.INTERIOR,
         rows = listOf(
-            "##########",
-            "#QQkkkkBB#",
-            "#kkkkkkkk#",
-            "#KKKkkkkk#",
-            "#kkkkkYYk#",
-            "#kRRRkkkk#",
-            "#kRRRkkkk#",
+            "###ZZ#W###",
+            "#QQkkJbBu#",
+            "#JkkkkkBk#",
+            "#KKKkkkkJ#",
+            "#bkYJkYYk#",
+            "#JkRRRnnJ#",
+            "##kRRRkku#",
             "####D#####",
         ),
         warps = interiorExit(toVillage(6, 6)),
