@@ -2,7 +2,7 @@
 
 Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Diese Datei gibt es nur auf `main`; Tom und Jerry tragen hier sofort ein und pushen (Regeln in `CLAUDE.md`).
 
-**Nächste freie Themennummer: 16** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 19** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md). Erledigtes wandert in die Änderungshistorie, Vertagtes auf die Merkliste.
 
@@ -20,6 +20,9 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 12 | Sprungtest: Kerntest, der Sprünge in Bewegungen und Übergängen findet | Jerry | neu von `main` | freigegeben 10.10., 13:12; Jerry beginnt, sobald 9 fertig ist (vor 10 und 11) |
 | 14 | Erinnerung an Neustart: Haken misst Gesprächsgröße, über einer Schwelle Hinweis an die Sitzung | Tom | neu von `main` (Werkzeug, PR) | freigegeben 10.10., 13:32; wenn die Räume eine Pause haben |
 | 15 | `OFFEN.md` entschlacken: Erledigtes und Bestätigtes in die Änderungshistorie, nur Offenes bleibt | Tom (Jerry prüft danach seinen Teil) | `main` (nur Notizen) | freigegeben 10.10., 13:32; nach 14 |
+| 16 | Trefferstopp: bei harten Treffern 2–3 Bilder Standbild, beim Kritischen kurzer Zoom und leichter Ruck | Jerry (Kampf) | neu von `main` | freigegeben 10.10., 13:43; nach 12 |
+| 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen schwingen beim Stoppen und Drehen nach | Tom (Puppen) | neu von `main` | freigegeben 10.10., 13:43; nach 6.14 |
+| 18 | Pechsträhnen dämpfen: nach mehreren Fehlschlägen steigt die Trefferchance unsichtbar leicht | Jerry (Kampfregeln) | neu von `main` | freigegeben 10.10., 13:43; nach 16 |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle. Keiner arbeitet an Themen des anderen.
 
@@ -231,6 +234,11 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - **Hörproben:** Auswahl für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt.
 
 ## Geplant
+
+- **16–18 aus der Ideenrunde 10.10., 13:36 (Tom-Beratung), freigegeben 13:43:** Die übrigen Ideen dieser Runde stehen auf der Merkliste unter „Ideenrunde 10.10.“.
+  - **16 Trefferstopp (Jerry):** Harter Treffer: das Bild steht 2–3 Bilder still; kritischer Treffer: zusätzlich kurzer Zoom heran und ein ganz leichter Ruck. Stil: Wucht ohne Übertreibung (STIL „Richtung“, „Eine Aktion ist ein Stück“). Übergänge: Ausholen → Treffer → Stillstand → Rückweg; prüfen mit Film des Treffers hinein und heraus, Zeiten mit Kerntest.
+  - **17 Nachschwingen (Tom):** Umhang, Haare, Köcher und Riemen schwingen nach, wenn eine Figur stoppt oder sich dreht (Sekundärbewegung, gedämpft). Stil: fließende Übergänge, keine Figur starr (4, 13). Übergänge: Gehen → Stehen, Drehen, Rennen → Stehen; prüfen mit Sprungtest (12) und einem Film beim Drehen. Hilft auch gegen den starren Eindruck beim Wolfsrudel.
+  - **18 Pechsträhnen dämpfen (Jerry):** Nach drei Fehlschlägen in Folge steigt die Trefferchance unsichtbar leicht, bis wieder getroffen wird; für Held und Gegner gleich oder nur für den Helden (beim Bau vorschlagen). SRD bleibt Grundlage. Prüfen mit Kerntest und Ausgleichs-Simulation (`BalanceTest`).
 
 - **12 Sprungtest (freigegeben 10.10., 13:12, Wer: Jerry, nach 9):** Anlass: Trotz Stil-Leitlinien (fließende Übergänge, lebendige Figuren) wird oft nachgebessert, weil kein Test „fließend“ misst; `AnimFlowTest` prüft nur, ob die richtige Haltung zur richtigen Meldung kommt. Beispiel: Wolfsrudel dreht sich starr um den Anführer (Rückmeldung 13:00). Ziel: ein Kerntest ohne Bild, der in Sekunden läuft, alle Haltungen und Übergänge (Stehen, Atmen, Gehen, Drehen, Hocken, Aufstehen, Kampfhaltungen, Rudel folgt) in feinen Zeitschritten durchläuft und meldet, wenn sich ein Gelenk, die Blickrichtung oder die Position von einem Bild zum nächsten mehr als einen Grenzwert ändert. Ziel 0 Meldungen, wie bei der Kollisionsprüfung. Gilt für Leute und Monster, deshalb gemeinsam nützlich. Danach in `STIL.md` unter „Selbst prüfen“ aufnehmen.
 
