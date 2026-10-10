@@ -61,6 +61,51 @@ fun renderMapFoeDraft() {
             val cells = rows.map { (id, idle) -> (0..MapFoe.LEVELS).map { lv -> MapFoe.drawIdle(id, MonsterLook(0), 2, idle, 0, level = lv) } }
             ImageIO.write(sheetOf(cells, MapFoe.W, MapFoe.H), "png", File("build/screens/mapfoe/ease.png"))
         }
+        "others" -> {
+            // 9, the other foes: the former sprite (left), then the draft facing down, right, up and left
+            val ids = (System.getenv("IDS") ?: "boar,giant_rat,kobold,skeleton,zombie,ghoul,goblin_shaman,bugbear,hobgoblin_captain,giant_spider,giant_centipede,giant_bat,stirge,ochre_jelly").split(",")
+            val f = MapFoe.frame("dire_wolf")
+            fun old(id: String): PixelImage {
+                val o = de.bornim.core.art.MonsterArt.mapSprite(id, MonsterLook(0), 0, mirrored = false)
+                val big = PixelImage(f.w, f.h)
+                // twice as large (one map pixel is two art pixels), the feet on the same line
+                for (y in 0 until o.height * 2) for (x in 0 until o.width * 2) {
+                    val px = f.ax - o.width + x; val py = f.gy + 4 - o.height * 2 + y
+                    if (px in 0 until f.w && py in 0 until f.h) big.set(px, py, o[x / 2, y / 2])
+                }
+                return big
+            }
+            val cells = ids.map { id -> listOf(old(id)) + listOf(0, 4, 8, 12).map { s ->
+                val img = MapFoe.draw(id, MonsterLook(0), s, 0)
+                val fr = MapFoe.frame(id)
+                // into the larger cell, the feet on the same line
+                val out = PixelImage(f.w, f.h)
+                for (y in 0 until img.height) for (x in 0 until img.width) {
+                    val px = x - fr.ax + f.ax; val py = y - fr.gy + f.gy
+                    if (px in 0 until f.w && py in 0 until f.h) out.set(px, py, img[x, y])
+                }
+                out
+            } }
+            ImageIO.write(sheetOf(cells, f.w, f.h), "png", File("build/screens/mapfoe/others.png"))
+        }
+        "cave" -> {
+            // 9, the other foes in the Bloodfang Cave by the fire: the former sprites (left) against the drafts
+            val foes = listOf(listOf("giant_spider", 0, 15, 13, 2, 0), listOf("kobold", 0, 17, 14, 13, 0), listOf("giant_bat", 0, 18, 13, 14, 0),
+                listOf("ochre_jelly", 0, 15, 15, 1, 0), listOf("giant_centipede", 0, 15, 16, 12, 0), listOf("skeleton", 0, 17, 16, 12, 0))
+            val a = foeScene(false, "cave", 12, 12, 8, 5, 13 to 16, foes); val b = foeScene(true, "cave", 12, 12, 8, 5, 13 to 16, foes)
+            val both = BufferedImage(a.width * 2 + 12, a.height, BufferedImage.TYPE_INT_RGB)
+            both.graphics.drawImage(a, 0, 0, null); both.graphics.drawImage(b, a.width + 12, 0, null)
+            ImageIO.write(both, "png", File("build/screens/mapfoe/cave.png"))
+        }
+        "wood" -> {
+            // 9, the other foes of the wood and the night: boar, rat, zombie, ghoul, shaman, skeleton
+            val foes = listOf(listOf("boar", 0, 13, 8, 12, 0), listOf("giant_rat", 0, 13, 10, 13, 0), listOf("zombie", 0, 8, 10, 3, 0),
+                listOf("ghoul", 0, 9, 11, 2, 0), listOf("goblin_shaman", 0, 11, 10, 1, 0), listOf("skeleton", 1, 8, 8, 4, 0))
+            val a = foeScene(false, foes = foes); val b = foeScene(true, foes = foes)
+            val both = BufferedImage(a.width * 2 + 12, a.height, BufferedImage.TYPE_INT_RGB)
+            both.graphics.drawImage(a, 0, 0, null); both.graphics.drawImage(b, a.width + 12, 0, null)
+            ImageIO.write(both, "png", File("build/screens/mapfoe/wood.png"))
+        }
         "walk" -> {
             val cells = looks.flatMap { (id, l) -> listOf(2, 4, 6, 12).map { s -> (0 until MapFoe.STEPS).map { st -> MapFoe.draw(id, l, s, st) } } }
             ImageIO.write(sheetOf(cells, MapFoe.W, MapFoe.H), "png", File("build/screens/mapfoe/walk.png"))
@@ -70,11 +115,14 @@ fun renderMapFoeDraft() {
 }
 
 /** Wolves and goblins near Garrick's fire with the hero, the former sprites ([newStyle] false) or the drafts. */
-private fun foeScene(newStyle: Boolean): BufferedImage {
-    val map = de.bornim.core.World["forest"]
+private fun foeScene(newStyle: Boolean, mapId: String = "forest", x0: Int = 8, y0: Int = 7, tw: Int = 7, th: Int = 6,
+    heroAt: Pair<Int, Int> = 10 to 9, foes: List<List<Any>> = listOf(
+        listOf("wolf", 0, 13, 8, 12, 1), listOf("wolf", 1, 13, 10, 13, 5), listOf("dire_wolf", 0, 8, 7, 3, 3),
+        listOf("goblin", 0, 8, 10, 3, 1), listOf("goblin", 1, 9, 11, 2, 3), listOf("goblin", 2, 11, 10, 1, 6),
+    )): BufferedImage {
+    val map = de.bornim.core.World[mapId]
     de.bornim.core.art.MapGround.prepareNow(map)
     val S = de.bornim.core.art.MapGround.S
-    val x0 = 8; val y0 = 7; val tw = 7; val th = 6
     val w = tw * S; val h = th * S
     val out = BufferedImage(w, h, BufferedImage.TYPE_INT_RGB)
     fun blend(img: PixelImage, ax: Int, ay: Int, k: Int) {
@@ -98,25 +146,22 @@ private fun foeScene(newStyle: Boolean): BufferedImage {
     val shadow = de.bornim.core.art.WorldArt.shadow()
     fun foot(tx: Int, ty: Int) = (tx * S + S / 2) to (ty * S + S - 4)
     // the hero west of the fire, looking right
-    val (hx, hy) = foot(10, 9)
+    val (hx, hy) = foot(heroAt.first, heroAt.second)
     things += Thing(hy) {
         if (newStyle) { blend(shadow, hx - 24, hy - 10, 2); val f = de.bornim.core.art.MapFigure.draw(state.hero, 4, 0)
             blend(f, hx - de.bornim.core.art.MapFigure.ANCHOR_X, hy - de.bornim.core.art.MapFigure.GROUND, 1) }
         else { val f = de.bornim.core.art.CharacterArt.hero(state.hero, de.bornim.core.Facing.RIGHT); blend(f, hx - f.width, hy - f.height * 2 + 2, 2) }
     }
-    // (kind, look, tile x, tile y, direction slot, step)
-    val foes = listOf(
-        listOf("wolf", 0, 13, 8, 12, 1), listOf("wolf", 1, 13, 10, 13, 5), listOf("dire_wolf", 0, 8, 7, 3, 3),
-        listOf("goblin", 0, 8, 10, 3, 1), listOf("goblin", 1, 9, 11, 2, 3), listOf("goblin", 2, 11, 10, 1, 6),
-    )
+    // foes: (kind, look, tile x, tile y, direction slot, step)
     for (f in foes) {
         val id = f[0] as String; val look = MonsterLook(f[1] as Int); val slot = f[4] as Int
         val (fx, fy) = foot(f[2] as Int, f[3] as Int)
         things += Thing(fy) {
             if (newStyle) {
                 val img = MapFoe.draw(id, look, slot, f[5] as Int)
+                val fr = MapFoe.frame(id)
                 blend(shadow, fx - 24, fy - 10, 2)
-                blend(img, fx - MapFoe.ANCHOR_X, fy - MapFoe.GROUND, 1)
+                blend(img, fx - fr.ax, fy - fr.gy, 1)
             } else {
                 // the former sprite only looks left or right
                 val right = slot in 1..7

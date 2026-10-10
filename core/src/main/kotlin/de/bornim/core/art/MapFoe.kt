@@ -31,7 +31,7 @@ object MapFoe {
     class Frame(val w: Int, val h: Int, val ax: Int, val gy: Int)
     private val SMALL = Frame(W, H, ANCHOR_X, GROUND)
     private val BIG = Frame(220, 200, 110, 140)
-    fun frame(id: String) = if (id == "dire_wolf") BIG else SMALL
+    fun frame(id: String) = if (id == "dire_wolf" || id == "bugbear" || id == "hobgoblin_captain") BIG else SMALL
 
     const val YAWS = MapFigure.YAWS
     /** Pictures of a walk, one full cycle of all four legs. */
@@ -126,7 +126,8 @@ object MapFoe {
      */
     fun dollRig(id: String, look: MonsterLook, yaw: Double, step: Int): HeroFigure.Rig {
         val kit = MonsterKits.of(id, look.seed)!!
-        val ranged = kit.items[GearSlot.MAIN_HAND] == "shortbow"
+        // a bow, a staff or a weapon for both hands goes on the shoulder
+        val ranged = kit.items[GearSlot.MAIN_HAND] in setOf("shortbow", "staff", "greataxe", "greatclub", "maul", "halberd")
         // a walk in [STEPS] pictures with the legs swinging smoothly (12: the hero's four pictures jump 11 cm a
         // picture); short goblin legs take a shorter stride, so the last step ends close to standing
         val t = Math.floorMod(step, STEPS) / STEPS.toDouble()
@@ -137,9 +138,17 @@ object MapFoe {
                 rh = if (ranged) b.rh else b.rh.copy(f = b.rh.f - st * 0.3))
         }
         val low = if (ranged) base else base.copy(rh = V(18.0, 56.0, 2.0 - st * 0.35), weapon = V(0.1, -1.0, 0.16))
+        // each kind in its own manner, as in battle (FoeArt): stooped, stiff, lolling, crouched like a beast
         val r = when (FoeArt.creature(id)) {
             Doll.Creature.GOBLIN -> low.copy(lean = low.lean + 0.35, crouch = low.crouch + 4.0, headDown = low.headDown - 2.5)
-            else -> low
+            Doll.Creature.SKELETON -> low.copy(lean = low.lean * 0.7, headTurn = low.headTurn + 6.0)
+            Doll.Creature.KOBOLD -> low.copy(lean = low.lean + 0.45, crouch = low.crouch + 5.0, headDown = low.headDown - 1.5)
+            Doll.Creature.ZOMBIE -> low.copy(lean = low.lean + 0.25, headDown = low.headDown + 4.0, headTurn = low.headTurn + 12.0)
+            Doll.Creature.BUGBEAR -> low.copy(lean = low.lean + 0.3, crouch = low.crouch + 3.0, headDown = low.headDown - 1.0)
+            Doll.Creature.HOBGOBLIN -> low.copy(lean = low.lean * 0.6)
+            // a ghoul goes bent low, the clawed hands hanging forward
+            Doll.Creature.GHOUL -> low.copy(lean = low.lean + 0.7, crouch = low.crouch + 4.0, headDown = low.headDown - 6.0,
+                rh = V(20.0, 56.0, 16.0), lh = V(-20.0, 56.0, 16.0))
         }
         // a second blade in the other hand, lowered like the first
         return if (kit.items[GearSlot.OFF_HAND] == "dagger") r.copy(lh = V(-18.0, 56.0, 2.0 + st * 0.35)) else r
@@ -205,9 +214,19 @@ object MapFoe {
     /** Whether [id] is drawn as an animal ([BeastArt]) or on the doll ([FoeArt]) on the map. */
     fun drawn(id: String) = id in BeastArt.KINDS || id in FoeArt.KINDS
 
-    /** One picture of [id] turned to [slot], at [step] of its walk. */
-    fun draw(id: String, look: MonsterLook, slot: Int, step: Int, scale: Double = 1.0): PixelImage =
-        if (id in BeastArt.KINDS) beast(id, look, slot, step, scale) else doll(id, look, slot, step)
+    /** One picture of [id] turned to [slot], at [step] of its walk (vermin: standing only, a draft). */
+    fun draw(id: String, look: MonsterLook, slot: Int, step: Int, scale: Double = 1.0): PixelImage = when (id) {
+        in BeastArt.KINDS -> beast(id, look, slot, step, scale)
+        in VerminArt.KINDS -> vermin(id, look, slot)
+        else -> doll(id, look, slot, step)
+    }
+
+    /** Draft (9, the other foes): a spider, centipede, bat, stirge or jelly as in battle, its first resting picture, turned to [slot]. */
+    fun vermin(id: String, look: MonsterLook, slot: Int): PixelImage {
+        val f = frame(id)
+        val rig = VerminArt.sequence(id, Act.IDLE, 0).rigs[0].copy(yaw = yawOf(slot))
+        return VerminArt.vermin(id, look).render(f.w, f.h, f.ax.toDouble(), f.gy.toDouble(), PX, rig, pitch = PITCH)
+    }
 
     /** One picture of [id] turned to [slot], standing in [idle], breathing in ([breath] 1) or out. */
     fun drawIdle(id: String, look: MonsterLook, slot: Int, idle: Idle, breath: Int, scale: Double = 1.0, level: Int = LEVELS): PixelImage =
