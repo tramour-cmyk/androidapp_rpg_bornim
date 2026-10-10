@@ -32,6 +32,12 @@ object MapRoomIso {
     const val WALL = 136.0
     /** The front walls, cut off knee-high (13l). */
     const val STUMP = 26.0
+    /**
+     * Heights on the screen per height in the drawings (13p.6): the drawings count about 57 art pixels to a
+     * metre, the hero seen at the map's angle stands 0.43 to a centimetre (0.55 × cos 38°); so every height
+     * is drawn at 0.76 of its number, and a table 42 high stands 75 cm next to the hero, not 97.
+     */
+    const val ZS = 0.76
     /** Width of every tile's picture (a multiple of 4, so its middle lies on a whole map pixel). */
     private const val W = 100
 
@@ -93,7 +99,7 @@ object MapRoomIso {
         val s = Sculpt(W, h, seed)
         val img: PixelImage get() = s.img
         fun x(i: Double, j: Double) = W / 2.0 + (i - j) * TW / 2
-        fun y(i: Double, j: Double, z: Double = 0.0) = h + (i + j) * TH / 2 - z
+        fun y(i: Double, j: Double, z: Double = 0.0) = h + (i + j) * TH / 2 - z * ZS
     }
 
     /** A box between (i0, j0) and (i1, j1), from z0 up to z1: its face towards +j (down left), towards +i (down right) and its top. */
@@ -147,7 +153,7 @@ object MapRoomIso {
         for (py in 0 until h) for (px in 0 until W) {
             val i = (px + 0.5 - W / 2.0) / (TW / 2) + j
             if (i < i0 || i > i1) continue
-            val z = h + (i + j) * TH / 2 - (py + 0.5)
+            val z = (h + (i + j) * TH / 2 - (py + 0.5)) / ZS
             if (z < z0 || z > z1) continue
             tex(i, z)?.let { img.set(px, py, it) }
         }
@@ -158,7 +164,7 @@ object MapRoomIso {
         for (py in 0 until h) for (px in 0 until W) {
             val j = i - (px + 0.5 - W / 2.0) / (TW / 2)
             if (j < j0 || j > j1) continue
-            val z = h + (i + j) * TH / 2 - (py + 0.5)
+            val z = (h + (i + j) * TH / 2 - (py + 0.5)) / ZS
             if (z < z0 || z > z1) continue
             tex(j, z)?.let { img.set(px, py, it) }
         }
@@ -322,7 +328,7 @@ object MapRoomIso {
     /** Paints the top of a wall over its footprint at height [z], dark with an edge where the cut catches a little light. */
     private fun Canvas.wallTop(i0: Double, j0: Double, i1: Double, j1: Double, z: Double, seed: Int) {
         for (py in 0 until h) for (px in 0 until W) {
-            val a = (px + 0.5 - W / 2.0) / (TW / 2); val b = (py + 0.5 - h + z) / (TH / 2)
+            val a = (px + 0.5 - W / 2.0) / (TW / 2); val b = (py + 0.5 - h + z * ZS) / (TH / 2)
             val i = (a + b) / 2; val j = (b - a) / 2
             if (i < i0 || j < j0 || i > i1 || j > j1) continue
             var v = 0.5 + (rnd(px / 2, py, seed) - 0.5) * 0.3
@@ -806,7 +812,7 @@ object MapRoomIso {
             val centre = 1 - abs(k - 3) / 3.5
             val m1 = 1 + hash(k, 1, seed) % 2; val m2 = 1 + hash(k, 2, seed) % 2
             val o1 = rnd(k, 3, seed) * 6.28; val o2 = rnd(k, 4, seed) * 6.28
-            val hgt = (9 + 19 * centre) * (0.62 + 0.38 * kotlin.math.sin(ph * m1 + o1))
+            val hgt = (9 + 19 * centre) * (0.62 + 0.38 * kotlin.math.sin(ph * m1 + o1)) * ZS
             val sway = 2.4 * kotlin.math.sin(ph * m2 + o2)
             val hw = 2.6 + 2.4 * centre
             val bx = c.x(ti, fj + (k % 2) * 0.04); val by = c.y(ti, fj + (k % 2) * 0.04, 8.0)
@@ -833,7 +839,7 @@ object MapRoomIso {
     // ------------------------------------------------------------------ round things (13p.3)
 
     /** Upright art pixels per centimetre, the scale of the room's heights. */
-    private const val ZCM = 0.57
+    private const val ZCM = 0.57 * ZS
     /** A tile's side in centimetres, at the hero's scale. */
     private const val TILE_CM = 116.0
 
@@ -1162,7 +1168,18 @@ object MapRoomIso {
 
     private val cache = HashMap<String, PixelImage>()
     private fun cached(key: String, make: () -> PixelImage): PixelImage =
-        synchronized(cache) { cache[key] } ?: make().also { synchronized(cache) { cache[key] = it } }
+        synchronized(cache) { cache[key] } ?: trimTop(make()).also { synchronized(cache) { cache[key] = it } }
+
+    /** Drops the empty rows at the top (heights are drawn lower than the pictures were made for, 13p.6); keeps the height even. */
+    private fun trimTop(img: PixelImage): PixelImage {
+        var top = 0
+        while (top < img.height - 2 && (0 until img.width).none { img.opaque(it, top) }) top++
+        top -= top % 2
+        if (top == 0) return img
+        val out = PixelImage(img.width, img.height - top)
+        System.arraycopy(img.pixels, top * img.width, out.pixels, 0, out.pixels.size)
+        return out
+    }
 
     /** A picture whose front corner (middle of its bottom edge) stands at map pixel ([wx], [wy]), drawn in order of [depth]. */
     private fun obj(img: PixelImage, wx: Int, wy: Int, depth: Int, low: Boolean = false): WorldArt.Obj {

@@ -72,19 +72,29 @@ class FreeWalkTest {
     }
 }
 
-/** 13p.5: the low clutter in the inn's corner (1,5), between the wall and the barrel, can be stepped on. */
+/** 13p.5: the floor before the counter at the wall (1,4), beside the barrel in the corner, can be stepped on. */
 class InnCornerTest {
     @Test
-    fun clutterBesideTheBarrelCanBeEntered() {
+    fun floorBeforeTheCounterCanBeEntered() {
         val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
         val g = Game(s, Lang.DE, Dice(kotlin.random.Random(1)))
         var guard = 0
         while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
-        s.place = Place("inn", 2, 5, Facing.LEFT)
+        s.place = Place("inn", 2, 4, Facing.LEFT)
         (g.roamers as? MutableList<Roamer>)?.clear()
         g.freeWalk.sync()
         var t = 1_000L
         repeat(60) { g.freeWalk.walk(-1.0, 0.0, 16, FreeWalk.WALK, t); t += 16 }
-        assertEquals(1 to 5, g.state.place.x to g.state.place.y, "at ${g.freeWalk.x}, ${g.freeWalk.y}, mode ${g.mode}")
+        assertEquals(1 to 4, g.state.place.x to g.state.place.y, "at ${g.freeWalk.x}, ${g.freeWalk.y}, mode ${g.mode}")
+    }
+
+    @Test
+    fun rowenaCanBeSpokenToOverTheCounter() {
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        val g = Game(s, Lang.DE, Dice(kotlin.random.Random(1)))
+        var guard = 0
+        while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
+        s.place = Place("inn", 1, 4, Facing.UP)
+        assertEquals(ActionKind.TALK, g.actionAhead())
     }
 }

@@ -1376,7 +1376,8 @@ private fun DrawScope.drawHearthSmoke(game: Game, map: de.bornim.core.MapDef, cl
         // the fire: the light sits 4 pixels in front of the wall, the fire 0.2 tiles inside it
         val mx = ((src.x - camX) * scale).toFloat(); val my = ((src.y - 4 - T * 0.2 - camY) * scale).toFloat()
         val bx = cam.toScreenX(mx, my); val by = cam.toScreenY(mx, my)
-        fun at(dx: Double, h: Double) = Offset(bx + (dx * scale).toFloat(), by - (h * scale).toFloat())
+        // heights as drawn in the room, lowered to the hero's scale (13p.6)
+        fun at(dx: Double, h: Double) = Offset(bx + (dx * scale).toFloat(), by - (h * de.bornim.core.art.MapRoomIso.ZS * scale).toFloat())
         for (k in 0 until 5) {
             // sparks rising and fading before the top of the mouth
             val period = 1400 + k * 230
@@ -1403,12 +1404,12 @@ private fun DrawScope.drawHearthSmoke(game: Game, map: de.bornim.core.MapDef, cl
  * from the floor covers, on the screen, the ground behind it (up the diagonal). There the image is given the
  * light of the floor where that thing stands, a little less the higher up it is: the back walls are lit by
  * the hearth and the windows at their foot, fading upwards, instead of lying in the dark of the ground
- * outside the room. Heights in map pixels on the screen; the walls stand 68 high ([de.bornim.core.art.MapRoomIso.WALL]).
+ * outside the room. Heights in map pixels on the screen; the walls stand about 52 high ([de.bornim.core.art.MapRoomIso.WALL] × [de.bornim.core.art.MapRoomIso.ZS]).
  */
 private fun uprightLight(img: de.bornim.core.art.PixelImage, map: de.bornim.core.MapDef, x0: Int, y0: Int, res: Int) {
     val T = WorldArt.T
     val k = MapSight.K
-    val wallTop = (de.bornim.core.art.MapRoomIso.WALL / de.bornim.core.art.MapRoomIso.D).toFloat()
+    val wallTop = (de.bornim.core.art.MapRoomIso.WALL * de.bornim.core.art.MapRoomIso.ZS / de.bornim.core.art.MapRoomIso.D).toFloat()
     val src = img.pixels.copyOf()
     fun room(px: Float, py: Float): Boolean {
         val tx = floor(px / T).toInt(); val ty = floor(py / T).toInt()
