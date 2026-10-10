@@ -109,12 +109,15 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             crits = de.bornim.core.Battle.heroCritsAlways
             vm.toast = if (crits) t("Jeder Waffentreffer ist kritisch: so lässt sich der Killerschlag testen.", "Every weapon hit is critical: to test the killing blow.") else t("Kritische Treffer wieder normal.", "Critical hits back to normal.")
         }
-        var near by remember { mutableStateOf(MapZoom.near) }
-        PixelButton(t("Kartenzoom: ", "Map zoom: ") + (if (near) t("nah", "near") else t("weit (bisher)", "far (former)")), Modifier.fillMaxWidth(), size = 14.sp) {
-            MapZoom.near = !MapZoom.near
-            near = MapZoom.near
+        // the zoom in four steps, to find the right one on the phone (10.10., 6.15)
+        var zoom by remember { mutableStateOf(MapZoom.level) }
+        fun tiles(l: Int) = MapZoom.levels[l].toString().replace(".", ",") + t(" Kacheln", " tiles") +
+            when (l) { 0 -> t(" (nah)", " (near)"); MapZoom.levels.size - 1 -> t(" (weit, bisher)", " (far, former)"); else -> "" }
+        PixelButton(t("Kartenzoom: ", "Map zoom: ") + tiles(zoom), Modifier.fillMaxWidth(), size = 14.sp) {
+            MapZoom.level = (MapZoom.level + 1) % MapZoom.levels.size
+            zoom = MapZoom.level
             vm.refresh()
-            vm.toast = if (near) t("Karte näher herangezoomt.", "Map zoomed in.") else t("Karte wieder weit wie bisher.", "Map zoomed out as before.")
+            vm.toast = t("Karte: ", "Map: ") + tiles(zoom) + t(" quer", " across")
         }
         // the village and the rooms in the new style are drafts (night of 09.10.): to look at on the phone
         var town by remember { mutableStateOf(de.bornim.core.art.MapGround.townDraft) }

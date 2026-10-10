@@ -263,10 +263,131 @@ object MapFolk {
     private fun dozing(f: Folk, ms: Long): Squat {
         val n = Math.floorDiv(ms, 6_000L)
         val r = java.util.Random(n * 1_000_033L + f.id.hashCode())
-        val jerkAt = 1_500L + (r.nextDouble() * 3_500).toLong()
+        val jerkAt = 1_500L + (r.nextDouble() * 2_900).toLong()
         val jerks = r.nextDouble() < 0.55
         val t = ms - n * 6_000L
         return if (jerks && t in jerkAt until jerkAt + 450) Squat.SQUAT else Squat.DOZE
+    }
+
+    /**
+     * A moment between two squatting poses (10.10., 3a: the poses had snapped into each other, which
+     * looked stiff): [from] and [to] (null: standing) and how far along, [k] of [BLEND] steps.
+     */
+    data class SquatPose(val from: Squat?, val to: Squat?, val k: Int) {
+        /** The pose this moment is nearest to (null: standing). */
+        val main: Squat? get() = if (k * 2 >= BLEND) to else from
+    }
+
+    /** Steps between two poses: 0 is [SquatPose.from], [BLEND] is [SquatPose.to]. */
+    const val BLEND = 4
+
+    private fun pose(a: Squat?, b: Squat?, t: Double) =
+        SquatPose(a, b, Math.round(t.coerceIn(0.0, 1.0) * BLEND).toInt()).let { if (it.k == 0) SquatPose(a, a, 0) else if (it.k == BLEND) SquatPose(b, b, 0) else it }
+
+    private fun ease(t: Double) = t.coerceIn(0.0, 1.0).let { it * it * (3 - 2 * it) }
+
+    /**
+     * Like [squatAt], but with the movement between the poses: he lowers himself onto his heels and
+     * rises again over [SIT_MS], leans into the embers and back, stirs them in an even sweep, lets the
+     * head sink slowly as he nods off, and when it jerks up it sinks back again slowly. Null while he
+     * stands.
+     */
+    fun squatPoseAt(f: Folk, clockMs: Long, night: Boolean): SquatPose? {
+        if (forceDoze) return dozePose(f, clockMs + 20_000)
+        val n = Math.floorDiv(clockMs, SQUAT_BLOCK_MS)
+        val t = clockMs - n * SQUAT_BLOCK_MS
+        val r = java.util.Random(n * 7_000_003L + f.id.hashCode() * 31L + 5)
+        // the same draws in the same order as squatAt, so both agree
+        val sits = r.nextDouble() < (if (night) 0.7 else 0.35)
+        val start = 3_000L + (r.nextDouble() * 12_000).toLong()
+        val length = if (night) 18_000L + (r.nextDouble() * 22_000).toLong() else 9_000L + (r.nextDouble() * 10_000).toLong()
+        val stokes = if (night) 1 else 1 + r.nextInt(2)
+        val stokeAt = LongArray(2) { k -> 1_500L + k * (3_500L + (r.nextDouble() * 3_000).toLong()) }
+        val stokeLen = LongArray(2) { 1_400L + (r.nextDouble() * 1_200).toLong() }
+        val dozeAt = 6_500L + (r.nextDouble() * 4_000).toLong()
+        val end = minOf(start + length, SQUAT_BLOCK_MS - 1_500)
+        if (!sits || t < start || t >= end) return null
+        val s = t - start
+        val left = end - t
+        // he rises at [rise] (in ms since he sat down); a stirring that would run into it is left out, and
+        // before rising from sleep he wakes and lifts his head, so no pose snaps into the rising
+        val rise = end - start - SIT_MS
+        val wake = rise - 1_200
+        // what he does at this moment while down
+        val down: SquatPose = run {
+            for (k in 0 until stokes) {
+                val a = stokeAt[k]; val len = stokeLen[k]
+                if (a + len + LEAN_MS > rise) continue
+                if (s in (a - LEAN_MS) until (a + len + LEAN_MS)) {
+                    val u = s - a
+                    return@run when {
+                        u < 0 -> pose(Squat.SQUAT, Squat.STOKE_A, ease((u + LEAN_MS) / LEAN_MS.toDouble()))
+                        u >= len -> pose(Squat.STOKE_A, Squat.SQUAT, ease((u - len) / LEAN_MS.toDouble()))
+                        // the stick sweeps to and fro through the embers, about once in 0.7 s
+                        else -> pose(Squat.STOKE_A, Squat.STOKE_B, 0.5 - 0.5 * kotlin.math.cos(u / 680.0 * 2 * Math.PI))
+                    }
+                }
+            }
+            if (night && s >= dozeAt && wake > dozeAt + 1_600) {
+                if (s >= wake) pose(Squat.DOZE, Squat.SQUAT, ease((s - wake) / 600.0))
+                else dozePose(f, s - dozeAt, quietFrom = wake - 1_600 - dozeAt)
+            } else SquatPose(Squat.SQUAT, Squat.SQUAT, 0)
+        }
+        // lowering himself at the start, rising at the end
+        if (s < SIT_MS) return pose(null, Squat.SQUAT, ease(s / SIT_MS.toDouble()))
+        if (left < SIT_MS) return pose(down.main, null, ease(1 - left / SIT_MS.toDouble()))
+        return down
+    }
+
+    /** Lowering onto the heels and rising again take this long. */
+    const val SIT_MS = 900L
+    private const val LEAN_MS = 350L
+
+    /** Nodding off [ms] after falling asleep: the head sinks over 1.6 s; when it jerks up it sinks back over a second. */
+    private fun dozePose(f: Folk, ms: Long, quietFrom: Long = Long.MAX_VALUE): SquatPose {
+        if (ms < 1_600) return pose(Squat.SQUAT, Squat.DOZE, ease(ms / 1_600.0))
+        val n = Math.floorDiv(ms, 6_000L)
+        val r = java.util.Random(n * 1_000_033L + f.id.hashCode())
+        val jerkAt = 1_500L + (r.nextDouble() * 2_900).toLong()
+        val jerks = r.nextDouble() < 0.55
+        val t = ms - n * 6_000L
+        // no jerk that would still be going on when he wakes
+        if (!jerks || t < jerkAt || n * 6_000L + jerkAt >= quietFrom) return SquatPose(Squat.DOZE, Squat.DOZE, 0)
+        val u = t - jerkAt
+        return when {
+            u < 180 -> pose(Squat.DOZE, Squat.SQUAT, u / 180.0)                          // a jerk: up fast
+            u < 450 -> SquatPose(Squat.SQUAT, Squat.SQUAT, 0)
+            else -> pose(Squat.SQUAT, Squat.DOZE, ease((u - 450) / 1_100.0))            // and down slowly
+        }
+    }
+
+    /** The rig of a [SquatPose]: the two poses mixed. */
+    fun squatRig(yaw: Double, p: SquatPose): HeroFigure.Rig {
+        val stand = MapFigure.rig(yaw, 0, MapFigure.Carry.FREE)
+        val a = p.from?.let { squatRig(yaw, it) } ?: stand
+        if (p.k == 0) return a
+        val b = p.to?.let { squatRig(yaw, it) } ?: stand
+        return mixRig(a, b, p.k / BLEND.toDouble())
+    }
+
+    private fun mixRig(a: HeroFigure.Rig, b: HeroFigure.Rig, t: Double): HeroFigure.Rig {
+        fun m(x: Double, y: Double) = x + (y - x) * t
+        fun v(x: HeroFigure.V, y: HeroFigure.V) = HeroFigure.V(m(x.r, y.r), m(x.u, y.u), m(x.f, y.f))
+        // the stick is in the hand for the whole stirring; it is picked up and laid down mid-way
+        val near = if (t < 0.5) a else b
+        return b.copy(
+            lean = m(a.lean, b.lean), crouch = m(a.crouch, b.crouch), stride = m(a.stride, b.stride), spread = m(a.spread, b.spread),
+            headDown = m(a.headDown, b.headDown), rh = v(a.rh, b.rh), lh = v(a.lh, b.lh), bodyY = m(a.bodyY, b.bodyY),
+            weapon = if (a.torch > 0 && b.torch > 0) v(a.weapon, b.weapon) else near.weapon,
+            torch = near.torch, flicker = near.flicker, aim = near.aim, grip = near.grip,
+        )
+    }
+
+    /** The picture of [f] at a [SquatPose] facing [slot]: drawn in the background, until then the nearer pose's picture if that is ready. */
+    fun squatFrame(f: Folk, slot: Int, p: SquatPose): PixelImage? {
+        if (p.k == 0) return p.from?.let { squatFrame(f, slot, it) } ?: frame(f, slot, 0)
+        return MapRest.picture("squat|${f.id}|$slot|${p.from}>${p.to}|${p.k}") { MapFigure.render(f.doll, f.outfit, squatRig(slot * 360.0 / MapFigure.YAWS, p)) }
+            ?: (p.main?.let { squatFrame(f, slot, it) } ?: frame(f, slot, 0))
     }
 
     /** Test switch: Garrick sits and dozes all the time (10.10., 3a; to be removed again). */
@@ -275,6 +396,9 @@ object MapFolk {
     /** Draws ahead the squatting pictures of [f] facing its fire at [homeSlot]. */
     fun prepareSquat(f: Folk, homeSlot: Int) {
         for (p in Squat.entries) squatFrame(f, homeSlot, p)
+        val pairs = listOf(null to Squat.SQUAT, Squat.SQUAT to Squat.STOKE_A, Squat.STOKE_A to Squat.STOKE_B, Squat.STOKE_A to Squat.SQUAT,
+            Squat.SQUAT to Squat.DOZE, Squat.DOZE to Squat.SQUAT, Squat.SQUAT to null, Squat.DOZE to null, Squat.STOKE_A to null, Squat.STOKE_B to null)
+        for ((a, b) in pairs) for (k in 1 until BLEND) squatFrame(f, homeSlot, SquatPose(a, b, k))
     }
 
     /** How near (in tiles each way) the hero must be for the folk to look at it. */

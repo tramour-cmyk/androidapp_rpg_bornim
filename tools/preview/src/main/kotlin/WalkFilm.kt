@@ -47,7 +47,9 @@ fun walkFilm(spec: String) {
     while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
     val map = p.getOrElse(0) { "forest" }
     g.state.place = Place(map, p.getOrElse(1) { "9" }.toInt(), p.getOrElse(2) { "12" }.toInt(), Facing.UP)
-    g.state.minutes = 12 * 60
+    // MINUTES / DAY: walk at another time, e.g. a night with fireflies (DAY=3 MINUTES=1380)
+    g.state.minutes = System.getenv("MINUTES")?.toInt() ?: (12 * 60)
+    System.getenv("DAY")?.let { g.state.day = it.toInt() }
     val m = de.bornim.core.World[map]
     g.state.explored[map] = "f".repeat((m.width * m.height + 3) / 4)
     if (System.getenv("NOPREP") == null) de.bornim.core.art.MapGround.prepareNow(m)

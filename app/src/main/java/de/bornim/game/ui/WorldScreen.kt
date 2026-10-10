@@ -316,10 +316,20 @@ private class Cam(val scale: Int, val x: Int, val y: Int, val heroX: Int, val he
 
 /** How close the map camera is. Near (the new default) shows about 5½ tiles across, far the former 10½. */
 object MapZoom {
-    @Volatile var near = true
+    /**
+     * Tiles across the screen, to try on the phone (10.10., 6.15): 5.6 (near, so far the default), 6.75 and
+     * 8.4 in between, 10.5 the former far view. Each is a whole-number zoom on a screen 1080 pixels wide.
+     */
+    val levels = floatArrayOf(5.6f, 6.75f, 8.4f, 10.5f)
+    @Volatile var level = 0
+
+    /** Near: any step but the former far one. */
+    var near: Boolean
+        get() = level < levels.size - 1
+        set(v) { level = if (v) 0 else levels.size - 1 }
 
     /** Tiles across the screen. */
-    val tilesAcross get() = if (near) 5.6f else 10.5f
+    val tilesAcross get() = levels[level]
 }
 
 private fun camera(game: Game, w: Float, h: Float, progress: Float, fromX: Int, fromY: Int): Cam {
@@ -327,7 +337,8 @@ private fun camera(game: Game, w: Float, h: Float, progress: Float, fromX: Int, 
     val T = WorldArt.T
     // Whole-number zoom so every art pixel is the same size on screen. Near, the zoom is even, so
     // map pictures drawn at double resolution also land on whole screen pixels.
-    val scale = if (MapZoom.near) max(2, 2 * (w / (T * 2 * MapZoom.tilesAcross)).roundToInt()) else max(2, floor(w / (T * MapZoom.tilesAcross)).toInt())
+    // (an odd zoom puts the double-resolution pictures half a pixel off; they are then smoothed a little when drawn)
+    val scale = if (MapZoom.near) max(2, (w / (T * MapZoom.tilesAcross)).roundToInt()) else max(2, floor(w / (T * MapZoom.tilesAcross)).toInt())
     val viewW = w / scale
     val viewH = h / scale
     val p = game.state.place
@@ -453,7 +464,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 dstOffset = IntOffset(sx, sy),
                 dstSize = IntSize(dw, dh),
                 alpha = alpha,
-                filterQuality = FilterQuality.None,
+                filterQuality = if (density > 1 && scale % density != 0) FilterQuality.Low else FilterQuality.None,
             )
         }
 
@@ -586,7 +597,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     val wo = game.lastWardOff
                     val warding = if (wo != null && wo.x == npc.x && wo.y == npc.y) MapFolk.wardAt(clock - wo.atMs) else null
                     // Garrick sits down at his fire now and then, at night he nods off; he starts up when the hero comes (10.10., 3)
-                    val squat = if (near || w != null || warding != null || !MapFolk.squats(f)) null else MapFolk.squatAt(f, clock, game.isNight)
+                    val squat = if (near || w != null || warding != null || !MapFolk.squats(f)) null else MapFolk.squatPoseAt(f, clock, game.isNight)
                     val doing = if (near || w != null || warding != null || squat != null) null else MapFolk.doing(f, clock)
                     val homeSlot = MapFigure.slot(home)
                     val target = when {
@@ -897,12 +908,20 @@ private fun DrawScope.drawCritters(
                 px(cx - 1, cy, 1f, 1f, Color(0xFFE8A020)); px(cx + 1, cy, 1f, 1f, Color(0xFFE8A020)) // legs
             }
         }
-        // Leaves drifting through the forest
-        if (map.kind == MapKind.FOREST) for (k in 0 until 7) {
-            val sx = (hash(k, 11) % 1000) / 1000f * viewW
-            val x = camX + (sx + clock * 0.012f + kotlin.math.sin(clock / 600f + k) * 8f) % viewW
-            val y = camY + (hash(k, 12) % 1000 / 1000f * viewH + clock * 0.02f) % viewH
-            px(x, y, 2f, 1f, if (k % 2 == 0) Color(0xFF8AB040) else Color(0xFFE09030))
+        // Leaves drifting through the forest. They belong to the world, not to the screen (10.10., 4: at
+        // dusk these specks were taken for fireflies that move with the picture): each leaf has its
+        // place in the world and is wrapped into the view only where it leaves one edge and comes back
+        // at the other. Dull, dry colors, darker as the light goes.
+        if (map.kind == MapKind.FOREST) {
+            val dim = ((day - 0.4f) / 0.4f).coerceIn(0.3f, 1f)
+            for (k in 0 until 7) {
+                val wx = (hash(k, 11) % 1000) / 1000f * viewW + clock * 0.012f + kotlin.math.sin(clock / 600f + k) * 8f
+                val wy = hash(k, 12) % 1000 / 1000f * viewH + clock * 0.02f
+                val x = camX + ((wx - camX) % viewW + viewW) % viewW
+                val y = camY + ((wy - camY) % viewH + viewH) % viewH
+                val c = if (k % 2 == 0) Color(0xFF6E6A34) else Color(0xFF8A5A2A)
+                px(x, y, 2f, 1f, Color(c.red * dim, c.green * dim, c.blue * dim))
+            }
         }
     }
 
