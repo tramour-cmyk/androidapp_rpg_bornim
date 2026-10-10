@@ -52,5 +52,20 @@ class HitReachTest {
         assertTrue(bad.isEmpty(), "${bad.size} Schläge treffen nicht in den Körper:\n" + bad.joinToString("\n"))
     }
 
+    /** All a hero's frames of a fight are kept at once, so none is gone again when it comes to be shown (19.5). */
+    @Test
+    fun allFramesOfAFightAreKept() {
+        val bad = mutableListOf<String>()
+        for (cls in CharClass.entries) for (w in listOf(null, "longsword", "greataxe", "mace", "dagger", "spear", "quarterstaff", "longbow", "light_crossbow")) {
+            val hero = GameState.newGame("Test", Race.HUMAN, cls).hero
+            w?.let { hero.equip(Gear(9_999L, it, Rarity.COMMON, 1)) }
+            for (foe in listOf("goblin", "wolf", "skeleton")) {
+                val n = HeroBattle.planFrames(hero, foe)
+                if (n > HeroBattle.MOST_FRAMES) bad += "$cls $w $foe: $n Bilder"
+            }
+        }
+        assertTrue(bad.isEmpty(), "mehr als ${HeroBattle.MOST_FRAMES} Bilder:\n" + bad.joinToString("\n"))
+    }
+
     private fun Pair<Double, Double>.fmt() = "(${first.toInt()}, ${second.toInt()})"
 }

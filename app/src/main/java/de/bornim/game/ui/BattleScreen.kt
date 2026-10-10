@@ -1167,6 +1167,14 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                         ui.motion?.takeIf { it.hold }?.let { Triple(it.act, it.strike, it.variant) }) { job?.isActive == false }
                 }
             }
+            // a killing blow, drawn ahead last of all, is drawn now while the hero winds up and holds still for it
+            val killWindUp = ui.motion?.takeIf { it.hold && it.act == HeroFigure.Act.ATTACK && it.strike.killing }?.strike
+            LaunchedEffect(battle, killWindUp, heroWound) {
+                if (killWindUp != null) kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                    val job = coroutineContext[kotlinx.coroutines.Job]
+                    HeroBattle.prepareBlow(battle.hero, killWindUp, heroWound) { job?.isActive == false }
+                }
+            }
             val doll = heroDollFrame(ui, if (de.bornim.core.Status.SLOW in ui.heroStatus) (clockMs / 1.8).toLong() else clockMs, heroWound)
             val dollFrame = doll.first
             // a melee blow steps in towards the foe, so the weapon lands on it, and back again
@@ -1708,6 +1716,9 @@ private fun heroDollFrame(ui: BattleUi, clockMs: Long, wounds: Int): Pair<de.bor
             // hero does not stand on while its words wait for it to lie
             if (m.act == HeroFigure.Act.DIE && now >= m.start && HeroBattle.ready(hero, m.act, m.strike, m.variant, i, wounds) == null)
                 return HeroBattle.frame(hero, m.act, m.strike, m.variant, i, wounds) to 0.0
+            // a blow under way is never shown stuck on an earlier frame: the blade would stay up while the foe falls
+            if (m.act == HeroFigure.Act.ATTACK && !m.hold && now >= m.start && i > m.from && HeroBattle.ready(hero, m.act, m.strike, m.variant, i, wounds) == null)
+                return HeroBattle.frame(hero, m.act, m.strike, m.variant, i, wounds) to lunge
             for (k in i downTo m.from) HeroBattle.ready(hero, m.act, m.strike, m.variant, k, wounds)?.let { return it to lunge }
             // a held pose (a guard, a wind-up) or a move under way never falls back to the rest: drawn now if no frame of
             // it is kept (a remedy's green flask, say, that was not drawn ahead)
