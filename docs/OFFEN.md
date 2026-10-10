@@ -10,7 +10,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
-| 1–4, 6 | Regen, Waffe verstaut, Garrick hockt, Glühwürmchen, Innenräume | Tom | `main` (v0.1.409) | zu testen, siehe „Zu testen“ |
+| 1–4, 6 | Regen, Waffe verstaut, Garrick hockt, Glühwürmchen, Innenräume | Tom | `main` (v0.1.409) | getestet 12:42: 1.4 passt; 3.3 eckig; 4 scrollt mit; 6 Eingabe folgt |
 | 5 | Dorf draußen, 12 Dorfbewohner als Puppen, danach Laden, Haus des Ältesten, Tempel | Tom | neu von `main` | nach Freigabe der Schänke |
 | 8 | Zusammenarbeit Tom und Jerry, Notizen nur auf `main` | Jerry | `main` | umgesetzt 10.10. |
 | 9 | Monster auf der Karte (aus den Kampfmodellen, Vierbeiner mit Laufbewegung) | Jerry | neu von `main` | Wolf und Goblin eingebaut, Zweig-Build 0.1.411 zu testen (Zweig `claude/session-start-bkldp8`) |
@@ -81,6 +81,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ### Tom
 
+- **Test 0.1.409, Rückmeldung 10.10., 12:42:** 1.4 passt. 3.3 passt, aber die Animation (Hocken, Dösen) wirkt sehr eckig. 4 Glühwürmchen scrollen mit dem Bild mit, das darf nicht sein; sonst passen sie. 6.7–6.13: neue Eingabe des Nutzers folgt, **vorher nichts anfangen**.
 - **10.10., 10:46–10:50:** 1.4 ja, 3.3 ja mit Testknopf (später wieder entfernen); 7.1–7.3 Stopp-Punkt; 7a: Zweig schon jetzt auf `main` zusammenführen. Umgesetzt bis 10:50: 1.4, 3.3, 6.7–6.13 (Schänke), `main` in den Zweig zusammengeführt (Doku-Konflikte, beide Seiten behalten), dann auf `main`.
 - **10.10., 10:44:** 6g Katze auf die Merkliste; 6h ja: 6.7–6.13 erst an der Schänke als Bild zeigen, dann die anderen Räume. Kennung von Tom in `AUFTEILUNG.md` eingetragen (Wunsch von Jerry). 1.4 und 3.3/3a noch ohne Antwort.
 - **Test 0.1.406, Rückmeldung 10.10., 10:40:** 1.1, 1.2, 2.1, 2.2, 6.1, 6.2 passen; Donner gut. **1.3 kein Aufleuchten zu sehen** (Befund: der Testknopf wird bei offenem Menü gedrückt, das Spiel hat da eine veraltete Uhrzeit; das Leuchten ist schon vorbei, wenn die Karte wieder läuft, der Donner kommt trotzdem; außerdem ist es tagsüber zu schwach). **3.1 Einnicken nicht beobachtet** (nur nachts, frühestens 6–10 s nach dem Hinsetzen, Held mehr als 4 Felder weg). 4 noch nicht getestet. **6d Richtung passt; 6e Feuer etwas zu hell, Stimmung mehr mit Licht und Schatten, düsterer, aber nicht dunkel; 6f Regel: soll lebendig wirken** (in `docs/STIL.md` übernommen). Vorschläge 1.4, 3.3, 6.7–6.12 in Besprechung.
