@@ -40,7 +40,8 @@ class JumpTest {
         /** Not a pose: which flame shape is drawn. */
         private val SKIP = setOf("flicker")
 
-        private fun limit(name: String): Double = when (name) {
+        /** The limit on the map of one field, by its name. */
+        fun limitOf(name: String): Double = when (name) {
             in ANGLES -> DEG
             in LENGTHS -> CM
             in LIMBS -> LIMB_CM
@@ -52,23 +53,25 @@ class JumpTest {
             else -> SHARE
         }
 
-        /** Every field of two rigs of one kind (a data class: [Beast.Rig], [HeroFigure.Rig]) that moved too far. */
-        fun compare(case: String, at: String, a: Any, b: Any): List<Jump> {
-            val out = mutableListOf<Jump>()
+        /** How far each field of two rigs of one kind (a data class: [Beast.Rig], [HeroFigure.Rig]) moved. */
+        fun measure(a: Any, b: Any): Map<String, Double> {
+            val out = linkedMapOf<String, Double>()
             for (f in a.javaClass.declaredFields) {
                 if (java.lang.reflect.Modifier.isStatic(f.modifiers) || f.name in SKIP) continue
                 f.isAccessible = true
                 val va = f.get(a); val vb = f.get(b)
-                val d = when {
+                out[f.name] = when {
                     va is Double && vb is Double -> if (f.name in ANGLES) angle(va, vb) else kotlin.math.abs(va - vb)
                     va is HeroFigure.V && vb is HeroFigure.V -> kotlin.math.sqrt((va.r - vb.r).let { it * it } + (va.u - vb.u).let { it * it } + (va.f - vb.f).let { it * it })
                     else -> continue
                 }
-                val lim = limit(f.name)
-                if (d > lim + 1e-9) out += Jump(case, at, f.name, d, lim)
             }
             return out
         }
+
+        /** Every field of two rigs of one kind that moved too far. */
+        fun compare(case: String, at: String, a: Any, b: Any): List<Jump> =
+            measure(a, b).mapNotNull { (name, d) -> limitOf(name).let { lim -> if (d > lim + 1e-9) Jump(case, at, name, d, lim) else null } }
 
         private fun angle(a: Double, b: Double) = kotlin.math.abs(((b - a) % 360.0 + 540.0) % 360.0 - 180.0)
 
