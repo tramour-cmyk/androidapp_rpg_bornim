@@ -16,3 +16,5 @@ if [ "$1" = "--warm" ]; then
 else
     echo "Bornim: Gradle-Spiegel eingerichtet."
 fi
+# Wer bin ich, was hat sich an den Notizen auf main geändert (CLAUDE.md, „Sitzungsstart“)
+tools/notiz.sh --kurz

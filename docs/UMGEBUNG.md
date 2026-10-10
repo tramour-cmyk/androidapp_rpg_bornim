@@ -85,3 +85,7 @@ Die Chat-Sitzung hat eine eigene Netzregel. Ohne Freigabe sind Maven Central, Go
 
 - Die Werkzeuge der Cloud-Sitzung selbst (GitHub-Anbindung, Datei-Versand an dich, Zeitstempel über `TZ=Europe/Berlin date`) kommen von Claude Code, nicht aus dem Repository.
 - Erinnerungen an frühere Gespräche: alles Wichtige steht in `CLAUDE.md`, `docs/OFFEN.md` (Übergabe-Notiz), `docs/STIL.md`, `docs/MERKLISTE.md` und `CHANGELOG.md`.
+
+## Notizen auf `main` (seit 10.10.)
+
+`tools/notiz.sh` holt `main`, legt die Arbeitskopie `../bornim-main` für Notizen an, meldet den Namen der Sitzung (Tom oder Jerry, aus der Tabelle in `CLAUDE.md`) und zeigt, was sich seit dem letzten Aufruf an `CLAUDE.md`, `CHANGELOG.md` und `docs/` geändert hat. Der Starthaken ruft es mit `--kurz` auf.
