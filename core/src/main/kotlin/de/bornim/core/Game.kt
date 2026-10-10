@@ -831,11 +831,15 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         changed()
     }
 
-    /** Test: a flash of sheet lightning now (the thunder follows). */
+    /** Test: a flash of sheet lightning as soon as the map runs again (pressed in the menu, the map's clock stands still; 10.10., 1.4). */
     fun cheatFlash() {
-        flash()
+        flashPending = true
         changed()
     }
+    private var flashPending = false
+
+    /** Lets a flash asked for in the test tab go off; the map calls this once it is in view again. */
+    fun releaseFlash() { if (flashPending && mode == Mode.Explore) { flashPending = false; flash() } }
 
     fun cheatGold(amount: Int) {
         state.gold += amount

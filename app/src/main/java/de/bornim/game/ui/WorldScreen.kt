@@ -189,6 +189,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 clock = ms
                 val modeBefore = game.mode
                 game.update(ms)
+                if (!vm.menuOpen) game.releaseFlash()
                 game.notices.removeFirstOrNull()?.let { vm.toast = it(game.lang) }
                 if (game.sounds.isNotEmpty() || game.mode != modeBefore) vm.refresh()
             }
@@ -1105,8 +1106,17 @@ private fun DrawScope.drawMapLight(
         val on = MapLight.strength(map, src.shines, day).toFloat() * seen
         if (on <= 0.02f || !visible(c, r)) continue
         val t = clock.toFloat()
+        val indoor = map.kind == MapKind.INTERIOR
         val (color, a) = when (src.kind) {
-            MapLight.Kind.TORCH, MapLight.Kind.FIRE -> {
+            // a fire in a room flickers more and lights less: the room breathes with it (10.10., 6.7, 6.10)
+            MapLight.Kind.FIRE -> if (indoor) {
+                val f = 0.72f + 0.16f * kotlin.math.sin(t / 83f + i * 1.7f) + 0.12f * kotlin.math.sin(t / 31f + i) * kotlin.math.sin(t / 211f)
+                Color(0xFFFF9A40) to 0.2f * f
+            } else {
+                val f = 0.8f + 0.12f * kotlin.math.sin(t / 83f + i * 1.7f) + 0.08f * kotlin.math.sin(t / 37f + i)
+                Color(0xFFFFA850) to 0.32f * f
+            }
+            MapLight.Kind.TORCH -> {
                 val f = 0.8f + 0.12f * kotlin.math.sin(t / 83f + i * 1.7f) + 0.08f * kotlin.math.sin(t / 37f + i)
                 Color(0xFFFFA850) to 0.32f * f
             }
@@ -1115,8 +1125,9 @@ private fun DrawScope.drawMapLight(
             MapLight.Kind.SKY -> Color(0xFFE8F0FF) to 0.32f
             MapLight.Kind.EXIT -> Color(0xFFFFF4D8) to 0.18f
             MapLight.Kind.LAMP -> Color(0xFFFFD088) to 0.3f * (0.94f + 0.06f * kotlin.math.sin(t / 140f + i))
-            MapLight.Kind.WINDOW -> Color(0xFFFFC870) to 0.2f
-            MapLight.Kind.CANDLE -> Color(0xFFFFC078) to 0.18f * (0.88f + 0.12f * kotlin.math.sin(t / 97f + i * 1.3f))
+            // a lit window seen from outside is warm; from inside it lets in grey daylight
+            MapLight.Kind.WINDOW -> if (indoor) Color(0xFFD8E0EC) to 0.1f else Color(0xFFFFC870) to 0.2f
+            MapLight.Kind.CANDLE -> Color(0xFFFFC078) to 0.2f * (0.84f + 0.1f * kotlin.math.sin(t / 97f + i * 1.3f) + 0.06f * kotlin.math.sin(t / 41f + i))
             MapLight.Kind.DOOR -> Color(0xFFE8ECF0) to 0.1f
         }.let { (c, al) -> c to al * on }
         drawCircle(
@@ -1125,13 +1136,32 @@ private fun DrawScope.drawMapLight(
         )
         val px = scale.toFloat()
         when (src.kind) {
-            MapLight.Kind.FIRE, MapLight.Kind.TORCH -> for (k in 0 until (if (src.kind == MapLight.Kind.FIRE) 5 else 2)) {
+            MapLight.Kind.FIRE, MapLight.Kind.TORCH -> { for (k in 0 until (if (src.kind == MapLight.Kind.FIRE) 5 else 2)) {
                 // sparks rising and fading
                 val period = 1400 + k * 230
                 val ph = ((clock + k * 517 + i * 131) % period) / period.toFloat()
                 val sx = src.x + kotlin.math.sin(ph * 6f + k) * 4 + (k - 2) * 2
                 val sy = src.y - 6 - ph * 26
                 drawRect(Color(0xFFFFC060).copy(alpha = (1 - ph) * 0.9f * seen), at(sx, sy.toDouble()), androidx.compose.ui.geometry.Size(px, px))
+            }
+                // in a hearth: steam from the kettle, and smoke curling up the soot of the breast (6.11)
+                if (src.kind == MapLight.Kind.FIRE && indoor) for (k in 0 until 4) {
+                    val period = 2600 + k * 470
+                    val ph = ((clock + k * 830 + i * 97) % period) / period.toFloat()
+                    val steam = k < 2
+                    val sx = src.x + (if (steam) (k - 0.5) * 3 else (k - 2.5) * 10) + kotlin.math.sin(ph * 5f + k) * (2 + ph * 4)
+                    val sy = src.y - (if (steam) 22 else 30) - ph * (if (steam) 14 else 24)
+                    val rr = (1.5f + ph * (if (steam) 3f else 6f)) * px
+                    drawCircle(Color(if (steam) 0xFFC8C4BC else 0xFF6A625A).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * (if (steam) 0.22f else 0.16f) * seen), rr, at(sx, sy.toDouble()))
+                }
+            }
+            MapLight.Kind.WINDOW, MapLight.Kind.DOOR -> if (indoor && src.shines == MapLight.When.DAY) for (k in 0 until 7) {
+                // dust dancing in the daylight falling in (6.12)
+                val period = 5200 + k * 760
+                val ph = ((clock + k * 1300 + i * 211) % period) / period.toFloat()
+                val sx = src.x + ((k * 37 + i * 11) % 24 - 12) + kotlin.math.sin(ph * 4f + k) * 5
+                val sy = src.y - 8 + ((k * 23) % 30) + kotlin.math.sin(ph * 3f + k * 2) * 6 + ph * 6
+                drawRect(Color(0xFFF0E8D8).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * 0.55f * on), at(sx, sy), androidx.compose.ui.geometry.Size(px, px))
             }
             MapLight.Kind.SHROOM -> for (k in 0 until 3) {
                 // spores drifting up from the mushrooms
@@ -1251,7 +1281,8 @@ private fun DrawScope.drawRain(game: Game, map: de.bornim.core.MapDef, clock: Lo
     if (since in 0..1200) {
         fun pulse(at: Long, len: Long) = if (since in at until at + len) kotlin.math.sin((since - at) / len.toFloat() * Math.PI.toFloat()) else 0f
         val f = maxOf(pulse(0, 110), 0.75f * pulse(170, 140), 0.35f * pulse(420, 700))
-        drawRect(Color(0xFFDDE6F4).copy(alpha = 0.33f * f))
+        // by day it must outshine the daylight to be seen at all (1.4)
+        drawRect(Color(0xFFDDE6F4).copy(alpha = (0.33f + 0.32f * game.daylight) * f))
     }
 }
 

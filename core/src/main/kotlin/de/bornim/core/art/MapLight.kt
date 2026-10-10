@@ -55,10 +55,11 @@ object MapLight {
                         // indoors, a window lets in grey daylight
                         else if (indoor && hasHearth(map)) out += Source(cx, ty * T + T + 8.0, Kind.WINDOW, argb(0xD8E0EC), T * 2.6, 0.55, When.DAY)
                     // a fire in the back wall: the light comes out of its mouth onto the floor in front
-                    Tile.HEARTH -> if (map.tile(tx - 1, ty) != Tile.HEARTH) out += Source((tx + 1) * T.toDouble(), (ty + 1) * T + 4.0, Kind.FIRE, argb(0xFF9A48), T * 5.0, 1.45)
-                    Tile.TABLE -> if (indoor) out += Source(cx, cy, Kind.CANDLE, argb(0xFFC078), T * 2.8, 0.6)
+                    Tile.HEARTH -> if (map.tile(tx - 1, ty) != Tile.HEARTH) out += Source((tx + 1) * T.toDouble(), (ty + 1) * T + 4.0, Kind.FIRE, argb(0xFF9046), T * 3.6, 1.05)
+                    // a candle on a table: a small warm island, the dark close about it (10.10., 6.8)
+                    Tile.TABLE -> if (indoor) out += Source(cx, cy, Kind.CANDLE, argb(0xFFB870), T * (if (hasHearth(map)) 1.7 else 2.8), if (hasHearth(map)) 0.62 else 0.6)
                     Tile.ALTAR -> out += Source(cx, cy, Kind.CANDLE, argb(0xFFE0A0), T * 3.2, 0.75)
-                    Tile.COUNTER -> if (indoor) out += Source(cx, cy, Kind.CANDLE, argb(0xFFC078), T * 2.4, 0.45)
+                    Tile.COUNTER -> if (indoor) out += Source(cx, cy, Kind.CANDLE, argb(0xFFB870), T * (if (hasHearth(map)) 1.5 else 2.4), if (hasHearth(map)) 0.5 else 0.45)
                     Tile.DOOR -> if (indoor) out += Source(cx, cy - 4, Kind.DOOR, argb(0xE8ECF0), T * 3.0, 0.6, When.DAY)
                     else -> {}
                 }
@@ -162,7 +163,7 @@ object MapLight {
         return when (map.kind) {
             MapKind.CAVE -> doubleArrayOf(0.13, 0.13, 0.18)
             // a room with a fire (new style, 10.10.) is darker about its corners: the fire lights it, the window a little
-            MapKind.INTERIOR -> if (hasHearth(map)) mix(doubleArrayOf(0.16, 0.14, 0.15), doubleArrayOf(0.42, 0.4, 0.38), daylight.toDouble())
+            MapKind.INTERIOR -> if (hasHearth(map)) mix(doubleArrayOf(0.13, 0.115, 0.125), doubleArrayOf(0.31, 0.29, 0.285), daylight.toDouble())
                 else mix(doubleArrayOf(0.36, 0.32, 0.3), doubleArrayOf(0.7, 0.64, 0.56), daylight.toDouble())
             else -> {
                 val day = if (deep) doubleArrayOf(0.8, 0.86, 0.8) else if (map.kind == MapKind.FOREST) doubleArrayOf(0.96, 0.98, 0.93) else doubleArrayOf(1.0, 0.99, 0.96)

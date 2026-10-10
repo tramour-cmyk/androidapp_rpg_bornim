@@ -210,7 +210,8 @@ object MapFolk {
                 rh = HeroFigure.V(8.0, 40.0, 30.0), weapon = HeroFigure.V(0.1, -0.8, 0.6), lh = HeroFigure.V(-9.0, 40.0, 22.0))
             Squat.STOKE_B -> base.copy(lean = 0.48, headDown = 3.0, torch = 1.0, flicker = -1, aim = 1.0, grip = 10.0,
                 rh = HeroFigure.V(10.0, 37.0, 34.0), weapon = HeroFigure.V(0.25, -0.85, 0.46), lh = HeroFigure.V(-9.0, 40.0, 22.0))
-            Squat.DOZE -> base.copy(lean = 0.35, headDown = 9.0, rh = HeroFigure.V(4.0, 44.0, 22.0), lh = HeroFigure.V(-4.0, 45.0, 21.0))
+            // asleep: the head sunk deep on the chest, the back rounded, the hands slack on the knees (10.10., 3.3)
+            Squat.DOZE -> base.copy(lean = 0.48, headDown = 17.0, rh = HeroFigure.V(5.0, 40.0, 21.0), lh = HeroFigure.V(-5.0, 41.0, 20.0))
         }
     }
 
@@ -235,6 +236,7 @@ object MapFolk {
      * a beast turns up, the caller lets him stand at once (he starts up).
      */
     fun squatAt(f: Folk, clockMs: Long, night: Boolean): Squat? {
+        if (forceDoze) return dozing(f, clockMs)
         val n = Math.floorDiv(clockMs, SQUAT_BLOCK_MS)
         val t = clockMs - n * SQUAT_BLOCK_MS
         val r = java.util.Random(n * 7_000_003L + f.id.hashCode() * 31L + 5)
@@ -251,8 +253,24 @@ object MapFolk {
         val s = t - start
         for (k in 0 until stokes) if (s >= stokeAt[k] && s < stokeAt[k] + stokeLen[k])
             return if (((s - stokeAt[k]) / 340) % 2 == 0L) Squat.STOKE_A else Squat.STOKE_B
-        return if (night && s >= dozeAt) Squat.DOZE else Squat.SQUAT
+        return if (night && s >= dozeAt) dozing(f, s - dozeAt) else Squat.SQUAT
     }
+
+    /**
+     * Nodding off [ms] after falling asleep: the head sunk, and every few seconds (never on a beat)
+     * it jerks up for a moment and sinks again.
+     */
+    private fun dozing(f: Folk, ms: Long): Squat {
+        val n = Math.floorDiv(ms, 6_000L)
+        val r = java.util.Random(n * 1_000_033L + f.id.hashCode())
+        val jerkAt = 1_500L + (r.nextDouble() * 3_500).toLong()
+        val jerks = r.nextDouble() < 0.55
+        val t = ms - n * 6_000L
+        return if (jerks && t in jerkAt until jerkAt + 450) Squat.SQUAT else Squat.DOZE
+    }
+
+    /** Test switch: Garrick sits and dozes all the time (10.10., 3a; to be removed again). */
+    @Volatile var forceDoze = false
 
     /** Draws ahead the squatting pictures of [f] facing its fire at [homeSlot]. */
     fun prepareSquat(f: Folk, homeSlot: Int) {

@@ -84,6 +84,13 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         PixelButton(t("Wetterleuchten mit Donner (draußen)", "Sheet lightning with thunder (outdoors)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatFlash()
             vm.refresh()
+            vm.toast = t("Das Wetterleuchten kommt, sobald die Karte wieder läuft.", "The lightning comes as soon as the map runs again.")
+        }
+        // to test Garrick nodding off (10.10., 3a); to be removed again
+        var doze by remember { mutableStateOf(de.bornim.core.art.MapFolk.forceDoze) }
+        PixelButton(t("Garrick döst jetzt: ", "Garrick dozes now: ") + (if (doze) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.art.MapFolk.forceDoze = !de.bornim.core.art.MapFolk.forceDoze
+            doze = de.bornim.core.art.MapFolk.forceDoze
         }
         PixelButton(t("Alle Vorräte auf mindestens 10", "All supplies to at least 10"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatSupplies(10)

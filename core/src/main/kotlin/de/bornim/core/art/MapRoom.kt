@@ -113,6 +113,8 @@ object MapRoom {
                 val shadeK = wallShade(map, tx, ty, lx, ly)
                 tt -= shadeK
                 if (t in furniture) tt -= 0.18
+                // behind the counter, out of the light
+                if (map.inside(tx, ty + 1) && map.tile(tx, ty + 1) == Tile.COUNTER) tt -= 0.12 + (ly / S.toDouble()) * 0.1
                 c = pick(BOARD, tt)
                 // straw trodden in, more of it towards the walls
                 val sx = Math.floorDiv(x, 7); val sy = Math.floorDiv(y, 7)
@@ -208,7 +210,7 @@ object MapRoom {
         for (i in 0..n) { val t = i / n.toDouble(); put(img, (x0 + (x1 - x0) * t).toInt(), (y0 + (y1 - y0) * t).toInt(), c) }
     }
     /** A soft shadow on the floor under a thing, part of its picture. */
-    private fun floorShadow(img: PixelImage, cx: Double, cy: Double, rx: Double, ry: Double, a: Int = 0x60) {
+    private fun floorShadow(img: PixelImage, cx: Double, cy: Double, rx: Double, ry: Double, a: Int = 0x88) {
         for (y in (cy - ry).toInt()..(cy + ry).toInt()) for (x in (cx - rx).toInt()..(cx + rx).toInt()) {
             val nx = (x - cx) / rx; val ny = (y - cy) / ry; val d = nx * nx + ny * ny
             if (d > 1 || img[x, y] ushr 24 != 0) continue
@@ -228,6 +230,20 @@ object MapRoom {
         blob(img, x, y, 6.5, 3.5) { nx, ny -> if (nx * nx + ny * ny < 0.35 && ny < 0.3) argb(0x4A3420) else shade(argb(0x8A6E50), 1.1 - ny * 0.4 - nx * 0.1) }
     private fun bread(img: PixelImage, x: Double, y: Double) =
         blob(img, x, y, 5.5, 3.0) { nx, ny -> shade(argb(0xA07A44), 1.15 - nx * 0.2 - ny * 0.35) }
+    /** A mug knocked over, a dark puddle spreading from its mouth. */
+    private fun tipped(img: PixelImage, x: Int, y: Int) {
+        blob(img, x + 10.0, y - 1.5, 6.0, 2.2) { _, ny -> shade(argb(0x2A1C12), 0.9 - ny * 0.2) }
+        rect(img, x, y - 5, x + 8, y) { xx, yy -> if (yy == y - 5) argb(0x9A8E78) else if (xx == x + 7) argb(0x3A2A1E) else argb(0x7A6E5A) }
+    }
+    /** Crumbs and a crust left lying. */
+    private fun crumbs(img: PixelImage, x: Int, y: Int, v: Int) {
+        for (k in 0 until 7) put(img, x + hash(k, v, 57) % 12, y - hash(k, v, 58) % 5, if (k % 3 == 0) argb(0x6A4A28) else argb(0xA07A44))
+        blob(img, x + 4.0, y - 2.0, 3.0, 1.6) { nx, _ -> shade(argb(0x8A6438), 1.1 - nx * 0.3) }
+    }
+    /** A grey rag, wrung and dropped. */
+    private fun rag(img: PixelImage, x: Int, y: Int) =
+        blob(img, x + 6.0, y - 2.5, 7.0, 3.2) { nx, ny -> pick(CLOTH, 0.55 - nx * 0.2 - ny * 0.2 + (if (abs(nx * 0.7 - ny) < 0.12) -0.35 else 0.0)) }
+
     private fun jug(img: PixelImage, x: Int, y: Int) {
         blob(img, x + 4.0, y - 5.0, 4.5, 5.0) { nx, ny -> shade(argb(0x8A5A38), 1.15 - nx * 0.35 - ny * 0.15) }
         rect(img, x + 2, y - 12, x + 6, y - 9) { xx, _ -> if (xx == x + 2) argb(0x9A6A44) else argb(0x7A4A2E) }
@@ -319,9 +335,9 @@ object MapRoom {
         rect(img, x0, h - 9, x1, h - 4) { _, _ -> BEAM[2] }
         when (v % 4) {
             0 -> { mug(img, 14, 26); mug(img, 22, 27); jug(img, 40, 27) }
-            1 -> { candle(img, 12, 26, 8); bowl(img, 36.0, 23.0) }
+            1 -> { candle(img, 12, 26, 8); bowl(img, 36.0, 23.0); rag(img, 42, 29) }
             2 -> { rect(img, 10, 18, 30, 27) { x, y -> if (y == 18 || x == 10) argb(0xB8AC90) else argb(0x9A8E74) }; line(img, 13.0, 21.0, 27.0, 21.0, argb(0x5A4E3E)); line(img, 13.0, 24.0, 24.0, 24.0, argb(0x5A4E3E)); mug(img, 40, 27) }
-            else -> { jug(img, 12, 27); bread(img, 38.0, 24.0) }
+            else -> { jug(img, 12, 27); bread(img, 38.0, 24.0); tipped(img, 26, 28) }
         }
         Sprite(img, w / 2, h - 4)
     }
@@ -331,7 +347,8 @@ object MapRoom {
         val w = S; val h = 76; val img = PixelImage(w, h)
         val x0 = if (l) 0 else 4; val x1 = if (r) w else w - 4
         // the table's shadow on the floor between the legs
-        rect(img, x0 + 2, h - 10, x1 - 2, h - 3) { _, y -> ((0x58 - (y - (h - 10)) * 6) shl 24) or 0x0A0806 }
+        // the floor under the table lies in its shade, deepest just under the top (10.10., 6.9)
+        rect(img, x0 + 1, 37, x1 - 1, h - 3) { _, y -> ((0x90 - (y - 37) * 2).coerceIn(0x40, 0x90) shl 24) or 0x0A0806 }
         // the top seen from above, boards running along
         rect(img, x0, 6, x1, 32) { x, y -> pick(OAK, 0.58 - (y - 6) * 0.01 + (if ((y - 6) % 8 == 0) -0.35 else 0.0) + (rnd((x + (y - 6) / 8 * 17) / 23, (y - 6) / 8, 15 + v) - 0.5) * 0.22) }
         rect(img, x0, 32, x1, 37) { _, y -> if (y == 32) BEAM[0] else BEAM[2] }
@@ -341,9 +358,9 @@ object MapRoom {
         if (!l || !r) rect(img, x0 + 4, h - 22, x1 - 4, h - 19) { _, _ -> BEAM[2] }
         when (v % 4) {
             0 -> { candle(img, 10, 22, 7); bowl(img, 36.0, 18.0); bread(img, 26.0, 27.0) }
-            1 -> { mug(img, 12, 26); mug(img, 20, 20); bowl(img, 42.0, 24.0) }
+            1 -> { mug(img, 20, 20); tipped(img, 8, 28); bowl(img, 42.0, 24.0); crumbs(img, 30, 30, v) }
             2 -> { jug(img, 14, 26); bread(img, 34.0, 15.0); bowl(img, 44.0, 25.0) }
-            else -> { candle(img, 40, 20, 5); mug(img, 16, 24) }
+            else -> { candle(img, 40, 20, 5); mug(img, 16, 24); crumbs(img, 22, 30, v); bread(img, 30.0, 17.0) }
         }
         Sprite(img, w / 2, h - 4)
     }
@@ -352,7 +369,7 @@ object MapRoom {
     fun bench(l: Boolean, r: Boolean): Sprite = cached("bench/$l/$r") {
         val w = S; val h = 36; val img = PixelImage(w, h)
         val x0 = if (l) 0 else 5; val x1 = if (r) w else w - 5
-        rect(img, x0 + 2, h - 8, x1 - 2, h - 3) { _, y -> ((0x50 - (y - (h - 8)) * 8) shl 24) or 0x0A0806 }
+        rect(img, x0 + 1, 19, x1 - 1, h - 3) { _, y -> ((0x78 - (y - 19) * 2).coerceIn(0x40, 0x78) shl 24) or 0x0A0806 }
         rect(img, x0, 8, x1, 16) { x, y -> pick(OAK, 0.55 - (y - 8) * 0.02 + (rnd(x / 13, 0, 43) - 0.5) * 0.2) }
         rect(img, x0, 16, x1, 19) { _, y -> if (y == 16) BEAM[0] else BEAM[2] }
         for (lx in buildList { if (!l) add(x0 + 3); if (!r) add(x1 - 7) }) rect(img, lx, 19, lx + 4, h - 4) { xx, _ -> if (xx == lx) BEAM[0] else BEAM[1] }

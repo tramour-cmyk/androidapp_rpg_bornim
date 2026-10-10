@@ -66,7 +66,7 @@ class WeatherTest {
     fun thunderFollowsTheFlashSecondsLaterOnlyOutdoors() {
         val g = game()
         var t = g.run(1, 500)
-        g.cheatFlash()
+        g.cheatFlash(); g.releaseFlash()
         g.sounds.clear()
         t = g.run(t, Weather.THUNDER_DELAY.first - 200)
         assertFalse(Sound.THUNDER in g.sounds, "thunder too early")
@@ -75,7 +75,7 @@ class WeatherTest {
         // indoors the flash is not seen and the thunder not heard
         val inn = game("inn")
         val t2 = inn.run(1, 500)
-        inn.cheatFlash(); inn.sounds.clear()
+        inn.cheatFlash(); inn.releaseFlash(); inn.sounds.clear()
         inn.run(t2, Weather.THUNDER_DELAY.last + 600)
         assertFalse(Sound.THUNDER in inn.sounds)
     }
@@ -102,5 +102,23 @@ class WeatherTest {
         assertTrue(peak > 3000, "too quiet: $peak")
         val clipped = pcm.count { kotlin.math.abs(it.toInt()) >= 32767 }
         assertTrue(clipped < pcm.size / 1000, "clipped: $clipped")
+    }
+}
+
+class FlashReleaseTest {
+    @Test
+    fun theTestFlashWaitsUntilTheMapIsSeen() {
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        val g = Game(s, Lang.DE, Dice(Random(3)))
+        var guard = 0
+        while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
+        s.place = Place("village", 11, 7, Facing.DOWN)
+        g.update(1000)
+        val before = g.flashAt
+        g.cheatFlash()
+        g.update(5000)
+        assertEquals(before, g.flashAt, "flashed while the menu was open")
+        g.releaseFlash()
+        assertEquals(5000, g.flashAt)
     }
 }
