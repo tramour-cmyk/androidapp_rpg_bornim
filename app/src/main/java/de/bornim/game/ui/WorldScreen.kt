@@ -59,6 +59,7 @@ import de.bornim.core.Story
 import de.bornim.core.Tile
 import de.bornim.core.art.MapFigure
 import de.bornim.core.art.MapFoe
+import de.bornim.core.art.MapFollow
 import de.bornim.core.art.MapFolk
 import de.bornim.core.art.MapRest
 import de.bornim.core.art.MapGlow
@@ -590,12 +591,12 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                         // the guards at its sides, a little behind, whichever way it faces
                         guards.forEachIndexed { i, g0 ->
                             // each guard keeps its place at the boss's side, walking round when the boss turns (9g)
-                            val (tx, ty) = Followers.place(bx, by, turn.yaw, 8.0, 30.0, if (i % 2 == 0) -1 else 1)
-                            val f = Followers.update("boss:${npc.id}:$i", tx, ty, T * 1.4 / 480.0, clock, turn.yaw)
+                            val (tx, ty) = MapFollow.place(bx, by, turn.yaw, 8.0, 30.0, if (i % 2 == 0) -1 else 1)
+                            val f = MapFollow.update("boss:${npc.id}:$i", tx, ty, T * 1.4 / 480.0, clock, turn.yaw)
                             val gx = f.x.roundToInt(); val gy = f.y.roundToInt()
                             val gLook = de.bornim.core.MonsterLook(101 * (i + 1))
                             val gScale = if (pack!!.mate in de.bornim.core.art.BeastArt.KINDS) mapMateScale(pack).toDouble() else 1.0
-                            val g = if (f.moving) MapFoe.pictureNow(pack.mate, gLook, MapFigure.slot(f.turn.yaw),
+                            val g = if (f.moving) MapFoe.pictureNow(pack.mate, gLook, MapFigure.slot(f.yaw),
                                 Math.floorMod((f.dist / T * MapFoe.STEPS).toInt(), MapFoe.STEPS), gScale) else g0
                             if (g != null) {
                                 val gl = warmEdge(g.img, gx, gy)
@@ -711,10 +712,10 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 val mateLook = de.bornim.core.MonsterLook(r.look.seed + 101 * (i + 1))
                 val beastMate = pack.mate in de.bornim.core.art.BeastArt.KINDS
                 // an animal is long: its mates keep a body's length behind
-                val (tx, ty) = Followers.place(rx, ry, turn.yaw, if (beastMate) 24.0 else 13.0, 10.0, if (i == 0) -1 else 1)
-                val f = Followers.update("roamer:${r.uid}:$i", tx, ty, T * 1.4 / r.moveMs, clock, turn.yaw)
+                val (tx, ty) = MapFollow.place(rx, ry, turn.yaw, if (beastMate) 24.0 else 13.0, 10.0, if (i == 0) -1 else 1)
+                val f = MapFollow.update("roamer:${r.uid}:$i", tx, ty, T * 1.4 / r.moveMs, clock, turn.yaw)
                 val mx = f.x.roundToInt(); val my = f.y.roundToInt()
-                val mSlot = MapFigure.slot(f.turn.yaw)
+                val mSlot = MapFigure.slot(f.yaw)
                 val mStep = Math.floorMod((f.dist / T * MapFoe.STEPS).toInt(), MapFoe.STEPS)
                 val mScale = if (beastMate) mapMateScale(pack).toDouble() else 1.0
                 val matePic = if (pack.mate !in MapFoe.ON) null
@@ -728,7 +729,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 // the former sprite (kobolds), looking the way the mate goes
                 val mate = MonsterArt.mapSprite(
                     pack.mate, mateLook, ((clock / 240 + i + 1) % 4).toInt(),
-                    mirrored = kotlin.math.sin(Math.toRadians(f.turn.yaw)) > 0.2, scale = mapMateScale(pack),
+                    mirrored = kotlin.math.sin(Math.toRadians(f.yaw)) > 0.2, scale = mapMateScale(pack),
                 )
                 sprites += Sprite((my + T - 1).toFloat()) { put(mate, mx + T / 2 - mate.width / 2, my + T - mate.height) }
             }
@@ -846,53 +847,6 @@ private object BossMood {
         val step = dt * MapFoe.LEVELS / MapFoe.EASE_MS.toDouble()
         m.level = if (near) minOf(MapFoe.LEVELS.toDouble(), m.level + step) else maxOf(0.0, m.level - step)
         return Math.round(m.level).toInt()
-    }
-}
-
-/**
- * The mates of a pack and the guards of a boss (9g): each has a place of its own near its leader and walks there at
- * its own pace, slowing as it arrives, turning the way it goes and, standing, the way its leader looks. So when the
- * leader turns, the mates come round in an arc instead of swinging round it like a rigid frame.
- */
-private object Followers {
-    class F {
-        var x = 0.0; var y = 0.0
-        var last = 0L
-        /** How far it has walked, for the steps of its walk. */
-        var dist = 0.0
-        var moving = false
-        val turn = Turn()
-    }
-    private val all = HashMap<String, F>()
-
-    /** The place behind ([back]) and to one [side] (±1, [aside] pixels) of a leader at ([x], [y]) facing [yaw]. */
-    fun place(x: Int, y: Int, yaw: Double, back: Double, aside: Double, side: Int): Pair<Double, Double> {
-        val yr = Math.toRadians(yaw)
-        val fx = kotlin.math.sin(yr); val fy = kotlin.math.cos(yr)
-        // the map is seen at a slant: depth on the screen is shorter
-        return (x + (-fx * back + fy * aside * side)) to (y + (-fy * back - fx * aside * side) * 0.75)
-    }
-
-    /** Moves the follower [key] towards ([tx], [ty]) at most [speed] pixels per ms, easing in as it nears. */
-    fun update(key: String, tx: Double, ty: Double, speed: Double, now: Long, leaderYaw: Double): F {
-        val f = all.getOrPut(key) { F().also { it.x = tx; it.y = ty; it.last = now; it.turn.yaw = leaderYaw } }
-        val dt = (now - f.last).coerceIn(0L, 200L).toDouble()
-        f.last = now
-        val dx = tx - f.x; val dy = ty - f.y
-        val d = kotlin.math.hypot(dx, dy)
-        if (d > WorldArt.T * 4) {
-            // a new map or a long jump: just be there
-            f.x = tx; f.y = ty; f.moving = false
-        } else if (d > 0.01 && dt > 0) {
-            // eased: fast while far, slowing in the last few pixels, never faster than [speed]
-            val s = minOf(d, speed * dt, d * (1 - kotlin.math.exp(-dt / 140.0)))
-            f.x += dx / d * s; f.y += dy / d * s
-            f.dist += s
-            f.moving = s / dt > speed * 0.2
-            if (f.moving) f.turn.update(Math.toDegrees(kotlin.math.atan2(dx, dy)), now)
-        } else f.moving = false
-        if (!f.moving) f.turn.update(leaderYaw, now)
-        return f
     }
 }
 

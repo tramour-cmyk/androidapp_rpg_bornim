@@ -127,9 +127,15 @@ object MapFoe {
     fun dollRig(id: String, look: MonsterLook, yaw: Double, step: Int): HeroFigure.Rig {
         val kit = MonsterKits.of(id, look.seed)!!
         val ranged = kit.items[GearSlot.MAIN_HAND] == "shortbow"
-        val walk = step * MapFigure.STEPS / STEPS
-        val base = MapFigure.rig(yaw, walk, if (ranged) MapFigure.Carry.SHOULDER else MapFigure.Carry.LOW)
-        val st = listOf(0.0, 11.0, 0.0, -11.0)[Math.floorMod(walk, MapFigure.STEPS)]
+        // a walk in [STEPS] pictures with the legs swinging smoothly (12: the hero's four pictures jump 11 cm a
+        // picture); short goblin legs take a shorter stride, so the last step ends close to standing
+        val t = Math.floorMod(step, STEPS) / STEPS.toDouble()
+        val st = 8.0 * sin(t * 2 * PI)
+        val base = MapFigure.rig(yaw, 0, if (ranged) MapFigure.Carry.SHOULDER else MapFigure.Carry.LOW).let { b ->
+            b.copy(stride = st, bodyY = 0.5 * (1 - cos(t * 4 * PI)) / 2,
+                lh = if (ranged) b.lh.copy(f = b.lh.f + st * 0.6) else b.lh.copy(f = 3.0 + st * 0.6),
+                rh = if (ranged) b.rh else b.rh.copy(f = b.rh.f - st * 0.3))
+        }
         val low = if (ranged) base else base.copy(rh = V(18.0, 56.0, 2.0 - st * 0.35), weapon = V(0.1, -1.0, 0.16))
         val r = when (FoeArt.creature(id)) {
             Doll.Creature.GOBLIN -> low.copy(lean = low.lean + 0.35, crouch = low.crouch + 4.0, headDown = low.headDown - 2.5)
@@ -157,8 +163,9 @@ object MapFoe {
             // lower still, the head thrust forward, peering
             Idle.CROUCH -> b.copy(crouch = b.crouch + 7.0, lean = b.lean + 0.25, headDown = b.headDown - 5.0)
             // the weapon brought up before it, ready
+            // the weapon brought up level before it, ready (not overhead: from hanging down that would be a sweep, 12)
             Idle.HEFT -> if (MonsterKits.of(id, look.seed)!!.items[GearSlot.MAIN_HAND] == "shortbow") b
-                else b.copy(rh = V(16.0, 72.0, 20.0), weapon = V(0.25, 0.75, 0.6), crouch = b.crouch + 2.0, headDown = b.headDown - 2.0)
+                else b.copy(rh = V(16.0, 64.0, 20.0), weapon = V(0.2, 0.05, 0.98), crouch = b.crouch + 2.0, headDown = b.headDown - 2.0)
             else -> b
         }
     }
