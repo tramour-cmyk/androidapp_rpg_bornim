@@ -63,6 +63,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## In Arbeit
 
+- **Regel 10.10., 08:24: Themen, Vorschläge, Rückfragen durchnummerieren** (1, 1.1, 1a); in `CLAUDE.md` übernommen. Heutige Themen: 1 Regen, 2 Langschwert, 3 Garrick Hocken, 4 Glühwürmchen, 5 Entscheidungen aus dem Morgenbericht.
 - **Gemeldet 10.10., 08:10: Glühwürmchen zu einheitlich, zu häufig, künstlich; das Leuchten wirkt nicht.** Befund: 18 Glühwürmchen, gleichmäßig über den Bildschirm verteilt und an den Bildschirm gebunden (sie wandern mit der Kamera mit), alle gleich groß, alle mit demselben Sinus-Takt; das Leuchten ist eine flache, halb durchsichtige Scheibe statt eines weichen Scheins. Vorschlag 08:12 in Besprechung, Code erst nach Go.
 - **Gemeldet 10.10., 08:09: Garrick zeigt die Hockhaltungen nicht, auch nach langem Warten.** Befund: Die Hockhaltungen (Hocken, Glut schüren, Einnicken) sind in der Nacht nur als Entwurfsbild entstanden (`garrick_hocken.png`) und noch nicht in den Ablauf eingebaut; sie warten auf die Freigabe (Entscheidung b im Morgenbericht). Kein Fehler im Spiel, aber im Morgenbericht offenbar nicht deutlich genug gesagt.
 - **Frage 10.10., 08:07: Held trägt Langschwert, sollte er es auf der Karte nicht anders tragen?** Bisher: kurze Waffen (auch Langschwert) blank in der Hand, Spitze nach vorn unten; lange Waffen an der Schulter. Vorschlag 08:09 in Besprechung, Code erst nach Go.

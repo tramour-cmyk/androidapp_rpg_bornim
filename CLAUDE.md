@@ -18,6 +18,7 @@ Rollenspiel für Android (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module:
 - Zu jedem Build den direkten Link (Release oder Artefakt) und eine Liste, worauf beim Testen zu achten ist. Bilder mit der Uhrzeit, zu der sie entstanden sind.
 - Erst besprechen und vorschlagen; vor großen optischen Änderungen Entwürfe zeigen.
 - Änderungen an Kampf, Bewegung oder Effekten selbst durch die echte Oberfläche filmen und die Bildfolge ansehen (Werkzeuge: siehe Übergabe-Notiz). Vor jedem Commit `./gradlew :core:test`.
+- Themen, Vorschläge und Rückfragen durchnummerieren (Wunsch des Nutzers, 10.10.): jedes Thema bekommt eine Nummer, die über den Tag weiterläuft (1, 2, 3 …); darunter Vorschläge als 1.1, 1.2 … und Rückfragen als 1a, 1b …. Die Nummer bleibt fest, auch wenn das Thema später wieder aufkommt, und steht beim Eintrag in `docs/OFFEN.md`. So kann der Nutzer kurz antworten („1a ja, 3.2 nein“).
 - Filme sparsam (Wunsch des Nutzers, 09.10.): Logik (Zeiten, Regeln, Abläufe) mit Kerntests prüfen, die in Sekunden laufen; filmen nur, wenn sich eine Bewegung sichtbar ändert. Beim Filmen nur die gespeicherten Bilder zeichnen, mit `CROP=` nur den Ausschnitt speichern und ereignislose Zeit mit `FROM=` überspringen (`WALKFILM`, `IDLEFILM` in `tools/preview`).
 
 ## Technik und Sicherheit
