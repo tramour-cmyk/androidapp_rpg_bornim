@@ -55,6 +55,12 @@ fun renderMapFoeDraft() {
             val cells = rows.map { (id, idles) -> idles.map { MapFoe.drawIdle(id, MonsterLook(0), 2, it, 1) } }
             ImageIO.write(sheetOf(cells, f.w, f.h), "png", File("build/screens/mapfoe/idle.png"))
         }
+        "ease" -> {
+            // 9h: each stance going in, step by step, from standing (left) to fully in it (right)
+            val rows = listOf("wolf" to MapFoe.Idle.SNIFF, "wolf" to MapFoe.Idle.SNARL, "wolf" to MapFoe.Idle.LOOK_L, "goblin" to MapFoe.Idle.CROUCH, "goblin" to MapFoe.Idle.HEFT)
+            val cells = rows.map { (id, idle) -> (0..MapFoe.LEVELS).map { lv -> MapFoe.drawIdle(id, MonsterLook(0), 2, idle, 0, level = lv) } }
+            ImageIO.write(sheetOf(cells, MapFoe.W, MapFoe.H), "png", File("build/screens/mapfoe/ease.png"))
+        }
         "walk" -> {
             val cells = looks.flatMap { (id, l) -> listOf(2, 4, 6, 12).map { s -> (0 until MapFoe.STEPS).map { st -> MapFoe.draw(id, l, s, st) } } }
             ImageIO.write(sheetOf(cells, MapFoe.W, MapFoe.H), "png", File("build/screens/mapfoe/walk.png"))

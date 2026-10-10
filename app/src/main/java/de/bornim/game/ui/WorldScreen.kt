@@ -568,8 +568,11 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     val slot = MapFigure.slot(turn.yaw)
                     val beast = id in de.bornim.core.art.BeastArt.KINDS
                     fun standPic(fid: String, flook: de.bornim.core.MonsterLook, seed: Int, scale: Double = 1.0): MapFoe.Pic? {
-                        val (idle, breath) = MapFoe.idleAt(fid, seed, clock)
-                        return MapFoe.idleNow(fid, flook, slot, if (near && beast) MapFoe.Idle.SNARL else idle, breath, scale)
+                        val st = MapFoe.idleAt(fid, seed, clock)
+                        // baring the fangs comes on and goes off through in-between pictures (9h)
+                        val bare = if (beast) BossMood.level("${npc.id}", near, clock) else 0
+                        return if (bare > 0) MapFoe.idleNow(fid, flook, slot, MapFoe.Idle.SNARL, st.breath, scale, bare)
+                            else MapFoe.idleNow(fid, flook, slot, st.idle, st.breath, scale, st.level)
                     }
                     val pic = standPic(id, look, npc.id.hashCode())
                     val pack = de.bornim.core.Packs[id]
@@ -697,7 +700,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             val standing = t >= 1f
             // standing, it is never still: it breathes, looks about, sniffs or snarls (9d), each in its own time
             fun foePic(id: String, look: de.bornim.core.MonsterLook, seed: Int, stepNow: Int, scale: Double = 1.0) =
-                if (standing) MapFoe.idleAt(id, seed, clock).let { (idle, breath) -> MapFoe.idleNow(id, look, slot, idle, breath, scale) }
+                if (standing) MapFoe.idleAt(id, seed, clock).let { st -> MapFoe.idleNow(id, look, slot, st.idle, st.breath, scale, st.level) }
                 else MapFoe.pictureNow(id, look, slot, stepNow, scale)
             val pic = if (r.monster in MapFoe.ON) foePic(r.monster, r.look, r.uid, step) else null
             // A pack walks together: each mate has a place behind the leader, one to each side, and walks to it in its
@@ -716,7 +719,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 val mScale = if (beastMate) mapMateScale(pack).toDouble() else 1.0
                 val matePic = if (pack.mate !in MapFoe.ON) null
                     else if (f.moving) MapFoe.pictureNow(pack.mate, mateLook, mSlot, mStep, mScale)
-                    else MapFoe.idleAt(pack.mate, r.uid * 31 + i + 1, clock).let { (idle, breath) -> MapFoe.idleNow(pack.mate, mateLook, mSlot, idle, breath, mScale) }
+                    else MapFoe.idleAt(pack.mate, r.uid * 31 + i + 1, clock).let { st -> MapFoe.idleNow(pack.mate, mateLook, mSlot, st.idle, st.breath, mScale, st.level) }
                 if (matePic != null) {
                     val lit = warmEdge(matePic.img, mx, my)
                     sprites += Sprite((my + T - 1).toFloat()) { put(lit, mx + T / 2 - matePic.ax / MapFigure.DENSITY, my + T - 3 - matePic.ay / MapFigure.DENSITY, MapFigure.DENSITY) }
@@ -831,6 +834,20 @@ private object HeroTurn : Turn()
 
 /** How long the hero has stood on the same spot of the map. */
 private val HeroStill = MapFolk.Stillness()
+
+/** How far a boss has bared its fangs at the hero, eased in and out one step of [MapFoe.LEVELS] at a time (9h). */
+private object BossMood {
+    private class M(var level: Double, var last: Long)
+    private val all = HashMap<String, M>()
+    fun level(id: String, near: Boolean, now: Long): Int {
+        val m = all.getOrPut(id) { M(if (near) MapFoe.LEVELS.toDouble() else 0.0, now) }
+        val dt = (now - m.last).coerceIn(0L, 200L)
+        m.last = now
+        val step = dt * MapFoe.LEVELS / MapFoe.EASE_MS.toDouble()
+        m.level = if (near) minOf(MapFoe.LEVELS.toDouble(), m.level + step) else maxOf(0.0, m.level - step)
+        return Math.round(m.level).toInt()
+    }
+}
 
 /**
  * The mates of a pack and the guards of a boss (9g): each has a place of its own near its leader and walks there at

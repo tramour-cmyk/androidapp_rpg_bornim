@@ -90,8 +90,14 @@ object MapFoe {
         renderBeast(id, look, scale, beastRig(id, yawOf(slot), step))
 
     /** An animal standing in [idle], breathing in ([breath] 1) or out, facing [yaw]. */
-    fun beastIdleRig(id: String, yaw: Double, idle: Idle, breath: Int): Beast.Rig {
-        val b = PROWL.copy(yaw = yaw, breath = breath.toDouble(), crouch = 0.6 * breath)
+    fun beastIdleRig(id: String, yaw: Double, idle: Idle, breath: Int, level: Int = LEVELS): Beast.Rig {
+        val br = breath / BREATHS.toDouble()
+        val b = PROWL.copy(yaw = yaw, breath = br, crouch = 0.6 * br)
+        // 9h: into and out of a stance through in-between pictures, never in one jump
+        return b.lerp(beastStance(b, idle), level / LEVELS.toDouble())
+    }
+
+    private fun beastStance(b: Beast.Rig, idle: Idle): Beast.Rig {
         return when (idle) {
             // turning the head to listen or look, the ears after it
             Idle.LOOK_L -> b.copy(turn = 34.0, neck = -6.0, ears = 0.8, tailSwing = -8.0)
@@ -134,10 +140,16 @@ object MapFoe {
     }
 
     /** A foe on the doll standing in [idle], breathing in ([breath] 1) or out, facing [yaw]. */
-    fun dollIdleRig(id: String, look: MonsterLook, yaw: Double, idle: Idle, breath: Int): HeroFigure.Rig {
+    fun dollIdleRig(id: String, look: MonsterLook, yaw: Double, idle: Idle, breath: Int, level: Int = LEVELS): HeroFigure.Rig {
         val b = dollRig(id, look, yaw, 0)
-        val up = 1.6 * breath
-        val r = when (idle) {
+        val up = 1.6 * breath / BREATHS
+        // 9h: into and out of a stance through in-between pictures, never in one jump
+        val r = b.lerp(dollStance(id, look, b, idle), level / LEVELS.toDouble())
+        return if (up > 0) r.copy(bodyY = r.bodyY + up, rh = r.rh.copy(u = r.rh.u + up * 0.5), lh = r.lh.copy(u = r.lh.u + up * 0.5)) else r
+    }
+
+    private fun dollStance(id: String, look: MonsterLook, b: HeroFigure.Rig, idle: Idle): HeroFigure.Rig {
+        return when (idle) {
             Idle.LOOK_L -> b.copy(headTurn = b.headTurn + 40.0, twist = 8.0)
             Idle.LOOK_R -> b.copy(headTurn = b.headTurn - 40.0, twist = -8.0)
             Idle.SHIFT_L -> b.copy(bodyX = -2.5, spread = 8.5, headTurn = b.headTurn + 6.0)
@@ -149,7 +161,6 @@ object MapFoe {
                 else b.copy(rh = V(16.0, 72.0, 20.0), weapon = V(0.25, 0.75, 0.6), crouch = b.crouch + 2.0, headDown = b.headDown - 2.0)
             else -> b
         }
-        return if (up > 0) r.copy(bodyY = r.bodyY + up, rh = r.rh.copy(u = r.rh.u + up * 0.5), lh = r.lh.copy(u = r.lh.u + up * 0.5)) else r
     }
 
     /** Goblin hides on the map: the battle's tones darker and earthier, so they stand off the grass (9b). */
@@ -192,9 +203,9 @@ object MapFoe {
         if (id in BeastArt.KINDS) beast(id, look, slot, step, scale) else doll(id, look, slot, step)
 
     /** One picture of [id] turned to [slot], standing in [idle], breathing in ([breath] 1) or out. */
-    fun drawIdle(id: String, look: MonsterLook, slot: Int, idle: Idle, breath: Int, scale: Double = 1.0): PixelImage =
-        if (id in BeastArt.KINDS) renderBeast(id, look, scale, beastIdleRig(id, yawOf(slot), idle, breath))
-        else renderDoll(id, look, dollIdleRig(id, look, yawOf(slot), idle, breath))
+    fun drawIdle(id: String, look: MonsterLook, slot: Int, idle: Idle, breath: Int, scale: Double = 1.0, level: Int = LEVELS): PixelImage =
+        if (id in BeastArt.KINDS) renderBeast(id, look, scale, beastIdleRig(id, yawOf(slot), idle, breath, level))
+        else renderDoll(id, look, dollIdleRig(id, look, yawOf(slot), idle, breath, level))
 
     // ---------------------------------------------------------------- standing about
 
@@ -204,21 +215,33 @@ object MapFoe {
     /** Length of the stretches chance picks a stance for. */
     private const val BLOCK_MS = 7_000L
 
+    /** Steps of going into or out of a stance (9h): [LEVELS] is fully in it, the ones between are in-between pictures. */
+    const val LEVELS = 4
+    /** How long going into or out of a stance takes. */
+    const val EASE_MS = 420L
+    /** Steps of a breath, out (0) to in ([BREATHS]), so the chest rises and falls rather than jumps. */
+    const val BREATHS = 2
+
+    /** What a monster does at a moment: the stance, how far into it ([level] of [LEVELS]) and its breath (of [BREATHS]). */
+    data class Stance(val idle: Idle, val breath: Int, val level: Int = LEVELS)
+
     /**
-     * The stance and breath of the monster [id] with [seed] at [clockMs], as [MapRest.at] for folk: a breath of
-     * 2.4 to 3.2 s (an animal pants a little faster than a man), and in each stretch about a third of the time
-     * nothing else, else one stance held for 1.8 to 4.5 s from a random moment. Never in a beat.
+     * The stance of the monster [id] with [seed] at [clockMs], as [MapRest.at] for folk: a breath of 2.4 to 3.2 s
+     * (an animal pants a little faster than a man), and in each stretch about a third of the time nothing else, else
+     * one stance held for 1.8 to 4.5 s from a random moment, eased in and out over [EASE_MS]. Never in a beat.
      */
-    fun idleAt(id: String, seed: Int, clockMs: Long): Pair<Idle, Int> {
+    fun idleAt(id: String, seed: Int, clockMs: Long): Stance {
         val period = 2_400L + Math.floorMod(seed * 7919, 800)
-        val breath = if (Math.floorMod(clockMs + seed * 131L, period) < period / 2) 1 else 0
+        // the breath as a smooth wave, in [BREATHS] + 1 steps
+        val phase = Math.floorMod(clockMs + seed * 131L, period) / period.toDouble()
+        val breath = Math.round((1 - cos(phase * 2 * PI)) / 2 * BREATHS).toInt()
         val n = Math.floorDiv(clockMs + Math.floorMod(seed * 977, BLOCK_MS.toInt()), BLOCK_MS)
         val t = clockMs + Math.floorMod(seed * 977, BLOCK_MS.toInt()) - n * BLOCK_MS
         val r = java.util.Random(n * 7_919L + seed * 104_729L)
-        if (r.nextDouble() < 0.35) return Idle.STAND to breath
+        if (r.nextDouble() < 0.35) return Stance(Idle.STAND, breath)
         val start = (r.nextDouble() * 2_500).toLong()
         val length = 1_800L + (r.nextDouble() * 2_700).toLong()
-        if (t < start || t >= start + length) return Idle.STAND to breath
+        if (t < start || t >= start + length) return Stance(Idle.STAND, breath)
         val roll = r.nextDouble()
         val side = r.nextBoolean()
         val pick = if (id in BeastArt.KINDS) when {
@@ -232,7 +255,11 @@ object MapFoe {
             roll < 0.85 -> Idle.CROUCH
             else -> Idle.HEFT
         }
-        return pick to breath
+        // eased: the share of the way in, smoothed, in steps
+        val w = minOf(1.0, (t - start) / EASE_MS.toDouble(), (start + length - t) / EASE_MS.toDouble())
+        val eased = w * w * (3 - 2 * w)
+        val level = Math.round(eased * LEVELS).toInt().coerceIn(0, LEVELS)
+        return if (level == 0) Stance(Idle.STAND, breath) else Stance(pick, breath, level)
     }
 
     // ---------------------------------------------------------------- in the game
@@ -309,14 +336,18 @@ object MapFoe {
     }
 
     /** Standing in [idle] with [breath]: the picture, else the plain standing one, else as [pictureNow]. */
-    fun idleNow(id: String, look: MonsterLook, slot: Int, idle: Idle, breath: Int, scale: Double = 1.0): Pic? {
+    fun idleNow(id: String, look: MonsterLook, slot: Int, idle: Idle, breath: Int, scale: Double = 1.0, level: Int = LEVELS): Pic? {
         val sl = Math.floorMod(slot, YAWS)
+        val lv = if (idle == Idle.STAND) LEVELS else level.coerceIn(0, LEVELS)
         // the plain standing picture without breath is the first step of the walk
-        if (idle == Idle.STAND && breath == 0) return pictureNow(id, look, sl, 0, scale)
-        val k = "${key(id, look, sl, 0, scale)}/$idle/$breath"
+        if ((idle == Idle.STAND || lv == 0) && breath == 0) return pictureNow(id, look, sl, 0, scale)
+        val st = if (lv == 0) Idle.STAND else idle
+        val k = "${key(id, look, sl, 0, scale)}/$st/$breath/$lv"
         synchronized(cache) {
-            wish(k) { crop(drawIdle(id, look, sl, idle, breath, scale), frame(id)) }?.let { return it }
-            if (idle != Idle.STAND) cache["${key(id, look, sl, 0, scale)}/${Idle.STAND}/$breath"]?.let { return it }
+            wish(k) { crop(drawIdle(id, look, sl, st, breath, scale, if (st == Idle.STAND) LEVELS else lv), frame(id)) }?.let { return it }
+            // while it is drawn: the nearest step of the same stance already there, else standing with this breath
+            for (l in (lv - 1) downTo 1) cache["${key(id, look, sl, 0, scale)}/$st/$breath/$l"]?.let { return it }
+            cache["${key(id, look, sl, 0, scale)}/${Idle.STAND}/$breath/$LEVELS"]?.let { return it }
         }
         return pictureNow(id, look, sl, 0, scale)
     }
