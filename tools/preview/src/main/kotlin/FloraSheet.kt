@@ -19,6 +19,8 @@ fun renderFloraSheet(spec: String) {
     val x0 = p.getOrElse(1) { "0" }.toInt(); val y0 = p.getOrElse(2) { "0" }.toInt()
     val tw = p.getOrElse(3) { "${map.width}" }.toInt(); val th = p.getOrElse(4) { "${map.height}" }.toInt()
     val S = MapGround.S; val D = MapGround.D; val T = WorldArt.T
+    // the village and the rooms in the new style are drafts: switched on only here
+    if (System.getenv("TOWNDRAFT") != null) MapGround.townDraft = true
     MapGround.prepareNow(map)
     val w = tw * S; val h = th * S
     val out = BufferedImage(w, h, BufferedImage.TYPE_INT_RGB)
@@ -37,7 +39,7 @@ fun renderFloraSheet(spec: String) {
     val state = de.bornim.core.GameState.newGame("X", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER)
     val ch = MapGround.CH
     for (cy in 0..(map.height / ch)) for (cx in 0..(map.width / ch)) MapGround.chunk(map, cx, cy)?.let { blend(it, cx * ch * S, cy * ch * S, 1) }
-    for (ty in 0 until map.height) for (tx in 0 until map.width) if (MapGround.keepsOldTile(map.tile(tx, ty))) blend(WorldArt.ground(map, tx, ty, state, 0), tx * S, ty * S, 2)
+    for (ty in 0 until map.height) for (tx in 0 until map.width) if (MapGround.keepsOldTile(map, map.tile(tx, ty))) blend(WorldArt.ground(map, tx, ty, state, 0), tx * S, ty * S, 2)
     for (o in MapFlora.shadows(map)) blend(o.img, o.x * D, o.y * D, 1)
     for (o in WorldArt.objects(map, state, 0).sortedBy { it.sortY }) blend(o.img, o.x * D, o.y * D, D / o.density)
     File("build/screens").mkdirs()

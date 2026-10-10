@@ -63,7 +63,7 @@ object MapRest {
     // ------------------------------------------------------------ pictures, drawn when first wanted
 
     private val cache = object : LinkedHashMap<String, PixelImage>(256, 0.75f, true) {
-        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > 240
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > 360
     }
     private val queued = HashSet<String>()
     private val worker = java.util.concurrent.Executors.newSingleThreadExecutor { r ->

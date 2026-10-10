@@ -97,7 +97,7 @@ object WorldArt {
                     }
                 }
             }
-            Tile.WALL -> when (kind) {
+            Tile.WALL, Tile.HEARTH -> when (kind) {
                 MapKind.INTERIOR -> if (at(0, 1) != Tile.WALL && map.inside(tx, ty + 1)) cached("iwallface${tx % 3}") { interiorWallFace(tx % 3) } else cached("iwalltop") { interiorWallTop() }
                 else -> cached("grass$seed") { grass(seed) }
             }
@@ -133,7 +133,7 @@ object WorldArt {
                 cached("obj-ground/$kind/$seed/false") { paste(base); blendEllipse(16.0, 27.0, 12.0, 4.0, SHADOW) }
             }
             Tile.CAVE_EXIT -> cached("caveexit") { caveFloor(0, 0); exitLight() }
-            Tile.WOOD_FLOOR -> {
+            Tile.WOOD_FLOOR, Tile.CLUTTER -> {
                 val shadow = map.inside(tx, ty - 1) && at(0, -1) == Tile.WALL
                 cached("wood$seed/$shadow") { woodFloor(seed); if (shadow) topShadow(7) }
             }
@@ -825,7 +825,7 @@ object WorldArt {
     /** All static objects of a map for the current game state, in no particular order. */
     fun objects(map: MapDef, state: GameState, frame: Int): List<Obj> {
         val opened = map.chests.filter { it.id in state.openedChests }.joinToString(",") { it.id }
-        val key = "${map.id}/$opened/${state.has(Story.GATE_OPEN)}/${state.has(Story.BARRIER_OPEN)}/$frame/${state.has(Story.CHAPTER1_DONE)}"
+        val key = "${map.id}/$opened/${state.has(Story.GATE_OPEN)}/${state.has(Story.BARRIER_OPEN)}/$frame/${state.has(Story.CHAPTER1_DONE)}/${MapGround.townDraft}"
         return objCache.getOrPut(key) { buildObjects(map, state, frame) }
     }
 
@@ -835,12 +835,15 @@ object WorldArt {
         // the woods have new, finer trees, rocks and stones, and undergrowth
         val fine = MapGround.supports(map)
         val cave = map.kind == MapKind.CAVE
-        if (fine && !cave) out += MapFlora.undergrowth(map)
+        if (fine && !cave && map.kind != MapKind.INTERIOR) out += MapFlora.undergrowth(map)
         for (ty in 0 until map.height) for (tx in 0 until map.width) {
             val open = map.chestAt(tx, ty)?.id in state.openedChests
             val flora = when {
                 !fine -> null
                 cave -> MapCave.objects(map, tx, ty, frame, open, state.has(Story.GATE_OPEN))
+                // the village in the new style (draft): houses and things, else the trees of the woods
+                map.kind == MapKind.TOWN -> MapTown.objects(map, tx, ty) ?: MapFlora.objects(map, tx, ty, frame, open)
+                map.kind == MapKind.INTERIOR -> MapRoom.objects(map, tx, ty, frame)
                 else -> MapFlora.objects(map, tx, ty, frame, open)
             }
             if (flora != null) { out += flora; continue }

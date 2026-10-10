@@ -44,6 +44,13 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** Short messages for the app to show as a toast. */
     val notices = ArrayDeque<T>()
 
+    /** A beast turned back at a safe place (09.10.): the place, where the beast stood, and when (app clock); the folk there ward it off with a torch. */
+    class WardOff(val x: Int, val y: Int, val beastX: Int, val beastY: Int, val atMs: Long)
+
+    /** The latest beast turned back at a safe place, or null. */
+    var lastWardOff: WardOff? = null
+        private set
+
     /** Sound effects triggered by the last actions; the app plays and clears them. */
     val sounds = ArrayDeque<de.bornim.core.audio.Sound>()
     private var battleFromScript: Cmd.Fight? = null
@@ -454,7 +461,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                             r.hunting = false
                             r.returning = true
                             if (heroSafe?.notice != null && dist <= 7) notices += heroSafe.notice
-                            r.nextMoveAt = now + 600
+                            // the beast holds a moment while the torch comes out of the fire, then draws back
+                            if (heroSafe != null && dist <= 7) {
+                                lastWardOff = WardOff(heroSafe.x, heroSafe.y, r.x, r.y, now)
+                                r.nextMoveAt = now + 1_100
+                            } else r.nextMoveAt = now + 600
                         }
                         dist == 1 -> {
                             // Adjacent: attack. Coming from behind the hero is an ambush.
@@ -602,7 +613,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             Tile.VEG_BED -> say(T("Kohl und Möhren, sorgfältig in Reihen gepflanzt.", "Cabbages and carrots, carefully planted in rows."))
             Tile.HAY -> say(T("Ein Heuballen. Die Hühner scharren drumherum.", "A bale of hay. The chickens scratch around it."))
             Tile.WASHLINE -> say(T("Frisch gewaschene Wäsche flattert im Wind.", "Freshly washed laundry flutters in the wind."))
-            Tile.BENCH -> say(T("Eine Bank zum Ausruhen. Von hier hat man den ganzen Dorfplatz im Blick.", "A bench to rest on. From here you can see the whole village square."))
+            Tile.HEARTH -> say(T("Das Feuer knackt im Herd. Über der Glut hängt ein rußiger Kessel.", "The fire crackles in the hearth. A sooty kettle hangs over the embers."))
+            Tile.BENCH -> say(if (map.kind == MapKind.INTERIOR) T("Eine Bank, blank gesessen. Im Holz sind Namen eingeritzt.", "A bench, worn smooth. Names are carved into the wood.")
+                else T("Eine Bank zum Ausruhen. Von hier hat man den ganzen Dorfplatz im Blick.", "A bench to rest on. From here you can see the whole village square."))
             Tile.BED -> if (isNight) sleep() else say(T("Ein weiches Bett. Schlafen kannst du, wenn es Nacht ist.", "A soft bed. You can sleep here once night falls."))
             Tile.ALTAR -> say(
                 if (state.has(Story.CHAPTER1_DONE)) T("Das Sonnenamulett strahlt auf dem Altar.", "The Sun Amulet shines on the altar.")

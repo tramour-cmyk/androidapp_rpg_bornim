@@ -34,17 +34,21 @@ class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Bool
     /** The bow slung across the back over the quiver, both hands free (folk about the map). */
     val bowOnBack: Boolean = false,
     /** Leather of this colour rather than the usual brown, e.g. a hunter's dark earth. */
-    val leatherRgb: Int? = null) {
+    val leatherRgb: Int? = null,
+    /** Clothes in these colours (tunic or robe, its darker parts, breeches) rather than the class's, for the folk. */
+    val clothes: Triple<Int, Int, Int>? = null,
+    /** No hair on the head (a shaven priest). */
+    val bald: Boolean = false) {
     fun base(slot: GearSlot): String? = items[slot]?.base
     fun rarity(slot: GearSlot): Rarity = items[slot]?.rarity ?: Rarity.COMMON
     val twoHands: Boolean get() = items[GearSlot.MAIN_HAND]?.def?.let { (it.twoHanded || bothHands && it.versatile != null) && !it.ranged } == true
     val hasShield: Boolean get() = items[GearSlot.OFF_HAND]?.def?.kind == BaseKind.SHIELD && !twoHands
 
     /** The same outfit with a draught of [rgb] in the flask. */
-    fun withFlask(rgb: Int) = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, rgb, fetish, shieldOnBack, bowOnBack, leatherRgb)
+    fun withFlask(rgb: Int) = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, rgb, fetish, shieldOnBack, bowOnBack, leatherRgb, clothes, bald)
 
     /** The same outfit with the shield slung on the back. */
-    fun withShieldOnBack() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, true, bowOnBack, leatherRgb)
+    fun withShieldOnBack() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, true, bowOnBack, leatherRgb, clothes, bald)
 
     companion object {
         fun of(hero: Hero) = Outfit(hero.cls, GearSlot.entries.mapNotNull { s -> hero.item(s)?.let { s to it } }.toMap(), bothHands = hero.bothHands())
@@ -63,7 +67,7 @@ class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Bool
  */
 class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body: List<Solid>, private val o: Outfit) {
     private val h = d.height
-    private val look = CharacterArt.heroLook(d.race, o.cls)
+    private val look = CharacterArt.heroLook(d.race, o.cls).let { l -> o.clothes?.let { (c, cd, p) -> l.copy(cloth = argb(c), clothDark = argb(cd), pants = argb(p)) } ?: l }
     private fun worn(rgb: Int, k: Double = 0.38) = mix(rgb, argb(0x3A3632), k)
     private fun m(rgb: Int, shine: Double = 0.0, grain: Double = 0.0, bias: Double = 0.0) = Mat(Ramp.of(rgb), shine, grain, bias)
     private fun metal(r: Rarity, bias: Double = 0.0) = if (o.rusty) m(argb(0x6A5444), shine = 0.25, grain = 0.55, bias = bias - 0.04)
@@ -119,6 +123,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val head = o.base(GearSlot.HEAD)
         if (head != null && head != "circlet") { add("hair"); if (head == "great_helm") { add("ear"); add("tusk") } }
         if (head == null && o.cls == CharClass.WIZARD) add("hair")
+        if (o.bald) add("hair")
     }
 
     fun solids(): List<Solid> {
@@ -627,6 +632,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val butt = hand - dir * (0.05 * h)
         val head = hand + dir * (0.27 * h)
         add(RoundCone(butt, head, 0.011 * h, 0.014 * h, BodyPart.GEAR, Doll.ITEM), wood)
+        // a flicker below zero: a plain stick to stir the embers with, its end charred, no flame
+        if (sk.rig.flicker < 0) { add(Ellipsoid(head, P3(0.012 * h, 0.02 * h, 0.012 * h), Frame.along(dir), BodyPart.GEAR, Doll.ITEM), m(argb(0x1A1410), grain = 0.4)); return }
         add(Ellipsoid(head, P3(0.028 * h, 0.036 * h, 0.028 * h), Frame.along(dir), BodyPart.GEAR, Doll.ITEM), m(argb(0x2A1E16), grain = 0.4))
         // the flame always rises; three tongues of it, their lean and length from the flicker
         val fire = Mat(Ramp(intArrayOf(argb(0x9A2A10), argb(0xC8441A), argb(0xE8701E), argb(0xF8A030), argb(0xFFD060), argb(0xFFF4C0))), bias = 0.35, inline = false)

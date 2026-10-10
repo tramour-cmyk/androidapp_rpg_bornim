@@ -99,8 +99,12 @@ fun main() {
     if (System.getenv("NPCIDLE") != null) { renderNpcIdle(); System.exit(0) }
     if (System.getenv("NPCREST") != null) { renderNpcRest(); System.exit(0) }
     if (System.getenv("NPCTORCH") != null) { renderNpcTorch(); System.exit(0) }
+    if (System.getenv("VILLAGEDRAFT") != null) { renderVillageDraft(); System.exit(0) }
+    if (System.getenv("SQUATDRAFT") != null) { renderSquatDraft(); System.exit(0) }
     System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
     System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
+    if (System.getenv("WARDFILM") != null) { wardFilm(); System.exit(0) }
+    if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true
     if (System.getenv("KARTENZOOM") != null) {
         // the map near (new) and far (former), at noon and at night, in the forest, the village, an inn and the cave
         fun place(vm: GameViewModel, map: String, x: Int, y: Int, minutes: Int, facing: Facing = Facing.UP) {
@@ -130,6 +134,14 @@ fun main() {
                 shot("zoom_${z}_7_steinkreis") { place(it, "forest", 10, 25, 17 * 60 + 30) }
                 shot("zoom_${z}_8_tiefer_wald") { place(it, "deep_forest", 22, 6, 12 * 60) }
                 shot("zoom_${z}_9_hinter_baum") { place(it, "forest", 12, 10, 12 * 60) }
+                shot("zoom_${z}_d1_dorf_markt") { place(it, "village", 17, 13, 12 * 60, Facing.UP) }
+                shot("zoom_${z}_d2_dorf_haeuser") { place(it, "village", 8, 7, 17 * 60 + 30, Facing.UP) }
+                shot("zoom_${z}_d3_dorf_nacht") { place(it, "village", 28, 15, 23 * 60, Facing.UP) }
+                shot("zoom_${z}_i1_schaenke_tag") { place(it, "inn", 4, 5, 12 * 60, Facing.UP) }
+                shot("zoom_${z}_i2_schaenke_abend") { place(it, "inn", 6, 3, 21 * 60, Facing.LEFT) }
+                shot("zoom_${z}_t1_hohes_gras") { place(it, "forest", 16, 20, 12 * 60, Facing.DOWN) }
+                shot("zoom_${z}_h1_hoehleneingang") { place(it, "forest", 10, 2, 12 * 60, Facing.UP) }
+                shot("zoom_${z}_h2_hoehleneingang_nacht") { place(it, "forest", 10, 2, 23 * 60, Facing.UP) }
                 shot("zoom_${z}_g1_garrick_tag") { place(it, "forest", 10, 9, 12 * 60, Facing.RIGHT) }
                 shot("zoom_${z}_g2_garrick_nacht") { place(it, "forest", 10, 10, 23 * 60, Facing.RIGHT) }
                 shot("zoom_${z}_g3_garrick_fern") { place(it, "forest", 9, 13, 12 * 60, Facing.UP) }

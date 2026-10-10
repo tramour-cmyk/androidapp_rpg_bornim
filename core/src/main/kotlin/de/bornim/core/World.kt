@@ -31,6 +31,10 @@ enum class Tile(val ch: Char, val walkable: Boolean) {
     SHELF('Q', false),
     PLANT('P', false),
     ALTAR('A', false),
+    /** A fireplace built into the back wall of a room; lights the room. */
+    HEARTH('Z', false),
+    /** Odds and ends on a room's floor (sacks, firewood, a basket, a stool): you can step over them, slowly. */
+    CLUTTER('J', true),
     // village
     COBBLE('o', true),
     STALL('m', false),

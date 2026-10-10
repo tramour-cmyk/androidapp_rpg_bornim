@@ -10,9 +10,12 @@ Geprüft an Commits und Zweigen (alle Commits laufen unter „tramour“, unters
 |---|---|---|
 | Sitzung | `session_011NbhavCsBZBgBNywhNvsV9` (auch heute früh aktiv) | bis 09.10. `session_017oHpZTdCFj2kbysMuJ3w3F`, ab 10.10. `session_01Dxd5zDYe7YCMmen3WJjjoC` |
 | Zweig | `karte-neuer-stil` | `karte-hoehle`; die Sitzung vom 10.10. arbeitet auf `claude/happy-gauss-bno7ud` |
-| Aufgabe | Leute und Monster auf der Karte, dazu Entwürfe der Leute (zwölf Dorfbewohner als Puppe, `VILLAGEDRAFT=1`, vom Nutzer 08:34 freigegeben; Garrick hockt, schürt die Glut, nickt ein, `SQUATDRAFT=1`); **Dorf und Innenräume** (entschieden vom Nutzer 10.10., 08:34; Entwürfe `MapTown.kt`, `MapRoom.kt`) | Höhle (fertig, v0.1.377); nächste Aufgabe offen, siehe unten. **Nicht am Dorf und nicht an Innenräumen arbeiten.** |
+| Account-Kennung | noch eintragen (`echo $CLAUDE_CODE_ACCOUNT_UUID`) | `55f497f6-95a0-41a6-9996-9a72f364b54c` |
+| Aufgabe | Leute auf der Karte (Monster seit 10.10. bei B), dazu Entwürfe der Leute (zwölf Dorfbewohner als Puppe, `VILLAGEDRAFT=1`, vom Nutzer 08:34 freigegeben; Garrick hockt, schürt die Glut, nickt ein, `SQUATDRAFT=1`); **Dorf und Innenräume** (entschieden vom Nutzer 10.10., 08:34; Entwürfe `MapTown.kt`, `MapRoom.kt`) | Höhle (fertig, v0.1.377); seit 10.10.: Restpunkte der Höhle und **Monster auf der Karte** (aus den Kampfmodellen, Vierbeiner mit eigener Laufbewegung). **Nicht am Dorf, an Innenräumen und Leuten arbeiten.** |
 
 Woher B weiß, dass es B ist: Der Nutzer sagt, „der andere Account“ macht Dorf und Innenräume, und laut `karte-neuer-stil` (Nachtrag 09.10., 23:48, Entscheidung 10.10., 08:34) macht das Account A. Im Code selbst steht nicht, welcher Account eine Sitzung ist. Die Punkte 1 und 2 der Liste „Nächste Aufgaben für Account B“ unten fallen damit weg.
+
+**Entschieden 10.10., 09:02:** B übernimmt die Monster auf der Karte von A (Entwurf zuerst) und prüft die Restpunkte der Höhle (Flammen, Lichtstrahl am Lichtschacht; der Höhleneingang im Wald gilt als erledigt). **Account A: bitte nicht an Monstern auf der Karte anfangen** und die eigene Account-Kennung oben eintragen. Künftig erkennt jede Sitzung an `$CLAUDE_CODE_ACCOUNT_UUID`, welcher Account sie ist.
 
 ## Wer macht was (Stand 09.10., 18:48)
 
@@ -81,3 +84,9 @@ Ziel: Die Blutzahnhöhle (`Story.cave` in `core/.../Story.kt`, `MapKind.CAVE`) s
 ## Einstieg für den Zweitaccount (zum Einfügen in die neue Sitzung)
 
 > Arbeite am Repo `tramour-cmyk/androidapp_rpg_bornim`. Lies `CLAUDE.md`, dann `docs/AUFTEILUNG.md`, dann `docs/OFFEN.md`. Du bist Account B: Lege vom Zweig `karte-neuer-stil` den Zweig `karte-hoehle` an und übernimm die dort beschriebene Aufgabe „Höhle im neuen Stil“. Fang mit dem Entwurf an und zeig ihn mir, bevor du etwas einbaust.
+
+## Nachtrag 09.10., 23:48: Dorf und Innenräume
+
+Auf Wunsch des Nutzers (23:29/23:30) hat Account A in der Nacht **Entwürfe** für das Dorf und die Innenräume im neuen Stil gemacht (`core/.../art/MapTown.kt`, `MapRoom.kt`, Bodenteile in `MapGround.kt`; nur in der Vorschau mit `TOWNDRAFT=1`, im Spiel aus). Laut Tabelle oben war das Dorf Aufgabe von Account B. **Account B: bitte nicht parallel am Dorf anfangen**, bis der Nutzer entschieden hat, wer weitermacht.
+
+**Entschieden 10.10., 08:34:** Das Dorf und die Innenräume macht Account A weiter. Account B fängt dort nicht an.

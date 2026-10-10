@@ -252,10 +252,12 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         refresh()
     }
 
-    /** Starts drawing the hero and the folk of this map as dolls in the background, so they are ready when the map shows. */
+    /** Starts drawing the ground of this map, the hero and its folk as dolls in the background, so they are ready when the map shows. */
     private fun prepareFigures(g: Game) {
+        val map = de.bornim.core.World[g.state.place.map]
+        de.bornim.core.art.MapGround.prepare(map, g.state.place.x, g.state.place.y)
         de.bornim.core.art.MapFigure.prepare(g.state.hero, de.bornim.core.art.MapFigure.yawOf(g.state.place.facing))
-        de.bornim.core.art.MapFolk.prepareFor(de.bornim.core.World[g.state.place.map])
+        de.bornim.core.art.MapFolk.prepareFor(map)
     }
 
     fun save() {
@@ -270,7 +272,10 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         val g = game
         if (g != null && g.mapChanged) {
             g.mapChanged = false
-            de.bornim.core.art.MapFolk.prepareFor(de.bornim.core.World[g.state.place.map])
+            de.bornim.core.World[g.state.place.map].let { m ->
+                de.bornim.core.art.MapGround.prepare(m, g.state.place.x, g.state.place.y)
+                de.bornim.core.art.MapFolk.prepareFor(m)
+            }
             save()
         }
         tick++

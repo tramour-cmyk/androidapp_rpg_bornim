@@ -189,3 +189,71 @@ fun renderNpcTorch() {
     ImageIO.write(out, "png", File("build/screens/fackel_entwurf.png"))
     println("wrote torch draft")
 }
+
+/** Draft (night of 09.10.): the village folk as dolls, front, at a slant, side and back, beside the former figure. VILLAGEDRAFT=1 */
+fun renderVillageDraft() {
+    val folk = de.bornim.core.art.MapFolk
+    val F = MapFigure
+    val looks = mapOf("rowena" to "innkeeper", "aldric" to "elder", "thessa" to "merchant", "osric" to "priest", "lyra" to "lyra", "jorin" to "guard",
+        "pim" to "child", "bram" to "farmer", "liska" to "maid", "gwenna" to "villager", "borin" to "dwarf", "morwen" to "herbalist")
+    val names = mapOf("rowena" to "Wirtin Rowena", "aldric" to "Ältester Aldric", "thessa" to "Händlerin Thessa", "osric" to "Bruder Osric", "lyra" to "Schwester Lyra",
+        "jorin" to "Wache Jorin", "pim" to "Pim", "bram" to "Bauer Bram", "liska" to "Magd Liska", "gwenna" to "Gwenna", "borin" to "Zwerg Borin", "morwen" to "Kräuterfrau Morwen")
+    val k = 2; val lab = 24; val slots = listOf(0, 2, 4, 8)
+    for ((part, group) in folk.drafts.chunked(6).withIndex()) {
+        val cw = F.W * k; val ch = F.H * k + lab
+        val out = BufferedImage(cw * (slots.size + 1), ch * group.size, BufferedImage.TYPE_INT_RGB)
+        val g = out.createGraphics()
+        g.color = Color(0x2A3024); g.fillRect(0, 0, out.width, out.height)
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
+        g.font = Font(Font.SANS_SERIF, Font.BOLD, 15); g.color = Color(0xE8DCC0)
+        group.forEachIndexed { r, f ->
+            val y0 = r * ch
+            g.drawString(names[f.id] ?: f.id, 6, y0 + 17)
+            g.drawString("bisher", slots.size * cw + 6, y0 + 17)
+            slots.forEachIndexed { i, s ->
+                val img = folk.draw(f, s, 0)
+                for (y in 0 until F.H * k) for (x in 0 until F.W * k) {
+                    val q = img[x / k, y / k]; if ((q ushr 24) < 128) continue
+                    out.setRGB(i * cw + x, y0 + lab + y, q)
+                }
+            }
+            val old = CharacterArt.npc(looks[f.id] ?: "villager", Facing.DOWN)
+            val ox = slots.size * cw + (cw - old.width * 2 * k / 2) / 2; val oy = y0 + lab + F.GROUND * k - old.height * k
+            for (y in 0 until old.height * k) for (x in 0 until old.width * k) {
+                val q = old[x / k, y / k]; if ((q ushr 24) < 128) continue
+                if (ox + x < out.width) out.setRGB(ox + x, oy + y, q)
+            }
+        }
+        g.dispose()
+        ImageIO.write(out, "png", File("build/screens/dorfbewohner_${part + 1}.png"))
+    }
+    println("wrote village draft")
+}
+
+/** Draft (night of 09.10.): Garrick down at his fire, squatting, stirring the embers, dozing. SQUATDRAFT=1 */
+fun renderSquatDraft() {
+    val folk = de.bornim.core.art.MapFolk
+    val F = MapFigure
+    val poses = de.bornim.core.art.MapFolk.Squat.entries
+    val rows = listOf("zum Feuer (links)" to 12, "schräg vorn" to 14, "von vorn" to 0, "von der Seite" to 4, "von hinten" to 8)
+    val k = 3; val lab = 24
+    val out = BufferedImage(F.W * k * poses.size, (F.H * k + lab) * rows.size, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics()
+    g.color = Color(0x2A3024); g.fillRect(0, 0, out.width, out.height)
+    g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
+    g.font = Font(Font.SANS_SERIF, Font.BOLD, 17); g.color = Color(0xE8DCC0)
+    rows.forEachIndexed { r, (title, slot) ->
+        val y0 = r * (F.H * k + lab)
+        poses.forEachIndexed { i, p ->
+            g.drawString((if (i == 0) "$title: " else "") + p.name, i * F.W * k + 6, y0 + 18)
+            val img = folk.drawSquat(folk.garrick, slot, p)
+            for (y in 0 until F.H * k) for (x in 0 until F.W * k) {
+                val q = img[x / k, y / k]; if ((q ushr 24) < 128) continue
+                out.setRGB(i * F.W * k + x, y0 + lab + y, q)
+            }
+        }
+    }
+    g.dispose()
+    ImageIO.write(out, "png", File("build/screens/garrick_hocken.png"))
+    println("wrote squat draft")
+}

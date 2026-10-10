@@ -466,12 +466,15 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             MapGround.prepare(map, p.x, p.y)
             val ch = MapGround.CH
             for (cy in Math.floorDiv(y0, ch)..Math.floorDiv(y1, ch)) for (cx in Math.floorDiv(x0, ch)..Math.floorDiv(x1, ch)) {
-                MapGround.chunk(map, cx, cy)?.let { put(it, cx * ch * T, cy * ch * T, MapGround.D) }
+                // never the former tiles while the new ground is drawn (23:04): the piece the hero stands on right away,
+                // the rest stays dark for the moment it takes, drawn on several cores
+                val here = cx == Math.floorDiv(p.x, ch) && cy == Math.floorDiv(p.y, ch)
+                (if (here) MapGround.chunkNow(map, cx, cy) else MapGround.chunk(map, cx, cy))?.let { put(it, cx * ch * T, cy * ch * T, MapGround.D) }
             }
         }
         for (ty in y0..y1) for (tx in x0..x1) {
             if (!map.inside(tx, ty)) continue
-            if (fine && MapGround.chunk(map, Math.floorDiv(tx, MapGround.CH), Math.floorDiv(ty, MapGround.CH)) != null && !MapGround.keepsOldTile(map.tile(tx, ty))) continue
+            if (fine && !MapGround.keepsOldTile(map, map.tile(tx, ty))) continue
             put(WorldArt.ground(map, tx, ty, state, frame), tx * T, ty * T)
         }
 
@@ -496,12 +499,15 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // a figure near a flame catches its light on the near side, more so at night (09.10.)
         val flames = MapLight.sources(map).filter { it.kind == MapLight.Kind.FIRE || it.kind == MapLight.Kind.TORCH ||
             (it.kind == MapLight.Kind.LAMP && game.daylight < 0.6f) }
+        // torches carried about (Garrick warding off a beast): map pixel positions
+        val torches = mutableListOf<Pair<Double, Double>>()
         fun warmEdge(img: de.bornim.core.art.PixelImage, fx: Int, fy: Int): de.bornim.core.art.PixelImage {
-            if (flames.isEmpty()) return img
+            if (flames.isEmpty() && torches.isEmpty()) return img
             // from the figure's chest, a little over a tile above its feet
             val cx = fx + T / 2.0; val cy = fy + T - 22.0
-            val f = flames.minBy { (it.x - cx) * (it.x - cx) + (it.y - cy) * (it.y - cy) }
-            val dx = (f.x - cx) / T; val dy = (f.y - cy) / T
+            val all = flames.map { it.x to it.y } + torches
+            val f = all.minBy { (it.first - cx) * (it.first - cx) + (it.second - cy) * (it.second - cy) }
+            val dx = (f.first - cx) / T; val dy = (f.second - cy) / T
             val level = MapGlow.level(kotlin.math.sqrt(dx * dx + dy * dy), game.daylight.toDouble())
             return MapGlow.litCached(img, MapGlow.dir(dx, dy), level)
         }
@@ -575,9 +581,14 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     // a hero standing still nearby for 20 s is no longer worth watching: back to the fire (20:56)
                     val near = MapFolk.watches(dx.toDouble() / T, dy.toDouble() / T, HeroStill.forMs(heroX, heroY, clock))
                     // left alone and standing, they go about their idle loops (Garrick: warming his hands, peering into the woods)
-                    val doing = if (near || w != null) null else MapFolk.doing(f, clock)
+                    // a beast turned back at its safe place: the torch out of the fire and swung at the beast (09.10.)
+                    val wo = game.lastWardOff
+                    val warding = if (wo != null && wo.x == npc.x && wo.y == npc.y) MapFolk.wardAt(clock - wo.atMs) else null
+                    val doing = if (near || w != null || warding != null) null else MapFolk.doing(f, clock)
                     val homeSlot = MapFigure.slot(home)
                     val target = when {
+                        warding != null && wo != null -> if (warding.faceBeast)
+                            Math.toDegrees(kotlin.math.atan2((wo.beastX - npc.x).toDouble(), (wo.beastY - npc.y).toDouble())) else home
                         near -> Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))
                         doing != null -> (homeSlot + doing.slotOffset) * 360.0 / MapFigure.YAWS
                         else -> home
@@ -593,12 +604,19 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                         val (rest, breath) = MapRest.at(f.id.hashCode(), clock, handsFree = true, mayLook = !near)
                         MapFolk.restFrame(f, slotNow, rest, breath)
                     } else null
-                    idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 160).toInt(), MapFigure.STEPS) else 0)
+                    val wardImg = warding?.let { wd ->
+                        // the torch lights its bearer and whoever stands near; it rides about a tile above the feet
+                        torches += (nx + T / 2.0) to (ny - 12.0)
+                        MapFolk.wardFrame(f, slotNow, wd.ward, wd.flicker)
+                    }
+                    wardImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 160).toInt(), MapFigure.STEPS) else 0)
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
                 val dollLit = doll?.let { warmEdge(it, nx, ny) }
                 sprites += Sprite((ny + T - 1).toFloat()) {
-                    if (dollLit != null) put(dollLit, nx + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, ny + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
+                    // pictures may be wider than the standing ones (a raised torch): the feet stay in the middle, near the bottom
+                    if (dollLit != null) put(dollLit, nx + T / 2 - dollLit.width / 2 / MapFigure.DENSITY,
+                        ny + T - 3 - (dollLit.height - MapFigure.FOOT_BELOW) / MapFigure.DENSITY, MapFigure.DENSITY)
                     else put(img, nx, ny - 2)
                 }
             }
@@ -673,13 +691,30 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         sprites += Sprite(heroY + T - 0.5f) {
             put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
             // Feet hidden in tall grass.
-            if (map.tile(p.x, p.y) == Tile.TALL_GRASS && progress > 0.5f) put(WorldArt.tallGrassOverlay(), heroX, heroY)
+            if (map.tile(p.x, p.y) == Tile.TALL_GRASS && progress > 0.5f) {
+                // on the new ground the same dark blades stand before the feet; elsewhere the former patch
+                if (MapGround.supports(map)) put(MapGround.tallFront((state.steps + (clock / 400).toInt()) % 2), heroX, heroY + T - 14, MapGround.D)
+                else put(WorldArt.tallGrassOverlay(), heroX, heroY)
+            }
         }
         sprites.sortBy { it.y }
         sprites.forEach { it.draw() }
 
         // Light of the place: time of day, shade of the crowns, lamps, fires and the lantern.
         if (MapLight.needed(map, game.daylight)) drawMapLight(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH)
+        // a torch carried about throws a warm, flickering glow around it, the stronger the darker it is
+        for ((tx, ty) in torches) {
+            val flick = 0.85f + 0.15f * kotlin.math.sin(clock / 70f) * kotlin.math.sin(clock / 113f)
+            val c = Offset(((tx - camX) * scale).toFloat(), ((ty - camY) * scale).toFloat())
+            val rad = T * 2.1f * scale * flick
+            drawCircle(
+                androidx.compose.ui.graphics.Brush.radialGradient(
+                    listOf(Color(0xFFFFB060).copy(alpha = (0.05f + 0.17f * (1f - game.daylight)) * flick), Color.Transparent),
+                    center = c, radius = rad,
+                ),
+                radius = rad, center = c,
+            )
+        }
         val outdoors = map.kind == MapKind.TOWN || map.kind == MapKind.FOREST
         if (outdoors) {
             drawCritters(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH)

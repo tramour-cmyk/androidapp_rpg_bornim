@@ -29,18 +29,32 @@ object MapGround {
     const val CH = 4
 
     /** Whether this map has the new ground: the woods, and the cave ([MapCave.ground]). */
-    fun supports(map: MapDef) = map.kind == MapKind.FOREST || map.kind == MapKind.CAVE
+    fun supports(map: MapDef) = map.kind == MapKind.FOREST || map.kind == MapKind.CAVE || (townDraft && (map.kind == MapKind.TOWN || map.kind == MapKind.INTERIOR))
+
+    /** The village in the new style is only a draft (night of 09.10.): on in the previews, off in the game. */
+    @Volatile var townDraft = false
 
     /** Tiles drawn by this ground; anything else keeps its old picture on top. */
     private val drawn = setOf(
         Tile.GRASS, Tile.TALL_GRASS, Tile.FLOWERS, Tile.PATH, Tile.TREE, Tile.WATER,
         Tile.ROCK, Tile.LOG, Tile.MENHIR, Tile.SIGN, Tile.CHEST, Tile.CAMPFIRE,
-        // the cave
+        // the rock face about the cave mouth in the woods ([MapFlora.caveCliff], 1b)
+        Tile.CAVE_WALL, Tile.CAVE_ENTRANCE,
+    )
+
+    /** Tiles drawn by the cave's ground ([MapCave]); only inside the cave (09.10., 23:04: the cliff about the cave mouth in the woods is still the former one). */
+    private val caveDrawn = setOf(
         Tile.CAVE_WALL, Tile.CAVE_FLOOR, Tile.CAVE_EXIT, Tile.RUBBLE, Tile.BONES, Tile.GLOWSHROOM, Tile.CRYSTAL,
         Tile.STALAGMITE, Tile.CRATE, Tile.BEDROLL, Tile.SUPPORT, Tile.SKYLIGHT, Tile.TORCH, Tile.GATE,
     )
 
-    fun keepsOldTile(tile: Tile) = tile !in drawn
+    /** Tiles the village draft draws: its own ground, and the houses and things of [MapTown]. */
+    val townDrawn = mutableSetOf(Tile.COBBLE, Tile.BRIDGE, Tile.ROOF, Tile.ROOF_BLUE, Tile.WALL, Tile.WINDOW, Tile.DOOR,
+        Tile.BARREL, Tile.LAMP, Tile.STALL, Tile.WELL, Tile.BENCH, Tile.HAY, Tile.BARRIER, Tile.FENCE, Tile.CROPS, Tile.VEG_BED, Tile.WASHLINE)
+
+    /** Whether [tile] on [map] keeps its former picture over the new ground. */
+    fun keepsOldTile(map: MapDef, tile: Tile) = map.kind != MapKind.INTERIOR && tile !in drawn && (map.kind != MapKind.CAVE || tile !in caveDrawn) &&
+        (map.kind != MapKind.TOWN || tile !in townDrawn)
 
     private val chunks = HashMap<String, PixelImage>()
     private val preparing = HashSet<String>()
@@ -48,22 +62,31 @@ object MapGround {
     /** The chunk ([cx], [cy]) of [map], or null while it is not drawn yet. */
     fun chunk(map: MapDef, cx: Int, cy: Int): PixelImage? = synchronized(chunks) { chunks["${map.id}/$cx/$cy"] }
 
+    /** The chunk ([cx], [cy]) of [map], drawn right away when it is not ready yet (a brief pause, once), so the former tiles never show. */
+    fun chunkNow(map: MapDef, cx: Int, cy: Int): PixelImage? {
+        if (!supports(map) || cx < 0 || cy < 0 || cx * CH >= map.width || cy * CH >= map.height) return null
+        chunk(map, cx, cy)?.let { return it }
+        val img = draw(map, cx, cy)
+        synchronized(chunks) { chunks.getOrPut("${map.id}/$cx/$cy") { img } }
+        return chunk(map, cx, cy)
+    }
+
     /** Draws all chunks of [map] in the background, nearest to ([nearX], [nearY]) first (tiles). */
     fun prepare(map: MapDef, nearX: Int = 0, nearY: Int = 0) {
         if (!supports(map)) return
         synchronized(preparing) { if (!preparing.add(map.id)) return }
-        val t = Thread {
-            for ((cx, cy) in order(map, nearX, nearY)) {
-                val k = "${map.id}/$cx/$cy"
-                if (synchronized(chunks) { k in chunks }) continue
-                val img = draw(map, cx, cy)
-                synchronized(chunks) { chunks[k] = img }
-            }
+        // on several cores at once, nearest first (23:04: so the ground is there almost as soon as the map shows)
+        for ((cx, cy) in order(map, nearX, nearY)) workers.execute {
+            val k = "${map.id}/$cx/$cy"
+            if (synchronized(chunks) { k in chunks }) return@execute
+            val img = draw(map, cx, cy)
+            synchronized(chunks) { chunks.getOrPut(k) { img } }
         }
-        t.isDaemon = true
-        t.priority = Thread.MIN_PRIORITY
-        t.start()
     }
+
+    private val workers = java.util.concurrent.Executors.newFixedThreadPool(
+        (Runtime.getRuntime().availableProcessors() - 1).coerceIn(2, 4),
+    ) { r -> Thread(r, "map-ground").also { it.isDaemon = true; it.priority = Thread.NORM_PRIORITY - 1 } }
 
     /** Draws all chunks of [map] right away (for previews and tests). */
     fun prepareNow(map: MapDef) {
@@ -151,6 +174,30 @@ object MapGround {
     private val waterTiles: (Tile) -> Boolean = { it == Tile.WATER }
     private val treeTiles: (Tile) -> Boolean = { it == Tile.TREE }
     private val flowerTiles: (Tile) -> Boolean = { it == Tile.FLOWERS }
+    private val cobbleTiles: (Tile) -> Boolean = { it == Tile.COBBLE || it == Tile.STALL || it == Tile.WELL || it == Tile.LAMP || it == Tile.BENCH }
+    private val yardTiles: (Tile) -> Boolean = { it == Tile.ROOF || it == Tile.ROOF_BLUE || it == Tile.WALL || it == Tile.WINDOW || it == Tile.DOOR || it == Tile.BARREL || it == Tile.HAY || it == Tile.CROPS || it == Tile.VEG_BED }
+    private val COBBLE_D = rgb(0x3E3A34); private val COBBLE_L = rgb(0x7A7262); private val MORTAR = rgb(0x26221C)
+    private val PLANK_D = rgb(0x3A2A1E); private val PLANK_L = rgb(0x6A5038)
+
+    /**
+     * The village's cobbles: rounded stones some seven pixels across set in dark earth, worn lighter on
+     * top, here and there one missing; [into] gets the colour, the result whether there is a stone.
+     */
+    private fun cobble(x: Double, y: Double, into: DoubleArray): Boolean {
+        val cell = 6.0
+        val gx = floor(x / cell).toInt(); val gy = floor(y / cell).toInt()
+        var d1 = 99.0; var d2 = 99.0; var id = 0
+        for (dy in -1..1) for (dx in -1..1) {
+            val cx = gx + dx; val cy = gy + dy
+            val px = (cx + 0.2 + rnd(cx, cy, 61) * 0.6) * cell; val py = (cy + 0.2 + rnd(cx, cy, 62) * 0.6) * cell
+            val d = sqrt((x - px) * (x - px) + (y - py) * (y - py) * 1.3)
+            if (d < d1) { d2 = d1; d1 = d; id = hash(cx, cy, 63) } else if (d < d2) d2 = d
+        }
+        // the joints, with moss in them here and there; now and then a stone gone
+        if (d2 - d1 < 1.1 || id % 29 == 0) { for (i in 0..2) into[i] = (if (vnoise(x, y, 9.0, 67) > 0.6) MOSS_D[i] else MORTAR[i]).toDouble(); return false }
+        lerp(COBBLE_D, COBBLE_L, 0.25 + (id % 100) / 260.0 + (1 - d1 / cell) * 0.35 + (vnoise(x, y, 3.0, 64) - 0.5) * 0.2, into)
+        return true
+    }
 
     private fun tallAt(map: MapDef, x: Double, y: Double) =
         field(map, x, y, tallTiles) + (fbm(x, y, 40.0, 4) - 0.5) * 0.9 + (vnoise(x, y, 10.0, 5) - 0.5) * 0.35 > 0.55
@@ -249,6 +296,7 @@ object MapGround {
 
     private fun draw(map: MapDef, cx: Int, cy: Int): PixelImage {
         if (map.kind == MapKind.CAVE) return MapCave.ground(map, cx, cy)
+        if (map.kind == MapKind.INTERIOR) return MapRoom.ground(map, cx, cy)
         val size = CH * S
         val ox = cx * size; val oy = cy * size
         val img = PixelImage(size, size)
@@ -331,6 +379,30 @@ object MapGround {
                 tall[yy * size + xx] = false
                 pathK[yy * size + xx] = 1.0
             } else if (w > 0.36) mixInto(col, MUD, 0.7)
+            if (map.kind == MapKind.TOWN) {
+                // trodden earth about the houses and in the yards
+                val yard = field(map, x, y, yardTiles) + (fbm(x, y, 22.0, 52) - 0.5) * 0.5
+                if (yard > 0.45) { lerp(EARTH_D, PATH_D, n3, tmp); for (i in 0..2) col[i] += (tmp[i] - col[i]) * ((yard - 0.45) * 3).coerceIn(0.0, 0.85); tall[yy * size + xx] = false; pathK[yy * size + xx] = 1.0 }
+                // the square: cobbles, their edge broken into the earth
+                val cob = field(map, x, y, cobbleTiles) + (fbm(x, y, 18.0, 51) - 0.5) * 0.45
+                if (cob > 0.5) {
+                    if (cobble(x, y, tmp)) for (i in 0..2) col[i] = tmp[i] else for (i in 0..2) col[i] += (tmp[i] - col[i]) * 0.8
+                    tall[yy * size + xx] = false; pathK[yy * size + xx] = 1.0
+                }
+                // the bridge: planks across the river, gaps between them, dark at the edges
+                val tx = floor(x / S).toInt(); val ty = floor(y / S).toInt()
+                if (map.tile(tx, ty) == Tile.BRIDGE) {
+                    val ly = y - ty * S
+                    val plank = floor(ly / 8).toInt()
+                    lerp(PLANK_D, PLANK_L, 0.35 + rnd(plank, tx, 65) * 0.4 + (vnoise(x * 0.2, y, 4.0, 66) - 0.5) * 0.3, tmp)
+                    if (ly % 8 < 1.2) for (i in 0..2) tmp[i] = MORTAR[i] * 0.6
+                    val lx = x - tx * S
+                    val side = map.tile(tx - 1, ty) != Tile.BRIDGE && lx < 5 || map.tile(tx + 1, ty) != Tile.BRIDGE && lx > S - 5
+                    if (side) for (i in 0..2) tmp[i] = PLANK_D[i] * 0.7
+                    for (i in 0..2) col[i] = tmp[i]
+                    tall[yy * size + xx] = false; pathK[yy * size + xx] = 1.0
+                }
+            }
             img.pixels[yy * size + xx] = (0xFF shl 24) or (col[0].toInt().coerceIn(0, 255) shl 16) or (col[1].toInt().coerceIn(0, 255) shl 8) or col[2].toInt().coerceIn(0, 255)
         }
         // blades, tufts, flowers and pebbles, from every tile near the chunk so they cross its edges
@@ -375,6 +447,31 @@ object MapGround {
         }
         return img
     }
+
+    /**
+     * Tall grass standing in front of the feet of someone wading through it (09.10.: the former bright
+     * green patch did not fit the new ground): the same dark blades as on the ground, on a clear picture
+     * [S] wide and 26 high, its foot line 4 above the bottom; [variant] sways them a little.
+     */
+    fun tallFront(variant: Int): PixelImage = synchronized(fronts) {
+        fronts.getOrPut(variant) {
+            val w = S; val h = 26
+            val img = PixelImage(w, h)
+            for (k in 0 until 70) {
+                val x = 4 + (rnd(k, 1, 500) * (w - 8)).toInt()
+                // thicker in the middle, where the feet are
+                if (rnd(k, 2, 501) > 1.1 - abs(x - w / 2.0) / (w / 2.0)) continue
+                val y = h - 4 - (rnd(k, 3, 502) * 6).toInt()
+                val b = rnd(k, 4, 503)
+                val c = (0..2).map { (TALL_BLADE_D[it] + (TALL_BLADE_L[it] - TALL_BLADE_D[it]) * b).toInt() }
+                val len = 8 + hash(k, 5, 504) % 10
+                val lean = (hash(k, 6, 505) % 5) - 2 + (if (variant % 2 == 0) 1 else -1)
+                blade(img, x, y, len, lean, (c[0] shl 16) or (c[1] shl 8) or c[2], 1.0)
+            }
+            img
+        }
+    }
+    private val fronts = HashMap<Int, PixelImage>()
 
     /** A blade of grass from its foot ([x], [y]) up, leaning [lean] pixels to the side. */
     private fun blade(img: PixelImage, x: Int, y: Int, len: Int, lean: Int, rgb: Int, alpha: Double) {
