@@ -138,14 +138,27 @@ object HeroBattle {
         val hit = strikeFrame(strike)
         val n = frameCount(hero, Act.ATTACK, strike, 0)
         fun smooth(x: Double) = x.coerceIn(0.0, 1.0).let { it * it * (3 - 2 * it) }
-        return if (index <= hit) smooth((index - hit * 0.3) / (hit * 0.7)) else 1 - smooth((index - hit) / (n - 1 - hit).coerceAtLeast(1))
+        // the blow is wound up to [windUpEnd] and held there until it is known whether it hits: the step comes to rest
+        // there too, and sets off again from rest, instead of stopping dead halfway and lurching on
+        val start = hit * 0.3; val hold = windUpEnd(strike).toDouble()
+        val atHold = smooth((hold - start) / (hit - start))
+        return when {
+            index <= hold -> atHold * smooth((index - start) / (hold - start))
+            index <= hit -> atHold + (1 - atHold) * smooth((index - hold) / (hit - hold))
+            else -> 1 - smooth((index - hit) / (n - 1 - hit).coerceAtLeast(1))
+        }
     }
+
+    /** The frame a blow is wound up to and held at while it is named: a killing blow at its height, a shot just before it is let go. */
+    fun windUpEnd(strike: Strike): Int =
+        if (strike.killing) HeroFigure.killPeak(strike) else strikeFrame(strike) - (if (strike == Strike.SHOOT) 1 else 2)
 
     /**
      * Where a blow aims on a foe whose picture is [foeW] wide with its feet at ([feetX], [feetY]) and [height] tall:
-     * the near front of it, towards the hero below on the left, so the hero steps in only as far as a real blow would.
+     * into the body, a little on the side towards the hero below on the left, so the blade is seen in it and not only
+     * touching its edge.
      */
-    fun aimAt(feetX: Double, feetY: Double, foeW: Double, height: Double): Pair<Double, Double> = Pair(feetX - foeW * 0.28, feetY - height * 0.4)
+    fun aimAt(feetX: Double, feetY: Double, foeW: Double, height: Double): Pair<Double, Double> = Pair(feetX - foeW * 0.08, feetY - height * 0.45)
 
     /**
      * The step in for a blow, in art pixels: how far the feet move so that, drawn [LUNGE_SCALE] times as large, the
@@ -193,8 +206,15 @@ object HeroBattle {
     private fun look(hero: Hero) = "${hero.race}/${hero.sex}/${hero.build}/${hero.skinTone}/${hero.hairTone}/${hero.cls}/" +
         GearSlot.entries.joinToString(",") { s -> hero.item(s)?.let { "${it.base}:${it.rarity}" } ?: "-" }
 
-    /** About 30 MB of frames at most, fewer on small phones. */
-    private val capacity: Int = (Runtime.getRuntime().maxMemory() / 8 / (W * H * 4L)).toInt().coerceIn(60, 280)
+    /**
+     * About 45 MB of frames at most, fewer on small phones: room for all a hero's frames in one fight ([planFrames], up
+     * to [MOST_FRAMES]) and some of the last ones with fewer wounds. Too few, and the frames drawn ahead first (or
+     * the killing blows, drawn last) were gone again when they came to be shown.
+     */
+    private val capacity: Int = (Runtime.getRuntime().maxMemory() / 6 / (W * H * 4L)).toInt().coerceIn(60, 400)
+
+    /** The most frames a hero may have in one fight, so that all of them are kept at once. */
+    const val MOST_FRAMES = 360
 
     private val cache = object : LinkedHashMap<String, PixelImage>(128, 0.75f, true) {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > capacity
@@ -242,6 +262,31 @@ object HeroBattle {
      */
     fun prepare(hero: Hero, foeId: String, ambushed: Boolean, victoryPick: Int = 0, wounds: Int = 0,
         first: Triple<Act, Strike, Int>? = null, cancelled: () -> Boolean = { false }) {
+        val plan = plan(hero, foeId, ambushed, victoryPick, first, cancelled)
+        for ((act, strike, v) in plan) for (i in 0 until frameCount(hero, act, strike, v)) {
+            if (cancelled()) return
+            frame(hero, act, strike, v, i, wounds)
+        }
+    }
+
+    /** How many frames [prepare] draws for this hero in a fight: all must fit into the frames kept at once. */
+    fun planFrames(hero: Hero, foeId: String, ambushed: Boolean = false, victoryPick: Int = 0): Int =
+        plan(hero, foeId, ambushed, victoryPick, null) { true }.sumOf { (act, strike, v) -> frameCount(hero, act, strike, v) }
+
+    /**
+     * The rest of a blow, drawn at once: a killing blow is drawn ahead last of all and may not be ready when it comes,
+     * so it is drawn while the hero winds up and holds still for it.
+     */
+    fun prepareBlow(hero: Hero, strike: Strike, wounds: Int, cancelled: () -> Boolean = { false }) {
+        for (i in 0 until frameCount(hero, Act.ATTACK, strike, 0)) {
+            if (cancelled()) return
+            frame(hero, Act.ATTACK, strike, 0, i, wounds)
+        }
+    }
+
+    /** What [prepare] draws, in this order; the points of the blows and where spells leave are found on the way, unless [cancelled]. */
+    private fun plan(hero: Hero, foeId: String, ambushed: Boolean, victoryPick: Int, first: Triple<Act, Strike, Int>?,
+        cancelled: () -> Boolean): List<Triple<Act, Strike, Int>> {
         val plan = mutableListOf<Triple<Act, Strike, Int>>()
         // what the hero is doing right now (a guard held while struck) is drawn with the new wounds before all else
         first?.let { plan += it }
@@ -261,9 +306,6 @@ object HeroBattle {
         plan += Triple(Act.DRINK, Strike.SLASH, drinkPick(victoryPick))
         // the killing blows come rarely: drawn last
         for (s in killStrikes(hero)) { plan += Triple(Act.ATTACK, s, 0); if (!cancelled()) tip(hero, s) }
-        for ((act, strike, v) in plan.distinct()) for (i in 0 until frameCount(hero, act, strike, v)) {
-            if (cancelled()) return
-            frame(hero, act, strike, v, i, wounds)
-        }
+        return plan.distinct()
     }
 }
