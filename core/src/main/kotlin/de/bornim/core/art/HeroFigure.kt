@@ -61,6 +61,25 @@ object HeroFigure {
         fun len() = sqrt(r * r + u * u + f * f)
         fun norm() = this * (1.0 / len().coerceAtLeast(1e-6))
         fun lerp(o: V, t: Double) = V(r + (o.r - r) * t, u + (o.u - u) * t, f + (o.f - f) * t)
+        fun dot(o: V) = r * o.r + u * o.u + f * o.f
+
+        /**
+         * A direction turned towards [o] at an even pace along the shorter arc (a weapon swung, not snapped: a plain
+         * lerp of two directions far apart stays put, then flips through the middle in one picture). Nearly opposite
+         * directions turn by way of up.
+         */
+        fun turnTo(o: V, t: Double): V {
+            val a = norm(); val b = o.norm()
+            val c = a.dot(b).coerceIn(-1.0, 1.0)
+            if (c > 0.9995) return lerp(o, t).norm()
+            if (c < -0.95) {
+                val up = V(0.0, 1.0, 0.0)
+                val side = (up - a * a.dot(up)).let { if (it.len() < 0.2) V(1.0, 0.0, 0.0) - a * a.r else it }.norm()
+                return if (t < 0.5) a.turnTo(side, t * 2) else side.turnTo(b, t * 2 - 1)
+            }
+            val th = kotlin.math.acos(c); val s = kotlin.math.sin(th)
+            return a * (kotlin.math.sin((1 - t) * th) / s) + b * (kotlin.math.sin(t * th) / s)
+        }
     }
 
     /**
@@ -121,7 +140,7 @@ object HeroFigure {
             fun l(a: Double, b: Double) = a + (b - a) * t
             return Rig(
                 l(yaw, o.yaw), l(bodyX, o.bodyX), l(bodyY, o.bodyY), l(lean, o.lean), l(crouch, o.crouch), l(stride, o.stride), l(spread, o.spread),
-                rh.lerp(o.rh, t), weapon.lerp(o.weapon, t).norm(), lh.lerp(o.lh, t), shieldFace.lerp(o.shieldFace, t).norm(),
+                rh.lerp(o.rh, t), weapon.turnTo(o.weapon, t), lh.lerp(o.lh, t), shieldFace.turnTo(o.shieldFace, t),
                 l(headTurn, o.headTurn), l(headDown, o.headDown), l(cloak, o.cloak), l(glow, o.glow), l(draw, o.draw), l(trail, o.trail),
                 l(elbowUp, o.elbowUp), elbowAt.lerp(o.elbowAt, t), l(twist, o.twist), l(grip, o.grip), l(roll, o.roll), l(foreLevel, o.foreLevel), l(aim, o.aim), l(brace, o.brace), rPole.lerp(o.rPole, t), l(stock, o.stock), l(glowAt, o.glowAt), l(freeHand, o.freeHand), l(bowTilt, o.bowTilt),
                 l(fallF, o.fallF), l(fallS, o.fallS), l(flask, o.flask), l(flaskTilt, o.flaskTilt), l(cork, o.cork),
@@ -178,7 +197,10 @@ object HeroFigure {
     // the grip never seems to change
     val KILL_HIGH_RAISE = SMASH_WIND.copy(rh = V(14.0, 116.0, -8.0), weapon = V(0.4, 0.65, -0.65), grip = 40.0, lean = -0.35, bodyY = -2.5, stride = 4.0, twist = 20.0, headDown = -6.0, aim = 1.0)
     val KILL_HIGH_OVER = SMASH_OVER.copy(aim = 1.0)
-    val KILL_HIGH_HIT = SMASH_HIT.copy(lean = 0.8, crouch = 9.0, stride = 12.0, rh = V(4.0, 62.0, 44.0), weapon = V(0.0, -0.8, 0.6), twist = -20.0, trail = 1.0, headDown = 8.0, aim = 1.0)
+    // on the way down: the blade out in front, level with the head, the body already falling in behind it
+    val KILL_HIGH_SWING = SMASH_OVER.copy(lean = 0.4, crouch = 4.0, stride = 9.0, rh = V(8.0, 100.0, 40.0), weapon = V(0.15, 0.35, 0.92), twist = -8.0, trail = 1.0, headDown = 3.0, aim = 1.0)
+    // the blow lands: forward and down into the foe's shoulder, not straight down past it
+    val KILL_HIGH_HIT = SMASH_HIT.copy(lean = 0.8, crouch = 9.0, stride = 12.0, rh = V(4.0, 70.0, 44.0), weapon = V(0.0, -0.45, 0.89), twist = -20.0, trail = 1.0, headDown = 8.0, aim = 1.0)
     val KILL_HIGH_DOWN = KILL_HIGH_HIT.copy(crouch = 11.0, rh = V(2.0, 50.0, 40.0), weapon = V(-0.05, -0.95, 0.3), trail = 0.0)
     // 2. run through: drawn far back, driven deep into the foe, then wrenched out to the side
     val KILL_IMPALE_WIND = THRUST_WIND.copy(rh = V(22.0, 72.0, -14.0), lean = -0.25, twist = 38.0, stride = 3.0, crouch = 2.0)
@@ -187,7 +209,8 @@ object HeroFigure {
     // 3. a full turn: round with the back to the foe and the blade flat, then through it at waist height
     val KILL_SPIN_WIND = SLASH_WIND.copy(rh = V(30.0, 86.0, -16.0), weapon = V(0.7, 0.05, -0.7), twist = 45.0, lean = -0.05, stride = 5.0, crouch = 2.0, elbowUp = 0.0, roll = 0.0, aim = 1.0, grip = 30.0)
     val KILL_SPIN_TURN = KILL_SPIN_WIND.copy(yaw = FIGHT_YAW + 170.0, rh = V(26.0, 86.0, 10.0), weapon = V(0.95, 0.0, 0.3), twist = 20.0, crouch = 3.0, cloak = 3.0)
-    val KILL_SPIN_HIT = SLASH_HIT.copy(rh = V(-2.0, 66.0, 42.0), weapon = V(-0.85, -0.1, 0.5), twist = -35.0, lean = 0.4, crouch = 3.0, stride = 10.0, trail = 1.0, grip = 15.0, aim = 1.0)
+    // the blow lands with the blade straight out ahead, in the middle of its sweep, and cuts on through to the left
+    val KILL_SPIN_HIT = SLASH_HIT.copy(rh = V(4.0, 68.0, 46.0), weapon = V(0.05, -0.1, 0.99), twist = -35.0, lean = 0.4, crouch = 3.0, stride = 10.0, trail = 1.0, grip = 15.0, aim = 1.0)
     val KILL_SPIN_END = KILL_SPIN_HIT.copy(rh = V(-14.0, 64.0, 24.0), weapon = V(-0.9, -0.15, -0.3), twist = -45.0, trail = 0.0)
     // 2b. with an axe, a mace or a hammer, nothing to run the foe through with: a blow from low down rising up through it
     val KILL_RISE_WIND = SMASH_HIT.copy(rh = V(24.0, 52.0, -8.0), weapon = V(0.45, -0.6, -0.65), lean = 0.1, crouch = 6.0, stride = 6.0, twist = 35.0, aim = 1.0, trail = 0.0)
@@ -359,7 +382,7 @@ object HeroFigure {
             else -> {
                 val greedy = r.copy(lean = -0.2, lh = V(-1.0, 104.0, 7.0), headDown = -30.0, flask = 1.0, flaskTilt = 165.0, cork = 0.0, shieldFace = aside)
                 val fling = r.copy(lean = 0.1, lh = V(-34.0, 92.0, -6.0), headDown = 0.0, headTurn = 12.0, flask = 1.0, flaskTilt = 60.0, cork = 0.0, shieldFace = aside)
-                tween(r to 2, pouch to 3, uncork to 2, greedy to 6, greedy.copy(flaskTilt = 175.0) to 2, fling to 3, r.copy(flask = 0.0) to 3, r to 1)
+                tween(r to 2, pouch to 3, uncork to 4, greedy to 6, greedy.copy(flaskTilt = 175.0) to 2, fling to 3, r.copy(flask = 0.0) to 3, r to 1)
             }
         }
     }
@@ -459,7 +482,7 @@ object HeroFigure {
                         SPEAR_HIGH_HIT.copy(lean = 0.65, crouch = 5.0, stride = 13.0, weapon = V(-0.02, -0.5, 0.86)) to 3, SPEAR_HIGH_HIT.copy(lean = 0.6, crouch = 6.0, stride = 13.0, weapon = V(-0.02, -0.55, 0.83), trail = 0.0) to 6, r to 1)
                     // a long staff comes back up the way the plain smash does, its foot clear of the body
                     else if (st == Stance.STAFF) tween(r to 3, SMASH_RAISE to 2, KILL_HIGH_RAISE to 5, SMASH_OVER to 2, KILL_HIGH_HIT to 3, KILL_HIGH_DOWN to 3, SMASH_HIT.copy(trail = 0.0) to 3, r to 1)
-                    else tween(r to 3, SMASH_RAISE to 2, KILL_HIGH_RAISE to 5, KILL_HIGH_OVER to 2, KILL_HIGH_HIT to 3, KILL_HIGH_DOWN to 6, r to 1),
+                    else tween(r to 3, SMASH_RAISE to 2, KILL_HIGH_RAISE to 3, KILL_HIGH_OVER to 2, KILL_HIGH_SWING to 2, KILL_HIGH_HIT to 3, KILL_HIGH_DOWN to 6, r to 1),
                 Strike.KILL_PIERCE to if (st == Stance.SPEAR) tween(r to 3, SPEAR_LOW_WIND.copy(rh = V(19.0, 58.0, -14.0), lean = -0.22, twist = 36.0) to 6,
                         SPEAR_LOW_HIT.copy(lean = 0.6, stride = 14.0, rh = V(6.0, 64.0, 48.0)) to 4, SPEAR_LOW_HIT.copy(lean = 0.6, stride = 14.0, rh = V(6.0, 64.0, 48.0), trail = 0.0) to 3,
                         SPEAR_LOW_HIT.copy(lean = 0.25, stride = 11.0, rh = V(14.0, 66.0, 34.0), weapon = V(0.35, 0.1, 0.93), trail = 0.0) to 5, r to 1)
@@ -471,7 +494,8 @@ object HeroFigure {
                 Strike.KILL_RISE to tween(r to 3, KILL_RISE_WIND to 6, KILL_RISE_HIT to 3, KILL_RISE_END to 6, r to 1),
                 // all the way round: the hit and its end a full turn on, so the body turns on rather than back
                 Strike.KILL_SPIN to tween(r to 3, KILL_SPIN_WIND to 4, KILL_SPIN_TURN to 4, KILL_SPIN_HIT.copy(yaw = FIGHT_YAW + 360.0) to 3,
-                    KILL_SPIN_END.copy(yaw = FIGHT_YAW + 360.0) to 6, r to 1),
+                    // and back to the guard still a turn on: going back to the plain yaw would spin the body back round
+                    KILL_SPIN_END.copy(yaw = FIGHT_YAW + 360.0) to 6, r.copy(yaw = r.yaw + 360.0) to 1),
                 Strike.CAST to cast(1),
             ),
             xbow = tween(r to 3, XBOW_AIM to 5, XBOW_AIM to 3, XBOW_RECOIL to 2, XBOW_AIM.copy(draw = 0.0) to 4, r to 2),
@@ -493,7 +517,7 @@ object HeroFigure {
             hurts = hurtKeys.map { tween(r to 2, it to 4, r to 1) },
             /** Facing us, then a smooth turn of the whole body to the foe, with a step. */
             turn = tween(ready to 2, turning to 7, r to 7),
-            ambush = tween(ready to 1, stagger to 3, stagger.copy(bodyY = 1.0, lean = 0.3) to 4, turning to 6, r to 7),
+            ambush = tween(ready to 2, stagger to 3, stagger.copy(bodyY = 1.0, lean = 0.3) to 4, turning to 6, r to 7),
             victories = wins.map { tween(r to 3, turning.copy(yaw = 70.0) to 7, it to 10) },
         )
     }

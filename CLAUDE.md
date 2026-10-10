@@ -49,6 +49,7 @@ Alle Notizen und Absprachen gibt es nur einmal, auf `main`: `CLAUDE.md`, `CHANGE
 - **Nummern:** Jedes Thema bekommt eine Nummer aus einer gemeinsamen Folge für Tom und Jerry (Zähler „Nächste freie Themennummer“ oben in `docs/OFFEN.md`), Vorschläge als 7.1, 7.2 …, Rückfragen als 7a, 7b …. Neues Thema: erst die Nummer auf `main` eintragen und pushen, dann dem Nutzer nennen, damit keine Nummer doppelt vergeben wird. Die Nummer bleibt fest, auch wenn das Thema später wieder aufkommt.
 - Rückfragen gebündelt am Ende der Antwort, mit Empfehlung; offene Rückfragen aus früheren Antworten wiederholen, nicht neue Listen neben alte stellen.
 - Zu jedem Build den direkten Link (Release oder Artefakt), die APK auch direkt im Chat, und eine Liste, worauf beim Testen zu achten ist. Bilder mit der Uhrzeit, zu der sie entstanden sind.
+- **Build-Meldung nie vergessen** (Regel 10.10., 19:45): Nach jedem Push, der einen Build auslöst, die Sitzung wecken lassen, wenn er fertig ist: den PR des Zweigs abonnieren (`subscribe_pr_activity`) oder, ohne PR, eine Erinnerung stellen (`send_later`, etwa 6 Minuten). Nie „ich melde mich“ schreiben, ohne dass eines davon eingerichtet ist.
 - **Abgleich mit den Stil-Leitlinien vor dem Bauen** (Regel 10.10., 13:12): Jeder Vorschlag zu Grafik, Animation oder Klang nennt in einem kurzen Absatz, welche Punkte aus `docs/STIL.md` er berührt, welche Übergänge entstehen (z. B. Stehen ↔ Hocken ↔ Aufstehen ↔ Gehen, Anführer dreht ↔ Rudel folgt) und wie sie geprüft werden (Kerntest, Film des Übergangs hinein und heraus). Erst danach bauen.
 - Erst besprechen und vorschlagen; vor großen optischen Änderungen Entwürfe zeigen. Keine Bildfolgen (Filmstreifen) an den Nutzer, nur Standbilder.
 - Änderungen an Kampf, Bewegung oder Effekten selbst durch die echte Oberfläche filmen und die Bildfolge ansehen (Werkzeuge: siehe Übergabe-Notiz). Vor jedem Commit von Code `./gradlew -p core test`.
@@ -58,6 +59,8 @@ Alle Notizen und Absprachen gibt es nur einmal, auf `main`: `CLAUDE.md`, `CHANGE
 - Vor dem Commit das Testergebnis prüfen (`set -o pipefail` bzw. Exit-Code), nicht nur die gefilterte Ausgabe.
 - Vor einer längeren Pause schreibt die Sitzung eine kurze Übergabe in ihren Abschnitt von `docs/OFFEN.md`: Stand, Offenes, offene Rückfragen.
 - **Neustart vorschlagen, um Token zu sparen** (Regel 10.10., 13:32): An Bruchstellen (ein Thema fertig, ein Build ausgeliefert, vor dem Wechsel auf ein anderes Thema, oder wenn der Haken meldet, dass das Gespräch groß ist) schlägt die Sitzung von sich aus eine neue Sitzung vor. Vorher die Übergabe in `docs/OFFEN.md` schreiben und pushen, damit die neue Sitzung ohne Verlust weitermacht.
+
+- **Nachtarbeit** (Regel 10.10., 21:05): Vergibt der Nutzer ein Nachtpaket oder startet eine Weck-Sitzung, gilt `docs/NACHT.md` (Paket mit Reserve, Weck-Sitzungen selbst einrichten, Herzschlag, Nutzungsgrenze, Morgenbericht). Sonst muss die Datei nicht gelesen werden.
 
 ## Technik und Sicherheit
 
