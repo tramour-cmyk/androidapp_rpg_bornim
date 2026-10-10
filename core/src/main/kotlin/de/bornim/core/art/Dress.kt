@@ -40,20 +40,25 @@ class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Bool
     /** No hair on the head (a shaven priest). */
     val bald: Boolean = false,
     /** The weapons put away (walking about on the map, 10.10.): a blade in its scabbard at the hip, an axe or mace at the belt. */
-    val weaponStowed: Boolean = false) {
+    val weaponStowed: Boolean = false,
+    /** Only the second weapon put away, the main one in hand (a goblin on the map, 9k: a dagger held out at the hip reads wrong). */
+    val offStowed: Boolean = false) {
     fun base(slot: GearSlot): String? = items[slot]?.base
     fun rarity(slot: GearSlot): Rarity = items[slot]?.rarity ?: Rarity.COMMON
     val twoHands: Boolean get() = items[GearSlot.MAIN_HAND]?.def?.let { (it.twoHanded || bothHands && it.versatile != null) && !it.ranged } == true
     val hasShield: Boolean get() = items[GearSlot.OFF_HAND]?.def?.kind == BaseKind.SHIELD && !twoHands
 
     /** The same outfit with a draught of [rgb] in the flask. */
-    fun withFlask(rgb: Int) = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, rgb, fetish, shieldOnBack, bowOnBack, leatherRgb, clothes, bald, weaponStowed)
+    fun withFlask(rgb: Int) = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, rgb, fetish, shieldOnBack, bowOnBack, leatherRgb, clothes, bald, weaponStowed, offStowed)
 
     /** The same outfit with the shield slung on the back. */
-    fun withShieldOnBack() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, true, bowOnBack, leatherRgb, clothes, bald, weaponStowed)
+    fun withShieldOnBack() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, true, bowOnBack, leatherRgb, clothes, bald, weaponStowed, offStowed)
+
+    /** The same outfit with the second weapon put away at the hip, the main one still in hand. */
+    fun withOffStowed() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, shieldOnBack, bowOnBack, leatherRgb, clothes, bald, weaponStowed, true)
 
     /** The same outfit with the weapons that can be put away at the hip or belt ([Dress.stows]) put away. */
-    fun withWeaponStowed() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, shieldOnBack, bowOnBack, leatherRgb, clothes, bald, true)
+    fun withWeaponStowed() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, shieldOnBack, bowOnBack, leatherRgb, clothes, bald, true, offStowed)
 
     companion object {
         fun of(hero: Hero) = Outfit(hero.cls, GearSlot.entries.mapNotNull { s -> hero.item(s)?.let { s to it } }.toMap(), bothHands = hero.bothHands())
@@ -1062,6 +1067,10 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         }
         if (main != null && !main.def.ranged && main.base !in ROUND)
             mainArm = held(main.base, ownSolids, sk.hand(1), o.twoHands) { s, k -> arm(main.base, main.rarity, sk.hand(1), sk.weapon.norm(), sk.edge, s, k) }
+        if (off != null && off.def.isWeapon && !o.twoHands && o.offStowed && stows(off)) {
+            stowed(off.base, off.rarity, if (off.base in SCABBARD) -1.0 else 1.0)
+            return
+        }
         if (off != null && off.def.isWeapon && !o.twoHands) {
             val d0 = offDir()
             val fore = (sk.wrist[0] - sk.elbow[0]).norm()
