@@ -22,7 +22,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 15 | `OFFEN.md` entschlacken: Erledigtes und Bestätigtes in die Änderungshistorie, nur Offenes bleibt | Tom (Jerry prüft danach seinen Teil) | `main` (nur Notizen) | freigegeben 10.10., 13:32; nach 14 |
 | 16 | Trefferstopp: bei harten Treffern 2–3 Bilder Standbild, beim Kritischen kurzer Zoom und leichter Ruck | Jerry (Kampf) | neu von `main` | erledigt, v0.1.460 (getestet 0.1.458, 21:07) |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen schwingen beim Stoppen und Drehen nach | Tom (Puppen) | neu von `main` | freigegeben 10.10., 13:43; nach 6.14 |
-| 18 | Pechsträhnen dämpfen: nach mehreren Fehlschlägen steigt die Trefferchance unsichtbar leicht | Jerry (Kampfregeln) | neu von `main` | freigegeben 10.10., 13:43; nach 16 |
+| 18 | Pechsträhnen dämpfen: nach mehreren Fehlschlägen steigt die Trefferchance unsichtbar leicht | Jerry (Kampfregeln) | neu von `main` | freigegeben 10.10., 13:43; 18a entschieden 22:05: nur für den Helden; Vorschlag in Arbeit |
 | 19 | Zeitablauf der Kampfbewegungen bei Tempo normal: jeder Schlag trifft sichtbar, alles läuft flüssig | Jerry (Kampf) | – | erledigt, v0.1.455 (getestet 0.1.454, 20:28) |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle. Keiner arbeitet an Themen des anderen.
