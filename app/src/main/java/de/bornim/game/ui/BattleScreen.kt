@@ -182,10 +182,14 @@ private class BattleUi(val battle: Battle) {
     /** A spell or shot let go with this message: from which act it leaves the hero, and how long until it does. */
     var release by mutableStateOf<Pair<HeroFigure.Act, Int>?>(null)
     var fxDelay = 0L
-    /** This message's blow halts as it lands (see [HIT_STOP_MS]): its sound comes with the halt. */
+    /** This message's blow halts as it lands (see [HitWeight]): its sound comes with the halt. */
     var hitStopped = false
-    /** How long it halts: longer for the killing blow. */
+    /** How hard this message's blow lands ([HitWeight]), and how long it halts (at the pace): longer the harder it is. */
+    var hitWeight = de.bornim.core.HitWeight.NORMAL
     var stopMs = 0L
+    /** Both sides' hit points before this message, for how hard its blow lands. */
+    private var heroHpBefore = battle.hero.hp
+    private var foeHpBefore = battle.enemyHp
     /** The message of the killing blow still to come or under way (see [isKillBlow]), and the blow the hero strikes it with. */
     var killStep by mutableStateOf<Step?>(null)
     var killStrike: HeroFigure.Strike? = null
@@ -277,7 +281,6 @@ private class BattleUi(val battle: Battle) {
                     // the blood flies, only then
                     if (s.anim == Anim.ENEMY_HIT) motion?.let { b ->
                         val land = b.start + (HeroBattle.strikeFrame(m.strike) - m.to) * BattlePace.ms(per)
-                        stopMs = if (s === killStep) KILL_STOP_MS else HIT_STOP_MS
                         motion = b.halted(land, stopMs)
                         fxDelay = (land - System.currentTimeMillis()).coerceAtLeast(0L) + stopMs
                         hitStopped = true
@@ -307,7 +310,7 @@ private class BattleUi(val battle: Battle) {
             s.anim == Anim.HERO_HIT && m != null && m.act == HeroFigure.Act.BLOCK && m.hold -> {}
             s.anim == Anim.HERO_HIT -> play(HeroFigure.Act.HURT, variant = another(3, m?.takeIf { it.act == HeroFigure.Act.HURT }?.variant ?: lastHurt).also { lastHurt = it }, perFrame = 95,
                 // a new-style foe's blow lands a moment into the message, then halts: the hero flinches only then
-                pacedDelay = foeBlowLands(battle, attackVariant, s)?.let { it + HIT_STOP_MS } ?: 0L)
+                pacedDelay = foeBlowLands(battle, attackVariant, s)?.let { it + stopMs } ?: 0L)
             // the defensive stance: up into the guard, held until the hero's next turn
             // a draught drunk on guard: the guard comes down first
             s.anim == Anim.HERO_HEAL && m != null && m.act == HeroFigure.Act.BLOCK && m.hold -> play(HeroFigure.Act.IDLE, from = 0, to = 0)
@@ -407,6 +410,12 @@ private class BattleUi(val battle: Battle) {
         val s = if (queue.isEmpty()) null else queue.removeAt(0)
         current = s
         if (s != null) {
+            heroHpBefore = heroHp; foeHpBefore = enemyHp
+            hitWeight = s.fx?.let { f ->
+                if (f.onHero) de.bornim.core.HitWeight.of(f.crit, heroHpBefore - s.heroHp, battle.hero.maxHp)
+                else de.bornim.core.HitWeight.of(f.crit, foeHpBefore - s.enemyHp, battle.enemyMaxHp, kill = s === killStep)
+            } ?: de.bornim.core.HitWeight.NORMAL
+            stopMs = hitWeight.stopMs(BattlePace.factor)
             heroHp = s.heroHp
             heroSp = s.heroSp
             enemyHp = s.enemyHp
@@ -568,11 +577,14 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
 
     // Hit animations
     val shake = remember { Animatable(0f) }
-    // a hit: the one struck darkens towards blood red for a moment, and a critical one shakes the scene
+    // a hit: the one struck darkens towards blood red for a moment; a critical one jolts the scene once in the blow's
+    // direction and draws it in a little while the blow halts
     val hurtGlow = remember { Animatable(0f) }
     var hitOnHero by remember { mutableStateOf(false) }
-    val quake = remember { Animatable(0f) }
-    var quakeK by remember { androidx.compose.runtime.mutableFloatStateOf(1f) }
+    val jolt = remember { Animatable(1f) }
+    var joltDp by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
+    var joltDir by remember { androidx.compose.runtime.mutableFloatStateOf(1f) }
+    val critZoom = remember { Animatable(0f) }
     // the killing blow: the scene draws in on hero and foe while it is wound up, and back once it is done
     val killZoom = remember { Animatable(0f) }
     LaunchedEffect(ui.killStep) { if (ui.killStep != null) killZoom.animateTo(1f, tween(BattlePace.ms(550), easing = androidx.compose.animation.core.FastOutSlowInEasing)) }
@@ -629,8 +641,20 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             val kill = !onHero && ui.current != null && ui.current === ui.killStep
             if (kill) ui.killAt = System.currentTimeMillis()
             if (!onHero) ui.woundHp = ui.enemyHp
-            quakeK = if (kill) 1.8f else 1f
-            if (ui.current?.fx?.crit == true) launch { quake.snapTo(1f); quake.animateTo(0f, tween(BattlePace.ms(if (kill) 650 else 420), easing = androidx.compose.animation.core.LinearEasing)) }
+            val w = ui.hitWeight
+            if (w.joltDp > 0f) {
+                joltDp = w.joltDp
+                // the blow's direction: from the hero to the foe, or back
+                joltDir = if (onHero) -1f else 1f
+                launch { jolt.snapTo(0f); jolt.animateTo(1f, tween(BattlePace.ms(w.joltMs.toInt()), easing = androidx.compose.animation.core.LinearEasing)) }
+            }
+            if (w.zoom > 0f) launch {
+                // in as it lands, held while it halts, back out as the one struck reels
+                val inMs = BattlePace.ms(110)
+                critZoom.animateTo(1f, tween(inMs, easing = androidx.compose.animation.core.FastOutSlowInEasing))
+                delay(maxOf(ui.stopMs - inMs, BattlePace.ms(60L)))
+                critZoom.animateTo(0f, tween(BattlePace.ms(450), easing = androidx.compose.animation.core.FastOutSlowInEasing))
+            }
         }
         // Projectiles first have to fly; the target reacts when they arrive.
         val flight = when (ui.current?.fx?.let { f -> f.past?.takeIf { it in FLYING && (f.kind == de.bornim.core.FxKind.DODGE || f.kind == de.bornim.core.FxKind.BLOCK) } ?: f.kind }) {
@@ -680,7 +704,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 shake.animateTo((lands.toFloat() / total).coerceIn(0.05f, 1f), tween(lands.toInt(), easing = androidx.compose.animation.core.LinearEasing))
                 ui.current?.let { st -> soundFor(st)?.let { vm.play(it) } }
                 landed(true)
-                kotlinx.coroutines.delay(HIT_STOP_MS)
+                kotlinx.coroutines.delay(ui.stopMs)
                 shake.animateTo(1f, tween((total - lands.toInt()).coerceAtLeast(1), easing = androidx.compose.animation.core.LinearEasing))
             } else when (an) {
                 Anim.ENEMY_HIT, Anim.HERO_HIT, Anim.SPELL, Anim.LEVEL_UP, Anim.ENEMY_FAINT, Anim.HERO_FAINT, Anim.LOOT, Anim.MISS ->
@@ -715,15 +739,15 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 .fillMaxWidth()
                 .weight(1f)
                 .tap { advance() }
-                // a critical hit shakes the scene, a little larger so its edges never show
+                // a critical hit jolts the scene once, a little larger so its edges never show
                 .graphicsLayer {
-                    val q = quake.value
-                    val z = 1f + 0.13f * killZoom.value
-                    if (q > 0f) {
-                        translationX = sin(q * 47f) * q * 6.dp.toPx() * quakeK
-                        translationY = kotlin.math.cos(q * 31f) * q * 4.dp.toPx() * quakeK
+                    val j = de.bornim.core.HitWeight.jolt(jolt.value)
+                    val z = 1f + 0.13f * killZoom.value + de.bornim.core.HitWeight.CRIT.zoom * critZoom.value
+                    if (j > 0f) {
+                        translationX = j * joltDp.dp.toPx() * joltDir
+                        translationY = j * joltDp.dp.toPx() * 0.35f
                     }
-                    val sc = (1f + 0.035f * q * quakeK) * z
+                    val sc = (1f + 0.03f * j) * z
                     if (sc != 1f) {
                         scaleX = sc; scaleY = sc
                         // towards the two of them, between hero and foe
@@ -1569,8 +1593,6 @@ private const val DIE_REEL = 4
 /** The ambushed hero's last frame of the stagger, before the turn to the foe begins. */
 /** How long being struck, ducking aside and the step back after a blow take, in ms at normal pace. */
 private val REACT_MS: Int get() = BattlePace.ms(750)
-/** A blow that strikes home halts for a moment as it lands, giving it weight. */
-private val HIT_STOP_MS: Long get() = BattlePace.ms(70L)
 
 /** Poison, burning or bleeding eating at someone at the start of a turn: a hurt, but nobody's blow. */
 private fun Step?.isTick() = this?.fx?.kind in setOf(de.bornim.core.FxKind.POISON, de.bornim.core.FxKind.BURN, de.bornim.core.FxKind.BLEED)
