@@ -47,6 +47,8 @@ fun walkFilm(spec: String) {
     while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
     val map = p.getOrElse(0) { "forest" }
     g.state.place = Place(map, p.getOrElse(1) { "9" }.toInt(), p.getOrElse(2) { "12" }.toInt(), Facing.UP)
+    // DIAG=1: the map seen diagonally (13)
+    if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.diagonal = true
     // MINUTES / DAY: walk at another time, e.g. a night with fireflies (DAY=3 MINUTES=1380)
     g.state.minutes = System.getenv("MINUTES")?.toInt() ?: (12 * 60)
     System.getenv("DAY")?.let { g.state.day = it.toInt() }

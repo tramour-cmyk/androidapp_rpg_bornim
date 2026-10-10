@@ -40,8 +40,14 @@ object MapFigure {
         Facing.LEFT -> 270.0
     }
 
-    /** The drawn direction nearest to [yaw]. */
-    fun slot(yaw: Double): Int = Math.floorMod(Math.round(yaw / (360.0 / YAWS)).toInt(), YAWS)
+    /**
+     * How the map is turned on the screen, in degrees: 0 seen straight, −45 seen diagonally (13). A
+     * direction in the map then shows turned by this much, so every picture is chosen through [slot].
+     */
+    @Volatile var viewYaw = 0.0
+
+    /** The drawn direction nearest to [yaw] (a direction in the map), as seen on the screen. */
+    fun slot(yaw: Double): Int = Math.floorMod(Math.round((yaw + viewYaw) / (360.0 / YAWS)).toInt(), YAWS)
 
     /** Long weapons (two-handed, spears, staves, bows) go on the shoulder; short ones are carried low. */
     private val LONG = setOf("spear", "quarterstaff", "staff", "halberd")

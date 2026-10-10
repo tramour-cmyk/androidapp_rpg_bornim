@@ -128,6 +128,14 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             crits = de.bornim.core.Battle.heroCritsAlways
             vm.toast = if (crits) t("Jeder Waffentreffer ist kritisch: so lässt sich der Killerschlag testen.", "Every weapon hit is critical: to test the killing blow.") else t("Kritische Treffer wieder normal.", "Critical hits back to normal.")
         }
+        // the diagonal view while it is being built (13): straight or turned by 45°
+        var diagonal by remember { mutableStateOf(MapSight.diagonal) }
+        PixelButton(t("Sicht: ", "View: ") + (if (diagonal) t("diagonal (im Bau)", "diagonal (being built)") else t("gerade", "straight")), Modifier.fillMaxWidth(), size = 14.sp) {
+            MapSight.diagonal = !MapSight.diagonal
+            diagonal = MapSight.diagonal
+            vm.refresh()
+            vm.toast = if (diagonal) t("Karte diagonal: Wirtshaus zuerst, alles andere noch mit den alten Bildern.", "Map diagonal: the inn first, all else still with the former pictures.") else t("Karte wieder gerade.", "Map straight again.")
+        }
         // the zoom in four steps, to find the right one on the phone (10.10., 6.15)
         var zoom by remember { mutableStateOf(MapZoom.level) }
         fun tiles(l: Int) = MapZoom.levels[l].toString().replace(".", ",") + t(" Kacheln", " tiles") +

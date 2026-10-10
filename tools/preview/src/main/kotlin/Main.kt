@@ -150,6 +150,8 @@ fun main() {
         }
         for (near in listOf(true, false)) {
             de.bornim.game.ui.MapZoom.near = near
+            // DIAG=1: the map seen diagonally (13)
+            if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.diagonal = true
             // ZOOMSTUFE=1|2: the in-between zoom steps for the near shots (6.15)
             System.getenv("ZOOMSTUFE")?.let { if (near) de.bornim.game.ui.MapZoom.level = it.toInt() }
             val z = if (near) "nah" else "weit"
