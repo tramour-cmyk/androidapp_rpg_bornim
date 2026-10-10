@@ -2,7 +2,7 @@
 
 Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Diese Datei gibt es nur auf `main`; Tom und Jerry tragen hier sofort ein und pushen (Regeln in `CLAUDE.md`).
 
-**Nächste freie Themennummer: 12** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 13** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md). Erledigtes wandert in die Änderungshistorie, Vertagtes auf die Merkliste.
 
@@ -16,6 +16,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 9 | Monster auf der Karte (aus den Kampfmodellen, Vierbeiner mit Laufbewegung) | Jerry | neu von `main` | Wolf und Goblin eingebaut, Zweig-Build 0.1.411 zu testen (Zweig `claude/session-start-bkldp8`) |
 | 10 | Höhle: Flammen von Lagerfeuer und Fackeln feiner | Jerry | neu von `main` | freigegeben, nach 9 |
 | 11 | Höhle: Lichtstrahl am Lichtschacht | Jerry | neu von `main` | freigegeben, erst Standbild-Entwurf |
+| 12 | Sprungtest: Kerntest, der Sprünge in Bewegungen und Übergängen findet | offen (Tom oder Jerry) | neu von `main` | freigegeben 10.10., 13:12, noch nicht begonnen |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle. Keiner arbeitet an Themen des anderen.
 
@@ -219,6 +220,8 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 - **Hörproben:** Auswahl für Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt.
 
 ## Geplant
+
+- **12 Sprungtest (freigegeben 10.10., 13:12, Wer: noch offen):** Anlass: Trotz Stil-Leitlinien (fließende Übergänge, lebendige Figuren) wird oft nachgebessert, weil kein Test „fließend“ misst; `AnimFlowTest` prüft nur, ob die richtige Haltung zur richtigen Meldung kommt. Beispiel: Wolfsrudel dreht sich starr um den Anführer (Rückmeldung 13:00). Ziel: ein Kerntest ohne Bild, der in Sekunden läuft, alle Haltungen und Übergänge (Stehen, Atmen, Gehen, Drehen, Hocken, Aufstehen, Kampfhaltungen, Rudel folgt) in feinen Zeitschritten durchläuft und meldet, wenn sich ein Gelenk, die Blickrichtung oder die Position von einem Bild zum nächsten mehr als einen Grenzwert ändert. Ziel 0 Meldungen, wie bei der Kollisionsprüfung. Gilt für Leute und Monster, deshalb gemeinsam nützlich. Danach in `STIL.md` unter „Selbst prüfen“ aufnehmen.
 
 - **Sterbeanimationen für alle Gegner:** Alle Gegner im neuen Stil haben je drei Stürze und bleiben liegen. Seit 09.10. sind alle Gegner im neuen Stil; Schamane und Ghul fallen wie die Goblins, die Tiere aus dem Entwurf haben ihre eigenen Stürze.
 
