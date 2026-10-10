@@ -60,6 +60,51 @@ class MissStreakTest {
         assertTrue(longOn < longOff, "runs of four misses or more should become rarer ($longOn vs $longOff)")
     }
 
+    /** Bosses at the levels of `MonsterSimTest`, with and without the help. Only on demand: SIM=1. */
+    @Test
+    fun bossesWithAndWithout() {
+        if (System.getenv("SIM") == null) return
+        val sb = StringBuilder()
+        for ((lvl, id) in listOf(4 to "dire_wolf", 5 to "dire_wolf", 4 to "bugbear", 5 to "bugbear", 4 to "hobgoblin_captain", 5 to "hobgoblin_captain")) {
+            val line = StringBuilder("L$lvl ${id.padEnd(18)}")
+            for (cls in CharClass.entries) {
+                val (off, on) = listOf(false, true).map { help -> bossWins(cls, id, lvl, help) }
+                line.append("  ${cls.name.take(4)} ${off.toString().padStart(3)}% → ${on.toString().padStart(3)}%")
+            }
+            sb.append(line).append('\n')
+        }
+        println(sb)
+    }
+
+    private fun bossWins(cls: CharClass, id: String, lvl: Int, help: Boolean, runs: Int = 600): Int {
+        val rng = Random(cls.ordinal * 7919 + id.hashCode() + lvl)
+        val area = if (id == "dire_wolf") 2 else 3
+        var wins = 0
+        repeat(runs) {
+            val s = GameState.newGame("X", Race.HUMAN, cls)
+            s.hero.gainXp(Rules.xpForLevel[lvl])
+            for (a in listOf(cls.primary, Ability.CON)) while (s.hero.raise(a)) {}
+            s.hero.restoreFully()
+            s.add("potion", 2)
+            val b = Battle(s, Monsters[id], Lang.EN, Dice(rng), minOf(lvl, area + 2), false, area, look = MonsterLook(rng.nextInt()))
+            b.missStreak = MissStreak(help)
+            b.start()
+            var turns = 0
+            while (b.outcome == Outcome.ONGOING && turns++ < 60) {
+                val h = s.hero
+                b.act(when {
+                    h.hp < h.maxHp * 0.3 && s.count("potion") > 0 -> Action.UseItem("potion")
+                    cls == CharClass.WIZARD && b.blocked(Skill.MAGIC_MISSILE) == null && h.sp > 2 -> Action.UseSkill(Skill.MAGIC_MISSILE)
+                    cls == CharClass.WIZARD -> Action.UseSkill(Skill.FIRE_BOLT)
+                    cls == CharClass.CLERIC && h.hp < h.maxHp / 2 && b.blocked(Skill.CURE_WOUNDS) == null -> Action.UseSkill(Skill.CURE_WOUNDS)
+                    else -> Action.Attack
+                })
+            }
+            if (b.outcome == Outcome.WON) wins++
+        }
+        return wins * 100 / runs
+    }
+
     private class Result(val wins: Int, val atLeast4: Int, val atLeast5: Int, val longest: Int, val n: Int) {
         fun line() = "Sieg ${pct(wins)}  ≥4 in Folge ${pct(atLeast4)}  ≥5 ${pct(atLeast5)}  längste $longest"
         private fun pct(k: Int) = "%3.0f%%".format(k * 100.0 / n)
