@@ -292,3 +292,41 @@ fun renderIsoThings() {
     save(big, File(dir, "iso_dinge.png"))
     println("wrote iso things")
 }
+
+/**
+ * The inn's hearth seen diagonally, the fire in each of its pictures (FEUER=1), to look at the flickering
+ * picture by picture (13n). Without the game's light: the pictures as they are painted.
+ */
+fun renderIsoFire() {
+    val dir = File("build/screens/iso").apply { mkdirs() }
+    val map = de.bornim.core.World["inn"]
+    val t = de.bornim.core.art.WorldArt.T
+    for (f in 0 until de.bornim.core.art.MapRoomIso.FIRE_FRAMES) {
+        val img = PixelImage(300, 240)
+        for (y in 0 until img.height) for (x in 0 until img.width) img.set(x, y, argb(0x1A140F))
+        // where a map pixel lands, in art pixels of this picture
+        val ox = 150 - 45.0 * (4 - 1); val oy = 150 - 22.5 * (4 + 1)
+        fun sx(wx: Double, wy: Double) = ox + (wx - wy) / t * 45.0
+        fun sy(wx: Double, wy: Double) = oy + (wx + wy) / t * 22.5
+        // the floor of the first rows, plain boards
+        for (y in 0 until img.height) for (x in 0 until img.width) {
+            val a = (x - ox) / 45.0; val b = (y - oy) / 22.5
+            val i = (a + b) / 2; val j = (b - a) / 2
+            if (i in 1.0..8.0 && j in 1.0..3.0) img.set(x, y, if ((x + 2 * y) % 9 == 0) argb(0x3A2C20) else argb(0x5A4430))
+        }
+        val objs = (0 until 3).flatMap { ty -> (0 until map.width).flatMap { tx -> de.bornim.core.art.MapRoomIso.objects(map, tx, ty, f) ?: emptyList() } }
+        for (o in objs.sortedBy { it.sortY + it.x + it.img.width / it.density / 2 }) {
+            val wx = (o.x + o.img.width / o.density / 2).toDouble(); val wy = (o.y + o.img.height / o.density).toDouble()
+            val x0 = (sx(wx, wy) - o.img.width / 2).toInt(); val y0 = (sy(wx, wy) - o.img.height).toInt()
+            for (y in 0 until o.img.height) for (x in 0 until o.img.width) {
+                val c = o.img[x, y]; val a = c ushr 24
+                if (a == 0) continue
+                img.set(x0 + x, y0 + y, if (a == 255) c else mix(img[x0 + x, y0 + y], c or (0xFF shl 24), a / 255.0))
+            }
+        }
+        val big = PixelImage(img.width * 3, img.height * 3)
+        for (y in 0 until big.height) for (x in 0 until big.width) big.set(x, y, img[x / 3, y / 3])
+        save(big, File(dir, "feuer_$f.png"))
+    }
+    println("wrote fire pictures")
+}

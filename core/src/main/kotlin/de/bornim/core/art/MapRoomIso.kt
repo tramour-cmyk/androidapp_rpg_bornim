@@ -58,8 +58,8 @@ object MapRoomIso {
     private val oakTop = m(0x6A4A32, grain = 0.12, sat = 0.98, value = 0.8, bias = -0.3)
     private val oakDark = m(0x3A2A1E, grain = 0.16, sat = 0.9, value = 0.9)
     private val oakBack = m(0x2E241C, grain = 0.18, sat = 0.7, bias = -0.08)
-    private val bark = m(0x463424, grain = 0.26, sat = 0.85, value = 0.75)
-    private val barkBirch = m(0x7A7466, grain = 0.3, sat = 0.35, value = 0.8, bias = -0.08)
+    private val bark = m(0x3E2E20, grain = 0.22, sat = 0.85, value = 0.7, bias = -0.2)
+    private val barkBirch = m(0x6A6458, grain = 0.26, sat = 0.35, value = 0.75, bias = -0.25)
     private val splitFace = m(0x8A6C48, grain = 0.3, sat = 0.85, value = 0.85)
     private val iron = m(0x3E3A36, shine = 0.35, grain = 0.25, sat = 0.5)
     private val pewter = m(0x76726A, shine = 0.5, grain = 0.15, sat = 0.3, value = 0.9)
@@ -210,11 +210,7 @@ object MapRoomIso {
         val mw = hw * 0.31
         val dx = (hu - mid) / mw
         val arch = 46 + 12 * sqrt((1 - dx * dx).coerceAtLeast(0.0))
-        if (abs(dx) < 1 && z < arch) {
-            val depth = z / arch
-            val glow = ((1 - depth) * (1 - dx * dx)).coerceAtLeast(0.0)
-            return mix(shade(argb(0x1A120C), 0.6 + depth * 0.5), argb(0x8A3A14), glow * glow * 0.8)
-        }
+        if (abs(dx) < 1 && z < arch) return firebox(hu, z, mid, mw, seed)
         // stones: courses of 10 pixels, each stone its own shade; the edges of the breast and the arch darker
         val course = floor(z / 10).toInt()
         val off = rnd(course, 0, 21)
@@ -228,6 +224,51 @@ object MapRoomIso {
         val soot = (1 - abs(hu - mid) / (mw + (z - 50).coerceAtLeast(0.0) / 120)).coerceAtLeast(0.0) * ((z - 40) / 60).coerceIn(0.0, 1.0)
         t -= soot * 0.45
         return shade(mix(argb(0x2A2622), argb(0x8A8070), t.coerceIn(0.0, 1.0)), face)
+    }
+
+    /** How deep the hearth's fire box reaches into the wall, in tiles. */
+    private const val FIREBOX = 0.38
+
+    /**
+     * Seen through the hearth's mouth at (hu along the hearth, z): the inside of the fire box in true
+     * perspective. Looking in, the view runs back and down (−i, −j, −z): it meets the sooty back wall,
+     * the stone side on the left (which faces the fire and catches its glow) or the hearthstone.
+     */
+    private fun firebox(hu: Double, z: Double, mid: Double, mw: Double, seed: Int): Int {
+        val left = mid - mw
+        val tBack = FIREBOX
+        val tSide = hu - left
+        val tFloor = z / TH
+        val t = minOf(tBack, tSide, tFloor)
+        val u = hu - t; val j = -t; val zz = z - TH * t
+        // the fire burns in the middle, a little back: its glow on whatever the view meets
+        val gd = (u - mid) * (u - mid) / 0.09 + (j + 0.2) * (j + 0.2) / 0.05 + (zz / 34) * (zz / 34)
+        val glow = exp(-gd) * 1.1
+        val c = when (t) {
+            tFloor -> {
+                // hearthstone under ash and embers
+                val slab = (floor(u / 0.22).toInt() + floor(j / 0.2).toInt() * 3)
+                var v = 0.35 + (rnd(slab, 1, seed) - 0.5) * 0.2 + (rnd(floor(u * 60).toInt(), floor(j * 60).toInt(), seed + 3) - 0.5) * 0.15
+                if (frac(u / 0.22) < 0.05 || frac(j / 0.2) < 0.06) v -= 0.2
+                mix(argb(0x141210), argb(0x6A645C), v.coerceIn(0.0, 1.0))
+            }
+            tSide -> {
+                val course = floor(zz / 9).toInt()
+                var v = 0.42 + (rnd(floor(j / 0.13).toInt(), course, seed + 5) - 0.5) * 0.3
+                if (zz % 9 < 1.2 || frac(j / 0.13 + course * 0.5) < 0.08) v -= 0.25
+                v -= 0.25 * (zz / 50).coerceIn(0.0, 1.0)
+                mix(argb(0x1A1714), argb(0x7A7268), v.coerceIn(0.0, 1.0))
+            }
+            else -> {
+                // the back wall, black with soot above the fire
+                val course = floor(zz / 9).toInt()
+                var v = 0.3 + (rnd(floor(u / 0.15 + course * 0.5).toInt(), course, seed + 7) - 0.5) * 0.25
+                if (zz % 9 < 1.2) v -= 0.18
+                v -= 0.25 * (zz / 30).coerceIn(0.0, 1.0)
+                mix(argb(0x100E0C), argb(0x5A544C), v.coerceIn(0.0, 1.0))
+            }
+        }
+        return mix(c, argb(0xC0602A), (glow * 0.75).coerceIn(0.0, 0.8))
     }
 
     /** A window with small leaded panes in a deep reveal, local u 0..1 of its tile. */
@@ -344,7 +385,7 @@ object MapRoomIso {
         if (room(map, tx + 1, ty - 1) && !room(map, tx, ty - 1) && !room(map, tx + 1, ty)) slab(-e, -1.0, 0.0, -1.0 + e, 'c')
         if (room(map, tx - 1, ty + 1) && !room(map, tx, ty + 1) && !room(map, tx - 1, ty)) slab(-1.0, -e, -1.0 + e, 0.0, 'c')
         // the room below (+j) or to the right (+i): slabs at the front of the tile, their faces into the room
-        if (room(map, tx, ty + 1)) slab(-1.0, -e, 0.0, 0.0, 'S')
+        if (room(map, tx, ty + 1)) slab(-1.0, if (tile == Tile.HEARTH) -0.44 else -e, 0.0, 0.0, 'S')
         if (room(map, tx + 1, ty)) slab(-e, -1.0, 0.0, 0.0, 'E')
         if (room(map, tx + 1, ty + 1) && !room(map, tx, ty + 1) && !room(map, tx + 1, ty)) slab(-e, -e, 0.0, 0.0, 'c')
         if (!any) return if (full) null else c.img
@@ -462,6 +503,15 @@ object MapRoomIso {
         var ii = i0 + 0.17
         while (ii < i1 - 0.05) { c.s.line(c.x(ii, -0.12), c.y(ii, -0.12, 5.0), c.x(ii, -0.12), c.y(ii, -0.12, zt - 6), seam); ii += 0.17 + (hash(floor(ii * 10).toInt(), 0, seed) % 3) * 0.02 }
         for (k in 0..30) { val t = k / 30.0; val i = i0 + (i1 - i0) * t; c.s.tint(c.x(i, -0.12), c.y(i, -0.12, 9.0), 2.0, 2.0, argb(0x7A6A50), 0.18) }
+        // the ends that are not joined: a framed panel, so the counter reads as one long piece, not as cupboards
+        if (!joinR) {
+            val ie = i1 - (if (joinR) 0.0 else 0.02)
+            for (jj in listOf(-0.52, -0.2)) c.s.line(c.x(ie, jj), c.y(ie, jj, 8.0), c.x(ie, jj), c.y(ie, jj, zt - 9), seam)
+            c.s.line(c.x(ie, -0.52), c.y(ie, -0.52, zt - 9), c.x(ie, -0.2), c.y(ie, -0.2, zt - 9), seam)
+            c.s.line(c.x(ie, -0.52), c.y(ie, -0.52, 8.0), c.x(ie, -0.2), c.y(ie, -0.2, 8.0), seam)
+        }
+        // a rail along the top of the front, rubbed pale by knees and boots below it
+        c.s.line(c.x(i0, -0.12), c.y(i0, -0.12, zt - 7), c.x(i1, -0.12), c.y(i1, -0.12, zt - 7), argb(0x2A1C12))
         c.box(i0, -0.68, i1, -0.06, zt - 5, zt, oakTop, oak, oak)
         // a long worn ring of wet mugs
         c.s.tint(c.x((i0 + i1) / 2 + 0.1, -0.32), c.y((i0 + i1) / 2 + 0.1, -0.32, zt), 6.0, 2.4, argb(0x2A1C12), 0.35)
@@ -650,6 +700,113 @@ object MapRoomIso {
         return c.img
     }
 
+    /** How many pictures the fire in a hearth flickers through ([fireFrame]). */
+    const val FIRE_FRAMES = 6
+
+    /** How long each picture of the fire stands, ms: irregular, and 13 of them against 6 pictures, so it never repeats in step. */
+    private val FIRE_MS = intArrayOf(110, 80, 150, 95, 130, 70, 120, 160, 90, 105, 140, 75, 125)
+    private val FIRE_CYCLE = FIRE_MS.sum()
+
+    /**
+     * The picture of the fire at [clock] ms: always the next one after the last, never a jump (the pictures are
+     * made so that the last leads into the first), but each one standing for its own, uneven while.
+     */
+    fun fireFrame(clock: Long): Int {
+        val cycle = Math.floorDiv(clock, FIRE_CYCLE.toLong())
+        var t = Math.floorMod(clock, FIRE_CYCLE.toLong()).toInt()
+        var step = 0
+        while (t >= FIRE_MS[step]) { t -= FIRE_MS[step]; step++ }
+        return Math.floorMod(cycle * FIRE_MS.size + step, FIRE_FRAMES.toLong()).toInt()
+    }
+
+    private val charred = m(0x2A1C14, grain = 0.3, sat = 0.6, value = 0.8)
+
+    /**
+     * The fire in a hearth's fire box, picture [f] of [FIRE_FRAMES], seen diagonally: a bed of embers, two
+     * charred logs crossed on the fire dogs, tongues of flame of their own heights and sway, and the kettle
+     * on its chain over them. The tongues move on a circle of phases, so picture after picture changes only a
+     * little and the last leads back into the first. The front corner of the picture is the middle of the
+     * mouth on the face of the wall; the fire burns 0.2 tiles back (local j −0.2).
+     */
+    private fun fire(f: Int, seed: Int): PixelImage {
+        val c = Canvas(96, seed)
+        val ph = f * 2 * Math.PI / FIRE_FRAMES
+        val fj = -0.2
+        // embers: a glowing bed, pulsing a little from picture to picture
+        for (py in 0 until c.h) for (px in 0 until W) {
+            val a = (px + 0.5 - W / 2.0) / (TW / 2); val b = (py + 0.5 - c.h) / (TH / 2)
+            val i = (a + b) / 2; val j = (b - a) / 2
+            val d = (i / 0.32) * (i / 0.32) + ((j - fj) / 0.13) * ((j - fj) / 0.13)
+            if (d >= 1) continue
+            val n = rnd(px / 2, py, seed + 11)
+            val pulse = 0.5 + 0.5 * kotlin.math.sin(ph + n * 6.28)
+            val hot = (1 - d) * (0.55 + 0.45 * pulse)
+            c.img.set(px, py, when {
+                n < 0.18 -> argb(0x2A2420)                          // ash
+                hot > 0.62 -> argb(0xFFC860)
+                hot > 0.38 -> argb(0xF08A30)
+                hot > 0.18 -> argb(0xA8401A)
+                else -> argb(0x4A1E10)
+            })
+        }
+        // the fire dogs
+        for (si in listOf(-0.3, 0.3)) {
+            val x = c.x(si, -0.06); val y = c.y(si, -0.06)
+            c.s.limb(x, y - 1, x, y - 11, 1.4, 1.2, iron)
+            c.s.blob(x, y - 12, 1.8, 1.8, iron)
+        }
+        // two charred logs, crossed, cracks glowing
+        fun log(i0: Double, j0: Double, z0: Double, i1: Double, j1: Double, z1: Double, r: Double) {
+            c.s.limb(c.x(i0, j0), c.y(i0, j0, z0), c.x(i1, j1), c.y(i1, j1, z1), r, r * 0.9, charred)
+            for (k in 1..4) {
+                val t = k / 5.0 + (rnd(k, f, seed) - 0.5) * 0.04
+                val x = c.x(i0 + (i1 - i0) * t, j0 + (j1 - j0) * t); val y = c.y(i0 + (i1 - i0) * t, j0 + (j1 - j0) * t, z0 + (z1 - z0) * t)
+                c.s.flat(x, y + r * 0.3, 1.2, 0.6, if ((k + f) % 3 == 0) argb(0xFFB040) else argb(0xC0501C))
+            }
+        }
+        log(-0.36, -0.26, 5.0, 0.32, -0.16, 7.0, 3.6)
+        log(-0.3, -0.12, 9.0, 0.36, -0.27, 6.0, 3.2)
+        // the kettle on its chain, from the top of the mouth
+        run {
+            val x = c.x(0.0, fj); val top = c.y(0.0, fj, 56.0); val k = c.y(0.0, fj, 31.0)
+            var y = top
+            while (y < k) { c.s.dot(x + (if (((y - top) / 2).toInt() % 2 == 0) 0.0 else 1.0), y, argb(0x2A2622)); y += 1.0 }
+            c.s.blob(x, c.y(0.0, fj, 24.0), 9.0, 7.0, iron)
+            c.s.limb(x - 9, c.y(0.0, fj, 29.0), x + 9, c.y(0.0, fj, 29.0), 1.2, 1.2, iron)
+            c.s.blob(x, c.y(0.0, fj, 31.0), 5.5, 1.6, iron, depth = 0.4)
+        }
+        // the tongues of flame, outer ones first: each its own height, rhythm and sway
+        val n = 7
+        val order = listOf(0, 6, 1, 5, 2, 4, 3)
+        for (k in order) {
+            val ti = -0.27 + k * 0.09
+            val centre = 1 - abs(k - 3) / 3.5
+            val m1 = 1 + hash(k, 1, seed) % 2; val m2 = 1 + hash(k, 2, seed) % 2
+            val o1 = rnd(k, 3, seed) * 6.28; val o2 = rnd(k, 4, seed) * 6.28
+            val hgt = (9 + 19 * centre) * (0.62 + 0.38 * kotlin.math.sin(ph * m1 + o1))
+            val sway = 2.4 * kotlin.math.sin(ph * m2 + o2)
+            val hw = 2.6 + 2.4 * centre
+            val bx = c.x(ti, fj + (k % 2) * 0.04); val by = c.y(ti, fj + (k % 2) * 0.04, 8.0)
+            var r = 0
+            while (r < hgt) {
+                val t = r / hgt
+                val half = hw * Math.pow(1 - t, 0.8) * (1 + 0.25 * kotlin.math.sin(t * 3.0 + ph))
+                val cx = bx + sway * t * t
+                val y = by - r
+                var x = floor(cx - half)
+                while (x <= cx + half) {
+                    val edge = abs(x + 0.5 - cx) / half.coerceAtLeast(0.5)
+                    val heat = t + edge * 0.35
+                    val col = when { heat < 0.32 -> argb(0xFFF0B0); heat < 0.58 -> argb(0xFFC860); heat < 0.82 -> argb(0xF08A30); else -> argb(0xC04E1C) }
+                    c.img.set(x.toInt(), y.toInt(), col)
+                    x += 1.0
+                }
+                r++
+            }
+        }
+        return c.img
+    }
+
     /** Something round seen straight ([MapRoom.Sprite]: a barrel, a stool, sacks) set on the middle of the tile. */
     private fun round(sprite: MapRoom.Sprite, seed: Int, dj: Double = 0.0): PixelImage {
         val c = Canvas((sprite.img.height + TH / 2 + 6).toInt().let { it + it % 2 }, seed)
@@ -685,18 +842,16 @@ object MapRoomIso {
         return when (map.tile(tx, ty)) {
             Tile.WALL, Tile.WINDOW, Tile.HEARTH -> {
                 val out = mutableListOf<WorldArt.Obj>()
-                walls(map, tx, ty)?.let { img -> out += obj(cached("$key/wall") { img }, fx, fy, d, !tall(map, tx, ty)) }
-                // the fire burns in the hearth's mouth, in front of its middle
+                // the walls at the back stand behind everything in the room: sorted a diagonal earlier
+                val wd = if (tall(map, tx, ty)) d - T else d
+                walls(map, tx, ty)?.let { img -> out += obj(cached("$key/wall") { img }, fx, fy, wd, !tall(map, tx, ty)) }
+                // the fire burns in the hearth's fire box, in front of its middle, flickering through [FIRE_FRAMES] pictures
                 if (map.tile(tx, ty) == Tile.HEARTH && at(-1, 0) != Tile.HEARTH && room(map, tx, ty + 1)) {
                     var w = 1; while (at(w, 0) == Tile.HEARTH) w++
-                    val fire = MapRoom.fire(frame, (w * 30))
-                    val img = cached("$key/fire/$frame/$w") {
-                        val c = Canvas(fire.img.height + 6, seed)
-                        c.paste(fire.img, fire.ax, fire.ay, W / 2.0, c.h - 3.0)
-                        c.img
-                    }
+                    val f = Math.floorMod(frame, FIRE_FRAMES)
+                    val img = cached("${map.id}/fire/$f/$w") { fire(f, seed) }
                     // the mouth's middle lies on the face of the wall, w/2 tiles along it
-                    out += obj(img, tx * T + w * T / 2, (ty + 1) * T, depth(tx + w - 1, ty) + 1)
+                    out += obj(img, tx * T + w * T / 2, (ty + 1) * T, depth(tx + w - 1, ty) - T + 1)
                 }
                 out
             }

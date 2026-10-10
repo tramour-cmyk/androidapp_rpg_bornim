@@ -713,7 +713,9 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             if (o.sortY <= heroY + T) return false
             return heroX + T - 8 > o.x && heroX + 8 < o.x + w && heroY + T > o.y && heroY - 30 < o.y + h - 6
         }
-        for (o in WorldArt.objects(map, state, frame)) {
+        // seen diagonally, the fire in a room's hearth flickers through more pictures, each standing an uneven while (13n)
+        val flicker = if (diag && map.kind == MapKind.INTERIOR) de.bornim.core.art.MapRoomIso.fireFrame(clock) else 0
+        for (o in WorldArt.objects(map, state, frame, flicker)) {
             val a = if (hides(o)) 0.45f else 1f
             sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f) { put(o.img, o.x, o.y, o.density, a) }
         }
@@ -972,6 +974,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 
         // Light of the place: time of day, shade of the crowns, lamps, fires and the lantern.
         ground { if (MapLight.needed(map, game.daylight)) drawMapLight(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH) }
+        if (diag && map.kind == MapKind.INTERIOR) drawHearthSmoke(game, map, clock, cam, camX, camY, scale)
         // a torch carried about throws a warm, flickering glow around it, the stronger the darker it is
         for ((tx, ty) in torches) {
             val flick = 0.85f + 0.15f * kotlin.math.sin(clock / 70f) * kotlin.math.sin(clock / 113f)
@@ -1319,6 +1322,47 @@ private object LightImage {
  * every light that flickers (fire) or pulses (mushrooms), and small life: sparks over fires, spores
  * over mushrooms, dust in daylight and, in caves, drops falling from the roof.
  */
+/**
+ * Seen diagonally (13n): the sparks and the smoke of a room's hearth, rising upright on the screen from the
+ * fire in the fire box (0.2 tiles back in the wall) and drawn up into the flue, gone where the mouth ends.
+ * Heights are map pixels above the floor.
+ */
+private fun DrawScope.drawHearthSmoke(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int) {
+    val T = WorldArt.T
+    val px = scale.toFloat()
+    for ((i, src) in MapLight.sources(map).withIndex()) {
+        if (src.kind != MapLight.Kind.FIRE) continue
+        val seen = when (game.fog(floor(src.x / T).toInt(), floor(src.y / T).toInt())) {
+            de.bornim.core.Fog.HIDDEN -> 0f
+            de.bornim.core.Fog.SEEN -> 0.4f
+            de.bornim.core.Fog.VISIBLE -> 1f
+        }
+        if (seen <= 0f) continue
+        // the fire: the light sits 4 pixels in front of the wall, the fire 0.2 tiles inside it
+        val mx = ((src.x - camX) * scale).toFloat(); val my = ((src.y - 4 - T * 0.2 - camY) * scale).toFloat()
+        val bx = cam.toScreenX(mx, my); val by = cam.toScreenY(mx, my)
+        fun at(dx: Double, h: Double) = Offset(bx + (dx * scale).toFloat(), by - (h * scale).toFloat())
+        for (k in 0 until 5) {
+            // sparks rising and fading before the top of the mouth
+            val period = 1400 + k * 230
+            val ph = ((clock + k * 517 + i * 131) % period) / period.toFloat()
+            val sx = kotlin.math.sin(ph * 6f + k) * 3.0 + (k - 2) * 2
+            drawRect(Color(0xFFFFC060).copy(alpha = (1 - ph) * 0.9f * seen), at(sx, 5.0 + ph * 22), androidx.compose.ui.geometry.Size(px, px))
+        }
+        for (k in 0 until 4) {
+            // steam from the kettle, smoke from the embers, thinning towards the flue
+            val period = 2200 + k * 410
+            val ph = ((clock + k * 830 + i * 97) % period) / period.toFloat()
+            val steam = k < 2
+            val sx = (if (steam) (k - 0.5) * 3 else (k - 2.5) * 8 * (1 - ph)) + kotlin.math.sin(ph * 5f + k) * (1.5 + ph * 2)
+            val h = (if (steam) 16.0 else 4.0) + ph * (if (steam) 9.0 else 21.0)
+            val rr = (1.5f + ph * (if (steam) 2.5f else 4f)) * px
+            val a = kotlin.math.sin(ph * Math.PI.toFloat() * 0.5f + 0.4f).coerceAtLeast(0f) * (1 - ph) * (if (steam) 0.26f else 0.22f)
+            drawCircle(Color(if (steam) 0xFFC8C4BC else 0xFF5A524A).copy(alpha = a * seen), rr, at(sx, h))
+        }
+    }
+}
+
 private fun DrawScope.drawMapLight(
     game: Game, map: de.bornim.core.MapDef, clock: Long, camX: Int, camY: Int, scale: Int, heroX: Int, heroY: Int, viewW: Float, viewH: Float,
 ) {
@@ -1427,7 +1471,8 @@ private fun DrawScope.drawMapLight(
         )
         val px = scale.toFloat()
         when (src.kind) {
-            MapLight.Kind.FIRE, MapLight.Kind.TORCH -> { for (k in 0 until (if (src.kind == MapLight.Kind.FIRE) 5 else 2)) {
+            // seen diagonally, a hearth's sparks and smoke rise upright on the screen (drawHearthSmoke)
+            MapLight.Kind.FIRE, MapLight.Kind.TORCH -> if (!(MapSight.diagonal && indoor && src.kind == MapLight.Kind.FIRE)) { for (k in 0 until (if (src.kind == MapLight.Kind.FIRE) 5 else 2)) {
                 // sparks rising and fading
                 val period = 1400 + k * 230
                 val ph = ((clock + k * 517 + i * 131) % period) / period.toFloat()

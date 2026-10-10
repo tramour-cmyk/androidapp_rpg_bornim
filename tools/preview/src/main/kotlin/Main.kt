@@ -96,6 +96,7 @@ fun main() {
     if (System.getenv("RAUMDINGE") != null) { renderRoomThings(); System.exit(0) }
     if (System.getenv("ISODRAFT") != null) { renderIsoDraft(); System.exit(0) }
     if (System.getenv("ISODINGE") != null) { renderIsoThings(); System.exit(0) }
+    if (System.getenv("FEUER") != null) { renderIsoFire(); System.exit(0) }
     if (System.getenv("SQUATBLEND") != null) { renderSquatBlend(); System.exit(0) }
     if (System.getenv("ALTRAUM") != null) de.bornim.core.art.MapRoom.sculpted = false
     if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }

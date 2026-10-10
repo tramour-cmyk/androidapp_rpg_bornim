@@ -824,13 +824,13 @@ object WorldArt {
     private val objCache = HashMap<String, List<Obj>>()
 
     /** All static objects of a map for the current game state, in no particular order. */
-    fun objects(map: MapDef, state: GameState, frame: Int): List<Obj> {
+    fun objects(map: MapDef, state: GameState, frame: Int, flicker: Int = 0): List<Obj> {
         val opened = map.chests.filter { it.id in state.openedChests }.joinToString(",") { it.id }
-        val key = "${map.id}/$opened/${state.has(Story.GATE_OPEN)}/${state.has(Story.BARRIER_OPEN)}/$frame/${state.has(Story.CHAPTER1_DONE)}/${MapGround.townDraft}/${MapFigure.viewYaw != 0.0}"
-        return objCache.getOrPut(key) { buildObjects(map, state, frame) }
+        val key = "${map.id}/$opened/${state.has(Story.GATE_OPEN)}/${state.has(Story.BARRIER_OPEN)}/$frame/${state.has(Story.CHAPTER1_DONE)}/${MapGround.townDraft}/${MapFigure.viewYaw != 0.0}/$flicker"
+        return objCache.getOrPut(key) { buildObjects(map, state, frame, flicker) }
     }
 
-    private fun buildObjects(map: MapDef, state: GameState, frame: Int): List<Obj> {
+    private fun buildObjects(map: MapDef, state: GameState, frame: Int, flicker: Int = 0): List<Obj> {
         val out = mutableListOf<Obj>()
         val seen = HashSet<Pair<Int, Int>>()
         // the woods have new, finer trees, rocks and stones, and undergrowth
@@ -845,7 +845,7 @@ object WorldArt {
                 // the village in the new style (draft): houses and things, else the trees of the woods
                 map.kind == MapKind.TOWN -> MapTown.objects(map, tx, ty) ?: MapFlora.objects(map, tx, ty, frame, open)
                 // seen diagonally (13), the rooms' walls and furniture stand upright, turned with the room
-                map.kind == MapKind.INTERIOR && MapFigure.viewYaw != 0.0 -> MapRoomIso.objects(map, tx, ty, frame) ?: MapRoom.objects(map, tx, ty, frame)
+                map.kind == MapKind.INTERIOR && MapFigure.viewYaw != 0.0 -> MapRoomIso.objects(map, tx, ty, flicker) ?: MapRoom.objects(map, tx, ty, frame)
                 map.kind == MapKind.INTERIOR -> MapRoom.objects(map, tx, ty, frame)
                 else -> MapFlora.objects(map, tx, ty, frame, open)
             }
