@@ -40,6 +40,8 @@ enum class Tile(val ch: Char, val walkable: Boolean) {
     TRUNK('a', false),
     ARMCHAIR('s', false),
     HANGING('V', true),
+    /** A rack of tools or arms against the wall (the shop, 13q.4). */
+    RACK('U', false),
     // village
     COBBLE('o', true),
     STALL('m', false),

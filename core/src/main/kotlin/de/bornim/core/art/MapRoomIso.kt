@@ -498,7 +498,7 @@ object MapRoomIso {
     }
 
     /** The counter along the room's x, its front towards the room (+j), things on its top. */
-    private fun counter(v: Int, joinL: Boolean, joinR: Boolean, seed: Int): PixelImage {
+    private fun counter(v: Int, joinL: Boolean, joinR: Boolean, seed: Int, shop: Boolean = false): PixelImage {
         val zt = 54.0
         val c = Canvas((zt + TH + 24).toInt().let { it + it % 2 }, seed)
         val i0 = if (joinL) -1.0 else -0.94; val i1 = if (joinR) 0.0 else -0.06
@@ -521,6 +521,7 @@ object MapRoomIso {
         c.box(i0, -0.68, i1, -0.06, zt - 5, zt, oakTop, oak, oak)
         // a long worn ring of wet mugs
         c.s.tint(c.x((i0 + i1) / 2 + 0.1, -0.32), c.y((i0 + i1) / 2 + 0.1, -0.32, zt), 6.0, 2.4, argb(0x2A1C12), 0.35)
+        if (shop) { c.shopTop(v, zt, seed); c.s.outline(outlineColor); return c.img }
         fun at(i: Double, j: Double) = c.x(i, j) to c.y(i, j, zt)
         when (v % 3) {
             0 -> {
@@ -1589,6 +1590,208 @@ object MapRoomIso {
         return c.img
     }
 
+    // ------------------------------------------------------------------ Thessa's shop (13q.4, drafts)
+
+    private val copper = m(0x8A5A32, shine = 0.55, grain = 0.12, sat = 0.8, value = 0.9)
+    private val brass = m(0x8A7440, shine = 0.6, grain = 0.1, sat = 0.7, value = 0.9)
+    private val rope = m(0x7A6A48, grain = 0.4, sat = 0.55, value = 0.85)
+    private val apple = m(0x7A2A1E, shine = 0.25, grain = 0.1, sat = 0.8, value = 0.85)
+    private val cloths = listOf(0x5A1E1A, 0x26303E, 0x3E4632, 0x6E5E44, 0x4A3A4A)
+
+    /** What lies on the shop's counter: scales and coins, the ledger and a lantern, a bolt of cloth and shears. */
+    private fun Canvas.shopTop(v: Int, zt: Double, seed: Int) {
+        fun at(i: Double, j: Double) = x(i, j) to y(i, j, zt)
+        when (v % 3) {
+            0 -> {
+                // a balance: a post, the beam a little tipped, a pan on each end; a stack of coins and a weight
+                at(-0.5, -0.4).let { (x, y) ->
+                    s.blob(x, y - 1, 3.0, 1.2, brass, depth = 0.4)
+                    s.limb(x, y - 1, x, y - 22, 1.3, 1.0, brass)
+                    s.limb(x - 11, y - 21, x + 11, y - 23.5, 1.0, 1.0, brass)
+                    s.line(x - 11, y - 21, x - 13, y - 11, argb(0x4A3A20)); s.line(x - 11, y - 21, x - 9, y - 11, argb(0x4A3A20))
+                    s.line(x + 11, y - 23.5, x + 9, y - 13, argb(0x4A3A20)); s.line(x + 11, y - 23.5, x + 13, y - 13, argb(0x4A3A20))
+                    s.blob(x - 11, y - 10.5, 5.0, 1.8, brass, depth = 0.3); s.blob(x + 11, y - 12.5, 5.0, 1.8, brass, depth = 0.3)
+                    s.blob(x - 10.5, y - 12, 2.0, 1.4, copper, depth = 0.5)
+                }
+                at(-0.22, -0.3).let { (x, y) -> for (k in 0 until 4) s.blob(x, y - 1 - k * 1.3, 2.2, 1.0, copper, depth = 0.4); s.blob(x + 4, y, 2.0, 0.9, pewter, depth = 0.3) }
+                at(-0.8, -0.5).let { (x, y) -> s.blob(x, y - 2, 3.0, 2.4, iron, depth = 0.8) }
+            }
+            1 -> {
+                // the ledger lying open, a quill in the ink; a horn lantern lit
+                val (x, y) = at(-0.55, -0.38)
+                s.poly(leather, x - 9, y - 1, x + 2, y - 5, x + 10, y - 1, x - 1, y + 3, tiltY = -0.8, bevel = 0.3)
+                s.poly(parchment, x - 8, y - 1.5, x + 1.5, y - 4.6, x + 1, y - 0.6, x - 7, y + 1.8, tiltY = -0.8, bevel = 0.2)
+                s.poly(parchment, x + 1.5, y - 4.6, x + 9, y - 1.5, x + 0.5, y + 2.2, x + 1, y - 0.6, tiltY = -0.8, bevel = 0.2)
+                for (k in 0..2) s.line(x - 6 + k, y - 1.5 + k * 1.1, x - 1 + k, y - 3.3 + k * 1.1, argb(0x4A3A2A))
+                at(-0.2, -0.5).let { (x, y) -> s.limb(x, y - 1, x, y - 3.5, 1.8, 1.7, glass); s.line(x + 1, y - 3.5, x + 5, y - 11, argb(0xC8C0B0)) }
+                at(-0.85, -0.42).let { (x, y) ->
+                    s.limb(x, y - 1, x, y - 10, 2.8, 2.6, m(0xA88A4A, shine = 0.3, grain = 0.1, sat = 0.6))
+                    s.limb(x, y - 10, x, y - 12, 2.0, 1.2, iron); s.flat(x, y - 5.5, 1.4, 2.2, flame); s.dot(x, y - 6, flameHot)
+                }
+            }
+            else -> {
+                // a bolt of cloth half unrolled over the edge, iron shears, a candle stub
+                val col = m(cloths[seed % cloths.size], grain = 0.25, sat = 0.75, value = 0.85)
+                val (ax, ay) = at(-0.85, -0.45); val (bx, by) = at(-0.4, -0.45)
+                s.limb(ax, ay - 3, bx, by - 3, 3.2, 3.2, col); s.blob(bx, by - 3, 2.0, 3.0, col, depth = 0.4)
+                val (fx, fy) = at(-0.4, -0.12)
+                s.poly(col, bx, by - 1, fx, fy, fx, fy + 10, bx + 1, by + 8, tiltX = -0.3, bevel = 0.6)
+                at(-0.25, -0.5).let { (x, y) -> s.line(x - 3, y - 1, x + 4, y + 1, argb(0x5A5652)); s.line(x - 3, y + 1, x + 4, y - 1, argb(0x5A5652)); s.dot(x - 4, y, argb(0x3A3634)) }
+                at(-0.6, -0.6).let { (x, y) -> candle(x, y, 3.0, drips = true) }
+            }
+        }
+    }
+
+    /**
+     * Thessa's shelves of goods against the wall (−j); three looks: full (cloth, rope, lanterns, jars, boots),
+     * cloth and rope piled high, half sold out with dust and price slips.
+     */
+    private fun goodsShelf(v: Int, joinL: Boolean, joinR: Boolean, seed: Int): PixelImage {
+        val zt = 110.0
+        val c = Canvas((zt + TH + 8).toInt().let { it + it % 2 }, seed)
+        val i0 = if (joinL) -1.0 else -0.94; val i1 = if (joinR) 0.0 else -0.06
+        val j0 = -1.0; val j1 = -0.58
+        c.floorShadow(i0, j0, i1, j1 + 0.1, 0.45)
+        c.s.poly(oakBack, c.x(i0, j0), c.y(i0, j0), c.x(i1, j0), c.y(i1, j0), c.x(i1, j0), c.y(i1, j0, zt), c.x(i0, j0), c.y(i0, j0, zt), tiltX = -0.5, tiltY = 0.3, bevel = 0.0)
+        if (!joinL) c.box(i0, j0, i0 + 0.06, j1, 0.0, zt, oakTop, oak, oak)
+        val heights = doubleArrayOf(3.0, 30.0, 56.0, 82.0)
+        for ((k, z0) in heights.withIndex()) {
+            c.box(i0, j0, i1, j1, z0, z0 + 3, oakTop, oak, oak)
+            val zf = z0 + 3
+            var i = i0 + 0.08; var n = 0
+            while (i < i1 - 0.1) {
+                val r = hash(k, n, seed)
+                val kind = if (v % 3 == 1) r % 2 else r % 6
+                val sold = v % 3 == 2 && r % 5 < 2
+                if (sold) {
+                    c.s.tint(c.x(i + 0.06, -0.78), c.y(i + 0.06, -0.78, zf), 4.0, 1.2, argb(0x7A7062), 0.35)
+                    if (r % 2 == 0) { val x = c.x(i + 0.06, j1); val y = c.y(i + 0.06, j1, zf); c.s.flat(x, y + 2, 2.0, 1.4, argb(0xA08C66)) }
+                    i += 0.14; n++; continue
+                }
+                when (kind) {
+                    0 -> {
+                        // bolts of cloth lying with their ends to the room, two high
+                        for (st in 0 until 2) {
+                            val col = m(cloths[(r + st) % cloths.size], grain = 0.25, sat = 0.75, value = 0.85)
+                            val zz = zf + 3.5 + st * 6.6; val ii = i + 0.06
+                            c.s.limb(c.x(ii, j0 + 0.08), c.y(ii, j0 + 0.08, zz), c.x(ii, j1 - 0.02), c.y(ii, j1 - 0.02, zz), 3.3, 3.3, col)
+                            c.s.blob(c.x(ii, j1 - 0.02), c.y(ii, j1 - 0.02, zz), 2.3, 3.1, col, depth = 0.3)
+                        }
+                        i += 0.14
+                    }
+                    1 -> {
+                        // a coil of rope
+                        val x = c.x(i + 0.08, -0.78); val y = c.y(i + 0.08, -0.78, zf)
+                        c.s.blob(x, y - 3, 6.0, 3.6, rope, depth = 0.7)
+                        for (q in 0..2) c.s.line(x - 5 + q, y - 1.5 - q * 1.6, x + 5 - q, y - 1.5 - q * 1.6, argb(0x4A3E28))
+                        c.s.flat(x, y - 4, 2.0, 1.0, argb(0x2A2216))
+                        i += 0.18
+                    }
+                    2 -> {
+                        // a lantern of iron and horn
+                        val x = c.x(i + 0.05, -0.78); val y = c.y(i + 0.05, -0.78, zf)
+                        c.s.limb(x, y - 1, x, y - 9, 2.6, 2.4, m(0x8A7448, shine = 0.3, grain = 0.1, sat = 0.5))
+                        c.s.limb(x, y - 9, x, y - 11, 1.8, 1.0, iron); c.s.line(x - 2, y - 11, x + 2, y - 11, ironLine)
+                        c.s.line(x - 2.6, y - 1, x - 2.6, y - 9, ironLine); c.s.line(x + 2.6, y - 1, x + 2.6, y - 9, ironLine)
+                        i += 0.12
+                    }
+                    3 -> {
+                        // jars with cloth tied over their mouths
+                        for (q in 0 until 2) { val x = c.x(i + 0.05 + q * 0.09, -0.8 + q * 0.06); val y = c.y(i + 0.05 + q * 0.09, -0.8 + q * 0.06, zf)
+                            c.s.limb(x, y - 1, x, y - 8, 3.0, 2.6, if (q == 0) clay else clayGlaze); c.s.blob(x, y - 8.5, 2.8, 1.2, linen, depth = 0.4) }
+                        i += 0.2
+                    }
+                    4 -> {
+                        // a pair of boots
+                        for (q in 0 until 2) { val x = c.x(i + 0.04 + q * 0.07, -0.76); val y = c.y(i + 0.04 + q * 0.07, -0.76, zf)
+                            c.s.limb(x, y - 2, x, y - 10, 2.4, 2.2, leather); c.s.limb(x, y - 1.5, x + 3.5, y, 1.8, 1.6, leather) }
+                        i += 0.17
+                    }
+                    else -> {
+                        // a bundle of candles tied with string
+                        val x = c.x(i + 0.06, -0.78); val y = c.y(i + 0.06, -0.78, zf)
+                        for (q in 0 until 5) c.s.limb(x - 4 + q * 2, y - 1.5, x - 4 + q * 2 + 1, y - 0.5, 1.0, 1.0, wax)
+                        for (q in 0 until 4) c.s.limb(x - 3 + q * 2, y - 3.4, x - 3 + q * 2 + 1, y - 2.4, 1.0, 1.0, wax)
+                        c.s.line(x - 1, y - 4, x - 1, y, argb(0x5A4A34))
+                        i += 0.15
+                    }
+                }
+                n++
+            }
+        }
+        c.box(i0, j0, i1, j1, zt, zt + 4, oakTop, oak, oak)
+        if (!joinR) c.box(i1 - 0.06, j0, i1, j1, 0.0, zt + 4, oakTop, oak, oak)
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
+    /** A rack of tools against the wall (−j): axe, shovel, pitchfork, scythe; three looks, the last with a spear, a bow and a shield. */
+    private fun rack(v: Int, seed: Int): PixelImage {
+        val c = Canvas((118 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val i0 = -0.9; val i1 = -0.1; val jw = -0.94
+        c.floorShadow(i0, -1.0, i1, -0.62, 0.4)
+        // two uprights and two rails along the wall
+        for (i in listOf(i0, i1 - 0.05)) c.box(i, jw - 0.04, i + 0.05, jw + 0.02, 0.0, 100.0, oakDark, oak, oak)
+        for (z in listOf(38.0, 84.0)) c.box(i0, jw, i1, jw + 0.05, z, z + 4, oakTop, oak, oak)
+        fun tool(i: Double, top: Double, lean: Double, k: Int) {
+            val fx = c.x(i, -0.66); val fy = c.y(i, -0.66)
+            val tx = c.x(i + lean, jw + 0.02); val ty = c.y(i + lean, jw + 0.02, top)
+            c.s.limb(fx, fy - 1, tx, ty, 1.2, 1.1, if (k == 4) oakDark else bark)
+            when (k) {
+                0 -> { c.s.poly(iron, tx - 1, ty + 1, tx + 6, ty - 1, tx + 7, ty + 6, tx + 1, ty + 5, tiltX = 0.4, bevel = 0.6) }                 // axe
+                1 -> { c.s.poly(iron, fx - 4, fy - 1, fx + 4, fy - 1, fx + 3, fy - 12, fx - 3, fy - 12, tiltX = -0.3, bevel = 0.8) }             // shovel, blade down
+                2 -> { for (q in -1..1) c.s.line(tx + q * 2.5, ty, tx + q * 2.5, ty - 9, ironLine); c.s.line(tx - 2.5, ty, tx + 2.5, ty, ironLine) } // pitchfork
+                3 -> { c.s.limb(tx, ty, tx + 14, ty + 5, 1.4, 0.4, iron) }                                                                       // scythe
+                4 -> { c.s.poly(iron, tx - 1.5, ty, tx + 1.5, ty, tx, ty - 9, bevel = 0.5) }                                                    // spear
+                else -> {}
+            }
+        }
+        when (v % 3) {
+            0 -> { tool(-0.78, 96.0, 0.02, 0); tool(-0.6, 90.0, 0.03, 1); tool(-0.4, 104.0, 0.0, 2); tool(-0.22, 100.0, 0.02, 3) }
+            1 -> { tool(-0.75, 92.0, 0.04, 1); tool(-0.55, 96.0, -0.02, 1); tool(-0.35, 98.0, 0.03, 0); c.s.blob(c.x(-0.2, -0.72), c.y(-0.2, -0.72, 4.0), 6.0, 4.0, rope, depth = 0.7) }
+            else -> {
+                tool(-0.78, 110.0, 0.02, 4); tool(-0.6, 96.0, 0.02, 0)
+                // a short bow hung on the upper rail, a round shield leaning below
+                val bx = c.x(-0.38, jw + 0.06); val by = c.y(-0.38, jw + 0.06, 86.0)
+                for (q in 0 until 10) { val a0 = -1.2 + q * 0.24; val a1 = a0 + 0.24
+                    c.s.line(bx + 10 * kotlin.math.sin(a0) * 0.4, by + 22 * (q / 10.0), bx + 10 * kotlin.math.sin(a1) * 0.4, by + 22 * ((q + 1) / 10.0), argb(0x2A1C12)) }
+                c.s.line(bx - 4, by, bx - 4, by + 22, argb(0x8A806A))
+                val sx = c.x(-0.25, -0.7); val sy = c.y(-0.25, -0.7, 16.0)
+                c.s.blob(sx, sy, 9.0, 11.0, m(0x5A4030, grain = 0.3, sat = 0.8, value = 0.8), depth = 0.5)
+                c.s.blob(sx, sy, 2.4, 2.8, iron, depth = 0.8)
+            }
+        }
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
+    /** An open crate of goods: apples, turnips, or rolls of leather and a coil of rope. */
+    private fun produce(v: Int, seed: Int): PixelImage {
+        val c = Canvas((60 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val i0 = -0.82; val i1 = -0.18; val j0 = -0.8; val j1 = -0.2; val zb = 26.0
+        c.floorShadow(i0, j0, i1, j1, 0.5)
+        c.box(i0, j0, i1, j1, 0.0, zb, m(0x120C08), oak, oak)
+        for (k in 1..2) { val zz = zb * k / 3
+            c.s.line(c.x(i0, j1), c.y(i0, j1, zz), c.x(i1, j1), c.y(i1, j1, zz), seam); c.s.line(c.x(i1, j0), c.y(i1, j0, zz), c.x(i1, j1), c.y(i1, j1, zz), seam) }
+        // the goods heaped above the rim, back to front
+        val mat = when (v % 3) { 0 -> apple; 1 -> turnip; else -> leather }
+        val n = 34
+        val pts = (0 until n).map { k -> (i0 + 0.08 + (i1 - i0 - 0.16) * rnd(k, 1, seed)) to (j0 + 0.08 + (j1 - j0 - 0.16) * rnd(k, 2, seed)) }.sortedBy { it.first + it.second }
+        for ((k, p) in pts.withIndex()) {
+            val (i, j) = p
+            val hump = 6 * (1 - ((i - (i0 + i1) / 2) / ((i1 - i0) / 2)).let { it * it }) * (1 - ((j - (j0 + j1) / 2) / ((j1 - j0) / 2)).let { it * it })
+            val x = c.x(i, j); val y = c.y(i, j, zb - 3 + hump)
+            when (v % 3) {
+                0 -> { c.s.blob(x, y, 3.0, 2.8, mat, depth = 0.9); if (k % 3 == 0) c.s.dot(x, y - 2.6, argb(0x3A2A14)) }
+                1 -> { c.s.blob(x, y, 3.4, 3.0, mat, depth = 0.9); c.s.blob(x, y - 1.8, 2.6, 1.2, turnipTop, depth = 0.5); c.s.line(x, y - 3, x + 1, y - 6, argb(0x3A5230)) }
+                else -> if (k % 3 == 0) { c.s.limb(x - 4, y, x + 4, y - 2, 2.6, 2.6, mat); c.s.blob(x + 4, y - 2, 1.6, 2.4, mat, depth = 0.3) }
+            }
+        }
+        if (v % 3 == 2) { val x = c.x(-0.4, -0.4); val y = c.y(-0.4, -0.4, zb + 2); c.s.blob(x, y, 7.0, 4.0, rope, depth = 0.7); for (q in 0..2) c.s.line(x - 6 + q, y + 1 - q * 1.5, x + 6 - q, y + 1 - q * 1.5, argb(0x4A3E28)) }
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
     private fun cached(key: String, make: () -> PixelImage): PixelImage =
         synchronized(cache) { cache[key] } ?: trimTop(make()).also { synchronized(cache) { cache[key] = it } }
 
@@ -1622,6 +1825,7 @@ object MapRoomIso {
         val fx = (tx + 1) * T; val fy = (ty + 1) * T
         val d = depth(tx, ty)
         val elder = map.id.startsWith("elder_")
+        val shop = map.id.startsWith("shop_")
         fun one(k: String, low: Boolean = true, make: () -> PixelImage) = listOf(obj(cached("$key/$k", make), fx, fy, d, low))
         return when (map.tile(tx, ty)) {
             Tile.WALL, Tile.WINDOW, Tile.HEARTH -> {
@@ -1640,14 +1844,16 @@ object MapRoomIso {
                 out
             }
             Tile.DOOR -> if (ty == map.height - 1) one("door") { door(tx, ty) } else emptyList()
-            Tile.SHELF -> if (elder) one("books", low = false) { bookshelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
+            Tile.SHELF -> if (shop) one("goods", low = false) { goodsShelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
+                else if (elder) one("books", low = false) { bookshelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
                 else one("shelf", low = false) { shelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
             Tile.DESK -> one("desk", low = false) { desk(v, seed) }
             Tile.TRUNK -> one("trunk") { chest(v, seed) }
             Tile.ARMCHAIR -> one("armchair", low = false) { armchair(v, seed) }
             // the cloth hangs on the wall behind the tile: behind anyone standing on it
             Tile.HANGING -> listOf(obj(cached("$key/hanging") { wallCloth(v, seed) }, fx, fy, d - T, false))
-            Tile.COUNTER -> one("counter", low = false) { counter(hash(tx, ty, 2), same(-1), same(1), seed) }
+            Tile.COUNTER -> one("counter", low = false) { counter(hash(tx, ty, 2), same(-1), same(1), seed, shop) }
+            Tile.RACK -> one("rack", low = false) { rack(v, seed) }
             Tile.TABLE -> one("table") { table(v, same(-1), same(1), seed) }
             Tile.BENCH -> {
                 // a settle beside a table: its back away from the table (13p.1)
@@ -1657,12 +1863,12 @@ object MapRoomIso {
             // the elder's broad bed is one picture over its four tiles, laid on the front one
             Tile.BED -> if (elder) { if (at(1, 0) == Tile.BED || at(0, 1) == Tile.BED) emptyList() else one("bigbed", low = false) { elderBed(hash(tx, ty, 4), seed) } }
                 else one("bed") { bed(hash(if (at(0, -1) == Tile.BED) tx else tx, if (at(0, -1) == Tile.BED) ty - 1 else ty, 4), at(0, -1) != Tile.BED, at(0, 1) != Tile.BED, seed) }
-            Tile.CRATE -> one("crates") { crates(v, seed) }
+            Tile.CRATE -> if (shop) one("produce") { produce(v, seed) } else one("crates") { crates(v, seed) }
             Tile.BARREL -> one("barrel") { barrel(v, seed) }
             Tile.CLUTTER -> if (elder) listOf(obj(cached("$key/stick") { stick(v, seed) }, fx, fy, d - T / 2, false)) else {
                 val byFire = (-1..1).any { dx -> (-1..0).any { dy -> at(dx, dy) == Tile.HEARTH } }
                 val byTable = (-1..1).any { dx -> at(dx, 0) == Tile.TABLE }
-                val kind = if (byFire) 0 else if (byTable) 3 else listOf(1, 2, 4, 5)[hash(tx, ty, 56) % 4]
+                val kind = if (shop) 1 else if (byFire) 0 else if (byTable) 3 else listOf(1, 2, 4, 5)[hash(tx, ty, 56) % 4]
                 // low things: the hero stepping over them is drawn in front of them
                 listOf(obj(cached("$key/clutter") { when (kind) {
                     0 -> firewood(v, seed)
@@ -1706,5 +1912,13 @@ object MapRoomIso {
         "Bett" to (0 until 3).map { elderBed(it, 191 + it) },
         "Wandbehang" to (0 until 3).map { wallCloth(it, 201 + it) },
         "Stock" to (0 until 3).map { stick(it, 211 + it) },
+    )
+
+    /** The shop's things (13q.4, drafts for ISODINGE=laden). */
+    fun shopSheet(): List<Pair<String, List<PixelImage>>> = listOf(
+        "Ladentisch" to (0 until 3).map { counter(it, false, false, 221 + it, shop = true) },
+        "Warenregal" to (0 until 3).map { goodsShelf(it, false, false, 231 + it) },
+        "Werkzeug" to (0 until 3).map { rack(it, 241 + it) },
+        "Warenkiste" to (0 until 3).map { produce(it, 251 + it) },
     )
 }

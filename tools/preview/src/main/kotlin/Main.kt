@@ -181,6 +181,11 @@ fun main() {
                     shot("zoom_${z}_e${k}1_aeltester_tag") { place(it, "elder_$k", at.first, at.second, 12 * 60, Facing.UP) }
                     shot("zoom_${z}_e${k}2_aeltester_abend") { place(it, "elder_$k", at.first, at.second, 21 * 60, Facing.UP) }
                 }
+                shopDrafts()
+                for (k in listOf("a", "b", "c")) {
+                    shot("zoom_${z}_l${k}1_laden_tag") { place(it, "shop_$k", 5, 4, 12 * 60, Facing.UP) }
+                    shot("zoom_${z}_l${k}2_laden_abend") { place(it, "shop_$k", 5, 4, 21 * 60, Facing.UP) }
+                }
                 shot("zoom_${z}_ea3_aeltester_bett") { place(it, "elder_a", 4, 2, 21 * 60, Facing.LEFT) }
                 shot("zoom_${z}_i4_laden") { place(it, "shop", 4, 5, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_i5_tempel") { place(it, "temple", 4, 4, 12 * 60, Facing.UP) }
@@ -822,4 +827,40 @@ private fun elderDrafts() {
         "#kkRRkk#",
         "###D####",
     ), 4, 2)
+}
+
+/** Floor plans for Thessa's shop (13q.4), smaller than the old one, crammed with goods; only in the previews. */
+private fun shopDrafts() {
+    fun def(id: String, rows: List<String>, ax: Int, ay: Int) {
+        de.bornim.core.World.drafts[id] = de.bornim.core.MapDef(id, de.bornim.core.T("Thessas Kramladen", "Thessa's General Store"), de.bornim.core.MapKind.INTERIOR, rows,
+            npcs = listOf(de.bornim.core.Npc("thessa", ax, ay, "merchant", Facing.DOWN) { emptyList() }))
+    }
+    // A: shelves along the back, the counter across the room, Thessa behind it, a stove in the corner
+    def("shop_a", listOf(
+        "##ZZ#W###",
+        "#kkkQQQU#",
+        "#bkkkkkk#",
+        "#bKKKKkJ#",
+        "#kkkkkku#",
+        "#ukkkkkJ#",
+        "####D####",
+    ), 4, 2)
+    // B: the counter by the door on the right, crates of goods on the left
+    def("shop_b", listOf(
+        "###ZZ#W##",
+        "#QQkkkQU#",
+        "#kkkkkkk#",
+        "#uukkKKK#",
+        "#bkkkkkJ#",
+        "####D####",
+    ), 6, 2)
+    // C: the smallest, everything heaped up
+    def("shop_c", listOf(
+        "###ZZW##",
+        "#QQkkkU#",
+        "#bkKKkJ#",
+        "#ukkkku#",
+        "#bkkkkJ#",
+        "###D####",
+    ), 4, 1)
 }
