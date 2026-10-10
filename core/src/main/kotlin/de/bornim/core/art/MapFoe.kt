@@ -150,8 +150,7 @@ object MapFoe {
             Doll.Creature.GHOUL -> low.copy(lean = low.lean + 0.7, crouch = low.crouch + 4.0, headDown = low.headDown - 6.0,
                 rh = V(20.0, 56.0, 16.0), lh = V(-20.0, 56.0, 16.0))
         }
-        // a second blade in the other hand, lowered like the first
-        return if (kit.items[GearSlot.OFF_HAND] == "dagger") r.copy(lh = V(-18.0, 56.0, 2.0 + st * 0.35)) else r
+        return r
     }
 
     /** A foe on the doll standing in [idle], breathing in ([breath] 1) or out, facing [yaw]. */
@@ -193,7 +192,11 @@ object MapFoe {
 
     private fun renderDoll(id: String, look: MonsterLook, rig: HeroFigure.Rig): PixelImage {
         val f = frame(id)
-        return rim(mapDoll(id, look).render(f.w, f.h, f.ax.toDouble(), f.gy.toDouble(), PX, rig, FoeArt.outfit(id, look), pitch = PITCH).img)
+        // a second blade goes in its sheath at the hip while walking about (9k: held out at the hip it read as obscene)
+        // and a shield is slung on the back, as the hero carries it (held low at the side, its edge stuck out at the hip too)
+        val outfit = FoeArt.outfit(id, look).let { if (it.items[GearSlot.OFF_HAND]?.def?.isWeapon == true) it.withOffStowed() else it }
+            .let { if (it.hasShield) it.withShieldOnBack() else it }
+        return rim(mapDoll(id, look).render(f.w, f.h, f.ax.toDouble(), f.gy.toDouble(), PX, rig, outfit, pitch = PITCH).img)
     }
 
     /** A solid dark rim one pixel wide round everything drawn, so a small figure reads against the ground. */
