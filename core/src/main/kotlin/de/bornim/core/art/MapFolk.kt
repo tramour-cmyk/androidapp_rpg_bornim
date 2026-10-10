@@ -217,6 +217,48 @@ object MapFolk {
     fun drawSquat(f: Folk, slot: Int, pose: Squat): PixelImage =
         MapFigure.render(f.doll, f.outfit, squatRig(slot * 360.0 / MapFigure.YAWS, pose))
 
+    /** The squatting picture, drawn in the background when first wanted, null until then. */
+    fun squatFrame(f: Folk, slot: Int, pose: Squat): PixelImage? =
+        MapRest.picture("squat|${f.id}|$slot|$pose") { drawSquat(f, slot, pose) }
+
+    /** Whether [f] sits down at its fire now and then: the one who keeps a fire (Garrick). */
+    fun squats(f: Folk) = f.id == "garrick"
+
+    /** Squatting is decided by chance in blocks of this length, apart from the idle loops. */
+    const val SQUAT_BLOCK_MS = 45_000L
+
+    /**
+     * Garrick down at his fire (10.10., 3): now and then he hunkers down on his heels facing the
+     * fire. By day for 9 to 19 s, stirring the embers once or twice; at night more often and for up
+     * to 40 s, stirring them once and then nodding off. Chance decides in blocks of
+     * [SQUAT_BLOCK_MS], so it never comes on a beat. Null while he stands. When the hero comes near or
+     * a beast turns up, the caller lets him stand at once (he starts up).
+     */
+    fun squatAt(f: Folk, clockMs: Long, night: Boolean): Squat? {
+        val n = Math.floorDiv(clockMs, SQUAT_BLOCK_MS)
+        val t = clockMs - n * SQUAT_BLOCK_MS
+        val r = java.util.Random(n * 7_000_003L + f.id.hashCode() * 31L + 5)
+        // every draw is made in the same order each time, so the block plays out the same at every moment
+        val sits = r.nextDouble() < (if (night) 0.7 else 0.35)
+        val start = 3_000L + (r.nextDouble() * 12_000).toLong()
+        val length = if (night) 18_000L + (r.nextDouble() * 22_000).toLong() else 9_000L + (r.nextDouble() * 10_000).toLong()
+        val stokes = if (night) 1 else 1 + r.nextInt(2)
+        val stokeAt = LongArray(2) { k -> 1_500L + k * (3_500L + (r.nextDouble() * 3_000).toLong()) }
+        val stokeLen = LongArray(2) { 1_400L + (r.nextDouble() * 1_200).toLong() }
+        val dozeAt = 6_500L + (r.nextDouble() * 4_000).toLong()
+        val end = minOf(start + length, SQUAT_BLOCK_MS - 1_500)
+        if (!sits || t < start || t >= end) return null
+        val s = t - start
+        for (k in 0 until stokes) if (s >= stokeAt[k] && s < stokeAt[k] + stokeLen[k])
+            return if (((s - stokeAt[k]) / 340) % 2 == 0L) Squat.STOKE_A else Squat.STOKE_B
+        return if (night && s >= dozeAt) Squat.DOZE else Squat.SQUAT
+    }
+
+    /** Draws ahead the squatting pictures of [f] facing its fire at [homeSlot]. */
+    fun prepareSquat(f: Folk, homeSlot: Int) {
+        for (p in Squat.entries) squatFrame(f, homeSlot, p)
+    }
+
     /** How near (in tiles each way) the hero must be for the folk to look at it. */
     const val WATCH_TILES = 4.0
 
@@ -309,6 +351,7 @@ object MapFolk {
             val home = MapFigure.slot(MapFigure.yawOf(npc.facing))
             prepare(it, home)
             if (map.safeZones.any { z -> z.x == npc.x && z.y == npc.y }) prepareWard(it, home)
+            if (squats(it)) prepareSquat(it, home)
         }
     }
 

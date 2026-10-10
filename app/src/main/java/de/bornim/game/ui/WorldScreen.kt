@@ -584,7 +584,9 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     // a beast turned back at its safe place: the torch out of the fire and swung at the beast (09.10.)
                     val wo = game.lastWardOff
                     val warding = if (wo != null && wo.x == npc.x && wo.y == npc.y) MapFolk.wardAt(clock - wo.atMs) else null
-                    val doing = if (near || w != null || warding != null) null else MapFolk.doing(f, clock)
+                    // Garrick sits down at his fire now and then, at night he nods off; he starts up when the hero comes (10.10., 3)
+                    val squat = if (near || w != null || warding != null || !MapFolk.squats(f)) null else MapFolk.squatAt(f, clock, game.isNight)
+                    val doing = if (near || w != null || warding != null || squat != null) null else MapFolk.doing(f, clock)
                     val homeSlot = MapFigure.slot(home)
                     val target = when {
                         warding != null && wo != null -> if (warding.faceBeast)
@@ -600,7 +602,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                         if (slotNow == Math.floorMod(homeSlot + d.slotOffset, MapFigure.YAWS)) MapFolk.idleFrame(f, slotNow, d.idle, d.frame) else null
                     }
                     // otherwise, standing, the small movements everyone has: breathing, shifting weight, a glance, hands to the belt
-                    val restImg = if (idleImg == null && doing == null && !walkingNow && slotNow == MapFigure.slot(target)) {
+                    val squatImg = squat?.let { if (slotNow == homeSlot) MapFolk.squatFrame(f, slotNow, it) else null }
+                    val restImg = if (idleImg == null && doing == null && squat == null && !walkingNow && slotNow == MapFigure.slot(target)) {
                         val (rest, breath) = MapRest.at(f.id.hashCode(), clock, handsFree = true, mayLook = !near)
                         MapFolk.restFrame(f, slotNow, rest, breath)
                     } else null
@@ -609,7 +612,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                         torches += (nx + T / 2.0) to (ny - 12.0)
                         MapFolk.wardFrame(f, slotNow, wd.ward, wd.flicker)
                     }
-                    wardImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 160).toInt(), MapFigure.STEPS) else 0)
+                    wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 160).toInt(), MapFigure.STEPS) else 0)
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
                 val dollLit = doll?.let { warmEdge(it, nx, ny) }

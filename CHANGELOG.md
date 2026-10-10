@@ -4,6 +4,21 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig `karte-neuer-stil`, 10.10.2026:
+
+**Wetter**
+- Der Regen-Schalter im Testreiter hat drei Stellungen: zufällig (wie im Spiel), immer, nie. Bei „nie“ regnet es wirklich nicht mehr. Die Beschriftung zeigt die Stellung.
+- Neuer Regen: drei Schichten (fern fein und blass, nah lang und schnell), jeder Tropfen eigen in Länge und Helligkeit, Böen, die ihn dichter machen und schräger stellen. Er setzt langsam ein und hört langsam auf. Unter dem Regen wird das Bild grauer; Tropfen spritzen auf dem Boden, auf dem Wasser ziehen Ringe. In der Höhle und in Räumen regnet es nicht.
+- Sehr selten, bei starkem Regen im Freien, Wetterleuchten in der Ferne: der Himmel hellt zweimal kurz auf, ein paar Sekunden später rollt leiser Donner heran. Testknopf „Wetterleuchten mit Donner“.
+
+**Karte**
+- Der Held trägt seine Waffe beim Herumlaufen verstaut, bei allen Klassen: Schwerter und Dolche in einer Lederscheide an der linken Hüfte, den Griff nach vorn oben; Äxte, Streitkolben und Hämmer am Gürtel, den Kopf oben. Lange Waffen (Zweihänder, Speer, Stab, Bogen) bleiben an der Schulter, der Schild auf dem Rücken.
+- Garrick hockt sich ab und zu ans Feuer und schürt mit einem Stock die Glut; nachts öfter und länger, dann nickt er ein. Kommt der Held, steht er auf und schaut ihm entgegen; kommt ein Monster, steht er auf und greift die Fackel.
+- Glühwürmchen neu: Sie schwirren an festen Plätzen in der Welt (über Blumen, am Wasser, am Waldrand, im Dorf über Feldern und am Fluss), in kleinen Gruppen, langsam taumelnd. Jedes blitzt eine halbe Sekunde auf und ist dann Sekunden dunkel, in eigenem Takt; manchmal antwortet ein Nachbar. Ein heller Kern mit weichem Schein, der das Gras darunter leicht aufhellt. Nicht jede Nacht und nicht bei Regen.
+
+**Innenräume (Entwurf, Schalter „Dorf und Räume“)**
+- Die Schänke im neuen Stil: ein Steinkamin in der Rückwand mit Feuer und Kessel als Hauptlicht, dunkle Ecken, fahles Tageslicht durchs Fenster. Möbel im Maßstab der Figuren (hüfthohe lange Tische und Theke, mannshohe Regale, ein Bett von zwei Feldern Länge), Bänke, Fässer, Kisten. Kleinkram am Boden (Feuerholz, Säcke, Korb, Eimer, Stroh, Schemel), über den man langsamer läuft. An der Wand Kräuter, Umhang, Pfannen, Geweih. Der Raum ist enger; man wacht neben dem Bett auf.
+
 ## v0.1.377 – 09.10.2026, 22:31
 
 **Neu – Höhle im neuen Stil**

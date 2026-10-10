@@ -62,3 +62,55 @@ class MapFolkWardTest {
         assertTrue(MapFolk.wardAt(-1) == null && MapFolk.wardAt(MapFolk.WARD_MS) == null)
     }
 }
+
+/** Garrick squatting at his fire (10.10., 3): now and then, longer at night, nodding off only at night, never on a beat. */
+class MapFolkSquatTest {
+    private val g = MapFolk.garrick
+
+    /** The squatting sessions over [hours] of play: (start, length) in ms, and what poses showed. */
+    private fun sessions(night: Boolean, hours: Int = 2): Pair<List<Pair<Long, Long>>, Set<MapFolk.Squat>> {
+        val out = mutableListOf<Pair<Long, Long>>(); val poses = HashSet<MapFolk.Squat>()
+        var from = -1L
+        var t = 0L
+        while (t < hours * 3_600_000L) {
+            val p = MapFolk.squatAt(g, t, night)
+            if (p != null) poses += p
+            if (p != null && from < 0) from = t
+            if (p == null && from >= 0) { out += from to (t - from); from = -1 }
+            t += 100
+        }
+        return out to poses
+    }
+
+    @Test
+    fun onlyTheFireKeeperSquats() {
+        assertTrue(MapFolk.squats(g))
+        assertTrue(MapFolk.drafts.none { MapFolk.squats(it) })
+    }
+
+    @Test
+    fun byDaySometimesStokingNeverDozing() {
+        val (s, poses) = sessions(night = false)
+        assertTrue(s.size in 30..110, "sessions by day: ${s.size}")
+        assertTrue(MapFolk.Squat.DOZE !in poses)
+        assertTrue(MapFolk.Squat.STOKE_A in poses && MapFolk.Squat.STOKE_B in poses && MapFolk.Squat.SQUAT in poses)
+        assertTrue(s.all { it.second in 8_000L..20_000L }, "lengths: ${s.map { it.second }}")
+    }
+
+    @Test
+    fun atNightMoreOftenLongerAndHeNodsOff() {
+        val (day, _) = sessions(night = false)
+        val (night, poses) = sessions(night = true)
+        assertTrue(night.size > day.size, "night ${night.size} vs day ${day.size}")
+        assertTrue(night.sumOf { it.second } > 2 * day.sumOf { it.second })
+        assertTrue(MapFolk.Squat.DOZE in poses)
+    }
+
+    @Test
+    fun neverOnABeat() {
+        val (s, _) = sessions(night = true, hours = 3)
+        val gaps = s.zipWithNext { a, b -> b.first - (a.first + a.second) }
+        assertTrue(gaps.toSet().size > gaps.size / 2, "gaps repeat: $gaps")
+        assertTrue(gaps.max() - gaps.min() > 30_000, "gaps too even: $gaps")
+    }
+}
