@@ -13,6 +13,8 @@ Zweig von Jerry (Thema 18 und Hörproben), PR #16, noch nicht getestet:
 **Hörproben (nur Entwicklung, im Spiel unverändert)**
 - 17 weitere Klänge je dreimal neu und Monster-Laute für Wolf, Goblin und Skelett; Vorschau `KLANGPROBEN=`.
 
+## v0.1.471 – 10.10.2026, 22:33
+
 Zweig von Tom (Thema 13 und Vorarbeiten), getestet in 0.1.461, PR #17:
 
 **Karte: diagonale Sicht (13)**
