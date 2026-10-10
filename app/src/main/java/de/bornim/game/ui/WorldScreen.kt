@@ -58,6 +58,7 @@ import de.bornim.core.Mode
 import de.bornim.core.Move
 import de.bornim.core.Story
 import de.bornim.core.Tile
+import de.bornim.core.actionAt
 import de.bornim.core.art.MapFigure
 import de.bornim.core.art.MapFoe
 import de.bornim.core.art.MapFollow
@@ -307,8 +308,10 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                             pressA()
                         } else if (game.mode == Mode.Explore) {
                             val cam = camera(game, w, h, progress, fromX, fromY)
-                            val tx = floor(cam.mapX(pos.x, pos.y) / WorldArt.T).toInt()
-                            val ty = floor(cam.mapY(pos.x, pos.y) / WorldArt.T).toInt()
+                            val fx = floor(cam.mapX(pos.x, pos.y) / WorldArt.T).toInt()
+                            val fy = floor(cam.mapY(pos.x, pos.y) / WorldArt.T).toInt()
+                            // seen diagonally in a room, the thing whose picture is tapped counts, not the floor behind it (13p.5)
+                            val (tx, ty) = tappedThing(game, cam, pos.x, pos.y, fx, fy) ?: (fx to fy)
                             val p = game.state.place
                             if (tx == p.x && ty == p.y) {
                                 pressA()
@@ -486,6 +489,38 @@ private fun camera(game: Game, w: Float, h: Float, progress: Float, fromX: Int, 
  * Touch movement: dragging shows a small joystick under the finger and walks in the dragged
  * direction (snapped to the four grid directions, far = run); a short tap reports its position.
  */
+/**
+ * Seen diagonally in a room (13p.5): the tile of the frontmost upright thing whose picture lies under the
+ * tap at ([px], [py]), if the hero can walk onto it or use it; null to take the floor tile ([fx], [fy])
+ * under the tap. A low thing stands out of its tile towards the back, so its upper part covers the floor
+ * of the tile behind it (a barrel, a wall), which a tap would otherwise choose.
+ */
+private fun tappedThing(game: Game, cam: Cam, px: Float, py: Float, fx: Int, fy: Int): Pair<Int, Int>? {
+    if (!cam.diagonal || game.map.kind != MapKind.INTERIOR) return null
+    val map = game.map
+    val walls = setOf(Tile.WALL, Tile.WINDOW, Tile.HEARTH, Tile.DOOR)
+    var best: Pair<Int, Int>? = null
+    var bestKey = -Float.MAX_VALUE
+    // pictures stand up from their tile, so only tiles at or in front of the tapped floor can cover it
+    for (ty in fy - 1..fy + 3) for (tx in fx - 1..fx + 3) {
+        if (!map.inside(tx, ty) || map.tile(tx, ty) in walls) continue
+        val objs = de.bornim.core.art.MapRoomIso.objects(map, tx, ty) ?: continue
+        for (o in objs) {
+            val dw = o.img.width.toFloat() * cam.scale / o.density; val dh = o.img.height.toFloat() * cam.scale / o.density
+            val sx = (o.x - cam.x) * cam.scale + dw / 2f; val sy = (o.y - cam.y) * cam.scale + dh
+            val left = cam.toScreenX(sx, sy) - dw / 2f; val top = cam.toScreenY(sx, sy) - dh
+            val ix = ((px - left) * o.density / cam.scale).toInt(); val iy = ((py - top) * o.density / cam.scale).toInt()
+            if (ix !in 0 until o.img.width || iy !in 0 until o.img.height) continue
+            if ((o.img[ix, iy] ushr 24) < 60) continue
+            // drawn along the diagonal: the later, the further in front
+            val key = o.sortY + o.x + o.img.width / o.density / 2f
+            if (key > bestKey) { bestKey = key; best = tx to ty }
+        }
+    }
+    val b = best ?: return null
+    return b.takeIf { (x, y) -> game.free(x, y) || game.actionAt(x, y) != null }
+}
+
 @Composable
 private fun TouchLayer(onDir: (Facing?) -> Unit, onStick: (Offset?) -> Unit, onRun: (Boolean) -> Unit, onTap: (Offset, Float, Float) -> Unit) {
     var origin by remember { mutableStateOf<Offset?>(null) }

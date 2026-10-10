@@ -220,7 +220,7 @@ object Story {
         rows = listOf(
             "###ZZ#W###",
             "#QQkkJbBu#",
-            "#JkkkkkBk#",
+            "#kkkkkkBk#",
             "#KKKkkkkJ#",
             "#bkYJkYYk#",
             "#JkRRRnnJ#",
@@ -229,7 +229,7 @@ object Story {
         ),
         warps = interiorExit(toVillage(6, 6)),
         npcs = listOf(
-            Npc("rowena", 2, 2, "innkeeper", Facing.DOWN) { s ->
+            Npc("rowena", 1, 2, "innkeeper", Facing.DOWN) { s ->
                 when {
                     !s.has(QUEST_STARTED) -> script {
                         say(rowena, "Ältester Aldric wartet auf dich. Sein Haus liegt unten links am Dorfplatz.", "Elder Aldric is waiting for you. His house is at the bottom left of the village square.")

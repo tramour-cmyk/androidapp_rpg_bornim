@@ -71,3 +71,20 @@ class FreeWalkTest {
         assertTrue(g.freeWalk.x > x0 + 0.2 || g.mode != Mode.Explore, "slid along the wall: $x0 -> ${g.freeWalk.x}")
     }
 }
+
+/** 13p.5: the low clutter in the inn's corner (1,5), between the wall and the barrel, can be stepped on. */
+class InnCornerTest {
+    @Test
+    fun clutterBesideTheBarrelCanBeEntered() {
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        val g = Game(s, Lang.DE, Dice(kotlin.random.Random(1)))
+        var guard = 0
+        while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
+        s.place = Place("inn", 2, 5, Facing.LEFT)
+        (g.roamers as? MutableList<Roamer>)?.clear()
+        g.freeWalk.sync()
+        var t = 1_000L
+        repeat(60) { g.freeWalk.walk(-1.0, 0.0, 16, FreeWalk.WALK, t); t += 16 }
+        assertEquals(1 to 5, g.state.place.x to g.state.place.y, "at ${g.freeWalk.x}, ${g.freeWalk.y}, mode ${g.mode}")
+    }
+}

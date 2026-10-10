@@ -584,17 +584,36 @@ object MapRoomIso {
         return c.img
     }
 
-    /** A bench along the room's x. */
-    private fun bench(joinL: Boolean, joinR: Boolean, seed: Int): PixelImage {
-        val zt = 24.0
-        val c = Canvas((zt + TH + 8).toInt().let { it + it % 2 }, seed)
+    /**
+     * A bench along the room's x. Beside a table it is a settle (13p.1): the seat towards the table, a high
+     * back of planks on the side away from it ([back] +1 at the front, −1 at the back, 0 none), so it reads
+     * as something in the way and not as a board on the floor to step over.
+     */
+    private fun bench(joinL: Boolean, joinR: Boolean, seed: Int, back: Int = 0): PixelImage {
+        val zt = 26.0
+        val zb = 56.0
+        val c = Canvas(((if (back != 0) zb else zt) + TH + 8).toInt().let { it + it % 2 }, seed)
         val i0 = if (joinL) -1.0 else -0.92; val i1 = if (joinR) 0.0 else -0.08
-        c.floorShadow(i0, -0.66, i1, -0.34, 0.35)
-        fun leg(i: Double) = c.box(i - 0.03, -0.62, i + 0.03, -0.38, 0.0, zt - 4, oakDark, oak, oak)
+        // the seat lies towards the table, the back stands on the far side
+        val j0 = when (back) { 1 -> -0.84; -1 -> -0.56; else -> -0.66 }
+        val j1 = j0 + 0.36
+        c.floorShadow(i0, j0, i1, j1 + if (back == 1) 0.08 else 0.0, 0.4)
+        fun leg(i: Double) = c.box(i - 0.03, j0 + 0.04, i + 0.03, j1 - 0.04, 0.0, zt - 4, oakDark, oak, oak)
+        fun backBoard() {
+            val b0 = if (back == 1) j1 else j0 - 0.08
+            val b1 = b0 + 0.08
+            c.box(i0, b0, i1, b1, 0.0, zb, oakDark, oak, oakDark)
+            // planks and a rubbed top rail
+            var k = i0 + 0.16
+            while (k < i1 - 0.05) { c.s.line(c.x(k, b1), c.y(k, b1, 3.0), c.x(k, b1), c.y(k, b1, zb - 5), seam); k += 0.16 }
+            c.box(i0, b0 - 0.01, i1, b1 + 0.01, zb - 4, zb, oakTop, oak, oak)
+        }
+        if (back == -1) backBoard()
         if (!joinL) leg(i0 + 0.1)
         if (!joinR) leg(i1 - 0.1)
-        c.box(i0, -0.66, i1, -0.34, zt - 4, zt, oakTop, oak, oak)
-        c.s.line(c.x(i0, -0.5), c.y(i0, -0.5, zt), c.x(i1, -0.5), c.y(i1, -0.5, zt), seam)
+        c.box(i0, j0, i1, j1, zt - 4, zt, oakTop, oak, oak)
+        c.s.line(c.x(i0, (j0 + j1) / 2), c.y(i0, (j0 + j1) / 2, zt), c.x(i1, (j0 + j1) / 2), c.y(i1, (j0 + j1) / 2, zt), seam)
+        if (back == 1) backBoard()
         c.s.outline(outlineColor)
         return c.img
     }
@@ -811,10 +830,331 @@ object MapRoomIso {
         return c.img
     }
 
-    /** Something round seen straight ([MapRoom.Sprite]: a barrel, a stool, sacks) set on the middle of the tile. */
-    private fun round(sprite: MapRoom.Sprite, seed: Int, dj: Double = 0.0): PixelImage {
-        val c = Canvas((sprite.img.height + TH / 2 + 6).toInt().let { it + it % 2 }, seed)
-        c.paste(sprite.img, sprite.ax, sprite.ay, c.x(-0.5, -0.5 + dj), c.y(-0.5, -0.5 + dj))
+    // ------------------------------------------------------------------ round things (13p.3)
+
+    /** Upright art pixels per centimetre, the scale of the room's heights. */
+    private const val ZCM = 0.57
+    /** A tile's side in centimetres, at the hero's scale. */
+    private const val TILE_CM = 116.0
+
+    private val hoopIron = m(0x4A4640, shine = 0.35, grain = 0.2, sat = 0.45)
+    private val wicker = m(0x8A7448, grain = 0.4, sat = 0.7, value = 0.85)
+    private val sackcloth = m(0x6E5E44, grain = 0.32, sat = 0.62, value = 0.72)
+    private val turnip = m(0xB8A8B0, shine = 0.15, grain = 0.12, sat = 0.5, value = 0.9)
+    private val turnipTop = m(0x6E4A6E, grain = 0.1, sat = 0.6, value = 0.8)
+    private val leaf = m(0x3A5230, grain = 0.25, sat = 0.7, value = 0.8)
+    private val leafDark = m(0x26361F, grain = 0.2, sat = 0.6, value = 0.8)
+    private val water = argb(0x1C2426)
+
+    /** A radius in centimetres on the floor as the half width of its ellipse on the screen; the height is half of it. */
+    private fun rx(cm: Double) = cm / TILE_CM * TW / sqrt(2.0)
+
+    /** The middle of the tile on the floor. */
+    private fun Canvas.mid() = x(-0.5, -0.5) to y(-0.5, -0.5)
+
+    /** A soft round shadow on the floor around (ox, oy): a circle, so an ellipse twice as wide as high; laid after the outline, under the thing. */
+    private fun Canvas.roundShadow(ox: Double, oy: Double, rcm: Double, a: Double = 0.5) {
+        val r = rx(rcm) + 3
+        for (py in 0 until h) for (px in 0 until W) {
+            val u = (px + 0.5 - ox) / r; val v = (py + 0.5 - oy) / (r / 2)
+            val d = sqrt(u * u + v * v)
+            if (d >= 1.0 || img.opaque(px, py)) continue
+            val k = (1 - d * d) * a
+            img.set(px, py, ((k * 255).toInt().coerceIn(0, 255) shl 24) or 0x0A0806)
+        }
+    }
+
+    /**
+     * An upright round body standing on (ox, oy), from [z0] to [z0] + [hcm] centimetres, its radius [r] at
+     * the share t (0 at the foot, 1 at the top) of its height: lit as a cylinder, seen from above at the
+     * room's angle, so its foot is the front half of an ellipse 2:1.
+     */
+    private fun Canvas.round(ox: Double, oy: Double, hcm: Double, m: Mat, z0: Double = 0.0, r: (Double) -> Double) {
+        val rMax = (0..20).maxOf { r(it / 20.0) }
+        val top = oy - (z0 + hcm) * ZCM - rx(rMax) / 2 - 1
+        s.surface(ox - rx(rMax) - 1, top, ox + rx(rMax) + 1, oy - z0 * ZCM + rx(rMax) / 2 + 1, m) { x, y, n ->
+            var z = (oy - y) / ZCM - z0
+            var u = 0.0
+            for (k in 0 until 3) {
+                val rr = rx(r((z / hcm).coerceIn(0.0, 1.0)))
+                u = (x - ox) / rr
+                if (abs(u) > 1) return@surface false
+                z = (oy - z0 * ZCM + rr / 2 * sqrt(1 - u * u) - y) / ZCM
+            }
+            if (z < 0 || z > hcm) return@surface false
+            // the slope of the side: a body swelling outwards faces a little down below its middle, up above it
+            val t = z / hcm
+            val slope = (r((t + 0.05).coerceAtMost(1.0)) - r((t - 0.05).coerceAtLeast(0.0))) / (hcm * 0.1)
+            val nz = sqrt((1 - u * u).coerceAtLeast(0.0))
+            val ny = slope * 0.8
+            val l = sqrt(u * u + ny * ny + nz * nz)
+            n[0] = u / l; n[1] = ny / l; n[2] = nz / l
+            true
+        }
+    }
+
+    /** A flat round top at [zcm] (a lid, a seat, the water in a bucket), lit from above. */
+    private fun Canvas.disc(ox: Double, oy: Double, zcm: Double, rcm: Double, m: Mat) {
+        val a = rx(rcm); val y0 = oy - zcm * ZCM
+        val pts = ArrayList<Double>()
+        for (k in 0 until 32) { val t = k * Math.PI * 2 / 32; pts += ox + a * kotlin.math.cos(t); pts += y0 + a / 2 * kotlin.math.sin(t) }
+        s.poly(m, *pts.toDoubleArray(), tiltY = -0.72, bevel = 1.2)
+    }
+
+    /** The front half of a ring round a body at [zcm] (a hoop, a rim), [w] pixels thick. */
+    private fun Canvas.hoop(ox: Double, oy: Double, zcm: Double, rcm: Double, m: Mat, w: Double = 1.2, from: Double = 0.0, to: Double = Math.PI) {
+        val a = rx(rcm); val y0 = oy - zcm * ZCM
+        val n = 18
+        for (k in 0 until n) {
+            val t0 = from + (to - from) * k / n; val t1 = from + (to - from) * (k + 1) / n
+            s.limb(ox + a * kotlin.math.cos(t0), y0 + a / 2 * kotlin.math.sin(t0), ox + a * kotlin.math.cos(t1), y0 + a / 2 * kotlin.math.sin(t1), w, w, m)
+        }
+    }
+
+    /** A line down the side of a round body at the angle [ang] (0 straight at us), following its swell. */
+    private fun Canvas.stave(ox: Double, oy: Double, hcm: Double, ang: Double, c: Int, z0: Double = 0.0, r: (Double) -> Double) {
+        val u = kotlin.math.sin(ang); val v = kotlin.math.cos(ang)
+        var px = 0.0; var py = 0.0
+        for (k in 0..12) {
+            val t = k / 12.0
+            val rr = rx(r(t))
+            val x = ox + rr * u; val y = oy - (z0 + t * hcm) * ZCM + rr / 2 * v
+            if (k > 0) s.line(px, py, x, y, c)
+            px = x; py = y
+        }
+    }
+
+    /** A barrel on its foot, three looks: with a tap, with a tankard and a rag on the lid, open with ale and a ladle. */
+    private fun barrel(v: Int, seed: Int): PixelImage {
+        val hcm = 88.0
+        val c = Canvas((hcm * ZCM + TH / 2 + 16).toInt().let { it + it % 2 }, seed)
+        val (ox, oy) = c.mid()
+        val r = { t: Double -> 26.0 + 5.0 * kotlin.math.sin(t * Math.PI) }
+        c.round(ox, oy, hcm, oak, r = r)
+        for (k in -3..3) c.stave(ox, oy, hcm, k * 0.42 + (v % 2) * 0.2, argb(0x2E2016), r = r)
+        // one stave darker, the grime of the foot
+        c.s.tint(ox - rx(18.0), oy - hcm * ZCM * 0.5, 2.4, hcm * ZCM * 0.45, argb(0x2A1E16), 0.3)
+        c.s.tint(ox, oy - 3, rx(30.0), 4.0, argb(0x14100C), 0.45)
+        // hoops at foot, belly and head, rust running from them
+        for ((k, t) in doubleArrayOf(0.1, 0.36, 0.64, 0.9).withIndex()) {
+            val drop = if (v % 3 == 2 && k == 3) -2.0 else 0.0
+            c.hoop(ox, oy, t * hcm + drop, r(t), hoopIron, 1.0, 0.12, Math.PI - 0.12)
+            c.s.tint(ox + (rnd(k, v, 1) - 0.5) * 20, oy - t * hcm * ZCM + 6, 2.5, 3.0, argb(0x5A3418), 0.3)
+        }
+        // the head: a rim round the lid
+        c.disc(ox, oy, hcm, r(1.0) + 0.4, oakDark)
+        when (v % 3) {
+            2 -> {
+                c.disc(ox, oy, hcm - 1.5, r(1.0) - 3.0, oakBack)
+                c.s.flat(ox, oy - (hcm - 2) * ZCM + 1, rx(r(1.0) - 5.0), rx(r(1.0) - 5.0) / 2, ale)
+                c.s.dot(ox - 4.0, oy - hcm * ZCM + 1, argb(0x5A3A1E))
+                // the ladle hanging over the rim
+                c.s.limb(ox + 3.0, oy - hcm * ZCM, ox + rx(r(1.0)) + 3, oy - hcm * ZCM - 8, 1.0, 0.9, oak)
+                c.s.blob(ox + 1.0, oy - hcm * ZCM + 1, 3.0, 1.5, oakTop, depth = 0.3)
+            }
+            else -> {
+                c.disc(ox, oy, hcm + 0.6, r(1.0) - 2.0, oakTop)
+                // boards across the lid, along the ellipse
+                for (k in -1..1) {
+                    val off = k * rx(r(1.0)) * 0.36
+                    c.s.line(ox - rx(r(1.0)) * 0.8 + off * 0.5, oy - (hcm + 0.6) * ZCM + off * 0.5 - 2, ox + rx(r(1.0)) * 0.8 + off * 0.5, oy - (hcm + 0.6) * ZCM + off * 0.5 + 2, seam)
+                }
+                if (v % 3 == 1) {
+                    val ty = oy - (hcm + 0.6) * ZCM
+                    c.s.limb(ox - 4.0, ty, ox - 4.0, ty - 7, 2.6, 2.4, pewter); c.s.flat(ox - 4.0, ty - 7.2, 2.0, 0.8, ale)
+                    c.s.blob(ox + 6.0, ty + 1, 5.0, 2.0, linen, depth = 0.6)
+                } else {
+                    // the tap, and ale that ran down the staves and soaked in
+                    val ty = oy - hcm * ZCM * 0.2 + rx(r(0.2)) / 2
+                    c.s.tint(ox + 1.0, ty + 6, 2.6, 9.0, ale, 0.45)
+                    c.s.limb(ox, ty - 4, ox + 1.0, ty + 1.5, 1.6, 1.2, iron)
+                    c.s.limb(ox - 1.6, ty - 5, ox + 1.6, ty - 5.5, 0.8, 0.8, iron)
+                    c.s.dot(ox + 1.0, ty + 2.5, ale)
+                }
+            }
+        }
+        c.s.outline(outlineColor)
+        c.roundShadow(ox, oy, 34.0, 0.55)
+        return c.img
+    }
+
+    /** A three-legged stool, three looks: bare, a mug left on it, a rag thrown over it. */
+    private fun stool(v: Int, seed: Int): PixelImage {
+        val zt = 46.0
+        val c = Canvas((zt * ZCM + TH / 2 + 14).toInt().let { it + it % 2 }, seed)
+        val (ox, oy) = c.mid()
+        val turn = rnd(seed, v, 5) * 2
+        // the legs splay out from under the seat; those at the back first
+        val legs = (0 until 3).map { turn + it * Math.PI * 2 / 3 }.sortedBy { kotlin.math.sin(it) }
+        for (a in legs) {
+            val tx = ox + rx(10.0) * kotlin.math.cos(a); val ty = oy - (zt - 4) * ZCM + rx(10.0) / 2 * kotlin.math.sin(a)
+            val bx = ox + rx(19.0) * kotlin.math.cos(a); val by = oy + rx(19.0) / 2 * kotlin.math.sin(a)
+            c.s.limb(tx, ty, bx, by, 1.3, 1.1, if (kotlin.math.sin(a) < 0) oakDark else oak)
+        }
+        c.round(ox, oy, 4.0, oak, z0 = zt - 4) { 17.0 }
+        c.disc(ox, oy, zt, 17.0, oakTop)
+        c.s.line(ox - rx(12.0), oy - zt * ZCM - 1, ox + rx(12.0), oy - zt * ZCM + 1, seam)
+        when (v % 3) {
+            1 -> { val ty = oy - zt * ZCM; c.s.limb(ox + 2, ty, ox + 2, ty - 6, 2.4, 2.2, clay); c.s.flat(ox + 2, ty - 6.2, 1.8, 0.7, ale) }
+            2 -> { val ty = oy - zt * ZCM; c.s.blob(ox - 2, ty + 1, rx(13.0), 3.4, linenPale, depth = 0.4); c.s.limb(ox + rx(14.0) - 2, ty + 2, ox + rx(15.0), ty + 9, 2.0, 1.4, linenPale) }
+        }
+        c.s.outline(outlineColor)
+        c.roundShadow(ox, oy, 22.0, 0.45)
+        return c.img
+    }
+
+    /** A wooden bucket with iron hoops and a rope handle, three looks: water and a ladle, empty and tipped a little, a brush in it. */
+    private fun bucket(v: Int, seed: Int): PixelImage {
+        val hcm = 32.0
+        val c = Canvas((hcm * ZCM + TH / 2 + 26).toInt().let { it + it % 2 }, seed)
+        val (ox, oy) = c.mid()
+        val r = { t: Double -> 14.0 + 3.0 * t }
+        c.round(ox, oy, hcm, oak, r = r)
+        for (k in -3..3) c.stave(ox, oy, hcm, k * 0.45, seam, r = r)
+        c.hoop(ox, oy, 5.0, r(5 / hcm) + 0.5, hoopIron, 1.1)
+        c.hoop(ox, oy, hcm - 6, r(1 - 6 / hcm) + 0.5, hoopIron, 1.1)
+        c.disc(ox, oy, hcm, r(1.0), oakDark)
+        c.disc(ox, oy, hcm - 0.3, r(1.0) - 2.0, if (v % 3 == 0) m(0x1C2426, shine = 0.6, sat = 0.6) else oakBack)
+        val ty = oy - hcm * ZCM
+        // the rope handle over the top, from side to side
+        var hx = ox - rx(r(1.0)); var hy = ty
+        for (k in 1..8) {
+            val t = k / 8.0
+            val nx = ox + rx(r(1.0)) * (2 * t - 1); val ny = ty - 12 * kotlin.math.sin(t * Math.PI) - 2 * t
+            c.s.limb(hx, hy, nx, ny, 0.7, 0.7, linen); hx = nx; hy = ny
+        }
+        when (v % 3) {
+            0 -> { c.s.limb(ox + 2, ty + 1, ox + rx(r(1.0)) + 4, ty - 10, 0.9, 0.8, oak); c.s.flat(ox - 3, ty + 1, 2.0, 0.8, argb(0x3A4A4E)) }
+            2 -> { c.s.limb(ox - 3, ty + 1, ox - 9, ty - 9, 1.1, 1.0, oak); c.s.blob(ox - 1.5, ty + 1.5, 3.4, 1.6, straw, depth = 0.4) }
+        }
+        c.s.outline(outlineColor)
+        c.roundShadow(ox, oy, 20.0, 0.45)
+        return c.img
+    }
+
+    /** A wicker basket of turnips, three looks: full, half, tipped over with turnips rolled out. */
+    private fun basket(v: Int, seed: Int): PixelImage {
+        val hcm = 30.0
+        val c = Canvas((hcm * ZCM + TH / 2 + 18).toInt().let { it + it % 2 }, seed)
+        val (ox, oy) = c.mid()
+        val r = { t: Double -> 20.0 + 3.0 * t }
+        c.round(ox, oy, hcm, wicker, r = r)
+        // the weave: rows round the basket and the uprights
+        for (k in 1..5) c.hoop(ox, oy, k * hcm / 6, r(k / 6.0) + 0.2, m(0x5A4A2E, grain = 0.3, sat = 0.6), 0.5)
+        for (k in -4..4) c.stave(ox, oy, hcm, k * 0.36, argb(0x4A3C24), r = r)
+        c.disc(ox, oy, hcm, r(1.0), m(0x6A5636, grain = 0.3, sat = 0.7))
+        c.disc(ox, oy, hcm - 0.5, r(1.0) - 2.5, oakBack)
+        val ty = oy - hcm * ZCM
+        val n = if (v % 3 == 1) 4 else 7
+        for (k in 0 until n) {
+            val a = k * 2.4 + v; val d = if (k == 0) 0.0 else rx(10.0) * (0.5 + 0.5 * (k % 2))
+            val x = ox + d * kotlin.math.cos(a); val y = ty + d / 2 * kotlin.math.sin(a) - (if (v % 3 == 1) -2.0 else 2.0)
+            c.s.blob(x, y, 3.8, 3.4, turnip); c.s.blob(x + 0.6, y + 1.4, 2.6, 1.6, turnipTop, depth = 0.5)
+            c.s.limb(x - 0.5, y - 3.0, x - 2.0, y - 7.0, 0.7, 0.4, leaf)
+        }
+        c.hoop(ox, oy, hcm, r(1.0), m(0x6A5636, grain = 0.3, sat = 0.7), 1.0)
+        if (v % 3 == 2) for (k in 0 until 3) {
+            val x = ox + rx(26.0) + k * 6 - 6; val y = oy + 2 + k * 2
+            c.s.blob(x, y - 3, 3.8, 3.4, turnip); c.s.limb(x - 0.5, y - 6, x + 3, y - 9, 0.7, 0.4, leaf)
+        }
+        c.s.outline(outlineColor)
+        c.roundShadow(ox, oy, 26.0, 0.45)
+        return c.img
+    }
+
+    /** Sacks of grain against each other, three looks: two standing, one tipped over and spilling, three. */
+    private fun sacks(v: Int, seed: Int): PixelImage {
+        val c = Canvas((60 * ZCM + TH / 2 + 12).toInt().let { it + it % 2 }, seed)
+        val (ox, oy) = c.mid()
+        fun sack(x: Double, y: Double, hcm: Double, wcm: Double, lean: Double) {
+            val hh = hcm * ZCM; val ww = rx(wcm)
+            val sl = kotlin.math.sin(lean) * hh
+            // slumped: wide and round at the foot where the grain settles, narrowing to a gathered neck
+            val pts = doubleArrayOf(
+                x - ww * 1.05, y - hh * 0.06, x - ww * 1.1, y - hh * 0.32, x - ww * 0.9 + sl * 0.5, y - hh * 0.62,
+                x - ww * 0.45 + sl * 0.8, y - hh * 0.8, x + ww * 0.45 + sl * 0.8, y - hh * 0.8,
+                x + ww * 0.9 + sl * 0.5, y - hh * 0.62, x + ww * 1.1, y - hh * 0.32, x + ww * 1.05, y - hh * 0.06,
+                x + ww * 0.6, y + ww * 0.28, x - ww * 0.6, y + ww * 0.28,
+            )
+            c.s.poly(sackcloth, *pts, tiltX = 0.1, tiltY = 0.05, bevel = ww * 0.8)
+            val nx = x + sl * 0.85; val ny = y - hh * 0.82
+            c.s.limb(nx, ny + 1, nx + sl * 0.1, ny - 4, ww * 0.32, ww * 0.18, sackcloth)
+            // the cord, the frayed top, folds down the side
+            c.s.line(nx - ww * 0.3, ny, nx + ww * 0.3, ny + 0.5, argb(0x2A2016))
+            c.s.limb(nx + sl * 0.1, ny - 4, nx + sl * 0.12 + 2, ny - 7, 1.4, 0.5, sackcloth)
+            c.s.line(x - ww * 0.35 + sl * 0.5, y - hh * 0.6, x - ww * 0.6, y - hh * 0.15, argb(0x40362A))
+            c.s.line(x + ww * 0.25 + sl * 0.5, y - hh * 0.55, x + ww * 0.45, y - hh * 0.2, argb(0x40362A))
+        }
+        when (v % 3) {
+            0 -> { sack(ox - 8, oy - 3, 58.0, 20.0, -0.1); sack(ox + 7, oy + 3, 52.0, 20.0, 0.15) }
+            1 -> {
+                sack(ox - 7, oy - 2, 58.0, 20.0, -0.08)
+                // one lying on its side, grain run out on the floor
+                c.s.blob(ox + 14, oy + 3, rx(26.0), 7.0, sackcloth, rot = 0.42, depth = 0.85)
+                for (k in 0 until 14) c.s.dot(ox + 24 + rnd(k, v, 9) * 12, oy + 8 + rnd(k, v, 10) * 5, if (k % 3 == 0) argb(0x6A5A38) else argb(0x84704A))
+            }
+            else -> { sack(ox - 12, oy - 4, 56.0, 18.0, -0.12); sack(ox + 10, oy - 2, 50.0, 18.0, 0.1); sack(ox - 1, oy + 5, 46.0, 19.0, 0.04) }
+        }
+        c.s.outline(outlineColor)
+        c.roundShadow(ox, oy, 38.0, 0.5)
+        return c.img
+    }
+
+    /** A heap of straw on the floor, three looks: a pitchfork lying across, a fork stuck in it, trodden flat. */
+    private fun straw(v: Int, seed: Int): PixelImage {
+        val c = Canvas((30 * ZCM + TH / 2 + 30).toInt().let { it + it % 2 }, seed)
+        val (ox, oy) = c.mid()
+        val hh = (if (v % 3 == 2) 14.0 else 26.0) * ZCM
+        val a = rx(38.0)
+        // a mound of loose clumps, the ones at the back first
+        val clumps = (0 until 9).map { k ->
+            val ang = k * 2.4 + v; val d = if (k == 0) 0.0 else a * (0.35 + 0.4 * rnd(k, v, 54))
+            Triple(ox + d * kotlin.math.cos(ang), oy + d / 2 * kotlin.math.sin(ang), k)
+        }.sortedBy { it.second }
+        for ((x, y, k) in clumps) {
+            val rr = a * (if (k == 0) 0.62 else 0.42) * (0.8 + 0.4 * rnd(k, v, 55))
+            val hz = hh * (if (k == 0) 1.0 else 0.6) * (0.7 + 0.5 * rnd(k, v, 56))
+            c.s.blob(x, y - hz * 0.45, rr, hz * 0.55 + rr * 0.25, straw, depth = 0.7)
+        }
+        for (k in 0 until 26) {
+            val x = ox + (rnd(k, v, 50) - 0.5) * a * 1.5; val y = oy - hh * 0.5 + (rnd(k, v, 51) - 0.5) * hh * 0.8
+            c.s.line(x, y, x + (rnd(k, v, 52) - 0.5) * 8, y + (rnd(k, v, 53) - 0.5) * 3, if (k % 2 == 0) argb(0xC8B070) else argb(0x6A5630))
+        }
+        when (v % 3) {
+            0 -> { c.s.limb(ox - a - 4, oy + 4, ox + a * 0.6, oy - hh * 0.6, 0.9, 0.9, oak); for (k in -1..1) c.s.line(ox + a * 0.6, oy - hh * 0.6 + k * 2, ox + a * 0.6 + 8, oy - hh * 0.6 - 3 + k * 2, argb(0x3E3A36)) }
+            1 -> { c.s.limb(ox + 3, oy - hh * 0.8, ox + 10, oy - hh - 26, 0.9, 0.9, oak); for (k in -1..1) c.s.line(ox + 3 + k * 2, oy - hh * 0.8, ox + 2 + k * 2.5, oy - hh * 0.8 + 6, argb(0x3E3A36)) }
+        }
+        c.s.outline(outlineColor)
+        c.roundShadow(ox, oy, 42.0, 0.35)
+        return c.img
+    }
+
+    /** A plant in a clay pot, three looks: a fern in clay, a glazed pot of herbs, a pale pot with a wilting bush. */
+    private fun plant(v: Int, seed: Int): PixelImage {
+        val hcm = 32.0
+        val c = Canvas((90 * ZCM + TH / 2 + 10).toInt().let { it + it % 2 }, seed)
+        val (ox, oy) = c.mid()
+        val r = { t: Double -> 13.0 + 4.0 * t }
+        val pot = listOf(clay, clayGlaze, clayPale)[v % 3]
+        c.round(ox, oy, hcm, pot, r = r)
+        c.hoop(ox, oy, hcm - 3, r(1.0) + 0.6, pot, 1.6)
+        c.disc(ox, oy, hcm, r(1.0) - 1.0, m(0x2A1E14, grain = 0.4, sat = 0.6))
+        val ty = oy - hcm * ZCM
+        // leaves out of the soil, the ones at the back first, each a tapering stroke curving out
+        val n = 15
+        val ks = (0 until n).sortedBy { kotlin.math.sin(it * 2.39 + v) }
+        for (k in ks) {
+            val a = k * 2.39 + v
+            val len = (if (v % 3 == 2) 14.0 else 20.0) + rnd(k, v, 16) * 12
+            val out = rx(if (v % 3 == 1) 22.0 else 34.0) * (0.6 + rnd(k, v, 17) * 0.5)
+            val bx = ox + out * kotlin.math.cos(a); val by = ty + out / 2 * kotlin.math.sin(a) - len * (if (v % 3 == 2) 0.1 else 0.35)
+            val mx = ox + (bx - ox) * 0.45; val my = ty + (by - ty) * 0.45 - len * 0.7
+            val mat = if (kotlin.math.sin(a) < 0) leafDark else leaf
+            c.s.limb(ox, ty, mx, my, 1.2, 1.6, mat)
+            c.s.limb(mx, my, bx, by + (if (v % 3 == 2) len * 0.3 else 0.0), 1.6, 0.5, mat)
+        }
+        c.s.outline(outlineColor)
+        c.roundShadow(ox, oy, 22.0, 0.45)
         return c.img
     }
 
@@ -863,18 +1203,29 @@ object MapRoomIso {
             Tile.SHELF -> one("shelf", low = false) { shelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
             Tile.COUNTER -> one("counter", low = false) { counter(hash(tx, ty, 2), same(-1), same(1), seed) }
             Tile.TABLE -> one("table") { table(v, same(-1), same(1), seed) }
-            Tile.BENCH -> one("bench") { bench(same(-1), same(1), seed) }
+            Tile.BENCH -> {
+                // a settle beside a table: its back away from the table (13p.1)
+                val back = when { at(0, -1) == Tile.TABLE -> 1; at(0, 1) == Tile.TABLE -> -1; else -> 0 }
+                one("bench", low = back == 0) { bench(same(-1), same(1), seed, back) }
+            }
             Tile.BED -> one("bed") { bed(hash(if (at(0, -1) == Tile.BED) tx else tx, if (at(0, -1) == Tile.BED) ty - 1 else ty, 4), at(0, -1) != Tile.BED, at(0, 1) != Tile.BED, seed) }
             Tile.CRATE -> one("crates") { crates(v, seed) }
-            Tile.BARREL -> one("barrel") { round(RoomThings.barrel(v % 3), seed) }
+            Tile.BARREL -> one("barrel") { barrel(v, seed) }
             Tile.CLUTTER -> {
                 val byFire = (-1..1).any { dx -> (-1..0).any { dy -> at(dx, dy) == Tile.HEARTH } }
                 val byTable = (-1..1).any { dx -> at(dx, 0) == Tile.TABLE }
                 val kind = if (byFire) 0 else if (byTable) 3 else listOf(1, 2, 4, 5)[hash(tx, ty, 56) % 4]
                 // low things: the hero stepping over them is drawn in front of them
-                listOf(obj(cached("$key/clutter") { if (kind == 0) firewood(v, seed) else round(MapRoom.clutter(kind, v % 3), seed) }, fx, fy, d - T / 2, true))
+                listOf(obj(cached("$key/clutter") { when (kind) {
+                    0 -> firewood(v, seed)
+                    1 -> sacks(v, seed)
+                    2 -> basket(v, seed)
+                    3 -> stool(v, seed)
+                    4 -> bucket(v, seed)
+                    else -> straw(v, seed)
+                } }, fx, fy, d - T / 2, true))
             }
-            Tile.PLANT -> one("plant") { round(MapRoom.plant(), seed) }
+            Tile.PLANT -> one("plant") { plant(v, seed) }
             Tile.WOOD_FLOOR, Tile.RUG -> emptyList()
             else -> null
         }
@@ -885,8 +1236,16 @@ object MapRoomIso {
         "Regal" to (0 until 3).map { shelf(it, false, false, 11 + it) },
         "Theke" to (0 until 3).map { counter(it, false, false, 21 + it) },
         "Tisch" to (0 until 3).map { table(it, false, false, 31 + it) },
+        "Bank" to listOf(bench(false, false, 71, 1), bench(false, false, 72, -1), bench(false, false, 73, 0)),
         "Bett" to (0 until 3).map { bed(it, true, true, 41 + it) },
         "Kisten" to (0 until 3).map { crates(it, 51 + it) },
         "Brennholz" to (0 until 3).map { firewood(it, 61 + it) },
+        "Fass" to (0 until 3).map { barrel(it, 81 + it) },
+        "Hocker" to (0 until 3).map { stool(it, 91 + it) },
+        "Eimer" to (0 until 3).map { bucket(it, 101 + it) },
+        "Korb" to (0 until 3).map { basket(it, 111 + it) },
+        "Säcke" to (0 until 3).map { sacks(it, 121 + it) },
+        "Stroh" to (0 until 3).map { straw(it, 131 + it) },
+        "Pflanze" to (0 until 3).map { plant(it, 141 + it) },
     )
 }
