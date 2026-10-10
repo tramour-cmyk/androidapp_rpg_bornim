@@ -106,6 +106,8 @@ class Battle(
     var guardians = false; private set
     private var heroProne = false
     private var heroHasHit = false
+    /** The hero's misses in a row (topic 18); only weapon and spell attacks count. */
+    internal var missStreak = MissStreak()
     private var dodgeUsed = false
     private var relentlessUsed = false
     private var enemyTurns = 0
@@ -283,11 +285,13 @@ class Battle(
         if (Status.BLIND in heroStatus) mode -= 1
         val roll = heroD20(mode.coerceIn(-1, 1))
         val crit = roll >= hero.critFrom || (heroCritsAlways && roll != 1)
-        val total = roll + hero.attackBonus(w) + blessBonus() + fedBonus() - attackPenalty(onHero = true)
+        val total = roll + hero.attackBonus(w) + blessBonus() + fedBonus() + missStreak.bonus - attackPenalty(onHero = true)
         if (roll == 1 || (!crit && total < enemyAc)) {
+            missStreak.miss()
             say(Msg.miss(lang), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false, past = if (w?.def?.ranged == true) FxKind.ARROW else null))
             return
         }
+        missStreak.hit()
         val base = hero.weaponDamage(w, offHand)
         var dmg = dice.roll(if (crit) base.copy(count = base.count * 2) else base) - damagePenalty(onHero = true) + fedBonus()
         val sneakable = w == null || w.def.finesse || w.def.ranged
@@ -348,10 +352,12 @@ class Battle(
     private fun spellAttack(dmg: DiceExpr, type: DamageType, kind: FxKind): Boolean {
         val roll = heroD20(((if (Status.BLIND in heroStatus) -1 else 0) + takeCounter()).coerceIn(-1, 1))
         val crit = roll == 20
-        if (roll == 1 || (!crit && roll + hero.spellAttack + blessBonus() + fedBonus() - attackPenalty(onHero = true) < enemyAc)) {
+        if (roll == 1 || (!crit && roll + hero.spellAttack + blessBonus() + fedBonus() + missStreak.bonus - attackPenalty(onHero = true) < enemyAc)) {
+            missStreak.miss()
             say(Msg.miss(lang), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false, past = kind))
             return false
         }
+        missStreak.hit()
         if (crit) say(Msg.crit(lang))
         hitEnemy(dice.roll(if (crit) dmg.copy(count = dmg.count * 2) else dmg), type, crit, fx(kind, false, crit))
         return true
