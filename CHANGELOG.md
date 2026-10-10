@@ -4,6 +4,12 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.438 – 10.10.2026, 16:21
+
+Zweig von Jerry (Thema 9k), getestet in 0.1.433:
+
+- Goblins auf der Karte: Die zweite Klinge (Dolch) steckt beim Herumlaufen in der Scheide an der Hüfte, der Schild ist auf den Rücken geschnallt. Von der Seite ragte in Hüfthöhe nichts mehr nach vorn. Im Kampf unverändert.
+
 ## v0.1.430 – 10.10.2026, 15:28
 
 Zweig von Jerry (Themen 9 und 12), getestet in 0.1.425:
