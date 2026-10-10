@@ -4,7 +4,9 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
-Zweig `karte-neuer-stil`, 10.10.2026:
+## v0.1.409 – 10.10.2026, 10:52
+
+Zweig `karte-neuer-stil` auf `main`, mit der Testumgebung von Account B:
 
 **Wetter**
 - Der Regen-Schalter im Testreiter hat drei Stellungen: zufällig (wie im Spiel), immer, nie. Bei „nie“ regnet es wirklich nicht mehr. Die Beschriftung zeigt die Stellung.
