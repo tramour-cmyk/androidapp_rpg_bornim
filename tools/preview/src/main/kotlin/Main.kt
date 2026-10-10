@@ -95,6 +95,7 @@ fun main() {
     if (System.getenv("HOEHLEDINGE") != null) { renderCaveThings(); System.exit(0) }
     if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }
     if (System.getenv("MAPFIGYAWS") != null) { renderMapFigureYaws(); System.exit(0) }
+    if (System.getenv("MAPFOE") != null) { renderMapFoeDraft(); System.exit(0) }
     if (System.getenv("NPCDRAFT") != null) { renderNpcDraft(); System.exit(0) }
     if (System.getenv("NPCIDLE") != null) { renderNpcIdle(); System.exit(0) }
     if (System.getenv("NPCREST") != null) { renderNpcRest(); System.exit(0) }
