@@ -11,7 +11,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 | Wer | Stand | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|
 | Tom | – | – | – | – | – |
-| Jerry | – | – | – | – | – |
+| Jerry | läuft | 10.10., 22:21 | 10.10., 22:21 | 18 Bericht, dann Hörproben | `claude/wizardly-ramanujan-7rocwj` (PR #16) |
 
 Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`.
 
@@ -77,9 +77,9 @@ Vorschlag der Tom-Beratung (10.10., 20:50), um 22:00 mit dem Nutzer bestätigen 
 
 ### Jerry
 
-Vorschlag der Tom-Beratung (10.10., 20:50), um 22:00 mit dem Nutzer bestätigen und nach dem Stand dann anpassen:
-1. 16 Trefferstopp (nur wenn 16.1–16.4 vorher freigegeben sind).
-2. 18 Pechsträhnen dämpfen. Fertig wenn: Kerntest und `BalanceTest` grün, Siegquoten gegen Bosse vorher/nachher im Bericht.
-3. Hörproben für Klänge im alten Stil (Liste unter „Geplant“ in `docs/OFFEN.md`), je drei Varianten, nichts umgestellt.
-- Reserve: Monster-Laute je Gegnerart als Hörproben (Merkliste).
-- Nicht nachts: 15 Entschlacken (beide schreiben sonst gleichzeitig in `docs/OFFEN.md`).
+Bestätigt vom Nutzer 10.10., 22:19 („starte Nachtmodus“); 16 ist schon erledigt (v0.1.460).
+1. **18 Pechsträhnen:** gebaut, PR #16 (Zweig `claude/wizardly-ramanujan-7rocwj`, Commit 7343f0c). Offen: Siegquoten gegen Bosse mit und ohne Dämpfung für den Bericht, Zweig-Build abwarten. Fertig wenn: Kerntests grün (155/0 um 22:18), Bosswerte im Morgenbericht, Zweig-Build mit Link.
+2. **Hörproben Klänge im alten Stil** (Liste unter „Geplant“ in `docs/OFFEN.md`: Klick, Belohnungen, Welt, Zauber und Tränke, Kampfende, Umgebung): je Klang drei neue Varianten als WAV zum Vergleich mit dem alten, im Vorschau-Werkzeug erzeugt, im Spiel nichts umgestellt. Auf demselben Zweig, nur `tools/preview` (getrennter Commit). Fertig wenn: je Gruppe drei Varianten und der alte Klang als Datei, Liste im Bericht, Abgleich mit `docs/STIL.md` („Klang“) als Absatz.
+- **Reserve:** Monster-Laute je Gegnerart als Hörproben (Merkliste „Monster-Geräusche“), zuerst Wolf, Goblin, Skelett.
+- Nicht nachts: 15 Entschlacken.
+- Weck-Sitzungen: 00:30, 03:15, 06:00 (siehe Chat 22:2x).
