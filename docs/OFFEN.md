@@ -158,6 +158,12 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
+**Zweig-Build 0.1.420** (10.10., 13:59; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38050096421/artifacts/11668838793), APK auch im Chat), Zweig `tom-sculpt-raeume`:
+- **3a** Garrick („Garrick döst jetzt“ an, oder nachts warten): lässt er sich weich nieder, steht er weich auf? Schürt er in einer fließenden Bewegung? Sinkt der Kopf beim Einnicken langsam, und nach dem Hochschrecken langsam wieder?
+- **4** Wald in der Dämmerung (Uhrzeit vorspulen bis kurz vor Dunkelheit): Bleiben die treibenden Blätter beim Laufen an ihrem Ort? Glühwürmchen nachts (Tag 3) weiterhin fest?
+- **6.15** Testreiter „Kartenzoom“: durch 5,6 / 6,75 / 8,4 / 10,5 Kacheln schalten. Welche Stufe gefällt? Wirkt 6,75 unscharf?
+- **6.14** Schalter „Dorf und Räume“, Schänke: Regal, Brennholz, Tisch, Fass räumlicher? (Die übrigen Dinge folgen erst mit der diagonalen Sicht.)
+
 **v0.1.409 (10.10., 10:52) – Prüfliste für die nächste Sitzung (dem Nutzer zu Beginn so ausgeben):**
 - **1.4** Testreiter „Wetterleuchten mit Donner“ drücken, Menü schließen: der Himmel hellt zweimal auf (auch tagsüber sichtbar), Donner nach 2–4 s.
 - **3.3** „Garrick döst jetzt: an“: Garrick hockt, Kopf tief auf der Brust, zuckt ab und zu kurz hoch; mehr als 4 Felder Abstand; kommt der Held näher, steht er auf. Danach Knopf wieder entfernen.
