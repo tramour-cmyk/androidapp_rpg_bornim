@@ -60,3 +60,5 @@ Ziel: Die Blutzahnhöhle (`Story.cave` in `core/.../Story.kt`, `MapKind.CAVE`) s
 ## Nachtrag 09.10., 23:48: Dorf und Innenräume
 
 Auf Wunsch des Nutzers (23:29/23:30) hat Account A in der Nacht **Entwürfe** für das Dorf und die Innenräume im neuen Stil gemacht (`core/.../art/MapTown.kt`, `MapRoom.kt`, Bodenteile in `MapGround.kt`; nur in der Vorschau mit `TOWNDRAFT=1`, im Spiel aus). Laut Tabelle oben war das Dorf Aufgabe von Account B. **Account B: bitte nicht parallel am Dorf anfangen**, bis der Nutzer entschieden hat, wer weitermacht.
+
+**Entschieden 10.10., 08:34:** Das Dorf und die Innenräume macht Account A weiter. Account B fängt dort nicht an.
