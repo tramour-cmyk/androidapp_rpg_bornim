@@ -72,7 +72,7 @@ fun renderShamanGhoulDrafts() {
 
 /**
  * The proposed new sounds next to the ones in the game now, as WAV files: alt_NAME_n.wav and neu_NAME_n.wav.
- * env KLANGPROBEN=1 for all, =2 for the second round only, or a list of names (KLANGPROBEN=OWL,DRIP).
+ * env KLANGPROBEN=1 for all, =2 for the second round only, =MONSTER for the creatures' voices, or a list of names (KLANGPROBEN=OWL,DRIP).
  */
 fun writeSoundProposals(which: String = "1") {
     val dir = File("build/screens/klangproben").apply { deleteRecursively(); mkdirs() }
@@ -86,6 +86,7 @@ fun writeSoundProposals(which: String = "1") {
     val sounds = when (which) {
         "1" -> all
         "2" -> de.bornim.core.audio.Sfx.PROPOSED_2
+        "MONSTER", "monster" -> emptyList()
         else -> which.split(",").map { de.bornim.core.audio.Sound.valueOf(it.trim().uppercase()) }
     }
     for (s in sounds) {
@@ -93,6 +94,8 @@ fun writeSoundProposals(which: String = "1") {
         for (v in 0 until de.bornim.core.audio.Sfx.variants(s)) wav(de.bornim.core.audio.Sfx.render(s, v), File(dir, "alt_${n}_${v + 1}.wav"))
         for (v in 0..2) wav(de.bornim.core.audio.Sfx.proposal(s, v), File(dir, "neu_${n}_${v + 1}.wav"))
     }
+    if (which == "1" || which.uppercase() == "MONSTER") for (id in de.bornim.core.audio.Sfx.MONSTER_PROPOSED) for (cue in de.bornim.core.audio.Sfx.MONSTER_CUES)
+        for (v in 0..2) wav(de.bornim.core.audio.Sfx.monsterProposal(id, cue, v), File(dir, "monster_${id}_${cue}_${v + 1}.wav"))
     println("wrote sound proposals")
 }
 

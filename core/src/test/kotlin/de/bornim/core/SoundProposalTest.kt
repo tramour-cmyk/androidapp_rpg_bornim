@@ -22,4 +22,13 @@ class SoundProposalTest {
             assertTrue(takes[0].toList() != takes[1].toList() && takes[1].toList() != takes[2].toList(), "$s takes are the same")
         }
     }
+
+    @Test
+    fun everyMonsterVoiceRenders() {
+        for (id in Sfx.MONSTER_PROPOSED) for (cue in Sfx.MONSTER_CUES) for (v in 0..2) {
+            val pcm = Sfx.monsterProposal(id, cue, v)
+            assertTrue(pcm.size > 5000, "$id $cue ${v + 1} missing")
+            assertTrue(pcm.maxOf { abs(it.toInt()) } > 20000, "$id $cue ${v + 1} silent")
+        }
+    }
 }

@@ -518,6 +518,132 @@ object Sfx {
         else -> Buf(0.1)
     }
 
+    /**
+     * A creature's voice: a buzzing throat (a sawtooth with a little jitter) whose pitch follows [curve]
+     * (pairs of 0..1 position and Hz), shaped by resonances of the mouth ([formants]: Hz to gain).
+     * [rough] mixes in breath and rasp; the voice swells in and dies away.
+     */
+    private fun Buf.voice(at: Double, dur: Double, curve: List<Pair<Double, Double>>, formants: List<Pair<Double, Double>>, vol: Double, rough: Double = 0.2, seed: Int = 1) {
+        val rng = Random(seed + vs)
+        val start = (at * SR).toInt(); val n = (dur * SR).toInt()
+        val src = DoubleArray(n)
+        var ph = 0.0
+        var jit = 0.0
+        for (i in 0 until n) {
+            val x = i.toDouble() / n
+            val k = curve.indexOfLast { it.first <= x }.coerceIn(0, curve.size - 2)
+            val (x0, f0) = curve[k]; val (x1, f1) = curve[k + 1]
+            val u = ((x - x0) / (x1 - x0)).coerceIn(0.0, 1.0)
+            val f = f0 + (f1 - f0) * u * u * (3 - 2 * u)
+            if (i % 64 == 0) jit = (rng.nextDouble() * 2 - 1) * 0.03 * (0.3 + rough)
+            ph += f * (1 + jit) / SR
+            ph -= ph.toInt()
+            val rasp = if (rough > 0) (rng.nextDouble() * 2 - 1) * rough * (0.6 + 0.4 * sin(2 * PI * ph)) else 0.0
+            src[i] = (2 * ph - 1) * (1 - rough * 0.5) + rasp
+        }
+        val out = DoubleArray(n)
+        for ((ff, gain) in formants) {
+            val w0 = 2 * PI * ff / SR
+            val alpha = sin(w0) / (2 * 6.0)
+            val a0 = 1 + alpha
+            val b0 = alpha / a0; val b2 = -alpha / a0; val a1 = -2 * kotlin.math.cos(w0) / a0; val a2 = (1 - alpha) / a0
+            var x1 = 0.0; var x2 = 0.0; var y1 = 0.0; var y2 = 0.0
+            for (i in 0 until n) {
+                val y = b0 * src[i] + b2 * x2 - a1 * y1 - a2 * y2
+                x2 = x1; x1 = src[i]; y2 = y1; y1 = y
+                out[i] += y * gain
+            }
+        }
+        for (i in 0 until n) {
+            val idx = start + i
+            if (idx >= size) break
+            val x = i.toDouble() / n
+            val env = minOf(1.0, x / 0.08) * (if (x < 0.7) 1.0 else 0.5 + 0.5 * kotlin.math.cos(PI * (x - 0.7) / 0.3))
+            d[idx] += out[i] * vol * env * 4
+        }
+    }
+
+    /** Bones knocking together: [count] dry clicks of hollow wood-like bone spread over [dur] seconds. */
+    private fun Buf.rattle(at: Double, dur: Double, count: Int, vol: Double, seed: Int, lo: Double = 900.0, hi: Double = 2600.0) {
+        val rng = Random(seed + vs)
+        for (k in 0 until count) {
+            val t = at + rng.nextDouble() * dur
+            val f = lo + rng.nextDouble() * (hi - lo)
+            band(t, 0.025, vol * (0.5 + 0.5 * rng.nextDouble()), f, f * 0.9, 7.0, seed + k, decay = 0.005)
+        }
+    }
+
+    /** Creatures with proposed voices, and what each voice is for: the attack, being hurt, dying. Not used in the game yet. */
+    val MONSTER_PROPOSED = listOf("wolf", "goblin", "skeleton")
+    val MONSTER_CUES = listOf("angriff", "schmerz", "tod")
+
+    /** Take [variant] (0 to 2) of the proposed [cue] (see [MONSTER_CUES]) of the creature [id]. */
+    @Synchronized
+    fun monsterProposal(id: String, cue: String, variant: Int): ShortArray {
+        vi = variant; vp = 1.0; vs = variant * 1009
+        try {
+            return monster(id, cue, variant).apply { fadeOut(0.08) }.pcm()
+        } finally { vi = 0; vp = 1.0; vs = 0 }
+    }
+
+    private fun monster(id: String, cue: String, v: Int): Buf = when ("$id/$cue") {
+        // the wolf: a low snarl that breaks into a bark; a rumbling growl with bared teeth; a snarl and the snap of jaws
+        "wolf/angriff" -> when (v) {
+            0 -> Buf(1.0).apply { growl(0.0, 0.5, 180.0, 40.0, 0.45, 701); voice(0.45, 0.25, listOf(0.0 to 260.0, 0.3 to 420.0, 1.0 to 300.0), listOf(600.0 to 1.0, 1400.0 to 0.6), 0.6, 0.45, 702); room(0.2) }
+            1 -> Buf(1.1).apply { voice(0.0, 0.9, listOf(0.0 to 85.0, 0.5 to 95.0, 1.0 to 80.0), listOf(350.0 to 1.0, 900.0 to 0.5, 2200.0 to 0.2), 0.7, 0.7, 703); growl(0.0, 0.9, 140.0, 32.0, 0.25, 704); room(0.2) }
+            else -> Buf(0.8).apply { voice(0.0, 0.45, listOf(0.0 to 110.0, 0.6 to 140.0, 1.0 to 120.0), listOf(500.0 to 1.0, 1600.0 to 0.5), 0.6, 0.65, 705); band(0.45, 0.03, 0.8, 2800.0, 2000.0, 5.0, 706, decay = 0.008); thud(0.46, 0.12, 180.0, 90.0, 0.4); room(0.2) }
+        }
+        // the wolf hurt: a sharp yelp; two short yelps; a yelp sinking into a growl
+        "wolf/schmerz" -> when (v) {
+            0 -> Buf(0.6).apply { voice(0.0, 0.22, listOf(0.0 to 700.0, 0.3 to 1050.0, 1.0 to 600.0), listOf(1100.0 to 1.0, 2600.0 to 0.4), 0.6, 0.15, 711); room(0.2) }
+            1 -> Buf(0.8).apply { voice(0.0, 0.14, listOf(0.0 to 800.0, 0.4 to 1000.0, 1.0 to 700.0), listOf(1200.0 to 1.0, 2700.0 to 0.4), 0.5, 0.15, 712); voice(0.2, 0.2, listOf(0.0 to 750.0, 0.3 to 950.0, 1.0 to 550.0), listOf(1100.0 to 1.0, 2500.0 to 0.4), 0.55, 0.2, 713); room(0.2) }
+            else -> Buf(0.9).apply { voice(0.0, 0.2, listOf(0.0 to 650.0, 0.3 to 900.0, 1.0 to 500.0), listOf(1000.0 to 1.0, 2400.0 to 0.4), 0.55, 0.2, 714); voice(0.18, 0.5, listOf(0.0 to 120.0, 1.0 to 95.0), listOf(400.0 to 1.0, 1000.0 to 0.4), 0.5, 0.7, 715); room(0.2) }
+        }
+        // the wolf dying: a whimper that sinks away; a long whine and a last breath; a choked growl and the body falling
+        "wolf/tod" -> when (v) {
+            0 -> Buf(1.4).apply { voice(0.0, 0.9, listOf(0.0 to 620.0, 0.2 to 700.0, 0.6 to 480.0, 1.0 to 300.0), listOf(900.0 to 1.0, 2200.0 to 0.3), 0.5, 0.25, 721); room(0.25) }
+            1 -> Buf(1.8).apply { voice(0.0, 1.0, listOf(0.0 to 500.0, 0.4 to 560.0, 1.0 to 380.0), listOf(800.0 to 1.0, 2000.0 to 0.3), 0.45, 0.2, 722); band(1.05, 0.45, 0.3, 700.0, 350.0, 1.3, 723, swell = true); room(0.25) }
+            else -> Buf(1.4).apply { voice(0.0, 0.5, listOf(0.0 to 100.0, 0.5 to 115.0, 1.0 to 70.0), listOf(350.0 to 1.0, 900.0 to 0.4), 0.6, 0.75, 724); thud(0.5, 0.5, 75.0, 38.0, 0.9); band(0.5, 0.2, 0.4, 400.0, 200.0, 1.3, 725, decay = 0.07); room(0.3) }
+        }
+        // the goblin attacks: a shrill war cry; a cackle; a hissed curse
+        "goblin/angriff" -> when (v) {
+            0 -> Buf(0.9).apply { voice(0.0, 0.6, listOf(0.0 to 280.0, 0.25 to 400.0, 0.7 to 380.0, 1.0 to 250.0), listOf(750.0 to 1.0, 1250.0 to 0.8, 2700.0 to 0.3), 0.6, 0.4, 731); room(0.25) }
+            1 -> Buf(1.0).apply { for (k in 0 until 5) voice(k * 0.13, 0.11, listOf(0.0 to 420.0 - k * 15, 1.0 to 360.0 - k * 15), listOf(650.0 to 1.0, 1700.0 to 0.7, 2900.0 to 0.3), 0.5, 0.35, 732 + k); room(0.25) }
+            else -> Buf(0.9).apply { band(0.0, 0.3, 0.45, 3200.0, 4200.0, 2.0, 737, swell = true); voice(0.25, 0.4, listOf(0.0 to 230.0, 0.5 to 260.0, 1.0 to 200.0), listOf(500.0 to 1.0, 1900.0 to 0.7, 2600.0 to 0.3), 0.5, 0.55, 738); room(0.2) }
+        }
+        // the goblin hurt: a squeal; a grunt and a whine; a short shriek
+        "goblin/schmerz" -> when (v) {
+            0 -> Buf(0.6).apply { voice(0.0, 0.3, listOf(0.0 to 450.0, 0.3 to 620.0, 1.0 to 420.0), listOf(500.0 to 0.8, 1900.0 to 1.0, 2800.0 to 0.3), 0.55, 0.3, 741); room(0.2) }
+            1 -> Buf(0.7).apply { voice(0.0, 0.12, listOf(0.0 to 200.0, 1.0 to 170.0), listOf(600.0 to 1.0, 1200.0 to 0.6), 0.6, 0.5, 742); voice(0.14, 0.3, listOf(0.0 to 380.0, 0.4 to 450.0, 1.0 to 330.0), listOf(700.0 to 1.0, 1800.0 to 0.6), 0.45, 0.3, 743); room(0.2) }
+            else -> Buf(0.5).apply { voice(0.0, 0.2, listOf(0.0 to 600.0, 0.3 to 800.0, 1.0 to 650.0), listOf(900.0 to 0.7, 2400.0 to 1.0, 3200.0 to 0.4), 0.5, 0.35, 744); room(0.2) }
+        }
+        // the goblin dying: a gurgling croak; a wail breaking off; a cough and the body hitting the ground
+        "goblin/tod" -> when (v) {
+            0 -> Buf(1.2).apply { voice(0.0, 0.7, listOf(0.0 to 300.0, 0.3 to 260.0, 1.0 to 140.0), listOf(600.0 to 1.0, 1100.0 to 0.6), 0.55, 0.6, 751); growl(0.3, 0.5, 280.0, 24.0, 0.3, 752, q = 4.0); room(0.25) }
+            1 -> Buf(1.2).apply { voice(0.0, 0.65, listOf(0.0 to 500.0, 0.3 to 560.0, 0.8 to 420.0, 1.0 to 300.0), listOf(750.0 to 1.0, 1300.0 to 0.7, 2700.0 to 0.3), 0.5, 0.3, 753); room(0.3) }
+            else -> Buf(1.2).apply { for (k in 0 until 2) voice(k * 0.16, 0.1, listOf(0.0 to 240.0, 1.0 to 200.0), listOf(500.0 to 1.0, 1500.0 to 0.5), 0.5, 0.8, 754 + k); thud(0.4, 0.45, 85.0, 42.0, 0.9); band(0.4, 0.2, 0.4, 450.0, 220.0, 1.3, 756, decay = 0.07); room(0.3) }
+        }
+        // the skeleton attacks: bones rattling as it lunges; the jaw clacking three times; a dry rasp of air through the ribs and a rattle
+        "skeleton/angriff" -> when (v) {
+            0 -> Buf(0.8).apply { rattle(0.0, 0.45, 16, 0.4, 761); band(0.0, 0.45, 0.2, 500.0, 1500.0, 1.2, 762, swell = true); room(0.3) }
+            1 -> Buf(0.8).apply { for (k in 0 until 3) { band(k * 0.14, 0.03, 0.8, 1300.0, 1100.0, 6.0, 763 + k, decay = 0.006); thud(k * 0.14, 0.05, 420.0, 300.0, 0.3) }; rattle(0.45, 0.2, 6, 0.25, 766); room(0.35) }
+            else -> Buf(1.0).apply { band(0.0, 0.6, 0.5, 900.0, 600.0, 3.0, 767, swell = true); band(0.0, 0.6, 0.2, 2600.0, 2000.0, 4.0, 768, swell = true); rattle(0.3, 0.4, 10, 0.3, 769); room(0.35) }
+        }
+        // the skeleton hit: a bone cracking; ribs rattling loose; a dull knock on the skull ringing hollow
+        "skeleton/schmerz" -> when (v) {
+            0 -> Buf(0.6).apply { band(0.0, 0.04, 1.0, 2400.0, 1500.0, 3.0, 771, decay = 0.01); band(0.01, 0.06, 0.6, 1100.0, 800.0, 4.0, 772, decay = 0.015); rattle(0.05, 0.2, 6, 0.25, 773); room(0.3) }
+            1 -> Buf(0.7).apply { thud(0.0, 0.1, 300.0, 180.0, 0.5); rattle(0.0, 0.4, 14, 0.4, 774, 1200.0, 3200.0); room(0.3) }
+            else -> Buf(0.7).apply { thud(0.0, 0.12, 380.0, 260.0, 0.6); band(0.0, 0.3, 0.5, 620.0, 600.0, 14.0, 775, decay = 0.08); band(0.0, 0.25, 0.3, 1450.0, 1400.0, 14.0, 776, decay = 0.06); room(0.35) }
+        }
+        // the skeleton falls apart: a cascade of bones on stone; the skull rolling after; a long rattle settling into dust
+        "skeleton/tod" -> when (v) {
+            0 -> Buf(1.6).apply { var t = 0.0; for (k in 0 until 14) { band(t, 0.03, 0.7 - k * 0.035, 1500.0 + (k * 397 % 1300), 1100.0, 6.0, 781 + k, decay = 0.008); thud(t, 0.06, 360.0 + (k * 53 % 120), 240.0, 0.25); t += 0.03 + k * 0.012 }; band(0.1, 1.0, 0.12, 700.0, 300.0, 1.0, 796, swell = true); room(0.35) }
+            1 -> Buf(1.8).apply { rattle(0.0, 0.35, 18, 0.5, 797); var t = 0.5; for (k in 0 until 7) { thud(t, 0.08, 330.0, 240.0, 0.4 * 0.8.pow(k.toDouble())); band(t, 0.03, 0.3 * 0.8.pow(k.toDouble()), 1200.0, 1000.0, 6.0, 800 + k, decay = 0.006); t += 0.22 * 0.78.pow(k.toDouble()) }; room(0.35) }
+            else -> Buf(1.8).apply { rattle(0.0, 1.1, 30, 0.35, 811); thud(0.15, 0.3, 120.0, 70.0, 0.5); band(0.4, 1.2, 0.2, 1800.0, 900.0, 1.0, 812, swell = true); room(0.35) }
+        }
+        else -> Buf(0.1)
+    }
+
     fun render(s: Sound): ShortArray = when (s) {
         // A soft, low wooden tick rather than a bright beep.
         Sound.CLICK -> Buf(0.05).apply { tone(0.0, 0.04, 820.0, 640.0, 0.26, Wave.TRIANGLE, 0.01) }
