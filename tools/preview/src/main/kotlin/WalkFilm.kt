@@ -194,9 +194,11 @@ fun foeFilm() {
     de.bornim.core.art.MapFolk.prepareNow(de.bornim.core.art.MapFolk.garrick)
     val herd = g.roamers as MutableList<de.bornim.core.Roamer>
     herd.clear()
-    val wolf = de.bornim.core.Roamer(98, "wolf", 12, 22, 12, 22, null, false, de.bornim.core.MonsterLook(1))
-    val gob = de.bornim.core.Roamer(99, "goblin", 7, 22, 7, 22, null, false, de.bornim.core.MonsterLook(0))
-    for (r in listOf(wolf, gob)) { r.hunting = true; herd += r
+    val wolf = de.bornim.core.Roamer(98, "wolf", 12, if (System.getenv("FOEIDLE") != null) 20 else 22, 12, 22, null, false, de.bornim.core.MonsterLook(1))
+    val gob = de.bornim.core.Roamer(99, "goblin", 7, if (System.getenv("FOEIDLE") != null) 20 else 22, 7, 22, null, false, de.bornim.core.MonsterLook(0))
+    // FOEIDLE=1: they ignore the hero and stroll about their homes, standing between steps (9d)
+    val idle = System.getenv("FOEIDLE") != null
+    for (r in listOf(wolf, gob)) { if (idle) r.calmUntil = Long.MAX_VALUE else r.hunting = true; herd += r
         if (System.getenv("NOPREP") == null) de.bornim.core.art.MapFoe.prepareNow(r.monster, r.look) }
     vm.refresh()
     val scene = ImageComposeScene(1080, 2340, Density(2.75f)) { BornimApp(vm) }

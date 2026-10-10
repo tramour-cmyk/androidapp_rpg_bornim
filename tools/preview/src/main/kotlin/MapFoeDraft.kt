@@ -47,6 +47,14 @@ fun renderMapFoeDraft() {
             val cells = rows.map { (id, l) -> (0 until 8).map { d -> MapFoe.draw(id, MonsterLook(l), d * 2, 0) } }
             ImageIO.write(sheetOf(cells, MapFoe.W, MapFoe.H), "png", File("build/screens/mapfoe/dirs.png"))
         }
+        "idle" -> {
+            // every stance standing, breathing in, half turned towards us; Grimfang with the wolves
+            val rows = listOf("wolf" to MapFoe.Idle.entries.take(6), "dire_wolf" to MapFoe.Idle.entries.take(6),
+                "goblin" to (listOf(MapFoe.Idle.STAND, MapFoe.Idle.LOOK_L, MapFoe.Idle.LOOK_R) + MapFoe.Idle.entries.drop(6)))
+            val f = MapFoe.frame("dire_wolf")
+            val cells = rows.map { (id, idles) -> idles.map { MapFoe.drawIdle(id, MonsterLook(0), 2, it, 1) } }
+            ImageIO.write(sheetOf(cells, f.w, f.h), "png", File("build/screens/mapfoe/idle.png"))
+        }
         "walk" -> {
             val cells = looks.flatMap { (id, l) -> listOf(2, 4, 6, 12).map { s -> (0 until MapFoe.STEPS).map { st -> MapFoe.draw(id, l, s, st) } } }
             ImageIO.write(sheetOf(cells, MapFoe.W, MapFoe.H), "png", File("build/screens/mapfoe/walk.png"))
