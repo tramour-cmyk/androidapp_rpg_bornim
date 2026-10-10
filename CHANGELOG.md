@@ -25,6 +25,12 @@ Zweig von Jerry (Themen 9 und 12), getestet in 0.1.425:
 - Vorschau: `MAPFOE=scene|dirs|walk|yaws|idle|ease|others|cave|wood`, Film `FOEFILM=1` (mit `FOEIDLE=1` im Stehen).
 
 
+Zweig `tom-diagonal` (Tom), noch nicht auf `main`:
+
+- **Diagonale Sicht (13, Schalter „Sicht“ im Testreiter, im Bau):** Die Karte ist um 45° gedreht, die Kacheln liegen als Rauten. Dinge und Figuren stehen aufrecht und verdecken sich richtig, die Figuren drehen sich mit. Tippen und Joystick sind umgerechnet. Möbel und Wände sind noch die alten Bilder.
+- **Freies Laufen (13g):** In der diagonalen Sicht läuft der Held in jede Richtung, wohin der Joystick zeigt, und gleitet an Wänden entlang. Getippte Wege gehen in geraden Linien. Türen, Begegnungen und alles andere funktionieren wie bisher.
+- **Gehen und Stehen ohne Sprünge (12b):** Held und Leute gehen in acht statt vier Bildern. Der Blick zur Seite, das Gewichtverlagern und die Hände am Gürtel gehen weich hinein und heraus.
+
 Zweig `tom-sculpt-raeume` (Tom), noch nicht auf `main`:
 
 - **Garrick am Feuer bewegt sich weich (3a):** Er lässt sich über knapp eine Sekunde auf die Fersen nieder und steht ebenso wieder auf, lehnt sich zum Schüren vor und zurück, der Stock fährt gleichmäßig durch die Glut. Beim Einnicken sinkt der Kopf langsam; schreckt er hoch, sinkt er langsam wieder. Vor dem Aufstehen wird er erst wach.
