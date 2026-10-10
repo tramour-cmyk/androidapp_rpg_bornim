@@ -97,6 +97,25 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.refresh()
             vm.toast = t("Tränke, Flaschen, Essen und Zutaten aufgefüllt.", "Draughts, flasks, food and ingredients filled up.")
         }
+        // 9f: to watch the monsters on the map go about without being set upon
+        var ignore by remember { mutableStateOf(de.bornim.core.Game.monstersIgnoreHero) }
+        PixelButton(t("Monster beachten mich nicht: ", "Monsters ignore me: ") + (if (ignore) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.Game.monstersIgnoreHero = !de.bornim.core.Game.monstersIgnoreHero
+            ignore = de.bornim.core.Game.monstersIgnoreHero
+            vm.toast = if (ignore) t("Monster laufen und stehen wie sonst, greifen aber nicht an. Wer selbst hineinläuft, kämpft.", "Monsters go about as ever but never attack. Walk into one to fight.") else t("Monster jagen dich wieder.", "Monsters hunt you again.")
+        }
+        var seeAll by remember { mutableStateOf(de.bornim.core.Game.seeAll) }
+        PixelButton(t("Sichtlinie aus (alles sichtbar): ", "Line of sight off (see all): ") + (if (seeAll) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.Game.seeAll = !de.bornim.core.Game.seeAll
+            seeAll = de.bornim.core.Game.seeAll
+            vm.refresh()
+            vm.toast = if (seeAll) t("Kein Nebel, keine Sichtlinie: alle Monster der Karte sind zu sehen. Erkundet wird wie sonst.", "No fog, no line of sight: every monster on the map shows.") else t("Sichtlinie und Nebel wieder wie im Spiel.", "Line of sight and fog back as in the game.")
+        }
+        PixelButton(t("Wolfsrudel und Goblin mit Späher herholen", "Bring a wolf pack and a goblin with its scout"), Modifier.fillMaxWidth(), size = 14.sp) {
+            val n = game.cheatBringPacks()
+            vm.refresh()
+            vm.toast = if (n > 0) t("In der Nähe: ein Wolfsrudel und ein Goblin mit Späher.", "Nearby: a wolf pack and a goblin with its scout.") else t("Hier ist kein Platz für sie.", "No room for them here.")
+        }
         var failSaves by remember { mutableStateOf(de.bornim.core.Battle.foesFailSaves) }
         PixelButton(t("Gegner bestehen keine Rettungswürfe: ", "Foes fail every save: ") + (if (failSaves) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
             de.bornim.core.Battle.foesFailSaves = !de.bornim.core.Battle.foesFailSaves

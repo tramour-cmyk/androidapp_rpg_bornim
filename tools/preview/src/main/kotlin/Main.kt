@@ -99,6 +99,7 @@ fun main() {
     if (System.getenv("ALTRAUM") != null) de.bornim.core.art.MapRoom.sculpted = false
     if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }
     if (System.getenv("MAPFIGYAWS") != null) { renderMapFigureYaws(); System.exit(0) }
+    if (System.getenv("MAPFOE") != null) { renderMapFoeDraft(); System.exit(0) }
     if (System.getenv("NPCDRAFT") != null) { renderNpcDraft(); System.exit(0) }
     if (System.getenv("NPCIDLE") != null) { renderNpcIdle(); System.exit(0) }
     if (System.getenv("NPCREST") != null) { renderNpcRest(); System.exit(0) }
@@ -107,6 +108,7 @@ fun main() {
     if (System.getenv("SQUATDRAFT") != null) { renderSquatDraft(); System.exit(0) }
     System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
     System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
+    if (System.getenv("FOEFILM") != null) { foeFilm(); System.exit(0) }
     if (System.getenv("WARDFILM") != null) { wardFilm(); System.exit(0) }
     if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true
     if (System.getenv("FIREFLIES") != null) {

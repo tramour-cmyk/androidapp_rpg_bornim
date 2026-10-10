@@ -134,4 +134,50 @@ class RoamerTest {
         val g = forestGame()
         assertTrue(g.map.encounters!!.rate <= 0.005)
     }
+
+    @Test
+    fun testSwitchKeepsMonstersFromAttacking() {
+        val g = forestGame()
+        val p = g.state.place
+        wolfAt(g, p.x, p.y + 3)
+        Game.monstersIgnoreHero = true
+        try {
+            var t = 0L
+            while (t < 20_000) { t += 100; g.update(t) }
+            assertTrue(g.mode == Mode.Explore, "a monster attacked although the test switch is on")
+            assertTrue(g.roamers.none { it.hunting })
+        } finally {
+            Game.monstersIgnoreHero = false
+        }
+    }
+
+    @Test
+    fun bringPacksPlacesWolfAndGoblinNearby() {
+        val g = forestGame()
+        (g.roamers as MutableList<Roamer>).clear()
+        assertEquals(2, g.cheatBringPacks())
+        val p = g.state.place
+        assertEquals(setOf("wolf", "goblin"), g.roamers.map { it.monster }.toSet())
+        for (r in g.roamers) {
+            val d = kotlin.math.abs(r.x - p.x) + kotlin.math.abs(r.y - p.y)
+            assertTrue(d in 3..5, "${r.monster} at distance $d")
+            assertTrue(g.map.walkable(r.x, r.y, g.state))
+            assertTrue(Packs.size(r.monster, r.look) >= 1, "${r.monster} without its pack")
+        }
+    }
+
+    @Test
+    fun seeAllShowsTheWholeMapButStillExplores() {
+        val g = forestGame()
+        val far = 2 to 2
+        assertTrue(g.fog(far.first, far.second) != Fog.VISIBLE)
+        Game.seeAll = true
+        try {
+            for (y in 0 until g.map.height) for (x in 0 until g.map.width) assertEquals(Fog.VISIBLE, g.fog(x, y))
+        } finally {
+            Game.seeAll = false
+        }
+        // what the hero has not seen is still not explored
+        assertTrue(g.fog(far.first, far.second) != Fog.VISIBLE)
+    }
 }

@@ -58,6 +58,8 @@ import de.bornim.core.Move
 import de.bornim.core.Story
 import de.bornim.core.Tile
 import de.bornim.core.art.MapFigure
+import de.bornim.core.art.MapFoe
+import de.bornim.core.art.MapFollow
 import de.bornim.core.art.MapFolk
 import de.bornim.core.art.MapRest
 import de.bornim.core.art.MapGlow
@@ -565,8 +567,57 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             val bottom = npc.y * T + T - 1
             if (npc.look.startsWith("monster:")) {
                 // a foe waiting in its lair, like the wandering ones, only shows while the hero can see it
-                if (game.fog(npc.x, npc.y) != de.bornim.core.Fog.VISIBLE) continue
                 val id = npc.look.removePrefix("monster:")
+                if (id in MapFoe.ON) {
+                    // 9e: Grimfang and his guard as their battle models. Near the hero they turn to watch it and bare
+                    // their fangs; else they stand about like the others (9d). Drawn ahead, before they come into sight.
+                    val look = de.bornim.core.MonsterLook()
+                    val bx = npc.x * T; val by = npc.y * T
+                    val home = MapFigure.yawOf(npc.facing)
+                    val hdx = (heroX - bx).toDouble(); val hdy = (heroY - by).toDouble()
+                    val near = hdx * hdx + hdy * hdy < 25.0 * T * T
+                    val turn = FolkTurn.of("boss:${npc.id}", home).also { it.update(if (near) Math.toDegrees(kotlin.math.atan2(hdx, hdy)) else home, clock) }
+                    val slot = MapFigure.slot(turn.yaw)
+                    val beast = id in de.bornim.core.art.BeastArt.KINDS
+                    fun standPic(fid: String, flook: de.bornim.core.MonsterLook, seed: Int, scale: Double = 1.0): MapFoe.Pic? {
+                        val st = MapFoe.idleAt(fid, seed, clock)
+                        // baring the fangs comes on and goes off through in-between pictures (9h)
+                        val bare = if (beast) BossMood.level("${npc.id}", near, clock) else 0
+                        return if (bare > 0) MapFoe.idleNow(fid, flook, slot, MapFoe.Idle.SNARL, st.breath, scale, bare)
+                            else MapFoe.idleNow(fid, flook, slot, st.idle, st.breath, scale, st.level)
+                    }
+                    val pic = standPic(id, look, npc.id.hashCode())
+                    val pack = de.bornim.core.Packs[id]
+                    val guards = if (pack == null) emptyList() else (0 until de.bornim.core.Packs.size(id, look)).map { i ->
+                        standPic(pack.mate, de.bornim.core.MonsterLook(101 * (i + 1)), npc.id.hashCode() * 31 + i + 1,
+                            if (pack.mate in de.bornim.core.art.BeastArt.KINDS) mapMateScale(pack).toDouble() else 1.0)
+                    }
+                    if (pic != null) {
+                        if (game.fog(npc.x, npc.y) != de.bornim.core.Fog.VISIBLE) continue
+                        val lit = warmEdge(pic.img, bx, by)
+                        sprites += Sprite(bottom.toFloat()) {
+                            put(WorldArt.shadow(), bx + 4, by + 26)
+                            put(lit, bx + T / 2 - pic.ax / MapFigure.DENSITY, by + T - 3 - pic.ay / MapFigure.DENSITY, MapFigure.DENSITY)
+                        }
+                        // the guards at its sides, a little behind, whichever way it faces
+                        guards.forEachIndexed { i, g0 ->
+                            // each guard keeps its place at the boss's side, walking round when the boss turns (9g)
+                            val (tx, ty) = MapFollow.place(bx, by, turn.yaw, 8.0, 30.0, if (i % 2 == 0) -1 else 1)
+                            val f = MapFollow.update("boss:${npc.id}:$i", tx, ty, T * 1.4 / 480.0, clock, turn.yaw)
+                            val gx = f.x.roundToInt(); val gy = f.y.roundToInt()
+                            val gLook = de.bornim.core.MonsterLook(101 * (i + 1))
+                            val gScale = if (pack!!.mate in de.bornim.core.art.BeastArt.KINDS) mapMateScale(pack).toDouble() else 1.0
+                            val g = if (f.moving) MapFoe.pictureNow(pack.mate, gLook, MapFigure.slot(f.yaw),
+                                Math.floorMod((f.dist / T * MapFoe.STEPS).toInt(), MapFoe.STEPS), gScale) else g0
+                            if (g != null) {
+                                val gl = warmEdge(g.img, gx, gy)
+                                sprites += Sprite((gy + T - 1).toFloat()) { put(gl, gx + T / 2 - g.ax / MapFigure.DENSITY, gy + T - 3 - g.ay / MapFigure.DENSITY, MapFigure.DENSITY) }
+                            }
+                        }
+                        continue
+                    }
+                }
+                if (game.fog(npc.x, npc.y) != de.bornim.core.Fog.VISIBLE) continue
                 val img = MonsterArt.get(id)
                 sprites += Sprite(bottom.toFloat()) { put(img, npc.x * T + T / 2 - img.width / 2, bottom + 1 - img.height) }
                 // A boss with a bodyguard: the guards sit at its sides.
@@ -641,26 +692,62 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         for (r in game.roamers) {
             val t = ((clock - r.movedAt).toFloat() / r.moveMs).coerceIn(0f, 1f)
             if (clock < r.alertUntil) alerts += ((r.fromX + (r.x - r.fromX) * t) * T + T / 2f) to ((r.fromY + (r.y - r.fromY) * t) * T)
+            // drawn ahead, before it comes into sight, so the former sprite hardly ever shows
+            if (r.monster in MapFoe.ON) {
+                val s0 = MapFigure.slot(MapFigure.yawOf(r.facing))
+                MapFoe.picture(r.monster, r.look, s0, 0)
+                de.bornim.core.Packs[r.monster]?.let { pk -> if (pk.mate in MapFoe.ON) for (i in 0 until de.bornim.core.Packs.size(r.monster, r.look))
+                    MapFoe.picture(pk.mate, de.bornim.core.MonsterLook(r.look.seed + 101 * (i + 1)), s0, 0,
+                        if (pk.mate in de.bornim.core.art.BeastArt.KINDS) mapMateScale(pk).toDouble() else 1.0) }
+            }
             if (game.fog(r.x, r.y) != de.bornim.core.Fog.VISIBLE) continue
             val rx = ((r.fromX + (r.x - r.fromX) * t) * T).roundToInt()
             val ry = ((r.fromY + (r.y - r.fromY) * t) * T).roundToInt()
             val img = MonsterArt.mapSprite(r.monster, r.look, ((clock / 240) % 4).toInt(), mirrored = r.facing == Facing.RIGHT)
             val foot = ry + T - 1
-            // A pack walks together: its mates trail just behind the leader.
+            // 9: wolves and goblins as their battle models, turning smoothly, walking with every leg; the former sprite until drawn
+            val turn = FolkTurn.of("roamer:${r.uid}", MapFigure.yawOf(r.facing)).also { it.update(MapFigure.yawOf(r.facing), clock) }
+            val slot = MapFigure.slot(turn.yaw)
+            val step = if (t < 1f) (t * MapFoe.STEPS).toInt().coerceAtMost(MapFoe.STEPS - 1) else 0
+            val standing = t >= 1f
+            // standing, it is never still: it breathes, looks about, sniffs or snarls (9d), each in its own time
+            fun foePic(id: String, look: de.bornim.core.MonsterLook, seed: Int, stepNow: Int, scale: Double = 1.0) =
+                if (standing) MapFoe.idleAt(id, seed, clock).let { st -> MapFoe.idleNow(id, look, slot, st.idle, st.breath, scale, st.level) }
+                else MapFoe.pictureNow(id, look, slot, stepNow, scale)
+            val pic = if (r.monster in MapFoe.ON) foePic(r.monster, r.look, r.uid, step) else null
+            // A pack walks together: each mate has a place behind the leader, one to each side, and walks to it in its
+            // own time and its own way, turning as it goes; when the leader turns, the mates follow round in an arc (9g)
             val pack = de.bornim.core.Packs[r.monster]
             val mates = de.bornim.core.Packs.size(r.monster, r.look)
             if (pack != null) for (i in 0 until mates) {
+                val mateLook = de.bornim.core.MonsterLook(r.look.seed + 101 * (i + 1))
+                val beastMate = pack.mate in de.bornim.core.art.BeastArt.KINDS
+                // an animal is long: its mates keep a body's length behind
+                val (tx, ty) = MapFollow.place(rx, ry, turn.yaw, if (beastMate) 24.0 else 13.0, 10.0, if (i == 0) -1 else 1)
+                val f = MapFollow.update("roamer:${r.uid}:$i", tx, ty, T * 1.4 / r.moveMs, clock, turn.yaw)
+                val mx = f.x.roundToInt(); val my = f.y.roundToInt()
+                val mSlot = MapFigure.slot(f.yaw)
+                val mStep = Math.floorMod((f.dist / T * MapFoe.STEPS).toInt(), MapFoe.STEPS)
+                val mScale = if (beastMate) mapMateScale(pack).toDouble() else 1.0
+                val matePic = if (pack.mate !in MapFoe.ON) null
+                    else if (f.moving) MapFoe.pictureNow(pack.mate, mateLook, mSlot, mStep, mScale)
+                    else MapFoe.idleAt(pack.mate, r.uid * 31 + i + 1, clock).let { st -> MapFoe.idleNow(pack.mate, mateLook, mSlot, st.idle, st.breath, mScale, st.level) }
+                if (matePic != null) {
+                    val lit = warmEdge(matePic.img, mx, my)
+                    sprites += Sprite((my + T - 1).toFloat()) { put(lit, mx + T / 2 - matePic.ax / MapFigure.DENSITY, my + T - 3 - matePic.ay / MapFigure.DENSITY, MapFigure.DENSITY) }
+                    continue
+                }
+                // the former sprite (kobolds), looking the way the mate goes
                 val mate = MonsterArt.mapSprite(
-                    pack.mate, de.bornim.core.MonsterLook(r.look.seed + 101 * (i + 1)), ((clock / 240 + i + 1) % 4).toInt(),
-                    mirrored = r.facing == Facing.RIGHT, scale = mapMateScale(pack),
+                    pack.mate, mateLook, ((clock / 240 + i + 1) % 4).toInt(),
+                    mirrored = kotlin.math.sin(Math.toRadians(f.yaw)) > 0.2, scale = mapMateScale(pack),
                 )
-                val ox = if (i == 0) -11 else 11
-                val oy = if (i == 0) -7 else -9
-                sprites += Sprite((foot + oy).toFloat()) { put(mate, rx + T / 2 - mate.width / 2 + ox, foot + 1 + oy - mate.height) }
+                sprites += Sprite((my + T - 1).toFloat()) { put(mate, mx + T / 2 - mate.width / 2, my + T - mate.height) }
             }
+            val picLit = pic?.let { warmEdge(it.img, rx, ry) }
             sprites += Sprite(foot.toFloat()) {
-                val sx = rx + T / 2 - img.width / 2
-                val sy = foot + 1 - img.height
+                val sx = if (pic != null) rx + T / 2 - pic.ax / MapFigure.DENSITY else rx + T / 2 - img.width / 2
+                val sy = if (pic != null) ry + T - 3 - pic.ay / MapFigure.DENSITY else foot + 1 - img.height
                 put(WorldArt.shadow(), rx + 4, ry + 26)
                 r.trait?.let { tr ->
                     // Elites glow in the color of their trait.
@@ -675,7 +762,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                         center = Offset((rx + T / 2f - camX) * scale, (ry + T / 2f - camY) * scale),
                     )
                 }
-                put(img, sx, sy)
+                if (pic != null && picLit != null) put(picLit, sx, sy, MapFigure.DENSITY) else put(img, sx, sy)
                 if (r.shiny) {
                     // a few twinkling pixels
                     for (k in 0 until 3) {
@@ -759,6 +846,20 @@ private object HeroTurn : Turn()
 
 /** How long the hero has stood on the same spot of the map. */
 private val HeroStill = MapFolk.Stillness()
+
+/** How far a boss has bared its fangs at the hero, eased in and out one step of [MapFoe.LEVELS] at a time (9h). */
+private object BossMood {
+    private class M(var level: Double, var last: Long)
+    private val all = HashMap<String, M>()
+    fun level(id: String, near: Boolean, now: Long): Int {
+        val m = all.getOrPut(id) { M(if (near) MapFoe.LEVELS.toDouble() else 0.0, now) }
+        val dt = (now - m.last).coerceIn(0L, 200L)
+        m.last = now
+        val step = dt * MapFoe.LEVELS / MapFoe.EASE_MS.toDouble()
+        m.level = if (near) minOf(MapFoe.LEVELS.toDouble(), m.level + step) else maxOf(0.0, m.level - step)
+        return Math.round(m.level).toInt()
+    }
+}
 
 /** How each of the folk drawn as dolls faces, turning smoothly like the hero. */
 private object FolkTurn {

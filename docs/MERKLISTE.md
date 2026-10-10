@@ -4,6 +4,29 @@ Ideen und Vorschläge aus der bisherigen Entwicklung, die noch **nicht umgesetzt
 
 Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md), was gerade ansteht oder zu entscheiden ist in der Liste [Offen](OFFEN.md). Für alle Ideen gelten die [Stil-Leitlinien](STIL.md).
 
+## Ideenrunde 10.10. (Tom-Beratung, 13:36)
+
+Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstopp (16), Nachschwingen (17), Pechsträhnen dämpfen (18), siehe [Offen](OFFEN.md). Der Rest:
+
+- **Aktive Abwehr per Tippen (Idee 1):** kurzes Zeitfenster beim gegnerischen Hieb, Tippen = Parieren mit halbem Schaden. Nutzer findet die Idee nicht gut, soll aber erhalten bleiben. Wäre eine Ausnahme von „kein Tippen mitten in einer Aktion“; nur als abschaltbarer Versuch.
+- **Trefferchancen sichtbar machen (Teil von Idee 2):** Chance vor dem Angriff anzeigen.
+- **Verletzungen bis zur Rast (Idee 3):** Wer tief fällt, behält eine Wunde (z. B. −1 RK), sichtbar als Verband am Helden; das Gasthaus heilt sie.
+- **Licht als Mechanik (Idee 4):** Fackel brennt ab; im Dunkeln sieht man Lauerer später, Untote sind stärker.
+- **Spuren, die bleiben (Idee 7):** Blut auf dem Boden nach dem Kampf, Fußspuren im Matsch nach Regen, aufgewirbelter Staub beim Rennen.
+- **Raumklang (Idee 8):** Hall in der Höhle, gedämpft und nah in der Schänke, offen im Wald.
+- **Schritte je Untergrund (Idee 9):** Gras, Holzdielen, Fels, Pfütze, je mit Varianten.
+- **Musik in Schichten (Idee 10):** Nähert sich ein Jäger, schleicht sich eine dunkle Spur in die Musik, bevor der Kampf beginnt; Stille bewusst einsetzen. Gehört zu „Musik neu im neuen Stil“.
+- **Farbstimmung je Ort und Tageszeit (Idee 11):** Höhle kalt-grünlich, Schänke warm, Dämmerung violett, leichte Abdunklung an den Bildrändern (Filmlook über alles).
+- **Regeln:** SRD bleibt Grundlage, nicht wechseln; das Würfelglück wird abgefedert (18, sichtbare Chancen).
+
+## Veröffentlichung (Weg, besprochen 10.10., 13:36)
+
+1. Stilumbau abschließen.
+2. Pflichttest im Play Store (neues privates Konto: mindestens 12 Tester, 14 Tage am Stück) als echten Test nutzen, Rückmeldungen sammeln.
+3. Kapitel 1 kostenlos veröffentlichen (Bewertungen, Spieler); 99 Cent für Kapitel 1 bringen kaum Käufer (keine Sichtbarkeit ohne Bewertungen, nach Steuer und Google-Anteil etwa 70 Cent).
+4. Später Kapitel 2 als einmaligen Kauf (z. B. 2,99 €).
+- Vorher: Datenschutzerklärung, Altersfreigabe (Blut), Zahlungsprofil mit Händleradresse, kurze Rechtsprüfung (Herkunft von Schriften und Klängen). Siehe auch „Google Play“ unten.
+
 ## Lebendige Orte
 
 - **Katze in der Schänke (10.10., 6.14/6g):** schläft am Herd, streckt sich ab und zu, wechselt gelegentlich den Platz; eigene kleine Figur nötig.
