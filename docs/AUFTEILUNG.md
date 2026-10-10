@@ -2,7 +2,7 @@
 
 Stand: 09.10.2026, 18:48 (Berliner Zeit). Die Karte wird gerade im neuen Stil umgebaut (siehe [Offen](OFFEN.md), Abschnitt „Karte im neuen Stil“). Damit zwei Claude-Sitzungen (zwei Accounts) gleichzeitig daran arbeiten können, ohne sich in die Quere zu kommen, ist die Arbeit hier aufgeteilt. Wer eine Sitzung beginnt, liest zuerst `CLAUDE.md`, dann diese Datei, dann `docs/OFFEN.md`.
 
-## Stand 10.10.2026, 08:53: wer wer ist
+## Stand 10.10.2026, 08:49: wer wer ist
 
 Geprüft an Commits und Zweigen (alle Commits laufen unter „tramour“, unterscheiden lassen sich die Sitzungen nur an der Zeile `Claude-Session`):
 
