@@ -4,9 +4,14 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
-**Kampf: Trefferstopp (16, Zweig `claude/pensive-bell-uto0ky`, noch nicht getestet)**
+## v0.1.460 – 10.10.2026, 21:14
+
+Zweig von Jerry (Thema 16), getestet in 0.1.458:
+
+**Kampf: Trefferstopp (16)**
 - Treffer halten beim Aufprall je nach Wucht inne: ein normaler Treffer nur kurz, ein harter (ein Drittel der Lebenspunkte oder mehr) zwei Bilder lang, ein kritischer drei; für Held und Gegner gleich.
 - Ein kritischer Treffer zieht die Ansicht kurz etwas heran und ruckt einmal in Schlagrichtung, statt das Bild wackeln zu lassen.
+- Werkzeuge (nur Entwicklung): Kerntest `HitWeightTest` (Stufen, Zeiten bei jedem Tempo, Ruck ohne Hin- und Herwackeln).
 
 ## v0.1.455 – 10.10.2026, 20:29
 
