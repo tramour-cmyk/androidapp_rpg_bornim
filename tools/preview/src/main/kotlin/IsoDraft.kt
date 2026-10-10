@@ -268,8 +268,9 @@ private fun save(p: PixelImage, f: File) {
 /** Every look of the room's things seen diagonally (13, step 2), three per row, on a patch of boards (ISODINGE=1). */
 fun renderIsoThings() {
     val dir = File("build/screens/iso").apply { mkdirs() }
-    val rows = de.bornim.core.art.MapRoomIso.sheet()
-    val cw = 150; val ch = 190
+    val elder = System.getenv("ISODINGE") == "aeltester"
+    val rows = if (elder) de.bornim.core.art.MapRoomIso.elderSheet() else de.bornim.core.art.MapRoomIso.sheet()
+    val cw = 150; val ch = 210
     val img = PixelImage(cw * 3, ch * rows.size)
     for (y in 0 until img.height) for (x in 0 until img.width) img.set(x, y, argb(0x2A2018))
     for ((r, row) in rows.withIndex()) for ((k, p) in row.second.withIndex()) {
@@ -280,6 +281,11 @@ fun renderIsoThings() {
             val i = (a + b) / 2; val j = (b - a) / 2
             if (i in -1.0..0.0 && j in -1.0..0.0) img.set(ox + p.width / 2 - 45 + x, oy + p.height - 45 + y, if ((x + y) % 7 == 0) argb(0x3A2C20) else argb(0x4A3826))
         }
+        // things that hang on or lean against the back wall: a strip of it behind them
+        if (elder && row.first in setOf("Wandbehang", "Stock")) {
+            val cx = ox + p.width / 2; val by = oy + p.height
+            for (x in 0..45) { val yb = by - 45 + x / 2; for (y in yb - 103..yb) img.set(cx + x, y, if (x == 0 || x == 45 || y == yb - 103) argb(0x221A14) else argb(0x3A3028)) }
+        }
         for (y in 0 until p.height) for (x in 0 until p.width) {
             val c = p[x, y]; val a = c ushr 24
             if (a == 0) continue
@@ -289,7 +295,7 @@ fun renderIsoThings() {
     // twice the size, each art pixel a block, to look at closely
     val big = PixelImage(img.width * 2, img.height * 2)
     for (y in 0 until big.height) for (x in 0 until big.width) big.set(x, y, img[x / 2, y / 2])
-    save(big, File(dir, "iso_dinge.png"))
+    save(big, File(dir, if (elder) "iso_aeltester.png" else "iso_dinge.png"))
     println("wrote iso things")
 }
 
