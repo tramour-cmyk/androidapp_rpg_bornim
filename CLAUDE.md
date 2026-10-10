@@ -60,6 +60,8 @@ Alle Notizen und Absprachen gibt es nur einmal, auf `main`: `CLAUDE.md`, `CHANGE
 - Vor einer längeren Pause schreibt die Sitzung eine kurze Übergabe in ihren Abschnitt von `docs/OFFEN.md`: Stand, Offenes, offene Rückfragen.
 - **Neustart vorschlagen, um Token zu sparen** (Regel 10.10., 13:32): An Bruchstellen (ein Thema fertig, ein Build ausgeliefert, vor dem Wechsel auf ein anderes Thema, oder wenn der Haken meldet, dass das Gespräch groß ist) schlägt die Sitzung von sich aus eine neue Sitzung vor. Vorher die Übergabe in `docs/OFFEN.md` schreiben und pushen, damit die neue Sitzung ohne Verlust weitermacht.
 
+- **Nachtarbeit** (Regel 10.10., 21:05): Vergibt der Nutzer ein Nachtpaket oder startet eine Weck-Sitzung, gilt `docs/NACHT.md` (Paket mit Reserve, Weck-Sitzungen selbst einrichten, Herzschlag, Nutzungsgrenze, Morgenbericht). Sonst muss die Datei nicht gelesen werden.
+
 ## Technik und Sicherheit
 
 - Keystore und Signatur-Passwort nie committen (liegen nur als GitHub-Secrets); `local.properties` und SDK-Pfad nie committen.
