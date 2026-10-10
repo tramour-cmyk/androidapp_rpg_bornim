@@ -17,7 +17,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 9 | Monster auf der Karte: Wolf, Goblin, Grimmzahn erledigt (v0.1.430, 9k v0.1.438); übrige Gegner als Entwurf | Jerry | – | 9i freigegeben, nach 13 |
 | 10 | Höhle: Flammen von Lagerfeuer und Fackeln feiner | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 11 | Höhle: Lichtstrahl am Lichtschacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
-| 12 | Sprungtest: Kerntest, der Sprünge in Bewegungen und Übergängen findet | Jerry | – | `JumpTest` auf `main` (v0.1.430), Monster 0 Sprünge; 12a freigegeben (als Nächstes) |
+| 12 | Sprungtest: Kerntest, der Sprünge in Bewegungen und Übergängen findet | Jerry | `jerry-12a-kampfspruenge` | `JumpTest` auf `main` (v0.1.430), Monster 0 Sprünge; 12a in Arbeit seit 10.10., 16:24 |
 | 14 | Erinnerung an Neustart: Haken misst Gesprächsgröße, über einer Schwelle Hinweis an die Sitzung | Tom | neu von `main` (Werkzeug, PR) | freigegeben 10.10., 13:32; wenn die Räume eine Pause haben |
 | 15 | `OFFEN.md` entschlacken: Erledigtes und Bestätigtes in die Änderungshistorie, nur Offenes bleibt | Tom (Jerry prüft danach seinen Teil) | `main` (nur Notizen) | freigegeben 10.10., 13:32; nach 14 |
 | 16 | Trefferstopp: bei harten Treffern 2–3 Bilder Standbild, beim Kritischen kurzer Zoom und leichter Ruck | Jerry (Kampf) | neu von `main` | freigegeben 10.10., 13:43; nach 12 |
