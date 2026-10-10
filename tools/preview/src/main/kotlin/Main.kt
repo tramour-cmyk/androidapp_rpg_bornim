@@ -108,11 +108,12 @@ fun main() {
     if (System.getenv("NPCTORCH") != null) { renderNpcTorch(); System.exit(0) }
     if (System.getenv("VILLAGEDRAFT") != null) { renderVillageDraft(); System.exit(0) }
     if (System.getenv("SQUATDRAFT") != null) { renderSquatDraft(); System.exit(0) }
+    // TOWNDRAFT=1: the village and the rooms in the new style, for the films too
+    if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true
     System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
     System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
     if (System.getenv("FOEFILM") != null) { foeFilm(); System.exit(0) }
     if (System.getenv("WARDFILM") != null) { wardFilm(); System.exit(0) }
-    if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true
     if (System.getenv("FIREFLIES") != null) {
         // where the fireflies are, how many show at once in a view, and on which nights
         for (id in listOf("forest", "deep_forest", "village")) {

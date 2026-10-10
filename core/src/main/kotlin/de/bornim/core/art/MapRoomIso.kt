@@ -521,10 +521,12 @@ object MapRoomIso {
                 at(-0.75, -0.4).let { (x, y) -> c.s.limb(x, y - 1, x, y - 8, 2.8, 2.5, pewter); c.s.flat(x, y - 8.2, 2.2, 0.9, ale) }
                 at(-0.35, -0.5).let { (x, y) -> c.s.limb(x, y - 1, x, y - 7, 2.6, 2.3, clay) }
                 at(-0.3, -0.25).let { (x, y) -> c.s.blob(x, y - 1, 3.5, 1.2, linen, depth = 0.4) }
+                at(-0.55, -0.55).let { (x, y) -> c.s.limb(x, y - 1, x, y - 7, 1.3, 1.1, wax); c.s.flat(x, y - 9, 0.9, 1.8, flame); c.s.dot(x, y - 9.5, flameHot) }
             }
             1 -> {
                 at(-0.6, -0.42).let { (x, y) -> c.s.limb(x, y - 1, x, y - 12, 4.0, 3.2, clay); c.s.limb(x + 4, y - 9, x + 6, y - 5, 1.2, 1.0, clay); c.s.limb(x, y - 12, x, y - 14, 2.2, 2.0, clay) }
                 at(-0.25, -0.35).let { (x, y) -> c.s.limb(x, y - 1, x, y - 7, 2.6, 2.4, pewter); c.s.flat(x, y - 7.2, 2.0, 0.8, ale) }
+                at(-0.85, -0.55).let { (x, y) -> c.s.limb(x, y - 1, x, y - 5, 1.6, 1.4, wax); c.s.flat(x, y - 7, 1.0, 1.8, flame); c.s.dot(x, y - 7.5, flameHot) }
             }
             else -> {
                 at(-0.7, -0.45).let { (x, y) -> c.s.limb(x, y - 1, x, y - 9, 1.4, 1.2, wax); c.s.flat(x, y - 11, 1.0, 2.0, flame); c.s.dot(x, y - 11.5, flameHot) }
@@ -566,12 +568,14 @@ object MapRoomIso {
             1 -> {
                 at(-0.55, -0.5).let { (x, y) -> c.s.blob(x, y - 2.4, 5.6, 3.2, bread, depth = 0.8); c.s.line(x - 3, y - 3, x + 2, y - 4, argb(0x5A3A1E)) }
                 at(-0.25, -0.3).let { (x, y) -> c.s.limb(x - 6, y - 1, x + 6, y - 2, 0.7, 0.5, iron) }
+                at(-0.45, -0.68).let { (x, y) -> c.s.limb(x, y - 1, x, y - 6, 1.3, 1.1, wax); c.s.flat(x, y - 8, 0.9, 1.8, flame); c.s.dot(x, y - 8.5, flameHot) }
                 // a tipped-over mug and a puddle of ale
                 at(-0.8, -0.3).let { (x, y) -> c.s.flat(x + 3, y, 5.0, 1.6, ale); c.s.limb(x - 3, y - 2, x + 3, y - 1, 2.4, 2.2, clay) }
             }
             else -> {
                 at(-0.6, -0.65).let { (x, y) -> c.s.limb(x, y - 1, x, y - 7, 2.6, 2.4, clay); c.s.flat(x, y - 7.2, 2.0, 0.8, ale) }
                 at(-0.4, -0.35).let { (x, y) -> c.s.limb(x, y - 1, x, y - 7, 2.6, 2.4, pewter) }
+                at(-0.75, -0.4).let { (x, y) -> c.s.limb(x, y - 1, x, y - 4, 1.6, 1.5, wax); c.s.flat(x, y - 6, 0.9, 1.6, flame) }
                 // dice and a few coins
                 at(-0.2, -0.5).let { (x, y) -> c.s.flat(x, y - 1, 1.3, 1.0, argb(0xC8B898)); c.s.flat(x + 4, y, 1.3, 1.0, argb(0xC8B898)); c.s.flat(x - 5, y + 1, 1.6, 0.8, argb(0xA88A4A)) }
             }

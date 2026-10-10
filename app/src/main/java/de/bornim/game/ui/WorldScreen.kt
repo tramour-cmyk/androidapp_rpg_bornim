@@ -1363,6 +1363,45 @@ private fun DrawScope.drawHearthSmoke(game: Game, map: de.bornim.core.MapDef, cl
     }
 }
 
+/**
+ * Seen diagonally (13, step 3): the light image lies on the ground, and a wall or a tall thing standing up
+ * from the floor covers, on the screen, the ground behind it (up the diagonal). There the image is given the
+ * light of the floor where that thing stands, a little less the higher up it is: the back walls are lit by
+ * the hearth and the windows at their foot, fading upwards, instead of lying in the dark of the ground
+ * outside the room. Heights in map pixels on the screen; the walls stand 68 high ([de.bornim.core.art.MapRoomIso.WALL]).
+ */
+private fun uprightLight(img: de.bornim.core.art.PixelImage, map: de.bornim.core.MapDef, x0: Int, y0: Int, res: Int) {
+    val T = WorldArt.T
+    val k = MapSight.K
+    val wallTop = (de.bornim.core.art.MapRoomIso.WALL / de.bornim.core.art.MapRoomIso.D).toFloat()
+    val src = img.pixels.copyOf()
+    fun room(px: Float, py: Float): Boolean {
+        val tx = floor(px / T).toInt(); val ty = floor(py / T).toInt()
+        if (!map.inside(tx, ty)) return false
+        val t = map.tile(tx, ty)
+        return t != Tile.WALL && t != Tile.WINDOW && t != Tile.HEARTH
+    }
+    // on the screen, going up by h means going back on the map by h / K along both axes
+    val maxD = wallTop / k
+    val step = res / 2f
+    for (yy in 0 until img.height) for (xx in 0 until img.width) {
+        val px = x0 + xx * res + res / 2f; val py = y0 + yy * res + res / 2f
+        if (room(px, py)) continue
+        var d = step
+        while (d <= maxD && !room(px + d, py + d)) d += step
+        if (d > maxD) continue
+        // the floor at the foot, a little inside the room
+        val sx = ((px + d + 2 - x0) / res).toInt(); val sy = ((py + d + 2 - y0) / res).toInt()
+        if (sx !in 0 until img.width || sy !in 0 until img.height) continue
+        val c = src[sy * img.width + sx]
+        val f = 1.0f - 0.32f * (k * d / wallTop)
+        val r = (((c shr 16) and 0xFF) * f).toInt().coerceIn(0, 255)
+        val g = (((c shr 8) and 0xFF) * f).toInt().coerceIn(0, 255)
+        val b = ((c and 0xFF) * f).toInt().coerceIn(0, 255)
+        img.pixels[yy * img.width + xx] = (0xFF shl 24) or (r shl 16) or (g shl 8) or b
+    }
+}
+
 private fun DrawScope.drawMapLight(
     game: Game, map: de.bornim.core.MapDef, clock: Long, camX: Int, camY: Int, scale: Int, heroX: Int, heroY: Int, viewW: Float, viewH: Float,
 ) {
@@ -1374,7 +1413,7 @@ private fun DrawScope.drawMapLight(
     val x0 = Math.floorDiv(camX, res) * res - res; val y0 = Math.floorDiv(camY, res) * res - res
     val w = ((viewW.toInt() / res) + 3) * res; val h = ((viewH.toInt() / res) + 3) * res
     val fog = game.fogged
-    val key = "${map.id}/$x0/$y0/$w/$h/${hx / 3}/${hy / 3}/${(day * 64).toInt()}/${if (fog) "${game.state.place.x},${game.state.place.y},${game.state.place.facing}" else ""}"
+    val key = "${map.id}/${MapSight.diagonal}/$x0/$y0/$w/$h/${hx / 3}/${hy / 3}/${(day * 64).toInt()}/${if (fog) "${game.state.place.x},${game.state.place.y},${game.state.place.facing}" else ""}"
     if (LightImage.key != key) {
         val img = MapLight.lightmap(map, day, hx, hy, x0, y0, w, h)
         if (fog) {
@@ -1412,6 +1451,8 @@ private fun DrawScope.drawMapLight(
                 img.pixels[yy * img.width + xx] = (0xFF shl 24) or (r shl 16) or (g shl 8) or b
             }
         }
+        // seen diagonally, the walls and the tall things of a room stand where the light image has the ground behind them
+        if (MapSight.diagonal && map.kind == MapKind.INTERIOR) uprightLight(img, map, x0, y0, res)
         LightImage.img = img
         LightImage.key = key
     }
