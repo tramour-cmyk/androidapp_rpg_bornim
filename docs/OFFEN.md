@@ -2,7 +2,7 @@
 
 Was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist, damit im Chat nichts verloren geht. Diese Datei gibt es nur auf `main`; Tom und Jerry tragen hier sofort ein und pushen (Regeln in `CLAUDE.md`).
 
-**Nächste freie Themennummer: 14** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 16** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md). Erledigtes wandert in die Änderungshistorie, Vertagtes auf die Merkliste.
 
@@ -18,6 +18,8 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 10 | Höhle: Flammen von Lagerfeuer und Fackeln feiner | Jerry | neu von `main` | freigegeben, nach 9 |
 | 11 | Höhle: Lichtstrahl am Lichtschacht | Jerry | neu von `main` | freigegeben, erst Standbild-Entwurf |
 | 12 | Sprungtest: Kerntest, der Sprünge in Bewegungen und Übergängen findet | Jerry | neu von `main` | freigegeben 10.10., 13:12; Jerry beginnt, sobald 9 fertig ist (vor 10 und 11) |
+| 14 | Erinnerung an Neustart: Haken misst Gesprächsgröße, über einer Schwelle Hinweis an die Sitzung | Tom | neu von `main` (Werkzeug, PR) | freigegeben 10.10., 13:32; wenn die Räume eine Pause haben |
+| 15 | `OFFEN.md` entschlacken: Erledigtes und Bestätigtes in die Änderungshistorie, nur Offenes bleibt | Tom (Jerry prüft danach seinen Teil) | `main` (nur Notizen) | freigegeben 10.10., 13:32; nach 14 |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle. Keiner arbeitet an Themen des anderen.
 
@@ -84,6 +86,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ### Tom
 
+- **An die Tom-Arbeitssitzung (10.10., 13:32, vom Nutzer über die Tom-Beratungssitzung):** Neu für dich: **14** (Erinnerung an Neustart als Haken in `.claude/settings.json`, misst die Größe des Gesprächs aus `transcript_path` und hängt über einer Schwelle einen Hinweis an; Werkzeug-Änderung, also Zweig und PR) und danach **15** (`OFFEN.md` entschlacken; Ziel: kleine Startlektüre, weil jede neue Sitzung die Datei liest; Jerrys Abschnitte nur verschieben, nicht umschreiben, Jerry prüft danach). Neue Regel in `CLAUDE.md`: an Bruchstellen Neustart vorschlagen.
 - **6 Rückmeldung Schänke, 10.10., 12:45:** grundsätzlich okay, Stimmung und Atmosphäre deutlich besser. Regale und Holzhaufen wirken eher zweidimensional. Frage: alle Objekte wie Ausrüstung und Höhlendinge in Kotlin (`Sculpt`) bauen, Aufwand, Nutzen? Befund: `MapRoom.kt` und `MapTown.kt` zeichnen ihre Dinge flach aus Rechtecken und Flecken (kein `Sculpt`), `MapCave.kt` nutzt `Sculpt`. Vorschlag 6.14: Möbel und Kleinkram der Räume mit `Sculpt` neu, erst Musterblatt (Regal, Holzstapel, Tisch, Fass) alt gegen neu, dann der Rest, danach Laden, Ältester, Tempel gleich so; Dorf draußen (5) ebenso. Rückfrage 6i offen. **Entschieden 12:57:** 6i ja (Stil-Leitlinien beachten), 3a ja (Hocken/Dösen weicher, Glühwürmchen-Fehler beheben), alles in einem Zweig-Build. Start 12:58, Zweig `tom-sculpt-raeume` von `main`; zuerst Musterblatt Regal, Holzstapel, Tisch, Fass.
 - **6j ja (13:23):** übrige Dinge des Wirtshauses mit `Sculpt`, Tischplatte und Hackklotz nachbessern. **3a** steht (kein Rückfrage-Punkt).
 - **13 Perspektive (Frage 10.10., 13:23):** Auf mich zu und von mir weg wirkt sehr flach; Regal im Wirtshaus besser als vorher, aber wegen der Sichtachse flach. Wäre ein Wechsel vom 0/90/180/270-Grad-Stil zu einer diagonalen Sicht besser? Befund: Figuren haben schon 16 Blickrichtungen und 38° Neigung (`MapFigure.PITCH`); Karte, Boden, Wände und Dinge sind auf eine gerade Kamera von vorn gebaut. Vorschläge 13.1–13.3 im Chat, Rückfrage 13a.

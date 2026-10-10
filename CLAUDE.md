@@ -57,6 +57,7 @@ Alle Notizen und Absprachen gibt es nur einmal, auf `main`: `CLAUDE.md`, `CHANGE
 - Weniger Rückfragen zur Freigabe von Aktionen steuert der Freigabe-Modus im Eingabefeld der App (Manuell/Automatisch), nicht der Code.
 - Vor dem Commit das Testergebnis prüfen (`set -o pipefail` bzw. Exit-Code), nicht nur die gefilterte Ausgabe.
 - Vor einer längeren Pause schreibt die Sitzung eine kurze Übergabe in ihren Abschnitt von `docs/OFFEN.md`: Stand, Offenes, offene Rückfragen.
+- **Neustart vorschlagen, um Token zu sparen** (Regel 10.10., 13:32): An Bruchstellen (ein Thema fertig, ein Build ausgeliefert, vor dem Wechsel auf ein anderes Thema, oder wenn der Haken meldet, dass das Gespräch groß ist) schlägt die Sitzung von sich aus eine neue Sitzung vor. Vorher die Übergabe in `docs/OFFEN.md` schreiben und pushen, damit die neue Sitzung ohne Verlust weitermacht.
 
 ## Technik und Sicherheit
 
