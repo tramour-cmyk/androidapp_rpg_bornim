@@ -110,7 +110,8 @@ fun renderMapFigureDraft() {
 /** MAPFIGYAWS: the in-game map figure in all 16 directions with every kind of weapon, to check every turn. */
 fun renderMapFigureYaws() {
     val F = de.bornim.core.art.MapFigure
-    val weapons = listOf("longsword", "spear", "quarterstaff", "greatsword", "greataxe", "halberd", "staff", "longbow", "light_crossbow", "dagger", "-cleric", "-rogue", "-wizard", "-dwarf", "-halfling")
+    // WEAPONS=a,b,c: only these rows (e.g. the weapons put away at the hip)
+    val weapons = System.getenv("WEAPONS")?.split(",") ?: listOf("longsword", "spear", "quarterstaff", "greatsword", "greataxe", "halberd", "staff", "longbow", "light_crossbow", "dagger", "-cleric", "-rogue", "-wizard", "-dwarf", "-halfling")
     var uid = 900L
     val heroes = weapons.map { w ->
         when (w) {

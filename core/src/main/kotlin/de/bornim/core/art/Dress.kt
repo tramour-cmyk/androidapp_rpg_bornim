@@ -38,17 +38,22 @@ class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Bool
     /** Clothes in these colours (tunic or robe, its darker parts, breeches) rather than the class's, for the folk. */
     val clothes: Triple<Int, Int, Int>? = null,
     /** No hair on the head (a shaven priest). */
-    val bald: Boolean = false) {
+    val bald: Boolean = false,
+    /** The weapons put away (walking about on the map, 10.10.): a blade in its scabbard at the hip, an axe or mace at the belt. */
+    val weaponStowed: Boolean = false) {
     fun base(slot: GearSlot): String? = items[slot]?.base
     fun rarity(slot: GearSlot): Rarity = items[slot]?.rarity ?: Rarity.COMMON
     val twoHands: Boolean get() = items[GearSlot.MAIN_HAND]?.def?.let { (it.twoHanded || bothHands && it.versatile != null) && !it.ranged } == true
     val hasShield: Boolean get() = items[GearSlot.OFF_HAND]?.def?.kind == BaseKind.SHIELD && !twoHands
 
     /** The same outfit with a draught of [rgb] in the flask. */
-    fun withFlask(rgb: Int) = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, rgb, fetish, shieldOnBack, bowOnBack, leatherRgb, clothes, bald)
+    fun withFlask(rgb: Int) = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, rgb, fetish, shieldOnBack, bowOnBack, leatherRgb, clothes, bald, weaponStowed)
 
     /** The same outfit with the shield slung on the back. */
-    fun withShieldOnBack() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, true, bowOnBack, leatherRgb, clothes, bald)
+    fun withShieldOnBack() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, true, bowOnBack, leatherRgb, clothes, bald, weaponStowed)
+
+    /** The same outfit with the weapons that can be put away at the hip or belt ([Dress.stows]) put away. */
+    fun withWeaponStowed() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, shieldOnBack, bowOnBack, leatherRgb, clothes, bald, true)
 
     companion object {
         fun of(hero: Hero) = Outfit(hero.cls, GearSlot.entries.mapNotNull { s -> hero.item(s)?.let { s to it } }.toMap(), bothHands = hero.bothHands())
@@ -1047,15 +1052,52 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     /** The weapons in either hand that are not staves or bows, as solids: a blade's flat and edge, an axe's bit, all real. */
     private fun arms3d() {
         val main = o.items[GearSlot.MAIN_HAND]
+        val off = o.items[GearSlot.OFF_HAND]
+        if (o.weaponStowed && main != null && stows(main)) {
+            // put away: a blade at the left hip, an axe or mace at the right; a second weapon on the other side
+            val blade = main.base in SCABBARD
+            stowed(main.base, main.rarity, if (blade) -1.0 else 1.0)
+            if (off != null && off.def.isWeapon && !o.twoHands && stows(off)) stowed(off.base, off.rarity, if (blade) 1.0 else -1.0)
+            return
+        }
         if (main != null && !main.def.ranged && main.base !in ROUND)
             mainArm = held(main.base, ownSolids, sk.hand(1), o.twoHands) { s, k -> arm(main.base, main.rarity, sk.hand(1), sk.weapon.norm(), sk.edge, s, k) }
-        val off = o.items[GearSlot.OFF_HAND]
         if (off != null && off.def.isWeapon && !o.twoHands) {
             val d0 = offDir()
             val fore = (sk.wrist[0] - sk.elbow[0]).norm()
             val e = (fore - d0 * (fore dot d0)).let { if (it.len() < 1e-3) P3.Y - d0 * (P3.Y dot d0) else it }.norm()
             val free = body.filter { it.key !in setOf("hand0", "fore0", "upper0", "delt0") && it.part != BodyPart.HAIR }
             offArm = held(off.base, free, sk.hand(0), false) { s, k -> arm(off.base, off.rarity, sk.hand(0), d0, e, s, k) }
+        }
+    }
+
+    /**
+     * A weapon put away while walking about (10.10., 2): a blade sits in a leather scabbard on the
+     * hip of [side] (-1 left, 1 right), its hilt up and forward over the belt, the scabbard slanting
+     * down and back away from the leg, a metal locket at its mouth and a chape at its end; an axe,
+     * mace or hammer hangs from the belt by its head, the haft down along the thigh.
+     */
+    private fun stowed(base: String, r: Rarity, side: Double) {
+        val b = sqrt(h / 175.0) * BOLD
+        val fit = metal(r, -0.06)
+        val sc = SCABBARD[base]
+        if (sc != null) {
+            val (len, half) = sc
+            val mouth = sk.lower.apply(P3(side * d.hipX * 1.8, d.hipY + 0.075 * h, d.chestDepth * 0.3))
+            val dir = sk.lower.dir(P3(side * 0.1, -0.9, -0.4)).norm()
+            val back = sk.lower.dir(P3(0.0, 0.0, -1.0)).let { (it - dir * (it dot dir)).norm() }
+            arm(base, r, mouth - dir * 5.6, dir, back)
+            val tip = mouth + dir * (len + 1.5)
+            val rad = half * b + 0.6
+            add(RoundCone(mouth, tip - dir * 3.0, rad, rad * 0.8, BodyPart.GEAR, Doll.ITEM), darkLeather)
+            add(RoundCone(tip - dir * 3.5, tip, rad * 0.85, 0.5, BodyPart.GEAR, Doll.TRIM), fit)
+            add(RoundCone(mouth - dir * 0.2, mouth + dir * 2.4, rad + 0.35, rad + 0.35, BodyPart.GEAR, Doll.TRIM), fit)
+        } else {
+            val head = HEAD_AT[base] ?: (reach(base) * 0.85)
+            val top = sk.lower.apply(P3(side * d.hipX * 2.05, d.hipY + 0.075 * h, d.chestDepth * 0.12))
+            val dir = sk.lower.dir(P3(side * 0.1, 1.0, 0.08)).norm()
+            val out = sk.lower.dir(P3(side, 0.0, 0.0)).let { (it - dir * (it dot dir)).norm() }
+            arm(base, r, top - dir * head, dir, out)
         }
     }
 
@@ -1300,6 +1342,13 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         /** How far, in cm, a shield's board keeps from the inside of the trunk: room for the armour over it. */
         const val CLEAR = 2.0
         val ROUND = setOf("staff", "quarterstaff", "wand", "spear")
+        /** Blades worn in a scabbard: the blade's length past the guard and its half width, in cm. */
+        private val SCABBARD = mapOf("dagger" to (23.0 to 1.6), "shortsword" to (41.0 to 2.3), "scimitar" to (59.0 to 3.6),
+            "rapier" to (73.0 to 1.05), "longsword" to (69.0 to 2.5))
+        /** Where along the haft the head sits, in cm from the hand, for weapons hung from the belt by the head. */
+        private val HEAD_AT = mapOf("handaxe" to 32.0, "battleaxe" to 57.0, "mace" to 48.0, "morningstar" to 53.0, "warhammer" to 46.0)
+        /** Whether [g] is put away at the hip or belt while walking about: not bows, staves, spears or two-handed arms, which stay on the shoulder. */
+        fun stows(g: Gear): Boolean = g.def.isWeapon && !g.def.ranged && g.base !in ROUND && !g.def.twoHanded && g.base != "halberd" && g.base != "wand"
         /**
          * How far a staff reaches back past the hand, as a part of its reach: a wizard's staff is held high, a fighting
          * staff in the middle, a spear (175 cm on a human) in its back third.
