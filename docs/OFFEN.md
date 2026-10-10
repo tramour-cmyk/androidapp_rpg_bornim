@@ -20,7 +20,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 12 | Sprungtest: Kerntest, der Sprünge in Bewegungen und Übergängen findet | Jerry | – | erledigt (12a in v0.1.455); 12b an Tom offen |
 | 14 | Erinnerung an Neustart: Haken misst Gesprächsgröße, über einer Schwelle Hinweis an die Sitzung | Tom | neu von `main` (Werkzeug, PR) | freigegeben 10.10., 13:32; wenn die Räume eine Pause haben |
 | 15 | `OFFEN.md` entschlacken: Erledigtes und Bestätigtes in die Änderungshistorie, nur Offenes bleibt | Tom (Jerry prüft danach seinen Teil) | `main` (nur Notizen) | freigegeben 10.10., 13:32; nach 14 |
-| 16 | Trefferstopp: bei harten Treffern 2–3 Bilder Standbild, beim Kritischen kurzer Zoom und leichter Ruck | Jerry (Kampf) | neu von `main` | 16a/16b entschieden 20:45; gebaut auf `claude/pensive-bell-uto0ky`, Draft-PR #15, Build läuft |
+| 16 | Trefferstopp: bei harten Treffern 2–3 Bilder Standbild, beim Kritischen kurzer Zoom und leichter Ruck | Jerry (Kampf) | neu von `main` | 16a/16b entschieden 20:45; gebaut auf `claude/pensive-bell-uto0ky`, Draft-PR #15, Zweig-Build 0.1.458, Test durch den Nutzer offen |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen schwingen beim Stoppen und Drehen nach | Tom (Puppen) | neu von `main` | freigegeben 10.10., 13:43; nach 6.14 |
 | 18 | Pechsträhnen dämpfen: nach mehreren Fehlschlägen steigt die Trefferchance unsichtbar leicht | Jerry (Kampfregeln) | neu von `main` | freigegeben 10.10., 13:43; nach 16 |
 | 19 | Zeitablauf der Kampfbewegungen bei Tempo normal: jeder Schlag trifft sichtbar, alles läuft flüssig | Jerry (Kampf) | – | erledigt, v0.1.455 (getestet 0.1.454, 20:28) |
