@@ -26,7 +26,7 @@ fun renderHitStills() {
     val (foeW, foeTall) = de.bornim.core.art.MonsterArt.bodySize(foeId, look, foe.width, foe.height)
     val fx = sceneW * de.bornim.core.art.BattleScene.FOE_X; val fy = sceneH * de.bornim.core.art.BattleScene.FOE_Y
     val hx = sceneW * de.bornim.core.art.BattleScene.HERO_X; val hy = sceneH * de.bornim.core.art.BattleScene.HERO_Y
-    val aim = HB.aimAt(fx, fy, foeW, foeTall)
+    fun aim(s: HF.Strike) = HB.aimAt(fx, fy, foeW, foeTall, s)
     // the part of the scene the two stand in
     val x0 = 30.0; val y0 = fy - foeTall - 30; val cw = 200; val ch = (hy + 6 - y0).toInt()
     val cols = before + after + 1
@@ -44,7 +44,7 @@ fun renderHitStills() {
     }
     for ((r, s) in strikes.withIndex()) {
         val hit = HB.strikeFrame(s); val n = HB.frameCount(hero, HF.Act.ATTACK, s, 0)
-        val (ox, oy) = HB.lungeOffset(hero, s, hx, hy, aim.first, aim.second)
+        val (ox, oy) = HB.lungeOffset(hero, s, hx, hy, aim(s).first, aim(s).second)
         val top = r * (ch * z + 18)
         gg.color = java.awt.Color(0xF0E8D8)
         gg.drawString("$s  (${hero.item(de.bornim.core.GearSlot.MAIN_HAND)?.base}, $n Bilder, Treffer Bild $hit; rot = Zielpunkt)", 6, top + 13)
@@ -57,7 +57,7 @@ fun renderHitStills() {
             val sc = 1.0 - (1.0 - HB.LUNGE_SCALE) * l
             put(HB.frame(hero, HF.Act.ATTACK, s, 0, i), hx - HB.ANCHOR_X + ox * l, hy - HB.GROUND + oy * l, sc, oxp, oyp, HB.ANCHOR_X, HB.GROUND)
             gg.color = java.awt.Color(0xE02020)
-            gg.fillOval(oxp + ((aim.first - x0) * z).toInt() - 4, oyp + ((aim.second - y0) * z).toInt() - 4, 9, 9)
+            gg.fillOval(oxp + ((aim(s).first - x0) * z).toInt() - 4, oyp + ((aim(s).second - y0) * z).toInt() - 4, 9, 9)
             gg.color = java.awt.Color(0xF0E8D8)
             gg.drawString("Bild $i" + (if (i == hit) " *" else ""), oxp + 6, oyp + 14)
         }

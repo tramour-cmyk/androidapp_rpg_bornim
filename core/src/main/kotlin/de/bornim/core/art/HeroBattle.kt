@@ -143,9 +143,11 @@ object HeroBattle {
 
     /**
      * Where a blow aims on a foe whose picture is [foeW] wide with its feet at ([feetX], [feetY]) and [height] tall:
-     * the near front of it, towards the hero below on the left, so the hero steps in only as far as a real blow would.
+     * into the body, a little on the side towards the hero below on the left, so the blade is seen in it and not only
+     * touching its edge. The full turn stays at the near front: whirled round, the hero would stand inside the foe.
      */
-    fun aimAt(feetX: Double, feetY: Double, foeW: Double, height: Double): Pair<Double, Double> = Pair(feetX - foeW * 0.28, feetY - height * 0.4)
+    fun aimAt(feetX: Double, feetY: Double, foeW: Double, height: Double, strike: Strike? = null): Pair<Double, Double> =
+        if (strike == Strike.KILL_SPIN) Pair(feetX - foeW * 0.28, feetY - height * 0.4) else Pair(feetX - foeW * 0.08, feetY - height * 0.45)
 
     /**
      * The step in for a blow, in art pixels: how far the feet move so that, drawn [LUNGE_SCALE] times as large, the
