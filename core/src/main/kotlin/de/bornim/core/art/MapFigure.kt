@@ -23,8 +23,8 @@ object MapFigure {
     /** Directions drawn, evenly round. */
     const val YAWS = 16
 
-    /** Pictures of a walk: rest, right foot forward, rest, left foot forward. */
-    const val STEPS = 4
+    /** Pictures of a walk, the legs swinging smoothly (12b: four pictures jumped 11 cm a picture). */
+    const val STEPS = 8
 
     /** Art pixels per centimetre: a man of 1.80 m stands about 1½ tiles tall. */
     private const val PX = 0.55
@@ -40,8 +40,14 @@ object MapFigure {
         Facing.LEFT -> 270.0
     }
 
-    /** The drawn direction nearest to [yaw]. */
-    fun slot(yaw: Double): Int = Math.floorMod(Math.round(yaw / (360.0 / YAWS)).toInt(), YAWS)
+    /**
+     * How the map is turned on the screen, in degrees: 0 seen straight, −45 seen diagonally (13). A
+     * direction in the map then shows turned by this much, so every picture is chosen through [slot].
+     */
+    @Volatile var viewYaw = 0.0
+
+    /** The drawn direction nearest to [yaw] (a direction in the map), as seen on the screen. */
+    fun slot(yaw: Double): Int = Math.floorMod(Math.round((yaw + viewYaw) / (360.0 / YAWS)).toInt(), YAWS)
 
     /** Long weapons (two-handed, spears, staves, bows) go on the shoulder; short ones are carried low. */
     private val LONG = setOf("spear", "quarterstaff", "staff", "halberd")
@@ -68,7 +74,9 @@ object MapFigure {
      * arms hang a little forward of the body, clear of a cloak, and swing with the step.
      */
     fun rig(yaw: Double, step: Int, carry: Carry): HeroFigure.Rig {
-        val st = listOf(0.0, 11.0, 0.0, -11.0)[Math.floorMod(step, STEPS)]
+        val ph = Math.floorMod(step, STEPS) / STEPS.toDouble()
+        // a stride a little shorter than the former 11 cm, so no picture moves a leg more than the jump test allows
+        val st = 8.4 * kotlin.math.sin(ph * 2 * Math.PI)
         return Doll.REST.copy(
             yaw = yaw, stride = st, spread = 5.0,
             rh = when (carry) {
@@ -84,7 +92,8 @@ object MapFigure {
             },
             aim = 1.0,
             shieldFace = HeroFigure.V(-1.0, 0.0, 0.25),
-            bodyY = if (step % 2 == 1) 1.0 else 0.0,
+            // up as a foot passes beneath, twice in a walk
+            bodyY = (1 - kotlin.math.cos(ph * 4 * Math.PI)) / 2,
         )
     }
 
@@ -108,13 +117,13 @@ object MapFigure {
     private fun carry(hero: Hero) = if (stows(hero)) Carry.FREE else if (shouldered(hero)) Carry.SHOULDER else Carry.LOW
 
     /** [hero] standing in [rest], breathing in or out: drawn in the background when first wanted, null until then. */
-    fun restFrame(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int): PixelImage? =
-        if (rest == MapRest.Rest.NEUTRAL && breath == 0) frame(hero, slot, 0)
-        else MapRest.picture("hero|${look(hero)}|$slot|$rest|$breath") { drawRest(hero, slot, rest, breath) }
+    fun restFrame(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage? =
+        if ((rest == MapRest.Rest.NEUTRAL || level <= 0) && breath == 0) frame(hero, slot, 0)
+        else MapRest.picture("hero|${look(hero)}|$slot|$rest|$breath|$level") { drawRest(hero, slot, rest, breath, level) }
 
     /** One resting picture of [hero], drawn now. */
-    fun drawRest(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int): PixelImage =
-        render(HeroBattle.doll(hero), outfit(hero), MapRest.rig(rig(slot * 360.0 / YAWS, 0, carry(hero)), rest, breath))
+    fun drawRest(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage =
+        render(HeroBattle.doll(hero), outfit(hero), MapRest.rig(rig(slot * 360.0 / YAWS, 0, carry(hero)), rest, breath, level))
 
     /** The picture of [hero] turned to direction [slot] at [step] of a walk, or null while it is not drawn yet. */
     fun frame(hero: Hero, slot: Int, step: Int): PixelImage? = synchronized(cache) { cache["${look(hero)}|$slot|${Math.floorMod(step, STEPS)}"] }
