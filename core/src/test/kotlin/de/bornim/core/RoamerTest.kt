@@ -165,4 +165,19 @@ class RoamerTest {
             assertTrue(Packs.size(r.monster, r.look) >= 1, "${r.monster} without its pack")
         }
     }
+
+    @Test
+    fun seeAllShowsTheWholeMapButStillExplores() {
+        val g = forestGame()
+        val far = 2 to 2
+        assertTrue(g.fog(far.first, far.second) != Fog.VISIBLE)
+        Game.seeAll = true
+        try {
+            for (y in 0 until g.map.height) for (x in 0 until g.map.width) assertEquals(Fog.VISIBLE, g.fog(x, y))
+        } finally {
+            Game.seeAll = false
+        }
+        // what the hero has not seen is still not explored
+        assertTrue(g.fog(far.first, far.second) != Fog.VISIBLE)
+    }
 }

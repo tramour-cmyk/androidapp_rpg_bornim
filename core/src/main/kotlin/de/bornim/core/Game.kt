@@ -29,6 +29,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         const val HERB_CHANCE = 0.5
         /** Test switch (9f): monsters go about as ever but never notice or attack the hero; bumping into one still fights. */
         @Volatile var monstersIgnoreHero = false
+        /** Test switch (9f.2): no line of sight and no fog: the whole map and every monster on it is in view. */
+        @Volatile var seeAll = false
     }
 
     var mode: Mode = Mode.Explore
@@ -237,7 +239,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** Wild areas (forest, cave) are covered by fog until the hero has seen them. */
     val fogged: Boolean get() = map.kind == MapKind.FOREST || map.kind == MapKind.CAVE
 
-    fun fog(x: Int, y: Int): Fog = if (!fogged) Fog.VISIBLE else sight.fog(map, x, y, isNight)
+    fun fog(x: Int, y: Int): Fog {
+        if (!fogged) return Fog.VISIBLE
+        // explored as ever, so switching the test view off again leaves the map as the hero has seen it
+        val f = sight.fog(map, x, y, isNight)
+        return if (seeAll) Fog.VISIBLE else f
+    }
 
     /** Monsters walking around on the current map. */
     val roamers: List<Roamer> get() = herd()

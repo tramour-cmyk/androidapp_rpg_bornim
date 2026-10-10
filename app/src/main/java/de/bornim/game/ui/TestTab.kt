@@ -104,6 +104,13 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             ignore = de.bornim.core.Game.monstersIgnoreHero
             vm.toast = if (ignore) t("Monster laufen und stehen wie sonst, greifen aber nicht an. Wer selbst hineinläuft, kämpft.", "Monsters go about as ever but never attack. Walk into one to fight.") else t("Monster jagen dich wieder.", "Monsters hunt you again.")
         }
+        var seeAll by remember { mutableStateOf(de.bornim.core.Game.seeAll) }
+        PixelButton(t("Sichtlinie aus (alles sichtbar): ", "Line of sight off (see all): ") + (if (seeAll) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.Game.seeAll = !de.bornim.core.Game.seeAll
+            seeAll = de.bornim.core.Game.seeAll
+            vm.refresh()
+            vm.toast = if (seeAll) t("Kein Nebel, keine Sichtlinie: alle Monster der Karte sind zu sehen. Erkundet wird wie sonst.", "No fog, no line of sight: every monster on the map shows.") else t("Sichtlinie und Nebel wieder wie im Spiel.", "Line of sight and fog back as in the game.")
+        }
         PixelButton(t("Wolfsrudel und Goblin mit Späher herholen", "Bring a wolf pack and a goblin with its scout"), Modifier.fillMaxWidth(), size = 14.sp) {
             val n = game.cheatBringPacks()
             vm.refresh()
