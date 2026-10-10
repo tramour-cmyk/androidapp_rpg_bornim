@@ -31,6 +31,7 @@ Wunsch des Nutzers (09.10.): Wer auf der Karte steht, lebt. Jede Figur, auch der
 - Nie im Takt: Ob, wann, was und wie lange, entscheidet der Zufall, mit eigenem Startwert je Figur, damit zwei Figuren nebeneinander nie gleichzeitig dasselbe tun. Ein gleichmäßiger Rhythmus wirkt wie ein Roboter.
 - Figuren schauen den Helden an, wenn er nahe ist, verlieren aber nach etwa 20 s Stillstand das Interesse.
 - Haltungen vorher in allen Blickrichtungen prüfen (vorn, schräg, Seite, hinten); was von einer Seite falsch aussieht, fliegt raus.
+- Auch Orte leben (Regel des Nutzers, 10.10., 6f): Räume, Dorf und Wald sollen lebendig wirken, nicht wie eine Kulisse. Licht flackert, Rauch steigt, Staub tanzt im Lichtstrahl, Dinge liegen so, als hätte gerade jemand sie benutzt. Grundstimmung düster durch Licht und Schatten, nicht durch Dunkelheit.
 
 ## Ausrüstung der Gegner
 
