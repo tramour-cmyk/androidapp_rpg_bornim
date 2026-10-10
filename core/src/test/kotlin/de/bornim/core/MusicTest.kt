@@ -44,7 +44,9 @@ class MusicTest {
         val out = File("build/music/sfx").apply { mkdirs() }
         for (s in de.bornim.core.audio.Sound.entries) for (v in 0 until de.bornim.core.audio.Sfx.variants(s)) {
             val pcm = de.bornim.core.audio.Sfx.render(s, v)
-            assertTrue(pcm.size in 500..(3 * Synth.SAMPLE_RATE), "$s length ${pcm.size}")
+            // thunder far off rolls on longer than the other sounds
+            val longest = if (s == de.bornim.core.audio.Sound.THUNDER) 6 else 3
+            assertTrue(pcm.size in 500..(longest * Synth.SAMPLE_RATE), "$s length ${pcm.size}")
             assertTrue(pcm.maxOf { abs(it.toInt()) } > 10000, "$s silent")
             writeWav(File(out, "${s.name.lowercase()}${if (v > 0) "_$v" else ""}.wav"), pcm)
         }
