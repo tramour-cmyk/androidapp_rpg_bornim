@@ -94,6 +94,7 @@ fun main() {
     System.getenv("FLORA")?.let { renderFloraSheet(it); System.exit(0) }
     if (System.getenv("HOEHLEDINGE") != null) { renderCaveThings(); System.exit(0) }
     if (System.getenv("RAUMDINGE") != null) { renderRoomThings(); System.exit(0) }
+    if (System.getenv("ISODRAFT") != null) { renderIsoDraft(); System.exit(0) }
     if (System.getenv("ALTRAUM") != null) de.bornim.core.art.MapRoom.sculpted = false
     if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }
     if (System.getenv("MAPFIGYAWS") != null) { renderMapFigureYaws(); System.exit(0) }
