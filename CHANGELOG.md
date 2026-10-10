@@ -4,6 +4,12 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.438 – 10.10.2026, 16:21
+
+Zweig von Jerry (Thema 9k), getestet in 0.1.433:
+
+- Goblins auf der Karte: Die zweite Klinge (Dolch) steckt beim Herumlaufen in der Scheide an der Hüfte, der Schild ist auf den Rücken geschnallt. Von der Seite ragte in Hüfthöhe nichts mehr nach vorn. Im Kampf unverändert.
+
 ## v0.1.430 – 10.10.2026, 15:28
 
 Zweig von Jerry (Themen 9 und 12), getestet in 0.1.425:
@@ -24,6 +30,12 @@ Zweig von Jerry (Themen 9 und 12), getestet in 0.1.425:
 - Sprungtest (12): Kerntest `JumpTest` findet Sprünge in Bewegungen und Übergängen, Bild für Bild, ohne Bild in Sekunden; für die Monster auf der Karte 0 Sprünge.
 - Vorschau: `MAPFOE=scene|dirs|walk|yaws|idle|ease|others|cave|wood`, Film `FOEFILM=1` (mit `FOEIDLE=1` im Stehen).
 
+
+Zweig `tom-diagonal` (Tom), noch nicht auf `main`:
+
+- **Diagonale Sicht (13, Schalter „Sicht“ im Testreiter, im Bau):** Die Karte ist um 45° gedreht, die Kacheln liegen als Rauten. Dinge und Figuren stehen aufrecht und verdecken sich richtig, die Figuren drehen sich mit. Tippen und Joystick sind umgerechnet. Möbel und Wände sind noch die alten Bilder.
+- **Freies Laufen (13g):** In der diagonalen Sicht läuft der Held in jede Richtung, wohin der Joystick zeigt, und gleitet an Wänden entlang. Getippte Wege gehen in geraden Linien. Türen, Begegnungen und alles andere funktionieren wie bisher.
+- **Gehen und Stehen ohne Sprünge (12b):** Held und Leute gehen in acht statt vier Bildern. Der Blick zur Seite, das Gewichtverlagern und die Hände am Gürtel gehen weich hinein und heraus.
 
 Zweig `tom-sculpt-raeume` (Tom), noch nicht auf `main`:
 

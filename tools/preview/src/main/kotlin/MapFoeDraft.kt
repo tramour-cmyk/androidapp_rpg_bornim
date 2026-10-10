@@ -106,6 +106,12 @@ fun renderMapFoeDraft() {
             both.graphics.drawImage(a, 0, 0, null); both.graphics.drawImage(b, a.width + 12, 0, null)
             ImageIO.write(both, "png", File("build/screens/mapfoe/wood.png"))
         }
+        "side" -> {
+            // 9k: the goblins and the scout seen from the side, standing and in a stride
+            val rows = listOf("goblin" to 0, "goblin" to 1, "goblin" to 2, "goblin_archer" to 0)
+            val cells = rows.map { (id, l) -> listOf(4, 12, 3, 13).flatMap { s -> listOf(MapFoe.draw(id, MonsterLook(l), s, 0), MapFoe.draw(id, MonsterLook(l), s, 2)) } }
+            ImageIO.write(sheetOf(cells, MapFoe.W, MapFoe.H), "png", File("build/screens/mapfoe/side.png"))
+        }
         "walk" -> {
             val cells = looks.flatMap { (id, l) -> listOf(2, 4, 6, 12).map { s -> (0 until MapFoe.STEPS).map { st -> MapFoe.draw(id, l, s, st) } } }
             ImageIO.write(sheetOf(cells, MapFoe.W, MapFoe.H), "png", File("build/screens/mapfoe/walk.png"))
