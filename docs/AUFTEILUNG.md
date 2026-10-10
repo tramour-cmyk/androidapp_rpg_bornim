@@ -2,7 +2,19 @@
 
 Stand: 09.10.2026, 18:48 (Berliner Zeit). Die Karte wird gerade im neuen Stil umgebaut (siehe [Offen](OFFEN.md), Abschnitt „Karte im neuen Stil“). Damit zwei Claude-Sitzungen (zwei Accounts) gleichzeitig daran arbeiten können, ohne sich in die Quere zu kommen, ist die Arbeit hier aufgeteilt. Wer eine Sitzung beginnt, liest zuerst `CLAUDE.md`, dann diese Datei, dann `docs/OFFEN.md`.
 
-## Wer macht was
+## Stand 10.10.2026, 08:53: wer wer ist
+
+Geprüft an Commits und Zweigen (alle Commits laufen unter „tramour“, unterscheiden lassen sich die Sitzungen nur an der Zeile `Claude-Session`):
+
+| | Account A | Account B |
+|---|---|---|
+| Sitzung | `session_011NbhavCsBZBgBNywhNvsV9` (auch heute früh aktiv) | bis 09.10. `session_017oHpZTdCFj2kbysMuJ3w3F`, ab 10.10. `session_01Dxd5zDYe7YCMmen3WJjjoC` |
+| Zweig | `karte-neuer-stil` | `karte-hoehle`; die Sitzung vom 10.10. arbeitet auf `claude/happy-gauss-bno7ud` |
+| Aufgabe | Leute und Monster auf der Karte, dazu Entwürfe der Leute (zwölf Dorfbewohner als Puppe, `VILLAGEDRAFT=1`, vom Nutzer 08:34 freigegeben; Garrick hockt, schürt die Glut, nickt ein, `SQUATDRAFT=1`); **Dorf und Innenräume** (entschieden vom Nutzer 10.10., 08:34; Entwürfe `MapTown.kt`, `MapRoom.kt`) | Höhle (fertig, v0.1.377); nächste Aufgabe offen, siehe unten. **Nicht am Dorf und nicht an Innenräumen arbeiten.** |
+
+Woher B weiß, dass es B ist: Der Nutzer sagt, „der andere Account“ macht Dorf und Innenräume, und laut `karte-neuer-stil` (Nachtrag 09.10., 23:48, Entscheidung 10.10., 08:34) macht das Account A. Im Code selbst steht nicht, welcher Account eine Sitzung ist. Die Punkte 1 und 2 der Liste „Nächste Aufgaben für Account B“ unten fallen damit weg.
+
+## Wer macht was (Stand 09.10., 18:48)
 
 | | Account A (Hauptsitzung) | Account B (Zweitaccount) |
 |---|---|---|
