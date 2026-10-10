@@ -4,6 +4,10 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Kampf: Trefferstopp (16, Zweig `claude/pensive-bell-uto0ky`, noch nicht getestet)**
+- Treffer halten beim Aufprall je nach Wucht inne: ein normaler Treffer nur kurz, ein harter (ein Drittel der Lebenspunkte oder mehr) zwei Bilder lang, ein kritischer drei; für Held und Gegner gleich.
+- Ein kritischer Treffer zieht die Ansicht kurz etwas heran und ruckt einmal in Schlagrichtung, statt das Bild wackeln zu lassen.
+
 ## v0.1.455 – 10.10.2026, 20:29
 
 Zweig von Jerry (Themen 12a und 19), getestet in 0.1.441 und 0.1.454:
