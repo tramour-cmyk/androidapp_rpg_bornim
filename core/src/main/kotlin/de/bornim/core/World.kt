@@ -35,6 +35,11 @@ enum class Tile(val ch: Char, val walkable: Boolean) {
     HEARTH('Z', false),
     /** Odds and ends on a room's floor (sacks, firewood, a basket, a stool): you can step over them, slowly. */
     CLUTTER('J', true),
+    /** The elder's things (13q.4, drafts): a writing desk, a chest, a high-backed chair; a cloth hung on the wall behind a floor tile. */
+    DESK('d', false),
+    TRUNK('a', false),
+    ARMCHAIR('s', false),
+    HANGING('V', true),
     // village
     COBBLE('o', true),
     STALL('m', false),
@@ -183,5 +188,8 @@ object World {
         listOf(Story.village, Story.inn, Story.shop, Story.elderHouse, Story.temple, Story.forest, Story.deepForest, Story.cave).associateBy { it.id }
     }
 
-    operator fun get(id: String): MapDef = maps[id] ?: error("Unknown map $id")
+    /** Maps drawn only in the previews (drafts of rooms, 13q.4); looked up before the game's own. */
+    val drafts = mutableMapOf<String, MapDef>()
+
+    operator fun get(id: String): MapDef = drafts[id] ?: maps[id] ?: error("Unknown map $id")
 }

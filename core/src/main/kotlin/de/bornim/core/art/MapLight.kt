@@ -58,6 +58,7 @@ object MapLight {
                     Tile.HEARTH -> if (map.tile(tx - 1, ty) != Tile.HEARTH) out += Source((tx + 1) * T.toDouble(), (ty + 1) * T + 4.0, Kind.FIRE, argb(0xFF9046), T * 3.6, 1.05)
                     // a candle on a table: a small warm island, the dark close about it (10.10., 6.8)
                     Tile.TABLE -> if (indoor) out += Source(cx, cy, Kind.CANDLE, argb(0xFFB870), T * (if (hasHearth(map)) 1.7 else 2.8), if (hasHearth(map)) 0.62 else 0.6)
+                    Tile.DESK -> out += Source(cx, cy - 6, Kind.CANDLE, argb(0xFFB870), T * 1.8, 0.6)
                     Tile.ALTAR -> out += Source(cx, cy, Kind.CANDLE, argb(0xFFE0A0), T * 3.2, 0.75)
                     Tile.COUNTER -> if (indoor) out += Source(cx, cy, Kind.CANDLE, argb(0xFFB870), T * (if (hasHearth(map)) 1.5 else 2.4), if (hasHearth(map)) 0.5 else 0.45)
                     Tile.DOOR -> if (indoor) out += Source(cx, cy - 4, Kind.DOOR, argb(0xE8ECF0), T * 3.0, 0.6, When.DAY)

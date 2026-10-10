@@ -175,6 +175,12 @@ fun main() {
                 shot("zoom_${z}_i1_schaenke_tag") { place(it, "inn", 4, 5, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_i2_schaenke_abend") { place(it, "inn", 6, 3, 21 * 60, Facing.LEFT) }
                 shot("zoom_${z}_i3_aeltester") { place(it, "elder", 4, 4, 12 * 60, Facing.UP) }
+                // 13q.4: three floor plans of the elder's house, by day and in the evening (drafts, only here)
+                elderDrafts()
+                for ((k, at) in listOf("a" to (6 to 3), "b" to (6 to 3), "c" to (6 to 3))) {
+                    shot("zoom_${z}_e${k}1_aeltester_tag") { place(it, "elder_$k", at.first, at.second, 12 * 60, Facing.UP) }
+                    shot("zoom_${z}_e${k}2_aeltester_abend") { place(it, "elder_$k", at.first, at.second, 21 * 60, Facing.UP) }
+                }
                 shot("zoom_${z}_i4_laden") { place(it, "shop", 4, 5, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_i5_tempel") { place(it, "temple", 4, 4, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_t1_hohes_gras") { place(it, "forest", 16, 20, 12 * 60, Facing.DOWN) }
@@ -778,4 +784,40 @@ fun main() {
         vm.refresh()
     }
     System.exit(0)
+}
+
+/** Floor plans for the elder's house (13q.4), smaller than the old one, with his own things; only in the previews. */
+private fun elderDrafts() {
+    fun def(id: String, rows: List<String>, ax: Int, ay: Int) {
+        de.bornim.core.World.drafts[id] = de.bornim.core.MapDef(id, de.bornim.core.T("Haus des Ältesten", "Elder's House"), de.bornim.core.MapKind.INTERIOR, rows,
+            npcs = listOf(de.bornim.core.Npc("aldric", ax, ay, "elder", Facing.DOWN) { emptyList() }))
+    }
+    // A: study and bed, the hearth in the corner, the map of the valley beside the desk
+    def("elder_a", listOf(
+        "#ZZ###W##",
+        "#kksJVdQ#",
+        "#kkkkkkk#",
+        "#BkRRRka#",
+        "#BkRRRkk#",
+        "#akkkkkk#",
+        "####D####",
+    ), 6, 2)
+    // B: a low parlour, books by the hearth, the chair in its warmth
+    def("elder_b", listOf(
+        "###ZZ##W#",
+        "#QQkkVJd#",
+        "#kskkkka#",
+        "#BkRRRkk#",
+        "#BkRRRkk#",
+        "####D####",
+    ), 6, 2)
+    // C: the smallest, everything within reach
+    def("elder_c", listOf(
+        "##ZZ#W##",
+        "#QkkVdJ#",
+        "#skkkka#",
+        "#BkRRkk#",
+        "#BkRRkk#",
+        "###D####",
+    ), 5, 2)
 }

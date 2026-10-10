@@ -135,7 +135,7 @@ object WorldArt {
                 cached("obj-ground/$kind/$seed/false") { paste(base); blendEllipse(16.0, 27.0, 12.0, 4.0, SHADOW) }
             }
             Tile.CAVE_EXIT -> cached("caveexit") { caveFloor(0, 0); exitLight() }
-            Tile.WOOD_FLOOR, Tile.CLUTTER -> {
+            Tile.WOOD_FLOOR, Tile.CLUTTER, Tile.HANGING -> {
                 val shadow = map.inside(tx, ty - 1) && at(0, -1) == Tile.WALL
                 cached("wood$seed/$shadow") { woodFloor(seed); if (shadow) topShadow(7) }
             }
@@ -144,7 +144,7 @@ object WorldArt {
                 val m = mask(!r(0, -1), !r(1, 0), !r(0, 1), !r(-1, 0))
                 cached("rug$m") { rug(m) }
             }
-            Tile.COUNTER, Tile.TABLE, Tile.BED, Tile.SHELF, Tile.PLANT, Tile.ALTAR -> {
+            Tile.COUNTER, Tile.TABLE, Tile.BED, Tile.SHELF, Tile.PLANT, Tile.ALTAR, Tile.DESK, Tile.TRUNK, Tile.ARMCHAIR -> {
                 val shadow = map.inside(tx, ty - 1) && at(0, -1) == Tile.WALL
                 cached("wood$seed/$shadow") { woodFloor(seed); if (shadow) topShadow(7) }
             }

@@ -60,7 +60,7 @@ object MapRoom {
     private val wallTiles = setOf(Tile.WALL, Tile.WINDOW, Tile.HEARTH)
 
     /** Things standing on the floor: the boards about them lie in their shade. */
-    private val furniture = setOf(Tile.TABLE, Tile.BED, Tile.SHELF, Tile.COUNTER, Tile.BARREL, Tile.CRATE, Tile.BENCH, Tile.CLUTTER, Tile.PLANT, Tile.ALTAR)
+    private val furniture = setOf(Tile.TABLE, Tile.BED, Tile.SHELF, Tile.COUNTER, Tile.BARREL, Tile.CRATE, Tile.BENCH, Tile.CLUTTER, Tile.PLANT, Tile.ALTAR, Tile.DESK, Tile.TRUNK, Tile.ARMCHAIR)
 
     /** How tall the back wall's face stands, in art pixels, drawn on the row below its top. */
     private const val FACE = 40

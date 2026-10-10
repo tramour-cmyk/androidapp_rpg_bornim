@@ -1591,6 +1591,7 @@ object MapRoomIso {
         val key = "${map.id}/$tx/$ty"
         val fx = (tx + 1) * T; val fy = (ty + 1) * T
         val d = depth(tx, ty)
+        val elder = map.id.startsWith("elder_")
         fun one(k: String, low: Boolean = true, make: () -> PixelImage) = listOf(obj(cached("$key/$k", make), fx, fy, d, low))
         return when (map.tile(tx, ty)) {
             Tile.WALL, Tile.WINDOW, Tile.HEARTH -> {
@@ -1609,7 +1610,13 @@ object MapRoomIso {
                 out
             }
             Tile.DOOR -> if (ty == map.height - 1) one("door") { door(tx, ty) } else emptyList()
-            Tile.SHELF -> one("shelf", low = false) { shelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
+            Tile.SHELF -> if (elder) one("books", low = false) { bookshelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
+                else one("shelf", low = false) { shelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
+            Tile.DESK -> one("desk", low = false) { desk(v, seed) }
+            Tile.TRUNK -> one("trunk") { chest(v, seed) }
+            Tile.ARMCHAIR -> one("armchair", low = false) { armchair(v, seed) }
+            // the cloth hangs on the wall behind the tile: behind anyone standing on it
+            Tile.HANGING -> listOf(obj(cached("$key/hanging") { wallCloth(v, seed) }, fx, fy, d - T, false))
             Tile.COUNTER -> one("counter", low = false) { counter(hash(tx, ty, 2), same(-1), same(1), seed) }
             Tile.TABLE -> one("table") { table(v, same(-1), same(1), seed) }
             Tile.BENCH -> {
@@ -1617,10 +1624,11 @@ object MapRoomIso {
                 val back = when { at(0, -1) == Tile.TABLE -> 1; at(0, 1) == Tile.TABLE -> -1; else -> 0 }
                 one("bench", low = back == 0) { bench(same(-1), same(1), seed, back) }
             }
-            Tile.BED -> one("bed") { bed(hash(if (at(0, -1) == Tile.BED) tx else tx, if (at(0, -1) == Tile.BED) ty - 1 else ty, 4), at(0, -1) != Tile.BED, at(0, 1) != Tile.BED, seed) }
+            Tile.BED -> if (elder) one("alcove", low = false) { alcoveBed(hash(tx, if (at(0, -1) == Tile.BED) ty - 1 else ty, 4), at(0, -1) != Tile.BED, at(0, 1) != Tile.BED, seed) }
+                else one("bed") { bed(hash(if (at(0, -1) == Tile.BED) tx else tx, if (at(0, -1) == Tile.BED) ty - 1 else ty, 4), at(0, -1) != Tile.BED, at(0, 1) != Tile.BED, seed) }
             Tile.CRATE -> one("crates") { crates(v, seed) }
             Tile.BARREL -> one("barrel") { barrel(v, seed) }
-            Tile.CLUTTER -> {
+            Tile.CLUTTER -> if (elder) listOf(obj(cached("$key/stick") { stick(v, seed) }, fx, fy, d - T / 2, false)) else {
                 val byFire = (-1..1).any { dx -> (-1..0).any { dy -> at(dx, dy) == Tile.HEARTH } }
                 val byTable = (-1..1).any { dx -> at(dx, 0) == Tile.TABLE }
                 val kind = if (byFire) 0 else if (byTable) 3 else listOf(1, 2, 4, 5)[hash(tx, ty, 56) % 4]
