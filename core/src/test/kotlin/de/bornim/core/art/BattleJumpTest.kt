@@ -3,6 +3,7 @@ package de.bornim.core.art
 import de.bornim.core.MonsterLook
 import de.bornim.core.art.HeroFigure.Strike.*
 import kotlin.test.Test
+import kotlin.test.assertTrue
 
 /**
  * Sprungtest im Kampf (12a). A battle move may be fast: a blow carries the hand far from one picture to the next, and
@@ -14,7 +15,10 @@ import kotlin.test.Test
  * - the way in and out: from standing ready into the first picture of a move, and from its last picture back to
  *   standing ready (the battle goes straight from one to the other, without pictures between).
  *
- * For every foe in battle (the animals, the vermin, the foes on the doll) and the hero in every stance.
+ * For every foe in battle (the animals, the vermin, the foes on the doll) and the hero in every stance. Held to 0 since
+ * 12a (10.10.). Let be on purpose (12c): the killing blow tearing at the body as a fall begins (the step into its
+ * second picture, as the blow itself), and an animal leaping or a flyer dropping, which may carry the whole body up to
+ * [LEAP] times the limit on the map in one picture.
  */
 class BattleJumpTest {
     companion object {
@@ -26,6 +30,10 @@ class BattleJumpTest {
         const val JOLT_MIN = 1.0
         /** Into a move and out of it: this many times the limit on the map. */
         const val EDGE = 1.5
+        /** An animal's or a flyer's whole body in a leap or a drop: this many times the limit on the map. */
+        const val LEAP = 4.5
+        /** The fields that carry an animal's or a vermin's whole body. */
+        private val BODY = setOf("fwd", "side", "hover")
 
         /** Fields that turn round and round, 0 to 1 (a leg's step). */
         private val PHASES = setOf("step")
@@ -51,7 +59,7 @@ class BattleJumpTest {
      * the opening of a battle, [noBefore]) and after it (not for a fall or a victory, which stay: [held]).
      */
     data class Move(val case: String, val rigs: List<Any>, val strike: Int = -1, val rest: List<Any> = emptyList(), val held: Boolean = false,
-        val noBefore: Boolean = false)
+        val noBefore: Boolean = false, val leaps: Boolean = false, val falls: Boolean = false)
 
     private val look = MonsterLook(0)
 
@@ -62,7 +70,7 @@ class BattleJumpTest {
             for (act in Act.entries) for (v in 0 until BeastArt.variants(act)) {
                 if (act == Act.IDLE) continue
                 val s = runCatching { BeastArt.sequence(id, act, v) }.getOrNull() ?: continue
-                out += Move("$id $act $v", s.rigs, if (act == Act.ATTACK) s.strike else -1, idle, held = act == Act.DIE)
+                out += Move("$id $act $v", s.rigs, if (act == Act.ATTACK) s.strike else -1, idle, held = act == Act.DIE, leaps = true, falls = act == Act.DIE)
             }
             out += Move("$id IDLE", idle + idle.first())
         }
@@ -71,7 +79,7 @@ class BattleJumpTest {
             for (act in Act.entries) for (v in 0 until VerminArt.variants(act)) {
                 if (act == Act.IDLE) continue
                 val s = runCatching { VerminArt.sequence(id, act, v) }.getOrNull() ?: continue
-                out += Move("$id $act $v", s.rigs, if (act == Act.ATTACK) s.strike else -1, idle, held = act == Act.DIE)
+                out += Move("$id $act $v", s.rigs, if (act == Act.ATTACK) s.strike else -1, idle, held = act == Act.DIE, leaps = true, falls = act == Act.DIE)
             }
             out += Move("$id IDLE", idle + idle.first())
         }
@@ -80,7 +88,7 @@ class BattleJumpTest {
             for (act in Act.entries) for (v in 0 until FoeArt.variants(act)) {
                 if (act == Act.IDLE) continue
                 val s = runCatching { FoeArt.sequence(id, look, act, v) }.getOrNull() ?: continue
-                out += Move("$id $act $v", s.rigs, if (act == Act.ATTACK) s.strike else -1, idle, held = act == Act.DIE)
+                out += Move("$id $act $v", s.rigs, if (act == Act.ATTACK) s.strike else -1, idle, held = act == Act.DIE, falls = act == Act.DIE)
             }
             out += Move("$id IDLE", idle + idle.first())
         }
@@ -115,7 +123,7 @@ class BattleJumpTest {
                         // nothing comes before it (the walk in is not played)
                         val opens = act == HeroFigure.Act.TURN || act == HeroFigure.Act.INTRO || act == HeroFigure.Act.AMBUSHED
                         out += Move(name, rigs, strike, idle, held = act == HeroFigure.Act.DIE || act == HeroFigure.Act.VICTORY || act == HeroFigure.Act.INTRO,
-                            noBefore = opens)
+                            noBefore = opens, falls = act == HeroFigure.Act.DIE)
                     }
                 }
             }
@@ -132,9 +140,11 @@ class BattleJumpTest {
             val at = "Bild $i → ${i + 1}"
             for ((f, p) in d) {
                 val (delta, lim) = p
-                if (delta > CAP * lim + 1e-9) { out += JumpTest.Jump(m.case, at, "zu weit $f", delta, CAP * lim); continue }
-                // the blow: the picture it lands on and the one after may snap
+                val cap = if (m.leaps && f in BODY) LEAP else CAP
+                if (delta > cap * lim + 1e-9) { out += JumpTest.Jump(m.case, at, "zu weit $f", delta, cap * lim); continue }
+                // the blow: the picture it lands on and the one after may snap; and the killing blow tearing at a body
                 if (m.strike >= 0 && i + 1 in m.strike..m.strike + 1) continue
+                if (m.falls && i == 0) continue
                 val beside = listOfNotNull(steps.getOrNull(i - 1)?.get(f)?.first, steps.getOrNull(i + 1)?.get(f)?.first).maxOrNull() ?: continue
                 if (delta > JOLT_MIN * lim + 1e-9 && delta > JOLT * beside + 1e-9) out += JumpTest.Jump(m.case, at, "Ruck $f", delta, JOLT * beside)
             }
@@ -150,13 +160,15 @@ class BattleJumpTest {
     }
 
     @Test
-    fun listBattle() {
+    fun battleMovesNeverJump() {
         val moves = foes() + hero()
         val all = moves.flatMap { check(it) }
         val byKind = all.groupingBy { it.field.substringBefore(' ') }.eachCount()
         println("KAMPF-SPRÜNGE: ${all.size} in ${moves.size} Bewegungen ($byKind)")
         all.groupingBy { it.case.substringBeforeLast(' ') }.eachCount().entries.sortedByDescending { it.value }.take(40)
             .forEach { (k, v) -> println("  $k: $v") }
+        all.take(30).forEach { println("  $it") }
         System.getenv("SPRUNGLISTE")?.let { java.io.File(it).writeText(all.joinToString("\n")) }
+        assertTrue(all.isEmpty(), "${all.size} Sprünge in Kampfbewegungen, zuerst: ${all.firstOrNull()}")
     }
 }
