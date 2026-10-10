@@ -165,6 +165,12 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ## Zu testen
 
+**Zweig-Build 0.1.436** (10.10., 16:02; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38057844575), APK auch im Chat), Zweig `tom-diagonal`, enthält alles aus 0.1.432:
+- **13** Testreiter „Sicht: diagonal“: Karte als Rauten, Dinge und Figuren aufrecht, richtige Reihenfolge? Kronen vor dem Helden durchscheinend? (Möbel, Wände, Häuser noch alt.)
+- **13g** Freies Laufen (nur diagonal): Joystick in jede Richtung, auch weit gezogen (rennen); gleitet der Held an Wänden und um Ecken? Tippen auf ein Ziel: gerade Linie? Türen, Leute ansprechen, Truhen, Kampf durch Hineinlaufen in ein Monster?
+- **12b** Gehen in 8 Bildern (auch gerade Sicht): weicher? Leute im Stehen: Blick zur Seite ohne Sprung?
+- Alles aus 0.1.432 (3a Garrick, 4 Blätter, 6.15 Zoom, 6.14 Schänke).
+
 **Zweig-Build 0.1.420** (10.10., 13:59; [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38050096421/artifacts/11668838793), APK auch im Chat), Zweig `tom-sculpt-raeume`:
 - **3a** Garrick („Garrick döst jetzt“ an, oder nachts warten): lässt er sich weich nieder, steht er weich auf? Schürt er in einer fließenden Bewegung? Sinkt der Kopf beim Einnicken langsam, und nach dem Hochschrecken langsam wieder?
 - **4** Wald in der Dämmerung (Uhrzeit vorspulen bis kurz vor Dunkelheit): Bleiben die treibenden Blätter beim Laufen an ihrem Ort? Glühwürmchen nachts (Tag 3) weiterhin fest?
