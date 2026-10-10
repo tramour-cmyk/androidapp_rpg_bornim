@@ -81,6 +81,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ### Tom
 
+- **6 Rückmeldung Schänke, 10.10., 12:45:** grundsätzlich okay, Stimmung und Atmosphäre deutlich besser. Regale und Holzhaufen wirken eher zweidimensional. Frage: alle Objekte wie Ausrüstung und Höhlendinge in Kotlin (`Sculpt`) bauen, Aufwand, Nutzen? Befund: `MapRoom.kt` und `MapTown.kt` zeichnen ihre Dinge flach aus Rechtecken und Flecken (kein `Sculpt`), `MapCave.kt` nutzt `Sculpt`. Vorschlag 6.14: Möbel und Kleinkram der Räume mit `Sculpt` neu, erst Musterblatt (Regal, Holzstapel, Tisch, Fass) alt gegen neu, dann der Rest, danach Laden, Ältester, Tempel gleich so; Dorf draußen (5) ebenso. Rückfrage 6i offen.
 - **Test 0.1.409, Rückmeldung 10.10., 12:42:** 1.4 passt. 3.3 passt, aber die Animation (Hocken, Dösen) wirkt sehr eckig. 4 Glühwürmchen scrollen mit dem Bild mit, das darf nicht sein; sonst passen sie. 6.7–6.13: neue Eingabe des Nutzers folgt, **vorher nichts anfangen**.
 - **10.10., 10:46–10:50:** 1.4 ja, 3.3 ja mit Testknopf (später wieder entfernen); 7.1–7.3 Stopp-Punkt; 7a: Zweig schon jetzt auf `main` zusammenführen. Umgesetzt bis 10:50: 1.4, 3.3, 6.7–6.13 (Schänke), `main` in den Zweig zusammengeführt (Doku-Konflikte, beide Seiten behalten), dann auf `main`.
 - **10.10., 10:44:** 6g Katze auf die Merkliste; 6h ja: 6.7–6.13 erst an der Schänke als Bild zeigen, dann die anderen Räume. Kennung von Tom in `AUFTEILUNG.md` eingetragen (Wunsch von Jerry). 1.4 und 3.3/3a noch ohne Antwort.
