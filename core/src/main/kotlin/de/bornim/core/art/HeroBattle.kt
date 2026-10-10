@@ -138,8 +138,20 @@ object HeroBattle {
         val hit = strikeFrame(strike)
         val n = frameCount(hero, Act.ATTACK, strike, 0)
         fun smooth(x: Double) = x.coerceIn(0.0, 1.0).let { it * it * (3 - 2 * it) }
-        return if (index <= hit) smooth((index - hit * 0.3) / (hit * 0.7)) else 1 - smooth((index - hit) / (n - 1 - hit).coerceAtLeast(1))
+        // the blow is wound up to [windUpEnd] and held there until it is known whether it hits: the step comes to rest
+        // there too, and sets off again from rest, instead of stopping dead halfway and lurching on
+        val start = hit * 0.3; val hold = windUpEnd(strike).toDouble()
+        val atHold = smooth((hold - start) / (hit - start))
+        return when {
+            index <= hold -> atHold * smooth((index - start) / (hold - start))
+            index <= hit -> atHold + (1 - atHold) * smooth((index - hold) / (hit - hold))
+            else -> 1 - smooth((index - hit) / (n - 1 - hit).coerceAtLeast(1))
+        }
     }
+
+    /** The frame a blow is wound up to and held at while it is named: a killing blow at its height, a shot just before it is let go. */
+    fun windUpEnd(strike: Strike): Int =
+        if (strike.killing) HeroFigure.killPeak(strike) else strikeFrame(strike) - (if (strike == Strike.SHOOT) 1 else 2)
 
     /**
      * Where a blow aims on a foe whose picture is [foeW] wide with its feet at ([feetX], [feetY]) and [height] tall:

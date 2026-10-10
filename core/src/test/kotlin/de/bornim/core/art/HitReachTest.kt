@@ -69,5 +69,33 @@ class HitReachTest {
         assertTrue(bad.isEmpty(), "mehr als ${HeroBattle.MOST_FRAMES} Bilder:\n" + bad.joinToString("\n"))
     }
 
+    /**
+     * The step in for a blow (19.7) runs smoothly: at rest where the wind-up is held while the blow is named, at rest at
+     * the hit, all the way in at the hit, and never more than a third of the way in one frame.
+     */
+    @Test
+    fun theStepInRunsSmoothly() {
+        val bad = mutableListOf<String>()
+        for (w in listOf("longsword", "greataxe", "mace", "dagger", "spear", "quarterstaff")) {
+            val hero = GameState.newGame("Test", Race.HUMAN, CharClass.FIGHTER).hero
+            hero.equip(Gear(9_999L, w, Rarity.COMMON, 1))
+            for (s in HeroBattle.strikes(hero) + HeroBattle.killStrikes(hero)) {
+                fun l(x: Double) = HeroBattle.lungeAt(hero, s, x)
+                val hold = HeroBattle.windUpEnd(s).toDouble(); val hit = HeroBattle.strikeFrame(s).toDouble()
+                val n = HeroBattle.frameCount(hero, HeroFigure.Act.ATTACK, s, 0)
+                for ((name, at) in listOf("Halten" to hold, "Treffer" to hit)) {
+                    val v = maxOf(kotlin.math.abs(l(at + 0.05) - l(at)), kotlin.math.abs(l(at) - l(at - 0.05))) / 0.05
+                    if (v > 0.1) bad += "$w $s: beim $name (Bild ${at.toInt()}) noch in Bewegung, ${"%.2f".format(v)} je Bild"
+                }
+                if (kotlin.math.abs(l(hit) - 1.0) > 1e-9) bad += "$w $s: beim Treffer nicht ganz vorn (${l(hit)})"
+                for (i in 0 until n - 1) {
+                    val d = kotlin.math.abs(l(i + 1.0) - l(i.toDouble()))
+                    if (d > 0.34) bad += "$w $s: Bild $i→${i + 1} Schritt ${"%.2f".format(d)}"
+                }
+            }
+        }
+        assertTrue(bad.isEmpty(), "Ausfallschritt unrund:\n" + bad.joinToString("\n"))
+    }
+
     private fun Pair<Double, Double>.fmt() = "(${first.toInt()}, ${second.toInt()})"
 }
