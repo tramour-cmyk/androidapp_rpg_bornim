@@ -119,6 +119,9 @@ fun main() {
             de.bornim.core.art.MapFigure.prepareNow(g.state.hero)
             de.bornim.core.art.MapFolk.prepareNow(de.bornim.core.art.MapFolk.garrick)
             println("map figure: ${System.currentTimeMillis() - t0} ms for 64 pictures")
+            // RAIN=1: it pours, at full strength at once
+            de.bornim.core.Weather.mode = if (System.getenv("RAIN") != null) de.bornim.core.Weather.Mode.ALWAYS else de.bornim.core.Weather.Mode.NEVER
+            g.settleWeather()
             vm.refresh()
         }
         for (near in listOf(true, false)) {

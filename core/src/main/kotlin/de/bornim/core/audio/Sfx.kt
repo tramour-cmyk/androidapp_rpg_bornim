@@ -12,7 +12,7 @@ enum class Sound {
     FIRE, MAGIC, HOLY, HEAL, BUFF, POISON, THROW, POTION,
     ENEMY_DOWN, HERO_DOWN, LEVEL_UP, LOOT, LOOT_EPIC, COINS, CHEST, DOOR, ENCOUNTER,
     ALERT, AMBUSH,
-    BIRD, CRICKET, OWL, DRIP, CRACKLE,
+    BIRD, CRICKET, OWL, DRIP, CRACKLE, THUNDER,
     SWING, SWING_HEAVY,
     HOWL_1, HOWL_2, HOWL_3,
 }
@@ -426,6 +426,18 @@ object Sfx {
         Sound.OWL -> Buf(1.4).apply {
             tone(0.0, 0.35, midi(64), midi(62), 0.3, Wave.TRIANGLE, 0.2)
             tone(0.55, 0.6, midi(64), midi(61), 0.28, Wave.TRIANGLE, 0.3)
+        }
+        // Thunder far off (10.10., 1c): no crack, only a low rumble that swells, rolls a few times and dies away.
+        Sound.THUNDER -> Buf(5.5).apply {
+            band(0.0, 5.2, 0.32, 75.0, 42.0, q = 0.7, seed = 71, swell = true)
+            val rng = Random(72)
+            var at = 0.25
+            for (k in 0 until 5) {
+                band(at, 1.4, 0.26 - k * 0.035, 130.0 - k * 12, 55.0, q = 0.9, seed = 73 + k, attack = 0.12 + k * 0.03, decay = 0.45 + k * 0.08)
+                at += 0.45 + rng.nextDouble() * 0.5
+            }
+            noise(0.0, 4.5, 0.18, 0.025, 79, swell = true)
+            reverb(0.35)
         }
         // A fire crackling: soft rushing with a few sharp pops of wood.
         Sound.CRACKLE -> Buf(1.6).apply {

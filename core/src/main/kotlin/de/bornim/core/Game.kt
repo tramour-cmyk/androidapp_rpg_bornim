@@ -93,10 +93,40 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
 
     val isNight: Boolean get() = daylight < 0.35f
-    val raining: Boolean get() = rainLeft > 0
+
+    /** Whether it rains: by chance, or as the test switch says ([Weather.mode]). */
+    val raining: Boolean get() = when (Weather.mode) {
+        Weather.Mode.ALWAYS -> true
+        Weather.Mode.NEVER -> false
+        Weather.Mode.RANDOM -> rainLeft > 0
+    }
+
+    /** How heavy the rain is now, 0 (dry) to 1: it sets in and stops over [Weather.FADE_MS]. */
+    var rainLevel = 0f
+        private set
+
+    /** When the last sheet lightning flashed (app clock in ms), or a long time ago. */
+    var flashAt = Long.MIN_VALUE / 2
+        private set
+    private var thunderAt = 0L
+
+    /** The rain at once as heavy as the weather says (previews and tests). */
+    fun settleWeather() { rainLevel = if (raining) 1f else 0f }
+
+    /** A flash of sheet lightning far off, the thunder following a few seconds later. */
+    fun flash() {
+        flashAt = now
+        thunderAt = now + Weather.THUNDER_DELAY.first + roamRandom.nextLong(Weather.THUNDER_DELAY.last - Weather.THUNDER_DELAY.first)
+    }
 
     private fun tickClock(deltaMs: Long) {
         clockMs += deltaMs
+        val target = if (raining) 1f else 0f
+        rainLevel = if (rainLevel < target) minOf(target, rainLevel + deltaMs / Weather.FADE_MS) else maxOf(target, rainLevel - deltaMs / Weather.FADE_MS)
+        if (thunderAt != 0L && now >= thunderAt) {
+            thunderAt = 0L
+            if (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN) sounds += de.bornim.core.audio.Sound.THUNDER
+        }
         while (clockMs >= 1000) {
             clockMs -= 1000
             state.minutes++
@@ -107,6 +137,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             }
             // Now and then it starts to rain for an hour or two.
             if (state.minutes % 60 == 0 && rainLeft == 0 && roamRandom.nextInt(9) == 0) rainLeft = 60 + roamRandom.nextInt(120)
+            // very rarely, in heavy rain out of doors, lightning far off
+            if (rainLevel > 0.8f && (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN) && roamRandom.nextDouble() < Weather.FLASH_CHANCE) flash()
         }
     }
 
@@ -793,8 +825,15 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         changed()
     }
 
+    /** The test switch: chance, always, never (1a). */
     fun cheatRain() {
-        rainLeft = if (rainLeft > 0) 0 else 120
+        Weather.mode = Weather.Mode.entries[(Weather.mode.ordinal + 1) % Weather.Mode.entries.size]
+        changed()
+    }
+
+    /** Test: a flash of sheet lightning now (the thunder follows). */
+    fun cheatFlash() {
+        flash()
         changed()
     }
 

@@ -60,6 +60,6 @@ class SfxPlayer(context: Context) {
 
     companion object {
         /** Bump when the sounds change so the cache is rebuilt. */
-        private const val VERSION = 2
+        private const val VERSION = 3
     }
 }

@@ -70,10 +70,20 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
                 game.cheatTime(3)
                 vm.refresh()
             }
-            PixelButton(if (game.raining) t("Regen aus", "Rain off") else t("Regen an", "Rain on"), Modifier.weight(1f), size = 13.sp) {
+            // the switch shows its setting; a tap moves it on: chance, always, never
+            val rain = when (de.bornim.core.Weather.mode) {
+                de.bornim.core.Weather.Mode.RANDOM -> t("Regen: zufällig", "Rain: chance")
+                de.bornim.core.Weather.Mode.ALWAYS -> t("Regen: immer", "Rain: always")
+                de.bornim.core.Weather.Mode.NEVER -> t("Regen: nie", "Rain: never")
+            }
+            PixelButton(rain, Modifier.weight(1f), size = 13.sp) {
                 game.cheatRain()
                 vm.refresh()
             }
+        }
+        PixelButton(t("Wetterleuchten mit Donner (draußen)", "Sheet lightning with thunder (outdoors)"), Modifier.fillMaxWidth(), size = 14.sp) {
+            game.cheatFlash()
+            vm.refresh()
         }
         PixelButton(t("Alle Vorräte auf mindestens 10", "All supplies to at least 10"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatSupplies(10)

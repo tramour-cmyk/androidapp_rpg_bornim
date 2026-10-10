@@ -718,7 +718,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         val outdoors = map.kind == MapKind.TOWN || map.kind == MapKind.FOREST
         if (outdoors) {
             drawCritters(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH)
-            drawRain(game, clock, scale)
+            drawRain(game, map, clock, camX, camY, scale)
         }
 
         // Fog of war over wild areas: black where unexplored, dimmed where not in sight.
@@ -1085,15 +1085,72 @@ private fun DrawScope.drawMapLight(
     }
 }
 
-/** Rain over the whole view. */
-private fun DrawScope.drawRain(game: Game, clock: Long, scale: Int) {
-    if (game.raining) {
-        val rain = Color(0xFFC8DCF8).copy(alpha = 0.7f)
-        for (k in 0 until 220) {
-            val x = ((hash(k, 31) % 1000) / 1000f * size.width + clock * 0.25f) % size.width
-            val y = ((hash(k, 32) % 1000) / 1000f * size.height + clock * 1.1f) % size.height
-            drawLine(rain, Offset(x, y), Offset(x - 3f * scale, y + 10f * scale), 0.9f * scale)
+/**
+ * Rain over the view (10.10., 1.2): it thickens and thins ([Game.rainLevel]), comes in gusts that
+ * also bend it in the wind, falls in three layers (far: fine, faint and slow; near: few, long and
+ * fast), each drop its own length and brightness; the light goes grey under it, drops splash on
+ * the ground and ring the water. Now and then, far off, sheet lightning ([Game.flashAt]).
+ */
+private fun DrawScope.drawRain(game: Game, map: de.bornim.core.MapDef, clock: Long, camX: Int, camY: Int, scale: Int) {
+    val level = game.rainLevel
+    val T = WorldArt.T
+    if (level > 0.01f) {
+        // gusts: the rain comes heavier and slants more, then eases
+        val gust = 0.5f + 0.5f * kotlin.math.sin(clock / 6100f) * kotlin.math.sin(clock / 2300f + 1.3f)
+        val k = level * (0.7f + 0.3f * gust)
+        val slant = 0.16f + 0.16f * gust
+        // a grey veil: the colours drain under the rain
+        drawRect(Color(0xFF3A4450).copy(alpha = 0.22f * level))
+        val w = size.width; val h = size.height
+        // the layers: count, length, speed (px per ms at scale 1), thickness, brightness
+        data class Layer(val n: Int, val len: Float, val speed: Float, val thick: Float, val alpha: Float, val seed: Int)
+        val layers = listOf(
+            Layer(150, 5f, 0.30f, 0.5f, 0.16f, 41),
+            Layer(70, 9f, 0.48f, 0.7f, 0.26f, 42),
+            Layer(16, 15f, 0.75f, 1.0f, 0.36f, 43),
+        )
+        for (l in layers) {
+            val n = (l.n * k).toInt()
+            for (d in 0 until n) {
+                val hv = hash(d, l.seed)
+                val sp = l.speed * scale * (0.8f + (hv % 400) / 1000f)
+                val len = l.len * scale * (0.6f + (hash(d, l.seed + 7) % 800) / 1000f)
+                val period = (h + len) / sp
+                val t = ((clock + hash(d, l.seed + 3) % 5000) % period.toLong()) / period
+                val y = t * (h + len) - len
+                val x0 = (hash(d, l.seed + 5) % 10000) / 10000f * (w + h * slant)
+                val x = ((x0 - y * slant) % (w + 40f) + w + 40f) % (w + 40f) - 20f
+                val a = l.alpha * (0.6f + (hash(d, l.seed + 9) % 400) / 1000f)
+                drawLine(Color(0xFFB8C4D0).copy(alpha = a), Offset(x, y), Offset(x - len * slant, y + len), l.thick * scale)
+            }
         }
+        // splashes on the ground, rings on the water: each lives a moment at its own spot
+        val viewTx = camX / T; val viewTy = camY / T
+        val tw = (w / scale / T).toInt() + 2; val th = (h / scale / T).toInt() + 2
+        for (d in 0 until (60 * k).toInt()) {
+            val life = 380L + hash(d, 50) % 300
+            val cycle = (clock + hash(d, 51) % 997) / life
+            val ph = ((clock + hash(d, 51) % 997) % life) / life.toFloat()
+            val wx = (viewTx + Math.floorMod(hash(d, cycle.toInt(), 52), tw)) * T + Math.floorMod(hash(cycle.toInt(), d, 53), T)
+            val wy = (viewTy + Math.floorMod(hash(cycle.toInt(), d, 54), th)) * T + Math.floorMod(hash(d, cycle.toInt(), 55), T)
+            val tile = map.tile(wx / T, wy / T)
+            val o = Offset(((wx - camX) * scale).toFloat(), ((wy - camY) * scale).toFloat())
+            if (tile == de.bornim.core.Tile.WATER) {
+                val r = (1.5f + ph * 5f) * scale
+                drawOval(Color(0xFFC8D8E8).copy(alpha = (1 - ph) * 0.45f), Offset(o.x - r, o.y - r * 0.45f), androidx.compose.ui.geometry.Size(r * 2, r * 0.9f), style = androidx.compose.ui.graphics.drawscope.Stroke(0.6f * scale))
+            } else if (tile.walkable && ph < 0.45f) {
+                // a drop striking the ground: a tiny flat spray that spreads and is gone
+                val q = ph / 0.45f; val r = (0.7f + q * 1.8f) * scale
+                drawOval(Color(0xFFC8D4E0).copy(alpha = (1 - q) * 0.32f), Offset(o.x - r, o.y - r * 0.35f), androidx.compose.ui.geometry.Size(r * 2, r * 0.7f), style = androidx.compose.ui.graphics.drawscope.Stroke(0.5f * scale))
+            }
+        }
+    }
+    // sheet lightning far off: the sky lights up twice in quick succession, then fades
+    val since = clock - game.flashAt
+    if (since in 0..1200) {
+        fun pulse(at: Long, len: Long) = if (since in at until at + len) kotlin.math.sin((since - at) / len.toFloat() * Math.PI.toFloat()) else 0f
+        val f = maxOf(pulse(0, 110), 0.75f * pulse(170, 140), 0.35f * pulse(420, 700))
+        drawRect(Color(0xFFDDE6F4).copy(alpha = 0.33f * f))
     }
 }
 
