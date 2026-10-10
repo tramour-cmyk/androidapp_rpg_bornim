@@ -4,6 +4,27 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.430 – 10.10.2026, 15:28
+
+Zweig von Jerry (Themen 9 und 12), getestet in 0.1.425:
+
+**Monster auf der Karte (9)**
+- Wolf, Goblin und Goblin-Späher laufen als ihre Kampfmodelle über die Karte, im gleichen Maßstab und Blickwinkel wie der Held, und drehen sich fließend in 16 Richtungen. Der Wolf setzt die vier Pfoten nacheinander, der Goblin geht geduckt in weichen Schritten.
+- Goblins auf der Karte haben eine dunklere, erdigere Haut und einen dunklen Umriss und tragen die Waffe gesenkt am Bein, damit sie sich vom Gras abheben.
+- Im Stehen sind die Monster nie starr: Ein Wolf atmet, sieht sich um, schnüffelt am Boden, wittert oder fletscht die Zähne; ein Goblin verlagert das Gewicht, späht, duckt sich oder hebt die Waffe. Jedes Tier im eigenen Takt, jede Haltung mit Zwischenbildern hinein und heraus.
+- Rudel: Jungwölfe, Späher und Grimmzahns Leibwache gehen auf eigenem Weg zu ihrem Platz hinter dem Anführer, im eigenen Tempo, weich auslaufend, und schauen, wohin sie gehen. Dreht der Anführer, kommen sie im Bogen hinterher.
+- Grimmzahn und seine Leibwache als Kampfmodelle; kommt der Held nahe, drehen sie sich zu ihm, und Grimmzahn fletscht die Zähne.
+
+**Testreiter**
+- „Monster beachten mich nicht“: Monster laufen und stehen wie sonst, greifen aber nicht an.
+- „Wolfsrudel und Goblin mit Späher herholen“: setzt beide 3 bis 5 Schritte vom Helden ab.
+- „Sichtlinie aus (alles sichtbar)“: kein Nebel, keine Sichtlinie; erkundet wird trotzdem wie sonst.
+
+**Werkzeuge (nur Entwicklung)**
+- Sprungtest (12): Kerntest `JumpTest` findet Sprünge in Bewegungen und Übergängen, Bild für Bild, ohne Bild in Sekunden; für die Monster auf der Karte 0 Sprünge.
+- Vorschau: `MAPFOE=scene|dirs|walk|yaws|idle|ease|others|cave|wood`, Film `FOEFILM=1` (mit `FOEIDLE=1` im Stehen).
+
+
 Zweig `tom-sculpt-raeume` (Tom), noch nicht auf `main`:
 
 - **Garrick am Feuer bewegt sich weich (3a):** Er lässt sich über knapp eine Sekunde auf die Fersen nieder und steht ebenso wieder auf, lehnt sich zum Schüren vor und zurück, der Stock fährt gleichmäßig durch die Glut. Beim Einnicken sinkt der Kopf langsam; schreckt er hoch, sinkt er langsam wieder. Vor dem Aufstehen wird er erst wach.
