@@ -50,6 +50,8 @@ Wunsch des Nutzers (09.10.): Wer auf der Karte steht, lebt. Jede Figur, auch der
 - **Kampfabläufe selbst durchspielen**, eigenverantwortlich und genau, bei jedem neuen Monster und jeder Änderung an Kampf oder Bewegung: Passt die Haltung zu jeder Meldung (Angriff, Treffer, Verfehlen, Abwehr, Konter, Zauber, Wurf, Sturz)? Wird keine Bewegung unterbrochen, doppelt gespielt oder fällt zu früh in die Ruhe zurück? Bleiben gehaltene Haltungen (Ausholen, Abwehr, Zauber sammeln) stehen, bis die nächste Meldung sie auflöst?
   - Nicht nur die Logik lesen, sondern durch die echte Oberfläche filmen und die Bildfolge ansehen: Vorschau `FILM=klasse:gegner FILMTAPS=SFASSS` (S Szene/Weiter, F Kampf, A Angriff, D Abwehr) legt in Echtzeit alle 80 ms ein Bild ab. Mehrere Klassen und Waffen, mit und ohne Abwehr.
 
+- **Sprungtest (Thema 12, 10.10.):** Jede Bewegung und jeder Übergang (Stehen, Atmen, Gehen, Drehen, Haltungen hinein und heraus, Gehen ↔ Stehen, Rudel folgt) wird Bild für Bild auf Sprünge geprüft: `JumpTest` in `core` (`./gradlew -p core test --tests '*JumpTest*'`), ohne Bild, in Sekunden. Ziel 0 Meldungen, wie bei den Kollisionen. Neue Bewegungen kommen dort als Prüffall hinzu.
+
 ## Klang
 
 - **Weg von quietschenden Chiptune- und Nintendo-Tönen, hin zu glaubwürdigen Geräuschen**: Stahl, Holz, Leder, Schritte, Feuer, Stimmen von Tieren.

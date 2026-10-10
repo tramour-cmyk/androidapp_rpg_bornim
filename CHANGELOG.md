@@ -4,6 +4,13 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig `tom-sculpt-raeume` (Tom), noch nicht auf `main`:
+
+- **Garrick am Feuer bewegt sich weich (3a):** Er lässt sich über knapp eine Sekunde auf die Fersen nieder und steht ebenso wieder auf, lehnt sich zum Schüren vor und zurück, der Stock fährt gleichmäßig durch die Glut. Beim Einnicken sinkt der Kopf langsam; schreckt er hoch, sinkt er langsam wieder. Vor dem Aufstehen wird er erst wach.
+- **Blätter im Wald gehören zur Welt (4):** Die treibenden Blätter hingen am Bildschirm und wanderten mit, in der Dämmerung sahen sie aus wie Glühwürmchen. Jetzt bleiben sie an ihrem Ort, in trockenen, mit dem Licht dunkleren Farben.
+- **Kartenzoom in vier Stufen (6.15):** Der Knopf im Testreiter schaltet durch 5,6, 6,75, 8,4 und 10,5 Kacheln Bildschirmbreite.
+- **Räume (6.14, Schalter „Dorf und Räume“):** Regal, Brennholz, Tisch und Fass mit `Sculpt` gebaut, räumlich, mit Gebrauchsspuren, je drei Varianten.
+
 ## v0.1.409 – 10.10.2026, 10:52
 
 Zweig `karte-neuer-stil` auf `main`, mit der Testumgebung von Account B:
