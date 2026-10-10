@@ -22,7 +22,8 @@ object WorldArt {
     const val T = 32
 
     /** A drawable at map pixel position ([x], [y]) = top-left, ordered by [sortY]; [density] art pixels per map pixel (2 for the finer new pictures). */
-    class Obj(val img: PixelImage, val x: Int, val y: Int, val sortY: Int, val density: Int = 1)
+    /** [low]: never tall enough to hide a figure behind it (furniture of the rooms seen diagonally, 13). */
+    class Obj(val img: PixelImage, val x: Int, val y: Int, val sortY: Int, val density: Int = 1, val low: Boolean = false)
 
     private val cache = HashMap<String, PixelImage>()
     private fun cached(key: String, w: Int = T, h: Int = T, block: Pen.() -> Unit) = cache.getOrPut(key) { draw(w, h, block = block) }
@@ -825,7 +826,7 @@ object WorldArt {
     /** All static objects of a map for the current game state, in no particular order. */
     fun objects(map: MapDef, state: GameState, frame: Int): List<Obj> {
         val opened = map.chests.filter { it.id in state.openedChests }.joinToString(",") { it.id }
-        val key = "${map.id}/$opened/${state.has(Story.GATE_OPEN)}/${state.has(Story.BARRIER_OPEN)}/$frame/${state.has(Story.CHAPTER1_DONE)}/${MapGround.townDraft}"
+        val key = "${map.id}/$opened/${state.has(Story.GATE_OPEN)}/${state.has(Story.BARRIER_OPEN)}/$frame/${state.has(Story.CHAPTER1_DONE)}/${MapGround.townDraft}/${MapFigure.viewYaw != 0.0}"
         return objCache.getOrPut(key) { buildObjects(map, state, frame) }
     }
 
@@ -843,6 +844,8 @@ object WorldArt {
                 cave -> MapCave.objects(map, tx, ty, frame, open, state.has(Story.GATE_OPEN))
                 // the village in the new style (draft): houses and things, else the trees of the woods
                 map.kind == MapKind.TOWN -> MapTown.objects(map, tx, ty) ?: MapFlora.objects(map, tx, ty, frame, open)
+                // seen diagonally (13), the rooms' walls and furniture stand upright, turned with the room
+                map.kind == MapKind.INTERIOR && MapFigure.viewYaw != 0.0 -> MapRoomIso.objects(map, tx, ty, frame) ?: MapRoom.objects(map, tx, ty, frame)
                 map.kind == MapKind.INTERIOR -> MapRoom.objects(map, tx, ty, frame)
                 else -> MapFlora.objects(map, tx, ty, frame, open)
             }

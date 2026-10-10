@@ -95,6 +95,7 @@ fun main() {
     if (System.getenv("HOEHLEDINGE") != null) { renderCaveThings(); System.exit(0) }
     if (System.getenv("RAUMDINGE") != null) { renderRoomThings(); System.exit(0) }
     if (System.getenv("ISODRAFT") != null) { renderIsoDraft(); System.exit(0) }
+    if (System.getenv("ISODINGE") != null) { renderIsoThings(); System.exit(0) }
     if (System.getenv("SQUATBLEND") != null) { renderSquatBlend(); System.exit(0) }
     if (System.getenv("ALTRAUM") != null) de.bornim.core.art.MapRoom.sculpted = false
     if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }
@@ -159,6 +160,7 @@ fun main() {
             shot("zoom_${z}_2_wald_nacht") { place(it, "forest", 9, 10, 23 * 60) }
             shot("zoom_${z}_3_dorf") { place(it, "village", 11, 7, 12 * 60) }
             shot("zoom_${z}_4_gasthaus") { place(it, "inn", 5, 6, 12 * 60) }
+            shot("zoom_${z}_4b_gasthaus_abend") { place(it, "inn", 5, 3, 21 * 60, Facing.DOWN) }
             shot("zoom_${z}_5_hoehle") { place(it, "cave", 10, 5, 12 * 60) }
             if (near) {
                 shot("zoom_${z}_6_weiher") { place(it, "forest", 7, 15, 12 * 60) }

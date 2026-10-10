@@ -699,7 +699,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             val w = o.img.width / o.density; val h = o.img.height / o.density
             if (diag) {
                 // seen diagonally, anything taller than a knee can stand in front of the hero
-                if (h < 24) return false
+                if (h < 24 || o.low) return false
                 // seen diagonally: in front of the hero (further down the diagonal) and over it on the screen
                 val k = MapSight.K
                 val fx = o.x + w / 2f; val fy = (o.y + h).toFloat()

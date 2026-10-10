@@ -264,3 +264,31 @@ private fun save(p: PixelImage, f: File) {
     for (y in 0 until p.height) for (x in 0 until p.width) img.setRGB(x, y, p[x, y])
     ImageIO.write(img, "png", f)
 }
+
+/** Every look of the room's things seen diagonally (13, step 2), three per row, on a patch of boards (ISODINGE=1). */
+fun renderIsoThings() {
+    val dir = File("build/screens/iso").apply { mkdirs() }
+    val rows = de.bornim.core.art.MapRoomIso.sheet()
+    val cw = 150; val ch = 190
+    val img = PixelImage(cw * 3, ch * rows.size)
+    for (y in 0 until img.height) for (x in 0 until img.width) img.set(x, y, argb(0x2A2018))
+    for ((r, row) in rows.withIndex()) for ((k, p) in row.second.withIndex()) {
+        val ox = k * cw + (cw - p.width) / 2; val oy = r * ch + ch - 18 - p.height
+        // the tile's diamond on the floor under it
+        for (y in 0 until 46) for (x in 0 until 90) {
+            val a = (x + 0.5 - 45) / 45.0; val b = (y + 0.5 - 45) / 22.5
+            val i = (a + b) / 2; val j = (b - a) / 2
+            if (i in -1.0..0.0 && j in -1.0..0.0) img.set(ox + p.width / 2 - 45 + x, oy + p.height - 45 + y, if ((x + y) % 7 == 0) argb(0x3A2C20) else argb(0x4A3826))
+        }
+        for (y in 0 until p.height) for (x in 0 until p.width) {
+            val c = p[x, y]; val a = c ushr 24
+            if (a == 0) continue
+            img.set(ox + x, oy + y, if (a == 255) c else mix(img[ox + x, oy + y], c or (0xFF shl 24), a / 255.0))
+        }
+    }
+    // twice the size, each art pixel a block, to look at closely
+    val big = PixelImage(img.width * 2, img.height * 2)
+    for (y in 0 until big.height) for (x in 0 until big.width) big.set(x, y, img[x / 2, y / 2])
+    save(big, File(dir, "iso_dinge.png"))
+    println("wrote iso things")
+}
