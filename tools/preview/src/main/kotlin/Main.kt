@@ -104,6 +104,7 @@ fun main() {
     if (System.getenv("SQUATDRAFT") != null) { renderSquatDraft(); System.exit(0) }
     System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
     System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
+    if (System.getenv("FOEFILM") != null) { foeFilm(); System.exit(0) }
     if (System.getenv("WARDFILM") != null) { wardFilm(); System.exit(0) }
     if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true
     if (System.getenv("FIREFLIES") != null) {

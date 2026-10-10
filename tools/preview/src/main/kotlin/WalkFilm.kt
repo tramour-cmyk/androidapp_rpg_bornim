@@ -172,3 +172,45 @@ fun wardFilm() {
     scene.close()
     println("wrote ward film ($n pictures), ward at ${g.lastWardOff?.atMs}")
 }
+
+/**
+ * FOEFILM=1: by day a wolf and a goblin (9) come at the hero, who stands still on the path south of Garrick's camp.
+ * A picture every STEPMS (120 ms) under build/screens/films/foe/, cut to CROP. NOPREP: drawn in the background as on the phone.
+ */
+@OptIn(ExperimentalComposeUiApi::class)
+fun foeFilm() {
+    val vm = GameViewModel(Application())
+    vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
+    val g = vm.game!!
+    var guard = 0
+    while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
+    g.state.flags += de.bornim.core.Story.QUEST_STARTED
+    g.state.place = Place("forest", 10, 18, Facing.DOWN)
+    g.state.minutes = (System.getenv("MINUTES") ?: "${12 * 60}").toInt()
+    val m = de.bornim.core.World["forest"]
+    g.state.explored["forest"] = "f".repeat((m.width * m.height + 3) / 4)
+    de.bornim.core.art.MapGround.prepareNow(m)
+    de.bornim.core.art.MapFigure.prepareNow(g.state.hero)
+    de.bornim.core.art.MapFolk.prepareNow(de.bornim.core.art.MapFolk.garrick)
+    val herd = g.roamers as MutableList<de.bornim.core.Roamer>
+    herd.clear()
+    val wolf = de.bornim.core.Roamer(98, "wolf", 12, 22, 12, 22, null, false, de.bornim.core.MonsterLook(1))
+    val gob = de.bornim.core.Roamer(99, "goblin", 7, 22, 7, 22, null, false, de.bornim.core.MonsterLook(0))
+    for (r in listOf(wolf, gob)) { r.hunting = true; herd += r
+        if (System.getenv("NOPREP") == null) de.bornim.core.art.MapFoe.prepareNow(r.monster, r.look) }
+    vm.refresh()
+    val scene = ImageComposeScene(1080, 2340, Density(2.75f)) { BornimApp(vm) }
+    val dir = File("build/screens/films/foe"); dir.deleteRecursively(); dir.mkdirs()
+    val stepMs = System.getenv("STEPMS")?.toInt() ?: 120
+    val total = (System.getenv("FOEMS") ?: "4000").toInt()
+    var time = 0L; var n = 0; var t = 0
+    while (t < total) {
+        val img = scene.render(time)
+        saveFilmPicture(img, File(dir, "f%03d.png".format(n++)))
+        img.close()
+        time += stepMs * 1_000_000L; t += stepMs
+        Thread.sleep(2)
+    }
+    scene.close()
+    println("wrote foe film ($n pictures)")
+}

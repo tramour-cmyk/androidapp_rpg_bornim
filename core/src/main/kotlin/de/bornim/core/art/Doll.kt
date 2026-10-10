@@ -24,7 +24,9 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     /** A full beard on a man of any people (folk about the map); dwarves always have one. */
     val beard: Boolean = false,
     /** Hair of this colour rather than one of the people's tones, e.g. grey with age (folk about the map). */
-    val hairOverride: Int? = null) {
+    val hairOverride: Int? = null,
+    /** Skin of this colour rather than one of the kind's tones, e.g. a goblin darker on the map (10.10., 9b). */
+    val skinOverride: Int? = null) {
 
     /** Foes built on the same doll: their own measures, head and skin, or a body of bare bones. */
     enum class Creature { GOBLIN, SKELETON, KOBOLD, ZOMBIE, BUGBEAR, HOBGOBLIN, GHOUL }
@@ -95,7 +97,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     /** Depth of the chest from the spine to the front, for clothes laid over it. */
     val chestDepth = 0.066 * height * girth
 
-    val skinRgb = when (kind) {
+    val skinRgb = skinOverride ?: when (kind) {
         // goblins: olive, mossy, sallow and dark green hides
         Creature.GOBLIN -> intArrayOf(0x5E6838, 0x4E5C32, 0x6C683C, 0x445030)[skin.mod(4)]
         // old bone, yellowed and stained

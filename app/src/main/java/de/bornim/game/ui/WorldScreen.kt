@@ -58,6 +58,7 @@ import de.bornim.core.Move
 import de.bornim.core.Story
 import de.bornim.core.Tile
 import de.bornim.core.art.MapFigure
+import de.bornim.core.art.MapFoe
 import de.bornim.core.art.MapFolk
 import de.bornim.core.art.MapRest
 import de.bornim.core.art.MapGlow
@@ -630,26 +631,56 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         for (r in game.roamers) {
             val t = ((clock - r.movedAt).toFloat() / r.moveMs).coerceIn(0f, 1f)
             if (clock < r.alertUntil) alerts += ((r.fromX + (r.x - r.fromX) * t) * T + T / 2f) to ((r.fromY + (r.y - r.fromY) * t) * T)
+            // drawn ahead, before it comes into sight, so the former sprite hardly ever shows
+            if (r.monster in MapFoe.ON) {
+                val s0 = MapFigure.slot(MapFigure.yawOf(r.facing))
+                MapFoe.picture(r.monster, r.look, s0, 0)
+                de.bornim.core.Packs[r.monster]?.let { pk -> if (pk.mate in MapFoe.ON) for (i in 0 until de.bornim.core.Packs.size(r.monster, r.look))
+                    MapFoe.picture(pk.mate, de.bornim.core.MonsterLook(r.look.seed + 101 * (i + 1)), s0, 0,
+                        if (pk.mate in de.bornim.core.art.BeastArt.KINDS) mapMateScale(pk).toDouble() else 1.0) }
+            }
             if (game.fog(r.x, r.y) != de.bornim.core.Fog.VISIBLE) continue
             val rx = ((r.fromX + (r.x - r.fromX) * t) * T).roundToInt()
             val ry = ((r.fromY + (r.y - r.fromY) * t) * T).roundToInt()
             val img = MonsterArt.mapSprite(r.monster, r.look, ((clock / 240) % 4).toInt(), mirrored = r.facing == Facing.RIGHT)
             val foot = ry + T - 1
+            // 9: wolves and goblins as their battle models, turning smoothly, walking with every leg; the former sprite until drawn
+            val turn = FolkTurn.of("roamer:${r.uid}", MapFigure.yawOf(r.facing)).also { it.update(MapFigure.yawOf(r.facing), clock) }
+            val slot = MapFigure.slot(turn.yaw)
+            val step = if (t < 1f) (t * MapFoe.STEPS).toInt().coerceAtMost(MapFoe.STEPS - 1) else 0
+            val pic = if (r.monster in MapFoe.ON) MapFoe.pictureNow(r.monster, r.look, slot, step) else null
             // A pack walks together: its mates trail just behind the leader.
             val pack = de.bornim.core.Packs[r.monster]
             val mates = de.bornim.core.Packs.size(r.monster, r.look)
             if (pack != null) for (i in 0 until mates) {
-                val mate = MonsterArt.mapSprite(
-                    pack.mate, de.bornim.core.MonsterLook(r.look.seed + 101 * (i + 1)), ((clock / 240 + i + 1) % 4).toInt(),
-                    mirrored = r.facing == Facing.RIGHT, scale = mapMateScale(pack),
-                )
+                val mateLook = de.bornim.core.MonsterLook(r.look.seed + 101 * (i + 1))
                 val ox = if (i == 0) -11 else 11
                 val oy = if (i == 0) -7 else -9
+                val matePic = if (pack.mate in MapFoe.ON) MapFoe.pictureNow(pack.mate, mateLook, slot, step + 3 * (i + 1),
+                    if (pack.mate in de.bornim.core.art.BeastArt.KINDS) mapMateScale(pack).toDouble() else 1.0) else null
+                if (matePic != null) {
+                    // the mates follow behind the leader, one to each side, whichever way it goes
+                    val yr = Math.toRadians(turn.yaw)
+                    val fx = kotlin.math.sin(yr); val fy = kotlin.math.cos(yr)
+                    val side = if (i == 0) -1 else 1
+                    // an animal is long: its mates keep a body's length behind
+                    val back = if (pack.mate in de.bornim.core.art.BeastArt.KINDS) 24 else 13
+                    val mx = (-fx * back + fy * 10 * side).roundToInt()
+                    val my = ((-fy * back - fx * 10 * side) * 0.75).roundToInt()
+                    val lit = warmEdge(matePic.img, rx + mx, ry + my)
+                    sprites += Sprite((foot + my).toFloat()) { put(lit, rx + mx + T / 2 - matePic.ax / MapFigure.DENSITY, ry + my + T - 3 - matePic.ay / MapFigure.DENSITY, MapFigure.DENSITY) }
+                    continue
+                }
+                val mate = MonsterArt.mapSprite(
+                    pack.mate, mateLook, ((clock / 240 + i + 1) % 4).toInt(),
+                    mirrored = r.facing == Facing.RIGHT, scale = mapMateScale(pack),
+                )
                 sprites += Sprite((foot + oy).toFloat()) { put(mate, rx + T / 2 - mate.width / 2 + ox, foot + 1 + oy - mate.height) }
             }
+            val picLit = pic?.let { warmEdge(it.img, rx, ry) }
             sprites += Sprite(foot.toFloat()) {
-                val sx = rx + T / 2 - img.width / 2
-                val sy = foot + 1 - img.height
+                val sx = if (pic != null) rx + T / 2 - pic.ax / MapFigure.DENSITY else rx + T / 2 - img.width / 2
+                val sy = if (pic != null) ry + T - 3 - pic.ay / MapFigure.DENSITY else foot + 1 - img.height
                 put(WorldArt.shadow(), rx + 4, ry + 26)
                 r.trait?.let { tr ->
                     // Elites glow in the color of their trait.
@@ -664,7 +695,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                         center = Offset((rx + T / 2f - camX) * scale, (ry + T / 2f - camY) * scale),
                     )
                 }
-                put(img, sx, sy)
+                if (pic != null && picLit != null) put(picLit, sx, sy, MapFigure.DENSITY) else put(img, sx, sy)
                 if (r.shiny) {
                     // a few twinkling pixels
                     for (k in 0 until 3) {
