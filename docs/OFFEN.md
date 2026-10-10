@@ -10,7 +10,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
-| 1–4, 6 | Regen, Waffe verstaut, Garrick hockt, Glühwürmchen, Innenräume | Tom | `main` (v0.1.409) | getestet 12:42: 1.4 passt; 3.3 eckig; 4 scrollt mit; 6 Eingabe folgt |
+| 1–4, 6 | Regen, Waffe verstaut, Garrick hockt, Glühwürmchen, Innenräume | Tom | `main` (v0.1.409) | in Arbeit seit 12:58 (Zweig `tom-sculpt-raeume`): 6.14 Räume mit `Sculpt`, 3.3 weicher, 4 Glühwürmchen fest |
 | 5 | Dorf draußen, 12 Dorfbewohner als Puppen, danach Laden, Haus des Ältesten, Tempel | Tom | neu von `main` | nach Freigabe der Schänke |
 | 8 | Zusammenarbeit Tom und Jerry, Notizen nur auf `main` | Jerry | `main` | umgesetzt 10.10. |
 | 9 | Monster auf der Karte (aus den Kampfmodellen, Vierbeiner mit Laufbewegung) | Jerry | neu von `main` | Wolf und Goblin eingebaut, Zweig-Build 0.1.411 zu testen (Zweig `claude/session-start-bkldp8`) |
@@ -81,7 +81,7 @@ Stand der Übergabe: 09.10.2026, 11:30 (Berliner Zeit). Die Datei `CLAUDE.md` im
 
 ### Tom
 
-- **6 Rückmeldung Schänke, 10.10., 12:45:** grundsätzlich okay, Stimmung und Atmosphäre deutlich besser. Regale und Holzhaufen wirken eher zweidimensional. Frage: alle Objekte wie Ausrüstung und Höhlendinge in Kotlin (`Sculpt`) bauen, Aufwand, Nutzen? Befund: `MapRoom.kt` und `MapTown.kt` zeichnen ihre Dinge flach aus Rechtecken und Flecken (kein `Sculpt`), `MapCave.kt` nutzt `Sculpt`. Vorschlag 6.14: Möbel und Kleinkram der Räume mit `Sculpt` neu, erst Musterblatt (Regal, Holzstapel, Tisch, Fass) alt gegen neu, dann der Rest, danach Laden, Ältester, Tempel gleich so; Dorf draußen (5) ebenso. Rückfrage 6i offen.
+- **6 Rückmeldung Schänke, 10.10., 12:45:** grundsätzlich okay, Stimmung und Atmosphäre deutlich besser. Regale und Holzhaufen wirken eher zweidimensional. Frage: alle Objekte wie Ausrüstung und Höhlendinge in Kotlin (`Sculpt`) bauen, Aufwand, Nutzen? Befund: `MapRoom.kt` und `MapTown.kt` zeichnen ihre Dinge flach aus Rechtecken und Flecken (kein `Sculpt`), `MapCave.kt` nutzt `Sculpt`. Vorschlag 6.14: Möbel und Kleinkram der Räume mit `Sculpt` neu, erst Musterblatt (Regal, Holzstapel, Tisch, Fass) alt gegen neu, dann der Rest, danach Laden, Ältester, Tempel gleich so; Dorf draußen (5) ebenso. Rückfrage 6i offen. **Entschieden 12:57:** 6i ja (Stil-Leitlinien beachten), 3a ja (Hocken/Dösen weicher, Glühwürmchen-Fehler beheben), alles in einem Zweig-Build. Start 12:58, Zweig `tom-sculpt-raeume` von `main`; zuerst Musterblatt Regal, Holzstapel, Tisch, Fass.
 - **Test 0.1.409, Rückmeldung 10.10., 12:42:** 1.4 passt. 3.3 passt, aber die Animation (Hocken, Dösen) wirkt sehr eckig. 4 Glühwürmchen scrollen mit dem Bild mit, das darf nicht sein; sonst passen sie. 6.7–6.13: neue Eingabe des Nutzers folgt, **vorher nichts anfangen**.
 - **10.10., 10:46–10:50:** 1.4 ja, 3.3 ja mit Testknopf (später wieder entfernen); 7.1–7.3 Stopp-Punkt; 7a: Zweig schon jetzt auf `main` zusammenführen. Umgesetzt bis 10:50: 1.4, 3.3, 6.7–6.13 (Schänke), `main` in den Zweig zusammengeführt (Doku-Konflikte, beide Seiten behalten), dann auf `main`.
 - **10.10., 10:44:** 6g Katze auf die Merkliste; 6h ja: 6.7–6.13 erst an der Schänke als Bild zeigen, dann die anderen Räume. Kennung von Tom in `AUFTEILUNG.md` eingetragen (Wunsch von Jerry). 1.4 und 3.3/3a noch ohne Antwort.
