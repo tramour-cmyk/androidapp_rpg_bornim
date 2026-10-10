@@ -1184,7 +1184,7 @@ object MapRoomIso {
     /** A picture whose front corner (middle of its bottom edge) stands at map pixel ([wx], [wy]), drawn in order of [depth]. */
     private fun obj(img: PixelImage, wx: Int, wy: Int, depth: Int, low: Boolean = false): WorldArt.Obj {
         val w = img.width / D; val h = img.height / D
-        return WorldArt.Obj(img, wx - w / 2, wy - h, depth - wx, D, low)
+        return WorldArt.Obj(img, wx - w / 2, wy - h, depth - wx, D, low, corner = true)
     }
 
     /** Sorted along the diagonal like a figure standing on the tile (hero: x + y + 1.5 tiles − ½ pixel). */

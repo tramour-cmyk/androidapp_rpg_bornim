@@ -97,4 +97,21 @@ class InnCornerTest {
         s.place = Place("inn", 1, 4, Facing.UP)
         assertEquals(ActionKind.TALK, g.actionAhead())
     }
+
+    @Test
+    fun theHeroComesUpToTheShelfAgainstTheWall() {
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        val g = Game(s, Lang.DE, Dice(kotlin.random.Random(1)))
+        var guard = 0
+        while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
+        // behind the counter, below the shelf at (2,1): the hero's middle comes up to the shelf's tile, never into it
+        s.place = Place("inn", 2, 2, Facing.UP)
+        (g.roamers as? MutableList<Roamer>)?.clear()
+        g.freeWalk.sync()
+        var t = 1_000L
+        repeat(80) { g.freeWalk.walk(0.0, -1.0, 16, FreeWalk.WALK, t); t += 16 }
+        assertEquals(2 to 2, g.state.place.x to g.state.place.y)
+        assertTrue(g.freeWalk.y < 2.05, "stops at ${g.freeWalk.y}")
+        assertEquals(ActionKind.LOOK, g.actionAhead())
+    }
 }

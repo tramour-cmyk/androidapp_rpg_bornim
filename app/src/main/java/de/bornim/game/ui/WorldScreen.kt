@@ -467,7 +467,7 @@ private fun camera(game: Game, w: Float, h: Float, progress: Float, fromX: Int, 
         // the hero's feet in the middle of the screen, a little below the centre; the part of the map
         // under the screen's corners decides what is drawn (a turned rectangle, so somewhat more)
         val k = MapSight.K
-        val hx = heroX + T / 2f; val hy = heroY + T * 0.8f
+        val hx = heroX + T / 2f; val hy = heroY + T * 0.3f
         val camPX = k * (hx - hy) - viewW / 2; val camPY = k / 2 * (hx + hy) - viewH * 0.55f
         fun wx(u: Float, v: Float) = (u / k + 2 * v / k) / 2
         fun wy(u: Float, v: Float) = (2 * v / k - u / k) / 2
@@ -634,12 +634,16 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
          * Draws [img] at map pixel ([x], [y]); [density] art pixels per map pixel (2 for the new, finer pictures).
          * Seen diagonally, a picture drawn outside [ground] stands upright on the mapped point of its lower middle.
          */
-        fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f) {
+        fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f, corner: Boolean = false) {
             val dw = img.width * scale / density; val dh = img.height * scale / density
             var sx = (x - camX) * scale
             var sy = (y - camY) * scale
             if (diag && !flat) {
-                val fx = sx + dw / 2f; val fy = (sy + dh).toFloat()
+                // pictures made for the straight view stand on the lower edge of their tile: seen diagonally their feet
+                // go to the tile's middle, half a tile up (13p, 6: the hero stood in the tile's front left corner);
+                // the rooms' pictures seen diagonally ([corner]) are made with the tile's front corner at their foot
+                val lift = if (corner) 0 else T / 2 * scale
+                val fx = sx + dw / 2f; val fy = (sy + dh - lift).toFloat()
                 sx = (cam.toScreenX(fx, fy) - dw / 2f).roundToInt(); sy = (cam.toScreenY(fx, fy) - dh).roundToInt()
             }
             if (!flat && (sx > size.width || sy > size.height || sx + dw < 0 || sy + dh < 0)) return
@@ -737,8 +741,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 if (h < 24 || o.low) return false
                 // seen diagonally: in front of the hero (further down the diagonal) and over it on the screen
                 val k = MapSight.K
-                val fx = o.x + w / 2f; val fy = (o.y + h).toFloat()
-                val hx = heroX + T / 2f; val hy = heroY + T.toFloat()
+                val fx = o.x + w / 2f; val fy = (o.y + h).toFloat() - (if (o.corner) 0f else T / 2f)
+                val hx = heroX + T / 2f; val hy = heroY + T / 2f
                 if (o.sortY + o.x + w / 2f <= hx + hy) return false
                 val ox = k * (fx - fy); val oy = k / 2 * (fx + fy)
                 val px = k * (hx - hy); val py = k / 2 * (hx + hy)
@@ -752,7 +756,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         val flicker = if (diag && map.kind == MapKind.INTERIOR) de.bornim.core.art.MapRoomIso.fireFrame(clock) else 0
         for (o in WorldArt.objects(map, state, frame, flicker)) {
             val a = if (hides(o)) 0.45f else 1f
-            sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f) { put(o.img, o.x, o.y, o.density, a) }
+            sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f) { put(o.img, o.x, o.y, o.density, a, o.corner) }
         }
         // Healing herbs on the flower meadows, swaying gently so they catch the eye.
         if (map.kind == MapKind.FOREST) for (ty in 0 until map.height) for (tx in 0 until map.width) {

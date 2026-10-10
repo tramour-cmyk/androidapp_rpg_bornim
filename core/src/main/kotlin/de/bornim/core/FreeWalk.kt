@@ -46,6 +46,7 @@ class FreeWalk(private val game: Game) {
     companion object {
         /** The hero's size: a circle of this radius, in tiles. */
         const val RADIUS = 0.3
+        private val FULL = doubleArrayOf(0.0, 0.0, 1.0, 1.0)
         /** Walking pace on open grass, in tiles per second (a step used to take 200 ms × [Terrain.PACE]). */
         val WALK = 1000.0 / (200.0 * Terrain.PACE)
         /** Running pace (110 ms a step). */
@@ -72,12 +73,35 @@ class FreeWalk(private val game: Game) {
         return !game.free(tx, ty)
     }
 
+    /**
+     * The part of a blocked tile that the thing on it fills, (x0, y0, x1, y1) within the tile: in a room the
+     * furniture as it is drawn seen diagonally ([de.bornim.core.art.MapRoomIso]), so the hero's body can come
+     * up to a shelf against the wall, a barrel or a pot (13p, 4 and 5); else the whole tile. The middle of the
+     * hero still never enters the tile.
+     */
+    private fun footprint(tx: Int, ty: Int): DoubleArray {
+        val map = game.map
+        if (map.kind != MapKind.INTERIOR || !map.inside(tx, ty) || map.npcAt(tx, ty, game.state) != null) return FULL
+        return when (map.tile(tx, ty)) {
+            Tile.SHELF -> doubleArrayOf(0.0, 0.0, 1.0, 0.42)
+            Tile.COUNTER -> doubleArrayOf(0.0, 0.38, 1.0, 0.88)
+            Tile.TABLE -> doubleArrayOf(0.0, 0.16, 1.0, 0.84)
+            Tile.BARREL -> doubleArrayOf(0.22, 0.22, 0.78, 0.78)
+            Tile.PLANT -> doubleArrayOf(0.3, 0.3, 0.7, 0.7)
+            else -> FULL
+        }
+    }
+
     /** Whether the hero's circle at ([cx], [cy]) overlaps a blocked tile; returns that tile or null. */
     private fun hit(cx: Double, cy: Double): Pair<Int, Int>? {
+        // the middle of the hero never goes into a blocked tile, whatever part of it the thing fills
+        val mx = floor(cx).toInt(); val my = floor(cy).toInt()
+        if (blocked(mx, my) && footprint(mx, my) !== FULL) return mx to my
         for (ty in floor(cy - RADIUS).toInt()..floor(cy + RADIUS).toInt())
             for (tx in floor(cx - RADIUS).toInt()..floor(cx + RADIUS).toInt()) {
                 if (!blocked(tx, ty)) continue
-                val nx = cx.coerceIn(tx.toDouble(), tx + 1.0); val ny = cy.coerceIn(ty.toDouble(), ty + 1.0)
+                val f = footprint(tx, ty)
+                val nx = cx.coerceIn(tx + f[0], tx + f[2]); val ny = cy.coerceIn(ty + f[1], ty + f[3])
                 if ((cx - nx) * (cx - nx) + (cy - ny) * (cy - ny) < RADIUS * RADIUS - 1e-9) return tx to ty
             }
         return null
