@@ -27,8 +27,6 @@ fun Step.isKillBlow(): Boolean {
         (f.kind == FxKind.SLASH || f.kind == FxKind.PIERCE || f.kind == FxKind.SMASH)
 }
 
-/** How long a killing blow halts as it lands. */
-val KILL_STOP_MS: Long get() = BattlePace.ms(380L)
 /** How long the hero holds the killing blow wound up at its height before it comes down (at normal pace). */
 const val KILL_HOLD_MS = 330L
 /** Each frame of the killing blow coming down: faster than a plain blow (at normal pace). */

@@ -4,6 +4,33 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.460 – 10.10.2026, 21:14
+
+Zweig von Jerry (Thema 16), getestet in 0.1.458:
+
+**Kampf: Trefferstopp (16)**
+- Treffer halten beim Aufprall je nach Wucht inne: ein normaler Treffer nur kurz, ein harter (ein Drittel der Lebenspunkte oder mehr) zwei Bilder lang, ein kritischer drei; für Held und Gegner gleich.
+- Ein kritischer Treffer zieht die Ansicht kurz etwas heran und ruckt einmal in Schlagrichtung, statt das Bild wackeln zu lassen.
+- Werkzeuge (nur Entwicklung): Kerntest `HitWeightTest` (Stufen, Zeiten bei jedem Tempo, Ruck ohne Hin- und Herwackeln).
+
+## v0.1.455 – 10.10.2026, 20:29
+
+Zweig von Jerry (Themen 12a und 19), getestet in 0.1.441 und 0.1.454:
+
+**Kampf: Bewegungen ohne Sprünge (12a)**
+- Waffe und Schild drehen zwischen zwei Haltungen gleichmäßig, statt in einem Bild umzukippen: beim Zaubern und Werfen mit Waffe in der Hand, beim Armbrust-Block, beim Fallen der Gegner auf der Puppe.
+- Todesstoß mit Drehung ohne Rückwärtsdrehung am Ende; Überfall und Trinken mit Zwischenbildern.
+
+**Kampf: jeder Schlag trifft sichtbar (19)**
+- Todesstoß von oben neu getaktet: kurz oben halten, Hieb über vier Bilder, die Klinge fährt schräg in den Gegner statt senkrecht neben ihm vorbei.
+- Alle Schläge zielen in den Körper des Gegners, nicht an seinen Rand; beim Todesstoß mit Drehung bleibt der Held vor dem Gegner und die Klinge fährt geradeaus in ihn.
+- Todesstöße hingen: Der Held blieb bis zu 2 s im ausgeholten Bild stehen, während der Gegner fiel (die Bilder waren noch nicht gezeichnet). Jetzt werden sie beim Ausholen gezeichnet, und der Speicher fasst alle Bilder eines Kampfes.
+- Ausfallschritt: kommt beim gehaltenen Ausholen zur Ruhe und setzt weich wieder ein, statt hart zu stoppen und anzurucken.
+
+**Werkzeuge (nur Entwicklung)**
+- Kerntests `BattleJumpTest` (Sprünge im Kampf, streng) und `HitReachTest` (Klinge im Trefferbild im Gegner, Held nicht im Gegner, Ausfallschritt weich, alle Bilder eines Kampfes im Speicher).
+- Vorschau `SPRUNGBILD=…` (Bilder rund um eine Fundstelle) und `TREFFERBILD=…` (Schläge mit Gegner, gestellt wie in der App). Kampffilme mit `FILMBATCH` brauchen hinter dem Plan das Wort `attack`.
+
 ## v0.1.438 – 10.10.2026, 16:21
 
 Zweig von Jerry (Thema 9k), getestet in 0.1.433:

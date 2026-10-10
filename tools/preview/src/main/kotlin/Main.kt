@@ -265,6 +265,8 @@ fun main() {
     if (System.getenv("REACT") != null) { renderReactViews(); System.exit(0) }
     if (System.getenv("DOLLANIM") != null) { renderDollAnims(); System.exit(0) }
     if (System.getenv("BLOCKVIEW") != null) { renderBlockViews(); System.exit(0) }
+    if (System.getenv("SPRUNGBILD") != null) { renderJumpStills(); System.exit(0) }
+    if (System.getenv("TREFFERBILD") != null) { renderHitStills(); System.exit(0) }
     if (System.getenv("BACKVIEW") != null) { renderBackViews(); System.exit(0) }
     if (System.getenv("ATTACKVIEW") != null) { renderAttackViews(); System.exit(0) }
     if (System.getenv("RANGED") != null) { renderRangedViews(); System.exit(0) }
