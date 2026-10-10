@@ -2,6 +2,11 @@
 
 Stand: 09.10.2026, 18:48 (Berliner Zeit). Die Karte wird gerade im neuen Stil umgebaut (siehe [Offen](OFFEN.md), Abschnitt „Karte im neuen Stil“). Damit zwei Claude-Sitzungen (zwei Accounts) gleichzeitig daran arbeiten können, ohne sich in die Quere zu kommen, ist die Arbeit hier aufgeteilt. Wer eine Sitzung beginnt, liest zuerst `CLAUDE.md`, dann diese Datei, dann `docs/OFFEN.md`.
 
+## Kennungen der Accounts
+
+- **Account A** (Hauptsitzung, Zweig `karte-neuer-stil`): `87d3bd86-24be-4bd5-ae2c-dc084f6e97dd` (aus `echo $CLAUDE_CODE_ACCOUNT_UUID`, eingetragen 10.10., 10:44, auf Wunsch von Account B vor dem Zusammenführen auf `main`).
+- **Account B**: trägt seine Kennung hier selbst ein.
+
 ## Wer macht was
 
 | | Account A (Hauptsitzung) | Account B (Zweitaccount) |
