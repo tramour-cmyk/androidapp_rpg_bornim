@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|
-| Tom | – | – | – | – | – |
+| Tom | läuft | 10.10., 22:25 | 10.10., 22:25 | Paket 1 (13q.4 Laden) | `tom-diagonal` |
 | Jerry | läuft | 10.10., 22:21 | 10.10., 22:21 | 18 Bericht, dann Hörproben | `claude/wizardly-ramanujan-7rocwj` (PR #16) |
 
 Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`.
@@ -68,12 +68,13 @@ Werden vor dem Schlafengehen hier eingetragen und am Morgen nach dem Bericht gel
 
 ### Tom
 
-Vorschlag der Tom-Beratung (10.10., 20:50), um 22:00 mit dem Nutzer bestätigen und nach dem Stand dann anpassen:
-1. 13p fertig, 13p.4 (Höhe Held und Tisch).
-2. 12b: Sprünge bei den Leuten (`MapRest` Blick zur Seite, `MapFigure` Gehen). Fertig wenn: Sprungtest meldet bei den Leuten 0.
-3. 17 Nachschwingen als Entwurf (Standbilder, Schalter im Testreiter).
-4. 14 Neustart-Haken (Werkzeug, Zweig und PR, nicht zusammenführen).
-- Reserve: Laden, Haus des Ältesten, Tempel diagonal als Entwurf.
+Bestätigt 10.10., 22:25 (Nutzer: „Gute Nacht, starte Nachtmodus“; der alte Vorschlag von 20:50 ist überholt: 13p und 12b sind erledigt). Alles auf `tom-diagonal`, nur Entwürfe, nichts ins Spiel:
+1. **13q.4 Laden:** Möbel (Ladentisch, Waren-Regale, Fässer und Säcke, Waage, Truhe), je drei Varianten, Möbelblatt (`ISODINGE=laden`), dann drei Grundrisse `shop_a/b/c` als Standbild Tag/Abend (wie `elder_a/b/c`). Fertig wenn: Blatt und 6 Standbilder mit Uhrzeit liegen in `docs`-Bericht, Kerntests grün.
+2. **13q.4 Tempel:** Altar, Kerzenständer, Gebetsbänke, Lesepult, Weihwasserbecken, je drei Varianten, Blatt und drei Grundrisse `temple_a/b/c`. Fertig wenn: wie 1.
+3. **17 Nachschwingen** als Entwurf: Umhang, Haare, Köcher, Riemen schwingen beim Stoppen und Drehen nach; Standbilder und Sprungtest. Fertig wenn: Sprungtest 0 Meldungen, Standbilder Stehen↔Gehen↔Drehen.
+4. **14 Neustart-Haken** (Werkzeug, eigener Zweig von `main`, PR, nicht zusammenführen). Fertig wenn: Haken meldet über Schwelle, Test von Hand dokumentiert.
+- Reserve: Haus des Ältesten nach Empfehlung (Grundriss A) ins Spiel unter dem Schalter „Dorf und Räume“ vorbereiten, nur auf dem Zweig, mit Kerntest (Held erreicht Aldric und Tür).
+- Selbst entschieden nachts: 13q.5 (Möbel des Ältesten bleiben so), Grundriss-Empfehlung A. Nicht nachts: 15.
 
 ### Jerry
 
