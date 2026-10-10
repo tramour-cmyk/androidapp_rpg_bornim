@@ -4,6 +4,23 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Tom (Thema 13 und Vorarbeiten), getestet in 0.1.461, PR #17:
+
+**Karte: diagonale Sicht (13)**
+- Die Karte wird schräg von oben gezeigt; der Held läuft frei statt von Feld zu Feld (13g).
+- Figuren stehen in der Mitte ihres Feldes und laufen bis an Möbel heran, wo diese gezeichnet sind (13q.1–3).
+
+**Schänke diagonal (13, 6.14, 13n, 13p)**
+- Hintere Wände mit Balken, Kamin und Fenster, vordere Wände kniehoch; Möbel in drei Varianten, im Maßstab des Helden.
+- Feuer im Kamin flackert, sein Licht fällt auf Wände und Boden.
+- Bänke mit Lehne, Rowena hinter der Theke, Fass, Hocker, Eimer, Korb, Säcke und Pflanze rund und richtig geneigt; Tippen trifft das gezeichnete Ding.
+
+**Leute (12b, 3a, 4)**
+- Stehen und Gehen ohne Sprünge (Gehen in 8 Bildern), Glühwürmchen, Garrick hockt am Feuer.
+
+**Werkzeuge (nur Entwicklung)**
+- Vorschau `KARTENZOOM=1 DIAG=1 TOWNDRAFT=1`, `ISODINGE=1`, `FEUER=1`; Kerntests `InnCornerTest`, `FireFlickerTest`.
+
 ## v0.1.460 – 10.10.2026, 21:14
 
 Zweig von Jerry (Thema 16), getestet in 0.1.458:
