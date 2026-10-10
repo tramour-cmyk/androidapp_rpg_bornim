@@ -209,7 +209,8 @@ object HeroFigure {
     // 3. a full turn: round with the back to the foe and the blade flat, then through it at waist height
     val KILL_SPIN_WIND = SLASH_WIND.copy(rh = V(30.0, 86.0, -16.0), weapon = V(0.7, 0.05, -0.7), twist = 45.0, lean = -0.05, stride = 5.0, crouch = 2.0, elbowUp = 0.0, roll = 0.0, aim = 1.0, grip = 30.0)
     val KILL_SPIN_TURN = KILL_SPIN_WIND.copy(yaw = FIGHT_YAW + 170.0, rh = V(26.0, 86.0, 10.0), weapon = V(0.95, 0.0, 0.3), twist = 20.0, crouch = 3.0, cloak = 3.0)
-    val KILL_SPIN_HIT = SLASH_HIT.copy(rh = V(-2.0, 66.0, 42.0), weapon = V(-0.85, -0.1, 0.5), twist = -35.0, lean = 0.4, crouch = 3.0, stride = 10.0, trail = 1.0, grip = 15.0, aim = 1.0)
+    // the blow lands with the blade straight out ahead, in the middle of its sweep, and cuts on through to the left
+    val KILL_SPIN_HIT = SLASH_HIT.copy(rh = V(4.0, 68.0, 46.0), weapon = V(0.05, -0.1, 0.99), twist = -35.0, lean = 0.4, crouch = 3.0, stride = 10.0, trail = 1.0, grip = 15.0, aim = 1.0)
     val KILL_SPIN_END = KILL_SPIN_HIT.copy(rh = V(-14.0, 64.0, 24.0), weapon = V(-0.9, -0.15, -0.3), twist = -45.0, trail = 0.0)
     // 2b. with an axe, a mace or a hammer, nothing to run the foe through with: a blow from low down rising up through it
     val KILL_RISE_WIND = SMASH_HIT.copy(rh = V(24.0, 52.0, -8.0), weapon = V(0.45, -0.6, -0.65), lean = 0.1, crouch = 6.0, stride = 6.0, twist = 35.0, aim = 1.0, trail = 0.0)

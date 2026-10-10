@@ -26,7 +26,7 @@ fun renderHitStills() {
     val (foeW, foeTall) = de.bornim.core.art.MonsterArt.bodySize(foeId, look, foe.width, foe.height)
     val fx = sceneW * de.bornim.core.art.BattleScene.FOE_X; val fy = sceneH * de.bornim.core.art.BattleScene.FOE_Y
     val hx = sceneW * de.bornim.core.art.BattleScene.HERO_X; val hy = sceneH * de.bornim.core.art.BattleScene.HERO_Y
-    fun aim(s: HF.Strike) = HB.aimAt(fx, fy, foeW, foeTall, s)
+    fun aim(s: HF.Strike) = HB.aimAt(fx, fy, foeW, foeTall)
     // the part of the scene the two stand in
     val x0 = 30.0; val y0 = fy - foeTall - 30; val cw = 200; val ch = (hy + 6 - y0).toInt()
     val cols = before + after + 1

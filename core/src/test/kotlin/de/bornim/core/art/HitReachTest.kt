@@ -13,7 +13,7 @@ import kotlin.test.assertTrue
  * Every blow of the hero lands in the foe (19): placed as the battle places them, the weapon's point and the blade a
  * little back from it lie inside the foe's body in the picture the blow lands on, for every weapon, foe size and scene
  * height (a blow rising from below may come up out of the ground in front of a flat foe: 3 pixels below its feet
- * still count). The full turn (KILL_SPIN) is struck at the foe's near front: only its point is held to the body.
+ * still count), and the hero stands on the near side of it, not inside it.
  */
 class HitReachTest {
     @Test
@@ -34,7 +34,7 @@ class HitReachTest {
                     val fx = sceneW * BattleScene.FOE_X; val fy = sceneH * BattleScene.FOE_Y
                     val hx = sceneW * BattleScene.HERO_X; val hy = sceneH * BattleScene.HERO_Y
                     for (s in strikes) {
-                        val aim = HeroBattle.aimAt(fx, fy, foeW, tall, s)
+                        val aim = HeroBattle.aimAt(fx, fy, foeW, tall)
                         val (ox, oy) = HeroBattle.lungeOffset(hero, s, hx, hy, aim.first, aim.second)
                         val hit = HeroBattle.strikeFrame(s)
                         // at the hit the hero has stepped all the way in and is drawn LUNGE_SCALE as large round the feet
@@ -43,7 +43,9 @@ class HitReachTest {
                         val tip = scene(HeroBattle.tipAt(hero, s, hit)); val grip = scene(HeroBattle.gripAt(hero, s, hit))
                         val back = Pair(tip.first + (grip.first - tip.first) * 0.25, tip.second + (grip.second - tip.second) * 0.25)
                         fun inside(p: Pair<Double, Double>) = p.first in fx - foeW * 0.5..fx + foeW * 0.5 && p.second in fy - tall..fy + 3.0
-                        val points = if (s == HeroFigure.Strike.KILL_SPIN) listOf(tip) else listOf(tip, back)
+                        val points = listOf(tip, back)
+                        // the hero stands before the foe, not in it: its feet on the near side of the foe's body
+                        if (hx + ox > fx - foeW * 0.3) bad += "$w $id h$sceneH $s: Held steht im Gegner (Füße x ${(hx + ox).toInt()}, Gegner ab ${(fx - foeW * 0.3).toInt()})"
                         if (!points.all(::inside)) bad += "$w $id h$sceneH $s: Spitze ${tip.fmt()} Klinge ${back.fmt()} Körper x ${(fx - foeW / 2).toInt()}..${(fx + foeW / 2).toInt()} y ${(fy - tall).toInt()}..${fy.toInt()}"
                     }
                 }
