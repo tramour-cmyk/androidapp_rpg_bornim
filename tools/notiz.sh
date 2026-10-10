@@ -37,12 +37,12 @@ fi
 echo "Diese Sitzung ist: $name"
 if [ -z "$alt" ]; then
     echo "Notizen auf main, letzte Änderungen:"
-    git log -5 --format='  %ad  %s' --date=format:'%d.%m. %H:%M' origin/main -- CLAUDE.md CHANGELOG.md docs
+    TZ=Europe/Berlin git log -5 --format='  %ad  %s' --date=format-local:'%d.%m. %H:%M' origin/main -- CLAUDE.md CHANGELOG.md docs
 elif [ "$alt" = "$neu" ]; then
     echo "Notizen auf main: nichts Neues."
 else
     echo "Notizen auf main, neu seit dem letzten Aufruf:"
-    git log --format='  %ad  %s' --date=format:'%d.%m. %H:%M' "$alt..$neu" -- CLAUDE.md CHANGELOG.md docs
+    TZ=Europe/Berlin git log --format='  %ad  %s' --date=format-local:'%d.%m. %H:%M' "$alt..$neu" -- CLAUDE.md CHANGELOG.md docs
 fi
 echo "$neu" > "$mark"
 echo "Arbeitskopie für Notizen: $wt"
