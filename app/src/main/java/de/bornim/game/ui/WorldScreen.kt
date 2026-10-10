@@ -110,6 +110,9 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
     // A walk planned by tapping on the map.
     var route by remember { mutableStateOf<Route?>(null) }
     var routeIdx by remember { mutableIntStateOf(0) }
+    // free walking (13g): the drag of the stick on the screen, and the tile centres of a tapped walk
+    var stick by remember { mutableStateOf<Offset?>(null) }
+    var waypoints by remember { mutableStateOf<List<Pair<Double, Double>>>(emptyList()) }
     val haptic = LocalHapticFeedback.current
     fun buzz() {
         if (vm.haptics) haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
@@ -136,7 +139,53 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
     // Movement loop: grid steps with a short slide animation.
     LaunchedEffect(game) {
         var bumped: Facing? = null
+        var lastFrame = 0L
         while (isActive) {
+            if (MapSight.diagonal) {
+                // free walking (13g): any direction, the world and its rules still on the tiles
+                val fw = game.freeWalk
+                fw.sync()
+                tappedDir = null
+                val sv = stick ?: heldDir?.let { Offset(it.dx.toFloat(), it.dy.toFloat()) }
+                var vx = 0.0; var vy = 0.0
+                val r = route
+                if (game.mode != Mode.Explore) { route = null; waypoints = emptyList() }
+                if (sv != null) {
+                    route = null; waypoints = emptyList()
+                    // the drag on the screen, turned into the map
+                    vx = (sv.x + 2.0 * sv.y) / 2; vy = (2.0 * sv.y - sv.x) / 2
+                } else if (r != null && waypoints.isNotEmpty()) {
+                    // walk straight to the furthest tile centre of the planned way that can be reached in a line
+                    val wp = waypoints
+                    var k = 0
+                    for (i in wp.indices.reversed()) if (fw.clear(wp[i].first, wp[i].second)) { k = i; break }
+                    val (gx, gy) = wp[k]
+                    val dx = gx - fw.x; val dy = gy - fw.y
+                    if (k == wp.size - 1 && dx * dx + dy * dy < 0.01) {
+                        // arrived: turn towards the target and use it
+                        route = null; waypoints = emptyList()
+                        r.face?.let { game.face(it) }
+                        if (r.interact) pressA() else vm.refresh()
+                    } else { vx = dx; vy = dy }
+                } else if (r != null) {
+                    route = null
+                    r.face?.let { game.face(it) }
+                    if (r.interact) pressA()
+                }
+                withFrameMillis { now ->
+                    val dt = if (lastFrame == 0L) 16L else (now - lastFrame).coerceIn(0L, 100L)
+                    lastFrame = now
+                    if (vx != 0.0 || vy != 0.0) {
+                        // a tapped walk slows down for the last bit so it does not overshoot the middle of the tile
+                        val left = if (sv == null && waypoints.isNotEmpty()) kotlin.math.hypot(vx, vy) else 9.0
+                        val pace = (if (running) de.bornim.core.FreeWalk.RUN else de.bornim.core.FreeWalk.WALK) * (if (sv == null) 1.15 else 1.0)
+                        fw.walk(vx, vy, dt, pace * minOf(1.0, 0.25 + left * 4), now)
+                    } else fw.walk(0.0, 0.0, dt, 0.0, now)
+                }
+                vm.refresh()
+                continue
+            }
+            lastFrame = 0L
             val manual = heldDir ?: tappedDir
             tappedDir = null
             if (manual != null) route = null
@@ -251,6 +300,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             if (touch) {
                 TouchLayer(
                     onDir = { d -> heldDir = d },
+                    onStick = { stick = it },
                     onRun = { running = it },
                     onTap = { pos, w, h ->
                         if (dialog != null) {
@@ -265,6 +315,11 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                             } else {
                                 route = game.route(tx, ty)
                                 routeIdx = 0
+                                // walking freely (13g), the planned way becomes tile centres to walk through
+                                waypoints = route?.let { rt ->
+                                    var cx = p.x; var cy = p.y
+                                    rt.steps.map { d -> cx += d.dx; cy += d.dy; (cx + 0.5) to (cy + 0.5) }
+                                } ?: emptyList()
                                 if (route == null) buzz()
                             }
                         }
@@ -398,8 +453,10 @@ private fun camera(game: Game, w: Float, h: Float, progress: Float, fromX: Int, 
     val p = game.state.place
     val t = if (progress < 1f) progress else 1f
     // Positions in art pixels, rounded so tiles and sprites move in lockstep.
-    val heroX = ((fromX + (p.x - fromX) * t) * T).roundToInt()
-    val heroY = ((fromY + (p.y - fromY) * t) * T).roundToInt()
+    // walking freely (13g, with the diagonal view), the hero stands between the tiles
+    val fw = game.freeWalk.also { if (MapSight.diagonal) it.sync() }
+    val heroX = if (MapSight.diagonal) ((fw.x - 0.5) * T).roundToInt() else ((fromX + (p.x - fromX) * t) * T).roundToInt()
+    val heroY = if (MapSight.diagonal) ((fw.y - 0.5) * T).roundToInt() else ((fromY + (p.y - fromY) * t) * T).roundToInt()
     val mapW = map.width * T
     val mapH = map.height * T
     if (MapSight.diagonal) {
@@ -429,7 +486,7 @@ private fun camera(game: Game, w: Float, h: Float, progress: Float, fromX: Int, 
  * direction (snapped to the four grid directions, far = run); a short tap reports its position.
  */
 @Composable
-private fun TouchLayer(onDir: (Facing?) -> Unit, onRun: (Boolean) -> Unit, onTap: (Offset, Float, Float) -> Unit) {
+private fun TouchLayer(onDir: (Facing?) -> Unit, onStick: (Offset?) -> Unit, onRun: (Boolean) -> Unit, onTap: (Offset, Float, Float) -> Unit) {
     var origin by remember { mutableStateOf<Offset?>(null) }
     var knob by remember { mutableStateOf(Offset.Zero) }
     var stickDir by remember { mutableStateOf<Facing?>(null) }
@@ -480,10 +537,13 @@ private fun TouchLayer(onDir: (Facing?) -> Unit, onRun: (Boolean) -> Unit, onTap
                                 onDir(nd)
                             }
                             onRun(len > runAt)
+                            // the drag itself, for walking freely in any direction (13g)
+                            onStick(if (len < slop) null else d)
                         }
                     }
                     if (dragging) {
                         onDir(null)
+                        onStick(null)
                         onRun(false)
                     } else if (last - t0 < 450) {
                         onTap(start, size.width.toFloat(), size.height.toFloat())
@@ -635,9 +695,10 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         val sprites = mutableListOf<Sprite>()
         // a tree crown standing in front of the hero turns half see-through, so the hero is not lost behind it
         fun hides(o: WorldArt.Obj): Boolean {
-            if (o.density < 2) return false
             val w = o.img.width / o.density; val h = o.img.height / o.density
             if (diag) {
+                // seen diagonally, anything taller than a knee can stand in front of the hero
+                if (h < 24) return false
                 // seen diagonally: in front of the hero (further down the diagonal) and over it on the screen
                 val k = MapSight.K
                 val fx = o.x + w / 2f; val fy = (o.y + h).toFloat()
@@ -647,6 +708,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 val px = k * (hx - hy); val py = k / 2 * (hx + hy)
                 return px + 8 > ox - w / 2f && px - 8 < ox + w / 2f && py > oy - h + 6 && py - 38 < oy
             }
+            if (o.density < 2) return false
             if (o.sortY <= heroY + T) return false
             return heroX + T - 8 > o.x && heroX + 8 < o.x + w && heroY + T > o.y && heroY - 30 < o.y + h - 6
         }
@@ -769,15 +831,15 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     // otherwise, standing, the small movements everyone has: breathing, shifting weight, a glance, hands to the belt
                     val squatImg = squat?.let { if (slotNow == homeSlot) MapFolk.squatFrame(f, slotNow, it) else null }
                     val restImg = if (idleImg == null && doing == null && squat == null && !walkingNow && slotNow == MapFigure.slot(target)) {
-                        val (rest, breath) = MapRest.at(f.id.hashCode(), clock, handsFree = true, mayLook = !near)
-                        MapFolk.restFrame(f, slotNow, rest, breath)
+                        val ps = MapRest.pose(f.id.hashCode(), clock, handsFree = true, mayLook = !near)
+                        MapFolk.restFrame(f, slotNow, ps.rest, ps.breath, ps.level)
                     } else null
                     val wardImg = warding?.let { wd ->
                         // the torch lights its bearer and whoever stands near; it rides about a tile above the feet
                         torches += (nx + T / 2.0) to (ny - 12.0)
                         MapFolk.wardFrame(f, slotNow, wd.ward, wd.flicker)
                     }
-                    wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 160).toInt(), MapFigure.STEPS) else 0)
+                    wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 80).toInt(), MapFigure.STEPS) else 0)
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
                 val dollLit = doll?.let { warmEdge(it, nx, ny) }
@@ -878,17 +940,20 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             }
         }
 
-        val walking = progress < 1f
+        val free = diag
+        val walking = if (free) game.freeWalk.moving else progress < 1f
         // the hero as the doll from the battles, turning smoothly; the former figure until it is drawn
         MapFigure.prepare(state.hero, HeroTurn.yaw)
-        val target = MapFigure.yawOf(p.facing)
+        // walking freely, the hero faces the way it walks, in any direction
+        val target = if (free) game.freeWalk.yaw else MapFigure.yawOf(p.facing)
         HeroTurn.update(target, clock)
-        val walkStep = if (!walking) 0 else Math.floorMod(state.steps * 2 + (progress * 2).toInt(), MapFigure.STEPS)
+        val walkStep = if (!walking) 0 else if (free) Math.floorMod((game.freeWalk.walked * 4).toInt(), MapFigure.STEPS)
+            else Math.floorMod(state.steps * 4 + (progress * 4).toInt(), MapFigure.STEPS)
         // standing a moment, the hero too breathes, shifts its weight and glances about
         val heroSlot = MapFigure.slot(HeroTurn.yaw)
         val heroRest = if (!walking && heroSlot == MapFigure.slot(target) && HeroStill.forMs(heroX, heroY, clock) > 1_500L) {
-            val (rest, breath) = MapRest.at(7, clock, handsFree = false, mayLook = true)
-            MapFigure.restFrame(state.hero, heroSlot, rest, breath)
+            val ps = MapRest.pose(7, clock, handsFree = false, mayLook = true)
+            MapFigure.restFrame(state.hero, heroSlot, ps.rest, ps.breath, ps.level)
         } else null
         val doll = warmEdge(heroRest ?: MapFigure.frameNow(state.hero, heroSlot, walkStep), heroX, heroY)
         // +0.5 so the hero is drawn after objects standing on the same row

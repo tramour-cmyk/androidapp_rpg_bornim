@@ -16,8 +16,28 @@ object MapRest {
         NEUTRAL, SHIFT_L, SHIFT_R, LOOK_L(looks = true), LOOK_R(looks = true), BELT(handsFree = true)
     }
 
-    /** [rest] laid over a standing rig [base]; [breath] 1 is breathing in: chest and shoulders a little higher. */
-    fun rig(base: HeroFigure.Rig, rest: Rest, breath: Int): HeroFigure.Rig {
+    /** Steps into and out of a stance (12b: the glance aside turned the head 38° in one picture): [LEVELS] is the stance itself. */
+    const val LEVELS = 4
+
+    /** How long going into or out of a stance takes. */
+    const val EASE_MS = 420L
+
+    /**
+     * [rest] laid over a standing rig [base]; [breath] 1 is breathing in: chest and shoulders a little higher.
+     * [level] of [LEVELS]: how far into the stance (the in-between pictures of going in and out).
+     */
+    fun rig(base: HeroFigure.Rig, rest: Rest, breath: Int, level: Int = LEVELS): HeroFigure.Rig {
+        val full = stance(base, rest, breath)
+        if (level >= LEVELS || rest == Rest.NEUTRAL) return full
+        val from = stance(base, Rest.NEUTRAL, breath)
+        val t = level.coerceAtLeast(0) / LEVELS.toDouble()
+        fun m(a: Double, b: Double) = a + (b - a) * t
+        fun v(a: HeroFigure.V, b: HeroFigure.V) = HeroFigure.V(m(a.r, b.r), m(a.u, b.u), m(a.f, b.f))
+        return full.copy(bodyX = m(from.bodyX, full.bodyX), spread = m(from.spread, full.spread), headTurn = m(from.headTurn, full.headTurn),
+            twist = m(from.twist, full.twist), rh = v(from.rh, full.rh), lh = v(from.lh, full.lh), bodyY = m(from.bodyY, full.bodyY))
+    }
+
+    private fun stance(base: HeroFigure.Rig, rest: Rest, breath: Int): HeroFigure.Rig {
         val up = if (breath == 1) 1.6 else 0.0
         var r = when (rest) {
             Rest.NEUTRAL -> base
@@ -58,6 +78,32 @@ object MapRest {
         if (t < start || t >= start + length) return Rest.NEUTRAL to breath
         val ok = (!pick.handsFree || handsFree) && (!pick.looks || mayLook)
         return (if (ok) pick else Rest.NEUTRAL) to breath
+    }
+
+    /** A moment of standing: the stance, the breath, and how far into the stance ([LEVELS]: all the way). */
+    data class Pose(val rest: Rest, val breath: Int, val level: Int)
+
+    /**
+     * Like [at], with going into and out of the stance over [EASE_MS] (12b): the figure turns its
+     * head, shifts its weight or puts its hands to the belt through in-between pictures.
+     */
+    fun pose(seed: Int, clockMs: Long, handsFree: Boolean, mayLook: Boolean): Pose {
+        val (rest, breath) = at(seed, clockMs, handsFree, mayLook)
+        if (rest == Rest.NEUTRAL) {
+            // just after a stance it is still on its way out of it
+            val (back, _) = at(seed, clockMs - EASE_MS, handsFree, mayLook)
+            if (back != Rest.NEUTRAL) {
+                var gone = 0L
+                while (gone < EASE_MS && at(seed, clockMs - gone, handsFree, mayLook).first == Rest.NEUTRAL) gone += 20
+                if (gone < EASE_MS) return Pose(back, breath, (LEVELS * (1 - gone / EASE_MS.toDouble())).toInt().coerceIn(0, LEVELS - 1))
+            }
+            return Pose(Rest.NEUTRAL, breath, LEVELS)
+        }
+        // since when it holds this stance, and when it leaves it
+        var since = 0L
+        while (since < EASE_MS && at(seed, clockMs - since - 20, handsFree, mayLook).first == rest) since += 20
+        val level = if (since < EASE_MS) (LEVELS * since / EASE_MS.toDouble()).toInt().coerceIn(1, LEVELS) else LEVELS
+        return Pose(rest, breath, level)
     }
 
     // ------------------------------------------------------------ pictures, drawn when first wanted

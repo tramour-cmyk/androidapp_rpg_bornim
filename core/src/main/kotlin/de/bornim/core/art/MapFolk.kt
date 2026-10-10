@@ -455,13 +455,13 @@ object MapFolk {
     const val BLOCK_MS = 16_000L
 
     /** [f] standing in [rest], breathing in or out: drawn in the background when first wanted, null until then. */
-    fun restFrame(f: Folk, slot: Int, rest: MapRest.Rest, breath: Int): PixelImage? =
-        if (rest == MapRest.Rest.NEUTRAL && breath == 0) frame(f, slot, 0)
-        else MapRest.picture("folk|${f.id}|$slot|$rest|$breath") { drawRest(f, slot, rest, breath) }
+    fun restFrame(f: Folk, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage? =
+        if ((rest == MapRest.Rest.NEUTRAL || level <= 0) && breath == 0) frame(f, slot, 0)
+        else MapRest.picture("folk|${f.id}|$slot|$rest|$breath|$level") { drawRest(f, slot, rest, breath, level) }
 
     /** One resting picture of [f], drawn now. */
-    fun drawRest(f: Folk, slot: Int, rest: MapRest.Rest, breath: Int): PixelImage =
-        MapFigure.render(f.doll, f.outfit, MapRest.rig(MapFigure.rig(slot * 360.0 / MapFigure.YAWS, 0, MapFigure.Carry.FREE), rest, breath))
+    fun drawRest(f: Folk, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage =
+        MapFigure.render(f.doll, f.outfit, MapRest.rig(MapFigure.rig(slot * 360.0 / MapFigure.YAWS, 0, MapFigure.Carry.FREE), rest, breath, level))
 
     /** The idle picture, or null while it is not drawn yet. */
     fun idleFrame(f: Folk, slot: Int, idle: Idle, i: Int): PixelImage? = synchronized(cache) { cache["${f.id}|$slot|$idle|$i"] }
