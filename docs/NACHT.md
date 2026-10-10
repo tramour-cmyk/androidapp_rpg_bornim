@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|
-| Tom | läuft | 10.10., 22:25 | 10.10., 22:54 | Paket 2 (13q.4 Tempel); 13q.7 und Laden fertig | `tom-diagonal` |
+| Tom | läuft | 10.10., 22:25 | 10.10., 23:09 | Paket 3 (17 Nachschwingen) als Nächstes; 1 und 2 fertig, Übergabe in OFFEN | `tom-diagonal` |
 | Jerry | fertig | 10.10., 22:21 | 10.10., 22:29 | Paket und Reserve fertig, Morgenbericht in `docs/OFFEN.md` | `claude/wizardly-ramanujan-7rocwj` (PR #16) |
 
 Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`.
