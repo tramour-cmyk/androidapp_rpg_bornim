@@ -27,6 +27,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         const val AILMENT_STEPS = 4
         /** Share of flower tiles that carry a healing herb on a given day. */
         const val HERB_CHANCE = 0.5
+        /** Test switch (9f): monsters go about as ever but never notice or attack the hero; bumping into one still fights. */
+        @Volatile var monstersIgnoreHero = false
     }
 
     var mode: Mode = Mode.Explore
@@ -477,7 +479,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             if (now < r.nextMoveAt) continue
             val dist = kotlin.math.abs(r.x - p.x) + kotlin.math.abs(r.y - p.y)
             val fromHome = kotlin.math.abs(r.x - r.homeX) + kotlin.math.abs(r.y - r.homeY)
-            val calm = now < r.calmUntil || now < peaceUntil
+            val calm = monstersIgnoreHero || now < r.calmUntil || now < peaceUntil
             // Weak monsters keep away from a far stronger hero; elites are never afraid.
             val afraid = strongHero && r.trait == null
             val sees = heroSafe == null && dist <= (if (r.temper == Temper.LURKER) 2 else Perks.noticeRange(hero))
@@ -850,6 +852,36 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     fun cheatSupplies(n: Int = 10) {
         for (d in Items.all) if (d.kind != ItemKind.KEY && state.count(d.id) < n) state.add(d.id, n - state.count(d.id))
         changed()
+    }
+
+    /**
+     * Test (9f): a wolf with its young and a goblin with its scout, three to five steps from the hero on free ground,
+     * to watch them go about. Returns how many leaders were placed (the map may have no room).
+     */
+    fun cheatBringPacks(): Int {
+        val herd = herd()
+        val p = state.place
+        val spots = ArrayList<Pair<Int, Int>>()
+        for (y in p.y - 5..p.y + 5) for (x in p.x - 5..p.x + 5) {
+            val d = kotlin.math.abs(x - p.x) + kotlin.math.abs(y - p.y)
+            if (d !in 3..5 || x !in 0 until map.width || y !in 0 until map.height) continue
+            if (!map.walkable(x, y, state) || map.warpAt(x, y) != null || map.triggers.any { it.x == x && it.y == y }) continue
+            if (herd.any { kotlin.math.abs(it.x - x) + kotlin.math.abs(it.y - y) < 3 }) continue
+            if (map.npcs.any { it.x == x && it.y == y }) continue
+            spots += x to y
+        }
+        spots.shuffle(roamRandom)
+        var placed = 0
+        for (monster in listOf("wolf", "goblin")) {
+            val spot = spots.firstOrNull { s -> herd.none { kotlin.math.abs(it.x - s.first) + kotlin.math.abs(it.y - s.second) < 3 } } ?: break
+            herd += Roamer(nextRoamerUid++, monster, spot.first, spot.second, spot.first, spot.second, null, false, MonsterLook(roamRandom.nextInt())).also {
+                it.facing = Facing.entries[roamRandom.nextInt(4)]
+                it.nextMoveAt = now + 800
+            }
+            placed++
+        }
+        changed()
+        return placed
     }
 
     fun cheatHeal() {
