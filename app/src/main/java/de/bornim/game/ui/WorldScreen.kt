@@ -902,15 +902,113 @@ private fun DrawScope.drawCritters(
         }
     }
 
-    if (day < 0.5f && map.kind == MapKind.FOREST) {
-        // Fireflies
-        for (k in 0 until 18) {
-            val x = camX + (hash(k, 21) % 1000) / 1000f * viewW + kotlin.math.sin(clock / 900f + k) * 10f
-            val y = camY + (hash(k, 22) % 1000) / 1000f * viewH + kotlin.math.cos(clock / 1100f + k * 1.7f) * 8f
-            val glow = kotlin.math.sin(clock / 380f + k * 2.1f).coerceAtLeast(0f) * (1f - day * 2f)
-            if (glow <= 0.05f) continue
-            drawCircle(Color(0xFFE8F870).copy(alpha = 0.3f * glow), 4f * scale, Offset((x - camX) * scale, (y - camY) * scale))
-            px(x, y, 1f, 1f, Color(0xFFF8FFB0).copy(alpha = glow))
+    // Fireflies (10.10., 4): at their own places in the world, only on some nights and not in the rain
+    if (day < 0.4f && game.rainLevel < 0.05f && Fireflies.tonight(game)) {
+        val fade = (1f - day / 0.4f).coerceIn(0f, 1f)
+        for (f in Fireflies.of(map)) {
+            val (x, y) = f.at(clock)
+            if (x < camX - 16 || y < camY - 16 || x > camX + viewW + 16 || y > camY + viewH + 16) continue
+            val glow = f.glow(clock) * fade
+            if (glow <= 0.02f) continue
+            val o = Offset((x - camX) * scale, (y - camY) * scale)
+            // the faint light it throws on the grass below it
+            val g = Offset(o.x, o.y + 7f * scale)
+            drawOval(
+                androidx.compose.ui.graphics.Brush.radialGradient(listOf(Color(0xFFC8E070).copy(alpha = 0.16f * glow), Color.Transparent), center = g, radius = 10f * scale),
+                Offset(g.x - 10f * scale, g.y - 4f * scale), androidx.compose.ui.geometry.Size(20f * scale, 8f * scale),
+            )
+            // a soft halo, then the bright core
+            drawCircle(
+                androidx.compose.ui.graphics.Brush.radialGradient(listOf(Color(0xFFE0F878).copy(alpha = 0.45f * glow), Color(0xFFB8E060).copy(alpha = 0.12f * glow), Color.Transparent), center = o, radius = 6f * scale),
+                radius = 6f * scale, center = o,
+            )
+            px(x, y, 1f, 1f, Color(0xFFF8FFC8).copy(alpha = glow))
+        }
+    }
+}
+
+/**
+ * Fireflies (10.10., 4): little swarms that keep to their places in the world, over flowers and
+ * meadows, at the water's edge and the edge of the wood, over fields in the village; few in the
+ * deep wood and none on the paths. Each drifts slowly, now hanging still, now rising or sinking,
+ * and flashes for half a second, then stays dark for some seconds, in a rhythm of its own; now and
+ * then a neighbour answers just after.
+ */
+object Fireflies {
+    /** [partner]: the offset of the neighbour it sometimes answers, sharing its [period]; null for one that keeps its own time only. */
+    class Fly(private val cx: Float, private val cy: Float, private val seed: Int, private val period: Long, private val offset: Long, private val partner: Long?) {
+        /** Where it is at [clock], in map pixels. */
+        fun at(clock: Long): Pair<Float, Float> {
+            val t = clock / 1000f
+            val s = seed % 997 / 997f * 6.28f
+            // drifting, with pauses: the speed itself swells and dies away
+            val pace = 0.5f + 0.5f * kotlin.math.sin(t * 0.21f + s)
+            val u = t * (0.35f + 0.25f * pace)
+            val x = cx + kotlin.math.sin(u * 0.9f + s) * 14f + kotlin.math.sin(u * 2.3f + s * 2) * 4f
+            val y = cy + kotlin.math.cos(u * 0.7f + s * 1.3f) * 9f + kotlin.math.sin(t * 0.45f + s) * 5f
+            return x to y
+        }
+
+        /** How bright it is at [clock]: a short flash, then long dark. */
+        fun glow(clock: Long): Float {
+            // sometimes this one answers its neighbour's flash a moment later instead of keeping its own time
+            val p = partner
+            val answering = p != null && Math.floorMod(hash(((clock + p) / period).toInt(), seed), 3) == 0
+            val c = if (answering) clock + p!! - 650 else clock + offset
+            val since = Math.floorMod(c, period)
+            val len = 520L
+            if (since >= len) return 0f
+            val u = since / len.toFloat()
+            return if (u < 0.25f) u / 0.25f else ((1 - u) / 0.75f).let { it * it }
+        }
+    }
+
+    private val cache = HashMap<String, List<Fly>>()
+
+    /** Whether there are fireflies this night: some nights, not all (4b). The night belongs to the day it began on. */
+    fun tonight(game: Game): Boolean = tonight(game.state.day, game.state.minutes)
+
+    fun tonight(day: Int, minutes: Int): Boolean {
+        val night = if (minutes < 12 * 60) day - 1 else day
+        return Math.floorMod(hash(night, 77), 5) < 2
+    }
+
+    fun of(map: de.bornim.core.MapDef): List<Fly> = synchronized(cache) {
+        cache.getOrPut(map.id) {
+            if (map.kind != MapKind.FOREST && map.kind != MapKind.TOWN) return@getOrPut emptyList()
+            val T = WorldArt.T
+            fun t(x: Int, y: Int) = if (map.inside(x, y)) map.tile(x, y) else Tile.TREE
+            fun near(x: Int, y: Int, r: Int, what: (Tile) -> Boolean) = (-r..r).any { dy -> (-r..r).any { dx -> what(t(x + dx, y + dy)) } }
+            val open = setOf(Tile.GRASS, Tile.FLOWERS, Tile.TALL_GRASS)
+            val centres = mutableListOf<Pair<Int, Int>>()
+            for (y in 0 until map.height) for (x in 0 until map.width) {
+                val here = t(x, y)
+                if (here !in open && here != Tile.CROPS && here != Tile.VEG_BED) continue
+                // how likely a swarm is here: flowers, water, fields and the wood's edge draw them; the deep wood little
+                var p = if (here == Tile.TALL_GRASS) 0.02 else 0.0
+                if (here == Tile.FLOWERS) p += 0.35
+                if (near(x, y, 1) { it == Tile.WATER }) p += 0.4
+                if (here == Tile.CROPS || here == Tile.VEG_BED) p += 0.18
+                val trees = (-1..1).sumOf { dy -> (-1..1).count { dx -> t(x + dx, y + dy) == Tile.TREE } }
+                if (map.kind == MapKind.FOREST && trees in 1..3) p += 0.14
+                if (trees >= 6) p *= 0.3
+                if (near(x, y, 1) { it == Tile.PATH || it == Tile.COBBLE }) p *= 0.3
+                if (map.id == "deep_forest") p *= 0.3
+                if ((hash(x, y, 88) % 1000) / 1000.0 >= p) continue
+                if (centres.any { (cx, cy) -> kotlin.math.abs(cx - x) + kotlin.math.abs(cy - y) < 4 }) continue
+                centres += x to y
+            }
+            centres.flatMap { (x, y) ->
+                val n = 2 + hash(x, y, 89) % 4
+                List(n) { k ->
+                    val seed = hash(x * 31 + k, y, 90)
+                    // pairs share a rhythm, so the second can answer the first
+                    val lead = hash(x * 31 + k / 2 * 2, y, 90)
+                    val period = 2600L + lead % 3600
+                    Fly(x * T + T / 2f + (seed % 20 - 10), y * T + T / 2f + (seed / 20 % 16 - 8), seed,
+                        period = period, offset = (seed / 7 % 9000).toLong(), partner = if (k % 2 == 1) (lead / 7 % 9000).toLong() else null)
+                }
+            }
         }
     }
 }

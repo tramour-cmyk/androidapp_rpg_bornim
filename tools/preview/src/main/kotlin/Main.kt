@@ -105,6 +105,24 @@ fun main() {
     System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
     if (System.getenv("WARDFILM") != null) { wardFilm(); System.exit(0) }
     if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true
+    if (System.getenv("FIREFLIES") != null) {
+        // where the fireflies are, how many show at once in a view, and on which nights
+        for (id in listOf("forest", "deep_forest", "village")) {
+            val m = de.bornim.core.World[id]
+            val flies = de.bornim.game.ui.Fireflies.of(m)
+            val T = de.bornim.core.art.WorldArt.T
+            val kinds = flies.groupingBy { f -> val (x, y) = f.at(0); m.tile((x / T).toInt(), (y / T).toInt()).name }.eachCount()
+            // a view of 6 x 11 tiles moved over the map: how many glow at one moment, on average and at most
+            var sum = 0; var most = 0; var views = 0
+            for (vy in 0 until m.height - 11 step 3) for (vx in 0 until m.width - 6 step 3) for (clock in 0L until 20000L step 250L) {
+                val n = flies.count { f -> val (x, y) = f.at(clock); x / T in vx.toFloat()..(vx + 6f) && y / T in vy.toFloat()..(vy + 11f) && f.glow(clock) > 0.3f }
+                sum += n; most = maxOf(most, n); views++
+            }
+            println("$id: ${flies.size} fireflies, under them: $kinds; lit at once in a view: avg ${"%.2f".format(sum.toDouble() / views)}, most $most")
+        }
+        println("nights with fireflies (day 1..20): " + (1..20).filter { de.bornim.game.ui.Fireflies.tonight(it, 23 * 60) })
+        System.exit(0)
+    }
     if (System.getenv("KARTENZOOM") != null) {
         // the map near (new) and far (former), at noon and at night, in the forest, the village, an inn and the cave
         fun place(vm: GameViewModel, map: String, x: Int, y: Int, minutes: Int, facing: Facing = Facing.UP) {
