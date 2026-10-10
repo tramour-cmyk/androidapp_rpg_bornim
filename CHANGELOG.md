@@ -4,6 +4,15 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 18 und Hörproben), PR #16, noch nicht getestet:
+
+**Kampf: Pechsträhnen dämpfen (18)**
+- Nach drei Fehlschlägen des Helden in Folge trifft der nächste Angriff unsichtbar etwas leichter (+2, je weiterer Fehlschlag +1, höchstens +4), bis er wieder trifft; nur innerhalb eines Kampfes.
+- Werkzeuge (nur Entwicklung): Kerntest `MissStreakTest` mit Vergleich mit und ohne Dämpfung.
+
+**Hörproben (nur Entwicklung, im Spiel unverändert)**
+- 17 weitere Klänge je dreimal neu und Monster-Laute für Wolf, Goblin und Skelett; Vorschau `KLANGPROBEN=`.
+
 Zweig von Tom (Thema 13 und Vorarbeiten), getestet in 0.1.461, PR #17:
 
 **Karte: diagonale Sicht (13)**

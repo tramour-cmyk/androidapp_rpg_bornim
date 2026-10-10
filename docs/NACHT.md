@@ -11,7 +11,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 | Wer | Stand | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|
 | Tom | läuft | 10.10., 22:25 | 10.10., 22:25 | Paket 1 (13q.4 Laden) | `tom-diagonal` |
-| Jerry | läuft | 10.10., 22:21 | 10.10., 22:26 | 2 fertig (Hörproben Runde 2, Commit 30b3c8b), weiter Reserve Monster-Laute | `claude/wizardly-ramanujan-7rocwj` (PR #16) |
+| Jerry | fertig | 10.10., 22:21 | 10.10., 22:29 | Paket und Reserve fertig, Morgenbericht in `docs/OFFEN.md` | `claude/wizardly-ramanujan-7rocwj` (PR #16) |
 
 Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`.
 
