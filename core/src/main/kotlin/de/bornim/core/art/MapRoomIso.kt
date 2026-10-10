@@ -1792,6 +1792,145 @@ object MapRoomIso {
         return c.img
     }
 
+    // ------------------------------------------------------------------ the temple of the Dawnlight (13q.4, drafts)
+
+    private val stonePale = m(0x8A8478, grain = 0.3, sat = 0.3, value = 0.85)
+    private val stoneTop = m(0x9A9488, grain = 0.25, sat = 0.3, value = 0.85, bias = -0.2)
+    private val linenWhite = m(0xB8B0A0, grain = 0.18, sat = 0.35, value = 0.85)
+    private val waterDark = argb(0x1E2A2C)
+
+    /**
+     * The altar against the back wall (−j): a block of stone under a cloth, the sun of the Dawnlight on a stand;
+     * three looks: white cloth and fresh candles, red cloth and candles burnt to stubs, bare cracked stone with wax pooled and dried flowers.
+     */
+    private fun altar(v: Int, joinL: Boolean, joinR: Boolean, seed: Int): PixelImage {
+        val zt = 46.0
+        val c = Canvas((zt + 60 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val i0 = if (joinL) -1.0 else -0.92; val i1 = if (joinR) 0.0 else -0.08
+        val j0 = -0.88; val j1 = -0.3
+        c.floorShadow(i0, j0, i1, j1 + 0.06, 0.5)
+        // a step, the block on it
+        c.box(i0 - 0.02, j0 - 0.02, i1 + 0.02, j1 + 0.08, 0.0, 5.0, stoneTop, stonePale, stonePale)
+        c.box(i0, j0, i1, j1, 5.0, zt, stoneTop, stoneMat, stoneMat)
+        for (k in 1..2) c.s.line(c.x(i0, j1), c.y(i0, j1, 5.0 + k * 13.0), c.x(i1, j1), c.y(i1, j1, 5.0 + k * 13.0), argb(0x3A3630))
+        // the sun stands on the middle of the altar: a single stone, or the middle one of three
+        val middle = joinL == joinR
+        val cloth = when (v % 3) { 0 -> linenWhite; 1 -> clothRed; else -> null }
+        if (cloth != null) {
+            // the cloth over the top and down the front, a sun worked in gold on it
+            c.box(i0 - 0.01, j0 - 0.01, i1 + 0.01, j1 + 0.01, zt - 1, zt + 1.5, cloth, cloth, cloth, bevel = 0.5)
+            if (middle) c.faceJ(j1 + 0.012, i0 + 0.15, i1 - 0.15, zt - 22, zt) { i, z ->
+                val u = (i - (i0 + i1) / 2) / 0.2; val w = (z - (zt - 11)) / 8
+                val r = sqrt(u * u + w * w)
+                when {
+                    z < zt - 20 + 2 * kotlin.math.sin(i * 40) -> null
+                    r < 0.45 -> gold
+                    r < 0.85 && abs(kotlin.math.sin(kotlin.math.atan2(w, u) * 6)) > 0.65 -> shade(gold, 0.8)
+                    else -> shade(if (v % 3 == 0) argb(0xB0A898) else argb(0x5A1E1A), 0.85 + 0.15 * kotlin.math.sin(i * 60))
+                }
+            }
+        } else {
+            // a crack down the front, wax pooled on the top
+            val x = c.x(-0.55, j1); val y = c.y(-0.55, j1, zt)
+            c.s.line(x, y + 2, x - 2, y + 10, argb(0x2A2622)); c.s.line(x - 2, y + 10, x + 1, y + 18, argb(0x2A2622)); c.s.line(x + 1, y + 18, x - 1, y + 26, argb(0x2A2622))
+            c.s.flat(c.x(-0.3, -0.6), c.y(-0.3, -0.6, zt), 5.0, 2.0, argb(0xC8BC9C))
+        }
+        // the sun on its stand at the back, in the middle of the altar
+        val mi = (i0 + i1) / 2
+        val sx = c.x(mi, j0 + 0.12); val sy = c.y(mi, j0 + 0.12, zt + 1)
+        if (middle) {
+            c.s.limb(sx, sy - 1, sx, sy - 22, 1.2, 1.0, brass)
+            c.s.blob(sx, sy - 30, 8.0, 8.0, brass, depth = 0.4)
+            for (k in 0 until 12) { val a = k * Math.PI / 6; c.s.line(sx + 8 * kotlin.math.cos(a), sy - 30 + 8 * kotlin.math.sin(a), sx + 13 * kotlin.math.cos(a), sy - 30 + 13 * kotlin.math.sin(a), shade(gold, 0.9)) }
+            c.s.blob(sx, sy - 30, 3.4, 3.4, m(0xC8A858, shine = 0.7, sat = 0.8), depth = 0.5)
+        }
+        fun at(i: Double, j: Double) = c.x(i, j) to c.y(i, j, zt + 1.5)
+        when (v % 3) {
+            0 -> { for (i in listOf(i0 + 0.12, i1 - 0.12)) at(i, j0 + 0.2).let { (x, y) -> c.s.limb(x, y - 1, x, y - 4, 2.0, 1.6, brass); c.candle(x, y - 4, 12.0) }
+                   at(mi + 0.18, -0.48).let { (x, y) -> c.s.blob(x, y - 1.5, 4.5, 1.8, brass, depth = 0.4) } }
+            1 -> for (k in 0 until 5) at(i0 + 0.1 + k * (i1 - i0 - 0.2) / 4, -0.5 + (k % 2) * 0.1).let { (x, y) -> c.candle(x, y, 1.5 + (k * 3 % 5).toDouble(), drips = true) }
+            else -> {
+                at(i0 + 0.15, -0.55).let { (x, y) -> c.candle(x, y, 2.0, drips = true) }
+                // a bunch of dried flowers laid down
+                at(mi + 0.15, -0.5).let { (x, y) -> for (k in 0 until 5) c.s.line(x - 6, y + k * 0.4, x + 5, y - 2 + k * 0.6, argb(0x5A5232)); c.s.blob(x + 6, y - 1.5, 2.6, 1.6, m(0x6A4A3A, grain = 0.4, sat = 0.5), depth = 0.5) }
+            }
+        }
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
+    /** A standing candlestick of iron on three feet, its candles lit; three looks: three candles, five, one left and bent. */
+    private fun candelabrum(v: Int, seed: Int): PixelImage {
+        val c = Canvas((110 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val (ox, oy) = c.mid()
+        val top = oy - 92 * ZS
+        for (k in 0 until 3) { val a = k * 2 * Math.PI / 3 + 0.4; c.s.limb(ox, oy - 8, ox + 7 * kotlin.math.cos(a), oy + 3.5 * kotlin.math.sin(a), 1.0, 0.8, iron) }
+        val bend = if (v % 3 == 2) 4.0 else 0.0
+        c.s.limb(ox, oy - 6, ox + bend, top, 1.2, 1.0, iron)
+        val n = when (v % 3) { 0 -> 3; 1 -> 5; else -> 1 }
+        val span = if (n == 1) 0.0 else 10.0
+        if (n > 1) c.s.limb(ox - span, top, ox + span, top, 0.9, 0.9, iron)
+        for (k in 0 until n) {
+            val x = if (n == 1) ox + bend else ox - span + 2 * span * k / (n - 1)
+            c.s.blob(x, top - 0.5, 2.0, 0.8, iron, depth = 0.3)
+            c.candle(x, top - 1, if (v % 3 == 2) 3.0 else 6.0 + (k % 2) * 3, drips = k % 2 == 0)
+        }
+        c.s.outline(outlineColor)
+        c.roundShadow(ox, oy, 14.0, 0.4)
+        return c.img
+    }
+
+    /** A lectern on a post: a big book open, a chained book shut, a scroll weighed down with a stone. */
+    private fun lectern(v: Int, seed: Int): PixelImage {
+        val c = Canvas((90 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val (ox, oy) = c.mid()
+        c.floorShadow(-0.75, -0.75, -0.25, -0.25, 0.4)
+        c.box(-0.7, -0.62, -0.3, -0.38, 0.0, 6.0, oakDark, oak, oak)
+        c.box(-0.54, -0.54, -0.46, -0.46, 6.0, 74.0, oakDark, oak, oak)
+        // the sloping desk, high at the back
+        val i0 = -0.76; val i1 = -0.24; val j0 = -0.72; val j1 = -0.3
+        c.s.poly(oakTop, c.x(i0, j0), c.y(i0, j0, 92.0), c.x(i1, j0), c.y(i1, j0, 92.0), c.x(i1, j1), c.y(i1, j1, 78.0), c.x(i0, j1), c.y(i0, j1, 78.0), tiltY = -0.85, bevel = 0.6)
+        c.box(i0, j1 - 0.02, i1, j1 + 0.02, 74.0, 80.0, oakTop, oak, oak)
+        c.s.poly(oak, c.x(i1, j0), c.y(i1, j0, 92.0), c.x(i1, j1), c.y(i1, j1, 78.0), c.x(i1, j1), c.y(i1, j1, 74.0), c.x(i1, j0), c.y(i1, j0, 86.0), tiltX = 0.55, bevel = 0.5)
+        fun top(i: Double, j: Double) = c.x(i, j) to c.y(i, j, 78.0 + 14 * (j1 - j) / (j1 - j0) + 1)
+        fun quad(ia: Double, ja: Double, ib: Double, jb: Double, mat: Mat) {
+            val (ax, ay) = top(ia, ja); val (bx, by) = top(ib, ja); val (cx, cy) = top(ib, jb); val (dx, dy) = top(ia, jb)
+            c.s.poly(mat, ax, ay, bx, by, cx, cy, dx, dy, tiltY = -0.85, bevel = 0.3)
+        }
+        when (v % 3) {
+            0 -> { quad(-0.72, -0.68, -0.28, -0.34, leather); quad(-0.7, -0.66, -0.505, -0.36, parchment); quad(-0.495, -0.66, -0.3, -0.36, parchment)
+                   for (k in 0..3) { val (ax, ay) = top(-0.68, -0.62 + k * 0.06); val (bx, by) = top(-0.53, -0.62 + k * 0.06); c.s.line(ax, ay - 0.5, bx, by - 0.5, argb(0x4A3A2A)) }
+                   top(-0.5, -0.34).let { (x, y) -> c.s.line(x, y, x + 1, y + 7, waxRed) } }
+            1 -> { quad(-0.7, -0.66, -0.3, -0.36, leather)
+                   top(-0.5, -0.5).let { (x, y) -> c.s.flat(x, y - 1, 3.0, 1.6, gold) }
+                   // the chain down to the post
+                   val (x, y) = top(-0.3, -0.36); for (k in 0 until 8) c.s.dot(x + kotlin.math.sin(k * 0.8) * 1.5, y + k * 2.2, ironLine) }
+            else -> { quad(-0.7, -0.62, -0.3, -0.4, parchmentOld)
+                      top(-0.7, -0.51).let { (x, y) -> c.s.limb(x - 1, y - 2, x + 1, y + 2, 2.4, 2.4, parchmentOld) }
+                      top(-0.4, -0.5).let { (x, y) -> c.s.blob(x, y - 2, 3.0, 2.2, stoneMat, depth = 0.8) } }
+        }
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
+    /** A basin of stone on a pillar by the door: still water, dry with leaves in it, a candle floating in the water. */
+    private fun font(v: Int, seed: Int): PixelImage {
+        val c = Canvas((90 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val (ox, oy) = c.mid()
+        c.round(ox, oy, 8.0, stonePale) { 22.0 }
+        c.round(ox, oy, 62.0, stoneMat, 8.0) { t -> 11.0 - 2 * kotlin.math.sin(t * Math.PI) }
+        c.round(ox, oy, 18.0, stonePale, 70.0) { t -> 18.0 + 12 * t }
+        when (v % 3) {
+            0 -> c.disc(ox, oy, 86.0, 27.0, m(0x24343A, shine = 0.8, sat = 0.5, value = 0.8))
+            1 -> { c.disc(ox, oy, 86.0, 27.0, m(0x3A3228, grain = 0.3, sat = 0.5, value = 0.7)); for (k in 0 until 4) { val a = k * 1.7 + seed; c.s.blob(ox + 8 * kotlin.math.cos(a), oy - 88 * ZCM + 3 * kotlin.math.sin(a), 2.4, 1.2, m(0x6A5232, grain = 0.3, sat = 0.7), depth = 0.4) } }
+            else -> { c.disc(ox, oy, 86.0, 27.0, m(0x24343A, shine = 0.8, sat = 0.5, value = 0.8)); val y = oy - 86 * ZCM; c.s.blob(ox + 3, y, 3.0, 1.2, wax, depth = 0.4); c.s.flat(ox + 3, y - 3, 0.9, 1.8, flame); c.s.dot(ox + 3, y - 3.5, flameHot) }
+        }
+        c.hoop(ox, oy, 86.0, 30.0, stoneTop, 1.4)
+        c.s.outline(outlineColor)
+        c.roundShadow(ox, oy, 26.0, 0.45)
+        return c.img
+    }
+
     private fun cached(key: String, make: () -> PixelImage): PixelImage =
         synchronized(cache) { cache[key] } ?: trimTop(make()).also { synchronized(cache) { cache[key] = it } }
 
@@ -1826,6 +1965,7 @@ object MapRoomIso {
         val d = depth(tx, ty)
         val elder = map.id.startsWith("elder_")
         val shop = map.id.startsWith("shop_")
+        val temple = map.id.startsWith("temple_")
         fun one(k: String, low: Boolean = true, make: () -> PixelImage) = listOf(obj(cached("$key/$k", make), fx, fy, d, low))
         return when (map.tile(tx, ty)) {
             Tile.WALL, Tile.WINDOW, Tile.HEARTH -> {
@@ -1847,17 +1987,24 @@ object MapRoomIso {
             Tile.SHELF -> if (shop) one("goods", low = false) { goodsShelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
                 else if (elder) one("books", low = false) { bookshelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
                 else one("shelf", low = false) { shelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
-            Tile.DESK -> one("desk", low = false) { desk(v, seed) }
+            Tile.DESK -> if (temple) one("lectern", low = false) { lectern(v, seed) } else one("desk", low = false) { desk(v, seed) }
             Tile.TRUNK -> one("trunk") { chest(v, seed) }
             Tile.ARMCHAIR -> one("armchair", low = false) { armchair(v, seed) }
             // the cloth hangs on the wall behind the tile: behind anyone standing on it
             Tile.HANGING -> listOf(obj(cached("$key/hanging") { wallCloth(v, seed) }, fx, fy, d - T, false))
             Tile.COUNTER -> one("counter", low = false) { counter(hash(tx, ty, 2), same(-1), same(1), seed, shop) }
             Tile.RACK -> one("rack", low = false) { rack(v, seed) }
+            Tile.ALTAR -> if (temple) {
+                // one look for the whole altar: that of its first stone
+                var x0 = tx; while (at(x0 - tx - 1, 0) == Tile.ALTAR) x0--
+                one("altar", low = false) { altar(hash(x0, ty, 3), same(-1), same(1), seed) }
+            } else null
+            Tile.CANDLES -> one("candles", low = false) { candelabrum(v, seed) }
+            Tile.FONT -> one("font", low = false) { font(v, seed) }
             Tile.TABLE -> one("table") { table(v, same(-1), same(1), seed) }
             Tile.BENCH -> {
                 // a settle beside a table: its back away from the table (13p.1)
-                val back = when { at(0, -1) == Tile.TABLE -> 1; at(0, 1) == Tile.TABLE -> -1; else -> 0 }
+                val back = when { temple || at(0, -1) == Tile.TABLE -> 1; at(0, 1) == Tile.TABLE -> -1; else -> 0 }
                 one("bench", low = back == 0) { bench(same(-1), same(1), seed, back) }
             }
             // the elder's broad bed is one picture over its four tiles, laid on the front one
@@ -1920,5 +2067,14 @@ object MapRoomIso {
         "Warenregal" to (0 until 3).map { goodsShelf(it, false, false, 231 + it) },
         "Werkzeug" to (0 until 3).map { rack(it, 241 + it) },
         "Warenkiste" to (0 until 3).map { produce(it, 251 + it) },
+    )
+
+    /** The temple's things (13q.4, drafts for ISODINGE=tempel). */
+    fun templeSheet(): List<Pair<String, List<PixelImage>>> = listOf(
+        "Altar" to (0 until 3).map { altar(it, false, false, 261 + it) },
+        "Kerzenständer" to (0 until 3).map { candelabrum(it, 271 + it) },
+        "Lesepult" to (0 until 3).map { lectern(it, 281 + it) },
+        "Weihwasserbecken" to (0 until 3).map { font(it, 291 + it) },
+        "Gebetsbank" to listOf(bench(false, false, 301, 1), bench(true, false, 302, 1), bench(false, true, 303, 1)),
     )
 }

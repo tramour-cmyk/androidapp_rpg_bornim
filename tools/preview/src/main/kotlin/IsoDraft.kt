@@ -270,7 +270,8 @@ fun renderIsoThings() {
     val dir = File("build/screens/iso").apply { mkdirs() }
     val elder = System.getenv("ISODINGE") == "aeltester"
     val shop = System.getenv("ISODINGE") == "laden"
-    val rows = if (elder) de.bornim.core.art.MapRoomIso.elderSheet() else if (shop) de.bornim.core.art.MapRoomIso.shopSheet() else de.bornim.core.art.MapRoomIso.sheet()
+    val temple = System.getenv("ISODINGE") == "tempel"
+    val rows = if (temple) de.bornim.core.art.MapRoomIso.templeSheet() else if (elder) de.bornim.core.art.MapRoomIso.elderSheet() else if (shop) de.bornim.core.art.MapRoomIso.shopSheet() else de.bornim.core.art.MapRoomIso.sheet()
     val cw = if (elder) 230 else 150; val ch = 210
     val img = PixelImage(cw * 3, ch * rows.size)
     for (y in 0 until img.height) for (x in 0 until img.width) img.set(x, y, argb(0x2A2018))
@@ -283,7 +284,7 @@ fun renderIsoThings() {
             if (i in -1.0..0.0 && j in -1.0..0.0) img.set(ox + p.width / 2 - 45 + x, oy + p.height - 45 + y, if ((x + y) % 7 == 0) argb(0x3A2C20) else argb(0x4A3826))
         }
         // things that hang on or lean against the back wall: a strip of it behind them
-        if ((elder && row.first in setOf("Wandbehang", "Stock")) || (shop && row.first == "Werkzeug")) {
+        if ((elder && row.first in setOf("Wandbehang", "Stock")) || (shop && row.first == "Werkzeug") || (temple && row.first == "Altar")) {
             val cx = ox + p.width / 2; val by = oy + p.height
             for (x in 0..45) { val yb = by - 45 + x / 2; for (y in yb - 103..yb) img.set(cx + x, y, if (x == 0 || x == 45 || y == yb - 103) argb(0x221A14) else argb(0x3A3028)) }
         }
@@ -296,7 +297,7 @@ fun renderIsoThings() {
     // twice the size, each art pixel a block, to look at closely
     val big = PixelImage(img.width * 2, img.height * 2)
     for (y in 0 until big.height) for (x in 0 until big.width) big.set(x, y, img[x / 2, y / 2])
-    save(big, File(dir, if (elder) "iso_aeltester.png" else if (shop) "iso_laden.png" else "iso_dinge.png"))
+    save(big, File(dir, if (elder) "iso_aeltester.png" else if (shop) "iso_laden.png" else if (temple) "iso_tempel.png" else "iso_dinge.png"))
     println("wrote iso things")
 }
 

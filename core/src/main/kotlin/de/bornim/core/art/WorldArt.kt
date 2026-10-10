@@ -144,7 +144,7 @@ object WorldArt {
                 val m = mask(!r(0, -1), !r(1, 0), !r(0, 1), !r(-1, 0))
                 cached("rug$m") { rug(m) }
             }
-            Tile.COUNTER, Tile.TABLE, Tile.BED, Tile.SHELF, Tile.PLANT, Tile.ALTAR, Tile.DESK, Tile.TRUNK, Tile.ARMCHAIR, Tile.RACK -> {
+            Tile.COUNTER, Tile.TABLE, Tile.BED, Tile.SHELF, Tile.PLANT, Tile.ALTAR, Tile.DESK, Tile.TRUNK, Tile.ARMCHAIR, Tile.RACK, Tile.CANDLES, Tile.FONT -> {
                 val shadow = map.inside(tx, ty - 1) && at(0, -1) == Tile.WALL
                 cached("wood$seed/$shadow") { woodFloor(seed); if (shadow) topShadow(7) }
             }

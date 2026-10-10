@@ -42,6 +42,9 @@ enum class Tile(val ch: Char, val walkable: Boolean) {
     HANGING('V', true),
     /** A rack of tools or arms against the wall (the shop, 13q.4). */
     RACK('U', false),
+    /** The temple's standing candlesticks and its basin of water (13q.4). */
+    CANDLES('N', false),
+    FONT('&', false),
     // village
     COBBLE('o', true),
     STALL('m', false),

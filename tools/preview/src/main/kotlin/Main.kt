@@ -186,6 +186,11 @@ fun main() {
                     shot("zoom_${z}_l${k}1_laden_tag") { place(it, "shop_$k", 5, 4, 12 * 60, Facing.UP) }
                     shot("zoom_${z}_l${k}2_laden_abend") { place(it, "shop_$k", 5, 4, 21 * 60, Facing.UP) }
                 }
+                templeDrafts()
+                for (k in listOf("a", "b", "c")) {
+                    shot("zoom_${z}_t${k}1_tempel_tag") { place(it, "temple_$k", 4, 4, 12 * 60, Facing.UP) }
+                    shot("zoom_${z}_t${k}2_tempel_abend") { place(it, "temple_$k", 4, 4, 21 * 60, Facing.UP) }
+                }
                 shot("zoom_${z}_ea3_aeltester_bett") { place(it, "elder_a", 4, 2, 21 * 60, Facing.LEFT) }
                 shot("zoom_${z}_i4_laden") { place(it, "shop", 4, 5, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_i5_tempel") { place(it, "temple", 4, 4, 12 * 60, Facing.UP) }
@@ -863,4 +868,41 @@ private fun shopDrafts() {
         "#bkkkkJ#",
         "###D####",
     ), 4, 1)
+}
+
+/** Floor plans for the temple of the Dawnlight (13q.4): altar, candles, pews facing it, a font by the door; only in the previews. */
+private fun templeDrafts() {
+    fun def(id: String, rows: List<String>, ax: Int, ay: Int) {
+        de.bornim.core.World.drafts[id] = de.bornim.core.MapDef(id, de.bornim.core.T("Tempel des Morgenlichts", "Temple of the Dawnlight"), de.bornim.core.MapKind.INTERIOR, rows,
+            npcs = listOf(de.bornim.core.Npc("osric", ax, ay, "priest", Facing.DOWN) { emptyList() }))
+    }
+    // A: a broad altar between two candlesticks, two blocks of pews with an aisle, the lectern beside the altar
+    def("temple_a", listOf(
+        "####W####",
+        "#kNAAANk#",
+        "#kkkkdkk#",
+        "#nnnknnn#",
+        "#nnnknnn#",
+        "#kk&kkkk#",
+        "####D####",
+    ), 4, 2)
+    // B: a single altar stone, candles standing free, a font on each side of the door
+    def("temple_b", listOf(
+        "###WWW###",
+        "#kkkAkkk#",
+        "#kNkkkNk#",
+        "#nnkkknn#",
+        "#nnkkknn#",
+        "#&kkkkk&#",
+        "####D####",
+    ), 4, 2)
+    // C: the smallest, the altar in the corner light
+    def("temple_c", listOf(
+        "###WW###",
+        "#NAAAkd#",
+        "#kkkkkN#",
+        "#nnkknn#",
+        "#&kkkkk#",
+        "###D####",
+    ), 3, 2)
 }
