@@ -14,7 +14,6 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | 5.1, 5.2, 5g, 5h.1 auf `main` (PR #24, 11.10., 14:52). 5l/5.5 Leben im Dorf: nach 24 (Nutzer 14:55), erst Standbilder. Dann 5.3, 5.4 |
 | 25 | Laternen geben nachts Licht, wirken als Quelle aber dunkel | Tom | `claude/fervent-einstein-bewehx` | 25a ja (14:55): 25.1 Nachtfassung (Glas glüht, Schein am Kopf), erst Standbilder; in Arbeit, vor 24 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
-| 14 | Neustart-Haken: misst Gesprächsgröße, erinnert ab Schwelle immer öfter; Warnung bei großer `OFFEN.md` | **Berater** (die Beratungssitzung, die der Nutzer „Berater“ nennt). **Tom-Arbeitssitzungen: nicht anfassen**, auch nicht den Zweig `berater-neustart-haken` | `berater-neustart-haken` (nur Werkzeug, PR) | PR #26 bereit (15:06), wartet auf „passt“ des Nutzers; der Berater führt zusammen |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; frei, seit 13 auf `main` ist |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
