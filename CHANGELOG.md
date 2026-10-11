@@ -4,6 +4,11 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 18k), getestet in 0.1.511, PR #27 (zusammengeführt 11.10., 16:08):
+
+**Feuerknistern als nahtlose Schleife (18k)**
+- Das Knistern bleibt bei einer Fassung, solange es läuft, und läuft ohne hörbaren Übergang weiter (10-s-Schleifen aus den CC0-Aufnahmen 181563 und 370938); eine neue Fassung erst beim nächsten Anschwellen.
+
 Zweig von Jerry (Thema 18h, 18i), getestet in 0.1.507, PR #25:
 
 **Feuer und Höhle klingen lebendiger (18h, 18i)**
