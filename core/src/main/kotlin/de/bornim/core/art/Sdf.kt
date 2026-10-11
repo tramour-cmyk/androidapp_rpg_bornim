@@ -89,7 +89,12 @@ enum class BodyPart { HEAD, NECK, TORSO, PELVIS, ARM, HAND, THIGH, SHIN, FOOT, H
 abstract class Solid(val part: BodyPart, var group: Int) {
     abstract val center: P3
     abstract val bound: Double
-    protected abstract fun raw(p: P3): Double
+    /**
+     * The distance before cuts and holes. A solid gives either form; the one in plain numbers makes no new points,
+     * so the many thousand measurements of a picture leave no garbage on the phone (24.14).
+     */
+    protected open fun raw(p: P3): Double = raw(p.x, p.y, p.z)
+    protected open fun raw(x: Double, y: Double, z: Double): Double = raw(P3(x, y, z))
     /** Names the bone it belongs to, so clothes can be shaped as shells over it. */
     var key: String = ""
     /** A fixed material, else the body's material at that spot. */
@@ -104,10 +109,11 @@ abstract class Solid(val part: BodyPart, var group: Int) {
     val holes = mutableListOf<Solid>()
 
     fun cut(n: P3, through: P3): Solid { val nn = n.norm(); cuts += nn to (nn dot through); return this }
-    fun dist(p: P3): Double {
-        var d = raw(p)
-        for ((n, k) in cuts) d = max(d, (n dot p) - k)
-        for (h in holes) d = max(d, -h.dist(p))
+    fun dist(p: P3): Double = dist(p.x, p.y, p.z)
+    fun dist(x: Double, y: Double, z: Double): Double {
+        var d = raw(x, y, z)
+        for (i in cuts.indices) { val (n, k) = cuts[i]; d = max(d, (n.x * x + n.y * y + n.z * z) - k) }
+        for (i in holes.indices) d = max(d, -holes[i].dist(x, y, z))
         return d
     }
     fun restOf(p: P3) = rest?.invoke(p) ?: p
@@ -115,9 +121,9 @@ abstract class Solid(val part: BodyPart, var group: Int) {
 
 class Ellipsoid(override val center: P3, val r: P3, val f: Frame = Frame.IDENTITY, part: BodyPart, group: Int) : Solid(part, group) {
     override val bound = max(r.x, max(r.y, r.z))
-    override fun raw(p: P3): Double {
-        val q = p - center
-        val lx = (q dot f.x) / r.x; val ly = (q dot f.y) / r.y; val lz = (q dot f.z) / r.z
+    override fun raw(x: Double, y: Double, z: Double): Double {
+        val qx = x - center.x; val qy = y - center.y; val qz = z - center.z
+        val lx = (qx * f.x.x + qy * f.x.y + qz * f.x.z) / r.x; val ly = (qx * f.y.x + qy * f.y.y + qz * f.y.z) / r.y; val lz = (qx * f.z.x + qy * f.z.y + qz * f.z.z) / r.z
         val k0 = sqrt(lx * lx + ly * ly + lz * lz)
         val k1 = sqrt((lx / r.x) * (lx / r.x) + (ly / r.y) * (ly / r.y) + (lz / r.z) * (lz / r.z))
         return if (k1 < 1e-9) -min(r.x, min(r.y, r.z)) else k0 * (k0 - 1) / k1
@@ -137,13 +143,13 @@ class Blade(
     private val wMax = max(w0, w1) + abs(curve) / 2 + 0.2
     override val bound = sqrt((len / 2) * (len / 2) + wMax * wMax)
     private val box = Box(center, P3(wMax, len / 2, max(t0, t1)), f, 0.0, part, group)
-    override fun raw(p: P3): Double {
-        val q = p - a
-        val y = q dot f.y
+    override fun raw(px: Double, py: Double, pz: Double): Double {
+        val qx = px - a.x; val qy = py - a.y; val qz = pz - a.z
+        val y = qx * f.y.x + qy * f.y.y + qz * f.y.z
         val yc = y.coerceIn(0.0, len)
         val k = yc / len
-        val x = (q dot f.x) - curve * k * k
-        val z = q dot f.z
+        val x = (qx * f.x.x + qy * f.x.y + qz * f.x.z) - curve * k * k
+        val z = qx * f.z.x + qy * f.z.y + qz * f.z.z
         var w = w0 + (w1 - w0) * k
         var t = t0 + (t1 - t0) * k
         val inTip = yc - (len - tip)
@@ -155,7 +161,7 @@ class Blade(
         w = max(w, 0.05); t = max(t, 0.05)
         val dd = (abs(x) / w + abs(z) / t - 1) * (w * t) / sqrt(w * w + t * t)
         val dy = max(-y, y - len)
-        return max(max(dd * 0.8, dy), box.dist(p))
+        return max(max(dd * 0.8, dy), box.dist(px, py, pz))
     }
 }
 
@@ -167,14 +173,17 @@ class RoundCone(val a: P3, val b: P3, val ra: Double, val rb: Double, part: Body
     private val l2 = ba dot ba
     private val rr = ra - rb
     private val a2 = l2 - rr * rr
-    override fun raw(p: P3): Double {
-        if (a2 <= 1e-6) return min((p - a).len() - ra, (p - b).len() - rb)
+    override fun raw(px: Double, py: Double, pz: Double): Double {
+        val ax = px - a.x; val ay = py - a.y; val az = pz - a.z
+        if (a2 <= 1e-6) {
+            val bx = px - b.x; val by = py - b.y; val bz = pz - b.z
+            return min(sqrt(ax * ax + ay * ay + az * az) - ra, sqrt(bx * bx + by * by + bz * bz) - rb)
+        }
         val il2 = 1.0 / l2
-        val pa = p - a
-        val y = pa dot ba
+        val y = ax * ba.x + ay * ba.y + az * ba.z
         val z = y - l2
-        val w = pa * l2 - ba * y
-        val x2 = w dot w
+        val wx = ax * l2 - ba.x * y; val wy = ay * l2 - ba.y * y; val wz = az * l2 - ba.z * y
+        val x2 = wx * wx + wy * wy + wz * wz
         val y2 = y * y * l2
         val z2 = z * z * l2
         val k = sign(rr) * rr * rr * x2
@@ -187,9 +196,11 @@ class RoundCone(val a: P3, val b: P3, val ra: Double, val rb: Double, part: Body
 /** A box with rounded edges: half sizes [half] along the frame's axes. Plates, buckles, books. */
 class Box(override val center: P3, val half: P3, val f: Frame = Frame.IDENTITY, val round: Double = 0.4, part: BodyPart = BodyPart.GEAR, group: Int) : Solid(part, group) {
     override val bound = half.len() + round
-    override fun raw(p: P3): Double {
-        val q = p - center
-        val qx = abs(q dot f.x) - half.x; val qy = abs(q dot f.y) - half.y; val qz = abs(q dot f.z) - half.z
+    override fun raw(x: Double, y: Double, z: Double): Double {
+        val px = x - center.x; val py = y - center.y; val pz = z - center.z
+        val qx = abs(px * f.x.x + py * f.x.y + pz * f.x.z) - half.x
+        val qy = abs(px * f.y.x + py * f.y.y + pz * f.y.z) - half.y
+        val qz = abs(px * f.z.x + py * f.z.y + pz * f.z.z) - half.z
         val ox = max(qx, 0.0); val oy = max(qy, 0.0); val oz = max(qz, 0.0)
         return sqrt(ox * ox + oy * oy + oz * oz) + min(max(qx, max(qy, qz)), 0.0) - round
     }
@@ -199,14 +210,14 @@ class Box(override val center: P3, val half: P3, val f: Frame = Frame.IDENTITY, 
 class Shell(val inner: Solid, val t: Double, part: BodyPart = BodyPart.GEAR, group: Int) : Solid(part, group) {
     override val center = inner.center
     override val bound = inner.bound + t
-    override fun raw(p: P3) = inner.dist(p) - t
+    override fun raw(x: Double, y: Double, z: Double) = inner.dist(x, y, z) - t
 }
 
 /** Only the skin of another solid, [t] thick: cloth hanging free, a cloak, a hood. */
 class Hollow(val inner: Solid, val t: Double, part: BodyPart = BodyPart.GEAR, group: Int) : Solid(part, group) {
     override val center = inner.center
     override val bound = inner.bound + t
-    override fun raw(p: P3) = abs(inner.dist(p)) - t
+    override fun raw(x: Double, y: Double, z: Double) = abs(inner.dist(x, y, z)) - t
 }
 
 /** Folds pressed into another solid: ripples around the axis through [axis] along [up]. */
@@ -214,10 +225,10 @@ class Folds(val inner: Solid, val axis: P3, val up: P3, val count: Double, val d
     override val center = inner.center
     override val bound = inner.bound + depth
     private val f = Frame.along(up)
-    override fun raw(p: P3): Double {
-        val q = p - axis
-        val a = atan2(q dot f.x, q dot f.z)
-        return inner.dist(p) + sin(a * count + phase) * depth
+    override fun raw(x: Double, y: Double, z: Double): Double {
+        val qx = x - axis.x; val qy = y - axis.y; val qz = z - axis.z
+        val a = atan2(qx * f.x.x + qy * f.x.y + qz * f.x.z, qx * f.z.x + qy * f.z.y + qz * f.z.z)
+        return inner.dist(x, y, z) + sin(a * count + phase) * depth
     }
 }
 
@@ -226,10 +237,16 @@ class Squash(val inner: Solid, val pivot: P3, val f: Frame, val k: P3, part: Bod
     override val center = inner.center
     override val bound = inner.bound
     private val m = min(k.x, min(k.y, k.z))
-    override fun raw(p: P3): Double {
-        val q = p - pivot
-        val back = pivot + f.x * ((q dot f.x) / k.x) + f.y * ((q dot f.y) / k.y) + f.z * ((q dot f.z) / k.z)
-        return inner.dist(back) * m
+    override fun raw(x: Double, y: Double, z: Double): Double {
+        val qx = x - pivot.x; val qy = y - pivot.y; val qz = z - pivot.z
+        val a = (qx * f.x.x + qy * f.x.y + qz * f.x.z) / k.x
+        val b = (qx * f.y.x + qy * f.y.y + qz * f.y.z) / k.y
+        val c = (qx * f.z.x + qy * f.z.y + qz * f.z.z) / k.z
+        return inner.dist(
+            pivot.x + f.x.x * a + f.y.x * b + f.z.x * c,
+            pivot.y + f.x.y * a + f.y.y * b + f.z.y * c,
+            pivot.z + f.x.z * a + f.y.z * b + f.z.z * c,
+        ) * m
     }
 }
 
@@ -240,10 +257,12 @@ class Squash(val inner: Solid, val pivot: P3, val f: Frame, val k: P3, part: Bod
 class Board(override val center: P3, val f: Frame, val size: Double, val thick: Double, val bow: Double, val outline: (Double, Double) -> Double, part: BodyPart = BodyPart.GEAR, group: Int) : Solid(part, group) {
     override val bound = size
     fun local(p: P3): P3 { val q = p - center; val x = q dot f.x; val y = q dot f.y; return P3(x, y, (q dot f.z) + bow * (x * x) / (size * size)) }
-    override fun raw(p: P3): Double {
-        val l = local(p)
-        val d2 = outline(l.x, l.y)
-        val dz = abs(l.z) - thick / 2
+    override fun raw(px: Double, py: Double, pz: Double): Double {
+        val qx = px - center.x; val qy = py - center.y; val qz = pz - center.z
+        val x = qx * f.x.x + qy * f.x.y + qz * f.x.z; val y = qx * f.y.x + qy * f.y.y + qz * f.y.z
+        val lz = (qx * f.z.x + qy * f.z.y + qz * f.z.z) + bow * (x * x) / (size * size)
+        val d2 = outline(x, y)
+        val dz = abs(lz) - thick / 2
         val ox = max(d2, 0.0); val oz = max(dz, 0.0)
         return sqrt(ox * ox + oz * oz) + min(max(d2, dz), 0.0)
     }
@@ -253,9 +272,9 @@ class Board(override val center: P3, val f: Frame, val size: Double, val thick: 
 class Union(val parts: List<Solid>, val k: Double, part: BodyPart = BodyPart.GEAR, group: Int) : Solid(part, group) {
     override val center = parts.fold(P3.O) { a, p -> a + p.center } * (1.0 / parts.size)
     override val bound = parts.maxOf { (it.center - center).len() + it.bound }
-    override fun raw(p: P3): Double {
+    override fun raw(x: Double, y: Double, z: Double): Double {
         var d = Double.MAX_VALUE
-        for (q in parts) { val e = q.dist(p); d = if (d == Double.MAX_VALUE) e else SdfRender.smin(d, e, k) }
+        for (i in parts.indices) { val e = parts[i].dist(x, y, z); d = if (d == Double.MAX_VALUE) e else SdfRender.smin(d, e, k) }
         return d
     }
 }
@@ -332,6 +351,8 @@ class SdfView(yawDeg: Double, pitchDeg: Double = 15.0, fallF: Double = 0.0, fall
 object SdfRender {
     /** Rows are shared out among the processor's cores; off for tests that compare pictures bit for bit. */
     @Volatile var PARALLEL = true
+    /** Set on a thread that draws quietly in the background (24.15): its pictures are drawn on that thread alone. */
+    val alone: ThreadLocal<Boolean> = ThreadLocal.withInitial { false }
     private val NEIGH = intArrayOf(1, 0, -1, 0, 0, 1, 0, -1)
 
     fun smin(a: Double, b: Double, k: Double): Double {
@@ -382,20 +403,22 @@ object SdfRender {
         class Row {
             val cand = IntArray(n0)
             val gd = DoubleArray(groups.count)
-            fun field(p: P3, n: Int): Double {
+            fun field(px: Double, py: Double, pz: Double, n: Int): Double {
                 java.util.Arrays.fill(gd, Double.MAX_VALUE)
                 for (j in 0 until n) {
                     val so = solids[cand[j]]
                     val g = so.group
                     val cur = gd[g]
-                    val d = so.dist(p)
+                    val d = so.dist(px, py, pz)
                     gd[g] = if (cur == Double.MAX_VALUE) d else smin(cur, d, groups.smooth[g])
                 }
                 // children melt into their parent near the joint only
                 for (g in groups.count - 1 downTo 0) {
                     val par = groups.parent[g]
                     if (par < 0 || gd[g] == Double.MAX_VALUE || gd[par] == Double.MAX_VALUE) continue
-                    val wgt = (1 - (p - groups.joint[g]!!).len() / groups.reach).coerceIn(0.0, 1.0)
+                    val j = groups.joint[g]!!
+                    val jx = px - j.x; val jy = py - j.y; val jz = pz - j.z
+                    val wgt = (1 - sqrt(jx * jx + jy * jy + jz * jz) / groups.reach).coerceIn(0.0, 1.0)
                     gd[par] = if (wgt > 0.05) smin(gd[par], gd[g], groups.smooth[par] * 1.4 * wgt) else min(gd[par], gd[g])
                     gd[g] = Double.MAX_VALUE
                 }
@@ -427,7 +450,7 @@ object SdfRender {
                     var hit = false
                     var steps = 0
                     while (z > zBot && steps < maxSteps) {
-                        val d = field(o + dirL * z, n)
+                        val d = field(o.x + dirL.x * z, o.y + dirL.y * z, o.z + dirL.z * z, n)
                         if (d < 0.1) { hit = true; break }
                         z -= max(d * 0.85, 0.07)
                         steps++
@@ -435,12 +458,12 @@ object SdfRender {
                     if (!hit) continue
                     val p = o + dirL * z
                     val e = 0.22
-                    val k1 = field(p + P3(e, -e, -e), n); val k2 = field(p + P3(-e, -e, e), n)
-                    val k3 = field(p + P3(-e, e, -e), n); val k4 = field(p + P3(e, e, e), n)
+                    val k1 = field(p.x + e, p.y + -e, p.z + -e, n); val k2 = field(p.x + -e, p.y + -e, p.z + e, n)
+                    val k3 = field(p.x + -e, p.y + e, p.z + -e, n); val k4 = field(p.x + e, p.y + e, p.z + e, n)
                     val nl = P3(k1 - k2 - k3 + k4, -k1 - k2 + k3 + k4, -k1 + k2 - k3 + k4).norm()
                     val nv = view.toView(nl)
                     var bi = cand[0]; var bd = Double.MAX_VALUE
-                    for (j in 0 until n) { val d = solids[cand[j]].dist(p); if (d < bd) { bd = d; bi = cand[j] } }
+                    for (j in 0 until n) { val d = solids[cand[j]].dist(p.x, p.y, p.z); if (d < bd) { bd = d; bi = cand[j] } }
                     val mat = material(solids[bi], p)
                     val at = y * w + x
                     depth[at] = z; mats[at] = mat
@@ -449,7 +472,7 @@ object SdfRender {
             }
         }
         val workers = ThreadLocal.withInitial { Row() }
-        if (PARALLEL) java.util.stream.IntStream.range(0, h).parallel().forEach { workers.get().line(it) }
+        if (PARALLEL && !alone.get()) java.util.stream.IntStream.range(0, h).parallel().forEach { workers.get().line(it) }
         else { val r = Row(); for (y in 0 until h) r.line(y) }
         // a soft inner line where a nearer part overlaps a farther one
         for (y in 0 until h) for (x in 0 until w) {
