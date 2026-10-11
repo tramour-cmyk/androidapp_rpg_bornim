@@ -1455,6 +1455,30 @@ fun checkFoeClashes() {
     }
     println("Gegner: $total Bilder, durch Koerper $body, durch Schild $shield")
     where.forEach { (k, n) -> println("  $k: $n") }
+    // 9i: the same foes on the map, walking and standing about in every direction, carrying as they do there
+    val M = de.bornim.core.art.MapFoe
+    var mTotal = 0; var mBody = 0
+    val mWhere = sortedMapOf<String, Int>()
+    for (id in de.bornim.core.art.FoeArt.KINDS) for (seed in 0 until 12) {
+        val look = de.bornim.core.MonsterLook(seed)
+        val doll = de.bornim.core.art.FoeArt.doll(id, look)
+        val o = de.bornim.core.art.FoeArt.outfit(id, look).let { if (it.items[de.bornim.core.GearSlot.OFF_HAND]?.def?.isWeapon == true) it.withOffStowed() else it }
+            .let { if (it.hasShield) it.withShieldOnBack() else it }
+        val rigs: List<Pair<String, de.bornim.core.art.HeroFigure.Rig>> = (0 until M.YAWS).flatMap { s -> val yaw = M.yawOf(s)
+            (0 until M.STEPS).map { "Gehen $s/$it" to M.dollRig(id, look, yaw, it) } +
+                de.bornim.core.art.MapFoe.Idle.entries.flatMap { idle -> (1..M.LEVELS).map { lv -> "$idle $s/$lv" to M.dollIdleRig(id, look, yaw, idle, 0, lv) } } }
+        for ((name, rig) in rigs) {
+            mTotal++
+            val dress = doll.fit(rig, o).second!!.first
+            // a second blade stowed in its sheath is not in the hand, so only the main weapon counts then
+            if (dress.weaponThroughBody() != null || (!o.offStowed && dress.offWeaponThroughBody() != null)) {
+                mBody++; val k = "$id/${seed % 3}/${name.substringBefore(' ')}"; mWhere[k] = (mWhere[k] ?: 0) + 1
+                if (mBody <= 20) println("KARTE $id seed $seed $name ${dress.lastClash}")
+            }
+        }
+    }
+    println("Karte: $mTotal Bilder, durch Koerper $mBody")
+    mWhere.forEach { (k, n) -> println("  $k: $n") }
 }
 
 /** Every act of one foe as a strip of frames, one row per act and variant. */

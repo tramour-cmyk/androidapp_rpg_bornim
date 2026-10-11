@@ -137,7 +137,9 @@ object MapFoe {
                 lh = if (ranged) b.lh.copy(f = b.lh.f + st * 0.6) else b.lh.copy(f = 3.0 + st * 0.6),
                 rh = if (ranged) b.rh else b.rh.copy(f = b.rh.f - st * 0.3))
         }
-        val low = if (ranged) base else base.copy(rh = V(18.0, 56.0, 2.0 - st * 0.35), weapon = V(0.1, -1.0, 0.16))
+        // 9i: held a little out from the hip and the point turned outward, so a long blade or a club clears the
+        // thigh and shin of a crouched walker
+        val low = if (ranged) base else base.copy(rh = V(21.0, 56.0, 3.0 - st * 0.35), weapon = V(0.32, -1.0, 0.22))
         // each kind in its own manner, as in battle (FoeArt): stooped, stiff, lolling, crouched like a beast
         val r = when (FoeArt.creature(id)) {
             Doll.Creature.GOBLIN -> low.copy(lean = low.lean + 0.35, crouch = low.crouch + 4.0, headDown = low.headDown - 2.5)
@@ -172,8 +174,12 @@ object MapFoe {
             Idle.CROUCH -> b.copy(crouch = b.crouch + 7.0, lean = b.lean + 0.25, headDown = b.headDown - 5.0)
             // the weapon brought up before it, ready
             // the weapon brought up level before it, ready (not overhead: from hanging down that would be a sweep, 12)
-            Idle.HEFT -> if (MonsterKits.of(id, look.seed)!!.items[GearSlot.MAIN_HAND] == "shortbow") b
-                else b.copy(rh = V(16.0, 64.0, 20.0), weapon = V(0.2, 0.05, 0.98), crouch = b.crouch + 2.0, headDown = b.headDown - 2.0)
+            Idle.HEFT -> when (MonsterKits.of(id, look.seed)!!.items[GearSlot.MAIN_HAND]) {
+                "shortbow" -> b
+                // 9i: a staff is raised upright at the side, not laid across the body
+                "staff" -> b.copy(rh = V(18.0, 66.0, 10.0), weapon = V(0.08, 1.0, 0.12), headDown = b.headDown - 2.0)
+                else -> b.copy(rh = V(16.0, 64.0, 20.0), weapon = V(0.2, 0.05, 0.98), crouch = b.crouch + 2.0, headDown = b.headDown - 2.0)
+            }
             else -> b
         }
     }
@@ -293,8 +299,11 @@ object MapFoe {
 
     // ---------------------------------------------------------------- in the game
 
-    /** Monsters already drawn this way on the map (9c: wolf and goblin first, the scout with them; 9e: Grimfang). */
-    val ON = setOf("wolf", "goblin", "goblin_archer", "dire_wolf")
+    /**
+     * Monsters already drawn this way on the map (9c: wolf and goblin first, the scout with them; 9e: Grimfang; 9i: the
+     * other animals and the foes on the doll). Spiders, centipedes, bats, stirges and the jelly still want a walk.
+     */
+    val ON = setOf("wolf", "goblin", "goblin_archer", "dire_wolf") + (BeastArt.KINDS + FoeArt.KINDS)
 
     /** A picture cut to what is drawn, with the feet at ([ax], [ay]) in it. */
     class Pic(val img: PixelImage, val ax: Int, val ay: Int)
