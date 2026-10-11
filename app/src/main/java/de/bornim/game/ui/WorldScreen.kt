@@ -249,19 +249,13 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         }
     }
 
-    // Quiet ambient sounds: birds by day, crickets and owls at night, drops in the cave.
+    // Quiet ambient sounds: birds by day, crickets and owls at night.
     LaunchedEffect(game.state.place.map) {
         val rnd = kotlin.random.Random(game.state.steps)
-        fun nearFire(): Boolean {
-            val p = game.state.place
-            return (-4..4).any { dy -> (-4..4).any { dx -> game.map.tile(p.x + dx, p.y + dy) == Tile.CAMPFIRE } }
-        }
         while (isActive) {
             delay(5000L + rnd.nextLong(8000))
             if (game.mode != Mode.Explore || vm.menuOpen) continue
             val sound = when (game.map.kind) {
-                // crackling near a fire, dripping elsewhere
-                MapKind.CAVE -> if (nearFire()) de.bornim.core.audio.Sound.CRACKLE else de.bornim.core.audio.Sound.DRIP
                 MapKind.TOWN, MapKind.FOREST -> when {
                     game.raining -> null
                     game.isNight -> if (game.map.kind == MapKind.FOREST && rnd.nextInt(3) == 0) de.bornim.core.audio.Sound.OWL else de.bornim.core.audio.Sound.CRICKET
@@ -270,6 +264,40 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 else -> null
             }
             sound?.let { vm.play(it, 0.3f) }
+        }
+    }
+
+    // The fire's crackle swells as the hero walks up to a campfire or a hearth and fades as he leaves it or a fight
+    // starts (18i); drops fall in the cave on their own, fire or not (18h).
+    LaunchedEffect(game.state.place.map) {
+        val rnd = kotlin.random.Random(game.state.steps + 1)
+        val tick = 100L
+        var fire = 0f
+        val streams = ArrayDeque<Pair<Int, Long>>()
+        var now = 0L
+        var nextCrackle = 0L
+        var nextDrip = de.bornim.core.audio.Ambience.DRIP_MIN_MS / 2 + rnd.nextLong(de.bornim.core.audio.Ambience.DRIP_SPAN_MS)
+        try {
+            while (isActive) {
+                delay(tick)
+                now += tick
+                val calm = game.mode == Mode.Explore && !vm.menuOpen
+                val p = game.state.place
+                val target = if (calm) de.bornim.core.audio.Ambience.fireTarget(de.bornim.core.audio.Ambience.nearestFire(game.map, p.x, p.y)) else 0f
+                fire = de.bornim.core.audio.Ambience.approach(fire, target, tick)
+                while (streams.isNotEmpty() && now - streams.first().second > 3000L) streams.removeFirst()
+                if (fire > 0f && now >= nextCrackle) {
+                    streams.addLast(vm.sfx.start(de.bornim.core.audio.Sound.CRACKLE, fire) to now)
+                    nextCrackle = now + de.bornim.core.audio.Ambience.CRACKLE_EVERY_MS
+                }
+                streams.forEach { vm.sfx.volume(it.first, fire) }
+                if (game.map.kind == MapKind.CAVE && now >= nextDrip) {
+                    if (calm) vm.play(de.bornim.core.audio.Sound.DRIP, de.bornim.core.audio.Ambience.dripVolume(fire))
+                    nextDrip = now + de.bornim.core.audio.Ambience.DRIP_MIN_MS + rnd.nextLong(de.bornim.core.audio.Ambience.DRIP_SPAN_MS)
+                }
+            }
+        } finally {
+            streams.forEach { vm.sfx.volume(it.first, 0f) }
         }
     }
 
