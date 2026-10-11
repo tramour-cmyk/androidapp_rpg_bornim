@@ -34,7 +34,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ### Tom (11.10., 18:12, vor Neustart)
 
 - **24.1 getestet** (0.1.527: „lief okay“; bereit nach 0,4 / 0,1 / 0,0 s) und zusammengeführt (PR #32, 18:11). Code: `InterludeClock` (Kern), `InterludeUi.kt` (`MapVeil`, `VeilMemory`), Vorschau `BLENDE=1`, `BLENDEFILM=1`.
-- **Meldung beim Test von 0.1.527 (24.9):** Nach Spielstandwechsel Magier → Kämpfer beim Laufen eine Zeit lang eine Mischung beider Figuren. Ursache: 24.3 hält die alten Bilder (`MapFigure.previous`) auch bei einem anderen Helden, und `frameNow` nimmt je Schrittbild neu oder alt. Vorschlag: alte Bilder nur bei gleichem Helden (nur Ausrüstung geändert), und je Richtung erst wechseln, wenn ihr ganzer Gang neu gezeichnet ist; Kerntest. **24m ja (Nutzer 18:13): in neuer Sitzung umsetzen.**
+- **Meldung beim Test von 0.1.527 (24.9):** Nach Spielstandwechsel Magier → Kämpfer beim Laufen eine Zeit lang eine Mischung beider Figuren. Ursache: 24.3 hält die alten Bilder (`MapFigure.previous`) auch bei einem anderen Helden, und `frameNow` nimmt je Schrittbild neu oder alt. Vorschlag: alte Bilder nur bei gleichem Helden (nur Ausrüstung geändert), und je Richtung erst wechseln, wenn ihr ganzer Gang neu gezeichnet ist; Kerntest. **24m ja (Nutzer, gelesen 18:17): in neuer Sitzung umsetzen.**
 - **Als Nächstes:** 24.9 (freigegeben, neuer Zweig von `main`); 24.5 (Kampfbilder vorladen, wenn ein Gegner bemerkt; Blende vor Kämpfen ist 24.6, Jerry); dann 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
 
 ### Jerry (11.10., 17:01)
