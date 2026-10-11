@@ -31,13 +31,18 @@ def room(x, wet=0.35, decay=1.4, seed=1): return reverb(x, wet, decay, damp=3500
 
 wind = highpass(L("wind background noise 2.wav"), 60)
 park = highpass(L("park_ambience_wind.wav"), 60)
+def hall(x, a, lp, seed=1):
+    """Luft in einer hohen Halle ab [a] s: erst gedämpft und verhallt, dann zur nahtlosen 10-s-Schleife geschnitten."""
+    seg = x[int((a - 4) * SR): int((a + LEN + XF + 1) * SR)]
+    return loop(room(lowpass(seg, lp, 2), 0.6, 3.0, seed=seed), 4.0)
+
 LOOPS = {
     # draußen (Dorf, Wald): Wind in Böen, mal hell, mal dumpf
     "wind": [loop(wind, 6.0), loop(lowpass(wind, 3000, 2), 52.0) if len(wind) > 63 * SR else loop(lowpass(wind, 3000, 2), 20.0),
              loop(park, 400.0 / 2)],
     # Tempel: Luft in einer hohen Halle, fast still
-    "hall": [room(lowpass(loop(wind, 20.0), 900, 2), 0.6, 3.0), room(lowpass(loop(park, 120.0), 800, 2), 0.6, 3.0, seed=2),
-             room(lowpass(loop(wind, 30.0), 1100, 2), 0.6, 3.0, seed=3)],
+    # (Hall vor dem Schneiden, damit die Schleife 10 s bleibt: SoundPool kürzt Klänge über etwa 1 MB)
+    "hall": [hall(wind, 20.0, 900), hall(park, 120.0, 800, 2), hall(wind, 30.0, 1100, 3)],
 }
 def ev(n, a, b, lp, semi=0):
     """Ein Einzelklang aus BigSoundBank-Aufnahme [n] von [a] bis [b] s, gedämpft, mit kleinem Raum."""
