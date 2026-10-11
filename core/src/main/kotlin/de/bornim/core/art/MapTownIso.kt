@@ -481,6 +481,88 @@ object MapTownIso {
         return mix(argb(0x14100A), argb(lk.thatch), t.coerceIn(0.0, 1.0))
     }
 
+    // ------------------------------------------------------------------ small things standing on one tile (5.2)
+
+    /**
+     * A picture of one tile's thing: the tile's front corner lies on the middle of the bottom edge; local
+     * coordinates run from (−1, −1) at the tile's back corner to (0, 0) at its front corner, as in [MapRoomIso].
+     */
+    private class Tile1(val h: Int, val w: Int = 100) {
+        val img = PixelImage(w, h)
+        fun sx(i: Double, j: Double) = w / 2.0 + (i - j) * TW / 2
+        fun sy(i: Double, j: Double, z: Double) = h + (i + j) * TH / 2 - z * ZS
+        fun plane(p0: DoubleArray, a: DoubleArray, b: DoubleArray, tex: (Double, Double) -> Int?) {
+            val x0 = sx(p0[0], p0[1]); val y0 = sy(p0[0], p0[1], p0[2])
+            val ax = (a[0] - a[1]) * TW / 2; val ay = (a[0] + a[1]) * TH / 2 - a[2] * ZS
+            val bx = (b[0] - b[1]) * TW / 2; val by = (b[0] + b[1]) * TH / 2 - b[2] * ZS
+            val det = ax * by - ay * bx
+            if (abs(det) < 1e-6) return
+            val xs = listOf(x0, x0 + ax, x0 + bx, x0 + ax + bx); val ys = listOf(y0, y0 + ay, y0 + by, y0 + ay + by)
+            for (py in max(0, floor(ys.min()).toInt()) until min(h, ys.max().toInt() + 1))
+                for (px in max(0, floor(xs.min()).toInt()) until min(w, xs.max().toInt() + 1)) {
+                    val dx = px + 0.5 - x0; val dy = py + 0.5 - y0
+                    val u = (dx * by - dy * bx) / det; val v = (ax * dy - ay * dx) / det
+                    if (u < 0 || u > 1 || v < 0 || v > 1) continue
+                    tex(u, v)?.let { img.set(px, py, it) }
+                }
+        }
+        /** A box: its faces towards +j (down left, in shade), +i (down right, lit) and its top. */
+        fun box(i0: Double, j0: Double, i1: Double, j1: Double, z0: Double, z1: Double, tex: (face: Int, u: Double, v: Double) -> Int?) {
+            plane(doubleArrayOf(i0, j1, z0), doubleArrayOf(i1 - i0, 0.0, 0.0), doubleArrayOf(0.0, 0.0, z1 - z0)) { u, v -> tex(0, u, v) }
+            plane(doubleArrayOf(i1, j0, z0), doubleArrayOf(0.0, j1 - j0, 0.0), doubleArrayOf(0.0, 0.0, z1 - z0)) { u, v -> tex(1, u, v) }
+            plane(doubleArrayOf(i0, j0, z1), doubleArrayOf(i1 - i0, 0.0, 0.0), doubleArrayOf(0.0, j1 - j0, 0.0)) { u, v -> tex(2, u, v) }
+        }
+        fun shadow(ci: Double, cj: Double, r: Double, a: Double = 0.45) {
+            for (py in 0 until h) for (px in 0 until w) {
+                val aa = (px + 0.5 - w / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
+                val i = (aa + bb) / 2; val j = (bb - aa) / 2
+                val d = Math.hypot(i - ci, j - cj) / r
+                if (d >= 1) continue
+                img.set(px, py, (((1 - d) * a * 255).toInt() shl 24) or 0x0A0806)
+            }
+        }
+    }
+
+    /** Weathered wood: [face] 0 shade, 1 lit, 2 top; [u] along the grain. */
+    private fun wood(face: Int, u: Double, v: Double, seed: Int, rgb: Int = 0x5A4430): Int {
+        val k = when (face) { 0 -> 0.62; 1 -> 0.95; else -> 1.05 }
+        var t = 0.5 + (rnd(floor(v * 7).toInt(), floor(u * 18).toInt(), seed) - 0.5) * 0.25 + (rnd(floor(u * 60).toInt(), floor(v * 40).toInt(), seed + 1) - 0.5) * 0.12
+        if (frac(v * 7) < 0.1) t -= 0.25
+        return shade(mix(argb(0x140E0A), argb(rgb), t.coerceIn(0.0, 1.0)), k)
+    }
+
+    /**
+     * A signpost (5.2): a weathered board on its post(s), facing the way along the map's y (seen from the front and
+     * from the right), letters burnt into it as dark strokes. Three looks: one post, two posts, an arrow board.
+     */
+    fun signpost(v: Int, seed: Int): PixelImage {
+        val c = Tile1(150)
+        c.shadow(-0.45, -0.35, 0.42)
+        val j0 = -0.42; val j1 = -0.36
+        val (i0, i1) = if (v == 1) -0.86 to -0.14 else -0.82 to -0.18
+        val z0 = if (v == 1) 54.0 else 70.0; val z1 = z0 + 30
+        fun post(i: Double, top: Double) = c.box(i - 0.04, j0 - 0.07, i + 0.04, j0 + 0.0, 0.0, top) { f, u, w -> wood(f, w, u, seed + 3, 0x4A3828) }
+        when (v) {
+            1 -> { post(i0 + 0.05, z1 + 2); post(i1 - 0.05, z1 + 2) }
+            else -> post(-0.5, z1 + 10)
+        }
+        // the board: an arrow points along +i on the third look
+        c.box(i0, j0, i1, j1, z0, z1) { f, u, w ->
+            if (v == 2 && f != 1) {
+                val tip = (u - 0.82) / 0.18
+                if (tip > 0 && abs(w - 0.5) > 0.5 * (1 - tip)) return@box null
+            }
+            if (f == 0) {
+                // burnt letters: two rows of short strokes
+                val row = if (abs(w - 0.68) < 0.08) 0 else if (abs(w - 0.36) < 0.08) 1 else -1
+                if (row >= 0 && u in 0.12..(if (v == 2) 0.74 else 0.88) && hash(floor(u * 26).toInt(), row, seed + 5) % 4 != 0 && frac(u * 26) < 0.7)
+                    return@box argb(0x150E0A)
+            }
+            wood(f, u, w, seed + 7)
+        }
+        return c.img
+    }
+
     // ------------------------------------------------------------------ the houses of a town map
 
     private val wallTiles = setOf(Tile.WALL, Tile.WINDOW, Tile.DOOR)
@@ -553,6 +635,7 @@ object MapTownIso {
     }
 
     private val sliceCache = HashMap<String, List<WorldArt.Obj>>()
+    private val signCache = HashMap<Int, PixelImage>()
 
     /**
      * The upright pictures of a town's houses seen diagonally (5.1), or null for anything else: each house cut into
@@ -561,6 +644,12 @@ object MapTownIso {
      */
     fun objects(map: MapDef, tx: Int, ty: Int): List<WorldArt.Obj>? {
         val t = map.tile(tx, ty)
+        if (t == Tile.SIGN) {
+            val T = WorldArt.T
+            val img = synchronized(sliceCache) { signCache.getOrPut(Math.floorMod(hash(tx, ty, 15), 3)) { signpost(Math.floorMod(hash(tx, ty, 15), 3), 71) } }
+            val wx = (tx + 1) * T; val wy = (ty + 1) * T
+            return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, false, corner = true))
+        }
         if (t in roofTiles) return emptyList()
         if (t !in wallTiles) return null
         if (tx > 0 && map.tile(tx - 1, ty) in wallTiles) return emptyList()
@@ -602,7 +691,7 @@ object MapTownIso {
             val pi = min(n.toDouble(), d + cc); val pj = pi - cc
             val wx = Math.round((f.x + qi) * T).toInt(); val wy = Math.round((f.top + qj) * T).toInt()
             val depth = ((f.x + f.top + pi + pj) * T).toInt() + T / 2 - 1
-            out += WorldArt.Obj(strip, wx - 23, wy - hh / 2, depth - wx, 2, false, corner = true)
+            out += WorldArt.Obj(strip, wx - 23, wy - hh / 2, depth - wx, 2, false, corner = true, group = 1 + f.x * 1000 + f.y)
         }
         return out
     }

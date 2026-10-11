@@ -754,8 +754,11 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         }
         // seen diagonally, the fire in a room's hearth flickers through more pictures, each standing an uneven while (13n)
         val flicker = if (diag && map.kind == MapKind.INTERIOR) de.bornim.core.art.MapRoomIso.fireFrame(clock) else 0
-        for (o in WorldArt.objects(map, state, frame, flicker)) {
-            val a = if (hides(o)) 0.45f else 1f
+        val objs = WorldArt.objects(map, state, frame, flicker)
+        // a house cut into strips (5.1) turns see-through as a whole when any strip of it stands in front of the hero
+        val hidingGroups = objs.filter { it.group != 0 && hides(it) }.mapTo(HashSet()) { it.group }
+        for (o in objs) {
+            val a = if (if (o.group != 0) o.group in hidingGroups else hides(o)) 0.45f else 1f
             sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f) { put(o.img, o.x, o.y, o.density, a, o.corner) }
         }
         // Healing herbs on the flower meadows, swaying gently so they catch the eye.
