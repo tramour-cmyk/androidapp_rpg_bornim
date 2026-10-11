@@ -138,6 +138,10 @@ object MonsterArt {
      * start of a fight), so the first attack does not stutter while its frames are made.
      */
     fun prepare(id: String, look: MonsterLook, wound: Int = 0, cancelled: () -> Boolean = { false }) {
+        // only one foe is fought at a time: the frames of the other kinds make room for its own (24.19)
+        if (!isDoll(id)) FoeArt.forget()
+        if (!isBeast(id)) BeastArt.forget()
+        if (!isVermin(id)) VerminArt.forget()
         if (isDoll(id)) { FoeArt.prepare(id, look, cancelled); return }
         if (isBeast(id)) { BeastArt.prepare(id, look, wound, cancelled); return }
         if (isVermin(id)) { VerminArt.prepare(id, look, wound, cancelled); return }
