@@ -4,6 +4,11 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 24, Teil), PR #31 (zusammengeführt 11.10., 17:27, ohne Test auf dem Handy, nichts sichtbar):
+
+**Kampfsätze für den Zwischenbildschirm (24)**
+- Vorbereitung für die Blende vor Kämpfen: je Kampfbeginn (Hinterhalt, Erstschlag, normal, Rudel) und je Gegner (alle 18) fünf Sätze auf Deutsch und Englisch (noch nicht sichtbar).
+
 Zweig von Jerry (Thema 9i), getestet in 0.1.516 und 0.1.518, PR #29 (zusammengeführt 11.10., 17:16):
 
 **Übrige Gegner auf der Karte (9i)**
