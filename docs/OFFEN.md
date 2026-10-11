@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 30** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 31** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -24,6 +24,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | festgelegt 11.10., 16:50 (Berater); erledigte Punkte dort abhaken |
 | 27 | Wald „Ort fertig“ (Liste in `STIL.md`): vor allem diagonale Zeichnung, Bäume rund | Tom | – | 11.10., 16:50; nach 24 und 5l; zuerst Standbilder Wald gegen Dorf, Lückenliste; **Meldung Nutzer (16:55):** in der diagonalen Sicht Garrick mit Lagerfeuer schlecht zu sehen, Ausrichtung falsch; Höhleneingang fehlt (eingetragen von Jerry) |
 | 29 | Nebenquests über ein Anschlagbrett (mind. drei Aufträge, Wald und Höhle) | Tom | – | 11.10., 16:50; erst Entwurf der Aufträge zur Freigabe |
+| 30 | Abstürze beim Testen (Handy und MuMu, App beendet sich ohne Einfrieren, gemeldet 11.10., 22:41) | Tom (Technik); Jerry prüft seine Klang-Fäden | neu von `main` | 11.10., 22:42 (Berater). **Vor 24.18.** 30.1 Absturz-Fänger: Stacktrace, Version, Bildschirm, freier Speicher in Datei; beim nächsten Start „Letzter Absturz“ im Test-Reiter mit Kopierknopf. Verdacht: Speicher (Vorzeichnen 24.5/24.14/24.15), zwei Fäden (24.17), gespeicherte Bilder (24.4). Danach Vorschläge zur Freigabe: Lint als Pflicht im Build, Obergrenze vorgezeichneter Bilder, Zufallsspieler mit Speichermessung, StrictMode/LeakCanary nur im Test-Build |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
