@@ -11,7 +11,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 13 | Diagonale Sicht | Tom | `tom-diagonal` | Schänke auf `main` (v0.1.471). Ältester, Laden, Tempel getestet in 0.1.482 („alles passt“), PR #20 wartet auf Freigabe. Danach: Dorf draußen (5) |
-| 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | `tom-dorf` (von `tom-diagonal`) | 5e go: 5.1 → 5.2 → 5.3 → 5.4. 5f „super“ (13:19). 5h (Nutzer): Fenster außen und innen müssen zusammenpassen; Vorschlag im Chat 13:22. 5g (Glockenstuhl/Turm) offen |
+| 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | `tom-dorf` (von `tom-diagonal`, mit `main`) | 5.1 Häuser im Spiel (13:40): nach Grundriss und Hausstil, Streifen-Sortierung; 5h.1 Fenster außen wie innen (`HouseWindowsTest`); 5g Glockenturm. Zweig-Build läuft. Danach 5.2 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 14 | Neustart-Haken: misst Gesprächsgröße, Hinweis an die Sitzung | Tom | neu von `main` (Werkzeug, PR) | freigegeben 10.10. |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
@@ -19,7 +19,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | – | 18.7 auf `main` (v0.1.494). Als Nächstes Runde 2 (17 Klänge) und Stimmen der übrigen Gegner, erst Hörproben |
 | 20 | Uhrzeit der APK im ZIP 2 h zu früh (ZIP speichert Ortszeit ohne Zone, Runner läuft in UTC) | Tom | `claude/beautiful-feynman-ta7v9p`, PR #21 | 20a ja (13:00): `TZ=Europe/Berlin` beim Hochladen, Build läuft, Prüfung am ZIP |
-| 22 | Selbstarbeit statt nur Nachtarbeit: Routinen alle 3 h, Vorrat und Liste „Für gemeinsame Zeit“ | Tom | `main` (Notizen), Routinen | 22a, 22b ja (13:31). `docs/SELBST.md` statt `NACHT.md`; Toms Routinen umgestellt (13:45); Nutzer: neue Routinen einstellen (Repo, automatisch). Jerry stellt seine um |
+| 22 | Selbstarbeit statt nur Nachtarbeit: Routinen alle 3 h, Vorrat und Liste „Für gemeinsame Zeit“ | Tom | `main` (Notizen), Routinen | 22a, 22b ja (13:31). `docs/SELBST.md` statt `NACHT.md`; Toms Routinen umgestellt (13:38); Nutzer: neue Routinen einstellen (Repo, automatisch). Jerry stellt seine um |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
