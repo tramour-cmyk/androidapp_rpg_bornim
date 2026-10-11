@@ -56,6 +56,7 @@ import de.bornim.core.Move
 import de.bornim.core.Story
 import de.bornim.core.Tile
 import de.bornim.core.actionAt
+import de.bornim.core.art.BattleAhead
 import de.bornim.core.art.MapFigure
 import de.bornim.core.art.MapFoe
 import de.bornim.core.art.MapFollow
@@ -1028,6 +1029,13 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         val walking = if (free) game.freeWalk.moving else progress < 1f
         // the hero as the doll from the battles, turning smoothly; the former figure until it is drawn
         MapFigure.prepare(state.hero, HeroTurn.yaw)
+        // 24.5: a foe near, its fight is drawn ahead in the background, once the map itself is drawn
+        if (game.mode == Mode.Explore) {
+            val heroMap = game.map; val px = p.x; val py = p.y
+            BattleAhead.consider(state.hero, BattleAhead.near(game.roamers, px, py).map { it.monster to it.look }) {
+                VeilMemory.active || MapFigure.urgent || !MapFigure.ready(state.hero) || !MapGround.readyNear(heroMap, px, py) || !MapFolk.standing(heroMap)
+            }
+        }
         // walking freely, the hero faces the way it walks, in any direction
         val target = if (free) game.freeWalk.yaw else MapFigure.yawOf(p.facing)
         HeroTurn.update(target, clock)

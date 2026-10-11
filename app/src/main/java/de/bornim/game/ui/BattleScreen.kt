@@ -176,7 +176,7 @@ private class BattleUi(val battle: Battle) {
         return list[lastGuard]
     }
     /** Which victory pose this fight ends in. */
-    val victoryPick = kotlin.random.Random.nextInt(8)
+    val victoryPick = de.bornim.core.art.BattleAhead.takeVictoryPick()
     /** The swing to sound with a blow, after [swingDelay] ms; set when a blow starts. */
     var swingKey by mutableIntStateOf(0)
     var swingDelay = 0L
@@ -899,7 +899,10 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // Draw all frames ahead in the background: at the start, and again once the foe is badly hurt.
             LaunchedEffect(battle, foeWound) {
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                    val start = System.currentTimeMillis()
                     MonsterArt.prepare(id, battle.look, foeWound)
+                    // 24.5: how long the fight waited for the foe's frames (drawn ahead on the map: next to nothing)
+                    if (foeWound == 0) de.bornim.core.art.BattleAhead.foeMs = System.currentTimeMillis() - start
                     battle.trait?.let { tr ->
                         if (newStyle) for (act in Act.entries) for (v in 0 until (if (act == Act.ATTACK) MonsterArt.attackVariants(id) else if (act == Act.IDLE || act == Act.HOWL) 1 else MonsterArt.reactVariants(id)))
                             for (i in 0 until MonsterArt.frameCount(id, battle.look, act, v)) {
@@ -1203,8 +1206,19 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             LaunchedEffect(battle, heroWound) {
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
                     val job = coroutineContext[kotlinx.coroutines.Job]
+                    val start = System.currentTimeMillis()
+                    val first = heroWound == 0
+                    if (first) {
+                        de.bornim.core.art.BattleAhead.openingMs = null; de.bornim.core.art.BattleAhead.heroMs = null
+                        // 24.16: what this fight finds drawn ahead on the map
+                        de.bornim.core.art.BattleAhead.noteFight(battle.hero, battle.monster.id, battle.look,
+                            battle.opening == de.bornim.core.Opening.AMBUSHED, ui.victoryPick)
+                    }
                     HeroBattle.prepare(battle.hero, battle.monster.id, battle.opening == de.bornim.core.Opening.AMBUSHED, ui.victoryPick, heroWound,
-                        ui.motion?.takeIf { it.hold }?.let { Triple(it.act, it.strike, it.variant) }) { job?.isActive == false }
+                        ui.motion?.takeIf { it.hold }?.let { Triple(it.act, it.strike, it.variant) },
+                        onOpening = { if (first) de.bornim.core.art.BattleAhead.openingMs = System.currentTimeMillis() - start }) { job?.isActive == false }
+                    // 24.5: how long until every frame of the hero in this fight was there
+                    if (first && job?.isActive != false) de.bornim.core.art.BattleAhead.heroMs = System.currentTimeMillis() - start
                 }
             }
             // a killing blow, drawn ahead last of all, is drawn now while the hero winds up and holds still for it
