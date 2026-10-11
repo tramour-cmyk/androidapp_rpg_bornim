@@ -1,6 +1,7 @@
 """
-Ortsklänge für die Blende (24.8, „Hören vor Sehen“): Wind, Stimmen in der Schänke, Halle im Tempel als nahtlose
-10-s-Schleifen; knarrendes Holz und Herzschlag als einzelne Klänge. Je drei Fassungen, alle aus CC0-Aufnahmen
+Ortsklänge für die Blende (24.8, „Hören vor Sehen“): Wind und Halle im Tempel als nahtlose 10-s-Schleifen; knarrendes
+Holz, Herzschlag und die Einzelklänge der Schänke (24.8.4: Becher, Einschenken, Wischen, Stuhl, Husten; kein
+Stimmengewirr, Regel „Ortsklang nur von dem, was da ist“ in docs/STIL.md) als einzelne Klänge. Je drei Fassungen, alle aus CC0-Aufnahmen
 (Quellen: QUELLEN.md). Schreibt nur diese Dateien, die übrigen Klänge bleiben unberührt.
 
     tools/klang/holen.sh <ordner>                          # Aufnahmen laden (einmal), dazu die Ortsaufnahmen unten
@@ -30,34 +31,29 @@ def room(x, wet=0.35, decay=1.4, seed=1): return reverb(x, wet, decay, damp=3500
 
 wind = highpass(L("wind background noise 2.wav"), 60)
 park = highpass(L("park_ambience_wind.wav"), 60)
-bar1 = highpass(L("bsb_0480.mp3"), 100)
-crowd = highpass(L("bsb_3515.mp3"), 100)
-rest = highpass(L("bsb_3542.mp3"), 100)
-clinks = [trim(L("bsb_1323.mp3")), trim(L("bsb_1324.mp3")), trim(L("bsb_1935.mp3")), cut(L("bsb_0472.mp3"), 2.0, 3.2, 0.005, 0.2)]
-
-def inn(x, a, hits, seed=1):
-    """Stimmen ab [a] s als Schleife, gedämpft wie durch eine volle Stube; Becher und Gläser [(Zeit, Nr.)] darin."""
-    y = lowpass(loop(x, a), 2300, 2)
-    for t, k in hits:
-        c = lowpass(clinks[k], 6000, 2) * 0.35
-        i = int(t * SR); n = min(len(c), len(y) - i); y[i:i + n] += c[:n]
-    return room(y, 0.3, 1.2, seed)
-
 LOOPS = {
     # draußen (Dorf, Wald): Wind in Böen, mal hell, mal dumpf
     "wind": [loop(wind, 6.0), loop(lowpass(wind, 3000, 2), 52.0) if len(wind) > 63 * SR else loop(lowpass(wind, 3000, 2), 20.0),
              loop(park, 400.0 / 2)],
-    # Schänke (24v: neue Aufnahmen): Gaststube mit Stimmen hinter Holz und Rauch, dazu Becher und Gläser, die anstoßen;
-    # tief gefiltert, damit kein Wort verständlich ist
-    "tavern": [inn(bar1, 20.0, [(1.2, 0), (6.5, 2)]), inn(crowd, 40.0, [(3.0, 1), (8.1, 3)], 2), inn(rest, 60.0, [(0.8, 3), (4.9, 0), (7.7, 1)], 3)],
     # Tempel: Luft in einer hohen Halle, fast still
     "hall": [room(lowpass(loop(wind, 20.0), 900, 2), 0.6, 3.0), room(lowpass(loop(park, 120.0), 800, 2), 0.6, 3.0, seed=2),
              room(lowpass(loop(wind, 30.0), 1100, 2), 0.6, 3.0, seed=3)],
 }
+def ev(n, a, b, lp, semi=0):
+    """Ein Einzelklang aus BigSoundBank-Aufnahme [n] von [a] bis [b] s, gedämpft, mit kleinem Raum."""
+    x = highpass(lowpass(cut(L(f"bsb_{n}.mp3"), a, b, 0.005, 0.06), lp, 2), 80)
+    return room(pitch(x, semi) if semi else x, 0.22, 0.9)
+
 SHOTS = {
     # knarrendes Holz in Räumen (Dielen, Balken)
     "creak": [room(lowpass(trim(L("creak1.ogg")), 4500, 2), 0.2, 0.8), room(lowpass(pitch(trim(L("creak3.ogg")), -3), 4000, 2), 0.2, 0.8, seed=2),
               room(lowpass(cut(L("tree_creak.flac"), 0.3, 3.0, 0.05, 0.5), 3500, 2), 0.2, 0.8, seed=3)],
+    # Schänke (24.8.4): Einzelklänge der Anwesenden, gedämpft wie in einer kleinen Stube; Gläser tiefer gestimmt
+    "cup": [ev("0627", 1.48, 1.98, 4000), ev("1204", 3.15, 3.75, 3500, -3), ev("1205", 4.78, 5.25, 3500, -4)],
+    "pour": [ev("1721", 1.25, 4.60, 6000), ev("1156", 0.60, 4.30, 6000), ev("1933", 0.40, 4.00, 6000)],
+    "wipe": [ev("0689", 0.10, 2.20, 5000), ev("0689", 7.70, 9.80, 4500), ev("1104", 3.50, 6.10, 6000)],
+    "chair": [ev("0666", 5.60, 6.35, 5000), ev("3053", 0.25, 1.20, 5000), ev("0518", 8.28, 8.75, 5000)],
+    "cough": [ev("0488", 0.35, 1.30, 5000), ev("2183", 0.08, 0.48, 5000), ev("0207", 4.45, 5.00, 5000)],
     # Herzschlag für den Hinterhalt (24.8.3, später mit der Kampfblende)
     "heartbeat": [trim(L("heartbeat_slow_0.wav")), trim(L("heartbeat_fast_reverb.wav")),
                   shelf_low(pitch(trim(L("heartbeat.mp3_.flac")), -2), 4)],
