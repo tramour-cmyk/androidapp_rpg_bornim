@@ -2,6 +2,8 @@ package de.bornim.core.art
 
 import de.bornim.core.CharClass
 import de.bornim.core.GameState
+import de.bornim.core.Gear
+import de.bornim.core.Rarity
 import de.bornim.core.Race
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
@@ -47,6 +49,29 @@ class HeroShelfTest {
                 assertTrue(waitFor(10_000) { MapFigure.ready(hero) }, "ready from the device")
                 assertTrue(MapFigure.lastFromShelf)
                 assertContentEquals(drawn.pixels, MapFigure.frame(hero, 9, 5)!!.pixels)
+            } finally { MapFigure.hold = false }
+        } finally { HeroShelf.dir = null; dir.deleteRecursively() }
+    }
+
+    @Test fun newLootIsDrawnAheadAndWornAtOnce() {
+        val dir = kotlin.io.path.createTempDirectory("shelf").toFile()
+        try {
+            HeroShelf.dir = dir
+            val hero = GameState.newGame("Ahead", Race.DWARF, CharClass.FIGHTER).hero
+            MapFigure.prepare(hero, 0.0)
+            assertTrue(waitFor { dir.listFiles { f -> f.name.endsWith(".pix") }!!.size == 1 }, "own pictures drawn and kept first")
+            val files = 1
+            val loot = Gear(9_001, "warhammer", Rarity.COMMON, 1)
+            MapFigure.ahead(hero, loot)
+            assertTrue(waitFor { dir.listFiles { f -> f.name.endsWith(".pix") }!!.size == files + 1 }, "drawn ahead and kept")
+            assertTrue(hero.weapon?.base != "warhammer", "the hero itself is not changed")
+            // putting it on: read from the device, nothing drawn
+            hero.equip(loot)
+            try {
+                MapFigure.hold = true
+                MapFigure.prepare(hero, 0.0)
+                assertTrue(waitFor(10_000) { MapFigure.ready(hero) }, "ready from the device")
+                assertTrue(MapFigure.lastFromShelf)
             } finally { MapFigure.hold = false }
         } finally { HeroShelf.dir = null; dir.deleteRecursively() }
     }

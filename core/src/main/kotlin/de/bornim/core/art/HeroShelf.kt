@@ -17,7 +17,8 @@ object HeroShelf {
     /** Where the pictures go; null (previews, tests) keeps nothing. */
     @Volatile var dir: File? = null
 
-    const val KEEP = 6
+    /** Room for the looks worn lately and those of new loot drawn ahead (24.15). */
+    const val KEEP = 12
     private const val MAGIC = 0x42484631 // "BHF1"
 
     private fun file(look: String): File? {
@@ -25,6 +26,9 @@ object HeroShelf {
         val sha = java.security.MessageDigest.getInstance("SHA-1").digest(look.toByteArray())
         return File(d, sha.joinToString("") { "%02x".format(it) } + ".pix")
     }
+
+    /** Whether all pictures of [look] are kept. */
+    fun has(look: String): Boolean = file(look)?.isFile == true
 
     /** All pictures of [look] by (direction, step), or null when not kept or unreadable. */
     fun load(look: String): Map<Pair<Int, Int>, PixelImage>? {

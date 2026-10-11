@@ -351,6 +351,8 @@ class SdfView(yawDeg: Double, pitchDeg: Double = 15.0, fallF: Double = 0.0, fall
 object SdfRender {
     /** Rows are shared out among the processor's cores; off for tests that compare pictures bit for bit. */
     @Volatile var PARALLEL = true
+    /** Set on a thread that draws quietly in the background (24.15): its pictures are drawn on that thread alone. */
+    val alone: ThreadLocal<Boolean> = ThreadLocal.withInitial { false }
     private val NEIGH = intArrayOf(1, 0, -1, 0, 0, 1, 0, -1)
 
     fun smin(a: Double, b: Double, k: Double): Double {
@@ -470,7 +472,7 @@ object SdfRender {
             }
         }
         val workers = ThreadLocal.withInitial { Row() }
-        if (PARALLEL) java.util.stream.IntStream.range(0, h).parallel().forEach { workers.get().line(it) }
+        if (PARALLEL && !alone.get()) java.util.stream.IntStream.range(0, h).parallel().forEach { workers.get().line(it) }
         else { val r = Row(); for (y in 0 until h) r.line(y) }
         // a soft inner line where a nearer part overlaps a farther one
         for (y in 0 until h) for (x in 0 until w) {
