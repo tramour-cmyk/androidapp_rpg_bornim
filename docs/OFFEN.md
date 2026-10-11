@@ -35,10 +35,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Als Nächstes (24u ja, 21:42), gleicher Zweig, ein Build:** 24.16 Test-Reiter-Zeile (Bilder vorgezeichnet/gesamt, Wartezeit auf Karte, Gegnerart), 24.17 zwei Kerne statt einem (`SdfRender.alone` aus, z. B. eigener Pool mit 2 Fäden, niedrige Priorität), 24.18 Reihenfolge: Eröffnung+Stehen des Helden → Gegner → Rest des Helden (`HeroBattle.prepare` hat `onOpening`). Vorher `main` in den Zweig holen. Messen: kleiner Kerntest wie `BattleAheadTest` mit Zeitstempeln im `cancelled`-Lambda (Rechner: Kampf Held 4,6 s alle Kerne, 13,9 s ein Kern).
 - Danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17. APK nur als Link (Regel 21:25).
 
-### Jerry (11.10., 21:33)
+### Jerry (11.10., 21:53)
 
-- **28 Musik erledigt:** 28.1 getestet in 0.1.540, auf `main` (PR #36, 21:31). `MusicDirector` (Kern) wählt je Lage, `MusicPlayer` spielt `assets/music`; neu bauen mit `tools/klang/musik_holen.sh` + `musik_bauen.py`. Die alten `Songs` (Synth) nur noch im Kerntest.
-- **24s (21:35): erst 24.8, dann 13e-Entwürfe.** Vorschlag 24.8 (Ortsklang schon in der Blende: Wind, Stimmen, Tropfen; Herzschlag für Hinterhalt erst mit der Kampfblende), **24t ja (21:45)**, Herzschlag gleich mitladen. Danach 24.6 nach Toms 24.5.
+- **24.8 Ortsklang in der Blende:** 24t ja (21:45), Herzschlag mitladen. Hörproben geschickt (21:51): Wind, Schänke, Halle (Tempel), Knarren, Herzschlag, je 3. Skript `tools/klang/orte.py` auf Zweig `ccr-d94c036c-bdvewr` (Aufnahmen: OGA mild-wind-background-noise, park-ambiences, background-voices, tree-creaking, heartbeat-sounds, heartbeat-single-sound; Kenney creak1/3; liegen nicht in `holen.sh`, Freesound-CDN gibt gerade 403). **Rückfrage 24v:** welche Fassungen.
+- **Danach bauen:** `Sound` WIND/TAVERN/HALL/CREAK/HEARTBEAT, Ortsklang beginnt mit der Blende (`MapVeil`), Kerntest welcher Klang je Ort und Tageszeit; QUELLEN.md nachtragen. Dann 13e-Entwürfe; 24.6 nach Toms 24.5.
 
 ## Zu testen
 

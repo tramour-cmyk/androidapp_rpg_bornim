@@ -4,6 +4,11 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Übergabe Jerry (11.10., 21:33), ersetzt 11.10., 21:53
+
+- **28 Musik erledigt:** 28.1 getestet in 0.1.540, auf `main` (PR #36, 21:31). `MusicDirector` (Kern) wählt je Lage, `MusicPlayer` spielt `assets/music`; neu bauen mit `tools/klang/musik_holen.sh` + `musik_bauen.py`. Die alten `Songs` (Synth) nur noch im Kerntest.
+- **24s (21:35): erst 24.8, dann 13e-Entwürfe.** Vorschlag 24.8 (Ortsklang schon in der Blende: Wind, Stimmen, Tropfen; Herzschlag für Hinterhalt erst mit der Kampfblende), **24t ja (21:45)**, Herzschlag gleich mitladen. Danach 24.6 nach Toms 24.5.
+
 ## Übergabe Tom (11.10., 21:00), ersetzt 11.10., 21:42
 
 - **Auf `main`:** PR #34 (24.4, 24.9–24.13, 20:37) und PR #35 (24.14, 24.15, 21:00), beide in CHANGELOG „Unveröffentlicht“. Kein offener Zweig.
