@@ -14,7 +14,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | 5.1, 5.2, 5g, 5h.1 auf `main` (PR #24, 11.10., 14:52). 5l/5.5 Leben im Dorf: nach 24 (Nutzer 14:55), erst Standbilder. Dann 5.3, 5.4 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
-| 9i | Übrige Gegner auf der Karte | Jerry | – | 9 Arten und 9i.1 Testmenü getestet (0.1.516/518), PR #29 auf `main` (17:16). Rest (Spinne, Hundertfüßer, Fledermaus, Stirge, Gallerte): Standbilder ok (18:10, Spinne evtl. etwas groß, beobachten), 9i c Flügel dunkler ja; PR #33, 0.1.529 getestet (positiv, 18:50); **9i.2** ja (18:50): Lauerer wenden sich dem Helden zu (≤ 4 Felder, `Game.kt` Lauerer-Zweig), Build läuft |
+| 9i | Übrige Gegner auf der Karte | Jerry | – | 9 Arten und 9i.1 Testmenü getestet (0.1.516/518), PR #29 auf `main` (17:16). Rest (Spinne, Hundertfüßer, Fledermaus, Stirge, Gallerte): Standbilder ok (18:10, Spinne evtl. etwas groß, beobachten), 9i c Flügel dunkler ja; PR #33, 0.1.529 getestet (positiv, 18:50); **9i.2** ja (18:50): Lauerer wenden sich dem Helden zu (≤ 4 Felder, `Game.kt` Lauerer-Zweig), **0.1.531 zu testen** |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 13e | Höhle diagonal (Phase 2 von 13: Orte aufteilen) | Jerry | – | 13e.1 ja (13:52): nach 18 Runde 2, erst Entwürfe. **Tom einverstanden (14:16).** Jerry: neue Datei `MapCaveIso.kt` und eine Zeile in `WorldArt.buildObjects` (wie Räume/Dorf). Nicht anfassen ohne Absprache: `WorldScreen.kt` (Sortierung, `hides`, `put`/`corner`, `Cam`), `MapSight`, `FreeWalk`, `MapRoomIso`, `MapTownIso`, `MapGround`. Vorlage: `MapTownIso` (`Tile1`, `plane`/`box`/`cylinder`, Tiefe `(tx+ty)*T+1.5T−1`, `corner = true`, `group` für Mehrfeld-Dinge) |
 | 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | – | 18h/18i (PR #25) und 18k (PR #27, getestet 0.1.511, 16:08) auf `main` |
@@ -44,7 +44,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **0.1.529** (Jerry, 9i Rest, PR #33, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38155003762/artifacts/11708621109)): Spinne, Hundertfüßer, Fledermaus, Stirge, Gallerte auf der Karte (Testmenü holt sie).
+- **0.1.531** (Jerry, 9i.2, PR #33, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38157372191/artifacts/11709830316)): Spinne, Gallerte, Fledermaus wenden sich dem Helden zu (≤ 4 Felder), bleiben auf dem Platz. Rest von 9i in 0.1.529 getestet.
 
 ## Rückfragen an den Nutzer
 
