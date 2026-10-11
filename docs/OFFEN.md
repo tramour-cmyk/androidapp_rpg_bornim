@@ -43,7 +43,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **0.1.541 (Tom, 24.5)**: Held ok, Gegner nie vorgezeichnet (Ursache: im Rudel wechselte der nächste Wolf ständig, jeder Wechsel brach ab). **Neu (21:59), Zweig `claude/great-shannon-qnf51n`:** 24.16 Test-Reiter „Vorgezeichnet …“, 24.17 zwei Kerne, 24.18 Eröffnung → Gegner → Rest (Kerntest: 1,8 s / 3,0 s / 8,6 s). Build folgt.
+- **0.1.541 (Tom, 24.5)**: Held ok, Gegner nie vorgezeichnet (Ursache: im Rudel wechselte der nächste Wolf ständig, jeder Wechsel brach ab). **Neu (21:59), Zweig `claude/great-shannon-qnf51n`:** 24.16 Test-Reiter „Vorgezeichnet …“, 24.17 zwei Kerne, 24.18 Eröffnung → Gegner → Rest (Kerntest: 1,8 s / 3,0 s / 8,6 s). **Build 0.1.544 zu testen** ([Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38171201092/artifacts/11714068981)); dazu `core/gradle.properties` (Speicher für `-p core`, 0.1.543 scheiterte am Speicher).
 
 
 ## Rückfragen an den Nutzer
