@@ -2,6 +2,7 @@ package de.bornim.core.art
 
 import de.bornim.core.MapDef
 import de.bornim.core.Tile
+import kotlin.math.atan2
 import kotlin.math.abs
 import kotlin.math.exp
 import kotlin.math.floor
@@ -295,6 +296,47 @@ object MapRoomIso {
         return mix(argb(0x2E3A4A), argb(0x6A7A8A), t * 0.7 + 0.15)
     }
 
+    /**
+     * Dressed stone of the temple's walls (13q.10) at (u along the wall in tiles, z): courses of 12 pixels,
+     * every block its own shade, mortar in the joints, damp along the floor and soot from the candles up high.
+     */
+    private fun ashlar(u: Double, z: Double, seed: Int, face: Double, top: Double): Int {
+        val course = floor(z / 12).toInt()
+        val off = rnd(course, 3, seed) * 0.5
+        val bw = 0.3 + rnd(course, 4, seed) * 0.08
+        val block = floor(u / bw + off).toInt()
+        var v = 0.55 + (rnd(block, course, seed + 11) - 0.5) * 0.26 + (rnd(floor(u * 40).toInt(), floor(z / 2).toInt(), seed + 12) - 0.5) * 0.08
+        val joint = z % 12 < 1.4 || frac(u / bw + off) < 0.05
+        if (joint) v -= 0.3
+        // now and then a block with a chipped edge or a crack
+        if (hash(block, course, seed + 13) % 9 == 0 && abs(frac(u / bw + off) - 0.5 - (z % 12 - 6) * 0.03) < 0.02) v -= 0.22
+        v -= 0.22 * ((z - 40) / (top - 40)).coerceIn(0.0, 1.0)
+        v -= 0.16 * exp(-z / 9).coerceAtMost(1.0)
+        if (z > top - 7) v = 0.4 + (if (z > top - 2) 0.15 else 0.0)        // the coping stone along the top
+        return shade(mix(argb(0x23211E), argb(0x8C867A), v.coerceIn(0.0, 1.0)), face)
+    }
+
+    /** A tall narrow window under a round arch in a stone wall (13q.10), local u 0..1 of its tile. */
+    private fun archWindow(f: Double, z: Double, face: Double): Int? {
+        val dx = (f - 0.5) / 0.2
+        if (abs(dx) > 1.25) return null
+        val crown = 92 + 12 * sqrt((1 - (dx / 1.25) * (dx / 1.25)).coerceAtLeast(0.0))
+        if (z < 38 || z > crown) return null
+        // the voussoirs round the arch and the jambs: lighter dressed stone
+        val inner = 90 + 10 * sqrt((1 - dx * dx).coerceAtLeast(0.0))
+        if (abs(dx) > 1 || z > inner || z < 42) {
+            val v = 0.62 + (if (z > 88 && floor(atan2(z - 90, dx * 10) * 3).toInt() % 2 == 0) 0.06 else 0.0)
+            return shade(mix(argb(0x23211E), argb(0x9A9488), v), face)
+        }
+        // the deep reveal: the left side and the arch in shadow
+        if (dx < -0.78 || z > inner - 3) return shade(argb(0x14110E), face)
+        // small square panes of greenish glass in lead, brighter towards the top
+        val lead = frac((f - 0.5) * 22) < 0.12 || (z - 42) % 9 < 1.2
+        if (lead) return argb(0x1E1C1A)
+        val t = (z - 42) / (inner - 42)
+        return mix(argb(0x2E3C3A), argb(0x7A8C84), t * 0.7 + 0.15)
+    }
+
     /** A wall thing ([MapRoom.wallThing]) hung on a stretch of wall: its color at local u 0..1 and height z, or null. */
     private fun hanging(thing: MapRoom.Sprite?, f: Double, z: Double, face: Double): Int? {
         if (thing == null) return null
@@ -307,6 +349,8 @@ object MapRoomIso {
 
     private fun wallThing(map: MapDef, tx: Int, ty: Int, west: Boolean): MapRoom.Sprite? {
         fun at(dx: Int, dy: Int) = if (map.inside(tx + dx, ty + dy)) map.tile(tx + dx, ty + dy) else Tile.WALL
+        // no antlers, pots or tools on the bare stone of the temple
+        if (map.id.substringBefore('_') == "temple") return null
         val before = if (west) at(1, 0) else at(0, 1)
         if (before in wallTiles || before == Tile.DOOR || before == Tile.SHELF || before == Tile.BED || before == Tile.HEARTH || before == Tile.CRATE) return null
         return MapRoom.wallThing(hash(tx, ty, if (west) 57 else 55) % 7)
@@ -349,6 +393,12 @@ object MapRoomIso {
         val c = Canvas(h, tx * 31 + ty)
         val seed = map.id.hashCode()
         val tile = map.tile(tx, ty)
+        // the temple is built of stone (13q.10), every other room of timber and plaster
+        val stone = map.id.substringBefore('_') == "temple"
+        fun timber(u: Double, z: Double, seed: Int, face: Double, top: Double) =
+            if (stone) ashlar(u, z, seed, face, top) else this.timber(u, z, seed, face, top)
+        fun beam(u: Double, z: Double, seed: Int, face: Double) =
+            if (stone) ashlar(u, z, seed, face, 400.0) else this.beam(u, z, seed, face)
         var h0 = tx; while (h0 > 0 && map.tile(h0 - 1, ty) == Tile.HEARTH) h0--
         var h1 = tx; while (h1 < map.width - 1 && map.tile(h1 + 1, ty) == Tile.HEARTH) h1++
         val e = THICK
@@ -368,7 +418,7 @@ object MapRoomIso {
                 when {
                     !full -> timber(u, z, seed, face, 400.0)
                     tile == Tile.HEARTH -> hearth(u, z, h0.toDouble(), (h1 - h0 + 1).toDouble(), face, seed) ?: timber(u, z, seed, face, WALL)
-                    tile == Tile.WINDOW -> window(f, z, face) ?: timber(u, z, seed, face, WALL)
+                    tile == Tile.WINDOW -> (if (stone) archWindow(f, z, face) else window(f, z, face)) ?: timber(u, z, seed, face, WALL)
                     else -> hanging(wallThing(map, tx, ty, false), f, z, face) ?: timber(u, z, seed, face, WALL)
                 }
             }
@@ -397,7 +447,7 @@ object MapRoomIso {
         if (!any) return if (full) null else c.img
         if (full && room(map, tx, ty + 1)) {
             // a window has a sill board standing out a little
-            if (tile == Tile.WINDOW) c.box(-0.82, -0.04, -0.18, 0.06, 41.0, 46.0, oakTop, oak, oak)
+            if (tile == Tile.WINDOW && !stone) c.box(-0.82, -0.04, -0.18, 0.06, 41.0, 46.0, oakTop, oak, oak)
             // the hearth's mantel shelf with a few things on it
             if (tile == Tile.HEARTH) {
                 c.box(-1.0, -0.06, 0.0, 0.08, 89.0, 92.0, oakTop, oak, oak)
@@ -1963,9 +2013,9 @@ object MapRoomIso {
         val key = "${map.id}/$tx/$ty"
         val fx = (tx + 1) * T; val fy = (ty + 1) * T
         val d = depth(tx, ty)
-        val elder = map.id.startsWith("elder_")
-        val shop = map.id.startsWith("shop_")
-        val temple = map.id.startsWith("temple_")
+        val elder = map.id.substringBefore('_') == "elder"
+        val shop = map.id.substringBefore('_') == "shop"
+        val temple = map.id.substringBefore('_') == "temple"
         fun one(k: String, low: Boolean = true, make: () -> PixelImage) = listOf(obj(cached("$key/$k", make), fx, fy, d, low))
         return when (map.tile(tx, ty)) {
             Tile.WALL, Tile.WINDOW, Tile.HEARTH -> {

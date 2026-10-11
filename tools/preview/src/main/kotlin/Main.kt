@@ -175,6 +175,7 @@ fun main() {
                 shot("zoom_${z}_i1_schaenke_tag") { place(it, "inn", 4, 5, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_i2_schaenke_abend") { place(it, "inn", 6, 3, 21 * 60, Facing.LEFT) }
                 shot("zoom_${z}_i3_aeltester") { place(it, "elder", 4, 4, 12 * 60, Facing.UP) }
+                shot("zoom_${z}_i3b_aeltester_abend") { place(it, "elder", 4, 4, 21 * 60, Facing.UP) }
                 // 13q.4: three floor plans of the elder's house, by day and in the evening (drafts, only here)
                 elderDrafts()
                 for ((k, at) in listOf("a" to (6 to 3), "b" to (5 to 3), "c" to (5 to 3))) {
@@ -194,6 +195,8 @@ fun main() {
                 shot("zoom_${z}_ea3_aeltester_bett") { place(it, "elder_a", 4, 2, 21 * 60, Facing.LEFT) }
                 shot("zoom_${z}_i4_laden") { place(it, "shop", 4, 5, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_i5_tempel") { place(it, "temple", 4, 4, 12 * 60, Facing.UP) }
+                shot("zoom_${z}_i4b_laden_abend") { place(it, "shop", 4, 5, 21 * 60, Facing.UP) }
+                shot("zoom_${z}_i5b_tempel_abend") { place(it, "temple", 4, 4, 21 * 60, Facing.UP) }
                 shot("zoom_${z}_t1_hohes_gras") { place(it, "forest", 16, 20, 12 * 60, Facing.DOWN) }
                 shot("zoom_${z}_h1_hoehleneingang") { place(it, "forest", 10, 2, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_h2_hoehleneingang_nacht") { place(it, "forest", 10, 2, 23 * 60, Facing.UP) }
