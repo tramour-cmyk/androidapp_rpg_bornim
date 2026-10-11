@@ -174,6 +174,29 @@ fun main() {
                 shot("zoom_${z}_d3_dorf_nacht") { place(it, "village", 28, 15, 23 * 60, Facing.UP) }
                 shot("zoom_${z}_i1_schaenke_tag") { place(it, "inn", 4, 5, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_i2_schaenke_abend") { place(it, "inn", 6, 3, 21 * 60, Facing.LEFT) }
+                shot("zoom_${z}_i3_aeltester") { place(it, "elder", 4, 4, 12 * 60, Facing.UP) }
+                shot("zoom_${z}_i3b_aeltester_abend") { place(it, "elder", 4, 4, 21 * 60, Facing.UP) }
+                // 13q.4: three floor plans of the elder's house, by day and in the evening (drafts, only here)
+                elderDrafts()
+                for ((k, at) in listOf("a" to (6 to 3), "b" to (5 to 3), "c" to (5 to 3))) {
+                    shot("zoom_${z}_e${k}1_aeltester_tag") { place(it, "elder_$k", at.first, at.second, 12 * 60, Facing.UP) }
+                    shot("zoom_${z}_e${k}2_aeltester_abend") { place(it, "elder_$k", at.first, at.second, 21 * 60, Facing.UP) }
+                }
+                shopDrafts()
+                for (k in listOf("a", "b", "c")) {
+                    shot("zoom_${z}_l${k}1_laden_tag") { place(it, "shop_$k", 5, 4, 12 * 60, Facing.UP) }
+                    shot("zoom_${z}_l${k}2_laden_abend") { place(it, "shop_$k", 5, 4, 21 * 60, Facing.UP) }
+                }
+                templeDrafts()
+                for (k in listOf("a", "b", "c")) {
+                    shot("zoom_${z}_t${k}1_tempel_tag") { place(it, "temple_$k", 4, 4, 12 * 60, Facing.UP) }
+                    shot("zoom_${z}_t${k}2_tempel_abend") { place(it, "temple_$k", 4, 4, 21 * 60, Facing.UP) }
+                }
+                shot("zoom_${z}_ea3_aeltester_bett") { place(it, "elder_a", 4, 2, 21 * 60, Facing.LEFT) }
+                shot("zoom_${z}_i4_laden") { place(it, "shop", 4, 5, 12 * 60, Facing.UP) }
+                shot("zoom_${z}_i5_tempel") { place(it, "temple", 4, 4, 12 * 60, Facing.UP) }
+                shot("zoom_${z}_i4b_laden_abend") { place(it, "shop", 4, 5, 21 * 60, Facing.UP) }
+                shot("zoom_${z}_i5b_tempel_abend") { place(it, "temple", 4, 4, 21 * 60, Facing.UP) }
                 shot("zoom_${z}_t1_hohes_gras") { place(it, "forest", 16, 20, 12 * 60, Facing.DOWN) }
                 shot("zoom_${z}_h1_hoehleneingang") { place(it, "forest", 10, 2, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_h2_hoehleneingang_nacht") { place(it, "forest", 10, 2, 23 * 60, Facing.UP) }
@@ -778,4 +801,112 @@ fun main() {
         vm.refresh()
     }
     System.exit(0)
+}
+
+/** Floor plans for the elder's house (13q.4), smaller than the old one, with his own things; only in the previews. */
+private fun elderDrafts() {
+    fun def(id: String, rows: List<String>, ax: Int, ay: Int) {
+        de.bornim.core.World.drafts[id] = de.bornim.core.MapDef(id, de.bornim.core.T("Haus des Ältesten", "Elder's House"), de.bornim.core.MapKind.INTERIOR, rows,
+            npcs = listOf(de.bornim.core.Npc("aldric", ax, ay, "elder", Facing.DOWN) { emptyList() }))
+    }
+    // A: study and bed, the bed against the back wall beside the hearth, the sun of Bornim by the desk
+    def("elder_a", listOf(
+        "####ZZ#W#",
+        "#BBskkVd#",
+        "#BBkkkka#",
+        "#akRRRkk#",
+        "#kkRRRkk#",
+        "####D####",
+    ), 6, 2)
+    // B: a low parlour, books and desk by the window, the bed in the far corner
+    def("elder_b", listOf(
+        "#W#ZZ####",
+        "#dQkksBB#",
+        "#kkkkkBB#",
+        "#kkRRRka#",
+        "#kkRRRkk#",
+        "####D####",
+    ), 4, 2)
+    // C: the smallest, everything within reach
+    def("elder_c", listOf(
+        "###ZZW##",
+        "#BBkkdQ#",
+        "#BBkkka#",
+        "#kkRRkk#",
+        "#kkRRkk#",
+        "###D####",
+    ), 4, 2)
+}
+
+/** Floor plans for Thessa's shop (13q.4), smaller than the old one, crammed with goods; only in the previews. */
+private fun shopDrafts() {
+    fun def(id: String, rows: List<String>, ax: Int, ay: Int) {
+        de.bornim.core.World.drafts[id] = de.bornim.core.MapDef(id, de.bornim.core.T("Thessas Kramladen", "Thessa's General Store"), de.bornim.core.MapKind.INTERIOR, rows,
+            npcs = listOf(de.bornim.core.Npc("thessa", ax, ay, "merchant", Facing.DOWN) { emptyList() }))
+    }
+    // A: shelves along the back, the counter across the room, Thessa behind it, a stove in the corner
+    def("shop_a", listOf(
+        "##ZZ#W###",
+        "#kkkQQQU#",
+        "#bkkkkkk#",
+        "#bKKKKkJ#",
+        "#kkkkkku#",
+        "#ukkkkkJ#",
+        "####D####",
+    ), 4, 2)
+    // B: the counter by the door on the right, crates of goods on the left
+    def("shop_b", listOf(
+        "###ZZ#W##",
+        "#QQkkkQU#",
+        "#kkkkkkk#",
+        "#uukkKKK#",
+        "#bkkkkkJ#",
+        "####D####",
+    ), 6, 2)
+    // C: the smallest, everything heaped up
+    def("shop_c", listOf(
+        "###ZZW##",
+        "#QQkkkU#",
+        "#bkKKkJ#",
+        "#ukkkku#",
+        "#bkkkkJ#",
+        "###D####",
+    ), 4, 1)
+}
+
+/** Floor plans for the temple of the Dawnlight (13q.4): altar, candles, pews facing it, a font by the door; only in the previews. */
+private fun templeDrafts() {
+    fun def(id: String, rows: List<String>, ax: Int, ay: Int) {
+        de.bornim.core.World.drafts[id] = de.bornim.core.MapDef(id, de.bornim.core.T("Tempel des Morgenlichts", "Temple of the Dawnlight"), de.bornim.core.MapKind.INTERIOR, rows,
+            npcs = listOf(de.bornim.core.Npc("osric", ax, ay, "priest", Facing.DOWN) { emptyList() }))
+    }
+    // A: a broad altar between two candlesticks, two blocks of pews with an aisle, the lectern beside the altar
+    def("temple_a", listOf(
+        "####W####",
+        "#kNAAANk#",
+        "#kkkkdkk#",
+        "#nnnknnn#",
+        "#nnnknnn#",
+        "#kk&kkkk#",
+        "####D####",
+    ), 4, 2)
+    // B: a single altar stone, candles standing free, a font on each side of the door
+    def("temple_b", listOf(
+        "###WWW###",
+        "#kkkAkkk#",
+        "#kNkkkNk#",
+        "#nnkkknn#",
+        "#nnkkknn#",
+        "#&kkkkk&#",
+        "####D####",
+    ), 4, 2)
+    // C: the smallest, the altar in the corner light
+    def("temple_c", listOf(
+        "###WW###",
+        "#NAAAkd#",
+        "#kkkkkN#",
+        "#nnkknn#",
+        "#&kkkkk#",
+        "###D####",
+    ), 3, 2)
 }

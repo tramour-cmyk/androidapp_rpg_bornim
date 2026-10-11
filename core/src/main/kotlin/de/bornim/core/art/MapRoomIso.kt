@@ -2,6 +2,7 @@ package de.bornim.core.art
 
 import de.bornim.core.MapDef
 import de.bornim.core.Tile
+import kotlin.math.atan2
 import kotlin.math.abs
 import kotlin.math.exp
 import kotlin.math.floor
@@ -95,10 +96,10 @@ object MapRoomIso {
      * Local coordinates of the tile run from (−1, −1) at its back corner to (0, 0) at its front corner;
      * i along the map's x (down right on the screen), j along its y (down left).
      */
-    private class Canvas(val h: Int, seed: Int) {
-        val s = Sculpt(W, h, seed)
+    private class Canvas(val h: Int, seed: Int, val w: Int = W) {
+        val s = Sculpt(w, h, seed)
         val img: PixelImage get() = s.img
-        fun x(i: Double, j: Double) = W / 2.0 + (i - j) * TW / 2
+        fun x(i: Double, j: Double) = w / 2.0 + (i - j) * TW / 2
         fun y(i: Double, j: Double, z: Double = 0.0) = h + (i + j) * TH / 2 - z * ZS
     }
 
@@ -113,8 +114,8 @@ object MapRoomIso {
     private fun Canvas.floorShadow(i0: Double, j0: Double, i1: Double, j1: Double, a: Double = 0.5) {
         val ci = (i0 + i1) / 2; val cj = (j0 + j1) / 2
         val ri = (i1 - i0) / 2 + 0.08; val rj = (j1 - j0) / 2 + 0.08
-        for (py in 0 until h) for (px in 0 until W) {
-            val aa = (px + 0.5 - W / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
+        for (py in 0 until h) for (px in 0 until w) {
+            val aa = (px + 0.5 - w / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
             val i = (aa + bb) / 2; val j = (bb - aa) / 2
             val di = (i - ci) / ri; val dj = (j - cj) / rj
             val d = max(abs(di), abs(dj))
@@ -126,8 +127,8 @@ object MapRoomIso {
 
     /** Fills the footprint between (i0, j0) and (i1, j1) on the floor with [c]: the ground outside the room. */
     private fun Canvas.floorFill(i0: Double, j0: Double, i1: Double, j1: Double, c: Int) {
-        for (py in 0 until h) for (px in 0 until W) {
-            val aa = (px + 0.5 - W / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
+        for (py in 0 until h) for (px in 0 until w) {
+            val aa = (px + 0.5 - w / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
             val i = (aa + bb) / 2; val j = (bb - aa) / 2
             if (i < i0 || j < j0 || i > i1 || j > j1) continue
             img.set(px, py, c)
@@ -141,7 +142,7 @@ object MapRoomIso {
             val c = src[xx, yy]; val a = c ushr 24
             if (a == 0) continue
             val tx = x0 + xx; val ty = y0 + yy
-            if (tx !in 0 until W || ty !in 0 until h) continue
+            if (tx !in 0 until w || ty !in 0 until h) continue
             img.set(tx, ty, if (a == 255) c else mix(img[tx, ty], c or (0xFF shl 24), a / 255.0))
         }
     }
@@ -150,8 +151,8 @@ object MapRoomIso {
 
     /** Paints the face j = [j] between i0 and i1, z0 and z1, each pixel by [tex] (local i, z). */
     private fun Canvas.faceJ(j: Double, i0: Double, i1: Double, z0: Double, z1: Double, tex: (Double, Double) -> Int?) {
-        for (py in 0 until h) for (px in 0 until W) {
-            val i = (px + 0.5 - W / 2.0) / (TW / 2) + j
+        for (py in 0 until h) for (px in 0 until w) {
+            val i = (px + 0.5 - w / 2.0) / (TW / 2) + j
             if (i < i0 || i > i1) continue
             val z = (h + (i + j) * TH / 2 - (py + 0.5)) / ZS
             if (z < z0 || z > z1) continue
@@ -161,8 +162,8 @@ object MapRoomIso {
 
     /** Paints the face i = [i] between j0 and j1, z0 and z1, each pixel by [tex] (local j, z). */
     private fun Canvas.faceI(i: Double, j0: Double, j1: Double, z0: Double, z1: Double, tex: (Double, Double) -> Int?) {
-        for (py in 0 until h) for (px in 0 until W) {
-            val j = i - (px + 0.5 - W / 2.0) / (TW / 2)
+        for (py in 0 until h) for (px in 0 until w) {
+            val j = i - (px + 0.5 - w / 2.0) / (TW / 2)
             if (j < j0 || j > j1) continue
             val z = (h + (i + j) * TH / 2 - (py + 0.5)) / ZS
             if (z < z0 || z > z1) continue
@@ -295,6 +296,47 @@ object MapRoomIso {
         return mix(argb(0x2E3A4A), argb(0x6A7A8A), t * 0.7 + 0.15)
     }
 
+    /**
+     * Dressed stone of the temple's walls (13q.10) at (u along the wall in tiles, z): courses of 12 pixels,
+     * every block its own shade, mortar in the joints, damp along the floor and soot from the candles up high.
+     */
+    private fun ashlar(u: Double, z: Double, seed: Int, face: Double, top: Double): Int {
+        val course = floor(z / 12).toInt()
+        val off = rnd(course, 3, seed) * 0.5
+        val bw = 0.3 + rnd(course, 4, seed) * 0.08
+        val block = floor(u / bw + off).toInt()
+        var v = 0.55 + (rnd(block, course, seed + 11) - 0.5) * 0.26 + (rnd(floor(u * 40).toInt(), floor(z / 2).toInt(), seed + 12) - 0.5) * 0.08
+        val joint = z % 12 < 1.4 || frac(u / bw + off) < 0.05
+        if (joint) v -= 0.3
+        // now and then a block with a chipped edge or a crack
+        if (hash(block, course, seed + 13) % 9 == 0 && abs(frac(u / bw + off) - 0.5 - (z % 12 - 6) * 0.03) < 0.02) v -= 0.22
+        v -= 0.22 * ((z - 40) / (top - 40)).coerceIn(0.0, 1.0)
+        v -= 0.16 * exp(-z / 9).coerceAtMost(1.0)
+        if (z > top - 7) v = 0.4 + (if (z > top - 2) 0.15 else 0.0)        // the coping stone along the top
+        return shade(mix(argb(0x23211E), argb(0x8C867A), v.coerceIn(0.0, 1.0)), face)
+    }
+
+    /** A tall narrow window under a round arch in a stone wall (13q.10), local u 0..1 of its tile. */
+    private fun archWindow(f: Double, z: Double, face: Double): Int? {
+        val dx = (f - 0.5) / 0.2
+        if (abs(dx) > 1.25) return null
+        val crown = 92 + 12 * sqrt((1 - (dx / 1.25) * (dx / 1.25)).coerceAtLeast(0.0))
+        if (z < 38 || z > crown) return null
+        // the voussoirs round the arch and the jambs: lighter dressed stone
+        val inner = 90 + 10 * sqrt((1 - dx * dx).coerceAtLeast(0.0))
+        if (abs(dx) > 1 || z > inner || z < 42) {
+            val v = 0.62 + (if (z > 88 && floor(atan2(z - 90, dx * 10) * 3).toInt() % 2 == 0) 0.06 else 0.0)
+            return shade(mix(argb(0x23211E), argb(0x9A9488), v), face)
+        }
+        // the deep reveal: the left side and the arch in shadow
+        if (dx < -0.78 || z > inner - 3) return shade(argb(0x14110E), face)
+        // small square panes of greenish glass in lead, brighter towards the top
+        val lead = frac((f - 0.5) * 22) < 0.12 || (z - 42) % 9 < 1.2
+        if (lead) return argb(0x1E1C1A)
+        val t = (z - 42) / (inner - 42)
+        return mix(argb(0x2E3C3A), argb(0x7A8C84), t * 0.7 + 0.15)
+    }
+
     /** A wall thing ([MapRoom.wallThing]) hung on a stretch of wall: its color at local u 0..1 and height z, or null. */
     private fun hanging(thing: MapRoom.Sprite?, f: Double, z: Double, face: Double): Int? {
         if (thing == null) return null
@@ -307,6 +349,8 @@ object MapRoomIso {
 
     private fun wallThing(map: MapDef, tx: Int, ty: Int, west: Boolean): MapRoom.Sprite? {
         fun at(dx: Int, dy: Int) = if (map.inside(tx + dx, ty + dy)) map.tile(tx + dx, ty + dy) else Tile.WALL
+        // no antlers, pots or tools on the bare stone of the temple
+        if (map.id.substringBefore('_') == "temple") return null
         val before = if (west) at(1, 0) else at(0, 1)
         if (before in wallTiles || before == Tile.DOOR || before == Tile.SHELF || before == Tile.BED || before == Tile.HEARTH || before == Tile.CRATE) return null
         return MapRoom.wallThing(hash(tx, ty, if (west) 57 else 55) % 7)
@@ -327,8 +371,8 @@ object MapRoomIso {
 
     /** Paints the top of a wall over its footprint at height [z], dark with an edge where the cut catches a little light. */
     private fun Canvas.wallTop(i0: Double, j0: Double, i1: Double, j1: Double, z: Double, seed: Int) {
-        for (py in 0 until h) for (px in 0 until W) {
-            val a = (px + 0.5 - W / 2.0) / (TW / 2); val b = (py + 0.5 - h + z * ZS) / (TH / 2)
+        for (py in 0 until h) for (px in 0 until w) {
+            val a = (px + 0.5 - w / 2.0) / (TW / 2); val b = (py + 0.5 - h + z * ZS) / (TH / 2)
             val i = (a + b) / 2; val j = (b - a) / 2
             if (i < i0 || j < j0 || i > i1 || j > j1) continue
             var v = 0.5 + (rnd(px / 2, py, seed) - 0.5) * 0.3
@@ -349,6 +393,12 @@ object MapRoomIso {
         val c = Canvas(h, tx * 31 + ty)
         val seed = map.id.hashCode()
         val tile = map.tile(tx, ty)
+        // the temple is built of stone (13q.10), every other room of timber and plaster
+        val stone = map.id.substringBefore('_') == "temple"
+        fun timber(u: Double, z: Double, seed: Int, face: Double, top: Double) =
+            if (stone) ashlar(u, z, seed, face, top) else this.timber(u, z, seed, face, top)
+        fun beam(u: Double, z: Double, seed: Int, face: Double) =
+            if (stone) ashlar(u, z, seed, face, 400.0) else this.beam(u, z, seed, face)
         var h0 = tx; while (h0 > 0 && map.tile(h0 - 1, ty) == Tile.HEARTH) h0--
         var h1 = tx; while (h1 < map.width - 1 && map.tile(h1 + 1, ty) == Tile.HEARTH) h1++
         val e = THICK
@@ -368,7 +418,7 @@ object MapRoomIso {
                 when {
                     !full -> timber(u, z, seed, face, 400.0)
                     tile == Tile.HEARTH -> hearth(u, z, h0.toDouble(), (h1 - h0 + 1).toDouble(), face, seed) ?: timber(u, z, seed, face, WALL)
-                    tile == Tile.WINDOW -> window(f, z, face) ?: timber(u, z, seed, face, WALL)
+                    tile == Tile.WINDOW -> (if (stone) archWindow(f, z, face) else window(f, z, face)) ?: timber(u, z, seed, face, WALL)
                     else -> hanging(wallThing(map, tx, ty, false), f, z, face) ?: timber(u, z, seed, face, WALL)
                 }
             }
@@ -397,7 +447,7 @@ object MapRoomIso {
         if (!any) return if (full) null else c.img
         if (full && room(map, tx, ty + 1)) {
             // a window has a sill board standing out a little
-            if (tile == Tile.WINDOW) c.box(-0.82, -0.04, -0.18, 0.06, 41.0, 46.0, oakTop, oak, oak)
+            if (tile == Tile.WINDOW && !stone) c.box(-0.82, -0.04, -0.18, 0.06, 41.0, 46.0, oakTop, oak, oak)
             // the hearth's mantel shelf with a few things on it
             if (tile == Tile.HEARTH) {
                 c.box(-1.0, -0.06, 0.0, 0.08, 89.0, 92.0, oakTop, oak, oak)
@@ -498,7 +548,7 @@ object MapRoomIso {
     }
 
     /** The counter along the room's x, its front towards the room (+j), things on its top. */
-    private fun counter(v: Int, joinL: Boolean, joinR: Boolean, seed: Int): PixelImage {
+    private fun counter(v: Int, joinL: Boolean, joinR: Boolean, seed: Int, shop: Boolean = false): PixelImage {
         val zt = 54.0
         val c = Canvas((zt + TH + 24).toInt().let { it + it % 2 }, seed)
         val i0 = if (joinL) -1.0 else -0.94; val i1 = if (joinR) 0.0 else -0.06
@@ -521,6 +571,7 @@ object MapRoomIso {
         c.box(i0, -0.68, i1, -0.06, zt - 5, zt, oakTop, oak, oak)
         // a long worn ring of wet mugs
         c.s.tint(c.x((i0 + i1) / 2 + 0.1, -0.32), c.y((i0 + i1) / 2 + 0.1, -0.32, zt), 6.0, 2.4, argb(0x2A1C12), 0.35)
+        if (shop) { c.shopTop(v, zt, seed); c.s.outline(outlineColor); return c.img }
         fun at(i: Double, j: Double) = c.x(i, j) to c.y(i, j, zt)
         when (v % 3) {
             0 -> {
@@ -861,7 +912,7 @@ object MapRoomIso {
     /** A soft round shadow on the floor around (ox, oy): a circle, so an ellipse twice as wide as high; laid after the outline, under the thing. */
     private fun Canvas.roundShadow(ox: Double, oy: Double, rcm: Double, a: Double = 0.5) {
         val r = rx(rcm) + 3
-        for (py in 0 until h) for (px in 0 until W) {
+        for (py in 0 until h) for (px in 0 until w) {
             val u = (px + 0.5 - ox) / r; val v = (py + 0.5 - oy) / (r / 2)
             val d = sqrt(u * u + v * v)
             if (d >= 1.0 || img.opaque(px, py)) continue
@@ -1167,6 +1218,769 @@ object MapRoomIso {
     // ------------------------------------------------------------------ the tiles
 
     private val cache = HashMap<String, PixelImage>()
+    // ------------------------------------------------------------------ the elder's house (13q.4, drafts)
+
+    private val parchment = m(0xB8A47C, grain = 0.16, sat = 0.5, value = 0.85)
+    private val parchmentOld = m(0x9A8460, grain = 0.22, sat = 0.55, value = 0.8)
+    private val leather = m(0x4A2C1C, shine = 0.15, grain = 0.2, sat = 0.8, value = 0.8)
+    private val fur = m(0x5A4E42, grain = 0.5, sat = 0.4, value = 0.8)
+    private val clothRed = m(0x5A1E1A, grain = 0.3, sat = 0.75, value = 0.8)
+    private val clothBlue = m(0x26303E, grain = 0.3, sat = 0.6, value = 0.8)
+    private val ink = argb(0x0C0A0E)
+    private val waxRed = argb(0x7A1A14)
+    private val gold = argb(0x9A7A3A)
+    private val ironLine = argb(0x22201E)
+
+    /** A candle standing at (x, y) on a surface, [len] high, burnt down or fresh, with drips. */
+    private fun Canvas.candle(x: Double, y: Double, len: Double, drips: Boolean = false) {
+        c0(x, y)
+        s.limb(x, y - 1, x, y - len, 1.3, 1.2, wax)
+        if (drips) { s.line(x - 1, y - len + 1, x - 1, y - len + 4, argb(0xD8CCAA)); s.blob(x, y - 0.5, 2.6, 1.0, wax, depth = 0.3) }
+        s.flat(x, y - len - 2, 0.9, 1.9, flame); s.dot(x, y - len - 2.5, flameHot)
+    }
+    /** A pewter dish under a candle. */
+    private fun Canvas.c0(x: Double, y: Double) = s.blob(x, y, 3.2, 1.3, pewter, depth = 0.3)
+
+    /**
+     * Aldric's writing desk against the wall (−j): a sloped top on four legs, a ledge for ink and candle;
+     * three looks: an open book and a fresh candle, a heap of letters and a candle burnt low, a broken seal and spilt ink.
+     */
+    private fun desk(v: Int, seed: Int): PixelImage {
+        val c = Canvas((96 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val i0 = -0.88; val i1 = -0.12; val j0 = -0.92; val j1 = -0.42
+        c.floorShadow(i0, j0, i1, j1 + 0.06, 0.45)
+        // the back upright with a ledge, the legs, a stretcher low between them
+        c.box(i0, j0, i1, j0 + 0.06, 0.0, 66.0, oakDark, oak, oak)
+        c.box(i0, j0 - 0.02, i1, j0 + 0.12, 66.0, 70.0, oakTop, oak, oak)
+        for (i in listOf(i0 + 0.04, i1 - 0.08)) c.box(i, j1 - 0.08, i + 0.04, j1 - 0.04, 0.0, 44.0, oakDark, oak, oak)
+        c.box(i0 + 0.04, j1 - 0.3, i1 - 0.04, j1 - 0.26, 8.0, 11.0, oakDark, oak, oak)
+        // the sloped top: high at the back, low at the front, its front edge a lip
+        val zb = 56.0; val zf = 45.0
+        c.s.poly(oakTop, c.x(i0, j0 + 0.06), c.y(i0, j0 + 0.06, zb), c.x(i1, j0 + 0.06), c.y(i1, j0 + 0.06, zb),
+            c.x(i1, j1), c.y(i1, j1, zf), c.x(i0, j1), c.y(i0, j1, zf), tiltY = -0.85, bevel = 0.6)
+        c.box(i0, j1 - 0.02, i1, j1 + 0.02, zf - 4, zf + 1, oakTop, oak, oak)
+        c.s.poly(oak, c.x(i1, j0 + 0.06), c.y(i1, j0 + 0.06, zb), c.x(i1, j1), c.y(i1, j1, zf), c.x(i1, j1), c.y(i1, j1, zf - 4), c.x(i1, j0 + 0.06), c.y(i1, j0 + 0.06, zb - 6), tiltX = 0.55, bevel = 0.5)
+        fun top(i: Double, j: Double) = c.x(i, j) to c.y(i, j, zf + (zb - zf) * (j1 - j) / (j1 - j0 - 0.06))
+        fun sheet(ia: Double, ja: Double, w: Double, d: Double, mat: Mat, rot: Double = 0.0) {
+            val (ax, ay) = top(ia, ja); val (bx, by) = top(ia + w, ja + rot); val (cx, cy) = top(ia + w + rot, ja + d); val (dx, dy) = top(ia + rot, ja + d - rot)
+            c.s.poly(mat, ax, ay - 0.5, bx, by - 0.5, cx, cy - 0.5, dx, dy - 0.5, tiltY = -0.85, bevel = 0.3)
+        }
+        fun writing(ia: Double, ja: Double, w: Double, n: Int) {
+            for (k in 0 until n) { val (ax, ay) = top(ia + 0.03, ja + 0.05 + k * 0.05); val (bx, by) = top(ia + w * (0.6 + 0.3 * rnd(k, v, seed)), ja + 0.05 + k * 0.05); c.s.line(ax, ay - 1, bx, by - 1, argb(0x4A3A2A)) }
+        }
+        val ledge = { i: Double -> c.x(i, j0 + 0.06) to c.y(i, j0 + 0.06, 70.0) }
+        when (v % 3) {
+            0 -> {
+                // an open book, a page held down by a ribbon; ink and quill on the ledge, a fresh candle
+                sheet(-0.72, -0.78, 0.26, 0.28, leather); sheet(-0.7, -0.77, 0.11, 0.25, parchment); sheet(-0.58, -0.77, 0.11, 0.25, parchment)
+                writing(-0.7, -0.77, 0.11, 4); writing(-0.58, -0.77, 0.11, 3)
+                top(-0.585, -0.6).let { (x, y) -> c.s.line(x, y - 1, x + 1, y + 4, waxRed) }
+                ledge(-0.3).let { (x, y) -> c.s.limb(x, y - 1, x, y - 4, 2.0, 1.8, glass); c.s.line(x + 1, y - 4, x + 6, y - 13, argb(0xC8C0B0)) }
+                ledge(-0.8).let { (x, y) -> c.candle(x, y, 8.0) }
+            }
+            1 -> {
+                // letters heaped and slid, one fallen to the floor; the candle burnt down to a stub
+                sheet(-0.78, -0.8, 0.2, 0.24, parchmentOld, 0.03); sheet(-0.6, -0.74, 0.2, 0.22, parchment, -0.02); sheet(-0.45, -0.62, 0.18, 0.18, parchmentOld, 0.04)
+                writing(-0.6, -0.74, 0.18, 3)
+                ledge(-0.55).let { (x, y) -> c.candle(x, y, 2.5, drips = true) }
+                ledge(-0.25).let { (x, y) -> c.s.limb(x, y - 1, x, y - 4, 2.0, 1.8, glass); c.s.line(x - 2, y - 4, x - 8, y - 10, argb(0xC8C0B0)) }
+                val x = c.x(-0.3, -0.18); val y = c.y(-0.3, -0.18)
+                c.s.poly(parchment, x - 7, y - 1, x + 3, y - 4, x + 8, y, x - 2, y + 3, tiltY = -0.85, bevel = 0.2)
+            }
+            else -> {
+                // one letter, its grey seal broken; ink spilt across the wood, the quill dropped in it; a lamp of clay
+                sheet(-0.66, -0.74, 0.24, 0.26, parchment, 0.02)
+                writing(-0.66, -0.74, 0.22, 4)
+                top(-0.52, -0.52).let { (x, y) -> c.s.flat(x, y - 1, 2.2, 1.4, argb(0x5E5A58)); c.s.flat(x + 2, y, 1.0, 0.8, argb(0x3A3634)) }
+                top(-0.3, -0.62).let { (x, y) -> c.s.flat(x, y, 5.0, 2.2, ink); c.s.flat(x + 4, y + 2, 2.2, 1.2, ink); c.s.line(x - 3, y - 2, x + 7, y - 6, argb(0xC8C0B0)) }
+                ledge(-0.32).let { (x, y) -> c.s.limb(x - 1, y - 1, x + 1, y - 3, 1.8, 1.8, glass) }
+                ledge(-0.78).let { (x, y) -> c.s.blob(x, y - 2, 4.0, 2.2, clay, depth = 0.6); c.s.limb(x + 3, y - 3, x + 6, y - 4, 1.0, 0.8, clay); c.s.flat(x + 6.5, y - 6, 0.9, 1.8, flame); c.s.dot(x + 6.5, y - 6.5, flameHot) }
+            }
+        }
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
+    /**
+     * A chest with iron bands along the room's x; three looks: shut and locked, its lid up with a cloth
+     * spilling over the edge, shut with a folded blanket and a candlestick on it.
+     */
+    private fun chest(v: Int, seed: Int): PixelImage {
+        val c = Canvas((80 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val i0 = -0.86; val i1 = -0.14; val j0 = -0.78; val j1 = -0.34
+        val zb = 28.0; val zl = 36.0
+        c.floorShadow(i0, j0, i1, j1, 0.5)
+        val open = v % 3 == 1
+        if (open) {
+            // the lid stands up against the back, its inside dark
+            c.box(i0, j0 - 0.06, i1, j0, zb, zb + 34, oakDark, oakBack, oak)
+        }
+        c.box(i0, j0, i1, j1, 0.0, zb, if (open) m(0x120C08) else oakTop, oak, oak)
+        if (!open) {
+            // the lid, a little proud of the body, its top gently rounded by two steps
+            c.box(i0 - 0.02, j0 - 0.02, i1 + 0.02, j1 + 0.02, zb, zb + 5, oakTop, oak, oak)
+            c.box(i0 - 0.01, j0 + 0.04, i1 + 0.01, j1 - 0.04, zb + 5, zl, oakTop, oak, oak)
+        } else {
+            // a cloth hangs out over the front edge, something round of pewter in the dark
+            val x = c.x(-0.5, j1); val y = c.y(-0.5, j1, zb)
+            c.s.blob(c.x(-0.55, -0.56), c.y(-0.55, -0.56, zb - 4), 9.0, 3.0, wool, depth = 0.5)
+            c.s.poly(wool, x - 8, y - 1, x + 6, y - 2, x + 5, y + 9, x + 1, y + 7, x - 4, y + 10, x - 7, y + 6, tiltX = -0.4, bevel = 0.8)
+            c.s.blob(c.x(-0.3, -0.6), c.y(-0.3, -0.6, zb - 6), 3.5, 1.5, pewter, depth = 0.4)
+        }
+        // iron bands across both faces and over the lid, a lock plate in the front
+        val zt = if (open) zb else zl
+        for (i in listOf(i0 + 0.1, i1 - 0.1)) {
+            c.box(i - 0.025, j1 - 0.002, i + 0.025, j1 + 0.012, 0.0, zt, iron, iron, iron, bevel = 0.4)
+            if (!open) c.box(i - 0.025, j0 + 0.02, i + 0.025, j1 + 0.012, zt - 1, zt + 1, iron, iron, iron, bevel = 0.3)
+        }
+        c.box(i1 - 0.002, j0 + 0.12, i1 + 0.012, j0 + 0.16, 0.0, zt, iron, iron, iron, bevel = 0.4)
+        c.box(-0.56, j1, -0.44, j1 + 0.016, zb - 10, zb + 2, iron, iron, iron, bevel = 0.4)
+        c.s.dot(c.x(-0.5, j1 + 0.016), c.y(-0.5, j1 + 0.016, zb - 4), ink)
+        // scuffs at the foot where it was dragged
+        for (k in 0..3) c.s.tint(c.x(i0 + 0.15 + k * 0.17, j1 + 0.01), c.y(i0 + 0.15 + k * 0.17, j1 + 0.01, 2.0), 3.0, 1.0, argb(0x7A6A50), 0.2)
+        if (v % 3 == 2) {
+            // a folded blanket and a candlestick on the lid
+            c.box(-0.78, -0.72, -0.42, -0.42, zl, zl + 5, m(0x3E4632, grain = 0.14, sat = 0.6, value = 0.8, bias = -0.4), m(0x3E4632, grain = 0.14, sat = 0.6, value = 0.7), m(0x3E4632, grain = 0.14, sat = 0.6, value = 0.7), bevel = 1.6)
+            val x = c.x(-0.26, -0.56); val y = c.y(-0.26, -0.56, zl)
+            c.s.blob(x, y - 0.5, 2.6, 1.1, iron, depth = 0.3); c.s.limb(x, y - 1, x, y - 7, 0.8, 0.8, iron)
+            c.candle(x, y - 7, 6.0, drips = true)
+        }
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
+    /**
+     * A high-backed chair with arms, its back to the wall (−j), facing the room; three looks: a cushion,
+     * a fur thrown over it, a blanket and a book left open on the seat.
+     */
+    private fun armchair(v: Int, seed: Int): PixelImage {
+        val c = Canvas((100 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val i0 = -0.78; val i1 = -0.26; val j0 = -0.8; val j1 = -0.3
+        val zs = 24.0; val za = 40.0; val zb = 92.0
+        c.floorShadow(i0, j0, i1, j1, 0.45)
+        // the back, panelled, with a carved top rail
+        c.box(i0, j0, i1, j0 + 0.07, 0.0, zb, oakDark, oak, oak)
+        c.box(i0 - 0.02, j0 - 0.01, i1 + 0.02, j0 + 0.08, zb - 4, zb + 2, oakTop, oak, oak)
+        c.s.line(c.x(i0 + 0.08, j0 + 0.07), c.y(i0 + 0.08, j0 + 0.07, zs + 6), c.x(i0 + 0.08, j0 + 0.07), c.y(i0 + 0.08, j0 + 0.07, zb - 8), seam)
+        c.s.line(c.x(i1 - 0.08, j0 + 0.07), c.y(i1 - 0.08, j0 + 0.07, zs + 6), c.x(i1 - 0.08, j0 + 0.07), c.y(i1 - 0.08, j0 + 0.07, zb - 8), seam)
+        fun arm(i: Double) {
+            c.box(i - 0.035, j1 - 0.07, i + 0.035, j1, 0.0, za, oakDark, oak, oak)
+            c.box(i - 0.04, j0 + 0.06, i + 0.04, j1 + 0.01, za, za + 4, oakTop, oak, oak)
+            c.box(i - 0.025, j0 + 0.08, i + 0.025, j1 - 0.08, zs, za, oakBack, oakDark, oakDark)
+        }
+        arm(i0 + 0.035)
+        c.box(i0 + 0.07, j0 + 0.07, i1 - 0.07, j1, zs - 4, zs, oakTop, oak, oak)
+        when (v % 3) {
+            0 -> c.box(i0 + 0.09, j0 + 0.09, i1 - 0.09, j1 - 0.03, zs, zs + 6, wool, wool, wool, bevel = 2.5)
+            1 -> {
+                // a grey fur over the back and down onto the seat
+                c.s.poly(fur, c.x(i0 + 0.05, j0 + 0.08), c.y(i0 + 0.05, j0 + 0.08, zb - 6), c.x(i1 - 0.05, j0 + 0.08), c.y(i1 - 0.05, j0 + 0.08, zb - 10),
+                    c.x(i1 - 0.06, j0 + 0.12), c.y(i1 - 0.06, j0 + 0.12, zs + 3), c.x(i1 - 0.1, j1 - 0.04), c.y(i1 - 0.1, j1 - 0.04, zs + 3),
+                    c.x(i0 + 0.12, j1 - 0.02), c.y(i0 + 0.12, j1 - 0.02, zs + 2), c.x(i0 + 0.07, j0 + 0.12), c.y(i0 + 0.07, j0 + 0.12, zs + 4), tiltY = -0.3, bevel = 2.0)
+                for (k in 0..14) { val t = k / 14.0; val i = i0 + 0.1 + (i1 - i0 - 0.2) * t; c.s.line(c.x(i, j1 - 0.03), c.y(i, j1 - 0.03, zs + 2), c.x(i + 0.01, j1 - 0.01), c.y(i + 0.01, j1 - 0.01, zs - 2 - (k % 3)), argb(0x3A322A)) }
+            }
+            else -> {
+                c.box(i0 + 0.09, j0 + 0.09, i1 - 0.09, j1 - 0.03, zs, zs + 4, clothRed, clothRed, clothRed, bevel = 2.0)
+                val x = c.x(-0.5, -0.5); val y = c.y(-0.5, -0.5, zs + 4)
+                c.s.poly(leather, x - 7, y - 1, x + 2, y - 4, x + 8, y - 1, x - 1, y + 2, tiltY = -0.8, bevel = 0.3)
+                c.s.poly(parchment, x - 6, y - 1.5, x + 1.5, y - 4, x + 1, y - 0.5, x - 5, y + 1, tiltY = -0.8, bevel = 0.2)
+                c.s.poly(parchment, x + 1.5, y - 4, x + 7, y - 1.5, x + 0.5, y + 1.2, x + 1, y - 0.5, tiltY = -0.8, bevel = 0.2)
+            }
+        }
+        arm(i1 - 0.035)
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
+    /**
+     * Shelves of the elder's books and scrolls against the wall (−j); three looks: books upright and leaning,
+     * scrolls in pigeon holes, a half-empty one with a ledger lying open and a skull of a goat.
+     */
+    private fun bookshelf(v: Int, joinL: Boolean, joinR: Boolean, seed: Int): PixelImage {
+        val zt = 110.0
+        val c = Canvas((zt + TH + 8).toInt().let { it + it % 2 }, seed)
+        val i0 = if (joinL) -1.0 else -0.94; val i1 = if (joinR) 0.0 else -0.06
+        val j0 = -1.0; val j1 = -0.62
+        c.floorShadow(i0, j0, i1, j1 + 0.1, 0.45)
+        c.s.poly(oakBack, c.x(i0, j0), c.y(i0, j0), c.x(i1, j0), c.y(i1, j0), c.x(i1, j0), c.y(i1, j0, zt), c.x(i0, j0), c.y(i0, j0, zt), tiltX = -0.5, tiltY = 0.3, bevel = 0.0)
+        if (!joinL) c.box(i0, j0, i0 + 0.06, j1, 0.0, zt, oakTop, oak, oak)
+        val covers = listOf(0x4A2C1C, 0x3A2A22, 0x5A2A1E, 0x2E3428, 0x4E3E2A, 0x26262E)
+        val heights = doubleArrayOf(3.0, 30.0, 56.0, 82.0)
+        for ((k, z0) in heights.withIndex()) {
+            c.box(i0, j0, i1, j1, z0, z0 + 3, oakTop, oak, oak)
+            val zf = z0 + 3
+            val room = (if (k < heights.size - 1) heights[k + 1] else zt) - zf - 2
+            val kind = (v + k) % 3
+            var i = i0 + 0.08
+            var n = 0
+            while (i < i1 - 0.08) {
+                val r = hash(k, n, seed)
+                when {
+                    v % 3 == 1 && kind != 0 -> {
+                        // scrolls lying with their ends to the room, stacked two high
+                        val w = 0.12
+                        for (s in 0 until 2) {
+                            val zz = zf + 3.4 + s * 6.4; val ii = i + w / 2 + (if (s == 1) 0.05 else 0.0)
+                            if (s == 1 && r % 3 == 0) continue
+                            val x0 = c.x(ii, j0 + 0.08); val y0 = c.y(ii, j0 + 0.08, zz); val x1 = c.x(ii, j1 - 0.02); val y1 = c.y(ii, j1 - 0.02, zz)
+                            val mat = if ((r + s) % 2 == 0) parchment else parchmentOld
+                            c.s.limb(x0, y0, x1, y1, 3.2, 3.2, mat)
+                            c.s.blob(x1, y1, 2.2, 3.0, mat, depth = 0.3); c.s.dot(x1, y1, argb(0x5A4A34))
+                            if (r % 4 == 1) c.s.line(c.x(ii, j1 - 0.12), c.y(ii, j1 - 0.12, zz) - 3, c.x(ii, j1 - 0.12), c.y(ii, j1 - 0.12, zz) + 3, waxRed)
+                        }
+                        i += w + 0.02
+                    }
+                    v % 3 == 2 && k == 1 && n == 0 -> {
+                        // a ledger lying open across most of the board
+                        c.box(i, j0 + 0.1, i + 0.34, j1 - 0.02, zf, zf + 2, parchment, leather, leather, bevel = 0.4)
+                        for (l in 0..3) c.s.line(c.x(i + 0.03, j0 + 0.15 + l * 0.05), c.y(i + 0.03, j0 + 0.15 + l * 0.05, zf + 2), c.x(i + 0.14, j0 + 0.15 + l * 0.05), c.y(i + 0.14, j0 + 0.15 + l * 0.05, zf + 2), argb(0x4A3A2A))
+                        i += 0.4
+                    }
+                    v % 3 == 2 && r % 3 == 0 -> {
+                        // a gap with dust, or a goat's skull on the top board
+                        if (k == heights.size - 1 && n == 1) {
+                            val x = c.x(i + 0.08, -0.8); val y = c.y(i + 0.08, -0.8, zf)
+                            c.s.blob(x, y - 4, 4.6, 3.6, m(0xB8AE96, grain = 0.2, sat = 0.3), depth = 0.8)
+                            c.s.blob(x + 3.5, y - 1.5, 2.6, 1.8, m(0xB8AE96, grain = 0.2, sat = 0.3), depth = 0.6)
+                            c.s.dot(x + 1, y - 4, ink); c.s.dot(x + 3, y - 4, ink)
+                            c.s.limb(x - 2, y - 7, x - 6, y - 12, 1.2, 0.6, m(0x8A7E66, grain = 0.3, sat = 0.4))
+                            c.s.limb(x + 1, y - 7.5, x + 1, y - 13, 1.2, 0.6, m(0x8A7E66, grain = 0.3, sat = 0.4))
+                        } else c.s.tint(c.x(i + 0.06, -0.8), c.y(i + 0.06, -0.8, zf), 4.0, 1.2, argb(0x7A7062), 0.35)
+                        i += 0.14
+                    }
+                    else -> {
+                        // a book upright: spine to the room, pages on top; now and then one leaning on the last
+                        val w = 0.035 + (r % 4) * 0.012
+                        val h = (room * (0.6 + (r % 5) * 0.07)).coerceAtMost(room - 1)
+                        val cover = m(covers[r % covers.size], shine = 0.1, grain = 0.2, sat = 0.75, value = 0.85)
+                        val lean = r % 9 == 0 && n > 0
+                        if (lean) {
+                            val x0 = c.x(i, j1 - 0.04); val y0 = c.y(i, j1 - 0.04, zf)
+                            c.s.poly(cover, x0, y0, x0 + 4, y0 + 2, x0 + 4 - h * 0.45 * ZS, y0 + 2 - h * 0.85 * ZS, x0 - h * 0.45 * ZS, y0 - h * 0.85 * ZS, tiltX = -0.4, bevel = 0.5)
+                            i += 0.1
+                        } else {
+                            c.box(i, j0 + 0.08, i + w, j1 - 0.03, zf, zf + h, parchmentOld, cover, cover, bevel = 0.4)
+                            if (r % 3 == 0) c.s.line(c.x(i + w / 2, j1 - 0.03), c.y(i + w / 2, j1 - 0.03, zf + h * 0.8), c.x(i + w / 2, j1 - 0.03), c.y(i + w / 2, j1 - 0.03, zf + h * 0.7), gold)
+                            i += w + 0.004
+                        }
+                    }
+                }
+                n++
+            }
+        }
+        c.box(i0, j0, i1, j1, zt, zt + 4, oakTop, oak, oak)
+        if (!joinR) c.box(i1 - 0.06, j0, i1, j1, 0.0, zt + 4, oakTop, oak, oak)
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
+    /**
+     * The elder's bed (13q.7): a broad bed over two tiles by two, its head at the back (−j), a half canopy
+     * over the head with curtains tied back to its posts; drawn whole on its front tile. Three looks of curtain and cover.
+     */
+    private fun elderBed(v: Int, seed: Int): PixelImage {
+        val c = Canvas((128 + 2 * TH + 8).toInt().let { it + it % 2 }, seed, 196)
+        val curtain = when (v % 3) { 0 -> clothRed; 1 -> clothBlue; else -> m(0x3A3228, grain = 0.3, sat = 0.5, value = 0.8) }
+        val cover = when (v % 3) {
+            0 -> m(0x4A3A2C, grain = 0.14, sat = 0.6, value = 0.8, bias = -0.55)
+            1 -> m(0x3E4632, grain = 0.12, sat = 0.6, value = 0.8, bias = -0.55)
+            else -> m(0x6A3A2E, grain = 0.12, sat = 0.75, value = 0.75, bias = -0.55)
+        }
+        val i0 = -1.72; val i1 = -0.28; val j0 = -1.96; val j1 = -0.12
+        val zt = 118.0; val jc = j0 + 0.75
+        c.floorShadow(i0, j0, i1, j1, 0.5)
+        // the head: a panelled board between two tall posts, the tester beam over it
+        c.box(i0, j0, i1, j0 + 0.08, 0.0, 74.0, oakDark, oak, oak)
+        c.box(i0 - 0.02, j0 - 0.01, i1 + 0.02, j0 + 0.09, 74.0, 79.0, oakTop, oak, oak)
+        for (k in 1..3) { val ii = i0 + (i1 - i0) * k / 4; c.s.line(c.x(ii, j0 + 0.08), c.y(ii, j0 + 0.08, 30.0), c.x(ii, j0 + 0.08), c.y(ii, j0 + 0.08, 70.0), seam) }
+        c.box(i0 - 0.05, j0 - 0.02, i0 + 0.03, j0 + 0.06, 0.0, zt, oakTop, oak, oak)
+        // the canopy: cloth stretched over a frame reaching a third down the bed, the far curtain hanging down
+        c.s.poly(curtain, c.x(i0, j0), c.y(i0, j0, zt + 4), c.x(i1, j0), c.y(i1, j0, zt + 4), c.x(i1, jc), c.y(i1, jc, zt + 4), c.x(i0, jc), c.y(i0, jc, zt + 4), tiltY = 0.6, bevel = 1.0)
+        fun drape(i: Double) {
+            for (k in 0 until 5) {
+                val ja = j0 + 0.05 + k * 0.14; val jb = ja + 0.14
+                val za = 40.0 + k * 9; val zb = za + 9
+                c.s.poly(curtain, c.x(i, ja), c.y(i, ja, zt), c.x(i, jb), c.y(i, jb, zt), c.x(i, jb.coerceAtMost(jc)), c.y(i, jb.coerceAtMost(jc), zb), c.x(i, ja), c.y(i, ja, za),
+                    tiltX = if (k % 2 == 0) 0.4 else 0.75, bevel = 1.6)
+            }
+            // the tie at the post
+            c.s.line(c.x(i, j0 + 0.06), c.y(i, j0 + 0.06, 58.0), c.x(i, j0 + 0.2), c.y(i, j0 + 0.2, 56.0), gold)
+        }
+        drape(i0 + 0.01)
+        // the frame, the straw mattress and the linen, two pillows, the cover thrown back
+        c.box(i0, j0 + 0.08, i1, j1, 6.0, 20.0, oakTop, oak, oak)
+        c.box(i0 + 0.03, j0 + 0.1, i1 - 0.03, j1 - 0.04, 20.0, 31.0, m(0x6E5E44, grain = 0.14, sat = 0.6, value = 0.7, bias = -0.5), linen, linen, bevel = 2.0)
+        for (ii in listOf(-1.38, -0.7)) { val x = c.x(ii, j0 + 0.3); val y = c.y(ii, j0 + 0.3, 33.0); c.s.blob(x, y, 15.0, 6.0, m(0x8A7E66, grain = 0.1, sat = 0.5, value = 0.75, bias = -0.15), depth = 0.7); c.s.line(x - 8, y - 1, x + 7, y - 2, argb(0x4E4434)) }
+        c.box(i0 + 0.01, j0 + 0.62, i1 - 0.01, j1 - 0.02, 29.0, 36.0, cover, cover, cover, bevel = 2.4)
+        c.box(i0 + 0.01, j0 + 0.56, i1 - 0.01, j0 + 0.66, 33.0, 38.0, cover, cover, cover, bevel = 2.0)
+        for (k in 0..3) { val jj = j0 + 0.85 + k * 0.24 + rnd(k, v, seed) * 0.05; c.s.line(c.x(i0 + 0.15, jj), c.y(i0 + 0.15, jj, 36.0), c.x(i1 - 0.2, jj + 0.06), c.y(i1 - 0.2, jj + 0.06, 36.0), argb(0x24140E)) }
+        if (v % 3 == 1) {
+            // a grey fur over the foot
+            c.box(i0 + 0.04, j1 - 0.5, i1 - 0.04, j1 - 0.08, 36.0, 39.0, fur, fur, fur, bevel = 2.5)
+        }
+        // the foot: a low board and short posts
+        c.box(i0, j1 - 0.08, i1, j1, 0.0, 40.0, oakTop, oak, oak)
+        c.box(i0 - 0.03, j1 - 0.09, i0 + 0.05, j1 + 0.01, 0.0, 48.0, oakTop, oak, oak)
+        c.box(i1 - 0.05, j1 - 0.09, i1 + 0.03, j1 + 0.01, 0.0, 48.0, oakTop, oak, oak)
+        // the near post of the head and its curtain, in front of the bed
+        c.box(i1 - 0.03, j0 - 0.02, i1 + 0.05, j0 + 0.06, 0.0, zt, oakTop, oak, oak)
+        drape(i1 + 0.01)
+        c.box(i1 - 0.03, j0, i1 + 0.05, jc, zt, zt + 5, oakTop, oak, oak)
+        c.box(i0 - 0.05, j0, i0 + 0.03, jc, zt, zt + 5, oakTop, oak, oak)
+        c.box(i0 - 0.05, jc - 0.06, i1 + 0.05, jc, zt, zt + 5, oakTop, oak, oak)
+        if (v % 3 == 2) { val x = c.x(i1 + 0.12, j1 - 0.3); val y = c.y(i1 + 0.12, j1 - 0.3); c.s.limb(x, y - 1, x, y - 9, 2.6, 2.4, oakDark); c.s.limb(x + 6, y - 1, x + 6, y - 9, 2.6, 2.4, oakDark) }
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
+    /**
+     * A cloth hung on the back wall (−j), between its timbers; three looks: the sun of Bornim on old red wool,
+     * a faded tapestry of the woods, a map of the valley pinned up with notes beside it.
+     */
+    private fun wallCloth(v: Int, seed: Int): PixelImage {
+        val c = Canvas((128 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val j = -0.98
+        val i0 = -0.82; val i1 = -0.18
+        val z0 = 44.0; val z1 = 118.0
+        c.faceJ(j, i0, i1, z0 - 8, z1) { i, z ->
+            val u = (i - i0) / (i1 - i0); val t = (z1 - z) / (z1 - z0)
+            // a ragged hem, the cloth sagging a little between its pegs
+            val map = v % 3 == 2
+            val hem = if (map) z0 + 14 + 2 * u else z0 + 4 * kotlin.math.sin(u * 19 + seed) - 2 * kotlin.math.sin(u * Math.PI)
+            if (z < hem) return@faceJ null
+            if (map && (u < 0.06 || u > 0.94 || z > z1 - 4)) return@faceJ null
+            val fold = if (map) 0.9 + 0.1 * kotlin.math.sin(u * 5 + t * 3) else 0.82 + 0.18 * kotlin.math.sin(u * Math.PI * 7)
+            val soot = (1 - t) * 0.0 + t * 0.0 + (if (t < 0.25) (0.25 - t) * 1.2 else 0.0)
+            val grain = (rnd((u * 90).toInt(), (z * 1.5).toInt(), seed) - 0.5) * 0.12
+            val base: Int = when (v % 3) {
+                0 -> {
+                    // the sun: a disc with rays, faded gold on red
+                    val dx = (u - 0.5) * 1.15; val dz = (t - 0.42) * 1.1
+                    val r = sqrt(dx * dx + dz * dz); val a = kotlin.math.atan2(dz, dx)
+                    when {
+                        r < 0.16 -> argb(0x8A6A34)
+                        r < 0.3 && abs(kotlin.math.sin(a * 6)) > 0.6 -> argb(0x7A5E30)
+                        abs(u - 0.5) > 0.42 || t < 0.06 || t > 0.94 -> argb(0x3A1410)
+                        else -> argb(0x5A1E1A)
+                    }
+                }
+                1 -> {
+                    // trees and a stag, worn to shadows
+                    val tree = abs(frac(u * 4.5) - 0.5) < 0.08 + 0.18 * max(0.0, t - 0.25) && t > 0.15
+                    val stag = (u - 0.58).let { du -> du * du * 30 + (t - 0.62) * (t - 0.62) * 70 < 0.18 }
+                    when {
+                        stag -> argb(0x6A5A40)
+                        tree -> argb(0x2A3226)
+                        t > 0.82 -> argb(0x3A3A2C)
+                        else -> argb(0x46483A)
+                    }
+                }
+                else -> {
+                    // parchment: a river, the road, the woods hatched, a red mark at the cave in the north
+                    val river = abs(u - 0.3 - 0.1 * kotlin.math.sin(t * 6)) < 0.018
+                    val road = abs(u - 0.62 + 0.05 * t) < 0.01 && t > 0.3
+                    val wood = t < 0.45 && frac(u * 16 + t * 12) < 0.18
+                    val cave = (u - 0.66) * (u - 0.66) + (t - 0.14) * (t - 0.14) < 0.0012
+                    when {
+                        cave -> waxRed
+                        river -> argb(0x3A4A52)
+                        road -> argb(0x5A4630)
+                        wood -> argb(0x5A5E3E)
+                        else -> argb(0xA08C66)
+                    }
+                }
+            }
+            shade(base, fold * (1 - soot) + grain)
+        }
+        // the rod or the pins, and a note pinned beside the map
+        if (v % 3 == 2) {
+            for (u in listOf(0.0, 1.0)) { val i = i0 + (i1 - i0) * u; c.s.dot(c.x(i + 0.02, j), c.y(i + 0.02, j, z1 - 2), iron.ramp.let { ironLine }) }
+            c.faceJ(j + 0.005, -0.16, -0.04, 70.0, 92.0) { _, z -> if (frac(z / 4) < 0.15) argb(0x5A4A34) else argb(0x9A8862) }
+        } else {
+            c.box(i0 - 0.06, j, i1 + 0.06, j + 0.03, z1, z1 + 3, oakTop, oak, oak, bevel = 0.4)
+        }
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
+    /** Aldric's walking stick leaning by the wall: alone, with a cloak on a peg above it, among others in a tub. */
+    private fun stick(v: Int, seed: Int): PixelImage {
+        val c = Canvas((110 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val (fx, fy) = c.x(-0.42, -0.62) to c.y(-0.42, -0.62)
+        val tx = c.x(-0.46, -0.94); val ty = c.y(-0.46, -0.94, 96.0)
+        val (ox, oy) = c.mid()
+        if (v % 3 == 2) {
+            // a tub of old sticks and a spear without its head
+            for (k in 0 until 4) {
+                val a = -0.5 + k * 0.33
+                c.s.limb(ox + a * 6, oy - 10, ox + a * 16 + 3, oy - 70 - k * 9, 1.4, 1.2, if (k == 2) oakDark else bark)
+            }
+            c.round(ox, oy, 40.0, oakDark) { 18.0 }
+            c.hoop(ox, oy, 8.0, 18.2, iron); c.hoop(ox, oy, 32.0, 18.2, iron)
+            c.s.flat(ox, oy - 40.0 * ZCM, rx(16.0), rx(16.0) / 2, argb(0x120C08))
+        } else {
+            // the stick: crooked, rubbed pale at the grip, its foot shod with iron
+            c.s.limb(fx, fy - 2, (fx + tx) / 2 + 1.5, (fy + ty) / 2, 1.6, 1.5, bark)
+            c.s.limb((fx + tx) / 2 + 1.5, (fy + ty) / 2, tx, ty, 1.5, 1.7, bark)
+            c.s.limb(tx, ty, tx - 3, ty - 3, 1.8, 1.6, bark)
+            c.s.limb(fx, fy, fx, fy - 3, 1.7, 1.7, iron)
+            c.s.tint(tx + 0.5, ty + 10, 1.4, 4.0, argb(0x9A8466), 0.6)
+        }
+        if (v % 3 == 1) {
+            // a satchel slumped by the stick, a pair of muddy boots beside it
+            val x = c.x(-0.7, -0.66); val y = c.y(-0.7, -0.66)
+            c.s.blob(x, y - 3.5, 9.0, 4.5, leather, depth = 0.8)
+            c.s.blob(x + 1, y - 6.5, 7.0, 2.2, m(0x3A2216, grain = 0.2, sat = 0.8, value = 0.8), depth = 0.5)
+            c.s.line(x - 7, y - 5, x - 1, y - 11, argb(0x2A180E)); c.s.line(x - 1, y - 11, x + 7, y - 4, argb(0x2A180E))
+            for (k in 0..1) { val bx = c.x(-0.22 + k * 0.14, -0.4 - k * 0.1); val by = c.y(-0.22 + k * 0.14, -0.4 - k * 0.1)
+                c.s.limb(bx, by - 2, bx, by - 12, 2.6, 2.4, oakDark); c.s.limb(bx, by - 1.5, bx + 4, by, 2.0, 1.8, oakDark); c.s.tint(bx + 1, by - 2, 3.0, 1.5, argb(0x4A3E2A), 0.5) }
+        }
+        c.s.outline(outlineColor)
+        if (v % 3 == 2) c.roundShadow(ox, oy, 24.0, 0.45) else c.roundShadow(fx, fy, 8.0, 0.4)
+        return c.img
+    }
+
+    // ------------------------------------------------------------------ Thessa's shop (13q.4, drafts)
+
+    private val copper = m(0x8A5A32, shine = 0.55, grain = 0.12, sat = 0.8, value = 0.9)
+    private val brass = m(0x8A7440, shine = 0.6, grain = 0.1, sat = 0.7, value = 0.9)
+    private val rope = m(0x7A6A48, grain = 0.4, sat = 0.55, value = 0.85)
+    private val apple = m(0x7A2A1E, shine = 0.25, grain = 0.1, sat = 0.8, value = 0.85)
+    private val cloths = listOf(0x5A1E1A, 0x26303E, 0x3E4632, 0x6E5E44, 0x4A3A4A)
+
+    /** What lies on the shop's counter: scales and coins, the ledger and a lantern, a bolt of cloth and shears. */
+    private fun Canvas.shopTop(v: Int, zt: Double, seed: Int) {
+        fun at(i: Double, j: Double) = x(i, j) to y(i, j, zt)
+        when (v % 3) {
+            0 -> {
+                // a balance: a post, the beam a little tipped, a pan on each end; a stack of coins and a weight
+                at(-0.5, -0.4).let { (x, y) ->
+                    s.blob(x, y - 1, 3.0, 1.2, brass, depth = 0.4)
+                    s.limb(x, y - 1, x, y - 22, 1.3, 1.0, brass)
+                    s.limb(x - 11, y - 21, x + 11, y - 23.5, 1.0, 1.0, brass)
+                    s.line(x - 11, y - 21, x - 13, y - 11, argb(0x4A3A20)); s.line(x - 11, y - 21, x - 9, y - 11, argb(0x4A3A20))
+                    s.line(x + 11, y - 23.5, x + 9, y - 13, argb(0x4A3A20)); s.line(x + 11, y - 23.5, x + 13, y - 13, argb(0x4A3A20))
+                    s.blob(x - 11, y - 10.5, 5.0, 1.8, brass, depth = 0.3); s.blob(x + 11, y - 12.5, 5.0, 1.8, brass, depth = 0.3)
+                    s.blob(x - 10.5, y - 12, 2.0, 1.4, copper, depth = 0.5)
+                }
+                at(-0.22, -0.3).let { (x, y) -> for (k in 0 until 4) s.blob(x, y - 1 - k * 1.3, 2.2, 1.0, copper, depth = 0.4); s.blob(x + 4, y, 2.0, 0.9, pewter, depth = 0.3) }
+                at(-0.8, -0.5).let { (x, y) -> s.blob(x, y - 2, 3.0, 2.4, iron, depth = 0.8) }
+            }
+            1 -> {
+                // the ledger lying open, a quill in the ink; a horn lantern lit
+                val (x, y) = at(-0.55, -0.38)
+                s.poly(leather, x - 9, y - 1, x + 2, y - 5, x + 10, y - 1, x - 1, y + 3, tiltY = -0.8, bevel = 0.3)
+                s.poly(parchment, x - 8, y - 1.5, x + 1.5, y - 4.6, x + 1, y - 0.6, x - 7, y + 1.8, tiltY = -0.8, bevel = 0.2)
+                s.poly(parchment, x + 1.5, y - 4.6, x + 9, y - 1.5, x + 0.5, y + 2.2, x + 1, y - 0.6, tiltY = -0.8, bevel = 0.2)
+                for (k in 0..2) s.line(x - 6 + k, y - 1.5 + k * 1.1, x - 1 + k, y - 3.3 + k * 1.1, argb(0x4A3A2A))
+                at(-0.2, -0.5).let { (x, y) -> s.limb(x, y - 1, x, y - 3.5, 1.8, 1.7, glass); s.line(x + 1, y - 3.5, x + 5, y - 11, argb(0xC8C0B0)) }
+                at(-0.85, -0.42).let { (x, y) ->
+                    s.limb(x, y - 1, x, y - 10, 2.8, 2.6, m(0xA88A4A, shine = 0.3, grain = 0.1, sat = 0.6))
+                    s.limb(x, y - 10, x, y - 12, 2.0, 1.2, iron); s.flat(x, y - 5.5, 1.4, 2.2, flame); s.dot(x, y - 6, flameHot)
+                }
+            }
+            else -> {
+                // a bolt of cloth half unrolled over the edge, iron shears, a candle stub
+                val col = m(cloths[seed % cloths.size], grain = 0.25, sat = 0.75, value = 0.85)
+                val (ax, ay) = at(-0.85, -0.45); val (bx, by) = at(-0.4, -0.45)
+                s.limb(ax, ay - 3, bx, by - 3, 3.2, 3.2, col); s.blob(bx, by - 3, 2.0, 3.0, col, depth = 0.4)
+                val (fx, fy) = at(-0.4, -0.12)
+                s.poly(col, bx, by - 1, fx, fy, fx, fy + 10, bx + 1, by + 8, tiltX = -0.3, bevel = 0.6)
+                at(-0.25, -0.5).let { (x, y) -> s.line(x - 3, y - 1, x + 4, y + 1, argb(0x5A5652)); s.line(x - 3, y + 1, x + 4, y - 1, argb(0x5A5652)); s.dot(x - 4, y, argb(0x3A3634)) }
+                at(-0.6, -0.6).let { (x, y) -> candle(x, y, 3.0, drips = true) }
+            }
+        }
+    }
+
+    /**
+     * Thessa's shelves of goods against the wall (−j); three looks: full (cloth, rope, lanterns, jars, boots),
+     * cloth and rope piled high, half sold out with dust and price slips.
+     */
+    private fun goodsShelf(v: Int, joinL: Boolean, joinR: Boolean, seed: Int): PixelImage {
+        val zt = 110.0
+        val c = Canvas((zt + TH + 8).toInt().let { it + it % 2 }, seed)
+        val i0 = if (joinL) -1.0 else -0.94; val i1 = if (joinR) 0.0 else -0.06
+        val j0 = -1.0; val j1 = -0.58
+        c.floorShadow(i0, j0, i1, j1 + 0.1, 0.45)
+        c.s.poly(oakBack, c.x(i0, j0), c.y(i0, j0), c.x(i1, j0), c.y(i1, j0), c.x(i1, j0), c.y(i1, j0, zt), c.x(i0, j0), c.y(i0, j0, zt), tiltX = -0.5, tiltY = 0.3, bevel = 0.0)
+        if (!joinL) c.box(i0, j0, i0 + 0.06, j1, 0.0, zt, oakTop, oak, oak)
+        val heights = doubleArrayOf(3.0, 30.0, 56.0, 82.0)
+        for ((k, z0) in heights.withIndex()) {
+            c.box(i0, j0, i1, j1, z0, z0 + 3, oakTop, oak, oak)
+            val zf = z0 + 3
+            var i = i0 + 0.08; var n = 0
+            while (i < i1 - 0.1) {
+                val r = hash(k, n, seed)
+                val kind = if (v % 3 == 1) r % 2 else r % 6
+                val sold = v % 3 == 2 && r % 5 < 2
+                if (sold) {
+                    c.s.tint(c.x(i + 0.06, -0.78), c.y(i + 0.06, -0.78, zf), 4.0, 1.2, argb(0x7A7062), 0.35)
+                    if (r % 2 == 0) { val x = c.x(i + 0.06, j1); val y = c.y(i + 0.06, j1, zf); c.s.flat(x, y + 2, 2.0, 1.4, argb(0xA08C66)) }
+                    i += 0.14; n++; continue
+                }
+                when (kind) {
+                    0 -> {
+                        // bolts of cloth lying with their ends to the room, two high
+                        for (st in 0 until 2) {
+                            val col = m(cloths[(r + st) % cloths.size], grain = 0.25, sat = 0.75, value = 0.85)
+                            val zz = zf + 3.5 + st * 6.6; val ii = i + 0.06
+                            c.s.limb(c.x(ii, j0 + 0.08), c.y(ii, j0 + 0.08, zz), c.x(ii, j1 - 0.02), c.y(ii, j1 - 0.02, zz), 3.3, 3.3, col)
+                            c.s.blob(c.x(ii, j1 - 0.02), c.y(ii, j1 - 0.02, zz), 2.3, 3.1, col, depth = 0.3)
+                        }
+                        i += 0.14
+                    }
+                    1 -> {
+                        // a coil of rope
+                        val x = c.x(i + 0.08, -0.78); val y = c.y(i + 0.08, -0.78, zf)
+                        c.s.blob(x, y - 3, 6.0, 3.6, rope, depth = 0.7)
+                        for (q in 0..2) c.s.line(x - 5 + q, y - 1.5 - q * 1.6, x + 5 - q, y - 1.5 - q * 1.6, argb(0x4A3E28))
+                        c.s.flat(x, y - 4, 2.0, 1.0, argb(0x2A2216))
+                        i += 0.18
+                    }
+                    2 -> {
+                        // a lantern of iron and horn
+                        val x = c.x(i + 0.05, -0.78); val y = c.y(i + 0.05, -0.78, zf)
+                        c.s.limb(x, y - 1, x, y - 9, 2.6, 2.4, m(0x8A7448, shine = 0.3, grain = 0.1, sat = 0.5))
+                        c.s.limb(x, y - 9, x, y - 11, 1.8, 1.0, iron); c.s.line(x - 2, y - 11, x + 2, y - 11, ironLine)
+                        c.s.line(x - 2.6, y - 1, x - 2.6, y - 9, ironLine); c.s.line(x + 2.6, y - 1, x + 2.6, y - 9, ironLine)
+                        i += 0.12
+                    }
+                    3 -> {
+                        // jars with cloth tied over their mouths
+                        for (q in 0 until 2) { val x = c.x(i + 0.05 + q * 0.09, -0.8 + q * 0.06); val y = c.y(i + 0.05 + q * 0.09, -0.8 + q * 0.06, zf)
+                            c.s.limb(x, y - 1, x, y - 8, 3.0, 2.6, if (q == 0) clay else clayGlaze); c.s.blob(x, y - 8.5, 2.8, 1.2, linen, depth = 0.4) }
+                        i += 0.2
+                    }
+                    4 -> {
+                        // a pair of boots
+                        for (q in 0 until 2) { val x = c.x(i + 0.04 + q * 0.07, -0.76); val y = c.y(i + 0.04 + q * 0.07, -0.76, zf)
+                            c.s.limb(x, y - 2, x, y - 10, 2.4, 2.2, leather); c.s.limb(x, y - 1.5, x + 3.5, y, 1.8, 1.6, leather) }
+                        i += 0.17
+                    }
+                    else -> {
+                        // a bundle of candles tied with string
+                        val x = c.x(i + 0.06, -0.78); val y = c.y(i + 0.06, -0.78, zf)
+                        for (q in 0 until 5) c.s.limb(x - 4 + q * 2, y - 1.5, x - 4 + q * 2 + 1, y - 0.5, 1.0, 1.0, wax)
+                        for (q in 0 until 4) c.s.limb(x - 3 + q * 2, y - 3.4, x - 3 + q * 2 + 1, y - 2.4, 1.0, 1.0, wax)
+                        c.s.line(x - 1, y - 4, x - 1, y, argb(0x5A4A34))
+                        i += 0.15
+                    }
+                }
+                n++
+            }
+        }
+        c.box(i0, j0, i1, j1, zt, zt + 4, oakTop, oak, oak)
+        if (!joinR) c.box(i1 - 0.06, j0, i1, j1, 0.0, zt + 4, oakTop, oak, oak)
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
+    /** A rack of tools against the wall (−j): axe, shovel, pitchfork, scythe; three looks, the last with a spear, a bow and a shield. */
+    private fun rack(v: Int, seed: Int): PixelImage {
+        val c = Canvas((118 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val i0 = -0.9; val i1 = -0.1; val jw = -0.94
+        c.floorShadow(i0, -1.0, i1, -0.62, 0.4)
+        // two uprights and two rails along the wall
+        for (i in listOf(i0, i1 - 0.05)) c.box(i, jw - 0.04, i + 0.05, jw + 0.02, 0.0, 100.0, oakDark, oak, oak)
+        for (z in listOf(38.0, 84.0)) c.box(i0, jw, i1, jw + 0.05, z, z + 4, oakTop, oak, oak)
+        fun tool(i: Double, top: Double, lean: Double, k: Int) {
+            val fx = c.x(i, -0.66); val fy = c.y(i, -0.66)
+            val tx = c.x(i + lean, jw + 0.02); val ty = c.y(i + lean, jw + 0.02, top)
+            c.s.limb(fx, fy - 1, tx, ty, 1.2, 1.1, if (k == 4) oakDark else bark)
+            when (k) {
+                0 -> { c.s.poly(iron, tx - 1, ty + 1, tx + 6, ty - 1, tx + 7, ty + 6, tx + 1, ty + 5, tiltX = 0.4, bevel = 0.6) }                 // axe
+                1 -> { c.s.poly(iron, fx - 4, fy - 1, fx + 4, fy - 1, fx + 3, fy - 12, fx - 3, fy - 12, tiltX = -0.3, bevel = 0.8) }             // shovel, blade down
+                2 -> { for (q in -1..1) c.s.line(tx + q * 2.5, ty, tx + q * 2.5, ty - 9, ironLine); c.s.line(tx - 2.5, ty, tx + 2.5, ty, ironLine) } // pitchfork
+                3 -> { c.s.limb(tx, ty, tx + 14, ty + 5, 1.4, 0.4, iron) }                                                                       // scythe
+                4 -> { c.s.poly(iron, tx - 1.5, ty, tx + 1.5, ty, tx, ty - 9, bevel = 0.5) }                                                    // spear
+                else -> {}
+            }
+        }
+        when (v % 3) {
+            0 -> { tool(-0.78, 96.0, 0.02, 0); tool(-0.6, 90.0, 0.03, 1); tool(-0.4, 104.0, 0.0, 2); tool(-0.22, 100.0, 0.02, 3) }
+            1 -> { tool(-0.75, 92.0, 0.04, 1); tool(-0.55, 96.0, -0.02, 1); tool(-0.35, 98.0, 0.03, 0); c.s.blob(c.x(-0.2, -0.72), c.y(-0.2, -0.72, 4.0), 6.0, 4.0, rope, depth = 0.7) }
+            else -> {
+                tool(-0.78, 110.0, 0.02, 4); tool(-0.6, 96.0, 0.02, 0)
+                // a short bow hung on the upper rail, a round shield leaning below
+                val bx = c.x(-0.38, jw + 0.06); val by = c.y(-0.38, jw + 0.06, 86.0)
+                for (q in 0 until 10) { val a0 = -1.2 + q * 0.24; val a1 = a0 + 0.24
+                    c.s.line(bx + 10 * kotlin.math.sin(a0) * 0.4, by + 22 * (q / 10.0), bx + 10 * kotlin.math.sin(a1) * 0.4, by + 22 * ((q + 1) / 10.0), argb(0x2A1C12)) }
+                c.s.line(bx - 4, by, bx - 4, by + 22, argb(0x8A806A))
+                val sx = c.x(-0.25, -0.7); val sy = c.y(-0.25, -0.7, 16.0)
+                c.s.blob(sx, sy, 9.0, 11.0, m(0x5A4030, grain = 0.3, sat = 0.8, value = 0.8), depth = 0.5)
+                c.s.blob(sx, sy, 2.4, 2.8, iron, depth = 0.8)
+            }
+        }
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
+    /** An open crate of goods: apples, turnips, or rolls of leather and a coil of rope. */
+    private fun produce(v: Int, seed: Int): PixelImage {
+        val c = Canvas((60 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val i0 = -0.82; val i1 = -0.18; val j0 = -0.8; val j1 = -0.2; val zb = 26.0
+        c.floorShadow(i0, j0, i1, j1, 0.5)
+        c.box(i0, j0, i1, j1, 0.0, zb, m(0x120C08), oak, oak)
+        for (k in 1..2) { val zz = zb * k / 3
+            c.s.line(c.x(i0, j1), c.y(i0, j1, zz), c.x(i1, j1), c.y(i1, j1, zz), seam); c.s.line(c.x(i1, j0), c.y(i1, j0, zz), c.x(i1, j1), c.y(i1, j1, zz), seam) }
+        // the goods heaped above the rim, back to front
+        val mat = when (v % 3) { 0 -> apple; 1 -> turnip; else -> leather }
+        val n = 34
+        val pts = (0 until n).map { k -> (i0 + 0.08 + (i1 - i0 - 0.16) * rnd(k, 1, seed)) to (j0 + 0.08 + (j1 - j0 - 0.16) * rnd(k, 2, seed)) }.sortedBy { it.first + it.second }
+        for ((k, p) in pts.withIndex()) {
+            val (i, j) = p
+            val hump = 6 * (1 - ((i - (i0 + i1) / 2) / ((i1 - i0) / 2)).let { it * it }) * (1 - ((j - (j0 + j1) / 2) / ((j1 - j0) / 2)).let { it * it })
+            val x = c.x(i, j); val y = c.y(i, j, zb - 3 + hump)
+            when (v % 3) {
+                0 -> { c.s.blob(x, y, 3.0, 2.8, mat, depth = 0.9); if (k % 3 == 0) c.s.dot(x, y - 2.6, argb(0x3A2A14)) }
+                1 -> { c.s.blob(x, y, 3.4, 3.0, mat, depth = 0.9); c.s.blob(x, y - 1.8, 2.6, 1.2, turnipTop, depth = 0.5); c.s.line(x, y - 3, x + 1, y - 6, argb(0x3A5230)) }
+                else -> if (k % 3 == 0) { c.s.limb(x - 4, y, x + 4, y - 2, 2.6, 2.6, mat); c.s.blob(x + 4, y - 2, 1.6, 2.4, mat, depth = 0.3) }
+            }
+        }
+        if (v % 3 == 2) { val x = c.x(-0.4, -0.4); val y = c.y(-0.4, -0.4, zb + 2); c.s.blob(x, y, 7.0, 4.0, rope, depth = 0.7); for (q in 0..2) c.s.line(x - 6 + q, y + 1 - q * 1.5, x + 6 - q, y + 1 - q * 1.5, argb(0x4A3E28)) }
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
+    // ------------------------------------------------------------------ the temple of the Dawnlight (13q.4, drafts)
+
+    private val stonePale = m(0x8A8478, grain = 0.3, sat = 0.3, value = 0.85)
+    private val stoneTop = m(0x9A9488, grain = 0.25, sat = 0.3, value = 0.85, bias = -0.2)
+    private val linenWhite = m(0xB8B0A0, grain = 0.18, sat = 0.35, value = 0.85)
+    private val waterDark = argb(0x1E2A2C)
+
+    /**
+     * The altar against the back wall (−j): a block of stone under a cloth, the sun of the Dawnlight on a stand;
+     * three looks: white cloth and fresh candles, red cloth and candles burnt to stubs, bare cracked stone with wax pooled and dried flowers.
+     */
+    private fun altar(v: Int, joinL: Boolean, joinR: Boolean, seed: Int): PixelImage {
+        val zt = 46.0
+        val c = Canvas((zt + 60 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val i0 = if (joinL) -1.0 else -0.92; val i1 = if (joinR) 0.0 else -0.08
+        val j0 = -0.88; val j1 = -0.3
+        c.floorShadow(i0, j0, i1, j1 + 0.06, 0.5)
+        // a step, the block on it
+        c.box(i0 - 0.02, j0 - 0.02, i1 + 0.02, j1 + 0.08, 0.0, 5.0, stoneTop, stonePale, stonePale)
+        c.box(i0, j0, i1, j1, 5.0, zt, stoneTop, stoneMat, stoneMat)
+        for (k in 1..2) c.s.line(c.x(i0, j1), c.y(i0, j1, 5.0 + k * 13.0), c.x(i1, j1), c.y(i1, j1, 5.0 + k * 13.0), argb(0x3A3630))
+        // the sun stands on the middle of the altar: a single stone, or the middle one of three
+        val middle = joinL == joinR
+        val cloth = when (v % 3) { 0 -> linenWhite; 1 -> clothRed; else -> null }
+        if (cloth != null) {
+            // the cloth over the top and down the front, a sun worked in gold on it
+            c.box(i0 - 0.01, j0 - 0.01, i1 + 0.01, j1 + 0.01, zt - 1, zt + 1.5, cloth, cloth, cloth, bevel = 0.5)
+            if (middle) c.faceJ(j1 + 0.012, i0 + 0.15, i1 - 0.15, zt - 22, zt) { i, z ->
+                val u = (i - (i0 + i1) / 2) / 0.2; val w = (z - (zt - 11)) / 8
+                val r = sqrt(u * u + w * w)
+                when {
+                    z < zt - 20 + 2 * kotlin.math.sin(i * 40) -> null
+                    r < 0.45 -> gold
+                    r < 0.85 && abs(kotlin.math.sin(kotlin.math.atan2(w, u) * 6)) > 0.65 -> shade(gold, 0.8)
+                    else -> shade(if (v % 3 == 0) argb(0xB0A898) else argb(0x5A1E1A), 0.85 + 0.15 * kotlin.math.sin(i * 60))
+                }
+            }
+        } else {
+            // a crack down the front, wax pooled on the top
+            val x = c.x(-0.55, j1); val y = c.y(-0.55, j1, zt)
+            c.s.line(x, y + 2, x - 2, y + 10, argb(0x2A2622)); c.s.line(x - 2, y + 10, x + 1, y + 18, argb(0x2A2622)); c.s.line(x + 1, y + 18, x - 1, y + 26, argb(0x2A2622))
+            c.s.flat(c.x(-0.3, -0.6), c.y(-0.3, -0.6, zt), 5.0, 2.0, argb(0xC8BC9C))
+        }
+        // the sun on its stand at the back, in the middle of the altar
+        val mi = (i0 + i1) / 2
+        val sx = c.x(mi, j0 + 0.12); val sy = c.y(mi, j0 + 0.12, zt + 1)
+        if (middle) {
+            c.s.limb(sx, sy - 1, sx, sy - 22, 1.2, 1.0, brass)
+            c.s.blob(sx, sy - 30, 8.0, 8.0, brass, depth = 0.4)
+            for (k in 0 until 12) { val a = k * Math.PI / 6; c.s.line(sx + 8 * kotlin.math.cos(a), sy - 30 + 8 * kotlin.math.sin(a), sx + 13 * kotlin.math.cos(a), sy - 30 + 13 * kotlin.math.sin(a), shade(gold, 0.9)) }
+            c.s.blob(sx, sy - 30, 3.4, 3.4, m(0xC8A858, shine = 0.7, sat = 0.8), depth = 0.5)
+        }
+        fun at(i: Double, j: Double) = c.x(i, j) to c.y(i, j, zt + 1.5)
+        when (v % 3) {
+            0 -> { for (i in listOf(i0 + 0.12, i1 - 0.12)) at(i, j0 + 0.2).let { (x, y) -> c.s.limb(x, y - 1, x, y - 4, 2.0, 1.6, brass); c.candle(x, y - 4, 12.0) }
+                   at(mi + 0.18, -0.48).let { (x, y) -> c.s.blob(x, y - 1.5, 4.5, 1.8, brass, depth = 0.4) } }
+            1 -> for (k in 0 until 5) at(i0 + 0.1 + k * (i1 - i0 - 0.2) / 4, -0.5 + (k % 2) * 0.1).let { (x, y) -> c.candle(x, y, 1.5 + (k * 3 % 5).toDouble(), drips = true) }
+            else -> {
+                at(i0 + 0.15, -0.55).let { (x, y) -> c.candle(x, y, 2.0, drips = true) }
+                // a bunch of dried flowers laid down
+                at(mi + 0.15, -0.5).let { (x, y) -> for (k in 0 until 5) c.s.line(x - 6, y + k * 0.4, x + 5, y - 2 + k * 0.6, argb(0x5A5232)); c.s.blob(x + 6, y - 1.5, 2.6, 1.6, m(0x6A4A3A, grain = 0.4, sat = 0.5), depth = 0.5) }
+            }
+        }
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
+    /** A standing candlestick of iron on three feet, its candles lit; three looks: three candles, five, one left and bent. */
+    private fun candelabrum(v: Int, seed: Int): PixelImage {
+        val c = Canvas((110 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val (ox, oy) = c.mid()
+        val top = oy - 92 * ZS
+        for (k in 0 until 3) { val a = k * 2 * Math.PI / 3 + 0.4; c.s.limb(ox, oy - 8, ox + 7 * kotlin.math.cos(a), oy + 3.5 * kotlin.math.sin(a), 1.0, 0.8, iron) }
+        val bend = if (v % 3 == 2) 4.0 else 0.0
+        c.s.limb(ox, oy - 6, ox + bend, top, 1.2, 1.0, iron)
+        val n = when (v % 3) { 0 -> 3; 1 -> 5; else -> 1 }
+        val span = if (n == 1) 0.0 else 10.0
+        if (n > 1) c.s.limb(ox - span, top, ox + span, top, 0.9, 0.9, iron)
+        for (k in 0 until n) {
+            val x = if (n == 1) ox + bend else ox - span + 2 * span * k / (n - 1)
+            c.s.blob(x, top - 0.5, 2.0, 0.8, iron, depth = 0.3)
+            c.candle(x, top - 1, if (v % 3 == 2) 3.0 else 6.0 + (k % 2) * 3, drips = k % 2 == 0)
+        }
+        c.s.outline(outlineColor)
+        c.roundShadow(ox, oy, 14.0, 0.4)
+        return c.img
+    }
+
+    /** A lectern on a post: a big book open, a chained book shut, a scroll weighed down with a stone. */
+    private fun lectern(v: Int, seed: Int): PixelImage {
+        val c = Canvas((90 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val (ox, oy) = c.mid()
+        c.floorShadow(-0.75, -0.75, -0.25, -0.25, 0.4)
+        c.box(-0.7, -0.62, -0.3, -0.38, 0.0, 6.0, oakDark, oak, oak)
+        c.box(-0.54, -0.54, -0.46, -0.46, 6.0, 74.0, oakDark, oak, oak)
+        // the sloping desk, high at the back
+        val i0 = -0.76; val i1 = -0.24; val j0 = -0.72; val j1 = -0.3
+        c.s.poly(oakTop, c.x(i0, j0), c.y(i0, j0, 92.0), c.x(i1, j0), c.y(i1, j0, 92.0), c.x(i1, j1), c.y(i1, j1, 78.0), c.x(i0, j1), c.y(i0, j1, 78.0), tiltY = -0.85, bevel = 0.6)
+        c.box(i0, j1 - 0.02, i1, j1 + 0.02, 74.0, 80.0, oakTop, oak, oak)
+        c.s.poly(oak, c.x(i1, j0), c.y(i1, j0, 92.0), c.x(i1, j1), c.y(i1, j1, 78.0), c.x(i1, j1), c.y(i1, j1, 74.0), c.x(i1, j0), c.y(i1, j0, 86.0), tiltX = 0.55, bevel = 0.5)
+        fun top(i: Double, j: Double) = c.x(i, j) to c.y(i, j, 78.0 + 14 * (j1 - j) / (j1 - j0) + 1)
+        fun quad(ia: Double, ja: Double, ib: Double, jb: Double, mat: Mat) {
+            val (ax, ay) = top(ia, ja); val (bx, by) = top(ib, ja); val (cx, cy) = top(ib, jb); val (dx, dy) = top(ia, jb)
+            c.s.poly(mat, ax, ay, bx, by, cx, cy, dx, dy, tiltY = -0.85, bevel = 0.3)
+        }
+        when (v % 3) {
+            0 -> { quad(-0.72, -0.68, -0.28, -0.34, leather); quad(-0.7, -0.66, -0.505, -0.36, parchment); quad(-0.495, -0.66, -0.3, -0.36, parchment)
+                   for (k in 0..3) { val (ax, ay) = top(-0.68, -0.62 + k * 0.06); val (bx, by) = top(-0.53, -0.62 + k * 0.06); c.s.line(ax, ay - 0.5, bx, by - 0.5, argb(0x4A3A2A)) }
+                   top(-0.5, -0.34).let { (x, y) -> c.s.line(x, y, x + 1, y + 7, waxRed) } }
+            1 -> { quad(-0.7, -0.66, -0.3, -0.36, leather)
+                   top(-0.5, -0.5).let { (x, y) -> c.s.flat(x, y - 1, 3.0, 1.6, gold) }
+                   // the chain down to the post
+                   val (x, y) = top(-0.3, -0.36); for (k in 0 until 8) c.s.dot(x + kotlin.math.sin(k * 0.8) * 1.5, y + k * 2.2, ironLine) }
+            else -> { quad(-0.7, -0.62, -0.3, -0.4, parchmentOld)
+                      top(-0.7, -0.51).let { (x, y) -> c.s.limb(x - 1, y - 2, x + 1, y + 2, 2.4, 2.4, parchmentOld) }
+                      top(-0.4, -0.5).let { (x, y) -> c.s.blob(x, y - 2, 3.0, 2.2, stoneMat, depth = 0.8) } }
+        }
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
+    /** A basin of stone on a pillar by the door: still water, dry with leaves in it, a candle floating in the water. */
+    private fun font(v: Int, seed: Int): PixelImage {
+        val c = Canvas((90 + TH + 8).toInt().let { it + it % 2 }, seed)
+        val (ox, oy) = c.mid()
+        c.round(ox, oy, 8.0, stonePale) { 22.0 }
+        c.round(ox, oy, 62.0, stoneMat, 8.0) { t -> 11.0 - 2 * kotlin.math.sin(t * Math.PI) }
+        c.round(ox, oy, 18.0, stonePale, 70.0) { t -> 18.0 + 12 * t }
+        when (v % 3) {
+            0 -> c.disc(ox, oy, 86.0, 27.0, m(0x24343A, shine = 0.8, sat = 0.5, value = 0.8))
+            1 -> { c.disc(ox, oy, 86.0, 27.0, m(0x3A3228, grain = 0.3, sat = 0.5, value = 0.7)); for (k in 0 until 4) { val a = k * 1.7 + seed; c.s.blob(ox + 8 * kotlin.math.cos(a), oy - 88 * ZCM + 3 * kotlin.math.sin(a), 2.4, 1.2, m(0x6A5232, grain = 0.3, sat = 0.7), depth = 0.4) } }
+            else -> { c.disc(ox, oy, 86.0, 27.0, m(0x24343A, shine = 0.8, sat = 0.5, value = 0.8)); val y = oy - 86 * ZCM; c.s.blob(ox + 3, y, 3.0, 1.2, wax, depth = 0.4); c.s.flat(ox + 3, y - 3, 0.9, 1.8, flame); c.s.dot(ox + 3, y - 3.5, flameHot) }
+        }
+        c.hoop(ox, oy, 86.0, 30.0, stoneTop, 1.4)
+        c.s.outline(outlineColor)
+        c.roundShadow(ox, oy, 26.0, 0.45)
+        return c.img
+    }
+
     private fun cached(key: String, make: () -> PixelImage): PixelImage =
         synchronized(cache) { cache[key] } ?: trimTop(make()).also { synchronized(cache) { cache[key] = it } }
 
@@ -1199,6 +2013,9 @@ object MapRoomIso {
         val key = "${map.id}/$tx/$ty"
         val fx = (tx + 1) * T; val fy = (ty + 1) * T
         val d = depth(tx, ty)
+        val elder = map.id.substringBefore('_') == "elder"
+        val shop = map.id.substringBefore('_') == "shop"
+        val temple = map.id.substringBefore('_') == "temple"
         fun one(k: String, low: Boolean = true, make: () -> PixelImage) = listOf(obj(cached("$key/$k", make), fx, fy, d, low))
         return when (map.tile(tx, ty)) {
             Tile.WALL, Tile.WINDOW, Tile.HEARTH -> {
@@ -1217,21 +2034,38 @@ object MapRoomIso {
                 out
             }
             Tile.DOOR -> if (ty == map.height - 1) one("door") { door(tx, ty) } else emptyList()
-            Tile.SHELF -> one("shelf", low = false) { shelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
-            Tile.COUNTER -> one("counter", low = false) { counter(hash(tx, ty, 2), same(-1), same(1), seed) }
+            Tile.SHELF -> if (shop) one("goods", low = false) { goodsShelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
+                else if (elder) one("books", low = false) { bookshelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
+                else one("shelf", low = false) { shelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
+            Tile.DESK -> if (temple) one("lectern", low = false) { lectern(v, seed) } else one("desk", low = false) { desk(v, seed) }
+            Tile.TRUNK -> one("trunk") { chest(v, seed) }
+            Tile.ARMCHAIR -> one("armchair", low = false) { armchair(v, seed) }
+            // the cloth hangs on the wall behind the tile: behind anyone standing on it
+            Tile.HANGING -> listOf(obj(cached("$key/hanging") { wallCloth(v, seed) }, fx, fy, d - T, false))
+            Tile.COUNTER -> one("counter", low = false) { counter(hash(tx, ty, 2), same(-1), same(1), seed, shop) }
+            Tile.RACK -> one("rack", low = false) { rack(v, seed) }
+            Tile.ALTAR -> if (temple) {
+                // one look for the whole altar: that of its first stone
+                var x0 = tx; while (at(x0 - tx - 1, 0) == Tile.ALTAR) x0--
+                one("altar", low = false) { altar(hash(x0, ty, 3), same(-1), same(1), seed) }
+            } else null
+            Tile.CANDLES -> one("candles", low = false) { candelabrum(v, seed) }
+            Tile.FONT -> one("font", low = false) { font(v, seed) }
             Tile.TABLE -> one("table") { table(v, same(-1), same(1), seed) }
             Tile.BENCH -> {
                 // a settle beside a table: its back away from the table (13p.1)
-                val back = when { at(0, -1) == Tile.TABLE -> 1; at(0, 1) == Tile.TABLE -> -1; else -> 0 }
+                val back = when { temple || at(0, -1) == Tile.TABLE -> 1; at(0, 1) == Tile.TABLE -> -1; else -> 0 }
                 one("bench", low = back == 0) { bench(same(-1), same(1), seed, back) }
             }
-            Tile.BED -> one("bed") { bed(hash(if (at(0, -1) == Tile.BED) tx else tx, if (at(0, -1) == Tile.BED) ty - 1 else ty, 4), at(0, -1) != Tile.BED, at(0, 1) != Tile.BED, seed) }
-            Tile.CRATE -> one("crates") { crates(v, seed) }
+            // the elder's broad bed is one picture over its four tiles, laid on the front one
+            Tile.BED -> if (elder) { if (at(1, 0) == Tile.BED || at(0, 1) == Tile.BED) emptyList() else one("bigbed", low = false) { elderBed(hash(tx, ty, 4), seed) } }
+                else one("bed") { bed(hash(if (at(0, -1) == Tile.BED) tx else tx, if (at(0, -1) == Tile.BED) ty - 1 else ty, 4), at(0, -1) != Tile.BED, at(0, 1) != Tile.BED, seed) }
+            Tile.CRATE -> if (shop) one("produce") { produce(v, seed) } else one("crates") { crates(v, seed) }
             Tile.BARREL -> one("barrel") { barrel(v, seed) }
-            Tile.CLUTTER -> {
+            Tile.CLUTTER -> if (elder) listOf(obj(cached("$key/stick") { stick(v, seed) }, fx, fy, d - T / 2, false)) else {
                 val byFire = (-1..1).any { dx -> (-1..0).any { dy -> at(dx, dy) == Tile.HEARTH } }
                 val byTable = (-1..1).any { dx -> at(dx, 0) == Tile.TABLE }
-                val kind = if (byFire) 0 else if (byTable) 3 else listOf(1, 2, 4, 5)[hash(tx, ty, 56) % 4]
+                val kind = if (shop) 1 else if (byFire) 0 else if (byTable) 3 else listOf(1, 2, 4, 5)[hash(tx, ty, 56) % 4]
                 // low things: the hero stepping over them is drawn in front of them
                 listOf(obj(cached("$key/clutter") { when (kind) {
                     0 -> firewood(v, seed)
@@ -1264,5 +2098,33 @@ object MapRoomIso {
         "Säcke" to (0 until 3).map { sacks(it, 121 + it) },
         "Stroh" to (0 until 3).map { straw(it, 131 + it) },
         "Pflanze" to (0 until 3).map { plant(it, 141 + it) },
+    )
+
+    /** The elder's things (13q.4, drafts for ISODINGE=aeltester): a row per kind, three looks each. */
+    fun elderSheet(): List<Pair<String, List<PixelImage>>> = listOf(
+        "Schreibpult" to (0 until 3).map { desk(it, 151 + it) },
+        "Truhe" to (0 until 3).map { chest(it, 161 + it) },
+        "Lehnstuhl" to (0 until 3).map { armchair(it, 171 + it) },
+        "Bücher" to (0 until 3).map { bookshelf(it, false, false, 181 + it) },
+        "Bett" to (0 until 3).map { elderBed(it, 191 + it) },
+        "Wandbehang" to (0 until 3).map { wallCloth(it, 201 + it) },
+        "Stock" to (0 until 3).map { stick(it, 211 + it) },
+    )
+
+    /** The shop's things (13q.4, drafts for ISODINGE=laden). */
+    fun shopSheet(): List<Pair<String, List<PixelImage>>> = listOf(
+        "Ladentisch" to (0 until 3).map { counter(it, false, false, 221 + it, shop = true) },
+        "Warenregal" to (0 until 3).map { goodsShelf(it, false, false, 231 + it) },
+        "Werkzeug" to (0 until 3).map { rack(it, 241 + it) },
+        "Warenkiste" to (0 until 3).map { produce(it, 251 + it) },
+    )
+
+    /** The temple's things (13q.4, drafts for ISODINGE=tempel). */
+    fun templeSheet(): List<Pair<String, List<PixelImage>>> = listOf(
+        "Altar" to (0 until 3).map { altar(it, false, false, 261 + it) },
+        "Kerzenständer" to (0 until 3).map { candelabrum(it, 271 + it) },
+        "Lesepult" to (0 until 3).map { lectern(it, 281 + it) },
+        "Weihwasserbecken" to (0 until 3).map { font(it, 291 + it) },
+        "Gebetsbank" to listOf(bench(false, false, 301, 1), bench(true, false, 302, 1), bench(false, true, 303, 1)),
     )
 }
