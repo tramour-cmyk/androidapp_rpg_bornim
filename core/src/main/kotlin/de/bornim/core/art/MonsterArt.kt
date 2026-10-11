@@ -137,14 +137,14 @@ object MonsterArt {
      * Draws every frame of a new-style monster ahead of time (call off the main thread at the
      * start of a fight), so the first attack does not stutter while its frames are made.
      */
-    fun prepare(id: String, look: MonsterLook, wound: Int = 0) {
-        if (isDoll(id)) { FoeArt.prepare(id, look); return }
-        if (isBeast(id)) { BeastArt.prepare(id, look, wound); return }
-        if (isVermin(id)) { VerminArt.prepare(id, look, wound); return }
+    fun prepare(id: String, look: MonsterLook, wound: Int = 0, cancelled: () -> Boolean = { false }) {
+        if (isDoll(id)) { FoeArt.prepare(id, look, cancelled); return }
+        if (isBeast(id)) { BeastArt.prepare(id, look, wound, cancelled); return }
+        if (isVermin(id)) { VerminArt.prepare(id, look, wound, cancelled); return }
         if (!isNewStyle(id)) return
         for (act in Act.entries) {
             val variants = if (act == Act.ATTACK) attackVariants(id) else 1
-            for (v in 0 until variants) for (i in 0 until frameCount(id, act, v)) battleFrame(id, look, act, v, i, wound)
+            for (v in 0 until variants) for (i in 0 until frameCount(id, act, v)) { if (cancelled()) return; battleFrame(id, look, act, v, i, wound) }
         }
     }
 
