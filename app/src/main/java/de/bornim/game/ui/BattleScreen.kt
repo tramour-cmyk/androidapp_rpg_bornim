@@ -1,6 +1,7 @@
 package de.bornim.game.ui
 
 import androidx.activity.compose.BackHandler
+import de.bornim.core.audio.Recorded
 import de.bornim.core.audio.Sound
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateFloat
@@ -195,6 +196,8 @@ private class BattleUi(val battle: Battle) {
     var killStrike: HeroFigure.Strike? = null
     /** When the killing blow landed (wall clock), 0 before. */
     var killAt by androidx.compose.runtime.mutableLongStateOf(0L)
+    /** The foe's death cry has sounded (with the killing blow, or with its fall if nothing struck it down first). */
+    var deathVoiced = false
     /** Counts spells let go, for the flash of light at the staff or hand. */
     var flashKey by mutableIntStateOf(0)
 
@@ -627,6 +630,12 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
     LaunchedEffect(ui.animKey) {
         // a new-style foe's blow on the hero: where it lands, a moment into the message
         val lands = ui.current?.let { foeBlowLands(battle, ui.attackVariant, it) }
+        // the foe's voice (18): a snarl as it winds up for its blow; its death cry once, if no blow struck it down
+        when (ui.current?.anim) {
+            Anim.ENEMY_ACT -> vm.voice(battle.monster.id, Recorded.Cue.ATTACK)
+            Anim.ENEMY_FAINT -> if (!ui.deathVoiced && !ui.foeFled) { ui.deathVoiced = true; vm.voice(battle.monster.id, Recorded.Cue.DIE) }
+            else -> {}
+        }
         // the sound of a blow that halts as it lands comes with the blow
         if (!ui.hitStopped && lands == null) ui.current?.let { st -> soundFor(st)?.let { vm.play(it) } }
         shake.snapTo(0f)
@@ -640,6 +649,14 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             // the killing blow: it strikes home now; the scene shakes harder and longer
             val kill = !onHero && ui.current != null && ui.current === ui.killStep
             if (kill) ui.killAt = System.currentTimeMillis()
+            // the foe cries out just after the sound of the blow, never over it: in pain, or its death cry
+            if (!onHero) {
+                val dies = kill || ui.enemyHp <= 0
+                if (!dies || !ui.deathVoiced) {
+                    if (dies) ui.deathVoiced = true
+                    launch { delay(BattlePace.ms(90).toLong()); vm.voice(battle.monster.id, if (dies) Recorded.Cue.DIE else Recorded.Cue.HURT) }
+                }
+            }
             if (!onHero) ui.woundHp = ui.enemyHp
             val w = ui.hitWeight
             if (w.joltDp > 0f) {
