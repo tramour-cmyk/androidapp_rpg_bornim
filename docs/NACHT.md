@@ -11,7 +11,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 | Wer | Stand | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|
 | Tom | – (Nacht 10./11. beendet, Paket 3 und 4 offen, siehe OFFEN) | – | 11.10., 11:10 | – | `tom-diagonal` |
-| Jerry | fertig | 10.10., 22:21 | 10.10., 22:29 | Paket und Reserve fertig, Morgenbericht in `docs/OFFEN.md` | `claude/wizardly-ramanujan-7rocwj` (PR #16) |
+| Jerry | – (Nacht 10./11. fertig) | – | 11.10., 11:30 | – | `claude/wizardly-ramanujan-7rocwj` (PR #16) |
 
 Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`.
 
@@ -25,7 +25,7 @@ Letzter Test der Weck-Sitzung (Tom): 11.10., 11:27 Berlin, Push ok, Repo als Que
 
 **Jetzt fest eingerichtet (Tom):** drei tägliche Routinen „Tom Nachtarbeit 00:24 / 03:14 / 05:54“ (Berliner Zeit). Sie arbeiten nur, wenn in der Tabelle oben die Zeile „Tom“ auf `läuft` oder `wartet auf Grenze` steht und unten ein Paket für Tom eingetragen ist; sonst beenden sie sich sofort (kostet fast nichts). Fehlt das Schreibrecht, hängen sie das Repo selbst mit `add_repo` an.
 - **Einmal vom Nutzer einzustellen** (am PC im Browser, claude.ai): in jeder der drei Routinen das Repository `tramour-cmyk/androidapp_rpg_bornim` auswählen und die Freigabe auf automatisch stellen. Anleitung im Chat vom 11.10., 11:10.
-- **Tom: eingestellt vom Nutzer 11.10., 11:25 (alle drei Routinen), Testlauf 11:27 erfolgreich (Push ok, Repo als Quelle).** Jerry: noch offen.
+- **Tom: eingestellt vom Nutzer 11.10., 11:25 (alle drei Routinen), Testlauf 11:27 erfolgreich (Push ok, Repo als Quelle).** **Jerry: drei tägliche Routinen „Jerry Nachtarbeit 00:27 / 03:17 / 05:57“ (Berliner Zeit, je eine neue Sitzung) angelegt 11.10., 11:30; drei Minuten nach Tom, damit sich die Pushes auf `main` nicht kreuzen. Repo und Freigabe stellt der Nutzer ein (offen).**
 - Abends also **keine neuen Weck-Sitzungen anlegen**, nur Paket eintragen und Zeile auf `läuft` setzen. Jerry richtet für sich dasselbe in seinem Account ein.
 
 ### 1. Vor dem Schlafengehen (mit dem Nutzer, etwa 22:00)
