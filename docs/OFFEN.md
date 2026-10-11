@@ -11,7 +11,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 13 | Diagonale Sicht | Tom | – | Schänke, Ältester, Laden, Tempel auf `main` (PR #20, 11.10., 14:00). Weiter mit Dorf draußen (5) |
-| 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | `tom-dorf` (von `tom-diagonal`, mit `main`) | 5.1 Häuser im Spiel (13:40): nach Grundriss und Hausstil, Streifen-Sortierung; 5h.1 Fenster außen wie innen (`HouseWindowsTest`); 5g Glockenturm. Zweig-Build läuft. Danach 5.2 |
+| 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | `tom-dorf` | 5.1 Häuser, 5h.1 Fenster, 5g Glockenturm, 5.2 Dinge auf dem Platz: Zweig-Build 0.1.501 zu testen (14:22). Danach 5.3, 5.4 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 14 | Neustart-Haken: misst Gesprächsgröße, Hinweis an die Sitzung | Tom | neu von `main` (Werkzeug, PR) | freigegeben 10.10. |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
@@ -41,6 +41,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - APK in den Chat: Release `gh api -H "Accept: application/octet-stream" repos/tramour-cmyk/androidapp_rpg_bornim/releases/assets/<id>`; Zweig-Artefakt `gh api repos/…/actions/artifacts/<id>/zip`.
 
 ## Zu testen
+
+- **0.1.501** (Tom, 5, `tom-dorf`, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38138465071/artifacts/11702163109)): Dorf diagonal (Häuser, Fenster außen wie innen, Glockenturm, Platz); Prüfliste im Chat 14:22.
 
 – nichts offen –
 
