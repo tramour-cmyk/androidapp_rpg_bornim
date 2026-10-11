@@ -1,5 +1,9 @@
 name: Build APK
 
+# Every push builds an APK (artifact "bornim-apk"): on a branch for testing, on main as the latest approved state.
+# A release is published only on request (21.1): run this workflow by hand on main with "release" ticked, e.g.
+#   gh workflow run android.yml --ref main -f release=true
+# Pull requests are not built a second time (21.4): the build of the push to the branch shows on the pull request.
 on:
   push:
     # Pure documentation and tooling changes need no new APK.
@@ -7,8 +11,12 @@ on:
       - "**.md"
       - "tools/**"
       - ".claude/**"
-  pull_request:
   workflow_dispatch:
+    inputs:
+      release:
+        description: "Release veröffentlichen (nur auf main)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -52,7 +60,7 @@ jobs:
           path: bornim.apk
 
       - name: Publish release
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        if: github.event_name == 'workflow_dispatch' && inputs.release && github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

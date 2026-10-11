@@ -4,6 +4,13 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Übergabe Jerry (11.10., 12:43), ersetzt 11.10., 13:28
+
+- `main` = v0.1.483 (12.3b, 12.3c; PR #18 zusammengeführt). Kein offener Zweig.
+- 18: Hörproben aus echten Aufnahmen (CC0) beim Nutzer (`hoerproben_18_echt.zip`, Rückfrage 18g). Werkzeug (Python: `klang.py`, `recipes.py`) liegt nur im Notizblock dieser Sitzung; bei Zusage als `tools/klang/` in einen eigenen Zweig, Dateien nach `app/src/main/assets`.
+- Als Nächstes: 18 nach Rückmeldung; 9i nach Toms 13; 10, 11 nach 13e. Feste Weck-Routinen 00:27, 03:17, 05:57.
+- APK in den Chat: Release `gh api -H "Accept: application/octet-stream" repos/tramour-cmyk/androidapp_rpg_bornim/releases/assets/<id>`; Zweig-Artefakt `gh api repos/…/actions/artifacts/<id>/zip`.
+
 ## Übergabe Jerry (11.10., 11:59), ersetzt 11.10., 12:43
 
 - Kein offener Zweig. `main` = v0.1.479 (18). Hörproben Runde 1, 2 und Monster-Laute als Entwürfe in `core` (`Sfx.proposed`, `Sfx.monsterProposal`, Vorschau `KLANGPROBEN=1|2|MONSTER`).

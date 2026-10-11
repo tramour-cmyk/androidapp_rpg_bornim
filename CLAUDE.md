@@ -40,7 +40,7 @@ Alle Notizen und Absprachen gibt es nur einmal, auf `main`: `CLAUDE.md`, `CHANGE
 3. `CHANGELOG.md` nur bis zur zweiten Versionsüberschrift (`sed -n '1,/^## v/p'` und die erste Version).
 4. `tools/check-env.sh` laufen lassen; `docs/UMGEBUNG.md` nur lesen, wenn es etwas meldet oder ein Werkzeug gesucht wird (Tabelle der Vorschau-Schalter).
 
-Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md` (Verlauf, nur gezielt durchsuchen), `docs/MERKLISTE.md` (Ideen für später), `docs/NACHT.md` (nur bei Nachtarbeit).
+Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md` (Verlauf, nur gezielt durchsuchen), `docs/MERKLISTE.md` (Ideen für später), `docs/SELBST.md` (nur bei Selbstarbeit oder gemeinsamer Zeit).
 
 ## Feste Regeln
 
@@ -56,14 +56,14 @@ Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md
 - Erst besprechen und vorschlagen; vor großen optischen Änderungen Entwürfe zeigen. Keine Bildfolgen (Filmstreifen) an den Nutzer, nur Standbilder.
 - Änderungen an Kampf, Bewegung oder Effekten selbst durch die echte Oberfläche filmen und die Bildfolge ansehen (Werkzeuge: Tabelle der Vorschau-Schalter in `docs/UMGEBUNG.md`). Vor jedem Commit von Code `./gradlew -p core test`.
 - Filme sparsam (Wunsch des Nutzers, 09.10.): Logik (Zeiten, Regeln, Abläufe) mit Kerntests prüfen, die in Sekunden laufen; filmen nur, wenn sich eine Bewegung sichtbar ändert. Beim Filmen nur die gespeicherten Bilder zeichnen, mit `CROP=` nur den Ausschnitt speichern und ereignislose Zeit mit `FROM=` überspringen (`WALKFILM`, `IDLEFILM` in `tools/preview`).
-- Änderungshistorie: neue Einträge unter „## Unveröffentlicht“, bei Veröffentlichung umbenannt in „## v0.1.X – TT.MM.JJJJ, HH:MM“ (X = Nummer des Build-Laufs).
+- Änderungshistorie: neue Einträge unter „## Unveröffentlicht“ (auch beim Zusammenführen eines PR), erst beim Release umbenannt in „## v0.1.X – TT.MM.JJJJ, HH:MM“ (X = Nummer des Release-Laufs).
 - Weniger Rückfragen zur Freigabe von Aktionen steuert der Freigabe-Modus im Eingabefeld der App (Manuell/Automatisch), nicht der Code.
 - Vor dem Commit das Testergebnis prüfen (`set -o pipefail` bzw. Exit-Code), nicht nur die gefilterte Ausgabe.
 - Vor einer längeren Pause schreibt die Sitzung eine kurze Übergabe in ihren Abschnitt von `docs/OFFEN.md`: Stand, Offenes, offene Rückfragen.
 - **`OFFEN.md` klein halten** (Regel 11.10., Thema 15): höchstens etwa 15 KB; je Eintrag höchstens 3 Zeilen, Einzelheiten in Commit-Nachrichten oder `docs/ARCHIV.md`. Je Person genau eine Übergabe: die neue ersetzt die alte, die alte kommt oben ins Archiv. Getesteter Build: Zeile löschen, Ergebnis in `CHANGELOG.md`. Erledigtes Thema: aus „Wer macht was“ streichen. Neues, abgeschlossenes oder abgegebenes Thema: die Zeile in `docs/THEMEN.md` anpassen. Bei jedem Release `wc -c docs/OFFEN.md` prüfen, über 20 KB aufräumen.
 - **Neustart vorschlagen, um Token zu sparen** (Regel 10.10., 13:32): An Bruchstellen (ein Thema fertig, ein Build ausgeliefert, vor dem Wechsel auf ein anderes Thema, oder wenn der Haken meldet, dass das Gespräch groß ist) schlägt die Sitzung von sich aus eine neue Sitzung vor. Vorher die Übergabe in `docs/OFFEN.md` schreiben und pushen, damit die neue Sitzung ohne Verlust weitermacht.
 
-- **Nachtarbeit** (Regel 10.10., 21:05): Vergibt der Nutzer ein Nachtpaket oder startet eine Weck-Sitzung, gilt `docs/NACHT.md` (Paket mit Reserve, Weck-Sitzungen selbst einrichten, Herzschlag, Nutzungsgrenze, Morgenbericht). Sonst muss die Datei nicht gelesen werden.
+- **Selbstarbeit und gemeinsame Zeit** (Regel 10.10., 21:05; seit 11.10. auch tagsüber, Thema 22): Vergibt der Nutzer Selbstarbeit („arbeite bis 17 Uhr selbstständig“, auch nachts) oder startet eine Weck-Routine, gilt `docs/SELBST.md` (Paket aus dem Vorrat, Reserve, Herzschlag, Nutzungsgrenze, Bericht). Sagt er „ich habe Zeit, lass uns gemeinsam arbeiten“, die Liste „Für gemeinsame Zeit“ aus `docs/SELBST.md` vorlegen. Jede Sitzung hält dort ihren Vorrat und ihre Liste für gemeinsame Zeit aktuell.
 
 ## Technik und Sicherheit
 
@@ -73,7 +73,9 @@ Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md
 - Commits mit `git -c user.name="tramour" -c user.email="tramour@gmail.com" commit …`, mit den vom System vorgegebenen Co-Author- und Sitzungszeilen. Keine Modellbezeichnungen in Dateien.
 - Keine Verlaufsänderung, kein Force-Push. Kein Code auf `main` ohne Test des Nutzers; Code auf eigenen Zweigen.
 - Offene Änderungen am Ende einer Arbeit committen und pushen.
-- Ein Push von Code auf `main` erzeugt ein Release (Version 0.1.<Laufnummer>); ein Zweig-Build muss eine höhere Laufnummer als das installierte Release haben, sonst lässt er sich nicht installieren.
+- **Release nur auf Zuruf** (Regel 11.10., Thema 21): Ein Push von Code auf `main` baut nur eine APK (Artefakt), kein Release. Ein Release entsteht erst, wenn der Nutzer „Release“ sagt: `gh workflow run android.yml -R tramour-cmyk/androidapp_rpg_bornim --ref main -f release=true` (Version 0.1.<Laufnummer>, Notizen aus „## Unveröffentlicht“ in `CHANGELOG.md`); danach die Überschrift in `## v0.1.X – TT.MM.JJJJ, HH:MM` umbenennen und den Link nennen. Die APK eines Releases nur in den Chat, wenn sie Ungetestetes enthält oder der Nutzer sie will (Wunsch 11.10.: schon Getestetes nicht noch einmal bereitstellen). Zusammengeführte PRs kommen bis dahin unter „## Unveröffentlicht“.
+- **Vor jedem Zweig-Build `main` in den Zweig holen** (Regel 11.10., 21.5): `git fetch origin main && git merge origin/main` (zusammenführen, nie Verlaufsänderung), Kerntests, dann pushen. So enthält jede Test-APK alles bereits Freigegebene des anderen.
+- Ein Zweig-Build muss eine höhere Laufnummer als das installierte Release haben, sonst lässt er sich nicht installieren (Zweig-Builds sind immer neuer als das letzte Release).
 
 ## Testen
 

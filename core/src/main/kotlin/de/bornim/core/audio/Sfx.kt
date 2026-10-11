@@ -30,8 +30,11 @@ object Sfx {
     private val VARIED = setOf(
         Sound.HIT_SLASH, Sound.HIT_PIERCE, Sound.HIT_SMASH, Sound.MISS, Sound.CRIT, Sound.BLOCK, Sound.BITE, Sound.ARROW,
         Sound.FIRE, Sound.MAGIC, Sound.HOLY, Sound.HEAL, Sound.BUFF, Sound.POISON, Sound.THROW, Sound.POTION,
-        Sound.ENEMY_DOWN, Sound.HERO_DOWN, Sound.ENCOUNTER, Sound.ALERT, Sound.AMBUSH, Sound.SWING, Sound.SWING_HEAVY,
+        Sound.ENEMY_DOWN, Sound.ALERT, Sound.AMBUSH, Sound.SWING, Sound.SWING_HEAVY,
     )
+
+    /** The sounds that announce something: one take only, so they are known at once (18h; STIL.md, Klang). */
+    val SYSTEM = setOf(Sound.LEVEL_UP, Sound.CLICK, Sound.LOOT_EPIC, Sound.ENCOUNTER, Sound.HERO_DOWN)
 
     fun variants(s: Sound): Int = if (s in VARIED) 3 else 1
 
