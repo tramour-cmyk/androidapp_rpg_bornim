@@ -21,7 +21,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 22 | Selbstarbeit statt nur Nachtarbeit: Routinen alle 3 h, Vorrat und Liste „Für gemeinsame Zeit“ | Tom | `main` (Notizen), Routinen | 22a, 22b ja (13:31). `docs/SELBST.md` statt `NACHT.md`; Toms Routinen umgestellt (13:38); Nutzer: neue Routinen einstellen (Repo, automatisch). Jerrys Routinen umgestellt (13:44), Vorrat eingetragen |
 | 23 | Aufgaben so aufteilen, dass Tom und Jerry auch in Selbstarbeit genug Vorrat haben | Tom | `main` (Notizen) | 23a ja (14:18): je 8 Punkte im Vorrat (`docs/SELBST.md`), neue nur als Entwürfe/Hörproben. **Jerry:** deine Punkte 4–8 sind eingetragen |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
-| 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Übergangsbild, bis alles gezeichnet ist; auch vor Kämpfen | Tom (24.1–24.3, 24.5); Jerry (24.6) | – | 24a–c ja (14:39), 24e ja (15:16). **Plan:** Tom beginnt nach 25b in neuer Sitzung (ca. 16:00): erst messen, dann 24.2/24.3 (mehrere Fäden, Bilder behalten), 24.1 Übergangsbild, 24.5 Kampfbilder auf der Karte vorladen. **Jerry:** 24.6 (Kampferöffnung wartet auf Stehen und ersten Schlag, höchstens ca. 2 s) nach 18h/18i, auf Toms Zeichen-Faden aus 24.2 aufbauen. **Entwurf Zwischenbildschirm** (Tom und Jerry haben ihn beide erhalten) (Berater-Tom, 16:15): [`ZWISCHENBILD.md`](ZWISCHENBILD.md); Orte = Tom (24.1), Kampf + Kampftext (24.7) und Klang in der Blende (24.8) = Jerry, Rückfragen 24f–24h. **Tom (16:19):** Orte übernommen (nach 24.2/24.3), Tempel Satz 4 „Säulen“ → „Bänke“ (keine Säulen im Tempel); Rückfragen 24i, 24j |
+| 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik); Jerry (Inhalt) | – | 24a–k ja (16:32), Entwurf [`ZWISCHENBILD.md`](ZWISCHENBILD.md). **Tom:** Messen, 24.2/24.3, Blende für Orte und Kämpfe (24.1 + Mechanik 24.7), 24.5, 24.6; legt zuerst das Datenformat für die Sätze in `core` an (Zweig wird genannt). **Jerry:** Kampfsätze DE/EN (auch die 7 übrigen Gegner) in dieses Format, knapper Kampftext in `Battle.kt`, Klang in der Blende 24.8 (CC0 nach dem Bau), danach Kampfabläufe filmen. 24i: ganzer Satz nur beim ersten Besuch, danach Ortsname ca. 1 s, Türen im Dorf nur Blende 0,3 s, wenn alles gezeichnet. 24f: volles Kampfbild nur beim ersten Kampf je Gegnerart und bei Bossen, sonst ca. 1 s. 24j: Tom schreibt Englisch der Ortssätze |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
@@ -42,23 +42,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-
 – nichts offen –
 
 ## Rückfragen an den Nutzer
 
-- **24f–24h** (Jerry, 16:17): 24f Kampf-Zwischenbild voll nur beim ersten Kampf je Gegnerart und bei Bossen, sonst ca. 1 s (Empfehlung)? 24g Jerry schreibt Sätze für die 7 Gegner ohne Text (Wildschwein, Stirge, Riesen-Hundertfüßer, Kobold, Riesenfledermaus, Ghul, Ockergallerte)? 24h Wind/Stimmengewirr erst nach dem Bau als CC0 suchen?
-
-
 - **24 Animationen fehlen am Anfang (gemeldet 11.10., 14:36; Befund Tom-Beratung 14:45):** Stimmt. Der Held auf der Karte hat 16 Richtungen × 8 Schrittbilder = 128 Bilder; `MapFigure.prepare` zeichnet sie in einem einzigen Hintergrund-Faden mit niedriger Priorität. Bis ein Bild fertig ist, zeigt `frameNow` das Standbild dieser Richtung, deshalb gleitet der Held ohne Beinbewegung. Atmen und Gewicht verlagern (`MapRest`) werden erst beim ersten Bedarf in einem weiteren Faden gezeichnet; Leute (`MapFolk.prepareFor`) und Boden (`MapGround.prepare`) beim Kartenwechsel ebenso. Ein Wechsel der Ausrüstung verwirft alle Heldenbilder (`cache.keys.removeAll`), danach fehlt das Laufen wieder. Vorschläge: 24.1 Übergangsbild beim Spielstart und Kartenwechsel (dunkle Blende im Stil, Ortsname, kurzer Satz), bleibt, bis das Nötige fertig ist (Laufen des Helden in allen Richtungen, Atmen, Leute der Karte, Boden um den Helden), höchstens etwa 4 s, danach weiter im Hintergrund; 24.2 schneller zeichnen: mehrere Fäden (Zahl der Kerne), höhere Priorität, solange das Übergangsbild steht; 24.3 bei Ausrüstungswechsel alte Bilder behalten, bis die neuen fertig sind; 24.4 gezeichnete Bilder auf dem Gerät speichern, damit der nächste Start sofort geht. **Entschieden 14:39:** 24a ja, 24b ja (24.2 und 24.3 gleich mit), 24c ja (24.4 erst nach Messung, steht auf der Merkliste). **An die Tom-Arbeitssitzung:** 24.1–24.3 bauen; vorher Abgleich mit `STIL.md` (Blende im Stil, Übergang Blende → Karte weich), Kerntest für „Übergangsbild endet, sobald das Nötige fertig ist oder spätestens nach etwa 4 s“, Zeiten vorher/nachher im Bericht (wie lange bis alles gezeichnet ist). Für die Kampfbilder dieselbe Lösung mit Jerry abstimmen. **24d (Nutzer 14:55):** auch vor Kämpfen sinnvoll? (kleiner Kampfbildschirm, Bewegungen im Hintergrund vorladen). Antwort Tom 14:56: ja; Vorschläge 24.5 (Kampfbilder schon vorladen, sobald ein Gegner den Helden bemerkt oder nahe ist, Karte = Tom) und 24.6 (Kampferöffnung wartet, bis Stehen und erster Schlag fertig sind, höchstens etwa 2 s, Kampf = Jerry), vorher messen; Rückfrage 24e. **24e ja, beides (Nutzer 15:06):** 24.5 Tom, 24.6 Jerry (nach 24.1–24.3, vorher messen).
-
-
-
-
-
-- **24i** (Tom, 16:19): Bei jedem Tür-Wechsel 2,5 s Zwischenbild ist viel. Empfehlung: erster Besuch ganzer Satz; danach nur Ortsname ca. 1 s; ist schon alles gezeichnet, bei Türen im Dorf nur eine kurze Blende (0,3 s) ohne Text.
-- **24j** (Tom, 16:19): Englische Fassung der Ortssätze schreibe ich selbst. Empfehlung: ja.
-
-- **24k** (Jerrys Gegenvorschlag 16:31: nach Arbeitsart teilen. Tom: ganze Technik 24.1–24.6 und Mechanik aus 24.7; Jerry: Kampfsätze DE/EN als Daten in `core`, knapper Kampftext in `Battle.kt`, Klang 24.8, danach Kampfabläufe filmen. Tom einverstanden.) (16:24, Tom): 24 nicht aufteilen? Empfehlung Tom: Tom baut den ganzen Zwischenbildschirm (Orte und Kampf, Fäden, Warten 24.6); Jerry liefert nur zu: Sätze für die 7 übrigen Gegner, Klang in der Blende (24.8) nach dem Bau.
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
