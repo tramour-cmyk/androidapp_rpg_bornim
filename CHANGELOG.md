@@ -4,6 +4,14 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.483 – 11.10.2026, 12:41
+
+Zweig von Jerry (Thema 12.3), getestet in 0.1.481, PR #18:
+
+**Kampf: Sprungangriff der Tiere weicher (12.3b)**
+- Wolf und Riesenratte: beim Sprungangriff je ein Zwischenbild mehr beim Abheben und Landen, eines weniger beim Ducken (Angriff etwa 0,08 s länger).
+- Werkzeuge (nur Entwicklung): Kampfteil aus `JumpTest.listOthers` gestrichen (12.3c); Kampfbewegungen prüft `BattleJumpTest` streng (0 Meldungen). Befund 12.3a: die 265 Meldungen waren schnelle, aber weiche Bewegungen, gemessen mit den Grenzen der Karte.
+
 ## v0.1.479 – 11.10.2026, 11:35
 
 Zweig von Jerry (Thema 18 und Hörproben), getestet in 0.1.472, PR #16:
