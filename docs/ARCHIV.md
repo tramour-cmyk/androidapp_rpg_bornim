@@ -6,6 +6,7 @@ Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistori
 
 ## Übergabe Jerry (11.10., 17:01), ersetzt 11.10., 19:08
 
+- **Übergabe Jerry (11.10., 19:08):** **9i erledigt:** Rest (Spinne, Hundertfüßer, Fledermaus, Stirge, Gallerte; 9i c, 9i.2 Lauerer wenden sich zu) getestet 0.1.529/0.1.531, PR #33 zusammengeführt (19:07). **24** Kampfsätze (`openings`, `foes`) PR #31 auf `main`. Beides in „Unveröffentlicht“. Kein offener Zweig, kein offener PR. Offen/beobachten: Spinne auf der Karte evtl. etwas groß (`MapFoe.verminSize`). Knapper Kampftext `Battle.kt` erst mit 24.6. Grak Satz 5 ohne Bedingung (nur Testmenü-Fall unpassend). Weiter: **24.6** (Kampferöffnung wartet auf Kampfbilder, vorher messen) nach Toms 24.5; 24.8 Klang der Blende; **28** Musik (erst Hörproben); 13e Höhle diagonal (Entwürfe). APK für den Chat: `gh api …/actions/artifacts/<id>/zip` (siehe `UMGEBUNG.md`).
 - **9i** (Zweig `claude/brave-wright-pmcy0i`): 9 Arten und **9i.1** Testmenü (`Game.cheatBring`) getestet (0.1.516, 0.1.518), PR #29 zusammengeführt (17:16), in „Unveröffentlicht“. Sitzung endet (Nutzer 17:12); neue Sitzung macht weiter.
 - Weiter: 9i Rest (Gang/Ruhe für Spinne, Hundertfüßer, Fledermaus, Stirge, Gallerte, `VerminArt`); **24** Kampfsätze in Toms `Interlude.kt` (Zweig `claude/adoring-franklin-cqhg5a`), Grak Satz 5 braucht Bedingung (mit Tom klären), knapper Kampftext `Battle.kt:1117`; 28 Musik.
 
