@@ -663,22 +663,43 @@ object MapTownIso {
         return c.img
     }
 
-    /** A street lamp (5.2): a lantern of iron and horn on a post of oak or iron; three looks. */
-    fun lamp(v: Int, seed: Int): PixelImage {
+    /**
+     * A street lamp (5.2): a lantern of iron and horn on a post of oak or iron; three looks. [lit] (25.1): only the
+     * horn panes, glowing from the flame inside, hottest in the middle and low down; the rest left clear.
+     */
+    fun lamp(v: Int, seed: Int, lit: Boolean = false): PixelImage {
         val c = Tile1(240)
-        c.shadow(-0.5, -0.5, 0.2, 0.35)
+        // lit, everything but the glass is drawn clear, so what stands in front of the glass still hides it
+        fun dark(col: Int) = if (lit) 0 else col
+        if (!lit) c.shadow(-0.5, -0.5, 0.2, 0.35)
         val iron = v == 2
-        c.box(-0.54, -0.54, -0.46, -0.46, 0.0, 6.0) { f, _, _ -> shade(argb(0x4A463E), if (f == 0) 0.6 else 0.9) }
-        c.box(-0.52, -0.52, -0.48, -0.48, 0.0, 170.0) { f, u, w -> if (iron) shade(argb(0x262422), if (f == 0) 0.7 else 1.0) else wood(f, w, u, seed, 0x3E2E22) }
+        val (li, lj, lz) = lampHead(v)
+        c.box(-0.54, -0.54, -0.46, -0.46, 0.0, 6.0) { f, _, _ -> dark(shade(argb(0x4A463E), if (f == 0) 0.6 else 0.9)) }
+        c.box(-0.52, -0.52, -0.48, -0.48, 0.0, 170.0) { f, u, w -> dark(if (iron) shade(argb(0x262422), if (f == 0) 0.7 else 1.0) else wood(f, w, u, seed, 0x3E2E22)) }
         // an arm out towards the front, the lantern hanging from it on the first look; else sitting on top
-        val (li, lj, lz) = if (v == 0) Triple(-0.5, -0.3, 136.0) else Triple(-0.5, -0.5, 170.0)
-        if (v == 0) c.box(-0.52, -0.52, -0.48, -0.26, 160.0, 164.0) { f, u, w -> wood(f, u, w, seed + 1, 0x3E2E22) }
+        if (v == 0) c.box(-0.52, -0.52, -0.48, -0.26, 160.0, 164.0) { f, u, w -> dark(wood(f, u, w, seed + 1, 0x3E2E22)) }
         c.box(li - 0.07, lj - 0.07, li + 0.07, lj + 0.07, lz, lz + 22) { f, u, w ->
             val frame = u < 0.15 || u > 0.85 || w < 0.1 || w > 0.9
-            if (f == 2) argb(0x1E1C1A) else if (frame) shade(argb(0x2A2826), if (f == 0) 0.7 else 1.0) else mix(argb(0x6A5030), argb(0xC09050), w * 0.5)
+            when {
+                f == 2 -> dark(argb(0x1E1C1A))
+                frame -> dark(shade(argb(0x2A2826), if (f == 0) 0.7 else 1.0))
+                // the flame sits low in the middle: the pane brightest there, the shaded face a little less
+                lit -> shade(mix(argb(0xFFF2C8), argb(0xF0A850), Math.hypot((u - 0.5) * 1.6, (w - 0.38) * 1.2).coerceIn(0.0, 1.0)), if (f == 0) 0.9 else 1.0)
+                else -> mix(argb(0x6A5030), argb(0xC09050), w * 0.5)
+            }
         }
-        c.plane(doubleArrayOf(li - 0.09, lj + 0.09, lz + 22), doubleArrayOf(0.18, 0.0, 0.0), doubleArrayOf(0.09, -0.09, 10.0)) { u, w -> if (abs(u - 0.5) > 0.5 * (1 - w)) null else argb(0x24221F) }
+        c.plane(doubleArrayOf(li - 0.09, lj + 0.09, lz + 22), doubleArrayOf(0.18, 0.0, 0.0), doubleArrayOf(0.09, -0.09, 10.0)) { u, w -> if (abs(u - 0.5) > 0.5 * (1 - w)) null else dark(argb(0x24221F)) }
         return c.img
+    }
+
+    /** Where a lamp's lantern sits (i, j on the tile, height of its foot): hanging from an arm on the first look. */
+    private fun lampHead(v: Int) = if (v == 0) Triple(-0.5, -0.3, 136.0) else Triple(-0.5, -0.5, 170.0)
+
+    /** The glass of lamp [v] shining at night (25.1), with the middle of its light in the picture. */
+    fun lampGlow(v: Int): WorldArt.Glow {
+        val (li, lj, lz) = lampHead(v)
+        val c = Tile1(240)
+        return WorldArt.Glow(lamp(v, 521 + v, lit = true), c.sx(li, lj).toInt(), c.sy(li, lj, lz + 11).toInt())
     }
 
     /** A bench (5.2): a thick plank on two blocks or trestles, along the map's x; three looks. */
@@ -791,6 +812,7 @@ object MapTownIso {
         }
     }
     private val thingCache = HashMap<String, PixelImage>()
+    private val glowCache = HashMap<Int, WorldArt.Glow>()
 
     /**
      * The upright pictures of a town's houses seen diagonally (5.1), or null for anything else: each house cut into
@@ -813,8 +835,9 @@ object MapTownIso {
         if (thing != null) {
             val T = WorldArt.T
             val img = synchronized(sliceCache) { thingCache.getOrPut(thing.first) { thing.second() } }
+            val glow = if (t == Tile.LAMP) synchronized(sliceCache) { glowCache.getOrPut(v) { lampGlow(v) } } else null
             val wx = (tx + 1) * T; val wy = (ty + 1) * T
-            return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, t == Tile.BENCH, corner = true))
+            return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, t == Tile.BENCH, corner = true, glow = glow))
         }
         if (t in roofTiles) return emptyList()
         if (t !in wallTiles) return null

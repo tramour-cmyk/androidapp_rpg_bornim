@@ -634,18 +634,23 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
          * Draws [img] at map pixel ([x], [y]); [density] art pixels per map pixel (2 for the new, finer pictures).
          * Seen diagonally, a picture drawn outside [ground] stands upright on the mapped point of its lower middle.
          */
+        /** Where on the screen [put] draws the top left corner of [img]. */
+        fun placeOf(img: PixelImage, x: Int, y: Int, density: Int = 1, corner: Boolean = false): IntOffset {
+            val dw = img.width * scale / density; val dh = img.height * scale / density
+            val sx = (x - camX) * scale
+            val sy = (y - camY) * scale
+            if (!diag || flat) return IntOffset(sx, sy)
+            // pictures made for the straight view stand on the lower edge of their tile: seen diagonally their feet
+            // go to the tile's middle, half a tile up (13p, 6: the hero stood in the tile's front left corner);
+            // the rooms' pictures seen diagonally ([corner]) are made with the tile's front corner at their foot
+            val lift = if (corner) 0 else T / 2 * scale
+            val fx = sx + dw / 2f; val fy = (sy + dh - lift).toFloat()
+            return IntOffset((cam.toScreenX(fx, fy) - dw / 2f).roundToInt(), (cam.toScreenY(fx, fy) - dh).roundToInt())
+        }
+
         fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f, corner: Boolean = false) {
             val dw = img.width * scale / density; val dh = img.height * scale / density
-            var sx = (x - camX) * scale
-            var sy = (y - camY) * scale
-            if (diag && !flat) {
-                // pictures made for the straight view stand on the lower edge of their tile: seen diagonally their feet
-                // go to the tile's middle, half a tile up (13p, 6: the hero stood in the tile's front left corner);
-                // the rooms' pictures seen diagonally ([corner]) are made with the tile's front corner at their foot
-                val lift = if (corner) 0 else T / 2 * scale
-                val fx = sx + dw / 2f; val fy = (sy + dh - lift).toFloat()
-                sx = (cam.toScreenX(fx, fy) - dw / 2f).roundToInt(); sy = (cam.toScreenY(fx, fy) - dh).roundToInt()
-            }
+            val (sx, sy) = placeOf(img, x, y, density, corner)
             if (!flat && (sx > size.width || sy > size.height || sx + dw < 0 || sy + dh < 0)) return
             drawImage(
                 image = Bitmaps.of(img),
@@ -733,6 +738,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 
         // 3) objects and characters, sorted by their foot line
         val sprites = mutableListOf<Sprite>()
+        val glowing = mutableListOf<Pair<WorldArt.Obj, Float>>()
         // a tree crown standing in front of the hero turns half see-through, so the hero is not lost behind it
         fun hides(o: WorldArt.Obj): Boolean {
             val w = o.img.width / o.density; val h = o.img.height / o.density
@@ -766,6 +772,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         for (o in objs) {
             val a = if (if (o.group != 0) o.group in hidingGroups else hides(o)) 0.45f else 1f
             sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f) { put(o.img, o.x, o.y, o.density, a, o.corner) }
+            if (o.glow != null) glowing += o to a
         }
         // Healing herbs on the flower meadows, swaying gently so they catch the eye.
         if (map.kind == MapKind.FOREST) for (ty in 0 until map.height) for (tx in 0 until map.width) {
@@ -1024,6 +1031,30 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         ground { if (MapLight.needed(map, game.daylight)) drawMapLight(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH) }
         if (diag && map.kind == MapKind.INTERIOR) drawHearthSmoke(game, map, clock, cam, camX, camY, scale)
         if (diag && map.kind == MapKind.TOWN && MapGround.supports(map)) drawTownSmoke(map, clock, cam, camX, camY, scale)
+        // what shines by itself (25.1: a lamp's glass) is drawn over the light of the place, so the source is the brightest
+        // spot around it, waking with the dusk like the light it throws; a small warm halo around it
+        val night = MapLight.strength(map, MapLight.When.NIGHT, game.daylight).toFloat()
+        if (night > 0.02f) for ((i, entry) in glowing.withIndex()) {
+            val (o, a) = entry
+            val g = o.glow ?: continue
+            // a thing on the square stands with its foot on the front corner of its tile (MapTownIso.objects)
+            val tx = (o.x + o.img.width / 4) / T - 1; val ty = (o.y + o.img.height / 2) / T - 1
+            val seen = when (game.fog(tx, ty)) {
+                de.bornim.core.Fog.HIDDEN -> 0f
+                de.bornim.core.Fog.SEEN -> 0.4f
+                de.bornim.core.Fog.VISIBLE -> 1f
+            }
+            val on = night * seen * a * (0.93f + 0.07f * kotlin.math.sin(clock / 140f + i))
+            if (on <= 0.02f) continue
+            put(g.img, o.x, o.y, o.density, on, o.corner)
+            val at = placeOf(o.img, o.x, o.y, o.density, o.corner)
+            val c = Offset(at.x + g.cx * scale / o.density.toFloat(), at.y + g.cy * scale / o.density.toFloat())
+            val r = T * 0.55f * scale
+            drawCircle(
+                androidx.compose.ui.graphics.Brush.radialGradient(listOf(Color(0xFFFFD898).copy(alpha = 0.3f * on), Color(0xFFFFB060).copy(alpha = 0.1f * on), Color.Transparent), c, r),
+                r, c, blendMode = androidx.compose.ui.graphics.BlendMode.Plus,
+            )
+        }
         // a torch carried about throws a warm, flickering glow around it, the stronger the darker it is
         for ((tx, ty) in torches) {
             val flick = 0.85f + 0.15f * kotlin.math.sin(clock / 70f) * kotlin.math.sin(clock / 113f)
