@@ -89,7 +89,7 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 ## Jerry
 
 **Vorrat für Selbstarbeit** (Reihenfolge):
-1. **9i Übrige Gegner auf der Karte**, nur als Entwürfe (Standbilder mit Uhrzeit, alle Blickrichtungen). Fertig, wenn: Sprungtest und Kollisionsprüfung 0, Musterblatt. (Läuft, PR #29: 9 Arten auf der Karte; fehlt Gang der 5 Kriechtiere/Flieger.)
+1. **9i Übrige Gegner auf der Karte**, nur als Entwürfe (Standbilder mit Uhrzeit, alle Blickrichtungen). Fertig, wenn: Sprungtest und Kollisionsprüfung 0, Musterblatt. (9 Arten auf `main`, PR #29; fehlt Gang der 5 Kriechtiere/Flieger.)
 2. **24 Kampfsätze** in Toms `Interlude.kt` (DE/EN, auch 7 übrige Gegner), knapper Kampftext in `Battle.kt`.
 3. **18 Stimmen der übrigen Gegner** (Angriff, Schmerz, Tod, je drei Fassungen), nur als Hörproben.
 
@@ -102,7 +102,6 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 10. **Ausgleich Magier** (26): Siegquoten aller Klassen gegen Krogg und Grak aus der Simulation, Vorschlag zum Angleichen. Fertig, wenn: Zahlen vorher/nachher im Bericht.
 
 **Für gemeinsame Zeit:**
-- 9i: Zweig-Build PR #29 testen.
 - 24e/24.6: Kampferöffnung wartet, bis Kampfbilder fertig sind (nach Toms 24.1–24.3).
 - 9i: Entwürfe ansehen und freigeben.
 - 19e: ein konkretes Beispiel für „Bewegungen unrund“, falls dir eines auffällt.

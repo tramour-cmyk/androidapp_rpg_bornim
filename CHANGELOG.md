@@ -4,6 +4,14 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 9i), getestet in 0.1.516 und 0.1.518, PR #29 (zusammengeführt 11.10., 17:16):
+
+**Übrige Gegner auf der Karte (9i)**
+- Wildschwein, Riesenratte, Kobold, Skelett, Zombie, Ghul, Goblin-Schamane, Grottenschrat und Hobgoblin-Hauptmann laufen als echte Figuren über die Karte: weiches Drehen, Beine in Bewegung, atmen und sehen sich um. Spinne, Hundertfüßer, Fledermaus, Stirge und Gallerte folgen.
+- Gegner mit Waffe halten sie unterwegs etwas vom Bein weg, sodass keine Klinge mehr durch Oberschenkel oder Schienbein geht; der Schamane hebt seinen Stab senkrecht.
+- Testmenü (9i.1): In der Monsterliste lässt sich jedes Monster neben den Helden holen, mit Rudel, 2 Minuten friedlich; der alte Knopf für Wolfsrudel und Goblin entfällt.
+- Werkzeuge (nur Entwicklung): Kollisionsprüfung `FOECLASH=1` prüft auch die Karte (vorher 841 Treffer, jetzt 0), `JumpTest` alle neuen Arten.
+
 Zweig von Tom (Thema 24, Teil), getestet in 0.1.517, PR #30 (zusammengeführt 11.10., 17:08):
 
 **Held auf der Karte schneller bereit (24.2, 24.3)**

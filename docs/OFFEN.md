@@ -14,7 +14,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | 5.1, 5.2, 5g, 5h.1 auf `main` (PR #24, 11.10., 14:52). 5l/5.5 Leben im Dorf: nach 24 (Nutzer 14:55), erst Standbilder. Dann 5.3, 5.4 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
-| 9i | Übrige Gegner auf der Karte | Jerry | `claude/brave-wright-pmcy0i`, PR #29 | **9i.1** (Nutzer 16:52): Testmenü holt jedes Monster neben den Helden (findet sie sonst nicht) – in Arbeit. 9 Arten (Tiere, Puppen) auf der Karte, Kollision Karte 841 → 0, Sprungtest 0; **0.1.516 getestet (17:00, auch Bosse)**; Merge nach Test des Testmenü-Builds (9i.1). Danach Spinne, Hundertfüßer, Fledermaus, Stirge, Gallerte (brauchen Gang) |
+| 9i | Übrige Gegner auf der Karte | Jerry | – | 9 Arten und 9i.1 Testmenü getestet (0.1.516/518), PR #29 auf `main` (17:16). Rest: Spinne, Hundertfüßer, Fledermaus, Stirge, Gallerte (Gang, `VerminArt`) |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 13e | Höhle diagonal (Phase 2 von 13: Orte aufteilen) | Jerry | – | 13e.1 ja (13:52): nach 18 Runde 2, erst Entwürfe. **Tom einverstanden (14:16).** Jerry: neue Datei `MapCaveIso.kt` und eine Zeile in `WorldArt.buildObjects` (wie Räume/Dorf). Nicht anfassen ohne Absprache: `WorldScreen.kt` (Sortierung, `hides`, `put`/`corner`, `Cam`), `MapSight`, `FreeWalk`, `MapRoomIso`, `MapTownIso`, `MapGround`. Vorlage: `MapTownIso` (`Tile1`, `plane`/`box`/`cylinder`, Tiefe `(tx+ty)*T+1.5T−1`, `corner = true`, `group` für Mehrfeld-Dinge) |
 | 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | – | 18h/18i (PR #25) und 18k (PR #27, getestet 0.1.511, 16:08) auf `main` |
@@ -39,12 +39,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Jerry (11.10., 17:01)
 
-- **9i** auf `claude/brave-wright-pmcy0i`, Entwurfs-PR #29 (abonniert): 9 Arten auf der Karte, 0.1.516 getestet (17:00). Dazu **9i.1** Testmenü „Antippen: neben den Helden holen“ (`Game.cheatBring`, 2 min friedlich); Build läuft, Nutzer testet kurz (9i.1 a), dann PR aus Entwurf holen, zusammenführen, „Unveröffentlicht“ ergänzen.
+- **9i** auf `claude/brave-wright-pmcy0i`, Entwurfs-PR #29 (abonniert): 9 Arten und **9i.1** Testmenü (`Game.cheatBring`) getestet (0.1.516, 0.1.518), PR #29 zusammengeführt (17:16), in „Unveröffentlicht“. Sitzung endet (Nutzer 17:12); neue Sitzung macht weiter.
 - Weiter: 9i Rest (Gang/Ruhe für Spinne, Hundertfüßer, Fledermaus, Stirge, Gallerte, `VerminArt`); **24** Kampfsätze in Toms `Interlude.kt` (Zweig `claude/adoring-franklin-cqhg5a`), Grak Satz 5 braucht Bedingung (mit Tom klären), knapper Kampftext `Battle.kt:1117`; 28 Musik.
 
 ## Zu testen
 
-- **0.1.518** (Jerry, 9i.1, PR #29, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38149434877/artifacts/11705732042)): Testmenü holt Monster neben den Helden.
 
 ## Rückfragen an den Nutzer
 
