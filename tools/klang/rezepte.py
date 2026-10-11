@@ -3,7 +3,7 @@ Klänge aus CC0-Aufnahmen (Thema 18): schneiden, tiefer stimmen, filtern, Hall, 
 
     tools/klang/holen.sh <ordner>                      # Aufnahmen laden (einmal)
     python3 tools/klang/rezepte.py <ordner>            # Klänge fürs Spiel nach app/src/main/assets/sfx (OGG)
-    python3 tools/klang/rezepte.py <ordner> --proben <ziel>   # alle Fassungen als WAV zum Anhören
+    python3 tools/klang/rezepte.py <ordner> --proben <ziel> [--nur a,b]   # Fassungen als WAV zum Anhören (--nur: nur diese Klänge)
 
 Systemklänge (Stufenaufstieg, Klick, epische Beute) gibt es im Spiel nur einmal (STIL.md, Klang); welche Fassung,
 steht in GEWAEHLT. Quellen und Lizenzen: QUELLEN.md.
@@ -77,6 +77,83 @@ S["monster_skeleton_tod"] = [
     reverb(mix((T("bfh1_wood_falling_02.ogg"), 0, 0.8), (rattle([1, 3, 5, 7, 9], 0.06), 0.12, 0.8), (shelf_low(pitch(T("wet_towel_on_floor-03.flac"), -5), 3), 0.5, 0.4)), 0.2, 1.0, seed=2),
     reverb(mix((T("wood_falling_01.ogg"), 0, 0.8), (rattle([2, 6, 0, 8], 0.07), 0.1, 0.8)), 0.2, 1.0, seed=3)]
 
+# ---- Runde 2 (Welt, Zauber, Tränke, Umgebung): erst Hörproben, ins Spiel erst nach Wahl des Nutzers (R2_FREI)
+R2_START = len(S)
+def win(f, a, b, fo=0.25): return cut(L(f), a, b, 0.08, fo)          # Ausschnitt aus einer langen Aufnahme, weich ein und aus
+def far(x, hz=3500, wet=0.3, decay=1.2, seed=1): return reverb(lowpass(x, hz, 2), wet, decay, seed=seed)   # aus der Ferne
+cave = lambda x, seed=1: reverb(x, 0.45, 1.8, 3500, seed)
+# Kampfbeginn (Systemklang, eine Fassung wird gewählt): Klinge aus der Scheide, darunter ein tiefer Schlag
+S["encounter"] = [
+    reverb(mix((T("drawKnife1.ogg"), 0, 0.9), (shelf_low(pitch(T("gong_01.ogg"), -12), 4), 0.05, 0.8)), 0.3, 1.6),
+    reverb(mix((shelf_low(pitch(T("impactMetal_heavy_000.ogg"), -5), 3), 0, 0.9), (T("drawKnife2.ogg"), 0.18, 0.8), (pitch(T("impactWood_heavy_001.ogg"), -6), 0, 0.6)), 0.3, 1.4, seed=2),
+    reverb(mix((T("drawKnife3.ogg"), 0, 0.8), (pitch(T("impactBell_heavy_003.ogg"), -10), 0.08, 0.8), (T("chain_02.ogg"), 0.1, 0.3)), 0.35, 1.8, seed=3)]
+# Ein Gegner bemerkt den Helden: ein Zweig knackt, Schritte stocken, Steinchen rollen
+S["alert"] = [
+    reverb(mix((T("wood_cracking_03.ogg"), 0, 0.9), (darken(T("cloth2.ogg"), 4000), 0.15, 0.5)), 0.15, 0.8),
+    reverb(mix((T("footstep_grass_000.ogg"), 0, 0.7), (T("footstep_grass_003.ogg"), 0.2, 0.5), (T("drawKnife2.ogg"), 0.45, 0.6)), 0.15, 0.8, seed=2),
+    reverb(darken(T("stones_01.ogg"), 5000), 0.2, 1.0, seed=3)]
+# Hinterhalt: es bricht durchs Gebüsch, ein Satz, Stahl
+S["ambush"] = [
+    reverb(mix((T("bfh1_wood_breaking_01.ogg"), 0, 0.8), (T("drawKnife1.ogg"), 0.2, 0.8), (pitch(T("impactPunch_heavy_000.ogg"), -3), 0.35, 0.6)), 0.15, 0.8),
+    reverb(mix((T("footstep_grass_001.ogg"), 0, 0.7), (T("footstep_grass_002.ogg"), 0.11, 0.7), (T("footstep_grass_004.ogg"), 0.21, 0.8), (T("metal_hit_02.ogg"), 0.33, 0.6)), 0.15, 0.8, seed=2),
+    reverb(mix((T("wood_breaking_02.ogg"), 0, 0.7), (grit(pitch(T("creature_roar_01.ogg"), -4)), 0.12, 0.6)), 0.2, 1.0, seed=3)]
+# Der Held fällt (Systemklang): Laut, Körper auf dem Boden, die Waffe fällt; Nr. 3 ohne Stimme (passt zu jedem Helden)
+S["hero_down"] = [
+    reverb(mix((T("humanDeath1.wav"), 0, 0.8), (shelf_low(pitch(T("wet_towel_on_floor-02.flac"), -5), 4), 0.35, 1.0), (T("bfh1_metal_falling_01.ogg"), 0.5, 0.5)), 0.3, 1.6),
+    reverb(mix((pitch(T("humanDeath2.wav"), -2), 0, 0.8), (shelf_low(pitch(T("wet_towel_on_floor-04.flac"), -5), 4), 0.4, 1.0), (T("chain_03.ogg"), 0.45, 0.35)), 0.3, 1.6, seed=2),
+    reverb(mix((shelf_low(pitch(T("wet_towel_on_floor-06.flac"), -6), 4), 0, 1.0), (T("bfh1_metal_falling_02.ogg"), 0.12, 0.6), (darken(pitch(T("breath.ogg"), -5), 2200), 0.5, 0.6)), 0.35, 1.8, seed=3)]
+# Feuerzauber: Fauchen und Prasseln
+S["fire"] = [
+    reverb(mix((T("spell_fire_02.ogg"), 0, 1.0), (win("fs_181563.mp3", 3.0, 3.8), 0.2, 0.4)), 0.15, 0.8),
+    reverb(mix((shelf_low(T("flame_0.ogg"), 3), 0, 1.0), (T("LEGIT_FIR_Fire_Staff 1-Audio.wav"), 0.02, 0.6)), 0.15, 0.8, seed=2),
+    reverb(darken(T("spell_fire_05.ogg"), 6000), 0.2, 0.9, seed=3)]
+# Arkane Magie (Geschosse, Rüstung, Lähmung, Fluch): Schimmern, dunkles Ziehen
+S["magic"] = [reverb(T("magical_1_0.ogg"), 0.25, 1.2), reverb(darken(T("fout-02.flac"), 7000), 0.25, 1.2, seed=2),
+    reverb(cut(pitch(T("qubodup-PowerDrain.flac"), -2), 0, 1.4, 0.005, 0.4), 0.25, 1.2, seed=3)]
+# Heiliges (heilige Flamme, Wächter, Untote vertreiben): tiefe Glocke, ferner Gesang
+S["holy"] = [
+    reverb(mix((pitch(T("impactBell_heavy_001.ogg"), -7), 0, 0.9), (lowpass(win("ethereal_chant_Subclip 01_01.wav", 0, 1.8, 0.6), 3000), 0.05, 0.5)), 0.45, 2.2),
+    reverb(mix((pitch(T("gong_02.ogg"), -3), 0, 0.8), (pitch(T("bell_01.ogg"), -5), 0.0, 0.5)), 0.4, 2.2, seed=2),
+    reverb(mix((lowpass(win("ethereal_chant_Subclip 05_05.wav", 0, 2.2, 0.7), 3500), 0, 0.8), (pitch(T("magical_3.ogg"), -3), 0.1, 0.35)), 0.45, 2.2, seed=3)]
+# Heilung: weiches Aufsteigen (drei Stellen einer Aufnahme)
+S["heal"] = [reverb(win("healing.ogg", 11.4, 12.7, 0.4), 0.3, 1.6), reverb(win("healing.ogg", 14.4, 15.8, 0.4), 0.3, 1.6, seed=2),
+    reverb(win("healing.ogg", 19.95, 21.6, 0.4), 0.3, 1.6, seed=3)]
+# Stärkung (Segen): heller Schimmer über einer leisen Glocke
+S["buff"] = [
+    reverb(mix((T("magical_5.ogg"), 0, 0.9), (pitch(T("impactBell_heavy_004.ogg"), -9), 0.05, 0.5)), 0.35, 1.8),
+    reverb(T("magical_7_0.ogg"), 0.3, 1.6, seed=2),
+    reverb(mix((T("magical_6_0.ogg"), 0, 0.8), (lowpass(win("ethereal_chant_Subclip 08_08.wav", 0, 1.6, 0.6), 3000), 0.1, 0.4)), 0.35, 1.8, seed=3)]
+# Gift und Säure: Blubbern, Zischen, Schleim
+S["poison"] = [reverb(darken(T("burble_01.ogg"), 5000), 0.15, 0.8),
+    reverb(mix((T("bubble_02.ogg"), 0, 0.8), (T("spit_01.ogg"), 0.15, 0.6)), 0.15, 0.8, seed=2),
+    reverb(mix((T("slime_03.ogg"), 0, 0.8), (win("loop_bubbles_1.ogg", 0.5, 1.3, 0.3), 0.05, 0.5)), 0.15, 0.8, seed=3)]
+# Trank: Korken, Glas, Flüssigkeit
+S["potion"] = [
+    mix((T("vial-glass-round-uncork-01.wav"), 0, 0.9), (T("bubble_03.ogg"), 0.35, 0.5)),
+    mix((T("bottle-clay-uncork-02.wav"), 0, 0.9), (win("loop_water_01.ogg", 0.3, 1.0, 0.25), 0.3, 0.4)),
+    mix((T("bottle-glass-uncork-03.wav"), 0, 0.9), (T("vial-glass-small-drop-02.wav"), 0.4, 0.5))]
+# Wurf (Brandflasche, Weihwasser): Glas zerbricht
+S["throw"] = [reverb(T("bfh1_glass_breaking_01.ogg"), 0.15, 0.8),
+    reverb(mix((T("impactGlass_heavy_000.ogg"), 0, 0.8), (T("glass_02.ogg"), 0.03, 0.7)), 0.15, 0.8, seed=2),
+    reverb(mix((T("bfh1_glass_breaking_04.ogg"), 0, 0.8), (trim(L("splash_02.ogg", "x_water-splash")), 0.05, 0.5)), 0.15, 0.8, seed=3)]
+# Umgebung (leise, alle 5–13 s): Vögel am Tag, Grillen und Eule nachts, Tropfen und Knistern in der Höhle
+# Vögel: echte Rufe (absteigende Pfiffe), das Brummen der Aufnahme unter 900 Hz weg
+bird = lambda f, a, b: highpass(win(f, a, b), 900, 4)
+S["bird"] = [far(bird("Forest Birds 1.wav", 0.8, 2.73), 12000, 0.2), far(bird("Forest Birds 4.wav", 0, 2.6), 12000, 0.2, seed=2),
+    far(bird("Forest Birds 6.wav", 0, 1.73), 12000, 0.2, seed=3)]
+# Grillen: nur das Zirpen, das Rauschen der Nacht darunter weg
+cri = lambda f, a, b: highpass(win(f, a, b, 0.4), 2000, 4)
+S["cricket"] = [far(cri("fs_522299.mp3", 1.0, 3.6), 7000, 0.15), far(cri("fs_522299.mp3", 7.0, 9.6), 7000, 0.15, seed=2),
+    far(cri("cricketsounds090613.wav", 3.0, 5.2), 7000, 0.15, seed=3)]
+S["owl"] = [far(win("fs_465697.mp3", 0.15, 4.2, 0.4), 2500, 0.35, 1.6), far(win("fs_558396.mp3", 0.6, 2.9, 0.4), 2500, 0.35, 1.6, seed=2),
+    far(win("fs_558398.mp3", 1.4, 3.4, 0.4), 2500, 0.35, 1.6, seed=3)]
+S["drip"] = [cave(win("atmosbasement.mp3_.flac", 1.1, 1.8, 0.1)), cave(win("fs_696438.mp3", 1.3, 1.7, 0.1), 2),
+    cave(mix((T("fs_348022.mp3"), 0, 0.9), (pitch(T("fs_349873.mp3"), -2), 0.9, 0.6)), 3)]
+def even(x, k=4.0): return np.tanh(k * x / max(1e-9, np.max(np.abs(x))))   # einzelne laute Knacker zähmen, damit das Prasseln hörbar bleibt
+S["crackle"] = [even(win("fs_181563.mp3", 5.7, 8.2, 0.5)), even(win("fs_370938.mp3", 6.0, 8.5, 0.5)), win("fire-1.wav", 0.2, 2.7, 0.5)]
+R2 = list(S)[R2_START:]
+R2_FREI = set()   # Runde-2-Klänge, die der Nutzer schon gewählt hat (nur diese kommen ins Spiel)
+
 # Systemklänge: nur diese Fassung kommt ins Spiel (Stufenaufstieg Nr. 1 gewählt vom Nutzer 11.10.)
 GEWAEHLT = {"level_up": 0, "click": 1, "loot_epic": 0}
 
@@ -85,7 +162,9 @@ def finish(name, x):
 
 if "--proben" in sys.argv:
     out = sys.argv[sys.argv.index("--proben") + 1]; os.makedirs(out, exist_ok=True)
+    nur = sys.argv[sys.argv.index("--nur") + 1].split(",") if "--nur" in sys.argv else list(S)
     for name, takes in S.items():
+        if name not in nur: continue
         for i, x in enumerate(takes): write(os.path.join(out, f"neu_{name}_{i + 1}.wav"), finish(name, x))
     print("Proben:", out)
 else:
@@ -95,6 +174,7 @@ else:
         if f.endswith(".ogg"): os.remove(os.path.join(out, f))
     n = 0
     for name, takes in S.items():
+        if name in R2 and name not in R2_FREI: continue
         chosen = [takes[GEWAEHLT[name]]] if name in GEWAEHLT else takes
         for i, x in enumerate(chosen):
             tmp = os.path.join(out, "_tmp.wav"); write(tmp, finish(name, x))
