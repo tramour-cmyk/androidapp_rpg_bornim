@@ -19,7 +19,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 18d, 18e | Hörproben (Runde 1 und 2) und Monster-Laute | Jerry | – | warten auf den Nutzer (anhören) |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
-| 12.3 | Sprünge in den Kampfbewegungen der Tiere (Wolf, Eber, Riesenratte): `JumpTest.listOthers` meldet 265, nur gelistet | Jerry | – | 12.3a freigegeben 11.10., 12:02; Start in neuer Sitzung |
+| 12.3 | Sprünge in den Kampfbewegungen der Tiere (Wolf, Eber, Riesenratte): `JumpTest.listOthers` meldet 265, nur gelistet | Jerry | – | Befund 11.10., 12:12: keine echten Rucke (`BattleJumpTest` streng 0), nur schnell gegen Kartengrenzen; Rückfragen 12.3b, 12.3c |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
@@ -42,6 +42,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 – nichts offen –
 
 ## Rückfragen an den Nutzer
+
+- **12.3b** (Jerry): Sprungangriff Wolf und Ratte je ein Zwischenbild mehr beim Abheben und Landen (Angriff ~0,1 s länger)? Empfehlung ja.
+- **12.3c** (Jerry): Kampfteil von `listOthers` streichen statt mit Kartengrenzen scharf schalten (Kampf prüft `BattleJumpTest` streng). Empfehlung ja.
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). Empfehlung: festlegen, wenn die Räume fertig sind.
 - **18d** (Jerry): Hörproben auswählen, Runde 1 (Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt) und Runde 2 (17 Klänge, `hoerproben_runde2.zip`). Empfehlung Jerry: erst Runde 1.
