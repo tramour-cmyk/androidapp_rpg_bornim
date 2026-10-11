@@ -15,7 +15,7 @@ Zweig von Jerry (Thema 18 und Hörproben), PR #16, noch nicht getestet:
 
 ## v0.1.471 – 10.10.2026, 22:33
 
-Zweig von Tom (Thema 13 und Vorarbeiten), getestet in 0.1.461, PR #17:
+Zweig von Tom (Thema 13 und Vorarbeiten), getestet in 0.1.461, PR #17; als Release getestet am 11.10. („lief gut“):
 
 **Karte: diagonale Sicht (13)**
 - Die Karte wird schräg von oben gezeigt; der Held läuft frei statt von Feld zu Feld (13g).
