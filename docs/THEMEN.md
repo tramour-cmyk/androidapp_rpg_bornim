@@ -23,3 +23,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 17 | Nachschwingen | Tom | freigegeben, offen | `OFFEN.md` |
 | 18 | Pechsträhnen dämpfen, Hörproben | Jerry | erledigt, v0.1.479; 18d, 18e (Hörproben) beim Nutzer | `OFFEN.md` |
 | 19 | Zeitablauf der Kampfbewegungen | Jerry | erledigt, v0.1.455; 19e zur Beobachtung | `OFFEN.md` |
+| 20 | Uhrzeit der APK im ZIP | Tom | gemeldet 11.10., Vorschlag offen | `OFFEN.md` |
