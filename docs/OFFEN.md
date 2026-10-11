@@ -29,11 +29,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (11.10., 21:00, vor Neustart)
+### Tom (11.10., 21:42, vor Neustart)
 
-- **Auf `main`:** PR #34 (24.4, 24.9–24.13, 20:37) und PR #35 (24.14, 24.15, 21:00), beide in CHANGELOG „Unveröffentlicht“. Kein offener Zweig.
-- **Als Nächstes:** 24.5 (Kampfbilder vorladen, sobald ein Gegner bemerkt/nahe; neuer Zweig von `main`, vorher messen); dann 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
-- Hinweis: APK-Download in den Chat scheiterte 20:49 (Netzregel sperrt `productionresultssa7.blob.core.windows.net`); Nutzer kann den Server in den Umgebungseinstellungen freigeben.
+- **24.5** auf Zweig `claude/eager-hypatia-o148lt` (Commit „24.5: Kampfbilder schon auf der Karte vorzeichnen“, `core/.../art/BattleAhead.kt`, Aufruf in `WorldScreen` neben `MapFigure.prepare`, Zeiten in `BattleScreen`, Test-Reiter, Kerntest `BattleAheadTest`), Build 0.1.541 getestet: Held ok, Gegner nie vorgezeichnet (siehe „Zu testen“). Kein PR.
+- **Als Nächstes (24u ja, 21:42), gleicher Zweig, ein Build:** 24.16 Test-Reiter-Zeile (Bilder vorgezeichnet/gesamt, Wartezeit auf Karte, Gegnerart), 24.17 zwei Kerne statt einem (`SdfRender.alone` aus, z. B. eigener Pool mit 2 Fäden, niedrige Priorität), 24.18 Reihenfolge: Eröffnung+Stehen des Helden → Gegner → Rest des Helden (`HeroBattle.prepare` hat `onOpening`). Vorher `main` in den Zweig holen. Messtest-Vorlage: `BattleDrawMeasure.kt` im Kerntest-Stil (nicht eingecheckt).
+- Danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17. APK nur als Link (Regel 21:25).
 
 ### Jerry (11.10., 21:33)
 
@@ -42,7 +42,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **0.1.541 (Tom, 24.5)**: Test 21:39 (Höhle, langsam hingegangen): Kampf bereit Eröffnung 1,3 s, Held 13,6 s, Gegner 3,3 s → Vorzeichnen wirkte nicht (oder zu langsam). Vorschläge 24.16 (Anzeige: was vorgezeichnet wurde, wie lange gewartet), 24.17 (Vorzeichnen mit 2 Kernen), Rückfrage 24u. Test 2 (Höhle → Wald, direkt auf Wolf): Eröffnung 0,0 s, Held 0,6 s, Gegner 4,0 s → Held ok (auch aus dem Kampf davor), Gegner kam nie dran; Vorschlag 24.18 (Gegner gleich nach der Eröffnung des Helden).
+- **0.1.541 (Tom, 24.5)**: Test 21:39 (Höhle, langsam hingegangen): Kampf bereit Eröffnung 1,3 s, Held 13,6 s, Gegner 3,3 s → Vorzeichnen wirkte nicht (oder zu langsam). Vorschläge 24.16 (Anzeige: was vorgezeichnet wurde, wie lange gewartet), 24.17 (Vorzeichnen mit 2 Kernen), 24u ja (21:42). Test 2 (Höhle → Wald, direkt auf Wolf): Eröffnung 0,0 s, Held 0,6 s, Gegner 4,0 s → Held ok (auch aus dem Kampf davor), Gegner kam nie dran; Vorschlag 24.18 (Gegner gleich nach der Eröffnung des Helden).
 
 
 ## Rückfragen an den Nutzer

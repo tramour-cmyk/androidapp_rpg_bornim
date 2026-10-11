@@ -4,6 +4,12 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Übergabe Tom (11.10., 21:00), ersetzt 11.10., 21:42
+
+- **Auf `main`:** PR #34 (24.4, 24.9–24.13, 20:37) und PR #35 (24.14, 24.15, 21:00), beide in CHANGELOG „Unveröffentlicht“. Kein offener Zweig.
+- **Als Nächstes:** 24.5 (Kampfbilder vorladen, sobald ein Gegner bemerkt/nahe; neuer Zweig von `main`, vorher messen); dann 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
+- Hinweis: APK-Download in den Chat scheiterte 20:49 (Netzregel sperrt `productionresultssa7.blob.core.windows.net`); Nutzer kann den Server in den Umgebungseinstellungen freigeben.
+
 ## Übergabe Jerry (11.10., 20:07), ersetzt 11.10., 21:33
 
 - **28 Musik:** Auswahl fest (Tabelle), Zweig `ccr-b884f8a3-csketc` (nur `tools/klang/QUELLEN.md` und `musik_holen.sh`, kein Spielcode). Heute spielt `MusicPlayer` erzeugte `Songs` (title, overworld, battle, boss; Auswahl in `App.kt`).
