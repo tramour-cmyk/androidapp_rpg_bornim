@@ -30,15 +30,26 @@ def room(x, wet=0.35, decay=1.4, seed=1): return reverb(x, wet, decay, damp=3500
 
 wind = highpass(L("wind background noise 2.wav"), 60)
 park = highpass(L("park_ambience_wind.wav"), 60)
-voices = highpass(L("montageAudio-20120409@020248.mp3"), 120)
+bar1 = highpass(L("bsb_0480.mp3"), 100)
+crowd = highpass(L("bsb_3515.mp3"), 100)
+rest = highpass(L("bsb_3542.mp3"), 100)
+clinks = [trim(L("bsb_1323.mp3")), trim(L("bsb_1324.mp3")), trim(L("bsb_1935.mp3")), cut(L("bsb_0472.mp3"), 2.0, 3.2, 0.005, 0.2)]
+
+def inn(x, a, hits, seed=1):
+    """Stimmen ab [a] s als Schleife, gedämpft wie durch eine volle Stube; Becher und Gläser [(Zeit, Nr.)] darin."""
+    y = lowpass(loop(x, a), 2300, 2)
+    for t, k in hits:
+        c = lowpass(clinks[k], 6000, 2) * 0.35
+        i = int(t * SR); n = min(len(c), len(y) - i); y[i:i + n] += c[:n]
+    return room(y, 0.3, 1.2, seed)
 
 LOOPS = {
     # draußen (Dorf, Wald): Wind in Böen, mal hell, mal dumpf
     "wind": [loop(wind, 6.0), loop(lowpass(wind, 3000, 2), 52.0) if len(wind) > 63 * SR else loop(lowpass(wind, 3000, 2), 20.0),
              loop(park, 400.0 / 2)],
-    # Schänke: Stimmengewirr hinter dem Tresen, gedämpft, kein Wort verständlich
-    "tavern": [room(lowpass(loop(voices, 10.0), 2200, 2)), room(lowpass(loop(voices, 45.0), 2000, 2), seed=2),
-               room(lowpass(loop(voices, 80.0), 2400, 2), seed=3)],
+    # Schänke (24v: neue Aufnahmen): Gaststube mit Stimmen hinter Holz und Rauch, dazu Becher und Gläser, die anstoßen;
+    # tief gefiltert, damit kein Wort verständlich ist
+    "tavern": [inn(bar1, 20.0, [(1.2, 0), (6.5, 2)]), inn(crowd, 40.0, [(3.0, 1), (8.1, 3)], 2), inn(rest, 60.0, [(0.8, 3), (4.9, 0), (7.7, 1)], 3)],
     # Tempel: Luft in einer hohen Halle, fast still
     "hall": [room(lowpass(loop(wind, 20.0), 900, 2), 0.6, 3.0), room(lowpass(loop(park, 120.0), 800, 2), 0.6, 3.0, seed=2),
              room(lowpass(loop(wind, 30.0), 1100, 2), 0.6, 3.0, seed=3)],
