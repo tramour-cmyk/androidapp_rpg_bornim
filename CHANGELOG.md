@@ -4,6 +4,13 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Tom (Thema 24, Teil), getestet in 0.1.517, PR #30 (zusammengeführt 11.10., 17:08):
+
+**Held auf der Karte schneller bereit (24.2, 24.3)**
+- Nach Spielstart werden zuerst die Bilder gezeichnet, die man sofort sieht: der Held stehend in allen Richtungen und gehend in seiner Blickrichtung; der Rest folgt im Hintergrund.
+- Nach einem Ausrüstungswechsel läuft der Held mit der alten Ausrüstung weiter, bis die neue gezeichnet ist, statt ohne Beinbewegung zu gleiten.
+- Vorbereitung für den Zwischenbildschirm (24.1): Sätze für alle Orte auf Deutsch und Englisch (noch nicht sichtbar).
+
 Zweig von Tom (Thema 25), getestet in 0.1.512, PR #28 (zusammengeführt 11.10., 16:31):
 
 **Laternen und Fenster leuchten nachts (25)**
