@@ -40,6 +40,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
+– nichts offen –
 
 ## Rückfragen an den Nutzer
 
