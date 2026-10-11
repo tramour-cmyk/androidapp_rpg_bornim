@@ -19,6 +19,8 @@ Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`.
 
 ### Feste Weck-Sitzungen (seit 11.10., 11:10)
 
+Letzter Test der Weck-Sitzung (Tom): 11.10., 11:27 Berlin, Push ok, Repo als Quelle: ja (angehängt per add_repo: nein)
+
 **Ursache 10./11.10.:** Die Weck-Sitzungen konnten klonen und lesen, aber nicht pushen: Eine geplante Aufgabe, die von einer Sitzung aus angelegt wird, bekommt **kein Repo als Quelle** mit („not in this session's authorized repository set“). Darum endeten alle drei nach unter einer Minute.
 
 **Jetzt fest eingerichtet (Tom):** drei tägliche Routinen „Tom Nachtarbeit 00:24 / 03:14 / 05:54“ (Berliner Zeit). Sie arbeiten nur, wenn in der Tabelle oben die Zeile „Tom“ auf `läuft` oder `wartet auf Grenze` steht und unten ein Paket für Tom eingetragen ist; sonst beenden sie sich sofort (kostet fast nichts). Fehlt das Schreibrecht, hängen sie das Repo selbst mit `add_repo` an.
