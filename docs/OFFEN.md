@@ -28,12 +28,12 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (11.10., 14:36)
+### Tom (11.10., 15:40)
 
-- **5 Dorf:** Zweig `tom-dorf` (mit `main`), [PR #24](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/24) getestet (0.1.504) und zusammengeführt (14:52). **Als Nächstes:** 24.1–24.3 bauen (entschieden), 25 nach Entscheidung.
-- Rückmeldung Test 0.1.501 (noch zu besprechen, **5l**): Marktplatz sehr groß, wenig darauf, „wenig los im Dorf“; Gänse rechts unten gefallen; Wunsch nach Hühnern, Katzen, Hunden u. Ä. Nachts sehr dunkel, aber stimmig. Vorschlag für die neue Sitzung: 5.5 „Leben im Dorf“ (Tiere, Leute bei der Arbeit, Platz dichter: mehr Stände, Karren, Kisten oder Platz verkleinern).
-- Code: `core/.../art/MapTownIso.kt` (Häuser in Streifen, `Tile1` mit `plane`/`box`/`cylinder`, Dinge auf dem Platz), Fenster aus dem Raum `windowsFromRoom`, Durchsicht in `WorldScreen.hides` (Gruppe + Pixeltest). Vorschau `ISODINGE=dorf|platz`, `KARTENZOOM=1 DIAG=1 TOWNDRAFT=1 ONLY=zoom_nah_d`.
-- Danach Vorrat in `docs/SELBST.md` (5.3 Dorfbewohner als Puppen, 5.4, 17, 14, …). Routinen alle 3 h eingerichtet; die fünf neuen (09:24–21:24) braucht der Nutzer noch mit Repo und „automatisch“.
+- **25 Laternen und Fenster:** Zweig `claude/fervent-einstein-bewehx` (mit `main`, alles gepusht), Zweig-Build **0.1.512** zu testen, noch kein PR. Nach Test: PR anlegen, grün → selbst zusammenführen, „Unveröffentlicht“ ergänzen. Code: `WorldArt.Glow` (Bild, was nachts selbst leuchtet), `MapTownIso.lampGlow`/`litWindows` (Nacht- minus Tagbild je Hausstreifen), in `WorldScreen` nach dem Licht gezeichnet (`glowing`, Stärke `MapLight.strength(NIGHT)`). Kerntest `LampGlowTest`, Vorschau `KARTENZOOM=1 DIAG=1 TOWNDRAFT=1 ONLY=zoom_nah_d7` (Nacht) / `d8` (Dämmerung).
+- **24 als Nächstes (neue Sitzung):** Plan in „Wer macht was“: erst messen (Zeit bis alles gezeichnet: `MapFigure.prepare`, `MapRest`, `MapFolk.prepareFor`, `MapGround.prepare`, Kampf `HeroBattle.prepare`/`MonsterArt.prepare` in `BattleScreen` ~1204/~901), dann 24.2/24.3, 24.1 Übergangsbild, 24.5 Kampfbilder auf der Karte vorladen; 24.6 macht Jerry. Vorher `STIL.md`-Abgleich (Blende im Stil, Übergang weich), Kerntest „Übergangsbild endet, wenn fertig oder nach ca. 4 s“.
+- **5l / 5.5 Leben im Dorf** nach 24 (Nutzer 14:55): Tiere (Hühner, Katzen, Hunde), Leute bei der Arbeit, Platz dichter; erst Standbilder. Dann 5.3, 5.4.
+- Routinen: die fünf neuen (09:24–21:24) braucht der Nutzer noch mit Repo und „automatisch“.
 
 ### Jerry (11.10., 15:20)
 
@@ -43,6 +43,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
+- **0.1.512** (Tom, 25, `claude/fervent-einstein-bewehx`, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38143518053/artifacts/11703464207)): Laternenglas und Hausfenster leuchten nachts, glimmen in der Dämmerung auf.
 - **0.1.511** (Jerry, 18k, PR #27, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38142607722/artifacts/11703910683)): Knistern als nahtlose Schleife.
 
 – nichts offen –

@@ -27,4 +27,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 21 | Releaseflut eindämmen | Jerry | erledigt 11.10. (PR #22; Release nur auf Zuruf, Regeln in `CLAUDE.md`) | `OFFEN.md` |
 | 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | Tom | umgesetzt 11.10. (`docs/SELBST.md`) | `OFFEN.md` |
 | 23 | Aufgabenteilung und Vorrat für Selbstarbeit | Tom | erledigt 11.10. (`SELBST.md`) | `OFFEN.md` |
-| 25 | Laternen nachts als Quelle zu dunkel | Tom | gemeldet 11.10., 14:52 | `OFFEN.md` |
+| 25 | Laternen und Fenster nachts als Quelle zu dunkel | Tom | umgesetzt, 0.1.512 zu testen | `OFFEN.md` |
