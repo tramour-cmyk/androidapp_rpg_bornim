@@ -73,6 +73,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun play(s: Sound, volume: Float = 0.8f) = sfx.play(s, volume)
+    fun voice(id: String, cue: de.bornim.core.audio.Recorded.Cue, volume: Float = 0.8f) = sfx.voice(id, cue, volume)
 
     /** Touch controls (drag and tap) or the classic D-pad. */
     var touchControls by mutableStateOf(prefs.getString(KEY_CONTROLS, "touch") != "classic")

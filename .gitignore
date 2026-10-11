@@ -10,3 +10,4 @@ captures/
 tools/preview/build/
 bornim.bundle
 bornim-source.zip
+__pycache__/

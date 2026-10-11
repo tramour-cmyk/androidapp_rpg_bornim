@@ -7,6 +7,8 @@ plugins {
 }
 
 android {
+    // the recorded sounds (assets/sfx) are played straight from the APK by SoundPool: they must not be compressed
+    androidResources { noCompress += "ogg" }
     namespace = "de.bornim.game"
     compileSdk = 35
 
