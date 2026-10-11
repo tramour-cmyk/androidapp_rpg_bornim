@@ -35,22 +35,23 @@ private const val W = 1080
 private const val H = 2340
 private val out = File("build/screens").apply { mkdirs() }
 
-private fun GameViewModel.ensureLang(l: Lang) {
+internal fun GameViewModel.ensureLang(l: Lang) {
     if (lang != l) toggleLang()
 }
 
-private fun Game.skipDialogs() {
+internal fun Game.skipDialogs() {
     var guard = 0
     while (mode is Mode.Dialog && guard++ < 50) advance()
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
-private fun shot(name: String, lang: Lang = Lang.DE, taps: List<Offset> = emptyList(), lastFrames: Int = 30, setup: (GameViewModel) -> Unit) {
+private fun shot(name: String, lang: Lang = Lang.DE, taps: List<Offset> = emptyList(), lastFrames: Int = 30,
+                 over: (@androidx.compose.runtime.Composable () -> Unit)? = null, setup: (GameViewModel) -> Unit) {
     System.getenv("ONLY")?.let { if (!name.startsWith(it)) return }
     val vm = GameViewModel(Application())
     vm.ensureLang(lang)
     setup(vm)
-    val scene = ImageComposeScene(W, H, Density(2.75f)) { BornimApp(vm) }
+    val scene = ImageComposeScene(W, H, Density(2.75f)) { androidx.compose.foundation.layout.Box { BornimApp(vm); over?.invoke() } }
     var time = 0L
     var img: Image? = null
     fun frames(n: Int) = repeat(n) {
@@ -111,6 +112,7 @@ fun main() {
     // TOWNDRAFT=1: the village and the rooms in the new style, for the films too
     if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true
     System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
+    if (System.getenv("BLENDEFILM") != null) { veilFilm(); System.exit(0) }
     System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
     if (System.getenv("FOEFILM") != null) { foeFilm(); System.exit(0) }
     if (System.getenv("WARDFILM") != null) { wardFilm(); System.exit(0) }
@@ -130,6 +132,24 @@ fun main() {
             println("$id: ${flies.size} fireflies, under them: $kinds; lit at once in a view: avg ${"%.2f".format(sum.toDouble() / views)}, most $most")
         }
         println("nights with fireflies (day 1..20): " + (1..20).filter { de.bornim.game.ui.Fireflies.tonight(it, 23 * 60) })
+        System.exit(0)
+    }
+    if (System.getenv("BLENDE") != null) {
+        // 24.1: the black screen between places, at full strength, with only the name, and half faded over the map
+        fun village(vm: GameViewModel, minutes: Int) {
+            vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
+            val g = vm.game!!; g.skipDialogs()
+            de.bornim.game.ui.MapSight.diagonal = true
+            g.state.place = Place("village", 11, 7, Facing.UP); g.state.minutes = minutes
+            val m = de.bornim.core.World["village"]
+            g.state.explored["village"] = "f".repeat((m.width * m.height + 3) / 4)
+            de.bornim.core.art.MapGround.prepareNow(m); de.bornim.core.art.MapFigure.prepareNow(g.state.hero)
+            vm.refresh()
+        }
+        shot("blende_1_bornim", over = { de.bornim.game.ui.InterludeVeil("Bornim", "Du kehrst nach Bornim zurück. Niemand fragt, woher das Blut an deinem Mantel stammt.", 1f, 1f) }) { village(it, 12 * 60) }
+        shot("blende_2_hoehle", over = { de.bornim.game.ui.InterludeVeil("Blutzahnhöhle", "Der Eingang der Blutzahnhöhle gähnt wie ein Maul.", 1f, 1f) }) { village(it, 12 * 60) }
+        shot("blende_3_kurz", over = { de.bornim.game.ui.InterludeVeil("Thessas Kramladen", null, 1f, 1f) }) { village(it, 12 * 60) }
+        shot("blende_4_auftauchen", over = { de.bornim.game.ui.InterludeVeil("Bornim", "Bornim schläft. Nur hinter wenigen Fenstern brennt noch Licht.", 0.55f, 0f) }) { village(it, 23 * 60) }
         System.exit(0)
     }
     if (System.getenv("KARTENZOOM") != null) {

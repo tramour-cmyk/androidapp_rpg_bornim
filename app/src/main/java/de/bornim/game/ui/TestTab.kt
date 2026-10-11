@@ -49,6 +49,8 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         Txt(t("Testmodus", "Test mode"), size = 18.sp, bold = true)
 
         Txt(t("Stufe", "Level") + ": ${h.level}   ·   " + t("Gold", "Gold") + ": ${game.state.gold}", size = 16.sp)
+        // 24.1: how long the last black screen between places waited until everything was drawn
+        Txt(t("Blende: bereit nach ", "Veil: ready after ") + (VeilMemory.readyAfterMs?.let { "%.1f s".format(it / 1000f) } ?: "–"), size = 13.sp)
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             for (d in listOf(-5, -1, 1, 5)) {
                 PixelButton(if (d > 0) "+$d" else "$d", Modifier.weight(1f), size = 15.sp) {
