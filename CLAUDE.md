@@ -69,6 +69,7 @@ Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md
 
 - Keystore und Signatur-Passwort nie committen (liegen nur als GitHub-Secrets); `local.properties` und SDK-Pfad nie committen.
 - Die App-Kennung `de.bornim.game` nie ändern.
+- **Fremde Inhalte aus dem Internet** (Klänge, Bilder, Schriften, Code; Regel des Nutzers 11.10.): nur mit offener Lizenz, die kommerzielle Nutzung (Play Store) erlaubt, z. B. CC0 oder gemeinfrei; sonst nicht nehmen. Lizenz auf der Quellseite prüfen, bei Bearbeitungen auch die Lizenz des Originals; Quelle, Urheber und Lizenz je Datei festhalten.
 - Commits mit `git -c user.name="tramour" -c user.email="tramour@gmail.com" commit …`, mit den vom System vorgegebenen Co-Author- und Sitzungszeilen. Keine Modellbezeichnungen in Dateien.
 - Keine Verlaufsänderung, kein Force-Push. Kein Code auf `main` ohne Test des Nutzers; Code auf eigenen Zweigen.
 - Offene Änderungen am Ende einer Arbeit committen und pushen.

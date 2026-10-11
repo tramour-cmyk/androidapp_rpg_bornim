@@ -4,6 +4,12 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Übergabe Jerry (11.10., 11:59), ersetzt 11.10., 12:43
+
+- Kein offener Zweig. `main` = v0.1.479 (18). Hörproben Runde 1, 2 und Monster-Laute als Entwürfe in `core` (`Sfx.proposed`, `Sfx.monsterProposal`, Vorschau `KLANGPROBEN=1|2|MONSTER`).
+- Als Nächstes: 9i nach Toms 13; 10, 11 nach 13e; 12.3 freigegeben (11.10., 12:02): Befund je Tier und Bewegung, dann beheben, `listOthers` danach scharf. Nutzer hört gerade die Hörproben (18d, 18e). Feste Weck-Routinen 00:27, 03:17, 05:57 eingerichtet und getestet (`docs/NACHT.md`).
+- APK in den Chat: `gh api -H "Accept: application/octet-stream" repos/tramour-cmyk/androidapp_rpg_bornim/releases/assets/<id>` (id aus `releases/latest`); Artefakte von Zweig-Builds gehen seit 11.10. mit `gh api repos/…/actions/artifacts/<id>/zip`.
+
 ## Übergabe Jerry (11.10., 11:35), ersetzt 11.10., 11:59
 
 - 18 Pechsträhnen getestet (0.1.472), PR #16 zusammengeführt, Release **v0.1.479**. Kein offener Zweig. Hörproben Runde 2 und Monster-Laute liegen als Entwürfe in `core` (`Sfx.proposed`, `KLANGPROBEN=…`).

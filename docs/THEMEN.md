@@ -15,7 +15,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 9 | Monster auf der Karte | Jerry | Wolf, Goblin, Grimmzahn erledigt (v0.1.430, v0.1.438); 9i übrige Gegner offen, nach 13 | `OFFEN.md` |
 | 10 | Höhle: Flammen feiner | Jerry | zurückgestellt bis zur diagonalen Höhle (13e) | `OFFEN.md` |
 | 11 | Höhle: Lichtstrahl am Lichtschacht | Jerry | zurückgestellt bis zur diagonalen Höhle (13e) | `OFFEN.md` |
-| 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Jerry, Tom | 12a, 12b erledigt (v0.1.455, v0.1.471); 12.3 offen | `OFFEN.md` |
+| 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Jerry, Tom | 12a, 12b, 12.3 erledigt (v0.1.455, v0.1.471, v0.1.483) | `OFFEN.md` |
 | 13 | Diagonale Sicht | Tom | Schänke erledigt (v0.1.471); Laden, Ältester, Tempel in Arbeit | `OFFEN.md` |
 | 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für `OFFEN.md`) | Tom | freigegeben, offen | `OFFEN.md` |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | erledigt 11.10. | Archiv |
@@ -23,3 +23,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 17 | Nachschwingen | Tom | freigegeben, offen | `OFFEN.md` |
 | 18 | Pechsträhnen dämpfen, Hörproben | Jerry | erledigt, v0.1.479; 18d, 18e (Hörproben) beim Nutzer | `OFFEN.md` |
 | 19 | Zeitablauf der Kampfbewegungen | Jerry | erledigt, v0.1.455; 19e zur Beobachtung | `OFFEN.md` |
+| 20 | Uhrzeit der APK im ZIP | Tom | gemeldet 11.10., Vorschlag offen | `OFFEN.md` |

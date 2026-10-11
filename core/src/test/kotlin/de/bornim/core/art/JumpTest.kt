@@ -10,9 +10,9 @@ import kotlin.test.assertTrue
  * joint, the look or the place moves further from one picture to the next than a limit allows. The goal is 0 reports,
  * as for the clashes.
  *
- * What is held to 0 (fails the build): the monsters on the map (9: walk, standing about with every stance going in and
- * out, walk to stand and back, the mates of a pack following a turning leader). What is only listed (printed, for the
- * one whose area it is): the folk standing on the map ([MapRest]) and the moves of the battle ([BeastArt], [FoeArt]).
+ * Held to 0 (fails the build): the monsters on the map (9: walk, standing about with every stance going in and out,
+ * walk to stand and back, the mates of a pack following a turning leader) and, since 12b, the hero and the folk on the
+ * map. The moves of the battle are fast and checked with limits of their own in [BattleJumpTest] (12a; 12.3c).
  */
 class JumpTest {
     /** One report: where, between which pictures, what moved and by how much against what limit. */
@@ -183,21 +183,5 @@ class JumpTest {
         val all = folk()
         all.distinctBy { "${it.case.substringBefore(" (")} ${it.field}" }.take(20).forEach { println("SPRUNG  $it") }
         assertTrue(all.isEmpty(), "${all.size} Sprünge bei Held und Leuten auf der Karte, zuerst: ${all.firstOrNull()}")
-    }
-
-    /** Listed only: the battle moves; for the one whose area it is. */
-    @Test
-    fun listOthers() {
-        val out = mutableListOf<Jump>()
-        // the battle moves, picture by picture, of the animals and the foes on the doll
-        for (id in listOf("wolf", "boar", "giant_rat")) for (act in Act.entries) for (v in 0 until BeastArt.variants(act)) {
-            val seq = runCatching { BeastArt.sequence(id, act, v) }.getOrNull() ?: continue
-            out += stream("Kampf $id $act $v", seq.rigs.mapIndexed { i, r -> "Bild $i" to r })
-        }
-        val counts = out.groupingBy { it.case.substringBefore(" (") }.eachCount()
-        println("SPRUNG-LISTE (nur gemeldet): ${out.size} Sprünge")
-        counts.forEach { (k, v) -> println("  $k: $v") }
-        out.take(30).forEach { println("  $it") }
-        System.getenv("SPRUNGLISTE")?.let { java.io.File(it).writeText(out.joinToString("\n")) }
     }
 }

@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 20** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 21** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Nachtarbeit](NACHT.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -10,16 +10,16 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
-| 13 | Diagonale Sicht | Tom | `tom-diagonal` | Schänke auf `main` (v0.1.471). Laden, Haus des Ältesten, Tempel als Entwurf fertig (nur Vorschau); entschieden 11.10.: Grundriss A für alle drei, Tempelwände aus Stein mit Rundbogenfenstern. Als Nächstes ins Spiel unter „Dorf und Räume“ |
+| 13 | Diagonale Sicht | Tom | `tom-diagonal` | Schänke auf `main` (v0.1.471). 11.10., 12:40: Ältester, Laden, Tempel mit Grundriss A im Spiel (Tempel Stein, Seitengänge für Lyra), Kerntest `RoomPlanTest`; Zweig-Build 0.1.482 zum Testen. Danach: Dorf draußen |
 | 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | nach den Räumen von 13 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 14 | Neustart-Haken: misst Gesprächsgröße, Hinweis an die Sitzung | Tom | neu von `main` (Werkzeug, PR) | freigegeben 10.10. |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; nach 13 |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
-| 18 | Klänge neu: Hörproben (18d) und Monster-Laute (18e) abgelehnt 11.10., 12:10 („klingt wie Pokémon“) | Jerry | – | 18.5 echte Aufnahmen (CC0): `hoerproben_18_echt.zip` (Runde 1, Wolf, Goblin, Skelett) 12:27 beim Nutzer; Werkzeug noch im Notizblock der Sitzung |
+| 18 | Klänge neu aus echten Aufnahmen (CC0) | Jerry | `claude/session-start-l65s4j`, PR #19 | 18.7 umgesetzt; Zweig-Build 0.1.486 beim Nutzer; danach Runde 2 und übrige Gegner |
+| 20 | Uhrzeit der APK im ZIP 2 h zu früh (ZIP speichert Ortszeit ohne Zone, Runner läuft in UTC) | Tom | neu von `main` (Workflow, PR) | gemeldet 11.10., 12:55; Vorschlag: `TZ=Europe/Berlin` beim Hochladen |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
-| 12.3 | Sprünge in den Kampfbewegungen der Tiere | Jerry | `claude/session-start-l65s4j`, PR #18 | 12.3b, 12.3c umgesetzt 12:13; Zweig-Build 0.1.481 beim Nutzer |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
@@ -31,19 +31,20 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Als Nächstes:** Grundriss A von Ältestem, Laden und Tempel ins Spiel (unter dem Schalter „Dorf und Räume“), Tempelwände Stein, Kerntest (Held erreicht Person und Tür), Zweig-Build. Dann 17, dann 14.
 - Feste Weck-Routinen für Tom eingerichtet und getestet (`docs/NACHT.md`).
 
-### Jerry (11.10., 11:59)
+### Jerry (11.10., 12:43)
 
-- Kein offener Zweig. `main` = v0.1.479 (18). Hörproben Runde 1, 2 und Monster-Laute als Entwürfe in `core` (`Sfx.proposed`, `Sfx.monsterProposal`, Vorschau `KLANGPROBEN=1|2|MONSTER`).
-- Als Nächstes: 9i nach Toms 13; 10, 11 nach 13e; 12.3 freigegeben (11.10., 12:02): Befund je Tier und Bewegung, dann beheben, `listOthers` danach scharf. Nutzer hört gerade die Hörproben (18d, 18e). Feste Weck-Routinen 00:27, 03:17, 05:57 eingerichtet und getestet (`docs/NACHT.md`).
-- APK in den Chat: `gh api -H "Accept: application/octet-stream" repos/tramour-cmyk/androidapp_rpg_bornim/releases/assets/<id>` (id aus `releases/latest`); Artefakte von Zweig-Builds gehen seit 11.10. mit `gh api repos/…/actions/artifacts/<id>/zip`.
+- `main` = v0.1.483 (12.3b, 12.3c; PR #18 zusammengeführt). Kein offener Zweig.
+- 18: Hörproben aus echten Aufnahmen (CC0) beim Nutzer (`hoerproben_18_echt.zip`, Rückfrage 18g). Werkzeug (Python: `klang.py`, `recipes.py`) liegt nur im Notizblock dieser Sitzung; bei Zusage als `tools/klang/` in einen eigenen Zweig, Dateien nach `app/src/main/assets`.
+- Als Nächstes: 18 nach Rückmeldung; 9i nach Toms 13; 10, 11 nach 13e. Feste Weck-Routinen 00:27, 03:17, 05:57.
+- APK in den Chat: Release `gh api -H "Accept: application/octet-stream" repos/tramour-cmyk/androidapp_rpg_bornim/releases/assets/<id>`; Zweig-Artefakt `gh api repos/…/actions/artifacts/<id>/zip`.
 
 ## Zu testen
 
-- **0.1.481** (Jerry, 12.3b/c): Sprungangriff Wolf und Riesenratte (weicher beim Abheben und Landen); sonst keine sichtbare Änderung. Link: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38131186527
+- **0.1.486** (Jerry, 18.7, [Lauf](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38133810486)): Klänge Runde 1 aus Aufnahmen, Stimmen Wolf, Goblin, Skelett im Kampf.
+- **0.1.482** (Tom, 13, `tom-diagonal`, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38132308756/artifacts/11699796980)): Ältester, Laden, Tempel mit Grundriss A; Prüfliste im Chat 11.10., 12:42.
 
 ## Rückfragen an den Nutzer
 
-- **18g** (Jerry): Hörproben `hoerproben_18_echt.zip` (echte Aufnahmen): welche je Klang, Richtung passt?
 
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). Empfehlung: festlegen, wenn die Räume fertig sind.
