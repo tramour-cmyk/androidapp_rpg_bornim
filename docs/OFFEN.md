@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 26** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 30** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -22,6 +22,10 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 23 | Aufgaben so aufteilen, dass Tom und Jerry auch in Selbstarbeit genug Vorrat haben | Tom | `main` (Notizen) | 23a ja (14:18): je 8 Punkte im Vorrat (`docs/SELBST.md`), neue nur als Entwürfe/Hörproben. **Jerry:** deine Punkte 4–8 sind eingetragen |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
 | 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik); Jerry (Inhalt) | `claude/adoring-franklin-cqhg5a` | 24a–k ja (16:32), Entwurf [`ZWISCHENBILD.md`](ZWISCHENBILD.md). **Tom:** Messen, 24.2/24.3, Blende für Orte und Kämpfe (24.1 + Mechanik 24.7), 24.5, 24.6; Datenformat steht: `core/.../Interlude.kt` (Commit b2c5f07), Orte gefüllt; **Jerry:** `openings` (je `Start`) und `foes` (je Monster-ID) als `T(de, en)` füllen, auf eigenem Zweig von b2c5f07 aus, nur diese beiden Listen ändern. Messung 16:36: Held Karte 128 Bilder 2,2 s (Rechner), Kampf Held 313 Bilder 10,9 s. **Jerry:** Kampfsätze DE/EN (auch die 7 übrigen Gegner) in dieses Format, knapper Kampftext in `Battle.kt`, Klang in der Blende 24.8 (CC0 nach dem Bau), danach Kampfabläufe filmen. 24i: ganzer Satz nur beim ersten Besuch, danach Ortsname ca. 1 s, Türen im Dorf nur Blende 0,3 s, wenn alles gezeichnet. 24f: volles Kampfbild nur beim ersten Kampf je Gegnerart und bei Bossen, sonst ca. 1 s. 24j: Tom schreibt Englisch der Ortssätze |
+| 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | festgelegt 11.10., 16:50 (Berater); erledigte Punkte dort abhaken |
+| 27 | Wald „Ort fertig“ (Liste in `STIL.md`): vor allem diagonale Zeichnung, Bäume rund | Tom | – | 11.10., 16:50; nach 24 und 5l; zuerst Standbilder Wald gegen Dorf, Lückenliste |
+| 28 | Musik neu im neuen Stil (düster, mehrere Stücke je Lage, freie Lizenzen) | Jerry | – | 11.10., 16:50; erst Hörproben |
+| 29 | Nebenquests über ein Anschlagbrett (mind. drei Aufträge, Wald und Höhle) | Tom | – | 11.10., 16:50; erst Entwurf der Aufträge zur Freigabe |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 

@@ -28,3 +28,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | Tom | umgesetzt 11.10. (`docs/SELBST.md`) | `OFFEN.md` |
 | 23 | Aufgabenteilung und Vorrat für Selbstarbeit | Tom | erledigt 11.10. (`SELBST.md`) | `OFFEN.md` |
 | 25 | Laternen und Fenster nachts als Quelle zu dunkel | Tom | erledigt, getestet 0.1.512, PR #28 | `OFFEN.md` |
+| 26 | Kapitel 1 fertig (Zielliste) | Tom und Jerry | festgelegt 11.10. | `KAPITEL1.md` |
+| 27 | Wald „Ort fertig“ | Tom | offen | `OFFEN.md` |
+| 28 | Musik neu | Jerry | offen | `OFFEN.md` |
+| 29 | Nebenquests (Anschlagbrett) | Tom | offen | `OFFEN.md` |
