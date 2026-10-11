@@ -45,7 +45,7 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 
 ## Beobachtungen des Beraters (ungeprüft)
 
-- **Zu Thema 30:** Mehrere Kunst-Objekte nutzen einfache `HashMap`s (z. B. `WorldArt.cache`, `HeroBattle.tips`, `launches`), während seit heute mehrere Hintergrund-Fäden zeichnen. Werden sie gleichzeitig vom Hauptfaden und einem Hintergrund-Faden beschrieben, kann das zufällig abstürzen. Die unbegrenzten Speicher können den Speicher füllen. Beides prüfen, sobald der erste Absturzbericht da ist.
+- **Zu Thema 30 (geprüft 22:58):** Die Bildspeicher von `HeroBattle`, `MapGround`, `MapFolk`, `MapFigure` sind sauber gesperrt (`synchronized`), gleichzeitiger Zugriff dort ist kaum die Ursache. Offen: unbegrenzte Speicher (`WorldArt`, `MapFlora`, `MapTown`, `MapTownIso`) und Lastspitze nach Niederlage (Kartenwechsel); `BattleAhead.run` ohne Fehlerfang.
 
 ## Deine Linie (der Nutzer)
 
