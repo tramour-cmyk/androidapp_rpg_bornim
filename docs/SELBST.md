@@ -11,7 +11,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
 | Tom | läuft | 12.10., 08:00 | 11.10., 23:08 | 11.10., 23:30 | Paket 1, 2 fertig (Build 0.1.552); weiter Reserve: 29 Entwurf | `claude/sharp-davinci-s83a1t` |
-| Jerry | läuft | 12.10., 08:00 | 11.10., 23:17 | 11.10., 23:23 | 24.8.5 Build (PR #38), dann 13e Entwürfe | `ccr-8b450567-umf1s6` |
+| Jerry | läuft | 12.10., 08:00 | 11.10., 23:17 | 11.10., 23:57 | 13e Entwurf 2 (Neustart, Routine übernimmt) | `ccr-8b450567-umf1s6` |
 
 Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
 

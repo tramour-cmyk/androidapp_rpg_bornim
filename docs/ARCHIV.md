@@ -25,6 +25,12 @@ Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistori
 - Danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17. APK nur als Link (Regel 21:25).
 
 
+### Übergabe Jerry (11.10., 22:54, vor Neustart)
+
+- **24.8 erledigt:** getestet 0.1.549, PR #37 zusammengeführt 23:13, CHANGELOG eingetragen. Offen: 24aa/24.8.5 (Überblendung Häuser), Herzschlag mit 24.6.
+- **Danach:** Herzschlag erst mit Kampfblende (24.6, nach Toms 24.5). Danach 13e-Entwürfe.
+- **30 (Selbstarbeit 23:30):** Klang belegt 24 MB nativ (SoundPool: 121 Aufnahmen mono 44,1 kHz 22,6 MB, davon 9 Schleifen à 10 s 7,9 MB; 34 erzeugte 1,5 MB); Musik streamt (MediaPlayer, beim Überblenden bis 4). Einziger Absturzweg: Faden `sfx-render` beim Start ohne Fehlerfang (fehlende Datei, volle Platte); passt nicht zum Muster, wird trotzdem abgesichert (**30.6**, mit 24.8.5). Vorschlag **30.7** (Freigabe): Umgebungsklänge mit 22 kHz laden, spart ca. 5 MB.
+
 ## Übergabe Jerry (11.10., 21:53), ersetzt 11.10., 22:05
 
 - **24.8 Ortsklang in der Blende:** 24t ja (21:45), Herzschlag mitladen. Hörproben geschickt (21:51): Wind, Schänke, Halle (Tempel), Knarren, Herzschlag, je 3. Skript `tools/klang/orte.py` auf Zweig `ccr-d94c036c-bdvewr` (Aufnahmen: OGA mild-wind-background-noise, park-ambiences, background-voices, tree-creaking, heartbeat-sounds, heartbeat-single-sound; Kenney creak1/3; liegen nicht in `holen.sh`, Freesound-CDN gibt gerade 403). **24v (21:55):** Wind, Halle, Knarren, Herzschlag halbwegs ok; **Schänke geht gar nicht** → neu aus BigSoundBank (CC0: Bar 0480, Menge 3515, Gaststube 3542, Gläser 1323/1324/1935/0472), Hörprobe 22:02, **Rückfrage 24w**.
