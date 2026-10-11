@@ -25,3 +25,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 19 | Zeitablauf der Kampfbewegungen | Jerry | erledigt, v0.1.455; 19e zur Beobachtung | `OFFEN.md` |
 | 20 | Uhrzeit der APK im ZIP | Tom | freigegeben 11.10., PR #21 | `OFFEN.md` |
 | 21 | Releaseflut eindämmen | Jerry | erledigt 11.10. (PR #22; Release nur auf Zuruf, Regeln in `CLAUDE.md`) | `OFFEN.md` |
+| 22 | Selbstarbeit (Routinen auch tagsüber, Aufgabenvorrat) | Tom | Vorschlag offen (zuerst als 21 eingetragen, umnummeriert 13:31 wegen Doppelvergabe) | `OFFEN.md` |
