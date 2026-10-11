@@ -47,6 +47,9 @@ jobs:
           cp app/build/outputs/apk/release/app-release.apk bornim.apk
 
       - uses: actions/upload-artifact@v4
+        # ZIP stores local time without a zone; pack in Berlin time so the phone shows the right time.
+        env:
+          TZ: Europe/Berlin
         with:
           name: bornim-apk
           path: bornim.apk
