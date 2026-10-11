@@ -42,7 +42,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **0.1.541 (Tom, 24.5)**: Gegner nahe → Kampf läuft ab dem ersten Bild? Test-Reiter „Kampf bereit“ ablesen (nach Warten / sofort); Ruckeln beim Laufen nahe Gegnern?
+- **0.1.541 (Tom, 24.5)**: Test 21:39 (Höhle, langsam hingegangen): Kampf bereit Eröffnung 1,3 s, Held 13,6 s, Gegner 3,3 s → Vorzeichnen wirkte nicht (oder zu langsam). Vorschläge 24.16 (Anzeige: was vorgezeichnet wurde, wie lange gewartet), 24.17 (Vorzeichnen mit 2 Kernen), Rückfrage 24u.
 
 
 ## Rückfragen an den Nutzer
