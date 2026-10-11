@@ -18,6 +18,14 @@ Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistori
 - **Als Nächstes (24u ja, 21:42), gleicher Zweig, ein Build:** 24.16 Test-Reiter-Zeile (Bilder vorgezeichnet/gesamt, Wartezeit auf Karte, Gegnerart), 24.17 zwei Kerne statt einem (`SdfRender.alone` aus, z. B. eigener Pool mit 2 Fäden, niedrige Priorität), 24.18 Reihenfolge: Eröffnung+Stehen des Helden → Gegner → Rest des Helden (`HeroBattle.prepare` hat `onOpening`). Vorher `main` in den Zweig holen. Messen: kleiner Kerntest wie `BattleAheadTest` mit Zeitstempeln im `cancelled`-Lambda (Rechner: Kampf Held 4,6 s alle Kerne, 13,9 s ein Kern).
 - Danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17. APK nur als Link (Regel 21:25).
 
+
+### Tom (11.10., 22:40, vor Neustart)
+
+- **24.5 + 24.16–24.20** auf Zweig `claude/great-shannon-qnf51n` (enthält `claude/eager-hypatia-o148lt`), Build 0.1.547 (Commit `c7230d4`) fertig, Link im Chat 22:46. Kein PR. `BattleAhead`: Fetch (vom Gerät) → Eröffnung → Gegner (bleibt, solange nahe) → Rest des Helden, auch ohne Gegner nahe; `HeroBattle.keep/fetch`, `HeroShelf.saveFrames` (`.pixb`); Gegner-Bildspeicher ≥ 160 (`forget` der anderen Arten); Pool 2 Kerne (`SdfRender.pool`); `core/gradle.properties` (Speicher für `-p core` in CI).
+- **Als Nächstes:** Testergebnis 24.20 abwarten (Testliste im Chat 22:38: erster Start, Neustart „(gespeichert)“, zügig zum Gegner, Ruckeln, Speicher-MB). Wenn gut: PR, nach Freigabe zusammenführen, CHANGELOG. Danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
+- Lehre (Nutzer 22:05): nie einen Schritt beenden, während eigene Tests laufen; immer Wecken einrichten.
+
+
 ## Übergabe Jerry (11.10., 21:53), ersetzt 11.10., 22:05
 
 - **24.8 Ortsklang in der Blende:** 24t ja (21:45), Herzschlag mitladen. Hörproben geschickt (21:51): Wind, Schänke, Halle (Tempel), Knarren, Herzschlag, je 3. Skript `tools/klang/orte.py` auf Zweig `ccr-d94c036c-bdvewr` (Aufnahmen: OGA mild-wind-background-noise, park-ambiences, background-voices, tree-creaking, heartbeat-sounds, heartbeat-single-sound; Kenney creak1/3; liegen nicht in `holen.sh`, Freesound-CDN gibt gerade 403). **24v (21:55):** Wind, Halle, Knarren, Herzschlag halbwegs ok; **Schänke geht gar nicht** → neu aus BigSoundBank (CC0: Bar 0480, Menge 3515, Gaststube 3542, Gläser 1323/1324/1935/0472), Hörprobe 22:02, **Rückfrage 24w**.

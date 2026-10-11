@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | läuft | 12.10., 08:00 | 11.10., 23:08 | 11.10., 23:22 | 30.2 Build 0.1.552 abwarten, dann Reserve | `claude/sharp-davinci-s83a1t` |
+| Tom | läuft | 12.10., 08:00 | 11.10., 23:08 | 11.10., 23:30 | Paket 1, 2 fertig (Build 0.1.552); weiter Reserve: 29 Entwurf | `claude/sharp-davinci-s83a1t` |
 | Jerry | läuft | 12.10., 08:00 | 11.10., 23:17 | 11.10., 23:23 | 24.8.5 Build (PR #38), dann 13e Entwürfe | `ccr-8b450567-umf1s6` |
 
 Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
@@ -87,6 +87,7 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 **Paket** (Nacht 11./12.10., vergeben 23:08, bis 08:00):
 1. **30.1 Absturz-Fänger** + Fehler in Hintergrund-Fäden (`BattleAhead`, Vorzeichnen) abfangen statt App beenden. Zweig `claude/sharp-davinci-s83a1t` von `main`. Fertig, wenn: Kerntest (Bericht wird geschrieben und gelesen), Build mit Link, auch in `claude/great-shannon-qnf51n` gemischt (Build).
 2. **30 Ursache eingrenzen:** Speicherbedarf aller Bildspeicher messen (Kerntest/Vorschau), Vorschläge (Obergrenze, Lint, Zufallsspieler mit Speicher) nur zur Freigabe. Fertig, wenn: Zahlen und Vorschläge in `OFFEN.md`.
+~~1, 2 fertig 23:30 (Build 0.1.552)~~
 3. Reserve: Vorrat 9 (29 Nebenquests Entwurf), 4 (27 Wald Standbilder, Lückenliste), 10, 5–8.
 
 ## Jerry
