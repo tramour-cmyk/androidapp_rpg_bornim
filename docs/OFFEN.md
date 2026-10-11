@@ -19,7 +19,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 18 | Klänge neu: Hörproben (18d) und Monster-Laute (18e) abgelehnt 11.10., 12:10 („klingt wie Pokémon“) | Jerry | – | Vorschlag 18.5/18.6, Rückfrage 18f |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
-| 12.3 | Sprünge in den Kampfbewegungen der Tiere | Jerry | `claude/session-start-l65s4j`, PR #18 | 12.3b, 12.3c entschieden ja (12:13), umgesetzt 12:14, Zweig-Build läuft |
+| 12.3 | Sprünge in den Kampfbewegungen der Tiere | Jerry | `claude/session-start-l65s4j`, PR #18 | 12.3b, 12.3c entschieden ja (12:13), umgesetzt 12:13, Zweig-Build läuft |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
