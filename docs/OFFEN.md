@@ -18,7 +18,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; frei, seit 13 auf `main` ist |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 13e | Höhle diagonal (Phase 2 von 13: Orte aufteilen) | Jerry | – | 13e.1 ja (13:52): nach 18 Runde 2, erst Entwürfe. **Tom einverstanden (14:16).** Jerry: neue Datei `MapCaveIso.kt` und eine Zeile in `WorldArt.buildObjects` (wie Räume/Dorf). Nicht anfassen ohne Absprache: `WorldScreen.kt` (Sortierung, `hides`, `put`/`corner`, `Cam`), `MapSight`, `FreeWalk`, `MapRoomIso`, `MapTownIso`, `MapGround`. Vorlage: `MapTownIso` (`Tile1`, `plane`/`box`/`cylinder`, Tiefe `(tx+ty)*T+1.5T−1`, `corner = true`, `group` für Mehrfeld-Dinge) |
-| 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | `claude/loving-lovelace-k8iwgd`, PR #27 | 18h/18i getestet, auf `main` (PR #25). **18k** (Nutzer, Test 0.1.507): Knistern eine Fassung behalten, nahtlose Schleife; gebaut, Zweig-Build läuft |
+| 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | `claude/loving-lovelace-k8iwgd`, PR #27 | 18h/18i getestet, auf `main` (PR #25). **18k** (Nutzer, Test 0.1.507): Knistern eine Fassung behalten, nahtlose Schleife; Zweig-Build 0.1.511 zu testen |
 | 22 | Selbstarbeit statt nur Nachtarbeit: Routinen alle 3 h, Vorrat und Liste „Für gemeinsame Zeit“ | Tom | `main` (Notizen), Routinen | 22a, 22b ja (13:31). `docs/SELBST.md` statt `NACHT.md`; Toms Routinen umgestellt (13:38); Nutzer: neue Routinen einstellen (Repo, automatisch). Jerrys Routinen umgestellt (13:44), Vorrat eingetragen |
 | 23 | Aufgaben so aufteilen, dass Tom und Jerry auch in Selbstarbeit genug Vorrat haben | Tom | `main` (Notizen) | 23a ja (14:18): je 8 Punkte im Vorrat (`docs/SELBST.md`), neue nur als Entwürfe/Hörproben. **Jerry:** deine Punkte 4–8 sind eingetragen |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
@@ -37,12 +37,13 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Jerry (11.10., 15:20)
 
-- Zweig `claude/loving-lovelace-k8iwgd`, Entwurfs-PR #27: **18k** Feuerknistern als nahtlose 10-s-Schleife (`tools/klang/schleifen.py`, Quellen 181563/370938 in `QUELLEN.md`), eine Fassung bis zum Ausklingen. Kerntests grün. Zweig-Build läuft: neue Sitzung PR #27 abonnieren, Link, APK, Testliste (Schleife lückenlos? Fassung bleibt? Ein-/Ausblenden wie 0.1.507).
+- Zweig `claude/loving-lovelace-k8iwgd`, Entwurfs-PR #27: **18k** Feuerknistern als nahtlose 10-s-Schleife (`tools/klang/schleifen.py`, Quellen 181563/370938 in `QUELLEN.md`), eine Fassung bis zum Ausklingen. Kerntests grün. Zweig-Build 0.1.511 ausgeliefert (15:24), Test beim Nutzer; nach „passt“ PR #27 zusammenführen (vorher aus Entwurf holen).
 - 18 Runde 2 (PR #23) und 18h/18i (PR #25) auf `main`, unter „Unveröffentlicht“.
 - Als Nächstes: Vorrat in `SELBST.md` (2 Stimmen übrige Gegner als Hörproben, 3 9i, 4 13e …); **24.6** (Kampferöffnung wartet auf Kampfbilder, 24e ja) nach Toms 24.1–24.3, vorher messen.
 
 ## Zu testen
 
+- **0.1.511** (Jerry, 18k, PR #27, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38142607722/artifacts/11703910683)): Knistern als nahtlose Schleife.
 
 – nichts offen –
 
