@@ -27,6 +27,10 @@ Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstop
 4. Später Kapitel 2 als einmaligen Kauf (z. B. 2,99 €).
 - Vorher: Datenschutzerklärung, Altersfreigabe (Blut), Zahlungsprofil mit Händleradresse, kurze Rechtsprüfung (Herkunft von Schriften und Klängen). Siehe auch „Google Play“ unten.
 
+## Ladezeiten
+
+- **Gezeichnete Bilder auf dem Gerät speichern (24.4, 11.10.):** Figuren-, Boden- und Kampfbilder nach dem ersten Zeichnen auf dem Gerät ablegen, damit der nächste Start ohne Wartezeit geht. Erst angehen, wenn mit 24.1–24.3 gemessen ist, wie lang das Übergangsbild noch dauert.
+
 ## Lebendige Orte
 
 - (im Vorrat, 23a) **Katze in der Schänke (10.10., 6.14/6g):** schläft am Herd, streckt sich ab und zu, wechselt gelegentlich den Platz; eigene kleine Figur nötig.
