@@ -536,12 +536,24 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                         r.nextMoveAt = now + 520
                     }
                 }
-                r.temper == Temper.LURKER -> r.nextMoveAt = now + 1000
+                r.temper == Temper.LURKER -> {
+                    // 9i.2: it stays in its place, but turns to face the hero coming near (the map eases the turn)
+                    if (dist <= 4) faceTowards(r, p.x, p.y)
+                    r.nextMoveAt = now + 1000
+                }
                 else -> wander(r)
             }
             moved = true
         }
         if (moved) changed()
+    }
+
+    /** Turns [r] to the one of its four directions nearest to ([x], [y]), without a step. */
+    private fun faceTowards(r: Roamer, x: Int, y: Int) {
+        val dx = x - r.x; val dy = y - r.y
+        if (dx == 0 && dy == 0) return
+        r.facing = if (kotlin.math.abs(dx) >= kotlin.math.abs(dy)) (if (dx > 0) Facing.RIGHT else Facing.LEFT)
+            else (if (dy > 0) Facing.DOWN else Facing.UP)
     }
 
     private fun wander(r: Roamer) {

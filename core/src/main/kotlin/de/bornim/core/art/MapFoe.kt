@@ -221,25 +221,131 @@ object MapFoe {
     fun yawOf(slot: Int) = slot * 360.0 / YAWS
 
     /** Whether [id] is drawn as an animal ([BeastArt]) or on the doll ([FoeArt]) on the map. */
-    fun drawn(id: String) = id in BeastArt.KINDS || id in FoeArt.KINDS
+    fun drawn(id: String) = id in BeastArt.KINDS || id in FoeArt.KINDS || id in VerminArt.KINDS
 
-    /** One picture of [id] turned to [slot], at [step] of its walk (vermin: standing only, a draft). */
+    /** One picture of [id] turned to [slot], at [step] of its walk. */
     fun draw(id: String, look: MonsterLook, slot: Int, step: Int, scale: Double = 1.0): PixelImage = when (id) {
         in BeastArt.KINDS -> beast(id, look, slot, step, scale)
-        in VerminArt.KINDS -> vermin(id, look, slot)
+        in VerminArt.KINDS -> vermin(id, look, slot, step, scale)
         else -> doll(id, look, slot, step)
     }
 
-    /** Draft (9, the other foes): a spider, centipede, bat, stirge or jelly as in battle, its first resting picture, turned to [slot]. */
-    fun vermin(id: String, look: MonsterLook, slot: Int): PixelImage {
-        val f = frame(id)
-        val rig = VerminArt.sequence(id, Act.IDLE, 0).rigs[0].copy(yaw = yawOf(slot))
-        return VerminArt.vermin(id, look).render(f.w, f.h, f.ax.toDouble(), f.gy.toDouble(), PX, rig, pitch = PITCH)
+    // ---------------------------------------------------------------- vermin (9i)
+
+    /** A bat or a stirge: never still in the air, its wings beat whether it moves or not. */
+    fun flies(id: String) = id in VerminArt.KINDS && VerminArt.kindOf(id).let { it == Vermin.Kind.BAT || it == Vermin.Kind.STIRGE }
+
+    /** One wingbeat of a flyer standing in the air, a picture of its walk each [WING_MS]. */
+    const val WING_MS = 80L
+
+    /**
+     * How big the vermin are on the map, beside the hero, nearer their SRD size than in battle (where the spider, the
+     * bat and the jelly are drawn smaller to leave room): a spider and a jelly as broad as a man is tall, a bat with
+     * wings of more than a metre, a stirge the size of a crow; a little different from one to the next.
+     */
+    private fun verminSize(id: String, look: MonsterLook): Double {
+        val f = 0.92 + 0.16 * (look.seed.mod(7) / 6.0)
+        return f * when (VerminArt.kindOf(id)) {
+            Vermin.Kind.SPIDER -> 0.9
+            Vermin.Kind.CENTIPEDE -> 1.1
+            Vermin.Kind.BAT -> 0.85
+            Vermin.Kind.STIRGE -> 0.8
+            Vermin.Kind.JELLY -> 0.95
+        }
     }
+
+    private fun verminStand(id: String): Vermin.Rig = VerminArt.sequence(id, Act.IDLE, 0).rigs[0]
+
+    /**
+     * The walk of the vermin in [STEPS] pictures: the spider's legs in turn lifted, swung forward and set down, the
+     * centipede rippling along its legs, the flyers one wingbeat with the body rising and sinking on it, the jelly
+     * heaving itself forward, swelling and settling.
+     */
+    fun verminRig(id: String, yaw: Double, step: Int): Vermin.Rig {
+        val t = Math.floorMod(step, STEPS) / STEPS.toDouble()
+        val st = verminStand(id).copy(yaw = yaw)
+        val w = 2 * PI * t
+        return when (VerminArt.kindOf(id)) {
+            Vermin.Kind.SPIDER -> st.copy(step = t, stride = 14.0, rear = 6.0, jaw = 0.35, crouch = 1.0 + 0.8 * (1 - cos(2 * w)) / 2)
+            Vermin.Kind.CENTIPEDE -> st.copy(step = t, rear = 12.0 + 3.0 * sin(w), jaw = 0.4)
+            Vermin.Kind.BAT -> level(st.copy(beat = 0.85 * sin(w), jaw = 0.55), 92.0, 100.0 + 5.0 * cos(w))
+            Vermin.Kind.STIRGE -> level(st.copy(beat = 0.85 * sin(w), jaw = 0.45), 46.0, 66.0 + 3.0 * cos(w))
+            Vermin.Kind.JELLY -> st.copy(surge = 0.22 * sin(w), rear = 6.0 + 5.0 * sin(w + 1.0), fwd = 3.0 * sin(w))
+        }
+    }
+
+    /** How far a flyer is tipped forward on the map, out of battle's upright pose into flight. */
+    private const val FLIGHT_TILT = 80.0
+
+    /**
+     * A flyer in flight on the map: in battle it hangs upright before the hero, its wings spread like a cloak, which
+     * from above and from the side shows only their edge; here it is tipped forward into level flight, head first,
+     * the wings spread flat, the body [height] cm (of an animal of size 1) above the ground over the same spot.
+     * [base] is how high the battle model carries its body.
+     */
+    private fun level(r: Vermin.Rig, base: Double, height: Double): Vermin.Rig {
+        val a = Math.toRadians(FLIGHT_TILT)
+        // tipping turns the body forward about the feet: start it so far back and down that it ends up over them
+        return r.copy(fallF = FLIGHT_TILT, hover = height * cos(a) - base, fwd = -height * sin(a))
+    }
+
+    /**
+     * Vermin crawling on the ground standing in [idle], breathing (a slow heave) in ([breath] [BREATHS]) or out: the
+     * spider and the centipede turn to look about, sink low to lie in wait or rear up threatening; the jelly bulges
+     * to one side, settles flat or swells up. Flyers hang in the air on their wingbeat (the walk), never in a stance.
+     */
+    fun verminIdleRig(id: String, yaw: Double, idle: Idle, breath: Int, level: Int = LEVELS): Vermin.Rig {
+        val br = breath / BREATHS.toDouble()
+        val st = verminStand(id).copy(yaw = yaw)
+        val (b, stance) = when (VerminArt.kindOf(id)) {
+            // standing, its feet stay where the walk set them down (the first step's), not drawn into a row
+            Vermin.Kind.SPIDER -> st.copy(stride = 14.0, rear = 8.0 + 4.0 * br, crouch = 1.0 + 1.5 * br, jaw = 0.35 + 0.15 * br).let { b ->
+                b to when (idle) {
+                    Idle.LOOK_L -> b.copy(yaw = yaw + 26.0, step = 0.06)
+                    Idle.LOOK_R -> b.copy(yaw = yaw - 26.0, step = -0.06)
+                    Idle.SNIFF -> b.copy(crouch = 9.0, rear = 0.0, jaw = 0.2)
+                    Idle.SNARL -> b.copy(rear = 30.0, jaw = 1.0, fwd = -6.0, crouch = -3.0)
+                    else -> b
+                }
+            }
+            Vermin.Kind.CENTIPEDE -> st.copy(rear = 16.0 + 5.0 * br, jaw = 0.35 + 0.2 * br, step = 0.04 * br).let { b ->
+                b to when (idle) {
+                    Idle.LOOK_L -> b.copy(yaw = yaw + 22.0, rear = b.rear + 8.0, step = 0.1)
+                    Idle.LOOK_R -> b.copy(yaw = yaw - 22.0, rear = b.rear + 8.0, step = -0.1)
+                    Idle.SNIFF -> b.copy(rear = 2.0, fwd = -4.0, jaw = 0.2)
+                    Idle.SNARL -> b.copy(rear = 38.0, jaw = 1.0, fwd = -8.0)
+                    else -> b
+                }
+            }
+            else -> st.copy(surge = 0.15 * (2 * br - 1), rear = 4.0 + 3.0 * br).let { b ->
+                b to when (idle) {
+                    Idle.LOOK_L -> b.copy(side = -8.0, rear = b.rear + 4.0)
+                    Idle.LOOK_R -> b.copy(side = 8.0, rear = b.rear + 4.0)
+                    Idle.SNIFF -> b.copy(surge = -0.45, rear = 0.0)
+                    Idle.SNARL -> b.copy(surge = 0.6, rear = 14.0, fwd = -3.0)
+                    else -> b
+                }
+            }
+        }
+        // 9h: into and out of a stance through in-between pictures, never in one jump
+        return b.lerp(stance, level / LEVELS.toDouble())
+    }
+
+    private fun renderVermin(id: String, look: MonsterLook, scale: Double, rig: Vermin.Rig): PixelImage {
+        val f = frame(id)
+        // 9i c: the wing skin darker, else it reads pale from above
+        return Vermin(VerminArt.kindOf(id), look.pick(3, 10), verminSize(id, look) * scale, wingShade = if (flies(id)) 0.55 else 0.0)
+            .render(f.w, f.h, f.ax.toDouble(), f.gy.toDouble(), PX, rig, pitch = PITCH)
+    }
+
+    /** One picture of a spider, centipede, bat, stirge or jelly turned to [slot], at [step] of its walk. */
+    fun vermin(id: String, look: MonsterLook, slot: Int, step: Int = 0, scale: Double = 1.0): PixelImage =
+        renderVermin(id, look, scale, verminRig(id, yawOf(slot), step))
 
     /** One picture of [id] turned to [slot], standing in [idle], breathing in ([breath] 1) or out. */
     fun drawIdle(id: String, look: MonsterLook, slot: Int, idle: Idle, breath: Int, scale: Double = 1.0, level: Int = LEVELS): PixelImage =
         if (id in BeastArt.KINDS) renderBeast(id, look, scale, beastIdleRig(id, yawOf(slot), idle, breath, level))
+        else if (id in VerminArt.KINDS) renderVermin(id, look, scale, verminIdleRig(id, yawOf(slot), idle, breath, level))
         else renderDoll(id, look, dollIdleRig(id, look, yawOf(slot), idle, breath, level))
 
     // ---------------------------------------------------------------- standing about
@@ -266,6 +372,8 @@ object MapFoe {
      * one stance held for 1.8 to 4.5 s from a random moment, eased in and out over [EASE_MS]. Never in a beat.
      */
     fun idleAt(id: String, seed: Int, clockMs: Long): Stance {
+        // a flyer hangs in the air on its wingbeat: the breath is the picture of its walk (see [idleNow])
+        if (flies(id)) return Stance(Idle.STAND, Math.floorMod(Math.floorDiv(clockMs + seed * 37L, WING_MS), STEPS.toLong()).toInt())
         val period = 2_400L + Math.floorMod(seed * 7919, 800)
         // the breath as a smooth wave, in [BREATHS] + 1 steps
         val phase = Math.floorMod(clockMs + seed * 131L, period) / period.toDouble()
@@ -279,7 +387,11 @@ object MapFoe {
         if (t < start || t >= start + length) return Stance(Idle.STAND, breath)
         val roll = r.nextDouble()
         val side = r.nextBoolean()
-        val pick = if (id in BeastArt.KINDS) when {
+        val pick = if (id in VerminArt.KINDS) when {
+            roll < 0.35 -> if (side) Idle.LOOK_L else Idle.LOOK_R
+            roll < 0.75 -> Idle.SNIFF
+            else -> Idle.SNARL
+        } else if (id in BeastArt.KINDS) when {
             roll < 0.35 -> if (side) Idle.LOOK_L else Idle.LOOK_R
             roll < 0.65 -> Idle.SNIFF
             roll < 0.85 -> Idle.SCENT
@@ -301,9 +413,9 @@ object MapFoe {
 
     /**
      * Monsters already drawn this way on the map (9c: wolf and goblin first, the scout with them; 9e: Grimfang; 9i: the
-     * other animals and the foes on the doll). Spiders, centipedes, bats, stirges and the jelly still want a walk.
+     * other animals, the foes on the doll and the vermin).
      */
-    val ON = setOf("wolf", "goblin", "goblin_archer", "dire_wolf") + (BeastArt.KINDS + FoeArt.KINDS)
+    val ON = setOf("wolf", "goblin", "goblin_archer", "dire_wolf") + (BeastArt.KINDS + FoeArt.KINDS + VerminArt.KINDS)
 
     /** A picture cut to what is drawn, with the feet at ([ax], [ay]) in it. */
     class Pic(val img: PixelImage, val ax: Int, val ay: Int)
@@ -376,6 +488,8 @@ object MapFoe {
     /** Standing in [idle] with [breath]: the picture, else the plain standing one, else as [pictureNow]. */
     fun idleNow(id: String, look: MonsterLook, slot: Int, idle: Idle, breath: Int, scale: Double = 1.0, level: Int = LEVELS): Pic? {
         val sl = Math.floorMod(slot, YAWS)
+        // a flyer's standing is its wingbeat, the pictures of its walk
+        if (flies(id)) return pictureNow(id, look, sl, breath, scale)
         val lv = if (idle == Idle.STAND) LEVELS else level.coerceIn(0, LEVELS)
         // the plain standing picture without breath is the first step of the walk
         if ((idle == Idle.STAND || lv == 0) && breath == 0) return pictureNow(id, look, sl, 0, scale)

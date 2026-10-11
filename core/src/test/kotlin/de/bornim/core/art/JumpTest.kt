@@ -33,8 +33,10 @@ class JumpTest {
         const val DIR = 0.45
 
         private val ANGLES = setOf("yaw", "pitch", "neck", "nod", "turn", "tailSwing", "fallF", "fallS", "headTurn", "headDown",
-            "twist", "grip", "roll", "bowTilt", "flaskTilt")
-        private val LENGTHS = setOf("fwd", "crouch", "side", "bodyX", "bodyY", "stride", "spread")
+            "twist", "grip", "roll", "bowTilt", "flaskTilt", "rear")
+        private val LENGTHS = setOf("fwd", "crouch", "side", "bodyX", "bodyY", "stride", "spread", "hover")
+        /** A phase going round, 0 to 1 (the vermin's legs stepping): from 0.9 to 0 is a tenth, not nine. */
+        private val PHASES = setOf("step")
         private val LIMBS = setOf("fl", "fr", "hl", "hr", "rh", "lh", "elbowAt")
         private val DIRS = setOf("weapon", "shieldFace", "rPole")
         /** Not a pose: which flame shape is drawn. */
@@ -50,6 +52,8 @@ class JumpTest {
             "lean" -> 0.35
             // a breath fills the chest by a few millimetres: half of it in one picture is still a soft rise
             "breath" -> 0.55
+            // a wing beats fast, as a paw swings in a walk: down to level in one picture
+            "beat" -> 0.65
             else -> SHARE
         }
 
@@ -61,7 +65,11 @@ class JumpTest {
                 f.isAccessible = true
                 val va = f.get(a); val vb = f.get(b)
                 out[f.name] = when {
-                    va is Double && vb is Double -> if (f.name in ANGLES) angle(va, vb) else kotlin.math.abs(va - vb)
+                    va is Double && vb is Double -> when (f.name) {
+                        in ANGLES -> angle(va, vb)
+                        in PHASES -> kotlin.math.abs(va - vb).mod(1.0).let { minOf(it, 1 - it) }
+                        else -> kotlin.math.abs(va - vb)
+                    }
                     va is HeroFigure.V && vb is HeroFigure.V -> kotlin.math.sqrt((va.r - vb.r).let { it * it } + (va.u - vb.u).let { it * it } + (va.f - vb.f).let { it * it })
                     else -> continue
                 }
@@ -91,18 +99,23 @@ class JumpTest {
     private val dolls = listOf("goblin", "goblin_archer", "kobold", "skeleton", "zombie", "ghoul", "goblin_shaman", "bugbear", "hobgoblin_captain")
     private val look = MonsterLook(0)
 
-    /** The rig of the picture shown for [st] (as [MapFoe.idleNow] picks it). */
+    private val vermin = VerminArt.KINDS.sorted()
+
+    /** The rig of the picture shown for [st] (as [MapFoe.idleNow] picks it; a flyer's standing is its wingbeat). */
     private fun shown(id: String, yaw: Double, st: MapFoe.Stance): Any =
-        if (id in BeastArt.KINDS) MapFoe.beastIdleRig(id, yaw, st.idle, st.breath, if (st.idle == MapFoe.Idle.STAND) MapFoe.LEVELS else st.level)
+        if (MapFoe.flies(id)) MapFoe.verminRig(id, yaw, st.breath)
+        else if (id in VerminArt.KINDS) MapFoe.verminIdleRig(id, yaw, st.idle, st.breath, if (st.idle == MapFoe.Idle.STAND) MapFoe.LEVELS else st.level)
+        else if (id in BeastArt.KINDS) MapFoe.beastIdleRig(id, yaw, st.idle, st.breath, if (st.idle == MapFoe.Idle.STAND) MapFoe.LEVELS else st.level)
         else MapFoe.dollIdleRig(id, look, yaw, st.idle, st.breath, if (st.idle == MapFoe.Idle.STAND) MapFoe.LEVELS else st.level)
 
     private fun walk(id: String, yaw: Double, step: Int): Any =
-        if (id in BeastArt.KINDS) MapFoe.beastRig(id, yaw, step) else MapFoe.dollRig(id, look, yaw, step)
+        if (id in VerminArt.KINDS) MapFoe.verminRig(id, yaw, step)
+        else if (id in BeastArt.KINDS) MapFoe.beastRig(id, yaw, step) else MapFoe.dollRig(id, look, yaw, step)
 
     /** All jumps of the monsters on the map. */
     fun monsters(): List<Jump> {
         val out = mutableListOf<Jump>()
-        for (id in beasts + dolls) {
+        for (id in beasts + dolls + vermin) {
             // the walk, round and round
             out += stream("$id Gehen", (0..MapFoe.STEPS).map { "Schritt ${it % MapFoe.STEPS}" to walk(id, 90.0, it % MapFoe.STEPS) })
             // standing about, a minute in steps of 20 ms, for a few of them
