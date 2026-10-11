@@ -31,11 +31,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (11.10., 16:57)
+### Tom (11.10., 17:45, vor Neustart)
 
-- **24** (Zweig `claude/adoring-franklin-cqhg5a` erledigt; 24.1 auf neuem Zweig von `main`): `Interlude.kt` (Datenformat, Ortssätze DE/EN, Kerntest `InterludeTest`; Jerry füllt `openings`/`foes`), 24.2/24.3 in `MapFigure` (`order`, zwei Fäden, `urgent`, `ready`, `previous` für alte Ausrüstung; Kerntest `MapFigurePrepareTest`). 0.1.517 getestet, PR #30 zusammengeführt (17:08); `Interlude.kt` damit auf `main` (Jerry: Zweig von `main`).
-- **24.1 ja (Nutzer 17:10), in Arbeit** auf `claude/funny-pasteur-6p41ao`: Standbild 17:15, 24l ja (17:18), Einbau läuft; Zeitablauf im Kern (`InterludeClock`, Kerntest grün). Plan: Blende in der App (Zeiten aus `ZWISCHENBILD.md`, 24i Kurzfassungen, Antippen überspringt, wartet auf `MapFigure.ready` + Boden nahe Held + Leute stehend, höchstens ca. 4 s; `urgent = true` solange sie steht), Anzeige „bereit nach X s“ im Test-Reiter; Kerntest für den Zeitablauf. Dann 24.5 (Kampfbilder vorladen, wenn ein Gegner bemerkt), 24.6 (Kampferöffnung wartet). Messung 16:36: Held Karte 128 Bilder 2,2 s, Kampf-Held 313 Bilder 10,9 s, Boden Wald/Höhle 3,3/5,8 s (Rechner, 4 Kerne).
-- Danach 5l/5.5 Leben im Dorf (erst Standbilder), 5.3, 5.4; 17.
+- **24.1 umgesetzt** auf `claude/funny-pasteur-6p41ao` (Commit fa8f917, `main` drin, Kerntests grün), Test-Build läuft (Erinnerung 17:47). `InterludeClock` (Kern: ganzer Satz / nur Name / Abdunkeln 0,3 s, höchstens 4 s, Antippen erst wenn gezeichnet; Kerntest `InterludeClockTest`), `InterludeUi.kt` (`InterludeVeil`, `MapVeil(game, mapId)`, `VeilMemory`; ersetzt `MapBanner`; Held läuft hinter der Blende nicht), `MapGround.readyNear`, `MapFolk.standing`, Test-Reiter „Blende: bereit nach X s“; erster Besuch = Flag `seen:<map>`. Vorschau `BLENDE=1` (Standbild), `BLENDEFILM=1` (Film Start, Dorf, Schänke, Wald; angesehen 17:38).
+- **Als Nächstes:** Build melden (Link, APK, Prüfliste), nach Test PR erstellen und zusammenführen; dann 24.5 (Kampfbilder vorladen, wenn ein Gegner bemerkt), danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
 
 ### Jerry (11.10., 17:01)
 

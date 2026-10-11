@@ -4,6 +4,12 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Übergabe Tom (11.10., 16:57), ersetzt 11.10., 17:45
+
+- **24** (Zweig `claude/adoring-franklin-cqhg5a` erledigt; 24.1 auf neuem Zweig von `main`): `Interlude.kt` (Datenformat, Ortssätze DE/EN, Kerntest `InterludeTest`; Jerry füllt `openings`/`foes`), 24.2/24.3 in `MapFigure` (`order`, zwei Fäden, `urgent`, `ready`, `previous` für alte Ausrüstung; Kerntest `MapFigurePrepareTest`). 0.1.517 getestet, PR #30 zusammengeführt (17:08); `Interlude.kt` damit auf `main` (Jerry: Zweig von `main`).
+- **24.1 ja (Nutzer 17:10), in Arbeit** auf `claude/funny-pasteur-6p41ao`: Standbild 17:15, 24l ja (17:18), Einbau läuft; Zeitablauf im Kern (`InterludeClock`, Kerntest grün). Plan: Blende in der App (Zeiten aus `ZWISCHENBILD.md`, 24i Kurzfassungen, Antippen überspringt, wartet auf `MapFigure.ready` + Boden nahe Held + Leute stehend, höchstens ca. 4 s; `urgent = true` solange sie steht), Anzeige „bereit nach X s“ im Test-Reiter; Kerntest für den Zeitablauf. Dann 24.5 (Kampfbilder vorladen, wenn ein Gegner bemerkt), 24.6 (Kampferöffnung wartet). Messung 16:36: Held Karte 128 Bilder 2,2 s, Kampf-Held 313 Bilder 10,9 s, Boden Wald/Höhle 3,3/5,8 s (Rechner, 4 Kerne).
+- Danach 5l/5.5 Leben im Dorf (erst Standbilder), 5.3, 5.4; 17.
+
 ## Übergabe Tom (11.10., 15:40), ersetzt 11.10., 16:57
 
 - **Übergabe Jerry (11.10., 16:43):** 18k getestet, PR #27 zusammengeführt (16:08). **9i** auf `claude/brave-wright-pmcy0i`, Entwurfs-PR #29 (abonniert): 9 Arten auf der Karte; `FOECLASH=1` prüft jetzt auch die Karte (841 → 0, Waffe weiter vom Bein, Stab senkrecht). Zweig-Build zu melden. Weiter 9i: Gang und Ruhe für die 5 Kriechtiere/Flieger (`VerminArt`), dann Musterblatt. **24:** Toms Format `Interlude.kt` (Zweig `claude/adoring-franklin-cqhg5a`, Commit b2c5f07) geprüft: `openings` je `Start`, `foes` je Monster-ID als `T`; Jerry füllt (auch 7 übrige Gegner, EN). Grak Satz 5 braucht Bedingung (`foes` hat keine `Line`) → mit Tom klären oder weglassen.
