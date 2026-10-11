@@ -87,8 +87,8 @@ class JumpTest {
         }
     }
 
-    private val beasts = listOf("wolf", "dire_wolf")
-    private val dolls = listOf("goblin", "goblin_archer")
+    private val beasts = listOf("wolf", "dire_wolf", "boar", "giant_rat")
+    private val dolls = listOf("goblin", "goblin_archer", "kobold", "skeleton", "zombie", "ghoul", "goblin_shaman", "bugbear", "hobgoblin_captain")
     private val look = MonsterLook(0)
 
     /** The rig of the picture shown for [st] (as [MapFoe.idleNow] picks it). */
