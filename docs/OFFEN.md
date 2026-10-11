@@ -36,7 +36,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Als Nächstes:** Testergebnis 24.20 abwarten (Testliste im Chat 22:38: erster Start, Neustart „(gespeichert)“, zügig zum Gegner, Ruckeln, Speicher-MB). Wenn gut: PR, nach Freigabe zusammenführen, CHANGELOG. Danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
 - Lehre (Nutzer 22:05): nie einen Schritt beenden, während eigene Tests laufen; immer Wecken einrichten.
 
-### Jerry (11.10., 22:58, vor Neustart)
+### Jerry (11.10., 22:54, vor Neustart)
 
 - **24.8 Ortsklang (24.8.4 Schänke) gebaut:** Zweig `ccr-a3d07975-69cf5f`, PR #37 (Entwurf, abonniert), Build für Commit `ba245d6` läuft (0.1.549 o. ä.). Wind draußen, Halle im Tempel (10-s-Schleifen, Einblenden 2 s ab Kartenwechsel), Knarren in Räumen, Tropfen sofort; Schänke: Rowena Wischen/Einschenken/Becher, Gäste Becher/Stuhl/selten Husten, 3–8 s. Kern `core/.../audio/PlaceSound.kt`, Aufruf in der Feuer-Schleife in `WorldScreen`, Test `PlaceSoundTest`. Klänge: `tools/klang/orte.py`, `holen.sh` Runde 3, `QUELLEN.md`.
 - **Offen:** Link + Testliste an den Nutzer, sobald der Build fertig ist (falls diese Sitzung es nicht mehr tut). Nach Test: PR zusammenführen (Merge), CHANGELOG „Unveröffentlicht“. Herzschlag erst mit Kampfblende (24.6, nach Toms 24.5). Danach 13e-Entwürfe.
