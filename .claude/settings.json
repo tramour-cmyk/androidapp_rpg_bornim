@@ -9,6 +9,26 @@
             "command": "[ \"$CLAUDE_CODE_REMOTE\" = \"true\" ] && \"$CLAUDE_PROJECT_DIR\"/tools/setup-session.sh --warm || true"
           }
         ]
+      },
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "command -v python3 >/dev/null && python3 \"$CLAUDE_PROJECT_DIR\"/tools/neustart-haken.py start 2>/dev/null; true"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "command -v python3 >/dev/null && python3 \"$CLAUDE_PROJECT_DIR\"/tools/neustart-haken.py prompt 2>/dev/null; true",
+            "timeout": 10
+          }
+        ]
       }
     ]
   }
