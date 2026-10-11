@@ -77,14 +77,34 @@ Die Chat-Sitzung hat eine eigene Netzregel. Ohne Freigabe sind Maven Central, Go
 
 ## Werkzeuge im Repository
 
-- `./gradlew -p core test`: Kerntests, vor jedem Commit.
-- `tools/preview` (Aufruf: `cd tools/preview && VARIABLE=… ../../gradlew -q run`, Bilder unter `tools/preview/build/screens/`). Die wichtigsten Schalter stehen in der Übergabe-Notiz in `docs/OFFEN.md` (Kampffilme `FILMBATCH`, Bewegungsblätter `FOEANIM`/`VERMINANIM`, Effekte `ABILITYFX`/`STATUSFX`, Durchdringungen `CLASH`/`FOECLASH`).
-- Filmläufe sind langsam (5 Kämpfe gut 4 Minuten). Einzelne Shell-Befehle brechen nach 10 Minuten ab, darum lange Läufe aufteilen oder im Hintergrund mit `timeout` starten.
+- `./gradlew -p core test`: Kerntests, vor jedem Commit (Exit-Code prüfen).
+- `tools/t` (Übersicht ohne Befehl), z. B. `tools/t bild SCHALTER=…`. Vorschau direkt: `cd tools/preview && SCHALTER=… ../../gradlew -q run`, Bilder unter `tools/preview/build/screens/`.
+- Filmläufe sind langsam (5 Kämpfe gut 4 Minuten); Shell-Befehle brechen nach 10 Minuten ab, lange Läufe aufteilen oder im Hintergrund mit `timeout`.
+- **Im Spiel testen:** Testmodus (7× auf das Copyright im Titel tippen), Reiter „Test“: Stufe, Gold, Vorräte, Testkämpfe, „Sicht: diagonal“, „Dorf und Räume“, „Kartenzoom“, „Monster beachten mich nicht“, „Sichtlinie aus“ u. a.
+
+### Vorschau-Schalter (Auswahl, vorher verstreut in den Übergaben)
+
+| Schalter | Wofür |
+|---|---|
+| `KARTENZOOM=1` (+ `ONLY=zoom_nah_…`, `DIAG=1`, `TOWNDRAFT=1`, `RAIN=1`, `ZOOMSTUFE=`) | Bildschirmfotos der Karte im echten Spiel: Wald, Dorf, Schänke (`i1`, `i2`), Entwürfe Ältester `e`, Laden `l`, Tempel `t`, Tag und Abend |
+| `ISODINGE=1` / `=aeltester` / `=laden` / `=tempel` | Blatt aller Raum-Möbel diagonal, je drei Varianten |
+| `FEUER=1` | alle Bilder des Kaminfeuers |
+| `WALKFILM=karte:x:y` (+ `CROP=x0:y0:x1:y1`, `FROM=`), `IDLEFILM=` | Laufen bzw. Stehen durch die echte Oberfläche filmen |
+| `FLORA=karte:x0:y0:breite:höhe` | Kartenausschnitt in voller Auflösung |
+| `FIREFLIES=1`, `SQUATDRAFT=1`, `MAPFIGYAWS=1 WEAPONS=…` | Glühwürmchen, Garrick hocken/schüren/dösen, Waffen in allen Richtungen |
+| `MAPFOE=scene\|dirs\|walk\|yaws\|others\|cave\|wood`, `FOEFILM=1` (`FOEIDLE=1`) | Monster auf der Karte: Entwürfe, Film |
+| `FILM=klasse:gegner FILMTAPS=…`, `FILMBATCH=datei FILMSTEP=40` | Kampffilme (S Szene, F Kampf, A Angriff, D Abwehr) |
+| `SPRUNGBILD=` | Standbilder rund um eine Fundstelle des Sprungtests |
+| `FOEANIM=`, `VERMINANIM=`, `CLASH=1`, `FOECLASH=1`, `ABILITYFX=1`, `STATUSFX=1` | Bewegungsblätter, Kollisionsprüfung, Effekte |
+| `SOUNDS=NAME,…`, `KLANGPROBEN=…` | Hörproben |
+| `SIM=1 ./gradlew -p core test --tests '*ChapterSimTest*'` | Kapitelsimulation (Balance) |
+
+Kerntests mit eigenem Zweck: `JumpTest`/`BattleJumpTest` (Sprünge), `InnCornerTest` (Laufen im Raum), `FireFlickerTest`, `HitWeightTest`, `MissStreakTest`, `RoamerTest`.
 
 ## Was nicht im Repository liegt
 
 - Die Werkzeuge der Cloud-Sitzung selbst (GitHub-Anbindung, Datei-Versand an dich, Zeitstempel über `TZ=Europe/Berlin date`) kommen von Claude Code, nicht aus dem Repository.
-- Erinnerungen an frühere Gespräche: alles Wichtige steht in `CLAUDE.md`, `docs/OFFEN.md` (Übergabe-Notiz), `docs/STIL.md`, `docs/MERKLISTE.md` und `CHANGELOG.md`.
+- Erinnerungen an frühere Gespräche: alles Wichtige steht in `CLAUDE.md`, `docs/OFFEN.md` (Übergaben), `docs/STIL.md`, `docs/MERKLISTE.md`, `CHANGELOG.md`; der Verlauf in `docs/ARCHIV.md`.
 
 ## Notizen auf `main` (seit 10.10.)
 

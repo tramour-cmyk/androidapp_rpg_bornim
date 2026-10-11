@@ -4,7 +4,20 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
-Zweig von Tom (Thema 13 und Vorarbeiten), getestet in 0.1.461, PR #17:
+## v0.1.479 – 11.10.2026, 11:35
+
+Zweig von Jerry (Thema 18 und Hörproben), getestet in 0.1.472, PR #16:
+
+**Kampf: Pechsträhnen dämpfen (18)**
+- Nach drei Fehlschlägen des Helden in Folge trifft der nächste Angriff unsichtbar etwas leichter (+2, je weiterer Fehlschlag +1, höchstens +4), bis er wieder trifft; nur innerhalb eines Kampfes.
+- Werkzeuge (nur Entwicklung): Kerntest `MissStreakTest` mit Vergleich mit und ohne Dämpfung.
+
+**Hörproben (nur Entwicklung, im Spiel unverändert)**
+- 17 weitere Klänge je dreimal neu und Monster-Laute für Wolf, Goblin und Skelett; Vorschau `KLANGPROBEN=`.
+
+## v0.1.471 – 10.10.2026, 22:33
+
+Zweig von Tom (Thema 13 und Vorarbeiten), getestet in 0.1.461, PR #17; als Release getestet am 11.10. („lief gut“):
 
 **Karte: diagonale Sicht (13)**
 - Die Karte wird schräg von oben gezeigt; der Held läuft frei statt von Feld zu Feld (13g).
