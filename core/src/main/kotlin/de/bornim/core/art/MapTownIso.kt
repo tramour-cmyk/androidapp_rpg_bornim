@@ -69,7 +69,7 @@ object MapTownIso {
      * [chimney] the middle of the chimney along i (null: none), standing at the back wall over the hearth inside;
      * [night] lit windows. The ground under i = j = 0 lies at ([ox], [oy]) of the picture.
      */
-    class Picture(val img: PixelImage, val ox: Double, val oy: Double)
+    class Picture(val img: PixelImage, val ox: Double, val oy: Double, val chimneyTop: Triple<Double, Double, Double>? = null)
 
     fun house(
         front: String, side: String, d: Int, roof: RoofKind, walls: WallKind, feature: HouseFeature, seed: Int,
@@ -256,7 +256,7 @@ object MapTownIso {
                 if (edge) argb(0x2A1E14) else if (mug) argb(0x1A120C) else shade(argb(0x5A4430), 0.85 + rnd(floor(u * 20).toInt(), floor(v * 6).toInt(), seed + 63) * 0.2)
             }
         }
-        return Picture(img, ox, oy)
+        return Picture(img, ox, oy, chimney?.let { Triple(it, cjMid, chimTop) })
     }
 
     // ------------------------------------------------------------------ textures
@@ -776,6 +776,20 @@ object MapTownIso {
     }
 
     private val sliceCache = HashMap<String, List<WorldArt.Obj>>()
+    private val smokeCache = HashMap<String, List<Triple<Double, Double, Double>>>()
+
+    /**
+     * Where smoke leaves the chimneys of a town seen diagonally (5.1, Test 0.1.501: it rose from the old places):
+     * map pixels of the ground point under each chimney's mouth, and the mouth's height in map pixels above it.
+     */
+    fun chimneyTops(map: MapDef): List<Triple<Double, Double, Double>> = synchronized(smokeCache) {
+        smokeCache.getOrPut(map.id) {
+            val T = WorldArt.T
+            houses(map).mapNotNull { (f, draw) ->
+                draw(false).chimneyTop?.let { (ci, cj, z) -> Triple((f.x + ci) * T, (f.top + cj) * T, z * ZS / 2) }
+            }
+        }
+    }
     private val thingCache = HashMap<String, PixelImage>()
 
     /**
