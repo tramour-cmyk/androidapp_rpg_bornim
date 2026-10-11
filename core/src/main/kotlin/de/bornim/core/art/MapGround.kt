@@ -62,6 +62,16 @@ object MapGround {
     /** The chunk ([cx], [cy]) of [map], or null while it is not drawn yet. */
     fun chunk(map: MapDef, cx: Int, cy: Int): PixelImage? = synchronized(chunks) { chunks["${map.id}/$cx/$cy"] }
 
+    /** Whether the ground around ([x], [y]) on [map] is drawn: the hero's chunk and those next to it (24.1). */
+    fun readyNear(map: MapDef, x: Int, y: Int): Boolean {
+        if (!supports(map)) return true
+        val w = (map.width + CH - 1) / CH; val h = (map.height + CH - 1) / CH
+        val hx = Math.floorDiv(x, CH); val hy = Math.floorDiv(y, CH)
+        for (cy in maxOf(0, hy - 1)..minOf(h - 1, hy + 1)) for (cx in maxOf(0, hx - 1)..minOf(w - 1, hx + 1))
+            if (chunk(map, cx, cy) == null) return false
+        return true
+    }
+
     /** The chunk ([cx], [cy]) of [map], drawn right away when it is not ready yet (a brief pause, once), so the former tiles never show. */
     fun chunkNow(map: MapDef, cx: Int, cy: Int): PixelImage? {
         if (!supports(map) || cx < 0 || cy < 0 || cx * CH >= map.width || cy * CH >= map.height) return null

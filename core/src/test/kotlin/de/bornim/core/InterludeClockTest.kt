@@ -1,0 +1,71 @@
+package de.bornim.core
+
+import de.bornim.core.InterludeClock.Kind
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+
+/** 24.1: the black screen between places ends once all is drawn, never before it can be read, never after about 4 s. */
+class InterludeClockTest {
+
+    /** Runs a screen of [kind] in steps of 16 ms (one picture); [readyAt] when everything is drawn, [tapAt] a tap. */
+    private fun run(kind: Kind, readyAt: Long, tapAt: Long? = null): Pair<Long, List<InterludeClock.Look>> {
+        val c = InterludeClock(kind, 1_000)
+        val looks = mutableListOf<InterludeClock.Look>()
+        var t = 0L
+        while (true) {
+            val l = c.at(1_000 + t, t >= readyAt, tapAt != null && t in tapAt until tapAt + 16)
+            looks += l
+            if (l.done) return t to looks
+            t += 16
+            check(t < 10_000) { "never ends" }
+        }
+    }
+
+    @Test fun everyScreenEndsWithinFourSecondsEvenIfNothingIsDrawn() {
+        for (k in Kind.entries) {
+            val (end, _) = run(k, readyAt = Long.MAX_VALUE)
+            assertTrue(end <= InterludeClock.CAP_MS + 16, "$k ends at $end ms")
+            assertTrue(end >= InterludeClock.CAP_MS - 32, "$k waits as long as it may, ends at $end ms")
+        }
+    }
+
+    @Test fun aWholeSentenceStaysLongEnoughToBeRead() {
+        val c = InterludeClock(Kind.FULL, 0)
+        c.at(0, ready = true)
+        for (t in 0L..1_800L step 16) assertEquals(1f, c.at(t, ready = true).veil, "map hidden at $t ms")
+        assertEquals(1f, c.at(1_000, ready = true).words)
+        val (end, _) = run(Kind.FULL, readyAt = 0)
+        assertTrue(end in 2_400L..3_000L, "drawn at once: over after ${end} ms")
+    }
+
+    @Test fun itLeavesSoonAfterAllIsDrawn() {
+        val (end, _) = run(Kind.FULL, readyAt = 2_500)
+        assertTrue(end in 2_500L..3_400L, "drawn at 2.5 s, over at $end ms")
+    }
+
+    @Test fun aTapSkipsButNotBeforeAllIsDrawn() {
+        assertTrue(run(Kind.FULL, readyAt = 0, tapAt = 300).first < 1_200, "tap while drawn ends early")
+        val (end, _) = run(Kind.FULL, readyAt = 2_000, tapAt = 300)
+        assertTrue(end in 2_000L..2_800L, "tap before drawn waits for it, then goes at once: $end ms")
+    }
+
+    @Test fun theMapRisesOnlyAfterTheWordsFadeAndNothingJumps() {
+        for (k in Kind.entries) for (ready in listOf(0L, 1_500L, Long.MAX_VALUE)) {
+            val looks = run(k, ready).second
+            for ((a, b) in looks.zipWithNext()) {
+                assertTrue(b.veil <= a.veil, "$k: the veil never comes back")
+                assertTrue(kotlin.math.abs(b.veil - a.veil) < 0.15f && kotlin.math.abs(b.words - a.words) < 0.15f, "$k: no jump between two pictures")
+            }
+            assertTrue(looks.all { it.veil >= 0.99f || it.words <= 0.5f }, "$k: the map shows only once the words are mostly gone")
+        }
+    }
+
+    @Test fun whichScreenWhere() {
+        assertEquals(Kind.FULL, InterludeClock.kindFor(null, "village", firstVisit = false, readyNow = true))
+        assertEquals(Kind.FULL, InterludeClock.kindFor("village", "forest", firstVisit = true, readyNow = true))
+        assertEquals(Kind.BLINK, InterludeClock.kindFor("village", "inn", firstVisit = false, readyNow = true))
+        assertEquals(Kind.NAME, InterludeClock.kindFor("village", "inn", firstVisit = false, readyNow = false))
+        assertEquals(Kind.NAME, InterludeClock.kindFor("forest", "village", firstVisit = false, readyNow = true))
+    }
+}
