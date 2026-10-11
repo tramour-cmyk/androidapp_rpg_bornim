@@ -94,11 +94,11 @@ object VeilMemory {
 /**
  * The black screen on starting play and on entering another map (24.1): it stays until the hero can walk every way,
  * the ground around him and the folk standing are drawn, at most about 4 s ([InterludeClock]). Coming back from a
- * fight or the menu to the same map shows nothing.
+ * fight or the menu to the same map shows nothing. [mapId] is passed on its own: the [Game] object never changes,
+ * so Compose would otherwise skip this on a map change.
  */
 @Composable
-fun MapVeil(game: Game) {
-    val mapId = game.state.place.map
+fun MapVeil(game: Game, mapId: String) {
     // black from the very first picture, so the new map never flashes up before the screen begins
     val pending = VeilMemory.game !== game || VeilMemory.map != mapId
     var look by remember { mutableStateOf<InterludeClock.Look?>(null) }

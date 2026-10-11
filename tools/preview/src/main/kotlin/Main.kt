@@ -35,7 +35,7 @@ private const val W = 1080
 private const val H = 2340
 private val out = File("build/screens").apply { mkdirs() }
 
-private fun GameViewModel.ensureLang(l: Lang) {
+internal fun GameViewModel.ensureLang(l: Lang) {
     if (lang != l) toggleLang()
 }
 

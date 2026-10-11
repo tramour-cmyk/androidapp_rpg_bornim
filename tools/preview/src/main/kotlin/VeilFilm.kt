@@ -13,8 +13,8 @@ import de.bornim.game.ui.BornimApp
 import java.io.File
 
 /**
- * BLENDEFILM=1 (24.1): the black screen between places through the real map screen: start of play in the village,
- * into the inn (first visit), back out (a door, all drawn: a blink), into the inn again, then to the forest with
+ * BLENDEFILM=1 (24.1): the black screen between places through the real map screen: start of play in the inn,
+ * out to the village (first visit), back in (a door, all drawn: a blink), out again, then to the forest with
  * nothing drawn yet. A picture every 80 ms under build/screens/films/veil/, the scene number in the name.
  * As on the phone, the pictures of a new place are drawn in the background while the film runs.
  */
@@ -46,9 +46,9 @@ fun veilFilm() {
     run("1start", 4_400)
     println("start: ${g.state.place.map}, mode ${g.mode::class.simpleName}")
     for ((tag, place) in listOf(
-        "2gasthaus" to Place("inn", 5, 6, Facing.UP),
-        "3dorf" to Place("village", 6, 7, Facing.DOWN),
-        "4gasthaus" to Place("inn", 5, 6, Facing.UP),
+        "2dorf" to Place("village", 6, 7, Facing.DOWN),
+        "3gasthaus" to Place("inn", 5, 6, Facing.UP),
+        "4dorf" to Place("village", 6, 7, Facing.DOWN),
         "5wald" to Place("forest", 10, 20, Facing.UP),
     )) {
         g.skipDialogs()

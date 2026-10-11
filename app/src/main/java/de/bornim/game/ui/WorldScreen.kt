@@ -357,7 +357,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             }
             // Pass the current values: the Game object itself never changes, so Compose
             // would otherwise skip redrawing these after a heal or a map change.
-            MapVeil(game)
+            MapVeil(game, game.state.place.map)
             if (touch && dialog == null && action != null) {
                 ActionButton(
                     ActionArt.icon(action), 76.dp,
