@@ -14,7 +14,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | 5.1, 5.2, 5g, 5h.1 auf `main` (PR #24, 11.10., 14:52). 5l/5.5 Leben im Dorf: nach 24 (Nutzer 14:55), erst Standbilder. Dann 5.3, 5.4 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
-| 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; frei, seit 13 auf `main` ist |
+| 9i | Übrige Gegner auf der Karte | Jerry | `claude/brave-wright-pmcy0i`, PR #29 | 9 Arten (Tiere, Puppen) auf der Karte, Kollision Karte 841 → 0, Sprungtest 0; Zweig-Build läuft. Danach Spinne, Hundertfüßer, Fledermaus, Stirge, Gallerte (brauchen Gang) |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 13e | Höhle diagonal (Phase 2 von 13: Orte aufteilen) | Jerry | – | 13e.1 ja (13:52): nach 18 Runde 2, erst Entwürfe. **Tom einverstanden (14:16).** Jerry: neue Datei `MapCaveIso.kt` und eine Zeile in `WorldArt.buildObjects` (wie Räume/Dorf). Nicht anfassen ohne Absprache: `WorldScreen.kt` (Sortierung, `hides`, `put`/`corner`, `Cam`), `MapSight`, `FreeWalk`, `MapRoomIso`, `MapTownIso`, `MapGround`. Vorlage: `MapTownIso` (`Tile1`, `plane`/`box`/`cylinder`, Tiefe `(tx+ty)*T+1.5T−1`, `corner = true`, `group` für Mehrfeld-Dinge) |
 | 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | – | 18h/18i (PR #25) und 18k (PR #27, getestet 0.1.511, 16:08) auf `main` |
@@ -33,11 +33,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **24 als Nächstes (neue Sitzung):** Plan in „Wer macht was“: erst messen (Zeit bis alles gezeichnet: `MapFigure.prepare`, `MapRest`, `MapFolk.prepareFor`, `MapGround.prepare`, Kampf `HeroBattle.prepare`/`MonsterArt.prepare` in `BattleScreen` ~1204/~901), dann 24.2/24.3, 24.1 Übergangsbild, 24.5 Kampfbilder auf der Karte vorladen; 24.6 macht Jerry. Vorher `STIL.md`-Abgleich (Blende im Stil, Übergang weich), Kerntest „Übergangsbild endet, wenn fertig oder nach ca. 4 s“.
 - **5l / 5.5 Leben im Dorf** nach 24 (Nutzer 14:55): Tiere (Hühner, Katzen, Hunde), Leute bei der Arbeit, Platz dichter; erst Standbilder. Dann 5.3, 5.4.
 
-### Jerry (11.10., 15:20)
+### Jerry (11.10., 16:50)
 
-- Zweig `claude/loving-lovelace-k8iwgd`, Entwurfs-PR #27: **18k** Feuerknistern als nahtlose 10-s-Schleife (`tools/klang/schleifen.py`, Quellen 181563/370938 in `QUELLEN.md`), eine Fassung bis zum Ausklingen. Kerntests grün. Zweig-Build 0.1.511 ausgeliefert (15:24), Test beim Nutzer; nach „passt“ PR #27 zusammenführen (vorher aus Entwurf holen).
-- 18 Runde 2 (PR #23) und 18h/18i (PR #25) auf `main`, unter „Unveröffentlicht“.
-- Als Nächstes: Vorrat in `SELBST.md` (2 Stimmen übrige Gegner als Hörproben, 3 9i, 4 13e …); **24.6** (Kampferöffnung wartet auf Kampfbilder, 24e ja) nach Toms 24.1–24.3, vorher messen.
+- 18k getestet, PR #27 zusammengeführt (16:08). **9i** auf `claude/brave-wright-pmcy0i`, Entwurfs-PR #29 (abonniert): 9 Arten auf der Karte; `FOECLASH=1` prüft jetzt auch die Karte (841 → 0, Waffe weiter vom Bein, Stab senkrecht). Zweig-Build zu melden.
+- Weiter 9i: Gang und Ruhe für die 5 Kriechtiere/Flieger (`VerminArt`), dann Musterblatt. **24:** Toms Format `Interlude.kt` (Zweig `claude/adoring-franklin-cqhg5a`, Commit b2c5f07) geprüft: `openings` je `Start`, `foes` je Monster-ID als `T`; Jerry füllt (auch 7 übrige Gegner, EN). Grak Satz 5 braucht Bedingung (`foes` hat keine `Line`) → mit Tom klären oder weglassen.
 
 ## Zu testen
 

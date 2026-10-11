@@ -87,9 +87,9 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 ## Jerry
 
 **Vorrat für Selbstarbeit** (Reihenfolge):
-1. **18h, 18i** (Tropfen, Knistern): Zweig-Build PR #25, wartet auf Test.
-2. **18 Stimmen der übrigen Gegner** (Angriff, Schmerz, Tod, je drei Fassungen), nur als Hörproben. Fertig, wenn: wie 1.
-3. **9i Übrige Gegner auf der Karte**, nur als Entwürfe (Standbilder mit Uhrzeit, alle Blickrichtungen). Fertig, wenn: Sprungtest und Kollisionsprüfung 0, Musterblatt.
+1. **9i Übrige Gegner auf der Karte**, nur als Entwürfe (Standbilder mit Uhrzeit, alle Blickrichtungen). Fertig, wenn: Sprungtest und Kollisionsprüfung 0, Musterblatt. (Läuft, PR #29: 9 Arten auf der Karte; fehlt Gang der 5 Kriechtiere/Flieger.)
+2. **24 Kampfsätze** in Toms `Interlude.kt` (DE/EN, auch 7 übrige Gegner), knapper Kampftext in `Battle.kt`.
+3. **18 Stimmen der übrigen Gegner** (Angriff, Schmerz, Tod, je drei Fassungen), nur als Hörproben.
 
 4. **13e Höhle diagonal**, danach **10, 11** (Flammen, Lichtstrahl), erst Entwürfe (Absprache mit Tom in `OFFEN.md`, 13e).
 5. **Schritte je Untergrund** (Idee 9), Hörproben (23a, 11.10., 14:18).
@@ -98,7 +98,7 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 8. **Musik in Schichten** (Idee 10), Hörproben.
 
 **Für gemeinsame Zeit:**
-- 18h, 18i: Zweig-Build (PR #25) testen.
+- 9i: Zweig-Build PR #29 testen.
 - 24e/24.6: Kampferöffnung wartet, bis Kampfbilder fertig sind (nach Toms 24.1–24.3).
 - 9i: Entwürfe ansehen und freigeben.
 - 19e: ein konkretes Beispiel für „Bewegungen unrund“, falls dir eines auffällt.
