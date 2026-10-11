@@ -10,18 +10,26 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|
-| Tom | – | – | – | – | – |
-| Jerry | – | – | – | – | – |
+| Tom | – (Nacht 10./11. beendet, Paket 3 und 4 offen, siehe OFFEN) | – | 11.10., 11:10 | – | `tom-diagonal` |
+| Jerry | fertig | 10.10., 22:21 | 10.10., 22:29 | Paket und Reserve fertig, Morgenbericht in `docs/OFFEN.md` | `claude/wizardly-ramanujan-7rocwj` (PR #16) |
 
 Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`.
 
 ## Ablauf
 
+### Feste Weck-Sitzungen (seit 11.10., 11:10)
+
+**Ursache 10./11.10.:** Die Weck-Sitzungen konnten klonen und lesen, aber nicht pushen: Eine geplante Aufgabe, die von einer Sitzung aus angelegt wird, bekommt **kein Repo als Quelle** mit („not in this session's authorized repository set“). Darum endeten alle drei nach unter einer Minute.
+
+**Jetzt fest eingerichtet (Tom):** drei tägliche Routinen „Tom Nachtarbeit 00:24 / 03:14 / 05:54“ (Berliner Zeit). Sie arbeiten nur, wenn in der Tabelle oben die Zeile „Tom“ auf `läuft` oder `wartet auf Grenze` steht und unten ein Paket für Tom eingetragen ist; sonst beenden sie sich sofort (kostet fast nichts). Fehlt das Schreibrecht, hängen sie das Repo selbst mit `add_repo` an.
+- **Einmal vom Nutzer einzustellen** (am PC im Browser, claude.ai): in jeder der drei Routinen das Repository `tramour-cmyk/androidapp_rpg_bornim` auswählen und die Freigabe auf automatisch stellen. Anleitung im Chat vom 11.10., 11:10.
+- Abends also **keine neuen Weck-Sitzungen anlegen**, nur Paket eintragen und Zeile auf `läuft` setzen. Jerry richtet für sich dasselbe in seinem Account ein.
+
 ### 1. Vor dem Schlafengehen (mit dem Nutzer, etwa 22:00)
 
 1. Alle offenen Rückfragen, die das Paket berühren, mit dem Nutzer klären. Was dann noch offen ist, entscheidet die Sitzung nachts selbst nach ihrer eigenen Empfehlung und schreibt das in den Morgenbericht.
 2. Nachtpaket in den eigenen Abschnitt unten eintragen: **Reihenfolge**, je Aufgabe **fertig wenn …** (messbar, z. B. „Sprungtest 0 Meldungen“) und **Reserve** (mehr, als eine Nacht schafft).
-3. **Weck-Sitzungen einrichten**, selbst, mit dem Werkzeug für geplante Aufgaben (`create_trigger`, einmalig mit `run_once_at`, je Zeitpunkt eine Aufgabe, `initiation: human_request`). Vorschlag: **00:30, 03:15, 06:00** (Berliner Zeit; in UTC umrechnen: −2 Stunden). Text der Aufgabe: siehe „Text für die Weck-Sitzung“ unten. Dem Nutzer melden, welche Aufgaben angelegt sind und welche Freigabe-Einstellung sie bekommen haben; lautet sie nicht „automatisch“, den Nutzer bitten, „Automatically approve“ in den Einstellungen der Aufgabe einzuschalten, sonst bleibt eine Weck-Sitzung nachts an der ersten Freigabe stehen.
+3. **Weck-Sitzungen** (nur falls die festen Routinen fehlen) einrichten, selbst, mit dem Werkzeug für geplante Aufgaben (`create_trigger`, einmalig mit `run_once_at`, je Zeitpunkt eine Aufgabe, `initiation: human_request`). Vorschlag: **00:30, 03:15, 06:00** (Berliner Zeit; in UTC umrechnen: −2 Stunden). Text der Aufgabe: siehe „Text für die Weck-Sitzung“ unten. Dem Nutzer melden, welche Aufgaben angelegt sind und welche Freigabe-Einstellung sie bekommen haben; lautet sie nicht „automatisch“, den Nutzer bitten, „Automatically approve“ in den Einstellungen der Aufgabe einzuschalten, sonst bleibt eine Weck-Sitzung nachts an der ersten Freigabe stehen.
 4. Zeile in „Stand heute Nacht“ auf `läuft` setzen, pushen, mit der ersten Aufgabe anfangen.
 
 ### 2. Während der Nacht
@@ -68,18 +76,19 @@ Werden vor dem Schlafengehen hier eingetragen und am Morgen nach dem Bericht gel
 
 ### Tom
 
-Vorschlag der Tom-Beratung (10.10., 20:50), um 22:00 mit dem Nutzer bestätigen und nach dem Stand dann anpassen:
-1. 13p fertig, 13p.4 (Höhe Held und Tisch).
-2. 12b: Sprünge bei den Leuten (`MapRest` Blick zur Seite, `MapFigure` Gehen). Fertig wenn: Sprungtest meldet bei den Leuten 0.
-3. 17 Nachschwingen als Entwurf (Standbilder, Schalter im Testreiter).
-4. 14 Neustart-Haken (Werkzeug, Zweig und PR, nicht zusammenführen).
-- Reserve: Laden, Haus des Ältesten, Tempel diagonal als Entwurf.
+Bestätigt 10.10., 22:25 (Nutzer: „Gute Nacht, starte Nachtmodus“; der alte Vorschlag von 20:50 ist überholt: 13p und 12b sind erledigt). Alles auf `tom-diagonal`, nur Entwürfe, nichts ins Spiel:
+1. **13q.4 Laden:** Möbel (Ladentisch, Waren-Regale, Fässer und Säcke, Waage, Truhe), je drei Varianten, Möbelblatt (`ISODINGE=laden`), dann drei Grundrisse `shop_a/b/c` als Standbild Tag/Abend (wie `elder_a/b/c`). Fertig wenn: Blatt und 6 Standbilder mit Uhrzeit liegen in `docs`-Bericht, Kerntests grün.
+2. **13q.4 Tempel:** Altar, Kerzenständer, Gebetsbänke, Lesepult, Weihwasserbecken, je drei Varianten, Blatt und drei Grundrisse `temple_a/b/c`. Fertig wenn: wie 1.
+3. **17 Nachschwingen** als Entwurf: Umhang, Haare, Köcher, Riemen schwingen beim Stoppen und Drehen nach; Standbilder und Sprungtest. Fertig wenn: Sprungtest 0 Meldungen, Standbilder Stehen↔Gehen↔Drehen.
+4. **14 Neustart-Haken** (Werkzeug, eigener Zweig von `main`, PR, nicht zusammenführen). Fertig wenn: Haken meldet über Schwelle, Test von Hand dokumentiert.
+- Reserve: Haus des Ältesten nach Empfehlung (Grundriss A) ins Spiel unter dem Schalter „Dorf und Räume“ vorbereiten, nur auf dem Zweig, mit Kerntest (Held erreicht Aldric und Tür).
+- Selbst entschieden nachts: 13q.5 (Möbel des Ältesten bleiben so), Grundriss-Empfehlung A. Nicht nachts: 15.
 
 ### Jerry
 
-Vorschlag der Tom-Beratung (10.10., 20:50), um 22:00 mit dem Nutzer bestätigen und nach dem Stand dann anpassen:
-1. 16 Trefferstopp (nur wenn 16.1–16.4 vorher freigegeben sind).
-2. 18 Pechsträhnen dämpfen. Fertig wenn: Kerntest und `BalanceTest` grün, Siegquoten gegen Bosse vorher/nachher im Bericht.
-3. Hörproben für Klänge im alten Stil (Liste unter „Geplant“ in `docs/OFFEN.md`), je drei Varianten, nichts umgestellt.
-- Reserve: Monster-Laute je Gegnerart als Hörproben (Merkliste).
-- Nicht nachts: 15 Entschlacken (beide schreiben sonst gleichzeitig in `docs/OFFEN.md`).
+Bestätigt vom Nutzer 10.10., 22:19 („starte Nachtmodus“); 16 ist schon erledigt (v0.1.460).
+1. **18 Pechsträhnen:** gebaut, PR #16 (Zweig `claude/wizardly-ramanujan-7rocwj`, Commit 7343f0c). Bosswerte gemessen 22:21 (unverändert im Rauschen, siehe Morgenbericht); Zweig-Build abwarten. Fertig wenn: Kerntests grün (155/0 um 22:18), Bosswerte im Morgenbericht, Zweig-Build mit Link.
+2. **Hörproben Klänge im alten Stil** (Liste unter „Geplant“ in `docs/OFFEN.md`: Klick, Belohnungen, Welt, Zauber und Tränke, Kampfende, Umgebung): je Klang drei neue Varianten als WAV zum Vergleich mit dem alten, im Vorschau-Werkzeug erzeugt, im Spiel nichts umgestellt. Auf demselben Zweig, getrennter Commit (Entwürfe in `Sfx.proposed`, im Spiel ungenutzt). Fertig wenn: je Gruppe drei Varianten und der alte Klang als Datei, Liste im Bericht, Abgleich mit `docs/STIL.md` („Klang“) als Absatz.
+- **Reserve:** Monster-Laute je Gegnerart als Hörproben (Merkliste „Monster-Geräusche“), zuerst Wolf, Goblin, Skelett.
+- Nicht nachts: 15 Entschlacken.
+- Weck-Sitzungen: 00:30, 03:15, 06:00 (siehe Chat 22:2x).

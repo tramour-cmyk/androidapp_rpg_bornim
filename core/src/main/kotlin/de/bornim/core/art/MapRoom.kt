@@ -592,6 +592,9 @@ object MapRoom {
         }
     }
 
+    /** The furniture painted with [Sculpt] ([RoomThings], 6.14); off only for before/after pictures (preview ALTRAUM=1). */
+    @Volatile var sculpted = true
+
     private fun obj(s: Sprite, artX: Double, artY: Double, sortY: Double = artY): WorldArt.Obj {
         val x = Math.floorDiv(artX.toInt() - s.ax, D); val y = Math.floorDiv(artY.toInt() - s.ay, D)
         return WorldArt.Obj(s.img, x, y, (sortY / D).toInt(), D)
@@ -604,16 +607,16 @@ object MapRoom {
         fun same(dx: Int) = at(dx, 0) == map.tile(tx, ty)
         val v = hash(tx, ty, 3)
         return when (map.tile(tx, ty)) {
-            Tile.SHELF -> listOf(obj(shelf(hash(tx, ty, 1) % 5), cx, (ty + 0.7) * S))
+            Tile.SHELF -> listOf(obj(if (sculpted) RoomThings.shelf(hash(tx, ty, 1) % 6) else shelf(hash(tx, ty, 1) % 5), cx, (ty + 0.7) * S))
             Tile.BED -> when {
                 at(0, -1) == Tile.BED -> listOf(obj(longBed(hash(tx, ty, 4) % 3), cx, bottom))
                 at(0, 1) == Tile.BED -> emptyList()
                 else -> listOf(obj(bed(hash(tx, ty, 4) % 3), cx, bottom))
             }
             Tile.COUNTER -> listOf(obj(counter(same(-1), same(1), hash(tx, ty, 2) % 4), cx, bottom))
-            Tile.TABLE -> listOf(obj(table(same(-1), same(1), v % 4), cx, bottom))
+            Tile.TABLE -> listOf(obj(if (sculpted) RoomThings.table(same(-1), same(1), v % 4) else table(same(-1), same(1), v % 4), cx, bottom))
             Tile.BENCH -> listOf(obj(bench(same(-1), same(1)), cx, (ty + 0.55) * S))
-            Tile.BARREL -> listOf(obj(barrel(v % 2), cx + (v % 7 - 3), (ty + 0.85) * S))
+            Tile.BARREL -> listOf(obj(if (sculpted) RoomThings.barrel(v % 3) else barrel(v % 2), cx + (v % 7 - 3), (ty + 0.85) * S))
             Tile.CRATE -> listOf(obj(crates(v % 3), cx, (ty + 0.9) * S))
             Tile.CLUTTER -> {
                 // by the fire lies firewood; elsewhere whatever gathers in a room
@@ -621,7 +624,7 @@ object MapRoom {
                 // beside a table stands a stool; elsewhere sacks, a basket, a bucket or straw, each room its own mix
                 val byTable = (-1..1).any { dx -> at(dx, 0) == Tile.TABLE }
                 val kind = if (byFire) 0 else if (byTable) 3 else listOf(1, 2, 4, 5)[hash(tx, ty, 56) % 4]
-                listOf(obj(clutter(kind, v % 3), cx + (v % 9 - 4), (ty + 0.8) * S))
+                listOf(obj(if (sculpted && kind == 0) RoomThings.firewood(v % 3) else clutter(kind, v % 3), cx + (v % 9 - 4), (ty + 0.8) * S))
             }
             Tile.PLANT -> listOf(obj(plant(), cx, bottom))
             Tile.ALTAR -> listOf(obj(altar(same(-1), same(1)), cx, (ty + 0.8) * S))

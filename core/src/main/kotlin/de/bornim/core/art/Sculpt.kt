@@ -285,6 +285,14 @@ class Sculpt(val w: Int, val h: Int, private val seed: Int = 0) {
         }
     }
 
+    /**
+     * Any lit surface: paints the pixels between (x0, y0) and (x1, y1) for which [normal] returns true,
+     * with the unit normal it stores into its array (cylinders seen from above: barrels, buckets, pots).
+     * Coordinates are pixels of the picture, without [transform].
+     */
+    fun surface(x0: Double, y0: Double, x1: Double, y1: Double, m: Mat, normal: (Double, Double, DoubleArray) -> Boolean) =
+        paint(x0, y0, x1, y1, m) { x, y, n -> normal(x, y, n) }
+
     /** A thin line in a fixed color (whiskers, strings, cracks). */
     fun line(ax: Double, ay: Double, bx: Double, by: Double, c: Int) {
         val x0 = tx(ax); val y0 = ty(ay); val x1 = tx(bx); val y1 = ty(by)

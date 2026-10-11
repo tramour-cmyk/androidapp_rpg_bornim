@@ -4,6 +4,34 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 18 und Hörproben), PR #16, noch nicht getestet:
+
+**Kampf: Pechsträhnen dämpfen (18)**
+- Nach drei Fehlschlägen des Helden in Folge trifft der nächste Angriff unsichtbar etwas leichter (+2, je weiterer Fehlschlag +1, höchstens +4), bis er wieder trifft; nur innerhalb eines Kampfes.
+- Werkzeuge (nur Entwicklung): Kerntest `MissStreakTest` mit Vergleich mit und ohne Dämpfung.
+
+**Hörproben (nur Entwicklung, im Spiel unverändert)**
+- 17 weitere Klänge je dreimal neu und Monster-Laute für Wolf, Goblin und Skelett; Vorschau `KLANGPROBEN=`.
+
+## v0.1.471 – 10.10.2026, 22:33
+
+Zweig von Tom (Thema 13 und Vorarbeiten), getestet in 0.1.461, PR #17; als Release getestet am 11.10. („lief gut“):
+
+**Karte: diagonale Sicht (13)**
+- Die Karte wird schräg von oben gezeigt; der Held läuft frei statt von Feld zu Feld (13g).
+- Figuren stehen in der Mitte ihres Feldes und laufen bis an Möbel heran, wo diese gezeichnet sind (13q.1–3).
+
+**Schänke diagonal (13, 6.14, 13n, 13p)**
+- Hintere Wände mit Balken, Kamin und Fenster, vordere Wände kniehoch; Möbel in drei Varianten, im Maßstab des Helden.
+- Feuer im Kamin flackert, sein Licht fällt auf Wände und Boden.
+- Bänke mit Lehne, Rowena hinter der Theke, Fass, Hocker, Eimer, Korb, Säcke und Pflanze rund und richtig geneigt; Tippen trifft das gezeichnete Ding.
+
+**Leute (12b, 3a, 4)**
+- Stehen und Gehen ohne Sprünge (Gehen in 8 Bildern), Glühwürmchen, Garrick hockt am Feuer.
+
+**Werkzeuge (nur Entwicklung)**
+- Vorschau `KARTENZOOM=1 DIAG=1 TOWNDRAFT=1`, `ISODINGE=1`, `FEUER=1`; Kerntests `InnCornerTest`, `FireFlickerTest`.
+
 ## v0.1.460 – 10.10.2026, 21:14
 
 Zweig von Jerry (Thema 16), getestet in 0.1.458:

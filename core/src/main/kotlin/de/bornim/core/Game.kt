@@ -246,6 +246,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         return if (seeAll) Fog.VISIBLE else f
     }
 
+    /** Free walking of the hero (13g): a position between the tiles, used by the diagonal view. */
+    val freeWalk = FreeWalk(this)
+
     /** Monsters walking around on the current map. */
     val roamers: List<Roamer> get() = herd()
 

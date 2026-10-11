@@ -93,6 +93,12 @@ fun main() {
     if (System.getenv("WEGE") != null) { renderWayDrafts(); System.exit(0) }
     System.getenv("FLORA")?.let { renderFloraSheet(it); System.exit(0) }
     if (System.getenv("HOEHLEDINGE") != null) { renderCaveThings(); System.exit(0) }
+    if (System.getenv("RAUMDINGE") != null) { renderRoomThings(); System.exit(0) }
+    if (System.getenv("ISODRAFT") != null) { renderIsoDraft(); System.exit(0) }
+    if (System.getenv("ISODINGE") != null) { renderIsoThings(); System.exit(0) }
+    if (System.getenv("FEUER") != null) { renderIsoFire(); System.exit(0) }
+    if (System.getenv("SQUATBLEND") != null) { renderSquatBlend(); System.exit(0) }
+    if (System.getenv("ALTRAUM") != null) de.bornim.core.art.MapRoom.sculpted = false
     if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }
     if (System.getenv("MAPFIGYAWS") != null) { renderMapFigureYaws(); System.exit(0) }
     if (System.getenv("MAPFOE") != null) { renderMapFoeDraft(); System.exit(0) }
@@ -102,11 +108,12 @@ fun main() {
     if (System.getenv("NPCTORCH") != null) { renderNpcTorch(); System.exit(0) }
     if (System.getenv("VILLAGEDRAFT") != null) { renderVillageDraft(); System.exit(0) }
     if (System.getenv("SQUATDRAFT") != null) { renderSquatDraft(); System.exit(0) }
+    // TOWNDRAFT=1: the village and the rooms in the new style, for the films too
+    if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true
     System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
     System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
     if (System.getenv("FOEFILM") != null) { foeFilm(); System.exit(0) }
     if (System.getenv("WARDFILM") != null) { wardFilm(); System.exit(0) }
-    if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true
     if (System.getenv("FIREFLIES") != null) {
         // where the fireflies are, how many show at once in a view, and on which nights
         for (id in listOf("forest", "deep_forest", "village")) {
@@ -146,11 +153,16 @@ fun main() {
         }
         for (near in listOf(true, false)) {
             de.bornim.game.ui.MapZoom.near = near
+            // DIAG=1: the map seen diagonally (13)
+            if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.diagonal = true
+            // ZOOMSTUFE=1|2: the in-between zoom steps for the near shots (6.15)
+            System.getenv("ZOOMSTUFE")?.let { if (near) de.bornim.game.ui.MapZoom.level = it.toInt() }
             val z = if (near) "nah" else "weit"
             shot("zoom_${z}_1_wald_tag") { place(it, "forest", 9, 10, 12 * 60) }
             shot("zoom_${z}_2_wald_nacht") { place(it, "forest", 9, 10, 23 * 60) }
             shot("zoom_${z}_3_dorf") { place(it, "village", 11, 7, 12 * 60) }
             shot("zoom_${z}_4_gasthaus") { place(it, "inn", 5, 6, 12 * 60) }
+            shot("zoom_${z}_4b_gasthaus_abend") { place(it, "inn", 5, 3, 21 * 60, Facing.DOWN) }
             shot("zoom_${z}_5_hoehle") { place(it, "cave", 10, 5, 12 * 60) }
             if (near) {
                 shot("zoom_${z}_6_weiher") { place(it, "forest", 7, 15, 12 * 60) }

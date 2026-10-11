@@ -163,18 +163,32 @@ class JumpTest {
         assertTrue(all.isEmpty(), "${all.size} Sprünge bei den Monstern auf der Karte, zuerst: ${all.firstOrNull()}")
     }
 
-    /** Listed only: the folk on the map ([MapRest]) and the battle moves; for the one whose area it is. */
+    /** Strict since 12b (Tom, 10.10.): the hero and the folk on the map, standing ([MapRest]) and walking ([MapFigure]). */
+    fun folk(): List<Jump> {
+        val out = mutableListOf<Jump>()
+        // folk standing about: a minute in steps of 20 ms, the stances gone into and out of through in-between pictures
+        val base = MapFigure.rig(0.0, 0, MapFigure.Carry.FREE)
+        for (seed in listOf(7, 42, 1234)) {
+            val rigs = (0L until 60_000L step 20L).map { t -> MapRest.pose(seed, t, handsFree = true, mayLook = true).let { p -> "${t}ms ${p.rest}/${p.breath}/${p.level}" to MapRest.rig(base, p.rest, p.breath, p.level) } }
+            out += stream("Leute Stehen (seed $seed)", rigs)
+        }
+        // the hero and the folk walking on the map, in every way of carrying
+        for (c in MapFigure.Carry.entries)
+            out += stream("Held Gehen $c", (0..MapFigure.STEPS).map { "Schritt ${it % MapFigure.STEPS}" to MapFigure.rig(90.0, it % MapFigure.STEPS, c) })
+        return out
+    }
+
+    @Test
+    fun folkOnTheMapNeverJump() {
+        val all = folk()
+        all.distinctBy { "${it.case.substringBefore(" (")} ${it.field}" }.take(20).forEach { println("SPRUNG  $it") }
+        assertTrue(all.isEmpty(), "${all.size} Sprünge bei Held und Leuten auf der Karte, zuerst: ${all.firstOrNull()}")
+    }
+
+    /** Listed only: the battle moves; for the one whose area it is. */
     @Test
     fun listOthers() {
         val out = mutableListOf<Jump>()
-        // folk standing about: a minute in steps of 20 ms
-        val base = MapFigure.rig(0.0, 0, MapFigure.Carry.FREE)
-        for (seed in listOf(7, 42)) {
-            val rigs = (0L until 60_000L step 20L).map { t -> MapRest.at(seed, t, handsFree = true, mayLook = true).let { (r, b) -> "${t}ms $r/$b" to MapRest.rig(base, r, b) } }
-            out += stream("Leute Stehen (seed $seed)", rigs)
-        }
-        // the hero and the folk walking on the map ([MapFigure]: four pictures)
-        out += stream("Held Gehen", (0..MapFigure.STEPS).map { "Schritt ${it % MapFigure.STEPS}" to MapFigure.rig(90.0, it % MapFigure.STEPS, MapFigure.Carry.FREE) })
         // the battle moves, picture by picture, of the animals and the foes on the doll
         for (id in listOf("wolf", "boar", "giant_rat")) for (act in Act.entries) for (v in 0 until BeastArt.variants(act)) {
             val seq = runCatching { BeastArt.sequence(id, act, v) }.getOrNull() ?: continue

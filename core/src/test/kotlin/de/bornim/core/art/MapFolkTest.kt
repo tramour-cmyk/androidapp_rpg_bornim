@@ -106,6 +106,30 @@ class MapFolkSquatTest {
         assertTrue(MapFolk.Squat.DOZE in poses)
     }
 
+    /** 10.10., 3a: no pose snaps into the next; between two moments 50 ms apart the body moves only a little. */
+    @Test
+    fun posesGoOverSmoothly() {
+        for (night in listOf(false, true)) {
+            var last: HeroFigure.Rig? = null
+            var t = 0L
+            var down = 0
+            while (t < 2 * 3_600_000L) {
+                val p = MapFolk.squatPoseAt(g, t, night)
+                val rig = if (p == null) null else MapFolk.squatRig(0.0, p)
+                if (rig != null && last != null) {
+                    assertTrue(kotlin.math.abs(rig.crouch - last.crouch) <= 20.5, "crouch jumps at $t: ${last.crouch} -> ${rig.crouch}")
+                    assertTrue(kotlin.math.abs(rig.headDown - last.headDown) <= 8.5, "head jumps at $t night=$night: ${last.headDown} -> ${rig.headDown}; " + (t - 300..t + 100 step 50).joinToString { "$it:" + MapFolk.squatPoseAt(g, it, night) })
+                }
+                // he starts and ends standing, so no session begins or ends crouched
+                if ((rig == null) != (last == null)) assertTrue((rig ?: last)!!.crouch < 1.0, "begins or ends crouched at $t")
+                if (rig != null && rig.crouch > 30) down++
+                last = rig
+                t += 50
+            }
+            assertTrue(down > 0)
+        }
+    }
+
     @Test
     fun neverOnABeat() {
         val (s, _) = sessions(night = true, hours = 3)
