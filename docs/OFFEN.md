@@ -39,7 +39,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Jerry (11.10., 17:01)
 
-- **9i** auf `claude/brave-wright-pmcy0i`, Entwurfs-PR #29 (abonniert): 9 Arten und **9i.1** Testmenü (`Game.cheatBring`) getestet (0.1.516, 0.1.518), PR #29 zusammengeführt (17:16), in „Unveröffentlicht“. Sitzung endet (Nutzer 17:12); neue Sitzung macht weiter.
+- **9i** (Zweig `claude/brave-wright-pmcy0i`): 9 Arten und **9i.1** Testmenü (`Game.cheatBring`) getestet (0.1.516, 0.1.518), PR #29 zusammengeführt (17:16), in „Unveröffentlicht“. Sitzung endet (Nutzer 17:12); neue Sitzung macht weiter.
 - Weiter: 9i Rest (Gang/Ruhe für Spinne, Hundertfüßer, Fledermaus, Stirge, Gallerte, `VerminArt`); **24** Kampfsätze in Toms `Interlude.kt` (Zweig `claude/adoring-franklin-cqhg5a`), Grak Satz 5 braucht Bedingung (mit Tom klären), knapper Kampftext `Battle.kt:1117`; 28 Musik.
 
 ## Zu testen
