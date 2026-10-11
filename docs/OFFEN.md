@@ -17,7 +17,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; nach 13 |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
-| 18d, 18e | Hörproben (Runde 1 und 2) und Monster-Laute | Jerry | – | warten auf den Nutzer (anhören) |
+| 18 | Klänge neu: Hörproben (18d) und Monster-Laute (18e) abgelehnt 11.10., 12:10 („klingt wie Pokémon“) | Jerry | – | Vorschlag 18.5/18.6, Rückfrage 18f |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
 | 12.3 | Sprünge in den Kampfbewegungen der Tiere (Wolf, Eber, Riesenratte): `JumpTest.listOthers` meldet 265, nur gelistet | Jerry | – | Befund 11.10., 12:10: keine echten Rucke (`BattleJumpTest` streng 0), nur schnell gegen Kartengrenzen; Rückfragen 12.3b, 12.3c |
 
@@ -47,5 +47,4 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **12.3c** (Jerry): Kampfteil von `listOthers` streichen statt mit Kartengrenzen scharf schalten (Kampf prüft `BattleJumpTest` streng). Empfehlung ja.
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). Empfehlung: festlegen, wenn die Räume fertig sind.
-- **18d** (Jerry): Hörproben auswählen, Runde 1 (Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt) und Runde 2 (17 Klänge, `hoerproben_runde2.zip`). Empfehlung Jerry: erst Runde 1.
-- **18e** (Jerry): Monster-Laute Wolf, Goblin, Skelett: Richtung passt? Dann die übrigen Gegner.
+- **18f** (Jerry): Weg für neue Klänge: 18.5 echte Aufnahmen (CC0, Netzfreigabe nötig) oder 18.6 bessere Synthese am Rechner (Python, physikalisch). Empfehlung 18.5, 18.6 ergänzend.
