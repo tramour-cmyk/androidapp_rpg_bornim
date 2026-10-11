@@ -4,6 +4,20 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Übergabe Tom (11.10., 18:12), ersetzt 11.10., 20:21
+
+- **24.1 getestet** (0.1.527: „lief okay“; bereit nach 0,4 / 0,1 / 0,0 s) und zusammengeführt (PR #32, 18:11). Code: `InterludeClock` (Kern), `InterludeUi.kt` (`MapVeil`, `VeilMemory`), Vorschau `BLENDE=1`, `BLENDEFILM=1`.
+- **Meldung beim Test von 0.1.527 (24.9):** Nach Spielstandwechsel Magier → Kämpfer beim Laufen eine Zeit lang eine Mischung beider Figuren. Ursache: 24.3 hält die alten Bilder (`MapFigure.previous`) auch bei einem anderen Helden, und `frameNow` nimmt je Schrittbild neu oder alt. Vorschlag: alte Bilder nur bei gleichem Helden (nur Ausrüstung geändert), und je Richtung erst wechseln, wenn ihr ganzer Gang neu gezeichnet ist; Kerntest. **24m ja (Nutzer, gelesen 18:17): in neuer Sitzung umsetzen.**
+- **Als Nächstes:** 24.9 (freigegeben, neuer Zweig von `main`); 24.5 (Kampfbilder vorladen, wenn ein Gegner bemerkt; Blende vor Kämpfen ist 24.6, Jerry); dann 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
+
+## Übergabe Jerry (11.10., 19:54), ersetzt 11.10., 20:07
+
+- 28 Auswahl fest (nene, Titel `adventure_intro`, Dorf 3 Stücke, Höhle mit Klangflächen), Bauplan 28.1 wartete auf 28f/28g; danach 24.6, 24.8, 13e.
+
+## Übergabe Jerry (11.10., 19:08), ersetzt 11.10., 19:54
+
+- **9i erledigt:** Rest (Spinne, Hundertfüßer, Fledermaus, Stirge, Gallerte; 9i c, 9i.2 Lauerer wenden sich zu) getestet 0.1.529/0.1.531, PR #33 zusammengeführt (19:07). **24** Kampfsätze (`openings`, `foes`) PR #31 auf `main`. Beides in „Unveröffentlicht“. Kein offener Zweig, kein offener PR. Offen/beobachten: Spinne auf der Karte evtl. etwas groß (`MapFoe.verminSize`). Knapper Kampftext `Battle.kt` erst mit 24.6. Grak Satz 5 ohne Bedingung (nur Testmenü-Fall unpassend). Weiter: **24.6** (Kampferöffnung wartet auf Kampfbilder, vorher messen) nach Toms 24.5; 24.8 Klang der Blende; **28** Musik (erst Hörproben); 13e Höhle diagonal (Entwürfe). APK für den Chat: `gh api …/actions/artifacts/<id>/zip` (siehe `UMGEBUNG.md`).
+
 ## Übergabe Jerry (11.10., 17:01), ersetzt 11.10., 19:08
 
 - **9i** (Zweig `claude/brave-wright-pmcy0i`): 9 Arten und **9i.1** Testmenü (`Game.cheatBring`) getestet (0.1.516, 0.1.518), PR #29 zusammengeführt (17:16), in „Unveröffentlicht“. Sitzung endet (Nutzer 17:12); neue Sitzung macht weiter.
