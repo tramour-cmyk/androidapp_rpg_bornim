@@ -4,6 +4,13 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
+
+### Übergabe Tom (11.10., 21:42, vor Neustart)
+
+- **24.5** auf Zweig `claude/eager-hypatia-o148lt` (Commit „24.5: Kampfbilder schon auf der Karte vorzeichnen“, `core/.../art/BattleAhead.kt`, Aufruf in `WorldScreen` neben `MapFigure.prepare`, Zeiten in `BattleScreen`, Test-Reiter, Kerntest `BattleAheadTest`), Build 0.1.541 getestet: Held ok, Gegner nie vorgezeichnet (siehe „Zu testen“). Kein PR.
+- **Als Nächstes (24u ja, 21:42), gleicher Zweig, ein Build:** 24.16 Test-Reiter-Zeile (Bilder vorgezeichnet/gesamt, Wartezeit auf Karte, Gegnerart), 24.17 zwei Kerne statt einem (`SdfRender.alone` aus, z. B. eigener Pool mit 2 Fäden, niedrige Priorität), 24.18 Reihenfolge: Eröffnung+Stehen des Helden → Gegner → Rest des Helden (`HeroBattle.prepare` hat `onOpening`). Vorher `main` in den Zweig holen. Messen: kleiner Kerntest wie `BattleAheadTest` mit Zeitstempeln im `cancelled`-Lambda (Rechner: Kampf Held 4,6 s alle Kerne, 13,9 s ein Kern).
+- Danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17. APK nur als Link (Regel 21:25).
+
 ## Übergabe Jerry (11.10., 21:53), ersetzt 11.10., 22:05
 
 - **24.8 Ortsklang in der Blende:** 24t ja (21:45), Herzschlag mitladen. Hörproben geschickt (21:51): Wind, Schänke, Halle (Tempel), Knarren, Herzschlag, je 3. Skript `tools/klang/orte.py` auf Zweig `ccr-d94c036c-bdvewr` (Aufnahmen: OGA mild-wind-background-noise, park-ambiences, background-voices, tree-creaking, heartbeat-sounds, heartbeat-single-sound; Kenney creak1/3; liegen nicht in `holen.sh`, Freesound-CDN gibt gerade 403). **24v (21:55):** Wind, Halle, Knarren, Herzschlag halbwegs ok; **Schänke geht gar nicht** → neu aus BigSoundBank (CC0: Bar 0480, Menge 3515, Gaststube 3542, Gläser 1323/1324/1935/0472), Hörprobe 22:02, **Rückfrage 24w**.
