@@ -333,7 +333,8 @@ object MapFoe {
 
     private fun renderVermin(id: String, look: MonsterLook, scale: Double, rig: Vermin.Rig): PixelImage {
         val f = frame(id)
-        return Vermin(VerminArt.kindOf(id), look.pick(3, 10), verminSize(id, look) * scale)
+        // 9i c: the wing skin darker, else it reads pale from above
+        return Vermin(VerminArt.kindOf(id), look.pick(3, 10), verminSize(id, look) * scale, wingShade = if (flies(id)) 0.55 else 0.0)
             .render(f.w, f.h, f.ax.toDouble(), f.gy.toDouble(), PX, rig, pitch = PITCH)
     }
 
