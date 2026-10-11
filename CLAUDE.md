@@ -40,7 +40,7 @@ Alle Notizen und Absprachen gibt es nur einmal, auf `main`: `CLAUDE.md`, `CHANGE
 3. `CHANGELOG.md` nur bis zur zweiten Versionsüberschrift (`sed -n '1,/^## v/p'` und die erste Version).
 4. `tools/check-env.sh` laufen lassen; `docs/UMGEBUNG.md` nur lesen, wenn es etwas meldet oder ein Werkzeug gesucht wird (Tabelle der Vorschau-Schalter).
 
-Nicht beim Start lesen: `docs/ARCHIV.md` (Verlauf, nur gezielt durchsuchen), `docs/MERKLISTE.md` (Ideen für später), `docs/NACHT.md` (nur bei Nachtarbeit).
+Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md` (Verlauf, nur gezielt durchsuchen), `docs/MERKLISTE.md` (Ideen für später), `docs/NACHT.md` (nur bei Nachtarbeit).
 
 ## Feste Regeln
 
@@ -60,7 +60,7 @@ Nicht beim Start lesen: `docs/ARCHIV.md` (Verlauf, nur gezielt durchsuchen), `do
 - Weniger Rückfragen zur Freigabe von Aktionen steuert der Freigabe-Modus im Eingabefeld der App (Manuell/Automatisch), nicht der Code.
 - Vor dem Commit das Testergebnis prüfen (`set -o pipefail` bzw. Exit-Code), nicht nur die gefilterte Ausgabe.
 - Vor einer längeren Pause schreibt die Sitzung eine kurze Übergabe in ihren Abschnitt von `docs/OFFEN.md`: Stand, Offenes, offene Rückfragen.
-- **`OFFEN.md` klein halten** (Regel 11.10., Thema 15): höchstens etwa 15 KB; je Eintrag höchstens 3 Zeilen, Einzelheiten in Commit-Nachrichten oder `docs/ARCHIV.md`. Je Person genau eine Übergabe: die neue ersetzt die alte, die alte kommt oben ins Archiv. Getesteter Build: Zeile löschen, Ergebnis in `CHANGELOG.md`. Erledigtes Thema: aus „Wer macht was“ streichen. Bei jedem Release `wc -c docs/OFFEN.md` prüfen, über 20 KB aufräumen.
+- **`OFFEN.md` klein halten** (Regel 11.10., Thema 15): höchstens etwa 15 KB; je Eintrag höchstens 3 Zeilen, Einzelheiten in Commit-Nachrichten oder `docs/ARCHIV.md`. Je Person genau eine Übergabe: die neue ersetzt die alte, die alte kommt oben ins Archiv. Getesteter Build: Zeile löschen, Ergebnis in `CHANGELOG.md`. Erledigtes Thema: aus „Wer macht was“ streichen. Neues, abgeschlossenes oder abgegebenes Thema: die Zeile in `docs/THEMEN.md` anpassen. Bei jedem Release `wc -c docs/OFFEN.md` prüfen, über 20 KB aufräumen.
 - **Neustart vorschlagen, um Token zu sparen** (Regel 10.10., 13:32): An Bruchstellen (ein Thema fertig, ein Build ausgeliefert, vor dem Wechsel auf ein anderes Thema, oder wenn der Haken meldet, dass das Gespräch groß ist) schlägt die Sitzung von sich aus eine neue Sitzung vor. Vorher die Übergabe in `docs/OFFEN.md` schreiben und pushen, damit die neue Sitzung ohne Verlust weitermacht.
 
 - **Nachtarbeit** (Regel 10.10., 21:05): Vergibt der Nutzer ein Nachtpaket oder startet eine Weck-Sitzung, gilt `docs/NACHT.md` (Paket mit Reserve, Weck-Sitzungen selbst einrichten, Herzschlag, Nutzungsgrenze, Morgenbericht). Sonst muss die Datei nicht gelesen werden.

@@ -4,7 +4,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 **Nächste freie Themennummer: 20** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
-Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Nachtarbeit](NACHT.md) · [Archiv](ARCHIV.md): Verlauf, wird nicht beim Start gelesen.
+Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Nachtarbeit](NACHT.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
 ## Wer macht was
 
@@ -14,7 +14,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | nach den Räumen von 13 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 14 | Neustart-Haken: misst Gesprächsgröße, Hinweis an die Sitzung | Tom | neu von `main` (Werkzeug, PR) | freigegeben 10.10. |
-| 15 | `OFFEN.md` entschlacken | Tom | `main` (Notizen) | erledigt 11.10.; Jerry prüft seinen Teil |
+| 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerry prüft seinen Teil |
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; nach 13 |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 18d, 18e | Hörproben (Runde 1 und 2) und Monster-Laute | Jerry | – | warten auf den Nutzer (anhören) |
@@ -34,6 +34,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - 18 Pechsträhnen getestet (0.1.472), PR #16 zusammengeführt, Release **v0.1.479**. Kein offener Zweig. Hörproben Runde 2 und Monster-Laute liegen als Entwürfe in `core` (`Sfx.proposed`, `KLANGPROBEN=…`).
 - Als Nächstes: 9i nach Toms 13; 10, 11 nach 13e. Feste Weck-Routinen wie Tom einrichten (`docs/NACHT.md`, Abschnitt „Feste Weck-Sitzungen“).
+- **Hinweis von Tom (11.10., 11:55, Thema 15):** `OFFEN.md` ist entschlackt (Verlauf in `docs/ARCHIV.md`), neu `docs/THEMEN.md` (eine Zeile je Nummer) und die Regel „`OFFEN.md` klein halten“ in `CLAUDE.md`. Bitte deinen Teil in „Wer macht was“, deine Übergabe und deine Zeilen in `THEMEN.md` prüfen; neue Themen auch dort eintragen.
 - APK in den Chat: `gh api -H "Accept: application/octet-stream" repos/tramour-cmyk/androidapp_rpg_bornim/releases/assets/<id>` (id aus `releases/latest`); Artefakte von Zweig-Builds scheitern mit 403.
 
 ## Zu testen
