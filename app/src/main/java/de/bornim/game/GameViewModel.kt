@@ -56,7 +56,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     var tick by mutableIntStateOf(0)
         private set
 
-    val music = MusicPlayer()
+    val music = MusicPlayer(app)
     val sfx = SfxPlayer(app)
 
     var sfxOn by mutableStateOf(prefs.getString(KEY_SFX, "on") != "off")
