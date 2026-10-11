@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 24** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 25** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -22,6 +22,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 22 | Selbstarbeit statt nur Nachtarbeit: Routinen alle 3 h, Vorrat und Liste „Für gemeinsame Zeit“ | Tom | `main` (Notizen), Routinen | 22a, 22b ja (13:31). `docs/SELBST.md` statt `NACHT.md`; Toms Routinen umgestellt (13:38); Nutzer: neue Routinen einstellen (Repo, automatisch). Jerrys Routinen umgestellt (13:44), Vorrat eingetragen |
 | 23 | Aufgaben so aufteilen, dass Tom und Jerry auch in Selbstarbeit genug Vorrat haben | Tom | `main` (Notizen) | 23a ja (14:18): je 8 Punkte im Vorrat (`docs/SELBST.md`), neue nur als Entwürfe/Hörproben. **Jerry:** deine Punkte 4–8 sind eingetragen |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
+| 24 | Animationen fehlen nach Spielstart und Kartenwechsel (Held schwebt ohne Beinbewegung, Atmen fehlt); Übergangsbild, bis alles gezeichnet ist | Tom (Karte); Kampfbilder mit Jerry abstimmen | – | gemeldet 11.10., 14:36, Befund der Tom-Beratung 14:45, wartet auf Entscheidung 24a–24c |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
@@ -48,6 +49,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Rückfragen an den Nutzer
 
+- **24 Animationen fehlen am Anfang (gemeldet 11.10., 14:36; Befund Tom-Beratung 14:45):** Stimmt. Der Held auf der Karte hat 16 Richtungen × 8 Schrittbilder = 128 Bilder; `MapFigure.prepare` zeichnet sie in einem einzigen Hintergrund-Faden mit niedriger Priorität. Bis ein Bild fertig ist, zeigt `frameNow` das Standbild dieser Richtung, deshalb gleitet der Held ohne Beinbewegung. Atmen und Gewicht verlagern (`MapRest`) werden erst beim ersten Bedarf in einem weiteren Faden gezeichnet; Leute (`MapFolk.prepareFor`) und Boden (`MapGround.prepare`) beim Kartenwechsel ebenso. Ein Wechsel der Ausrüstung verwirft alle Heldenbilder (`cache.keys.removeAll`), danach fehlt das Laufen wieder. Vorschläge: 24.1 Übergangsbild beim Spielstart und Kartenwechsel (dunkle Blende im Stil, Ortsname, kurzer Satz), bleibt, bis das Nötige fertig ist (Laufen des Helden in allen Richtungen, Atmen, Leute der Karte, Boden um den Helden), höchstens etwa 4 s, danach weiter im Hintergrund; 24.2 schneller zeichnen: mehrere Fäden (Zahl der Kerne), höhere Priorität, solange das Übergangsbild steht; 24.3 bei Ausrüstungswechsel alte Bilder behalten, bis die neuen fertig sind; 24.4 gezeichnete Bilder auf dem Gerät speichern, damit der nächste Start sofort geht. Rückfragen: 24a Übergangsbild ja? 24b auch 24.2 und 24.3 gleich mit? 24c 24.4 später (Merkliste)?
 
 
 
