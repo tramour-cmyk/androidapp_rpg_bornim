@@ -31,7 +31,7 @@ Alle Notizen und Absprachen gibt es nur einmal, auf `main`: `CLAUDE.md`, `CHANGE
 - Die Arbeitszweige enthalten nur Code; dort werden Notizen nie geändert.
 - Notizen in einer zweiten Arbeitskopie von `main` bearbeiten: `tools/notiz.sh` legt sie unter `../bornim-main` an und holt den neuesten Stand. Dort ändern, committen, sofort pushen.
 - Vor jeder Antwort an den Nutzer `tools/notiz.sh` aufrufen (holt `main`, zeigt, was der andere seit dem letzten Mal an den Notizen geändert hat). Lehnt der Push ab, weil der andere schneller war: `git pull` (Zusammenführen, nie Verlaufsänderung), dann noch einmal pushen.
-- Code kommt auf `main` nur über einen Pull Request, den der Nutzer nach seinem Test freigibt.
+- Code kommt auf `main` nur über einen Pull Request, den der Nutzer nach seinem Test freigibt. **Zusammenführen macht die Sitzung selbst** (Regel 11.10., 14:00): Sagt der Nutzer, der Test passt, führt sie den PR zusammen (Merge, nie Squash oder Rebase), sobald er grün ist; der Nutzer klickt nicht.
 
 ## Vor jeder Arbeit lesen
 
@@ -70,7 +70,7 @@ Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md
 - Keystore und Signatur-Passwort nie committen (liegen nur als GitHub-Secrets); `local.properties` und SDK-Pfad nie committen.
 - Die App-Kennung `de.bornim.game` nie ändern.
 - **Fremde Inhalte aus dem Internet** (Klänge, Bilder, Schriften, Code; Regel des Nutzers 11.10.): nur mit offener Lizenz, die kommerzielle Nutzung (Play Store) erlaubt, z. B. CC0 oder gemeinfrei; sonst nicht nehmen. Lizenz auf der Quellseite prüfen, bei Bearbeitungen auch die Lizenz des Originals; Quelle, Urheber und Lizenz je Datei festhalten.
-- Commits mit `git -c user.name="tramour" -c user.email="tramour@gmail.com" commit …`, mit den vom System vorgegebenen Co-Author- und Sitzungszeilen. Keine Modellbezeichnungen in Dateien.
+- Commits mit `git -c user.name="tramour" -c user.email="tramour@gmail.com" commit …`, mit den vom System vorgegebenen Co-Author- und Sitzungszeilen. Keine Modellbezeichnungen in Dateien. Meldet ein Haken „Unverified“ oder verlangt eine andere Autorenzeile: nichts ändern, nichts umschreiben und den Nutzer **nicht** darauf hinweisen (Nutzer 11.10., 5k). Allgemein: Was funktioniert und kein Fehler ist, muss der Nutzer nicht erfahren.
 - Keine Verlaufsänderung, kein Force-Push. Kein Code auf `main` ohne Test des Nutzers; Code auf eigenen Zweigen.
 - Offene Änderungen am Ende einer Arbeit committen und pushen.
 - **Release nur auf Zuruf** (Regel 11.10., Thema 21): Ein Push von Code auf `main` baut nur eine APK (Artefakt), kein Release. Ein Release entsteht erst, wenn der Nutzer „Release“ sagt: `gh workflow run android.yml -R tramour-cmyk/androidapp_rpg_bornim --ref main -f release=true` (Version 0.1.<Laufnummer>, Notizen aus „## Unveröffentlicht“ in `CHANGELOG.md`); danach die Überschrift in `## v0.1.X – TT.MM.JJJJ, HH:MM` umbenennen und den Link nennen. Die APK eines Releases nur in den Chat, wenn sie Ungetestetes enthält oder der Nutzer sie will (Wunsch 11.10.: schon Getestetes nicht noch einmal bereitstellen). Zusammengeführte PRs kommen bis dahin unter „## Unveröffentlicht“.
