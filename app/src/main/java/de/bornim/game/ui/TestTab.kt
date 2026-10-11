@@ -39,6 +39,8 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
     // 0 = normal, 1..6 = elite trait, 7 = shimmering
     var variant by remember { mutableIntStateOf(0) }
     var showMonsters by remember { mutableStateOf(false) }
+    // 9i: tapping a monster in the list fights it, or brings it onto the map beside the hero to watch
+    var bring by remember { mutableStateOf(false) }
     var showWeapons by remember { mutableStateOf(false) }
     var opening by remember { mutableStateOf(Opening.NORMAL) }
     fun gearName(id: String) = GearBases[id].let { if (german) it.de else it.en }
@@ -110,11 +112,6 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             seeAll = de.bornim.core.Game.seeAll
             vm.refresh()
             vm.toast = if (seeAll) t("Kein Nebel, keine Sichtlinie: alle Monster der Karte sind zu sehen. Erkundet wird wie sonst.", "No fog, no line of sight: every monster on the map shows.") else t("Sichtlinie und Nebel wieder wie im Spiel.", "Line of sight and fog back as in the game.")
-        }
-        PixelButton(t("Wolfsrudel und Goblin mit Späher herholen", "Bring a wolf pack and a goblin with its scout"), Modifier.fillMaxWidth(), size = 14.sp) {
-            val n = game.cheatBringPacks()
-            vm.refresh()
-            vm.toast = if (n > 0) t("In der Nähe: ein Wolfsrudel und ein Goblin mit Späher.", "Nearby: a wolf pack and a goblin with its scout.") else t("Hier ist kein Platz für sie.", "No room for them here.")
         }
         var failSaves by remember { mutableStateOf(de.bornim.core.Battle.foesFailSaves) }
         PixelButton(t("Gegner bestehen keine Rettungswürfe: ", "Foes fail every save: ") + (if (failSaves) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
@@ -229,7 +226,17 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             showMonsters = !showMonsters
         }
         if (showMonsters) {
+            PixelButton(t("Antippen: ", "Tap: ") + (if (bring) t("neben den Helden holen", "bring beside the hero") else t("Kampf starten", "start a fight")), Modifier.fillMaxWidth(), size = 14.sp) {
+                bring = !bring
+            }
             fun fight(id: String, boss: Boolean, kit: Int?) {
+                if (bring) {
+                    vm.menuOpen = false
+                    val n = game.cheatBring(listOf(id), calmMs = 120_000)
+                    vm.refresh()
+                    vm.toast = if (n > 0) t("In der Nähe, 2 Minuten friedlich (auch Rudel).", "Nearby, peaceful for 2 minutes (packs too).") else t("Hier ist kein Platz.", "No room here.")
+                    return
+                }
                 val trait = if (variant in 1..6 && !boss) EliteTrait.entries[variant - 1] else null
                 vm.menuOpen = false
                 game.cheatFight(id, trait, variant == 7 && !boss, opening, kit)
