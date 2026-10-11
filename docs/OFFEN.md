@@ -10,7 +10,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
-| 13 | Diagonale Sicht | Tom | `tom-diagonal` | Schänke auf `main` (v0.1.471). 11.10., 12:40: Ältester, Laden, Tempel mit Grundriss A im Spiel (Tempel Stein, Seitengänge für Lyra), Kerntest `RoomPlanTest`; Zweig-Build läuft. Danach: Dorf draußen |
+| 13 | Diagonale Sicht | Tom | `tom-diagonal` | Schänke auf `main` (v0.1.471). 11.10., 12:40: Ältester, Laden, Tempel mit Grundriss A im Spiel (Tempel Stein, Seitengänge für Lyra), Kerntest `RoomPlanTest`; Zweig-Build 0.1.482 zum Testen. Danach: Dorf draußen |
 | 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | nach den Räumen von 13 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 14 | Neustart-Haken: misst Gesprächsgröße, Hinweis an die Sitzung | Tom | neu von `main` (Werkzeug, PR) | freigegeben 10.10. |
@@ -39,6 +39,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
+- **0.1.482** (Tom, 13, `tom-diagonal`, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38132308756/artifacts/11699796980)): Ältester, Laden, Tempel mit Grundriss A; Prüfliste im Chat 11.10., 12:42.
 - **0.1.481** (Jerry, 12.3b/c): Sprungangriff Wolf und Riesenratte (weicher beim Abheben und Landen); sonst keine sichtbare Änderung. Link: https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38131186527
 
 ## Rückfragen an den Nutzer
