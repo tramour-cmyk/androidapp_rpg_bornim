@@ -98,12 +98,17 @@ object MapCaveIso {
     private fun rock(face: Int, u: Double, z: Double, seed: Int, top: Double): Int {
         if (face == 2) return shade(mix(rockDark, rockLight, 0.12 + vnoise(u * 9, z * 0.05, seed) * 0.1), 0.6)
         val k = if (face == 0) 0.55 else 0.85
-        var t = 0.5 + (vnoise(u * 6, z / 22, seed) - 0.5) * 0.35 + (vnoise(u * 1.5, z / 9, seed + 5) - 0.5) * 0.2 + (rnd(floor(u * 70).toInt(), floor(z * 1.4).toInt(), seed + 1) - 0.5) * 0.12
-        // cracks: thin dark seams down the face, wandering a little
-        val crack = frac(u * 3 + vnoise(z / 30, u * 2, seed + 2) * 0.6)
-        if (crack < 0.035) t -= 0.25
+        // the face bulges: a height field of big lumps and smaller knobs, lit from above and from the side
+        val x = u * 2.2; val y = z / 26
+        fun hf(px: Double, py: Double) = vnoise(px, py, seed) * 0.6 + vnoise(px * 2.7, py * 2.7, seed + 7) * 0.3 + vnoise(px * 7, py * 7, seed + 8) * 0.1
+        val hh = hf(x, y)
+        val dx = (hf(x + 0.04, y) - hh) / 0.04; val dy = (hf(x, y + 0.04) - hh) / 0.04
+        var t = 0.46 + dy * 0.22 + dx * (if (face == 0) -0.1 else 0.1) + (hh - 0.5) * 0.25
+        t += (rnd(floor(u * 90).toInt(), floor(z * 1.8).toInt(), seed + 1) - 0.5) * 0.06
+        // cracks: where two lumps meet, a dark seam
+        if (abs(vnoise(x * 1.6, y * 1.6, seed + 2) - 0.5) < 0.018) t -= 0.22
         // wet streaks where water runs down
-        if (vnoise(u * 11, 0.0, seed + 3) > 0.72) t -= 0.08
+        if (vnoise(u * 11, z / 160, seed + 3) > 0.74) t -= 0.07
         // the foot darker, the head lost in the dark
         t -= max(0.0, 1 - z / 12) * 0.15
         t -= max(0.0, (z - top * 0.55) / (top * 0.45)) * 0.3
@@ -120,12 +125,12 @@ object MapCaveIso {
         val c = Tile1(TH.toInt() + (height * ZS).toInt() + 30)
         var z = 0.0
         var k = 0
-        val layer = height / 4.2
+        val layer = height / 2.6
         while (z < height - 1) {
             val z1 = min(height, z + layer * (0.7 + rnd(v, k, seed) * 0.6))
             val last = z1 >= height - 1
-            val ii = (rnd(v, k, seed + 1) - 0.45) * 0.18
-            val jj = (rnd(v, k, seed + 2) - 0.45) * 0.18
+            val ii = (rnd(v, k, seed + 1) - 0.45) * 0.1
+            val jj = (rnd(v, k, seed + 2) - 0.45) * 0.1
             val zz = z
             // the broken top: up and down along the face, higher in the middle of the tile
             fun edge(u: Double) = z1 + (vnoise(u * 5, k.toDouble(), seed + 4) - 0.5) * layer * 1.2 + kotlin.math.sin(u * Math.PI) * layer * 0.3
