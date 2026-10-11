@@ -12,7 +12,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 6 | Innenräume (Schänke), Zoom (6.15) | Tom | Schänke erledigt (v0.1.471, in 13 aufgegangen); 6l Zoomstufe offen | `OFFEN.md` |
 | 7 | Stopp-Punkt und Zusammenarbeit der Accounts | Tom | erledigt 10.10. (weiter in 8) | Archiv |
 | 8 | Zusammenarbeit Tom und Jerry, Notizen nur auf `main` | Jerry | erledigt 10.10. | `CLAUDE.md` |
-| 9 | Monster auf der Karte | Jerry | Wolf, Goblin, Grimmzahn erledigt (v0.1.430, v0.1.438); 9i übrige Gegner offen, nach 13 | `OFFEN.md` |
+| 9 | Monster auf der Karte | Jerry | alle 18 Gegner auf der Karte erledigt: Wolf, Goblin, Grimmzahn (v0.1.430, v0.1.438), 9i übrige Gegner (PR #29, #33, 11.10.) | `OFFEN.md` |
 | 10 | Höhle: Flammen feiner | Jerry | zurückgestellt bis zur diagonalen Höhle (13e) | `OFFEN.md` |
 | 11 | Höhle: Lichtstrahl am Lichtschacht | Jerry | zurückgestellt bis zur diagonalen Höhle (13e) | `OFFEN.md` |
 | 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Jerry, Tom | 12a, 12b, 12.3 erledigt (v0.1.455, v0.1.471, v0.1.483) | `OFFEN.md` |

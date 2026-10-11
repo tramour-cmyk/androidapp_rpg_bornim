@@ -4,6 +4,14 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 9i Rest, 9i.2), getestet in 0.1.529 und 0.1.531, PR #33 (zusammengeführt 11.10., 19:07):
+
+**Spinne, Hundertfüßer, Fledermaus, Stirge und Gallerte auf der Karte (9i)**
+- Die fünf übrigen Gegner laufen als neue Modelle über die Karte: die Spinne setzt die Beine, der Hundertfüßer wellt sich, Fledermaus und Stirge fliegen waagerecht auf Kopfhöhe über ihrem Schatten, die Gallerte wälzt sich.
+- Im Stehen leben sie: umsehen, lauern, drohen; die Flieger schlagen weiter mit den Flügeln.
+- Spinne, Fledermaus und Gallerte bleiben auf ihrem Platz, wenden sich aber dem Helden zu, wenn er näher als etwa 4 Felder kommt (9i.2).
+- Werkzeuge (nur Entwicklung): Vorschau `MAPFOE=vermin`, `FOEFILM=1 FOEIDS=…`; Sprungtest um die fünf Arten erweitert.
+
 Zweig von Tom (Thema 24.1), getestet in 0.1.527, PR #32 (zusammengeführt 11.10., 18:11):
 
 **Blende beim Spielstart und Ortswechsel (24.1)**

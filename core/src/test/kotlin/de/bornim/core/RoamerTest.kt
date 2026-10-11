@@ -152,6 +152,24 @@ class RoamerTest {
     }
 
     @Test
+    fun lurkersTurnToTheHeroButStayPut() {
+        val g = forestGame()
+        val p = g.state.place
+        val herd = g.roamers as MutableList<Roamer>
+        herd.clear()
+        // 9i.2: a spider three tiles to the hero's right, calm (brought by the test menu), looking away
+        val r = Roamer(99, "giant_spider", p.x + 3, p.y, p.x + 3, p.y, null, false, MonsterLook()).also { it.facing = Facing.RIGHT; it.calmUntil = Long.MAX_VALUE; herd += it }
+        var t = 0L
+        while (t < 5_000) { t += 100; g.update(t) }
+        assertEquals(Facing.LEFT, r.facing)
+        assertEquals(p.x + 3 to p.y, r.x to r.y)
+        // far off it does not care
+        r.x = p.x + 8; r.facing = Facing.UP
+        t = 0L; while (t < 5_000) { t += 100; g.update(10_000 + t) }
+        assertEquals(Facing.UP, r.facing)
+    }
+
+    @Test
     fun bringPlacesEveryMonsterNearbyAndCalm() {
         for (m in Monsters.all) {
             val g = forestGame()

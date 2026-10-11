@@ -12,7 +12,11 @@ import kotlin.math.sin
  * body of its own here. Measured in cm, facing +z, the ground at y = 0. Each kind comes in three looks ([variant]):
  * colours and markings, scars, a torn wing, a bloated belly; [size] scales the whole animal.
  */
-class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
+/**
+ * [wingShade]: how much darker a flyer's wing skin is drawn (9i c, on the map: seen from above in the light, it
+ * would read pale and beige rather than dark).
+ */
+class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0, val wingShade: Double = 0.0) {
 
     enum class Kind { SPIDER, CENTIPEDE, BAT, STIRGE, JELLY }
 
@@ -38,11 +42,13 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
         val curl: Double = 0.0,
         /** Which way it faces in the picture. */
         val yaw: Double = -60.0,
+        /** Walking on the map (9i): how far a spider's foot reaches forward and back in a step, in cm; 0 in battle. */
+        val stride: Double = 0.0,
     ) {
         fun lerp(o: Rig, t: Double): Rig {
             fun l(a: Double, b: Double) = a + (b - a) * t
             return Rig(l(fwd, o.fwd), l(crouch, o.crouch), l(side, o.side), l(rear, o.rear), l(jaw, o.jaw), l(spread, o.spread), l(beat, o.beat),
-                l(hover, o.hover), l(step, o.step), l(surge, o.surge), l(fallF, o.fallF), l(fallS, o.fallS), l(curl, o.curl), l(yaw, o.yaw))
+                l(hover, o.hover), l(step, o.step), l(surge, o.surge), l(fallF, o.fallF), l(fallS, o.fallS), l(curl, o.curl), l(yaw, o.yaw), l(stride, o.stride))
         }
     }
 
@@ -161,7 +167,9 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
             // walking: the legs in turn lifted and set forward
             val ph = (r.step + i * 0.25 + (if (s > 0) 0.5 else 0.0)).mod(1.0)
             val stepLift = max(0.0, sin(ph * 2 * PI)) * 10.0
-            var foot = P3(hip.x, 0.0, hip.z) + d * (118.0 * k) + p(0.0, stepLift, 0.0)
+            // 9i: on the map the foot swings forward while lifted and slides back under the body on the ground
+            val reach = -r.stride * cos(ph * 2 * PI)
+            var foot = P3(hip.x, 0.0, hip.z) + d * (118.0 * k) + p(0.0, stepLift, reach)
             var knee = hip + d * (46.0 * k) + p(0.0, 40.0, 0.0)
             var ankle = hip + d * (96.0 * k) + p(0.0, 22.0, 0.0)
             // the front pair raised high before it, threatening
@@ -304,7 +312,7 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
             for (t in tips) cone(wrist, t, 1.6, 0.5, bone, WING)
             // the membrane, thin and dark, between body, arm and fingers, hanging slack in scallops between the tips
             val anchors = listOf(sh) + listOf(elbow, wrist) + tips + listOf(body0 + p(s * 6.0, -16.0, -2.0))
-            val skinM = m(mix(argb(skinC), argb(0x000000), 0.15), shine = 0.2, grain = 0.25)
+            val skinM = m(mix(argb(skinC), argb(0x000000), 0.15 + wingShade), shine = 0.2 * (1 - wingShade), grain = 0.25)
             for (i in 0 until tips.size) {
                 val a = wrist; val b = tips[i]; val c = if (i + 1 < tips.size) tips[i + 1] else body0 + p(s * 6.0, -16.0, -2.0)
                 membrane(a, b, c, skinM, torn = (stirge && i != 0 && (i + v) % 2 == 1) || (!stirge && v == 1 && i == 1))
