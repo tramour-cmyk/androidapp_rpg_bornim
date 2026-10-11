@@ -94,7 +94,8 @@ object BeastArt {
 
     private val ATTACKS = listOf(
         Seq(tween(STAND to 3, CROUCH to 4, BITE to 2, SNAP to 5, STAND to 1), 9),
-        Seq(tween(STAND to 3, COIL to 4, LEAP to 3, LAND to 5, STAND to 1), 10),
+        // the leap (12.3b): a picture more taking off and landing, a picture less settling into the coil
+        Seq(tween(STAND to 2, COIL to 5, LEAP to 4, LAND to 5, STAND to 1), 11),
         Seq(tween(STAND to 3, LOW to 4, LOW_BITE to 2, LOW_TEAR to 5, STAND to 1), 9),
     )
 
@@ -214,7 +215,7 @@ object BeastArt {
         Moves(Seq(List(IDLE_FRAMES) { R_STAND.lerp(R_SNIFF, (1 - cos(it / IDLE_FRAMES.toDouble() * 2 * PI)) / 2) }),
             Seq(tween(R_STAND to 4, R_STAND.copy(neck = 20.0, nod = -24.0, mouth = 0.8, snarl = 1.0) to 6, R_STAND to 1)),
             listOf(Seq(tween(R_STAND to 3, R_CROUCH to 4, R_BITE to 2, R_SNAP to 5, R_STAND to 1), 9),
-                Seq(tween(R_STAND to 3, R_COIL to 4, R_LEAP to 3, R_LAND to 5, R_STAND to 1), 10),
+                Seq(tween(R_STAND to 2, R_COIL to 5, R_LEAP to 4, R_LAND to 5, R_STAND to 1), 11),
                 Seq(tween(R_STAND to 3, R_LOW to 4, R_LOW_BITE to 2, R_LOW_TEAR to 5, R_STAND to 1), 9)), h, d, f)
     }
 
