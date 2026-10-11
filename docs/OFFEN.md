@@ -38,7 +38,7 @@ Tom: Leute auf der Karte, Dorf und Innenr채ume. Jerry: Monster auf der Karte, H�
 ### Jerry (11.10., 21:33)
 
 - **28 Musik erledigt:** 28.1 getestet in 0.1.540, auf `main` (PR #36, 21:31). `MusicDirector` (Kern) w채hlt je Lage, `MusicPlayer` spielt `assets/music`; neu bauen mit `tools/klang/musik_holen.sh` + `musik_bauen.py`. Die alten `Songs` (Synth) nur noch im Kerntest.
-- **24s (21:35): erst 24.8, dann 13e-Entw체rfe.** Vorschlag 24.8 (Ortsklang schon in der Blende: Wind, Stimmen, Tropfen; Herzschlag f체r Hinterhalt erst mit der Kampfblende), R체ckfrage 24t offen. Danach 24.6 nach Toms 24.5.
+- **24s (21:35): erst 24.8, dann 13e-Entw체rfe.** Vorschlag 24.8 (Ortsklang schon in der Blende: Wind, Stimmen, Tropfen; Herzschlag f체r Hinterhalt erst mit der Kampfblende), **24t ja (21:45)**, Herzschlag gleich mitladen. Danach 24.6 nach Toms 24.5.
 
 ## Zu testen
 
