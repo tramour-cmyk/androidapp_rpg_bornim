@@ -24,7 +24,17 @@ object WorldArt {
     /** A drawable at map pixel position ([x], [y]) = top-left, ordered by [sortY]; [density] art pixels per map pixel (2 for the finer new pictures). */
     /** [low]: never tall enough to hide a figure behind it (furniture of the rooms seen diagonally, 13). */
     /** [corner]: seen diagonally, the picture's foot is the tile's front corner (the rooms, [MapRoomIso]), not the middle of its lower edge. */
-    class Obj(val img: PixelImage, val x: Int, val y: Int, val sortY: Int, val density: Int = 1, val low: Boolean = false, val corner: Boolean = false, val group: Int = 0)
+    class Obj(val img: PixelImage, val x: Int, val y: Int, val sortY: Int, val density: Int = 1, val low: Boolean = false, val corner: Boolean = false, val group: Int = 0,
+              val glow: Glow? = null)
+
+    /**
+     * What of a picture shines by itself at night (25.1: a street lamp's glass; 25b: lit windows): [img] the same size
+     * as the picture, only the shining pixels; ([cx], [cy]) the middle of the light in it, [halo] how strong a glow
+     * around it; the tile ([tx], [ty]) decides whether the hero has seen it. Drawn over the light of the place.
+     */
+    class Glow(val img: PixelImage, val cx: Int, val cy: Int, val tx: Int = 0, val ty: Int = 0, val halo: Float = 1f) {
+        fun at(tx: Int, ty: Int) = Glow(img, cx, cy, tx, ty, halo)
+    }
 
     private val cache = HashMap<String, PixelImage>()
     private fun cached(key: String, w: Int = T, h: Int = T, block: Pen.() -> Unit) = cache.getOrPut(key) { draw(w, h, block = block) }
