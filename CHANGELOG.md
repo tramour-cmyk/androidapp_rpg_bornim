@@ -4,6 +4,13 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Tom (Thema 13), getestet in 0.1.482, PR #20:
+
+**Räume diagonal: Haus des Ältesten, Laden, Tempel (13)**
+- Alle drei Räume in der diagonalen Sicht mit eigenem Grundriss, klein und dicht eingerichtet; Möbel je in drei Varianten.
+- Ältester: Pult, Truhe, Sessel, breites Bett an der Rückwand. Laden: Ladentisch, Warenregal, Werkzeugständer, Warenkisten. Tempel: Steinwände, Altar, Kerzenständer, Lesepult, Weihwasserbecken, Gebetsbänke, Seitengänge.
+- Werkzeuge (nur Entwicklung): Kerntest `RoomPlanTest` (Held erreicht Person und Tür), Vorschau `ISODINGE=aeltester|laden|tempel`.
+
 ## v0.1.483 – 11.10.2026, 12:41
 
 Zweig von Jerry (Thema 12.3), getestet in 0.1.481, PR #18:

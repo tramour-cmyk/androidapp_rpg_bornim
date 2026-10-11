@@ -10,7 +10,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
-| 13 | Diagonale Sicht | Tom | `tom-diagonal` | Schänke auf `main` (v0.1.471). 11.10., 12:40: Ältester, Laden, Tempel mit Grundriss A im Spiel (Tempel Stein, Seitengänge für Lyra), Kerntest `RoomPlanTest`; Zweig-Build 0.1.482 zum Testen. Danach: Dorf draußen |
+| 13 | Diagonale Sicht | Tom | `tom-diagonal` | Schänke auf `main` (v0.1.471). Ältester, Laden, Tempel getestet in 0.1.482 („alles passt“), PR #20 wartet auf Freigabe. Danach: Dorf draußen (5) |
 | 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | nach den Räumen von 13 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 14 | Neustart-Haken: misst Gesprächsgröße, Hinweis an die Sitzung | Tom | neu von `main` (Werkzeug, PR) | freigegeben 10.10. |
@@ -18,7 +18,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; nach 13 |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 18 | Klänge neu aus echten Aufnahmen (CC0) | Jerry | `claude/session-start-l65s4j`, PR #19 | 18.7 umgesetzt; Zweig-Build 0.1.486 beim Nutzer; danach Runde 2 und übrige Gegner |
-| 20 | Uhrzeit der APK im ZIP 2 h zu früh (ZIP speichert Ortszeit ohne Zone, Runner läuft in UTC) | Tom | neu von `main` (Workflow, PR) | gemeldet 11.10., 12:55; Vorschlag: `TZ=Europe/Berlin` beim Hochladen |
+| 20 | Uhrzeit der APK im ZIP 2 h zu früh (ZIP speichert Ortszeit ohne Zone, Runner läuft in UTC) | Tom | `claude/beautiful-feynman-ta7v9p`, PR #21 | 20a ja (13:00): `TZ=Europe/Berlin` beim Hochladen, Build läuft, Prüfung am ZIP |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
@@ -41,10 +41,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Zu testen
 
 - **0.1.486** (Jerry, 18.7, [Lauf](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38133810486)): Klänge Runde 1 aus Aufnahmen, Stimmen Wolf, Goblin, Skelett im Kampf.
-- **0.1.482** (Tom, 13, `tom-diagonal`, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38132308756/artifacts/11699796980)): Ältester, Laden, Tempel mit Grundriss A; Prüfliste im Chat 11.10., 12:42.
 
 ## Rückfragen an den Nutzer
 
 
 
-- **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). Empfehlung: festlegen, wenn die Räume fertig sind.
+- **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
