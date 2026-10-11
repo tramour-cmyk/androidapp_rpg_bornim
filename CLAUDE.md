@@ -40,7 +40,7 @@ Alle Notizen und Absprachen gibt es nur einmal, auf `main`: `CLAUDE.md`, `CHANGE
 3. `CHANGELOG.md` nur bis zur zweiten Versionsüberschrift (`sed -n '1,/^## v/p'` und die erste Version).
 4. `tools/check-env.sh` laufen lassen; `docs/UMGEBUNG.md` nur lesen, wenn es etwas meldet oder ein Werkzeug gesucht wird (Tabelle der Vorschau-Schalter).
 
-Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md` (Verlauf, nur gezielt durchsuchen), `docs/MERKLISTE.md` (Ideen für später), `docs/NACHT.md` (nur bei Nachtarbeit).
+Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md` (Verlauf, nur gezielt durchsuchen), `docs/MERKLISTE.md` (Ideen für später), `docs/SELBST.md` (nur bei Selbstarbeit oder gemeinsamer Zeit).
 
 ## Feste Regeln
 
@@ -63,7 +63,7 @@ Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md
 - **`OFFEN.md` klein halten** (Regel 11.10., Thema 15): höchstens etwa 15 KB; je Eintrag höchstens 3 Zeilen, Einzelheiten in Commit-Nachrichten oder `docs/ARCHIV.md`. Je Person genau eine Übergabe: die neue ersetzt die alte, die alte kommt oben ins Archiv. Getesteter Build: Zeile löschen, Ergebnis in `CHANGELOG.md`. Erledigtes Thema: aus „Wer macht was“ streichen. Neues, abgeschlossenes oder abgegebenes Thema: die Zeile in `docs/THEMEN.md` anpassen. Bei jedem Release `wc -c docs/OFFEN.md` prüfen, über 20 KB aufräumen.
 - **Neustart vorschlagen, um Token zu sparen** (Regel 10.10., 13:32): An Bruchstellen (ein Thema fertig, ein Build ausgeliefert, vor dem Wechsel auf ein anderes Thema, oder wenn der Haken meldet, dass das Gespräch groß ist) schlägt die Sitzung von sich aus eine neue Sitzung vor. Vorher die Übergabe in `docs/OFFEN.md` schreiben und pushen, damit die neue Sitzung ohne Verlust weitermacht.
 
-- **Nachtarbeit** (Regel 10.10., 21:05): Vergibt der Nutzer ein Nachtpaket oder startet eine Weck-Sitzung, gilt `docs/NACHT.md` (Paket mit Reserve, Weck-Sitzungen selbst einrichten, Herzschlag, Nutzungsgrenze, Morgenbericht). Sonst muss die Datei nicht gelesen werden.
+- **Selbstarbeit und gemeinsame Zeit** (Regel 10.10., 21:05; seit 11.10. auch tagsüber, Thema 22): Vergibt der Nutzer Selbstarbeit („arbeite bis 17 Uhr selbstständig“, auch nachts) oder startet eine Weck-Routine, gilt `docs/SELBST.md` (Paket aus dem Vorrat, Reserve, Herzschlag, Nutzungsgrenze, Bericht). Sagt er „ich habe Zeit, lass uns gemeinsam arbeiten“, die Liste „Für gemeinsame Zeit“ aus `docs/SELBST.md` vorlegen. Jede Sitzung hält dort ihren Vorrat und ihre Liste für gemeinsame Zeit aktuell.
 
 ## Technik und Sicherheit
 
