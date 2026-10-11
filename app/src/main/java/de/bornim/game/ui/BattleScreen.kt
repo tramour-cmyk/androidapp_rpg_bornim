@@ -1208,7 +1208,12 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     val job = coroutineContext[kotlinx.coroutines.Job]
                     val start = System.currentTimeMillis()
                     val first = heroWound == 0
-                    if (first) { de.bornim.core.art.BattleAhead.openingMs = null; de.bornim.core.art.BattleAhead.heroMs = null }
+                    if (first) {
+                        de.bornim.core.art.BattleAhead.openingMs = null; de.bornim.core.art.BattleAhead.heroMs = null
+                        // 24.16: what this fight finds drawn ahead on the map
+                        de.bornim.core.art.BattleAhead.noteFight(battle.hero, battle.monster.id, battle.look,
+                            battle.opening == de.bornim.core.Opening.AMBUSHED, ui.victoryPick)
+                    }
                     HeroBattle.prepare(battle.hero, battle.monster.id, battle.opening == de.bornim.core.Opening.AMBUSHED, ui.victoryPick, heroWound,
                         ui.motion?.takeIf { it.hold }?.let { Triple(it.act, it.strike, it.variant) },
                         onOpening = { if (first) de.bornim.core.art.BattleAhead.openingMs = System.currentTimeMillis() - start }) { job?.isActive == false }

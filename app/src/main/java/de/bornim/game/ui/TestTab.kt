@@ -59,6 +59,12 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             fun s(ms: Long?) = ms?.let { "%.1f s".format(it / 1000f) } ?: "–"
             Txt(t("Kampf bereit: Eröffnung ", "Fight ready: opening ") + s(a.openingMs) + t(", Held ", ", hero ") + s(a.heroMs) +
                 t(", Gegner ", ", foe ") + s(a.foeMs), size = 13.sp)
+            // 24.16: what it found drawn ahead on the map, and how long the drawing ahead waited for the map
+            a.report?.let { r ->
+                Txt(t("Vorgezeichnet: Held ", "Drawn ahead: hero ") + "${r.heroReady}/${r.heroAll}" + t(", Gegner ", ", foe ") + r.foe + " ${r.foeDrawn}" +
+                    t(if (r.foeDone) " (fertig)" else " (nicht fertig)", if (r.foeDone) " (all)" else " (not all)") +
+                    t(", gewartet ", ", waited ") + s(r.waitedMs) + t(", Gegner nahe ", ", foe near ") + s(r.nearMs), size = 13.sp)
+            }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             for (d in listOf(-5, -1, 1, 5)) {

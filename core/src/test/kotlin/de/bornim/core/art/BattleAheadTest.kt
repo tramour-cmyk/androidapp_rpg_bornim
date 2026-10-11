@@ -25,10 +25,13 @@ class BattleAheadTest {
     }
 
     /** Keeps the map "shown" (calls [BattleAhead.consider] as each frame would) while [until] is false, at most [ms]. */
-    private fun mapShows(hero: de.bornim.core.Hero, foe: Pair<String, MonsterLook>, busy: () -> Boolean, ms: Long, until: () -> Boolean = { false }): Boolean {
+    private fun mapShows(hero: de.bornim.core.Hero, foe: Pair<String, MonsterLook>, busy: () -> Boolean, ms: Long, until: () -> Boolean = { false }): Boolean =
+        mapShows(hero, { listOf(foe) }, busy, ms, until)
+
+    private fun mapShows(hero: de.bornim.core.Hero, foes: () -> List<Pair<String, MonsterLook>>, busy: () -> Boolean, ms: Long, until: () -> Boolean = { false }): Boolean {
         val end = System.currentTimeMillis() + ms
         while (System.currentTimeMillis() < end) {
-            BattleAhead.consider(hero, foe, busy = busy)
+            BattleAhead.consider(hero, foes(), busy = busy)
             if (until()) return true
             Thread.sleep(40)
         }
@@ -54,11 +57,37 @@ class BattleAheadTest {
         mapShows(hero, foe, { true }, 600)
         assertEquals(0, BattleAhead.drawn, "the map draws first")
         // the map gone (a fight, the menu): it stops soon after
-        BattleAhead.consider(hero, foe) { false }
+        BattleAhead.consider(hero, listOf(foe)) { false }
         Thread.sleep(BattleAhead.STALE_MS + 600)
         val n = BattleAhead.drawn
         Thread.sleep(800)
         assertEquals(n, BattleAhead.drawn, "no drawing once the map is no longer shown")
         assertTrue(!HeroBattle.actReady(hero, HeroFigure.Act.DRINK), "not all drawn: it stopped")
+    }
+
+    /**
+     * 24.18: the hero's opening first, then the foe, then the rest of the hero; and a pack whose nearest changes all the
+     * time still gets the foe being drawn done. Prints when each was ready (24.17: on [BattleAhead.CORES] cores).
+     */
+    @Test fun openingThenFoeThenTheRestThoughThePackShifts() {
+        BattleAhead.reset()
+        val hero = GameState.newGame("Order", Race.DWARF, CharClass.CLERIC).hero
+        val pack = listOf("wolf" to MonsterLook(21), "wolf" to MonsterLook(22), "wolf" to MonsterLook(23))
+        val pick = BattleAhead.victoryPick
+        val start = System.currentTimeMillis()
+        var opening = -1L; var foe = -1L; var rest = -1L
+        var tick = 0
+        fun foeReady(f: Pair<String, MonsterLook>): Boolean { BattleAhead.noteFight(hero, f.first, f.second, false, pick); return BattleAhead.report!!.foeDone }
+        val shifting = { tick++; listOf(pack[tick / 3 % 3]) + pack.filter { it != pack[tick / 3 % 3] } }
+        assertTrue(mapShows(hero, shifting, { false }, 60_000) {
+            val now = System.currentTimeMillis() - start
+            if (opening < 0 && HeroBattle.actReady(hero, HeroFigure.Act.IDLE)) opening = now
+            if (foe < 0 && pack.any { foeReady(it) }) foe = now
+            if (rest < 0 && HeroBattle.planOf(hero, "wolf", false, pick).all { (a, s, v) -> HeroBattle.actReady(hero, a, s, v) }) rest = now
+            rest >= 0 && foe >= 0 && opening >= 0
+        }, "all drawn ahead though the nearest wolf kept changing: opening $opening, foe $foe, rest $rest ms, ${BattleAhead.drawn} drawn")
+        println("24.17/24.18 drawn ahead on ${BattleAhead.CORES} cores: opening ${opening} ms, foe ${foe} ms, the rest of the hero ${rest} ms")
+        assertTrue(opening <= foe, "the hero's opening before the foe")
+        assertTrue(foe <= rest, "the foe before the rest of the hero")
     }
 }

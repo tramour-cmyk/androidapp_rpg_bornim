@@ -296,6 +296,14 @@ object HeroBattle {
     fun prepareBlow(hero: Hero, strike: Strike, wounds: Int, cancelled: () -> Boolean = { false }) =
         prepareAct(hero, Act.ATTACK, strike, 0, wounds, cancelled)
 
+    /** 24.16: how many of the frames [prepare] draws for this fight are kept already (unhurt), and how many there are. */
+    fun planReady(hero: Hero, foeId: String, ambushed: Boolean, victoryPick: Int): Pair<Int, Int> {
+        var ready = 0; var all = 0
+        for ((act, strike, v) in plan(hero, foeId, ambushed, victoryPick, null) { true })
+            for (i in 0 until frameCount(hero, act, strike, v)) { all++; if (synchronized(cache) { cache.containsKey(key(hero, act, strike, v, i, 0)) }) ready++ }
+        return ready to all
+    }
+
     /** Tests only: the acts [prepare] draws for this fight. */
     internal fun planOf(hero: Hero, foeId: String, ambushed: Boolean, victoryPick: Int) = plan(hero, foeId, ambushed, victoryPick, null) { false }
 
