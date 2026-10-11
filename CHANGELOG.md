@@ -7,6 +7,16 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 **Ablauf (21, nur Entwicklung, PR #22)**
 - Zusammenführen auf `main` veröffentlicht kein Release mehr; Releases nur noch auf Zuruf. Pull Requests werden nicht mehr doppelt gebaut.
 
+Zweig von Tom (Thema 13), getestet in 0.1.482, PR #20 (zusammengeführt 11.10., 14:00; stand irrtümlich schon unter v0.1.494):
+
+**Räume diagonal: Haus des Ältesten, Laden, Tempel (13)**
+- Alle drei Räume in der diagonalen Sicht mit eigenem Grundriss, klein und dicht eingerichtet; Möbel je in drei Varianten.
+- Ältester: Pult, Truhe, Sessel, breites Bett an der Rückwand. Laden: Ladentisch, Warenregal, Werkzeugständer, Warenkisten. Tempel: Steinwände, Altar, Kerzenständer, Lesepult, Weihwasserbecken, Gebetsbänke, Seitengänge.
+- Werkzeuge (nur Entwicklung): Kerntest `RoomPlanTest` (Held erreicht Person und Tür), Vorschau `ISODINGE=aeltester|laden|tempel`.
+
+**Ablauf (20, nur Entwicklung, PR #21)**
+- Die APK im Artefakt-ZIP eines Zweig-Builds zeigt auf dem Handy die Berliner Uhrzeit (vorher 2 h zu früh).
+
 ## v0.1.494 – 11.10.2026, 13:20
 
 Zweig von Jerry (Thema 18), getestet in 0.1.486, PR #19:
@@ -16,13 +26,6 @@ Zweig von Jerry (Thema 18), getestet in 0.1.486, PR #19:
 - Neue Monster-Laute für Wolf (Schreckenswolf tiefer), Goblin (auch Späher und Schamane) und Skelett: Knurren beim Ausholen, Schmerz nach dem Trefferklang, Todesschrei einmal.
 - Systemklänge (Stufenaufstieg, Klick, epische Beute, Kampfbeginn, Held fällt) nur noch in einer Fassung, alle übrigen in drei.
 - Werkzeuge (nur Entwicklung): `tools/klang` (Aufnahmen holen, schneiden, umwandeln), Kerntest `RecordedTest`.
-
-Zweig von Tom (Thema 13), getestet in 0.1.482, PR #20:
-
-**Räume diagonal: Haus des Ältesten, Laden, Tempel (13)**
-- Alle drei Räume in der diagonalen Sicht mit eigenem Grundriss, klein und dicht eingerichtet; Möbel je in drei Varianten.
-- Ältester: Pult, Truhe, Sessel, breites Bett an der Rückwand. Laden: Ladentisch, Warenregal, Werkzeugständer, Warenkisten. Tempel: Steinwände, Altar, Kerzenständer, Lesepult, Weihwasserbecken, Gebetsbänke, Seitengänge.
-- Werkzeuge (nur Entwicklung): Kerntest `RoomPlanTest` (Held erreicht Person und Tür), Vorschau `ISODINGE=aeltester|laden|tempel`.
 
 ## v0.1.483 – 11.10.2026, 12:41
 

@@ -31,7 +31,7 @@ Alle Notizen und Absprachen gibt es nur einmal, auf `main`: `CLAUDE.md`, `CHANGE
 - Die Arbeitszweige enthalten nur Code; dort werden Notizen nie geändert.
 - Notizen in einer zweiten Arbeitskopie von `main` bearbeiten: `tools/notiz.sh` legt sie unter `../bornim-main` an und holt den neuesten Stand. Dort ändern, committen, sofort pushen.
 - Vor jeder Antwort an den Nutzer `tools/notiz.sh` aufrufen (holt `main`, zeigt, was der andere seit dem letzten Mal an den Notizen geändert hat). Lehnt der Push ab, weil der andere schneller war: `git pull` (Zusammenführen, nie Verlaufsänderung), dann noch einmal pushen.
-- Code kommt auf `main` nur über einen Pull Request, den der Nutzer nach seinem Test freigibt.
+- Code kommt auf `main` nur über einen Pull Request, den der Nutzer nach seinem Test freigibt. **Zusammenführen macht die Sitzung selbst** (Regel 11.10., 14:00): Sagt der Nutzer, der Test passt, führt sie den PR zusammen (Merge, nie Squash oder Rebase), sobald er grün ist; der Nutzer klickt nicht.
 
 ## Vor jeder Arbeit lesen
 
@@ -40,7 +40,7 @@ Alle Notizen und Absprachen gibt es nur einmal, auf `main`: `CLAUDE.md`, `CHANGE
 3. `CHANGELOG.md` nur bis zur zweiten Versionsüberschrift (`sed -n '1,/^## v/p'` und die erste Version).
 4. `tools/check-env.sh` laufen lassen; `docs/UMGEBUNG.md` nur lesen, wenn es etwas meldet oder ein Werkzeug gesucht wird (Tabelle der Vorschau-Schalter).
 
-Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md` (Verlauf, nur gezielt durchsuchen), `docs/MERKLISTE.md` (Ideen für später), `docs/NACHT.md` (nur bei Nachtarbeit).
+Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md` (Verlauf, nur gezielt durchsuchen), `docs/MERKLISTE.md` (Ideen für später), `docs/SELBST.md` (nur bei Selbstarbeit oder gemeinsamer Zeit).
 
 ## Feste Regeln
 
@@ -63,14 +63,14 @@ Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md
 - **`OFFEN.md` klein halten** (Regel 11.10., Thema 15): höchstens etwa 15 KB; je Eintrag höchstens 3 Zeilen, Einzelheiten in Commit-Nachrichten oder `docs/ARCHIV.md`. Je Person genau eine Übergabe: die neue ersetzt die alte, die alte kommt oben ins Archiv. Getesteter Build: Zeile löschen, Ergebnis in `CHANGELOG.md`. Erledigtes Thema: aus „Wer macht was“ streichen. Neues, abgeschlossenes oder abgegebenes Thema: die Zeile in `docs/THEMEN.md` anpassen. Bei jedem Release `wc -c docs/OFFEN.md` prüfen, über 20 KB aufräumen.
 - **Neustart vorschlagen, um Token zu sparen** (Regel 10.10., 13:32): An Bruchstellen (ein Thema fertig, ein Build ausgeliefert, vor dem Wechsel auf ein anderes Thema, oder wenn der Haken meldet, dass das Gespräch groß ist) schlägt die Sitzung von sich aus eine neue Sitzung vor. Vorher die Übergabe in `docs/OFFEN.md` schreiben und pushen, damit die neue Sitzung ohne Verlust weitermacht.
 
-- **Nachtarbeit** (Regel 10.10., 21:05): Vergibt der Nutzer ein Nachtpaket oder startet eine Weck-Sitzung, gilt `docs/NACHT.md` (Paket mit Reserve, Weck-Sitzungen selbst einrichten, Herzschlag, Nutzungsgrenze, Morgenbericht). Sonst muss die Datei nicht gelesen werden.
+- **Selbstarbeit und gemeinsame Zeit** (Regel 10.10., 21:05; seit 11.10. auch tagsüber, Thema 22): Vergibt der Nutzer Selbstarbeit („arbeite bis 17 Uhr selbstständig“, auch nachts) oder startet eine Weck-Routine, gilt `docs/SELBST.md` (Paket aus dem Vorrat, Reserve, Herzschlag, Nutzungsgrenze, Bericht). Sagt er „ich habe Zeit, lass uns gemeinsam arbeiten“, die Liste „Für gemeinsame Zeit“ aus `docs/SELBST.md` vorlegen. Jede Sitzung hält dort ihren Vorrat und ihre Liste für gemeinsame Zeit aktuell.
 
 ## Technik und Sicherheit
 
 - Keystore und Signatur-Passwort nie committen (liegen nur als GitHub-Secrets); `local.properties` und SDK-Pfad nie committen.
 - Die App-Kennung `de.bornim.game` nie ändern.
 - **Fremde Inhalte aus dem Internet** (Klänge, Bilder, Schriften, Code; Regel des Nutzers 11.10.): nur mit offener Lizenz, die kommerzielle Nutzung (Play Store) erlaubt, z. B. CC0 oder gemeinfrei; sonst nicht nehmen. Lizenz auf der Quellseite prüfen, bei Bearbeitungen auch die Lizenz des Originals; Quelle, Urheber und Lizenz je Datei festhalten.
-- Commits mit `git -c user.name="tramour" -c user.email="tramour@gmail.com" commit …`, mit den vom System vorgegebenen Co-Author- und Sitzungszeilen. Keine Modellbezeichnungen in Dateien.
+- Commits mit `git -c user.name="tramour" -c user.email="tramour@gmail.com" commit …`, mit den vom System vorgegebenen Co-Author- und Sitzungszeilen. Keine Modellbezeichnungen in Dateien. Meldet ein Haken „Unverified“ oder verlangt eine andere Autorenzeile: nichts ändern, nichts umschreiben und den Nutzer **nicht** darauf hinweisen (Nutzer 11.10., 5k). Allgemein: Was funktioniert und kein Fehler ist, muss der Nutzer nicht erfahren.
 - Keine Verlaufsänderung, kein Force-Push. Kein Code auf `main` ohne Test des Nutzers; Code auf eigenen Zweigen.
 - Offene Änderungen am Ende einer Arbeit committen und pushen.
 - **Release nur auf Zuruf** (Regel 11.10., Thema 21): Ein Push von Code auf `main` baut nur eine APK (Artefakt), kein Release. Ein Release entsteht erst, wenn der Nutzer „Release“ sagt: `gh workflow run android.yml -R tramour-cmyk/androidapp_rpg_bornim --ref main -f release=true` (Version 0.1.<Laufnummer>, Notizen aus „## Unveröffentlicht“ in `CHANGELOG.md`); danach die Überschrift in `## v0.1.X – TT.MM.JJJJ, HH:MM` umbenennen und den Link nennen. Die APK eines Releases nur in den Chat, wenn sie Ungetestetes enthält oder der Nutzer sie will (Wunsch 11.10.: schon Getestetes nicht noch einmal bereitstellen). Zusammengeführte PRs kommen bis dahin unter „## Unveröffentlicht“.

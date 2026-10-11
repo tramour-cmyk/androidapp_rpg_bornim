@@ -4,22 +4,22 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 **Nächste freie Themennummer: 23** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
-Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Nachtarbeit](NACHT.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
+Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
 ## Wer macht was
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
-| 13 | Diagonale Sicht | Tom | `tom-diagonal` | Schänke auf `main` (v0.1.471). Ältester, Laden, Tempel getestet in 0.1.482 („alles passt“), PR #20 wartet auf Freigabe. Danach: Dorf draußen (5) |
-| 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | `tom-dorf` (von `tom-diagonal`) | 5e go: 5.1 → 5.2 → 5.3 → 5.4. 5f „super“ (13:19). 5h (Nutzer): Fenster außen und innen müssen zusammenpassen; Vorschlag im Chat 13:22. 5g (Glockenstuhl/Turm) offen |
+| 13 | Diagonale Sicht | Tom | – | Schänke, Ältester, Laden, Tempel auf `main` (PR #20, 11.10., 14:00). Weiter mit Dorf draußen (5) |
+| 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | `tom-dorf` (von `tom-diagonal`, mit `main`) | 5.1 Häuser im Spiel (13:40): nach Grundriss und Hausstil, Streifen-Sortierung; 5h.1 Fenster außen wie innen (`HouseWindowsTest`); 5g Glockenturm. Zweig-Build läuft. Danach 5.2 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 14 | Neustart-Haken: misst Gesprächsgröße, Hinweis an die Sitzung | Tom | neu von `main` (Werkzeug, PR) | freigegeben 10.10. |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; nach 13 |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
-| 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | – | 18.7 auf `main` (v0.1.494). Als Nächstes Runde 2 (17 Klänge) und Stimmen der übrigen Gegner, erst Hörproben |
-| 20 | Uhrzeit der APK im ZIP 2 h zu früh (ZIP speichert Ortszeit ohne Zone, Runner läuft in UTC) | Tom | `claude/beautiful-feynman-ta7v9p`, PR #21 | 20a ja (13:00): `TZ=Europe/Berlin` beim Hochladen, Build läuft, Prüfung am ZIP |
-| 22 | Selbstarbeit statt nur Nachtarbeit: Routinen auch tagsüber („arbeite die nächsten 3 h selbstständig“), Vorrat geeigneter Aufgaben | Tom | `main` (Notizen), Routinen | gefragt 11.10., 13:27; Vorschlag 21.1–21.3 im Chat (jetzt 22.1–22.3; 21 war schon an Jerry vergeben) |
+| 13e | Höhle diagonal (Phase 2 von 13: Orte aufteilen) | Jerry | – | 13e.1 ja (13:52): nach 18 Runde 2, erst Entwürfe (Standbilder), wenn Tom einverstanden. **Anfrage an Tom:** einverstanden? Welche Dateien (Gerüst, `WorldScreen`, Kacheln) fasst Jerry nicht an? |
+| 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | `claude/eloquent-dirac-eg6m37`, PR #23 (Entwurf) | 18f (14:05): alle neuen passen, außer: Kampfbeginn nur neu 3; Held fällt ist kein Systemklang (alle drei); Magie 1 (Harfe/Nintendo) und Stärkung 2 neu machen. In Arbeit: Ersatz als Hörprobe, Einbau, Zweig-Build |
+| 22 | Selbstarbeit statt nur Nachtarbeit: Routinen alle 3 h, Vorrat und Liste „Für gemeinsame Zeit“ | Tom | `main` (Notizen), Routinen | 22a, 22b ja (13:31). `docs/SELBST.md` statt `NACHT.md`; Toms Routinen umgestellt (13:38); Nutzer: neue Routinen einstellen (Repo, automatisch). Jerrys Routinen umgestellt (13:44), Vorrat eingetragen |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
@@ -30,7 +30,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - Alles gepusht. `main` = v0.1.471 (13 Schänke diagonal, getestet und freigegeben). Zweig `tom-diagonal`: Entwürfe Ältester, Laden, Tempel nur in der Vorschau (`World.drafts`; `ISODINGE=aeltester|laden|tempel`, `ONLY=zoom_nah_e|l|t`), neue Felder `DESK d`, `TRUNK a`, `ARMCHAIR s`, `HANGING V`, `RACK U`, `CANDLES N`, `FONT &`.
 - **Als Nächstes:** Grundriss A von Ältestem, Laden und Tempel ins Spiel (unter dem Schalter „Dorf und Räume“), Tempelwände Stein, Kerntest (Held erreicht Person und Tür), Zweig-Build. Dann 17, dann 14.
-- Feste Weck-Routinen für Tom eingerichtet und getestet (`docs/NACHT.md`).
+- Feste Weck-Routinen für Tom eingerichtet und getestet (`docs/SELBST.md`).
 
 ### Jerry (11.10., 13:28)
 
@@ -44,6 +44,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 – nichts offen –
 
 ## Rückfragen an den Nutzer
+
 
 
 
