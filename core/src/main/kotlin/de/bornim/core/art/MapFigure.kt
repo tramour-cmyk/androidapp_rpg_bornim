@@ -266,6 +266,56 @@ object MapFigure {
         }
     }
 
+    /** How many looks of new loot wait to be drawn ahead at most; older wishes give way to newer ones. */
+    const val AHEAD = 4
+
+    private val aheadQueue = ArrayDeque<Hero>()
+    private var aheadThread: Thread? = null
+
+    /** [hero] as it would look wearing [g]: a copy, the hero itself is not changed. */
+    private fun wearing(hero: Hero, g: de.bornim.core.Gear): Hero =
+        Hero(hero.name, hero.race, hero.cls, hero.level, hero.xp, hero.base.toMutableMap(), gear = hero.gear.toMutableMap(),
+            sex = hero.sex, build = hero.build, skin = hero.skin, hair = hero.hair).also { it.equip(g) }
+
+    /**
+     * 24.15: new loot in the bag is drawn ahead, as the hero would look wearing it, and kept on the device
+     * ([HeroShelf]), so putting it on needs no drawing. One quiet thread, each picture on it alone, and only while
+     * the hero's own pictures are complete; nothing kept in memory.
+     */
+    fun ahead(hero: Hero, g: de.bornim.core.Gear) {
+        if (HeroShelf.dir == null || !hero.canWear(g)) return
+        val trial = wearing(hero, g)
+        val l = look(trial)
+        if (l == look(hero) || HeroShelf.has(l)) return
+        synchronized(aheadQueue) {
+            if (aheadQueue.any { look(it) == l }) return
+            aheadQueue.addLast(trial)
+            while (aheadQueue.size > AHEAD) aheadQueue.removeFirst()
+            if (aheadThread != null) return
+            aheadThread = Thread {
+                SdfRender.alone.set(true)
+                while (true) {
+                    val h = synchronized(aheadQueue) { aheadQueue.removeLastOrNull() ?: run { aheadThread = null; null } } ?: break
+                    drawAhead(h)
+                }
+            }.also { it.isDaemon = true; it.priority = Thread.MIN_PRIORITY; it.start() }
+        }
+    }
+
+    /** Draws every picture of [hero] for the device, pausing while the hero's own pictures are being drawn. */
+    private fun drawAhead(hero: Hero) {
+        val l = look(hero)
+        if (HeroShelf.has(l)) return
+        val pics = HashMap<Pair<Int, Int>, PixelImage>()
+        for ((s, st) in order(0).first) {
+            while (hold || missing.get() > 0 || synchronized(workers) { workers.isNotEmpty() }) Thread.sleep(50)
+            // drawn by the hero's own threads meanwhile (it was put on): nothing left to do
+            if (synchronized(cache) { preparing == l }) return
+            pics[s to st] = draw(hero, s, st)
+        }
+        HeroShelf.save(l, pics)
+    }
+
     /** Tests only: draws one picture of [hero] into the store, as the drawing threads would. */
     internal fun drawOne(hero: Hero, slot: Int, step: Int) {
         val img = draw(hero, slot, step)

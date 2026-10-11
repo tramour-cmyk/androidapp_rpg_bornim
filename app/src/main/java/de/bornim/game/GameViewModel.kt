@@ -258,7 +258,19 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         val map = de.bornim.core.World[g.state.place.map]
         de.bornim.core.art.MapGround.prepare(map, g.state.place.x, g.state.place.y)
         de.bornim.core.art.MapFigure.prepare(g.state.hero, de.bornim.core.art.MapFigure.yawOf(g.state.place.facing))
+        bagSeen = null
         de.bornim.core.art.MapFolk.prepareFor(map)
+    }
+
+    /** The loot in the bag already seen, so only new loot is drawn ahead (24.15); null until the game has begun. */
+    private var bagSeen: MutableSet<Long>? = null
+
+    /** 24.15: new loot the hero could wear is drawn ahead in the background, so putting it on is at once. */
+    private fun drawLootAhead(g: Game) {
+        val bag = g.state.bag
+        val seen = bagSeen ?: bag.mapTo(HashSet()) { it.uid }.also { bagSeen = it }
+        if (bag.size == seen.size && bag.all { it.uid in seen }) return
+        for (it in bag) if (seen.add(it.uid)) de.bornim.core.art.MapFigure.ahead(g.state.hero, it)
     }
 
     fun save() {
@@ -279,6 +291,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
             }
             save()
         }
+        if (g != null) drawLootAhead(g)
         tick++
     }
 
