@@ -27,9 +27,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (11.10., 14:38)
+### Tom (11.10., 14:36)
 
-- **5 Dorf:** Zweig `tom-dorf` (mit `main`), [PR #24](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/24) offen. Test 0.1.501 positiv (14:3x); danach Rauch berichtigt (stieg an alten Stellen auf, jetzt aus den Schornsteinen, `drawTownSmoke` + `MapTownIso.chimneyTops`). **Als Nächstes:** PR-Build ansehen, Rauch kurz vom Nutzer bestätigen lassen (oder Standbild), dann PR #24 selbst zusammenführen, „Unveröffentlicht“ ergänzen, Zeile „Zu testen“ löschen.
+- **5 Dorf:** Zweig `tom-dorf` (mit `main`), [PR #24](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/24) offen. Test 0.1.501 positiv (vor 14:36); danach Rauch berichtigt (stieg an alten Stellen auf, jetzt aus den Schornsteinen, `drawTownSmoke` + `MapTownIso.chimneyTops`). **Als Nächstes:** PR-Build ansehen, Rauch kurz vom Nutzer bestätigen lassen (oder Standbild), dann PR #24 selbst zusammenführen, „Unveröffentlicht“ ergänzen, Zeile „Zu testen“ löschen.
 - Rückmeldung Test 0.1.501 (noch zu besprechen, **5l**): Marktplatz sehr groß, wenig darauf, „wenig los im Dorf“; Gänse rechts unten gefallen; Wunsch nach Hühnern, Katzen, Hunden u. Ä. Nachts sehr dunkel, aber stimmig. Vorschlag für die neue Sitzung: 5.5 „Leben im Dorf“ (Tiere, Leute bei der Arbeit, Platz dichter: mehr Stände, Karren, Kisten oder Platz verkleinern).
 - Code: `core/.../art/MapTownIso.kt` (Häuser in Streifen, `Tile1` mit `plane`/`box`/`cylinder`, Dinge auf dem Platz), Fenster aus dem Raum `windowsFromRoom`, Durchsicht in `WorldScreen.hides` (Gruppe + Pixeltest). Vorschau `ISODINGE=dorf|platz`, `KARTENZOOM=1 DIAG=1 TOWNDRAFT=1 ONLY=zoom_nah_d`.
 - Danach Vorrat in `docs/SELBST.md` (5.3 Dorfbewohner als Puppen, 5.4, 17, 14, …). Routinen alle 3 h eingerichtet; die fünf neuen (09:24–21:24) braucht der Nutzer noch mit Repo und „automatisch“.
@@ -42,7 +42,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **0.1.501** (Tom, 5, `tom-dorf`, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38138465071/artifacts/11702163109)): Dorf diagonal (Häuser, Fenster außen wie innen, Glockenturm, Platz); Prüfliste im Chat 14:22. **Getestet 14:3x: positiv**, Rückmeldung unter Tom (5l).
+- **0.1.501** (Tom, 5, `tom-dorf`, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38138465071/artifacts/11702163109)): Dorf diagonal (Häuser, Fenster außen wie innen, Glockenturm, Platz); Prüfliste im Chat 14:22. **Getestet vor 14:36: positiv**, Rückmeldung unter Tom (5l).
 - **0.1.503** (Jerry, 18, PR #23, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38139097892/artifacts/11702370389)): alle 17 Klänge aus Aufnahmen; Prüfliste im Chat 14:28.
 
 – nichts offen –
