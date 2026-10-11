@@ -125,6 +125,10 @@ object MapFigure {
      * True while the black screen between places waits for the pictures (24.1): the drawing threads then run
      * at normal priority, else low, so the game never stutters for them.
      */
+    /** 24.13: how long the last [prepare] took until every picture was there, and whether they came from the device. */
+    @Volatile var lastFullMs: Long? = null
+    @Volatile var lastFromShelf = false
+
     /** Tests only: the drawing threads wait while this is set. */
     @Volatile internal var hold = false
 
@@ -195,7 +199,8 @@ object MapFigure {
     /**
      * Draws every picture of [hero] in the background in [order], on two threads (each picture is itself
      * drawn on all cores, row by row, so more threads gain little). After a change of gear the old pictures
-     * stay until the new ones are complete (24.3); pictures of any older look are dropped.
+     * stay until the new ones are complete (24.3); pictures of any older look are dropped. Pictures kept on the
+     * device ([HeroShelf], 24.4) are read instead of drawn, and a look drawn in full is kept there.
      */
     fun prepare(hero: Hero, nearYaw: Double = 0.0) {
         val l = look(hero)
@@ -210,10 +215,35 @@ object MapFigure {
             cache.keys.removeAll { !it.startsWith("$l|") && (previous == null || !it.startsWith("$previous|")) }
             missing = left
         }
+        val start = System.currentTimeMillis()
+        lastFullMs = null
         val next = java.util.concurrent.atomic.AtomicInteger(0)
         val done = java.util.concurrent.atomic.AtomicInteger(0)
-        repeat(2) {
+        // the worker that draws the last picture: the old look may go, the new one is kept on the device
+        fun complete(fromShelf: Boolean) {
+            val keep = synchronized(cache) {
+                if (preparing != l) return
+                previous?.let { p -> cache.keys.removeAll { it.startsWith("$p|") }; previous = null }
+                if (fromShelf) null else cache.filterKeys { it.startsWith("$l|") }.mapKeys { (k, _) ->
+                    k.substringAfterLast("|").let { st -> k.removeSuffix("|$st").substringAfterLast("|").toInt() to st.toInt() }
+                }
+            }
+            lastFromShelf = fromShelf
+            lastFullMs = System.currentTimeMillis() - start
+            keep?.let { HeroShelf.save(l, it) }
+        }
+        val shelf = java.util.concurrent.atomic.AtomicBoolean(false)
+        repeat(2) { w ->
             val t = Thread {
+                // 24.4: kept on the device? Then nothing to draw (the other worker waits for this)
+                if (w == 0) {
+                    HeroShelf.load(l)?.takeIf { it.size == jobs.size }?.let { pics ->
+                        synchronized(cache) { if (preparing == l) for ((k, img) in pics) cache["$l|${k.first}|${k.second}"] = img }
+                        next.set(jobs.size); left.set(0)
+                        complete(true)
+                    }
+                    shelf.set(true)
+                } else while (!shelf.get()) Thread.sleep(2)
                 while (true) {
                     while (hold) Thread.sleep(5)
                     val i = next.getAndIncrement()
@@ -225,10 +255,7 @@ object MapFigure {
                         synchronized(cache) { if (preparing == l) cache[k] = img }
                     }
                     left.decrementAndGet()
-                    if (done.incrementAndGet() == jobs.size) synchronized(cache) {
-                        // all new pictures are there: the old look may go
-                        if (preparing == l) previous?.let { p -> cache.keys.removeAll { it.startsWith("$p|") }; previous = null }
-                    }
+                    if (done.incrementAndGet() == jobs.size) complete(false)
                 }
                 synchronized(workers) { workers.remove(Thread.currentThread()) }
             }
