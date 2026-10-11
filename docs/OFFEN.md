@@ -37,7 +37,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Jerry (11.10., 21:53)
 
-- **24.8 Ortsklang in der Blende:** 24t ja (21:45), Herzschlag mitladen. Hörproben geschickt (21:51): Wind, Schänke, Halle (Tempel), Knarren, Herzschlag, je 3. Skript `tools/klang/orte.py` auf Zweig `ccr-d94c036c-bdvewr` (Aufnahmen: OGA mild-wind-background-noise, park-ambiences, background-voices, tree-creaking, heartbeat-sounds, heartbeat-single-sound; Kenney creak1/3; liegen nicht in `holen.sh`, Freesound-CDN gibt gerade 403). **Rückfrage 24v:** welche Fassungen.
+- **24.8 Ortsklang in der Blende:** 24t ja (21:45), Herzschlag mitladen. Hörproben geschickt (21:51): Wind, Schänke, Halle (Tempel), Knarren, Herzschlag, je 3. Skript `tools/klang/orte.py` auf Zweig `ccr-d94c036c-bdvewr` (Aufnahmen: OGA mild-wind-background-noise, park-ambiences, background-voices, tree-creaking, heartbeat-sounds, heartbeat-single-sound; Kenney creak1/3; liegen nicht in `holen.sh`, Freesound-CDN gibt gerade 403). **24v (21:55):** Wind, Halle, Knarren, Herzschlag halbwegs ok; **Schänke geht gar nicht** (kein Bezug zur Schänke) → neue Aufnahmen suchen.
 - **Danach bauen:** `Sound` WIND/TAVERN/HALL/CREAK/HEARTBEAT, Ortsklang beginnt mit der Blende (`MapVeil`), Kerntest welcher Klang je Ort und Tageszeit; QUELLEN.md nachtragen. Dann 13e-Entwürfe; 24.6 nach Toms 24.5.
 
 ## Zu testen
