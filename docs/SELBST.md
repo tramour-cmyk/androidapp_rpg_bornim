@@ -76,8 +76,6 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 4. **14 Neustart-Haken** (Werkzeug, Zweig von `main`, PR). Fertig, wenn: Haken meldet über Schwelle, Test dokumentiert.
 
 **Für gemeinsame Zeit:**
-- 13: PR #20 (Ältester, Laden, Tempel) zusammenführen, falls noch offen.
-- 20: PR #21 (Uhrzeit im ZIP), nach meiner Prüfung zusammenführen.
 - 5.1: Standbilder ansehen, dann Zweig-Build auf dem Gerät testen.
 
 **Paket:** – (keine Selbstarbeit vergeben)

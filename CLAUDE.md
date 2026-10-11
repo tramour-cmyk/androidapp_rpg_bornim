@@ -31,7 +31,7 @@ Alle Notizen und Absprachen gibt es nur einmal, auf `main`: `CLAUDE.md`, `CHANGE
 - Die Arbeitszweige enthalten nur Code; dort werden Notizen nie geändert.
 - Notizen in einer zweiten Arbeitskopie von `main` bearbeiten: `tools/notiz.sh` legt sie unter `../bornim-main` an und holt den neuesten Stand. Dort ändern, committen, sofort pushen.
 - Vor jeder Antwort an den Nutzer `tools/notiz.sh` aufrufen (holt `main`, zeigt, was der andere seit dem letzten Mal an den Notizen geändert hat). Lehnt der Push ab, weil der andere schneller war: `git pull` (Zusammenführen, nie Verlaufsänderung), dann noch einmal pushen.
-- Code kommt auf `main` nur über einen Pull Request, den der Nutzer nach seinem Test freigibt.
+- Code kommt auf `main` nur über einen Pull Request, den der Nutzer nach seinem Test freigibt. **Zusammenführen macht die Sitzung selbst** (Regel 11.10., 14:00): Sagt der Nutzer, der Test passt, führt sie den PR zusammen (Merge, nie Squash oder Rebase), sobald er grün ist; der Nutzer klickt nicht.
 
 ## Vor jeder Arbeit lesen
 
