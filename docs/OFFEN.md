@@ -10,7 +10,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
-| 13 | Diagonale Sicht | Tom | `tom-diagonal` | Schänke auf `main` (v0.1.471). Laden, Haus des Ältesten, Tempel als Entwurf fertig (nur Vorschau); entschieden 11.10.: Grundriss A für alle drei, Tempelwände aus Stein mit Rundbogenfenstern. Als Nächstes ins Spiel unter „Dorf und Räume“ |
+| 13 | Diagonale Sicht | Tom | `tom-diagonal` | Schänke auf `main` (v0.1.471). 11.10., 12:40: Ältester, Laden, Tempel mit Grundriss A im Spiel (Tempel Stein, Seitengänge für Lyra), Kerntest `RoomPlanTest`; Zweig-Build läuft. Danach: Dorf draußen |
 | 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | nach den Räumen von 13 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 14 | Neustart-Haken: misst Gesprächsgröße, Hinweis an die Sitzung | Tom | neu von `main` (Werkzeug, PR) | freigegeben 10.10. |
