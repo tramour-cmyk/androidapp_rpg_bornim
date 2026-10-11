@@ -117,8 +117,8 @@ object MapFigure {
      * only for the same hero (24.9); another hero's pictures go at once.
      */
     private var previous: String? = null
-    /** Pictures of the [preparing] look still missing before the hero can stand and walk where he faces ([ready]). */
-    @Volatile private var firstLeft = java.util.concurrent.atomic.AtomicInteger(0)
+    /** Pictures of the [preparing] look still missing before the hero can stand and walk in every direction ([ready]). */
+    @Volatile private var missing = java.util.concurrent.atomic.AtomicInteger(0)
     private val workers = ArrayList<Thread>()
 
     /**
@@ -160,11 +160,10 @@ object MapFigure {
         val l = look(hero)
         val st = Math.floorMod(step, STEPS)
         synchronized(cache) {
-            // 24.3/24.9: after a change of gear a direction walks on in the old gear until its whole walk is drawn
-            // in the new, so the two never take turns from step to step
-            if (!walks(l, slot)) previous?.let { p -> if (walks(p, slot)) cache["$p|$slot|$st"]?.let { return it } }
-            cache["$l|$slot|$st"]?.let { return it }
+            // 24.3/24.11: after a change of gear every direction walks on in the old gear until the new is drawn
+            // in all of them, then all change at once
             previous?.let { p -> cache["$p|$slot|$st"] }?.let { return it }
+            cache["$l|$slot|$st"]?.let { return it }
         }
         frame(hero, slot, 0)?.let { return it }
         for (d in 1..2) for (s in listOf(slot - d, slot + d)) frame(hero, Math.floorMod(s, YAWS), 0)?.let { return it }
@@ -172,9 +171,6 @@ object MapFigure {
         synchronized(cache) { cache["${look(hero)}|$slot|0"] = img }
         return img
     }
-
-    /** True when the whole walk of look [l] in direction [slot] is drawn; call holding the cache. */
-    private fun walks(l: String, slot: Int) = (0 until STEPS).all { "$l|$slot|$it" in cache }
 
     /** How many directions either side of where the hero faces are drawn walking first ([order]). */
     const val FIRST_SIDE = 2
@@ -193,8 +189,8 @@ object MapFigure {
         return Pair(stand + walkNear + rest, stand.size + walkNear.size)
     }
 
-    /** True when [hero] can stand in every direction and walk where it faced at [prepare] (24.1 waits for this). */
-    fun ready(hero: Hero): Boolean = synchronized(cache) { preparing == look(hero) } && firstLeft.get() <= 0
+    /** True when [hero] can stand and walk in every direction (24.1 waits for this, 24.10: not only where it faces). */
+    fun ready(hero: Hero): Boolean = synchronized(cache) { preparing == look(hero) } && missing.get() <= 0
 
     /**
      * Draws every picture of [hero] in the background in [order], on two threads (each picture is itself
@@ -203,8 +199,8 @@ object MapFigure {
      */
     fun prepare(hero: Hero, nearYaw: Double = 0.0) {
         val l = look(hero)
-        val (jobs, first) = order(slot(nearYaw))
-        val left = java.util.concurrent.atomic.AtomicInteger(first)
+        val (jobs, _) = order(slot(nearYaw))
+        val left = java.util.concurrent.atomic.AtomicInteger(jobs.size)
         synchronized(cache) {
             if (preparing == l) return
             if (preparing != null && previous == null) previous = preparing
@@ -212,7 +208,7 @@ object MapFigure {
             if (previous == l || previous?.startsWith("${who(hero)}/") == false) previous = null
             preparing = l
             cache.keys.removeAll { !it.startsWith("$l|") && (previous == null || !it.startsWith("$previous|")) }
-            firstLeft = left
+            missing = left
         }
         val next = java.util.concurrent.atomic.AtomicInteger(0)
         val done = java.util.concurrent.atomic.AtomicInteger(0)
@@ -228,7 +224,7 @@ object MapFigure {
                         val img = draw(hero, s, st)
                         synchronized(cache) { if (preparing == l) cache[k] = img }
                     }
-                    if (i < first) left.decrementAndGet()
+                    left.decrementAndGet()
                     if (done.incrementAndGet() == jobs.size) synchronized(cache) {
                         // all new pictures are there: the old look may go
                         if (preparing == l) previous?.let { p -> cache.keys.removeAll { it.startsWith("$p|") }; previous = null }

@@ -56,25 +56,33 @@ class MapFigurePrepareTest {
         } finally { MapFigure.hold = false }
     }
 
-    @Test fun aDirectionSwitchesGearOnlyWithItsWholeWalk() {
+    @Test fun readyOnlyWhenItWalksInEveryDirection() {
+        val hero = GameState.newGame("Ready", Race.DWARF, CharClass.CLERIC).hero
+        MapFigure.prepare(hero, 0.0)
+        assertTrue(waitFor { MapFigure.ready(hero) }, "ready in time")
+        for (s in 0 until MapFigure.YAWS) for (st in 0 until MapFigure.STEPS)
+            assertTrue(MapFigure.frame(hero, s, st) != null, "24.10: direction $s step $st drawn when ready")
+    }
+
+    @Test fun allDirectionsChangeGearAtOnce() {
         val hero = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER).hero
         MapFigure.prepareNow(hero)
-        val slot = 6
-        val old = (0 until MapFigure.STEPS).map { MapFigure.frame(hero, slot, it)!! }
+        val old = (0 until MapFigure.YAWS).map { s -> (0 until MapFigure.STEPS).map { MapFigure.frame(hero, s, it)!! } }
         try {
             MapFigure.hold = true
             assertTrue(hero.unequip(GearSlot.entries.first { hero.item(it) != null }) != null)
             MapFigure.prepare(hero, 0.0)
-            // half the new walk drawn: the direction still walks wholly in the old gear
-            for (st in 0 until MapFigure.STEPS / 2) MapFigure.drawOne(hero, slot, st)
-            for (st in 0 until MapFigure.STEPS) assertSame(old[st], MapFigure.frameNow(hero, slot, st), "step $st")
-            // the whole new walk drawn: wholly in the new gear
-            for (st in MapFigure.STEPS / 2 until MapFigure.STEPS) MapFigure.drawOne(hero, slot, st)
-            for (st in 0 until MapFigure.STEPS) {
-                assertNotSame(old[st], MapFigure.frameNow(hero, slot, st))
-                assertSame(MapFigure.frame(hero, slot, st), MapFigure.frameNow(hero, slot, st))
-            }
+            // one direction wholly drawn anew: still every direction in the old gear
+            for (st in 0 until MapFigure.STEPS) MapFigure.drawOne(hero, 6, st)
+            for (s in 0 until MapFigure.YAWS) for (st in 0 until MapFigure.STEPS)
+                assertSame(old[s][st], MapFigure.frameNow(hero, s, st), "direction $s step $st")
         } finally { MapFigure.hold = false }
+        // all drawn: every direction in the new gear
+        assertTrue(waitFor { (0 until MapFigure.YAWS).all { s -> MapFigure.frameNow(hero, s, 3) !== old[s][3] } })
+        for (s in 0 until MapFigure.YAWS) for (st in 0 until MapFigure.STEPS) {
+            assertNotSame(old[s][st], MapFigure.frameNow(hero, s, st))
+            assertSame(MapFigure.frame(hero, s, st), MapFigure.frameNow(hero, s, st))
+        }
     }
 
     private fun waitFor(ms: Long = 60_000, ok: () -> Boolean): Boolean {
