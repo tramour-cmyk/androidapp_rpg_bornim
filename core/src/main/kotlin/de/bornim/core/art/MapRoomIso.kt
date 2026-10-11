@@ -987,6 +987,9 @@ object MapRoomIso {
     }
 
     /** A barrel on its foot, three looks: with a tap, with a tankard and a rag on the lid, open with ale and a ladle. */
+    /** A barrel standing on a tile's floor, for the village too (5.2). */
+    internal fun barrelOutside(v: Int, seed: Int): PixelImage = barrel(v, seed)
+
     private fun barrel(v: Int, seed: Int): PixelImage {
         val hcm = 88.0
         val c = Canvas((hcm * ZCM + TH / 2 + 16).toInt().let { it + it % 2 }, seed)

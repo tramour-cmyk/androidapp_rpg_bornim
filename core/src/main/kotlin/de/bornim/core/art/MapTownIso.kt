@@ -776,7 +776,7 @@ object MapTownIso {
     }
 
     private val sliceCache = HashMap<String, List<WorldArt.Obj>>()
-    private val signCache = HashMap<Int, PixelImage>()
+    private val thingCache = HashMap<String, PixelImage>()
 
     /**
      * The upright pictures of a town's houses seen diagonally (5.1), or null for anything else: each house cut into
@@ -785,11 +785,22 @@ object MapTownIso {
      */
     fun objects(map: MapDef, tx: Int, ty: Int): List<WorldArt.Obj>? {
         val t = map.tile(tx, ty)
-        if (t == Tile.SIGN) {
+        // the things on the square (5.2): one picture on the tile, its front corner at the foot, sorted like a figure there
+        val v = Math.floorMod(hash(tx, ty, 15), 3)
+        val thing: Pair<String, () -> PixelImage>? = when (t) {
+            Tile.SIGN -> "sign/$v" to { signpost(v, 71) }
+            Tile.STALL -> "stall/$v" to { stall(v, 501 + v) }
+            Tile.WELL -> "well/$v" to { well(v, 511 + v) }
+            Tile.LAMP -> "lamp/$v" to { lamp(v, 521 + v) }
+            Tile.BENCH -> "bench/$v" to { bench(v, 531 + v) }
+            Tile.BARREL -> "barrel/$v" to { MapRoomIso.barrelOutside(v, 551 + v) }
+            else -> null
+        }
+        if (thing != null) {
             val T = WorldArt.T
-            val img = synchronized(sliceCache) { signCache.getOrPut(Math.floorMod(hash(tx, ty, 15), 3)) { signpost(Math.floorMod(hash(tx, ty, 15), 3), 71) } }
+            val img = synchronized(sliceCache) { thingCache.getOrPut(thing.first) { thing.second() } }
             val wx = (tx + 1) * T; val wy = (ty + 1) * T
-            return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, false, corner = true))
+            return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, t == Tile.BENCH, corner = true))
         }
         if (t in roofTiles) return emptyList()
         if (t !in wallTiles) return null
@@ -826,13 +837,18 @@ object MapTownIso {
                 strip.set(x - (mid - 46), y + (hh - Math.round(bottom).toInt()), col); any = true
             }
             if (!any) continue
+            // drop the empty rows on top, so the strip's box (see-through test) holds only what is drawn
+            var top = 0
+            while (top < hh - 2 && (0 until 92).none { strip.opaque(it, top) }) top++
+            top -= top % 2
+            val img2 = if (top == 0) strip else PixelImage(92, hh - top).also { o -> for (y in 0 until hh - top) for (x in 0 until 92) o.set(x, y, strip[x, y + top]) }
             // the foot: on this strip's middle line, on the row in front of the house; sorted by the frontmost point of the footprint on it
             val qi = (s + c) / 2; val qj = (s - c) / 2
             val cc = c.coerceIn(-d.toDouble(), n.toDouble())
             val pi = min(n.toDouble(), d + cc); val pj = pi - cc
             val wx = Math.round((f.x + qi) * T).toInt(); val wy = Math.round((f.top + qj) * T).toInt()
             val depth = ((f.x + f.top + pi + pj) * T).toInt() + T / 2 - 1
-            out += WorldArt.Obj(strip, wx - 23, wy - hh / 2, depth - wx, 2, false, corner = true, group = 1 + f.x * 1000 + f.y)
+            out += WorldArt.Obj(img2, wx - 23, wy - img2.height / 2, depth - wx, 2, false, corner = true, group = 1 + f.x * 1000 + f.y)
         }
         return out
     }

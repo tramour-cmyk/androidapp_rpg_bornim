@@ -746,7 +746,13 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 if (o.sortY + o.x + w / 2f <= hx + hy) return false
                 val ox = k * (fx - fy); val oy = k / 2 * (fx + fy)
                 val px = k * (hx - hy); val py = k / 2 * (hx + hy)
-                return px + 8 > ox - w / 2f && px - 8 < ox + w / 2f && py > oy - h + 6 && py - 38 < oy
+                if (!(px + 8 > ox - w / 2f && px - 8 < ox + w / 2f && py > oy - h + 6 && py - 38 < oy)) return false
+                // only when something drawn really lies over the hero's body (5.2: a well beside the hero stays solid)
+                for (dy in 0..38 step 4) for (dx in -6..6 step 6) {
+                    val ix = ((px + dx - (ox - w / 2f)) * o.density).toInt(); val iy = ((py - dy - (oy - h)) * o.density).toInt()
+                    if (o.img.opaque(ix, iy)) return true
+                }
+                return false
             }
             if (o.density < 2) return false
             if (o.sortY <= heroY + T) return false
