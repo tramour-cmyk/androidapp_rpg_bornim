@@ -42,6 +42,19 @@ Aus den Rückmeldungen des Nutzers bis 11.10. (Verlauf im [Archiv](ARCHIV.md)):
 - **Räume:** eher klein und dicht als groß und leer; jeder Ort hat eigene Möbel, die zu seinem Bewohner passen (Pult und Truhe beim Ältesten, Ladentisch und Waren bei Thessa, Altar und Bänke im Tempel), je drei Varianten. Mehrteilige Möbel (Altar, Theke, Bett über mehrere Felder) haben durchgehend dieselbe Variante. Licht von Herd, Kerze und Fenster; Gebrauchsspuren.
 - **Begleiter und Rudel:** folgen mit eigenem Weg, eigenem Tempo und eigenem Blick, werden nie starr um den Anführer mitgedreht.
 
+## Wann ein Ort fertig ist („Ort fertig“)
+
+Festgelegt mit dem Nutzer 11.10., 16:50 (Maßstab: Dorf und Räume). Gilt für Dorf, Räume, Wald, Höhle und jeden neuen Ort:
+1. **Diagonale Sicht:** alles (Bäume, Felsen, Häuser, Möbel, Ufer, Hänge) für die schräge Kamera gezeichnet, nicht die alte Ansicht gekippt.
+2. **Boden:** doppelte Auflösung, kein sichtbares Raster, Wege mit natürlichem Verlauf.
+3. **Dinge:** rund geformt mit Volumen (`Sculpt`), je mindestens drei Varianten, im Maßstab des Helden.
+4. **Licht und Schatten:** Schatten unter allem, was steht; Licht nur aus sichtbaren Quellen; nachts düster, aber lesbar.
+5. **Durchsicht:** was vor dem Helden steht, wird halb durchsichtig.
+6. **Lebendig:** Wind, Rauch, Tiere, Gebrauchsspuren, Wetter, je nach Ort.
+7. **Figuren:** alle Leute als Puppen, alle Gegner als neue Kartenmodelle.
+8. **Klang:** Umgebung aus echten Aufnahmen, Schritte passend zum Untergrund.
+9. **Geprüft:** Kollision 0 (nirgends hindurchlaufen), Sprungtest 0, Tippen trifft das gezeichnete Ding; Standbilder bei Tag und Nacht.
+
 ## Ausrüstung der Gegner
 
 - Feste Ausrüstung je Gegnerart nach SRD, in mindestens drei Varianten.

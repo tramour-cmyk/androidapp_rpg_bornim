@@ -13,6 +13,7 @@ Der Nutzer arbeitet mit zwei Claude-Accounts gleichzeitig und spricht sie mit Na
 
 - Schreibt der Nutzer „Tom, …“ oder „Jerry, …“, ist der Genannte gemeint; der andere nimmt es nur zur Kenntnis.
 - Jede Nachricht an den Nutzer beginnt mit dem eigenen Namen und dem Zeitstempel: „**Tom** [10.10., 11:02]“.
+- **Berater:** eine Beratungssitzung auf Toms Account, die der Nutzer „Berater“ nennt. Sie bespricht, ändert Notizen und höchstens Werkzeug, keinen Spielcode. Themen mit „Berater“ in „Wer macht was“ fassen Tom-Arbeitssitzungen nicht an.
 - Wer was macht, steht oben in `docs/OFFEN.md` (Tabelle „Wer macht was“). Keiner arbeitet an Themen, die dort dem anderen gehören.
 
 ## Sitzungsstart
