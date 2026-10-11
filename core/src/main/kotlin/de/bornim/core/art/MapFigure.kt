@@ -109,6 +109,20 @@ object MapFigure {
 
     private val cache = HashMap<String, PixelImage>()
     private var preparing: String? = null
+    /** The look before the last change of gear: its pictures stay until the new ones are all drawn (24.3). */
+    private var previous: String? = null
+    /** Pictures of the [preparing] look still missing before the hero can stand and walk where he faces ([ready]). */
+    @Volatile private var firstLeft = java.util.concurrent.atomic.AtomicInteger(0)
+    private val workers = ArrayList<Thread>()
+
+    /**
+     * True while the black screen between places waits for the pictures (24.1): the drawing threads then run
+     * at normal priority, else low, so the game never stutters for them.
+     */
+    @Volatile var urgent = false
+        set(v) { field = v; synchronized(workers) { for (t in workers) t.priority = priority() } }
+
+    private fun priority() = if (urgent) Thread.NORM_PRIORITY else Thread.MIN_PRIORITY + 1
 
     /** Draws one picture now. */
     fun draw(hero: Hero, slot: Int, step: Int): PixelImage =
@@ -129,12 +143,14 @@ object MapFigure {
     fun frame(hero: Hero, slot: Int, step: Int): PixelImage? = synchronized(cache) { cache["${look(hero)}|$slot|${Math.floorMod(step, STEPS)}"] }
 
     /**
-     * The picture to show now, never nothing: the one asked for, else the standing picture of that
-     * direction, else the nearest direction already drawn, else that one picture drawn right away (a
+     * The picture to show now, never nothing: the one asked for, else the same in the gear worn before
+     * (while the new pictures are drawn), else the standing picture of that direction, else the nearest direction already drawn, else that one picture drawn right away (a
      * brief pause, once). So the former little figure no longer shows while the doll is being drawn.
      */
     fun frameNow(hero: Hero, slot: Int, step: Int): PixelImage {
         frame(hero, slot, step)?.let { return it }
+        // 24.3: after a change of gear the old pictures walk on until the new ones are drawn
+        synchronized(cache) { previous?.let { p -> cache["$p|$slot|${Math.floorMod(step, STEPS)}"] } }?.let { return it }
         frame(hero, slot, 0)?.let { return it }
         for (d in 1..2) for (s in listOf(slot - d, slot + d)) frame(hero, Math.floorMod(s, YAWS), 0)?.let { return it }
         val img = draw(hero, slot, 0)
@@ -142,37 +158,75 @@ object MapFigure {
         return img
     }
 
+    /** How many directions either side of where the hero faces are drawn walking first ([order]). */
+    const val FIRST_SIDE = 2
+
     /**
-     * Draws every picture of [hero] in the background, the directions nearest to [nearYaw] first.
-     * Pictures of an earlier look (other gear) are dropped.
+     * The order the pictures are drawn in (24.2): standing in every direction (nearest to [first] first), so
+     * turning never shows a missing picture; then the walk where the hero faces and [FIRST_SIDE] directions
+     * either side; then all the rest. Returns the order and how many of it come first.
+     */
+    fun order(first: Int): Pair<List<Pair<Int, Int>>, Int> {
+        fun dist(s: Int) = minOf(Math.floorMod(s - first, YAWS), Math.floorMod(first - s, YAWS))
+        val slots = (0 until YAWS).sortedBy { dist(it) }
+        val stand = slots.map { it to 0 }
+        val walkNear = slots.filter { dist(it) <= FIRST_SIDE }.flatMap { s -> (1 until STEPS).map { s to it } }
+        val rest = slots.filter { dist(it) > FIRST_SIDE }.flatMap { s -> (1 until STEPS).map { s to it } }
+        return Pair(stand + walkNear + rest, stand.size + walkNear.size)
+    }
+
+    /** True when [hero] can stand in every direction and walk where it faced at [prepare] (24.1 waits for this). */
+    fun ready(hero: Hero): Boolean = synchronized(cache) { preparing == look(hero) } && firstLeft.get() <= 0
+
+    /**
+     * Draws every picture of [hero] in the background in [order], on two threads (each picture is itself
+     * drawn on all cores, row by row, so more threads gain little). After a change of gear the old pictures
+     * stay until the new ones are complete (24.3); pictures of any older look are dropped.
      */
     fun prepare(hero: Hero, nearYaw: Double = 0.0) {
         val l = look(hero)
+        val (jobs, first) = order(slot(nearYaw))
+        val left = java.util.concurrent.atomic.AtomicInteger(first)
         synchronized(cache) {
             if (preparing == l) return
+            if (preparing != null && previous == null) previous = preparing
+            if (previous == l) previous = null
             preparing = l
-            cache.keys.removeAll { !it.startsWith("$l|") }
+            cache.keys.removeAll { !it.startsWith("$l|") && (previous == null || !it.startsWith("$previous|")) }
+            firstLeft = left
         }
-        val first = slot(nearYaw)
-        val order = (0 until YAWS).sortedBy { minOf(Math.floorMod(it - first, YAWS), Math.floorMod(first - it, YAWS)) }
-        val t = Thread {
-            for (s in order) for (st in 0 until STEPS) {
-                if (synchronized(cache) { preparing != l }) return@Thread
-                val k = "$l|$s|$st"
-                if (synchronized(cache) { k in cache }) continue
-                val img = draw(hero, s, st)
-                synchronized(cache) { if (preparing == l) cache[k] = img }
+        val next = java.util.concurrent.atomic.AtomicInteger(0)
+        val done = java.util.concurrent.atomic.AtomicInteger(0)
+        repeat(2) {
+            val t = Thread {
+                while (true) {
+                    val i = next.getAndIncrement()
+                    if (i >= jobs.size || synchronized(cache) { preparing != l }) break
+                    val (s, st) = jobs[i]
+                    val k = "$l|$s|$st"
+                    if (synchronized(cache) { k !in cache }) {
+                        val img = draw(hero, s, st)
+                        synchronized(cache) { if (preparing == l) cache[k] = img }
+                    }
+                    if (i < first) left.decrementAndGet()
+                    if (done.incrementAndGet() == jobs.size) synchronized(cache) {
+                        // all new pictures are there: the old look may go
+                        if (preparing == l) previous?.let { p -> cache.keys.removeAll { it.startsWith("$p|") }; previous = null }
+                    }
+                }
+                synchronized(workers) { workers.remove(Thread.currentThread()) }
             }
+            t.isDaemon = true
+            t.priority = priority()
+            synchronized(workers) { workers += t }
+            t.start()
         }
-        t.isDaemon = true
-        t.priority = Thread.MIN_PRIORITY + 1
-        t.start()
     }
 
     /** Draws every picture right away (previews and tests). */
     fun prepareNow(hero: Hero) {
         val l = look(hero)
-        synchronized(cache) { preparing = l }
+        synchronized(cache) { preparing = l; previous = null }
         for (s in 0 until YAWS) for (st in 0 until STEPS) {
             val k = "$l|$s|$st"
             if (synchronized(cache) { k in cache }) continue
