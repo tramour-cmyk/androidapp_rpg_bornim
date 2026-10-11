@@ -4,6 +4,11 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Übergabe Jerry (11.10., 17:01), ersetzt 11.10., 19:08
+
+- **9i** (Zweig `claude/brave-wright-pmcy0i`): 9 Arten und **9i.1** Testmenü (`Game.cheatBring`) getestet (0.1.516, 0.1.518), PR #29 zusammengeführt (17:16), in „Unveröffentlicht“. Sitzung endet (Nutzer 17:12); neue Sitzung macht weiter.
+- Weiter: 9i Rest (Gang/Ruhe für Spinne, Hundertfüßer, Fledermaus, Stirge, Gallerte, `VerminArt`); **24** Kampfsätze in Toms `Interlude.kt` (Zweig `claude/adoring-franklin-cqhg5a`), Grak Satz 5 braucht Bedingung (mit Tom klären), knapper Kampftext `Battle.kt:1117`; 28 Musik.
+
 ## Übergabe Tom (11.10., 17:43), ersetzt 11.10., 18:12
 
 - **24.1 umgesetzt** auf `claude/funny-pasteur-6p41ao` (Commit fa8f917, `main` drin, Kerntests grün), Test-Build 0.1.527 ausgeliefert (17:43). `InterludeClock` (Kern: ganzer Satz / nur Name / Abdunkeln 0,3 s, höchstens 4 s, Antippen erst wenn gezeichnet; Kerntest `InterludeClockTest`), `InterludeUi.kt` (`InterludeVeil`, `MapVeil(game, mapId)`, `VeilMemory`; ersetzt `MapBanner`; Held läuft hinter der Blende nicht), `MapGround.readyNear`, `MapFolk.standing`, Test-Reiter „Blende: bereit nach X s“; erster Besuch = Flag `seen:<map>`. Vorschau `BLENDE=1` (Standbild), `BLENDEFILM=1` (Film Start, Dorf, Schänke, Wald; angesehen 17:38).
