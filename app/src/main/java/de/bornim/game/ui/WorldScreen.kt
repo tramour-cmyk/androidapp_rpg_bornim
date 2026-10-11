@@ -1059,15 +1059,13 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         ground { if (MapLight.needed(map, game.daylight)) drawMapLight(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH) }
         if (diag && map.kind == MapKind.INTERIOR) drawHearthSmoke(game, map, clock, cam, camX, camY, scale)
         if (diag && map.kind == MapKind.TOWN && MapGround.supports(map)) drawTownSmoke(map, clock, cam, camX, camY, scale)
-        // what shines by itself (25.1: a lamp's glass) is drawn over the light of the place, so the source is the brightest
+        // what shines by itself (25.1: a lamp's glass; 25b: lit windows) is drawn over the light of the place, so the source is the brightest
         // spot around it, waking with the dusk like the light it throws; a small warm halo around it
         val night = MapLight.strength(map, MapLight.When.NIGHT, game.daylight).toFloat()
         if (night > 0.02f) for ((i, entry) in glowing.withIndex()) {
             val (o, a) = entry
             val g = o.glow ?: continue
-            // a thing on the square stands with its foot on the front corner of its tile (MapTownIso.objects)
-            val tx = (o.x + o.img.width / 4) / T - 1; val ty = (o.y + o.img.height / 2) / T - 1
-            val seen = when (game.fog(tx, ty)) {
+            val seen = when (game.fog(g.tx, g.ty)) {
                 de.bornim.core.Fog.HIDDEN -> 0f
                 de.bornim.core.Fog.SEEN -> 0.4f
                 de.bornim.core.Fog.VISIBLE -> 1f
@@ -1077,9 +1075,9 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             put(g.img, o.x, o.y, o.density, on, o.corner)
             val at = placeOf(o.img, o.x, o.y, o.density, o.corner)
             val c = Offset(at.x + g.cx * scale / o.density.toFloat(), at.y + g.cy * scale / o.density.toFloat())
-            val r = T * 0.55f * scale
-            drawCircle(
-                androidx.compose.ui.graphics.Brush.radialGradient(listOf(Color(0xFFFFD898).copy(alpha = 0.3f * on), Color(0xFFFFB060).copy(alpha = 0.1f * on), Color.Transparent), c, r),
+            val r = T * 0.55f * scale * (0.5f + 0.5f * g.halo)
+            if (g.halo > 0f) drawCircle(
+                androidx.compose.ui.graphics.Brush.radialGradient(listOf(Color(0xFFFFD898).copy(alpha = 0.3f * on * g.halo), Color(0xFFFFB060).copy(alpha = 0.1f * on * g.halo), Color.Transparent), c, r),
                 r, c, blendMode = androidx.compose.ui.graphics.BlendMode.Plus,
             )
         }

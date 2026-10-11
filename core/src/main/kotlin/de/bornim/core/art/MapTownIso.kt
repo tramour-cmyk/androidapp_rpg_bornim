@@ -835,7 +835,7 @@ object MapTownIso {
         if (thing != null) {
             val T = WorldArt.T
             val img = synchronized(sliceCache) { thingCache.getOrPut(thing.first) { thing.second() } }
-            val glow = if (t == Tile.LAMP) synchronized(sliceCache) { glowCache.getOrPut(v) { lampGlow(v) } } else null
+            val glow = if (t == Tile.LAMP) synchronized(sliceCache) { glowCache.getOrPut(v) { lampGlow(v) } }.at(tx, ty) else null
             val wx = (tx + 1) * T; val wy = (ty + 1) * T
             return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, t == Tile.BENCH, corner = true, glow = glow))
         }
@@ -847,12 +847,24 @@ object MapTownIso {
         var n = 0; while (map.tile(tx + n, ty) in wallTiles) n++
         var rows = 0; while (rows < 3 && (0 until n).all { map.tile(tx + it, ty - rows - 1) in roofTiles }) rows++
         val f = Footprint(tx, ty, n, rows + 1)
-        val out = slices(picture(map, f, false), f)
+        val day = picture(map, f, false)
+        val out = slices(day, f, litWindows(day.img, picture(map, f, true).img))
         synchronized(sliceCache) { sliceCache[key] = out }
         return out
     }
 
-    private fun slices(pic: Picture, f: Footprint): List<WorldArt.Obj> {
+    /**
+     * What shines of a house at night (25b): where its night picture differs from the day one, that is the lit panes of
+     * its windows; all else clear. The day picture is drawn in the game, this over it, waking with the dusk.
+     */
+    fun litWindows(day: PixelImage, night: PixelImage): PixelImage {
+        val out = PixelImage(day.width, day.height)
+        for (i in day.pixels.indices) if (night.pixels[i] != day.pixels[i] && (night.pixels[i] ushr 24) != 0) out.pixels[i] = night.pixels[i]
+        return out
+    }
+
+    /** [glow]: what shines at night, the same size as [pic], cut into the same strips. */
+    private fun slices(pic: Picture, f: Footprint, glow: PixelImage? = null): List<WorldArt.Obj> {
         val T = WorldArt.T
         val img = pic.img
         val n = f.n; val d = f.d
@@ -866,26 +878,33 @@ object MapTownIso {
             val c = k + 0.5
             val mid = (pic.ox + c * TW / 2).toInt()     // a whole pixel: ox lies on a half
             val strip = PixelImage(92, hh)
+            val lit = PixelImage(92, hh)
             var any = false
             for (y in 0 until img.height) for (x in max(0, mid - 46) until min(img.width, mid + 46)) {
                 if (floor((x + 0.5 - pic.ox) / (TW / 2)).toInt() != k) continue
                 val col = img[x, y]
                 if (col ushr 24 == 0) continue
                 strip.set(x - (mid - 46), y + (hh - Math.round(bottom).toInt()), col); any = true
+                glow?.get(x, y)?.takeIf { it ushr 24 != 0 }?.let { lit.set(x - (mid - 46), y + (hh - Math.round(bottom).toInt()), it) }
             }
             if (!any) continue
             // drop the empty rows on top, so the strip's box (see-through test) holds only what is drawn
             var top = 0
             while (top < hh - 2 && (0 until 92).none { strip.opaque(it, top) }) top++
             top -= top % 2
-            val img2 = if (top == 0) strip else PixelImage(92, hh - top).also { o -> for (y in 0 until hh - top) for (x in 0 until 92) o.set(x, y, strip[x, y + top]) }
+            fun cut(p: PixelImage) = if (top == 0) p else PixelImage(92, hh - top).also { o -> for (y in 0 until hh - top) for (x in 0 until 92) o.set(x, y, p[x, y + top]) }
+            val img2 = cut(strip)
+            // the strip's lit panes, if any, with the middle of their light; a window glows softer around than a lamp
+            val shining = lit.pixels.indices.filter { lit.pixels[it] ushr 24 != 0 }
+            val glowOf = if (shining.isEmpty()) null else WorldArt.Glow(cut(lit), shining.sumOf { it % 92 } / shining.size,
+                shining.sumOf { it / 92 } / shining.size - top, f.x, f.y, halo = 0.45f)
             // the foot: on this strip's middle line, on the row in front of the house; sorted by the frontmost point of the footprint on it
             val qi = (s + c) / 2; val qj = (s - c) / 2
             val cc = c.coerceIn(-d.toDouble(), n.toDouble())
             val pi = min(n.toDouble(), d + cc); val pj = pi - cc
             val wx = Math.round((f.x + qi) * T).toInt(); val wy = Math.round((f.top + qj) * T).toInt()
             val depth = ((f.x + f.top + pi + pj) * T).toInt() + T / 2 - 1
-            out += WorldArt.Obj(img2, wx - 23, wy - img2.height / 2, depth - wx, 2, false, corner = true, group = 1 + f.x * 1000 + f.y)
+            out += WorldArt.Obj(img2, wx - 23, wy - img2.height / 2, depth - wx, 2, false, corner = true, group = 1 + f.x * 1000 + f.y, glow = glowOf)
         }
         return out
     }
