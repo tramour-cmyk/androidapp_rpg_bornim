@@ -11,7 +11,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
 | Tom | läuft | 12.10., 08:00 | 11.10., 23:08 | 11.10., 23:12 | 30.1 Build abwarten, dann 30 Speicher messen | `claude/sharp-davinci-s83a1t` |
-| Jerry | – | – | – | 11.10., 11:30 | – | – |
+| Jerry | läuft | 12.10., 08:00 | 11.10., 23:17 | 11.10., 23:17 | 30 Klang-Speicher messen | neu von `main` |
 
 Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
 
@@ -91,22 +91,23 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 
 ## Jerry
 
-**Vorrat für Selbstarbeit** (Reihenfolge):
-1. **9i Übrige Gegner auf der Karte**, nur als Entwürfe (Standbilder mit Uhrzeit, alle Blickrichtungen). Fertig, wenn: Sprungtest und Kollisionsprüfung 0, Musterblatt. (9 Arten auf `main`, PR #29; fehlt Gang der 5 Kriechtiere/Flieger.)
-2. **24 Kampfsätze** in Toms `Interlude.kt` (DE/EN, auch 7 übrige Gegner), knapper Kampftext in `Battle.kt`.
-3. **18 Stimmen der übrigen Gegner** (Angriff, Schmerz, Tod, je drei Fassungen), nur als Hörproben.
-
-4. **13e Höhle diagonal**, danach **10, 11** (Flammen, Lichtstrahl), erst Entwürfe (Absprache mit Tom in `OFFEN.md`, 13e).
-5. **Schritte je Untergrund** (Idee 9), Hörproben (23a, 11.10., 14:18).
-6. **Raumklang** (Idee 8), Hörproben.
-7. **Rudelwölfe beißen ins Leere** (Fehler 08.10., Merkliste), mit Film.
-8. **Musik in Schichten** (Idee 10), Hörproben.
-9. **28 Musik neu:** Hörproben (Dorf, Wald, Höhle, Kampf, Boss; freie Lizenzen, Quelle festhalten). Fertig, wenn: Hörproben und Lizenzliste.
-10. **Ausgleich Magier** (26): Siegquoten aller Klassen gegen Krogg und Grak aus der Simulation, Vorschlag zum Angleichen. Fertig, wenn: Zahlen vorher/nachher im Bericht.
+**Vorrat für Selbstarbeit** (Reihenfolge; aufgeräumt 11.10., 23:17: 9i, Kampfsätze, 28 Musik erledigt):
+1. **24.6 Kampferöffnung wartet** + Herzschlag in der Blende (nach Toms 24.5 auf `main`).
+2. **18 Stimmen der übrigen Gegner** (Angriff, Schmerz, Tod, je drei Fassungen), nur als Hörproben.
+3. **13e Höhle diagonal**, danach **10, 11** (Flammen, Lichtstrahl), erst Entwürfe (Absprache mit Tom in `OFFEN.md`, 13e).
+4. **Schritte je Untergrund** (Idee 9), Hörproben (23a, 11.10., 14:18).
+5. **Raumklang** (Idee 8), Hörproben.
+6. **Rudelwölfe beißen ins Leere** (Fehler 08.10., Merkliste), mit Film.
+7. **Musik in Schichten** (Idee 10), Hörproben.
+8. **Ausgleich Magier** (26): Siegquoten aller Klassen gegen Krogg und Grak aus der Simulation, Vorschlag zum Angleichen. Fertig, wenn: Zahlen vorher/nachher im Bericht.
 
 **Für gemeinsame Zeit:**
 - 24e/24.6: Kampferöffnung wartet, bis Kampfbilder fertig sind (nach Toms 24.1–24.3).
 - 9i: Entwürfe ansehen und freigeben.
 - 19e: ein konkretes Beispiel für „Bewegungen unrund“, falls dir eines auffällt.
 
-**Paket:** –
+**Paket** (Nacht 11./12.10., vergeben 23:15 „Nachtmodus“, bis 08:00):
+1. **30 Klang-Speicher:** Speicher von `SfxPlayer` (SoundPool, ~22 MB dekodiert) und `MusicPlayer` messen bzw. berechnen, Absturzwege in den Klang-Fäden prüfen; Vorschläge (z. B. seltene Klänge erst bei Bedarf laden, Mono/geringere Rate) nur zur Freigabe. Fertig, wenn: Zahlen und Vorschläge in `OFFEN.md` (30).
+2. **24.8.5 Ortsklang weich überblenden** (24aa nach Empfehlung): alter Ortsklang 0,6 s aus, neuer weich ein. Eigener Zweig von `main`. Fertig, wenn: Kerntest, Build mit Link und Testliste; kein PR ohne Test.
+3. **13e Höhle diagonal, Entwürfe:** `MapCaveIso.kt` hinter Schalter, Standbilder mit Uhrzeit (Tag/Fackel), nicht ins Spiel. Fertig, wenn: Standbilder und Lückenliste nach „Ort fertig“.
+4. Reserve: Vorrat 8 (Ausgleich Magier), 4 (Schritte, Hörproben), 6 (Rudelwölfe), 2.
