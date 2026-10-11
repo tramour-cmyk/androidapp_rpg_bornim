@@ -34,7 +34,7 @@ object Sfx {
     )
 
     /** The sounds that announce something: one take only, so they are known at once (18h; STIL.md, Klang). */
-    val SYSTEM = setOf(Sound.LEVEL_UP, Sound.CLICK, Sound.LOOT_EPIC, Sound.ENCOUNTER, Sound.HERO_DOWN)
+    val SYSTEM = setOf(Sound.LEVEL_UP, Sound.CLICK, Sound.LOOT_EPIC, Sound.ENCOUNTER)
 
     fun variants(s: Sound): Int = if (s in VARIED) 3 else 1
 

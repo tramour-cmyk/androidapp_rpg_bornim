@@ -97,7 +97,7 @@ S["ambush"] = [
     reverb(mix((T("bfh1_wood_breaking_01.ogg"), 0, 0.8), (T("drawKnife1.ogg"), 0.2, 0.8), (pitch(T("impactPunch_heavy_000.ogg"), -3), 0.35, 0.6)), 0.15, 0.8),
     reverb(mix((T("footstep_grass_001.ogg"), 0, 0.7), (T("footstep_grass_002.ogg"), 0.11, 0.7), (T("footstep_grass_004.ogg"), 0.21, 0.8), (T("metal_hit_02.ogg"), 0.33, 0.6)), 0.15, 0.8, seed=2),
     reverb(mix((T("wood_breaking_02.ogg"), 0, 0.7), (grit(pitch(T("creature_roar_01.ogg"), -4)), 0.12, 0.6)), 0.2, 1.0, seed=3)]
-# Der Held fällt (Systemklang): Laut, Körper auf dem Boden, die Waffe fällt; Nr. 3 ohne Stimme (passt zu jedem Helden)
+# Der Held fällt (Umwelt im Kampf, drei Fassungen; 18f): Laut, Körper auf dem Boden, die Waffe fällt; Nr. 3 ohne Stimme (passt zu jedem Helden)
 S["hero_down"] = [
     reverb(mix((T("humanDeath1.wav"), 0, 0.8), (shelf_low(pitch(T("wet_towel_on_floor-02.flac"), -5), 4), 0.35, 1.0), (T("bfh1_metal_falling_01.ogg"), 0.5, 0.5)), 0.3, 1.6),
     reverb(mix((pitch(T("humanDeath2.wav"), -2), 0, 0.8), (shelf_low(pitch(T("wet_towel_on_floor-04.flac"), -5), 4), 0.4, 1.0), (T("chain_03.ogg"), 0.45, 0.35)), 0.3, 1.6, seed=2),
@@ -151,11 +151,19 @@ S["drip"] = [cave(win("atmosbasement.mp3_.flac", 1.1, 1.8, 0.1)), cave(win("fs_6
     cave(mix((T("fs_348022.mp3"), 0, 0.9), (pitch(T("fs_349873.mp3"), -2), 0.9, 0.6)), 3)]
 def even(x, k=4.0): return np.tanh(k * x / max(1e-9, np.max(np.abs(x))))   # einzelne laute Knacker zähmen, damit das Prasseln hörbar bleibt
 S["crackle"] = [even(win("fs_181563.mp3", 5.7, 8.2, 0.5)), even(win("fs_370938.mp3", 6.0, 8.5, 0.5)), win("fire-1.wav", 0.2, 2.7, 0.5)]
+# Ersatz (18f): Magie 1 klang nach Harfe, Stärkung 2 nicht gut; je drei Vorschläge, einer wird gewählt
+S["magic_ersatz"] = [reverb(darken(cut(T("fout-01.flac"), 0, 2.0, 0.005, 0.6), 6000), 0.25, 1.2),
+    reverb(mix((darken(cut(T("ghostbreath.flac"), 0, 2.0, 0.1, 0.6), 4000), 0, 0.9), (cut(pitch(T("qubodup-PowerDrain.flac"), -5), 0, 1.2, 0.005, 0.5), 0.3, 0.5)), 0.3, 1.4, seed=2),
+    reverb(lowpass(cut(T("fout-03.flac"), 0, 2.0, 0.005, 0.5), 4500, 2), 0.25, 1.2, seed=3)]
+S["buff_ersatz"] = [
+    reverb(mix((pitch(T("gong_02.ogg"), -8), 0, 0.7), (darken(cut(T("ghostbreath.flac"), 0, 1.6, 0.2, 0.5), 5000), 0.1, 0.6)), 0.35, 1.8),
+    reverb(mix((lowpass(win("ethereal_chant_Subclip 13_13.wav", 0, 1.8, 0.6), 3000), 0, 0.8), (pitch(T("impactBell_heavy_004.ogg"), -5), 0.05, 0.6)), 0.4, 2.0, seed=2),
+    reverb(mix((pitch(T("impactBell_heavy_002.ogg"), -9), 0, 0.8), (darken(T("cloth3.ogg"), 4000), 0.0, 0.5), (pitch(T("magical_6_0.ogg"), -5), 0.15, 0.3)), 0.4, 2.0, seed=3)]
 R2 = list(S)[R2_START:]
-R2_FREI = set()   # Runde-2-Klänge, die der Nutzer schon gewählt hat (nur diese kommen ins Spiel)
+R2_FREI = {"encounter", "alert", "ambush", "hero_down", "fire", "holy", "heal", "poison", "potion", "throw", "bird", "cricket", "owl", "drip", "crackle"}   # gewählt (18f, 11.10.); nur diese kommen ins Spiel
 
-# Systemklänge: nur diese Fassung kommt ins Spiel (Stufenaufstieg Nr. 1 gewählt vom Nutzer 11.10.)
-GEWAEHLT = {"level_up": 0, "click": 1, "loot_epic": 0}
+# Systemklänge: nur diese Fassung kommt ins Spiel (Stufenaufstieg Nr. 1 gewählt vom Nutzer 11.10., Kampfbeginn Nr. 3 18f)
+GEWAEHLT = {"level_up": 0, "click": 1, "loot_epic": 0, "encounter": 2}   # Kampfbeginn neu 3 (18f)
 
 def finish(name, x):
     return norm(trim(highpass(x, 35), -55), -1.0, -20 if name == "click" else -17)
