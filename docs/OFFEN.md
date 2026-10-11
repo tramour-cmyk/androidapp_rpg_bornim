@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 25** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 26** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -11,7 +11,8 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 13 | Diagonale Sicht | Tom | – | Schänke, Ältester, Laden, Tempel auf `main` (PR #20, 11.10., 14:00). Weiter mit Dorf draußen (5) |
-| 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | `tom-dorf` | 5.1 Häuser, 5h.1 Fenster, 5g Glockenturm, 5.2 Dinge auf dem Platz: Zweig-Build 0.1.501 zu testen (14:22). Danach 5.3, 5.4 |
+| 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | 5.1, 5.2, 5g, 5h.1 auf `main` (PR #24, 11.10., 14:52). Offen: 5l/5.5 Leben im Dorf (Rückfrage), 5.3, 5.4 |
+| 25 | Laternen geben nachts Licht, wirken als Quelle aber dunkel | Tom | – | gemeldet 11.10., 14:52; Befund und Vorschlag 25.1 im Chat, wartet auf Entscheidung 25a |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 14 | Neustart-Haken: misst Gesprächsgröße, Hinweis an die Sitzung | Tom | neu von `main` (Werkzeug, PR) | freigegeben 10.10. |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
@@ -30,7 +31,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (11.10., 14:36)
 
-- **5 Dorf:** Zweig `tom-dorf` (mit `main`), [PR #24](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/24) offen. Test 0.1.501 positiv (vor 14:36); danach Rauch berichtigt (stieg an alten Stellen auf, jetzt aus den Schornsteinen, `drawTownSmoke` + `MapTownIso.chimneyTops`). **Als Nächstes:** PR-Build ansehen, Rauch kurz vom Nutzer bestätigen lassen (oder Standbild), dann PR #24 selbst zusammenführen, „Unveröffentlicht“ ergänzen, Zeile „Zu testen“ löschen.
+- **5 Dorf:** Zweig `tom-dorf` (mit `main`), [PR #24](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/24) getestet (0.1.504) und zusammengeführt (14:52). **Als Nächstes:** 24.1–24.3 bauen (entschieden), 25 nach Entscheidung.
 - Rückmeldung Test 0.1.501 (noch zu besprechen, **5l**): Marktplatz sehr groß, wenig darauf, „wenig los im Dorf“; Gänse rechts unten gefallen; Wunsch nach Hühnern, Katzen, Hunden u. Ä. Nachts sehr dunkel, aber stimmig. Vorschlag für die neue Sitzung: 5.5 „Leben im Dorf“ (Tiere, Leute bei der Arbeit, Platz dichter: mehr Stände, Karren, Kisten oder Platz verkleinern).
 - Code: `core/.../art/MapTownIso.kt` (Häuser in Streifen, `Tile1` mit `plane`/`box`/`cylinder`, Dinge auf dem Platz), Fenster aus dem Raum `windowsFromRoom`, Durchsicht in `WorldScreen.hides` (Gruppe + Pixeltest). Vorschau `ISODINGE=dorf|platz`, `KARTENZOOM=1 DIAG=1 TOWNDRAFT=1 ONLY=zoom_nah_d`.
 - Danach Vorrat in `docs/SELBST.md` (5.3 Dorfbewohner als Puppen, 5.4, 17, 14, …). Routinen alle 3 h eingerichtet; die fünf neuen (09:24–21:24) braucht der Nutzer noch mit Repo und „automatisch“.
@@ -43,7 +44,6 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **0.1.504** (Tom, 5, PR #24, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38139887196/artifacts/11702945289)): 0.1.501 (positiv getestet) + Rauch aus den Schornsteinen. Nur Rauch prüfen, dann PR #24 zusammenführen.
 
 – nichts offen –
 

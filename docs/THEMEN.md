@@ -8,7 +8,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 2 | Waffe verstaut (auf der Karte geschultert bzw. am Rücken) | Tom | erledigt, v0.1.409 | Änderungshistorie, `STIL.md` |
 | 3 | Garrick hockt, schürt, döst (3a weich) | Tom | erledigt, v0.1.409 (3a v0.1.430) | Änderungshistorie |
 | 4 | Glühwürmchen fest, treibende Blätter | Tom | erledigt, v0.1.409 (Blätter v0.1.430) | Änderungshistorie |
-| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | offen, nach den Räumen von 13 | `OFFEN.md` |
+| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | Dorf diagonal auf `main` (PR #24, 11.10.); 5.3–5.5 offen | `OFFEN.md` |
 | 6 | Innenräume (Schänke), Zoom (6.15) | Tom | Schänke erledigt (v0.1.471, in 13 aufgegangen); 6l Zoomstufe offen | `OFFEN.md` |
 | 7 | Stopp-Punkt und Zusammenarbeit der Accounts | Tom | erledigt 10.10. (weiter in 8) | Archiv |
 | 8 | Zusammenarbeit Tom und Jerry, Notizen nur auf `main` | Jerry | erledigt 10.10. | `CLAUDE.md` |
@@ -27,3 +27,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 21 | Releaseflut eindämmen | Jerry | erledigt 11.10. (PR #22; Release nur auf Zuruf, Regeln in `CLAUDE.md`) | `OFFEN.md` |
 | 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | Tom | umgesetzt 11.10. (`docs/SELBST.md`) | `OFFEN.md` |
 | 23 | Aufgabenteilung und Vorrat für Selbstarbeit | Tom | erledigt 11.10. (`SELBST.md`) | `OFFEN.md` |
+| 25 | Laternen nachts als Quelle zu dunkel | Tom | gemeldet 11.10., 14:52 | `OFFEN.md` |

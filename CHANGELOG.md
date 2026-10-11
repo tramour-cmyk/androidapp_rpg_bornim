@@ -4,6 +4,14 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Tom (Thema 5), getestet in 0.1.501 und 0.1.504, PR #24 (zusammengeführt 11.10., 14:52):
+
+**Dorf diagonal (5)**
+- Häuser in der diagonalen Sicht, Fenster außen wie im Raum dahinter, nachts warm erleuchtet; Glockenturm.
+- Dinge auf dem Platz (Marktstände, Bänke, Laternen u. a.), je in drei Varianten.
+- Rauch steigt aus den Schornsteinen.
+- Werkzeuge (nur Entwicklung): Vorschau `ISODINGE=dorf|platz`.
+
 Zweig von Jerry (Thema 18), getestet in 0.1.503, PR #23 (zusammengeführt 11.10., 14:48):
 
 **Weitere Klänge aus echten Aufnahmen (18 Runde 2)**
