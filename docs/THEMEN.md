@@ -17,7 +17,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 11 | Höhle: Lichtstrahl am Lichtschacht | Jerry | zurückgestellt bis zur diagonalen Höhle (13e) | `OFFEN.md` |
 | 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Jerry, Tom | 12a, 12b, 12.3 erledigt (v0.1.455, v0.1.471, v0.1.483) | `OFFEN.md` |
 | 13 | Diagonale Sicht | Tom | Räume erledigt (Schänke v0.1.471; Ältester, Laden, Tempel PR #20, 11.10.); weiter in 5 | `OFFEN.md` |
-| 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für `OFFEN.md`) | Tom | freigegeben, offen | `OFFEN.md` |
+| 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für `OFFEN.md`) | Berater | erledigt 11.10. (PR #26) | `CHANGELOG.md` |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | erledigt 11.10. | Archiv |
 | 16 | Trefferstopp | Jerry | erledigt, v0.1.460 | Änderungshistorie |
 | 17 | Nachschwingen | Tom | freigegeben, offen | `OFFEN.md` |

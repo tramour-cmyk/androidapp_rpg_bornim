@@ -87,7 +87,7 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 ## Jerry
 
 **Vorrat für Selbstarbeit** (Reihenfolge):
-1. ~~**18 Runde 2**~~ (18f, 18g gewählt, alle eingebaut; wartet auf Test): 17 Klänge (Begegnung, Bemerkt, Hinterhalt, Held fällt, Feuer, Magie, Heilig, Heilung, Stärkung, Gift, Trank, Wurf, Vogel, Grille, Eule, Tropfen, Knistern) aus CC0-Aufnahmen, je drei Fassungen, nur als Hörproben. Fertig, wenn: Rezepte in `tools/klang/rezepte.py`, Quellen in `QUELLEN.md`, Proben-ZIP bereit, auf dem Zweig gepusht.
+1. **18h, 18i** (Tropfen, Knistern): Zweig-Build PR #25, wartet auf Test.
 2. **18 Stimmen der übrigen Gegner** (Angriff, Schmerz, Tod, je drei Fassungen), nur als Hörproben. Fertig, wenn: wie 1.
 3. **9i Übrige Gegner auf der Karte**, nur als Entwürfe (Standbilder mit Uhrzeit, alle Blickrichtungen). Fertig, wenn: Sprungtest und Kollisionsprüfung 0, Musterblatt.
 
@@ -98,7 +98,8 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 8. **Musik in Schichten** (Idee 10), Hörproben.
 
 **Für gemeinsame Zeit:**
-- 18: Zweig-Build (PR #23) mit allen 17 Klängen der Runde 2 auf dem Gerät testen.
+- 18h, 18i: Zweig-Build (PR #25) testen.
+- 24e/24.6: Kampferöffnung wartet, bis Kampfbilder fertig sind (nach Toms 24.1–24.3).
 - 9i: Entwürfe ansehen und freigeben.
 - 19e: ein konkretes Beispiel für „Bewegungen unrund“, falls dir eines auffällt.
 

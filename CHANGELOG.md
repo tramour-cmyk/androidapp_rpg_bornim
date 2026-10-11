@@ -4,6 +4,9 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Werkzeuge (nur Entwicklung, im Spiel ändert sich nichts)**
+- Neustart-Haken (14, PR #26): erinnert die Sitzung, sobald das Gespräch seit dem Start um etwa 100.000 Token gewachsen ist, erst selten, dann immer öfter; beim Sitzungsstart Warnung, wenn `docs/OFFEN.md` über 15 KB groß ist.
+
 Zweig von Tom (Thema 5), getestet in 0.1.501 und 0.1.504, PR #24 (zusammengeführt 11.10., 14:52):
 
 **Dorf diagonal (5)**
