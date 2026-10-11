@@ -33,7 +33,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (11.10., 17:45, vor Neustart)
 
-- **24.1 umgesetzt** auf `claude/funny-pasteur-6p41ao` (Commit fa8f917, `main` drin, Kerntests grün), Test-Build läuft (Erinnerung 17:47). `InterludeClock` (Kern: ganzer Satz / nur Name / Abdunkeln 0,3 s, höchstens 4 s, Antippen erst wenn gezeichnet; Kerntest `InterludeClockTest`), `InterludeUi.kt` (`InterludeVeil`, `MapVeil(game, mapId)`, `VeilMemory`; ersetzt `MapBanner`; Held läuft hinter der Blende nicht), `MapGround.readyNear`, `MapFolk.standing`, Test-Reiter „Blende: bereit nach X s“; erster Besuch = Flag `seen:<map>`. Vorschau `BLENDE=1` (Standbild), `BLENDEFILM=1` (Film Start, Dorf, Schänke, Wald; angesehen 17:38).
+- **24.1 umgesetzt** auf `claude/funny-pasteur-6p41ao` (Commit fa8f917, `main` drin, Kerntests grün), Test-Build 0.1.527 ausgeliefert (17:48). `InterludeClock` (Kern: ganzer Satz / nur Name / Abdunkeln 0,3 s, höchstens 4 s, Antippen erst wenn gezeichnet; Kerntest `InterludeClockTest`), `InterludeUi.kt` (`InterludeVeil`, `MapVeil(game, mapId)`, `VeilMemory`; ersetzt `MapBanner`; Held läuft hinter der Blende nicht), `MapGround.readyNear`, `MapFolk.standing`, Test-Reiter „Blende: bereit nach X s“; erster Besuch = Flag `seen:<map>`. Vorschau `BLENDE=1` (Standbild), `BLENDEFILM=1` (Film Start, Dorf, Schänke, Wald; angesehen 17:38).
 - **Als Nächstes:** Build melden (Link, APK, Prüfliste), nach Test PR erstellen und zusammenführen; dann 24.5 (Kampfbilder vorladen, wenn ein Gegner bemerkt), danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
 
 ### Jerry (11.10., 17:01)
@@ -43,6 +43,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
+- **0.1.527** (Tom, 24.1 Blende, Zweig `claude/funny-pasteur-6p41ao`, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38152204534/artifacts/11707172076)): Blende bei Spielstart und Ortswechsel.
 
 ## Rückfragen an den Nutzer
 
