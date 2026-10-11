@@ -31,11 +31,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (11.10., 15:40)
+### Tom (11.10., 16:57)
 
-- **25** getestet (0.1.512) und zusammengeführt (PR #28, 16:31).
-- **24 als Nächstes (neue Sitzung):** Plan in „Wer macht was“: erst messen (Zeit bis alles gezeichnet: `MapFigure.prepare`, `MapRest`, `MapFolk.prepareFor`, `MapGround.prepare`, Kampf `HeroBattle.prepare`/`MonsterArt.prepare` in `BattleScreen` ~1204/~901), dann 24.2/24.3, 24.1 Übergangsbild, 24.5 Kampfbilder auf der Karte vorladen; 24.6 macht Jerry. Vorher `STIL.md`-Abgleich (Blende im Stil, Übergang weich), Kerntest „Übergangsbild endet, wenn fertig oder nach ca. 4 s“.
-- **5l / 5.5 Leben im Dorf** nach 24 (Nutzer 14:55): Tiere (Hühner, Katzen, Hunde), Leute bei der Arbeit, Platz dichter; erst Standbilder. Dann 5.3, 5.4.
+- **24** Zweig `claude/adoring-franklin-cqhg5a` (alles gepusht): `Interlude.kt` (Datenformat, Ortssätze DE/EN, Kerntest `InterludeTest`; Jerry füllt `openings`/`foes`), 24.2/24.3 in `MapFigure` (`order`, zwei Fäden, `urgent`, `ready`, `previous` für alte Ausrüstung; Kerntest `MapFigurePrepareTest`). Zweig-Build **0.1.517** zu testen.
+- **Als Nächstes 24.1:** Blende in der App (Zeiten aus `ZWISCHENBILD.md`, 24i Kurzfassungen, Antippen überspringt, wartet auf `MapFigure.ready` + Boden nahe Held + Leute stehend, höchstens ca. 4 s; `urgent = true` solange sie steht), Anzeige „bereit nach X s“ im Test-Reiter; Kerntest für den Zeitablauf. Dann 24.5 (Kampfbilder vorladen, wenn ein Gegner bemerkt), 24.6 (Kampferöffnung wartet). Messung 16:36: Held Karte 128 Bilder 2,2 s, Kampf-Held 313 Bilder 10,9 s, Boden Wald/Höhle 3,3/5,8 s (Rechner, 4 Kerne).
+- Danach 5l/5.5 Leben im Dorf (erst Standbilder), 5.3, 5.4; 17.
 
 ### Jerry (11.10., 16:43)
 
@@ -44,8 +44,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
+- **0.1.517** (Tom, 24.2/24.3, `claude/adoring-franklin-cqhg5a`, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38148748724/artifacts/11706081511)): Held läuft nach Spielstart schneller richtig; nach Ausrüstungswechsel läuft er mit alter Ausrüstung weiter statt zu gleiten.
 - **0.1.516** (Jerry, 9i, PR #29, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38148261180/artifacts/11705670660)): 9 weitere Gegnerarten als Figuren auf der Karte; Waffe frei vom Bein.
-– nichts offen –
 
 ## Rückfragen an den Nutzer
 

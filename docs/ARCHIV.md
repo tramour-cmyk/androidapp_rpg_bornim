@@ -4,6 +4,12 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Übergabe Tom (11.10., 15:40), ersetzt 11.10., 16:57
+
+- **25** getestet (0.1.512) und zusammengeführt (PR #28, 16:31).
+- **24 als Nächstes (neue Sitzung):** Plan in „Wer macht was“: erst messen (Zeit bis alles gezeichnet: `MapFigure.prepare`, `MapRest`, `MapFolk.prepareFor`, `MapGround.prepare`, Kampf `HeroBattle.prepare`/`MonsterArt.prepare` in `BattleScreen` ~1204/~901), dann 24.2/24.3, 24.1 Übergangsbild, 24.5 Kampfbilder auf der Karte vorladen; 24.6 macht Jerry. Vorher `STIL.md`-Abgleich (Blende im Stil, Übergang weich), Kerntest „Übergangsbild endet, wenn fertig oder nach ca. 4 s“.
+- **5l / 5.5 Leben im Dorf** nach 24 (Nutzer 14:55): Tiere (Hühner, Katzen, Hunde), Leute bei der Arbeit, Platz dichter; erst Standbilder. Dann 5.3, 5.4.
+
 ## Übergabe Jerry (11.10., 14:24), ersetzt 11.10., 15:20
 
 - **Übergabe Jerry (11.10., 15:20):** Zweig `claude/loving-lovelace-k8iwgd`, Entwurfs-PR #27: **18k** Feuerknistern als nahtlose 10-s-Schleife (`tools/klang/schleifen.py`, Quellen 181563/370938 in `QUELLEN.md`), eine Fassung bis zum Ausklingen. Kerntests grün. Zweig-Build 0.1.511 ausgeliefert (15:24), Test beim Nutzer; nach „passt“ PR #27 zusammenführen (vorher aus Entwurf holen). 18 Runde 2 (PR #23) und 18h/18i (PR #25) auf `main`, unter „Unveröffentlicht“. Als Nächstes: Vorrat in `SELBST.md` (2 Stimmen übrige Gegner als Hörproben, 3 9i, 4 13e …); **24.6** (Kampferöffnung wartet auf Kampfbilder, 24e ja) nach Toms 24.1–24.3, vorher messen.
