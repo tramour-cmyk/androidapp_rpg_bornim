@@ -34,3 +34,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 28 | Musik neu | Jerry | erledigt, getestet 0.1.540, PR #36 | `ARCHIV.md` |
 | 29 | Nebenquests (Anschlagbrett) | Tom | offen | `OFFEN.md` |
 | 30 | Abstürze beim Testen | Tom (Jerry: Klang-Fäden) | offen | `OFFEN.md` |
+| 31 | Berater-Gedächtnis `docs/BERATER.md` | Berater | angelegt 11.10. | `BERATER.md` |

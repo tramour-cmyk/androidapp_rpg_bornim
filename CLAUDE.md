@@ -13,7 +13,7 @@ Der Nutzer arbeitet mit zwei Claude-Accounts gleichzeitig und spricht sie mit Na
 
 - Schreibt der Nutzer „Tom, …“ oder „Jerry, …“, ist der Genannte gemeint; der andere nimmt es nur zur Kenntnis.
 - Jede Nachricht an den Nutzer beginnt mit dem eigenen Namen und dem Zeitstempel: „**Tom** [10.10., 11:02]“.
-- **Berater:** eine Beratungssitzung auf Toms Account, die der Nutzer „Berater“ nennt. Sie bespricht, ändert Notizen und höchstens Werkzeug, keinen Spielcode. Themen mit „Berater“ in „Wer macht was“ fassen Tom-Arbeitssitzungen nicht an.
+- **Berater:** eine Beratungssitzung auf Toms Account, die der Nutzer „Berater“ nennt. Sie bespricht, ändert Notizen und höchstens Werkzeug, keinen Spielcode. Themen mit „Berater“ in „Wer macht was“ fassen Tom-Arbeitssitzungen nicht an. Der Berater startet mit `docs/BERATER.md` (sein Gedächtnis: Aufbau, Entscheidungen mit Begründung, Lehren; Ritual dort) statt der vollen Startlektüre. Tom und Jerry lesen sie nicht beim Start, tragen aber Grundsätzliches unter „Lehren“ ein.
 - Wer was macht, steht oben in `docs/OFFEN.md` (Tabelle „Wer macht was“). Keiner arbeitet an Themen, die dort dem anderen gehören.
 
 ## Sitzungsstart
@@ -41,7 +41,7 @@ Alle Notizen und Absprachen gibt es nur einmal, auf `main`: `CLAUDE.md`, `CHANGE
 3. `CHANGELOG.md` nur bis zur zweiten Versionsüberschrift (`sed -n '1,/^## v/p'` und die erste Version).
 4. `tools/check-env.sh` laufen lassen; `docs/UMGEBUNG.md` nur lesen, wenn es etwas meldet oder ein Werkzeug gesucht wird (Tabelle der Vorschau-Schalter).
 
-Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md` (Verlauf, nur gezielt durchsuchen), `docs/MERKLISTE.md` (Ideen für später), `docs/SELBST.md` (nur bei Selbstarbeit oder gemeinsamer Zeit).
+Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md` (Verlauf, nur gezielt durchsuchen), `docs/MERKLISTE.md` (Ideen für später), `docs/SELBST.md` (nur bei Selbstarbeit oder gemeinsamer Zeit), `docs/BERATER.md` (nur der Berater).
 
 ## Feste Regeln
 
