@@ -5,6 +5,12 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
 
+### Übergabe Tom (11.10., 22:40, vor Neustart)
+
+- **24.5 + 24.16–24.20** auf Zweig `claude/great-shannon-qnf51n` (enthält `claude/eager-hypatia-o148lt`), Build 0.1.547 (Commit `c7230d4`) fertig, Link im Chat 22:46. Kein PR. `BattleAhead`: Fetch (vom Gerät) → Eröffnung → Gegner (bleibt, solange nahe) → Rest des Helden, auch ohne Gegner nahe; `HeroBattle.keep/fetch`, `HeroShelf.saveFrames` (`.pixb`); Gegner-Bildspeicher ≥ 160 (`forget` der anderen Arten); Pool 2 Kerne (`SdfRender.pool`); `core/gradle.properties` (Speicher für `-p core` in CI).
+- **Als Nächstes:** Testergebnis 24.20 abwarten (Testliste im Chat 22:38: erster Start, Neustart „(gespeichert)“, zügig zum Gegner, Ruckeln, Speicher-MB). Wenn gut: PR, nach Freigabe zusammenführen, CHANGELOG. Danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
+- Lehre (Nutzer 22:05): nie einen Schritt beenden, während eigene Tests laufen; immer Wecken einrichten.
+
 ### Übergabe Jerry (11.10., 22:08, vor Neustart)
 
 - **24.8 Ortsklang in der Blende:** 24t ja, 24v (Wind, Halle, Knarren, Herzschlag ok). **24w nein (22:06):** keine Schänke-Fassung passt, alles zu voll, Fassung 3 französisch; Geräusch muss zu den Leuten passen, die da sind (Schänke: nur Rowena, Borin). Vorschlag 24.8.4: keine Stimmengewirr-Schleife; Schänke = Herd (gibt es) + Einzelklänge der Anwesenden in Abständen (Becher abstellen, Krug, Wischen, Stuhl knarrt, Räuspern ohne Worte); Regel „Ortsklang nur von dem, was sichtbar da ist“ für `STIL.md`. **24x: Nutzer „Starte neue Fassung“ (22:14) = ja (so gelesen; ggf. kurz bestätigen):** Hörproben für Wischen, Räuspern, Becher, Krug, Stuhl suchen und schicken, Regel in `STIL.md` eintragen, dann bauen. **22:20:** Regel in `STIL.md`; Hörproben je 3 Fassungen + Szene 20 s geschickt (BigSoundBank CC0: 0689, 1104, 0488, 2183, 0207, 0627, 1204, 1205, 1721, 1156, 1933, 0666, 3053, 0518), Rückfrage 24y. **22:33:** Einzelklänge gut; Szene hatte rhythmisches Grundgeräusch (Fehler der Probe: 1,1-s-Feuerstoß gekachelt), neue Szene mit Herd-Schleife `crackle_1–3`. **24y ja (22:3x), 24x darin enthalten.** Gebaut 22:52, Zweig `ccr-a3d07975-69cf5f`, PR #37, Build 0.1.548 zu testen. BigSoundBank-Gläser (1323/1324/1935) können dafür bleiben.
@@ -17,13 +23,6 @@ Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistori
 - **24.5** auf Zweig `claude/eager-hypatia-o148lt` (Commit „24.5: Kampfbilder schon auf der Karte vorzeichnen“, `core/.../art/BattleAhead.kt`, Aufruf in `WorldScreen` neben `MapFigure.prepare`, Zeiten in `BattleScreen`, Test-Reiter, Kerntest `BattleAheadTest`), Build 0.1.541 getestet: Held ok, Gegner nie vorgezeichnet (siehe „Zu testen“). Kein PR.
 - **Als Nächstes (24u ja, 21:42), gleicher Zweig, ein Build:** 24.16 Test-Reiter-Zeile (Bilder vorgezeichnet/gesamt, Wartezeit auf Karte, Gegnerart), 24.17 zwei Kerne statt einem (`SdfRender.alone` aus, z. B. eigener Pool mit 2 Fäden, niedrige Priorität), 24.18 Reihenfolge: Eröffnung+Stehen des Helden → Gegner → Rest des Helden (`HeroBattle.prepare` hat `onOpening`). Vorher `main` in den Zweig holen. Messen: kleiner Kerntest wie `BattleAheadTest` mit Zeitstempeln im `cancelled`-Lambda (Rechner: Kampf Held 4,6 s alle Kerne, 13,9 s ein Kern).
 - Danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17. APK nur als Link (Regel 21:25).
-
-
-### Tom (11.10., 22:40, vor Neustart)
-
-- **24.5 + 24.16–24.20** auf Zweig `claude/great-shannon-qnf51n` (enthält `claude/eager-hypatia-o148lt`), Build 0.1.547 (Commit `c7230d4`) fertig, Link im Chat 22:46. Kein PR. `BattleAhead`: Fetch (vom Gerät) → Eröffnung → Gegner (bleibt, solange nahe) → Rest des Helden, auch ohne Gegner nahe; `HeroBattle.keep/fetch`, `HeroShelf.saveFrames` (`.pixb`); Gegner-Bildspeicher ≥ 160 (`forget` der anderen Arten); Pool 2 Kerne (`SdfRender.pool`); `core/gradle.properties` (Speicher für `-p core` in CI).
-- **Als Nächstes:** Testergebnis 24.20 abwarten (Testliste im Chat 22:38: erster Start, Neustart „(gespeichert)“, zügig zum Gegner, Ruckeln, Speicher-MB). Wenn gut: PR, nach Freigabe zusammenführen, CHANGELOG. Danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
-- Lehre (Nutzer 22:05): nie einen Schritt beenden, während eigene Tests laufen; immer Wecken einrichten.
 
 
 ## Übergabe Jerry (11.10., 21:53), ersetzt 11.10., 22:05
