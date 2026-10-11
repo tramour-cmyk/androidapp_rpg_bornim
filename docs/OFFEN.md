@@ -42,7 +42,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **0.1.541 (Tom, 24.5)**: Test 21:39 (Höhle, langsam hingegangen): Kampf bereit Eröffnung 1,3 s, Held 13,6 s, Gegner 3,3 s → Vorzeichnen wirkte nicht (oder zu langsam). Vorschläge 24.16 (Anzeige: was vorgezeichnet wurde, wie lange gewartet), 24.17 (Vorzeichnen mit 2 Kernen), Rückfrage 24u.
+- **0.1.541 (Tom, 24.5)**: Test 21:39 (Höhle, langsam hingegangen): Kampf bereit Eröffnung 1,3 s, Held 13,6 s, Gegner 3,3 s → Vorzeichnen wirkte nicht (oder zu langsam). Vorschläge 24.16 (Anzeige: was vorgezeichnet wurde, wie lange gewartet), 24.17 (Vorzeichnen mit 2 Kernen), Rückfrage 24u. Test 2 (Höhle → Wald, direkt auf Wolf): Eröffnung 0,0 s, Held 0,6 s, Gegner 4,0 s → Held ok (auch aus dem Kampf davor), Gegner kam nie dran; Vorschlag 24.18 (Gegner gleich nach der Eröffnung des Helden).
 
 
 ## Rückfragen an den Nutzer
