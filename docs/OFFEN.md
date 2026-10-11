@@ -43,7 +43,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **0.1.501** (Tom, 5, `tom-dorf`, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38138465071/artifacts/11702163109)): Dorf diagonal (Häuser, Fenster außen wie innen, Glockenturm, Platz); Prüfliste im Chat 14:22. **Getestet vor 14:36: positiv**, Rückmeldung unter Tom (5l).
+- **0.1.504** (Tom, 5, PR #24, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38139887196/artifacts/11702945289)): 0.1.501 (positiv getestet) + Rauch aus den Schornsteinen. Nur Rauch prüfen, dann PR #24 zusammenführen.
 - **0.1.503** (Jerry, 18, PR #23, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38139097892/artifacts/11702370389)): alle 17 Klänge aus Aufnahmen; Prüfliste im Chat 14:28.
 
 – nichts offen –
