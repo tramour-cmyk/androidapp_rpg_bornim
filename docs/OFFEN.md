@@ -12,17 +12,17 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 |---|---|---|---|---|
 | 13 | Diagonale Sicht | Tom | – | Schänke, Ältester, Laden, Tempel auf `main` (PR #20, 11.10., 14:00). Weiter mit Dorf draußen (5) |
 | 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | 5.1, 5.2, 5g, 5h.1 auf `main` (PR #24, 11.10., 14:52). 5l/5.5 Leben im Dorf: nach 24 (Nutzer 14:55), erst Standbilder. Dann 5.3, 5.4 |
-| 25 | Laternen geben nachts Licht, wirken als Quelle aber dunkel | Tom | `claude/fervent-einstein-bewehx` | 25a ja (14:55): 25.1 Nachtfassung (Glas glüht, Schein am Kopf), erst Standbilder; in Arbeit, vor 24 |
+| 25 | Laternen geben nachts Licht, wirken als Quelle aber dunkel | Tom | `claude/fervent-einstein-bewehx` | 25.1 umgesetzt (15:13), Zweig-Build läuft. 25b ja (15:16): Fenster der Häuser nachts erleuchtet, in Arbeit (gleicher Zweig) |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; frei, seit 13 auf `main` ist |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 13e | Höhle diagonal (Phase 2 von 13: Orte aufteilen) | Jerry | – | 13e.1 ja (13:52): nach 18 Runde 2, erst Entwürfe. **Tom einverstanden (14:16).** Jerry: neue Datei `MapCaveIso.kt` und eine Zeile in `WorldArt.buildObjects` (wie Räume/Dorf). Nicht anfassen ohne Absprache: `WorldScreen.kt` (Sortierung, `hides`, `put`/`corner`, `Cam`), `MapSight`, `FreeWalk`, `MapRoomIso`, `MapTownIso`, `MapGround`. Vorlage: `MapTownIso` (`Tile1`, `plane`/`box`/`cylinder`, Tiefe `(tx+ty)*T+1.5T−1`, `corner = true`, `group` für Mehrfeld-Dinge) |
-| 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | neu von `main` | Runde 2 getestet, auf `main` (PR #23, 14:48). Offen: **18h** Tropfen in der Höhle nicht zu hören, **18i** Feuerknistern setzt schlagartig ein statt allmählich (Nutzer 14:45). 18j ja, ohne Hörprobe (14:51): Zweig `claude/loving-lovelace-k8iwgd`, PR #25, Zweig-Build 0.1.507 zu testen |
+| 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | `claude/loving-lovelace-k8iwgd`, PR #27 | 18h/18i getestet, auf `main` (PR #25). **18k** (Nutzer, Test 0.1.507): Knistern eine Fassung behalten, nahtlose Schleife; Zweig-Build 0.1.511 zu testen |
 | 22 | Selbstarbeit statt nur Nachtarbeit: Routinen alle 3 h, Vorrat und Liste „Für gemeinsame Zeit“ | Tom | `main` (Notizen), Routinen | 22a, 22b ja (13:31). `docs/SELBST.md` statt `NACHT.md`; Toms Routinen umgestellt (13:38); Nutzer: neue Routinen einstellen (Repo, automatisch). Jerrys Routinen umgestellt (13:44), Vorrat eingetragen |
 | 23 | Aufgaben so aufteilen, dass Tom und Jerry auch in Selbstarbeit genug Vorrat haben | Tom | `main` (Notizen) | 23a ja (14:18): je 8 Punkte im Vorrat (`docs/SELBST.md`), neue nur als Entwürfe/Hörproben. **Jerry:** deine Punkte 4–8 sind eingetragen |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
-| 24 | Animationen fehlen nach Spielstart und Kartenwechsel (Held schwebt ohne Beinbewegung, Atmen fehlt); Übergangsbild, bis alles gezeichnet ist | Tom (Karte); Kampfbilder mit Jerry abstimmen | – | entschieden 11.10., 14:39: 24.1–24.3 bauen (Tom-Arbeitssitzung, nach dem laufenden Schritt), 24.4 auf die Merkliste |
+| 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Übergangsbild, bis alles gezeichnet ist; auch vor Kämpfen | Tom (24.1–24.3, 24.5); Jerry (24.6) | – | 24a–c ja (14:39), 24e ja (15:16). **Plan:** Tom beginnt nach 25b in neuer Sitzung (ca. 16:00): erst messen, dann 24.2/24.3 (mehrere Fäden, Bilder behalten), 24.1 Übergangsbild, 24.5 Kampfbilder auf der Karte vorladen. **Jerry:** 24.6 (Kampferöffnung wartet auf Stehen und ersten Schlag, höchstens ca. 2 s) nach 18h/18i, auf Toms Zeichen-Faden aus 24.2 aufbauen |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
@@ -35,15 +35,15 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - Code: `core/.../art/MapTownIso.kt` (Häuser in Streifen, `Tile1` mit `plane`/`box`/`cylinder`, Dinge auf dem Platz), Fenster aus dem Raum `windowsFromRoom`, Durchsicht in `WorldScreen.hides` (Gruppe + Pixeltest). Vorschau `ISODINGE=dorf|platz`, `KARTENZOOM=1 DIAG=1 TOWNDRAFT=1 ONLY=zoom_nah_d`.
 - Danach Vorrat in `docs/SELBST.md` (5.3 Dorfbewohner als Puppen, 5.4, 17, 14, …). Routinen alle 3 h eingerichtet; die fünf neuen (09:24–21:24) braucht der Nutzer noch mit Repo und „automatisch“.
 
-### Jerry (11.10., 14:24)
+### Jerry (11.10., 15:20)
 
-- Zweig `claude/eloquent-dirac-eg6m37`, Entwurfs-PR #23 (mit `main` gemischt): 18 Runde 2 im Spiel, alle 17 Klänge aus Aufnahmen (18f, 18g; Held fällt kein Systemklang mehr). Kerntests grün. **Zweig-Build von 9ce1f55 läuft (14:23):** neue Sitzung prüft ihn (`subscribe_pr_activity` PR #23 neu abonnieren), Link, APK und Testliste an den Nutzer (Kampfbeginn, Bemerkt, Hinterhalt, Held fällt, Feuer, Magie, Heilig, Heilung, Stärkung, Gift, Trank, Wurf, Vögel, Grillen, Eule, Tropfen, Knistern, Lautstärke).
-- Aufnahmen: `tools/klang/holen.sh <ordner>` (Freesound braucht Pausen, sonst 403), Rezepte `tools/klang/rezepte.py` (`--proben`, `--nur`; Einbau überschreibt alle OGG: danach `git checkout -- app/src/main/assets/sfx/` und nur neue Dateien behalten). Routinen umgestellt (xx:27).
-- Als Nächstes nach Test und Zusammenführen: Vorrat in `SELBST.md` (2 Stimmen übrige Gegner, 3 9i, 4 13e Höhle mit Toms Dateigrenzen, …).
+- Zweig `claude/loving-lovelace-k8iwgd`, Entwurfs-PR #27: **18k** Feuerknistern als nahtlose 10-s-Schleife (`tools/klang/schleifen.py`, Quellen 181563/370938 in `QUELLEN.md`), eine Fassung bis zum Ausklingen. Kerntests grün. Zweig-Build 0.1.511 ausgeliefert (15:24), Test beim Nutzer; nach „passt“ PR #27 zusammenführen (vorher aus Entwurf holen).
+- 18 Runde 2 (PR #23) und 18h/18i (PR #25) auf `main`, unter „Unveröffentlicht“.
+- Als Nächstes: Vorrat in `SELBST.md` (2 Stimmen übrige Gegner als Hörproben, 3 9i, 4 13e …); **24.6** (Kampferöffnung wartet auf Kampfbilder, 24e ja) nach Toms 24.1–24.3, vorher messen.
 
 ## Zu testen
 
-- **0.1.507** (Jerry, 18h/18i, PR #25, [Lauf](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38141630230)): Knistern weich am Feuer, Tropfen in der Höhle.
+- **0.1.511** (Jerry, 18k, PR #27, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38142607722/artifacts/11703910683)): Knistern als nahtlose Schleife.
 
 – nichts offen –
 
