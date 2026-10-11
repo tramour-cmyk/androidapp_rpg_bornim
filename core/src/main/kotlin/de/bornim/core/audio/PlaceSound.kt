@@ -39,6 +39,13 @@ object PlaceSound {
         return if (target > cur) minOf(target, cur + step) else maxOf(target, cur - step)
     }
 
+    /** Leaving a place, its loops (wind, hall, fire) die away in this time instead of breaking off (24.8.5). */
+    const val LEAVE_FADE_MS = 600L
+
+    /** The volume of a loop that was at [from] when the place was left, [elapsedMs] later: down to 0 in [LEAVE_FADE_MS]. */
+    fun leaving(from: Float, elapsedMs: Long): Float =
+        if (elapsedMs >= LEAVE_FADE_MS) 0f else from * (1f - elapsedMs.toFloat() / LEAVE_FADE_MS)
+
     /** The look of the innkeeper: she wipes, pours and sets down cups; everyone else is a guest. */
     const val HOST = "innkeeper"
 
