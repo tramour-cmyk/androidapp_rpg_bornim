@@ -4,6 +4,12 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 18h, 18i), getestet in 0.1.507, PR #25:
+
+**Feuer und Höhle klingen lebendiger (18h, 18i)**
+- Das Knistern von Lagerfeuer und Herd schwillt beim Näherkommen weich an und klingt beim Weggehen ab (ab 6 Feldern still); bei Kampf oder Menü blendet es aus.
+- In der Höhle tropft es alle paar Sekunden, auch in Feuernähe (dort leiser).
+
 **Werkzeuge (nur Entwicklung, im Spiel ändert sich nichts)**
 - Neustart-Haken (14, PR #26): erinnert die Sitzung, sobald das Gespräch seit dem Start um etwa 100.000 Token gewachsen ist, erst selten, dann immer öfter; beim Sitzungsstart Warnung, wenn `docs/OFFEN.md` über 15 KB groß ist.
 
