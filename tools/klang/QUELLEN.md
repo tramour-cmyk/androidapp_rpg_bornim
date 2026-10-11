@@ -50,3 +50,28 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Freesound-Aufnah
 | `drip` | Water Drop 01, 02 (348022, 349873) | LilMati, Freesound | https://freesound.org/people/LilMati/sounds/348022/ , https://freesound.org/people/LilMati/sounds/349873/ |
 | `crackle` (Schleife 1, 18k) | Fire Crackling 01 (181563) | kingsrow, Freesound | https://freesound.org/people/kingsrow/sounds/181563/ |
 | `crackle` (Schleifen 2, 3, 18k) | fire-crackling (370938) | jmehlferber, Freesound | https://freesound.org/people/jmehlferber/sounds/370938/ |
+
+## Musik (Thema 28, Auswahl des Nutzers 11.10.2026)
+
+Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools/klang/musik_holen.sh`. Grundlage: Reihe von nene (orchestral), Dorf mittelalterlich (RandomMind, trex0n), Höhle mit Klangflächen darunter.
+
+| Einsatz | Titel | Urheber | Quelle |
+|---|---|---|---|
+| Titel | Adventure Intro Title [Cinematic, Epic] | nene | https://opengameart.org/content/adventure-intro-title-cinematic-epic |
+| Dorf | Medieval: Minstrel Dance | RandomMind | https://opengameart.org/content/medieval-minstrel-dance |
+| Dorf | Fantasy: Lament for a Warrior's Soul | RandomMind | https://opengameart.org/content/fantasy-lament-for-a-warriors-soul |
+| Dorf | A Small Fire Will Do (Calming Loop) | trex0n | https://opengameart.org/content/a-small-fire-will-do-calming-loop |
+| Wald | Beautiful Forest [Orchestra] | nene | https://opengameart.org/content/beautiful-forest-orchestra |
+| Höhle | Mysterious | nene | https://opengameart.org/content/mysterious |
+| Höhle | Night of the Streets [Horror/Suspense] | nene | https://opengameart.org/content/night-of-the-streets-horrorsuspense |
+| Höhle (Grund) | Dark Cavern Ambient (2) | Paul Wortmann | https://opengameart.org/content/dark-cavern-ambient |
+| Höhle (Grund) | Deep Humidity | tinyworlds | https://opengameart.org/content/deep-humidity |
+| Höhle (Grund) | Dungeon Ambience | yd | https://opengameart.org/content/dungeon-ambience |
+| Höhle (Grund) | Forgoten tomb ambience | kindland | https://opengameart.org/content/forgoten-tomb-ambience |
+| Kampf | Evil Approach | nene | https://opengameart.org/content/evil-approach |
+| Boss | Fall of Nightmares [Epic, Orchestral] | nene | https://opengameart.org/content/fall-of-nightmares-epic-orchestral |
+| Sieg | Hero's Reprise | nene | https://opengameart.org/content/heros-reprise |
+| Kapitelende | New Sunrise (V2) | nene | https://opengameart.org/content/new-sunrise |
+| Kampf (Ergänzung, offen 28f) | Determined Pursuit | emmama | https://opengameart.org/content/determined-pursuit-epic-orchestra-loop |
+| Kampf (Ergänzung, offen 28f) | Great Labyrinth | mintodog | https://opengameart.org/content/great-labyrinthorchestral-dungeon-music |
+| Wald (Ergänzung, offen 28f) | Dark Forest Theme | cynicmusic | https://opengameart.org/content/dark-forest-theme |
