@@ -61,4 +61,6 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **24i** (Tom, 16:19): Bei jedem Tür-Wechsel 2,5 s Zwischenbild ist viel. Empfehlung: erster Besuch ganzer Satz; danach nur Ortsname ca. 1 s; ist schon alles gezeichnet, bei Türen im Dorf nur eine kurze Blende (0,3 s) ohne Text.
 - **24j** (Tom, 16:19): Englische Fassung der Ortssätze schreibe ich selbst. Empfehlung: ja.
 
+- **24k** (16:24, Tom): 24 nicht aufteilen? Empfehlung Tom: Tom baut den ganzen Zwischenbildschirm (Orte und Kampf, Fäden, Warten 24.6); Jerry liefert nur zu: Sätze für die 7 übrigen Gegner, Klang in der Blende (24.8) nach dem Bau.
+
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
