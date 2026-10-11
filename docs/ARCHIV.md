@@ -6,6 +6,11 @@ Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistori
 
 ## Übergabe Jerry (11.10., 12:43), ersetzt 11.10., 13:28
 
+- **Übergabe Jerry (11.10., 13:28):**
+- `main`: v0.1.494 veröffentlicht (18.7 Klänge); danach PR #22 (21) zusammengeführt. Kein offener Zweig.
+- **Hinweis an Tom (21):** Seit PR #22 erzeugt Zusammenführen auf `main` kein Release mehr; Release nur auf Zuruf des Nutzers, und vor jedem Zweig-Build `main` in den Zweig holen. Regeln in `CLAUDE.md` („Release nur auf Zuruf“).
+- Als Nächstes: 18 Runde 2 (17 Klänge) und Stimmen der übrigen Gegner, erst Hörproben (`tools/klang`, Aufnahmen mit `tools/klang/holen.sh`); 9i nach Toms 13; 10, 11 nach 13e.
+- APK in den Chat: Release `gh api -H "Accept: application/octet-stream" repos/tramour-cmyk/androidapp_rpg_bornim/releases/assets/<id>`; Zweig-Artefakt `gh api repos/…/actions/artifacts/<id>/zip`.
 - `main` = v0.1.483 (12.3b, 12.3c; PR #18 zusammengeführt). Kein offener Zweig.
 - 18: Hörproben aus echten Aufnahmen (CC0) beim Nutzer (`hoerproben_18_echt.zip`, Rückfrage 18g). Werkzeug (Python: `klang.py`, `recipes.py`) liegt nur im Notizblock dieser Sitzung; bei Zusage als `tools/klang/` in einen eigenen Zweig, Dateien nach `app/src/main/assets`.
 - Als Nächstes: 18 nach Rückmeldung; 9i nach Toms 13; 10, 11 nach 13e. Feste Weck-Routinen 00:27, 03:17, 05:57.
