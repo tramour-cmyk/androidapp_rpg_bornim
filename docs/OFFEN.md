@@ -44,6 +44,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
+- **0.1.540** (Jerry, 28.1 Musik, PR #36): Titel-Schleife, Überblenden Dorf ↔ Wald, Kampf/Sieg/Flucht/Boss, Höhle (Klangfläche, Naht), Lautstärke, Schalter, Hintergrund.
 
 ## Rückfragen an den Nutzer
 
