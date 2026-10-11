@@ -14,11 +14,12 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | nach den Räumen von 13 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 14 | Neustart-Haken: misst Gesprächsgröße, Hinweis an die Sitzung | Tom | neu von `main` (Werkzeug, PR) | freigegeben 10.10. |
-| 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerry prüft seinen Teil |
+| 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; nach 13 |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 18d, 18e | Hörproben (Runde 1 und 2) und Monster-Laute | Jerry | – | warten auf den Nutzer (anhören) |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
+| 12.3 | Sprünge in den Kampfbewegungen der Tiere (Wolf, Eber, Riesenratte): `JumpTest.listOthers` meldet 265, nur gelistet | Jerry | – | gefunden 11.10. beim Prüfen von 15; Vorschlag an den Nutzer |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
@@ -30,12 +31,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Als Nächstes:** Grundriss A von Ältestem, Laden und Tempel ins Spiel (unter dem Schalter „Dorf und Räume“), Tempelwände Stein, Kerntest (Held erreicht Person und Tür), Zweig-Build. Dann 17, dann 14.
 - Feste Weck-Routinen für Tom eingerichtet und getestet (`docs/NACHT.md`).
 
-### Jerry (11.10., 11:35)
+### Jerry (11.10., 11:59)
 
-- 18 Pechsträhnen getestet (0.1.472), PR #16 zusammengeführt, Release **v0.1.479**. Kein offener Zweig. Hörproben Runde 2 und Monster-Laute liegen als Entwürfe in `core` (`Sfx.proposed`, `KLANGPROBEN=…`).
-- Als Nächstes: 9i nach Toms 13; 10, 11 nach 13e. Feste Weck-Routinen wie Tom einrichten (`docs/NACHT.md`, Abschnitt „Feste Weck-Sitzungen“).
-- **Hinweis von Tom (11.10., 11:55, Thema 15):** `OFFEN.md` ist entschlackt (Verlauf in `docs/ARCHIV.md`), neu `docs/THEMEN.md` (eine Zeile je Nummer) und die Regel „`OFFEN.md` klein halten“ in `CLAUDE.md`. Bitte deinen Teil in „Wer macht was“, deine Übergabe und deine Zeilen in `THEMEN.md` prüfen; neue Themen auch dort eintragen.
-- APK in den Chat: `gh api -H "Accept: application/octet-stream" repos/tramour-cmyk/androidapp_rpg_bornim/releases/assets/<id>` (id aus `releases/latest`); Artefakte von Zweig-Builds scheitern mit 403.
+- Kein offener Zweig. `main` = v0.1.479 (18). Hörproben Runde 1, 2 und Monster-Laute als Entwürfe in `core` (`Sfx.proposed`, `Sfx.monsterProposal`, Vorschau `KLANGPROBEN=1|2|MONSTER`).
+- Als Nächstes: 9i nach Toms 13; 10, 11 nach 13e; 12.3 nur nach Freigabe. Feste Weck-Routinen 00:27, 03:17, 05:57 eingerichtet und getestet (`docs/NACHT.md`).
+- APK in den Chat: `gh api -H "Accept: application/octet-stream" repos/tramour-cmyk/androidapp_rpg_bornim/releases/assets/<id>` (id aus `releases/latest`); Artefakte von Zweig-Builds scheitern (Speicher-Host gesperrt).
 
 ## Zu testen
 
@@ -46,3 +46,4 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). Empfehlung: festlegen, wenn die Räume fertig sind.
 - **18d** (Jerry): Hörproben auswählen, Runde 1 (Klick, Beute, epische Beute, Münzen, Truhe, Tür, Stufenaufstieg, Gegner fällt) und Runde 2 (17 Klänge, `hoerproben_runde2.zip`). Empfehlung Jerry: erst Runde 1.
 - **18e** (Jerry): Monster-Laute Wolf, Goblin, Skelett: Richtung passt? Dann die übrigen Gegner.
+- **12.3a** (Jerry): Sprünge in den Kampfbewegungen der Tiere beheben (wie 12a bei den Gegnern auf der Puppe)? Empfehlung: ja, mit Kerntest, der dann scharf prüft.

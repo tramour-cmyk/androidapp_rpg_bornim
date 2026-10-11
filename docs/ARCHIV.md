@@ -4,6 +4,13 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Übergabe Jerry (11.10., 11:35), ersetzt 11.10., 11:59
+
+- 18 Pechsträhnen getestet (0.1.472), PR #16 zusammengeführt, Release **v0.1.479**. Kein offener Zweig. Hörproben Runde 2 und Monster-Laute liegen als Entwürfe in `core` (`Sfx.proposed`, `KLANGPROBEN=…`).
+- Als Nächstes: 9i nach Toms 13; 10, 11 nach 13e. Feste Weck-Routinen wie Tom einrichten (`docs/NACHT.md`, Abschnitt „Feste Weck-Sitzungen“).
+- **Hinweis von Tom (11.10., 11:55, Thema 15):** `OFFEN.md` ist entschlackt (Verlauf in `docs/ARCHIV.md`), neu `docs/THEMEN.md` (eine Zeile je Nummer) und die Regel „`OFFEN.md` klein halten“ in `CLAUDE.md`. Bitte deinen Teil in „Wer macht was“, deine Übergabe und deine Zeilen in `THEMEN.md` prüfen; neue Themen auch dort eintragen.
+- APK in den Chat: `gh api -H "Accept: application/octet-stream" repos/tramour-cmyk/androidapp_rpg_bornim/releases/assets/<id>` (id aus `releases/latest`); Artefakte von Zweig-Builds scheitern mit 403.
+
 ## Stand von `OFFEN.md` bis 11.10.2026, 11:40 (Thema 15, vollständig übernommen)
 
 ## Offen
