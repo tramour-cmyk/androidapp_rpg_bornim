@@ -25,6 +25,7 @@ Letzter Test der Weck-Sitzung (Tom): 11.10., 11:27 Berlin, Push ok, Repo als Que
 
 **Jetzt fest eingerichtet (Tom):** drei tägliche Routinen „Tom Nachtarbeit 00:24 / 03:14 / 05:54“ (Berliner Zeit). Sie arbeiten nur, wenn in der Tabelle oben die Zeile „Tom“ auf `läuft` oder `wartet auf Grenze` steht und unten ein Paket für Tom eingetragen ist; sonst beenden sie sich sofort (kostet fast nichts). Fehlt das Schreibrecht, hängen sie das Repo selbst mit `add_repo` an.
 - **Einmal vom Nutzer einzustellen** (am PC im Browser, claude.ai): in jeder der drei Routinen das Repository `tramour-cmyk/androidapp_rpg_bornim` auswählen und die Freigabe auf automatisch stellen. Anleitung im Chat vom 11.10., 11:10.
+- **Tom: eingestellt vom Nutzer 11.10., 11:25 (alle drei Routinen), Testlauf 11:27 erfolgreich (Push ok, Repo als Quelle).** Jerry: noch offen.
 - Abends also **keine neuen Weck-Sitzungen anlegen**, nur Paket eintragen und Zeile auf `läuft` setzen. Jerry richtet für sich dasselbe in seinem Account ein.
 
 ### 1. Vor dem Schlafengehen (mit dem Nutzer, etwa 22:00)
