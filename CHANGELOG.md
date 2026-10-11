@@ -4,6 +4,16 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Tom (Thema 24.4, 24.9–24.13), getestet in 0.1.530, 0.1.532 und 0.1.534, PR #34 (zusammengeführt 11.10., 20:37):
+
+**Held ohne Mischfigur und schneller bereit (24)**
+- Nach einem Spielstandwechsel keine Mischung aus altem und neuem Helden mehr (24.9).
+- Die Blende nach Spielstart und Spielstandwechsel wartet, bis der Held in allen Richtungen gehen kann (24.10).
+- Nach einem Ausrüstungswechsel wechselt der Held in allen Richtungen zugleich, ohne Hin und Her (24.11).
+- Die Heldenbilder werden auf dem Gerät gespeichert: ein Neustart oder schon getragene Ausrüstung braucht kein Zeichnen mehr (0,1 s statt 27 s; 24.4).
+- Neue Ausrüstung wird schon im Menü gezeichnet, mit voller Geschwindigkeit (24.12).
+- Werkzeuge (nur Entwicklung): Test-Reiter „Held ganz gezeichnet nach X s“ (24.13); Kerntest `HeroShelfTest`.
+
 Zweig von Jerry (Thema 9i Rest, 9i.2), getestet in 0.1.529 und 0.1.531, PR #33 (zusammengeführt 11.10., 19:07):
 
 **Spinne, Hundertfüßer, Fledermaus, Stirge und Gallerte auf der Karte (9i)**
