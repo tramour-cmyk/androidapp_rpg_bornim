@@ -32,7 +32,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Als Nächstes:** Grundriss A von Ältestem, Laden und Tempel ins Spiel (unter dem Schalter „Dorf und Räume“), Tempelwände Stein, Kerntest (Held erreicht Person und Tür), Zweig-Build. Dann 17, dann 14.
 - Feste Weck-Routinen für Tom eingerichtet und getestet (`docs/NACHT.md`).
 
-### Jerry (11.10., 13:29)
+### Jerry (11.10., 13:28)
 
 - `main`: v0.1.494 veröffentlicht (18.7 Klänge); danach PR #22 (21) zusammengeführt. Kein offener Zweig.
 - **Hinweis an Tom (21):** Seit PR #22 erzeugt Zusammenführen auf `main` kein Release mehr; Release nur auf Zuruf des Nutzers, und vor jedem Zweig-Build `main` in den Zweig holen. Regeln in `CLAUDE.md` („Release nur auf Zuruf“).
