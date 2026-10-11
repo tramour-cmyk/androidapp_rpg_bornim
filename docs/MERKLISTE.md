@@ -12,11 +12,11 @@ Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstop
 - **Trefferchancen sichtbar machen (Teil von Idee 2):** Chance vor dem Angriff anzeigen.
 - **Verletzungen bis zur Rast (Idee 3):** Wer tief fällt, behält eine Wunde (z. B. −1 RK), sichtbar als Verband am Helden; das Gasthaus heilt sie.
 - **Licht als Mechanik (Idee 4):** Fackel brennt ab; im Dunkeln sieht man Lauerer später, Untote sind stärker.
-- **Spuren, die bleiben (Idee 7):** Blut auf dem Boden nach dem Kampf, Fußspuren im Matsch nach Regen, aufgewirbelter Staub beim Rennen.
-- **Raumklang (Idee 8):** Hall in der Höhle, gedämpft und nah in der Schänke, offen im Wald.
-- **Schritte je Untergrund (Idee 9):** Gras, Holzdielen, Fels, Pfütze, je mit Varianten.
-- **Musik in Schichten (Idee 10):** Nähert sich ein Jäger, schleicht sich eine dunkle Spur in die Musik, bevor der Kampf beginnt; Stille bewusst einsetzen. Gehört zu „Musik neu im neuen Stil“.
-- **Farbstimmung je Ort und Tageszeit (Idee 11):** Höhle kalt-grünlich, Schänke warm, Dämmerung violett, leichte Abdunklung an den Bildrändern (Filmlook über alles).
+- (im Vorrat, 23a) **Spuren, die bleiben (Idee 7):** Blut auf dem Boden nach dem Kampf, Fußspuren im Matsch nach Regen, aufgewirbelter Staub beim Rennen.
+- (im Vorrat, 23a) **Raumklang (Idee 8):** Hall in der Höhle, gedämpft und nah in der Schänke, offen im Wald.
+- (im Vorrat, 23a) **Schritte je Untergrund (Idee 9):** Gras, Holzdielen, Fels, Pfütze, je mit Varianten.
+- (im Vorrat, 23a) **Musik in Schichten (Idee 10):** Nähert sich ein Jäger, schleicht sich eine dunkle Spur in die Musik, bevor der Kampf beginnt; Stille bewusst einsetzen. Gehört zu „Musik neu im neuen Stil“.
+- (im Vorrat, 23a) **Farbstimmung je Ort und Tageszeit (Idee 11):** Höhle kalt-grünlich, Schänke warm, Dämmerung violett, leichte Abdunklung an den Bildrändern (Filmlook über alles).
 - **Regeln:** SRD bleibt Grundlage, nicht wechseln; das Würfelglück wird abgefedert (18, sichtbare Chancen).
 
 ## Veröffentlichung (Weg, besprochen 10.10., 13:36)
@@ -29,7 +29,7 @@ Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstop
 
 ## Lebendige Orte
 
-- **Katze in der Schänke (10.10., 6.14/6g):** schläft am Herd, streckt sich ab und zu, wechselt gelegentlich den Platz; eigene kleine Figur nötig.
+- (im Vorrat, 23a) **Katze in der Schänke (10.10., 6.14/6g):** schläft am Herd, streckt sich ab und zu, wechselt gelegentlich den Platz; eigene kleine Figur nötig.
 
 ## Werkzeuge
 
@@ -81,11 +81,11 @@ Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstop
 - **Neue Ausrüstungseigenschaft:** Giftresistenz.
 - **Monster-Geräusche** (erste Hörproben Wolf, Goblin, Skelett liegen vor, 18e): eigene Laute je Gegnerart, jeweils in mehreren zufälligen Varianten wie beim Wolfsheulen. Zum Beispiel Knurren vor dem Angriff, Fauchen, Schmerzlaute bei Treffern und Todeslaute. Dazu Klappern bei Skeletten, Stöhnen bei Zombies, Schmatzen beim Ockergallert, Kreischen bei Fledermäusen, Kampfrufe bei Goblins und Kobolden, Brüllen bei Bossen. Elite-Gegner und Grimmzahn klingen tiefer.
 
-- **Rudelwölfe beißen ins Leere (gemeldet 08.10., v0.1.210):** Der Leitwolf springt beim Biss zum Helden, die anderen Wölfe des Rudels beißen nur auf ihrem Platz im Hintergrund (im Film bestätigt). Vorschlag: Rudelwölfe springen wie der Leitwolf zum Helden und zurück, gleitend und im selben Takt; wer beißt, wird vor den anderen gezeichnet.
+- (im Vorrat, 23a) **Rudelwölfe beißen ins Leere (gemeldet 08.10., v0.1.210):** Der Leitwolf springt beim Biss zum Helden, die anderen Wölfe des Rudels beißen nur auf ihrem Platz im Hintergrund (im Film bestätigt). Vorschlag: Rudelwölfe springen wie der Leitwolf zum Helden und zurück, gleitend und im selben Takt; wer beißt, wird vor den anderen gezeichnet.
 
 ## Welt und Leben auf der Karte
 
-- **Kartenansicht** im Menü mit den bereits erkundeten Bereichen.
+- (im Vorrat, 23a) **Kartenansicht** im Menü mit den bereits erkundeten Bereichen.
 - **Schnellreise über die Kartenübersicht (Idee 09.10., 12:49):** Die Pergamentkarte (Entwurf C, `tools/preview` Modus `WEGE`) als Übersicht, mit Nebel des Unerkundeten wie auf der Karte; einmal entdeckte Orte (z. B. Bornim, Garricks Feuer, Höhleneingang) sind Reiseziele, gegen Gold. Gedanken dazu: ein Fuhrmann in Bornim oder Garrick als Führer statt Teleport; Preis nach Entfernung; Zeit vergeht (wer abends aufbricht, kommt nachts an); unterwegs ein Wurf auf einen Überfall, nachts höher; nicht aus Höhlen heraus, nicht im Kampf.
 - **Bewohner mit Tagesablauf:** Die Wirtin fegt vor der Tür, Läden haben nachts geschlossen. (Jorins Streife am Schlagbaum gibt es schon.)
 - **Monsterverhalten:** Goblins patrouillieren auf Wegen, Fledermäuse hängen an der Höhlendecke und stürzen herab.

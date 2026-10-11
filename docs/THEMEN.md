@@ -26,4 +26,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 20 | Uhrzeit der APK im ZIP | Tom | erledigt 11.10. (PR #21) | `OFFEN.md` |
 | 21 | Releaseflut eindämmen | Jerry | erledigt 11.10. (PR #22; Release nur auf Zuruf, Regeln in `CLAUDE.md`) | `OFFEN.md` |
 | 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | Tom | umgesetzt 11.10. (`docs/SELBST.md`) | `OFFEN.md` |
-| 23 | Aufgabenteilung und Vorrat für Selbstarbeit | Tom | Vorschlag offen | `OFFEN.md` |
+| 23 | Aufgabenteilung und Vorrat für Selbstarbeit | Tom | erledigt 11.10. (`SELBST.md`) | `OFFEN.md` |
