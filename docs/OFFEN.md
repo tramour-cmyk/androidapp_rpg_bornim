@@ -30,11 +30,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (11.10., 18:12, vor Neustart)
+### Tom (11.10., 20:21, vor Neustart)
 
-- **24.1 getestet** (0.1.527: „lief okay“; bereit nach 0,4 / 0,1 / 0,0 s) und zusammengeführt (PR #32, 18:11). Code: `InterludeClock` (Kern), `InterludeUi.kt` (`MapVeil`, `VeilMemory`), Vorschau `BLENDE=1`, `BLENDEFILM=1`.
-- **Meldung beim Test von 0.1.527 (24.9):** Nach Spielstandwechsel Magier → Kämpfer beim Laufen eine Zeit lang eine Mischung beider Figuren. Ursache: 24.3 hält die alten Bilder (`MapFigure.previous`) auch bei einem anderen Helden, und `frameNow` nimmt je Schrittbild neu oder alt. Vorschlag: alte Bilder nur bei gleichem Helden (nur Ausrüstung geändert), und je Richtung erst wechseln, wenn ihr ganzer Gang neu gezeichnet ist; Kerntest. **24m ja (Nutzer, gelesen 18:17): in neuer Sitzung umsetzen.**
-- **Als Nächstes:** 24.9 (freigegeben, neuer Zweig von `main`); 24.5 (Kampfbilder vorladen, wenn ein Gegner bemerkt; Blende vor Kämpfen ist 24.6, Jerry); dann 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
+- **Zweig `ccr-669bb35e-05nki8`** (kein PR bisher): 24.9 (keine Mischfigur), 24.10 (Blende wartet auf Gang in allen Richtungen), 24.11 (Ausrüstung wechselt überall zugleich), 24.4 (`HeroShelf`: Heldenbilder auf dem Gerät, ~160 KB je Look, 6 Stück, Ordner je Build, gesetzt in `MainActivity`), 24.12 (Zeichnen im Menü, `MenuScreen`), 24.13 (Test-Reiter „Held ganz gezeichnet“). Getestet 0.1.534 (Zeiten oben bei 24).
+- **Offen:** 24p (zusammenführen? → dann PR stellen, mergen, CHANGELOG „Unveröffentlicht“), 24q (24.14 Zeichnen beschleunigen: Handy ~18× langsamer als Rechner, 1 Bild ≈ 0,2 s; erst messen, wo `SdfRender` Zeit braucht; 24.15 neue Beute vorab zeichnen, sobald sie in der Tasche ist).
+- **Danach:** 24.5 (Kampfbilder vorladen); 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
 
 ### Jerry (11.10., 20:07)
 
