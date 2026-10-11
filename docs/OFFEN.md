@@ -12,7 +12,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 |---|---|---|---|---|
 | 13 | Diagonale Sicht | Tom | – | Schänke, Ältester, Laden, Tempel auf `main` (PR #20, 11.10., 14:00). Weiter mit Dorf draußen (5) |
 | 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | 5.1, 5.2, 5g, 5h.1 auf `main` (PR #24, 11.10., 14:52). 5l/5.5 Leben im Dorf: nach 24 (Nutzer 14:55), erst Standbilder. Dann 5.3, 5.4 |
-| 25 | Laternen geben nachts Licht, wirken als Quelle aber dunkel | Tom | `claude/fervent-einstein-bewehx` | 25a ja (14:55): 25.1 Nachtfassung (Glas glüht, Schein am Kopf), erst Standbilder; in Arbeit, vor 24 |
+| 25 | Laternen geben nachts Licht, wirken als Quelle aber dunkel | Tom | `claude/fervent-einstein-bewehx` | 25.1 umgesetzt (15:13, `lampGlow`, `LampGlowTest`), Standbild an den Nutzer, Zweig-Build läuft. Rückfrage 25b (Fenster nachts auch dunkel?) |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; frei, seit 13 auf `main` ist |
