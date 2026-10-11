@@ -1,105 +1,142 @@
 package de.bornim.game.audio
 
+import android.content.Context
 import android.media.AudioAttributes
-import android.media.AudioFormat
-import android.media.AudioTrack
-import de.bornim.core.audio.Song
-import de.bornim.core.audio.Songs
-import de.bornim.core.audio.Synth
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
-import java.util.concurrent.ConcurrentHashMap
+import android.media.MediaPlayer
+import android.os.Handler
+import android.os.Looper
+import android.os.SystemClock
+import de.bornim.core.audio.MusicDirector
+import de.bornim.core.audio.MusicScene
+import de.bornim.core.audio.MusicWant
 
-/** Plays the synthesized songs as seamless loops. Songs are rendered once in the background. */
-class MusicPlayer {
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
-    private val cache = ConcurrentHashMap<String, ShortArray>()
-    private var track: AudioTrack? = null
-    private var current: Song? = null
+/**
+ * Plays the recorded music from `assets/music` (28.1): [MusicDirector] decides what plays, this fades between pieces
+ * (a new piece fades in while the old one fades out) and lays the cave's sound bed underneath. Runs on the main thread.
+ */
+class MusicPlayer(private val context: Context) {
+    private val director = MusicDirector()
+    private val handler = Handler(Looper.getMainLooper())
+    private var scene = MusicScene.TITLE
     private var enabled = true
     private var paused = false
+    private var ticking = false
+    private var finished: String? = null
+    private var music: Voice? = null
+    private var bed: Voice? = null
+    /** Voices fading out, released at silence. */
+    private val leaving = ArrayList<Voice>()
+    /** Players stopped by [pause], started again by [resume]. */
+    private val held = ArrayList<MediaPlayer>()
 
-    init {
-        scope.launch { Songs.all.forEach { pcm(it) } }
+    private inner class Voice(val name: String, looped: Boolean, var level: Float) {
+        val mp: MediaPlayer? = runCatching {
+            context.assets.openFd("music/$name.ogg").use { fd ->
+                MediaPlayer().apply {
+                    setAudioAttributes(
+                        AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()
+                    )
+                    setDataSource(fd.fileDescriptor, fd.startOffset, fd.length)
+                    isLooping = looped
+                    setOnCompletionListener { if (!looped) finished = name }
+                    prepare()
+                    setVolume(0f, 0f)
+                    start()
+                }
+            }
+        }.getOrNull()
+        var vol = 0f
+        var step = 1f
+
+        fun fadeTo(target: Float, ms: Int) {
+            level = target
+            step = if (ms <= 0) 1f else TICK_MS.toFloat() / ms
+        }
+
+        /** One fade step; true once it has gone silent. */
+        fun tick(): Boolean {
+            vol = if (vol < level) minOf(level, vol + step) else maxOf(level, vol - step)
+            mp?.runCatching { setVolume(vol, vol) }
+            return vol <= 0f && level <= 0f
+        }
+
+        fun release() { mp?.runCatching { stop(); release() } }
     }
 
-    private fun pcm(song: Song): ShortArray = cache.getOrPut(song.name) { Synth.render(song) }
-
-    @Synchronized
-    fun play(song: Song?) {
-        if (song == current && track != null) return
-        current = song
-        restart()
+    private val loop = object : Runnable {
+        override fun run() {
+            if (!enabled || paused) { ticking = false; return }
+            apply(director.update(scene, SystemClock.elapsedRealtime(), finished.also { finished = null }))
+            music?.tick(); bed?.tick()
+            leaving.removeAll { v -> v.tick().also { if (it) v.release() } }
+            handler.postDelayed(this, TICK_MS)
+        }
     }
 
-    @Synchronized
+    private fun apply(w: MusicWant) {
+        val musicLevel = if (scene == MusicScene.CAVE) CAVE_MUSIC_LEVEL else MUSIC_LEVEL
+        if (w.music?.name != music?.name) {
+            music?.let { it.fadeTo(0f, w.fadeMs); leaving += it }
+            music = w.music?.let { t -> Voice(t.name, t.loop, musicLevel).also { it.fadeTo(musicLevel, w.fadeMs) } }
+        } else music?.fadeTo(musicLevel, w.fadeMs)
+        if (w.bed != bed?.name) {
+            bed?.let { it.fadeTo(0f, w.fadeMs); leaving += it }
+            bed = w.bed?.let { n -> Voice(n, true, BED_LEVEL).also { it.fadeTo(BED_LEVEL, maxOf(w.fadeMs, MusicDirector.PLACE_FADE_MS)) } }
+        }
+    }
+
+    private fun startLoop() {
+        if (ticking || !enabled || paused) return
+        ticking = true
+        handler.post(loop)
+    }
+
+    /** What is on screen now. */
+    fun play(now: MusicScene) {
+        scene = now
+        startLoop()
+    }
+
+    /** A fight was won: the victory piece comes before the place's music. */
+    fun victory() = director.victory()
+
     fun setEnabled(on: Boolean) {
         enabled = on
-        restart()
+        if (on) startLoop() else stopAll()
     }
 
-    @Synchronized
     fun pause() {
         paused = true
-        stopTrack()
+        held.clear()
+        (listOfNotNull(music, bed) + leaving).forEach { v -> v.mp?.runCatching { if (isPlaying) { pause(); held += this } } }
     }
 
-    @Synchronized
     fun resume() {
         paused = false
-        restart()
+        if (enabled) held.forEach { it.runCatching { start() } }
+        held.clear()
+        startLoop()
     }
 
     fun release() {
-        synchronized(this) { stopTrack() }
-        scope.cancel()
+        enabled = false
+        stopAll()
     }
 
-    private fun restart() {
-        stopTrack()
-        val song = current ?: return
-        if (!enabled || paused) return
-        scope.launch {
-            val data = pcm(song)
-            synchronized(this@MusicPlayer) {
-                if (current != song || !enabled || paused || track != null) return@launch
-                track = runCatching { build(data) }.getOrNull()?.also { it.play() }
-            }
-        }
+    private fun stopAll() {
+        handler.removeCallbacks(loop)
+        ticking = false
+        (listOfNotNull(music, bed) + leaving).forEach { it.release() }
+        leaving.clear()
+        held.clear()
+        music = null
+        bed = null
     }
 
-    private fun build(data: ShortArray): AudioTrack {
-        val t = AudioTrack.Builder()
-            .setAudioAttributes(
-                AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_GAME)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                    .build()
-            )
-            .setAudioFormat(
-                AudioFormat.Builder()
-                    .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
-                    .setSampleRate(Synth.SAMPLE_RATE)
-                    .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
-                    .build()
-            )
-            .setTransferMode(AudioTrack.MODE_STATIC)
-            .setBufferSizeInBytes(data.size * 2)
-            .build()
-        t.write(data, 0, data.size)
-        t.setLoopPoints(0, data.size, -1)
-        t.setVolume(0.6f)
-        return t
-    }
-
-    private fun stopTrack() {
-        track?.let {
-            runCatching { it.stop() }
-            it.release()
-        }
-        track = null
+    private companion object {
+        const val TICK_MS = 50L
+        const val MUSIC_LEVEL = 0.6f
+        const val CAVE_MUSIC_LEVEL = 0.45f
+        const val BED_LEVEL = 0.8f
     }
 }

@@ -50,3 +50,51 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Freesound-Aufnah
 | `drip` | Water Drop 01, 02 (348022, 349873) | LilMati, Freesound | https://freesound.org/people/LilMati/sounds/348022/ , https://freesound.org/people/LilMati/sounds/349873/ |
 | `crackle` (Schleife 1, 18k) | Fire Crackling 01 (181563) | kingsrow, Freesound | https://freesound.org/people/kingsrow/sounds/181563/ |
 | `crackle` (Schleifen 2, 3, 18k) | fire-crackling (370938) | jmehlferber, Freesound | https://freesound.org/people/jmehlferber/sounds/370938/ |
+
+
+## Musik (Thema 28, Auswahl des Nutzers 11.10.2026)
+
+Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools/klang/musik_holen.sh`. Vorgabe in `docs/STIL.md` (orchestral, düster; Dorf mittelalterlich). Titel, Sieg und Kapitelende sind fest vergeben; alle übrigen Stücke darf die Sitzung frei den Lagen zuordnen (Nutzer 28f, 11.10.); die Lage unten ist der Vorschlag. Nicht genommen: Eerie Forest, Boss Battle #2 Symphonic Metal, The Bard's Tale, Opening Theme. Freesound: Vorschau (128 kbit/s), Lizenz gilt für die Aufnahme.
+
+| Lage | Datei | Titel | Urheber | Quelle |
+|---|---|---|---|---|
+| titel | `titel_adventure_intro` | Adventure Intro Title [Cinematic, Epic] | nene | https://opengameart.org/content/adventure-intro-title-cinematic-epic |
+| sieg | `sieg_heros_reprise` | Hero's Reprise | nene | https://opengameart.org/content/heros-reprise |
+| ende | `ende_new_sunrise` | New Sunrise (V2) | nene | https://opengameart.org/content/new-sunrise |
+| dorf | `dorf_minstrel_dance` | Medieval: Minstrel Dance | RandomMind | https://opengameart.org/content/medieval-minstrel-dance |
+| dorf | `dorf_lament` | Fantasy: Lament for a Warrior's Soul | RandomMind | https://opengameart.org/content/fantasy-lament-for-a-warriors-soul |
+| dorf | `dorf_small_fire` | A Small Fire Will Do (Calming Loop) | trex0n | https://opengameart.org/content/a-small-fire-will-do-calming-loop |
+| wald | `wald_beautiful_forest` | Beautiful Forest [Orchestra] | nene | https://opengameart.org/content/beautiful-forest-orchestra |
+| wald | `wald_dark_forest` | Dark Forest Theme | cynicmusic | https://opengameart.org/content/dark-forest-theme |
+| wald | `wald_dark_woods` | Dark Woods Loop | beardalaxy | https://opengameart.org/content/dark-woods-loop |
+| wald | `wald_adventurers_path` | Adventurer's Path | vitalezzz | https://opengameart.org/content/adventurers-path |
+| wald | `wald_eternal_light` | Eternal Light (V2) | vitalezzz | https://opengameart.org/content/eternal-light |
+| hoehle | `hoehle_mysterious` | Mysterious | nene | https://opengameart.org/content/mysterious |
+| hoehle | `hoehle_night_of_the_streets` | Night of the Streets [Horror/Suspense] | nene | https://opengameart.org/content/night-of-the-streets-horrorsuspense |
+| hoehle | `hoehle_mysterious_orchestral` | Mysterious Orchestral Theme | nihilocrat | https://opengameart.org/content/mysterious-orchestral-theme |
+| hoehle | `hoehle_dark_theme` | Dark Theme | rhayn | https://opengameart.org/content/dark-theme-0 |
+| hoehle | `hoehle_graveyard` | Kokopelli's Graveyard Theme | cleytonkauffman | https://opengameart.org/content/kokopellis-graveyard-theme |
+| hoehle | `hoehle_dark_castle` | Dark Castle - Part I | umplix | https://opengameart.org/content/dark-castle-part-i |
+| hoehle | `hoehle_arcanum` | Arcanum | vitalezzz | https://opengameart.org/content/arcanum |
+| grund | `grund_dark_cavern` | Dark Cavern Ambient (2) | Paul Wortmann | https://opengameart.org/content/dark-cavern-ambient |
+| grund | `grund_deep_humidity` | Deep Humidity | tinyworlds | https://opengameart.org/content/deep-humidity |
+| grund | `grund_dungeon_ambience` | Dungeon Ambience | yd | https://opengameart.org/content/dungeon-ambience |
+| grund | `grund_forgotten_tombs` | Forgoten tomb ambience | kindland | https://opengameart.org/content/forgoten-tomb-ambience |
+| grund | `grund_loopable_dungeon` | Loopable Dungeon Ambience | jaggedstone | https://opengameart.org/content/loopable-dungeon-ambience |
+| grund | `grund_eternal_sleep` | Eternal Sleep | Kaiser (the-oracle) | https://opengameart.org/content/eternal-sleep |
+| grund | `grund_fs_38963` | archi_soundscape_cavern3 | ElanHickler | https://freesound.org/s/38963/ |
+| grund | `grund_fs_460459` | Ambient Rumble | Fission9 | https://freesound.org/s/460459/ |
+| grund | `grund_fs_516566` | Dark Dungeon Ambience | Kinoton | https://freesound.org/s/516566/ |
+| grund | `grund_fs_530161` | Dungeon Air | Flamiffer | https://freesound.org/s/530161/ |
+| grund | `grund_fs_540836` | Temple Cave Myts Storm | szegvari | https://freesound.org/s/540836/ |
+| grund | `grund_fs_609422` | Dark Cave Horns Fantasy Creatures Atmo | szegvari | https://freesound.org/s/609422/ |
+| kampf | `kampf_evil_approach` | Evil Approach | nene | https://opengameart.org/content/evil-approach |
+| kampf | `kampf_determined_pursuit` | Determined Pursuit (epic orchestra loop) | emmama | https://opengameart.org/content/determined-pursuit-epic-orchestra-loop |
+| kampf | `kampf_great_labyrinth` | Great Labyrinth (orchestral dungeon music) | mintodog | https://opengameart.org/content/great-labyrinthorchestral-dungeon-music |
+| kampf | `kampf_menace` | Menace | yd | https://opengameart.org/content/menace |
+| kampf | `kampf_epic_fight` | Epic Fight Theme/Boss Battle | tarush-singhal | https://opengameart.org/content/epic-fight-themeboss-battle |
+| kampf | `kampf_corrupted_minds` | Corrupted Minds | vitalezzz | https://opengameart.org/content/corrupted-minds |
+| boss | `boss_fall_of_nightmares` | Fall of Nightmares [Epic, Orchestral] | nene | https://opengameart.org/content/fall-of-nightmares-epic-orchestral |
+| boss | `boss_fantasy_choir1` | Fantasy Choir 1 | cesisco | https://opengameart.org/content/fantasy-choir-3-orchestral-pieces |
+| boss | `boss_fantasy_choir2` | Fantasy Choir 2 | cesisco | https://opengameart.org/content/fantasy-choir-3-orchestral-pieces |
+| boss | `boss_ancient_legend` | The Ancient Legend | vitalezzz | https://opengameart.org/content/the-ancient-legend |

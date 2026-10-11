@@ -37,7 +37,9 @@ import de.bornim.core.Lang
 import de.bornim.core.Race
 import de.bornim.core.Mode
 import de.bornim.core.Ui
-import de.bornim.core.audio.Songs
+import de.bornim.core.Outcome
+import de.bornim.core.audio.MusicLib
+import de.bornim.core.audio.MusicScene
 import de.bornim.core.audio.Sound
 import de.bornim.core.art.CharacterArt
 import de.bornim.game.GameViewModel
@@ -49,13 +51,17 @@ fun BornimApp(vm: GameViewModel) {
     // Pick the music for what is on screen.
     vm.tick
     val fight = (vm.game?.mode as? Mode.Fight)?.takeIf { vm.screen == Screen.PLAYING }
-    val song = when {
-        vm.screen != Screen.PLAYING -> Songs.title
-        fight == null -> Songs.overworld
-        fight.battle.monster.boss -> Songs.boss
-        else -> Songs.battle
+    val musicScene = when {
+        vm.screen != Screen.PLAYING || vm.game == null -> MusicScene.TITLE
+        vm.game?.mode is Mode.ChapterEnd -> MusicScene.CHAPTER_END
+        fight == null -> MusicLib.sceneOf(vm.game!!.map.kind)
+        fight.battle.monster.boss -> MusicScene.BOSS
+        else -> MusicScene.BATTLE
     }
-    LaunchedEffect(song) { vm.music.play(song) }
+    LaunchedEffect(musicScene) { vm.music.play(musicScene) }
+    // a won fight: the victory piece before the place's music (28.1)
+    val won = fight?.battle?.outcome == Outcome.WON
+    LaunchedEffect(won) { if (won) vm.music.victory() }
     // the pictures of the supplies and of what the hero carries, drawn ahead in the background so lists open at once
     val heroKey = vm.game?.hero
     LaunchedEffect(heroKey) {
