@@ -15,6 +15,17 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // 30.1: a crash is written down before the app ends, and shown in the test tab at the next start
+        CrashLog.install(applicationContext)
+        CrashLog.where = {
+            val g = vm.game
+            val mode = when (val m = g?.mode) {
+                is de.bornim.core.Mode.Fight -> "Kampf gegen ${m.battle.monster.id}"
+                null -> "–"
+                else -> m::class.simpleName ?: "?"
+            }
+            "${vm.screen}, $mode, Karte ${g?.state?.place?.map ?: "–"}" + if (vm.menuOpen) ", Menü offen" else ""
+        }
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         WindowCompat.getInsetsController(window, window.decorView).apply {

@@ -47,6 +47,7 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Txt(t("Testmodus", "Test mode"), size = 18.sp, bold = true)
+        CrashBox(vm, ::t)
 
         Txt(t("Stufe", "Level") + ": ${h.level}   ·   " + t("Gold", "Gold") + ": ${game.state.gold}", size = 16.sp)
         // 24.1: how long the last black screen between places waited until everything was drawn
@@ -290,6 +291,43 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
                         vm.toast = t("Erhalten: ", "Received: ") + g.name(lang)
                     }
                 }
+            }
+        }
+    }
+}
+
+/** 30.1: the last crash, why the system ended the app, and errors caught in the background; each to copy. */
+@Composable
+private fun CrashBox(vm: GameViewModel, t: (String, String) -> String) {
+    val clip = androidx.compose.ui.platform.LocalClipboardManager.current
+    var crash by remember { mutableStateOf(de.bornim.game.CrashLog.lastCrash) }
+    val exit = de.bornim.game.CrashLog.lastExit
+    val caught = de.bornim.core.Guard.caught.get()
+    val caughtText = de.bornim.game.CrashLog.caught()
+    var open by remember { mutableStateOf(false) }
+    Txt(t("Letztes Ende der App: ", "Last end of the app: ") + (exit?.lineSequence()?.first() ?: "–"), size = 13.sp)
+    Txt(t("Letzter Absturz: ", "Last crash: ") + (crash?.lineSequence()?.firstOrNull { it.startsWith("Zeit:") }?.removePrefix("Zeit: ") ?: "–") +
+        t("  ·  abgefangen seit Start: ", "  ·  caught since start: ") + caught, size = 13.sp)
+    if (crash != null || exit != null || caughtText != null) {
+        PixelButton(if (open) t("Absturzbericht schließen", "Hide crash report") else t("Absturzbericht zeigen …", "Show crash report ..."), Modifier.fillMaxWidth(), size = 14.sp) { open = !open }
+    }
+    if (open) {
+        val all = buildString {
+            append("Ende laut System:\n").append(exit ?: "–").append("\n\n")
+            append("Letzter Absturz:\n").append(crash ?: "–").append("\n\n")
+            append("Abgefangen (neueste zuletzt):\n").append(caughtText ?: "–")
+        }
+        Txt(all.take(3000) + if (all.length > 3000) "\n…" else "", size = 10.sp)
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            PixelButton(t("Kopieren", "Copy"), Modifier.weight(1f), size = 14.sp) {
+                clip.setText(androidx.compose.ui.text.AnnotatedString(all))
+                vm.toast = t("Absturzbericht kopiert.", "Crash report copied.")
+            }
+            PixelButton(t("Vergessen", "Forget"), Modifier.weight(1f), size = 14.sp) {
+                de.bornim.game.CrashLog.clearCrash()
+                de.bornim.game.CrashLog.clearCaught()
+                crash = null
+                open = false
             }
         }
     }

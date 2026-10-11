@@ -89,8 +89,10 @@ object MapGround {
         for ((cx, cy) in order(map, nearX, nearY)) workers.execute {
             val k = "${map.id}/$cx/$cy"
             if (synchronized(chunks) { k in chunks }) return@execute
-            val img = draw(map, cx, cy)
-            synchronized(chunks) { chunks.getOrPut(k) { img } }
+            de.bornim.core.Guard.run("Boden ${map.id}") {
+                val img = draw(map, cx, cy)
+                synchronized(chunks) { chunks.getOrPut(k) { img } }
+            }
         }
     }
 

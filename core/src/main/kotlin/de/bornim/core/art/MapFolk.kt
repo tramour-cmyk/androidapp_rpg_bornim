@@ -524,14 +524,16 @@ object MapFolk {
         val n = MapFigure.YAWS
         val order = (0 until n).sortedBy { minOf(Math.floorMod(it - nearSlot, n), Math.floorMod(nearSlot - it, n)) }
         val t = Thread {
-            // standing pictures all round first, then the walk, then the idle loops
-            for (st in listOf(0, 1, 2, 3)) for (s in order) {
-                val k = "${f.id}|$s|$st"
-                if (synchronized(cache) { k in cache }) continue
-                val img = draw(f, s, st)
-                synchronized(cache) { cache[k] = img }
+            de.bornim.core.Guard.run("Leute ${f.id}") {
+                // standing pictures all round first, then the walk, then the idle loops
+                for (st in listOf(0, 1, 2, 3)) for (s in order) {
+                    val k = "${f.id}|$s|$st"
+                    if (synchronized(cache) { k in cache }) continue
+                    val img = draw(f, s, st)
+                    synchronized(cache) { cache[k] = img }
+                }
+                prepareIdle(f, nearSlot)
             }
-            prepareIdle(f, nearSlot)
         }
         t.isDaemon = true
         t.priority = Thread.MIN_PRIORITY + 1

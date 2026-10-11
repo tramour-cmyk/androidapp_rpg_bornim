@@ -524,8 +524,9 @@ object MapFoe {
                     val last = queue.keys.lastOrNull()
                     if (last == null) { worker = null; null } else queue.remove(last)
                 } ?: break
-                val pic = try { job.draw() } catch (e: Exception) { null }
-                if (pic != null) synchronized(cache) { cache[job.key] = pic }
+                var pic: Pic? = null
+                de.bornim.core.Guard.run("Gegner Karte") { pic = job.draw() }
+                pic?.let { p -> synchronized(cache) { cache[job.key] = p } }
             }
         }.also { it.isDaemon = true; it.priority = Thread.MIN_PRIORITY + 1; it.start() }
     }
