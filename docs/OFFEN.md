@@ -17,7 +17,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; nach 13 |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
-| 18 | Klänge neu aus echten Aufnahmen (CC0) | Jerry | neu von `main` | 18h, 18.7 freigegeben 12:49: Runde 1 und Monster-Laute ins Spiel (Systemklänge einmal: Stufenaufstieg Nr. 1, Klick, epische Beute, Kampfbeginn, Held fällt), dann Zweig-Build |
+| 18 | Klänge neu aus echten Aufnahmen (CC0) | Jerry | `claude/session-start-l65s4j` | 18.7 umgesetzt 12:57 (Runde 1, Stimmen Wolf, Goblin, Skelett; `tools/klang`), Zweig-Build läuft; danach Runde 2 und übrige Gegner |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
