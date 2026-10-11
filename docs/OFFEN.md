@@ -35,10 +35,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Als Nächstes (24u ja, 21:42), gleicher Zweig, ein Build:** 24.16 Test-Reiter-Zeile (Bilder vorgezeichnet/gesamt, Wartezeit auf Karte, Gegnerart), 24.17 zwei Kerne statt einem (`SdfRender.alone` aus, z. B. eigener Pool mit 2 Fäden, niedrige Priorität), 24.18 Reihenfolge: Eröffnung+Stehen des Helden → Gegner → Rest des Helden (`HeroBattle.prepare` hat `onOpening`). Vorher `main` in den Zweig holen. Messen: kleiner Kerntest wie `BattleAheadTest` mit Zeitstempeln im `cancelled`-Lambda (Rechner: Kampf Held 4,6 s alle Kerne, 13,9 s ein Kern).
 - Danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17. APK nur als Link (Regel 21:25).
 
-### Jerry (11.10., 21:53)
+### Jerry (11.10., 22:05, vor Neustart)
 
-- **24.8 Ortsklang in der Blende:** 24t ja (21:45), Herzschlag mitladen. Hörproben geschickt (21:51): Wind, Schänke, Halle (Tempel), Knarren, Herzschlag, je 3. Skript `tools/klang/orte.py` auf Zweig `ccr-d94c036c-bdvewr` (Aufnahmen: OGA mild-wind-background-noise, park-ambiences, background-voices, tree-creaking, heartbeat-sounds, heartbeat-single-sound; Kenney creak1/3; liegen nicht in `holen.sh`, Freesound-CDN gibt gerade 403). **24v (21:55):** Wind, Halle, Knarren, Herzschlag halbwegs ok; **Schänke geht gar nicht** → neu aus BigSoundBank (CC0: Bar 0480, Menge 3515, Gaststube 3542, Gläser 1323/1324/1935/0472), Hörprobe 22:02, **Rückfrage 24w**.
-- **Danach bauen:** `Sound` WIND/TAVERN/HALL/CREAK/HEARTBEAT, Ortsklang beginnt mit der Blende (`MapVeil`), Kerntest welcher Klang je Ort und Tageszeit; QUELLEN.md nachtragen. Dann 13e-Entwürfe; 24.6 nach Toms 24.5.
+- **24.8 Ortsklang in der Blende:** 24t ja, 24v (Wind, Halle, Knarren, Herzschlag ok; Schänke neu aus BigSoundBank CC0 0480/3515/3542 + Gläser 1323/1324/1935/0472, Hörprobe 22:02). **24w:** Nutzer schrieb „Und Neustart“ (22:04) – vermutlich ja, in der neuen Sitzung kurz bestätigen lassen.
+- **Bauen:** Skript `tools/klang/orte.py` (Zweig `ccr-d94c036c-bdvewr`) schreibt `wind/tavern/hall/creak/heartbeat_{1-3}.ogg` nach `assets/sfx`. Aufnahmen neu laden: OGA (mild-wind-background-noise, park-ambiences, tree-creaking, heartbeat-sounds, heartbeat-single-sound), Kenney creak1/3 (aus `holen.sh`), BigSoundBank `/UPLOAD/mp3/<Nr>.mp3` als `bsb_<Nr>.mp3`; in `holen.sh` und `QUELLEN.md` nachtragen. Freesound-CDN gab 403, daher `rezepte.py` nicht laufen lassen (löscht alle sfx).
+- **Code:** `Sound` WIND/TAVERN/HALL/CREAK/HEARTBEAT + `Recorded.TAKES`; Ortsklang-Schleife (wie Knistern in `WorldScreen`) startet mit `MapVeil`, blendet ein, läuft weiter; Höhle: ein Tropfen sofort; Knarren ab und zu in Räumen; Kerntest Klang je Ort/Tageszeit. Herzschlag erst mit Kampfblende. Danach 13e-Entwürfe; 24.6 nach Toms 24.5.
 
 ## Zu testen
 
