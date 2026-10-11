@@ -90,10 +90,170 @@ object Interlude {
     )
 
     /** The first line before a fight, by how it begins (Jerry, 24.7). */
-    val openings: Map<Start, List<T>> = emptyMap()
+    val openings: Map<Start, List<T>> = mapOf(
+        Start.AMBUSH to listOf(
+            T("Ein Hinterhalt!", "An ambush!"),
+            T("Zu spät hörst du das Rascheln.", "Too late, you hear the rustle."),
+            T("Etwas hat auf dich gewartet.", "Something was waiting for you."),
+            T("Ein Schatten löst sich aus dem Dunkel.", "A shadow breaks away from the dark."),
+            T("Du bist in einen Hinterhalt geraten.", "You have walked into an ambush."),
+        ),
+        Start.HERO_FIRST to listOf(
+            T("Es hat dich nicht kommen sehen.", "It never saw you coming."),
+            T("Lautlos schließt du auf. Jetzt!", "Silently, you close in. Now!"),
+            T("Dein Gegner ahnt nichts.", "Your foe suspects nothing."),
+            T("Du greifst an, bevor dein Gegner sich umdreht.", "You strike before your foe can turn."),
+            T("Du schlägst zuerst zu.", "You strike first."),
+        ),
+        Start.NORMAL to listOf(
+            T("Etwas stellt sich dir in den Weg.", "Something blocks your way."),
+            T("Es hat dich bemerkt.", "It has noticed you."),
+            T("Kein Ausweg. Zieh die Waffe.", "No way out. Draw your weapon."),
+            T("Ihr seht euch an. Dann bricht es los.", "You stare at each other. Then it begins."),
+            T("Ein Kampf steht bevor.", "A fight is coming."),
+        ),
+        // the pack's size and kind stay in the battle text, these lines fit wolves and kobolds alike
+        Start.PACK to listOf(
+            T("Du bist umzingelt.", "You are surrounded."),
+            T("Sie kommen von allen Seiten.", "They come from every side."),
+            T("Einer allein wäre kein Problem.", "One alone would be no trouble."),
+            T("Sie ziehen den Kreis enger.", "They draw the circle tighter."),
+            T("Mehr Augen im Dunkel, als dir lieb ist.", "More eyes in the dark than you would like."),
+        ),
+    )
 
     /** The third line before a fight, by monster id (Jerry, 24.7): on a normal start, and always for a boss. */
-    val foes: Map<String, List<T>> = emptyMap()
+    val foes: Map<String, List<T>> = mapOf(
+        "goblin" to listOf(
+            T("Gelbe Augen, schiefe Zähne, schartiges Eisen.", "Yellow eyes, crooked teeth, notched iron."),
+            T("Der Goblin kreischt und stürzt auf dich zu.", "The goblin shrieks and rushes at you."),
+            T("Es stinkt nach Rauch und ranzigem Fett.", "It reeks of smoke and rancid fat."),
+            T("Er grinst. Ihm fehlt die Hälfte seiner Zähne.", "He grins. Half his teeth are missing."),
+            T("Klein, flink und voller Hass.", "Small, quick and full of hate."),
+        ),
+        "goblin_archer" to listOf(
+            T("Ein Pfeil zischt an deinem Ohr vorbei.", "An arrow hisses past your ear."),
+            T("Er hat dich schon lange beobachtet.", "He has been watching you for a long time."),
+            T("Irgendwo spannt sich eine Bogensehne.", "Somewhere, a bowstring draws taut."),
+            T("Leise wie ein Schatten, tödlich aus der Ferne.", "Quiet as a shadow, deadly from afar."),
+            T("Er ist allein, oder will dich das glauben lassen.", "He is alone, or wants you to believe so."),
+        ),
+        "goblin_shaman" to listOf(
+            T("Knochen klappern an seinem Stab.", "Bones rattle on his staff."),
+            T("Er malt ein Zeichen in die Luft.", "He traces a sign in the air."),
+            T("Aus seinen Beuteln kriecht beißender Rauch.", "Acrid smoke creeps from his pouches."),
+            T("Er murmelt Worte, die nicht für Menschenohren gemacht sind.", "He mutters words not made for human ears."),
+            T("Seine Augen glimmen, als er die Hände hebt.", "His eyes smoulder as he raises his hands."),
+        ),
+        "wolf" to listOf(
+            T("Ein tiefes Knurren aus dem Dunkel.", "A deep growl from the dark."),
+            T("Gelbe Augen im Halbdunkel.", "Yellow eyes in the gloom."),
+            T("Speichel tropft von seinen Lefzen.", "Drool drips from his jowls."),
+            T("Ausgehungert und ohne Furcht.", "Starved and without fear."),
+            T("Er hat deine Witterung aufgenommen.", "He has caught your scent."),
+        ),
+        "giant_rat" to listOf(
+            T("Ein Quieken, dann scharrende Krallen.", "A squeal, then scrabbling claws."),
+            T("Fett, räudig und so groß wie ein Hund.", "Fat, mangy and as big as a dog."),
+            T("Ihr nackter Schwanz peitscht durch den Dreck.", "Its naked tail lashes through the dirt."),
+            T("Rote Augen, gelbe Nagezähne.", "Red eyes, yellow gnawing teeth."),
+            T("Sie riecht dein Blut, bevor sie dich sieht.", "It smells your blood before it sees you."),
+        ),
+        "giant_spider" to listOf(
+            T("Fäden kleben an deinem Gesicht. Zu spät.", "Threads cling to your face. Too late."),
+            T("Acht Augen glänzen über dir.", "Eight eyes glisten above you."),
+            T("Ihre Beine tasten nach dir, lautlos und schnell.", "Its legs reach for you, silent and fast."),
+            T("In einem Netz, dick wie ein Tau, regt sich etwas.", "In a web as thick as rope, something stirs."),
+            T("Gift glänzt an ihren Kieferklauen.", "Venom glistens on its fangs."),
+        ),
+        "skeleton" to listOf(
+            T("Knochen klappern. Etwas Totes erhebt sich.", "Bones rattle. Something dead rises."),
+            T("In leeren Augenhöhlen glimmt ein kaltes Licht.", "A cold light glimmers in empty sockets."),
+            T("Rostiges Eisen in knöchernen Händen.", "Rusted iron in bony hands."),
+            T("Es kennt keinen Schmerz und keine Gnade.", "It knows no pain and no mercy."),
+            T("Der Tod hat es nicht behalten wollen.", "Death did not care to keep it."),
+        ),
+        "zombie" to listOf(
+            T("Der Gestank erreicht dich vor ihm.", "The stench reaches you before it does."),
+            T("Fauliges Fleisch, schlurfende Schritte.", "Rotting flesh, shuffling steps."),
+            T("Es stöhnt. Es hungert.", "It moans. It hungers."),
+            T("Was einmal ein Mensch war, kommt auf dich zu.", "What was once a man comes towards you."),
+            T("Langsam und unaufhaltsam greifen seine Hände nach dir.", "Slow and relentless, its hands reach for you."),
+        ),
+        "boar" to listOf(
+            T("Borsten gesträubt, die Hauer gesenkt.", "Bristles raised, tusks lowered."),
+            T("Es schnaubt und scharrt mit den Hufen.", "It snorts and paws the ground."),
+            T("Schwer, wütend und nicht aufzuhalten.", "Heavy, furious and unstoppable."),
+            T("Blut klebt an seinen Hauern. Nicht seines.", "Blood clings to its tusks. Not its own."),
+            T("Es bricht durchs Unterholz, direkt auf dich zu.", "It crashes through the undergrowth, straight at you."),
+        ),
+        "stirge" to listOf(
+            T("Ein Sirren, dann ein Stich wie von einer glühenden Nadel.", "A whine, then a sting like a red-hot needle."),
+            T("Ledrige Flügel, ein Rüssel wie ein Dorn.", "Leathery wings, a proboscis like a thorn."),
+            T("Sie hat Blut gerochen. Deins.", "It has smelled blood. Yours."),
+            T("Ihr Rüssel ist noch rot vom letzten Opfer.", "Its proboscis is still red from its last victim."),
+            T("Klein, flatternd und unersättlich.", "Small, fluttering and insatiable."),
+        ),
+        "giant_centipede" to listOf(
+            T("Zu viele Beine, viel zu schnell.", "Too many legs, far too fast."),
+            T("Sein Panzer glänzt wie nasses Öl.", "Its shell gleams like wet oil."),
+            T("Er windet sich aus einer Ritze, länger als dein Arm.", "It coils out of a crack, longer than your arm."),
+            T("Gift tropft von seinen Kieferzangen.", "Venom drips from its mandibles."),
+            T("Ein Rascheln unter dem Laub, dann schnellt er hervor.", "A rustle under the leaves, then it lunges."),
+        ),
+        "kobold" to listOf(
+            T("Schuppen, Zähne und ein Speer, fast so groß wie er selbst.", "Scales, teeth and a spear almost as tall as he is."),
+            T("Er zischt etwas in einer Sprache aus Knurren und Klicken.", "He hisses something in a tongue of growls and clicks."),
+            T("Wo ein Kobold ist, ist eine Falle nicht weit.", "Where there is a kobold, a trap is never far."),
+            T("Klein und feige, doch seine Speerspitze ist scharf.", "Small and cowardly, but his spearhead is sharp."),
+            T("Seine Augen glühen rot im Halbdunkel.", "His eyes glow red in the gloom."),
+        ),
+        "giant_bat" to listOf(
+            T("Flügel schlagen dir ins Gesicht.", "Wings beat against your face."),
+            T("Ein schriller Schrei, den du mehr spürst als hörst.", "A shrill cry you feel more than hear."),
+            T("Sie stürzt aus der Dunkelheit herab.", "It swoops down out of the darkness."),
+            T("Flügel so breit wie ein Mann groß, Zähne wie Nadeln.", "Wings as wide as a man is tall, teeth like needles."),
+            T("Sie sieht dich nicht. Sie hört dich.", "It does not see you. It hears you."),
+        ),
+        "ghoul" to listOf(
+            T("Graue Haut, lange Krallen, ein Maul voller Grabmoder.", "Grey skin, long claws, a mouth full of grave rot."),
+            T("Er hockt über etwas, das einmal ein Mensch war. Jetzt sieht er dich.",
+                "He crouches over something that was once a man. Now he sees you."),
+            T("Seine Klauen sind schwarz von Leichengift.", "His claws are black with corpse poison."),
+            T("Er kichert, ein nasses, gieriges Geräusch.", "He giggles, a wet and greedy sound."),
+            T("Der Hunger in seinen Augen ist älter als der Tod.", "The hunger in his eyes is older than death."),
+        ),
+        "ochre_jelly" to listOf(
+            T("Der Boden bewegt sich. Es ist kein Boden.", "The floor moves. It is not the floor."),
+            T("Eine gelbe Masse kriecht auf dich zu, der Stein darunter zischt.", "A yellow mass creeps towards you, the stone beneath it hisses."),
+            T("Knochen schwimmen in ihrem Inneren.", "Bones float inside it."),
+            T("Es riecht nach Säure und verdautem Fleisch.", "It smells of acid and digested flesh."),
+            T("Sie hat keine Augen und findet dich trotzdem.", "It has no eyes, and finds you all the same."),
+        ),
+        "bugbear" to listOf(
+            T("Sein Morgenstern ist schwarz von altem Blut.", "His morningstar is black with old blood."),
+            T("Der Boden bebt unter seinen Schritten.", "The ground shakes under his steps."),
+            T("Krogg lacht. Es klingt wie Steinschlag.", "Krogg laughs. It sounds like a rockfall."),
+            T("„Noch einer“, brummt Krogg und hebt den Morgenstern.", "\"Another one,\" Krogg grunts and raises his morningstar."),
+            T("Er füllt den ganzen Weg aus.", "He fills the whole path."),
+        ),
+        // the hall and the priestess: Grak is only met in his hall and only while Lyra is his prisoner
+        // (Story: Lyra is freed after he falls; only the test menu brings him back later)
+        "hobgoblin_captain" to listOf(
+            T("Hauptmann Grak erwartet dich in seiner Halle.", "Captain Grak awaits you in his hall."),
+            T("Graks Kriegsaxt fängt das Feuerlicht.", "Grak's war axe catches the firelight."),
+            T("Die Goblins weichen zurück, als er vortritt.", "The goblins fall back as he steps forward."),
+            T("Aus dieser Halle ist lange niemand lebend hinausgegangen.", "No one has left this hall alive in a long time."),
+            T("„Du kommst wegen der Priesterin?“ Grak grinst.", "\"You've come for the priestess?\" Grak grins."),
+        ),
+        "dire_wolf" to listOf(
+            T("Narben ziehen sich über seine Schnauze.", "Scars run across his muzzle."),
+            T("Das Rudel verstummt. Grimmzahn tritt vor.", "The pack falls silent. Grimfang steps forward."),
+            T("Größer als jeder Wolf, den du je gesehen hast.", "Bigger than any wolf you have ever seen."),
+            T("Ein Heulen, dann Stille. Er hat dich gefunden.", "A howl, then silence. He has found you."),
+            T("Grimmzahn umkreist dich. Er hat Zeit.", "Grimfang circles you. He has time."),
+        ),
+    )
 
     /** The lines for entering [mapId] that fit now. */
     fun placeLines(mapId: String, state: GameState, isNight: Boolean): List<T> =
