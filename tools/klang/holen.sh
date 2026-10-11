@@ -24,6 +24,14 @@ for p in 465/465697_9159316 558/558396_556505 558/558398_556505 696/696438_87116
     f="fs_$(basename "$p" | cut -d_ -f1).mp3"
     [ -s "$f" ] || { curl -sSfL -m 120 -A "Mozilla/5.0" -o "$f" "https://cdn.freesound.org/previews/$p-hq.mp3"; sleep 3; }
 done
+# Runde 3 (24.8 Ortsklänge: Wind, Halle, Knarren, Herzschlag; Schänke aus Einzelklängen)
+for f in "wind%20background%20noise%202.wav" park_ambience_wind.wav tree_creak.flac heartbeat_slow_0.wav heartbeat_fast_reverb.wav heartbeat.mp3_.flac; do
+    get "$O/$f" "$(echo "$f" | sed 's/%20/ /g')"
+done
+# BigSoundBank (CC0): Becher, Einschenken, Wischen, Stuhl, Husten
+for n in 0627 1204 1205 1721 1156 1933 0689 1104 0666 3053 0518 0488 2183 0207; do
+    get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
+done
 python3 -m pip -q install py7zr numpy scipy soundfile >/dev/null 2>&1 || true
 for z in *.zip; do d="x_${z%.zip}"; [ -d "$d" ] || { mkdir -p "$d"; unzip -qo "$z" -d "$d"; }; done
 for z in *.7z; do d="x_${z%.7z}"; [ -d "$d" ] || { mkdir -p "$d"; python3 -I -m py7zr x "$z" "$d"; }; done
