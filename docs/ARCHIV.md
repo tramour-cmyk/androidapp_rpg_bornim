@@ -4,6 +4,12 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Übergabe Jerry (11.10., 20:07), ersetzt 11.10., 21:33
+
+- **28 Musik:** Auswahl fest (Tabelle), Zweig `ccr-b884f8a3-csketc` (nur `tools/klang/QUELLEN.md` und `musik_holen.sh`, kein Spielcode). Heute spielt `MusicPlayer` erzeugte `Songs` (title, overworld, battle, boss; Auswahl in `App.kt`).
+- **Bauplan 28.1:** OGG in `app/src/main/assets/music` (28i: Stereo, Musik ~112 kbit/s, Klangflächen ~80 kbit/s, lange auf ≤3 min gekürzt), Auswahl je Lage im Kern mit Kerntest (nie zweimal dasselbe, 10–30 s Stille), Überblenden Ort ↔ Ort ~2 s, Kampf rasch, Sieg danach, Höhle Klangfläche + Musik ab und zu. Vor dem Bau Abgleich `STIL.md` (steht in der Antwort 19:54).
+- Danach: 24.6 nach Toms 24.5; 24.8; 13e (Entwürfe).
+
 ## Übergabe Tom (11.10., 20:43), ersetzt 11.10., 21:00
 
 - **Auf `main`:** PR #34 (24.4, 24.9–24.13), zusammengeführt 20:37, in CHANGELOG „Unveröffentlicht“.

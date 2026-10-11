@@ -31,5 +31,5 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 25 | Laternen und Fenster nachts als Quelle zu dunkel | Tom | erledigt, getestet 0.1.512, PR #28 | `OFFEN.md` |
 | 26 | Kapitel 1 fertig (Zielliste) | Tom und Jerry | festgelegt 11.10. | `KAPITEL1.md` |
 | 27 | Wald „Ort fertig“ | Tom | offen | `OFFEN.md` |
-| 28 | Musik neu | Jerry | offen | `OFFEN.md` |
+| 28 | Musik neu | Jerry | erledigt, getestet 0.1.540, PR #36 | `ARCHIV.md` |
 | 29 | Nebenquests (Anschlagbrett) | Tom | offen | `OFFEN.md` |

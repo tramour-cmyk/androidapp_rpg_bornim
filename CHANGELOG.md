@@ -4,6 +4,14 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 28), getestet in 0.1.540, PR #36 (zusammengeführt 11.10., 21:31):
+
+**Musik aus echten Aufnahmen (28)**
+- 40 orchestrale Stücke und Klangflächen (CC0) statt der erzeugten Melodien: eigene Titelmusik, mittelalterliche Musik im Dorf, düstere im Wald und in der Höhle, Kampf- und Bossmusik, Sieg nach gewonnenem Kampf, Musik zum Kapitelende.
+- Je Ort zufällig gewählt, nie dasselbe Stück zweimal hintereinander, dazwischen 10–30 s Stille; Ort zu Ort weich überblendet, in den Kampf rasch.
+- In der Höhle liegt immer eine Klangfläche darunter, Musik kommt nur ab und zu.
+- Werkzeuge (nur Entwicklung): Kerntest `MusicDirectorTest`, `tools/klang/musik_holen.sh` und `musik_bauen.py`, Quellen in `tools/klang/QUELLEN.md`.
+
 Zweig von Tom (Thema 24.14, 24.15), getestet in 0.1.538, PR #35 (zusammengeführt 11.10., 21:00):
 
 **Held viel schneller gezeichnet (24.14, 24.15)**
