@@ -19,7 +19,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 18d, 18e | Hörproben (Runde 1 und 2) und Monster-Laute | Jerry | – | warten auf den Nutzer (anhören) |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
-| 12.3 | Sprünge in den Kampfbewegungen der Tiere (Wolf, Eber, Riesenratte): `JumpTest.listOthers` meldet 265, nur gelistet | Jerry | – | Befund 11.10., 12:12: keine echten Rucke (`BattleJumpTest` streng 0), nur schnell gegen Kartengrenzen; Rückfragen 12.3b, 12.3c |
+| 12.3 | Sprünge in den Kampfbewegungen der Tiere (Wolf, Eber, Riesenratte): `JumpTest.listOthers` meldet 265, nur gelistet | Jerry | – | Befund 11.10., 12:10: keine echten Rucke (`BattleJumpTest` streng 0), nur schnell gegen Kartengrenzen; Rückfragen 12.3b, 12.3c |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
