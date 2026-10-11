@@ -46,10 +46,15 @@ jobs:
           ./gradlew :app:assembleRelease -PversionCode=$((${{ github.run_number }} + 1)) -PversionName=$VERSION_NAME
           cp app/build/outputs/apk/release/app-release.apk bornim.apk
 
+      # The artifact ZIP stores the file's time without a zone, written as UTC (upload-artifact),
+      # and the phone reads it as local time: shift the APK's time by Berlin's offset so it shows right.
+      - name: Berlin time in the artifact
+        run: |
+          off=$(TZ=Europe/Berlin date +%z)
+          secs=$(( ${off:0:1}1 * (10#${off:1:2} * 3600 + 10#${off:3:2} * 60) ))
+          touch -d "@$(( $(date +%s) + secs ))" bornim.apk
+
       - uses: actions/upload-artifact@v4
-        # ZIP stores local time without a zone; pack in Berlin time so the phone shows the right time.
-        env:
-          TZ: Europe/Berlin
         with:
           name: bornim-apk
           path: bornim.apk
