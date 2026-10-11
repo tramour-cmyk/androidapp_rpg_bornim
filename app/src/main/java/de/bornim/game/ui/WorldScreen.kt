@@ -746,7 +746,13 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 if (o.sortY + o.x + w / 2f <= hx + hy) return false
                 val ox = k * (fx - fy); val oy = k / 2 * (fx + fy)
                 val px = k * (hx - hy); val py = k / 2 * (hx + hy)
-                return px + 8 > ox - w / 2f && px - 8 < ox + w / 2f && py > oy - h + 6 && py - 38 < oy
+                if (!(px + 8 > ox - w / 2f && px - 8 < ox + w / 2f && py > oy - h + 6 && py - 38 < oy)) return false
+                // only when something drawn really lies over the hero's body (5.2: a well beside the hero stays solid)
+                for (dy in 0..38 step 4) for (dx in -6..6 step 6) {
+                    val ix = ((px + dx - (ox - w / 2f)) * o.density).toInt(); val iy = ((py - dy - (oy - h)) * o.density).toInt()
+                    if (o.img.opaque(ix, iy)) return true
+                }
+                return false
             }
             if (o.density < 2) return false
             if (o.sortY <= heroY + T) return false
@@ -754,8 +760,11 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         }
         // seen diagonally, the fire in a room's hearth flickers through more pictures, each standing an uneven while (13n)
         val flicker = if (diag && map.kind == MapKind.INTERIOR) de.bornim.core.art.MapRoomIso.fireFrame(clock) else 0
-        for (o in WorldArt.objects(map, state, frame, flicker)) {
-            val a = if (hides(o)) 0.45f else 1f
+        val objs = WorldArt.objects(map, state, frame, flicker)
+        // a house cut into strips (5.1) turns see-through as a whole when any strip of it stands in front of the hero
+        val hidingGroups = objs.filter { it.group != 0 && hides(it) }.mapTo(HashSet()) { it.group }
+        for (o in objs) {
+            val a = if (if (o.group != 0) o.group in hidingGroups else hides(o)) 0.45f else 1f
             sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f) { put(o.img, o.x, o.y, o.density, a, o.corner) }
         }
         // Healing herbs on the flower meadows, swaying gently so they catch the eye.
@@ -1014,6 +1023,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // Light of the place: time of day, shade of the crowns, lamps, fires and the lantern.
         ground { if (MapLight.needed(map, game.daylight)) drawMapLight(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH) }
         if (diag && map.kind == MapKind.INTERIOR) drawHearthSmoke(game, map, clock, cam, camX, camY, scale)
+        if (diag && map.kind == MapKind.TOWN && MapGround.supports(map)) drawTownSmoke(map, clock, cam, camX, camY, scale)
         // a torch carried about throws a warm, flickering glow around it, the stronger the darker it is
         for ((tx, ty) in torches) {
             val flick = 0.85f + 0.15f * kotlin.math.sin(clock / 70f) * kotlin.math.sin(clock / 113f)
@@ -1152,8 +1162,8 @@ private fun DrawScope.drawCritters(
     val tx0 = (camX / T) - 1; val ty0 = (camY / T) - 1
     val tx1 = ((camX + viewW) / T).toInt() + 1; val ty1 = ((camY + viewH) / T).toInt() + 1
 
-    // Chimney smoke, day and night
-    for ((cx, cy) in WorldArt.chimneys(map)) for (k in 0 until 4) {
+    // Chimney smoke, day and night (seen diagonally the houses' own chimneys smoke, drawTownSmoke)
+    if (!MapSight.diagonal) for ((cx, cy) in WorldArt.chimneys(map)) for (k in 0 until 4) {
         val p = ((clock / 2200f) + k / 4f) % 1f
         val x = cx + kotlin.math.sin(p * 6f + k) * 2f + p * 7f
         val y = cy - p * 24f
@@ -1361,6 +1371,26 @@ private object LightImage {
  * every light that flickers (fire) or pulses (mushrooms), and small life: sparks over fires, spores
  * over mushrooms, dust in daylight and, in caves, drops falling from the roof.
  */
+/**
+ * Seen diagonally (5.1): smoke rising from the mouth of each house's chimney, upright on the screen, drifting
+ * a little with the wind and thinning as it climbs.
+ */
+private fun DrawScope.drawTownSmoke(map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int) {
+    for ((i, top) in de.bornim.core.art.MapTownIso.chimneyTops(map).withIndex()) {
+        val (gx, gy, z) = top
+        val mx = ((gx - camX) * scale).toFloat(); val my = ((gy - camY) * scale).toFloat()
+        val bx = cam.toScreenX(mx, my); val by = cam.toScreenY(mx, my) - (z * scale).toFloat()
+        for (k in 0 until 5) {
+            val period = 3200 + k * 370
+            val ph = ((clock + k * 700 + i * 1013) % period) / period.toFloat()
+            val x = bx + (kotlin.math.sin(ph * 5f + k + i) * 2f + ph * 9f) * scale
+            val y = by - ph * 30f * scale
+            val r = (2f + ph * 5f) * scale
+            drawCircle(Color(0xFF8E8A84).copy(alpha = 0.5f * (1f - ph) * kotlin.math.min(1f, ph * 8f)), r, Offset(x, y))
+        }
+    }
+}
+
 /**
  * Seen diagonally (13n): the sparks and the smoke of a room's hearth, rising upright on the screen from the
  * fire in the fire box (0.2 tiles back in the wall) and drawn up into the flue, gone where the mouth ends.

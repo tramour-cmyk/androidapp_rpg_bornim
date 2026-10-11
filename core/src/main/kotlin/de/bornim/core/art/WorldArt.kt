@@ -24,7 +24,7 @@ object WorldArt {
     /** A drawable at map pixel position ([x], [y]) = top-left, ordered by [sortY]; [density] art pixels per map pixel (2 for the finer new pictures). */
     /** [low]: never tall enough to hide a figure behind it (furniture of the rooms seen diagonally, 13). */
     /** [corner]: seen diagonally, the picture's foot is the tile's front corner (the rooms, [MapRoomIso]), not the middle of its lower edge. */
-    class Obj(val img: PixelImage, val x: Int, val y: Int, val sortY: Int, val density: Int = 1, val low: Boolean = false, val corner: Boolean = false)
+    class Obj(val img: PixelImage, val x: Int, val y: Int, val sortY: Int, val density: Int = 1, val low: Boolean = false, val corner: Boolean = false, val group: Int = 0)
 
     private val cache = HashMap<String, PixelImage>()
     private fun cached(key: String, w: Int = T, h: Int = T, block: Pen.() -> Unit) = cache.getOrPut(key) { draw(w, h, block = block) }
@@ -844,7 +844,9 @@ object WorldArt {
                 !fine -> null
                 cave -> MapCave.objects(map, tx, ty, frame, open, state.has(Story.GATE_OPEN))
                 // the village in the new style (draft): houses and things, else the trees of the woods
-                map.kind == MapKind.TOWN -> MapTown.objects(map, tx, ty) ?: MapFlora.objects(map, tx, ty, frame, open)
+                // seen diagonally the houses stand in the slant too (5.1), cut into strips sorted along the diagonal
+                map.kind == MapKind.TOWN -> (if (MapFigure.viewYaw != 0.0) MapTownIso.objects(map, tx, ty) else null)
+                    ?: MapTown.objects(map, tx, ty) ?: MapFlora.objects(map, tx, ty, frame, open)
                 // seen diagonally (13), the rooms' walls and furniture stand upright, turned with the room
                 map.kind == MapKind.INTERIOR && MapFigure.viewYaw != 0.0 -> MapRoomIso.objects(map, tx, ty, flicker) ?: MapRoom.objects(map, tx, ty, frame)
                 map.kind == MapKind.INTERIOR -> MapRoom.objects(map, tx, ty, frame)
