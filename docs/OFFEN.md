@@ -17,7 +17,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; nach 13 |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
-| 13e | Höhle diagonal (Phase 2 von 13: Orte aufteilen) | Jerry? | – | Nutzer fragt 13:49, ob Jerry sie übernimmt; Vorschlag im Chat. **Anfrage an Tom:** einverstanden? Welche Dateien (Gerüst, `WorldScreen`, Kacheln) fasst Jerry nicht an? |
+| 13e | Höhle diagonal (Phase 2 von 13: Orte aufteilen) | Jerry | – | 13e.1 ja (13:52): nach 18 Runde 2, erst Entwürfe (Standbilder), wenn Tom einverstanden. **Anfrage an Tom:** einverstanden? Welche Dateien (Gerüst, `WorldScreen`, Kacheln) fasst Jerry nicht an? |
 | 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | – | 18.7 auf `main` (v0.1.494). Als Nächstes Runde 2 (17 Klänge) und Stimmen der übrigen Gegner, erst Hörproben |
 | 20 | Uhrzeit der APK im ZIP 2 h zu früh (ZIP speichert Ortszeit ohne Zone, Runner läuft in UTC) | Tom | `claude/beautiful-feynman-ta7v9p`, PR #21 | 20a ja (13:00): `TZ=Europe/Berlin` beim Hochladen, Build läuft, Prüfung am ZIP |
 | 22 | Selbstarbeit statt nur Nachtarbeit: Routinen alle 3 h, Vorrat und Liste „Für gemeinsame Zeit“ | Tom | `main` (Notizen), Routinen | 22a, 22b ja (13:31). `docs/SELBST.md` statt `NACHT.md`; Toms Routinen umgestellt (13:38); Nutzer: neue Routinen einstellen (Repo, automatisch). Jerrys Routinen umgestellt (13:44), Vorrat eingetragen |
