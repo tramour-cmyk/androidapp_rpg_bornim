@@ -563,6 +563,147 @@ object MapTownIso {
         return c.img
     }
 
+    /** Splats a round body (cylinder) of radius [r] tiles at (ci, cj) from z0 to z1: its side towards us, then its top by [top]. */
+    private fun Tile1.cylinder(ci: Double, cj: Double, r: Double, z0: Double, z1: Double, side: (ang: Double, z: Double, lit: Double) -> Int?, top: ((Double, Double) -> Int?)? = null) {
+        val steps = (r * 900).toInt().coerceAtLeast(60)
+        var z = z0
+        while (z <= z1) {
+            for (k in 0..steps) {
+                // the half facing the camera (towards +i and +j), lit from the right (+i, −j)
+                val ang = -Math.PI / 4 + Math.PI * k / steps
+                val i = ci + r * Math.cos(ang); val j = cj + r * Math.sin(ang)
+                val lit = 0.6 + 0.4 * ((Math.cos(ang) - Math.sin(ang)) / Math.sqrt(2.0) + 1) / 2
+                side(ang, z, lit)?.let { img.set(floor(sx(i, j)).toInt(), floor(sy(i, j, z)).toInt(), it) }
+            }
+            z += 0.6
+        }
+        if (top != null) for (py in 0 until h) for (px in 0 until w) {
+            val aa = (px + 0.5 - w / 2.0) / (TW / 2); val bb = (py + 0.5 - h + z1 * ZS) / (TH / 2)
+            val i = (aa + bb) / 2 - ci; val j = (bb - aa) / 2 - cj
+            val d = Math.hypot(i, j) / r
+            if (d <= 1) top(d, Math.atan2(j, i))?.let { img.set(px, py, it) }
+        }
+    }
+
+    private fun stoneRing(ang: Double, z: Double, lit: Double, seed: Int): Int {
+        val course = floor(z / 10).toInt()
+        val block = floor(ang * 4 + rnd(course, 0, seed) * 2).toInt()
+        var t = 0.5 + (rnd(block, course, seed + 1) - 0.5) * 0.35
+        if (z % 10 < 1.5 || frac(ang * 4 + rnd(course, 0, seed) * 2) < 0.06) t -= 0.3
+        if (z < 8 && rnd(block, 9, seed) > 0.5) return shade(mix(argb(0x2A3218), argb(0x4E5A2E), t), lit)
+        return shade(mix(argb(0x1E1C1A), argb(0x7E786C), t.coerceIn(0.0, 1.0)), lit)
+    }
+
+    /**
+     * The village well (5.2): a ring of field stones knee high, dark water deep down, two posts and a little roof over
+     * a windlass with its rope and bucket. Three looks: shingle roof, thatch roof, a plain crossbeam with a pulley.
+     */
+    fun well(v: Int, seed: Int): PixelImage {
+        val c = Tile1(230)
+        c.shadow(-0.5, -0.5, 0.5)
+        val r = 0.36
+        fun post(i: Double, j: Double) = c.box(i - 0.035, j - 0.035, i + 0.035, j + 0.035, 30.0, 150.0) { f, u, w -> wood(f, w, u, seed + 2, 0x4A3828) }
+        // the back post stands behind the ring, the front one before it
+        post(-0.5, -0.86)
+        c.cylinder(-0.5, -0.5, r, 0.0, 44.0, { a, z, lit -> stoneRing(a, z, lit, seed) }) { d, _ ->
+            if (d > 0.8) shade(argb(0x6A645A), 0.9 + rnd(floor(d * 20).toInt(), 0, seed) * 0.2)
+            else mix(argb(0x050607), argb(0x10161A), (1 - d) * 0.6)
+        }
+        post(-0.5, -0.14)
+        // the windlass across, rope down to a bucket hanging a little inside the ring
+        c.box(-0.53, -0.86, -0.47, -0.14, 118.0, 124.0) { f, u, w -> wood(f, u, w, seed + 3, 0x3E2E22) }
+        for (z in 70 until 118) c.img.set(floor(c.sx(-0.5, -0.46)).toInt(), floor(c.sy(-0.5, -0.46, z.toDouble())).toInt(), argb(0x3A3024))
+        c.cylinder(-0.5, -0.46, 0.08, 56.0, 72.0, { _, z, lit -> shade(if (abs(z - 60) < 1.5 || abs(z - 69) < 1.5) argb(0x2A2826) else argb(0x5A4430), lit) })
+        when (v) {
+            0, 1 -> {
+                // a little gable roof along j
+                val ridge = 190.0; val eave = 150.0
+                c.plane(doubleArrayOf(-0.5, -0.98, ridge), doubleArrayOf(0.0, 0.96, 0.0), doubleArrayOf(0.4, 0.0, eave - ridge)) { u, w ->
+                    if (v == 0) shingleTex(u * 1.2, w * 0.5, 0.5, seed + 4) else thatchTex(u * 1.2, w * 0.5, 0.5, looks[0], seed + 4)
+                }
+                c.plane(doubleArrayOf(-0.1, -0.98, eave - 4), doubleArrayOf(0.0, 0.96, 0.0), doubleArrayOf(0.0, 0.0, 4.0)) { _, _ -> argb(0x1A140E) }
+                // the gable towards the front: boards under the roof's edge
+                c.plane(doubleArrayOf(-0.9, -0.06, eave), doubleArrayOf(0.8, 0.0, 0.0), doubleArrayOf(0.0, 0.0, ridge - eave)) { u, w ->
+                    if (abs(u - 0.5) > 0.5 * (1 - w)) null else wood(0, u, w, seed + 6, 0x4A3828)
+                }
+            }
+            else -> c.box(-0.53, -0.92, -0.47, -0.08, 150.0, 158.0) { f, u, w -> wood(f, u, w, seed + 5, 0x4A3828) }
+        }
+        return c.img
+    }
+
+    /**
+     * A market stall (5.2): a trestle table of planks under a cloth roof on four poles, wares on it. Three looks with
+     * their own cloth and wares: apples and cabbages, loaves and sacks, pots and a string of onions.
+     */
+    fun stall(v: Int, seed: Int): PixelImage {
+        val c = Tile1(220)
+        c.shadow(-0.5, -0.45, 0.55, 0.4)
+        val i0 = -0.9; val i1 = -0.1; val j0 = -0.72; val j1 = -0.28
+        for ((pi, pj) in listOf(i0 to j0, i1 to j0, i0 to j1, i1 to j1))
+            c.box(pi - 0.025, pj - 0.025, pi + 0.025, pj + 0.025, 0.0, if (pj == j0) 130.0 else 112.0) { f, u, w -> wood(f, w, u, seed + 1, 0x3E2E22) }
+        c.box(i0, j0, i1, j1, 42.0, 48.0) { f, u, w -> wood(f, u, w, seed + 2, 0x5A4430) }
+        // the wares: little round heaps on the board
+        val wares = when (v) { 0 -> listOf(0x7A2A1E, 0x5A6E2E, 0x8A3A22); 1 -> listOf(0x8A6A3A, 0x9A7A46, 0x6E5E44); else -> listOf(0x6A4A34, 0x4E5A4E, 0x8A7A5E) }
+        for (k in 0 until 9) {
+            val wi = i0 + 0.1 + (k % 3) * 0.27 + (rnd(k, 1, seed) - 0.5) * 0.06; val wj = j0 + 0.1 + (k / 3) * 0.12
+            val rr = if (v == 1) 0.07 else 0.05
+            val col = wares[hash(k, 2, seed) % wares.size]
+            c.cylinder(wi, wj, rr, 48.0, 48.0 + rr * 90, { _, z, lit -> shade(argb(col), lit * (0.7 + 0.3 * (z - 48) / (rr * 90))) })
+        }
+        // the cloth: sloping from the back poles down to the front, striped, its hem hanging ragged
+        val cloth = when (v) { 0 -> 0x5A3A2A to 0x7A6E58; 1 -> 0x3E4A3A to 0x6E6A52; else -> 0x4A3A4E to 0x7A7060 }
+        c.plane(doubleArrayOf(i0 - 0.06, j0 - 0.04, 132.0), doubleArrayOf(i1 - i0 + 0.12, 0.0, 0.0), doubleArrayOf(0.0, j1 - j0 + 0.16, -26.0)) { u, w ->
+            val stripe = floor(u * 6).toInt() % 2 == 0
+            shade(mix(argb(if (stripe) cloth.first else cloth.second), argb(0x140E0A), 0.15 + (rnd(floor(u * 60).toInt(), floor(w * 8).toInt(), seed + 3) - 0.5) * 0.2), 0.85 + 0.2 * w)
+        }
+        c.plane(doubleArrayOf(i0 - 0.06, j1 + 0.12, 96.0), doubleArrayOf(i1 - i0 + 0.12, 0.0, 0.0), doubleArrayOf(0.0, 0.0, 10.0)) { u, w ->
+            if (w < 0.4 * rnd(floor(u * 30).toInt(), 1, seed + 4)) null else shade(argb(if (floor(u * 6).toInt() % 2 == 0) cloth.first else cloth.second), 0.65)
+        }
+        return c.img
+    }
+
+    /** A street lamp (5.2): a lantern of iron and horn on a post of oak or iron; three looks. */
+    fun lamp(v: Int, seed: Int): PixelImage {
+        val c = Tile1(240)
+        c.shadow(-0.5, -0.5, 0.2, 0.35)
+        val iron = v == 2
+        c.box(-0.54, -0.54, -0.46, -0.46, 0.0, 6.0) { f, _, _ -> shade(argb(0x4A463E), if (f == 0) 0.6 else 0.9) }
+        c.box(-0.52, -0.52, -0.48, -0.48, 0.0, 170.0) { f, u, w -> if (iron) shade(argb(0x262422), if (f == 0) 0.7 else 1.0) else wood(f, w, u, seed, 0x3E2E22) }
+        // an arm out towards the front, the lantern hanging from it on the first look; else sitting on top
+        val (li, lj, lz) = if (v == 0) Triple(-0.5, -0.3, 136.0) else Triple(-0.5, -0.5, 170.0)
+        if (v == 0) c.box(-0.52, -0.52, -0.48, -0.26, 160.0, 164.0) { f, u, w -> wood(f, u, w, seed + 1, 0x3E2E22) }
+        c.box(li - 0.07, lj - 0.07, li + 0.07, lj + 0.07, lz, lz + 22) { f, u, w ->
+            val frame = u < 0.15 || u > 0.85 || w < 0.1 || w > 0.9
+            if (f == 2) argb(0x1E1C1A) else if (frame) shade(argb(0x2A2826), if (f == 0) 0.7 else 1.0) else mix(argb(0x6A5030), argb(0xC09050), w * 0.5)
+        }
+        c.plane(doubleArrayOf(li - 0.09, lj + 0.09, lz + 22), doubleArrayOf(0.18, 0.0, 0.0), doubleArrayOf(0.09, -0.09, 10.0)) { u, w -> if (abs(u - 0.5) > 0.5 * (1 - w)) null else argb(0x24221F) }
+        return c.img
+    }
+
+    /** A bench (5.2): a thick plank on two blocks or trestles, along the map's x; three looks. */
+    fun bench(v: Int, seed: Int): PixelImage {
+        val c = Tile1(120)
+        c.shadow(-0.5, -0.5, 0.42, 0.35)
+        val j0 = -0.62; val j1 = -0.4
+        for (li in listOf(-0.84, -0.22)) {
+            if (v == 1) c.box(li - 0.06, j0 + 0.02, li + 0.06, j1 - 0.02, 0.0, 24.0) { f, _, _ -> shade(argb(0x6A645A), if (f == 0) 0.6 else if (f == 1) 0.9 else 1.0) }
+            else c.box(li - 0.03, j0 + 0.03, li + 0.03, j1 - 0.03, 0.0, 24.0) { f, u, w -> wood(f, w, u, seed, 0x3E2E22) }
+        }
+        c.box(-0.92, j0, -0.08, j1, 24.0, 30.0) { f, u, w -> wood(f, u, w, seed + 1, if (v == 2) 0x4A3A2E else 0x5A4430) }
+        if (v == 2) c.box(-0.92, j0 - 0.04, -0.08, j0, 30.0, 62.0) { f, u, w -> wood(f, u, w, seed + 2, 0x4A3A2E) }
+        return c.img
+    }
+
+    /** The things on the square, three looks each (preview ISODINGE=platz). */
+    fun squareSheet(): List<Pair<String, List<PixelImage>>> = listOf(
+        "Marktstand" to (0 until 3).map { stall(it, 501 + it) },
+        "Brunnen" to (0 until 3).map { well(it, 511 + it) },
+        "Laterne" to (0 until 3).map { lamp(it, 521 + it) },
+        "Bank" to (0 until 3).map { bench(it, 531 + it) },
+        "Wegweiser" to (0 until 3).map { signpost(it, 541 + it) },
+    )
+
     // ------------------------------------------------------------------ the houses of a town map
 
     private val wallTiles = setOf(Tile.WALL, Tile.WINDOW, Tile.DOOR)
