@@ -1,6 +1,6 @@
 # Merkliste
 
-Ideen und Vorschläge aus der bisherigen Entwicklung, die noch **nicht umgesetzt** sind. Gesammelt, damit wir sie später prüfen, neu bewerten oder verwerfen können. Stand: 06.10.2026, 07:50 (Berliner Zeit).
+Ideen und Vorschläge aus der bisherigen Entwicklung, die noch **nicht umgesetzt** sind. Gesammelt, damit wir sie später prüfen, neu bewerten oder verwerfen können. Stand: 11.10.2026, 11:45 (Berliner Zeit).
 
 Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md), was gerade ansteht oder zu entscheiden ist in der Liste [Offen](OFFEN.md). Für alle Ideen gelten die [Stil-Leitlinien](STIL.md).
 
@@ -79,13 +79,12 @@ Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstop
 - **Kleriker-Fähigkeit „Läutern“:** heilt Zustände.
 - **Positive Zustände:** Gesegnet, Geschützt, Hast, z. B. durch Tränke.
 - **Neue Ausrüstungseigenschaft:** Giftresistenz.
-- **Monster-Geräusche:** eigene Laute je Gegnerart, jeweils in mehreren zufälligen Varianten wie beim Wolfsheulen. Zum Beispiel Knurren vor dem Angriff, Fauchen, Schmerzlaute bei Treffern und Todeslaute. Dazu Klappern bei Skeletten, Stöhnen bei Zombies, Schmatzen beim Ockergallert, Kreischen bei Fledermäusen, Kampfrufe bei Goblins und Kobolden, Brüllen bei Bossen. Elite-Gegner und Grimmzahn klingen tiefer.
+- **Monster-Geräusche** (erste Hörproben Wolf, Goblin, Skelett liegen vor, 18e): eigene Laute je Gegnerart, jeweils in mehreren zufälligen Varianten wie beim Wolfsheulen. Zum Beispiel Knurren vor dem Angriff, Fauchen, Schmerzlaute bei Treffern und Todeslaute. Dazu Klappern bei Skeletten, Stöhnen bei Zombies, Schmatzen beim Ockergallert, Kreischen bei Fledermäusen, Kampfrufe bei Goblins und Kobolden, Brüllen bei Bossen. Elite-Gegner und Grimmzahn klingen tiefer.
 
 - **Rudelwölfe beißen ins Leere (gemeldet 08.10., v0.1.210):** Der Leitwolf springt beim Biss zum Helden, die anderen Wölfe des Rudels beißen nur auf ihrem Platz im Hintergrund (im Film bestätigt). Vorschlag: Rudelwölfe springen wie der Leitwolf zum Helden und zurück, gleitend und im selben Takt; wer beißt, wird vor den anderen gezeichnet.
 
 ## Welt und Leben auf der Karte
 
-- **Wegesystem:** geschwungene Wege statt Treppenstufen aus Kacheln. Wege werden als Linien mit Breite über die Karte gelegt (Kurven, Abzweigungen, ausgefranste Ränder, Fahrspuren) und nicht mehr Kachel für Kachel gezeichnet. Gilt für Waldpfade, Dorfwege und spätere Straßen; Begehbarkeit bleibt wie bisher an den Kacheln.
 - **Kartenansicht** im Menü mit den bereits erkundeten Bereichen.
 - **Schnellreise über die Kartenübersicht (Idee 09.10., 12:49):** Die Pergamentkarte (Entwurf C, `tools/preview` Modus `WEGE`) als Übersicht, mit Nebel des Unerkundeten wie auf der Karte; einmal entdeckte Orte (z. B. Bornim, Garricks Feuer, Höhleneingang) sind Reiseziele, gegen Gold. Gedanken dazu: ein Fuhrmann in Bornim oder Garrick als Führer statt Teleport; Preis nach Entfernung; Zeit vergeht (wer abends aufbricht, kommt nachts an); unterwegs ein Wurf auf einen Überfall, nachts höher; nicht aus Höhlen heraus, nicht im Kampf.
 - **Bewohner mit Tagesablauf:** Die Wirtin fegt vor der Tür, Läden haben nachts geschlossen. (Jorins Streife am Schlagbaum gibt es schon.)
@@ -135,5 +134,15 @@ Dorran wohnt heute nur hinter einer verschlossenen Tür („Er ist wohl in seine
 - **Todesstoß für Fernkampf und Zauber (gewünscht 09.10.):** Der Killerschlag gilt zunächst nur für Nahkampfwaffen. Für Bogen, Armbrust und Zauber soll später auch ein eigener tödlicher Treffer kommen (z. B. Pfeil, der den Gegner umreißt und festnagelt; Feuer, das ihn verzehrt; Kraft, die ihn zerreißt).
 - **Echtes Zerteilen in 3D (Killerschlag, gewählt als späterer Schritt am 09.10.):** Das Körpermodell selbst durchschneiden statt des flachen Bildes; Schnittflächen mit Fleisch und Knochen, beide Hälften fallen räumlich. Dann auch für Tiere. Aufwand grob ein bis zwei Arbeitstage.
 - **Musik neu im neuen Stil** (Wunsch 10.10., 11:00): düsterer, weniger Nintendo, abwechslungsreicher (mehrere Stücke je Lage, Wechsel nach Ort, Tageszeit und Gefahr).
-- **Flüssigere Grafik mit mehr Zwischenbildern** (Wunsch 10.10., 11:00; vorher „Zu entscheiden“): Die Haltungen (Arme, Beine, Waffe) wechseln heute 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn; Claude prüft selbst mit Filmen und Kerntests.
+- **Flüssigere Grafik mit mehr Zwischenbildern** (teilweise erledigt: Sprungtest 12/12a, Gehen in 8 Bildern) (Wunsch 10.10., 11:00; vorher „Zu entscheiden“): Die Haltungen (Arme, Beine, Waffe) wechseln heute 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn; Claude prüft selbst mit Filmen und Kerntests.
 - **Kampfkulisse der Höhle an die neue Karte angleichen** (zurückgestellt 10.10.): Beim Kampf in der Höhle soll die Kulisse wie dieselbe Höhle aussehen wie auf der Karte (Boden, Wände, Dinge, Licht).
+
+## Klänge überarbeiten (Rest, aus „Offen“ am 11.10.)
+
+Nach den [Stil-Leitlinien](STIL.md): weg von Chiptune, hin zu glaubwürdigen Geräuschen. Hörproben Runde 1 und 2 liegen vor (18d, Auswahl beim Nutzer). Noch offen: Menü-Klick, Belohnungen (Stufenaufstieg, Beute, epische Beute, Münzen, Truhe), Welt (Tür, Begegnung, Alarm, Hinterhalt), Zauber und Tränke, Kampfende (Gegner fällt, Held fällt), Umgebung (Vögel, Grillen, Eule, Tropfen, Knistern), Musik (siehe „Musik neu im neuen Stil“). Vorgehen: Hörproben, dann nach Freigabe umstellen.
+
+## Bewusst so gelassen
+
+- **Trank wird zweimal getrunken:** kein Fehler, Trinkvariante „zwei hastige Schlucke“ (08.10.).
+- **Testkämpfe im Dorf:** Held und Gegner erreichen sich beim Angriff nicht (alte Kulisse ohne berechneten Schritt); im Dorf gibt es sonst keine Kämpfe (08.10.).
+- **Figurgröße im Reiter „Held“** und **Kampfablauf** (Ansage mit Ausholen → Tippen → Schlag): so bestätigt.
