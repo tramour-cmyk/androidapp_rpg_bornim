@@ -159,8 +159,11 @@ S["buff_ersatz"] = [
     reverb(mix((pitch(T("gong_02.ogg"), -8), 0, 0.7), (darken(cut(T("ghostbreath.flac"), 0, 1.6, 0.2, 0.5), 5000), 0.1, 0.6)), 0.35, 1.8),
     reverb(mix((lowpass(win("ethereal_chant_Subclip 13_13.wav", 0, 1.8, 0.6), 3000), 0, 0.8), (pitch(T("impactBell_heavy_004.ogg"), -5), 0.05, 0.6)), 0.4, 2.0, seed=2),
     reverb(mix((pitch(T("impactBell_heavy_002.ogg"), -9), 0, 0.8), (darken(T("cloth3.ogg"), 4000), 0.0, 0.5), (pitch(T("magical_6_0.ogg"), -5), 0.15, 0.3)), 0.4, 2.0, seed=3)]
+# Gewählt (18g): Magie 1 durch Ersatz 2, Stärkung 2 durch Ersatz 2
+S["magic"] = [S["magic_ersatz"][1]] + S["magic"][1:]
+S["buff"] = [S["buff"][0], S["buff_ersatz"][1], S["buff"][2]]
 R2 = list(S)[R2_START:]
-R2_FREI = {"encounter", "alert", "ambush", "hero_down", "fire", "holy", "heal", "poison", "potion", "throw", "bird", "cricket", "owl", "drip", "crackle"}   # gewählt (18f, 11.10.); nur diese kommen ins Spiel
+R2_FREI = {"encounter", "alert", "ambush", "hero_down", "fire", "holy", "heal", "poison", "potion", "throw", "bird", "cricket", "owl", "drip", "crackle", "magic", "buff"}   # gewählt (18f, 18g, 11.10.); nur diese kommen ins Spiel
 
 # Systemklänge: nur diese Fassung kommt ins Spiel (Stufenaufstieg Nr. 1 gewählt vom Nutzer 11.10., Kampfbeginn Nr. 3 18f)
 GEWAEHLT = {"level_up": 0, "click": 1, "loot_epic": 0, "encounter": 2}   # Kampfbeginn neu 3 (18f)
