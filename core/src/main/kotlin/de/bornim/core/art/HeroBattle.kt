@@ -233,6 +233,7 @@ object HeroBattle {
         // a falling hero lies stretched out: its frames are wider, to the right, the feet staying where they stood
         val img = doll(hero).render(if (act == Act.DIE) W_FALL else W, H, ANCHOR_X, GROUND, PX, seq[i], o, wounds = wounds).img
         synchronized(cache) { cache[k] = img }
+        fresh++
         return img
     }
 
@@ -303,6 +304,30 @@ object HeroBattle {
             for (i in 0 until frameCount(hero, act, strike, v)) { all++; if (synchronized(cache) { cache.containsKey(key(hero, act, strike, v, i, 0)) }) ready++ }
         return ready to all
     }
+
+    /** 24.20: how many frames were drawn (not read from the device) since the last [keep]. */
+    @Volatile internal var fresh = 0
+        private set
+
+    /** Keeps this hero's unhurt battle frames on the device ([HeroShelf]), when new ones were drawn since the last time. */
+    fun keep(hero: Hero) {
+        val l = look(hero)
+        if (HeroShelf.dir == null || (fresh == 0 && HeroShelf.hasFrames("battle|$l"))) return
+        val pics = synchronized(cache) { cache.filterKeys { it.startsWith("$l|") && it.endsWith("/0") }.mapKeys { it.key.removePrefix("$l|") } }
+        fresh = 0
+        HeroShelf.saveFrames("battle|$l", pics)
+    }
+
+    /** Reads this hero's battle frames kept on the device into memory; false when none were kept. */
+    fun fetch(hero: Hero): Boolean {
+        val l = look(hero)
+        val pics = HeroShelf.loadFrames("battle|$l") ?: return false
+        synchronized(cache) { for ((k, img) in pics) if (!cache.containsKey("$l|$k")) cache["$l|$k"] = img }
+        return true
+    }
+
+    /** Tests only: forgets every frame kept in memory. */
+    internal fun forgetAll() = synchronized(cache) { cache.clear() }
 
     /** Tests only: the acts [prepare] draws for this fight. */
     internal fun planOf(hero: Hero, foeId: String, ambushed: Boolean, victoryPick: Int) = plan(hero, foeId, ambushed, victoryPick, null) { false }

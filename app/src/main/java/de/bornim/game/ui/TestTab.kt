@@ -61,7 +61,7 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
                 t(", Gegner ", ", foe ") + s(a.foeMs), size = 13.sp)
             // 24.16: what it found drawn ahead on the map, and how long the drawing ahead waited for the map
             a.report?.let { r ->
-                Txt(t("Vorgezeichnet: Held ", "Drawn ahead: hero ") + "${r.heroReady}/${r.heroAll}" + t(", Gegner ", ", foe ") + r.foe + " ${r.foeDrawn}" +
+                Txt(t("Vorgezeichnet: Held ", "Drawn ahead: hero ") + "${r.heroReady}/${r.heroAll}" + (if (r.kept) t(" (gespeichert)", " (kept)") else "") + t(", Gegner ", ", foe ") + r.foe + " ${r.foeDrawn}" +
                     t(if (r.foeDone) " (fertig)" else " (nicht fertig)", if (r.foeDone) " (all)" else " (not all)") +
                     t(", gewartet ", ", waited ") + s(r.waitedMs) + t(", Gegner nahe ", ", foe near ") + s(r.nearMs) +
                     t(", Speicher ", ", memory ") + "${Runtime.getRuntime().maxMemory() / (1024 * 1024)} MB", size = 13.sp)

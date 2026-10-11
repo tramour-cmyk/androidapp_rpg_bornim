@@ -90,4 +90,25 @@ class BattleAheadTest {
         assertTrue(opening <= foe, "the hero's opening before the foe")
         assertTrue(foe <= rest, "the foe before the rest of the hero")
     }
+
+    /** 24.20: with no foe near the hero's frames are drawn too, kept on the device, and read back after a new start. */
+    @Test fun theHeroIsDrawnWithNoFoeNearAndKept() {
+        val dir = kotlin.io.path.createTempDirectory("battle-shelf").toFile()
+        try {
+            HeroShelf.dir = dir
+            BattleAhead.reset()
+            val hero = GameState.newGame("Kept", Race.HALFLING, CharClass.ROGUE).hero
+            val pick = BattleAhead.victoryPick
+            fun allReady() = HeroBattle.planOf(hero, "goblin", false, pick).all { (a, s, v) -> HeroBattle.actReady(hero, a, s, v) }
+            assertTrue(mapShows(hero, { emptyList() }, { false }, 120_000) { allReady() && HeroShelf.hasFrames("battle|" + HeroBattle.look(hero)) },
+                "drawn ahead with no foe near, and kept")
+            // a new start: nothing in memory, the frames read from the device instead of drawn
+            BattleAhead.reset(); HeroBattle.forgetAll()
+            val start = System.currentTimeMillis()
+            assertTrue(mapShows(hero, { emptyList() }, { false }, 20_000) { allReady() }, "read back")
+            println("24.20 the hero's battle frames read back in ${System.currentTimeMillis() - start} ms")
+            assertTrue(BattleAhead.fromShelf)
+            assertEquals(0, HeroBattle.fresh, "none drawn again")
+        } finally { HeroShelf.dir = null; dir.deleteRecursively() }
+    }
 }

@@ -76,4 +76,61 @@ object HeroShelf {
             // nothing kept: drawn again next time
         }
     }
+
+    // ---------------------------------------------------------------- the hero's battle frames (24.20)
+
+    /** Battle frames of the looks worn lately: about 5 MB each on the device. */
+    const val KEEP_FRAMES = 6
+    private const val MAGIC_FRAMES = 0x42484632 // "BHF2"
+
+    private fun framesFile(name: String): File? = file(name)?.let { File(it.path.removeSuffix(".pix") + ".pixb") }
+
+    /** Whether frames are kept under [name]. */
+    fun hasFrames(name: String): Boolean = framesFile(name)?.isFile == true
+
+    /** The frames kept under [name] by their key, or null when not kept or unreadable. */
+    fun loadFrames(name: String): Map<String, PixelImage>? {
+        val f = framesFile(name)?.takeIf { it.isFile } ?: return null
+        return try {
+            DataInputStream(InflaterInputStream(f.inputStream().buffered(1 shl 16))).use { inp ->
+                if (inp.readInt() != MAGIC_FRAMES || inp.readUTF() != name) return null
+                val n = inp.readInt()
+                val out = HashMap<String, PixelImage>(n * 2)
+                repeat(n) {
+                    val k = inp.readUTF(); val w = inp.readInt(); val h = inp.readInt()
+                    val bytes = ByteArray(w * h * 4)
+                    inp.readFully(bytes)
+                    val px = IntArray(w * h)
+                    ByteBuffer.wrap(bytes).asIntBuffer().get(px)
+                    out[k] = PixelImage(w, h, px)
+                }
+                f.setLastModified(System.currentTimeMillis())
+                out
+            }
+        } catch (e: Exception) {
+            f.delete(); null
+        }
+    }
+
+    /** Keeps [pics] under [name]; written to a side file first, so a half-written one is never read. */
+    fun saveFrames(name: String, pics: Map<String, PixelImage>) {
+        val f = framesFile(name) ?: return
+        try {
+            f.parentFile?.mkdirs()
+            val tmp = File(f.path + ".tmp")
+            DataOutputStream(DeflaterOutputStream(tmp.outputStream().buffered(1 shl 16), Deflater(Deflater.BEST_SPEED))).use { out ->
+                out.writeInt(MAGIC_FRAMES); out.writeUTF(name); out.writeInt(pics.size)
+                for ((k, img) in pics) {
+                    out.writeUTF(k); out.writeInt(img.width); out.writeInt(img.height)
+                    val bb = ByteBuffer.allocate(img.pixels.size * 4)
+                    bb.asIntBuffer().put(img.pixels)
+                    out.write(bb.array())
+                }
+            }
+            if (!tmp.renameTo(f)) tmp.delete()
+            f.parentFile?.listFiles { x -> x.name.endsWith(".pixb") }?.sortedByDescending { it.lastModified() }?.drop(KEEP_FRAMES)?.forEach { it.delete() }
+        } catch (e: Exception) {
+            // nothing kept: drawn again next time
+        }
+    }
 }

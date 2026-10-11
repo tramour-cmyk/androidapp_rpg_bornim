@@ -15,6 +15,8 @@ import java.util.concurrent.ForkJoinWorkerThread
  * The foe being drawn (or drawn already) is kept while it stays near, though another of its pack comes nearer. It waits while the map
  * itself is still being drawn ([consider]'s `busy`), and stops when the map is no longer shown (a fight, the menu):
  * the fight then draws what is missing.
+ * 24.20: the hero's frames are drawn ahead also with no foe near (for the last foe met), and kept on the device
+ * ([HeroBattle.keep]), so that after a new start they are read instead of drawn.
  */
 object BattleAhead {
     /** How near a foe must be, in fields walked, for its fight to be drawn ahead. */
@@ -51,7 +53,7 @@ object BattleAhead {
      * of its foe [foe] [foeDrawn] frames, all of them if [foeDone]; how long the drawing ahead waited for the map
      * ([waitedMs]) while a foe was near, and how long one was near ([nearMs]).
      */
-    class Report(val heroReady: Int, val heroAll: Int, val foe: String, val foeDrawn: Int, val foeDone: Boolean, val waitedMs: Long, val nearMs: Long)
+    class Report(val heroReady: Int, val heroAll: Int, val kept: Boolean, val foe: String, val foeDrawn: Int, val foeDone: Boolean, val waitedMs: Long, val nearMs: Long)
     @Volatile var report: Report? = null
 
     private data class Foe(val id: String, val look: MonsterLook)
@@ -69,6 +71,12 @@ object BattleAhead {
     /** The last foes drawn in full: the frames kept hold about two of them. */
     private val foesDone = ArrayDeque<Foe>()
     private val foeDrawn = HashMap<Foe, Int>()
+    /** The foe whose fight the rest of the hero is drawn for: the last one near, before any, a goblin. */
+    private var lastFoe = "goblin"
+    /** The look whose frames kept on the device were read already, and whether there were any (shown in the test tab). */
+    private var fetched: String? = null
+    @Volatile var fromShelf = false
+        private set
     private var nearSince = 0L
     private var waited = 0L
     @Volatile private var seenAt = 0L
@@ -94,8 +102,9 @@ object BattleAhead {
         seenAt = now
         this.busy = busy
         synchronized(lock) {
-            if (foes.isEmpty()) { near = emptyList(); target = null; nearSince = 0L; waited = 0L; return }
-            if (nearSince == 0L) nearSince = now
+            // 24.20: the hero's frames are drawn ahead also with no foe near, once the map is drawn
+            if (foes.isEmpty()) { near = emptyList(); target = null; nearSince = 0L; waited = 0L }
+            else if (nearSince == 0L) nearSince = now
             if (foes.size != near.size || foes.indices.any { foes[it].first != near[it].id || foes[it].second != near[it].look })
                 near = foes.map { Foe(it.first, it.second) }
             val hw = HeroWant(hero, HeroBattle.look(hero), victoryPick)
@@ -103,7 +112,8 @@ object BattleAhead {
             // the foe being drawn, or drawn already, stays while it is near: in a pack the nearest changes all the time,
             // and the frames kept hold hardly more than one of them
             val t = target
-            if (t == null || t !in near) target = near.firstOrNull { it in foesDone } ?: near.first()
+            if (t == null || t !in near) target = near.firstOrNull { it in foesDone } ?: near.firstOrNull()
+            target?.let { lastFoe = it.id }
             if (next() == null) return
             if (worker == null) worker = Thread(::run, "battle-ahead").apply { isDaemon = true; priority = Thread.MIN_PRIORITY; start() }
             lock.notifyAll()
@@ -116,6 +126,7 @@ object BattleAhead {
     private fun stale() = System.currentTimeMillis() - seenAt > STALE_MS
 
     private sealed interface Job
+    private class Fetch(val hw: HeroWant) : Job
     private class Opening(val hw: HeroWant, val foe: String) : Job
     private class FoeFrames(val foe: Foe) : Job
     private class Rest(val hw: HeroWant, val foe: String) : Job
@@ -123,8 +134,9 @@ object BattleAhead {
     /** What to draw next, under [lock]: the hero's opening, the foe, the rest of the hero; null when all is drawn. */
     private fun next(): Job? {
         val hw = heroWant ?: return null
-        if (near.isEmpty()) return null
-        val foe = (target ?: near.first()).id
+        // the frames kept on the device first, then what is still missing
+        if (fetched != hw.look) return Fetch(hw)
+        val foe = target?.id ?: lastFoe
         if (!hw.same(openingDone)) return Opening(hw, foe)
         target?.let { if (it !in foesDone) return FoeFrames(it) }
         val r = restDone
@@ -151,8 +163,12 @@ object BattleAhead {
             working = true
             fun gone() = stale() || busy()
             when (job) {
+                is Fetch -> {
+                    val got = HeroBattle.fetch(job.hw.hero)
+                    synchronized(lock) { fetched = job.hw.look; fromShelf = got }
+                }
                 is Opening -> {
-                    // only the opening's own frames: the whole plan would first work out where every blow lands (24.20)
+                    // only the opening's own frames: the whole plan would first work out where every blow lands
                     val stop = { gone() || synchronized(lock) { heroWant !== job.hw } }
                     for (act in OPENING) HeroBattle.prepareAct(job.hw.hero, act, Strike.SLASH, 0) { stop().also { if (!it) drawn++ } }
                     if (!stop() && OPENING.all { HeroBattle.actReady(job.hw.hero, it) }) synchronized(lock) { if (heroWant === job.hw) openingDone = job.hw }
@@ -177,7 +193,11 @@ object BattleAhead {
                     HeroBattle.prepare(job.hw.hero, job.foe, false, job.hw.pick, cancelled = count)
                     // the hero struck from behind opens otherwise: drawn too, after all else of the hero
                     if (!stop()) HeroBattle.prepareAct(job.hw.hero, Act.AMBUSHED, Strike.SLASH, 0, cancelled = count)
-                    if (!stop()) synchronized(lock) { restDone = job.hw to job.foe }
+                    if (!stop()) {
+                        synchronized(lock) { restDone = job.hw to job.foe }
+                        // kept on the device: the next start, or this gear worn again, needs no drawing (24.20)
+                        HeroBattle.keep(job.hw.hero)
+                    }
                 }
             }
             working = false
@@ -189,14 +209,14 @@ object BattleAhead {
         val (ready, all) = HeroBattle.planReady(hero, foeId, ambushed, pick)
         val f = Foe(foeId, look)
         report = synchronized(lock) {
-            Report(ready, all, foeId, foeDrawn[f] ?: 0, f in foesDone, waited,
+            Report(ready, all, fromShelf, foeId, foeDrawn[f] ?: 0, f in foesDone, waited,
                 if (nearSince == 0L) 0L else System.currentTimeMillis() - nearSince)
         }
     }
 
     /** Tests only: forgets what was drawn ahead. */
     internal fun reset() = synchronized(lock) {
-        heroWant = null; openingDone = null; restDone = null; near = emptyList(); target = null
+        heroWant = null; openingDone = null; restDone = null; fetched = null; fromShelf = false; lastFoe = "goblin"; near = emptyList(); target = null
         foesDone.clear(); foeDrawn.clear(); nearSince = 0L; waited = 0L; drawn = 0
     }
 }
