@@ -84,17 +84,35 @@ object MapGround {
     /** Draws all chunks of [map] in the background, nearest to ([nearX], [nearY]) first (tiles). */
     fun prepare(map: MapDef, nearX: Int = 0, nearY: Int = 0) {
         if (!supports(map)) return
-        synchronized(preparing) { if (!preparing.add(map.id)) return }
+        synchronized(preparing) {
+            // 30.2: only this map's ground and the one before are kept, the others drawn again when visited
+            recent.remove(map.id); recent.addLast(map.id)
+            while (recent.size > KEEP_MAPS) forget(recent.removeFirst())
+            if (!preparing.add(map.id)) return
+        }
         // on several cores at once, nearest first (23:04: so the ground is there almost as soon as the map shows)
         for ((cx, cy) in order(map, nearX, nearY)) workers.execute {
             val k = "${map.id}/$cx/$cy"
             if (synchronized(chunks) { k in chunks }) return@execute
             de.bornim.core.Guard.run("Boden ${map.id}") {
                 val img = draw(map, cx, cy)
-                synchronized(chunks) { chunks.getOrPut(k) { img } }
+                synchronized(preparing) { if (map.id in preparing) synchronized(chunks) { chunks.getOrPut(k) { img } } }
             }
         }
     }
+
+    /** How many maps keep their ground drawn (30.2). */
+    const val KEEP_MAPS = 2
+    private val recent = ArrayDeque<String>()
+
+    /** Lets go of the ground of [mapId]. Under [preparing]'s lock. */
+    private fun forget(mapId: String) {
+        preparing.remove(mapId)
+        synchronized(chunks) { chunks.keys.removeAll { it.startsWith("$mapId/") } }
+    }
+
+    /** 30.2: memory short: only the map shown last keeps its ground. */
+    fun trim() = synchronized(preparing) { while (recent.size > 1) forget(recent.removeFirst()) }
 
     private val workers = java.util.concurrent.Executors.newFixedThreadPool(
         (Runtime.getRuntime().availableProcessors() - 1).coerceIn(2, 4),

@@ -60,7 +60,9 @@ object HeroShelf {
         try {
             f.parentFile?.mkdirs()
             val tmp = File(f.path + ".tmp")
-            DataOutputStream(DeflaterOutputStream(tmp.outputStream().buffered(1 shl 16), Deflater(Deflater.BEST_SPEED))).use { out ->
+            // 30.2: a Deflater of one's own is not ended by closing the stream: its native memory stays until ended
+            val z = Deflater(Deflater.BEST_SPEED)
+            try { DataOutputStream(DeflaterOutputStream(tmp.outputStream().buffered(1 shl 16), z)).use { out ->
                 out.writeInt(MAGIC); out.writeUTF(look); out.writeInt(pics.size)
                 for ((k, img) in pics) {
                     out.writeInt(k.first); out.writeInt(k.second); out.writeInt(img.width); out.writeInt(img.height)
@@ -68,7 +70,7 @@ object HeroShelf {
                     bb.asIntBuffer().put(img.pixels)
                     out.write(bb.array())
                 }
-            }
+            } } finally { z.end() }
             if (!tmp.renameTo(f)) tmp.delete()
             // only the newest few looks stay
             f.parentFile?.listFiles { x -> x.name.endsWith(".pix") }?.sortedByDescending { it.lastModified() }?.drop(KEEP)?.forEach { it.delete() }
@@ -118,7 +120,9 @@ object HeroShelf {
         try {
             f.parentFile?.mkdirs()
             val tmp = File(f.path + ".tmp")
-            DataOutputStream(DeflaterOutputStream(tmp.outputStream().buffered(1 shl 16), Deflater(Deflater.BEST_SPEED))).use { out ->
+            // 30.2: a Deflater of one's own is not ended by closing the stream: its native memory stays until ended
+            val z = Deflater(Deflater.BEST_SPEED)
+            try { DataOutputStream(DeflaterOutputStream(tmp.outputStream().buffered(1 shl 16), z)).use { out ->
                 out.writeInt(MAGIC_FRAMES); out.writeUTF(name); out.writeInt(pics.size)
                 for ((k, img) in pics) {
                     out.writeUTF(k); out.writeInt(img.width); out.writeInt(img.height)
@@ -126,7 +130,7 @@ object HeroShelf {
                     bb.asIntBuffer().put(img.pixels)
                     out.write(bb.array())
                 }
-            }
+            } } finally { z.end() }
             if (!tmp.renameTo(f)) tmp.delete()
             f.parentFile?.listFiles { x -> x.name.endsWith(".pixb") }?.sortedByDescending { it.lastModified() }?.drop(KEEP_FRAMES)?.forEach { it.delete() }
         } catch (e: Exception) {

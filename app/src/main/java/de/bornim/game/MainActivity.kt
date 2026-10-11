@@ -17,6 +17,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         // 30.1: a crash is written down before the app ends, and shown in the test tab at the next start
         CrashLog.install(applicationContext)
+        // 30.2: a background thread out of memory lets go of the pictures not needed now
+        val main = android.os.Handler(mainLooper)
+        de.bornim.core.Guard.onOutOfMemory = { de.bornim.core.art.ArtMemory.trim(); main.post { de.bornim.game.ui.Bitmaps.clear() } }
         CrashLog.where = {
             val g = vm.game
             val mode = when (val m = g?.mode) {
@@ -38,6 +41,16 @@ class MainActivity : ComponentActivity() {
         de.bornim.core.art.HeroShelf.dir = java.io.File(cacheDir, shelf)
         vm.music.setEnabled(vm.musicOn)
         setContent { BornimApp(vm) }
+    }
+
+    /** 30.2: the system says memory runs short: let go of the pictures not needed on the map shown. */
+    override fun onTrimMemory(level: Int) {
+        super.onTrimMemory(level)
+        @Suppress("DEPRECATION")
+        if (level >= android.content.ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW) {
+            de.bornim.core.art.ArtMemory.trim()
+            de.bornim.game.ui.Bitmaps.clear()
+        }
     }
 
     override fun onStart() {

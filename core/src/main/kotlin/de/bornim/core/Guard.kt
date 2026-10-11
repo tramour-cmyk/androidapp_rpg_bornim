@@ -27,9 +27,13 @@ object Guard {
     inline fun run(where: String, block: () -> Unit): Boolean =
         try { block(); true } catch (t: Throwable) { note(where, t); false }
 
+    /** What frees memory (pictures kept): called once an error is out of memory. */
+    @Volatile var onOutOfMemory: (() -> Unit)? = null
+
     /** Writes [t] down as caught at [where]. Never throws. */
     fun note(where: String, t: Throwable) {
         caught.incrementAndGet()
+        if (t is OutOfMemoryError) try { onOutOfMemory?.invoke() } catch (_: Throwable) {}
         val text = try { describe(t, where, about()) } catch (_: Throwable) { "$where: $t" }
         last = text
         try { sink?.invoke(text) } catch (_: Throwable) {}
