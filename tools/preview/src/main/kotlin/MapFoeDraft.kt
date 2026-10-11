@@ -22,7 +22,7 @@ private fun sheetOf(cells: List<List<PixelImage?>>, cw: Int, ch: Int): BufferedI
 
 /**
  * MAPFOE: drafts of the monsters on the map (9). MAPFOE=yaws: wolf and goblins in all 16 directions;
- * MAPFOE=walk: the walk of each in four directions; IDS=wolf,goblin picks the kinds.
+ * MAPFOE=walk: the walk of each in four directions; IDS=wolf,goblin picks the kinds; MAPFOE=vermin: the vermin (9i).
  */
 fun renderMapFoeDraft() {
     File("build/screens/mapfoe").mkdirs()
@@ -111,6 +111,19 @@ fun renderMapFoeDraft() {
             val rows = listOf("goblin" to 0, "goblin" to 1, "goblin" to 2, "goblin_archer" to 0)
             val cells = rows.map { (id, l) -> listOf(4, 12, 3, 13).flatMap { s -> listOf(MapFoe.draw(id, MonsterLook(l), s, 0), MapFoe.draw(id, MonsterLook(l), s, 2)) } }
             ImageIO.write(sheetOf(cells, MapFoe.W, MapFoe.H), "png", File("build/screens/mapfoe/side.png"))
+        }
+        "vermin" -> {
+            // 9i: spider, centipede, bat, stirge and jelly; per kind the walk (8 pictures, half turned to us), then
+            // standing in four directions and the stances of the crawlers
+            val ids = (System.getenv("IDS") ?: "giant_spider,giant_centipede,giant_bat,stirge,ochre_jelly").split(",")
+            val cells = ids.flatMap { id ->
+                val walk = (0 until MapFoe.STEPS).map { st -> MapFoe.draw(id, MonsterLook(0), 2, st) }
+                val dirs = listOf(0, 4, 8, 12).map { s -> MapFoe.draw(id, MonsterLook(1), s, 0) } +
+                    if (MapFoe.flies(id)) emptyList() else listOf(MapFoe.Idle.LOOK_L, MapFoe.Idle.SNIFF, MapFoe.Idle.SNARL)
+                        .map { MapFoe.drawIdle(id, MonsterLook(2), 2, it, 1) }
+                listOf(walk, dirs)
+            }
+            ImageIO.write(sheetOf(cells, MapFoe.W, MapFoe.H), "png", File("build/screens/mapfoe/vermin.png"))
         }
         "walk" -> {
             val cells = looks.flatMap { (id, l) -> listOf(2, 4, 6, 12).map { s -> (0 until MapFoe.STEPS).map { st -> MapFoe.draw(id, l, s, st) } } }

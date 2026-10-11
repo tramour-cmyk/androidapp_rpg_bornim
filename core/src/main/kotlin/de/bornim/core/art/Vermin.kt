@@ -38,11 +38,13 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
         val curl: Double = 0.0,
         /** Which way it faces in the picture. */
         val yaw: Double = -60.0,
+        /** Walking on the map (9i): how far a spider's foot reaches forward and back in a step, in cm; 0 in battle. */
+        val stride: Double = 0.0,
     ) {
         fun lerp(o: Rig, t: Double): Rig {
             fun l(a: Double, b: Double) = a + (b - a) * t
             return Rig(l(fwd, o.fwd), l(crouch, o.crouch), l(side, o.side), l(rear, o.rear), l(jaw, o.jaw), l(spread, o.spread), l(beat, o.beat),
-                l(hover, o.hover), l(step, o.step), l(surge, o.surge), l(fallF, o.fallF), l(fallS, o.fallS), l(curl, o.curl), l(yaw, o.yaw))
+                l(hover, o.hover), l(step, o.step), l(surge, o.surge), l(fallF, o.fallF), l(fallS, o.fallS), l(curl, o.curl), l(yaw, o.yaw), l(stride, o.stride))
         }
     }
 
@@ -161,7 +163,9 @@ class Vermin(val kind: Kind, val variant: Int = 0, val size: Double = 1.0) {
             // walking: the legs in turn lifted and set forward
             val ph = (r.step + i * 0.25 + (if (s > 0) 0.5 else 0.0)).mod(1.0)
             val stepLift = max(0.0, sin(ph * 2 * PI)) * 10.0
-            var foot = P3(hip.x, 0.0, hip.z) + d * (118.0 * k) + p(0.0, stepLift, 0.0)
+            // 9i: on the map the foot swings forward while lifted and slides back under the body on the ground
+            val reach = -r.stride * cos(ph * 2 * PI)
+            var foot = P3(hip.x, 0.0, hip.z) + d * (118.0 * k) + p(0.0, stepLift, reach)
             var knee = hip + d * (46.0 * k) + p(0.0, 40.0, 0.0)
             var ankle = hip + d * (96.0 * k) + p(0.0, 22.0, 0.0)
             // the front pair raised high before it, threatening
