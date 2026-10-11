@@ -12,7 +12,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 |---|---|---|---|---|
 | 13 | Diagonale Sicht | Tom | – | Schänke, Ältester, Laden, Tempel auf `main` (PR #20, 11.10., 14:00). Weiter mit Dorf draußen (5) |
 | 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | 5.1, 5.2, 5g, 5h.1 auf `main` (PR #24, 11.10., 14:52). 5l/5.5 Leben im Dorf: nach 24 (Nutzer 14:55), erst Standbilder. Dann 5.3, 5.4 |
-| 25 | Laternen geben nachts Licht, wirken als Quelle aber dunkel | Tom | `claude/fervent-einstein-bewehx` | 25.1 umgesetzt (15:13, `lampGlow`, `LampGlowTest`), Standbild an den Nutzer, Zweig-Build läuft. Rückfrage 25b (Fenster nachts auch dunkel?) |
+| 25 | Laternen geben nachts Licht, wirken als Quelle aber dunkel | Tom | `claude/fervent-einstein-bewehx` | 25.1 umgesetzt (15:13), Zweig-Build läuft. 25b ja (15:16): Fenster der Häuser nachts erleuchtet, in Arbeit (gleicher Zweig) |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; frei, seit 13 auf `main` ist |
@@ -22,7 +22,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 22 | Selbstarbeit statt nur Nachtarbeit: Routinen alle 3 h, Vorrat und Liste „Für gemeinsame Zeit“ | Tom | `main` (Notizen), Routinen | 22a, 22b ja (13:31). `docs/SELBST.md` statt `NACHT.md`; Toms Routinen umgestellt (13:38); Nutzer: neue Routinen einstellen (Repo, automatisch). Jerrys Routinen umgestellt (13:44), Vorrat eingetragen |
 | 23 | Aufgaben so aufteilen, dass Tom und Jerry auch in Selbstarbeit genug Vorrat haben | Tom | `main` (Notizen) | 23a ja (14:18): je 8 Punkte im Vorrat (`docs/SELBST.md`), neue nur als Entwürfe/Hörproben. **Jerry:** deine Punkte 4–8 sind eingetragen |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
-| 24 | Animationen fehlen nach Spielstart und Kartenwechsel (Held schwebt ohne Beinbewegung, Atmen fehlt); Übergangsbild, bis alles gezeichnet ist | Tom (Karte); Kampfbilder mit Jerry abstimmen | – | entschieden 11.10., 14:39: 24.1–24.3 bauen (Tom-Arbeitssitzung, nach dem laufenden Schritt), 24.4 auf die Merkliste |
+| 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Übergangsbild, bis alles gezeichnet ist; auch vor Kämpfen | Tom (24.1–24.3, 24.5); Jerry (24.6) | – | 24a–c ja (14:39), 24e ja (15:16). **Plan:** Tom beginnt nach 25b in neuer Sitzung (ca. 16:00): erst messen, dann 24.2/24.3 (mehrere Fäden, Bilder behalten), 24.1 Übergangsbild, 24.5 Kampfbilder auf der Karte vorladen. **Jerry:** 24.6 (Kampferöffnung wartet auf Stehen und ersten Schlag, höchstens ca. 2 s) nach 18h/18i, auf Toms Zeichen-Faden aus 24.2 aufbauen |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
