@@ -8,7 +8,7 @@ import kotlin.math.min
 
 /**
  * The fire's crackle and the cave's drops (18h, 18i): the crackle swells as the hero walks up to a campfire or a hearth
- * and fades as he leaves it, never starting at full strength; the drops fall in the cave on their own, fire or not.
+ * and fades as he leaves it, never starting at full strength; one take loops without a seam until it has faded out (18k); the drops fall in the cave on their own, fire or not.
  */
 object Ambience {
     /** Beyond this many tiles from a fire its crackle is gone. */
@@ -18,8 +18,6 @@ object Ambience {
     const val FIRE_MAX = 0.5f
     /** Time to swell from silence to full, or to fade back (entering, leaving, a fight starting). */
     const val FADE_MS = 1000.0
-    /** One crackle take is 2.4 s long; the next one starts a little before it ends. */
-    const val CRACKLE_EVERY_MS = 2250L
 
     /** Drops in the cave, a pause of 4–10 s between them, a little quieter the louder the fire. */
     const val DRIP_MIN_MS = 4000L

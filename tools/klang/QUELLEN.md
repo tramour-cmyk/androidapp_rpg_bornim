@@ -48,6 +48,5 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Freesound-Aufnah
 | `drip` | atmosbasement | qubodup, Dripping water loop | https://opengameart.org/content/dripping-water-loop |
 | `drip` | Water drops with reverb (696438) | Patrick_Corra, Freesound | https://freesound.org/people/Patrick_Corra/sounds/696438/ |
 | `drip` | Water Drop 01, 02 (348022, 349873) | LilMati, Freesound | https://freesound.org/people/LilMati/sounds/348022/ , https://freesound.org/people/LilMati/sounds/349873/ |
-| `crackle` | Fire Crackling 01 (181563) | kingsrow, Freesound | https://freesound.org/people/kingsrow/sounds/181563/ |
-| `crackle` | fire-crackling (370938) | jmehlferber, Freesound | https://freesound.org/people/jmehlferber/sounds/370938/ |
-| `crackle` | fire-1 | antumdeluge, Fire Crackling | https://opengameart.org/content/fire-crackling |
+| `crackle` (Schleife 1, 18k) | Fire Crackling 01 (181563) | kingsrow, Freesound | https://freesound.org/people/kingsrow/sounds/181563/ |
+| `crackle` (Schleifen 2, 3, 18k) | fire-crackling (370938) | jmehlferber, Freesound | https://freesound.org/people/jmehlferber/sounds/370938/ |
