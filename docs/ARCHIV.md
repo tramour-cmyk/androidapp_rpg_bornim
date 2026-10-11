@@ -4,6 +4,16 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Übergabe Jerry (11.10., 21:53), ersetzt 11.10., 22:05
+
+- **24.8 Ortsklang in der Blende:** 24t ja (21:45), Herzschlag mitladen. Hörproben geschickt (21:51): Wind, Schänke, Halle (Tempel), Knarren, Herzschlag, je 3. Skript `tools/klang/orte.py` auf Zweig `ccr-d94c036c-bdvewr` (Aufnahmen: OGA mild-wind-background-noise, park-ambiences, background-voices, tree-creaking, heartbeat-sounds, heartbeat-single-sound; Kenney creak1/3; liegen nicht in `holen.sh`, Freesound-CDN gibt gerade 403). **24v (21:55):** Wind, Halle, Knarren, Herzschlag halbwegs ok; **Schänke geht gar nicht** → neu aus BigSoundBank (CC0: Bar 0480, Menge 3515, Gaststube 3542, Gläser 1323/1324/1935/0472), Hörprobe 22:02, **Rückfrage 24w**.
+- **Danach bauen:** `Sound` WIND/TAVERN/HALL/CREAK/HEARTBEAT, Ortsklang beginnt mit der Blende (`MapVeil`), Kerntest welcher Klang je Ort und Tageszeit; QUELLEN.md nachtragen. Dann 13e-Entwürfe; 24.6 nach Toms 24.5.
+
+## Übergabe Jerry (11.10., 21:33), ersetzt 11.10., 21:53
+
+- **28 Musik erledigt:** 28.1 getestet in 0.1.540, auf `main` (PR #36, 21:31). `MusicDirector` (Kern) wählt je Lage, `MusicPlayer` spielt `assets/music`; neu bauen mit `tools/klang/musik_holen.sh` + `musik_bauen.py`. Die alten `Songs` (Synth) nur noch im Kerntest.
+- **24s (21:35): erst 24.8, dann 13e-Entwürfe.** Vorschlag 24.8 (Ortsklang schon in der Blende: Wind, Stimmen, Tropfen; Herzschlag für Hinterhalt erst mit der Kampfblende), **24t ja (21:45)**, Herzschlag gleich mitladen. Danach 24.6 nach Toms 24.5.
+
 ## Übergabe Tom (11.10., 21:00), ersetzt 11.10., 21:42
 
 - **Auf `main`:** PR #34 (24.4, 24.9–24.13, 20:37) und PR #35 (24.14, 24.15, 21:00), beide in CHANGELOG „Unveröffentlicht“. Kein offener Zweig.

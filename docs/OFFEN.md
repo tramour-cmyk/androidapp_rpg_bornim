@@ -35,14 +35,15 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Als Nächstes (24u ja, 21:42), gleicher Zweig, ein Build:** 24.16 Test-Reiter-Zeile (Bilder vorgezeichnet/gesamt, Wartezeit auf Karte, Gegnerart), 24.17 zwei Kerne statt einem (`SdfRender.alone` aus, z. B. eigener Pool mit 2 Fäden, niedrige Priorität), 24.18 Reihenfolge: Eröffnung+Stehen des Helden → Gegner → Rest des Helden (`HeroBattle.prepare` hat `onOpening`). Vorher `main` in den Zweig holen. Messen: kleiner Kerntest wie `BattleAheadTest` mit Zeitstempeln im `cancelled`-Lambda (Rechner: Kampf Held 4,6 s alle Kerne, 13,9 s ein Kern).
 - Danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17. APK nur als Link (Regel 21:25).
 
-### Jerry (11.10., 21:33)
+### Jerry (11.10., 22:05, vor Neustart)
 
-- **28 Musik erledigt:** 28.1 getestet in 0.1.540, auf `main` (PR #36, 21:31). `MusicDirector` (Kern) wählt je Lage, `MusicPlayer` spielt `assets/music`; neu bauen mit `tools/klang/musik_holen.sh` + `musik_bauen.py`. Die alten `Songs` (Synth) nur noch im Kerntest.
-- **24s (21:35): erst 24.8, dann 13e-Entwürfe.** Vorschlag 24.8 (Ortsklang schon in der Blende: Wind, Stimmen, Tropfen; Herzschlag für Hinterhalt erst mit der Kampfblende), **24t ja (21:45)**, Herzschlag gleich mitladen. Danach 24.6 nach Toms 24.5.
+- **24.8 Ortsklang in der Blende:** 24t ja, 24v (Wind, Halle, Knarren, Herzschlag ok; Schänke neu aus BigSoundBank CC0 0480/3515/3542 + Gläser 1323/1324/1935/0472, Hörprobe 22:02). **24w:** Nutzer schrieb „Und Neustart“ (22:04) – vermutlich ja, in der neuen Sitzung kurz bestätigen lassen.
+- **Bauen:** Skript `tools/klang/orte.py` (Zweig `ccr-d94c036c-bdvewr`) schreibt `wind/tavern/hall/creak/heartbeat_{1-3}.ogg` nach `assets/sfx`. Aufnahmen neu laden: OGA (mild-wind-background-noise, park-ambiences, tree-creaking, heartbeat-sounds, heartbeat-single-sound), Kenney creak1/3 (aus `holen.sh`), BigSoundBank `/UPLOAD/mp3/<Nr>.mp3` als `bsb_<Nr>.mp3`; in `holen.sh` und `QUELLEN.md` nachtragen. Freesound-CDN gab 403, daher `rezepte.py` nicht laufen lassen (löscht alle sfx).
+- **Code:** `Sound` WIND/TAVERN/HALL/CREAK/HEARTBEAT + `Recorded.TAKES`; Ortsklang-Schleife (wie Knistern in `WorldScreen`) startet mit `MapVeil`, blendet ein, läuft weiter; Höhle: ein Tropfen sofort; Knarren ab und zu in Räumen; Kerntest Klang je Ort/Tageszeit. Herzschlag erst mit Kampfblende. Danach 13e-Entwürfe; 24.6 nach Toms 24.5.
 
 ## Zu testen
 
-- **0.1.541 (Tom, 24.5)**: Test 21:39 (Höhle, langsam hingegangen): Kampf bereit Eröffnung 1,3 s, Held 13,6 s, Gegner 3,3 s → Vorzeichnen wirkte nicht (oder zu langsam). Vorschläge 24.16 (Anzeige: was vorgezeichnet wurde, wie lange gewartet), 24.17 (Vorzeichnen mit 2 Kernen), 24u ja (21:42). Test 2 (Höhle → Wald, direkt auf Wolf): Eröffnung 0,0 s, Held 0,6 s, Gegner 4,0 s → Held ok (auch aus dem Kampf davor), Gegner kam nie dran; Vorschlag 24.18 (Gegner gleich nach der Eröffnung des Helden).
+- **0.1.541 (Tom, 24.5)**: Held ok, Gegner nie vorgezeichnet (Ursache: im Rudel wechselte der nächste Wolf ständig, jeder Wechsel brach ab). **Neu (21:59), Zweig `claude/great-shannon-qnf51n`:** 24.16 Test-Reiter „Vorgezeichnet …“, 24.17 zwei Kerne, 24.18 Eröffnung → Gegner → Rest (Kerntest: 1,8 s / 3,0 s / 8,6 s). Build folgt.
 
 
 ## Rückfragen an den Nutzer
