@@ -4,6 +4,13 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 24.8, 24.8.4), getestet in 0.1.549, PR #37 (zusammengeführt 11.10., 23:13):
+
+**Jeder Ort klingt nach sich (24.8)**
+- Der Klang des Ortes setzt schon unter der Blende ein, vor dem Bild: draußen Wind, im Tempel leise Luft einer hohen Halle, in Häusern ab und zu knarrendes Holz, in der Höhle gleich ein Tropfen.
+- Schänke ohne Stimmengewirr, nur was die Anwesenden tun: Rowena wischt, schenkt ein, stellt Becher ab; Gäste stellen Becher ab, rücken den Stuhl, husten selten. Je drei Fassungen aus echten Aufnahmen (CC0), in unregelmäßigen Abständen.
+- Werkzeuge (nur Entwicklung): Kerntest `PlaceSoundTest`, `tools/klang/orte.py`, Quellen in `tools/klang/QUELLEN.md`.
+
 Zweig von Jerry (Thema 28), getestet in 0.1.540, PR #36 (zusammengeführt 11.10., 21:31):
 
 **Musik aus echten Aufnahmen (28)**
