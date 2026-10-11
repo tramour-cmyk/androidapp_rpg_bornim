@@ -104,12 +104,18 @@ object MapFigure {
     /** Pictures are drawn with the feet in the middle, [H] − [GROUND] pixels above the bottom; a wider one (a raised torch) keeps that. */
     const val FOOT_BELOW = H - GROUND
 
-    private fun look(hero: Hero) = "${hero.race}/${hero.sex}/${hero.build}/${hero.skinTone}/${hero.hairTone}/${hero.cls}/${hero.bothHands()}/" +
+    /** Who the hero is, without the gear: a change of gear keeps it, another save game's hero does not (24.9). */
+    private fun who(hero: Hero) = "${hero.name}/${hero.race}/${hero.sex}/${hero.build}/${hero.skinTone}/${hero.hairTone}/${hero.cls}"
+
+    private fun look(hero: Hero) = "${who(hero)}/${hero.bothHands()}/" +
         GearSlot.entries.joinToString(",") { s -> hero.item(s)?.let { "${it.base}:${it.rarity}" } ?: "-" }
 
     private val cache = HashMap<String, PixelImage>()
     private var preparing: String? = null
-    /** The look before the last change of gear: its pictures stay until the new ones are all drawn (24.3). */
+    /**
+     * The look before the last change of gear: its pictures stay until the new ones are all drawn (24.3), but
+     * only for the same hero (24.9); another hero's pictures go at once.
+     */
     private var previous: String? = null
     /** Pictures of the [preparing] look still missing before the hero can stand and walk where he faces ([ready]). */
     @Volatile private var firstLeft = java.util.concurrent.atomic.AtomicInteger(0)
@@ -119,6 +125,9 @@ object MapFigure {
      * True while the black screen between places waits for the pictures (24.1): the drawing threads then run
      * at normal priority, else low, so the game never stutters for them.
      */
+    /** Tests only: the drawing threads wait while this is set. */
+    @Volatile internal var hold = false
+
     @Volatile var urgent = false
         set(v) { field = v; synchronized(workers) { for (t in workers) t.priority = priority() } }
 
@@ -148,15 +157,24 @@ object MapFigure {
      * brief pause, once). So the former little figure no longer shows while the doll is being drawn.
      */
     fun frameNow(hero: Hero, slot: Int, step: Int): PixelImage {
-        frame(hero, slot, step)?.let { return it }
-        // 24.3: after a change of gear the old pictures walk on until the new ones are drawn
-        synchronized(cache) { previous?.let { p -> cache["$p|$slot|${Math.floorMod(step, STEPS)}"] } }?.let { return it }
+        val l = look(hero)
+        val st = Math.floorMod(step, STEPS)
+        synchronized(cache) {
+            // 24.3/24.9: after a change of gear a direction walks on in the old gear until its whole walk is drawn
+            // in the new, so the two never take turns from step to step
+            if (!walks(l, slot)) previous?.let { p -> if (walks(p, slot)) cache["$p|$slot|$st"]?.let { return it } }
+            cache["$l|$slot|$st"]?.let { return it }
+            previous?.let { p -> cache["$p|$slot|$st"] }?.let { return it }
+        }
         frame(hero, slot, 0)?.let { return it }
         for (d in 1..2) for (s in listOf(slot - d, slot + d)) frame(hero, Math.floorMod(s, YAWS), 0)?.let { return it }
         val img = draw(hero, slot, 0)
         synchronized(cache) { cache["${look(hero)}|$slot|0"] = img }
         return img
     }
+
+    /** True when the whole walk of look [l] in direction [slot] is drawn; call holding the cache. */
+    private fun walks(l: String, slot: Int) = (0 until STEPS).all { "$l|$slot|$it" in cache }
 
     /** How many directions either side of where the hero faces are drawn walking first ([order]). */
     const val FIRST_SIDE = 2
@@ -190,7 +208,8 @@ object MapFigure {
         synchronized(cache) {
             if (preparing == l) return
             if (preparing != null && previous == null) previous = preparing
-            if (previous == l) previous = null
+            // 24.9: only the same hero in other gear walks on in the old pictures
+            if (previous == l || previous?.startsWith("${who(hero)}/") == false) previous = null
             preparing = l
             cache.keys.removeAll { !it.startsWith("$l|") && (previous == null || !it.startsWith("$previous|")) }
             firstLeft = left
@@ -200,6 +219,7 @@ object MapFigure {
         repeat(2) {
             val t = Thread {
                 while (true) {
+                    while (hold) Thread.sleep(5)
                     val i = next.getAndIncrement()
                     if (i >= jobs.size || synchronized(cache) { preparing != l }) break
                     val (s, st) = jobs[i]
@@ -221,6 +241,12 @@ object MapFigure {
             synchronized(workers) { workers += t }
             t.start()
         }
+    }
+
+    /** Tests only: draws one picture of [hero] into the store, as the drawing threads would. */
+    internal fun drawOne(hero: Hero, slot: Int, step: Int) {
+        val img = draw(hero, slot, step)
+        synchronized(cache) { cache["${look(hero)}|$slot|$step"] = img }
     }
 
     /** Draws every picture right away (previews and tests). */
