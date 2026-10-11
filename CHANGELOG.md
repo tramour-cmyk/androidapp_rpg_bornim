@@ -4,7 +4,9 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
-Zweig von Jerry (Thema 18 und Hörproben), PR #16, noch nicht getestet:
+## v0.1.479 – 11.10.2026, 11:35
+
+Zweig von Jerry (Thema 18 und Hörproben), getestet in 0.1.472, PR #16:
 
 **Kampf: Pechsträhnen dämpfen (18)**
 - Nach drei Fehlschlägen des Helden in Folge trifft der nächste Angriff unsichtbar etwas leichter (+2, je weiterer Fehlschlag +1, höchstens +4), bis er wieder trifft; nur innerhalb eines Kampfes.
