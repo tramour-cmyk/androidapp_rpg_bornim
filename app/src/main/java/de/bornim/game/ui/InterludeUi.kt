@@ -104,8 +104,11 @@ fun MapVeil(game: Game) {
     var look by remember { mutableStateOf<InterludeClock.Look?>(null) }
     var words by remember { mutableStateOf<Pair<String, String?>>("" to null) }
     var tapped by remember { mutableStateOf(false) }
+    // stays true from the start of a screen to its end, so the black holds while the memory above already moved on
+    var showing by remember { mutableStateOf(false) }
     LaunchedEffect(game, mapId) {
         if (!pending) return@LaunchedEffect
+        showing = true
         val from = if (VeilMemory.game === game) VeilMemory.map else null
         VeilMemory.game = game; VeilMemory.map = mapId
         val st = game.state; val map = game.map
@@ -129,11 +132,11 @@ fun MapVeil(game: Game) {
                 if (l.done) break
             }
         } finally {
-            MapFigure.urgent = false; VeilMemory.active = false; look = null
+            MapFigure.urgent = false; VeilMemory.active = false; look = null; showing = false
         }
     }
     val l = look
-    val veil = l?.veil ?: if (pending) 1f else 0f
+    val veil = l?.veil ?: if (pending || showing) 1f else 0f
     if (veil > 0f) InterludeVeil(
         words.first, words.second, veil, l?.words ?: 0f,
         Modifier.pointerInput(Unit) { detectTapGestures { tapped = true } },

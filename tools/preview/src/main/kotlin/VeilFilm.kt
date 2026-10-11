@@ -20,6 +20,7 @@ import java.io.File
  */
 fun veilFilm() {
     val vm = GameViewModel(Application())
+    vm.ensureLang(de.bornim.core.Lang.DE)
     vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
     val g = vm.game!!
     var guard = 0
@@ -43,15 +44,17 @@ fun veilFilm() {
         }
     }
     run("1start", 4_400)
+    println("start: ${g.state.place.map}, mode ${g.mode::class.simpleName}")
     for ((tag, place) in listOf(
         "2gasthaus" to Place("inn", 5, 6, Facing.UP),
         "3dorf" to Place("village", 6, 7, Facing.DOWN),
         "4gasthaus" to Place("inn", 5, 6, Facing.UP),
         "5wald" to Place("forest", 10, 20, Facing.UP),
     )) {
+        g.skipDialogs()
         g.cheatWarp(place)
         vm.refresh()
-        println("$tag at picture $n")
+        println("$tag at picture $n: ${g.state.place.map}, mode ${g.mode::class.simpleName}")
         run(tag, 4_400)
     }
     scene.close()

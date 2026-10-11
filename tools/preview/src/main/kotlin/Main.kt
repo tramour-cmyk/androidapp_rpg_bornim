@@ -39,7 +39,7 @@ private fun GameViewModel.ensureLang(l: Lang) {
     if (lang != l) toggleLang()
 }
 
-private fun Game.skipDialogs() {
+internal fun Game.skipDialogs() {
     var guard = 0
     while (mode is Mode.Dialog && guard++ < 50) advance()
 }
