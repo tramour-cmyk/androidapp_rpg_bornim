@@ -152,6 +152,20 @@ class RoamerTest {
     }
 
     @Test
+    fun bringPlacesEveryMonsterNearbyAndCalm() {
+        for (m in Monsters.all) {
+            val g = forestGame()
+            (g.roamers as MutableList<Roamer>).clear()
+            assertEquals(1, g.cheatBring(listOf(m.id), calmMs = 120_000), m.id)
+            val r = g.roamers.single()
+            val p = g.state.place
+            assertEquals(m.id, r.monster)
+            assertTrue(kotlin.math.abs(r.x - p.x) + kotlin.math.abs(r.y - p.y) in 3..5, m.id)
+            assertTrue(r.calmUntil > 0, m.id)
+        }
+    }
+
+    @Test
     fun bringPacksPlacesWolfAndGoblinNearby() {
         val g = forestGame()
         (g.roamers as MutableList<Roamer>).clear()

@@ -868,7 +868,13 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
      * Test (9f): a wolf with its young and a goblin with its scout, three to five steps from the hero on free ground,
      * to watch them go about. Returns how many leaders were placed (the map may have no room).
      */
-    fun cheatBringPacks(): Int {
+    fun cheatBringPacks(): Int = cheatBring(listOf("wolf", "goblin"))
+
+    /**
+     * Test (9i): [monsters] three to five steps from the hero on free ground, each with its pack. With [calmMs] they
+     * leave the hero alone that long, so they can be watched walking and standing about. Returns how many were placed.
+     */
+    fun cheatBring(monsters: List<String>, calmMs: Long = 0): Int {
         val herd = herd()
         val p = state.place
         val spots = ArrayList<Pair<Int, Int>>()
@@ -882,11 +888,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
         spots.shuffle(roamRandom)
         var placed = 0
-        for (monster in listOf("wolf", "goblin")) {
+        for (monster in monsters) {
             val spot = spots.firstOrNull { s -> herd.none { kotlin.math.abs(it.x - s.first) + kotlin.math.abs(it.y - s.second) < 3 } } ?: break
             herd += Roamer(nextRoamerUid++, monster, spot.first, spot.second, spot.first, spot.second, null, false, MonsterLook(roamRandom.nextInt())).also {
                 it.facing = Facing.entries[roamRandom.nextInt(4)]
                 it.nextMoveAt = now + 800
+                if (calmMs > 0) it.calmUntil = now + calmMs
             }
             placed++
         }
