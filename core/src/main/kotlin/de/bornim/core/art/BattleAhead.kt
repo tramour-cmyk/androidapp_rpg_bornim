@@ -110,6 +110,9 @@ object BattleAhead {
         }
     }
 
+    /** The hero's opening of a fight not struck from behind: facing us, turning to the foe, standing. */
+    private val OPENING = listOf(Act.INTRO, Act.TURN, Act.IDLE)
+
     private fun stale() = System.currentTimeMillis() - seenAt > STALE_MS
 
     private sealed interface Job
@@ -149,11 +152,10 @@ object BattleAhead {
             fun gone() = stale() || busy()
             when (job) {
                 is Opening -> {
-                    var opened = false
-                    HeroBattle.prepare(job.hw.hero, job.foe, false, job.hw.pick, onOpening = { opened = true }) {
-                        (opened || gone() || synchronized(lock) { heroWant !== job.hw }).also { if (!it) drawn++ }
-                    }
-                    if (opened) synchronized(lock) { if (heroWant === job.hw) openingDone = job.hw }
+                    // only the opening's own frames: the whole plan would first work out where every blow lands (24.20)
+                    val stop = { gone() || synchronized(lock) { heroWant !== job.hw } }
+                    for (act in OPENING) HeroBattle.prepareAct(job.hw.hero, act, Strike.SLASH, 0) { stop().also { if (!it) drawn++ } }
+                    if (!stop() && OPENING.all { HeroBattle.actReady(job.hw.hero, it) }) synchronized(lock) { if (heroWant === job.hw) openingDone = job.hw }
                 }
                 is FoeFrames -> {
                     var stopped = false
