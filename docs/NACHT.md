@@ -20,6 +20,7 @@ Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`.
 ### Feste Weck-Sitzungen (seit 11.10., 11:10)
 
 Letzter Test der Weck-Sitzung (Tom): 11.10., 11:27 Berlin, Push ok, Repo als Quelle: ja (angehängt per add_repo: nein)
+Letzter Test der Weck-Sitzung (Jerry): 11.10., 11:40 Berlin, Push ok, Repo als Quelle: ja, Freigaben ohne Rückfrage: ja
 
 **Ursache 10./11.10.:** Die Weck-Sitzungen konnten klonen und lesen, aber nicht pushen: Eine geplante Aufgabe, die von einer Sitzung aus angelegt wird, bekommt **kein Repo als Quelle** mit („not in this session's authorized repository set“). Darum endeten alle drei nach unter einer Minute.
 
