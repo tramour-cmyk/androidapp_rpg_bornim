@@ -17,7 +17,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; nach 13 |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
-| 18 | Klänge neu: Hörproben (18d) und Monster-Laute (18e) abgelehnt 11.10., 12:10 („klingt wie Pokémon“) | Jerry | – | 18.5 echte Aufnahmen (CC0): `hoerproben_18_echt.zip` (Runde 1, Wolf, Goblin, Skelett) 12:27 beim Nutzer; Werkzeug noch im Notizblock der Sitzung |
+| 18 | Klänge neu aus echten Aufnahmen (CC0) | Jerry | – | 18g Rückmeldung 12:44: „deutlich besser“; Level-up Nr. 1; Umweltklänge je ≥3, Systemklänge nur einer. Vorschlag 18.7 (einbauen), Rückfrage 18h |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
@@ -43,7 +43,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Rückfragen an den Nutzer
 
-- **18g** (Jerry): Hörproben `hoerproben_18_echt.zip` (echte Aufnahmen): welche je Klang, Richtung passt?
+- **18h** (Jerry): Welche Klänge sind Systemklänge (nur eine Fassung)? Vorschlag: Stufenaufstieg, Klick, epische Beute, Kampfbeginn, Held fällt. Dann 18.7: Runde 1 und Monster-Laute ins Spiel, danach Runde 2 und übrige Gegner.
 
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). Empfehlung: festlegen, wenn die Räume fertig sind.
