@@ -37,10 +37,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Als Nächstes 24.1:** Blende in der App (Zeiten aus `ZWISCHENBILD.md`, 24i Kurzfassungen, Antippen überspringt, wartet auf `MapFigure.ready` + Boden nahe Held + Leute stehend, höchstens ca. 4 s; `urgent = true` solange sie steht), Anzeige „bereit nach X s“ im Test-Reiter; Kerntest für den Zeitablauf. Dann 24.5 (Kampfbilder vorladen, wenn ein Gegner bemerkt), 24.6 (Kampferöffnung wartet). Messung 16:36: Held Karte 128 Bilder 2,2 s, Kampf-Held 313 Bilder 10,9 s, Boden Wald/Höhle 3,3/5,8 s (Rechner, 4 Kerne).
 - Danach 5l/5.5 Leben im Dorf (erst Standbilder), 5.3, 5.4; 17.
 
-### Jerry (11.10., 16:43)
+### Jerry (11.10., 17:02)
 
-- 18k getestet, PR #27 zusammengeführt (16:08). **9i** auf `claude/brave-wright-pmcy0i`, Entwurfs-PR #29 (abonniert): 9 Arten auf der Karte; `FOECLASH=1` prüft jetzt auch die Karte (841 → 0, Waffe weiter vom Bein, Stab senkrecht). Zweig-Build zu melden.
-- Weiter 9i: Gang und Ruhe für die 5 Kriechtiere/Flieger (`VerminArt`), dann Musterblatt. **24:** Toms Format `Interlude.kt` (Zweig `claude/adoring-franklin-cqhg5a`, Commit b2c5f07) geprüft: `openings` je `Start`, `foes` je Monster-ID als `T`; Jerry füllt (auch 7 übrige Gegner, EN). Grak Satz 5 braucht Bedingung (`foes` hat keine `Line`) → mit Tom klären oder weglassen.
+- **9i** auf `claude/brave-wright-pmcy0i`, Entwurfs-PR #29 (abonniert): 9 Arten auf der Karte, 0.1.516 getestet (17:00). Dazu **9i.1** Testmenü „Antippen: neben den Helden holen“ (`Game.cheatBring`, 2 min friedlich); Build läuft, Nutzer testet kurz (9i.1 a), dann PR aus Entwurf holen, zusammenführen, „Unveröffentlicht“ ergänzen.
+- Weiter: 9i Rest (Gang/Ruhe für Spinne, Hundertfüßer, Fledermaus, Stirge, Gallerte, `VerminArt`); **24** Kampfsätze in Toms `Interlude.kt` (Zweig `claude/adoring-franklin-cqhg5a`), Grak Satz 5 braucht Bedingung (mit Tom klären), knapper Kampftext `Battle.kt:1117`; 28 Musik.
 
 ## Zu testen
 
