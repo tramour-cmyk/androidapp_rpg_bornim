@@ -44,6 +44,7 @@ Tom: Leute auf der Karte, Dorf und Innenr채ume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
+- **0.1.518** (Jerry, 9i.1, PR #29, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38149434877/artifacts/11705732042)): Testmen체 holt Monster neben den Helden.
 - **0.1.517** (Tom, 24.2/24.3, `claude/adoring-franklin-cqhg5a`, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38148748724/artifacts/11706081511)): Held l채uft nach Spielstart schneller richtig; nach Ausr체stungswechsel l채uft er mit alter Ausr체stung weiter statt zu gleiten.
 
 ## R체ckfragen an den Nutzer
