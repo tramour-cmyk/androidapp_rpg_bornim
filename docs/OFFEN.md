@@ -20,7 +20,6 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | – | 18.7 auf `main` (v0.1.494). Als Nächstes Runde 2 (17 Klänge) und Stimmen der übrigen Gegner, erst Hörproben |
 | 20 | Uhrzeit der APK im ZIP 2 h zu früh (ZIP speichert Ortszeit ohne Zone, Runner läuft in UTC) | Tom | `claude/beautiful-feynman-ta7v9p`, PR #21 | 20a ja (13:00): `TZ=Europe/Berlin` beim Hochladen, Build läuft, Prüfung am ZIP |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
-| 21 | Releaseflut eindämmen | Jerry | `claude/session-start-l65s4j`, PR #22 | 21.1, 21.4 im Workflow (PR #22, wartet auf Freigabe); 21.5 und neue Release-Regel kommen nach dem Zusammenführen in `CLAUDE.md` |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
@@ -32,11 +31,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Als Nächstes:** Grundriss A von Ältestem, Laden und Tempel ins Spiel (unter dem Schalter „Dorf und Räume“), Tempelwände Stein, Kerntest (Held erreicht Person und Tür), Zweig-Build. Dann 17, dann 14.
 - Feste Weck-Routinen für Tom eingerichtet und getestet (`docs/NACHT.md`).
 
-### Jerry (11.10., 12:43)
+### Jerry (11.10., 13:29)
 
-- `main` = v0.1.483 (12.3b, 12.3c; PR #18 zusammengeführt). Kein offener Zweig.
-- 18: Hörproben aus echten Aufnahmen (CC0) beim Nutzer (`hoerproben_18_echt.zip`, Rückfrage 18g). Werkzeug (Python: `klang.py`, `recipes.py`) liegt nur im Notizblock dieser Sitzung; bei Zusage als `tools/klang/` in einen eigenen Zweig, Dateien nach `app/src/main/assets`.
-- Als Nächstes: 18 nach Rückmeldung; 9i nach Toms 13; 10, 11 nach 13e. Feste Weck-Routinen 00:27, 03:17, 05:57.
+- `main`: v0.1.494 veröffentlicht (18.7 Klänge); danach PR #22 (21) zusammengeführt. Kein offener Zweig.
+- **Hinweis an Tom (21):** Seit PR #22 erzeugt Zusammenführen auf `main` kein Release mehr; Release nur auf Zuruf des Nutzers, und vor jedem Zweig-Build `main` in den Zweig holen. Regeln in `CLAUDE.md` („Release nur auf Zuruf“).
+- Als Nächstes: 18 Runde 2 (17 Klänge) und Stimmen der übrigen Gegner, erst Hörproben (`tools/klang`, Aufnahmen mit `tools/klang/holen.sh`); 9i nach Toms 13; 10, 11 nach 13e.
 - APK in den Chat: Release `gh api -H "Accept: application/octet-stream" repos/tramour-cmyk/androidapp_rpg_bornim/releases/assets/<id>`; Zweig-Artefakt `gh api repos/…/actions/artifacts/<id>/zip`.
 
 ## Zu testen

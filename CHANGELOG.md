@@ -4,6 +4,9 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+**Ablauf (21, nur Entwicklung, PR #22)**
+- Zusammenführen auf `main` veröffentlicht kein Release mehr; Releases nur noch auf Zuruf. Pull Requests werden nicht mehr doppelt gebaut.
+
 ## v0.1.494 – 11.10.2026, 13:20
 
 Zweig von Jerry (Thema 18), getestet in 0.1.486, PR #19:

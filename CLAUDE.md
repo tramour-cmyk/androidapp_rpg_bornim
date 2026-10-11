@@ -56,7 +56,7 @@ Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md
 - Erst besprechen und vorschlagen; vor großen optischen Änderungen Entwürfe zeigen. Keine Bildfolgen (Filmstreifen) an den Nutzer, nur Standbilder.
 - Änderungen an Kampf, Bewegung oder Effekten selbst durch die echte Oberfläche filmen und die Bildfolge ansehen (Werkzeuge: Tabelle der Vorschau-Schalter in `docs/UMGEBUNG.md`). Vor jedem Commit von Code `./gradlew -p core test`.
 - Filme sparsam (Wunsch des Nutzers, 09.10.): Logik (Zeiten, Regeln, Abläufe) mit Kerntests prüfen, die in Sekunden laufen; filmen nur, wenn sich eine Bewegung sichtbar ändert. Beim Filmen nur die gespeicherten Bilder zeichnen, mit `CROP=` nur den Ausschnitt speichern und ereignislose Zeit mit `FROM=` überspringen (`WALKFILM`, `IDLEFILM` in `tools/preview`).
-- Änderungshistorie: neue Einträge unter „## Unveröffentlicht“, bei Veröffentlichung umbenannt in „## v0.1.X – TT.MM.JJJJ, HH:MM“ (X = Nummer des Build-Laufs).
+- Änderungshistorie: neue Einträge unter „## Unveröffentlicht“ (auch beim Zusammenführen eines PR), erst beim Release umbenannt in „## v0.1.X – TT.MM.JJJJ, HH:MM“ (X = Nummer des Release-Laufs).
 - Weniger Rückfragen zur Freigabe von Aktionen steuert der Freigabe-Modus im Eingabefeld der App (Manuell/Automatisch), nicht der Code.
 - Vor dem Commit das Testergebnis prüfen (`set -o pipefail` bzw. Exit-Code), nicht nur die gefilterte Ausgabe.
 - Vor einer längeren Pause schreibt die Sitzung eine kurze Übergabe in ihren Abschnitt von `docs/OFFEN.md`: Stand, Offenes, offene Rückfragen.
@@ -73,7 +73,9 @@ Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md
 - Commits mit `git -c user.name="tramour" -c user.email="tramour@gmail.com" commit …`, mit den vom System vorgegebenen Co-Author- und Sitzungszeilen. Keine Modellbezeichnungen in Dateien.
 - Keine Verlaufsänderung, kein Force-Push. Kein Code auf `main` ohne Test des Nutzers; Code auf eigenen Zweigen.
 - Offene Änderungen am Ende einer Arbeit committen und pushen.
-- Ein Push von Code auf `main` erzeugt ein Release (Version 0.1.<Laufnummer>); ein Zweig-Build muss eine höhere Laufnummer als das installierte Release haben, sonst lässt er sich nicht installieren.
+- **Release nur auf Zuruf** (Regel 11.10., Thema 21): Ein Push von Code auf `main` baut nur eine APK (Artefakt), kein Release. Ein Release entsteht erst, wenn der Nutzer „Release“ sagt: `gh workflow run android.yml -R tramour-cmyk/androidapp_rpg_bornim --ref main -f release=true` (Version 0.1.<Laufnummer>, Notizen aus „## Unveröffentlicht“ in `CHANGELOG.md`); danach die Überschrift in `## v0.1.X – TT.MM.JJJJ, HH:MM` umbenennen und das Release mit APK in den Chat. Zusammengeführte PRs kommen bis dahin unter „## Unveröffentlicht“.
+- **Vor jedem Zweig-Build `main` in den Zweig holen** (Regel 11.10., 21.5): `git fetch origin main && git merge origin/main` (zusammenführen, nie Verlaufsänderung), Kerntests, dann pushen. So enthält jede Test-APK alles bereits Freigegebene des anderen.
+- Ein Zweig-Build muss eine höhere Laufnummer als das installierte Release haben, sonst lässt er sich nicht installieren (Zweig-Builds sind immer neuer als das letzte Release).
 
 ## Testen
 
