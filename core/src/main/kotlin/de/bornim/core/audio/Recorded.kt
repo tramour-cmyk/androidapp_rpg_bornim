@@ -10,6 +10,10 @@ object Recorded {
     val TAKES: Map<Sound, Int> = mapOf(
         Sound.CLICK to 1, Sound.LEVEL_UP to 1, Sound.LOOT_EPIC to 1,
         Sound.LOOT to 3, Sound.COINS to 3, Sound.CHEST to 3, Sound.DOOR to 3, Sound.ENEMY_DOWN to 3,
+        // second round (18f): the world, the fight, spells and draughts, the ambience
+        Sound.ENCOUNTER to 1, Sound.ALERT to 3, Sound.AMBUSH to 3, Sound.HERO_DOWN to 3,
+        Sound.FIRE to 3, Sound.MAGIC to 3, Sound.HOLY to 3, Sound.BUFF to 3, Sound.HEAL to 3, Sound.POISON to 3, Sound.POTION to 3, Sound.THROW to 3,
+        Sound.BIRD to 3, Sound.CRICKET to 3, Sound.OWL to 3, Sound.DRIP to 3, Sound.CRACKLE to 3,
     )
 
     /** The asset path of take [take] (from 0) of [s]. */

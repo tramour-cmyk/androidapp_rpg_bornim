@@ -23,3 +23,31 @@ Alle Aufnahmen stehen unter **CC0 1.0** (gemeinfrei, kommerzielle Nutzung erlaub
 | `goblin_*` (außer unten) | goblin-1, -3, -8, -9, -10, -12, -15 | artisticdude, Goblins Sound Pack | https://opengameart.org/content/goblins-sound-pack |
 | `goblin_angriff_2`, `goblin_tod_2` | zombieYell1, zombieDeath1 | arcadeparty, Zombie / Skeleton / Monster Voice Effects | https://opengameart.org/content/zombie-skeleton-monster-voice-effects |
 | `skeleton_*` | bones rattle 0–9 (abgeleitet von freesound 249319 „blukotek“, ebenfalls CC0) + wood_hit, wood_cracking, wood_falling (rubberduck), breath (rubberduck), bfh1_wood_falling (rubberduck), wet_towel (qubodup) | congusbongus, Bones rattle; rubberduck | https://opengameart.org/content/bones-rattle |
+
+## Runde 2 (Hörproben, noch nicht im Spiel)
+
+Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Freesound-Aufnahmen werden als Vorschau (128 kbit/s) geladen; die Lizenz gilt für die Aufnahme.
+
+| Klang | Aufnahme(n) | Urheber, Paket | Quelle |
+|---|---|---|---|
+| `encounter`, `alert`, `ambush`, `hero_down`, `holy`, `buff` (Teile), `throw`, `potion` (Teile) | drawKnife, impactMetal/Wood/Bell/Punch/Glass, footstep_grass, cloth, chain, gong, bell, stones, wood_cracking/breaking, creature_roar, humanDeath, wet_towel, bfh1_*, glass, splash | Kenney (RPG Audio, Impact Sounds); rubberduck (100 CC0 SFX, 100 CC0 metal and wood, 80 CC0 RPG SFX, 80 CC0 creature SFX, 75 CC0 breaking/falling); arcadeparty; qubodup | wie oben |
+| `fire` | spell_fire_02, _05 (rubberduck, 80 CC0 RPG SFX); flame_0 | themightyglider, Catching fire | https://opengameart.org/content/catching-fire |
+| `fire` | LEGIT_FIR_Fire_Staff 1 | legit-audio, Fire Staff Sound Effects | https://opengameart.org/content/fire-staff-sound-effects |
+| `magic`, `buff`, `holy` | magical_1–7 | jaggedstone, Magic Spell SFX | https://opengameart.org/content/magic-spell-sfx |
+| `magic` | fout-02 | qubodup, 3 dark magic spells | https://opengameart.org/content/3-dark-magic-spells |
+| `magic` | qubodup-PowerDrain | qubodup, Energy Drain | https://opengameart.org/content/energy-drain |
+| `holy`, `buff` | ethereal_chant Subclip 01, 05, 08 | owlishmedia, Creepy incoherent chanting | https://opengameart.org/content/creepy-incoherent-chanting |
+| `heal` | healing | haeldb, Spell sounds (CC0 oder OGA-BY, hier CC0) | https://opengameart.org/content/spell-sounds |
+| `poison`, `potion`, `throw` | burble, bubble, slime, spit, loop_bubbles, loop_water, splash | rubberduck, 80 CC0 creature SFX / 40 CC0 water, splash, slime SFX | https://opengameart.org/content/40-cc0-water-splash-slime-sfx |
+| `potion` | vial-glass-round-uncork, bottle-clay-uncork, bottle-glass-uncork, vial-glass-small-drop | vehicle, Fantasy Accessory SFX Library | https://opengameart.org/content/fantasy-accessory-sfx-library |
+| `bird` | Forest Birds 1, 4, 6 | pauliuw, Forest Bird Sounds | https://opengameart.org/content/forest-bird-sounds |
+| `cricket` | Crickets At Night – Raw sound (522299) | Defelozedd94, Freesound | https://freesound.org/people/Defelozedd94/sounds/522299/ |
+| `cricket` | cricketsounds090613 | syncopika, Cricket sounds | https://opengameart.org/content/cricket-sounds |
+| `owl` | Owl Hoot (465697) | Breviceps, Freesound | https://freesound.org/people/Breviceps/sounds/465697/ |
+| `owl` | owl_hooting (558396, 558398) | Gerent, Freesound | https://freesound.org/people/Gerent/sounds/558396/ , https://freesound.org/people/Gerent/sounds/558398/ |
+| `drip` | atmosbasement | qubodup, Dripping water loop | https://opengameart.org/content/dripping-water-loop |
+| `drip` | Water drops with reverb (696438) | Patrick_Corra, Freesound | https://freesound.org/people/Patrick_Corra/sounds/696438/ |
+| `drip` | Water Drop 01, 02 (348022, 349873) | LilMati, Freesound | https://freesound.org/people/LilMati/sounds/348022/ , https://freesound.org/people/LilMati/sounds/349873/ |
+| `crackle` | Fire Crackling 01 (181563) | kingsrow, Freesound | https://freesound.org/people/kingsrow/sounds/181563/ |
+| `crackle` | fire-crackling (370938) | jmehlferber, Freesound | https://freesound.org/people/jmehlferber/sounds/370938/ |
+| `crackle` | fire-1 | antumdeluge, Fire Crackling | https://opengameart.org/content/fire-crackling |

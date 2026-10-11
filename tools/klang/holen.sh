@@ -12,6 +12,18 @@ for f in 100-CC0-SFX_0.zip 100-CC0-wood-metal-SFX.zip 80-CC0-RPG-SFX_0.zip sfx_b
          dog-growl.ogg goblins_0.zip "Voice%20Effects%20Zombie-Skeleton-Monster%20Human%20Male.zip" bones_rattle.zip; do
     get "$O/$f" "$(echo "$f" | sed 's/%20/_/g')"
 done
+# Runde 2 (Welt, Zauber, Tränke, Umgebung)
+for f in magical_1_0.ogg magical_2.ogg magical_3.ogg magical_4.ogg magical_5.ogg magical_6_0.ogg magical_7_0.ogg dark_magic.7z flame_0.ogg \
+         water-splash-slime-sfx.zip qubodup-PowerDrain.7z healing.ogg forest_birds.7z birdchirping071414.wav cricketsounds090613.wav \
+         fire-1.wav atmosbasement.mp3_.flac Creepychanting.zip; do
+    get "$O/$f" "$f"
+done
+# Freesound: Vorschau (128 kbit/s) der CC0-Aufnahmen; der Server lehnt zu schnelle Abrufe ab, daher Pause
+for p in 465/465697_9159316 558/558396_556505 558/558398_556505 696/696438_8711646 348/348022_6142149 349/349873_6142149 181/181563_1857065 \
+         370/370938_6621799 522/522299_9084007; do
+    f="fs_$(basename "$p" | cut -d_ -f1).mp3"
+    [ -s "$f" ] || { curl -sSfL -m 120 -A "Mozilla/5.0" -o "$f" "https://cdn.freesound.org/previews/$p-hq.mp3"; sleep 3; }
+done
 python3 -m pip -q install py7zr numpy scipy soundfile >/dev/null 2>&1 || true
 for z in *.zip; do d="x_${z%.zip}"; [ -d "$d" ] || { mkdir -p "$d"; unzip -qo "$z" -d "$d"; }; done
 for z in *.7z; do d="x_${z%.7z}"; [ -d "$d" ] || { mkdir -p "$d"; python3 -I -m py7zr x "$z" "$d"; }; done
