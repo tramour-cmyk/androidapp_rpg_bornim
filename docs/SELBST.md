@@ -69,7 +69,7 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 
 ## Tom
 
-**Vorrat für Selbstarbeit** (Reihenfolge; 23a freigegeben 11.10., 14:20):
+**Vorrat für Selbstarbeit** (Reihenfolge; 23a freigegeben 11.10., 14:18):
 1. **5.3 Dorfbewohner als Puppen** (die 12 aus dem Entwurf `VILLAGEDRAFT`, Aldric mit Stock) auf die Karte, mit Ruhebewegungen. Fertig, wenn: Sprungtest 0, Kerntest (jede Person erreichbar), Standbilder.
 2. **5.4 Dorf lebendig:** Fenster leuchten nachts (auch Ostseiten), Rauch aus den Schornsteinen, Pflaster ruhiger, Heilkräuter neu. Fertig, wenn: Standbilder Tag/Abend/Nacht.
 3. **17 Nachschwingen** als Entwurf. Fertig, wenn: Sprungtest 0, Standbilder Stehen↔Gehen↔Drehen.
@@ -92,7 +92,7 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 3. **9i Übrige Gegner auf der Karte**, nur als Entwürfe (Standbilder mit Uhrzeit, alle Blickrichtungen). Fertig, wenn: Sprungtest und Kollisionsprüfung 0, Musterblatt.
 
 4. **13e Höhle diagonal**, danach **10, 11** (Flammen, Lichtstrahl), erst Entwürfe (Absprache mit Tom in `OFFEN.md`, 13e).
-5. **Schritte je Untergrund** (Idee 9), Hörproben (23a, 11.10., 14:20).
+5. **Schritte je Untergrund** (Idee 9), Hörproben (23a, 11.10., 14:18).
 6. **Raumklang** (Idee 8), Hörproben.
 7. **Rudelwölfe beißen ins Leere** (Fehler 08.10., Merkliste), mit Film.
 8. **Musik in Schichten** (Idee 10), Hörproben.
