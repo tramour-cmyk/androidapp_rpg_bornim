@@ -10,18 +10,26 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|
-| Tom | läuft | 10.10., 22:25 | 10.10., 23:09 | Paket 3 (17 Nachschwingen) als Nächstes; 1 und 2 fertig, Übergabe in OFFEN | `tom-diagonal` |
+| Tom | – (Nacht 10./11. beendet, Paket 3 und 4 offen, siehe OFFEN) | – | 11.10., 11:10 | – | `tom-diagonal` |
 | Jerry | fertig | 10.10., 22:21 | 10.10., 22:29 | Paket und Reserve fertig, Morgenbericht in `docs/OFFEN.md` | `claude/wizardly-ramanujan-7rocwj` (PR #16) |
 
 Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`.
 
 ## Ablauf
 
+### Feste Weck-Sitzungen (seit 11.10., 11:10)
+
+**Ursache 10./11.10.:** Die Weck-Sitzungen konnten klonen und lesen, aber nicht pushen: Eine geplante Aufgabe, die von einer Sitzung aus angelegt wird, bekommt **kein Repo als Quelle** mit („not in this session's authorized repository set“). Darum endeten alle drei nach unter einer Minute.
+
+**Jetzt fest eingerichtet (Tom):** drei tägliche Routinen „Tom Nachtarbeit 00:24 / 03:14 / 05:54“ (Berliner Zeit). Sie arbeiten nur, wenn in der Tabelle oben die Zeile „Tom“ auf `läuft` oder `wartet auf Grenze` steht und unten ein Paket für Tom eingetragen ist; sonst beenden sie sich sofort (kostet fast nichts). Fehlt das Schreibrecht, hängen sie das Repo selbst mit `add_repo` an.
+- **Einmal vom Nutzer einzustellen** (am PC im Browser, claude.ai): in jeder der drei Routinen das Repository `tramour-cmyk/androidapp_rpg_bornim` auswählen und die Freigabe auf automatisch stellen. Anleitung im Chat vom 11.10., 11:10.
+- Abends also **keine neuen Weck-Sitzungen anlegen**, nur Paket eintragen und Zeile auf `läuft` setzen. Jerry richtet für sich dasselbe in seinem Account ein.
+
 ### 1. Vor dem Schlafengehen (mit dem Nutzer, etwa 22:00)
 
 1. Alle offenen Rückfragen, die das Paket berühren, mit dem Nutzer klären. Was dann noch offen ist, entscheidet die Sitzung nachts selbst nach ihrer eigenen Empfehlung und schreibt das in den Morgenbericht.
 2. Nachtpaket in den eigenen Abschnitt unten eintragen: **Reihenfolge**, je Aufgabe **fertig wenn …** (messbar, z. B. „Sprungtest 0 Meldungen“) und **Reserve** (mehr, als eine Nacht schafft).
-3. **Weck-Sitzungen einrichten**, selbst, mit dem Werkzeug für geplante Aufgaben (`create_trigger`, einmalig mit `run_once_at`, je Zeitpunkt eine Aufgabe, `initiation: human_request`). Vorschlag: **00:30, 03:15, 06:00** (Berliner Zeit; in UTC umrechnen: −2 Stunden). Text der Aufgabe: siehe „Text für die Weck-Sitzung“ unten. Dem Nutzer melden, welche Aufgaben angelegt sind und welche Freigabe-Einstellung sie bekommen haben; lautet sie nicht „automatisch“, den Nutzer bitten, „Automatically approve“ in den Einstellungen der Aufgabe einzuschalten, sonst bleibt eine Weck-Sitzung nachts an der ersten Freigabe stehen.
+3. **Weck-Sitzungen** (nur falls die festen Routinen fehlen) einrichten, selbst, mit dem Werkzeug für geplante Aufgaben (`create_trigger`, einmalig mit `run_once_at`, je Zeitpunkt eine Aufgabe, `initiation: human_request`). Vorschlag: **00:30, 03:15, 06:00** (Berliner Zeit; in UTC umrechnen: −2 Stunden). Text der Aufgabe: siehe „Text für die Weck-Sitzung“ unten. Dem Nutzer melden, welche Aufgaben angelegt sind und welche Freigabe-Einstellung sie bekommen haben; lautet sie nicht „automatisch“, den Nutzer bitten, „Automatically approve“ in den Einstellungen der Aufgabe einzuschalten, sonst bleibt eine Weck-Sitzung nachts an der ersten Freigabe stehen.
 4. Zeile in „Stand heute Nacht“ auf `läuft` setzen, pushen, mit der ersten Aufgabe anfangen.
 
 ### 2. Während der Nacht
