@@ -66,7 +66,7 @@ Aus den Rückmeldungen des Nutzers bis 11.10. (Verlauf im [Archiv](ARCHIV.md)):
 
 - **Weg von quietschenden Chiptune- und Nintendo-Tönen, hin zu glaubwürdigen Geräuschen**: Stahl, Holz, Leder, Schritte, Feuer, Stimmen von Tieren.
 - **Systemklänge nur in einer Fassung** (Regel des Nutzers, 11.10.): Klänge, die etwas melden (Stufenaufstieg u. ä.), gibt es genau einmal, damit man sie sofort wiedererkennt. Alle übrigen (Umwelt, Kampf, Tiere, Dinge) haben mindestens drei Varianten.
-- **Echte Aufnahmen statt Synthese** (18, 11.10.): Grundlage sind CC0-Aufnahmen (Quellen und Lizenz je Datei festhalten); erzeugte Klänge nur, wo sich nichts findet.
+- **Echte Aufnahmen statt Synthese** (18, 11.10.): Grundlage sind CC0-Aufnahmen; nur Lizenzen, die kommerzielle Nutzung erlauben (Regel in `CLAUDE.md`), Quellen und Lizenz je Datei festhalten; erzeugte Klänge nur, wo sich nichts findet.
 - Mindestens drei Varianten je Geräusch, damit es nicht eintönig wird. Die Varianten sind echte Alternativen mit eigenem Charakter (z. B. Abwehr: Klonk auf Holz und Eisen, hölzernes Pochen, Klinge gegen Klinge), nicht nur dieselbe Aufnahme in anderer Tonhöhe. Im Spiel wird zufällig gewechselt.
 - Zu neuen oder geänderten Klängen gibt es Hörproben zum Vergleich (Vorschau: `SOUNDS=NAME,…`).
 - Was noch zu überarbeiten ist, steht in der Liste [Offen](OFFEN.md) unter „Geplant“.
