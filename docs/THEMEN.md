@@ -21,7 +21,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | erledigt 11.10. | Archiv |
 | 16 | Trefferstopp | Jerry | erledigt, v0.1.460 | Änderungshistorie |
 | 17 | Nachschwingen | Tom | freigegeben, offen | `OFFEN.md` |
-| 18 | Pechsträhnen dämpfen, Hörproben | Jerry | erledigt, v0.1.479; 18d, 18e (Hörproben) beim Nutzer | `OFFEN.md` |
+| 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | Jerry | Runde 2 auf `main` (PR #23, 11.10.); 18h, 18i offen | `OFFEN.md` |
 | 19 | Zeitablauf der Kampfbewegungen | Jerry | erledigt, v0.1.455; 19e zur Beobachtung | `OFFEN.md` |
 | 20 | Uhrzeit der APK im ZIP | Tom | erledigt 11.10. (PR #21) | `OFFEN.md` |
 | 21 | Releaseflut eindämmen | Jerry | erledigt 11.10. (PR #22; Release nur auf Zuruf, Regeln in `CLAUDE.md`) | `OFFEN.md` |

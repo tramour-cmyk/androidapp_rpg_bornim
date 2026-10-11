@@ -4,6 +4,12 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 18), getestet in 0.1.503, PR #23 (zusammengeführt 11.10., 14:38):
+
+**Weitere Klänge aus echten Aufnahmen (18 Runde 2)**
+- Kampfbeginn, Bemerkt, Hinterhalt, Held fällt, Feuer, Magie, Heilig, Heilung, Stärkung, Gift, Trank, Wurf, Vögel, Grillen, Eule, Tropfen und Knistern kommen aus CC0-Aufnahmen (Quellen: `tools/klang/QUELLEN.md`). Systemklänge in einer Fassung, die übrigen in drei.
+- Werkzeuge (nur Entwicklung): Rezepte `tools/klang/rezepte.py`; die Vorschau lässt sich wieder übersetzen.
+
 **Ablauf (21, nur Entwicklung, PR #22)**
 - Zusammenführen auf `main` veröffentlicht kein Release mehr; Releases nur noch auf Zuruf. Pull Requests werden nicht mehr doppelt gebaut.
 

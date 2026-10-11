@@ -18,7 +18,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; frei, seit 13 auf `main` ist |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 13e | Höhle diagonal (Phase 2 von 13: Orte aufteilen) | Jerry | – | 13e.1 ja (13:52): nach 18 Runde 2, erst Entwürfe. **Tom einverstanden (14:16).** Jerry: neue Datei `MapCaveIso.kt` und eine Zeile in `WorldArt.buildObjects` (wie Räume/Dorf). Nicht anfassen ohne Absprache: `WorldScreen.kt` (Sortierung, `hides`, `put`/`corner`, `Cam`), `MapSight`, `FreeWalk`, `MapRoomIso`, `MapTownIso`, `MapGround`. Vorlage: `MapTownIso` (`Tile1`, `plane`/`box`/`cylinder`, Tiefe `(tx+ty)*T+1.5T−1`, `corner = true`, `group` für Mehrfeld-Dinge) |
-| 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | `claude/eloquent-dirac-eg6m37`, PR #23 (Entwurf) | Runde 2 komplett eingebaut (18f, 18g). Zweig-Build 0.1.503 zu testen (14:28) |
+| 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | neu von `main` | Runde 2 getestet, auf `main` (PR #23, 14:38). Offen: **18h** Tropfen in der Höhle nicht zu hören, **18i** Feuerknistern setzt schlagartig ein statt allmählich (Nutzer 14:37) |
 | 22 | Selbstarbeit statt nur Nachtarbeit: Routinen alle 3 h, Vorrat und Liste „Für gemeinsame Zeit“ | Tom | `main` (Notizen), Routinen | 22a, 22b ja (13:31). `docs/SELBST.md` statt `NACHT.md`; Toms Routinen umgestellt (13:38); Nutzer: neue Routinen einstellen (Repo, automatisch). Jerrys Routinen umgestellt (13:44), Vorrat eingetragen |
 | 23 | Aufgaben so aufteilen, dass Tom und Jerry auch in Selbstarbeit genug Vorrat haben | Tom | `main` (Notizen) | 23a ja (14:18): je 8 Punkte im Vorrat (`docs/SELBST.md`), neue nur als Entwürfe/Hörproben. **Jerry:** deine Punkte 4–8 sind eingetragen |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
@@ -44,7 +44,6 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Zu testen
 
 - **0.1.504** (Tom, 5, PR #24, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38139887196/artifacts/11702945289)): 0.1.501 (positiv getestet) + Rauch aus den Schornsteinen. Nur Rauch prüfen, dann PR #24 zusammenführen.
-- **0.1.503** (Jerry, 18, PR #23, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38139097892/artifacts/11702370389)): alle 17 Klänge aus Aufnahmen; Prüfliste im Chat 14:28.
 
 – nichts offen –
 
