@@ -4,6 +4,11 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Übergabe Tom (11.10., 17:43), ersetzt 11.10., 18:12
+
+- **24.1 umgesetzt** auf `claude/funny-pasteur-6p41ao` (Commit fa8f917, `main` drin, Kerntests grün), Test-Build 0.1.527 ausgeliefert (17:43). `InterludeClock` (Kern: ganzer Satz / nur Name / Abdunkeln 0,3 s, höchstens 4 s, Antippen erst wenn gezeichnet; Kerntest `InterludeClockTest`), `InterludeUi.kt` (`InterludeVeil`, `MapVeil(game, mapId)`, `VeilMemory`; ersetzt `MapBanner`; Held läuft hinter der Blende nicht), `MapGround.readyNear`, `MapFolk.standing`, Test-Reiter „Blende: bereit nach X s“; erster Besuch = Flag `seen:<map>`. Vorschau `BLENDE=1` (Standbild), `BLENDEFILM=1` (Film Start, Dorf, Schänke, Wald; angesehen 17:38).
+- **Als Nächstes:** Build melden (Link, APK, Prüfliste), nach Test PR erstellen und zusammenführen; dann 24.5 (Kampfbilder vorladen, wenn ein Gegner bemerkt), danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
+
 ## Übergabe Tom (11.10., 16:57), ersetzt 11.10., 17:43
 
 - **24** (Zweig `claude/adoring-franklin-cqhg5a` erledigt; 24.1 auf neuem Zweig von `main`): `Interlude.kt` (Datenformat, Ortssätze DE/EN, Kerntest `InterludeTest`; Jerry füllt `openings`/`foes`), 24.2/24.3 in `MapFigure` (`order`, zwei Fäden, `urgent`, `ready`, `previous` für alte Ausrüstung; Kerntest `MapFigurePrepareTest`). 0.1.517 getestet, PR #30 zusammengeführt (17:08); `Interlude.kt` damit auf `main` (Jerry: Zweig von `main`).

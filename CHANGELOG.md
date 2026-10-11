@@ -4,6 +4,13 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Tom (Thema 24.1), getestet in 0.1.527, PR #32 (zusammengeführt 11.10., 18:11):
+
+**Blende beim Spielstart und Ortswechsel (24.1)**
+- Beim Spielstart und bei jedem Kartenwechsel ein dunkler Zwischenbildschirm: beim ersten Besuch Ortsname und ein Satz, später nur der Name, bei Türen im Dorf nur ein kurzes Abdunkeln. Er bleibt, bis Held, Boden und Leute gezeichnet sind, höchstens etwa 4 s; Antippen überspringt ihn, sobald alles gezeichnet ist. Ersetzt das Namensschild oben links.
+- Gemessen am Handy (bereit nach): Wald → Höhle 0,4 s, Wald → tiefer Wald 0,1 s, Dorf → Wald 0,0 s.
+- Werkzeuge (nur Entwicklung): Kerntest `InterludeClockTest`, Test-Reiter „Blende: bereit nach X s“, Vorschau `BLENDE=1`, `BLENDEFILM=1`.
+
 Zweig von Jerry (Thema 24, Teil), PR #31 (zusammengeführt 11.10., 17:27, ohne Test auf dem Handy, nichts sichtbar):
 
 **Kampfsätze für den Zwischenbildschirm (24)**

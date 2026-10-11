@@ -21,7 +21,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 22 | Selbstarbeit statt nur Nachtarbeit: Routinen alle 3 h, Vorrat und Liste „Für gemeinsame Zeit“ | Tom | `main` (Notizen), Routinen | 22a, 22b ja (13:31). `docs/SELBST.md` statt `NACHT.md`; Toms Routinen umgestellt (13:38); Repo und Vollzugriff vom Nutzer eingestellt (bestätigt 16:38, 8 Routinen aktiv). Jerrys Routinen umgestellt (13:44), Vorrat eingetragen |
 | 23 | Aufgaben so aufteilen, dass Tom und Jerry auch in Selbstarbeit genug Vorrat haben | Tom | `main` (Notizen) | 23a ja (14:18): je 8 Punkte im Vorrat (`docs/SELBST.md`), neue nur als Entwürfe/Hörproben. **Jerry:** deine Punkte 4–8 sind eingetragen |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
-| 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik); Jerry (Inhalt) | – | 24a–k ja (16:32), Entwurf [`ZWISCHENBILD.md`](ZWISCHENBILD.md). **Tom:** Messen, 24.2/24.3, Blende für Orte und Kämpfe (24.1 + Mechanik 24.7), 24.5, 24.6; 24.2/24.3 und Datenformat `core/.../Interlude.kt` auf `main` (PR #30, 17:08); **Jerry:** `openings` und `foes` auf `main` (PR #31, 17:27). Knapper Kampftext in `Battle.kt` erst mit 24.6 (Nutzer 17:27). Messung 16:36: Held Karte 128 Bilder 2,2 s (Rechner), Kampf Held 313 Bilder 10,9 s. **Jerry:** Kampfsätze DE/EN (auch die 7 übrigen Gegner) in dieses Format, knapper Kampftext in `Battle.kt`, Klang in der Blende 24.8 (CC0 nach dem Bau), danach Kampfabläufe filmen. 24i: ganzer Satz nur beim ersten Besuch, danach Ortsname ca. 1 s, Türen im Dorf nur Blende 0,3 s, wenn alles gezeichnet. 24f: volles Kampfbild nur beim ersten Kampf je Gegnerart und bei Bossen, sonst ca. 1 s. 24j: Tom schreibt Englisch der Ortssätze |
+| 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik); Jerry (Inhalt) | – | 24a–k ja (16:32), Entwurf [`ZWISCHENBILD.md`](ZWISCHENBILD.md). **Tom:** Messen, 24.2/24.3, Blende für Orte und Kämpfe (24.1 + Mechanik 24.7), 24.5, 24.6; 24.2/24.3 und Datenformat `core/.../Interlude.kt` auf `main` (PR #30, 17:08); 24.1 Blende auf `main` (PR #32, 18:11); 24.9 Mischfigur nach Spielstandwechsel (Rückfrage 24m); **Jerry:** `openings` und `foes` auf `main` (PR #31, 17:27). Knapper Kampftext in `Battle.kt` erst mit 24.6 (Nutzer 17:27). Messung 16:36: Held Karte 128 Bilder 2,2 s (Rechner), Kampf Held 313 Bilder 10,9 s. **Jerry:** Kampfsätze DE/EN (auch die 7 übrigen Gegner) in dieses Format, knapper Kampftext in `Battle.kt`, Klang in der Blende 24.8 (CC0 nach dem Bau), danach Kampfabläufe filmen. 24i: ganzer Satz nur beim ersten Besuch, danach Ortsname ca. 1 s, Türen im Dorf nur Blende 0,3 s, wenn alles gezeichnet. 24f: volles Kampfbild nur beim ersten Kampf je Gegnerart und bei Bossen, sonst ca. 1 s. 24j: Tom schreibt Englisch der Ortssätze |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | festgelegt 11.10., 16:50 (Berater); erledigte Punkte dort abhaken |
 | 27 | Wald „Ort fertig“ (Liste in `STIL.md`): vor allem diagonale Zeichnung, Bäume rund | Tom | – | 11.10., 16:50; nach 24 und 5l; zuerst Standbilder Wald gegen Dorf, Lückenliste; **Meldung Nutzer (16:55):** in der diagonalen Sicht Garrick mit Lagerfeuer schlecht zu sehen, Ausrichtung falsch; Höhleneingang fehlt (eingetragen von Jerry) |
 | 28 | Musik neu im neuen Stil (düster, mehrere Stücke je Lage, freie Lizenzen) | Jerry | – | 11.10., 16:50; erst Hörproben |
@@ -31,10 +31,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (11.10., 17:43, vor Neustart)
+### Tom (11.10., 18:12, vor Neustart)
 
-- **24.1 umgesetzt** auf `claude/funny-pasteur-6p41ao` (Commit fa8f917, `main` drin, Kerntests grün), Test-Build 0.1.527 ausgeliefert (17:43). `InterludeClock` (Kern: ganzer Satz / nur Name / Abdunkeln 0,3 s, höchstens 4 s, Antippen erst wenn gezeichnet; Kerntest `InterludeClockTest`), `InterludeUi.kt` (`InterludeVeil`, `MapVeil(game, mapId)`, `VeilMemory`; ersetzt `MapBanner`; Held läuft hinter der Blende nicht), `MapGround.readyNear`, `MapFolk.standing`, Test-Reiter „Blende: bereit nach X s“; erster Besuch = Flag `seen:<map>`. Vorschau `BLENDE=1` (Standbild), `BLENDEFILM=1` (Film Start, Dorf, Schänke, Wald; angesehen 17:38).
-- **Als Nächstes:** Build melden (Link, APK, Prüfliste), nach Test PR erstellen und zusammenführen; dann 24.5 (Kampfbilder vorladen, wenn ein Gegner bemerkt), danach 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
+- **24.1 getestet** (0.1.527: „lief okay“; bereit nach 0,4 / 0,1 / 0,0 s) und zusammengeführt (PR #32, 18:11). Code: `InterludeClock` (Kern), `InterludeUi.kt` (`MapVeil`, `VeilMemory`), Vorschau `BLENDE=1`, `BLENDEFILM=1`.
+- **Meldung 18:05 (24.9):** Nach Spielstandwechsel Magier → Kämpfer beim Laufen eine Zeit lang eine Mischung beider Figuren. Ursache: 24.3 hält die alten Bilder (`MapFigure.previous`) auch bei einem anderen Helden, und `frameNow` nimmt je Schrittbild neu oder alt. Vorschlag: alte Bilder nur bei gleichem Helden (nur Ausrüstung geändert), und je Richtung erst wechseln, wenn ihr ganzer Gang neu gezeichnet ist; Kerntest. Rückfrage 24m.
+- **Als Nächstes:** 24.9 nach Freigabe; 24.5 (Kampfbilder vorladen, wenn ein Gegner bemerkt; Blende vor Kämpfen ist 24.6, Jerry); dann 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
 
 ### Jerry (11.10., 17:01)
 
@@ -43,7 +44,6 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **0.1.527** (Tom, 24.1 Blende, Zweig `claude/funny-pasteur-6p41ao`, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38152204534/artifacts/11707172076)): Blende bei Spielstart und Ortswechsel.
 
 ## Rückfragen an den Nutzer
 
