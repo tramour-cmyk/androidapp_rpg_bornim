@@ -112,6 +112,7 @@ fun main() {
     // TOWNDRAFT=1: the village and the rooms in the new style, for the films too
     if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true
     System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
+    if (System.getenv("BLENDEFILM") != null) { veilFilm(); System.exit(0) }
     System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
     if (System.getenv("FOEFILM") != null) { foeFilm(); System.exit(0) }
     if (System.getenv("WARDFILM") != null) { wardFilm(); System.exit(0) }
