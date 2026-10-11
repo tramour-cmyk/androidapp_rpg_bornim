@@ -87,7 +87,7 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 ## Jerry
 
 **Vorrat für Selbstarbeit** (Reihenfolge):
-1. ~~**18 Runde 2**~~ (Proben fertig 11.10., 14:00, wartet auf Wahl 18f): 17 Klänge (Begegnung, Bemerkt, Hinterhalt, Held fällt, Feuer, Magie, Heilig, Heilung, Stärkung, Gift, Trank, Wurf, Vogel, Grille, Eule, Tropfen, Knistern) aus CC0-Aufnahmen, je drei Fassungen, nur als Hörproben. Fertig, wenn: Rezepte in `tools/klang/rezepte.py`, Quellen in `QUELLEN.md`, Proben-ZIP bereit, auf dem Zweig gepusht.
+1. ~~**18 Runde 2**~~ (18f gewählt, 15 Klänge eingebaut; Ersatz Magie/Stärkung wartet auf 18g): 17 Klänge (Begegnung, Bemerkt, Hinterhalt, Held fällt, Feuer, Magie, Heilig, Heilung, Stärkung, Gift, Trank, Wurf, Vogel, Grille, Eule, Tropfen, Knistern) aus CC0-Aufnahmen, je drei Fassungen, nur als Hörproben. Fertig, wenn: Rezepte in `tools/klang/rezepte.py`, Quellen in `QUELLEN.md`, Proben-ZIP bereit, auf dem Zweig gepusht.
 2. **18 Stimmen der übrigen Gegner** (Angriff, Schmerz, Tod, je drei Fassungen), nur als Hörproben. Fertig, wenn: wie 1.
 3. **9i Übrige Gegner auf der Karte**, nur als Entwürfe (Standbilder mit Uhrzeit, alle Blickrichtungen). Fertig, wenn: Sprungtest und Kollisionsprüfung 0, Musterblatt.
 
@@ -98,7 +98,7 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 8. **Musik in Schichten** (Idee 10), Hörproben.
 
 **Für gemeinsame Zeit:**
-- 18f: Hörproben Runde 2 anhören (ZIP im Chat 11.10., 14:00) und je Klang eine Fassung bzw. drei wählen, danach Einbau und Zweig-Build auf dem Gerät testen.
+- 18g: Ersatz für Magie 1 und Stärkung 2 wählen (ZIP im Chat 14:13); Zweig-Build mit den 15 Klängen der Runde 2 auf dem Gerät testen.
 - 9i: Entwürfe ansehen und freigeben.
 - 19e: ein konkretes Beispiel für „Bewegungen unrund“, falls dir eines auffällt.
 
