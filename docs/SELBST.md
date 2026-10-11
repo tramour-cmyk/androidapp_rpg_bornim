@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | läuft | 12.10., 08:00 | 11.10., 23:08 | 11.10., 23:08 | 30.1 Absturz-Fänger | `claude/sharp-davinci-s83a1t` |
+| Tom | läuft | 12.10., 08:00 | 11.10., 23:08 | 11.10., 23:12 | 30.1 Build abwarten, dann 30 Speicher messen | `claude/sharp-davinci-s83a1t` |
 | Jerry | – | – | – | 11.10., 11:30 | – | – |
 
 Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
