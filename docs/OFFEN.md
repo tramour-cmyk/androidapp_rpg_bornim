@@ -33,7 +33,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **24 als Nächstes (neue Sitzung):** Plan in „Wer macht was“: erst messen (Zeit bis alles gezeichnet: `MapFigure.prepare`, `MapRest`, `MapFolk.prepareFor`, `MapGround.prepare`, Kampf `HeroBattle.prepare`/`MonsterArt.prepare` in `BattleScreen` ~1204/~901), dann 24.2/24.3, 24.1 Übergangsbild, 24.5 Kampfbilder auf der Karte vorladen; 24.6 macht Jerry. Vorher `STIL.md`-Abgleich (Blende im Stil, Übergang weich), Kerntest „Übergangsbild endet, wenn fertig oder nach ca. 4 s“.
 - **5l / 5.5 Leben im Dorf** nach 24 (Nutzer 14:55): Tiere (Hühner, Katzen, Hunde), Leute bei der Arbeit, Platz dichter; erst Standbilder. Dann 5.3, 5.4.
 
-### Jerry (11.10., 16:50)
+### Jerry (11.10., 16:43)
 
 - 18k getestet, PR #27 zusammengeführt (16:08). **9i** auf `claude/brave-wright-pmcy0i`, Entwurfs-PR #29 (abonniert): 9 Arten auf der Karte; `FOECLASH=1` prüft jetzt auch die Karte (841 → 0, Waffe weiter vom Bein, Stab senkrecht). Zweig-Build zu melden.
 - Weiter 9i: Gang und Ruhe für die 5 Kriechtiere/Flieger (`VerminArt`), dann Musterblatt. **24:** Toms Format `Interlude.kt` (Zweig `claude/adoring-franklin-cqhg5a`, Commit b2c5f07) geprüft: `openings` je `Start`, `foes` je Monster-ID als `T`; Jerry füllt (auch 7 übrige Gegner, EN). Grak Satz 5 braucht Bedingung (`foes` hat keine `Line`) → mit Tom klären oder weglassen.
