@@ -78,8 +78,9 @@ object Story {
     fun randomGear(min: Rarity) = "@gear:${min.name}"
 
     private fun toVillage(x: Int, y: Int) = Place("village", x, y, Facing.DOWN)
-    private fun inside(map: String) = Place(map, 4, 6, Facing.UP)
-    private fun interiorExit(to: Place) = listOf(Warp(4, 7, to))
+    /** Just inside a room's door, which lies in its bottom row at x 4 (rooms of [h] rows; the inn has 8). */
+    private fun inside(map: String, h: Int = 8) = Place(map, 4, h - 2, Facing.UP)
+    private fun interiorExit(to: Place, h: Int = 8) = listOf(Warp(4, h - 1, to))
 
     // ------------------------------------------------------------------ village
 
@@ -125,9 +126,9 @@ object Story {
             Warp(17, 0, Place("forest", 9, 30, Facing.UP), QUEST_STARTED, jorinStop()),
             Warp(18, 0, Place("forest", 10, 30, Facing.UP), QUEST_STARTED, jorinStop()),
             Warp(6, 5, inside("inn")),
-            Warp(28, 5, inside("shop")),
-            Warp(5, 20, inside("elder")),
-            Warp(28, 20, inside("temple")),
+            Warp(28, 5, inside("shop", 7)),
+            Warp(5, 20, inside("elder", 6)),
+            Warp(28, 20, inside("temple", 7)),
             // Homes of villagers: locked for now.
             lockedDoor(12, 5, T("Hier wohnt Bäcker Edrik. Es duftet nach frischem Brot, aber die Tür ist verschlossen.", "Edrik the baker lives here. It smells of fresh bread, but the door is locked.")),
             lockedDoor(22, 5, T("Die Hütte des alten Kael. Niemand öffnet.", "Old Kael's hut. Nobody answers.")),
@@ -265,17 +266,17 @@ object Story {
         id = "shop",
         name = T("Thessas Kramladen", "Thessa's General Store"),
         kind = MapKind.INTERIOR,
+        // 13q.8: floor plan A, shelves along the back, the counter across the room, Thessa behind it, a stove in the corner
         rows = listOf(
-            "##########",
-            "#QQQkkQQQ#",
-            "#kkkkkkkk#",
-            "#kkKKKKkk#",
-            "#kkkkkkkk#",
-            "#Pkkkkkkk#",
-            "#kkkkkkkP#",
-            "####D#####",
+            "##ZZ#W###",
+            "#kkkQQQU#",
+            "#bkkkkkk#",
+            "#bKKKKkJ#",
+            "#kkkkkku#",
+            "#ukkkkkJ#",
+            "####D####",
         ),
-        warps = interiorExit(toVillage(28, 6)),
+        warps = interiorExit(toVillage(28, 6), 7),
         npcs = listOf(
             Npc("thessa", 4, 2, "merchant", Facing.DOWN) { _ ->
                 script {
@@ -291,17 +292,16 @@ object Story {
         id = "elder",
         name = T("Haus des Ältesten", "Elder's House"),
         kind = MapKind.INTERIOR,
+        // 13q.6: floor plan A, a study and the bed against the back wall beside the hearth, the sun of Bornim by the desk
         rows = listOf(
-            "##########",
-            "#QQkkkkBk#",
-            "#kkkkkkkk#",
-            "#kkYYkkkk#",
-            "#kkkkkkPk#",
-            "#kRRRRkkk#",
-            "#kRRRRkkk#",
-            "####D#####",
+            "####ZZ#W#",
+            "#BBskkVd#",
+            "#BBkkkka#",
+            "#akRRRkk#",
+            "#kkRRRkk#",
+            "####D####",
         ),
-        warps = interiorExit(toVillage(5, 21)),
+        warps = interiorExit(toVillage(5, 21), 6),
         npcs = listOf(Npc("aldric", 6, 2, "elder", Facing.DOWN) { s -> elderTalk(s) }),
     )
 
@@ -345,17 +345,17 @@ object Story {
         id = "temple",
         name = T("Tempel des Morgenlichts", "Temple of the Dawnlight"),
         kind = MapKind.INTERIOR,
+        // 13q.9: floor plan A, a broad altar between two candlesticks, two blocks of pews with aisles in the middle and along the walls, the lectern beside the altar
         rows = listOf(
-            "##########",
-            "#kkkAAkkk#",
-            "#kkkkkkkk#",
-            "#YkkkkkkY#",
-            "#kkRRRRkk#",
-            "#YkRRRRkY#",
-            "#kkRRRRkk#",
-            "####D#####",
+            "####W####",
+            "#kNAAANk#",
+            "#kkkkdkk#",
+            "#knnknnk#",
+            "#knnknnk#",
+            "#kk&kkkk#",
+            "####D####",
         ),
-        warps = interiorExit(toVillage(28, 21)),
+        warps = interiorExit(toVillage(28, 21), 7),
         npcs = listOf(
             Npc("osric", 4, 2, "priest", Facing.DOWN) { s ->
                 script {

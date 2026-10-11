@@ -134,7 +134,7 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             MapSight.diagonal = !MapSight.diagonal
             diagonal = MapSight.diagonal
             vm.refresh()
-            vm.toast = if (diagonal) t("Karte diagonal: Wirtshaus zuerst, alles andere noch mit den alten Bildern.", "Map diagonal: the inn first, all else still with the former pictures.") else t("Karte wieder gerade.", "Map straight again.")
+            vm.toast = if (diagonal) t("Karte diagonal: Schänke, Laden, Haus des Ältesten und Tempel fertig, draußen noch die alten Bilder.", "Map diagonal: the inn, the shop, the elder's house and the temple done, outside still the former pictures.") else t("Karte wieder gerade.", "Map straight again.")
         }
         // the zoom in four steps, to find the right one on the phone (10.10., 6.15)
         var zoom by remember { mutableStateOf(MapZoom.level) }
