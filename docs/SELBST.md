@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | – | – | – | 11.10., 11:10 | – | – |
+| Tom | läuft | 12.10., 08:00 | 11.10., 23:08 | 11.10., 23:08 | 30.1 Absturz-Fänger | `claude/sharp-davinci-s83a1t` |
 | Jerry | – | – | – | 11.10., 11:30 | – | – |
 
 Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
@@ -84,7 +84,10 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 **Für gemeinsame Zeit:**
 - 5.1: Standbilder ansehen, dann Zweig-Build auf dem Gerät testen.
 
-**Paket:** – (keine Selbstarbeit vergeben)
+**Paket** (Nacht 11./12.10., vergeben 23:08, bis 08:00):
+1. **30.1 Absturz-Fänger** + Fehler in Hintergrund-Fäden (`BattleAhead`, Vorzeichnen) abfangen statt App beenden. Zweig `claude/sharp-davinci-s83a1t` von `main`. Fertig, wenn: Kerntest (Bericht wird geschrieben und gelesen), Build mit Link, auch in `claude/great-shannon-qnf51n` gemischt (Build).
+2. **30 Ursache eingrenzen:** Speicherbedarf aller Bildspeicher messen (Kerntest/Vorschau), Vorschläge (Obergrenze, Lint, Zufallsspieler mit Speicher) nur zur Freigabe. Fertig, wenn: Zahlen und Vorschläge in `OFFEN.md`.
+3. Reserve: Vorrat 9 (29 Nebenquests Entwurf), 4 (27 Wald Standbilder, Lückenliste), 10, 5–8.
 
 ## Jerry
 
