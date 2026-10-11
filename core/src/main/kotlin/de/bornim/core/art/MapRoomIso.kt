@@ -445,6 +445,11 @@ object MapRoomIso {
         if (room(map, tx + 1, ty)) slab(-e, -1.0, 0.0, 0.0, 'E')
         if (room(map, tx + 1, ty + 1) && !room(map, tx, ty + 1) && !room(map, tx + 1, ty)) slab(-e, -e, 0.0, 0.0, 'c')
         if (!any) return if (full) null else c.img
+        // a window in a front wall cut off knee-high (5h.1): its sill board lies on the stump, the light falls in behind it
+        if (!full && tile == Tile.WINDOW) {
+            if (room(map, tx, ty - 1)) c.box(-0.84, -1.06, -0.16, -1.0 + e + 0.05, STUMP, STUMP + 4, oakTop, oak, oak)
+            else if (room(map, tx - 1, ty)) c.box(-1.06, -0.84, -1.0 + e + 0.05, -0.16, STUMP, STUMP + 4, oakTop, oak, oak)
+        }
         if (full && room(map, tx, ty + 1)) {
             // a window has a sill board standing out a little
             if (tile == Tile.WINDOW && !stone) c.box(-0.82, -0.04, -0.18, 0.06, 41.0, 46.0, oakTop, oak, oak)

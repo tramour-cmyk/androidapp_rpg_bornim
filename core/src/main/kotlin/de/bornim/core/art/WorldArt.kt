@@ -844,7 +844,9 @@ object WorldArt {
                 !fine -> null
                 cave -> MapCave.objects(map, tx, ty, frame, open, state.has(Story.GATE_OPEN))
                 // the village in the new style (draft): houses and things, else the trees of the woods
-                map.kind == MapKind.TOWN -> MapTown.objects(map, tx, ty) ?: MapFlora.objects(map, tx, ty, frame, open)
+                // seen diagonally the houses stand in the slant too (5.1), cut into strips sorted along the diagonal
+                map.kind == MapKind.TOWN -> (if (MapFigure.viewYaw != 0.0) MapTownIso.objects(map, tx, ty) else null)
+                    ?: MapTown.objects(map, tx, ty) ?: MapFlora.objects(map, tx, ty, frame, open)
                 // seen diagonally (13), the rooms' walls and furniture stand upright, turned with the room
                 map.kind == MapKind.INTERIOR && MapFigure.viewYaw != 0.0 -> MapRoomIso.objects(map, tx, ty, flicker) ?: MapRoom.objects(map, tx, ty, frame)
                 map.kind == MapKind.INTERIOR -> MapRoom.objects(map, tx, ty, frame)

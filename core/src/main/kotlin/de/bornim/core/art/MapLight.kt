@@ -52,8 +52,16 @@ object MapLight {
                     Tile.LAMP -> out += Source(cx, ty * T + 8.0, Kind.LAMP, argb(0xFFD49A), T * 2.6, 0.95, When.NIGHT)
                     // light falls out of a lit window onto the ground in front of the house
                     Tile.WINDOW -> if (!indoor && map.tile(tx, ty + 1).walkable) out += Source(cx, ty * T + T + 6.0, Kind.WINDOW, argb(0xFFC880), T * 1.6, 0.7, When.NIGHT)
-                        // indoors, a window lets in grey daylight
-                        else if (indoor && hasHearth(map)) out += Source(cx, ty * T + T + 8.0, Kind.WINDOW, argb(0xD8E0EC), T * 2.6, 0.55, When.DAY)
+                        // indoors, a window lets in grey daylight, onto the floor on the room's side of its wall (5h.1: also in the front walls)
+                        else if (indoor && hasHearth(map)) {
+                            val (lx, ly) = when {
+                                map.tile(tx, ty + 1).walkable -> cx to ty * T + T + 8.0
+                                map.tile(tx, ty - 1).walkable -> cx to ty * T - 8.0
+                                map.tile(tx - 1, ty).walkable -> tx * T - 8.0 to cy
+                                else -> tx * T + T + 8.0 to cy
+                            }
+                            out += Source(lx, ly, Kind.WINDOW, argb(0xD8E0EC), T * 2.6, 0.55, When.DAY)
+                        }
                     // a fire in the back wall: the light comes out of its mouth onto the floor in front
                     Tile.HEARTH -> if (map.tile(tx - 1, ty) != Tile.HEARTH) out += Source((tx + 1) * T.toDouble(), (ty + 1) * T + 4.0, Kind.FIRE, argb(0xFF9046), T * 3.6, 1.05)
                     // a candle on a table: a small warm island, the dark close about it (10.10., 6.8)

@@ -1,5 +1,13 @@
 package de.bornim.core.art
 
+import de.bornim.core.HouseFeature
+import de.bornim.core.HouseStyle
+import de.bornim.core.MapDef
+import de.bornim.core.MapKind
+import de.bornim.core.RoofKind
+import de.bornim.core.Tile
+import de.bornim.core.WallKind
+import de.bornim.core.World
 import kotlin.math.abs
 import kotlin.math.exp
 import kotlin.math.floor
@@ -56,28 +64,38 @@ object MapTownIso {
     )
 
     /**
-     * A house picture. [front] the wall along the front, one letter a tile ('#' wall, 'W' window, 'D' door);
-     * [side] the east wall the same way; [d] tiles deep; [chimney] the tile along i over which the chimney stands
-     * (−1: none); [night] lit windows. The front corner of the footprint (i = n, j = d) lies at ([anchorX], height).
+     * A house picture: [front] the wall along the front, one letter a tile ('#' wall, 'W' window, 'D' door); [side]
+     * the east wall the same way; [d] tiles deep; [roof], [walls] and [feature] from the map's [HouseStyle];
+     * [chimney] the middle of the chimney along i (null: none), standing at the back wall over the hearth inside;
+     * [night] lit windows. The ground under i = j = 0 lies at ([ox], [oy]) of the picture.
      */
-    class Picture(val img: PixelImage, val anchorX: Int)
+    class Picture(val img: PixelImage, val ox: Double, val oy: Double)
 
-    fun house(front: String, side: String, d: Int, look: Int, seed: Int, chimney: Int = -1, night: Boolean = false, slate: Boolean = false): Picture {
+    fun house(
+        front: String, side: String, d: Int, roof: RoofKind, walls: WallKind, feature: HouseFeature, seed: Int,
+        chimney: Double? = null, night: Boolean = false,
+    ): Picture {
         val n = front.length
-        val lk = looks[look % looks.size]
-        val eave = 150.0                           // eaves at 2.6 m
-        val o = 0.28                               // the roof hangs over the walls
-        val pitch = if (slate) 1.05 else 1.25      // rise per run: thatch steeper than slate
-        val ridge = eave + (d / 2.0 + o) * ZT * pitch
-        val chimTop = ridge + 46
-        // the picture: from the back corner (0, 0) at the top of the ridge to the front corner (n, d) on the ground
-        val left = d + o + 0.2; val right = n + o + 0.2
-        val w = ((left + right) * TW / 2).toInt() + 4
-        val topZ = max(ridge + (if (slate) 96 else 0), if (chimney >= 0) chimTop else 0.0) + 8
-        val h = ((n + d) * TH / 2 + topZ * ZS + o * TH + 12).toInt()
+        val lk = looks[Math.floorMod(seed, looks.size)]
+        val temple = feature == HouseFeature.BELL_TOWER
+        val thatch = roof == RoofKind.STRAW
+        val eave = if (temple) 176.0 else 150.0     // eaves at 2.6 m, the temple higher
+        val o = 0.28                                // the roof hangs over the walls
+        val pitch = if (thatch) 1.25 else 1.0       // rise per run: thatch steeper
+        val run = d / 2.0 + o
+        val ridge = eave + run * ZT * pitch
+        // the chimney at the back wall rises far enough to show a good part over the ridge
+        val cjMid = 0.22
+        val chimTop = ridge - (d / 2.0 - cjMid) * TH / 2 / ZS + 52
+        val towerTop = ridge + 92
+        // the picture: from the back corner (0, 0) at the top to the front corner (n, d) on the ground
+        val left = d + o + 0.3; val right = n + o + 0.3
+        val w = (floor((left + right) * TW / 2 / 4).toInt() + 2) * 4
+        val topZ = maxOf(ridge, if (chimney != null) chimTop else 0.0, if (temple) towerTop + 50 else 0.0) + 8
+        val h = ((n + d) * TH / 2 + topZ * ZS + 24).toInt() / 2 * 2
         val img = PixelImage(w, h)
-        val ox = left * TW / 2 + 2                // screen x of i = j = 0
-        val oy = h - 8 - (n + d) * TH / 2         // screen y of i = j = 0 on the ground
+        val ox = floor(left * TW / 2) + 2.5         // screen x of i = j = 0 (a half pixel, so strip middles are whole)
+        val oy = h - 16 - (n + d) * TH / 2          // screen y of i = j = 0 on the ground
         fun sx(i: Double, j: Double) = ox + (i - j) * TW / 2
         fun sy(i: Double, j: Double, z: Double) = oy + (i + j) * TH / 2 - z * ZS
 
@@ -103,82 +121,142 @@ object MapTownIso {
         for (py in 0 until h) for (px in 0 until w) {
             val aa = (px + 0.5 - ox) / (TW / 2); val bb = (py + 0.5 - oy) / (TH / 2)
             val i = (aa + bb) / 2; val j = (bb - aa) / 2
-            val di = max(-0.2 - i, i - n - 0.1); val dj = max(-0.2 - j, j - d - 0.55)
+            val di = max(-0.2 - i, i - n - 0.1); val dj = max(-0.2 - j, j - d - 0.5)
             val e = max(di, dj)
-            if (e > 0.35) continue
-            val k = ((0.35 - e) / 0.35).coerceIn(0.0, 1.0) * 0.55
+            if (e > 0.3) continue
+            val k = ((0.3 - e) / 0.3).coerceIn(0.0, 1.0) * 0.5
             img.set(px, py, ((k * 255).toInt() shl 24) or 0x0A0806)
         }
 
         // ---- the walls: the front (j = d, down left, in the house's own shade) and the east side (i = n, in the sun)
         val litFront = 0.72; val litSide = 1.0
-        fun wall(u: Double, z: Double, len: Int, letters: String, face: Double, s: Int, gableTop: Double): Int? {
+        fun surface(u: Double, z: Double, face: Double, s: Int, top: Double): Int = when {
+            temple -> ashlarTex(u, z, face, s)
+            walls == WallKind.STONE -> stoneTex(u, z, face, s, top)
+            walls == WallKind.PLANKS -> planksTex(u, z, face, s)
+            else -> wallTex(u, z, face, s, lk, top)
+        }
+        fun wall(u: Double, z: Double, len: Int, letters: String, face: Double, s: Int): Int? {
             val tile = floor(u).toInt().coerceIn(0, len - 1); val f = u - tile
             val kind = letters.getOrElse(tile) { '#' }
-            if (kind == 'D') (if (slate) archDoor(f, z, face, s) else door(f, z, face, s))?.let { return it }
-            if (kind == 'W') (if (slate) archWindow(f, z, face, night) else window(f, z, face, night, s + tile))?.let { return it }
-            if (slate) return ashlarTex(u, z, face, s)
-            return wallTex(u, z, face, s, lk, gableTop)
+            if (kind == 'D') (if (temple) archDoor(f, z, face, s) else door(f, z, face, s))?.let { return it }
+            if (kind == 'W') (if (temple) archWindow(f, z, face, night) else window(f, z, face, night, s + tile))?.let { return it }
+            return surface(u, z, face, s, eave)
         }
-        plane(p(0.0, d.toDouble(), 0.0), p(n.toDouble(), 0.0, 0.0), p(0.0, 0.0, eave)) { u, v -> wall(u * n, v * eave, n, front, litFront, seed, eave) }
-        plane(p(n.toDouble(), 0.0, 0.0), p(0.0, d.toDouble(), 0.0), p(0.0, 0.0, eave)) { u, v -> wall(u * d, v * eave, d, side, litSide, seed + 31, eave) }
-        // the east gable: a triangle over the side wall, up to the ridge in the middle
+        plane(p(0.0, d.toDouble(), 0.0), p(n.toDouble(), 0.0, 0.0), p(0.0, 0.0, eave)) { u, v -> wall(u * n, v * eave, n, front, litFront, seed) }
+        plane(p(n.toDouble(), 0.0, 0.0), p(0.0, d.toDouble(), 0.0), p(0.0, 0.0, eave)) { u, v -> wall(u * d, v * eave, d, side, litSide, seed + 31) }
+        // the east gable: a triangle over the side wall, up to the ridge in the middle; boarded on plank and stone houses
         plane(p(n.toDouble(), 0.0, eave), p(0.0, d.toDouble(), 0.0), p(0.0, 0.0, ridge - eave)) { u, v ->
             val z = v * (ridge - eave)
             val half = 1 - z / (ridge - eave)
             if (abs(u - 0.5) > half * 0.5) null
-            else if (lk.boards || slate) boards(u * d, eave + z, litSide * 0.94, seed + 7, slate)
+            else if (temple) ashlarTex(u * d, eave + z, litSide, seed + 31)
+            else if (lk.boards || walls != WallKind.TIMBER) boards(u * d, eave + z, litSide * 0.94, seed + 7, false)
             else wallTex(u * d, eave + z, litSide, seed + 31, lk, ridge)
         }
 
+        // ---- the chimney at the back wall: rough stones, soot towards the top; the roof in front hides its foot
+        if (chimney != null) {
+            val ci0 = chimney - 0.19; val ci1 = chimney + 0.19
+            val cj0 = cjMid - 0.19; val cj1 = cjMid + 0.19
+            val zBase = eave - 10
+            plane(p(ci0, cj1, zBase), p(ci1 - ci0, 0.0, 0.0), p(0.0, 0.0, chimTop - zBase)) { u, v -> shade(stoneTex(u * (ci1 - ci0), zBase + v * (chimTop - zBase), litFront, seed + 41, chimTop), 0.8 - 0.3 * v) }
+            plane(p(ci1, cj0, zBase), p(0.0, cj1 - cj0, 0.0), p(0.0, 0.0, chimTop - zBase)) { u, v -> shade(stoneTex(u * (cj1 - cj0) + 3, zBase + v * (chimTop - zBase), litSide, seed + 43, chimTop), 0.8 - 0.3 * v) }
+            plane(p(ci0, cj0, chimTop), p(ci1 - ci0, 0.0, 0.0), p(0.0, cj1 - cj0, 0.0)) { u, v ->
+                val rim = u < 0.18 || u > 0.82 || v < 0.18 || v > 0.82
+                if (rim) shade(argb(0x5A544C), 0.85 + rnd(floor(u * 9).toInt(), floor(v * 9).toInt(), seed) * 0.2) else argb(0x0E0C0A)
+            }
+        }
+
         // ---- the roof: the slope towards us, from the ridge down to the eaves hanging over the front
-        val run = d / 2.0 + o
         val ri0 = -o; val ri1 = n + o
         fun roofTex(u: Double, v: Double): Int {
-            // u along the ridge 0..1, v down the slope 0..1
             val along = u * (ri1 - ri0); val down = v * run
-            if (slate) return slateTex(along, down, run, seed)
-            return thatchTex(along, down, run, lk, seed)
+            return when (roof) {
+                RoofKind.STRAW -> thatchTex(along, down, run, lk, seed)
+                RoofKind.SHINGLE -> shingleTex(along, down, run, seed)
+                RoofKind.RED -> clayTex(along, down, run, seed)
+                RoofKind.BLUE -> slateTex(along, down, run, seed, 0x4E5A6E)
+                RoofKind.SLATE -> slateTex(along, down, run, seed, 0x585C62)
+            }
         }
-        // the edge of the thatch, thick at the eaves and along the gable: a band under the slope
-        val thick = if (slate) 4.0 else 16.0
-        plane(p(ri0, d + o, eave - thick), p(ri1 - ri0, 0.0, 0.0), p(0.0, 0.0, thick)) { u, v -> edgeTex(u * (ri1 - ri0), v, slate, lk, seed) }
-        plane(p(ri1, d / 2.0, ridge - thick), p(0.0, run, eave - ridge), p(0.0, 0.0, thick)) { u, v -> edgeTex(u * run * 2, v, slate, lk, seed + 3) }
+        // the edge of the roof, thick thatch at the eaves and along the gable: a band under the slope
+        val thick = if (thatch) 16.0 else 5.0
+        plane(p(ri0, d + o, eave - thick), p(ri1 - ri0, 0.0, 0.0), p(0.0, 0.0, thick)) { u, v -> edgeTex(u * (ri1 - ri0), v, !thatch, lk, seed) }
+        plane(p(ri1, d / 2.0, ridge - thick), p(0.0, run, eave - ridge), p(0.0, 0.0, thick)) { u, v -> edgeTex(u * run * 2, v, !thatch, lk, seed + 3) }
         plane(p(ri0, d / 2.0, ridge), p(ri1 - ri0, 0.0, 0.0), p(0.0, run, eave - ridge)) { u, v -> roofTex(u, v) }
         // the ridge itself: a rolled band of thatch (or ridge tiles) along the top
         plane(p(ri0 + 0.05, d / 2.0 - 0.06, ridge + 5), p(ri1 - ri0 - 0.1, 0.0, 0.0), p(0.0, 0.16, -10.0)) { u, v ->
             val t = 0.5 + 0.3 * (1 - v) + (rnd(floor(u * 60).toInt(), 0, seed + 9) - 0.5) * 0.15
-            if (slate) shade(argb(0x2A2E34), 0.8 + t * 0.4) else shade(mix(argb(0x2A2418), argb(lk.thatch), t), 0.9)
+            when (roof) {
+                RoofKind.STRAW -> shade(mix(argb(0x2A2418), argb(lk.thatch), t), 0.9)
+                RoofKind.RED -> shade(argb(0x4A2A1E), 0.8 + t * 0.4)
+                RoofKind.SHINGLE -> shade(argb(0x3A3028), 0.8 + t * 0.4)
+                else -> shade(argb(0x2A2E34), 0.8 + t * 0.4)
+            }
         }
 
-        // ---- the chimney: rough stones, a dark mouth, soot down its face
-        if (chimney >= 0) {
-            val ci0 = chimney + 0.32; val ci1 = ci0 + 0.36
-            val cj0 = d / 2.0 - 0.1; val cj1 = cj0 + 0.36
-            val zBase = ridge - (cj1 - d / 2.0) / run * (ridge - eave) - 4
-            plane(p(ci0, cj1, zBase), p(ci1 - ci0, 0.0, 0.0), p(0.0, 0.0, chimTop - zBase)) { u, v -> shade(stoneTex(u * (ci1 - ci0), zBase + v * (chimTop - zBase), litFront, seed + 41, chimTop), 0.75 - 0.25 * v) }
-            plane(p(ci1, cj0, zBase), p(0.0, cj1 - cj0, 0.0), p(0.0, 0.0, chimTop - zBase)) { u, v -> shade(stoneTex(u * (cj1 - cj0) + 3, zBase + v * (chimTop - zBase), litSide, seed + 43, chimTop), 0.75 - 0.25 * v) }
-            plane(p(ci0, cj0, chimTop), p(ci1 - ci0, 0.0, 0.0), p(0.0, cj1 - cj0, 0.0)) { u, v ->
-                val rim = u < 0.18 || u > 0.82 || v < 0.18 || v > 0.82
-                if (rim) shade(argb(0x6A645A), 0.9 + rnd(floor(u * 9).toInt(), floor(v * 9).toInt(), seed) * 0.2) else argb(0x0E0C0A)
+        // ---- the temple's bell tower (5g): a square stone tower rising over the east end, a belfry, a pointed cap
+        if (temple) {
+            val ti0 = n - 1.15; val ti1 = n - 0.1; val tj0 = d / 2.0 - 0.52; val tj1 = d / 2.0 + 0.52
+            fun roofZ(j: Double) = ridge - abs(j - d / 2.0) / run * (ridge - eave)
+            fun belfry(u: Double, z: Double): Boolean {
+                val c = abs(u - 0.5)
+                return c < 0.24 && z > towerTop - 58 && z < towerTop - 22 + 9 * Math.sqrt((1 - (c / 0.24) * (c / 0.24)).coerceAtLeast(0.0))
+            }
+            val z0 = roofZ(tj1) - 6
+            plane(p(ti0, tj1, z0), p(ti1 - ti0, 0.0, 0.0), p(0.0, 0.0, towerTop - z0)) { u, v ->
+                val z = z0 + v * (towerTop - z0)
+                if (belfry(u, z)) { if (abs(u - 0.5) < 0.1 && z > towerTop - 48 && z < towerTop - 28) shade(argb(0x5A4A2E), 0.6 + (z - towerTop + 48) / 50) else argb(0x0C0A0A) }
+                else ashlarTex(u * (ti1 - ti0), z, litFront, seed + 51)
+            }
+            plane(p(ti1, tj0, z0 - 40), p(0.0, tj1 - tj0, 0.0), p(0.0, 0.0, towerTop - z0 + 40)) { u, v ->
+                val z = z0 - 40 + v * (towerTop - z0 + 40)
+                if (z < roofZ(tj0 + u * (tj1 - tj0)) + 4) null
+                else if (belfry(u, z)) argb(0x0C0A0A)
+                else ashlarTex(u * (tj1 - tj0) + 2, z, litSide, seed + 53)
+            }
+            // a cornice, then the pointed cap of slate
+            val ci0 = ti0 - 0.06; val ci1 = ti1 + 0.06; val cj0 = tj0 - 0.06; val cj1 = tj1 + 0.06
+            plane(p(ci0, cj1, towerTop - 4), p(ci1 - ci0, 0.0, 0.0), p(0.0, 0.0, 6.0)) { _, _ -> shade(argb(0x5A564E), 0.7) }
+            plane(p(ci1, cj0, towerTop - 4), p(0.0, cj1 - cj0, 0.0), p(0.0, 0.0, 6.0)) { _, _ -> shade(argb(0x5A564E), 0.95) }
+            val capH = 50.0
+            plane(p(ci0, cj1, towerTop + 2), p(ci1 - ci0, 0.0, 0.0), p((ci1 - ci0) / 2, -(cj1 - cj0) / 2, capH)) { u, v ->
+                if (abs(u - 0.5) > 0.5 * (1 - v)) null else slateTex(u * 1.2, v * 0.8, 0.8, seed + 55, 0x585C62).let { shade(it, 0.75) }
+            }
+            plane(p(ci1, cj1, towerTop + 2), p(0.0, -(cj1 - cj0), 0.0), p(-(ci1 - ci0) / 2, -(cj1 - cj0) / 2 + (cj1 - cj0) / 2, capH)) { u, v ->
+                if (abs(u - 0.5) > 0.5 * (1 - v)) null else slateTex(u * 1.2, v * 0.8, 0.8, seed + 57, 0x585C62)
             }
         }
-        // ---- the temple: a small bell cote of stone on the ridge over the east gable, the bell dark in its arch
-        if (slate) {
-            val bi0 = n - 0.55; val bi1 = n - 0.1; val bj0 = d / 2.0 - 0.22; val bj1 = d / 2.0 + 0.22
-            val z0 = ridge - 20; val z1 = ridge + 70
-            plane(p(bi0, bj1, z0), p(bi1 - bi0, 0.0, 0.0), p(0.0, 0.0, z1 - z0)) { u, v ->
-                val z = z0 + v * (z1 - z0)
-                val open = abs(u - 0.5) < 0.28 && z > ridge + 12 && z < ridge + 44 + 10 * Math.sqrt((1 - ((u - 0.5) / 0.28).let { it * it }).coerceAtLeast(0.0))
-                if (open) { if (abs(u - 0.5) < 0.14 && z > ridge + 22 && z < ridge + 44) shade(argb(0x5A4A2E), 0.7 + (z - ridge - 22) / 60) else argb(0x0C0A0A) }
-                else ashlarTex(u * 0.45, z, litFront, seed + 51)
+
+        // ---- the shop's awning: dull striped cloth on two poles over the front, its hem ragged
+        if (feature == HouseFeature.AWNING) {
+            val a0 = 0.15; val a1 = n - 0.15; val out = 0.7
+            plane(p(a0, d.toDouble(), 128.0), p(a1 - a0, 0.0, 0.0), p(0.0, out, -26.0)) { u, v ->
+                val stripe = floor(u * (a1 - a0) * 4).toInt() % 2 == 0
+                val c = if (stripe) argb(0x5A3A2A) else argb(0x7A6E58)
+                shade(mix(c, argb(0x1A140E), 0.15 + (rnd(floor(u * 80).toInt(), floor(v * 10).toInt(), seed + 61) - 0.5) * 0.2), 0.8 + 0.25 * v)
             }
-            plane(p(bi1, bj0, z0), p(0.0, bj1 - bj0, 0.0), p(0.0, 0.0, z1 - z0)) { u, v -> ashlarTex(u * 0.44 + 2, z0 + v * (z1 - z0), litSide, seed + 53) }
-            // its little pointed cap
-            plane(p(bi0 - 0.05, bj1 + 0.05, z1), p(bi1 - bi0 + 0.1, 0.0, 0.0), p(0.0, -(bj1 - bj0 + 0.1) / 2, 26.0)) { u, v -> if (abs(u - 0.5) > 0.5 * (1 - v)) null else shade(argb(0x3A3E44), 0.7 + v * 0.3) }
-            plane(p(bi1 + 0.05, bj1 + 0.05, z1), p(0.0, -(bj1 - bj0 + 0.1), 0.0), p(-(bi1 - bi0 + 0.1) / 2, 0.0, 26.0)) { u, v -> if (abs(u - 0.5) > 0.5 * (1 - v)) null else shade(argb(0x4A4E54), 0.8 + v * 0.2) }
+            plane(p(a0, d + out, 102.0), p(a1 - a0, 0.0, 0.0), p(0.0, 0.0, 12.0)) { u, v ->
+                if (v < 0.35 * rnd(floor(u * 40).toInt(), 1, seed + 62) || (u * (a1 - a0) * 8) % 1.0 < 0.08 && v < 0.5) null
+                else shade(if (floor(u * (a1 - a0) * 4).toInt() % 2 == 0) argb(0x4A3022) else argb(0x665C4A), 0.7)
+            }
+            for (pi in listOf(a0 + 0.05, a1 - 0.05)) plane(p(pi - 0.03, d + out, 0.0), p(0.06, 0.0, 0.0), p(0.0, 0.0, 102.0)) { _, v -> shade(argb(0x2E2218), 0.7 + v * 0.3) }
         }
-        return Picture(img, sx(n.toDouble(), d.toDouble()).toInt())
+
+        // ---- the inn's sign: an iron bracket out of the front wall, a board hanging from it
+        if (feature == HouseFeature.INN_SIGN) {
+            val door = front.indexOf('D').coerceAtLeast(0)
+            val si = door + 1.15
+            plane(p(si, d.toDouble(), 128.0), p(0.0, 0.62, 0.0), p(0.0, 0.0, 3.0)) { _, _ -> argb(0x1E1C1A) }
+            plane(p(si, d + 0.12, 100.0), p(0.0, 0.42, 0.0), p(0.0, 0.0, 24.0)) { u, v ->
+                val edge = u < 0.06 || u > 0.94 || v < 0.1 || v > 0.9
+                // a tankard burnt into the board
+                val mug = abs(u - 0.45) < 0.14 && v in 0.25..0.75 || (abs(u - 0.66) < 0.06 && v in 0.35..0.6)
+                if (edge) argb(0x2A1E14) else if (mug) argb(0x1A120C) else shade(argb(0x5A4430), 0.85 + rnd(floor(u * 20).toInt(), floor(v * 6).toInt(), seed + 63) * 0.2)
+            }
+        }
+        return Picture(img, ox, oy)
     }
 
     // ------------------------------------------------------------------ textures
@@ -342,7 +420,7 @@ object MapTownIso {
     }
 
     /** Slate, small grey plates in rows, a few cracked or slipped. */
-    private fun slateTex(along: Double, down: Double, run: Double, seed: Int): Int {
+    private fun slateTex(along: Double, down: Double, run: Double, seed: Int, rgb: Int = 0x585C62): Int {
         val row = floor(down / 0.16).toInt()
         val off = if (row % 2 == 0) 0.0 else 0.5
         val col = floor(along / 0.2 + off).toInt()
@@ -351,8 +429,46 @@ object MapTownIso {
         if (frac(along / 0.2 + off) < 0.06) v -= 0.22
         if (hash(col, row, seed + 2) % 23 == 0) v -= 0.25
         val lichen = vnoise(along * 3, down * 3, seed + 3) * 0.7 + rnd(floor(along * 45).toInt(), floor(down * 45).toInt(), seed + 4) * 0.5 > 0.95
-        val c = mix(argb(0x141618), argb(0x585C62), v.coerceIn(0.0, 1.0))
+        val c = mix(argb(0x141618), argb(rgb), v.coerceIn(0.0, 1.0))
         return if (lichen) mix(c, argb(0x7A7A5A), 0.4) else c
+    }
+
+    /** Wooden shingles, grey and split, in short overlapping rows, here and there one missing. */
+    private fun shingleTex(along: Double, down: Double, run: Double, seed: Int): Int {
+        val row = floor(down / 0.12).toInt()
+        val off = rnd(row, 0, seed) * 0.3
+        val col = floor(along / 0.11 + off).toInt()
+        var v = 0.48 + (rnd(col, row, seed + 1) - 0.5) * 0.3 + (rnd(floor(along * 70).toInt(), floor(down * 30).toInt(), seed + 2) - 0.5) * 0.12
+        if (frac(down / 0.12) > 0.82) v -= 0.3
+        if (frac(along / 0.11 + off) < 0.08) v -= 0.25
+        if (hash(col, row, seed + 3) % 31 == 0) v -= 0.35
+        var c = mix(argb(0x16120E), argb(0x6A5E50), v.coerceIn(0.0, 1.0))
+        if (vnoise(along * 3, down * 4, seed + 4) * (0.6 + 0.6 * down / run) > 0.8) c = mix(c, argb(0x3A4622), 0.45)
+        return c
+    }
+
+    /** Old clay tiles, dark red-brown and dulled by soot and lichen, in rounded rows. */
+    private fun clayTex(along: Double, down: Double, run: Double, seed: Int): Int {
+        val row = floor(down / 0.14).toInt()
+        val col = floor(along / 0.14).toInt()
+        val fu = frac(along / 0.14)
+        var v = 0.5 + (rnd(col, row, seed) - 0.5) * 0.25 + (0.5 - abs(fu - 0.5)) * 0.35 - 0.12
+        if (frac(down / 0.14) > 0.84) v -= 0.3
+        if (fu < 0.06) v -= 0.25
+        val c = mix(argb(0x1E100C), argb(0x7A4A36), v.coerceIn(0.0, 1.0))
+        val lichen = vnoise(along * 3, down * 3, seed + 3) * 0.7 + rnd(floor(along * 45).toInt(), floor(down * 45).toInt(), seed + 4) * 0.5 > 0.98
+        return if (lichen) mix(c, argb(0x6E6A4A), 0.4) else c
+    }
+
+    /** Walls of vertical planks, tarred dark at the foot, a footing of stones. */
+    private fun planksTex(u: Double, z: Double, face: Double, seed: Int): Int {
+        if (z < 16) return stoneTex(u, z, face, seed, 16.0)
+        val b = floor(u * 6).toInt()
+        var v = 0.45 + (rnd(b, 0, seed) - 0.5) * 0.25 + (rnd(b, floor(z / 3).toInt(), seed + 1) - 0.5) * 0.12
+        if (frac(u * 6) < 0.1) v -= 0.3
+        if (abs(z - 92) < 3) v += 0.1
+        v -= 0.25 * exp(-(z - 16) / 14)
+        return shade(mix(argb(0x14100C), argb(0x5E4C3A), v.coerceIn(0.0, 1.0)), face)
     }
 
     /** The cut edge of the thatch (or slate): ragged stalk ends in shadow. */
@@ -365,14 +481,138 @@ object MapTownIso {
         return mix(argb(0x14100A), argb(lk.thatch), t.coerceIn(0.0, 1.0))
     }
 
-    /** The sample sheet (ISODINGE=dorf): three looks of a house by day and at night, and the temple. */
-    fun sheet(): List<Pair<String, List<PixelImage>>> = listOf(
-        "Haus Tag" to (0 until 3).map { house("#WDW#", "#W#", 3, it, 401 + it, chimney = 1 + it).img },
-        "Haus Nacht" to (0 until 3).map { house("#WDW#", "#W#", 3, it, 401 + it, chimney = 1 + it, night = true).img },
-        "Klein, Tempel" to listOf(
-            house("WD#", "#W", 2, 0, 411, chimney = 2).img,
-            house("#DW", "W#", 2, 1, 412, chimney = 0).img,
-            house("#WDW#", "#WW#", 4, 2, 413, slate = true).img,
-        ),
-    )
+    // ------------------------------------------------------------------ the houses of a town map
+
+    private val wallTiles = setOf(Tile.WALL, Tile.WINDOW, Tile.DOOR)
+    private val roofTiles = setOf(Tile.ROOF, Tile.ROOF_BLUE)
+
+    /** Where a house stands: its front row of wall tiles at [y] from [x], [n] wide, [d] tiles deep (roof rows and the front row). */
+    data class Footprint(val x: Int, val y: Int, val n: Int, val d: Int) {
+        val top get() = y - d + 1
+    }
+
+    /**
+     * The windows of a house as seen outside, from its room (5h.1): the room's windows in its south wall and in its
+     * east wall, each put on the tile of the outer wall at the same share of its length; the door stays where the
+     * map has it. Null when the house has no room.
+     */
+    fun windowsFromRoom(room: MapDef, n: Int, d: Int, door: Int): Pair<String, String> {
+        val w = room.width; val h = room.height
+        val front = CharArray(n) { '#' }
+        if (door in 0 until n) front[door] = 'D'
+        // the room's inner tiles (between its corner walls) laid over the outer wall's tiles
+        for (x in 1 until w - 1) if (room.tile(x, h - 1) == Tile.WINDOW) {
+            var k = floor((x - 0.5) / (w - 2) * n).toInt().coerceIn(0, n - 1)
+            if (k == door) k = if (x + 0.5 < w / 2.0) (k - 1).coerceAtLeast(0) else (k + 1).coerceAtMost(n - 1)
+            front[k] = 'W'
+        }
+        val side = CharArray(d) { '#' }
+        for (y in 1 until h - 1) if (room.tile(w - 1, y) == Tile.WINDOW) side[floor((y - 0.5) / (h - 2) * d).toInt().coerceIn(0, d - 1)] = 'W'
+        return String(front) to String(side)
+    }
+
+    /** The room a house's door leads into, if any. */
+    fun roomOf(map: MapDef, f: Footprint): MapDef? {
+        val warp = map.warps.firstOrNull { it.y == f.y && it.x in f.x until f.x + f.n } ?: return null
+        return World.maps[warp.to.map]?.takeIf { it.kind == MapKind.INTERIOR }
+    }
+
+    /** Every house of a town map with how to draw it (by day or at night). */
+    fun houses(map: MapDef): List<Pair<Footprint, (Boolean) -> Picture>> {
+        val out = mutableListOf<Pair<Footprint, (Boolean) -> Picture>>()
+        for (y in 0 until map.height) {
+            var x = 0
+            while (x < map.width) {
+                if (map.tile(x, y) !in wallTiles || (x > 0 && map.tile(x - 1, y) in wallTiles)) { x++; continue }
+                var n = 0; while (map.tile(x + n, y) in wallTiles) n++
+                var rows = 0; while (rows < 3 && (0 until n).all { map.tile(x + it, y - rows - 1) in roofTiles }) rows++
+                val f = Footprint(x, y, n, rows + 1)
+                out += f to { night -> picture(map, f, night) }
+                x += n
+            }
+        }
+        return out
+    }
+
+    private fun picture(map: MapDef, f: Footprint, night: Boolean): Picture {
+        val style = map.houseStyles[f.x to f.top] ?: HouseStyle(if (map.tile(f.x, f.top) == Tile.ROOF_BLUE) RoofKind.SLATE else RoofKind.STRAW, WallKind.TIMBER)
+        val letters = (0 until f.n).joinToString("") { when (map.tile(f.x + it, f.y)) { Tile.WINDOW -> "W"; Tile.DOOR -> "D"; else -> "#" } }
+        val door = letters.indexOf('D')
+        val seed = hash(f.x, f.y, 5) % 997
+        val room = roomOf(map, f)
+        val (front, side) = room?.let { windowsFromRoom(it, f.n, f.d, door) }
+            ?: (letters to (if (f.d >= 3) "#W#" else if (seed % 2 == 0) "W#" else "#W"))
+        // the chimney over the hearth inside, at the same share of the length; houses without a room: towards one end
+        val chimney: Double? = when {
+            style.feature == HouseFeature.BELL_TOWER -> null
+            room != null -> (0 until room.width).filter { room.tile(it, 0) == Tile.HEARTH }.takeIf { it.isNotEmpty() }
+                ?.let { hs -> (hs.average() + 0.5) / room.width * f.n }
+            else -> if (style.mirrored) f.n * 0.25 + 0.1 else f.n * 0.75 - 0.1
+        }
+        return house(front, side, f.d, style.roof, style.walls, style.feature, seed, chimney, night)
+    }
+
+    private val sliceCache = HashMap<String, List<WorldArt.Obj>>()
+
+    /**
+     * The upright pictures of a town's houses seen diagonally (5.1), or null for anything else: each house cut into
+     * strips one tile of the diagonal wide, each sorted by the frontmost point of the house in it, so a figure stands
+     * in front of a wall it is in front of and behind one it is behind.
+     */
+    fun objects(map: MapDef, tx: Int, ty: Int): List<WorldArt.Obj>? {
+        val t = map.tile(tx, ty)
+        if (t in roofTiles) return emptyList()
+        if (t !in wallTiles) return null
+        if (tx > 0 && map.tile(tx - 1, ty) in wallTiles) return emptyList()
+        val key = "${map.id}/$tx/$ty"
+        synchronized(sliceCache) { sliceCache[key] }?.let { return it }
+        var n = 0; while (map.tile(tx + n, ty) in wallTiles) n++
+        var rows = 0; while (rows < 3 && (0 until n).all { map.tile(tx + it, ty - rows - 1) in roofTiles }) rows++
+        val f = Footprint(tx, ty, n, rows + 1)
+        val out = slices(picture(map, f, false), f)
+        synchronized(sliceCache) { sliceCache[key] = out }
+        return out
+    }
+
+    private fun slices(pic: Picture, f: Footprint): List<WorldArt.Obj> {
+        val T = WorldArt.T
+        val img = pic.img
+        val n = f.n; val d = f.d
+        // every strip's foot lies on the same diagonal row in front of the whole house, so all strips share their bottom
+        val s = n + d + 1
+        val bottom = pic.oy + s * TH / 2
+        val hh = (Math.ceil(bottom).toInt() + 1) / 2 * 2
+        val out = mutableListOf<WorldArt.Obj>()
+        val kMin = floor((0.5 - pic.ox) / (TW / 2)).toInt(); val kMax = floor((img.width - 0.5 - pic.ox) / (TW / 2)).toInt()
+        for (k in kMin..kMax) {
+            val c = k + 0.5
+            val mid = (pic.ox + c * TW / 2).toInt()     // a whole pixel: ox lies on a half
+            val strip = PixelImage(92, hh)
+            var any = false
+            for (y in 0 until img.height) for (x in max(0, mid - 46) until min(img.width, mid + 46)) {
+                if (floor((x + 0.5 - pic.ox) / (TW / 2)).toInt() != k) continue
+                val col = img[x, y]
+                if (col ushr 24 == 0) continue
+                strip.set(x - (mid - 46), y + (hh - Math.round(bottom).toInt()), col); any = true
+            }
+            if (!any) continue
+            // the foot: on this strip's middle line, on the row in front of the house; sorted by the frontmost point of the footprint on it
+            val qi = (s + c) / 2; val qj = (s - c) / 2
+            val cc = c.coerceIn(-d.toDouble(), n.toDouble())
+            val pi = min(n.toDouble(), d + cc); val pj = pi - cc
+            val wx = Math.round((f.x + qi) * T).toInt(); val wy = Math.round((f.top + qj) * T).toInt()
+            val depth = ((f.x + f.top + pi + pj) * T).toInt() + T / 2 - 1
+            out += WorldArt.Obj(strip, wx - 23, wy - hh / 2, depth - wx, 2, false, corner = true)
+        }
+        return out
+    }
+
+    /** The sample sheet (ISODINGE=dorf): the village's houses by day and at night. */
+    fun sheet(): List<Pair<String, List<PixelImage>>> {
+        val map = de.bornim.core.World["village"]
+        val all = houses(map).map { it.second }
+        return all.chunked(3).flatMapIndexed { k, row ->
+            listOf("Häuser ${k + 1}" to row.map { it(false).img }, "nachts ${k + 1}" to row.map { it(true).img })
+        }
+    }
 }
