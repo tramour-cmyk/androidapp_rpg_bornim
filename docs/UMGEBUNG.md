@@ -71,7 +71,7 @@ Die Chat-Sitzung hat eine eigene Netzregel. Ohne Freigabe sind Maven Central, Go
 ## Bauen und Veröffentlichen (GitHub)
 
 - Workflow `.github/workflows/android.yml` („Build APK“): JDK 17, Android-SDK und Signatur laufen dort. Version `0.1.<Laufnummer>`.
-- Push auf einen Zweig → Artefakt `bornim-apk`. Push auf `main` → nur Artefakt (seit 11.10., Thema 21); Release nur von Hand: `gh workflow run android.yml --ref main -f release=true`. Pull Requests bauen nicht doppelt. Reine Änderungen an `.md`-Dateien, `tools/` und `.claude/` bauen nicht (seit 09.10.); auf `main` entsteht dann auch kein Release.
+- Push auf einen Zweig → Artefakt `bornim-apk`. APK für den Chat (geht, Stand 11.10., 19:01): `gh api repos/tramour-cmyk/androidapp_rpg_bornim/actions/artifacts/<id>/zip > a.zip && unzip a.zip` (id aus der Artefaktliste des Laufs). Push auf `main` → nur Artefakt (seit 11.10., Thema 21); Release nur von Hand: `gh workflow run android.yml --ref main -f release=true`. Pull Requests bauen nicht doppelt. Reine Änderungen an `.md`-Dateien, `tools/` und `.claude/` bauen nicht (seit 09.10.); auf `main` entsteht dann auch kein Release.
 - Signatur: Keystore und Passwort liegen nur als GitHub-Secrets. Nie committen, ebenso `local.properties`.
 - Ein zweiter GitHub-Account braucht Zugriff auf das private Repository (Settings → Collaborators) und, um aus Claude heraus zu arbeiten, die verbundene GitHub-App bzw. die Freigabe des Repositorys in den Claude-Einstellungen.
 
