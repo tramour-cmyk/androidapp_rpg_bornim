@@ -69,11 +69,15 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 
 ## Tom
 
-**Vorrat für Selbstarbeit** (Reihenfolge):
-1. **5.1 Häuser diagonal** fertig einbauen (Zweig `tom-dorf`): alle Häuser nach Grundriss und Hausstil, Fenster wie innen (5h.1), Glockenturm (5g). Fertig, wenn: Kerntests grün (`HouseWindowsTest`), Standbilder Tag/Nacht aus dem Spiel, Lauf-Film hinter einem Haus ohne Fehler.
-2. **5.2 Dinge auf dem Platz** diagonal, je drei Varianten (Stände, Brunnen, Laternen, Bänke, Wäscheleine, Fässer), Musterblatt. Fertig, wenn: Blatt mit Uhrzeit.
-3. **17 Nachschwingen** als Entwurf. Fertig, wenn: Sprungtest 0 Meldungen, Standbilder Stehen↔Gehen↔Drehen.
+**Vorrat für Selbstarbeit** (Reihenfolge; 23a freigegeben 11.10., 14:18):
+1. **5.3 Dorfbewohner als Puppen** (die 12 aus dem Entwurf `VILLAGEDRAFT`, Aldric mit Stock) auf die Karte, mit Ruhebewegungen. Fertig, wenn: Sprungtest 0, Kerntest (jede Person erreichbar), Standbilder.
+2. **5.4 Dorf lebendig:** Fenster leuchten nachts (auch Ostseiten), Rauch aus den Schornsteinen, Pflaster ruhiger, Heilkräuter neu. Fertig, wenn: Standbilder Tag/Abend/Nacht.
+3. **17 Nachschwingen** als Entwurf. Fertig, wenn: Sprungtest 0, Standbilder Stehen↔Gehen↔Drehen.
 4. **14 Neustart-Haken** (Werkzeug, Zweig von `main`, PR). Fertig, wenn: Haken meldet über Schwelle, Test dokumentiert.
+5. **Katze in der Schänke** (Merkliste „Lebendige Orte“), nur Entwurf. Fertig, wenn: Standbilder schlafen/strecken/Platz wechseln.
+6. **Farbstimmung je Ort und Tageszeit** (Idee 11), nur Entwurf hinter Schalter. Fertig, wenn: Standbilder Höhle, Schänke, Dämmerung, alt gegen neu.
+7. **Spuren, die bleiben** (Idee 7: Blut nach dem Kampf, Fußspuren im Matsch, Staub beim Rennen), nur Entwurf. Fertig, wenn: Standbilder.
+8. **Kartenansicht im Menü** (erkundete Bereiche), nur Entwurf. Fertig, wenn: Standbild je Karte.
 
 **Für gemeinsame Zeit:**
 - 5.1: Standbilder ansehen, dann Zweig-Build auf dem Gerät testen.
@@ -83,12 +87,18 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 ## Jerry
 
 **Vorrat für Selbstarbeit** (Reihenfolge):
-1. ~~**18 Runde 2**~~ (Proben fertig 11.10., 14:00, wartet auf Wahl 18f): 17 Klänge (Begegnung, Bemerkt, Hinterhalt, Held fällt, Feuer, Magie, Heilig, Heilung, Stärkung, Gift, Trank, Wurf, Vogel, Grille, Eule, Tropfen, Knistern) aus CC0-Aufnahmen, je drei Fassungen, nur als Hörproben. Fertig, wenn: Rezepte in `tools/klang/rezepte.py`, Quellen in `QUELLEN.md`, Proben-ZIP bereit, auf dem Zweig gepusht.
+1. ~~**18 Runde 2**~~ (18f, 18g gewählt, alle eingebaut; wartet auf Test): 17 Klänge (Begegnung, Bemerkt, Hinterhalt, Held fällt, Feuer, Magie, Heilig, Heilung, Stärkung, Gift, Trank, Wurf, Vogel, Grille, Eule, Tropfen, Knistern) aus CC0-Aufnahmen, je drei Fassungen, nur als Hörproben. Fertig, wenn: Rezepte in `tools/klang/rezepte.py`, Quellen in `QUELLEN.md`, Proben-ZIP bereit, auf dem Zweig gepusht.
 2. **18 Stimmen der übrigen Gegner** (Angriff, Schmerz, Tod, je drei Fassungen), nur als Hörproben. Fertig, wenn: wie 1.
 3. **9i Übrige Gegner auf der Karte**, nur als Entwürfe (Standbilder mit Uhrzeit, alle Blickrichtungen). Fertig, wenn: Sprungtest und Kollisionsprüfung 0, Musterblatt.
 
+4. **13e Höhle diagonal**, danach **10, 11** (Flammen, Lichtstrahl), erst Entwürfe (Absprache mit Tom in `OFFEN.md`, 13e).
+5. **Schritte je Untergrund** (Idee 9), Hörproben (23a, 11.10., 14:18).
+6. **Raumklang** (Idee 8), Hörproben.
+7. **Rudelwölfe beißen ins Leere** (Fehler 08.10., Merkliste), mit Film.
+8. **Musik in Schichten** (Idee 10), Hörproben.
+
 **Für gemeinsame Zeit:**
-- 18f: Hörproben Runde 2 anhören (ZIP im Chat 11.10., 14:00) und je Klang eine Fassung bzw. drei wählen, danach Einbau und Zweig-Build auf dem Gerät testen.
+- 18: Zweig-Build (PR #23) mit allen 17 Klängen der Runde 2 auf dem Gerät testen.
 - 9i: Entwürfe ansehen und freigeben.
 - 19e: ein konkretes Beispiel für „Bewegungen unrund“, falls dir eines auffällt.
 
