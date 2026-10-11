@@ -19,7 +19,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 18 | Klänge neu: Hörproben (18d) und Monster-Laute (18e) abgelehnt 11.10., 12:10 („klingt wie Pokémon“) | Jerry | – | Vorschlag 18.5/18.6, Rückfrage 18f |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
-| 12.3 | Sprünge in den Kampfbewegungen der Tiere (Wolf, Eber, Riesenratte): `JumpTest.listOthers` meldet 265, nur gelistet | Jerry | – | Befund 11.10., 12:10: keine echten Rucke (`BattleJumpTest` streng 0), nur schnell gegen Kartengrenzen; Rückfragen 12.3b, 12.3c |
+| 12.3 | Sprünge in den Kampfbewegungen der Tiere | Jerry | `claude/session-start-l65s4j`, PR #18 | 12.3b, 12.3c entschieden ja (12:13), umgesetzt 12:14, Zweig-Build läuft |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
@@ -43,8 +43,6 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Rückfragen an den Nutzer
 
-- **12.3b** (Jerry): Sprungangriff Wolf und Ratte je ein Zwischenbild mehr beim Abheben und Landen (Angriff ~0,1 s länger)? Empfehlung ja.
-- **12.3c** (Jerry): Kampfteil von `listOthers` streichen statt mit Kartengrenzen scharf schalten (Kampf prüft `BattleJumpTest` streng). Empfehlung ja.
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). Empfehlung: festlegen, wenn die Räume fertig sind.
 - **18f** (Jerry): Weg für neue Klänge: 18.5 echte Aufnahmen (CC0, Netzfreigabe nötig) oder 18.6 bessere Synthese am Rechner (Python, physikalisch). Empfehlung 18.5, 18.6 ergänzend.
