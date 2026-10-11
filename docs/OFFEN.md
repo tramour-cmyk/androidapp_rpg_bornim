@@ -35,11 +35,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - Code: `core/.../art/MapTownIso.kt` (Häuser in Streifen, `Tile1` mit `plane`/`box`/`cylinder`, Dinge auf dem Platz), Fenster aus dem Raum `windowsFromRoom`, Durchsicht in `WorldScreen.hides` (Gruppe + Pixeltest). Vorschau `ISODINGE=dorf|platz`, `KARTENZOOM=1 DIAG=1 TOWNDRAFT=1 ONLY=zoom_nah_d`.
 - Danach Vorrat in `docs/SELBST.md` (5.3 Dorfbewohner als Puppen, 5.4, 17, 14, …). Routinen alle 3 h eingerichtet; die fünf neuen (09:24–21:24) braucht der Nutzer noch mit Repo und „automatisch“.
 
-### Jerry (11.10., 14:24)
+### Jerry (11.10., 15:20)
 
-- Zweig `claude/eloquent-dirac-eg6m37`, Entwurfs-PR #23 (mit `main` gemischt): 18 Runde 2 im Spiel, alle 17 Klänge aus Aufnahmen (18f, 18g; Held fällt kein Systemklang mehr). Kerntests grün. **Zweig-Build von 9ce1f55 läuft (14:23):** neue Sitzung prüft ihn (`subscribe_pr_activity` PR #23 neu abonnieren), Link, APK und Testliste an den Nutzer (Kampfbeginn, Bemerkt, Hinterhalt, Held fällt, Feuer, Magie, Heilig, Heilung, Stärkung, Gift, Trank, Wurf, Vögel, Grillen, Eule, Tropfen, Knistern, Lautstärke).
-- Aufnahmen: `tools/klang/holen.sh <ordner>` (Freesound braucht Pausen, sonst 403), Rezepte `tools/klang/rezepte.py` (`--proben`, `--nur`; Einbau überschreibt alle OGG: danach `git checkout -- app/src/main/assets/sfx/` und nur neue Dateien behalten). Routinen umgestellt (xx:27).
-- Als Nächstes nach Test und Zusammenführen: Vorrat in `SELBST.md` (2 Stimmen übrige Gegner, 3 9i, 4 13e Höhle mit Toms Dateigrenzen, …).
+- Zweig `claude/loving-lovelace-k8iwgd`, Entwurfs-PR #27: **18k** Feuerknistern als nahtlose 10-s-Schleife (`tools/klang/schleifen.py`, Quellen 181563/370938 in `QUELLEN.md`), eine Fassung bis zum Ausklingen. Kerntests grün. Zweig-Build läuft: neue Sitzung PR #27 abonnieren, Link, APK, Testliste (Schleife lückenlos? Fassung bleibt? Ein-/Ausblenden wie 0.1.507).
+- 18 Runde 2 (PR #23) und 18h/18i (PR #25) auf `main`, unter „Unveröffentlicht“.
+- Als Nächstes: Vorrat in `SELBST.md` (2 Stimmen übrige Gegner als Hörproben, 3 9i, 4 13e …); **24.6** (Kampferöffnung wartet auf Kampfbilder, 24e ja) nach Toms 24.1–24.3, vorher messen.
 
 ## Zu testen
 

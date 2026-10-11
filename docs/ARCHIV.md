@@ -4,6 +4,12 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Übergabe Jerry (11.10., 14:24), ersetzt 11.10., 15:20
+
+- Zweig `claude/eloquent-dirac-eg6m37`, Entwurfs-PR #23 (mit `main` gemischt): 18 Runde 2 im Spiel, alle 17 Klänge aus Aufnahmen (18f, 18g; Held fällt kein Systemklang mehr). Kerntests grün. **Zweig-Build von 9ce1f55 läuft (14:23):** neue Sitzung prüft ihn (`subscribe_pr_activity` PR #23 neu abonnieren), Link, APK und Testliste an den Nutzer (Kampfbeginn, Bemerkt, Hinterhalt, Held fällt, Feuer, Magie, Heilig, Heilung, Stärkung, Gift, Trank, Wurf, Vögel, Grillen, Eule, Tropfen, Knistern, Lautstärke).
+- Aufnahmen: `tools/klang/holen.sh <ordner>` (Freesound braucht Pausen, sonst 403), Rezepte `tools/klang/rezepte.py` (`--proben`, `--nur`; Einbau überschreibt alle OGG: danach `git checkout -- app/src/main/assets/sfx/` und nur neue Dateien behalten). Routinen umgestellt (xx:27).
+- Als Nächstes nach Test und Zusammenführen: Vorrat in `SELBST.md` (2 Stimmen übrige Gegner, 3 9i, 4 13e Höhle mit Toms Dateigrenzen, …).
+
 ## Übergabe Tom (11.10., 11:40), ersetzt 11.10., 14:36
 
 - Alles gepusht. `main` = v0.1.471 (13 Schänke diagonal, getestet und freigegeben). Zweig `tom-diagonal`: Entwürfe Ältester, Laden, Tempel nur in der Vorschau (`World.drafts`; `ISODINGE=aeltester|laden|tempel`, `ONLY=zoom_nah_e|l|t`), neue Felder `DESK d`, `TRUNK a`, `ARMCHAIR s`, `HANGING V`, `RACK U`, `CANDLES N`, `FONT &`.
