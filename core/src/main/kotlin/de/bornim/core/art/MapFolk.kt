@@ -487,6 +487,12 @@ object MapFolk {
         return img
     }
 
+    /** Whether everyone on [map] is drawn standing, in every direction (24.1). */
+    fun standing(map: de.bornim.core.MapDef): Boolean = map.npcs.all { npc ->
+        val f = of(npc.id) ?: return@all true
+        (0 until MapFigure.YAWS).all { s -> frame(f, s, 0) != null }
+    }
+
     /** Starts drawing the folk standing on [map] in the background, each facing its own way first, then their idle loops; those at a safe place also their torch. */
     fun prepareFor(map: de.bornim.core.MapDef) {
         for (npc in map.npcs) of(npc.id)?.let {

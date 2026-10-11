@@ -1,9 +1,6 @@
 package de.bornim.game.ui
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -147,10 +144,11 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 val fw = game.freeWalk
                 fw.sync()
                 tappedDir = null
-                val sv = stick ?: heldDir?.let { Offset(it.dx.toFloat(), it.dy.toFloat()) }
+                // behind the black screen between places the hero stands still (24.1)
+                val sv = if (VeilMemory.active) null else stick ?: heldDir?.let { Offset(it.dx.toFloat(), it.dy.toFloat()) }
                 var vx = 0.0; var vy = 0.0
                 val r = route
-                if (game.mode != Mode.Explore) { route = null; waypoints = emptyList() }
+                if (game.mode != Mode.Explore || VeilMemory.active) { route = null; waypoints = emptyList() }
                 if (sv != null) {
                     route = null; waypoints = emptyList()
                     // the drag on the screen, turned into the map
@@ -187,8 +185,9 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 continue
             }
             lastFrame = 0L
-            val manual = heldDir ?: tappedDir
+            val manual = if (VeilMemory.active) null else heldDir ?: tappedDir
             tappedDir = null
+            if (VeilMemory.active) route = null
             if (manual != null) route = null
             val r = route
             val routeDir = if (manual == null && r != null && routeIdx < r.steps.size) r.steps[routeIdx] else null
@@ -358,7 +357,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             }
             // Pass the current values: the Game object itself never changes, so Compose
             // would otherwise skip redrawing these after a heal or a map change.
-            MapBanner(game.state.place.map, game.map.name(game.lang))
+            MapVeil(game, game.state.place.map)
             if (touch && dialog == null && action != null) {
                 ActionButton(
                     ActionArt.icon(action), 76.dp,
@@ -1792,19 +1791,6 @@ private fun DrawScope.drawRain(game: Game, map: de.bornim.core.MapDef, clock: Lo
     }
 }
 
-
-@Composable
-private fun MapBanner(mapId: String, mapName: String) {
-    var visible by remember { mutableStateOf(false) }
-    LaunchedEffect(mapId) {
-        visible = true
-        delay(2200)
-        visible = false
-    }
-    AnimatedVisibility(visible, enter = fadeIn(), exit = fadeOut(), modifier = Modifier.padding(8.dp)) {
-        Panel { Txt(mapName, size = 18.sp, bold = true) }
-    }
-}
 
 /** Pack mates on the map are a little smaller than their leader, though less so than in battle. */
 private fun mapMateScale(pack: de.bornim.core.PackDef): Float = 0.5f + pack.scale / 2
