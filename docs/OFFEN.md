@@ -12,7 +12,6 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 |---|---|---|---|---|
 | 13 | Diagonale Sicht | Tom | – | Schänke, Ältester, Laden, Tempel auf `main` (PR #20, 11.10., 14:00). Weiter mit Dorf draußen (5) |
 | 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | 5.1, 5.2, 5g, 5h.1 auf `main` (PR #24, 11.10., 14:52). 5l/5.5 Leben im Dorf: nach 24 (Nutzer 14:55), erst Standbilder. Dann 5.3, 5.4 |
-| 25 | Laternen und Fenster nachts als Quelle zu dunkel | Tom | `claude/fervent-einstein-bewehx` | 25.1 Laternen und 25b Fenster umgesetzt (15:31, `LampGlowTest`, Vorschau `ONLY=zoom_nah_d7`/`d8`), Standbilder an den Nutzer, Zweig-Build läuft |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; frei, seit 13 auf `main` ist |
@@ -30,7 +29,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (11.10., 15:40)
 
-- **25 Laternen und Fenster:** Zweig `claude/fervent-einstein-bewehx` (mit `main`, alles gepusht), Zweig-Build **0.1.512** zu testen, noch kein PR. Nach Test: PR anlegen, grün → selbst zusammenführen, „Unveröffentlicht“ ergänzen. Code: `WorldArt.Glow` (Bild, was nachts selbst leuchtet), `MapTownIso.lampGlow`/`litWindows` (Nacht- minus Tagbild je Hausstreifen), in `WorldScreen` nach dem Licht gezeichnet (`glowing`, Stärke `MapLight.strength(NIGHT)`). Kerntest `LampGlowTest`, Vorschau `KARTENZOOM=1 DIAG=1 TOWNDRAFT=1 ONLY=zoom_nah_d7` (Nacht) / `d8` (Dämmerung).
+- **25** getestet (0.1.512) und zusammengeführt (PR #28, 16:31).
 - **24 als Nächstes (neue Sitzung):** Plan in „Wer macht was“: erst messen (Zeit bis alles gezeichnet: `MapFigure.prepare`, `MapRest`, `MapFolk.prepareFor`, `MapGround.prepare`, Kampf `HeroBattle.prepare`/`MonsterArt.prepare` in `BattleScreen` ~1204/~901), dann 24.2/24.3, 24.1 Übergangsbild, 24.5 Kampfbilder auf der Karte vorladen; 24.6 macht Jerry. Vorher `STIL.md`-Abgleich (Blende im Stil, Übergang weich), Kerntest „Übergangsbild endet, wenn fertig oder nach ca. 4 s“.
 - **5l / 5.5 Leben im Dorf** nach 24 (Nutzer 14:55): Tiere (Hühner, Katzen, Hunde), Leute bei der Arbeit, Platz dichter; erst Standbilder. Dann 5.3, 5.4.
 - Routinen: die fünf neuen (09:24–21:24) braucht der Nutzer noch mit Repo und „automatisch“.
@@ -43,7 +42,6 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **0.1.512** (Tom, 25, `claude/fervent-einstein-bewehx`, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38143518053/artifacts/11703464207)): Laternenglas und Hausfenster leuchten nachts, glimmen in der Dämmerung auf.
 
 – nichts offen –
 
@@ -61,6 +59,6 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **24i** (Tom, 16:19): Bei jedem Tür-Wechsel 2,5 s Zwischenbild ist viel. Empfehlung: erster Besuch ganzer Satz; danach nur Ortsname ca. 1 s; ist schon alles gezeichnet, bei Türen im Dorf nur eine kurze Blende (0,3 s) ohne Text.
 - **24j** (Tom, 16:19): Englische Fassung der Ortssätze schreibe ich selbst. Empfehlung: ja.
 
-- **24k** (16:24, Tom): 24 nicht aufteilen? Empfehlung Tom: Tom baut den ganzen Zwischenbildschirm (Orte und Kampf, Fäden, Warten 24.6); Jerry liefert nur zu: Sätze für die 7 übrigen Gegner, Klang in der Blende (24.8) nach dem Bau.
+- **24k** (Jerrys Gegenvorschlag 16:31: nach Arbeitsart teilen. Tom: ganze Technik 24.1–24.6 und Mechanik aus 24.7; Jerry: Kampfsätze DE/EN als Daten in `core`, knapper Kampftext in `Battle.kt`, Klang 24.8, danach Kampfabläufe filmen. Tom einverstanden.) (16:24, Tom): 24 nicht aufteilen? Empfehlung Tom: Tom baut den ganzen Zwischenbildschirm (Orte und Kampf, Fäden, Warten 24.6); Jerry liefert nur zu: Sätze für die 7 übrigen Gegner, Klang in der Blende (24.8) nach dem Bau.
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.

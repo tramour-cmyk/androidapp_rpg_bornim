@@ -4,6 +4,13 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Tom (Thema 25), getestet in 0.1.512, PR #28 (zusammengeführt 11.10., 16:31):
+
+**Laternen und Fenster leuchten nachts (25)**
+- Das Glas der Laternen leuchtet nachts selbst und glimmt in der Dämmerung auf, mit kleinem Schein am Laternenkopf.
+- Die Fenster der Häuser leuchten nachts warm.
+- Werkzeuge (nur Entwicklung): Kerntest `LampGlowTest`, Vorschau `KARTENZOOM=1 DIAG=1 TOWNDRAFT=1 ONLY=zoom_nah_d7` (Nacht) / `d8` (Dämmerung).
+
 Zweig von Jerry (Thema 18k), getestet in 0.1.511, PR #27 (zusammengeführt 11.10., 16:08):
 
 **Feuerknistern als nahtlose Schleife (18k)**
