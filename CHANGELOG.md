@@ -4,6 +4,12 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Tom (Thema 24.14, 24.15), getestet in 0.1.538, PR #35 (zusammengeführt 11.10., 21:00):
+
+**Held viel schneller gezeichnet (24.14, 24.15)**
+- Das Zeichnen von Figuren erzeugt keine Unmengen Wegwerf-Daten mehr (je Heldenbild 3,7 statt 218 MB). Am Handy gemessen: erster Start Held ganz gezeichnet nach 5,9 s statt 27 s, Waffenwechsel 2,9 s statt 15,7 s. Aussehen unverändert; Gegner und Leute profitieren ebenso.
+- Neue Beute in der Tasche wird im Hintergrund schon am Helden gezeichnet: Anlegen geht sofort (0,0 s).
+
 Zweig von Tom (Thema 24.4, 24.9–24.13), getestet in 0.1.530, 0.1.532 und 0.1.534, PR #34 (zusammengeführt 11.10., 20:37):
 
 **Held ohne Mischfigur und schneller bereit (24)**

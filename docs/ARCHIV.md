@@ -4,6 +4,12 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Übergabe Tom (11.10., 20:43), ersetzt 11.10., 21:00
+
+- **Auf `main`:** PR #34 (24.4, 24.9–24.13), zusammengeführt 20:37, in CHANGELOG „Unveröffentlicht“.
+- **Zweig `claude/affectionate-dijkstra-74a6ya`** (kein PR): 24.14 (`Sdf.kt`: Körperformen messen in Zahlen statt `P3`, 218 → 3,7 MB Wegwerf-Objekte je Heldenbild, Bilder pixelgleich, geprüft mit Prüfsummen) und 24.15 (`MapFigure.ahead`: neue Beute vorab zeichnen, leiser Faden, `HeroShelf` 12 Looks; Auslöser `GameViewModel.drawLootAhead`). Build c34d8f0 zu testen: Zeiten erster Start (vorher 27 s), Waffenwechsel (vorher 15,7 s), neue Beute anlegen (sofort?), Ruckeln im Spiel.
+- **Danach:** nach Test PR, zusammenführen; 24.5 (Kampfbilder vorladen); 5l/5.5 (erst Standbilder), 5.3, 5.4; 17.
+
 ## Übergabe Tom (11.10., 20:21), ersetzt 11.10., 20:43
 
 - **Auf `main` (PR #34, 20:37):** 24.9 (keine Mischfigur), 24.10 (Blende wartet auf Gang in allen Richtungen), 24.11 (Ausrüstung wechselt überall zugleich), 24.4 (`HeroShelf`: Heldenbilder auf dem Gerät, ~160 KB je Look, 6 Stück, Ordner je Build, gesetzt in `MainActivity`), 24.12 (Zeichnen im Menü, `MenuScreen`), 24.13 (Test-Reiter „Held ganz gezeichnet“). Getestet 0.1.534 (Zeiten oben bei 24).
