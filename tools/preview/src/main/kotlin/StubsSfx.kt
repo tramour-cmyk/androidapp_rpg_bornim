@@ -9,7 +9,8 @@ class SfxPlayer(context: android.content.Context) {
     var enabled = true
     fun play(s: Sound, volume: Float = 0.8f) {}
     fun voice(id: String, cue: de.bornim.core.audio.Recorded.Cue, volume: Float = 0.8f) {}
-    fun start(s: Sound, volume: Float): Int = 0
+    fun loop(s: Sound, volume: Float): Int = 0
+    fun stop(stream: Int) {}
     fun volume(stream: Int, volume: Float) {}
     fun release() {}
 }

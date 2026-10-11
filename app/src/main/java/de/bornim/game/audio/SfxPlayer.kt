@@ -58,14 +58,19 @@ class SfxPlayer(private val context: Context) {
         pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume, volume, 1, 0, 1f)
     }
 
-    /** Like [play], but returns the stream so its volume can follow the hero (the fire's crackle, 18i); 0 if silent. */
-    fun start(s: Sound, volume: Float): Int {
+    /**
+     * Plays one take of [s] over and over without a seam (the fire's crackle, 18k) and returns the stream, so its
+     * volume can follow the hero; 0 if silent. The take stays until [stop]; the next start picks a new one.
+     */
+    fun loop(s: Sound, volume: Float): Int {
         if (!enabled) return 0
         val takes = ids[s] ?: return 0
-        return pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume, volume, 0, 0, 1f)
+        return pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume, volume, 0, -1, 1f)
     }
 
     fun volume(stream: Int, volume: Float) { if (stream != 0) pool.setVolume(stream, volume, volume) }
+
+    fun stop(stream: Int) { if (stream != 0) pool.stop(stream) }
 
     /** The voice of the monster [id] for [cue] (a growl as it attacks, a yelp when struck, its death), if it has one. */
     fun voice(id: String, cue: Recorded.Cue, volume: Float = 0.8f) {

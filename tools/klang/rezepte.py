@@ -3,6 +3,7 @@ Klänge aus CC0-Aufnahmen (Thema 18): schneiden, tiefer stimmen, filtern, Hall, 
 
     tools/klang/holen.sh <ordner>                      # Aufnahmen laden (einmal)
     python3 tools/klang/rezepte.py <ordner>            # Klänge fürs Spiel nach app/src/main/assets/sfx (OGG)
+    python3 tools/klang/schleifen.py <ordner>          # danach: Feuerknistern als Schleifen (18k)
     python3 tools/klang/rezepte.py <ordner> --proben <ziel> [--nur a,b]   # Fassungen als WAV zum Anhören (--nur: nur diese Klänge)
 
 Systemklänge (Stufenaufstieg, Klick, epische Beute) gibt es im Spiel nur einmal (STIL.md, Klang); welche Fassung,
@@ -163,7 +164,7 @@ S["buff_ersatz"] = [
 S["magic"] = [S["magic_ersatz"][1]] + S["magic"][1:]
 S["buff"] = [S["buff"][0], S["buff_ersatz"][1], S["buff"][2]]
 R2 = list(S)[R2_START:]
-R2_FREI = {"encounter", "alert", "ambush", "hero_down", "fire", "holy", "heal", "poison", "potion", "throw", "bird", "cricket", "owl", "drip", "crackle", "magic", "buff"}   # gewählt (18f, 18g, 11.10.); nur diese kommen ins Spiel
+R2_FREI = {"encounter", "alert", "ambush", "hero_down", "fire", "holy", "heal", "poison", "potion", "throw", "bird", "cricket", "owl", "drip", "magic", "buff"}   # gewählt (18f, 18g, 11.10.); nur diese kommen ins Spiel; Knistern seit 18k als Schleife aus schleifen.py
 
 # Systemklänge: nur diese Fassung kommt ins Spiel (Stufenaufstieg Nr. 1 gewählt vom Nutzer 11.10., Kampfbeginn Nr. 3 18f)
 GEWAEHLT = {"level_up": 0, "click": 1, "loot_epic": 0, "encounter": 2}   # Kampfbeginn neu 3 (18f)

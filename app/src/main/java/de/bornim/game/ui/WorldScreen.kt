@@ -268,14 +268,14 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
     }
 
     // The fire's crackle swells as the hero walks up to a campfire or a hearth and fades as he leaves it or a fight
-    // starts (18i); drops fall in the cave on their own, fire or not (18h).
+    // starts (18i): one take loops without a seam and stays until it has faded out, the next fire picks a new one (18k).
+    // Drops fall in the cave on their own, fire or not (18h).
     LaunchedEffect(game.state.place.map) {
         val rnd = kotlin.random.Random(game.state.steps + 1)
         val tick = 100L
         var fire = 0f
-        val streams = ArrayDeque<Pair<Int, Long>>()
+        var crackle = 0
         var now = 0L
-        var nextCrackle = 0L
         var nextDrip = de.bornim.core.audio.Ambience.DRIP_MIN_MS / 2 + rnd.nextLong(de.bornim.core.audio.Ambience.DRIP_SPAN_MS)
         try {
             while (isActive) {
@@ -285,19 +285,18 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 val p = game.state.place
                 val target = if (calm) de.bornim.core.audio.Ambience.fireTarget(de.bornim.core.audio.Ambience.nearestFire(game.map, p.x, p.y)) else 0f
                 fire = de.bornim.core.audio.Ambience.approach(fire, target, tick)
-                while (streams.isNotEmpty() && now - streams.first().second > 3000L) streams.removeFirst()
-                if (fire > 0f && now >= nextCrackle) {
-                    streams.addLast(vm.sfx.start(de.bornim.core.audio.Sound.CRACKLE, fire) to now)
-                    nextCrackle = now + de.bornim.core.audio.Ambience.CRACKLE_EVERY_MS
+                when {
+                    fire > 0f && crackle == 0 -> crackle = vm.sfx.loop(de.bornim.core.audio.Sound.CRACKLE, fire)
+                    fire == 0f && crackle != 0 -> { vm.sfx.stop(crackle); crackle = 0 }
+                    else -> vm.sfx.volume(crackle, fire)
                 }
-                streams.forEach { vm.sfx.volume(it.first, fire) }
                 if (game.map.kind == MapKind.CAVE && now >= nextDrip) {
                     if (calm) vm.play(de.bornim.core.audio.Sound.DRIP, de.bornim.core.audio.Ambience.dripVolume(fire))
                     nextDrip = now + de.bornim.core.audio.Ambience.DRIP_MIN_MS + rnd.nextLong(de.bornim.core.audio.Ambience.DRIP_SPAN_MS)
                 }
             }
         } finally {
-            streams.forEach { vm.sfx.volume(it.first, 0f) }
+            vm.sfx.stop(crackle)
         }
     }
 
