@@ -17,7 +17,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
 | 9i | Übrige Gegner auf der Karte (Entwürfe `MAPFOE=others\|cave\|wood`) | Jerry | – | freigegeben; nach 13 |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
-| 18 | Klänge neu aus echten Aufnahmen (CC0) | Jerry | `claude/session-start-l65s4j` | 18.7 umgesetzt 12:57 (Runde 1, Stimmen Wolf, Goblin, Skelett; `tools/klang`), Zweig-Build läuft; danach Runde 2 und übrige Gegner |
+| 18 | Klänge neu aus echten Aufnahmen (CC0) | Jerry | `claude/session-start-l65s4j`, PR #19 | 18.7 umgesetzt; Zweig-Build 0.1.486 beim Nutzer; danach Runde 2 und übrige Gegner |
 | 20 | Uhrzeit der APK im ZIP 2 h zu früh (ZIP speichert Ortszeit ohne Zone, Runner läuft in UTC) | Tom | neu von `main` (Workflow, PR) | gemeldet 11.10., 12:55; Vorschlag: `TZ=Europe/Berlin` beim Hochladen |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
 
@@ -40,6 +40,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
+- **0.1.486** (Jerry, 18.7, [Lauf](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38133810486)): Klänge Runde 1 aus Aufnahmen, Stimmen Wolf, Goblin, Skelett im Kampf.
 - **0.1.482** (Tom, 13, `tom-diagonal`, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38132308756/artifacts/11699796980)): Ältester, Laden, Tempel mit Grundriss A; Prüfliste im Chat 11.10., 12:42.
 
 ## Rückfragen an den Nutzer
