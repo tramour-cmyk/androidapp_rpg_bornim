@@ -44,11 +44,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **In Arbeit: 27 Wald** (27a ja 11:43: zuerst Südrand mit Steinkreis und Schild, erst Standbilder). Danach 13 Tempel, dann **42 Textkasten** (42a–42c ja, Standbilder zuerst), dann 5l/5.5, 17.
 - **Merkposten (23b ja, Nutzer 11:48 über Berater):** Lyra diagonal (für die Höhle), bevor Jerry mit 13e fertig ist, damit er nicht wartet; Reihenfolge sonst unverändert.
 - **Texte (Regel 41):** Aushänge und Sätze von 29/29.3/29.4 stehen in `Jobs.kt`; der Berater übernimmt sie in `docs/STORY.md`.
-### Jerry (12.10., 11:55)
+### Jerry (12.10., 12:23, vor Neustart)
 
-- **34, 35 erledigt:** PR #41 zusammengeführt (11:52), getestet in 0.1.571; CHANGELOG eingetragen. Kein offener Zweig.
-- **37:** 5 Hörproben beim Nutzer (Rückfrage 37c), danach einbauen.
-- **Als Nächstes:** 36.1 Krogg (Standbilder vorher/nachher), **38 Messung Kapitel 1** (nach 37 und 36.1, vor 13e), 13e Entwurf 2 (`claude/quirky-goodall-fqncrd`), 24.6, 40. 30: Abstürze mit Bericht beobachten.
+- **Zweig `claude/sharp-faraday-929xjq`, PR #44 (Entwurf):** 37 Kampfmusik umgebaut (3 raus, Eclipse Legion rein, Ancient Legend → `MusicLib.amuletReturn`), Vorschau `FOESHOT`. Build 0.1.574 grün ([Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38235039784/artifacts/11740720309)), **noch nicht zum Test angeboten**: erst zweite Runde Hörproben (37d; Kandidaten-Suche auf OGA mit CC0-Filter, Battle Theme A von cynicmusic als Reserve), dann einbauen, dann ein Test.
+- **36:** 36.1 (Fell) ohne sichtbaren Unterschied, zurückgenommen. Weiter mit 36.3 (Krogg 1,5×): `ARTMEM` messen, Standbild mit `FOESHOT=bugbear:0 FOESHOT_SCALE=4`. Achtung: `FOEANIM=bugbear` stürzt ab (Rahmen höher als Raster).
+- **Als Nächstes:** 37 Runde 2, 36.3, **38 Messung Kapitel 1**, 13e Entwurf 2 (Grundsatz 43!), 24.6, 40.
 
 ## Zu testen
 

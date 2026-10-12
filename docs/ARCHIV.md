@@ -5,6 +5,12 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
 
+### Übergabe Jerry (12.10., 11:55, ersetzt 12:23)
+
+- **34, 35 erledigt:** PR #41 zusammengeführt (11:52), getestet in 0.1.571; CHANGELOG eingetragen. Kein offener Zweig.
+- **37:** 5 Hörproben beim Nutzer (Rückfrage 37c), danach einbauen.
+- **Als Nächstes:** 36.1 Krogg (Standbilder vorher/nachher), **38 Messung Kapitel 1** (nach 37 und 36.1, vor 13e), 13e Entwurf 2 (`claude/quirky-goodall-fqncrd`), 24.6, 40. 30: Abstürze mit Bericht beobachten.
+
 ### Übergabe Jerry (12.10., 10:30, ersetzt 11:55)
 
 - Zweig `claude/wizardly-edison-tjotls`, PR #41 (34 Zug beenden, 35 Weihwasser), Build 0.1.568 (zu klein zum Installieren, neu gebaut 0.1.571, getestet, zusammengeführt 11:52).
