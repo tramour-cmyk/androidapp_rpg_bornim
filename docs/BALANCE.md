@@ -60,6 +60,7 @@ Durchschnittlich gebauter Held, Ausrüstung im Deckel, Kämpfe hintereinander (n
 - Zauberpunkte statt Zauberplätze (SRD-Variante): einfacher zu bedienen.
 - Gleißender Schaden gegen Untote ×1,5 (auch Weihwasser, 35a).
 - Magierrüstung hält 8 h Spielzeit über Kämpfe hinweg (26.1): Magier verlor sonst die erste Runde.
+- Talent auf jeder geraden Stufe (49r, nach Kapitel 1), auf 4, 8, 12, 16, 20 wahlweise +2 Attribut statt SRD 4/8/12/16/19: mit zwei Stufen je Kapitel gäbe es sonst Kapitel ohne Wahl. Jerry misst, ob Helden dadurch zu stark werden.
 
 ## Offen
 

@@ -8,7 +8,7 @@ Zielliste (Thema 26, Beratung mit dem Nutzer 11.10., 16:50): Kapitel 1 wird rund
 - [x] **Alle Gegner auf der Karte im neuen Stil** (9i, Jerry; erledigt 11.10., PR #29, #33).
 - [ ] **Läuft rund:** kein Schweben nach Start und Kartenwechsel, Zwischenbild (24, Tom und Jerry); Sprungtest und Kollisionsprüfung 0; „Bewegungen unrund“ (19e) geklärt.
 - [x] **Musik neu im neuen Stil** (28, Jerry), nur freie Lizenzen. Erledigt 11.10., 21:31 (PR #36).
-- [ ] **Nebenquests über ein Anschlagbrett** (29, Tom), mindestens drei Aufträge, die Wald und Höhle nutzen.
+- [x] **Nebenquests über ein Anschlagbrett** (29, Tom), mindestens drei Aufträge, die Wald und Höhle nutzen. Erledigt 12.10. (PR #42).
 - [ ] **Ausgleich:** alle vier Klassen schaffen die Bosse in vergleichbarem Maß (heute Magier gegen Grak 44–62 %); Zielwert mit dem Nutzer festlegen (Jerry, Kampf).
 - [ ] **Durchgespielt:** Der Nutzer spielt Kapitel 1 einmal ganz durch; Zufallsspieler (`PlayerSimTest`) grün.
 

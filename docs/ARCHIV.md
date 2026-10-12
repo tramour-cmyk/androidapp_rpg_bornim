@@ -1,8 +1,24 @@
 # Archiv
 
+### Übergabe Tom (12.10., 17:31, Selbstarbeit ab 16:40)
+
+- PR #48 `claude/tom-27-4-baeume`, Build [0.1.600](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38269109227): 27.4, 5.6, 5.3 (alle zwölf als Puppen), 5n (Kaels Hütte 2 nach Osten, 2 breit statt 3, sonst klebt sie am Nachbarhaus), Beet/Kornfeld/Fichtenreihe neu (Test 0.1.590 b–d), Tresen fest, Rauch weich. Test passt → zusammenführen, CHANGELOG.
+- **Entwürfe (nur Vorschau, Standbilder 17:04–17:27 im Chat):** 27.5 Stamm und Feuer diagonal je 3 Varianten (`WOODDRAFT=1`, `ISODINGE=wald`), Felshang mit Höhleneingang; 55.2 Sitzhaltung (`Rig.sit`), Borin auf Hocker am Tisch (`SITDRAFT2=1`). 27f, 55b ja (18:3x).
+- (a) Held unter Kronen: nicht nachstellbar, wartet auf 27e. Vorschau `HELDORT=karte:x:y[:richtung]`.
+- **Als Nächstes:** 5.4 Dorf lebendig (Entwurf), nach Freigabe 27.5/55.2 ins Spiel.
+
+
+### Übergabe Tom (12.10., 15:57)
+
+- **49/50 aus OFFEN.md (Berater 12.10., 18:1x), Stand vor 49n:** 49 | Lehrer: Übung in Waffen, Rüstung, Rettungswürfen dazulernen (Magier lernt Bogen) | Berater mit Nutzer | – | Idee Nutzer 12.10., 14:1x. Vorschläge 49.1–49.4; Nutzer 14:2x: Optionen ja, aber Magier nie bester Tank; neue Attribute? Skilltree? Abwägung 49.5–49.8. 49d, 49g, **49e, 49f ja (15:0x)**: Fertigkeiten bei Lehrern, Talente statt Attributspunkten; Entwurf im [Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14). Nach Kapitel 1 · 50 | Weitere Klassen (Berserker, Kriegsmagier, Paladin, Werwolf …), ggf. zum Kauf | Berater mit Nutzer | – | Idee Nutzer 12.10., 14:2x, hängt an 45 und 49. 50c ja; **50a, 50b ja (15:0x):** Klassenpaket, je Klasse zwei Pfade ab Stufe 3, Pfad am Aussehen erkennbar. **50e–50h ja (16:2x):** Merkmale aus Code (Rüstungsstufe, Schild, Zauberer, Nah/Fern) plus wenige eigene, „Rüstung +1 Stufe“ ein Talent; Merkmale nie kaufbar; Spieler sieht ausgegraute Talente mit Grund und Zeile im Heldenbogen; Pfad gibt höchstens ein Merkmal. **50i, 50j ja (16:2x):** eigene Merkmale Heilig/Arkan/Wild/Pfad/Bestie, jedes öffnet mindestens zwei Dinge; Herkunft bei der Erstellung (5 Stück). Talente als Linien (49.9–49.13): **49h ja, 49i grundsätzlich ja** (Stufenzahl noch offen), **49j geändert (16:3x):** nur die höchste Stufe, immer durch Tat/Lehrer, am besten eigene Quest; **49l ja:** Prüfungsquest vom Lehrer, freiwillig. **49m ja (16:3x):** Umlernen nur im besonderen Tempel ab Kapitel 3, teuer, kein Spieltag; letzte Wahl bis zur Rast zurücknehmbar, Spieler wird bei der Wahl darauf hingewiesen. Stufenzahl je Linie beim Durchgehen der Talentliste. Matrix im [Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14). Nach Kapitel 1
+- Zweig `claude/tom-27-4-baeume`: 27.4, 5.6, 5.3, dazu (nach Test 0.1.590) Durchsicht nur bei Oberkörper (Tresen fest, geprüft `ONLY=zoom_nah_l9`) und Kaminrauch weich (ungeprüft im Bild: kein Kamin im Schuss `d2`). Push 15:56, Build läuft; kein PR.
+- **Test 0.1.590 (Nutzer 15:4x):** Dorf gut, Leute gut, **kein Absturz** bei vielen Wechseln Dorf ↔ Wald. Zaun gut. **Offen:** (a) Held im dichten Wald unter mehreren Kronen ganz weg (Bild; Ebenen-Formel/Schwelle prüfen), (b) Fichtenreihe am Dorfrand Süd gleichförmig (alles junge Fichten wegen Sichtregel, im Raster): mischen, versetzen, (c) Gemüsebeet sieht nach Kästen aus (`MapTown.vegBed`), (d) Kornfeld wirkt wie Regenstriche, (e) Rauch war harte Scheiben (behoben, prüfen). Ein Mädchen im Dorf noch alte Figur.
+- **Nutzer 16:0x:** 55a ja, **5n ja** (Haus östlich des Schlagbaums 2 Felder nach Osten), **Liska, Gwenna, Bram noch alte Figuren** (im Dorf unterwegs, als Puppen umstellen). Regel „nicht warten“ in `CLAUDE.md`: Antwort unklar („3 ja“ = 5n), nachfragen.
+- **Als Nächstes:** Build 15:56 melden, (a)–(e), Liska/Gwenna/Bram, 5n, Build, Test, PR, zusammenführen, CHANGELOG; dann 55 (55.2 zuerst), 5l/5.5, 5.4, 27.5/27.6.
+
 ### Übergabe Jerry (12.10., 16:22)
 
-- **Selbstarbeit ab 16:40** (Nutzer 16:2x), Paket in `SELBST.md` (13e.2 Kisten/Truhen/Bettrolle, 13e.3 Lichtstrahl 11 + Flammen 10, 13e.4 Stalagmiten/Weiher; Reserve 38, 53, 51). Nachfolgerin übernimmt (Neustart-Haken).
+- **Selbstarbeit ab 16:40** (Nutzer 16:2x), Paket in `SELBST.md` (13e.2 Kisten/Truhen/Bettrolle, 13e.3 Lichtstrahl 11 + Flammen 10, 13e.4 Stalagmiten/Weiher; Reserve 38, 53, 51). Nachfolger übernimmt (Neustart-Haken).
 - **13e Entwurf 2, Wände** auf `claude/jerry-13e-hoehle-diagonal` (97bf42d, nur Vorschau): Fels als Höhenfeld je Randfeld, allgemein aus dem Kartenraster (48b), Standbilder 16:19 an den Nutzer. Schnellbild der ganzen Höhle: `CAVESHEET=1 ./gradlew -p core test --tests '*CaveSheet*' --rerun` → `core/build/preview/hoehle_plan.png` (Sekunden statt 5 min). Kein Zweig-Build zum Testen nötig (im Spiel aus).
 - Erledigt heute: PR #47 (36.5/36h/36.7/36j) zusammengeführt; 52, 53, 54 angelegt; 54 Regel „Nicht warten“ + Stop-Haken auf `main`.
 
@@ -187,6 +203,20 @@ Zeile 24 aus „Wer macht was“ (Stand 12.10.): | 24 | Animationen fehlen nach 
 
 
 
+
+## Aus BERATER.md (12.10., 16:4x, gekürzt)
+
+- **Textkasten im Stil der Blenden** (42, 12.10.): heller Kasten mit rotem Sprecher war Game-Boy-Look gegen `STIL.md`. Ganz schwarz (nicht durchscheinend: lesbarer, näher an der Blende), dünner Goldrand, Sprecher Gold in Kapitälchen im Kasten, Text gebrochenes Weiß, Serife, Erzähltext kursiv. Erst nur Textkasten, Menüs später; Tom nach 13, erst Standbilder.
+- **Klang:** echte CC0-Aufnahmen statt Synthese (18); Systemklänge nur in einer Fassung; Ortsklang nur von sichtbaren Quellen und anwesenden Leuten, **kein Stimmengewirr** (24w nein, 22:06); Musik orchestral und düster, Dorf mittelalterlich (28). Einzelheiten `STIL.md` → Klang.
+- **Kampf nah am SRD** (12.10.): „Zug beenden“ jetzt (34, auch um Testkämpfe schnell zu verlieren), „Abwarten“/„Helfen“ erst mit Begleitern (Merkliste). Weihwasser nur gegen Untote, 2W6, sonst ausgegraut mit Hinweis (35): vorher 2W6 gegen alle, unglaubwürdig.
+- **Hintergrund-Fäden:** `MapGround` (fester Pool „map-ground“), `MapRest` (ein Faden „map-rest“), `MapFigure.prepare` (eigene Fäden für den Helden), `HeroShelf` (gespeicherte Bilder, 24.4), `BattleAhead` (Kampfbilder vorzeichnen, 24.5), ab 24.17 zwei Kerne. Klang: Ortsklang-Schleife in `WorldScreen` (24.8, Jerry).
+- **Zwischenspeicher:** Viele Kunst-Objekte halten Bilder in Maps. Begrenzt (LRU): `FoeArt`, `MonsterArt`, `HeroBattle`, `CaveScene`. **Unbegrenzt** (einfache `HashMap`): u. a. `WorldArt`, `MapFlora`, `MapTown`, `MapTownIso`, `ActionArt`.
+- **Vorzeichnen muss ein festes Ziel haben** (24.5, 11.10.): Im Wolfsrudel wechselte der „nächste Gegner“ ständig, jeder Wechsel brach das Zeichnen ab, Gegner wurden nie fertig. Lösung 24.18: feste Reihenfolge.
+- **Erst messen, dann beschleunigen** (24.14): Erster Start sank von 27 s auf 5,9 s, Waffenwechsel von 15,7 s auf 2,9 s, erst nachdem der Test-Reiter Zeiten zeigte.
+- **Bilder auf dem Gerät speichern lohnt** (24.4): Neustart 0,1 s statt 27 s.
+- **Abstürze ohne Bericht sind blind** (30, 11.10.): Bis heute gab es keinen Absturz-Fänger. Erst Fehlertext holen, dann suchen.
+- **Test-Builds von vor einer Korrektur haben sie nicht** (30, 12.10.): 0.1.561 (Jerry) entstand vor PR #40, stürzte ohne Bericht ab. Darum vor jedem Zweig-Build `main` holen (21.5) und beim Testangebot sagen, ob der Fänger drin ist.
+- **Gegner sind grobe Pixelkunst** (36): 0,66 px/cm, hart ganzzahlig vergrößert (`width/170`, im breiten Emulator bis ~11×). Starkes Rauschen (`grain`) wird bei wenigen Punkten zu Krisel.
 
 ## Aufgeräumt aus OFFEN.md (Jerry, 12.10., 13:50)
 
