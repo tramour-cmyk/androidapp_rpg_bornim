@@ -1,11 +1,12 @@
 # Archiv
 
-### Tom (12.10., 22:3x) – Neustart
 ### Tom (12.10., 22:50) – vor Neustart
 
 - **58** auf Zweig `claude/tom-58-umhang-schild`, Build 0.1.628 fertig (22:56, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38306820619), 58a ja, Test am Gerät steht aus: Schild auf dem Rücken und Köcher drücken Umhang und Waffenrock an (`Dress.PRESS_CLOAK`, Hohlform `Pressed`/`Swept` im Umhang). Vorschau `SHIELDWALK=1|alt|andere`. Vorher/Nachher auf der Entscheidungsseite (22:48). Andere Ausrüstung geprüft: in Ordnung.
 - **Weiter:** (1) **59 Händler** jetzt (Nutzer 22:49, 59a–59c in „Wer macht was“), neuer Zweig `claude/tom-59-haendler`, erst Standbilder auf die Entscheidungsseite; (2) Test 58 abwarten, dann PR und zusammenführen; danach laut 26c: Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar (Meldung 08:43), 5l, 17 Rest (Haare, Köcher).
 - Entscheidungsseite aufgeräumt: 42d und 27k ins Bildbuch verschoben.
+
+### Tom (12.10., 22:3x) – Neustart
 
 - **Berater 22:5x (Nutzer 22:49): Thema 59 Händler jetzt anpacken** (Entscheidungen 59a–59c in „Wer macht was“), Standbilder auf die Entscheidungsseite.
 
