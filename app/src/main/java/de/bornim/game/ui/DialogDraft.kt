@@ -19,9 +19,9 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-/** 42 Textkasten (draft, preview `TEXTKASTEN=1`): the text box in the look of the black screens between places. */
+/** 42 Textkasten (in the game since 42d, 12.10.; preview `TEXTKASTEN=1` shows old and new): the text box in the look of the black screens between places. */
 object DialogLook {
-    @Volatile var draft = false
+    @Volatile var draft = true
 }
 
 /** The ink of the black screens (24.1): off-white like old paper, a dull gold. */

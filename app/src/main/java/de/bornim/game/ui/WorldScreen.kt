@@ -289,6 +289,12 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         var bedStream = 0
         var nextEvent = de.bornim.core.audio.PlaceSound.firstMs(place, rnd)
         var lastEvent: de.bornim.core.audio.Sound? = null
+        // the pond (27j): calls of the frogs on the bank and dragonflies darting close, the chorus at dusk
+        val outside = game.map.kind == MapKind.TOWN || game.map.kind == MapKind.FOREST
+        val pond = if (outside) de.bornim.core.art.PondLife.of(game.map).takeIf { it.frogs.isNotEmpty() || it.flies.isNotEmpty() } else null
+        val ear = pond?.let { de.bornim.core.audio.PondSound.Ear(it) }
+        var chorus = 0f
+        var chorusStream = 0
         try {
             while (isActive) {
                 delay(tick)
@@ -317,6 +323,19 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     }
                     nextEvent = now + de.bornim.core.audio.PlaceSound.gapMs(place, rnd)
                 }
+                if (pond != null && ear != null && de.bornim.core.art.PondLife.draft) {
+                    val hx = (p.x + 0.5f) * de.bornim.core.art.WorldArt.T; val hy = (p.y + 0.5f) * de.bornim.core.art.WorldArt.T
+                    val dusk = game.daylight < 0.55f
+                    val heard = ear.hear(clock, hx, hy, dusk, flying = game.daylight > 0.4f && !game.raining)
+                    if (calm) for ((s, v) in heard) vm.play(s, v)
+                    val want = if (calm) de.bornim.core.audio.PondSound.chorusTarget(pond, hx, hy, dusk) else 0f
+                    chorus = de.bornim.core.audio.PlaceSound.approach(chorus, want, tick)
+                    when {
+                        chorus > 0f && chorusStream == 0 -> chorusStream = vm.sfx.loop(de.bornim.core.audio.Sound.FROG_CHORUS, chorus)
+                        chorus == 0f && chorusStream != 0 -> { vm.sfx.stop(chorusStream); chorusStream = 0 }
+                        else -> vm.sfx.volume(chorusStream, chorus)
+                    }
+                }
                 if (game.map.kind == MapKind.CAVE && now >= nextDrip) {
                     if (calm) vm.play(de.bornim.core.audio.Sound.DRIP, de.bornim.core.audio.Ambience.dripVolume(fire))
                     nextDrip = now + de.bornim.core.audio.Ambience.DRIP_MIN_MS + rnd.nextLong(de.bornim.core.audio.Ambience.DRIP_SPAN_MS)
@@ -326,6 +345,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             // leaving the place: its loops die away instead of breaking off (24.8.5)
             vm.sfx.fadeOut(crackle, fire)
             vm.sfx.fadeOut(bedStream, bed)
+            vm.sfx.fadeOut(chorusStream, chorus)
         }
     }
 
@@ -1470,7 +1490,7 @@ private fun DrawScope.drawCritters(
 }
 
 /**
- * Life at the forest pond (27.6, draft): frogs on the bank and dragonflies over the water, upright on the
+ * Life at the forest pond (27.6): frogs on the bank and dragonflies over the water, upright on the
  * screen (seen diagonally they stand on the mapped point, not lying flat), dull colours dimmed with the light.
  */
 private fun DrawScope.drawPondLife(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam) {

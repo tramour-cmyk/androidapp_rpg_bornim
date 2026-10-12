@@ -8,7 +8,7 @@ import kotlin.math.hypot
 import kotlin.math.sin
 
 /**
- * Life at the forest pond (27.6): dragonflies over the water by day, frogs on the bank that leap
+ * Life at the forest pond (27.6, sound 27j): dragonflies over the water by day, frogs on the bank that leap
  * in when the hero comes close and climb back out once he has gone. Positions in map pixels; the
  * drawing is in the app (`WorldScreen`). Each place is found from the pond's own shore
  * ([MapGround.water]), so another pond gets its life without work by hand.
@@ -28,6 +28,9 @@ object PondLife {
      */
     class Fly(val cx: Float, val cy: Float, val seed: Int, val dark: Boolean, private val spots: List<Pair<Float, Float>>) {
         private val period = 2600L + seed % 1700
+
+        /** Which dash it is on at [clock]: a new number each time it darts to a new spot (27j, the whirr). */
+        fun dash(clock: Long): Long = Math.floorDiv(clock + seed * 37L, period)
 
         private fun spot(i: Long): Pair<Float, Float> = spots[Math.floorMod(hash(i.toInt(), seed), spots.size)]
 
@@ -73,6 +76,9 @@ object PondLife {
         private var mood = Mood.SIT
         private var since = Long.MIN_VALUE
 
+        /** Whether it sits on the bank (as last drawn): only then it calls (27j). */
+        val sitting: Boolean get() = mood == Mood.SIT
+
         fun at(clock: Long, heroX: Float, heroY: Float, dusk: Boolean): FrogAt {
             if (since == Long.MIN_VALUE || clock < since) { mood = Mood.SIT; since = clock }
             val near = hypot(heroX - x, heroY - y)
@@ -95,9 +101,8 @@ object PondLife {
                 Mood.SIT -> {
                     // breathing: the throat pulses; now and then it swells for a croak (often at dusk)
                     val breath = 0.5f + 0.5f * sin(clock / 260f + seed)
-                    val croakSlot = Math.floorDiv(clock + seed * 97L, 3100L).toInt()
-                    val croak = hash(croakSlot, seed, 5) % (if (dusk) 2 else 7) == 0
-                    val cu = Math.floorMod(clock + seed * 97L, 3100L) / 3100f
+                    val croak = croaks(seed, croakSlot(seed, clock), dusk)
+                    val cu = Math.floorMod(clock + seed * 97L, CROAK_MS) / CROAK_MS.toFloat()
                     val swell = if (croak && cu < 0.35f) sin(cu / 0.35f * 3.14f) else 0f
                     FrogAt(x, y, 0f, face, Mood.SIT, 0.3f * breath + swell, 0f)
                 }
@@ -121,6 +126,15 @@ object PondLife {
             }
         }
     }
+
+    /** One chance to call every this many ms per frog; the throat swells at the start of it. */
+    const val CROAK_MS = 3100L
+
+    /** The call slot frog [seed] is in at [clock]. */
+    fun croakSlot(seed: Int, clock: Long): Long = Math.floorDiv(clock + seed * 97L, CROAK_MS)
+
+    /** Whether frog [seed] calls in [slot]: one slot in seven by day, every other one at dusk. */
+    fun croaks(seed: Int, slot: Long, dusk: Boolean): Boolean = hash(slot.toInt(), seed, 5) % (if (dusk) 2 else 7) == 0
 
     const val SHY = 44f
     const val BACK = 90f

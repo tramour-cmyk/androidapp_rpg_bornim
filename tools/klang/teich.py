@@ -2,13 +2,15 @@
 Hörproben am Waldweiher (27j): Froschrufe, Froschchor als Schleife, Flügelschlag der Libellen. Alle CC0 (QUELLEN.md, Runde 4).
 
     python3 tools/klang/teich.py <ordner mit den Aufnahmen> <ziel>     # WAV-Proben und eine Szene zum Anhören
+    python3 tools/klang/teich.py <ordner mit den Aufnahmen> --spiel    # die gewählten (27k) nach app/src/main/assets/sfx
 
 Aufnahmen: Freesound 710246 (Sahand.Zangeneh, Frösche am Wasser), 426462 (musicbrain, frogs_01), 240549 (jaegrover,
 Libelle im Netz), 511326 (onehugeeye, Insect wings); OpenGameArt „Frog Croaks“ (croak_03.mp3).
 """
 import sys, os, numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from klang import *
-D, OUT = sys.argv[1], sys.argv[2]; os.makedirs(OUT, exist_ok=True)
+D, OUT = sys.argv[1], sys.argv[2]
+if OUT != "--spiel": os.makedirs(OUT, exist_ok=True)
 L = lambda f: load(os.path.join(D, f))
 
 def win(x, a, b, fi=0.03, fo=0.12): return cut(x, a, b, fi, fo)
@@ -36,6 +38,21 @@ def whirr(x, a, b, hz=1800): return reverb(lowpass(highpass(win(x, a, b, 0.08, 0
 S["libelle"] = [whirr(wings, 2.85, 3.75), whirr(wings, 9.75, 10.55), whirr(wings2, 1.55, 2.45, 3000)]
 
 def finish(x, rms=-20): return norm(trim(x, -55), -1.0, rms)
+
+# Gewählt vom Nutzer (27k, 12.10.): Frosch 1–3, Chor 2, Libelle 1–2
+if OUT == "--spiel":
+    import subprocess
+    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    chosen = {"frog": S["frosch"][:3], "frog_chorus": [S["froschchor"][1]], "dragonfly": S["libelle"][:2]}
+    for name, takes in chosen.items():
+        for i, x in enumerate(takes):
+            # the chorus loops: no trim, so its seam stays where the crossfade put it
+            y = norm(x, -1.0, -22) if name == "frog_chorus" else finish(x)
+            tmp = os.path.join(sfx, "_tmp.wav"); write(tmp, y)
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", tmp, "-ac", "1", "-ar", "44100", "-c:a", "libvorbis", "-q:a", "4",
+                            "-map_metadata", "-1", os.path.join(sfx, f"{name}_{i + 1}.ogg")], check=True)
+            os.remove(tmp)
+    print("Weiher-Klänge nach", os.path.normpath(sfx)); sys.exit(0)
 for name, takes in S.items():
     for i, x in enumerate(takes): write(os.path.join(OUT, f"{name}_{i + 1}.wav"), finish(x, -22 if name == "froschchor" else -20))
 
