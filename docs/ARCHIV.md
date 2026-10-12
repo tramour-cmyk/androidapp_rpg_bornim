@@ -6,6 +6,10 @@ Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistori
 
 
 
+### Thema 22 (erledigt, aus OFFEN 12.10., 14:5x)
+
+| 22 | Selbstarbeit statt nur Nachtarbeit: Routinen alle 3 h, Vorrat und Liste „Für gemeinsame Zeit“ | Tom | `main` (Notizen), Routinen | 22a, 22b ja (13:31). `docs/SELBST.md` statt `NACHT.md`; Toms Routinen umgestellt (13:38); Repo und Vollzugriff vom Nutzer eingestellt (bestätigt 16:38, 8 Routinen aktiv). Jerrys Routinen umgestellt (13:44), Vorrat eingetragen |
+
 ### Rückfrage 27b (erledigt, aus OFFEN 12.10., 14:4x)
 
 - **27b (Tom):** Wald Südrand: 27.1 Durchsicht kräftiger (Kronen vor Held, Steinen, Schild, Truhe fast ganz durchsichtig, nicht gestapelt) + 27.2 vorderster Waldrand diagonal niedrig (Stämme, Büsche, junge Bäume, wie die niedrigen Vorderwände der Höhle); 27.4 neue runde Bäume danach; 27.3 Karte umbauen nein. Empfehlung 27.1+27.2, erst Standbilder. **27b ja (Nutzer 12:09, über Berater):** 27.1, 27.2 und Umstellen nach 43 (27.3 doch ja): Garrick, Feuer, Steinkreis zuerst, Standbilder vorher/nachher.

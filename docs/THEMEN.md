@@ -25,7 +25,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 19 | Zeitablauf der Kampfbewegungen | Jerry | erledigt, v0.1.455; 19e geschlossen (36e, 12.10.) | `OFFEN.md` |
 | 20 | Uhrzeit der APK im ZIP | Tom | erledigt 11.10. (PR #21) | `OFFEN.md` |
 | 21 | Releaseflut eindämmen | Jerry | erledigt 11.10. (PR #22; Release nur auf Zuruf, Regeln in `CLAUDE.md`) | `OFFEN.md` |
-| 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | Tom | umgesetzt 11.10. (`docs/SELBST.md`) | `OFFEN.md` |
+| 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | Tom | erledigt 11.10. (`docs/SELBST.md`) | Archiv |
 | 23 | Aufgabenteilung und Vorrat für Selbstarbeit | Tom | erledigt 11.10. (`SELBST.md`) | `OFFEN.md` |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik), Jerry (Inhalt) | 24.1–24.4, 24.9–24.15 auf `main` (PR #30, #32, #34, #35, 11.10.); 24.5–24.8 offen | `OFFEN.md`, `ZWISCHENBILD.md` |
 | 25 | Laternen und Fenster nachts als Quelle zu dunkel | Tom | erledigt, getestet 0.1.512, PR #28 | `OFFEN.md` |
