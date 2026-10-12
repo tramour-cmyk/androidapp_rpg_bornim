@@ -11,7 +11,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
 | Tom | läuft | 12.10., 08:00 | 11.10., 23:08 | 12.10., 06:35 | 27 Wald-Standbilder blockiert: KARTENZOOM zeigt nur Zwischenbild | 29 Entwurf fertig; weiter 27 Wald | `claude/sharp-davinci-s83a1t` | `claude/sharp-davinci-s83a1t` |
-| Jerry | läuft | 12.10., 08:00 | 11.10., 23:17 | 12.10., 06:40 | Kerntests grün (Zweig + main); 13e Rest (Kisten/Stalagmiten diagonal) offen | claude/quirky-goodall-fqncrd |
+| Jerry | fertig | 12.10., 08:00 | 11.10., 23:17 | 12.10., 07:43 | Bericht im Chat (Thema 32) | – |
 
 Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
 
