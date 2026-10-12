@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 49** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 50** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -33,6 +33,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 46 | Neustart: nach „ja“ des Nutzers startet die Sitzung ihre Nachfolgerin selbst (erste Nachricht „Start“) und nennt nur den Namen | Tom und Jerry | `main` (Notizen) | Nutzer 12.10., 13:15 (über Berater): ja; Regel in `CLAUDE.md`. Beim nächsten Neustart ausprobieren, ob `create_session` auch außerhalb von Weck-Sitzungen geht |
 | 47 | README-Einleitung nach Leitbild; Testmodus raus | Berater | `main` (Notizen) | **47a, 47b ja, erledigt (13:3x):** Einleitung neu, Testmodus nur noch in `UMGEBUNG.md`. **47c ja (13:35):** Feature-Liste (veraltet: „Vereinfachtes D&D-System“, „64-px-Sprites“, „17 Monsterarten“ statt 15 + 3 Bosse) geprüft (13:40). **47d, 47e ja (13:4x), erledigt:** Feature-Liste berichtigt und nach Leitbild geordnet, Klänge/Musik bei Lizenzen, „Fanprojekt“ und Nintendo/Blizzard gestrichen |
 | 48 | Zufallsgenerierte Dungeons (auch Questhöhlen?) | Berater mit Nutzer | – | Idee Nutzer 12.10., 14:0x. Befund und Vorschläge 48.1–48.3, Rückfragen 48a, 48b (Berater). Nach Kapitel 1 (Leitbild 8), Merkliste |
+| 49 | Lehrer: Übung in Waffen, Rüstung, Rettungswürfen dazulernen (Magier lernt Bogen) | Berater mit Nutzer | – | Idee Nutzer 12.10., 14:1x. Befund und Vorschläge 49.1–49.4, Rückfragen 49a–49c (Berater). Nach Kapitel 1, Merkliste |
 | 43 | Sichtbarkeit in der diagonalen Sicht: was in der alten Karte gut zu sehen war (vor allem rechts), ist diagonal verdeckt (Garrick am Feuer, Feuerplatz, Kräuterhexe nicht sichtbar, Steinkreis) | Berater mit Nutzer (Grundsatz); Tom (Wald, Dorf), Jerry (Höhle) | `main` (Notizen) | Nutzer 12.10., 12:05: Karten je Ort umstellen, damit Leute und Wichtiges leicht sichtbar sind; Kisten dürfen versteckt sein und erst auftauchen, wenn der Held unter die Bäume geht. **43a ja (12:09):** Grundsatz in `STIL.md` (Karte und Räume, „Ort fertig“ Punkt 9). Kräuterhexe = Morwen im Tiefen Wald (Tom, wenn Tiefer Wald diagonal wird). Höhle 13e (Jerry) ebenso |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.

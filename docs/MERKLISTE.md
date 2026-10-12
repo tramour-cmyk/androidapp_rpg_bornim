@@ -136,6 +136,10 @@ Dorran wohnt heute nur hinter einer verschlossenen Tür („Er ist wohl in seine
 
 - Halb-halb: Story-Höhlen mit festem Kern (Eingang, Bossraum, Szenen) und zufälligen Seitengängen aus handgemachten Bausteinen; Aushang-Höhlen ganz zufällig (Startwert im Spielstand). Voraussetzung: diagonale Höhlenzeichnung (13e) arbeitet allgemein aus der Karte, nicht je Kachel von Hand. Einzelheiten in `OFFEN.md` Zeile 48.
 
+## Lehrer (49, Nutzer 12.10.)
+
+- Übung (voller Übungsbonus) in einer Waffenart, einer Rüstungsstufe oder einem Rettungswurf bei Lehrern im Dorf lernen (Garrick Bogen, Dorran Rüstung/Schild …); kostet Gold und einen Tag; statt Attributspunkten auf Stufe 4/8/12/16/19 (wie Talente im SRD). Einzelheiten in `OFFEN.md` Zeile 49.
+
 ## Sonstiges
 
 - **Rechtliches:** Vor einer Veröffentlichung im Play Store oder einer kommerziellen Nutzung eine kurze Prüfung durch einen Anwalt für Marken- und Urheberrecht.

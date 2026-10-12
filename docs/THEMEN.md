@@ -51,3 +51,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 46 | Neustart: Nachfolgerin startet die Sitzung selbst | Tom und Jerry | ja 12.10., 13:15 | `CLAUDE.md` |
 | 47 | README-Einleitung nach Leitbild | Berater | ja 12.10., 13:15 | `OFFEN.md` |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
+| 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
