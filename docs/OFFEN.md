@@ -54,7 +54,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Zu testen
 
 
-- **Neubau läuft (Jerry, PR #41, `main` mit PR #42 eingeholt, 12.10., 11:4x):** 0.1.568 war kleiner als das installierte Release. 34 Zug beenden (Kampf → neben Zurück), 35 Weihwasser gegen Nicht-Untote ausgegraut „nur gegen Untote“, gegen Skelett/Zombie 3–18 Schaden.
+- **0.1.571 (Jerry, PR #41, mit `main` inkl. PR #42, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38231641054/artifacts/11739645282)):** 34 Zug beenden (Kampf → neben Zurück), 35 Weihwasser gegen Nicht-Untote ausgegraut „nur gegen Untote“, gegen Skelett/Zombie 3–18 Schaden.
 
 ## Rückfragen an den Nutzer
 
