@@ -40,7 +40,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (12.10., 10:25, vor Neustart)
 
-- **Zweig `claude/great-sagan-n9tkga`** (enthält `tender-goodall-a8zuny` und `main` mit PR #39/#40): 29 Brett + Fix Aktionsknopf (`Navigation.actionAt`), 29.3 zweite Welle, 24.8.6, 30.8. **Build 0.1.567 zu testen** (Link unter „Zu testen“). Danach PR von diesem Zweig, zusammenführen, CHANGELOG (24.8.6, 30.8, 29, 29.3).
+- **Zweig `claude/great-sagan-n9tkga`** (enthält `tender-goodall-a8zuny` und `main` mit PR #39/#40): 29 Brett + Fix Aktionsknopf (`Navigation.actionAt`), 29.3 zweite Welle, 29.4, 24.8.6, 30.8. **Build 0.1.569 zu testen** (= 0.1.567 + 29.4 Held spricht zuerst; Link unter „Zu testen“). Danach PR von diesem Zweig, zusammenführen, CHANGELOG (24.8.6, 30.8, 29, 29.3, 29.4).
 - **Als Nächstes:** 13 Tempel (Altar vor dem Fenster), 27 Wald (Garrick/Feuer, Höhleneingang), dann 5l/5.5, 17.
 - 29.3-Technik: `Jobs.after` (Welle), `Jobs.read`/`freshNote` (Flag `job_<id>_seen`, Zettel in `MapTownIso.noticeBoard(fresh)`), `Jobs.findAt` (Menhir im `forest`), `@gear:RARITY:SLOT` in `Game`.
 ### Jerry (12.10., 10:30, vor Neustart)
@@ -54,7 +54,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **0.1.563 getestet (Nutzer 12.10., 10:07, MuMu):** 24.8.6 ok, 30.8 ok („App aktualisiert“), kein Absturz. **Fehler 29:** Brett lässt sich nicht antippen, kein Aktionsknopf. Ursache: `Navigation.kt` `actionAt` kennt `Tile.NOTICE` nicht (→ `ActionKind.READ` ergänzen); **Behoben auf `claude/great-sagan-n9tkga` (10:17), in 0.1.567.**
 - **0.1.567 (Tom, ersetzt 0.1.563/0.1.566, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38222745413/artifacts/11735516333)):** Brett-Fix (antippbar, Aktionsknopf „Lesen“) + 29.3 (zweite Welle nach Krogg, frischer Zettel, Steinkreis antippbar solange Jorins Auftrag läuft). Zu prüfen: 29 ganz (Annehmen, Menü System, Abgabe, Ring in Höhlentruhe).
   - **Erstergebnis (Nutzer 12.10., 10:38):** 1 Brett (Knopf, frischer Zettel) passt, 2 erste Aufträge passen; offen: Ring-Quest, Welle nach Krogg (Morwen, Jorin/Steinkreis), Texte 29i.
-  - **Meldung Nutzer (10:40), 29.4:** Bei der Abgabe spricht erst der Held einen passenden Satz (Name als Sprecher), dann der Auftraggeber; sonst kommt die Antwort „aus dem Nichts“. **29.4 ja (10:46), gebaut, Build 0.1.569 läuft** (enthält alles aus 0.1.567).
+  - **Meldung Nutzer (10:40), 29.4:** Bei der Abgabe spricht erst der Held einen passenden Satz (Name als Sprecher), dann der Auftraggeber; sonst kommt die Antwort „aus dem Nichts“. **29.4 ja (10:46), gebaut in 0.1.569** ([Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38225591679/artifacts/11736507285), enthält alles aus 0.1.567).
 
 - **0.1.568 (Jerry, PR #41, nach 0.1.567, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38223918091/artifacts/11735758109)):** 34 Zug beenden (Kampf → neben Zurück), 35 Weihwasser gegen Nicht-Untote ausgegraut „nur gegen Untote“, gegen Skelett/Zombie 3–18 Schaden.
 
