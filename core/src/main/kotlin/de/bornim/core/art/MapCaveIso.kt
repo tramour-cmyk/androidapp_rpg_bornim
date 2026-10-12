@@ -88,7 +88,7 @@ object MapCaveIso {
 
     // ------------------------------------------------------------------ rock
 
-    private val rockLight = argb(0x6A6258)
+    private val rockLight = argb(0x8A8072)
     private val rockDark = argb(0x1C1916)
 
     /**
@@ -103,7 +103,7 @@ object MapCaveIso {
         fun hf(px: Double, py: Double) = vnoise(px, py, seed) * 0.6 + vnoise(px * 2.7, py * 2.7, seed + 7) * 0.3 + vnoise(px * 7, py * 7, seed + 8) * 0.1
         val hh = hf(x, y)
         val dx = (hf(x + 0.04, y) - hh) / 0.04; val dy = (hf(x, y + 0.04) - hh) / 0.04
-        var t = 0.46 + dy * 0.22 + dx * (if (face == 0) -0.1 else 0.1) + (hh - 0.5) * 0.25
+        var t = 0.55 + dy * 0.22 + dx * (if (face == 0) -0.1 else 0.1) + (hh - 0.5) * 0.25
         t += (rnd(floor(u * 90).toInt(), floor(z * 1.8).toInt(), seed + 1) - 0.5) * 0.06
         // cracks: where two lumps meet, a dark seam
         if (abs(vnoise(x * 1.6, y * 1.6, seed + 2) - 0.5) < 0.018) t -= 0.22
@@ -111,7 +111,7 @@ object MapCaveIso {
         if (vnoise(u * 11, z / 160, seed + 3) > 0.74) t -= 0.07
         // the foot darker, the head lost in the dark
         t -= max(0.0, 1 - z / 12) * 0.15
-        t -= max(0.0, (z - top * 0.55) / (top * 0.45)) * 0.3
+        t -= max(0.0, (z - top * 0.6) / (top * 0.4)) * 0.22
         return shade(mix(rockDark, rockLight, t.coerceIn(0.0, 1.0)), k)
     }
 
