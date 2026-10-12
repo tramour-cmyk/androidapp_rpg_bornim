@@ -43,6 +43,34 @@ val PixelFont = FontFamily(
     Font(R.font.jersey10, FontWeight.Normal),
 )
 
+/**
+ * 60b: the serif of the black screens (text box, shop, menus). [choice] picks among the free fonts on trial,
+ * 0 is the device's serif as before; [scale] evens out their sizes, as some are small on the line.
+ */
+object TypeLook {
+    var choice = 0
+    val names = listOf("Gerät (Serif)", "EB Garamond", "Alegreya", "IM Fell English")
+    private val families by lazy {
+        listOf(
+            FontFamily.Serif,
+            FontFamily(Font(R.font.ebgaramond_regular, FontWeight.Normal), Font(R.font.ebgaramond_semibold, FontWeight.SemiBold)),
+            FontFamily(Font(R.font.alegreya_regular, FontWeight.Normal), Font(R.font.alegreya_semibold, FontWeight.SemiBold)),
+            FontFamily(Font(R.font.imfell_regular, FontWeight.Normal)),
+        )
+    }
+    private val scales = listOf(1f, 1.1f, 1.04f, 1.08f)
+    val serif: FontFamily get() = families[choice]
+    val scale: Float get() = scales[choice]
+
+    /** 60.4: the face of the title: 0 the serif in capitals, 1 Cinzel, 2 the small capitals of Alegreya. */
+    var title = 0
+    private val titles by lazy { listOf(FontFamily(Font(R.font.cinzel_semibold, FontWeight.SemiBold)), FontFamily(Font(R.font.alegreya_sc_medium, FontWeight.Medium))) }
+    val titleFace: FontFamily get() = if (title == 0) serif else titles[title - 1]
+}
+
+/** The serif of the black screens, as chosen in [TypeLook]. */
+val Serif: FontFamily get() = TypeLook.serif
+
 object Colors {
     val night = Color(0xFF1C1A2E)
     val nightLight = Color(0xFF2C2A48)
@@ -138,6 +166,8 @@ object Veil {
     val text = Color(0xFFE6DDCB)
     val dim = Color(0xFF948A78)
     val gold = Color(0xFFB59A6A)
+    /** 60.4: the title's gold, brighter than the headings. */
+    val bright = Color(0xFFD9BC82)
     val rim = Color(0xAAB59A6A)
     val warn = Color(0xFFD9785A)
     val good = Color(0xFF86C46E)
@@ -172,8 +202,8 @@ fun Txt(
         Text(
             text = text,
             modifier = modifier,
-            style = TextStyle(fontFamily = FontFamily.Serif),
-            fontSize = size * 0.95f,
+            style = TextStyle(fontFamily = Serif),
+            fontSize = size * 0.95f * TypeLook.scale,
             color = Veil.of(color),
             fontWeight = if (bold) FontWeight.SemiBold else FontWeight.Normal,
             letterSpacing = 0.2.sp,
@@ -200,7 +230,7 @@ fun Txt(
 /** A heading in the black windows: small, spaced capitals in gold, as the speaker in the text box. */
 @Composable
 fun VeilHead(text: String, modifier: Modifier = Modifier, color: Color = Veil.gold) {
-    Text(text.uppercase(), modifier, color = color, style = TextStyle(fontFamily = FontFamily.Serif, fontSize = 12.sp, letterSpacing = 3.sp))
+    Text(text.uppercase(), modifier, color = color, style = TextStyle(fontFamily = Serif, fontSize = 12.sp * TypeLook.scale, letterSpacing = 3.sp))
 }
 
 /** The classic double-bordered text box. */
@@ -250,7 +280,7 @@ fun PixelButton(
         ) {
             Text(
                 label.uppercase(), color = if (!enabled) Veil.dim.copy(alpha = 0.6f) else if (selected) Veil.gold else Veil.text,
-                style = TextStyle(fontFamily = FontFamily.Serif, fontSize = size * 0.7f, letterSpacing = 1.2.sp), textAlign = TextAlign.Center, maxLines = 2,
+                style = TextStyle(fontFamily = Serif, fontSize = size * 0.7f * TypeLook.scale, letterSpacing = 1.2.sp), textAlign = TextAlign.Center, maxLines = 2,
             )
         }
         return

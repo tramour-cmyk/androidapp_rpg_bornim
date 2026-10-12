@@ -403,6 +403,27 @@ fun main() {
         }
         System.exit(0)
     }
+    // SCHRIFT=1: 60b/60.4: the free serifs on trial in the text box, the shop and the title (SCHRIFT=titel: only the title faces)
+    if (System.getenv("SCHRIFT") != null) {
+        for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
+        val tags = listOf("geraet", "garamond", "alegreya", "fell")
+        val only = System.getenv("SCHRIFT")
+        de.bornim.game.ui.DialogLook.draft = true; de.bornim.game.ui.ShopLook.draft = true; de.bornim.game.ui.TitleLook.draft = true
+        for ((i, tag) in tags.withIndex()) {
+            de.bornim.game.ui.TypeLook.choice = i; de.bornim.game.ui.TypeLook.title = 0
+            shot("60_titel_$tag") { it.screen = Screen.TITLE }
+            if (only == "titel") continue
+            shot("60_gespraech_$tag", settle = 150) { vm -> vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!
+                var guard = 0; while (guard++ < 80) { val m = g.mode; if (m is Mode.Dialog && m.speaker != null) break; g.advance() }; vm.refresh() }
+            de.bornim.game.ui.ShopLook.previewTab = 0; de.bornim.game.ui.ShopLook.previewDialog = 0
+            shot("60_laden_$tag", settle = 60) { vm -> geared(vm, CharClass.WIZARD, Race.ELF); val g = vm.game!!; g.state.gold = 640
+                g.enqueue(listOf(Cmd.OpenShop(Story.shopStock))); vm.refresh() }
+        }
+        // the title in the faces made as capitals, with the body in Alegreya
+        de.bornim.game.ui.TypeLook.choice = 2
+        for ((t, tag) in listOf(1 to "cinzel", 2 to "alegreya_sc")) { de.bornim.game.ui.TypeLook.title = t; shot("60_titel_$tag") { it.screen = Screen.TITLE } }
+        System.exit(0)
+    }
     // HAENDLER=1: the shop old and as drafted for 59 (black like the text box, overview when selling, comparison when buying)
     if (System.getenv("HAENDLER") != null) {
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
