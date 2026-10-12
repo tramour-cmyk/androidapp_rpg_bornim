@@ -80,10 +80,14 @@ object MapFolk {
     /** The village folk drawn as dolls so far only as drafts: shown on a sheet, not yet on the map. */
     val drafts = listOf(rowena, aldric, thessa, osric, lyra, jorin, pim, bram, liska, gwenna, borin, morwen)
 
-    private val all = listOf(garrick).associateBy { it.id }
+    // 5.3: everyone who stands about in the village, its houses and the woods; Bram, Liska and Gwenna have no place yet
+    private val all = listOf(garrick, morwen, rowena, aldric, thessa, osric, jorin, pim, borin).associateBy { it.id }
 
-    /** The doll for the person [npcId], or null when that one is still drawn the former way. */
-    fun of(npcId: String): Folk? = all[npcId]
+    /** The doll for the person [npcId], or null when that one is still drawn the former way (Lyra in the temple and in the cave is one). */
+    fun of(npcId: String): Folk? = all[npcId] ?: if (npcId.startsWith("lyra")) lyra else null
+
+    /** Only Garrick has idle loops of his own so far (warming his hands at his fire, peering into the woods); the others rest ([MapRest]). */
+    private fun loops(f: Folk) = f.id == "garrick"
 
     /** Standing still or walking: [step] as in [MapFigure.STEPS]. */
     fun draw(f: Folk, slot: Int, step: Int): PixelImage =
@@ -435,6 +439,7 @@ object MapFolk {
      * and how fast his loop runs. So the pauses between run from about 2½ s to over half a minute.
      */
     fun doing(f: Folk, clockMs: Long): Doing? {
+        if (!loops(f)) return null
         val n = Math.floorDiv(clockMs, BLOCK_MS)
         val t = clockMs - n * BLOCK_MS
         val r = java.util.Random(n * 1_000_003L + f.id.hashCode())
@@ -506,6 +511,7 @@ object MapFolk {
 
     /** Draws the idle loops of [f] about its home direction [homeSlot] in the background (after its walk). */
     private fun prepareIdle(f: Folk, homeSlot: Int) {
+        if (!loops(f)) return
         val n = MapFigure.YAWS
         val jobs = buildList {
             for (i in 0 until Idle.WARM.frames) add(Triple(homeSlot, Idle.WARM, i))
