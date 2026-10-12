@@ -51,10 +51,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
 - Zweig `claude/jerry-13e-hoehle-diagonal` (nur Vorschau hinter `MapCaveIso.draft`, kein Build, kein PR): **13e.3 fertig** (Lichtstrahl aufrecht `drawCaveShaft`, Fackeln an der Wand mit 32-Bild-Flamme `drawCaveTorches`; Bilder 16:41, 16:50 gezeigt). **13e.4 halb:** Stalagmiten/Geröll als Höhenfeld (`relief`), Weiher abgesenkt mit Ufer; Kerntest grün, Bilder noch nicht angesehen (`tools/t bild KARTENZOOM=1 DIAG=1 CAVEDRAFT=1 ONLY=zoom_nah_c`, Aufnahmen c5, c7–c9).
+- **Nutzer 12.10., 18:0x:** Jerry ohne Guthaben bis Fr., 03:00; Tom darf, wenn es sich anbietet, als Jerry-Vertreter an Jerrys Themen weiterarbeiten (Übergabe hier, auf Jerrys Zweig).
 - **Weiter (Freitag):** Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
-- **Tom, PR #48** `claude/tom-27-4-baeume`, **[0.1.597](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38265419793)** (12.10., 16:51): wie 0.1.590 plus Tresen fest, Kaminrauch weich, Liska/Gwenna/Bram als Puppen, Kaels Hütte versetzt (Schlagbaum frei, 5n). Passt es: zusammenführen.
+- **Tom, PR #48** `claude/tom-27-4-baeume`, **[0.1.602](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38274094990)** (12.10., 18:03): wie 0.1.590 plus Tresen fest, Kaminrauch weich, alle zwölf als Puppen, Kaels Hütte versetzt (Schlagbaum frei, 5n), Beet/Kornfeld/Fichten; Entwürfe nur in der Vorschau. Passt es: zusammenführen.
 
 ## Rückfragen an den Nutzer
 
