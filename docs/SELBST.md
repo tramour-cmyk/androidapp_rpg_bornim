@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | fertig | – | 12.10., 20:57 | 12.10., 21:30 | Selbstarbeit beendet (Nutzer 21:3x), Stand in OFFEN.md | claude/tom-27-4-baeume |
+| Tom | läuft | 13.10., 07:00 | 12.10., 23:29 | 12.10., 23:46 | Paket 2: 60 Schriften fertig (60e/60f offen), jetzt Menü/Beutel | claude/tom-60-aussehen |
 | Jerry | fertig | – | 12.10., 16:33 | 12.10., 16:59 | Pause bis Freitag (Nutzungsguthaben), Stand in OFFEN.md | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
@@ -91,13 +91,13 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 **Für gemeinsame Zeit:**
 - 5.1: Standbilder ansehen, dann Zweig-Build auf dem Gerät testen.
 
-**Paket** (Selbstarbeit ab 12.10., 16:40; umgestellt 16:37 nach Nutzer „Wichtigeres?“; Zweig `claude/tom-27-4-baeume`, PR #48 offen, Build mit Merge von `main` läuft):
-1. **5.3 Liska, Gwenna, Bram** als Puppen (≤ 15 min). Fertig, wenn: Sprungtest 0, Standbilder.
-2. **5n** Haus östlich des Schlagbaums 2 Felder nach Osten (≤ 15 min). Fertig, wenn: Standbild `d10`, Kollision 0.
-3. **27.5 Wald-Dinge diagonal:** Felshang, Weiher mit Ufer, Baumstamm, Feuerstelle (Ziel: Wald „Ort fertig“, dann alte Ansicht raus). Fertig, wenn: Standbilder je Ding, Lückenliste. Auf neuem Zweig, wenn PR #48 schon zusammengeführt ist.
-4. Kleinkram aus Test 0.1.590, je ≤ 15 min: Fichtenreihe Süd (b), Gemüsebeet (c), Kornfeld (d).
-5. Kerntests, Build mit Link und Testliste (Bericht).
-6. Reserve: 55.2 Borin sitzt (Entwurf, Standbilder); (a) erst mit Antwort 27e.
+**Paket** (Selbstarbeit 12.10., 23:23 bis 13.10., 07:00, Nutzer 23:2x „Du bist der Chef“: offene Fragen nach eigener Empfehlung entscheiden, in den Bericht):
+1. **59** Build 0.1.632 (Zweig `claude/tom-59-haendler`) melden mit Link und Testliste; Test und PR erst mit dem Nutzer. Fertig, wenn: Meldung im Chat.
+2. **60 Ein Aussehen für alle Oberflächen** (60a–60d ja, Berater 23:2x; direkt nach 59) auf neuem Zweig `claude/tom-60-aussehen` **vom Zweig `claude/tom-59-haendler`** (baut auf `LocalVeil`): (a) 60b: 2–3 freie Serifenschriften (OFL, Lizenz und Quelle je Datei festhalten) als Standbilder zur Wahl, Empfehlung nennen; (b) je Bildschirm als Entwurf hinter Schalter: Menü/Beutel, Titelbild (60.4 Titel groß in Gold, Kapitälchen), Heldenerstellung; Kampf zuletzt (60c Pixelschrift nur für kleine Kampfzahlen). Fertig, wenn: Standbilder alt/neu auf der Entscheidungsseite, Kerntests grün, Vorschau baut.
+3. **27.6/43 Tiefer Wald diagonal** (Morwen und ihre Hütte frei sichtbar, Wege, Bäume rund wie im Wald) auf neuem Zweig `claude/tom-27-6-tiefer-wald` von `main`, nur Entwurf hinter Schalter. Fertig, wenn: Standbilder Tag/Nacht auf der Entscheidungsseite, Lückenliste „Ort fertig“, Kollision 0.
+4. **13 Tempel innen:** Altar steht direkt vor dem Fenster (Meldung 08:43): umstellen. Fertig, wenn: Standbild alt/neu auf der Entscheidungsseite.
+5. **17 Rest:** Haare und Köcher schwingen nach (wie 17a), Entwurf hinter Schalter. Fertig, wenn: Sprungtest 0, Standbilder.
+6. Reserve: 5l Leben im Dorf (Entwurf: Bewohner gehen Wege, Tagesablauf), dann Vorrat oben (5 Katze, 6, 7).
 
 ## Jerry
 

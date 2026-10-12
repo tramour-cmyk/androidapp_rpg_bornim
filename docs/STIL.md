@@ -56,6 +56,11 @@ Grundsatz des Nutzers (12.10.): Das Spiel lässt dem Spieler möglichst viel Fre
 
 Im Vorschlag an den Nutzer stehen die vier Antworten kurz neben dem Abgleich mit den übrigen Leitlinien.
 
+## Oberfläche (Thema 60)
+
+- Alle Oberflächen sehen aus wie Blende und Textkasten (42b): schwarz, dünner Goldrand, Überschriften und Hervorhebungen in gedämpftem Gold, Text in gebrochenem Weiß, Serife (mitgeliefert, OFL); keine hellen Tafeln mehr (Nutzer 12.10., 23:20).
+- Pixelschrift nur für kleine Zahlen im Kampf. Farben, die auf Schwarz stehen (Seltenheit, Warnung), hell genug zum Lesen.
+
 ## Ausrüstung der Gegner
 
 - Feste Ausrüstung je Gegnerart nach SRD, in mindestens drei Varianten.
