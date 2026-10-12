@@ -47,6 +47,7 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Txt(t("Testmodus", "Test mode"), size = 18.sp, bold = true)
+        CrashBox(vm, ::t)
 
         Txt(t("Stufe", "Level") + ": ${h.level}   ·   " + t("Gold", "Gold") + ": ${game.state.gold}", size = 16.sp)
         // 24.1: how long the last black screen between places waited until everything was drawn
@@ -54,6 +55,19 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         // 24.13: how long the hero took until drawn in full, also beyond the veil's 4 s
         Txt(t("Held ganz gezeichnet nach ", "Hero fully drawn after ") + (de.bornim.core.art.MapFigure.lastFullMs?.let { "%.1f s".format(it / 1000f) } ?: "–") +
             (if (de.bornim.core.art.MapFigure.lastFromShelf) t(" (gespeichert)", " (kept)") else ""), size = 13.sp)
+        // 24.5: how long the last fight waited for its frames: the hero's opening, all of the hero's, the foe's
+        de.bornim.core.art.BattleAhead.let { a ->
+            fun s(ms: Long?) = ms?.let { "%.1f s".format(it / 1000f) } ?: "–"
+            Txt(t("Kampf bereit: Eröffnung ", "Fight ready: opening ") + s(a.openingMs) + t(", Held ", ", hero ") + s(a.heroMs) +
+                t(", Gegner ", ", foe ") + s(a.foeMs), size = 13.sp)
+            // 24.16: what it found drawn ahead on the map, and how long the drawing ahead waited for the map
+            a.report?.let { r ->
+                Txt(t("Vorgezeichnet: Held ", "Drawn ahead: hero ") + "${r.heroReady}/${r.heroAll}" + (if (r.kept) t(" (gespeichert)", " (kept)") else "") + t(", Gegner ", ", foe ") + r.foe + " ${r.foeDrawn}" +
+                    t(if (r.foeDone) " (fertig)" else " (nicht fertig)", if (r.foeDone) " (all)" else " (not all)") +
+                    t(", gewartet ", ", waited ") + s(r.waitedMs) + t(", Gegner nahe ", ", foe near ") + s(r.nearMs) +
+                    t(", Speicher ", ", memory ") + "${Runtime.getRuntime().maxMemory() / (1024 * 1024)} MB", size = 13.sp)
+            }
+        }
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             for (d in listOf(-5, -1, 1, 5)) {
                 PixelButton(if (d > 0) "+$d" else "$d", Modifier.weight(1f), size = 15.sp) {
@@ -277,6 +291,43 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
                         vm.toast = t("Erhalten: ", "Received: ") + g.name(lang)
                     }
                 }
+            }
+        }
+    }
+}
+
+/** 30.1: the last crash, why the system ended the app, and errors caught in the background; each to copy. */
+@Composable
+private fun CrashBox(vm: GameViewModel, t: (String, String) -> String) {
+    val clip = androidx.compose.ui.platform.LocalClipboardManager.current
+    var crash by remember { mutableStateOf(de.bornim.game.CrashLog.lastCrash) }
+    val exit = de.bornim.game.CrashLog.lastExit
+    val caught = de.bornim.core.Guard.caught.get()
+    val caughtText = de.bornim.game.CrashLog.caught()
+    var open by remember { mutableStateOf(false) }
+    Txt(t("Letztes Ende der App: ", "Last end of the app: ") + (exit?.lineSequence()?.first() ?: "–"), size = 13.sp)
+    Txt(t("Letzter Absturz: ", "Last crash: ") + (crash?.lineSequence()?.firstOrNull { it.startsWith("Zeit:") }?.removePrefix("Zeit: ") ?: "–") +
+        t("  ·  abgefangen seit Start: ", "  ·  caught since start: ") + caught, size = 13.sp)
+    if (crash != null || exit != null || caughtText != null) {
+        PixelButton(if (open) t("Absturzbericht schließen", "Hide crash report") else t("Absturzbericht zeigen …", "Show crash report ..."), Modifier.fillMaxWidth(), size = 14.sp) { open = !open }
+    }
+    if (open) {
+        val all = buildString {
+            append("Ende laut System:\n").append(exit ?: "–").append("\n\n")
+            append("Letzter Absturz:\n").append(crash ?: "–").append("\n\n")
+            append("Abgefangen (neueste zuletzt):\n").append(caughtText ?: "–")
+        }
+        Txt(all.take(3000) + if (all.length > 3000) "\n…" else "", size = 10.sp)
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            PixelButton(t("Kopieren", "Copy"), Modifier.weight(1f), size = 14.sp) {
+                clip.setText(androidx.compose.ui.text.AnnotatedString(all))
+                vm.toast = t("Absturzbericht kopiert.", "Crash report copied.")
+            }
+            PixelButton(t("Vergessen", "Forget"), Modifier.weight(1f), size = 14.sp) {
+                de.bornim.game.CrashLog.clearCrash()
+                de.bornim.game.CrashLog.clearCaught()
+                crash = null
+                open = false
             }
         }
     }

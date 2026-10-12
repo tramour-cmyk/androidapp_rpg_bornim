@@ -495,6 +495,7 @@ object MapFolk {
 
     /** Starts drawing the folk standing on [map] in the background, each facing its own way first, then their idle loops; those at a safe place also their torch. */
     fun prepareFor(map: de.bornim.core.MapDef) {
+        shown = map
         for (npc in map.npcs) of(npc.id)?.let {
             val home = MapFigure.slot(MapFigure.yawOf(npc.facing))
             prepare(it, home)
@@ -523,20 +524,44 @@ object MapFolk {
         synchronized(cache) { if (!preparing.add(f.id)) return }
         val n = MapFigure.YAWS
         val order = (0 until n).sortedBy { minOf(Math.floorMod(it - nearSlot, n), Math.floorMod(nearSlot - it, n)) }
-        val t = Thread {
-            // standing pictures all round first, then the walk, then the idle loops
-            for (st in listOf(0, 1, 2, 3)) for (s in order) {
+        fun steps(sts: List<Int>) {
+            for (st in sts) for (s in order) {
                 val k = "${f.id}|$s|$st"
                 if (synchronized(cache) { k in cache }) continue
                 val img = draw(f, s, st)
                 synchronized(cache) { cache[k] = img }
             }
-            prepareIdle(f, nearSlot)
         }
-        t.isDaemon = true
-        t.priority = Thread.MIN_PRIORITY + 1
-        t.start()
+        // 30.2: everyone standing all round first, then everyone's walk, then the idle loops; on two threads in all,
+        // not one each (twelve at once after a change of map took too much memory)
+        workers.execute(Job(0) { steps(listOf(0)) })
+        workers.execute(Job(1) { steps(listOf(1, 2, 3)) })
+        workers.execute(Job(2) { prepareIdle(f, nearSlot) })
     }
+
+    /** One part of drawing someone, the lower [phase] first, in order of asking within a phase. */
+    private class Job(val phase: Int, val body: () -> Unit) : Runnable, Comparable<Job> {
+        val seq = order.incrementAndGet()
+        override fun run() { de.bornim.core.Guard.run("Leute") { body() } }
+        override fun compareTo(other: Job) = compareValuesBy(this, other, { it.phase }, { it.seq })
+        companion object { val order = java.util.concurrent.atomic.AtomicLong() }
+    }
+
+    private val workers = java.util.concurrent.ThreadPoolExecutor(2, 2, 0L, java.util.concurrent.TimeUnit.MILLISECONDS,
+        java.util.concurrent.PriorityBlockingQueue<Runnable>()) { r -> Thread(r, "map-folk").also { it.isDaemon = true; it.priority = Thread.MIN_PRIORITY + 1 } }
+
+    /** 30.2: lets go of the pictures of everyone not in [keep] (memory short); they are drawn again when met. */
+    fun keepOnly(keep: Set<String>) = synchronized(cache) {
+        cache.keys.removeAll { it.substringBefore('|') !in keep }
+        preparing.retainAll(keep)
+    }
+
+    /** The map whose folk were asked for last. */
+    @Volatile var shown: de.bornim.core.MapDef? = null
+        private set
+
+    /** The folk standing on [map], by id. */
+    fun idsOn(map: de.bornim.core.MapDef): Set<String> = map.npcs.mapNotNull { of(it.id)?.id }.toSet()
 
     /** Draws every picture of [f] right away (previews and tests), the idle loops about [homeSlot]. */
     fun prepareNow(f: Folk, homeSlot: Int = MapFigure.slot(270.0)) {
