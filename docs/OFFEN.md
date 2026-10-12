@@ -43,10 +43,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **PR #43 (Entwurf, abonniert), Zweig `claude/upbeat-clarke-oghrxm`, Build 0.1.579 zu testen (0.1.576 getestet, nur Durchsicht zu stark → milder/weich):** 13.4 (Diagonale je Ort automatisch, Schalter weg, `townDraft` immer an) und 27.1/27.2 Entwurf (diagonal junge Fichten vor Wichtigem bis 8 Felder, `MapFlora.objects`; Durchsicht 0,2 in `WorldScreen`). Nach Test: zusammenführen, CHANGELOG.
 - **Zuerst:** Durchsicht-Fehler vor Haus (Zeile „Zu testen“, d11) klären und beheben, dann PR #43 zusammenführen (0.1.579 passt), CHANGELOG.
 - **Als Nächstes (5m ja, 13:00):** 27.4 Bäume neu mit Volumen (`MapFlora` oak/spruce/deadTree; Vorbild `MapTownIso`/`Sculpt`), gelten für Wald und Dorf, erst Standbilder; dann 5.6 Schlagbaum/Zaun (Vorschau `ONLY=zoom_nah_d10`), 5.3, 5l/5.5, 5.4, dann 27.5/27.6 (27.4 Bäume, 27.5 Dinge mit Garrick/Feuer, 27.6 Leben, je erst Standbilder; Lückenliste in Zeile 27). Vorschau Wald: `KARTENZOOM=1 DIAG=1 ONLY=zoom_nah_7` (7b Steinkreismitte, 7c Schild). Danach 13 Tempel, 42, Merkposten Lyra diagonal (23b).
-### Jerry (12.10., 13:42)
+### Jerry (12.10., 14:30)
 
-- **36.4 auf `main`** (PR #46). **Jetzt 36.5 (36d ja):** Kroggs Ausfallschritt (hebt ab, landet halb hinter der Anzeige; Film: `FILMBATCH` Zeile `krogg fighter:bugbear 3 2 XWWWWWXWWWWWWW attack,attack`, Angriff ab Bild ~140), erst Standbilder.
-- **Danach:** 38 Messung Kapitel 1, 13e Entwurf 2 (Grundsatz 43), 24.6, 40.
+- **36.5** auf `claude/great-pascal-x56kad` (kein PR, nur Zweig-Build): Drehpunkt der Lunge-Vergrößerung an die Füße (`BattleScreen`, `size` im `graphicsLayer`), 36h `FOE_WIND_STEP` 0,7. **Offen:** Sprung in den Schlag bleibt groß (Film `FILMBATCH` Krogg, Bilder ~146–153), Rücksprung nach dem Schlag hart (Lunge fällt auf 0, wenn der Angriff endet); Goblin-Angriff noch nicht gefilmt (Film tötete ihn vorher). 36g nein: tief gehen ist ok.
+- **36.7:** Kroggs Arm beim Schlag wirkt gebrochen: Kämpferhaltungen `SLASH_HIT`/`SMASH_HIT` (Stil BLADE in `FoeArt.attacks`), Morgenstern zeigt zur Kamera, Stiel verkürzt, Kopf an der Faust. Vorschlag: eigene Trefferhaltung, Stiel sichtbar schräg nach vorn-unten wie Variante 2; erst Standbild (`FOEANIM=bugbear:0`, Werkzeug jetzt für hohe Gegner).
+- **Danach:** 38 Messung Kapitel 1, 13e Entwurf 2 (mit 10/11), 24.6, 40.
 
 ## Zu testen
 
