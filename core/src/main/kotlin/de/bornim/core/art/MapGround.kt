@@ -31,8 +31,8 @@ object MapGround {
     /** Whether this map has the new ground: the woods, and the cave ([MapCave.ground]). */
     fun supports(map: MapDef) = map.kind == MapKind.FOREST || map.kind == MapKind.CAVE || (townDraft && (map.kind == MapKind.TOWN || map.kind == MapKind.INTERIOR))
 
-    /** The village in the new style is only a draft (night of 09.10.): on in the previews, off in the game. */
-    @Volatile var townDraft = false
+    /** The village and its rooms in the new style; seen diagonally they are finished (13.4), so always on. */
+    @Volatile var townDraft = true
 
     /** Tiles drawn by this ground; anything else keeps its old picture on top. */
     private val drawn = setOf(

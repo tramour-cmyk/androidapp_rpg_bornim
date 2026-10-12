@@ -518,7 +518,13 @@ object MapFlora {
                     // in the village: the fields and yards behind the edge of the wood stay in sight
                     (map.kind == de.bornim.core.MapKind.TOWN && (it == Tile.CROPS || it == Tile.VEG_BED || it == Tile.HAY || it == Tile.FENCE || it == Tile.WASHLINE)) } ||
                     map.npcs.any { it.x == x && it.y == y } || map.warpAt(x, y) != null
-                if ((1..3).any { dy -> (-1..1).any { dx -> important(tx + dx, ty - dy) } }) return listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
+                // seen diagonally (43), a tall crown hides what lies up to eight tiles behind it towards the top of the screen
+                // (north and west): there the stones of the circle count too, but a chest may stay hidden under the trees
+                val diag = MapFigure.viewYaw != 0.0
+                fun seen(x: Int, y: Int) = map.tile(x, y) == Tile.MENHIR || (important(x, y) && map.tile(x, y) != Tile.CHEST)
+                val shades = if (diag) (0..8).any { bx -> (0..8).any { by -> bx + by in 1..8 && kotlin.math.abs(bx - by) <= 2 && seen(tx - bx, ty - by) } }
+                    else (1..3).any { dy -> (-1..1).any { dx -> important(tx + dx, ty - dy) } }
+                if (shades) return listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
                 val count = if (hash(tx, ty, 1) % 3 == 0) 2 else 1
                 for (k in 0 until count) {
                     val kind = hash(tx, ty, k * 7 + 2) % 10

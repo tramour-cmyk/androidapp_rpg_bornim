@@ -967,7 +967,7 @@ object MapTownIso {
             val pi = min(n.toDouble(), d + cc); val pj = pi - cc
             val wx = Math.round((f.x + qi) * T).toInt(); val wy = Math.round((f.top + qj) * T).toInt()
             val depth = ((f.x + f.top + pi + pj) * T).toInt() + T / 2 - 1
-            out += WorldArt.Obj(img2, wx - 23, wy - img2.height / 2, depth - wx, 2, false, corner = true, group = 1 + f.x * 1000 + f.y, glow = glowOf)
+            out += WorldArt.Obj(img2, wx - 23, wy - img2.height / 2, depth - wx, 2, false, corner = true, group = 1 + f.x * 1000 + f.y, glow = glowOf, area = f)
         }
         return out
     }

@@ -139,7 +139,7 @@ fun main() {
         fun village(vm: GameViewModel, minutes: Int) {
             vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
             val g = vm.game!!; g.skipDialogs()
-            de.bornim.game.ui.MapSight.diagonal = true
+            de.bornim.game.ui.MapSight.all = true
             g.state.place = Place("village", 11, 7, Facing.UP); g.state.minutes = minutes
             val m = de.bornim.core.World["village"]
             g.state.explored["village"] = "f".repeat((m.width * m.height + 3) / 4)
@@ -178,7 +178,7 @@ fun main() {
             // CAVEDRAFT=1: the cave's rock standing up, gate and supports in the slant (13e, draft)
             if (System.getenv("CAVEDRAFT") != null) de.bornim.core.art.MapCaveIso.draft = true
             // DIAG=1: the map seen diagonally (13)
-            if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.diagonal = true
+            if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.all = true
             // ZOOMSTUFE=1|2: the in-between zoom steps for the near shots (6.15)
             System.getenv("ZOOMSTUFE")?.let { if (near) de.bornim.game.ui.MapZoom.level = it.toInt() }
             val z = if (near) "nah" else "weit"
@@ -195,6 +195,8 @@ fun main() {
                 }
                 shot("zoom_${z}_6_weiher") { place(it, "forest", 7, 15, 12 * 60) }
                 shot("zoom_${z}_7_steinkreis") { place(it, "forest", 10, 25, 17 * 60 + 30) }
+                shot("zoom_${z}_7b_steinkreis_mitte") { place(it, "forest", 15, 26, 12 * 60) }
+                shot("zoom_${z}_7c_schild_sued") { place(it, "forest", 11, 27, 12 * 60, Facing.DOWN) }
                 shot("zoom_${z}_8_tiefer_wald") { place(it, "deep_forest", 22, 6, 12 * 60) }
                 shot("zoom_${z}_9_hinter_baum") { place(it, "forest", 12, 10, 12 * 60) }
                 shot("zoom_${z}_d1_dorf_markt") { place(it, "village", 17, 13, 12 * 60, Facing.UP) }
@@ -208,6 +210,13 @@ fun main() {
                 shot("zoom_${z}_d8_haeuser_daemmerung") { place(it, "village", 8, 7, 20 * 60 + 15, Facing.UP) }
                 // 29: the notice board before the inn, by day and at night
                 shot("zoom_${z}_d9_brett_tag") { place(it, "village", 6, 8, 12 * 60, Facing.LEFT) }
+                shot("zoom_${z}_d10_schlagbaum") { place(it, "village", 17, 4, 12 * 60, Facing.UP) }
+                // 27d: the hero pushed against the shop's front wall (free walking stops him 0.3 tiles before it), at its
+                // left end, middle and right end: the house stays solid
+                for ((n, hx) in listOf("links" to 26, "mitte" to 29, "rechts" to 30)) shot("zoom_${z}_d11_laden_$n") {
+                    place(it, "village", hx, 6, 12 * 60, Facing.UP)
+                    it.game!!.freeWalk.apply { sync(); repeat(20) { k -> walk(0.0, -1.0, 50, 1.0, k * 50L) } }
+                }
                 shot("zoom_${z}_d9b_brett_nacht") { place(it, "village", 6, 8, 23 * 60, Facing.LEFT) }
                 shot("zoom_${z}_i1_schaenke_tag") { place(it, "inn", 4, 5, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_i2_schaenke_abend") { place(it, "inn", 6, 3, 21 * 60, Facing.LEFT) }

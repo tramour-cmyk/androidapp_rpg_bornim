@@ -141,6 +141,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         var bumped: Facing? = null
         var lastFrame = 0L
         while (isActive) {
+            MapSight.follow(game.map)
             if (MapSight.diagonal) {
                 // free walking (13g): any direction, the world and its rules still on the tiles
                 val fw = game.freeWalk
@@ -467,11 +468,43 @@ private class Cam(
     }
 }
 
-/** Straight or diagonal view of the map (13; a test switch while the diagonal view is being built). */
+/** The see-through of what stands in front of the hero, fading softly in and out instead of jumping (test of 0.1.576). */
+private object SeeThrough {
+    private val now = HashMap<Long, Float>()
+    private var mapId = ""
+    private var last = 0L
+    private var step = 0f
+
+    /** Called once a frame, before [alpha]: a new place starts with everything solid. */
+    fun frame(map: String, clock: Long) {
+        if (map != mapId) { mapId = map; now.clear() }
+        step = ((clock - last).coerceIn(0L, 100L) / 300f)
+        last = clock
+    }
+
+    /** The alpha of the thing [key] this frame, a step closer to [target]: about 0.3 s from solid to clear. */
+    fun alpha(key: Long, target: Float): Float {
+        val cur = now[key] ?: 1f
+        val next = if (cur < target) minOf(target, cur + step) else maxOf(target, cur - step)
+        if (next >= 1f) now.remove(key) else now[key] = next
+        return next
+    }
+}
+
+/** Straight or diagonal view of the map (13): each place finished for the diagonal view is seen so, the others straight (13.4). */
 object MapSight {
     /** Seen diagonally, every doll is drawn turned by 45° on the screen ([de.bornim.core.art.MapFigure.viewYaw]). */
     @Volatile var diagonal = false
         set(v) { field = v; de.bornim.core.art.MapFigure.viewYaw = if (v) -45.0 else 0.0 }
+
+    /** Every place seen diagonally, also those still being built (only the previews, `DIAG=1`). */
+    @Volatile var all = false
+
+    /** The places finished for the diagonal view (13.4): the village and its rooms; the woods and the cave follow. */
+    fun finished(map: de.bornim.core.MapDef) = all || map.kind == MapKind.TOWN || map.kind == MapKind.INTERIOR
+
+    /** Turns the view to suit [map]; a new place is entered behind the black screen, so the turn is never seen. */
+    fun follow(map: de.bornim.core.MapDef) { val d = finished(map); if (d != diagonal) diagonal = d }
 
     /** A tile's diamond is 2·[K]·T map pixels wide and half as high: its diagonal as long as a tile's side (45 for 32). */
     const val K = 0.703125f
@@ -501,6 +534,7 @@ object MapZoom {
 
 private fun camera(game: Game, w: Float, h: Float, progress: Float, fromX: Int, fromY: Int): Cam {
     val map = game.map
+    MapSight.follow(map)
     val T = WorldArt.T
     // Whole-number zoom so every art pixel is the same size on screen. Near, the zoom is even, so
     // map pictures drawn at double resolution also land on whole screen pixels.
@@ -799,6 +833,10 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             if (diag) {
                 // seen diagonally, anything taller than a knee can stand in front of the hero
                 if (h < 24 || o.low) return false
+                // a house's strip (27d): the hero stands where free walking stops him, often closer to the wall than the
+                // tile's middle the strips are sorted by; south of its front wall or east of its side wall the house
+                // cannot cover him, however its strips lie
+                o.area?.let { f -> if (heroY + T / 2 > (f.y + 1) * T || heroX + T / 2 > (f.x + f.n) * T) return false }
                 // seen diagonally: in front of the hero (further down the diagonal) and over it on the screen
                 val k = MapSight.K
                 val fx = o.x + w / 2f; val fy = (o.y + h).toFloat() - (if (o.corner) 0f else T / 2f)
@@ -823,8 +861,14 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         val objs = WorldArt.objects(map, state, frame, flicker)
         // a house cut into strips (5.1) turns see-through as a whole when any strip of it stands in front of the hero
         val hidingGroups = objs.filter { it.group != 0 && hides(it) }.mapTo(HashSet()) { it.group }
-        for (o in objs) {
-            val a = if (if (o.group != 0) o.group in hidingGroups else hides(o)) 0.45f else 1f
+        val hiding = objs.mapTo(ArrayList()) { if (it.group != 0) it.group in hidingGroups else hides(it) }
+        // seen diagonally (43; test of 0.1.576: 0.2 too strong): together the things in front of the hero cover him
+        // to 35 %, however many stand one behind the other, and they fade softly in and out
+        val layers = objs.indices.filter { hiding[it] }.map { objs[it].let { o -> if (o.group != 0) -o.group.toLong() else o.x.toLong() * 100_003 + o.y } }.distinct().size
+        val clear = if (!diag) 0.45f else 1f - Math.pow(0.65, 1.0 / maxOf(1, layers)).toFloat()
+        SeeThrough.frame(map.id, clock)
+        for ((i, o) in objs.withIndex()) {
+            val a = SeeThrough.alpha(if (o.group != 0) -o.group.toLong() else o.x.toLong() * 100_003 + o.y, if (hiding[i]) clear else 1f)
             sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f) { put(o.img, o.x, o.y, o.density, a, o.corner) }
             if (o.glow != null) glowing += o to a
         }
