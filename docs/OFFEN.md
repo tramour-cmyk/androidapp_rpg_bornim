@@ -60,7 +60,5 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **32 Nacht 11./12.10. fast ohne Arbeit (Tom und Jerry, je ~25 min):** Weck-Sitzungen beenden nach einem Schritt; Routine 00:27 durch 40-Minuten-Regel gesperrt. Vorschläge 32.1–32.7 (Stand `übergeben`, `send_later` an sich selbst bis „Bis“, Nachfolger sofort starten, blockiert → nächster Punkt, Vorschau vor Push bauen, Gradle 6 GB in `setup-session.sh`, Blende-Fix aus PR #38). **32a/32b: Tom macht es (Nutzer 12.10., 07:40).** 32.8 Vertretung bei Nutzungsgrenze; **32b, 32c ja (07:5x)**, 32.1–32.8 in `SELBST.md` übernommen, Toms Routinen umgestellt. Jerrys 8 Routinen auf den Text in `SELBST.md` umgestellt (12.10., 09:59). Befunde im Archiv.
 
-- **26a (Jerry, Selbstarbeit 23:51), Ausgleich Magier:** Simulation (Sieg %, Magier/Kämpfer/Schurke/Kleriker): Krogg St. 3 heute 44/80/80/51, Grak St. 4 35/61/46/50, St. 5 45/92/82/88. Ursache: Magierrüstung kostet im Kampf die erste Runde. Vorschlag **26.1**: Magierrüstung hält wie im SRD 8 Stunden, einmal gewirkt gilt sie ab Kampfbeginn (ohne Rüstung). Probe: Krogg St. 3 → 63 %, Grak St. 4 → 50 %, St. 5 → 69 %. Empfehlung: ja. **26a ja (Nutzer 12.10., 07:40): Jerry baut 26.1 in der nächsten Sitzung.**
-
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
