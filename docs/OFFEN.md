@@ -52,7 +52,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **PR #46 (Jerry, 36.4), Build läuft:** Krogg im Kampf feiner, gleich groß und an gleicher Stelle; andere Gegner unverändert; Speicher/Absturz im Test-Reiter beachten.
+- **0.1.581 (Jerry, PR #46, 36.4, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38243820588/artifacts/11744273059)):** Krogg im Kampf feiner, gleich groß und an gleicher Stelle; andere Gegner unverändert; Speicher/Absturz im Test-Reiter beachten.
 
 - **0.1.579 getestet, passt (Nutzer 13:0x); **Meldung 13:2x (Bildschirmfoto):** Haus am Schlagbaum (21–23, 3–5) wird durchsichtig, obwohl der Held davor steht; Vorschau `KARTENZOOM=1 ONLY=zoom_nah_d11` (Held 22,6). Vermutlich alter Fehler der Gruppen-Durchsicht (`hides`, ein Streifen mit größerer Tiefe), prüfen ob durch PR #43; dann beheben und PR zusammenführen (Tom, PR #43, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38238967966/artifacts/11742810872)):** 0.1.576 getestet (12:40: 1–4, 6 ja; 5 Durchsicht zu stark). Neu: Durchsicht milder (zusammen 35 %, egal wie viele hintereinander), weich ein/aus in 0,3 s. Darauf achten: hinter Häusern im Dorf, in Räumen hinter hohen Möbeln.
 
