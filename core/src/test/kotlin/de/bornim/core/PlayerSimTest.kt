@@ -41,7 +41,7 @@ class PlayerSimTest {
                 val b = m.battle
                 if (b.outcome != Outcome.ONGOING) { r.note("kampf-ende:${b.outcome}"); g.endBattle(); return }
                 val skills = g.hero.cls.skills().filter { it.level <= g.hero.level && b.blocked(it) == null }
-                val items = listOf("potion", "remedy", "alchemist_fire", "holy_water").filter { g.state.count(it) > 0 }
+                val items = listOf("potion", "remedy", "alchemist_fire", "holy_water").filter { g.state.count(it) > 0 && b.blockedItem(it) == null }
                 val a = when (r.rnd.nextInt(6)) {
                     0 -> Action.Defend
                     1, 2 -> skills.randomOrNull(r.rnd)?.let { Action.UseSkill(it) } ?: Action.Attack

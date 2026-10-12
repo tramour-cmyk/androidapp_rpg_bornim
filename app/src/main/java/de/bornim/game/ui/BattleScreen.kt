@@ -1349,7 +1349,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                         onBag = { ui.menu = BattleMenu.BAG }, onFlee = { act(Action.Flee) })
                     BattleMenu.FIGHT -> FightMenu(battle, lang, onAttack = { act(Action.Attack) }, onDefend = { act(Action.Defend) }, onBack = { ui.menu = BattleMenu.MAIN })
                     BattleMenu.SKILLS -> SkillMenu(battle, lang, onPick = { act(Action.UseSkill(it)) }, onBack = { ui.menu = BattleMenu.MAIN })
-                    BattleMenu.BAG -> BagMenu(game, lang, onPick = { act(Action.UseItem(it)) }, onBack = { ui.menu = BattleMenu.MAIN })
+                    BattleMenu.BAG -> BagMenu(game, battle, lang, onPick = { act(Action.UseItem(it)) }, onBack = { ui.menu = BattleMenu.MAIN })
                 }
             }
         }
@@ -1569,7 +1569,7 @@ private fun SkillMenu(battle: Battle, lang: Lang, onPick: (Skill) -> Unit, onBac
 }
 
 @Composable
-private fun BagMenu(game: Game, lang: Lang, onPick: (String) -> Unit, onBack: () -> Unit) {
+private fun BagMenu(game: Game, battle: Battle, lang: Lang, onPick: (String) -> Unit, onBack: () -> Unit) {
     val usable = game.state.inventory.entries.filter { Items[it.key].kind == ItemKind.POTION || Items[it.key].kind == ItemKind.BOMB }
     Panel(Modifier.fillMaxSize()) {
         Column {
@@ -1582,11 +1582,14 @@ private fun BagMenu(game: Game, lang: Lang, onPick: (String) -> Unit, onBack: ()
                 if (usable.isEmpty()) Txt(Ui.nothing(lang), color = Colors.textDim)
                 usable.forEach { (id, count) ->
                     val def = Items[id]
+                    // greyed out where it does nothing (holy water against the living), with the reason beneath
+                    val reason = battle.blockedItem(id)
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         SupplyPicture(def.id, 32.dp)
                         Spacer(Modifier.width(6.dp))
-                        PixelButton("${def.name(lang)} ×$count", Modifier.weight(1f), size = 16.sp) { onPick(id) }
+                        PixelButton("${def.name(lang)} ×$count", Modifier.weight(1f), enabled = reason == null, size = 16.sp) { onPick(id) }
                     }
+                    if (reason != null) Txt(reason(lang), size = 13.sp, color = Colors.textDim)
                 }
             }
             Spacer(Modifier.height(6.dp))

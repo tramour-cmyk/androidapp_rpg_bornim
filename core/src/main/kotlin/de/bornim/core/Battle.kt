@@ -238,6 +238,12 @@ class Battle(
         else -> null
     }
 
+    /** Null if the item can be used now, otherwise the reason why not. Holy water only harms undead (SRD). */
+    fun blockedItem(id: String): T? = when {
+        id == "holy_water" && !monster.undead -> Msg.notUndead
+        else -> null
+    }
+
     /** The hero stands in a defensive stance until its next turn (the SRD Dodge action). */
     var defending = false
         private set
@@ -466,6 +472,7 @@ class Battle(
     private fun useItem(id: String): Boolean {
         val def = Items[id]
         if (state.count(id) <= 0) return false
+        blockedItem(id)?.let { say(it(lang)); return false }
         when (def.kind) {
             ItemKind.POTION -> {
                 val curable = def.cures && heroStatus.isNotEmpty()
@@ -484,9 +491,7 @@ class Battle(
             ItemKind.BOMB -> {
                 state.remove(id)
                 say(Msg.throws.f(lang, name, def.name(lang)), Anim.THROW)
-                val d = def.damage!!
-                val dmg = if (id == "holy_water" && monster.undead) d.copy(count = d.count * 2) else d
-                hitEnemy(dice.roll(dmg) + Perks.throwBonus(hero), def.damageType, false, fx(if (id == "holy_water") FxKind.BOMB_HOLY else FxKind.BOMB_FIRE, false))
+                hitEnemy(dice.roll(def.damage!!) + Perks.throwBonus(hero), def.damageType, false, fx(if (id == "holy_water") FxKind.BOMB_HOLY else FxKind.BOMB_FIRE, false))
                 if (id == "alchemist_fire") inflict(onHero = false, Status.BURN, 2)
             }
             else -> {
