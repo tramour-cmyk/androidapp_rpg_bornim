@@ -835,7 +835,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // a house cut into strips (5.1) turns see-through as a whole when any strip of it stands in front of the hero
         val hidingGroups = objs.filter { it.group != 0 && hides(it) }.mapTo(HashSet()) { it.group }
         for (o in objs) {
-            val a = if (if (o.group != 0) o.group in hidingGroups else hides(o)) 0.45f else 1f
+            // seen diagonally almost clear (43), so even three crowns one behind the other never hide the hero
+            val a = if (if (o.group != 0) o.group in hidingGroups else hides(o)) (if (diag) 0.2f else 0.45f) else 1f
             sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f) { put(o.img, o.x, o.y, o.density, a, o.corner) }
             if (o.glow != null) glowing += o to a
         }
