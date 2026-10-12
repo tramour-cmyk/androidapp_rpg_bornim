@@ -37,8 +37,8 @@ object MapGround {
     /** 5.4 draft: the square's cobbles quieter (softer joints, less spread between stones, worn lanes); only in the preview. */
     @Volatile var cobbleDraft = false
 
-    /** 5.4 middle way (Nutzer 18:38: the draft cold and sterile): warm stones that differ, earthen joints, moss, a gap now and then. */
-    @Volatile var cobbleMid = false
+    /** 5.4 middle way, in the game since the user chose it (12.10., 18:4x; the first draft was cold and sterile): warm stones that differ, earthen joints, moss, a gap now and then. */
+    @Volatile var cobbleMid = true
 
     /** Tiles drawn by this ground; anything else keeps its old picture on top. */
     private val drawn = setOf(
