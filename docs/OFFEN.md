@@ -43,10 +43,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 01:02) – Selbstarbeit, an Nachfolger übergeben
-- **59** Build 0.1.632 und **60** Build 0.1.636 warten auf Test (Zu testen). Rückfragen 60e–60i, 27.6a–c, 13x auf der Entscheidungsseite.
-- **27.6** Entwurf fertig: Zweig `claude/tom-27-6-tiefer-wald` (0eed32e), Kronen verdecken Morwens Feuer nicht mehr (nur DIAG). **13x** Tempel-Altar fertig: Zweig `claude/tom-13-tempel-altar` (aae8b45), zwei Fenster neben dem Altar.
-- **Weiter:** Paket 5 (17 Rest: Haare und Köcher schwingen nach; Ansatz: `MapFigure.cloaked` → auch lange Haare/Köcher, `Doll.kt` 533 `flick` auch aus `rig.cloak`, Köcherboden in `Dress.kt` ~578 mit `rig.cloak` nach hinten), dann Reserve. Vorschau nur mit engem `ONLY=` (ein breiter Lauf dauert über 20 min).
+### Tom (13.10., 01:52) – Selbstarbeit, an Nachfolger übergeben
+- **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g Katze), je ein Testreiter-Schalter. Rückfragen 60e–60i, 27.6a–c, 13x, 17r, 5la, 6g auf der Entscheidungsseite (Empf. je ja).
+- Entwürfe fertig auf eigenen Zweigen: `tom-27-6-tiefer-wald`, `tom-13-tempel-altar`, `tom-17-nachschwingen`, `tom-5l-leben`, `tom-katze` (Vorschau-Schalter in `UMGEBUNG.md`).
+- **Weiter:** Vorrat 6 Farbstimmung je Ort und Tageszeit (Entwurf hinter Schalter, neuer Zweig von `main`), dann 7 Spuren, 8 Kartenansicht. Vorschau nur mit engem `ONLY=`; Uhrzeit immer mit `date` ablesen.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -60,6 +60,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Tom, 0.1.636, Zweig `claude/tom-60-aussehen`** (60, enthält 59; erst 59 testen; https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38313842737): Testreiter „60 Aussehen“ an, Schrift, Titelschrift und Kampfzahlen durchschalten; Titelbild, Menü/Beutel, Heldenerstellung, Kampf ansehen.
 - **Tom, 0.1.639, Zweig `claude/tom-17-nachschwingen`** (17r, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38320963573; nach 59/60): Testreiter „17 Haare/Köcher schwingen nach“ an, als Heldin oder mit Bogen laufen und anhalten.
 - **Tom, 0.1.640, Zweig `claude/tom-5l-leben`** (5la, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38322497262; nach 59/60): Testreiter „5l Tagesablauf im Dorf“ an, im Dorf ein paar Minuten zusehen, Leute ansprechen, ob jemand im Weg steht.
+- **Tom, 0.1.641, Zweig `claude/tom-katze`** (6g, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38324348750; nach 59/60): Testreiter „Katze in der Schänke“ an, in der Schänke gut drei Minuten zusehen.
 
 ## Rückfragen an den Nutzer
 
@@ -68,6 +69,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **13x** (Tom, Entscheidungsseite): Tempel: zwei Fenster links und rechts vom Altar statt einem dahinter (Empf. ja).
 - **17r** (Tom, Entscheidungsseite): lange Haare und Köcher schwingen nach dem Anhalten nach wie der Umhang (Empf. ja).
 - **5la** (Tom, Entscheidungsseite): Tagesablauf im Dorf, Bewohner wechseln stündlich den Platz (Empf. ja).
+- **6g** (Tom, Entscheidungsseite): Katze in der Schänke (schläft am Herd, streckt sich, wechselt den Platz) ins Spiel (Empf. ja).
 
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
