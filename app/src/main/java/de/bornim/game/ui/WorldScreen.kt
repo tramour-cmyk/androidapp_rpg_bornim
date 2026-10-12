@@ -1503,15 +1503,19 @@ private fun DrawScope.drawPondLife(game: Game, map: de.bornim.core.MapDef, clock
                     part(-3f, y0 - 3f, 6f, 2f, back); part(-2f, y0 - 4f, 4f, 1f, top)
                     part(-6f, y0 - 2f, 3f, 1f, dark); part(3f, y0 - 3f, 1f, 1f, dark)
                 } else {
-                    // crouched: haunch at the back, head low at the front, the throat pulsing
-                    part(-3f, -3f, 5f, 3f, back)
-                    part(-2f, -4f, 3f, 1f, top)
-                    part(-4f, -2f, 2f, 2f, dark) // haunch and folded leg
-                    part(2f, -3f, 2f, 2f, back) // head
-                    part(2f, -4f, 1f, 1f, eye); part(3f, -4f, 1f, 1f, dark)
-                    part(2f, -1f, 2f, 1f, belly.copy(alpha = 0.5f + 0.5f * a.throat.coerceIn(0f, 1f)))
-                    if (a.throat > 0.6f) part(3f, -1f, 1f, 1f, belly) // the swollen throat of a croak
-                    part(1f, 0f, 1f, 1f, dark) // fore leg
+                    // crouched: a low, rounded body rising to the haunch at the back, the head low and flat at the
+                    // front with the eye on top, the throat pulsing under it
+                    fun oval(dx: Float, y: Float, wd: Float, ht: Float, c: Color) = drawOval(
+                        c, Offset(ox + (if (d > 0) dx else -dx - wd) * s, oy + y * s), androidx.compose.ui.geometry.Size(wd * s, ht * s),
+                    )
+                    oval(-4.5f, -3.2f, 3.6f, 3.2f, dark) // the folded hind leg, a dark curve at the back
+                    oval(-4f, -4f, 6.5f, 3.6f, back) // body
+                    oval(-3f, -4.3f, 4f, 1.6f, top) // the light back
+                    oval(1.2f, -3.4f, 3.2f, 2.4f, back) // head
+                    oval(1.4f, -1.6f, 2.8f, 1.2f + 0.8f * a.throat.coerceIn(0f, 1.2f), belly.copy(alpha = 0.55f + 0.45f * a.throat.coerceIn(0f, 1f))) // throat
+                    oval(1.8f, -4.4f, 1.5f, 1.5f, back) // eye bump
+                    part(2.2f, -4.1f, 0.8f, 0.8f, eye); part(2.5f, -3.9f, 0.4f, 0.4f, dark)
+                    part(-0.5f, -0.6f, 0.8f, 0.8f, dark); part(2.5f, -0.6f, 0.7f, 0.7f, dark) // feet
                 }
             }
         }
@@ -1528,16 +1532,24 @@ private fun DrawScope.drawPondLife(game: Game, map: de.bornim.core.MapDef, clock
         val hl = kotlin.math.hypot(hx, hy).coerceAtLeast(1e-3f); hx /= hl; hy /= hl
         val body = tone(if (fly.dark) Color(0xFF3C5A64) else Color(0xFF6A5E36))
         val head = tone(if (fly.dark) Color(0xFF2A3E46) else Color(0xFF4A4026))
-        val wing = Color(0xFFDCE4E8).copy(alpha = (if (a.wings > 0.5f) 0.34f else 0.18f) * dim)
-        // wings: two pairs across the body, a blur rather than a shape
-        for (k in listOf(0.6f, -0.6f)) {
-            val bx = ox + hx * k * s; val by = cy + hy * k * s
-            val px = -hy; val py = hx
-            drawLine(wing, Offset(bx - px * 4.5f * s, by - py * 4.5f * s * 0.6f), Offset(bx + px * 4.5f * s, by + py * 4.5f * s * 0.6f), strokeWidth = 1.2f * s)
+        val beat = a.wings > 0.5f
+        val wing = Color(0xFFD8E2E6).copy(alpha = (if (beat) 0.22f else 0.12f) * dim)
+        val vein = Color(0xFFE8F0F2).copy(alpha = (if (beat) 0.3f else 0.18f) * dim)
+        // four narrow wings from the thorax, the front pair swept forward, the hind pair back; they shimmer
+        // rather than show a shape
+        val px = -hy; val py = hx
+        for (side in listOf(1f, -1f)) for ((sweep, len) in listOf(0.35f to 5f, -0.3f to 4.6f)) {
+            val ex = px * side + hx * sweep; val ey = (py * side + hy * sweep) * 0.7f
+            val el = kotlin.math.hypot(ex, ey)
+            val root = Offset(ox + hx * 0.3f * s, cy + hy * 0.3f * s)
+            val tip = Offset(root.x + ex / el * len * s, root.y + ey / el * len * s)
+            drawLine(wing, root, tip, strokeWidth = 1.1f * s)
+            drawLine(vein, root, tip, strokeWidth = 0.35f * s)
         }
-        // the long, thin tail behind, the thorax and head in front
-        drawLine(body, Offset(ox - hx * 6f * s, cy - hy * 6f * s), Offset(ox, cy), strokeWidth = 0.8f * s)
-        drawLine(head, Offset(ox, cy), Offset(ox + hx * 1.8f * s, cy + hy * 1.8f * s), strokeWidth = 1.5f * s)
+        // the long, slender tail behind, a little thicker at the root; the thorax; the head with its big eyes
+        drawLine(body, Offset(ox - hx * 8f * s, cy - hy * 8f * s), Offset(ox - hx * 1f * s, cy - hy * 1f * s), strokeWidth = 0.55f * s)
+        drawLine(body, Offset(ox - hx * 2f * s, cy - hy * 2f * s), Offset(ox + hx * 0.8f * s, cy + hy * 0.8f * s), strokeWidth = 0.95f * s)
+        drawCircle(head, 0.75f * s, Offset(ox + hx * 1.5f * s, cy + hy * 1.5f * s))
     }
 }
 
