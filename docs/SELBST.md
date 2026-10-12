@@ -11,7 +11,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
 | Tom | läuft | 12.10., 08:00 | 11.10., 23:08 | 12.10., 06:25 | Vorschau-Bau repariert (CrashLog-Ersatz); Wald-Standbilder (KARTENZOOM) brechen nach 8 min ab | 29 Entwurf fertig; weiter 27 Wald | `claude/sharp-davinci-s83a1t` | `claude/sharp-davinci-s83a1t` |
-| Jerry | läuft | 12.10., 08:00 | 11.10., 23:17 | 12.10., 04:25 | 13e Entwurf 2 halb (Fels fertig) | `claude/quirky-goodall-fqncrd` |
+| Jerry | läuft | 12.10., 08:00 | 11.10., 23:17 | 12.10., 06:28 | Weck-Sitzung: 13e Entwurf 2 (Rest), sonst Reserve | claude/quirky-goodall-fqncrd |
 
 Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
 
