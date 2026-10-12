@@ -5,6 +5,11 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
 
+### Übergabe Jerry (12.10., 13:22, ersetzt 13:42)
+
+- 37 Kampfmusik zusammengeführt (PR #45). Nächstes: **36.4** (36c ja), läuft seit 13:09 in der Sitzung „Jerry: 36.4 Gegnerbilder zuschneiden, Krogg 1,5×“ (Zweig `claude/great-pascal-x56kad`, PR #45 schon zusammengeführt → neuer PR): Gegnerbilder (`FoeArt.frame`, `W=290`, Figur füllt ~9 %) zuschneiden, Lage mitführen (`BattleScreen.kt` `anchorX`/`groundLine`/`lungeOffset`, `KillArt`, Vorschau), dann Krogg 1,5×; vorher Standbilder `FOESHOT=bugbear:0 FOESHOT_SCALE=4`, Messung `ARTMEM_FOE=bugbear:0`.
+- Danach: 38 Messung Kapitel 1, 13e Entwurf 2, 24.6, 40.
+
 ### Übergabe Jerry (12.10., 12:56, vor Neustart, ersetzt 13:22)
 
 - **Zweig `claude/great-pascal-x56kad`, PR #45 (Entwurf, abonniert; #44 geschlossen):** 37 Kampfmusik fertig (7 Stücke), Build 0.1.578 zu testen ([Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38238586524/artifacts/11742320729)). Bei „passt“: PR zusammenführen, CHANGELOG.
