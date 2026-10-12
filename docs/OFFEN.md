@@ -40,7 +40,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 56 | Alte Objekte auf den neuen Karten (Nutzer 12.10., 18:3x) | Tom | `claude/tom-27-4-baeume` | **56a–56c ja (19:4x):** Kräuter, Truhe, Steine, Steinkreis, Büsche im Wald ins Spiel (Schalter entfernt, c2b909f7). **56d ja (20:1x):** Dorf (`YARDDRAFT`, `FERNDRAFT`) ins Spiel; Innenräume ohne Altes |
 | 57 | Entscheidungsseite nur mit Offenem; Entschiedenes in ein gemeinsames Bildbuch (Tom und Jerry) | Tom | `main` (Notizen) | **57a/57b ja (19:4x):** Ablauf in `CLAUDE.md` („Entwürfe entscheiden“). Entscheidungsseite Tom: https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F. **Bildbuch angelegt (20:12):** https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (Einträge `e/<nr>.html`, Bilder `i/`, Inhaltsliste `index.html`); alte Bilder nachgetragen, soweit noch vorhanden. Nutzer gibt es für Jerry frei (Teilen) |
 
-| 59 | Händler: Kauf/Verkauf im Stil des Textkastens, Übersicht beim Verkauf, Vergleich beim Kauf | **Tom (jetzt, Nutzer 22:49)** | `claude/tom-59-haendler` | **59a ja:** schwarz wie Textkasten (42b), Seltenheitsfarben aufhellen, erst Standbilder. **59b ja:** 59.2 nicht Tragbares abgedunkelt mit Sperrzeichen, unten eigener Block, oben Streifen mit den 9 angelegten Teilen; 59.3 Vergleich Angelegt/Neu auch bei Händlerware (`GearDetails` vergleicht heute nur Beutel); 59.4 Rückkauf der letzten 5 Verkäufe bis Laden zu; 59.5 Menge ×1/×5/alle bei Vorräten. **59c nein:** Angelegtes nicht direkt verkaufbar. 59.6/59.7 auf der Merkliste |
+| 59 | Händler: Kauf/Verkauf im Stil des Textkastens, Übersicht beim Verkauf, Vergleich beim Kauf | **Tom (jetzt, Nutzer 22:49)** | `claude/tom-59-haendler` | **59a ja:** schwarz wie Textkasten (42b), Seltenheitsfarben aufhellen, erst Standbilder. **59b ja:** 59.2 nicht Tragbares abgedunkelt mit Sperrzeichen, unten eigener Block, oben Streifen mit den 9 angelegten Teilen; 59.3 Vergleich Angelegt/Neu auch bei Händlerware (`GearDetails` vergleicht heute nur Beutel); 59.4 Rückkauf der letzten 5 Verkäufe bis Laden zu; 59.5 Menge ×1/×5/alle bei Vorräten. **59c nein:** Angelegtes nicht direkt verkaufbar. 59.6/59.7 auf der Merkliste. **Entwurf auf der Entscheidungsseite (23:12, 59d):** Look hinter `ShopLook.draft` (`HAENDLER=1`), 59.2–59.5 schon im Code, Kerntest `ShopTest` |
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
 ## Übergaben
@@ -64,4 +64,5 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Rückfragen an den Nutzer
 
 
+- **59d** (Tom): Händler im schwarzen Stil so ins Spiel? Bilder auf der Entscheidungsseite. Empfehlung: ja.
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
