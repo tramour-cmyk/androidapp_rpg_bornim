@@ -4,6 +4,7 @@
 Aufruf: python3 -I tools/klang/musik_bauen.py <Ordner mit den geladenen Dateien> [Arbeitsordner]
 - Stereo, 44,1 kHz, Vorbis; Musik ~112 kbit/s (q 3), Klangflächen (grund_*) ~80 kbit/s (q 1).
 - Lautheit angeglichen (zwei Durchgänge loudnorm, linear): Musik -18 LUFS, Klangflächen -24 LUFS (liegen unter allem).
+- Manche Stücke beginnen später (START), weil am Anfang zu lange nichts passiert (37.1).
 - Klangflächen über 3 min auf 3 min gekürzt und nahtlos zur Schleife gemacht (die letzten 4 s gehen in den Anfang über).
 """
 import json
@@ -18,6 +19,8 @@ TMP = pathlib.Path(sys.argv[2]) if len(sys.argv) > 2 else SRC.parent / "musik_tm
 TMP.mkdir(exist_ok=True)
 BED_MAX = 180.0
 SEAM = 4.0
+# Beginn in Sekunden, wo der Anfang zu leer ist (37.1, Nutzer 12.10.)
+START = {"kampf_devils_dome": 27.0}
 
 
 def dauer(f):
@@ -38,6 +41,8 @@ for f in sorted(SRC.iterdir()):
     ziel = -24 if bed else -18
     d = dauer(f)
     pre = "aresample=44100,aformat=channel_layouts=stereo"
+    if name in START:
+        pre = f"atrim=start={START[name]},asetpts=PTS-STARTPTS,afade=t=in:d=0.3," + pre
     quelle = f
     if bed:
         # Schleife: Teil B = [SEAM, lang], sein Ende überblendet mit Teil A = [0, SEAM]

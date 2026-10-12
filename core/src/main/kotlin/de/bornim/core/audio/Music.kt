@@ -30,6 +30,7 @@ object MusicLib {
     )
     val battle = listOf(
         "kampf_evil_approach", "kampf_determined_pursuit", "kampf_corrupted_minds", "kampf_eclipse_legion",
+        "kampf_orchestral_battle", "kampf_battlefield", "kampf_devils_dome",
     )
     val boss = listOf("boss_fall_of_nightmares", "boss_fantasy_choir1", "boss_fantasy_choir2")
     /** Too stately for a fight (37a): kept for the Sun Amulet's return to the temple, not yet played anywhere. */

@@ -72,7 +72,7 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026 (BigSoundBank: �
 
 ## Musik (Thema 28, Auswahl des Nutzers 11.10.2026)
 
-Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools/klang/musik_holen.sh`. Vorgabe in `docs/STIL.md` (orchestral, düster; Dorf mittelalterlich). Titel, Sieg und Kapitelende sind fest vergeben; alle übrigen Stücke darf die Sitzung frei den Lagen zuordnen (Nutzer 28f, 11.10.); die Lage unten ist der Vorschlag. Nicht genommen: Great Labyrinth, Menace, Epic Fight Theme (aussortiert 37, 12.10.), The Final Battle, Battle Theme (wolfgang), War Theme (Hörproben 37, 12.10.), Eerie Forest, Boss Battle #2 Symphonic Metal, The Bard's Tale, Opening Theme. Freesound: Vorschau (128 kbit/s), Lizenz gilt für die Aufnahme.
+Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools/klang/musik_holen.sh`. Vorgabe in `docs/STIL.md` (orchestral, düster; Dorf mittelalterlich). Titel, Sieg und Kapitelende sind fest vergeben; alle übrigen Stücke darf die Sitzung frei den Lagen zuordnen (Nutzer 28f, 11.10.); die Lage unten ist der Vorschlag. Nicht genommen: Great Labyrinth, Menace, Epic Fight Theme (aussortiert 37, 12.10.), The Final Battle, Battle Theme (wolfgang), War Theme, Open Warfare, Prepare to Fight, Epic Combat, Medieval Battle (Hörproben 37, 12.10.; Battle Theme A von cynicmusic nur Reserve), Eerie Forest, Boss Battle #2 Symphonic Metal, The Bard's Tale, Opening Theme. Freesound: Vorschau (128 kbit/s), Lizenz gilt für die Aufnahme.
 
 | Lage | Datei | Titel | Urheber | Quelle |
 |---|---|---|---|---|
@@ -110,6 +110,9 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools
 | kampf | `kampf_determined_pursuit` | Determined Pursuit (epic orchestra loop) | emmama | https://opengameart.org/content/determined-pursuit-epic-orchestra-loop |
 | kampf | `kampf_corrupted_minds` | Corrupted Minds | vitalezzz | https://opengameart.org/content/corrupted-minds |
 | kampf | `kampf_eclipse_legion` | Eclipse Legion | vitalezzz | https://opengameart.org/content/eclipse-legion |
+| kampf | `kampf_orchestral_battle` | QaziJamJam Orchestral Battle Theme | emmama | https://opengameart.org/content/qazijamjam-orchestral-battle-theme |
+| kampf | `kampf_battlefield` | The Battlefield | umplix | https://opengameart.org/content/the-battlefield |
+| kampf | `kampf_devils_dome` | The March of Devils Dome (ab 27 s, 37.1) | eldritch-grim | https://opengameart.org/content/the-march-of-devils-dome |
 | boss | `boss_fall_of_nightmares` | Fall of Nightmares [Epic, Orchestral] | nene | https://opengameart.org/content/fall-of-nightmares-epic-orchestral |
 | boss | `boss_fantasy_choir1` | Fantasy Choir 1 | cesisco | https://opengameart.org/content/fantasy-choir-3-orchestral-pieces |
 | boss | `boss_fantasy_choir2` | Fantasy Choir 2 | cesisco | https://opengameart.org/content/fantasy-choir-3-orchestral-pieces |
