@@ -4,6 +4,24 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Tom (Thema 27.4, 27.5, 27e, 5.3, 5.4, 5.6, 5n, 55.2, 56), getestet in 0.1.590 bis 0.1.615 (Nutzer 12.10., 21:1x: Dorf, Schänke, Tiefer Wald passen), PR #49 = getesteter Stand von PR #48 (zusammengeführt 12.10., 21:15):
+
+**Bäume und Dorf (27.4, 5.3, 5.4, 5.6, 5n)**
+- Bäume mit Volumen in Wald, Tiefem Wald und Dorf: Blattballen, runder Stamm mit Wurzeln, Fichten in Etagen, Dürrholz.
+- Alle zwölf Dorfbewohner sind Puppen mit Ruhebewegungen; Speer und Stab bleiben auf der Schulter.
+- Schlagbaum und Zaun diagonal; Kaels Hütte steht zwei Felder weiter östlich, der Schlagbaum ist frei.
+- Pflaster auf dem Markt ruhiger (Zwischending), Fensterlicht nachts wird von Bäumen, Häusern und Leuten verdeckt, Kaminrauch als weiche Säule; Gemüsebeet in Furchen, Kornfeld aus Halmen, junge Fichten am Dorfrand.
+- Wäscheleine, Heu, Farn und Büsche im Dorf schräg gezeichnet (56d).
+
+**Wald (27.5, 27g, 56a–56c, 27e)**
+- Stamm, Felshang mit Höhleneingang, Feuerstelle und Wegweiser diagonal; Heilkräuter, Truhen, Steine, Steinkreis, Büsche, Farn und Schilf schräg (sichtbar, sobald der Wald diagonal ist).
+- Der Weiher liegt tiefer, mit Erdstufe am Ufer (nur im Wald).
+- Kronen vor dem Helden decken ihn auch in der geraden Sicht zusammen nur zu 35 %; im Tiefen Wald verschwand er sonst ganz (27e; weniger Transparenz folgt mit 27e.1).
+
+**Schänke (55.2)**
+- Borin sitzt auf einem Hocker an seinem Tisch: trinkt, isst, sieht sich um, zu zufälligen Zeiten, atmet; der Hammer lehnt am Tischende.
+- Durchsicht nur, wenn etwas den Oberkörper verdeckt (der Tresen bleibt fest).
+
 Zweig von Jerry (Thema 36.5, 36h, 36.7, 36j), getestet in 0.1.587 (passt, keine Abstürze), PR #47 (zusammengeführt 12.10., 15:5x):
 
 **Krogg trifft (36.5, 36h, 36.7, 36j)**
