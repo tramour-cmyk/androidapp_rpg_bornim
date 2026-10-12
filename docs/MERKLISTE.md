@@ -132,6 +132,18 @@ Dorran wohnt heute nur hinter einer verschlossenen Tür („Er ist wohl in seine
 - **Danach im Code:** die Play-Games-Bibliothek einbinden, Anmeldung beim Start, Cloud-Abgleich der Spielstand-Plätze, Erfolge.
 - Sinnvoll erst, wenn das Spiel im Play Store erscheinen soll (siehe auch Rechtliches unten).
 
+## Zufallsgenerierte Dungeons (48, Nutzer 12.10.)
+
+- Halb-halb: Story-Höhlen mit festem Kern (Eingang, Bossraum, Szenen) und zufälligen Seitengängen aus handgemachten Bausteinen; Aushang-Höhlen ganz zufällig (Startwert im Spielstand). Voraussetzung: diagonale Höhlenzeichnung (13e) arbeitet allgemein aus der Karte, nicht je Kachel von Hand. Größe (48c): 6–8 Kammern, verschlungener Hauptweg, Schleife nur manchmal, Sackgassen auch leer, Rückweg durch Durchgang, der nach dem Boss aufgeht; Beute knapp, Jerry prüft gegen `BALANCE.md`. Einzelheiten in `OFFEN.md` Zeile 48.
+
+## Lehrer (49, Nutzer 12.10.)
+
+- Übung (voller Übungsbonus) in einer Waffenart, einer Rüstungsstufe oder einem Rettungswurf bei Lehrern im Dorf lernen (Garrick Bogen, Dorran Rüstung/Schild …); kostet Gold und einen Tag; statt Attributspunkten auf Stufe 4/8/12/16/19 (wie Talente im SRD). Einzelheiten in `OFFEN.md` Zeile 49.
+
+## Weitere Klassen (50, Nutzer 12.10.)
+
+- Berserker, Kriegsmagier, Paladin, Werwolf …, ggf. zum Kauf (45). Nie stärker als die Grundklassen. Einzelheiten in `OFFEN.md` Zeile 50.
+
 ## Sonstiges
 
 - **Rechtliches:** Vor einer Veröffentlichung im Play Store oder einer kommerziellen Nutzung eine kurze Prüfung durch einen Anwalt für Marken- und Urheberrecht.
@@ -151,3 +163,4 @@ Nach den [Stil-Leitlinien](STIL.md): weg von Chiptune, hin zu glaubwürdigen Ger
 - **Trank wird zweimal getrunken:** kein Fehler, Trinkvariante „zwei hastige Schlucke“ (08.10.).
 - **Testkämpfe im Dorf:** Held und Gegner erreichen sich beim Angriff nicht (alte Kulisse ohne berechneten Schritt); im Dorf gibt es sonst keine Kämpfe (08.10.).
 - **Figurgröße im Reiter „Held“** und **Kampfablauf** (Ansage mit Ausholen → Tippen → Schlag): so bestätigt.
+- **30.7 (Jerry, 36f, 12.10.):** Klänge mit 22 statt 44 kHz (etwa 5 MB Speicher weniger, Höhen etwas dumpfer); erst wenn der Speicher wieder knapp wird.

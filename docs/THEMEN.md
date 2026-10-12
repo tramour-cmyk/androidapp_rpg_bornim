@@ -13,19 +13,19 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 7 | Stopp-Punkt und Zusammenarbeit der Accounts | Tom | erledigt 10.10. (weiter in 8) | Archiv |
 | 8 | Zusammenarbeit Tom und Jerry, Notizen nur auf `main` | Jerry | erledigt 10.10. | `CLAUDE.md` |
 | 9 | Monster auf der Karte | Jerry | alle 18 Gegner auf der Karte erledigt: Wolf, Goblin, Grimmzahn (v0.1.430, v0.1.438), 9i übrige Gegner (PR #29, #33, 11.10.) | `OFFEN.md` |
-| 10 | Höhle: Flammen feiner | Jerry | zurückgestellt bis zur diagonalen Höhle (13e) | `OFFEN.md` |
-| 11 | Höhle: Lichtstrahl am Lichtschacht | Jerry | zurückgestellt bis zur diagonalen Höhle (13e) | `OFFEN.md` |
+| 10 | Höhle: Flammen feiner | Jerry | Teil von 13e (36e, 12.10.) | `OFFEN.md` |
+| 11 | Höhle: Lichtstrahl am Lichtschacht | Jerry | Teil von 13e (36e, 12.10.) | `OFFEN.md` |
 | 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Jerry, Tom | 12a, 12b, 12.3 erledigt (v0.1.455, v0.1.471, v0.1.483) | `OFFEN.md` |
-| 13 | Diagonale Sicht | Tom | Räume erledigt (Schänke v0.1.471; Ältester, Laden, Tempel PR #20, 11.10.); weiter in 5 | `OFFEN.md` |
+| 13 | Diagonale Sicht | Tom | Räume erledigt (Schänke v0.1.471; Ältester, Laden, Tempel PR #20, 11.10.); 13.4 je Ort automatisch PR #43 (12.10.); weiter in 5 | `OFFEN.md` |
 | 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für `OFFEN.md`) | Berater | erledigt 11.10. (PR #26) | `CHANGELOG.md` |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | erledigt 11.10. | Archiv |
 | 16 | Trefferstopp | Jerry | erledigt, v0.1.460 | Änderungshistorie |
 | 17 | Nachschwingen | Tom | freigegeben, offen | `OFFEN.md` |
 | 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | Jerry | Runde 2 auf `main` (PR #23, 11.10.); 18h, 18i offen | `OFFEN.md` |
-| 19 | Zeitablauf der Kampfbewegungen | Jerry | erledigt, v0.1.455; 19e zur Beobachtung | `OFFEN.md` |
+| 19 | Zeitablauf der Kampfbewegungen | Jerry | erledigt, v0.1.455; 19e geschlossen (36e, 12.10.) | `OFFEN.md` |
 | 20 | Uhrzeit der APK im ZIP | Tom | erledigt 11.10. (PR #21) | `OFFEN.md` |
 | 21 | Releaseflut eindämmen | Jerry | erledigt 11.10. (PR #22; Release nur auf Zuruf, Regeln in `CLAUDE.md`) | `OFFEN.md` |
-| 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | Tom | umgesetzt 11.10. (`docs/SELBST.md`) | `OFFEN.md` |
+| 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | Tom | erledigt 11.10. (`docs/SELBST.md`) | Archiv |
 | 23 | Aufgabenteilung und Vorrat für Selbstarbeit | Tom | erledigt 11.10. (`SELBST.md`) | `OFFEN.md` |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik), Jerry (Inhalt) | 24.1–24.4, 24.9–24.15 auf `main` (PR #30, #32, #34, #35, 11.10.); 24.5–24.8 offen | `OFFEN.md`, `ZWISCHENBILD.md` |
 | 25 | Laternen und Fenster nachts als Quelle zu dunkel | Tom | erledigt, getestet 0.1.512, PR #28 | `OFFEN.md` |
@@ -50,3 +50,6 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | Berater mit Nutzer | gesondert besprechen | `OFFEN.md` |
 | 46 | Neustart: Nachfolgerin startet die Sitzung selbst | Tom und Jerry | ja 12.10., 13:15 | `CLAUDE.md` |
 | 47 | README-Einleitung nach Leitbild | Berater | ja 12.10., 13:15 | `OFFEN.md` |
+| 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
+| 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
+| 50 | Weitere Klassen, ggf. zum Kauf | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |

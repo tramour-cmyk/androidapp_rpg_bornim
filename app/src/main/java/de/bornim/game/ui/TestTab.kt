@@ -144,14 +144,6 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             crits = de.bornim.core.Battle.heroCritsAlways
             vm.toast = if (crits) t("Jeder Waffentreffer ist kritisch: so lässt sich der Killerschlag testen.", "Every weapon hit is critical: to test the killing blow.") else t("Kritische Treffer wieder normal.", "Critical hits back to normal.")
         }
-        // the diagonal view while it is being built (13): straight or turned by 45°
-        var diagonal by remember { mutableStateOf(MapSight.diagonal) }
-        PixelButton(t("Sicht: ", "View: ") + (if (diagonal) t("diagonal (im Bau)", "diagonal (being built)") else t("gerade", "straight")), Modifier.fillMaxWidth(), size = 14.sp) {
-            MapSight.diagonal = !MapSight.diagonal
-            diagonal = MapSight.diagonal
-            vm.refresh()
-            vm.toast = if (diagonal) t("Karte diagonal: Schänke, Laden, Haus des Ältesten und Tempel fertig, draußen noch die alten Bilder.", "Map diagonal: the inn, the shop, the elder's house and the temple done, outside still the former pictures.") else t("Karte wieder gerade.", "Map straight again.")
-        }
         // the zoom in four steps, to find the right one on the phone (10.10., 6.15)
         var zoom by remember { mutableStateOf(MapZoom.level) }
         fun tiles(l: Int) = MapZoom.levels[l].toString().replace(".", ",") + t(" Kacheln", " tiles") +
@@ -161,15 +153,6 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             zoom = MapZoom.level
             vm.refresh()
             vm.toast = t("Karte: ", "Map: ") + tiles(zoom) + t(" quer", " across")
-        }
-        // the village and the rooms in the new style are drafts (night of 09.10.): to look at on the phone
-        var town by remember { mutableStateOf(de.bornim.core.art.MapGround.townDraft) }
-        PixelButton(t("Dorf und Räume: ", "Village and rooms: ") + (if (town) t("Entwurf neuer Stil", "draft new style") else t("bisher", "former")), Modifier.fillMaxWidth(), size = 14.sp) {
-            de.bornim.core.art.MapGround.townDraft = !de.bornim.core.art.MapGround.townDraft
-            town = de.bornim.core.art.MapGround.townDraft
-            game.state.place.let { p -> de.bornim.core.art.MapGround.prepare(de.bornim.core.World[p.map], p.x, p.y) }
-            vm.refresh()
-            vm.toast = if (town) t("Dorf und Innenräume im Entwurf des neuen Stils.", "Village and rooms in the draft of the new style.") else t("Dorf und Innenräume wieder wie bisher.", "Village and rooms as before.")
         }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()
