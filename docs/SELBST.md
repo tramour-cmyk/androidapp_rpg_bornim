@@ -11,7 +11,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
 | Tom | fertig | 12.10., 08:00 | 11.10., 23:08 | 12.10., 07:48 | Nacht beendet; 32.1–32.8 eingebaut, Routinen umgestellt | – |
-| Jerry | übergeben | 13.10., 08:00 (vorläufig, Rückfrage 54a) | 12.10., 16:22 | 12.10., 16:36 | 13e.2 fertig, weiter 13e.3; Nachfolger übernimmt | `claude/jerry-13e-hoehle-diagonal` |
+| Jerry | läuft | 13.10., 08:00 (vorläufig, Rückfrage 54a) | 12.10., 16:33 | 12.10., 16:33 | 13e.3 Lichtstrahl Schacht | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
 
