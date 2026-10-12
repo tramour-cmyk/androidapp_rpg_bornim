@@ -66,7 +66,7 @@ Alle drei Stunden rund um die Uhr je Account eine Routine, die eine frische Sitz
 
 ### 5. Bericht
 
-**Entwürfe als Artefakt** (Nutzer 12.10., 18:3x): Standbilder von Entwürfen als Artefakt anlegen (je Bild eine Beschriftung: was, alt/neu, Uhrzeit, Schalter), im Chat nur den Link; offene Entscheidungen dort gebündelt mit Empfehlung. Spart doppelte Token (Bild im Chat und in der Sitzung).
+**Entwürfe als Artefakt** (Nutzer 12.10., 18:3x; Ablauf seit Thema 57 in `CLAUDE.md`, „Entwürfe entscheiden“): eigene Entscheidungsseite nur mit Offenem, Entschiedenes ins gemeinsame Bildbuch; im Chat nur Link und Nummern.
 
 Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md` und als Nachricht im Chat der letzten Sitzung: was fertig ist (mit Nummern), was halb, was blockiert und warum; Zweig und Zweig-Build mit Link und Testliste; Entwürfe als Standbilder mit Uhrzeit; selbst entschiedene und neue Rückfragen, nummeriert; Verbrauch (Grenze erreicht? welche Routinen haben gearbeitet). Die Punkte für den Nutzer wandern in „Für gemeinsame Zeit“.
 
