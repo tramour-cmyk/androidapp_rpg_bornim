@@ -34,6 +34,20 @@ object MapGround {
     /** The village and its rooms in the new style; seen diagonally they are finished (13.4), so always on. */
     @Volatile var townDraft = true
 
+    /**
+     * 27.5 draft: the water lies a little below the grass. Where the bank faces the camera (land behind the water, towards
+     * −x and −y) its earthen step shows, with roots and the bank's shadow on the water; under the near bank the water is
+     * darker. Drawn for the diagonal view (27g ja).
+     */
+    @Volatile var pondDraft = true
+    private val BANK_L = intArrayOf(0x76, 0x5E, 0x40); private val BANK_D = intArrayOf(0x26, 0x1E, 0x14); private val ROOT = intArrayOf(0x18, 0x12, 0x0C)
+
+    /** 5.4 draft: the square's cobbles quieter (softer joints, less spread between stones, worn lanes); only in the preview. */
+    @Volatile var cobbleDraft = false
+
+    /** 5.4 middle way, in the game since the user chose it (12.10., 18:4x; the first draft was cold and sterile): warm stones that differ, earthen joints, moss, a gap now and then. */
+    @Volatile var cobbleMid = true
+
     /** Tiles drawn by this ground; anything else keeps its old picture on top. */
     private val drawn = setOf(
         Tile.GRASS, Tile.TALL_GRASS, Tile.FLOWERS, Tile.PATH, Tile.TREE, Tile.WATER,
@@ -214,6 +228,8 @@ object MapGround {
      * top, here and there one missing; [into] gets the colour, the result whether there is a stone.
      */
     private fun cobble(x: Double, y: Double, into: DoubleArray): Boolean {
+        if (cobbleMid) return cobbleWarm(x, y, into)
+        if (cobbleDraft) return cobbleQuiet(x, y, into)
         val cell = 6.0
         val gx = floor(x / cell).toInt(); val gy = floor(y / cell).toInt()
         var d1 = 99.0; var d2 = 99.0; var id = 0
@@ -226,6 +242,65 @@ object MapGround {
         // the joints, with moss in them here and there; now and then a stone gone
         if (d2 - d1 < 1.1 || id % 29 == 0) { for (i in 0..2) into[i] = (if (vnoise(x, y, 9.0, 67) > 0.6) MOSS_D[i] else MORTAR[i]).toDouble(); return false }
         lerp(COBBLE_D, COBBLE_L, 0.25 + (id % 100) / 260.0 + (1 - d1 / cell) * 0.35 + (vnoise(x, y, 3.0, 64) - 0.5) * 0.2, into)
+        return true
+    }
+
+    /**
+     * 5.4 draft: the same stones, calmer from afar. The joints are the stones' own colour darkened, not near
+     * black; the stones differ less from each other; a slow wash of light and dark (worn lanes, damp patches)
+     * carries the square instead of the speckle; moss only now and then, no missing stones.
+     */
+    private fun cobbleQuiet(x: Double, y: Double, into: DoubleArray): Boolean {
+        val cell = 6.5
+        val gx = floor(x / cell).toInt(); val gy = floor(y / cell).toInt()
+        var d1 = 99.0; var d2 = 99.0; var id = 0
+        for (dy in -1..1) for (dx in -1..1) {
+            val cx = gx + dx; val cy = gy + dy
+            val px = (cx + 0.2 + rnd(cx, cy, 61) * 0.6) * cell; val py = (cy + 0.2 + rnd(cx, cy, 62) * 0.6) * cell
+            val d = sqrt((x - px) * (x - px) + (y - py) * (y - py) * 1.3)
+            if (d < d1) { d2 = d1; d1 = d; id = hash(cx, cy, 63) } else if (d < d2) d2 = d
+        }
+        val wash = (fbm(x, y, 70.0, 68) - 0.5) * 0.5
+        val t = 0.36 + (id % 100) / 480.0 + (1 - d1 / cell) * 0.26 + wash + (vnoise(x, y, 3.0, 64) - 0.5) * 0.06
+        lerp(COBBLE_D, COBBLE_L, t, into)
+        if (d2 - d1 < 0.9) {
+            val k = if (vnoise(x, y, 14.0, 67) > 0.66) 0.0 else 0.62
+            if (k == 0.0) for (i in 0..2) into[i] = into[i] * 0.45 + MOSS_D[i] * 0.55 else for (i in 0..2) into[i] *= k
+            return false
+        }
+        return true
+    }
+
+    private val COBBLE_WARM = rgb(0x8A7254); private val COBBLE_COOL = rgb(0x5E6066); private val JOINT = rgb(0x2E261C)
+
+    /**
+     * 5.4, the middle way between the old cobbles and the quiet draft: the joints dark earth, not black; each stone
+     * leaning a little warm (ochre, brown) or cool (grey), lighter on top; a slow wash of worn lanes; moss in the
+     * joints here and there, now and then a stone gone.
+     */
+    private fun cobbleWarm(x: Double, y: Double, into: DoubleArray): Boolean {
+        val cell = 6.2
+        val gx = floor(x / cell).toInt(); val gy = floor(y / cell).toInt()
+        var d1 = 99.0; var d2 = 99.0; var id = 0
+        for (dy in -1..1) for (dx in -1..1) {
+            val cx = gx + dx; val cy = gy + dy
+            val px = (cx + 0.2 + rnd(cx, cy, 61) * 0.6) * cell; val py = (cy + 0.2 + rnd(cx, cy, 62) * 0.6) * cell
+            val d = sqrt((x - px) * (x - px) + (y - py) * (y - py) * 1.3)
+            if (d < d1) { d2 = d1; d1 = d; id = hash(cx, cy, 63) } else if (d < d2) d2 = d
+        }
+        if (d2 - d1 < 1.0 || id % 37 == 0) {
+            val moss = vnoise(x, y, 11.0, 67) > 0.6
+            for (i in 0..2) into[i] = (if (moss) MOSS_D[i] * 0.8 + JOINT[i] * 0.2 else JOINT[i].toDouble())
+            return false
+        }
+        val wash = (fbm(x, y, 60.0, 68) - 0.5) * 0.4
+        val t = 0.3 + (id % 100) / 330.0 + (1 - d1 / cell) * 0.3 + wash + (vnoise(x, y, 3.0, 64) - 0.5) * 0.12
+        lerp(COBBLE_D, COBBLE_L, t, into)
+        // each stone its own hue: some warm, some cool, most in between
+        val hue = ((id / 100) % 100) / 100.0
+        val tint = if (hue < 0.5) COBBLE_WARM else COBBLE_COOL
+        val k = abs(hue - 0.5) * 0.7
+        for (i in 0..2) into[i] = into[i] * (1 - k) + tint[i] * into[i] / 110.0 * k
         return true
     }
 
@@ -406,6 +481,22 @@ object MapGround {
             if (w > 0.5) {
                 lerp(WATER_S, WATER_D, (w - 0.5) * 3.2, col)
                 if (abs(kotlin.math.sin(y * 0.35 + fbm(x, y, 30.0, 12) * 6)) > 0.985 && vnoise(x, y, 16.0, 13) > 0.55) mixInto(col, GLINT, 0.45)
+                if (pondDraft && map.kind == MapKind.FOREST) {
+                    val gx = waterAt(map, x + 3, y) - waterAt(map, x - 3, y); val gy = waterAt(map, x, y + 3) - waterAt(map, x, y - 3)
+                    val gl = sqrt(gx * gx + gy * gy)
+                    if (gl > 1e-4) {
+                        // +1 where the water deepens towards the camera: the bank behind it faces us
+                        val facing = ((gx + gy) / gl / sqrt(2.0)).coerceIn(-1.0, 1.0)
+                        val band = 0.2 * facing.coerceAtLeast(0.0)
+                        if (w < 0.5 + band) {
+                            val f = (w - 0.5) / band
+                            lerp(BANK_L, BANK_D, f * 0.75 + (vnoise(x, y, 5.0, 70) - 0.5) * 0.4, tmp)
+                            if (vnoise(x * 3, y * 3, 9.0, 71) > 0.76) mixInto(tmp, ROOT, 0.7)
+                            for (i in 0..2) col[i] = tmp[i]
+                        } else if (facing > 0 && w < 0.5 + band + 0.06) mixInto(col, BANK_D, 0.45)
+                        else if (facing < -0.3 && w < 0.56) mixInto(col, BANK_D, 0.3)
+                    }
+                }
                 tall[yy * size + xx] = false
                 pathK[yy * size + xx] = 1.0
             } else if (w > 0.36) mixInto(col, MUD, 0.7)
