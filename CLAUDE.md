@@ -37,7 +37,7 @@ Alle Notizen und Absprachen gibt es nur einmal, auf `main`: `CLAUDE.md`, `CHANGE
 ## Vor jeder Arbeit lesen
 
 1. `docs/OFFEN.md` ganz (klein gehalten): „Wer macht was“, die eigene Übergabe, Rückfragen.
-2. `docs/STIL.md`: Stil (düster, erwachsen), Abwechslung, Karte und Räume, selbst prüfen.
+2. `docs/LEITBILD.md` (der rote Faden, eine Seite; bei Widerspruch gilt es), dann `docs/STIL.md` (Aussehen, Klang, Spielgefühl) und `docs/ENTWICKLUNG.md` (Ansicht, „Ort fertig“, selbst prüfen, Leistung).
 3. `CHANGELOG.md` nur bis zur zweiten Versionsüberschrift (`sed -n '1,/^## v/p'` und die erste Version).
 4. `tools/check-env.sh` laufen lassen; `docs/UMGEBUNG.md` nur lesen, wenn es etwas meldet oder ein Werkzeug gesucht wird (Tabelle der Vorschau-Schalter).
 

@@ -1,6 +1,6 @@
 # Stil-Leitlinien
 
-Gilt für **alle** künftigen Arbeiten und Überarbeitungen an Grafik, Animation und Klang. Stand: 11.10.2026, 11:45 (Berliner Zeit; Abschnitt „Karte und Räume“ und Silhouetten-Prüfung aus den Rückmeldungen bis 11.10. ergänzt).
+Wie das Spiel aussieht, klingt und sich spielt: die Einzelheiten zum [Leitbild](LEITBILD.md). Wie gebaut und geprüft wird (Abnahme „Ort fertig“, selbst prüfen, alte Ansicht), steht in [Entwicklung](ENTWICKLUNG.md). Gilt für **alle** künftigen Arbeiten an Grafik, Animation und Klang.
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
@@ -32,13 +32,12 @@ Wunsch des Nutzers (09.10.): Wer auf der Karte steht, lebt. Jede Figur, auch der
 - Figuren schauen den Helden an, wenn er nahe ist, verlieren aber nach etwa 20 s Stillstand das Interesse.
 - Haltungen vorher in allen Blickrichtungen prüfen (vorn, schräg, Seite, hinten); was von einer Seite falsch aussieht, fliegt raus.
 - Auch Orte leben (Regel des Nutzers, 10.10., 6f): Räume, Dorf und Wald sollen lebendig wirken, nicht wie eine Kulisse. Licht flackert, Rauch steigt, Staub tanzt im Lichtstrahl, Dinge liegen so, als hätte gerade jemand sie benutzt. Grundstimmung düster durch Licht und Schatten, nicht durch Dunkelheit.
+- **Effekte aktiv anbieten (44d, Nutzer 12.10.):** Rauch, Funken, Staub im Licht, Vögel, Regen und Ähnliches unterstreichen die Lebendigkeit. Tom und Jerry schlagen sie bei jedem neuen Ort und jeder neuen Figur von sich aus vor (Standbilder), statt zu warten, bis sie fehlen.
 
 ## Karte und Räume (diagonale Sicht)
 
 Aus den Rückmeldungen des Nutzers bis 11.10. (Verlauf im [Archiv](ARCHIV.md)):
 - **Ausrüstung unterwegs:** Waffen geschultert (nie am Boden schleifend), Schild auf dem Rücken, Zweitwaffe in der Scheide. Im Kampf wie gehabt.
-- **Neue Orte nur diagonal (13u, Nutzer 12.10., 12:20):** jeder neue Ort und Raum wird gleich diagonal gebaut (Vorlagen `MapRoomIso`, `MapTownIso`), nie mehr eine gerade Fassung. Der Autoschalter (13.4) ist nur die Brücke für Wald, Tiefer Wald und Höhle.
-- **Alte Ansicht eingefroren (13w, Nutzer 12.10., 12:26):** keine Arbeit und keine Fehlerbehebung mehr an der geraden Ansicht, außer bei Abstürzen; gelöscht, sobald Wald, Tiefer Wald und Höhle diagonal fertig sind.
 - **Sichtbarkeit (Thema 43, Nutzer 12.10.):** Was in der alten Ansicht rechts gut zu sehen war, steht diagonal vorn unten zwischen Kamera und Geschehen.
   - **Wichtiges steht frei:** Leute, Questziele, Eingänge, Schilder, Feuerstellen haben freien Blick; zur Kamera hin (Süden, Osten) nichts Hohes davor. Sonst umstellen (das Ding oder die Bäume davor); die Karte muss nur diagonal stimmen.
   - **Durchsicht nur um den Helden:** Kronen, Felsen, Büsche und hohe Möbel in einem kleinen Umkreis um den Helden fast ganz durchsichtig, nicht gestapelt, damit er nie verschwindet.
@@ -46,20 +45,6 @@ Aus den Rückmeldungen des Nutzers bis 11.10. (Verlauf im [Archiv](ARCHIV.md)):
 - **Maßstab:** Höhen im Maßstab des Helden (ein Tisch steht etwa hüfthoch neben ihm). Waagerechte Kreise (Fass, Eimer, Becken) sind in der diagonalen Sicht Ellipsen 2:1, ihr Schatten ebenso.
 - **Räume:** eher klein und dicht als groß und leer; jeder Ort hat eigene Möbel, die zu seinem Bewohner passen (Pult und Truhe beim Ältesten, Ladentisch und Waren bei Thessa, Altar und Bänke im Tempel), je drei Varianten. Mehrteilige Möbel (Altar, Theke, Bett über mehrere Felder) haben durchgehend dieselbe Variante. Licht von Herd, Kerze und Fenster; Gebrauchsspuren.
 - **Begleiter und Rudel:** folgen mit eigenem Weg, eigenem Tempo und eigenem Blick, werden nie starr um den Anführer mitgedreht.
-
-## Wann ein Ort fertig ist („Ort fertig“)
-
-Festgelegt mit dem Nutzer 11.10., 16:50 (Maßstab: Dorf und Räume). Gilt für Dorf, Räume, Wald, Höhle und jeden neuen Ort:
-1. **Diagonale Sicht:** alles (Bäume, Felsen, Häuser, Möbel, Ufer, Hänge) für die schräge Kamera gezeichnet, nicht die alte Ansicht gekippt.
-2. **Boden:** doppelte Auflösung, kein sichtbares Raster, Wege mit natürlichem Verlauf.
-3. **Dinge:** rund geformt mit Volumen (`Sculpt`), je mindestens drei Varianten, im Maßstab des Helden.
-4. **Licht und Schatten:** Schatten unter allem, was steht; Licht nur aus sichtbaren Quellen; nachts düster, aber lesbar.
-5. **Durchsicht:** was vor dem Helden steht, wird halb durchsichtig.
-6. **Lebendig:** Wind, Rauch, Tiere, Gebrauchsspuren, Wetter, je nach Ort.
-7. **Figuren:** alle Leute als Puppen, alle Gegner als neue Kartenmodelle.
-8. **Klang:** Umgebung aus echten Aufnahmen, Schritte passend zum Untergrund.
-9. **Sichtbar (43):** Standbild je Ort aus Sicht des Helden; jede Person und jeder Questort ist beim Herangehen erkennbar.
-10. **Geprüft:** Kollision 0 (nirgends hindurchlaufen), Sprungtest 0, Tippen trifft das gezeichnete Ding; Standbilder bei Tag und Nacht.
 
 ## Spielerfreundlich, einfach, frei (Thema 33)
 
@@ -77,20 +62,6 @@ Im Vorschlag an den Nutzer stehen die vier Antworten kurz neben dem Abgleich mit
 - Zustände wie „rostig“ (altes Eisen) und „grob“ (Holzschild aus Planken) sind reine Optik. Sie kommen nicht in Beute- oder Händlerlisten.
 - Die Ausrüstung passt zum Angriffsnamen des Gegners, etwa „Morgenstern“ bei Krogg oder „Kurzbogen“ beim Goblin-Späher.
 
-## Selbst prüfen, bevor etwas gezeigt wird
-
-- Jede neue Animation, Haltung oder Waffe wird automatisch auf **Kollisionen** geprüft: Waffe durch Körper, Kopf, Beine oder Schild, Stab durch den Körper, Schild durch die Waffe. Für alle Völker, Geschlechter und Staturen.
-  - Werkzeuge in der Vorschau (`tools/preview`): `CLASH=1`, `CLERICCLASH=1` und vergleichbare Prüfläufe; Ziel ist immer 0 Treffer.
-- Jede Bewegung wird als Bildfolge angesehen, nicht nur ein Standbild: Ausholen, Treffer, Rückweg, Übergänge.
-- **Silhouetten prüfen:** Jede Figur und jedes Ding von allen Seiten auf unfreiwillig Komisches oder Anstößiges ansehen (Beispiel 10.10.: ein waagerecht nach vorn zeigender Dolch auf Hüfthöhe beim Goblin).
-- Jeder Angriff ist sichtbar, auch ein Fehlschlag: Geschosse fliegen vorbei, Flammen schlagen neben dem Ziel ein.
-- Umgang mit Waffen muss stimmen: Griff, Abstützen, Rückstoß, Haltung in Ruhe.
-- **Eine Aktion ist ein Stück:** Bewegung zuerst, dann eine einzige Textzeile mit Ausgang und Schaden; kein Tippen mitten in einer Aktion. Der Kampf läuft von selbst weiter, im eingestellten Kampftempo.
-- **Kampfabläufe selbst durchspielen**, eigenverantwortlich und genau, bei jedem neuen Monster und jeder Änderung an Kampf oder Bewegung: Passt die Haltung zu jeder Meldung (Angriff, Treffer, Verfehlen, Abwehr, Konter, Zauber, Wurf, Sturz)? Wird keine Bewegung unterbrochen, doppelt gespielt oder fällt zu früh in die Ruhe zurück? Bleiben gehaltene Haltungen (Ausholen, Abwehr, Zauber sammeln) stehen, bis die nächste Meldung sie auflöst?
-  - Nicht nur die Logik lesen, sondern durch die echte Oberfläche filmen und die Bildfolge ansehen: Vorschau `FILM=klasse:gegner FILMTAPS=SFASSS` (S Szene/Weiter, F Kampf, A Angriff, D Abwehr) legt in Echtzeit alle 80 ms ein Bild ab. Mehrere Klassen und Waffen, mit und ohne Abwehr.
-
-- **Sprungtest (Thema 12, 10.10.):** Jede Bewegung und jeder Übergang (Stehen, Atmen, Gehen, Drehen, Haltungen hinein und heraus, Gehen ↔ Stehen, Rudel folgt) wird Bild für Bild auf Sprünge geprüft: `JumpTest` in `core` (`./gradlew -p core test --tests '*JumpTest*'`), ohne Bild, in Sekunden. Ziel 0 Meldungen, wie bei den Kollisionen. Neue Bewegungen kommen dort als Prüffall hinzu.
-
 ## Klang
 
 - **Weg von quietschenden Chiptune- und Nintendo-Tönen, hin zu glaubwürdigen Geräuschen**: Stahl, Holz, Leder, Schritte, Feuer, Stimmen von Tieren.
@@ -98,6 +69,7 @@ Im Vorschlag an den Nutzer stehen die vier Antworten kurz neben dem Abgleich mit
 - **Echte Aufnahmen statt Synthese** (18, 11.10.): Grundlage sind CC0-Aufnahmen; nur Lizenzen, die kommerzielle Nutzung erlauben (Regel in `CLAUDE.md`), Quellen und Lizenz je Datei festhalten; erzeugte Klänge nur, wo sich nichts findet.
 - Mindestens drei Varianten je Geräusch, damit es nicht eintönig wird. Die Varianten sind echte Alternativen mit eigenem Charakter (z. B. Abwehr: Klonk auf Holz und Eisen, hölzernes Pochen, Klinge gegen Klinge), nicht nur dieselbe Aufnahme in anderer Tonhöhe. Im Spiel wird zufällig gewechselt.
 - **Ortsklang nur von dem, was da ist** (Nutzer 11.10., 22:06, Thema 24.8): Was man an einem Ort hört, kommt von sichtbaren Quellen und den Leuten, die gerade dort sind. Kein Stimmengewirr und keine Menge, wo nur zwei Leute stehen (Schänke: Rowena, Borin); stattdessen Herd plus Einzelklänge der Anwesenden in unregelmäßigen Abständen (Becher abstellen, Krug, Wischen, Stuhl knarrt, Räuspern ohne Worte). Keine erkennbare Sprache.
+- **Hintergrundklänge aktiv anbieten (44d, Nutzer 12.10.):** Wind, Feuer, Tiere, Schritte, Arbeit der Leute beleben jeden Ort; Tom und Jerry bieten sie bei jedem neuen Ort und jeder neuen Figur von sich aus an, mit Hörproben.
 - Zu neuen oder geänderten Klängen gibt es Hörproben zum Vergleich (Vorschau: `SOUNDS=NAME,…`).
 - **Musik (Nutzer 11.10., 19:43, Thema 28):** einheitlich in einem Stil: **orchestral**, düster und bedrohlich, tragend; kein Metal, kein Rock, kein Chiptune. Ausnahme **Dorf:** mittelalterlich (Laute, Trommeln, etwas Bass). Dazu eine eindeutige Titelmusik.
 - Was noch zu überarbeiten ist, steht in der Liste [Offen](OFFEN.md) unter „Geplant“.
