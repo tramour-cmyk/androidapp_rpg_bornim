@@ -36,7 +36,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry | – | Nutzer 12.10., 15:4x nach Test 0.1.587: Krogg fürs Erste so lassen, später alle Kampfanimationen gesamt überarbeiten. Nach Kapitel-1-Wichtigem |
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg | Jerry | – | Prüfthema, Nutzer 12.10., 15:4x (Test 0.1.587): wenn Zeit ist und nichts Wichtigeres ansteht; alle großen Gegner mitprüfen |
 | 54 | Nicht warten: Tom und Jerry arbeiten von selbst weiter, wenn nichts zu entscheiden ist | Tom und Jerry | `main` (Notizen, Werkzeug) | Nutzer 12.10., 15:4x: mehrfach auf beiden Accounts stand die Arbeit, obwohl genug zu tun war. **Jerry (15:5x):** Regel „Nicht warten“ in `CLAUDE.md` + Stop-Haken `tools/weiter-haken.py` (hält einen Zug einmal auf, wenn er Arbeit ankündigt). **Tom:** bitte lesen, bestätigen oder ergänzen (deine Übergabe nannte die Regel schon) |
-| 56 | Alte Objekte auf den neuen Karten: Heilkräuter sehen aus wie auf der alten Karte; prüfen, was noch nach altem Muster gezeichnet wird | Tom | – | Nutzer 12.10., 18:3x. Liste alt im Wald: Heilkräuter, Truhen draußen, Steine, Steinkreis, Büsche. Entwurf Kräuter + Truhe (`HERBDRAFT`, `CHESTDRAFT`) auf dem Zweig, **56a** offen; weiter Steine, Steinkreis, Büsche |
+| 56 | Alte Objekte auf den neuen Karten: Heilkräuter sehen aus wie auf der alten Karte; prüfen, was noch nach altem Muster gezeichnet wird | Tom | – | Nutzer 12.10., 18:3x. Liste alt im Wald: Heilkräuter, Truhen draußen, Steine, Steinkreis, Büsche. Entwürfe Kräuter + Truhe (**56a**), Steine + Steinkreis (**56b**, `ROCKDRAFT`, `MENHIRDRAFT`) auf dem Zweig; weiter Büsche |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
@@ -61,6 +61,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Rückfragen an den Nutzer
 
 - **56a** (Tom): Heilkräuter (Wegerich-Rosette mit Schafgarbe) und Truhe im Wald diagonal ins Spiel? Bilder auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F). Empfehlung: ja.
+- **56b** (Tom): Steine und Steinkreis im Wald diagonal ins Spiel? Bilder auf der Entscheidungsseite. Empfehlung: ja, zusammen mit 56a.
 - **54a** (Jerry): Selbstarbeit ab 16:40 – bis wann? Empfehlung: bis du wieder schreibst, längstens 13.10., 08:00 (so eingetragen).
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
