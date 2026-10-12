@@ -8,6 +8,7 @@ import de.bornim.core.Race
 import de.bornim.core.Sex
 import de.bornim.core.art.HeroFigure.Rig
 import de.bornim.core.art.HeroFigure.V
+import kotlin.math.roundToInt
 
 /**
  * Foes on the hero's doll: goblins and skeletons in battle. They move as the hero does (the same keys, blows, blocks
@@ -28,6 +29,13 @@ object FoeArt {
     /** The frame's height and the ground line in it, for this kind of foe. */
     fun height(id: String) = H + extra(id)
     fun ground(id: String) = GROUND + extra(id)
+    /**
+     * How much finer a big foe is drawn in battle (36): Krogg stands as large as before, but in 1.5 times as many
+     * pixels, so he no longer looks coarse. Only the battle's cut frames ([cut]) are finer; every place, size and
+     * reckoning ([tip], [ground], [frame], the killing blow) stays in the plain art pixels.
+     */
+    fun fine(id: String): Double = if (id == "bugbear") 1.5 else 1.0
+
     /** Art pixels per centimetre: the foe stands further off than the hero. */
     const val PX = 0.66
 
@@ -358,21 +366,31 @@ object FoeArt {
 
     /**
      * The frame cut down to the foe ([PixelImage.trimmed], with where it sits in the whole frame): the figure fills a
-     * tenth of the frame or less (36.4), so only this is kept. The battle draws it at ([PixelImage.ox], [PixelImage.oy]).
+     * tenth of the frame or less (36.4), so only this is kept. Drawn [fine] times finer: the battle draws it at
+     * ([PixelImage.ox], [PixelImage.oy]) / [fine], each pixel 1 / [fine] art pixels wide.
      */
     fun cut(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage {
         val seq = sequence(id, look, act, variant).rigs
         val i = if (act == Act.IDLE) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         val k = "$id/${look.seed}/${look.glow}/$act/${variant.mod(3)}/$i"
         synchronized(cache) { cache[k]?.let { return it } }
-        val img = doll(id, look).render(W, height(id), ANCHOR_X, ground(id), PX, seq[i], outfit(id, look)).img.trimmed()
+        val f = fine(id)
+        val img = doll(id, look).render((W * f).roundToInt(), (height(id) * f).roundToInt(), ANCHOR_X * f, ground(id) * f, PX * f, seq[i], outfit(id, look)).img.trimmed()
         synchronized(cache) { cache[k] = img }
         return img
     }
 
     /** The whole frame, [W] × [height] (for the killing blow, the tests and the preview; the battle shows [cut]). */
-    fun frame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage =
-        cut(id, look, act, variant, index).whole(W, height(id))
+    fun frame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage {
+        if (fine(id) == 1.0) return cut(id, look, act, variant, index).whole(W, height(id))
+        val seq = sequence(id, look, act, variant).rigs
+        val i = if (act == Act.IDLE) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
+        return doll(id, look).render(W, height(id), ANCHOR_X, ground(id), PX, seq[i], outfit(id, look)).img
+    }
+
+    /** The whole frame as the battle shows it, [fine] times finer (for the preview). */
+    fun fineFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage =
+        cut(id, look, act, variant, index).whole((W * fine(id)).roundToInt(), (height(id) * fine(id)).roundToInt())
 
     /** The same frame without the weapon in the hand: what is left of the foe when its weapon falls away on its own. */
     fun unarmedFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage {

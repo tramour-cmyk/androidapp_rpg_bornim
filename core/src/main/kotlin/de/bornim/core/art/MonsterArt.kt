@@ -127,6 +127,9 @@ object MonsterArt {
         else if (isVermin(id)) VerminArt.frame(id, look, act, variant, index, wound)
         else WolfArt.frame(look, id == "dire_wolf", act, variant, index, wound)
 
+    /** How many pixels of a kept frame ([keptFrame], [shownFrame]) make one art pixel: finer for Krogg ([FoeArt.fine]). */
+    fun fine(id: String): Double = if (isDoll(id)) FoeArt.fine(id) else 1.0
+
     /** The frame as the battle keeps and shows it: for foes on the doll cut down to the figure ([FoeArt.cut]). */
     fun keptFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound: Int = 0): PixelImage =
         if (isDoll(id)) FoeArt.cut(id, look, act, variant, index) else battleFrame(id, look, act, variant, index, wound)
