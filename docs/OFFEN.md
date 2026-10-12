@@ -52,13 +52,12 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **0.1.579 getestet, passt (Nutzer 13:0x); **Meldung 13:2x (Bildschirmfoto):** Haus am Schlagbaum (21–23, 3–5) wird durchsichtig, obwohl der Held davor steht; Vorschau `KARTENZOOM=1 ONLY=zoom_nah_d11` (Held 22,6). Vermutlich alter Fehler der Gruppen-Durchsicht (`hides`, ein Streifen mit größerer Tiefe), prüfen ob durch PR #43; dann beheben und PR zusammenführen (Tom, PR #43, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38238967966/artifacts/11742810872)):** 0.1.576 getestet (12:40: 1–4, 6 ja; 5 Durchsicht zu stark). Neu: Durchsicht milder (zusammen 35 %, egal wie viele hintereinander), weich ein/aus in 0,3 s. Darauf achten: hinter Häusern im Dorf, in Räumen hinter hohen Möbeln.
+- **Tom, PR #43, Build läuft (14:20):** 0.1.579 passte; neu **27d** behoben: Haus wurde durchsichtig, wenn der Held dicht an der Wand stand (freies Laufen stoppt 0,3 Felder davor). Darauf achten: an Hauswände laufen und stehen bleiben (links, Mitte, rechts) – Haus bleibt fest; hinter dem Haus weiter durchsichtig. Dann zusammenführen.
 
 ## Rückfragen an den Nutzer
 
 - **36e–36h (Jerry, 14:0x):** 36e 19e schließen, 10/11 unter 13e; 36f 30.7 auf Merkliste; 36g Krogg beim Schlag über der Anzeige halten (Waffe trifft höher); 36h Schritt gleichmäßiger (70 % beim Ausholen). Empfehlung je ja.
 
-- **27d (Tom, 13:55):** Haus durchsichtig vor dem Helden: bei 22,6 (Tür) im Standbild fest; durchsichtig nur links an/hinter der Ecke (20,3–20,5; bei 20,5 verdeckt die Ecke höchstens eine Hälfte). Wo stand der Held? Foto? Empfehlung: Durchsicht erst ab mehr als schmalem Rand, dann PR #43 zusammenführen.
 
 - **27b (Tom):** Wald Südrand: 27.1 Durchsicht kräftiger (Kronen vor Held, Steinen, Schild, Truhe fast ganz durchsichtig, nicht gestapelt) + 27.2 vorderster Waldrand diagonal niedrig (Stämme, Büsche, junge Bäume, wie die niedrigen Vorderwände der Höhle); 27.4 neue runde Bäume danach; 27.3 Karte umbauen nein. Empfehlung 27.1+27.2, erst Standbilder. **27b ja (Nutzer 12:09, über Berater):** 27.1, 27.2 und Umstellen nach 43 (27.3 doch ja): Garrick, Feuer, Steinkreis zuerst, Standbilder vorher/nachher.
 
