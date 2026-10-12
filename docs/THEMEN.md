@@ -35,4 +35,8 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 29 | Nebenquests (Anschlagbrett) | Tom | offen | `OFFEN.md` |
 | 30 | Abstürze beim Testen | Tom (Jerry: Klang-Fäden) | offen | `OFFEN.md` |
 | 31 | Berater-Gedächtnis `docs/BERATER.md` | Berater | angelegt 11.10. | `BERATER.md` |
+| 33 | Grundsatz „Spielerfreundlich, einfach, frei“ (Prüfung vor jeder Umsetzung) | Tom und Jerry | festgelegt 12.10., 08:58, in `STIL.md` und `CLAUDE.md` | `STIL.md` |
 | 32 | Selbstarbeit: Nacht 11./12.10. fast ohne Arbeit (Routine sperrte sich wegen Herzschlag) | Jerry | offen, 32a | `OFFEN.md` |
+| 34 | Kampf: Knopf „Zug beenden“ | Jerry | ja 12.10. | `OFFEN.md` |
+| 35 | Weihwasser nur gegen Untote (2W6) | Jerry | ja 12.10. | `OFFEN.md` |
+| 36 | Krogg verpixelt (schärfen) | Jerry | 36a ja (36.1), 36b offen | `OFFEN.md` |

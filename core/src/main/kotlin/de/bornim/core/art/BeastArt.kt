@@ -292,7 +292,14 @@ object BeastArt {
 
     // ---------------------------------------------------------------- the frames, kept
 
-    private val capacity: Int = (Runtime.getRuntime().maxMemory() / 10 / (W * H * 4L)).toInt().coerceIn(80, 400)
+    /**
+     * At least every frame of one foe (130 for a skeleton) and some over (24.19): with fewer, its first frames drawn
+     * ahead were gone again when the fight began. The other kinds' frames are let go meanwhile ([MonsterArt.prepare]).
+     */
+    private val capacity: Int = (Runtime.getRuntime().maxMemory() / 10 / (W * H * 4L)).toInt().coerceIn(160, 400)
+
+    /** Lets go of every frame kept: another kind of foe is fought now. */
+    fun forget() = synchronized(cache) { cache.clear() }
     private val cache = object : LinkedHashMap<String, PixelImage>(128, 0.75f, true) {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > capacity
     }

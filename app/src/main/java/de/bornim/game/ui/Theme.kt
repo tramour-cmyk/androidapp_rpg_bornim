@@ -75,6 +75,9 @@ object Bitmaps {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<PixelImage, ImageBitmap>?) = size > 400
     }
 
+    /** 30.2: memory short: lets go of every bitmap; made again when drawn. Main thread only. */
+    fun clear() = cache.clear()
+
     fun of(p: PixelImage): ImageBitmap = cache.getOrPut(p) {
         Bitmap.createBitmap(p.pixels, p.width, p.height, Bitmap.Config.ARGB_8888).asImageBitmap()
     }

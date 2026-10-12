@@ -4,6 +4,17 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Tom (Thema 30, 24.5, 24.16–24.20), getestet in 0.1.559, PR #40 (zusammengeführt 12.10., 09:29):
+
+**Keine Abstürze mehr beim Kartenwechsel und im Kampf (30)**
+- Die App bekommt doppelt so viel Speicher (512 statt 256 MB am Handy des Nutzers) und gibt Bilder nach einem Kartenwechsel früher frei.
+- Fehler beim Zeichnen im Hintergrund beenden die App nicht mehr; sie werden gezählt und gemeldet.
+- Test-Reiter: „Letztes Ende der App“ mit Grund und „Letzter Absturz“ mit Bericht zum Kopieren.
+
+**Kampf beginnt ohne Warten (24.5, 24.16–24.20)**
+- Die Kampfbilder von Held und nahem Gegner werden schon auf der Karte gezeichnet und auf dem Gerät gespeichert: Eröffnung, Held und Gegner sind beim Kampfbeginn sofort bereit (am Handy 0,0 s).
+- Werkzeuge (nur Entwicklung): Test-Reiter „Kampf bereit“ und „Vorgezeichnet …“.
+
 Zweig von Jerry (Thema 24.8.5, 30.6, 32.7, 13e Entwurf), getestet in 0.1.555, PR #38 (zusammengeführt 12.10., 08:42):
 
 **Ortsklang klingt weich aus (24.8.5)**
