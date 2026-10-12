@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung: wie das Spiel gebaut ist, was warum entschiede
 
 Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grundsätzliches lernen (eine Zeile, mit Datum und Thema).
 
-**Zuletzt gelesen bis:** `c7715d3` (12.10., 13:16)
+**Zuletzt gelesen bis:** `855b2d7` (12.10., 13:37)
 
 ## Ritual
 
