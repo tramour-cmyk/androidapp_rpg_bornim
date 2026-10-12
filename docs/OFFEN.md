@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 60** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 61** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -12,8 +12,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 |---|---|---|---|---|
 | 13 | Diagonale Sicht | Tom | – | 13.4 auf `main` (PR #43). **13u/13w ja:** neue Orte nur diagonal, alte Ansicht eingefroren. **13v (später):** Testaufruf: Wald, Tiefer Wald, Höhle absichtlich noch gerade. **Meldung 08:43:** Tempel innen: Altar direkt vor dem Fenster, ansehen. **13s/13t ja:** 27, 13 Tempel, 42; Ziel „alte Ansicht ausgebaut“ (`KAPITEL1.md`), danach 6l. Verlauf im Archiv |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-27-4-baeume` | 5.1/5.2/5g/5h.1 auf `main`. **5m ja:** 27.4, 5.6, 5.3, 5l/5.5, 5.4, dann 27.5/27.6, je erst Standbilder. 27.4, 5.6, 5.3 (alle zwölf), 5n in PR #48. 5.4 (Pflaster-Entwurf, Fensterlicht-Fix) auf dem Zweig. 5l/5.5 Leben im Dorf nach 24 (Nutzer 14:55) |
-| 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | – | **17a** auf `main` (PR #48, getestet 0.1.625). Offen: Haare, Köcher, Riemen |
-| 58 | Umhang hängt beim Laufen über dem Schild (Schild auf dem Rücken); andere Ausrüstung prüfen | Tom | `claude/tom-58-umhang-schild` | Meldung Nutzer 12.10., 22:3x (Test 0.1.625). Bestätigt (`SHIELDWALK=1`): von hinten deckt der Umhang den unteren Schild bei allen drei Schilden. Schild drückt Umhang und Waffenrock an den Rücken (`Dress.PRESS_CLOAK`), Vorher/Nachher auf der Entscheidungsseite (22:46); Build vom Zweig läuft. Köcher ebenso (22:48); übrige Ausrüstung in Ordnung. **58a ja (22:5x)**, Test am Gerät steht aus; Build 0.1.628 |
+| 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | – | **17a** auf `main` (PR #48, getestet 0.1.625); 58 (Schild/Köcher über dem Umhang) auf `main` (PR #50). Offen: Haare, Köcher, Riemen |
 | 13e | Höhle diagonal (Phase 2 von 13); mit 10 (Flammen feiner) und 11 (Lichtstrahl am Schacht) | Jerry | `claude/jerry-13e-hoehle-diagonal` | Grundsatz 43 (Leute, Ziele, Eingänge frei zur Kamera). **48b ja:** allgemein aus dem Kartenraster, ohne Handarbeit je Feld (für Zufallshöhlen 48). Eigene Datei `MapCaveIso.kt`, Toms Dateien nicht anfassen. Entwurf 2: Wände stehen (16:19); 13e.2–13e.4 in Selbstarbeit (`SELBST.md`). **Nutzer 16:3x:** Lichtstrahl weglassen, wenn schwierig; ein Versuch, sonst raus |
 | 23 | Aufgaben so aufteilen, dass Tom und Jerry auch in Selbstarbeit genug Vorrat haben | Tom | `main` (Notizen) | 23a ja (14:18): je 8 Punkte im Vorrat (`docs/SELBST.md`), neue nur als Entwürfe/Hörproben. **Jerry:** deine Punkte 4–8 sind eingetragen |
 | 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik); Jerry (Inhalt) | – | 24.1–24.4, 24.9–24.15 auf `main` (PR #30, #32, #34, #35); 24.8 Ortsklang auf `main` (PR #37). **Tom:** 24.5, 24.16–24.20 auf `main` (PR #40). 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.8.5 auf `main` (PR #38, 12.10.), danach 24.6 Kampferöffnung wartet + Herzschlag (nach Toms 24.5), knapper Kampftext in `Battle.kt`. Entscheidungen 24f/24i/24j in [`ZWISCHENBILD.md`](ZWISCHENBILD.md) und im Archiv. |
@@ -40,7 +39,8 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 56 | Alte Objekte auf den neuen Karten (Nutzer 12.10., 18:3x) | Tom | `claude/tom-27-4-baeume` | **56a–56c ja (19:4x):** Kräuter, Truhe, Steine, Steinkreis, Büsche im Wald ins Spiel (Schalter entfernt, c2b909f7). **56d ja (20:1x):** Dorf (`YARDDRAFT`, `FERNDRAFT`) ins Spiel; Innenräume ohne Altes |
 | 57 | Entscheidungsseite nur mit Offenem; Entschiedenes in ein gemeinsames Bildbuch (Tom und Jerry) | Tom | `main` (Notizen) | **57a/57b ja (19:4x):** Ablauf in `CLAUDE.md` („Entwürfe entscheiden“). Entscheidungsseite Tom: https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F. **Bildbuch angelegt (20:12):** https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (Einträge `e/<nr>.html`, Bilder `i/`, Inhaltsliste `index.html`); alte Bilder nachgetragen, soweit noch vorhanden. Nutzer gibt es für Jerry frei (Teilen) |
 
-| 59 | Händler: Kauf/Verkauf im Stil des Textkastens, Übersicht beim Verkauf, Vergleich beim Kauf | **Tom (jetzt, Nutzer 22:49)** | – | **59a ja:** schwarz wie Textkasten (42b), Seltenheitsfarben aufhellen, erst Standbilder. **59b ja:** 59.2 nicht Tragbares abgedunkelt mit Sperrzeichen, unten eigener Block, oben Streifen mit den 9 angelegten Teilen; 59.3 Vergleich Angelegt/Neu auch bei Händlerware (`GearDetails` vergleicht heute nur Beutel); 59.4 Rückkauf der letzten 5 Verkäufe bis Laden zu; 59.5 Menge ×1/×5/alle bei Vorräten. **59c nein:** Angelegtes nicht direkt verkaufbar. 59.6/59.7 auf der Merkliste |
+| 59 | Händler: Kauf/Verkauf im Stil des Textkastens, Übersicht beim Verkauf, Vergleich beim Kauf | **Tom (jetzt, Nutzer 22:49)** | `claude/tom-59-haendler` | **59a ja:** schwarz wie Textkasten (42b), Seltenheitsfarben aufhellen, erst Standbilder. **59b ja:** 59.2 nicht Tragbares abgedunkelt mit Sperrzeichen, unten eigener Block, oben Streifen mit den 9 angelegten Teilen; 59.3 Vergleich Angelegt/Neu auch bei Händlerware (`GearDetails` vergleicht heute nur Beutel); 59.4 Rückkauf der letzten 5 Verkäufe bis Laden zu; 59.5 Menge ×1/×5/alle bei Vorräten. **59c nein:** Angelegtes nicht direkt verkaufbar. 59.6/59.7 auf der Merkliste. **Entwurf auf der Entscheidungsseite (23:12, 59d):** Look hinter `ShopLook.draft` (`HAENDLER=1`), 59.2–59.5 schon im Code, Kerntest `ShopTest` |
+| 60 | Ein Aussehen für alle Oberflächen wie Textkasten/Blende (schwarz, Gold, Serife): Menüs, Titelbild, alle Textseiten; 59 Händler ist der erste Teil | Berater mit Nutzer (Vorschlag), dann Tom | – | Nutzer 12.10., 23:12 (neue Schrift gefällt ihm sehr). Befund: alle Bildschirme nutzen `Panel`/`PixelButton`/`Txt`/`Colors` aus `Theme.kt`; Textkasten nutzt die Gerätschrift `FontFamily.Serif` (je Gerät anders). Vorschläge 60.1 ff. im Chat 23:1x |
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
 ## Übergaben
@@ -59,9 +59,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Weiter (Freitag):** Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
-- **Tom, 0.1.628, Zweig `claude/tom-58-umhang-schild`** (58): mit Schild und Umhang/Mantel gehen und anhalten, von hinten ansehen.
 
 ## Rückfragen an den Nutzer
 
 
+- **59d** (Tom): Händler im schwarzen Stil so ins Spiel? Bilder auf der Entscheidungsseite. Empfehlung: ja.
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.

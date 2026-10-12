@@ -102,6 +102,7 @@ fun main() {
     if (System.getenv("ALTRAUM") != null) de.bornim.core.art.MapRoom.sculpted = false
     if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }
     if (System.getenv("MAPFIGYAWS") != null) { renderMapFigureYaws(); System.exit(0) }
+    if (System.getenv("SHIELDWALK") != null) { renderShieldWalk(); System.exit(0) }
     if (System.getenv("MAPFOE") != null) { renderMapFoeDraft(); System.exit(0) }
     if (System.getenv("NPCDRAFT") != null) { renderNpcDraft(); System.exit(0) }
     if (System.getenv("NPCIDLE") != null) { renderNpcIdle(); System.exit(0) }
