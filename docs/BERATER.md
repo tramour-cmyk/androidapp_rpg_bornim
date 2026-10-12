@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung: wie das Spiel gebaut ist, was warum entschiede
 
 Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grundsätzliches lernen (eine Zeile, mit Datum und Thema).
 
-**Zuletzt gelesen bis:** `4523ba6` (12.10., 10:47)
+**Zuletzt gelesen bis:** `171bcdd` (12.10., 11:55)
 
 ## Ritual
 
@@ -25,7 +25,9 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 ## Entscheidungen mit Begründung
 
 - **Diagonale Sicht** statt 0/90/180/270 (13, 10.10.): Auf den Spieler zu und von ihm weg wirkte alles flach. Räume fertig (PR #20), Dorf läuft (5), Höhle folgt (13e, Jerry), Wald (27).
-- **Zoomstufe der Karte** (6l): bleibt vorläufig 6,75 Kacheln, bis die diagonale Sicht überall fertig ist.
+- **Diagonale je Ort automatisch** (13.4, 13r–13t, 12.10., 11:45): Testschalter nervte beim Testen (Jorins Auftrag im Wald diagonal nicht lösbar). Fertige Orte immer diagonal, übrige gerade, Wechsel hinter der Blende; alte Ansicht ausbauen, sobald Wald, Tiefer Wald, Höhle fertig (Ziel in `KAPITEL1.md`). Danach Zoomstufe (6l, vorläufig 6,75 Kacheln).
+- **Textkasten im Stil der Blenden** (42, 12.10.): heller Kasten mit rotem Sprecher war Game-Boy-Look gegen `STIL.md`. Ganz schwarz (nicht durchscheinend: lesbarer, näher an der Blende), dünner Goldrand, Sprecher Gold in Kapitälchen im Kasten, Text gebrochenes Weiß, Serife, Erzähltext kursiv. Erst nur Textkasten, Menüs später; Tom nach 13, erst Standbilder.
+- **Lastverteilung** (23b, 12.10.): Jerry hat mehr (Kampf, Klang, Balance, 13e), aber kein Warten aufeinander; Nutzer will nichts umverteilen. Einzige Kreuzung: Lyra diagonal (Tom) für 13e (Jerry), Merkposten bei Tom. Engpass ist eher der Test des Nutzers.
 - **Kapitel 1 vor Neuem** (26, 11.10.): Zielliste in `KAPITEL1.md`; neue Inhalte erst danach.
 - **Release nur auf Zuruf** (21): Die Releaseflut störte; Zweig-Builds sind Artefakte.
 - **APK nie im Chat, nur Link** (11.10., 21:25): Platz sparen. Artefakt-Downloads gehen seit 12.10. (Vollzugriff).
@@ -38,8 +40,8 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 - **Kampf nah am SRD** (12.10.): „Zug beenden“ jetzt (34, auch um Testkämpfe schnell zu verlieren), „Abwarten“/„Helfen“ erst mit Begleitern (Merkliste). Weihwasser nur gegen Untote, 2W6, sonst ausgegraut mit Hinweis (35): vorher 2W6 gegen alle, unglaubwürdig.
 - **Krogg schärfen** (36, 12.10.): erst aufräumen bei gleicher Auflösung (Fellkörnung 0,55 war Hauptgrund), Standbilder Handy/Emulator; nur falls nötig 1,5× mit zugeschnittenen Bildern, vorher messen. Doppelte Auflösung abgelehnt: Krogg ~50 MB → ~200 MB, 4× Zeichenzeit.
 - **Kampfmusik** (37, 12.10.): raus `great_labyrinth`, `menace` (Techno), `epic_fight` (Lounge); `boss_ancient_legend` zu tragend für Kampf → Rückkehr des Sonnenamuletts in den Tempel (Jerry Musik, Tom Szene); Jerry sucht 2–3 neue CC0-Kampfstücke, erst Hörproben.
-- **Balance** (38, 12.10.): SRD als Fundament, Stufe 20 Obergrenze, mindestens 7 Kapitel, Stufen 5–14 als Kern, 15–20 erst am Ende; Hausregeln nur mit Begründung in `BALANCE.md`. Schwierigkeitsgrad (39) nach Messung von „Normal“, Lautstärke-Regler (40). AD&D nur im Geist (nicht frei lizenziert).
-- **Storyplan** (41, 12.10.): Dokument auf Toms Account ([Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)), Nutzer liest und kommentiert dort; je Kapitel Zusammenfassung, Quests, Dialoge wortgetreu, Anmerkungen gesammelt am Ende. Kapitel 1 = Ist-Stand aus `Story.kt` und `Jobs.kt` (Zweig `great-sagan`). Fertige Kapitel als `docs/STORY.md` ins Repo. **4 Augen:** Story-Änderungen gehen erst nach Abstimmung Nutzer und Berater an Tom/Jerry, Kapitel 1 erst nach dem Test der 12 Tester. Ablauf: Dokument → „freigegeben“ → `docs/STORY.md` mit Themennummer → Tom/Jerry bauen → Berater prüft mit `tools/story.sh`, Nutzer im Test. Englisch übersetzen Tom/Jerry. Nächster Schritt: Plot Kapitel 2 gemeinsam, wenn Tom und Jerry in Selbstarbeit sind; Einstieg Frage „Wer ist der Graue Prophet?“ (Vorgabe Stufe 8 am Ende).
+- **Balance** (38, 12.10.): SRD als Fundament, Stufe 20 Obergrenze, mindestens 7 Kapitel, Stufen 5–14 als Kern, 15–20 erst am Ende; Hausregeln nur mit Begründung in `BALANCE.md`. Plan fertig; Jerrys Messung (Messplan dort) nach 37 und 36.1, vor 13e (38e/38f). Schwierigkeitsgrad (39) nach Messung von „Normal“, Lautstärke-Regler (40). AD&D nur im Geist (nicht frei lizenziert).
+- **Storyplan** (41, 12.10.): Dokument auf Toms Account ([Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)), Nutzer liest und kommentiert dort; je Kapitel Zusammenfassung, Quests, Dialoge wortgetreu, Anmerkungen gesammelt am Ende. Kapitel 1 = Ist-Stand aus `Story.kt` und `Jobs.kt` (Zweig `great-sagan`). Fertige Kapitel als `docs/STORY.md` ins Repo. **4 Augen:** Story-Änderungen gehen erst nach Abstimmung Nutzer und Berater an Tom/Jerry, Kapitel 1 erst nach dem Test der 12 Tester. Ablauf: Dokument → „freigegeben“ → `docs/STORY.md` mit Themennummer → Tom/Jerry bauen → Berater prüft mit `tools/story.sh`, Nutzer im Test. Englisch übersetzen Tom/Jerry. Nächster Schritt: Plot Kapitel 2 in frischer Sitzung; Einstieg: drei Entwürfe „Wer ist der Graue Prophet?“ (Motiv, Sinn von Amulett, Priesterin, Tag der Asche), Nutzer wählt/mischt; Stufe 8 am Ende. Nachtragen im Dokument: Heldensätze aus 29.4 (Anmerkung 7); Brett (29) seit PR #42 auf `main`.
 - **Kampfkulisse der Höhle angleichen:** zurückgestellt (Merkliste). Höhle-Flammen und Lichtstrahl (10, 11) bis zur diagonalen Höhle zurückgestellt.
 
 ## Lehren
@@ -52,6 +54,8 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 - **Gegner sind grobe Pixelkunst** (36): 0,66 px/cm, hart ganzzahlig vergrößert (`width/170`, im breiten Emulator bis ~11×). Starkes Rauschen (`grain`) wird bei wenigen Punkten zu Krisel.
 - **Wiederholte Rückfragen prüfen** (12.10.): Vor dem Wiederholen einer Rückfrage in `OFFEN.md` nachsehen, ob Tom/Jerry sie schon mit dem Nutzer geklärt haben (26b, 34.1, 35a waren es).
 - **Docs-Werkzeug** (41): Einfache Zeilenumbrüche in Markdown verschmelzen zu einem Absatz; Dialogzeilen mit Leerzeile trennen.
+- **Notizen vor dem Ändern frisch holen** (12.10.): Tom/Jerry ändern `OFFEN.md` im Minutentakt; zweimal schlug mein Ersetzen fehl, weil sich die Übergabe geändert hatte. Erst `git pull`, Treffer prüfen (`assert`), dann committen; nie nach fehlgeschlagenem Ersetzen blind committen.
+- **Große Dokumente teuer** (12.10.): Storyplan ganz einlesen kostet viel; nur lesen, wenn am Dokument gearbeitet wird.
 - **Berater-Werkzeug:** Nach Push aus `../bornim-main` zeigt die Hauptkopie die eigenen Notizen als „geändert“ (gleicher Zweig, alter Index). Nicht committen, sondern `git reset --hard HEAD` in der Hauptkopie (Stand ist schon auf `origin/main`).
 
 ## Beobachtungen des Beraters (ungeprüft)
