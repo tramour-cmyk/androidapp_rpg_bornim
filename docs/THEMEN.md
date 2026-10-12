@@ -39,4 +39,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 32 | Selbstarbeit: Nacht 11./12.10. fast ohne Arbeit (Routine sperrte sich wegen Herzschlag) | Jerry | offen, 32a | `OFFEN.md` |
 | 34 | Kampf: Knopf „Zug beenden“ | Jerry | ja 12.10. | `OFFEN.md` |
 | 35 | Weihwasser nur gegen Untote (2W6) | Jerry | ja 12.10. | `OFFEN.md` |
-| 36 | Krogg verpixelt (schärfen) | Jerry | offen, 36a/36b | `OFFEN.md` |
+| 36 | Krogg verpixelt (schärfen) | Jerry | 36a ja (36.1), 36b offen | `OFFEN.md` |
