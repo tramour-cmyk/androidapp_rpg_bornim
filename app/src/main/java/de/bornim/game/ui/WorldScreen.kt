@@ -468,6 +468,29 @@ private class Cam(
     }
 }
 
+/** The see-through of what stands in front of the hero, fading softly in and out instead of jumping (test of 0.1.576). */
+private object SeeThrough {
+    private val now = HashMap<Long, Float>()
+    private var mapId = ""
+    private var last = 0L
+    private var step = 0f
+
+    /** Called once a frame, before [alpha]: a new place starts with everything solid. */
+    fun frame(map: String, clock: Long) {
+        if (map != mapId) { mapId = map; now.clear() }
+        step = ((clock - last).coerceIn(0L, 100L) / 300f)
+        last = clock
+    }
+
+    /** The alpha of the thing [key] this frame, a step closer to [target]: about 0.3 s from solid to clear. */
+    fun alpha(key: Long, target: Float): Float {
+        val cur = now[key] ?: 1f
+        val next = if (cur < target) minOf(target, cur + step) else maxOf(target, cur - step)
+        if (next >= 1f) now.remove(key) else now[key] = next
+        return next
+    }
+}
+
 /** Straight or diagonal view of the map (13): each place finished for the diagonal view is seen so, the others straight (13.4). */
 object MapSight {
     /** Seen diagonally, every doll is drawn turned by 45° on the screen ([de.bornim.core.art.MapFigure.viewYaw]). */
@@ -834,9 +857,14 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         val objs = WorldArt.objects(map, state, frame, flicker)
         // a house cut into strips (5.1) turns see-through as a whole when any strip of it stands in front of the hero
         val hidingGroups = objs.filter { it.group != 0 && hides(it) }.mapTo(HashSet()) { it.group }
-        for (o in objs) {
-            // seen diagonally almost clear (43), so even three crowns one behind the other never hide the hero
-            val a = if (if (o.group != 0) o.group in hidingGroups else hides(o)) (if (diag) 0.2f else 0.45f) else 1f
+        val hiding = objs.mapTo(ArrayList()) { if (it.group != 0) it.group in hidingGroups else hides(it) }
+        // seen diagonally (43; test of 0.1.576: 0.2 too strong): together the things in front of the hero cover him
+        // to 35 %, however many stand one behind the other, and they fade softly in and out
+        val layers = objs.indices.filter { hiding[it] }.map { objs[it].let { o -> if (o.group != 0) -o.group.toLong() else o.x.toLong() * 100_003 + o.y } }.distinct().size
+        val clear = if (!diag) 0.45f else 1f - Math.pow(0.65, 1.0 / maxOf(1, layers)).toFloat()
+        SeeThrough.frame(map.id, clock)
+        for ((i, o) in objs.withIndex()) {
+            val a = SeeThrough.alpha(if (o.group != 0) -o.group.toLong() else o.x.toLong() * 100_003 + o.y, if (hiding[i]) clear else 1f)
             sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f) { put(o.img, o.x, o.y, o.density, a, o.corner) }
             if (o.glow != null) glowing += o to a
         }
