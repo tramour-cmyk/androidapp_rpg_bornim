@@ -193,6 +193,10 @@ fun main() {
             if (System.getenv("MENHIRDRAFT") != null) de.bornim.core.art.MapWoodIso.menhirDraft = true
             // BUSHDRAFT=1: the bushes of the undergrowth drawn in the slant (56, draft)
             if (System.getenv("BUSHDRAFT") != null) de.bornim.core.art.MapWoodIso.bushDraft = true
+            // FERNDRAFT=1: the ferns of the undergrowth drawn in the slant (56, draft)
+            if (System.getenv("FERNDRAFT") != null) de.bornim.core.art.MapWoodIso.fernDraft = true
+            // YARDDRAFT=1: haystacks and the washing line of the village drawn in the slant (56, draft)
+            if (System.getenv("YARDDRAFT") != null) de.bornim.core.art.MapWoodIso.yardDraft = true
             // SITDRAFT2=1: Borin sits at his table in the inn (55.2, draft)
             if (System.getenv("SITDRAFT2") != null) de.bornim.core.art.MapFolk.sitDraft = true
             // TREEDRAFT=1: the trees with volume (27.4, draft)

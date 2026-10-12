@@ -538,6 +538,8 @@ object MapFlora {
                         cx + (rnd(tx, ty, 18 + k) - 0.5) * S * 0.6, cy + S * (0.45 + rnd(tx, ty, 20 + k) * 0.3))
                     return when {
                         map.kind != de.bornim.core.MapKind.TOWN -> listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
+                        // seen diagonally (56, draft): the bush in the slant like those of the undergrowth
+                        pick < 3 && MapWoodIso.bushDraft && diag -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
                         pick < 3 -> listOf(obj(bush(hash(tx, ty, 19) % 6), cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5, cy + S * 0.5))
                         pick < 5 -> listOf(young(0), young(1))
                         else -> listOf(young(0))
@@ -593,6 +595,7 @@ object MapFlora {
                 val isBush = rnd(tx, ty, k + 44) < 0.55
                 // seen diagonally (56, draft): the bushes in the slant like the other things of the woods
                 if (isBush && MapWoodIso.bushDraft && MapFigure.viewYaw != 0.0) { out += MapWoodIso.bushObj((px / D).toInt(), (py / D).toInt(), hash(tx, ty, k + 45) % 6); continue }
+                if (!isBush && MapWoodIso.fernDraft && MapFigure.viewYaw != 0.0) { out += MapWoodIso.fernObj((px / D).toInt(), (py / D).toInt(), hash(tx, ty, k + 46) % 5); continue }
                 val s = if (isBush) bush(hash(tx, ty, k + 45) % 6) else fern(hash(tx, ty, k + 46) % 5)
                 out += obj(s, px, py)
             }

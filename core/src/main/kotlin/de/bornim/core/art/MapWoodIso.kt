@@ -8,6 +8,7 @@ import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.floor
 import kotlin.math.max
+import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
 
@@ -843,6 +844,200 @@ object MapWoodIso {
         return WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, fx + fy - T + T * 3 / 2 - 1 - wx, 2, true, corner = true)
     }
 
+    /** Draft (56): the ferns of the undergrowth drawn in the slant; the game keeps the former picture. */
+    @Volatile var fernDraft = false
+
+    /**
+     * A fern of the undergrowth seen diagonally (56, draft): fronds rising from one crown in an arch and drooping at
+     * the tip, each a stalk with leaflets on both sides that shorten towards the tip; lit from above and the right.
+     * Three kinds by [v] % 3: male fern (fresh green), a dark dense one, bracken going brown at the tips; [v] / 3 gives
+     * more fronds.
+     */
+    fun fern(v: Int): PixelImage {
+        val c = Canvas(56)
+        val seed = 930 + v * 29
+        val kind = v % 3
+        val (light, dark) = when (kind) {
+            0 -> argb(0x7C9A48) to argb(0x2C4222)
+            1 -> argb(0x5E7A40) to argb(0x1C2C18)
+            else -> argb(0x8E8E48) to argb(0x3A3C20)
+        }
+        val ci = -0.5; val cj = -0.5
+        c.shadow(ci + 0.04, cj + 0.03, 0.22, 0.18, 0.4)
+        val fronds = 6 + (v / 3) * 2 + hash(v, 1, seed) % 2
+        for (f in 0 until fronds) {
+            val a = 2 * PI * f / fronds + (rnd(f, v, seed) - 0.5) * 0.7
+            val len = 0.17 + rnd(f, v, seed + 1) * 0.08
+            val rise = 24 + rnd(f, v, seed + 2) * 12
+            val ca = cos(a); val sa = sin(a)
+            val n = 70
+            for (q in 0..n) {
+                val t = q.toDouble() / n
+                val r = len * t
+                // up from the crown, the highest a little past the middle, the tip bent down again
+                val z = 1 + rise * (2.4 * t - 1.9 * t * t)
+                val ri = ci + ca * r; val rj = cj + sa * r
+                var base = mix(light, dark, (0.7 - t * 0.5 + rnd(q, f, seed + 3) * 0.12).coerceIn(0.0, 1.0))
+                if (kind == 2 && t > 0.65) base = mix(base, argb(0x8A6232), (t - 0.65) * 2.2)
+                c.pt(ri, rj, z, shade(base, 0.7))
+                if (q % 3 != 0 || t < 0.08) continue
+                // the leaflets: longest a third along, angled forwards, drooping a little
+                val ll = 0.055 * (1 - t) * (0.55 + 0.45 * sin(PI * t)) + 0.008
+                for (s in listOf(-1.0, 1.0)) {
+                    for (m in 1..9) {
+                        val u = m / 9.0
+                        val li = ri + (-sa * s + ca * 0.45) * ll * u; val lj = rj + (ca * s + sa * 0.45) * ll * u
+                        val lz = z - u * 3.5 * (0.5 + t)
+                        val ni = -sa * s * 0.45 + ca * 0.2; val nj = ca * s * 0.45 + sa * 0.2
+                        val col = shade(mix(base, dark, u * 0.25), lit(ni, nj, 0.85) * 0.85 + 0.2)
+                        c.pt(li, lj, lz, col); c.pt(li, lj, lz + 0.7, col)
+                    }
+                }
+            }
+        }
+        return c.img
+    }
+
+    /** A fern standing with its foot at ([fx], [fy]) in world pixels, sorted like a bush there. */
+    fun fernObj(fx: Int, fy: Int, v: Int): WorldArt.Obj {
+        val img = synchronized(cache) { cache.getOrPut("fern/$v") { fern(v) } }
+        val T = WorldArt.T
+        val wx = fx + T / 2; val wy = fy + T / 2
+        return WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, fx + fy - T + T * 3 / 2 - 1 - wx, 2, true, corner = true)
+    }
+
+    // ------------------------------------------------------------------ the yards of the village (56, draft)
+
+    /** Draft (56): haystacks and the washing line of the village drawn in the slant; the game keeps the former pictures. */
+    @Volatile var yardDraft = false
+
+    /**
+     * A haystack seen diagonally (56, draft), in three looks by [v]: a rick built round a pole whose end sticks out
+     * (weathered grey at the top, golden below), a low loose heap with a pitchfork stuck in it, a round cock. Straws run
+     * down the sides, single ones stick out; lit from above and the right.
+     */
+    fun hay(v: Int): PixelImage {
+        val c = Canvas(140)
+        val seed = 960 + v * 31
+        val ci = -0.5; val cj = -0.5
+        val R = when (v) { 0 -> 0.38; 1 -> 0.42; else -> 0.34 }
+        val H = when (v) { 0 -> 100.0; 1 -> 55.0; else -> 78.0 }
+        val bulge = when (v) { 0 -> 2.0; 1 -> 0.9; else -> 2.8 }
+        c.shadow(ci + 0.08, cj + 0.05, R + 0.08, R * 0.9 + 0.06, 0.5)
+        val gold = argb(0xC4A866); val straw = argb(0x9A8048); val deep = argb(0x5E4A26); val grey = argb(0x8A8270)
+        // the side: radius by height, slumped a little to one side
+        fun rad(u: Double) = R * (1 - u.pow(bulge)).coerceAtLeast(0.0).pow(0.55)
+        for (k in 0 until 60000) {
+            val u = rnd(k, v, seed) ; val th = rnd(k, v, seed + 1) * 2 * PI
+            val r = rad(u) * (0.97 + rnd(k, v, seed + 2) * 0.05)
+            val i = ci + cos(th) * r * (if (v == 1) 1.1 else 1.0); val j = cj + sin(th) * r * 0.92
+            val z = u * H
+            // the normal: outwards, tilting up where the side flattens
+            val dr = (rad((u + 0.02).coerceAtMost(1.0)) - rad(u)) / 0.02 / H * ZT
+            val nl = sqrt(1 + dr * dr)
+            val ni = cos(th) / nl; val nj = sin(th) / nl; val nz = -dr / nl
+            val streak = vnoise(th * 22.0, u * 3.0, seed + 3)
+            var col = mix(gold, straw, (0.25 + streak * 0.5 + rnd(k, v, seed + 4) * 0.2).coerceIn(0.0, 1.0))
+            if (streak > 0.8) col = mix(col, deep, 0.45)
+            // rain has greyed the top of the rick and the cock
+            if (v != 1 && u > 0.55) col = mix(col, grey, ((u - 0.55) * 1.6 * vnoise(th * 3.0, u * 5.0, seed + 5)).coerceIn(0.0, 0.8))
+            // the foot lies in its own shade
+            if (u < 0.08) col = shade(col, 0.75 + u * 3)
+            c.pt(i, j, z, shade(col, lit(ni, nj, nz) * 1.15 - 0.12))
+        }
+        // single straws sticking out
+        for (k in 0 until 28) {
+            val u = 0.05 + rnd(k, v, seed + 6) * 0.85; val th = rnd(k, v, seed + 7) * 2 * PI
+            val r = rad(u); val len = 0.02 + rnd(k, v, seed + 8) * 0.03
+            val tilt = (rnd(k, v, seed + 9) - 0.5) * 1.4
+            for (q in 0..12) {
+                val f = q / 12.0
+                c.pt(ci + cos(th + tilt * f * 0.3) * (r + len * f), cj + sin(th + tilt * f * 0.3) * (r + len * f) * 0.92, u * H - f * 4, shade(straw, 1.05 - f * 0.2))
+            }
+        }
+        fun stick(i0: Double, j0: Double, z0: Double, i1: Double, j1: Double, z1: Double, rr: Double, col: Int) {
+            val n = 240
+            for (q in 0..n) {
+                val f = q.toDouble() / n
+                val i = i0 + (i1 - i0) * f; val j = j0 + (j1 - j0) * f; val z = z0 + (z1 - z0) * f
+                for (a in 0 until 6) {
+                    val an = a * PI / 3
+                    c.pt(i + cos(an) * rr, j + sin(an) * rr, z, shade(col, lit(cos(an), sin(an), 0.0)))
+                }
+            }
+        }
+        when (v) {
+            // the pole of the rick
+            0 -> stick(ci, cj, H * 0.8, ci + 0.01, cj, H + 18, 0.012, argb(0x5A4430))
+            // a pitchfork stuck into the heap, its handle leaning out to the front right
+            1 -> {
+                stick(ci + 0.04, cj + 0.0, 32.0, ci + 0.34, cj - 0.2, 84.0, 0.011, argb(0x7A5E3E))
+                for (t in -1..1) stick(ci + 0.05 + t * 0.02, cj + 0.02 - t * 0.02, 30.0, ci + 0.0 + t * 0.02, cj - 0.01 - t * 0.02, 18.0, 0.004, argb(0x3A3A3E))
+            }
+            else -> {}
+        }
+        return c.img
+    }
+
+    private val cloths = intArrayOf(0xC8C0AC, 0x8A9AA8, 0xB09A6A, 0x8A5A44, 0xD0CCBE, 0x6A7A5A)
+
+    /**
+     * One tile of a washing line running along i (a run of [Tile.WASHLINE] across the map's row) seen diagonally (56,
+     * draft): a post at each end, the rope sagging between them over the whole run, linen sheets, shirts and small
+     * cloths hung on it; [k] is this tile's place in the run of [n] tiles.
+     */
+    fun washline(k: Int, n: Int, seed: Int): PixelImage {
+        val c = Canvas(140)
+        val cj = -0.5
+        val top = 105.0
+        val g0 = 0.12; val g1 = n - 0.12
+        // where along the whole run (0..n) a point of this tile lies
+        fun i(g: Double) = g - k - 1
+        fun rope(g: Double) = top - 6 - 12 * sin(PI * ((g - g0) / (g1 - g0)).coerceIn(0.0, 1.0))
+        fun inTile(g: Double) = g >= k - 0.02 && g <= k + 1.02
+        val wood = argb(0x5A4430)
+        for (g in listOf(g0, g1)) if (inTile(g)) {
+            c.shadow(i(g), cj + 0.02, 0.06, 0.05, 0.5)
+            for (zz in 0..(top * 3).toInt()) for (a in 0 until 8) {
+                val an = a * PI / 4; val z = zz / 3.0
+                c.pt(i(g) + cos(an) * 0.025, cj + sin(an) * 0.025, z, shade(mix(wood, argb(0x3A2C20), vnoise(z / 6, an, seed)), lit(cos(an), sin(an), 0.0)))
+            }
+        }
+        // the rope
+        var g = g0
+        while (g <= g1) { if (inTile(g)) c.pt(i(g), cj, rope(g), argb(0x9A9280)); c.pt(i(g), cj, rope(g) - 0.6, argb(0x7A7262)); g += 0.003 }
+        // the washing: along the rope, each piece by its own lot
+        var at = g0 + 0.15; var p = 0
+        while (at < g1 - 0.2) {
+            val kind = hash(p, n, seed) % 3
+            val w = when (kind) { 0 -> 0.32 + rnd(p, n, seed + 1) * 0.12; 1 -> 0.24; else -> 0.1 + rnd(p, n, seed + 2) * 0.05 }
+            val hh = when (kind) { 0 -> 42.0 + rnd(p, n, seed + 3) * 12; 1 -> 34.0; else -> 18.0 + rnd(p, n, seed + 4) * 8 }
+            val col = argb(cloths[hash(p, n, seed + 5) % cloths.size])
+            if (at + w > g1 - 0.1) break
+            var gg = at
+            while (gg <= at + w) {
+                if (inTile(gg)) {
+                    val f = (gg - at) / w
+                    val z0 = rope(gg)
+                    // a shirt: sleeves hang only at the shoulders, the body narrower
+                    val drop = if (kind == 1) (if (f < 0.22 || f > 0.78) hh * 0.4 else hh) else hh
+                    val wave = sin(f * PI * 3 + p) * 0.012
+                    val nI = cos(f * PI * 3 + p) * 0.4
+                    var zz = 0.0
+                    while (zz <= drop) {
+                        val fold = 0.88 + 0.12 * sin(gg * 90 + zz * 0.08)
+                        val col2 = shade(col, (lit(nI, 0.9, 0.1) * 1.05 + 0.08) * fold - (if (zz > drop - 1.5) 0.15 else 0.0))
+                        c.pt(i(gg), cj + 0.01 + wave, z0 - 1 - zz, col2)
+                        zz += 0.6
+                    }
+                }
+                gg += 0.003
+            }
+            at += w + 0.06 + rnd(p, n, seed + 6) * 0.1; p++
+        }
+        return c.img
+    }
+
     /** The herb on ([tx], [ty]) as an upright thing sorted like the others of the woods; the wind sways it a little. */
     fun herbObj(tx: Int, ty: Int, clock: Long): WorldArt.Obj {
         val v = Math.floorMod(hash(tx, ty, 34), 3)
@@ -869,12 +1064,18 @@ object MapWoodIso {
                 val e = booleanArrayOf(map.tile(tx - 1, ty) != t, map.tile(tx + 1, ty) != t, map.tile(tx, ty - 1) != t, map.tile(tx, ty + 1) != t)
                 "corn/$tx/$ty" to { corn(tx, ty, e) }
             }
+            Tile.HAY -> if (!yardDraft) return null else Math.floorMod(hash(tx, ty, 38), 3).let { v -> "hay/$v" to { hay(v) } }
+            Tile.WASHLINE -> if (!yardDraft) return null else {
+                var x0 = tx; while (map.tile(x0 - 1, ty) == Tile.WASHLINE) x0--
+                var n = 0; while (map.tile(x0 + n, ty) == Tile.WASHLINE) n++
+                "wash/$x0/$ty/$tx" to { washline(tx - x0, n, 990 + x0 + ty * 7) }
+            }
             else -> return null
         }
         val img = synchronized(fieldCache) { fieldCache.getOrPut(key.first) { key.second() } }
         val T = WorldArt.T
         val wx = (tx + 1) * T; val wy = (ty + 1) * T
-        return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, true, corner = true))
+        return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, t != Tile.HAY && t != Tile.WASHLINE, corner = true))
     }
 
     // ------------------------------------------------------------------ on the map
@@ -940,6 +1141,10 @@ object MapWoodIso {
             "Menhir" to (0 until 3).map { menhir(it) },
             "Busch" to (0 until 3).map { bush(it) },
             "Busch2" to (3 until 6).map { bush(it) },
+            "Farn" to (0 until 3).map { fern(it) },
+            "Farn2" to (3 until 5).map { fern(it) },
+            "Heu" to (0 until 3).map { hay(it) },
+            "Leine" to (0 until 3).map { washline(it, 3, 990) },
         )
     }
 }
