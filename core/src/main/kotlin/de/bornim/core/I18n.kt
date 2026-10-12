@@ -95,6 +95,8 @@ object Ui {
     val cannotEquipArmor = T("Mit dieser Rüstung bist du nicht vertraut.", "You are not proficient with this armor.")
     val cannotUseHere = T("Das kannst du hier nicht benutzen.", "You can't use that here.")
     val alreadyFull = T("Deine TP sind bereits voll.", "Your HP are already full.")
+    /** Short reason on a greyed-out flask of holy water in battle (35). */
+    val onlyUndead = T("nur gegen Untote", "undead only")
 
     val fight = T("Kampf", "Fight")
     val flee = T("Flucht", "Run")
