@@ -190,7 +190,7 @@ fun main() {
             shot("zoom_${z}_5_hoehle") { place(it, "cave", 10, 5, 12 * 60) }
             if (near) {
                 // 13e: the cave seen diagonally, room by room (entrance, both side halls, Krogg, the pool, Grak's hall)
-                for ((k, at) in listOf("1_eingang" to (10 to 17), "2_westhalle" to (4 to 9), "3_krogg" to (15 to 10), "4_suedost" to (16 to 15), "5_weiher" to (5 to 15), "6_grak" to (10 to 3))) {
+                for ((k, at) in listOf("1_eingang" to (10 to 17), "2_westhalle" to (4 to 9), "3_krogg" to (15 to 10), "4_suedost" to (16 to 15), "5_weiher" to (5 to 15), "6_grak" to (10 to 3), "7_schacht" to (15 to 8))) {
                     shot("zoom_${z}_c${k}") { place(it, "cave", at.first, at.second, 12 * 60) }
                 }
                 shot("zoom_${z}_6_weiher") { place(it, "forest", 7, 15, 12 * 60) }

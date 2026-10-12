@@ -1135,6 +1135,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // Light of the place: time of day, shade of the crowns, lamps, fires and the lantern.
         ground { if (MapLight.needed(map, game.daylight)) drawMapLight(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH) }
         if (diag && map.kind == MapKind.INTERIOR) drawHearthSmoke(game, map, clock, cam, camX, camY, scale)
+        if (diag && map.kind == MapKind.CAVE && de.bornim.core.art.MapCaveIso.draft) drawCaveShaft(game, map, clock, cam, camX, camY, scale)
         if (diag && map.kind == MapKind.TOWN && MapGround.supports(map)) drawTownSmoke(map, clock, cam, camX, camY, scale)
         // what shines by itself (25.1: a lamp's glass; 25b: lit windows) is drawn over the light of the place, so the source is the brightest
         // spot around it, waking with the dusk like the light it throws; a small warm halo around it
@@ -1568,6 +1569,61 @@ private fun DrawScope.drawHearthSmoke(game: Game, map: de.bornim.core.MapDef, cl
 }
 
 /**
+ * 13e.3 (11): seen diagonally, the daylight falling through a hole in the cave's roof stands upright on the screen:
+ * a slanted column, narrow at the hole and widening onto the floor, soft at its edges (several layers on top of each
+ * other), the dust drifting slowly down in it. The pool of light on the floor stays in [drawMapLight].
+ */
+private fun DrawScope.drawCaveShaft(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int) {
+    val T = WorldArt.T
+    val px = scale.toFloat()
+    for ((i, src) in MapLight.sources(map).withIndex()) {
+        if (src.kind != MapLight.Kind.SKY) continue
+        val seen = when (game.fog(floor(src.x / T).toInt(), floor(src.y / T).toInt())) {
+            de.bornim.core.Fog.HIDDEN -> 0f
+            de.bornim.core.Fog.SEEN -> 0.4f
+            de.bornim.core.Fog.VISIBLE -> 1f
+        }
+        if (seen <= 0f) continue
+        val mx = ((src.x - camX) * scale).toFloat(); val my = ((src.y - camY) * scale).toFloat()
+        val bx = cam.toScreenX(mx, my); val by = cam.toScreenY(mx, my)
+        // heights as drawn in the rooms, lowered to the hero's scale (13p.6); the sun comes from the upper left
+        val top = 120.0
+        fun at(dx: Double, h: Double) = Offset(bx + ((dx - h * 0.28) * scale).toFloat(), by - (h * de.bornim.core.art.MapRoomIso.ZS * scale).toFloat())
+        val bottom = at(0.0, 0.0).y; val upper = at(0.0, top).y
+        // soft edges: four layers, the narrower the brighter
+        for (l in 0 until 4) {
+            val w = 1.0 - l * 0.2
+            val path = androidx.compose.ui.graphics.Path().apply {
+                val a = at(-7 * w, top); val b = at(7 * w, top); val c = at(19 * w, 0.0); val d = at(-19 * w, 0.0)
+                moveTo(a.x, a.y); lineTo(b.x, b.y); lineTo(c.x, c.y); lineTo(d.x, d.y); close()
+            }
+            // lost in the dark up top, strongest low down, fading into the pool on the floor
+            val base = 0.07f * seen
+            drawPath(
+                path,
+                androidx.compose.ui.graphics.Brush.verticalGradient(
+                    0f to Color(0xFFE8F0FF).copy(alpha = 0f), 0.25f to Color(0xFFE8F0FF).copy(alpha = base * 0.15f),
+                    0.55f to Color(0xFFE8F0FF).copy(alpha = base * 0.6f), 0.85f to Color(0xFFE8F0FF).copy(alpha = base),
+                    1f to Color(0xFFE8F0FF).copy(alpha = base * 0.4f),
+                    startY = upper, endY = bottom,
+                ),
+                blendMode = androidx.compose.ui.graphics.BlendMode.Plus,
+            )
+        }
+        for (k in 0 until 10) {
+            // motes sinking slowly through the light, glinting as they turn
+            val period = 6000 + k * 730
+            val ph = ((clock + k * 1170 + i * 313) % period) / period.toFloat()
+            val h = top * (0.9 - ph * 0.85)
+            val w = 5 + 11 * (1 - h / top)
+            val dx = (((k * 37) % 21) / 10.0 - 1.0) * w + kotlin.math.sin(ph * 5f + k) * 2.5
+            val glint = 0.55f + 0.45f * kotlin.math.sin(clock / 260f + k * 1.9f)
+            drawRect(Color(0xFFFFFFF0).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * 0.75f * glint * seen), at(dx, h), androidx.compose.ui.geometry.Size(px, px))
+        }
+    }
+}
+
+/**
  * Seen diagonally (13, step 3): the light image lies on the ground, and a wall or a tall thing standing up
  * from the floor covers, on the screen, the ground behind it (up the diagonal). There the image is given the
  * light of the floor where that thing stands, a little less the higher up it is: the back walls are lit by
@@ -1755,7 +1811,8 @@ private fun DrawScope.drawMapLight(
                 val sy = src.y + 4 - ph * 30
                 drawRect(Color(0xFFA8FFF0).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * 0.8f * seen), at(sx, sy.toDouble()), androidx.compose.ui.geometry.Size(px, px))
             }
-            MapLight.Kind.SKY -> {
+            // seen diagonally in the drafted cave the shaft stands upright (drawCaveShaft)
+            MapLight.Kind.SKY -> if (!(MapSight.diagonal && de.bornim.core.art.MapCaveIso.draft)) {
                 // a slanted shaft of light from the roof, dust dancing in it
                 val top = at(src.x - 10, src.y - T * 2.5)
                 val path = androidx.compose.ui.graphics.Path().apply {
