@@ -163,6 +163,14 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.refresh()
             vm.toast = if (allDiag) t("Jeder Ort diagonal, auch die noch nicht fertigen (Wald, Tiefer Wald, Höhle).", "Every place diagonal, also those not finished yet (woods, deep woods, cave).") else t("Nur fertige Orte diagonal (Dorf, Innenräume).", "Only finished places diagonal (village, rooms).")
         }
+        // 17 (draft): long hair and the quiver swing on after a stop, like the cloak
+        var swingMore by remember { mutableStateOf(de.bornim.core.art.Dress.SWING_MORE) }
+        PixelButton(t("17 Haare/Köcher schwingen nach: ", "17 Hair/quiver swing on: ") + (if (swingMore) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.art.Dress.SWING_MORE = !de.bornim.core.art.Dress.SWING_MORE
+            swingMore = de.bornim.core.art.Dress.SWING_MORE
+            vm.refresh()
+            vm.toast = if (swingMore) t("Nach dem Anhalten schwingen auch lange Haare und der Köcher nach (Entwurf 17).", "After a stop long hair and the quiver swing on too (draft 17).") else t("Nur der Umhang schwingt nach.", "Only the cloak swings on.")
+        }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()
             vm.refresh()
