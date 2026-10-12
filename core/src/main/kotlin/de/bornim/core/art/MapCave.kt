@@ -939,7 +939,47 @@ object MapCave {
                 }
                 // the pool: deep and black in a stone basin
                 val wv = field(map, x, y, waterTiles) + (fbm(x, y, 48.0, 21) - 0.5) * 0.5
-                if (wv > 0.5) {
+                if (MapCaveIso.draft && wv > 0.3) {
+                    // 13e.4 seen diagonally: the pool sunk a hand below the floor. Up the screen (back on the map along
+                    // both axes) the far bank shows as a low face, lit, darker down to the water; the water reflects
+                    // it dimly before going black; round pebbles lie on the shore.
+                    val bank = S * 0.14
+                    fun wAt(px: Double, py: Double) = field(map, px, py, waterTiles) + (fbm(px, py, 48.0, 21) - 0.5) * 0.5
+                    if (wv > 0.5) {
+                        var d = 0.0
+                        while (d < bank && wAt(x - d - 1, y - d - 1) > 0.5) d += 1.0
+                        val t1 = ((wv - 0.5) * 3).coerceIn(0.0, 1.0)
+                        for (k in 0..2) col[k] = POOL_S[k] + (POOL_D[k] - POOL_S[k]) * t1
+                        if (d < bank) {
+                            // the face of the far bank: d pixels below its lip
+                            val f = d / bank
+                            for (k in 0..2) col[k] = FACE_L[k] + (FACE_D[k] - FACE_L[k]) * (0.25 + f * 0.7)
+                            for (k in 0..2) col[k] *= 0.85 + 0.3 * n3
+                        } else if (d < bank * 2.2) {
+                            // its reflection, dim and broken by ripples
+                            val r = 1 - (d - bank) / (bank * 1.2)
+                            val rip = 0.55 + 0.45 * vnoise(x * 0.5 + y * 0.5, (x - y) * 0.12, 6.0, 12)
+                            mixIn(col, FACE_D, (r * 0.45 * rip).coerceIn(0.0, 1.0))
+                        }
+                        // a rare glint where a drop rings the water
+                        if (vnoise(x, y, 5.0, 13) > 0.93 && t1 > 0.3) mixIn(col, SHEEN, 0.15)
+                    } else {
+                        mixIn(col, POOL_RIM, ((wv - 0.3) / 0.2 * 0.5).coerceIn(0.0, 0.5))
+                        // pebbles on the shore: one in some cells, lit from the upper left
+                        val cs = 5.0
+                        val gx = floor(x / cs); val gy = floor(y / cs)
+                        val h = rnd(gx.toInt(), gy.toInt(), 61)
+                        if (h > 0.45) {
+                            val ccx = (gx + 0.3 + rnd(gx.toInt(), gy.toInt(), 62) * 0.4) * cs; val ccy = (gy + 0.3 + rnd(gx.toInt(), gy.toInt(), 63) * 0.4) * cs
+                            val rr = cs * (0.28 + h * 0.22)
+                            val q = ((x - ccx) * (x - ccx) + (y - ccy) * (y - ccy)) / (rr * rr)
+                            if (q < 1) {
+                                val lit = 0.5 - ((x - ccx) + (y - ccy)) / rr * 0.35
+                                for (k in 0..2) col[k] = FACE_D[k] + (FACE_L[k] - FACE_D[k]) * (lit * (0.7 + 0.3 * h)).coerceIn(0.05, 0.9)
+                            }
+                        }
+                    }
+                } else if (wv > 0.5) {
                     val t1 = ((wv - 0.5) * 3).coerceIn(0.0, 1.0)
                     for (k in 0..2) col[k] = POOL_S[k] + (POOL_D[k] - POOL_S[k]) * t1
                     if (abs(sin(y * 0.3 + fbm(x, y, 30.0, 12) * 6)) > 0.995 && vnoise(x, y, 16.0, 13) > 0.7 && t1 < 0.6) mixIn(col, SHEEN, 0.2)

@@ -210,9 +210,6 @@ object MapCaveIso {
     private fun rockTile(map: MapDef, tx: Int, ty: Int): PixelImage {
         val n = 40
         val hs = heights(map, tx, ty, n)
-        val c = Tile1(TH.toInt() + (TALL * 1.15 * ZS).toInt() + 20)
-        val img = c.img
-        val w = c.w; val h = c.h
         fun hAt(i: Double, j: Double): Double {
             // i, j in −1..0 over the tile; the grid has one point of margin on each side
             val x = (i + 1) * n + 1; val y = (j + 1) * n + 1
@@ -220,8 +217,22 @@ object MapCaveIso {
             val u = (x - ix).coerceIn(0.0, 1.0); val v = (y - iy).coerceIn(0.0, 1.0)
             return (hs[ix][iy] * (1 - u) + hs[ix + 1][iy] * u) * (1 - v) + (hs[ix][iy + 1] * (1 - u) + hs[ix + 1][iy + 1] * u) * v
         }
+        return relief(tx, ty, TALL * 1.15, 2.5 / n, 3600, rockDark, rockLight, TALL, ::hAt)
+    }
+
+    /**
+     * A height field over one tile ([hAt] in upright units, i and j in −1..0) drawn column by column from the front
+     * backwards, each column of screen pixels filled only above what stands before it. Lit from the front right, lumps
+     * and knobs on the faces, cracks and wet streaks running down; the foot darker, and from [fade] up lost in the dark.
+     */
+    private fun relief(
+        tx: Int, ty: Int, maxZ: Double, e: Double, seed: Int, dark: Int, light: Int, fade: Double,
+        hAt: (Double, Double) -> Double,
+    ): PixelImage {
+        val c = Tile1(TH.toInt() + (maxZ * ZS).toInt() + 20)
+        val img = c.img
+        val w = c.w; val h = c.h
         val lx = 0.64; val ly = 0.46; val lz = 0.5
-        val seed = 3600
         for (px in 0 until w) {
             val cc = 2 * (px + 0.5 - w / 2.0) / TW
             if (abs(cc) >= 1) continue
@@ -235,7 +246,6 @@ object MapCaveIso {
                 if (hh < 0.4) { ymin = min(ymin, kotlin.math.ceil(gy)); s -= 0.5 / TH; continue }
                 val top = gy - hh * ZS
                 if (top < ymin) {
-                    val e = 2.5 / n
                     val dhi = (hAt(i + e, j) - hAt(i - e, j)) / (2 * e) / TILE_Z
                     val dhj = (hAt(i, j + e) - hAt(i, j - e)) / (2 * e) / TILE_Z
                     val nl = Math.sqrt(dhi * dhi + dhj * dhj + 1)
@@ -261,8 +271,8 @@ object MapCaveIso {
                         if (vnoise((gi - gj) * 9, z / 200, seed + 3) > 0.74) t -= 0.07
                         // the foot in the dust darker, the head lost in the dark of the ceiling
                         t -= max(0.0, 1 - z / 14) * 0.2
-                        t -= max(0.0, (z - TALL * 0.45) / (TALL * 0.4)) * 0.75
-                        img.set(px, py, shade(mix(rockDark, rockLight, t.coerceIn(0.0, 1.0)), 1.0))
+                        t -= max(0.0, (z - fade * 0.45) / (fade * 0.4)) * 0.75
+                        img.set(px, py, shade(mix(dark, light, t.coerceIn(0.0, 1.0)), 1.0))
                     }
                     ymin = kotlin.math.ceil(top)
                 }
@@ -270,6 +280,58 @@ object MapCaveIso {
             }
         }
         return img
+    }
+
+    // ------------------------------------------------------------------ dripstone and rubble (13e.4)
+
+    private val dripLight = argb(0xA89A84)
+    private val dripDark = argb(0x1E1A16)
+
+    /**
+     * Stalagmites on one tile, as a height field like the walls: two to four cones grown from a common mound, the
+     * tallest about 1.5 m, each a little bent and knobbed where the drops ran down; wet and paler than the rock.
+     */
+    private fun stalagmites(tx: Int, ty: Int): PixelImage {
+        val k = 2 + hash(tx, ty, 4401) % 3
+        val cones = List(k) { q ->
+            val ci = -0.5 + (rnd(tx, ty * 7 + q, 4402) - 0.5) * 0.5; val cj = -0.5 + (rnd(tx * 5 + q, ty, 4403) - 0.5) * 0.5
+            val big = q == 0
+            doubleArrayOf(ci, cj, (if (big) 0.28 else 0.16) + rnd(q, tx + ty, 4404) * 0.08, (if (big) 80.0 else 30.0) + rnd(tx, q, 4405) * (if (big) 30 else 40))
+        }
+        fun hAt(i: Double, j: Double): Double {
+            var best = 0.0
+            for (c in cones) {
+                val d = Math.hypot(i - c[0], j - c[1])
+                // the knobs: the radius swells and narrows as rings down the cone
+                val r = c[2] * (1 + (vnoise(i * 9 + tx, j * 9 + ty, 4406) - 0.5) * 0.35)
+                if (d >= r) continue
+                best = max(best, c[3] * (1 - d / r).pow(1.15))
+            }
+            // the mound they grew from
+            val m = Math.hypot(i + 0.5, j + 0.5)
+            if (m < 0.42) best = max(best, 12 * (1 - m / 0.42).pow(0.8))
+            return best
+        }
+        return relief(tx, ty, 140.0, 0.02, 4410 + hash(tx, ty, 4407) % 50, dripDark, dripLight, 600.0, ::hAt)
+    }
+
+    /** Fallen stones on one tile, walked over: eight to twelve rounded lumps, the biggest knee high. */
+    private fun rubbleTile(tx: Int, ty: Int): PixelImage {
+        val k = 8 + hash(tx, ty, 4501) % 5
+        val lumps = List(k) { q ->
+            doubleArrayOf(-0.88 + rnd(tx, ty * 3 + q, 4502) * 0.76, -0.88 + rnd(tx * 3 + q, ty, 4503) * 0.76,
+                0.06 + rnd(q, tx, 4504) * (if (q < 3) 0.14 else 0.07), 0.0)
+        }.onEach { it[3] = it[2] * (45 + rnd(it[0].hashCode(), 1, 4505) * 35) }
+        fun hAt(i: Double, j: Double): Double {
+            var best = 0.0
+            for (c in lumps) {
+                val d = Math.hypot(i - c[0], (j - c[1]) * 1.15)
+                if (d >= c[2]) continue
+                best = max(best, c[3] * sqrt(1 - (d / c[2]) * (d / c[2])) * (0.85 + vnoise(i * 14, j * 14, 4506) * 0.3))
+            }
+            return best
+        }
+        return relief(tx, ty, 30.0, 0.012, 4520, rockDark, rockLight, 600.0, ::hAt)
     }
 
     // ------------------------------------------------------------------ timber and iron
@@ -696,6 +758,8 @@ object MapCaveIso {
             Tile.CRATE -> return listOf(thing(map, tx, ty, "crates/$v") { crates(v) })
             // walked over: sorted behind the hero, from the tile's back corner
             Tile.BEDROLL -> return listOf(thing(map, tx, ty, "bed/$v", flat = true) { bedroll(v) })
+            Tile.STALAGMITE -> return listOf(thing(map, tx, ty, "${map.id}/stal/$tx/$ty") { stalagmites(tx, ty) })
+            Tile.RUBBLE -> return listOf(thing(map, tx, ty, "${map.id}/rubble/$tx/$ty", flat = true) { rubbleTile(tx, ty) })
             else -> {}
         }
         if (!isRock(t)) return null
