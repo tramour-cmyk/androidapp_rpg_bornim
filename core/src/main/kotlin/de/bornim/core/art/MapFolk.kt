@@ -80,8 +80,8 @@ object MapFolk {
     /** The village folk drawn as dolls so far only as drafts: shown on a sheet, not yet on the map. */
     val drafts = listOf(rowena, aldric, thessa, osric, lyra, jorin, pim, bram, liska, gwenna, borin, morwen)
 
-    // 5.3: everyone who stands about in the village, its houses and the woods; Bram, Liska and Gwenna have no place yet
-    private val all = listOf(garrick, morwen, rowena, aldric, thessa, osric, jorin, pim, borin).associateBy { it.id }
+    // 5.3: everyone who stands about in the village, its houses and the woods (Bram, Liska, Gwenna: test of 0.1.590)
+    private val all = listOf(garrick, morwen, rowena, aldric, thessa, osric, jorin, pim, borin, bram, liska, gwenna).associateBy { it.id }
 
     /** The doll for the person [npcId], or null when that one is still drawn the former way (Lyra in the temple and in the cave is one). */
     fun of(npcId: String): Folk? = all[npcId] ?: if (npcId.startsWith("lyra")) lyra else null
