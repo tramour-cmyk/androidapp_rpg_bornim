@@ -59,6 +59,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Rückfragen an den Nutzer
 
+- **14a (Jerry, 13:47):** Neustart der Jerry-Sitzung jetzt (Haken meldet große Sitzung, Build 0.1.581 ausgeliefert, Übergabe steht)? Empfehlung ja.
+
 - **36d (Jerry):** 36.5 Kroggs Ausfallschritt (hebt ab, landet halb hinter der Anzeige) jetzt mit beheben? Empfehlung ja, als Nächstes nach dem Test von PR #46, erst Standbilder. 36.6 (Killerschlag fein) später.
 
 
