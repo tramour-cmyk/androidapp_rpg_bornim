@@ -866,7 +866,14 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             }
             if (o.density < 2) return false
             if (o.sortY <= heroY + T) return false
-            return heroX + T - 8 > o.x && heroX + 8 < o.x + w && heroY + T > o.y && heroY - 30 < o.y + h - 6
+            if (!(heroX + T - 8 > o.x && heroX + 8 < o.x + w && heroY + T > o.y && heroY - 30 < o.y + h - 6)) return false
+            // as seen diagonally (27e.1): only what is really drawn over the hero's upper body, not a crown's empty corner
+            val hx = heroX + T / 2f; val foot = heroY + T - 4f
+            for (dy in 18..38 step 4) for (dx in -6..6 step 6) {
+                val ix = ((hx + dx - o.x) * o.density).toInt(); val iy = ((foot - dy - o.y) * o.density).toInt()
+                if (o.img.opaque(ix, iy)) return true
+            }
+            return false
         }
         // seen diagonally, the fire in a room's hearth flickers through more pictures, each standing an uneven while (13n)
         val flicker = if (diag && map.kind == MapKind.INTERIOR) de.bornim.core.art.MapRoomIso.fireFrame(clock) else 0
@@ -874,11 +881,11 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // a house cut into strips (5.1) turns see-through as a whole when any strip of it stands in front of the hero
         val hidingGroups = objs.filter { it.group != 0 && hides(it) }.mapTo(HashSet()) { it.group }
         val hiding = objs.mapTo(ArrayList()) { if (it.group != 0) it.group in hidingGroups else hides(it) }
-        // (43; test of 0.1.576: 0.2 too strong): together the things in front of the hero cover him to 35 %, however
-        // many stand one behind the other, and they fade softly in and out; seen straight too (27e: in the deep forest
-        // three crowns one behind the other hid him wholly)
+        // (43; test of 0.1.576: 0.2 too strong; 27e.1: 35 % too weak): together the things in front of the hero cover him
+        // to half, however many stand one behind the other, and they fade softly in and out; the same for crowns, houses
+        // and furniture, seen straight too (27e: in the deep forest three crowns one behind the other hid him wholly)
         val layers = objs.indices.filter { hiding[it] }.map { objs[it].let { o -> if (o.group != 0) -o.group.toLong() else o.x.toLong() * 100_003 + o.y } }.distinct().size
-        val clear = 1f - Math.pow(0.65, 1.0 / maxOf(1, layers)).toFloat()
+        val clear = 1f - Math.pow(0.5, 1.0 / maxOf(1, layers)).toFloat()
         SeeThrough.frame(map.id, clock)
         for ((i, o) in objs.withIndex()) {
             val a = SeeThrough.alpha(if (o.group != 0) -o.group.toLong() else o.x.toLong() * 100_003 + o.y, if (hiding[i]) clear else 1f)

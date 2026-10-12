@@ -154,6 +154,15 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.refresh()
             vm.toast = t("Karte: ", "Map: ") + tiles(zoom) + t(" quer", " across")
         }
+        // 27h: the woods and the cave seen diagonally too, though they are not finished yet
+        var allDiag by remember { mutableStateOf(MapSight.all) }
+        PixelButton(t("Alles diagonal (auch Wald, Höhle): ", "Everything diagonal (woods, cave too): ") + (if (allDiag) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            MapSight.all = !MapSight.all
+            allDiag = MapSight.all
+            MapSight.follow(game.map)
+            vm.refresh()
+            vm.toast = if (allDiag) t("Jeder Ort diagonal, auch die noch nicht fertigen (Wald, Tiefer Wald, Höhle).", "Every place diagonal, also those not finished yet (woods, deep woods, cave).") else t("Nur fertige Orte diagonal (Dorf, Innenräume).", "Only finished places diagonal (village, rooms).")
+        }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()
             vm.refresh()
