@@ -43,12 +43,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - Zweig `claude/tom-27-4-baeume` (mit `main`): **27.4** Bäume mit Volumen (`MapTree.kt`, an über `MapFlora.treeDraft`, Vergleich `TREESHEET=1`), **5.6** Schlagbaum/Zaun diagonal (`MapTownIso.barrier/fence`, `ISODINGE=platz`, Schüsse `d10b`, `d12`), **5.3** neun Leute als Puppen (`MapFolk.all`, Feuer-Gesten nur Garrick, Trageweise auch im Stehen). Build 0.1.590 läuft (15:29), kein PR.
 - **Offen:** 5n (Haus östlich vor dem Schlagbaum rücken?), Regel „nicht warten“ in `CLAUDE.md` (Freigabe abgelehnt, Nutzer fragen). Schuss `d12_zaun` stellt den Helden ins Wasser (anderen Platz wählen).
 - **Als Nächstes:** nach Test PR, zusammenführen; dann 5l/5.5 (Leben im Dorf, erst Standbilder), 5.4, 27.5/27.6; danach 13 Tempel, 42, Lyra diagonal.
-### Jerry (12.10., 14:30)
+### Jerry (12.10., 15:35)
 
-- **36.5** auf `claude/great-pascal-x56kad` (kein PR, nur Zweig-Build): Drehpunkt der Lunge-Vergrößerung an die Füße (`BattleScreen`, `size` im `graphicsLayer`), 36h `FOE_WIND_STEP` 0,7. **Offen:** Sprung in den Schlag bleibt groß (Film `FILMBATCH` Krogg, Bilder ~146–153), Rücksprung nach dem Schlag hart (Lunge fällt auf 0, wenn der Angriff endet); Goblin-Angriff noch nicht gefilmt (Film tötete ihn vorher). 36g nein: tief gehen ist ok.
-- **36.7:** Kroggs Arm beim Schlag wirkt gebrochen: Kämpferhaltungen `SLASH_HIT`/`SMASH_HIT` (Stil BLADE in `FoeArt.attacks`), Morgenstern zeigt zur Kamera, Stiel verkürzt, Kopf an der Faust. Vorschlag: eigene Trefferhaltung, Stiel sichtbar schräg nach vorn-unten wie Variante 2; erst Standbild (`FOEANIM=bugbear:0`, Werkzeug jetzt für hohe Gegner).
-- **36j ja (Nutzer 14:3x), nur wenn wenig Aufwand:** eigene Trefferhaltung Krogg, erst Standbild; Rücksprung nach dem Schlag mit beheben. Dann zügig zum Wesentlichen: **Fertigstellung Diagonalansicht → 13e Höhle diagonal** vor 38/24.6/40. Build 0.1.585 (36h) lief 14:29, noch nicht geprüft.
-- **Danach:** 13e Entwurf 2 (mit 10/11), 38 Messung Kapitel 1, 24.6, 40.
+- **36.5/36h/36.7/36j** auf `claude/great-pascal-x56kad` (noch kein PR), Build 0.1.587 beim Nutzer im Test; Ergebnisse kommen in die neue Sitzung. Passt der Test: PR öffnen, grün abwarten, zusammenführen, CHANGELOG. 36.7 = eigene Trefferhaltung nur für `bugbear` (`FoeArt.kroggAttacks`); 36j = `FoeBack` in `BattleScreen` (Rückweg läuft weiter, wenn die Zeile endet; Fall „Held fällt“ im Film geprüft, „schnell weitertippen“ nur an der Ursache).
+- **Als Nächstes 13e Höhle diagonal, Entwurf 2** (mit 10 Flammen, 11 Lichtstrahl; 48b: allgemein aus dem Kartenraster, ohne Handarbeit je Feld; eigene Datei `MapCaveIso.kt`, Toms Dateien nicht anfassen), auf neuem Zweig. Danach 38 Messung, 24.6, 40.
+- 36.6 (Killerschlag Zerteilen bei Krogg in alter Auflösung) offen.
 
 ## Zu testen
 

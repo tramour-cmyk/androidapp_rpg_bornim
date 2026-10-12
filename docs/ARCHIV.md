@@ -1,5 +1,12 @@
 # Archiv
 
+### Übergabe Jerry (12.10., 14:30, ersetzt 15:35)
+
+- **36.5** auf `claude/great-pascal-x56kad` (kein PR, nur Zweig-Build): Drehpunkt der Lunge-Vergrößerung an die Füße (`BattleScreen`, `size` im `graphicsLayer`), 36h `FOE_WIND_STEP` 0,7. **Offen:** Sprung in den Schlag bleibt groß (Film `FILMBATCH` Krogg, Bilder ~146–153), Rücksprung nach dem Schlag hart (Lunge fällt auf 0, wenn der Angriff endet); Goblin-Angriff noch nicht gefilmt (Film tötete ihn vorher). 36g nein: tief gehen ist ok.
+- **36.7:** Kroggs Arm beim Schlag wirkt gebrochen: Kämpferhaltungen `SLASH_HIT`/`SMASH_HIT` (Stil BLADE in `FoeArt.attacks`), Morgenstern zeigt zur Kamera, Stiel verkürzt, Kopf an der Faust. Vorschlag: eigene Trefferhaltung, Stiel sichtbar schräg nach vorn-unten wie Variante 2; erst Standbild (`FOEANIM=bugbear:0`, Werkzeug jetzt für hohe Gegner).
+- **36j ja (Nutzer 14:3x), nur wenn wenig Aufwand:** eigene Trefferhaltung Krogg, erst Standbild; Rücksprung nach dem Schlag mit beheben. Dann zügig zum Wesentlichen: **Fertigstellung Diagonalansicht → 13e Höhle diagonal** vor 38/24.6/40. Build 0.1.585 (36h) lief 14:29, noch nicht geprüft.
+- **Danach:** 13e Entwurf 2 (mit 10/11), 38 Messung Kapitel 1, 24.6, 40.
+
 ### Übergabe Tom (12.10., 14:30, ersetzt 15:32)
 
 - PR #43 zusammengeführt (13.4, 27.1/27.2, 27d). Kein offener Zweig.
