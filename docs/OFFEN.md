@@ -32,7 +32,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 39 | Schwierigkeitsgrad im Menü | Jerry (Werte), Menü mit Tom | – | Nutzer 12.10., 09:52. Nach 38 („Normal“ erst festlegen). **39a ja (10:10):** Leicht/Normal/Schwer über Gegner-TP und -Schaden, jederzeit umstellbar |
 | 40 | Lautstärke im Menü: Gesamt, Musik, Effekte (heute nur Musik an/aus) | Jerry | neu von `main` | Nutzer 12.10., 09:52. **40a ja (10:10):** drei Regler, Ortsklang bei Effekten |
 | 41 | Storyplan: je Kapitel Grobzusammenfassung, Quests mit Inhalt und Dialogen (Kapitel 1 Ist-Stand aus `Story.kt` und Brett), dann Plot Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | Nutzer 12.10., 10:29. **41a ja (10:42):** Entwurf als Dokument zum Lesen/Kommentieren, fertige Kapitel als `docs/STORY.md`. **41b ja:** Plan wird Vorgabe, aber Änderungen gehen nur nach Abstimmung Nutzer und Berater (4 Augen) an Tom/Jerry. **Entwurf steht (10:47):** Kapitel 1 mit Dialogen und 7 Anmerkungen, Kapitel 2 offen ([Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d), Toms Account). **41c, 41d ja (10:54):** Regel „Story und Dialoge“ in `CLAUDE.md` (Tippfehler mit „Text:“ erlaubt), Werkzeug `tools/story.sh` |
-| 42 | Textkasten unten im Stil der Blenden: schwarzer Kasten, Sprecher in Gold, Text in gebrochenem Weiß (heute cremefarben mit dunkler Schrift, Sprecher rot) | Tom (nach Abstimmung) | – | Nutzer 12.10., 11:24 (über Berater). Berater dafür; Vorschläge und Rückfragen 42a–42c im Gespräch, erst Standbilder |
+| 42 | Textkasten unten im Stil der Blenden: schwarzer Kasten, Sprecher in Gold, Text in gebrochenem Weiß (heute cremefarben mit dunkler Schrift, Sprecher rot) | Tom | – | Nutzer 12.10., 11:24 (über Berater). **42a ja:** erst nur Textkasten (Gespräch, Erzähltext, Aushänge), Menüs später. **42b ja:** ganz schwarz, dünner Goldrand, Sprecher Gold in Kapitälchen im Kasten, Text gebrochenes Weiß, Serife wie Blenden, Erzähltext kursiv, ▼ gold. **42c ja (11:39):** direkt nach 13, erst Standbilder (Handy/Emulator, Dorf/Höhle) |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
@@ -41,7 +41,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ### Tom (12.10., 11:35, vor Neustart)
 
 - **29 erledigt:** PR #42 zusammengeführt (11:35), getestet in 0.1.569; CHANGELOG eingetragen. Zweig `claude/great-sagan-n9tkga` ist fertig.
-- **Als Nächstes: 27a offen** (Wald vor Tempel, zuerst Südrand mit Steinkreis und Schild, die in der Diagonalsicht unter Kronen liegen; Empfehlung ja, erst Standbilder). Sonst 13 Tempel, dann 5l/5.5, 17.
+- **Als Nächstes: 27a offen** (Wald vor Tempel, zuerst Südrand mit Steinkreis und Schild, die in der Diagonalsicht unter Kronen liegen; Empfehlung ja, erst Standbilder). Sonst 13 Tempel, dann **42 Textkasten** (42a–42c ja, Standbilder zuerst), dann 5l/5.5, 17.
 - **Texte (Regel 41):** Aushänge und Sätze von 29/29.3/29.4 stehen in `Jobs.kt`; der Berater übernimmt sie in `docs/STORY.md`.
 ### Jerry (12.10., 10:30, vor Neustart)
 
