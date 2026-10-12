@@ -98,7 +98,8 @@ class Battle(
         private set
 
     private val usesLeft = mutableMapOf<Skill, Int>()
-    var mageArmor = false; private set
+    /** Mage Armor lasts 8 hours (26.1): cast before this fight, it holds from the first round. */
+    var mageArmor = state.mageArmorOn; private set
     var blessed = false; private set
     /** A good meal before the fight: +1 to attack rolls and +1 weapon damage. */
     val wellFed: Boolean = state.wellFed.also { state.wellFed = false }
@@ -192,6 +193,7 @@ class Battle(
         trait?.let { say(Msg.eliteTrait.f(lang, it.desc(lang))) }
         if (pack != null && packSize > 0) say(pack.intro.f(lang, packSize))
         if (wellFed) say(Msg.fed.f(lang, name))
+        if (mageArmor && (hero.item(GearSlot.CHEST)?.def?.armor ?: 0) == 0) say(Msg.mageArmorHolds.f(lang, name, heroAc))
         if (Perks.knowsWeaknesses(hero)) weaknesses()?.let { say(Msg.knows.f(lang, name, it)) }
         // A commanding presence makes ordinary foes hesitate.
         val cow = Perks.cowChance(hero)
@@ -392,6 +394,7 @@ class Battle(
             Skill.MAGIC_MISSILE -> hitEnemy((1..3).sumOf { dice.roll(dice(1, 4, 1)) }, DamageType.FORCE, false, fx(FxKind.MISSILES, false))
             Skill.MAGE_ARMOR -> {
                 mageArmor = true
+                state.mageArmorUntil = state.clock + MAGE_ARMOR_MINUTES
                 say(Msg.acNow.f(lang, name, heroAc), fx = fx(FxKind.MAGE_ARMOR, true))
             }
             Skill.SCORCHING_RAY -> repeat(3) {
@@ -1000,6 +1003,8 @@ class Battle(
     companion object {
         /** From this cleric level Turn Undead destroys undead of challenge rating 1/2 or lower (SRD: Destroy Undead). */
         const val DESTROY_UNDEAD_LEVEL = 5
+        /** Mage Armor holds 8 hours of game time, as in the SRD (26.1). */
+        const val MAGE_ARMOR_MINUTES = 8 * 60L
 
         /** Test mode only: foes fail every saving throw against the hero's spells (Turn Undead, Sacred Flame and the like). */
         @Volatile var foesFailSaves = false
@@ -1108,6 +1113,7 @@ private object Msg {
     val gainXp = T("{0} erhält {1} EP.", "{0} gained {1} XP.")
     val knows = T("{0} erkennt: {1}.", "{0} recognises: {1}.")
     val cowed = T("{0} zögert, eingeschüchtert von {1}!", "{0} hesitates, cowed by {1}!")
+    val mageArmorHolds = T("Die Magierrüstung von {0} hält noch: RK {1}.", "{0}'s Mage Armor still holds: AC {1}.")
     val fed = T("{0} ist gut gestärkt: +1 auf Angriffe und Schaden.", "{0} is well fed: +1 to attacks and damage.")
     val capped = T("Höchststufe für Kapitel 1 erreicht – keine weiteren EP in diesem Kapitel. Beute und Ausrüstung gibt es weiterhin.", "Highest level for chapter 1 reached – no further XP in this chapter. Loot and gear still drop.")
     val gainGold = T("Du erbeutest {0} Gold.", "You got {0} gold.")

@@ -51,12 +51,19 @@ class GameState(
     val picked: MutableMap<String, Int> = mutableMapOf(),
     /** A good meal: a small bonus in the next fight. */
     var wellFed: Boolean = false,
+    /** Mage Armor holds until this game minute (day × 1440 + minute), 8 hours after it was cast (26.1). */
+    var mageArmorUntil: Long = 0,
 ) {
     init {
         hero.chapter = Story.chapter(this)
     }
 
     fun nextUid(): Long = ++uidCounter
+
+    /** The game clock as one count of minutes, day by day. */
+    val clock: Long get() = day * 24L * 60 + minutes
+    /** Mage Armor cast within the last 8 hours of game time (26.1); it only counts without body armor. */
+    val mageArmorOn: Boolean get() = clock < mageArmorUntil
 
     fun ailment(st: Status): Int = ailments[st.name] ?: 0
     fun has(flag: String) = flag in flags
