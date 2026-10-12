@@ -6,6 +6,10 @@ Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistori
 
 
 
+### Rückfrage 27b (erledigt, aus OFFEN 12.10., 14:4x)
+
+- **27b (Tom):** Wald Südrand: 27.1 Durchsicht kräftiger (Kronen vor Held, Steinen, Schild, Truhe fast ganz durchsichtig, nicht gestapelt) + 27.2 vorderster Waldrand diagonal niedrig (Stämme, Büsche, junge Bäume, wie die niedrigen Vorderwände der Höhle); 27.4 neue runde Bäume danach; 27.3 Karte umbauen nein. Empfehlung 27.1+27.2, erst Standbilder. **27b ja (Nutzer 12:09, über Berater):** 27.1, 27.2 und Umstellen nach 43 (27.3 doch ja): Garrick, Feuer, Steinkreis zuerst, Standbilder vorher/nachher.
+
 ### Übergabe Tom (12.10., 13:30, ersetzt 14:30)
 
 - **PR #43 (Entwurf, abonniert), Zweig `claude/upbeat-clarke-oghrxm`, Build 0.1.579 zu testen (0.1.576 getestet, nur Durchsicht zu stark → milder/weich):** 13.4 (Diagonale je Ort automatisch, Schalter weg, `townDraft` immer an) und 27.1/27.2 Entwurf (diagonal junge Fichten vor Wichtigem bis 8 Felder, `MapFlora.objects`; Durchsicht 0,2 in `WorldScreen`). Nach Test: zusammenführen, CHANGELOG.
