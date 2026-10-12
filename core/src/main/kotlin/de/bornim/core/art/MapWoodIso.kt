@@ -653,6 +653,56 @@ object MapWoodIso {
         return c.img
     }
 
+    /** Draft (56): the boulders of the woods drawn in the slant; the game keeps the former picture. */
+    @Volatile var rockDraft = false
+
+    /**
+     * Boulders in the woods seen diagonally (56, draft): one big stone half sunk in the ground with one or two smaller
+     * ones beside it, each a lumpy round body (not a ball: flattened, dented by noise), grey with a brown cast, moss
+     * thick on the tops and the shaded north, pale spots of lichen. Three looks ([v]).
+     */
+    fun boulders(v: Int): PixelImage {
+        val c = Canvas(84)
+        val seed = 850 + v * 13
+        // centre (i, j), radii (tile, tile, height units), sunk by
+        val stones = when (v) {
+            0 -> listOf(doubleArrayOf(-0.52, -0.5, 0.30, 0.26, 34.0), doubleArrayOf(-0.2, -0.3, 0.13, 0.12, 14.0), doubleArrayOf(-0.8, -0.24, 0.11, 0.1, 11.0))
+            1 -> listOf(doubleArrayOf(-0.5, -0.56, 0.34, 0.22, 26.0), doubleArrayOf(-0.24, -0.22, 0.15, 0.14, 18.0))
+            else -> listOf(doubleArrayOf(-0.46, -0.48, 0.27, 0.25, 32.0), doubleArrayOf(-0.78, -0.62, 0.14, 0.12, 16.0), doubleArrayOf(-0.3, -0.18, 0.09, 0.08, 9.0))
+        }
+        for ((k, st) in stones.withIndex()) c.shadow(st[0] + 0.05, st[1] + 0.03, st[2] * 1.15, st[3] * 1.15, 0.5)
+        val base = listOf(0x6E6A62, 0x75705F, 0x5E5E5A)[v]
+        for ((k, st) in stones.withIndex()) {
+            val (ci, cj, ri, rj, rz) = st.toList()
+            val ks = seed + k * 7
+            var a = 0.0
+            while (a < 2 * PI) {
+                var e = -0.35
+                while (e <= PI / 2) {
+                    val ni = cos(a) * cos(e); val nj = sin(a) * cos(e); val nz = sin(e)
+                    val bump = 1 + (vnoise(a * 2.2 + k, e * 2.5, ks) - 0.5) * 0.35 + (vnoise(a * 7, e * 7, ks + 1) - 0.5) * 0.08
+                    // flattened on top, a little wider at the foot
+                    val flat = 1 - 0.18 * max(0.0, nz - 0.6)
+                    val i = ci + ri * ni * bump; val j = cj + rj * nj * bump; val z = rz * (nz * flat * bump + 0.25) - 6
+                    if (z >= -0.5) {
+                        val n = vnoise(a * 3.5, e * 3.5, ks + 2) * 0.8 + vnoise(a * 10, e * 10, ks + 7) * 0.2
+                        var col = mix(argb(base), argb(0x3A3832), n * 0.4)
+                        // moss on the tops and the shaded north (−i, +j lies in shade), lichen in pale spots elsewhere
+                        val mossy = nz * 0.8 + max(0.0, nj) * 0.35 - max(0.0, ni) * 0.2 + (vnoise(a * 4, e * 4, ks + 3) - 0.5) * 0.7
+                        if (mossy > 0.62) col = mix(col, argb(if (vnoise(a * 5, e * 5, ks + 4) > 0.5) 0x56662E else 0x46552A), 0.85)
+                        else if (vnoise(a * 6, e * 6, ks + 5) > 0.74) col = mix(col, argb(0xA8A890), 0.55)
+                        // a crack or two
+                        if (abs(vnoise(a * 3, e * 6, ks + 6) - 0.5) < 0.015) col = shade(col, 0.55)
+                        c.pt(i, j, max(0.0, z), shade(col, lit(ni, nj, nz)))
+                    }
+                    e += 0.012
+                }
+                a += 0.008
+            }
+        }
+        return c.img
+    }
+
     /** The herb on ([tx], [ty]) as an upright thing sorted like the others of the woods; the wind sways it a little. */
     fun herbObj(tx: Int, ty: Int, clock: Long): WorldArt.Obj {
         val v = Math.floorMod(hash(tx, ty, 34), 3)
@@ -714,6 +764,7 @@ object MapWoodIso {
             }
             // the signs of the woods: the village's signposts, a board on one post or on two; not the look with the
             // arrow, which would point along +i whatever the way
+            Tile.ROCK -> if (!rockDraft) return null else Math.floorMod(hash(tx, ty, 36), 3).let { v -> "rock/$v" to { boulders(v) } }
             Tile.CHEST -> if (!chestDraft) return null else Math.floorMod(hash(tx, ty, 35), 3).let { v -> "chest/$v/$open" to { chest(v, open) } }
             Tile.SIGN -> Math.floorMod(hash(tx, ty, 33), 2).let { v -> "sign/$v" to { MapTownIso.signpost(v, 71) } }
             else -> return null
@@ -744,6 +795,7 @@ object MapWoodIso {
             "Truhe" to (0 until 3).map { chest(it, false) },
             "Truhe offen" to (0 until 3).map { chest(it, true) },
             "Kraut" to (0 until 3).map { herb(it, 0.0) },
+            "Steine" to (0 until 3).map { boulders(it) },
         )
     }
 }
