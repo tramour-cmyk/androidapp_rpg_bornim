@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | läuft | 13.10., 07:00 | 13.10., 01:03 | 13.10., 01:03 | Paket 5: 17 Rest (Haare, Köcher) | claude/tom-17-nachschwingen |
+| Tom | läuft | 13.10., 07:00 | 13.10., 01:03 | 13.10., 01:22 | 17r fertig (Entwurf, Build 0.1.639); Reserve 5l Leben im Dorf | claude/tom-17-nachschwingen |
 | Jerry | fertig | – | 12.10., 16:33 | 12.10., 16:59 | Pause bis Freitag (Nutzungsguthaben), Stand in OFFEN.md | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
@@ -96,7 +96,7 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 2. **60 Ein Aussehen für alle Oberflächen** (60a–60d ja, Berater 23:2x; direkt nach 59) auf neuem Zweig `claude/tom-60-aussehen` **vom Zweig `claude/tom-59-haendler`** (baut auf `LocalVeil`): (a) 60b: 2–3 freie Serifenschriften (OFL, Lizenz und Quelle je Datei festhalten) als Standbilder zur Wahl, Empfehlung nennen; (b) je Bildschirm als Entwurf hinter Schalter: Menü/Beutel, Titelbild (60.4 Titel groß in Gold, Kapitälchen), Heldenerstellung; Kampf zuletzt (60c Pixelschrift nur für kleine Kampfzahlen). Fertig, wenn: Standbilder alt/neu auf der Entscheidungsseite, Kerntests grün, Vorschau baut.
 3. ~~27.6/43~~ (Entwurf fertig 00:24). **27.6/43 Tiefer Wald diagonal** (Morwen und ihre Hütte frei sichtbar, Wege, Bäume rund wie im Wald) auf neuem Zweig `claude/tom-27-6-tiefer-wald` von `main`, nur Entwurf hinter Schalter. Fertig, wenn: Standbilder Tag/Nacht auf der Entscheidungsseite, Lückenliste „Ort fertig“, Kollision 0.
 4. ~~13~~ (Entwurf fertig 01:00, 13x). **13 Tempel innen:** Altar steht direkt vor dem Fenster (Meldung 08:43): umstellen. Fertig, wenn: Standbild alt/neu auf der Entscheidungsseite.
-5. **17 Rest** (neuer Zweig `claude/tom-17-nachschwingen` von `main`): Haare und Köcher schwingen nach (wie 17a), Entwurf hinter Schalter. Fertig, wenn: Sprungtest 0, Standbilder.
+5. ~~17 Rest~~ (Entwurf fertig 01:20, 17r, Build 0.1.639). **17 Rest** (neuer Zweig `claude/tom-17-nachschwingen` von `main`): Haare und Köcher schwingen nach (wie 17a), Entwurf hinter Schalter. Fertig, wenn: Sprungtest 0, Standbilder.
 6. Reserve: 5l Leben im Dorf (Entwurf: Bewohner gehen Wege, Tagesablauf), dann Vorrat oben (5 Katze, 6, 7).
 
 ## Jerry

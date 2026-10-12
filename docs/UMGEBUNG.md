@@ -91,6 +91,7 @@ Die Chat-Sitzung hat eine eigene Netzregel. Ohne Freigabe sind Maven Central, Go
 | `FEUER=1` | alle Bilder des Kaminfeuers |
 | `WALKFILM=karte:x:y` (+ `CROP=x0:y0:x1:y1`, `FROM=`), `IDLEFILM=` | Laufen bzw. Stehen durch die echte Oberfläche filmen |
 | `FLORA=karte:x0:y0:breite:höhe` | Kartenausschnitt in voller Auflösung |
+| `SWINGBILD=1` (+ `SWINGMORE=1`, `SWINGWHO=woman,archer,…`) | 17 Nachschwingen: Standbilder je Zeitpunkt; `SWINGMORE=1` auch Haare und Köcher (17r, auch im Spielbild) |
 | `FIREFLIES=1`, `SQUATDRAFT=1`, `MAPFIGYAWS=1 WEAPONS=…` | Glühwürmchen, Garrick hocken/schüren/dösen, Waffen in allen Richtungen |
 | `MAPFOE=scene\|dirs\|walk\|yaws\|others\|cave\|wood`, `FOEFILM=1` (`FOEIDLE=1`) | Monster auf der Karte: Entwürfe, Film |
 | `FILM=klasse:gegner FILMTAPS=…`, `FILMBATCH=datei FILMSTEP=40` | Kampffilme (S Szene, F Kampf, A Angriff, D Abwehr) |

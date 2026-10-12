@@ -12,7 +12,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 |---|---|---|---|---|
 | 13 | Diagonale Sicht | Tom | – | 13.4 auf `main` (PR #43). **13u/13w ja:** neue Orte nur diagonal, alte Ansicht eingefroren. **13v (später):** Testaufruf: Wald, Tiefer Wald, Höhle absichtlich noch gerade. **Meldung 08:43:** Tempel innen: Altar direkt vor dem Fenster, ansehen. **13s/13t ja:** 27, 13 Tempel, 42; Ziel „alte Ansicht ausgebaut“ (`KAPITEL1.md`), danach 6l. Verlauf im Archiv |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-27-4-baeume` | 5.1/5.2/5g/5h.1 auf `main`. **5m ja:** 27.4, 5.6, 5.3, 5l/5.5, 5.4, dann 27.5/27.6, je erst Standbilder. 27.4, 5.6, 5.3 (alle zwölf), 5n in PR #48. 5.4 (Pflaster-Entwurf, Fensterlicht-Fix) auf dem Zweig. 5l/5.5 Leben im Dorf nach 24 (Nutzer 14:55) |
-| 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | – | **17a** auf `main` (PR #48, getestet 0.1.625); 58 (Schild/Köcher über dem Umhang) auf `main` (PR #50). Offen: Haare, Köcher, Riemen |
+| 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | – | **17a** auf `main` (PR #48, getestet 0.1.625); 58 auf `main` (PR #50). **17r** Haare/Köcher als Entwurf auf `claude/tom-17-nachschwingen` (Testreiter-Schalter), Build 0.1.639. Offen: Riemen |
 | 13e | Höhle diagonal (Phase 2 von 13); mit 10 (Flammen feiner) und 11 (Lichtstrahl am Schacht) | Jerry | `claude/jerry-13e-hoehle-diagonal` | Grundsatz 43 (Leute, Ziele, Eingänge frei zur Kamera). **48b ja:** allgemein aus dem Kartenraster, ohne Handarbeit je Feld (für Zufallshöhlen 48). Eigene Datei `MapCaveIso.kt`, Toms Dateien nicht anfassen. Entwurf 2: Wände stehen (16:19); 13e.2–13e.4 in Selbstarbeit (`SELBST.md`). **Nutzer 16:3x:** Lichtstrahl weglassen, wenn schwierig; ein Versuch, sonst raus |
 | 23 | Aufgaben so aufteilen, dass Tom und Jerry auch in Selbstarbeit genug Vorrat haben | Tom | `main` (Notizen) | 23a ja (14:18): je 8 Punkte im Vorrat (`docs/SELBST.md`), neue nur als Entwürfe/Hörproben. **Jerry:** deine Punkte 4–8 sind eingetragen |
 | 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik); Jerry (Inhalt) | – | 24.1–24.4, 24.9–24.15 auf `main` (PR #30, #32, #34, #35); 24.8 Ortsklang auf `main` (PR #37). **Tom:** 24.5, 24.16–24.20 auf `main` (PR #40). 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.8.5 auf `main` (PR #38, 12.10.), danach 24.6 Kampferöffnung wartet + Herzschlag (nach Toms 24.5), knapper Kampftext in `Battle.kt`. Entscheidungen 24f/24i/24j in [`ZWISCHENBILD.md`](ZWISCHENBILD.md) und im Archiv. |
@@ -58,12 +58,14 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **Tom, 0.1.632, Zweig `claude/tom-59-haendler`** (59, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38309898552): bei Thessa und Morwen kaufen/verkaufen, Menge ×5/Alle, verkaufen und zurückkaufen, Ausrüstung vergleichen, Streifen „Angelegt“ und „Nicht tragbar“.
 - **Tom, 0.1.636, Zweig `claude/tom-60-aussehen`** (60, enthält 59; erst 59 testen; https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38313842737): Testreiter „60 Aussehen“ an, Schrift, Titelschrift und Kampfzahlen durchschalten; Titelbild, Menü/Beutel, Heldenerstellung, Kampf ansehen.
+- **Tom, 0.1.639, Zweig `claude/tom-17-nachschwingen`** (17r, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38320963573; nach 59/60): Testreiter „17 Haare/Köcher schwingen nach“ an, als Heldin oder mit Bogen laufen und anhalten.
 
 ## Rückfragen an den Nutzer
 
 - **60e–60i** (Tom, [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F)): 60e Textschrift (Empf. Alegreya), 60f Titel (Empf. Cinzel), 60g Menü, 60h Heldenerstellung, 60i Kampf mit Pixelzahlen (Empf. je ja).
 - **27.6a–c** (Tom, [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F)): Tiefer Wald diagonal (Morwens Feuer frei) übernehmen, Schild auf die Südseite des Wegs, Rauchfahne am Kräuterfeuer als Entwurf (Empf. je ja).
 - **13x** (Tom, Entscheidungsseite): Tempel: zwei Fenster links und rechts vom Altar statt einem dahinter (Empf. ja).
+- **17r** (Tom, Entscheidungsseite): lange Haare und Köcher schwingen nach dem Anhalten nach wie der Umhang (Empf. ja).
 
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
