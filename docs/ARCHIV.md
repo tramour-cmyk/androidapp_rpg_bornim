@@ -9,7 +9,7 @@
 
 ### Übergabe Jerry (12.10., 16:22)
 
-- **Selbstarbeit ab 16:40** (Nutzer 16:2x), Paket in `SELBST.md` (13e.2 Kisten/Truhen/Bettrolle, 13e.3 Lichtstrahl 11 + Flammen 10, 13e.4 Stalagmiten/Weiher; Reserve 38, 53, 51). Nachfolgerin übernimmt (Neustart-Haken).
+- **Selbstarbeit ab 16:40** (Nutzer 16:2x), Paket in `SELBST.md` (13e.2 Kisten/Truhen/Bettrolle, 13e.3 Lichtstrahl 11 + Flammen 10, 13e.4 Stalagmiten/Weiher; Reserve 38, 53, 51). Nachfolger übernimmt (Neustart-Haken).
 - **13e Entwurf 2, Wände** auf `claude/jerry-13e-hoehle-diagonal` (97bf42d, nur Vorschau): Fels als Höhenfeld je Randfeld, allgemein aus dem Kartenraster (48b), Standbilder 16:19 an den Nutzer. Schnellbild der ganzen Höhle: `CAVESHEET=1 ./gradlew -p core test --tests '*CaveSheet*' --rerun` → `core/build/preview/hoehle_plan.png` (Sekunden statt 5 min). Kein Zweig-Build zum Testen nötig (im Spiel aus).
 - Erledigt heute: PR #47 (36.5/36h/36.7/36j) zusammengeführt; 52, 53, 54 angelegt; 54 Regel „Nicht warten“ + Stop-Haken auf `main`.
 
