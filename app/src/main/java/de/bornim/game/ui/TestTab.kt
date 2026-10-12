@@ -163,6 +163,14 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.refresh()
             vm.toast = if (allDiag) t("Jeder Ort diagonal, auch die noch nicht fertigen (Wald, Tiefer Wald, Höhle).", "Every place diagonal, also those not finished yet (woods, deep woods, cave).") else t("Nur fertige Orte diagonal (Dorf, Innenräume).", "Only finished places diagonal (village, rooms).")
         }
+        // 5l (draft): the villagers go about their day
+        var villageDay by remember { mutableStateOf(de.bornim.core.VillageDay.draft) }
+        PixelButton(t("5l Tagesablauf im Dorf: ", "5l Village day: ") + (if (villageDay) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.VillageDay.draft = !de.bornim.core.VillageDay.draft
+            villageDay = de.bornim.core.VillageDay.draft
+            vm.refresh()
+            vm.toast = if (villageDay) t("Pim, Bram, Gwenna und Liska gehen je nach Uhrzeit an andere Plätze (eine Spielstunde ist eine Minute).", "Pim, Bram, Gwenna and Liska move between places by the hour (a game hour is a minute).") else t("Alle bleiben an ihrem Platz.", "Everyone keeps to their spot.")
+        }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()
             vm.refresh()

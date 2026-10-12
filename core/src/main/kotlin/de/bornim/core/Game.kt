@@ -160,7 +160,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     private val walkers = HashMap<String, List<Walker>>()
 
-    private fun walkersHere(): List<Walker> = walkers.getOrPut(state.place.map) { map.npcs.filter { it.moves }.map { Walker(it) } }
+    private fun walkersHere(): List<Walker> = walkers.getOrPut(state.place.map) {
+        map.npcs.filter { it.moves }.map { n ->
+            // 5l (draft): coming into the village, everyone is already where their day has taken them
+            Walker(n).also { w -> if (VillageDay.draft) VillageDay.stopAt(n.id, state.minutes)?.let { st -> if (map.walkable(st.x, st.y, state)) { w.x = st.x; w.y = st.y; w.fromX = st.x; w.fromY = st.y } } }
+        }
+    }
 
     /** Where a strolling villager is right now, null for people who stand still. */
     fun walkerOf(npc: Npc): Walker? = if (!npc.moves) null else walkersHere().firstOrNull { it.npc === npc }
@@ -177,19 +182,46 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                 patrol(w)
                 continue
             }
+            // 5l (draft): off to the next place of the day, else stroll about there
+            val stop = if (VillageDay.draft) VillageDay.stopAt(w.npc.id, state.minutes) else null
+            if (stop != null && !VillageDay.near(stop, w.x, w.y)) {
+                goTowards(w, stop.x, stop.y)
+                continue
+            }
             w.nextMoveAt = now + 1500 + roamRandom.nextInt(2500)
             // Stay put while the hero stands right next to them.
             if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 1) continue
             val d = Facing.entries[roamRandom.nextInt(4)]
             val nx = w.x + d.dx; val ny = w.y + d.dy
             w.facing = d
-            if (kotlin.math.abs(nx - w.npc.x) + kotlin.math.abs(ny - w.npc.y) > w.npc.wander) continue
+            if (kotlin.math.abs(nx - (stop?.x ?: w.npc.x)) + kotlin.math.abs(ny - (stop?.y ?: w.npc.y)) > (stop?.wander ?: w.npc.wander)) continue
             if (!free(nx, ny) || map.warpAt(nx, ny) != null || (nx == p.x && ny == p.y)) continue
             w.fromX = w.x; w.fromY = w.y
             w.x = nx; w.y = ny
             w.movedAt = now
             changed()
         }
+    }
+
+    /** One step of a villager on the way to ([tx], [ty]) (5l), along the shortest way round houses and fences, past no door. */
+    private fun goTowards(w: Walker, tx: Int, ty: Int) {
+        val p = state.place
+        w.nextMoveAt = now + 650
+        // wait while the hero stands next to them, e.g. to talk
+        if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 1) return
+        fun open(x: Int, y: Int) = map.walkable(x, y, state) && map.warpAt(x, y) == null
+        // round the others where there is room, else straight on and wait for them
+        val d = VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height) { x, y -> open(x, y) && free(x, y) && !(x == p.x && y == p.y) }
+            ?: VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height) { x, y -> open(x, y) } ?: return
+        val nx = w.x + d.dx; val ny = w.y + d.dy
+        w.facing = d
+        npcFacing.remove(w.npc.id)
+        // someone in the way: wait a moment, they move on
+        if (!free(nx, ny) || (nx == p.x && ny == p.y)) { w.nextMoveAt = now + 400 + roamRandom.nextInt(600); return }
+        w.fromX = w.x; w.fromY = w.y
+        w.x = nx; w.y = ny
+        w.movedAt = now
+        changed()
     }
 
     /** One step of a guard's round: walk to the next patrol point, look around there, go on. */
