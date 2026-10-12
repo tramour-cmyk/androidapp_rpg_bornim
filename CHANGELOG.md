@@ -4,6 +4,12 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 37), getestet in 0.1.578, PR #45 (zusammengeführt 12.10., 13:22):
+
+**Kampfmusik aussortiert (37)**
+- Raus aus dem Kampf: Great Labyrinth, Menace, Epic Fight Theme. Ancient Legend spielt nicht mehr im Bosskampf, sondern ist für die Rückkehr des Sonnenamuletts vorgesehen.
+- Neu: Eclipse Legion, Orchestral Battle Theme (emmama), The Battlefield (umplix) und The March of Devils Dome (setzt gleich kräftig ein). Im Kampf jetzt 7 Stücke, zufällig gewählt; alle CC0, Quellen in `tools/klang/QUELLEN.md`.
+
 Zweig von Jerry (Thema 34, 35), getestet in 0.1.571, PR #41 (zusammengeführt 12.10., 11:52):
 
 **Kampf: Zug beenden (34)**

@@ -5,6 +5,17 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
 
+### Übergabe Jerry (12.10., 12:56, vor Neustart, ersetzt 13:22)
+
+- **Zweig `claude/great-pascal-x56kad`, PR #45 (Entwurf, abonniert; #44 geschlossen):** 37 Kampfmusik fertig (7 Stücke), Build 0.1.578 zu testen ([Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38238586524/artifacts/11742320729)). Bei „passt“: PR zusammenführen, CHANGELOG.
+- **36.4 (36c ja) als Nächstes, gleicher Zweig:** Gegnerbilder (`FoeArt.frame`, `W=290`, Figur füllt ~9 %) zuschneiden und Lage mitführen; Verbraucher: `BattleScreen.kt` (Zeichnen, `anchorX`/`groundLine`/`lungeOffset`), `KillArt`, Vorschau. Dann Krogg 1,5×. Erst Standbilder vorher (`FOESHOT=bugbear:0 FOESHOT_SCALE=4`), Messung `ARTMEM_FOE=bugbear:0` (Kerntest `ArtMemoryTest.oneFoe`, mit `--rerun`).
+- **Danach:** 38 Messung Kapitel 1, 13e Entwurf 2 (Grundsatz 43), 24.6, 40.
+
+
+### Zeile 13e aus „Wer macht was“ (Stand 12.10., 13:22, gekürzt)
+
+| 13e | Höhle diagonal (Phase 2 von 13: Orte aufteilen) | Jerry | `ccr-8b450567-umf1s6` | **Grundsatz 43 beachten (Nutzer 12:1x):** Leute, Questziele, Eingänge frei zur Kamera (Süden/Osten nichts Hohes davor), Durchsicht nur um den Helden, Kisten dürfen versteckt liegen; Standbild aus Sicht des Helden. **Entwurf 1 (23:43, Vorschau `KARTENZOOM=1 DIAG=1 CAVEDRAFT=1 ONLY=zoom_nah_c`):** Wände stehen (hinten 2,4 m, Trennwände 1 m, vorn Rand), Gitter und Stützen schräg. **Lücken:** Fels noch kantig/zu dunkel (runder, `Sculpt`); Kisten, Truhen, Felsen, Stalagmiten, Knochen, Lager noch alte Bilder; Lichtschacht als helles Rechteck; Weiher ohne Ufer; Krogg (Jerry) und Lyra (Tom) noch alte Bilder. 13e.1 ja (13:52): nach 18 Runde 2, erst Entwürfe. **Tom einverstanden (14:16).** Jerry: neue Datei `MapCaveIso.kt` und eine Zeile in `WorldArt.buildObjects` (wie Räume/Dorf). Nicht anfassen ohne Absprache: `WorldScreen.kt` (Sortierung, `hides`, `put`/`corner`, `Cam`), `MapSight`, `FreeWalk`, `MapRoomIso`, `MapTownIso`, `MapGround`. Vorlage: `MapTownIso` (`Tile1`, `plane`/`box`/`cylinder`, Tiefe `(tx+ty)*T+1.5T−1`, `corner = true`, `group` für Mehrfeld-Dinge) |
+
 ### Übergabe Jerry (12.10., 12:23, vor Neustart, ersetzt 12:56)
 
 - Zweig `claude/sharp-faraday-929xjq`, PR #44: 37 umgebaut, Build 0.1.574 (nicht getestet; durch PR #45 ersetzt, #44 geschlossen). 36.1 Fell zurückgenommen → 36.3. `FOEANIM=bugbear` stürzt ab (Rahmen höher als Raster).
