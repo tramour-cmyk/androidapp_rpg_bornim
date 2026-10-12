@@ -47,7 +47,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - PR #48 `claude/tom-27-4-baeume`, [0.1.603](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38276243431) grün (zu testen, s. u.); danach nur Vorschau-Entwürfe gepusht. Test passt → zusammenführen (Merge), CHANGELOG.
 - **Entscheidungsseite** [Artefakt](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F) (Bilder alt/neu, Empfehlung); neue Entwürfe dort einfügen (gleiche Datei neu veröffentlichen geht nur aus dieser Sitzung; sonst mit `url` lesen und aktualisieren).
 - **Als Nächstes (Reihenfolge):** (1) 27.5 ins Spiel (27f ja): `MapWoodIso.draft` an, Schild zur Höhle diagonal neu (Nutzer: perspektivisch falsch). (2) **56** Liste alter Bilder auf diagonalen Karten (Kräuter, Steine, Büsche, Schilder …), dann Entwürfe. (3) 55.2 Borin sitzend (55b ja): Hammer am Tisch, Stehen ↔ Sitzen, Sprungtest. (4) **27e:** Tiefer Wald, südlich von Morwen (Feuer links), Regen: Held unter den Kronen ganz weg; nachstellen mit `HELDORT=deep_forest:x:y[:richtung[:stunde]]`.
-- 5.4: Pflaster-Zwischending (`PFLASTERDRAFT=2`) wartet auf Freigabe; Fensterlicht hinter Bäumen verdeckt (im Spiel, 0.1.603).
+- 5.4: Pflaster-Zwischending **im Spiel** (Nutzer 18:4x: gut gelungen, Commit 5b7b8cf+); Fensterlicht hinter Bäumen verdeckt. Build dazu läuft; Link melden, Testliste: Markt bei Tag, Tempel nachts.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
@@ -62,5 +62,4 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **54a** (Jerry): Selbstarbeit ab 16:40 – bis wann? Empfehlung: bis du wieder schreibst, längstens 13.10., 08:00 (so eingetragen).
 
-- **5.4p** (Tom): Pflaster als Zwischending (`PFLASTERDRAFT=2`, Bild im [Artefakt](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F))? Empfehlung: ja. (27f, 55b, 22c bis 22:00, 27e beantwortet 18:3x–18:4x.)
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
