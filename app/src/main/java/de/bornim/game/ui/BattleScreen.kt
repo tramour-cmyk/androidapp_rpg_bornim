@@ -1697,7 +1697,7 @@ private fun foeLandMs(battle: Battle, variant: Int, an: Anim?): Int = when {
 }
 
 /** How far into its step a foe on the doll goes while its attack is named: the rest of the step comes with the blow. */
-private const val FOE_WIND_STEP = 0.45f
+private const val FOE_WIND_STEP = 0.7f
 
 /** How long the leader's howl animation runs, and how long it takes to raise its head. */
 private val HOWL_MS: Long get() = BattlePace.ms(1900L)
