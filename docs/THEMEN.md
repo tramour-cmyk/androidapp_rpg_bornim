@@ -59,6 +59,6 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 54 | Nicht warten, von selbst weiterarbeiten | Tom und Jerry | Nutzer 12.10., offen | `OFFEN.md` |
 | 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | neu 12.10. | `OFFEN.md` |
 | 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | Tom | neu 12.10. | `OFFEN.md` |
-| 58 | Umhang hängt beim Laufen über dem Schild | Tom | Zweig, Build 12.10. | `OFFEN.md` |
+| 58 | Umhang hängt beim Laufen über dem Schild | Tom | erledigt 12.10. (PR #50) | `OFFEN.md` |
 | 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf | Tom | neu 12.10. | `OFFEN.md` |
 | 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | Berater, dann Tom | neu 12.10. | `OFFEN.md` |
