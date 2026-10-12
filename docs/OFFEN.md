@@ -62,6 +62,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **56a** (Tom): Heilkräuter (Wegerich-Rosette mit Schafgarbe) und Truhe im Wald diagonal ins Spiel? Bilder auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F). Empfehlung: ja.
 - **56b** (Tom): Steine und Steinkreis im Wald diagonal ins Spiel? Bilder auf der Entscheidungsseite. Empfehlung: ja, zusammen mit 56a.
+- **56c** (Tom): Büsche im Wald diagonal ins Spiel? Empfehlung: ja (eine Antwort für 56a–56c genügt).
 - **54a** (Jerry): Selbstarbeit ab 16:40 – bis wann? Empfehlung: bis du wieder schreibst, längstens 13.10., 08:00 (so eingetragen).
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
