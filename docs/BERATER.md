@@ -28,7 +28,7 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 - **Zoomstufe der Karte** (6l): bleibt vorläufig 6,75 Kacheln, bis die diagonale Sicht überall fertig ist.
 - **Kapitel 1 vor Neuem** (26, 11.10.): Zielliste in `KAPITEL1.md`; neue Inhalte erst danach.
 - **Release nur auf Zuruf** (21): Die Releaseflut störte; Zweig-Builds sind Artefakte.
-- **APK nie im Chat, nur Link** (11.10., 21:25): Platz sparen. Artefakt-Downloads scheitern noch an der Netzregel (`*.blob.core.windows.net`); der Nutzer stellt das am Rechner ein.
+- **APK nie im Chat, nur Link** (11.10., 21:25): Platz sparen. Artefakt-Downloads gehen seit 12.10. (Vollzugriff).
 - **Filme sparsam** (09.10.): 36 s Spielzeit kosteten etwa 5 min. Logik per Kerntest, filmen nur bei sichtbarer Bewegung.
 - **Neustart nur bei großer Sitzung** (11.10.): Jede Startlektüre kostet etwa 12.000 Token.
 - **Selbstarbeit** mit Routinen alle 3 h und Vorrat je 8 Punkte (22, 23).

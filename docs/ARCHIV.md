@@ -5,6 +5,10 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
 
+### Rückfrage „APK im Chat“ erledigt (Tom, 12.10., 09:51)
+
+- Netz hat jetzt Vollzugriff (Nutzer 12.10.): Artefakt 0.1.563 per `gh api …/artifacts/<id>/zip` geladen (54 MB). APK kommt trotzdem nie in den Chat (Regel 11.10., 21:25), nur der Link.
+
 ### Übergabe Jerry (12.10., 07:43, ersetzt 09:48)
 
 - **PR #38** (Zweig `ccr-8b450567-umf1s6`, Entwurf), Build 0.1.555 ([Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38178006618/artifacts/11716242658)): 24.8.5 Ortsklang klingt aus, 30.6 Klang-Laden abgesichert, 13e Entwurf 1 (im Spiel aus), Vorschau zeigt in `KARTENZOOM` die Karte statt der Blende (32.7, braucht Tom für 27). **Getestet, passt (12.10.); zusammengeführt.** 13e Entwurf 2 (Fels heller) liegt auf `claude/quirky-goodall-fqncrd`, vor dem Weiterarbeiten in den eigenen Zweig holen.

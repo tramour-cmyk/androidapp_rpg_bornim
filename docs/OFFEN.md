@@ -62,6 +62,4 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **26a (Jerry, Selbstarbeit 23:51), Ausgleich Magier:** Simulation (Sieg %, Magier/Kämpfer/Schurke/Kleriker): Krogg St. 3 heute 44/80/80/51, Grak St. 4 35/61/46/50, St. 5 45/92/82/88. Ursache: Magierrüstung kostet im Kampf die erste Runde. Vorschlag **26.1**: Magierrüstung hält wie im SRD 8 Stunden, einmal gewirkt gilt sie ab Kampfbeginn (ohne Rüstung). Probe: Krogg St. 3 → 63 %, Grak St. 4 → 50 %, St. 5 → 69 %. Empfehlung: ja. **26a ja (Nutzer 12.10., 07:40): Jerry baut 26.1 in der nächsten Sitzung.**
 
 
-- **APK im Chat (Tom, 11.10.):** Artefakte von Zweig-Builds liegen auf `productionresultssa*.blob.core.windows.net`, die Netzregel sperrt sie (alle 12 Builds vom 11.10. geprüft); Release-APKs gehen. Vorschlag: `*.blob.core.windows.net` unter „Allowed domains“. **Zurückgestellt (11.10., vor 21:12):** Nutzer stellt es am Rechner ein. Bis dahin Link zum Artefakt.
-
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
