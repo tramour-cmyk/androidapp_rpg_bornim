@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -845,8 +846,10 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 val ox = k * (fx - fy); val oy = k / 2 * (fx + fy)
                 val px = k * (hx - hy); val py = k / 2 * (hx + hy)
                 if (!(px + 8 > ox - w / 2f && px - 8 < ox + w / 2f && py > oy - h + 6 && py - 38 < oy)) return false
-                // only when something drawn really lies over the hero's body (5.2: a well beside the hero stays solid)
-                for (dy in 0..38 step 4) for (dx in -6..6 step 6) {
+                // only when something drawn really lies over the hero's body (5.2: a well beside the hero stays solid), and
+                // over the upper body: what reaches no higher than the hips (a counter, a bench, a chest, a fence) covers
+                // only the legs and stays solid (test of 0.1.590: Thessa's counter faded away)
+                for (dy in 18..38 step 4) for (dx in -6..6 step 6) {
                     val ix = ((px + dx - (ox - w / 2f)) * o.density).toInt(); val iy = ((py - dy - (oy - h)) * o.density).toInt()
                     if (o.img.opaque(ix, iy)) return true
                 }
@@ -1515,13 +1518,19 @@ private fun DrawScope.drawTownSmoke(map: de.bornim.core.MapDef, clock: Long, cam
         val (gx, gy, z) = top
         val mx = ((gx - camX) * scale).toFloat(); val my = ((gy - camY) * scale).toFloat()
         val bx = cam.toScreenX(mx, my); val by = cam.toScreenY(mx, my) - (z * scale).toFloat()
-        for (k in 0 until 5) {
-            val period = 3200 + k * 370
-            val ph = ((clock + k * 700 + i * 1013) % period) / period.toFloat()
-            val x = bx + (kotlin.math.sin(ph * 5f + k + i) * 2f + ph * 9f) * scale
-            val y = by - ph * 30f * scale
-            val r = (2f + ph * 5f) * scale
-            drawCircle(Color(0xFF8E8A84).copy(alpha = 0.5f * (1f - ph) * kotlin.math.min(1f, ph * 8f)), r, Offset(x, y))
+        // a thin column of many soft wisps (test of 0.1.590: five hard grey discs looked like floating balls): each
+        // rises from the mouth, swells, is carried off with the wind as it climbs and thins to nothing; soft at its rim
+        val n = 14
+        for (k in 0 until n) {
+            val period = 5200L
+            val ph = (((clock + i * 1013) + k * period / n) % period) / period.toFloat()
+            val sway = kotlin.math.sin(ph * 4.2f + i * 1.7f + clock / 2300f) * (0.6f + ph * 2.2f)
+            val x = bx + (sway + ph * ph * 14f) * scale
+            val y = by - (ph * 34f + 1f) * scale
+            val r = (1.6f + ph * 6.5f) * scale
+            val a = 0.3f * (1f - ph) * (1f - ph) * kotlin.math.min(1f, ph * 10f)
+            val c = Offset(x, y)
+            drawCircle(Brush.radialGradient(listOf(Color(0xFF6E6A66).copy(alpha = a), Color(0xFF6E6A66).copy(alpha = a * 0.5f), Color(0x006E6A66)), c, r), r, c)
         }
     }
 }
