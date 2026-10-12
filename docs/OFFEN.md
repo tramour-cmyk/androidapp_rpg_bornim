@@ -36,7 +36,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry | – | Nutzer 12.10., 15:4x nach Test 0.1.587: Krogg fürs Erste so lassen, später alle Kampfanimationen gesamt überarbeiten. Nach Kapitel-1-Wichtigem |
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg | Jerry | – | Prüfthema, Nutzer 12.10., 15:4x (Test 0.1.587): wenn Zeit ist und nichts Wichtigeres ansteht; alle großen Gegner mitprüfen |
 | 54 | Nicht warten: Tom und Jerry arbeiten von selbst weiter, wenn nichts zu entscheiden ist | Tom und Jerry | `main` (Notizen, Werkzeug) | Nutzer 12.10., 15:4x: mehrfach auf beiden Accounts stand die Arbeit, obwohl genug zu tun war. **Jerry (15:5x):** Regel „Nicht warten“ in `CLAUDE.md` + Stop-Haken `tools/weiter-haken.py` (hält einen Zug einmal auf, wenn er Arbeit ankündigt). **Tom:** bitte lesen, bestätigen oder ergänzen (deine Übergabe nannte die Regel schon) |
-| 56 | Alte Objekte auf den neuen Karten (Nutzer 12.10., 18:3x) | Tom | `claude/tom-27-4-baeume` | **56a–56c ja (19:4x):** Kräuter, Truhe, Steine, Steinkreis, Büsche im Wald ins Spiel (fünf `…Draft`-Schalter in `MapWoodIso` entfernen, noch offen). **56d ja (20:1x):** Dorf (`YARDDRAFT`, `FERNDRAFT`) ins Spiel; Innenräume ohne Altes |
+| 56 | Alte Objekte auf den neuen Karten (Nutzer 12.10., 18:3x) | Tom | `claude/tom-27-4-baeume` | **56a–56c ja (19:4x):** Kräuter, Truhe, Steine, Steinkreis, Büsche im Wald ins Spiel (Schalter entfernt, c2b909f7). **56d ja (20:1x):** Dorf (`YARDDRAFT`, `FERNDRAFT`) ins Spiel; Innenräume ohne Altes |
 | 57 | Entscheidungsseite nur mit Offenem; Entschiedenes in ein gemeinsames Bildbuch (Tom und Jerry) | Tom | `main` (Notizen) | **57a/57b ja (19:4x):** Ablauf in `CLAUDE.md` („Entwürfe entscheiden“). Entscheidungsseite Tom: https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F. **Bildbuch angelegt (20:12):** https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (Einträge `e/<nr>.html`, Bilder `i/`, Inhaltsliste `index.html`); alte Bilder nachgetragen, soweit noch vorhanden. Nutzer gibt es für Jerry frei (Teilen) |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
@@ -47,6 +47,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - PR #48 `claude/tom-27-4-baeume`, **0.1.615** zu testen (s. u.); neue Pushes 20:4x/20:55 enthalten nur Entwürfe (im Spiel aus). Test passt → zusammenführen (Merge), CHANGELOG.
 - **27.6 fertig als Entwurf** (`PONDLIFE`, `PondLife.kt`, Kerntest `PondLifeTest`), auf der Entscheidungsseite, Rückfrage 27h.
+- **56/27g Entwurfsschalter entfernt** (c2b909f7, Verhalten gleich).
 - **17 Umhang als Entwurf fertig** (`SWINGDRAFT`, Bildbogen `SWINGBILD=1`, 103e59d): Saum hebt sich und weht nach dem Anhalten seitlich aus (`Rig.flare`, nur im Bildbogen; Kämpfe unverändert), auf der Entscheidungsseite, Rückfrage 17a. Offen: Haare/Köcher, Einbau in den Gang (nach 17a).
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
