@@ -43,13 +43,12 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 20:56, Selbstarbeit bis 22:00)
-- **Nutzer 21:1x:** 0.1.615 getestet, als PR #49 (Stand 957adde) zusammengeführt. **27h ja:** Testschalter „alles diagonal“ in den Testreiter. **27e.1 ja:** weniger Transparenz, und alle Transparenzen (Bäume, Häuser, Möbel, gerade und diagonal) halbwegs einheitlich. **57c:** Jerry ist zum Bildbuch eingeladen. PR #48 hat jetzt nur noch ungetestete Entwürfe (27.6, 17).
+### Tom (12.10., 21:30, Selbstarbeit bis 22:00)
 
-- PR #48 `claude/tom-27-4-baeume`, **0.1.615** zu testen (s. u.); neue Pushes 20:4x/20:55 enthalten nur Entwürfe (im Spiel aus). Test passt → zusammenführen (Merge), CHANGELOG.
-- **27.6 fertig als Entwurf** (`PONDLIFE`, `PondLife.kt`, Kerntest `PondLifeTest`), auf der Entscheidungsseite, Rückfrage 27i.
-- **56/27g Entwurfsschalter entfernt** (c2b909f7, Verhalten gleich).
-- **17 Umhang als Entwurf fertig** (`SWINGDRAFT`, Bildbogen `SWINGBILD=1`, 103e59d): Saum hebt sich und weht nach dem Anhalten seitlich aus (`Rig.flare`, nur im Bildbogen; Kämpfe unverändert), auf der Entscheidungsseite, Rückfrage 17a. Offen: Haare/Köcher, Einbau in den Gang (nach 17a).
+- Zweig `claude/tom-27-4-baeume` (PR #48), `main` (PR #49) hineingeholt. Neu seit 0.1.615: **27e.1** Deckung vor dem Helden zusammen 50 % statt 35 %, gerade Sicht nur bei Bildpunkten über dem Oberkörper (`WorldScreen.hides`, ein Pfad für Kronen, Häuser, Möbel); **27h** Testschalter „Alles diagonal“ (`MapSight.all`); 56/27g Entwurfsschalter entfernt (Verhalten gleich). Entwürfe im Spiel aus: 27.6 (`PONDLIFE`, Rückfrage 27i), 17 Umhang (`SWINGDRAFT`, `Rig.flare`, Rückfrage 17a), **42 Textkasten** (`DialogLook.draft`, Vorschau `TEXTKASTEN=1`).
+- **Weiter:** Build von a43ded5 auf PR #48 dem Nutzer mit Testliste nennen (27e.1, 27h); 42 Standbilder auf die Entscheidungsseite (Rückfrage 42d); dann 17 in den Gang einbauen (nach 17a), Haare auf Kartengröße unsichtbar.
+- Diese Sitzung kann keine Erinnerungen/Nachfolger mehr anlegen (Kettentiefe 8): die nächste Weck-Routine (21:24 war schon, also 00:24) übernimmt nur, wenn „Bis“ verlängert wird.
+
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.

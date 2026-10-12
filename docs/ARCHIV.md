@@ -1,5 +1,14 @@
 # Archiv
 
+### Tom (12.10., 20:56, Selbstarbeit bis 22:00)
+- **Nutzer 21:1x:** 0.1.615 getestet, als PR #49 (Stand 957adde) zusammengeführt. **27h ja:** Testschalter „alles diagonal“ in den Testreiter. **27e.1 ja:** weniger Transparenz, und alle Transparenzen (Bäume, Häuser, Möbel, gerade und diagonal) halbwegs einheitlich. **57c:** Jerry ist zum Bildbuch eingeladen. PR #48 hat jetzt nur noch ungetestete Entwürfe (27.6, 17).
+
+- PR #48 `claude/tom-27-4-baeume`, **0.1.615** zu testen (s. u.); neue Pushes 20:4x/20:55 enthalten nur Entwürfe (im Spiel aus). Test passt → zusammenführen (Merge), CHANGELOG.
+- **27.6 fertig als Entwurf** (`PONDLIFE`, `PondLife.kt`, Kerntest `PondLifeTest`), auf der Entscheidungsseite, Rückfrage 27i.
+- **56/27g Entwurfsschalter entfernt** (c2b909f7, Verhalten gleich).
+- **17 Umhang als Entwurf fertig** (`SWINGDRAFT`, Bildbogen `SWINGBILD=1`, 103e59d): Saum hebt sich und weht nach dem Anhalten seitlich aus (`Rig.flare`, nur im Bildbogen; Kämpfe unverändert), auf der Entscheidungsseite, Rückfrage 17a. Offen: Haare/Köcher, Einbau in den Gang (nach 17a).
+
+
 ### Tom (12.10., 20:29, Selbstarbeit bis 22:00)
 
 - PR #48 `claude/tom-27-4-baeume`, **0.1.615** zu testen (s. u.). Test passt → zusammenführen (Merge), CHANGELOG. Alle Entwurfs-Schalter 56a–56d, 27g, 55c stehen an (`MapWoodIso`, `MapGround.pondDraft` nur Wald, `MapFolk.sitDraft`); 27e: Kronen decken den Helden auch gerade zusammen nur zu 35 % (`WorldScreen`, Bild 20:24).
