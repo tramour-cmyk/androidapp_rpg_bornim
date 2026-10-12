@@ -53,3 +53,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
 | 50 | Weitere Klassen, ggf. zum Kauf | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
+| 51 | Sterbehaltung des Helden (Magier) sieht komisch aus | Jerry | Meldung 12.10., offen | `OFFEN.md` |
