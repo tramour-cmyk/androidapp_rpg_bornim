@@ -43,12 +43,12 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 19:29, Selbstarbeit bis 22:00)
+### Tom (12.10., 20:09, Selbstarbeit bis 22:00)
 
-- PR #48 `claude/tom-27-4-baeume`, **0.1.606** zu testen (s. u.; 0.1.607+ nur Vorschau-Entwürfe dazu). Test passt → zusammenführen (Merge), CHANGELOG.
-- **27.5 im Spiel** (ea7471d): Stamm, Felshang, Feuerstelle, Schilder diagonal (`MapWoodIso`, Schalter `draft` entfernt). Offen: Weiher mit Ufer.
-- **56 Wald fertig als Entwurf** (Vorschau-Schalter `HERBDRAFT`, `CHESTDRAFT`, `ROCKDRAFT`, `MENHIRDRAFT`, `BUSHDRAFT`; Bogen `ISODINGE=wald`), Bilder auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F), **56a–56c ja (Nutzer 19:4x):** die fünf `…Draft`-Schalter in `MapWoodIso` entfernen (wie 27.5).
-- **Als Nächstes:** (1) 56 Dorf und Innenräume nach alten Bildern durchsehen (Dorf: Truhen, Steine, Büsche über `MapFlora`; Liste auf die Seite). (2) 27.5 Weiher mit Ufer. (3) 55.2 Borin sitzend (Hammer am Tisch, Stehen ↔ Sitzen, Sprungtest). (4) 27e Tiefer Wald (`HELDORT=deep_forest:x:y`).
+- PR #48 `claude/tom-27-4-baeume`, **0.1.606** zu testen (s. u.); danach nur Vorschau-Entwürfe gepusht. Test passt → zusammenführen (Merge), CHANGELOG.
+- **Entwürfe seit 19:30** (alle auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F), Datei liegt nur in der alten Sitzung: vor dem Ändern mit `Artifact read` holen, ganz neu schreiben, mit `url` veröffentlichen): **56d** Dorf (Wäscheleine, Heu, Farn, Büsche am Dorfrand; `YARDDRAFT`, `FERNDRAFT`, `BUSHDRAFT`), Innenräume ohne Altes; **27g** Weiher mit Ufer und Schilf (`POND`); **55.2** Borin sitzt (`SITDRAFT2`: Zufallszeiten, weiche Übergänge, atmet, Hammer am Tischende; Sprungtest 0).
+- Bei „ja“ zu 56a–56d, 27g, 55c: die Schalter (`MapWoodIso` …Draft, `MapGround.pondDraft`, `MapFolk.sitDraft`) auf an bzw. entfernen, Kerntests, Build.
+- **Als Nächstes:** (1) 27e Tiefer Wald: Held unter Kronen weg (`HELDORT=deep_forest:x:y`), Morwen sichtbar (43). (2) 27.6 Leben am Weiher (Libellen, Frösche) als Entwurf. (3) 17 Nachschwingen (Vorrat).
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.

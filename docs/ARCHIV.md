@@ -1,5 +1,12 @@
 # Archiv
 
+### Übergabe Tom (12.10., 19:29, Selbstarbeit bis 22:00)
+
+- PR #48 `claude/tom-27-4-baeume`, **0.1.606** zu testen (s. u.; 0.1.607+ nur Vorschau-Entwürfe dazu). Test passt → zusammenführen (Merge), CHANGELOG.
+- **27.5 im Spiel** (ea7471d): Stamm, Felshang, Feuerstelle, Schilder diagonal (`MapWoodIso`, Schalter `draft` entfernt). Offen: Weiher mit Ufer.
+- **56 Wald fertig als Entwurf** (Vorschau-Schalter `HERBDRAFT`, `CHESTDRAFT`, `ROCKDRAFT`, `MENHIRDRAFT`, `BUSHDRAFT`; Bogen `ISODINGE=wald`), Bilder auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F), **56a–56c ja (Nutzer 19:4x):** die fünf `…Draft`-Schalter in `MapWoodIso` entfernen (wie 27.5).
+- **Als Nächstes:** (1) 56 Dorf und Innenräume nach alten Bildern durchsehen (Dorf: Truhen, Steine, Büsche über `MapFlora`; Liste auf die Seite). (2) 27.5 Weiher mit Ufer. (3) 55.2 Borin sitzend (Hammer am Tisch, Stehen ↔ Sitzen, Sprungtest). (4) 27e Tiefer Wald (`HELDORT=deep_forest:x:y`).
+
 ### Übergabe Tom (12.10., 18:45, Selbstarbeit bis 22:00)
 
 - PR #48 `claude/tom-27-4-baeume`, [0.1.603](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38276243431) grün (zu testen, s. u.); danach nur Vorschau-Entwürfe gepusht. Test passt → zusammenführen (Merge), CHANGELOG.
