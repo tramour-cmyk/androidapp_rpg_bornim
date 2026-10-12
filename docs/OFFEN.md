@@ -27,7 +27,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | 30.1, 30.2, 30b auf `main` (PR #40, 12.10., 09:29, getestet 0.1.559: kein Absturz, 512 MB). 30.8 Anzeige „App aktualisiert“ (Grund 16) auf `claude/tender-goodall-a8zuny`. Offen: Dorf-Absturz aus 0.1.555 (ohne Fänger) beobachten; 30.7 (Klang 22 kHz) mit Jerry. Verlauf im Archiv |
 | 34 | Kampf: Knopf „Zug beenden“ (nichts tun, Gegner ist dran; auch um Testkämpfe schnell zu verlieren) | Jerry | neu von `main` | ja (Nutzer 12.10., 09:19, über Berater). Abgesetzt anordnen oder kurz bestätigen (33). „Abwarten“ und „Helfen“ auf der Merkliste (Gruppenkämpfe) |
 | 35 | Weihwasser wirkt nur gegen Untote (SRD), 2W6 gleißend; gegen andere ausgegraut mit Hinweis „Wirkt nur gegen Untote“, Beschreibung anpassen | Jerry | neu von `main` | ja (Nutzer 12.10., 09:19, über Berater; heute 2W6 gegen alle, 4W6 gegen Untote, `Battle.kt` Z. 485, `Items.kt`) |
-| 36 | Krogg (Vorboss Höhle) wirkt verpixelt, vor allem groß im Emulator | Jerry | – | Meldung Nutzer 12.10., 09:17. Ursache (Berater): Gegner mit 0,66 px/cm, hart ganzzahlig vergrößert (Emulator bis ca. 11×), Krogg mit Fellkörnung 0,55 (Goblin 0,14). Vorschläge 36.1 aufräumen bei gleicher Auflösung, 36.2 weich vergrößern, 36.3 Bosse doppelt (Speicher). **36a ja (09:24):** 36.1, erst Standbilder vorher/nachher in Handy- und Emulatorgröße. Rückfrage 36b |
+| 36 | Krogg (Vorboss Höhle) wirkt verpixelt, vor allem groß im Emulator | Jerry | – | Meldung Nutzer 12.10., 09:17. Ursache (Berater): Gegner mit 0,66 px/cm, hart ganzzahlig vergrößert (Emulator bis ca. 11×), Krogg mit Fellkörnung 0,55 (Goblin 0,14). Vorschläge 36.1 aufräumen bei gleicher Auflösung, 36.2 weich vergrößern, 36.3 Bosse doppelt (Speicher). **36a ja (09:24):** 36.1, erst Standbilder vorher/nachher in Handy- und Emulatorgröße. **36b ja (09:33):** reicht 36.1 nicht, 36.3 als 1,5× mit zugeschnittenen Bildern, vorher mit `ARTMEM` messen |
 | 37 | Kampfmusik aussortieren | Jerry | neu von `main` | Nutzer 12.10., 09:33 (über Berater): raus `kampf_great_labyrinth`, `kampf_menace` (Techno), `kampf_epic_fight` (Lounge); `boss_ancient_legend` sehr schön, aber zu tragend für Kampf → aus `Music.boss`, anders verwenden (37a). Übrig: 3 Kampf-, 3 Bossstücke; Ersatz 37b |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
@@ -53,8 +53,6 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Rückfragen an den Nutzer
 
 - **37a (Berater, 12.10.):** `boss_ancient_legend` wofür? Vorschlag: Kapitelende nach Grak (heute `ende_new_sunrise`) oder Rückkehr des Sonnenamuletts in den Tempel. **37b:** nur 3 Kampfstücke wiederholen sich schnell: Jerry sucht 2–3 neue CC0-Stücke (düster, orchestral, treibend), erst Hörproben? Empfehlung: ja.
-
-- **36b (Berater, 12.10., 09:24):** Bosse in doppelter Auflösung? Schätzung: Krogg-Bild 290×305 px = 0,35 MB, ~130–160 Bilder = 46–57 MB; doppelt ×4 = 185–225 MB und 4× Zeichenzeit, zu viel trotz 512 MB (0.1.559). Empfehlung: erst 36.1, dann Standbilder; reicht es nicht, 36.3 als 1,5× mit zugeschnittenen Bildern, mit `ARTMEM` gemessen.
 
 - **26b (Jerry, 12.10.):** 8 h Spielzeit sind 8 min echte Zeit (1 s = 1 Spielminute); die Rüstung hält also meist 2–4 Kämpfe. Reicht das, oder länger (z. B. bis zur nächsten Rast)? Empfehlung: erst testen.
 
