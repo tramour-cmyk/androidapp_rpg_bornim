@@ -2,6 +2,7 @@ package de.bornim.core.art
 
 import de.bornim.core.GameState
 import de.bornim.core.HouseFeature
+import de.bornim.core.Jobs
 import de.bornim.core.HouseStyle
 import de.bornim.core.MapDef
 import de.bornim.core.MapKind
@@ -837,7 +838,7 @@ object WorldArt {
     /** All static objects of a map for the current game state, in no particular order. */
     fun objects(map: MapDef, state: GameState, frame: Int, flicker: Int = 0): List<Obj> {
         val opened = map.chests.filter { it.id in state.openedChests }.joinToString(",") { it.id }
-        val key = "${map.id}/$opened/${state.has(Story.GATE_OPEN)}/${state.has(Story.BARRIER_OPEN)}/$frame/${state.has(Story.CHAPTER1_DONE)}/${MapGround.townDraft}/${MapFigure.viewYaw != 0.0}/$flicker"
+        val key = "${map.id}/$opened/${state.has(Story.GATE_OPEN)}/${state.has(Story.BARRIER_OPEN)}/$frame/${state.has(Story.CHAPTER1_DONE)}/${MapGround.townDraft}/${MapFigure.viewYaw != 0.0}/$flicker/${map.kind == MapKind.TOWN && Jobs.freshNote(state)}"
         return objCache.getOrPut(key) { buildObjects(map, state, frame, flicker) }
     }
 
@@ -848,6 +849,7 @@ object WorldArt {
         val fine = MapGround.supports(map)
         val cave = map.kind == MapKind.CAVE
         if (fine && !cave && map.kind != MapKind.INTERIOR) out += MapFlora.undergrowth(map)
+        val freshNote = map.kind == MapKind.TOWN && Jobs.freshNote(state)
         for (ty in 0 until map.height) for (tx in 0 until map.width) {
             val open = map.chestAt(tx, ty)?.id in state.openedChests
             val flora = when {
@@ -856,7 +858,7 @@ object WorldArt {
                     ?: MapCave.objects(map, tx, ty, frame, open, state.has(Story.GATE_OPEN))
                 // the village in the new style (draft): houses and things, else the trees of the woods
                 // seen diagonally the houses stand in the slant too (5.1), cut into strips sorted along the diagonal
-                map.kind == MapKind.TOWN -> (if (MapFigure.viewYaw != 0.0) MapTownIso.objects(map, tx, ty) else null)
+                map.kind == MapKind.TOWN -> (if (MapFigure.viewYaw != 0.0) MapTownIso.objects(map, tx, ty, freshNote) else null)
                     ?: MapTown.objects(map, tx, ty) ?: MapFlora.objects(map, tx, ty, frame, open)
                 // seen diagonally (13), the rooms' walls and furniture stand upright, turned with the room
                 map.kind == MapKind.INTERIOR && MapFigure.viewYaw != 0.0 -> MapRoomIso.objects(map, tx, ty, flicker) ?: MapRoom.objects(map, tx, ty, frame)

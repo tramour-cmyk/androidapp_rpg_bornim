@@ -3,7 +3,10 @@ package de.bornim.core
 /**
  * Odd jobs from the notice board before the inn (29). Each is free to take or leave (33): the player takes one up at
  * the board, sees it in the menu with how far along it is, may give it up again, and hands it in by speaking to the
- * one who asked. All of it lives in flags, so saves need no new field: "job_<id>" taken, "job_<id>_done" finished.
+ * one who asked. All of it lives in flags, so saves need no new field: "job_<id>" taken, "job_<id>_done" finished,
+ * "job_<id>_seen" read on the board. New notes come in waves along the story (29g): a job with [Job.after] is nailed
+ * up once that flag is set; nothing runs out and nothing comes twice. A note not yet read shows on the board as a
+ * fresh, pale one ([freshNote]), the only hint (33: the player is never pushed).
  */
 object Jobs {
     data class Job(
@@ -19,14 +22,21 @@ object Jobs {
         val item: String,
         val count: Int,
         val gold: Int,
-        val gift: String? = null,
+        /** Things given besides the gold, and how many of each ("@gear:RARITY:SLOT" for a piece of gear). */
+        val gifts: List<Pair<String, Int>> = emptyList(),
         /** What the giver says on handing in. */
         val thanks: T,
+        /** The story flag after which the note is nailed up, or null for the first notes. */
+        val after: String? = null,
     )
 
     /** Gwenna's ring, lying in the cave's chest [RING_CHEST] once the job is taken (map data stays as it is). */
     const val RING = "gwenna_ring"
     const val RING_CHEST = "cave_3"
+
+    /** The grey rag Jorin wants (29.3), found among the standing stones of the Whisperwood once his job is taken. */
+    const val RAG = "grey_rag"
+    const val RAG_MAP = "forest"
 
     val all = listOf(
         Job(
@@ -45,7 +55,7 @@ object Jobs {
             T("Mein Mann trug meinen Ring, als die Goblins ihn in ihre Höhle schleppten. Er kam nicht zurück. Bringt mir wenigstens den Ring. – Gwenna, am Fluss",
                 "My husband wore my ring when the goblins dragged him into their cave. He did not come back. Bring me the ring at least. – Gwenna, by the river"),
             T("40 Gold, ein Heiltrank", "40 gold, a healing potion"),
-            RING, 1, gold = 40, gift = "potion",
+            RING, 1, gold = 40, gifts = listOf("potion" to 1),
             thanks = T("Das ist er. Er ist kalt … Danke. Mehr kann ich dir nicht geben.",
                 "That's it. It's cold … Thank you. It's all I can give you."),
         ),
@@ -59,18 +69,51 @@ object Jobs {
             thanks = T("Hm. Ordentlich gebrochen, nicht geschnitten. Damit lässt sich arbeiten. Nimm.",
                 "Hm. Broken clean, not sawn. I can work with these. Take this."),
         ),
+        // the second wave (29.3): once Krogg is dead the road to the woods is open and folk dare to ask for more
+        Job(
+            "glands", "morwen", T("Morwen", "Morwen"),
+            T("Gift gegen Gift", "Venom for venom"),
+            T("Drei Giftdrüsen von Riesenspinnen, ganz, nicht zerquetscht. Ich zahle in Gold und Tränken. Wer mich sucht, findet mich tief im Wald am Feuer. – Morwen",
+                "Three venom glands from giant spiders, whole, not crushed. I pay in gold and potions. Whoever looks for me finds me deep in the woods by the fire. – Morwen"),
+            T("50 Gold, zwei Kräutertränke", "50 gold, two herbal remedies"),
+            "spider_gland", 3, gold = 50, gifts = listOf("remedy" to 2),
+            thanks = T("Drei, und keine geplatzt. Du hast ruhige Hände. Hier – und trink nicht alles auf einmal.",
+                "Three, and none burst. You have steady hands. Here – and don't drink it all at once."),
+            after = Story.KROGG_DEFEATED,
+        ),
+        Job(
+            "stones", "jorin", T("Wache Jorin", "Guard Jorin"),
+            T("Feuer am Steinkreis", "Fire at the standing stones"),
+            T("Nachts brennt ein Feuer am Steinkreis im Süden des Flüsterwaldes. Goblins sind es nicht, die meiden die Steine. Sieh nach und bring mir, was du findest. Ich darf den Schlagbaum nicht verlassen. – Jorin, Wache",
+                "At night a fire burns at the standing stones in the south of the Whisperwood. Not goblins, they shun the stones. Go and look, and bring me what you find. I may not leave the barrier. – Jorin, guard"),
+            T("ein Kopfschutz aus der Wachstube", "headgear from the guardroom"),
+            RAG, 1, gold = 0, gifts = listOf("@gear:UNCOMMON:HEAD" to 1),
+            thanks = T("Ein offenes Auge … So ein Zeichen habe ich noch nie gesehen. Das geht an den Ältesten. Nimm das aus der Wachstube, auf deinem Kopf nützt es mehr als im Regal.",
+                "An open eye … I've never seen a sign like that. This goes to the Elder. Take this from the guardroom, it's more use on your head than on the shelf."),
+            after = Story.KROGG_DEFEATED,
+        ),
     )
 
     operator fun get(id: String) = all.first { it.id == id }
 
     private fun taken(id: String) = "job_$id"
     private fun done(id: String) = "job_${id}_done"
+    private fun seen(id: String) = "job_${id}_seen"
 
     fun isTaken(s: GameState, j: Job) = s.has(taken(j.id)) && !s.has(done(j.id))
     fun isDone(s: GameState, j: Job) = s.has(done(j.id))
 
-    /** The notes on the board: everything not yet finished, taken or not. */
-    fun onBoard(s: GameState): List<Job> = all.filter { !isDone(s, it) }
+    /** Whether the note is up yet: its wave has come. */
+    fun isUp(s: GameState, j: Job) = j.after == null || s.has(j.after)
+
+    /** The notes on the board: everything up and not yet finished, taken or not. */
+    fun onBoard(s: GameState): List<Job> = all.filter { isUp(s, it) && !isDone(s, it) }
+
+    /** Whether a note hangs on the board that the hero has not read yet: the board then shows a fresh one. */
+    fun freshNote(s: GameState): Boolean = onBoard(s).any { !s.has(seen(it.id)) }
+
+    /** The hero reads the board: every note up is now known. */
+    fun read(s: GameState) { for (j in onBoard(s)) s.flags += seen(j.id) }
 
     /** The jobs the hero carries, for the menu. */
     fun carried(s: GameState): List<Job> = all.filter { isTaken(s, it) }
@@ -90,11 +133,20 @@ object Jobs {
             Cmd.Say(j.giverName, j.thanks),
             Cmd.Take(j.item, j.count),
             Cmd.SetFlag(done(j.id)),
-            Cmd.GiveGold(j.gold),
-        ) + listOfNotNull(j.gift?.let { Cmd.Give(it) })
+        ) + listOfNotNull(if (j.gold > 0) Cmd.GiveGold(j.gold) else null) + j.gifts.map { (id, n) -> Cmd.Give(id, n) }
     }
 
     /** Whether opening [chest] turns up Gwenna's ring: the job taken, the ring neither in the bag nor handed in. */
     fun ringIn(s: GameState, chest: String): Boolean =
         chest == RING_CHEST && isTaken(s, this["ring"]) && s.count(RING) == 0
+
+    /** What the hero finds when looking at [tile] on [map] while Jorin's job is taken (29.3), or null for nothing. */
+    fun findAt(s: GameState, map: String, tile: Tile): List<Cmd>? {
+        if (map != RAG_MAP || tile != Tile.MENHIR || !isTaken(s, this["stones"]) || s.count(RAG) > 0) return null
+        return listOf(
+            Cmd.Say(null, T("Zwischen den Steinen: kalte Asche, Stiefelspuren, die nach Norden führen. Am Fuß eines Steins hängt ein Fetzen grauen Tuchs, ein offenes Auge ist hineingestickt.",
+                "Between the stones: cold ashes, boot prints leading north. At the foot of a stone hangs a scrap of grey cloth, an open eye stitched into it.")),
+            Cmd.Give(RAG),
+        )
+    }
 }

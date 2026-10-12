@@ -82,4 +82,54 @@ class JobsTest {
         }
         assertTrue(World["cave"].chests.any { it.id == Jobs.RING_CHEST })
     }
+
+    @Test
+    fun `the second wave comes after Krogg, with a fresh note until read`() {
+        val s = state()
+        assertTrue(Jobs.freshNote(s), "the first notes are new too")
+        Jobs.read(s)
+        assertFalse(Jobs.freshNote(s))
+        assertFalse(Jobs.onBoard(s).any { it.id == "glands" || it.id == "stones" })
+        s.flags += Story.KROGG_DEFEATED
+        assertEquals(listOf("pelts", "ring", "tusks", "glands", "stones"), Jobs.onBoard(s).map { it.id })
+        assertTrue(Jobs.freshNote(s))
+        Jobs.read(s)
+        assertFalse(Jobs.freshNote(s))
+    }
+
+    @Test
+    fun `Morwen pays gold and two remedies`() {
+        val s = state().apply { flags += Story.KROGG_DEFEATED }
+        Jobs.take(s, Jobs["glands"])
+        s.add("spider_gland", 3)
+        val cmds = Jobs.handIn(s, "morwen")!!
+        assertTrue(Cmd.GiveGold(50) in cmds && Cmd.Give("remedy", 2) in cmds && Cmd.Take("spider_gland", 3) in cmds)
+    }
+
+    @Test
+    fun `Jorin's rag lies at the standing stones while his job is taken, a helmet for it`() {
+        val s = state().apply { flags += Story.KROGG_DEFEATED }
+        val game = Game(s, Lang.DE)
+        assertNull(Jobs.findAt(s, "forest", Tile.MENHIR), "nothing before the job")
+        game.takeJob("stones")
+        assertNull(Jobs.findAt(s, "forest", Tile.ROCK))
+        assertNull(Jobs.findAt(s, "village", Tile.MENHIR))
+        game.enqueue(Jobs.findAt(s, "forest", Tile.MENHIR)!!)
+        while (game.mode != Mode.Explore) game.advance()
+        assertEquals(1, s.count(Jobs.RAG))
+        assertNull(Jobs.findAt(s, "forest", Tile.MENHIR), "only one rag")
+        val gear = s.bag.size
+        game.enqueue(Jobs.handIn(s, "jorin")!!)
+        while (game.mode != Mode.Explore) game.advance()
+        assertEquals(0, s.count(Jobs.RAG))
+        assertEquals(gear + 1, s.bag.size)
+        assertEquals(GearSlot.HEAD, GearBases[s.bag.last().base].slot)
+        assertTrue(Jobs.isDone(s, Jobs["stones"]))
+    }
+
+    @Test
+    fun `the forest has standing stones for the rag`() {
+        val f = World[Jobs.RAG_MAP]
+        assertTrue((0 until f.height).any { y -> (0 until f.width).any { x -> f.tile(x, y) == Tile.MENHIR } })
+    }
 }

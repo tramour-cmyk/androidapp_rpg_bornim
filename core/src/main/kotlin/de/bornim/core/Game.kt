@@ -644,8 +644,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             enqueue(listOf(Cmd.Say(null, it)))
             return
         }
+        Jobs.findAt(state, map.id, map.tile(tx, ty))?.let { return enqueue(it) }
         when (map.tile(tx, ty)) {
-            Tile.NOTICE -> { mode = Mode.Board; changed() }
+            Tile.NOTICE -> { Jobs.read(state); mode = Mode.Board; changed() }
             Tile.CHEST -> openChest(tx, ty)
             Tile.CAMPFIRE -> {
                 val meat = state.count("raw_meat")
@@ -761,9 +762,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                 is Cmd.Give -> {
                     val text = when {
                         c.item.startsWith("@gear:") -> {
-                            val min = Rarity.valueOf(c.item.removePrefix("@gear:"))
+                            // "@gear:RARITY" or "@gear:RARITY:SLOT"
+                            val parts = c.item.removePrefix("@gear:").split(":")
+                            val min = Rarity.valueOf(parts[0])
+                            val slot = parts.getOrNull(1)?.let { GearSlot.valueOf(it) }
                             val ilvl = maxOf(map.areaLevel, hero.level)
-                            val g = state.addGear(Loot.generate(state, dice, ilvl, Loot.rarityFor(state, dice, ilvl, special = true, floor = min), hero.cls))
+                            val g = state.addGear(Loot.generate(state, dice, ilvl, Loot.rarityFor(state, dice, ilvl, special = true, floor = min), hero.cls, slot))
                             "${g.name(lang)} (${g.rarity.title(lang)})"
                         }
                         Uniques.exists(c.item) -> {

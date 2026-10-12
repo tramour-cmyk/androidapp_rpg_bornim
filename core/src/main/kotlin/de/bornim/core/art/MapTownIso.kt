@@ -567,8 +567,9 @@ object MapTownIso {
      * The notice board before the inn (29): a broad board of planks on two posts under a little roof of shingles,
      * notes of pale parchment nailed to it, dark lines of writing on each. Three looks: a gabled roof and fresh notes,
      * a flat roof and a dark stain, no roof and notes half torn away by the wind. Faces the way along the map's y.
+     * [fresh] (29.3): a new note not yet read, pale and clean, nailed over the old ones, the only hint there is one.
      */
-    fun noticeBoard(v: Int, seed: Int): PixelImage {
+    fun noticeBoard(v: Int, seed: Int, fresh: Boolean = false): PixelImage {
         val c = Tile1(220)
         c.shadow(-0.5, -0.4, 0.45, 0.4)
         val j0 = -0.44; val j1 = -0.38
@@ -584,19 +585,22 @@ object MapTownIso {
             val w = if (k < 3) 0.52 else 0.1
             val wide = 0.17 + rnd(k, 2, seed) * 0.06; val tall = 0.3 + rnd(k, 3, seed) * 0.08
             Note(u, u + wide, w + (rnd(k, 4, seed) - 0.5) * 0.06, w + tall, v == 2 && hash(k, 5, seed) % 2 == 0, hash(k, 6, seed) % 3)
-        }.filter { v != 1 || it.u0 > 0.3 || it.w0 < 0.4 }
+        }.filter { v != 1 || it.u0 > 0.3 || it.w0 < 0.4 } +
+            // the fresh one last, so it lies on top: a little tilted out of line, in the middle of the board
+            (if (fresh) listOf(Note(0.34, 0.62, 0.26, 0.78, false, 3)) else emptyList())
         c.box(i0, j0, i1, j1, z0, z1) { f, u, w ->
-            if (f == 0) for (n in notes) {
+            if (f == 0) for (n in notes.asReversed()) {
                 if (u !in n.u0..n.u1 || w !in n.w0..n.w1) continue
                 val nu = (u - n.u0) / (n.u1 - n.u0); val nw = (w - n.w0) / (n.w1 - n.w0)
                 // torn: the lower part gone in a ragged edge
                 if (n.torn && nw < 0.45 + 0.25 * rnd(floor(nu * 14).toInt(), 7, seed)) continue
-                // the nail at the top
+                // the nail at the top; the fresh note sealed with a blob of dark red wax instead
+                if (n.tone == 3 && abs(nu - 0.5) < 0.14 && nw > 0.8) return@box shade(argb(0x7A1E16), 0.95)
                 if (abs(nu - 0.5) < 0.06 && nw > 0.86) return@box argb(0x1A1614)
                 // lines of writing, short dark strokes
                 if (nw in 0.12..0.78 && nu in 0.12..0.88 && frac(nw * 7) < 0.32 && hash(floor(nu * 16).toInt(), floor(nw * 7).toInt(), seed + 9) % 5 != 0)
                     return@box argb(0x2A2018)
-                val paper = when (n.tone) { 0 -> 0xA89C7E; 1 -> 0x988A6A; else -> 0x8A7E62 }
+                val paper = when (n.tone) { 0 -> 0xA89C7E; 1 -> 0x988A6A; 2 -> 0x8A7E62; else -> 0xE4DCC2 }
                 return@box shade(mix(argb(paper), argb(0x3A2E22), (1 - nw) * 0.25 + rnd(floor(nu * 30).toInt(), floor(nw * 30).toInt(), seed + 8) * 0.12), 0.9)
             }
             // a dark stain running down the planks on the second look
@@ -780,6 +784,7 @@ object MapTownIso {
         "Bank" to (0 until 3).map { bench(it, 531 + it) },
         "Wegweiser" to (0 until 3).map { signpost(it, 541 + it) },
         "Anschlagbrett" to (0 until 3).map { noticeBoard(it, 561 + it) },
+        "Anschlagbrett mit frischem Zettel" to (0 until 3).map { noticeBoard(it, 561 + it, fresh = true) },
     )
 
     // ------------------------------------------------------------------ the houses of a town map
@@ -876,13 +881,13 @@ object MapTownIso {
      * strips one tile of the diagonal wide, each sorted by the frontmost point of the house in it, so a figure stands
      * in front of a wall it is in front of and behind one it is behind.
      */
-    fun objects(map: MapDef, tx: Int, ty: Int): List<WorldArt.Obj>? {
+    fun objects(map: MapDef, tx: Int, ty: Int, freshNote: Boolean = false): List<WorldArt.Obj>? {
         val t = map.tile(tx, ty)
         // the things on the square (5.2): one picture on the tile, its front corner at the foot, sorted like a figure there
         val v = Math.floorMod(hash(tx, ty, 15), 3)
         val thing: Pair<String, () -> PixelImage>? = when (t) {
             Tile.SIGN -> "sign/$v" to { signpost(v, 71) }
-            Tile.NOTICE -> "notice/$v" to { noticeBoard(v, 561 + v) }
+            Tile.NOTICE -> "notice/$v/$freshNote" to { noticeBoard(v, 561 + v, freshNote) }
             Tile.STALL -> "stall/$v" to { stall(v, 501 + v) }
             Tile.WELL -> "well/$v" to { well(v, 511 + v) }
             Tile.LAMP -> "lamp/$v" to { lamp(v, 521 + v) }
