@@ -235,6 +235,7 @@ object MapFigure {
         val shelf = java.util.concurrent.atomic.AtomicBoolean(false)
         repeat(2) { w ->
             val t = Thread {
+              try { de.bornim.core.Guard.run("Held Karte") {
                 // 24.4: kept on the device? Then nothing to draw (the other worker waits for this)
                 if (w == 0) {
                     HeroShelf.load(l)?.takeIf { it.size == jobs.size }?.let { pics ->
@@ -257,7 +258,11 @@ object MapFigure {
                     left.decrementAndGet()
                     if (done.incrementAndGet() == jobs.size) complete(false)
                 }
+              } } finally {
+                // the other worker must not wait for a shelf that failed (30)
+                shelf.set(true)
                 synchronized(workers) { workers.remove(Thread.currentThread()) }
+              }
             }
             t.isDaemon = true
             t.priority = priority()
@@ -296,7 +301,7 @@ object MapFigure {
                 SdfRender.alone.set(true)
                 while (true) {
                     val h = synchronized(aheadQueue) { aheadQueue.removeLastOrNull() ?: run { aheadThread = null; null } } ?: break
-                    drawAhead(h)
+                    de.bornim.core.Guard.run("Beute vorab") { drawAhead(h) }
                 }
             }.also { it.isDaemon = true; it.priority = Thread.MIN_PRIORITY; it.start() }
         }

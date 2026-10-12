@@ -353,6 +353,8 @@ object SdfRender {
     @Volatile var PARALLEL = true
     /** Set on a thread that draws quietly in the background (24.15): its pictures are drawn on that thread alone. */
     val alone: ThreadLocal<Boolean> = ThreadLocal.withInitial { false }
+    /** Set on a thread that draws in the background on a few cores of its own (24.17): its pictures' rows are shared out there. */
+    val pool: ThreadLocal<java.util.concurrent.ForkJoinPool?> = ThreadLocal.withInitial { null }
     private val NEIGH = intArrayOf(1, 0, -1, 0, 0, 1, 0, -1)
 
     fun smin(a: Double, b: Double, k: Double): Double {
@@ -472,7 +474,9 @@ object SdfRender {
             }
         }
         val workers = ThreadLocal.withInitial { Row() }
-        if (PARALLEL && !alone.get()) java.util.stream.IntStream.range(0, h).parallel().forEach { workers.get().line(it) }
+        val own = pool.get()
+        if (PARALLEL && own != null) own.submit(Runnable { java.util.stream.IntStream.range(0, h).parallel().forEach { workers.get().line(it) } }).get()
+        else if (PARALLEL && !alone.get()) java.util.stream.IntStream.range(0, h).parallel().forEach { workers.get().line(it) }
         else { val r = Row(); for (y in 0 until h) r.line(y) }
         // a soft inner line where a nearer part overlaps a farther one
         for (y in 0 until h) for (x in 0 until w) {

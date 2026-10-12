@@ -123,7 +123,8 @@ object MapRest {
             if (!queued.add(key)) return null
         }
         worker.execute {
-            val img = runCatching(draw).getOrNull()
+            var img: PixelImage? = null
+            de.bornim.core.Guard.run("Atmen") { img = draw() }
             synchronized(cache) { queued.remove(key); if (img != null) cache[key] = img }
         }
         return null
