@@ -30,12 +30,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (11.10., 23:30, vor Neustart, Selbstarbeit bis 08:00)
+### Tom (12.10., 07:48, vor Neustart)
 
-- **30.1 + 30.2 + 24.5** auf Zweig `claude/sharp-davinci-s83a1t` (enthält `great-shannon`), Build 0.1.552 (Commit `950d762`) fertig, Link im Chat 23:30. Kein PR. `Guard` (core) fängt Fehler der Zeichenfäden, `CrashLog` (app) Absturzdatei + `ApplicationExitInfo`, Test-Reiter oben. 30.2: `MapFolk` 2 Fäden mit Phasen, `MapGround` 2 Karten, `ArtMemory.trim` bei `onTrimMemory`/OOM. Messung `ARTMEM=1 ./gradlew -p core test --tests '*ArtMemoryTest*' -i`.
-- **Tom 12.10., 06:35 (Weck-Sitzung):** 27 Wald: `KARTENZOOM=1 DIAG=1 ONLY=zoom_nah` liefert für Wald, Dorf usw. nur den Zwischenbildschirm (24, „Du betrittst …“) statt der Karte (Standbilder 06:5x, alle 7 gleich); Lauf endet erst nach Zeitgrenze. Vermutung: Vorschau wartet nicht auf das Ende der Blende. Nächster Schritt: Blende in der Vorschau überspringen (Schalter), dann Standbilder Wald/Dorf und Lückenliste. Nichts geändert am Code.
-- **Als Nächstes (Selbstarbeit):** Reserve aus `SELBST.md` (29 Nebenquests Entwurf, 27 Wald Standbilder). Keine weiteren Builds auf dem Zweig ohne Not, damit 0.1.552 der Testbuild bleibt. 30b ja: `largeHeap` einbauen.
-- Nach Test: Bericht des Test-Reiters auswerten; wenn gut, PR (30 + 24.5), nach Freigabe zusammenführen, CHANGELOG.
+- **Zweig `claude/sharp-davinci-s83a1t`:** 30.1 + 30.2 + 24.5 (enthält `great-shannon`), Build 0.1.552 zu testen (Nutzer testet später). Vorschau-Ersatz `CrashLogStub` (785e0c4) liegt auf dem Zweig.
+- **Als Nächstes (neue Sitzung):** 30b `largeHeap` im Manifest (ja 07:5x) einbauen, Kerntests, Vorschau bauen (32.5), Build, Link. Dann 29a (Anschlagbrett, Rückfrage offen), 27 Wald (braucht 32.7 aus Jerrys PR #38 zuerst auf `main`).
+- **32:** 32.1–32.8 in `SELBST.md`, Toms 8 Routinen auf neuen Text (07:47). Ungeprüft: ob Weck-Sitzungen `send_later`/`create_session` haben (beim nächsten Lauf im Bericht prüfen). Jerry stellt seine Routinen selbst um.
 ### Jerry (12.10., 07:43, vor Neustart)
 
 - **PR #38** (Zweig `ccr-8b450567-umf1s6`, Entwurf), Build 0.1.555 ([Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38178006618/artifacts/11716242658)): 24.8.5 Ortsklang klingt aus, 30.6 Klang-Laden abgesichert, 13e Entwurf 1 (im Spiel aus), Vorschau zeigt in `KARTENZOOM` die Karte statt der Blende (32.7, braucht Tom für 27). Wartet auf Test des Nutzers; dann zusammenführen, CHANGELOG. 13e Entwurf 2 (Fels heller) liegt auf `claude/quirky-goodall-fqncrd`, vor dem Weiterarbeiten in den eigenen Zweig holen.
