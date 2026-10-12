@@ -55,7 +55,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Rückfragen an den Nutzer
 
-- **37c (Jerry):** Welche der 5 Kampf-Hörproben (`hoerproben_37.zip`) kommen ins Spiel? Empfehlung: 2–3 nach Gehör; nur technisch geprüft (Moll, orchestral laut Beschreibung).
+- **37c beantwortet (12:0x):** 1, 3, 5 raus; 2 Eclipse Legion okay; 4 Battle Theme A halbwegs. **37d (Jerry):** 2 und 4 einbauen (dann 5 Kampfstücke) und eine zweite Runde Hörproben suchen? Empfehlung: 2 einbauen, 4 nur wenn Runde 2 nichts Besseres bringt.
 
 
 - **32 Nacht 11./12.10. fast ohne Arbeit (Tom und Jerry, je ~25 min):** Weck-Sitzungen beenden nach einem Schritt; Routine 00:27 durch 40-Minuten-Regel gesperrt. Vorschläge 32.1–32.7 (Stand `übergeben`, `send_later` an sich selbst bis „Bis“, Nachfolger sofort starten, blockiert → nächster Punkt, Vorschau vor Push bauen, Gradle 6 GB in `setup-session.sh`, Blende-Fix aus PR #38). **32a/32b: Tom macht es (Nutzer 12.10., 07:40).** 32.8 Vertretung bei Nutzungsgrenze; **32b, 32c ja (07:5x)**, 32.1–32.8 in `SELBST.md` übernommen, Toms Routinen umgestellt. Jerrys 8 Routinen auf den Text in `SELBST.md` umgestellt (12.10., 09:59). Befunde im Archiv.
