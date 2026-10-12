@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung: wie das Spiel gebaut ist, was warum entschiede
 
 Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grundsätzliches lernen (eine Zeile, mit Datum und Thema).
 
-**Zuletzt gelesen bis:** `42f954a` (12.10., 10:23)
+**Zuletzt gelesen bis:** `4523ba6` (12.10., 10:47)
 
 ## Ritual
 
@@ -39,6 +39,7 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 - **Krogg schärfen** (36, 12.10.): erst aufräumen bei gleicher Auflösung (Fellkörnung 0,55 war Hauptgrund), Standbilder Handy/Emulator; nur falls nötig 1,5× mit zugeschnittenen Bildern, vorher messen. Doppelte Auflösung abgelehnt: Krogg ~50 MB → ~200 MB, 4× Zeichenzeit.
 - **Kampfmusik** (37, 12.10.): raus `great_labyrinth`, `menace` (Techno), `epic_fight` (Lounge); `boss_ancient_legend` zu tragend für Kampf → Rückkehr des Sonnenamuletts in den Tempel (Jerry Musik, Tom Szene); Jerry sucht 2–3 neue CC0-Kampfstücke, erst Hörproben.
 - **Balance** (38, 12.10.): SRD als Fundament, Stufe 20 Obergrenze, mindestens 7 Kapitel, Stufen 5–14 als Kern, 15–20 erst am Ende; Hausregeln nur mit Begründung in `BALANCE.md`. Schwierigkeitsgrad (39) nach Messung von „Normal“, Lautstärke-Regler (40). AD&D nur im Geist (nicht frei lizenziert).
+- **Storyplan** (41, 12.10.): Dokument auf Toms Account ([Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)), Nutzer liest und kommentiert dort; je Kapitel Zusammenfassung, Quests, Dialoge wortgetreu, Anmerkungen gesammelt am Ende. Kapitel 1 = Ist-Stand aus `Story.kt` und `Jobs.kt` (Zweig `great-sagan`). Fertige Kapitel als `docs/STORY.md` ins Repo. **4 Augen:** Story-Änderungen gehen erst nach Abstimmung Nutzer und Berater an Tom/Jerry, Kapitel 1 erst nach dem Test der 12 Tester. Nächster Schritt: Plot Kapitel 2 gemeinsam, wenn Tom und Jerry in Selbstarbeit sind; Einstieg Frage „Wer ist der Graue Prophet?“ (Vorgabe Stufe 8 am Ende).
 - **Kampfkulisse der Höhle angleichen:** zurückgestellt (Merkliste). Höhle-Flammen und Lichtstrahl (10, 11) bis zur diagonalen Höhle zurückgestellt.
 
 ## Lehren
@@ -50,6 +51,7 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 - **Test-Builds von vor einer Korrektur haben sie nicht** (30, 12.10.): 0.1.561 (Jerry) entstand vor PR #40, stürzte ohne Bericht ab. Darum vor jedem Zweig-Build `main` holen (21.5) und beim Testangebot sagen, ob der Fänger drin ist.
 - **Gegner sind grobe Pixelkunst** (36): 0,66 px/cm, hart ganzzahlig vergrößert (`width/170`, im breiten Emulator bis ~11×). Starkes Rauschen (`grain`) wird bei wenigen Punkten zu Krisel.
 - **Wiederholte Rückfragen prüfen** (12.10.): Vor dem Wiederholen einer Rückfrage in `OFFEN.md` nachsehen, ob Tom/Jerry sie schon mit dem Nutzer geklärt haben (26b, 34.1, 35a waren es).
+- **Docs-Werkzeug** (41): Einfache Zeilenumbrüche in Markdown verschmelzen zu einem Absatz; Dialogzeilen mit Leerzeile trennen.
 - **Berater-Werkzeug:** Nach Push aus `../bornim-main` zeigt die Hauptkopie die eigenen Notizen als „geändert“ (gleicher Zweig, alter Index). Nicht committen, sondern `git reset --hard HEAD` in der Hauptkopie (Stand ist schon auf `origin/main`).
 
 ## Beobachtungen des Beraters (ungeprüft)
