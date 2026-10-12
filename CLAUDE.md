@@ -37,7 +37,7 @@ Alle Notizen und Absprachen gibt es nur einmal, auf `main`: `CLAUDE.md`, `CHANGE
 ## Vor jeder Arbeit lesen
 
 1. `docs/OFFEN.md` ganz (klein gehalten): „Wer macht was“, die eigene Übergabe, Rückfragen.
-2. `docs/STIL.md`: Stil (düster, erwachsen), Abwechslung, Karte und Räume, selbst prüfen.
+2. `docs/LEITBILD.md` (der rote Faden, eine Seite; bei Widerspruch gilt es), dann `docs/STIL.md` (Aussehen, Klang, Spielgefühl) und `docs/ENTWICKLUNG.md` (Ansicht, „Ort fertig“, selbst prüfen, Leistung).
 3. `CHANGELOG.md` nur bis zur zweiten Versionsüberschrift (`sed -n '1,/^## v/p'` und die erste Version).
 4. `tools/check-env.sh` laufen lassen; `docs/UMGEBUNG.md` nur lesen, wenn es etwas meldet oder ein Werkzeug gesucht wird (Tabelle der Vorschau-Schalter).
 
@@ -64,7 +64,7 @@ Nicht beim Start lesen: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md
 - Vor dem Commit das Testergebnis prüfen (`set -o pipefail` bzw. Exit-Code), nicht nur die gefilterte Ausgabe.
 - Vor einer längeren Pause schreibt die Sitzung eine kurze Übergabe in ihren Abschnitt von `docs/OFFEN.md`: Stand, Offenes, offene Rückfragen.
 - **`OFFEN.md` klein halten** (Regel 11.10., Thema 15): höchstens etwa 15 KB; je Eintrag höchstens 3 Zeilen, Einzelheiten in Commit-Nachrichten oder `docs/ARCHIV.md`. Je Person genau eine Übergabe: die neue ersetzt die alte, die alte kommt oben ins Archiv. Getesteter Build: Zeile löschen, Ergebnis in `CHANGELOG.md`. Erledigtes Thema: aus „Wer macht was“ streichen. Neues, abgeschlossenes oder abgegebenes Thema: die Zeile in `docs/THEMEN.md` anpassen. Bei jedem Release `wc -c docs/OFFEN.md` prüfen, über 20 KB aufräumen.
-- **Neustart nur bei großer Sitzung** (Regel 10.10., 13:32; geändert 11.10., 14:54): Weiterarbeiten ist der Normalfall, denn jede neue Sitzung kostet die Startlektüre (etwa 12.000 Token). Einen Neustart nur vorschlagen, wenn die Sitzung groß ist: viele Bilder oder Filme, lange Testausgaben, mehrere Stunden am Stück, oder wenn der Haken (Thema 14) es meldet; dann an der nächsten Bruchstelle (Thema fertig, Build ausgeliefert). Vorher die Übergabe in `docs/OFFEN.md` schreiben und pushen.
+- **Neustart nur bei großer Sitzung** (Regel 10.10., 13:32; geändert 11.10., 14:54): Weiterarbeiten ist der Normalfall, denn jede neue Sitzung kostet die Startlektüre (etwa 12.000 Token). Einen Neustart nur vorschlagen, wenn die Sitzung groß ist: viele Bilder oder Filme, lange Testausgaben, mehrere Stunden am Stück, oder wenn der Haken (Thema 14) es meldet; dann an der nächsten Bruchstelle (Thema fertig, Build ausgeliefert). Vorher die Übergabe in `docs/OFFEN.md` schreiben und pushen. **Nachfolgerin selbst starten** (Nutzer 12.10., 13:15, Thema 46): Sagt der Nutzer „ja“ zum Neustart, schreibt die Sitzung die Übergabe, pusht, startet selbst eine neue Sitzung in derselben Umgebung (`create_session`, erste Nachricht „Start“, wie in `SELBST.md` 32.2) und nennt dem Nutzer nur noch deren Namen; er wechselt bloß hinüber. Klappt das Starten nicht, das melden und den Nutzer die Sitzung anlegen lassen.
 
 - **Selbstarbeit und gemeinsame Zeit** (Regel 10.10., 21:05; seit 11.10. auch tagsüber, Thema 22): Vergibt der Nutzer Selbstarbeit („arbeite bis 17 Uhr selbstständig“, auch nachts) oder startet eine Weck-Routine, gilt `docs/SELBST.md` (Paket aus dem Vorrat, Reserve, Herzschlag, Nutzungsgrenze, Bericht). Sagt er „ich habe Zeit, lass uns gemeinsam arbeiten“, die Liste „Für gemeinsame Zeit“ aus `docs/SELBST.md` vorlegen. Jede Sitzung hält dort ihren Vorrat und ihre Liste für gemeinsame Zeit aktuell.
 

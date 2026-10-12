@@ -1,8 +1,8 @@
 # Chroniken von Bornim / Chronicles of Bornim
 
-Ein Fantasy-Rollenspiel für Android: Erkunde das Dorf Bornim und seine Umgebung aus der Vogelperspektive, stelle dich in rundenbasierten Kämpfen 17 Monsterarten, sammle Beute in sechs Seltenheitsstufen und entwickle deinen Helden bis Stufe 20. Mit Touch-Steuerung, animierter Pixel-Grafik, eigener Musik und einem vereinfachten Regelsystem auf Basis des SRD 5.1. Auf Deutsch und Englisch.
+Ein düsteres Fantasy-Rollenspiel für Android. Erkunde das Dorf Bornim, den Wald und die Höhlen darunter in schräger Sicht, sprich mit seinen Bewohnern und stell dich gefährlichen Monstern in rundenbasierten Kämpfen. Erzählt in Kapiteln, mit einer lebendigen Welt, echten Klängen und orchestraler Musik. Die Regeln bauen auf dem SRD 5.1 auf. Auf Deutsch und Englisch.
 
-**Download:** [bornim.apk (neueste Version)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/latest/download/bornim.apk) · [Änderungshistorie](CHANGELOG.md) · [Merkliste](docs/MERKLISTE.md) · [Offen](docs/OFFEN.md) · [Stil](docs/STIL.md)
+**Download:** [bornim.apk (neueste Version)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/latest/download/bornim.apk) · [Leitbild](docs/LEITBILD.md) · [Änderungshistorie](CHANGELOG.md) · [Offen](docs/OFFEN.md) · [Merkliste](docs/MERKLISTE.md) · [Stil](docs/STIL.md) · [Entwicklung](docs/ENTWICKLUNG.md) · [Balance](docs/BALANCE.md) · [Kapitel 1](docs/KAPITEL1.md)
 
 ## Features
 
@@ -23,16 +23,6 @@ Ein Fantasy-Rollenspiel für Android: Erkunde das Dorf Bornim und seine Umgebung
 - **Schimmernde Varianten**: sehr selten (1 : 150), funkeln in fremden Farben und lassen garantiert seltene Beute fallen
 - **Moderne Touch-Steuerung**: Ziehen auf der Karte lenkt den Helden (weit ziehen = rennen), Tippen läuft automatisch zum Ziel, Tippen auf Personen, Truhen oder Schilder läuft hin und interagiert. Eine Aktionstaste zeigt per Symbol, was vor dem Helden möglich ist (Sprechen, Öffnen, Lesen, Rasten, Aufschließen, Ansehen). Wahlweise klassisches Steuerkreuz, Aktionstaste links für Linkshänder, Vibration abschaltbar
 - Speichern/Laden, Sprachwechsel jederzeit im Spiel
-
-## Testmodus
-
-Für Tests gibt es ein verstecktes Cheat-Menü: Im Titelbild **7-mal auf die Copyright-Zeile tippen** (erneut 7-mal schaltet es wieder aus). Danach hat das Spielmenü einen Reiter **Test** mit:
-
-- Stufe ändern (−5, −1, +1, +5), +1000 Gold, vollständig heilen
-- Bosse zurücksetzen (Krogg und Grak erscheinen wieder in der Höhle)
-- Teleport ins Dorf, in den Wald oder in die Höhle
-- Kampf gegen ein beliebiges Monster auslösen, wahlweise normal, als Elite mit bestimmter Eigenschaft oder schimmernd
-- Beute einer gewählten Seltenheit erzeugen
 
 ## Aufbau
 

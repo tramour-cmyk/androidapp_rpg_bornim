@@ -7,7 +7,7 @@ Ziel: herausfordernd, aber nicht zu leicht, über **mindestens 7 Kapitel**, Stuf
 - **SRD 5.1 ist das Fundament**, Stufe 20 die Obergrenze; nichts darüber hinaus.
 - **Eigenes Tempo:** Die meisten Kapitel spielen in den Stufen 5–14, wo das SRD am rundesten ist; 15–20 erst in den letzten beiden Kapiteln.
 - **Hausregeln nur mit Begründung**, hier unter „Hausregeln“ festgehalten (Einzelspiel, kein Spielleiter, der nachsteuert).
-- AD&D nur als Anregung im Geist; keine Texte, Namen, Monster oder Zauber von dort (nicht frei lizenziert). Das SRD steht unter CC-BY 4.0, Hinweis im README.
+- Das SRD steht unter CC-BY 4.0, Hinweis im README.
 - Wachstum neben den Stufen (Talente, Ausrüstung, Ruf, Begleiter) ist erlaubt.
 
 ## Heute (Stand 12.10.)
