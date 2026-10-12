@@ -10,8 +10,8 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | fertig | 12.10., 08:00 | 11.10., 23:08 | 12.10., 07:48 | Nacht beendet; 32.1–32.8 eingebaut, Routinen umgestellt | – |
-| Jerry | fertig | 12.10., 08:00 | 11.10., 23:17 | 12.10., 07:43 | Bericht im Chat (Thema 32) | – |
+| Tom | läuft | 12.10., 19:00 (vorläufig, 22c) | 12.10., 16:40 | 12.10., 16:36 | Paket 1 (27.4 Fichtenreihe Süd) | claude/tom-27-4-baeume |
+| Jerry | läuft | 13.10., 08:00 (vorläufig, Rückfrage 54a) | 12.10., 16:33 | 12.10., 16:33 | 13e.3 Lichtstrahl Schacht | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
 
@@ -45,7 +45,7 @@ Alle drei Stunden rund um die Uhr je Account eine Routine, die eine frische Sitz
 - **App-Code:** vor dem Push auch die Vorschau bauen (`tools/t`), damit kein Werkzeug still bricht (32.5). Vorschau bricht wegen Speicher ab: `tools/setup-session.sh` (Gradle 6 GB, 32.6).
 - **Kleine, sichere Schritte.** Nach jedem fertigen Schritt: Kerntests (`./gradlew -p core test`, Exit-Code prüfen), Commit und Push auf den eigenen Zweig, Herzschlag. So geht beim Abbruch höchstens ein Schritt verloren.
 - **Nichts auf `main` außer Notizen.** Kein PR zusammenführen, keine Freigaben vorwegnehmen; Optisches nur als Entwurf (Standbilder mit Uhrzeit, Schalter im Testreiter).
-- **Sparsam:** Filme nur, wo sich eine Bewegung sichtbar ändert; große Ausgaben gefiltert lesen; nach jeder Aufgabe prüfen, ob das Gespräch groß ist. Wenn ja (oder der Neustart-Haken meldet es): Übergabe schreiben, Zeile auf `übergeben`, pushen, **sofort selbst eine Nachfolgerin starten** (`create_session`, gleiche Umgebung, Auftrag: Text der Weck-Routine) und erst dann die Antwort beenden; nicht auf die Routine warten (32.2).
+- **Sparsam:** Filme nur, wo sich eine Bewegung sichtbar ändert; große Ausgaben gefiltert lesen; nach jeder Aufgabe prüfen, ob das Gespräch groß ist. Wenn ja (oder der Neustart-Haken meldet es): Übergabe schreiben, Zeile auf `übergeben`, pushen, **sofort selbst einen Nachfolger starten** (`create_session`, gleiche Umgebung, Auftrag: Text der Weck-Routine) und erst dann die Antwort beenden; nicht auf die Routine warten (32.2).
 - **Zweig-Build:** höchstens einen pro Aufgabe; Build-Meldung wie in `CLAUDE.md`.
 - **Paket fertig:** Reserve, dann weiter aus dem Vorrat. Ist nichts mehr da oder „Bis“ erreicht: Zeile auf `fertig`, Bericht, Antwort beenden.
 
@@ -70,7 +70,7 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 
 ## Text der Weck-Routine
 
-> Weck-Sitzung Selbstarbeit für Chroniken von Bornim (Repo tramour-cmyk/androidapp_rpg_bornim), du bist **Tom** (bei Jerry: **Jerry**, „der andere“ = Tom). (1) Repo nicht da: nach /home/user/androidapp_rpg_bornim klonen; lehnt der erste Push ab („not in this session's authorized repository set“), mit add_repo anhängen (access push) und noch einmal; geht Schreiben dann nicht: kurze Nachricht mit dem Fehler, beenden. (2) `docs/SELBST.md` auf `main` lesen. Eigene Zeile `läuft`, `übergeben` oder `wartet auf Grenze`, „Bis“ nicht vorbei, Paket eingetragen: nach Abschnitt „Weck-Sitzung“ weiterarbeiten. Sonst prüfen, ob die Zeile des anderen eine Vertretung verlangt (Abschnitt „Nutzungsgrenze“, 32.8); wenn nicht: sofort beenden, nichts ändern. (3) Arbeiten nach `CLAUDE.md` und `docs/SELBST.md`. **Dauerlauf:** Bis „Bis“ erreicht ist, vor jedem Antwortende `send_later` (2 Minuten, an diese Sitzung: „Selbstarbeit weiter, nächster Schritt laut SELBST.md“) stellen; blockiert → nächster Punkt; wird die Sitzung groß: Übergabe, Stand `übergeben`, Nachfolgerin mit `create_session` und diesem Text starten. Der Nutzer ist nicht da: nichts fragen, nichts auf `main` außer Notizen, Rückfragen in den Bericht.
+> Weck-Sitzung Selbstarbeit für Chroniken von Bornim (Repo tramour-cmyk/androidapp_rpg_bornim), du bist **Tom** (bei Jerry: **Jerry**, „der andere“ = Tom). (1) Repo nicht da: nach /home/user/androidapp_rpg_bornim klonen; lehnt der erste Push ab („not in this session's authorized repository set“), mit add_repo anhängen (access push) und noch einmal; geht Schreiben dann nicht: kurze Nachricht mit dem Fehler, beenden. (2) `docs/SELBST.md` auf `main` lesen. Eigene Zeile `läuft`, `übergeben` oder `wartet auf Grenze`, „Bis“ nicht vorbei, Paket eingetragen: nach Abschnitt „Weck-Sitzung“ weiterarbeiten. Sonst prüfen, ob die Zeile des anderen eine Vertretung verlangt (Abschnitt „Nutzungsgrenze“, 32.8); wenn nicht: sofort beenden, nichts ändern. (3) Arbeiten nach `CLAUDE.md` und `docs/SELBST.md`. **Dauerlauf:** Bis „Bis“ erreicht ist, vor jedem Antwortende `send_later` (2 Minuten, an diese Sitzung: „Selbstarbeit weiter, nächster Schritt laut SELBST.md“) stellen; blockiert → nächster Punkt; wird die Sitzung groß: Übergabe, Stand `übergeben`, Nachfolger mit `create_session` und diesem Text starten. Der Nutzer ist nicht da: nichts fragen, nichts auf `main` außer Notizen, Rückfragen in den Bericht.
 
 ## Tom
 
@@ -89,11 +89,14 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 **Für gemeinsame Zeit:**
 - 5.1: Standbilder ansehen, dann Zweig-Build auf dem Gerät testen.
 
-**Paket** (Nacht 11./12.10., vergeben 23:08, bis 08:00):
-1. **30.1 Absturz-Fänger** + Fehler in Hintergrund-Fäden (`BattleAhead`, Vorzeichnen) abfangen statt App beenden. Zweig `claude/sharp-davinci-s83a1t` von `main`. Fertig, wenn: Kerntest (Bericht wird geschrieben und gelesen), Build mit Link, auch in `claude/great-shannon-qnf51n` gemischt (Build).
-2. **30 Ursache eingrenzen:** Speicherbedarf aller Bildspeicher messen (Kerntest/Vorschau), Vorschläge (Obergrenze, Lint, Zufallsspieler mit Speicher) nur zur Freigabe. Fertig, wenn: Zahlen und Vorschläge in `OFFEN.md`.
-~~1, 2 fertig 23:30 (Build 0.1.552)~~
-3. Reserve: Vorrat 9 (29 Nebenquests Entwurf), 4 (27 Wald Standbilder, Lückenliste), 10, 5–8.
+**Paket** (Selbstarbeit ab 12.10., 16:40, vom Nutzer 16:1x; Zweig `claude/tom-27-4-baeume`; Meldungen aus Test 0.1.590, alle freigegeben):
+1. **27.4 Fichtenreihe Süd (b)** gemischt und versetzt, Sichtregel 43 bleibt. Fertig, wenn: Standbild Dorfrand Süd.
+2. **Gemüsebeet (c)** ohne Kastenwirkung (`MapTown.vegBed`). Fertig, wenn: Standbild.
+3. **Kornfeld (d)** ohne Regenstriche. Fertig, wenn: Standbild.
+4. **5.3 Liska, Gwenna, Bram** als Puppen. Fertig, wenn: Sprungtest 0, Standbilder.
+5. **5n** Haus östlich des Schlagbaums 2 Felder nach Osten. Fertig, wenn: Standbild `d10`, Kollision 0.
+6. Kerntests, Build mit Link und Testliste (Bericht).
+7. Reserve: (a) Held unter Kronen weiter eingrenzen (Vorschau `HELDORT=`, bisher nicht nachstellbar), 55.2 Borin sitzt (nur Entwurf, Standbilder), 5.4.
 
 ## Jerry
 
@@ -112,8 +115,8 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 - 9i: Entwürfe ansehen und freigeben.
 - 19e: ein konkretes Beispiel für „Bewegungen unrund“, falls dir eines auffällt.
 
-**Paket** (Nacht 11./12.10., vergeben 23:15 „Nachtmodus“, bis 08:00):
-1. **30 Klang-Speicher:** Speicher von `SfxPlayer` (SoundPool, ~22 MB dekodiert) und `MusicPlayer` messen bzw. berechnen, Absturzwege in den Klang-Fäden prüfen; Vorschläge (z. B. seltene Klänge erst bei Bedarf laden, Mono/geringere Rate) nur zur Freigabe. Fertig, wenn: Zahlen und Vorschläge in `OFFEN.md` (30).
-2. **24.8.5 Ortsklang weich überblenden** (24aa nach Empfehlung): alter Ortsklang 0,6 s aus, neuer weich ein. Eigener Zweig von `main`. Fertig, wenn: Kerntest, Build mit Link und Testliste; kein PR ohne Test.
-3. **13e Höhle diagonal, Entwürfe:** `MapCaveIso.kt` hinter Schalter, Standbilder mit Uhrzeit (Tag/Fackel), nicht ins Spiel. Fertig, wenn: Standbilder und Lückenliste nach „Ort fertig“.
-4. Reserve: Vorrat 8 (Ausgleich Magier), 4 (Schritte, Hörproben), 6 (Rudelwölfe), 2.
+**Paket** (Selbstarbeit ab 12.10., 16:40, vergeben vom Nutzer 16:2x; Zweig `claude/jerry-13e-hoehle-diagonal`, alles nur Vorschau hinter `MapCaveIso.draft`, nicht ins Spiel):
+1. ~~**13e.2 Kisten, Truhen, Bettrolle diagonal**~~ (fertig 16:26, f0dd6f2) in `MapCaveIso` (Truhe offen/zu, je drei Varianten, Höhlenstil: grob, Goblinbeute). Fertig, wenn: Standbilder (`CAVESHEET=1`, dann `KARTENZOOM=1 DIAG=1 CAVEDRAFT=1 ONLY=zoom_nah_c`) mit Uhrzeit.
+2. **13e.3 Lichtstrahl am Schacht (11)** als schräge Lichtsäule mit Staub statt hellem Rechteck; **Fackelflammen feiner (10)**. Fertig, wenn: Standbilder.
+3. **13e.4 Stalagmiten, Felsen, Geröll** über das Höhenfeld (wie die Wände), **Weiher mit Ufer**. Fertig, wenn: Standbilder, Lückenliste nach „Ort fertig“.
+4. Reserve: 38 Messung Kapitel 1 (Gold/Einkauf in `ChapterSimTest`), 53 Zustände auf Krogg (Befund), 51 Sterbehaltung Magier (Befund, Entwurf).

@@ -48,8 +48,13 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 43 | Sichtbarkeit in der diagonalen Sicht (Wichtiges frei, Durchsicht um den Helden, Verstecktes erwünscht) | Berater (Grundsatz); Tom, Jerry | festgelegt 12.10., 12:09 | `STIL.md`, `ENTWICKLUNG.md` |
 | 44 | Leitbild als roter Faden; `STIL.md` aufgeteilt in Stil und Entwicklung | Berater | erledigt 12.10., 13:08 | `LEITBILD.md` |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | Berater mit Nutzer | gesondert besprechen | `OFFEN.md` |
-| 46 | Neustart: Nachfolgerin startet die Sitzung selbst | Tom und Jerry | ja 12.10., 13:15 | `CLAUDE.md` |
+| 46 | Neustart: Nachfolger startet die Sitzung selbst | Tom und Jerry | ja 12.10., 13:15 | `CLAUDE.md` |
 | 47 | README-Einleitung nach Leitbild | Berater | ja 12.10., 13:15 | `OFFEN.md` |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
 | 50 | Weitere Klassen, ggf. zum Kauf | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
+| 51 | Sterbehaltung des Helden (Magier) sieht komisch aus | Jerry | Meldung 12.10., offen | `OFFEN.md` |
+| 52 | Feinarbeit an den Kampfanimationen | Jerry | Nutzer 12.10., später | `OFFEN.md` |
+| 53 | Zustände (Brennend) auf Krogg prüfen | Jerry | Nutzer 12.10., wenn Zeit | `OFFEN.md` |
+| 54 | Nicht warten, von selbst weiterarbeiten | Tom und Jerry | Nutzer 12.10., offen | `OFFEN.md` |
+| 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | neu 12.10. | `OFFEN.md` |
