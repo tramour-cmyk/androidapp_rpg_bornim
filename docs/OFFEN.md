@@ -41,12 +41,12 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 15:57)
+### Tom (12.10., 17:31, Selbstarbeit ab 16:40)
 
-- Zweig `claude/tom-27-4-baeume`: 27.4, 5.6, 5.3, dazu (nach Test 0.1.590) Durchsicht nur bei Oberkörper (Tresen fest, geprüft `ONLY=zoom_nah_l9`) und Kaminrauch weich (ungeprüft im Bild: kein Kamin im Schuss `d2`). Push 15:56, Build läuft; kein PR.
-- **Test 0.1.590 (Nutzer 15:4x):** Dorf gut, Leute gut, **kein Absturz** bei vielen Wechseln Dorf ↔ Wald. Zaun gut. **Offen:** (a) Held im dichten Wald unter mehreren Kronen ganz weg (Bild; Ebenen-Formel/Schwelle prüfen), (b) Fichtenreihe am Dorfrand Süd gleichförmig (alles junge Fichten wegen Sichtregel, im Raster): mischen, versetzen, (c) Gemüsebeet sieht nach Kästen aus (`MapTown.vegBed`), (d) Kornfeld wirkt wie Regenstriche, (e) Rauch war harte Scheiben (behoben, prüfen). Ein Mädchen im Dorf noch alte Figur.
-- **Nutzer 16:0x:** 55a ja, **5n ja** (Haus östlich des Schlagbaums 2 Felder nach Osten), **Liska, Gwenna, Bram noch alte Figuren** (im Dorf unterwegs, als Puppen umstellen). Regel „nicht warten“ in `CLAUDE.md`: Antwort unklar („3 ja“ = 5n), nachfragen.
-- **Als Nächstes:** Build 15:56 melden, (a)–(e), Liska/Gwenna/Bram, 5n, Build, Test, PR, zusammenführen, CHANGELOG; dann 55 (55.2 zuerst), 5l/5.5, 5.4, 27.5/27.6.
+- PR #48 `claude/tom-27-4-baeume`, Build [0.1.600](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38269109227): 27.4, 5.6, 5.3 (alle zwölf als Puppen), 5n (Kaels Hütte 2 nach Osten, 2 breit statt 3, sonst klebt sie am Nachbarhaus), Beet/Kornfeld/Fichtenreihe neu (Test 0.1.590 b–d), Tresen fest, Rauch weich. Test passt → zusammenführen, CHANGELOG.
+- **Entwürfe (nur Vorschau, Standbilder 17:04–17:27 im Chat):** 27.5 Stamm und Feuer diagonal je 3 Varianten (`WOODDRAFT=1`, `ISODINGE=wald`), Felshang mit Höhleneingang; 55.2 Sitzhaltung (`Rig.sit`), Borin auf Hocker am Tisch (`SITDRAFT2=1`). Freigabe offen (27f, 55b).
+- (a) Held unter Kronen: nicht nachstellbar, wartet auf 27e. Vorschau `HELDORT=karte:x:y[:richtung]`.
+- **Als Nächstes:** 5.4 Dorf lebendig (Entwurf), nach Freigabe 27.5/55.2 ins Spiel.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
@@ -62,4 +62,6 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **22c** (Tom): Bis wann Selbstarbeit (ab 16:40)? Empfehlung und vorläufig: 19:00.
 - **27e** (Tom): Held unter Kronen ganz weg (a): in der Vorschau an 12 Stellen nicht nachstellbar. Wo war es (Ort, ungefähr), Tag/Nacht? Bild reicht.
+- **27f** (Tom): 27.5-Entwürfe (Stamm, Feuer, Felshang) so ins Spiel? Empfehlung: ja.
+- **55b** (Tom): Borin sitzend so weiterbauen (Hammer am Tisch, Übergänge Stehen ↔ Sitzen, Sprungtest)? Empfehlung: ja.
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
