@@ -1068,6 +1068,23 @@ object MapRoomIso {
         return c.img
     }
 
+    /**
+     * Borin's hammer put by at his table (55.2): the iron head on the floor beside the table's end, the handle leaning
+     * up against the table top towards −i; the canvas is the tile Borin sits on.
+     */
+    private fun maulLeaning(seed: Int): PixelImage {
+        val c = Canvas((42 * ZS + TH + 30).toInt().let { it + it % 2 }, seed)
+        val hi = -0.8; val hj = -0.1
+        c.floorShadow(hi - 0.06, hj - 0.09, hi + 0.06, hj + 0.09, 0.4)
+        c.box(hi - 0.045, hj - 0.09, hi + 0.045, hj + 0.09, 0.0, 9.0, iron, iron, iron)
+        // the handle from the head's middle up to the table's edge
+        val ax = c.x(hi, hj); val ay = c.y(hi, hj, 6.0)
+        val bx = c.x(-1.02, hj - 0.12); val by = c.y(-1.02, hj - 0.12, 41.0)
+        c.s.limb(ax, ay, bx, by, 1.5, 1.3, oak)
+        c.s.outline(outlineColor)
+        return c.img
+    }
+
     /** A wooden bucket with iron hoops and a rope handle, three looks: water and a ladle, empty and tipped a little, a brush in it. */
     private fun bucket(v: Int, seed: Int): PixelImage {
         val hcm = 32.0
@@ -2025,6 +2042,10 @@ object MapRoomIso {
         val shop = map.id.substringBefore('_') == "shop"
         val temple = map.id.substringBefore('_') == "temple"
         fun one(k: String, low: Boolean = true, make: () -> PixelImage) = listOf(obj(cached("$key/$k", make), fx, fy, d, low))
+        // draft (55.2): a stool under Borin where he sits at his table in the inn
+        // and his hammer put by, its head on the floor, the handle leaning on the table's end
+        if (MapFolk.sitDraft && map.id == "inn" && tx == 8 && ty == 4) return listOf(obj(cached("$key/stool") { stool(0, seed) }, fx, fy, d - T, true),
+            obj(cached("$key/maul") { maulLeaning(seed) }, fx, fy, d - T, true))
         return when (map.tile(tx, ty)) {
             Tile.WALL, Tile.WINDOW, Tile.HEARTH -> {
                 val out = mutableListOf<WorldArt.Obj>()

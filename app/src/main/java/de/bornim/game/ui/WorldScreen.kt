@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -736,6 +737,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             return IntOffset((cam.toScreenX(fx, fy) - dw / 2f).roundToInt(), (cam.toScreenY(fx, fy) - dh).roundToInt())
         }
 
+        // while true, [put] cuts the picture out of what is drawn below it (the lit windows behind something in front)
+        var cutting = false
         fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f, corner: Boolean = false) {
             val dw = img.width * scale / density; val dh = img.height * scale / density
             val (sx, sy) = placeOf(img, x, y, density, corner)
@@ -748,7 +751,14 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 dstSize = IntSize(dw, dh),
                 alpha = alpha,
                 filterQuality = if (density > 1 && scale % density != 0) FilterQuality.Low else FilterQuality.None,
+                blendMode = if (cutting) androidx.compose.ui.graphics.BlendMode.DstOut else DrawScope.DefaultBlendMode,
             )
+        }
+        /** Whether the picture of [o] on the screen meets the screen rectangle [box]. */
+        fun overlaps(o: WorldArt.Obj, box: androidx.compose.ui.geometry.Rect): Boolean {
+            val (sx, sy) = placeOf(o.img, o.x, o.y, o.density, o.corner)
+            val dw = o.img.width * scale / o.density; val dh = o.img.height * scale / o.density
+            return sx < box.right && sx + dw > box.left && sy < box.bottom && sy + dh > box.top
         }
 
         ground {
@@ -826,7 +836,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 
         // 3) objects and characters, sorted by their foot line
         val sprites = mutableListOf<Sprite>()
-        val glowing = mutableListOf<Pair<WorldArt.Obj, Float>>()
+        val glowing = mutableListOf<Triple<WorldArt.Obj, Float, Sprite>>()
         // a tree crown standing in front of the hero turns half see-through, so the hero is not lost behind it
         fun hides(o: WorldArt.Obj): Boolean {
             val w = o.img.width / o.density; val h = o.img.height / o.density
@@ -845,8 +855,10 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 val ox = k * (fx - fy); val oy = k / 2 * (fx + fy)
                 val px = k * (hx - hy); val py = k / 2 * (hx + hy)
                 if (!(px + 8 > ox - w / 2f && px - 8 < ox + w / 2f && py > oy - h + 6 && py - 38 < oy)) return false
-                // only when something drawn really lies over the hero's body (5.2: a well beside the hero stays solid)
-                for (dy in 0..38 step 4) for (dx in -6..6 step 6) {
+                // only when something drawn really lies over the hero's body (5.2: a well beside the hero stays solid), and
+                // over the upper body: what reaches no higher than the hips (a counter, a bench, a chest, a fence) covers
+                // only the legs and stays solid (test of 0.1.590: Thessa's counter faded away)
+                for (dy in 18..38 step 4) for (dx in -6..6 step 6) {
                     val ix = ((px + dx - (ox - w / 2f)) * o.density).toInt(); val iy = ((py - dy - (oy - h)) * o.density).toInt()
                     if (o.img.opaque(ix, iy)) return true
                 }
@@ -862,19 +874,27 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // a house cut into strips (5.1) turns see-through as a whole when any strip of it stands in front of the hero
         val hidingGroups = objs.filter { it.group != 0 && hides(it) }.mapTo(HashSet()) { it.group }
         val hiding = objs.mapTo(ArrayList()) { if (it.group != 0) it.group in hidingGroups else hides(it) }
-        // seen diagonally (43; test of 0.1.576: 0.2 too strong): together the things in front of the hero cover him
-        // to 35 %, however many stand one behind the other, and they fade softly in and out
+        // (43; test of 0.1.576: 0.2 too strong): together the things in front of the hero cover him to 35 %, however
+        // many stand one behind the other, and they fade softly in and out; seen straight too (27e: in the deep forest
+        // three crowns one behind the other hid him wholly)
         val layers = objs.indices.filter { hiding[it] }.map { objs[it].let { o -> if (o.group != 0) -o.group.toLong() else o.x.toLong() * 100_003 + o.y } }.distinct().size
-        val clear = if (!diag) 0.45f else 1f - Math.pow(0.65, 1.0 / maxOf(1, layers)).toFloat()
+        val clear = 1f - Math.pow(0.65, 1.0 / maxOf(1, layers)).toFloat()
         SeeThrough.frame(map.id, clock)
         for ((i, o) in objs.withIndex()) {
             val a = SeeThrough.alpha(if (o.group != 0) -o.group.toLong() else o.x.toLong() * 100_003 + o.y, if (hiding[i]) clear else 1f)
-            sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f) { put(o.img, o.x, o.y, o.density, a, o.corner) }
-            if (o.glow != null) glowing += o to a
+            val sp = Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f, o) { put(o.img, o.x, o.y, o.density, a, o.corner) }
+            sprites += sp
+            if (o.glow != null) glowing += Triple(o, a, sp)
         }
         // Healing herbs on the flower meadows, swaying gently so they catch the eye.
         if (map.kind == MapKind.FOREST) for (ty in 0 until map.height) for (tx in 0 until map.width) {
             if (map.tile(tx, ty) != Tile.FLOWERS || !game.herbAt(tx, ty)) continue
+            // seen diagonally (56, draft): a herb drawn in the slant like the other things of the woods
+            if (diag && de.bornim.core.art.MapWoodIso.herbDraft) {
+                val o = de.bornim.core.art.MapWoodIso.herbObj(tx, ty, clock)
+                sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f, o) { put(o.img, o.x, o.y, o.density, 1f, o.corner) }
+                continue
+            }
             val img = WorldArt.herb()
             val sway = if ((clock / 600 + tx + ty) % 2 == 0L) 0 else 1
             val bottom = ty * T + T - 4
@@ -972,6 +992,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     val doing = if (near || w != null || warding != null || squat != null) null else MapFolk.doing(f, clock)
                     val homeSlot = MapFigure.slot(home)
                     val target = when {
+                        // seated at his table (55.2) he stays turned to it
+                        MapFolk.sits(f) -> home
                         warding != null && wo != null -> if (warding.faceBeast)
                             Math.toDegrees(kotlin.math.atan2((wo.beastX - npc.x).toDouble(), (wo.beastY - npc.y).toDouble())) else home
                         near -> Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))
@@ -987,7 +1009,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     // otherwise, standing, the small movements everyone has: breathing, shifting weight, a glance, hands to the belt
                     val squatImg = squat?.let { if (slotNow == homeSlot) MapFolk.squatFrame(f, slotNow, it) else null }
                     val restImg = if (idleImg == null && doing == null && squat == null && !walkingNow && slotNow == MapFigure.slot(target)) {
-                        val ps = MapRest.pose(f.id.hashCode(), clock, handsFree = true, mayLook = !near)
+                        // a spear or staff on the shoulder stays there: no hands to the belt (5.3)
+                        val ps = MapRest.pose(f.id.hashCode(), clock, handsFree = f.carry == MapFigure.Carry.FREE, mayLook = !near)
                         MapFolk.restFrame(f, slotNow, ps.rest, ps.breath, ps.level)
                     } else null
                     val wardImg = warding?.let { wd ->
@@ -995,7 +1018,9 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                         torches += (nx + T / 2.0) to (ny - 12.0)
                         MapFolk.wardFrame(f, slotNow, wd.ward, wd.flicker)
                     }
-                    wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 80).toInt(), MapFigure.STEPS) else 0)
+                    // draft (55.2): Borin sits at his table, now and then drinking, eating, looking round, at chance moments
+                    val sitImg = if (MapFolk.sits(f)) MapFolk.seatFrame(f, homeSlot, MapFolk.seatPoseAt(f, clock)) else null
+                    sitImg ?: wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 80).toInt(), MapFigure.STEPS) else 0)
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
                 val dollLit = doll?.let { warmEdge(it, nx, ny) }
@@ -1065,7 +1090,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 sprites += Sprite((my + T - 1).toFloat(), mx + T / 2f) { put(mate, mx + T / 2 - mate.width / 2, my + T - mate.height) }
             }
             val picLit = pic?.let { warmEdge(it.img, rx, ry) }
-            sprites += Sprite(foot.toFloat(), rx + T / 2f) {
+            sprites += Sprite(foot.toFloat(), rx + T / 2f, cuts = false) {
                 val sx = if (pic != null) rx + T / 2 - pic.ax / MapFigure.DENSITY else rx + T / 2 - img.width / 2
                 val sy = if (pic != null) ry + T - 3 - pic.ay / MapFigure.DENSITY else foot + 1 - img.height
                 put(WorldArt.shadow(), rx + 4, ry + 26)
@@ -1140,7 +1165,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // spot around it, waking with the dusk like the light it throws; a small warm halo around it
         val night = MapLight.strength(map, MapLight.When.NIGHT, game.daylight).toFloat()
         if (night > 0.02f) for ((i, entry) in glowing.withIndex()) {
-            val (o, a) = entry
+            val (o, a, own) = entry
             val g = o.glow ?: continue
             val seen = when (game.fog(g.tx, g.ty)) {
                 de.bornim.core.Fog.HIDDEN -> 0f
@@ -1149,8 +1174,22 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             }
             val on = night * seen * a * (0.93f + 0.07f * kotlin.math.sin(clock / 140f + i))
             if (on <= 0.02f) continue
-            put(g.img, o.x, o.y, o.density, on, o.corner)
             val at = placeOf(o.img, o.x, o.y, o.density, o.corner)
+            // test of 5.4 (temple at night): what stands in front of the shining thing (a tree, a house, a person) hides
+            // its light, so the light is drawn in a layer of its own and what is in front cut out of it
+            val gw = o.img.width * scale / o.density; val gh = o.img.height * scale / o.density
+            val box = androidx.compose.ui.geometry.Rect(at.x.toFloat(), at.y.toFloat(), (at.x + gw).toFloat(), (at.y + gh).toFloat())
+            if (box.right < 0 || box.bottom < 0 || box.left > size.width || box.top > size.height) continue
+            val front = sprites.filter { it.cuts && it.depth > own.depth && (it.obj?.let { f -> (f.group == 0 || f.group != o.group) && overlaps(f, box) } ?: true) }
+            if (front.isEmpty()) put(g.img, o.x, o.y, o.density, on, o.corner)
+            else {
+                drawContext.canvas.saveLayer(box, androidx.compose.ui.graphics.Paint())
+                put(g.img, o.x, o.y, o.density, on, o.corner)
+                cutting = true
+                front.forEach { it.draw() }
+                cutting = false
+                drawContext.canvas.restore()
+            }
             val c = Offset(at.x + g.cx * scale / o.density.toFloat(), at.y + g.cy * scale / o.density.toFloat())
             val r = T * 0.55f * scale * (0.5f + 0.5f * g.halo)
             if (g.halo > 0f) drawCircle(
@@ -1194,7 +1233,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 }
 
 /** Something standing on the map, drawn in order of its feet: the row ([y]) seen straight, the diagonal (x + y) seen diagonally. */
-private class Sprite(val y: Float, val x: Float, val draw: () -> Unit) {
+private class Sprite(val y: Float, val x: Float, val obj: WorldArt.Obj? = null, val cuts: Boolean = true, val draw: () -> Unit) {
     val depth: Float get() = if (MapSight.diagonal) x + y else y
 }
 
@@ -1514,13 +1553,19 @@ private fun DrawScope.drawTownSmoke(map: de.bornim.core.MapDef, clock: Long, cam
         val (gx, gy, z) = top
         val mx = ((gx - camX) * scale).toFloat(); val my = ((gy - camY) * scale).toFloat()
         val bx = cam.toScreenX(mx, my); val by = cam.toScreenY(mx, my) - (z * scale).toFloat()
-        for (k in 0 until 5) {
-            val period = 3200 + k * 370
-            val ph = ((clock + k * 700 + i * 1013) % period) / period.toFloat()
-            val x = bx + (kotlin.math.sin(ph * 5f + k + i) * 2f + ph * 9f) * scale
-            val y = by - ph * 30f * scale
-            val r = (2f + ph * 5f) * scale
-            drawCircle(Color(0xFF8E8A84).copy(alpha = 0.5f * (1f - ph) * kotlin.math.min(1f, ph * 8f)), r, Offset(x, y))
+        // a thin column of many soft wisps (test of 0.1.590: five hard grey discs looked like floating balls): each
+        // rises from the mouth, swells, is carried off with the wind as it climbs and thins to nothing; soft at its rim
+        val n = 14
+        for (k in 0 until n) {
+            val period = 5200L
+            val ph = (((clock + i * 1013) + k * period / n) % period) / period.toFloat()
+            val sway = kotlin.math.sin(ph * 4.2f + i * 1.7f + clock / 2300f) * (0.6f + ph * 2.2f)
+            val x = bx + (sway + ph * ph * 14f) * scale
+            val y = by - (ph * 34f + 1f) * scale
+            val r = (1.6f + ph * 6.5f) * scale
+            val a = 0.3f * (1f - ph) * (1f - ph) * kotlin.math.min(1f, ph * 10f)
+            val c = Offset(x, y)
+            drawCircle(Brush.radialGradient(listOf(Color(0xFF6E6A66).copy(alpha = a), Color(0xFF6E6A66).copy(alpha = a * 0.5f), Color(0x006E6A66)), c, r), r, c)
         }
     }
 }

@@ -128,8 +128,12 @@ object MapFlora {
 
     private fun cached(key: String, make: () -> Sprite): Sprite = synchronized(cache) { cache[key] } ?: make().also { synchronized(cache) { cache[key] = it } }
 
+    /** The trees with volume (27.4); false draws the flat ones before (preview TREESHEET=1 compares). */
+    @Volatile var treeDraft = true
+
     /** An oak-like tree; [size] 0..2 small to large, [deep] the darker, older wood. */
-    fun oak(variant: Int, size: Int, deep: Boolean): Sprite = cached("oak/$variant/$size/$deep") {
+    fun oak(variant: Int, size: Int, deep: Boolean): Sprite = cached("oak/$variant/$size/$deep/$treeDraft") {
+        if (treeDraft) return@cached MapTree.oak(variant, size, deep)
         // tall enough beside the hero: an old oak stands about two and a half times as tall as a man
         val r = S * (0.95 + size * 0.17) + variant % 3 * 3
         val w = (r * 2.6).toInt(); val h = (r * 3.4).toInt()
@@ -142,7 +146,8 @@ object MapFlora {
     }
 
     /** A spruce in drooping tiers. */
-    fun spruce(variant: Int, size: Int, young: Boolean = false): Sprite = cached("spruce/$variant/$size/$young") {
+    fun spruce(variant: Int, size: Int, young: Boolean = false): Sprite = cached("spruce/$variant/$size/$young/$treeDraft") {
+        if (treeDraft) return@cached MapTree.spruce(variant, size, young)
         // a young spruce stays small (beside chests); grown ones tower over the hero
         val r = if (young) S * 0.44 + variant % 2 * 2 else S * (0.78 + size * 0.14) + variant % 2 * 3
         val w = (r * 2.1).toInt(); val h = (r * 3.9).toInt()
@@ -171,7 +176,8 @@ object MapFlora {
     }
 
     /** A dead tree, grey and bare, its branches reaching up. */
-    fun deadTree(variant: Int): Sprite = cached("dead/$variant") {
+    fun deadTree(variant: Int): Sprite = cached("dead/$variant/$treeDraft") {
+        if (treeDraft) return@cached MapTree.deadTree(variant)
         val r = S * 1.0
         val w = (r * 2.6).toInt(); val h = (r * 3.4).toInt()
         val img = PixelImage(w, h)
@@ -524,7 +530,21 @@ object MapFlora {
                 fun seen(x: Int, y: Int) = map.tile(x, y) == Tile.MENHIR || (important(x, y) && map.tile(x, y) != Tile.CHEST)
                 val shades = if (diag) (0..8).any { bx -> (0..8).any { by -> bx + by in 1..8 && kotlin.math.abs(bx - by) <= 2 && seen(tx - bx, ty - by) } }
                     else (1..3).any { dy -> (-1..1).any { dx -> important(tx + dx, ty - dy) } }
-                if (shades) return listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
+                if (shades) {
+                    // a row of them at the edge of the village is no hedge (test of 0.1.590): set off a little each, some
+                    // a bush instead, some two small ones side by side
+                    val pick = hash(tx, ty, 17) % 10
+                    fun young(k: Int) = obj(spruce(hash(tx, ty, 6 + k) % 6, 0, young = true),
+                        cx + (rnd(tx, ty, 18 + k) - 0.5) * S * 0.6, cy + S * (0.45 + rnd(tx, ty, 20 + k) * 0.3))
+                    return when {
+                        map.kind != de.bornim.core.MapKind.TOWN -> listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
+                        // seen diagonally (56, draft): the bush in the slant like those of the undergrowth
+                        pick < 3 && MapWoodIso.bushDraft && diag -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
+                        pick < 3 -> listOf(obj(bush(hash(tx, ty, 19) % 6), cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5, cy + S * 0.5))
+                        pick < 5 -> listOf(young(0), young(1))
+                        else -> listOf(young(0))
+                    }
+                }
                 val count = if (hash(tx, ty, 1) % 3 == 0) 2 else 1
                 for (k in 0 until count) {
                     val kind = hash(tx, ty, k * 7 + 2) % 10
@@ -572,7 +592,11 @@ object MapFlora {
             for (k in 0 until 2) {
                 if (rnd(tx, ty, k * 3 + 41) > 0.05 + near * 0.07) continue
                 val px = (tx + 0.15 + rnd(tx, ty, k * 3 + 42) * 0.7) * S; val py = (ty + 0.2 + rnd(tx, ty, k * 3 + 43) * 0.7) * S
-                val s = if (rnd(tx, ty, k + 44) < 0.55) bush(hash(tx, ty, k + 45) % 6) else fern(hash(tx, ty, k + 46) % 5)
+                val isBush = rnd(tx, ty, k + 44) < 0.55
+                // seen diagonally (56, draft): the bushes in the slant like the other things of the woods
+                if (isBush && MapWoodIso.bushDraft && MapFigure.viewYaw != 0.0) { out += MapWoodIso.bushObj((px / D).toInt(), (py / D).toInt(), hash(tx, ty, k + 45) % 6); continue }
+                if (!isBush && MapWoodIso.fernDraft && MapFigure.viewYaw != 0.0) { out += MapWoodIso.fernObj((px / D).toInt(), (py / D).toInt(), hash(tx, ty, k + 46) % 5); continue }
+                val s = if (isBush) bush(hash(tx, ty, k + 45) % 6) else fern(hash(tx, ty, k + 46) % 5)
                 out += obj(s, px, py)
             }
         }
@@ -615,7 +639,11 @@ object MapFlora {
                     val (rx, ry, ox) = when (map.tile(tx, ty)) {
                         Tile.TREE -> Triple(w * 0.42, w * 0.22, w * 0.3)
                         Tile.CAMPFIRE -> continue
-                        Tile.MENHIR -> Triple(22.0, 9.0, 18.0)
+                        // seen diagonally (27.5) the trunk, the rock and the signpost bring their own shadows
+                        Tile.LOG, Tile.CAVE_WALL, Tile.CAVE_ENTRANCE, Tile.SIGN -> if (MapFigure.viewYaw != 0.0) continue else Triple(w * 0.45, 12.0, 8.0)
+                        Tile.CHEST -> if (MapWoodIso.chestDraft && MapFigure.viewYaw != 0.0) continue else Triple(w * 0.45, 12.0, 8.0)
+                        Tile.ROCK -> if (MapWoodIso.rockDraft && MapFigure.viewYaw != 0.0) continue else Triple(w * 0.45, 12.0, 8.0)
+                        Tile.MENHIR -> if (MapWoodIso.menhirDraft && MapFigure.viewYaw != 0.0) continue else Triple(22.0, 9.0, 18.0)
                         else -> Triple(w * 0.45, 12.0, 8.0)
                     }
                     val img = shadowImage(rx.toInt(), ry.toInt(), if (map.tile(tx, ty) == Tile.TREE) 0.42 else 0.36)
