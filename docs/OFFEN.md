@@ -65,4 +65,5 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **27e** (Tom): Held unter Kronen ganz weg (a): in der Vorschau an 12 Stellen nicht nachstellbar. Wo war es (Ort, ungefähr), Tag/Nacht? Bild reicht.
 - **27f** (Tom): 27.5-Entwürfe (Stamm, Feuer, Felshang) so ins Spiel? Empfehlung: ja.
 - **55b** (Tom): Borin sitzend so weiterbauen (Hammer am Tisch, Übergänge Stehen ↔ Sitzen, Sprungtest)? Empfehlung: ja.
+- **49s** (Berater): Fertigkeiten gegen Attribute abgrenzen (`Perks.kt`): Attribut = stufenlose Zahl, Fertigkeit = neue Möglichkeit (Vorschlag 49.19 im Chat 18:2x). Empfehlung: ja.
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
