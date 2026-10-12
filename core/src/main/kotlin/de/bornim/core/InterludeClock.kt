@@ -12,7 +12,7 @@ class InterludeClock(val kind: Kind, val startMs: Long) {
     enum class Kind(val wordsInMs: Long, val leastMs: Long, val wordsOutMs: Long, val veilOutMs: Long) {
         FULL(400, 1_900, 300, 600),
         NAME(200, 800, 250, 500),
-        BLINK(0, 0, 0, 300),
+        BLINK(0, 0, 0, 500),
     }
 
     /** The veil over the map and the words on it, both 0..1, and whether it is over. */

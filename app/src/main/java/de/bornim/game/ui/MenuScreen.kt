@@ -376,6 +376,7 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
     vm.tick // redraw after every change
     Txt(Ui.quest(lang), size = 18.sp, bold = true)
     Txt(Story.objective(game.state)(lang), size = 16.sp)
+    JobList(vm, game, lang)
     Spacer(Modifier.height(6.dp))
     // The exact installed version, e.g. for bug reports.
     Txt(

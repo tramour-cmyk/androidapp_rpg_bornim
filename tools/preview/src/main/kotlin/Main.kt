@@ -206,6 +206,9 @@ fun main() {
                 // 25b: the houses' windows lit at night, and in the dusk as they wake
                 shot("zoom_${z}_d7_haeuser_nacht") { place(it, "village", 8, 7, 23 * 60, Facing.UP) }
                 shot("zoom_${z}_d8_haeuser_daemmerung") { place(it, "village", 8, 7, 20 * 60 + 15, Facing.UP) }
+                // 29: the notice board before the inn, by day and at night
+                shot("zoom_${z}_d9_brett_tag") { place(it, "village", 6, 8, 12 * 60, Facing.LEFT) }
+                shot("zoom_${z}_d9b_brett_nacht") { place(it, "village", 6, 8, 23 * 60, Facing.LEFT) }
                 shot("zoom_${z}_i1_schaenke_tag") { place(it, "inn", 4, 5, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_i2_schaenke_abend") { place(it, "inn", 6, 3, 21 * 60, Facing.LEFT) }
                 shot("zoom_${z}_i3_aeltester") { place(it, "elder", 4, 4, 12 * 60, Facing.UP) }
@@ -339,6 +342,17 @@ fun main() {
     if (System.getenv("ABOUT") != null) {
         shot("31_about") { it.screen = Screen.ABOUT }
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }
+        System.exit(0)
+    }
+    // BRETT=1: the notice board's window and the odd jobs in the menu (29)
+    if (System.getenv("BRETT") != null) {
+        fun jobs(vm: GameViewModel) {
+            vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
+            g.takeJob("ring"); g.takeJob("pelts"); g.state.add("wolf_pelt", 3)
+        }
+        shot("40_brett") { vm -> jobs(vm); val g = vm.game!!
+            g.state.place = Place("village", 5, 7, Facing.LEFT); g.interact(); vm.refresh() }
+        shot("41_brett_menue", taps = listOf(Offset(950f, 95f))) { vm -> jobs(vm); vm.menuOpen = true; vm.refresh() }
         System.exit(0)
     }
     if (System.getenv("GEARSHOTS") != null) {
