@@ -57,3 +57,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 52 | Feinarbeit an den Kampfanimationen | Jerry | Nutzer 12.10., später | `OFFEN.md` |
 | 53 | Zustände (Brennend) auf Krogg prüfen | Jerry | Nutzer 12.10., wenn Zeit | `OFFEN.md` |
 | 54 | Nicht warten, von selbst weiterarbeiten | Tom und Jerry | Nutzer 12.10., offen | `OFFEN.md` |
+| 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | neu 12.10. | `OFFEN.md` |
