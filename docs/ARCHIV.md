@@ -1,5 +1,12 @@
 # Archiv
 
+### Übergabe Tom (12.10., 15:57)
+
+- Zweig `claude/tom-27-4-baeume`: 27.4, 5.6, 5.3, dazu (nach Test 0.1.590) Durchsicht nur bei Oberkörper (Tresen fest, geprüft `ONLY=zoom_nah_l9`) und Kaminrauch weich (ungeprüft im Bild: kein Kamin im Schuss `d2`). Push 15:56, Build läuft; kein PR.
+- **Test 0.1.590 (Nutzer 15:4x):** Dorf gut, Leute gut, **kein Absturz** bei vielen Wechseln Dorf ↔ Wald. Zaun gut. **Offen:** (a) Held im dichten Wald unter mehreren Kronen ganz weg (Bild; Ebenen-Formel/Schwelle prüfen), (b) Fichtenreihe am Dorfrand Süd gleichförmig (alles junge Fichten wegen Sichtregel, im Raster): mischen, versetzen, (c) Gemüsebeet sieht nach Kästen aus (`MapTown.vegBed`), (d) Kornfeld wirkt wie Regenstriche, (e) Rauch war harte Scheiben (behoben, prüfen). Ein Mädchen im Dorf noch alte Figur.
+- **Nutzer 16:0x:** 55a ja, **5n ja** (Haus östlich des Schlagbaums 2 Felder nach Osten), **Liska, Gwenna, Bram noch alte Figuren** (im Dorf unterwegs, als Puppen umstellen). Regel „nicht warten“ in `CLAUDE.md`: Antwort unklar („3 ja“ = 5n), nachfragen.
+- **Als Nächstes:** Build 15:56 melden, (a)–(e), Liska/Gwenna/Bram, 5n, Build, Test, PR, zusammenführen, CHANGELOG; dann 55 (55.2 zuerst), 5l/5.5, 5.4, 27.5/27.6.
+
 ### Übergabe Jerry (12.10., 16:22)
 
 - **Selbstarbeit ab 16:40** (Nutzer 16:2x), Paket in `SELBST.md` (13e.2 Kisten/Truhen/Bettrolle, 13e.3 Lichtstrahl 11 + Flammen 10, 13e.4 Stalagmiten/Weiher; Reserve 38, 53, 51). Nachfolgerin übernimmt (Neustart-Haken).
