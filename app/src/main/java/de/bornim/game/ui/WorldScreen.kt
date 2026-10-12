@@ -737,6 +737,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             return IntOffset((cam.toScreenX(fx, fy) - dw / 2f).roundToInt(), (cam.toScreenY(fx, fy) - dh).roundToInt())
         }
 
+        // while true, [put] cuts the picture out of what is drawn below it (the lit windows behind something in front)
+        var cutting = false
         fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f, corner: Boolean = false) {
             val dw = img.width * scale / density; val dh = img.height * scale / density
             val (sx, sy) = placeOf(img, x, y, density, corner)
@@ -749,7 +751,14 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 dstSize = IntSize(dw, dh),
                 alpha = alpha,
                 filterQuality = if (density > 1 && scale % density != 0) FilterQuality.Low else FilterQuality.None,
+                blendMode = if (cutting) androidx.compose.ui.graphics.BlendMode.DstOut else DrawScope.DefaultBlendMode,
             )
+        }
+        /** Whether the picture of [o] on the screen meets the screen rectangle [box]. */
+        fun overlaps(o: WorldArt.Obj, box: androidx.compose.ui.geometry.Rect): Boolean {
+            val (sx, sy) = placeOf(o.img, o.x, o.y, o.density, o.corner)
+            val dw = o.img.width * scale / o.density; val dh = o.img.height * scale / o.density
+            return sx < box.right && sx + dw > box.left && sy < box.bottom && sy + dh > box.top
         }
 
         ground {
@@ -827,7 +836,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 
         // 3) objects and characters, sorted by their foot line
         val sprites = mutableListOf<Sprite>()
-        val glowing = mutableListOf<Pair<WorldArt.Obj, Float>>()
+        val glowing = mutableListOf<Triple<WorldArt.Obj, Float, Sprite>>()
         // a tree crown standing in front of the hero turns half see-through, so the hero is not lost behind it
         fun hides(o: WorldArt.Obj): Boolean {
             val w = o.img.width / o.density; val h = o.img.height / o.density
@@ -872,8 +881,9 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         SeeThrough.frame(map.id, clock)
         for ((i, o) in objs.withIndex()) {
             val a = SeeThrough.alpha(if (o.group != 0) -o.group.toLong() else o.x.toLong() * 100_003 + o.y, if (hiding[i]) clear else 1f)
-            sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f) { put(o.img, o.x, o.y, o.density, a, o.corner) }
-            if (o.glow != null) glowing += o to a
+            val sp = Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f, o) { put(o.img, o.x, o.y, o.density, a, o.corner) }
+            sprites += sp
+            if (o.glow != null) glowing += Triple(o, a, sp)
         }
         // Healing herbs on the flower meadows, swaying gently so they catch the eye.
         if (map.kind == MapKind.FOREST) for (ty in 0 until map.height) for (tx in 0 until map.width) {
@@ -1071,7 +1081,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 sprites += Sprite((my + T - 1).toFloat(), mx + T / 2f) { put(mate, mx + T / 2 - mate.width / 2, my + T - mate.height) }
             }
             val picLit = pic?.let { warmEdge(it.img, rx, ry) }
-            sprites += Sprite(foot.toFloat(), rx + T / 2f) {
+            sprites += Sprite(foot.toFloat(), rx + T / 2f, cuts = false) {
                 val sx = if (pic != null) rx + T / 2 - pic.ax / MapFigure.DENSITY else rx + T / 2 - img.width / 2
                 val sy = if (pic != null) ry + T - 3 - pic.ay / MapFigure.DENSITY else foot + 1 - img.height
                 put(WorldArt.shadow(), rx + 4, ry + 26)
@@ -1146,7 +1156,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // spot around it, waking with the dusk like the light it throws; a small warm halo around it
         val night = MapLight.strength(map, MapLight.When.NIGHT, game.daylight).toFloat()
         if (night > 0.02f) for ((i, entry) in glowing.withIndex()) {
-            val (o, a) = entry
+            val (o, a, own) = entry
             val g = o.glow ?: continue
             val seen = when (game.fog(g.tx, g.ty)) {
                 de.bornim.core.Fog.HIDDEN -> 0f
@@ -1155,8 +1165,22 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             }
             val on = night * seen * a * (0.93f + 0.07f * kotlin.math.sin(clock / 140f + i))
             if (on <= 0.02f) continue
-            put(g.img, o.x, o.y, o.density, on, o.corner)
             val at = placeOf(o.img, o.x, o.y, o.density, o.corner)
+            // test of 5.4 (temple at night): what stands in front of the shining thing (a tree, a house, a person) hides
+            // its light, so the light is drawn in a layer of its own and what is in front cut out of it
+            val gw = o.img.width * scale / o.density; val gh = o.img.height * scale / o.density
+            val box = androidx.compose.ui.geometry.Rect(at.x.toFloat(), at.y.toFloat(), (at.x + gw).toFloat(), (at.y + gh).toFloat())
+            if (box.right < 0 || box.bottom < 0 || box.left > size.width || box.top > size.height) continue
+            val front = sprites.filter { it.cuts && it.depth > own.depth && (it.obj?.let { f -> (f.group == 0 || f.group != o.group) && overlaps(f, box) } ?: true) }
+            if (front.isEmpty()) put(g.img, o.x, o.y, o.density, on, o.corner)
+            else {
+                drawContext.canvas.saveLayer(box, androidx.compose.ui.graphics.Paint())
+                put(g.img, o.x, o.y, o.density, on, o.corner)
+                cutting = true
+                front.forEach { it.draw() }
+                cutting = false
+                drawContext.canvas.restore()
+            }
             val c = Offset(at.x + g.cx * scale / o.density.toFloat(), at.y + g.cy * scale / o.density.toFloat())
             val r = T * 0.55f * scale * (0.5f + 0.5f * g.halo)
             if (g.halo > 0f) drawCircle(
@@ -1200,7 +1224,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 }
 
 /** Something standing on the map, drawn in order of its feet: the row ([y]) seen straight, the diagonal (x + y) seen diagonally. */
-private class Sprite(val y: Float, val x: Float, val draw: () -> Unit) {
+private class Sprite(val y: Float, val x: Float, val obj: WorldArt.Obj? = null, val cuts: Boolean = true, val draw: () -> Unit) {
     val depth: Float get() = if (MapSight.diagonal) x + y else y
 }
 

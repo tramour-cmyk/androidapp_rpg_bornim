@@ -195,7 +195,9 @@ fun main() {
             System.getenv("HELDORT")?.split(";")?.forEach { s ->
                 val p = s.split(":")
                 val f = p.getOrNull(3)?.let { d -> Facing.entries.first { it.name.startsWith(d.uppercase()) } } ?: Facing.DOWN
-                shot("zoom_${z}_p_${p[0]}_${p[1]}_${p[2]}") { place(it, p[0], p[1].toInt(), p[2].toInt(), 12 * 60, f) }
+                // optional fifth field: the hour (e.g. 23 for night)
+                val hour = p.getOrNull(4)?.toInt() ?: 12
+                shot("zoom_${z}_p_${p[0]}_${p[1]}_${p[2]}" + (if (p.size > 4) "_$hour" else "")) { place(it, p[0], p[1].toInt(), p[2].toInt(), hour * 60, f) }
             }
             shot("zoom_${z}_1_wald_tag") { place(it, "forest", 9, 10, 12 * 60) }
             shot("zoom_${z}_2_wald_nacht") { place(it, "forest", 9, 10, 23 * 60) }

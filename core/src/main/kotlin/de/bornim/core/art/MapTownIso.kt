@@ -329,9 +329,12 @@ object MapTownIso {
         if (z > top) return null
         val inner = abs(f - 0.5) < r - 0.04 && z > 51 && z < top - 5
         if (!inner) return shade(argb(0x18161A), face)
-        val a = (f - 0.5) * 34; val b = (z - 90) / 7
-        if (abs(frac(a + b) - 0.5) > 0.44 || abs(frac(a - b) - 0.5) > 0.44) return argb(0x16161A)
-        return if (night) mix(argb(0x6A3A14), argb(0xE8A858), 0.6 + frac(a * 0.37 + b * 0.21) * 0.4)
+        // the lead in diamonds big enough to read on the phone (test of 5.4: at night the fine lattice was a speckle);
+        // at night each pane a little different, brightest low in the middle where the candles stand
+        val a = (f - 0.5) * 9; val b = (z - 90) / 22
+        if (abs(frac(a + b) - 0.5) > 0.45 || abs(frac(a - b) - 0.5) > 0.45) return argb(0x16161A)
+        val pane = hash(floor(a + b).toInt(), floor(a - b).toInt(), 71) % 100 / 100.0
+        return if (night) mix(argb(0x7A4418), argb(0xF0B868), (0.95 - abs(f - 0.5) / r * 0.35 - (z - 51) / 300 + (pane - 0.5) * 0.2).coerceIn(0.0, 1.0))
         else mix(argb(0x1A2028), argb(0x4A5666), ((z - 51) / 90).coerceIn(0.0, 1.0) * 0.7)
     }
 
