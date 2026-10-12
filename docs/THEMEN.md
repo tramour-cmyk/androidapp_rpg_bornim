@@ -41,3 +41,6 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 35 | Weihwasser nur gegen Untote (2W6) | Jerry | ja 12.10. | `OFFEN.md` |
 | 36 | Krogg verpixelt (schärfen) | Jerry | 36a/36b ja (36.1, sonst 1,5× zugeschnitten) | `OFFEN.md` |
 | 37 | Kampfmusik aussortieren (3 raus, Boss-Stück anders verwenden) | Jerry (Tempelszene mit Tom) | ja 12.10., 37a Amulett-Szene, 37b neue Stücke | `OFFEN.md` |
+| 38 | Balance-Langzeitplan (`BALANCE.md`) | Berater, Jerry | offen, 38a/38b | `OFFEN.md` |
+| 39 | Schwierigkeitsgrad im Menü | Jerry (Menü mit Tom) | offen, 39a, nach 38 | `OFFEN.md` |
+| 40 | Lautstärke Gesamt/Musik/Effekte | Jerry | offen, 40a | `OFFEN.md` |

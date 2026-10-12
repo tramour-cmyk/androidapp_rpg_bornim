@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 38** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 41** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -29,6 +29,9 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 35 | Weihwasser wirkt nur gegen Untote (SRD), 2W6 gleißend; gegen andere ausgegraut mit Hinweis „Wirkt nur gegen Untote“, Beschreibung anpassen | Jerry | neu von `main` | ja (Nutzer 12.10., 09:19, über Berater; heute 2W6 gegen alle, 4W6 gegen Untote, `Battle.kt` Z. 485, `Items.kt`) |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt, vor allem groß im Emulator | Jerry | – | Meldung Nutzer 12.10., 09:17. Ursache (Berater): Gegner mit 0,66 px/cm, hart ganzzahlig vergrößert (Emulator bis ca. 11×), Krogg mit Fellkörnung 0,55 (Goblin 0,14). Vorschläge 36.1 aufräumen bei gleicher Auflösung, 36.2 weich vergrößern, 36.3 Bosse doppelt (Speicher). **36a ja (09:24):** 36.1, erst Standbilder vorher/nachher in Handy- und Emulatorgröße. **36b ja (09:33):** reicht 36.1 nicht, 36.3 als 1,5× mit zugeschnittenen Bildern, vorher mit `ARTMEM` messen |
 | 37 | Kampfmusik aussortieren | Jerry | neu von `main` | Nutzer 12.10., 09:33 (über Berater): raus `kampf_great_labyrinth`, `kampf_menace` (Techno), `kampf_epic_fight` (Lounge); `boss_ancient_legend` sehr schön, aber zu tragend für Kampf → aus `Music.boss`, **37a (09:37):** spielt bei der Rückkehr des Sonnenamuletts in den Tempel (Musik Jerry, Szene im Tempel mit Tom abstimmen); Kapitelende bleibt `ende_new_sunrise`. **37b ja:** Jerry sucht 2–3 neue CC0-Kampfstücke (düster, orchestral, treibend), erst Hörproben. Übrig heute: 3 Kampf-, 3 Bossstücke |
+| 38 | Balance-Langzeitplan über alle Kapitel (Stufe, Gold, Preise, Ausrüstung, Ziel-Siegquoten) | Berater (Plan), Jerry (Messung) | `main` (Notizen) | Nutzer 12.10., 09:52: St. 6 nach kurzem Kapitel 1, zu viel Gold? zu starke Ausrüstung? Befund Berater: XP-Schwellen halbiertes SRD, Kapitel-1-Deckel St. 6, Ausrüstungsdeckel je Kapitel vorhanden; Gold wird nirgends gemessen; `ChapterSimTest` mit Ausrüstung, aber nur 2 Tränke, kein Kauf, jeder Kampf mit vollen TP. Rückfragen 38a/38b |
+| 39 | Schwierigkeitsgrad im Menü | Jerry (Werte), Menü mit Tom | – | Nutzer 12.10., 09:52. Nach 38 („Normal“ erst festlegen). Rückfrage 39a |
+| 40 | Lautstärke im Menü: Gesamt, Musik, Effekte (heute nur Musik an/aus) | Jerry | neu von `main` | Nutzer 12.10., 09:52. Rückfrage 40a |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
@@ -50,6 +53,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **0.1.563 (Tom, nach Jerrys 0.1.561):** 29 Anschlagbrett vor der Schänke (Annehmen, Menü System mit Fortschritt/Aufgeben, Abgabe bei Thessa/Gwenna/Borin, Ring in Höhlentruhe), 24.8.6 Türen 0,5 s, 30.8 „App aktualisiert“. [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38218165502/artifacts/11732972729)
 
 ## Rückfragen an den Nutzer
+
+- **38a (Berater, 12.10.):** Berater schreibt `docs/BALANCE.md` (Zielkurve je Kapitel: Stufen, Gegnerstufen, Gold rein/raus, Preise, Ausrüstungsdeckel, Ziel-Siegquoten), Jerry erweitert die Kapitelsimulation um Gold und Einkauf und misst Kapitel 1? Empfehlung: ja. **38b:** wie viele Kapitel ungefähr geplant (Stufe 20 am Ende)? **39a:** drei Stufen Leicht/Normal/Schwer (Gegner-TP und -Schaden), jederzeit umstellbar? Empfehlung: ja. **40a:** drei Regler Gesamt/Musik/Effekte, Ortsklang bei Effekten? Empfehlung: ja.
 
 
 - **32 Nacht 11./12.10. fast ohne Arbeit (Tom und Jerry, je ~25 min):** Weck-Sitzungen beenden nach einem Schritt; Routine 00:27 durch 40-Minuten-Regel gesperrt. Vorschläge 32.1–32.7 (Stand `übergeben`, `send_later` an sich selbst bis „Bis“, Nachfolger sofort starten, blockiert → nächster Punkt, Vorschau vor Push bauen, Gradle 6 GB in `setup-session.sh`, Blende-Fix aus PR #38). **32a/32b: Tom macht es (Nutzer 12.10., 07:40).** 32.8 Vertretung bei Nutzungsgrenze; **32b, 32c ja (07:5x)**, 32.1–32.8 in `SELBST.md` übernommen, Toms Routinen umgestellt. **Jerry:** deine 8 Routinen auf den Text in `SELBST.md` umstellen. Befunde im Archiv.
