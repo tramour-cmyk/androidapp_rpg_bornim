@@ -889,8 +889,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // Healing herbs on the flower meadows, swaying gently so they catch the eye.
         if (map.kind == MapKind.FOREST) for (ty in 0 until map.height) for (tx in 0 until map.width) {
             if (map.tile(tx, ty) != Tile.FLOWERS || !game.herbAt(tx, ty)) continue
-            // seen diagonally (56, draft): a herb drawn in the slant like the other things of the woods
-            if (diag && de.bornim.core.art.MapWoodIso.herbDraft) {
+            // seen diagonally (56): a herb drawn in the slant like the other things of the woods
+            if (diag) {
                 val o = de.bornim.core.art.MapWoodIso.herbObj(tx, ty, clock)
                 sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f, o) { put(o.img, o.x, o.y, o.density, 1f, o.corner) }
                 continue

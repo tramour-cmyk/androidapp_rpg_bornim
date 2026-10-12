@@ -539,7 +539,7 @@ object MapFlora {
                     return when {
                         map.kind != de.bornim.core.MapKind.TOWN -> listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
                         // seen diagonally (56, draft): the bush in the slant like those of the undergrowth
-                        pick < 3 && MapWoodIso.bushDraft && diag -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
+                        pick < 3 && diag -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
                         pick < 3 -> listOf(obj(bush(hash(tx, ty, 19) % 6), cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5, cy + S * 0.5))
                         pick < 5 -> listOf(young(0), young(1))
                         else -> listOf(young(0))
@@ -594,8 +594,8 @@ object MapFlora {
                 val px = (tx + 0.15 + rnd(tx, ty, k * 3 + 42) * 0.7) * S; val py = (ty + 0.2 + rnd(tx, ty, k * 3 + 43) * 0.7) * S
                 val isBush = rnd(tx, ty, k + 44) < 0.55
                 // seen diagonally (56, draft): the bushes in the slant like the other things of the woods
-                if (isBush && MapWoodIso.bushDraft && MapFigure.viewYaw != 0.0) { out += MapWoodIso.bushObj((px / D).toInt(), (py / D).toInt(), hash(tx, ty, k + 45) % 6); continue }
-                if (!isBush && MapWoodIso.fernDraft && MapFigure.viewYaw != 0.0) { out += MapWoodIso.fernObj((px / D).toInt(), (py / D).toInt(), hash(tx, ty, k + 46) % 5); continue }
+                if (isBush && MapFigure.viewYaw != 0.0) { out += MapWoodIso.bushObj((px / D).toInt(), (py / D).toInt(), hash(tx, ty, k + 45) % 6); continue }
+                if (!isBush && MapFigure.viewYaw != 0.0) { out += MapWoodIso.fernObj((px / D).toInt(), (py / D).toInt(), hash(tx, ty, k + 46) % 5); continue }
                 val s = if (isBush) bush(hash(tx, ty, k + 45) % 6) else fern(hash(tx, ty, k + 46) % 5)
                 out += obj(s, px, py)
             }
@@ -641,9 +641,9 @@ object MapFlora {
                         Tile.CAMPFIRE -> continue
                         // seen diagonally (27.5) the trunk, the rock and the signpost bring their own shadows
                         Tile.LOG, Tile.CAVE_WALL, Tile.CAVE_ENTRANCE, Tile.SIGN -> if (MapFigure.viewYaw != 0.0) continue else Triple(w * 0.45, 12.0, 8.0)
-                        Tile.CHEST -> if (MapWoodIso.chestDraft && MapFigure.viewYaw != 0.0) continue else Triple(w * 0.45, 12.0, 8.0)
-                        Tile.ROCK -> if (MapWoodIso.rockDraft && MapFigure.viewYaw != 0.0) continue else Triple(w * 0.45, 12.0, 8.0)
-                        Tile.MENHIR -> if (MapWoodIso.menhirDraft && MapFigure.viewYaw != 0.0) continue else Triple(22.0, 9.0, 18.0)
+                        Tile.CHEST -> if (MapFigure.viewYaw != 0.0) continue else Triple(w * 0.45, 12.0, 8.0)
+                        Tile.ROCK -> if (MapFigure.viewYaw != 0.0) continue else Triple(w * 0.45, 12.0, 8.0)
+                        Tile.MENHIR -> if (MapFigure.viewYaw != 0.0) continue else Triple(22.0, 9.0, 18.0)
                         else -> Triple(w * 0.45, 12.0, 8.0)
                     }
                     val img = shadowImage(rx.toInt(), ry.toInt(), if (map.tile(tx, ty) == Tile.TREE) 0.42 else 0.36)

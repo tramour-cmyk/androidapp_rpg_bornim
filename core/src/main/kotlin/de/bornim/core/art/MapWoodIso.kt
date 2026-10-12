@@ -492,8 +492,6 @@ object MapWoodIso {
         return c.img
     }
 
-    /** (56, 56a–56c ja): the healing herbs on the flower meadows drawn in the slant; seen straight the former picture stays. */
-    @Volatile var herbDraft = true
 
     /**
      * A healing herb seen diagonally (56, draft): a low rosette of broad ribbed leaves like plantain, muted green, and
@@ -556,8 +554,6 @@ object MapWoodIso {
         return c.img
     }
 
-    /** (56, 56a–56c ja): the chests of the woods drawn in the slant; seen straight the former picture stays. */
-    @Volatile var chestDraft = true
 
     /**
      * A chest left in the woods seen diagonally (56, draft): a box of weathered planks along i with a rounded lid,
@@ -654,8 +650,6 @@ object MapWoodIso {
         return c.img
     }
 
-    /** (56, 56a–56c ja): the boulders of the woods drawn in the slant; seen straight the former picture stays. */
-    @Volatile var rockDraft = true
 
     /**
      * Boulders in the woods seen diagonally (56, draft): one big stone half sunk in the ground with one or two smaller
@@ -704,8 +698,6 @@ object MapWoodIso {
         return c.img
     }
 
-    /** (56, 56a–56c ja): the standing stones of the circle drawn in the slant; seen straight the former picture stays. */
-    @Volatile var menhirDraft = true
 
     /**
      * A standing stone of the circle seen diagonally (56, draft): a tall slab, thicker one way than the other, tapering
@@ -768,8 +760,6 @@ object MapWoodIso {
         return c.img
     }
 
-    /** (56, 56a–56c ja): the bushes of the undergrowth drawn in the slant; seen straight the former picture stays. */
-    @Volatile var bushDraft = true
 
     /**
      * A bush of the undergrowth seen diagonally (56, draft): a few overlapping clumps of small leaves, lit from above
@@ -844,8 +834,6 @@ object MapWoodIso {
         return WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, fx + fy - T + T * 3 / 2 - 1 - wx, 2, true, corner = true)
     }
 
-    /** (56, 56d ja): the ferns of the undergrowth drawn in the slant; seen straight the former picture stays. */
-    @Volatile var fernDraft = true
 
     /**
      * A fern of the undergrowth seen diagonally (56, draft): fronds rising from one crown in an arch and drooping at
@@ -906,8 +894,6 @@ object MapWoodIso {
         return WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, fx + fy - T + T * 3 / 2 - 1 - wx, 2, true, corner = true)
     }
 
-    /** (27.5, 27g ja): reeds along the pond's far bank; with [MapGround.pondDraft] the bank itself. */
-    @Volatile var pondDraft = true
 
     /**
      * A clump of reeds standing in the water at ([ci], [cj]) (27.5, draft): thin blades rising and bending a little,
@@ -956,8 +942,6 @@ object MapWoodIso {
 
     // ------------------------------------------------------------------ the yards of the village (56, draft)
 
-    /** (56, 56d ja): haystacks and the washing line of the village drawn in the slant; seen straight the former pictures stay. */
-    @Volatile var yardDraft = true
 
     /**
      * A haystack seen diagonally (56, draft), in three looks by [v]: a rick built round a pole whose end sticks out
@@ -1112,8 +1096,8 @@ object MapWoodIso {
                 val e = booleanArrayOf(map.tile(tx - 1, ty) != t, map.tile(tx + 1, ty) != t, map.tile(tx, ty - 1) != t, map.tile(tx, ty + 1) != t)
                 "corn/$tx/$ty" to { corn(tx, ty, e) }
             }
-            Tile.HAY -> if (!yardDraft) return null else Math.floorMod(hash(tx, ty, 38), 3).let { v -> "hay/$v" to { hay(v) } }
-            Tile.WASHLINE -> if (!yardDraft) return null else {
+            Tile.HAY -> Math.floorMod(hash(tx, ty, 38), 3).let { v -> "hay/$v" to { hay(v) } }
+            Tile.WASHLINE -> {
                 var x0 = tx; while (map.tile(x0 - 1, ty) == Tile.WASHLINE) x0--
                 var n = 0; while (map.tile(x0 + n, ty) == Tile.WASHLINE) n++
                 "wash/$x0/$ty/$tx" to { washline(tx - x0, n, 990 + x0 + ty * 7) }
@@ -1153,13 +1137,12 @@ object MapWoodIso {
             }
             // the signs of the woods: the village's signposts, a board on one post or on two; not the look with the
             // arrow, which would point along +i whatever the way
-            Tile.MENHIR -> if (!menhirDraft) return null else Math.floorMod(hash(tx, ty, 37), 4).let { v -> "menhir/$v" to { menhir(v) } }
-            Tile.ROCK -> if (!rockDraft) return null else Math.floorMod(hash(tx, ty, 36), 3).let { v -> "rock/$v" to { boulders(v) } }
-            Tile.CHEST -> if (!chestDraft) return null else Math.floorMod(hash(tx, ty, 35), 3).let { v -> "chest/$v/$open" to { chest(v, open) } }
+            Tile.MENHIR -> Math.floorMod(hash(tx, ty, 37), 4).let { v -> "menhir/$v" to { menhir(v) } }
+            Tile.ROCK -> Math.floorMod(hash(tx, ty, 36), 3).let { v -> "rock/$v" to { boulders(v) } }
+            Tile.CHEST -> Math.floorMod(hash(tx, ty, 35), 3).let { v -> "chest/$v/$open" to { chest(v, open) } }
             Tile.SIGN -> Math.floorMod(hash(tx, ty, 33), 2).let { v -> "sign/$v" to { MapTownIso.signpost(v, 71) } }
-            // reeds along the far bank (27.5, draft): where land lies behind the water, now and then a clump near it
+            // reeds along the far bank (27.5): where land lies behind the water, now and then a clump near it
             Tile.WATER -> {
-                if (!pondDraft) return null
                 val west = map.tile(tx - 1, ty) != Tile.WATER; val north = map.tile(tx, ty - 1) != Tile.WATER
                 if (!(west || north) || hash(tx, ty, 39) % 4 == 3) return emptyList()
                 val v = hash(tx, ty, 40) % 6

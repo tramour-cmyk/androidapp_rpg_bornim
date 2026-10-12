@@ -183,22 +183,6 @@ fun main() {
             // PFLASTERDRAFT=1: the square's cobbles quieter (5.4, draft)
             if (System.getenv("PFLASTERDRAFT") == "2") de.bornim.core.art.MapGround.cobbleMid = true
             else if (System.getenv("PFLASTERDRAFT") != null) de.bornim.core.art.MapGround.cobbleDraft = true
-            // HERBDRAFT=1: the healing herbs drawn in the slant (56, draft)
-            if (System.getenv("HERBDRAFT") != null) de.bornim.core.art.MapWoodIso.herbDraft = true
-            // CHESTDRAFT=1: the chests of the woods drawn in the slant (56, draft)
-            if (System.getenv("CHESTDRAFT") != null) de.bornim.core.art.MapWoodIso.chestDraft = true
-            // ROCKDRAFT=1: the boulders of the woods drawn in the slant (56, draft)
-            if (System.getenv("ROCKDRAFT") != null) de.bornim.core.art.MapWoodIso.rockDraft = true
-            // MENHIRDRAFT=1: the standing stones of the circle drawn in the slant (56, draft)
-            if (System.getenv("MENHIRDRAFT") != null) de.bornim.core.art.MapWoodIso.menhirDraft = true
-            // BUSHDRAFT=1: the bushes of the undergrowth drawn in the slant (56, draft)
-            if (System.getenv("BUSHDRAFT") != null) de.bornim.core.art.MapWoodIso.bushDraft = true
-            // FERNDRAFT=1: the ferns of the undergrowth drawn in the slant (56, draft)
-            if (System.getenv("FERNDRAFT") != null) de.bornim.core.art.MapWoodIso.fernDraft = true
-            // YARDDRAFT=1: haystacks and the washing line of the village drawn in the slant (56, draft)
-            if (System.getenv("YARDDRAFT") != null) de.bornim.core.art.MapWoodIso.yardDraft = true
-            // POND=1: the pond's far bank as an earthen step, reeds along it (27.5, draft)
-            if (System.getenv("POND") != null) { de.bornim.core.art.MapGround.pondDraft = true; de.bornim.core.art.MapWoodIso.pondDraft = true }
             // SWINGDRAFT=1: the cloak swings on when the hero stops (17, draft)
             if (System.getenv("SWINGDRAFT") != null) { de.bornim.core.art.MapFigure.swingDraft = true; de.bornim.game.ui.HeroSwing.now = true }
             // PONDLIFE=1: frogs on the bank and dragonflies over the forest pond (27.6, draft)
