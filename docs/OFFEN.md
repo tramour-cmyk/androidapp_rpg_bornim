@@ -42,11 +42,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 15:32)
+### Tom (12.10., 15:57)
 
-- Zweig `claude/tom-27-4-baeume` (mit `main`): **27.4** Bäume mit Volumen (`MapTree.kt`, an über `MapFlora.treeDraft`, Vergleich `TREESHEET=1`), **5.6** Schlagbaum/Zaun diagonal (`MapTownIso.barrier/fence`, `ISODINGE=platz`, Schüsse `d10b`, `d12`), **5.3** neun Leute als Puppen (`MapFolk.all`, Feuer-Gesten nur Garrick, Trageweise auch im Stehen). Build 0.1.590 fertig (15:34), kein PR.
-- **Offen:** 5n (Haus östlich vor dem Schlagbaum rücken?), Regel „nicht warten“ in `CLAUDE.md` (Freigabe abgelehnt, Nutzer fragen). Schuss `d12_zaun` stellt den Helden ins Wasser (anderen Platz wählen).
-- **Als Nächstes:** nach Test PR, zusammenführen; dann 5l/5.5 (Leben im Dorf, erst Standbilder), 5.4, 27.5/27.6; danach 13 Tempel, 42, Lyra diagonal.
+- Zweig `claude/tom-27-4-baeume`: 27.4, 5.6, 5.3, dazu (nach Test 0.1.590) Durchsicht nur bei Oberkörper (Tresen fest, geprüft `ONLY=zoom_nah_l9`) und Kaminrauch weich (ungeprüft im Bild: kein Kamin im Schuss `d2`). Push 15:56, Build läuft; kein PR.
+- **Test 0.1.590 (Nutzer 15:4x):** Dorf gut, Leute gut, **kein Absturz** bei vielen Wechseln Dorf ↔ Wald. Zaun gut. **Offen:** (a) Held im dichten Wald unter mehreren Kronen ganz weg (Bild; Ebenen-Formel/Schwelle prüfen), (b) Fichtenreihe am Dorfrand Süd gleichförmig (alles junge Fichten wegen Sichtregel, im Raster): mischen, versetzen, (c) Gemüsebeet sieht nach Kästen aus (`MapTown.vegBed`), (d) Kornfeld wirkt wie Regenstriche, (e) Rauch war harte Scheiben (behoben, prüfen). Ein Mädchen im Dorf noch alte Figur.
+- **Als Nächstes:** (a)–(e), Build, Test, PR, zusammenführen, CHANGELOG; dann 5n (falls ja), 5l/5.5, 5.4, 27.5/27.6. Rückfragen offen: 5n, Regel „nicht warten“ in `CLAUDE.md` (Freigabe lehnte Änderung ab).
 ### Jerry (12.10., 15:35)
 
 - **36.5/36h/36.7/36j** auf `claude/great-pascal-x56kad` (noch kein PR), Build 0.1.587 beim Nutzer im Test; Ergebnisse kommen in die neue Sitzung. Passt der Test: PR öffnen, grün abwarten, zusammenführen, CHANGELOG. 36.7 = eigene Trefferhaltung nur für `bugbear` (`FoeArt.kroggAttacks`); 36j = `FoeBack` in `BattleScreen` (Rückweg läuft weiter, wenn die Zeile endet; Fall „Held fällt“ im Film geprüft, „schnell weitertippen“ nur an der Ursache).
@@ -55,7 +55,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **Tom, Zweig `claude/tom-27-4-baeume` (27.4 Bäume, 5.6 Schlagbaum/Zaun, 5.3 Puppen), [0.1.590](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38256042679) (15:34):** Bäume in Wald, Tiefem Wald, Dorf; Schlagbaum zu/offen, Gartenzaun; Jorin, Pim, Rowena, Borin, Thessa, Aldric, Osric, Lyra, Morwen als Puppen. Nach Jerrys 0.1.587 (wartet länger).
+- **Tom, Zweig `claude/tom-27-4-baeume` (27.4 Bäume, 5.6 Schlagbaum/Zaun, 5.3 Puppen), [0.1.590](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38256042679) getestet 15:4x (siehe Übergabe), neuer Build 15:56:** Bäume in Wald, Tiefem Wald, Dorf; Schlagbaum zu/offen, Gartenzaun; Jorin, Pim, Rowena, Borin, Thessa, Aldric, Osric, Lyra, Morwen als Puppen. Nach Jerrys 0.1.587 (wartet länger).
 
 
 ## Rückfragen an den Nutzer
