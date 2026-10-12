@@ -43,12 +43,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 20:09, Selbstarbeit bis 22:00)
+### Tom (12.10., 20:29, Selbstarbeit bis 22:00)
 
-- PR #48 `claude/tom-27-4-baeume`, **0.1.606** zu testen (s. u.); danach nur Vorschau-Entwürfe gepusht. Test passt → zusammenführen (Merge), CHANGELOG.
-- **Entwürfe seit 19:30** (alle auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F), Datei liegt nur in der alten Sitzung: vor dem Ändern mit `Artifact read` holen, ganz neu schreiben, mit `url` veröffentlichen): **56d** Dorf (Wäscheleine, Heu, Farn, Büsche am Dorfrand; `YARDDRAFT`, `FERNDRAFT`, `BUSHDRAFT`), Innenräume ohne Altes; **27g** Weiher mit Ufer und Schilf (`POND`); **55.2** Borin sitzt (`SITDRAFT2`: Zufallszeiten, weiche Übergänge, atmet, Hammer am Tischende; Sprungtest 0).
-- **20:24 erledigt:** alle Schalter 56a–56d, 27g, 55c an (Weiherrand nur im Wald), Kerntests grün, Build auf PR #48 läuft. 27e: Kronen decken den Helden auch gerade zusammen nur noch zu 35 % (Zweig).
-- **Als Nächstes:** (1) 27e Tiefer Wald: Held unter Kronen weg (`HELDORT=deep_forest:x:y`), Morwen sichtbar (43). (2) 27.6 Leben am Weiher (Libellen, Frösche) als Entwurf. (3) 17 Nachschwingen (Vorrat).
+- PR #48 `claude/tom-27-4-baeume`, **0.1.615** zu testen (s. u.). Test passt → zusammenführen (Merge), CHANGELOG. Alle Entwurfs-Schalter 56a–56d, 27g, 55c stehen an (`MapWoodIso`, `MapGround.pondDraft` nur Wald, `MapFolk.sitDraft`); 27e: Kronen decken den Helden auch gerade zusammen nur zu 35 % (`WorldScreen`, Bild 20:24).
+- Entscheidungsseite leer, Bildbuch hat 56d, 27g, 55c. Rückfrage **57c** (Bildbuch für Jerry teilen) gestellt.
+- **Als Nächstes:** (1) 27.6 Leben am Weiher (Libellen, Frösche) als Entwurf auf die Entscheidungsseite. (2) 17 Nachschwingen (Vorrat). Vorschau langsam (~2,5 min je Aufruf): mehrere `HELDORT` in einem Aufruf.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
@@ -57,9 +56,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Weiter (Freitag):** Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
-- **Tom, PR #48** `claude/tom-27-4-baeume`, **[0.1.606](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38280572866)** (12.10., 18:57): wie 0.1.603 plus Pflaster-Zwischending auf dem Markt (5.4), Wald-Dinge diagonal (27.5: Stamm, Felshang mit Höhleneingang, Feuerstelle, Schilder). Passt es: zusammenführen.
+- **Tom, PR #48** `claude/tom-27-4-baeume`, **[0.1.615](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38290459741)** (12.10., 20:28): wie 0.1.606 plus 56a–56d (Kräuter, Truhen, Steine, Steinkreis, Büsche, Farn im Wald; Wäscheleine, Heu, Büsche im Dorf), 27g Weiher mit Ufer und Schilf, 55c Borin sitzt, 27e Held unter Kronen sichtbar. Passt es: zusammenführen.
 
 ## Rückfragen an den Nutzer
 
+- **57c** (Tom): Bildbuch für Jerry über „Teilen“ mit Schreibrecht freigeben? Empfehlung: ja, vor Freitag.
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
