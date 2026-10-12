@@ -31,6 +31,7 @@ object MapWoodIso {
         n = (n xor (n ushr 13)) * 1274126177
         return (n xor (n ushr 16)) and 0x7FFFFFFF
     }
+    private fun frac(v: Double) = v - floor(v)
     private fun rnd(a: Int, b: Int, s: Int) = (hash(a, b, s) % 10000) / 10000.0
     private fun shade(c: Int, k: Double): Int {
         val r = ((c shr 16) and 0xFF) * k; val g = ((c shr 8) and 0xFF) * k; val b = (c and 0xFF) * k
@@ -554,6 +555,104 @@ object MapWoodIso {
         return c.img
     }
 
+    /** Draft (56): the chests of the woods drawn in the slant; the game keeps the former picture. */
+    @Volatile var chestDraft = false
+
+    /**
+     * A chest left in the woods seen diagonally (56, draft): a box of weathered planks along i with a rounded lid,
+     * two iron bands over it and a lock at the front (+j); moss and leaves on its foot. Three looks of wood ([v]:
+     * oak, grey, dark); [open] the lid stands up at the back and the inside is dark and empty.
+     */
+    fun chest(v: Int, open: Boolean): PixelImage {
+        val c = Canvas(76)
+        val seed = 830 + v * 11
+        val i0 = -0.80; val i1 = -0.22; val j0 = -0.70; val j1 = -0.34
+        val zb = 22.0
+        val rj = (j1 - j0) / 2; val jm = (j0 + j1) / 2; val rz = 12.0
+        val wood = listOf(0x6A4A30, 0x6E665A, 0x3E2E22)[v]
+        val iron = argb(0x2A2826)
+        c.shadow((i0 + i1) / 2, jm, 0.42, 0.3, 0.5)
+        fun bandAt(i: Double) = abs(i - (i0 + 0.12)) < 0.035 || abs(i - (i1 - 0.12)) < 0.035
+        fun plank(i: Double, z: Double, along: Double, k: Int): Int {
+            val seam = frac(along * 5.0) < 0.07
+            val grain = vnoise(i * 40, z / 3.0 + k, seed) * 0.35
+            var col = mix(argb(wood), argb(0x1E1610), (if (seam) 0.55 else 0.0) + grain * 0.4)
+            if (z < 5 && vnoise(i * 30, along * 9, seed + 3) > 0.45) col = mix(col, argb(0x4E5A2C), 0.7)
+            return col
+        }
+        val step = 0.004
+        // front (+j) and back faces, the two ends (±i)
+        var i = i0
+        while (i <= i1) {
+            var z = 0.0
+            while (z <= zb) {
+                val band = bandAt(i)
+                val lock = abs(i - (i0 + i1) / 2) < 0.04 && z in zb - 9..zb - 1
+                val col = when { lock -> argb(0x8A7A4A); band -> iron; else -> plank(i, z, z / zb, 0) }
+                c.pt(i, j1, z, shade(col, lit(0.0, 1.0, 0.0)))
+                c.pt(i, j0, z, shade(if (lock) plank(i, z, z / zb, 0) else col, lit(0.0, -1.0, 0.0)))
+                z += 0.35
+            }
+            i += step
+        }
+        var j = j0
+        while (j <= j1) {
+            var z = 0.0
+            while (z <= zb) {
+                val col = if (abs(z - zb + 2) < 1.5 || abs(z - 2) < 1.5) iron else plank(j, z, (j - j0) / (j1 - j0), 1)
+                c.pt(i1, j, z, shade(col, lit(1.0, 0.0, 0.0)))
+                c.pt(i0, j, z, shade(col, lit(-1.0, 0.0, 0.0)))
+                z += 0.35
+            }
+            j += step
+        }
+        if (!open) {
+            // the rounded lid: a half cylinder along i
+            i = i0
+            while (i <= i1) {
+                var a = 0.0
+                while (a <= PI) {
+                    val nj = cos(a); val nz = sin(a)
+                    val col = if (bandAt(i)) iron else plank(i, zb + nz * rz, a / PI, 2)
+                    c.pt(i, jm + nj * rj, zb + nz * rz, shade(col, lit(0.0, nj, nz)))
+                    a += 0.02
+                }
+                i += step
+            }
+            for (k in listOf(i0, i1)) {
+                var jj = j0
+                while (jj <= j1) {
+                    val top = sqrt(max(0.0, 1 - ((jj - jm) / rj).let { it * it })) * rz
+                    var z = zb
+                    while (z <= zb + top) { c.pt(k, jj, z, shade(plank(jj, z, 0.3, 3), lit(if (k == i1) 1.0 else -1.0, 0.0, 0.0))); z += 0.35 }
+                    jj += step
+                }
+            }
+        } else {
+            // the inside: dark and empty; the lid stands up behind, its inner side showing
+            i = i0 + 0.02
+            while (i <= i1 - 0.02) {
+                var jj = j0 + 0.02
+                while (jj <= j1 - 0.02) { c.pt(i, jj, 4.0, argb(0x120C08)); jj += step }
+                i += step
+            }
+            i = i0
+            while (i <= i1) {
+                var a = 0.0
+                while (a <= PI) {
+                    // the lid swung back about the back edge: its curve now rises behind the box
+                    val z = zb + (1 - cos(a)) / 2 * 2 * rj * ZT * 0.85
+                    val jj = j0 - sin(a) * rz / ZT - 0.01
+                    val col = if (bandAt(i)) iron else mix(plank(i, z, a / PI, 4), argb(0x1A120C), 0.35)
+                    c.pt(i, jj, z, shade(col, lit(0.0, 1.0, 0.3)))
+                    a += 0.02
+                }
+                i += step
+            }
+        }
+        return c.img
+    }
+
     /** The herb on ([tx], [ty]) as an upright thing sorted like the others of the woods; the wind sways it a little. */
     fun herbObj(tx: Int, ty: Int, clock: Long): WorldArt.Obj {
         val v = Math.floorMod(hash(tx, ty, 34), 3)
@@ -593,7 +692,7 @@ object MapWoodIso {
     private val cache = HashMap<String, PixelImage>()
 
     /** The new pictures for one tile of the woods seen diagonally, or null where the former ones stay. */
-    fun objects(map: MapDef, tx: Int, ty: Int, frame: Int): List<WorldArt.Obj>? {
+    fun objects(map: MapDef, tx: Int, ty: Int, frame: Int, open: Boolean = false): List<WorldArt.Obj>? {
         if (map.kind != MapKind.FOREST) return null
         val t = map.tile(tx, ty)
         val key: Pair<String, () -> PixelImage> = when (t) {
@@ -615,6 +714,7 @@ object MapWoodIso {
             }
             // the signs of the woods: the village's signposts, a board on one post or on two; not the look with the
             // arrow, which would point along +i whatever the way
+            Tile.CHEST -> if (!chestDraft) return null else Math.floorMod(hash(tx, ty, 35), 3).let { v -> "chest/$v/$open" to { chest(v, open) } }
             Tile.SIGN -> Math.floorMod(hash(tx, ty, 33), 2).let { v -> "sign/$v" to { MapTownIso.signpost(v, 71) } }
             else -> return null
         }
@@ -641,6 +741,9 @@ object MapWoodIso {
             "Stamm" to (0 until 3).map { run(it) },
             "Feuer" to (0 until 3).map { campfire(it, 0, 720 + it) },
             "Feuer2" to (0 until 3).map { campfire(it, 1, 720 + it) },
+            "Truhe" to (0 until 3).map { chest(it, false) },
+            "Truhe offen" to (0 until 3).map { chest(it, true) },
+            "Kraut" to (0 until 3).map { herb(it, 0.0) },
         )
     }
 }
