@@ -37,6 +37,7 @@ Wunsch des Nutzers (09.10.): Wer auf der Karte steht, lebt. Jede Figur, auch der
 
 Aus den Rückmeldungen des Nutzers bis 11.10. (Verlauf im [Archiv](ARCHIV.md)):
 - **Ausrüstung unterwegs:** Waffen geschultert (nie am Boden schleifend), Schild auf dem Rücken, Zweitwaffe in der Scheide. Im Kampf wie gehabt.
+- **Neue Orte nur diagonal (13u, Nutzer 12.10., 12:20):** jeder neue Ort und Raum wird gleich diagonal gebaut (Vorlagen `MapRoomIso`, `MapTownIso`), nie mehr eine gerade Fassung. Der Autoschalter (13.4) ist nur die Brücke für Wald, Tiefer Wald und Höhle.
 - **Sichtbarkeit (Thema 43, Nutzer 12.10.):** Was in der alten Ansicht rechts gut zu sehen war, steht diagonal vorn unten zwischen Kamera und Geschehen.
   - **Wichtiges steht frei:** Leute, Questziele, Eingänge, Schilder, Feuerstellen haben freien Blick; zur Kamera hin (Süden, Osten) nichts Hohes davor. Sonst umstellen (das Ding oder die Bäume davor); die Karte muss nur diagonal stimmen.
   - **Durchsicht nur um den Helden:** Kronen, Felsen, Büsche und hohe Möbel in einem kleinen Umkreis um den Helden fast ganz durchsichtig, nicht gestapelt, damit er nie verschwindet.
