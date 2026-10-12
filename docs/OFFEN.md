@@ -22,7 +22,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
 | 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik); Jerry (Inhalt) | – | 24.1–24.4, 24.9–24.15 auf `main` (PR #30, #32, #34, #35); 24.8 Ortsklang auf `main` (PR #37). **Tom:** 24.5, 24.16–24.20 auf `main` (PR #40). 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.8.5 auf `main` (PR #38, 12.10.), danach 24.6 Kampferöffnung wartet + Herzschlag (nach Toms 24.5), knapper Kampftext in `Battle.kt`. Entscheidungen 24f/24i/24j in [`ZWISCHENBILD.md`](ZWISCHENBILD.md) und im Archiv. |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | festgelegt 11.10., 16:50 (Berater); erledigte Punkte dort abhaken |
-| 27 | Wald „Ort fertig“ (Liste in `STIL.md`): vor allem diagonale Zeichnung, Bäume rund | Tom | – | 11.10., 16:50; nach 24 und 5l; zuerst Standbilder Wald gegen Dorf, Lückenliste; **Meldung Nutzer (16:55):** in der diagonalen Sicht Garrick mit Lagerfeuer schlecht zu sehen, Ausrichtung falsch; Höhleneingang fehlt (eingetragen von Jerry); **Meldung Nutzer (11:30):** in der Diagonalsicht sind Steinkreis (Jorins Auftrag 29.3) und Schild am Waldeingang nicht zu sehen: verdeckt von den Kronen des Waldrands im Süden, Held dort auch unsichtbar (Vorschau bestätigt). Vorschlag: 27 als Nächstes, zuerst Südrand/Steinkreis |
+| 27 | Wald „Ort fertig“ (Liste in `STIL.md`): vor allem diagonale Zeichnung, Bäume rund | Tom | – | 11.10., 16:50; nach 24 und 5l; zuerst Standbilder Wald gegen Dorf, Lückenliste; **Meldung Nutzer (16:55):** in der diagonalen Sicht Garrick mit Lagerfeuer schlecht zu sehen, Ausrichtung falsch; Höhleneingang fehlt (eingetragen von Jerry); **Meldung Nutzer (11:30):** in der Diagonalsicht sind Steinkreis (Jorins Auftrag 29.3) und Schild am Waldeingang nicht zu sehen: verdeckt von den Kronen des Waldrands im Süden, Held dort auch unsichtbar (Vorschau bestätigt). **27a ja (11:43):** 27 vor 13, zuerst Südrand/Steinkreis, erst Standbilder. In Arbeit |
 | 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | 30.1, 30.2, 30b auf `main` (PR #40, 12.10., 09:29, getestet 0.1.559: kein Absturz, 512 MB). 30.8 Anzeige „App aktualisiert“ (Grund 16) auf `claude/tender-goodall-a8zuny`. Offen: Dorf-Absturz aus 0.1.555 (ohne Fänger) beobachten; **Meldung 09:41:** Absturz beim Test von 0.1.561 (Jerry, 26.1), kein Bericht im Test-Reiter, denn 0.1.561 ist vor PR #40 gebaut (ohne Fänger); Jerry holt `main` in den Zweig und baut neu; 30.7 (Klang 22 kHz) mit Jerry. Verlauf im Archiv |
 | 34 | Kampf: Knopf „Zug beenden“ (nichts tun, Gegner ist dran; auch um Testkämpfe schnell zu verlieren) | Jerry | `claude/wizardly-edison-tjotls` | 34.1 ja (10:05): neben „Zurück“ im Untermenü Kampf, ohne Rückfrage. Gebaut, PR #41 (Entwurf), 0.1.568 |
 | 35 | Weihwasser wirkt nur gegen Untote (SRD), 2W6 gleißend; gegen andere ausgegraut mit Hinweis | Jerry | `claude/wizardly-edison-tjotls` | gebaut (`HolyWaterTest`), 35a: Hausregel ×1,5 bleibt (Nutzer 10:05), also 3–18. PR #41, 0.1.568 |
@@ -41,7 +41,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ### Tom (12.10., 11:35, vor Neustart)
 
 - **29 erledigt:** PR #42 zusammengeführt (11:35), getestet in 0.1.569; CHANGELOG eingetragen. Zweig `claude/great-sagan-n9tkga` ist fertig.
-- **Als Nächstes: 27a offen** (Wald vor Tempel, zuerst Südrand mit Steinkreis und Schild, die in der Diagonalsicht unter Kronen liegen; Empfehlung ja, erst Standbilder). Sonst 13 Tempel, dann **42 Textkasten** (42a–42c ja, Standbilder zuerst), dann 5l/5.5, 17.
+- **In Arbeit: 27 Wald** (27a ja 11:43: zuerst Südrand mit Steinkreis und Schild, erst Standbilder). Danach 13 Tempel, dann **42 Textkasten** (42a–42c ja, Standbilder zuerst), dann 5l/5.5, 17.
 - **Texte (Regel 41):** Aushänge und Sätze von 29/29.3/29.4 stehen in `Jobs.kt`; der Berater übernimmt sie in `docs/STORY.md`.
 ### Jerry (12.10., 10:30, vor Neustart)
 
@@ -56,7 +56,6 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Rückfragen an den Nutzer
 
-- **27a (Tom):** 27 Wald vor 13 Tempel, zuerst Südrand (Steinkreis, Schild unter Kronen verdeckt, Jorins Auftrag diagonal sonst nicht lösbar)? Empfehlung ja, erst Standbilder.
 
 - **32 Nacht 11./12.10. fast ohne Arbeit (Tom und Jerry, je ~25 min):** Weck-Sitzungen beenden nach einem Schritt; Routine 00:27 durch 40-Minuten-Regel gesperrt. Vorschläge 32.1–32.7 (Stand `übergeben`, `send_later` an sich selbst bis „Bis“, Nachfolger sofort starten, blockiert → nächster Punkt, Vorschau vor Push bauen, Gradle 6 GB in `setup-session.sh`, Blende-Fix aus PR #38). **32a/32b: Tom macht es (Nutzer 12.10., 07:40).** 32.8 Vertretung bei Nutzungsgrenze; **32b, 32c ja (07:5x)**, 32.1–32.8 in `SELBST.md` übernommen, Toms Routinen umgestellt. Jerrys 8 Routinen auf den Text in `SELBST.md` umgestellt (12.10., 09:59). Befunde im Archiv.
 
