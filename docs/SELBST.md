@@ -13,7 +13,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 | Tom | läuft | 12.10., 08:00 | 11.10., 23:08 | 12.10., 06:35 | 27 Wald-Standbilder blockiert: KARTENZOOM zeigt nur Zwischenbild | 29 Entwurf fertig; weiter 27 Wald | `claude/sharp-davinci-s83a1t` | `claude/sharp-davinci-s83a1t` |
 | Jerry | fertig | 12.10., 08:00 | 11.10., 23:17 | 12.10., 07:43 | Bericht im Chat (Thema 32) | – |
 
-Stand ist einer von: `läuft`, `wartet auf Grenze`, `fertig`, `blockiert`. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
+Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
 
 ## Zwei Arten von Aufgaben
 
@@ -39,10 +39,13 @@ Alle drei Stunden rund um die Uhr je Account eine Routine, die eine frische Sitz
 
 ### 2. Während der Selbstarbeit
 
-- **Nicht fragen, nicht warten.** Rückfragen sammeln, sie kommen in den Bericht. Ist eine Aufgabe blockiert: aufschreiben, nächste nehmen.
+**Dauerlauf (32.3, Regel 12.10.):** Eine Sitzung in Selbstarbeit beendet ihre Antwort nie, ohne vorher `send_later` (2 Minuten, an sich selbst: „Selbstarbeit weiter, nächster Schritt laut SELBST.md“) zu stellen, solange „Bis“ nicht erreicht ist. Sonst ist sie bis zur nächsten Routine (bis zu 3 h) still. Das gilt für die vergebende Sitzung wie für jede Weck-Sitzung.
+
+- **Nicht fragen, nicht warten.** Rückfragen sammeln, sie kommen in den Bericht. Ist eine Aufgabe blockiert: aufschreiben, **sofort** den nächsten Punkt aus Paket, Reserve oder Vorrat nehmen; nie wegen einer Blockade beenden (32.4).
+- **App-Code:** vor dem Push auch die Vorschau bauen (`tools/t`), damit kein Werkzeug still bricht (32.5). Vorschau bricht wegen Speicher ab: `tools/setup-session.sh` (Gradle 6 GB, 32.6).
 - **Kleine, sichere Schritte.** Nach jedem fertigen Schritt: Kerntests (`./gradlew -p core test`, Exit-Code prüfen), Commit und Push auf den eigenen Zweig, Herzschlag. So geht beim Abbruch höchstens ein Schritt verloren.
 - **Nichts auf `main` außer Notizen.** Kein PR zusammenführen, keine Freigaben vorwegnehmen; Optisches nur als Entwurf (Standbilder mit Uhrzeit, Schalter im Testreiter).
-- **Sparsam:** Filme nur, wo sich eine Bewegung sichtbar ändert; große Ausgaben gefiltert lesen; nach jeder Aufgabe prüfen, ob das Gespräch groß ist. Wenn ja: Übergabe schreiben, Zeile auf `läuft` lassen, Herzschlag setzen, Antwort beenden; die nächste Routine macht frisch weiter.
+- **Sparsam:** Filme nur, wo sich eine Bewegung sichtbar ändert; große Ausgaben gefiltert lesen; nach jeder Aufgabe prüfen, ob das Gespräch groß ist. Wenn ja (oder der Neustart-Haken meldet es): Übergabe schreiben, Zeile auf `übergeben`, pushen, **sofort selbst eine Nachfolgerin starten** (`create_session`, gleiche Umgebung, Auftrag: Text der Weck-Routine) und erst dann die Antwort beenden; nicht auf die Routine warten (32.2).
 - **Zweig-Build:** höchstens einen pro Aufgabe; Build-Meldung wie in `CLAUDE.md`.
 - **Paket fertig:** Reserve, dann weiter aus dem Vorrat. Ist nichts mehr da oder „Bis“ erreicht: Zeile auf `fertig`, Bericht, Antwort beenden.
 
@@ -50,14 +53,16 @@ Alle drei Stunden rund um die Uhr je Account eine Routine, die eine frische Sitz
 
 - Gilt je Account, setzt sich alle fünf Stunden zurück; Chat und Code teilen sie sich.
 - Wird es knapp oder bricht ein Schritt ab: Übergabe (fertig, halb, nächster Schritt), Zeile auf `wartet auf Grenze`, pushen. Die nächste Routine macht weiter.
+- **Vertretung (32.8, Nutzer 12.10., 32c ja):** Wer an der Grenze ist, kann nichts mehr tun; der andere übernimmt von außen. Bedingung: Zeile des anderen `läuft`/`übergeben`/`wartet auf Grenze`, „Bis“ nicht vorbei, Herzschlag älter als 40 min, und das eigene Paket ist fertig oder blockiert. Dann: in der Zeile des anderen „Vertretung durch …“ und Herzschlag setzen, dessen Paket auf dessen Zweig fortsetzen (nur Paketpunkte, keine neuen Themen, keine Freigaben, Übergabe in dessen Abschnitt). Ausnahme von „keiner arbeitet an Themen des anderen“ nur hierfür. Die Weck-Sitzung des Zurückkehrenden sieht den Vermerk: Herzschlag jünger als 40 min → warten (beenden mit `send_later`), sonst übernimmt sie wieder und löscht den Vermerk.
 
 ### 4. Weck-Sitzung (startet frisch, kennt das Gespräch nicht)
 
 1. Sitzungsstart wie in `CLAUDE.md` (`tools/notiz.sh`), dann diese Datei und den eigenen Abschnitt in `docs/OFFEN.md`.
-2. Eigene Zeile nicht `läuft`/`wartet auf Grenze`, oder „Bis“ vorbei, oder kein Paket: sofort beenden, nichts ändern.
-3. **Läuft noch jemand?** Herzschlag oder letzter Commit auf dem eigenen Zweig jünger als 40 Minuten: sofort beenden, nichts ändern.
+2. Eigene Zeile nicht `läuft`/`übergeben`/`wartet auf Grenze`, oder „Bis“ vorbei, oder kein Paket: weiter mit 3a (Vertretung), sonst sofort beenden, nichts ändern.
+3. **Läuft noch jemand?** Stand `übergeben`: übernehmen. Sonst Herzschlag oder letzter Commit auf dem eigenen Zweig jünger als 40 Minuten: sofort beenden, nichts ändern.
+3a. **Eigene Zeile nicht aktiv?** Dann die Zeile des anderen prüfen (Vertretung, Abschnitt 3); trifft sie nicht zu: beenden.
 4. Sonst: Zeile auf `läuft`, Gestartet und Herzschlag setzen, pushen, am letzten offenen Punkt weitermachen (Übergabe lesen, Zweig auschecken, `git log`).
-5. Keine neuen Routinen anlegen.
+5. Keine neuen Routinen anlegen. Dauerlauf (Abschnitt 2) gilt: vor jedem Antwortende `send_later` 2 min.
 
 ### 5. Bericht
 
