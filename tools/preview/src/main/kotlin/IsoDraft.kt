@@ -275,8 +275,10 @@ fun renderIsoThings() {
     val town = System.getenv("ISODINGE") == "dorf"
     // ISODINGE=platz: the things on the village square seen diagonally (5.2, draft)
     val square = System.getenv("ISODINGE") == "platz"
-    val rows = if (square) de.bornim.core.art.MapTownIso.squareSheet() else if (town) de.bornim.core.art.MapTownIso.sheet() else if (temple) de.bornim.core.art.MapRoomIso.templeSheet() else if (elder) de.bornim.core.art.MapRoomIso.elderSheet() else if (shop) de.bornim.core.art.MapRoomIso.shopSheet() else de.bornim.core.art.MapRoomIso.sheet()
-    val cw = if (square) 160 else if (town) 560 else if (elder) 230 else 150; val ch = if (square) 260 else if (town) 600 else 210
+    // ISODINGE=wald: trunks and camp fires of the woods seen diagonally (27.5, draft)
+    val wood = System.getenv("ISODINGE") == "wald"
+    val rows = if (wood) de.bornim.core.art.MapWoodIso.sheet() else if (square) de.bornim.core.art.MapTownIso.squareSheet() else if (town) de.bornim.core.art.MapTownIso.sheet() else if (temple) de.bornim.core.art.MapRoomIso.templeSheet() else if (elder) de.bornim.core.art.MapRoomIso.elderSheet() else if (shop) de.bornim.core.art.MapRoomIso.shopSheet() else de.bornim.core.art.MapRoomIso.sheet()
+    val cw = if (wood) 220 else if (square) 160 else if (town) 560 else if (elder) 230 else 150; val ch = if (wood) 220 else if (square) 260 else if (town) 600 else 210
     val img = PixelImage(cw * 3, ch * rows.size)
     for (y in 0 until img.height) for (x in 0 until img.width) img.set(x, y, argb(0x2A2018))
     for ((r, row) in rows.withIndex()) for ((k, p) in row.second.withIndex()) {
@@ -302,7 +304,7 @@ fun renderIsoThings() {
     // twice the size, each art pixel a block, to look at closely
     val big = PixelImage(img.width * 2, img.height * 2)
     for (y in 0 until big.height) for (x in 0 until big.width) big.set(x, y, img[x / 2, y / 2])
-    save(big, File(dir, if (square) "iso_platz.png" else if (town) "iso_dorf.png" else if (elder) "iso_aeltester.png" else if (shop) "iso_laden.png" else if (temple) "iso_tempel.png" else "iso_dinge.png"))
+    save(big, File(dir, if (wood) "iso_wald.png" else if (square) "iso_platz.png" else if (town) "iso_dorf.png" else if (elder) "iso_aeltester.png" else if (shop) "iso_laden.png" else if (temple) "iso_tempel.png" else "iso_dinge.png"))
     println("wrote iso things")
 }
 

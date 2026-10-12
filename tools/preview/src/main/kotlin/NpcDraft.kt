@@ -257,3 +257,23 @@ fun renderSquatDraft() {
     ImageIO.write(out, "png", File("build/screens/garrick_hocken.png"))
     println("wrote squat draft")
 }
+
+/** Draft (55.2): Borin sitting at the table, four things he does, in four directions (SITDRAFT=1). */
+fun renderSitDraft() {
+    val F = MapFigure
+    val k = 2; val slots = listOf(0, 2, 4, 6)
+    val cw = F.W * k; val ch = F.H * k
+    val out = BufferedImage(cw * slots.size, ch * 4, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics()
+    g.color = Color(0x3A2C20); g.fillRect(0, 0, out.width, out.height)
+    for (pose in 0 until 4) slots.forEachIndexed { i, sl ->
+        val img = de.bornim.core.art.MapFolk.borinSits(sl, pose)
+        for (y in 0 until F.H * k) for (x in 0 until F.W * k) {
+            val q = img[x / k, y / k]; if ((q ushr 24) < 128) continue
+            out.setRGB(i * cw + x, pose * ch + y, q)
+        }
+    }
+    val dir = java.io.File("build/screens").apply { mkdirs() }
+    javax.imageio.ImageIO.write(out, "png", java.io.File(dir, "sitzen_borin.png"))
+    println("wrote sitzen_borin")
+}

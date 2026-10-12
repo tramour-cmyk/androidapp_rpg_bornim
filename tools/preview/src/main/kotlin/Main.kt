@@ -108,6 +108,7 @@ fun main() {
     if (System.getenv("NPCREST") != null) { renderNpcRest(); System.exit(0) }
     if (System.getenv("NPCTORCH") != null) { renderNpcTorch(); System.exit(0) }
     if (System.getenv("VILLAGEDRAFT") != null) { renderVillageDraft(); System.exit(0) }
+    if (System.getenv("SITDRAFT") != null) { renderSitDraft(); System.exit(0) }
     if (System.getenv("SQUATDRAFT") != null) { renderSquatDraft(); System.exit(0) }
     // TOWNDRAFT=1: the village and the rooms in the new style, for the films too
     if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true
@@ -179,9 +180,40 @@ fun main() {
             if (System.getenv("CAVEDRAFT") != null) de.bornim.core.art.MapCaveIso.draft = true
             // DIAG=1: the map seen diagonally (13)
             if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.all = true
+            // PFLASTERDRAFT=1: the square's cobbles quieter (5.4, draft)
+            if (System.getenv("PFLASTERDRAFT") == "2") de.bornim.core.art.MapGround.cobbleMid = true
+            else if (System.getenv("PFLASTERDRAFT") != null) de.bornim.core.art.MapGround.cobbleDraft = true
+            // HERBDRAFT=1: the healing herbs drawn in the slant (56, draft)
+            if (System.getenv("HERBDRAFT") != null) de.bornim.core.art.MapWoodIso.herbDraft = true
+            // CHESTDRAFT=1: the chests of the woods drawn in the slant (56, draft)
+            if (System.getenv("CHESTDRAFT") != null) de.bornim.core.art.MapWoodIso.chestDraft = true
+            // ROCKDRAFT=1: the boulders of the woods drawn in the slant (56, draft)
+            if (System.getenv("ROCKDRAFT") != null) de.bornim.core.art.MapWoodIso.rockDraft = true
+            // MENHIRDRAFT=1: the standing stones of the circle drawn in the slant (56, draft)
+            if (System.getenv("MENHIRDRAFT") != null) de.bornim.core.art.MapWoodIso.menhirDraft = true
+            // BUSHDRAFT=1: the bushes of the undergrowth drawn in the slant (56, draft)
+            if (System.getenv("BUSHDRAFT") != null) de.bornim.core.art.MapWoodIso.bushDraft = true
+            // FERNDRAFT=1: the ferns of the undergrowth drawn in the slant (56, draft)
+            if (System.getenv("FERNDRAFT") != null) de.bornim.core.art.MapWoodIso.fernDraft = true
+            // YARDDRAFT=1: haystacks and the washing line of the village drawn in the slant (56, draft)
+            if (System.getenv("YARDDRAFT") != null) de.bornim.core.art.MapWoodIso.yardDraft = true
+            // POND=1: the pond's far bank as an earthen step, reeds along it (27.5, draft)
+            if (System.getenv("POND") != null) { de.bornim.core.art.MapGround.pondDraft = true; de.bornim.core.art.MapWoodIso.pondDraft = true }
+            // SITDRAFT2=1: Borin sits at his table in the inn (55.2, draft)
+            if (System.getenv("SITDRAFT2") != null) de.bornim.core.art.MapFolk.sitDraft = true
+            // TREEDRAFT=1: the trees with volume (27.4, draft)
+            if (System.getenv("TREEDRAFT") != null) de.bornim.core.art.MapFlora.treeDraft = true
             // ZOOMSTUFE=1|2: the in-between zoom steps for the near shots (6.15)
             System.getenv("ZOOMSTUFE")?.let { if (near) de.bornim.game.ui.MapZoom.level = it.toInt() }
             val z = if (near) "nah" else "weit"
+            // HELDORT=karte:x:y[:richtung];…: the hero anywhere, at noon (test of 0.1.590: lost under several crowns)
+            System.getenv("HELDORT")?.split(";")?.forEach { s ->
+                val p = s.split(":")
+                val f = p.getOrNull(3)?.let { d -> Facing.entries.first { it.name.startsWith(d.uppercase()) } } ?: Facing.DOWN
+                // optional fifth field: the hour (e.g. 23 for night)
+                val hour = p.getOrNull(4)?.toInt() ?: 12
+                shot("zoom_${z}_p_${p[0]}_${p[1]}_${p[2]}" + (if (p.size > 4) "_$hour" else "")) { place(it, p[0], p[1].toInt(), p[2].toInt(), hour * 60, f) }
+            }
             shot("zoom_${z}_1_wald_tag") { place(it, "forest", 9, 10, 12 * 60) }
             shot("zoom_${z}_2_wald_nacht") { place(it, "forest", 9, 10, 23 * 60) }
             shot("zoom_${z}_3_dorf") { place(it, "village", 11, 7, 12 * 60) }
@@ -211,6 +243,12 @@ fun main() {
                 // 29: the notice board before the inn, by day and at night
                 shot("zoom_${z}_d9_brett_tag") { place(it, "village", 6, 8, 12 * 60, Facing.LEFT) }
                 shot("zoom_${z}_d10_schlagbaum") { place(it, "village", 17, 4, 12 * 60, Facing.UP) }
+                // 5.6: the barrier opened, and the garden's fence in the south west
+                shot("zoom_${z}_d10b_schlagbaum_offen") { place(it, "village", 17, 4, 12 * 60, Facing.UP); it.game!!.state.flags += de.bornim.core.Story.BARRIER_OPEN; it.refresh() }
+                shot("zoom_${z}_d12_zaun") { place(it, "village", 6, 27, 12 * 60, Facing.DOWN) }
+                // test of 0.1.590: the hero behind Thessa's counter, the counter stays solid; beside it in front
+                shot("zoom_${z}_l9_tresen_hinten") { place(it, "shop", 5, 2, 12 * 60, Facing.LEFT) }
+                shot("zoom_${z}_l9b_tresen_vorn") { place(it, "shop", 4, 4, 12 * 60, Facing.UP) }
                 // 27d: the hero pushed against the shop's front wall (free walking stops him 0.3 tiles before it), at its
                 // left end, middle and right end: the house stays solid
                 for ((n, hx) in listOf("links" to 26, "mitte" to 29, "rechts" to 30)) shot("zoom_${z}_d11_laden_$n") {
@@ -286,6 +324,7 @@ fun main() {
     if (System.getenv("CAST") != null) { renderCastViews(); System.exit(0) }
     if (System.getenv("STANCE") != null) { renderStanceViews(); System.exit(0) }
     if (System.getenv("ARMS") != null) { renderArmsAndCloak(); System.exit(0) }
+    if (System.getenv("TREESHEET") != null) { renderTreeSheet(); System.exit(0) }
     if (System.getenv("BENCH") != null) { benchRender(); System.exit(0) }
     if (System.getenv("RUN") != null) { renderBattleRun(); System.exit(0) }
     if (System.getenv("PORTRAIT") != null) { renderPortraits(); System.exit(0) }
