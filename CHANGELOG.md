@@ -4,7 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
-Zweig von Tom (Thema 58), getestet in 0.1.628 (Nutzer 12.10., 23:1x: alles klappt), PR #50 (zusammengeführt 12.10., 23:15):
+Zweig von Tom (Thema 58), getestet in 0.1.628 (Nutzer 12.10., 23:1x: alles klappt), PR #50 (zusammengeführt 12.10., 23:13):
 
 **Schild und Köcher auf dem Rücken (58)**
 - Ein umgehängter Schild liegt über Umhang und Mantel und drückt den Stoff an den Rücken; darunter fällt der Umhang frei. Der Köcher ebenso.
