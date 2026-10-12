@@ -159,3 +159,4 @@ Nach den [Stil-Leitlinien](STIL.md): weg von Chiptune, hin zu glaubwürdigen Ger
 - **Trank wird zweimal getrunken:** kein Fehler, Trinkvariante „zwei hastige Schlucke“ (08.10.).
 - **Testkämpfe im Dorf:** Held und Gegner erreichen sich beim Angriff nicht (alte Kulisse ohne berechneten Schritt); im Dorf gibt es sonst keine Kämpfe (08.10.).
 - **Figurgröße im Reiter „Held“** und **Kampfablauf** (Ansage mit Ausholen → Tippen → Schlag): so bestätigt.
+- **30.7 (Jerry, 36f, 12.10.):** Klänge mit 22 statt 44 kHz (etwa 5 MB Speicher weniger, Höhen etwas dumpfer); erst wenn der Speicher wieder knapp wird.

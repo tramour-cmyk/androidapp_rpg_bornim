@@ -13,8 +13,8 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 7 | Stopp-Punkt und Zusammenarbeit der Accounts | Tom | erledigt 10.10. (weiter in 8) | Archiv |
 | 8 | Zusammenarbeit Tom und Jerry, Notizen nur auf `main` | Jerry | erledigt 10.10. | `CLAUDE.md` |
 | 9 | Monster auf der Karte | Jerry | alle 18 Gegner auf der Karte erledigt: Wolf, Goblin, Grimmzahn (v0.1.430, v0.1.438), 9i übrige Gegner (PR #29, #33, 11.10.) | `OFFEN.md` |
-| 10 | Höhle: Flammen feiner | Jerry | zurückgestellt bis zur diagonalen Höhle (13e) | `OFFEN.md` |
-| 11 | Höhle: Lichtstrahl am Lichtschacht | Jerry | zurückgestellt bis zur diagonalen Höhle (13e) | `OFFEN.md` |
+| 10 | Höhle: Flammen feiner | Jerry | Teil von 13e (36e, 12.10.) | `OFFEN.md` |
+| 11 | Höhle: Lichtstrahl am Lichtschacht | Jerry | Teil von 13e (36e, 12.10.) | `OFFEN.md` |
 | 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Jerry, Tom | 12a, 12b, 12.3 erledigt (v0.1.455, v0.1.471, v0.1.483) | `OFFEN.md` |
 | 13 | Diagonale Sicht | Tom | Räume erledigt (Schänke v0.1.471; Ältester, Laden, Tempel PR #20, 11.10.); weiter in 5 | `OFFEN.md` |
 | 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für `OFFEN.md`) | Berater | erledigt 11.10. (PR #26) | `CHANGELOG.md` |
@@ -22,7 +22,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 16 | Trefferstopp | Jerry | erledigt, v0.1.460 | Änderungshistorie |
 | 17 | Nachschwingen | Tom | freigegeben, offen | `OFFEN.md` |
 | 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | Jerry | Runde 2 auf `main` (PR #23, 11.10.); 18h, 18i offen | `OFFEN.md` |
-| 19 | Zeitablauf der Kampfbewegungen | Jerry | erledigt, v0.1.455; 19e zur Beobachtung | `OFFEN.md` |
+| 19 | Zeitablauf der Kampfbewegungen | Jerry | erledigt, v0.1.455; 19e geschlossen (36e, 12.10.) | `OFFEN.md` |
 | 20 | Uhrzeit der APK im ZIP | Tom | erledigt 11.10. (PR #21) | `OFFEN.md` |
 | 21 | Releaseflut eindämmen | Jerry | erledigt 11.10. (PR #22; Release nur auf Zuruf, Regeln in `CLAUDE.md`) | `OFFEN.md` |
 | 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | Tom | umgesetzt 11.10. (`docs/SELBST.md`) | `OFFEN.md` |
