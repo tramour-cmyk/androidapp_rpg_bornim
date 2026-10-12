@@ -85,7 +85,7 @@ object WorldArt {
             Tile.VEG_BED -> cached("veg$seed") { vegBed(seed) }
             Tile.FENCE, Tile.HAY, Tile.WASHLINE -> cached("grass$seed") { grass(seed) }
             Tile.TREE -> cached("treeground$seed") { grass(seed); blendEllipse(16.0, 26.0, 13.0, 5.0, SHADOW) }
-            Tile.ROCK, Tile.SIGN, Tile.CHEST, Tile.CAMPFIRE, Tile.LOG, Tile.MENHIR -> {
+            Tile.ROCK, Tile.SIGN, Tile.NOTICE, Tile.CHEST, Tile.CAMPFIRE, Tile.LOG, Tile.MENHIR -> {
                 val base = baseGround(kind, seed)
                 cached("obj-ground/${kind}/$seed/${t == Tile.CAMPFIRE}") {
                     paste(base)
@@ -882,7 +882,7 @@ object WorldArt {
                     out += Obj(mapTree(kind, v % 4, deep), px - 6, py - 24, bottom)
                 }
                 Tile.ROCK -> out += Obj(cached("rock") { rock() }, px, py, bottom)
-                Tile.SIGN -> out += Obj(cached("sign") { sign() }, px, py, bottom)
+                Tile.SIGN, Tile.NOTICE -> out += Obj(cached("sign") { sign() }, px, py, bottom)
                 Tile.CHEST -> {
                     val open = map.chestAt(tx, ty)?.id in state.openedChests
                     out += Obj(cached("chest$open") { chest(open) }, px, py, bottom)

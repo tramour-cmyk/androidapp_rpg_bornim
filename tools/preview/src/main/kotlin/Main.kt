@@ -206,6 +206,9 @@ fun main() {
                 // 25b: the houses' windows lit at night, and in the dusk as they wake
                 shot("zoom_${z}_d7_haeuser_nacht") { place(it, "village", 8, 7, 23 * 60, Facing.UP) }
                 shot("zoom_${z}_d8_haeuser_daemmerung") { place(it, "village", 8, 7, 20 * 60 + 15, Facing.UP) }
+                // 29: the notice board before the inn, by day and at night
+                shot("zoom_${z}_d9_brett_tag") { place(it, "village", 6, 8, 12 * 60, Facing.LEFT) }
+                shot("zoom_${z}_d9b_brett_nacht") { place(it, "village", 6, 8, 23 * 60, Facing.LEFT) }
                 shot("zoom_${z}_i1_schaenke_tag") { place(it, "inn", 4, 5, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_i2_schaenke_abend") { place(it, "inn", 6, 3, 21 * 60, Facing.LEFT) }
                 shot("zoom_${z}_i3_aeltester") { place(it, "elder", 4, 4, 12 * 60, Facing.UP) }

@@ -563,6 +563,62 @@ object MapTownIso {
         return c.img
     }
 
+    /**
+     * The notice board before the inn (29): a broad board of planks on two posts under a little roof of shingles,
+     * notes of pale parchment nailed to it, dark lines of writing on each. Three looks: a gabled roof and fresh notes,
+     * a flat roof and a dark stain, no roof and notes half torn away by the wind. Faces the way along the map's y.
+     */
+    fun noticeBoard(v: Int, seed: Int): PixelImage {
+        val c = Tile1(220)
+        c.shadow(-0.5, -0.4, 0.45, 0.4)
+        val j0 = -0.44; val j1 = -0.38
+        val i0 = -0.94; val i1 = -0.06
+        val z0 = 52.0; val z1 = 118.0
+        val top = if (v == 2) z1 + 6 else 146.0
+        for (pi in listOf(i0 + 0.06, i1 - 0.06))
+            c.box(pi - 0.035, j0 - 0.05, pi + 0.035, j0 + 0.0, 0.0, top) { f, u, w -> wood(f, w, u, seed + 3, 0x3E2E22) }
+        // the notes: where each lies on the board's face (u along it, w up it), torn ones keep only their top
+        data class Note(val u0: Double, val u1: Double, val w0: Double, val w1: Double, val torn: Boolean, val tone: Int)
+        val notes = (0 until 6).map { k ->
+            val u = 0.08 + (k % 3) * 0.29 + (rnd(k, 1, seed) - 0.5) * 0.06
+            val w = if (k < 3) 0.52 else 0.1
+            val wide = 0.17 + rnd(k, 2, seed) * 0.06; val tall = 0.3 + rnd(k, 3, seed) * 0.08
+            Note(u, u + wide, w + (rnd(k, 4, seed) - 0.5) * 0.06, w + tall, v == 2 && hash(k, 5, seed) % 2 == 0, hash(k, 6, seed) % 3)
+        }.filter { v != 1 || it.u0 > 0.3 || it.w0 < 0.4 }
+        c.box(i0, j0, i1, j1, z0, z1) { f, u, w ->
+            if (f == 0) for (n in notes) {
+                if (u !in n.u0..n.u1 || w !in n.w0..n.w1) continue
+                val nu = (u - n.u0) / (n.u1 - n.u0); val nw = (w - n.w0) / (n.w1 - n.w0)
+                // torn: the lower part gone in a ragged edge
+                if (n.torn && nw < 0.45 + 0.25 * rnd(floor(nu * 14).toInt(), 7, seed)) continue
+                // the nail at the top
+                if (abs(nu - 0.5) < 0.06 && nw > 0.86) return@box argb(0x1A1614)
+                // lines of writing, short dark strokes
+                if (nw in 0.12..0.78 && nu in 0.12..0.88 && frac(nw * 7) < 0.32 && hash(floor(nu * 16).toInt(), floor(nw * 7).toInt(), seed + 9) % 5 != 0)
+                    return@box argb(0x2A2018)
+                val paper = when (n.tone) { 0 -> 0xA89C7E; 1 -> 0x988A6A; else -> 0x8A7E62 }
+                return@box shade(mix(argb(paper), argb(0x3A2E22), (1 - nw) * 0.25 + rnd(floor(nu * 30).toInt(), floor(nw * 30).toInt(), seed + 8) * 0.12), 0.9)
+            }
+            // a dark stain running down the planks on the second look
+            if (v == 1 && f == 0 && abs(u - 0.2 - (1 - w) * 0.05) < 0.05 * (0.4 + w) && w > 0.2) return@box shade(argb(0x2A1810), 0.8)
+            wood(f, u, w, seed + 7)
+        }
+        // the roof: shingles over the board, its front edge leaning out towards the viewer
+        when (v) {
+            0 -> {
+                c.plane(doubleArrayOf(i0 - 0.06, j0 - 0.22, top - 4), doubleArrayOf(i1 - i0 + 0.12, 0.0, 0.0), doubleArrayOf(0.0, 0.2, 18.0)) { u, w ->
+                    shade(mix(argb(0x241C16), argb(0x5A4636), rnd(floor(u * 14).toInt(), floor(w * 4).toInt(), seed + 12) * 0.6), 1.0)
+                }
+                c.plane(doubleArrayOf(i0 - 0.06, j0 - 0.02, top + 14), doubleArrayOf(i1 - i0 + 0.12, 0.0, 0.0), doubleArrayOf(0.0, 0.2, -18.0)) { u, w ->
+                    shade(mix(argb(0x241C16), argb(0x5A4636), rnd(floor(u * 14).toInt(), floor(w * 4).toInt(), seed + 11) * 0.6 + (if (frac(w * 4) < 0.15) -0.3 else 0.0)), 0.75 + 0.25 * w)
+                }
+            }
+            1 -> c.box(i0 - 0.06, j0 - 0.12, i1 + 0.06, j1 + 0.1, top, top + 6) { f, u, w -> wood(f, u, w, seed + 13, 0x3A2C22) }
+            else -> {}
+        }
+        return c.img
+    }
+
     /** Splats a round body (cylinder) of radius [r] tiles at (ci, cj) from z0 to z1: its side towards us, then its top by [top]. */
     private fun Tile1.cylinder(ci: Double, cj: Double, r: Double, z0: Double, z1: Double, side: (ang: Double, z: Double, lit: Double) -> Int?, top: ((Double, Double) -> Int?)? = null) {
         val steps = (r * 900).toInt().coerceAtLeast(60)
@@ -723,6 +779,7 @@ object MapTownIso {
         "Laterne" to (0 until 3).map { lamp(it, 521 + it) },
         "Bank" to (0 until 3).map { bench(it, 531 + it) },
         "Wegweiser" to (0 until 3).map { signpost(it, 541 + it) },
+        "Anschlagbrett" to (0 until 3).map { noticeBoard(it, 561 + it) },
     )
 
     // ------------------------------------------------------------------ the houses of a town map
@@ -825,6 +882,7 @@ object MapTownIso {
         val v = Math.floorMod(hash(tx, ty, 15), 3)
         val thing: Pair<String, () -> PixelImage>? = when (t) {
             Tile.SIGN -> "sign/$v" to { signpost(v, 71) }
+            Tile.NOTICE -> "notice/$v" to { noticeBoard(v, 561 + v) }
             Tile.STALL -> "stall/$v" to { stall(v, 501 + v) }
             Tile.WELL -> "well/$v" to { well(v, 511 + v) }
             Tile.LAMP -> "lamp/$v" to { lamp(v, 521 + v) }

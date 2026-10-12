@@ -37,7 +37,7 @@ object MapGround {
     /** Tiles drawn by this ground; anything else keeps its old picture on top. */
     private val drawn = setOf(
         Tile.GRASS, Tile.TALL_GRASS, Tile.FLOWERS, Tile.PATH, Tile.TREE, Tile.WATER,
-        Tile.ROCK, Tile.LOG, Tile.MENHIR, Tile.SIGN, Tile.CHEST, Tile.CAMPFIRE,
+        Tile.ROCK, Tile.LOG, Tile.MENHIR, Tile.SIGN, Tile.NOTICE, Tile.CHEST, Tile.CAMPFIRE,
         // the rock face about the cave mouth in the woods ([MapFlora.caveCliff], 1b)
         Tile.CAVE_WALL, Tile.CAVE_ENTRANCE,
     )

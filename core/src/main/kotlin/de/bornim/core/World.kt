@@ -14,6 +14,8 @@ enum class Tile(val ch: Char, val walkable: Boolean) {
     WINDOW('W', false),
     DOOR('D', true),
     SIGN('S', false),
+    /** The notice board before the inn (29): notes for odd jobs. */
+    NOTICE('!', false),
     CHEST('C', false),
     WELL('w', false),
     CAMPFIRE('F', false),
