@@ -43,11 +43,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 21:30, Selbstarbeit bis 22:00)
+### Tom (12.10., 22:2x)
 
-- Zweig `claude/tom-27-4-baeume` (PR #48), `main` (PR #49) hineingeholt. Neu seit 0.1.615: **27e.1** Deckung vor dem Helden zusammen 50 % statt 35 %, gerade Sicht nur bei Bildpunkten über dem Oberkörper (`WorldScreen.hides`, ein Pfad für Kronen, Häuser, Möbel); **27h** Testschalter „Alles diagonal“ (`MapSight.all`); 56/27g Entwurfsschalter entfernt (Verhalten gleich). Entwürfe im Spiel aus: 27.6 (`PONDLIFE`, Rückfrage 27i), 17 Umhang (`SWINGDRAFT`, `Rig.flare`, Rückfrage 17a), **42 Textkasten** (`DialogLook.draft`, Vorschau `TEXTKASTEN=1`).
-- **Weiter (Nutzer 21:3x: 27i, 27j, 17a ja):** (1) 27.6 `PONDLIFE` an (ins Spiel); (2) 17 in den Gang (`SWINGDRAFT` an, `swingRig` mit `flare`, Sprungtest); (3) 27j Klang Frösche/Libellen als Hörproben; (4) 42 Standbilder auf die Entscheidungsseite (Vorschau `TEXTKASTEN=1`, die Blende braucht `settle = 150`), Rückfrage 42d. Dann ein Build.
-- Diese Sitzung kann keine Erinnerungen/Nachfolger mehr anlegen (Kettentiefe 8): die nächste Weck-Routine (21:24 war schon, also 00:24) übernimmt nur, wenn „Bis“ verlängert wird.
+- Zweig `claude/tom-27-4-baeume` (PR #48), `main` hineingeholt. Neu seit 0.1.624: **27i** Libellen/Frösche im Spiel, **17a** Umhang schwingt aus, **42d** Textkasten schwarz/Gold, **27j/27k** Weiher-Klang (`PondSound`: Ruf, wenn die Kehle schwillt, nach Nähe; Libelle nur nah bei Tag; Chor 2 leise in der Dämmerung; Klänge aus `tools/klang/teich.py --spiel`). Build läuft (PR abonniert).
+- **Weiter:** Build melden, Test abwarten; dann laut 26c: Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar (Meldung 08:43), 5l, 55.2-Rest, 17 Rest (Haare, Köcher).
+- Hinweis: Nach dem Zusammenführen kann der Gradle-Zwischenstand von `core` veralten (Vorschau meldet „Unresolved reference“, „Int expected Int“): `rm -rf core/build/{kotlin,classes,libs}`.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -57,7 +57,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Weiter (Freitag):** Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
-- **Tom, PR #48** `claude/tom-27-4-baeume`, **[0.1.624](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38297431002)** (12.10., 21:29): 27e.1 Deckung vor dem Helden 50 % (Kronen, Häuser, Möbel gleich), 27h Testschalter „Alles diagonal“. Entwürfe 27.6, 17, 42 im Spiel aus.
+- **Tom, PR #48** `claude/tom-27-4-baeume`, Build läuft (12.10., 22:2x): 27e.1 Deckung 50 %, 27h „Alles diagonal“, 27i Tiere am Weiher, 27j Weiher-Klang, 17a Umhang, 42d Textkasten. 0.1.624 nicht extra testen.
 
 ## Rückfragen an den Nutzer
 

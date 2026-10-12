@@ -1,5 +1,11 @@
 # Archiv
 
+### Tom (12.10., 21:30, Selbstarbeit bis 22:00)
+
+- Zweig `claude/tom-27-4-baeume` (PR #48), `main` (PR #49) hineingeholt. Neu seit 0.1.615: **27e.1** Deckung vor dem Helden zusammen 50 % statt 35 %, gerade Sicht nur bei Bildpunkten über dem Oberkörper (`WorldScreen.hides`, ein Pfad für Kronen, Häuser, Möbel); **27h** Testschalter „Alles diagonal“ (`MapSight.all`); 56/27g Entwurfsschalter entfernt (Verhalten gleich). Entwürfe im Spiel aus: 27.6 (`PONDLIFE`, Rückfrage 27i), 17 Umhang (`SWINGDRAFT`, `Rig.flare`, Rückfrage 17a), **42 Textkasten** (`DialogLook.draft`, Vorschau `TEXTKASTEN=1`).
+- **Weiter (Nutzer 21:3x: 27i, 27j, 17a ja):** (1) 27.6 `PONDLIFE` an (ins Spiel); (2) 17 in den Gang (`SWINGDRAFT` an, `swingRig` mit `flare`, Sprungtest); (3) 27j Klang Frösche/Libellen als Hörproben; (4) 42 Standbilder auf die Entscheidungsseite (Vorschau `TEXTKASTEN=1`, die Blende braucht `settle = 150`), Rückfrage 42d. Dann ein Build.
+- Diese Sitzung kann keine Erinnerungen/Nachfolger mehr anlegen (Kettentiefe 8): die nächste Weck-Routine (21:24 war schon, also 00:24) übernimmt nur, wenn „Bis“ verlängert wird.
+
 - **49 (aus OFFEN, 12.10., 21:4x):** 49n–49q ja (18:1x): 9 Linien je Merkmal (3 Stufen, Pfad-Linien 2), 7 einstufige Talente, Zäh/Kriegszauberer gestrichen. 49r ja (18:2x): Talent auf jeder geraden Stufe, auf 4/8/12/16/20 wahlweise +2 Attribut (`BALANCE.md`). 49s ja (18:2x): Fertigkeit = neue Möglichkeit, Attribut = Zahl; neu zu bauen: Gesprächsauswahl, Verstecktes auf Karten, Schleichen.
 
 ### Tom (12.10., 20:56, Selbstarbeit bis 22:00)
