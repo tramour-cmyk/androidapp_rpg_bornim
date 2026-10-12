@@ -58,5 +58,38 @@ class CaveSheetTest {
         }
         File("build/preview").mkdirs()
         ImageIO.write(out, "png", File("build/preview/hoehle_plan.png"))
+        // 13e.2: the things up close, each kind's tiles cut out of the plan at twice the size
+        val things = listOf(Tile.CHEST, Tile.CRATE, Tile.BEDROLL)
+        val spots = ArrayList<Pair<Int, Int>>()
+        for (k in things) for (ty in 0 until map.height) for (tx in 0 until map.width) if (map.tile(tx, ty) == k) spots += tx to ty
+        if (spots.isEmpty()) return
+        val cw = 180; val chh = 150; val cols = 4; val rows = (spots.size + cols - 1) / cols
+        val sheet = BufferedImage(cols * cw * 2, rows * chh * 2, BufferedImage.TYPE_INT_ARGB)
+        for ((n, s) in spots.withIndex()) {
+            val (tx, ty) = s
+            val sx = (ox + (tx + 0.5 - (ty + 0.5)) * tw / 2).toInt(); val sy = (oy + (tx + ty + 1.0) * th / 2).toInt()
+            for (y in 0 until chh * 2) for (x in 0 until cw * 2) {
+                val px = sx - cw / 2 + x / 2; val py = sy - chh * 2 / 3 + y / 2
+                sheet.setRGB((n % cols) * cw * 2 + x, (n / cols) * chh * 2 + y, if (px in 0 until w && py in 0 until h) out.getRGB(px, py) else 0xFF000000.toInt())
+            }
+        }
+        ImageIO.write(sheet, "png", File("build/preview/hoehle_dinge.png"))
+        // every look of each, on plain floor, twice the size: chests shut and open, crates, sleeping places
+        val looks = listOf(Tile.CHEST to false, Tile.CHEST to true, Tile.CRATE to false, Tile.BEDROLL to false)
+        val gw = 100; val gh = 150
+        val gal = BufferedImage(3 * gw * 2, looks.size * gh * 2, BufferedImage.TYPE_INT_ARGB)
+        for ((r, look) in looks.withIndex()) for (v in 0 until 3) {
+            val img = MapCaveIso.sample(look.first, v, look.second)
+            for (y in 0 until gh * 2) for (x in 0 until gw * 2) {
+                val ix = x / 2 - (gw - img.width) / 2; val iy = y / 2 - (gh - 10 - img.height)
+                var c = 0xFF3A332C.toInt()
+                if (ix in 0 until img.width && iy in 0 until img.height) {
+                    val p = img[ix, iy]; val al = p ushr 24
+                    if (al > 0) c = de.bornim.core.art.mix(c, p or (0xFF shl 24), al / 255.0)
+                }
+                gal.setRGB(v * gw * 2 + x, r * gh * 2 + y, c)
+            }
+        }
+        ImageIO.write(gal, "png", File("build/preview/hoehle_varianten.png"))
     }
 }

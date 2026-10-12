@@ -332,21 +332,293 @@ object MapCaveIso {
         return c.img
     }
 
+    // ------------------------------------------------------------------ goblin loot: chests, crates, sleeping places (13e.2)
+
+    private fun m(rgb: Int, shine: Double = 0.0, grain: Double = 0.0, sat: Double = 1.0, value: Double = 1.0, bias: Double = 0.0) =
+        Mat(Ramp.of(argb(rgb), sat = sat, value = value), shine, grain, bias)
+
+    // the same rough, smoke-dark stuff as the cave's things seen straight ([MapCave])
+    private val plank = m(0x5E4C3A, grain = 0.12, sat = 0.75, value = 0.82)
+    private val plankTop = m(0x6A5640, grain = 0.1, sat = 0.75, value = 0.82, bias = -0.25)
+    private val plankDark = m(0x40322A, grain = 0.12, sat = 0.75, value = 0.85)
+    private val ironMat = m(0x3E3A36, shine = 0.35, grain = 0.25, sat = 0.5)
+    private val rope = m(0x6A5A3C, grain = 0.4, sat = 0.6, value = 0.7)
+    private val sackMat = m(0x6E5E44, grain = 0.2, sat = 0.7, value = 0.6, bias = -0.25)
+    private val hideMat = m(0x5A5046, grain = 0.2, sat = 0.7, value = 0.7, bias = -0.25)
+    private val hideDarkMat = m(0x3A322C, grain = 0.3, sat = 0.7)
+    private val strawMat = m(0x9A8452, grain = 0.35, sat = 0.75, value = 0.75)
+    private val boneMat = m(0xA89A7C, shine = 0.08, grain = 0.22, sat = 0.75)
+    private val hole = argb(0x120E0C)
+    private val seamC = argb(0x2A1E14)
+
+    /** A picture of one tile for [Sculpt]: front corner at the bottom middle, the tile from −1 to 0 in i and j. */
+    private class Canvas(val h: Int, seed: Int, val w: Int = 100) {
+        val s = Sculpt(w, h, seed)
+        val img: PixelImage get() = s.img
+        /** The shadow on the floor: kept apart, so the outline does not run round it, and laid under at [done]. */
+        private val under = PixelImage(w, h)
+        fun x(i: Double, j: Double) = w / 2.0 + (i - j) * TW / 2
+        fun y(i: Double, j: Double, z: Double = 0.0) = h + (i + j) * TH / 2 - z * ZS
+        fun done(): PixelImage {
+            s.outline(argb(0x0E0C0A))
+            for (py in 0 until h) for (px in 0 until w) {
+                val u = under[px, py]; if (u ushr 24 == 0) continue
+                val c = img[px, py]; val a = c ushr 24
+                if (a == 0) img.set(px, py, u) else if (a < 255) img.set(px, py, mix(u or (0xFF shl 24), c or (0xFF shl 24), a / 255.0))
+            }
+            return img
+        }
+        fun box(i0: Double, j0: Double, i1: Double, j1: Double, z0: Double, z1: Double, top: Mat, left: Mat = top, right: Mat = left, bevel: Double = 1.0) {
+            s.poly(left, x(i0, j1), y(i0, j1, z0), x(i1, j1), y(i1, j1, z0), x(i1, j1), y(i1, j1, z1), x(i0, j1), y(i0, j1, z1), tiltX = -0.55, tiltY = 0.3, bevel = bevel)
+            s.poly(right, x(i1, j0), y(i1, j0, z0), x(i1, j1), y(i1, j1, z0), x(i1, j1), y(i1, j1, z1), x(i1, j0), y(i1, j0, z1), tiltX = 0.55, tiltY = 0.3, bevel = bevel)
+            s.poly(top, x(i0, j0), y(i0, j0, z1), x(i1, j0), y(i1, j0, z1), x(i1, j1), y(i1, j1, z1), x(i0, j1), y(i0, j1, z1), tiltY = -0.72, bevel = bevel * 0.6)
+        }
+        /** A soft shadow round the footprint, laid first. */
+        fun shadow(i0: Double, j0: Double, i1: Double, j1: Double, a: Double = 0.5) {
+            val ci = (i0 + i1) / 2; val cj = (j0 + j1) / 2
+            val ri = (i1 - i0) / 2 + 0.08; val rj = (j1 - j0) / 2 + 0.08
+            for (py in 0 until h) for (px in 0 until w) {
+                val aa = (px + 0.5 - w / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
+                val i = (aa + bb) / 2; val j = (bb - aa) / 2
+                val d = max(abs((i - ci) / ri), abs((j - cj) / rj))
+                if (d >= 1.0 || i < -1 || j < -1 || i > 0 || j > 0) continue
+                under.set(px, py, (((1 - d) * a * 255).toInt().coerceIn(0, 255) shl 24) or 0x0A0806)
+            }
+        }
+        /** Fills the level rectangle between (i0, j0) and (i1, j1) at height [z] with [c]: the dark inside of a box. */
+        fun fill(i0: Double, j0: Double, i1: Double, j1: Double, z: Double, c: Int) {
+            for (py in 0 until h) for (px in 0 until w) {
+                val aa = (px + 0.5 - w / 2.0) / (TW / 2); val bb = (py + 0.5 - h + z * ZS) / (TH / 2)
+                val i = (aa + bb) / 2; val j = (bb - aa) / 2
+                if (i in i0..i1 && j in j0..j1) img.set(px, py, c)
+            }
+        }
+        /** A line on the face j = [j] (towards +j) or i = [i] at height z, between two points of the floor plan. */
+        fun seam(i0: Double, j0: Double, i1: Double, j1: Double, z0: Double, z1: Double = z0, c: Int = argb(0x2A1E14)) =
+            s.line(x(i0, j0), y(i0, j0, z0), x(i1, j1), y(i1, j1, z1), c)
+    }
+
+    /** Planks on a box: seams across both faces, a batten down the corner, now and then a nail head. */
+    private fun Canvas.planks(i0: Double, j0: Double, i1: Double, j1: Double, z0: Double, z1: Double, rows: Int, seed: Int) {
+        for (k in 1 until rows) {
+            val z = z0 + (z1 - z0) * k / rows + (rnd(k, 1, seed) - 0.5) * 2
+            seam(i0, j1, i1, j1, z, z + (rnd(k, 2, seed) - 0.5) * 2)
+            seam(i1, j0, i1, j1, z)
+        }
+        seam(i1, j1, i1, j1, z0, z1, argb(0x1A120C))
+        for (k in 0 until rows) {
+            val z = z0 + (z1 - z0) * (k + 0.5) / rows
+            s.dot(x(i0 + 0.04, j1), y(i0 + 0.04, j1, z), argb(0x8A8070))
+            s.dot(x(i1, j1 - 0.04), y(i1, j1 - 0.04, z), argb(0x8A8070))
+        }
+    }
+
+    /**
+     * A chest, as the goblins keep their loot (13e.2), along the map's x: [v] 0 an iron-banded chest taken from the
+     * village, its lock broken and tied up with rope; 1 a box of rough planks lashed with rope; 2 banded, a red goblin
+     * hand daubed on the front and a skull on the lid. [open]: the lid thrown back, the box empty but for straw.
+     */
+    private fun chest(v: Int, open: Boolean): PixelImage {
+        val c = Canvas(TH.toInt() + 80, 4100 + v)
+        val i0 = -0.84; val i1 = -0.16; val j0 = -0.74; val j1 = -0.32
+        val zb = 27.0; val zl = 35.0
+        val wood = if (v == 1) plankDark else plank
+        c.shadow(i0, j0, i1, j1, 0.5)
+        if (open) c.box(i0, j0 - 0.06, i1, j0, zb, zb + 32, plankDark, plankDark, wood)
+        c.box(i0, j0, i1, j1, 0.0, zb, plankTop, wood, wood)
+        if (open) {
+            // the inside: the far walls in shade, the bottom lost in the dark
+            c.fill(i0 + 0.03, j0 + 0.03, i1 - 0.03, j1 - 0.03, zb, argb(0x2A2018))
+            c.fill(i0 + 0.03, j0 + 0.1, i1 - 0.1, j1 - 0.03, zb, hole)
+        }
+        c.planks(i0, j0, i1, j1, 0.0, zb, if (v == 1) 4 else 3, 4100 + v)
+        if (open) {
+            // what is left: a few wisps of straw in the dark
+            for (k in 0..3) {
+                val x = c.x(-0.7 + k * 0.14, -0.5 + rnd(k, v, 9) * 0.1); val y = c.y(-0.7 + k * 0.14, -0.5, zb - 2)
+                c.s.line(x - 3, y, x + 3, y - 1, argb(0x6A5A38))
+            }
+        } else {
+            c.box(i0 - 0.02, j0 - 0.02, i1 + 0.02, j1 + 0.02, zb, zb + 4, plankTop, wood, wood)
+            c.box(i0, j0 + 0.05, i1, j1 - 0.05, zb + 4, zl, plankTop, wood, wood)
+        }
+        val zt = if (open) zb else zl
+        if (v != 1) {
+            // iron bands round the box and over the lid
+            for (i in listOf(i0 + 0.1, i1 - 0.1)) {
+                c.box(i - 0.025, j1 - 0.002, i + 0.025, j1 + 0.012, 0.0, zt, ironMat, ironMat, ironMat, bevel = 0.4)
+                if (!open) c.box(i - 0.025, j0 + 0.03, i + 0.025, j1 + 0.012, zt - 1, zt + 1, ironMat, ironMat, ironMat, bevel = 0.3)
+            }
+            c.box(i1 - 0.002, j0 + 0.1, i1 + 0.012, j0 + 0.14, 0.0, zt, ironMat, ironMat, ironMat, bevel = 0.4)
+            // the lock plate, bent; on the shut ones a rope tied round where the lock was broken
+            c.box(-0.55, j1, -0.45, j1 + 0.016, zb - 10, zb + 1, ironMat, ironMat, ironMat, bevel = 0.4)
+            c.s.dot(c.x(-0.5, j1 + 0.016), c.y(-0.5, j1 + 0.016, zb - 5), hole)
+        }
+        if (!open && v != 2) {
+            for (i in listOf(-0.62, -0.38)) {
+                c.s.line(c.x(i, j1 + 0.01), c.y(i, j1 + 0.01, 0.0), c.x(i, j1 + 0.01), c.y(i, j1 + 0.01, zl), argb(0x4A3E2A))
+                c.s.line(c.x(i, j1 + 0.01), c.y(i, j1 + 0.01, zl), c.x(i, j0), c.y(i, j0, zl), argb(0x4A3E2A))
+            }
+            val x = c.x(-0.5, j1 + 0.01); val y = c.y(-0.5, j1 + 0.01, zl - 2)
+            c.s.blob(x, y, 2.6, 2.0, rope, depth = 0.5)
+            c.s.limb(x, y + 1, x - 2, y + 8, 0.9, 0.7, rope)
+            c.s.limb(x + 1, y + 1, x + 3, y + 7, 0.9, 0.7, rope)
+        }
+        if (v == 2) {
+            // a red hand daubed on the front, a skull on the lid
+            val x = c.x(-0.68, j1); val y = c.y(-0.68, j1, zb * 0.5)
+            c.s.tint(x, y, 4.0, 4.5, argb(0x7A1E14), 0.75)
+            for (k in -1..2) c.s.line(x + k * 2.0, y - 4, x + k * 2.4, y - 8, argb(0x6A1A12))
+            if (!open) {
+                val sx = c.x(-0.4, -0.55); val sy = c.y(-0.4, -0.55, zl)
+                c.s.blob(sx, sy - 4, 4.6, 4.0, boneMat, depth = 0.8)
+                c.s.blob(sx, sy - 0.5, 3.0, 1.8, boneMat, depth = 0.5)
+                c.s.flat(sx - 1.6, sy - 4, 1.1, 1.2, hole); c.s.flat(sx + 1.6, sy - 4, 1.1, 1.2, hole)
+            }
+        }
+        // scuffs where it was dragged in
+        for (k in 0..3) c.s.tint(c.x(i0 + 0.12 + k * 0.16, j1 + 0.03), c.y(i0 + 0.12 + k * 0.16, j1 + 0.03), 3.0, 1.0, argb(0x6A5E4A), 0.2)
+        return c.done()
+    }
+
+    /** Crates and a barrel (13e.2): [v] 0 two crates, the small one on the big; 1 a smashed crate, a sack against it; 2 a barrel, its lid askew. */
+    private fun crates(v: Int): PixelImage {
+        val c = Canvas(TH.toInt() + 96, 4200 + v)
+        fun crate(i0: Double, j0: Double, i1: Double, j1: Double, z0: Double, z1: Double, seed: Int, smashed: Boolean = false) {
+            c.box(i0, j0, i1, j1, z0, z1, plankTop, plank, plank)
+            c.planks(i0, j0, i1, j1, z0, z1, 3, seed)
+            // battens across the faces
+            c.box(i0 + 0.03, j1, i0 + 0.08, j1 + 0.012, z0, z1, plankDark, plankDark, plankDark, bevel = 0.4)
+            c.box(i1, j0 + 0.03, i1 + 0.012, j0 + 0.08, z0, z1, plankDark, plankDark, plankDark, bevel = 0.4)
+            if (smashed) {
+                val x = c.x((i0 + i1) / 2, j1); val y = c.y((i0 + i1) / 2, j1, (z0 + z1) / 2)
+                c.s.poly(Mat(Ramp.of(hole), inline = false), x - 7, y - 5, x + 6, y - 3, x + 4, y + 6, x - 5, y + 4, bevel = 0.0)
+                c.s.limb(x - 6, y + 4, x + 2, y + 12, 1.6, 1.4, plank)
+                c.s.blob(x, y + 8, 7.0, 3.0, strawMat, depth = 0.5)
+                c.s.blob(x - 4, y + 11, 5.0, 2.0, strawMat, depth = 0.4)
+            }
+        }
+        when (v) {
+            0 -> {
+                c.shadow(-0.88, -0.88, -0.12, -0.12)
+                crate(-0.86, -0.86, -0.14, -0.14, 0.0, 38.0, 4210)
+                crate(-0.74, -0.8, -0.28, -0.34, 38.0, 64.0, 4211)
+            }
+            1 -> {
+                c.shadow(-0.85, -0.85, -0.15, -0.15)
+                crate(-0.84, -0.84, -0.3, -0.3, 0.0, 32.0, 4212, smashed = true)
+                // a sack slumped against its front
+                val x = c.x(-0.2, -0.36); val y = c.y(-0.2, -0.36)
+                c.s.blob(x, y - 9, 11.0, 10.0, sackMat, depth = 0.8)
+                c.s.blob(x + 1, y - 18, 8.0, 6.0, sackMat, depth = 0.8)
+                c.s.limb(x + 1, y - 22, x + 3, y - 28, 2.0, 1.4, sackMat)
+                c.s.line(x - 1, y - 22, x + 4, y - 23, argb(0x3A3024))
+            }
+            else -> {
+                c.shadow(-0.82, -0.82, -0.18, -0.18)
+                val x = c.x(-0.5, -0.5); val y = c.y(-0.5, -0.5)
+                val zt = 50.0
+                c.s.chain(plank, x, y - 3, 15.0, x, y - zt * ZS * 0.5, 17.5, x, y - zt * ZS + 3, 15.0)
+                for (k in -3..3) c.s.line(x + k * 4.4, y - zt * ZS + 4, x + k * 4.9, y - 3, seamC)
+                for ((hz, r) in listOf(5.0 to 15.4, 25.0 to 17.8, 45.0 to 15.4)) {
+                    val hy = y - hz * ZS
+                    c.s.poly(ironMat, x - r, hy - 1.4, x + r, hy - 1.4, x + r, hy + 1.4, x - r, hy + 1.4, tiltY = 0.1, bevel = 0.8)
+                }
+                c.s.blob(x, y - zt * ZS, 14.6, 7.0, plankDark, depth = 0.2)
+                c.s.flat(x + 2, y - zt * ZS, 10.0, 4.6, hole)
+                // the lid knocked half off
+                c.s.poly(plankTop, x - 6, y - zt * ZS - 4, x + 16, y - zt * ZS - 9, x + 20, y - zt * ZS - 3, x - 2, y - zt * ZS + 3, tiltY = -0.6, bevel = 1.0)
+            }
+        }
+        return c.done()
+    }
+
+    /** A goblin's sleeping place on the floor (13e.2), flat, walked over: [v] 0 a heap of rags, 1 a wolf's hide on straw, 2 a blanket half unrolled, a bundle by it. */
+    private fun bedroll(v: Int): PixelImage {
+        val c = Canvas(TH.toInt() + 30, 4300 + v)
+        when (v) {
+            0 -> {
+                c.shadow(-0.86, -0.8, -0.14, -0.22, 0.35)
+                val cloths = listOf(m(0x5E5040, grain = 0.2, sat = 0.6, value = 0.6, bias = -0.25), m(0x6A5E4C, grain = 0.2, sat = 0.5, value = 0.65, bias = -0.25),
+                    m(0x5A3428, grain = 0.2, sat = 0.55, value = 0.55, bias = -0.25), m(0x4E4438, grain = 0.2, sat = 0.5, value = 0.6, bias = -0.25))
+                for ((k, mat) in cloths.withIndex()) {
+                    val ci = -0.5 + (rnd(k, 1, 4300) - 0.5) * 0.3; val cj = -0.5 + (rnd(k, 2, 4300) - 0.5) * 0.3
+                    val pts = ArrayList<Double>()
+                    for (q in 0 until 9) {
+                        val a = q * 2 * Math.PI / 9 + rnd(k, q, 4301) * 0.4
+                        val r = (0.3 - k * 0.03) * (1 + (rnd(k, q, 4302) - 0.5) * 0.35)
+                        val ii = ci + Math.cos(a) * r; val jj = cj + Math.sin(a) * r * 0.75
+                        pts += c.x(ii, jj); pts += c.y(ii, jj, 3.0 + k * 3)
+                    }
+                    c.s.poly(mat, *pts.toDoubleArray(), tiltY = -0.6, bevel = 3.0)
+                }
+                // a rolled rag for a pillow
+                c.s.limb(c.x(-0.75, -0.6), c.y(-0.75, -0.6, 12.0), c.x(-0.6, -0.78), c.y(-0.6, -0.78, 12.0), 4.0, 3.6, cloths[1])
+            }
+            1 -> {
+                // straw spread out, the hide laid on it, legs splayed, head at the back
+                c.shadow(-0.92, -0.85, -0.08, -0.15, 0.3)
+                for (k in 0 until 28) {
+                    val ii = -0.88 + rnd(k, 1, 4310) * 0.76; val jj = -0.82 + rnd(k, 2, 4310) * 0.66
+                    val x = c.x(ii, jj); val y = c.y(ii, jj, 1.0)
+                    c.s.line(x - 3, y + rnd(k, 3, 4310) * 2 - 1, x + 3, y - rnd(k, 4, 4310) * 2 + 1, if (k % 3 == 0) argb(0x5E4E30) else argb(0x9A8452))
+                }
+                val pts = doubleArrayOf(-0.78, -0.62, -0.5, -0.74, -0.28, -0.66, -0.2, -0.42, -0.3, -0.24, -0.56, -0.22, -0.76, -0.36)
+                val xy = ArrayList<Double>()
+                for (q in pts.indices step 2) { xy += c.x(pts[q], pts[q + 1]); xy += c.y(pts[q], pts[q + 1], 3.0) }
+                c.s.poly(hideMat, *xy.toDoubleArray(), tiltY = -0.7, bevel = 2.5)
+                // legs, head, the dark stripe down the back
+                for ((a, b) in listOf((-0.78 to -0.62) to (-0.92 to -0.72), (-0.28 to -0.66) to (-0.22 to -0.82), (-0.3 to -0.24) to (-0.16 to -0.14), (-0.76 to -0.36) to (-0.9 to -0.26)))
+                    c.s.limb(c.x(a.first, a.second), c.y(a.first, a.second, 3.0), c.x(b.first, b.second), c.y(b.first, b.second, 2.0), 2.4, 1.4, hideMat)
+                c.s.blob(c.x(-0.52, -0.82), c.y(-0.52, -0.82, 5.0), 6.0, 4.0, hideDarkMat, depth = 0.6)
+                c.s.limb(c.x(-0.52, -0.7), c.y(-0.52, -0.7, 4.0), c.x(-0.48, -0.3), c.y(-0.48, -0.3, 4.0), 2.6, 2.0, hideDarkMat)
+            }
+            else -> {
+                c.shadow(-0.86, -0.7, -0.14, -0.3, 0.35)
+                // the flat part with folds
+                val a = doubleArrayOf(-0.84, -0.66, -0.4, -0.66, -0.4, -0.34, -0.84, -0.34)
+                val xy = ArrayList<Double>()
+                for (q in a.indices step 2) { xy += c.x(a[q], a[q + 1]); xy += c.y(a[q], a[q + 1], 2.0) }
+                c.s.poly(sackMat, *xy.toDoubleArray(), tiltY = -0.7, bevel = 2.0)
+                for (k in 0 until 3) c.seam(-0.78 + k * 0.13, -0.64, -0.76 + k * 0.13, -0.36, 3.0)
+                for (k in 0 until 6) c.s.dot(c.x(-0.82 + k * 0.08, -0.34), c.y(-0.82 + k * 0.08, -0.34, 1.0), argb(0x5E5040))
+                // the rest still rolled, tied
+                c.s.limb(c.x(-0.34, -0.68), c.y(-0.34, -0.68, 7.0), c.x(-0.34, -0.32), c.y(-0.34, -0.32, 7.0), 6.0, 6.0, sackMat)
+                c.s.blob(c.x(-0.34, -0.32), c.y(-0.34, -0.32, 7.0), 4.0, 5.4, sackMat, depth = 0.3)
+                c.s.flat(c.x(-0.34, -0.32), c.y(-0.34, -0.32, 7.0), 2.4, 3.4, argb(0x3A3024))
+                c.seam(-0.34, -0.5, -0.34, -0.5, 1.0, 13.0, argb(0x2A2016))
+                // a bundle of hide by it
+                val x = c.x(-0.2, -0.78); val y = c.y(-0.2, -0.78)
+                c.s.blob(x, y - 5, 8.0, 6.0, hideDarkMat)
+                c.s.limb(x, y - 10, x + 2, y - 15, 2.0, 1.2, hideDarkMat)
+            }
+        }
+        return c.done()
+    }
+
     // ------------------------------------------------------------------ the tiles
 
     private fun isRock(t: Tile) = t == Tile.CAVE_WALL || t == Tile.CRYSTAL || t == Tile.TORCH
 
-    private fun thing(map: MapDef, tx: Int, ty: Int, key: String, make: () -> PixelImage): WorldArt.Obj {
+    private fun thing(map: MapDef, tx: Int, ty: Int, key: String, flat: Boolean = false, low: Boolean = flat, make: () -> PixelImage): WorldArt.Obj {
         val img = synchronized(tallCache) { tallCache.getOrPut(key, make) }
         val T = WorldArt.T
         val wx = (tx + 1) * T; val wy = (ty + 1) * T
-        return WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, false, corner = true)
+        val depth = if (flat) (tx + ty) * T else (tx + ty) * T + T * 3 / 2 - 1
+        return WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, depth - wx, 2, low, corner = true)
+    }
+
+    /** One thing alone, for the preview's gallery (13e.2). */
+    internal fun sample(t: Tile, v: Int, open: Boolean = false): PixelImage = when (t) {
+        Tile.CHEST -> chest(v, open)
+        Tile.CRATE -> crates(v)
+        else -> bedroll(v)
     }
 
     /** The cave's tiles seen diagonally, or null for those still drawn by [MapCave]. */
     fun objects(map: MapDef, tx: Int, ty: Int, frame: Int, chestOpen: Boolean, gateOpen: Boolean): List<WorldArt.Obj>? {
         val t = map.tile(tx, ty)
-        val v = Math.floorMod(hash(tx, ty, 41), 3)
+        val v = (hash(tx, ty, 41) / 7) % 3
         when (t) {
             Tile.SUPPORT -> {
                 val left = map.tile(tx - 1, ty) != Tile.SUPPORT
@@ -358,6 +630,10 @@ object MapCaveIso {
                 val left = map.tile(tx - 1, ty) != Tile.GATE
                 return listOf(thing(map, tx, ty, "gate/$left") { gate(left) })
             }
+            Tile.CHEST -> return listOf(thing(map, tx, ty, "chest/$v/$chestOpen", low = true) { chest(v, chestOpen) })
+            Tile.CRATE -> return listOf(thing(map, tx, ty, "crates/$v") { crates(v) })
+            // walked over: sorted behind the hero, from the tile's back corner
+            Tile.BEDROLL -> return listOf(thing(map, tx, ty, "bed/$v", flat = true) { bedroll(v) })
             else -> {}
         }
         if (!isRock(t)) return null
