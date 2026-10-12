@@ -1,5 +1,11 @@
 # Archiv
 
+### Tom (12.10., 22:2x)
+
+- Zweig `claude/tom-27-4-baeume` (PR #48), `main` hineingeholt. Neu seit 0.1.624: **27i** Libellen/Frösche im Spiel, **17a** Umhang schwingt aus, **42d** Textkasten schwarz/Gold, **27j/27k** Weiher-Klang (`PondSound`: Ruf, wenn die Kehle schwillt, nach Nähe; Libelle nur nah bei Tag; Chor 2 leise in der Dämmerung; Klänge aus `tools/klang/teich.py --spiel`). Build 0.1.625 fertig (22:22).
+- **Neustart ja (Nutzer 22:2x), nach dem Test:** Nachfolger mit `create_session` oder Trigger starten. **Weiter:** Build melden, Test abwarten; dann laut 26c: Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar (Meldung 08:43), 5l, 55.2-Rest, 17 Rest (Haare, Köcher).
+- Hinweis: Nach dem Zusammenführen kann der Gradle-Zwischenstand von `core` veralten (Vorschau meldet „Unresolved reference“, „Int expected Int“): `rm -rf core/build/{kotlin,classes,libs}`.
+
 ### Tom (12.10., 21:30, Selbstarbeit bis 22:00)
 
 - Zweig `claude/tom-27-4-baeume` (PR #48), `main` (PR #49) hineingeholt. Neu seit 0.1.615: **27e.1** Deckung vor dem Helden zusammen 50 % statt 35 %, gerade Sicht nur bei Bildpunkten über dem Oberkörper (`WorldScreen.hides`, ein Pfad für Kronen, Häuser, Möbel); **27h** Testschalter „Alles diagonal“ (`MapSight.all`); 56/27g Entwurfsschalter entfernt (Verhalten gleich). Entwürfe im Spiel aus: 27.6 (`PONDLIFE`, Rückfrage 27i), 17 Umhang (`SWINGDRAFT`, `Rig.flare`, Rückfrage 17a), **42 Textkasten** (`DialogLook.draft`, Vorschau `TEXTKASTEN=1`).

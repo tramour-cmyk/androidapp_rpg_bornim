@@ -4,6 +4,21 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Tom (Thema 27e.1, 27h, 27i, 27j, 17a, 42d), getestet in 0.1.624 und 0.1.625 (Nutzer 12.10., 22:3x: passt), PR #48 (zusammengeführt 12.10., 22:3x):
+
+**Weiher im Wald (27i, 27j)**
+- Libellen schwirren tagsüber über dem Wasser; Frösche sitzen am Ufer, springen ins Wasser, wenn der Held nahe kommt, und klettern später wieder heraus.
+- Klang aus echten Aufnahmen (CC0): Ein Frosch ruft, wenn seine Kehle schwillt, lauter je näher der Held ist, und schweigt im Wasser; Libellen hört man nur ganz nah und bei Tag; in der Dämmerung ein leiser Chor.
+
+**Held und Ansicht (17a, 27e.1, 27h)**
+- Umhang und Mantel schwingen nach dem Anhalten aus und setzen sich ruhig.
+- Was vor dem Helden steht, deckt ihn zusammen nur zur Hälfte.
+- Test-Reiter: Schalter „Alles diagonal“ (auch Wald, Tiefer Wald, Höhle).
+
+**Textkasten (42d)**
+- Gespräche, Erzähltext und Aushänge in einem schwarzen Kasten mit dünnem Goldrand: Sprecher in Gold, Text in gebrochenem Weiß mit Serife, Erzähltext kursiv, ▼ in Gold.
+- Werkzeuge (nur Entwicklung): Kerntest `PondSoundTest`, `tools/klang/teich.py`.
+
 Zweig von Tom (Thema 27.4, 27.5, 27e, 5.3, 5.4, 5.6, 5n, 55.2, 56), getestet in 0.1.590 bis 0.1.615 (Nutzer 12.10., 21:1x: Dorf, Schänke, Tiefer Wald passen), PR #49 = getesteter Stand von PR #48 (zusammengeführt 12.10., 21:15):
 
 **Bäume und Dorf (27.4, 5.3, 5.4, 5.6, 5n)**
