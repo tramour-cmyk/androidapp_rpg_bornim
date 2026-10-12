@@ -119,13 +119,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     // ---------------------------------------------------------------- materials
 
     private fun m(rgb: Int, shine: Double = 0.0, grain: Double = 0.0) = Mat(Ramp.of(argb(rgb)), shine, grain)
-    val skinMat = if (kind == Creature.BUGBEAR) furMat(skinRgb) else Mat(Ramp.of(argb(skinRgb), sat = 0.8), shine = 0.05, grain = when (kind) { Creature.GOBLIN -> 0.14; Creature.KOBOLD -> 0.26; Creature.ZOMBIE -> 0.2; Creature.HOBGOBLIN -> 0.08; Creature.GHOUL -> 0.24; else -> 0.02 })
-    /** A bugbear's coarse fur: tufts and strands a few pixels long instead of a speckle on every pixel, which looks like noise when enlarged. */
-    private fun furMat(rgb: Int) = (System.getenv("FURDRAFT") ?: "B").let { d -> when (d) {
-        "A" -> Mat(Ramp.of(argb(rgb), sat = 0.8), shine = 0.05, grain = 0.55)
-        "C" -> Mat(Ramp.of(argb(rgb), sat = 0.8), shine = 0.05, grain = 0.3, grainW = 1.5, grainH = 1.5)
-        else -> Mat(Ramp.of(argb(rgb), sat = 0.8), shine = 0.05, grain = 0.35, grainW = 1.2, grainH = 3.0)
-    } }
+    val skinMat = Mat(Ramp.of(argb(skinRgb), sat = 0.8), shine = 0.05, grain = when (kind) { Creature.GOBLIN -> 0.14; Creature.KOBOLD -> 0.26; Creature.BUGBEAR -> 0.55; Creature.ZOMBIE -> 0.2; Creature.HOBGOBLIN -> 0.08; Creature.GHOUL -> 0.24; else -> 0.02 })
     private val footMat = skinMat.copy(bias = -0.1)
     val hairMat = m(hairRgb, shine = 0.15, grain = 0.22)
     private val shirtMat = m(0xC9BDA2, grain = 0.06)

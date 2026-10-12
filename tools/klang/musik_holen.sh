@@ -37,10 +37,8 @@ grund_fs_540836.mp3 https://cdn.freesound.org/previews/540/540836_2282212-hq.mp3
 grund_fs_609422.mp3 https://cdn.freesound.org/previews/609/609422_2282212-hq.mp3
 kampf_evil_approach.wav Evil%20Approach.wav
 kampf_determined_pursuit.wav determined_pursuit_loop.wav
-kampf_great_labyrinth.ogg great_labyrinth_bpm160_0.ogg
-kampf_menace.ogg Menace.ogg
-kampf_epic_fight.mp3 epc_0.mp3
 kampf_corrupted_minds.flac corrupted_minds.flac
+kampf_eclipse_legion.mp3 eclipse_legion_0.mp3
 boss_fall_of_nightmares.wav Fall%20of%20Nightmares%20%5Borchestral%5D_mastered.wav
 boss_fantasy_choir1.mp3 Fantasy%20Choir%201.mp3
 boss_fantasy_choir2.mp3 Fantasy%20Choir%202.mp3
