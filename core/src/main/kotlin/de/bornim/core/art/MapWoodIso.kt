@@ -906,6 +906,54 @@ object MapWoodIso {
         return WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, fx + fy - T + T * 3 / 2 - 1 - wx, 2, true, corner = true)
     }
 
+    /** Draft (27.5): reeds along the pond's far bank; with [MapGround.pondDraft] the bank itself. */
+    @Volatile var pondDraft = false
+
+    /**
+     * A clump of reeds standing in the water at ([ci], [cj]) (27.5, draft): thin blades rising and bending a little,
+     * olive green going straw-coloured at the tips, with the brown heads of bulrushes in [v] % 3 == 1; [v] / 3 a fuller
+     * clump.
+     */
+    fun reeds(v: Int, ci: Double, cj: Double): PixelImage {
+        val c = Canvas(110)
+        val seed = 1020 + v * 37
+        val kind = v % 3
+        val blades = 44 + (v / 3) * 18 + kind * 6
+        val green = argb(if (kind == 2) 0x6A7440 else 0x5A6E3A); val straw = argb(0xA89A62); val dark = argb(0x2A3420)
+        for (b in 0 until blades) {
+            val r = sqrt(rnd(b, v, seed)) * 0.14; val a = rnd(b, v, seed + 1) * 2 * PI
+            val bi = ci + cos(a) * r; val bj = cj + sin(a) * r * 0.8
+            val hgt = 40 + rnd(b, v, seed + 2) * 38
+            val lean = 0.03 + rnd(b, v, seed + 3) * 0.12
+            // they fan out from the clump, a little wind bending all the same way
+            val la = a + (rnd(b, v, seed + 4) - 0.5) * 0.8
+            val n = (hgt * 2).toInt()
+            for (q in 0..n) {
+                val f = q.toDouble() / n
+                val bend = lean * f * f
+                val i = bi + cos(la) * bend; val j = bj + sin(la) * bend
+                val col = mix(mix(dark, green, (f * 2.2).coerceAtMost(1.0)), straw, ((f - 0.6) * 2).coerceIn(0.0, 0.8))
+                c.pt(i, j, f * hgt, shade(col, lit(cos(la) * 0.5, sin(la) * 0.5, 0.4) + rnd(b, q, seed + 5) * 0.08))
+            }
+            // the bulrush's head: a brown spindle below the tip
+            if (kind == 1 && b % 4 == 0) {
+                val i = bi + cos(la) * lean * 0.6; val j = bj + sin(la) * lean * 0.6
+                for (q in 0..20) for (k in 0 until 6) {
+                    val an = k * PI / 3; val z = hgt * 0.72 + q * 0.5
+                    c.pt(i + cos(an) * 0.012, j + sin(an) * 0.012, z, shade(argb(0x5A3A22), lit(cos(an), sin(an), 0.2)))
+                }
+            }
+        }
+        // the ring of ripples at the clump's foot
+        for (k in 0 until 90) {
+            val a = k * 2 * PI / 90
+            if (vnoise(a * 2.5, 0.0, seed + 6) < 0.5) continue
+            val rr = 1 + (vnoise(a * 4.0, 1.0, seed + 7) - 0.5) * 0.3
+            c.pt(ci + cos(a) * 0.17 * rr, cj + sin(a) * 0.14 * rr, 0.0, argb(0x3E4C4E))
+        }
+        return c.img
+    }
+
     // ------------------------------------------------------------------ the yards of the village (56, draft)
 
     /** Draft (56): haystacks and the washing line of the village drawn in the slant; the game keeps the former pictures. */
@@ -1109,6 +1157,15 @@ object MapWoodIso {
             Tile.ROCK -> if (!rockDraft) return null else Math.floorMod(hash(tx, ty, 36), 3).let { v -> "rock/$v" to { boulders(v) } }
             Tile.CHEST -> if (!chestDraft) return null else Math.floorMod(hash(tx, ty, 35), 3).let { v -> "chest/$v/$open" to { chest(v, open) } }
             Tile.SIGN -> Math.floorMod(hash(tx, ty, 33), 2).let { v -> "sign/$v" to { MapTownIso.signpost(v, 71) } }
+            // reeds along the far bank (27.5, draft): where land lies behind the water, now and then a clump near it
+            Tile.WATER -> {
+                if (!pondDraft) return null
+                val west = map.tile(tx - 1, ty) != Tile.WATER; val north = map.tile(tx, ty - 1) != Tile.WATER
+                if (!(west || north) || hash(tx, ty, 39) % 4 == 3) return emptyList()
+                val v = hash(tx, ty, 40) % 6
+                val ci = if (west) -0.82 else -0.3 - rnd(tx, ty, 41) * 0.4; val cj = if (north) -0.82 else -0.3 - rnd(tx, ty, 42) * 0.4
+                "reeds/$v/$tx/$ty" to { reeds(v, ci, cj) }
+            }
             else -> return null
         }
         val img = synchronized(cache) { cache.getOrPut(key.first) { key.second() } }

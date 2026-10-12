@@ -34,6 +34,14 @@ object MapGround {
     /** The village and its rooms in the new style; seen diagonally they are finished (13.4), so always on. */
     @Volatile var townDraft = true
 
+    /**
+     * 27.5 draft: the water lies a little below the grass. Where the bank faces the camera (land behind the water, towards
+     * −x and −y) its earthen step shows, with roots and the bank's shadow on the water; under the near bank the water is
+     * darker. Drawn for the diagonal view; only in the preview.
+     */
+    @Volatile var pondDraft = false
+    private val BANK_L = intArrayOf(0x76, 0x5E, 0x40); private val BANK_D = intArrayOf(0x26, 0x1E, 0x14); private val ROOT = intArrayOf(0x18, 0x12, 0x0C)
+
     /** 5.4 draft: the square's cobbles quieter (softer joints, less spread between stones, worn lanes); only in the preview. */
     @Volatile var cobbleDraft = false
 
@@ -473,6 +481,22 @@ object MapGround {
             if (w > 0.5) {
                 lerp(WATER_S, WATER_D, (w - 0.5) * 3.2, col)
                 if (abs(kotlin.math.sin(y * 0.35 + fbm(x, y, 30.0, 12) * 6)) > 0.985 && vnoise(x, y, 16.0, 13) > 0.55) mixInto(col, GLINT, 0.45)
+                if (pondDraft) {
+                    val gx = waterAt(map, x + 3, y) - waterAt(map, x - 3, y); val gy = waterAt(map, x, y + 3) - waterAt(map, x, y - 3)
+                    val gl = sqrt(gx * gx + gy * gy)
+                    if (gl > 1e-4) {
+                        // +1 where the water deepens towards the camera: the bank behind it faces us
+                        val facing = ((gx + gy) / gl / sqrt(2.0)).coerceIn(-1.0, 1.0)
+                        val band = 0.2 * facing.coerceAtLeast(0.0)
+                        if (w < 0.5 + band) {
+                            val f = (w - 0.5) / band
+                            lerp(BANK_L, BANK_D, f * 0.75 + (vnoise(x, y, 5.0, 70) - 0.5) * 0.4, tmp)
+                            if (vnoise(x * 3, y * 3, 9.0, 71) > 0.76) mixInto(tmp, ROOT, 0.7)
+                            for (i in 0..2) col[i] = tmp[i]
+                        } else if (facing > 0 && w < 0.5 + band + 0.06) mixInto(col, BANK_D, 0.45)
+                        else if (facing < -0.3 && w < 0.56) mixInto(col, BANK_D, 0.3)
+                    }
+                }
                 tall[yy * size + xx] = false
                 pathK[yy * size + xx] = 1.0
             } else if (w > 0.36) mixInto(col, MUD, 0.7)
