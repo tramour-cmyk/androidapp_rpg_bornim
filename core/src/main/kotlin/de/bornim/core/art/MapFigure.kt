@@ -160,7 +160,10 @@ object MapFigure {
     fun swingLevel(ms: Long): Int = Math.round(swingAt(ms) * 10).toInt()
 
     /** The rig of [hero]'s cloak swung to [level] tenths, standing in direction [slot]. */
-    fun swingRig(slot: Int, level: Int, carry: Carry): HeroFigure.Rig = rig(slot * 360.0 / YAWS, 0, carry).copy(cloak = level / 10.0)
+    fun swingRig(slot: Int, level: Int, carry: Carry): HeroFigure.Rig = rig(slot * 360.0 / YAWS, 0, carry).let { r ->
+        // swung forward the cloth would only go into the body: it flares out to the sides instead
+        if (level >= 0) r.copy(cloak = level / 10.0) else r.copy(cloak = level / 20.0, flare = -level / 10.0)
+    }
 
     /** [hero] standing in direction [slot], the cloak swung to [level]: drawn in the background when first wanted. */
     fun swingFrame(hero: Hero, slot: Int, level: Int): PixelImage? =

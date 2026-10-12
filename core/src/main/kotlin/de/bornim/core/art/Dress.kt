@@ -422,7 +422,9 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val c = o.items[GearSlot.CLOAK] ?: return
         val col = m(cloakColor(c.rarity), grain = 0.05)
         val long = c.base == "mantle"
-        val hem = (if (long) d.ankleY + 0.04 * h else d.kneeY - 0.05 * h)
+        // a hem swinging on past a stop lifts and flares out to the sides
+        val fl = sk.rig.flare
+        val hem = (if (long) d.ankleY + 0.04 * h else d.kneeY - 0.05 * h) + fl * 0.05 * h
         val f = sk.upper.frame(Frame.IDENTITY)
         val top = sk.upper.apply(P3(0.0, d.shoulderY + 0.01 * h, -d.chestDepth * 0.15))
         // the hem trails behind when the hero lunges
@@ -437,11 +439,11 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val rTop = d.shoulderX * 1.08 + 0.03 * h
         val cape = RoundCone(neck, shoulders, d.shoulderX * 0.45, rTop, BodyPart.GEAR, Doll.CLOAK)
         val back = RoundCone(shoulders, seat, rTop, d.shoulderX * 1.12 + 0.034 * h, BodyPart.GEAR, Doll.CLOAK)
-        val fall = RoundCone(seat, bottom, d.shoulderX * 1.12 + 0.034 * h, d.shoulderX * 1.22 + 0.045 * h + stride, BodyPart.GEAR, Doll.CLOAK)
+        val fall = RoundCone(seat, bottom, d.shoulderX * 1.12 + 0.034 * h, d.shoulderX * 1.22 + 0.045 * h + stride + fl * 0.09 * h, BodyPart.GEAR, Doll.CLOAK)
         val shape = Union(listOf(cape, back, fall), 3.0, BodyPart.GEAR, Doll.CLOAK)
-        val oval = Squash(shape, shoulders, f, P3(1.0, 1.0, 0.6), BodyPart.GEAR, Doll.CLOAK)
+        val oval = Squash(shape, shoulders, f, P3(1.0, 1.0, 0.6 + fl * 0.25), BodyPart.GEAR, Doll.CLOAK)
         // the folds ripple as the cloth swings
-        val folds = Folds(oval, shoulders, (shoulders - bottom).norm(), 11.0, 0.75, BodyPart.GEAR, Doll.CLOAK, sk.rig.cloak * 0.5)
+        val folds = Folds(oval, shoulders, (shoulders - bottom).norm(), 11.0, 0.75 + fl * 0.9, BodyPart.GEAR, Doll.CLOAK, sk.rig.cloak * 0.5)
         val s = add(Hollow(folds, 0.55, BodyPart.GEAR, Doll.CLOAK), col)
         // open at the front, ending at the shoulders and the hem
         s.cut(f.z, shoulders + f.z * (d.chestDepth * 0.35))

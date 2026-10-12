@@ -8,7 +8,8 @@ import javax.imageio.ImageIO
 fun renderSwingDraft() {
     val F = de.bornim.core.art.MapFigure
     val times = listOf(0L, 120L, 225L, 400L, 675L, 900L, 1400L)
-    val heroes = listOf(de.bornim.core.CharClass.FIGHTER to de.bornim.core.Race.HUMAN)
+    // a fighter starts without a cloak: one in a short cloak, one in a long mantle
+    val heroes = listOf("cloak", "mantle")
     // seen diagonally the pictures are turned by 45°: slots as the screen shows them
     val slots = listOf(4, 12)
     val z = 4
@@ -16,8 +17,9 @@ fun renderSwingDraft() {
     val img = BufferedImage(cw * times.size, (ch + 16) * slots.size * heroes.size, BufferedImage.TYPE_INT_RGB)
     val g = img.createGraphics(); g.color = java.awt.Color(0x2E3A2C); g.fillRect(0, 0, img.width, img.height)
     var row = 0
-    for ((cls, race) in heroes) {
-        val hero = de.bornim.core.GameState.newGame("Alrik", race, cls).hero
+    for ((n, base) in heroes.withIndex()) {
+        val hero = de.bornim.core.GameState.newGame("Alrik", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER).hero
+        hero.equip(de.bornim.core.Gear(900L + n, base, de.bornim.core.Rarity.UNCOMMON, 3))
         for (slot in slots) {
             val y0 = row * (ch + 16)
             for ((c, t) in times.withIndex()) {
