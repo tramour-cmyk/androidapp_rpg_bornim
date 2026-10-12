@@ -220,7 +220,7 @@ enum class Skill(
     MAGIC_MISSILE(CharClass.WIZARD, 1, T("Magisches Geschoss", "Magic Missile"),
         T("Drei Geschosse treffen automatisch, je 1W4+1 Energieschaden.", "Three darts hit automatically, 1d4+1 force damage each."), SkillCost.SPELL_POINTS, 2),
     MAGE_ARMOR(CharClass.WIZARD, 1, T("Magierrüstung", "Mage Armor"),
-        T("Deine RK wird für diesen Kampf 13 + GES-Mod.", "Your AC becomes 13 + DEX mod for this battle."), SkillCost.SPELL_POINTS, 2),
+        T("Ohne Rüstung wird deine RK 13 + GES-Mod, 8 Stunden lang, auch in den folgenden Kämpfen.", "Without armor your AC becomes 13 + DEX mod for 8 hours, in the fights that follow as well."), SkillCost.SPELL_POINTS, 2),
     SCORCHING_RAY(CharClass.WIZARD, 3, T("Sengender Strahl", "Scorching Ray"),
         T("Drei Strahlen, je ein Zauberangriff mit 2W6 Feuerschaden.", "Three rays, each a spell attack for 2d6 fire damage."), SkillCost.SPELL_POINTS, 3),
     FIREBALL(CharClass.WIZARD, 5, T("Feuerball", "Fireball"),

@@ -26,6 +26,8 @@ class ChapterSimTest {
             s.equipFromBag(s.addGear(Gear(0, "ring", Rarity.UNCOMMON, lvl, 0, listOf(Roll(Affix.DAMAGE, 1)))))
         }
         h.restoreFully()
+        // SIM_MA=1: the wizard cast Mage Armor before this fight; it lasts 8 hours (26.1)
+        if (cls == CharClass.WIZARD && System.getenv("SIM_MA") != null) s.mageArmorUntil = s.clock + Battle.MAGE_ARMOR_MINUTES
         return s
     }
 

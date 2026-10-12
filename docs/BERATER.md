@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung: wie das Spiel gebaut ist, was warum entschiede
 
 Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grundsätzliches lernen (eine Zeile, mit Datum und Thema).
 
-**Zuletzt gelesen bis:** `d57e05b` (11.10., 22:48)
+**Zuletzt gelesen bis:** `d565dbf` (12.10., 09:41)
 
 ## Ritual
 
@@ -28,12 +28,16 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 - **Zoomstufe der Karte** (6l): bleibt vorläufig 6,75 Kacheln, bis die diagonale Sicht überall fertig ist.
 - **Kapitel 1 vor Neuem** (26, 11.10.): Zielliste in `KAPITEL1.md`; neue Inhalte erst danach.
 - **Release nur auf Zuruf** (21): Die Releaseflut störte; Zweig-Builds sind Artefakte.
-- **APK nie im Chat, nur Link** (11.10., 21:25): Platz sparen. Artefakt-Downloads scheitern noch an der Netzregel (`*.blob.core.windows.net`); der Nutzer stellt das am Rechner ein.
+- **APK nie im Chat, nur Link** (11.10., 21:25): Platz sparen. Artefakt-Downloads gehen seit 12.10. (Vollzugriff).
 - **Filme sparsam** (09.10.): 36 s Spielzeit kosteten etwa 5 min. Logik per Kerntest, filmen nur bei sichtbarer Bewegung.
 - **Neustart nur bei großer Sitzung** (11.10.): Jede Startlektüre kostet etwa 12.000 Token.
 - **Selbstarbeit** mit Routinen alle 3 h und Vorrat je 8 Punkte (22, 23).
 - **Klang:** echte CC0-Aufnahmen statt Synthese (18); Systemklänge nur in einer Fassung; Ortsklang nur von sichtbaren Quellen und anwesenden Leuten, **kein Stimmengewirr** (24w nein, 22:06); Musik orchestral und düster, Dorf mittelalterlich (28). Einzelheiten `STIL.md` → Klang.
 - **Fremde Inhalte** nur mit Lizenz für kommerzielle Nutzung (Play Store), Quelle je Datei.
+- **Grundsatz „spielerfreundlich, einfach, frei“** (33, 12.10.): vier Fragen vor jeder Umsetzung von Ablauf und Bedienung (`STIL.md`).
+- **Kampf nah am SRD** (12.10.): „Zug beenden“ jetzt (34, auch um Testkämpfe schnell zu verlieren), „Abwarten“/„Helfen“ erst mit Begleitern (Merkliste). Weihwasser nur gegen Untote, 2W6, sonst ausgegraut mit Hinweis (35): vorher 2W6 gegen alle, unglaubwürdig.
+- **Krogg schärfen** (36, 12.10.): erst aufräumen bei gleicher Auflösung (Fellkörnung 0,55 war Hauptgrund), Standbilder Handy/Emulator; nur falls nötig 1,5× mit zugeschnittenen Bildern, vorher messen. Doppelte Auflösung abgelehnt: Krogg ~50 MB → ~200 MB, 4× Zeichenzeit.
+- **Kampfmusik** (37, 12.10.): raus `great_labyrinth`, `menace` (Techno), `epic_fight` (Lounge); `boss_ancient_legend` zu tragend für Kampf → Rückkehr des Sonnenamuletts in den Tempel (Jerry Musik, Tom Szene); Jerry sucht 2–3 neue CC0-Kampfstücke, erst Hörproben.
 - **Kampfkulisse der Höhle angleichen:** zurückgestellt (Merkliste). Höhle-Flammen und Lichtstrahl (10, 11) bis zur diagonalen Höhle zurückgestellt.
 
 ## Lehren
@@ -42,10 +46,14 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 - **Erst messen, dann beschleunigen** (24.14): Erster Start sank von 27 s auf 5,9 s, Waffenwechsel von 15,7 s auf 2,9 s, erst nachdem der Test-Reiter Zeiten zeigte.
 - **Bilder auf dem Gerät speichern lohnt** (24.4): Neustart 0,1 s statt 27 s.
 - **Abstürze ohne Bericht sind blind** (30, 11.10.): Bis heute gab es keinen Absturz-Fänger. Erst Fehlertext holen, dann suchen.
+- **Test-Builds von vor einer Korrektur haben sie nicht** (30, 12.10.): 0.1.561 (Jerry) entstand vor PR #40, stürzte ohne Bericht ab. Darum vor jedem Zweig-Build `main` holen (21.5) und beim Testangebot sagen, ob der Fänger drin ist.
+- **Gegner sind grobe Pixelkunst** (36): 0,66 px/cm, hart ganzzahlig vergrößert (`width/170`, im breiten Emulator bis ~11×). Starkes Rauschen (`grain`) wird bei wenigen Punkten zu Krisel.
+- **Berater-Werkzeug:** Nach Push aus `../bornim-main` zeigt die Hauptkopie die eigenen Notizen als „geändert“ (gleicher Zweig, alter Index). Nicht committen, sondern `git reset --hard HEAD` in der Hauptkopie (Stand ist schon auf `origin/main`).
 
 ## Beobachtungen des Beraters (ungeprüft)
 
 - **Zu Thema 30 (geprüft 22:56):** Die Bildspeicher von `HeroBattle`, `MapGround`, `MapFolk`, `MapFigure` sind sauber gesperrt (`synchronized`), gleichzeitiger Zugriff dort ist kaum die Ursache. Offen: unbegrenzte Speicher (`WorldArt`, `MapFlora`, `MapTown`, `MapTownIso`) und Lastspitze nach Niederlage (Kartenwechsel); `BattleAhead.run` ohne Fehlerfang.
+- **Zu Thema 30 (12.10., 09:41):** 30.1/30.2/30b (`largeHeap`, 512 MB) auf `main` (PR #40); 0.1.559 ohne Absturz, aber ein Test beweist nichts. Erst nach 2–3 Runden mit Fänger ohne Absturz gilt 30 als erledigt.
 
 ## Deine Linie (der Nutzer)
 

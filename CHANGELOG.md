@@ -4,6 +4,13 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 26.1), getestet in 0.1.561, PR #39 (zusammengeführt 12.10., 09:51):
+
+**Magierrüstung hält 8 Stunden (26.1)**
+- Einmal gewirkt, schützt die Magierrüstung wie im SRD 8 Stunden Spielzeit (etwa 8 Minuten echte Zeit), auch in den folgenden Kämpfen ab der ersten Runde, solange keine Rüstung getragen wird. Zu Kampfbeginn meldet sie sich („hält noch“), auf der Karte zeigt das Statusfeld „Schutz“.
+- Simulation (Sieg des Magiers): Grottenschrat Stufe 3 von 44 auf 63 %, Hobgoblin-Hauptmann Stufe 4 von 35 auf 50 %, Stufe 5 von 45 auf 69 %.
+- Werkzeuge (nur Entwicklung): Kerntest `MageArmorTest`, Simulation `SIM=1 SIM_MA=1` in `ChapterSimTest`.
+
 Zweig von Tom (Thema 30, 24.5, 24.16–24.20), getestet in 0.1.559, PR #40 (zusammengeführt 12.10., 09:29):
 
 **Keine Abstürze mehr beim Kartenwechsel und im Kampf (30)**
