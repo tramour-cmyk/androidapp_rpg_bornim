@@ -43,11 +43,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 20:29, Selbstarbeit bis 22:00)
+### Tom (12.10., 20:56, Selbstarbeit bis 22:00)
 
-- PR #48 `claude/tom-27-4-baeume`, **0.1.615** zu testen (s. u.). Test passt → zusammenführen (Merge), CHANGELOG. Alle Entwurfs-Schalter 56a–56d, 27g, 55c stehen an (`MapWoodIso`, `MapGround.pondDraft` nur Wald, `MapFolk.sitDraft`); 27e: Kronen decken den Helden auch gerade zusammen nur zu 35 % (`WorldScreen`, Bild 20:24).
-- Entscheidungsseite leer, Bildbuch hat 56d, 27g, 55c. Rückfrage **57c** (Bildbuch für Jerry teilen) gestellt.
-- **Als Nächstes:** (1) 27.6 Leben am Weiher (Libellen, Frösche) als Entwurf auf die Entscheidungsseite. (2) 17 Nachschwingen (Vorrat). Vorschau langsam (~2,5 min je Aufruf): mehrere `HELDORT` in einem Aufruf.
+- PR #48 `claude/tom-27-4-baeume`, **0.1.615** zu testen (s. u.); neue Pushes 20:4x/20:55 enthalten nur Entwürfe (im Spiel aus). Test passt → zusammenführen (Merge), CHANGELOG.
+- **27.6 fertig als Entwurf** (`PONDLIFE`, `PondLife.kt`, Kerntest `PondLifeTest`), auf der Entscheidungsseite, Rückfrage 27h.
+- **17 halb** (`SWINGDRAFT`, Bildbogen `SWINGBILD=1`): Umhang schwingt nach dem Stoppen gedämpft (`MapFigure.swingAt`), Sprungtest 0, aber kaum sichtbar: der kurze Umhang schwingt nach vorn in den Körper. **Weiter:** in `Dress.cloak()` den Saum bei negativem `cloak` seitlich/nach außen ausschwingen lassen (statt nur nach vorn), Haare/Köcher danach; dann Standbilder auf die Entscheidungsseite.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.

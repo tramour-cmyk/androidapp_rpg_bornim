@@ -1,5 +1,11 @@
 # Archiv
 
+### Tom (12.10., 20:29, Selbstarbeit bis 22:00)
+
+- PR #48 `claude/tom-27-4-baeume`, **0.1.615** zu testen (s. u.). Test passt → zusammenführen (Merge), CHANGELOG. Alle Entwurfs-Schalter 56a–56d, 27g, 55c stehen an (`MapWoodIso`, `MapGround.pondDraft` nur Wald, `MapFolk.sitDraft`); 27e: Kronen decken den Helden auch gerade zusammen nur zu 35 % (`WorldScreen`, Bild 20:24).
+- Entscheidungsseite leer, Bildbuch hat 56d, 27g, 55c. Rückfrage **57c** (Bildbuch für Jerry teilen) gestellt.
+- **Als Nächstes:** (1) 27.6 Leben am Weiher (Libellen, Frösche) als Entwurf auf die Entscheidungsseite. (2) 17 Nachschwingen (Vorrat). Vorschau langsam (~2,5 min je Aufruf): mehrere `HELDORT` in einem Aufruf.
+
 ### Tom (12.10., 20:09, Selbstarbeit bis 22:00)
 
 - PR #48 `claude/tom-27-4-baeume`, **0.1.606** zu testen (s. u.); danach nur Vorschau-Entwürfe gepusht. Test passt → zusammenführen (Merge), CHANGELOG.
