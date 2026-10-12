@@ -11,7 +11,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 13 | Diagonale Sicht | Tom | – | **13u ja (12:20, über Berater):** neue Orte nur noch diagonal (`STIL.md`). **13w ja (12:26):** alte Ansicht eingefroren (nur Absturz-Fixes). **13v (später):** beim Testaufruf an die 12 Tester sagen, dass Wald, Tiefer Wald, Höhle absichtlich noch gerade sind. Schänke, Ältester, Laden, Tempel auf `main` (PR #20, 11.10., 14:00). Weiter mit Dorf draußen (5). **Meldung Nutzer 12.10., 08:43:** Tempel diagonal: Altar steht direkt vor dem Fenster, wirkt komisch; ansehen (eingetragen von Jerry). **13r ja (Nutzer 11:45, über Berater): 13.4** Diagonale je Ort automatisch (fertige Orte immer diagonal, übrige gerade, Testschalter weg), bei Tom als Erstes. **13s ja:** dann 27, 13 Tempel, 42. **13t ja:** Ziel „alte Ansicht ausgebaut“ in `KAPITEL1.md`, danach 6l |
-| 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | 5.1, 5.2, 5g, 5h.1 auf `main` (PR #24, 11.10., 14:52). 5l/5.5 Leben im Dorf: nach 24 (Nutzer 14:55), erst Standbilder. Dann 5.3, 5.4 |
+| 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | 5.1, 5.2, 5g, 5h.1 auf `main` (PR #24, 11.10., 14:52). **Nutzer 12:40:** Dorf diagonal fertig? Schlagbaum, kleinerer Platz, lebendiger, Bäume? Befund: nein; Schlagbaum/Zaun alte Bilder gekippt (**5.6**), Jorin u. a. alte Figuren (5.3), Platz groß/leer (5l/5.5), Bäume wie Wald (27.4). Rückfrage 5m. 5l/5.5 Leben im Dorf: nach 24 (Nutzer 14:55), erst Standbilder. Dann 5.3, 5.4 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
@@ -52,10 +52,12 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **Build läuft (Jerry, PR #45, 37):** Kampfmusik: 7 Stücke, im Kampf zufällig; nie Great Labyrinth, Menace, Epic Fight, Ancient Legend; Devils Dome setzt gleich kräftig ein.
 
-- **0.1.576 (Tom, PR #43, 13.4 + 27.1, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38236381756/artifacts/11740502703)):** ohne Schalter: Dorf und Räume diagonal, Wald und Höhle gerade, Wechsel hinter der Blende ohne Sprung; Testreiter ohne „Sicht“ und „Dorf und Räume“. Dazu: Kronen/Häuser vor dem Helden diagonal fast ganz durchsichtig (27.1).
+- **Build läuft (Tom, PR #43):** 0.1.576 getestet (12:40: 1–4, 6 ja; 5 Durchsicht zu stark). Neu: Durchsicht milder (zusammen 35 %, egal wie viele hintereinander), weich ein/aus in 0,3 s. Darauf achten: hinter Häusern im Dorf, in Räumen hinter hohen Möbeln.
 
 
 ## Rückfragen an den Nutzer
+
+- **5m (Tom):** Dorf fertig machen nach dem Wald: 27.4 Bäume gelten fürs Dorf mit; dann 5.6 Schlagbaum/Zaun diagonal, 5.3 alle Leute als Puppen, 5l/5.5 Platz kleiner + Leben (Tiere, Arbeit, Stände), 5.4 Fenster/Rauch. Empfehlung: Bäume zuerst, dann Dorf in dieser Reihenfolge, vor 27.5/27.6.
 
 
 
