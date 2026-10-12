@@ -52,7 +52,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **Tom, PR #43, Build läuft (14:20):** 0.1.579 passte; neu **27d** behoben: Haus wurde durchsichtig, wenn der Held dicht an der Wand stand (freies Laufen stoppt 0,3 Felder davor). Darauf achten: an Hauswände laufen und stehen bleiben (links, Mitte, rechts) – Haus bleibt fest; hinter dem Haus weiter durchsichtig. Dann zusammenführen.
+- **Tom, PR #43, 0.1.584 ([Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38248162258/artifacts/11747615363)):** 0.1.579 passte; neu **27d** behoben: Haus wurde durchsichtig, wenn der Held dicht an der Wand stand (freies Laufen stoppt 0,3 Felder davor). Darauf achten: an Hauswände laufen und stehen bleiben (links, Mitte, rechts) – Haus bleibt fest; hinter dem Haus weiter durchsichtig. Dann zusammenführen.
 
 ## Rückfragen an den Nutzer
 
