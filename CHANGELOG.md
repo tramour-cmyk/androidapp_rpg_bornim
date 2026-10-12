@@ -4,6 +4,15 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 34, 35), getestet in 0.1.571, PR #41 (zusammengeführt 12.10., 11:52):
+
+**Kampf: Zug beenden (34)**
+- Im Kampfmenü steht neben „Zurück“ der Knopf „Zug beenden“: Der Held tut nichts, der Gegner ist sofort dran, ohne Rückfrage.
+
+**Weihwasser nur gegen Untote (35)**
+- Weihwasser wirkt wie im SRD nur gegen Untote, mit 2W6 gleißendem Schaden (Hausregel ×1,5 bleibt, also 3–18). Gegen andere Gegner ist es ausgegraut mit dem Hinweis „nur gegen Untote“.
+- Werkzeuge (nur Entwicklung): Kerntest `HolyWaterTest`.
+
 Zweig von Tom (Thema 29, 29.3, 29.4, 24.8.6, 30.8), getestet in 0.1.563, 0.1.567 und 0.1.569, PR #42 (zusammengeführt 12.10., 11:35):
 
 **Anschlagbrett mit Nebenaufträgen (29)**
