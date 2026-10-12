@@ -81,7 +81,7 @@ object MapFolk {
     @Volatile var sitDraft = false
 
     /** Borin's poses at his table (55.2): hands on the table, a drink from his flask, a bite, a look round. */
-    enum class Seat { REST, DRINK, EAT, LOOK }
+    enum class Seat { REST, DRINK, EAT, LOOK, BREATHE }
 
     /** A moment at the table: between [from] and [to], [k] of [BLEND] steps (like [SquatPose]). */
     data class SeatPose(val from: Seat, val to: Seat, val k: Int) {
@@ -111,7 +111,7 @@ object MapFolk {
         val acts = r.nextInt(3)
         var at = 1_500L + (r.nextDouble() * 5_000).toLong()
         for (k in 0 until acts) {
-            val what = Seat.entries[1 + r.nextInt(3)]
+            val what = listOf(Seat.DRINK, Seat.EAT, Seat.LOOK)[r.nextInt(3)]
             val hold = 1_400L + (r.nextDouble() * (if (what == Seat.LOOK) 2_600 else 1_800)).toLong()
             val end = at + SEAT_MOVE_MS + hold + SEAT_MOVE_MS
             if (end > SEAT_BLOCK_MS - 500) break
@@ -125,7 +125,16 @@ object MapFolk {
             }
             at = end + 2_000L + (r.nextDouble() * 4_000).toLong()
         }
-        return SeatPose(Seat.REST, Seat.REST, 0)
+        return breathing(clockMs)
+    }
+
+    /**
+     * At rest he breathes: the chest rising and falling about every four seconds, the pace drifting a little so it never
+     * keeps time; a breath is so small that going into an action from any point of it does not jump.
+     */
+    private fun breathing(clockMs: Long): SeatPose {
+        val ph = clockMs / 4_000.0 * 2 * Math.PI + 0.7 * kotlin.math.sin(clockMs / 9_300.0)
+        return seat(Seat.REST, Seat.BREATHE, 0.5 - 0.5 * kotlin.math.cos(ph))
     }
 
     /** The outfit Borin sits in: the hammer is put by at the table, a flask at his belt. */
@@ -144,6 +153,8 @@ object MapFolk {
             Seat.EAT -> base.copy(rh = HeroFigure.V(4.0, 72.0, 11.0), headDown = 4.0)
             Seat.LOOK -> base.copy(lh = HeroFigure.V(-12.0, 36.0, 16.0), headTurn = 45.0, twist = 10.0)
             Seat.REST -> base
+            // a breath in: the chest and shoulders lift a little, the hands on the table stay
+            Seat.BREATHE -> base.copy(bodyY = 0.5, cloak = 0.45)
         }
     }
 

@@ -147,9 +147,10 @@ class MapFolkSquatTest {
                 assertTrue(kotlin.math.abs(rig.headTurn - last.headTurn) <= 12.0, "head jumps at $t: $p")
             }
             // every block begins and ends at rest
-            if (t % MapFolk.SEAT_BLOCK_MS == 0L) assertTrue(p == MapFolk.SeatPose(MapFolk.Seat.REST, MapFolk.Seat.REST, 0), "block starts at $t in $p")
-            if (was == MapFolk.Seat.REST && p.main != MapFolk.Seat.REST) starts += t
-            was = p.main
+            val resting = p.from in setOf(MapFolk.Seat.REST, MapFolk.Seat.BREATHE) && p.to in setOf(MapFolk.Seat.REST, MapFolk.Seat.BREATHE)
+            if (t % MapFolk.SEAT_BLOCK_MS == 0L) assertTrue(resting, "block starts at $t in $p")
+            if (was == MapFolk.Seat.REST && !resting) starts += t
+            was = if (resting) MapFolk.Seat.REST else MapFolk.Seat.DRINK
             last = rig
             t += 50
         }
