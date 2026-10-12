@@ -29,11 +29,14 @@ object MusicLib {
         "grund_eternal_sleep", "grund_fs_38963", "grund_fs_460459", "grund_fs_516566", "grund_fs_530161", "grund_fs_540836", "grund_fs_609422",
     )
     val battle = listOf(
-        "kampf_evil_approach", "kampf_determined_pursuit", "kampf_great_labyrinth", "kampf_menace", "kampf_epic_fight", "kampf_corrupted_minds",
+        "kampf_evil_approach", "kampf_determined_pursuit", "kampf_corrupted_minds", "kampf_eclipse_legion",
+        "kampf_orchestral_battle", "kampf_battlefield", "kampf_devils_dome",
     )
-    val boss = listOf("boss_fall_of_nightmares", "boss_fantasy_choir1", "boss_fantasy_choir2", "boss_ancient_legend")
+    val boss = listOf("boss_fall_of_nightmares", "boss_fantasy_choir1", "boss_fantasy_choir2")
+    /** Too stately for a fight (37a): kept for the Sun Amulet's return to the temple, not yet played anywhere. */
+    val amuletReturn = Track("boss_ancient_legend")
 
-    val all: List<String> get() = listOf(title.name, victory.name, chapterEnd.name) + village + forest + cave + caveBeds + battle + boss
+    val all: List<String> get() = listOf(title.name, victory.name, chapterEnd.name, amuletReturn.name) + village + forest + cave + caveBeds + battle + boss
 
     fun pool(scene: MusicScene): List<String> = when (scene) {
         MusicScene.VILLAGE -> village

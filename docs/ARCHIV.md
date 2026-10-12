@@ -5,6 +5,40 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
 
+### Übergabe Jerry (12.10., 13:22, ersetzt 13:42)
+
+- 37 Kampfmusik zusammengeführt (PR #45). Nächstes: **36.4** (36c ja), läuft seit 13:09 in der Sitzung „Jerry: 36.4 Gegnerbilder zuschneiden, Krogg 1,5×“ (Zweig `claude/great-pascal-x56kad`, PR #45 schon zusammengeführt → neuer PR): Gegnerbilder (`FoeArt.frame`, `W=290`, Figur füllt ~9 %) zuschneiden, Lage mitführen (`BattleScreen.kt` `anchorX`/`groundLine`/`lungeOffset`, `KillArt`, Vorschau), dann Krogg 1,5×; vorher Standbilder `FOESHOT=bugbear:0 FOESHOT_SCALE=4`, Messung `ARTMEM_FOE=bugbear:0`.
+- Danach: 38 Messung Kapitel 1, 13e Entwurf 2, 24.6, 40.
+
+### Übergabe Jerry (12.10., 12:56, vor Neustart, ersetzt 13:22)
+
+- **Zweig `claude/great-pascal-x56kad`, PR #45 (Entwurf, abonniert; #44 geschlossen):** 37 Kampfmusik fertig (7 Stücke), Build 0.1.578 zu testen ([Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38238586524/artifacts/11742320729)). Bei „passt“: PR zusammenführen, CHANGELOG.
+- **36.4 (36c ja) als Nächstes, gleicher Zweig:** Gegnerbilder (`FoeArt.frame`, `W=290`, Figur füllt ~9 %) zuschneiden und Lage mitführen; Verbraucher: `BattleScreen.kt` (Zeichnen, `anchorX`/`groundLine`/`lungeOffset`), `KillArt`, Vorschau. Dann Krogg 1,5×. Erst Standbilder vorher (`FOESHOT=bugbear:0 FOESHOT_SCALE=4`), Messung `ARTMEM_FOE=bugbear:0` (Kerntest `ArtMemoryTest.oneFoe`, mit `--rerun`).
+- **Danach:** 38 Messung Kapitel 1, 13e Entwurf 2 (Grundsatz 43), 24.6, 40.
+
+
+### Zeile 13e aus „Wer macht was“ (Stand 12.10., 13:22, gekürzt)
+
+| 13e | Höhle diagonal (Phase 2 von 13: Orte aufteilen) | Jerry | `ccr-8b450567-umf1s6` | **Grundsatz 43 beachten (Nutzer 12:1x):** Leute, Questziele, Eingänge frei zur Kamera (Süden/Osten nichts Hohes davor), Durchsicht nur um den Helden, Kisten dürfen versteckt liegen; Standbild aus Sicht des Helden. **Entwurf 1 (23:43, Vorschau `KARTENZOOM=1 DIAG=1 CAVEDRAFT=1 ONLY=zoom_nah_c`):** Wände stehen (hinten 2,4 m, Trennwände 1 m, vorn Rand), Gitter und Stützen schräg. **Lücken:** Fels noch kantig/zu dunkel (runder, `Sculpt`); Kisten, Truhen, Felsen, Stalagmiten, Knochen, Lager noch alte Bilder; Lichtschacht als helles Rechteck; Weiher ohne Ufer; Krogg (Jerry) und Lyra (Tom) noch alte Bilder. 13e.1 ja (13:52): nach 18 Runde 2, erst Entwürfe. **Tom einverstanden (14:16).** Jerry: neue Datei `MapCaveIso.kt` und eine Zeile in `WorldArt.buildObjects` (wie Räume/Dorf). Nicht anfassen ohne Absprache: `WorldScreen.kt` (Sortierung, `hides`, `put`/`corner`, `Cam`), `MapSight`, `FreeWalk`, `MapRoomIso`, `MapTownIso`, `MapGround`. Vorlage: `MapTownIso` (`Tile1`, `plane`/`box`/`cylinder`, Tiefe `(tx+ty)*T+1.5T−1`, `corner = true`, `group` für Mehrfeld-Dinge) |
+
+### Übergabe Jerry (12.10., 12:23, vor Neustart, ersetzt 12:56)
+
+- Zweig `claude/sharp-faraday-929xjq`, PR #44: 37 umgebaut, Build 0.1.574 (nicht getestet; durch PR #45 ersetzt, #44 geschlossen). 36.1 Fell zurückgenommen → 36.3. `FOEANIM=bugbear` stürzt ab (Rahmen höher als Raster).
+
+### Übergabe Tom (12.10., 11:35, vor Neustart, ersetzt 12:35)
+
+- **29 erledigt:** PR #42 zusammengeführt (11:35), getestet in 0.1.569; CHANGELOG eingetragen. Zweig `claude/great-sagan-n9tkga` ist fertig.
+- **13.4 gebaut (12:19), PR #43 (Entwurf, abonniert):** Dorf + 4 Räume immer diagonal im neuen Stil, Wald/Tiefer Wald/Höhle gerade bis fertig; Schalter „Sicht“ und „Dorf und Räume“ weg; Vorschau `DIAG=1` = alle Orte diagonal (`MapSight.all`). Zweig `claude/upbeat-clarke-oghrxm`. Jetzt 27 (27b ja, nach 43 umstellen).
+- **In Arbeit: 27 Wald** (27a ja 11:43: zuerst Südrand mit Steinkreis und Schild, erst Standbilder). Danach 13 Tempel, dann **42 Textkasten** (42a–42c ja, Standbilder zuerst), dann 5l/5.5, 17.
+- **Merkposten (23b ja, Nutzer 11:48 über Berater):** Lyra diagonal (für die Höhle), bevor Jerry mit 13e fertig ist, damit er nicht wartet; Reihenfolge sonst unverändert.
+- **Texte (Regel 41):** Aushänge und Sätze von 29/29.3/29.4 stehen in `Jobs.kt`; der Berater übernimmt sie in `docs/STORY.md`.
+
+### Übergabe Jerry (12.10., 11:55, ersetzt 12:23)
+
+- **34, 35 erledigt:** PR #41 zusammengeführt (11:52), getestet in 0.1.571; CHANGELOG eingetragen. Kein offener Zweig.
+- **37:** 5 Hörproben beim Nutzer (Rückfrage 37c), danach einbauen.
+- **Als Nächstes:** 36.1 Krogg (Standbilder vorher/nachher), **38 Messung Kapitel 1** (nach 37 und 36.1, vor 13e), 13e Entwurf 2 (`claude/quirky-goodall-fqncrd`), 24.6, 40. 30: Abstürze mit Bericht beobachten.
+
 ### Übergabe Jerry (12.10., 10:30, ersetzt 11:55)
 
 - Zweig `claude/wizardly-edison-tjotls`, PR #41 (34 Zug beenden, 35 Weihwasser), Build 0.1.568 (zu klein zum Installieren, neu gebaut 0.1.571, getestet, zusammengeführt 11:52).
@@ -84,6 +118,18 @@ Zeile 24 aus „Wer macht was“ (Stand 12.10.): | 24 | Animationen fehlen nach 
 - **30 (Selbstarbeit 23:30):** Klang belegt 24 MB nativ (SoundPool: 121 Aufnahmen mono 44,1 kHz 22,6 MB, davon 9 Schleifen à 10 s 7,9 MB; 34 erzeugte 1,5 MB); Musik streamt (MediaPlayer, beim Überblenden bis 4). Einziger Absturzweg: Faden `sfx-render` beim Start ohne Fehlerfang (fehlende Datei, volle Platte); passt nicht zum Muster, wird trotzdem abgesichert (**30.6**, mit 24.8.5). Vorschlag **30.7** (Freigabe): Umgebungsklänge mit 22 kHz laden, spart ca. 5 MB.
 
 
+
+
+## Aufgeräumt aus OFFEN.md (Jerry, 12.10., 13:50)
+
+| 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
+| 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | – | auf `main` (PR #25, #27) |
+- **32 Nacht 11./12.10. fast ohne Arbeit (Tom und Jerry, je ~25 min):** Weck-Sitzungen beenden nach einem Schritt; Routine 00:27 durch 40-Minuten-Regel gesperrt. Vorschläge 32.1–32.7 (Stand `übergeben`, `send_later` an sich selbst bis „Bis“, Nachfolger sofort starten, blockiert → nächster Punkt, Vorschau vor Push bauen, Gradle 6 GB in `setup-session.sh`, Blende-Fix aus PR #38). **32a/32b: Tom macht es (Nutzer 12.10., 07:40).** 32.8 Vertretung bei Nutzungsgrenze; **32b, 32c ja (07:5x)**, 32.1–32.8 in `SELBST.md` übernommen, Toms Routinen umgestellt. Jerrys 8 Routinen auf den Text in `SELBST.md` umgestellt (12.10., 09:59). Befunde im Archiv.
+
+## Beobachtungen des Beraters zu Thema 30 (aus BERATER.md, 12.10., 13:16)
+
+- **Zu Thema 30 (geprüft 22:56):** Die Bildspeicher von `HeroBattle`, `MapGround`, `MapFolk`, `MapFigure` sind sauber gesperrt (`synchronized`), gleichzeitiger Zugriff dort ist kaum die Ursache. Offen: unbegrenzte Speicher (`WorldArt`, `MapFlora`, `MapTown`, `MapTownIso`) und Lastspitze nach Niederlage (Kartenwechsel); `BattleAhead.run` ohne Fehlerfang.
+- **Zu Thema 30 (12.10., 09:41):** 30.1/30.2/30b (`largeHeap`, 512 MB) auf `main` (PR #40); 0.1.559 ohne Absturz, aber ein Test beweist nichts. Erst nach 2–3 Runden mit Fänger ohne Absturz gilt 30 als erledigt.
 
 ## Übergabe Tom (abgelöst 12.10., 09:40)
 

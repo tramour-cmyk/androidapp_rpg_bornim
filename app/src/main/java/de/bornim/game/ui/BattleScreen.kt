@@ -700,7 +700,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 val n = MonsterArt.frameCount(foeId, battle.look, Act.DIE, dieV)
                 val upTo = if (cur.anim == Anim.ENEMY_FAINT) n - 1 else DIE_REEL.coerceAtMost(n - 1)
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
-                    for (i in 0..upTo) MonsterArt.battleFrame(foeId, battle.look, Act.DIE, dieV, i)
+                    for (i in 0..upTo) MonsterArt.keptFrame(foeId, battle.look, Act.DIE, dieV, i)
                 }
             }
             val an = ui.current?.anim
@@ -906,7 +906,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     battle.trait?.let { tr ->
                         if (newStyle) for (act in Act.entries) for (v in 0 until (if (act == Act.ATTACK) MonsterArt.attackVariants(id) else if (act == Act.IDLE || act == Act.HOWL) 1 else MonsterArt.reactVariants(id)))
                             for (i in 0 until MonsterArt.frameCount(id, battle.look, act, v)) {
-                                val f = MonsterArt.battleFrame(id, battle.look, act, v, i, foeWound)
+                                val f = MonsterArt.keptFrame(id, battle.look, act, v, i, foeWound)
                                 Glow.halo(f, tr.color and 0xFFFFFF); Glow.rim(f, tr.color and 0xFFFFFF)
                             }
                     }
@@ -1021,15 +1021,20 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
             }
             val enemyDy = if (!newStyle) (foeIn * 16).dp else 0.dp
             /** How wide the foe's body is (a doll's picture is far wider than the doll), for its shadow, effects and the lunge. */
-            val body = enemyFrame?.let { MonsterArt.bodySize(id, battle.look, it.width, it.height) }
+            /** The whole frame the foe stands in: a doll's picture is only the cut round its figure (36.4), drawn at ([ox], [oy]) in it. */
+            val frameW = if (enemyFrame == null) 0 else if (MonsterArt.isDoll(id)) de.bornim.core.art.FoeArt.W else enemyFrame.width
+            val frameH = if (enemyFrame == null) 0 else if (MonsterArt.isDoll(id)) de.bornim.core.art.FoeArt.height(id) else enemyFrame.height
+            val body = enemyFrame?.let { MonsterArt.bodySize(id, battle.look, frameW, frameH) }
             val foeW = if (body != null) artDp * body.first.toFloat() else monsterSize
-            val foeH = if (enemyFrame != null) artDp * enemyFrame.height else monsterSize
+            val foeH = if (enemyFrame != null) artDp * frameH else monsterSize
             /** From the top of the picture down to the feet. */
             val foeFeet = if (enemyFrame != null) artDp * MonsterArt.groundLine(id).toFloat() else monsterSize * 0.94f
             /** How tall the foe stands above its feet. */
             val foeTall = if (body != null) artDp * body.second.toFloat() else foeFeet
             /** From the picture's left edge to the feet. */
-            val foeAnchor = if (enemyFrame != null) artDp * MonsterArt.anchorX(id, enemyFrame.width).toFloat() else monsterSize / 2
+            /** The size of one pixel of the shown frame: finer than an art pixel for Krogg (36). */
+            val sprDp = artDp / MonsterArt.fine(id).toFloat()
+            val foeAnchor = if (enemyFrame != null) artDp * MonsterArt.anchorX(id, frameW).toFloat() else monsterSize / 2
             // Shadows on the ground instead of platforms
             Canvas(Modifier.matchParentSize()) {
                 val gx = (sceneW * foeX).toPx(); val gy = (sceneH * foeY).toPx()
@@ -1096,7 +1101,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     )
                 ) {
                     val mAlpha = (if (fleeing) 1f - t else 1f) * enemyAlphaBase(a, ui.enemyGone, t)
-                    if (mateFrame != null) PixelSprite(mateFrame, mPx, alpha = mAlpha, shade = shade, overflow = true)
+                    if (mateFrame != null) Box(Modifier.offset(x = mPx / MonsterArt.fine(packDef.mate).toFloat() * mateFrame.ox, y = mPx / MonsterArt.fine(packDef.mate).toFloat() * mateFrame.oy)) { PixelSprite(mateFrame, mPx / MonsterArt.fine(packDef.mate).toFloat(), alpha = mAlpha, shade = shade, overflow = true) }
                     else PixelImageView(
                         MonsterArt.frame(packDef.mate, mateLook, if (acting || landing && t < 0.5f) Pose.ATTACK else Pose.IDLE, idle + i + 1),
                         mateSize, alpha = mAlpha, shade = shade,
@@ -1131,7 +1136,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     val sc = foeScale * (1f - 0.35f * fleeT * fleeT)
                     if (sc != 1f && enemyFrame != null) {
                         scaleX = sc; scaleY = sc
-                        transformOrigin = androidx.compose.ui.graphics.TransformOrigin((MonsterArt.anchorX(id, enemyFrame.width) / enemyFrame.width).toFloat(), (MonsterArt.groundLine(id) / enemyFrame.height).toFloat())
+                        transformOrigin = androidx.compose.ui.graphics.TransformOrigin((MonsterArt.anchorX(id, frameW) / frameW).toFloat(), (MonsterArt.groundLine(id) / frameH).toFloat())
                     }
                 }
             ) {
@@ -1141,14 +1146,14 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 val killT = if (ui.killAt > 0L && plan != null) clockMs.let { killTime((System.currentTimeMillis() - ui.killAt).toFloat()) } else -1f
                 val inPieces = killT >= 0f && plan != null && plan.pieces.isNotEmpty()
                 // New-style elites shimmer along their outline; the old sprites keep the round aura.
-                if (glow != null && foeShown && enemyFrame != null && !inPieces) Box(Modifier.offset(x = -artDp * Glow.PAD, y = -artDp * Glow.PAD)) {
-                    PixelSprite(Glow.halo(enemyFrame, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.55f + 0.4f * pulse), overflow = true)
+                if (glow != null && foeShown && enemyFrame != null && !inPieces) Box(Modifier.offset(x = sprDp * (enemyFrame.ox - Glow.PAD), y = sprDp * (enemyFrame.oy - Glow.PAD))) {
+                    PixelSprite(Glow.halo(enemyFrame, battle.trait!!.color and 0xFFFFFF), sprDp, alpha = enemyAlpha * (0.55f + 0.4f * pulse), overflow = true)
                 } else if (glow != null && foeShown) EliteAura(glow, monsterSize, enemyAlpha)
                 // struck dead by a killing blow: in pieces from the moment it lands, with what runs out of it
-                if (killT >= 0f && plan != null && enemyFrame != null) Canvas(Modifier.wrapContentSize(androidx.compose.ui.Alignment.TopStart, unbounded = true).size(artDp * enemyFrame.width, artDp * enemyFrame.height)) {
-                    drawKillGore(plan, killT, artDp.toPx(), vm.bloodLevel, goreFor(id), MonsterArt.anchorX(id, enemyFrame.width).toFloat(), battle.look.seed, behind = true)
+                if (killT >= 0f && plan != null && enemyFrame != null) Canvas(Modifier.wrapContentSize(androidx.compose.ui.Alignment.TopStart, unbounded = true).size(artDp * frameW, artDp * frameH)) {
+                    drawKillGore(plan, killT, artDp.toPx(), vm.bloodLevel, goreFor(id), MonsterArt.anchorX(id, frameW).toFloat(), battle.look.seed, behind = true)
                     if (inPieces) drawKillPieces(plan, killT, artDp.toPx(), shade)
-                    drawKillGore(plan, killT, artDp.toPx(), vm.bloodLevel, goreFor(id), MonsterArt.anchorX(id, enemyFrame.width).toFloat(), battle.look.seed, behind = false)
+                    drawKillGore(plan, killT, artDp.toPx(), vm.bloodLevel, goreFor(id), MonsterArt.anchorX(id, frameW).toFloat(), battle.look.seed, behind = false)
                 }
                 // without blood it sinks down darkened
                 val killDark = if (killT >= 0f && plan?.kind == de.bornim.core.art.KillArt.Kind.DARK) (killT / 500f).coerceIn(0f, 1f) else 0f
@@ -1156,18 +1161,18 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 // a beast at full blood keeps its body, torn open along the blow, as it falls
                 val shownFoe = if (killT >= 0f && plan?.kind == de.bornim.core.art.KillArt.Kind.WOUND && enemyFrame != null)
                     remember(enemyFrame) { de.bornim.core.art.KillArt.gash(enemyFrame, plan.cut, battle.look.seed) } else enemyFrame
-                if (shownFoe != null && !inPieces) {
+                if (shownFoe != null && !inPieces) Box(Modifier.offset(x = sprDp * shownFoe.ox, y = sprDp * shownFoe.oy)) {
                     PixelSprite(
-                        shownFoe, artDp, alpha = enemyAlpha,
+                        shownFoe, sprDp, alpha = enemyAlpha,
                         flash = if (ui.foeDestroyed) (crumbleT * 2.2f).coerceAtMost(0.9f) else 0f, shade = foeShade, overflow = true, hurt = foeRed,
                     )
-                    if (glow != null && foeShown && !inPieces) PixelSprite(Glow.rim(shownFoe, battle.trait!!.color and 0xFFFFFF), artDp, alpha = enemyAlpha * (0.22f + 0.18f * pulse), overflow = true)
-                    if (foeStains > 0 && foeShown) PixelSprite(woundsOf(shownFoe, foeStains, id, battle.look.seed), artDp, alpha = enemyAlpha, shade = foeShade, overflow = true)
+                    if (glow != null && foeShown && !inPieces) PixelSprite(Glow.rim(shownFoe, battle.trait!!.color and 0xFFFFFF), sprDp, alpha = enemyAlpha * (0.22f + 0.18f * pulse), overflow = true)
+                    if (foeStains > 0 && foeShown) PixelSprite(woundsOf(shownFoe, foeStains, id, battle.look.seed), sprDp, alpha = enemyAlpha, shade = foeShade, overflow = true)
                     // a band of light wanders over a shimmering coat every few seconds
                     if (battle.shiny && foeShown) {
                         val steps = 12
                         val phase = ((pulseClock() / 120) % 30).toInt()
-                        if (phase < steps) PixelSprite(Glow.sheen(shownFoe, phase, steps), artDp, alpha = enemyAlpha * 0.75f, overflow = true)
+                        if (phase < steps) PixelSprite(Glow.sheen(shownFoe, phase, steps), sprDp, alpha = enemyAlpha * 0.75f, overflow = true)
                     }
                 } else if (enemyFrame == null) {
                     val img = MonsterArt.frame(battle.monster.id, battle.look, enemyPose, if (foeWound > 0) idleIdx else idle)

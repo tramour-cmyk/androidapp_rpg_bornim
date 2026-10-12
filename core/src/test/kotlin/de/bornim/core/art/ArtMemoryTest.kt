@@ -37,6 +37,31 @@ class ArtMemoryTest {
         println("ARTMEM Heap belegt %.1f MB".format((r.totalMemory() - r.freeMemory()) / 1048576.0))
     }
 
+    /** 36.3: the kept pictures of one foe's fight alone, e.g. `ARTMEM_FOE=bugbear:0` (Krogg); one line per store, frame size. */
+    @Test fun oneFoe() {
+        val spec = System.getenv("ARTMEM_FOE") ?: return
+        val (id, n) = spec.split(":").let { it[0] to (it.getOrNull(1)?.toInt() ?: 0) }
+        val t0 = System.currentTimeMillis()
+        MonsterArt.prepare(id, MonsterLook(n))
+        val rows = report().filter { it.third > 0 }
+        val f = MonsterArt.battleFrame(id, MonsterLook(n), de.bornim.core.art.Act.IDLE, 0, 0)
+        println("ARTMEM $spec nach ${(System.currentTimeMillis() - t0) / 1000} s, Bild ${f.width}×${f.height}")
+        for ((name, count, bytes) in rows.sortedByDescending { it.third }) println("ARTMEM %-28s %6d Bilder %8.1f MB".format(name, count, bytes / 1048576.0))
+        // how much of the frames is used: the box round every drawn pixel, and its share of the frame
+        var used = 0L; var all = 0L; var n2 = 0
+        // and the one box round all of them: a fixed cut for this foe
+        var ux0 = Int.MAX_VALUE; var uy0 = Int.MAX_VALUE; var ux1 = -1; var uy1 = -1; var fw = 0; var fh = 0
+        for (act in de.bornim.core.art.Act.entries) for (v in 0 until 3) for (i in 0 until runCatching { MonsterArt.frameCount(id, MonsterLook(n), act, v) }.getOrDefault(0)) {
+            val img = MonsterArt.battleFrame(id, MonsterLook(n), act, v, i)
+            var x0 = img.width; var y0 = img.height; var x1 = -1; var y1 = -1
+            for (y in 0 until img.height) for (x in 0 until img.width) if ((img[x, y] ushr 24) != 0) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y }
+            if (x1 >= 0) used += (x1 - x0 + 1).toLong() * (y1 - y0 + 1); all += img.width.toLong() * img.height; n2++
+            if (x1 >= 0) { ux0 = minOf(ux0, x0); uy0 = minOf(uy0, y0); ux1 = maxOf(ux1, x1); uy1 = maxOf(uy1, y1) }; fw = img.width; fh = img.height
+        }
+        println("ARTMEM gemeinsamer Rahmen x %d–%d, y %d–%d von %d×%d: %.0f %% der Fläche".format(ux0, ux1, uy0, uy1, fw, fh, 100.0 * (ux1 - ux0 + 1) * (uy1 - uy0 + 1) / (fw * fh)))
+        println("ARTMEM %d Bilder, genutzte Fläche %.0f %%: zugeschnitten %.1f MB, 1,5× zugeschnitten %.1f MB".format(n2, 100.0 * used / all, used * 4 / 1048576.0, used * 4 * 2.25 / 1048576.0))
+    }
+
     companion object {
         /** Every object in this package holding maps of pictures: name and field, how many, how many bytes. */
         fun report(): List<Triple<String, Int, Long>> {

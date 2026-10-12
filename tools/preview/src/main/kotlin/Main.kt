@@ -298,6 +298,7 @@ fun main() {
     if (System.getenv("FOELUNGE") != null) { renderFoeLunge(); System.exit(0) }
     if (System.getenv("FOEFALLS") != null) { renderFoeFalls(); System.exit(0) }
     if (System.getenv("FOEANIM") != null) { renderFoeAnims(); System.exit(0) }
+    if (System.getenv("FOESHOT") != null) { renderFoeShot(); System.exit(0) }
     if (System.getenv("NEWFALLS") != null) { renderNewFalls(); System.exit(0) }
     if (System.getenv("CREATURES") != null) { renderCreatureDrafts(); System.exit(0) }
     if (System.getenv("SUPPLIES") != null) { renderSupplySheet(); System.exit(0) }
