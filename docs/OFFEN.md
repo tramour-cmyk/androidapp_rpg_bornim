@@ -46,7 +46,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ### Tom (12.10., 22:2x)
 
 - Zweig `claude/tom-27-4-baeume` (PR #48), `main` hineingeholt. Neu seit 0.1.624: **27i** Libellen/Frösche im Spiel, **17a** Umhang schwingt aus, **42d** Textkasten schwarz/Gold, **27j/27k** Weiher-Klang (`PondSound`: Ruf, wenn die Kehle schwillt, nach Nähe; Libelle nur nah bei Tag; Chor 2 leise in der Dämmerung; Klänge aus `tools/klang/teich.py --spiel`). Build läuft (PR abonniert).
-- **Weiter:** Build melden, Test abwarten; dann laut 26c: Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar (Meldung 08:43), 5l, 55.2-Rest, 17 Rest (Haare, Köcher).
+- **Neustart ja (Nutzer 22:2x), nach dem Test:** Nachfolger mit `create_session` oder Trigger starten. **Weiter:** Build melden, Test abwarten; dann laut 26c: Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar (Meldung 08:43), 5l, 55.2-Rest, 17 Rest (Haare, Köcher).
 - Hinweis: Nach dem Zusammenführen kann der Gradle-Zwischenstand von `core` veralten (Vorschau meldet „Unresolved reference“, „Int expected Int“): `rm -rf core/build/{kotlin,classes,libs}`.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
