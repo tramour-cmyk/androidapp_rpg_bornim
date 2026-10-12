@@ -91,6 +91,9 @@ data class Mat(
     val bias: Double = 0.0,
     /** Dark line where the shape overlaps something already drawn. */
     val inline: Boolean = true,
+    /** Size of the grain in pixels (wide, tall): 1 for a speckle on every pixel; larger for tufts and strands of fur. */
+    val grainW: Double = 1.0,
+    val grainH: Double = 1.0,
 )
 
 /**
@@ -142,12 +145,22 @@ class Sculpt(val w: Int, val h: Int, private val seed: Int = 0) {
         return ((n xor (n ushr 16)) and 0xFFFF) / 65535.0
     }
 
+    /** Noise that changes smoothly between whole-number points, for grain coarser than a pixel. */
+    private fun smooth(x: Double, y: Double, s: Int): Double {
+        val x0 = floor(x).toInt(); val y0 = floor(y).toInt()
+        val fx = x - x0; val fy = y - y0
+        val u = fx * fx * (3 - 2 * fx); val v = fy * fy * (3 - 2 * fy)
+        val a = noise(x0, y0, s) + (noise(x0 + 1, y0, s) - noise(x0, y0, s)) * u
+        val b = noise(x0, y0 + 1, s) + (noise(x0 + 1, y0 + 1, s) - noise(x0, y0 + 1, s)) * u
+        return a + (b - a) * v
+    }
+
     /** Brightness 0..1 of a surface normal. */
     private fun intensity(nx: Double, ny: Double, nz: Double, m: Mat, x: Int, y: Int): Double {
         val d = nx * lx + ny * ly + nz * lz
         var i = 0.12 + 0.8 * max(0.0, d) + 0.1 * nz + m.bias
         if (m.shine > 0) i += m.shine * max(0.0, nx * hx + ny * hy + nz * hz).pow(24) * 0.9
-        if (m.grain > 0) i += (noise(x, y, seed + 7) - 0.5) * m.grain
+        if (m.grain > 0) i += ((if (m.grainW <= 1.0 && m.grainH <= 1.0) noise(x, y, seed + 7) else smooth(x / m.grainW, y / m.grainH, seed + 7)) - 0.5) * m.grain
         return i
     }
 
