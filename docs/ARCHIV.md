@@ -1,5 +1,7 @@
 # Archiv
 
+- **49 (aus OFFEN, 12.10., 21:4x):** 49n–49q ja (18:1x): 9 Linien je Merkmal (3 Stufen, Pfad-Linien 2), 7 einstufige Talente, Zäh/Kriegszauberer gestrichen. 49r ja (18:2x): Talent auf jeder geraden Stufe, auf 4/8/12/16/20 wahlweise +2 Attribut (`BALANCE.md`). 49s ja (18:2x): Fertigkeit = neue Möglichkeit, Attribut = Zahl; neu zu bauen: Gesprächsauswahl, Verstecktes auf Karten, Schleichen.
+
 ### Tom (12.10., 20:56, Selbstarbeit bis 22:00)
 - **Nutzer 21:1x:** 0.1.615 getestet, als PR #49 (Stand 957adde) zusammengeführt. **27h ja:** Testschalter „alles diagonal“ in den Testreiter. **27e.1 ja:** weniger Transparenz, und alle Transparenzen (Bäume, Häuser, Möbel, gerade und diagonal) halbwegs einheitlich. **57c:** Jerry ist zum Bildbuch eingeladen. PR #48 hat jetzt nur noch ungetestete Entwürfe (27.6, 17).
 
