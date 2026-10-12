@@ -21,6 +21,12 @@ if [ ! -d "$wt/.git" ] && [ ! -f "$wt/.git" ]; then
     git worktree prune
     git worktree add -q "$wt" origin/main 2>/dev/null && git -C "$wt" checkout -q -B main origin/main
 fi
+# Flacher Klon mit altem main in der Arbeitskopie: ohne gemeinsamen Vorfahren bricht das Zusammenführen ab
+# („unrelated histories“). Dann den vollen Verlauf nachladen.
+if ! git -C "$wt" merge-base HEAD origin/main >/dev/null 2>&1 \
+   && [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
+    git fetch -q --unshallow origin main 2>/dev/null || echo "Bornim: Verlauf ließ sich nicht nachladen (Netz?)."
+fi
 # Arbeitskopie auf den neuesten Stand; eigene, noch nicht gepushte Commits bleiben (Zusammenführen, kein Rebase).
 if [ -z "$(git -C "$wt" status --porcelain)" ]; then
     git -C "$wt" merge -q --ff-only origin/main 2>/dev/null || git -C "$wt" merge -q --no-edit origin/main
