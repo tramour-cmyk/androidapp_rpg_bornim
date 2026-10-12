@@ -134,7 +134,7 @@ Dorran wohnt heute nur hinter einer verschlossenen Tür („Er ist wohl in seine
 
 ## Zufallsgenerierte Dungeons (48, Nutzer 12.10.)
 
-- Halb-halb: Story-Höhlen mit festem Kern (Eingang, Bossraum, Szenen) und zufälligen Seitengängen aus handgemachten Bausteinen; Aushang-Höhlen ganz zufällig (Startwert im Spielstand). Voraussetzung: diagonale Höhlenzeichnung (13e) arbeitet allgemein aus der Karte, nicht je Kachel von Hand. Einzelheiten in `OFFEN.md` Zeile 48.
+- Halb-halb: Story-Höhlen mit festem Kern (Eingang, Bossraum, Szenen) und zufälligen Seitengängen aus handgemachten Bausteinen; Aushang-Höhlen ganz zufällig (Startwert im Spielstand). Voraussetzung: diagonale Höhlenzeichnung (13e) arbeitet allgemein aus der Karte, nicht je Kachel von Hand. Größe (48c): 6–8 Kammern, verschlungener Hauptweg, Schleife nur manchmal, Sackgassen auch leer, Rückweg durch Durchgang, der nach dem Boss aufgeht; Beute knapp, Jerry prüft gegen `BALANCE.md`. Einzelheiten in `OFFEN.md` Zeile 48.
 
 ## Lehrer (49, Nutzer 12.10.)
 
