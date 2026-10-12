@@ -202,7 +202,8 @@ fun Txt(
         Text(
             text = text,
             modifier = modifier,
-            style = TextStyle(fontFamily = Serif),
+            // lining figures: Alegreya and Fell draw old-style ones by default, uneven in a column of values
+            style = TextStyle(fontFamily = Serif, fontFeatureSettings = "lnum"),
             fontSize = size * 0.95f * TypeLook.scale,
             color = Veil.of(color),
             fontWeight = if (bold) FontWeight.SemiBold else FontWeight.Normal,
@@ -280,7 +281,7 @@ fun PixelButton(
         ) {
             Text(
                 label.uppercase(), color = if (!enabled) Veil.dim.copy(alpha = 0.6f) else if (selected) Veil.gold else Veil.text,
-                style = TextStyle(fontFamily = Serif, fontSize = size * 0.7f * TypeLook.scale, letterSpacing = 1.2.sp), textAlign = TextAlign.Center, maxLines = 2,
+                style = TextStyle(fontFamily = Serif, fontSize = size * 0.7f * TypeLook.scale, letterSpacing = 1.2.sp, fontFeatureSettings = "lnum"), textAlign = TextAlign.Center, maxLines = 2,
             )
         }
         return
