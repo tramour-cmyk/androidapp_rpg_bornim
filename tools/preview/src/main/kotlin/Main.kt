@@ -195,6 +195,8 @@ fun main() {
                 }
                 shot("zoom_${z}_6_weiher") { place(it, "forest", 7, 15, 12 * 60) }
                 shot("zoom_${z}_7_steinkreis") { place(it, "forest", 10, 25, 17 * 60 + 30) }
+                shot("zoom_${z}_7b_steinkreis_mitte") { place(it, "forest", 15, 26, 12 * 60) }
+                shot("zoom_${z}_7c_schild_sued") { place(it, "forest", 11, 27, 12 * 60, Facing.DOWN) }
                 shot("zoom_${z}_8_tiefer_wald") { place(it, "deep_forest", 22, 6, 12 * 60) }
                 shot("zoom_${z}_9_hinter_baum") { place(it, "forest", 12, 10, 12 * 60) }
                 shot("zoom_${z}_d1_dorf_markt") { place(it, "village", 17, 13, 12 * 60, Facing.UP) }
