@@ -40,9 +40,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 13:00, vor Neustart)
+### Tom (12.10., 13:30, vor Neustart)
 
 - **PR #43 (Entwurf, abonniert), Zweig `claude/upbeat-clarke-oghrxm`, Build 0.1.579 zu testen (0.1.576 getestet, nur Durchsicht zu stark → milder/weich):** 13.4 (Diagonale je Ort automatisch, Schalter weg, `townDraft` immer an) und 27.1/27.2 Entwurf (diagonal junge Fichten vor Wichtigem bis 8 Felder, `MapFlora.objects`; Durchsicht 0,2 in `WorldScreen`). Nach Test: zusammenführen, CHANGELOG.
+- **Zuerst:** Durchsicht-Fehler vor Haus (Zeile „Zu testen“, d11) klären und beheben, dann PR #43 zusammenführen (0.1.579 passt), CHANGELOG.
 - **Als Nächstes (5m ja, 13:00):** 27.4 Bäume neu mit Volumen (`MapFlora` oak/spruce/deadTree; Vorbild `MapTownIso`/`Sculpt`), gelten für Wald und Dorf, erst Standbilder; dann 5.6 Schlagbaum/Zaun (Vorschau `ONLY=zoom_nah_d10`), 5.3, 5l/5.5, 5.4, dann 27.5/27.6 (27.4 Bäume, 27.5 Dinge mit Garrick/Feuer, 27.6 Leben, je erst Standbilder; Lückenliste in Zeile 27). Vorschau Wald: `KARTENZOOM=1 DIAG=1 ONLY=zoom_nah_7` (7b Steinkreismitte, 7c Schild). Danach 13 Tempel, 42, Merkposten Lyra diagonal (23b).
 ### Jerry (12.10., 13:22)
 
@@ -51,7 +52,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **0.1.579 getestet, passt (Nutzer 13:0x); Zusammenführen nach dem angekündigten Hinweis (Bildschirmfoto) (Tom, PR #43, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38238967966/artifacts/11742810872)):** 0.1.576 getestet (12:40: 1–4, 6 ja; 5 Durchsicht zu stark). Neu: Durchsicht milder (zusammen 35 %, egal wie viele hintereinander), weich ein/aus in 0,3 s. Darauf achten: hinter Häusern im Dorf, in Räumen hinter hohen Möbeln.
+- **0.1.579 getestet, passt (Nutzer 13:0x); **Meldung 13:2x (Bildschirmfoto):** Haus am Schlagbaum (21–23, 3–5) wird durchsichtig, obwohl der Held davor steht; Vorschau `KARTENZOOM=1 ONLY=zoom_nah_d11` (Held 22,6). Vermutlich alter Fehler der Gruppen-Durchsicht (`hides`, ein Streifen mit größerer Tiefe), prüfen ob durch PR #43; dann beheben und PR zusammenführen (Tom, PR #43, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38238967966/artifacts/11742810872)):** 0.1.576 getestet (12:40: 1–4, 6 ja; 5 Durchsicht zu stark). Neu: Durchsicht milder (zusammen 35 %, egal wie viele hintereinander), weich ein/aus in 0,3 s. Darauf achten: hinter Häusern im Dorf, in Räumen hinter hohen Möbeln.
 
 
 ## Rückfragen an den Nutzer
