@@ -57,10 +57,12 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Weiter (Freitag):** Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
-- **Tom, PR #48** `claude/tom-27-4-baeume`, **[0.1.615](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38290459741)** (12.10., 20:28): wie 0.1.606 plus 56a–56d (Kräuter, Truhen, Steine, Steinkreis, Büsche, Farn im Wald; Wäscheleine, Heu, Büsche im Dorf), 27g Weiher mit Ufer und Schilf, 55c Borin sitzt, 27e Held unter Kronen sichtbar. Passt es: zusammenführen.
+- **Tom, PR #48** `claude/tom-27-4-baeume`, **[0.1.615](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38290459741)** (12.10., 20:28): wie 0.1.606 plus 56a–56d (Kräuter, Truhen, Steine, Steinkreis, Büsche, Farn im Wald; Wäscheleine, Heu, Büsche im Dorf), 27g Weiher mit Ufer und Schilf, 55c Borin sitzt, 27e Held unter Kronen sichtbar. Passt es: zusammenführen. **Test Nutzer 21:1x:** Dorf, Schänke passt; Tiefer Wald passt, aber sehr viel Transparenz (→ 27e.1); Wald nur gerade, Diagonale nicht testbar (Schalter seit 13.4 weg, → 27h).
 
 ## Rückfragen an den Nutzer
 
+- **27h** (Tom): PR #48 jetzt zusammenführen (Wald-Dinge diagonal sind im Spiel unsichtbar, schaden nicht) und für den Test der Wald-Diagonale einen Schalter „alles diagonal“ in den Testreiter? Empfehlung: ja und ja.
+- **27e.1** (Tom): Transparenz im Tiefen Wald verringern: nur Kronen, die den Körper wirklich verdecken, und weniger stark. Empfehlung: ja.
 - **27h** (Tom): 27.6 Libellen und Frösche am Weiher ins Spiel? Bilder auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F). Empfehlung: ja.
 - **17a** (Tom): 17 Umhang schwingt nach dem Anhalten seitlich aus, so ins Spiel? Bilder auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F). Empfehlung: ja (sonst um ein Drittel kleiner).
 - **57c** (Tom): Bildbuch für Jerry über „Teilen“ mit Schreibrecht freigeben? Empfehlung: ja, vor Freitag.
