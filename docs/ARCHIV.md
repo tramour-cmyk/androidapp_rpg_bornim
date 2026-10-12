@@ -5,6 +5,12 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
 
+### Übergabe Tom (12.10., 10:25, ersetzt 11:35)
+
+- **Zweig `claude/great-sagan-n9tkga`** (enthält `tender-goodall-a8zuny` und `main` mit PR #39/#40): 29 Brett + Fix Aktionsknopf (`Navigation.actionAt`), 29.3 zweite Welle, 29.4, 24.8.6, 30.8. **Build 0.1.569 zu testen** (= 0.1.567 + 29.4 Held spricht zuerst; Link unter „Zu testen“). Danach PR von diesem Zweig, zusammenführen, CHANGELOG (24.8.6, 30.8, 29, 29.3, 29.4).
+- **Als Nächstes:** 13 Tempel (Altar vor dem Fenster), 27 Wald (Garrick/Feuer, Höhleneingang), dann 5l/5.5, 17.
+- 29.3-Technik: `Jobs.after` (Welle), `Jobs.read`/`freshNote` (Flag `job_<id>_seen`, Zettel in `MapTownIso.noticeBoard(fresh)`), `Jobs.findAt` (Menhir im `forest`), `@gear:RARITY:SLOT` in `Game`.
+
 ### Übergabe Jerry (12.10., 09:48, ersetzt 10:30)
 
 - **26.1 Magierrüstung 8 h:** PR #39 (Zweig `ccr-21220742-4xthje`, mit `main` inkl. PR #40), getestet 0.1.561 (Nutzer 09:4x: passt, „Schutz“ passt, 26b: 8 h reichen). **Zusammengeführt 09:51, CHANGELOG eingetragen.** Simulation `SIM=1 SIM_MA=1 … ChapterSimTest`. KAPITEL1 „Ausgleich“: Zielwert noch offen.

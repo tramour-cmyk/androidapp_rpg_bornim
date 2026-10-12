@@ -32,7 +32,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 26 | Kapitel 1 fertig (Zielliste) | Tom und Jerry | festgelegt 11.10. | `KAPITEL1.md` |
 | 27 | Wald „Ort fertig“ | Tom | offen | `OFFEN.md` |
 | 28 | Musik neu | Jerry | erledigt, getestet 0.1.540, PR #36 | `ARCHIV.md` |
-| 29 | Nebenquests (Anschlagbrett) | Tom | offen | `OFFEN.md` |
+| 29 | Nebenquests (Anschlagbrett) | Tom | erledigt 12.10. (PR #42) | `CHANGELOG.md` |
 | 30 | Abstürze beim Testen | Tom (Jerry: Klang-Fäden) | offen | `OFFEN.md` |
 | 31 | Berater-Gedächtnis `docs/BERATER.md` | Berater | angelegt 11.10. | `BERATER.md` |
 | 33 | Grundsatz „Spielerfreundlich, einfach, frei“ (Prüfung vor jeder Umsetzung) | Tom und Jerry | festgelegt 12.10., 08:58, in `STIL.md` und `CLAUDE.md` | `STIL.md` |

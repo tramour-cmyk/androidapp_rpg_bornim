@@ -23,7 +23,6 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik); Jerry (Inhalt) | – | 24.1–24.4, 24.9–24.15 auf `main` (PR #30, #32, #34, #35); 24.8 Ortsklang auf `main` (PR #37). **Tom:** 24.5, 24.16–24.20 auf `main` (PR #40). 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.8.5 auf `main` (PR #38, 12.10.), danach 24.6 Kampferöffnung wartet + Herzschlag (nach Toms 24.5), knapper Kampftext in `Battle.kt`. Entscheidungen 24f/24i/24j in [`ZWISCHENBILD.md`](ZWISCHENBILD.md) und im Archiv. |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | festgelegt 11.10., 16:50 (Berater); erledigte Punkte dort abhaken |
 | 27 | Wald „Ort fertig“ (Liste in `STIL.md`): vor allem diagonale Zeichnung, Bäume rund | Tom | – | 11.10., 16:50; nach 24 und 5l; zuerst Standbilder Wald gegen Dorf, Lückenliste; **Meldung Nutzer (16:55):** in der diagonalen Sicht Garrick mit Lagerfeuer schlecht zu sehen, Ausrichtung falsch; Höhleneingang fehlt (eingetragen von Jerry); **Meldung Nutzer (11:30):** in der Diagonalsicht sind Steinkreis (Jorins Auftrag 29.3) und Schild am Waldeingang nicht zu sehen: verdeckt von den Kronen des Waldrands im Süden, Held dort auch unsichtbar (Vorschau bestätigt). Vorschlag: 27 als Nächstes, zuerst Südrand/Steinkreis |
-| 29 | Nebenquests über ein Anschlagbrett (mind. drei Aufträge, Wald und Höhle) | Tom | `claude/great-sagan-n9tkga` (enthält `tender-goodall` + `main`; `tender-goodall` nicht mehr benutzen) | **29.3 gebaut (12.10., 10:06):** nach Krogg Morwen 3 Giftdrüsen → 50 G + 2 Kräutertränke, Jorin „Feuer am Steinkreis“ (Menhir im Süden des Flüsterwaldes, grauer Fetzen mit offenem Auge) → Kopfschutz; frischer Zettel mit rotem Siegel, bis das Brett gelesen ist. **29h ja** (graues Auge deutet auf den Brief voraus), **29i:** Texte im Test lesen (Nutzer 10:23).  29a–29d ja. **Gebaut 09:02** (Kerntest `JobsTest`, Vorschau `BRETT=1`): Brett Variante 2 vor der Schänke (4,7), Fenster mit Annehmen je Aushang, Menü System: Fortschritt + Aufgeben (29e ja), Abgabe beim Auftraggeber. Thessa 5 Felle 60 G, Gwenna Ring 40 G + Trank, Borin 3 Hauer 50 G (Aufwertung gibt es nicht); Texte ok (29f ja). **29g ja (09:35):** neue Aushänge in Wellen nach Geschichte (Kap. 1 nach Krogg: Morwen Giftdrüsen, Jorin Streife), nichts verfällt, keine Wiederholungen, frischer Zettel als Hinweis (29.3, nach Test des Bretts) **Jerry:** Gwennas Ring kommt aus Truhe `cave_3`, sobald der Auftrag angenommen ist (nur in `Game.openChest`, Höhlendaten unverändert); bitte Bescheid, falls `cave_3` sich ändert |
 | 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | 30.1, 30.2, 30b auf `main` (PR #40, 12.10., 09:29, getestet 0.1.559: kein Absturz, 512 MB). 30.8 Anzeige „App aktualisiert“ (Grund 16) auf `claude/tender-goodall-a8zuny`. Offen: Dorf-Absturz aus 0.1.555 (ohne Fänger) beobachten; **Meldung 09:41:** Absturz beim Test von 0.1.561 (Jerry, 26.1), kein Bericht im Test-Reiter, denn 0.1.561 ist vor PR #40 gebaut (ohne Fänger); Jerry holt `main` in den Zweig und baut neu; 30.7 (Klang 22 kHz) mit Jerry. Verlauf im Archiv |
 | 34 | Kampf: Knopf „Zug beenden“ (nichts tun, Gegner ist dran; auch um Testkämpfe schnell zu verlieren) | Jerry | `claude/wizardly-edison-tjotls` | 34.1 ja (10:05): neben „Zurück“ im Untermenü Kampf, ohne Rückfrage. Gebaut, PR #41 (Entwurf), 0.1.568 |
 | 35 | Weihwasser wirkt nur gegen Untote (SRD), 2W6 gleißend; gegen andere ausgegraut mit Hinweis | Jerry | `claude/wizardly-edison-tjotls` | gebaut (`HolyWaterTest`), 35a: Hausregel ×1,5 bleibt (Nutzer 10:05), also 3–18. PR #41, 0.1.568 |
@@ -39,11 +38,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 10:25, vor Neustart)
+### Tom (12.10., 11:35, vor Neustart)
 
-- **Zweig `claude/great-sagan-n9tkga`** (enthält `tender-goodall-a8zuny` und `main` mit PR #39/#40): 29 Brett + Fix Aktionsknopf (`Navigation.actionAt`), 29.3 zweite Welle, 29.4, 24.8.6, 30.8. **Build 0.1.569 zu testen** (= 0.1.567 + 29.4 Held spricht zuerst; Link unter „Zu testen“). Danach PR von diesem Zweig, zusammenführen, CHANGELOG (24.8.6, 30.8, 29, 29.3, 29.4).
-- **Als Nächstes:** 13 Tempel (Altar vor dem Fenster), 27 Wald (Garrick/Feuer, Höhleneingang), dann 5l/5.5, 17.
-- 29.3-Technik: `Jobs.after` (Welle), `Jobs.read`/`freshNote` (Flag `job_<id>_seen`, Zettel in `MapTownIso.noticeBoard(fresh)`), `Jobs.findAt` (Menhir im `forest`), `@gear:RARITY:SLOT` in `Game`.
+- **29 erledigt:** PR #42 zusammengeführt (11:35), getestet in 0.1.569; CHANGELOG eingetragen. Zweig `claude/great-sagan-n9tkga` ist fertig.
+- **Als Nächstes: 27a offen** (Wald vor Tempel, zuerst Südrand mit Steinkreis und Schild, die in der Diagonalsicht unter Kronen liegen; Empfehlung ja, erst Standbilder). Sonst 13 Tempel, dann 5l/5.5, 17.
+- **Texte (Regel 41):** Aushänge und Sätze von 29/29.3/29.4 stehen in `Jobs.kt`; der Berater übernimmt sie in `docs/STORY.md`.
 ### Jerry (12.10., 10:30, vor Neustart)
 
 - **Zweig `claude/wizardly-edison-tjotls`, PR #41 (Entwurf, abonniert):** 34 Zug beenden, 35 Weihwasser nur gegen Untote; Build 0.1.568 unter „Zu testen“. Nach Test: PR zusammenführen, CHANGELOG.
@@ -52,14 +51,12 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **0.1.563 getestet (Nutzer 12.10., 10:07, MuMu):** 24.8.6 ok, 30.8 ok („App aktualisiert“), kein Absturz. **Fehler 29:** Brett lässt sich nicht antippen, kein Aktionsknopf. Ursache: `Navigation.kt` `actionAt` kennt `Tile.NOTICE` nicht (→ `ActionKind.READ` ergänzen); **Behoben auf `claude/great-sagan-n9tkga` (10:17), in 0.1.567.**
-- **0.1.567 (Tom, ersetzt 0.1.563/0.1.566, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38222745413/artifacts/11735516333)):** Brett-Fix (antippbar, Aktionsknopf „Lesen“) + 29.3 (zweite Welle nach Krogg, frischer Zettel, Steinkreis antippbar solange Jorins Auftrag läuft). Zu prüfen: 29 ganz (Annehmen, Menü System, Abgabe, Ring in Höhlentruhe).
-  - **Erstergebnis (Nutzer 12.10., 10:38):** 1 Brett (Knopf, frischer Zettel) passt, 2 erste Aufträge passen; offen: Ring-Quest, Welle nach Krogg (Morwen, Jorin/Steinkreis), Texte 29i.
-  - **Meldung Nutzer (10:40), 29.4:** Bei der Abgabe spricht erst der Held einen passenden Satz (Name als Sprecher), dann der Auftraggeber; sonst kommt die Antwort „aus dem Nichts“. **29.4 ja (10:46), gebaut in 0.1.569** ([Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38225591679/artifacts/11736507285), enthält alles aus 0.1.567).
 
 - **0.1.568 (Jerry, PR #41, nach 0.1.567, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38223918091/artifacts/11735758109)):** 34 Zug beenden (Kampf → neben Zurück), 35 Weihwasser gegen Nicht-Untote ausgegraut „nur gegen Untote“, gegen Skelett/Zombie 3–18 Schaden.
 
 ## Rückfragen an den Nutzer
+
+- **27a (Tom):** 27 Wald vor 13 Tempel, zuerst Südrand (Steinkreis, Schild unter Kronen verdeckt, Jorins Auftrag diagonal sonst nicht lösbar)? Empfehlung ja, erst Standbilder.
 
 - **32 Nacht 11./12.10. fast ohne Arbeit (Tom und Jerry, je ~25 min):** Weck-Sitzungen beenden nach einem Schritt; Routine 00:27 durch 40-Minuten-Regel gesperrt. Vorschläge 32.1–32.7 (Stand `übergeben`, `send_later` an sich selbst bis „Bis“, Nachfolger sofort starten, blockiert → nächster Punkt, Vorschau vor Push bauen, Gradle 6 GB in `setup-session.sh`, Blende-Fix aus PR #38). **32a/32b: Tom macht es (Nutzer 12.10., 07:40).** 32.8 Vertretung bei Nutzungsgrenze; **32b, 32c ja (07:5x)**, 32.1–32.8 in `SELBST.md` übernommen, Toms Routinen umgestellt. Jerrys 8 Routinen auf den Text in `SELBST.md` umgestellt (12.10., 09:59). Befunde im Archiv.
 
