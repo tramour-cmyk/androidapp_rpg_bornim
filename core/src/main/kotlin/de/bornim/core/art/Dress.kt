@@ -578,7 +578,9 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val qz = -d.chestDepth - (if (slung && o.items[GearSlot.CLOAK] != null) 0.05 else 0.035) * h
         val top = sk.upper.apply(P3(d.shoulderX * 0.45, d.shoulderY - 0.01 * h, qz))
         val bottom = sk.upper.apply(P3(-d.shoulderX * 0.15, d.hipY + 0.15 * d.trunk, qz))
-        add(RoundCone(bottom, top, 0.03 * h, 0.034 * h, BodyPart.GEAR, Doll.ITEM), leather)
+        val case = add(RoundCone(bottom, top, 0.03 * h, 0.034 * h, BodyPart.GEAR, Doll.ITEM), leather)
+        // 58: worn over the cloak, the quiver presses the cloth in, or the cloth swallows it
+        if (PRESS_CLOAK) cloakCloth?.holes?.add(Swept(case, sk.upper.dir(P3(0.0, 0.0, -1.0)), 0.25 * h, 0.5))
         val dirQ = (top - bottom).norm()
         for (k in 0..2) add(Ellipsoid(top + dirQ * (0.03 * h) + sk.upper.dir(P3((k - 1) * 0.012 * h, 0.0, 0.0)), P3(0.006 * h, 0.022 * h, 0.006 * h), Frame.along(dirQ), BodyPart.GEAR, Doll.TRIM), m(argb(0xC8BCA0)))
     }
@@ -995,6 +997,18 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             val inner = -b.thick / 2 - 0.6
             return max(b.outline(l.x, l.y) - grow, max(inner - l.z, l.z - depth))
         }
+    }
+
+    /** [inner] grown by [grow] cm and swept [depth] cm along [dir]: what a thing worn over the cloak keeps clear (58). */
+    private class Swept(val inner: Solid, val dir: P3, val depth: Double, val grow: Double) : Solid(BodyPart.GEAR, Doll.CLOAK) {
+        override val center = inner.center + dir * (depth / 2)
+        override val bound = inner.bound + depth
+        override fun raw(x: Double, y: Double, z: Double): Double {
+            var d = Double.MAX_VALUE
+            for (k in 0..STEPS) { val t = depth * k / STEPS; d = min(d, inner.dist(x - dir.x * t, y - dir.y * t, z - dir.z * t)) }
+            return d - grow
+        }
+        companion object { const val STEPS = 8 }
     }
 
     /** The shield's board once [solids] has run, for checks. */
