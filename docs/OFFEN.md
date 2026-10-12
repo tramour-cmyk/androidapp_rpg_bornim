@@ -48,7 +48,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ### Tom (12.10., 23:20) – vor Neustart
 - **Berater 23:2x (Nutzer 23:20): 60a–60d ja**, Vorschlag und Reihenfolge in „Wer macht was“ Zeile 60; nach 59 gleich anpacken.
 
-- **59** auf Zweig `claude/tom-59-haendler`, 59d ja: Laden schwarz wie der Textkasten (`LocalVeil` in `Theme.kt` macht `Txt`/`Panel`/`PixelButton`/`GearIcon` dunkel; `ShopLook.draft = true`), 59.2 Streifen Angelegt + Block „Nicht tragbar“, 59.3 Vergleich auch bei Händlerware, 59.4 Rückkauf (`Game.buyback`), 59.5 Mengen. Build vom Zweig läuft (Push 23:19); nach Test des Nutzers PR und zusammenführen.
+- **59** auf Zweig `claude/tom-59-haendler`, 59d ja: Laden schwarz wie der Textkasten (`LocalVeil` in `Theme.kt` macht `Txt`/`Panel`/`PixelButton`/`GearIcon` dunkel; `ShopLook.draft = true`), 59.2 Streifen Angelegt + Block „Nicht tragbar“, 59.3 Vergleich auch bei Händlerware, 59.4 Rückkauf (`Game.buyback`), 59.5 Mengen. Build 0.1.632 fertig (23:23); nach Test des Nutzers PR und zusammenführen.
 - **58** auf `main` (PR #50, getestet 0.1.628).
 - **Weiter:** (1) Test 59 abwarten, PR; (2) 60 ein Aussehen für alle Oberflächen: `LocalVeil` ist die Grundlage, erst Vorschlag des Beraters abwarten; (3) laut 26c: Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar (Meldung 08:43), 5l, 17 Rest (Haare, Köcher).
 - Entscheidungsseite leer; 58 und 59d im Bildbuch.
@@ -61,7 +61,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Weiter (Freitag):** Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
-- **Tom, Zweig `claude/tom-59-haendler`** (59): bei Thessa und Morwen kaufen/verkaufen, Menge ×5/Alle, verkaufen und zurückkaufen, Ausrüstung vergleichen, Streifen „Angelegt“ und „Nicht tragbar“.
+- **Tom, 0.1.632, Zweig `claude/tom-59-haendler`** (59, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38309898552): bei Thessa und Morwen kaufen/verkaufen, Menge ×5/Alle, verkaufen und zurückkaufen, Ausrüstung vergleichen, Streifen „Angelegt“ und „Nicht tragbar“.
 
 ## Rückfragen an den Nutzer
 
