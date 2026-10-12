@@ -36,8 +36,8 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry | – | Nutzer 12.10., 15:4x nach Test 0.1.587: Krogg fürs Erste so lassen, später alle Kampfanimationen gesamt überarbeiten. Nach Kapitel-1-Wichtigem |
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg | Jerry | – | Prüfthema, Nutzer 12.10., 15:4x (Test 0.1.587): wenn Zeit ist und nichts Wichtigeres ansteht; alle großen Gegner mitprüfen |
 | 54 | Nicht warten: Tom und Jerry arbeiten von selbst weiter, wenn nichts zu entscheiden ist | Tom und Jerry | `main` (Notizen, Werkzeug) | Nutzer 12.10., 15:4x: mehrfach auf beiden Accounts stand die Arbeit, obwohl genug zu tun war. **Jerry (15:5x):** Regel „Nicht warten“ in `CLAUDE.md` + Stop-Haken `tools/weiter-haken.py` (hält einen Zug einmal auf, wenn er Arbeit ankündigt). **Tom:** bitte lesen, bestätigen oder ergänzen (deine Übergabe nannte die Regel schon) |
-| 56 | Alte Objekte auf den neuen Karten: Heilkräuter sehen aus wie auf der alten Karte; prüfen, was noch nach altem Muster gezeichnet wird | Tom | `claude/tom-27-4-baeume` | Nutzer 12.10., 18:3x. Entwürfe Wald 56a–56c, Dorf **56d** (Wäscheleine, Heu, Farn, Büsche am Dorfrand; `YARDDRAFT`, `FERNDRAFT`); Innenräume ohne Altes. Alles auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F) |
-| 57 | Entscheidungsseite nur mit Offenem; Entschiedenes in ein gemeinsames Bildbuch (Tom und Jerry) | Tom | `main` (Notizen) | Nutzer 12.10., 19:3x. **57a/57b ja (19:4x):** Ablauf in `CLAUDE.md` („Entwürfe entscheiden“). Entscheidungsseite Tom: https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F; Jerry legt seine eigene an. Bildbuch: Toms Nachfolger legt es an, trägt den Link hier ein, Nutzer gibt es für Jerry frei |
+| 56 | Alte Objekte auf den neuen Karten (Nutzer 12.10., 18:3x) | Tom | `claude/tom-27-4-baeume` | **56a–56c ja (19:4x):** Kräuter, Truhe, Steine, Steinkreis, Büsche im Wald ins Spiel (fünf `…Draft`-Schalter in `MapWoodIso` entfernen, noch offen). Dorf **56d** als Entwurf (`YARDDRAFT`, `FERNDRAFT`); Innenräume ohne Altes |
+| 57 | Entscheidungsseite nur mit Offenem; Entschiedenes in ein gemeinsames Bildbuch (Tom und Jerry) | Tom | `main` (Notizen) | **57a/57b ja (19:4x):** Ablauf in `CLAUDE.md` („Entwürfe entscheiden“). Entscheidungsseite Tom: https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F. **Bildbuch angelegt (20:16):** https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (Einträge `e/<nr>.html`, Bilder `i/`, Inhaltsliste `index.html`); alte Bilder nachgetragen, soweit noch vorhanden. Nutzer gibt es für Jerry frei (Teilen) |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
@@ -47,7 +47,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - PR #48 `claude/tom-27-4-baeume`, **0.1.606** zu testen (s. u.); danach nur Vorschau-Entwürfe gepusht. Test passt → zusammenführen (Merge), CHANGELOG.
 - **Entwürfe seit 19:30** (alle auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F), Datei liegt nur in der alten Sitzung: vor dem Ändern mit `Artifact read` holen, ganz neu schreiben, mit `url` veröffentlichen): **56d** Dorf (Wäscheleine, Heu, Farn, Büsche am Dorfrand; `YARDDRAFT`, `FERNDRAFT`, `BUSHDRAFT`), Innenräume ohne Altes; **27g** Weiher mit Ufer und Schilf (`POND`); **55.2** Borin sitzt (`SITDRAFT2`: Zufallszeiten, weiche Übergänge, atmet, Hammer am Tischende; Sprungtest 0).
-- Bei „ja“ zu 56a–56d, 27g, 55c: die Schalter (`MapWoodIso` …Draft, `MapGround.pondDraft`, `MapFolk.sitDraft`) auf an bzw. entfernen, Kerntests, Build.
+- **Zuerst:** 56a–56c ja → die fünf `…Draft`-Schalter in `MapWoodIso` entfernen, Kerntests, Build. Bei „ja“ zu 56d, 27g, 55c: die Schalter (`MapWoodIso` …Draft, `MapGround.pondDraft`, `MapFolk.sitDraft`) auf an bzw. entfernen, Kerntests, Build.
 - **Als Nächstes:** (1) 27e Tiefer Wald: Held unter Kronen weg (`HELDORT=deep_forest:x:y`), Morwen sichtbar (43). (2) 27.6 Leben am Weiher (Libellen, Frösche) als Entwurf. (3) 17 Nachschwingen (Vorrat).
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -62,6 +62,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Rückfragen an den Nutzer
 
 - **27g** (Tom): Weiher im Wald mit Ufer (Erdstufe hinten) und Schilf ins Spiel? Bilder auf der Entscheidungsseite. Empfehlung: ja.
+- **56d** (Tom): Dorf: Wäscheleine, Heuhaufen, Farn, Büsche am Dorfrand diagonal ins Spiel? Empfehlung: ja.
 - **55c** (Tom): Borin sitzend in den nächsten Build (Schalter an)? Bilder auf der Entscheidungsseite. Empfehlung: ja.
 - **54a** (Jerry): Selbstarbeit ab 16:40 – bis wann? Empfehlung: bis du wieder schreibst, längstens 13.10., 08:00 (so eingetragen).
 
