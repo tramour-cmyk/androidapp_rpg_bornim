@@ -40,12 +40,13 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 56 | Alte Objekte auf den neuen Karten (Nutzer 12.10., 18:3x) | Tom | `claude/tom-27-4-baeume` | **56a–56c ja (19:4x):** Kräuter, Truhe, Steine, Steinkreis, Büsche im Wald ins Spiel (Schalter entfernt, c2b909f7). **56d ja (20:1x):** Dorf (`YARDDRAFT`, `FERNDRAFT`) ins Spiel; Innenräume ohne Altes |
 | 57 | Entscheidungsseite nur mit Offenem; Entschiedenes in ein gemeinsames Bildbuch (Tom und Jerry) | Tom | `main` (Notizen) | **57a/57b ja (19:4x):** Ablauf in `CLAUDE.md` („Entwürfe entscheiden“). Entscheidungsseite Tom: https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F. **Bildbuch angelegt (20:12):** https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (Einträge `e/<nr>.html`, Bilder `i/`, Inhaltsliste `index.html`); alte Bilder nachgetragen, soweit noch vorhanden. Nutzer gibt es für Jerry frei (Teilen) |
 
-| 59 | Händler: Kauf/Verkauf im Stil des Textkastens (schwarz, Gold); Verkauf zeigt auf einen Blick, was nicht tragbar ist; Kauf zeigt Vergleich zum Angelegten | Berater mit Nutzer (Vorschlag), dann Tom | – | Nutzer 12.10., 22:42. Befund: Kauf zeigt heute keinen Vergleich (`GearDetails` vergleicht nur Beutel-Gegenstände); Seltenheitsfarben für helle Tafeln gemacht. Vorschläge 59.1 ff. im Chat 22:5x, nach 42 |
+| 59 | Händler: Kauf/Verkauf im Stil des Textkastens, Übersicht beim Verkauf, Vergleich beim Kauf | **Tom (jetzt, Nutzer 22:49)** | – | **59a ja:** schwarz wie Textkasten (42b), Seltenheitsfarben aufhellen, erst Standbilder. **59b ja:** 59.2 nicht Tragbares abgedunkelt mit Sperrzeichen, unten eigener Block, oben Streifen mit den 9 angelegten Teilen; 59.3 Vergleich Angelegt/Neu auch bei Händlerware (`GearDetails` vergleicht heute nur Beutel); 59.4 Rückkauf der letzten 5 Verkäufe bis Laden zu; 59.5 Menge ×1/×5/alle bei Vorräten. **59c nein:** Angelegtes nicht direkt verkaufbar. 59.6/59.7 auf der Merkliste |
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
 ## Übergaben
 
 ### Tom (12.10., 22:3x) – Neustart
+- **Berater 22:5x (Nutzer 22:49): Thema 59 Händler jetzt anpacken** (Entscheidungen 59a–59c in „Wer macht was“), Standbilder auf die Entscheidungsseite.
 
 - **PR #48 zusammengeführt** (0.1.625 getestet, Nutzer 22:3x: passt). Auf `main`: 27e.1, 27h, 27i, 27j/27k Weiher-Klang (`PondSound`), 17a Umhang, 42d Textkasten, dazu alles bis 0.1.615. Kein offener Zweig.
 - **Weiter:** (1) **58** Umhang über dem Schild beim Gehen (Meldung 22:3x), erst Standbilder auf die Entscheidungsseite; (2) laut 26c: Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar (Meldung 08:43), 5l, 17 Rest (Haare, Köcher).
