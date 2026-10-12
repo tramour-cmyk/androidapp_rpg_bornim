@@ -25,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.background
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Ability
@@ -49,8 +50,20 @@ private val gearBlue = Color(0xFF2A62C8)
 
 private enum class Tab { HERO, BAG, GEAR, SYSTEM, TEST }
 
+/** 60: the menu in the look of the text box (black, gold rim, serif); a draft until chosen (preview `MENUE=1`). */
+object MenuLook {
+    @Volatile var draft = false
+}
+
 @Composable
 fun MenuScreen(vm: GameViewModel, game: Game) {
+    if (MenuLook.draft) androidx.compose.runtime.CompositionLocalProvider(LocalVeil provides true) {
+        Box(Modifier.fillMaxSize().background(Color.Black)) { MenuBody(vm, game) }
+    } else MenuBody(vm, game)
+}
+
+@Composable
+private fun MenuBody(vm: GameViewModel, game: Game) {
     vm.tick
     val lang = vm.lang
     var tab by remember { mutableStateOf(Tab.HERO) }

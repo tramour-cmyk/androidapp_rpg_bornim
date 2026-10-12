@@ -424,6 +424,35 @@ fun main() {
         for ((t, tag) in listOf(1 to "cinzel", 2 to "alegreya_sc")) { de.bornim.game.ui.TypeLook.title = t; shot("60_titel_$tag") { it.screen = Screen.TITLE } }
         System.exit(0)
     }
+    // MENUE=1: 60: the menu old and in the look of the text box, each tab (MENUE=neu: only the new)
+    if (System.getenv("MENUE") != null) {
+        for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
+        for (it in de.bornim.core.Items.all) de.bornim.core.art.SupplyArt.get(it.id)
+        de.bornim.game.ui.TypeLook.choice = 2
+        val looks = if (System.getenv("MENUE") == "neu") listOf(true) else listOf(false, true)
+        for (draft in looks) {
+            de.bornim.game.ui.MenuLook.draft = draft
+            val tag = if (draft) "neu" else "alt"
+            fun open(vm: GameViewModel) { geared(vm, CharClass.FIGHTER)
+                val st = vm.game!!.state; for (it in listOf("greater_potion", "remedy", "herbs", "wolf_pelt")) st.add(it, 2); vm.menuOpen = true }
+            shot("60_menue_held_$tag") { vm -> open(vm) }
+            shot("60_menue_beutel_$tag", taps = listOf(Offset(410f, 95f))) { vm -> open(vm) }
+            shot("60_menue_beutel_fenster_$tag", taps = listOf(Offset(410f, 95f), Offset(540f, 560f))) { vm -> open(vm) }
+            shot("60_menue_ausruestung_$tag", taps = listOf(Offset(680f, 95f))) { vm -> open(vm) }
+            shot("60_menue_system_$tag", taps = listOf(Offset(950f, 95f))) { vm -> open(vm) }
+        }
+        System.exit(0)
+    }
+    // HELDENBAU=1: 60: the hero's making old and in the look of the text box, top and scrolled down
+    if (System.getenv("HELDENBAU") != null) {
+        de.bornim.game.ui.TypeLook.choice = 2
+        for (draft in listOf(false, true)) {
+            de.bornim.game.ui.CreateLook.draft = draft
+            val tag = if (draft) "neu" else "alt"
+            shot("60_heldenbau_$tag") { it.screen = Screen.CREATE }
+        }
+        System.exit(0)
+    }
     // HAENDLER=1: the shop old and as drafted for 59 (black like the text box, overview when selling, comparison when buying)
     if (System.getenv("HAENDLER") != null) {
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)

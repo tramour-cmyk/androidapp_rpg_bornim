@@ -178,6 +178,7 @@ object Veil {
         Colors.text -> text
         Colors.textDim -> dim
         Colors.accent -> warn
+        Colors.border -> gold // the dark blue of notes (a people's gift), unreadable on black
         Color(0xFF5E5E68) -> Color(0xFFBDB6A8) // common
         Color(0xFF2A8A3A) -> good // uncommon, better
         Color(0xFF2A62C8) -> Color(0xFF82AAF2) // rare, affixes
@@ -281,7 +282,7 @@ fun PixelButton(
         ) {
             Text(
                 label.uppercase(), color = if (!enabled) Veil.dim.copy(alpha = 0.6f) else if (selected) Veil.gold else Veil.text,
-                style = TextStyle(fontFamily = Serif, fontSize = size * 0.7f * TypeLook.scale, letterSpacing = 1.2.sp, fontFeatureSettings = "lnum"), textAlign = TextAlign.Center, maxLines = 2,
+                style = TextStyle(fontFamily = Serif, fontSize = (size.value * 0.7f).coerceAtLeast(10.5f).sp * TypeLook.scale, letterSpacing = 1.2.sp, fontFeatureSettings = "lnum"), textAlign = TextAlign.Center, maxLines = 2,
             )
         }
         return
