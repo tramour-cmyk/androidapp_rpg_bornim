@@ -59,4 +59,6 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **54a** (Jerry): Selbstarbeit ab 16:40 – bis wann? Empfehlung: bis du wieder schreibst, längstens 13.10., 08:00 (so eingetragen).
 
+- **22c** (Tom): Bis wann Selbstarbeit (ab 16:40)? Empfehlung und vorläufig: 19:00.
+- **27e** (Tom): Held unter Kronen ganz weg (a): in der Vorschau an 12 Stellen nicht nachstellbar. Wo war es (Ort, ungefähr), Tag/Nacht? Bild reicht.
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.

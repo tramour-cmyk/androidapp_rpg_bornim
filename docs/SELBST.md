@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | fertig | 12.10., 08:00 | 11.10., 23:08 | 12.10., 07:48 | Nacht beendet; 32.1–32.8 eingebaut, Routinen umgestellt | – |
+| Tom | läuft | 12.10., 19:00 (vorläufig, 22c) | 12.10., 16:40 | 12.10., 16:36 | Paket 1 (27.4 Fichtenreihe Süd) | claude/tom-27-4-baeume |
 | Jerry | läuft | 13.10., 08:00 (vorläufig, Rückfrage 54a) | 12.10., 16:33 | 12.10., 16:33 | 13e.3 Lichtstrahl Schacht | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
@@ -89,11 +89,14 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 **Für gemeinsame Zeit:**
 - 5.1: Standbilder ansehen, dann Zweig-Build auf dem Gerät testen.
 
-**Paket** (Nacht 11./12.10., vergeben 23:08, bis 08:00):
-1. **30.1 Absturz-Fänger** + Fehler in Hintergrund-Fäden (`BattleAhead`, Vorzeichnen) abfangen statt App beenden. Zweig `claude/sharp-davinci-s83a1t` von `main`. Fertig, wenn: Kerntest (Bericht wird geschrieben und gelesen), Build mit Link, auch in `claude/great-shannon-qnf51n` gemischt (Build).
-2. **30 Ursache eingrenzen:** Speicherbedarf aller Bildspeicher messen (Kerntest/Vorschau), Vorschläge (Obergrenze, Lint, Zufallsspieler mit Speicher) nur zur Freigabe. Fertig, wenn: Zahlen und Vorschläge in `OFFEN.md`.
-~~1, 2 fertig 23:30 (Build 0.1.552)~~
-3. Reserve: Vorrat 9 (29 Nebenquests Entwurf), 4 (27 Wald Standbilder, Lückenliste), 10, 5–8.
+**Paket** (Selbstarbeit ab 12.10., 16:40, vom Nutzer 16:1x; Zweig `claude/tom-27-4-baeume`; Meldungen aus Test 0.1.590, alle freigegeben):
+1. **27.4 Fichtenreihe Süd (b)** gemischt und versetzt, Sichtregel 43 bleibt. Fertig, wenn: Standbild Dorfrand Süd.
+2. **Gemüsebeet (c)** ohne Kastenwirkung (`MapTown.vegBed`). Fertig, wenn: Standbild.
+3. **Kornfeld (d)** ohne Regenstriche. Fertig, wenn: Standbild.
+4. **5.3 Liska, Gwenna, Bram** als Puppen. Fertig, wenn: Sprungtest 0, Standbilder.
+5. **5n** Haus östlich des Schlagbaums 2 Felder nach Osten. Fertig, wenn: Standbild `d10`, Kollision 0.
+6. Kerntests, Build mit Link und Testliste (Bericht).
+7. Reserve: (a) Held unter Kronen weiter eingrenzen (Vorschau `HELDORT=`, bisher nicht nachstellbar), 55.2 Borin sitzt (nur Entwurf, Standbilder), 5.4.
 
 ## Jerry
 
