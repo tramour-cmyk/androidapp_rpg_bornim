@@ -51,7 +51,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **0.1.579 (Tom, PR #43, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38238967966/artifacts/11742810872)):** 0.1.576 getestet (12:40: 1–4, 6 ja; 5 Durchsicht zu stark). Neu: Durchsicht milder (zusammen 35 %, egal wie viele hintereinander), weich ein/aus in 0,3 s. Darauf achten: hinter Häusern im Dorf, in Räumen hinter hohen Möbeln.
+- **0.1.579 getestet, passt (Nutzer 13:0x); Zusammenführen nach dem angekündigten Hinweis (Bildschirmfoto) (Tom, PR #43, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38238967966/artifacts/11742810872)):** 0.1.576 getestet (12:40: 1–4, 6 ja; 5 Durchsicht zu stark). Neu: Durchsicht milder (zusammen 35 %, egal wie viele hintereinander), weich ein/aus in 0,3 s. Darauf achten: hinter Häusern im Dorf, in Räumen hinter hohen Möbeln.
 
 
 ## Rückfragen an den Nutzer
