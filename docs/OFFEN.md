@@ -40,7 +40,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (12.10., 15:32)
 
-- Zweig `claude/tom-27-4-baeume` (mit `main`): **27.4** Bäume mit Volumen (`MapTree.kt`, an über `MapFlora.treeDraft`, Vergleich `TREESHEET=1`), **5.6** Schlagbaum/Zaun diagonal (`MapTownIso.barrier/fence`, `ISODINGE=platz`, Schüsse `d10b`, `d12`), **5.3** neun Leute als Puppen (`MapFolk.all`, Feuer-Gesten nur Garrick, Trageweise auch im Stehen). Build 0.1.590 läuft (15:29), kein PR.
+- Zweig `claude/tom-27-4-baeume` (mit `main`): **27.4** Bäume mit Volumen (`MapTree.kt`, an über `MapFlora.treeDraft`, Vergleich `TREESHEET=1`), **5.6** Schlagbaum/Zaun diagonal (`MapTownIso.barrier/fence`, `ISODINGE=platz`, Schüsse `d10b`, `d12`), **5.3** neun Leute als Puppen (`MapFolk.all`, Feuer-Gesten nur Garrick, Trageweise auch im Stehen). Build 0.1.590 fertig (15:34), kein PR.
 - **Offen:** 5n (Haus östlich vor dem Schlagbaum rücken?), Regel „nicht warten“ in `CLAUDE.md` (Freigabe abgelehnt, Nutzer fragen). Schuss `d12_zaun` stellt den Helden ins Wasser (anderen Platz wählen).
 - **Als Nächstes:** nach Test PR, zusammenführen; dann 5l/5.5 (Leben im Dorf, erst Standbilder), 5.4, 27.5/27.6; danach 13 Tempel, 42, Lyra diagonal.
 ### Jerry (12.10., 15:35)
@@ -51,7 +51,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **Tom, Zweig `claude/tom-27-4-baeume` (27.4 Bäume, 5.6 Schlagbaum/Zaun, 5.3 Puppen), Build läuft (15:29):** Bäume in Wald, Tiefem Wald, Dorf; Schlagbaum zu/offen, Gartenzaun; Jorin, Pim, Rowena, Borin, Thessa, Aldric, Osric, Lyra, Morwen als Puppen. Nach Jerrys 0.1.587 (wartet länger).
+- **Tom, Zweig `claude/tom-27-4-baeume` (27.4 Bäume, 5.6 Schlagbaum/Zaun, 5.3 Puppen), [0.1.590](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38256042679) (15:34):** Bäume in Wald, Tiefem Wald, Dorf; Schlagbaum zu/offen, Gartenzaun; Jorin, Pim, Rowena, Borin, Thessa, Aldric, Osric, Lyra, Morwen als Puppen. Nach Jerrys 0.1.587 (wartet länger).
 - **0.1.587 (Jerry, 36.5/36h/36.7/36j):** Krogg-Angriffe: Treffer mit gestrecktem Arm, Rückweg weich (auch bei schnellem Weitertippen und wenn der Held fällt). [Build](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38252355466)
 
 
