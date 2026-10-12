@@ -34,6 +34,9 @@ object MapGround {
     /** The village and its rooms in the new style; seen diagonally they are finished (13.4), so always on. */
     @Volatile var townDraft = true
 
+    /** 5.4 draft: the square's cobbles quieter (softer joints, less spread between stones, worn lanes); only in the preview. */
+    @Volatile var cobbleDraft = false
+
     /** Tiles drawn by this ground; anything else keeps its old picture on top. */
     private val drawn = setOf(
         Tile.GRASS, Tile.TALL_GRASS, Tile.FLOWERS, Tile.PATH, Tile.TREE, Tile.WATER,
@@ -214,6 +217,7 @@ object MapGround {
      * top, here and there one missing; [into] gets the colour, the result whether there is a stone.
      */
     private fun cobble(x: Double, y: Double, into: DoubleArray): Boolean {
+        if (cobbleDraft) return cobbleQuiet(x, y, into)
         val cell = 6.0
         val gx = floor(x / cell).toInt(); val gy = floor(y / cell).toInt()
         var d1 = 99.0; var d2 = 99.0; var id = 0
@@ -226,6 +230,32 @@ object MapGround {
         // the joints, with moss in them here and there; now and then a stone gone
         if (d2 - d1 < 1.1 || id % 29 == 0) { for (i in 0..2) into[i] = (if (vnoise(x, y, 9.0, 67) > 0.6) MOSS_D[i] else MORTAR[i]).toDouble(); return false }
         lerp(COBBLE_D, COBBLE_L, 0.25 + (id % 100) / 260.0 + (1 - d1 / cell) * 0.35 + (vnoise(x, y, 3.0, 64) - 0.5) * 0.2, into)
+        return true
+    }
+
+    /**
+     * 5.4 draft: the same stones, calmer from afar. The joints are the stones' own colour darkened, not near
+     * black; the stones differ less from each other; a slow wash of light and dark (worn lanes, damp patches)
+     * carries the square instead of the speckle; moss only now and then, no missing stones.
+     */
+    private fun cobbleQuiet(x: Double, y: Double, into: DoubleArray): Boolean {
+        val cell = 6.5
+        val gx = floor(x / cell).toInt(); val gy = floor(y / cell).toInt()
+        var d1 = 99.0; var d2 = 99.0; var id = 0
+        for (dy in -1..1) for (dx in -1..1) {
+            val cx = gx + dx; val cy = gy + dy
+            val px = (cx + 0.2 + rnd(cx, cy, 61) * 0.6) * cell; val py = (cy + 0.2 + rnd(cx, cy, 62) * 0.6) * cell
+            val d = sqrt((x - px) * (x - px) + (y - py) * (y - py) * 1.3)
+            if (d < d1) { d2 = d1; d1 = d; id = hash(cx, cy, 63) } else if (d < d2) d2 = d
+        }
+        val wash = (fbm(x, y, 70.0, 68) - 0.5) * 0.5
+        val t = 0.36 + (id % 100) / 480.0 + (1 - d1 / cell) * 0.26 + wash + (vnoise(x, y, 3.0, 64) - 0.5) * 0.06
+        lerp(COBBLE_D, COBBLE_L, t, into)
+        if (d2 - d1 < 0.9) {
+            val k = if (vnoise(x, y, 14.0, 67) > 0.66) 0.0 else 0.62
+            if (k == 0.0) for (i in 0..2) into[i] = into[i] * 0.45 + MOSS_D[i] * 0.55 else for (i in 0..2) into[i] *= k
+            return false
+        }
         return true
     }
 
