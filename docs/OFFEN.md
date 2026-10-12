@@ -42,12 +42,12 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 17:31, Selbstarbeit ab 16:40)
+### Tom (12.10., 18:45, Selbstarbeit bis 22:00)
 
-- PR #48 `claude/tom-27-4-baeume`, Build [0.1.600](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38269109227): 27.4, 5.6, 5.3 (alle zwölf als Puppen), 5n (Kaels Hütte 2 nach Osten, 2 breit statt 3, sonst klebt sie am Nachbarhaus), Beet/Kornfeld/Fichtenreihe neu (Test 0.1.590 b–d), Tresen fest, Rauch weich. Test passt → zusammenführen, CHANGELOG.
-- **Entwürfe (nur Vorschau, Standbilder 17:04–17:27 im Chat):** 27.5 Stamm und Feuer diagonal je 3 Varianten (`WOODDRAFT=1`, `ISODINGE=wald`), Felshang mit Höhleneingang; 55.2 Sitzhaltung (`Rig.sit`), Borin auf Hocker am Tisch (`SITDRAFT2=1`). 27f, 55b ja (18:3x).
-- (a) Held unter Kronen: nicht nachstellbar, wartet auf 27e. Vorschau `HELDORT=karte:x:y[:richtung]`.
-- **Als Nächstes:** 5.4 Dorf lebendig (Entwurf), nach Freigabe 27.5/55.2 ins Spiel.
+- PR #48 `claude/tom-27-4-baeume`, [0.1.603](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38276243431) grün (zu testen, s. u.); danach nur Vorschau-Entwürfe gepusht. Test passt → zusammenführen (Merge), CHANGELOG.
+- **Entscheidungsseite** [Artefakt](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F) (Bilder alt/neu, Empfehlung); neue Entwürfe dort einfügen (gleiche Datei neu veröffentlichen geht nur aus dieser Sitzung; sonst mit `url` lesen und aktualisieren).
+- **Als Nächstes (Reihenfolge):** (1) 27.5 ins Spiel (27f ja): `MapWoodIso.draft` an, Schild zur Höhle diagonal neu (Nutzer: perspektivisch falsch). (2) **56** Liste alter Bilder auf diagonalen Karten (Kräuter, Steine, Büsche, Schilder …), dann Entwürfe. (3) 55.2 Borin sitzend (55b ja): Hammer am Tisch, Stehen ↔ Sitzen, Sprungtest. (4) **27e:** Tiefer Wald, südlich von Morwen (Feuer links), Regen: Held unter den Kronen ganz weg; nachstellen mit `HELDORT=deep_forest:x:y[:richtung[:stunde]]`.
+- 5.4: Pflaster-Zwischending (`PFLASTERDRAFT=2`) wartet auf Freigabe; Fensterlicht hinter Bäumen verdeckt (im Spiel, 0.1.603).
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
@@ -62,7 +62,5 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **54a** (Jerry): Selbstarbeit ab 16:40 – bis wann? Empfehlung: bis du wieder schreibst, längstens 13.10., 08:00 (so eingetragen).
 
-- **22c** (Tom): Bis wann Selbstarbeit (ab 16:40)? Vorläufig 19:00, Empfehlung 22:00. Alle Tom-Entscheidungen mit Bildern: [Artefakt](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F) (27f, 55b, 5.4 Pflaster).
-- **27f ja, 55b ja** (Nutzer 18:3x): Tom nimmt 27.5 ins Spiel, baut Borin sitzend weiter. **Nutzer 18:35:** Schild zur Höhle perspektivisch falsch (steht gerade) → diagonal neu, mit 56.
-- **27e** (Tom): Held unter Kronen ganz weg (a): in der Vorschau an 12 Stellen nicht nachstellbar. Wo war es (Ort, ungefähr), Tag/Nacht? Bild reicht.
+- **5.4p** (Tom): Pflaster als Zwischending (`PFLASTERDRAFT=2`, Bild im [Artefakt](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F))? Empfehlung: ja. (27f, 55b, 22c bis 22:00, 27e beantwortet 18:3x–18:4x.)
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.

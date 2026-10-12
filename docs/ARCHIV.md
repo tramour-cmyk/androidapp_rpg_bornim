@@ -1,5 +1,13 @@
 # Archiv
 
+### Übergabe Tom (12.10., 17:31, Selbstarbeit ab 16:40)
+
+- PR #48 `claude/tom-27-4-baeume`, Build [0.1.600](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38269109227): 27.4, 5.6, 5.3 (alle zwölf als Puppen), 5n (Kaels Hütte 2 nach Osten, 2 breit statt 3, sonst klebt sie am Nachbarhaus), Beet/Kornfeld/Fichtenreihe neu (Test 0.1.590 b–d), Tresen fest, Rauch weich. Test passt → zusammenführen, CHANGELOG.
+- **Entwürfe (nur Vorschau, Standbilder 17:04–17:27 im Chat):** 27.5 Stamm und Feuer diagonal je 3 Varianten (`WOODDRAFT=1`, `ISODINGE=wald`), Felshang mit Höhleneingang; 55.2 Sitzhaltung (`Rig.sit`), Borin auf Hocker am Tisch (`SITDRAFT2=1`). 27f, 55b ja (18:3x).
+- (a) Held unter Kronen: nicht nachstellbar, wartet auf 27e. Vorschau `HELDORT=karte:x:y[:richtung]`.
+- **Als Nächstes:** 5.4 Dorf lebendig (Entwurf), nach Freigabe 27.5/55.2 ins Spiel.
+
+
 ### Übergabe Tom (12.10., 15:57)
 
 - **49/50 aus OFFEN.md (Berater 12.10., 18:1x), Stand vor 49n:** 49 | Lehrer: Übung in Waffen, Rüstung, Rettungswürfen dazulernen (Magier lernt Bogen) | Berater mit Nutzer | – | Idee Nutzer 12.10., 14:1x. Vorschläge 49.1–49.4; Nutzer 14:2x: Optionen ja, aber Magier nie bester Tank; neue Attribute? Skilltree? Abwägung 49.5–49.8. 49d, 49g, **49e, 49f ja (15:0x)**: Fertigkeiten bei Lehrern, Talente statt Attributspunkten; Entwurf im [Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14). Nach Kapitel 1 · 50 | Weitere Klassen (Berserker, Kriegsmagier, Paladin, Werwolf …), ggf. zum Kauf | Berater mit Nutzer | – | Idee Nutzer 12.10., 14:2x, hängt an 45 und 49. 50c ja; **50a, 50b ja (15:0x):** Klassenpaket, je Klasse zwei Pfade ab Stufe 3, Pfad am Aussehen erkennbar. **50e–50h ja (16:2x):** Merkmale aus Code (Rüstungsstufe, Schild, Zauberer, Nah/Fern) plus wenige eigene, „Rüstung +1 Stufe“ ein Talent; Merkmale nie kaufbar; Spieler sieht ausgegraute Talente mit Grund und Zeile im Heldenbogen; Pfad gibt höchstens ein Merkmal. **50i, 50j ja (16:2x):** eigene Merkmale Heilig/Arkan/Wild/Pfad/Bestie, jedes öffnet mindestens zwei Dinge; Herkunft bei der Erstellung (5 Stück). Talente als Linien (49.9–49.13): **49h ja, 49i grundsätzlich ja** (Stufenzahl noch offen), **49j geändert (16:3x):** nur die höchste Stufe, immer durch Tat/Lehrer, am besten eigene Quest; **49l ja:** Prüfungsquest vom Lehrer, freiwillig. **49m ja (16:3x):** Umlernen nur im besonderen Tempel ab Kapitel 3, teuer, kein Spieltag; letzte Wahl bis zur Rast zurücknehmbar, Spieler wird bei der Wahl darauf hingewiesen. Stufenzahl je Linie beim Durchgehen der Talentliste. Matrix im [Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14). Nach Kapitel 1
