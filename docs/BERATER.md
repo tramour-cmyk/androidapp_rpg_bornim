@@ -4,12 +4,14 @@ Gedächtnis der Beratungssitzung: wie das Spiel gebaut ist, was warum entschiede
 
 Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grundsätzliches lernen (eine Zeile, mit Datum und Thema).
 
+**Letzte Sitzungsnummer:** 02 (01 = Sitzung ab 15:10 am 12.10., Zählung ab da; 02 = „Talentliste und Fertigkeiten“, 18:02)
+
 **Zuletzt gelesen bis:** `7de4f5c` (12.10., 16:39)
 
 ## Ritual
 
 - **Start** (Nutzer schreibt „Berater“): diese Datei, dann `docs/OFFEN.md` (das Leitbild `LEITBILD.md` nur bei Grundsatzfragen), dann nur die Änderungen seit „Zuletzt gelesen bis“: `git log --format='%h %ad %s' --date=format-local:'%d.%m. %H:%M' <Stand>..origin/main` (bei Bedarf `git diff <Stand>..origin/main -- docs CHANGELOG.md`). Dazu `tools/story.sh <Stand>` (nur Textänderungen im Spiel, auch `EN alt`); bei Bedarf gegen laufende Zweige (`origin/<zweig>`). Kurz melden, was neu ist, Textänderungen gegen `docs/STORY.md` und Storyplan prüfen.
-- **Ende** („Berater, festhalten“): neue Entscheidungen und Lehren eintragen, Veraltetes kürzen, „Zuletzt gelesen bis“ neu setzen, auf `main` pushen. **Dann immer den Nachfolger selbst starten** (Nutzer 12.10., 15:0x), Titel nach den Themen, damit der Nutzer sie wiederfindet, z. B. „Berater: 50d Merkmale, 49 Talente“: `create_session` (mit `source_url`, Zweig, Titel) oder ersatzweise `create_trigger` mit `run_once_at` in 2 Minuten, Name = Titel; Auftrag wie der eigene Start plus nächster Punkt. Dem Nutzer den Weg nennen: „Geplant“ → Aufgabe → „Verlauf“ (steht nicht in der Chatliste).
+- **Ende** („Berater, festhalten“): neue Entscheidungen und Lehren eintragen, Veraltetes kürzen, „Zuletzt gelesen bis“ neu setzen, auf `main` pushen. **Dann immer den Nachfolger selbst starten** (Nutzer 12.10., 15:0x), Titel **„<lfd. Nr. zweistellig> Berater - <Grobthema>“** (Nutzer 12.10., 18:0x), z. B. „03 Berater - Talentliste“; Nummer aus „Letzte Sitzungsnummer“ oben plus 1, dort hochzählen: `create_session` (mit `source_url`, Zweig, Titel) oder ersatzweise `create_trigger` mit `run_once_at` in 2 Minuten, Name = Titel; Auftrag wie der eigene Start plus nächster Punkt. Dem Nutzer den Weg nennen: „Geplant“ → Aufgabe → „Verlauf“ (steht nicht in der Chatliste).
 - **Größere Entwürfe als Dokument** (Nutzer 12.10.): Matrizen, Listen, Erklärungen, die der Nutzer wiederfinden will, als Claude-Docs-Dokument (Artefakt), Link in `OFFEN.md` und hier bei den Entscheidungen; nach Freigabe als `docs/<NAME>.md` ins Repo.
 - Der Berater ändert Notizen und höchstens Werkzeug, nie Spielcode.
 
