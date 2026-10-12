@@ -1173,6 +1173,18 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // 17: just stopped, the cloak swings on forward and back
         if (walking) HeroSwing.walkedAt = clock
         val swingMs = clock - HeroSwing.walkedAt
+        // draft: the inn's cat sleeps by the hearth and now and then moves to another spot
+        if (de.bornim.core.art.MapCat.draft && map.id == "inn") {
+            val c = de.bornim.core.art.MapCat.at(if (HeroSwing.now) de.bornim.core.art.MapCat.shift else clock)
+            val cs = MapFigure.slot(c.yaw)
+            val cimg = if (HeroSwing.now) de.bornim.core.art.MapCat.frameNow(c, cs) else de.bornim.core.art.MapCat.frame(c, cs)
+            if (cimg != null) {
+                val cx = (c.x * T).toInt(); val cy = (c.y * T).toInt()
+                sprites += Sprite((cy + T - 2).toFloat(), cx + T / 2f) {
+                    put(cimg, cx + T / 2 - de.bornim.core.art.MapCat.AX / MapFigure.DENSITY, cy + T - 4 - de.bornim.core.art.MapCat.GY / MapFigure.DENSITY, MapFigure.DENSITY)
+                }
+            }
+        }
         val heroSwing = if (MapFigure.swingDraft && heroRest == null && MapFigure.cloaked(state.hero) && !walking && swingMs < MapFigure.SWING_MS) {
             val lv = MapFigure.swingLevel(swingMs)
             if (HeroSwing.now) MapFigure.swingFrameNow(state.hero, heroSlot, lv) else MapFigure.swingFrame(state.hero, heroSlot, lv)
