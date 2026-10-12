@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 56** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 57** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -36,6 +36,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry | – | Nutzer 12.10., 15:4x nach Test 0.1.587: Krogg fürs Erste so lassen, später alle Kampfanimationen gesamt überarbeiten. Nach Kapitel-1-Wichtigem |
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg | Jerry | – | Prüfthema, Nutzer 12.10., 15:4x (Test 0.1.587): wenn Zeit ist und nichts Wichtigeres ansteht; alle großen Gegner mitprüfen |
 | 54 | Nicht warten: Tom und Jerry arbeiten von selbst weiter, wenn nichts zu entscheiden ist | Tom und Jerry | `main` (Notizen, Werkzeug) | Nutzer 12.10., 15:4x: mehrfach auf beiden Accounts stand die Arbeit, obwohl genug zu tun war. **Jerry (15:5x):** Regel „Nicht warten“ in `CLAUDE.md` + Stop-Haken `tools/weiter-haken.py` (hält einen Zug einmal auf, wenn er Arbeit ankündigt). **Tom:** bitte lesen, bestätigen oder ergänzen (deine Übergabe nannte die Regel schon) |
+| 56 | Alte Objekte auf den neuen Karten: Heilkräuter sehen aus wie auf der alten Karte; prüfen, was noch nach altem Muster gezeichnet wird | Tom | – | Nutzer 12.10., 18:3x. Erst Liste aller alten Bilder auf diagonalen Karten (Wald, Dorf, Innenräume), dann Entwürfe |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
@@ -61,7 +62,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **54a** (Jerry): Selbstarbeit ab 16:40 – bis wann? Empfehlung: bis du wieder schreibst, längstens 13.10., 08:00 (so eingetragen).
 
-- **22c** (Tom): Bis wann Selbstarbeit (ab 16:40)? Empfehlung und vorläufig: 19:00.
+- **22c** (Tom): Bis wann Selbstarbeit (ab 16:40)? Vorläufig 19:00, Empfehlung 22:00. Alle Tom-Entscheidungen mit Bildern: [Artefakt](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F) (27f, 55b, 5.4 Pflaster).
 - **27e** (Tom): Held unter Kronen ganz weg (a): in der Vorschau an 12 Stellen nicht nachstellbar. Wo war es (Ort, ungefähr), Tag/Nacht? Bild reicht.
 - **27f** (Tom): 27.5-Entwürfe (Stamm, Feuer, Felshang) so ins Spiel? Empfehlung: ja.
 - **55b** (Tom): Borin sitzend so weiterbauen (Hammer am Tisch, Übergänge Stehen ↔ Sitzen, Sprungtest)? Empfehlung: ja.
