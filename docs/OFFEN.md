@@ -28,7 +28,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 34 | Kampf: Knopf „Zug beenden“ (nichts tun, Gegner ist dran; auch um Testkämpfe schnell zu verlieren) | Jerry | neu von `main` | ja (Nutzer 12.10., 09:19, über Berater). Abgesetzt anordnen oder kurz bestätigen (33). „Abwarten“ und „Helfen“ auf der Merkliste (Gruppenkämpfe) |
 | 35 | Weihwasser wirkt nur gegen Untote (SRD), 2W6 gleißend; gegen andere ausgegraut mit Hinweis „Wirkt nur gegen Untote“, Beschreibung anpassen | Jerry | neu von `main` | ja (Nutzer 12.10., 09:19, über Berater; heute 2W6 gegen alle, 4W6 gegen Untote, `Battle.kt` Z. 485, `Items.kt`) |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt, vor allem groß im Emulator | Jerry | – | Meldung Nutzer 12.10., 09:17. Ursache (Berater): Gegner mit 0,66 px/cm, hart ganzzahlig vergrößert (Emulator bis ca. 11×), Krogg mit Fellkörnung 0,55 (Goblin 0,14). Vorschläge 36.1 aufräumen bei gleicher Auflösung, 36.2 weich vergrößern, 36.3 Bosse doppelt (Speicher). **36a ja (09:24):** 36.1, erst Standbilder vorher/nachher in Handy- und Emulatorgröße. **36b ja (09:33):** reicht 36.1 nicht, 36.3 als 1,5× mit zugeschnittenen Bildern, vorher mit `ARTMEM` messen |
-| 37 | Kampfmusik aussortieren | Jerry | neu von `main` | Nutzer 12.10., 09:33 (über Berater): raus `kampf_great_labyrinth`, `kampf_menace` (Techno), `kampf_epic_fight` (Lounge); `boss_ancient_legend` sehr schön, aber zu tragend für Kampf → aus `Music.boss`, anders verwenden (37a). Übrig: 3 Kampf-, 3 Bossstücke; Ersatz 37b |
+| 37 | Kampfmusik aussortieren | Jerry | neu von `main` | Nutzer 12.10., 09:33 (über Berater): raus `kampf_great_labyrinth`, `kampf_menace` (Techno), `kampf_epic_fight` (Lounge); `boss_ancient_legend` sehr schön, aber zu tragend für Kampf → aus `Music.boss`, **37a (09:37):** spielt bei der Rückkehr des Sonnenamuletts in den Tempel (Musik Jerry, Szene im Tempel mit Tom abstimmen); Kapitelende bleibt `ende_new_sunrise`. **37b ja:** Jerry sucht 2–3 neue CC0-Kampfstücke (düster, orchestral, treibend), erst Hörproben. Übrig heute: 3 Kampf-, 3 Bossstücke |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
@@ -51,8 +51,6 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **0.1.561 (Jerry, PR #39, 26.1):** Magier wirkt Magierrüstung; nächster Kampf meldet „hält noch“, nicht erneut wirkbar; Karte oben „Schutz“, nach ca. 8 min weg. [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38214542422/artifacts/11731896008)
 
 ## Rückfragen an den Nutzer
-
-- **37a (Berater, 12.10.):** `boss_ancient_legend` wofür? Vorschlag: Kapitelende nach Grak (heute `ende_new_sunrise`) oder Rückkehr des Sonnenamuletts in den Tempel. **37b:** nur 3 Kampfstücke wiederholen sich schnell: Jerry sucht 2–3 neue CC0-Stücke (düster, orchestral, treibend), erst Hörproben? Empfehlung: ja.
 
 - **26b (Jerry, 12.10.):** 8 h Spielzeit sind 8 min echte Zeit (1 s = 1 Spielminute); die Rüstung hält also meist 2–4 Kämpfe. Reicht das, oder länger (z. B. bis zur nächsten Rast)? Empfehlung: erst testen.
 

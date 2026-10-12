@@ -40,4 +40,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 34 | Kampf: Knopf „Zug beenden“ | Jerry | ja 12.10. | `OFFEN.md` |
 | 35 | Weihwasser nur gegen Untote (2W6) | Jerry | ja 12.10. | `OFFEN.md` |
 | 36 | Krogg verpixelt (schärfen) | Jerry | 36a/36b ja (36.1, sonst 1,5× zugeschnitten) | `OFFEN.md` |
-| 37 | Kampfmusik aussortieren (3 raus, Boss-Stück anders verwenden) | Jerry | ja 12.10., 37a/37b offen | `OFFEN.md` |
+| 37 | Kampfmusik aussortieren (3 raus, Boss-Stück anders verwenden) | Jerry (Tempelszene mit Tom) | ja 12.10., 37a Amulett-Szene, 37b neue Stücke | `OFFEN.md` |
