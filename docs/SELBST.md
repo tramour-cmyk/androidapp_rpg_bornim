@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | läuft | 12.10., 22:00 (Nutzer 18:4x) | 12.10., 18:46 | 12.10., 19:24 | 56: Kräuter, Truhe, Steine, Steinkreis als Entwurf (7a35287), weiter Büsche | claude/tom-27-4-baeume |
+| Tom | übergeben | 12.10., 22:00 (Nutzer 18:4x) | 12.10., 18:46 | 12.10., 19:29 | Neustart (Sitzung groß), Nachfolger: 56 Dorf/Innenräume, 27.5 Weiher, 55.2 | claude/tom-27-4-baeume |
 | Jerry | fertig | – | 12.10., 16:33 | 12.10., 16:59 | Pause bis Freitag (Nutzungsguthaben), Stand in OFFEN.md | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.

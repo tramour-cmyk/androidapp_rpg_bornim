@@ -42,12 +42,12 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 18:45, Selbstarbeit bis 22:00)
+### Tom (12.10., 19:29, Selbstarbeit bis 22:00)
 
-- PR #48 `claude/tom-27-4-baeume`, [0.1.603](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38276243431) grün (zu testen, s. u.); danach nur Vorschau-Entwürfe gepusht. Test passt → zusammenführen (Merge), CHANGELOG.
-- **Entscheidungsseite** [Artefakt](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F) (Bilder alt/neu, Empfehlung); neue Entwürfe dort einfügen (gleiche Datei neu veröffentlichen geht nur aus dieser Sitzung; sonst mit `url` lesen und aktualisieren).
-- **Als Nächstes (Reihenfolge):** (1) 27.5 ins Spiel (27f ja): `MapWoodIso.draft` an, Schild zur Höhle diagonal neu (Nutzer: perspektivisch falsch). (2) **56** Liste alter Bilder auf diagonalen Karten (Kräuter, Steine, Büsche, Schilder …), dann Entwürfe. (3) 55.2 Borin sitzend (55b ja): Hammer am Tisch, Stehen ↔ Sitzen, Sprungtest. (4) **27e:** Tiefer Wald, südlich von Morwen (Feuer links), Regen: Held unter den Kronen ganz weg; nachstellen mit `HELDORT=deep_forest:x:y[:richtung[:stunde]]`.
-- 5.4: Pflaster-Zwischending **im Spiel** (Nutzer 18:4x: gut gelungen, Commit 5b7b8cf+); Fensterlicht hinter Bäumen verdeckt. Build dazu läuft; Link melden, Testliste: Markt bei Tag, Tempel nachts.
+- PR #48 `claude/tom-27-4-baeume`, **0.1.606** zu testen (s. u.; 0.1.607+ nur Vorschau-Entwürfe dazu). Test passt → zusammenführen (Merge), CHANGELOG.
+- **27.5 im Spiel** (ea7471d): Stamm, Felshang, Feuerstelle, Schilder diagonal (`MapWoodIso`, Schalter `draft` entfernt). Offen: Weiher mit Ufer.
+- **56 Wald fertig als Entwurf** (Vorschau-Schalter `HERBDRAFT`, `CHESTDRAFT`, `ROCKDRAFT`, `MENHIRDRAFT`, `BUSHDRAFT`; Bogen `ISODINGE=wald`), Bilder auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F), Rückfragen 56a–56c. Bei „ja“: die fünf `…Draft`-Schalter in `MapWoodIso` entfernen (wie 27.5).
+- **Als Nächstes:** (1) 56 Dorf und Innenräume nach alten Bildern durchsehen (Dorf: Truhen, Steine, Büsche über `MapFlora`; Liste auf die Seite). (2) 27.5 Weiher mit Ufer. (3) 55.2 Borin sitzend (Hammer am Tisch, Stehen ↔ Sitzen, Sprungtest). (4) 27e Tiefer Wald (`HELDORT=deep_forest:x:y`).
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
