@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 32** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 33** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -50,6 +50,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 
 ## Rückfragen an den Nutzer
+
+- **32 (Jerry, Nutzer 12.10., 07:2x): Nacht fast ohne Arbeit.** Ursache: Jerry beendete um 23:57 mit Herzschlag; Routine 00:27 sah ihn 30 min alt und beendete sich (40-Minuten-Regel); 03:27 (11 min) und 06:27 (13 min) brachten nur Fels heller. Vorschlag **32.1**: Stand `übergeben` in `SELBST.md`, bei dem die nächste Routine immer übernimmt; **32.2**: wer vor Mitternacht neu startet, stößt die Fortsetzung selbst an (`create_session`) statt auf die Routine zu warten. Rückfrage **32a**.
 
 - **29 Nebenquests, Entwurf (Tom, Selbstarbeit 12.10., 00:40, nur Text, nichts im Spiel):** Anschlagbrett vor der Schänke, Aushänge wechseln nach Kapitel. Vorhandene Zutaten und Orte, kein neuer Code nötig außer Brett und Auftragsliste. (1) **Felle für den Winter** (Thessa): 5 Wolfsfelle, 60 Gold; Rudel im Wald. (2) **Gwennas Ring** (Gwenna): in der Blutzahnhöhle verloren, liegt in einer Kiste; 40 Gold + Heiltrank. (3) **Hauer für den Schmied** (Dorran): 3 Keilerhauer, Aufwertung gratis; passt zu Schmiede-Einstieg. (4) **Giftdrüsen für Morwen**: 2 Giftdrüsen, 1 Trank des Gegengifts + 50 Gold. (5) **Der Wachposten schweigt** (Jorin): Streife am Waldweg nicht zurück, Spur zu Goblin-Lager; Belohnung Rüstungsteil. Abgleich `STIL.md`: düster, kein Scherz; jeder Auftrag zwingt in einen anderen Ort. Rückfrage 29a: Brett im Spiel bauen (Empfehlung ja, erst 1–3)?
 
