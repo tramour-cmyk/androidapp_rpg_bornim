@@ -43,13 +43,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 23:20) – vor Neustart
-- **Berater 23:2x (Nutzer 23:20): 60a–60d ja**, Vorschlag und Reihenfolge in „Wer macht was“ Zeile 60; nach 59 gleich anpacken.
-
-- **59** auf Zweig `claude/tom-59-haendler`, 59d ja: Laden schwarz wie der Textkasten (`LocalVeil` in `Theme.kt` macht `Txt`/`Panel`/`PixelButton`/`GearIcon` dunkel; `ShopLook.draft = true`), 59.2 Streifen Angelegt + Block „Nicht tragbar“, 59.3 Vergleich auch bei Händlerware, 59.4 Rückkauf (`Game.buyback`), 59.5 Mengen. Build 0.1.632 fertig (23:23); nach Test des Nutzers PR und zusammenführen.
-- **58** auf `main` (PR #50, getestet 0.1.628).
-- **Weiter:** (1) Test 59 abwarten, PR; (2) 60 ein Aussehen für alle Oberflächen: `LocalVeil` ist die Grundlage, erst Vorschlag des Beraters abwarten; (3) laut 26c: Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar (Meldung 08:43), 5l, 17 Rest (Haare, Köcher).
-- Entscheidungsseite leer; 58 und 59d im Bildbuch.
+### Tom (12.10., 23:58) – Selbstarbeit, an Nachfolger übergeben
+- **59** Build 0.1.632 (Zweig `claude/tom-59-haendler`) wartet auf Test des Nutzers, dann PR.
+- **60** auf Zweig `claude/tom-60-aussehen` (von 59): Schriften (OFL, `tools/schrift/QUELLEN.md`), Titel, Menü, Heldenerstellung, Kampf als Entwurf; Testreiter „60 Aussehen“. Build von Commit de83b1a läuft (23:57): Link in „Zu testen“ eintragen. Rückfragen 60e–60i auf der Entscheidungsseite.
+- **Weiter:** Paket 3 (27.6 Tiefer Wald, Zweig `claude/tom-27-6-tiefer-wald` von `main`), 4 (Tempel-Altar), 5 (17 Rest), Reserve laut `SELBST.md`.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
