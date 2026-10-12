@@ -1586,14 +1586,14 @@ private fun BagMenu(game: Game, battle: Battle, lang: Lang, onPick: (String) -> 
                 if (usable.isEmpty()) Txt(Ui.nothing(lang), color = Colors.textDim)
                 usable.forEach { (id, count) ->
                     val def = Items[id]
-                    // greyed out where it does nothing (holy water against the living), with the reason beneath
+                    // greyed out where it does nothing (holy water against the living), the reason on the button itself
                     val reason = battle.blockedItem(id)
+                    val label = "${def.name(lang)} ×$count" + if (reason != null) " · ${Ui.onlyUndead(lang)}" else ""
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         SupplyPicture(def.id, 32.dp)
                         Spacer(Modifier.width(6.dp))
-                        PixelButton("${def.name(lang)} ×$count", Modifier.weight(1f), enabled = reason == null, size = 16.sp) { onPick(id) }
+                        PixelButton(label, Modifier.weight(1f), enabled = reason == null, size = 16.sp) { onPick(id) }
                     }
-                    if (reason != null) Txt(reason(lang), size = 13.sp, color = Colors.textDim)
                 }
             }
             Spacer(Modifier.height(6.dp))
