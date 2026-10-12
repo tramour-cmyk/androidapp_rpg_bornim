@@ -119,6 +119,13 @@ Zeile 24 aus „Wer macht was“ (Stand 12.10.): | 24 | Animationen fehlen nach 
 
 
 
+
+## Aufgeräumt aus OFFEN.md (Jerry, 12.10., 13:50)
+
+| 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
+| 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | – | auf `main` (PR #25, #27) |
+- **32 Nacht 11./12.10. fast ohne Arbeit (Tom und Jerry, je ~25 min):** Weck-Sitzungen beenden nach einem Schritt; Routine 00:27 durch 40-Minuten-Regel gesperrt. Vorschläge 32.1–32.7 (Stand `übergeben`, `send_later` an sich selbst bis „Bis“, Nachfolger sofort starten, blockiert → nächster Punkt, Vorschau vor Push bauen, Gradle 6 GB in `setup-session.sh`, Blende-Fix aus PR #38). **32a/32b: Tom macht es (Nutzer 12.10., 07:40).** 32.8 Vertretung bei Nutzungsgrenze; **32b, 32c ja (07:5x)**, 32.1–32.8 in `SELBST.md` übernommen, Toms Routinen umgestellt. Jerrys 8 Routinen auf den Text in `SELBST.md` umgestellt (12.10., 09:59). Befunde im Archiv.
+
 ## Beobachtungen des Beraters zu Thema 30 (aus BERATER.md, 12.10., 13:16)
 
 - **Zu Thema 30 (geprüft 22:56):** Die Bildspeicher von `HeroBattle`, `MapGround`, `MapFolk`, `MapFigure` sind sauber gesperrt (`synchronized`), gleichzeitiger Zugriff dort ist kaum die Ursache. Offen: unbegrenzte Speicher (`WorldArt`, `MapFlora`, `MapTown`, `MapTownIso`) und Lastspitze nach Niederlage (Kartenwechsel); `BattleAhead.run` ohne Fehlerfang.

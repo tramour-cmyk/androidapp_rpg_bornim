@@ -13,10 +13,8 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 13 | Diagonale Sicht | Tom | – | **13u ja (12:20, über Berater):** neue Orte nur noch diagonal (`ENTWICKLUNG.md`). **13w ja (12:26):** alte Ansicht eingefroren (nur Absturz-Fixes). **13v (später):** beim Testaufruf an die 12 Tester sagen, dass Wald, Tiefer Wald, Höhle absichtlich noch gerade sind. Schänke, Ältester, Laden, Tempel auf `main` (PR #20, 11.10., 14:00). Weiter mit Dorf draußen (5). **Meldung Nutzer 12.10., 08:43:** Tempel diagonal: Altar steht direkt vor dem Fenster, wirkt komisch; ansehen (eingetragen von Jerry). **13r ja (Nutzer 11:45, über Berater): 13.4** Diagonale je Ort automatisch (fertige Orte immer diagonal, übrige gerade, Testschalter weg), bei Tom als Erstes. **13s ja:** dann 27, 13 Tempel, 42. **13t ja:** Ziel „alte Ansicht ausgebaut“ in `KAPITEL1.md`, danach 6l |
 | 5 | Dorf draußen, Dorfbewohner als Puppen (auch Aldric mit Stock) | Tom | – | 5.1, 5.2, 5g, 5h.1 auf `main` (PR #24, 11.10., 14:52). **Nutzer 12:40:** Dorf diagonal fertig? Schlagbaum, kleinerer Platz, lebendiger, Bäume? Befund: nein; Schlagbaum/Zaun alte Bilder gekippt (**5.6**), Jorin u. a. alte Figuren (5.3), Platz groß/leer (5l/5.5), Bäume wie Wald (27.4). **5m ja (13:00):** 27.4 Bäume (Wald+Dorf), dann 5.6, 5.3, 5l/5.5, 5.4, dann 27.5/27.6; je erst Standbilder. 5l/5.5 Leben im Dorf: nach 24 (Nutzer 14:55), erst Standbilder. Dann 5.3, 5.4 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
-| 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
 | 10, 11 | Höhle: Flammen feiner, Lichtstrahl am Schacht | Jerry | – | zurückgestellt bis zur diagonalen Höhle (13e) |
 | 13e | Höhle diagonal (Phase 2 von 13) | Jerry | `ccr-8b450567-umf1s6` | Grundsatz 43 beachten (Leute, Ziele, Eingänge frei zur Kamera; Kisten dürfen versteckt liegen). Entwurf 1 (Vorschau `KARTENZOOM=1 DIAG=1 CAVEDRAFT=1 ONLY=zoom_nah_c`); Lücken und Absprache mit Tom (eigene Datei `MapCaveIso.kt`, nur eine Zeile in `WorldArt.buildObjects`, Toms Dateien nicht anfassen) im Archiv. Entwurf 2 nach 36.4 und 38 |
-| 18 | Klänge aus echten Aufnahmen (CC0) | Jerry | – | auf `main` (PR #25, #27) |
 | 22 | Selbstarbeit statt nur Nachtarbeit: Routinen alle 3 h, Vorrat und Liste „Für gemeinsame Zeit“ | Tom | `main` (Notizen), Routinen | 22a, 22b ja (13:31). `docs/SELBST.md` statt `NACHT.md`; Toms Routinen umgestellt (13:38); Repo und Vollzugriff vom Nutzer eingestellt (bestätigt 16:38, 8 Routinen aktiv). Jerrys Routinen umgestellt (13:44), Vorrat eingetragen |
 | 23 | Aufgaben so aufteilen, dass Tom und Jerry auch in Selbstarbeit genug Vorrat haben | Tom | `main` (Notizen) | 23a ja (14:18): je 8 Punkte im Vorrat (`docs/SELBST.md`), neue nur als Entwürfe/Hörproben. **Jerry:** deine Punkte 4–8 sind eingetragen |
 | 19e | „Bewegungen teilweise unrund“ (ohne Beispiel) | Jerry | – | zur Beobachtung |
@@ -56,20 +54,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **0.1.579 getestet, passt (Nutzer 13:0x); **Meldung 13:2x (Bildschirmfoto):** Haus am Schlagbaum (21–23, 3–5) wird durchsichtig, obwohl der Held davor steht; Vorschau `KARTENZOOM=1 ONLY=zoom_nah_d11` (Held 22,6). Vermutlich alter Fehler der Gruppen-Durchsicht (`hides`, ein Streifen mit größerer Tiefe), prüfen ob durch PR #43; dann beheben und PR zusammenführen (Tom, PR #43, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38238967966/artifacts/11742810872)):** 0.1.576 getestet (12:40: 1–4, 6 ja; 5 Durchsicht zu stark). Neu: Durchsicht milder (zusammen 35 %, egal wie viele hintereinander), weich ein/aus in 0,3 s. Darauf achten: hinter Häusern im Dorf, in Räumen hinter hohen Möbeln.
 
-
 ## Rückfragen an den Nutzer
 
-
-
-
-
-
-
 - **27b (Tom):** Wald Südrand: 27.1 Durchsicht kräftiger (Kronen vor Held, Steinen, Schild, Truhe fast ganz durchsichtig, nicht gestapelt) + 27.2 vorderster Waldrand diagonal niedrig (Stämme, Büsche, junge Bäume, wie die niedrigen Vorderwände der Höhle); 27.4 neue runde Bäume danach; 27.3 Karte umbauen nein. Empfehlung 27.1+27.2, erst Standbilder. **27b ja (Nutzer 12:09, über Berater):** 27.1, 27.2 und Umstellen nach 43 (27.3 doch ja): Garrick, Feuer, Steinkreis zuerst, Standbilder vorher/nachher.
-
-
-
-- **32 Nacht 11./12.10. fast ohne Arbeit (Tom und Jerry, je ~25 min):** Weck-Sitzungen beenden nach einem Schritt; Routine 00:27 durch 40-Minuten-Regel gesperrt. Vorschläge 32.1–32.7 (Stand `übergeben`, `send_later` an sich selbst bis „Bis“, Nachfolger sofort starten, blockiert → nächster Punkt, Vorschau vor Push bauen, Gradle 6 GB in `setup-session.sh`, Blende-Fix aus PR #38). **32a/32b: Tom macht es (Nutzer 12.10., 07:40).** 32.8 Vertretung bei Nutzungsgrenze; **32b, 32c ja (07:5x)**, 32.1–32.8 in `SELBST.md` übernommen, Toms Routinen umgestellt. Jerrys 8 Routinen auf den Text in `SELBST.md` umgestellt (12.10., 09:59). Befunde im Archiv.
-
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
