@@ -1,5 +1,10 @@
 # Archiv
 
+### Übergabe Tom (12.10., 14:30, ersetzt 15:32)
+
+- PR #43 zusammengeführt (13.4, 27.1/27.2, 27d). Kein offener Zweig.
+- **Als Nächstes (5m ja, 13:00):** 27.4 Bäume neu mit Volumen (`MapFlora` oak/spruce/deadTree; Vorbild `MapTownIso`/`Sculpt`), für Wald und Dorf, erst Standbilder; dann 5.6 Schlagbaum/Zaun (`ONLY=zoom_nah_d10`), 5.3, 5l/5.5, 5.4, 27.5/27.6. Vorschau Wald `KARTENZOOM=1 DIAG=1 ONLY=zoom_nah_7`. Danach 13 Tempel, 42, Lyra diagonal (23b).
+
 ### Aus BERATER.md ausgelagert (12.10., 15:0x; Regel steht in CLAUDE.md/SELBST.md oder Thema erledigt)
 
 - **Krogg schärfen** (36, 12.10.): erst aufräumen bei gleicher Auflösung (Fellkörnung 0,55 war Hauptgrund), Standbilder Handy/Emulator; nur falls nötig 1,5× mit zugeschnittenen Bildern, vorher messen. Doppelte Auflösung abgelehnt: Krogg ~50 MB → ~200 MB, 4× Zeichenzeit.

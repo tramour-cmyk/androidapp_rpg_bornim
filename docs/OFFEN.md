@@ -38,10 +38,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 14:30)
+### Tom (12.10., 15:32)
 
-- PR #43 zusammengeführt (13.4, 27.1/27.2, 27d). Kein offener Zweig.
-- **Als Nächstes (5m ja, 13:00):** 27.4 Bäume neu mit Volumen (`MapFlora` oak/spruce/deadTree; Vorbild `MapTownIso`/`Sculpt`), für Wald und Dorf, erst Standbilder; dann 5.6 Schlagbaum/Zaun (`ONLY=zoom_nah_d10`), 5.3, 5l/5.5, 5.4, 27.5/27.6. Vorschau Wald `KARTENZOOM=1 DIAG=1 ONLY=zoom_nah_7`. Danach 13 Tempel, 42, Lyra diagonal (23b).
+- Zweig `claude/tom-27-4-baeume` (mit `main`): **27.4** Bäume mit Volumen (`MapTree.kt`, an über `MapFlora.treeDraft`, Vergleich `TREESHEET=1`), **5.6** Schlagbaum/Zaun diagonal (`MapTownIso.barrier/fence`, `ISODINGE=platz`, Schüsse `d10b`, `d12`), **5.3** neun Leute als Puppen (`MapFolk.all`, Feuer-Gesten nur Garrick, Trageweise auch im Stehen). Build 0.1.590 läuft (15:29), kein PR.
+- **Offen:** 5n (Haus östlich vor dem Schlagbaum rücken?), Regel „nicht warten“ in `CLAUDE.md` (Freigabe abgelehnt, Nutzer fragen). Schuss `d12_zaun` stellt den Helden ins Wasser (anderen Platz wählen).
+- **Als Nächstes:** nach Test PR, zusammenführen; dann 5l/5.5 (Leben im Dorf, erst Standbilder), 5.4, 27.5/27.6; danach 13 Tempel, 42, Lyra diagonal.
 ### Jerry (12.10., 14:30)
 
 - **36.5** auf `claude/great-pascal-x56kad` (kein PR, nur Zweig-Build): Drehpunkt der Lunge-Vergrößerung an die Füße (`BattleScreen`, `size` im `graphicsLayer`), 36h `FOE_WIND_STEP` 0,7. **Offen:** Sprung in den Schlag bleibt groß (Film `FILMBATCH` Krogg, Bilder ~146–153), Rücksprung nach dem Schlag hart (Lunge fällt auf 0, wenn der Angriff endet); Goblin-Angriff noch nicht gefilmt (Film tötete ihn vorher). 36g nein: tief gehen ist ok.
