@@ -4,6 +4,13 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 36.4), getestet in 0.1.581, PR #46 (zusammengeführt 12.10., 13:51):
+
+**Krogg feiner gezeichnet (36.4)**
+- Krogg wird im Kampf mit 1,5-mal so vielen Pixeln gezeichnet, bei gleicher Größe und an gleicher Stelle; seine Augen bleiben deutlich sichtbar.
+- Gegnerbilder belegen nur noch den Platz um die Figur: Speicher je Gegner deutlich kleiner (Krogg 44 → 9 MB trotz feinerer Zeichnung, Goblin 31 → 2 MB).
+- Werkzeuge (nur Entwicklung): Vorschau `ARTMEM_FOE=bugbear:0` (Speicher je Gegner).
+
 Zweig von Jerry (Thema 37), getestet in 0.1.578, PR #45 (zusammengeführt 12.10., 13:22):
 
 **Kampfmusik aussortiert (37)**
