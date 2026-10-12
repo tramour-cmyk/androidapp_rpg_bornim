@@ -12,7 +12,10 @@ fun Game.actionAt(x: Int, y: Int): ActionKind? {
     if (roamerAt(x, y) != null) return ActionKind.FIGHT
     if (npcAt(x, y) != null) return ActionKind.TALK
     if (m.signs.containsKey(x to y)) return ActionKind.READ
+    // Jorin's job (29.3): the standing stones only while there is something to find
+    if (Jobs.findAt(state, m.id, m.tile(x, y)) != null) return ActionKind.LOOK
     return when (m.tile(x, y)) {
+        Tile.NOTICE -> ActionKind.READ
         Tile.CHEST -> if (m.chestAt(x, y)?.id in state.openedChests) ActionKind.LOOK else ActionKind.OPEN
         Tile.CAMPFIRE -> ActionKind.REST
         Tile.GATE -> if (state.has(Story.GATE_OPEN)) null else ActionKind.UNLOCK

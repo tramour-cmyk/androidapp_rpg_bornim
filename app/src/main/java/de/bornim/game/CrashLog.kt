@@ -101,6 +101,11 @@ object CrashLog {
             ApplicationExitInfo.REASON_DEPENDENCY_DIED -> "Abhängigkeit beendet"
             ApplicationExitInfo.REASON_PERMISSION_CHANGE -> "Berechtigung geändert"
             ApplicationExitInfo.REASON_INITIALIZATION_FAILURE -> "Start fehlgeschlagen"
+            // newer reasons as plain numbers, their constants need a newer Android (30.8: 16 read as "other")
+            13 -> "anderer Grund (vom System)"
+            14 -> "eingefroren und beendet"
+            15 -> "App aktiviert oder deaktiviert"
+            16 -> "App aktualisiert"
             else -> "anderer Grund (${info.reason})"
         }
         return "${time(info.timestamp)}: $why" +

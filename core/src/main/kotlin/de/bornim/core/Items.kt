@@ -65,6 +65,10 @@ object Items {
             ItemKind.INGREDIENT, 16, Icon.WING),
 
         // Story items
+        ItemDef("gwenna_ring", T("Gwennas Ring", "Gwenna's Ring"), T("Ein schmaler Ring aus angelaufenem Silber. Gwenna wartet am Fluss darauf.", "A slim ring of tarnished silver. Gwenna is waiting for it by the river."),
+            ItemKind.KEY, 0, Icon.RING),
+        ItemDef("grey_rag", T("Grauer Fetzen", "Grey Rag"), T("Grobes graues Tuch, ein offenes Auge hineingestickt. Jorin will es sehen.", "Coarse grey cloth, an open eye stitched into it. Jorin wants to see it."),
+            ItemKind.KEY, 0, Icon.CLOAK),
         ItemDef("rusty_key", T("Rostiger Schlüssel", "Rusty Key"), T("Er gehörte Krogg dem Grobian.", "It belonged to Krogg the Brute."),
             ItemKind.KEY, 0, Icon.KEY),
         ItemDef("sun_amulet", T("Sonnenamulett", "Sun Amulet"), T("Das heilige Amulett aus dem Tempel von Bornim. Es ist warm.", "The holy amulet of the Bornim temple. It feels warm."),

@@ -4,6 +4,20 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Tom (Thema 29, 29.3, 29.4, 24.8.6, 30.8), getestet in 0.1.563, 0.1.567 und 0.1.569, PR #42 (zusammengeführt 12.10., 11:35):
+
+**Anschlagbrett mit Nebenaufträgen (29)**
+- Vor der Schänke steht ein Anschlagbrett. Antippen zeigt alle Aushänge, jeder lässt sich annehmen; im Menü unter System stehen die angenommenen Aufträge mit Fortschritt und einem Knopf zum Aufgeben.
+- Erste Aushänge: Thessa sucht fünf Wolfsfelle (60 Gold), Gwenna den Ring ihres Mannes aus der Goblinhöhle (40 Gold und ein Heiltrank), Borin drei Keilerhauer (50 Gold). Abgegeben wird beim Auftraggeber.
+- Nach Krogg kommen neue Aushänge (29.3): Morwen will drei Giftdrüsen (50 Gold, zwei Kräutertränke), Jorin schickt den Helden zum Steinkreis im Flüsterwald (Lohn: ein Kopfschutz aus der Wachstube). Nichts verfällt, nichts kommt doppelt.
+- Ein heller Zettel mit rotem Siegel am Brett zeigt ungelesene Aushänge; sonst erinnert nichts daran.
+- Bei der Abgabe spricht zuerst der Held, dann der Auftraggeber (29.4).
+
+**Kleinigkeiten (24.8.6, 30.8)**
+- An Dorftüren dunkelt das Bild 0,5 statt 0,3 s ab.
+- Test-Reiter: Ende der App heißt „App aktualisiert“ statt „anderer Grund (16)“.
+- Werkzeuge (nur Entwicklung): Kerntest `JobsTest`, Vorschau `BRETT=1`, `ISODINGE=platz`.
+
 Zweig von Jerry (Thema 26.1), getestet in 0.1.561, PR #39 (zusammengeführt 12.10., 09:51):
 
 **Magierrüstung hält 8 Stunden (26.1)**

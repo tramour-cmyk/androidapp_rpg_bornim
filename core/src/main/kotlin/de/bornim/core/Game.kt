@@ -6,6 +6,8 @@ sealed interface Mode {
     data class Fight(val battle: Battle) : Mode
     /** A shop; [brewing] adds Morwen's potion brewing and leaves out Thessa's equipment. */
     data class Shop(val stock: List<String>, val brewing: Boolean = false) : Mode
+    /** The notice board before the inn (29): its notes, each to take up or leave. */
+    data object Board : Mode
     data object ChapterEnd : Mode
 }
 
@@ -635,14 +637,16 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
         npcAt(tx, ty)?.let { npc ->
             npcFacing[npc.id] = p.facing.opposite
-            enqueue(npc.talk(state))
+            enqueue(Jobs.handIn(state, npc.id) ?: npc.talk(state))
             return
         }
         map.signs[tx to ty]?.let {
             enqueue(listOf(Cmd.Say(null, it)))
             return
         }
+        Jobs.findAt(state, map.id, map.tile(tx, ty))?.let { return enqueue(it) }
         when (map.tile(tx, ty)) {
+            Tile.NOTICE -> { Jobs.read(state); mode = Mode.Board; changed() }
             Tile.CHEST -> openChest(tx, ty)
             Tile.CAMPFIRE -> {
                 val meat = state.count("raw_meat")
@@ -685,6 +689,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     private fun openChest(x: Int, y: Int) {
         val chest = map.chestAt(x, y) ?: return say(Ui.nothingHere)
+        // Gwenna's ring (29) lies here once her job is taken, even in a chest emptied before
+        if (Jobs.ringIn(state, chest.id)) {
+            state.openedChests += chest.id
+            sounds += de.bornim.core.audio.Sound.CHEST
+            return enqueue(listOf(Cmd.Say(null, T("Unter Lumpen und Knochen am Boden der Truhe: ein schmaler Ring aus angelaufenem Silber.", "Under rags and bones at the bottom of the chest: a slim ring of tarnished silver.")), Cmd.Give(Jobs.RING)))
+        }
         if (chest.id in state.openedChests) return say(Ui.chestEmpty)
         state.openedChests += chest.id
         sounds += de.bornim.core.audio.Sound.CHEST
@@ -722,6 +732,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (mode == Mode.Explore) runQueue()
     }
 
+    /** Takes up a job from the notice board (29); the board stays open. */
+    fun takeJob(id: String) { Jobs.take(state, Jobs[id]); changed() }
+
+    /** Gives a job up again (29e): it goes back on the board. */
+    fun dropJob(id: String) { Jobs.drop(state, Jobs[id]); changed() }
+
     /** Continue after the player dismissed a dialog box, closed the shop or the chapter end screen. */
     fun advance() {
         if (mode is Mode.Fight) return
@@ -734,7 +750,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         while (queue.isNotEmpty()) {
             when (val c = queue.removeFirst()) {
                 is Cmd.Say -> {
-                    mode = Mode.Dialog(c.speaker?.invoke(lang), c.text(lang).replace("{name}", hero.name))
+                    mode = Mode.Dialog(c.speaker?.invoke(lang)?.replace("{name}", hero.name), c.text(lang).replace("{name}", hero.name))
                     changed()
                     return
                 }
@@ -746,9 +762,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                 is Cmd.Give -> {
                     val text = when {
                         c.item.startsWith("@gear:") -> {
-                            val min = Rarity.valueOf(c.item.removePrefix("@gear:"))
+                            // "@gear:RARITY" or "@gear:RARITY:SLOT"
+                            val parts = c.item.removePrefix("@gear:").split(":")
+                            val min = Rarity.valueOf(parts[0])
+                            val slot = parts.getOrNull(1)?.let { GearSlot.valueOf(it) }
                             val ilvl = maxOf(map.areaLevel, hero.level)
-                            val g = state.addGear(Loot.generate(state, dice, ilvl, Loot.rarityFor(state, dice, ilvl, special = true, floor = min), hero.cls))
+                            val g = state.addGear(Loot.generate(state, dice, ilvl, Loot.rarityFor(state, dice, ilvl, special = true, floor = min), hero.cls, slot))
                             "${g.name(lang)} (${g.rarity.title(lang)})"
                         }
                         Uniques.exists(c.item) -> {

@@ -50,6 +50,11 @@ class PlayerSimTest {
                 }
                 r.note("kampf:$a"); b.act(a)
             }
+            Mode.Board -> {
+                // the notice board (29): take up a note now and then, or walk away
+                val j = de.bornim.core.Jobs.onBoard(g.state).randomOrNull(r.rnd)
+                if (j != null && r.rnd.nextInt(2) == 0) { r.note("aushang:${j.id}"); g.takeJob(j.id) } else { r.note("brett-zu"); g.advance() }
+            }
             Mode.ChapterEnd -> { r.note("kapitelende") }
             Mode.Explore -> {
                 // as the map screen does: the clock runs (monsters roam), the hero walks a route a tap away
