@@ -108,6 +108,7 @@ fun main() {
     if (System.getenv("NPCREST") != null) { renderNpcRest(); System.exit(0) }
     if (System.getenv("NPCTORCH") != null) { renderNpcTorch(); System.exit(0) }
     if (System.getenv("VILLAGEDRAFT") != null) { renderVillageDraft(); System.exit(0) }
+    if (System.getenv("SITDRAFT") != null) { renderSitDraft(); System.exit(0) }
     if (System.getenv("SQUATDRAFT") != null) { renderSquatDraft(); System.exit(0) }
     // TOWNDRAFT=1: the village and the rooms in the new style, for the films too
     if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true
@@ -181,11 +182,21 @@ fun main() {
             if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.all = true
             // PFLASTERDRAFT=1: the square's cobbles quieter (5.4, draft)
             if (System.getenv("PFLASTERDRAFT") != null) de.bornim.core.art.MapGround.cobbleDraft = true
+            // SITDRAFT2=1: Borin sits at his table in the inn (55.2, draft)
+            if (System.getenv("SITDRAFT2") != null) de.bornim.core.art.MapFolk.sitDraft = true
+            // WOODDRAFT=1: trunks and the camp fire of the woods drawn in the slant (27.5, draft)
+            if (System.getenv("WOODDRAFT") != null) de.bornim.core.art.MapWoodIso.draft = true
             // TREEDRAFT=1: the trees with volume (27.4, draft)
             if (System.getenv("TREEDRAFT") != null) de.bornim.core.art.MapFlora.treeDraft = true
             // ZOOMSTUFE=1|2: the in-between zoom steps for the near shots (6.15)
             System.getenv("ZOOMSTUFE")?.let { if (near) de.bornim.game.ui.MapZoom.level = it.toInt() }
             val z = if (near) "nah" else "weit"
+            // HELDORT=karte:x:y[:richtung];…: the hero anywhere, at noon (test of 0.1.590: lost under several crowns)
+            System.getenv("HELDORT")?.split(";")?.forEach { s ->
+                val p = s.split(":")
+                val f = p.getOrNull(3)?.let { d -> Facing.entries.first { it.name.startsWith(d.uppercase()) } } ?: Facing.DOWN
+                shot("zoom_${z}_p_${p[0]}_${p[1]}_${p[2]}") { place(it, p[0], p[1].toInt(), p[2].toInt(), 12 * 60, f) }
+            }
             shot("zoom_${z}_1_wald_tag") { place(it, "forest", 9, 10, 12 * 60) }
             shot("zoom_${z}_2_wald_nacht") { place(it, "forest", 9, 10, 23 * 60) }
             shot("zoom_${z}_3_dorf") { place(it, "village", 11, 7, 12 * 60) }

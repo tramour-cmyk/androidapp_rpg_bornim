@@ -2025,6 +2025,8 @@ object MapRoomIso {
         val shop = map.id.substringBefore('_') == "shop"
         val temple = map.id.substringBefore('_') == "temple"
         fun one(k: String, low: Boolean = true, make: () -> PixelImage) = listOf(obj(cached("$key/$k", make), fx, fy, d, low))
+        // draft (55.2): a stool under Borin where he sits at his table in the inn
+        if (MapFolk.sitDraft && map.id == "inn" && tx == 8 && ty == 4) return listOf(obj(cached("$key/stool") { stool(1, seed) }, fx, fy, d - T, true))
         return when (map.tile(tx, ty)) {
             Tile.WALL, Tile.WINDOW, Tile.HEARTH -> {
                 val out = mutableListOf<WorldArt.Obj>()

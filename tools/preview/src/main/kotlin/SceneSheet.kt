@@ -1491,8 +1491,9 @@ fun renderFoeAnims() {
     val acts = listOf(de.bornim.core.art.Act.IDLE to 0) + listOf(de.bornim.core.art.Act.ATTACK, de.bornim.core.art.Act.HURT, de.bornim.core.art.Act.DODGE, de.bornim.core.art.Act.DIE).flatMap { a -> (0..2).map { a to it } }
     val cw = 150; val cols = 8; val F = de.bornim.core.art.FoeArt
     for ((id, seed) in cases) {
+        val RH = F.height(id)
         val look = de.bornim.core.MonsterLook(seed)
-        val out = BufferedImage(cw * cols, F.H * acts.size, BufferedImage.TYPE_INT_RGB)
+        val out = BufferedImage(cw * cols, RH * acts.size, BufferedImage.TYPE_INT_RGB)
         val g = out.createGraphics(); g.color = java.awt.Color(0x3C3A36); g.fillRect(0, 0, out.width, out.height)
         g.color = java.awt.Color(0xE0D8C0)
         for ((r, av) in acts.withIndex()) {
@@ -1503,10 +1504,10 @@ fun renderFoeAnims() {
             for ((c, i) in picks.withIndex()) {
                 val im = F.frame(id, look, act, v, i)
                 val ox = c * cw - (F.ANCHOR_X.toInt() - 115)
-                for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; val X = ox + x; if ((q ushr 24) >= 128 && X in c * cw until (c + 1) * cw) out.setRGB(X, r * F.H + y, q and 0xFFFFFF) }
-                if (i == seq.strike) { g.color = java.awt.Color(0xC04030); g.drawRect(c * cw, r * F.H, cw - 1, F.H - 1); g.color = java.awt.Color(0xE0D8C0) }
+                for (y in 0 until im.height) for (x in 0 until im.width) { val q = im[x, y]; val X = ox + x; if ((q ushr 24) >= 128 && X in c * cw until (c + 1) * cw) out.setRGB(X, r * RH + y, q and 0xFFFFFF) }
+                if (i == seq.strike) { g.color = java.awt.Color(0xC04030); g.drawRect(c * cw, r * RH, cw - 1, RH - 1); g.color = java.awt.Color(0xE0D8C0) }
             }
-            g.drawString("$act/$v", 2, r * F.H + 12)
+            g.drawString("$act/$v", 2, r * RH + 12)
         }
         ImageIO.write(out, "png", File("build/screens/foeanim_${id}_$seed.png"))
         println("wrote foeanim $id $seed")

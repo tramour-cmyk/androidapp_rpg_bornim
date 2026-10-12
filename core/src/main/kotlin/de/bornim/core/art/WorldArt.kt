@@ -859,12 +859,14 @@ object WorldArt {
                     ?: MapCave.objects(map, tx, ty, frame, open, state.has(Story.GATE_OPEN))
                 // the village in the new style (draft): houses and things, else the trees of the woods
                 // seen diagonally the houses stand in the slant too (5.1), cut into strips sorted along the diagonal
-                map.kind == MapKind.TOWN -> (if (MapFigure.viewYaw != 0.0) MapTownIso.objects(map, tx, ty, freshNote, state.has(Story.BARRIER_OPEN)) else null)
+                map.kind == MapKind.TOWN -> (if (MapFigure.viewYaw != 0.0) MapTownIso.objects(map, tx, ty, freshNote, state.has(Story.BARRIER_OPEN)) ?: MapWoodIso.fieldObjects(map, tx, ty) else null)
                     ?: MapTown.objects(map, tx, ty) ?: MapFlora.objects(map, tx, ty, frame, open)
                 // seen diagonally (13), the rooms' walls and furniture stand upright, turned with the room
                 map.kind == MapKind.INTERIOR && MapFigure.viewYaw != 0.0 -> MapRoomIso.objects(map, tx, ty, flicker) ?: MapRoom.objects(map, tx, ty, frame)
                 map.kind == MapKind.INTERIOR -> MapRoom.objects(map, tx, ty, frame)
-                else -> MapFlora.objects(map, tx, ty, frame, open)
+                // seen diagonally, the trunks and the fire of the woods lie in the slant too (27.5, draft)
+                else -> (if (MapFigure.viewYaw != 0.0 && MapWoodIso.draft) MapWoodIso.objects(map, tx, ty, frame) else null)
+                    ?: MapFlora.objects(map, tx, ty, frame, open)
             }
             if (flora != null) { out += flora; continue }
             val t = map.tile(tx, ty)
