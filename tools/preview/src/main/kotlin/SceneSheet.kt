@@ -1519,19 +1519,22 @@ fun renderFoeAnims() {
  */
 fun renderFoeShot() {
     val F = de.bornim.core.art.FoeArt
-    val k = (System.getenv("FOESHOT_SCALE") ?: "4").toInt()
+    val k0 = (System.getenv("FOESHOT_SCALE") ?: "4").toInt()
     val crop = System.getenv("FOESHOT_CROP")?.split(",")?.map { it.toInt() }
     for (c in System.getenv("FOESHOT").split(",")) {
         val id = c.substringBefore(":"); val seed = c.substringAfter(":", "0").toInt()
-        val im = F.frame(id, de.bornim.core.MonsterLook(seed), de.bornim.core.art.Act.IDLE, 0, 0)
-        val (x0, y0, w, h) = crop ?: listOf(0, 0, im.width, im.height)
-        val out = BufferedImage(w * k, h * k, BufferedImage.TYPE_INT_RGB)
-        for (y in 0 until h * k) for (x in 0 until w * k) {
-            val sx = x0 + x / k; val sy = y0 + y / k
+        val fine = F.fine(id)
+        // as the battle shows it: finer for Krogg (36), so FOESHOT_SCALE=4 is then 4 / 1.5 per fine pixel
+        val im = F.fineFrame(id, de.bornim.core.MonsterLook(seed), de.bornim.core.art.Act.IDLE, 0, 0)
+        // the crop in art pixels; each screen pixel takes the fine pixel under it
+        val (x0, y0, w, h) = crop ?: listOf(0, 0, F.W, F.height(id))
+        val out = BufferedImage(w * k0, h * k0, BufferedImage.TYPE_INT_RGB)
+        for (y in 0 until h * k0) for (x in 0 until w * k0) {
+            val sx = ((x0 + x.toDouble() / k0) * fine).toInt(); val sy = ((y0 + y.toDouble() / k0) * fine).toInt()
             val q = if (sx in 0 until im.width && sy in 0 until im.height) im[sx, sy] else 0
             out.setRGB(x, y, if ((q ushr 24) >= 128) q and 0xFFFFFF else 0x3C3A36)
         }
-        ImageIO.write(out, "png", File("build/screens/foeshot_${id}_${seed}_x$k.png"))
+        ImageIO.write(out, "png", File("build/screens/foeshot_${id}_${seed}_x$k0.png"))
         println("wrote foeshot $id $seed ${im.width}x${im.height}")
     }
 }

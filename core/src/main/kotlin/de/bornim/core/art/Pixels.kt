@@ -3,8 +3,11 @@ package de.bornim.core.art
 import kotlin.math.abs
 import kotlin.math.max
 
-/** An ARGB pixel image. Platform independent; the app turns it into a bitmap. */
-class PixelImage(val width: Int, val height: Int, val pixels: IntArray = IntArray(width * height)) {
+/**
+ * An ARGB pixel image. Platform independent; the app turns it into a bitmap. A picture cut out of a larger frame (only
+ * the box round what is drawn, 36.4) knows where it sat in it: its top left corner at ([ox], [oy]).
+ */
+class PixelImage(val width: Int, val height: Int, val pixels: IntArray = IntArray(width * height), val ox: Int = 0, val oy: Int = 0) {
     operator fun get(x: Int, y: Int): Int = if (x in 0 until width && y in 0 until height) pixels[y * width + x] else 0
 
     fun set(x: Int, y: Int, c: Int) {
@@ -13,7 +16,27 @@ class PixelImage(val width: Int, val height: Int, val pixels: IntArray = IntArra
 
     fun opaque(x: Int, y: Int) = (get(x, y) ushr 24) != 0
 
-    fun copy() = PixelImage(width, height, pixels.copyOf())
+    fun copy() = PixelImage(width, height, pixels.copyOf(), ox, oy)
+
+    /** Only the box round every pixel drawn (at least one pixel), with where it sat in this picture. */
+    fun trimmed(): PixelImage {
+        var x0 = width; var y0 = height; var x1 = -1; var y1 = -1
+        for (y in 0 until height) for (x in 0 until width) if ((pixels[y * width + x] ushr 24) != 0) {
+            if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y
+        }
+        if (x1 < 0) return PixelImage(1, 1, IntArray(1), ox, oy)
+        val w = x1 - x0 + 1; val h = y1 - y0 + 1
+        val out = IntArray(w * h)
+        for (y in 0 until h) System.arraycopy(pixels, (y0 + y) * width + x0, out, y * w, w)
+        return PixelImage(w, h, out, ox + x0, oy + y0)
+    }
+
+    /** A cut-out picture put back into a whole frame of [w] × [h], where it was. */
+    fun whole(w: Int, h: Int): PixelImage {
+        val out = PixelImage(w, h)
+        for (y in 0 until height) for (x in 0 until width) out.set(ox + x, oy + y, pixels[y * width + x])
+        return out
+    }
 
     fun mirrored(): PixelImage {
         val out = PixelImage(width, height)

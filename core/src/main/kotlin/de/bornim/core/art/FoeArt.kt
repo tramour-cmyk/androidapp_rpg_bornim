@@ -8,6 +8,7 @@ import de.bornim.core.Race
 import de.bornim.core.Sex
 import de.bornim.core.art.HeroFigure.Rig
 import de.bornim.core.art.HeroFigure.V
+import kotlin.math.roundToInt
 
 /**
  * Foes on the hero's doll: goblins and skeletons in battle. They move as the hero does (the same keys, blows, blocks
@@ -28,6 +29,13 @@ object FoeArt {
     /** The frame's height and the ground line in it, for this kind of foe. */
     fun height(id: String) = H + extra(id)
     fun ground(id: String) = GROUND + extra(id)
+    /**
+     * How much finer a big foe is drawn in battle (36): Krogg stands as large as before, but in 1.5 times as many
+     * pixels, so he no longer looks coarse. Only the battle's cut frames ([cut]) are finer; every place, size and
+     * reckoning ([tip], [ground], [frame], the killing blow) stays in the plain art pixels.
+     */
+    fun fine(id: String): Double = if (id == "bugbear") 1.5 else 1.0
+
     /** Art pixels per centimetre: the foe stands further off than the hero. */
     const val PX = 0.66
 
@@ -356,15 +364,33 @@ object FoeArt {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > capacity
     }
 
-    fun frame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage {
+    /**
+     * The frame cut down to the foe ([PixelImage.trimmed], with where it sits in the whole frame): the figure fills a
+     * tenth of the frame or less (36.4), so only this is kept. Drawn [fine] times finer: the battle draws it at
+     * ([PixelImage.ox], [PixelImage.oy]) / [fine], each pixel 1 / [fine] art pixels wide.
+     */
+    fun cut(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage {
         val seq = sequence(id, look, act, variant).rigs
         val i = if (act == Act.IDLE) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         val k = "$id/${look.seed}/${look.glow}/$act/${variant.mod(3)}/$i"
         synchronized(cache) { cache[k]?.let { return it } }
-        val img = doll(id, look).render(W, height(id), ANCHOR_X, ground(id), PX, seq[i], outfit(id, look)).img
+        val f = fine(id)
+        val img = doll(id, look).render((W * f).roundToInt(), (height(id) * f).roundToInt(), ANCHOR_X * f, ground(id) * f, PX * f, seq[i], outfit(id, look)).img.trimmed()
         synchronized(cache) { cache[k] = img }
         return img
     }
+
+    /** The whole frame, [W] × [height] (for the killing blow, the tests and the preview; the battle shows [cut]). */
+    fun frame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage {
+        if (fine(id) == 1.0) return cut(id, look, act, variant, index).whole(W, height(id))
+        val seq = sequence(id, look, act, variant).rigs
+        val i = if (act == Act.IDLE) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
+        return doll(id, look).render(W, height(id), ANCHOR_X, ground(id), PX, seq[i], outfit(id, look)).img
+    }
+
+    /** The whole frame as the battle shows it, [fine] times finer (for the preview). */
+    fun fineFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage =
+        cut(id, look, act, variant, index).whole((W * fine(id)).roundToInt(), (height(id) * fine(id)).roundToInt())
 
     /** The same frame without the weapon in the hand: what is left of the foe when its weapon falls away on its own. */
     fun unarmedFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage {
@@ -376,7 +402,7 @@ object FoeArt {
     }
 
     /**
-     * The frame if it is drawn already, else the nearest earlier one of the same act that is, else the first frame of
+     * The cut frame if it is drawn already, else the nearest earlier one of the same act that is, else the first frame of
      * the guard (drawn now if need be, once): the battle never waits while frames are drawn in the background.
      */
     fun shown(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage {
@@ -386,16 +412,16 @@ object FoeArt {
             for (j in i downTo 0) cache["$id/${look.seed}/${look.glow}/$act/${variant.mod(3)}/$j"]?.let { return it }
             if (act != Act.IDLE) for (j in 0 until 16) cache["$id/${look.seed}/${look.glow}/${Act.IDLE}/0/$j"]?.let { return it }
         }
-        return frame(id, look, Act.IDLE, 0, 0)
+        return cut(id, look, Act.IDLE, 0, 0)
     }
 
     /** Draws every frame ahead, the rest first; off the main thread. */
     fun prepare(id: String, look: MonsterLook, cancelled: () -> Boolean = { false }) {
         // the first frame of the guard, then this foe's one fall (a short fight may end before the rest is drawn), then the rest
-        if (!cancelled()) frame(id, look, Act.IDLE, 0, 0)
+        if (!cancelled()) cut(id, look, Act.IDLE, 0, 0)
         val plan = listOf(Act.DIE to listOf(dieVariant(look)), Act.IDLE to listOf(0), Act.ATTACK to (0..2).toList(), Act.HURT to (0..2).toList(), Act.DODGE to (0..2).toList())
         for ((act, vs) in plan) for (v in vs)
-            for (i in sequence(id, look, act, v).rigs.indices) { if (cancelled()) return; frame(id, look, act, v, i) }
+            for (i in sequence(id, look, act, v).rigs.indices) { if (cancelled()) return; cut(id, look, act, v, i) }
     }
 
     /** The one way this foe falls: fixed by its look, so the killing blow and the defeat play the same fall. */

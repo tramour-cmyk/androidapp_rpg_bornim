@@ -984,9 +984,15 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
     /** Runs [paint] with a way to set one pixel of the face where it is seen, and to draw a line of them. */
     private fun paintFace(img: DepthImage, sk: Skeleton, paint: (put: (P3, Int) -> Unit, line: (P3, P3, Int) -> Unit, k: Double, c: P3) -> Unit) {
         val hx = sk.head
+        // a face is painted dot by dot, each as large as one pixel of a foe in battle: drawn finer (Krogg, 36) a dot
+        // takes 2 × 2 pixels, so eyes and scars do not shrink to specks
+        val dot = maxOf(1, Math.round(img.px / 0.66).toInt())
         val put: (P3, Int) -> Unit = { p, col ->
             val q = hx.apply(p)
-            if (img.visible(q, 0.05 * hh + 0.8)) { val (x, y, _) = img.project(q); img.img.set(x.toInt(), y.toInt(), col) }
+            if (img.visible(q, 0.05 * hh + 0.8)) {
+                val (x, y, _) = img.project(q)
+                for (j in 0 until dot) for (i in 0 until dot) img.img.set(x.toInt() + i, y.toInt() + j, col)
+            }
         }
         val line: (P3, P3, Int) -> Unit = { a, b, col -> val n = 2 + (img.px * (b - a).len()).toInt() * 2; for (i in 0..n) put(a.lerp(b, i.toDouble() / n), col) }
         paint(put, line, hh, headC)
