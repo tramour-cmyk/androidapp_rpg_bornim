@@ -188,6 +188,20 @@ Zeile 24 aus „Wer macht was“ (Stand 12.10.): | 24 | Animationen fehlen nach 
 
 
 
+## Aus BERATER.md (12.10., 16:4x, gekürzt)
+
+- **Textkasten im Stil der Blenden** (42, 12.10.): heller Kasten mit rotem Sprecher war Game-Boy-Look gegen `STIL.md`. Ganz schwarz (nicht durchscheinend: lesbarer, näher an der Blende), dünner Goldrand, Sprecher Gold in Kapitälchen im Kasten, Text gebrochenes Weiß, Serife, Erzähltext kursiv. Erst nur Textkasten, Menüs später; Tom nach 13, erst Standbilder.
+- **Klang:** echte CC0-Aufnahmen statt Synthese (18); Systemklänge nur in einer Fassung; Ortsklang nur von sichtbaren Quellen und anwesenden Leuten, **kein Stimmengewirr** (24w nein, 22:06); Musik orchestral und düster, Dorf mittelalterlich (28). Einzelheiten `STIL.md` → Klang.
+- **Kampf nah am SRD** (12.10.): „Zug beenden“ jetzt (34, auch um Testkämpfe schnell zu verlieren), „Abwarten“/„Helfen“ erst mit Begleitern (Merkliste). Weihwasser nur gegen Untote, 2W6, sonst ausgegraut mit Hinweis (35): vorher 2W6 gegen alle, unglaubwürdig.
+- **Hintergrund-Fäden:** `MapGround` (fester Pool „map-ground“), `MapRest` (ein Faden „map-rest“), `MapFigure.prepare` (eigene Fäden für den Helden), `HeroShelf` (gespeicherte Bilder, 24.4), `BattleAhead` (Kampfbilder vorzeichnen, 24.5), ab 24.17 zwei Kerne. Klang: Ortsklang-Schleife in `WorldScreen` (24.8, Jerry).
+- **Zwischenspeicher:** Viele Kunst-Objekte halten Bilder in Maps. Begrenzt (LRU): `FoeArt`, `MonsterArt`, `HeroBattle`, `CaveScene`. **Unbegrenzt** (einfache `HashMap`): u. a. `WorldArt`, `MapFlora`, `MapTown`, `MapTownIso`, `ActionArt`.
+- **Vorzeichnen muss ein festes Ziel haben** (24.5, 11.10.): Im Wolfsrudel wechselte der „nächste Gegner“ ständig, jeder Wechsel brach das Zeichnen ab, Gegner wurden nie fertig. Lösung 24.18: feste Reihenfolge.
+- **Erst messen, dann beschleunigen** (24.14): Erster Start sank von 27 s auf 5,9 s, Waffenwechsel von 15,7 s auf 2,9 s, erst nachdem der Test-Reiter Zeiten zeigte.
+- **Bilder auf dem Gerät speichern lohnt** (24.4): Neustart 0,1 s statt 27 s.
+- **Abstürze ohne Bericht sind blind** (30, 11.10.): Bis heute gab es keinen Absturz-Fänger. Erst Fehlertext holen, dann suchen.
+- **Test-Builds von vor einer Korrektur haben sie nicht** (30, 12.10.): 0.1.561 (Jerry) entstand vor PR #40, stürzte ohne Bericht ab. Darum vor jedem Zweig-Build `main` holen (21.5) und beim Testangebot sagen, ob der Fänger drin ist.
+- **Gegner sind grobe Pixelkunst** (36): 0,66 px/cm, hart ganzzahlig vergrößert (`width/170`, im breiten Emulator bis ~11×). Starkes Rauschen (`grain`) wird bei wenigen Punkten zu Krisel.
+
 ## Aufgeräumt aus OFFEN.md (Jerry, 12.10., 13:50)
 
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | `main` (Notizen) | erledigt 11.10.; Jerrys Teil geprüft 11.10. |
