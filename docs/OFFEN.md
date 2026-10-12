@@ -56,7 +56,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Weiter (Freitag):** Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
-- **Tom, PR #48** `claude/tom-27-4-baeume`, **[0.1.602](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38274094990)** (12.10., 18:03): wie 0.1.590 plus Tresen fest, Kaminrauch weich, alle zwölf als Puppen, Kaels Hütte versetzt (Schlagbaum frei, 5n), Beet/Kornfeld/Fichten; Entwürfe nur in der Vorschau. Passt es: zusammenführen.
+- **Tom, PR #48** `claude/tom-27-4-baeume`, **[0.1.603](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38276243431)** (12.10., 18:20): wie 0.1.590 plus Tresen fest, Kaminrauch weich, alle zwölf als Puppen, Kaels Hütte versetzt (Schlagbaum frei, 5n), Beet/Kornfeld/Fichten, Fensterlicht nachts hinter Bäumen verdeckt (Tempel); Entwürfe nur in der Vorschau. Passt es: zusammenführen.
 
 ## Rückfragen an den Nutzer
 
