@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung: wie das Spiel gebaut ist, was warum entschiede
 
 Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grundsätzliches lernen (eine Zeile, mit Datum und Thema).
 
-**Zuletzt gelesen bis:** `d565dbf` (12.10., 09:41)
+**Zuletzt gelesen bis:** `42f954a` (12.10., 10:23)
 
 ## Ritual
 
@@ -49,6 +49,7 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 - **Abstürze ohne Bericht sind blind** (30, 11.10.): Bis heute gab es keinen Absturz-Fänger. Erst Fehlertext holen, dann suchen.
 - **Test-Builds von vor einer Korrektur haben sie nicht** (30, 12.10.): 0.1.561 (Jerry) entstand vor PR #40, stürzte ohne Bericht ab. Darum vor jedem Zweig-Build `main` holen (21.5) und beim Testangebot sagen, ob der Fänger drin ist.
 - **Gegner sind grobe Pixelkunst** (36): 0,66 px/cm, hart ganzzahlig vergrößert (`width/170`, im breiten Emulator bis ~11×). Starkes Rauschen (`grain`) wird bei wenigen Punkten zu Krisel.
+- **Wiederholte Rückfragen prüfen** (12.10.): Vor dem Wiederholen einer Rückfrage in `OFFEN.md` nachsehen, ob Tom/Jerry sie schon mit dem Nutzer geklärt haben (26b, 34.1, 35a waren es).
 - **Berater-Werkzeug:** Nach Push aus `../bornim-main` zeigt die Hauptkopie die eigenen Notizen als „geändert“ (gleicher Zweig, alter Index). Nicht committen, sondern `git reset --hard HEAD` in der Hauptkopie (Stand ist schon auf `origin/main`).
 
 ## Beobachtungen des Beraters (ungeprüft)
