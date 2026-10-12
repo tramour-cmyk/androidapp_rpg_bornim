@@ -5,6 +5,10 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
 
+### Übergabe Jerry (12.10., 12:23, vor Neustart, ersetzt 12:56)
+
+- Zweig `claude/sharp-faraday-929xjq`, PR #44: 37 umgebaut, Build 0.1.574 (nicht getestet; durch PR #45 ersetzt, #44 geschlossen). 36.1 Fell zurückgenommen → 36.3. `FOEANIM=bugbear` stürzt ab (Rahmen höher als Raster).
+
 ### Übergabe Tom (12.10., 11:35, vor Neustart, ersetzt 12:35)
 
 - **29 erledigt:** PR #42 zusammengeführt (11:35), getestet in 0.1.569; CHANGELOG eingetragen. Zweig `claude/great-sagan-n9tkga` ist fertig.
