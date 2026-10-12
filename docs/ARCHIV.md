@@ -5,7 +5,7 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
 
-### Übergabe Jerry (12.10., 09:48, ersetzt 10:40)
+### Übergabe Jerry (12.10., 09:48, ersetzt 10:30)
 
 - **26.1 Magierrüstung 8 h:** PR #39 (Zweig `ccr-21220742-4xthje`, mit `main` inkl. PR #40), getestet 0.1.561 (Nutzer 09:4x: passt, „Schutz“ passt, 26b: 8 h reichen). **Zusammengeführt 09:51, CHANGELOG eingetragen.** Simulation `SIM=1 SIM_MA=1 … ChapterSimTest`. KAPITEL1 „Ausgleich“: Zielwert noch offen.
 - **Als Nächstes:** (32 Routinen umgestellt 09:59; `notiz.sh` lädt flachen Klon nach, 1115da5) 34 Zug beenden, 35 Weihwasser nur gegen Untote, 37 Kampfmusik aussortieren (alle ja), 36.1 Krogg aufräumen (erst Standbilder); dann 13e Entwurf 2 (liegt auf `claude/quirky-goodall-fqncrd`), 24.6.

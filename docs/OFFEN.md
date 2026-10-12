@@ -42,7 +42,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Zweig `claude/great-sagan-n9tkga`** (enthält `tender-goodall-a8zuny` und `main` mit PR #39/#40): 29 Brett + Fix Aktionsknopf (`Navigation.actionAt`), 29.3 zweite Welle, 24.8.6, 30.8. **Build 0.1.567 zu testen** (Link unter „Zu testen“). Danach PR von diesem Zweig, zusammenführen, CHANGELOG (24.8.6, 30.8, 29, 29.3).
 - **Als Nächstes:** 13 Tempel (Altar vor dem Fenster), 27 Wald (Garrick/Feuer, Höhleneingang), dann 5l/5.5, 17.
 - 29.3-Technik: `Jobs.after` (Welle), `Jobs.read`/`freshNote` (Flag `job_<id>_seen`, Zettel in `MapTownIso.noticeBoard(fresh)`), `Jobs.findAt` (Menhir im `forest`), `@gear:RARITY:SLOT` in `Game`.
-### Jerry (12.10., 10:40, vor Neustart)
+### Jerry (12.10., 10:30, vor Neustart)
 
 - **Zweig `claude/wizardly-edison-tjotls`, PR #41 (Entwurf, abonniert):** 34 Zug beenden, 35 Weihwasser nur gegen Untote; Build läuft, Link folgt unter „Zu testen“. Nach Test: PR zusammenführen, CHANGELOG.
 - Erledigt heute: 32 Routinen umgestellt; `notiz.sh` lädt flachen Klon nach.
