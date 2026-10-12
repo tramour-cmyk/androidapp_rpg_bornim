@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 60** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 61** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -41,6 +41,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 57 | Entscheidungsseite nur mit Offenem; Entschiedenes in ein gemeinsames Bildbuch (Tom und Jerry) | Tom | `main` (Notizen) | **57a/57b ja (19:4x):** Ablauf in `CLAUDE.md` („Entwürfe entscheiden“). Entscheidungsseite Tom: https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F. **Bildbuch angelegt (20:12):** https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (Einträge `e/<nr>.html`, Bilder `i/`, Inhaltsliste `index.html`); alte Bilder nachgetragen, soweit noch vorhanden. Nutzer gibt es für Jerry frei (Teilen) |
 
 | 59 | Händler: Kauf/Verkauf im Stil des Textkastens, Übersicht beim Verkauf, Vergleich beim Kauf | **Tom (jetzt, Nutzer 22:49)** | `claude/tom-59-haendler` | **59a ja:** schwarz wie Textkasten (42b), Seltenheitsfarben aufhellen, erst Standbilder. **59b ja:** 59.2 nicht Tragbares abgedunkelt mit Sperrzeichen, unten eigener Block, oben Streifen mit den 9 angelegten Teilen; 59.3 Vergleich Angelegt/Neu auch bei Händlerware (`GearDetails` vergleicht heute nur Beutel); 59.4 Rückkauf der letzten 5 Verkäufe bis Laden zu; 59.5 Menge ×1/×5/alle bei Vorräten. **59c nein:** Angelegtes nicht direkt verkaufbar. 59.6/59.7 auf der Merkliste. **Entwurf auf der Entscheidungsseite (23:12, 59d):** Look hinter `ShopLook.draft` (`HAENDLER=1`), 59.2–59.5 schon im Code, Kerntest `ShopTest` |
+| 60 | Ein Aussehen für alle Oberflächen wie Textkasten/Blende (schwarz, Gold, Serife): Menüs, Titelbild, alle Textseiten; 59 Händler ist der erste Teil | Berater mit Nutzer (Vorschlag), dann Tom | – | Nutzer 12.10., 23:12 (neue Schrift gefällt ihm sehr). Befund: alle Bildschirme nutzen `Panel`/`PixelButton`/`Txt`/`Colors` aus `Theme.kt`; Textkasten nutzt die Gerätschrift `FontFamily.Serif` (je Gerät anders). Vorschläge 60.1 ff. im Chat 23:1x |
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
 ## Übergaben
