@@ -41,7 +41,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Regeln neu (12.10.):** Thema 33 (vier Fragen in `STIL.md`), Testreihenfolge mit dem anderen abstimmen (`CLAUDE.md`). 32: Weck-Sitzungen auf `send_later`/`create_session` prüfen.
 ### Jerry (12.10., 09:48, vor Neustart)
 
-- **26.1 Magierrüstung 8 h:** PR #39 (Zweig `ccr-21220742-4xthje`, mit `main` inkl. PR #40), getestet 0.1.561 (Nutzer 09:4x: passt, „Schutz“ passt, 26b: 8 h reichen). Neubau mit `main` lief; **sobald grün: zusammenführen (Merge), CHANGELOG unter „Unveröffentlicht“**, falls die alte Sitzung es nicht mehr geschafft hat. Simulation `SIM=1 SIM_MA=1 … ChapterSimTest`. KAPITEL1 „Ausgleich“: Zielwert noch offen.
+- **26.1 Magierrüstung 8 h:** PR #39 (Zweig `ccr-21220742-4xthje`, mit `main` inkl. PR #40), getestet 0.1.561 (Nutzer 09:4x: passt, „Schutz“ passt, 26b: 8 h reichen). **Zusammengeführt 09:51, CHANGELOG eingetragen.** Simulation `SIM=1 SIM_MA=1 … ChapterSimTest`. KAPITEL1 „Ausgleich“: Zielwert noch offen.
 - **Als Nächstes:** Routinen auf Text in `SELBST.md` umstellen (32, noch nicht gemacht); dann 34 Zug beenden, 35 Weihwasser nur gegen Untote, 37 Kampfmusik aussortieren (alle ja), 36.1 Krogg aufräumen (erst Standbilder); dann 13e Entwurf 2 (liegt auf `claude/quirky-goodall-fqncrd`), 24.6.
 - **30:** Absturz in 0.1.561 (MuMu) ohne Bericht, weil vor PR #40 gebaut; Dorf-Absturz 0.1.555 ebenso. Klang als Ursache unwahrscheinlich (Vermutung). 30.7 (22 kHz) mit Tom.
 
