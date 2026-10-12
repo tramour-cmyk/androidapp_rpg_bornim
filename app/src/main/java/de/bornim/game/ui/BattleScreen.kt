@@ -928,6 +928,22 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 val since = if (clockMs >= 0) System.currentTimeMillis() - ui.stepAt else 0L
                 return windEnd + (since / per).toInt().coerceIn(0, foeStrike - windEnd)
             }
+            // its way back after a blow goes on smoothly when the next line comes before it is done (a tap, the fight going on
+            // by itself, the hero falling): from where it was to the guard, rather than jumping there
+            val back = remember { FoeBack() }
+            val backing = dollFoe && back.pos >= 0 && !foeLanding && back.n == foeN &&
+                (a == null || a == Anim.NONE || a == Anim.HERO_ACT || a == Anim.HERO_FAINT)
+            LaunchedEffect(backing) {
+                if (!backing) return@LaunchedEffect
+                try {
+                    back.from = back.pos; back.r.snapTo(1f); back.go = true
+                    back.r.animateTo(0f, tween(back.ms.coerceIn(120, 600), easing = androidx.compose.animation.core.LinearEasing))
+                } finally { back.pos = -1.0; back.go = false }
+            }
+            val backPos: Double? = if (backing) {
+                val from = if (back.go) back.from else back.pos
+                from + (foeN - 1 - from) * (1 - (if (back.go) back.r.value else 1f))
+            } else null
             val foeAttackIdx: Int? = when {
                 !newStyle -> null
                 a == Anim.ENEMY_ACT -> span(0, windEnd)
@@ -947,6 +963,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 foeLanding && t < 0.01f && shoots -> releaseIdx()
                 // the blow not begun yet: still poised in the wind-up, not back at rest
                 foeLanding && t < 0.01f -> windEnd
+                backPos != null -> backPos.toInt()
                 else -> null
             }
             // the same between two frames, for the step in, which glides rather than jumping frame by frame
@@ -958,8 +975,13 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     if (t < q) windEnd + (foeStrike - windEnd) * (t / q).toDouble()
                     else foeStrike + (foeN - 1 - foeStrike) * ((t - q) / (1 - q)).toDouble()
                 }
+                foeAttackIdx == backPos?.toInt() && backPos != null -> backPos
                 else -> foeAttackIdx.toDouble()
             }
+            // on its way back: noted, to go on with if the line changes before it is done
+            if (dollFoe && foeLanding && moving && foeAttackPos != null && foeAttackPos >= foeStrike) {
+                back.pos = foeAttackPos; back.n = foeN; back.ms = ((1 - t) * foeLandMs).toInt()
+            } else if (foeLanding && t >= 0.99f) back.pos = -1.0
             val enemyFrame = if (!newStyle) null else {
                 fun seq(act: Act, from: Int, to: Int, v: Int = variant) = MonsterArt.shownFrame(id, battle.look, act, v, from + ((to - from + 1) * t).toInt().coerceAtMost(to - from), foeWound)
                 val strike = foeStrike
@@ -1117,7 +1139,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 // (held poised, it stays where the wind-up left it; the blow takes it on to the full step as it comes down)
                 val q = blowShare
                 val rest = if (foeLanding && moving) (t / q).coerceIn(0f, 1f).let { it * it * (3 - 2 * it) } else 0f
-                MonsterArt.lungeAt(id, battle.look, variant, foeAttackPos!!).toFloat() * (if (a == Anim.ENEMY_ACT || poised || (foeLanding && !moving)) FOE_WIND_STEP else FOE_WIND_STEP + (1f - FOE_WIND_STEP) * rest)
+                MonsterArt.lungeAt(id, battle.look, variant, foeAttackPos!!).toFloat() * (if (backPos != null && foeAttackIdx == backPos.toInt()) 1f else if (a == Anim.ENEMY_ACT || poised || (foeLanding && !moving)) FOE_WIND_STEP else FOE_WIND_STEP + (1f - FOE_WIND_STEP) * rest)
             } else 0f
             val foeLunge = if (foeLungeF <= 0f || enemyFrame == null) androidx.compose.ui.unit.DpOffset.Zero else {
                 val (ox, oy) = MonsterArt.lungeOffset(id, battle.look, variant, (sceneW * foeX / artDp).toDouble(), (sceneH * foeY / artDp).toDouble(),
@@ -1694,6 +1716,13 @@ private val QUICK_FOES = setOf("wolf", "giant_rat")
 private fun foeLandMs(battle: Battle, variant: Int, an: Anim?): Int = when {
     an == Anim.HERO_FAINT -> BattlePace.ms(700)
     else -> foeTiming(battle, variant)?.landMs ?: REACT_MS
+}
+
+/** A foe's way back after its blow, carried on past the end of the blow's line (36j). */
+private class FoeBack {
+    var pos = -1.0; var n = 0; var ms = 0
+    var from = 0.0; var go = false
+    val r = Animatable(0f)
 }
 
 /** How far into its step a foe on the doll goes while its attack is named: the rest of the step comes with the blow. */
