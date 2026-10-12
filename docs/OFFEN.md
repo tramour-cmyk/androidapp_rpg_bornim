@@ -57,6 +57,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Zu testen
 
 - **Tom, 0.1.632, Zweig `claude/tom-59-haendler`** (59, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38309898552): bei Thessa und Morwen kaufen/verkaufen, Menge ×5/Alle, verkaufen und zurückkaufen, Ausrüstung vergleichen, Streifen „Angelegt“ und „Nicht tragbar“.
+- **Tom, 0.1.636, Zweig `claude/tom-60-aussehen`** (60, enthält 59; erst 59 testen; https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38313842737): Testreiter „60 Aussehen“ an, Schrift, Titelschrift und Kampfzahlen durchschalten; Titelbild, Menü/Beutel, Heldenerstellung, Kampf ansehen.
 
 ## Rückfragen an den Nutzer
 
