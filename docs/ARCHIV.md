@@ -1,10 +1,22 @@
 # Archiv
 
+### Aus BERATER.md ausgelagert (12.10., 15:0x; Regel steht in CLAUDE.md/SELBST.md oder Thema erledigt)
+
+- **Krogg schärfen** (36, 12.10.): erst aufräumen bei gleicher Auflösung (Fellkörnung 0,55 war Hauptgrund), Standbilder Handy/Emulator; nur falls nötig 1,5× mit zugeschnittenen Bildern, vorher messen. Doppelte Auflösung abgelehnt: Krogg ~50 MB → ~200 MB, 4× Zeichenzeit.
+- **Release nur auf Zuruf** (21): Die Releaseflut störte; Zweig-Builds sind Artefakte.
+- **Selbstarbeit** mit Routinen alle 3 h und Vorrat je 8 Punkte (22, 23).
+- **Lastverteilung** (23b, 12.10.): Jerry hat mehr (Kampf, Klang, Balance, 13e), aber kein Warten aufeinander; Nutzer will nichts umverteilen. Einzige Kreuzung: Lyra diagonal (Tom) für 13e (Jerry), Merkposten bei Tom. Engpass ist eher der Test des Nutzers.
+- **Kampfkulisse der Höhle angleichen:** zurückgestellt (Merkliste). Höhle-Flammen und Lichtstrahl (10, 11) bis zur diagonalen Höhle zurückgestellt.
+
 Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds. **Wird beim Sitzungsstart nicht gelesen**, nur bei Bedarf gezielt durchsucht (`grep -n "13p" docs/ARCHIV.md`). Neues kommt oben dazu, wenn in `OFFEN.md` eine Übergabe ersetzt oder ein Thema abgeschlossen wird.
 
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
 
+
+### Thema 22 (erledigt, aus OFFEN 12.10., 14:5x)
+
+| 22 | Selbstarbeit statt nur Nachtarbeit: Routinen alle 3 h, Vorrat und Liste „Für gemeinsame Zeit“ | Tom | `main` (Notizen), Routinen | 22a, 22b ja (13:31). `docs/SELBST.md` statt `NACHT.md`; Toms Routinen umgestellt (13:38); Repo und Vollzugriff vom Nutzer eingestellt (bestätigt 16:38, 8 Routinen aktiv). Jerrys Routinen umgestellt (13:44), Vorrat eingetragen |
 
 ### Rückfrage 27b (erledigt, aus OFFEN 12.10., 14:4x)
 
