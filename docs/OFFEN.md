@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 42** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 43** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -33,6 +33,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 39 | Schwierigkeitsgrad im Menü | Jerry (Werte), Menü mit Tom | – | Nutzer 12.10., 09:52. Nach 38 („Normal“ erst festlegen). **39a ja (10:10):** Leicht/Normal/Schwer über Gegner-TP und -Schaden, jederzeit umstellbar |
 | 40 | Lautstärke im Menü: Gesamt, Musik, Effekte (heute nur Musik an/aus) | Jerry | neu von `main` | Nutzer 12.10., 09:52. **40a ja (10:10):** drei Regler, Ortsklang bei Effekten |
 | 41 | Storyplan: je Kapitel Grobzusammenfassung, Quests mit Inhalt und Dialogen (Kapitel 1 Ist-Stand aus `Story.kt` und Brett), dann Plot Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | Nutzer 12.10., 10:29. **41a ja (10:42):** Entwurf als Dokument zum Lesen/Kommentieren, fertige Kapitel als `docs/STORY.md`. **41b ja:** Plan wird Vorgabe, aber Änderungen gehen nur nach Abstimmung Nutzer und Berater (4 Augen) an Tom/Jerry. **Entwurf steht (10:47):** Kapitel 1 mit Dialogen und 7 Anmerkungen, Kapitel 2 offen ([Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d), Toms Account). **41c, 41d ja (10:54):** Regel „Story und Dialoge“ in `CLAUDE.md` (Tippfehler mit „Text:“ erlaubt), Werkzeug `tools/story.sh` |
+| 42 | Textkasten unten im Stil der Blenden: schwarzer Kasten, Sprecher in Gold, Text in gebrochenem Weiß (heute cremefarben mit dunkler Schrift, Sprecher rot) | Tom (nach Abstimmung) | – | Nutzer 12.10., 11:24 (über Berater). Berater dafür; Vorschläge und Rückfragen 42a–42c im Gespräch, erst Standbilder |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
