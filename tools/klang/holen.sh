@@ -32,6 +32,12 @@ done
 for n in 0627 1204 1205 1721 1156 1933 0689 1104 0666 3053 0518 0488 2183 0207; do
     get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
 done
+# Runde 4 (27j Waldweiher): Frösche, Libellen
+get "$O/croak_03.mp3" croak_03.mp3
+for p in 710/710246_10954437 426/426462_3597414 240/240549_4337854 511/511326_562829; do
+    f="fs_$(basename "$p" | cut -d_ -f1).mp3"
+    [ -s "$f" ] || { curl -sSfL -m 300 -A "Mozilla/5.0" -o "$f" "https://cdn.freesound.org/previews/$p-hq.mp3"; sleep 3; }
+done
 python3 -m pip -q install py7zr numpy scipy soundfile >/dev/null 2>&1 || true
 for z in *.zip; do d="x_${z%.zip}"; [ -d "$d" ] || { mkdir -p "$d"; unzip -qo "$z" -d "$d"; }; done
 for z in *.7z; do d="x_${z%.7z}"; [ -d "$d" ] || { mkdir -p "$d"; python3 -I -m py7zr x "$z" "$d"; }; done

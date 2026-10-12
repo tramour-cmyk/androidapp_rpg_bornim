@@ -70,6 +70,18 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026 (BigSoundBank: �
 | `chair` | Chair (0666), Squeaking parquet (3053), Floating floor squeaks (0518) | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/chair-s0666.html , https://bigsoundbank.com/squeaking-parquet-3-s3053.html , https://bigsoundbank.com/floating-floor-squeaks-s0518.html |
 | `cough` | Man cough (0488, 2183), Cough average (0207) | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/man-cough-s0488.html , https://bigsoundbank.com/man-cough-5-s2183.html , https://bigsoundbank.com/cough-average-s0207.html |
 
+## Runde 4: Waldweiher (27j, Hörproben, noch nicht im Spiel)
+
+Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 12.10.2026. Proben mit `tools/klang/teich.py`.
+
+| Klang | Aufnahme | Urheber | Quelle |
+|---|---|---|---|
+| `frosch_1–3`, `froschchor_2` | Frogs_Toad__River_Stream_Lake (710246) | Sahand.Zangeneh, Freesound | https://freesound.org/s/710246/ |
+| `frosch_4` | croak_03 | EZduzziteh, Frog Croaks | https://opengameart.org/content/frog-croaks |
+| `froschchor_1` | frogs_01.flac (426462) | musicbrain, Freesound | https://freesound.org/s/426462/ |
+| `libelle_1–2` | Creature, Insect - Dragonfly, Caught in Net (240549) | jaegrover, Freesound | https://freesound.org/s/240549/ |
+| `libelle_3` | Insect wings (511326) | onehugeeye, Freesound | https://freesound.org/s/511326/ |
+
 ## Musik (Thema 28, Auswahl des Nutzers 11.10.2026)
 
 Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools/klang/musik_holen.sh`. Vorgabe in `docs/STIL.md` (orchestral, düster; Dorf mittelalterlich). Titel, Sieg und Kapitelende sind fest vergeben; alle übrigen Stücke darf die Sitzung frei den Lagen zuordnen (Nutzer 28f, 11.10.); die Lage unten ist der Vorschlag. Nicht genommen: Great Labyrinth, Menace, Epic Fight Theme (aussortiert 37, 12.10.), The Final Battle, Battle Theme (wolfgang), War Theme, Open Warfare, Prepare to Fight, Epic Combat, Medieval Battle (Hörproben 37, 12.10.; Battle Theme A von cynicmusic nur Reserve), Eerie Forest, Boss Battle #2 Symphonic Metal, The Bard's Tale, Opening Theme. Freesound: Vorschau (128 kbit/s), Lizenz gilt für die Aufnahme.
