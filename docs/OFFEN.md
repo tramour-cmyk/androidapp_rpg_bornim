@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 37** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 38** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -28,6 +28,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 34 | Kampf: Knopf „Zug beenden“ (nichts tun, Gegner ist dran; auch um Testkämpfe schnell zu verlieren) | Jerry | neu von `main` | ja (Nutzer 12.10., 09:19, über Berater). Abgesetzt anordnen oder kurz bestätigen (33). „Abwarten“ und „Helfen“ auf der Merkliste (Gruppenkämpfe) |
 | 35 | Weihwasser wirkt nur gegen Untote (SRD), 2W6 gleißend; gegen andere ausgegraut mit Hinweis „Wirkt nur gegen Untote“, Beschreibung anpassen | Jerry | neu von `main` | ja (Nutzer 12.10., 09:19, über Berater; heute 2W6 gegen alle, 4W6 gegen Untote, `Battle.kt` Z. 485, `Items.kt`) |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt, vor allem groß im Emulator | Jerry | – | Meldung Nutzer 12.10., 09:17. Ursache (Berater): Gegner mit 0,66 px/cm, hart ganzzahlig vergrößert (Emulator bis ca. 11×), Krogg mit Fellkörnung 0,55 (Goblin 0,14). Vorschläge 36.1 aufräumen bei gleicher Auflösung, 36.2 weich vergrößern, 36.3 Bosse doppelt (Speicher). **36a ja (09:24):** 36.1, erst Standbilder vorher/nachher in Handy- und Emulatorgröße. Rückfrage 36b |
+| 37 | Kampfmusik aussortieren | Jerry | neu von `main` | Nutzer 12.10., 09:33 (über Berater): raus `kampf_great_labyrinth`, `kampf_menace` (Techno), `kampf_epic_fight` (Lounge); `boss_ancient_legend` sehr schön, aber zu tragend für Kampf → aus `Music.boss`, anders verwenden (37a). Übrig: 3 Kampf-, 3 Bossstücke; Ersatz 37b |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
@@ -50,6 +51,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **0.1.561 (Jerry, PR #39, 26.1):** Magier wirkt Magierrüstung; nächster Kampf meldet „hält noch“, nicht erneut wirkbar; Karte oben „Schutz“, nach ca. 8 min weg. [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38214542422/artifacts/11731896008)
 
 ## Rückfragen an den Nutzer
+
+- **37a (Berater, 12.10.):** `boss_ancient_legend` wofür? Vorschlag: Kapitelende nach Grak (heute `ende_new_sunrise`) oder Rückkehr des Sonnenamuletts in den Tempel. **37b:** nur 3 Kampfstücke wiederholen sich schnell: Jerry sucht 2–3 neue CC0-Stücke (düster, orchestral, treibend), erst Hörproben? Empfehlung: ja.
 
 - **36b (Berater, 12.10., 09:24):** Bosse in doppelter Auflösung? Schätzung: Krogg-Bild 290×305 px = 0,35 MB, ~130–160 Bilder = 46–57 MB; doppelt ×4 = 185–225 MB und 4× Zeichenzeit, zu viel trotz 512 MB (0.1.559). Empfehlung: erst 36.1, dann Standbilder; reicht es nicht, 36.3 als 1,5× mit zugeschnittenen Bildern, mit `ARTMEM` gemessen.
 
