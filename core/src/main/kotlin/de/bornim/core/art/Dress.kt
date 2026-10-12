@@ -444,6 +444,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val oval = Squash(shape, shoulders, f, P3(1.0, 1.0, 0.6 + fl * 0.25), BodyPart.GEAR, Doll.CLOAK)
         // the folds ripple as the cloth swings
         val folds = Folds(oval, shoulders, (shoulders - bottom).norm(), 11.0, 0.75 + fl * 0.9, BodyPart.GEAR, Doll.CLOAK, sk.rig.cloak * 0.5)
+        cloakCloth = folds
         val s = add(Hollow(folds, 0.55, BodyPart.GEAR, Doll.CLOAK), col)
         // open at the front, ending at the shoulders and the hem
         s.cut(f.z, shoulders + f.z * (d.chestDepth * 0.35))
@@ -951,6 +952,13 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val board = Board(c, f, max(hw, ht / 2) * 1.2, 0.022 * h, 0.08 * h, outline, BodyPart.GEAR, Doll.SHIELD)
         shieldBoard = board
         add(board, face, { _ -> face }, null)
+        // 58: slung over the cloak, the board presses the cloth flat against the back; below it the cloak falls free
+        if (PRESS_CLOAK) {
+            val press = Pressed(board, 0.5, 0.25 * h)
+            cloakCloth?.holes?.add(press)
+            // and whatever hangs under the cloak, a tabard's back flap, or it shows between the board and the pressed cloth
+            out.filter { it !== board && it.group != Doll.CLOAK && it.group != Doll.ITEM }.forEach { it.holes += press }
+        }
         board.paint = { p ->
             val l = board.local(p)
             val edge = outline(l.x, l.y)
@@ -970,6 +978,23 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val sl = sk.shoulderRest[0]; val sr = sk.shoulderRest[1]
         val front = back * -(d.chestDepth + 0.02 * h)
         add(RoundCone(sr + front * 0.6 + P3(0.0, 0.015 * h, 0.0), sl + front - P3(0.0, 0.2 * h, 0.0), 0.011 * h, 0.011 * h, BodyPart.GEAR, Doll.ITEM), darkLeather)
+    }
+
+    /** The cloak's shape before it is made a cloth, so a shield slung over it can press it flat: the cloth stays closed. */
+    private var cloakCloth: Solid? = null
+
+    /**
+     * What a shield slung over the cloak keeps clear (58): within the board's outline grown by [grow] cm, from just
+     * inside its inner face out to [depth] cm behind it, so the cloth passes under the board and never through it.
+     */
+    private class Pressed(val b: Board, val grow: Double, val depth: Double) : Solid(BodyPart.GEAR, Doll.CLOAK) {
+        override val center = b.center
+        override val bound = b.bound + depth
+        override fun raw(x: Double, y: Double, z: Double): Double {
+            val l = b.local(P3(x, y, z))
+            val inner = -b.thick / 2 - 0.6
+            return max(b.outline(l.x, l.y) - grow, max(inner - l.z, l.z - depth))
+        }
     }
 
     /** The shield's board once [solids] has run, for checks. */
@@ -1342,6 +1367,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     companion object {
         /** How much broader than life blades and weapon heads are built, so they read at battle size. */
         @Volatile var BOLD = 1.45
+        /** 58: a shield slung on the back presses the cloak under it (false: the old look, for comparison). */
+        @Volatile var PRESS_CLOAK = true
         /** How far each weapon's grip and pommel reach back behind the fist, in cm. */
         private val GRIP_BACK = mapOf("dagger" to 7.0, "shortsword" to 8.5, "scimitar" to 8.0, "rapier" to 8.5, "longsword" to 12.5,
             "greatsword" to 25.5, "handaxe" to 9.0, "battleaxe" to 12.0, "greataxe" to 35.0, "mace" to 11.5, "warhammer" to 9.0, "maul" to 30.0, "halberd" to 45.0)
