@@ -490,6 +490,81 @@ object MapWoodIso {
         return c.img
     }
 
+    /** Draft (56): the healing herbs on the flower meadows drawn in the slant; the game keeps the former picture. */
+    @Volatile var herbDraft = false
+
+    /**
+     * A healing herb seen diagonally (56, draft): a low rosette of broad ribbed leaves like plantain, muted green, and
+     * over it two or three stalks of yarrow with flat white umbels, so it is told from the grass by its flowers, not by
+     * a loud green. Three looks ([v]); [sway] in −1..1 bends the stalks a little with the wind.
+     */
+    fun herb(v: Int, sway: Double): PixelImage {
+        val c = Canvas(64)
+        val seed = 810 + v * 17
+        val ci = -0.5; val cj = -0.5
+        c.shadow(ci, cj, 0.26, 0.22, 0.35)
+        // the rosette: leaves lying outwards, rising a little and curling down at the tip
+        val leaves = 7 + v
+        for (l in 0 until leaves) {
+            val a = 2 * PI * l / leaves + rnd(l, v, seed) * 0.5
+            val len = 0.17 + rnd(l, v, seed + 1) * 0.07
+            for (t in 0..40) for (w in -6..6) {
+                val f = t / 40.0
+                val half = sin(PI * f.coerceAtMost(0.98)) * 0.035 * (0.6 + 0.4 * f)
+                val q = w / 6.0
+                val r = f * len
+                val i = ci + cos(a) * r - sin(a) * half * q
+                val j = cj + sin(a) * r + cos(a) * half * q
+                val z = 2 + 9 * sin(PI * f * 0.8) - 2 * f * f - abs(q) * 1.5
+                // the ribs run along the leaf, the midrib pale
+                val rib = abs(q) < 0.12 || abs(abs(q) - 0.55) < 0.06
+                val base = mix(argb(0x5E7A3C), argb(0x3C5428), f * 0.6 + rnd(l, t, seed + 2) * 0.15)
+                val col = if (rib) mix(base, argb(0x9AAE70), 0.45) else base
+                c.pt(i, j, z, shade(col, lit(-sin(a) * q * 0.5, cos(a) * q * 0.5 - 0.2, 1.0)))
+            }
+        }
+        // the yarrow: thin stalks, feathery leaves low on them, a flat umbel of tiny white flowers on top
+        val stalks = 2 + v % 2
+        for (s in 0 until stalks) {
+            val a = 2 * PI * s / stalks + 0.7 + v
+            val si = ci + cos(a) * 0.05; val sj = cj + sin(a) * 0.05
+            val h = 30.0 + rnd(s, v, seed + 3) * 10
+            val bi = 0.03 * sway + (rnd(s, v, seed + 4) - 0.5) * 0.04; val bj = -0.02 * sway
+            val n = (h / 0.8).toInt()
+            for (t in 0..n) {
+                val f = t / n.toDouble()
+                val i = si + bi * f * f; val j = sj + bj * f * f
+                c.pt(i, j, 4 + h * f, shade(argb(0x5A6E3A), 0.8 + 0.25 * f))
+                if (f in 0.15..0.55 && t % 3 == 0) for (k in 1..4) {
+                    // the feathery leaf: short side strokes on both sides
+                    val side = if (t % 6 == 0) 1 else -1
+                    c.pt(i + side * k * 0.008, j - side * k * 0.004, 4 + h * f + k * 0.6, shade(argb(0x6A844A), 0.9))
+                }
+            }
+            val ti = si + bi; val tj = sj + bj; val tz = 4 + h
+            for (k in 0 until 26) {
+                val r = sqrt(rnd(k, s, seed + 5)) * 0.045; val b = rnd(k, s, seed + 6) * 2 * PI
+                val fi = ti + cos(b) * r; val fj = tj + sin(b) * r
+                val fz = tz + 2.5 - r * 30
+                val white = mix(argb(0xEDE8D6), argb(0xC8C2AE), rnd(k, s, seed + 7) * 0.6)
+                c.pt(fi, fj, fz, white); c.pt(fi + 0.005, fj, fz, white); c.pt(fi, fj, fz + 0.8, shade(white, 1.05))
+                if (k % 7 == 0) c.pt(fi, fj, fz + 1.2, argb(0xC8B070))
+            }
+        }
+        return c.img
+    }
+
+    /** The herb on ([tx], [ty]) as an upright thing sorted like the others of the woods; the wind sways it a little. */
+    fun herbObj(tx: Int, ty: Int, clock: Long): WorldArt.Obj {
+        val v = Math.floorMod(hash(tx, ty, 34), 3)
+        val step = Math.floorMod(clock / 600 + tx + ty, 4L).toInt()
+        val sway = listOf(0.0, 0.6, 0.0, -0.6)[step]
+        val img = synchronized(cache) { cache.getOrPut("herb/$v/$step") { herb(v, sway) } }
+        val T = WorldArt.T
+        val wx = (tx + 1) * T; val wy = (ty + 1) * T
+        return WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, true, corner = true)
+    }
+
     private val fieldCache = HashMap<String, PixelImage>()
 
     /** The village's beds and fields seen diagonally, or null for other tiles. */

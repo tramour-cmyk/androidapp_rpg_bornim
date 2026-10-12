@@ -183,6 +183,8 @@ fun main() {
             // PFLASTERDRAFT=1: the square's cobbles quieter (5.4, draft)
             if (System.getenv("PFLASTERDRAFT") == "2") de.bornim.core.art.MapGround.cobbleMid = true
             else if (System.getenv("PFLASTERDRAFT") != null) de.bornim.core.art.MapGround.cobbleDraft = true
+            // HERBDRAFT=1: the healing herbs drawn in the slant (56, draft)
+            if (System.getenv("HERBDRAFT") != null) de.bornim.core.art.MapWoodIso.herbDraft = true
             // SITDRAFT2=1: Borin sits at his table in the inn (55.2, draft)
             if (System.getenv("SITDRAFT2") != null) de.bornim.core.art.MapFolk.sitDraft = true
             // TREEDRAFT=1: the trees with volume (27.4, draft)
