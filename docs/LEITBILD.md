@@ -2,7 +2,7 @@
 
 Der rote Faden (Thema 44, mit dem Nutzer 12.10.). Wer unsicher ist, ob etwas ins Spiel passt, schaut zuerst hier nach. Bei Widerspruch gilt das Leitbild; die Einzelheiten stehen in [Stil](STIL.md) (Aussehen, Klang, Spielgefühl) und [Entwicklung](ENTWICKLUNG.md) (Bauen, Prüfen). Ein lebendes Dokument: Änderungen nur nach Abstimmung mit dem Nutzer.
 
-**Was es ist:** Ein Rollenspiel für Android in düsterer, erwachsener Fantasy. Es baut auf dem Regelwerk SRD 5.1 auf und wird in Kapiteln erzählt, mindestens sieben, rund um das Dorf Bornim. Gedacht für den Play Store, Ziel ist eine Altersfreigabe ab 16 (44a). *Zielgruppe und Geschäftsmodell folgen (Thema 45).*
+**Was es ist:** Ein Rollenspiel für Android in düsterer, erwachsener Fantasy. Es baut auf dem Regelwerk SRD 5.1 auf und wird in Kapiteln erzählt, mindestens sieben, rund um das Dorf Bornim. Gedacht für den Play Store, Ziel ist eine Altersfreigabe ab 16 (44a). Kapitel 1 ist kostenlos, danach zahlt man einmal für die Vollversion; spätere Kapitel lassen sich nachkaufen (45a).
 
 ## Grundsätze
 
@@ -18,3 +18,4 @@ Der rote Faden (Thema 44, mit dem Nutzer 12.10.). Wer unsicher ist, ob etwas ins
 10. **Erst reden, dann bauen.** Vorschlag, Standbilder, Freigabe, dann Umsetzung. Eine Rückfrage ist keine Freigabe. → `CLAUDE.md`
 11. **Selbst prüfen, dann zeigen.** Mit eigenen Werkzeugen und Standbildern; der Nutzer testet das Spiel, nicht die Grundlagen. → `ENTWICKLUNG.md`
 12. **Läuft flüssig auf echten Geräten.** Samsung A56 und Emulator; erst messen, dann beschleunigen; kein Absturz ohne Bericht. → `ENTWICKLUNG.md`
+13. **Fair bezahlen, nie nerven** (45c). Keine Werbung, keine Beutekisten oder Zufallskäufe, keine Wartezeiten oder Energie. Das Spiel ist ohne jeden Kauf gut spielbar und ausbalanciert; Käufe drängen sich nie auf. Beschleuniger nur nach Prüfung (45b, nach der Balance-Messung 38). → `BALANCE.md`
