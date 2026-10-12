@@ -33,7 +33,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ### Tom (12.10., 07:48, vor Neustart)
 
 - **Zweig `claude/sharp-davinci-s83a1t`:** 30.1 + 30.2 + 24.5 (enthält `great-shannon`), Build 0.1.552 zu testen (Nutzer testet später). Vorschau-Ersatz `CrashLogStub` (785e0c4) liegt auf dem Zweig.
-- **Als Nächstes (neue Sitzung):** 30b `largeHeap` im Manifest (ja 07:5x) einbauen, Kerntests, Vorschau bauen (32.5), Build, Link. Dann 29a (Anschlagbrett, Rückfrage offen), 27 Wald (braucht 32.7 aus Jerrys PR #38 zuerst auf `main`).
+- **Testreihenfolge (Nutzer 12.10., 07:5x):** erst Jerrys 0.1.555, dann Toms neuer Build mit 30b (nicht 0.1.552 extra).
+- **Als Nächstes:** 30b `largeHeap` im Manifest (ja 07:5x) einbauen, Kerntests, Vorschau bauen (32.5), Build, Link. Dann 29a (Anschlagbrett, Rückfrage offen), 27 Wald (braucht 32.7 aus Jerrys PR #38 zuerst auf `main`).
 - **32:** 32.1–32.8 in `SELBST.md`, Toms 8 Routinen auf neuen Text (07:47). Ungeprüft: ob Weck-Sitzungen `send_later`/`create_session` haben (beim nächsten Lauf im Bericht prüfen). Jerry stellt seine Routinen selbst um.
 ### Jerry (12.10., 07:43, vor Neustart)
 
