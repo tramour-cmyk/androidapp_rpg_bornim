@@ -767,6 +767,82 @@ object MapWoodIso {
         return c.img
     }
 
+    /** Draft (56): the bushes of the undergrowth drawn in the slant; the game keeps the former picture. */
+    @Volatile var bushDraft = false
+
+    /**
+     * A bush of the undergrowth seen diagonally (56, draft): a few overlapping clumps of small leaves, lit from above
+     * and the right, dark within, the rim broken into single leaves so it is not a blob; a twig showing here and there.
+     * Three kinds by [v] % 3: hazel (fresh green, round), holly (dark, glossy, red berries), bramble (low and wide,
+     * dull green, dark berries); [v] / 3 gives a second shape of each.
+     */
+    fun bush(v: Int): PixelImage {
+        val c = Canvas(64)
+        val seed = 890 + v * 23
+        val kind = v % 3
+        val (light, dark) = when (kind) {
+            0 -> argb(0x7E9A4A) to argb(0x2E4220)
+            1 -> argb(0x5A7448) to argb(0x1A2A1A)
+            else -> argb(0x6E7A44) to argb(0x2A3420)
+        }
+        val ci = -0.5; val cj = -0.5
+        val wide = if (kind == 2) 1.35 else 1.0
+        val hgt = if (kind == 2) 0.7 else 1.0
+        c.shadow(ci + 0.06, cj + 0.03, 0.26 * wide, 0.22 * wide, 0.45)
+        val balls = 5 + (v / 3) % 2 * 2 + (if (kind == 2) 2 else 0)
+        for (b in 0 until balls) {
+            val a = 2 * PI * b / balls + rnd(b, v, seed) * 0.8
+            val off = if (b == 0) 0.0 else (0.1 + rnd(b, v, seed + 11) * 0.07) * wide
+            val bi = ci + cos(a) * off; val bj = cj + sin(a) * off
+            val r = (0.08 + rnd(b, v, seed + 1) * 0.05) * (if (b == 0) 1.3 else 1.0) * (if (kind == 2) 0.9 else 1.0)
+            val rz = r * 84 * hgt * 0.8
+            val bz = rz * 0.7 + (if (b == 0) 8.0 else rnd(b, v, seed + 12) * 6) * hgt
+            for (k in 0 until 1400) {
+                // a point on or a little inside the clump; leaves stick out at the rim
+                val u = rnd(k, b, seed + 2) * 2 - 1; val th = rnd(k, b, seed + 3) * 2 * PI
+                val sq = sqrt(1 - u * u)
+                val ni = sq * cos(th); val nj = sq * sin(th); val nz = u
+                val depth = 0.75 + rnd(k, b, seed + 4) * 0.3 + (if (rnd(k, b, seed + 13) < 0.06) 0.3 else 0.0)
+                val ruff = 1 + (vnoise(th * 4 + b, u * 4, seed + 5) - 0.5) * 0.5
+                val z = bz + nz * rz * depth * ruff
+                if (z < 1) continue
+                val i = bi + ni * r * depth * ruff; val j = bj + nj * r * depth * ruff
+                val inner = (1.08 - depth) * 2.5
+                var col = mix(light, dark, (0.55 - nz * 0.35 + max(0.0, nj) * 0.25 - max(0.0, ni) * 0.15 + inner * 0.3 + rnd(k, b, seed + 6) * 0.2).coerceIn(0.0, 1.0))
+                if (kind == 1 && rnd(k, b, seed + 7) < 0.05 && nz > -0.2) col = shade(col, 1.35)
+                // a leaf: two or three pixels along a little tilt
+                val li = cos(th + 1.0) * 0.012; val lj = sin(th + 1.0) * 0.012
+                val lc = shade(col, lit(ni, nj, nz) * 0.85 + 0.25)
+                c.pt(i, j, z, lc); c.pt(i + li, j + lj, z + 0.6, lc); c.pt(i - li, j - lj, z - 0.6, shade(lc, 0.9))
+            }
+            // berries on holly and bramble
+            if (kind != 0) for (k in 0 until 9) {
+                val u = rnd(k, b, seed + 8) * 0.9; val th = rnd(k, b, seed + 9) * 2 * PI
+                val sq = sqrt(1 - u * u)
+                val bc = if (kind == 1) argb(0xB02A1E) else argb(0x2A1A2E)
+                val i = bi + sq * cos(th) * r * 1.02; val j = bj + sq * sin(th) * r * 1.02; val z = bz + u * rz * 1.02
+                c.pt(i, j, z, bc); c.pt(i + 0.006, j, z, bc); c.pt(i, j, z + 0.8, shade(bc, 1.5))
+            }
+        }
+        // a twig or two at the foot
+        for (t in 0 until 2) {
+            val a = rnd(t, v, seed + 10) * 2 * PI
+            for (q in 0..20) {
+                val f = q / 20.0
+                c.pt(ci + cos(a) * (0.08 + f * 0.14 * wide), cj + sin(a) * (0.08 + f * 0.14 * wide), 3 + f * 6, argb(0x3A2C20))
+            }
+        }
+        return c.img
+    }
+
+    /** A bush standing with its foot at ([fx], [fy]) in world pixels, as an upright thing sorted like a figure there. */
+    fun bushObj(fx: Int, fy: Int, v: Int): WorldArt.Obj {
+        val img = synchronized(cache) { cache.getOrPut("bush/$v") { bush(v) } }
+        val T = WorldArt.T
+        val wx = fx + T / 2; val wy = fy + T / 2
+        return WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, fx + fy - T + T * 3 / 2 - 1 - wx, 2, true, corner = true)
+    }
+
     /** The herb on ([tx], [ty]) as an upright thing sorted like the others of the woods; the wind sways it a little. */
     fun herbObj(tx: Int, ty: Int, clock: Long): WorldArt.Obj {
         val v = Math.floorMod(hash(tx, ty, 34), 3)
@@ -862,6 +938,8 @@ object MapWoodIso {
             "Kraut" to (0 until 3).map { herb(it, 0.0) },
             "Steine" to (0 until 3).map { boulders(it) },
             "Menhir" to (0 until 3).map { menhir(it) },
+            "Busch" to (0 until 3).map { bush(it) },
+            "Busch2" to (3 until 6).map { bush(it) },
         )
     }
 }

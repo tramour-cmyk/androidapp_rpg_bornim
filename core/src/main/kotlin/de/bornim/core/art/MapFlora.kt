@@ -590,7 +590,10 @@ object MapFlora {
             for (k in 0 until 2) {
                 if (rnd(tx, ty, k * 3 + 41) > 0.05 + near * 0.07) continue
                 val px = (tx + 0.15 + rnd(tx, ty, k * 3 + 42) * 0.7) * S; val py = (ty + 0.2 + rnd(tx, ty, k * 3 + 43) * 0.7) * S
-                val s = if (rnd(tx, ty, k + 44) < 0.55) bush(hash(tx, ty, k + 45) % 6) else fern(hash(tx, ty, k + 46) % 5)
+                val isBush = rnd(tx, ty, k + 44) < 0.55
+                // seen diagonally (56, draft): the bushes in the slant like the other things of the woods
+                if (isBush && MapWoodIso.bushDraft && MapFigure.viewYaw != 0.0) { out += MapWoodIso.bushObj((px / D).toInt(), (py / D).toInt(), hash(tx, ty, k + 45) % 6); continue }
+                val s = if (isBush) bush(hash(tx, ty, k + 45) % 6) else fern(hash(tx, ty, k + 46) % 5)
                 out += obj(s, px, py)
             }
         }
