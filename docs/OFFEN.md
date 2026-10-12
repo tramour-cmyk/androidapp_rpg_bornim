@@ -39,20 +39,18 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Zweig `claude/tender-goodall-a8zuny`** (enthält `main` mit PR #40): 29 Anschlagbrett, 24.8.6, 30.8; Build 0.1.563 zu testen (nach Jerrys 0.1.561). Danach PR, zusammenführen, CHANGELOG.
 - **Als Nächstes:** 29.3 zweite Welle (29g ja): Aushänge nach Krogg (Morwen Giftdrüsen → 2 Kräutertränke + 50 G, Jorin Streife → Spur im Wald, Rüstungsteil), frischer Zettel als Hinweis (Bild des Bretts wechselt). Dann 13 Tempel (Altar vor dem Fenster), 27 Wald.
 - **Regeln neu (12.10.):** Thema 33 (vier Fragen in `STIL.md`), Testreihenfolge mit dem anderen abstimmen (`CLAUDE.md`). 32: Weck-Sitzungen auf `send_later`/`create_session` prüfen.
-### Jerry (12.10., 07:43, vor Neustart)
+### Jerry (12.10., 09:48, vor Neustart)
 
-- **PR #38** (Zweig `ccr-8b450567-umf1s6`, Entwurf), Build 0.1.555 ([Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38178006618/artifacts/11716242658)): 24.8.5 Ortsklang klingt aus, 30.6 Klang-Laden abgesichert, 13e Entwurf 1 (im Spiel aus), Vorschau zeigt in `KARTENZOOM` die Karte statt der Blende (32.7, braucht Tom für 27). **Getestet, passt (12.10.); zusammengeführt.** 13e Entwurf 2 (Fels heller) liegt auf `claude/quirky-goodall-fqncrd`, vor dem Weiterarbeiten in den eigenen Zweig holen.
-- **26.1** in PR #39 (Zweig `ccr-21220742-4xthje`), Build 0.1.561 zu testen; Simulation Magier Grottenschrat St. 3 44 → 63 %, Hobgoblin St. 4 35 → 50 %, St. 5 45 → 69 %. Rückfrage 26b (8 h = 8 min echte Zeit). **Als Nächstes:** Routinen (32), dann 13e Entwurf 2 (Kisten/Truhen/Felsen/Stalagmiten diagonal), dann 24.6 nach Toms 24.5.
-- **30:** Klang 24 MB nativ, kein Absturzgrund; 30.6 in PR #38; **30.7** (22 kHz, −5 MB) mit Tom regeln (Nutzer 12.10.).
+- **26.1 Magierrüstung 8 h:** PR #39 (Zweig `ccr-21220742-4xthje`, mit `main` inkl. PR #40), getestet 0.1.561 (Nutzer 09:4x: passt, „Schutz“ passt, 26b: 8 h reichen). Neubau mit `main` lief; **sobald grün: zusammenführen (Merge), CHANGELOG unter „Unveröffentlicht“**, falls die alte Sitzung es nicht mehr geschafft hat. Simulation `SIM=1 SIM_MA=1 … ChapterSimTest`. KAPITEL1 „Ausgleich“: Zielwert noch offen.
+- **Als Nächstes:** Routinen auf Text in `SELBST.md` umstellen (32, noch nicht gemacht); dann 34 Zug beenden, 35 Weihwasser nur gegen Untote, 37 Kampfmusik aussortieren (alle ja), 36.1 Krogg aufräumen (erst Standbilder); dann 13e Entwurf 2 (liegt auf `claude/quirky-goodall-fqncrd`), 24.6.
+- **30:** Absturz in 0.1.561 (MuMu) ohne Bericht, weil vor PR #40 gebaut; Dorf-Absturz 0.1.555 ebenso. Klang als Ursache unwahrscheinlich (Vermutung). 30.7 (22 kHz) mit Tom.
 
 ## Zu testen
 
 - **0.1.563 (Tom, nach Jerrys 0.1.561):** 29 Anschlagbrett vor der Schänke (Annehmen, Menü System mit Fortschritt/Aufgeben, Abgabe bei Thessa/Gwenna/Borin, Ring in Höhlentruhe), 24.8.6 Türen 0,5 s, 30.8 „App aktualisiert“. [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38218165502/artifacts/11732972729)
-- **0.1.561 (Jerry, PR #39, 26.1):** Magier wirkt Magierrüstung; nächster Kampf meldet „hält noch“, nicht erneut wirkbar; Karte oben „Schutz“, nach ca. 8 min weg. [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38214542422/artifacts/11731896008)
 
 ## Rückfragen an den Nutzer
 
-- **26b (Jerry, 12.10.):** 8 h Spielzeit sind 8 min echte Zeit (1 s = 1 Spielminute); die Rüstung hält also meist 2–4 Kämpfe. Reicht das, oder länger (z. B. bis zur nächsten Rast)? Empfehlung: erst testen.
 
 - **32 Nacht 11./12.10. fast ohne Arbeit (Tom und Jerry, je ~25 min):** Weck-Sitzungen beenden nach einem Schritt; Routine 00:27 durch 40-Minuten-Regel gesperrt. Vorschläge 32.1–32.7 (Stand `übergeben`, `send_later` an sich selbst bis „Bis“, Nachfolger sofort starten, blockiert → nächster Punkt, Vorschau vor Push bauen, Gradle 6 GB in `setup-session.sh`, Blende-Fix aus PR #38). **32a/32b: Tom macht es (Nutzer 12.10., 07:40).** 32.8 Vertretung bei Nutzungsgrenze; **32b, 32c ja (07:5x)**, 32.1–32.8 in `SELBST.md` übernommen, Toms Routinen umgestellt. **Jerry:** deine 8 Routinen auf den Text in `SELBST.md` umstellen. Befunde im Archiv.
 
