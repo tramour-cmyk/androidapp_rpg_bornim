@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 57** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 58** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -37,6 +37,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg | Jerry | – | Prüfthema, Nutzer 12.10., 15:4x (Test 0.1.587): wenn Zeit ist und nichts Wichtigeres ansteht; alle großen Gegner mitprüfen |
 | 54 | Nicht warten: Tom und Jerry arbeiten von selbst weiter, wenn nichts zu entscheiden ist | Tom und Jerry | `main` (Notizen, Werkzeug) | Nutzer 12.10., 15:4x: mehrfach auf beiden Accounts stand die Arbeit, obwohl genug zu tun war. **Jerry (15:5x):** Regel „Nicht warten“ in `CLAUDE.md` + Stop-Haken `tools/weiter-haken.py` (hält einen Zug einmal auf, wenn er Arbeit ankündigt). **Tom:** bitte lesen, bestätigen oder ergänzen (deine Übergabe nannte die Regel schon) |
 | 56 | Alte Objekte auf den neuen Karten: Heilkräuter sehen aus wie auf der alten Karte; prüfen, was noch nach altem Muster gezeichnet wird | Tom | – | Nutzer 12.10., 18:3x. Liste alt im Wald: Heilkräuter, Truhen draußen, Steine, Steinkreis, Büsche. Entwürfe Kräuter + Truhe (**56a**), Steine + Steinkreis (**56b**, `ROCKDRAFT`, `MENHIRDRAFT`) auf dem Zweig; weiter Büsche |
+| 57 | Entscheidungsseite nur mit Offenem; Entschiedenes in ein gemeinsames Bildbuch (Tom und Jerry) | Tom | `main` (Notizen) | Nutzer 12.10., 19:3x: fortschreiben oder Entschiedenes rausnehmen, was kostet weniger Token? Vorschlag 57.1/57.2 im Chat 19:4x |
 
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
