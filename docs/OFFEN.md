@@ -12,7 +12,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 |---|---|---|---|---|
 | 13 | Diagonale Sicht | Tom | – | 13.4 auf `main` (PR #43). **13u/13w ja:** neue Orte nur diagonal, alte Ansicht eingefroren. **13v (später):** Testaufruf: Wald, Tiefer Wald, Höhle absichtlich noch gerade. **Meldung 08:43:** Tempel innen: Altar direkt vor dem Fenster, ansehen. **13s/13t ja:** 27, 13 Tempel, 42; Ziel „alte Ansicht ausgebaut“ (`KAPITEL1.md`), danach 6l. Verlauf im Archiv |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-27-4-baeume` | 5.1/5.2/5g/5h.1 auf `main`. **5m ja:** 27.4, 5.6, 5.3, 5l/5.5, 5.4, dann 27.5/27.6, je erst Standbilder. 27.4, 5.6, 5.3 (alle zwölf), 5n in PR #48. 5.4 (Pflaster-Entwurf, Fensterlicht-Fix) auf dem Zweig. 5l/5.5 Leben im Dorf nach 24 (Nutzer 14:55) |
-| 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | neu von `main` | freigegeben 10.10.; nach 13 |
+| 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | `claude/tom-27-4-baeume` | freigegeben 10.10.; Umhang-Entwurf (21:01) auf der Entscheidungsseite, Rückfrage 17a |
 | 13e | Höhle diagonal (Phase 2 von 13); mit 10 (Flammen feiner) und 11 (Lichtstrahl am Schacht) | Jerry | `claude/jerry-13e-hoehle-diagonal` | Grundsatz 43 (Leute, Ziele, Eingänge frei zur Kamera). **48b ja:** allgemein aus dem Kartenraster, ohne Handarbeit je Feld (für Zufallshöhlen 48). Eigene Datei `MapCaveIso.kt`, Toms Dateien nicht anfassen. Entwurf 2: Wände stehen (16:19); 13e.2–13e.4 in Selbstarbeit (`SELBST.md`). **Nutzer 16:3x:** Lichtstrahl weglassen, wenn schwierig; ein Versuch, sonst raus |
 | 23 | Aufgaben so aufteilen, dass Tom und Jerry auch in Selbstarbeit genug Vorrat haben | Tom | `main` (Notizen) | 23a ja (14:18): je 8 Punkte im Vorrat (`docs/SELBST.md`), neue nur als Entwürfe/Hörproben. **Jerry:** deine Punkte 4–8 sind eingetragen |
 | 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik); Jerry (Inhalt) | – | 24.1–24.4, 24.9–24.15 auf `main` (PR #30, #32, #34, #35); 24.8 Ortsklang auf `main` (PR #37). **Tom:** 24.5, 24.16–24.20 auf `main` (PR #40). 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.8.5 auf `main` (PR #38, 12.10.), danach 24.6 Kampferöffnung wartet + Herzschlag (nach Toms 24.5), knapper Kampftext in `Battle.kt`. Entscheidungen 24f/24i/24j in [`ZWISCHENBILD.md`](ZWISCHENBILD.md) und im Archiv. |
@@ -47,7 +47,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - PR #48 `claude/tom-27-4-baeume`, **0.1.615** zu testen (s. u.); neue Pushes 20:4x/20:55 enthalten nur Entwürfe (im Spiel aus). Test passt → zusammenführen (Merge), CHANGELOG.
 - **27.6 fertig als Entwurf** (`PONDLIFE`, `PondLife.kt`, Kerntest `PondLifeTest`), auf der Entscheidungsseite, Rückfrage 27h.
-- **17 halb** (`SWINGDRAFT`, Bildbogen `SWINGBILD=1`): Umhang schwingt nach dem Stoppen gedämpft (`MapFigure.swingAt`), Sprungtest 0, aber kaum sichtbar: der kurze Umhang schwingt nach vorn in den Körper. **Weiter:** in `Dress.cloak()` den Saum bei negativem `cloak` seitlich/nach außen ausschwingen lassen (statt nur nach vorn), Haare/Köcher danach; dann Standbilder auf die Entscheidungsseite.
+- **17 Umhang als Entwurf fertig** (`SWINGDRAFT`, Bildbogen `SWINGBILD=1`, 103e59d): Saum hebt sich und weht nach dem Anhalten seitlich aus (`Rig.flare`, nur im Bildbogen; Kämpfe unverändert), auf der Entscheidungsseite, Rückfrage 17a. Offen: Haare/Köcher, Einbau in den Gang (nach 17a).
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
@@ -61,6 +61,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Rückfragen an den Nutzer
 
 - **27h** (Tom): 27.6 Libellen und Frösche am Weiher ins Spiel? Bilder auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F). Empfehlung: ja.
+- **17a** (Tom): 17 Umhang schwingt nach dem Anhalten seitlich aus, so ins Spiel? Bilder auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F). Empfehlung: ja (sonst um ein Drittel kleiner).
 - **57c** (Tom): Bildbuch für Jerry über „Teilen“ mit Schreibrecht freigeben? Empfehlung: ja, vor Freitag.
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
