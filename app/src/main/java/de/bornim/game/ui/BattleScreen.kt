@@ -1136,7 +1136,9 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                     val sc = foeScale * (1f - 0.35f * fleeT * fleeT)
                     if (sc != 1f && enemyFrame != null) {
                         scaleX = sc; scaleY = sc
-                        transformOrigin = androidx.compose.ui.graphics.TransformOrigin((MonsterArt.anchorX(id, frameW) / frameW).toFloat(), (MonsterArt.groundLine(id) / frameH).toFloat())
+                        // round the feet: the box is only as large as the cut round the figure, or the room, not the whole frame (36.5)
+                        val fx = (artDp * MonsterArt.anchorX(id, frameW).toFloat()).toPx(); val fy = (artDp * MonsterArt.groundLine(id).toFloat()).toPx()
+                        if (size.width > 0f && size.height > 0f) transformOrigin = androidx.compose.ui.graphics.TransformOrigin(fx / size.width, fy / size.height)
                     }
                 }
             ) {
