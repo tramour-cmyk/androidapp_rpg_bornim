@@ -1,5 +1,12 @@
 # Archiv
 
+### Tom (12.10., 22:3x) – Neustart
+- **Berater 22:5x (Nutzer 22:49): Thema 59 Händler jetzt anpacken** (Entscheidungen 59a–59c in „Wer macht was“), Standbilder auf die Entscheidungsseite.
+
+- **PR #48 zusammengeführt** (0.1.625 getestet, Nutzer 22:3x: passt). Auf `main`: 27e.1, 27h, 27i, 27j/27k Weiher-Klang (`PondSound`), 17a Umhang, 42d Textkasten, dazu alles bis 0.1.615. Kein offener Zweig.
+- **Weiter:** (1) **58** Umhang über dem Schild beim Gehen (Meldung 22:3x), erst Standbilder auf die Entscheidungsseite; (2) laut 26c: Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar (Meldung 08:43), 5l, 17 Rest (Haare, Köcher).
+- Hinweis: Nach dem Zusammenführen kann der Gradle-Zwischenstand von `core` veralten (Vorschau meldet „Unresolved reference“, „Int expected Int“): `rm -rf core/build/{kotlin,classes,libs}`.
+
 ### Tom (12.10., 22:2x)
 
 - Zweig `claude/tom-27-4-baeume` (PR #48), `main` hineingeholt. Neu seit 0.1.624: **27i** Libellen/Frösche im Spiel, **17a** Umhang schwingt aus, **42d** Textkasten schwarz/Gold, **27j/27k** Weiher-Klang (`PondSound`: Ruf, wenn die Kehle schwillt, nach Nähe; Libelle nur nah bei Tag; Chor 2 leise in der Dämmerung; Klänge aus `tools/klang/teich.py --spiel`). Build 0.1.625 fertig (22:22).
