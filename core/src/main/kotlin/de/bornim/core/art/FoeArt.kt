@@ -138,6 +138,23 @@ object FoeArt {
     private val THRUST_W = HeroFigure.THRUST_WIND.copy(weapon = V(0.1, 0.02, 0.99), aim = 1.0)
     private val THRUST_H = HeroFigure.THRUST_HIT.copy(weapon = V(0.12, -0.2, 0.97), aim = 1.0)
 
+    // Krogg's morning star (36.7): at the blow the arm reaches almost straight out at the hero and the haft slants
+    // forward and down beside him, rather than pointing out of the picture with the head at the fist
+    private val KROGG_SLASH_OVER = HeroFigure.SLASH_OVER.copy(aim = 1.0)
+    private val KROGG_SLASH_HIT = HeroFigure.SLASH_HIT.copy(rh = V(4.0, 76.0, 48.0), weapon = V(0.05, -0.62, 0.78), aim = 1.0)
+    private val KROGG_SLASH_FOLLOW = HeroFigure.SLASH_FOLLOW.copy(rh = V(-2.0, 64.0, 40.0), weapon = V(-0.25, -0.8, 0.55), aim = 1.0)
+    private val KROGG_SMASH_OVER = HeroFigure.SMASH_OVER.copy(aim = 1.0)
+    private val KROGG_SMASH_HIT = HeroFigure.SMASH_HIT.copy(rh = V(6.0, 74.0, 48.0), weapon = V(0.1, -0.7, 0.7), aim = 1.0)
+
+    private fun kroggAttacks(): List<Seq> {
+        val r = rest(Style.BLADE)
+        return listOf(
+            Seq(tween(r to 3, HeroFigure.SLASH_WIND to 4, KROGG_SLASH_OVER to 2, KROGG_SLASH_HIT to 3, KROGG_SLASH_FOLLOW to 5, r to 1), 9),
+            Seq(tween(r to 2, HeroFigure.SMASH_RAISE.copy(rh = V(24.0, 96.0, 9.0)) to 2, HeroFigure.SMASH_WIND to 4, KROGG_SMASH_OVER to 2, KROGG_SMASH_HIT to 3, KROGG_SMASH_HIT.copy(trail = 0.0) to 5, r to 1), 10),
+            attacks(Style.BLADE)[2],
+        )
+    }
+
     private fun attacks(s: Style): List<Seq> {
         val r = rest(s)
         return when (s) {
@@ -260,7 +277,7 @@ object FoeArt {
         return seqs.getOrPut(k) {
             val raw = when (act) {
                 Act.IDLE, Act.HOWL -> idle(s)
-                Act.ATTACK -> attacks(s)[variant.mod(3)]
+                Act.ATTACK -> (if (id == "bugbear" && s == Style.BLADE) kroggAttacks() else attacks(s))[variant.mod(3)]
                 Act.HURT -> hurts(s)[variant.mod(3)]
                 Act.DODGE -> dodges(s, shield)[variant.mod(3)]
                 Act.DIE -> deaths(s)[variant.mod(3)]
