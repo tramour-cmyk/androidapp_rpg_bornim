@@ -5,6 +5,11 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
 
+### Übergabe Jerry (12.10., 10:30, ersetzt 11:55)
+
+- Zweig `claude/wizardly-edison-tjotls`, PR #41 (34 Zug beenden, 35 Weihwasser), Build 0.1.568 (zu klein zum Installieren, neu gebaut 0.1.571, getestet, zusammengeführt 11:52).
+- Erledigt: 32 Routinen umgestellt; `notiz.sh` lädt flachen Klon nach. Als Nächstes damals: 37, 36.1, 38, 13e Entwurf 2, 24.6.
+
 ### Übergabe Tom (12.10., 10:25, ersetzt 11:35)
 
 - **Zweig `claude/great-sagan-n9tkga`** (enthält `tender-goodall-a8zuny` und `main` mit PR #39/#40): 29 Brett + Fix Aktionsknopf (`Navigation.actionAt`), 29.3 zweite Welle, 29.4, 24.8.6, 30.8. **Build 0.1.569 zu testen** (= 0.1.567 + 29.4 Held spricht zuerst; Link unter „Zu testen“). Danach PR von diesem Zweig, zusammenführen, CHANGELOG (24.8.6, 30.8, 29, 29.3, 29.4).
