@@ -66,4 +66,19 @@ class PlaceSoundTest {
         }
         assertTrue(t in PlaceSound.BED_FADE_MS.toLong()..PlaceSound.BED_FADE_MS.toLong() + 100, "voll nach $t ms")
     }
+
+    @Test
+    fun leavingDiesAwayWithoutAJump() {
+        for (from in listOf(PlaceSound.BED_VOLUME, 0.5f, 0.05f)) {
+            var v = from
+            var t = 0L
+            while (v > 0f) {
+                t += 50
+                val n = PlaceSound.leaving(from, t)
+                assertTrue(n <= v && v - n <= from * 50 / PlaceSound.LEAVE_FADE_MS + 1e-6f, "Sprung bei $t ms")
+                v = n
+            }
+            assertTrue(t == PlaceSound.LEAVE_FADE_MS, "still nach $t ms")
+        }
+    }
 }
