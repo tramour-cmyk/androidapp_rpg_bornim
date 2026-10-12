@@ -179,6 +179,8 @@ fun main() {
             if (System.getenv("CAVEDRAFT") != null) de.bornim.core.art.MapCaveIso.draft = true
             // DIAG=1: the map seen diagonally (13)
             if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.all = true
+            // WOODDRAFT=1: trunks and the camp fire of the woods drawn in the slant (27.5, draft)
+            if (System.getenv("WOODDRAFT") != null) de.bornim.core.art.MapWoodIso.draft = true
             // TREEDRAFT=1: the trees with volume (27.4, draft)
             if (System.getenv("TREEDRAFT") != null) de.bornim.core.art.MapFlora.treeDraft = true
             // ZOOMSTUFE=1|2: the in-between zoom steps for the near shots (6.15)
