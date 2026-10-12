@@ -127,6 +127,37 @@ private fun hurtTint(shade: Color?, hurt: Float): Color {
     return Color(s.red * (1f - 0.2f * h), s.green * (1f - 0.42f * h), s.blue * (1f - 0.42f * h), 1f)
 }
 
+/**
+ * 59: inside a window in the look of the text box (42b, the black screens): black, a thin gold rim, off-white serif.
+ * [Txt], [Panel], [PixelButton] and [GearIcon] turn dark by themselves, so the details and lists need no copy of their own.
+ */
+val LocalVeil = androidx.compose.runtime.staticCompositionLocalOf { false }
+
+/** The ink of the black screens (as the text box); the light colors of the panels map onto it. */
+object Veil {
+    val text = Color(0xFFE6DDCB)
+    val dim = Color(0xFF948A78)
+    val gold = Color(0xFFB59A6A)
+    val rim = Color(0xAAB59A6A)
+    val warn = Color(0xFFD9785A)
+    val good = Color(0xFF86C46E)
+    val raised = Color(0xFF17140F)
+
+    /** A color meant for the light panels, as it reads on black: rarities lightened, text off-white. */
+    fun of(c: Color): Color = when (c) {
+        Colors.text -> text
+        Colors.textDim -> dim
+        Colors.accent -> warn
+        Color(0xFF5E5E68) -> Color(0xFFBDB6A8) // common
+        Color(0xFF2A8A3A) -> good // uncommon, better
+        Color(0xFF2A62C8) -> Color(0xFF82AAF2) // rare, affixes
+        Color(0xFF7A38C0) -> Color(0xFFBC8EF2) // very rare
+        Color(0xFFD0680A) -> Color(0xFFF29E50) // epic
+        Color(0xFFB08800) -> Color(0xFFEAC650) // divine
+        else -> c
+    }
+}
+
 @Composable
 fun Txt(
     text: String,
@@ -137,6 +168,21 @@ fun Txt(
     align: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
 ) {
+    if (LocalVeil.current) {
+        Text(
+            text = text,
+            modifier = modifier,
+            style = TextStyle(fontFamily = FontFamily.Serif),
+            fontSize = size * 0.95f,
+            color = Veil.of(color),
+            fontWeight = if (bold) FontWeight.SemiBold else FontWeight.Normal,
+            letterSpacing = 0.2.sp,
+            textAlign = align,
+            maxLines = maxLines,
+            lineHeight = size * 1.35f,
+        )
+        return
+    }
     Text(
         text = text,
         modifier = modifier,
@@ -151,9 +197,19 @@ fun Txt(
     )
 }
 
+/** A heading in the black windows: small, spaced capitals in gold, as the speaker in the text box. */
+@Composable
+fun VeilHead(text: String, modifier: Modifier = Modifier, color: Color = Veil.gold) {
+    Text(text.uppercase(), modifier, color = color, style = TextStyle(fontFamily = FontFamily.Serif, fontSize = 12.sp, letterSpacing = 3.sp))
+}
+
 /** The classic double-bordered text box. */
 @Composable
 fun Panel(modifier: Modifier = Modifier, background: Color = Colors.panel, content: @Composable BoxScope.() -> Unit) {
+    if (LocalVeil.current) {
+        Box(modifier.background(Color.Black).border(1.dp, Veil.rim).padding(horizontal = 14.dp, vertical = 10.dp), content = content)
+        return
+    }
     Box(
         modifier
             .clip(RoundedCornerShape(8.dp))
@@ -179,6 +235,26 @@ fun PixelButton(
     onClick: () -> Unit,
 ) {
     val click = LocalClick.current
+    if (LocalVeil.current) {
+        Box(
+            modifier
+                .height(48.dp)
+                .background(if (selected) Veil.raised else Color.Black)
+                .border(if (selected) 1.5.dp else 1.dp, if (!enabled) Veil.dim.copy(alpha = 0.4f) else if (selected) Veil.gold else Veil.rim)
+                .clickable(enabled = enabled) {
+                    click()
+                    onClick()
+                }
+                .padding(horizontal = 10.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                label.uppercase(), color = if (!enabled) Veil.dim.copy(alpha = 0.6f) else if (selected) Veil.gold else Veil.text,
+                style = TextStyle(fontFamily = FontFamily.Serif, fontSize = size * 0.7f, letterSpacing = 1.2.sp), textAlign = TextAlign.Center, maxLines = 2,
+            )
+        }
+        return
+    }
     val bg = when {
         !enabled -> Colors.panelDark
         selected -> Colors.selected

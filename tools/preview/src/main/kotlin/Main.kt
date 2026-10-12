@@ -402,6 +402,37 @@ fun main() {
         }
         System.exit(0)
     }
+    // HAENDLER=1: the shop old and as drafted for 59 (black like the text box, overview when selling, comparison when buying)
+    if (System.getenv("HAENDLER") != null) {
+        for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
+        for (it in de.bornim.core.Items.all) de.bornim.core.art.SupplyArt.get(it.id)
+        fun shop(vm: GameViewModel) {
+            geared(vm, CharClass.WIZARD, Race.ELF); val g = vm.game!!
+            g.state.gold = 640
+            for (it in listOf("potion", "remedy", "wolf_pelt", "boar_tusk", "herbs")) g.state.add(it, 3)
+            g.enqueue(listOf(Cmd.OpenShop(Story.shopStock))); vm.refresh()
+        }
+        val looks = System.getenv("HAENDLER").let { if (it == "neu") listOf(true) else listOf(false, true) }
+        for (draft in looks) {
+            de.bornim.game.ui.ShopLook.draft = draft
+            val tag = if (draft) "neu" else "alt"
+            for ((name, tab, dlg) in listOf(Triple("kauf", 0, -1), Triple("verkauf", 1, -1), Triple("kauf_ruestung", 0, 0),
+                    Triple("kauf_vorrat", 0, 100), Triple("verkauf_rueckkauf", 2, -1))) {
+                de.bornim.game.ui.ShopLook.previewTab = tab; de.bornim.game.ui.ShopLook.previewDialog = dlg
+                shot("59_${name}_$tag", settle = 60) { vm -> shop(vm)
+                    if (tab == 1) { val g = vm.game!!; val st = g.state; val d = Dice(kotlin.random.Random(9))
+                        val keep = st.bag.filter { st.hero.canWear(it) }.take(3)
+                        st.bag.clear(); st.bag += keep; st.inventory.keys.toList().forEach { if (it != "potion") st.inventory.remove(it) }
+                        listOf(GearSlot.CHEST, GearSlot.OFF_HAND, GearSlot.MAIN_HAND).forEach { sl ->
+                            var x = Loot.generate(st, d, 9, Rarity.RARE, CharClass.FIGHTER, sl); var k = 0
+                            while (st.hero.canWear(x) && k++ < 30) x = Loot.generate(st, d, 9, Rarity.RARE, CharClass.FIGHTER, sl)
+                            st.addGear(x) }
+                        vm.refresh() }
+                    if (tab == 2) { val g = vm.game!!; g.state.bag.take(3).toList().forEach { g.sellGear(it) }; g.sell("wolf_pelt", 3); vm.refresh() } }
+            }
+        }
+        System.exit(0)
+    }
     // BRETT=1: the notice board's window and the odd jobs in the menu (29)
     if (System.getenv("BRETT") != null) {
         fun jobs(vm: GameViewModel) {
