@@ -33,6 +33,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ### Tom (11.10., 23:30, vor Neustart, Selbstarbeit bis 08:00)
 
 - **30.1 + 30.2 + 24.5** auf Zweig `claude/sharp-davinci-s83a1t` (enthält `great-shannon`), Build 0.1.552 (Commit `950d762`) fertig, Link im Chat 23:30. Kein PR. `Guard` (core) fängt Fehler der Zeichenfäden, `CrashLog` (app) Absturzdatei + `ApplicationExitInfo`, Test-Reiter oben. 30.2: `MapFolk` 2 Fäden mit Phasen, `MapGround` 2 Karten, `ArtMemory.trim` bei `onTrimMemory`/OOM. Messung `ARTMEM=1 ./gradlew -p core test --tests '*ArtMemoryTest*' -i`.
+- **Tom 12.10., 06:35 (Weck-Sitzung):** 27 Wald: `KARTENZOOM=1 DIAG=1 ONLY=zoom_nah` liefert für Wald, Dorf usw. nur den Zwischenbildschirm (24, „Du betrittst …“) statt der Karte (Standbilder 06:5x, alle 7 gleich); Lauf endet erst nach Zeitgrenze. Vermutung: Vorschau wartet nicht auf das Ende der Blende. Nächster Schritt: Blende in der Vorschau überspringen (Schalter), dann Standbilder Wald/Dorf und Lückenliste. Nichts geändert am Code.
 - **Als Nächstes (Selbstarbeit):** Reserve aus `SELBST.md` (29 Nebenquests Entwurf, 27 Wald Standbilder). Keine weiteren Builds auf dem Zweig ohne Not, damit 0.1.552 der Testbuild bleibt. 30b (`largeHeap`) erst nach Antwort.
 - Nach Test: Bericht des Test-Reiters auswerten; wenn gut, PR (30 + 24.5), nach Freigabe zusammenführen, CHANGELOG.
 ### Jerry (11.10., 23:57, Selbstarbeit bis 08:00, vor Neustart)
