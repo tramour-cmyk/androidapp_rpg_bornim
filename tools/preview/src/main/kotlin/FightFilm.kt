@@ -40,6 +40,7 @@ fun fightFilm(spec: String) = film(FilmSpec(
 fun parseAction(s: String): Action = when {
     s == "attack" -> Action.Attack
     s == "defend" -> Action.Defend
+    s == "end" -> Action.EndTurn
     s.startsWith("skill=") -> Action.UseSkill(Skill.valueOf(s.removePrefix("skill=")))
     s.startsWith("item=") -> Action.UseItem(s.removePrefix("item="))
     else -> error("unknown action $s")
