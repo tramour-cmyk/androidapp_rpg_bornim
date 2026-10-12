@@ -991,6 +991,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     val doing = if (near || w != null || warding != null || squat != null) null else MapFolk.doing(f, clock)
                     val homeSlot = MapFigure.slot(home)
                     val target = when {
+                        // seated at his table (55.2) he stays turned to it
+                        MapFolk.sits(f) -> home
                         warding != null && wo != null -> if (warding.faceBeast)
                             Math.toDegrees(kotlin.math.atan2((wo.beastX - npc.x).toDouble(), (wo.beastY - npc.y).toDouble())) else home
                         near -> Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))
@@ -1015,8 +1017,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                         torches += (nx + T / 2.0) to (ny - 12.0)
                         MapFolk.wardFrame(f, slotNow, wd.ward, wd.flicker)
                     }
-                    // draft (55.2): Borin sits at his table, now and then drinking, eating, looking round
-                    val sitImg = if (MapFolk.sitDraft && f.id == "borin") MapFolk.borinSits(slotNow, ((clock / 2500) % 4).toInt()) else null
+                    // draft (55.2): Borin sits at his table, now and then drinking, eating, looking round, at chance moments
+                    val sitImg = if (MapFolk.sits(f)) MapFolk.seatFrame(f, homeSlot, MapFolk.seatPoseAt(f, clock)) else null
                     sitImg ?: wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 80).toInt(), MapFigure.STEPS) else 0)
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)

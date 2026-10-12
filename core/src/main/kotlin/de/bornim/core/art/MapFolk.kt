@@ -77,26 +77,99 @@ object MapFolk {
     val morwen = Folk("morwen", human(Sex.FEMALE, Build.SLIM, 1, 0, grey = 0x9C9890),
         Outfit(CharClass.ROGUE, kit("robe", "hood"), cloakRgb = 0x3E4A30, clothes = clothes(0x4A5A36, 0x34402A, 0x2E2A22)))
 
-    /**
-     * Draft (55.2): Borin sitting at his table in the inn, the hammer put by. [pose] 0 both hands on the table, 1 a
-     * drink from his flask, 2 a bite to eat, 3 looking round over his shoulder, a hand on his knee.
-     */
     /** Draft (55.2): Borin sits at his table in the preview, the game keeps him standing. */
     @Volatile var sitDraft = false
 
-    fun borinSits(slot: Int, pose: Int): PixelImage {
-        val o = borin.outfit
-        val out = Outfit(o.cls, o.items.filterValues { it.base != "maul" }, leatherRgb = o.leatherRgb, clothes = o.clothes, flaskRgb = 0x8A6A2A)
-        val base = MapFigure.rig(slot * 360.0 / MapFigure.YAWS, 0, MapFigure.Carry.FREE).copy(sit = 1.0, stride = 0.0, spread = 7.0,
-            rh = HeroFigure.V(12.0, 60.0, 22.0), lh = HeroFigure.V(-12.0, 60.0, 22.0))
-        val rig = when (pose) {
-            1 -> base.copy(lh = HeroFigure.V(-5.0, 74.0, 11.0), flask = 1.0, flaskTilt = 70.0, cork = 0.0, headDown = -4.0)
-            2 -> base.copy(rh = HeroFigure.V(4.0, 72.0, 11.0), headDown = 4.0)
-            3 -> base.copy(lh = HeroFigure.V(-12.0, 36.0, 16.0), headTurn = 45.0, twist = 10.0)
-            else -> base
-        }
-        return MapFigure.render(borin.doll, out, rig)
+    /** Borin's poses at his table (55.2): hands on the table, a drink from his flask, a bite, a look round. */
+    enum class Seat { REST, DRINK, EAT, LOOK }
+
+    /** A moment at the table: between [from] and [to], [k] of [BLEND] steps (like [SquatPose]). */
+    data class SeatPose(val from: Seat, val to: Seat, val k: Int) {
+        val main: Seat get() = if (k * 2 >= BLEND) to else from
     }
+
+    /** Who sits at a table instead of standing (55.2): Borin in the inn. */
+    fun sits(f: Folk) = sitDraft && f.id == "borin"
+
+    /** What he does at the table is decided by chance in blocks of this length, never on a beat. */
+    const val SEAT_BLOCK_MS = 20_000L
+    /** Moving from one pose at the table into another takes this long. */
+    const val SEAT_MOVE_MS = 700L
+
+    private fun seat(a: Seat, b: Seat, t: Double) =
+        SeatPose(a, b, Math.round(t.coerceIn(0.0, 1.0) * BLEND).toInt()).let { if (it.k == 0) SeatPose(a, a, 0) else if (it.k == BLEND) SeatPose(b, b, 0) else it }
+
+    /**
+     * What [f] does at the table at [clockMs] (55.2): mostly hands on the table and breathing; within each block of
+     * [SEAT_BLOCK_MS] once or twice, at chance moments and for chance lengths, a drink, a bite or a look round, moving
+     * into it and back over [SEAT_MOVE_MS]. Each block starts and ends at rest, so blocks join without a jump.
+     */
+    fun seatPoseAt(f: Folk, clockMs: Long): SeatPose {
+        val n = Math.floorDiv(clockMs, SEAT_BLOCK_MS)
+        val t = clockMs - n * SEAT_BLOCK_MS
+        val r = java.util.Random(n * 9_000_011L + f.id.hashCode() * 17L + 3)
+        val acts = r.nextInt(3)
+        var at = 1_500L + (r.nextDouble() * 5_000).toLong()
+        for (k in 0 until acts) {
+            val what = Seat.entries[1 + r.nextInt(3)]
+            val hold = 1_400L + (r.nextDouble() * (if (what == Seat.LOOK) 2_600 else 1_800)).toLong()
+            val end = at + SEAT_MOVE_MS + hold + SEAT_MOVE_MS
+            if (end > SEAT_BLOCK_MS - 500) break
+            if (t in at until end) {
+                val u = t - at
+                return when {
+                    u < SEAT_MOVE_MS -> seat(Seat.REST, what, ease(u / SEAT_MOVE_MS.toDouble()))
+                    u < SEAT_MOVE_MS + hold -> SeatPose(what, what, 0)
+                    else -> seat(what, Seat.REST, ease((u - SEAT_MOVE_MS - hold) / SEAT_MOVE_MS.toDouble()))
+                }
+            }
+            at = end + 2_000L + (r.nextDouble() * 4_000).toLong()
+        }
+        return SeatPose(Seat.REST, Seat.REST, 0)
+    }
+
+    /** The outfit Borin sits in: the hammer is put by at the table, a flask at his belt. */
+    private val seatedOutfit by lazy {
+        val o = borin.outfit
+        Outfit(o.cls, o.items.filterValues { it.base != "maul" }, leatherRgb = o.leatherRgb, clothes = o.clothes, flaskRgb = 0x8A6A2A)
+    }
+
+    /** The rig of one pose at the table, facing [yaw]. */
+    fun seatRig(yaw: Double, pose: Seat): HeroFigure.Rig {
+        // the open flask stays in his left hand, standing on the table while he rests: it never pops in or out
+        val base = MapFigure.rig(yaw, 0, MapFigure.Carry.FREE).copy(sit = 1.0, stride = 0.0, spread = 7.0,
+            rh = HeroFigure.V(12.0, 60.0, 22.0), lh = HeroFigure.V(-12.0, 60.0, 22.0), flask = 1.0, cork = 0.0)
+        return when (pose) {
+            Seat.DRINK -> base.copy(lh = HeroFigure.V(-5.0, 74.0, 11.0), flaskTilt = 70.0, headDown = -4.0)
+            Seat.EAT -> base.copy(rh = HeroFigure.V(4.0, 72.0, 11.0), headDown = 4.0)
+            Seat.LOOK -> base.copy(lh = HeroFigure.V(-12.0, 36.0, 16.0), headTurn = 45.0, twist = 10.0)
+            Seat.REST -> base
+        }
+    }
+
+    /** The rig of a [SeatPose]: the two poses mixed. */
+    fun seatRig(yaw: Double, p: SeatPose): HeroFigure.Rig {
+        val a = seatRig(yaw, p.from)
+        return if (p.k == 0) a else a.lerp(seatRig(yaw, p.to), p.k / BLEND.toDouble())
+    }
+
+    /** The picture of [f] at a [SeatPose] facing [slot]: drawn in the background, until then the nearer pose's or resting picture. */
+    fun seatFrame(f: Folk, slot: Int, p: SeatPose): PixelImage? {
+        fun one(q: SeatPose) = MapRest.picture("seat|${f.id}|$slot|${q.from}>${q.to}|${q.k}") { MapFigure.render(f.doll, seatedOutfit, seatRig(slot * 360.0 / MapFigure.YAWS, q)) }
+        return one(p) ?: one(SeatPose(p.main, p.main, 0)) ?: one(SeatPose(Seat.REST, Seat.REST, 0))
+    }
+
+    /** Draws ahead every picture of [f] at the table facing [slot]: the poses and the steps between rest and each. */
+    fun prepareSeat(f: Folk, slot: Int) {
+        for (s in Seat.entries) {
+            seatFrame(f, slot, SeatPose(s, s, 0))
+            if (s != Seat.REST) for (k in 1 until BLEND) { seatFrame(f, slot, SeatPose(Seat.REST, s, k)); seatFrame(f, slot, SeatPose(s, Seat.REST, k)) }
+        }
+    }
+
+    /** One pose of Borin at the table for the preview sheet: [pose] 0 rest, 1 drinking, 2 eating, 3 looking round. */
+    fun borinSits(slot: Int, pose: Int): PixelImage =
+        MapFigure.render(borin.doll, seatedOutfit, seatRig(slot * 360.0 / MapFigure.YAWS, Seat.entries[pose]))
 
     /** The village folk drawn as dolls so far only as drafts: shown on a sheet, not yet on the map. */
     val drafts = listOf(rowena, aldric, thessa, osric, lyra, jorin, pim, bram, liska, gwenna, borin, morwen)
@@ -527,6 +600,7 @@ object MapFolk {
             prepare(it, home)
             if (map.safeZones.any { z -> z.x == npc.x && z.y == npc.y }) prepareWard(it, home)
             if (squats(it)) prepareSquat(it, home)
+            if (sits(it)) prepareSeat(it, home)
         }
     }
 

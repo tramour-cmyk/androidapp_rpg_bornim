@@ -130,6 +130,35 @@ class MapFolkSquatTest {
         }
     }
 
+    /** 55.2: Borin at his table moves from pose to pose without a jump, and does something now and then, never on a beat. */
+    @Test
+    fun seatedPosesGoOverSmoothly() {
+        val b = MapFolk.borin
+        var last: HeroFigure.Rig? = null
+        var t = 0L
+        val starts = ArrayList<Long>()
+        var was = MapFolk.Seat.REST
+        while (t < 3_600_000L) {
+            val p = MapFolk.seatPoseAt(b, t)
+            val rig = MapFolk.seatRig(0.0, p)
+            if (last != null) {
+                fun d(x: HeroFigure.V, y: HeroFigure.V) = kotlin.math.sqrt((x.r - y.r) * (x.r - y.r) + (x.u - y.u) * (x.u - y.u) + (x.f - y.f) * (x.f - y.f))
+                assertTrue(d(rig.lh, last.lh) <= 7.0 && d(rig.rh, last.rh) <= 7.0, "hand jumps at $t: $p")
+                assertTrue(kotlin.math.abs(rig.headTurn - last.headTurn) <= 12.0, "head jumps at $t: $p")
+            }
+            // every block begins and ends at rest
+            if (t % MapFolk.SEAT_BLOCK_MS == 0L) assertTrue(p == MapFolk.SeatPose(MapFolk.Seat.REST, MapFolk.Seat.REST, 0), "block starts at $t in $p")
+            if (was == MapFolk.Seat.REST && p.main != MapFolk.Seat.REST) starts += t
+            was = p.main
+            last = rig
+            t += 50
+        }
+        // something is done several times a minute on the whole, but the gaps differ
+        assertTrue(starts.size in 60..360, "${starts.size} actions in an hour")
+        val gaps = starts.zipWithNext { a, c -> c - a }
+        assertTrue(gaps.toSet().size > gaps.size / 2, "the gaps repeat: $gaps")
+    }
+
     @Test
     fun neverOnABeat() {
         val (s, _) = sessions(night = true, hours = 3)
