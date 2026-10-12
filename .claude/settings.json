@@ -30,6 +30,17 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "command -v python3 >/dev/null && python3 \"$CLAUDE_PROJECT_DIR\"/tools/weiter-haken.py 2>/dev/null; true",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   }
 }

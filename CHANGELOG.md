@@ -4,6 +4,13 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 36.5, 36h, 36.7, 36j), getestet in 0.1.587 (passt, keine Abstürze), PR #47 (zusammengeführt 12.10., 15:5x):
+
+**Krogg trifft (36.5, 36h, 36.7, 36j)**
+- Beim Ausfallschritt trifft Kroggs Waffe jetzt die Brust des Helden. Beim Ausholen geht er 70 % des Schritts.
+- Beim Treffer hat Krogg eine eigene Haltung mit gestrecktem Arm, statt dass der Arm gebrochen wirkt.
+- Der Rückweg nach dem Schlag läuft weich zu Ende, auch bei schnellem Weitertippen und wenn der Held fällt.
+
 Zweig von Tom (Thema 13.4, 27.1, 27.2, 27d), getestet in 0.1.576, 0.1.579 und 0.1.584, PR #43 (zusammengeführt 12.10., 14:30):
 
 **Diagonale Sicht je Ort (13.4)**
