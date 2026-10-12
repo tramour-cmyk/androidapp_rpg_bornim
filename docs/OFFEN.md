@@ -46,7 +46,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Als Nächstes (5m ja, 13:00):** 27.4 Bäume neu mit Volumen (`MapFlora` oak/spruce/deadTree; Vorbild `MapTownIso`/`Sculpt`), gelten für Wald und Dorf, erst Standbilder; dann 5.6 Schlagbaum/Zaun (Vorschau `ONLY=zoom_nah_d10`), 5.3, 5l/5.5, 5.4, dann 27.5/27.6 (27.4 Bäume, 27.5 Dinge mit Garrick/Feuer, 27.6 Leben, je erst Standbilder; Lückenliste in Zeile 27). Vorschau Wald: `KARTENZOOM=1 DIAG=1 ONLY=zoom_nah_7` (7b Steinkreismitte, 7c Schild). Danach 13 Tempel, 42, Merkposten Lyra diagonal (23b).
 ### Jerry (12.10., 13:22)
 
-- 37 Kampfmusik zusammengeführt (PR #45). Nächstes: **36.4** (36c ja) auf neuem Zweig von `main`: Gegnerbilder (`FoeArt.frame`, `W=290`, Figur füllt ~9 %) zuschneiden, Lage mitführen (`BattleScreen.kt` `anchorX`/`groundLine`/`lungeOffset`, `KillArt`, Vorschau), dann Krogg 1,5×; vorher Standbilder `FOESHOT=bugbear:0 FOESHOT_SCALE=4`, Messung `ARTMEM_FOE=bugbear:0`.
+- 37 Kampfmusik zusammengeführt (PR #45). Nächstes: **36.4** (36c ja), läuft seit 13:09 in der Sitzung „Jerry: 36.4 Gegnerbilder zuschneiden, Krogg 1,5×“ (Zweig `claude/great-pascal-x56kad`, PR #45 schon zusammengeführt → neuer PR): Gegnerbilder (`FoeArt.frame`, `W=290`, Figur füllt ~9 %) zuschneiden, Lage mitführen (`BattleScreen.kt` `anchorX`/`groundLine`/`lungeOffset`, `KillArt`, Vorschau), dann Krogg 1,5×; vorher Standbilder `FOESHOT=bugbear:0 FOESHOT_SCALE=4`, Messung `ARTMEM_FOE=bugbear:0`.
 - Danach: 38 Messung Kapitel 1, 13e Entwurf 2, 24.6, 40.
 
 ## Zu testen
