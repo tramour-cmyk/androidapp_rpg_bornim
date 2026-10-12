@@ -1513,6 +1513,29 @@ fun renderFoeAnims() {
     }
 }
 
+/**
+ * One foe standing, as on the screen: nearest-neighbour enlarged like the battle screen does (FilterQuality.None).
+ * FOESHOT=bugbear:0,goblin:0 · FOESHOT_SCALE=4 (phone) · FOESHOT_CROP=x,y,w,h in art pixels (for a close look at e.g. 11×).
+ */
+fun renderFoeShot() {
+    val F = de.bornim.core.art.FoeArt
+    val k = (System.getenv("FOESHOT_SCALE") ?: "4").toInt()
+    val crop = System.getenv("FOESHOT_CROP")?.split(",")?.map { it.toInt() }
+    for (c in System.getenv("FOESHOT").split(",")) {
+        val id = c.substringBefore(":"); val seed = c.substringAfter(":", "0").toInt()
+        val im = F.frame(id, de.bornim.core.MonsterLook(seed), de.bornim.core.art.Act.IDLE, 0, 0)
+        val (x0, y0, w, h) = crop ?: listOf(0, 0, im.width, im.height)
+        val out = BufferedImage(w * k, h * k, BufferedImage.TYPE_INT_RGB)
+        for (y in 0 until h * k) for (x in 0 until w * k) {
+            val sx = x0 + x / k; val sy = y0 + y / k
+            val q = if (sx in 0 until im.width && sy in 0 until im.height) im[sx, sy] else 0
+            out.setRGB(x, y, if ((q ushr 24) >= 128) q and 0xFFFFFF else 0x3C3A36)
+        }
+        ImageIO.write(out, "png", File("build/screens/foeshot_${id}_${seed}_x$k.png"))
+        println("wrote foeshot $id $seed ${im.width}x${im.height}")
+    }
+}
+
 /** The last frame of every fall, whole and uncut, with the frame's edges and the ground line marked. */
 fun renderFoeFalls() {
     val F = de.bornim.core.art.FoeArt
