@@ -24,6 +24,8 @@ object Jobs {
         val gold: Int,
         /** Things given besides the gold, and how many of each ("@gear:RARITY:SLOT" for a piece of gear). */
         val gifts: List<Pair<String, Int>> = emptyList(),
+        /** What the hero says first on handing in (29.4), so the giver's answer does not come out of nowhere. */
+        val bring: T,
         /** What the giver says on handing in. */
         val thanks: T,
         /** The story flag after which the note is nailed up, or null for the first notes. */
@@ -46,6 +48,7 @@ object Jobs {
                 "Wanted: five wolf pelts, thick and whole. Winter comes early this year. Payment from Thessa at the general store."),
             T("60 Gold", "60 gold"),
             "wolf_pelt", 5, gold = 60,
+            bring = T("Fünf Wolfsfelle, wie am Brett verlangt. Dicht und ohne Löcher.", "Five wolf pelts, as the board asked. Thick and whole."),
             thanks = T("Fünf. Gut. Die Felle riechen noch nach Blut – das wäscht sich aus. Hier, dein Lohn.",
                 "Five. Good. They still smell of blood – that washes out. Here, your pay."),
         ),
@@ -56,6 +59,7 @@ object Jobs {
                 "My husband wore my ring when the goblins dragged him into their cave. He did not come back. Bring me the ring at least. – Gwenna, by the river"),
             T("40 Gold, ein Heiltrank", "40 gold, a healing potion"),
             RING, 1, gold = 40, gifts = listOf("potion" to 1),
+            bring = T("Gwenna? Ich war in der Höhle. Ich habe deinen Ring gefunden.", "Gwenna? I've been in the cave. I found your ring."),
             thanks = T("Das ist er. Er ist kalt … Danke. Mehr kann ich dir nicht geben.",
                 "That's it. It's cold … Thank you. It's all I can give you."),
         ),
@@ -66,6 +70,7 @@ object Jobs {
                 "Need three boar tusks for grip plates. No splinters. Borin, at the inn."),
             T("50 Gold", "50 gold"),
             "boar_tusk", 3, gold = 50,
+            bring = T("Drei Keilerhauer, für deine Griffschalen.", "Three boar tusks, for your grip plates."),
             thanks = T("Hm. Ordentlich gebrochen, nicht geschnitten. Damit lässt sich arbeiten. Nimm.",
                 "Hm. Broken clean, not sawn. I can work with these. Take this."),
         ),
@@ -77,6 +82,7 @@ object Jobs {
                 "Three venom glands from giant spiders, whole, not crushed. I pay in gold and potions. Whoever looks for me finds me deep in the woods by the fire. – Morwen"),
             T("50 Gold, zwei Kräutertränke", "50 gold, two herbal remedies"),
             "spider_gland", 3, gold = 50, gifts = listOf("remedy" to 2),
+            bring = T("Deine Giftdrüsen, Morwen. Drei Stück, ganz.", "Your venom glands, Morwen. Three, whole."),
             thanks = T("Drei, und keine geplatzt. Du hast ruhige Hände. Hier – und trink nicht alles auf einmal.",
                 "Three, and none burst. You have steady hands. Here – and don't drink it all at once."),
             after = Story.KROGG_DEFEATED,
@@ -88,11 +94,15 @@ object Jobs {
                 "At night a fire burns at the standing stones in the south of the Whisperwood. Not goblins, they shun the stones. Go and look, and bring me what you find. I may not leave the barrier. – Jorin, guard"),
             T("ein Kopfschutz aus der Wachstube", "headgear from the guardroom"),
             RAG, 1, gold = 0, gifts = listOf("@gear:UNCOMMON:HEAD" to 1),
+            bring = T("Am Steinkreis war niemand mehr. Nur kalte Asche, Spuren nach Norden – und das hier.", "No one left at the standing stones. Only cold ashes, tracks heading north – and this."),
             thanks = T("Ein offenes Auge … So ein Zeichen habe ich noch nie gesehen. Das geht an den Ältesten. Nimm das aus der Wachstube, auf deinem Kopf nützt es mehr als im Regal.",
                 "An open eye … I've never seen a sign like that. This goes to the Elder. Take this from the guardroom, it's more use on your head than on the shelf."),
             after = Story.KROGG_DEFEATED,
         ),
     )
+
+    /** The hero as speaker: the name is put in when the line is shown. */
+    val HERO = T("{name}", "{name}")
 
     operator fun get(id: String) = all.first { it.id == id }
 
@@ -130,6 +140,7 @@ object Jobs {
     fun handIn(s: GameState, npc: String): List<Cmd>? {
         val j = all.firstOrNull { it.giver == npc && isTaken(s, it) && s.count(it.item) >= it.count } ?: return null
         return listOf(
+            Cmd.Say(HERO, j.bring),
             Cmd.Say(j.giverName, j.thanks),
             Cmd.Take(j.item, j.count),
             Cmd.SetFlag(done(j.id)),

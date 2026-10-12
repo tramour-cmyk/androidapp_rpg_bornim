@@ -146,4 +146,18 @@ class JobsTest {
         game.takeJob("stones")
         assertEquals(ActionKind.LOOK, game.actionAt(mx, my))
     }
+
+    @Test
+    fun `on handing in the hero speaks first, by name`() {
+        val s = state()
+        val game = Game(s, Lang.DE)
+        game.takeJob("tusks")
+        s.add("boar_tusk", 3)
+        game.enqueue(Jobs.handIn(s, "borin")!!)
+        val first = game.mode as Mode.Dialog
+        assertEquals("Mira", first.speaker)
+        assertTrue("Keilerhauer" in first.text)
+        game.advance()
+        assertEquals("Borin", (game.mode as Mode.Dialog).speaker)
+    }
 }

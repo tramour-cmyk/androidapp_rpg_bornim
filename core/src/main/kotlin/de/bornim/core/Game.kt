@@ -750,7 +750,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         while (queue.isNotEmpty()) {
             when (val c = queue.removeFirst()) {
                 is Cmd.Say -> {
-                    mode = Mode.Dialog(c.speaker?.invoke(lang), c.text(lang).replace("{name}", hero.name))
+                    mode = Mode.Dialog(c.speaker?.invoke(lang)?.replace("{name}", hero.name), c.text(lang).replace("{name}", hero.name))
                     changed()
                     return
                 }
