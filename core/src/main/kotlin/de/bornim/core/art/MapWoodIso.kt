@@ -703,6 +703,70 @@ object MapWoodIso {
         return c.img
     }
 
+    /** Draft (56): the standing stones of the circle drawn in the slant; the game keeps the former picture. */
+    @Volatile var menhirDraft = false
+
+    /**
+     * A standing stone of the circle seen diagonally (56, draft): a tall slab, thicker one way than the other, tapering
+     * to a rounded, broken top and leaning a little; weathered grey with pale lichen, moss creeping up from the foot,
+     * and on its broad face a worn spiral cut long ago. Four looks ([v]), each slab turned its own way.
+     */
+    fun menhir(v: Int): PixelImage {
+        val c = Canvas(170)
+        val seed = 870 + v * 19
+        val ci = -0.5; val cj = -0.5
+        val h = 104.0 + (v * 9) % 22
+        val turn = listOf(0.3, 1.2, -0.4, 0.8)[v % 4]
+        val lean = listOf(0.04, -0.03, 0.06, 0.0)[v % 4]
+        c.shadow(ci + 0.08, cj + 0.04, 0.4, 0.32, 0.5)
+        // a rounded box in cross-section (superellipse), broad along u, thin along w
+        val ru0 = 0.32; val rw0 = 0.17
+        var z = 0.0
+        while (z <= h) {
+            val f = z / h
+            val taper = 1 - 0.3 * f - (if (f > 0.85) (f - 0.85) * 2.2 else 0.0)
+            val top = f > 0.85
+            val ru = ru0 * taper * (1 + (vnoise(f * 4, 0.5, seed) - 0.5) * 0.2); val rw = rw0 * taper
+            val oi = lean * f * f; val oj = -lean * 0.5 * f * f
+            var a = 0.0
+            while (a < 2 * PI) {
+                val ca = cos(a); val sa = sin(a)
+                // superellipse of power 4: flat faces, rounded edges
+                val px = Math.signum(ca) * Math.pow(abs(ca), 0.5); val py = Math.signum(sa) * Math.pow(abs(sa), 0.5)
+                val bump = 1 + (vnoise(a * 3, z / 14.0, seed + 1) - 0.5) * 0.16
+                val u = px * ru * bump; val w = py * rw * bump
+                val i = ci + oi + u * cos(turn) - w * sin(turn)
+                val j = cj + oj + u * sin(turn) + w * cos(turn)
+                // the normal, roughly: across the flat faces mostly along w
+                val nu = Math.signum(ca) * Math.pow(abs(ca), 1.5); val nw = Math.signum(sa) * Math.pow(abs(sa), 1.5) * 1.6
+                val nl = sqrt(nu * nu + nw * nw)
+                val ni = (nu * cos(turn) - nw * sin(turn)) / nl; val nj = (nu * sin(turn) + nw * cos(turn)) / nl
+                var col = mix(argb(0x8A867A), argb(0x4E4A44), vnoise(a * 4, z / 10.0, seed + 2) * 0.55)
+                if (vnoise(a * 6, z / 7.0, seed + 3) > 0.72) col = mix(col, argb(0xB4B49A), 0.6)
+                if (z < 22 * (0.5 + vnoise(a * 3, 0.0, seed + 4)) ) col = mix(col, argb(0x4E5C2A), 0.8)
+                // the spiral on the broad face towards the camera (+w side)
+                if (sa > 0.8) {
+                    val su = u / ru0; val sz = (z - h * 0.55) / (h * 0.18)
+                    val r = sqrt(su * su + sz * sz); val th = Math.atan2(sz, su)
+                    if (r < 1.0 && abs(frac((r * 3 - th / (2 * PI))) - 0.5) < 0.09) col = shade(col, 0.6)
+                }
+                c.pt(i, j, z, shade(col, lit(ni, nj, if (top) 0.6 else 0.0)))
+                a += 0.01
+            }
+            z += 0.5
+        }
+        // the rounded top: a cap of points over the last ring
+        val f = 1.0; val oi = lean; val oj = -lean * 0.5
+        for (k in 0 until 2400) {
+            val u = (rnd(k, v, seed + 5) * 2 - 1) * ru0 * 0.55; val w = (rnd(k, v, seed + 6) * 2 - 1) * rw0 * 0.55
+            if ((u / (ru0 * 0.55)).let { it * it * it * it } + (w / (rw0 * 0.55)).let { it * it * it * it } > 1) continue
+            val i = ci + oi + u * cos(turn) - w * sin(turn); val j = cj + oj + u * sin(turn) + w * cos(turn)
+            val col = mix(argb(0x8A867A), argb(0x5A564E), vnoise(u * 30, w * 30, seed + 7) * 0.6)
+            c.pt(i, j, h + 1 - (abs(u) / ru0) * 6 * f, shade(col, lit(0.0, 0.0, 1.0)))
+        }
+        return c.img
+    }
+
     /** The herb on ([tx], [ty]) as an upright thing sorted like the others of the woods; the wind sways it a little. */
     fun herbObj(tx: Int, ty: Int, clock: Long): WorldArt.Obj {
         val v = Math.floorMod(hash(tx, ty, 34), 3)
@@ -764,6 +828,7 @@ object MapWoodIso {
             }
             // the signs of the woods: the village's signposts, a board on one post or on two; not the look with the
             // arrow, which would point along +i whatever the way
+            Tile.MENHIR -> if (!menhirDraft) return null else Math.floorMod(hash(tx, ty, 37), 4).let { v -> "menhir/$v" to { menhir(v) } }
             Tile.ROCK -> if (!rockDraft) return null else Math.floorMod(hash(tx, ty, 36), 3).let { v -> "rock/$v" to { boulders(v) } }
             Tile.CHEST -> if (!chestDraft) return null else Math.floorMod(hash(tx, ty, 35), 3).let { v -> "chest/$v/$open" to { chest(v, open) } }
             Tile.SIGN -> Math.floorMod(hash(tx, ty, 33), 2).let { v -> "sign/$v" to { MapTownIso.signpost(v, 71) } }
@@ -796,6 +861,7 @@ object MapWoodIso {
             "Truhe offen" to (0 until 3).map { chest(it, true) },
             "Kraut" to (0 until 3).map { herb(it, 0.0) },
             "Steine" to (0 until 3).map { boulders(it) },
+            "Menhir" to (0 until 3).map { menhir(it) },
         )
     }
 }

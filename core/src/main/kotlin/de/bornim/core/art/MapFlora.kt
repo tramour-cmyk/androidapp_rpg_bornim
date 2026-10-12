@@ -637,7 +637,7 @@ object MapFlora {
                         Tile.LOG, Tile.CAVE_WALL, Tile.CAVE_ENTRANCE, Tile.SIGN -> if (MapFigure.viewYaw != 0.0) continue else Triple(w * 0.45, 12.0, 8.0)
                         Tile.CHEST -> if (MapWoodIso.chestDraft && MapFigure.viewYaw != 0.0) continue else Triple(w * 0.45, 12.0, 8.0)
                         Tile.ROCK -> if (MapWoodIso.rockDraft && MapFigure.viewYaw != 0.0) continue else Triple(w * 0.45, 12.0, 8.0)
-                        Tile.MENHIR -> Triple(22.0, 9.0, 18.0)
+                        Tile.MENHIR -> if (MapWoodIso.menhirDraft && MapFigure.viewYaw != 0.0) continue else Triple(22.0, 9.0, 18.0)
                         else -> Triple(w * 0.45, 12.0, 8.0)
                     }
                     val img = shadowImage(rx.toInt(), ry.toInt(), if (map.tile(tx, ty) == Tile.TREE) 0.42 else 0.36)
