@@ -213,6 +213,9 @@ fun main() {
                 // 29: the notice board before the inn, by day and at night
                 shot("zoom_${z}_d9_brett_tag") { place(it, "village", 6, 8, 12 * 60, Facing.LEFT) }
                 shot("zoom_${z}_d10_schlagbaum") { place(it, "village", 17, 4, 12 * 60, Facing.UP) }
+                // 5.6: the barrier opened, and the garden's fence in the south west
+                shot("zoom_${z}_d10b_schlagbaum_offen") { place(it, "village", 17, 4, 12 * 60, Facing.UP); it.game!!.state.flags += de.bornim.core.Story.BARRIER_OPEN; it.refresh() }
+                shot("zoom_${z}_d12_zaun") { place(it, "village", 6, 27, 12 * 60, Facing.DOWN) }
                 // 27d: the hero pushed against the shop's front wall (free walking stops him 0.3 tiles before it), at its
                 // left end, middle and right end: the house stays solid
                 for ((n, hx) in listOf("links" to 26, "mitte" to 29, "rechts" to 30)) shot("zoom_${z}_d11_laden_$n") {
