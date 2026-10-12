@@ -4,6 +4,7 @@ Zielliste (Thema 26, Beratung mit dem Nutzer 11.10., 16:50): Kapitel 1 wird rund
 
 **Pflicht**
 - [ ] **Alle Orte „Ort fertig“** (Liste in `STIL.md`): Dorf (5, Tom), Räume (13, Tom, erledigt bis auf Prüfung), Wald (27, Tom), Höhle (13e, 10, 11, Jerry).
+- [ ] **Alte Ansicht ausgebaut** (13t, Nutzer 12.10.): nur noch diagonal, sobald Wald, Tiefer Wald und Höhle fertig sind; bis dahin 13.4 (je Ort automatisch). Danach Zoomstufe festlegen (6l).
 - [x] **Alle Gegner auf der Karte im neuen Stil** (9i, Jerry; erledigt 11.10., PR #29, #33).
 - [ ] **Läuft rund:** kein Schweben nach Start und Kartenwechsel, Zwischenbild (24, Tom und Jerry); Sprungtest und Kollisionsprüfung 0; „Bewegungen unrund“ (19e) geklärt.
 - [x] **Musik neu im neuen Stil** (28, Jerry), nur freie Lizenzen. Erledigt 11.10., 21:31 (PR #36).
