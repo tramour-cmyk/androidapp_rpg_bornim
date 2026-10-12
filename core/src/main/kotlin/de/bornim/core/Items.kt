@@ -45,7 +45,7 @@ object Items {
             ItemKind.POTION, 20, Icon.FLASK, heal = dice(1, 4), cures = true),
         ItemDef("alchemist_fire", T("Alchemistenfeuer", "Alchemist's Fire"), T("Wurfgeschoss, trifft immer und setzt den Gegner in Brand.", "Thrown, always hits and sets the foe on fire."),
             ItemKind.BOMB, 30, Icon.FLASK, damage = dice(2, 6), damageType = DamageType.FIRE),
-        ItemDef("holy_water", T("Weihwasser", "Holy Water"), T("Wurfgeschoss, trifft immer. Gegen Untote doppelter Schaden.", "Thrown, always hits. Double damage against undead."),
+        ItemDef("holy_water", T("Weihwasser", "Holy Water"), T("Wurfgeschoss, trifft immer. Wirkt nur gegen Untote: 2W6 gleißender Schaden.", "Thrown, always hits. Only harms undead: 2d6 radiant damage."),
             ItemKind.BOMB, 25, Icon.FLASK, damage = dice(2, 6), damageType = DamageType.RADIANT),
 
         // Food and ingredients: sold, roasted at a campfire or brewed into potions by Morwen.

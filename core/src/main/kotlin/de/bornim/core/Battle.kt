@@ -51,6 +51,8 @@ sealed interface Action {
     data object Flee : Action
     /** The SRD Dodge action: attacks on the hero have disadvantage until its next turn; a foe that misses opens itself to a counter. */
     data object Defend : Action
+    /** Ends the turn without doing anything: the foe's turn comes at once (34). */
+    data object EndTurn : Action
 }
 
 data class Rewards(val xp: Int, val gold: Int, val items: List<String>, val gear: List<Gear>, val levelsGained: Int)
@@ -238,6 +240,12 @@ class Battle(
         else -> null
     }
 
+    /** Null if the item can be used now, otherwise the reason why not. Holy water only harms undead (SRD). */
+    fun blockedItem(id: String): T? = when {
+        id == "holy_water" && !monster.undead -> Msg.notUndead
+        else -> null
+    }
+
     /** The hero stands in a defensive stance until its next turn (the SRD Dodge action). */
     var defending = false
         private set
@@ -256,6 +264,7 @@ class Battle(
             is Action.UseSkill -> useSkill(action.skill)
             is Action.UseItem -> useItem(action.item)
             Action.Flee -> flee()
+            Action.EndTurn -> { say(Msg.endsTurn.f(lang, name)); true }
         }
         if (tookTurn && outcome == Outcome.ONGOING) bonusEffects()
         if (tookTurn && outcome == Outcome.ONGOING) enemyTurn()
@@ -466,6 +475,7 @@ class Battle(
     private fun useItem(id: String): Boolean {
         val def = Items[id]
         if (state.count(id) <= 0) return false
+        blockedItem(id)?.let { say(it(lang)); return false }
         when (def.kind) {
             ItemKind.POTION -> {
                 val curable = def.cures && heroStatus.isNotEmpty()
@@ -484,9 +494,7 @@ class Battle(
             ItemKind.BOMB -> {
                 state.remove(id)
                 say(Msg.throws.f(lang, name, def.name(lang)), Anim.THROW)
-                val d = def.damage!!
-                val dmg = if (id == "holy_water" && monster.undead) d.copy(count = d.count * 2) else d
-                hitEnemy(dice.roll(dmg) + Perks.throwBonus(hero), def.damageType, false, fx(if (id == "holy_water") FxKind.BOMB_HOLY else FxKind.BOMB_FIRE, false))
+                hitEnemy(dice.roll(def.damage!!) + Perks.throwBonus(hero), def.damageType, false, fx(if (id == "holy_water") FxKind.BOMB_HOLY else FxKind.BOMB_FIRE, false))
                 if (id == "alchemist_fire") inflict(onHero = false, Status.BURN, 2)
             }
             else -> {
@@ -1091,6 +1099,7 @@ private object Msg {
     val foeDrinks = T("{0} trinkt einen Heiltrank und heilt {1} TP!", "{0} drinks a potion and heals {1} HP!")
     val foeAttacks = T("{0} greift an: {1}!", "{0} attacks: {1}!")
     val foeMisses = T("{0} verfehlt!", "{0} misses!")
+    val endsTurn = T("{0} wartet ab.", "{0} waits.")
     val defends = T("{0} geht in Abwehrhaltung.", "{0} takes a defensive stance.")
     val opening = T("Abgewehrt – {0} sieht eine Lücke für einen Konter!", "Fended off – {0} sees an opening to strike back!")
     val counterStrike = T("{0} nutzt die Lücke!", "{0} strikes into the opening!")

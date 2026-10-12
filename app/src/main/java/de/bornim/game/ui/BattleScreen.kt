@@ -1347,9 +1347,9 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                 when (ui.menu) {
                     BattleMenu.MAIN -> MainMenu(battle, lang, onAttack = { ui.menu = BattleMenu.FIGHT }, onSkills = { ui.menu = BattleMenu.SKILLS },
                         onBag = { ui.menu = BattleMenu.BAG }, onFlee = { act(Action.Flee) })
-                    BattleMenu.FIGHT -> FightMenu(battle, lang, onAttack = { act(Action.Attack) }, onDefend = { act(Action.Defend) }, onBack = { ui.menu = BattleMenu.MAIN })
+                    BattleMenu.FIGHT -> FightMenu(battle, lang, onAttack = { act(Action.Attack) }, onDefend = { act(Action.Defend) }, onEndTurn = { act(Action.EndTurn) }, onBack = { ui.menu = BattleMenu.MAIN })
                     BattleMenu.SKILLS -> SkillMenu(battle, lang, onPick = { act(Action.UseSkill(it)) }, onBack = { ui.menu = BattleMenu.MAIN })
-                    BattleMenu.BAG -> BagMenu(game, lang, onPick = { act(Action.UseItem(it)) }, onBack = { ui.menu = BattleMenu.MAIN })
+                    BattleMenu.BAG -> BagMenu(game, battle, lang, onPick = { act(Action.UseItem(it)) }, onBack = { ui.menu = BattleMenu.MAIN })
                 }
             }
         }
@@ -1519,7 +1519,7 @@ private fun MainMenu(battle: Battle, lang: Lang, onAttack: () -> Unit, onSkills:
 
 /** Fighting: strike, or take a defensive stance until the next turn (the foe attacks at a disadvantage; a miss opens a counter). */
 @Composable
-private fun FightMenu(battle: Battle, lang: Lang, onAttack: () -> Unit, onDefend: () -> Unit, onBack: () -> Unit) {
+private fun FightMenu(battle: Battle, lang: Lang, onAttack: () -> Unit, onDefend: () -> Unit, onEndTurn: () -> Unit, onBack: () -> Unit) {
     val de = lang == Lang.DE
     Panel(Modifier.fillMaxSize()) {
         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -1533,7 +1533,11 @@ private fun FightMenu(battle: Battle, lang: Lang, onAttack: () -> Unit, onDefend
                 else "Defend: until your next turn the foe attacks at a disadvantage. If it misses, you may counter: your next attack has advantage.",
                 size = 13.sp, color = if (battle.counter) Colors.accent else Colors.textDim,
             )
-            PixelButton(if (de) "Zurück" else "Back", Modifier.fillMaxWidth().height(40.dp), size = 14.sp, onClick = onBack)
+            // slim and set apart from the attacks, so it is not hit by mistake; no confirmation (34)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                PixelButton(if (de) "Zurück" else "Back", Modifier.weight(1f).height(40.dp), size = 14.sp, onClick = onBack)
+                PixelButton(if (de) "Zug beenden" else "End turn", Modifier.weight(1f).height(40.dp), size = 14.sp, onClick = onEndTurn)
+            }
         }
     }
 }
@@ -1569,7 +1573,7 @@ private fun SkillMenu(battle: Battle, lang: Lang, onPick: (Skill) -> Unit, onBac
 }
 
 @Composable
-private fun BagMenu(game: Game, lang: Lang, onPick: (String) -> Unit, onBack: () -> Unit) {
+private fun BagMenu(game: Game, battle: Battle, lang: Lang, onPick: (String) -> Unit, onBack: () -> Unit) {
     val usable = game.state.inventory.entries.filter { Items[it.key].kind == ItemKind.POTION || Items[it.key].kind == ItemKind.BOMB }
     Panel(Modifier.fillMaxSize()) {
         Column {
@@ -1582,10 +1586,13 @@ private fun BagMenu(game: Game, lang: Lang, onPick: (String) -> Unit, onBack: ()
                 if (usable.isEmpty()) Txt(Ui.nothing(lang), color = Colors.textDim)
                 usable.forEach { (id, count) ->
                     val def = Items[id]
+                    // greyed out where it does nothing (holy water against the living), the reason on the button itself
+                    val reason = battle.blockedItem(id)
+                    val label = "${def.name(lang)} ×$count" + if (reason != null) " · ${Ui.onlyUndead(lang)}" else ""
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         SupplyPicture(def.id, 32.dp)
                         Spacer(Modifier.width(6.dp))
-                        PixelButton("${def.name(lang)} ×$count", Modifier.weight(1f), size = 16.sp) { onPick(id) }
+                        PixelButton(label, Modifier.weight(1f), enabled = reason == null, size = 16.sp) { onPick(id) }
                     }
                 }
             }

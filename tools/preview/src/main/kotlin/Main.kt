@@ -581,6 +581,8 @@ fun main() {
         shot("81_lunge_skel_$i", taps = List(4) { msgBox }, lastFrames = f) { vm -> dollFight(vm, "skeleton", "cave", 10, 14, 2) }
     }
     shot("77_town_fightmenu", taps = List(4) { msgBox } + listOf(fightBtn0)) { vm -> wolfFight(vm, "village", 12, 12, 12 * 60, id = "goblin", cls = CharClass.CLERIC) }
+    // 35: holy water greyed out against the living, with the reason beneath
+    shot("77_town_bag", taps = List(4) { msgBox } + listOf(Offset(300f, 2150f))) { vm -> wolfFight(vm, "village", 12, 12, 12 * 60, id = "goblin", cls = CharClass.CLERIC); vm.game!!.state.add("holy_water", 2) }
     val fightBtn = Offset(300f, 1975f)
     for ((i, f) in listOf(3, 6, 10, 16).withIndex()) {
         shot("71_hit_$i", taps = List(4) { msgBox } + listOf(fightBtn, msgBox), lastFrames = f) { vm -> vm.changeBlood(2); wolfFight(vm, "forest", 10, 20, 12 * 60) }
