@@ -413,6 +413,11 @@ fun main() {
             for (it in listOf("potion", "remedy", "wolf_pelt", "boar_tusk", "herbs")) g.state.add(it, 3)
             g.enqueue(listOf(Cmd.OpenShop(Story.shopStock))); vm.refresh()
         }
+        if (System.getenv("HAENDLER") == "morwen") {
+            de.bornim.game.ui.ShopLook.previewTab = 0; de.bornim.game.ui.ShopLook.previewDialog = -1
+            shot("59_morwen_neu", settle = 60) { vm -> shop(vm); val g = vm.game!!; g.advance(); g.enqueue(listOf(Cmd.OpenShop(listOf("potion", "remedy"), brewing = true))); vm.refresh() }
+            System.exit(0)
+        }
         val looks = System.getenv("HAENDLER").let { if (it == "neu") listOf(true) else listOf(false, true) }
         for (draft in looks) {
             de.bornim.game.ui.ShopLook.draft = draft

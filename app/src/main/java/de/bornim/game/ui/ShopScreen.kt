@@ -40,9 +40,9 @@ import de.bornim.core.Ui
 import de.bornim.core.art.IconArt
 import de.bornim.game.GameViewModel
 
-/** 59 Händler: the shop in the look of the text box (preview `HAENDLER=1` shows old and new). */
+/** 59 Händler: the shop in the look of the text box (in the game since 59d, 12.10.; preview `HAENDLER=1` shows old and new). */
 object ShopLook {
-    @Volatile var draft = false
+    @Volatile var draft = true
     /** Preview only: the tab to open on (0 buy, 1 sell, 2 sell with things to buy back) and a dialog (gear index, 100 supply). */
     @Volatile var previewTab = 0
     @Volatile var previewDialog = -1
