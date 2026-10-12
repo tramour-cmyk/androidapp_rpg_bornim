@@ -466,7 +466,7 @@ object MapFolk {
 
     /** One resting picture of [f], drawn now. */
     fun drawRest(f: Folk, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage =
-        MapFigure.render(f.doll, f.outfit, MapRest.rig(MapFigure.rig(slot * 360.0 / MapFigure.YAWS, 0, MapFigure.Carry.FREE), rest, breath, level))
+        MapFigure.render(f.doll, f.outfit, MapRest.rig(MapFigure.rig(slot * 360.0 / MapFigure.YAWS, 0, f.carry), rest, breath, level))
 
     /** The idle picture, or null while it is not drawn yet. */
     fun idleFrame(f: Folk, slot: Int, idle: Idle, i: Int): PixelImage? = synchronized(cache) { cache["${f.id}|$slot|$idle|$i"] }

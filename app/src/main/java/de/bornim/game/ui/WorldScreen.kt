@@ -987,7 +987,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     // otherwise, standing, the small movements everyone has: breathing, shifting weight, a glance, hands to the belt
                     val squatImg = squat?.let { if (slotNow == homeSlot) MapFolk.squatFrame(f, slotNow, it) else null }
                     val restImg = if (idleImg == null && doing == null && squat == null && !walkingNow && slotNow == MapFigure.slot(target)) {
-                        val ps = MapRest.pose(f.id.hashCode(), clock, handsFree = true, mayLook = !near)
+                        // a spear or staff on the shoulder stays there: no hands to the belt (5.3)
+                        val ps = MapRest.pose(f.id.hashCode(), clock, handsFree = f.carry == MapFigure.Carry.FREE, mayLook = !near)
                         MapFolk.restFrame(f, slotNow, ps.rest, ps.breath, ps.level)
                     } else null
                     val wardImg = warding?.let { wd ->
