@@ -44,4 +44,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 38 | Balance-Langzeitplan (`BALANCE.md`) | Berater, Jerry | ja 12.10., ≥ 7 Kapitel | `OFFEN.md` |
 | 39 | Schwierigkeitsgrad im Menü | Jerry (Menü mit Tom) | ja 12.10., nach 38 | `OFFEN.md` |
 | 40 | Lautstärke Gesamt/Musik/Effekte | Jerry | ja 12.10. | `OFFEN.md` |
-| 42 | Textkasten unten im Stil der Blenden (schwarz, Sprecher Gold) | Tom | Vorschlag |
+| 42 | Textkasten unten im Stil der Blenden (schwarz, Sprecher Gold) | Tom | Vorschlag 12.10. | `OFFEN.md` |
