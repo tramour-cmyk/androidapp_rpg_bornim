@@ -47,7 +47,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Als Nächstes (5m ja, 13:00):** 27.4 Bäume neu mit Volumen (`MapFlora` oak/spruce/deadTree; Vorbild `MapTownIso`/`Sculpt`), gelten für Wald und Dorf, erst Standbilder; dann 5.6 Schlagbaum/Zaun (Vorschau `ONLY=zoom_nah_d10`), 5.3, 5l/5.5, 5.4, dann 27.5/27.6 (27.4 Bäume, 27.5 Dinge mit Garrick/Feuer, 27.6 Leben, je erst Standbilder; Lückenliste in Zeile 27). Vorschau Wald: `KARTENZOOM=1 DIAG=1 ONLY=zoom_nah_7` (7b Steinkreismitte, 7c Schild). Danach 13 Tempel, 42, Merkposten Lyra diagonal (23b).
 ### Jerry (12.10., 13:42)
 
-- **PR #46** (36.4, abonniert, Zweig `claude/great-pascal-x56kad`): Build läuft; 0.1.581 beim Nutzer; nach „passt“ zusammenführen, CHANGELOG. **Dann 36.5 (36d ja, nach Rückmeldung):** Kroggs Ausfallschritt (hebt ab, landet halb hinter der Anzeige; Film: `FILMBATCH` Zeile `krogg fighter:bugbear 3 2 XWWWWWXWWWWWWW attack,attack`, Angriff ab Bild ~140), erst Standbilder. 14a ja: Neustart 13:5x.
+- **PR #46** (36.4, abonniert, Zweig `claude/great-pascal-x56kad`): 0.1.581 beim Nutzer; nach „passt“ zusammenführen, CHANGELOG. **Dann 36.5 (36d ja, nach Rückmeldung):** Kroggs Ausfallschritt (hebt ab, landet halb hinter der Anzeige; Film: `FILMBATCH` Zeile `krogg fighter:bugbear 3 2 XWWWWWXWWWWWWW attack,attack`, Angriff ab Bild ~140), erst Standbilder. 14a ja: Neustart 13:5x.
 - **Danach:** 38 Messung Kapitel 1, 13e Entwurf 2 (Grundsatz 43), 24.6, 40.
 
 ## Zu testen
