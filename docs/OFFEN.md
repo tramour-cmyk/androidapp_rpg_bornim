@@ -41,8 +41,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (12.10., 12:35, vor Neustart)
 
-- **PR #43 (Entwurf, abonniert), Zweig `claude/upbeat-clarke-oghrxm`, Build 0.1.576 zu testen:** 13.4 (Diagonale je Ort automatisch, Schalter weg, `townDraft` immer an) und 27.1/27.2 Entwurf (diagonal junge Fichten vor Wichtigem bis 8 Felder, `MapFlora.objects`; Durchsicht 0,2 in `WorldScreen`). Nach Test: zusammenführen, CHANGELOG.
-- **Als Nächstes:** Antwort 27d abwarten (27.4 Bäume, 27.5 Dinge mit Garrick/Feuer, 27.6 Leben, je erst Standbilder; Lückenliste in Zeile 27). Vorschau Wald: `KARTENZOOM=1 DIAG=1 ONLY=zoom_nah_7` (7b Steinkreismitte, 7c Schild). Danach 13 Tempel, 42, Merkposten Lyra diagonal (23b).
+- **PR #43 (Entwurf, abonniert), Zweig `claude/upbeat-clarke-oghrxm`, Build 0.1.579 zu testen (0.1.576 getestet, nur Durchsicht zu stark → milder/weich):** 13.4 (Diagonale je Ort automatisch, Schalter weg, `townDraft` immer an) und 27.1/27.2 Entwurf (diagonal junge Fichten vor Wichtigem bis 8 Felder, `MapFlora.objects`; Durchsicht 0,2 in `WorldScreen`). Nach Test: zusammenführen, CHANGELOG.
+- **Als Nächstes:** Antwort 5m/27d abwarten (Vorschlag: 27.4 Bäume, dann Dorf 5.6, 5.3, 5l/5.5, 5.4, dann 27.5/27.6) (27.4 Bäume, 27.5 Dinge mit Garrick/Feuer, 27.6 Leben, je erst Standbilder; Lückenliste in Zeile 27). Vorschau Wald: `KARTENZOOM=1 DIAG=1 ONLY=zoom_nah_7` (7b Steinkreismitte, 7c Schild). Danach 13 Tempel, 42, Merkposten Lyra diagonal (23b).
 ### Jerry (12.10., 12:56, vor Neustart)
 
 - **Zweig `claude/great-pascal-x56kad`, PR #45 (Entwurf, abonniert; #44 geschlossen):** 37 Kampfmusik fertig (7 Stücke), Build 0.1.578 zu testen ([Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38238586524/artifacts/11742320729)). Bei „passt“: PR zusammenführen, CHANGELOG.
@@ -53,7 +53,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **0.1.578 (Jerry, PR #45, 37, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38238586524/artifacts/11742320729)), nach Toms 0.1.576:** Kampfmusik: 7 Stücke, im Kampf zufällig; nie Great Labyrinth, Menace, Epic Fight, Ancient Legend; Devils Dome setzt gleich kräftig ein.
 
-- **Build läuft (Tom, PR #43):** 0.1.576 getestet (12:40: 1–4, 6 ja; 5 Durchsicht zu stark). Neu: Durchsicht milder (zusammen 35 %, egal wie viele hintereinander), weich ein/aus in 0,3 s. Darauf achten: hinter Häusern im Dorf, in Räumen hinter hohen Möbeln.
+- **0.1.579 (Tom, PR #43, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38238967966/artifacts/11742810872)):** 0.1.576 getestet (12:40: 1–4, 6 ja; 5 Durchsicht zu stark). Neu: Durchsicht milder (zusammen 35 %, egal wie viele hintereinander), weich ein/aus in 0,3 s. Darauf achten: hinter Häusern im Dorf, in Räumen hinter hohen Möbeln.
 
 
 ## Rückfragen an den Nutzer
