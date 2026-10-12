@@ -397,8 +397,8 @@ fun main() {
         for (draft in listOf(false, true)) {
             de.bornim.game.ui.DialogLook.draft = draft
             val tag = if (draft) "neu" else "alt"
-            shot("42_gespraech_$tag") { vm -> opened(vm, spoken = true) }
-            shot("42_erzaehlt_$tag") { vm -> opened(vm, spoken = false) }
+            shot("42_gespraech_$tag", settle = 150) { vm -> opened(vm, spoken = true) }
+            shot("42_erzaehlt_$tag", settle = 150) { vm -> opened(vm, spoken = false) }
         }
         System.exit(0)
     }
