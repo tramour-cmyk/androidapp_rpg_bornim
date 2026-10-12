@@ -492,8 +492,8 @@ object MapWoodIso {
         return c.img
     }
 
-    /** Draft (56): the healing herbs on the flower meadows drawn in the slant; the game keeps the former picture. */
-    @Volatile var herbDraft = false
+    /** (56, 56a–56c ja): the healing herbs on the flower meadows drawn in the slant; seen straight the former picture stays. */
+    @Volatile var herbDraft = true
 
     /**
      * A healing herb seen diagonally (56, draft): a low rosette of broad ribbed leaves like plantain, muted green, and
@@ -556,8 +556,8 @@ object MapWoodIso {
         return c.img
     }
 
-    /** Draft (56): the chests of the woods drawn in the slant; the game keeps the former picture. */
-    @Volatile var chestDraft = false
+    /** (56, 56a–56c ja): the chests of the woods drawn in the slant; seen straight the former picture stays. */
+    @Volatile var chestDraft = true
 
     /**
      * A chest left in the woods seen diagonally (56, draft): a box of weathered planks along i with a rounded lid,
@@ -654,8 +654,8 @@ object MapWoodIso {
         return c.img
     }
 
-    /** Draft (56): the boulders of the woods drawn in the slant; the game keeps the former picture. */
-    @Volatile var rockDraft = false
+    /** (56, 56a–56c ja): the boulders of the woods drawn in the slant; seen straight the former picture stays. */
+    @Volatile var rockDraft = true
 
     /**
      * Boulders in the woods seen diagonally (56, draft): one big stone half sunk in the ground with one or two smaller
@@ -704,8 +704,8 @@ object MapWoodIso {
         return c.img
     }
 
-    /** Draft (56): the standing stones of the circle drawn in the slant; the game keeps the former picture. */
-    @Volatile var menhirDraft = false
+    /** (56, 56a–56c ja): the standing stones of the circle drawn in the slant; seen straight the former picture stays. */
+    @Volatile var menhirDraft = true
 
     /**
      * A standing stone of the circle seen diagonally (56, draft): a tall slab, thicker one way than the other, tapering
@@ -768,8 +768,8 @@ object MapWoodIso {
         return c.img
     }
 
-    /** Draft (56): the bushes of the undergrowth drawn in the slant; the game keeps the former picture. */
-    @Volatile var bushDraft = false
+    /** (56, 56a–56c ja): the bushes of the undergrowth drawn in the slant; seen straight the former picture stays. */
+    @Volatile var bushDraft = true
 
     /**
      * A bush of the undergrowth seen diagonally (56, draft): a few overlapping clumps of small leaves, lit from above
