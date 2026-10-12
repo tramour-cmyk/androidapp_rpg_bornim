@@ -37,13 +37,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 11:35, vor Neustart)
+### Tom (12.10., 12:35, vor Neustart)
 
-- **29 erledigt:** PR #42 zusammengeführt (11:35), getestet in 0.1.569; CHANGELOG eingetragen. Zweig `claude/great-sagan-n9tkga` ist fertig.
-- **13.4 gebaut (12:19), PR #43 (Entwurf, abonniert):** Dorf + 4 Räume immer diagonal im neuen Stil, Wald/Tiefer Wald/Höhle gerade bis fertig; Schalter „Sicht“ und „Dorf und Räume“ weg; Vorschau `DIAG=1` = alle Orte diagonal (`MapSight.all`). Zweig `claude/upbeat-clarke-oghrxm`. Jetzt 27 (27b ja, nach 43 umstellen).
-- **In Arbeit: 27 Wald** (27a ja 11:43: zuerst Südrand mit Steinkreis und Schild, erst Standbilder). Danach 13 Tempel, dann **42 Textkasten** (42a–42c ja, Standbilder zuerst), dann 5l/5.5, 17.
-- **Merkposten (23b ja, Nutzer 11:48 über Berater):** Lyra diagonal (für die Höhle), bevor Jerry mit 13e fertig ist, damit er nicht wartet; Reihenfolge sonst unverändert.
-- **Texte (Regel 41):** Aushänge und Sätze von 29/29.3/29.4 stehen in `Jobs.kt`; der Berater übernimmt sie in `docs/STORY.md`.
+- **PR #43 (Entwurf, abonniert), Zweig `claude/upbeat-clarke-oghrxm`, Build 0.1.576 zu testen:** 13.4 (Diagonale je Ort automatisch, Schalter weg, `townDraft` immer an) und 27.1/27.2 Entwurf (diagonal junge Fichten vor Wichtigem bis 8 Felder, `MapFlora.objects`; Durchsicht 0,2 in `WorldScreen`). Nach Test: zusammenführen, CHANGELOG.
+- **Als Nächstes:** Antwort 27d abwarten (27.4 Bäume, 27.5 Dinge mit Garrick/Feuer, 27.6 Leben, je erst Standbilder; Lückenliste in Zeile 27). Vorschau Wald: `KARTENZOOM=1 DIAG=1 ONLY=zoom_nah_7` (7b Steinkreismitte, 7c Schild). Danach 13 Tempel, 42, Merkposten Lyra diagonal (23b).
 ### Jerry (12.10., 12:23, vor Neustart)
 
 - **Zweig `claude/sharp-faraday-929xjq`, PR #44 (Entwurf):** 37 Kampfmusik umgebaut (3 raus, Eclipse Legion rein, Ancient Legend → `MusicLib.amuletReturn`), Vorschau `FOESHOT`. Build 0.1.574 grün ([Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38235039784/artifacts/11740720309)), **noch nicht zum Test angeboten**: erst zweite Runde Hörproben (37d; Kandidaten-Suche auf OGA mit CC0-Filter, Battle Theme A von cynicmusic als Reserve), dann einbauen, dann ein Test.
@@ -52,7 +49,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
-- **Build läuft (Tom, PR #43, 13.4):** ohne Schalter: Dorf und Räume diagonal, Wald und Höhle gerade, Wechsel hinter der Blende ohne Sprung; Testreiter ohne „Sicht“ und „Dorf und Räume“. Dazu: Kronen/Häuser vor dem Helden diagonal fast ganz durchsichtig (27.1).
+- **0.1.576 (Tom, PR #43, 13.4 + 27.1, [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38236381756/artifacts/11740502703)):** ohne Schalter: Dorf und Räume diagonal, Wald und Höhle gerade, Wechsel hinter der Blende ohne Sprung; Testreiter ohne „Sicht“ und „Dorf und Räume“. Dazu: Kronen/Häuser vor dem Helden diagonal fast ganz durchsichtig (27.1).
 
 
 ## Rückfragen an den Nutzer
