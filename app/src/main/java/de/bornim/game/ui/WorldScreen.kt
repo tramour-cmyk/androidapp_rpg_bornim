@@ -269,14 +269,22 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
 
     // The fire's crackle swells as the hero walks up to a campfire or a hearth and fades as he leaves it or a fight
     // starts (18i): one take loops without a seam and stays until it has faded out, the next fire picks a new one (18k).
-    // Drops fall in the cave on their own, fire or not (18h).
+    // Drops fall in the cave on their own, fire or not (18h), the first at once.
+    // The sound of the place (24.8) starts with the black screen, before the picture: wind outside, the temple's hall
+    // swell in and loop; the inn's people and the houses' wood make single sounds now and then (24.8.4).
     LaunchedEffect(game.state.place.map) {
         val rnd = kotlin.random.Random(game.state.steps + 1)
         val tick = 100L
         var fire = 0f
         var crackle = 0
         var now = 0L
-        var nextDrip = de.bornim.core.audio.Ambience.DRIP_MIN_MS / 2 + rnd.nextLong(de.bornim.core.audio.Ambience.DRIP_SPAN_MS)
+        var nextDrip = 300L + rnd.nextLong(500)
+        val place = de.bornim.core.audio.PlaceSound.kindOf(game.map)
+        val bedSound = de.bornim.core.audio.PlaceSound.bed(place)
+        var bed = 0f
+        var bedStream = 0
+        var nextEvent = de.bornim.core.audio.PlaceSound.firstMs(place, rnd)
+        var lastEvent: de.bornim.core.audio.Sound? = null
         try {
             while (isActive) {
                 delay(tick)
@@ -290,6 +298,21 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     fire == 0f && crackle != 0 -> { vm.sfx.stop(crackle); crackle = 0 }
                     else -> vm.sfx.volume(crackle, fire)
                 }
+                if (bedSound != null) {
+                    bed = de.bornim.core.audio.PlaceSound.approach(bed, if (calm) de.bornim.core.audio.PlaceSound.BED_VOLUME else 0f, tick)
+                    when {
+                        bed > 0f && bedStream == 0 -> bedStream = vm.sfx.loop(bedSound, bed)
+                        bed == 0f && bedStream != 0 -> { vm.sfx.stop(bedStream); bedStream = 0 }
+                        else -> vm.sfx.volume(bedStream, bed)
+                    }
+                }
+                if (now >= nextEvent) {
+                    if (calm) {
+                        val events = de.bornim.core.audio.PlaceSound.events(place, de.bornim.core.audio.PlaceSound.present(game.map, game.state))
+                        de.bornim.core.audio.PlaceSound.pick(events, lastEvent, rnd)?.let { vm.play(it, de.bornim.core.audio.PlaceSound.EVENT_VOLUME); lastEvent = it }
+                    }
+                    nextEvent = now + de.bornim.core.audio.PlaceSound.gapMs(place, rnd)
+                }
                 if (game.map.kind == MapKind.CAVE && now >= nextDrip) {
                     if (calm) vm.play(de.bornim.core.audio.Sound.DRIP, de.bornim.core.audio.Ambience.dripVolume(fire))
                     nextDrip = now + de.bornim.core.audio.Ambience.DRIP_MIN_MS + rnd.nextLong(de.bornim.core.audio.Ambience.DRIP_SPAN_MS)
@@ -297,6 +320,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             }
         } finally {
             vm.sfx.stop(crackle)
+            vm.sfx.stop(bedStream)
         }
     }
 

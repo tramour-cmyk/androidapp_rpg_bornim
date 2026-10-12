@@ -42,7 +42,7 @@ class MusicTest {
     @Test
     fun soundEffectsRender() {
         val out = File("build/music/sfx").apply { mkdirs() }
-        for (s in de.bornim.core.audio.Sound.entries) for (v in 0 until de.bornim.core.audio.Sfx.variants(s)) {
+        for (s in de.bornim.core.audio.Sound.entries - de.bornim.core.audio.Sfx.RECORDED_ONLY) for (v in 0 until de.bornim.core.audio.Sfx.variants(s)) {
             val pcm = de.bornim.core.audio.Sfx.render(s, v)
             // thunder far off rolls on longer than the other sounds
             val longest = if (s == de.bornim.core.audio.Sound.THUNDER) 6 else 3

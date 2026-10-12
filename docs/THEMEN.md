@@ -35,3 +35,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 29 | Nebenquests (Anschlagbrett) | Tom | offen | `OFFEN.md` |
 | 30 | Abstürze beim Testen | Tom (Jerry: Klang-Fäden) | offen | `OFFEN.md` |
 | 31 | Berater-Gedächtnis `docs/BERATER.md` | Berater | angelegt 11.10. | `BERATER.md` |
+| 32 | Selbstarbeit: Nacht 11./12.10. fast ohne Arbeit (Routine sperrte sich wegen Herzschlag) | Jerry | offen, 32a | `OFFEN.md` |

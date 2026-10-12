@@ -52,6 +52,24 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Freesound-Aufnah
 | `crackle` (Schleifen 2, 3, 18k) | fire-crackling (370938) | jmehlferber, Freesound | https://freesound.org/people/jmehlferber/sounds/370938/ |
 
 
+## Runde 3: Ortsklang (24.8, 24.8.4)
+
+Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026 (BigSoundBank: „Free and Royalty Free“ auf jeder Seite, Lizenz CC0). Laden mit `holen.sh`, schneiden mit `orte.py`.
+
+| Klang | Aufnahme(n) | Urheber, Paket | Quelle |
+|---|---|---|---|
+| `wind`, `hall` | wind background noise 2 | bashar3a, Mild wind background noise | https://opengameart.org/content/mild-wind-background-noise |
+| `wind`, `hall` | park_ambience_wind | thimras, Park ambiences | https://opengameart.org/content/park-ambiences |
+| `creak` | creak1, creak3 | Kenney, RPG Audio | https://kenney.nl/assets/rpg-audio |
+| `creak` | tree_creak | antumdeluge, Tree creaking | https://opengameart.org/content/tree-creaking |
+| `heartbeat` | heartbeat_slow_0, heartbeat_fast_reverb | bart, Heartbeat sounds | https://opengameart.org/content/heartbeat-sounds |
+| `heartbeat` | heartbeat | qubodup, Heartbeat single sound | https://opengameart.org/content/heartbeat-single-sound |
+| `cup` | Cup on a table (0627), Glass placed on table (1204), 3 glasses on table (1205) | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/cup-on-a-table-s0627.html , https://bigsoundbank.com/glass-placed-on-table-s1204.html , https://bigsoundbank.com/3-glasses-on-table-s1205.html |
+| `pour` | Serving wine (1721), Cold water in mug (1156), Beer service (1933) | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/serving-wine-1-s1721.html , https://bigsoundbank.com/cold-water-in-mug-s1156.html , https://bigsoundbank.com/beer-service-2-s1933.html |
+| `wipe` | Cleaning glass (0689), Synthetic coat rubbed (1104) | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/cleaning-glass-s0689.html , https://bigsoundbank.com/synthetic-coat-rubbed-s1104.html |
+| `chair` | Chair (0666), Squeaking parquet (3053), Floating floor squeaks (0518) | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/chair-s0666.html , https://bigsoundbank.com/squeaking-parquet-3-s3053.html , https://bigsoundbank.com/floating-floor-squeaks-s0518.html |
+| `cough` | Man cough (0488, 2183), Cough average (0207) | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/man-cough-s0488.html , https://bigsoundbank.com/man-cough-5-s2183.html , https://bigsoundbank.com/cough-average-s0207.html |
+
 ## Musik (Thema 28, Auswahl des Nutzers 11.10.2026)
 
 Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools/klang/musik_holen.sh`. Vorgabe in `docs/STIL.md` (orchestral, düster; Dorf mittelalterlich). Titel, Sieg und Kapitelende sind fest vergeben; alle übrigen Stücke darf die Sitzung frei den Lagen zuordnen (Nutzer 28f, 11.10.); die Lage unten ist der Vorschlag. Nicht genommen: Eerie Forest, Boss Battle #2 Symphonic Metal, The Bard's Tale, Opening Theme. Freesound: Vorschau (128 kbit/s), Lizenz gilt für die Aufnahme.
