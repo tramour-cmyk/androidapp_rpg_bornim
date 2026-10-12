@@ -530,7 +530,19 @@ object MapFlora {
                 fun seen(x: Int, y: Int) = map.tile(x, y) == Tile.MENHIR || (important(x, y) && map.tile(x, y) != Tile.CHEST)
                 val shades = if (diag) (0..8).any { bx -> (0..8).any { by -> bx + by in 1..8 && kotlin.math.abs(bx - by) <= 2 && seen(tx - bx, ty - by) } }
                     else (1..3).any { dy -> (-1..1).any { dx -> important(tx + dx, ty - dy) } }
-                if (shades) return listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
+                if (shades) {
+                    // a row of them at the edge of the village is no hedge (test of 0.1.590): set off a little each, some
+                    // a bush instead, some two small ones side by side
+                    val pick = hash(tx, ty, 17) % 10
+                    fun young(k: Int) = obj(spruce(hash(tx, ty, 6 + k) % 6, 0, young = true),
+                        cx + (rnd(tx, ty, 18 + k) - 0.5) * S * 0.6, cy + S * (0.45 + rnd(tx, ty, 20 + k) * 0.3))
+                    return when {
+                        map.kind != de.bornim.core.MapKind.TOWN -> listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
+                        pick < 3 -> listOf(obj(bush(hash(tx, ty, 19) % 6), cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5, cy + S * 0.5))
+                        pick < 5 -> listOf(young(0), young(1))
+                        else -> listOf(young(0))
+                    }
+                }
                 val count = if (hash(tx, ty, 1) % 3 == 0) 2 else 1
                 for (k in 0 until count) {
                     val kind = hash(tx, ty, k * 7 + 2) % 10

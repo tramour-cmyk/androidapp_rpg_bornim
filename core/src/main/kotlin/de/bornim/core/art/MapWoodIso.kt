@@ -390,6 +390,131 @@ object MapWoodIso {
         return c.img
     }
 
+    // ------------------------------------------------------------------ fields and beds in the village
+
+    /**
+     * One tile of a vegetable bed seen diagonally (test of 0.1.590: the former tiles looked like boxes): earth heaped in
+     * ridges running along i straight through the bed, no edge between its tiles; on the ridges a row of cabbages, of
+     * leeks or of turnip tops, the kind by the row of the bed ([v]).
+     */
+    fun vegBed(v: Int, tx: Int, ty: Int): PixelImage {
+        val c = Canvas(80)
+        val seed = 760 + tx * 7 + ty * 13
+        val ridges = 3
+        // the earth: ridges along i, furrows between, clods
+        var i = -1.02
+        while (i <= 0.02) {
+            var j = -1.02
+            while (j <= 0.02) {
+                val ph = ((j + 1) * ridges) % 1.0
+                val z = 4.0 * sin(PI * ph) + (vnoise((tx + i) * 30, (ty + j) * 30, seed) - 0.5) * 1.2
+                val nj = -cos(PI * ph) * 0.6
+                val col = mix(argb(0x4A3A28), argb(0x2A2016), vnoise((tx + i) * 50, (ty + j) * 50, 761))
+                c.pt(i, j, z, shade(col, lit(0.0, nj, 1.0)))
+                j += 0.004
+            }
+            i += 0.004
+        }
+        for (r in 0 until ridges) {
+            val rj = -1 + (r + 0.5) / ridges
+            for (k in 0 until 4) {
+                val pi = -1 + (k + 0.5) / 4 + (rnd(tx * 4 + k, ty * 3 + r, seed) - 0.5) * 0.06
+                val pj = rj + (rnd(tx * 4 + k, ty * 3 + r, seed + 1) - 0.5) * 0.04
+                val ps = seed + r * 31 + k * 7
+                when (v) {
+                    0 -> for (a in 0..60) for (b in 0..18) {
+                        // a cabbage: a round head in loose outer leaves
+                        val az = 2 * PI * a / 60; val el = PI / 2 * b / 18
+                        val ni = cos(az) * cos(el); val nj = sin(az) * cos(el); val nz = sin(el)
+                        val rad = 0.095 * (1 + (vnoise(az * 2, el * 3, ps) - 0.5) * 0.25)
+                        val vein = abs(sin(az * 5 + el * 2)) > 0.94
+                        val col = if (vein) argb(0x9AB07A) else mix(argb(0x6A8A4A), argb(0x3E5A2E), 1 - nz)
+                        c.pt(pi + rad * ni, pj + rad * nj, 5 + 9 * nz, shade(col, lit(ni, nj, nz)))
+                    }
+                    1 -> for (l in 0 until 5) {
+                        // a leek: pale stem, dark blue-green leaves fanning
+                        val a = l * PI * 2 / 5 + rnd(k, l, ps) * 0.6
+                        for (t in 0..40) {
+                            val f = t / 40.0
+                            val z = 4 + f * 26; val off = f * f * 0.07
+                            val col = if (f < 0.35) argb(0xD8D8B8) else mix(argb(0x5A7A5A), argb(0x3A5A44), f)
+                            for (w in -1..1) c.pt(pi + cos(a) * off + w * 0.004, pj + sin(a) * off, z, shade(col, 0.9 + 0.1 * w))
+                        }
+                    }
+                    else -> for (l in 0 until 7) {
+                        // turnip tops: a tuft of broad leaves over a pale root
+                        val a = l * PI * 2 / 7 + rnd(k, l, ps) * 0.5
+                        for (t in 0..24) for (w in -3..3) {
+                            val f = t / 24.0
+                            val bw = sin(PI * f) * 0.02 * (w / 3.0)
+                            val z = 5 + f * 14 - f * f * 6
+                            c.pt(pi + cos(a) * f * 0.09 - sin(a) * bw, pj + sin(a) * f * 0.09 + cos(a) * bw, z, shade(mix(argb(0x5E8040), argb(0x3A5A2A), f), 0.85 + 0.25 * (1 - abs(w) / 3.0)))
+                        }
+                        for (a2 in 0..20) c.pt(pi + 0.02 * cos(a2 * 0.3), pj + 0.02 * sin(a2 * 0.3), 3.5, argb(0xD8C8D0))
+                    }
+                }
+            }
+        }
+        return c.img
+    }
+
+    /**
+     * One tile of a cornfield seen diagonally (test of 0.1.590: the former strokes looked like rain): hundreds of
+     * stalks standing hip high, each leaning a little its own way and all a little with the wind, a golden ear on each;
+     * thinner and lower where the field ends ([edges]: back i, front i, back j, front j).
+     */
+    fun corn(tx: Int, ty: Int, edges: BooleanArray): PixelImage {
+        val c = Canvas(110)
+        val seed = 790 + tx * 7 + ty * 13
+        c.shadow(-0.5, -0.5, 0.6, 0.6, 0.25)
+        for (k in 0 until 520) {
+            val si = -1 + rnd(k, tx, seed); val sj = -1 + rnd(k, ty, seed + 1)
+            val edge = listOf(si + 1, -si, sj + 1, -sj).withIndex().minOf { (n, d) -> if (edges[n]) d else 9.0 }
+            if (edge < 0.08 && rnd(k, 3, seed) < 0.6) continue
+            val h = (46 + rnd(k, 4, seed) * 14) * (if (edge < 0.2) 0.85 else 1.0)
+            val li = 0.05 + (rnd(k, 5, seed) - 0.5) * 0.06; val lj = (rnd(k, 6, seed) - 0.5) * 0.06
+            val dry = rnd(k, 7, seed)
+            val n = (h / 1.2).toInt()
+            for (t in 0..n) {
+                val f = t / n.toDouble()
+                val i = si + li * f * f; val j = sj + lj * f * f; val z = h * f
+                val col = mix(argb(0x6A5A2E), mix(argb(0xC8A852), argb(0xA88A3E), dry), f)
+                c.pt(i, j, z, shade(col, 0.75 + 0.3 * f))
+            }
+            // the ear: a slim golden head bending with the stalk, lit on its right
+            for (t in 0..10) for (q in 0 until 6) {
+                val f = t / 10.0; val a = q * PI / 3
+                val i = si + li * (1 + f * 0.4) + 0.008 * cos(a); val j = sj + lj * (1 + f * 0.4) + 0.008 * sin(a)
+                val col = mix(argb(0xE8C870), argb(0xB08A3A), dry * 0.6 + f * 0.2)
+                c.pt(i, j, h + f * 9, shade(col, lit(cos(a), sin(a), 0.3)))
+            }
+        }
+        return c.img
+    }
+
+    private val fieldCache = HashMap<String, PixelImage>()
+
+    /** The village's beds and fields seen diagonally, or null for other tiles. */
+    fun fieldObjects(map: MapDef, tx: Int, ty: Int): List<WorldArt.Obj>? {
+        val t = map.tile(tx, ty)
+        val key: Pair<String, () -> PixelImage> = when (t) {
+            Tile.VEG_BED -> {
+                var y0 = ty; while (map.tile(tx, y0 - 1) == Tile.VEG_BED) y0--
+                val v = Math.floorMod(ty - y0 + hash(tx / 8, y0, 33), 3)
+                "veg/$tx/$ty/$v" to { vegBed(v, tx, ty) }
+            }
+            Tile.CROPS -> {
+                val e = booleanArrayOf(map.tile(tx - 1, ty) != t, map.tile(tx + 1, ty) != t, map.tile(tx, ty - 1) != t, map.tile(tx, ty + 1) != t)
+                "corn/$tx/$ty" to { corn(tx, ty, e) }
+            }
+            else -> return null
+        }
+        val img = synchronized(fieldCache) { fieldCache.getOrPut(key.first) { key.second() } }
+        val T = WorldArt.T
+        val wx = (tx + 1) * T; val wy = (ty + 1) * T
+        return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, true, corner = true))
+    }
+
     // ------------------------------------------------------------------ on the map
 
     private val cache = HashMap<String, PixelImage>()
