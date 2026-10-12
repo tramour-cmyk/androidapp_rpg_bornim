@@ -8,14 +8,14 @@ import kotlin.math.hypot
 import kotlin.math.sin
 
 /**
- * Life at the forest pond (27.6, draft): dragonflies over the water by day, frogs on the bank that leap
+ * Life at the forest pond (27.6): dragonflies over the water by day, frogs on the bank that leap
  * in when the hero comes close and climb back out once he has gone. Positions in map pixels; the
  * drawing is in the app (`WorldScreen`). Each place is found from the pond's own shore
  * ([MapGround.water]), so another pond gets its life without work by hand.
  */
 object PondLife {
-    /** Draft switch (preview `PONDLIFE=1`), off in the game until decided. */
-    @Volatile var draft = false
+    /** On in the game since 27i (Nutzer 12.10.); the switch stays for the previews. */
+    @Volatile var draft = true
 
     // ------------------------------------------------------------------ dragonflies
 

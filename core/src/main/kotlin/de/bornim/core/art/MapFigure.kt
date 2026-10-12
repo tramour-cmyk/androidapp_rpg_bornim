@@ -143,8 +143,11 @@ object MapFigure {
 
     private fun carry(hero: Hero) = if (stows(hero)) Carry.FREE else if (shouldered(hero)) Carry.SHOULDER else Carry.LOW
 
-    /** 17 Nachschwingen (draft, preview `SWINGDRAFT=1`): the cloak swings on when the hero stops. */
-    @Volatile var swingDraft = false
+    /** 17 Nachschwingen (17a, in the game since 12.10.): the cloak swings on when the hero stops. */
+    @Volatile var swingDraft = true
+
+    /** Only a hero with a cloak or mantle swings on. */
+    fun cloaked(hero: Hero): Boolean = hero.item(GearSlot.CLOAK) != null
 
     /** How long the cloak swings on after a stop. */
     const val SWING_MS = 1400L

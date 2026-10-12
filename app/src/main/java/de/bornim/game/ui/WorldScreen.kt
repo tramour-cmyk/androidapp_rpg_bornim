@@ -1150,10 +1150,10 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             val ps = MapRest.pose(7, clock, handsFree = false, mayLook = true)
             MapFigure.restFrame(state.hero, heroSlot, ps.rest, ps.breath, ps.level)
         } else null
-        // 17 (draft): just stopped, the cloak swings on forward and back
+        // 17: just stopped, the cloak swings on forward and back
         if (walking) HeroSwing.walkedAt = clock
         val swingMs = clock - HeroSwing.walkedAt
-        val heroSwing = if (MapFigure.swingDraft && heroRest == null && !walking && swingMs < MapFigure.SWING_MS) {
+        val heroSwing = if (MapFigure.swingDraft && heroRest == null && MapFigure.cloaked(state.hero) && !walking && swingMs < MapFigure.SWING_MS) {
             val lv = MapFigure.swingLevel(swingMs)
             if (HeroSwing.now) MapFigure.swingFrameNow(state.hero, heroSlot, lv) else MapFigure.swingFrame(state.hero, heroSlot, lv)
         } else null
