@@ -40,7 +40,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ### Tom (12.10., 11:35, vor Neustart)
 
 - **29 erledigt:** PR #42 zusammengeführt (11:35), getestet in 0.1.569; CHANGELOG eingetragen. Zweig `claude/great-sagan-n9tkga` ist fertig.
-- **Neu, als Erstes: 13.4** Diagonale je Ort automatisch, Testschalter weg (13r ja, Nutzer 11:45 über Berater; klein, vor dem Bau von 27).
+- **In Arbeit (12:12): 13.4** Diagonale je Ort automatisch (Dorf + 4 Räume diagonal, Wald/Tiefer Wald/Höhle gerade bis fertig), Testschalter im Spiel weg, in der Vorschau bleibt `DIAG=1` für unfertige Orte. Zweig `claude/upbeat-clarke-oghrxm`. Danach 27 (27b ja, nach 43 umstellen).
 - **In Arbeit: 27 Wald** (27a ja 11:43: zuerst Südrand mit Steinkreis und Schild, erst Standbilder). Danach 13 Tempel, dann **42 Textkasten** (42a–42c ja, Standbilder zuerst), dann 5l/5.5, 17.
 - **Merkposten (23b ja, Nutzer 11:48 über Berater):** Lyra diagonal (für die Höhle), bevor Jerry mit 13e fertig ist, damit er nicht wartet; Reihenfolge sonst unverändert.
 - **Texte (Regel 41):** Aushänge und Sätze von 29/29.3/29.4 stehen in `Jobs.kt`; der Berater übernimmt sie in `docs/STORY.md`.
