@@ -621,6 +621,8 @@ object MapFlora {
                     val (rx, ry, ox) = when (map.tile(tx, ty)) {
                         Tile.TREE -> Triple(w * 0.42, w * 0.22, w * 0.3)
                         Tile.CAMPFIRE -> continue
+                        // seen diagonally (27.5, draft) the trunk and the rock bring their own shadows
+                        Tile.LOG, Tile.CAVE_WALL, Tile.CAVE_ENTRANCE -> if (MapWoodIso.draft && MapFigure.viewYaw != 0.0) continue else Triple(w * 0.45, 12.0, 8.0)
                         Tile.MENHIR -> Triple(22.0, 9.0, 18.0)
                         else -> Triple(w * 0.45, 12.0, 8.0)
                     }

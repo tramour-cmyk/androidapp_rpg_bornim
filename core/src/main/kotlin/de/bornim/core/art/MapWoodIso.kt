@@ -300,6 +300,96 @@ object MapWoodIso {
         return c.img
     }
 
+    // ------------------------------------------------------------------ the rock face with the cave's mouth
+
+    /**
+     * One tile of the rock face along the north edge of the wood (27.5), standing in the slant along i: rough grey rock
+     * in ledges and cracks, moss and grass on its top, roots hanging over the edge; [mouth] the tile of the cave's
+     * mouth (a ragged arch into darkness, bones before it, a skull on a stake beside it); [r] where the face ends
+     * towards the camera (+i), its lit side shows.
+     */
+    fun cliff(mouth: Boolean, l: Boolean, r: Boolean, tx: Int, seed: Int): PixelImage {
+        val c = Canvas(250)
+        val gi = tx.toDouble()
+        fun top(i: Double) = 128.0 + (vnoise((gi + i) * 2.2, 0.5, seed) - 0.5) * 34
+        fun face(i: Double, z: Double) = -0.62 + (vnoise((gi + i) * 3.0, z / 26.0, seed + 1) - 0.5) * 0.16 + (vnoise((gi + i) * 9.0, z / 9.0, seed + 2) - 0.5) * 0.05 +
+            (if (z < 18) (18 - z) / 18 * 0.08 else 0.0)
+        val i0 = if (l) -0.8 else -1.02; val i1 = if (r) -0.2 else 0.02
+        fun arch(i: Double, z: Double): Double {
+            if (!mouth) return 9.0
+            val w = 0.34 + z / 800.0
+            val e = ((i + 0.5) / w).let { it * it } + (z / 104.0).let { it * it }
+            return e + (vnoise(i * 30, z / 8, seed + 3) - 0.5) * 0.16
+        }
+        c.shadow((i0 + i1) / 2, -0.45, (i1 - i0) / 2 + 0.1, 0.3, 0.5)
+        var i = i0
+        while (i <= i1) {
+            val ht = top(i)
+            var z = 0.0
+            while (z <= ht) {
+                val j = face(i, z)
+                val dj = face(i + 0.01, z) - j
+                // ledges: the rock lies in rough beds; cracks between them, and where the face turns towards the light
+                val bed = (z + vnoise((gi + i) * 2.5, z / 40.0, seed + 4) * 26) % 24
+                var col = mix(argb(0xA49E90), argb(0x6A655A), vnoise((gi + i) * 14, z / 6, seed + 5))
+                if (bed < 1.4 && vnoise((gi + i) * 6, z / 30, seed + 12) > 0.35) col = mix(col, argb(0x2A2622), 0.55)
+                if (vnoise((gi + i) * 7, z / 14, seed + 6) > 0.7 && z < ht - 6) col = mix(col, argb(0x46522A), 0.7)
+                if (ht - z < 8) col = mix(col, argb(0x3E4A24), 0.8)
+                var k = 0.78 + (dj * 9).coerceIn(-0.25, 0.35) + (if (bed > 21) 0.15 else 0.0)
+                val e = arch(i, z)
+                if (e < 1) { col = mix(argb(0x0A0908), argb(0x1E1A16), (1 - e) * 0.0 + e * 0.6); k = 1.0 }
+                else if (e < 1.18) { col = mix(argb(0xB8B2A4), argb(0x7A7468), vnoise(i * 40, z / 5, seed + 13)); k = 1.0 }
+                c.pt(i, j, z, shade(col, k))
+                z += 0.7
+            }
+            // the top: grass and moss running back into the wood, roots hanging over the edge
+            var jj = face(i, ht) - 0.01
+            while (jj >= -1.05) {
+                val g = vnoise((gi + i) * 12, jj * 12, seed + 7)
+                c.pt(i, jj, ht + g * 3, shade(mix(argb(0x4E5A2C), argb(0x2E3A1C), g), 0.85 + g * 0.3))
+                jj -= 0.006
+            }
+            if (rnd((i * 200).toInt() + tx * 1000, 0, seed + 8) < 0.04) {
+                val len = 10 + rnd((i * 200).toInt(), 1, seed + 8) * 28
+                for (zz in 0 until (len / 0.7).toInt()) { val z = ht - zz * 0.7; c.pt(i, face(i, z) + 0.012 + zz * 0.0004, z, argb(0x3A2C1E)) }
+            }
+            i += 0.0035
+        }
+        // the side where the face ends towards the camera: lit rock
+        if (r) {
+            var z = 0.0
+            while (z <= top(i1)) {
+                var j = -1.05
+                val jf = face(i1, z)
+                while (j <= jf) {
+                    val col = mix(argb(0x9A9488), argb(0x5A564C), vnoise(j * 20, z / 6, seed + 9))
+                    c.pt(i1 + (vnoise(j * 6, z / 20, seed + 10) - 0.5) * 0.04, j, z, shade(col, 1.05))
+                    j += 0.006
+                }
+                z += 0.7
+            }
+        }
+        if (mouth) {
+            // bones before the mouth, and a skull on a stake beside it
+            for (k in 0 until 5) {
+                val bi = -0.5 + (rnd(k, 1, seed + 11) - 0.5) * 0.5; val bj = -0.35 + rnd(k, 2, seed + 11) * 0.25
+                val a = rnd(k, 3, seed + 11) * PI
+                for (t in 0..20) { val f = t / 20.0 - 0.5; c.pt(bi + cos(a) * f * 0.09, bj + sin(a) * f * 0.09, 1.5, shade(argb(0xC8BCA0), 0.9 + f * 0.2)) }
+            }
+            val si = -0.9; val sj = -0.22
+            for (z in 0 until 78) for (q in 0 until 8) { val a = q * PI / 4; c.pt(si + 0.012 * cos(a), sj + 0.012 * sin(a), z.toDouble(), shade(argb(0x4A3828), lit(cos(a), sin(a), 0.0))) }
+            for (a in 0..40) for (b in 0..20) {
+                val az = 2 * PI * a / 40; val el = -PI / 2 + PI * b / 20
+                val ni = cos(az) * cos(el); val nj = sin(az) * cos(el); val nz = sin(el)
+                var col = argb(0xC8BCA0)
+                // the empty eyes look towards the path (+j)
+                if (nj > 0.55 && nz > -0.1 && nz < 0.45 && abs(ni) > 0.12 && abs(ni) < 0.55) col = argb(0x1A1410)
+                c.pt(si + 0.05 * ni, sj + 0.05 * nj, 84.0 + 7 * nz, shade(col, lit(ni, nj, nz)))
+            }
+        }
+        return c.img
+    }
+
     // ------------------------------------------------------------------ on the map
 
     private val cache = HashMap<String, PixelImage>()
@@ -316,6 +406,11 @@ object MapWoodIso {
                 val l = map.tile(tx - 1, ty) != Tile.LOG; val r = map.tile(tx + 1, ty) != Tile.LOG
                 "log/$v/$l/$r/$x0/$ty" to { log(v, l, r, 700 + x0 * 13 + ty) }
             }
+            Tile.CAVE_WALL, Tile.CAVE_ENTRANCE -> {
+                fun rock(x: Int) = map.tile(x, ty).let { it == Tile.CAVE_WALL || it == Tile.CAVE_ENTRANCE }
+                val m = t == Tile.CAVE_ENTRANCE; val l = !rock(tx - 1); val r = !rock(tx + 1)
+                "cliff/$tx/$ty/$m/$l/$r" to { cliff(m, l, r, tx, 740 + ty) }
+            }
             Tile.CAMPFIRE -> {
                 val v = Math.floorMod(hash(tx, ty, 32), 3)
                 "fire/$v/${frame % 4}" to { campfire(v, frame % 4, 720 + v) }
@@ -325,7 +420,9 @@ object MapWoodIso {
         val img = synchronized(cache) { cache.getOrPut(key.first) { key.second() } }
         val T = WorldArt.T
         val wx = (tx + 1) * T; val wy = (ty + 1) * T
-        return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, t == Tile.LOG, corner = true))
+        // the hero stepping into the cave's mouth stands in front of the face
+        val sort = (tx + ty) * T + T * 3 / 2 - 1 - wx - (if (t == Tile.CAVE_WALL || t == Tile.CAVE_ENTRANCE) T / 2 else 0)
+        return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, sort, 2, t == Tile.LOG, corner = true))
     }
 
     /** All looks side by side for the preview sheet: each trunk as a run of three tiles, the fires in two frames. */
