@@ -9,7 +9,8 @@ fun renderSwingDraft() {
     val F = de.bornim.core.art.MapFigure
     val times = listOf(0L, 120L, 225L, 400L, 675L, 900L, 1400L)
     // a fighter starts without a cloak: one in a short cloak, one in a long mantle
-    val heroes = listOf("cloak", "mantle")
+    // and an elf woman, her long hair swinging on too
+    val heroes = listOf("cloak", "mantle", "elf")
     // seen diagonally the pictures are turned by 45°: slots as the screen shows them
     val slots = listOf(4, 12)
     val z = 4
@@ -18,8 +19,10 @@ fun renderSwingDraft() {
     val g = img.createGraphics(); g.color = java.awt.Color(0x2E3A2C); g.fillRect(0, 0, img.width, img.height)
     var row = 0
     for ((n, base) in heroes.withIndex()) {
-        val hero = de.bornim.core.GameState.newGame("Alrik", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER).hero
-        hero.equip(de.bornim.core.Gear(900L + n, base, de.bornim.core.Rarity.UNCOMMON, 3))
+        val elf = base == "elf"
+        val hero = de.bornim.core.GameState.newGame(if (elf) "Liriel" else "Alrik", if (elf) de.bornim.core.Race.ELF else de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER).hero
+        if (elf) hero.sex = de.bornim.core.Sex.FEMALE
+        hero.equip(de.bornim.core.Gear(900L + n, if (elf) "cloak" else base, de.bornim.core.Rarity.UNCOMMON, 3))
         for (slot in slots) {
             val y0 = row * (ch + 16)
             for ((c, t) in times.withIndex()) {
