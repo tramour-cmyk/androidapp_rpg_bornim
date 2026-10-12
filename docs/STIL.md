@@ -55,6 +55,16 @@ Festgelegt mit dem Nutzer 11.10., 16:50 (Maßstab: Dorf und Räume). Gilt für D
 8. **Klang:** Umgebung aus echten Aufnahmen, Schritte passend zum Untergrund.
 9. **Geprüft:** Kollision 0 (nirgends hindurchlaufen), Sprungtest 0, Tippen trifft das gezeichnete Ding; Standbilder bei Tag und Nacht.
 
+## Spielerfreundlich, einfach, frei (Thema 33)
+
+Grundsatz des Nutzers (12.10.): Das Spiel lässt dem Spieler möglichst viel Freiheit, ist aber einfach zu bedienen und kommt mit möglichst wenigen Zusatzdialogen aus („keep it simple and clean“). Tom und Jerry prüfen das vor jeder Umsetzung, wo es Sinn ergibt, mit vier Fragen:
+1. **Freiheit:** Muss der Spieler das tun, oder darf er wählen? Nebensachen (Aufträge, Sammeln, Handwerk) sind immer freiwillig; wer etwas nicht will, wird nicht daran erinnert oder gedrängt.
+2. **Wenige Schritte:** Wie viele Fenster, Tipps und Bestätigungen braucht es? Ziel: eine Handlung, ein Fenster; keine Rückfrage „Wirklich?“ für Umkehrbares.
+3. **Bekannte Bedienung:** Geht es mit Mustern, die das Spiel schon hat (Antippen, Liste, ein Knopf), statt mit einem neuen Bedienelement?
+4. **Wachstum:** Bleibt es übersichtlich, wenn mit weiteren Kapiteln viel mehr davon kommt (zehnmal so viele Aufträge, Gegenstände, Orte)?
+
+Im Vorschlag an den Nutzer stehen die vier Antworten kurz neben dem Abgleich mit den übrigen Leitlinien.
+
 ## Ausrüstung der Gegner
 
 - Feste Ausrüstung je Gegnerart nach SRD, in mindestens drei Varianten.
