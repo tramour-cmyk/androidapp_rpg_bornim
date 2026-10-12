@@ -46,7 +46,7 @@ internal fun Game.skipDialogs() {
 
 @OptIn(ExperimentalComposeUiApi::class)
 private fun shot(name: String, lang: Lang = Lang.DE, taps: List<Offset> = emptyList(), lastFrames: Int = 30,
-                 over: (@androidx.compose.runtime.Composable () -> Unit)? = null, setup: (GameViewModel) -> Unit) {
+                 over: (@androidx.compose.runtime.Composable () -> Unit)? = null, settle: Int = 10, setup: (GameViewModel) -> Unit) {
     System.getenv("ONLY")?.let { if (!name.startsWith(it)) return }
     val vm = GameViewModel(Application())
     vm.ensureLang(lang)
@@ -66,7 +66,7 @@ private fun shot(name: String, lang: Lang = Lang.DE, taps: List<Offset> = emptyL
         scene.sendPointerEvent(PointerEventType.Release, p)
         frames(if (i == taps.lastIndex) lastFrames else 30)
     }
-    if (taps.isEmpty()) frames(10)
+    if (taps.isEmpty()) frames(settle)
     File(out, "$name.png").writeBytes(img!!.encodeToData(EncodedImageFormat.PNG)!!.bytes)
     scene.close()
     println("wrote $name")
@@ -380,6 +380,26 @@ fun main() {
     if (System.getenv("ABOUT") != null) {
         shot("31_about") { it.screen = Screen.ABOUT }
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }
+        System.exit(0)
+    }
+    // TEXTKASTEN=1: the text box old and as drafted for 42 (black, gold rim, serif), with a speaker and told text
+    if (System.getenv("TEXTKASTEN") != null) {
+        fun opened(vm: GameViewModel, spoken: Boolean) {
+            vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!
+            var guard = 0
+            while (guard++ < 80) {
+                val m = g.mode
+                if (m is Mode.Dialog && (m.speaker != null) == spoken) break
+                g.advance()
+            }
+            vm.refresh()
+        }
+        for (draft in listOf(false, true)) {
+            de.bornim.game.ui.DialogLook.draft = draft
+            val tag = if (draft) "neu" else "alt"
+            shot("42_gespraech_$tag", settle = 400) { vm -> opened(vm, spoken = true) }
+            shot("42_erzaehlt_$tag", settle = 400) { vm -> opened(vm, spoken = false) }
+        }
         System.exit(0)
     }
     // BRETT=1: the notice board's window and the odd jobs in the menu (29)

@@ -2124,6 +2124,7 @@ private fun HudBar(label: String, fraction: Float, color: Color, value: String, 
 
 @Composable
 fun DialogBox(speaker: String?, text: String, done: Boolean, modifier: Modifier = Modifier) {
+    if (DialogLook.draft) { DialogBoxVeil(speaker, text, done, modifier); return }
     val time = rememberTime()
     Column(modifier.fillMaxWidth()) {
         if (speaker != null) {
