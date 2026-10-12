@@ -1,5 +1,12 @@
 # Archiv
 
+### Übergabe Tom (12.10., 18:45, Selbstarbeit bis 22:00)
+
+- PR #48 `claude/tom-27-4-baeume`, [0.1.603](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38276243431) grün (zu testen, s. u.); danach nur Vorschau-Entwürfe gepusht. Test passt → zusammenführen (Merge), CHANGELOG.
+- **Entscheidungsseite** [Artefakt](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F) (Bilder alt/neu, Empfehlung); neue Entwürfe dort einfügen (gleiche Datei neu veröffentlichen geht nur aus dieser Sitzung; sonst mit `url` lesen und aktualisieren).
+- **Als Nächstes (Reihenfolge):** (1) 27.5 ins Spiel (27f ja): `MapWoodIso.draft` an, Schild zur Höhle diagonal neu (Nutzer: perspektivisch falsch). (2) **56** Liste alter Bilder auf diagonalen Karten (Kräuter, Steine, Büsche, Schilder …), dann Entwürfe. (3) 55.2 Borin sitzend (55b ja): Hammer am Tisch, Stehen ↔ Sitzen, Sprungtest. (4) **27e:** Tiefer Wald, südlich von Morwen (Feuer links), Regen: Held unter den Kronen ganz weg; nachstellen mit `HELDORT=deep_forest:x:y[:richtung[:stunde]]`.
+- 5.4: Pflaster-Zwischending **im Spiel** (Nutzer 18:4x: gut gelungen, Commit 5b7b8cf+); Fensterlicht hinter Bäumen verdeckt. Build dazu läuft; Link melden, Testliste: Markt bei Tag, Tempel nachts.
+
 ### Übergabe Tom (12.10., 17:31, Selbstarbeit ab 16:40)
 
 - PR #48 `claude/tom-27-4-baeume`, Build [0.1.600](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38269109227): 27.4, 5.6, 5.3 (alle zwölf als Puppen), 5n (Kaels Hütte 2 nach Osten, 2 breit statt 3, sonst klebt sie am Nachbarhaus), Beet/Kornfeld/Fichtenreihe neu (Test 0.1.590 b–d), Tresen fest, Rauch weich. Test passt → zusammenführen, CHANGELOG.
