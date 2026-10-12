@@ -1828,6 +1828,7 @@ private data class HudInfo(
     val day: Int, val minutes: Int, val night: Boolean,
     val ailments: List<de.bornim.core.Status>,
     val wellFed: Boolean,
+    val mageArmor: Boolean = false,
 ) {
     companion object {
         fun of(game: de.bornim.core.Game): HudInfo {
@@ -1835,7 +1836,8 @@ private data class HudInfo(
             val from = de.bornim.core.Rules.xpForLevel[h.level]
             val xp = if (de.bornim.core.Story.capped(game.state)) 1f else de.bornim.core.Rules.xpToNext(h.level)?.let { to -> ((h.xp - from).toFloat() / (to - from)).coerceIn(0f, 1f) }
             val ailments = de.bornim.core.Status.entries.filter { game.state.ailment(it) > 0 }
-            return HudInfo(h.hp, h.maxHp, h.sp, h.maxSp, h.level, xp, h.unspentPoints, game.state.day, game.state.minutes, game.isNight, ailments, game.state.wellFed)
+            return HudInfo(h.hp, h.maxHp, h.sp, h.maxSp, h.level, xp, h.unspentPoints, game.state.day, game.state.minutes, game.isNight, ailments, game.state.wellFed,
+                game.state.mageArmorOn && (h.item(de.bornim.core.GearSlot.CHEST)?.def?.armor ?: 0) == 0)
         }
     }
 }
@@ -1867,7 +1869,8 @@ private fun HudChip(info: HudInfo, lang: de.bornim.core.Lang, modifier: Modifier
                 )
             }
             val chips = info.ailments.map { it.short(lang) to Color(it.color) } +
-                (if (info.wellFed) listOf((if (german) "Satt" else "Fed") to Color(0xFFB07A30)) else emptyList())
+                (if (info.wellFed) listOf((if (german) "Satt" else "Fed") to Color(0xFFB07A30)) else emptyList()) +
+                (if (info.mageArmor) listOf((if (german) "Schutz" else "Ward") to Colors.sp) else emptyList())
             // The row is always there, even when empty, so the bar keeps its height and the map never jumps.
             run {
                 Row(Modifier.padding(top = 1.dp), horizontalArrangement = Arrangement.spacedBy(3.dp), verticalAlignment = Alignment.CenterVertically) {
