@@ -34,12 +34,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 07:48, vor Neustart)
+### Tom (12.10., 09:40, vor Neustart)
 
-- **Zweig `claude/sharp-davinci-s83a1t`:** 30.1 + 30.2 + 24.5 (enthält `great-shannon`), Build 0.1.552 zu testen (Nutzer testet später). Vorschau-Ersatz `CrashLogStub` (785e0c4) liegt auf dem Zweig.
-- **Testreihenfolge (Nutzer 12.10., 07:5x):** erst Jerrys 0.1.555, dann Toms neuer Build mit 30b (nicht 0.1.552 extra).
-- **Als Nächstes:** 30b `largeHeap` im Manifest (ja 07:5x) einbauen, Kerntests, Vorschau bauen (32.5), Build, Link. Dann 29a (Anschlagbrett, Rückfrage offen), 27 Wald (braucht 32.7 aus Jerrys PR #38 zuerst auf `main`).
-- **32:** 32.1–32.8 in `SELBST.md`, Toms 8 Routinen auf neuen Text (07:47). Ungeprüft: ob Weck-Sitzungen `send_later`/`create_session` haben (beim nächsten Lauf im Bericht prüfen). Jerry stellt seine Routinen selbst um.
+- **Zweig `claude/tender-goodall-a8zuny`** (enthält `main` mit PR #40): 29 Anschlagbrett, 24.8.6, 30.8; Build 0.1.563 zu testen (nach Jerrys 0.1.561). Danach PR, zusammenführen, CHANGELOG.
+- **Als Nächstes:** 29.3 zweite Welle (29g ja): Aushänge nach Krogg (Morwen Giftdrüsen → 2 Kräutertränke + 50 G, Jorin Streife → Spur im Wald, Rüstungsteil), frischer Zettel als Hinweis (Bild des Bretts wechselt). Dann 13 Tempel (Altar vor dem Fenster), 27 Wald.
+- **Regeln neu (12.10.):** Thema 33 (vier Fragen in `STIL.md`), Testreihenfolge mit dem anderen abstimmen (`CLAUDE.md`). 32: Weck-Sitzungen auf `send_later`/`create_session` prüfen.
 ### Jerry (12.10., 07:43, vor Neustart)
 
 - **PR #38** (Zweig `ccr-8b450567-umf1s6`, Entwurf), Build 0.1.555 ([Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38178006618/artifacts/11716242658)): 24.8.5 Ortsklang klingt aus, 30.6 Klang-Laden abgesichert, 13e Entwurf 1 (im Spiel aus), Vorschau zeigt in `KARTENZOOM` die Karte statt der Blende (32.7, braucht Tom für 27). **Getestet, passt (12.10.); zusammengeführt.** 13e Entwurf 2 (Fels heller) liegt auf `claude/quirky-goodall-fqncrd`, vor dem Weiterarbeiten in den eigenen Zweig holen.
@@ -48,6 +47,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Zu testen
 
+- **0.1.563 (Tom, nach Jerrys 0.1.561):** 29 Anschlagbrett vor der Schänke (Annehmen, Menü System mit Fortschritt/Aufgeben, Abgabe bei Thessa/Gwenna/Borin, Ring in Höhlentruhe), 24.8.6 Türen 0,5 s, 30.8 „App aktualisiert“. [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38218165502/artifacts/11732972729)
 - **0.1.561 (Jerry, PR #39, 26.1):** Magier wirkt Magierrüstung; nächster Kampf meldet „hält noch“, nicht erneut wirkbar; Karte oben „Schutz“, nach ca. 8 min weg. [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38214542422/artifacts/11731896008)
 
 ## Rückfragen an den Nutzer
