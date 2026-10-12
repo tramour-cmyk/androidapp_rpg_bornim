@@ -53,7 +53,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Weiter mit 13e.3:** Lichtstrahl als neue `drawCaveShaft` in `WorldScreen.kt` nach Muster `drawHearthSmoke` (aufrecht über `cam.toScreenX/Y`), nur bei `diag && MapCaveIso.draft`; alten SKY-Strahl in `drawMapLight` dann aussparen. Danach Fackelflammen (10), 13e.4.
 ## Zu testen
 
-- **Tom, Zweig `claude/tom-27-4-baeume` (27.4 Bäume, 5.6 Schlagbaum/Zaun, 5.3 Puppen), [0.1.590](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38256042679) getestet 15:4x (siehe Übergabe), neuer Build 15:56:** Bäume in Wald, Tiefem Wald, Dorf; Schlagbaum zu/offen, Gartenzaun; Jorin, Pim, Rowena, Borin, Thessa, Aldric, Osric, Lyra, Morwen als Puppen. Nach Jerrys 0.1.587 (wartet länger).
+- **Tom, PR #48** `claude/tom-27-4-baeume` (27.4 Bäume, 5.6 Schlagbaum/Zaun, 5.3 Puppen), [0.1.590](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38256042679) getestet 15:4x (siehe Übergabe), neuer Build 15:56:** Bäume in Wald, Tiefem Wald, Dorf; Schlagbaum zu/offen, Gartenzaun; Jorin, Pim, Rowena, Borin, Thessa, Aldric, Osric, Lyra, Morwen als Puppen. Nach Jerrys 0.1.587 (wartet länger).
 
 ## Rückfragen an den Nutzer
 
