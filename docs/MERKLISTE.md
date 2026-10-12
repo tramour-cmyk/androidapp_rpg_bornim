@@ -140,6 +140,10 @@ Dorran wohnt heute nur hinter einer verschlossenen Tür („Er ist wohl in seine
 
 - Übung (voller Übungsbonus) in einer Waffenart, einer Rüstungsstufe oder einem Rettungswurf bei Lehrern im Dorf lernen (Garrick Bogen, Dorran Rüstung/Schild …); kostet Gold und einen Tag; statt Attributspunkten auf Stufe 4/8/12/16/19 (wie Talente im SRD). Einzelheiten in `OFFEN.md` Zeile 49.
 
+## Weitere Klassen (50, Nutzer 12.10.)
+
+- Berserker, Kriegsmagier, Paladin, Werwolf …, ggf. zum Kauf (45). Nie stärker als die Grundklassen. Einzelheiten in `OFFEN.md` Zeile 50.
+
 ## Sonstiges
 
 - **Rechtliches:** Vor einer Veröffentlichung im Play Store oder einer kommerziellen Nutzung eine kurze Prüfung durch einen Anwalt für Marken- und Urheberrecht.
