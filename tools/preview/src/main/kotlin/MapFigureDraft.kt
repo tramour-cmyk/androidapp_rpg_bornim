@@ -144,7 +144,14 @@ fun renderShieldWalk() {
     val step = System.getenv("STEP")?.toInt() ?: 2
     var uid = 950L
     val rows = mutableListOf<Hero>()
-    for (race in listOf(Race.HUMAN, Race.DWARF, Race.HALFLING)) for (sh in listOf("shield", "round_shield", "tower_shield")) for (cl in listOf("cloak", "mantle", "-")) {
+    // SHIELDWALK=andere: the other things carried on the back or shoulder, with a cloak and a mantle
+    if (System.getenv("SHIELDWALK") == "andere") for (w in listOf("longbow", "light_crossbow", "greatsword", "greataxe", "halberd", "staff", "spear")) for (cl in listOf("cloak", "mantle")) {
+        rows += GameState.newGame("Mira", Race.HUMAN, if (w == "staff") CharClass.WIZARD else CharClass.FIGHTER).hero.also { h ->
+            h.equip(de.bornim.core.Gear(uid++, w, de.bornim.core.Rarity.COMMON, 3))
+            h.equip(de.bornim.core.Gear(uid++, cl, de.bornim.core.Rarity.COMMON, 3))
+        }
+    }
+    else for (race in listOf(Race.HUMAN, Race.DWARF, Race.HALFLING)) for (sh in listOf("shield", "round_shield", "tower_shield")) for (cl in listOf("cloak", "mantle", "-")) {
         if (race != Race.HUMAN && cl == "-") continue
         rows += GameState.newGame("Mira", race, CharClass.FIGHTER).hero.also { h ->
             h.equip(de.bornim.core.Gear(uid++, "longsword", de.bornim.core.Rarity.COMMON, 3))
@@ -157,6 +164,6 @@ fun renderShieldWalk() {
         val img = F.draw(rows[r], s, step)
         for (y in 0 until F.H) for (x in 0 until F.W) { val q = img[x, y]; out.setRGB(s * F.W + x, r * F.H + y, if ((q ushr 24) >= 128) q else 0x3A4430) }
     }
-    ImageIO.write(out, "png", File(if (old) "build/screens/shieldwalk_alt.png" else "build/screens/shieldwalk.png"))
+    ImageIO.write(out, "png", File("build/screens/shieldwalk_" + System.getenv("SHIELDWALK") + ".png"))
     println("wrote shieldwalk ${rows.size} rows")
 }
