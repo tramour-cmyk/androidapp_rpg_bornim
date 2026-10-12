@@ -39,17 +39,18 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 56 | Alte Objekte auf den neuen Karten (Nutzer 12.10., 18:3x) | Tom | `claude/tom-27-4-baeume` | **56a–56c ja (19:4x):** Kräuter, Truhe, Steine, Steinkreis, Büsche im Wald ins Spiel (Schalter entfernt, c2b909f7). **56d ja (20:1x):** Dorf (`YARDDRAFT`, `FERNDRAFT`) ins Spiel; Innenräume ohne Altes |
 | 57 | Entscheidungsseite nur mit Offenem; Entschiedenes in ein gemeinsames Bildbuch (Tom und Jerry) | Tom | `main` (Notizen) | **57a/57b ja (19:4x):** Ablauf in `CLAUDE.md` („Entwürfe entscheiden“). Entscheidungsseite Tom: https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F. **Bildbuch angelegt (20:12):** https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (Einträge `e/<nr>.html`, Bilder `i/`, Inhaltsliste `index.html`); alte Bilder nachgetragen, soweit noch vorhanden. Nutzer gibt es für Jerry frei (Teilen) |
 
-| 59 | Händler: Kauf/Verkauf im Stil des Textkastens, Übersicht beim Verkauf, Vergleich beim Kauf | **Tom (jetzt, Nutzer 22:49)** | `claude/tom-59-haendler` | **59a ja:** schwarz wie Textkasten (42b), Seltenheitsfarben aufhellen, erst Standbilder. **59b ja:** 59.2 nicht Tragbares abgedunkelt mit Sperrzeichen, unten eigener Block, oben Streifen mit den 9 angelegten Teilen; 59.3 Vergleich Angelegt/Neu auch bei Händlerware (`GearDetails` vergleicht heute nur Beutel); 59.4 Rückkauf der letzten 5 Verkäufe bis Laden zu; 59.5 Menge ×1/×5/alle bei Vorräten. **59c nein:** Angelegtes nicht direkt verkaufbar. 59.6/59.7 auf der Merkliste. **Entwurf auf der Entscheidungsseite (23:12, 59d):** Look hinter `ShopLook.draft` (`HAENDLER=1`), 59.2–59.5 schon im Code, Kerntest `ShopTest` |
+| 59 | Händler: Kauf/Verkauf im Stil des Textkastens, Übersicht beim Verkauf, Vergleich beim Kauf | **Tom (jetzt, Nutzer 22:49)** | `claude/tom-59-haendler` | **59a ja:** schwarz wie Textkasten (42b), Seltenheitsfarben aufhellen, erst Standbilder. **59b ja:** 59.2 nicht Tragbares abgedunkelt mit Sperrzeichen, unten eigener Block, oben Streifen mit den 9 angelegten Teilen; 59.3 Vergleich Angelegt/Neu auch bei Händlerware (`GearDetails` vergleicht heute nur Beutel); 59.4 Rückkauf der letzten 5 Verkäufe bis Laden zu; 59.5 Menge ×1/×5/alle bei Vorräten. **59c nein:** Angelegtes nicht direkt verkaufbar. 59.6/59.7 auf der Merkliste. **59d ja (23:1x):** schwarzer Laden für Thessa und Morwen eingeschaltet (`HAENDLER=1` zeigt alt/neu), 59.2–59.5 im Code, Kerntest `ShopTest`; Build vom Zweig, Test steht aus |
 | 60 | Ein Aussehen für alle Oberflächen wie Textkasten/Blende (schwarz, Gold, Serife): Menüs, Titelbild, alle Textseiten; 59 Händler ist der erste Teil | Berater mit Nutzer (Vorschlag), dann Tom | – | Nutzer 12.10., 23:12 (neue Schrift gefällt ihm sehr). Befund: alle Bildschirme nutzen `Panel`/`PixelButton`/`Txt`/`Colors` aus `Theme.kt`; Textkasten nutzt die Gerätschrift `FontFamily.Serif` (je Gerät anders). Vorschläge 60.1 ff. im Chat 23:1x |
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
 ## Übergaben
 
-### Tom (12.10., 22:50) – vor Neustart
+### Tom (12.10., 23:20) – vor Neustart
 
-- **58** auf Zweig `claude/tom-58-umhang-schild`, Build 0.1.628 fertig (22:56, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38306820619), 58a ja, Test am Gerät steht aus: Schild auf dem Rücken und Köcher drücken Umhang und Waffenrock an (`Dress.PRESS_CLOAK`, Hohlform `Pressed`/`Swept` im Umhang). Vorschau `SHIELDWALK=1|alt|andere`. Vorher/Nachher auf der Entscheidungsseite (22:48). Andere Ausrüstung geprüft: in Ordnung.
-- **Weiter:** (1) **59 Händler** jetzt (Nutzer 22:49, 59a–59c in „Wer macht was“), neuer Zweig `claude/tom-59-haendler`, erst Standbilder auf die Entscheidungsseite; (2) Test 58 abwarten, dann PR und zusammenführen; danach laut 26c: Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar (Meldung 08:43), 5l, 17 Rest (Haare, Köcher).
-- Entscheidungsseite aufgeräumt: 42d und 27k ins Bildbuch verschoben.
+- **59** auf Zweig `claude/tom-59-haendler`, 59d ja: Laden schwarz wie der Textkasten (`LocalVeil` in `Theme.kt` macht `Txt`/`Panel`/`PixelButton`/`GearIcon` dunkel; `ShopLook.draft = true`), 59.2 Streifen Angelegt + Block „Nicht tragbar“, 59.3 Vergleich auch bei Händlerware, 59.4 Rückkauf (`Game.buyback`), 59.5 Mengen. Build vom Zweig läuft (Push 23:19); nach Test des Nutzers PR und zusammenführen.
+- **58** auf `main` (PR #50, getestet 0.1.628).
+- **Weiter:** (1) Test 59 abwarten, PR; (2) 60 ein Aussehen für alle Oberflächen: `LocalVeil` ist die Grundlage, erst Vorschlag des Beraters abwarten; (3) laut 26c: Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar (Meldung 08:43), 5l, 17 Rest (Haare, Köcher).
+- Entscheidungsseite leer; 58 und 59d im Bildbuch.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -59,9 +60,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Weiter (Freitag):** Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
+- **Tom, Zweig `claude/tom-59-haendler`** (59): bei Thessa und Morwen kaufen/verkaufen, Menge ×5/Alle, verkaufen und zurückkaufen, Ausrüstung vergleichen, Streifen „Angelegt“ und „Nicht tragbar“.
 
 ## Rückfragen an den Nutzer
 
 
-- **59d** (Tom): Händler im schwarzen Stil so ins Spiel? Bilder auf der Entscheidungsseite. Empfehlung: ja.
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
