@@ -3,6 +3,10 @@ package de.bornim.game.audio
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.SoundPool
+import android.os.Handler
+import android.os.Looper
+import android.os.SystemClock
+import de.bornim.core.audio.PlaceSound
 import de.bornim.core.audio.Recorded
 import de.bornim.core.audio.Sfx
 import de.bornim.core.audio.Sound
@@ -29,11 +33,13 @@ class SfxPlayer(private val context: Context) {
         .build()
     private val ids = ConcurrentHashMap<Sound, IntArray>()
     private val voices = ConcurrentHashMap<String, IntArray>()
+    private val main = Handler(Looper.getMainLooper())
     var enabled = true
 
     init {
         val dir = File(context.cacheDir, "sfx-$VERSION").apply { mkdirs() }
-        thread(name = "sfx-render", isDaemon = true) {
+        // 30.6: a file that will not load (missing, a full disk for the cache) only stays silent, it never ends the app
+        thread(name = "sfx-render", isDaemon = true) { runCatching {
             for (v in Recorded.VOICES) for (c in Recorded.Cue.entries)
                 voices["$v/${c.name}"] = IntArray(Recorded.VOICE_TAKES) { load(Recorded.voiceFile(v, c, it)) }
             for (s in Sound.entries) {
@@ -42,15 +48,18 @@ class SfxPlayer(private val context: Context) {
                 if (recorded != null) { ids[s] = IntArray(recorded) { load(Recorded.file(s, it)) }; continue }
                 // several takes of battle sounds, one picked at random each time
                 ids[s] = IntArray(Sfx.variants(s)) { v ->
-                    val f = File(dir, "${s.name.lowercase()}_$v.wav")
-                    if (!f.exists()) writeWav(f, Sfx.render(s, v))
-                    pool.load(f.path, 1)
+                    runCatching {
+                        val f = File(dir, "${s.name.lowercase()}_$v.wav")
+                        if (!f.exists()) writeWav(f, Sfx.render(s, v))
+                        pool.load(f.path, 1)
+                    }.getOrDefault(0)
                 }
             }
-        }
+        } }
     }
 
-    private fun load(asset: String): Int = context.assets.openFd(asset).use { pool.load(it, 1) }
+    /** The take loaded from [asset], or 0 (silent) if it cannot be read. */
+    private fun load(asset: String): Int = runCatching { context.assets.openFd(asset).use { pool.load(it, 1) } }.getOrDefault(0)
 
     fun play(s: Sound, volume: Float = 0.8f) {
         if (!enabled) return
@@ -72,6 +81,21 @@ class SfxPlayer(private val context: Context) {
 
     fun stop(stream: Int) { if (stream != 0) pool.stop(stream) }
 
+    /** Lets a loop that was at [from] die away and then stops it (24.8.5: leaving a place, its sound does not break off). */
+    fun fadeOut(stream: Int, from: Float) {
+        if (stream == 0) return
+        if (from <= 0f) { pool.stop(stream); return }
+        val start = SystemClock.uptimeMillis()
+        main.post(object : Runnable {
+            override fun run() {
+                val v = PlaceSound.leaving(from, SystemClock.uptimeMillis() - start)
+                if (v <= 0f) { pool.stop(stream); return }
+                pool.setVolume(stream, v, v)
+                main.postDelayed(this, FADE_TICK_MS)
+            }
+        })
+    }
+
     /** The voice of the monster [id] for [cue] (a growl as it attacks, a yelp when struck, its death), if it has one. */
     fun voice(id: String, cue: Recorded.Cue, volume: Float = 0.8f) {
         if (!enabled) return
@@ -80,7 +104,10 @@ class SfxPlayer(private val context: Context) {
         pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume, volume, 1, 0, rate)
     }
 
-    fun release() = pool.release()
+    fun release() {
+        main.removeCallbacksAndMessages(null)
+        pool.release()
+    }
 
     private fun writeWav(f: File, pcm: ShortArray) {
         val data = ByteBuffer.allocate(44 + pcm.size * 2).order(ByteOrder.LITTLE_ENDIAN)
@@ -95,5 +122,6 @@ class SfxPlayer(private val context: Context) {
     companion object {
         /** Bump when the sounds change so the cache is rebuilt. */
         private const val VERSION = 4
+        private const val FADE_TICK_MS = 40L
     }
 }

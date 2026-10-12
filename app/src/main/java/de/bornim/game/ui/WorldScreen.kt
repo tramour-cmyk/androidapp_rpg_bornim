@@ -270,7 +270,8 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
     // starts (18i): one take loops without a seam and stays until it has faded out, the next fire picks a new one (18k).
     // Drops fall in the cave on their own, fire or not (18h), the first at once.
     // The sound of the place (24.8) starts with the black screen, before the picture: wind outside, the temple's hall
-    // swell in and loop; the inn's people and the houses' wood make single sounds now and then (24.8.4).
+    // swell in and loop, and die away in 0.6 s when the place is left (24.8.5); the inn's people and the houses' wood
+    // make single sounds now and then (24.8.4).
     LaunchedEffect(game.state.place.map) {
         val rnd = kotlin.random.Random(game.state.steps + 1)
         val tick = 100L
@@ -318,8 +319,9 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 }
             }
         } finally {
-            vm.sfx.stop(crackle)
-            vm.sfx.stop(bedStream)
+            // leaving the place: its loops die away instead of breaking off (24.8.5)
+            vm.sfx.fadeOut(crackle, fire)
+            vm.sfx.fadeOut(bedStream, bed)
         }
     }
 

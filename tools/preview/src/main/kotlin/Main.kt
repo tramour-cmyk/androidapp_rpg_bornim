@@ -169,10 +169,14 @@ fun main() {
             // RAIN=1: it pours, at full strength at once
             de.bornim.core.Weather.mode = if (System.getenv("RAIN") != null) de.bornim.core.Weather.Mode.ALWAYS else de.bornim.core.Weather.Mode.NEVER
             g.settleWeather()
+            // the shots show the map, not the black screen of arriving (24.1)
+            de.bornim.game.ui.VeilMemory.game = g; de.bornim.game.ui.VeilMemory.map = map
             vm.refresh()
         }
         for (near in listOf(true, false)) {
             de.bornim.game.ui.MapZoom.near = near
+            // CAVEDRAFT=1: the cave's rock standing up, gate and supports in the slant (13e, draft)
+            if (System.getenv("CAVEDRAFT") != null) de.bornim.core.art.MapCaveIso.draft = true
             // DIAG=1: the map seen diagonally (13)
             if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.diagonal = true
             // ZOOMSTUFE=1|2: the in-between zoom steps for the near shots (6.15)
@@ -185,6 +189,10 @@ fun main() {
             shot("zoom_${z}_4b_gasthaus_abend") { place(it, "inn", 5, 3, 21 * 60, Facing.DOWN) }
             shot("zoom_${z}_5_hoehle") { place(it, "cave", 10, 5, 12 * 60) }
             if (near) {
+                // 13e: the cave seen diagonally, room by room (entrance, both side halls, Krogg, the pool, Grak's hall)
+                for ((k, at) in listOf("1_eingang" to (10 to 17), "2_westhalle" to (4 to 9), "3_krogg" to (15 to 10), "4_suedost" to (16 to 15), "5_weiher" to (5 to 15), "6_grak" to (10 to 3))) {
+                    shot("zoom_${z}_c${k}") { place(it, "cave", at.first, at.second, 12 * 60) }
+                }
                 shot("zoom_${z}_6_weiher") { place(it, "forest", 7, 15, 12 * 60) }
                 shot("zoom_${z}_7_steinkreis") { place(it, "forest", 10, 25, 17 * 60 + 30) }
                 shot("zoom_${z}_8_tiefer_wald") { place(it, "deep_forest", 22, 6, 12 * 60) }

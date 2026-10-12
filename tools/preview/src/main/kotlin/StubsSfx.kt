@@ -11,6 +11,7 @@ class SfxPlayer(context: android.content.Context) {
     fun voice(id: String, cue: de.bornim.core.audio.Recorded.Cue, volume: Float = 0.8f) {}
     fun loop(s: Sound, volume: Float): Int = 0
     fun stop(stream: Int) {}
+    fun fadeOut(stream: Int, from: Float) {}
     fun volume(stream: Int, volume: Float) {}
     fun release() {}
 }
