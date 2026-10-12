@@ -874,10 +874,11 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // a house cut into strips (5.1) turns see-through as a whole when any strip of it stands in front of the hero
         val hidingGroups = objs.filter { it.group != 0 && hides(it) }.mapTo(HashSet()) { it.group }
         val hiding = objs.mapTo(ArrayList()) { if (it.group != 0) it.group in hidingGroups else hides(it) }
-        // seen diagonally (43; test of 0.1.576: 0.2 too strong): together the things in front of the hero cover him
-        // to 35 %, however many stand one behind the other, and they fade softly in and out
+        // (43; test of 0.1.576: 0.2 too strong): together the things in front of the hero cover him to 35 %, however
+        // many stand one behind the other, and they fade softly in and out; seen straight too (27e: in the deep forest
+        // three crowns one behind the other hid him wholly)
         val layers = objs.indices.filter { hiding[it] }.map { objs[it].let { o -> if (o.group != 0) -o.group.toLong() else o.x.toLong() * 100_003 + o.y } }.distinct().size
-        val clear = if (!diag) 0.45f else 1f - Math.pow(0.65, 1.0 / maxOf(1, layers)).toFloat()
+        val clear = 1f - Math.pow(0.65, 1.0 / maxOf(1, layers)).toFloat()
         SeeThrough.frame(map.id, clock)
         for ((i, o) in objs.withIndex()) {
             val a = SeeThrough.alpha(if (o.group != 0) -o.group.toLong() else o.x.toLong() * 100_003 + o.y, if (hiding[i]) clear else 1f)

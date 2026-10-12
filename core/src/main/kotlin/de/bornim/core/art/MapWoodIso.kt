@@ -844,8 +844,8 @@ object MapWoodIso {
         return WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, fx + fy - T + T * 3 / 2 - 1 - wx, 2, true, corner = true)
     }
 
-    /** Draft (56): the ferns of the undergrowth drawn in the slant; the game keeps the former picture. */
-    @Volatile var fernDraft = false
+    /** (56, 56d ja): the ferns of the undergrowth drawn in the slant; seen straight the former picture stays. */
+    @Volatile var fernDraft = true
 
     /**
      * A fern of the undergrowth seen diagonally (56, draft): fronds rising from one crown in an arch and drooping at
@@ -906,8 +906,8 @@ object MapWoodIso {
         return WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, fx + fy - T + T * 3 / 2 - 1 - wx, 2, true, corner = true)
     }
 
-    /** Draft (27.5): reeds along the pond's far bank; with [MapGround.pondDraft] the bank itself. */
-    @Volatile var pondDraft = false
+    /** (27.5, 27g ja): reeds along the pond's far bank; with [MapGround.pondDraft] the bank itself. */
+    @Volatile var pondDraft = true
 
     /**
      * A clump of reeds standing in the water at ([ci], [cj]) (27.5, draft): thin blades rising and bending a little,
@@ -956,8 +956,8 @@ object MapWoodIso {
 
     // ------------------------------------------------------------------ the yards of the village (56, draft)
 
-    /** Draft (56): haystacks and the washing line of the village drawn in the slant; the game keeps the former pictures. */
-    @Volatile var yardDraft = false
+    /** (56, 56d ja): haystacks and the washing line of the village drawn in the slant; seen straight the former pictures stay. */
+    @Volatile var yardDraft = true
 
     /**
      * A haystack seen diagonally (56, draft), in three looks by [v]: a rick built round a pole whose end sticks out

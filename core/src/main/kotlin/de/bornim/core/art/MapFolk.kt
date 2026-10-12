@@ -77,8 +77,8 @@ object MapFolk {
     val morwen = Folk("morwen", human(Sex.FEMALE, Build.SLIM, 1, 0, grey = 0x9C9890),
         Outfit(CharClass.ROGUE, kit("robe", "hood"), cloakRgb = 0x3E4A30, clothes = clothes(0x4A5A36, 0x34402A, 0x2E2A22)))
 
-    /** Draft (55.2): Borin sits at his table in the preview, the game keeps him standing. */
-    @Volatile var sitDraft = false
+    /** 55.2 (55c ja): Borin sits at his table in the inn. */
+    @Volatile var sitDraft = true
 
     /** Borin's poses at his table (55.2): hands on the table, a drink from his flask, a bite, a look round. */
     enum class Seat { REST, DRINK, EAT, LOOK, BREATHE }

@@ -37,9 +37,9 @@ object MapGround {
     /**
      * 27.5 draft: the water lies a little below the grass. Where the bank faces the camera (land behind the water, towards
      * −x and −y) its earthen step shows, with roots and the bank's shadow on the water; under the near bank the water is
-     * darker. Drawn for the diagonal view; only in the preview.
+     * darker. Drawn for the diagonal view (27g ja).
      */
-    @Volatile var pondDraft = false
+    @Volatile var pondDraft = true
     private val BANK_L = intArrayOf(0x76, 0x5E, 0x40); private val BANK_D = intArrayOf(0x26, 0x1E, 0x14); private val ROOT = intArrayOf(0x18, 0x12, 0x0C)
 
     /** 5.4 draft: the square's cobbles quieter (softer joints, less spread between stones, worn lanes); only in the preview. */
@@ -481,7 +481,7 @@ object MapGround {
             if (w > 0.5) {
                 lerp(WATER_S, WATER_D, (w - 0.5) * 3.2, col)
                 if (abs(kotlin.math.sin(y * 0.35 + fbm(x, y, 30.0, 12) * 6)) > 0.985 && vnoise(x, y, 16.0, 13) > 0.55) mixInto(col, GLINT, 0.45)
-                if (pondDraft) {
+                if (pondDraft && map.kind == MapKind.FOREST) {
                     val gx = waterAt(map, x + 3, y) - waterAt(map, x - 3, y); val gy = waterAt(map, x, y + 3) - waterAt(map, x, y - 3)
                     val gl = sqrt(gx * gx + gy * gy)
                     if (gl > 1e-4) {
