@@ -77,6 +77,24 @@ object MapFolk {
     val morwen = Folk("morwen", human(Sex.FEMALE, Build.SLIM, 1, 0, grey = 0x9C9890),
         Outfit(CharClass.ROGUE, kit("robe", "hood"), cloakRgb = 0x3E4A30, clothes = clothes(0x4A5A36, 0x34402A, 0x2E2A22)))
 
+    /**
+     * Draft (55.2): Borin sitting at his table in the inn, the hammer put by. [pose] 0 both hands on the table, 1 a
+     * drink from his flask, 2 a bite to eat, 3 looking round over his shoulder, a hand on his knee.
+     */
+    fun borinSits(slot: Int, pose: Int): PixelImage {
+        val o = borin.outfit
+        val out = Outfit(o.cls, o.items.filterValues { it.base != "maul" }, leatherRgb = o.leatherRgb, clothes = o.clothes, flaskRgb = 0x8A6A2A)
+        val base = MapFigure.rig(slot * 360.0 / MapFigure.YAWS, 0, MapFigure.Carry.FREE).copy(sit = 1.0, stride = 0.0, spread = 7.0,
+            rh = HeroFigure.V(12.0, 60.0, 22.0), lh = HeroFigure.V(-12.0, 60.0, 22.0))
+        val rig = when (pose) {
+            1 -> base.copy(lh = HeroFigure.V(-5.0, 74.0, 11.0), flask = 1.0, flaskTilt = 70.0, cork = 0.0, headDown = -4.0)
+            2 -> base.copy(rh = HeroFigure.V(4.0, 72.0, 11.0), headDown = 4.0)
+            3 -> base.copy(lh = HeroFigure.V(-12.0, 36.0, 16.0), headTurn = 45.0, twist = 10.0)
+            else -> base
+        }
+        return MapFigure.render(borin.doll, out, rig)
+    }
+
     /** The village folk drawn as dolls so far only as drafts: shown on a sheet, not yet on the map. */
     val drafts = listOf(rowena, aldric, thessa, osric, lyra, jorin, pim, bram, liska, gwenna, borin, morwen)
 

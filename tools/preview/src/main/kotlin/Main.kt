@@ -108,6 +108,7 @@ fun main() {
     if (System.getenv("NPCREST") != null) { renderNpcRest(); System.exit(0) }
     if (System.getenv("NPCTORCH") != null) { renderNpcTorch(); System.exit(0) }
     if (System.getenv("VILLAGEDRAFT") != null) { renderVillageDraft(); System.exit(0) }
+    if (System.getenv("SITDRAFT") != null) { renderSitDraft(); System.exit(0) }
     if (System.getenv("SQUATDRAFT") != null) { renderSquatDraft(); System.exit(0) }
     // TOWNDRAFT=1: the village and the rooms in the new style, for the films too
     if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true

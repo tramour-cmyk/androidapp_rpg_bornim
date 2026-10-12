@@ -173,7 +173,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         /** Centimetres per unit of the old figure, which stood about 107 units tall. */
         val s = height / 107.0
         private val reachK = (upperArm + foreArm) / 31.0
-        val crouch = rig.crouch * s
+        // sitting (55.2): the hips down to a seat as high as the knees, a little behind where they stood
+        val crouch = rig.crouch * s + rig.sit * (hipY - kneeY - 0.02 * height)
         val lower = Xf(shift = P3(0.0, -crouch, 0.0))
         val lean = Math.toDegrees(atan(rig.lean * 0.35))
         /** The chest turns against the hips, then the whole upper body bends. */
@@ -231,7 +232,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         val hip = Array(2) { i -> lower.apply(P3(side(i) * hipX, hipY, 0.0)) }
         val ankle = Array(2) { i ->
             val sd = side(i)
-            P3(sd * hipX * 0.85 * (rig.spread / 6.0), ankleY, (if (sd > 0) rig.stride else -rig.stride * 0.3) * s)
+            // sitting, the shins stand about upright under the knees, a thigh's length before the hips
+            P3(sd * hipX * 0.85 * (rig.spread / 6.0), ankleY, (if (sd > 0) rig.stride else -rig.stride * 0.3) * s + rig.sit * (hipY - kneeY) * 0.92)
         }
         val knee: Array<P3>
         val elbow: Array<P3>
