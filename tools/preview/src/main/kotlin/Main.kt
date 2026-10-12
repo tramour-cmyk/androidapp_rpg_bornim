@@ -199,6 +199,8 @@ fun main() {
             if (System.getenv("YARDDRAFT") != null) de.bornim.core.art.MapWoodIso.yardDraft = true
             // POND=1: the pond's far bank as an earthen step, reeds along it (27.5, draft)
             if (System.getenv("POND") != null) { de.bornim.core.art.MapGround.pondDraft = true; de.bornim.core.art.MapWoodIso.pondDraft = true }
+            // PONDLIFE=1: frogs on the bank and dragonflies over the forest pond (27.6, draft)
+            if (System.getenv("PONDLIFE") != null) de.bornim.core.art.PondLife.draft = true
             // SITDRAFT2=1: Borin sits at his table in the inn (55.2, draft)
             if (System.getenv("SITDRAFT2") != null) de.bornim.core.art.MapFolk.sitDraft = true
             // TREEDRAFT=1: the trees with volume (27.4, draft)

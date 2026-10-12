@@ -1213,6 +1213,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         val outdoors = map.kind == MapKind.TOWN || map.kind == MapKind.FOREST
         if (outdoors) {
             ground { drawCritters(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH) }
+            if (de.bornim.core.art.PondLife.draft) drawPondLife(game, map, clock, cam)
             drawRain(game, map, clock, camX, camY, scale)
         }
 
@@ -1444,6 +1445,99 @@ private fun DrawScope.drawCritters(
             )
             px(x, y, 1f, 1f, Color(0xFFF8FFC8).copy(alpha = glow))
         }
+    }
+}
+
+/**
+ * Life at the forest pond (27.6, draft): frogs on the bank and dragonflies over the water, upright on the
+ * screen (seen diagonally they stand on the mapped point, not lying flat), dull colours dimmed with the light.
+ */
+private fun DrawScope.drawPondLife(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam) {
+    val life = de.bornim.core.art.PondLife.of(map)
+    if (life.frogs.isEmpty() && life.flies.isEmpty()) return
+    val s = cam.scale.toFloat()
+    val day = game.daylight
+    val dim = (0.35f + 0.65f * ((day - 0.15f) / 0.5f)).coerceIn(0.35f, 1f)
+    fun tone(c: Color, a: Float = 1f) = Color(c.red * dim, c.green * dim, c.blue * dim, a)
+    fun sx(x: Float, y: Float) = cam.toScreenX((x - cam.x) * s, (y - cam.y) * s)
+    fun sy(x: Float, y: Float) = cam.toScreenY((x - cam.x) * s, (y - cam.y) * s)
+    fun dot(ox: Float, oy: Float, x: Float, y: Float, w: Float, h: Float, c: Color) =
+        drawRect(c, Offset(ox + x * s, oy + y * s), androidx.compose.ui.geometry.Size(w * s, h * s))
+    // a ring on the water, flat: twice as wide as high
+    fun ring(ox: Float, oy: Float, r: Float, a: Float) {
+        if (a <= 0.01f) return
+        drawOval(
+            Color(0xFFB8C4BC).copy(alpha = a * dim), Offset(ox - r * s, oy - r * s * 0.5f),
+            androidx.compose.ui.geometry.Size(2 * r * s, r * s), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 0.6f * s),
+        )
+    }
+    val w = size.width; val h = size.height
+    val dusk = day < 0.55f
+    for (f in life.frogs) {
+        val a = f.at(clock, cam.heroX.toFloat(), cam.heroY.toFloat(), dusk)
+        val ox = sx(a.x, a.y); val oy = sy(a.x, a.y)
+        if (ox < -40 * s || oy < -40 * s || ox > w + 40 * s || oy > h + 40 * s) continue
+        val back = tone(Color(0xFF4C5530)); val top = tone(Color(0xFF65703E)); val belly = tone(Color(0xFF9A9468))
+        val dark = tone(Color(0xFF22261A)); val eye = tone(Color(0xFFB09A48))
+        val d = if (a.faceLeft) -1f else 1f
+        // x offsets mirrored for the way it faces: dx is towards its nose
+        fun part(dx: Float, y: Float, wd: Float, ht: Float, c: Color) = dot(ox, oy, if (d > 0) dx else -dx - wd, y, wd, ht, c)
+        when (a.mood) {
+            de.bornim.core.art.PondLife.Mood.UNDER -> {
+                ring(ox, oy, 2f + a.ring * 9f, 0.55f * (1f - a.ring).coerceIn(0f, 1f))
+                ring(ox, oy, 1f + a.ring * 5f, 0.4f * (1f - a.ring * 1.4f).coerceIn(0f, 1f))
+            }
+            de.bornim.core.art.PondLife.Mood.SURFACE, de.bornim.core.art.PondLife.Mood.SWIM -> {
+                // only the eyes and the top of the head above the water, a faint wake behind
+                ring(ox, oy, 2f + (a.ring % 1f) * 5f, 0.35f * (1f - a.ring % 1f))
+                part(-1f, -1f, 3f, 1f, top)
+                part(1f, -2f, 1f, 1f, dark); part(-1f, -2f, 1f, 1f, dark)
+            }
+            else -> {
+                val lift = a.lift
+                if (lift > 0f) drawOval(Color.Black.copy(alpha = 0.18f * dim), Offset(ox - 3 * s, oy - 1 * s), androidx.compose.ui.geometry.Size(6 * s, 2 * s))
+                else drawOval(Color.Black.copy(alpha = 0.25f * dim), Offset(ox - 3.5f * s, oy - 1 * s), androidx.compose.ui.geometry.Size(7 * s, 2 * s))
+                val y0 = -lift
+                if (lift > 0f) {
+                    // stretched out in the leap: long body, hind legs trailing
+                    part(-3f, y0 - 3f, 6f, 2f, back); part(-2f, y0 - 4f, 4f, 1f, top)
+                    part(-6f, y0 - 2f, 3f, 1f, dark); part(3f, y0 - 3f, 1f, 1f, dark)
+                } else {
+                    // crouched: haunch at the back, head low at the front, the throat pulsing
+                    part(-3f, -3f, 5f, 3f, back)
+                    part(-2f, -4f, 3f, 1f, top)
+                    part(-4f, -2f, 2f, 2f, dark) // haunch and folded leg
+                    part(2f, -3f, 2f, 2f, back) // head
+                    part(2f, -4f, 1f, 1f, eye); part(3f, -4f, 1f, 1f, dark)
+                    part(2f, -1f, 2f, 1f, belly.copy(alpha = 0.5f + 0.5f * a.throat.coerceIn(0f, 1f)))
+                    if (a.throat > 0.6f) part(3f, -1f, 1f, 1f, belly) // the swollen throat of a croak
+                    part(1f, 0f, 1f, 1f, dark) // fore leg
+                }
+            }
+        }
+    }
+    if (day > 0.4f && !game.raining) for (fly in life.flies) {
+        val a = fly.at(clock)
+        val ox = sx(a.x, a.y); val oy = sy(a.x, a.y)
+        if (ox < -40 * s || oy < -40 * s || ox > w + 40 * s || oy > h + 40 * s) continue
+        // its shadow on the water, then the insect above it
+        drawOval(Color.Black.copy(alpha = 0.16f * dim), Offset(ox - 2 * s, oy - 0.5f * s), androidx.compose.ui.geometry.Size(4 * s, 1 * s))
+        val cy = oy - a.h * s
+        // the heading on the screen: the map direction under the view
+        var hx = cam.toScreenX(a.dx, a.dy) - cam.toScreenX(0f, 0f); var hy = cam.toScreenY(a.dx, a.dy) - cam.toScreenY(0f, 0f)
+        val hl = kotlin.math.hypot(hx, hy).coerceAtLeast(1e-3f); hx /= hl; hy /= hl
+        val body = tone(if (fly.dark) Color(0xFF3C5A64) else Color(0xFF6A5E36))
+        val head = tone(if (fly.dark) Color(0xFF2A3E46) else Color(0xFF4A4026))
+        val wing = Color(0xFFDCE4E8).copy(alpha = (if (a.wings > 0.5f) 0.34f else 0.18f) * dim)
+        // wings: two pairs across the body, a blur rather than a shape
+        for (k in listOf(0.6f, -0.6f)) {
+            val bx = ox + hx * k * s; val by = cy + hy * k * s
+            val px = -hy; val py = hx
+            drawLine(wing, Offset(bx - px * 4.5f * s, by - py * 4.5f * s * 0.6f), Offset(bx + px * 4.5f * s, by + py * 4.5f * s * 0.6f), strokeWidth = 1.2f * s)
+        }
+        // the long, thin tail behind, the thorax and head in front
+        drawLine(body, Offset(ox - hx * 6f * s, cy - hy * 6f * s), Offset(ox, cy), strokeWidth = 0.8f * s)
+        drawLine(head, Offset(ox, cy), Offset(ox + hx * 1.8f * s, cy + hy * 1.8f * s), strokeWidth = 1.5f * s)
     }
 }
 

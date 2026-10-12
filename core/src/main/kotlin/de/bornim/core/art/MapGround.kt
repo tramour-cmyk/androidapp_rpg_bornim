@@ -307,6 +307,9 @@ object MapGround {
     private fun tallAt(map: MapDef, x: Double, y: Double) =
         field(map, x, y, tallTiles) + (fbm(x, y, 40.0, 4) - 0.5) * 0.9 + (vnoise(x, y, 10.0, 5) - 0.5) * 0.35 > 0.55
 
+    /** How much water lies at map pixel ([x], [y]): above 0.5 is the pond (the same shore the ground is drawn with). */
+    fun water(map: MapDef, x: Float, y: Float): Double = waterAt(map, x * D.toDouble(), y * D.toDouble())
+
     private fun waterAt(map: MapDef, x: Double, y: Double) = field(map, x, y, waterTiles) + (fbm(x, y, 48.0, 11) - 0.5) * 0.55
 
     // ------------------------------------------------------------------ the path
