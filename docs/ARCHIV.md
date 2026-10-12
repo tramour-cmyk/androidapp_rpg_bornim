@@ -5,6 +5,12 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
 
+### Übergabe Tom (12.10., 09:40, ersetzt 10:25)
+
+- **Zweig `claude/tender-goodall-a8zuny`** (enthält `main` mit PR #40): 29 Anschlagbrett, 24.8.6, 30.8; Build 0.1.563 zu testen (nach Jerrys 0.1.561). Danach PR, zusammenführen, CHANGELOG.
+- **Als Nächstes:** 29.3 zweite Welle (29g ja): Aushänge nach Krogg (Morwen Giftdrüsen → 2 Kräutertränke + 50 G, Jorin Streife → Spur im Wald, Rüstungsteil), frischer Zettel als Hinweis (Bild des Bretts wechselt). Dann 13 Tempel (Altar vor dem Fenster), 27 Wald.
+- **Regeln neu (12.10.):** Thema 33 (vier Fragen in `STIL.md`), Testreihenfolge mit dem anderen abstimmen (`CLAUDE.md`). 32: Weck-Sitzungen auf `send_later`/`create_session` prüfen.
+
 ### Rückfrage „APK im Chat“ erledigt (Tom, 12.10., 09:51)
 
 - Netz hat jetzt Vollzugriff (Nutzer 12.10.): Artefakt 0.1.563 per `gh api …/artifacts/<id>/zip` geladen (54 MB). APK kommt trotzdem nie in den Chat (Regel 11.10., 21:25), nur der Link.
