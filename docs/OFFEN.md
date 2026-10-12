@@ -54,6 +54,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Rückfragen an den Nutzer
 
+- **27d (Tom, 13:55):** Haus durchsichtig vor dem Helden: bei 22,6 (Tür) im Standbild fest; durchsichtig nur links an/hinter der Ecke (20,3–20,5; bei 20,5 verdeckt die Ecke höchstens eine Hälfte). Wo stand der Held? Foto? Empfehlung: Durchsicht erst ab mehr als schmalem Rand, dann PR #43 zusammenführen.
+
 - **27b (Tom):** Wald Südrand: 27.1 Durchsicht kräftiger (Kronen vor Held, Steinen, Schild, Truhe fast ganz durchsichtig, nicht gestapelt) + 27.2 vorderster Waldrand diagonal niedrig (Stämme, Büsche, junge Bäume, wie die niedrigen Vorderwände der Höhle); 27.4 neue runde Bäume danach; 27.3 Karte umbauen nein. Empfehlung 27.1+27.2, erst Standbilder. **27b ja (Nutzer 12:09, über Berater):** 27.1, 27.2 und Umstellen nach 43 (27.3 doch ja): Garrick, Feuer, Steinkreis zuerst, Standbilder vorher/nachher.
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
