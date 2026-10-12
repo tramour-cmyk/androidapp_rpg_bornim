@@ -179,6 +179,8 @@ fun main() {
             if (System.getenv("CAVEDRAFT") != null) de.bornim.core.art.MapCaveIso.draft = true
             // DIAG=1: the map seen diagonally (13)
             if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.all = true
+            // TREEDRAFT=1: the trees with volume (27.4, draft)
+            if (System.getenv("TREEDRAFT") != null) de.bornim.core.art.MapFlora.treeDraft = true
             // ZOOMSTUFE=1|2: the in-between zoom steps for the near shots (6.15)
             System.getenv("ZOOMSTUFE")?.let { if (near) de.bornim.game.ui.MapZoom.level = it.toInt() }
             val z = if (near) "nah" else "weit"
@@ -286,6 +288,7 @@ fun main() {
     if (System.getenv("CAST") != null) { renderCastViews(); System.exit(0) }
     if (System.getenv("STANCE") != null) { renderStanceViews(); System.exit(0) }
     if (System.getenv("ARMS") != null) { renderArmsAndCloak(); System.exit(0) }
+    if (System.getenv("TREESHEET") != null) { renderTreeSheet(); System.exit(0) }
     if (System.getenv("BENCH") != null) { benchRender(); System.exit(0) }
     if (System.getenv("RUN") != null) { renderBattleRun(); System.exit(0) }
     if (System.getenv("PORTRAIT") != null) { renderPortraits(); System.exit(0) }

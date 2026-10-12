@@ -128,8 +128,12 @@ object MapFlora {
 
     private fun cached(key: String, make: () -> Sprite): Sprite = synchronized(cache) { cache[key] } ?: make().also { synchronized(cache) { cache[key] = it } }
 
+    /** The trees with volume (27.4, draft): only in the preview for now. */
+    @Volatile var treeDraft = false
+
     /** An oak-like tree; [size] 0..2 small to large, [deep] the darker, older wood. */
-    fun oak(variant: Int, size: Int, deep: Boolean): Sprite = cached("oak/$variant/$size/$deep") {
+    fun oak(variant: Int, size: Int, deep: Boolean): Sprite = cached("oak/$variant/$size/$deep/$treeDraft") {
+        if (treeDraft) return@cached MapTree.oak(variant, size, deep)
         // tall enough beside the hero: an old oak stands about two and a half times as tall as a man
         val r = S * (0.95 + size * 0.17) + variant % 3 * 3
         val w = (r * 2.6).toInt(); val h = (r * 3.4).toInt()
@@ -142,7 +146,8 @@ object MapFlora {
     }
 
     /** A spruce in drooping tiers. */
-    fun spruce(variant: Int, size: Int, young: Boolean = false): Sprite = cached("spruce/$variant/$size/$young") {
+    fun spruce(variant: Int, size: Int, young: Boolean = false): Sprite = cached("spruce/$variant/$size/$young/$treeDraft") {
+        if (treeDraft) return@cached MapTree.spruce(variant, size, young)
         // a young spruce stays small (beside chests); grown ones tower over the hero
         val r = if (young) S * 0.44 + variant % 2 * 2 else S * (0.78 + size * 0.14) + variant % 2 * 3
         val w = (r * 2.1).toInt(); val h = (r * 3.9).toInt()
@@ -171,7 +176,8 @@ object MapFlora {
     }
 
     /** A dead tree, grey and bare, its branches reaching up. */
-    fun deadTree(variant: Int): Sprite = cached("dead/$variant") {
+    fun deadTree(variant: Int): Sprite = cached("dead/$variant/$treeDraft") {
+        if (treeDraft) return@cached MapTree.deadTree(variant)
         val r = S * 1.0
         val w = (r * 2.6).toInt(); val h = (r * 3.4).toInt()
         val img = PixelImage(w, h)
