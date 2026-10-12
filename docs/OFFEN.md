@@ -54,7 +54,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Weiter (Freitag):** Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
-- **Tom, PR #48** `claude/tom-27-4-baeume` (27.4 Bäume, 5.6 Schlagbaum/Zaun, 5.3 Puppen), [0.1.590](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38256042679) getestet 15:4x (siehe Übergabe), neuer Build 15:56:** Bäume in Wald, Tiefem Wald, Dorf; Schlagbaum zu/offen, Gartenzaun; Jorin, Pim, Rowena, Borin, Thessa, Aldric, Osric, Lyra, Morwen als Puppen. Nach Jerrys 0.1.587 (wartet länger).
+- **Tom, PR #48** `claude/tom-27-4-baeume`, **[0.1.597](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38265419793)** (12.10., 16:51): wie 0.1.590 plus Tresen fest, Kaminrauch weich, Liska/Gwenna/Bram als Puppen, Kaels Hütte versetzt (Schlagbaum frei, 5n). Passt es: zusammenführen.
 
 ## Rückfragen an den Nutzer
 
