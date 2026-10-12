@@ -132,3 +132,31 @@ fun renderMapFigureYaws() {
     ImageIO.write(out, "png", File("build/screens/mapfig_16.png"))
     println("wrote mapfig16")
 }
+
+/**
+ * SHIELDWALK (58): every shield slung on the back with a cloak or a mantle, walking in all 16 directions
+ * (STEP=, default 2: mid-stride), to see whether the cloth comes through the board. SHIELDWALK=alt: as before 58.
+ */
+fun renderShieldWalk() {
+    val F = de.bornim.core.art.MapFigure
+    val old = System.getenv("SHIELDWALK") == "alt"
+    de.bornim.core.art.Dress.PRESS_CLOAK = !old
+    val step = System.getenv("STEP")?.toInt() ?: 2
+    var uid = 950L
+    val rows = mutableListOf<Hero>()
+    for (race in listOf(Race.HUMAN, Race.DWARF, Race.HALFLING)) for (sh in listOf("shield", "round_shield", "tower_shield")) for (cl in listOf("cloak", "mantle", "-")) {
+        if (race != Race.HUMAN && cl == "-") continue
+        rows += GameState.newGame("Mira", race, CharClass.FIGHTER).hero.also { h ->
+            h.equip(de.bornim.core.Gear(uid++, "longsword", de.bornim.core.Rarity.COMMON, 3))
+            h.equip(de.bornim.core.Gear(uid++, sh, de.bornim.core.Rarity.COMMON, 3))
+            if (cl != "-") h.equip(de.bornim.core.Gear(uid++, cl, de.bornim.core.Rarity.COMMON, 3))
+        }
+    }
+    val out = BufferedImage(F.W * 16, F.H * rows.size, BufferedImage.TYPE_INT_RGB)
+    for (r in rows.indices) for (s in 0 until 16) {
+        val img = F.draw(rows[r], s, step)
+        for (y in 0 until F.H) for (x in 0 until F.W) { val q = img[x, y]; out.setRGB(s * F.W + x, r * F.H + y, if ((q ushr 24) >= 128) q else 0x3A4430) }
+    }
+    ImageIO.write(out, "png", File(if (old) "build/screens/shieldwalk_alt.png" else "build/screens/shieldwalk.png"))
+    println("wrote shieldwalk ${rows.size} rows")
+}
