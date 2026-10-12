@@ -1,6 +1,14 @@
 # Balance (Thema 38) – Entwurf
 
-Ziel: herausfordernd, aber nicht zu leicht, über **mindestens 7 Kapitel**, Stufe 20 am Ende. Diese Datei hält die Zielkurve fest; Messungen und Vorschläge verweisen darauf. Entwurf des Beraters (12.10.), Zahlen der Zielkurve sind Vorschläge, bis der Nutzer sie freigibt.
+Ziel: herausfordernd, aber nicht zu leicht, über **mindestens 7 Kapitel**, Stufe 20 am Ende. Diese Datei hält die Zielkurve fest; Messungen und Vorschläge verweisen darauf. Entwurf des Beraters (12.10.); Richtung freigegeben (38d, 10:21), Zahlen werden nach Jerrys Messung justiert.
+
+## Grundsatz (38d, Nutzer 12.10., 10:21)
+
+- **SRD 5.1 ist das Fundament**, Stufe 20 die Obergrenze; nichts darüber hinaus.
+- **Eigenes Tempo:** Die meisten Kapitel spielen in den Stufen 5–14, wo das SRD am rundesten ist; 15–20 erst in den letzten beiden Kapiteln.
+- **Hausregeln nur mit Begründung**, hier unter „Hausregeln“ festgehalten (Einzelspiel, kein Spielleiter, der nachsteuert).
+- AD&D nur als Anregung im Geist; keine Texte, Namen, Monster oder Zauber von dort (nicht frei lizenziert). Das SRD steht unter CC-BY 4.0, Hinweis im README.
+- Wachstum neben den Stufen (Talente, Ausrüstung, Ruf, Begleiter) ist erlaubt.
 
 ## Heute (Stand 12.10.)
 
@@ -19,10 +27,10 @@ Ziel: herausfordernd, aber nicht zu leicht, über **mindestens 7 Kapitel**, Stuf
 | 3 | 10 | +3 / +4 |
 | 4 | 12 | +4 / +5 |
 | 5 | 14 | +5 / +6 |
-| 6 | 17 | +6 / +7 |
+| 6 | 16 | +6 / +7 |
 | 7 | 20 | +7 / +8 |
 
-Ab Kapitel 2 etwa zwei Stufen je Kapitel; spätere Kapitel länger als Kapitel 1. Bei mehr als 7 Kapiteln wird die Kurve flacher, nicht der Deckel lockerer.
+Mitte gemächlich (zwei Stufen je Kapitel), Ende steiler (Kapitel 7: vier Stufen). Spätere Kapitel länger als Kapitel 1. Kommen mehr als 7 Kapitel, wird die Mitte flacher; die Obergrenze 20 bleibt.
 
 ## Ziel-Siegquoten auf „Normal“
 
@@ -45,6 +53,13 @@ Durchschnittlich gebauter Held, Ausrüstung im Deckel, Kämpfe hintereinander (n
 1. `ChapterSimTest` erweitern: Kapitel 1 am Stück in Story-Reihenfolge mit Zufallsbegegnungen, TP über Kämpfe hinweg, Rast wie ein Spieler, Gold zählen, einfache Einkaufsregel (Tränke auf 3–4 auffüllen, bestes bezahlbares Teil im Deckel kaufen).
 2. Ausgabe je Klasse: Stufe je Abschnitt, Gold rein, raus, übrig, Siegquote Vorboss und Boss.
 3. Gegen die Zielwerte oben halten; Abweichungen als Vorschläge (Gold der Gegner, Preise, Erfahrung) zur Freigabe.
+
+## Hausregeln (mit Begründung)
+
+- Erfahrungsschwellen halbiert: kürzere Kapitel im Einzelspiel; Tempo über die Kapiteldeckel gesteuert.
+- Zauberpunkte statt Zauberplätze (SRD-Variante): einfacher zu bedienen.
+- Gleißender Schaden gegen Untote ×1,5 (auch Weihwasser, 35a).
+- Magierrüstung hält 8 h Spielzeit über Kämpfe hinweg (26.1): Magier verlor sonst die erste Runde.
 
 ## Offen
 

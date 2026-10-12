@@ -38,6 +38,7 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 - **Kampf nah am SRD** (12.10.): „Zug beenden“ jetzt (34, auch um Testkämpfe schnell zu verlieren), „Abwarten“/„Helfen“ erst mit Begleitern (Merkliste). Weihwasser nur gegen Untote, 2W6, sonst ausgegraut mit Hinweis (35): vorher 2W6 gegen alle, unglaubwürdig.
 - **Krogg schärfen** (36, 12.10.): erst aufräumen bei gleicher Auflösung (Fellkörnung 0,55 war Hauptgrund), Standbilder Handy/Emulator; nur falls nötig 1,5× mit zugeschnittenen Bildern, vorher messen. Doppelte Auflösung abgelehnt: Krogg ~50 MB → ~200 MB, 4× Zeichenzeit.
 - **Kampfmusik** (37, 12.10.): raus `great_labyrinth`, `menace` (Techno), `epic_fight` (Lounge); `boss_ancient_legend` zu tragend für Kampf → Rückkehr des Sonnenamuletts in den Tempel (Jerry Musik, Tom Szene); Jerry sucht 2–3 neue CC0-Kampfstücke, erst Hörproben.
+- **Balance** (38, 12.10.): SRD als Fundament, Stufe 20 Obergrenze, mindestens 7 Kapitel, Stufen 5–14 als Kern, 15–20 erst am Ende; Hausregeln nur mit Begründung in `BALANCE.md`. Schwierigkeitsgrad (39) nach Messung von „Normal“, Lautstärke-Regler (40). AD&D nur im Geist (nicht frei lizenziert).
 - **Kampfkulisse der Höhle angleichen:** zurückgestellt (Merkliste). Höhle-Flammen und Lichtstrahl (10, 11) bis zur diagonalen Höhle zurückgestellt.
 
 ## Lehren
