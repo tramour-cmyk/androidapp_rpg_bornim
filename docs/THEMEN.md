@@ -54,3 +54,6 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
 | 50 | Weitere Klassen, ggf. zum Kauf | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
 | 51 | Sterbehaltung des Helden (Magier) sieht komisch aus | Jerry | Meldung 12.10., offen | `OFFEN.md` |
+| 52 | Feinarbeit an den Kampfanimationen | Jerry | Nutzer 12.10., später | `OFFEN.md` |
+| 53 | Zustände (Brennend) auf Krogg prüfen | Jerry | Nutzer 12.10., wenn Zeit | `OFFEN.md` |
+| 54 | Nicht warten, von selbst weiterarbeiten | Tom und Jerry | Nutzer 12.10., offen | `OFFEN.md` |
