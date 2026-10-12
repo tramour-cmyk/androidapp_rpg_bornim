@@ -11,7 +11,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
 | Tom | fertig | 12.10., 08:00 | 11.10., 23:08 | 12.10., 07:48 | Nacht beendet; 32.1–32.8 eingebaut, Routinen umgestellt | – |
-| Jerry | läuft | 13.10., 08:00 (vorläufig, Rückfrage 54a) | 12.10., 16:22 | 12.10., 16:25 | 13e.2 Kisten/Truhen/Bettrolle | `claude/jerry-13e-hoehle-diagonal` |
+| Jerry | übergeben | 13.10., 08:00 (vorläufig, Rückfrage 54a) | 12.10., 16:22 | 12.10., 16:36 | 13e.2 fertig, weiter 13e.3; Nachfolger übernimmt | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
 
@@ -113,7 +113,7 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 - 19e: ein konkretes Beispiel für „Bewegungen unrund“, falls dir eines auffällt.
 
 **Paket** (Selbstarbeit ab 12.10., 16:40, vergeben vom Nutzer 16:2x; Zweig `claude/jerry-13e-hoehle-diagonal`, alles nur Vorschau hinter `MapCaveIso.draft`, nicht ins Spiel):
-1. **13e.2 Kisten, Truhen, Bettrolle diagonal** in `MapCaveIso` (Truhe offen/zu, je drei Varianten, Höhlenstil: grob, Goblinbeute). Fertig, wenn: Standbilder (`CAVESHEET=1`, dann `KARTENZOOM=1 DIAG=1 CAVEDRAFT=1 ONLY=zoom_nah_c`) mit Uhrzeit.
+1. ~~**13e.2 Kisten, Truhen, Bettrolle diagonal**~~ (fertig 16:26, f0dd6f2) in `MapCaveIso` (Truhe offen/zu, je drei Varianten, Höhlenstil: grob, Goblinbeute). Fertig, wenn: Standbilder (`CAVESHEET=1`, dann `KARTENZOOM=1 DIAG=1 CAVEDRAFT=1 ONLY=zoom_nah_c`) mit Uhrzeit.
 2. **13e.3 Lichtstrahl am Schacht (11)** als schräge Lichtsäule mit Staub statt hellem Rechteck; **Fackelflammen feiner (10)**. Fertig, wenn: Standbilder.
 3. **13e.4 Stalagmiten, Felsen, Geröll** über das Höhenfeld (wie die Wände), **Weiher mit Ufer**. Fertig, wenn: Standbilder, Lückenliste nach „Ort fertig“.
 4. Reserve: 38 Messung Kapitel 1 (Gold/Einkauf in `ChapterSimTest`), 53 Zustände auf Krogg (Befund), 51 Sterbehaltung Magier (Befund, Entwurf).

@@ -47,9 +47,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Test 0.1.590 (Nutzer 15:4x):** Dorf gut, Leute gut, **kein Absturz** bei vielen Wechseln Dorf ↔ Wald. Zaun gut. **Offen:** (a) Held im dichten Wald unter mehreren Kronen ganz weg (Bild; Ebenen-Formel/Schwelle prüfen), (b) Fichtenreihe am Dorfrand Süd gleichförmig (alles junge Fichten wegen Sichtregel, im Raster): mischen, versetzen, (c) Gemüsebeet sieht nach Kästen aus (`MapTown.vegBed`), (d) Kornfeld wirkt wie Regenstriche, (e) Rauch war harte Scheiben (behoben, prüfen). Ein Mädchen im Dorf noch alte Figur.
 - **Nutzer 16:0x:** 55a ja, **5n ja** (Haus östlich des Schlagbaums 2 Felder nach Osten), **Liska, Gwenna, Bram noch alte Figuren** (im Dorf unterwegs, als Puppen umstellen). Regel „nicht warten“ in `CLAUDE.md`: Antwort unklar („3 ja“ = 5n), nachfragen.
 - **Als Nächstes:** Build 15:56 melden, (a)–(e), Liska/Gwenna/Bram, 5n, Build, Test, PR, zusammenführen, CHANGELOG; dann 55 (55.2 zuerst), 5l/5.5, 5.4, 27.5/27.6.
-### Jerry (12.10., 16:25)
+### Jerry (12.10., 16:36)
 
-- **Selbstarbeit ab 16:40** (bis 13.10., 08:00 vorläufig, 54a), Paket in `SELBST.md`: 13e.2 Kisten/Truhen/Bettrolle, 13e.3 Lichtstrahl + Flammen, 13e.4 Stalagmiten/Weiher; Reserve 38, 53, 51. Zweig `claude/jerry-13e-hoehle-diagonal`, nur Vorschau (`CAVESHEET=1`, siehe Archiv).
+- **Selbstarbeit läuft** (bis 13.10., 08:00 vorläufig, 54a), Paket in `SELBST.md`. Zweig `claude/jerry-13e-hoehle-diagonal`, nur Vorschau. **13e.2 fertig** (f0dd6f2): Truhen offen/zu, Kisten/Fass, Schlaflager diagonal in `MapCaveIso`, je 3 Varianten; Standbilder 16:26 (`CAVESHEET=1` → `hoehle_varianten.png`, `hoehle_dinge.png`) und 16:32 (`zoom_nah_c2`).
+- **Weiter mit 13e.3:** Lichtstrahl als neue `drawCaveShaft` in `WorldScreen.kt` nach Muster `drawHearthSmoke` (aufrecht über `cam.toScreenX/Y`), nur bei `diag && MapCaveIso.draft`; alten SKY-Strahl in `drawMapLight` dann aussparen. Danach Fackelflammen (10), 13e.4.
 ## Zu testen
 
 - **Tom, Zweig `claude/tom-27-4-baeume` (27.4 Bäume, 5.6 Schlagbaum/Zaun, 5.3 Puppen), [0.1.590](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38256042679) getestet 15:4x (siehe Übergabe), neuer Build 15:56:** Bäume in Wald, Tiefem Wald, Dorf; Schlagbaum zu/offen, Gartenzaun; Jorin, Pim, Rowena, Borin, Thessa, Aldric, Osric, Lyra, Morwen als Puppen. Nach Jerrys 0.1.587 (wartet länger).
