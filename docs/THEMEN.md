@@ -60,3 +60,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | neu 12.10. | `OFFEN.md` |
 | 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | Tom | neu 12.10. | `OFFEN.md` |
 | 58 | Umhang hängt beim Laufen über dem Schild | Tom | neu 12.10. | `OFFEN.md` |
+| 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf | Berater, dann Tom | neu 12.10. | `OFFEN.md` |
