@@ -57,6 +57,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Weiter (Freitag):** Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
+- **Tom, PR #48** `claude/tom-27-4-baeume`, **[0.1.624](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38297431002)** (12.10., 21:29): 27e.1 Deckung vor dem Helden 50 % (Kronen, Häuser, Möbel gleich), 27h Testschalter „Alles diagonal“. Entwürfe 27.6, 17, 42 im Spiel aus.
 
 ## Rückfragen an den Nutzer
 
