@@ -1,5 +1,10 @@
 # Archiv
 
+### Tom (12.10., 23:58) – Selbstarbeit, an Nachfolger übergeben
+- **59** Build 0.1.632 (Zweig `claude/tom-59-haendler`) wartet auf Test des Nutzers, dann PR.
+- **60** auf Zweig `claude/tom-60-aussehen` (von 59): Schriften (OFL, `tools/schrift/QUELLEN.md`), Titel, Menü, Heldenerstellung, Kampf als Entwurf; Testreiter „60 Aussehen“. Build von Commit de83b1a läuft (23:57): Link in „Zu testen“ eintragen. Rückfragen 60e–60i auf der Entscheidungsseite.
+- **Weiter:** Paket 3 (27.6 Tiefer Wald, Zweig `claude/tom-27-6-tiefer-wald` von `main`), 4 (Tempel-Altar), 5 (17 Rest), Reserve laut `SELBST.md`.
+
 ### Tom (12.10., 23:20) – vor Neustart
 - **Berater 23:2x (Nutzer 23:20): 60a–60d ja**, Vorschlag und Reihenfolge in „Wer macht was“ Zeile 60; nach 59 gleich anpacken.
 

@@ -43,10 +43,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (12.10., 23:58) – Selbstarbeit, an Nachfolger übergeben
-- **59** Build 0.1.632 (Zweig `claude/tom-59-haendler`) wartet auf Test des Nutzers, dann PR.
-- **60** auf Zweig `claude/tom-60-aussehen` (von 59): Schriften (OFL, `tools/schrift/QUELLEN.md`), Titel, Menü, Heldenerstellung, Kampf als Entwurf; Testreiter „60 Aussehen“. Build von Commit de83b1a läuft (23:57): Link in „Zu testen“ eintragen. Rückfragen 60e–60i auf der Entscheidungsseite.
-- **Weiter:** Paket 3 (27.6 Tiefer Wald, Zweig `claude/tom-27-6-tiefer-wald` von `main`), 4 (Tempel-Altar), 5 (17 Rest), Reserve laut `SELBST.md`.
+### Tom (13.10., 01:02) – Selbstarbeit, an Nachfolger übergeben
+- **59** Build 0.1.632 und **60** Build 0.1.636 warten auf Test (Zu testen). Rückfragen 60e–60i, 27.6a–c, 13x auf der Entscheidungsseite.
+- **27.6** Entwurf fertig: Zweig `claude/tom-27-6-tiefer-wald` (0eed32e), Kronen verdecken Morwens Feuer nicht mehr (nur DIAG). **13x** Tempel-Altar fertig: Zweig `claude/tom-13-tempel-altar` (aae8b45), zwei Fenster neben dem Altar.
+- **Weiter:** Paket 5 (17 Rest: Haare und Köcher schwingen nach; Ansatz: `MapFigure.cloaked` → auch lange Haare/Köcher, `Doll.kt` 533 `flick` auch aus `rig.cloak`, Köcherboden in `Dress.kt` ~578 mit `rig.cloak` nach hinten), dann Reserve. Vorschau nur mit engem `ONLY=` (ein breiter Lauf dauert über 20 min).
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -63,6 +63,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **60e–60i** (Tom, [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F)): 60e Textschrift (Empf. Alegreya), 60f Titel (Empf. Cinzel), 60g Menü, 60h Heldenerstellung, 60i Kampf mit Pixelzahlen (Empf. je ja).
 - **27.6a–c** (Tom, [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F)): Tiefer Wald diagonal (Morwens Feuer frei) übernehmen, Schild auf die Südseite des Wegs, Rauchfahne am Kräuterfeuer als Entwurf (Empf. je ja).
+- **13x** (Tom, Entscheidungsseite): Tempel: zwei Fenster links und rechts vom Altar statt einem dahinter (Empf. ja).
 
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
