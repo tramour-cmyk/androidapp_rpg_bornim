@@ -1136,6 +1136,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         ground { if (MapLight.needed(map, game.daylight)) drawMapLight(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH) }
         if (diag && map.kind == MapKind.INTERIOR) drawHearthSmoke(game, map, clock, cam, camX, camY, scale)
         if (diag && map.kind == MapKind.CAVE && de.bornim.core.art.MapCaveIso.draft) drawCaveShaft(game, map, clock, cam, camX, camY, scale)
+        if (diag && map.kind == MapKind.CAVE && de.bornim.core.art.MapCaveIso.draft) drawCaveTorches(game, map, clock, cam, camX, camY, scale)
         if (diag && map.kind == MapKind.TOWN && MapGround.supports(map)) drawTownSmoke(map, clock, cam, camX, camY, scale)
         // what shines by itself (25.1: a lamp's glass; 25b: lit windows) is drawn over the light of the place, so the source is the brightest
         // spot around it, waking with the dusk like the light it throws; a small warm halo around it
@@ -1624,6 +1625,60 @@ private fun DrawScope.drawCaveShaft(game: Game, map: de.bornim.core.MapDef, cloc
 }
 
 /**
+ * 13e.3 (10): seen diagonally, a torch on a back face of the cave's rock is drawn live: iron bracket, stick, charred
+ * head and a flame of three soft tongues (deep red, orange, pale core) that flickers and leans continuously instead of
+ * switching between two pictures, a few sparks rising from it.
+ */
+private fun DrawScope.drawCaveTorches(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int) {
+    val T = WorldArt.T
+    val u = scale.toFloat()
+    for (ty in 0 until map.height) for (tx in 0 until map.width) {
+        if (map.tile(tx, ty) != Tile.TORCH) continue
+        val (fx, fy) = de.bornim.core.art.MapCaveIso.torchFace(map, tx, ty) ?: continue
+        val seen = when (game.fog(floor(fx / T + 0.3).toInt(), floor(fy / T + 0.3).toInt())) {
+            de.bornim.core.Fog.HIDDEN -> 0f
+            de.bornim.core.Fog.SEEN -> 0.4f
+            de.bornim.core.Fog.VISIBLE -> 1f
+        }
+        if (seen <= 0f) continue
+        val mx = ((fx - camX) * scale).toFloat(); val my = ((fy - camY) * scale).toFloat()
+        // the head of the torch about 1.1 m up the face, lowered to the hero's scale like the rooms' heights (13p.6)
+        val bx = cam.toScreenX(mx, my); val by = cam.toScreenY(mx, my) - (62 * de.bornim.core.art.MapRoomIso.ZS * scale).toFloat()
+        val t = (clock + tx * 397 + ty * 211).toFloat()
+        // bracket and stick, leaning out of the rock
+        drawRect(Color(0xFF2A2624).copy(alpha = seen), Offset(bx - 2.5f * u, by + 9 * u), androidx.compose.ui.geometry.Size(5 * u, 1.6f * u))
+        drawLine(Color(0xFF3E2C1E).copy(alpha = seen), Offset(bx - 0.6f * u, by + 13 * u), Offset(bx + 0.6f * u, by + 1 * u), strokeWidth = 2.2f * u)
+        drawOval(Color(0xFF1C1612).copy(alpha = seen), Offset(bx - 2.2f * u, by - 0.4f * u), androidx.compose.ui.geometry.Size(4.4f * u, 3 * u))
+        // the flame: frames of a living flame (MapCaveIso.flame), each torch at its own point of the loop
+        val fk = ((clock / 80) + tx * 7 + ty * 13).toInt()
+        val img = de.bornim.core.art.MapCaveIso.flame(fk)
+        val base = by + 1.2f * u
+        val fl = Offset(bx - de.bornim.core.art.MapCaveIso.FLAME_X * u / 2, base - de.bornim.core.art.MapCaveIso.FLAME_Y * u / 2)
+        drawImage(
+            image = Bitmaps.of(img), srcOffset = IntOffset.Zero, srcSize = IntSize(img.width, img.height),
+            dstOffset = IntOffset(fl.x.toInt(), fl.y.toInt()), dstSize = IntSize(img.width * scale / 2, img.height * scale / 2),
+            alpha = seen, filterQuality = FilterQuality.None,
+        )
+        val f = 0.9f + 0.1f * kotlin.math.sin(fk * 0.6f)
+        val h = 12 * u
+        val lean = 0f
+        // a warm halo, breathing with the flame
+        drawCircle(
+            androidx.compose.ui.graphics.Brush.radialGradient(listOf(Color(0xFFFFA850).copy(alpha = 0.2f * f * seen), Color.Transparent), Offset(bx, base - h * 0.4f), 14 * u),
+            14 * u, Offset(bx, base - h * 0.4f), blendMode = androidx.compose.ui.graphics.BlendMode.Plus,
+        )
+        for (k in 0 until 3) {
+            // sparks leaving the tip
+            val period = 900 + k * 260
+            val ph = ((clock + k * 431 + tx * 97 + ty * 53) % period) / period.toFloat()
+            val sx = bx + lean + kotlin.math.sin(ph * 7f + k * 2) * 2.5f * u + (k - 1) * u
+            val sy = base - h * 0.8f - ph * 16 * u
+            drawRect(Color(0xFFFFC060).copy(alpha = (1 - ph) * 0.85f * seen), Offset(sx, sy), androidx.compose.ui.geometry.Size(u, u))
+        }
+    }
+}
+
+/**
  * Seen diagonally (13, step 3): the light image lies on the ground, and a wall or a tall thing standing up
  * from the floor covers, on the screen, the ground behind it (up the diagonal). There the image is given the
  * light of the floor where that thing stands, a little less the higher up it is: the back walls are lit by
@@ -1773,7 +1828,8 @@ private fun DrawScope.drawMapLight(
         val px = scale.toFloat()
         when (src.kind) {
             // seen diagonally, a hearth's sparks and smoke rise upright on the screen (drawHearthSmoke)
-            MapLight.Kind.FIRE, MapLight.Kind.TORCH -> if (!(MapSight.diagonal && indoor && src.kind == MapLight.Kind.FIRE)) { for (k in 0 until (if (src.kind == MapLight.Kind.FIRE) 5 else 2)) {
+            MapLight.Kind.FIRE, MapLight.Kind.TORCH -> if (!(MapSight.diagonal && indoor && src.kind == MapLight.Kind.FIRE) &&
+                !(MapSight.diagonal && de.bornim.core.art.MapCaveIso.draft && src.kind == MapLight.Kind.TORCH && map.kind == MapKind.CAVE)) { for (k in 0 until (if (src.kind == MapLight.Kind.FIRE) 5 else 2)) {
                 // sparks rising and fading
                 val period = 1400 + k * 230
                 val ph = ((clock + k * 517 + i * 131) % period) / period.toFloat()

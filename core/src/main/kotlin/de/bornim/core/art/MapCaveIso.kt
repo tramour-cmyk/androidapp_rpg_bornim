@@ -6,6 +6,10 @@ import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.PI
+import kotlin.math.pow
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 /**
  * The cave seen diagonally (13e, draft, only in the preview CAVEDRAFT=1): the rock stands up around the floor instead of
@@ -608,6 +612,64 @@ object MapCaveIso {
         return WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, depth - wx, 2, low, corner = true)
     }
 
+    /**
+     * Where a torch in the rock hangs, in map pixels: on the face it turns to the floor, if that face is a back wall
+     * (the floor lies at +x or +y, so the face stands up towards the viewer); null otherwise.
+     */
+    fun torchFace(map: MapDef, tx: Int, ty: Int): Pair<Double, Double>? {
+        val T = WorldArt.T.toDouble()
+        val east = !isRock(map.tile(tx + 1, ty)); val south = !isRock(map.tile(tx, ty + 1))
+        return when {
+            east && south -> (tx + 1) * T - 1 to (ty + 1) * T - 1
+            east -> (tx + 1) * T - 1 to (ty + 0.5) * T
+            south -> (tx + 0.5) * T to (ty + 1) * T - 1
+            else -> null
+        }
+    }
+
+    /** Frames of [flame]; the screen steps through them about twelve times a second. */
+    const val FLAMES = 32
+    /** The flame's root in [flame]'s picture (2 art pixels to the map pixel). */
+    const val FLAME_X = 10
+    const val FLAME_Y = 28
+    private val flames = arrayOfNulls<PixelImage>(FLAMES)
+
+    /**
+     * A torch's flame, frame [k] of [FLAMES] (13e.3, 10: finer than the old two pictures): a teardrop of heat whose
+     * height breathes and whose tip sways, torn at its edges by noise rising through it, so tongues lick up and part;
+     * pale core, orange body, deep red rim, the rim half seen through.
+     */
+    fun flame(k: Int): PixelImage = flames[Math.floorMod(k, FLAMES)] ?: synchronized(flames) {
+        val f = Math.floorMod(k, FLAMES)
+        flames[f] ?: run {
+            val w = 20; val h = 34
+            val img = PixelImage(w, h)
+            val p = f * 2 * PI / FLAMES
+            val tall = 1.0 + 0.12 * sin(p * 3) + 0.06 * sin(p * 7 + 1)
+            for (y in 0 until h) for (x in 0 until w) {
+                val ny = (FLAME_Y - y - 0.5) / (24.0 * tall)
+                if (ny < -0.08 || ny > 1.25) continue
+                val sway = ny.coerceAtLeast(0.0).let { it * sqrt(it) } * (2.2 * sin(p) + 1.1 * sin(2 * p + 1.0) + 0.6 * sin(5 * p))
+                val nx = x + 0.5 - FLAME_X - sway
+                val q = ny.coerceIn(0.0, 1.0)
+                val half = 8.5 * sqrt(q + 0.06) * (1 - q).pow(0.7) + 0.5
+                // noise rising through the flame (it moves up by a full cell per loop and a half)
+                val n = vnoise(x * 0.42, (y + f * 0.9) * 0.3, 77) - 0.5
+                val v = 1 - abs(nx) / half - n * (0.25 + 0.9 * q) - (if (ny > 1) (ny - 1) * 3 else 0.0)
+                if (v <= 0.04) continue
+                val c = when {
+                    v > 0.62 && q < 0.55 -> argb(0xFFF4C0)
+                    v > 0.45 -> argb(0xFFC860)
+                    v > 0.22 -> argb(0xF08A2A)
+                    else -> argb(0xB8401A)
+                }
+                val a = when { v > 0.22 -> 255; v > 0.12 -> 210; else -> 130 }
+                img.set(x, y, (a shl 24) or (c and 0xFFFFFF))
+            }
+            img.also { flames[f] = it }
+        }
+    }
+
     /** One thing alone, for the preview's gallery (13e.2). */
     internal fun sample(t: Tile, v: Int, open: Boolean = false): PixelImage = when (t) {
         Tile.CHEST -> chest(v, open)
@@ -640,8 +702,9 @@ object MapCaveIso {
         val edge = (-1..1).any { a -> (-1..1).any { b -> !isRock(map.tile(tx + a, ty + b)) } }
         if (!edge) return if (t == Tile.CAVE_WALL) emptyList() else MapCave.objects(map, tx, ty, frame, chestOpen, gateOpen)
         val wall = thing(map, tx, ty, "${map.id}/rock/$tx/$ty") { rockTile(map, tx, ty) }
-        // a crystal or a torch in the rock keeps its old picture, in front of the wall
-        val rest = if (t == Tile.CAVE_WALL) emptyList() else MapCave.objects(map, tx, ty, frame, chestOpen, gateOpen).orEmpty()
+        // a crystal (and a torch with no back face to hang on) keeps its old picture, in front of the wall;
+        // a torch on a back face is drawn live by the screen (13e.3, 10: [torchFace])
+        val rest = if (t == Tile.CAVE_WALL || (t == Tile.TORCH && torchFace(map, tx, ty) != null)) emptyList() else MapCave.objects(map, tx, ty, frame, chestOpen, gateOpen).orEmpty()
         return listOf(wall) + rest
     }
 }
