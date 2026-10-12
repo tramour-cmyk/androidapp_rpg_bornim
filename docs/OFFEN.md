@@ -39,7 +39,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **Zweig `ccr-8b450567-umf1s6`, PR #38 (Entwurf), Build 0.1.555** ([Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38178006618/artifacts/11716242658)): 24.8.5 (Ortsklang klingt 0,6 s aus), 30.6 (Klang-Laden fängt Fehler ab), 13e Entwurf 1 (im Spiel aus). Nach Test des Nutzers: PR bereit, zusammenführen, CHANGELOG.
 - **Erledigt:** 30 Klang-Speicher (Befund unten), 13e Entwurf 1 + Lückenliste (Zeile 13e), 26a Simulation Magier (Rückfrage).
-- **Als Nächstes (Weck-Routine):** 13e Entwurf 2: Fels heller/runder, Kisten/Truhen/Felsen/Stalagmiten diagonal (`MapCaveIso`, Vorschau `KARTENZOOM=1 DIAG=1 CAVEDRAFT=1 ONLY=zoom_nah_c`); dann Reserve (Schritte Hörproben, Rudelwölfe).
+- **Als Nächstes (Weck-Routine):** 13e Entwurf 2 halb (04:20, Zweig `claude/quirky-goodall-fqncrd`: Fels heller/runder, Kerntests grün; Hinweis: Vorschau braucht `org.gradle.jvmargs=-Xmx6g` in `~/.gradle/gradle.properties`, sonst OutOfMemory beim Kompilieren). Offen: Kisten/Truhen/Felsen/Stalagmiten diagonal (`MapCaveIso`, Vorschau `KARTENZOOM=1 DIAG=1 CAVEDRAFT=1 ONLY=zoom_nah_c`); dann Reserve (Schritte Hörproben, Rudelwölfe).
 - **30 (Selbstarbeit 23:30):** Klang belegt 24 MB nativ (SoundPool: 121 Aufnahmen mono 44,1 kHz 22,6 MB, davon 9 Schleifen à 10 s 7,9 MB; 34 erzeugte 1,5 MB); Musik streamt (MediaPlayer, beim Überblenden bis 4). Einziger Absturzweg: Faden `sfx-render` beim Start ohne Fehlerfang (fehlende Datei, volle Platte); passt nicht zum Muster, wird trotzdem abgesichert (**30.6**, mit 24.8.5). Vorschlag **30.7** (Freigabe): Umgebungsklänge mit 22 kHz laden, spart ca. 5 MB.
 
 ## Zu testen
