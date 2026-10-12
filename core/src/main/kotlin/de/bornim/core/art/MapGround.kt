@@ -37,6 +37,9 @@ object MapGround {
     /** 5.4 draft: the square's cobbles quieter (softer joints, less spread between stones, worn lanes); only in the preview. */
     @Volatile var cobbleDraft = false
 
+    /** 5.4 middle way (Nutzer 18:38: the draft cold and sterile): warm stones that differ, earthen joints, moss, a gap now and then. */
+    @Volatile var cobbleMid = false
+
     /** Tiles drawn by this ground; anything else keeps its old picture on top. */
     private val drawn = setOf(
         Tile.GRASS, Tile.TALL_GRASS, Tile.FLOWERS, Tile.PATH, Tile.TREE, Tile.WATER,
@@ -217,6 +220,7 @@ object MapGround {
      * top, here and there one missing; [into] gets the colour, the result whether there is a stone.
      */
     private fun cobble(x: Double, y: Double, into: DoubleArray): Boolean {
+        if (cobbleMid) return cobbleWarm(x, y, into)
         if (cobbleDraft) return cobbleQuiet(x, y, into)
         val cell = 6.0
         val gx = floor(x / cell).toInt(); val gy = floor(y / cell).toInt()
@@ -256,6 +260,39 @@ object MapGround {
             if (k == 0.0) for (i in 0..2) into[i] = into[i] * 0.45 + MOSS_D[i] * 0.55 else for (i in 0..2) into[i] *= k
             return false
         }
+        return true
+    }
+
+    private val COBBLE_WARM = rgb(0x8A7254); private val COBBLE_COOL = rgb(0x5E6066); private val JOINT = rgb(0x2E261C)
+
+    /**
+     * 5.4, the middle way between the old cobbles and the quiet draft: the joints dark earth, not black; each stone
+     * leaning a little warm (ochre, brown) or cool (grey), lighter on top; a slow wash of worn lanes; moss in the
+     * joints here and there, now and then a stone gone.
+     */
+    private fun cobbleWarm(x: Double, y: Double, into: DoubleArray): Boolean {
+        val cell = 6.2
+        val gx = floor(x / cell).toInt(); val gy = floor(y / cell).toInt()
+        var d1 = 99.0; var d2 = 99.0; var id = 0
+        for (dy in -1..1) for (dx in -1..1) {
+            val cx = gx + dx; val cy = gy + dy
+            val px = (cx + 0.2 + rnd(cx, cy, 61) * 0.6) * cell; val py = (cy + 0.2 + rnd(cx, cy, 62) * 0.6) * cell
+            val d = sqrt((x - px) * (x - px) + (y - py) * (y - py) * 1.3)
+            if (d < d1) { d2 = d1; d1 = d; id = hash(cx, cy, 63) } else if (d < d2) d2 = d
+        }
+        if (d2 - d1 < 1.0 || id % 37 == 0) {
+            val moss = vnoise(x, y, 11.0, 67) > 0.6
+            for (i in 0..2) into[i] = (if (moss) MOSS_D[i] * 0.8 + JOINT[i] * 0.2 else JOINT[i].toDouble())
+            return false
+        }
+        val wash = (fbm(x, y, 60.0, 68) - 0.5) * 0.4
+        val t = 0.3 + (id % 100) / 330.0 + (1 - d1 / cell) * 0.3 + wash + (vnoise(x, y, 3.0, 64) - 0.5) * 0.12
+        lerp(COBBLE_D, COBBLE_L, t, into)
+        // each stone its own hue: some warm, some cool, most in between
+        val hue = ((id / 100) % 100) / 100.0
+        val tint = if (hue < 0.5) COBBLE_WARM else COBBLE_COOL
+        val k = abs(hue - 0.5) * 0.7
+        for (i in 0..2) into[i] = into[i] * (1 - k) + tint[i] * into[i] / 110.0 * k
         return true
     }
 
