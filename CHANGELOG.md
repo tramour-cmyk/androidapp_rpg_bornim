@@ -4,6 +4,13 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Jerry (Thema 24.8.5, 30.6, 32.7, 13e Entwurf), getestet in 0.1.555, PR #38 (zusammengeführt 12.10., 08:42):
+
+**Ortsklang klingt weich aus (24.8.5)**
+- Wind, Hallenluft und Feuerknistern brechen beim Kartenwechsel nicht mehr hart ab, sondern klingen in 0,6 s aus; der neue Ort schwillt weich an.
+- Fehlt eine Klangdatei oder ist der Speicher voll, bleibt es still, statt dass die App sich beendet (30.6).
+- Werkzeuge (nur Entwicklung): Kerntest `PlaceSoundTest.leavingDiesAwayWithoutAJump`; Vorschau `KARTENZOOM` zeigt die Karte statt der Blende (32.7); erster Entwurf der diagonalen Höhle nur in der Vorschau (`CAVEDRAFT=1`, 13e).
+
 Zweig von Jerry (Thema 24.8, 24.8.4), getestet in 0.1.549, PR #37 (zusammengeführt 11.10., 23:13):
 
 **Jeder Ort klingt nach sich (24.8)**
