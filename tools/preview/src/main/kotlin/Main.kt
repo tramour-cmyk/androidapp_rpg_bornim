@@ -211,7 +211,12 @@ fun main() {
                 // 29: the notice board before the inn, by day and at night
                 shot("zoom_${z}_d9_brett_tag") { place(it, "village", 6, 8, 12 * 60, Facing.LEFT) }
                 shot("zoom_${z}_d10_schlagbaum") { place(it, "village", 17, 4, 12 * 60, Facing.UP) }
-                shot("zoom_${z}_d11_vor_haus") { place(it, "village", 22, 6, 12 * 60, Facing.DOWN) }
+                // 27d: the hero pushed against the shop's front wall (free walking stops him 0.3 tiles before it), at its
+                // left end, middle and right end: the house stays solid
+                for ((n, hx) in listOf("links" to 26, "mitte" to 29, "rechts" to 30)) shot("zoom_${z}_d11_laden_$n") {
+                    place(it, "village", hx, 6, 12 * 60, Facing.UP)
+                    it.game!!.freeWalk.apply { sync(); repeat(20) { k -> walk(0.0, -1.0, 50, 1.0, k * 50L) } }
+                }
                 shot("zoom_${z}_d9b_brett_nacht") { place(it, "village", 6, 8, 23 * 60, Facing.LEFT) }
                 shot("zoom_${z}_i1_schaenke_tag") { place(it, "inn", 4, 5, 12 * 60, Facing.UP) }
                 shot("zoom_${z}_i2_schaenke_abend") { place(it, "inn", 6, 3, 21 * 60, Facing.LEFT) }

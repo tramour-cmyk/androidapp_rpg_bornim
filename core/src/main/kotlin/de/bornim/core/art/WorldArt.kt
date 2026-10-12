@@ -25,8 +25,9 @@ object WorldArt {
     /** A drawable at map pixel position ([x], [y]) = top-left, ordered by [sortY]; [density] art pixels per map pixel (2 for the finer new pictures). */
     /** [low]: never tall enough to hide a figure behind it (furniture of the rooms seen diagonally, 13). */
     /** [corner]: seen diagonally, the picture's foot is the tile's front corner (the rooms, [MapRoomIso]), not the middle of its lower edge. */
+    /** [area]: the footprint of the house a strip belongs to (5.1), so the see-through test can ask whether the hero stands behind it. */
     class Obj(val img: PixelImage, val x: Int, val y: Int, val sortY: Int, val density: Int = 1, val low: Boolean = false, val corner: Boolean = false, val group: Int = 0,
-              val glow: Glow? = null)
+              val glow: Glow? = null, val area: MapTownIso.Footprint? = null)
 
     /**
      * What of a picture shines by itself at night (25.1: a street lamp's glass; 25b: lit windows): [img] the same size

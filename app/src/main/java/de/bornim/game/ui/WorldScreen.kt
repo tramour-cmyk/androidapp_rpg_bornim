@@ -833,6 +833,10 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             if (diag) {
                 // seen diagonally, anything taller than a knee can stand in front of the hero
                 if (h < 24 || o.low) return false
+                // a house's strip (27d): the hero stands where free walking stops him, often closer to the wall than the
+                // tile's middle the strips are sorted by; south of its front wall or east of its side wall the house
+                // cannot cover him, however its strips lie
+                o.area?.let { f -> if (heroY + T / 2 > (f.y + 1) * T || heroX + T / 2 > (f.x + f.n) * T) return false }
                 // seen diagonally: in front of the hero (further down the diagonal) and over it on the screen
                 val k = MapSight.K
                 val fx = o.x + w / 2f; val fy = (o.y + h).toFloat() - (if (o.corner) 0f else T / 2f)
