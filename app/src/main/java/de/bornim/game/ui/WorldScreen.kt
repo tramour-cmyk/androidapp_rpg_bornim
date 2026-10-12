@@ -141,6 +141,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         var bumped: Facing? = null
         var lastFrame = 0L
         while (isActive) {
+            MapSight.follow(game.map)
             if (MapSight.diagonal) {
                 // free walking (13g): any direction, the world and its rules still on the tiles
                 val fw = game.freeWalk
@@ -467,11 +468,20 @@ private class Cam(
     }
 }
 
-/** Straight or diagonal view of the map (13; a test switch while the diagonal view is being built). */
+/** Straight or diagonal view of the map (13): each place finished for the diagonal view is seen so, the others straight (13.4). */
 object MapSight {
     /** Seen diagonally, every doll is drawn turned by 45° on the screen ([de.bornim.core.art.MapFigure.viewYaw]). */
     @Volatile var diagonal = false
         set(v) { field = v; de.bornim.core.art.MapFigure.viewYaw = if (v) -45.0 else 0.0 }
+
+    /** Every place seen diagonally, also those still being built (only the previews, `DIAG=1`). */
+    @Volatile var all = false
+
+    /** The places finished for the diagonal view (13.4): the village and its rooms; the woods and the cave follow. */
+    fun finished(map: de.bornim.core.MapDef) = all || map.kind == MapKind.TOWN || map.kind == MapKind.INTERIOR
+
+    /** Turns the view to suit [map]; a new place is entered behind the black screen, so the turn is never seen. */
+    fun follow(map: de.bornim.core.MapDef) { val d = finished(map); if (d != diagonal) diagonal = d }
 
     /** A tile's diamond is 2·[K]·T map pixels wide and half as high: its diagonal as long as a tile's side (45 for 32). */
     const val K = 0.703125f
@@ -501,6 +511,7 @@ object MapZoom {
 
 private fun camera(game: Game, w: Float, h: Float, progress: Float, fromX: Int, fromY: Int): Cam {
     val map = game.map
+    MapSight.follow(map)
     val T = WorldArt.T
     // Whole-number zoom so every art pixel is the same size on screen. Near, the zoom is even, so
     // map pictures drawn at double resolution also land on whole screen pixels.

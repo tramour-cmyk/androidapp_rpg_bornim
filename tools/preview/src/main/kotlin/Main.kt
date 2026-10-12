@@ -139,7 +139,7 @@ fun main() {
         fun village(vm: GameViewModel, minutes: Int) {
             vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
             val g = vm.game!!; g.skipDialogs()
-            de.bornim.game.ui.MapSight.diagonal = true
+            de.bornim.game.ui.MapSight.all = true
             g.state.place = Place("village", 11, 7, Facing.UP); g.state.minutes = minutes
             val m = de.bornim.core.World["village"]
             g.state.explored["village"] = "f".repeat((m.width * m.height + 3) / 4)
@@ -178,7 +178,7 @@ fun main() {
             // CAVEDRAFT=1: the cave's rock standing up, gate and supports in the slant (13e, draft)
             if (System.getenv("CAVEDRAFT") != null) de.bornim.core.art.MapCaveIso.draft = true
             // DIAG=1: the map seen diagonally (13)
-            if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.diagonal = true
+            if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.all = true
             // ZOOMSTUFE=1|2: the in-between zoom steps for the near shots (6.15)
             System.getenv("ZOOMSTUFE")?.let { if (near) de.bornim.game.ui.MapZoom.level = it.toInt() }
             val z = if (near) "nah" else "weit"
