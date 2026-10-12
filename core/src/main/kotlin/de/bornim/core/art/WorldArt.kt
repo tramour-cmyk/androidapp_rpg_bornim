@@ -864,8 +864,8 @@ object WorldArt {
                 // seen diagonally (13), the rooms' walls and furniture stand upright, turned with the room
                 map.kind == MapKind.INTERIOR && MapFigure.viewYaw != 0.0 -> MapRoomIso.objects(map, tx, ty, flicker) ?: MapRoom.objects(map, tx, ty, frame)
                 map.kind == MapKind.INTERIOR -> MapRoom.objects(map, tx, ty, frame)
-                // seen diagonally, the trunks and the fire of the woods lie in the slant too (27.5, draft)
-                else -> (if (MapFigure.viewYaw != 0.0 && MapWoodIso.draft) MapWoodIso.objects(map, tx, ty, frame) else null)
+                // seen diagonally, the trunks, the fire, the rock face and the signs of the woods stand in the slant too (27.5)
+                else -> (if (MapFigure.viewYaw != 0.0) MapWoodIso.objects(map, tx, ty, frame) else null)
                     ?: MapFlora.objects(map, tx, ty, frame, open)
             }
             if (flora != null) { out += flora; continue }

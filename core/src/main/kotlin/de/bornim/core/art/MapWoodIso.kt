@@ -12,16 +12,14 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 /**
- * The things of the woods drawn for the diagonal view (27.5, draft): a fallen trunk lying along the ground in the
- * slant, and the camp fire in its ring of stones, each in three looks. Like the village's things ([MapTownIso]) one
+ * The things of the woods drawn for the diagonal view (27.5, in the game since 27f): a fallen trunk lying along the
+ * ground in the slant, the camp fire in its ring of stones, each in three looks, the rock face with the cave's mouth,
+ * and the signpost (the village's, [MapTownIso.signpost]). Like the village's things ([MapTownIso]) one
  * picture per tile, the tile's front corner on the middle of its bottom edge; local coordinates run from (−1, −1) at
  * the tile's back corner to (0, 0) at its front corner. Drawn from many small points with a depth buffer, so round
  * bodies cover themselves rightly.
  */
 object MapWoodIso {
-    /** Draft (27.5): only the preview shows these, the game keeps the former pictures until they are approved. */
-    @Volatile var draft = false
-
     private const val TW = MapRoomIso.TW
     private const val TH = MapRoomIso.TH
     private const val ZS = MapRoomIso.ZS
@@ -540,6 +538,9 @@ object MapWoodIso {
                 val v = Math.floorMod(hash(tx, ty, 32), 3)
                 "fire/$v/${frame % 4}" to { campfire(v, frame % 4, 720 + v) }
             }
+            // the signs of the woods: the village's signposts, a board on one post or on two; not the look with the
+            // arrow, which would point along +i whatever the way
+            Tile.SIGN -> Math.floorMod(hash(tx, ty, 33), 2).let { v -> "sign/$v" to { MapTownIso.signpost(v, 71) } }
             else -> return null
         }
         val img = synchronized(cache) { cache.getOrPut(key.first) { key.second() } }

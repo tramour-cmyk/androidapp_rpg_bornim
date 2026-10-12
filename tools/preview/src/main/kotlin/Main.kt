@@ -185,8 +185,6 @@ fun main() {
             else if (System.getenv("PFLASTERDRAFT") != null) de.bornim.core.art.MapGround.cobbleDraft = true
             // SITDRAFT2=1: Borin sits at his table in the inn (55.2, draft)
             if (System.getenv("SITDRAFT2") != null) de.bornim.core.art.MapFolk.sitDraft = true
-            // WOODDRAFT=1: trunks and the camp fire of the woods drawn in the slant (27.5, draft)
-            if (System.getenv("WOODDRAFT") != null) de.bornim.core.art.MapWoodIso.draft = true
             // TREEDRAFT=1: the trees with volume (27.4, draft)
             if (System.getenv("TREEDRAFT") != null) de.bornim.core.art.MapFlora.treeDraft = true
             // ZOOMSTUFE=1|2: the in-between zoom steps for the near shots (6.15)
