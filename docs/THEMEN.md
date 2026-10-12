@@ -48,3 +48,5 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 43 | Sichtbarkeit in der diagonalen Sicht (Wichtiges frei, Durchsicht um den Helden, Verstecktes erwünscht) | Berater (Grundsatz); Tom, Jerry | festgelegt 12.10., 12:09 | `STIL.md`, `ENTWICKLUNG.md` |
 | 44 | Leitbild als roter Faden; `STIL.md` aufgeteilt in Stil und Entwicklung | Berater | erledigt 12.10., 13:08 | `LEITBILD.md` |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | Berater mit Nutzer | gesondert besprechen | `OFFEN.md` |
+| 46 | Neustart: Nachfolgerin startet die Sitzung selbst | Tom und Jerry | ja 12.10., 13:15 | `CLAUDE.md` |
+| 47 | README-Einleitung nach Leitbild | Berater | ja 12.10., 13:15 | `OFFEN.md` |

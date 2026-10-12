@@ -103,6 +103,11 @@ Zeile 24 aus „Wer macht was“ (Stand 12.10.): | 24 | Animationen fehlen nach 
 
 
 
+## Beobachtungen des Beraters zu Thema 30 (aus BERATER.md, 12.10., 13:16)
+
+- **Zu Thema 30 (geprüft 22:56):** Die Bildspeicher von `HeroBattle`, `MapGround`, `MapFolk`, `MapFigure` sind sauber gesperrt (`synchronized`), gleichzeitiger Zugriff dort ist kaum die Ursache. Offen: unbegrenzte Speicher (`WorldArt`, `MapFlora`, `MapTown`, `MapTownIso`) und Lastspitze nach Niederlage (Kartenwechsel); `BattleAhead.run` ohne Fehlerfang.
+- **Zu Thema 30 (12.10., 09:41):** 30.1/30.2/30b (`largeHeap`, 512 MB) auf `main` (PR #40); 0.1.559 ohne Absturz, aber ein Test beweist nichts. Erst nach 2–3 Runden mit Fänger ohne Absturz gilt 30 als erledigt.
+
 ## Übergabe Tom (abgelöst 12.10., 09:40)
 
 ### Tom (12.10., 07:48, vor Neustart)
