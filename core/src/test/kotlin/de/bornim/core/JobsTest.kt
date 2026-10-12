@@ -132,4 +132,18 @@ class JobsTest {
         val f = World[Jobs.RAG_MAP]
         assertTrue((0 until f.height).any { y -> (0 until f.width).any { x -> f.tile(x, y) == Tile.MENHIR } })
     }
+
+    @Test
+    fun `the board and, while Jorin's job is taken, the standing stones offer an action`() {
+        val s = state().apply { flags += Story.KROGG_DEFEATED }
+        val game = Game(s, Lang.DE)
+        s.place = Place("village", 4, 8, Facing.UP)
+        assertEquals(ActionKind.READ, game.actionAt(4, 7))
+        val f = World[Jobs.RAG_MAP]
+        val (mx, my) = (0 until f.height).flatMap { y -> (0 until f.width).map { it to y } }.first { (x, y) -> f.tile(x, y) == Tile.MENHIR }
+        s.place = Place(Jobs.RAG_MAP, mx, my + 1, Facing.UP)
+        assertNull(game.actionAt(mx, my))
+        game.takeJob("stones")
+        assertEquals(ActionKind.LOOK, game.actionAt(mx, my))
+    }
 }
