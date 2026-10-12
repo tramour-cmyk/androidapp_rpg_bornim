@@ -344,6 +344,17 @@ fun main() {
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }
         System.exit(0)
     }
+    // BRETT=1: the notice board's window and the odd jobs in the menu (29)
+    if (System.getenv("BRETT") != null) {
+        fun jobs(vm: GameViewModel) {
+            vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
+            g.takeJob("ring"); g.takeJob("pelts"); g.state.add("wolf_pelt", 3)
+        }
+        shot("40_brett") { vm -> jobs(vm); val g = vm.game!!
+            g.state.place = Place("village", 5, 7, Facing.LEFT); g.interact(); vm.refresh() }
+        shot("41_brett_menue", taps = listOf(Offset(950f, 95f))) { vm -> jobs(vm); vm.menuOpen = true; vm.refresh() }
+        System.exit(0)
+    }
     if (System.getenv("GEARSHOTS") != null) {
         // drawn ahead, so the shots show the built pictures rather than the stand-ins
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
