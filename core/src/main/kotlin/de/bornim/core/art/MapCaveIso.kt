@@ -10,8 +10,9 @@ import kotlin.math.min
 /**
  * The cave seen diagonally (13e, draft, only in the preview CAVEDRAFT=1): the rock stands up around the floor instead of
  * lying flat in it, the gate and the old timber supports stand across their passage in the slant.
- * Back walls (the floor lies before them, towards +i or +j) rise to a rough face of rock in layers; front walls (the
- * floor behind them) stay a low rim, so they never hide the hero. Everything else still comes from [MapCave].
+ * The rock comes from the cave's plan alone (48b), so a cave made by chance needs no work by hand: each rock tile next
+ * to the floor is a height field whose foot is the ground's edge of rock; back walls (the floor before them, towards +i
+ * or +j) rise to a rough face, front walls (the floor behind them) stay a low rim, so they never hide the hero. Everything else still comes from [MapCave].
  * Same projection and heights as the rooms and the village ([MapRoomIso], [MapTownIso]): 90 × 45 art pixels a tile.
  */
 object MapCaveIso {
@@ -117,52 +118,154 @@ object MapCaveIso {
 
     private val tallCache = HashMap<String, PixelImage>()
 
+    /** Art pixels of the ground a tile ([MapCave.rockAt] works in them). */
+    private const val GS = MapGround.S.toDouble()
+    /** One tile's length in upright units, for the slope of the rock (a tile about 1.4 m). */
+    private const val TILE_Z = 80.0
+
+    private fun rockCell(map: MapDef, x: Int, y: Int) = isRock(map.tile(x, y))
+
     /**
-     * A wall of [height] units: rock in layers, each a little in or out, so the face is rough and no tile like the next;
-     * the top layer breaks off unevenly and has no lid (above it the dark, or the rock seen from above when low).
+     * How high the rock may stand in cell ([x], [y]), from the cave's plan alone (48b: no tile drawn by hand, so a cave
+     * made by chance works the same): rock behind the floor (the floor towards the camera, +x or +y) stands tall, rock
+     * between the floor and the camera stays a low rim so it never hides the hero, a thin wall with floor on both sides
+     * stands a metre. Rock further off follows the nearest floor.
      */
-    private fun wallOf(v: Int, height: Double, seed: Int): PixelImage {
-        val c = Tile1(TH.toInt() + (height * ZS).toInt() + 30)
-        var z = 0.0
-        var k = 0
-        val layer = height / 2.6
-        while (z < height - 1) {
-            val z1 = min(height, z + layer * (0.7 + rnd(v, k, seed) * 0.6))
-            val last = z1 >= height - 1
-            val ii = (rnd(v, k, seed + 1) - 0.45) * 0.1
-            val jj = (rnd(v, k, seed + 2) - 0.45) * 0.1
-            val zz = z
-            // the broken top: up and down along the face, higher in the middle of the tile
-            fun edge(u: Double) = z1 + (vnoise(u * 5, k.toDouble(), seed + 4) - 0.5) * layer * 1.2 + kotlin.math.sin(u * Math.PI) * layer * 0.3
-            c.box(-1.0, -1.0, -ii.coerceAtMost(0.07), -jj.coerceAtMost(0.07), zz, if (last) z1 + layer * 0.9 else z1) { f, u, w ->
-                val zAt = zz + w * ((if (last) z1 + layer * 0.9 else z1) - zz)
-                when {
-                    f == 2 && last && height > MID -> null
-                    f == 2 -> rock(2, u, w, seed + k, height)
-                    last && zAt > edge(u) -> null
-                    else -> rock(f, u, zAt, seed + k, height)
-                }
-            }
-            z = z1; k++
+    private fun capCell(map: MapDef, x: Int, y: Int): Double {
+        fun floorAt(dx: Int, dy: Int) = !rockCell(map, x + dx, y + dy)
+        val back = floorAt(1, 0) || floorAt(0, 1) || floorAt(1, 1)
+        val front = floorAt(-1, 0) || floorAt(0, -1) || floorAt(-1, -1)
+        // a wall two tiles thick between two rooms counts as thin: floor two tiles off on the other side
+        val back2 = back || floorAt(2, 0) || floorAt(0, 2) || floorAt(2, 2) || floorAt(2, 1) || floorAt(1, 2)
+        val front2 = front || floorAt(-2, 0) || floorAt(0, -2) || floorAt(-2, -2) || floorAt(-2, -1) || floorAt(-1, -2)
+        return when {
+            back && front2 || front && back2 -> MID
+            back -> TALL
+            front -> RIM
+            (0..2).any { a -> (0..2).any { b -> (a + b > 0) && floorAt(a, b) } } -> TALL
+            (-2..0).any { a -> (-2..0).any { b -> (a + b < 0) && floorAt(a, b) } } -> RIM
+            else -> TALL
         }
-        return c.img
     }
 
-    private fun tallWall(v: Int) = wallOf(v, TALL, 3100 + v * 17)
-    private fun midWall(v: Int) = wallOf(v, MID, 3150 + v * 17)
-
-    /** A front wall: a low rim of broken rock, so the hero behind it stays in sight. */
-    private fun lowWall(v: Int): PixelImage {
-        val c = Tile1(TH.toInt() + (RIM * ZS).toInt() + 20)
-        val seed = 3200 + v * 17
-        c.box(-1.0, -1.0, -0.04, -0.04, 0.0, RIM * (0.7 + rnd(v, 0, seed) * 0.5)) { f, u, w -> rock(f, u, w * RIM, seed, TALL) }
-        // a few loose stones on the rim
-        for (k in 0 until 2) {
-            val i = -0.8 + rnd(v, k, seed + 1) * 0.6; val j = -0.8 + rnd(v, k, seed + 2) * 0.6
-            val s = 0.08 + rnd(v, k, seed + 3) * 0.06
-            c.box(i - s, j - s, i + s, j + s, RIM * 0.9, RIM * 0.9 + 9) { f, u, w -> rock(f, u, w * 9, seed + k, 200.0) }
+    /** The cap between the cells' middles, blended over the rock cells only (the floor has none). */
+    private fun capAt(map: MapDef, gi: Double, gj: Double, caps: HashMap<Long, Double>): Double {
+        val fx = gi - 0.5; val fy = gj - 0.5
+        val ix = floor(fx).toInt(); val iy = floor(fy).toInt()
+        var u = fx - ix; var w = fy - iy
+        u = u * u * (3 - 2 * u); w = w * w * (3 - 2 * w)
+        var sum = 0.0; var tot = 0.0
+        for ((dx, dy, k) in listOf(Triple(0, 0, (1 - u) * (1 - w)), Triple(1, 0, u * (1 - w)), Triple(0, 1, (1 - u) * w), Triple(1, 1, u * w))) {
+            val x = ix + dx; val y = iy + dy
+            if (!rockCell(map, x, y) || k <= 0) continue
+            sum += caps.getOrPut(x.toLong() * 100_000 + y) { capCell(map, x, y) } * k; tot += k
         }
-        return c.img
+        return if (tot > 0) sum / tot else RIM
+    }
+
+    /** Whether the floor touches cell ([x], [y]) (it then has a wall), blended between the cells' middles. */
+    private fun edgeAt(map: MapDef, gi: Double, gj: Double): Double {
+        val fx = gi - 0.5; val fy = gj - 0.5
+        val ix = floor(fx).toInt(); val iy = floor(fy).toInt()
+        var u = fx - ix; var w = fy - iy
+        u = u * u * (3 - 2 * u); w = w * w * (3 - 2 * w)
+        fun e(x: Int, y: Int) = if (!rockCell(map, x, y) || (-1..1).any { a -> (-1..1).any { b -> !rockCell(map, x + a, y + b) } }) 1.0 else 0.0
+        return (e(ix, iy) * (1 - u) + e(ix + 1, iy) * u) * (1 - w) + (e(ix, iy + 1) * (1 - u) + e(ix + 1, iy + 1) * u) * w
+    }
+
+    /**
+     * The rock of tile ([tx], [ty]) as a height field: zero where the floor reaches into the tile, from its foot
+     * ([MapCave.rockAt], the same edge the ground draws) rising steeply in rounded bulges to the cap of the place.
+     */
+    private fun heights(map: MapDef, tx: Int, ty: Int, n: Int): Array<DoubleArray> {
+        val caps = HashMap<Long, Double>()
+        val seed = 3500
+        return Array(n + 3) { a ->
+            DoubleArray(n + 3) { b ->
+                val gi = tx + (a - 1).toDouble() / n; val gj = ty + (b - 1).toDouble() / n
+                val f = MapCave.rockAt(map, gi * GS, gj * GS) - 0.5
+                if (f <= 0) 0.0 else {
+                    val cap = capAt(map, gi, gj, caps)
+                    // steep from the foot, the rim a little rounded; knobs on the top so no edge runs straight
+                    val ramp = Math.pow((f / 0.16).coerceAtMost(1.0), 0.45)
+                    val knob = vnoise(gi * 1.7, gj * 1.7, seed) * 0.75 + vnoise(gi * 4.5, gj * 4.5, seed + 1) * 0.25
+                    // towards the rock no floor touches (drawn flat by the ground) the mass sinks to the ground, so no
+                    // tile ends in a cut face
+                    val sink = ((edgeAt(map, gi, gj) - 0.5) * 2.2).coerceIn(0.0, 1.0)
+                    max(0.0, cap * ramp * (0.8 + 0.28 * knob) * Math.sqrt(sink))
+                }
+            }
+        }
+    }
+
+    /**
+     * One rock tile seen diagonally: its height field drawn column by column from the front backwards, each column of
+     * screen pixels filled only above what stands before it. Lit from the front right, the faces darker towards the
+     * ceiling, cracks and wet streaks running down.
+     */
+    private fun rockTile(map: MapDef, tx: Int, ty: Int): PixelImage {
+        val n = 40
+        val hs = heights(map, tx, ty, n)
+        val c = Tile1(TH.toInt() + (TALL * 1.15 * ZS).toInt() + 20)
+        val img = c.img
+        val w = c.w; val h = c.h
+        fun hAt(i: Double, j: Double): Double {
+            // i, j in −1..0 over the tile; the grid has one point of margin on each side
+            val x = (i + 1) * n + 1; val y = (j + 1) * n + 1
+            val ix = floor(x).toInt().coerceIn(0, n + 1); val iy = floor(y).toInt().coerceIn(0, n + 1)
+            val u = (x - ix).coerceIn(0.0, 1.0); val v = (y - iy).coerceIn(0.0, 1.0)
+            return (hs[ix][iy] * (1 - u) + hs[ix + 1][iy] * u) * (1 - v) + (hs[ix][iy + 1] * (1 - u) + hs[ix + 1][iy + 1] * u) * v
+        }
+        val lx = 0.64; val ly = 0.46; val lz = 0.5
+        val seed = 3600
+        for (px in 0 until w) {
+            val cc = 2 * (px + 0.5 - w / 2.0) / TW
+            if (abs(cc) >= 1) continue
+            var ymin = h.toDouble()
+            var s = -abs(cc)
+            val sEnd = -2 + abs(cc)
+            while (s >= sEnd) {
+                val i = (s + cc) / 2; val j = (s - cc) / 2
+                val gy = h + s * TH / 2
+                val hh = hAt(i, j)
+                if (hh < 0.4) { ymin = min(ymin, kotlin.math.ceil(gy)); s -= 0.5 / TH; continue }
+                val top = gy - hh * ZS
+                if (top < ymin) {
+                    val e = 2.5 / n
+                    val dhi = (hAt(i + e, j) - hAt(i - e, j)) / (2 * e) / TILE_Z
+                    val dhj = (hAt(i, j + e) - hAt(i, j - e)) / (2 * e) / TILE_Z
+                    val nl = Math.sqrt(dhi * dhi + dhj * dhj + 1)
+                    val lam = max(0.0, (-dhi * lx - dhj * ly + lz) / nl)
+                    val gi = tx + 1 + i; val gj = ty + 1 + j
+                    // lumps and knobs on the face (a bump only in the light, the shape stays): big ones a third of a
+                    // tile, small ones a hand wide, stretched a little downwards as water shaped them
+                    fun bump(u: Double, v: Double, z: Double) =
+                        vnoise(u * 2.6 + z / 40, v * 2.6 + z / 40, seed + 6) * 0.62 + vnoise(u * 7 + z / 16, v * 7 + z / 16, seed + 7) * 0.28 +
+                            vnoise(u * 20 + z / 6, v * 20 + z / 6, seed + 8) * 0.1
+                    for (py in max(0, kotlin.math.ceil(top).toInt()) until min(h, ymin.toInt())) {
+                        val z = (gy - py) / ZS
+                        val b0 = bump(gi, gj, z)
+                        val bx = bump(gi + 0.02, gj - 0.02, z) - b0
+                        val bz = bump(gi, gj, z + 2.5) - b0
+                        var l = lam + bx * 3.0 + bz * 2.2
+                        // hollows between the lumps hold the dark
+                        l -= max(0.0, 0.4 - b0) * 0.45
+                        var t = 0.08 + max(0.0, l) * 0.66
+                        t += (rnd(floor(gi * 70).toInt() + floor(gj * 70).toInt() * 7919, floor(z * 1.3).toInt(), seed + 1) - 0.5) * 0.08
+                        // cracks running down, wet streaks
+                        if (abs(vnoise(gi * 2.4 + gj * 2.4 + z / 300, z / 90, seed + 2) - 0.5) < 0.016) t -= 0.25
+                        if (vnoise((gi - gj) * 9, z / 200, seed + 3) > 0.74) t -= 0.07
+                        // the foot in the dust darker, the head lost in the dark of the ceiling
+                        t -= max(0.0, 1 - z / 14) * 0.2
+                        t -= max(0.0, (z - TALL * 0.45) / (TALL * 0.4)) * 0.75
+                        img.set(px, py, shade(mix(rockDark, rockLight, t.coerceIn(0.0, 1.0)), 1.0))
+                    }
+                    ymin = kotlin.math.ceil(top)
+                }
+                s -= 0.5 / TH
+            }
+        }
+        return img
     }
 
     // ------------------------------------------------------------------ timber and iron
@@ -258,15 +361,9 @@ object MapCaveIso {
             else -> {}
         }
         if (!isRock(t)) return null
-        fun open(x: Int, y: Int) = !isRock(map.tile(x, y))
-        val back = open(tx + 1, ty) || open(tx, ty + 1) || open(tx + 1, ty + 1)
-        val front = open(tx - 1, ty) || open(tx, ty - 1) || open(tx - 1, ty - 1) || open(tx + 1, ty - 1) || open(tx - 1, ty + 1)
-        val wall = when {
-            back && front -> thing(map, tx, ty, "mid/$v") { midWall(v) }
-            back -> thing(map, tx, ty, "tall/$v") { tallWall(v) }
-            front -> thing(map, tx, ty, "low/$v") { lowWall(v) }
-            else -> return if (t == Tile.CAVE_WALL) emptyList() else MapCave.objects(map, tx, ty, frame, chestOpen, gateOpen)
-        }
+        val edge = (-1..1).any { a -> (-1..1).any { b -> !isRock(map.tile(tx + a, ty + b)) } }
+        if (!edge) return if (t == Tile.CAVE_WALL) emptyList() else MapCave.objects(map, tx, ty, frame, chestOpen, gateOpen)
+        val wall = thing(map, tx, ty, "${map.id}/rock/$tx/$ty") { rockTile(map, tx, ty) }
         // a crystal or a torch in the rock keeps its old picture, in front of the wall
         val rest = if (t == Tile.CAVE_WALL) emptyList() else MapCave.objects(map, tx, ty, frame, chestOpen, gateOpen).orEmpty()
         return listOf(wall) + rest

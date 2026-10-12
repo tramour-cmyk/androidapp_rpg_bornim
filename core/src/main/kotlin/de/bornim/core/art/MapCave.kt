@@ -804,6 +804,17 @@ object MapCave {
     }
 
     private val rockTiles: (Tile) -> Boolean = { it == Tile.CAVE_WALL || it == Tile.CRYSTAL || it == Tile.TORCH }
+
+    /**
+     * How much rock lies at art pixel ([x], [y]): rock where above 0.5. In the straight view the edge wanders freely
+     * about the tile border. Seen diagonally (13e) the rock stands up as walls drawn per tile ([MapCaveIso]), so its
+     * edge only ever draws back into the rock tiles, never out over the floor: a wall's foot lies in its own tile.
+     */
+    internal fun rockAt(map: MapDef, x: Double, y: Double): Double {
+        if (!MapCaveIso.draft) return field(map, x, y, rockTiles) + (fbm(x, y, 120.0, 4) - 0.5) * 0.5 + (fbm(x, y, 44.0, 5) - 0.5) * 0.3 + (vnoise(x, y, 12.0, 6) - 0.5) * 0.12
+        if (!rockTiles(map.tile(floor(x / S).toInt(), floor(y / S).toInt()))) return 0.0
+        return field(map, x, y, rockTiles) - (fbm(x, y, 56.0, 4) * 0.6 + vnoise(x, y, 11.0, 6) * 0.4) * 0.4
+    }
     private val waterTiles: (Tile) -> Boolean = { it == Tile.WATER }
     private val skyTiles: (Tile) -> Boolean = { it == Tile.SKYLIGHT }
 
@@ -832,8 +843,7 @@ object MapCave {
         val wall = BooleanArray(ew * ew)
         for (yy in 0 until ew) for (xx in 0 until ew) {
             val x = (ox - m + xx).toDouble(); val y = (oy - m + yy).toDouble()
-            val f = field(map, x, y, rockTiles) + (fbm(x, y, 120.0, 4) - 0.5) * 0.5 + (fbm(x, y, 44.0, 5) - 0.5) * 0.3 + (vnoise(x, y, 12.0, 6) - 0.5) * 0.12
-            wall[yy * ew + xx] = f > 0.5
+            wall[yy * ew + xx] = rockAt(map, x, y) > 0.5
         }
         // how far below each rock pixel the floor begins (0 on the floor)
         val below = IntArray(ew * ew)
