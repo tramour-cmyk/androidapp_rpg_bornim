@@ -17,7 +17,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 23 | Aufgaben so aufteilen, dass Tom und Jerry auch in Selbstarbeit genug Vorrat haben | Tom | `main` (Notizen) | 23a ja (14:18): je 8 Punkte im Vorrat (`docs/SELBST.md`), neue nur als Entwürfe/Hörproben. **Jerry:** deine Punkte 4–8 sind eingetragen |
 | 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik); Jerry (Inhalt) | – | 24.1–24.4, 24.9–24.15 auf `main` (PR #30, #32, #34, #35); 24.8 Ortsklang auf `main` (PR #37). **Tom:** 24.5, 24.16–24.20 auf `main` (PR #40). 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.8.5 auf `main` (PR #38, 12.10.), danach 24.6 Kampferöffnung wartet + Herzschlag (nach Toms 24.5), knapper Kampftext in `Battle.kt`. Entscheidungen 24f/24i/24j in [`ZWISCHENBILD.md`](ZWISCHENBILD.md) und im Archiv. |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | festgelegt 11.10., 16:50 (Berater); erledigte Punkte dort abhaken. **26c ja (Nutzer 18:3x), Toms Reihenfolge:** (1) 24.8.6 und 30.8 vom alten Zweig `tender-goodall-a8zuny` in den nächsten Build, (2) 42 Textkasten (erst Standbilder), (3) Diagonalsicht fertig: 27.5, Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar, 27.6; dann 5l, 55.2, 17 |
-| 27 | Wald „Ort fertig“ (Liste in `ENTWICKLUNG.md`): vor allem diagonale Zeichnung, Bäume rund | Tom | – | 27.1/27.2/27d auf `main` (PR #43). 27.4 Bäume in PR #48. **27.5 (27f ja):** Stamm, Felshang, Feuerstelle, Schild diagonal im Spiel (Zweig, 19:0x); **27g ja (20:1x):** Weiher mit Ufer und Schilf (`POND`) ins Spiel. **27.6 Entwurf (20:48):** Libellen und Frösche am Weiher (`PONDLIFE`), auf der Entscheidungsseite, Rückfrage 27h. Verlauf im Archiv |
+| 27 | Wald „Ort fertig“ (Liste in `ENTWICKLUNG.md`): vor allem diagonale Zeichnung, Bäume rund | Tom | – | 27.1/27.2/27d auf `main` (PR #43). 27.4 Bäume in PR #48. **27.5 (27f ja):** Stamm, Felshang, Feuerstelle, Schild diagonal im Spiel (Zweig, 19:0x); **27g ja (20:1x):** Weiher mit Ufer und Schilf (`POND`) ins Spiel. **27.6 Entwurf (20:48):** Libellen und Frösche am Weiher (`PONDLIFE`), auf der Entscheidungsseite, Rückfrage 27i. Verlauf im Archiv |
 | 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | 30.1/30.2/30b auf `main` (PR #40, getestet 0.1.559). 30.8 „App aktualisiert“ auf `claude/tender-goodall-a8zuny` (kommt mit 26c in den nächsten Build). Offen: Abstürze beobachten; 30.7 (Klang 22 kHz) mit Jerry. Verlauf im Archiv |
 | 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben) | Jerry | – | Meldung Nutzer 12.10., 15:4x mit Bildschirmfoto (Wiese, alte Kampfansicht). Erst Standbild der Sterbehaltungen aller Klassen, dann Vorschlag |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt | Jerry | – | 36.4–36.7, 36h/36j/36k auf `main` (PR #46, #47, getestet 0.1.587). Rest in 52, 53. **Offen 36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung. Verlauf im Archiv |
@@ -46,7 +46,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ### Tom (12.10., 20:56, Selbstarbeit bis 22:00)
 
 - PR #48 `claude/tom-27-4-baeume`, **0.1.615** zu testen (s. u.); neue Pushes 20:4x/20:55 enthalten nur Entwürfe (im Spiel aus). Test passt → zusammenführen (Merge), CHANGELOG.
-- **27.6 fertig als Entwurf** (`PONDLIFE`, `PondLife.kt`, Kerntest `PondLifeTest`), auf der Entscheidungsseite, Rückfrage 27h.
+- **27.6 fertig als Entwurf** (`PONDLIFE`, `PondLife.kt`, Kerntest `PondLifeTest`), auf der Entscheidungsseite, Rückfrage 27i.
 - **56/27g Entwurfsschalter entfernt** (c2b909f7, Verhalten gleich).
 - **17 Umhang als Entwurf fertig** (`SWINGDRAFT`, Bildbogen `SWINGBILD=1`, 103e59d): Saum hebt sich und weht nach dem Anhalten seitlich aus (`Rig.flare`, nur im Bildbogen; Kämpfe unverändert), auf der Entscheidungsseite, Rückfrage 17a. Offen: Haare/Köcher, Einbau in den Gang (nach 17a).
 ### Jerry (12.10., 16:59) – Pause bis Freitag
@@ -63,7 +63,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **27h** (Tom): PR #48 jetzt zusammenführen (Wald-Dinge diagonal sind im Spiel unsichtbar, schaden nicht) und für den Test der Wald-Diagonale einen Schalter „alles diagonal“ in den Testreiter? Empfehlung: ja und ja.
 - **27e.1** (Tom): Transparenz im Tiefen Wald verringern: nur Kronen, die den Körper wirklich verdecken, und weniger stark. Empfehlung: ja.
-- **27h** (Tom): 27.6 Libellen und Frösche am Weiher ins Spiel? Bilder auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F). Empfehlung: ja.
+- **27i** (Tom): 27.6 Libellen und Frösche am Weiher ins Spiel? Bilder auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F). Empfehlung: ja.
 - **17a** (Tom): 17 Umhang schwingt nach dem Anhalten seitlich aus, so ins Spiel? Bilder auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F). Empfehlung: ja (sonst um ein Drittel kleiner).
 - **57c** (Tom): Bildbuch für Jerry über „Teilen“ mit Schreibrecht freigeben? Empfehlung: ja, vor Freitag.
 
