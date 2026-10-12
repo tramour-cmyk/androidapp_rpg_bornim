@@ -51,7 +51,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Zu testen
 
 - **0.1.563 getestet (Nutzer 12.10., 10:07, MuMu):** 24.8.6 ok, 30.8 ok („App aktualisiert“), kein Absturz. **Fehler 29:** Brett lässt sich nicht antippen, kein Aktionsknopf. Ursache: `Navigation.kt` `actionAt` kennt `Tile.NOTICE` nicht (→ `ActionKind.READ` ergänzen); Fix gehört auf `claude/great-sagan-n9tkga` (neue Tom-Sitzung).
-- **0.1.566 (Tom, ersetzt 0.1.563, Build läuft):** alles aus 0.1.563 und 29.3 (zweite Welle nach Krogg, frischer Zettel). Bisher 0.1.563: 29 Anschlagbrett vor der Schänke (Annehmen, Menü System mit Fortschritt/Aufgeben, Abgabe bei Thessa/Gwenna/Borin, Ring in Höhlentruhe), 24.8.6 Türen 0,5 s, 30.8 „App aktualisiert“. [Artefakt](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38218165502/artifacts/11732972729)
+- **0.1.566 (Tom, ersetzt 0.1.563):** alles aus 0.1.563 und 29.3 (zweite Welle nach Krogg, frischer Zettel). Bisher 0.1.563: 29 Anschlagbrett vor der Schänke (Annehmen, Menü System mit Fortschritt/Aufgeben, Abgabe bei Thessa/Gwenna/Borin, Ring in Höhlentruhe), 24.8.6 Türen 0,5 s, 30.8 „App aktualisiert“. [Artefakt 0.1.566](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38221563319/artifacts/11733904152)
 
 ## Rückfragen an den Nutzer
 
