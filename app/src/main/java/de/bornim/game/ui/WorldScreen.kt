@@ -1143,7 +1143,14 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             val ps = MapRest.pose(7, clock, handsFree = false, mayLook = true)
             MapFigure.restFrame(state.hero, heroSlot, ps.rest, ps.breath, ps.level)
         } else null
-        val doll = warmEdge(heroRest ?: MapFigure.frameNow(state.hero, heroSlot, walkStep), heroX, heroY)
+        // 17 (draft): just stopped, the cloak swings on forward and back
+        if (walking) HeroSwing.walkedAt = clock
+        val swingMs = clock - HeroSwing.walkedAt
+        val heroSwing = if (MapFigure.swingDraft && heroRest == null && !walking && swingMs < MapFigure.SWING_MS) {
+            val lv = MapFigure.swingLevel(swingMs)
+            if (HeroSwing.now) MapFigure.swingFrameNow(state.hero, heroSlot, lv) else MapFigure.swingFrame(state.hero, heroSlot, lv)
+        } else null
+        val doll = warmEdge(heroRest ?: heroSwing ?: MapFigure.frameNow(state.hero, heroSlot, walkStep), heroX, heroY)
         // +0.5 so the hero is drawn after objects standing on the same row
         sprites += Sprite(heroY + T - 0.5f, heroX + T / 2f) {
             put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
@@ -1243,6 +1250,13 @@ private object HeroTurn : Turn()
 
 /** How long the hero has stood on the same spot of the map. */
 private val HeroStill = MapFolk.Stillness()
+
+/** 17 (draft): when the hero last walked, for the cloak swinging on after a stop. */
+object HeroSwing {
+    @Volatile var walkedAt = Long.MIN_VALUE / 2
+    /** The previews: draw the swung pictures at once instead of in the background. */
+    @Volatile var now = false
+}
 
 /** How far a boss has bared its fangs at the hero, eased in and out one step of [MapFoe.LEVELS] at a time (9h). */
 private object BossMood {
