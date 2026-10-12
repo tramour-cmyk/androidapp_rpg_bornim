@@ -76,6 +76,30 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
                 }
             }
         }
+        // 60: the drafts of one look for all screens (menu, hero's making, title, fight) and the fonts on trial, until chosen
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            val on = MenuLook.draft
+            PixelButton(t("60 Aussehen: ", "60 look: ") + if (on) t("neu", "new") else t("alt", "old"), Modifier.weight(1f), size = 13.sp) {
+                val v = !on
+                MenuLook.draft = v; CreateLook.draft = v; TitleLook.draft = v; BattleLook.draft = v
+                if (v && TypeLook.choice == 0) { TypeLook.choice = 2; TypeLook.title = 1 }
+                vm.refresh()
+            }
+            PixelButton(t("Schrift: ", "Font: ") + TypeLook.names[TypeLook.choice], Modifier.weight(1f), size = 13.sp) {
+                TypeLook.choice = (TypeLook.choice + 1) % TypeLook.names.size
+                vm.refresh()
+            }
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            PixelButton(t("Titel: ", "Title: ") + listOf(t("wie Text", "as text"), "Cinzel", "Alegreya SC")[TypeLook.title], Modifier.weight(1f), size = 13.sp) {
+                TypeLook.title = (TypeLook.title + 1) % 3
+                vm.refresh()
+            }
+            PixelButton(t("Kampfzahlen: ", "Fight numbers: ") + if (BattleLook.pixelNumbers) "Pixel" else t("Serife", "serif"), Modifier.weight(1f), size = 13.sp) {
+                BattleLook.pixelNumbers = !BattleLook.pixelNumbers
+                vm.refresh()
+            }
+        }
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             PixelButton("+1000 " + t("Gold", "gold"), Modifier.weight(1f), size = 14.sp) {
                 game.cheatGold(1000)

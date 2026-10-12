@@ -453,6 +453,22 @@ fun main() {
         }
         System.exit(0)
     }
+    // KAMPF60=1: 60: the fight's boxes old and in the look of the text box: opening line, the menu, a blow with its number
+    if (System.getenv("KAMPF60") != null) {
+        de.bornim.game.ui.TypeLook.choice = 2
+        val setup: (GameViewModel) -> Unit = { vm -> vm.newGame("Borin", Race.DWARF, CharClass.CLERIC); val g = vm.game!!; g.skipDialogs()
+            g.state.place = Place("forest", 10, 20, Facing.UP); g.enqueue(listOf(Cmd.Fight("goblin"))); vm.refresh() }
+        val msgBox = Offset(W / 2f, H - 300f)
+        for (draft in listOf(false, true)) {
+            de.bornim.game.ui.BattleLook.draft = draft
+            val tag = if (draft) "neu" else "alt"
+            shot("60_kampf_$tag", setup = setup)
+            shot("60_kampf_menue_$tag", taps = List(2) { msgBox }, setup = setup)
+        }
+        de.bornim.game.ui.BattleLook.pixelNumbers = false
+        shot("60_kampf_menue_serif", taps = List(2) { msgBox }, setup = setup)
+        System.exit(0)
+    }
     // HAENDLER=1: the shop old and as drafted for 59 (black like the text box, overview when selling, comparison when buying)
     if (System.getenv("HAENDLER") != null) {
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)

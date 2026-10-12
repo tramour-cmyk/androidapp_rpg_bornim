@@ -198,8 +198,10 @@ fun Txt(
     bold: Boolean = false,
     align: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
+    pixel: Boolean = false,
 ) {
-    if (LocalVeil.current) {
+    // 60c: [pixel] keeps the pixel font for the small numbers of a fight (hit points, level), also on black
+    if (LocalVeil.current && !pixel) {
         Text(
             text = text,
             modifier = modifier,
@@ -220,7 +222,7 @@ fun Txt(
         modifier = modifier,
         style = LocalTextStyle.current.merge(BaseText),
         fontSize = size * 1.3f, // Jersey 10 is a compact font
-        color = color,
+        color = if (LocalVeil.current) Veil.of(color) else color,
         fontWeight = FontWeight.Normal,
         letterSpacing = if (bold) 0.5.sp else 0.3.sp,
         textAlign = align,
