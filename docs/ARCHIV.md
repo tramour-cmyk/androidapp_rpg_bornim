@@ -6,6 +6,12 @@ Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistori
 
 
 
+### Übergabe Tom (12.10., 13:30, ersetzt 14:30)
+
+- **PR #43 (Entwurf, abonniert), Zweig `claude/upbeat-clarke-oghrxm`, Build 0.1.579 zu testen (0.1.576 getestet, nur Durchsicht zu stark → milder/weich):** 13.4 (Diagonale je Ort automatisch, Schalter weg, `townDraft` immer an) und 27.1/27.2 Entwurf (diagonal junge Fichten vor Wichtigem bis 8 Felder, `MapFlora.objects`; Durchsicht 0,2 in `WorldScreen`). Nach Test: zusammenführen, CHANGELOG.
+- **Zuerst:** Durchsicht-Fehler vor Haus (Zeile „Zu testen“, d11) klären und beheben, dann PR #43 zusammenführen (0.1.579 passt), CHANGELOG.
+- **Als Nächstes (5m ja, 13:00):** 27.4 Bäume neu mit Volumen (`MapFlora` oak/spruce/deadTree; Vorbild `MapTownIso`/`Sculpt`), gelten für Wald und Dorf, erst Standbilder; dann 5.6 Schlagbaum/Zaun (Vorschau `ONLY=zoom_nah_d10`), 5.3, 5l/5.5, 5.4, dann 27.5/27.6 (27.4 Bäume, 27.5 Dinge mit Garrick/Feuer, 27.6 Leben, je erst Standbilder; Lückenliste in Zeile 27). Vorschau Wald: `KARTENZOOM=1 DIAG=1 ONLY=zoom_nah_7` (7b Steinkreismitte, 7c Schild). Danach 13 Tempel, 42, Merkposten Lyra diagonal (23b).
+
 ### Übergabe Jerry (12.10., 13:42, ersetzt 14:30)
 
 - PR #46 (36.4) beim Nutzer, nach „passt“ zusammenführen; dann 36.5. Danach 38, 13e Entwurf 2, 24.6, 40.

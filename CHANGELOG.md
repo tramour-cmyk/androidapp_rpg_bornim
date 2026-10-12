@@ -4,6 +4,16 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+Zweig von Tom (Thema 13.4, 27.1, 27.2, 27d), getestet in 0.1.576, 0.1.579 und 0.1.584, PR #43 (zusammengeführt 12.10., 14:30):
+
+**Diagonale Sicht je Ort (13.4)**
+- Dorf und die vier Räume (Schänke, Ältester, Laden, Tempel) sind immer diagonal; Wald, Tiefer Wald und Höhle bleiben gerade, bis sie fertig sind. Die Sicht wechselt hinter der Blende. Die Testschalter „Sicht“ und „Dorf und Räume“ entfallen.
+
+**Wald und Dorf: Wichtiges steht frei, Held verschwindet nicht (27.1, 27.2, 27d)**
+- Diagonal stehen vor Leuten, Feuer, Schildern, Eingängen und dem Steinkreis nur junge Fichten statt hoher Kronen; Kisten dürfen weiter versteckt liegen.
+- Was vor dem Helden steht, wird zusammen nur auf 35 % durchsichtig, egal wie viel hintereinander steht, und blendet in 0,3 s weich ein und aus.
+- Häuser werden nicht mehr durchsichtig, wenn der Held davor dicht an der Wand steht, nur noch, wenn er dahinter ist.
+
 Zweig von Jerry (Thema 36.4), getestet in 0.1.581, PR #46 (zusammengeführt 12.10., 13:51):
 
 **Krogg feiner gezeichnet (36.4)**
