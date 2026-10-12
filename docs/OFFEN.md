@@ -47,7 +47,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - PR #48 `claude/tom-27-4-baeume`, **0.1.606** zu testen (s. u.); danach nur Vorschau-Entwürfe gepusht. Test passt → zusammenführen (Merge), CHANGELOG.
 - **Entwürfe seit 19:30** (alle auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F), Datei liegt nur in der alten Sitzung: vor dem Ändern mit `Artifact read` holen, ganz neu schreiben, mit `url` veröffentlichen): **56d** Dorf (Wäscheleine, Heu, Farn, Büsche am Dorfrand; `YARDDRAFT`, `FERNDRAFT`, `BUSHDRAFT`), Innenräume ohne Altes; **27g** Weiher mit Ufer und Schilf (`POND`); **55.2** Borin sitzt (`SITDRAFT2`: Zufallszeiten, weiche Übergänge, atmet, Hammer am Tischende; Sprungtest 0).
-- **Zuerst:** 56a–56c ja → die fünf `…Draft`-Schalter in `MapWoodIso` entfernen, Kerntests, Build. **56d, 27g, 55c ja (20:1x):** ebenso die Schalter (`MapWoodIso` …Draft, `MapGround.pondDraft`, `MapFolk.sitDraft`) auf an bzw. entfernen, Kerntests, Build.
+- **20:24 erledigt:** alle Schalter 56a–56d, 27g, 55c an (Weiherrand nur im Wald), Kerntests grün, Build auf PR #48 läuft. 27e: Kronen decken den Helden auch gerade zusammen nur noch zu 35 % (Zweig).
 - **Als Nächstes:** (1) 27e Tiefer Wald: Held unter Kronen weg (`HELDORT=deep_forest:x:y`), Morwen sichtbar (43). (2) 27.6 Leben am Weiher (Libellen, Frösche) als Entwurf. (3) 17 Nachschwingen (Vorrat).
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
