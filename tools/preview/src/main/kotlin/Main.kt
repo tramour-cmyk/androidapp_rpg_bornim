@@ -46,7 +46,7 @@ internal fun Game.skipDialogs() {
 
 @OptIn(ExperimentalComposeUiApi::class)
 private fun shot(name: String, lang: Lang = Lang.DE, taps: List<Offset> = emptyList(), lastFrames: Int = 30,
-                 over: (@androidx.compose.runtime.Composable () -> Unit)? = null, setup: (GameViewModel) -> Unit) {
+                 over: (@androidx.compose.runtime.Composable () -> Unit)? = null, settle: Int = 10, setup: (GameViewModel) -> Unit) {
     System.getenv("ONLY")?.let { if (!name.startsWith(it)) return }
     val vm = GameViewModel(Application())
     vm.ensureLang(lang)
@@ -66,7 +66,7 @@ private fun shot(name: String, lang: Lang = Lang.DE, taps: List<Offset> = emptyL
         scene.sendPointerEvent(PointerEventType.Release, p)
         frames(if (i == taps.lastIndex) lastFrames else 30)
     }
-    if (taps.isEmpty()) frames(10)
+    if (taps.isEmpty()) frames(settle)
     File(out, "$name.png").writeBytes(img!!.encodeToData(EncodedImageFormat.PNG)!!.bytes)
     scene.close()
     println("wrote $name")
@@ -183,22 +183,10 @@ fun main() {
             // PFLASTERDRAFT=1: the square's cobbles quieter (5.4, draft)
             if (System.getenv("PFLASTERDRAFT") == "2") de.bornim.core.art.MapGround.cobbleMid = true
             else if (System.getenv("PFLASTERDRAFT") != null) de.bornim.core.art.MapGround.cobbleDraft = true
-            // HERBDRAFT=1: the healing herbs drawn in the slant (56, draft)
-            if (System.getenv("HERBDRAFT") != null) de.bornim.core.art.MapWoodIso.herbDraft = true
-            // CHESTDRAFT=1: the chests of the woods drawn in the slant (56, draft)
-            if (System.getenv("CHESTDRAFT") != null) de.bornim.core.art.MapWoodIso.chestDraft = true
-            // ROCKDRAFT=1: the boulders of the woods drawn in the slant (56, draft)
-            if (System.getenv("ROCKDRAFT") != null) de.bornim.core.art.MapWoodIso.rockDraft = true
-            // MENHIRDRAFT=1: the standing stones of the circle drawn in the slant (56, draft)
-            if (System.getenv("MENHIRDRAFT") != null) de.bornim.core.art.MapWoodIso.menhirDraft = true
-            // BUSHDRAFT=1: the bushes of the undergrowth drawn in the slant (56, draft)
-            if (System.getenv("BUSHDRAFT") != null) de.bornim.core.art.MapWoodIso.bushDraft = true
-            // FERNDRAFT=1: the ferns of the undergrowth drawn in the slant (56, draft)
-            if (System.getenv("FERNDRAFT") != null) de.bornim.core.art.MapWoodIso.fernDraft = true
-            // YARDDRAFT=1: haystacks and the washing line of the village drawn in the slant (56, draft)
-            if (System.getenv("YARDDRAFT") != null) de.bornim.core.art.MapWoodIso.yardDraft = true
-            // POND=1: the pond's far bank as an earthen step, reeds along it (27.5, draft)
-            if (System.getenv("POND") != null) { de.bornim.core.art.MapGround.pondDraft = true; de.bornim.core.art.MapWoodIso.pondDraft = true }
+            // SWINGDRAFT=1: the cloak swings on when the hero stops (17, draft)
+            if (System.getenv("SWINGDRAFT") != null) { de.bornim.core.art.MapFigure.swingDraft = true; de.bornim.game.ui.HeroSwing.now = true }
+            // PONDLIFE=1: frogs on the bank and dragonflies over the forest pond (27.6, draft)
+            if (System.getenv("PONDLIFE") != null) de.bornim.core.art.PondLife.draft = true
             // SITDRAFT2=1: Borin sits at his table in the inn (55.2, draft)
             if (System.getenv("SITDRAFT2") != null) de.bornim.core.art.MapFolk.sitDraft = true
             // TREEDRAFT=1: the trees with volume (27.4, draft)
@@ -293,6 +281,7 @@ fun main() {
         System.exit(0)
     }
     if (System.getenv("BEASTDRAFT") != null) { renderBeastDrafts(); System.exit(0) }
+    if (System.getenv("SWINGBILD") != null) { renderSwingDraft(); System.exit(0) }
     if (System.getenv("DOLLDRAFT") != null) { renderShamanGhoulDrafts(); System.exit(0) }
     if (System.getenv("SHAMANDRAFT") != null) { renderShamanDraft(); System.exit(0) }
     if (System.getenv("VERMINDRAFT") != null) { renderVerminDrafts(); System.exit(0) }
@@ -391,6 +380,26 @@ fun main() {
     if (System.getenv("ABOUT") != null) {
         shot("31_about") { it.screen = Screen.ABOUT }
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }
+        System.exit(0)
+    }
+    // TEXTKASTEN=1: the text box old and as drafted for 42 (black, gold rim, serif), with a speaker and told text
+    if (System.getenv("TEXTKASTEN") != null) {
+        fun opened(vm: GameViewModel, spoken: Boolean) {
+            vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!
+            var guard = 0
+            while (guard++ < 80) {
+                val m = g.mode
+                if (m is Mode.Dialog && (m.speaker != null) == spoken) break
+                g.advance()
+            }
+            vm.refresh()
+        }
+        for (draft in listOf(false, true)) {
+            de.bornim.game.ui.DialogLook.draft = draft
+            val tag = if (draft) "neu" else "alt"
+            shot("42_gespraech_$tag", settle = 150) { vm -> opened(vm, spoken = true) }
+            shot("42_erzaehlt_$tag", settle = 150) { vm -> opened(vm, spoken = false) }
+        }
         System.exit(0)
     }
     // BRETT=1: the notice board's window and the odd jobs in the menu (29)

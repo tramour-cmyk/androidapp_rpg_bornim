@@ -15,6 +15,8 @@ enum class Sound {
     BIRD, CRICKET, OWL, DRIP, CRACKLE, THUNDER,
     // the sound of a place (24.8): wind outside, the air of the temple hall, creaking wood, a heartbeat; the inn's few people
     WIND, HALL, CREAK, HEARTBEAT, CUP, POUR, WIPE, CHAIR, COUGH,
+    // the forest pond (27j): a frog's call, the frogs' quiet chorus at dusk, a dragonfly whirring past
+    FROG, FROG_CHORUS, DRAGONFLY,
     SWING, SWING_HEAVY,
     HOWL_1, HOWL_2, HOWL_3,
 }
@@ -39,7 +41,7 @@ object Sfx {
     val SYSTEM = setOf(Sound.LEVEL_UP, Sound.CLICK, Sound.LOOT_EPIC, Sound.ENCOUNTER)
 
     /** Sounds that exist only as recordings (the sound of a place, 24.8): nothing is synthesized for them. */
-    val RECORDED_ONLY = setOf(Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH)
+    val RECORDED_ONLY = setOf(Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH, Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY)
 
     fun variants(s: Sound): Int = if (s in VARIED) 3 else 1
 
@@ -921,6 +923,7 @@ object Sfx {
         Sound.SWING -> Buf(0.5).apply { band(0.0, 0.25, 0.6, 700.0, 2600.0, 1.8, 152, swell = true); room(0.15) }
         Sound.SWING_HEAVY -> Buf(0.7).apply { band(0.0, 0.4, 0.8, 250.0, 900.0, 1.4, 153, swell = true); room(0.2) }
         // the sound of a place (24.8) comes only from recordings
-        Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH -> Buf(0.05)
+        Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH,
+        Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY -> Buf(0.05)
     }.pcm()
 }

@@ -530,12 +530,14 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             }
         } else place(cap, "hair")
         val backZ = -(chestDepth + 0.01 * height)
+        // long hair swinging on past a stop (17, draft) lifts and flicks out behind
+        val flick = sk.rig.flare * 0.035 * height
         if (female) {
             // hair falling over the back to the shoulder blades
-            place(RoundCone(hx.apply(c + P3(0.0, -0.05 * k, -0.28 * k)), sk.upper.apply(P3(0.0, shoulderY - 0.07 * height, backZ * 0.9)), 0.31 * k, 0.2 * k, BodyPart.HAIR, HAIR)
+            place(RoundCone(hx.apply(c + P3(0.0, -0.05 * k, -0.28 * k)), sk.upper.apply(P3(0.0, shoulderY - 0.07 * height + flick * 0.6, backZ * 0.9 - flick)), 0.31 * k, 0.2 * k, BodyPart.HAIR, HAIR)
                 .cut(sk.upper.dir(P3.Z), sk.upper.apply(c + P3(0.0, 0.0, 0.05 * k))), "hair")
         } else if (race == Race.ELF) {
-            place(RoundCone(hx.apply(c + P3(0.0, -0.05 * k, -0.28 * k)), sk.upper.apply(P3(0.0, chinY - 0.02 * height, backZ * 0.6)), 0.31 * k, 0.24 * k, BodyPart.HAIR, HAIR)
+            place(RoundCone(hx.apply(c + P3(0.0, -0.05 * k, -0.28 * k)), sk.upper.apply(P3(0.0, chinY - 0.02 * height + flick * 0.6, backZ * 0.6 - flick)), 0.31 * k, 0.24 * k, BodyPart.HAIR, HAIR)
                 .cut(sk.upper.dir(P3.Z), sk.upper.apply(c)), "hair")
         }
         if ((race == Race.DWARF || beard) && !female) {
