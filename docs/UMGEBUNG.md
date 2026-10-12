@@ -80,7 +80,7 @@ Die Chat-Sitzung hat eine eigene Netzregel. Ohne Freigabe sind Maven Central, Go
 - `./gradlew -p core test`: Kerntests, vor jedem Commit (Exit-Code prüfen).
 - `tools/t` (Übersicht ohne Befehl), z. B. `tools/t bild SCHALTER=…`. Vorschau direkt: `cd tools/preview && SCHALTER=… ../../gradlew -q run`, Bilder unter `tools/preview/build/screens/`.
 - Filmläufe sind langsam (5 Kämpfe gut 4 Minuten); Shell-Befehle brechen nach 10 Minuten ab, lange Läufe aufteilen oder im Hintergrund mit `timeout`.
-- **Im Spiel testen:** Testmodus (7× auf das Copyright im Titel tippen), Reiter „Test“: Stufe, Gold, Vorräte, Testkämpfe, „Sicht: diagonal“, „Dorf und Räume“, „Kartenzoom“, „Monster beachten mich nicht“, „Sichtlinie aus“ u. a.
+- **Im Spiel testen:** Testmodus (7× auf das Copyright im Titel tippen), Reiter „Test“: Stufe, Gold, Vorräte, Testkämpfe, „Kartenzoom“, „Monster beachten mich nicht“, „Sichtlinie aus“ u. a.
 
 ### Vorschau-Schalter (Auswahl, vorher verstreut in den Übergaben)
 

@@ -5,6 +5,20 @@ Verlauf aus `docs/OFFEN.md`: alte Übergaben, Rückmeldungen, Befunde und Builds
 Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistorie](../CHANGELOG.md)
 
 
+### Übergabe Tom (12.10., 11:35, vor Neustart, ersetzt 12:35)
+
+- **29 erledigt:** PR #42 zusammengeführt (11:35), getestet in 0.1.569; CHANGELOG eingetragen. Zweig `claude/great-sagan-n9tkga` ist fertig.
+- **13.4 gebaut (12:19), PR #43 (Entwurf, abonniert):** Dorf + 4 Räume immer diagonal im neuen Stil, Wald/Tiefer Wald/Höhle gerade bis fertig; Schalter „Sicht“ und „Dorf und Räume“ weg; Vorschau `DIAG=1` = alle Orte diagonal (`MapSight.all`). Zweig `claude/upbeat-clarke-oghrxm`. Jetzt 27 (27b ja, nach 43 umstellen).
+- **In Arbeit: 27 Wald** (27a ja 11:43: zuerst Südrand mit Steinkreis und Schild, erst Standbilder). Danach 13 Tempel, dann **42 Textkasten** (42a–42c ja, Standbilder zuerst), dann 5l/5.5, 17.
+- **Merkposten (23b ja, Nutzer 11:48 über Berater):** Lyra diagonal (für die Höhle), bevor Jerry mit 13e fertig ist, damit er nicht wartet; Reihenfolge sonst unverändert.
+- **Texte (Regel 41):** Aushänge und Sätze von 29/29.3/29.4 stehen in `Jobs.kt`; der Berater übernimmt sie in `docs/STORY.md`.
+
+### Übergabe Jerry (12.10., 11:55, ersetzt 12:23)
+
+- **34, 35 erledigt:** PR #41 zusammengeführt (11:52), getestet in 0.1.571; CHANGELOG eingetragen. Kein offener Zweig.
+- **37:** 5 Hörproben beim Nutzer (Rückfrage 37c), danach einbauen.
+- **Als Nächstes:** 36.1 Krogg (Standbilder vorher/nachher), **38 Messung Kapitel 1** (nach 37 und 36.1, vor 13e), 13e Entwurf 2 (`claude/quirky-goodall-fqncrd`), 24.6, 40. 30: Abstürze mit Bericht beobachten.
+
 ### Übergabe Jerry (12.10., 10:30, ersetzt 11:55)
 
 - Zweig `claude/wizardly-edison-tjotls`, PR #41 (34 Zug beenden, 35 Weihwasser), Build 0.1.568 (zu klein zum Installieren, neu gebaut 0.1.571, getestet, zusammengeführt 11:52).
