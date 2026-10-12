@@ -999,7 +999,9 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                         torches += (nx + T / 2.0) to (ny - 12.0)
                         MapFolk.wardFrame(f, slotNow, wd.ward, wd.flicker)
                     }
-                    wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 80).toInt(), MapFigure.STEPS) else 0)
+                    // draft (55.2): Borin sits at his table, now and then drinking, eating, looking round
+                    val sitImg = if (MapFolk.sitDraft && f.id == "borin") MapFolk.borinSits(slotNow, ((clock / 2500) % 4).toInt()) else null
+                    sitImg ?: wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 80).toInt(), MapFigure.STEPS) else 0)
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
                 val dollLit = doll?.let { warmEdge(it, nx, ny) }

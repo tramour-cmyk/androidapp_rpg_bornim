@@ -81,6 +81,9 @@ object MapFolk {
      * Draft (55.2): Borin sitting at his table in the inn, the hammer put by. [pose] 0 both hands on the table, 1 a
      * drink from his flask, 2 a bite to eat, 3 looking round over his shoulder, a hand on his knee.
      */
+    /** Draft (55.2): Borin sits at his table in the preview, the game keeps him standing. */
+    @Volatile var sitDraft = false
+
     fun borinSits(slot: Int, pose: Int): PixelImage {
         val o = borin.outfit
         val out = Outfit(o.cls, o.items.filterValues { it.base != "maul" }, leatherRgb = o.leatherRgb, clothes = o.clothes, flaskRgb = 0x8A6A2A)

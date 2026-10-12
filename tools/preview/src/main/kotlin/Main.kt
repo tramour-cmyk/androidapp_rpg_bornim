@@ -180,6 +180,8 @@ fun main() {
             if (System.getenv("CAVEDRAFT") != null) de.bornim.core.art.MapCaveIso.draft = true
             // DIAG=1: the map seen diagonally (13)
             if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.all = true
+            // SITDRAFT2=1: Borin sits at his table in the inn (55.2, draft)
+            if (System.getenv("SITDRAFT2") != null) de.bornim.core.art.MapFolk.sitDraft = true
             // WOODDRAFT=1: trunks and the camp fire of the woods drawn in the slant (27.5, draft)
             if (System.getenv("WOODDRAFT") != null) de.bornim.core.art.MapWoodIso.draft = true
             // TREEDRAFT=1: the trees with volume (27.4, draft)
