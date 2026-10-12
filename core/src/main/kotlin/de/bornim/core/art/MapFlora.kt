@@ -128,8 +128,8 @@ object MapFlora {
 
     private fun cached(key: String, make: () -> Sprite): Sprite = synchronized(cache) { cache[key] } ?: make().also { synchronized(cache) { cache[key] = it } }
 
-    /** The trees with volume (27.4, draft): only in the preview for now. */
-    @Volatile var treeDraft = false
+    /** The trees with volume (27.4); false draws the flat ones before (preview TREESHEET=1 compares). */
+    @Volatile var treeDraft = true
 
     /** An oak-like tree; [size] 0..2 small to large, [deep] the darker, older wood. */
     fun oak(variant: Int, size: Int, deep: Boolean): Sprite = cached("oak/$variant/$size/$deep/$treeDraft") {

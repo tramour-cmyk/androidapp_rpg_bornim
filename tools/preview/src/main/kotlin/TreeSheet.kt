@@ -16,6 +16,7 @@ fun renderTreeSheet() {
     )
     MapFlora.treeDraft = false; val old = row()
     MapFlora.treeDraft = true; val new = row()
+    // the game's own choice again
     val k = 2
     val cellW = old.zip(new).sumOf { (a, b) -> maxOf(a.img.width, b.img.width) } + 8 * old.size
     val rowH = maxOf(old.maxOf { it.img.height }, new.maxOf { it.img.height }) + 24
