@@ -11,7 +11,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
 | Tom | fertig | 12.10., 08:00 | 11.10., 23:08 | 12.10., 07:48 | Nacht beendet; 32.1–32.8 eingebaut, Routinen umgestellt | – |
-| Jerry | fertig | 12.10., 08:00 | 11.10., 23:17 | 12.10., 07:43 | Bericht im Chat (Thema 32) | – |
+| Jerry | übergeben | 13.10., 08:00 (vorläufig, Rückfrage 54a) | 12.10., 16:40 | 12.10., 16:22 | Paket 12.10.: 13e.2 Kisten/Truhen/Bettrolle; Nachfolgerin übernimmt | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
 
@@ -112,8 +112,8 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 - 9i: Entwürfe ansehen und freigeben.
 - 19e: ein konkretes Beispiel für „Bewegungen unrund“, falls dir eines auffällt.
 
-**Paket** (Nacht 11./12.10., vergeben 23:15 „Nachtmodus“, bis 08:00):
-1. **30 Klang-Speicher:** Speicher von `SfxPlayer` (SoundPool, ~22 MB dekodiert) und `MusicPlayer` messen bzw. berechnen, Absturzwege in den Klang-Fäden prüfen; Vorschläge (z. B. seltene Klänge erst bei Bedarf laden, Mono/geringere Rate) nur zur Freigabe. Fertig, wenn: Zahlen und Vorschläge in `OFFEN.md` (30).
-2. **24.8.5 Ortsklang weich überblenden** (24aa nach Empfehlung): alter Ortsklang 0,6 s aus, neuer weich ein. Eigener Zweig von `main`. Fertig, wenn: Kerntest, Build mit Link und Testliste; kein PR ohne Test.
-3. **13e Höhle diagonal, Entwürfe:** `MapCaveIso.kt` hinter Schalter, Standbilder mit Uhrzeit (Tag/Fackel), nicht ins Spiel. Fertig, wenn: Standbilder und Lückenliste nach „Ort fertig“.
-4. Reserve: Vorrat 8 (Ausgleich Magier), 4 (Schritte, Hörproben), 6 (Rudelwölfe), 2.
+**Paket** (Selbstarbeit ab 12.10., 16:40, vergeben vom Nutzer 16:2x; Zweig `claude/jerry-13e-hoehle-diagonal`, alles nur Vorschau hinter `MapCaveIso.draft`, nicht ins Spiel):
+1. **13e.2 Kisten, Truhen, Bettrolle diagonal** in `MapCaveIso` (Truhe offen/zu, je drei Varianten, Höhlenstil: grob, Goblinbeute). Fertig, wenn: Standbilder (`CAVESHEET=1`, dann `KARTENZOOM=1 DIAG=1 CAVEDRAFT=1 ONLY=zoom_nah_c`) mit Uhrzeit.
+2. **13e.3 Lichtstrahl am Schacht (11)** als schräge Lichtsäule mit Staub statt hellem Rechteck; **Fackelflammen feiner (10)**. Fertig, wenn: Standbilder.
+3. **13e.4 Stalagmiten, Felsen, Geröll** über das Höhenfeld (wie die Wände), **Weiher mit Ufer**. Fertig, wenn: Standbilder, Lückenliste nach „Ort fertig“.
+4. Reserve: 38 Messung Kapitel 1 (Gold/Einkauf in `ChapterSimTest`), 53 Zustände auf Krogg (Befund), 51 Sterbehaltung Magier (Befund, Entwurf).

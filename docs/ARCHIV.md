@@ -1,5 +1,11 @@
 # Archiv
 
+### Übergabe Jerry (12.10., 15:35)
+
+- **36.5/36h/36.7/36j** auf `claude/great-pascal-x56kad` (noch kein PR), Build 0.1.587 beim Nutzer im Test; Ergebnisse kommen in die neue Sitzung. Passt der Test: PR öffnen, grün abwarten, zusammenführen, CHANGELOG. 36.7 = eigene Trefferhaltung nur für `bugbear` (`FoeArt.kroggAttacks`); 36j = `FoeBack` in `BattleScreen` (Rückweg läuft weiter, wenn die Zeile endet; Fall „Held fällt“ im Film geprüft, „schnell weitertippen“ nur an der Ursache).
+- **Als Nächstes 13e Höhle diagonal, Entwurf 2** (mit 10 Flammen, 11 Lichtstrahl; 48b: allgemein aus dem Kartenraster, ohne Handarbeit je Feld; eigene Datei `MapCaveIso.kt`, Toms Dateien nicht anfassen), auf neuem Zweig. Danach 38 Messung, 24.6, 40.
+- 36.6 (Killerschlag Zerteilen bei Krogg in alter Auflösung) offen.
+
 ### Übergabe Tom (12.10., 15:32, ersetzt 15:57)
 
 - Zweig `claude/tom-27-4-baeume` (mit `main`): **27.4** Bäume mit Volumen (`MapTree.kt`, an über `MapFlora.treeDraft`, Vergleich `TREESHEET=1`), **5.6** Schlagbaum/Zaun diagonal (`MapTownIso.barrier/fence`, `ISODINGE=platz`, Schüsse `d10b`, `d12`), **5.3** neun Leute als Puppen (`MapFolk.all`, Feuer-Gesten nur Garrick, Trageweise auch im Stehen). Build 0.1.590 fertig (15:34), kein PR.
