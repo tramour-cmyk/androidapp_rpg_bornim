@@ -2,8 +2,8 @@
 
 Ablauf des Testers. **Höchstens etwa 6 KB**; nur Diogenes liest diese Datei. Rolle und Grenzen in `CLAUDE.md` (Nutzer 13.10.).
 
-**Prüfbericht:** (noch nicht angelegt; Link nach dem ersten Lauf hier und oben in `OFFEN.md`)
-**Geprüft bis:** – (Commit oder Build, z. B. „0.1.653 / `9002b3f`“)
+**Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
+**Geprüft bis:** `f9ccdc3` (13.10., Lauf 1: nur 71 Teil B, Grundrisse); nächste Nummer D2
 
 ## Start (erste Nachricht „Diogenes“)
 
@@ -37,10 +37,11 @@ Wiederholbar statt nach Gefühl; Diogenes pflegt sie (neue Punkte mit Datum). Gr
 - **Jede Oberfläche (60):** neues Aussehen (schwarz, Gold, Serife, keine hellen Tafeln), Farben auf Schwarz lesbar, nichts bricht um oder läuft über, Deutsch und Englisch vollständig.
 - **Texte (41):** Spieltexte gleich `docs/STORY.md` (`tools/story.sh <Stand>`), keine fehlenden Übersetzungen, generisches Maskulinum.
 - **Balance (38):** Kerntest-Messungen in den Zielen aus `BALANCE.md`.
-- **Bestandsprüfung (71, Nutzer 13.10.):** alle Orte auf aktuellem `main`, auch ohne Änderung. Drei Teile, je ein Lauf (Bilder kosten Token, Neustart dazwischen erlaubt): **A** Gebiete Dorf, Wald, Tiefer Wald; **B** Grundrisse Schänke, Laden, Ältestenhaus, Tempel, Höhle; **C** Oberflächen (Menü, Laden, Karte, nach „Jede Oberfläche“). Je Ort:
+- **Bestandsprüfung (71, Nutzer 13.10.):** alle Orte auf aktuellem `main`, auch ohne Änderung. Drei Teile, je ein Lauf (Bilder kosten Token, Neustart dazwischen erlaubt): **A** Gebiete Dorf, Wald, Tiefer Wald (erst, wenn Toms Zweige auf `main` sind, Nutzer 13.10.); **B** Grundrisse Schänke, Laden, Ältestenhaus, Tempel, Höhle; **C** Oberflächen (Menü, Laden, Karte, nach „Jede Oberfläche“). Je Ort:
   1. **Bestandsliste aus dem Code:** jedes Ding eine Zeile (Bäume, Felsen, Büsche, Häuser, Zäune, Möbel, Kleinkram, Wasser, Ufer, Boden, Wege): diagonal mit Volumen gezeichnet (`Sculpt`/SDF) oder noch flach bzw. alte Ansicht gekippt; Zahl der Varianten (Ziel ≥ 3); Schatten; Maßstab zum Helden.
   2. **Standbilder** aus Sicht des Helden, Tag und Nacht, je Ort mindestens Eingang, Mitte, Questort: gegen „Ort fertig“ 1–10 und `STIL.md` „Karte und Räume“ (nichts flach, Wichtiges frei, Durchsicht um den Helden, Ellipsen 2:1, Licht nur aus Quellen, nachts lesbar).
   3. **Abwechslung und Leben:** gleiche Dinge nebeneinander verschieden, keine sichtbaren Wiederholungsmuster oder Raster; Rauch, Wind, Tiere, Gebrauchsspuren je Ort vorhanden.
   4. **Klang je Quelle:** jedes sichtbare Ding und jede Figur, die in Wirklichkeit klingt (Feuer, Wasser, Tiere, Wind in Bäumen, Tür, Arbeit der Leute), eine Zeile: Klang ja/nein, echte Aufnahme, ≥ 3 Varianten, **entfernungsabhängig** (nah laut, fern leise, ab Hörweite stumm, ohne Sprung; Werte in Feldern aus dem Code, Lautstärke bei 0 Feldern, halber Hörweite, außerhalb nachrechnen). Vorbild Feuer (`Ambience`) und Teich (`PondSound`). Dazu Schritte je Untergrund, Ortsklang nur von dem, was da ist.
   5. Punkte aus „Jeder Ort“ (Kollision, Tippen, Zufallsspieler).
   Bericht je Ort als Tabelle (Ding | diagonal | Varianten | Schatten | Klang | Entfernung), Lücken als Befunde mit Empfehlung (Tom: Dorf, Leute, Innenräume; Jerry: Höhle, Monster, Klang). Fehlende Klänge als Vorschlagsliste, nichts bauen.
+- **Werkzeug (13.10.):** Bestand aus dem Code am schnellsten mit drei Explore-Agenten parallel (Möbel, Höhle, Klang). Standbilder: `tools/t bild KARTENZOOM=1 ONLY=zoom_nah_p_ "HELDORT=ort:x:y:U:12;…:22"`, erster Lauf kalt über 10 Minuten, also im Hintergrund starten.
