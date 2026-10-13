@@ -56,10 +56,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 18:2x) – an Nachfolger
-- Zweig `claude/tom-13e-kegelrand`: 13e Sichtkegel nach Blickrichtung (Meldung 17:5x) und 62h/62o/62n im Spiel (b6227e35). Build 0.1.702 beim Nutzer (Prüfliste `e/t702.html`); nach „passt“ PR, zusammenführen.
-- Danach 62r bauen, sobald entschieden (Empfehlung Ziel-Beschriftung); dann 13t weiter auf `claude/tom-13t-alte-ansicht` (Bildkontrolle gut, tote Reste löschen), 6l, 68.
-- Begriffe 62q beachten: Stufen Landkarte/Gebietskarte/Grundriss, „Ebene“ nur für übereinanderliegende Teile eines Grundrisses.
+### Tom (13.10., 19:4x) – an Nachfolger
+- 0.1.702 (Zweig `claude/tom-13e-kegelrand`) beim Nutzer, Prüfliste `e/t702.html`; nach „passt“ PR, zusammenführen.
+- **13t** auf `claude/tom-13t-alte-ansicht` (fbd91a27): gerade Ansicht ganz raus, ~2.500 Zeilen tote Reste gelöscht (Kerntests grün). Offen: Bildvergleich vorher/nachher (`KARTENZOOM=1 ONLY=zoom_nah_`, Vorher-Stand = 68bf1e20), dann Build und Prüfliste; nach Merge in `UMGEBUNG.md` die Schalter `TOWNDRAFT`, `OVERVIEW`, `MAPS`, `CAVEMAP`, `RAUMDINGE`, `ALTRAUM` streichen.
+- 62r bauen, sobald entschieden (Empfehlung Ziel-Beschriftung); danach 6l, 68. Begriffe 62q beachten.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.

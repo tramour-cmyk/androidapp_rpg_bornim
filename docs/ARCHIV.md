@@ -1,5 +1,10 @@
 # Archiv
 
+### Tom (13.10., 18:2x) – an Nachfolger
+- Zweig `claude/tom-13e-kegelrand`: 13e Sichtkegel nach Blickrichtung (Meldung 17:5x) und 62h/62o/62n im Spiel (b6227e35). Build 0.1.702 beim Nutzer (Prüfliste `e/t702.html`); nach „passt“ PR, zusammenführen.
+- Danach 62r bauen, sobald entschieden (Empfehlung Ziel-Beschriftung); dann 13t weiter auf `claude/tom-13t-alte-ansicht` (Bildkontrolle gut, tote Reste löschen), 6l, 68.
+- Begriffe 62q beachten: Stufen Landkarte/Gebietskarte/Grundriss, „Ebene“ nur für übereinanderliegende Teile eines Grundrisses.
+
 ### Tom (13.10., 16:2x) – vor Neustart
 - **Nutzer 16:2x: hat Feedback vom Testen.** Nachfolger fängt keine Arbeit an, sondern wartet nach der Startmeldung auf dieses Feedback (zu 0.1.689) und bespricht es zuerst.
 - **0.1.689** (Zweig enthält riemen, 13e, 66, 67, 64; alte Zweige nicht mehr benutzen); 62h-2 danach auf dem Zweig, nicht im Spiel. Nach „passt“: PR (Merge-Commit), Änderungshistorie (59, 60e–k, 60j, 17r, 5la–5la.3, 6g, 6f, 61a, 61, 62a, 62c, 62e–g, 59e, 55.1a/b, 13x, 13v/27.6, 13e weich, Kegelrand, Fels).
