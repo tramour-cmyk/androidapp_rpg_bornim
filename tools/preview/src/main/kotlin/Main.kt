@@ -92,6 +92,33 @@ fun main() {
     System.getenv("FILM")?.let { fightFilm(it); System.exit(0) }
     System.getenv("FILMBATCH")?.let { fightBatch(it); System.exit(0) }
     if (System.getenv("KARTENBLATT") != null) { renderMapSheets(); System.exit(0) }
+    // KARTE62=1: the map tab of 62c, zoomed in on the hero, with quest marks and the list of places
+    if (System.getenv("KARTE62") != null) {
+        fun setup(vm: GameViewModel, mapId: String, x: Int, y: Int, facing: Facing) {
+            vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
+            g.takeJob("ring"); g.takeJob("stones"); g.takeJob("pelts")
+            val st = g.state
+            st.flags += de.bornim.core.MapMarks.met("gwenna"); st.flags += de.bornim.core.MapMarks.met("jorin")
+            // the forest seen along the way from the village to the standing stones
+            val f = de.bornim.core.World["forest"]
+            val stones = (0 until f.height).flatMap { yy -> (0 until f.width).filter { xx -> f.tile(xx, yy) == de.bornim.core.Tile.MENHIR }.map { it to yy } }
+            val sx = stones.sumOf { it.first } / stones.size; val sy = stones.sumOf { it.second } / stones.size
+            val way = (0..30).map { k -> 9 + (sx - 9) * k / 30 to 29 + (sy - 29) * k / 30 }
+            val bits = BooleanArray(f.width * f.height) { i -> val xx = i % f.width; val yy = i / f.width; way.any { (wx, wy) -> (xx - wx) * (xx - wx) + (yy - wy) * (yy - wy) <= 26 } }
+            st.explored["forest"] = bits.toList().chunked(4).joinToString("") { c -> c.withIndex().sumOf { (b, v) -> if (v) 1 shl b else 0 }.toString(16) }
+            st.place = Place(mapId, if (mapId == "forest") sx + 1 else x, if (mapId == "forest") sy + 2 else y, facing)
+            vm.menuOpen = true; vm.refresh()
+        }
+        de.bornim.game.ui.MenuStart.map = true
+        de.bornim.game.ui.MapLook.previewTip = 0
+        shot("62c_wald", settle = 30) { vm -> setup(vm, "forest", 0, 0, Facing.UP) }
+        de.bornim.game.ui.MapLook.previewZoom = 1.6f
+        shot("62c_dorf", settle = 30) { vm -> setup(vm, "village", 17, 6, Facing.DOWN) }
+        de.bornim.game.ui.MapLook.previewTip = -1
+        de.bornim.game.ui.MapLook.previewOverview = true
+        shot("62c_orte", settle = 30) { vm -> setup(vm, "forest", 0, 0, Facing.UP) }
+        System.exit(0)
+    }
     if (System.getenv("WEGE") != null) { renderWayDrafts(); System.exit(0) }
     System.getenv("FLORA")?.let { renderFloraSheet(it); System.exit(0) }
     if (System.getenv("HOEHLEDINGE") != null) { renderCaveThings(); System.exit(0) }

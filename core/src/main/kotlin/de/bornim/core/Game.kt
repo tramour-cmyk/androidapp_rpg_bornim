@@ -673,6 +673,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
         npcAt(tx, ty)?.let { npc ->
             npcFacing[npc.id] = p.facing.opposite
+            state.flags += MapMarks.met(npc.id)
             enqueue(Jobs.handIn(state, npc.id) ?: npc.talk(state))
             return
         }
