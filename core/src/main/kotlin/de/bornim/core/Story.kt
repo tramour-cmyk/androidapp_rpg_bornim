@@ -141,7 +141,8 @@ object Story {
         signs = mapOf(
             (21 to 2) to T("Norden: Flüsterwald.\nAchtung, Goblins!", "North: Whisperwood.\nBeware of goblins!"),
             (7 to 6) to T("Gasthaus »Zum Schlafenden Greif«", "The Sleeping Griffin Inn"),
-            (19 to 29) to T("Süden", "South"),
+            // 67a [67.schild]: Rabenschanze, below it (smaller on the board) Schilfrode
+            (19 to 29) to T("Rabenschanze\nSchilfrode", "Rabenschanze\nSchilfrode"),
             (25 to 6) to T("Thessas Kramladen\nWaffen · Rüstungen · Tränke", "Thessa's General Store\nWeapons · Armor · Potions"),
         ),
         houseStyles = mapOf(
