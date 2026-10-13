@@ -47,7 +47,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ### Tom (13.10., 07:16) – Sammelbuild
 - Bildbuch hat 60e–60i, 27.6, 13x, 17r, 5la, 6g, 6f, 61a, 62a, 55.1a; Entscheidungsseite leer.
 - Sammelzweig `claude/rpg-startup-qaae3o`: alle entschiedenen Entwürfe an (Testschalter weg, Schalter im Code stehen auf an), Kerntests grün. Nach dem Test: PR, zusammenführen, Änderungshistorie.
-- Weiter: 27.6 mit dem diagonalen Wald (13v), 17 Riemen, 55.1b Speer.
+- **Nutzer 07:1x: Neustart nach der Build-Meldung ja.** Weiter (Nachfolger): Test Sammelbuild abwarten, dann PR und zusammenführen; 27.6 mit dem diagonalen Wald (13v), 17 Riemen, 55.1b Speer.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 

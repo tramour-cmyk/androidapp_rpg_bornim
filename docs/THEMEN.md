@@ -20,7 +20,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für `OFFEN.md`) | Berater | erledigt 11.10. (PR #26) | `CHANGELOG.md` |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | erledigt 11.10. | Archiv |
 | 16 | Trefferstopp | Jerry | erledigt, v0.1.460 | Änderungshistorie |
-| 17 | Nachschwingen | Tom | freigegeben, offen | `OFFEN.md` |
+| 17 | Nachschwingen | Tom | 17a auf `main`, 17r im Sammelbuild 0.1.650; Riemen offen | `OFFEN.md` |
 | 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | Jerry | Runde 2 auf `main` (PR #23, 11.10.); 18h, 18i offen | `OFFEN.md` |
 | 19 | Zeitablauf der Kampfbewegungen | Jerry | erledigt, v0.1.455; 19e geschlossen (36e, 12.10.) | `OFFEN.md` |
 | 20 | Uhrzeit der APK im ZIP | Tom | erledigt 11.10. (PR #21) | `OFFEN.md` |
@@ -57,10 +57,10 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 52 | Feinarbeit an den Kampfanimationen | Jerry | Nutzer 12.10., später | `OFFEN.md` |
 | 53 | Zustände (Brennend) auf Krogg prüfen | Jerry | Nutzer 12.10., wenn Zeit | `OFFEN.md` |
 | 54 | Nicht warten, von selbst weiterarbeiten | Tom und Jerry | fertig (Regel, Tom bestätigt 12.10.) | `CLAUDE.md` |
-| 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | neu 12.10. | `OFFEN.md` |
+| 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | 55.2 auf `main`, 55.1a im Sammelbuild 0.1.650; 55.1b offen | `OFFEN.md` |
 | 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | Tom | neu 12.10. | `OFFEN.md` |
 | 58 | Umhang hängt beim Laufen über dem Schild | Tom | erledigt 12.10. (PR #50) | `OFFEN.md` |
-| 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf | Tom | neu 12.10. | `OFFEN.md` |
-| 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | Tom | neu 12.10. | `OFFEN.md` |
-| 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | Tom | Entwurf 13.10. | `OFFEN.md` |
-| 62 | Gezeichnete Karte im Menü | Tom | Entwurf 13.10. | `OFFEN.md` |
+| 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf | Tom | entschieden, im Sammelbuild 0.1.650 (13.10.) | `OFFEN.md` |
+| 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | Tom | entschieden (Alegreya, Cinzel), im Sammelbuild 0.1.650 | `OFFEN.md` |
+| 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | Tom | entschieden, im Sammelbuild 0.1.650 | `OFFEN.md` |
+| 62 | Gezeichnete Karte im Menü | Tom | entschieden (erst ohne Auftragszeichen), im Sammelbuild 0.1.650 | `OFFEN.md` |
