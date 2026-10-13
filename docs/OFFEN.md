@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 64**
+**Nächste freie Themennummer: 65**
 
 **Entscheidungsseite (alle Rollen, 63): https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow** · Bildbuch: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
@@ -27,6 +27,9 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 40 | Lautstärke im Menü: Gesamt, Musik, Effekte (heute nur Musik an/aus) | Jerry | neu von `main` | Nutzer 12.10., 09:52. **40a ja (10:10):** drei Regler, Ortsklang bei Effekten |
 | 41 | Storyplan: je Kapitel Zusammenfassung, Quests, Dialoge; dann Plot Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | 41a–41d ja: Entwurf Kapitel 1 steht ([Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)), fertige Kapitel als `docs/STORY.md`, Änderungen nur nach Abstimmung Nutzer und Berater; Regel „Story und Dialoge“ in `CLAUDE.md`, `tools/story.sh`. Kapitel 2 offen |
 | 42 | Textkasten unten im Stil der Blenden: schwarzer Kasten, Sprecher in Gold, Text in gebrochenem Weiß (heute cremefarben mit dunkler Schrift, Sprecher rot) | Tom | – | Nutzer 12.10., 11:24 (über Berater). **42a ja:** erst nur Textkasten (Gespräch, Erzähltext, Aushänge), Menüs später. **42b ja:** ganz schwarz, dünner Goldrand, Sprecher Gold in Kapitälchen im Kasten, Text gebrochenes Weiß, Serife wie Blenden, Erzähltext kursiv, ▼ gold. **42c ja (11:39):** erst Standbilder. **42d:** Textkasten auf `main` (PR #48, getestet 0.1.625). Offen: Menüs später (42a) |
+| 59e | Händler: Menge „Alle“, Vorrat je Laden | Tom (jetzt); Jerry mit 38/39 (Vorrat) | – | **Entschieden 13.10. (Nutzer mit Berater):** „Alle“ beim Kaufen weg; Verkaufen behält „Alle“ mit Sicherheitsabfrage nur bei „Alle“, Angelegtem oder Seltenem (im Menü abschaltbar). Vorrat je Laden und Nachfüllen erst mit 38/39: nie nach Zeit oder Rast (Rast geht jederzeit), sondern an Nicht-Beliebiges gekoppelt; Menge über Schwierigkeitsgrad (leicht voll, normal haushalten, schwer knapp) |
+| 62c | Karte: zoomen, Ortsübersicht, Questmarken | Tom | – | **Entschieden 13.10.:** 62c.1 Start auf den Helden gezoomt, Fingerzoom/Schieben, rote Standortmarke größer. 62c.2 Übersicht nur besuchter Orte, Antippen zeigt nur deren Karte (keine Schnellreise). Marken erinnern, führen nicht, nichts automatisch: getroffener Questgeber blau (Tooltip Name + Questtitel), Questziel-Ort gold erst nach eigenem Besuch (Tooltip Quest); Erledigtes verblasst. Gleiche Daten wie 64 |
+| 64 | Questlog: eigene Übersicht im Menü (laufend/erledigt, je Geber, Ziel, Stand) | Berater mit Nutzer (Entwurf), dann Tom | – | Nutzer 13.10.: Menü mit Haupt- und Anschlagbrett-Quests wird unübersichtlich. Noch nicht in Arbeit; Daten gemeinsam mit 62c-Marken |
 | 45 | Geschäftsmodell (Play Store) | Berater mit Nutzer | – | 45a/45c ja (Kapitel 1 frei, Vollversion, nie Werbung/Beutekisten/Wartezeiten). **45b zurückgestellt** bis nach Messung 38. Verlauf im Archiv |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten in `BERATER.md` und Archiv). Nach Kapitel 1 |
 | 49 | Lehrer, Fertigkeiten, Talente | Berater mit Nutzer | – | 49d–49t ja ([Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)); als `docs/HELDENBAU.md` ablegen, sobald der Nutzer die kursiven Namen durchgesehen hat. Nach Kapitel 1 |
@@ -75,9 +78,6 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
-
-- **59e** (Test 0.1.650, Nutzer 13.10.): „Was soll „Alle“ bei Tränken? Vorschlag Vorrat je Laden (sichtbar), sonst „Alle“ weg.“ Berührt Balance, Gold, Preise (38).
-- **62c** (Test 0.1.650, Nutzer 13.10.): „Karte: Standort zu klein, hineinzoomen/schieben, Ortsübersicht (Dorf, Wald, Tiefer Wald, Höhle antippen → deren Karte).“ Größerer Umbau der Bedienung.
 
 ## Rückfragen an den Nutzer
 
