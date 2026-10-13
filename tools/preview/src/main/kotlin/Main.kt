@@ -94,6 +94,9 @@ fun main() {
     if (System.getenv("KARTENBLATT") != null) { renderMapSheets(); System.exit(0) }
     // KARTE62=1: the map tab of 62c, zoomed in on the hero, with quest marks and the list of places
     if (System.getenv("KARTE62") != null) {
+        if (System.getenv("KARTENTUSCHE") != null) de.bornim.core.art.MapSheet.ink = true
+        System.getenv("SCHILDER")?.toIntOrNull()?.let { de.bornim.game.ui.MapLook.labels = it }
+        System.getenv("HAUSNAME")?.let { de.bornim.game.ui.MapLook.previewHouse = it }
         fun setup(vm: GameViewModel, mapId: String, x: Int, y: Int, facing: Facing) {
             vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
             g.takeJob("ring"); g.takeJob("stones"); g.takeJob("pelts")
@@ -148,6 +151,60 @@ fun main() {
             for (look in de.bornim.core.art.LandSheet.Look.entries) {
                 de.bornim.game.ui.MapLook.land = look
                 shot("62h_${look.name.lowercase()}", settle = 30) { vm -> setup(vm, "forest", 0, 0, Facing.UP) }
+            }
+            System.exit(0)
+        }
+        // KARTE62=1 KARTENTUSCHE=1 ONLY=62n: 62n (draft) house names in sepia serif, or signs with the name on a tap
+        if (System.getenv("ONLY") == "62n") {
+            de.bornim.game.ui.MapLook.previewZoom = 1.15f
+            for (v in 1..2) {
+                de.bornim.game.ui.MapLook.labels = v
+                de.bornim.game.ui.MapLook.previewTip = -9
+                de.bornim.game.ui.MapLook.previewHouse = if (v == 2) "Schänke" else null
+                shot("62n_v$v", settle = 30) { vm ->
+                    setup(vm, "village", 9, 12, Facing.DOWN)
+                    val st = vm.game!!.state
+                    for (id in listOf("rowena", "borin", "thessa", "osric", "bram", "pim")) st.flags += de.bornim.core.MapMarks.met(id)
+                    for (i in listOf("inn", "shop", "elder")) st.flags += de.bornim.core.MapPeople.been(i)
+                    vm.refresh()
+                }
+            }
+            System.exit(0)
+        }
+        // KARTE62=1 KARTENTUSCHE=1 ONLY=62o: 62o (draft) the cave's ground plan, the hero a little way in from the mouth
+        if (System.getenv("ONLY") == "62o") {
+            de.bornim.game.ui.MapLook.previewTip = -9
+            for (deep in listOf(8, 16)) shot("62o_hoehle_$deep", settle = 30) { vm ->
+                setup(vm, "village", 9, 12, Facing.DOWN)
+                val st = vm.game!!.state; val c = de.bornim.core.World["cave"]
+                val mouth = c.warps.first()
+                // walk in from the mouth along open floor, so far, and mark what lies within 4 tiles of that way as seen
+                val seen = HashSet<Pair<Int, Int>>(); var at = mouth.x to mouth.y; val way = mutableListOf(at)
+                val open = { x: Int, y: Int -> c.inside(x, y) && c.tile(x, y) != de.bornim.core.Tile.CAVE_WALL }
+                repeat(deep * 3) {
+                    val next = listOf(0 to -1, 1 to 0, -1 to 0, 0 to 1).map { (dx, dy) -> at.first + dx to at.second + dy }
+                        .filter { (x, y) -> open(x, y) && (x to y) !in way }.maxByOrNull { (x, y) -> (x - mouth.x) * (x - mouth.x) + (y - mouth.y) * (y - mouth.y) }
+                    if (next != null && way.size < deep) { at = next; way += at }
+                }
+                for ((wx, wy) in way) for (y in wy - 4..wy + 4) for (x in wx - 4..wx + 4) if (c.inside(x, y) && (x - wx) * (x - wx) + (y - wy) * (y - wy) <= 16) seen += x to y
+                val bits = BooleanArray(c.width * c.height) { i -> (i % c.width to i / c.width) in seen }
+                st.explored["cave"] = bits.toList().chunked(4).joinToString("") { k -> k.withIndex().sumOf { (b, v) -> if (v) 1 shl b else 0 }.toString(16) }
+                st.place = Place("cave", at.first, at.second, Facing.UP)
+                vm.refresh(); vm.menuOpen = false; vm.refresh(); vm.menuOpen = true; vm.refresh()
+            }
+            System.exit(0)
+        }
+        // KARTE62=1 KARTENTUSCHE=1 ONLY=62r: the ground plans of the rooms in ink, the hero inside
+        if (System.getenv("ONLY") == "62r") {
+            de.bornim.game.ui.MapLook.previewTip = -9
+            for (room in (System.getenv("RAEUME") ?: "inn,shop,elder,temple").split(",")) {
+                val m = de.bornim.core.World[room]
+                val d = m.warps.first()
+                shot("62r_$room", settle = 30) { vm ->
+                    setup(vm, "village", 9, 12, Facing.DOWN)
+                    vm.game!!.state.place = Place(room, d.x, (d.y - 1).coerceAtLeast(0), Facing.UP)
+                    vm.refresh(); vm.menuOpen = false; vm.refresh(); vm.menuOpen = true; vm.refresh()
+                }
             }
             System.exit(0)
         }

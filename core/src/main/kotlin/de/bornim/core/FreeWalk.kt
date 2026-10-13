@@ -26,7 +26,7 @@ class FreeWalk(private val game: Game) {
 
     /** The way the hero walks or last walked, as a yaw in the map: 0 down the map, 90 to the right. */
     var yaw = 0.0
-        private set
+        internal set
 
     /** Distance walked so far, in tiles (for the steps of the walk). */
     var walked = 0.0
@@ -61,6 +61,16 @@ class FreeWalk(private val game: Game) {
             x = p.x + 0.5; y = p.y + 0.5
             yaw = yawOf(p.facing)
         }
+    }
+
+    /**
+     * The way the hero looks, for the cone of sight (13e, test 13.10.: walking up the screen the hero looks up the
+     * diagonal, but the cone followed the nearest of the four map directions and left the room beyond dark): the yaw
+     * while the hero walks freely here, else the facing on the map.
+     */
+    fun lookYaw(): Double {
+        val p = game.state.place
+        return if (p.map == mapId && floor(x).toInt() == p.x && floor(y).toInt() == p.y) yaw else yawOf(p.facing)
     }
 
     private fun yawOf(f: Facing) = when (f) { Facing.DOWN -> 0.0; Facing.RIGHT -> 90.0; Facing.UP -> 180.0; Facing.LEFT -> 270.0 }
