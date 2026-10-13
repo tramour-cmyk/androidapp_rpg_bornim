@@ -50,12 +50,8 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - **Ideen sind der Auftrag** (13.10.): Nutzer: „das ist dein Job, Ideen zu entwickeln und uns gegenseitig zu verbessern“. Zu jedem Thema eigene Ideen mit Empfehlung, und Korrekturen des Nutzers (drei Ebenen, Lagerfeuer als Dienst) offen übernehmen.
 - **Entscheidungen einzeln abwarten** (13.10.): „ich folge deiner Empfehlung“ galt einem Punkt, nicht allen.
 - **Rückfragen des Beraters** (Nutzer 13.10.) an den Nutzer immer im Gespräch stellen (nummeriert, Empfehlung), nicht über die Entscheidungsseite (die ist für Tom, Jerry, Diogenes); erst nach Entscheidung in die Notizen.
-- **Wiederholte Rückfragen prüfen** (12.10.): vorher in `OFFEN.md` nachsehen, ob Tom/Jerry sie schon geklärt haben.
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
 - **Hauptkopie nach Push aus `../bornim-main`** zeigt Notizen als „geändert“: nie committen, `git reset --hard HEAD` (freigegeben 12.10.).
-- **Erst prüfen, dann Kosten nennen** (48): technische Behauptungen vorher im Code prüfen.
-- **Auslagern in Startlektüre spart nichts** (65): vorher prüfen, ob das Ziel beim Start gar nicht gelesen wird.
-- **Gekürzte Regeln unabhängig gegenprüfen** (65): erste Fassung verlor Abschwächungen; immer zweite Prüfrunde durch einen unabhängigen Prüfer.
 - **Vor dem Absenden gegenlesen** (12.10.): jedes Fragezeichen in der nummerierten Liste, jeder Satz mit Bezug. Selbstverständliches nicht fragen (44d).
 - **Docs-Werkzeug** (41): einfache Zeilenumbrüche verschmelzen; Dialogzeilen mit Leerzeile trennen. Große Dokumente nur lesen, wenn daran gearbeitet wird.
 

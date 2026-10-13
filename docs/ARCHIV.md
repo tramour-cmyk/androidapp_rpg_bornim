@@ -513,6 +513,14 @@ Zeile 24 aus „Wer macht was“ (Stand 12.10.): | 24 | Animationen fehlen nach 
 - **Übergabe Tom (13.10., 01:52), ersetzt:** ### Tom (13.10., 01:52) – Selbstarbeit, an Nachfolger übergeben - **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g Katze), je ein Testreiter-Schalter. Rückfragen 60e–60i, 27.6a–c, 13x, 17r, 5la, 6g auf der Entscheidungsseite (Empf. je ja). - Entwürfe fertig auf eigenen Zweigen: `tom-27-6-tiefer-wald`, `tom-13-tempel-altar`, `tom-17-nachschwingen`, `tom-5l-leben`, `tom-katze` (Vorschau-Schalter in `UMGEBUNG.md`). - **Weiter:** Vorrat 6 Farbstimmung je Ort und Tageszeit (Entwurf hinter Schalter, neuer Zweig von `main`), dann 7 Spuren, 8 Kartenansicht. Vorschau nur mit engem `ONLY=`; Uhrzeit immer mit `date` ablesen.
 
 
+
+## Aus BERATER.md, 13.10., 12:2x (Lehren)
+
+- **Erst prüfen, dann Kosten nennen** (48): technische Behauptungen vorher im Code prüfen.
+- **Auslagern in Startlektüre spart nichts** (65): vorher prüfen, ob das Ziel beim Start gar nicht gelesen wird.
+- **Gekürzte Regeln unabhängig gegenprüfen** (65): erste Fassung verlor Abschwächungen; immer zweite Prüfrunde durch einen unabhängigen Prüfer.
+- **Wiederholte Rückfragen prüfen** (12.10.): vorher in `OFFEN.md` nachsehen, ob Tom/Jerry sie schon geklärt haben.
+
 ## Aus BERATER.md (12.10., 16:4x, gekürzt)
 
 - **Textkasten im Stil der Blenden** (42, 12.10.): heller Kasten mit rotem Sprecher war Game-Boy-Look gegen `STIL.md`. Ganz schwarz (nicht durchscheinend: lesbarer, näher an der Blende), dünner Goldrand, Sprecher Gold in Kapitälchen im Kasten, Text gebrochenes Weiß, Serife, Erzähltext kursiv. Erst nur Textkasten, Menüs später; Tom nach 13, erst Standbilder.
