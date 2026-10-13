@@ -59,7 +59,7 @@ class CaveSheetTest {
         File("build/preview").mkdirs()
         ImageIO.write(out, "png", File("build/preview/hoehle_plan.png"))
         // 13e.2: the things up close, each kind's tiles cut out of the plan at twice the size
-        val things = listOf(Tile.STALAGMITE, Tile.RUBBLE, Tile.CHEST, Tile.CRATE, Tile.BEDROLL)
+        val things = listOf(Tile.GLOWSHROOM, Tile.CRYSTAL, Tile.STALAGMITE, Tile.RUBBLE, Tile.CHEST, Tile.CRATE, Tile.BEDROLL)
         val spots = ArrayList<Pair<Int, Int>>()
         for (k in things) for (ty in 0 until map.height) for (tx in 0 until map.width) if (map.tile(tx, ty) == k) spots += tx to ty
         if (spots.isEmpty()) return

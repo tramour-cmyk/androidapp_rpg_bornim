@@ -3,6 +3,7 @@ package de.bornim.core.art
 import de.bornim.core.MapDef
 import de.bornim.core.Tile
 import kotlin.math.abs
+import kotlin.math.cos
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.min
@@ -332,6 +333,30 @@ object MapCaveIso {
             return best
         }
         return relief(tx, ty, 30.0, 0.012, 4520, rockDark, rockLight, 600.0, ::hAt)
+    }
+
+    /** A boulder fallen from the roof (13e, in place of the old flat one): one big rounded block, hip high, with one or two smaller ones leaning on it. */
+    private fun boulderTile(tx: Int, ty: Int): PixelImage {
+        val k = 1 + hash(tx, ty, 4531) % 3
+        val lumps = List(k) { q ->
+            val big = q == 0
+            val ci = -0.5 + (if (big) 0.0 else (rnd(tx, ty * 3 + q, 4532) - 0.5) * 0.6)
+            val cj = -0.5 + (if (big) 0.0 else 0.18 + rnd(tx * 3 + q, ty, 4533) * 0.15)
+            val r = if (big) 0.36 + rnd(tx, ty, 4534) * 0.06 else 0.14 + rnd(q, tx, 4535) * 0.06
+            doubleArrayOf(ci, cj, r, r * (if (big) 95.0 else 110.0))
+        }
+        fun hAt(i: Double, j: Double): Double {
+            var best = 0.0
+            for (c in lumps) {
+                // a block, not an egg: flatter on top, broken faces
+                val d = Math.hypot(i - c[0], (j - c[1]) * 1.1) * (0.9 + vnoise(i * 6 + tx, j * 6 + ty, 4536) * 0.25)
+                if (d >= c[2]) continue
+                val q = d / c[2]
+                best = max(best, c[3] * (1 - q.pow(3.0)).pow(0.6))
+            }
+            return best
+        }
+        return relief(tx, ty, 70.0, 0.012, 4540 + hash(tx, ty, 4537) % 30, rockDark, rockLight, 600.0, ::hAt)
     }
 
     // ------------------------------------------------------------------ timber and iron
@@ -721,6 +746,164 @@ object MapCaveIso {
         return c.done()
     }
 
+    // ------------------------------------------------------------------ things that glow: mushrooms and crystals (13e)
+
+    private val stemMat = m(0x8C9A90, grain = 0.15, sat = 0.5)
+    private val capMat = m(0x2E8C88, shine = 0.4, grain = 0.12, value = 0.95)
+    private val gillMat = m(0x1E5450, grain = 0.2, sat = 0.8)
+    private val stumpMat = m(0x3A2E26, grain = 0.1, sat = 0.55, value = 0.8)
+    private val mossMat = m(0x34402A, grain = 0.12, sat = 0.6, value = 0.6)
+    private val crystalMat = m(0x6A5296, shine = 0.7, grain = 0.12, sat = 0.75, value = 0.82)
+    private val crystalDarkMat = m(0x3E2E5E, shine = 0.45, grain = 0.12, sat = 0.75)
+    private val rockMat = m(0x4A443C, grain = 0.26, sat = 0.7)
+    private val glowCap = argb(0xB8FFF4)
+    private val glowCrystal = argb(0xD8C8FF)
+
+    /** A horizontal circle of radius 1 tile seen diagonally: half axes in art pixels (2:1). */
+    private val RX = TW / sqrt(2.0)
+    private val RY = TH / sqrt(2.0)
+
+    /**
+     * One glowing mushroom standing at ([i], [j]): a stem of [hgt] units, a cap of radius [r] (in tiles) seen from
+     * above at a slant, its rim dark with gills below, a pale glow on the crown. [lean] tips the cap sideways in pixels.
+     */
+    private fun Canvas.mushroom(i: Double, j: Double, r: Double, hgt: Double, lean: Double) {
+        val bx = x(i, j); val by = y(i, j)
+        val tx = bx + lean; val ty = y(i, j, hgt)
+        val rx = r * RX; val ry = r * RY
+        s.limb(bx, by, tx, ty + ry * 0.3, rx * 0.22, rx * 0.16, stemMat)
+        // the underside first (the gills, in shadow), then the dome over it
+        s.blob(tx, ty + ry * 0.35, rx, ry * 0.9, gillMat, depth = 0.4)
+        s.blob(tx, ty - ry * 0.25, rx * 0.97, ry + rx * 0.28, capMat, depth = 0.7)
+        s.flat(tx - rx * 0.28, ty - ry * 0.55, rx * 0.32, ry * 0.3, glowCap)
+    }
+
+    /**
+     * Glowing mushrooms on one tile (13e, in place of the old flat ones), seen diagonally, three ways: a crowd of small
+     * ones on a mossy hump, three or four tall ones bent towards each other, shelf fungi up a rotting stump. Ankle to
+     * knee high, so the hero is never hidden; walked over.
+     */
+    private fun mushrooms(v: Int, seed: Int): PixelImage {
+        val c = Canvas(110, 4600 + v)
+        when (v) {
+            0 -> {
+                c.shadow(-0.82, -0.82, -0.18, -0.18, 0.3)
+                c.s.blob(c.x(-0.5, -0.5), c.y(-0.5, -0.5, 1.5), 0.2 * RX, 0.2 * RY + 1.5, mossMat, depth = 0.25)
+                val items = List(9) { k ->
+                    val a = rnd(k, seed, 4601) * 2 * PI; val d = sqrt(rnd(k, seed, 4602)) * 0.27
+                    doubleArrayOf(-0.5 + cos(a) * d, -0.5 + sin(a) * d, 0.035 + rnd(k, seed, 4603) * 0.03, 9 + rnd(k, seed, 4604) * 9)
+                }.sortedBy { it[0] + it[1] }
+                for ((k, it) in items.withIndex()) c.mushroom(it[0], it[1], it[2], it[3], (rnd(k, seed, 4605) - 0.5) * 3)
+            }
+            1 -> {
+                c.shadow(-0.86, -0.86, -0.14, -0.14, 0.3)
+                val items = List(3 + seed % 2) { k ->
+                    val a = (k + rnd(k, seed, 4611) * 0.6) * 2 * PI / 3.5; val d = 0.12 + rnd(k, seed, 4612) * 0.14
+                    doubleArrayOf(-0.5 + cos(a) * d, -0.5 + sin(a) * d, 0.07 + rnd(k, seed, 4613) * 0.05, 16 + rnd(k, seed, 4614) * 14, cos(a) - sin(a))
+                }.sortedBy { it[0] + it[1] }
+                // the tall ones lean out from the middle of the clump
+                for (it in items) c.mushroom(it[0], it[1], it[2], it[3], it[4] * 3)
+            }
+            else -> {
+                c.shadow(-0.8, -0.8, -0.2, -0.2, 0.35)
+                val bx = c.x(-0.5, -0.5); val by = c.y(-0.5, -0.5)
+                // a stump, broken off, black with rot; roots into the floor
+                for (k in 0 until 4) {
+                    val a = k * PI / 2 + 0.6
+                    c.s.limb(bx, by - 4, bx + cos(a) * 16, by + sin(a) * 6, 4.0, 1.5, stumpMat)
+                }
+                c.s.limb(bx, by - 2, bx + 1, by - 30, 10.0, 8.0, stumpMat)
+                c.s.blob(bx + 1, by - 30, 8.0, 3.5, m(0x4A3C30, grain = 0.15, sat = 0.6, value = 0.8), depth = 0.3)
+                // shelves stepping up round the stump, on the half the camera sees
+                for (k in 0 until 6) {
+                    val a = ((k * 0.62 + seed * 0.37) % 1.0 - 0.5) * 2.4
+                    val ox = sin(a) * 8.5; val oy = cos(a) * 3.0
+                    val y = by - 6 - k * 4.0 + oy; val r = 6.0 - k * 0.45
+                    c.s.blob(bx + ox, y + 1.4, r, 2.0, gillMat, depth = 0.4)
+                    c.s.blob(bx + ox, y, r, 2.6, capMat, depth = 0.5)
+                    c.s.flat(bx + ox - 1.5, y - 0.8, r * 0.35, 0.8, glowCap)
+                }
+                for (k in 0 until 3) c.mushroom(-0.32 - rnd(k, seed, 4621) * 0.12, -0.28 - rnd(k, seed, 4622) * 0.1, 0.03, 6.0 + k * 2, 0.0)
+            }
+        }
+        return c.done()
+    }
+
+    /**
+     * Crystals growing out of the foot of the rock face that turns to the floor (the floor at [di], [dj] from the
+     * tile, one of them ±1): five to eight six-sided shards from a broken base, leaning out into the room, each a real
+     * prism with a pointed tip, lit faces paler, tips glowing; three looks from [v].
+     */
+    private fun crystals(v: Int, di: Int, dj: Int, seed: Int): PixelImage {
+        val c = Canvas(170, 4700 + v)
+        // the foot of the face: along the tile's side towards the floor
+        fun foot(t: Double): DoubleArray = when {
+            di > 0 -> doubleArrayOf(-0.12, -1 + t)
+            dj > 0 -> doubleArrayOf(-1 + t, -0.12)
+            di < 0 -> doubleArrayOf(-0.88, -1 + t)
+            else -> doubleArrayOf(-1 + t, -0.88)
+        }
+        val n = when (v) { 0 -> 7; 1 -> 4; else -> 9 }
+        class Shard(val b: DoubleArray, val d: DoubleArray, val len: Double, val r: Double)
+        val shards = List(n) { k ->
+            val t = if (v == 1) 0.3 + k * 0.14 + (rnd(k, seed, 4701) - 0.5) * 0.1 else 0.1 + (k + rnd(k, seed, 4701)) / n * 0.8
+            val b = foot(t)
+            // mostly up, leaning out into the room and a little sideways
+            val out = 0.12 + rnd(k, seed, 4702) * 0.3; val side = (rnd(k, seed, 4703) - 0.5) * 0.6
+            var dx = di * out + (if (di == 0) side else 0.0); var dy = dj * out + (if (dj == 0) side else 0.0); var dz = 1.0
+            val l = sqrt(dx * dx + dy * dy + dz * dz); dx /= l; dy /= l; dz /= l
+            val big = if (v == 1) k == 1 else k == 0
+            val len = (if (big) 95.0 else 32.0 + rnd(k, seed, 4704) * 40) * (if (v == 2) 0.7 else 1.0)
+            Shard(b, doubleArrayOf(dx, dy, dz), len, (if (big) 0.12 else 0.06 + rnd(k, seed, 4705) * 0.04) * TILE_Z)
+        }.sortedBy { it.b[0] + it.b[1] }
+        // the broken rock they grow from
+        val mid = foot(0.5)
+        c.shadow(mid[0] - 0.35, mid[1] - 0.35, mid[0] + 0.35, mid[1] + 0.35, 0.3)
+        // the view and the light, in tiles with z in units / TILE_Z
+        val vx = 0.612; val vy = 0.612; val vz = 0.5
+        fun px(p: DoubleArray) = c.x(p[0], p[1]) to c.y(p[0], p[1], p[2])
+        for ((k, sh) in shards.withIndex()) {
+            val d = sh.d
+            // two directions across the shard
+            var ux = -d[1]; var uy = d[0]; var uz = 0.0
+            val ul = sqrt(ux * ux + uy * uy).coerceAtLeast(1e-6); ux /= ul; uy /= ul
+            val wx = d[1] * uz - d[2] * uy; val wy = d[2] * ux - d[0] * uz; val wz = d[0] * uy - d[1] * ux
+            val r = sh.r / TILE_Z; val len = sh.len / TILE_Z
+            val turn = rnd(k, seed, 4706) * PI
+            fun ring(t: Double, a: Double) = doubleArrayOf(
+                sh.b[0] + d[0] * t + r * (cos(a) * ux + sin(a) * wx),
+                sh.b[1] + d[1] * t + r * (cos(a) * uy + sin(a) * wy),
+                (d[2] * t + r * (cos(a) * uz + sin(a) * wz)) * TILE_Z)
+            val apex = doubleArrayOf(sh.b[0] + d[0] * len, sh.b[1] + d[1] * len, d[2] * len * TILE_Z)
+            for (f in 0 until 6) {
+                val a0 = turn + f * PI / 3; val a1 = a0 + PI / 3; val am = a0 + PI / 6
+                // the face's normal: outwards across the shard
+                val nx = cos(am) * ux + sin(am) * wx; val ny = cos(am) * uy + sin(am) * wy; val nz = cos(am) * uz + sin(am) * wz
+                val facing = nx * vx + ny * vy + nz * vz
+                if (facing <= 0) continue
+                // to the picture: right (1, −1, 0)/√2, up (−1, −1, 2·0.866)/…, towards us the view
+                val sxn = (nx - ny) * 0.707; val syn = -(-0.354 * nx - 0.354 * ny + 0.866 * nz)
+                val lit = sxn > -0.1
+                val p0 = px(ring(0.0, a0)); val p1 = px(ring(0.0, a1)); val q1 = px(ring(len * 0.78, a1)); val q0 = px(ring(len * 0.78, a0)); val ap = px(apex)
+                c.s.poly(if (lit) crystalMat else crystalDarkMat, p0.first, p0.second, p1.first, p1.second, q1.first, q1.second, q0.first, q0.second,
+                    tiltX = sxn * 0.8, tiltY = syn * 0.8, bevel = 0.6)
+                c.s.poly(if (lit) crystalMat else crystalDarkMat, q0.first, q0.second, q1.first, q1.second, ap.first, ap.second,
+                    tiltX = sxn * 0.7, tiltY = syn * 0.7 - 0.25, bevel = 0.5)
+                // an edge catching the glow
+                if (lit) c.s.line(q0.first, q0.second, ap.first, ap.second, glowCrystal)
+            }
+            val ap = px(apex); c.s.dot(ap.first, ap.second, glowCrystal)
+        }
+        // broken stone and grit round their feet
+        for (k in 0 until 5) {
+            val p = foot(0.15 + rnd(k, seed, 4710) * 0.7)
+            val (x, y) = px(doubleArrayOf(p[0] + di * 0.1 * rnd(k, seed, 4711), p[1] + dj * 0.1 * rnd(k, seed, 4711), 1.5))
+            val rr = 2.0 + rnd(k, seed, 4712) * 4.0
+            c.s.blob(x, y, rr, rr * 0.6, rockMat, depth = 0.6)
+        }
+        return c.done()
+    }
+
     // ------------------------------------------------------------------ the tiles
 
     private fun isRock(t: Tile) = t == Tile.CAVE_WALL || t == Tile.CRYSTAL || t == Tile.TORCH
@@ -825,14 +1008,24 @@ object MapCaveIso {
             }
             Tile.STALAGMITE -> return listOf(thing(map, tx, ty, "${map.id}/stal/$tx/$ty") { stalagmites(tx, ty) })
             Tile.RUBBLE -> return listOf(thing(map, tx, ty, "${map.id}/rubble/$tx/$ty", flat = true) { rubbleTile(tx, ty) })
+            Tile.ROCK -> return listOf(thing(map, tx, ty, "${map.id}/boulder/$tx/$ty") { boulderTile(tx, ty) })
+            Tile.GLOWSHROOM -> {
+                val sv = Math.floorMod(hash(tx, ty, 46), 3)
+                return listOf(thing(map, tx, ty, "shrooms/$sv/${(tx * 7 + ty) % 5}", flat = true) { mushrooms(sv, (tx * 7 + ty) % 5) })
+            }
             else -> {}
         }
         if (!isRock(t)) return null
         val edge = (-1..1).any { a -> (-1..1).any { b -> !isRock(map.tile(tx + a, ty + b)) } }
         if (!edge) return if (t == Tile.CAVE_WALL) emptyList() else MapCave.objects(map, tx, ty, frame, chestOpen, gateOpen)
         val wall = thing(map, tx, ty, "${map.id}/rock/$tx/$ty") { rockTile(map, tx, ty) }
-        // a crystal (and a torch with no back face to hang on) keeps its old picture, in front of the wall;
-        // a torch on a back face is drawn live by the screen (13e.3, 10: [torchFace])
+        // crystals grow from the face towards the floor (13e); a torch on a back face is drawn live by the screen
+        // (13e.3, 10: [torchFace]), one with no back face to hang on keeps its old picture, in front of the wall
+        if (t == Tile.CRYSTAL) {
+            val (di, dj) = listOf(0 to 1, 1 to 0, 0 to -1, -1 to 0).firstOrNull { (a, b) -> !isRock(map.tile(tx + a, ty + b)) } ?: return listOf(wall)
+            val cv = Math.floorMod(hash(tx, ty, 47), 3)
+            return listOf(wall, thing(map, tx, ty, "crystals/$cv/$di/$dj/${(tx + ty * 3) % 4}") { crystals(cv, di, dj, (tx + ty * 3) % 4) })
+        }
         val rest = if (t == Tile.CAVE_WALL || (t == Tile.TORCH && torchFace(map, tx, ty) != null)) emptyList() else MapCave.objects(map, tx, ty, frame, chestOpen, gateOpen).orEmpty()
         return listOf(wall) + rest
     }
