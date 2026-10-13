@@ -203,6 +203,14 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.refresh()
             vm.toast = if (villageDay) t("Pim, Bram, Gwenna und Liska gehen je nach Uhrzeit an andere Plätze (eine Spielstunde ist eine Minute).", "Pim, Bram, Gwenna and Liska move between places by the hour (a game hour is a minute).") else t("Alle bleiben an ihrem Platz.", "Everyone keeps to their spot.")
         }
+        // draft: the cat in the inn
+        var cat by remember { mutableStateOf(de.bornim.core.art.MapCat.draft) }
+        PixelButton(t("Katze in der Schänke: ", "Cat in the inn: ") + (if (cat) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.art.MapCat.draft = !de.bornim.core.art.MapCat.draft
+            cat = de.bornim.core.art.MapCat.draft
+            vm.refresh()
+            vm.toast = if (cat) t("Eine Katze schläft am Herd und wechselt ab und zu den Platz (Runde gut drei Minuten).", "A cat sleeps by the hearth and now and then moves (a round of three minutes).") else t("Keine Katze.", "No cat.")
+        }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()
             vm.refresh()

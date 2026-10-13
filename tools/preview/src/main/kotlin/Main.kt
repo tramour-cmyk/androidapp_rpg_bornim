@@ -189,6 +189,8 @@ fun main() {
             if (System.getenv("SWINGMORE") != null) de.bornim.core.art.Dress.SWING_MORE = true
             // DORFTAG=1: the villagers go about their day (5l, draft)
             if (System.getenv("DORFTAG") != null) de.bornim.core.VillageDay.draft = true
+            // KATZEINN=ms with the inn shots: the cat (draft), that far into its round
+            if (System.getenv("KATZEINN") != null) { de.bornim.core.art.MapCat.draft = true; de.bornim.game.ui.HeroSwing.now = true; de.bornim.core.art.MapCat.shift = System.getenv("KATZEINN").toLongOrNull() ?: 0L }
             if (System.getenv("SWINGDRAFT") != null) { de.bornim.core.art.MapFigure.swingDraft = true; de.bornim.game.ui.HeroSwing.now = true }
             // PONDLIFE=1: frogs on the bank and dragonflies over the forest pond (27.6, draft)
             if (System.getenv("PONDLIFE") != null) de.bornim.core.art.PondLife.draft = true
@@ -287,6 +289,7 @@ fun main() {
     }
     if (System.getenv("BEASTDRAFT") != null) { renderBeastDrafts(); System.exit(0) }
     if (System.getenv("SWINGBILD") != null) { renderSwingDraft(); System.exit(0) }
+    if (System.getenv("KATZE") != null) { renderCatDraft(); System.exit(0) }
     if (System.getenv("DOLLDRAFT") != null) { renderShamanGhoulDrafts(); System.exit(0) }
     if (System.getenv("SHAMANDRAFT") != null) { renderShamanDraft(); System.exit(0) }
     if (System.getenv("VERMINDRAFT") != null) { renderVerminDrafts(); System.exit(0) }
