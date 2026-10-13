@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom 0.1.676** (Zweig `claude/tom-17-riemen`, ersetzt 0.1.670): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38393735424/artifacts/11810738534 · Prüfliste `e/t676.html`: Jorin ohne Zucken (55.1b), Anschlagbrett-Marke, 62f/62g (Leute, Dienste, Hausnamen). Nach „passt“: PR, zusammenführen (62d ja).
+- **Tom 0.1.681** (Zweig `claude/tom-17-riemen`, ersetzt 0.1.676): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38400375892/artifacts/11814774454 · Prüfliste `e/t681.html`: Kartenschalter behalten Zoom (62f), weiches Licht beim Drehen in der Höhle (13e). Nach „passt“: PR, zusammenführen (62d ja).
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Entscheidungsseite (65.3), nicht hier.
 
@@ -34,7 +34,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 40 | Lautstärke im Menü: Gesamt, Musik, Effekte (heute nur Musik an/aus) | Jerry | neu von `main` | Nutzer 12.10., 09:52. **40a ja (10:10):** drei Regler, Ortsklang bei Effekten |
 | 41 | Storyplan: je Kapitel Zusammenfassung, Quests, Dialoge; dann Plot Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | 41a–41d ja: Entwurf Kapitel 1 steht ([Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)), Texte in `docs/STORY.md` (Verzeichnis, Teildateien je Kapitel); Regel „Story und Dialoge“ in `CLAUDE.md`. Kapitel 2: Grobzusammenfassung „Das Graumoor“ im Dokument (15:2x), Rückfragen 41e–41h beim Nutzer |
 | 59e | Händler: Menge „Alle“, Vorrat je Laden | Tom (jetzt); Jerry mit 38/39 (Vorrat) | – | Entschieden 13.10. (Beschlüsse): „Alle“ beim Kaufen weg, beim Verkaufen mit Abfrage (in 0.1.660). Vorrat je Laden erst mit 38/39, nie nach Zeit/Rast, Menge nach Schwierigkeitsgrad |
-| 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, drei Ebenen (62e–62m) | Tom; 62m Jerry mit 39 | `claude/tom-17-riemen` | **62e–62m ja (Nutzer 13.10., 11:5x, Beschlüsse):** 62e in 0.1.670; **62f/62g ja (13:4x):** ins Spiel (4d06efe, Build 0.1.676). **Test 0.1.676 (14:5x):** Jorin, Marken, Schalter passen; Schalter setzte Zoom und Ausschnitt zurück → behoben (bc0d2d34), neuer Build; dann 62h drei Ebenen (Standbilder Landkarte), 62i–62k mit 64; 62l/62m später |
+| 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, drei Ebenen (62e–62m) | Tom; 62m Jerry mit 39 | `claude/tom-17-riemen` | **62e–62m ja (Nutzer 13.10., 11:5x, Beschlüsse):** 62e in 0.1.670; **62f/62g ja (13:4x):** ins Spiel (4d06efe, Build 0.1.676). **Test 0.1.676 (14:5x):** Jorin, Marken, Schalter passen; Schalter setzte Zoom und Ausschnitt zurück → behoben (bc0d2d34), neuer Build; **62h Entwurf** (52d3e482, `claude/tom-62h-landkarte`, `e/62h`: Pergament oder schwarz-gold, Empfehlung A), 62i–62k mit 64; 62l/62m später |
 | 64 | Questlog als Reiter „Chronik“ (Aufträge, Bisher geschehen) | Tom; Texte 64d Berater mit Nutzer | – | **64a–64e ja (Nutzer 13.10., 11:5x, Beschlüsse):** erst Standbilder, gebaut nach 62e; gleiche Daten wie die Karte; keine Questanzeige im Spielbild. **64d-Form ja (12:21):** Chronist, Einträge je Wendepunkt, Hörensagen mit Quelle (`BERATER.md`); Texte freigegeben (13:09): Vorlage `docs/STORY1.md` (Marken `[64d.…]`, `[62i.…]`, `[41.…]`) |
 | 66 | Licht im Dorf bei Nacht: Wache Jorin steht im Dunkeln | Tom | `claude/tom-66-laterne` | Nutzer 13.10., 12:18: „macht wenig Sinn“; Idee Laterne in der Hand oder Straßenlaterne. **66a A (Nutzer 13.10., 14:5x, Beschlüsse):** nur die zwei Laternen am Schlagbaum (`claude/tom-66-laterne`), als PR nach tom-17-riemen; Handlaterne auf der Merkliste (mit 55) |
 | 67 | Südrand des Dorfes: Feldweg hinter der Brücke, Wegweiser, Umkehr am Kartenrand | Tom | `claude/tom-67-suedrand` | **Nutzer 13.10., 13:14 ja:** nach 62e und 66, erst Standbild; Südstraße = Versorgungsweg, in Kapitel 1 nicht begehbar; Umkehr-Zeilen in `docs/STORY1.md` (`[67.…]`). Entwurf a191e253 (Weg, Wegweiser, Umkehr, Schritt zurück); Standbild: Ausgang noch von Bäumen verdeckt |
@@ -53,10 +53,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 14:10)
-- **0.1.676 beim Nutzer** (Zweig `claude/tom-17-riemen`, Prüfliste `e/t676.html`): Jorin-Fix 55.1b, Anschlagbrett-Marke, 62f/62g im Spiel (4d06efe: Merker `been` beim Betreten, `heard` an verschlossenen Türen, `seenAt` über `MapPeople.habitNow`, bis 3 Felder; Schalter weg). Nach „passt“: PR, Merge, Änderungshistorie: 59, 60e–k, 60j, 17r, 5la, 5la.2, 5la.3, 6g, 6f, 61a, 61, 62a, 62c, 62e, 62f/62g, 59e, 55.1a, 55.1b, 13x, 13v/27.6.
-- **66 Entwurf** auf `claude/tom-66-laterne` (von tom-17-riemen): zwei Laternen am Schlagbaum (Kacheln 15,2 und 20,2), Entscheidungsseite `e/66`, Empfehlung A. Erst nach Merge von tom-17-riemen als PR.
-- **Weiter:** 67 Südrand (Standbild), 13t alte Ansicht ausbauen, 62h Landkarte, 64 Chronik.
+### Tom (13.10., 15:27)
+- **0.1.681 beim Nutzer** (`claude/tom-17-riemen`, Prüfliste `e/t681.html`); Test 0.1.676 sonst passt. Nach „passt“: PR, Merge (Merge-Commit), Änderungshistorie: 59, 60e–k, 60j, 17r, 5la, 5la.2, 5la.3, 6g, 6f, 61a, 61, 62a, 62c, 62e, 62f/62g, 59e, 55.1a, 55.1b, 13x, 13v/27.6, 13e-Sicht weich.
+- Danach `claude/tom-66-laterne` (66a A) und `claude/tom-67-suedrand` (Entwurf a191e253+, `e/67`, wartet auf ja; enthält 66 und riemen bis cb905a16, vor PR riemen neu hineinführen) als PR.
+- **62h Entwurf** auf `claude/tom-62h-landkarte` (von riemen): `LandSheet.kt`, `LandView` hinter `MapLook.land`; `e/62h` wartet auf Stilwahl. Danach Ebenen zusammenbauen, dann 64 Chronik, 13t.
+- Lehre: während Builds und Rückfragen am nächsten Punkt weiterarbeiten (Nutzer 14:5x).
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
