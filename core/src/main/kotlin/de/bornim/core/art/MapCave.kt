@@ -823,7 +823,7 @@ object MapCave {
 
     private fun c3(c: Int) = doubleArrayOf(((c shr 16) and 0xFF).toDouble(), ((c shr 8) and 0xFF).toDouble(), (c and 0xFF).toDouble())
     private val FLOOR_D = c3(0x3A342F); private val FLOOR_L = c3(0x665E54); private val FLOOR_M = c3(0x4A4038); private val DUST = c3(0x5A4E40)
-    private val MOSS_G = c3(0x3A4A2C); private val POOL_RIM = c3(0x22201C); private val POOL_S = c3(0x1E2A2C); private val POOL_D = c3(0x06090A)
+    private val MOSS_G = c3(0x3A4A2C); private val POOL_RIM = c3(0x22201C); private val POOL_S = c3(0x1E2A2C); private val GLINT = c3(0x5E8A88); private val POOL_D = c3(0x06090A)
     private val PUD = c3(0x1E262A); private val SHEEN = c3(0x7A8890); private val EARTH = c3(0x3A2E22); private val MOSS_OUT = c3(0x3A4A26)
     private val FACE_L = c3(0x6E665C); private val FACE_D = c3(0x3A342F); private val STREAK = c3(0x2A3034)
     private val TOP_D = c3(0x2A2624); private val TOP_L = c3(0x4A423A); private val LIP = c3(0x6A6258); private val EDGE = c3(0x7A7268)
@@ -947,7 +947,7 @@ object MapCave {
                     fun wAt(px: Double, py: Double) = field(map, px, py, waterTiles) + (fbm(px, py, 48.0, 21) - 0.5) * 0.5
                     if (wv > 0.5) {
                         var d = 0.0
-                        while (d < bank && wAt(x - d - 1, y - d - 1) > 0.5) d += 1.0
+                        while (d < bank * 2.2 && wAt(x - d - 1, y - d - 1) > 0.5) d += 1.0
                         val t1 = ((wv - 0.5) * 3).coerceIn(0.0, 1.0)
                         for (k in 0..2) col[k] = POOL_S[k] + (POOL_D[k] - POOL_S[k]) * t1
                         if (d < bank) {
@@ -960,6 +960,14 @@ object MapCave {
                             val r = 1 - (d - bank) / (bank * 1.2)
                             val rip = 0.55 + 0.45 * vnoise(x * 0.5 + y * 0.5, (x - y) * 0.12, 6.0, 12)
                             mixIn(col, FACE_D, (r * 0.45 * rip).coerceIn(0.0, 1.0))
+                        }
+                        else {
+                            // still water: the cave's dim glow lies on it in thin streaks across the screen (lines of
+                            // equal x + y run level in the slant), broken up along them, brightest near the shore
+                            val u = x + y; val along = x - y
+                            val line = abs(sin(u * 0.27 + fbm(x, y, 40.0, 12) * 6))
+                            val gap = vnoise(along * 0.06, u * 0.03, 6.0, 14)
+                            if (line > 0.97 && gap > 0.5) mixIn(col, GLINT, (0.22 + (gap - 0.5) * 1.4).coerceIn(0.0, 0.55) * (1.1 - t1 * 0.5))
                         }
                         // a rare glint where a drop rings the water
                         if (vnoise(x, y, 5.0, 13) > 0.93 && t1 > 0.3) mixIn(col, SHEEN, 0.15)
@@ -1025,6 +1033,8 @@ object MapCave {
         // so they cross its edges
         fun plot(px: Int, py: Int, c: Int, a: Double = 1.0) {
             if (px !in 0 until size || py !in 0 until size || wallAt(px, py)) return
+            // seen diagonally the pool lies sunk below the floor: no cracks or grit on the water (13e.4)
+            if (MapCaveIso.draft && field(map, (px + ox).toDouble(), (py + oy).toDouble(), waterTiles) + (fbm((px + ox).toDouble(), (py + oy).toDouble(), 48.0, 21) - 0.5) * 0.5 > 0.45) return
             val o = img.pixels[py * size + px]
             img.pixels[py * size + px] = if (a >= 1.0) c else mix(o, c, a)
         }
