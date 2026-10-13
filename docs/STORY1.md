@@ -21,6 +21,25 @@ Im »Schlafenden Greif« brennt noch Licht. Die Wirtin fragt nicht viel.
 `[69.intro.5]` (Schwarzbild; gedämpft eine Glocke, Rufe, ein ferner Schrei: der Überfall, den der Held verschläft, 69b)
 Irgendwo schlägt eine Glocke. Du hörst sie nicht.
 
+## Tempelszene: Rückkehr des Amuletts (68)
+
+Freigegeben 13.10., 17:26. Abschluss von Kapitel 1, Form nach `STIL.md` „Zwischensequenzen“ (70): fünf Standbilder mit Überblendung, Du-Form, Musik „Ancient Legend“. Nach der Abgabe des Amuletts bittet Aldric den Helden zur Morgenandacht; die Szene beginnt, wenn der Held am nächsten Morgen den Tempel betritt (68a). Lyra leitet den Tempel, Bruder Osric ist ihr Gehilfe und Heiler (68d). Aldrics Bitte zur Andacht ist noch zu formulieren.
+
+`[68.tempel.1]` (Bild: Tempel innen, voll mit Dorfleuten, der Altar leer)
+Der Tempel ist voll. Tagelang war er kalt und leer.
+
+`[68.tempel.2]` (Bild: Aldric legt Lyra das Amulett in die Hände, der Held steht daneben)
+Aldric gibt Lyra das Amulett. Sie hält es lange, als könnte es zerbrechen.
+
+`[68.tempel.3]` (Bild: Lyra am Altar, Osric hält ihr die Kerze)
+Osric hält die Kerze ruhig. Lyra betet in Worten, die älter sind als der Tempel selbst.
+
+`[68.tempel.4]` (Bild: das erste Morgenlicht fällt durchs Tempelfenster auf das Amulett, die Gesichter werden hell)
+Das erste Licht des Tages fällt durchs Fenster. Das Amulett fängt es auf.
+
+`[68.tempel.5]` (Bild: Lyra allein, Blick in die Dämmerung; leiser Hinweis auf Kapitel 2)
+Bornim atmet auf. Nur Lyra sieht noch lange ins Grau hinaus.
+
 ## Chronik: Bisher geschehen (64d)
 
 Der Chronist erzählt in dritter Person, ein Eintrag je Wendepunkt. Hier in Spielreihenfolge, im Spiel steht der neueste oben. Überschrift fett, dann der Text.
@@ -204,7 +223,11 @@ Na, endlich wach, {name}? Für einen, der nur eine Nacht bleiben wollte, hast du
 
 ## Südrand des Dorfes (67)
 
-Bornim hat zwei Straßen. Die Südstraße über die Brücke ist der Versorgungsweg, über sie kam der Held; nur die Waldstraße nach Norden ist gesperrt. Hinter der Brücke führt ein Feldweg zum Kartenrand, mit Wegweiser „Süden: …“ (Stadtname kommt mit Kapitel 2). Am Rand bleibt der Held stehen, die Zeile kommt, er tritt einen Schritt zurück. Ab dem zweiten Versuch nur die kurze Einblendung ohne Wegklicken.
+Bornim hat zwei Straßen. Die Südstraße über die Brücke ist der Versorgungsweg, über sie kam der Held; nur die Waldstraße nach Norden ist gesperrt. Hinter der Brücke führt ein Feldweg zum Kartenrand, mit Wegweiser (Text `[67.schild]`). Am Rand bleibt der Held stehen, die Zeile kommt, er tritt einen Schritt zurück. Ab dem zweiten Versuch nur die kurze Einblendung ohne Wegklicken.
+
+`[67.schild]` (Wegweiser am Feldweg, Pfeil nach Süden; freigegeben 13.10., 17:26, ohne Entfernungsangabe)
+Rabenschanze
+(darunter klein) Schilfrode
 
 `[67.vor.1]` (vor dem Auftrag, erster Versuch)
 Du bist von Süden gekommen, um hier zu rasten. Weiterziehen kannst du später – erst willst du wissen, was in Bornim geschehen ist.
