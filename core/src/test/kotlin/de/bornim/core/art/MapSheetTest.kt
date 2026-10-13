@@ -11,20 +11,24 @@ class MapSheetTest {
 
     @Test
     fun everyPlaceIsDrawnWithTheHeroInRed() {
-        for (id in listOf("village", "inn", "shop", "elder", "temple", "forest", "deep_forest", "cave")) {
+        // the former pixel sheet (the ink sheet, on since 62h/62o, has no hero mark of its own: the menu draws it)
+        MapSheet.ink = false
+        try { for (id in listOf("village", "inn", "shop", "elder", "temple", "forest", "deep_forest", "cave")) {
             val m = World[id]
             val img = MapSheet.render(m, { _, _ -> true }, 2, 2)
             assertEquals(m.width * MapSheet.C + 2 * MapSheet.PAD, img.width)
             val c = MapSheet.PAD + 2 * MapSheet.C + MapSheet.C / 2
             assertTrue(red(img[c, c]), "$id: hero mark")
-        }
+        } } finally { MapSheet.ink = true }
     }
 
     @Test
     fun unknownGroundStaysBareParchment() {
         val m = World["forest"]
+        MapSheet.ink = false
         val known = MapSheet.render(m, { _, _ -> true })
         val none = MapSheet.render(m, { _, _ -> false })
+        MapSheet.ink = true
         // a tree tile far from the frame: drawn when known, bare parchment when not
         val x = MapSheet.PAD + 0 * MapSheet.C + MapSheet.C / 2; val y = MapSheet.PAD + 10 * MapSheet.C + MapSheet.C / 2
         assertTrue(known[x, y] != none[x, y])

@@ -36,6 +36,33 @@ class FogTest {
     }
 
     @Test
+    fun overALowCaveWall() {
+        // 13e, test of 0.1.689: by the camp fire in the cave the hero looks north over the low wall of row 12
+        // (a metre, floor on both sides) into the room beyond; the thick rock further west still hides what lies behind it
+        val g = game(Place("cave", 15, 14, Facing.UP))
+        g.state.minutes = 21 * 60
+        for (y in 8..15) println((0 until g.map.width).joinToString("") { x -> when (g.fog(x, y)) { Fog.VISIBLE -> "#"; Fog.SEEN -> "+"; Fog.HIDDEN -> "." } } + "   " + (0 until g.map.width).joinToString("") { x -> g.map.tile(x, y).ch.toString() })
+        assertEquals(Tile.CAVE_WALL, g.map.tile(15, 12))
+        assertEquals(Fog.VISIBLE, g.fog(15, 11), "beyond the low wall")
+        assertEquals(Fog.VISIBLE, g.fog(14, 10), "the room beyond")
+    }
+
+    @Test
+    fun theConeFollowsTheWayTheHeroLooksNotTheNearestMapDirection() {
+        // test 13.10., 17:5x (third report): by the camp fire the hero walked up the screen, up the diagonal of the map;
+        // the facing on the map snapped to the left, and the cone left the room beyond the low wall in the dark
+        val g = game(Place("cave", 15, 14, Facing.LEFT))
+        g.freeWalk.sync()
+        g.freeWalk.yaw = 270.0
+        val before = g.fog(16, 10)
+        g.freeWalk.yaw = 225.0
+        assertEquals(Fog.HIDDEN, before, "looking left along the map the room up the diagonal stays out of the cone")
+        assertEquals(Fog.VISIBLE, g.fog(15, 11), "beyond the low wall, up the diagonal")
+        assertEquals(Fog.VISIBLE, g.fog(16, 10), "the room beyond")
+        assertEquals(Fog.VISIBLE, g.fog(15, 12), "the wall itself")
+    }
+
+    @Test
     fun exploredStaysSeenAndIsSaved() {
         val g = game(Place("forest", 10, 20, Facing.UP))
         assertEquals(Fog.VISIBLE, g.fog(10, 16))

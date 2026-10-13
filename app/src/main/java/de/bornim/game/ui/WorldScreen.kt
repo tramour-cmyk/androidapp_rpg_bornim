@@ -1721,7 +1721,7 @@ private object LightImage {
         var moving = false
         val sw = map.width * SUB
         val p = game.state.place
-        val gk = "${map.id}/${p.x}/${p.y}/${p.facing}/${game.isNight}/${de.bornim.core.Game.seeAll}"
+        val gk = "${map.id}/${p.x}/${p.y}/${Math.round(game.freeWalk.lookYaw() / 5.0)}/${game.isNight}/${de.bornim.core.Game.seeAll}"
         val newGoals = fresh || gk != goalKey
         if (newGoals) { goalKey = gk; if (subGoal.size != sub.size) subGoal = FloatArray(sub.size) }
         for (ty in 0 until map.height) for (tx in 0 until map.width) {
@@ -2037,7 +2037,7 @@ private fun DrawScope.drawMapLight(
     // the fog of war over it: what comes into sight or goes out of it fades over a moment instead of switching
     // (test 13.10.: turning round in the cave was "almost like a light switch")
     val fade = if (fog) LightImage.fade(game, map, clock) else false
-    val fogKey = if (fog) "${game.state.place.x},${game.state.place.y},${game.state.place.facing}/${LightImage.fadeStep}" else "-"
+    val fogKey = if (fog) "${game.state.place.x},${game.state.place.y},${Math.round(game.freeWalk.lookYaw() / 5.0)}/${LightImage.fadeStep}" else "-"
     if (LightImage.fogKey != fogKey && (!fade || clock - LightImage.fogAt >= 40 || LightImage.fogKey == "")) {
         LightImage.fogKey = fogKey
         LightImage.fogAt = clock

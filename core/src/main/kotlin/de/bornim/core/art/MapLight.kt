@@ -92,7 +92,8 @@ object MapLight {
             val tx = ((sx + (x - sx) * f) / T).toInt(); val ty = ((sy + (y - sy) * f) / T).toInt()
             if ((tx == stx && ty == sty) || (tx == dtx && ty == dty)) continue
             if (intoRock && dist * (1 - f) < T * 1.3) continue
-            if (map.tile(tx, ty) in opaque) return false
+            // seen diagonally a cave's low walls (about a metre) let the light of a fire over them (13e, test of 0.1.689)
+            if (map.tile(tx, ty) in opaque && !(map.kind == MapKind.CAVE && MapCaveIso.low(map, tx, ty))) return false
         }
         return true
     }

@@ -14,6 +14,9 @@ object MapSheet {
     /** Draft switch (test tab, preview `KARTENBLATT=1`). */
     @Volatile var draft = true
 
+    /** 62h/62n (draft, preview `KARTENTUSCHE=1`): drawn like the land map, [MapInk.S] times finer ([MapInk]). */
+    @Volatile var ink = true
+
     /** Pixels per tile, and the margin of bare parchment round the map. */
     const val C = 8
     const val PAD = 10
@@ -40,7 +43,23 @@ object MapSheet {
      * The drawing of [map]; [seen] says which tiles the hero knows, ([heroX], [heroY]) where it stands (negative:
      * not on this map).
      */
+    /** The part of the map the sheet shows, in tiles: x, y, width, height. All of it, except a cave in ink (62o):
+     *  a sheet of one fixed size, the explored part in its middle, so the sheet never tells how big the cave is. */
+    class Window(val x: Int, val y: Int, val w: Int, val h: Int)
+    const val CAVE_SHEET = 30
+    fun window(map: MapDef, seen: (Int, Int) -> Boolean): Window {
+        if (!ink || map.kind != MapKind.CAVE) return Window(0, 0, map.width, map.height)
+        var x0 = Int.MAX_VALUE; var y0 = Int.MAX_VALUE; var x1 = -1; var y1 = -1
+        for (y in 0 until map.height) for (x in 0 until map.width) if (seen(x, y)) { x0 = minOf(x0, x); y0 = minOf(y0, y); x1 = maxOf(x1, x); y1 = maxOf(y1, y) }
+        if (x1 < 0) return Window(0, 0, CAVE_SHEET, CAVE_SHEET)
+        // grows only in whole sheets, so even a long cave does not show its size to the tile
+        fun size(n: Int) = ((n + 4 + CAVE_SHEET - 1) / CAVE_SHEET) * CAVE_SHEET
+        val w = size(x1 - x0 + 1); val h = size(y1 - y0 + 1)
+        return Window((x0 + x1 + 1) / 2 - w / 2, (y0 + y1 + 1) / 2 - h / 2, w, h)
+    }
+
     fun render(map: MapDef, seen: (Int, Int) -> Boolean, heroX: Int = -1, heroY: Int = -1): PixelImage {
+        if (ink) return MapInk.render(map, seen)
         val w = map.width * C + 2 * PAD; val h = map.height * C + 2 * PAD
         val img = PixelImage(w, h)
         // parchment: warm, blotchy, darker towards the edges
@@ -159,6 +178,15 @@ object MapSheet {
         for (wp in map.warps) {
             if (!known(wp.x, wp.y)) continue
             val cx = px(wp.x, wp.y) + C / 2; val cy = py(wp.x, wp.y) + C / 2
+            // 62p: a cave is a ground plan of its own; its mouth is drawn where the way goes in (tapping it opens the plan)
+            if (de.bornim.core.World.maps[wp.to.map]?.kind == MapKind.CAVE && map.kind != MapKind.CAVE) {
+                for (y in -4..3) for (x in -5..5) {
+                    val d = x * x / 25.0 + (y + 1) * (y + 1) / 16.0
+                    if (y <= 2 && d <= 1.0) img.set(cx + x, cy + y, mix(img[cx + x, cy + y], if (d > 0.7) INK else 0xFF2A2018.toInt(), 0.9))
+                }
+                for (x in -6..6) img.set(cx + x, cy + 3, INK_SOFT)
+                continue
+            }
             val (dx, dy) = when {
                 wp.y == 0 -> 0 to -1; wp.y == map.height - 1 -> 0 to 1
                 wp.x == 0 -> -1 to 0; wp.x == map.width - 1 -> 1 to 0
