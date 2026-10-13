@@ -24,9 +24,9 @@ import de.bornim.core.Lang
 import de.bornim.core.MapMarks
 import de.bornim.core.Story
 
-/** 64 (draft): the chronicle as a tab of its own; preview switch. */
+/** 64: the chronicle as a tab of its own (draft yes, user 13.10., 16:08: now in the game). */
 object ChronicleLook {
-    @Volatile var draft = false
+    @Volatile var draft = true
     /** Which part opens: false the tasks, true "so far". */
     @Volatile var previewSoFar = false
 }
