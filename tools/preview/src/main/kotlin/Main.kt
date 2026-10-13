@@ -185,6 +185,8 @@ fun main() {
             if (System.getenv("PFLASTERDRAFT") == "2") de.bornim.core.art.MapGround.cobbleMid = true
             else if (System.getenv("PFLASTERDRAFT") != null) de.bornim.core.art.MapGround.cobbleDraft = true
             // SWINGDRAFT=1: the cloak swings on when the hero stops (17, draft)
+            // SWINGMORE=1: long hair and the quiver swing on too (17 Rest, draft)
+            if (System.getenv("SWINGMORE") != null) de.bornim.core.art.Dress.SWING_MORE = true
             if (System.getenv("SWINGDRAFT") != null) { de.bornim.core.art.MapFigure.swingDraft = true; de.bornim.game.ui.HeroSwing.now = true }
             // PONDLIFE=1: frogs on the bank and dragonflies over the forest pond (27.6, draft)
             if (System.getenv("PONDLIFE") != null) de.bornim.core.art.PondLife.draft = true
