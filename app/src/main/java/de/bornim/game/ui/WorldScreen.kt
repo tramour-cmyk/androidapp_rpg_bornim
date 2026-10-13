@@ -103,11 +103,7 @@ fun PlayScreen(vm: GameViewModel) {
 fun WorldScreen(vm: GameViewModel, game: Game) {
     val rev = vm.tick
     var heldDir by remember { mutableStateOf<Facing?>(null) }
-    var tappedDir by remember { mutableStateOf<Facing?>(null) }
     var running by remember { mutableStateOf(false) }
-    var progress by remember { mutableFloatStateOf(1f) }
-    var fromX by remember { mutableIntStateOf(game.state.place.x) }
-    var fromY by remember { mutableIntStateOf(game.state.place.y) }
     // A walk planned by tapping on the map.
     var route by remember { mutableStateOf<Route?>(null) }
     var routeIdx by remember { mutableIntStateOf(0) }
@@ -139,10 +135,8 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
 
     // Movement loop: grid steps with a short slide animation.
     LaunchedEffect(game) {
-        var bumped: Facing? = null
         var lastFrame = 0L
         while (isActive) {
-            MapSight.follow(game.map)
             // turned round at the edge of the map (67): once the line is read, one step back the way the hero came
             if (game.mode == Mode.Explore && !VeilMemory.active) game.stepBack?.let { d ->
                 game.stepBack = null
@@ -154,97 +148,47 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     waypoints = listOf((tx + 0.5) to (ty + 0.5))
                 }
             }
-            if (MapSight.diagonal) {
-                // free walking (13g): any direction, the world and its rules still on the tiles
-                val fw = game.freeWalk
-                fw.sync()
-                tappedDir = null
-                // behind the black screen between places the hero stands still (24.1)
-                val sv = if (VeilMemory.active) null else stick ?: heldDir?.let { Offset(it.dx.toFloat(), it.dy.toFloat()) }
-                var vx = 0.0; var vy = 0.0
-                val r = route
-                if (game.mode != Mode.Explore || VeilMemory.active) { route = null; waypoints = emptyList() }
-                if (sv != null) {
-                    route = null; waypoints = emptyList()
-                    // the drag on the screen, turned into the map
-                    vx = (sv.x + 2.0 * sv.y) / 2; vy = (2.0 * sv.y - sv.x) / 2
-                } else if (r != null && waypoints.isNotEmpty()) {
-                    // walk straight to the furthest tile centre of the planned way that can be reached in a line
-                    val wp = waypoints
-                    var k = 0
-                    for (i in wp.indices.reversed()) if (fw.clear(wp[i].first, wp[i].second)) { k = i; break }
-                    val (gx, gy) = wp[k]
-                    val dx = gx - fw.x; val dy = gy - fw.y
-                    if (k == wp.size - 1 && dx * dx + dy * dy < 0.01) {
-                        // arrived: turn towards the target and use it
-                        route = null; waypoints = emptyList()
-                        r.face?.let { game.face(it) }
-                        if (r.interact) pressA() else vm.refresh()
-                    } else { vx = dx; vy = dy }
-                } else if (r != null) {
-                    route = null
-                    r.face?.let { game.face(it) }
-                    if (r.interact) pressA()
-                }
-                withFrameMillis { now ->
-                    val dt = if (lastFrame == 0L) 16L else (now - lastFrame).coerceIn(0L, 100L)
-                    lastFrame = now
-                    if (vx != 0.0 || vy != 0.0) {
-                        // a tapped walk slows down for the last bit so it does not overshoot the middle of the tile
-                        val left = if (sv == null && waypoints.isNotEmpty()) kotlin.math.hypot(vx, vy) else 9.0
-                        val pace = (if (running) de.bornim.core.FreeWalk.RUN else de.bornim.core.FreeWalk.WALK) * (if (sv == null) 1.15 else 1.0)
-                        fw.walk(vx, vy, dt, pace * minOf(1.0, 0.25 + left * 4), now)
-                    } else fw.walk(0.0, 0.0, dt, 0.0, now)
-                }
-                vm.refresh()
-                continue
-            }
-            lastFrame = 0L
-            val manual = if (VeilMemory.active) null else heldDir ?: tappedDir
-            tappedDir = null
-            if (VeilMemory.active) route = null
-            if (manual != null) route = null
+            // free walking (13g): any direction, the world and its rules still on the tiles
+            val fw = game.freeWalk
+            fw.sync()
+            // behind the black screen between places the hero stands still (24.1)
+            val sv = if (VeilMemory.active) null else stick ?: heldDir?.let { Offset(it.dx.toFloat(), it.dy.toFloat()) }
+            var vx = 0.0; var vy = 0.0
             val r = route
-            val routeDir = if (manual == null && r != null && routeIdx < r.steps.size) r.steps[routeIdx] else null
-            val dir = manual ?: routeDir
-            if (game.mode != Mode.Explore) route = null
-            if (dir != null && game.mode == Mode.Explore) {
-                val result = game.move(dir)
-                if (result is Move.Stepped) {
-                    bumped = null
-                    if (routeDir != null) routeIdx++
-                    // Set the animation start before redrawing, otherwise one frame shows
-                    // the hero already on the target tile and it visibly jumps back.
-                    fromX = result.fromX
-                    fromY = result.fromY
-                    progress = 0f
-                    vm.refresh()
-                    // the ground sets the pace: brisk on the path, wading through tall grass
-                    val ground = de.bornim.core.Terrain.stepFactor(game.map.tile(game.state.place.x, game.state.place.y)).toFloat()
-                    val duration = (if (running) 110f else if (routeDir != null) 170f else 200f) * ground * de.bornim.core.Terrain.PACE.toFloat()
-                    val start = withFrameMillis { it }
-                    while (progress < 1f) {
-                        withFrameMillis { progress = ((it - start) / duration).coerceAtMost(1f) }
-                    }
-                    game.afterStep()
-                    vm.refresh()
-                } else {
-                    if (routeDir != null) route = null
-                    // One short buzz when walking into a wall, not a constant rattle.
-                    if (bumped != dir && manual != null) buzz()
-                    bumped = dir
-                    vm.refresh()
-                    delay(150)
-                }
-            } else if (r != null && routeIdx >= r.steps.size && game.mode == Mode.Explore) {
-                // Arrived: turn towards the target and use it.
+            if (game.mode != Mode.Explore || VeilMemory.active) { route = null; waypoints = emptyList() }
+            if (sv != null) {
+                route = null; waypoints = emptyList()
+                // the drag on the screen, turned into the map
+                vx = (sv.x + 2.0 * sv.y) / 2; vy = (2.0 * sv.y - sv.x) / 2
+            } else if (r != null && waypoints.isNotEmpty()) {
+                // walk straight to the furthest tile centre of the planned way that can be reached in a line
+                val wp = waypoints
+                var k = 0
+                for (i in wp.indices.reversed()) if (fw.clear(wp[i].first, wp[i].second)) { k = i; break }
+                val (gx, gy) = wp[k]
+                val dx = gx - fw.x; val dy = gy - fw.y
+                if (k == wp.size - 1 && dx * dx + dy * dy < 0.01) {
+                    // arrived: turn towards the target and use it
+                    route = null; waypoints = emptyList()
+                    r.face?.let { game.face(it) }
+                    if (r.interact) pressA() else vm.refresh()
+                } else { vx = dx; vy = dy }
+            } else if (r != null) {
                 route = null
                 r.face?.let { game.face(it) }
-                if (r.interact) pressA() else vm.refresh()
-            } else {
-                if (heldDir == null) bumped = null
-                withFrameMillis { }
+                if (r.interact) pressA()
             }
+            withFrameMillis { now ->
+                val dt = if (lastFrame == 0L) 16L else (now - lastFrame).coerceIn(0L, 100L)
+                lastFrame = now
+                if (vx != 0.0 || vy != 0.0) {
+                    // a tapped walk slows down for the last bit so it does not overshoot the middle of the tile
+                    val left = if (sv == null && waypoints.isNotEmpty()) kotlin.math.hypot(vx, vy) else 9.0
+                    val pace = (if (running) de.bornim.core.FreeWalk.RUN else de.bornim.core.FreeWalk.WALK) * (if (sv == null) 1.15 else 1.0)
+                    fw.walk(vx, vy, dt, pace * minOf(1.0, 0.25 + left * 4), now)
+                } else fw.walk(0.0, 0.0, dt, 0.0, now)
+            }
+            vm.refresh()
         }
     }
 
@@ -384,7 +328,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 .clipToBounds()
                 .background(Color.Black)
         ) {
-            MapView(game, rev, progress, fromX, fromY, route?.target, clock)
+            MapView(game, rev, route?.target, clock)
             if (touch) {
                 TouchLayer(
                     onDir = { d -> heldDir = d },
@@ -394,7 +338,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                         if (dialog != null) {
                             pressA()
                         } else if (game.mode == Mode.Explore) {
-                            val cam = camera(game, w, h, progress, fromX, fromY)
+                            val cam = camera(game, w, h)
                             val fx = floor(cam.mapX(pos.x, pos.y) / WorldArt.T).toInt()
                             val fy = floor(cam.mapY(pos.x, pos.y) / WorldArt.T).toInt()
                             // seen diagonally in a room, the thing whose picture is tapped counts, not the floor behind it (13p.5)
@@ -449,7 +393,6 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 },
                 actionDim = dialog == null && action == null,
                 onDir = { d ->
-                    if (d != null && heldDir == null) tappedDir = d
                     heldDir = d
                 },
                 onAction = { pressA() },
@@ -469,34 +412,32 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
  */
 private class Cam(
     val scale: Int, val x: Int, val y: Int, val heroX: Int, val heroY: Int,
-    val viewW: Float, val viewH: Float, val diagonal: Boolean = false,
+    val viewW: Float, val viewH: Float,
     /** Translation of the diagonal mapping, in screen pixels. */
     val tx: Float = 0f, val ty: Float = 0f,
 ) {
     private val k = MapSight.K
-    fun toScreenX(sx: Float, sy: Float) = if (diagonal) k * (sx - sy) + tx else sx
-    fun toScreenY(sx: Float, sy: Float) = if (diagonal) k / 2 * (sx + sy) + ty else sy
+    fun toScreenX(sx: Float, sy: Float) = k * (sx - sy) + tx
+    fun toScreenY(sx: Float, sy: Float) = k / 2 * (sx + sy) + ty
 
     /** The map pixel under a point of the screen. */
-    fun mapX(px: Float, py: Float): Float = if (!diagonal) px / scale + x else {
+    fun mapX(px: Float, py: Float): Float {
         val u = (px - tx) / k; val v = (py - ty) * 2 / k
-        (u + v) / 2 / scale + x
+        return (u + v) / 2 / scale + x
     }
-    fun mapY(px: Float, py: Float): Float = if (!diagonal) py / scale + y else {
+    fun mapY(px: Float, py: Float): Float {
         val u = (px - tx) / k; val v = (py - ty) * 2 / k
-        (v - u) / 2 / scale + y
+        return (v - u) / 2 / scale + y
     }
 
-    /** The mapping as a matrix for the canvas (identity when straight). */
+    /** The mapping as a matrix for the canvas. */
     fun matrix(): androidx.compose.ui.graphics.Matrix = androidx.compose.ui.graphics.Matrix().apply {
-        if (diagonal) {
-            values[androidx.compose.ui.graphics.Matrix.ScaleX] = k
-            values[androidx.compose.ui.graphics.Matrix.SkewX] = -k
-            values[androidx.compose.ui.graphics.Matrix.SkewY] = k / 2
-            values[androidx.compose.ui.graphics.Matrix.ScaleY] = k / 2
-            values[androidx.compose.ui.graphics.Matrix.TranslateX] = tx
-            values[androidx.compose.ui.graphics.Matrix.TranslateY] = ty
-        }
+        values[androidx.compose.ui.graphics.Matrix.ScaleX] = k
+        values[androidx.compose.ui.graphics.Matrix.SkewX] = -k
+        values[androidx.compose.ui.graphics.Matrix.SkewY] = k / 2
+        values[androidx.compose.ui.graphics.Matrix.ScaleY] = k / 2
+        values[androidx.compose.ui.graphics.Matrix.TranslateX] = tx
+        values[androidx.compose.ui.graphics.Matrix.TranslateY] = ty
     }
 }
 
@@ -523,26 +464,16 @@ private object SeeThrough {
     }
 }
 
-/** Straight or diagonal view of the map (13): each place finished for the diagonal view is seen so, the others straight (13.4). */
+/** The diagonal view of the map (13); the straight one is gone (13t). */
 object MapSight {
-    /** Seen diagonally, every doll is drawn turned by 45° on the screen ([de.bornim.core.art.MapFigure.viewYaw]). */
-    @Volatile var diagonal = false
-        set(v) { field = v; de.bornim.core.art.MapFigure.viewYaw = if (v) -45.0 else 0.0 }
-
-    /** Every place seen diagonally, also those still being built (only the previews, `DIAG=1`). */
-    @Volatile var all = false
-
-    /** The places finished for the diagonal view (13.4, 13v, 13e): the village, its rooms, the woods and the cave. */
-    fun finished(map: de.bornim.core.MapDef) = all || map.kind != MapKind.CAVE || de.bornim.core.art.MapCaveIso.draft
-
-    /** Turns the view to suit [map]; a new place is entered behind the black screen, so the turn is never seen. */
-    fun follow(map: de.bornim.core.MapDef) { val d = finished(map); if (d != diagonal) diagonal = d }
+    /** Every doll is drawn turned by 45° on the screen ([de.bornim.core.art.MapFigure.viewYaw]). */
+    fun follow() { de.bornim.core.art.MapFigure.viewYaw = -45.0 }
 
     /** A tile's diamond is 2·[K]·T map pixels wide and half as high: its diagonal as long as a tile's side (45 for 32). */
     const val K = 0.703125f
 
     /** The doll's yaw on the screen for a yaw in the map (0 = down the map, 90 = right). */
-    fun screenYaw(mapYaw: Double): Double = if (diagonal) mapYaw - 45.0 else mapYaw
+    fun screenYaw(mapYaw: Double): Double = mapYaw - 45.0
 }
 
 /** How close the map camera is. Near (the new default) shows about 5½ tiles across, far the former 10½. */
@@ -564,9 +495,9 @@ object MapZoom {
     val tilesAcross get() = levels[level]
 }
 
-private fun camera(game: Game, w: Float, h: Float, progress: Float, fromX: Int, fromY: Int): Cam {
+private fun camera(game: Game, w: Float, h: Float): Cam {
     val map = game.map
-    MapSight.follow(map)
+    MapSight.follow()
     val T = WorldArt.T
     // Whole-number zoom so every art pixel is the same size on screen. Near, the zoom is even, so
     // map pictures drawn at double resolution also land on whole screen pixels.
@@ -574,35 +505,26 @@ private fun camera(game: Game, w: Float, h: Float, progress: Float, fromX: Int, 
     val scale = if (MapZoom.near) max(2, (w / (T * MapZoom.tilesAcross)).roundToInt()) else max(2, floor(w / (T * MapZoom.tilesAcross)).toInt())
     val viewW = w / scale
     val viewH = h / scale
-    val p = game.state.place
-    val t = if (progress < 1f) progress else 1f
     // Positions in art pixels, rounded so tiles and sprites move in lockstep.
     // walking freely (13g, with the diagonal view), the hero stands between the tiles
-    val fw = game.freeWalk.also { if (MapSight.diagonal) it.sync() }
-    val heroX = if (MapSight.diagonal) ((fw.x - 0.5) * T).roundToInt() else ((fromX + (p.x - fromX) * t) * T).roundToInt()
-    val heroY = if (MapSight.diagonal) ((fw.y - 0.5) * T).roundToInt() else ((fromY + (p.y - fromY) * t) * T).roundToInt()
-    val mapW = map.width * T
-    val mapH = map.height * T
-    if (MapSight.diagonal) {
-        // the hero's feet in the middle of the screen, a little below the centre; the part of the map
-        // under the screen's corners decides what is drawn (a turned rectangle, so somewhat more)
-        val k = MapSight.K
-        val hx = heroX + T / 2f; val hy = heroY + T * 0.3f
-        val camPX = k * (hx - hy) - viewW / 2; val camPY = k / 2 * (hx + hy) - viewH * 0.55f
-        fun wx(u: Float, v: Float) = (u / k + 2 * v / k) / 2
-        fun wy(u: Float, v: Float) = (2 * v / k - u / k) / 2
-        val us = floatArrayOf(camPX, camPX + viewW); val vs = floatArrayOf(camPY, camPY + viewH)
-        var x0 = Float.MAX_VALUE; var x1 = -Float.MAX_VALUE; var y0 = Float.MAX_VALUE; var y1 = -Float.MAX_VALUE
-        for (u in us) for (v in vs) { val a = wx(u, v); val b = wy(u, v); x0 = minOf(x0, a); x1 = maxOf(x1, a); y0 = minOf(y0, b); y1 = maxOf(y1, b) }
-        // room above for tall things standing below the screen's lower edge
-        val camX = floor(x0).toInt() - T; val camY = floor(y0).toInt() - T
-        val vw = x1 - x0 + 3 * T; val vh = y1 - y0 + 3 * T
-        val tx = scale * (k * (camX - camY) - camPX); val ty = scale * (k / 2 * (camX + camY) - camPY)
-        return Cam(scale, camX, camY, heroX, heroY, vw, vh, true, tx, ty)
-    }
-    val camX = (if (mapW <= viewW) (mapW - viewW) / 2f else (heroX + T / 2f - viewW / 2f).coerceIn(0f, mapW - viewW)).roundToInt()
-    val camY = (if (mapH <= viewH) (mapH - viewH) / 2f else (heroY + T / 2f - viewH / 2f).coerceIn(0f, mapH - viewH)).roundToInt()
-    return Cam(scale, camX, camY, heroX, heroY, viewW, viewH)
+    val fw = game.freeWalk.also { it.sync() }
+    val heroX = ((fw.x - 0.5) * T).roundToInt()
+    val heroY = ((fw.y - 0.5) * T).roundToInt()
+    // the hero's feet in the middle of the screen, a little below the centre; the part of the map
+    // under the screen's corners decides what is drawn (a turned rectangle, so somewhat more)
+    val k = MapSight.K
+    val hx = heroX + T / 2f; val hy = heroY + T * 0.3f
+    val camPX = k * (hx - hy) - viewW / 2; val camPY = k / 2 * (hx + hy) - viewH * 0.55f
+    fun wx(u: Float, v: Float) = (u / k + 2 * v / k) / 2
+    fun wy(u: Float, v: Float) = (2 * v / k - u / k) / 2
+    val us = floatArrayOf(camPX, camPX + viewW); val vs = floatArrayOf(camPY, camPY + viewH)
+    var x0 = Float.MAX_VALUE; var x1 = -Float.MAX_VALUE; var y0 = Float.MAX_VALUE; var y1 = -Float.MAX_VALUE
+    for (u in us) for (v in vs) { val a = wx(u, v); val b = wy(u, v); x0 = minOf(x0, a); x1 = maxOf(x1, a); y0 = minOf(y0, b); y1 = maxOf(y1, b) }
+    // room above for tall things standing below the screen's lower edge
+    val camX = floor(x0).toInt() - T; val camY = floor(y0).toInt() - T
+    val vw = x1 - x0 + 3 * T; val vh = y1 - y0 + 3 * T
+    val tx = scale * (k * (camX - camY) - camPX); val ty = scale * (k / 2 * (camX + camY) - camPY)
+    return Cam(scale, camX, camY, heroX, heroY, vw, vh, tx, ty)
 }
 
 /**
@@ -616,7 +538,7 @@ private fun camera(game: Game, w: Float, h: Float, progress: Float, fromX: Int, 
  * of the tile behind it (a barrel, a wall), which a tap would otherwise choose.
  */
 private fun tappedThing(game: Game, cam: Cam, px: Float, py: Float, fx: Int, fy: Int): Pair<Int, Int>? {
-    if (!cam.diagonal || game.map.kind != MapKind.INTERIOR) return null
+    if (game.map.kind != MapKind.INTERIOR) return null
     val map = game.map
     val walls = setOf(Tile.WALL, Tile.WINDOW, Tile.HEARTH, Tile.DOOR)
     var best: Pair<Int, Int>? = null
@@ -677,7 +599,7 @@ private fun TouchLayer(onDir: (Facing?) -> Unit, onStick: (Offset?) -> Unit, onR
                             knob = if (len > radius) d * (radius / len) else d
                             // Snap to the grid directions; the current one wins near the diagonal. Seen diagonally
                             // (13), the grid runs slanted on the screen: the drag is turned into the map first.
-                            val g = if (MapSight.diagonal) Offset((d.x + 2 * d.y) / 2, (2 * d.y - d.x) / 2) else d
+                            val g = Offset((d.x + 2 * d.y) / 2, (2 * d.y - d.x) / 2)
                             val ax = abs(g.x); val ay = abs(g.y)
                             val horizontal = when (dir) {
                                 Facing.LEFT, Facing.RIGHT -> ax * 1.3f >= ay
@@ -722,7 +644,7 @@ private fun TouchLayer(onDir: (Facing?) -> Unit, onStick: (Offset?) -> Unit, onR
 }
 
 @Composable
-private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: Int, marker: Pair<Int, Int>?, clock: Long) {
+private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) {
     val time = rememberTime()
     val frame = ((time / 450) % 2).toInt()
     Canvas(Modifier.fillMaxSize()) {
@@ -730,7 +652,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         val state = game.state
         val map = game.map
         val T = WorldArt.T
-        val cam = camera(game, size.width, size.height, progress, fromX, fromY)
+        val cam = camera(game, size.width, size.height)
         val scale = cam.scale
         val viewW = cam.viewW
         val viewH = cam.viewH
@@ -739,12 +661,10 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         val heroY = cam.heroY
         val camX = cam.x
         val camY = cam.y
-        val diag = cam.diagonal
         // seen diagonally: true while drawing what lies flat on the ground (drawn under the turned mapping)
         var flat = false
         /** Draws what lies on the ground; seen diagonally, under the turned mapping. */
         fun ground(block: () -> Unit) {
-            if (!diag) { block(); return }
             flat = true
             withTransform({ transform(cam.matrix()) }) { block() }
             flat = false
@@ -759,7 +679,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             val dw = img.width * scale / density; val dh = img.height * scale / density
             val sx = (x - camX) * scale
             val sy = (y - camY) * scale
-            if (!diag || flat) return IntOffset(sx, sy)
+            if (flat) return IntOffset(sx, sy)
             // pictures made for the straight view stand on the lower edge of their tile: seen diagonally their feet
             // go to the tile's middle, half a tile up (13p, 6: the hero stood in the tile's front left corner);
             // the rooms' pictures seen diagonally ([corner]) are made with the tile's front corner at their foot
@@ -874,43 +794,31 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // a tree crown standing in front of the hero turns half see-through, so the hero is not lost behind it
         fun hides(o: WorldArt.Obj): Boolean {
             val w = o.img.width / o.density; val h = o.img.height / o.density
-            if (diag) {
-                // seen diagonally, anything taller than a knee can stand in front of the hero
-                if (h < 24 || o.low) return false
-                // a house's strip (27d): the hero stands where free walking stops him, often closer to the wall than the
-                // tile's middle the strips are sorted by; south of its front wall or east of its side wall the house
-                // cannot cover him, however its strips lie
-                o.area?.let { f -> if (heroY + T / 2 > (f.y + 1) * T || heroX + T / 2 > (f.x + f.n) * T) return false }
-                // seen diagonally: in front of the hero (further down the diagonal) and over it on the screen
-                val k = MapSight.K
-                val fx = o.x + w / 2f; val fy = (o.y + h).toFloat() - (if (o.corner) 0f else T / 2f)
-                val hx = heroX + T / 2f; val hy = heroY + T / 2f
-                if (o.sortY + o.x + w / 2f <= hx + hy) return false
-                val ox = k * (fx - fy); val oy = k / 2 * (fx + fy)
-                val px = k * (hx - hy); val py = k / 2 * (hx + hy)
-                if (!(px + 8 > ox - w / 2f && px - 8 < ox + w / 2f && py > oy - h + 6 && py - 38 < oy)) return false
-                // only when something drawn really lies over the hero's body (5.2: a well beside the hero stays solid), and
-                // over the upper body: what reaches no higher than the hips (a counter, a bench, a chest, a fence) covers
-                // only the legs and stays solid (test of 0.1.590: Thessa's counter faded away)
-                for (dy in 18..38 step 4) for (dx in -6..6 step 6) {
-                    val ix = ((px + dx - (ox - w / 2f)) * o.density).toInt(); val iy = ((py - dy - (oy - h)) * o.density).toInt()
-                    if (o.img.opaque(ix, iy)) return true
-                }
-                return false
-            }
-            if (o.density < 2) return false
-            if (o.sortY <= heroY + T) return false
-            if (!(heroX + T - 8 > o.x && heroX + 8 < o.x + w && heroY + T > o.y && heroY - 30 < o.y + h - 6)) return false
-            // as seen diagonally (27e.1): only what is really drawn over the hero's upper body, not a crown's empty corner
-            val hx = heroX + T / 2f; val foot = heroY + T - 4f
+            // seen diagonally, anything taller than a knee can stand in front of the hero
+            if (h < 24 || o.low) return false
+            // a house's strip (27d): the hero stands where free walking stops him, often closer to the wall than the
+            // tile's middle the strips are sorted by; south of its front wall or east of its side wall the house
+            // cannot cover him, however its strips lie
+            o.area?.let { f -> if (heroY + T / 2 > (f.y + 1) * T || heroX + T / 2 > (f.x + f.n) * T) return false }
+            // seen diagonally: in front of the hero (further down the diagonal) and over it on the screen
+            val k = MapSight.K
+            val fx = o.x + w / 2f; val fy = (o.y + h).toFloat() - (if (o.corner) 0f else T / 2f)
+            val hx = heroX + T / 2f; val hy = heroY + T / 2f
+            if (o.sortY + o.x + w / 2f <= hx + hy) return false
+            val ox = k * (fx - fy); val oy = k / 2 * (fx + fy)
+            val px = k * (hx - hy); val py = k / 2 * (hx + hy)
+            if (!(px + 8 > ox - w / 2f && px - 8 < ox + w / 2f && py > oy - h + 6 && py - 38 < oy)) return false
+            // only when something drawn really lies over the hero's body (5.2: a well beside the hero stays solid), and
+            // over the upper body: what reaches no higher than the hips (a counter, a bench, a chest, a fence) covers
+            // only the legs and stays solid (test of 0.1.590: Thessa's counter faded away)
             for (dy in 18..38 step 4) for (dx in -6..6 step 6) {
-                val ix = ((hx + dx - o.x) * o.density).toInt(); val iy = ((foot - dy - o.y) * o.density).toInt()
+                val ix = ((px + dx - (ox - w / 2f)) * o.density).toInt(); val iy = ((py - dy - (oy - h)) * o.density).toInt()
                 if (o.img.opaque(ix, iy)) return true
             }
             return false
         }
         // seen diagonally, the fire in a room's hearth flickers through more pictures, each standing an uneven while (13n)
-        val flicker = if (diag && map.kind == MapKind.INTERIOR) de.bornim.core.art.MapRoomIso.fireFrame(clock) else 0
+        val flicker = if (map.kind == MapKind.INTERIOR) de.bornim.core.art.MapRoomIso.fireFrame(clock) else 0
         val objs = WorldArt.objects(map, state, frame, flicker)
         // a house cut into strips (5.1) turns see-through as a whole when any strip of it stands in front of the hero
         val hidingGroups = objs.filter { it.group != 0 && hides(it) }.mapTo(HashSet()) { it.group }
@@ -931,18 +839,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         if (map.kind == MapKind.FOREST) for (ty in 0 until map.height) for (tx in 0 until map.width) {
             if (map.tile(tx, ty) != Tile.FLOWERS || !game.herbAt(tx, ty)) continue
             // seen diagonally (56): a herb drawn in the slant like the other things of the woods
-            if (diag) {
-                val o = de.bornim.core.art.MapWoodIso.herbObj(tx, ty, clock)
-                sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f, o) { put(o.img, o.x, o.y, o.density, 1f, o.corner) }
-                continue
-            }
-            val img = WorldArt.herb()
-            val sway = if ((clock / 600 + tx + ty) % 2 == 0L) 0 else 1
-            val bottom = ty * T + T - 4
-            sprites += Sprite(bottom.toFloat(), tx * T + T / 2f) {
-                put(WorldArt.shadow(), tx * T + 4, bottom - 5)
-                put(img, tx * T + T / 2 - img.width / 2 + sway, bottom - img.height + 1)
-            }
+            val o = de.bornim.core.art.MapWoodIso.herbObj(tx, ty, clock)
+            sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f, o) { put(o.img, o.x, o.y, o.density, 1f, o.corner) }
         }
         for (npc in visibleNpcs) {
             val bottom = npc.y * T + T - 1
@@ -1173,8 +1071,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             }
         }
 
-        val free = diag
-        val walking = if (free) game.freeWalk.moving else progress < 1f
+        val walking = game.freeWalk.moving
         // the hero as the doll from the battles, turning smoothly; the former figure until it is drawn
         MapFigure.prepare(state.hero, HeroTurn.yaw)
         // 24.5: a foe near, its fight is drawn ahead in the background, once the map itself is drawn
@@ -1185,10 +1082,9 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             }
         }
         // walking freely, the hero faces the way it walks, in any direction
-        val target = if (free) game.freeWalk.yaw else MapFigure.yawOf(p.facing)
+        val target = game.freeWalk.yaw
         HeroTurn.update(target, clock)
-        val walkStep = if (!walking) 0 else if (free) Math.floorMod((game.freeWalk.walked * 4).toInt(), MapFigure.STEPS)
-            else Math.floorMod(state.steps * 4 + (progress * 4).toInt(), MapFigure.STEPS)
+        val walkStep = if (!walking) 0 else Math.floorMod((game.freeWalk.walked * 4).toInt(), MapFigure.STEPS)
         // standing a moment, the hero too breathes, shifts its weight and glances about
         val heroSlot = MapFigure.slot(HeroTurn.yaw)
         val heroRest = if (!walking && heroSlot == MapFigure.slot(target) && HeroStill.forMs(heroX, heroY, clock) > 1_500L) {
@@ -1219,7 +1115,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         sprites += Sprite(heroY + T - 0.5f, heroX + T / 2f) {
             put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
             // Feet hidden in tall grass.
-            if (map.tile(p.x, p.y) == Tile.TALL_GRASS && progress > 0.5f) {
+            if (map.tile(p.x, p.y) == Tile.TALL_GRASS) {
                 // on the new ground the same dark blades stand before the feet; elsewhere the former patch
                 if (MapGround.supports(map)) put(MapGround.tallFront((state.steps + (clock / 400).toInt()) % 2), heroX, heroY + T - 14, MapGround.D)
                 else put(WorldArt.tallGrassOverlay(), heroX, heroY)
@@ -1230,11 +1126,11 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 
         // Light of the place: time of day, shade of the crowns, lamps, fires and the lantern.
         ground { if (MapLight.needed(map, game.daylight)) drawMapLight(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH) }
-        if (diag && map.kind == MapKind.INTERIOR) drawHearthSmoke(game, map, clock, cam, camX, camY, scale)
-        if (diag && map.kind == MapKind.CAVE && de.bornim.core.art.MapCaveIso.draft) drawCaveShaft(game, map, clock, cam, camX, camY, scale)
-        if (diag && map.kind == MapKind.CAVE && de.bornim.core.art.MapCaveIso.draft) drawCaveTorches(game, map, clock, cam, camX, camY, scale)
-        if (diag && map.kind == MapKind.TOWN && MapGround.supports(map)) drawTownSmoke(map, clock, cam, camX, camY, scale)
-        if (diag && map.kind == MapKind.FOREST) drawCampSmoke(game, map, clock, cam, camX, camY, scale)
+        if (map.kind == MapKind.INTERIOR) drawHearthSmoke(game, map, clock, cam, camX, camY, scale)
+        if (map.kind == MapKind.CAVE) drawCaveShaft(game, map, clock, cam, camX, camY, scale)
+        if (map.kind == MapKind.CAVE) drawCaveTorches(game, map, clock, cam, camX, camY, scale)
+        if (map.kind == MapKind.TOWN && MapGround.supports(map)) drawTownSmoke(map, clock, cam, camX, camY, scale)
+        if (map.kind == MapKind.FOREST) drawCampSmoke(game, map, clock, cam, camX, camY, scale)
         // what shines by itself (25.1: a lamp's glass; 25b: lit windows) is drawn over the light of the place, so the source is the brightest
         // spot around it, waking with the dusk like the light it throws; a small warm halo around it
         val night = MapLight.strength(map, MapLight.When.NIGHT, game.daylight).toFloat()
@@ -1319,7 +1215,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 
 /** Something standing on the map, drawn in order of its feet: the row ([y]) seen straight, the diagonal (x + y) seen diagonally. */
 private class Sprite(val y: Float, val x: Float, val obj: WorldArt.Obj? = null, val cuts: Boolean = true, val draw: () -> Unit) {
-    val depth: Float get() = if (MapSight.diagonal) x + y else y
+    val depth: Float get() = x + y
 }
 
 /** The way the hero faces on the map, turning smoothly towards where it walks instead of snapping round. */
@@ -1480,15 +1376,6 @@ private fun DrawScope.drawCritters(
         drawRect(c, Offset((x - camX) * scale, (y - camY) * scale), androidx.compose.ui.geometry.Size(w * scale, h * scale))
     val tx0 = (camX / T) - 1; val ty0 = (camY / T) - 1
     val tx1 = ((camX + viewW) / T).toInt() + 1; val ty1 = ((camY + viewH) / T).toInt() + 1
-
-    // Chimney smoke, day and night (seen diagonally the houses' own chimneys smoke, drawTownSmoke)
-    if (!MapSight.diagonal) for ((cx, cy) in WorldArt.chimneys(map)) for (k in 0 until 4) {
-        val p = ((clock / 2200f) + k / 4f) % 1f
-        val x = cx + kotlin.math.sin(p * 6f + k) * 2f + p * 7f
-        val y = cy - p * 24f
-        val r = 2f + p * 4f
-        drawCircle(Color(0xFFD8D8E0).copy(alpha = 0.45f * (1f - p)), r * scale, Offset((x - camX) * scale, (y - camY) * scale))
-    }
 
     if (day > 0.4f && !game.raining) {
         // Butterflies over flowers
@@ -1818,7 +1705,7 @@ private object LightImage {
         return if (sh >= sd) dim * (1f - sh) / (1f - sd) else dim + (1f - dim) * (sd - sh) / sd
     }
 
-    private fun seenDimOf(map: de.bornim.core.MapDef) = if (MapSight.diagonal && map.kind == MapKind.CAVE) 0.15f else 0.5f
+    private fun seenDimOf(map: de.bornim.core.MapDef) = if (map.kind == MapKind.CAVE) 0.15f else 0.5f
 
     /** Each tile is split into SUB × SUB parts for the fog, so the edge of the cone is round (13e, test 13.10.). */
     const val SUB = 4
@@ -2156,7 +2043,7 @@ private fun DrawScope.drawMapLight(
     val x0 = Math.floorDiv(camX, res) * res - res; val y0 = Math.floorDiv(camY, res) * res - res
     val w = ((viewW.toInt() / res) + 3) * res; val h = ((viewH.toInt() / res) + 3) * res
     val fog = game.fogged
-    val key = "${map.id}/${MapSight.diagonal}/$x0/$y0/$w/$h/${hx / 3}/${hy / 3}/${(day * 64).toInt()}"
+    val key = "${map.id}/$x0/$y0/$w/$h/${hx / 3}/${hy / 3}/${(day * 64).toInt()}"
     if (LightImage.key != key) {
         LightImage.base = MapLight.lightmap(map, day, hx, hy, x0, y0, w, h)
         LightImage.key = key
@@ -2210,7 +2097,7 @@ private fun DrawScope.drawMapLight(
             }
         }
         // seen diagonally, the walls and the tall things of a room stand where the light image has the ground behind them
-        if (MapSight.diagonal && map.kind == MapKind.INTERIOR) uprightLight(img, map, x0, y0, res)
+        if (map.kind == MapKind.INTERIOR) uprightLight(img, map, x0, y0, res)
         LightImage.img = img
     }
     val grid = LightImage.img ?: return
@@ -2225,7 +2112,7 @@ private fun DrawScope.drawMapLight(
         blendMode = androidx.compose.ui.graphics.BlendMode.Multiply,
     )
     fun at(x: Double, y: Double) = Offset(((x - camX) * scale).toFloat(), ((y - camY) * scale).toFloat())
-    fun visible(o: Offset, r: Float) = MapSight.diagonal || (o.x > -r && o.y > -r && o.x < size.width + r && o.y < size.height + r)
+    fun visible(o: Offset, r: Float) = true
     for ((i, src) in MapLight.sources(map).withIndex()) {
         val c = at(src.x, src.y)
         val r = (src.reach * 0.75 * scale).toFloat()
@@ -2266,8 +2153,8 @@ private fun DrawScope.drawMapLight(
         val px = scale.toFloat()
         when (src.kind) {
             // seen diagonally, a hearth's sparks and smoke rise upright on the screen (drawHearthSmoke)
-            MapLight.Kind.FIRE, MapLight.Kind.TORCH -> if (!(MapSight.diagonal && indoor && src.kind == MapLight.Kind.FIRE) &&
-                !(MapSight.diagonal && de.bornim.core.art.MapCaveIso.draft && src.kind == MapLight.Kind.TORCH && map.kind == MapKind.CAVE)) { for (k in 0 until (if (src.kind == MapLight.Kind.FIRE) 5 else 2)) {
+            MapLight.Kind.FIRE, MapLight.Kind.TORCH -> if (!(indoor && src.kind == MapLight.Kind.FIRE) &&
+                !(src.kind == MapLight.Kind.TORCH && map.kind == MapKind.CAVE)) { for (k in 0 until (if (src.kind == MapLight.Kind.FIRE) 5 else 2)) {
                 // sparks rising and fading
                 val period = 1400 + k * 230
                 val ph = ((clock + k * 517 + i * 131) % period) / period.toFloat()
@@ -2305,24 +2192,7 @@ private fun DrawScope.drawMapLight(
                 val sy = src.y + 4 - ph * 30
                 drawRect(Color(0xFFA8FFF0).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * 0.8f * seen), at(sx, sy.toDouble()), androidx.compose.ui.geometry.Size(px, px))
             }
-            // seen diagonally in the drafted cave the shaft stands upright (drawCaveShaft)
-            MapLight.Kind.SKY -> if (!(MapSight.diagonal && de.bornim.core.art.MapCaveIso.draft)) {
-                // a slanted shaft of light from the roof, dust dancing in it
-                val top = at(src.x - 10, src.y - T * 2.5)
-                val path = androidx.compose.ui.graphics.Path().apply {
-                    moveTo(top.x - 4 * px, top.y); lineTo(top.x + 8 * px, top.y)
-                    val b = at(src.x, src.y)
-                    lineTo(b.x + 16 * px, b.y + 8 * px); lineTo(b.x - 16 * px, b.y + 8 * px); close()
-                }
-                drawPath(path, androidx.compose.ui.graphics.Brush.verticalGradient(listOf(Color(0x10E8F0FF), Color(0x66E8F0FF), Color(0x30E8F0FF)).map { it.copy(alpha = it.alpha * seen) }, top.y, at(src.x, src.y).y + 8 * px), blendMode = androidx.compose.ui.graphics.BlendMode.Plus)
-                for (k in 0 until 6) {
-                    val period = 4000 + k * 650
-                    val ph = ((clock + k * 900) % period) / period.toFloat()
-                    val sx = src.x - 8 + ph * 12 + kotlin.math.sin(ph * 7f + k) * 5
-                    val sy = src.y - T * 2.2 + ((k * 13) % 50) + ph * 20
-                    drawRect(Color(0xFFFFFFFF).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * 0.7f * seen), at(sx, sy), androidx.compose.ui.geometry.Size(px, px))
-                }
-            }
+            // the shaft of light stands upright in the cave (drawCaveShaft)
             else -> {}
         }
     }

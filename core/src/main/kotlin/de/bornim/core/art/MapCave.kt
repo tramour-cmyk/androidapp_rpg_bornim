@@ -811,7 +811,6 @@ object MapCave {
      * edge only ever draws back into the rock tiles, never out over the floor: a wall's foot lies in its own tile.
      */
     internal fun rockAt(map: MapDef, x: Double, y: Double): Double {
-        if (!MapCaveIso.draft) return field(map, x, y, rockTiles) + (fbm(x, y, 120.0, 4) - 0.5) * 0.5 + (fbm(x, y, 44.0, 5) - 0.5) * 0.3 + (vnoise(x, y, 12.0, 6) - 0.5) * 0.12
         if (!rockTiles(map.tile(floor(x / S).toInt(), floor(y / S).toInt()))) return 0.0
         return field(map, x, y, rockTiles) - (fbm(x, y, 56.0, 4) * 0.6 + vnoise(x, y, 11.0, 6) * 0.4) * 0.4
     }
@@ -939,7 +938,7 @@ object MapCave {
                 }
                 // the pool: deep and black in a stone basin
                 val wv = field(map, x, y, waterTiles) + (fbm(x, y, 48.0, 21) - 0.5) * 0.5
-                if (MapCaveIso.draft && wv > 0.3) {
+                if (wv > 0.3) {
                     // 13e.4 seen diagonally: the pool sunk a hand below the floor. Up the screen (back on the map along
                     // both axes) the far bank shows as a low face, lit, darker down to the water; the water reflects
                     // it dimly before going black; round pebbles lie on the shore.
@@ -1034,7 +1033,7 @@ object MapCave {
         fun plot(px: Int, py: Int, c: Int, a: Double = 1.0) {
             if (px !in 0 until size || py !in 0 until size || wallAt(px, py)) return
             // seen diagonally the pool lies sunk below the floor: no cracks or grit on the water (13e.4)
-            if (MapCaveIso.draft && field(map, (px + ox).toDouble(), (py + oy).toDouble(), waterTiles) + (fbm((px + ox).toDouble(), (py + oy).toDouble(), 48.0, 21) - 0.5) * 0.5 > 0.45) return
+            if (field(map, (px + ox).toDouble(), (py + oy).toDouble(), waterTiles) + (fbm((px + ox).toDouble(), (py + oy).toDouble(), 48.0, 21) - 0.5) * 0.5 > 0.45) return
             val o = img.pixels[py * size + px]
             img.pixels[py * size + px] = if (a >= 1.0) c else mix(o, c, a)
         }

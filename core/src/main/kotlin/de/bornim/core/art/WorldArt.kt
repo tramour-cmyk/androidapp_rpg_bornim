@@ -855,7 +855,7 @@ object WorldArt {
             val open = map.chestAt(tx, ty)?.id in state.openedChests
             val flora = when {
                 !fine -> null
-                cave -> (if (MapFigure.viewYaw != 0.0 && MapCaveIso.draft) MapCaveIso.objects(map, tx, ty, frame, open, state.has(Story.GATE_OPEN)) else null)
+                cave -> (if (MapFigure.viewYaw != 0.0) MapCaveIso.objects(map, tx, ty, frame, open, state.has(Story.GATE_OPEN)) else null)
                     ?: MapCave.objects(map, tx, ty, frame, open, state.has(Story.GATE_OPEN))
                 // the village in the new style (draft): houses and things, else the trees of the woods
                 // seen diagonally the houses stand in the slant too (5.1), cut into strips sorted along the diagonal
