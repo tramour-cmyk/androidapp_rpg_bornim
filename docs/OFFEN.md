@@ -43,10 +43,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 02:25) – Selbstarbeit, an Nachfolger übergeben
+### Tom (13.10., 02:46) – Selbstarbeit, an Nachfolger übergeben
 - **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g Katze), 0.1.643 (6f Farbstimmung), je ein Testreiter-Schalter. Rückfragen 60e–60i, 27.6a–c, 13x, 17r, 5la, 6g, 6f auf der Entscheidungsseite (Empf. je ja).
-- Entwürfe fertig auf eigenen Zweigen: `tom-27-6-tiefer-wald`, `tom-13-tempel-altar`, `tom-17-nachschwingen`, `tom-5l-leben`, `tom-katze`, `tom-6-farbstimmung` (Vorschau-Schalter in `UMGEBUNG.md`).
-- **Weiter:** Vorrat 7 Spuren (Blut nach Kampf an der Stelle des Gegners, Fußspuren nach Regen, Staub; nur Entwurf, neuer Zweig von `main`; Ansatz: Marken nur im Speicher, gezeichnet im `ground`-Block von `WorldScreen`), dann 8 Kartenansicht. Vorschau nur mit engem `ONLY=` (ein Lauf ~10 min).
+- **7 Spuren** auf `claude/tom-7-spuren` (gepusht, Build läuft): `Tracks.kt` + `TracksTest` grün, Zeichnung `drawTracks` in `WorldScreen`, Testreiter-Schalter, Vorschau `KARTENZOOM=1 DIAG=1 SPURDRAFT=1 ONLY=zoom_nah_s`. **Offen:** Blut sichtbar (Bild 02:45), Fußspuren/Staub in den Vorschaubildern nicht zu sehen, obwohl der gleiche Gang im Kerntest 16 Marken macht: prüfen, ob `walkFree` in der Vorschau läuft bzw. ob die Marken gezeichnet werden (zu klein/dunkel?); dann Bilder auf die Entscheidungsseite (Rückfrage 7a).
+- **8 Kartenansicht** halb auf demselben Zweig: `MapSheet.kt` (Tinte auf Pergament, nur Erkundetes), Reiter „Karte“ hinter `MapSheet.draft` (`MenuStart.map` für Vorschau), `MapSheetTest` grün; Bilder noch nicht gemacht: `tools/t bild KARTENBLATT=1`. Testreiter-Schalter für `MapSheet.draft` fehlt noch.
+- `HeroShelfTest` war einmal rot, während die Vorschau parallel lief (Zeittest, nicht von den Spuren); allein wiederholen. Nie Vorschau und Kerntest gleichzeitig (gemeinsamer Bau bricht).
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
