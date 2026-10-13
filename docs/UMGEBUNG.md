@@ -93,6 +93,7 @@ Die Chat-Sitzung hat eine eigene Netzregel. Ohne Freigabe sind Maven Central, Go
 | `FLORA=karte:x0:y0:breite:höhe` | Kartenausschnitt in voller Auflösung |
 | `DORFTAG=1` (mit `KARTENZOOM=1 HELDORT=village:x:y:R:stunde`) | 5l Tagesablauf: Bewohner am Platz der Stunde |
 | `KATZE=1`; `KATZEINN=<ms>` (mit `KARTENZOOM=1 ONLY=zoom_nah_p_inn HELDORT=inn:4:4:L:20`) | Katze: Haltungen vergrößert; in der Schänke zum Zeitpunkt ihrer Runde (10000 schläft am Herd, 80300 streckt sich, 83500 geht, 100000 schläft am Fass) |
+| `FARBDRAFT=1` (mit `KARTENZOOM=1 DIAG=1 ONLY=zoom_nah_p_ HELDORT=…`) | 6f Farbstimmung je Ort und Tageszeit (Zweig `claude/tom-6-farbstimmung`) |
 | `SWINGBILD=1` (+ `SWINGMORE=1`, `SWINGWHO=woman,archer,…`) | 17 Nachschwingen: Standbilder je Zeitpunkt; `SWINGMORE=1` auch Haare und Köcher (17r, auch im Spielbild) |
 | `FIREFLIES=1`, `SQUATDRAFT=1`, `MAPFIGYAWS=1 WEAPONS=…` | Glühwürmchen, Garrick hocken/schüren/dösen, Waffen in allen Richtungen |
 | `MAPFOE=scene\|dirs\|walk\|yaws\|others\|cave\|wood`, `FOEFILM=1` (`FOEIDLE=1`) | Monster auf der Karte: Entwürfe, Film |
