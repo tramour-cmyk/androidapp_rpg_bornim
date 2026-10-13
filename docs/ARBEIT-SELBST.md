@@ -26,7 +26,7 @@ Jede Sitzung führt unten im eigenen Abschnitt zwei Listen, mit Themennummer, Re
 
 ### Feste Weck-Routinen (seit 11.10.)
 
-**Pausiert, solange keine Selbstarbeit läuft** (Nutzer 13.10.): Wer Selbstarbeit vergibt, schaltet die Routinen des eigenen Accounts wieder an (`update_trigger`, `enabled: true`), am Ende der Selbstarbeit wieder aus; nie löschen (die Repo-Einstellung von Hand ginge verloren). Tom: alle acht pausiert 13.10., 10:26; 00:24, 03:24, 06:24 wieder an 13.10., 23:2x (Selbstarbeit bis 07:00), Prompts auf diesen Text gebracht.
+**Pausiert, solange keine Selbstarbeit läuft** (Nutzer 13.10.): Wer Selbstarbeit vergibt, schaltet die Routinen des eigenen Accounts wieder an (`update_trigger`, `enabled: true`), am Ende der Selbstarbeit wieder aus; nie löschen (die Repo-Einstellung von Hand ginge verloren). Tom: alle acht pausiert 13.10., 10:26; 00:24, 03:24, 06:24 wieder an 13.10., 23:2x, wieder aus 14.10., 00:57 (Vorrat leer).
 
 Alle drei Stunden rund um die Uhr je Account eine Routine, die eine frische Sitzung startet: **Tom** 00:24, 03:24, 06:24, 09:24, 12:24, 15:24, 18:24, 21:24 („Tom Selbstarbeit HH:MM“), **Jerry** drei Minuten später (00:27, 03:27, … 21:27, „Jerry Selbstarbeit HH:MM“). Eine Routine arbeitet nur, wenn die eigene Zeile oben `läuft` oder `wartet auf Grenze` steht und „Bis“ noch nicht vorbei ist; sonst beendet sie sich sofort (kostet fast nichts). Der Abstand von drei Stunden sorgt dafür, dass nach jedem Zurücksetzen der Nutzungsgrenze (alle fünf Stunden) bald eine weitermacht.
 - Jede Routine braucht einmal vom Nutzer (am PC im Browser, claude.ai, Routinen): Repository `tramour-cmyk/androidapp_rpg_bornim` auswählen, Freigabe auf automatisch. Fehlt das Schreibrecht, hängt die Sitzung das Repo selbst mit `add_repo` an.
