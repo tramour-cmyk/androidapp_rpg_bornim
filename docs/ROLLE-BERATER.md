@@ -17,7 +17,7 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 - **Wirtschaft:** kein Geld drucken, aber faire Schrauben benennen (Mehrwert gegen Geld, nie Blockade gegen Geld).
 - Deine eigenen Kosten zählen mit: eine lange Beratungssitzung kostet so viel wie mehrere Builds.
 
-**Sitzungen** (ältere im Archiv): 13.10. 21:01–21:38 „Entwicklerrollen und CLAUDE.md“ (76g/h, 77a–d, 78 vorgeschlagen); 21:41–22:02 „Entwicklerrollen und Dokumentnamen“ (78 entschieden, [Entwurf 76/77](https://claude.ai/code/artifact/62e22141-83a5-40bc-8bde-80ba05a7db76) freigegeben 21:52 und umgesetzt; Schwerpunkt ganz bei Abläufen). **Nachfolger:** „Sokrates – 77e Inhalte ordnen“ (Nutzer startet mit „Sokrates“): 77e nach der Methode unter „Nächster Punkt“ (2), Tom läuft parallel, Schnitt erst bei seinem Sitzungswechsel.
+**Sitzungen** (ältere im Archiv): 13.10. 21:41–22:02 „Entwicklerrollen und Dokumentnamen“ (78 entschieden, [Entwurf 76/77](https://claude.ai/code/artifact/62e22141-83a5-40bc-8bde-80ba05a7db76) freigegeben 21:52 und umgesetzt; Schwerpunkt ganz bei Abläufen). **Nachfolger:** „Sokrates – 77e Inhalte ordnen“ (Nutzer startet mit „Sokrates“): 77e nach der Methode unter „Nächster Punkt“ (2), Tom läuft parallel, Schnitt erst bei seinem Sitzungswechsel.
 
 **Nächster Punkt:** (1) **Umbau 76/77 nachhalten:** Tom und Jerry haben Startaufträge in ihrer Übergabe (Codekommentare, Build-Auslöser 78d, neu starten); Wächter in `notiz.sh` meldet alte Namen. Ab jetzt beim Start Rückläufer je Build zählen (76f, Vermerk „(Rückläufer: n)“ im `CHANGELOG.md`). (2) **77e** Inhalte neu zuordnen, Methode (22:00): Abschnitte erfassen (Leser aus Verweisen belegen), Tabelle steht in → gehört nach → Grund, Doppelungen/Widersprüche als Rückfragen, Docs-Entwurf mit fetten Änderungen; Umbau nur mit Prüfskript (jede Zeile genau einmal oder freigegebene Streichung) plus Verweis-Check; `STORY-K1.md` in K1-H/N/Z/W gliedern. (3) **72**: Freigabe Marktvergleich (PDF 20:00), dann `docs/DESIGN-MARKT.md`; **72a–72j** mit Wortlaut und Empfehlung zeigen. (4) Kultlager (41). Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
 
@@ -59,10 +59,9 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 ## Lehren
 
 - **Bilder und Karten zusätzlich als PNG in den Chat** (13.10.): Artefakte lassen sich auf dem Handy nicht zoomen, Chatbilder schon (`cairosvg`, Faktor 3).
-- **Markierungen zum Prüfen fett mit Markierung, nie nur kursiv** (13.10.): Nutzer erkennt Kursives auf dem Handy kaum; Docs-Editor kann keine rote Schrift.
+- **Markierungen zum Prüfen fett, nie nur kursiv; Dialogzeilen in Docs mit Leerzeile trennen** (13.10.): Nutzer erkennt Kursives auf dem Handy kaum; Docs-Editor kann keine rote Schrift.
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
 - **Entwürfe sofort in die Notizen** (13.10.; wieder bei 77: Dateinamen standen nur im Chat und mussten rekonstruiert werden): der Rabenschanze-Entwurf stand nur im Chat und war nach dem Neustart nur als Kurznotiz da; Entwürfe gleich in Storyplan oder `ARBEIT-OFFEN.md`.
 - **Meldungen in fremden Bereichen** (13.10.): erst `git pull` und nachsehen, ob Tom/Jerry sie schon eingetragen haben (62s stand doppelt).
-- **Docs:** Dialogzeilen mit Leerzeile trennen (41).
 - **Freie Welt mitdenken** (13.10., 68): bei jeder Szene fragen, was passiert, wenn der Spieler nicht hingeht oder trödelt.
 - **Sprachmodus** (13.10.): Aufträge kommen dann als Nachricht der Sprachsitzung; als entschieden gilt nur ein ausdrückliches Ja des Nutzers, Unklares (3d) offen benennen.

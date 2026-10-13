@@ -1,5 +1,8 @@
 # Archiv
 
+### Aus ROLLE-BERATER.md, 13.10., 22:0x
+Sitzung 13.10. 21:01–21:38 „Entwicklerrollen und CLAUDE.md“ (76g/h, 77a–d, 78 vorgeschlagen).
+
 ### Tom-Übergabe (13.10., 21:3x)
 - PR #55 (0.1.714) zusammengeführt. Zweig `claude/tom-diogenes`: D2-Befunde, D1.2/D1.3, 3b Abstand, 4 Glühwürmchen, 5la Pim nachts, 73b Stimmen; Build läuft (Weckruf steht), danach Prüfliste `e/t<build>.html`. Weiter: D1.4, D1.5, D1.11, D1.16; dann 6l, 68.
 
