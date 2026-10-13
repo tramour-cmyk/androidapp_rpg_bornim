@@ -36,6 +36,18 @@ class FogTest {
     }
 
     @Test
+    fun overALowCaveWall() {
+        // 13e, test of 0.1.689: by the camp fire in the cave the hero looks north over the low wall of row 12
+        // (a metre, floor on both sides) into the room beyond; the thick rock further west still hides what lies behind it
+        val g = game(Place("cave", 15, 14, Facing.UP))
+        g.state.minutes = 21 * 60
+        for (y in 8..15) println((0 until g.map.width).joinToString("") { x -> when (g.fog(x, y)) { Fog.VISIBLE -> "#"; Fog.SEEN -> "+"; Fog.HIDDEN -> "." } } + "   " + (0 until g.map.width).joinToString("") { x -> g.map.tile(x, y).ch.toString() })
+        assertEquals(Tile.CAVE_WALL, g.map.tile(15, 12))
+        assertEquals(Fog.VISIBLE, g.fog(15, 11), "beyond the low wall")
+        assertEquals(Fog.VISIBLE, g.fog(14, 10), "the room beyond")
+    }
+
+    @Test
     fun exploredStaysSeenAndIsSaved() {
         val g = game(Place("forest", 10, 20, Facing.UP))
         assertEquals(Fog.VISIBLE, g.fog(10, 16))

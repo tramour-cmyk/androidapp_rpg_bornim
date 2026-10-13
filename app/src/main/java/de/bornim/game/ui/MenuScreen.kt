@@ -178,8 +178,8 @@ private fun MapTab(game: Game, lang: Lang, onChronicle: () -> Unit = {}) {
 
 /** 62c: preview switches. */
 object MapLook {
-    /** 62h (draft): the land map instead of the list of places, in one of its two looks; null: the list. */
-    @Volatile var land: de.bornim.core.art.LandSheet.Look? = null
+    /** 62h: the land map instead of the list of places, on parchment (Nutzer 13.10., 16:3x: "Genauso will ich die Karte sehen"); null: the list. */
+    @Volatile var land: de.bornim.core.art.LandSheet.Look? = de.bornim.core.art.LandSheet.Look.PARCHMENT
     /** 64: the map and the person whose mark the map opens on, named and in the middle (from the chronicle); used once. */
     var focusMap: String? = null
     var focusWho: String? = null

@@ -140,9 +140,15 @@ class Sight(private val state: GameState) {
         val sx = if (x0 < x1) 1 else -1
         val sy = if (y0 < y1) 1 else -1
         var err = dx + dy
+        // seen diagonally the hero looks over a cave's low walls (at most two tiles of them in a row, so never through
+        // the thick rock between two rooms)
+        val cave = map.kind == MapKind.CAVE
+        var low = 0
         while (true) {
             if (x == x1 && y == y1) return true
-            if ((x != x0 || y != y0) && map.tile(x, y) in opaque) return false
+            if ((x != x0 || y != y0) && map.tile(x, y) in opaque) {
+                if (!cave || !de.bornim.core.art.MapCaveIso.low(map, x, y) || ++low > 2) return false
+            } else low = 0
             val e2 = 2 * err
             if (e2 >= dy) { err += dy; x += sx }
             if (e2 <= dx) { err += dx; y += sy }
