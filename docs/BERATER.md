@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Aufbau, Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARCHIV.md` („Aus BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Sitzungen** (ältere im Archiv): 13.10. 18:58–19:5x „Kapitel 2 und Profil“ (4a–4d, Bericht 72, Figurenliste, N1–N4, 73a, 74); 19:52–20:5x „Kapitel 2 und Profil“ (72 als PDF, 75 Diogenes fertig, „Dein Zug“, 76a–f ja). **Nachfolger:** „Sokrates – Entwicklerrollen und CLAUDE.md“ (Nutzer startet mit „Sokrates“)
+**Sitzungen** (ältere im Archiv): 13.10. 18:58–19:5x „Kapitel 2 und Profil“ (4a–4d, Bericht 72, Figurenliste, N1–N4, 73a, 74); 19:52–20:5x „Kapitel 2 und Profil“ (72 als PDF, 75 Diogenes fertig, „Dein Zug“, 76a–f ja). 21:01–21:3x „Entwicklerrollen und CLAUDE.md“ (76g/h, 73b-Texte, D2.4/D2.13, 77a–d ja). **Nachfolger:** „Sokrates – Entwicklerrollen und Dokumentnamen“ (Nutzer startet mit „Sokrates“): Entwurf 76+77 als Claude-Docs-Dokument
 
-**Nächster Punkt:** (0) **76g/76h ja (21:02):** Prompt „Wer du bist“ für den Berater ersetzt „Deine Linie“ und Teile der Lehren (Datei wächst nicht); Berater-Absatz in `CLAUDE.md` auf zwei Sätze; beides in den Entwurf 76. (1) **76a–76f ja (20:56):** vollständigen Entwurf von `CLAUDE.md` (gemeinsamer Kern, Schrittregeln als Kurzzeile) und neuer `docs/ENTWICKLER.md` (Prompt „Wer du bist“ für Tom und Jerry mit Prüftreppe und Maß „Test passt beim ersten Mal“, ausführliche Abläufe) als Claude-Docs-Dokument zum Lesen und Drucken vorlegen (Grundlage im Archiv „Entwurf Berater 76“); erst nach Freigabe umbauen. Ab dann beim Start Rückläufer je Build zählen (76f). (2) **72**: Freigabe Marktvergleich (PDF 20:00), dann `docs/MARKT.md`; **72a–72j** mit Wortlaut und Empfehlung zeigen. (3) Kultlager (41). Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
+**Nächster Punkt:** (0) **76g/76h ja (21:02):** Prompt „Wer du bist“ für den Berater ersetzt „Deine Linie“ und Teile der Lehren (Datei wächst nicht); Berater-Absatz in `CLAUDE.md` auf zwei Sätze; beides in den Entwurf 76. (1) **76a–76f ja (20:56):** vollständigen Entwurf von `CLAUDE.md` (gemeinsamer Kern, Schrittregeln als Kurzzeile) und neuer `docs/ENTWICKLER.md` (Prompt „Wer du bist“ für Tom und Jerry mit Prüftreppe und Maß „Test passt beim ersten Mal“, ausführliche Abläufe) als Claude-Docs-Dokument zum Lesen und Drucken vorlegen (Grundlage im Archiv „Entwurf Berater 76“); erst nach Freigabe umbauen. Ab dann beim Start Rückläufer je Build zählen (76f). (1b) **77 Dokumentnamen: 77a–d ja (21:29)**, Entwurf zusammen mit 76; Schnitt nur bei Toms Sitzungswechsel, Wächter in `notiz.sh` gegen alte Namen; Codekommentare (Sfx, Recorded, PlaceSound, Chronicle, Interlude, InterludeClock, InterludeUi) passt Tom an; **77e danach** Inhalte neu zuordnen. `ENTWICKLUNG.md` nie einschmelzen (Abnahme auch für Diogenes und Leitbild), nur umbenennen. (2) **72**: Freigabe Marktvergleich (PDF 20:00), dann `docs/MARKT.md`; **72a–72j** mit Wortlaut und Empfehlung zeigen. (3) Kultlager (41). Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
 
-**Zuletzt gelesen bis:** dieser Commit (13.10., 20:5x)
+**Zuletzt gelesen bis:** dieser Commit (13.10., 21:3x)
 
 ## Ritual
 
@@ -55,6 +55,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - **Entwürfe sofort in die Notizen** (13.10.): der Rabenschanze-Entwurf stand nur im Chat und war nach dem Neustart nur als Kurznotiz da; Entwürfe gleich in Storyplan oder `OFFEN.md`.
 - **Meldungen in fremden Bereichen** (13.10.): erst `git pull` und nachsehen, ob Tom/Jerry sie schon eingetragen haben (62s stand doppelt).
 - **Docs:** Dialogzeilen mit Leerzeile trennen (41).
+- **Nicht raten bei Umbauten** (13.10., 21:22, 77): „`ENTWICKLUNG` geht in `ROLLE-ENTWICKLER` auf“ war geraten und falsch (Abnahme auch für Diogenes und Leitbild). Vor jeder Umbau-Empfehlung: Inhalt lesen, alle Verweise greppen, Leser je Datei nennen.
 - **Freie Welt mitdenken** (13.10., 68): bei jeder Szene fragen, was passiert, wenn der Spieler nicht hingeht oder trödelt.
 - **Sprachmodus** (13.10.): Aufträge kommen dann als Nachricht der Sprachsitzung; als entschieden gilt nur ein ausdrückliches Ja des Nutzers, Unklares (3d) offen benennen.
 

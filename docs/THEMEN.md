@@ -78,3 +78,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 72 | Profil und Marktvergleich | Berater mit Nutzer | offen | `OFFEN.md` |
 | 75 | Diogenes schärfen; Kosten und Nutzen des Testens | Berater mit Nutzer | fertig | `DIOGENES.md` |
 | 76 | Tom und Jerry schärfen, CLAUDE.md entschlacken | Berater mit Nutzer | offen | `OFFEN.md` |
+| 77 | Dokumentnamen ordnen | Berater | offen | `OFFEN.md` |

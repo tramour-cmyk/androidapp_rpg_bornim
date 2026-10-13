@@ -90,7 +90,7 @@ Am Nordende des Waldes warnte ein Schild der Goblins jeden, der weitergeht. {nam
 
 `[64d.krogg]` (Krogg besiegt)
 **Kroggs Schlüssel**
-Im Ostflügel der Höhle bewachte der Bugbear Krogg den Schlüssel zu Graks Halle. {name} besiegte ihn und nahm den rostigen Schlüssel von seinem Gürtel.
+Im Ostflügel der Höhle bewachte der Grottenschrat Krogg den Schlüssel zu Graks Halle. {name} besiegte ihn und nahm den rostigen Schlüssel von seinem Gürtel.
 
 `[64d.gitter]` (Gitter geöffnet)
 **Das Gitter**
@@ -106,7 +106,7 @@ In Graks Halle fand {name} Schwester Lyra, Priesterin des Morgenlichts. Sie soll
 
 `[64d.brief]` (Amulett bei Aldric abgegeben)
 **Der Brief mit dem grauen Auge**
-{name} brachte das Amulett zu Aldric. Der Brief trug ein graues Auge als Siegel und forderte Amulett und Priesterin, denn der Tag der Asche nahe. Aldric hielt den Grauen Propheten bisher für ein Märchen, um Kinder zu erschrecken; nun gab er {name} den Ring seines Vaters.
+{name} brachte das Amulett zu Aldric. Der Brief trug ein graues Auge als Siegel und forderte Amulett und Priesterin, denn der Tag der Asche sei nah. Aldric hielt den Grauen Propheten bisher für ein Märchen, um Kinder zu erschrecken; nun gab er {name} den Ring seines Vaters.
 
 **Nebenwege** (nur, wenn der Held sie gegangen ist)
 
@@ -208,7 +208,7 @@ Gwenna sagt, der alte Kael habe schon vom Grauen Propheten erzählt, als sie ein
 Borin sagt, Dorran sei für einen Menschen ein ordentlicher Schmied, nur die Griffe mache er schlecht.
 
 `[62i.pers.krogg]` (Quelle Jäger Garrick)
-Garrick sagt, der Bugbear Krogg trage den Schlüssel zu Graks Halle und hause im Ostflügel der Höhle.
+Garrick sagt, der Grottenschrat Krogg trage den Schlüssel zu Graks Halle und hause im Ostflügel der Höhle.
 
 `[62i.pers.grak]` (Quelle Ältester Aldric)
 Aldric sagt, der Hobgoblin Grak sei grausam und gerissen, und seitdem er führt, seien die Goblins nicht mehr feige.
@@ -239,6 +239,9 @@ Gwenna vor Kapitelende bleibt unverändert („Früher konnte man nachts in Ruhe
 
 `[41.aldric.auge]` (neue Zeile in Aldrics Gespräch über den Brief, nur wenn der Held den Fund am Steinkreis gemacht hat)
 Ein graues Auge … wie auf dem Fetzen, den Jorin mir vom Steinkreis brachte. Dann war er schon hier, ganz nah bei Bornim.
+
+`[41.garrick.krogg]` (Garrick über Krogg; bisher „Ich habe Goblins belauscht. Ihr Bugbear Krogg trägt den Schlüssel zu Graks Halle.“)
+Ich habe Goblins belauscht. Ihr Grottenschrat Krogg trägt den Schlüssel zu Graks Halle.
 
 `[41.rowena.wach]` (Rowena beim Aufwachen; bisher „Na, endlich wach, {name}? Du hast geschlafen wie ein Stein.“)
 Na, endlich wach, {name}? Für einen, der nur eine Nacht bleiben wollte, hast du geschlafen wie ein Stein.

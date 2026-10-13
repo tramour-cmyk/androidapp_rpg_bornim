@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 77**
+**Nächste freie Themennummer: 78**
 
 **Seite „Dein Zug“ (alle Rollen, 63): https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow** · Beschlüsse: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM · Prüfbericht Diogenes: https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
@@ -44,6 +44,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | – | **69a–69d ja (Nutzer 13.10., 16:31):** Texte, Ablauf und Klang in `docs/STORY1.md` (`[69.intro.…]`), wortgetreu übernehmen |
 | 73 | Versperrte Hütten: nachts Läden zu, Rauch | Tom (Dorf) | `claude/tom-73-laeden` | 73a ja; Kaminrauch auf `main` (PR #54). Läden mit Ritzenlicht in 0.1.714. **73b A (Nutzer 20:5x):** Rauch heißt bewohnt, Verschlossene rauchen weiter; **Texte ja (Nutzer 21:05):** `STORY1.md` `[73b.…]`, Tom baut ein |
 | 76 | Tom und Jerry schärfen, `CLAUDE.md` durch Auslagern entschlacken (Nutzer 13.10., 20:37) | Berater mit Nutzer | `main` (Notizen) | **76a–76f ja (Nutzer 20:56):** Prompt für Tom und Jerry mit Prüftreppe, Kern in `CLAUDE.md` plus `docs/ENTWICKLER.md`; erst Entwurf beider Dateien zum Lesen (nächste Berater-Sitzung), dann Umbau; **76g/76h ja (Nutzer 21:02):** Berater-Prompt „Wer du bist“ oben in `BERATER.md` (ersetzt „Deine Linie“, Datei wächst nicht), Berater-Absatz in `CLAUDE.md` auf zwei Sätze; beides im Entwurf |
+| 77 | Dokumentnamen ordnen: Vorsilben ROLLE-/DESIGN-/STORY-/LISTE-/ARBEIT-, Story-Kennungen K1-H/N/Z (Nutzer 13.10., 21:10) | Berater mit Nutzer | `main` (Notizen) | **77a–77d ja (Nutzer 21:29).** Schnitt mit 76 nach Entwurf; nur bei Toms Sitzungswechsel (laufende Sitzung kennt neue Namen nicht). Gegenprüfung 21:3x: `STORY.md` → `STORY-REGELN` (nicht -PLAN, Verwechslung mit Storyplan), vierte Story-Gruppe K1-W (Chronik, Hörensagen, Türen), `ENTWICKLUNG` → `DESIGN-ABNAHME`. **Danach (77e):** Inhalte der Dateien auf sinnvollere Zuordnung prüfen |
 | 74 | Schrittgeräusche fehlen an allen Orten („Ort fertig“ 8; Befund Diogenes D1.1) | Jerry (Klang); Tom für Dorf und Räume | – | Berater 13.10., 19:4x: Mangel gegen bestehende Regel, kein Beschluss nötig. **Verdacht** erst bestätigen; Böden je Untergrund (Gras, Erde, Holz, Stein) |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten im Archiv). **48d–48f ja (16:51):** je Spielstand nur Startwert plus **Version des Erzeugers** speichern (Updates verändern keine bestehende Höhle, alte Erzeuger bleiben im Code); Besiegtes und Geplündertes bleibt weg, neuer Auftrag darf dieselbe Höhle neu besetzen. Nach Kapitel 1 |
 | 49 | Lehrer, Fertigkeiten, Talente | Berater mit Nutzer | – | 49d–49t ja ([Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)); **Dokument vom Nutzer freigegeben** (13.10., Namen fett markiert); abgelegt als `docs/HELDENBAU.md` (17:1x). Nach Kapitel 1 |
@@ -72,7 +73,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **Tom, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen; Prüfbericht oben): D1.2 Tempel nachts zu hell, D1.3 Licht/Flamme ohne Gegenstück, D1.4 Wandkram flach, D1.5 Schatten Räume, D1.11 Varianten/Mehrfeld-Möbel, D1.12 (bestätigt, niedriger auf `claude/tom-73-laeden`, nach 0.1.714), D1.13 (bestätigt, Aldric steht jetzt bei 7,3, gleicher Zweig), D1.16 Entwurfsschalter.
 - **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5 Schatten Höhle, D1.6 Höhleneingang flach, D1.7 Leben Höhle, D1.8 stumme Quellen, D1.9 Feuer durch Wände, D1.10 Klang ohne Bewegung (mit Tom), D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (zwei Stücke mit Hörnern/Kreaturenrufen ohne sichtbare Quelle, `grund_fs_609422`, `grund_fs_540836`): Berater empfiehlt herausnehmen, **Nutzer entscheidet nach Hörprobe** (19:44): Höhle mit und ohne die zwei Stücke auf die Seite „Dein Zug“, erst danach ändern; D1.15 Laterne.
-- **Tom, Diogenes-Befunde Lauf 2** (Klasse 1, Verdachte, Vermerk im Prüfbericht): D2.1 Kapitelende alt (hoch), D2.2 Anschlagbrett hell, D2.3 Englisch im Vergleich, D2.4 englische Begriffe (Oberfläche), D2.6 Farben außerhalb der Palette, D2.7 Untertitel kursiv, D2.8 Überlauf ohne „…“, D2.9 Gitter im Höhlengrundriss, D2.10 Bach treppig, D2.11 Vorschau `MENUE`, D2.12 Laden.
+- **Tom, Diogenes-Befunde Lauf 2** (Klasse 1, Verdachte, Vermerk im Prüfbericht): D2.1 Kapitelende alt (hoch), D2.2 Anschlagbrett hell, D2.3 Englisch im Vergleich, D2.4 englische Begriffe (Oberfläche), D2.6 Farben außerhalb der Palette, D2.7 Untertitel kursiv, D2.8 Überlauf ohne „…“, D2.9 Gitter im Höhlengrundriss, D2.10 Bach treppig, D2.11 Vorschau `MENUE`, D2.12 Laden. **D2.4/D2.13 entschieden (Nutzer 21:29):** Texte in `STORY1.md` (`[41.garrick.krogg]`, Chronik), feste Namen in `STORY.md`; dazu Morwens Hütte „im Tiefen Flüsterwald“, Chronik-Reiter „Quests“.
 - **Jerry, Weck-Routinen pausieren** (Berater 13.10., Nutzer freigegeben): deine acht Routinen „Jerry Selbstarbeit HH:MM“ mit `update_trigger` (`enabled: false`) pausieren, nicht löschen; Regel in `SELBST.md` „Feste Weck-Routinen“. Danach Zeile streichen.
 
 ## Für Diogenes
@@ -86,7 +87,6 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
-- **41 Story-Texte (Diogenes D2.13, D2.4 Chronik-Teil):** „Bugbear“ im deutschen Text und fehlendes Verb in der Chronik; englische Namen uneinheitlich (Morning Light/Dawnlight, herbwoman/Herbalist). Steht so in `STORY1.md`; Nutzer und Berater entscheiden.
 
 
 
