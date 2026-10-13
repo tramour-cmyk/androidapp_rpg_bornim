@@ -510,11 +510,11 @@ object MapFolk {
         for ((a, b) in pairs) for (k in 1 until BLEND) squatFrame(f, homeSlot, SquatPose(a, b, k))
     }
 
-    /** How near (in tiles each way) the hero must be for the folk to look at it. */
-    const val WATCH_TILES = 4.0
+    /** How near (in tiles each way) the hero must be for the folk to look at it (5la.3, 13.10.: 3, was 4). */
+    const val WATCH_TILES = 3.0
 
-    /** After the hero has stood this long on one spot, the folk lose interest and go back to what they did (20:56). */
-    const val BORED_MS = 20_000L
+    /** After the hero has stood this long on one spot, the folk lose interest and go back to what they did (5la.3: 10 s, was 20). */
+    const val BORED_MS = 10_000L
 
     /** Whether one of the folk looks at a hero [dx], [dy] tiles away who has stood still for [stillMs]. */
     fun watches(dx: Double, dy: Double, stillMs: Long): Boolean =
