@@ -40,7 +40,7 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 ## Begründungen der Entscheidungen
 
 - **Abläufe (65):** Oberster Grundsatz des Nutzers: nichts Aufgabenrelevantes verlieren; darum `CLAUDE.md` knapp, aber ohne feste Grenze, Auslagern nur bei seltenem Anlass. **65.4** jeder Text an einem Ort, weil Doppelungen Token kosten und auseinanderlaufen. Volltext im Archiv („18:5x“).
-- **Rollen:** Grundsatzfragen beim Berater, ohne dass die Entwicklung steht; Sitzungsnamen thematisch. **Diogenes (75):** Claude als Tester neigt zu Rauschen, Bestätigen, Entwickleraugen, stillen Lücken; darum Erfolgsmaß, Beleg und Regel, blind zuerst; drei Klassen, damit weder Nutzer Verteiler noch wir Nadelöhr sind. **Kosten (75h, 76e):** Token sind knapp; billigster Prüfweg zuerst, bei Entwicklern zählt „Test passt beim ersten Mal“, weil Rückläufer am teuersten sind. Volltext im Archiv.
+- **Rollen:** Grundsatzfragen beim Berater, ohne dass die Entwicklung steht. **Diogenes (75):** Tester neigt zu Rauschen und Bestätigen, darum Beleg, blind zuerst, drei Klassen. **Kosten (75h, 76e):** billigster Prüfweg zuerst; Rückläufer sind am teuersten. **Umbau 76–78:** Kern in `CLAUDE.md`, weil nur sie in langen Sitzungen sicher im Blick bleibt; Sammelbuilds sparen Rundum-Aufwand; Vorsilben zeigen Zweck und Leser am Namen. Volltext im Archiv.
 - **Seite „Dein Zug“ (63):** Fragen gingen in Chats unter; „Beschlüsse“ statt „Bildbuch“; kein „Erledigt“ (65.7). Volltext im Archiv.
 - **Karte und Händler (62c, 59e, 64):** Karte erinnert statt führt; Bekannte am gewohnten Ort; Wissen vor Beschriftung; Chronik als eigener Reiter. Volltext im Archiv.
 - **Kartenbegriffe (62p/62q):** Stufen nach Enthaltensein (draußen Gebiet, hinter einem Eingang Grundriss); „Ebene“ für übereinanderliegende Teile, „Stockwerk“ klingt in Höhlen schief.
@@ -52,7 +52,6 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 - **Balance (38):** SRD als Fundament, Stufen 5–14 als Kern über mindestens 7 Kapitel, Abweichungen mit Grund in `DESIGN-BALANCE.md`; Schwierigkeitsgrad erst nach Messung von „Normal“.
 - **Profil (72; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b)):** Lücke = fürs Handy gebautes Rollenspiel mit eigenem Look und Geschichte (zwischen Darkest Dungeon und Exiled Kingdoms); größte Schwäche der Menü-Zweikampf; Vorschläge 72.1–72.9, Rückfragen 72a–f offen.
 - **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen, damit Entwickler keine Texte erfinden; Kult mit weitergegebenem Titel trägt sieben Kapitel; Kapitel 2: Hinweise doppelt (freie Welt), Anreiz statt Pfeil, zweiter Weg (72.5). Volltext im Archiv („20:5x“).
-- **Intro, Chronik-Texte (69, 64d/62i, 67):** im Archiv („Aus ROLLE-BERATER.md, 13.10., 19:4x“).
 - **Tempelszene (68, 70):** Zwischensequenzen gleich gebaut, damit sie als Reihe wirken; Osric im Bild statt Erklärung (Begründungen im Text wirken konstruiert); **Blende statt Termin**, sonst wartet man in freier Welt tagelang; Einstieg Kapitel 2 erinnert statt führt. Volltext im Archiv („18:5x“).
 
 **Offen bei mir:** 72a–72j; Heldenbau-Rest (Erkennungszeichen, Messung); Prüfungsquests und Umlern-Tempel (41); 45b nach Messung 38 (Empfehlung 72i: streichen).
