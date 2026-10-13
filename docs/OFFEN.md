@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom 0.1.681** (Zweig `claude/tom-17-riemen`, ersetzt 0.1.676): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38400375892/artifacts/11814774454 · Prüfliste `e/t681.html`: Kartenschalter behalten Zoom (62f), weiches Licht beim Drehen in der Höhle (13e). Nach „passt“: PR, zusammenführen (62d ja).
+- **Tom 0.1.689** (Zweig `claude/tom-13e-kegelrand`, ersetzt 0.1.681): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38411397400/artifacts/11822061953 · Prüfliste `e/t689.html`: Höhle Blickrand und Fels weich (13e), Chronik (64), Laternen (66), Südrand (67), noch Kartenschalter (62f aus 0.1.681). Nach „passt“: PR, zusammenführen.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Entscheidungsseite (65.3), nicht hier.
 
@@ -34,7 +34,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 40 | Lautstärke im Menü: Gesamt, Musik, Effekte (heute nur Musik an/aus) | Jerry | neu von `main` | Nutzer 12.10., 09:52. **40a ja (10:10):** drei Regler, Ortsklang bei Effekten |
 | 41 | Storyplan: je Kapitel Zusammenfassung, Quests, Dialoge; dann Plot Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | 41a–41d ja: Entwurf Kapitel 1 steht ([Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)), Texte in `docs/STORY.md` (Verzeichnis, Teildateien je Kapitel); Regel „Story und Dialoge“ in `CLAUDE.md`. Kapitel 2: Grobzusammenfassung „Das Graumoor“ im Dokument (15:2x), Grundidee gut (Nutzer 15:28); Kapitel 2 muss im Umfang deutlich mehr bieten als Kapitel 1 (41i), **41j ja (15:58):** 5 Gebiete (Südstraße, Rabenschanze, Schilfrode, Graumoor dreiteilig, Aschfurt mit Katakomben), 3 Zufallshöhlen aus Schilfrode, 5–6 Nebenaufgaben; **41k ja:** Moor bei Nacht gefährlicher, Fähre nur bei Tag; **41l:** kein fester Begleiter, Fuhrmann bis zur Rabenschanze. Grobentwurf Landkarte ([Karte](https://claude.ai/artifact/LUvNvJofCbNpvv7Rm7zJsu), 16:0x) zur Durchsicht beim Nutzer |
 | 59e | Händler: Menge „Alle“, Vorrat je Laden | Tom (jetzt); Jerry mit 38/39 (Vorrat) | – | Entschieden 13.10. (Beschlüsse): „Alle“ beim Kaufen weg, beim Verkaufen mit Abfrage (in 0.1.660). Vorrat je Laden erst mit 38/39, nie nach Zeit/Rast, Menge nach Schwierigkeitsgrad |
-| 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, drei Ebenen (62e–62m) | Tom; 62m Jerry mit 39 | `claude/tom-13e-kegelrand` | 62e–62g im Spiel. **62h A Pergament (Nutzer 16:08):** „sieht noch nicht schön aus“ → schöner machen, erst Standbilder (`e/62h`); **62n/62o ja (16:09, Beschlüsse, Sokrates):** Beschriftung in Textkasten-Schrift/Sepia, Ebene 2 Zeichen statt Hausnamen (ersetzt Handschrift 62g), Höhlenkarte als Skizze mit festem Ausschnitt; erst zwei Standbilder; 62i–62k mit 64; 62l/62m später |
+| 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, drei Ebenen (62e–62m) | Tom; 62m Jerry mit 39 | `claude/tom-13e-kegelrand` | 62e–62g im Spiel. **62h A Pergament (Nutzer 16:08):** „sieht noch nicht schön aus“ → zweiter Entwurf (Commit auf dem Zweig, `e/62h-2`, wartet auf ja); **62n/62o ja (16:09, Beschlüsse, Sokrates):** Beschriftung in Textkasten-Schrift/Sepia, Ebene 2 Zeichen statt Hausnamen (ersetzt Handschrift 62g), Höhlenkarte als Skizze mit festem Ausschnitt; erst zwei Standbilder; 62i–62k mit 64; 62l/62m später |
 | 64 | Questlog als Reiter „Chronik“ (Aufträge, Bisher geschehen) | Tom; Texte Berater mit Nutzer | `claude/tom-13e-kegelrand` | **Entwurf ja (Nutzer 13.10., 16:08, Beschlüsse):** ins Spiel; Texte aus `docs/STORY1.md` (`[64d.…]`) |
 | 66 | Licht im Dorf bei Nacht: Wache Jorin steht im Dunkeln | Tom | `claude/tom-13e-kegelrand` | 66a A (Beschlüsse): zwei Laternen am Schlagbaum, kommt mit 67 in den nächsten Build; Handlaterne auf der Merkliste |
 | 67 | Südrand des Dorfes: Feldweg hinter der Brücke, Wegweiser, Umkehr am Kartenrand | Tom | `claude/tom-13e-kegelrand` | **ja (Nutzer 13.10., 16:08):** ins Spiel mit 66 (Zweig `tom-67-suedrand` hineingeführt), kommt in den nächsten Build |
@@ -56,8 +56,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (13.10., 16:1x)
-- **0.1.688** (`claude/tom-13e-kegelrand` = riemen + 13e Kegelrand e33cae1d + Felsoberseiten 0ba7e609, ersetzt 0.1.681), Prüfliste `e/t688.html`. Nach „passt“: PR dieses Zweigs (enthält riemen), Merge-Commit; Änderungshistorie wie bisher (59, 60e–k, 60j, 17r, 5la, 5la.2, 5la.3, 6g, 6f, 61a, 61, 62a, 62c, 62e, 62f/62g, 59e, 55.1a, 55.1b, 13x, 13v/27.6, 13e Sicht weich, Kegelrand, Fels).
-- Danach `claude/tom-66-laterne` (66a A) und `claude/tom-67-suedrand` (wartet auf ja; vor PR main neu hineinführen) als PR; 62h/64 Entwürfe auf `claude/tom-62h-landkarte` warten (`e/62h`, `e/64`).
+- **0.1.689** (`claude/tom-13e-kegelrand` = riemen + 13e Kegelrand/Fels + 66 + 67 + 64 ins Spiel, ersetzt 0.1.681), Prüfliste `e/t689.html`; 62h zweiter Entwurf danach auf dem Zweig (nicht im Spiel, `MapLook.land` null). Nach „passt“: PR dieses Zweigs (enthält riemen), Merge-Commit; Änderungshistorie wie bisher (59, 60e–k, 60j, 17r, 5la, 5la.2, 5la.3, 6g, 6f, 61a, 61, 62a, 62c, 62e, 62f/62g, 59e, 55.1a, 55.1b, 13x, 13v/27.6, 13e Sicht weich, Kegelrand, Fels).
+- 66, 67, 62h/64 sind in diesen Zweig zusammengeführt; die alten Zweige nicht mehr benutzen.
 - **13t erst nach diesen Merges** (alte Ansicht ausbauen, ~100 Stellen in `WorldScreen`/`core/art`, sonst Konflikte mit 62h/66/67); eigener Zweig von `main`.
 - Vorschau-Schalter neu: `UNERKUNDET=1`.
 ### Jerry (12.10., 16:59) – Pause bis Freitag

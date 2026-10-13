@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Höhle: Licht blendet beim Drehen weich über** (13e, getestet 0.1.681): was aus dem Blick gerät, dunkelt in etwa einer halben Sekunde ab, Lichtstrahl und Fackeln folgen. Zweig `claude/tom-13e-kegelrand`, noch nicht auf `main`.
 - **Höhle in der diagonalen Sicht** (13e, getestet 0.1.667/0.1.671): Felswände, Fackeln mit Flamme, Lichtstrahl durch den Schacht mit weichem Lichtfleck, Geröll und Tropfsteine, Weiher als Wasser, Lagerfeuer mit Steinring, Leuchtpilze, Kristalle und Felsbrocken; Erkundetes nur leicht abgedunkelt. PR #51.
 
 ## v0.1.656 – 13.10.2026, 10:13
