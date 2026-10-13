@@ -2,13 +2,14 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 66**
+**Nächste freie Themennummer: 67**
 
-**Entscheidungsseite (alle Rollen, 63): https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow** · Bildbuch: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Entscheidungsseite (alle Rollen, 63): https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow** · Beschlüsse: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 ## Jetzt installieren
 
 - **Tom 0.1.662** (Zweig `claude/tom-17-riemen`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38373719219/artifacts/11799838796 · achten auf: Jorin stellt Speer ab, Speer 2 m (55.1b), Menüreiter als Zeichen (60j), Leute schauen nur bis 3 Felder/10 s zum Helden (5la.3). Laden schon gut, Karte mit Berater (62c). Danach PR (Rückfrage 62d).
+- **Tom 0.1.667** (Zweig `claude/jerry-13e-hoehle-diagonal`, nur `main` plus Höhle): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38380446160/artifacts/11803377819 · Höhle diagonal (13e): Held nie verdeckt, Gitter/Eingänge/Truhen erkennbar, Kämpfe, flüssig?
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Entscheidungsseite (65.3), nicht hier.
 
@@ -33,9 +34,10 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 39 | Schwierigkeitsgrad im Menü | Jerry (Werte), Menü mit Tom | – | Nutzer 12.10., 09:52. Nach 38 („Normal“ erst festlegen). **39a ja (10:10):** Leicht/Normal/Schwer über Gegner-TP und -Schaden, jederzeit umstellbar. **62m ja:** auf Leicht Questziele gold ab Annahme; bei der Wahl jeden Unterschied genau erklären |
 | 40 | Lautstärke im Menü: Gesamt, Musik, Effekte (heute nur Musik an/aus) | Jerry | neu von `main` | Nutzer 12.10., 09:52. **40a ja (10:10):** drei Regler, Ortsklang bei Effekten |
 | 41 | Storyplan: je Kapitel Zusammenfassung, Quests, Dialoge; dann Plot Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | 41a–41d ja: Entwurf Kapitel 1 steht ([Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)), fertige Kapitel als `docs/STORY.md`, Änderungen nur nach Abstimmung Nutzer und Berater; Regel „Story und Dialoge“ in `CLAUDE.md`, `tools/story.sh`. Kapitel 2 offen |
-| 59e | Händler: Menge „Alle“, Vorrat je Laden | Tom (jetzt); Jerry mit 38/39 (Vorrat) | – | Entschieden 13.10. (Bildbuch): „Alle“ beim Kaufen weg, beim Verkaufen mit Abfrage (in 0.1.660). Vorrat je Laden erst mit 38/39, nie nach Zeit/Rast, Menge nach Schwierigkeitsgrad |
-| 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, drei Ebenen (62e–62m) | Tom; 62m Jerry mit 39 | `claude/tom-17-riemen` | **62e–62m ja (Nutzer 13.10., 11:5x, Bildbuch):** zuerst 62e (Hauptquest, Haustür-Marke, Anschlagbrett), dann 62f/62g (erst Designvorschlag), 62h drei Ebenen (Standbilder Landkarte), 62i–62k mit 64; 62l/62m später |
-| 64 | Questlog als Reiter „Chronik“ (Aufträge, Bisher geschehen) | Tom; Texte 64d Berater mit Nutzer | – | **64a–64e ja (Nutzer 13.10., 11:5x, Bildbuch):** erst Standbilder, gebaut nach 62e; gleiche Daten wie die Karte; keine Questanzeige im Spielbild |
+| 59e | Händler: Menge „Alle“, Vorrat je Laden | Tom (jetzt); Jerry mit 38/39 (Vorrat) | – | Entschieden 13.10. (Beschlüsse): „Alle“ beim Kaufen weg, beim Verkaufen mit Abfrage (in 0.1.660). Vorrat je Laden erst mit 38/39, nie nach Zeit/Rast, Menge nach Schwierigkeitsgrad |
+| 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, drei Ebenen (62e–62m) | Tom; 62m Jerry mit 39 | `claude/tom-17-riemen` | **62e–62m ja (Nutzer 13.10., 11:5x, Beschlüsse):** zuerst 62e (Hauptquest, Haustür-Marke, Anschlagbrett), dann 62f/62g (erst Designvorschlag), 62h drei Ebenen (Standbilder Landkarte), 62i–62k mit 64; 62l/62m später |
+| 64 | Questlog als Reiter „Chronik“ (Aufträge, Bisher geschehen) | Tom; Texte 64d Berater mit Nutzer | – | **64a–64e ja (Nutzer 13.10., 11:5x, Beschlüsse):** erst Standbilder, gebaut nach 62e; gleiche Daten wie die Karte; keine Questanzeige im Spielbild. **64d-Form ja (12:21):** Chronist, Einträge je Wendepunkt, Hörensagen mit Quelle (`BERATER.md`); Entwurf: [Chronik-Texte](https://claude.ai/code/artifact/a06e73b2-a039-4ae3-8c9d-380c6f74ad2e), Nutzer streicht |
+| 66 | Licht im Dorf bei Nacht: Wache Jorin steht im Dunkeln | Tom | – | Nutzer 13.10., 12:18: „macht wenig Sinn“; Idee Laterne in der Hand oder Straßenlaterne. Berater: Laterne am Wachposten plus Handlaterne auf der Runde; Kleines entscheidet Tom, erst Standbilder (Nacht) auf der Entscheidungsseite |
 | 45 | Geschäftsmodell (Play Store) | Berater mit Nutzer | – | 45a/45c ja (Kapitel 1 frei, Vollversion, nie Werbung/Beutekisten/Wartezeiten). **45b zurückgestellt** bis nach Messung 38. Verlauf im Archiv |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten im Archiv). Nach Kapitel 1 |
 | 49 | Lehrer, Fertigkeiten, Talente | Berater mit Nutzer | – | 49d–49t ja ([Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)); als `docs/HELDENBAU.md` ablegen, sobald der Nutzer die kursiven Namen durchgesehen hat. Nach Kapitel 1 |
@@ -45,16 +47,16 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry | – | Nutzer 12.10., 15:4x nach Test 0.1.587: Krogg fürs Erste so lassen, später alle Kampfanimationen gesamt überarbeiten. Nach Kapitel-1-Wichtigem |
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg | Jerry | – | Prüfthema, Nutzer 12.10., 15:4x (Test 0.1.587): wenn Zeit ist und nichts Wichtigeres ansteht; alle großen Gegner mitprüfen |
 | 56 | Alte Objekte auf den neuen Karten (Nutzer 12.10., 18:3x) | Tom | `claude/tom-27-4-baeume` | **56a–56c ja (19:4x):** Kräuter, Truhe, Steine, Steinkreis, Büsche im Wald ins Spiel (Schalter entfernt, c2b909f7). **56d ja (20:1x):** Dorf (`YARDDRAFT`, `FERNDRAFT`) ins Spiel; Innenräume ohne Altes |
-| 59–62, 60j | Händler, ein Aussehen, Spuren, gezeichnete Karte, Menüreiter (Verlauf im Archiv, Entschiedenes im Bildbuch) | Tom | `claude/tom-17-riemen` | Alles im Sammelzweig; 0.1.660 getestet (Laden, 60j gut). PR nach Test 0.1.662. 62c siehe eigene Zeile |
-| 63 | Eine Entscheidungsseite für alles Offene (alle Rollen; Bildbuch für Entschiedenes, 57) | Tom | `main` (Notizen) | Angelegt 13.10. (Link oben), Regel in `CLAUDE.md`. Offen: Freigabe für Jerry (Nutzer, Teilen) am Fr. |
+| 59–62, 60j | Händler, ein Aussehen, Spuren, gezeichnete Karte, Menüreiter (Verlauf im Archiv, Entschiedenes in den Beschlüssen) | Tom | `claude/tom-17-riemen` | Alles im Sammelzweig; 0.1.660 getestet (Laden, 60j gut). PR nach Test 0.1.662. 62c siehe eigene Zeile |
+| 63 | Eine Entscheidungsseite für alles Offene (alle Rollen; Beschlüsse für Entschiedenes, 57) | Tom | `main` (Notizen) | Angelegt 13.10. (Link oben), Regel in `CLAUDE.md`. Offen: Freigabe für Jerry (Nutzer, Teilen) am Fr. |
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
 ## Übergaben
 
-### Tom (13.10., 11:00) – Build 0.1.660, Neustart empfohlen
-- Zweig `claude/tom-17-riemen` (von `ccr-5851d275-mvpqbt`, `main` drin), Build **0.1.660** (siehe „Zu testen“). Nach dem Test: PR von diesem Zweig, zusammenführen (Merge), Änderungshistorie unter „Unveröffentlicht“: 59, 60e–k, 60j, 17r, 5la, 5la.2, 6g, 6f, 61a, 62a, 62c, 59e, 55.1a, 55.1b, 13x, 13v/27.6.
-- 17 Riemen verworfen (kaum sichtbar), 17 fertig. 55.1b/60j entschieden und drin (Bildbuch). 5la.3 ja (11:0x): 3 Felder, 10 s, im Zweig (STIL.md angepasst). 6l zurückgestellt. Toms Kapitel-1-Ziele erledigt bis auf „alte Ansicht ausgebaut“ (wartet auf Höhle, Jerry).
-- **Weiter:** Build **0.1.662** mit 5la.3 (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38373719219) prüfen, Artefakt-Link melden, „Zu testen“ und Entscheidungsseite „Anzusehen“ auf 0.1.662 umstellen; nach Test PR von `claude/tom-17-riemen`; sonst Selbstvorrat leer, beim Nutzer nach Neuem fragen (z. B. 64 Questlog nach Entwurf des Beraters).
+### Tom (13.10., 12:12) – vor Neustart
+- **Zweig `claude/tom-17-riemen`**, Build 0.1.662 (Jetzt installieren): Laden gut, 60j gefällt; offen 55.1b, 5la.3. Nach „passt“: PR, zusammenführen (Merge), Änderungshistorie „Unveröffentlicht“: 59, 60e–k, 60j, 17r, 5la, 5la.2, 5la.3, 6g, 6f, 61a, 62a, 62c, 59e, 55.1a, 55.1b, 13x, 13v/27.6. Rückfrage 62d (trotz 62c-Entwurf zusammenführen, Empf. ja).
+- **13e Höhle** (von Jerry, 13y ja): Zweig `claude/jerry-13e-hoehle-diagonal` (Worktree `../hoehle`), `main` drin; heute Lagerfeuer (aus dem Wald), Knochen im Maßstab, Weiher als Wasser (Risse/Kiesel weg, Spiegelungsfehler `bank*2.2` behoben); `MapCaveIso.draft = true`, `MapSight.finished` mit Höhle → Build 0.1.667. Rückfrage 13e auf der Seite (Bilder alt/neu). Offen: Pilze/Kristalle alte Bilder, Felsinneres vorn schwarz.
+- **Weiter:** Test 0.1.667 abwarten; nach „passt“: PR des Höhlenzweigs (nach dem von tom-17-riemen, dann Wald diagonal mit `main` zusammenführen und `MapSight.finished` um Wald ergänzen prüfen), dann alte Ansicht ausbauen (13t), dann 6l. 65.3/65.6 fertig. Entscheidungsseite: Bildbuch heißt jetzt „Beschlüsse“. Prüflisten `e/t662.html`, `e/t667.html` (neue Regel in `CLAUDE.md`). Nachfolger startet auf `claude/tom-13e-hoehle` (von Jerrys Höhlenzweig); weiter auf den beiden genannten Zweigen.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -72,7 +74,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nur der Nutzer startet Diogenes; Ablauf in `docs/DIOGENES.md`).
 
-- (noch keine)
+- **Build 0.1.662 am Stück** (Berater 13.10., Nutzer ja; Nutzer startet): Dorf, Wald, Tiefer Wald, Menü, Laden, Karte bei Tag und Nacht; Fehler und veraltetes Aussehen melden. Höhle (13e) noch nicht, ist Entwurf.
 
 ## Für den Berater
 

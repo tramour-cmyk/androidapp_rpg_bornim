@@ -60,12 +60,13 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 54 | Nicht warten, von selbst weiterarbeiten | Tom und Jerry | erledigt (Regel) | `CLAUDE.md` |
 | 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | zu testen | `OFFEN.md` |
 | 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | Tom | zu testen | `OFFEN.md` |
-| 57 | Gemeinsames Bildbuch für Entschiedenes | Tom | erledigt (Regel) | Archiv |
+| 57 | Gemeinsame Beschlüsse für Entschiedenes (früher Bildbuch) | Tom | erledigt (Regel) | Archiv |
 | 58 | Umhang hängt beim Laufen über dem Schild | Tom | erledigt (PR #50) | `OFFEN.md` |
 | 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf | Tom | zu testen (59e Vorrat ruht bis 38/39) | `OFFEN.md` |
 | 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | Tom | zu testen | `OFFEN.md` |
 | 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | Tom | zu testen | `OFFEN.md` |
 | 62 | Gezeichnete Karte im Menü | Tom | in Arbeit (62e–62m) | `OFFEN.md` |
 | 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom (ab Fr. mit Jerry) | in Arbeit | `OFFEN.md` |
-| 64 | Questlog: Reiter „Chronik“ (Aufträge, Bisher geschehen) | Tom (Texte Berater mit Nutzer) | offen (nach 62e) | `OFFEN.md`, Bildbuch |
+| 64 | Questlog: Reiter „Chronik“ (Aufträge, Bisher geschehen) | Tom (Texte Berater mit Nutzer) | offen (nach 62e) | `OFFEN.md`, Beschlüsse |
+| 66 | Licht im Dorf bei Nacht (Wache, Laterne) | Tom | offen | `OFFEN.md` |
 | 65 | Abläufe verschlanken (Ablaufprüfung) | Berater, Tom, Jerry | in Arbeit (65.2 Jerry) | `OFFEN.md` |
