@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Sitzungen** (ältere im Archiv): 13.10. 18:08–19:0x „Kapitel 2 Plot“ (2a–2d, 3a–3e, 71 für Diogenes, 72 Marktvergleich, Rolle geschärft). **Nachfolger:** „Sokrates – Kapitel 2 und Profil“ (Nutzer startet mit „Sokrates“)
 
-**Nächster Punkt:** (1) Marktvergleich ist als Bericht umgebaut (19:3x: Auftrag, 1. Erfassen, 2. Auswerten, 3. Folgern, je Vorschlag „Grundlage“); Nutzer liest ihn zuerst (19:37), dann 72a–72j. (1b) Figurenliste im Storyplan: Kapitel-2-Figuren mit Spalte „Aussehen, eigene Handlung, Klang“ (19:4x); offen: Namen für Gwennas Mann, Fährmann, dessen Frau, Händler Schilfrode vorschlagen. (2) Offene Rückfragen mit vollem Wortlaut und Empfehlung zeigen: **72a–72j** im [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b). (3) Kultlager (41).
+**Nächster Punkt:** (1) Marktvergleich ist als Bericht umgebaut (19:3x: Auftrag, 1. Erfassen, 2. Auswerten, 3. Folgern, je Vorschlag „Grundlage“); Nutzer liest ihn zuerst (19:37), dann 72a–72j. (1b) Figurenliste im Storyplan: Kapitel-2-Figuren mit Spalte „Aussehen, eigene Handlung, Klang“ (19:4x); Namen ja (19:50). (2) Offene Rückfragen mit vollem Wortlaut und Empfehlung zeigen: **72a–72j** im [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b). (3) Kultlager (41).
 
 **Zuletzt gelesen bis:** dieser Commit (13.10., 19:0x)
 
