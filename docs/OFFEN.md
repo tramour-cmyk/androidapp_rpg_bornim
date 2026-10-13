@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom 0.1.693** (Zweig `claude/tom-13e-kegelrand`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38418025018/artifacts/11824989422 · Prüfliste `e/t693.html`: Blick über die Felsstufe (13e), Landkarte Pergament (62h), Höhle von der Landkarte (62p). Nach „passt“: PR, zusammenführen.
+- **Tom 0.1.702** (Zweig `claude/tom-13e-kegelrand`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38428809928/artifacts/11829179520 · Prüfliste `e/t702.html`: Höhle Lagerfeuer (13e, Meldung 17:5x), Gebietskarte/Grundrisse im Tuschestil, Schilder (62h/62o/62n); enthält 0.1.693. Nach „passt“: PR, zusammenführen.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Entscheidungsseite (65.3), nicht hier.
 
@@ -56,7 +56,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (13.10., 18:2x) – an Nachfolger
-- Zweig `claude/tom-13e-kegelrand`: 13e Sichtkegel nach Blickrichtung (Meldung 17:5x) und 62h/62o/62n im Spiel (b6227e35). Builds laufen (Weckruf 18:17 alt für 36ce407b); Nachfolger: Build zu b6227e35 abwarten, Link und Prüfliste `e/t<build>.html` (Höhle Lagerfeuer schräg nach oben gehen; Karte Wald, Dorf mit Schildern, Höhle, Räume), Zeile 0.1.693 ersetzen.
+- Zweig `claude/tom-13e-kegelrand`: 13e Sichtkegel nach Blickrichtung (Meldung 17:5x) und 62h/62o/62n im Spiel (b6227e35). Build 0.1.702 beim Nutzer (Prüfliste `e/t702.html`); nach „passt“ PR, zusammenführen.
 - Danach 62r bauen, sobald entschieden (Empfehlung Ziel-Beschriftung); dann 13t weiter auf `claude/tom-13t-alte-ansicht` (Bildkontrolle gut, tote Reste löschen), 6l, 68.
 - Begriffe 62q beachten: Stufen Landkarte/Gebietskarte/Grundriss, „Ebene“ nur für übereinanderliegende Teile eines Grundrisses.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
