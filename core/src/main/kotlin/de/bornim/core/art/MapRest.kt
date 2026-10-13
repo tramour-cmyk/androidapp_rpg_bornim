@@ -13,8 +13,13 @@ package de.bornim.core.art
 object MapRest {
     /** A resting stance; [handsFree] ones need empty hands (folk, not the hero with a weapon). */
     enum class Rest(val handsFree: Boolean = false, val looks: Boolean = false) {
-        NEUTRAL, SHIFT_L, SHIFT_R, LOOK_L(looks = true), LOOK_R(looks = true), BELT(handsFree = true)
+        NEUTRAL, SHIFT_L, SHIFT_R, LOOK_L(looks = true), LOOK_R(looks = true), BELT(handsFree = true),
+        /** Draft (55.1): the arms crossed over the chest; the hands behind the back. Only with [draft]. */
+        ARMS(handsFree = true), BACK(handsFree = true)
     }
+
+    /** The test switch (55.1, draft): more stances for the arms, held longer. */
+    @Volatile var draft = false
 
     /** Steps into and out of a stance (12b: the glance aside turned the head 38° in one picture): [LEVELS] is the stance itself. */
     const val LEVELS = 4
@@ -46,6 +51,10 @@ object MapRest {
             Rest.LOOK_L -> base.copy(headTurn = 38.0, twist = 6.0)
             Rest.LOOK_R -> base.copy(headTurn = -38.0, twist = -6.0)
             Rest.BELT -> base.copy(rh = HeroFigure.V(13.0, 60.0, 7.0), lh = HeroFigure.V(-13.0, 60.0, 7.0), spread = 8.0)
+            // each hand on the other arm just above the elbow, the forearms one over the other before the chest
+            Rest.ARMS -> base.copy(rh = HeroFigure.V(-7.0, 71.0, 7.5), lh = HeroFigure.V(7.0, 74.0, 6.5), spread = 7.5, headDown = -1.0)
+            // the hands clasped behind, at the small of the back, the chest a little forward
+            Rest.BACK -> base.copy(rh = HeroFigure.V(3.0, 60.0, -9.0), lh = HeroFigure.V(-3.0, 60.0, -9.0), spread = 7.5, lean = -0.04)
         }
         if (up > 0) r = r.copy(bodyY = r.bodyY + up, rh = r.rh.copy(u = r.rh.u + up * 0.5), lh = r.lh.copy(u = r.lh.u + up * 0.5))
         return r
@@ -73,6 +82,8 @@ object MapRest {
         val pick = when {
             roll < 0.4 -> if (r.nextBoolean()) Rest.SHIFT_L else Rest.SHIFT_R
             roll < 0.7 -> if (r.nextBoolean()) Rest.LOOK_L else Rest.LOOK_R
+            // draft (55.1): the hands now and then crossed or behind the back instead of at the belt
+            draft -> r.nextDouble().let { a -> if (a < 0.35) Rest.ARMS else if (a < 0.6) Rest.BACK else Rest.BELT }
             else -> Rest.BELT
         }
         if (t < start || t >= start + length) return Rest.NEUTRAL to breath

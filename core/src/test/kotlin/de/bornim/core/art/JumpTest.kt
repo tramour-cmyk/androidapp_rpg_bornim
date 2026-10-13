@@ -185,6 +185,14 @@ class JumpTest {
             val rigs = (0L until 60_000L step 20L).map { t -> MapRest.pose(seed, t, handsFree = true, mayLook = true).let { p -> "${t}ms ${p.rest}/${p.breath}/${p.level}" to MapRest.rig(base, p.rest, p.breath, p.level) } }
             out += stream("Leute Stehen (seed $seed)", rigs)
         }
+        // 55.1 (draft): with the arms crossed and the hands behind the back as well
+        MapRest.draft = true
+        try {
+            for (seed in listOf(7, 42, 1234, 99)) {
+                val rigs = (0L until 120_000L step 20L).map { t -> MapRest.pose(seed, t, handsFree = true, mayLook = true).let { p -> "${t}ms ${p.rest}/${p.breath}/${p.level}" to MapRest.rig(base, p.rest, p.breath, p.level) } }
+                out += stream("Leute Stehen 55.1 (seed $seed)", rigs)
+            }
+        } finally { MapRest.draft = false }
         // Borin at his table (55.2): ten minutes in steps of 20 ms, the poses gone into and out of through in-between pictures
         out += stream("Borin Sitzen", (0L until 600_000L step 20L).map { t -> MapFolk.seatPoseAt(MapFolk.borin, t).let { p -> "${t}ms $p" to MapFolk.seatRig(0.0, p) } })
         // 17 (draft): the cloak swinging on after a stop, in steps of 20 ms, from the standing picture to the standing picture

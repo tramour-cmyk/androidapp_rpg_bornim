@@ -134,7 +134,10 @@ fun renderNpcRest() {
     val rests = de.bornim.core.art.MapRest.Rest.entries
     val k = 3
     val lab = 26
-    val rows = listOf("Garrick von vorn" to 0, "Garrick schräg" to 2, "Held von vorn" to -1)
+    // RUHE55=1 (55.1, draft): two of the village folk in lighter clothes, where the arms show better
+    val who = if (System.getenv("RUHE55") != null) listOf(folk.gwenna, folk.bram) else listOf(folk.garrick)
+    val rows = if (who.size > 1) listOf("Gwenna von vorn" to 0, "Gwenna schräg" to 2, "Bram von vorn" to 0, "Bram schräg" to 14)
+        else listOf("Garrick von vorn" to 0, "Garrick schräg" to 2, "Held von vorn" to -1)
     val out = BufferedImage(F.W * k * rests.size, (F.H * k + lab) * rows.size * 2, BufferedImage.TYPE_INT_RGB)
     val g = out.createGraphics()
     g.color = Color(0x2E3628); g.fillRect(0, 0, out.width, out.height)
@@ -146,7 +149,8 @@ fun renderNpcRest() {
         rests.forEachIndexed { i, rest ->
             if (slot < 0 && rest.handsFree) return@forEachIndexed
             g.drawString((if (i == 0) "$title, " + (if (breath == 1) "einatmen: " else "ausatmen: ") else "") + rest.name, i * F.W * k + 8, y0 + 20)
-            val img = if (slot < 0) F.drawRest(hero, 0, rest, breath) else folk.drawRest(folk.garrick, slot, rest, breath)
+            val f = if (who.size > 1 && title.startsWith("Bram")) folk.bram else who.first()
+            val img = if (slot < 0) F.drawRest(hero, 0, rest, breath) else folk.drawRest(f, slot, rest, breath)
             for (y in 0 until F.H * k) for (x in 0 until F.W * k) {
                 val q = img[x / k, y / k]; if ((q ushr 24) < 128) continue
                 out.setRGB(i * F.W * k + x, y0 + lab + y, q)
