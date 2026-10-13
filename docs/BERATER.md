@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Sitzungen** (ältere im Archiv): 13.10. 16:16–17:0x „Kapitel 2 Storyplan“ (41m–p, 69a–d, 48d–f, 62p). **Nachfolger:** „Sokrates – Storyplan und Tempelszene“ (Nutzer startet mit „Sokrates“)
 
-**Nächster Punkt:** **68** Tempelszene: Textentwurf mit Nutzer (Lyra legt das Amulett zurück, Form nach `STIL.md` „Zwischensequenzen“).
+**Nächster Punkt:** 68f/68g (Ort nach der Szene, Nacht als Rast), dann Kapitel 2 Plot (41).
 
 **Zuletzt gelesen bis:** dieser Commit (13.10., 17:0x)
 
@@ -52,8 +52,8 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - **Entscheidungen einzeln abwarten** (13.10.): „ich folge deiner Empfehlung“ galt einem Punkt, nicht allen.
 - **Rückfragen des Beraters** (13.10.) im Gespräch stellen (nummeriert, Empfehlung), nicht über die Entscheidungsseite; erst nach Entscheidung in die Notizen.
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
-- **Hauptkopie nach Push aus `../bornim-main`** zeigt Notizen als „geändert“: nie committen, `git reset --hard HEAD` (freigegeben 12.10.).
-- **Docs-Werkzeug** (41): einfache Zeilenumbrüche verschmelzen, Dialogzeilen mit Leerzeile trennen.
+- **Hauptkopie zeigt nach Push aus `../bornim-main` Notizen „geändert“:** `git reset --hard HEAD` (12.10.).
+- **Docs:** Dialogzeilen mit Leerzeile trennen (41).
 
 ## Deine Linie (der Nutzer)
 
