@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | läuft | 14.10., 07:00 | 13.10., 23:42 | 13.10., 23:42 | Paket 2 (D1.16-Rest) | `claude/tom-d1-raeume` |
+| Tom | läuft | 14.10., 07:00 | 13.10., 23:42 | 13.10., 23:55 | Paket 3 (Sammelbuild) | `claude/tom-d1-raeume` |
 | Jerry | fertig | – | 12.10., 16:33 | 12.10., 16:59 | Pause bis Freitag (Nutzungsguthaben), Stand in ARBEIT-OFFEN.md | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
@@ -80,7 +80,7 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/ARBEIT-O
 
 **Paket 13.10., 23:20 bis 14.10., 07:00** (Nutzer 23:1x „Selbstarbeit ab jetzt bis morgen früh“; Zweig `claude/tom-d1-raeume`):
 1. ~~D1.5 Räume~~ fertig (05d446fd, Standbild 23:38). Offen dazu nur: Vermerk D1.5 im Prüfbericht; dort bei D1.4/D1.16 Zweig `claude/festive-lovelace-3ujzqi` → `claude/tom-d1-raeume`.
-2. **D1.16 Rest ohne `WorldScreen.kt`:** Schalter `VillageDay.draft`, `MapGrade.draft`, `MapFolk.sitDraft`, `MapFlora.treeDraft`, `MapGround.cobbleDraft` (prüfen, ob false = verworfen) entfernen, Kerntests anpassen. Fertig, wenn: Kerntests und Vorschau grün, Commit.
+2. ~~D1.16 Rest ohne `WorldScreen.kt`~~ fertig (7d9692c1; alte flache Bäume und verworfener Pflasterentwurf mit weg).
 3. **Sammelbuild:** `git merge origin/main`, PR `claude/tom-d1-raeume` → `main` öffnen (baut nach 78d; nicht zusammenführen), Prüfliste `e/t<build>.html` und Zeile auf „Dein Zug“ (D1.4, D1.5, D1.16 sichtbar nur indirekt; 77/78d nicht prüfen). Fertig, wenn: Build grün, Link und Prüfliste stehen.
 4. **27 Wald:** Standbilder Wald bei Tag und Nacht, Lückenliste nach „Ort fertig“. Fertig, wenn: Liste in der Übergabe.
 **Reserve:** 55 Speer im Kampf (~2 m) prüfen; 5.5 Dorf Lücken prüfen; 69 Intro: Bildentwürfe (Standbilder) nach `STORY-K1.md` `[69.intro.…]`.
