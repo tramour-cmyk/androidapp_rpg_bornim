@@ -119,8 +119,11 @@ class Tracks {
         const val CARRIED_MS = 60_000L
         const val DUST_MS = 900L
         const val FADE_FROM = 0.6f
-        /** How long the ground takes to dry after the rain, in ms. */
-        const val DRY_MS = 4 * 60_000f
+        /**
+         * How long the ground takes to dry after the rain, in ms. Short (61b, Nutzer 13.10.: prints in the deep wood
+         * though it did not rain): the wet ground is not drawn, so it may keep prints only about half a minute after.
+         */
+        const val DRY_MS = 60_000f
         /** From this wetness on soft ground keeps prints; below [DRY] a way is dry enough for dust. */
         const val WET = 0.3f
         const val DRY = 0.05f
