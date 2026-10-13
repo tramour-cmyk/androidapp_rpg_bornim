@@ -190,6 +190,8 @@ fun main() {
             if (System.getenv("PONDLIFE") != null) de.bornim.core.art.PondLife.draft = true
             // SITDRAFT2=1: Borin sits at his table in the inn (55.2, draft)
             if (System.getenv("SITDRAFT2") != null) de.bornim.core.art.MapFolk.sitDraft = true
+            // FARBDRAFT=1: the colour mood of each place and hour (idea 11, draft)
+            if (System.getenv("FARBDRAFT") != null) de.bornim.core.art.MapGrade.draft = true
             // TREEDRAFT=1: the trees with volume (27.4, draft)
             if (System.getenv("TREEDRAFT") != null) de.bornim.core.art.MapFlora.treeDraft = true
             // ZOOMSTUFE=1|2: the in-between zoom steps for the near shots (6.15)

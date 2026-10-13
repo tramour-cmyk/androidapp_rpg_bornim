@@ -1254,6 +1254,20 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // Fog of war over wild areas: black where unexplored, dimmed where not in sight.
         // Where the map has a light image, the fog is already part of it (soft edges).
         ground { if (game.fogged && !MapLight.needed(map, game.daylight)) drawFog(game, camX, camY, scale, viewW, viewH) }
+        // draft (idea 11): the colour mood of the place and the hour over everything, the edges a little darker
+        val grade = de.bornim.core.art.MapGrade.of(map, game.daylight)
+        if (grade.amount > 0f) drawRect(
+            Color(grade.red, grade.green, grade.blue).copy(alpha = grade.amount),
+            blendMode = androidx.compose.ui.graphics.BlendMode.Multiply,
+        )
+        if (grade.vignette > 0f) {
+            val mid = Offset(size.width / 2f, size.height / 2f)
+            val reach = kotlin.math.hypot(size.width / 2f, size.height / 2f)
+            drawRect(androidx.compose.ui.graphics.Brush.radialGradient(
+                0.5f to Color.Transparent, 0.78f to Color.Black.copy(alpha = grade.vignette * 0.45f), 1f to Color.Black.copy(alpha = grade.vignette),
+                center = mid, radius = reach,
+            ))
+        }
         for ((ax, ay) in alerts) {
             // "!" above a monster that has seen the hero
             val bx = (ax - 4 - camX) * scale
