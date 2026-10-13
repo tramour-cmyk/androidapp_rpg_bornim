@@ -91,6 +91,7 @@ Die Chat-Sitzung hat eine eigene Netzregel. Ohne Freigabe sind Maven Central, Go
 | `FEUER=1` | alle Bilder des Kaminfeuers |
 | `WALKFILM=karte:x:y` (+ `CROP=x0:y0:x1:y1`, `FROM=`), `IDLEFILM=` | Laufen bzw. Stehen durch die echte Oberfläche filmen |
 | `FLORA=karte:x0:y0:breite:höhe` | Kartenausschnitt in voller Auflösung |
+| `UNERKUNDET=1` (mit `KARTENZOOM=1 HELDORT=…`) | Karte noch unerkundet, Rand der Sicht gegen das Schwarz (13e) |
 | `DORFTAG=1` (mit `KARTENZOOM=1 HELDORT=village:x:y:R:stunde`) | 5l Tagesablauf: Bewohner am Platz der Stunde |
 | `KATZE=1`; `KATZEINN=<ms>` (mit `KARTENZOOM=1 ONLY=zoom_nah_p_inn HELDORT=inn:4:4:L:20`) | Katze: Haltungen vergrößert; in der Schänke zum Zeitpunkt ihrer Runde (10000 schläft am Herd, 80300 streckt sich, 83500 geht, 100000 schläft am Fass) |
 | `FARBDRAFT=1` (mit `KARTENZOOM=1 DIAG=1 ONLY=zoom_nah_p_ HELDORT=…`) | 6f Farbstimmung je Ort und Tageszeit (Zweig `claude/tom-6-farbstimmung`) |
