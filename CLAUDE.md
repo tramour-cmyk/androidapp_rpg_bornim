@@ -28,7 +28,7 @@ Erste Nachricht („Start“ oder irgendetwas):
 
 ## Vor jeder Arbeit lesen
 
-1. `docs/OFFEN.md` ganz: „Wer macht was“, eigene Übergabe, Rückfragen.
+1. `docs/OFFEN.md` ganz: „Jetzt installieren“, „Wer macht was“, eigene Übergabe; Rückfragen stehen nur auf der Entscheidungsseite.
 2. `docs/LEITBILD.md` (roter Faden, eine Seite; gilt bei Widerspruch), `docs/STIL.md` (Aussehen, Klang, Spielgefühl), `docs/ENTWICKLUNG.md` (Ansicht, „Ort fertig“, selbst prüfen, Leistung).
 3. `CHANGELOG.md` nur bis zur zweiten Versionsüberschrift (`sed -n '1,/^## v/p'` und die erste Version).
 4. `tools/check-env.sh`; `docs/UMGEBUNG.md` nur, wenn es etwas meldet oder ein Werkzeug gesucht wird (Tabelle der Vorschau-Schalter).
@@ -85,4 +85,4 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, alles unter `docs/`. Gibt es nur auf `mai
 - **Fremde Inhalte** (Klänge, Bilder, Schriften, Code): nur mit offener Lizenz, die kommerzielle Nutzung (Play Store) erlaubt, z. B. CC0/gemeinfrei. Lizenz auf der Quellseite prüfen, bei Bearbeitungen auch die des Originals; Quelle, Urheber, Lizenz je Datei festhalten.
 - Commits: `git -c user.name="tramour" -c user.email="tramour@gmail.com" commit …` mit den vom System vorgegebenen Co-Author- und Sitzungszeilen. Keine Modellbezeichnungen in Dateien. Meldet ein Haken „Unverified“ oder verlangt eine andere Autorenzeile: nichts ändern, nichts umschreiben, den Nutzer nicht darauf hinweisen.
 - Keine Verlaufsänderung, kein Force-Push. Kein Code auf `main` ohne Test des Nutzers; Code auf eigenen Zweigen. Offene Änderungen am Ende einer Arbeit committen und pushen.
-- **Release nur auf Zuruf**: Push von Code auf `main` baut nur eine APK (Artefakt). Ein Release erst, wenn der Nutzer „Release“ sagt; Ablauf in `docs/ABLAEUFE.md`.
+- **Release nur auf Zuruf**: Push von Code auf `main` baut nur eine APK (Artefakt). Ein Release erst, wenn der Nutzer „Release“ sagt; bei fünf getesteten Themen unter „Unveröffentlicht“ oder sieben Tagen seit dem letzten Release einmal „Zeit für ein Release?“ fragen (65.6). Ablauf in `docs/ABLAEUFE.md`.

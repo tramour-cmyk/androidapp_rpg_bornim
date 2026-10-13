@@ -20,7 +20,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für `OFFEN.md`) | Berater | erledigt 11.10. (PR #26) | `CHANGELOG.md` |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | erledigt 11.10. | Archiv |
 | 16 | Trefferstopp | Jerry | erledigt, v0.1.460 | Änderungshistorie |
-| 17 | Nachschwingen | Tom | 17a auf `main`, 17r im Sammelbuild 0.1.650; Riemen offen | `OFFEN.md` |
+| 17 | Nachschwingen | Tom | 17a auf `main`, 17r in 0.1.660; Riemen verworfen | `OFFEN.md` |
 | 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | Jerry | Runde 2 auf `main` (PR #23, 11.10.); 18h, 18i offen | `OFFEN.md` |
 | 19 | Zeitablauf der Kampfbewegungen | Jerry | erledigt, v0.1.455; 19e geschlossen (36e, 12.10.) | `OFFEN.md` |
 | 20 | Uhrzeit der APK im ZIP | Tom | erledigt 11.10. (PR #21) | `OFFEN.md` |

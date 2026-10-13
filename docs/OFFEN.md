@@ -6,16 +6,22 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 **Entscheidungsseite (alle Rollen, 63): https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow** · Bildbuch: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
+## Jetzt installieren
+
+- **Tom 0.1.660** (Zweig `claude/tom-17-riemen`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38372223411/artifacts/11799856944 · achten auf: Händler ohne Kauf-„Alle“ (59e), Karte zoomen/Orte/Marken (62c), Jorin stellt Speer ab, Speer 2 m (55.1b), Menüreiter als Zeichen (60j). 0.1.662 (+5la.3) folgt und ersetzt ihn.
+
+Rückfragen und Testfragen an den Nutzer stehen nur auf der Entscheidungsseite (65.3), nicht hier.
+
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
 ## Wer macht was
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
-| 65 | Abläufe verschlanken (Ablaufprüfung, Nutzer 13.10. alle sechs Punkte ja) | Berater; Tom (65.3, 65.6); Jerry (65.2) | `main` (Notizen) | **65.1 fertig** (CLAUDE.md 19,1→14,3 KB, Seltenes in `ABLAEUFE.md`, zwei Prüfrunden). **65.2** Weck-Routinen pausiert: Tom fertig, Jerry offen (Zeile unten). **65.3 Tom:** Entscheidungsseite einziger Eingang, Abschnitt „Rückfragen“ hier weg (6l auf die Seite), oben „Jetzt installieren: Build, Link, worauf achten“. **65.4 Berater:** jeder Text an einem Ort (Entscheidung in „Wer macht was“/Bildbuch, THEMEN nur Einwort-Stand, BERATER nur Begründung). **65.5** Sprachsitzung bespricht nur, festgehalten erst nach Commit der Textsitzung. **65.6 Tom:** einmal „Zeit für ein Release?“ bei fünf getesteten Themen unter „Unveröffentlicht“ oder sieben Tagen seit dem letzten Release, was zuerst kommt; Regel in `ABLAEUFE.md`. |
+| 65 | Abläufe verschlanken (Ablaufprüfung, Nutzer 13.10. alle sechs Punkte ja) | Berater; Tom (65.3, 65.6); Jerry (65.2) | `main` (Notizen) | **65.1 fertig** (CLAUDE.md 19,1→14,3 KB, Seltenes in `ABLAEUFE.md`, zwei Prüfrunden). **65.2** Weck-Routinen pausiert: Tom fertig, Jerry offen (Zeile unten). **65.3 Tom fertig** (Rückfragen nur auf der Seite, oben „Jetzt installieren“). **65.4 Berater:** jeder Text an einem Ort (Entscheidung in „Wer macht was“/Bildbuch, THEMEN nur Einwort-Stand, BERATER nur Begründung). **65.5** Sprachsitzung bespricht nur, festgehalten erst nach Commit der Textsitzung. **65.6 Tom fertig** (Release-Frage, `ABLAEUFE.md`, `CLAUDE.md`). |
 | 13 | Diagonale Sicht | Tom | – | 13.4 auf `main` (PR #43). **13u/13w ja:** neue Orte nur diagonal, alte Ansicht eingefroren. **13v (später):** Testaufruf: Wald, Tiefer Wald, Höhle absichtlich noch gerade. **Meldung 08:43:** Tempel innen: Altar direkt vor dem Fenster, ansehen. **13s/13t ja:** 27, 13 Tempel, 42; Ziel „alte Ansicht ausgebaut“ (`KAPITEL1.md`), danach 6l. Verlauf im Archiv |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-27-4-baeume` | 5.1/5.2/5g/5h.1 auf `main`. **5m ja:** 27.4, 5.6, 5.3, 5l/5.5, 5.4, dann 27.5/27.6, je erst Standbilder. 27.4, 5.6, 5.3 (alle zwölf), 5n in PR #48. 5.4 (Pflaster-Entwurf, Fensterlicht-Fix) auf dem Zweig. **5la** Tagesablauf (Pim, Bram, Gwenna, Liska) als Entwurf auf `claude/tom-5l-leben`, Build 0.1.640 |
-| 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | – | **17a** auf `main` (PR #48, getestet 0.1.625); 58 auf `main` (PR #50). **17r** Haare/Köcher als Entwurf auf `claude/tom-17-nachschwingen` (Testreiter-Schalter), Build 0.1.639. **Riemen (13.10., 10:3x) verworfen:** Entwurf Gürteltasche/Gürtelende schwingt nach, auf Kartengröße unter Wappenrock kaum 1–2 Pixel; 17 gilt mit 17r als fertig |
+| 17 | Nachschwingen: Umhang, Haare, Köcher | Tom | `claude/tom-17-riemen` | 17a auf `main`. 17r (Haare/Köcher) im Build 0.1.660; Riemen verworfen (kaum sichtbar). Fertig mit dem PR des Zweigs |
 | 13e | Höhle diagonal (Phase 2 von 13); mit 10 (Flammen feiner) und 11 (Lichtstrahl am Schacht) | Jerry | `claude/jerry-13e-hoehle-diagonal` | Grundsatz 43 (Leute, Ziele, Eingänge frei zur Kamera). **48b ja:** allgemein aus dem Kartenraster, ohne Handarbeit je Feld (für Zufallshöhlen 48). Eigene Datei `MapCaveIso.kt`, Toms Dateien nicht anfassen. Entwurf 2: Wände stehen (16:19); 13e.2–13e.4 in Selbstarbeit (`SELBST.md`). **Nutzer 16:3x:** Lichtstrahl weglassen, wenn schwierig; ein Versuch, sonst raus |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | **26c ja:** (1) 24.8.6 und 30.8 vom Zweig `tender-goodall-a8zuny` in den nächsten Build, (2) 42, (3) Diagonalsicht fertig (27.5, Tiefer Wald, Tempel-Altar, 27.6); dann 5l, 55.2, 17 |
@@ -28,8 +34,8 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 40 | Lautstärke im Menü: Gesamt, Musik, Effekte (heute nur Musik an/aus) | Jerry | neu von `main` | Nutzer 12.10., 09:52. **40a ja (10:10):** drei Regler, Ortsklang bei Effekten |
 | 41 | Storyplan: je Kapitel Zusammenfassung, Quests, Dialoge; dann Plot Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | 41a–41d ja: Entwurf Kapitel 1 steht ([Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)), fertige Kapitel als `docs/STORY.md`, Änderungen nur nach Abstimmung Nutzer und Berater; Regel „Story und Dialoge“ in `CLAUDE.md`, `tools/story.sh`. Kapitel 2 offen |
 | 42 | Textkasten unten im Stil der Blenden: schwarzer Kasten, Sprecher in Gold, Text in gebrochenem Weiß (heute cremefarben mit dunkler Schrift, Sprecher rot) | Tom | – | Nutzer 12.10., 11:24 (über Berater). **42a ja:** erst nur Textkasten (Gespräch, Erzähltext, Aushänge), Menüs später. **42b ja:** ganz schwarz, dünner Goldrand, Sprecher Gold in Kapitälchen im Kasten, Text gebrochenes Weiß, Serife wie Blenden, Erzähltext kursiv, ▼ gold. **42c ja (11:39):** erst Standbilder. **42d:** Textkasten auf `main` (PR #48, getestet 0.1.625). Offen: Menüs später (42a) |
-| 59e | Händler: Menge „Alle“, Vorrat je Laden | Tom (jetzt); Jerry mit 38/39 (Vorrat) | – | **Entschieden 13.10. (Nutzer mit Berater):** „Alle“ beim Kaufen weg; Verkaufen behält „Alle“ mit Sicherheitsabfrage nur bei „Alle“, Angelegtem oder Seltenem (im Menü abschaltbar). Vorrat je Laden und Nachfüllen erst mit 38/39: nie nach Zeit oder Rast (Rast geht jederzeit), sondern an Nicht-Beliebiges gekoppelt; Menge über Schwierigkeitsgrad (leicht voll, normal haushalten, schwer knapp). **Tom:** „Alle“/Abfrage in 0.1.655 |
-| 62c | Karte: zoomen, Ortsübersicht, Questmarken | Tom | – | **Entschieden 13.10.:** 62c.1 Start auf den Helden gezoomt, Fingerzoom/Schieben, rote Standortmarke größer. 62c.2 Übersicht nur besuchter Orte, Antippen zeigt nur deren Karte (keine Schnellreise). Marken erinnern, führen nicht, nichts automatisch: getroffener Questgeber blau (Tooltip Name + Questtitel), Questziel-Ort gold erst nach eigenem Besuch (Tooltip Quest); Erledigtes verblasst. Gleiche Daten wie 64. Im Bildbuch (09:5x). Entwurf mit Standbildern in 0.1.655 (Marken nur für Anschlagbrett-Quests; Hauptquest mit 64) |
+| 59e | Händler: Menge „Alle“, Vorrat je Laden | Tom (jetzt); Jerry mit 38/39 (Vorrat) | – | Entschieden 13.10. (Bildbuch): „Alle“ beim Kaufen weg, beim Verkaufen mit Abfrage (in 0.1.660). Vorrat je Laden erst mit 38/39, nie nach Zeit/Rast, Menge nach Schwierigkeitsgrad |
+| 62c | Karte: zoomen, Ortsübersicht, Questmarken | Tom | `claude/tom-17-riemen` | Entschieden 13.10. (Bildbuch), in 0.1.660 (Marken nur für Anschlagbrett-Quests; Hauptquest mit 64) |
 | 64 | Questlog: eigene Übersicht im Menü (laufend/erledigt, je Geber, Ziel, Stand) | Berater mit Nutzer (Entwurf), dann Tom | – | Nutzer 13.10.: Menü mit Haupt- und Anschlagbrett-Quests wird unübersichtlich. Noch nicht in Arbeit; Daten gemeinsam mit 62c-Marken |
 | 45 | Geschäftsmodell (Play Store) | Berater mit Nutzer | – | 45a/45c ja (Kapitel 1 frei, Vollversion, nie Werbung/Beutekisten/Wartezeiten). **45b zurückgestellt** bis nach Messung 38. Verlauf im Archiv |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten in `BERATER.md` und Archiv). Nach Kapitel 1 |
@@ -40,14 +46,13 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry | – | Nutzer 12.10., 15:4x nach Test 0.1.587: Krogg fürs Erste so lassen, später alle Kampfanimationen gesamt überarbeiten. Nach Kapitel-1-Wichtigem |
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg | Jerry | – | Prüfthema, Nutzer 12.10., 15:4x (Test 0.1.587): wenn Zeit ist und nichts Wichtigeres ansteht; alle großen Gegner mitprüfen |
 | 56 | Alte Objekte auf den neuen Karten (Nutzer 12.10., 18:3x) | Tom | `claude/tom-27-4-baeume` | **56a–56c ja (19:4x):** Kräuter, Truhe, Steine, Steinkreis, Büsche im Wald ins Spiel (Schalter entfernt, c2b909f7). **56d ja (20:1x):** Dorf (`YARDDRAFT`, `FERNDRAFT`) ins Spiel; Innenräume ohne Altes |
-| 57 | Entscheidungsseite nur mit Offenem; Entschiedenes ins gemeinsame Bildbuch | Tom | `main` (Notizen) | Ablauf in `CLAUDE.md`. Alte Seite Tom ersetzt durch 63 · Bildbuch: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (Nutzer gibt es für Jerry frei) |
 
 | 59 | Händler: Kauf/Verkauf im Stil des Textkastens, Übersicht, Vergleich | Tom | `claude/tom-59-haendler` | 59a–59d ja (Verlauf im Archiv): schwarzer Laden, nicht Tragbares abgedunkelt, Streifen Angelegt, Vergleich, Rückkauf, Menge. Build 0.1.632, Test steht aus |
 | 60 | Ein Aussehen für alle Oberflächen wie Textkasten/Blende (schwarz, Gold, Serife) | Tom | `claude/tom-60-aussehen` | 60a–60d ja (Verlauf im Archiv). Entwürfe Schrift, Titel, Menü, Heldenerstellung, Kampf im Testreiter „60 Aussehen“, Build 0.1.636; Rückfragen 60e–60i |
 | 61 | Spuren, die bleiben: Blut, Fußspuren, Staub (Vorrat 7) | Tom | `claude/tom-7-spuren` | Entwurf, Build 0.1.646; Rückfrage 61a |
 | 62 | Gezeichnete Karte im Menü (Vorrat 8) | Tom | `claude/tom-7-spuren` | Entwurf, Build 0.1.646; Rückfragen 62a/62b |
-| 60j | Menüreiter als Zeichen mit kleinem Wort | Tom | `claude/tom-17-riemen` | **A ja (Nutzer 13.10., 10:5x):** Entwurf 543a5bb einschalten, in den nächsten Build |
-| 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom | `main` (Notizen) | **Angelegt 13.10., 09:06** (Link oben), Offenes übertragen; 59e, 62c erledigt (09:5x); Regel „Entwürfe entscheiden“ in `CLAUDE.md` angepasst; ersetzt Toms alte Seite. Offen: Freigabe für Jerry (Nutzer, Teilen) am Fr. |
+| 60j | Menüreiter als Zeichen mit kleinem Wort | Tom | `claude/tom-17-riemen` | A ja (13.10.), in 0.1.660 |
+| 63 | Eine Entscheidungsseite für alles Offene (alle Rollen; Bildbuch für Entschiedenes, 57) | Tom | `main` (Notizen) | Angelegt 13.10. (Link oben), Regel in `CLAUDE.md`. Offen: Freigabe für Jerry (Nutzer, Teilen) am Fr. |
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
 ## Übergaben
@@ -65,11 +70,6 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Weiter (Freitag):** Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
-- **Testrückmeldung 0.1.650 (Nutzer 13.10., 08:0x):** Titel super; Schänke und Tempel gut. **60k:** „Spielstände“, „Über das Spiel“ und die Meldung zum Testmodus noch im alten Aussehen (Tom behebt). **60j:** Menüreiter als Symbole (Tasche, Karte …)? 62c → „Für den Berater“. **5la.2:** Leute im Gang drehen sich zum Helden statt in Gehrichtung (Moonwalk, Wache im Dorf); Hinsehen kürzer.
-- **Test 0.1.650, Händler (59):** sehr schön; Anzeige „hat der Held“ gut. 59e → „Für den Berater“.
-
-- **Tom, 0.1.660, Zweig `claude/tom-17-riemen`** (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38372223411/artifacts/11799856944) = 0.1.657 (59e, 62c, alles aus 0.1.653) plus 55.1b (Jorin stellt Speer ab, Speer 2 m) und 60j (Reiter als Zeichen); 0.1.662 (Lauf 38373719219) hat dazu 5la.3 (Hinsehen 3 Felder, 10 s) und ersetzt 0.1.660. Ersetzt 0.1.657; nach dem Test PR von diesem Zweig.
-
 - **Jerry, Weck-Routinen pausieren** (Berater 13.10., Nutzer freigegeben): deine acht Routinen „Jerry Selbstarbeit HH:MM“ mit `update_trigger` (`enabled: false`) pausieren, nicht löschen; Regel in `SELBST.md` „Feste Weck-Routinen“. Danach Zeile streichen.
 
 ## Für Diogenes
@@ -81,9 +81,3 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
-
-## Rückfragen an den Nutzer
-
-
-
-- **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
