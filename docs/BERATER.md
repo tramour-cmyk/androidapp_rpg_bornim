@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Aufbau, Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARCHIV.md` („Aus BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 12:24–13:1x „Chronik-Texte“ (64d/62i, 67); 13.10. 13:21–14:1x „Story-Vorlage“ (STORY.md geteilt, Richtung Prophet). **Nachfolger:** „Sokrates – Kapitel 2“ (Nutzer startet, wartet auf Antwort)
+**Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 13:21–14:1x „Story-Vorlage“; 13.10. 14:18–15:3x „Kapitel 2“ (Heldenbau markiert, Grobzusammenfassung Graumoor, Umfang 41i). **Nachfolger:** „Sokrates – Kapitel 2 Karte“ (Nutzer startet mit „Sokrates“)
 
-**Nächster Punkt:** (1) erledigt 14:2x: Talentnamen im Heldenbau fett mit Markierung (rot gibt es im Editor nicht), Nutzer sieht durch. (2) Grobzusammenfassung Kapitel 2 in den Storyplan, Abschnitt „Kapitel 2“ (Richtung siehe Begründungen 41; 41-2 ja: am Ende erfährt der Held nur vom Kult, Titel erst Kapitel 3/4), Nutzer kommentiert dort.
+**Nächster Punkt:** Kapitel 2 „Das Graumoor“ (Grobzusammenfassung im Storyplan). Nutzer 15:28: Grundidee gut; Kapitel 1 ist Einweisung, Kapitel 2 muss im Umfang deutlich mehr bieten (Karten, Höhlen, Zufallsdungeons 48). Als Nächstes: Umfang 41i in den Storyplan und Grobentwurf der Landkarte (Gebiete, Wege, Größen) als Bild; offen 41e–41i. Dazu **68** Tempelszene (Lyra legt Amulett auf den Altar, „Ancient Legend“, Licht flackert einmal) und **69** Intro (fünf Standbilder: Südstraße, Brücke, Dorfplatz mit Fackeln am Tempel = Überfall, Fenster des Greifs, „Du schläfst wie ein Stein“); Rückfragen 68a, 69a, 69b offen, Texte nach Freigabe in den Storyplan.
 
-**Zuletzt gelesen bis:** dieser Commit (13.10., 14:1x)
+**Zuletzt gelesen bis:** dieser Commit (13.10., 15:3x)
 
 ## Ritual
 

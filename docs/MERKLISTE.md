@@ -167,3 +167,4 @@ Nach den [Stil-Leitlinien](STIL.md): weg von Chiptune, hin zu glaubwürdigen Ger
 
 - **59.6** Händler: Filter „nur tragbare“, Sortierung nach Platz – wenn es mehr Ware gibt (Nutzer 12.10., 22:49)
 - **59.7** Händler mit Gesicht: Name, Bild, Begrüßungssatz statt „Laden“; Texte Nutzer und Berater (41) (Nutzer 12.10., 22:49)
+- **Handlaterne für Jorin** (66a, 13.10.): Laterne in der freien Hand bei Nacht, neue Haltungen für Gehen, Wache, Abstellen; zusammen mit 55 (mehr Leerlauf).
