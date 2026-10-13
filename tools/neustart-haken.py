@@ -4,7 +4,7 @@
   neustart-haken.py prompt   bei jeder Nachricht des Nutzers (UserPromptSubmit): misst, wie stark das Gespräch
                              seit dem Start gewachsen ist, und erinnert ab der Schwelle an einen Neustart,
                              erst selten, dann immer öfter, je länger der Nutzer weiterarbeitet.
-  neustart-haken.py start    beim Sitzungsstart (SessionStart): warnt, wenn docs/OFFEN.md zu groß ist.
+  neustart-haken.py start    beim Sitzungsstart (SessionStart): warnt, wenn docs/ARBEIT-OFFEN.md zu groß ist.
 
 Die Größe kommt aus dem Gesprächsprotokoll (transcript_path): Token der letzten Antwort (Eingabe, auch
 zwischengespeichert). Gemessen wird der Zuwachs gegenüber der ersten Antwort, weil schon der Start je nach
@@ -58,7 +58,7 @@ def text(stufe, plus, gesamt):
     k = lambda n: f"{round(n / 1000)} Tsd."
     kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist seit dem Start um etwa {k(plus)} Token gewachsen (jetzt {k(gesamt)}, Schwelle {k(AB)}); Erinnerung Nr. {stufe}."
     if stufe == 1:
-        rest = "Schlage dem Nutzer am Ende dieser Antwort kurz vor, an der nächsten Bruchstelle (Thema fertig, Build ausgeliefert) eine neue Sitzung zu starten; vorher Übergabe in docs/OFFEN.md."
+        rest = "Schlage dem Nutzer am Ende dieser Antwort kurz vor, an der nächsten Bruchstelle (Thema fertig, Build ausgeliefert) eine neue Sitzung zu starten; vorher Übergabe in docs/ARBEIT-OFFEN.md."
     elif stufe <= 3:
         rest = "Erinnere den Nutzer am Ende dieser Antwort noch einmal deutlich an den Neustart und nenne die Größe; biete an, jetzt die Übergabe zu schreiben."
     else:
@@ -94,12 +94,12 @@ def prompt(eingabe):
 
 def start(eingabe):
     wurzel = os.environ.get("CLAUDE_PROJECT_DIR") or eingabe.get("cwd") or "."
-    offen = os.path.join(wurzel, "docs", "OFFEN.md")
+    offen = os.path.join(wurzel, "docs", "ARBEIT-OFFEN.md")
     if os.path.exists(offen):
         n = os.path.getsize(offen)
         if n > OFFEN_MAX:
-            print(f"Bornim: docs/OFFEN.md ist {round(n / 1000)} KB groß (Grenze {round(OFFEN_MAX / 1000)} KB). "
-                  "Nach der Regel „OFFEN.md klein halten“ in CLAUDE.md aufräumen (Erledigtes ins Archiv bzw. in die Änderungshistorie).")
+            print(f"Bornim: docs/ARBEIT-OFFEN.md ist {round(n / 1000)} KB groß (Grenze {round(OFFEN_MAX / 1000)} KB). "
+                  "Nach der Regel „ARBEIT-OFFEN.md klein halten“ in CLAUDE.md aufräumen (Erledigtes ins Archiv bzw. in die Änderungshistorie).")
 
 
 def main():

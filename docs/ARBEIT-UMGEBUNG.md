@@ -22,7 +22,7 @@ Ein Einstieg für alle Prüfungen, gleich für jeden Account. `tools/t` ohne Bef
 | Regel, Wert, Ablauf der Meldungen | `tools/t logik [Muster]` (Kerntests, mit Muster nur die passenden) | 2–3 s gezielt, 11 s alle |
 | Bedienung, Spielfluss, Abstürze | `tools/t spieler [Eingaben]` (Zufallsspieler `PlayerSimTest`) | 3 s, 10 000 Eingaben je Spieler 5 s |
 | Aussehen einer Haltung, Kollision | `tools/t bild SCHALTER=…` (Vorschau, listet die neuen Bilder) | 5 s |
-| Fluss einer Bewegung | `tools/t film FILM…=…` | Echtzeit (siehe „Film-Uhr“ in `docs/OFFEN.md`) |
+| Fluss einer Bewegung | `tools/t film FILM…=…` | Echtzeit (siehe „Film-Uhr“ in `docs/ARBEIT-OFFEN.md`) |
 | Umgebung in Ordnung? | `tools/t pruef` | ~10 s |
 | Gesamteindruck am Gerät | Zweig pushen, Build von GitHub, Test durch den Nutzer | Minuten |
 
@@ -109,7 +109,7 @@ Kerntests mit eigenem Zweck: `JumpTest`/`BattleJumpTest` (Sprünge), `InnCornerT
 ## Was nicht im Repository liegt
 
 - Die Werkzeuge der Cloud-Sitzung selbst (GitHub-Anbindung, Datei-Versand an dich, Zeitstempel über `TZ=Europe/Berlin date`) kommen von Claude Code, nicht aus dem Repository.
-- Erinnerungen an frühere Gespräche: alles Wichtige steht in `CLAUDE.md`, `docs/OFFEN.md` (Übergaben), `docs/STIL.md`, `docs/MERKLISTE.md`, `CHANGELOG.md`; der Verlauf in `docs/ARCHIV.md`.
+- Erinnerungen an frühere Gespräche: alles Wichtige steht in `CLAUDE.md`, `docs/ARBEIT-OFFEN.md` (Übergaben), `docs/DESIGN-STIL.md`, `docs/LISTE-IDEEN.md`, `CHANGELOG.md`; der Verlauf in `docs/ARBEIT-ARCHIV.md`.
 
 ## Notizen auf `main` (seit 10.10.)
 

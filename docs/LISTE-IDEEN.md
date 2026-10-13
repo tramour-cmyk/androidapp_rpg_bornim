@@ -2,11 +2,11 @@
 
 Ideen und Vorschläge aus der bisherigen Entwicklung, die noch **nicht umgesetzt** sind. Gesammelt, damit wir sie später prüfen, neu bewerten oder verwerfen können. Stand: 11.10.2026, 11:45 (Berliner Zeit).
 
-Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md), was gerade ansteht oder zu entscheiden ist in der Liste [Offen](OFFEN.md). Für alle Ideen gelten die [Stil-Leitlinien](STIL.md).
+Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md), was gerade ansteht oder zu entscheiden ist in der Liste [Offen](ARBEIT-OFFEN.md). Für alle Ideen gelten die [Stil-Leitlinien](DESIGN-STIL.md).
 
 ## Ideenrunde 10.10. (Tom-Beratung, 13:36)
 
-Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstopp (16), Nachschwingen (17), Pechsträhnen dämpfen (18), siehe [Offen](OFFEN.md). Der Rest:
+Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstopp (16), Nachschwingen (17), Pechsträhnen dämpfen (18), siehe [Offen](ARBEIT-OFFEN.md). Der Rest:
 
 - **Aktive Abwehr per Tippen (Idee 1):** kurzes Zeitfenster beim gegnerischen Hieb, Tippen = Parieren mit halbem Schaden. Nutzer findet die Idee nicht gut, soll aber erhalten bleiben. Wäre eine Ausnahme von „kein Tippen mitten in einer Aktion“; nur als abschaltbarer Versuch.
 - **Trefferchancen sichtbar machen (Teil von Idee 2):** Chance vor dem Angriff anzeigen.
@@ -63,7 +63,7 @@ Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstop
   - bessere Beute (normal bis „selten“, besondere Beute bis „sehr selten“);
   - höhere Obergrenzen für Ausrüstungsboni (+2).
 - **Neue Monster (SRD):** Banditen und Kultisten, Gnoll, Worg, Harpyie (Gesang/Bezauberung), Belebte Rüstung, Mimik (Klammern), Oger, Eulenbär.
-  - **Gebaut auf den 3D-Grundmodellen** (Heldenpuppe für Menschenähnliche, Vierbeiner-Modell wie beim Wolf): Rig, Bewegungen, Ausfallschritt und Stürze sind schon da; ein neues Monster braucht vor allem Ausrüstung, Maße, Kopf und eigene Haltungen. Es gelten die [Stil-Leitlinien](STIL.md) (je drei Varianten in Aussehen und Bewegung).
+  - **Gebaut auf den 3D-Grundmodellen** (Heldenpuppe für Menschenähnliche, Vierbeiner-Modell wie beim Wolf): Rig, Bewegungen, Ausfallschritt und Stürze sind schon da; ein neues Monster braucht vor allem Ausrüstung, Maße, Kopf und eigene Haltungen. Es gelten die [Stil-Leitlinien](DESIGN-STIL.md) (je drei Varianten in Aussehen und Bewegung).
   - Aufwand nach heutiger Einschätzung:
     - sehr gering: Banditen und Kultisten (Puppe als Mensch mit Ausrüstung), Worg (Wolf, größer und dunkler);
     - gering: Belebte Rüstung (Puppe nur aus Rüstung, innen hohl, wie beim Skelett);
@@ -134,15 +134,15 @@ Dorran wohnt heute nur hinter einer verschlossenen Tür („Er ist wohl in seine
 
 ## Zufallsgenerierte Dungeons (48, Nutzer 12.10.)
 
-- Halb-halb: Story-Höhlen mit festem Kern (Eingang, Bossraum, Szenen) und zufälligen Seitengängen aus handgemachten Bausteinen; Aushang-Höhlen ganz zufällig (Startwert im Spielstand). Voraussetzung: diagonale Höhlenzeichnung (13e) arbeitet allgemein aus der Karte, nicht je Kachel von Hand. Größe (48c): 6–8 Kammern, verschlungener Hauptweg, Schleife nur manchmal, Sackgassen auch leer, Rückweg durch Durchgang, der nach dem Boss aufgeht; Beute knapp, Jerry prüft gegen `BALANCE.md`. Einzelheiten in `OFFEN.md` Zeile 48.
+- Halb-halb: Story-Höhlen mit festem Kern (Eingang, Bossraum, Szenen) und zufälligen Seitengängen aus handgemachten Bausteinen; Aushang-Höhlen ganz zufällig (Startwert im Spielstand). Voraussetzung: diagonale Höhlenzeichnung (13e) arbeitet allgemein aus der Karte, nicht je Kachel von Hand. Größe (48c): 6–8 Kammern, verschlungener Hauptweg, Schleife nur manchmal, Sackgassen auch leer, Rückweg durch Durchgang, der nach dem Boss aufgeht; Beute knapp, Jerry prüft gegen `DESIGN-BALANCE.md`. Einzelheiten in `ARBEIT-OFFEN.md` Zeile 48.
 
 ## Lehrer (49, Nutzer 12.10.)
 
-- Übung (voller Übungsbonus) in einer Waffenart, einer Rüstungsstufe oder einem Rettungswurf bei Lehrern im Dorf lernen (Garrick Bogen, Dorran Rüstung/Schild …); kostet Gold und einen Tag; statt Attributspunkten auf Stufe 4/8/12/16/19 (wie Talente im SRD). Einzelheiten in `OFFEN.md` Zeile 49.
+- Übung (voller Übungsbonus) in einer Waffenart, einer Rüstungsstufe oder einem Rettungswurf bei Lehrern im Dorf lernen (Garrick Bogen, Dorran Rüstung/Schild …); kostet Gold und einen Tag; statt Attributspunkten auf Stufe 4/8/12/16/19 (wie Talente im SRD). Einzelheiten in `ARBEIT-OFFEN.md` Zeile 49.
 
 ## Weitere Klassen (50, Nutzer 12.10.)
 
-- Berserker, Kriegsmagier, Paladin, Werwolf …, ggf. zum Kauf (45). Nie stärker als die Grundklassen. Einzelheiten in `OFFEN.md` Zeile 50.
+- Berserker, Kriegsmagier, Paladin, Werwolf …, ggf. zum Kauf (45). Nie stärker als die Grundklassen. Einzelheiten in `ARBEIT-OFFEN.md` Zeile 50.
 
 ## Sonstiges
 
@@ -156,7 +156,7 @@ Dorran wohnt heute nur hinter einer verschlossenen Tür („Er ist wohl in seine
 
 ## Klänge überarbeiten (Rest, aus „Offen“ am 11.10.)
 
-Nach den [Stil-Leitlinien](STIL.md): weg von Chiptune, hin zu glaubwürdigen Geräuschen. Hörproben Runde 1 und 2 liegen vor (18d, Auswahl beim Nutzer). Noch offen: Menü-Klick, Belohnungen (Stufenaufstieg, Beute, epische Beute, Münzen, Truhe), Welt (Tür, Begegnung, Alarm, Hinterhalt), Zauber und Tränke, Kampfende (Gegner fällt, Held fällt), Umgebung (Vögel, Grillen, Eule, Tropfen, Knistern), Musik (siehe „Musik neu im neuen Stil“). Vorgehen: Hörproben, dann nach Freigabe umstellen.
+Nach den [Stil-Leitlinien](DESIGN-STIL.md): weg von Chiptune, hin zu glaubwürdigen Geräuschen. Hörproben Runde 1 und 2 liegen vor (18d, Auswahl beim Nutzer). Noch offen: Menü-Klick, Belohnungen (Stufenaufstieg, Beute, epische Beute, Münzen, Truhe), Welt (Tür, Begegnung, Alarm, Hinterhalt), Zauber und Tränke, Kampfende (Gegner fällt, Held fällt), Umgebung (Vögel, Grillen, Eule, Tropfen, Knistern), Musik (siehe „Musik neu im neuen Stil“). Vorgehen: Hörproben, dann nach Freigabe umstellen.
 
 ## Bewusst so gelassen
 

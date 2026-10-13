@@ -39,14 +39,14 @@ Ein Bericht, den alle lesen können.
 
 ## Start (erste Nachricht „Diogenes“)
 
-1. `tools/notiz.sh` (holt `main`), dann `docs/OFFEN.md`: zuerst „Für Diogenes“ (Prüfaufträge), dann „Wer macht was“ für die Themennummern. Keine volle Startlektüre; Regeln nur für den geprüften Bereich.
+1. `tools/notiz.sh` (holt `main`), dann `docs/ARBEIT-OFFEN.md`: zuerst „Für Diogenes“ (Prüfaufträge), dann „Wer macht was“ für die Themennummern. Keine volle Startlektüre; Regeln nur für den geprüften Bereich.
 2. **Nur Neues prüfen** (spart Token): `git log --oneline <Geprüft bis>..origin/main`; Bereiche ohne Änderung seit dem letzten Lauf überspringen, außer der Auftrag verlangt sie.
 3. Auftrag des Nutzers oder „Für Diogenes“ abarbeiten, je Bereich mit der Prüfliste unten. Nach dem Lauf Übergabe hier, Neustart vorschlagen.
 
 ## Was er darf
 
 - Code und Notizen lesen, prüfen mit `tools/t` (Kerntests, Zufallsspieler, Standbilder, Filme sparsam).
-- Ändern nur: diese Datei, seinen Prüfbericht, in `OFFEN.md` „Für Diogenes“ (Erledigtes streichen), „Zu testen“ (ein Verweis je Lauf mit Befundnummern der Klasse 1) und „Für den Berater“ (Klasse 2).
+- Ändern nur: diese Datei, seinen Prüfbericht, in `ARBEIT-OFFEN.md` „Für Diogenes“ (Erledigtes streichen), „Zu testen“ (ein Verweis je Lauf mit Befundnummern der Klasse 1) und „Für den Berater“ (Klasse 2).
 
 ## Prüfbericht (ein Artefakt)
 
@@ -57,15 +57,15 @@ Ein einziges Artefakt (ein Ort; vor dem Ändern mit `url` lesen, unter derselben
 
 ## Prüflisten je Bereich
 
-Wiederholbar statt nach Gefühl; Diogenes pflegt sie (neue Punkte mit Datum). Grundlage „Ort fertig“ in `ENTWICKLUNG.md`.
+Wiederholbar statt nach Gefühl; Diogenes pflegt sie (neue Punkte mit Datum). Grundlage „Ort fertig“ in `DESIGN-ABNAHME.md`.
 
 - **Jeder Ort:** Punkte aus „Ort fertig“; Leute, Questziele, Eingänge frei zur Kamera (43); Zufallsspieler ohne Absturz und ohne Festhängen (Kerntest); Standbild Tag und Nacht.
 - **Jede Oberfläche (60):** neues Aussehen (schwarz, Gold, Serife, keine hellen Tafeln), Farben auf Schwarz lesbar, nichts bricht um oder läuft über, Deutsch und Englisch vollständig.
-- **Texte (41):** Spieltexte gleich `docs/STORY.md` (`tools/story.sh <Stand>`), keine fehlenden Übersetzungen, generisches Maskulinum.
-- **Balance (38):** Kerntest-Messungen in den Zielen aus `BALANCE.md`.
+- **Texte (41):** Spieltexte gleich `docs/STORY-REGELN.md` (`tools/story.sh <Stand>`), keine fehlenden Übersetzungen, generisches Maskulinum.
+- **Balance (38):** Kerntest-Messungen in den Zielen aus `DESIGN-BALANCE.md`.
 - **Bestandsprüfung (71, Nutzer 13.10.):** alle Orte auf aktuellem `main`, auch ohne Änderung. Drei Teile, je ein Lauf (Bilder kosten Token, Neustart dazwischen erlaubt): **A** Gebiete Dorf, Wald, Tiefer Wald (erst, wenn Toms Zweige auf `main` sind, Nutzer 13.10.); **B** Grundrisse Schänke, Laden, Ältestenhaus, Tempel, Höhle; **C** Oberflächen (Menü, Laden, Karte, nach „Jede Oberfläche“). Je Ort:
   1. **Bestandsliste aus dem Code:** jedes Ding eine Zeile (Bäume, Felsen, Büsche, Häuser, Zäune, Möbel, Kleinkram, Wasser, Ufer, Boden, Wege): diagonal mit Volumen gezeichnet (`Sculpt`/SDF) oder noch flach bzw. alte Ansicht gekippt; Zahl der Varianten (Ziel ≥ 3); Schatten; Maßstab zum Helden.
-  2. **Standbilder** aus Sicht des Helden, Tag und Nacht, je Ort mindestens Eingang, Mitte, Questort: gegen „Ort fertig“ 1–10 und `STIL.md` „Karte und Räume“ (nichts flach, Wichtiges frei, Durchsicht um den Helden, Ellipsen 2:1, Licht nur aus Quellen, nachts lesbar).
+  2. **Standbilder** aus Sicht des Helden, Tag und Nacht, je Ort mindestens Eingang, Mitte, Questort: gegen „Ort fertig“ 1–10 und `DESIGN-STIL.md` „Karte und Räume“ (nichts flach, Wichtiges frei, Durchsicht um den Helden, Ellipsen 2:1, Licht nur aus Quellen, nachts lesbar).
   3. **Abwechslung und Leben:** gleiche Dinge nebeneinander verschieden, keine sichtbaren Wiederholungsmuster oder Raster; Rauch, Wind, Tiere, Gebrauchsspuren je Ort vorhanden.
   4. **Klang je Quelle:** jedes sichtbare Ding und jede Figur, die in Wirklichkeit klingt (Feuer, Wasser, Tiere, Wind in Bäumen, Tür, Arbeit der Leute), eine Zeile: Klang ja/nein, echte Aufnahme, ≥ 3 Varianten, **entfernungsabhängig** (nah laut, fern leise, ab Hörweite stumm, ohne Sprung; Werte in Feldern aus dem Code, Lautstärke bei 0 Feldern, halber Hörweite, außerhalb nachrechnen). Vorbild Feuer (`Ambience`) und Teich (`PondSound`). Dazu Schritte je Untergrund, Ortsklang nur von dem, was da ist.
   5. Punkte aus „Jeder Ort“ (Kollision, Tippen, Zufallsspieler).

@@ -84,7 +84,7 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 12.10.2026. Proben mit `tool
 
 ## Musik (Thema 28, Auswahl des Nutzers 11.10.2026)
 
-Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools/klang/musik_holen.sh`. Vorgabe in `docs/STIL.md` (orchestral, düster; Dorf mittelalterlich). Titel, Sieg und Kapitelende sind fest vergeben; alle übrigen Stücke darf die Sitzung frei den Lagen zuordnen (Nutzer 28f, 11.10.); die Lage unten ist der Vorschlag. Nicht genommen: Great Labyrinth, Menace, Epic Fight Theme (aussortiert 37, 12.10.), The Final Battle, Battle Theme (wolfgang), War Theme, Open Warfare, Prepare to Fight, Epic Combat, Medieval Battle (Hörproben 37, 12.10.; Battle Theme A von cynicmusic nur Reserve), Eerie Forest, Boss Battle #2 Symphonic Metal, The Bard's Tale, Opening Theme. Freesound: Vorschau (128 kbit/s), Lizenz gilt für die Aufnahme.
+Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools/klang/musik_holen.sh`. Vorgabe in `docs/DESIGN-STIL.md` (orchestral, düster; Dorf mittelalterlich). Titel, Sieg und Kapitelende sind fest vergeben; alle übrigen Stücke darf die Sitzung frei den Lagen zuordnen (Nutzer 28f, 11.10.); die Lage unten ist der Vorschlag. Nicht genommen: Great Labyrinth, Menace, Epic Fight Theme (aussortiert 37, 12.10.), The Final Battle, Battle Theme (wolfgang), War Theme, Open Warfare, Prepare to Fight, Epic Combat, Medieval Battle (Hörproben 37, 12.10.; Battle Theme A von cynicmusic nur Reserve), Eerie Forest, Boss Battle #2 Symphonic Metal, The Bard's Tale, Opening Theme. Freesound: Vorschau (128 kbit/s), Lizenz gilt für die Aufnahme.
 
 | Lage | Datei | Titel | Urheber | Quelle |
 |---|---|---|---|---|

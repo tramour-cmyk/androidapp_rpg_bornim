@@ -6,7 +6,7 @@ Klänge aus CC0-Aufnahmen (Thema 18): schneiden, tiefer stimmen, filtern, Hall, 
     python3 tools/klang/schleifen.py <ordner>          # danach: Feuerknistern als Schleifen (18k)
     python3 tools/klang/rezepte.py <ordner> --proben <ziel> [--nur a,b]   # Fassungen als WAV zum Anhören (--nur: nur diese Klänge)
 
-Systemklänge (Stufenaufstieg, Klick, epische Beute) gibt es im Spiel nur einmal (STIL.md, Klang); welche Fassung,
+Systemklänge (Stufenaufstieg, Klick, epische Beute) gibt es im Spiel nur einmal (DESIGN-STIL.md, Klang); welche Fassung,
 steht in GEWAEHLT. Quellen und Lizenzen: QUELLEN.md.
 """
 import sys, os, subprocess, numpy as np

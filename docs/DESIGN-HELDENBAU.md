@@ -83,7 +83,7 @@ Jede Klasse hat zwei Pfade ab Stufe 3: einen aus dem SRD 5.1, einen eigenen. Der
 | *Paket:* Paladin | Verteidiger mit Heilung | Heilig, Schild, Schwere Rüstung | **Eid der Hingabe:** heilen, gegen Böses | **Eid der Rache:** jagt einen Feind, hart gegen Bosse | Weißer Wappenrock / schwarzer Wappenrock mit rotem Zeichen |
 | *Paket:* Waldläufer | Fernkampf, Wildnis | Fernkampf, Wild, Leicht | **Jäger:** Bogen, gegen Rudel | **Tiermeister:** Wolf als Begleiter (Garrick als Lehrer) | Trophäen am Köcher / Wolf an der Seite, Pfotenzeichen |
 
-Kosten für das Erkennungszeichen: je Pfad eine Zeichnung auf der Karte und im Kampf, in allen Richtungen (Tom Karte, Jerry Kampf). Vor dem Bau Standbilder (`STIL.md`).
+Kosten für das Erkennungszeichen: je Pfad eine Zeichnung auf der Karte und im Kampf, in allen Richtungen (Tom Karte, Jerry Kampf). Vor dem Bau Standbilder (`DESIGN-STIL.md`).
 
 ## Entwurf Fertigkeiten (49e)
 
@@ -143,7 +143,7 @@ Gestrichen (49p): **Zäh** (reine Zahl; Lebenspunkte bleiben Klassensache, sonst
 
 ### Wann gewählt wird (49.18, 49r entschieden)
 
-Nach SRD gibt es eine Wahl nur auf Stufe 4, 8, 12, 16 und 19. Mit der Stufenkurve aus `BALANCE.md` (zwei Stufen je Kapitel) heißt das: Kapitel 3 und 5 ohne Wahl, 16 und 19 erst in den letzten beiden Kapiteln (Nutzer 12.10.).
+Nach SRD gibt es eine Wahl nur auf Stufe 4, 8, 12, 16 und 19. Mit der Stufenkurve aus `DESIGN-BALANCE.md` (zwei Stufen je Kapitel) heißt das: Kapitel 3 und 5 ohne Wahl, 16 und 19 erst in den letzten beiden Kapiteln (Nutzer 12.10.).
 
 | Rhythmus | Wahlen gesamt | Kapitel 1 (bis St. 6) | je Kapitel 2–6 | Kapitel 7 (St. 17–20) |
 | --- | --- | --- | --- | --- |
@@ -153,7 +153,7 @@ Nach SRD gibt es eine Wahl nur auf Stufe 4, 8, 12, 16 und 19. Mit der Stufenkurv
 
 Entschieden (49r, Nutzer 12.10.): auf jeder geraden Stufe ein Talent; auf 4, 8, 12, 16 und 20 darf man statt des Talents +2 Attribut nehmen. So hat jedes Kapitel mindestens eine Wahl, und schon das kostenlose Kapitel 1 zeigt mit drei Wahlen, wie der Held wächst (45a). Ungerade Stufen bringen weiter Lebenspunkte, Zauber und Klassenfähigkeiten wie im SRD.
 
-Gegen jede Stufe: 19 Wahlen bräuchten etwa 50 Talente oder viele reine Zahlen (gegen 49.9), bei jedem Aufstieg ein Auswahlmenü auf dem Handy, und der Machtzuwachs über das SRD hinaus wäre schwer zu messen. Folgen: Abweichung vom SRD in `BALANCE.md` vermerkt (Leitbild 4); mit 10 Wahlen kann ein Held bis zu drei Linien abschließen, begrenzt durch Stufe 16 und die Prüfungsquest; Jerry misst, ob Helden dadurch zu stark werden.
+Gegen jede Stufe: 19 Wahlen bräuchten etwa 50 Talente oder viele reine Zahlen (gegen 49.9), bei jedem Aufstieg ein Auswahlmenü auf dem Handy, und der Machtzuwachs über das SRD hinaus wäre schwer zu messen. Folgen: Abweichung vom SRD in `DESIGN-BALANCE.md` vermerkt (Leitbild 4); mit 10 Wahlen kann ein Held bis zu drei Linien abschließen, begrenzt durch Stufe 16 und die Prüfungsquest; Jerry misst, ob Helden dadurch zu stark werden.
 
 ## Vorschlag: Linien statt Baum (49.9–49.13)
 
@@ -165,7 +165,7 @@ Talente sollen das Gefühl des Aufbauens geben, ohne einen besten Weg zu erzwing
 | 49.10 | Je Merkmal eine Linie aus drei Stufen: Grund, Meister ab Stufe 8, Abschluss ab Stufe 16; 8–10 Linien, rund 25 Talente, davon 10 gewählt (49r); auf dem Handy eine Liste, kein Netz | 3 einfach, 4 SRD als Gerüst (statt Attributserhöhung) |
 | 49.11 | Die höchste Stufe jeder Linie immer nur über eine Prüfungsquest, die der Lehrer stellt (z. B. Wild: den Leitwolf stellen); freiwillig, offen, sobald der Held die Voraussetzungen erfüllt (49j, 49l ja) | 2 lebendige Welt, 5 Erkunden belohnt, 1 glaubwürdig, 7 Texte zu zweit |
 | 49.12 | Umlernen nur in einem besonderen Tempel ab Kapitel 3, teuer in Spielgold, nie gegen echtes Geld, ohne Spieltag; die letzte Wahl bis zur nächsten Rast kostenlos zurücknehmbar, darauf wird der Spieler bei der Wahl hingewiesen (49k, 49m ja) | 3 frei, 1 glaubwürdig, 13 fair bezahlen |
-| 49.13 | Jede Linie in einer Lage stark (Heilig gegen Untote, Wild gegen Rudel, Schild gegen Bosse); Jerry misst mit dem Zufallsspieler: kein Talent über +2 Hauptattribut, keine Linie fast immer gewählt | 4 Abweichung in BALANCE.md, 11 selbst prüfen |
+| 49.13 | Jede Linie in einer Lage stark (Heilig gegen Untote, Wild gegen Rudel, Schild gegen Bosse); Jerry misst mit dem Zufallsspieler: kein Talent über +2 Hauptattribut, keine Linie fast immer gewählt | 4 Abweichung in DESIGN-BALANCE.md, 11 selbst prüfen |
 
 Entschieden: 49h–49q, die Linien stehen im Abschnitt „Talente“. Entschieden auch 49r: Talent auf jeder geraden Stufe. Umsetzung nach Kapitel 1 (Leitbild 8).
 
@@ -176,4 +176,4 @@ Entschieden: 49h–49q, die Linien stehen im Abschnitt „Talente“. Entschiede
 - [ ] Fertigkeiten: `gegen Attribute abgegrenzt (49s)`
 - [ ] Erkennungszeichen der Pfade: Standbilder je Klasse (Tom Karte, Jerry Kampf)
 - [ ] Werte: Jerry misst Talente gegen +2 Attribut und Rüstungsgrenze (Magier in leichter Rüstung)
-- [ ] Ablage: nach Freigabe als `docs/HELDENBAU.md` ins Repo (wie `STORY.md`)
+- [ ] Ablage: nach Freigabe als `docs/DESIGN-HELDENBAU.md` ins Repo (wie `STORY-REGELN.md`)

@@ -1,92 +1,66 @@
 # Chroniken von Bornim
 
-Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `core` (Regeln, Kampf, Karten, Zeichnung von Figuren/Gegnern), `app` (Oberfläche), `tools/preview` (Vorschau/Test am Rechner). Selten gebrauchte Abläufe (Release, Neustart): `docs/ABLAEUFE.md`.
+Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `core` (Regeln, Kampf, Karten, Zeichnung), `app` (Oberfläche), `tools/preview` (Vorschau/Test am Rechner). Notizen unter `docs/`; die Vorsilbe sagt den Zweck: ROLLE (Startlektüre je Rolle), DESIGN (wie das Spiel sein soll), STORY (Spieltexte), LISTE (Nachschlagen), ARBEIT (Tagesgeschäft).
 
 ## Rollen
-
-Zwei Accounts, gleichzeitig im Einsatz, angesprochen als **Tom** und **Jerry** (nie „Account A/B“). Wer man ist, meldet der Starthaken (von Hand: `echo $CLAUDE_CODE_ACCOUNT_UUID`):
 
 | Name | Kennung |
 |---|---|
 | **Tom** | `87d3bd86-24be-4bd5-ae2c-dc084f6e97dd` |
 | **Jerry** | `55f497f6-95a0-41a6-9996-9a72f364b54c` |
 
-- „Tom, …“/„Jerry, …“ meint den Genannten; der andere nimmt es nur zur Kenntnis.
-- Jede Nachricht an den Nutzer beginnt mit Name und Zeitstempel: „**Tom** [10.10., 11:02]“.
-- **Tom und Jerry** entscheiden Kleines selbst (Farbe, Busch, örtliche Einzelheiten). Grundsatzfrage: eine Zeile in `docs/OFFEN.md` unter „Für den Berater“ (Themennummer, Wortlaut des Nutzers wenn vorhanden), dem Nutzer sagen und **nicht blockieren** (Grundsatzfragen entscheiden Nutzer und Berater gemeinsam): am nächsten Punkt weiterarbeiten. Der Berater trägt die Entscheidung in „Wer macht was“ ein und streicht die Zeile.
-- **Berater (Sokrates)**: Beratungssitzung auf Toms Account, Nutzer nennt sie „Berater“ oder „Sokrates“ (in Notizen gilt „Berater“ weiter); meldet sich „**Sokrates** [TT.MM., HH:MM]“. Berät bei strategischen, taktischen und grundlegenden Entscheidungen und grundlegendem Design: Story/Plot, Spielgefühl und Richtung („düster, erwachsen“), einheitliches Aussehen aller Oberflächen, Balance über die Kapitel, Geschäftsmodell, große Umbauten (mehrere Orte oder beide Entwickler). Bespricht, ändert Notizen und höchstens Werkzeug, nie Spielcode. Startet mit `docs/BERATER.md` (sein Gedächtnis: Aufbau, Entscheidungen mit Begründung, Lehren; Ritual dort) statt der vollen Startlektüre und meldet beim Start immer, was unter „Für den Berater“ in `OFFEN.md` steht. Themen mit „Berater“ in „Wer macht was“ fassen Tom-Arbeitssitzungen nicht an. Tom/Jerry lesen `BERATER.md` nicht beim Start, tragen aber Grundsätzliches unter „Lehren“ ein.
-- **Tester (Diogenes)**: prüft `main` mit Code, Zufallsspieler und Standbildern gegen die Regeln, ein Lauf je Sitzung; ändert nichts am Spiel, Spielgefühl beurteilt der Nutzer. Kein eigener Account: der Nutzer startet ihn mit erster Nachricht „Diogenes“ auf Toms oder Jerrys Account, dann gilt die Rolle statt der Kennung. Meldet sich „**Diogenes** [TT.MM., HH:MM]“. Haltung, Ablauf, Prüflisten nur in `docs/DIOGENES.md` (nur er liest sie). Alle anderen: Prüfaufträge unter „Für Diogenes“ in `OFFEN.md`, Diogenes nie selbst starten. **Befunde (75g, Nutzer 13.10.)** stehen nur in seinem Prüfbericht, jeder ist ein **Verdacht**: **Klasse 1** (Regelverstoß in einem Bereich) geht ohne Absegnen an den Zuständigen nach den Grenzen, der ihn prüft und im Prüfbericht „bestätigt“ oder „verworfen“ mit Grund vermerkt, hinter der Reihenfolge des Nutzers (nur Wirkung „hoch“ vor); **Klasse 2** (grundsätzlich, Ermessen) über „Für den Berater“; **Klasse 3** (am Gerät ansehen) auf „Dein Zug“.
-- **Sitzungsname**: beim Start prüfen. Sinnvoller Name (selbst angelegter Nachfolger): stehen lassen. Automatikname (vom Nutzer in der App angelegt): thematisch umbenennen, ohne laufende Nummer: Tom/Jerry nach Thema bzw. Zweig („Tom: 27 Wald diagonal“), Sokrates nach Grobthema („Sokrates – Questlog und Karte“), Diogenes nach Prüfauftrag („Diogenes – Prüfung 0.1.653“). Ohne Umbenenn-Werkzeug den Namen in der Startmeldung vorschlagen. Selbst gestartete Nachfolger gleich beim Anlegen benennen.
-- „Wer macht was“ oben in `OFFEN.md`; keiner arbeitet an Themen, die dort dem anderen gehören.
+- **Tom und Jerry** entwickeln, gleichzeitig, je auf eigenem Account (nie „Account A/B“; wer man ist, meldet der Starthaken, von Hand: `echo $CLAUDE_CODE_ACCOUNT_UUID`). Grenzen: Tom = Leute, Dorf, Innenräume, Technik der Blende; Jerry = Monster, Höhle, Kampf, Klang; `WorldScreen.kt` nur nach Absprache. Wie sie arbeiten: `docs/ROLLE-ENTWICKLER.md`. „Tom, …“/„Jerry, …“ meint den Genannten, der andere nimmt es zur Kenntnis.
+- **Grundsatzfragen** (Story, Spielgefühl, Aussehen aller Oberflächen, Balance, Geschäftsmodell, Umbauten über mehrere Orte oder beide Entwickler): eine Zeile in `ARBEIT-OFFEN.md` unter „Für den Berater“ (Themennummer, Wortlaut des Nutzers), dem Nutzer sagen, **nicht blockieren**, am nächsten Punkt weiter. Der Berater trägt die Entscheidung in „Wer macht was“ ein und streicht die Zeile.
+- **Berater (Sokrates)** auf Toms Account berät den Nutzer bei diesen Grundsatzfragen und ändert nur Notizen und Werkzeug, nie Spielcode. Er startet mit `docs/ROLLE-BERATER.md`; Themen mit „Berater“ in „Wer macht was“ fassen Tom und Jerry nicht an.
+- **Tester (Diogenes)** prüft `main` gegen die Regeln und ändert nichts am Spiel. Kein eigener Account: der Nutzer startet ihn mit erster Nachricht „Diogenes“, dann gilt die Rolle statt der Kennung; Ablauf nur in `docs/ROLLE-TESTER.md`. Alle anderen tragen Prüfaufträge unter „Für Diogenes“ ein und starten ihn nie selbst.
+- Jede Nachricht beginnt mit Name und Zeitstempel: „**Tom** [10.10., 11:02]“ (ebenso **Jerry**, **Sokrates**, **Diogenes**).
+- **Sitzungsname** beim Start prüfen: sinnvollen Namen stehen lassen, Automatiknamen thematisch umbenennen, ohne laufende Nummer (Tom/Jerry nach Thema oder Zweig, Sokrates nach Grobthema, Diogenes nach Prüfauftrag); ohne Werkzeug in der Startmeldung vorschlagen. Selbst gestartete Nachfolger gleich beim Anlegen benennen.
+- „Wer macht was“ oben in `ARBEIT-OFFEN.md`; keiner arbeitet an Themen, die dort einem anderen gehören.
 
 ## Sitzungsstart
 
-Erste Nachricht („Start“ oder irgendetwas):
-1. `tools/notiz.sh` (holt `main`, zeigt eigenen Namen und Notiz-Änderungen). Meldet es „unbekannt“: Nutzer fragen, nichts anfangen.
-2. „Vor jeder Arbeit lesen“ abarbeiten.
-3. Kurz melden: Name, eigene Themen mit Nummer und Stand, offene Rückfragen (nummeriert), was der andere seit dem letzten Mal eingetragen hat. Dann auf die Nachricht eingehen.
-
-## Vor jeder Arbeit lesen
-
-1. `docs/OFFEN.md` ganz: „Jetzt installieren“, „Wer macht was“, eigene Übergabe; Rückfragen stehen nur auf der Seite „Dein Zug“.
-2. `docs/LEITBILD.md` (roter Faden, eine Seite; gilt bei Widerspruch), `docs/STIL.md` (Aussehen, Klang, Spielgefühl), `docs/ENTWICKLUNG.md` (Ansicht, „Ort fertig“, selbst prüfen, Leistung).
-3. `CHANGELOG.md` nur bis zur zweiten Versionsüberschrift (`sed -n '1,/^## v/p'` und die erste Version).
-4. `tools/check-env.sh`; `docs/UMGEBUNG.md` nur, wenn es etwas meldet oder ein Werkzeug gesucht wird (Tabelle der Vorschau-Schalter).
-
-Nicht beim Start: `docs/THEMEN.md` (eine Zeile je Nummer), `docs/ARCHIV.md` (Verlauf, nur gezielt durchsuchen), `docs/MERKLISTE.md` (Ideen für später), `docs/SELBST.md` (nur bei Selbstarbeit oder gemeinsamer Zeit), `docs/ABLAEUFE.md` (Release, Neustart), `docs/BERATER.md`, `docs/DIOGENES.md`.
+1. `tools/notiz.sh` (holt `main`, zeigt Namen und Notiz-Änderungen). Meldet es „unbekannt“: Nutzer fragen, nichts anfangen.
+2. Startlektüre der eigenen Rolle: Tom und Jerry „Vor jeder Arbeit lesen“ in `ROLLE-ENTWICKLER.md`; Sokrates das Ritual in `ROLLE-BERATER.md`; Diogenes `ROLLE-TESTER.md`.
+3. Kurz melden: Name, eigene Themen mit Nummer und Stand, offene Rückfragen (nummeriert), was die anderen seit dem letzten Mal eingetragen haben. Dann auf die Nachricht eingehen.
 
 ## Notizen nur auf `main`
 
-Notizen = `CLAUDE.md`, `CHANGELOG.md`, alles unter `docs/`. Gibt es nur auf `main`; direkt dort committen und pushen ist erlaubt (baut keine APK, kein Release). Arbeitszweige enthalten nur Code, dort Notizen nie ändern.
-- Bearbeiten in der zweiten Arbeitskopie `../bornim-main` (legt `tools/notiz.sh` an), dort committen, sofort pushen.
-- Vor jeder Antwort an den Nutzer `tools/notiz.sh`.
+Notizen = `CLAUDE.md`, `CHANGELOG.md`, alles unter `docs/`. Nur auf `main`; direkt dort committen und pushen ist erlaubt (baut keine APK). Arbeitszweige enthalten nur Code.
+- Bearbeiten in `../bornim-main` (legt `tools/notiz.sh` an), sofort pushen. Vor jeder Antwort an den Nutzer `tools/notiz.sh`.
 - Push abgelehnt: `git pull` (zusammenführen, nie Verlaufsänderung), erneut pushen.
-- Code auf `main` nur per PR nach Test des Nutzers. Sagt er, der Test passt: die Sitzung führt den PR selbst zusammen, sobald er grün ist (Merge, nie Squash/Rebase); der Nutzer klickt nicht.
 
 ## Feste Regeln
 
+**Bei jedem Schritt:** Zeitstempel von der Systemuhr · vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Nutzers · nie APK, Standbild oder Hörprobe in den Chat.
+
 **Umgang mit dem Nutzer**
-- Deutsch, Berliner Zeit. Generisches Maskulinum („der Nachfolger“, „die Tester“), nie weibliche oder gegenderte Formen.
-- Zeitstempel in jeder Nachricht, auch Zwischenmeldungen, immer von der Systemuhr: `TZ=Europe/Berlin date "+%d.%m., %H:%M"`, nie schätzen.
-- Erst auf Rückmeldungen und Fragen antworten und besprechen, dann arbeiten; nicht still und lange umsetzen. Eine Rückfrage ist keine Freigabe. Vor großen optischen Änderungen Entwürfe zeigen: nur Standbilder, nie Bildfolgen (Filmstreifen).
-- Rückfragen gebündelt am Ende, mit Empfehlung; offene früherer Antworten wiederholen statt neue Listen daneben.
+- Deutsch, Berliner Zeit. Generisches Maskulinum („der Nachfolger“, „die Tester“), nie weibliche oder gegenderte Formen. Zum Prüfen fett markieren, nie nur kursiv.
+- Zeitstempel immer von der Systemuhr: `TZ=Europe/Berlin date "+%d.%m., %H:%M"`, nie schätzen.
+- Erst auf Rückmeldungen und Fragen antworten und besprechen, dann arbeiten. Eine Rückfrage ist keine Freigabe. Vor großen optischen Änderungen Standbilder zeigen, nie Bildfolgen.
+- Rückfragen gebündelt am Ende, nummeriert, mit Empfehlung und vollem Wortlaut; offene früherer Antworten wiederholen, nie nur verweisen.
 - Was funktioniert und kein Fehler ist, muss der Nutzer nicht erfahren.
 
 **Nachhalten**
-- Jede Meldung des Nutzers (Fehler, Idee, Frage) sofort in `OFFEN.md` auf `main`; Ideen für später gleich auf die Merkliste. Nach jeder erledigten Arbeit `OFFEN.md` prüfen, Erledigtes in `CHANGELOG.md`.
-- **Nummern**: jedes Thema eine Nummer aus der gemeinsamen Folge (Zähler „Nächste freie Themennummer“ oben in `OFFEN.md`); Vorschläge 7.1, 7.2 …, Rückfragen 7a, 7b …. Neues Thema: erst Nummer auf `main` eintragen und pushen, dann dem Nutzer nennen. Die Nummer bleibt fest, auch wenn das Thema später wiederkommt.
-- **Jeder Text an einem Ort** (65.4): Stand und Wer nur in „Wer macht was“ (ein Satz plus Verweis), Gestaltungsentscheidung mit Wortlaut in den Beschlüssen, Begründung von Grundsätzlichem in `BERATER.md`, Umgesetztes in `CHANGELOG.md`, Verlauf in Commit-Nachrichten oder `ARCHIV.md`; `THEMEN.md` nur Einwort-Stand. Anderswo nur verweisen.
-- **„OFFEN.md klein halten“**: höchstens etwa 15 KB, je Eintrag höchstens 3 Zeilen; Einzelheiten in Commit-Nachrichten oder `ARCHIV.md`. Je Person genau eine Übergabe: die neue ersetzt die alte, die alte kommt oben ins Archiv. Getesteter Build: Zeile löschen, Ergebnis in `CHANGELOG.md`. Erledigtes Thema aus „Wer macht was“ streichen. Neues, abgeschlossenes oder abgegebenes Thema: Zeile in `THEMEN.md` anpassen. Bei jedem Release `wc -c docs/OFFEN.md`, über 20 KB aufräumen.
-- Vor längerer Pause: kurze Übergabe im eigenen Abschnitt von `OFFEN.md` (Stand, Offenes, offene Rückfragen).
-- `CHANGELOG.md`: neue Einträge unter „## Unveröffentlicht“ (auch beim Zusammenführen eines PR); umbenannt erst beim Release (`docs/ABLAEUFE.md`).
+- Jede Meldung des Nutzers sofort in `ARBEIT-OFFEN.md` auf `main`; Ideen für später nach `LISTE-IDEEN.md`; Erledigtes in `CHANGELOG.md` unter „## Unveröffentlicht“ (umbenannt erst beim Release).
+- **Nummern:** jedes Thema eine Nummer aus der gemeinsamen Folge (Zähler oben in `ARBEIT-OFFEN.md`); Vorschläge 7.1, 7.2 …, Rückfragen 7a, 7b …. Erst Nummer eintragen und pushen, dann dem Nutzer nennen. Die Nummer bleibt fest.
+- **Jeder Text an einem Ort** (65.4): Stand und Wer nur in „Wer macht was“; Gestaltungsentscheidung in den Beschlüssen; Begründung von Grundsätzlichem in `ROLLE-BERATER.md`; Umgesetztes in `CHANGELOG.md`; Verlauf in Commits oder `ARBEIT-ARCHIV.md`; `LISTE-THEMEN.md` nur Einwort-Stand.
+- **`ARBEIT-OFFEN.md` klein halten:** höchstens etwa 15 KB, je Eintrag höchstens 3 Zeilen. Je Person genau eine Übergabe, die alte kommt oben ins Archiv. Erledigtes aus „Wer macht was“ streichen, Zeile in `LISTE-THEMEN.md` anpassen. Vor längerer Pause oder Neustart Übergabe schreiben und pushen.
 
-**Story und Dialoge** (Thema 41): Plot und Texte (Dialoge, Erzähltext, Aushänge) legen Nutzer und Berater gemeinsam fest. Vorlage `docs/STORY.md` (Inhaltsverzeichnis; Texte in Teildateien je Kapitel, `STORY1.md` …, gezielt über die Marke `[Thema.kurz]` suchen statt ganz lesen): wortgetreu übernehmen, Englisch beim Bauen selbst übersetzen. Fehlt oder passt ein Text nicht: Vorschlag in `OFFEN.md` unter 41, nicht selbst erfinden. Ausnahme: Tippfehler und Zeichensetzung direkt korrigieren, Commit beginnt mit „Text:“. Änderungen zeigt `tools/story.sh <von> [<bis>]`.
+**Story und Dialoge** (41): Plot und Texte legen Nutzer und Berater gemeinsam fest. Regeln in `STORY-REGELN.md`, Texte je Kapitel (`STORY-K1.md` …), gezielt über die Marke `[Thema.kurz]` suchen: wortgetreu übernehmen, Englisch beim Bauen selbst übersetzen. Fehlt oder passt ein Text nicht: Vorschlag unter 41, nie selbst erfinden. Tippfehler direkt korrigieren (Commit „Text:“). Änderungen zeigt `tools/story.sh <von> [<bis>]`.
 
-**„Nicht warten“** (Thema 54): Ist das nächste Thema freigegeben oder steht in der eigenen Übergabe und ist nichts vom Nutzer zu entscheiden: sofort anfangen, ohne Ankündigung, ohne auf „los“ zu warten; Meldungen sind Zwischenstände, kein Halt. Ein Zug endet nur, wenn (a) eine Entscheidung des Nutzers fehlt (Rückfrage mit Empfehlung, bis dahin am nächsten Punkt weiter), (b) auf Build oder Test gewartet wird und ein Weckruf steht, oder (c) wirklich nichts mehr da ist (Vorrat aus `SELBST.md` nehmen oder melden). „Erst Standbilder“ heißt: Entwurf bauen und Bilder zeigen, nicht vorher fragen. **Warten ist nie ein Zugende** (Nutzer 13.10.: „Das darf nicht sein“): Build läuft, Test oder Rückfrage offen → sofort den nächsten Punkt aus Übergabe/„Wer macht was“ anfangen (Entwürfe, Standbilder, Notizen, Vorrat `SELBST.md`); den Build meldet der Weckruf. Der Stop-Haken `tools/weiter-haken.py` hält jedes Zugende einmal auf; nur „Vorrat leer“ oder nach einem Neustart „an den Nachfolger übergeben“ lässt sofort durch.
+**Seite „Dein Zug“** (63): Jede Rückfrage und Testfrage an den Nutzer steht auf https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow (Artefakt bei Tom, Jerry hat Schreibrecht; Abschnitte „Zu entscheiden“, „Anzusehen“); im Chat nur Link und Nummern. Je Punkt eine Datei `e/<nr>.html` plus Zeile in der Liste; jeder schreibt nur seine Einträge. Entscheidet der Nutzer: Eintrag in die Beschlüsse (https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) und in „Wer macht was“, Zeile auf „Dein Zug“ im selben Schritt löschen. Vor dem Ändern eines Artefakts es lesen, dann dieselbe URL neu veröffentlichen. Ausnahme: der Berater fragt im Gespräch.
 
-**Seite „Dein Zug“** (früher „Entscheidungsseite“, davor „Entwürfe entscheiden“; Nutzer 13.10., 20:25; Thema 57/63): **Jede Rückfrage und jede Testfrage** an den Nutzer steht auf der gemeinsamen Seite „Dein Zug“ (https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow, Artefakt bei Tom, Jerry hat Schreibrecht über Teilen), Abschnitte „Zu entscheiden“ und „Anzusehen“ (Test am Gerät); im Chat nur Link und Nummern. Je Punkt eine eigene Datei `e/<nr>.html` (Nummer, Bilder alt/neu mit Uhrzeit und Schalter, Stil-Leitlinien, Empfehlung, Wer) plus eine Zeile in der Inhaltsliste (Nummer, seit, Was, Wer, Empfehlung); jeder schreibt nur seine Einträge, liest nur die Liste. Standbilder und Hörproben nie in den Chat (auch kein Zip; Hörproben einzeln, je Probe ein Spieler). Entscheidet der Nutzer: Eintrag in die **gemeinsamen Beschlüsse** (früher „Bildbuch“) (https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM, eigene Datei plus Zeile) und in „Wer macht was“; im selben Schritt die Zeile von der Seite „Dein Zug“ **löschen** (kein Abschnitt „Erledigt“, 65.7); getesteter Build: Zeile löschen, Ergebnis nur in `CHANGELOG.md`. Vor dem Ändern eines Artefakts es mit `url` lesen (Artifact `read`), dann dieselbe URL neu veröffentlichen (Dateien mit `files`, unveränderte bleiben).
-
-**Begriffe** (62p/62q, Nutzer 13.10.): Karten haben drei Stufen: **Landkarte** (alle Gebiete eines Landes) → **Gebietskarte** (ein Stück Land unter freiem Himmel: Dorf, Wald, Straße, Moor, Ruinen) → **Grundriss** (alles hinter einem Eingang: Haus, Höhle, Burg, Katakomben). Übereinanderliegende Teile eines Grundrisses heißen **Ebene** (Haus wie Höhle; „Stockwerk“ nicht verwenden). „Ebene“ nie für die drei Kartenstufen. So auch im Spiel und in Prüflisten.
-
-**Bauen und Testen**
-- **Stil-Abgleich vor dem Bauen**: Jeder Vorschlag zu Grafik, Animation, Klang nennt in einem kurzen Absatz die berührten Punkte aus `STIL.md`, die entstehenden Übergänge (z. B. Stehen ↔ Hocken ↔ Aufstehen ↔ Gehen, Anführer dreht ↔ Rudel folgt) und wie sie geprüft werden (Kerntest, Film des Übergangs hinein und heraus). Bei Spielablauf und Bedienung ebenso die vier Fragen „Spielerfreundlich, einfach, frei“ aus `STIL.md` (Thema 33). Erst danach bauen.
-- Änderungen an Kampf, Bewegung, Effekten selbst durch die echte Oberfläche filmen und die Bildfolge ansehen (Vorschau-Schalter in `UMGEBUNG.md`). Filme sparsam: Logik (Zeiten, Regeln, Abläufe) mit Kerntests in Sekunden prüfen; filmen nur, wenn sich eine Bewegung sichtbar ändert; dann nur gespeicherte Bilder zeichnen, `CROP=` nur den Ausschnitt, ereignislose Zeit mit `FROM=` überspringen (`WALKFILM`, `IDLEFILM` in `tools/preview`).
-- **Befund behoben, Wirkung „hoch“** (Absturz, Festhängen, Quest unlösbar, falscher Text; 75h): beim Beheben einen Kerntest schreiben, der den Fehler künftig fängt.
-- Vor jedem Commit von Code `./gradlew -p core test` (Kerntests, laufen ohne Android-Plugin); Ergebnis am Exit-Code prüfen (`set -o pipefail`), nicht nur an gefilterter Ausgabe. Schnellstes Werkzeug je Anlass: `tools/t` (Übersicht ohne Befehl: Logik, Zufallsspieler, Bild, Film); Einzelheiten `UMGEBUNG.md`.
-- **Vor jedem Zweig-Build `main` holen**: `git fetch origin main && git merge origin/main` (zusammenführen, nie Verlaufsänderung), Kerntests, dann pushen; so enthält jede Test-APK alles Freigegebene des anderen. Zweig-Builds haben eine höhere Laufnummer als das installierte Release, sonst lassen sie sich nicht installieren.
-- **Build-Meldung nie vergessen**: nach jedem Push, der einen Build auslöst, Weckruf stellen: PR des Zweigs abonnieren (`subscribe_pr_activity`) oder ohne PR `send_later` (~6 Minuten). Nie „ich melde mich“ ohne eines davon.
-- Zu jedem Build der direkte Link (Release oder Artefakt), **nie die APK im Chat**, dazu eine **Prüfliste** auf der Seite „Dein Zug“ (`e/t<build>.html`): je Punkt wo und wann (Ort, Tageszeit, wie lange zusehen, vorher im Code nachsehen), was tun, woran man richtig und falsch erkennt (Nutzer 13.10.: „Prüfaufgaben nicht gut beschrieben“). Bilder mit der Uhrzeit ihrer Entstehung.
-- **Testreihenfolge abstimmen**: vor jedem Testangebot in `OFFEN.md` („Zu testen“, Übergabe, „Wer macht was“) nachsehen, was der andere testen lassen will, und dem Nutzer sagen, was zuerst (mit Grund, z. B. ein Build enthält den anderen schon oder der andere wartet länger).
+**Begriffe** (62p/62q): **Landkarte** (alle Gebiete eines Landes) → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang). Übereinanderliegende Teile eines Grundrisses heißen **Ebene**, nie „Stockwerk“; „Ebene“ nie für die Kartenstufen. So auch im Spiel und in Prüflisten.
 
 **Sitzungen**
-- **Neustart nur bei großer Sitzung**: Weiterarbeiten ist der Normalfall (jede neue Sitzung kostet die Startlektüre, rund 20.000 Token). Neustart nur vorschlagen bei vielen Bildern oder Filmen, langen Testausgaben, mehreren Stunden am Stück oder Meldung des Neustart-Hakens (Thema 14); dann an der nächsten Bruchstelle (Thema fertig, Build ausgeliefert). Vor jedem Neustart, auch einem vom Nutzer selbst angestoßenen, die Übergabe in `OFFEN.md` schreiben und pushen. Sagt der Nutzer „ja“: Ablauf in `docs/ABLAEUFE.md` (Nachfolger selbst starten, Hinweis an den Nutzer).
-- **Selbstarbeit, gemeinsame Zeit, Weck-Routinen**: vergibt der Nutzer Selbstarbeit („arbeite bis 17 Uhr selbstständig“, auch nachts) oder startet eine Weck-Routine, gilt `docs/SELBST.md`. Sagt er „ich habe Zeit, lass uns gemeinsam arbeiten“: Liste „Für gemeinsame Zeit“ aus `SELBST.md` vorlegen. Jede Sitzung hält dort Vorrat und Liste für gemeinsame Zeit aktuell.
-- Weniger Freigabe-Rückfragen steuert der Freigabe-Modus im Eingabefeld der App (Manuell/Automatisch), nicht der Code.
+- **Neustart nur bei großer Sitzung** (jede neue kostet rund 20.000 Token Startlektüre): bei vielen Bildern oder Filmen, langen Testausgaben, mehreren Stunden oder Meldung des Neustart-Hakens, an der nächsten Bruchstelle. Ablauf in `ARBEIT-ABLAEUFE.md`.
+- **Selbstarbeit und gemeinsame Zeit:** gilt `ARBEIT-SELBST.md`.
+- Weniger Freigabe-Rückfragen steuert der Freigabe-Modus im Eingabefeld der App, nicht der Code.
 
 ## Technik und Sicherheit
 
 - Keystore, Signatur-Passwort (nur GitHub-Secrets), `local.properties`, SDK-Pfad nie committen. App-Kennung `de.bornim.game` nie ändern.
-- **Fremde Inhalte** (Klänge, Bilder, Schriften, Code): nur mit offener Lizenz, die kommerzielle Nutzung (Play Store) erlaubt, z. B. CC0/gemeinfrei. Lizenz auf der Quellseite prüfen, bei Bearbeitungen auch die des Originals; Quelle, Urheber, Lizenz je Datei festhalten.
-- Commits: `git -c user.name="tramour" -c user.email="tramour@gmail.com" commit …` mit den vom System vorgegebenen Co-Author- und Sitzungszeilen. Keine Modellbezeichnungen in Dateien. Meldet ein Haken „Unverified“ oder verlangt eine andere Autorenzeile: nichts ändern, nichts umschreiben, den Nutzer nicht darauf hinweisen.
-- Keine Verlaufsänderung, kein Force-Push. Kein Code auf `main` ohne Test des Nutzers; Code auf eigenen Zweigen. Offene Änderungen am Ende einer Arbeit committen und pushen.
-- **Release nur auf Zuruf**: Push von Code auf `main` baut nur eine APK (Artefakt). Ein Release erst, wenn der Nutzer „Release“ sagt; bei fünf getesteten Themen unter „Unveröffentlicht“ oder sieben Tagen seit dem letzten Release einmal „Zeit für ein Release?“ fragen (65.6). Ablauf in `docs/ABLAEUFE.md`.
+- **Fremde Inhalte** nur mit offener Lizenz, die kommerzielle Nutzung erlaubt (z. B. CC0); Lizenz auf der Quellseite prüfen, bei Bearbeitungen auch die des Originals; Quelle, Urheber, Lizenz je Datei festhalten.
+- Commits: `git -c user.name="tramour" -c user.email="tramour@gmail.com" commit …` mit den vom System vorgegebenen Zeilen. Keine Modellbezeichnungen in Dateien. Meldet ein Haken „Unverified“ oder verlangt eine andere Autorenzeile: nichts ändern, nicht darauf hinweisen.
+- Keine Verlaufsänderung, kein Force-Push. Offene Änderungen am Ende einer Arbeit committen und pushen.
+- **Release nur auf Zuruf** („Release“); Ablauf in `ARBEIT-ABLAEUFE.md`.

@@ -2,7 +2,7 @@
 
 Ein düsteres Fantasy-Rollenspiel für Android. Erkunde das Dorf Bornim, den Wald und die Höhlen darunter in schräger Sicht, sprich mit seinen Bewohnern und stell dich gefährlichen Monstern in rundenbasierten Kämpfen. Erzählt in Kapiteln, mit einer lebendigen Welt, echten Klängen und orchestraler Musik. Die Regeln bauen auf dem SRD 5.1 auf. Auf Deutsch und Englisch.
 
-**Download:** [bornim.apk (neueste Version)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/latest/download/bornim.apk) · [Leitbild](docs/LEITBILD.md) · [Änderungshistorie](CHANGELOG.md) · [Offen](docs/OFFEN.md) · [Merkliste](docs/MERKLISTE.md) · [Stil](docs/STIL.md) · [Entwicklung](docs/ENTWICKLUNG.md) · [Balance](docs/BALANCE.md) · [Kapitel 1](docs/KAPITEL1.md)
+**Download:** [bornim.apk (neueste Version)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/latest/download/bornim.apk) · [Leitbild](docs/DESIGN-LEITBILD.md) · [Änderungshistorie](CHANGELOG.md) · [Offen](docs/ARBEIT-OFFEN.md) · [Merkliste](docs/LISTE-IDEEN.md) · [Stil](docs/DESIGN-STIL.md) · [Entwicklung](docs/DESIGN-ABNAHME.md) · [Balance](docs/DESIGN-BALANCE.md) · [Kapitel 1](docs/LISTE-KAPITEL1.md)
 
 ## Features
 
@@ -20,7 +20,7 @@ Ein düsteres Fantasy-Rollenspiel für Android. Erkunde das Dorf Bornim, den Wal
 
 **Kampf**
 
-- **Regeln nach SRD 5.1, wo sie tragen**: sechs Attribute, Übungsbonus, Rüstungsklasse, W20-Angriffe, kritische Treffer, Rettungswürfe, Schadensarten mit Resistenz/Verwundbarkeit, Zauberpunkte (SRD-Variante); Abweichungen sind begründet ([Balance](docs/BALANCE.md))
+- **Regeln nach SRD 5.1, wo sie tragen**: sechs Attribute, Übungsbonus, Rüstungsklasse, W20-Angriffe, kritische Treffer, Rettungswürfe, Schadensarten mit Resistenz/Verwundbarkeit, Zauberpunkte (SRD-Variante); Abweichungen sind begründet ([Balance](docs/DESIGN-BALANCE.md))
 - **Rundenbasierte Kämpfe** mit Angriff, Zaubern, Verteidigen, Zug beenden und Gegenständen wie Weihwasser (gegen Untote) und Alchemistenfeuer
 - **15 Monsterarten und 3 Bosse** (Krogg, Grimmzahn, Hauptmann Grak), u. a. Wildschwein, Kobold, Stirge, Riesen-Hundertfüßer, Goblin-Schamane, Ghul, Riesenfledermaus, Ockergallerte, mit eigenen Fähigkeiten wie Ansturm, Rudeltaktik, Blutsaugen, Lähmung, Säure oder Heilzaubern
 - **Rudel und Gefolge**: Kobold-Rudel, Wölfe mit Jungwölfen, Goblins mit Späher, Grimmzahn mit Leibwache – das Gefolge greift mit an und flieht, wenn der Anführer fällt

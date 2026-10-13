@@ -1,6 +1,6 @@
 # Entwicklung
 
-Wie gebaut und geprüft wird: die Einzelheiten zum [Leitbild](LEITBILD.md) (Grundsätze 5, 10, 11, 12). Wie das Spiel aussieht und klingt, steht in [Stil](STIL.md); Abläufe (Notizen, Builds, Nummern) in `CLAUDE.md`, seltene (Release, Neustart) in `ABLAEUFE.md`.
+Wie gebaut und geprüft wird: die Einzelheiten zum [Leitbild](DESIGN-LEITBILD.md) (Grundsätze 5, 10, 11, 12). Wie das Spiel aussieht und klingt, steht in [Stil](DESIGN-STIL.md); Abläufe (Notizen, Builds, Nummern) in `CLAUDE.md`, seltene (Release, Neustart) in `ARBEIT-ABLAEUFE.md`.
 
 ## Ansicht
 
@@ -14,7 +14,7 @@ Festgelegt mit dem Nutzer 11.10., 16:50 (Maßstab: Dorf und Räume). Gilt für D
 2. **Boden:** doppelte Auflösung, kein sichtbares Raster, Wege mit natürlichem Verlauf.
 3. **Dinge:** rund geformt mit Volumen (`Sculpt`), je mindestens drei Varianten, im Maßstab des Helden.
 4. **Licht und Schatten:** Schatten unter allem, was steht; Licht nur aus sichtbaren Quellen; nachts düster, aber lesbar.
-5. **Durchsicht und Sichtbarkeit:** nach „Karte und Räume“ in `STIL.md` (43).
+5. **Durchsicht und Sichtbarkeit:** nach „Karte und Räume“ in `DESIGN-STIL.md` (43).
 6. **Lebendig:** Wind, Rauch, Tiere, Gebrauchsspuren, Wetter, je nach Ort; Effekte von Tom/Jerry selbst vorgeschlagen (44d).
 7. **Figuren:** alle Leute als Puppen, alle Gegner als neue Kartenmodelle.
 8. **Klang:** Umgebung aus echten Aufnahmen, Schritte passend zum Untergrund; Hintergrundklänge selbst vorgeschlagen und eingebaut (44d).

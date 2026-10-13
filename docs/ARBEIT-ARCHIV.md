@@ -1,5 +1,8 @@
 # Archiv
 
+### Tom-Übergabe (13.10., 21:3x)
+- PR #55 (0.1.714) zusammengeführt. Zweig `claude/tom-diogenes`: D2-Befunde, D1.2/D1.3, 3b Abstand, 4 Glühwürmchen, 5la Pim nachts, 73b Stimmen; Build läuft (Weckruf steht), danach Prüfliste `e/t<build>.html`. Weiter: D1.4, D1.5, D1.11, D1.16; dann 6l, 68.
+
 ### Tom-Übergabe (13.10., 20:0x)
 - 0.1.709 getestet und zusammengeführt (PR #54), Schalter in `UMGEBUNG.md` gestrichen. 0.1.714 auf `claude/tom-73-laeden` (73 Läden, 62r, 3b, 13 Tempelboden), Prüfliste `e/t714.html`; nach „passt“ PR, zusammenführen. Weiter: Diogenes-Befunde Tom (Zeile „Zu testen“), 73b-Texte einbauen, sobald festgelegt; dann 6l, 68.
 - Zweig `claude/tom-73-laeden` (= 13t + 3b + 73 Läden): dort 62r (A) bauen, dann nächster Build; danach 6l, 68.

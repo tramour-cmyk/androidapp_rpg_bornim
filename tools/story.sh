@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Texte im Spiel (Dialoge, Erzähltext, Aushänge, Schilder) zwischen zwei Ständen vergleichen, ohne Code zu lesen
 # (Thema 41). Zieht aus core/src/main/kotlin alle deutsch/englischen Textpaare: say(...), narrate(...), T(...).
-#   tools/story.sh <von> [<bis>]   Änderungen von <von> bis <bis> (Standard: origin/main), z. B. Stand aus BERATER.md
+#   tools/story.sh <von> [<bis>]   Änderungen von <von> bis <bis> (Standard: origin/main), z. B. Stand aus ROLLE-BERATER.md
 #   tools/story.sh <von> origin/claude/zweig   auch für Zweige, die noch nicht auf main sind
 #   tools/story.sh --alle [<bis>]  alle Texte eines Stands auflisten
 # Ausgabe: + neu, - weg, ~ geändert (alt → neu); „EN alt“, wenn der deutsche Text sich änderte, der englische nicht.
