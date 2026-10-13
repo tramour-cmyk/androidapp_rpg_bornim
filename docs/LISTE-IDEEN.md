@@ -12,11 +12,8 @@ Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstop
 - **Trefferchancen sichtbar machen (Teil von Idee 2):** Chance vor dem Angriff anzeigen.
 - **Verletzungen bis zur Rast (Idee 3):** Wer tief fällt, behält eine Wunde (z. B. −1 RK), sichtbar als Verband am Helden; das Gasthaus heilt sie.
 - **Licht als Mechanik (Idee 4):** Fackel brennt ab; im Dunkeln sieht man Lauerer später, Untote sind stärker.
-- (im Vorrat, 23a) **Spuren, die bleiben (Idee 7):** Blut auf dem Boden nach dem Kampf, Fußspuren im Matsch nach Regen, aufgewirbelter Staub beim Rennen.
 - (im Vorrat, 23a) **Raumklang (Idee 8):** Hall in der Höhle, gedämpft und nah in der Schänke, offen im Wald.
-- (im Vorrat, 23a) **Schritte je Untergrund (Idee 9):** Gras, Holzdielen, Fels, Pfütze, je mit Varianten.
-- (im Vorrat, 23a) **Musik in Schichten (Idee 10):** Nähert sich ein Jäger, schleicht sich eine dunkle Spur in die Musik, bevor der Kampf beginnt; Stille bewusst einsetzen. Gehört zu „Musik neu im neuen Stil“.
-- (im Vorrat, 23a) **Farbstimmung je Ort und Tageszeit (Idee 11):** Höhle kalt-grünlich, Schänke warm, Dämmerung violett, leichte Abdunklung an den Bildrändern (Filmlook über alles).
+- (im Vorrat, 23a) **Musik in Schichten (Idee 10):** Nähert sich ein Jäger, schleicht sich eine dunkle Spur in die Musik, bevor der Kampf beginnt; Stille bewusst einsetzen. Erweitert die neue Musik (28).
 - **Regeln:** SRD bleibt Grundlage, nicht wechseln; das Würfelglück wird abgefedert (18, sichtbare Chancen).
 
 ## Veröffentlichung (Weg, besprochen 10.10., 13:36)
@@ -24,16 +21,12 @@ Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstop
 1. Stilumbau abschließen.
 2. Pflichttest im Play Store (neues privates Konto: mindestens 12 Tester, 14 Tage am Stück) als echten Test nutzen, Rückmeldungen sammeln.
 3. Kapitel 1 kostenlos veröffentlichen (Bewertungen, Spieler); 99 Cent für Kapitel 1 bringen kaum Käufer (keine Sichtbarkeit ohne Bewertungen, nach Steuer und Google-Anteil etwa 70 Cent).
-4. Später Kapitel 2 als einmaligen Kauf (z. B. 2,99 €).
+4. Danach Vollversion mit einmaligem Kauf, spätere Kapitel nachkaufbar (45a); Preis offen (72g).
 - Vorher: Datenschutzerklärung, Altersfreigabe (Blut), Zahlungsprofil mit Händleradresse, kurze Rechtsprüfung (Herkunft von Schriften und Klängen). Siehe auch „Google Play“ unten.
 
 ## Ladezeiten
 
 - **Gezeichnete Bilder auf dem Gerät speichern (24.4, 11.10.):** Figuren-, Boden- und Kampfbilder nach dem ersten Zeichnen auf dem Gerät ablegen, damit der nächste Start ohne Wartezeit geht. Erst angehen, wenn mit 24.1–24.3 gemessen ist, wie lang das Übergangsbild noch dauert.
-
-## Lebendige Orte
-
-- (im Vorrat, 23a) **Katze in der Schänke (10.10., 6.14/6g):** schläft am Herd, streckt sich ab und zu, wechselt gelegentlich den Platz; eigene kleine Figur nötig.
 
 ## Werkzeuge
 
@@ -79,16 +72,12 @@ Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstop
 - **Neue Ausrüstungseigenschaft:** Giftresistenz.
 - **Monster-Geräusche** (erste Hörproben Wolf, Goblin, Skelett liegen vor, 18e): eigene Laute je Gegnerart, jeweils in mehreren zufälligen Varianten wie beim Wolfsheulen. Zum Beispiel Knurren vor dem Angriff, Fauchen, Schmerzlaute bei Treffern und Todeslaute. Dazu Klappern bei Skeletten, Stöhnen bei Zombies, Schmatzen beim Ockergallert, Kreischen bei Fledermäusen, Kampfrufe bei Goblins und Kobolden, Brüllen bei Bossen. Elite-Gegner und Grimmzahn klingen tiefer.
 
-- (im Vorrat, 23a) **Rudelwölfe beißen ins Leere (gemeldet 08.10., v0.1.210):** Der Leitwolf springt beim Biss zum Helden, die anderen Wölfe des Rudels beißen nur auf ihrem Platz im Hintergrund (im Film bestätigt). Vorschlag: Rudelwölfe springen wie der Leitwolf zum Helden und zurück, gleitend und im selben Takt; wer beißt, wird vor den anderen gezeichnet.
 
 ## Welt und Leben auf der Karte
 
-- (im Vorrat, 23a) **Kartenansicht** im Menü mit den bereits erkundeten Bereichen.
 - **Schnellreise über die Kartenübersicht (Idee 09.10., 12:49):** Die Pergamentkarte (Entwurf C, `tools/preview` Modus `WEGE`) als Übersicht, mit Nebel des Unerkundeten wie auf der Karte; einmal entdeckte Orte (z. B. Bornim, Garricks Feuer, Höhleneingang) sind Reiseziele, gegen Gold. Gedanken dazu: ein Fuhrmann in Bornim oder Garrick als Führer statt Teleport; Preis nach Entfernung; Zeit vergeht (wer abends aufbricht, kommt nachts an); unterwegs ein Wurf auf einen Überfall, nachts höher; nicht aus Höhlen heraus, nicht im Kampf.
-- **Bewohner mit Tagesablauf:** Die Wirtin fegt vor der Tür, Läden haben nachts geschlossen. (Jorins Streife am Schlagbaum gibt es schon.)
 - **Monsterverhalten:** Goblins patrouillieren auf Wegen, Fledermäuse hängen an der Höhlendecke und stürzen herab.
 - **Wetter:** Nebel; Windgeräusche als weiterer Umgebungsklang.
-- (jetzt Thema 29) **Nebenquests** über ein Anschlagbrett, z. B. „Bring 5 Wolfsfelle“ oder „Finde Gwennas verlorenen Ring“.
 - **Sammelbares und Verstecke:** geheime Truhen, rissige Wände.
 
 ## Zutaten und Handwerk
@@ -118,31 +107,18 @@ Dorran wohnt heute nur hinter einer verschlossenen Tür („Er ist wohl in seine
 - **Danach im Code:** die Play-Games-Bibliothek einbinden, Anmeldung beim Start, Cloud-Abgleich der Spielstand-Plätze, Erfolge.
 - Sinnvoll erst, wenn das Spiel im Play Store erscheinen soll (siehe auch Rechtliches unten).
 
-## Zufallsgenerierte Dungeons (48, Nutzer 12.10.)
-
-- Halb-halb: Story-Höhlen mit festem Kern (Eingang, Bossraum, Szenen) und zufälligen Seitengängen aus handgemachten Bausteinen; Aushang-Höhlen ganz zufällig (Startwert im Spielstand). Voraussetzung: diagonale Höhlenzeichnung (13e) arbeitet allgemein aus der Karte, nicht je Kachel von Hand. Größe (48c): 6–8 Kammern, verschlungener Hauptweg, Schleife nur manchmal, Sackgassen auch leer, Rückweg durch Durchgang, der nach dem Boss aufgeht; Beute knapp, Jerry prüft gegen `DESIGN-BALANCE.md`. Einzelheiten in `ARBEIT-OFFEN.md` Zeile 48.
-
-## Lehrer (49, Nutzer 12.10.)
-
-- Übung (voller Übungsbonus) in einer Waffenart, einer Rüstungsstufe oder einem Rettungswurf bei Lehrern im Dorf lernen (Garrick Bogen, Dorran Rüstung/Schild …); kostet Gold und einen Tag; statt Attributspunkten auf Stufe 4/8/12/16/19 (wie Talente im SRD). Einzelheiten in `ARBEIT-OFFEN.md` Zeile 49.
-
-## Weitere Klassen (50, Nutzer 12.10.)
-
-- Berserker, Kriegsmagier, Paladin, Werwolf …, ggf. zum Kauf (45). Nie stärker als die Grundklassen. Einzelheiten in `ARBEIT-OFFEN.md` Zeile 50.
-
 ## Sonstiges
 
 - **Rechtliches:** Vor einer Veröffentlichung im Play Store oder einer kommerziellen Nutzung eine kurze Prüfung durch einen Anwalt für Marken- und Urheberrecht.
 - **Mehr Abwechslung beim Helden (Rest aus 08.10.):** Ausweichen ist nur ein Hüpfer (zwei Seiten), der Speer hat zwei Stöße, Zauber eine Bewegung je Fokus.
 - **Todesstoß für Fernkampf und Zauber (gewünscht 09.10.):** Der Killerschlag gilt zunächst nur für Nahkampfwaffen. Für Bogen, Armbrust und Zauber soll später auch ein eigener tödlicher Treffer kommen (z. B. Pfeil, der den Gegner umreißt und festnagelt; Feuer, das ihn verzehrt; Kraft, die ihn zerreißt).
 - **Echtes Zerteilen in 3D (Killerschlag, gewählt als späterer Schritt am 09.10.):** Das Körpermodell selbst durchschneiden statt des flachen Bildes; Schnittflächen mit Fleisch und Knochen, beide Hälften fallen räumlich. Dann auch für Tiere. Aufwand grob ein bis zwei Arbeitstage.
-- (jetzt Thema 28) **Musik neu im neuen Stil** (Wunsch 10.10., 11:00): düsterer, weniger Nintendo, abwechslungsreicher (mehrere Stücke je Lage, Wechsel nach Ort, Tageszeit und Gefahr).
 - **Flüssigere Grafik mit mehr Zwischenbildern** (teilweise erledigt: Sprungtest 12/12a, Gehen in 8 Bildern) (Wunsch 10.10., 11:00; vorher „Zu entscheiden“): Die Haltungen (Arme, Beine, Waffe) wechseln heute 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn; Claude prüft selbst mit Filmen und Kerntests.
 - **Kampfkulisse der Höhle an die neue Karte angleichen** (zurückgestellt 10.10.): Beim Kampf in der Höhle soll die Kulisse wie dieselbe Höhle aussehen wie auf der Karte (Boden, Wände, Dinge, Licht).
 
 ## Klänge überarbeiten (Rest, aus „Offen“ am 11.10.)
 
-Nach den [Stil-Leitlinien](DESIGN-STIL.md): weg von Chiptune, hin zu glaubwürdigen Geräuschen. Hörproben Runde 1 und 2 liegen vor (18d, Auswahl beim Nutzer). Noch offen: Menü-Klick, Belohnungen (Stufenaufstieg, Beute, epische Beute, Münzen, Truhe), Welt (Tür, Begegnung, Alarm, Hinterhalt), Zauber und Tränke, Kampfende (Gegner fällt, Held fällt), Umgebung (Vögel, Grillen, Eule, Tropfen, Knistern), Musik (siehe „Musik neu im neuen Stil“). Vorgehen: Hörproben, dann nach Freigabe umstellen.
+Nach den [Stil-Leitlinien](DESIGN-STIL.md): weg von Chiptune, hin zu glaubwürdigen Geräuschen. Hörproben Runde 1 und 2 liegen vor (18d, Auswahl beim Nutzer). Noch offen: Menü-Klick, Belohnungen (Stufenaufstieg, Beute, epische Beute, Münzen, Truhe), Welt (Tür, Begegnung, Alarm, Hinterhalt), Zauber und Tränke, Kampfende (Gegner fällt, Held fällt), Umgebung (Vögel, Grillen, Eule, Tropfen, Knistern), Musik (28 erledigt; Schichten siehe Ideenrunde). Vorgehen: Hörproben, dann nach Freigabe umstellen.
 
 ## Bewusst so gelassen
 
