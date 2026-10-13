@@ -52,7 +52,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (13.10., 10:2x) – Release 0.1.656, Neustart
 - Release **v0.1.656** (nur `main` bis PR #50), Änderungshistorie umbenannt. 59e/62c gebaut, Test-Build **0.1.657** (Zweig `ccr-5851d275-mvpqbt`, siehe „Zu testen“, Entscheidungsseite „Anzusehen“). Nach dem Test: PR von diesem Zweig, zusammenführen, Änderungshistorie (59, 60e–k, 17r, 5la, 5la.2, 6g, 6f, 61a, 62a, 62c, 59e, 55.1a, 13x, 13v/27.6).
-- Offen: Rückfragen 55.1b, 60j, 5la.3 (Entscheidungsseite). 17 Riemen verworfen (kaum sichtbar). 55.1b Entwurf auf `claude/tom-17-riemen` (von `ccr-5851d275-mvpqbt`, enthält 0.1.657). **Weiter:** nach Antwort zu 55.1b bauen; sonst 26c-Ziele (27.5, Tempel-Altar).
+- Offen: Rückfragen 55.1b, 60j, 5la.3 (Entscheidungsseite). 17 Riemen verworfen (kaum sichtbar). Entwürfe 55.1b (Speer) und 60j (Reiter als Zeichen, `TabLook.draft` aus, Bild 10:45) auf `claude/tom-17-riemen` (von `ccr-5851d275-mvpqbt`, enthält 0.1.657). Toms Kapitel-1-Ziele erledigt bis auf „alte Ansicht ausgebaut“ (wartet auf Höhle, Jerry). **Weiter:** nach Antworten 55.1b/60j/5la.3 einschalten, dann ein Build.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
