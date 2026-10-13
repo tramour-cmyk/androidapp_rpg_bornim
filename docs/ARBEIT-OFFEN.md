@@ -48,10 +48,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 22:5x) – an Nachfolger
-- 0.1.719 getestet („alles gut“), PR #56 zusammengeführt, „Dein Zug“ leer bis auf 6l.
-- Zweig `claude/tom-d1-raeume` (= getesteter Stand + 77 Kommentare + 78d Build-Auslöser + D1.4 Wandkram + D1.16 Oberflächen-Schalter weg; D1.5 Räume in Arbeit: Bodenabdunklung unter Möbeln weg, Umriss nicht mehr um Schatten (`Sculpt.outline(solid)`), Standbild prüfen, dann committen). Vor dem Bau `git merge origin/main`. Bauen per PR (78d).
-- Weiter: Rest D1.16 (Schalter in `WorldScreen.kt` nur nach Absprache, mit Kerntests), Schatten unter Leuten 2:1 (D1.5, mit Jerry), dann Sammelbuild (höchstens 4 Punkte), dann 6l, 68.
+### Tom (13.10., 23:4x) – an Nachfolger (Selbstarbeit bis 14.10., 07:00)
+- Selbstarbeit läuft: Paket und Stand in `ARBEIT-SELBST.md` (Abschnitt Tom). Zweig `claude/tom-d1-raeume` = getesteter Stand + 77 + 78d + D1.4 + D1.16 (Oberflächen) + D1.5 (Räume); alles Kerntests grün, noch kein Build.
+- Nächstes: Paket 2 (D1.16-Rest ohne `WorldScreen.kt`), dann Sammelbuild per PR (nicht zusammenführen), Prüfliste auf „Dein Zug“; dann 27 Wald.
+- Nutzer 13.10.: 0.1.719 „alles gut“ (PR #56 drin); Zweige nach Inhalt benennen (Regel in `ROLLE-ENTWICKLER.md`); alter Zweig `claude/festive-lovelace-3ujzqi` ließ sich nicht löschen (Proxy), Nutzer kann es auf GitHub.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.

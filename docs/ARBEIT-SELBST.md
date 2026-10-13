@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | läuft | 14.10., 07:00 | 13.10., 23:20 | 13.10., 23:22 | Paket 1: D1.5 Räume | `claude/tom-d1-raeume` |
+| Tom | übergeben | 14.10., 07:00 | 13.10., 23:20 | 13.10., 23:42 | Paket 1 fertig, Nachfolger startet mit Paket 2 | `claude/tom-d1-raeume` |
 | Jerry | fertig | – | 12.10., 16:33 | 12.10., 16:59 | Pause bis Freitag (Nutzungsguthaben), Stand in ARBEIT-OFFEN.md | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
@@ -76,8 +76,10 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/ARBEIT-O
 
 ## Tom
 
+**Achtung Vorschau:** nach Änderungen an `Sculpt.kt` übersetzt alles neu (2–10 min); nie zwei Vorschau-Läufe gleichzeitig (Speicher); Python-Ersetzungen nur mit eindeutigem Suchtext und `assert s.count(old)==1`.
+
 **Paket 13.10., 23:20 bis 14.10., 07:00** (Nutzer 23:1x „Selbstarbeit ab jetzt bis morgen früh“; Zweig `claude/tom-d1-raeume`):
-1. **D1.5 Räume** (Schatten): Standbild Schänke vorher/nachher, Bodenabdunklung unter Möbeln weg, keine Punktlinie um Bodenschatten (`Sculpt.outline(solid)`). Fertig, wenn: Standbild ohne Rautenlinie, Kerntests grün, Commit, Vermerk im Prüfbericht.
+1. ~~D1.5 Räume~~ fertig (05d446fd, Standbild 23:38). Offen dazu nur: Vermerk D1.5 im Prüfbericht; dort bei D1.4/D1.16 Zweig `claude/festive-lovelace-3ujzqi` → `claude/tom-d1-raeume`.
 2. **D1.16 Rest ohne `WorldScreen.kt`:** Schalter `VillageDay.draft`, `MapGrade.draft`, `MapFolk.sitDraft`, `MapFlora.treeDraft`, `MapGround.cobbleDraft` (prüfen, ob false = verworfen) entfernen, Kerntests anpassen. Fertig, wenn: Kerntests und Vorschau grün, Commit.
 3. **Sammelbuild:** `git merge origin/main`, PR `claude/tom-d1-raeume` → `main` öffnen (baut nach 78d; nicht zusammenführen), Prüfliste `e/t<build>.html` und Zeile auf „Dein Zug“ (D1.4, D1.5, D1.16 sichtbar nur indirekt; 77/78d nicht prüfen). Fertig, wenn: Build grün, Link und Prüfliste stehen.
 4. **27 Wald:** Standbilder Wald bei Tag und Nacht, Lückenliste nach „Ort fertig“. Fertig, wenn: Liste in der Übergabe.
