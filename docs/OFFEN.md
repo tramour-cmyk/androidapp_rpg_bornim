@@ -73,7 +73,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **Tom, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen; Prüfbericht oben): D1.2 Tempel nachts zu hell, D1.3 Licht/Flamme ohne Gegenstück, D1.4 Wandkram flach, D1.5 Schatten Räume, D1.11 Varianten/Mehrfeld-Möbel, D1.12 (bestätigt, niedriger auf `claude/tom-73-laeden`, nach 0.1.714), D1.13 (bestätigt, Aldric steht jetzt bei 7,3, gleicher Zweig), D1.16 Entwurfsschalter.
 - **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5 Schatten Höhle, D1.6 Höhleneingang flach, D1.7 Leben Höhle, D1.8 stumme Quellen, D1.9 Feuer durch Wände, D1.10 Klang ohne Bewegung (mit Tom), D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (zwei Stücke mit Hörnern/Kreaturenrufen ohne sichtbare Quelle, `grund_fs_609422`, `grund_fs_540836`): Berater empfiehlt herausnehmen, **Nutzer entscheidet nach Hörprobe** (19:44): Höhle mit und ohne die zwei Stücke auf die Seite „Dein Zug“, erst danach ändern; D1.15 Laterne.
-- **Tom, Diogenes-Befunde Lauf 2** (Klasse 1, Verdachte, Vermerk im Prüfbericht): D2.1 Kapitelende alt (hoch), D2.2 Anschlagbrett hell, D2.3 Englisch im Vergleich, D2.4 englische Begriffe (Oberfläche), D2.6 Farben außerhalb der Palette, D2.7 Untertitel kursiv, D2.8 Überlauf ohne „…“, D2.9 Gitter im Höhlengrundriss, D2.10 Bach treppig, D2.11 Vorschau `MENUE`, D2.12 Laden.
+- **Tom, Diogenes-Befunde Lauf 2** (Klasse 1, Verdachte, Vermerk im Prüfbericht): D2.1 Kapitelende alt (hoch), D2.2 Anschlagbrett hell, D2.3 Englisch im Vergleich, D2.4 englische Begriffe (Oberfläche), D2.6 Farben außerhalb der Palette, D2.7 Untertitel kursiv, D2.8 Überlauf ohne „…“, D2.9 Gitter im Höhlengrundriss, D2.10 Bach treppig, D2.11 Vorschau `MENUE`, D2.12 Laden. **D2.4/D2.13 entschieden (Nutzer 21:29):** Texte in `STORY1.md` (`[41.garrick.krogg]`, Chronik), feste Namen in `STORY.md`; dazu Morwens Hütte „im Tiefen Flüsterwald“, Chronik-Reiter „Quests“.
 - **Jerry, Weck-Routinen pausieren** (Berater 13.10., Nutzer freigegeben): deine acht Routinen „Jerry Selbstarbeit HH:MM“ mit `update_trigger` (`enabled: false`) pausieren, nicht löschen; Regel in `SELBST.md` „Feste Weck-Routinen“. Danach Zeile streichen.
 
 ## Für Diogenes
@@ -87,7 +87,6 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
-- **41 Story-Texte (Diogenes D2.13, D2.4 Chronik-Teil):** „Bugbear“ im deutschen Text und fehlendes Verb in der Chronik; englische Namen uneinheitlich (Morning Light/Dawnlight, herbwoman/Herbalist). Steht so in `STORY1.md`; Nutzer und Berater entscheiden.
 
 
 

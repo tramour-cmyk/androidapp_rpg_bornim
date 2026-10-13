@@ -8,6 +8,7 @@ Freigegebene Spieltexte (Thema 41), festgelegt von Nutzer und Berater. Hier nur 
 - **Marke je Text** in eckigen Klammern: `[Thema.kurz]`, z. B. `[64d.greif]`, `[67.vor.1]`. Die Marke bleibt fest, auch wenn sich der Text ändert; sie darf im Code als Kommentar stehen.
 - **Bedingung** steht hinter der Marke in Klammern: wann der Text erscheint.
 - `{name}` ist der Name des Helden.
+- **Feste Namen** (Nutzer 13.10., 21:29; D2.4/D2.13): überall gleich, auch im Englischen. Bugbear = **Grottenschrat** (Krogg heißt „Krogg der Grobian“ / „Krogg the Brute“); Tempel des Morgenlichts = **Temple of the Dawnlight**; Kräuterfrau Morwen = **Morwen the Herbalist**; Tiefer Flüsterwald = **Deep Whisperwood** (nie „Tiefer Wald“ / „Deep Forest“); Aufträge = **Quests**.
 - **Teilung:** je Kapitel eine Datei. Wird eine größer als etwa 15 KB, nach Ort oder Quest teilen (`STORY2-hoehle.md`) und hier eintragen.
 - Plot und Grobzusammenfassungen stehen nicht hier, sondern im [Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d).
 
