@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Aufbau, Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARCHIV.md` („Aus BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 10:08–11:0x Ablaufprüfung (65); 13.10. 11:1x–12:0x „Sokrates – Abläufe verschlanken“ (65.4, Karte 62e–62m, Chronik 64). **Nachfolger:** „Sokrates – Chronik-Texte“ (Nutzer startet)
+**Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 11:1x–12:0x „Abläufe verschlanken“ (65.4, 62e–62m, 64); 13.10. 11:58–12:2x Beschlüsse, Diogenes-Auftrag, 66, Form der Chronik-Texte. **Nachfolger:** „Sokrates – Chronik-Texte“ (Nutzer startet)
 
-**Nächster Punkt:** Texte für Kapitel 1 mit dem Nutzer entwerfen: „Bisher geschehen“ (64d) und Hörensagen-Hinweise (62i); Story-Regel 41 (Kapitel 1 aus `Story.kt`/`Jobs.kt`, Vorlage `docs/STORY.md`).
+**Nächster Punkt:** Kapitel 1 aus `Story.kt`/`Jobs.kt` lesen, Claude-Docs-Dokument anlegen: je Wendepunkt ein Eintrag „Bisher geschehen“ (64d), je Ort/Person ein Hörensagen-Satz (62i); Form entschieden (siehe „Chronik-Texte“ unten). Nutzer streicht, danach `docs/STORY.md` (41).
 
-**Zuletzt gelesen bis:** dieser Commit (13.10., 12:0x)
+**Zuletzt gelesen bis:** dieser Commit (13.10., 12:2x)
 
 ## Ritual
 
@@ -37,13 +37,14 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - **Heldenbau (49, 50; [Dokument](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)):** kein großer Skilltree (führt zu wenigen besten Wegen), Talente ändern Entscheidungen statt Zahlen, Talent jede gerade Stufe (sonst Kapitel ohne Wahl), Merkmale nie kaufbar (Sperre gegen Magier-Tank), gekaufte Klassen nie stärker.
 - **Balance (38):** SRD als Fundament, Stufen 5–14 als Kern über mindestens 7 Kapitel, Abweichungen mit Grund in `BALANCE.md`; Schwierigkeitsgrad erst nach Messung von „Normal“.
 - **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen (Nutzer + Berater) vor jeder Story-Änderung, damit Texte nicht von Entwicklern erfunden werden. Kapitel 2 beginnt mit „Wer ist der Graue Prophet?“ (drei Entwürfe), endet auf Stufe 8; Kapitel 1 aus `Story.kt`/`Jobs.kt` lesen. Nachtragen: Heldensätze 29.4.
-- **Neustart nur bei großer Sitzung:** Startlektüre kostet viel; nach „ja“ startet die Sitzung ihren Nachfolger selbst (46).
+- **Chronik-Texte (64d/62i, Nutzer 13.10., 12:21):** „Bisher geschehen“ als Chronist in dritter Person (passt zum Reiter, neutral zu jedem Helden); einzelne Einträge je Wendepunkt, 2–3 Sätze, neueste oben (Rückkehrer sehen sofort den Stand, einzeln abstimmbar); Hörensagen an die erzählende Person gebunden („Bram sagt …“), „Man erzählt sich“ nur für Gerüchte ohne Quelle.
 - **Sprachausgabe:** im gesprochenen Dialog keine Ansage „Sokrates [Datum]“, beim Schreiben schon.
 
-**Offen bei mir:** Texte „Bisher geschehen“ (64d) und Hörensagen-Hinweise (62i) für Kapitel 1 mit dem Nutzer (Story-Regel 41); `docs/HELDENBAU.md` nach Durchsicht der kursiven Talentnamen (offen auch Erkennungszeichen-Standbilder, Jerrys Messung); Prüfungsquests und Umlern-Tempel (41, mit Nutzer); **45b nach Jerrys Messung 38 ansprechen**; 41 Kapitel 2 stößt der Nutzer an.
+**Offen bei mir:** Texte 64d/62i (Nächster Punkt); `docs/HELDENBAU.md` nach Durchsicht der kursiven Talentnamen (offen auch Erkennungszeichen-Standbilder, Jerrys Messung); Prüfungsquests und Umlern-Tempel (41, mit Nutzer); **45b nach Jerrys Messung 38 ansprechen**; 41 Kapitel 2 stößt der Nutzer an.
 
 ## Lehren
 
+- **Empfehlungen wiederholen, nicht verweisen** (13.10.): „die Empfehlungen sind ja wieder weg“. Offene Rückfragen jedes Mal mit vollem Wortlaut und Empfehlung zeigen, nie „stehen weiter“.
 - **Eigene Ideen einbringen** (13.10.): „du findest alles sinnvoll, was ich vorschlage … du bist mein Berater“. Jeden Vorschlag auf Lücken, Kosten, Doppelungen prüfen und Eigenes ergänzen.
 - **Sprachsitzung** (13.10.): reicht Aufträge herüber; nur ausführen, was der Nutzer im Gespräch freigegeben hat, dann knapp mit Commit melden. Ihre Behauptungen über Werkzeuge und Dateien im Repo prüfen (lag zweimal falsch).
 - **Ideen sind der Auftrag** (13.10.): Nutzer: „das ist dein Job, Ideen zu entwickeln und uns gegenseitig zu verbessern“. Zu jedem Thema eigene Ideen mit Empfehlung, und Korrekturen des Nutzers (drei Ebenen, Lagerfeuer als Dienst) offen übernehmen.
