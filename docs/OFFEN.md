@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 66**
+**Nächste freie Themennummer: 67**
 
 **Entscheidungsseite (alle Rollen, 63): https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow** · Beschlüsse: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
@@ -37,6 +37,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 59e | Händler: Menge „Alle“, Vorrat je Laden | Tom (jetzt); Jerry mit 38/39 (Vorrat) | – | Entschieden 13.10. (Beschlüsse): „Alle“ beim Kaufen weg, beim Verkaufen mit Abfrage (in 0.1.660). Vorrat je Laden erst mit 38/39, nie nach Zeit/Rast, Menge nach Schwierigkeitsgrad |
 | 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, drei Ebenen (62e–62m) | Tom; 62m Jerry mit 39 | `claude/tom-17-riemen` | **62e–62m ja (Nutzer 13.10., 11:5x, Beschlüsse):** zuerst 62e (Hauptquest, Haustür-Marke, Anschlagbrett), dann 62f/62g (erst Designvorschlag), 62h drei Ebenen (Standbilder Landkarte), 62i–62k mit 64; 62l/62m später |
 | 64 | Questlog als Reiter „Chronik“ (Aufträge, Bisher geschehen) | Tom; Texte 64d Berater mit Nutzer | – | **64a–64e ja (Nutzer 13.10., 11:5x, Beschlüsse):** erst Standbilder, gebaut nach 62e; gleiche Daten wie die Karte; keine Questanzeige im Spielbild |
+| 66 | Licht im Dorf bei Nacht: Wache Jorin steht im Dunkeln | Tom | – | Nutzer 13.10., 12:18: „macht wenig Sinn“; Idee Laterne in der Hand oder Straßenlaterne. Berater: Laterne am Wachposten plus Handlaterne auf der Runde; Kleines entscheidet Tom, erst Standbilder (Nacht) auf der Entscheidungsseite |
 | 45 | Geschäftsmodell (Play Store) | Berater mit Nutzer | – | 45a/45c ja (Kapitel 1 frei, Vollversion, nie Werbung/Beutekisten/Wartezeiten). **45b zurückgestellt** bis nach Messung 38. Verlauf im Archiv |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten im Archiv). Nach Kapitel 1 |
 | 49 | Lehrer, Fertigkeiten, Talente | Berater mit Nutzer | – | 49d–49t ja ([Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)); als `docs/HELDENBAU.md` ablegen, sobald der Nutzer die kursiven Namen durchgesehen hat. Nach Kapitel 1 |
