@@ -85,6 +85,8 @@ object MapRoomIso {
     private val stoneMat = m(0x6A645A, grain = 0.3, sat = 0.4, value = 0.85)
 
     private val outlineColor = argb(0x0E0C0A)
+    /** Only what is drawn solid gets an outline, never the soft shadow on the floor (D1.5). */
+    private const val SOLID = 200
     private val ale = argb(0x2A1A0E)
     private val flame = argb(0xF0B050)
     private val flameHot = argb(0xFFF0B0)
@@ -470,7 +472,7 @@ object MapRoomIso {
                 }
             }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -486,7 +488,7 @@ object MapRoomIso {
             c.img.set(px, py, mix(argb(0x0A0807), argb(0x3A3024), k * 0.7 + (rnd(px / 2, py, 77) - 0.5) * 0.1))
         }
         c.box(-1.0, -1.0, 0.0, -1.0 + THICK, 0.0, 4.0, oakTop, oakDark, oakDark)
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -553,7 +555,7 @@ object MapRoomIso {
         }
         c.box(i0, j0, i1, j1, zt, zt + 4, oakTop, oak, oak)
         if (!joinR) c.box(i1 - 0.06, j0, i1, j1, 0.0, zt + 4, oakTop, oak, oak)
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -581,7 +583,7 @@ object MapRoomIso {
         c.box(i0, -0.68, i1, -0.06, zt - 5, zt, oakTop, oak, oak)
         // a long worn ring of wet mugs
         c.s.tint(c.x((i0 + i1) / 2 + 0.1, -0.32), c.y((i0 + i1) / 2 + 0.1, -0.32, zt), 6.0, 2.4, argb(0x2A1C12), 0.35)
-        if (shop) { c.shopTop(v, zt, seed); c.s.outline(outlineColor); return c.img }
+        if (shop) { c.shopTop(v, zt, seed); c.s.outline(outlineColor, SOLID); return c.img }
         fun at(i: Double, j: Double) = c.x(i, j) to c.y(i, j, zt)
         when (v % 3) {
             0 -> {
@@ -601,7 +603,7 @@ object MapRoomIso {
                 at(-0.15, -0.5).let { (x, y) -> c.s.limb(x, y - 1, x, y - 7, 2.4, 2.2, pewter) }
             }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -647,7 +649,7 @@ object MapRoomIso {
                 at(-0.2, -0.5).let { (x, y) -> c.s.flat(x, y - 1, 1.3, 1.0, argb(0xC8B898)); c.s.flat(x + 4, y, 1.3, 1.0, argb(0xC8B898)); c.s.flat(x - 5, y + 1, 1.6, 0.8, argb(0xA88A4A)) }
             }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -692,7 +694,7 @@ object MapRoomIso {
             c.s.line(c.x(i0 + 0.1, j0 + 0.1), c.y(i0 + 0.1, j0 + 0.1, zt), c.x(i0 + (i1 - i0) * 0.6, j0 + 0.12), c.y(i0 + (i1 - i0) * 0.6, j0 + 0.12, zt), seam)
         }
         if (back == 1) backBoard()
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -725,7 +727,7 @@ object MapRoomIso {
             // a pair of boots or a bag by the foot
             if (v % 3 == 1) { val x = c.x(-0.2, 0.08); val y = c.y(-0.2, 0.08); c.s.limb(x, y - 1, x, y - 9, 2.6, 2.4, oakDark); c.s.limb(x + 6, y - 1, x + 6, y - 9, 2.6, 2.4, oakDark) }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -754,7 +756,7 @@ object MapRoomIso {
             1 -> { c.floorShadow(-0.88, -0.88, -0.12, -0.12); crate(-0.86, -0.86, -0.14, -0.14, 0.0, 36.0); crate(-0.72, -0.78, -0.26, -0.32, 36.0, 62.0) }
             else -> { c.floorShadow(-0.85, -0.85, -0.15, -0.15); crate(-0.8, -0.8, -0.2, -0.2, 0.0, 32.0, broken = true) }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -797,7 +799,7 @@ object MapRoomIso {
                 for (q in 0 until 5) c.s.flat(x - 10 + q * 5 + rnd(q, 1, seed) * 3, y + rnd(q, 2, seed) * 3, 1.4, 0.7, argb(0x8A6C48))
             }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -1053,7 +1055,7 @@ object MapRoomIso {
                 }
             }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         c.roundShadow(ox, oy, 34.0, 0.55)
         return c.img
     }
@@ -1078,7 +1080,7 @@ object MapRoomIso {
             1 -> { val ty = oy - zt * ZCM; c.s.limb(ox + 2, ty, ox + 2, ty - 6, 2.4, 2.2, clay); c.s.flat(ox + 2, ty - 6.2, 1.8, 0.7, ale) }
             2 -> { val ty = oy - zt * ZCM; c.s.blob(ox - 2, ty + 1, rx(13.0), 3.4, linenPale, depth = 0.4); c.s.limb(ox + rx(14.0) - 2, ty + 2, ox + rx(15.0), ty + 9, 2.0, 1.4, linenPale) }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         c.roundShadow(ox, oy, 22.0, 0.45)
         return c.img
     }
@@ -1096,7 +1098,7 @@ object MapRoomIso {
         val ax = c.x(hi, hj); val ay = c.y(hi, hj, 6.0)
         val bx = c.x(-1.02, hj - 0.12); val by = c.y(-1.02, hj - 0.12, 41.0)
         c.s.limb(ax, ay, bx, by, 1.5, 1.3, oak)
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -1124,7 +1126,7 @@ object MapRoomIso {
             0 -> { c.s.limb(ox + 2, ty + 1, ox + rx(r(1.0)) + 4, ty - 10, 0.9, 0.8, oak); c.s.flat(ox - 3, ty + 1, 2.0, 0.8, argb(0x3A4A4E)) }
             2 -> { c.s.limb(ox - 3, ty + 1, ox - 9, ty - 9, 1.1, 1.0, oak); c.s.blob(ox - 1.5, ty + 1.5, 3.4, 1.6, straw, depth = 0.4) }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         c.roundShadow(ox, oy, 20.0, 0.45)
         return c.img
     }
@@ -1154,7 +1156,7 @@ object MapRoomIso {
             val x = ox + rx(26.0) + k * 6 - 6; val y = oy + 2 + k * 2
             c.s.blob(x, y - 3, 3.8, 3.4, turnip); c.s.limb(x - 0.5, y - 6, x + 3, y - 9, 0.7, 0.4, leaf)
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         c.roundShadow(ox, oy, 26.0, 0.45)
         return c.img
     }
@@ -1192,7 +1194,7 @@ object MapRoomIso {
             }
             else -> { sack(ox - 12, oy - 4, 56.0, 18.0, -0.12); sack(ox + 10, oy - 2, 50.0, 18.0, 0.1); sack(ox - 1, oy + 5, 46.0, 19.0, 0.04) }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         c.roundShadow(ox, oy, 38.0, 0.5)
         return c.img
     }
@@ -1221,7 +1223,7 @@ object MapRoomIso {
             0 -> { c.s.limb(ox - a - 4, oy + 4, ox + a * 0.6, oy - hh * 0.6, 0.9, 0.9, oak); for (k in -1..1) c.s.line(ox + a * 0.6, oy - hh * 0.6 + k * 2, ox + a * 0.6 + 8, oy - hh * 0.6 - 3 + k * 2, argb(0x3E3A36)) }
             1 -> { c.s.limb(ox + 3, oy - hh * 0.8, ox + 10, oy - hh - 26, 0.9, 0.9, oak); for (k in -1..1) c.s.line(ox + 3 + k * 2, oy - hh * 0.8, ox + 2 + k * 2.5, oy - hh * 0.8 + 6, argb(0x3E3A36)) }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         c.roundShadow(ox, oy, 42.0, 0.35)
         return c.img
     }
@@ -1250,7 +1252,7 @@ object MapRoomIso {
             c.s.limb(ox, ty, mx, my, 1.2, 1.6, mat)
             c.s.limb(mx, my, bx, by + (if (v % 3 == 2) len * 0.3 else 0.0), 1.6, 0.5, mat)
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         c.roundShadow(ox, oy, 22.0, 0.45)
         return c.img
     }
@@ -1337,7 +1339,7 @@ object MapRoomIso {
                 ledge(-0.78).let { (x, y) -> c.s.blob(x, y - 2, 4.0, 2.2, clay, depth = 0.6); c.s.limb(x + 3, y - 3, x + 6, y - 4, 1.0, 0.8, clay); c.s.flat(x + 6.5, y - 6, 0.9, 1.8, flame); c.s.dot(x + 6.5, y - 6.5, flameHot) }
             }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -1385,7 +1387,7 @@ object MapRoomIso {
             c.s.blob(x, y - 0.5, 2.6, 1.1, iron, depth = 0.3); c.s.limb(x, y - 1, x, y - 7, 0.8, 0.8, iron)
             c.candle(x, y - 7, 6.0, drips = true)
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -1428,7 +1430,7 @@ object MapRoomIso {
             }
         }
         arm(i1 - 0.035)
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -1510,7 +1512,7 @@ object MapRoomIso {
         }
         c.box(i0, j0, i1, j1, zt, zt + 4, oakTop, oak, oak)
         if (!joinR) c.box(i1 - 0.06, j0, i1, j1, 0.0, zt + 4, oakTop, oak, oak)
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -1569,7 +1571,7 @@ object MapRoomIso {
         c.box(i0 - 0.05, j0, i0 + 0.03, jc, zt, zt + 5, oakTop, oak, oak)
         c.box(i0 - 0.05, jc - 0.06, i1 + 0.05, jc, zt, zt + 5, oakTop, oak, oak)
         if (v % 3 == 2) { val x = c.x(i1 + 0.12, j1 - 0.3); val y = c.y(i1 + 0.12, j1 - 0.3); c.s.limb(x, y - 1, x, y - 9, 2.6, 2.4, oakDark); c.s.limb(x + 6, y - 1, x + 6, y - 9, 2.6, 2.4, oakDark) }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -1639,7 +1641,7 @@ object MapRoomIso {
         } else {
             c.box(i0 - 0.06, j, i1 + 0.06, j + 0.03, z1, z1 + 3, oakTop, oak, oak, bevel = 0.4)
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -1675,7 +1677,7 @@ object MapRoomIso {
             for (k in 0..1) { val bx = c.x(-0.22 + k * 0.14, -0.4 - k * 0.1); val by = c.y(-0.22 + k * 0.14, -0.4 - k * 0.1)
                 c.s.limb(bx, by - 2, bx, by - 12, 2.6, 2.4, oakDark); c.s.limb(bx, by - 1.5, bx + 4, by, 2.0, 1.8, oakDark); c.s.tint(bx + 1, by - 2, 3.0, 1.5, argb(0x4A3E2A), 0.5) }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         if (v % 3 == 2) c.roundShadow(ox, oy, 24.0, 0.45) else c.roundShadow(fx, fy, 8.0, 0.4)
         return c.img
     }
@@ -1813,7 +1815,7 @@ object MapRoomIso {
         }
         c.box(i0, j0, i1, j1, zt, zt + 4, oakTop, oak, oak)
         if (!joinR) c.box(i1 - 0.06, j0, i1, j1, 0.0, zt + 4, oakTop, oak, oak)
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -1853,7 +1855,7 @@ object MapRoomIso {
                 c.s.blob(sx, sy, 2.4, 2.8, iron, depth = 0.8)
             }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -1880,7 +1882,7 @@ object MapRoomIso {
             }
         }
         if (v % 3 == 2) { val x = c.x(-0.4, -0.4); val y = c.y(-0.4, -0.4, zb + 2); c.s.blob(x, y, 7.0, 4.0, rope, depth = 0.7); for (q in 0..2) c.s.line(x - 6 + q, y + 1 - q * 1.5, x + 6 - q, y + 1 - q * 1.5, argb(0x4A3E28)) }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -1946,7 +1948,7 @@ object MapRoomIso {
                 at(mi + 0.15, -0.5).let { (x, y) -> for (k in 0 until 5) c.s.line(x - 6, y + k * 0.4, x + 5, y - 2 + k * 0.6, argb(0x5A5232)); c.s.blob(x + 6, y - 1.5, 2.6, 1.6, m(0x6A4A3A, grain = 0.4, sat = 0.5), depth = 0.5) }
             }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -1966,7 +1968,7 @@ object MapRoomIso {
             c.s.blob(x, top - 0.5, 2.0, 0.8, iron, depth = 0.3)
             c.candle(x, top - 1, if (v % 3 == 2) 3.0 else 6.0 + (k % 2) * 3, drips = k % 2 == 0)
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         c.roundShadow(ox, oy, 14.0, 0.4)
         return c.img
     }
@@ -2003,7 +2005,7 @@ object MapRoomIso {
                       top(-0.7, -0.51).let { (x, y) -> c.s.limb(x - 1, y - 2, x + 1, y + 2, 2.4, 2.4, parchmentOld) }
                       top(-0.4, -0.5).let { (x, y) -> c.s.blob(x, y - 2, 3.0, 2.2, stoneMat, depth = 0.8) } }
         }
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         return c.img
     }
 
@@ -2020,7 +2022,7 @@ object MapRoomIso {
             else -> { c.disc(ox, oy, 86.0, 27.0, m(0x24343A, shine = 0.8, sat = 0.5, value = 0.8)); val y = oy - 86 * ZCM; c.s.blob(ox + 3, y, 3.0, 1.2, wax, depth = 0.4); c.s.flat(ox + 3, y - 3, 0.9, 1.8, flame); c.s.dot(ox + 3, y - 3.5, flameHot) }
         }
         c.hoop(ox, oy, 86.0, 30.0, stoneTop, 1.4)
-        c.s.outline(outlineColor)
+        c.s.outline(outlineColor, SOLID)
         c.roundShadow(ox, oy, 26.0, 0.45)
         return c.img
     }
