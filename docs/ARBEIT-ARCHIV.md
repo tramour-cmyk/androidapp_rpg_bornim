@@ -1,5 +1,314 @@
 # Archiv
 
+### Tom-Übergabe (13.10., 22:5x) – an Nachfolger
+- 0.1.719 getestet („alles gut“), PR #56 zusammengeführt, „Dein Zug“ leer bis auf 6l.
+- Zweig `claude/tom-d1-raeume` (= getesteter Stand + 77 Kommentare + 78d Build-Auslöser + D1.4 Wandkram + D1.16 Oberflächen-Schalter weg; D1.5 Räume in Arbeit: Bodenabdunklung unter Möbeln weg, Umriss nicht mehr um Schatten (`Sculpt.outline(solid)`), Standbild prüfen, dann committen). Vor dem Bau `git merge origin/main`. Bauen per PR (78d).
+- Weiter: Rest D1.16 (Schalter in `WorldScreen.kt` nur nach Absprache, mit Kerntests), Schatten unter Leuten 2:1 (D1.5, mit Jerry), dann Sammelbuild (höchstens 4 Punkte), dann 6l, 68.
+
+### Tom-Übergabe (13.10., 22:1x)
+- Startauftrag 76–78 erledigt: Zweig `claude/festive-lovelace-3ujzqi` = `claude/tom-diogenes` + `main` + Kommentare (77) + Build-Auslöser (78d). Ab jetzt baut ein Zweig erst mit PR oder Knopfdruck.
+- 0.1.719 (`claude/tom-diogenes`) grün, wartet auf Test (`e/t719.html`). Nach „passt“: PR vom neuen Zweig (enthält 719), zusammenführen.
+- Weiter: D1.4 Wandkram flach, D1.5 Schatten Räume, D1.16 Entwurfsschalter; dann 6l, 68.
+
+### Aus ROLLE-TESTER.md, 77e, 13.10., 22:56
+**Was ein Befund braucht:** Beleg (Datei und Zeile, Standbild mit Uhrzeit, Testausgabe oder Startwert); verletzte Regel mit Fundstelle; Wirkung auf den Spieler (hoch: Absturz, Festhängen, Quest unlösbar, falscher Text; mittel: sichtbar falsch; klein: Feinschliff); Sicherheit (sicher, wahrscheinlich, Verdacht); **Klasse** (unten): bei Klasse 1 nennst du den Zuständigen nach den Grenzen in `CLAUDE.md`, bei Klasse 2 empfiehlst du nur, Klasse 3 kommt auf „Dein Zug“. Ohne Regel ist es eine Anregung, höchstens drei je Lauf. Gut: „D2.3 (13e, hoch, sicher): Zufallsspieler mit Startwert 4711 hängt in der Höhle auf Feld 12:7 fest, `CaveMap.kt:212`; verletzt ‚Ort fertig‘ 5. Klasse 1, Tom.“ Schlecht: „Die Höhle wirkt etwas leer.“ (kein Beleg, keine Regel; Wirkung beurteilt der Nutzer)
+- **Kerntest statt Wiederholung** (75h): bestätigte Befunde „hoch“ bekommen beim Beheben einen Kerntest; prüfe sie danach nur über diesen.
+- **Klasse 1, Regelverstoß in einem Bereich:** Zuständiger nach den Grenzen in `CLAUDE.md`. Der Entwickler prüft und vermerkt im Prüfbericht „bestätigt“ oder „verworfen“ mit Grund; kein Absegnen. Reiht sich hinter die Reihenfolge des Nutzers, nur Wirkung „hoch“ geht vor.
+- **Texte (41):** Spieltexte gleich `docs/STORY-REGELN.md` (`tools/story.sh <Stand>`), keine fehlenden Übersetzungen, generisches Maskulinum.
+
+### Aus ROLLE-ENTWICKLER.md, 77e, 13.10., 22:56
+3. **Bewegung:** kurzer Film nur des Übergangs; nur gespeicherte Bilder zeichnen, ereignislose Zeit mit `FROM=` überspringen (`WALKFILM`, `IDLEFILM`, `FILM=`; Schalter in `ARBEIT-UMGEBUNG.md`). Änderungen an Kampf, Bewegung, Effekten immer durch die echte Oberfläche filmen und die Bildfolge ansehen.
+Jeder Befund steht nur im Prüfbericht und ist ein **Verdacht**. **Klasse 1** (Regelverstoß in deinem Bereich): ohne Absegnen prüfen und im Prüfbericht „bestätigt“ oder „verworfen“ mit Grund vermerken, hinter der Reihenfolge des Nutzers (nur Wirkung „hoch“ vor). **Klasse 2** (grundsätzlich, Ermessen) geht über „Für den Berater“, **Klasse 3** (am Gerät ansehen) auf „Dein Zug“.
+Push von Code auf `main` baut nur eine APK (Artefakt). Ein Release erst auf „Release“; bei fünf getesteten Themen unter „Unveröffentlicht“ oder sieben Tagen seit dem letzten Release einmal „Zeit für ein Release?“ fragen (65.6). Ablauf in `ARBEIT-ABLAEUFE.md`. Bei jedem Release `wc -c docs/ARBEIT-OFFEN.md`, über 20 KB aufräumen.
+
+### Aus ROLLE-BERATER.md, 77e, 13.10., 22:56
+Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Aufbau, Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
+**Sitzungen** (ältere im Archiv): 13.10. 22:04–22:2x „77e Inhalte ordnen“ (52 Befunde, [Entwurf](https://claude.ai/code/artifact/13e3b53a-e28d-40c1-9d94-30225272d38a), 77e.1–77e.6 ja 22:22; Schwerpunkt wieder ganz bei Abläufen, nächste Sitzung Spiel). **Nachfolger:** „Sokrates – 77e Umbau“ (Nutzer startet mit „Sokrates“).
+**Nächster Punkt:** (1) **77e Umbau** nach dem Entwurf, Abschnitt „Wirkung und Umbau“: je Datei ein Commit, Prüfskript (jede alte Zeile genau einmal, im Archiv oder freigegebene Streichung; Spieltexte je Marke wortgleich), Verweis-Check. Entscheidungen: 77e.1 Standbilder zusätzlich als PNG-Datei in den Chat (Dateiversand), APK/Hörprobe nie; 77e.2 `STORY-K1.md` (H, N, Z), `STORY-K1-W.md`, neu `STORY-BLENDE.md` mit Marken `[24.…]`; 77e.3 Kampfort-Regel nach `DESIGN-STIL.md`, Leiste/Kartenrand erst nach Toms Prüfung; 77e.4 Spalte „Nachlesen“ streichen; 77e.5 Übergaben Tom/Jerry in Offen, Diogenes/Sokrates oben in ihrer ROLLE-Datei; 77e.6 Rest wie im Entwurf. `ARBEIT-OFFEN.md` und Toms Übergabe direkt vor dem Commit frisch holen. (2) Rückläufer je Build zählen (76f). (3) **72**: Freigabe Marktvergleich, **72a–72j** mit Wortlaut und Empfehlung. (4) Kultlager (41). Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
+**Zuletzt gelesen bis:** dieser Commit (13.10., 22:2x)
+- **Ende** („Berater, festhalten“): Entscheidungen und Lehren eintragen, Veraltetes kürzen (Volltext ins Archiv), „Zuletzt gelesen bis“ setzen, pushen, Hauptkopie `git reset --hard HEAD`. **Nachfolger:** Titel „Sokrates – <Grobthema>“ unter „Sitzungen“, nächsten Punkt hier eintragen; der Nutzer startet ihn selbst mit „Sokrates“ (sonst verschwindet er unter „Geplant“), nur auf Wunsch selbst starten (`create_session`, ersatzweise `create_trigger` in 2 Minuten).
+- **Module:** `core` (Regeln, Kampf, Welt, alle Zeichnungen und Klänge als Daten), `app` (Compose), `tools/preview` (Bilder, Filme, Hörproben; Schalter in `ARBEIT-UMGEBUNG.md`).
+- **Grenzen:** Tom = Leute, Dorf, Innenräume, Technik der Blende; Jerry = Monster, Höhle, Kampf, Klang (13e seit 13y bei Tom). `WorldScreen.kt` nur nach Absprache.
+- **Ablauf:** Code auf Zweigen, Build über GitHub, Nutzer testet APKs (A56, MuMu), Merge durch die Sitzung, Release nur auf Zuruf.
+- **Profil (72; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b)):** Lücke = fürs Handy gebautes Rollenspiel mit eigenem Look und Geschichte (zwischen Darkest Dungeon und Exiled Kingdoms); größte Schwäche der Menü-Zweikampf; Vorschläge 72.1–72.9, Rückfragen 72a–f offen.
+**Offen bei mir:** 72a–72j; Heldenbau-Rest (Erkennungszeichen, Messung); Prüfungsquests und Umlern-Tempel (41); 45b nach Messung 38 (Empfehlung 72i: streichen).
+- **Bilder und Karten zusätzlich als PNG in den Chat** (13.10.): Artefakte lassen sich auf dem Handy nicht zoomen, Chatbilder schon (`cairosvg`, Faktor 3).
+- **Markierungen zum Prüfen fett, nie nur kursiv; Dialogzeilen in Docs mit Leerzeile trennen** (13.10.): Nutzer erkennt Kursives auf dem Handy kaum; Docs-Editor kann keine rote Schrift.
+
+### Aus ARBEIT-OFFEN.md, 77e, 13.10., 22:56
+| 77 | Dokumentnamen ordnen, Story-Kennungen K1-H/N/Z/W (Nutzer 13.10., 21:10) | Tom (Code), Berater (77e) | `main` | **Umbenannt 13.10., 22:0x**, Wächter in `notiz.sh`. Codekommentare angepasst (Tom, Zweig `claude/festive-lovelace-3ujzqi`). **77e** [Entwurf](https://claude.ai/code/artifact/13e3b53a-e28d-40c1-9d94-30225272d38a): **77e.1–77e.6 ja (Nutzer 22:22)**, **Umbau läuft seit 13.10., 22:4x (Sokrates)**: bitte bis zur Fertigmeldung keine Notizdateien umstellen, nur eintragen; vor jedem Eintrag `git pull`. **Tom:** Vorgaben zu Leiste und Kartenrand (`LISTE-IDEEN.md` „Kapitel 2“) prüfen, ob sie nach 60 noch stimmen (77e.3) |
+
+### Aus CLAUDE.md, 77e, 13.10., 22:56
+**Bei jedem Schritt:** Zeitstempel von der Systemuhr · vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Nutzers · nie APK, Standbild oder Hörprobe in den Chat.
+- **`ARBEIT-OFFEN.md` klein halten:** höchstens etwa 15 KB, je Eintrag höchstens 3 Zeilen. Je Person genau eine Übergabe, die alte kommt oben ins Archiv. Erledigtes aus „Wer macht was“ streichen, Zeile in `LISTE-THEMEN.md` anpassen. Vor längerer Pause oder Neustart Übergabe schreiben und pushen.
+**Story und Dialoge** (41): Plot und Texte legen Nutzer und Berater gemeinsam fest. Regeln in `STORY-REGELN.md`, Texte je Kapitel (`STORY-K1.md` …), gezielt über die Marke `[Thema.kurz]` suchen: wortgetreu übernehmen, Englisch beim Bauen selbst übersetzen. Fehlt oder passt ein Text nicht: Vorschlag unter 41, nie selbst erfinden. Tippfehler direkt korrigieren (Commit „Text:“). Änderungen zeigt `tools/story.sh <von> [<bis>]`.
+
+### Aus ARBEIT-ABLAEUFE.md, 77e, 13.10., 22:54
+4. `wc -c docs/ARBEIT-OFFEN.md`; über 20 KB aufräumen (Regel „ARBEIT-OFFEN.md klein halten“).
+
+### Aus ARBEIT-UMGEBUNG.md, 77e, 13.10., 22:54
+| Fluss einer Bewegung | `tools/t film FILM…=…` | Echtzeit (siehe „Film-Uhr“ in `docs/ARBEIT-OFFEN.md`) |
+- Push auf einen Zweig → Artefakt `bornim-apk`. APK für den Chat (geht, Stand 11.10., 19:01): `gh api repos/tramour-cmyk/androidapp_rpg_bornim/actions/artifacts/<id>/zip > a.zip && unzip a.zip` (id aus der Artefaktliste des Laufs). Push auf `main` → nur Artefakt (seit 11.10., Thema 21); Release nur von Hand: `gh workflow run android.yml --ref main -f release=true`. Pull Requests bauen nicht doppelt. Reine Änderungen an `.md`-Dateien, `tools/` und `.claude/` bauen nicht (seit 09.10.); auf `main` entsteht dann auch kein Release.
+- Signatur: Keystore und Passwort liegen nur als GitHub-Secrets. Nie committen, ebenso `local.properties`.
+- `./gradlew -p core test`: Kerntests, vor jedem Commit (Exit-Code prüfen).
+- Erinnerungen an frühere Gespräche: alles Wichtige steht in `CLAUDE.md`, `docs/ARBEIT-OFFEN.md` (Übergaben), `docs/DESIGN-STIL.md`, `docs/LISTE-IDEEN.md`, `CHANGELOG.md`; der Verlauf in `docs/ARBEIT-ARCHIV.md`.
+## Notizen auf `main` (seit 10.10.)
+`tools/notiz.sh` holt `main`, legt die Arbeitskopie `../bornim-main` für Notizen an, meldet den Namen der Sitzung (Tom oder Jerry, aus der Tabelle in `CLAUDE.md`) und zeigt, was sich seit dem letzten Aufruf an `CLAUDE.md`, `CHANGELOG.md` und `docs/` geändert hat. Der Starthaken ruft es mit `--kurz` auf.
+
+### Aus ARBEIT-SELBST.md, 77e, 13.10., 22:53
+Alle drei Stunden rund um die Uhr je Account eine Routine, die eine frische Sitzung startet: **Tom** 00:24, 03:24, 06:24, 09:24, 12:24, 15:24, 18:24, 21:24 („Tom Selbstarbeit HH:MM“), **Jerry** drei Minuten später (00:27, 03:27, … 21:27, „Jerry Selbstarbeit HH:MM“; umgestellt 11.10., 13:44: die drei alten behalten ihre Repo-Einstellung, 09:27, 12:27, 15:27, 18:27, 21:27 sind neu und brauchen die Einstellung vom Nutzer). Eine Routine arbeitet nur, wenn die eigene Zeile oben `läuft` oder `wartet auf Grenze` steht und „Bis“ noch nicht vorbei ist; sonst beendet sie sich sofort (kostet fast nichts). Der Abstand von drei Stunden sorgt dafür, dass nach jedem Zurücksetzen der Nutzungsgrenze (alle fünf Stunden) bald eine weitermacht.
+- Ursache der Ausfälle in der Nacht 10./11.10.: von einer Sitzung angelegte Routinen bekommen kein Repo als Quelle mit; darum diese Einstellung von Hand.
+- Letzte Tests: Tom 11.10., 11:27 (Push ok); Jerry 11.10., 11:40 (Push ok, keine Rückfragen).
+- **Kleine, sichere Schritte.** Nach jedem fertigen Schritt: Kerntests (`./gradlew -p core test`, Exit-Code prüfen), Commit und Push auf den eigenen Zweig, Herzschlag. So geht beim Abbruch höchstens ein Schritt verloren.
+- **Sparsam:** Filme nur, wo sich eine Bewegung sichtbar ändert; große Ausgaben gefiltert lesen; nach jeder Aufgabe prüfen, ob das Gespräch groß ist. Wenn ja (oder der Neustart-Haken meldet es): Übergabe schreiben, Zeile auf `übergeben`, pushen, **sofort selbst einen Nachfolger starten** (`create_session`, gleiche Umgebung, Auftrag: Text der Weck-Routine) und erst dann die Antwort beenden; nicht auf die Routine warten (32.2).
+**Entwürfe als Artefakt** (Nutzer 12.10., 18:3x; Ablauf seit Thema 57 in `CLAUDE.md`, „Seite „Dein Zug““): eigene Seite „Dein Zug“ nur mit Offenem, Entschiedenes in die gemeinsamen Beschlüsse; im Chat nur Link und Nummern.
+**Vorrat für Selbstarbeit** (Reihenfolge; 23a freigegeben 11.10., 14:18):
+1. **5.3 Dorfbewohner als Puppen** (die 12 aus dem Entwurf `VILLAGEDRAFT`, Aldric mit Stock) auf die Karte, mit Ruhebewegungen. Fertig, wenn: Sprungtest 0, Kerntest (jede Person erreichbar), Standbilder.
+2. **5.4 Dorf lebendig:** Fenster leuchten nachts (auch Ostseiten), Rauch aus den Schornsteinen, Pflaster ruhiger, Heilkräuter neu. Fertig, wenn: Standbilder Tag/Abend/Nacht.
+3. **17 Nachschwingen** als Entwurf. Fertig, wenn: Sprungtest 0, Standbilder Stehen↔Gehen↔Drehen.
+5. **Katze in der Schänke** (Merkliste „Lebendige Orte“), nur Entwurf. Fertig, wenn: Standbilder schlafen/strecken/Platz wechseln.
+6. **Farbstimmung je Ort und Tageszeit** (Idee 11), nur Entwurf hinter Schalter. Fertig, wenn: Standbilder Höhle, Schänke, Dämmerung, alt gegen neu.
+7. **Spuren, die bleiben** (Idee 7: Blut nach dem Kampf, Fußspuren im Matsch, Staub beim Rennen), nur Entwurf. Fertig, wenn: Standbilder.
+8. **Kartenansicht im Menü** (erkundete Bereiche), nur Entwurf. Fertig, wenn: Standbild je Karte.
+9. **29 Nebenquests:** Entwurf von drei bis fünf Aufträgen am Anschlagbrett (Text, Ziel, Belohnung), nur zur Freigabe. Fertig, wenn: Entwurf in `ARBEIT-OFFEN.md`.
+10. **Bewohner mit Tagesablauf** (mit 5l), nur Entwurf. Fertig, wenn: Standbilder Morgen/Abend/Nacht.
+**Paket** (Selbstarbeit 12.10., 23:23 bis 13.10., 07:00, Nutzer 23:2x „Du bist der Chef“: offene Fragen nach eigener Empfehlung entscheiden, in den Bericht):
+1. ~~59 melden~~ (erledigt 23:2x).
+2. **60 Ein Aussehen für alle Oberflächen** (60a–60d ja, Berater 23:2x; direkt nach 59) auf neuem Zweig `claude/tom-60-aussehen` **vom Zweig `claude/tom-59-haendler`** (baut auf `LocalVeil`): (a) 60b: 2–3 freie Serifenschriften (OFL, Lizenz und Quelle je Datei festhalten) als Standbilder zur Wahl, Empfehlung nennen; (b) je Bildschirm als Entwurf hinter Schalter: Menü/Beutel, Titelbild (60.4 Titel groß in Gold, Kapitälchen), Heldenerstellung; Kampf zuletzt (60c Pixelschrift nur für kleine Kampfzahlen). Fertig, wenn: Standbilder alt/neu auf der Seite „Dein Zug“, Kerntests grün, Vorschau baut.
+3. ~~27.6/43~~ (Entwurf fertig 00:24). **27.6/43 Tiefer Wald diagonal** (Morwen und ihre Hütte frei sichtbar, Wege, Bäume rund wie im Wald) auf neuem Zweig `claude/tom-27-6-tiefer-wald` von `main`, nur Entwurf hinter Schalter. Fertig, wenn: Standbilder Tag/Nacht auf der Seite „Dein Zug“, Lückenliste „Ort fertig“, Kollision 0.
+4. ~~13~~ (Entwurf fertig 01:00, 13x). **13 Tempel innen:** Altar steht direkt vor dem Fenster (Meldung 08:43): umstellen. Fertig, wenn: Standbild alt/neu auf der Seite „Dein Zug“.
+5. ~~17 Rest~~ (Entwurf fertig 01:12, 17r, Build 0.1.639). **17 Rest** (neuer Zweig `claude/tom-17-nachschwingen` von `main`): Haare und Köcher schwingen nach (wie 17a), Entwurf hinter Schalter. Fertig, wenn: Sprungtest 0, Standbilder.
+6. ~~5l~~ (Entwurf fertig 01:30, 5la, Build 0.1.640). ~~Vorrat 5 Katze~~ (Entwurf fertig 01:52, 6g, Build 0.1.641). ~~Vorrat 6~~ (Entwurf fertig 02:22, 6f, Build 0.1.643). ~~Vorrat 7, 8~~ (Entwürfe fertig 03:20, Themen 61/62, Build 0.1.646). Vorrat 9 und 10 schon erledigt (29 PR #42, 5la). 27.6c/27.6b und 55.1a als Entwurf fertig (03:46). Weiter: Bericht um 07:00; falls Zeit 55.1b (Speer aufstützen). Reserve: 5l Leben im Dorf (Entwurf: Bewohner gehen Wege, Tagesablauf), dann Vorrat oben (5 Katze, 6, 7).
+**Vorrat für Selbstarbeit** (Reihenfolge; aufgeräumt 11.10., 23:17: 9i, Kampfsätze, 28 Musik erledigt):
+3. **13e Höhle diagonal**, danach **10, 11** (Flammen, Lichtstrahl), erst Entwürfe (Absprache mit Tom in `ARBEIT-OFFEN.md`, 13e).
+4. **Schritte je Untergrund** (Idee 9), Hörproben (23a, 11.10., 14:18).
+6. **Rudelwölfe beißen ins Leere** (Fehler 08.10., Merkliste), mit Film.
+**Paket** (Selbstarbeit ab 12.10., 16:40, vergeben vom Nutzer 16:2x; Zweig `claude/jerry-13e-hoehle-diagonal`, alles nur Vorschau hinter `MapCaveIso.draft`, nicht ins Spiel):
+1. ~~**13e.2 Kisten, Truhen, Bettrolle diagonal**~~ (fertig 16:26, f0dd6f2) in `MapCaveIso` (Truhe offen/zu, je drei Varianten, Höhlenstil: grob, Goblinbeute). Fertig, wenn: Standbilder (`CAVESHEET=1`, dann `KARTENZOOM=1 DIAG=1 CAVEDRAFT=1 ONLY=zoom_nah_c`) mit Uhrzeit.
+2. ~~**13e.3 Lichtstrahl am Schacht (11)**~~ (fertig 16:50, a9fa802, 91fe429: Strahl aufrecht, Fackeln an der Wand mit 32-Bild-Flamme; Aufnahmen `zoom_nah_c7_schacht`, `zoom_nah_c8_fackel`) als schräge Lichtsäule mit Staub statt hellem Rechteck; **Fackelflammen feiner (10)**. Fertig, wenn: Standbilder.
+3. (halb, 17:0x: Stalagmiten, Geröll, Weiher als Entwurf; Bilder fehlen) **13e.4 Stalagmiten, Felsen, Geröll** über das Höhenfeld (wie die Wände), **Weiher mit Ufer**. Fertig, wenn: Standbilder, Lückenliste nach „Ort fertig“.
+4. Reserve: 38 Messung Kapitel 1 (Gold/Einkauf in `ChapterSimTest`), 53 Zustände auf Krogg (Befund), 51 Sterbehaltung Magier (Befund, Entwurf).
+
+### Aus ARBEIT-OFFEN.md, 77e, 13.10., 22:53
+| 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2** Weck-Routinen (Jerry, Zeile unten). Regeln in `CLAUDE.md` (65.4 ein Ort, 65.7/65.8 kein „Erledigt“); Verlauf im Archiv |
+| 13e | Höhle diagonal | Tom | – | Auf `main` (getestet 0.1.702). Offen nur Diogenes-Befunde der Höhle (Jerry) |
+| 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | 30.1/30.2/30b/30.8 auf `main`. Offen: Abstürze beobachten (bei neuem Absturz `adb logcat` mit Anleitung von Tom); 30.7 (Klang 22 kHz) mit Jerry. Verlauf im Archiv |
+| 38 | Balance-Langzeitplan über alle Kapitel (Stufe, Gold, Preise, Ausrüstung, Ziel-Siegquoten) | Berater (Plan), Jerry (Messung) | `main` (Notizen) | Plan in `DESIGN-BALANCE.md` fertig (38a–38d ja). **38e/38f ja (11:23):** Jerry erweitert `ChapterSimTest` um Gold/Einkauf und misst Kapitel 1 (Reserve der Selbstarbeit). **38g ja (16:06):** Spieldauer zählt Diogenes (Zeile unten); 38h Eichung mit Uhr durch Nutzer später. Verlauf im Archiv |
+| 39 | Schwierigkeitsgrad im Menü | Jerry (Werte), Menü mit Tom | – | Nutzer 12.10., 09:52. Nach 38 („Normal“ erst festlegen). **39a ja (10:10):** Leicht/Normal/Schwer über Gegner-TP und -Schaden, jederzeit umstellbar. **62m ja:** auf Leicht Questziele gold ab Annahme; bei der Wahl jeden Unterschied genau erklären |
+| 41 | Storyplan; Plot Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | Rahmen Kapitel 2 (41a–p), **2a–2d und Station 1 (3a–3e: Kael, Südstraße, Fuhrmann Jorrit, Schilfrode mit/ohne Jorrit) ja (13.10.)**, **Station 2 Rabenschanze (4a–4d: Mauerbruch, Silber aus Aschfurt, Liste „Ring fehlt“, Hauptmann Vesk) ja (19:25)**; Figurenliste um Kapitel 2 mit Bauideen ergänzt (19:4x; Namen N1–N4 ja 19:50: Tobin, Fährmann Ansel, Merle, Händler Wendel) im [Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d), Texte in `docs/STORY-REGELN.md`. Weiter: Kultlager |
+| 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p) | Tom; 62m Jerry mit 39 | `claude/tom-73-laeden` | Bis 62p auf `main` (PR #53). **62r A (Nutzer 20:4x):** „Orte“ weg, Reiter Karte öffnet Karte des Ortes, Hineintippen tiefer, Knopf oben rechts nennt das Ziel mit Pfeil nach oben; Tom baut jetzt. 62i–62k mit 64; 62l/62m später |
+| 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | Tom (Szene, Bilder), Jerry (Klang „Ancient Legend“) | – | **68a–68m ja (Nutzer 17:16–18:02):** Ablauf, Texte, Einstieg Kapitel 2 alles in `docs/STORY-K1.md` (`[68.…]`, auch `[67.schild]`, `[67.nach.…]` entfällt); Form `DESIGN-STIL.md` „Zwischensequenzen“ |
+| 70 | Zwischensequenzen einheitlich (Intro 69, Tempel 68, spätere Wendepunkte) | Berater mit Nutzer | `main` (Notizen) | Nutzer 17:08: alle Zwischensequenzen ähnlich gebaut; Muster in `DESIGN-STIL.md` „Zwischensequenzen“ |
+| 62q | Begriffe: Landkarte → Gebietskarte → Grundriss → **Ebene** (übereinander im Grundriss; „Stockwerk“ entfällt) | alle | – | **Ja (Nutzer 17:33)**, Regel in `CLAUDE.md` „Begriffe“; Tom/Jerry/Diogenes bitte so in Spiel, Prüflisten und Notizen |
+| 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | – | **69a–69d ja (Nutzer 13.10., 16:31):** Texte, Ablauf und Klang in `docs/STORY-K1.md` (`[69.intro.…]`), wortgetreu übernehmen |
+| 76 | Tom und Jerry schärfen, `CLAUDE.md` entschlacken (Nutzer 13.10., 20:37) | Tom, Jerry | `main` (Notizen) | **Umgesetzt 13.10., 22:0x** nach [Entwurf](https://claude.ai/code/artifact/62e22141-83a5-40bc-8bde-80ba05a7db76) (Nutzer 21:52): `CLAUDE.md` gemeinsamer Kern, neu `ROLLE-ENTWICKLER.md`. Startaufträge in den Übergaben; danach streichen |
+| 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten im Archiv). **48d–48f ja (16:51):** je Spielstand nur Startwert plus **Version des Erzeugers** speichern (Updates verändern keine bestehende Höhle, alte Erzeuger bleiben im Code); Besiegtes und Geplündertes bleibt weg, neuer Auftrag darf dieselbe Höhle neu besetzen. Nach Kapitel 1 |
+| 49 | Lehrer, Fertigkeiten, Talente | Berater mit Nutzer | – | 49d–49t ja ([Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)); **Dokument vom Nutzer freigegeben** (13.10., Namen fett markiert); abgelegt als `docs/DESIGN-HELDENBAU.md` (17:1x). Nach Kapitel 1 |
+| 50 | Weitere Klassen (Klassenpaket, Werwolf als Fluch) | Berater mit Nutzer | – | 50a–50j ja (Matrix im Heldenbau, Verlauf im Archiv). Nach Kapitel 1 |
+| 43 | Sichtbarkeit in der diagonalen Sicht (Leute, Ziele, Eingänge frei zur Kamera) | Tom (Wald, Dorf), Jerry (Höhle) | – | **43a ja:** Grundsatz in `DESIGN-STIL.md` („Ort fertig“ Punkt 9); Kisten dürfen versteckt sein. Morwen sichtbar, wenn Tiefer Wald diagonal (Tom); Höhle 13e (Jerry). Verlauf im Archiv |
+| 56 | Alte Objekte auf den neuen Karten | Tom | – | Auf `main` (PR #52); nur noch prüfen, ob etwas fehlt |
+### Jerry (12.10., 16:59) – Pause bis Freitag
+- **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`ARBEIT-SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
+- Zweig `claude/jerry-13e-hoehle-diagonal` (13e.3 fertig, 13e.4 halb; Einzelheiten im Archiv, 13e jetzt bei Tom).
+- **Nutzer 12.10., 18:0x:** Jerry ohne Guthaben bis Fr., 03:00; Tom vertritt nicht von sich aus (genug eigene Arbeit); nur wenn eigene Arbeit an etwas von Jerry hängt, darf Tom das übernehmen (Übergabe hier).
+- **13e liegt seit 13.10., 11:2x bei Tom (13y ja);** Jerry macht am Freitag mit 24.6, 30.7, 36.6, 38–40, 51–53 weiter.
+- **Jerry, Weck-Routinen pausieren** (Berater 13.10., Nutzer freigegeben): deine acht Routinen „Jerry Selbstarbeit HH:MM“ mit `update_trigger` (`enabled: false`) pausieren, nicht löschen; Regel in `ARBEIT-SELBST.md` „Feste Weck-Routinen“. Danach Zeile streichen.
+
+### Aus ARBEIT-OFFEN.md, 77e, 13.10., 22:51
+| 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry | – | Nutzer 12.10., 15:4x nach Test 0.1.587: Krogg fürs Erste so lassen, später alle Kampfanimationen gesamt überarbeiten. Nach Kapitel-1-Wichtigem |
+
+### Aus LISTE-THEMEN.md, 77e, 13.10., 22:51
+Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen**, nur wenn eine Nummer gesucht wird. Stand nur als ein Wort (offen, in Arbeit, zu testen, erledigt vX, ruht; 65.4), Einzelheiten nie hier. Wer ein Thema anlegt, abschließt oder abgibt, ändert hier die eine Zeile (der Zähler „Nächste freie Themennummer“ steht in [Offen](ARBEIT-OFFEN.md)). Unterpunkte (z. B. 13q.4) und Verlauf stehen im [Archiv](ARBEIT-ARCHIV.md), Umgesetztes in der [Änderungshistorie](../CHANGELOG.md).
+| Nr. | Thema | Wer | Stand | Nachlesen |
+| 1 | Regen, Wetterleuchten mit Donner | Tom | erledigt v0.1.409 | Änderungshistorie |
+| 2 | Waffe verstaut (auf der Karte geschultert bzw. am Rücken) | Tom | erledigt v0.1.409 | Änderungshistorie, `DESIGN-STIL.md` |
+| 3 | Garrick hockt, schürt, döst (3a weich) | Tom | erledigt v0.1.430 | Änderungshistorie |
+| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | in Arbeit | `ARBEIT-OFFEN.md` |
+| 6 | Innenräume (Schänke), Zoom (6.15) | Tom | erledigt v0.1.471 (6l ruht) | `ARBEIT-OFFEN.md` |
+| 7 | Stopp-Punkt und Zusammenarbeit der Accounts | Tom | erledigt | Archiv |
+| 8 | Zusammenarbeit Tom und Jerry, Notizen nur auf `main` | Jerry | erledigt | `CLAUDE.md` |
+| 9 | Monster auf der Karte | Jerry | erledigt (PR #33) | `ARBEIT-OFFEN.md` |
+| 10 | Höhle: Flammen feiner | Tom (von Jerry, 13y) | auf `main` (mit 13e, PR #51) | `CHANGELOG.md` |
+| 11 | Höhle: Lichtstrahl am Lichtschacht | Tom (von Jerry, 13y) | auf `main` (mit 13e, PR #51) | `CHANGELOG.md` |
+| 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Jerry, Tom | erledigt v0.1.483 | `ARBEIT-OFFEN.md` |
+| 13 | Diagonale Sicht | Tom | in Arbeit | `ARBEIT-OFFEN.md` |
+| 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für `ARBEIT-OFFEN.md`) | Berater | erledigt (PR #26) | `CHANGELOG.md` |
+| 15 | `ARBEIT-OFFEN.md` entschlacken, Archiv, Themenliste | Tom | erledigt | Archiv |
+| 16 | Trefferstopp | Jerry | erledigt v0.1.460 | Änderungshistorie |
+| 17 | Nachschwingen | Tom | erledigt (auf `main`) | `ARBEIT-OFFEN.md` |
+| 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | Jerry | offen (18h, 18i) | `ARBEIT-OFFEN.md` |
+| 19 | Zeitablauf der Kampfbewegungen | Jerry | erledigt v0.1.455 | `ARBEIT-OFFEN.md` |
+| 20 | Uhrzeit der APK im ZIP | Tom | erledigt (PR #21) | `ARBEIT-OFFEN.md` |
+| 21 | Releaseflut eindämmen | Jerry | erledigt (PR #22) | `ARBEIT-OFFEN.md` |
+| 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | Tom | erledigt | Archiv |
+| 23 | Aufgabenteilung und Vorrat für Selbstarbeit | Tom | erledigt | `ARBEIT-OFFEN.md` |
+| 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik), Jerry (Inhalt) | in Arbeit | `ARBEIT-OFFEN.md`, `DESIGN-ZWISCHENBILD.md` |
+| 25 | Laternen und Fenster nachts als Quelle zu dunkel | Tom | erledigt v0.1.512 | `ARBEIT-OFFEN.md` |
+| 26 | Kapitel 1 fertig (Zielliste) | Tom und Jerry | in Arbeit | `LISTE-KAPITEL1.md` |
+| 27 | Wald „Ort fertig“ | Tom | in Arbeit | `ARBEIT-OFFEN.md` |
+| 28 | Musik neu | Jerry | erledigt v0.1.540 | `ARBEIT-ARCHIV.md` |
+| 29 | Nebenquests (Anschlagbrett) | Tom | erledigt (PR #42) | `CHANGELOG.md` |
+| 30 | Abstürze beim Testen | Tom (Jerry: Klang-Fäden) | offen | `ARBEIT-OFFEN.md` |
+| 31 | Berater-Gedächtnis `docs/ROLLE-BERATER.md` | Berater | erledigt (Regel) | `ROLLE-BERATER.md` |
+| 33 | Grundsatz „Spielerfreundlich, einfach, frei“ (Prüfung vor jeder Umsetzung) | Tom und Jerry | erledigt (Regel) | `DESIGN-STIL.md` |
+| 32 | Selbstarbeit: Nacht 11./12.10. fast ohne Arbeit (Routine sperrte sich wegen Herzschlag) | Jerry | erledigt (`ARBEIT-SELBST.md`) | `ARBEIT-OFFEN.md` |
+| 34 | Kampf: Knopf „Zug beenden“ | Jerry | erledigt v0.1.571 | `CHANGELOG.md` |
+| 35 | Weihwasser nur gegen Untote (2W6) | Jerry | erledigt v0.1.571 | `CHANGELOG.md` |
+| 36 | Krogg verpixelt (schärfen) | Jerry | offen (36.6) | `ARBEIT-OFFEN.md` |
+| 37 | Kampfmusik aussortieren (3 raus, Boss-Stück anders verwenden) | Jerry | erledigt v0.1.578 | `CHANGELOG.md` |
+| 38 | Balance-Langzeitplan (`DESIGN-BALANCE.md`) | Berater, Jerry | in Arbeit | `ARBEIT-OFFEN.md` |
+| 39 | Schwierigkeitsgrad im Menü | Jerry (Menü mit Tom) | ruht (nach 38) | `ARBEIT-OFFEN.md` |
+| 40 | Lautstärke Gesamt/Musik/Effekte | Jerry | offen | `ARBEIT-OFFEN.md` |
+| 41 | Storyplan je Kapitel, Plot Kapitel 2 | Berater mit Nutzer | in Arbeit | `ARBEIT-OFFEN.md`, `STORY-REGELN.md` |
+| 42 | Textkasten unten im Stil der Blenden (schwarz, Sprecher Gold) | Tom | erledigt (PR #48) | `CHANGELOG.md` |
+| 43 | Sichtbarkeit in der diagonalen Sicht (Wichtiges frei, Durchsicht um den Helden, Verstecktes erwünscht) | Berater (Grundsatz); Tom, Jerry | erledigt (Regel) | `DESIGN-STIL.md`, `DESIGN-ABNAHME.md` |
+| 44 | Leitbild als roter Faden; `DESIGN-STIL.md` aufgeteilt in Stil und Entwicklung | Berater | erledigt (Regel) | `DESIGN-LEITBILD.md` |
+| 45 | Geschäftsmodell und Umsetzung (Play Store) | Berater mit Nutzer | ruht (45b nach 38) | `ARBEIT-OFFEN.md` |
+| 46 | Neustart: Nachfolger startet die Sitzung selbst | Tom und Jerry | erledigt (Regel) | `CLAUDE.md` |
+| 47 | README-Einleitung nach Leitbild | Berater | erledigt | `ARBEIT-OFFEN.md` |
+| 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Berater mit Nutzer | ruht (nach Kapitel 1) | `LISTE-IDEEN.md` |
+| 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Berater mit Nutzer | ruht (nach Kapitel 1) | `LISTE-IDEEN.md` |
+| 50 | Weitere Klassen, ggf. zum Kauf | Berater mit Nutzer | ruht (nach Kapitel 1) | `LISTE-IDEEN.md` |
+| 51 | Sterbehaltung des Helden (Magier) sieht komisch aus | Jerry | offen | `ARBEIT-OFFEN.md` |
+| 52 | Feinarbeit an den Kampfanimationen | Jerry | ruht | `ARBEIT-OFFEN.md` |
+| 53 | Zustände (Brennend) auf Krogg prüfen | Jerry | ruht | `ARBEIT-OFFEN.md` |
+| 54 | Nicht warten, von selbst weiterarbeiten | Tom und Jerry | erledigt (Regel) | `CLAUDE.md` |
+| 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | in Arbeit | `ARBEIT-OFFEN.md` |
+| 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | Tom | zu testen | `ARBEIT-OFFEN.md` |
+| 57 | Gemeinsame Beschlüsse für Entschiedenes (früher Bildbuch) | Tom | erledigt (Regel) | Archiv |
+| 58 | Umhang hängt beim Laufen über dem Schild | Tom | erledigt (PR #50) | `ARBEIT-OFFEN.md` |
+| 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf | Tom | erledigt (59e Vorrat ruht bis 38/39) | `ARBEIT-OFFEN.md` |
+| 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | Tom | erledigt (auf `main`) | `ARBEIT-OFFEN.md` |
+| 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | Tom | erledigt (auf `main`) | `ARBEIT-OFFEN.md` |
+| 62 | Gezeichnete Karte im Menü | Tom | in Arbeit | `ARBEIT-OFFEN.md` |
+| 63 | Eine Seite „Dein Zug“ für alles Offene (alle Rollen) | Tom (ab Fr. mit Jerry) | in Arbeit | `ARBEIT-OFFEN.md` |
+| 64 | Questlog: Reiter „Chronik“ (Aufträge, Bisher geschehen) | Tom (Texte Berater mit Nutzer) | erledigt (auf `main`) | `ARBEIT-OFFEN.md`, Beschlüsse |
+| 66 | Licht im Dorf bei Nacht (Wache, Laterne) | Tom | erledigt (auf `main`) | `ARBEIT-OFFEN.md` |
+| 67 | Südrand des Dorfes (Feldweg, Wegweiser, Umkehr) | Tom | erledigt (auf `main`) | `ARBEIT-OFFEN.md` |
+| 65 | Abläufe verschlanken (Ablaufprüfung) | Berater, Tom, Jerry | in Arbeit (65.2 Jerry) | `ARBEIT-OFFEN.md` |
+| 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | Berater mit Nutzer; Tom, Jerry | offen | `ARBEIT-OFFEN.md` |
+| 69 | Intro in Standbildern (Ankunft bei Nacht) | Berater mit Nutzer; Tom | offen | `ARBEIT-OFFEN.md` |
+| 70 | Zwischensequenzen einheitlich | Berater mit Nutzer | offen | `ARBEIT-OFFEN.md` |
+| 71 | Bestandsprüfung Stil und Klang aller Orte | Diogenes | offen | `ARBEIT-OFFEN.md` |
+| 72 | Profil und Marktvergleich | Berater mit Nutzer | offen | `ARBEIT-OFFEN.md` |
+| 75 | Diogenes schärfen; Kosten und Nutzen des Testens | Berater mit Nutzer | fertig | `ROLLE-TESTER.md` |
+| 76 | Tom und Jerry schärfen, CLAUDE.md entschlacken | Tom, Jerry | in Arbeit | `ARBEIT-OFFEN.md` |
+| 77 | Dokumentnamen ordnen | Tom, Berater | in Arbeit | `ARBEIT-OFFEN.md` |
+| 78 | Test-Builds bündeln | Tom | in Arbeit | `ARBEIT-OFFEN.md` |
+
+### Aus LISTE-KAPITEL1.md, 77e, 13.10., 22:51
+- [ ] **Alle Orte „Ort fertig“** (Liste in `DESIGN-ABNAHME.md`): Dorf (5, Tom), Räume (13, Tom, erledigt bis auf Prüfung), Wald (27, Tom), Höhle (13e, 10, 11, Jerry).
+- [ ] **Alte Ansicht ausgebaut** (13t, Nutzer 12.10.): nur noch diagonal, sobald Wald, Tiefer Wald und Höhle fertig sind; bis dahin 13.4 (je Ort automatisch). Danach Zoomstufe festlegen (6l).
+- [ ] Kartenansicht im Menü (Tom, Vorrat).
+- [ ] Bewohner mit Tagesablauf (Tom, mit „Leben im Dorf“ 5l).
+- [ ] Stimmen der Gegner, Schritte je Untergrund, Raumklang (Jerry, Vorrat).
+
+### Aus LISTE-IDEEN.md, 77e, 13.10., 22:51
+- (im Vorrat, 23a) **Spuren, die bleiben (Idee 7):** Blut auf dem Boden nach dem Kampf, Fußspuren im Matsch nach Regen, aufgewirbelter Staub beim Rennen.
+- (im Vorrat, 23a) **Schritte je Untergrund (Idee 9):** Gras, Holzdielen, Fels, Pfütze, je mit Varianten.
+- (im Vorrat, 23a) **Musik in Schichten (Idee 10):** Nähert sich ein Jäger, schleicht sich eine dunkle Spur in die Musik, bevor der Kampf beginnt; Stille bewusst einsetzen. Gehört zu „Musik neu im neuen Stil“.
+- (im Vorrat, 23a) **Farbstimmung je Ort und Tageszeit (Idee 11):** Höhle kalt-grünlich, Schänke warm, Dämmerung violett, leichte Abdunklung an den Bildrändern (Filmlook über alles).
+4. Später Kapitel 2 als einmaligen Kauf (z. B. 2,99 €).
+## Lebendige Orte
+- (im Vorrat, 23a) **Katze in der Schänke (10.10., 6.14/6g):** schläft am Herd, streckt sich ab und zu, wechselt gelegentlich den Platz; eigene kleine Figur nötig.
+- (im Vorrat, 23a) **Rudelwölfe beißen ins Leere (gemeldet 08.10., v0.1.210):** Der Leitwolf springt beim Biss zum Helden, die anderen Wölfe des Rudels beißen nur auf ihrem Platz im Hintergrund (im Film bestätigt). Vorschlag: Rudelwölfe springen wie der Leitwolf zum Helden und zurück, gleitend und im selben Takt; wer beißt, wird vor den anderen gezeichnet.
+- (im Vorrat, 23a) **Kartenansicht** im Menü mit den bereits erkundeten Bereichen.
+- **Bewohner mit Tagesablauf:** Die Wirtin fegt vor der Tür, Läden haben nachts geschlossen. (Jorins Streife am Schlagbaum gibt es schon.)
+- (jetzt Thema 29) **Nebenquests** über ein Anschlagbrett, z. B. „Bring 5 Wolfsfelle“ oder „Finde Gwennas verlorenen Ring“.
+## Zufallsgenerierte Dungeons (48, Nutzer 12.10.)
+- Halb-halb: Story-Höhlen mit festem Kern (Eingang, Bossraum, Szenen) und zufälligen Seitengängen aus handgemachten Bausteinen; Aushang-Höhlen ganz zufällig (Startwert im Spielstand). Voraussetzung: diagonale Höhlenzeichnung (13e) arbeitet allgemein aus der Karte, nicht je Kachel von Hand. Größe (48c): 6–8 Kammern, verschlungener Hauptweg, Schleife nur manchmal, Sackgassen auch leer, Rückweg durch Durchgang, der nach dem Boss aufgeht; Beute knapp, Jerry prüft gegen `DESIGN-BALANCE.md`. Einzelheiten in `ARBEIT-OFFEN.md` Zeile 48.
+## Lehrer (49, Nutzer 12.10.)
+- Übung (voller Übungsbonus) in einer Waffenart, einer Rüstungsstufe oder einem Rettungswurf bei Lehrern im Dorf lernen (Garrick Bogen, Dorran Rüstung/Schild …); kostet Gold und einen Tag; statt Attributspunkten auf Stufe 4/8/12/16/19 (wie Talente im SRD). Einzelheiten in `ARBEIT-OFFEN.md` Zeile 49.
+## Weitere Klassen (50, Nutzer 12.10.)
+- Berserker, Kriegsmagier, Paladin, Werwolf …, ggf. zum Kauf (45). Nie stärker als die Grundklassen. Einzelheiten in `ARBEIT-OFFEN.md` Zeile 50.
+- (jetzt Thema 28) **Musik neu im neuen Stil** (Wunsch 10.10., 11:00): düsterer, weniger Nintendo, abwechslungsreicher (mehrere Stücke je Lage, Wechsel nach Ort, Tageszeit und Gefahr).
+Nach den [Stil-Leitlinien](DESIGN-STIL.md): weg von Chiptune, hin zu glaubwürdigen Geräuschen. Hörproben Runde 1 und 2 liegen vor (18d, Auswahl beim Nutzer). Noch offen: Menü-Klick, Belohnungen (Stufenaufstieg, Beute, epische Beute, Münzen, Truhe), Welt (Tür, Begegnung, Alarm, Hinterhalt), Zauber und Tränke, Kampfende (Gegner fällt, Held fällt), Umgebung (Vögel, Grillen, Eule, Tropfen, Knistern), Musik (siehe „Musik neu im neuen Stil“). Vorgehen: Hörproben, dann nach Freigabe umstellen.
+
+### Aus LISTE-IDEEN.md, 77e, 13.10., 22:49
+- **Vorgaben für jede neue Karte:**
+  - **Karte und Kampfort gehören zusammen** (Standard für alle bestehenden und neuen Karten): Was auf der Karte steht, bestimmt die Kampfkulisse. Wasser, Felsen, Feuerstellen, Lager, Leuchtpilze, Lichtschächte und Fackeln auf der Karte erscheinen im Kampf an derselben Stelle wieder, auch mit demselben Licht. Kein reines Auswürfeln der Kulisse.
+  - **Stimmung wie im Kampf:** erwachsener, etwas düsterer Stil. Licht kommt von sichtbaren Quellen (Sonne/Mond, Fackeln, Feuer, Pilze, Fenster), Dunkelheit ist erlaubt, die Laterne des Helden leuchtet. Kleine Bewegung (Flackern, Tropfen, Funken, Staub) und passende Umgebungsgeräusche.
+- **Technisch beim Start von Kapitel 2:** den Merker `chapter2_started` setzen. Damit gelten automatisch:
+  - die Stufengrenze 6 fällt; EP werden ab dann wieder gesammelt (aus Kapitel 1 wird nichts nachträglich angerechnet);
+  - bessere Beute (normal bis „selten“, besondere Beute bis „sehr selten“);
+## Balance – offene Beobachtungen
+- **Kämpfer** erledigt normale Monster auf Stufe 5–6 meist in einer Runde (Zusätzlicher Angriff). Bei Bossen ist er gefordert. Falls störend: nachlegen.
+- **Feuerball:** heute einmal pro Kampf mit 8W6. Falls er doch zu stark wirkt, gibt es zwei geprüfte Alternativen: 6W6 oder höhere Kosten (9 ZP).
+- Werkzeug zum Prüfen: Kapitelsimulation `SIM=1 ./gradlew -p core test --tests '*ChapterSimTest*'`.
+
+### Aus DESIGN-HELDENBAU.md, 77e, 13.10., 22:49
+Der Spieler soll beim Heldenbau echte Wahl haben, ohne dass am Ende der Magier der beste Tank ist. Dieses Dokument sammelt den Entwurf zu den Themen 49 (Lehrer, Fertigkeiten, Talente) und 50 (weitere Klassen). Es ist ein Entwurf: Namen, Inhalte und Zahlen sind Vorschläge, Werte prüft Jerry gegen den Balance-Plan (38). Umsetzung frühestens ab Kapitel 2.
+- [ ] 50d: Merkmale – entschieden (50e–50j), Talentliste an Linien angepasst (49n–49q)
+- [ ] Talentliste: Namen und Wirkungen der neuen Talente (kursiv)
+- [ ] Fertigkeiten: `gegen Attribute abgegrenzt (49s)`
+- [ ] Ablage: nach Freigabe als `docs/DESIGN-HELDENBAU.md` ins Repo (wie `STORY-REGELN.md`)
+
+### Aus DESIGN-BALANCE.md, 77e, 13.10., 22:49
+# Balance (Thema 38) – Entwurf
+Ziel: herausfordernd, aber nicht zu leicht, über **mindestens 7 Kapitel**, Stufe 20 am Ende. Diese Datei hält die Zielkurve fest; Messungen und Vorschläge verweisen darauf. Entwurf des Beraters (12.10.); Richtung freigegeben (38d, 10:21), Zahlen werden nach Jerrys Messung justiert.
+
+### Aus DESIGN-STIL.md, 77e, 13.10., 22:49
+Wie das Spiel aussieht, klingt und sich spielt: die Einzelheiten zum [Leitbild](DESIGN-LEITBILD.md). Wie gebaut und geprüft wird (Abnahme „Ort fertig“, selbst prüfen, alte Ansicht), steht in [Entwicklung](DESIGN-ABNAHME.md). Gilt für **alle** künftigen Arbeiten an Grafik, Animation und Klang.
+- **Kein Gegner verschwindet einfach:** Jede Gegnerart bekommt eigene Sterbeanimationen (mindestens drei), erst danach blendet sie aus. Ein tödlicher kritischer Treffer bekommt einen eigenen Killerschlag (siehe Liste [Offen](ARBEIT-OFFEN.md) unter „Geplant“).
+- **Echte Aufnahmen statt Synthese** (18, 11.10.): Grundlage sind CC0-Aufnahmen; nur Lizenzen, die kommerzielle Nutzung erlauben (Regel in `CLAUDE.md`), Quellen und Lizenz je Datei festhalten; erzeugte Klänge nur, wo sich nichts findet.
+- Was noch zu überarbeiten ist, steht in der Liste [Offen](ARBEIT-OFFEN.md) unter „Geplant“.
+
+### Aus DESIGN-ABNAHME.md, 77e, 13.10., 22:49
+# Entwicklung
+5. **Durchsicht und Sichtbarkeit:** nach „Karte und Räume“ in `DESIGN-STIL.md` (43).
+6. **Lebendig:** Wind, Rauch, Tiere, Gebrauchsspuren, Wetter, je nach Ort; Effekte von Tom/Jerry selbst vorgeschlagen (44d).
+8. **Klang:** Umgebung aus echten Aufnahmen, Schritte passend zum Untergrund; Hintergrundklänge selbst vorgeschlagen und eingebaut (44d).
+- **Kein Absturz ohne Bericht** (30): Fehlertext holen, dann suchen; Test-Builds immer mit aktuellem `main` (21.5).
+
+### Aus DESIGN-LEITBILD.md, 77e, 13.10., 22:49
+Der rote Faden (Thema 44, mit dem Nutzer 12.10.). Wer unsicher ist, ob etwas ins Spiel passt, schaut zuerst hier nach. Bei Widerspruch gilt das Leitbild; die Einzelheiten stehen in [Stil](DESIGN-STIL.md) (Aussehen, Klang, Spielgefühl) und [Entwicklung](DESIGN-ABNAHME.md) (Bauen, Prüfen). Ein lebendes Dokument: Änderungen nur nach Abstimmung mit dem Nutzer.
+2. **Eine lebendige Welt.** Keine Figur steht starr, kein Ort wirkt wie Kulisse; Abwechslung statt Wiederholung, mindestens drei Varianten. Sichtbare Effekte (Rauch, Funken, Staub, Tiere, Wetter) bieten Tom und Jerry von sich aus an. → `DESIGN-STIL.md`
+5. **Eine Sicht: diagonal.** Was wichtig ist, steht frei im Blick; Verstecktes belohnt das Erkunden. Neue Orte nur diagonal, die alte Ansicht ist eingefroren und fällt weg. → `DESIGN-STIL.md` Karte, `DESIGN-ABNAHME.md`
+6. **Glaubwürdiger Klang, der die Welt belebt.** Echte Aufnahmen, Musik orchestral und düster, das Dorf mittelalterlich. Man hört nur, was da ist, aber das voll: Wind, Feuer, Tiere, Schritte, Arbeit der Leute. Hintergrundklänge bieten Tom und Jerry bei jedem neuen Ort und jeder neuen Figur von sich aus an, mit Hörproben. → `DESIGN-STIL.md` Klang
+9. **Nur freie Inhalte.** Fremdes nur mit Lizenz, die kommerzielle Nutzung erlaubt, mit Quelle je Datei. → `CLAUDE.md`
+13. **Fair bezahlen, nie nerven** (45c). Keine Werbung, keine Beutekisten oder Zufallskäufe, keine Wartezeiten oder Energie. Das Spiel ist ohne jeden Kauf gut spielbar und ausbalanciert; Käufe drängen sich nie auf. Beschleuniger nur nach Prüfung (45b, nach der Balance-Messung 38). → `DESIGN-BALANCE.md`
+
+### Aus STORY-REGELN.md, 77e, 13.10., 22:47
+Freigegebene Spieltexte (Thema 41), festgelegt von Nutzer und Berater. Hier nur Regeln und Verzeichnis; die Texte stehen in Teildateien. Wer an einem Text baut, öffnet nur die passende Teildatei, am besten gezielt über die Marke (`grep -n "\[67\." docs/STORY-K1.md`).
+- **Wortgetreu übernehmen.** Englisch übersetzen Tom und Jerry beim Bauen selbst. Fehlt oder passt ein Text nicht: Vorschlag in `ARBEIT-OFFEN.md` unter 41, nicht selbst erfinden. Tippfehler und Zeichensetzung direkt korrigieren (Commit beginnt mit „Text:“).
+- **Gruppen je Kapitel** (77d, Nutzer 13.10.): **K1-H** Hauptquest, **K1-N** Nebenquests, **K1-Z** Zwischensequenzen, **K1-W** Welt (Chronik, Hörensagen, Stimmen hinter Türen); Kapitel 2 entsprechend K2-H usw. Die Marken `[Thema.kurz]` bleiben unverändert. Gliederung von `STORY-K1.md` folgt mit 77e.
+- **Teilung:** je Kapitel eine Datei. Wird eine größer als etwa 15 KB, nach Ort oder Quest teilen (`STORY-K2-hoehle.md`) und hier eintragen.
+| `STORY-K1.md` | Kapitel 1: Intro (69), Tempelszene (68), Chronik „Bisher geschehen“ (64d), Hörensagen (62i), geänderte Dialogzeilen (41), Stimmen hinter Türen (73b), Südrand (67) | freigegeben 13.10. |
+Die übrigen Texte von Kapitel 1 stehen bisher nur in `Story.kt`/`Jobs.kt`; sie kommen nach `STORY-K1.md`, wenn sie geändert werden.
+
+### Aus DESIGN-ZWISCHENBILD.md, 77e, 13.10., 22:47
+# Zwischenbildschirm (Thema 24): Design und Texte
+Oct 11, 2026 · @Ralph
+9. **Englisch.** Alle Texte im Spiel haben eine deutsche und eine englische Fassung; die Sätze unten brauchen noch die englische Übersetzung.
+## Texte: Orte
+## Texte: Kampfbeginn
+## Texte: je Gegner
+- Grak Nr. 5 passt nur, solange Lyra noch gefangen ist.
+
+### Aus STORY-K1.md, 77e, 13.10., 22:47
+Freigegeben 13.10., 16:31. Fünf gerenderte Standbilder aus Sicht des Helden, ohne Animation, je Bild ein Text in Du-Form, zusammen etwa 30–40 Sekunden. Nur beim ersten Spielstart, Antippen überspringt; später als erster Eintrag in „Bisher geschehen“ wieder ansehbar (69d). Klang (69c): leise Wind, Fluss, Grillen; Titelmusik erst beim Schwarzbild („Ancient Legend“ bleibt der Tempelszene 68 vorbehalten). Danach weckt Rowena den Helden (`[41.rowena.wach]`).
+**Entfällt (68l, Nutzer 17:42):** Nach Lyras Gespräch ist der Südrand frei; die beiden folgenden Texte werden nicht mehr gebraucht.
+`[67.nach.1]` (nach Kapitel 1, erster Versuch)
+Der Brief mit dem grauen Siegel lässt dich nicht los. Die Antwort liegt nicht im Süden.
+`[67.nach.2]` (nach Kapitel 1, ab dem zweiten Versuch)
+Die Antwort liegt nicht im Süden.
+
+### Aus ROLLE-BERATER.md, 13.10., 22:2x
+**Sitzungen** (ältere im Archiv): 13.10. 21:41–22:02 „Entwicklerrollen und Dokumentnamen“ (78 entschieden, [Entwurf 76/77](https://claude.ai/code/artifact/62e22141-83a5-40bc-8bde-80ba05a7db76) freigegeben 21:52 und umgesetzt; Schwerpunkt ganz bei Abläufen). **Nachfolger:** „Sokrates – 77e Inhalte ordnen“ (Nutzer startet mit „Sokrates“): 77e nach der Methode unter „Nächster Punkt“ (2), Tom läuft parallel, Schnitt erst bei seinem Sitzungswechsel.
+
+**Nächster Punkt:** (1) **Umbau 76/77 nachhalten:** Tom und Jerry haben Startaufträge in ihrer Übergabe (Codekommentare, Build-Auslöser 78d, neu starten); Wächter in `notiz.sh` meldet alte Namen. Ab jetzt beim Start Rückläufer je Build zählen (76f, Vermerk „(Rückläufer: n)“ im `CHANGELOG.md`). (2) **77e** [Entwurf](https://claude.ai/code/artifact/13e3b53a-e28d-40c1-9d94-30225272d38a) fertig (22:1x, 52 Befunde, Rückfragen 77e.1–6); nach Freigabe umbauen, Methode (22:00): Abschnitte erfassen (Leser aus Verweisen belegen), Tabelle steht in → gehört nach → Grund, Doppelungen/Widersprüche als Rückfragen, Docs-Entwurf mit fetten Änderungen; Umbau nur mit Prüfskript (jede Zeile genau einmal oder freigegebene Streichung) plus Verweis-Check; `STORY-K1.md` in K1-H/N/Z/W gliedern. (3) **72**: Freigabe Marktvergleich (PDF 20:00), dann `docs/DESIGN-MARKT.md`; **72a–72j** mit Wortlaut und Empfehlung zeigen. (4) Kultlager (41). Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
+
+**Zuletzt gelesen bis:** dieser Commit (13.10., 22:0x)
+
+### Tom-Übergabe (13.10., 21:4x)
+- **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/tom-diogenes` zuerst `git merge origin/main`, sonst sieht die Sitzung das alte `CLAUDE.md`. (3) Codekommentare mit alten Dateinamen anpassen (`Sfx.kt`, `Recorded.kt`, `PlaceSound.kt`, `Chronicle.kt`, `Interlude.kt`, `InterludeClock.kt`, `InterludeUi.kt`; Liste: `git grep -nE "[A-Z1]+\.md" -- '*.kt'`), im nächsten Sammelbuild. (4) 78d: Build-Auslöser in `.github/workflows/android.yml` nur noch bei PR, Push auf `main` und Knopfdruck (heute jeder Push). (5) Ab jetzt Sammelbuilds (höchstens 4 Punkte, nie mit Jerry gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`.
+- PR #55 (0.1.714) zusammengeführt. 0.1.719 auf `claude/tom-diogenes` war um 21:42 im Bau (Lauf 38456434182): beim Start prüfen, ob grün; sonst beheben, neu bauen und die Zeile auf „Dein Zug“ anpassen. Prüfliste `e/t719.html` und Zeile stehen schon.
+- Auf dem Zweig: D2-Befunde (Vermerke im Prüfbericht), D1.2/D1.3 Licht, D1.11 Bänke/Ladenkram, 3b Garrick am Feuer (Versatz in `npcPos`, `WorldScreen.kt`), 4 Glühwürmchen, 5la Leute nachts im Haus (`VillageDay.Stop.inside`, `Game.indoors`), 73b Stimmen (`Warp.knock`). Vorschau neu: `KAPITELENDE=1`, `KARTE62=1` mit `62c_orte_tief`.
+- Weiter: D1.4 Wandkram flach, D1.5 Schatten Räume, D1.16 Entwurfsschalter; dann 6l, 68.
+
+### Aus ROLLE-BERATER.md, 13.10., 22:0x
+Sitzung 13.10. 21:01–21:38 „Entwicklerrollen und CLAUDE.md“ (76g/h, 77a–d, 78 vorgeschlagen).
+
 ### Tom-Übergabe (13.10., 21:3x)
 - PR #55 (0.1.714) zusammengeführt. Zweig `claude/tom-diogenes`: D2-Befunde, D1.2/D1.3, 3b Abstand, 4 Glühwürmchen, 5la Pim nachts, 73b Stimmen; Build läuft (Weckruf steht), danach Prüfliste `e/t<build>.html`. Weiter: D1.4, D1.5, D1.11, D1.16; dann 6l, 68.
 

@@ -22,7 +22,7 @@ Ein Einstieg für alle Prüfungen, gleich für jeden Account. `tools/t` ohne Bef
 | Regel, Wert, Ablauf der Meldungen | `tools/t logik [Muster]` (Kerntests, mit Muster nur die passenden) | 2–3 s gezielt, 11 s alle |
 | Bedienung, Spielfluss, Abstürze | `tools/t spieler [Eingaben]` (Zufallsspieler `PlayerSimTest`) | 3 s, 10 000 Eingaben je Spieler 5 s |
 | Aussehen einer Haltung, Kollision | `tools/t bild SCHALTER=…` (Vorschau, listet die neuen Bilder) | 5 s |
-| Fluss einer Bewegung | `tools/t film FILM…=…` | Echtzeit (siehe „Film-Uhr“ in `docs/ARBEIT-OFFEN.md`) |
+| Fluss einer Bewegung | `tools/t film FILM…=…` | Echtzeit (siehe „Film-Uhr“ in der Merkliste „Werkzeuge“) |
 | Umgebung in Ordnung? | `tools/t pruef` | ~10 s |
 | Gesamteindruck am Gerät | Zweig pushen, Build von GitHub, Test durch den Nutzer | Minuten |
 
@@ -71,13 +71,11 @@ Die Chat-Sitzung hat eine eigene Netzregel. Ohne Freigabe sind Maven Central, Go
 ## Bauen und Veröffentlichen (GitHub)
 
 - Workflow `.github/workflows/android.yml` („Build APK“): JDK 17, Android-SDK und Signatur laufen dort. Version `0.1.<Laufnummer>`.
-- Push auf einen Zweig → Artefakt `bornim-apk`. APK für den Chat (geht, Stand 11.10., 19:01): `gh api repos/tramour-cmyk/androidapp_rpg_bornim/actions/artifacts/<id>/zip > a.zip && unzip a.zip` (id aus der Artefaktliste des Laufs). Push auf `main` → nur Artefakt (seit 11.10., Thema 21); Release nur von Hand: `gh workflow run android.yml --ref main -f release=true`. Pull Requests bauen nicht doppelt. Reine Änderungen an `.md`-Dateien, `tools/` und `.claude/` bauen nicht (seit 09.10.); auf `main` entsteht dann auch kein Release.
-- Signatur: Keystore und Passwort liegen nur als GitHub-Secrets. Nie committen, ebenso `local.properties`.
+- Push auf einen Zweig → Artefakt `bornim-apk`. APK für den Chat (geht, Stand 11.10., 19:01): `gh api repos/tramour-cmyk/androidapp_rpg_bornim/actions/artifacts/<id>/zip > a.zip && unzip a.zip` (id aus der Artefaktliste des Laufs). Push auf `main` → nur Artefakt (seit 11.10., Thema 21); Release nur von Hand (`ARBEIT-ABLAEUFE.md`). Pull Requests bauen nicht doppelt. **Ändert sich mit 78d** (dann bauen nur PR, `main` und Knopfdruck), sobald Toms Auslöser auf `main` ist. Reine Änderungen an `.md`-Dateien, `tools/` und `.claude/` bauen nicht (seit 09.10.); auf `main` entsteht dann auch kein Release.
 - Ein zweiter GitHub-Account braucht Zugriff auf das private Repository (Settings → Collaborators) und, um aus Claude heraus zu arbeiten, die verbundene GitHub-App bzw. die Freigabe des Repositorys in den Claude-Einstellungen.
 
 ## Werkzeuge im Repository
 
-- `./gradlew -p core test`: Kerntests, vor jedem Commit (Exit-Code prüfen).
 - `tools/t` (Übersicht ohne Befehl), z. B. `tools/t bild SCHALTER=…`. Vorschau direkt: `cd tools/preview && SCHALTER=… ../../gradlew -q run`, Bilder unter `tools/preview/build/screens/`.
 - Filmläufe sind langsam (5 Kämpfe gut 4 Minuten); Shell-Befehle brechen nach 10 Minuten ab, lange Läufe aufteilen oder im Hintergrund mit `timeout`.
 - **Im Spiel testen:** Testmodus (7× auf das Copyright im Titel tippen), Reiter „Test“: Stufe, Gold, Vorräte, Testkämpfe, „Kartenzoom“, „Monster beachten mich nicht“, „Sichtlinie aus“ u. a.
@@ -92,9 +90,8 @@ Die Chat-Sitzung hat eine eigene Netzregel. Ohne Freigabe sind Maven Central, Go
 | `WALKFILM=karte:x:y` (+ `CROP=x0:y0:x1:y1`, `FROM=`), `IDLEFILM=` | Laufen bzw. Stehen durch die echte Oberfläche filmen |
 | `FLORA=karte:x0:y0:breite:höhe` | Kartenausschnitt in voller Auflösung |
 | `UNERKUNDET=1` (mit `KARTENZOOM=1 HELDORT=…`) | Karte noch unerkundet, Rand der Sicht gegen das Schwarz (13e) |
-| `DORFTAG=1` (mit `KARTENZOOM=1 HELDORT=village:x:y:R:stunde`) | 5l Tagesablauf: Bewohner am Platz der Stunde |
+| `KARTENZOOM=1 HELDORT=village:x:y:R:stunde` | 5l Tagesablauf: Bewohner am Platz der Stunde (immer an, Schalter `DORFTAG` weg) |
 | `KATZE=1`; `KATZEINN=<ms>` (mit `KARTENZOOM=1 ONLY=zoom_nah_p_inn HELDORT=inn:4:4:L:20`) | Katze: Haltungen vergrößert; in der Schänke zum Zeitpunkt ihrer Runde (10000 schläft am Herd, 80300 streckt sich, 83500 geht, 100000 schläft am Fass) |
-| `FARBDRAFT=1` (mit `KARTENZOOM=1 DIAG=1 ONLY=zoom_nah_p_ HELDORT=…`) | 6f Farbstimmung je Ort und Tageszeit (Zweig `claude/tom-6-farbstimmung`) |
 | `SWINGBILD=1` (+ `SWINGMORE=1`, `SWINGWHO=woman,archer,…`) | 17 Nachschwingen: Standbilder je Zeitpunkt; `SWINGMORE=1` auch Haare und Köcher (17r, auch im Spielbild) |
 | `FIREFLIES=1`, `SQUATDRAFT=1`, `MAPFIGYAWS=1 WEAPONS=…` | Glühwürmchen, Garrick hocken/schüren/dösen, Waffen in allen Richtungen |
 | `MAPFOE=scene\|dirs\|walk\|yaws\|others\|cave\|wood`, `FOEFILM=1` (`FOEIDLE=1`) | Monster auf der Karte: Entwürfe, Film |
@@ -109,8 +106,4 @@ Kerntests mit eigenem Zweck: `JumpTest`/`BattleJumpTest` (Sprünge), `InnCornerT
 ## Was nicht im Repository liegt
 
 - Die Werkzeuge der Cloud-Sitzung selbst (GitHub-Anbindung, Datei-Versand an dich, Zeitstempel über `TZ=Europe/Berlin date`) kommen von Claude Code, nicht aus dem Repository.
-- Erinnerungen an frühere Gespräche: alles Wichtige steht in `CLAUDE.md`, `docs/ARBEIT-OFFEN.md` (Übergaben), `docs/DESIGN-STIL.md`, `docs/LISTE-IDEEN.md`, `CHANGELOG.md`; der Verlauf in `docs/ARBEIT-ARCHIV.md`.
-
-## Notizen auf `main` (seit 10.10.)
-
-`tools/notiz.sh` holt `main`, legt die Arbeitskopie `../bornim-main` für Notizen an, meldet den Namen der Sitzung (Tom oder Jerry, aus der Tabelle in `CLAUDE.md`) und zeigt, was sich seit dem letzten Aufruf an `CLAUDE.md`, `CHANGELOG.md` und `docs/` geändert hat. Der Starthaken ruft es mit `--kurz` auf.
+- Erinnerungen an frühere Gespräche: alles Wichtige steht in den Notizen (nach Vorsilben, siehe `CLAUDE.md`); der Verlauf in `docs/ARBEIT-ARCHIV.md`.

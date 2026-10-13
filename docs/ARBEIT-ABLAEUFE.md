@@ -11,7 +11,6 @@ Einmal „Zeit für ein Release?“ fragen (Rückfrage auf der Seite „Dein Zug
 1. `gh workflow run android.yml -R tramour-cmyk/androidapp_rpg_bornim --ref main -f release=true` (Version 0.1.<Laufnummer>, Notizen aus „## Unveröffentlicht“ in `CHANGELOG.md`).
 2. Danach in `CHANGELOG.md` „## Unveröffentlicht“ umbenennen in „## v0.1.X – TT.MM.JJJJ, HH:MM“ (X = Nummer des Release-Laufs).
 3. Den Link nennen.
-4. `wc -c docs/ARBEIT-OFFEN.md`; über 20 KB aufräumen (Regel „ARBEIT-OFFEN.md klein halten“).
 
 Zusammengeführte PRs stehen bis dahin unter „## Unveröffentlicht“.
 

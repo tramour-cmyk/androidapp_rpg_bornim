@@ -1,22 +1,24 @@
 # Story-Vorlage (Inhaltsverzeichnis)
 
-Freigegebene Spieltexte (Thema 41), festgelegt von Nutzer und Berater. Hier nur Regeln und Verzeichnis; die Texte stehen in Teildateien. Wer an einem Text baut, öffnet nur die passende Teildatei, am besten gezielt über die Marke (`grep -n "\[67\." docs/STORY-K1.md`).
+Freigegebene Spieltexte (Thema 41), festgelegt von Nutzer und Berater. Hier nur Regeln und Verzeichnis; die Texte stehen in Teildateien. Wer an einem Text baut, öffnet nur die passende Teildatei, am besten gezielt über die Marke (`grep -rn "\[67\." docs/`).
 
 ## Regeln
 
-- **Wortgetreu übernehmen.** Englisch übersetzen Tom und Jerry beim Bauen selbst. Fehlt oder passt ein Text nicht: Vorschlag in `ARBEIT-OFFEN.md` unter 41, nicht selbst erfinden. Tippfehler und Zeichensetzung direkt korrigieren (Commit beginnt mit „Text:“).
+- Übernehmen, Übersetzen, Vorschläge und Tippfehler: `CLAUDE.md` „Story und Dialoge“.
 - **Marke je Text** in eckigen Klammern: `[Thema.kurz]`, z. B. `[64d.greif]`, `[67.vor.1]`. Die Marke bleibt fest, auch wenn sich der Text ändert; sie darf im Code als Kommentar stehen.
 - **Bedingung** steht hinter der Marke in Klammern: wann der Text erscheint.
 - `{name}` ist der Name des Helden.
 - **Feste Namen** (Nutzer 13.10., 21:29; D2.4/D2.13): überall gleich, auch im Englischen. Bugbear = **Grottenschrat** (Krogg heißt „Krogg der Grobian“ / „Krogg the Brute“); Tempel des Morgenlichts = **Temple of the Dawnlight**; Kräuterfrau Morwen = **Morwen the Herbalist**; Tiefer Flüsterwald = **Deep Whisperwood** (nie „Tiefer Wald“ / „Deep Forest“); Aufträge = **Quests**.
-- **Gruppen je Kapitel** (77d, Nutzer 13.10.): **K1-H** Hauptquest, **K1-N** Nebenquests, **K1-Z** Zwischensequenzen, **K1-W** Welt (Chronik, Hörensagen, Stimmen hinter Türen); Kapitel 2 entsprechend K2-H usw. Die Marken `[Thema.kurz]` bleiben unverändert. Gliederung von `STORY-K1.md` folgt mit 77e.
-- **Teilung:** je Kapitel eine Datei. Wird eine größer als etwa 15 KB, nach Ort oder Quest teilen (`STORY-K2-hoehle.md`) und hier eintragen.
+- **Gruppen je Kapitel** (77d, Nutzer 13.10.): **K1-H** Hauptquest, **K1-N** Nebenquests, **K1-Z** Zwischensequenzen, **K1-W** Welt (Chronik, Hörensagen, Stimmen hinter Türen); Kapitel 2 entsprechend K2-H usw. Die Marken `[Thema.kurz]` bleiben unverändert.
+- **Teilung nach Gruppe; Kapitelübergreifendes in eigener Datei** (77e): je Kapitel `STORY-K<n>.md` (H, N, Z) und `STORY-K<n>-W.md` (Welt); Texte, die in allen Kapiteln gelten, in eigener Datei (`STORY-BLENDE.md`). Jede Datei höchstens etwa 15 KB; neue hier eintragen.
 - Plot und Grobzusammenfassungen stehen nicht hier, sondern im [Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d).
 
 ## Teildateien
 
 | Datei | Inhalt | Stand |
 |---|---|---|
-| `STORY-K1.md` | Kapitel 1: Intro (69), Tempelszene (68), Chronik „Bisher geschehen“ (64d), Hörensagen (62i), geänderte Dialogzeilen (41), Stimmen hinter Türen (73b), Südrand (67) | freigegeben 13.10. |
+| `STORY-K1.md` | Kapitel 1, K1-H/N/Z: geänderte Dialogzeilen (41), rund um die Tempelszene (68), Intro (69), Tempelszene (68) | freigegeben 13.10. |
+| `STORY-K1-W.md` | Kapitel 1, K1-W: Chronik „Bisher geschehen“ (64d), Hörensagen (62i), Gwenna (41), Stimmen hinter Türen (73b), Südrand (67) | freigegeben 13.10. |
+| `STORY-BLENDE.md` | Zwischenbildschirm (24), alle Kapitel: Orte, Kampfbeginn, je Gegner; Marken `[24.…]` | Texte seit 11.10., Marken 13.10. |
 
-Die übrigen Texte von Kapitel 1 stehen bisher nur in `Story.kt`/`Jobs.kt`; sie kommen nach `STORY-K1.md`, wenn sie geändert werden.
+Die übrigen Texte von Kapitel 1 stehen bisher nur in `Story.kt`/`Jobs.kt`; sie kommen in die passende Teildatei, wenn sie geändert werden.

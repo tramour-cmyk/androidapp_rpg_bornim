@@ -3,8 +3,8 @@
 Zielliste (Thema 26, Beratung mit dem Nutzer 11.10., 16:50): Kapitel 1 wird rund gemacht, bevor Neues (Kapitel 2, Gruppenkämpfe, Schmied) kommt. Ist alles abgehakt, ist dieser Stand der Kandidat für den Test mit 12 Testern (Merkliste „Veröffentlichung“). Wird beim Start nicht gelesen; wer einen Punkt erledigt, hakt ihn hier ab.
 
 **Pflicht**
-- [ ] **Alle Orte „Ort fertig“** (Liste in `DESIGN-ABNAHME.md`): Dorf (5, Tom), Räume (13, Tom, erledigt bis auf Prüfung), Wald (27, Tom), Höhle (13e, 10, 11, Jerry).
-- [ ] **Alte Ansicht ausgebaut** (13t, Nutzer 12.10.): nur noch diagonal, sobald Wald, Tiefer Wald und Höhle fertig sind; bis dahin 13.4 (je Ort automatisch). Danach Zoomstufe festlegen (6l).
+- [ ] **Alle Orte „Ort fertig“** (Liste in `DESIGN-ABNAHME.md`): Dorf (5, Tom), Räume (13, Tom), Wald (27, Tom), Höhle (13e, 10, 11); Stand in Offen (26c).
+- [x] **Alte Ansicht ausgebaut** (13t, 0.1.709): nur noch diagonal. Offen daraus nur die Zoomstufe (6l).
 - [x] **Alle Gegner auf der Karte im neuen Stil** (9i, Jerry; erledigt 11.10., PR #29, #33).
 - [ ] **Läuft rund:** kein Schweben nach Start und Kartenwechsel, Zwischenbild (24, Tom und Jerry); Sprungtest und Kollisionsprüfung 0; „Bewegungen unrund“ (19e) geklärt.
 - [x] **Musik neu im neuen Stil** (28, Jerry), nur freie Lizenzen. Erledigt 11.10., 21:31 (PR #36).
@@ -13,6 +13,6 @@ Zielliste (Thema 26, Beratung mit dem Nutzer 11.10., 16:50): Kapitel 1 wird rund
 - [ ] **Durchgespielt:** Der Nutzer spielt Kapitel 1 einmal ganz durch; Zufallsspieler (`PlayerSimTest`) grün.
 
 **Wenn Zeit ist (kein Hindernis für den Test)**
-- [ ] Kartenansicht im Menü (Tom, Vorrat).
-- [ ] Bewohner mit Tagesablauf (Tom, mit „Leben im Dorf“ 5l).
-- [ ] Stimmen der Gegner, Schritte je Untergrund, Raumklang (Jerry, Vorrat).
+- [x] Kartenansicht im Menü (62, Tom, auf `main`).
+- [x] Bewohner mit Tagesablauf (5la, Tom, auf `main`).
+- [ ] Stimmen der Gegner, Schritte je Untergrund (74), Raumklang (Jerry, Vorrat).

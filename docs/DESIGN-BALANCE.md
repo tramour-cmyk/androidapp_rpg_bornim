@@ -1,6 +1,6 @@
-# Balance (Thema 38) – Entwurf
+# Balance (Thema 38)
 
-Ziel: herausfordernd, aber nicht zu leicht, über **mindestens 7 Kapitel**, Stufe 20 am Ende. Diese Datei hält die Zielkurve fest; Messungen und Vorschläge verweisen darauf. Entwurf des Beraters (12.10.); Richtung freigegeben (38d, 10:21), Zahlen werden nach Jerrys Messung justiert.
+Ziel: herausfordernd, aber nicht zu leicht, über **mindestens 7 Kapitel**, Stufe 20 am Ende. Diese Datei hält die Zielkurve fest; Messungen und Vorschläge verweisen darauf. Vom Berater (12.10.); Richtung freigegeben (38d, 10:21), die Zahlen sind bis zu Jerrys Messung vorläufig.
 
 ## Grundsatz (38d, Nutzer 12.10., 10:21)
 
@@ -16,7 +16,9 @@ Ziel: herausfordernd, aber nicht zu leicht, über **mindestens 7 Kapitel**, Stuf
 - **Ausrüstung:** Deckel je Kapitel (`Rules.gearCap`): Eigenschaften, Angriff, Zauber, RK bis +Kapitel; Schaden, Feuer, Gleißend bis +Kapitel+1.
 - **Gold von Gegnern** (Grundwerte, vor Stufenaufschlag): gewöhnliche 1W3–2W8, Schamane 3W6, Spinne 2W10, Ghul 2W8, Ockergallerte 3W10, Krogg 4W10, Grimmzahn 4W10, Grak 8W10. **Aufträge** (29): 40–60 G.
 - **Preise:** Heiltrank 25, großer 75, sehr großer 200, Kräutertrank 20, Alchemistenfeuer 30, Weihwasser 25. Ausrüstung: (Grundpreis + 10) × Seltenheit × (1 + Gegenstandsstufe/5).
-- **Messung:** `BalanceTest`, `ChapterSimTest`: einzelne Kämpfe mit Ausrüstung (Klassenwaffe, Schutzumhang ab St. 3, Amulett/Ring ab St. 5, Deckel entscheiden), jeder mit vollen TP und 2 Tränken, kein Gold, kein Einkauf. **Der Goldfluss ist ungemessen.**
+- **Messung:** `BalanceTest`, `ChapterSimTest`: einzelne Kämpfe mit Ausrüstung (Klassenwaffe, Schutzumhang ab St. 3, Amulett/Ring ab St. 5, Deckel entscheiden), jeder mit vollen TP und 2 Tränken, kein Gold, kein Einkauf. **Der Goldfluss ist ungemessen.** Werkzeug: Kapitelsimulation `SIM=1 ./gradlew -p core test --tests '*ChapterSimTest*'`.
+- **Beobachtungen (aus der Merkliste, 77e):** **Kämpfer** erledigt normale Monster auf Stufe 5–6 meist in einer Runde (Zusätzlicher Angriff), bei Bossen gefordert; falls störend nachlegen. **Magier** ist gegen Bosse die zerbrechlichste Klasse (Grak auf Stufe 5–6: 44–62 % Siege in der Simulation). **Feuerball** einmal pro Kampf mit 8W6; falls zu stark, zwei geprüfte Alternativen: 6W6 oder höhere Kosten (9 ZP).
+- **Ab Kapitel 2 (Technik):** Merker `chapter2_started` setzen; dann fällt die Stufengrenze 6 (EP werden ab dann wieder gesammelt, aus Kapitel 1 nichts nachträglich), bessere Beute (normal bis „selten“, besondere bis „sehr selten“), höhere Obergrenzen für Ausrüstungsboni (+2).
 
 ## Zielkurve (Vorschlag)
 
