@@ -1,5 +1,9 @@
 # Archiv
 
+### Tom-Übergabe (13.10., 20:0x)
+- 0.1.709 getestet und zusammengeführt (PR #54), Schalter in `UMGEBUNG.md` gestrichen. 0.1.714 auf `claude/tom-73-laeden` (73 Läden, 62r, 3b, 13 Tempelboden), Prüfliste `e/t714.html`; nach „passt“ PR, zusammenführen. Weiter: Diogenes-Befunde Tom (Zeile „Zu testen“), 73b-Texte einbauen, sobald festgelegt; dann 6l, 68.
+- Zweig `claude/tom-73-laeden` (= 13t + 3b + 73 Läden): dort 62r (A) bauen, dann nächster Build; danach 6l, 68.
+
 ### Aus BERATER.md, 13.10., 20:5x
 - **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen vor jeder Story-Änderung, damit Entwickler keine Texte erfinden. Kult mit weitergegebenem Titel trägt sieben Kapitel (Mischung, 14:08); Held erfährt in Kapitel 2 nur vom Kult; Vorlage je Kapitel geteilt, feste Marke je Text. **Kapitel 2 (2a–2d, 3a–3e):** Hinweise doppelt, damit jede Reihenfolge stimmt (freie Welt); Schilfrode verschlossen ohne Jorrit, sperrt aber nie den Weg (Anreiz statt Pfeil). **Rabenschanze (4a–4d, 19:25):** Mauerbruch als zweiter Weg (72.5), Silber aus Aschfurt und Liste „Ring fehlt“ binden die Station an Vorgeschichte und Kult. Volltext im Archiv („18:5x“).
 
