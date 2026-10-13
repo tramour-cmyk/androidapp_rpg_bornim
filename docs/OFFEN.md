@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom 0.1.712** (Zweig `claude/tom-73-laeden`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38449304620/artifacts/11839553666 · 73 Läden zu, 62r Knopf „↑ Gebietskarte/Landkarte“, 3b Garrick; Prüfliste `e/t712.html`. 0.1.709 getestet und auf `main` (PR #54).
+- **Tom 0.1.714** (Zweig `claude/tom-73-laeden`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38450120858/artifacts/11840815047 · 73 Läden zu, 62r Knopf, 3b Garrick, 13 Tempelboden; Prüfliste `e/t714.html`. Nach „passt“: PR des Zweigs, zusammenführen.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -19,7 +19,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2** Weck-Routinen (Jerry, Zeile unten). Regeln in `CLAUDE.md` (65.4 ein Ort, 65.7/65.8 kein „Erledigt“); Verlauf im Archiv |
-| 13 | Diagonale Sicht | Tom | `claude/tom-73-laeden` | 13t auf `main` (PR #54). Tempelboden Steinplatten fertig (kommt mit dem nächsten Build). Tempel-Altar geprüft (Standbild 20:48: Fenster links und rechts, Altar frei); danach 6l. Verlauf im Archiv |
+| 13 | Diagonale Sicht | Tom | `claude/tom-73-laeden` | 13t auf `main` (PR #54). Tempelboden Steinplatten in 0.1.714. Tempel-Altar geprüft (Standbild 20:48: Fenster links und rechts, Altar frei); danach 6l. Verlauf im Archiv |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` (27.4, 5.3, 5.4, 5.6, 5n, 5la). Offen nur 5.5 (prüfen, ob noch etwas fehlt). Verlauf im Archiv |
 | 13e | Höhle diagonal | Tom | – | Auf `main` (getestet 0.1.702). Offen nur Diogenes-Befunde der Höhle (Jerry) |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`, auch 24.8.6 (Türen 0,5 s). **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
@@ -41,7 +41,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 62q | Begriffe: Landkarte → Gebietskarte → Grundriss → **Ebene** (übereinander im Grundriss; „Stockwerk“ entfällt) | alle | – | **Ja (Nutzer 17:33)**, Regel in `CLAUDE.md` „Begriffe“; Tom/Jerry/Diogenes bitte so in Spiel, Prüflisten und Notizen |
 | 3b | Garrick links vom Feuer, Gesicht zur Kamera | Tom | `claude/tom-73-laeden` | Nutzer 17:10; fertig, kommt mit dem nächsten Build |
 | 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | – | **69a–69d ja (Nutzer 13.10., 16:31):** Texte, Ablauf und Klang in `docs/STORY1.md` (`[69.intro.…]`), wortgetreu übernehmen |
-| 73 | Versperrte Hütten: nachts Läden zu, Rauch | Tom (Dorf) | `claude/tom-73-laeden` | 73a ja; Kaminrauch auf `main` (PR #54). Läden mit Ritzenlicht in 0.1.712. **73b A (Nutzer 20:5x):** Rauch heißt bewohnt, Verschlossene rauchen weiter; Antwort von drinnen beim Anklopfen braucht Texte (Zeile „Für den Berater“) |
+| 73 | Versperrte Hütten: nachts Läden zu, Rauch | Tom (Dorf) | `claude/tom-73-laeden` | 73a ja; Kaminrauch auf `main` (PR #54). Läden mit Ritzenlicht in 0.1.714. **73b A (Nutzer 20:5x):** Rauch heißt bewohnt, Verschlossene rauchen weiter; Antwort von drinnen beim Anklopfen braucht Texte (Zeile „Für den Berater“) |
 | 76 | Tom und Jerry schärfen, `CLAUDE.md` durch Auslagern entschlacken (Nutzer 13.10., 20:37) | Berater mit Nutzer | `main` (Notizen) | **76a–76f ja (Nutzer 20:56):** Prompt für Tom und Jerry mit Prüftreppe, Kern in `CLAUDE.md` plus `docs/ENTWICKLER.md`; erst Entwurf beider Dateien zum Lesen (nächste Berater-Sitzung), dann Umbau |
 | 74 | Schrittgeräusche fehlen an allen Orten („Ort fertig“ 8; Befund Diogenes D1.1) | Jerry (Klang); Tom für Dorf und Räume | – | Berater 13.10., 19:4x: Mangel gegen bestehende Regel, kein Beschluss nötig. **Verdacht** erst bestätigen; Böden je Untergrund (Gras, Erde, Holz, Stein) |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten im Archiv). **48d–48f ja (16:51):** je Spielstand nur Startwert plus **Version des Erzeugers** speichern (Updates verändern keine bestehende Höhle, alte Erzeuger bleiben im Code); Besiegtes und Geplündertes bleibt weg, neuer Auftrag darf dieselbe Höhle neu besetzen. Nach Kapitel 1 |
@@ -58,7 +58,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (13.10., 20:0x) – an Nachfolger
-- 0.1.709 getestet und zusammengeführt (PR #54), Schalter in `UMGEBUNG.md` gestrichen. 0.1.712 auf `claude/tom-73-laeden` (73 Läden, 62r, 3b), Prüfliste `e/t712.html`; Tempelboden (13) dort schon committet, kommt mit dem nächsten Build.
+- 0.1.709 getestet und zusammengeführt (PR #54), Schalter in `UMGEBUNG.md` gestrichen. 0.1.714 auf `claude/tom-73-laeden` (73 Läden, 62r, 3b, 13 Tempelboden), Prüfliste `e/t714.html`; nach „passt“ PR, zusammenführen. Weiter: Diogenes-Befunde Tom (Zeile „Zu testen“), 73b-Texte einbauen, sobald festgelegt; dann 6l, 68.
 - Zweig `claude/tom-73-laeden` (= 13t + 3b + 73 Läden): dort 62r (A) bauen, dann nächster Build; danach 6l, 68.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
