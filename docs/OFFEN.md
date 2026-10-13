@@ -28,7 +28,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 41 | Storyplan: je Kapitel Zusammenfassung, Quests, Dialoge; dann Plot Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | 41a–41d ja: Entwurf Kapitel 1 steht ([Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)), fertige Kapitel als `docs/STORY.md`, Änderungen nur nach Abstimmung Nutzer und Berater; Regel „Story und Dialoge“ in `CLAUDE.md`, `tools/story.sh`. Kapitel 2 offen |
 | 42 | Textkasten unten im Stil der Blenden: schwarzer Kasten, Sprecher in Gold, Text in gebrochenem Weiß (heute cremefarben mit dunkler Schrift, Sprecher rot) | Tom | – | Nutzer 12.10., 11:24 (über Berater). **42a ja:** erst nur Textkasten (Gespräch, Erzähltext, Aushänge), Menüs später. **42b ja:** ganz schwarz, dünner Goldrand, Sprecher Gold in Kapitälchen im Kasten, Text gebrochenes Weiß, Serife wie Blenden, Erzähltext kursiv, ▼ gold. **42c ja (11:39):** erst Standbilder. **42d:** Textkasten auf `main` (PR #48, getestet 0.1.625). Offen: Menüs später (42a) |
 | 59e | Händler: Menge „Alle“, Vorrat je Laden | Tom (jetzt); Jerry mit 38/39 (Vorrat) | – | **Entschieden 13.10. (Nutzer mit Berater):** „Alle“ beim Kaufen weg; Verkaufen behält „Alle“ mit Sicherheitsabfrage nur bei „Alle“, Angelegtem oder Seltenem (im Menü abschaltbar). Vorrat je Laden und Nachfüllen erst mit 38/39: nie nach Zeit oder Rast (Rast geht jederzeit), sondern an Nicht-Beliebiges gekoppelt; Menge über Schwierigkeitsgrad (leicht voll, normal haushalten, schwer knapp) |
-| 62c | Karte: zoomen, Ortsübersicht, Questmarken | Tom | – | **Entschieden 13.10.:** 62c.1 Start auf den Helden gezoomt, Fingerzoom/Schieben, rote Standortmarke größer. 62c.2 Übersicht nur besuchter Orte, Antippen zeigt nur deren Karte (keine Schnellreise). Marken erinnern, führen nicht, nichts automatisch: getroffener Questgeber blau (Tooltip Name + Questtitel), Questziel-Ort gold erst nach eigenem Besuch (Tooltip Quest); Erledigtes verblasst. Gleiche Daten wie 64. **Tom:** 59e und 62c auf der Entscheidungsseite (63) nach „Erledigt“ und ins Bildbuch (Nutzer 13.10., 09:45) |
+| 62c | Karte: zoomen, Ortsübersicht, Questmarken | Tom | – | **Entschieden 13.10.:** 62c.1 Start auf den Helden gezoomt, Fingerzoom/Schieben, rote Standortmarke größer. 62c.2 Übersicht nur besuchter Orte, Antippen zeigt nur deren Karte (keine Schnellreise). Marken erinnern, führen nicht, nichts automatisch: getroffener Questgeber blau (Tooltip Name + Questtitel), Questziel-Ort gold erst nach eigenem Besuch (Tooltip Quest); Erledigtes verblasst. Gleiche Daten wie 64. Im Bildbuch (09:5x). **Tom:** erst Standbilder |
 | 64 | Questlog: eigene Übersicht im Menü (laufend/erledigt, je Geber, Ziel, Stand) | Berater mit Nutzer (Entwurf), dann Tom | – | Nutzer 13.10.: Menü mit Haupt- und Anschlagbrett-Quests wird unübersichtlich. Noch nicht in Arbeit; Daten gemeinsam mit 62c-Marken |
 | 45 | Geschäftsmodell (Play Store) | Berater mit Nutzer | – | 45a/45c ja (Kapitel 1 frei, Vollversion, nie Werbung/Beutekisten/Wartezeiten). **45b zurückgestellt** bis nach Messung 38. Verlauf im Archiv |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten in `BERATER.md` und Archiv). Nach Kapitel 1 |
@@ -45,15 +45,14 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 60 | Ein Aussehen für alle Oberflächen wie Textkasten/Blende (schwarz, Gold, Serife) | Tom | `claude/tom-60-aussehen` | 60a–60d ja (Verlauf im Archiv). Entwürfe Schrift, Titel, Menü, Heldenerstellung, Kampf im Testreiter „60 Aussehen“, Build 0.1.636; Rückfragen 60e–60i |
 | 61 | Spuren, die bleiben: Blut, Fußspuren, Staub (Vorrat 7) | Tom | `claude/tom-7-spuren` | Entwurf, Build 0.1.646; Rückfrage 61a |
 | 62 | Gezeichnete Karte im Menü (Vorrat 8) | Tom | `claude/tom-7-spuren` | Entwurf, Build 0.1.646; Rückfragen 62a/62b |
-| 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom | `main` (Notizen) | **Angelegt 13.10., 09:06** (Link oben), Offenes übertragen (59e, 60j, 62c, 5la.3, 6l, Test 0.1.653); Regel „Entwürfe entscheiden“ in `CLAUDE.md` angepasst; ersetzt Toms alte Seite. Offen: Freigabe für Jerry (Nutzer, Teilen) am Fr. |
+| 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom | `main` (Notizen) | **Angelegt 13.10., 09:06** (Link oben), Offenes übertragen; 59e, 62c erledigt (09:5x); Regel „Entwürfe entscheiden“ in `CLAUDE.md` angepasst; ersetzt Toms alte Seite. Offen: Freigabe für Jerry (Nutzer, Teilen) am Fr. |
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
 ## Übergaben
 
-### Tom (13.10., 07:25) – Sammelbuild 0.1.650 fertig, Neustart
-- Bildbuch hat alles Entschiedene bis 07:02; Entscheidungsseite leer.
-- **Sammelbuild 0.1.650** (Zweig `claude/rpg-startup-qaae3o`, siehe „Zu testen“): alle entschiedenen Entwürfe an, Testschalter weg (die Schalter im Code stehen auf an, Vorschau-Schalter bleiben für alt/neu). Kerntests grün, Standbild Schänke 07:15 geprüft. **Nach dem Test:** PR von diesem Zweig, zusammenführen, Änderungshistorie unter „Unveröffentlicht“ (59, 60e–i, 17r, 5la, 6g, 6f, 61a, 62a, 55.1a, 13x), Einzelzweige gelten dann als erledigt.
-- **Weiter:** 27.6 mit dem diagonalen Wald (13v, Zweig `claude/tom-27-6-tiefer-wald`), 17 Riemen, 55.1b Speer.
+### Tom (13.10., 09:5x) – neue Sitzung „Tom: 63 Erledigt 59e/62c, dann Test 0.1.653 und 62c Karte“
+- 59e/62c im Bildbuch, auf der Entscheidungsseite unter „Erledigt“. Wartet auf Test 0.1.653 (danach PR von `claude/tom-27-wald-diagonal`, zusammenführen, Änderungshistorie).
+- **Weiter:** 59e (Kaufen ohne „Alle“, Verkaufs-Abfrage) und 62c (Standbilder) auf Zweig von 0.1.653; dann 17 Riemen, 55.1b Speer.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -67,7 +66,6 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Test 0.1.650, Händler (59):** sehr schön; Anzeige „hat der Held“ gut. 59e → „Für den Berater“.
 
 - **Tom, 0.1.653, Zweig `claude/tom-27-wald-diagonal`** (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38353849796) = Sammelbuild 0.1.650 plus Fehler 5la (Held festgesetzt, wenn jemand dicht neben ihn tritt; Kerntest), Fehler 60 (Menüreiter brechen um), 5la.2 (Moonwalk), 60k (Spielstände, Über das Spiel, Kurzmeldungen) und 13v/27.6 (Wald und Tiefer Wald fest diagonal, Rauch, Schild). Ersetzt 0.1.650/0.1.652; PR danach von diesem Zweig.
-- **Tom, 0.1.650, Sammelbuild, Zweig `claude/rpg-startup-qaae3o`** (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38350340961) (59, 60e–60i, 17r, 5la, 6g, 6f, 61a, 62a, 55.1a, 13x; alles an, Testschalter weg): Händler, Titel/Menü/Heldenerstellung/Kampf im neuen Aussehen, Dorf über den Tag, Katze in der Schänke, Farbstimmung, Spuren, Kartenreiter, Leerlauf, Tempel. Ersetzt die Einzelbuilds 0.1.632–0.1.649.
 
 ## Für Diogenes
 
