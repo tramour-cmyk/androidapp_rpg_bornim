@@ -1,9 +1,20 @@
 # Archiv
 
+## Aus BERATER.md, 13.10., 14:1x
 
+- **Sprachsitzung** (13.10.): reicht Aufträge herüber; nur ausführen, was der Nutzer im Gespräch freigegeben hat, dann knapp mit Commit melden. Ihre Behauptungen über Werkzeuge und Dateien im Repo prüfen (lag zweimal falsch).
+- **Vor dem Absenden gegenlesen** (12.10.): jedes Fragezeichen in der nummerierten Liste, jeder Satz mit Bezug. Selbstverständliches nicht fragen (44d).
+
+
+
+### Tom (13.10., 13:46) – vor Neustart
+- **Zweig `claude/tom-17-riemen`** (Merge 00ee7bb0, `main` mit 13e drin): Build läuft seit 13:40 (Laufnummer ~0.1.673). Darin Jorin-Fix 55.1b (230c2890: Zwischenbilder vorab bestellt, `MapFolk.prepareRest`, Rückgriff auf fertige Stufe; Abstellen 0,8 s; Speer in Drehungen 1–4 sichtbar). **Nachfolger:** Link holen, „Jetzt installieren“ ersetzen, Prüfliste `e/t<build>.html` nur Jorin (Dorf, Schlagbaum, lange Wache ≥ 8 s, aus allen Richtungen; richtig: kein Zucken, Speer immer sichtbar) plus Anschlagbrett-Marke (erst nach Lesen des Bretts), Zeile 0.1.670 auf der Entscheidungsseite ersetzen. Test 0.1.670 sonst passt. Nach „passt“: PR, Merge, Änderungshistorie: 59, 60e–k, 60j, 17r, 5la, 5la.2, 5la.3, 6g, 6f, 61a, 61, 62a, 62c, 62e, 59e, 55.1a, 55.1b, 13x, 13v/27.6 (und 62f/62g, wenn schon fertig).
+- **62f/62g ja:** auf demselben Zweig hinter `MapPeople.draft` (`tools/t bild KARTE62=1 ONLY=62f`). Ins Spiel: Schalter weg; Flags setzen: `MapPeople.been(id)` beim Betreten eines Innenraums, `heard(x,y)` an verschlossenen Türen (`lockedDoor` in `Story.kt`), `seenAt(id,key)` beim Antreffen am Ort aus `VillageDay.plans` (Schlüssel in `MapPeople.folk`); Kerntest; Lagerfeuer nur gesehene. Fondamento unverändert (reservierter Name), Quelle in `tools/schrift/QUELLEN.md`.
+- **Weiter:** 13t alte Ansicht ausbauen, 66 Laterne Jorin (Standbilder Nacht), 67 Südrand, 62h Landkarte, 64 Chronik.
 
 ### Tom (13.10., 13:37) – ersetzt 13:46
 - 13e ja, PR #51 auf `main`; 62f/62g Entwurf auf der Entscheidungsseite; 0.1.670 wartete auf Test.
+
 ## Aus BERATER.md, 13.10., 13:1x
 
 - **Nur diagonal (13):** gerade Ansicht wirkte flach; keine doppelte Arbeit in Ansichten gegen das Ziel.
