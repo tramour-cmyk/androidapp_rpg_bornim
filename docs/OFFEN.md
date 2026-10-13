@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom 0.1.660** (Zweig `claude/tom-17-riemen`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38372223411/artifacts/11799856944 · achten auf: Händler ohne Kauf-„Alle“ (59e), Karte zoomen/Orte/Marken (62c), Jorin stellt Speer ab, Speer 2 m (55.1b), Menüreiter als Zeichen (60j). 0.1.662 (+5la.3) folgt und ersetzt ihn.
+- **Tom 0.1.662** (Zweig `claude/tom-17-riemen`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38373719219/artifacts/11799838796 · achten auf: Jorin stellt Speer ab, Speer 2 m (55.1b), Menüreiter als Zeichen (60j), Leute schauen nur bis 3 Felder/10 s zum Helden (5la.3). Laden schon gut, Karte mit Berater (62c). Danach PR (Rückfrage 62d).
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Entscheidungsseite (65.3), nicht hier.
 
