@@ -87,8 +87,9 @@ fun BornimApp(vm: GameViewModel) {
             when (vm.screen) {
                 Screen.TITLE -> TitleScreen(vm)
                 Screen.CREATE -> CreateScreen(vm)
-                Screen.ABOUT -> AboutScreen(vm)
-                Screen.SLOTS -> SlotsScreen(vm)
+                // 60k (test 0.1.650): the saved games and the about page in the title's look too
+                Screen.ABOUT -> TitleVeil { AboutScreen(vm) }
+                Screen.SLOTS -> TitleVeil { SlotsScreen(vm) }
                 Screen.PLAYING -> PlayScreen(vm)
             }
             vm.toast?.let { msg ->
@@ -96,11 +97,10 @@ fun BornimApp(vm: GameViewModel) {
                     delay(1800)
                     vm.toast = null
                 }
-                Panel(
-                    Modifier
-                        .align(Alignment.TopCenter)
-                        .padding(16.dp)
-                ) { Txt(msg, size = 16.sp) }
+                // 60k: the short notes (test mode on, …) black with the gold rim as well
+                Box(Modifier.align(Alignment.TopCenter).padding(16.dp)) {
+                    TitleVeil(fill = false) { Panel { Txt(msg, size = 16.sp) } }
+                }
             }
         }
     }
@@ -119,6 +119,15 @@ fun rememberTime(): Long {
 /** 60.4: the title screen in the look of the text box: black, the title large in gold capitals, the buttons as in the shop. */
 object TitleLook {
     var draft = true
+}
+
+/** The look of the text box (60) for the pages round the title, on black. */
+@Composable
+private fun TitleVeil(fill: Boolean = true, content: @Composable () -> Unit) {
+    if (!TitleLook.draft) { content(); return }
+    CompositionLocalProvider(LocalVeil provides true) {
+        if (fill) Box(Modifier.fillMaxSize().background(Color.Black)) { content() } else content()
+    }
 }
 
 @Composable
@@ -227,7 +236,7 @@ fun AboutScreen(vm: GameViewModel) {
                 Spacer(Modifier.height(10.dp))
                 Txt(Ui.aboutText(vm.lang), size = 16.sp)
                 Spacer(Modifier.height(10.dp))
-                Txt("Font: Jersey 10 – SIL Open Font License 1.1", size = 14.sp, color = Colors.textDim)
+                Txt("Fonts: Jersey 10, Alegreya, Cinzel, EB Garamond, IM Fell English – SIL Open Font License 1.1", size = 14.sp, color = Colors.textDim)
             }
         }
         Spacer(Modifier.height(12.dp))

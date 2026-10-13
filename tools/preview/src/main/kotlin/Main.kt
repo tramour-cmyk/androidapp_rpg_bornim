@@ -436,6 +436,9 @@ fun main() {
     if (System.getenv("ABOUT") != null) {
         shot("31_about") { it.screen = Screen.ABOUT }
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }
+        // 60k: the saved games and a short note in the new look too
+        shot("31_slots") { vm -> geared(vm, CharClass.FIGHTER); vm.save(); vm.toTitle(); vm.screen = Screen.SLOTS }
+        shot("31_toast") { vm -> vm.screen = Screen.TITLE; vm.toast = "Testmodus aktiviert" }
         System.exit(0)
     }
     // TEXTKASTEN=1: the text box old and as drafted for 42 (black, gold rim, serif), with a speaker and told text
