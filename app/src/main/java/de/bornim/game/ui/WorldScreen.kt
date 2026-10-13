@@ -1360,11 +1360,11 @@ private fun DrawScope.drawTracks(marks: List<de.bornim.core.Tracks.Mark>, clock:
             }
             de.bornim.core.Tracks.Kind.PRINT -> {
                 // mud pressed down outdoors; carried in on the boots, a lighter, dried smear
-                val col = (if (m.strength >= 1f) Color(0xFF2A1E12) else Color(0xFF5A4630)).copy(alpha = 0.5f * a)
+                val col = (if (m.strength >= 1f) Color(0xFF231810) else Color(0xFF5A4630)).copy(alpha = 0.7f * a)
                 withTransform({ rotate(-m.yaw.toFloat(), c) }) {
                     // the foot points down the map before turning: the sole ahead, the heel behind
-                    oval(Offset(c.x, c.y + 1.4f * scale), 3f, 4.4f, col)
-                    oval(Offset(c.x, c.y - 2.6f * scale), 2.6f, 2.2f, col)
+                    oval(Offset(c.x, c.y + 1.5f * scale), 3.4f, 5f, col)
+                    oval(Offset(c.x, c.y - 2.8f * scale), 3f, 2.6f, col)
                 }
             }
             de.bornim.core.Tracks.Kind.DUST -> {
@@ -1374,7 +1374,7 @@ private fun DrawScope.drawTracks(marks: List<de.bornim.core.Tracks.Mark>, clock:
                     val ang = rnd.nextFloat() * 6.28f; val d = 1.5f + age * 3f
                     val r = 2f + age * 5f + rnd.nextFloat() * 1.5f
                     oval(Offset(c.x + kotlin.math.cos(ang) * d * scale, c.y + kotlin.math.sin(ang) * d * scale), r, r * 0.8f,
-                        Color(0xFFD6C29A).copy(alpha = 0.4f * (1f - age)))
+                        Color(0xFFE2D2AE).copy(alpha = 0.55f * (1f - age)))
                 }
             }
         }

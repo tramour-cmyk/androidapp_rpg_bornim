@@ -236,18 +236,19 @@ fun main() {
                         tr.blood("forest", 12.5, 11.6, -280_000, 5)
                     }
                     shot("zoom_${z}_s2_nach_regen") {
-                        place(it, "forest", 9, 11, 12 * 60, Facing.UP)
+                        // towards the onlooker down the way, so the prints lie behind the hero and nothing stands in front of them
+                        place(it, "forest", 9, 18, 12 * 60, Facing.DOWN)
                         it.game!!.tracks.settle(1f)
-                        walkFree(it.game!!, listOf(0.0 to -1.0, -1.0 to -0.6), 1.8)
+                        walkFree(it.game!!, listOf(0.0 to 1.0), 2.6)
                     }
                     shot("zoom_${z}_s2b_im_regen") {
-                        place(it, "forest", 9, 11, 12 * 60, Facing.UP)
+                        place(it, "forest", 9, 18, 12 * 60, Facing.DOWN)
                         de.bornim.core.Weather.mode = de.bornim.core.Weather.Mode.ALWAYS; it.game!!.settleWeather()
-                        walkFree(it.game!!, listOf(0.0 to -1.0, -1.0 to -0.6), 1.8)
+                        walkFree(it.game!!, listOf(0.0 to 1.0), 2.6)
                     }
                     shot("zoom_${z}_s3_staub") {
-                        place(it, "forest", 9, 22, 12 * 60, Facing.UP)
-                        walkFree(it.game!!, listOf(0.0 to -1.0), 2.4, run = true, t0 = 900L)
+                        place(it, "forest", 9, 18, 12 * 60, Facing.DOWN)
+                        walkFree(it.game!!, listOf(0.0 to 1.0), 2.4, run = true, t0 = 1000L)
                     }
                     shot("zoom_${z}_s4_schlamm_schaenke") {
                         place(it, "inn", 4, 6, 12 * 60, Facing.UP)
