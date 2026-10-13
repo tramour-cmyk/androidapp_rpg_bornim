@@ -17,7 +17,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 ## Wie das Spiel gebaut ist
 
-- **Module:** `core` (Regeln, Kampf, Welt, alle Zeichnungen und Klänge als Daten), `app` (Compose), `tools/preview` (Bilder, Filme, Hörproben; Schalter in `UMGEBUNG.md`). Rund 39.000 Zeilen. Größte Dateien: `MapRoomIso.kt`, `WorldScreen.kt`, `BattleScreen.kt`, `WorldArt.kt`, `Dress.kt`/`Doll.kt`, `Battle.kt`, `Game.kt`.
+- **Module:** `core` (Regeln, Kampf, Welt, alle Zeichnungen und Klänge als Daten), `app` (Compose), `tools/preview` (Bilder, Filme, Hörproben; Schalter in `UMGEBUNG.md`). Rund 39.000 Zeilen.
 - **Zeichnen** zur Laufzeit (SDF in `art/Sdf.kt`, `Sculpt.kt`), keine fertigen Grafiken; Zeichenzeit ist der Engpass (24: Held 128 Bilder auf der Karte, über 300 im Kampf). Technik-Lehren 24/30/36 im Archiv („12.10., 16:4x“).
 - **Grenzen:** Tom = Leute, Dorf, Innenräume, Technik der Blende; Jerry = Monster, Höhle, Kampf, Klang (13e seit 13y bei Tom). `WorldScreen.kt` nur nach Absprache.
 - **Ablauf:** Code auf Zweigen, Build über GitHub, Nutzer testet nur APKs auf Samsung A56 und MuMu (kein Android Studio), Merge durch die Sitzung, Release nur auf Zuruf.
@@ -45,7 +45,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 ## Lehren
 
 - **Eigene Ideen einbringen** (13.10.): „du findest alles sinnvoll, was ich vorschlage … du bist mein Berater“. Jeden Vorschlag auf Lücken, Kosten, Doppelungen prüfen und Eigenes ergänzen.
-- **Sprachsitzung** (13.10.): reicht Aufträge herüber; nur ausführen, was der Nutzer im Gespräch freigegeben hat, dann knapp mit Commit melden. Ihre Behauptungen über Werkzeuge und Dateien im Repo prüfen (lag zweimal falsch: „Umbenenn-Werkzeug“, „SELBST.md gibt es nicht“).
+- **Sprachsitzung** (13.10.): reicht Aufträge herüber; nur ausführen, was der Nutzer im Gespräch freigegeben hat, dann knapp mit Commit melden. Ihre Behauptungen über Werkzeuge und Dateien im Repo prüfen (lag zweimal falsch).
 - **Ideen sind der Auftrag** (13.10.): Nutzer: „das ist dein Job, Ideen zu entwickeln und uns gegenseitig zu verbessern“. Zu jedem Thema eigene Ideen mit Empfehlung, und Korrekturen des Nutzers (drei Ebenen, Lagerfeuer als Dienst) offen übernehmen.
 - **Entscheidungen einzeln abwarten** (13.10.): „ich folge deiner Empfehlung“ galt einem Punkt, nicht allen.
 - **Rückfragen des Beraters** (Nutzer 13.10.) an den Nutzer immer im Gespräch stellen (nummeriert, Empfehlung), nicht über die Entscheidungsseite (die ist für Tom, Jerry, Diogenes); erst nach Entscheidung in die Notizen.
