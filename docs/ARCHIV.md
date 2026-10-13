@@ -1,5 +1,10 @@
 # Archiv
 
+## Aus BERATER.md, 13.10., 14:1x
+
+- **Sprachsitzung** (13.10.): reicht Aufträge herüber; nur ausführen, was der Nutzer im Gespräch freigegeben hat, dann knapp mit Commit melden. Ihre Behauptungen über Werkzeuge und Dateien im Repo prüfen (lag zweimal falsch).
+- **Vor dem Absenden gegenlesen** (12.10.): jedes Fragezeichen in der nummerierten Liste, jeder Satz mit Bezug. Selbstverständliches nicht fragen (44d).
+
 
 
 ### Tom (13.10., 13:46) – vor Neustart
