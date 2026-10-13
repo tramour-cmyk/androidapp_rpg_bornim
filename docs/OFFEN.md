@@ -57,8 +57,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 21:0x)
-- 0.1.714 auf `claude/tom-73-laeden` wartet auf Test (Prüfliste `e/t714.html`); nach „passt“ PR, zusammenführen. Jetzt: Diogenes-Befunde Tom (Zeilen „Zu testen“, zuerst D2.1), 73b-Texte einbauen, sobald festgelegt; dann 6l, 68.
+### Tom (13.10., 21:05) – an Nachfolger
+- 0.1.714 (Zweig `claude/tom-73-laeden`: 73 Läden, 62r, 3b, 13 Tempelboden) wartet auf Test, Prüfliste `e/t714.html`; nach „passt“ PR des Zweigs, zusammenführen. Auf dem Zweig danach schon D1.12 (Lesepult niedriger) und D1.13 (Aldric 7,3), Build läuft von selbst; beim PR mit erwähnen.
+- Weiter ohne Rückfrage: Diogenes-Befunde Tom (D1.2, D1.3, D1.4, D1.5, D1.11, D1.16, Zeile „Zu testen“), 73b-Texte einbauen, sobald unter „Für den Berater“ festgelegt; dann 6l, 68.
+- Diese Sitzung erreichte die Grenze der Nachfolger-Kette: sie konnte keinen Weckruf und keinen Nachfolger anlegen; der Nutzer startet die neue Sitzung selbst.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
