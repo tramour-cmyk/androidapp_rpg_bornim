@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | läuft | 14.10., 07:00 | 13.10., 23:42 | 13.10., 23:56 | Paket 4 (27 Wald); Build 0.1.721 läuft (PR #57) | `claude/tom-d1-raeume` |
+| Tom | übergeben | 14.10., 07:00 | 13.10., 23:42 | 14.10., 00:19 | Paket 1–4 fertig, Nachfolger startet mit Reserve | `claude/tom-d1-raeume` |
 | Jerry | fertig | – | 12.10., 16:33 | 12.10., 16:59 | Pause bis Freitag (Nutzungsguthaben), Stand in ARBEIT-OFFEN.md | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
@@ -82,7 +82,7 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/ARBEIT-O
 1. ~~D1.5 Räume~~ fertig (05d446fd, Standbild 23:38), Vermerk im Prüfbericht.
 2. ~~D1.16 Rest ohne `WorldScreen.kt`~~ fertig (7d9692c1; alte flache Bäume und verworfener Pflasterentwurf mit weg).
 3. ~~Sammelbuild~~ PR #57 offen (Build 0.1.721), Prüfliste `e/t721.html` auf „Dein Zug“; Vermerke D1.4/D1.5/D1.16 im Prüfbericht gesetzt.
-4. **27 Wald:** Standbilder Wald bei Tag und Nacht, Lückenliste nach „Ort fertig“. Fertig, wenn: Liste in der Übergabe.
+4. ~~27 Wald~~ Lückenliste in der Übergabe (Standbilder 00:19).
 **Reserve:** 55 Speer im Kampf (~2 m) prüfen; 5.5 Dorf Lücken prüfen; 69 Intro: Bildentwürfe (Standbilder) nach `STORY-K1.md` `[69.intro.…]`.
 
 **Vorrat für Selbstarbeit** (Reihenfolge; 23a freigegeben 11.10., 14:18; Erledigtes im Archiv, 77e):

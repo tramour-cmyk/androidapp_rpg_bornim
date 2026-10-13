@@ -1,5 +1,10 @@
 # Archiv
 
+### Tom (13.10., 23:4x) – an Nachfolger (Selbstarbeit bis 14.10., 07:00)
+- Selbstarbeit läuft: Paket und Stand in `ARBEIT-SELBST.md` (Abschnitt Tom). Zweig `claude/tom-d1-raeume` = getesteter Stand + 77 + 78d + D1.4 + D1.16 (Oberflächen) + D1.5 (Räume); alles Kerntests grün, noch kein Build.
+- Nächstes: Paket 2 (D1.16-Rest ohne `WorldScreen.kt`), dann Sammelbuild per PR (nicht zusammenführen), Prüfliste auf „Dein Zug“; dann 27 Wald.
+- Nutzer 13.10.: 0.1.719 „alles gut“ (PR #56 drin); Zweige nach Inhalt benennen (Regel in `ROLLE-ENTWICKLER.md`); alter Zweig `claude/festive-lovelace-3ujzqi` ließ sich nicht löschen (Proxy), Nutzer kann es auf GitHub.
+
 ### Tom-Übergabe (13.10., 22:5x) – an Nachfolger
 - 0.1.719 getestet („alles gut“), PR #56 zusammengeführt, „Dein Zug“ leer bis auf 6l.
 - Zweig `claude/tom-d1-raeume` (= getesteter Stand + 77 Kommentare + 78d Build-Auslöser + D1.4 Wandkram + D1.16 Oberflächen-Schalter weg; D1.5 Räume in Arbeit: Bodenabdunklung unter Möbeln weg, Umriss nicht mehr um Schatten (`Sculpt.outline(solid)`), Standbild prüfen, dann committen). Vor dem Bau `git merge origin/main`. Bauen per PR (78d).
