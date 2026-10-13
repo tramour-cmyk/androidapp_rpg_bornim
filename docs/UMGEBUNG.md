@@ -86,7 +86,7 @@ Die Chat-Sitzung hat eine eigene Netzregel. Ohne Freigabe sind Maven Central, Go
 
 | Schalter | Wofür |
 |---|---|
-| `KARTENZOOM=1` (+ `ONLY=zoom_nah_…`, `DIAG=1`, `TOWNDRAFT=1`, `RAIN=1`, `ZOOMSTUFE=`) | Bildschirmfotos der Karte im echten Spiel: Wald, Dorf, Schänke (`i1`, `i2`), Entwürfe Ältester `e`, Laden `l`, Tempel `t`, Tag und Abend |
+| `KARTENZOOM=1` (+ `ONLY=zoom_nah_…`, `DIAG=1`, `RAIN=1`, `ZOOMSTUFE=`) | Bildschirmfotos der Karte im echten Spiel: Wald, Dorf, Schänke (`i1`, `i2`), Entwürfe Ältester `e`, Laden `l`, Tempel `t`, Tag und Abend |
 | `ISODINGE=1` / `=aeltester` / `=laden` / `=tempel` | Blatt aller Raum-Möbel diagonal, je drei Varianten |
 | `FEUER=1` | alle Bilder des Kaminfeuers |
 | `WALKFILM=karte:x:y` (+ `CROP=x0:y0:x1:y1`, `FROM=`), `IDLEFILM=` | Laufen bzw. Stehen durch die echte Oberfläche filmen |
