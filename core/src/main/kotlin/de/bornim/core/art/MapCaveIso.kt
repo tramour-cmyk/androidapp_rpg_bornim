@@ -758,6 +758,11 @@ object MapCaveIso {
             Tile.CRATE -> return listOf(thing(map, tx, ty, "crates/$v") { crates(v) })
             // walked over: sorted behind the hero, from the tile's back corner
             Tile.BEDROLL -> return listOf(thing(map, tx, ty, "bed/$v", flat = true) { bedroll(v) })
+            // the goblins' fire: the one from the woods (27.5), stones, ash, spit or kettle, flames swaying
+            Tile.CAMPFIRE -> {
+                val fv = Math.floorMod(hash(tx, ty, 44), 3); val f = Math.floorMod(frame, 4)
+                return listOf(thing(map, tx, ty, "fire/$fv/$f", low = true) { MapWoodIso.campfire(fv, f, 720 + fv) })
+            }
             Tile.STALAGMITE -> return listOf(thing(map, tx, ty, "${map.id}/stal/$tx/$ty") { stalagmites(tx, ty) })
             Tile.RUBBLE -> return listOf(thing(map, tx, ty, "${map.id}/rubble/$tx/$ty", flat = true) { rubbleTile(tx, ty) })
             else -> {}
