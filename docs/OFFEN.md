@@ -50,9 +50,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 17:0x) – vor Neustart
-- **0.1.693 beim Nutzer** (Zeile oben). Danach auf dem Zweig: ff3b6003 Entwurf Gebietskarte im Tuschestil (`MapInk`, Schalter `MapSheet.ink`, Vorschau `KARTE62=1 KARTENTUSCHE=1 ONLY=62f`), im Spiel aus; Build 0.1.694 ist im Spiel gleich 0.1.693.
-- Weiter: Entwurf verfeinern und mit 62n zeigen (Beschriftung Alegreya/Sepia ohne Schatten, Häuser mit Zeichen statt Namen; zwei Varianten als Standbilder, `e/62n.html`), Grundriss Höhle nach 62o, Innenräume; dann 13t (eigener Zweig von `main`), dann 6l.
+### Tom (13.10., 17:1x) – an Nachfolger übergeben
+- **0.1.693 beim Nutzer** (Zeile oben); 66 und 67 getestet gut (17:08), Wegweisertext liegt beim Berater. Nach „passt“ zu 0.1.693: PR des Zweigs, zusammenführen.
+- Auf dem Zweig danach, im Spiel aus: Gebietskarte im Tuschestil (`MapInk`, `MapSheet.ink`; Vorschau `KARTE62=1 KARTENTUSCHE=1 ONLY=62f`) und 62n-Beschriftung (`MapLook.labels`: 1 Sepia-Serife, 2 Schilder mit Name beim Antippen; Vorschau `SCHILDER=1`/`2`, `HAUSNAME=Schänke`). Variante 1 sieht gut aus (17:10), Variante 2 noch nicht angesehen.
+- Weiter: beide Varianten als Standbilder auf die Entscheidungsseite (`e/62n.html`, Empfehlung), Wald-Gebietskarte verfeinern; dann Grundriss Höhle nach 62o, Innenräume; dann 13t (eigener Zweig von `main`), dann 6l.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
