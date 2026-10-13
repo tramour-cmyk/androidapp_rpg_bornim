@@ -154,6 +154,23 @@ fun main() {
             }
             System.exit(0)
         }
+        // KARTE62=1 KARTENTUSCHE=1 ONLY=62n: 62n (draft) house names in sepia serif, or signs with the name on a tap
+        if (System.getenv("ONLY") == "62n") {
+            de.bornim.game.ui.MapLook.previewZoom = 1.15f
+            for (v in 1..2) {
+                de.bornim.game.ui.MapLook.labels = v
+                de.bornim.game.ui.MapLook.previewTip = -9
+                de.bornim.game.ui.MapLook.previewHouse = if (v == 2) "Schänke" else null
+                shot("62n_v$v", settle = 30) { vm ->
+                    setup(vm, "village", 9, 12, Facing.DOWN)
+                    val st = vm.game!!.state
+                    for (id in listOf("rowena", "borin", "thessa", "osric", "bram", "pim")) st.flags += de.bornim.core.MapMarks.met(id)
+                    for (i in listOf("inn", "shop", "elder")) st.flags += de.bornim.core.MapPeople.been(i)
+                    vm.refresh()
+                }
+            }
+            System.exit(0)
+        }
         if (System.getenv("ONLY") == "62e") System.exit(0)
         // KARTE62=1 ONLY=62f: 62f/62g, people at their usual place, services, house names in handwriting
         if (System.getenv("ONLY") == "62f") {

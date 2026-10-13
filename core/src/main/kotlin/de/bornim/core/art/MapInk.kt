@@ -168,14 +168,23 @@ object MapInk {
 
         // 2) the ways: soft brown strokes from tile to tile, bent a little, dashed in the woods
         val wayC = 0xFF8A6238.toInt()
+        // a way's point is the mean of the way tiles around it, so steps along the grid round off into a bend
+        fun wayAt(tx: Int, ty: Int): Pair<Double, Double> {
+            var sx = 0.0; var sy = 0.0; var n = 0
+            for (dy in -1..1) for (dx in -1..1) {
+                val qx = tx + dx; val qy = ty + dy
+                if (map.inside(qx, qy) && isPath(map.tile(qx, qy))) { sx += mx(qx); sy += my(qy); n++ }
+            }
+            val j = (rnd(tx, ty, 13) - 0.5) * 1.2
+            return Pair(sx / n + j, sy / n + j * 0.6)
+        }
         for (ty in 0 until map.height) for (tx in 0 until map.width) {
             if (town || !known(tx, ty) || !isPath(map.tile(tx, ty))) continue
             for ((dx, dy) in listOf(1 to 0, 0 to 1, 1 to 1, -1 to 1)) {
                 val nx = tx + dx; val ny = ty + dy
                 if (!known(nx, ny) || !isPath(map.tile(nx, ny))) continue
                 if (dx != 0 && dy != 0 && (isPath(map.tile(tx + dx, ty)) || isPath(map.tile(tx, ty + dy)))) continue
-                val j0 = (rnd(tx, ty, 13) - 0.5) * 2.4; val j1 = (rnd(nx, ny, 13) - 0.5) * 2.4
-                val ax = mx(tx) + j0; val ay = my(ty) + j0 * 0.6; val bx = mx(nx) + j1; val by = my(ny) + j1 * 0.6
+                val (ax, ay) = wayAt(tx, ty); val (bx, by) = wayAt(nx, ny)
                 if (map.kind == MapKind.FOREST) {
                     for (k in 0 until 3) if (k != 1) stroke(ax + (bx - ax) * k / 3, ay + (by - ay) * k / 3, ax + (bx - ax) * (k + 1) / 3, ay + (by - ay) * (k + 1) / 3, wayC, 1.0, 0.85)
                 } else stroke(ax, ay, bx, by, wayC, if (map.kind == MapKind.TOWN) 2.2 else 1.2, 0.55)
@@ -203,7 +212,11 @@ object MapInk {
                         ring(ox, oy - r * 0.5, r, INK, 0.4, 0.8)
                     }
                 }
-                Tile.TALL_GRASS -> if ((tx * 7 + ty * 3) % 3 == 0) for (k in 0..2) { val gx = cx - 2.5 + k * 2.5; stroke(gx, cy + 1.5, gx + 0.5, cy - 1.5, SOFT, 0.35, 0.8) }
+                // a tuft: three blades fanning out of one root, here and there
+                Tile.TALL_GRASS -> if (rnd(tx, ty, 21) < 0.4) {
+                    val gx = cx + (rnd(tx, ty, 22) - 0.5) * 4; val gy = cy + 1.5 + (rnd(tx, ty, 23) - 0.5) * 3
+                    for (k in -1..1) stroke(gx + k * 0.4, gy, gx + k * 1.1, gy - 3.0 + abs(k) * 1.2, SOFT, 0.35, 0.8)
+                }
                 Tile.FLOWERS -> { disc(cx - 2, cy - 1, 0.6, RED); disc(cx + 1.5, cy + 1, 0.6, 0xFFC8A030.toInt()); disc(cx + 0.5, cy - 2, 0.55, RED) }
                 Tile.WATER -> if ((tx + ty) % 2 == 0) { stroke(cx - 2, cy, cx - 0.5, cy - 0.7, SOFT, 0.35, 0.6); stroke(cx - 0.5, cy - 0.7, cx + 1, cy, SOFT, 0.35, 0.6) }
                 Tile.ROCK -> if (!cave) { disc(cx, cy, 2.8, 0xFFA89880.toInt(), 0.9, 0.75); disc(cx + 0.8, cy + 0.4, 1.8, 0xFF847460.toInt(), 0.5, 0.75); ring(cx, cy, 2.8, INK, 0.4, 0.9, 0.75) }

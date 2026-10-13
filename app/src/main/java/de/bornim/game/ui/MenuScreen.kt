@@ -334,7 +334,7 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
                 } }
                 .pointerInput(marks) { detectTapGestures { at ->
                     // 62n: with signs, tapping a house names it
-                    if (MapLook.labels == 2) houses.firstOrNull { h -> kotlin.math.hypot(ox + cx(h.x) * scale - at.x, oy + cy(h.y - 1) * scale - at.y) < 20 * density }
+                    if (MapLook.labels == 2) houses.firstOrNull { h -> kotlin.math.hypot(ox + cx(h.x) * scale - at.x, oy + cy(h.y - 2) * scale - at.y) < 20 * density }
                         ?.let { houseTip = it; tip = null; return@detectTapGestures }
                     houseTip = null
                     // 62p: the mouth of a cave the hero has been in opens its ground plan
@@ -353,7 +353,7 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
             // 62g: house names in ink, on the roof above the door; 62n: in sepia serif, or a sign instead
             for (h in houses) {
                 if (MapLook.labels == 2) {
-                    drawHouseSign(h.name.de, androidx.compose.ui.geometry.Offset(ox + cx(h.x) * scale, oy + cy(h.y - 1) * scale), 9 * density, ink, density)
+                    drawHouseSign(h.name.de, androidx.compose.ui.geometry.Offset(ox + cx(h.x) * scale, oy + cy(h.y - 2) * scale), 9 * density, ink, density)
                     continue
                 }
                 val sepia = Color(0xFF5A3E26)
