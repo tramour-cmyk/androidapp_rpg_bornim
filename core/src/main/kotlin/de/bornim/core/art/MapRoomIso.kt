@@ -326,22 +326,38 @@ object MapRoomIso {
         return mix(argb(0x2E3C3A), argb(0x7A8C84), t * 0.7 + 0.15)
     }
 
-    /** A wall thing ([MapRoom.wallThing]) hung on a stretch of wall: its color at local u 0..1 and height z, or null. */
-    private fun hanging(thing: MapRoom.Sprite?, f: Double, z: Double, face: Double): Int? {
+    /**
+     * A wall thing ([MapRoom.wallThing]) hung on a stretch of wall ([wall] is the wall's own color there): its color at
+     * local u 0..1 and height z, or null. It stands off the wall a little (D1.4): lit at its upper edges, darker at its
+     * lower ones, and it throws a soft shadow down and away from the light onto the wall behind it.
+     */
+    private fun hanging(thing: MapRoom.Sprite?, f: Double, z: Double, face: Double, wall: () -> Int): Int? {
         if (thing == null) return null
-        val px = floor(f * thing.img.width).toInt(); val py = floor(100 - z).toInt()
-        if (py !in 0 until thing.img.height) return null
-        val c = thing.img[px, py]
-        if (c ushr 24 == 0) return null
-        return shade(c, face * 0.95)
+        val img = thing.img
+        val px = floor(f * img.width).toInt(); val py = floor(100 - z).toInt()
+        fun solid(x: Int, y: Int) = x in 0 until img.width && y in 0 until img.height && img[x, y] ushr 24 != 0
+        if (solid(px, py)) {
+            var v = face * 0.95
+            if (!solid(px, py - 1) || !solid(px - 1, py)) v *= 1.12
+            if (!solid(px, py + 1) || !solid(px + 1, py)) v *= 0.72
+            return shade(img[px, py], v)
+        }
+        // the shadow: the thing seen from a little up and to the left, blurred over its neighbours
+        var hit = 0
+        for (dy in 2..4) for (dx in 1..3) if (solid(px - dx, py - dy)) hit++
+        if (hit == 0) return null
+        return shade(wall(), 1.0 - 0.45 * (hit / 9.0).coerceAtMost(1.0) - 0.1)
     }
+
+    private val tallAgainstWall = setOf(Tile.DOOR, Tile.SHELF, Tile.BED, Tile.HEARTH, Tile.CRATE, Tile.RACK, Tile.HANGING)
 
     private fun wallThing(map: MapDef, tx: Int, ty: Int, west: Boolean): MapRoom.Sprite? {
         fun at(dx: Int, dy: Int) = if (map.inside(tx + dx, ty + dy)) map.tile(tx + dx, ty + dy) else Tile.WALL
         // no antlers, pots or tools on the bare stone of the temple
         if (map.id.substringBefore('_') == "temple") return null
         val before = if (west) at(1, 0) else at(0, 1)
-        if (before in wallTiles || before == Tile.DOOR || before == Tile.SHELF || before == Tile.BED || before == Tile.HEARTH || before == Tile.CRATE) return null
+        // nor behind something tall standing against that stretch of wall (D1.4): a rack, a hanging cloth, a canopy bed
+        if (before in wallTiles || before in tallAgainstWall) return null
         return MapRoom.wallThing(hash(tx, ty, if (west) 57 else 55) % 7)
     }
 
@@ -408,7 +424,7 @@ object MapRoomIso {
                     !full -> timber(u, z, seed, face, 400.0)
                     tile == Tile.HEARTH -> hearth(u, z, h0.toDouble(), (h1 - h0 + 1).toDouble(), face, seed) ?: timber(u, z, seed, face, WALL)
                     tile == Tile.WINDOW -> (if (stone) archWindow(f, z, face) else window(f, z, face)) ?: timber(u, z, seed, face, WALL)
-                    else -> hanging(wallThing(map, tx, ty, false), f, z, face) ?: timber(u, z, seed, face, WALL)
+                    else -> hanging(wallThing(map, tx, ty, false), f, z, face) { timber(u, z, seed, face, WALL) } ?: timber(u, z, seed, face, WALL)
                 }
             }
             c.faceI(i1, j0, j1, 0.0, top) { j, z ->
@@ -418,7 +434,7 @@ object MapRoomIso {
                 val face = 0.74
                 when {
                     !full -> timber(u, z, seed + 9, face, 400.0)
-                    else -> hanging(wallThing(map, tx, ty, true), f, z, face) ?: timber(u, z, seed + 9, face, WALL)
+                    else -> hanging(wallThing(map, tx, ty, true), f, z, face) { timber(u, z, seed + 9, face, WALL) } ?: timber(u, z, seed + 9, face, WALL)
                 }
             }
             c.wallTop(i0, j0, i1, j1, top, seed)
