@@ -14,10 +14,9 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-27-4-baeume` | 5.1/5.2/5g/5h.1 auf `main`. **5m ja:** 27.4, 5.6, 5.3, 5l/5.5, 5.4, dann 27.5/27.6, je erst Standbilder. 27.4, 5.6, 5.3 (alle zwölf), 5n in PR #48. 5.4 (Pflaster-Entwurf, Fensterlicht-Fix) auf dem Zweig. **5la** Tagesablauf (Pim, Bram, Gwenna, Liska) als Entwurf auf `claude/tom-5l-leben`, Build 0.1.640 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | – | **17a** auf `main` (PR #48, getestet 0.1.625); 58 auf `main` (PR #50). **17r** Haare/Köcher als Entwurf auf `claude/tom-17-nachschwingen` (Testreiter-Schalter), Build 0.1.639. Offen: Riemen |
 | 13e | Höhle diagonal (Phase 2 von 13); mit 10 (Flammen feiner) und 11 (Lichtstrahl am Schacht) | Jerry | `claude/jerry-13e-hoehle-diagonal` | Grundsatz 43 (Leute, Ziele, Eingänge frei zur Kamera). **48b ja:** allgemein aus dem Kartenraster, ohne Handarbeit je Feld (für Zufallshöhlen 48). Eigene Datei `MapCaveIso.kt`, Toms Dateien nicht anfassen. Entwurf 2: Wände stehen (16:19); 13e.2–13e.4 in Selbstarbeit (`SELBST.md`). **Nutzer 16:3x:** Lichtstrahl weglassen, wenn schwierig; ein Versuch, sonst raus |
-| 23 | Aufgaben so aufteilen, dass Tom und Jerry auch in Selbstarbeit genug Vorrat haben | Tom | `main` (Notizen) | 23a ja (14:18): je 8 Punkte im Vorrat (`docs/SELBST.md`), neue nur als Entwürfe/Hörproben. **Jerry:** deine Punkte 4–8 sind eingetragen |
 | 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik); Jerry (Inhalt) | – | 24.1–24.4, 24.9–24.15 auf `main` (PR #30, #32, #34, #35); 24.8 Ortsklang auf `main` (PR #37). **Tom:** 24.5, 24.16–24.20 auf `main` (PR #40). 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.8.5 auf `main` (PR #38, 12.10.), danach 24.6 Kampferöffnung wartet + Herzschlag (nach Toms 24.5), knapper Kampftext in `Battle.kt`. Entscheidungen 24f/24i/24j in [`ZWISCHENBILD.md`](ZWISCHENBILD.md) und im Archiv. |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | festgelegt 11.10., 16:50 (Berater); erledigte Punkte dort abhaken. **26c ja (Nutzer 18:3x), Toms Reihenfolge:** (1) 24.8.6 und 30.8 vom alten Zweig `tender-goodall-a8zuny` in den nächsten Build, (2) 42 Textkasten (erst Standbilder), (3) Diagonalsicht fertig: 27.5, Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar, 27.6; dann 5l, 55.2, 17 |
-| 27 | Wald „Ort fertig“ (Liste in `ENTWICKLUNG.md`): vor allem diagonale Zeichnung, Bäume rund | Tom | – | 27.1/27.2/27d, 27.4/27.5/27g, 27i, 27j auf `main` (PR #43, #48, getestet 0.1.625). **27i:** Libellen und Frösche im Spiel (Zweig, 21:4x). **27j:** Hörproben Frösche/Froschchor/Libellen im Chat (21:47, `tools/klang/teich.py`), **27k (22:0x):** nur Frosch 1–3, Chor 2, Libelle 1–2 (höchstens 3 Frösche und 2 Libellen, also leise, keine Beschallung). Verlauf im Archiv |
+| 27 | Wald „Ort fertig“ (Liste in `ENTWICKLUNG.md`): vor allem diagonale Zeichnung, Bäume rund | Tom | – | 27.1/27.2/27d, 27.4/27.5/27g, 27i, 27j auf `main` (getestet 0.1.625). **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise). Verlauf im Archiv |
 | 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | 30.1/30.2/30b auf `main` (PR #40, getestet 0.1.559). 30.8 „App aktualisiert“ auf `claude/tender-goodall-a8zuny` (kommt mit 26c in den nächsten Build). Offen: Abstürze beobachten; 30.7 (Klang 22 kHz) mit Jerry. Verlauf im Archiv |
 | 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben) | Jerry | – | Meldung Nutzer 12.10., 15:4x mit Bildschirmfoto (Wiese, alte Kampfansicht). Erst Standbild der Sterbehaltungen aller Klassen, dann Vorschlag |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt | Jerry | – | 36.4–36.7, 36h/36j/36k auf `main` (PR #46, #47, getestet 0.1.587). Rest in 52, 53. **Offen 36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung. Verlauf im Archiv |
@@ -35,7 +34,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry | – | Nutzer 12.10., 15:4x nach Test 0.1.587: Krogg fürs Erste so lassen, später alle Kampfanimationen gesamt überarbeiten. Nach Kapitel-1-Wichtigem |
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg | Jerry | – | Prüfthema, Nutzer 12.10., 15:4x (Test 0.1.587): wenn Zeit ist und nichts Wichtigeres ansteht; alle großen Gegner mitprüfen |
 | 56 | Alte Objekte auf den neuen Karten (Nutzer 12.10., 18:3x) | Tom | `claude/tom-27-4-baeume` | **56a–56c ja (19:4x):** Kräuter, Truhe, Steine, Steinkreis, Büsche im Wald ins Spiel (Schalter entfernt, c2b909f7). **56d ja (20:1x):** Dorf (`YARDDRAFT`, `FERNDRAFT`) ins Spiel; Innenräume ohne Altes |
-| 57 | Entscheidungsseite nur mit Offenem; Entschiedenes in ein gemeinsames Bildbuch (Tom und Jerry) | Tom | `main` (Notizen) | **57a/57b ja (19:4x):** Ablauf in `CLAUDE.md` („Entwürfe entscheiden“). Entscheidungsseite Tom: https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F. **Bildbuch angelegt (20:12):** https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (Einträge `e/<nr>.html`, Bilder `i/`, Inhaltsliste `index.html`); alte Bilder nachgetragen, soweit noch vorhanden. Nutzer gibt es für Jerry frei (Teilen) |
+| 57 | Entscheidungsseite nur mit Offenem; Entschiedenes ins gemeinsame Bildbuch | Tom | `main` (Notizen) | Ablauf in `CLAUDE.md`. Entscheidungsseite Tom: https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F · Bildbuch: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (Nutzer gibt es für Jerry frei) |
 
 | 59 | Händler: Kauf/Verkauf im Stil des Textkastens, Übersicht, Vergleich | Tom | `claude/tom-59-haendler` | 59a–59d ja (Verlauf im Archiv): schwarzer Laden, nicht Tragbares abgedunkelt, Streifen Angelegt, Vergleich, Rückkauf, Menge. Build 0.1.632, Test steht aus |
 | 60 | Ein Aussehen für alle Oberflächen wie Textkasten/Blende (schwarz, Gold, Serife) | Tom | `claude/tom-60-aussehen` | 60a–60d ja (Verlauf im Archiv). Entwürfe Schrift, Titel, Menü, Heldenerstellung, Kampf im Testreiter „60 Aussehen“, Build 0.1.636; Rückfragen 60e–60i |
@@ -43,11 +42,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 02:46) – Selbstarbeit, an Nachfolger übergeben
-- **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g Katze), 0.1.643 (6f Farbstimmung), je ein Testreiter-Schalter. Rückfragen 60e–60i, 27.6a–c, 13x, 17r, 5la, 6g, 6f auf der Entscheidungsseite (Empf. je ja).
-- **7 Spuren** auf `claude/tom-7-spuren` (gepusht, Build läuft): `Tracks.kt` + `TracksTest` grün, Zeichnung `drawTracks` in `WorldScreen`, Testreiter-Schalter, Vorschau `KARTENZOOM=1 DIAG=1 SPURDRAFT=1 ONLY=zoom_nah_s`. **Offen:** Blut sichtbar (Bild 02:45), Fußspuren/Staub in den Vorschaubildern nicht zu sehen, obwohl der gleiche Gang im Kerntest 16 Marken macht: prüfen, ob `walkFree` in der Vorschau läuft bzw. ob die Marken gezeichnet werden (zu klein/dunkel?); dann Bilder auf die Entscheidungsseite (Rückfrage 7a).
-- **8 Kartenansicht** halb auf demselben Zweig: `MapSheet.kt` (Tinte auf Pergament, nur Erkundetes), Reiter „Karte“ hinter `MapSheet.draft` (`MenuStart.map` für Vorschau), `MapSheetTest` grün; Bilder noch nicht gemacht: `tools/t bild KARTENBLATT=1`. Testreiter-Schalter für `MapSheet.draft` fehlt noch.
-- `HeroShelfTest` war einmal rot, während die Vorschau parallel lief (Zeittest, nicht von den Spuren); allein wiederholen. Nie Vorschau und Kerntest gleichzeitig (gemeinsamer Bau bricht).
+### Tom (13.10., 03:20) – Selbstarbeit läuft
+- **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g), 0.1.643 (6f), 0.1.646 (7a/8a), je ein Testreiter-Schalter. Rückfragen auf der Entscheidungsseite (Empf. je ja).
+- **7 Spuren** und **8 Kartenansicht** fertig als Entwurf auf `claude/tom-7-spuren` (Build 0.1.646). Ursache „Fußspuren unsichtbar“: sie lagen in der Vorschau unter Busch und Bäumen; Gang verlegt, Abdrücke kräftiger, Schlamm in Räumen hell.
+- **Weck-Kette am Ende** (03:15): diese Sitzung ist auf Stufe 8 von 8, `send_later` und `create_session` gehen nicht mehr. Weiter nur über die Routinen (06:24) oder eine neue Sitzung des Nutzers.
+- Weiter: Vorrat 9 (29 Nebenquests, nur Entwurf zur Freigabe).
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -62,6 +61,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Tom, 0.1.639, Zweig `claude/tom-17-nachschwingen`** (17r, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38320963573; nach 59/60): Testreiter „17 Haare/Köcher schwingen nach“ an, als Heldin oder mit Bogen laufen und anhalten.
 - **Tom, 0.1.640, Zweig `claude/tom-5l-leben`** (5la, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38322497262; nach 59/60): Testreiter „5l Tagesablauf im Dorf“ an, im Dorf ein paar Minuten zusehen, Leute ansprechen, ob jemand im Weg steht.
 - **Tom, 0.1.641, Zweig `claude/tom-katze`** (6g, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38324348750; nach 59/60): Testreiter „Katze in der Schänke“ an, in der Schänke gut drei Minuten zusehen.
+- **Tom, 0.1.643, Zweig `claude/tom-6-farbstimmung`** (6f, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38326167073; nach 59/60): Testreiter „Farbstimmung je Ort“ an, Höhle, Schänke abends, Dorf in der Dämmerung ansehen.
+- **Tom, 0.1.646, Zweig `claude/tom-7-spuren`** (7a/8a, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38331553728; nach 59/60): Testreiter „Spuren“ an, Kampf gewinnen (Blut), im Regen gehen (Fußspuren), auf trockenem Weg rennen (Staub); Testreiter „8 Gezeichnete Karte“ an, Menü → Karte.
 
 ## Rückfragen an den Nutzer
 
@@ -71,6 +72,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **17r** (Tom, Entscheidungsseite): lange Haare und Köcher schwingen nach dem Anhalten nach wie der Umhang (Empf. ja).
 - **5la** (Tom, Entscheidungsseite): Tagesablauf im Dorf, Bewohner wechseln stündlich den Platz (Empf. ja).
 - **6g** (Tom, Entscheidungsseite): Katze in der Schänke (schläft am Herd, streckt sich, wechselt den Platz) ins Spiel (Empf. ja).
+- **6f** (Tom, Entscheidungsseite): Farbstimmung je Ort und Tageszeit ins Spiel (Empf. ja).
+- **7a, 8a, 8b** (Tom, Entscheidungsseite): Spuren ins Spiel (Empf. ja); gezeichnete Karte als Menüreiter (Empf. ja); 8b Auftragszeichen auf der Karte (Empf. erst ohne).
 
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
