@@ -52,6 +52,16 @@ Graks Leute sprachen von einem Lager im Süden. Dort brachten sie, wen sie nicht
 `[68.lyra.3]`
 Ich weiß nicht, was er von mir will. Aber ich träume seit Wochen von grauer Asche.
 
+`[68.chronik.lager]` (Chronik, Aufträge, nach Lyras Gespräch; ohne Kartenmarke, 68k/68m)
+**Das Lager im Süden**
+Lyra erinnerte sich, dass Graks Leute von einem Lager im Süden sprachen, in das sie Gefangene brachten. Wer dort festgehalten wird und wer das Lager führt, weiß niemand in Bornim.
+
+`[68.rowena.lager]` (Rowena, nach der Tempelszene)
+Ein Lager im Süden? Die Fuhrleute meiden die Südstraße seit dem Frühjahr. Jetzt weiß ich vielleicht, warum.
+
+`[68.aldric.lager]` (Aldric, nach der Tempelszene)
+Lyra hat mir vom Lager erzählt. Wenn dort Leute aus der Gegend festsitzen, kann Bornim nicht einfach wegsehen.
+
 ## Chronik: Bisher geschehen (64d)
 
 Der Chronist erzählt in dritter Person, ein Eintrag je Wendepunkt. Hier in Spielreihenfolge, im Spiel steht der neueste oben. Überschrift fett, dann der Text.
