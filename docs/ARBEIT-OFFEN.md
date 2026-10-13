@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- Nichts von Tom (0.1.719 getestet und zusammengeführt, PR #56).
+- **Tom 0.1.721** (Sammelbuild D1.4 Wandkram, D1.5 Schatten in Räumen, D1.16 Schalter weg; PR #57): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38474235603/artifacts/11853840130), Prüfliste `e/t721.html` auf „Dein Zug“.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
