@@ -49,6 +49,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     private val queue = ArrayDeque<Cmd>()
 
+    /** A step the hero takes back by itself after turning round at the edge of a map (67); the app walks it and clears it. */
+    var stepBack: Facing? = null
+
     /** Short messages for the app to show as a toast. */
     val notices = ArrayDeque<T>()
 
@@ -367,7 +370,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val warp = map.warpAt(nx, ny)
         if (warp != null && warp.requires != null && !state.has(warp.requires)) {
             changed()
-            enqueue(warp.denied)
+            if (warp.turnBack) {
+                val (text, short) = Story.southEdge(state)
+                if (short) notices += text else enqueue(listOf(Cmd.Say(null, text)))
+                stepBack = dir.opposite
+            } else enqueue(warp.denied)
             return Move.Blocked
         }
         roamerAt(nx, ny)?.let { r ->

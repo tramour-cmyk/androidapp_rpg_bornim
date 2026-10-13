@@ -143,6 +143,17 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         var lastFrame = 0L
         while (isActive) {
             MapSight.follow(game.map)
+            // turned round at the edge of the map (67): once the line is read, one step back the way the hero came
+            if (game.mode == Mode.Explore && !VeilMemory.active) game.stepBack?.let { d ->
+                game.stepBack = null
+                val p = game.state.place
+                val tx = p.x + d.dx; val ty = p.y + d.dy
+                if (game.free(tx, ty)) {
+                    route = Route(listOf(d), target = tx to ty)
+                    routeIdx = 0
+                    waypoints = listOf((tx + 0.5) to (ty + 0.5))
+                }
+            }
             if (MapSight.diagonal) {
                 // free walking (13g): any direction, the world and its rules still on the tiles
                 val fw = game.freeWalk
