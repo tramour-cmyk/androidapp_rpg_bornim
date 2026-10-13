@@ -120,14 +120,13 @@ object Story {
             "T..xxxxxxx===========............y.T",
             "T..xvvvvvx..f....==S.ccccccccccc.y.T",
             "TT.xvvvvvx.y...f.==.fccccccccccc..TT",
-            "TTTTTTTTTTTTTTTTT==TTTTTTTTTTTTTTTTT",
+            "TTTTTTTTTTTTTTT..==..TTTTTTTTTTTTTTT",
         ),
         warps = listOf(
             Warp(17, 0, Place("forest", 9, 30, Facing.UP), QUEST_STARTED, jorinStop()),
             Warp(18, 0, Place("forest", 10, 30, Facing.UP), QUEST_STARTED, jorinStop()),
             // the south road (67): the way the hero came, not taken again in chapter 1
-            Warp(17, 31, Place("village", 17, 30, Facing.UP), LOCKED, turnBack = true),
-            Warp(18, 31, Place("village", 18, 30, Facing.UP), LOCKED, turnBack = true),
+            *(15..20).map { Warp(it, 31, Place("village", it, 30, Facing.UP), LOCKED, turnBack = true) }.toTypedArray(),
             Warp(6, 5, inside("inn")),
             Warp(28, 5, inside("shop", 7)),
             Warp(5, 20, inside("elder", 6)),
