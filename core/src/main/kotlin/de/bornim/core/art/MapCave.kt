@@ -237,7 +237,7 @@ object MapCave {
 
     // ------------------------------------------------------------------ bones
 
-    private fun boneAt(s: Sculpt, x: Double, y: Double, deg: Double, len: Double, r: Double, mat: Mat = bone) {
+    internal fun boneAt(s: Sculpt, x: Double, y: Double, deg: Double, len: Double, r: Double, mat: Mat = bone) {
         val a = deg * PI / 180
         val x1 = x + cos(a) * len; val y1 = y + sin(a) * len * 0.55
         s.limb(x, y, x1, y1, r, r * 0.85, mat)
@@ -245,7 +245,7 @@ object MapCave {
         s.blob(x1, y1, r * 1.6, r * 1.3, mat)
     }
 
-    private fun skull(s: Sculpt, x: Double, y: Double, k: Double = 1.0, beast: Boolean = false) {
+    internal fun skull(s: Sculpt, x: Double, y: Double, k: Double = 1.0, beast: Boolean = false) {
         if (beast) {
             s.blob(x, y, 7 * k, 6 * k, bone)
             s.limb(x + 3 * k, y + 1, x + 16 * k, y + 3, 4.5 * k, 2.6 * k, bone)

@@ -662,6 +662,65 @@ object MapCaveIso {
         return c.done()
     }
 
+    /**
+     * Bones on the floor (13e), in the hero's scale: a skull about as big as his head, not bigger. Three looks as in
+     * [MapCave.bones]: a heap pushed together with two skulls, what scavengers left of a beast (a spine pulled apart,
+     * ribs, the long skull), what is left of a goblin (scattered bones, the small skull, a dented cap, a broken blade).
+     */
+    private fun bones(v: Int): PixelImage {
+        val c = Canvas(TH.toInt() + 24, 4400 + v)
+        val bone = boneMat; val dark = m(0x7A6C54, grain = 0.25, sat = 0.75)
+        fun at(i: Double, j: Double, z: Double = 0.0) = c.x(i, j) to c.y(i, j, z)
+        when (v) {
+            0 -> {
+                c.shadow(-0.78, -0.78, -0.22, -0.22, 0.3)
+                for (k in 0 until 11) {
+                    val a = rnd(k, 1, 4401) * 2 * Math.PI; val r = Math.sqrt(rnd(k, 2, 4401)) * 0.24
+                    val (x, y) = at(-0.5 + Math.cos(a) * r, -0.5 + Math.sin(a) * r, 1.0 + rnd(k, 3, 4401) * 3)
+                    MapCave.boneAt(c.s, x, y, rnd(k, 4, 4401) * 180, 7 + rnd(k, 5, 4401) * 7, 0.9 + rnd(k, 6, 4401) * 0.4, if (k % 3 == 0) dark else bone)
+                }
+                at(-0.56, -0.46, 6.0).let { (x, y) -> MapCave.skull(c.s, x, y, 0.55) }
+                at(-0.42, -0.6, 4.0).let { (x, y) -> MapCave.skull(c.s, x, y, 0.5) }
+            }
+            1 -> {
+                c.shadow(-0.86, -0.72, -0.14, -0.28, 0.25)
+                var i = -0.8; var j = -0.42; var a = -0.75
+                val spine = ArrayList<Pair<Double, Double>>()
+                for (k in 0 until 11) {
+                    a += (rnd(k, 1, 4410) - 0.5) * 0.35
+                    i += Math.cos(a) * 0.055; j -= Math.sin(a) * 0.055
+                    spine += at(i, j, 1.5)
+                }
+                for (k in 2 until 9) {
+                    val (sx, sy) = spine[k]
+                    for (side in intArrayOf(-1, 1)) {
+                        if (rnd(k, side, 4411) < 0.25) continue
+                        val len = (4 + rnd(k, side, 4412) * 4) * if (rnd(k, side, 4413) < 0.3) 0.55 else 1.0
+                        c.s.chain(if (side < 0) bone else dark, sx, sy, 0.8, sx + 1.5, sy + side * len * 0.55, 0.7, sx + 1.0, sy + side * len, 0.5)
+                    }
+                }
+                for ((k, p) in spine.withIndex()) c.s.blob(p.first, p.second, 1.8 - k * 0.04, 1.4, bone)
+                spine.last().let { (x, y) -> MapCave.skull(c.s, x + 5, y + 1, 0.55, beast = true) }
+                at(-0.72, -0.7, 1.0).let { (x, y) -> MapCave.boneAt(c.s, x, y, 25.0, 11.0, 1.1) }
+            }
+            else -> {
+                c.shadow(-0.8, -0.8, -0.2, -0.2, 0.25)
+                for (k in 0 until 6) {
+                    val (x, y) = at(-0.75 + rnd(k, 1, 4420) * 0.5, -0.75 + rnd(k, 2, 4420) * 0.5, 1.0)
+                    MapCave.boneAt(c.s, x, y, rnd(k, 3, 4420) * 180, 5 + rnd(k, 4, 4420) * 6, 0.8, if (k % 2 == 0) bone else dark)
+                }
+                at(-0.36, -0.58, 3.0).let { (x, y) -> MapCave.skull(c.s, x, y, 0.42) }
+                // the dented iron cap, rolled aside
+                at(-0.66, -0.36, 3.0).let { (x, y) -> c.s.blob(x, y, 5.0, 3.6, m(0x5A3E2C, shine = 0.15, grain = 0.35, sat = 0.8, value = 0.85)); c.s.line(x - 3, y - 2, x, y, hole) }
+                // a broken blade
+                val (bx, by) = at(-0.3, -0.3, 0.5); val (ex, ey) = at(-0.3, -0.62, 0.5)
+                c.s.limb(bx, by, ex, ey, 1.1, 0.8, ironMat)
+                c.s.limb(bx - 1, by + 1, bx + 2, by + 3, 1.3, 1.3, plankDark)
+            }
+        }
+        return c.done()
+    }
+
     // ------------------------------------------------------------------ the tiles
 
     private fun isRock(t: Tile) = t == Tile.CAVE_WALL || t == Tile.CRYSTAL || t == Tile.TORCH
@@ -758,6 +817,7 @@ object MapCaveIso {
             Tile.CRATE -> return listOf(thing(map, tx, ty, "crates/$v") { crates(v) })
             // walked over: sorted behind the hero, from the tile's back corner
             Tile.BEDROLL -> return listOf(thing(map, tx, ty, "bed/$v", flat = true) { bedroll(v) })
+            Tile.BONES -> return listOf(thing(map, tx, ty, "bones/$v", flat = true) { bones(v) })
             // the goblins' fire: the one from the woods (27.5), stones, ash, spit or kettle, flames swaying
             Tile.CAMPFIRE -> {
                 val fv = Math.floorMod(hash(tx, ty, 44), 3); val f = Math.floorMod(frame, 4)
