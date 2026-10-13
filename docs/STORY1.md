@@ -43,7 +43,7 @@ Das erste Licht des Tages fällt durchs Fenster. Das Amulett fängt es auf.
 `[68.tempel.5]` (Bild: Lyra allein, Blick in die Dämmerung; leiser Hinweis auf Kapitel 2)
 Bornim atmet auf. Nur Lyra sieht noch lange ins Grau hinaus.
 
-`[68.lyra.1]` (Lyra, erstes Gespräch nach der Szene; freigegeben 17:38, 68h/68i)
+`[68.lyra.1]` (Lyra spricht den Helden nach dem letzten Bild von selbst an, 68j; freigegeben 17:38, 68h/68i)
 Ich verdanke dir mein Leben, {name}. Und Bornim sein Licht.
 
 `[68.lyra.2]`
@@ -252,6 +252,8 @@ Lyra ist irgendwo im Norden. Der Weg nach Süden kann warten.
 
 `[67.k1.2]` (während Kapitel 1, ab dem zweiten Versuch)
 Der Weg nach Süden kann warten.
+
+**Entfällt (68l, Nutzer 17:42):** Nach Lyras Gespräch ist der Südrand frei; die beiden folgenden Texte werden nicht mehr gebraucht.
 
 `[67.nach.1]` (nach Kapitel 1, erster Versuch)
 Der Brief mit dem grauen Siegel lässt dich nicht los. Die Antwort liegt nicht im Süden.
