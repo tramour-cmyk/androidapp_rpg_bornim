@@ -1,5 +1,9 @@
 # Archiv
 
+### Zeilen aus „Wer macht was“, gekürzt 13.10., 03:5x (Tom)
+| 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik); Jerry (Inhalt) | – | 24.1–24.4, 24.9–24.15 auf `main` (PR #30, #32, #34, #35); 24.8 Ortsklang auf `main` (PR #37). **Tom:** 24.5, 24.16–24.20 auf `main` (PR #40). 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.8.5 auf `main` (PR #38, 12.10.), danach 24.6 Kampferöffnung wartet + Herzschlag (nach Toms 24.5), knapper Kampftext in `Battle.kt`. Entscheidungen 24f/24i/24j in [`ZWISCHENBILD.md`](ZWISCHENBILD.md) und im Archiv. |
+| 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | festgelegt 11.10., 16:50 (Berater); erledigte Punkte dort abhaken. **26c ja (Nutzer 18:3x), Toms Reihenfolge:** (1) 24.8.6 und 30.8 vom alten Zweig `tender-goodall-a8zuny` in den nächsten Build, (2) 42 Textkasten (erst Standbilder), (3) Diagonalsicht fertig: 27.5, Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar, 27.6; dann 5l, 55.2, 17 |
+
 ### Tom (13.10., 03:20) – Selbstarbeit läuft
 - **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g), 0.1.643 (6f), 0.1.646 (61a/62a), je ein Testreiter-Schalter. Rückfragen auf der Entscheidungsseite (Empf. je ja).
 - **61 Spuren** und **62 Kartenansicht** (Vorrat 7/8) fertig als Entwurf auf `claude/tom-7-spuren` (Build 0.1.646). Ursache „Fußspuren unsichtbar“: sie lagen in der Vorschau unter Busch und Bäumen; Gang verlegt, Abdrücke kräftiger, Schlamm in Räumen hell.
