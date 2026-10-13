@@ -33,19 +33,19 @@ object MapGrade {
     fun grade(map: MapDef, daylight: Float): Grade {
         val d = daylight.coerceIn(0f, 1f)
         return when (map.kind) {
-            // rock, damp and moss: cold and a little green, the edges deep
-            MapKind.CAVE -> Grade(0xC4DCCC, 0.55f, 0.42f)
+            // rock, damp and moss: cold and a little green; the light tints, it does not darken (dark places are dark already)
+            MapKind.CAVE -> Grade(0xD0ECDC, 0.5f, 0.26f)
             // a room with a fire: warm, the corners dark about the hearth; without a fire (the temple) cooler, stiller
-            MapKind.INTERIOR -> if (hasHearth(map)) Grade(0xFFDCB4, 0.5f, 0.36f) else Grade(0xF0E8DC, 0.35f, 0.3f)
+            MapKind.INTERIOR -> if (hasHearth(map)) Grade(0xFFE8C8, 0.45f, 0.2f) else Grade(0xF0EAE0, 0.35f, 0.2f)
             else -> {
                 val deep = map.id == "deep_forest"
                 // dusk peaks halfway between day and night; the night is already blue from the light of the place
                 val dusk = bell(d, 0.5f, 0.28f)
                 val night = ((0.35f - d) / 0.35f).coerceIn(0f, 1f)
-                val day = if (deep) 0xE4F0DC else if (map.kind == MapKind.FOREST) 0xF8FCF0 else 0xFFFCF4
+                val day = if (deep) 0xECF6E4 else if (map.kind == MapKind.FOREST) 0xF8FCF0 else 0xFFFCF4
                 val tint = mix(mix(day, 0xE4CCF0, dusk), 0xD8DCF4, night)
-                val amount = (if (deep) 0.45f else 0.25f) + 0.35f * dusk + 0.2f * night
-                val vignette = (if (deep) 0.34f else if (map.kind == MapKind.FOREST) 0.24f else 0.18f) + 0.1f * dusk + 0.14f * night
+                val amount = (if (deep) 0.35f else 0.25f) + 0.35f * dusk + 0.2f * night
+                val vignette = (if (deep) 0.22f else if (map.kind == MapKind.FOREST) 0.2f else 0.18f) + 0.1f * dusk + 0.14f * night
                 Grade(tint, amount.coerceAtMost(1f), vignette.coerceAtMost(1f))
             }
         }
