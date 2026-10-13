@@ -7,7 +7,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 1 | Regen, Wetterleuchten mit Donner | Tom | erledigt v0.1.409 | Änderungshistorie |
 | 2 | Waffe verstaut (auf der Karte geschultert bzw. am Rücken) | Tom | erledigt v0.1.409 | Änderungshistorie, `STIL.md` |
 | 3 | Garrick hockt, schürt, döst (3a weich) | Tom | erledigt v0.1.430 | Änderungshistorie |
-| 4 | Glühwürmchen fest, treibende Blätter | Tom | erledigt v0.1.430 | Änderungshistorie |
+| 4 | Glühwürmchen fest, treibende Blätter | Tom | wieder offen | `OFFEN.md` |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | in Arbeit | `OFFEN.md` |
 | 6 | Innenräume (Schänke), Zoom (6.15) | Tom | erledigt v0.1.471 (6l ruht) | `OFFEN.md` |
 | 7 | Stopp-Punkt und Zusammenarbeit der Accounts | Tom | erledigt | Archiv |
