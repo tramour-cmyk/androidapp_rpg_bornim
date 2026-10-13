@@ -27,7 +27,7 @@ Jede Änderung auf der niedrigsten Stufe prüfen, die die Frage beantwortet; hö
 
 1. **Logik** (Zeiten, Regeln, Abläufe): Kerntest, Sekunden. `./gradlew -p core test`, Ergebnis am Exit-Code prüfen (`set -o pipefail`), nicht nur an gefilterter Ausgabe.
 2. **Sichtbar ohne Bewegung:** ein Standbild, nur der Ausschnitt (`CROP=`).
-3. **Bewegung:** kurzer Film nur des Übergangs; nur gespeicherte Bilder zeichnen, ereignislose Zeit mit `FROM=` überspringen (`WALKFILM`, `IDLEFILM`, `FILM=`; Schalter in `ARBEIT-UMGEBUNG.md`). Änderungen an Kampf, Bewegung, Effekten immer durch die echte Oberfläche filmen und die Bildfolge ansehen.
+3. **Bewegung:** kurzer Film nur des Übergangs; nur gespeicherte Bilder zeichnen, ereignislose Zeit mit `FROM=` überspringen (`WALKFILM`, `IDLEFILM`, `FILM=`; Schalter in `ARBEIT-UMGEBUNG.md`). Änderungen an Kampf, Bewegung, Effekten durch die echte Oberfläche filmen (`DESIGN-ABNAHME.md` „Selbst prüfen“).
 4. **Spielgefühl:** nur der Nutzer, mit guter Prüfliste.
 
 Schnellstes Werkzeug je Anlass: `tools/t` (Übersicht ohne Befehl). Befund mit Wirkung „hoch“ (Absturz, Festhängen, Quest unlösbar, falscher Text) behoben: einen Kerntest schreiben, der ihn künftig fängt (75h).
@@ -58,8 +58,8 @@ Ist das nächste Thema freigegeben oder steht in der eigenen Übergabe und ist n
 
 ## Befunde von Diogenes (75g)
 
-Jeder Befund steht nur im Prüfbericht und ist ein **Verdacht**. **Klasse 1** (Regelverstoß in deinem Bereich): ohne Absegnen prüfen und im Prüfbericht „bestätigt“ oder „verworfen“ mit Grund vermerken, hinter der Reihenfolge des Nutzers (nur Wirkung „hoch“ vor). **Klasse 2** (grundsätzlich, Ermessen) geht über „Für den Berater“, **Klasse 3** (am Gerät ansehen) auf „Dein Zug“.
+Jeder Befund steht nur im Prüfbericht und ist ein **Verdacht**. Bei **Klasse 1** (Regelverstoß in deinem Bereich) prüfst du ohne Absegnen und vermerkst im Prüfbericht „bestätigt“ oder „verworfen“ mit Grund, hinter der Reihenfolge des Nutzers (nur Wirkung „hoch“ vor). Die übrigen Klassen ordnet Diogenes ein (`ROLLE-TESTER.md` „Klassen“).
 
 ## Release
 
-Push von Code auf `main` baut nur eine APK (Artefakt). Ein Release erst auf „Release“; bei fünf getesteten Themen unter „Unveröffentlicht“ oder sieben Tagen seit dem letzten Release einmal „Zeit für ein Release?“ fragen (65.6). Ablauf in `ARBEIT-ABLAEUFE.md`. Bei jedem Release `wc -c docs/ARBEIT-OFFEN.md`, über 20 KB aufräumen.
+Release nur auf Zuruf (`CLAUDE.md`); wann du es vorschlägst (65.6) und wie es abläuft: `ARBEIT-ABLAEUFE.md`.

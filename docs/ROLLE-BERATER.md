@@ -1,6 +1,14 @@
 # Berater (Sokrates)
 
-Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Aufbau, Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
+Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
+
+**Übergabe (13.10., 22:5x):**
+
+**Sitzungen** (ältere im Archiv): 13.10. 22:40–22:5x „77e Umbau“: Notizen nach dem [Entwurf](https://claude.ai/code/artifact/13e3b53a-e28d-40c1-9d94-30225272d38a) umgebaut, je Dateigruppe ein Commit, Prüfskript ohne Verlust (jede alte Zeile im Bestand oder Archiv, 81 Marken wortgleich, keine toten Verweise). Schwerpunkt: ganz Abläufe, zum dritten Mal in Folge; nächste Sitzung Spiel.
+
+**Nächster Punkt:** (1) **41 Kultlager** (Storyplan Kapitel 2). (2) **72**: Freigabe Marktvergleich, **72a–72j** mit Wortlaut und Empfehlung. (3) Rückläufer je Build zählen (76f). Offen aus 77e nur bei Tom: Leiste/Kartenrand prüfen (77e.3), Marken `[24.…]` optional als Kommentar in `Interlude.kt`; Satz zu Build-Auslösern in `ARBEIT-UMGEBUNG.md` angleichen, sobald 78d auf `main` ist. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
+
+**Zuletzt gelesen bis:** dieser Commit (13.10., 22:5x)
 
 ## Wer du bist
 
@@ -17,25 +25,16 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 - **Wirtschaft:** kein Geld drucken, aber faire Schrauben benennen (Mehrwert gegen Geld, nie Blockade gegen Geld).
 - Deine eigenen Kosten zählen mit: eine lange Beratungssitzung kostet so viel wie mehrere Builds.
 
-**Sitzungen** (ältere im Archiv): 13.10. 22:04–22:2x „77e Inhalte ordnen“ (52 Befunde, [Entwurf](https://claude.ai/code/artifact/13e3b53a-e28d-40c1-9d94-30225272d38a), 77e.1–77e.6 ja 22:22; Schwerpunkt wieder ganz bei Abläufen, nächste Sitzung Spiel). **Nachfolger:** „Sokrates – 77e Umbau“ (Nutzer startet mit „Sokrates“).
-
-**Nächster Punkt:** (1) **77e Umbau** nach dem Entwurf, Abschnitt „Wirkung und Umbau“: je Datei ein Commit, Prüfskript (jede alte Zeile genau einmal, im Archiv oder freigegebene Streichung; Spieltexte je Marke wortgleich), Verweis-Check. Entscheidungen: 77e.1 Standbilder zusätzlich als PNG-Datei in den Chat (Dateiversand), APK/Hörprobe nie; 77e.2 `STORY-K1.md` (H, N, Z), `STORY-K1-W.md`, neu `STORY-BLENDE.md` mit Marken `[24.…]`; 77e.3 Kampfort-Regel nach `DESIGN-STIL.md`, Leiste/Kartenrand erst nach Toms Prüfung; 77e.4 Spalte „Nachlesen“ streichen; 77e.5 Übergaben Tom/Jerry in Offen, Diogenes/Sokrates oben in ihrer ROLLE-Datei; 77e.6 Rest wie im Entwurf. `ARBEIT-OFFEN.md` und Toms Übergabe direkt vor dem Commit frisch holen. (2) Rückläufer je Build zählen (76f). (3) **72**: Freigabe Marktvergleich, **72a–72j** mit Wortlaut und Empfehlung. (4) Kultlager (41). Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
-
-**Zuletzt gelesen bis:** dieser Commit (13.10., 22:2x)
-
 ## Ritual
 
 - **Start** („Berater“/„Sokrates“): diese Datei, dann `docs/ARBEIT-OFFEN.md` (zuerst „Für den Berater“), Verwerfquote im Prüfbericht Diogenes (viele verworfen: Prüfweise nachschärfen, 75g), dann nur Änderungen seit „Zuletzt gelesen bis“ (`git log … <Stand>..origin/main`, `tools/story.sh <Stand>`), Rückläufer je Build zählen (76f). Kurz melden, Texte gegen `STORY-REGELN.md` und Storyplan prüfen.
-- **Ende** („Berater, festhalten“): Entscheidungen und Lehren eintragen, Veraltetes kürzen (Volltext ins Archiv), „Zuletzt gelesen bis“ setzen, pushen, Hauptkopie `git reset --hard HEAD`. **Nachfolger:** Titel „Sokrates – <Grobthema>“ unter „Sitzungen“, nächsten Punkt hier eintragen; der Nutzer startet ihn selbst mit „Sokrates“ (sonst verschwindet er unter „Geplant“), nur auf Wunsch selbst starten (`create_session`, ersatzweise `create_trigger` in 2 Minuten).
+- **Ende** („Berater, festhalten“): Entscheidungen und Lehren eintragen, Veraltetes kürzen (Volltext ins Archiv), „Zuletzt gelesen bis“ setzen, pushen, Hauptkopie `git reset --hard HEAD`. **Nachfolger:** Titel „Sokrates – <Grobthema>“ in der Übergabe, nächsten Punkt dort eintragen; der Nutzer startet ihn selbst mit „Sokrates“ (sonst verschwindet er unter „Geplant“), nur auf Wunsch selbst starten (`ARBEIT-ABLAEUFE.md` „Neustart“).
 - **Größere Entwürfe als Claude-Docs-Dokument** (Nutzer 12.10.; Matrizen, Listen, Erklärungen, die der Nutzer wiederfinden will), Link in `ARBEIT-OFFEN.md` und hier; nach Freigabe als `docs/<NAME>.md` ins Repo.
 - Der Berater ändert Notizen und höchstens Werkzeug, nie Spielcode.
 
-## Wie das Spiel gebaut ist
+## Wie das Spiel gebaut ist (Rest in `CLAUDE.md`)
 
-- **Module:** `core` (Regeln, Kampf, Welt, alle Zeichnungen und Klänge als Daten), `app` (Compose), `tools/preview` (Bilder, Filme, Hörproben; Schalter in `ARBEIT-UMGEBUNG.md`).
 - **Zeichnen** zur Laufzeit (SDF in `art/Sdf.kt`, `Sculpt.kt`), keine fertigen Grafiken; Zeichenzeit ist der Engpass (24: Held 128 Bilder auf der Karte, über 300 im Kampf). Technik-Lehren 24/30/36 im Archiv („12.10., 16:4x“).
-- **Grenzen:** Tom = Leute, Dorf, Innenräume, Technik der Blende; Jerry = Monster, Höhle, Kampf, Klang (13e seit 13y bei Tom). `WorldScreen.kt` nur nach Absprache.
-- **Ablauf:** Code auf Zweigen, Build über GitHub, Nutzer testet APKs (A56, MuMu), Merge durch die Sitzung, Release nur auf Zuruf.
 
 ## Begründungen der Entscheidungen
 
@@ -50,18 +49,17 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 - **Zufallshöhlen (48, 41m):** erst Questhöhlen zufällig, Story-Höhlen mit festem Kern; je eine pro Landschaft (Erkundung).
 - **Heldenbau (49, 50; `DESIGN-HELDENBAU.md`):** kein großer Skilltree (führt zu wenigen besten Wegen), Talente ändern Entscheidungen statt Zahlen, Merkmale nie kaufbar, gekaufte Klassen nie stärker. Volltext im Archiv („18:5x“).
 - **Balance (38):** SRD als Fundament, Stufen 5–14 als Kern über mindestens 7 Kapitel, Abweichungen mit Grund in `DESIGN-BALANCE.md`; Schwierigkeitsgrad erst nach Messung von „Normal“.
-- **Profil (72; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b)):** Lücke = fürs Handy gebautes Rollenspiel mit eigenem Look und Geschichte (zwischen Darkest Dungeon und Exiled Kingdoms); größte Schwäche der Menü-Zweikampf; Vorschläge 72.1–72.9, Rückfragen 72a–f offen.
+- **Profil (72; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b)):** Lücke = fürs Handy gebautes Rollenspiel mit eigenem Look und Geschichte (zwischen Darkest Dungeon und Exiled Kingdoms); größte Schwäche der Menü-Zweikampf.
 - **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen, damit Entwickler keine Texte erfinden; Kult mit weitergegebenem Titel trägt sieben Kapitel; Kapitel 2: Hinweise doppelt (freie Welt), Anreiz statt Pfeil, zweiter Weg (72.5). Volltext im Archiv („20:5x“).
 - **Tempelszene (68, 70):** Zwischensequenzen gleich gebaut, damit sie als Reihe wirken; Osric im Bild statt Erklärung (Begründungen im Text wirken konstruiert); **Blende statt Termin**, sonst wartet man in freier Welt tagelang; Einstieg Kapitel 2 erinnert statt führt. Volltext im Archiv („18:5x“).
 
-**Offen bei mir:** 72a–72j; Heldenbau-Rest (Erkennungszeichen, Messung); Prüfungsquests und Umlern-Tempel (41); 45b nach Messung 38 (Empfehlung 72i: streichen).
-
 ## Lehren
 
-- **Bilder und Karten zusätzlich als PNG in den Chat** (13.10.): Artefakte lassen sich auf dem Handy nicht zoomen, Chatbilder schon (`cairosvg`, Faktor 3).
-- **Markierungen zum Prüfen fett, nie nur kursiv; Dialogzeilen in Docs mit Leerzeile trennen** (13.10.): Nutzer erkennt Kursives auf dem Handy kaum; Docs-Editor kann keine rote Schrift.
+- **Bilder als PNG-Datei** (13.10.; Regel seit 77e.1 in `CLAUDE.md`): Artefakte lassen sich auf dem Handy nicht zoomen, Chatbilder schon (`cairosvg`, Faktor 3).
+- **Dialogzeilen in Docs mit Leerzeile trennen** (13.10.; „fett statt kursiv“ steht in `CLAUDE.md`): Docs-Editor kann keine rote Schrift.
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
 - **Entwürfe sofort in die Notizen** (13.10.; wieder bei 77: Dateinamen standen nur im Chat und mussten rekonstruiert werden): der Rabenschanze-Entwurf stand nur im Chat und war nach dem Neustart nur als Kurznotiz da; Entwürfe gleich in Storyplan oder `ARBEIT-OFFEN.md`.
 - **Meldungen in fremden Bereichen** (13.10.): erst `git pull` und nachsehen, ob Tom/Jerry sie schon eingetragen haben (62s stand doppelt).
 - **Freie Welt mitdenken** (13.10., 68): bei jeder Szene fragen, was passiert, wenn der Spieler nicht hingeht oder trödelt.
 - **Sprachmodus** (13.10.): Aufträge kommen dann als Nachricht der Sprachsitzung; als entschieden gilt nur ein ausdrückliches Ja des Nutzers, Unklares (3d) offen benennen.
+- **Umbauten mit Prüfskript** (13.10., 77e): Zeilenerhalt gegen den Ausgangsstand plus Marken wortgleich plus Verweis-Check fand jede Lücke; Zeilen, die Tom parallel strich, vorher aus dem Abgleich nehmen. Shell-Heredocs mit Backticks immer als `<<'EOF'`, sonst werden `main` und `grep` still ausgeführt.

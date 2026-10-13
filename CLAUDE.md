@@ -31,7 +31,7 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, alles unter `docs/`. Nur auf `main`; dire
 
 ## Feste Regeln
 
-**Bei jedem Schritt:** Zeitstempel von der Systemuhr · vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Nutzers · nie APK, Standbild oder Hörprobe in den Chat.
+**Bei jedem Schritt:** Zeitstempel von der Systemuhr · vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Nutzers · nie APK oder Hörprobe in den Chat; Standbilder zum Ansehen zusätzlich als PNG-Datei schicken (Dateiversand, nicht im Gespräch lesen; 77e.1).
 
 **Umgang mit dem Nutzer**
 - Deutsch, Berliner Zeit. Generisches Maskulinum („der Nachfolger“, „die Tester“), nie weibliche oder gegenderte Formen. Zum Prüfen fett markieren, nie nur kursiv.
@@ -44,9 +44,9 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, alles unter `docs/`. Nur auf `main`; dire
 - Jede Meldung des Nutzers sofort in `ARBEIT-OFFEN.md` auf `main`; Ideen für später nach `LISTE-IDEEN.md`; Erledigtes in `CHANGELOG.md` unter „## Unveröffentlicht“ (umbenannt erst beim Release).
 - **Nummern:** jedes Thema eine Nummer aus der gemeinsamen Folge (Zähler oben in `ARBEIT-OFFEN.md`); Vorschläge 7.1, 7.2 …, Rückfragen 7a, 7b …. Erst Nummer eintragen und pushen, dann dem Nutzer nennen. Die Nummer bleibt fest.
 - **Jeder Text an einem Ort** (65.4): Stand und Wer nur in „Wer macht was“; Gestaltungsentscheidung in den Beschlüssen; Begründung von Grundsätzlichem in `ROLLE-BERATER.md`; Umgesetztes in `CHANGELOG.md`; Verlauf in Commits oder `ARBEIT-ARCHIV.md`; `LISTE-THEMEN.md` nur Einwort-Stand.
-- **`ARBEIT-OFFEN.md` klein halten:** höchstens etwa 15 KB, je Eintrag höchstens 3 Zeilen. Je Person genau eine Übergabe, die alte kommt oben ins Archiv. Erledigtes aus „Wer macht was“ streichen, Zeile in `LISTE-THEMEN.md` anpassen. Vor längerer Pause oder Neustart Übergabe schreiben und pushen.
+- **`ARBEIT-OFFEN.md` klein halten:** höchstens etwa 15 KB, je Eintrag höchstens 3 Zeilen. Je Person genau eine Übergabe: Tom und Jerry in `ARBEIT-OFFEN.md`, Diogenes und Sokrates oben in ihrer ROLLE-Datei (77e.5); die alte kommt oben ins Archiv. Erledigtes aus „Wer macht was“ streichen, Zeile in `LISTE-THEMEN.md` anpassen. Vor längerer Pause oder Neustart Übergabe schreiben und pushen.
 
-**Story und Dialoge** (41): Plot und Texte legen Nutzer und Berater gemeinsam fest. Regeln in `STORY-REGELN.md`, Texte je Kapitel (`STORY-K1.md` …), gezielt über die Marke `[Thema.kurz]` suchen: wortgetreu übernehmen, Englisch beim Bauen selbst übersetzen. Fehlt oder passt ein Text nicht: Vorschlag unter 41, nie selbst erfinden. Tippfehler direkt korrigieren (Commit „Text:“). Änderungen zeigt `tools/story.sh <von> [<bis>]`.
+**Story und Dialoge** (41): Plot und Texte legen Nutzer und Berater gemeinsam fest. Regeln und Verzeichnis der Teildateien in `STORY-REGELN.md` (je Kapitel `STORY-K1.md`, `STORY-K1-W.md` …, kapitelübergreifend `STORY-BLENDE.md`), gezielt über die Marke `[Thema.kurz]` suchen: wortgetreu übernehmen, Englisch beim Bauen selbst übersetzen. Fehlt oder passt ein Text nicht: Vorschlag unter 41, nie selbst erfinden. Tippfehler direkt korrigieren (Commit „Text:“). Änderungen zeigt `tools/story.sh <von> [<bis>]`.
 
 **Seite „Dein Zug“** (63): Jede Rückfrage und Testfrage an den Nutzer steht auf https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow (Artefakt bei Tom, Jerry hat Schreibrecht; Abschnitte „Zu entscheiden“, „Anzusehen“); im Chat nur Link und Nummern. Je Punkt eine Datei `e/<nr>.html` plus Zeile in der Liste; jeder schreibt nur seine Einträge. Entscheidet der Nutzer: Eintrag in die Beschlüsse (https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) und in „Wer macht was“, Zeile auf „Dein Zug“ im selben Schritt löschen. Vor dem Ändern eines Artefakts es lesen, dann dieselbe URL neu veröffentlichen. Ausnahme: der Berater fragt im Gespräch.
 
