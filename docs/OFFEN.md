@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom 0.1.709** (Zweig `claude/tom-13t-alte-ansicht`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38443639762/artifacts/11836254563 · Prüfliste `e/t709.html`: 13t, 62s/62h, 73 Kaminrauch, 67a, 61b. Nach „passt“: PR des 13t-Zweigs, zusammenführen. 3b (Garrick links vom Feuer) liegt auf `claude/tom-62s-grundriss`, kommt mit dem nächsten Build.
+- **Tom 0.1.712** (Zweig `claude/tom-73-laeden`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38449304620/artifacts/11839553666 · 73 Läden zu, 62r Knopf „↑ Gebietskarte/Landkarte“, 3b Garrick; Prüfliste `e/t712.html`. 0.1.709 getestet und auf `main` (PR #54).
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -19,7 +19,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2** Weck-Routinen (Jerry, Zeile unten). Regeln in `CLAUDE.md` (65.4 ein Ort, 65.7/65.8 kein „Erledigt“); Verlauf im Archiv |
-| 13 | Diagonale Sicht | Tom | – | Alte Ansicht ausgebaut (13t, in 0.1.709). Offen: Tempel-Altar vor dem Fenster (Meldung 08:43), Tempelboden Steinplatten (19:39 ja), 42; danach 6l. Verlauf im Archiv |
+| 13 | Diagonale Sicht | Tom | `claude/tom-73-laeden` | 13t auf `main` (PR #54). Tempelboden Steinplatten fertig (kommt mit dem nächsten Build). Tempel-Altar geprüft (Standbild 20:48: Fenster links und rechts, Altar frei); offen 42; danach 6l. Verlauf im Archiv |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Großteil auf `main` (PR #52: 27.4, 5.6, 5.3, 5n, 5la Tagesablauf). Offen nach **5m:** 5.4 Pflaster, 5l/5.5, dann 27.5/27.6, je erst Standbilder. Verlauf im Archiv |
 | 13e | Höhle diagonal | Tom | – | Auf `main` (getestet 0.1.702). Offen nur Diogenes-Befunde der Höhle (Jerry) |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
@@ -39,12 +39,9 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | Tom (Szene, Bilder), Jerry (Klang „Ancient Legend“) | – | **68a–68m ja (Nutzer 17:16–18:02):** Ablauf, Texte, Einstieg Kapitel 2 alles in `docs/STORY1.md` (`[68.…]`, auch `[67.schild]`, `[67.nach.…]` entfällt); Form `STIL.md` „Zwischensequenzen“ |
 | 70 | Zwischensequenzen einheitlich (Intro 69, Tempel 68, spätere Wendepunkte) | Berater mit Nutzer | `main` (Notizen) | Nutzer 17:08: alle Zwischensequenzen ähnlich gebaut; Muster in `STIL.md` „Zwischensequenzen“ |
 | 62q | Begriffe: Landkarte → Gebietskarte → Grundriss → **Ebene** (übereinander im Grundriss; „Stockwerk“ entfällt) | alle | – | **Ja (Nutzer 17:33)**, Regel in `CLAUDE.md` „Begriffe“; Tom/Jerry/Diogenes bitte so in Spiel, Prüflisten und Notizen |
-| 67a | Wegweiser am Südrand: „Rabenschanze“, darunter klein „Schilfrode“ | Tom | `claude/tom-13t-alte-ansicht` | **Ja (Nutzer 17:26)**, Text `[67.schild]` in `docs/STORY1.md`; auf dem Zweig (Text beim Antippen zweizeilig), kommt mit 13t |
 | 3b | Garrick links vom Feuer, Gesicht zur Kamera | Tom | `claude/tom-73-laeden` | Nutzer 17:10; fertig, kommt mit dem nächsten Build |
-| 61b | Fußspuren bei der Kräuterfrau ohne Regen | Tom | `claude/tom-13t-alte-ansicht` | Boden nur noch 1 min nass, in 0.1.709 |
-| 62s | Gebietskarte Dorf: Haus mit Schild öffnet Grundriss | Tom | `claude/tom-13t-alte-ansicht` | Behoben, in 0.1.709 |
 | 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | – | **69a–69d ja (Nutzer 13.10., 16:31):** Texte, Ablauf und Klang in `docs/STORY1.md` (`[69.intro.…]`), wortgetreu übernehmen |
-| 73 | Versperrte Hütten: nachts Läden zu, Rauch | Tom (Dorf) | `claude/tom-73-laeden` | **73a ja (19:43).** Kaminrauch in 0.1.709; alle acht Kamine gehören zu bewohnten Häusern. Läden zu mit Ritzenlicht nachts für Bäcker, Kael, Gwenna, Schmied, Pim fertig (Standbilder auf „Dein Zug“, 20:4x), kommt mit dem nächsten Build. 73b offen |
+| 73 | Versperrte Hütten: nachts Läden zu, Rauch | Tom (Dorf) | `claude/tom-73-laeden` | 73a ja; Kaminrauch auf `main` (PR #54). Läden mit Ritzenlicht in 0.1.712. **73b A (Nutzer 20:5x):** Rauch heißt bewohnt, Verschlossene rauchen weiter; Antwort von drinnen beim Anklopfen braucht Texte (Zeile „Für den Berater“) |
 | 75 | Diogenes: Kosten und Nutzen des Testens (Nutzer 13.10., 20:43: „so viel testen wie nötig, so wenig wie möglich“) | Berater mit Nutzer | `main` (Notizen) | Rolle fertig (`DIOGENES.md`); Entwurf im Archiv „Entwurf Berater 75h“; offen 75h–75l |
 | 76 | Tom und Jerry schärfen, `CLAUDE.md` durch Auslagern entschlacken (Nutzer 13.10., 20:37) | Berater mit Nutzer | `main` (Notizen) | Entwurf im Archiv „Entwurf Berater 76“; offen 76a–76d |
 | 74 | Schrittgeräusche fehlen an allen Orten („Ort fertig“ 8; Befund Diogenes D1.1) | Jerry (Klang); Tom für Dorf und Räume | – | Berater 13.10., 19:4x: Mangel gegen bestehende Regel, kein Beschluss nötig. **Verdacht** erst bestätigen; Böden je Untergrund (Gras, Erde, Holz, Stein) |
@@ -62,7 +59,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (13.10., 20:0x) – an Nachfolger
-- 0.1.702 getestet und zusammengeführt (PR #53). Sammelbuild 0.1.709 auf `claude/tom-13t-alte-ansicht` (13t + 67a + 61b + 62s/62h + 73 Kaminrauch), Prüfliste `e/t709.html`; nach „passt“ PR des 13t-Zweigs, zusammenführen, dann in `UMGEBUNG.md` die Schalter `TOWNDRAFT`, `OVERVIEW`, `MAPS`, `CAVEMAP`, `RAUMDINGE`, `ALTRAUM` streichen.
+- 0.1.709 getestet und zusammengeführt (PR #54), Schalter in `UMGEBUNG.md` gestrichen. 0.1.712 auf `claude/tom-73-laeden` (73 Läden, 62r, 3b), Prüfliste `e/t712.html`; Tempelboden (13) dort schon committet, kommt mit dem nächsten Build.
 - Zweig `claude/tom-73-laeden` (= 13t + 3b + 73 Läden): dort 62r (A) bauen, dann nächster Build; danach 6l, 68.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -87,6 +84,7 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
+- **41/73b Texte** (Tom 13.10., 20:5x): Nach 73b A antwortet beim Anklopfen an verschlossenen bewohnten Häusern (Bäcker Edrik, Kael, Gwenna, Schmied Dorran, Pim) jemand von drinnen; heute steht dort z. B. bei Kael „Niemand öffnet.“ (`Story.kt` `lockedDoor`). Bitte Antworten je Haus, ggf. nach Tageszeit, in `STORY1.md` festlegen; Tom baut sie dann ein.
 
 - **41 Story-Texte (Diogenes D2.13, D2.4 Chronik-Teil):** „Bugbear“ im deutschen Text und fehlendes Verb in der Chronik; englische Namen uneinheitlich (Morning Light/Dawnlight, herbwoman/Herbalist). Steht so in `STORY1.md`; Nutzer und Berater entscheiden.
 
