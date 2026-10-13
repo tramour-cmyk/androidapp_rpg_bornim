@@ -212,8 +212,10 @@ private fun LandView(game: Game, lang: Lang, look: de.bornim.core.art.LandSheet.
     val here = game.map.let { m -> if (m.kind == de.bornim.core.MapKind.INTERIOR) "village" else m.id }
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().clipToBounds()) {
         val vw = constraints.maxWidth.toFloat(); val vh = constraints.maxHeight.toFloat()
-        val scale = minOf(vw / img.width, vh / img.height)
-        val ox = (vw - img.width * scale) / 2; val oy = (vh - img.height * scale) / 2
+        // the drawing is finer than its map units (LandSheet.S); places sit in map units
+        val lw = de.bornim.core.art.LandSheet.W; val lh = de.bornim.core.art.LandSheet.H
+        val scale = minOf(vw / lw, vh / lh)
+        val ox = (vw - lw * scale) / 2; val oy = (vh - lh * scale) / 2
         val density = androidx.compose.ui.platform.LocalDensity.current.density
         androidx.compose.foundation.Canvas(Modifier.fillMaxSize().pointerInput(Unit) { detectTapGestures { at ->
             de.bornim.core.art.LandSheet.spots.firstOrNull { sp ->
@@ -221,13 +223,15 @@ private fun LandView(game: Game, lang: Lang, look: de.bornim.core.art.LandSheet.
             }?.let { onPick(it.map) }
         } }) {
             drawImage(bmp, dstOffset = androidx.compose.ui.unit.IntOffset(ox.toInt(), oy.toInt()),
-                dstSize = androidx.compose.ui.unit.IntSize((img.width * scale).toInt(), (img.height * scale).toInt()),
-                filterQuality = androidx.compose.ui.graphics.FilterQuality.None)
+                dstSize = androidx.compose.ui.unit.IntSize((lw * scale).toInt(), (lh * scale).toInt()),
+                filterQuality = androidx.compose.ui.graphics.FilterQuality.Low)
             for (sp in de.bornim.core.art.LandSheet.spots) {
                 val name = if (known(sp.map)) de.bornim.core.World[sp.map].name(lang) else "?"
-                val style = androidx.compose.ui.text.TextStyle(fontFamily = MapLook.hand, fontSize = 15.sp, color = ink)
+                // a halo of the ground round the letters, so a way or a tree under a name never cuts it
+                val halo = androidx.compose.ui.graphics.Shadow(if (noir) Color(0xFF0E0D0B) else Color(0xFFE6D3A8), blurRadius = 6 * density)
+                val style = androidx.compose.ui.text.TextStyle(fontFamily = MapLook.hand, fontSize = 16.sp, color = ink, shadow = halo)
                 val t = measurer.measure(name, style)
-                drawText(t, topLeft = androidx.compose.ui.geometry.Offset(ox + sp.x * scale - t.size.width / 2f, oy + sp.labelY * scale))
+                drawText(t, topLeft = androidx.compose.ui.geometry.Offset(ox + sp.labelX * scale - t.size.width / 2f, oy + sp.labelY * scale))
                 if (sp.map == here) {
                     val c = androidx.compose.ui.geometry.Offset(ox + sp.x * scale, oy + (sp.y - sp.r * 0.15f) * scale)
                     drawCircle(Color(0x55B0302A), 16 * density, c)
@@ -236,7 +240,8 @@ private fun LandView(game: Game, lang: Lang, look: de.bornim.core.art.LandSheet.
                 }
             }
             // the south road leaves the drawing: an arrow and where it goes
-            val style = androidx.compose.ui.text.TextStyle(fontFamily = MapLook.hand, fontSize = 13.sp, color = ink.copy(alpha = 0.8f))
+            val style = androidx.compose.ui.text.TextStyle(fontFamily = MapLook.hand, fontSize = 13.sp, color = ink.copy(alpha = 0.8f),
+                shadow = androidx.compose.ui.graphics.Shadow(if (noir) Color(0xFF0E0D0B) else Color(0xFFE6D3A8), blurRadius = 6 * density))
             val t = measurer.measure(if (lang == Lang.DE) "nach Süden" else "to the south", style)
             drawText(t, topLeft = androidx.compose.ui.geometry.Offset(ox + 108 * scale, oy + 278 * scale))
         }
