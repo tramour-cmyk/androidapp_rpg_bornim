@@ -19,7 +19,6 @@ class CaveSheetTest {
     @Test
     fun sheet() {
         if (System.getenv("CAVESHEET") == null) return
-        MapCaveIso.draft = true
         val map = World["cave"]
         val tw = MapRoomIso.TW; val th = MapRoomIso.TH
         val ox = map.height * tw / 2 + 40; val oy = 260.0

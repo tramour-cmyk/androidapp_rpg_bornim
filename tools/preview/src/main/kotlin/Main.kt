@@ -246,7 +246,7 @@ fun main() {
         fun village(vm: GameViewModel, minutes: Int) {
             vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
             val g = vm.game!!; g.skipDialogs()
-            de.bornim.game.ui.MapSight.all = true
+            de.bornim.game.ui.MapSight.follow()
             g.state.place = Place("village", 11, 7, Facing.UP); g.state.minutes = minutes
             val m = de.bornim.core.World["village"]
             g.state.explored["village"] = "f".repeat((m.width * m.height + 3) / 4)
@@ -283,10 +283,6 @@ fun main() {
         }
         for (near in listOf(true, false)) {
             de.bornim.game.ui.MapZoom.near = near
-            // CAVEDRAFT=1: the cave's rock standing up, gate and supports in the slant (13e, draft)
-            if (System.getenv("CAVEDRAFT") != null) de.bornim.core.art.MapCaveIso.draft = true
-            // DIAG=1: the map seen diagonally (13)
-            if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.all = true
             // PFLASTERDRAFT=1: the square's cobbles quieter (5.4, draft)
             if (System.getenv("PFLASTERDRAFT") == "2") de.bornim.core.art.MapGround.cobbleMid = true
             else if (System.getenv("PFLASTERDRAFT") != null) de.bornim.core.art.MapGround.cobbleDraft = true

@@ -25,7 +25,7 @@ fun veilFilm() {
     val g = vm.game!!
     var guard = 0
     while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
-    de.bornim.game.ui.MapSight.all = true
+    de.bornim.game.ui.MapSight.follow()
     g.state.minutes = 12 * 60
     vm.refresh()
     val scene = ImageComposeScene(1080, 2340, Density(2.75f)) { BornimApp(vm) }
