@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Aufbau, Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARCHIV.md` („Aus BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 13:21–14:1x „Story-Vorlage“; 13.10. 14:18–15:3x „Kapitel 2“ (Heldenbau markiert, Grobzusammenfassung Graumoor, Umfang 41i). **Nachfolger:** „Sokrates – Kapitel 2 Karte“ (Nutzer startet mit „Sokrates“)
+**Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 14:18–15:3x „Kapitel 2“; 13.10. 15:44–16:1x „Kapitel 2 Karte“ (41j–l, Karte, 38g, 62n/62o). **Nachfolger:** „Sokrates – Kapitel 2 Storyplan“ (Nutzer startet mit „Sokrates“)
 
-**Nächster Punkt:** Kapitel 2 „Das Graumoor“ (Grobzusammenfassung im Storyplan). Nutzer 15:28: Grundidee gut; Kapitel 1 ist Einweisung, Kapitel 2 muss im Umfang deutlich mehr bieten (Karten, Höhlen, Zufallsdungeons 48). Als Nächstes: Umfang 41i in den Storyplan und Grobentwurf der Landkarte (Gebiete, Wege, Größen) als Bild; offen 41e–41i. Dazu **68** Tempelszene (Lyra legt Amulett auf den Altar, „Ancient Legend“, Licht flackert einmal) und **69** Intro (fünf Standbilder: Südstraße, Brücke, Dorfplatz mit Fackeln am Tempel = Überfall, Fenster des Greifs, „Du schläfst wie ein Stein“); Rückfragen 68a, 69a, 69b offen, Texte nach Freigabe in den Storyplan.
+**Nächster Punkt:** **41m** offen (Anordnung Karte Kapitel 2: Kultlager südlich versetzt, Aschfurt im Moor, Zufallshöhlen bei Schilfrode, nach Bornim nur Südstraße; Empfehlung ja), danach Umfang 41j–l und Karte in den Storyplan. **68/69** (Tempelszene, Intro): Nutzer bringt den Wortlaut aus der alten Sitzung, dann Textentwürfe. Karten und Bilder immer auch als PNG in den Chat.
 
-**Zuletzt gelesen bis:** dieser Commit (13.10., 15:3x)
+**Zuletzt gelesen bis:** dieser Commit (13.10., 16:1x)
 
 ## Ritual
 
@@ -35,12 +35,13 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - **Heldenbau (49, 50; [Dokument](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)):** kein großer Skilltree (führt zu wenigen besten Wegen), Talente ändern Entscheidungen statt Zahlen, Talent jede gerade Stufe (sonst Kapitel ohne Wahl), Merkmale nie kaufbar (Sperre gegen Magier-Tank), gekaufte Klassen nie stärker.
 - **Balance (38):** SRD als Fundament, Stufen 5–14 als Kern über mindestens 7 Kapitel, Abweichungen mit Grund in `BALANCE.md`; Schwierigkeitsgrad erst nach Messung von „Normal“.
 - **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen (Nutzer + Berater) vor jeder Story-Änderung, damit Texte nicht von Entwicklern erfunden werden. Kapitel 2 beginnt mit „Wer ist der Graue Prophet?“: **Mischung ja (Nutzer 13.10., 14:08)** – Kult mit weitergegebenem Titel trägt sieben Kapitel, Ziel das Siegel des Amuletts von vor hundert Jahren (Lyra kennt die alten Gebete), Traumstimme bleibt offen; Held erfährt in Kapitel 2 nur vom Kult (14:16); endet auf Stufe 8; Kapitel 1 aus `Story.kt`/`Jobs.kt` lesen. Nachtragen: Heldensätze 29.4. **Vorlage geteilt** (Nutzer 13.10.): `STORY.md` nur Verzeichnis, Texte je Kapitel in Teildateien (ab ~15 KB weiter nach Ort/Quest), feste Marke je Text, damit bei 8–9 Kapiteln niemand alles lesen muss.
-- **Chronik-Texte (64d/62i, Nutzer 13.10.):** Chronist in dritter Person, Einträge je Wendepunkt (Rückkehrer sehen sofort den Stand), Hörensagen mit Quelle. Gwenna Witwe, Aldric erkennt das Auge vom Steinkreis (Nebenweg wird Spur zum Propheten), Held = Durchreisender, zweiter Hörensagen-Satz nur bei Änderung; kindlicher Ton bleibt (Nutzer: Leichtigkeit zerstört nicht das Ganze). **67 Südstraße:** Versorgung und Herkunft des Helden brauchen einen zweiten Weg; nur die Waldstraße ist gesperrt. Umkehr durch den Helden selbst statt Wand oder Wächter (erinnert statt führt), ab dem zweiten Versuch nur Kurzeinblendung.
+- **Chronik-Texte (64d/62i, Nutzer 13.10.):** Chronist in dritter Person, Einträge je Wendepunkt (Rückkehrer sehen sofort den Stand), Hörensagen mit Quelle; kindlicher Ton bleibt. **67 Südstraße:** zweiter Weg für Versorgung und Herkunft; Umkehr durch den Helden selbst statt Wand (erinnert statt führt). Einzelheiten im Archiv („16:0x“).
 
 **Offen bei mir:** `docs/HELDENBAU.md` nach Durchsicht der kursiven Talentnamen (offen auch Erkennungszeichen-Standbilder, Jerrys Messung); Prüfungsquests und Umlern-Tempel (41, mit Nutzer); **45b nach Jerrys Messung 38 ansprechen**; 41 Kapitel 2 stößt der Nutzer an.
 
 ## Lehren
 
+- **Bilder und Karten zusätzlich als PNG in den Chat** (13.10.): Artefakte lassen sich auf dem Handy nicht zoomen, Chatbilder schon (`cairosvg`, Faktor 3).
 - **Markierungen zum Prüfen fett mit Markierung, nie nur kursiv** (13.10.): Nutzer erkennt Kursives auf dem Handy kaum; Docs-Editor kann keine rote Schrift.
 - **Empfehlungen wiederholen, nicht verweisen** (13.10.): „die Empfehlungen sind ja wieder weg“. Offene Rückfragen jedes Mal mit vollem Wortlaut und Empfehlung zeigen, nie „stehen weiter“.
 - **Eigene Ideen einbringen** (13.10.): „du findest alles sinnvoll, was ich vorschlage … du bist mein Berater“. Jeden Vorschlag auf Lücken, Kosten, Doppelungen prüfen und Eigenes ergänzen.
@@ -53,7 +54,4 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 ## Deine Linie (der Nutzer)
 
-- Düster, erwachsen, glaubwürdig; nie niedlich (`STIL.md` → Richtung).
-- Erst reden, dann arbeiten; eine Rückfrage ist keine Freigabe. Keine Arbeit in Sackgassen. Vor großen optischen Änderungen Standbilder, keine Filmstreifen.
-- Was funktioniert, muss er nicht erfahren; kurze, nummerierte Rückfragen mit Empfehlung.
-- Wahl des Spielers, Optionen, individuell und lebendig (49/50). Generisches Maskulinum, nie weibliche oder gegenderte Formen.
+- Stehende Regeln zum Umgang in `CLAUDE.md` („Umgang mit dem Nutzer“); Richtung in `LEITBILD.md`/`STIL.md`. Wahl des Spielers, Optionen, individuell und lebendig (49/50).
