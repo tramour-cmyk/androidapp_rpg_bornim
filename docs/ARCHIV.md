@@ -1,5 +1,11 @@
 # Archiv
 
+- **CLAUDE.md gekürzt (13.10., Berater, Ablaufprüfung Punkt 1):** knapp formuliert, Release und Neustart-Ablauf nach `docs/ABLAEUFE.md`; Herkunft der Regeln (Daten, Zitate, Begründungen) im alten Volltext, Commit `a48be9a`. Zwei unabhängige Prüfrunden alt gegen neu: nichts verloren.
+
+### Tom (13.10., 09:5x) – neue Sitzung „Tom: 63 Erledigt 59e/62c, dann Test 0.1.653 und 62c Karte“
+- 59e/62c im Bildbuch, auf der Entscheidungsseite unter „Erledigt“. Wartet auf Test 0.1.653 (danach PR von `claude/tom-27-wald-diagonal`, zusammenführen, Änderungshistorie).
+- 59e und 62c auf Zweig `ccr-5851d275-mvpqbt` (von `claude/tom-27-wald-diagonal`), Build 0.1.655. **Weiter:** 17 Riemen, 55.1b Speer.
+
 ### Aus OFFEN.md, Tom 13.10., 09:5x
 
 ### Tom (13.10., 07:25) – Sammelbuild 0.1.650 fertig, Neustart
