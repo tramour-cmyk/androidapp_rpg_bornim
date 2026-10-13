@@ -62,3 +62,5 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 58 | Umhang hängt beim Laufen über dem Schild | Tom | erledigt 12.10. (PR #50) | `OFFEN.md` |
 | 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf | Tom | neu 12.10. | `OFFEN.md` |
 | 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | Tom | neu 12.10. | `OFFEN.md` |
+| 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | Tom | Entwurf 13.10. | `OFFEN.md` |
+| 62 | Gezeichnete Karte im Menü | Tom | Entwurf 13.10. | `OFFEN.md` |
