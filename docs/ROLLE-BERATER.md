@@ -21,7 +21,7 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 
 **Nächster Punkt:** (1) **Umbau 76/77 nachhalten:** Tom und Jerry haben Startaufträge in ihrer Übergabe (Codekommentare, Build-Auslöser 78d, neu starten); Wächter in `notiz.sh` meldet alte Namen. Ab jetzt beim Start Rückläufer je Build zählen (76f, Vermerk „(Rückläufer: n)“ im `CHANGELOG.md`). (2) **77e** Inhalte der Dateien neu zuordnen (eigener Entwurf), dabei `STORY-K1.md` in die Gruppen K1-H/N/Z/W gliedern. (3) **72**: Freigabe Marktvergleich (PDF 20:00), dann `docs/DESIGN-MARKT.md`; **72a–72j** mit Wortlaut und Empfehlung zeigen. (4) Kultlager (41). Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
 
-**Zuletzt gelesen bis:** dieser Commit (13.10., 21:3x)
+**Zuletzt gelesen bis:** Commit „Notizen umgebaut …“ 07fb78a (13.10., 21:56)
 
 ## Ritual
 
