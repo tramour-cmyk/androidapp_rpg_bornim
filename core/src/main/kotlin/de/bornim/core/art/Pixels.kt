@@ -118,11 +118,6 @@ class Pen(val img: PixelImage, val k: Int = 1) {
         }
     }
 
-    fun thickLine(x0: Int, y0: Int, x1: Int, y1: Int, c: Int) {
-        line(x0, y0, x1, y1, c)
-        line(x0 + 1, y0, x1 + 1, y1, c)
-    }
-
     /** Filled triangle. */
     fun tri(ax: Int, ay: Int, bx: Int, by: Int, cx: Int, cy: Int, c: Int) {
         val pts = listOf(ax, ay, bx, by, cx, cy).map { it * k.toDouble() }
@@ -185,46 +180,29 @@ object Pal {
     val EYE = argb(0x282830)
 
     val GRASS = argb(0x78C850)
-    val GRASS_DARK = argb(0x58A838)
-    val GRASS_LIGHT = argb(0x98E070)
     val TALL = argb(0x3E9A3A)
-    val TALL_DARK = argb(0x2A7030)
-    val TALL_LIGHT = argb(0x70C858)
     val LEAF = argb(0x2F8A3A)
     val LEAF_DARK = argb(0x1E6030)
     val LEAF_LIGHT = argb(0x58B850)
     val TRUNK = argb(0x7A5030)
     val PATH = argb(0xDCC088)
-    val PATH_DARK = argb(0xC8A468)
-    val PATH_LIGHT = argb(0xECD8A8)
     val WATER = argb(0x4C8EF0)
-    val WATER_LIGHT = argb(0x90C4F8)
-    val WATER_DARK = argb(0x3070D0)
     val STONE = argb(0xA8A8B0)
     val STONE_DARK = argb(0x78788A)
     val STONE_LIGHT = argb(0xD0D0D8)
     val ROOF = argb(0xC84838)
-    val ROOF_DARK = argb(0x983028)
     val ROOF_BLUE = argb(0x4868C8)
-    val ROOF_BLUE_DARK = argb(0x3048A0)
     val PLASTER = argb(0xF0E0B8)
     val BEAM = argb(0x8A5A30)
     val WOOD = argb(0xB07840)
     val WOOD_DARK = argb(0x80542C)
     val WOOD_LIGHT = argb(0xD09858)
-    val FLOOR = argb(0xD8A868)
-    val FLOOR_DARK = argb(0xB88848)
     val RUG = argb(0xB83A48)
-    val RUG_LIGHT = argb(0xE0B040)
     val GLASS = argb(0x88C8F0)
     val GOLD = argb(0xF0C040)
     val GOLD_DARK = argb(0xB08820)
     val CAVE_WALL = argb(0x5A4A40)
-    val CAVE_WALL_DARK = argb(0x3A302A)
-    val CAVE_WALL_LIGHT = argb(0x7A6858)
     val CAVE_FLOOR = argb(0x8C7C68)
-    val CAVE_FLOOR_DARK = argb(0x75664F)
-    val CAVE_FLOOR_LIGHT = argb(0xA49480)
     val FIRE = argb(0xF89830)
     val FIRE_LIGHT = argb(0xF8E060)
     val FIRE_DARK = argb(0xD84020)

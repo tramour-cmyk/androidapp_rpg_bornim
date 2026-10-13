@@ -13,7 +13,7 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 /**
- * The cave seen diagonally (13e, draft, on for the test build): the rock stands up around the floor instead of
+ * The cave seen diagonally (13e): the rock stands up around the floor instead of
  * lying flat in it, the gate and the old timber supports stand across their passage in the slant.
  * The rock comes from the cave's plan alone (48b), so a cave made by chance needs no work by hand: each rock tile next
  * to the floor is a height field whose foot is the ground's edge of rock; back walls (the floor before them, towards +i
@@ -21,9 +21,6 @@ import kotlin.math.sqrt
  * Same projection and heights as the rooms and the village ([MapRoomIso], [MapTownIso]): 90 × 45 art pixels a tile.
  */
 object MapCaveIso {
-    /** On for the test build (13e); off shows the former cave. */
-    @Volatile var draft = true
-
     private const val TW = MapRoomIso.TW
     private const val TH = MapRoomIso.TH
     private const val ZS = MapRoomIso.ZS
@@ -157,7 +154,7 @@ object MapCaveIso {
      * Whether the rock of cell ([x], [y]) is drawn no higher than about a metre (a thin wall between two rooms, or the
      * low rim towards the camera), so the hero looks over it (13e, test of 0.1.689: the room beyond a low wall stayed dark).
      */
-    fun low(map: MapDef, x: Int, y: Int): Boolean = draft && map.inside(x, y) && rockCell(map, x, y) && capCell(map, x, y) <= MID
+    fun low(map: MapDef, x: Int, y: Int): Boolean = map.inside(x, y) && rockCell(map, x, y) && capCell(map, x, y) <= MID
 
     /** The cap between the cells' middles, blended over the rock cells only (the floor has none). */
     private fun capAt(map: MapDef, gi: Double, gj: Double, caps: HashMap<Long, Double>): Double {

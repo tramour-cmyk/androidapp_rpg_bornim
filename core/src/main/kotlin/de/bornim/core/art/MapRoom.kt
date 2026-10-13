@@ -7,11 +7,10 @@ import kotlin.math.floor
 import kotlin.math.sqrt
 
 /**
- * The rooms of Bornim in the new style (draft, night of 09.10.; only in the previews while
- * [MapGround.townDraft] is off in the game): the inn, the shop, the elder's house and the temple,
- * seen at a slant from above. Dark oak boards worn pale where feet go, the back wall a face of
- * smoke-stained plaster between beams, the other walls their thick dark tops, a doorway of light;
- * and the furniture as pictures of its own. At double resolution ([S] art pixels per tile).
+ * The floor of the rooms of Bornim (the inn, the shop, the elder's house and the temple), drawn in chunks like
+ * [MapGround]: dark oak boards worn pale where feet go, rugs, the hearth's glow. Walls and furniture stand upright on
+ * it ([MapRoomIso]); here are also the fire in the hearth ([fire]) and what hangs on the walls ([wallThing]).
+ * At double resolution ([S] art pixels per tile).
  */
 object MapRoom {
     private const val S = MapGround.S
@@ -48,12 +47,8 @@ object MapRoom {
     private val RUG = ramp(0x7A3A2E, 0x5E2C24, 0x46201C)
     private val RUG_B = ramp(0x8A7650, 0x6A5A3C, 0x4E422C)
     private val CLOTH = ramp(0x7A7062, 0x5E564A, 0x463F36)
-    private val IRON = argb(0x2A2826)
-    private val FLAME = argb(0xF0C060)
-    private val GOLD = ramp(0xA88A4A, 0x86703A, 0x5E4E2A)
     private val STRAW = ramp(0xB09A60, 0x8E7A48, 0x6A5A36)
     private val ASH = ramp(0x8A8480, 0x5E5A56, 0x34302C)
-    private val OAK = BEAM.map { shade(it, 1.6) }
     private val FIRE = ramp(0xFFF0B0, 0xFFC860, 0xF08A30, 0xC04E1C, 0x6A2010)
     private val IRON_R = ramp(0x5A5650, 0x3A3632, 0x221F1C)
 
@@ -209,300 +204,22 @@ object MapRoom {
         val n = maxOf(abs(x1 - x0), abs(y1 - y0)).toInt() + 1
         for (i in 0..n) { val t = i / n.toDouble(); put(img, (x0 + (x1 - x0) * t).toInt(), (y0 + (y1 - y0) * t).toInt(), c) }
     }
-    /** A soft shadow on the floor under a thing, part of its picture. */
-    private fun floorShadow(img: PixelImage, cx: Double, cy: Double, rx: Double, ry: Double, a: Int = 0x88) {
-        for (y in (cy - ry).toInt()..(cy + ry).toInt()) for (x in (cx - rx).toInt()..(cx + rx).toInt()) {
-            val nx = (x - cx) / rx; val ny = (y - cy) / ry; val d = nx * nx + ny * ny
-            if (d > 1 || img[x, y] ushr 24 != 0) continue
-            put(img, x, y, ((a * (1 - d)).toInt().coerceIn(0, 255) shl 24) or 0x0A0806)
-        }
-    }
-    private fun candle(img: PixelImage, x: Int, y: Int, tall: Int = 6) {
-        rect(img, x - 1, y - 1, x + 4, y + 1) { _, _ -> IRON_R[1] }
-        rect(img, x, y - tall, x + 3, y - 1) { xx, _ -> if (xx == x) argb(0xD8CCB0) else argb(0xB8AC90) }
-        put(img, x + 1, y - tall - 1, FIRE[1]); put(img, x + 1, y - tall - 2, FIRE[0])
-    }
-    private fun mug(img: PixelImage, x: Int, y: Int) {
-        rect(img, x, y - 7, x + 5, y) { xx, yy -> if (yy == y - 7) argb(0x2A1E14) else if (xx == x) argb(0x9A8E78) else argb(0x7A6E5A) }
-        put(img, x + 5, y - 5, argb(0x6A5E4A)); put(img, x + 6, y - 4, argb(0x6A5E4A)); put(img, x + 5, y - 3, argb(0x6A5E4A))
-    }
-    private fun bowl(img: PixelImage, x: Double, y: Double) =
-        blob(img, x, y, 6.5, 3.5) { nx, ny -> if (nx * nx + ny * ny < 0.35 && ny < 0.3) argb(0x4A3420) else shade(argb(0x8A6E50), 1.1 - ny * 0.4 - nx * 0.1) }
-    private fun bread(img: PixelImage, x: Double, y: Double) =
-        blob(img, x, y, 5.5, 3.0) { nx, ny -> shade(argb(0xA07A44), 1.15 - nx * 0.2 - ny * 0.35) }
-    /** A mug knocked over, a dark puddle spreading from its mouth. */
-    private fun tipped(img: PixelImage, x: Int, y: Int) {
-        blob(img, x + 10.0, y - 1.5, 6.0, 2.2) { _, ny -> shade(argb(0x2A1C12), 0.9 - ny * 0.2) }
-        rect(img, x, y - 5, x + 8, y) { xx, yy -> if (yy == y - 5) argb(0x9A8E78) else if (xx == x + 7) argb(0x3A2A1E) else argb(0x7A6E5A) }
-    }
-    /** Crumbs and a crust left lying. */
-    private fun crumbs(img: PixelImage, x: Int, y: Int, v: Int) {
-        for (k in 0 until 7) put(img, x + hash(k, v, 57) % 12, y - hash(k, v, 58) % 5, if (k % 3 == 0) argb(0x6A4A28) else argb(0xA07A44))
-        blob(img, x + 4.0, y - 2.0, 3.0, 1.6) { nx, _ -> shade(argb(0x8A6438), 1.1 - nx * 0.3) }
-    }
-    /** A grey rag, wrung and dropped. */
-    private fun rag(img: PixelImage, x: Int, y: Int) =
-        blob(img, x + 6.0, y - 2.5, 7.0, 3.2) { nx, ny -> pick(CLOTH, 0.55 - nx * 0.2 - ny * 0.2 + (if (abs(nx * 0.7 - ny) < 0.12) -0.35 else 0.0)) }
 
     private fun jug(img: PixelImage, x: Int, y: Int) {
         blob(img, x + 4.0, y - 5.0, 4.5, 5.0) { nx, ny -> shade(argb(0x8A5A38), 1.15 - nx * 0.35 - ny * 0.15) }
         rect(img, x + 2, y - 12, x + 6, y - 9) { xx, _ -> if (xx == x + 2) argb(0x9A6A44) else argb(0x7A4A2E) }
     }
 
-    /** A tall shelf against the wall: four boards of jars, bottles, crocks and bundles, taller than a man. */
-    fun shelf(v: Int): Sprite = cached("shelf/$v") {
-        val w = S - 4; val h = 116; val img = PixelImage(w, h)
-        rect(img, 0, 4, w, h - 2) { x, _ -> if (x < 4 || x >= w - 4) BEAM[1] else BEAM[2] }
-        rect(img, 0, 2, w, 6) { _, y -> if (y == 2) BEAM[0] else BEAM[1] }
-        for (k in 0 until 4) {
-            val by = 28 + k * 22
-            rect(img, 2, by, w - 2, by + 4) { _, y -> if (y == by) BEAM[0] else BEAM[1] }
-            var x = 6
-            var i = 0
-            while (x < w - 10) {
-                val kind = hash(i, k, v) % 5
-                val iw = 5 + hash(i, k, v + 1) % 7; val ih = 7 + hash(i, k, v + 2) % 10
-                val col = listOf(0x4A3A2E, 0x2E3A3A, 0x5A2A22, 0x6A6048, 0x3A4A2A)[hash(i, k, v + 3) % 5]
-                when (kind) {
-                    0 -> rect(img, x, by - ih, x + iw, by) { xx, _ -> shade(argb(col), if (xx == x) 1.3 else 1.0) }
-                    1 -> { rect(img, x + 1, by - ih, x + iw - 1, by) { xx, _ -> shade(argb(0x3A4A46), if (xx == x + 1) 1.6 else 1.0) }; put(img, x + 2, by - ih + 2, argb(0xA8B0A8)) }
-                    2 -> blob(img, x + iw / 2.0, by - ih / 2.0, iw / 2.0, ih / 2.0) { nx, ny -> shade(argb(0x7A5A3A), 1.1 - nx * 0.2 - ny * 0.3) }
-                    3 -> { blob(img, x + iw / 2.0, by - 4.0, iw / 2.0 + 1, 4.0) { nx, ny -> shade(argb(0x6A5A40), 1.1 - nx * 0.3 - ny * 0.2) } }
-                    else -> rect(img, x, by - ih, x + 3, by) { _, _ -> argb(col) }
-                }
-                x += iw + 2 + hash(i, k, v + 4) % 3; i++
-            }
-        }
-        Sprite(img, w / 2, h - 4)
-    }
 
-    /** A bed of one tile, as drawn before (rooms whose beds stand side by side). */
-    fun bed(v: Int = 0): Sprite = cached("bed/$v") {
-        val w = S - 6; val h = 80; val img = PixelImage(w, h)
-        val blanket = blankets[v % 3]
-        rect(img, 2, 2, w - 2, 14) { x, y -> if (y < 4) BEAM[0] else pick(BEAM, 0.5 - (if (x % 9 == 0) 0.3 else 0.0)) }
-        rect(img, 2, 14, w - 2, h - 6) { x, _ -> if (x < 5 || x >= w - 5) BEAM[1] else argb(0x8A7A58) }
-        rect(img, 2, h - 12, w - 2, h - 6) { _, y -> if (y == h - 12) BEAM[0] else BEAM[2] }
-        blob(img, w / 2.0, 21.0, w / 2.0 - 9, 5.5) { nx, ny -> shade(argb(0xB8AC90), 1.05 - nx * 0.1 - ny * 0.25) }
-        rect(img, 6, 30, w - 6, h - 13) { x, y -> pick(blanket, 0.6 - (x - 6) / w.toDouble() * 0.3 + (vnoise(x.toDouble(), y * 0.5, 5.0, 13 + v) - 0.5) * 0.5) }
-        rect(img, 6, 30, w - 6, 33) { _, _ -> shade(blanket[0], 1.15) }
-        Sprite(img, w / 2, h - 4)
-    }
-    private val blankets = listOf(ramp(0x6A3A30, 0x542E26, 0x3E221C), ramp(0x4A5260, 0x3A404C, 0x2A2E38), CLOTH)
-    /** Blankets for the long beds: madder red, undyed wool, a faded green. */
-    private val woolens = listOf(ramp(0x8A4A38, 0x6E3A2C, 0x502A20), ramp(0x8E7E68, 0x706250, 0x524838), ramp(0x5E6A4A, 0x4A5438, 0x363E2A))
 
-    /**
-     * A bed two tiles long, its head against the wall: a plank frame with corner posts, a straw
-     * mattress, a bolster, a rough blanket thrown back in folds, and a fur at its foot.
-     */
-    fun longBed(v: Int): Sprite = cached("longbed/$v") {
-        val w = S - 8; val h = S + 76; val img = PixelImage(w, h)
-        val blanket = woolens[v % 3]
-        floorShadow(img, w / 2.0, h - 6.0, w / 2.0 + 2, 6.0)
-        // the headboard and its posts
-        rect(img, 1, 0, w - 1, 20) { x, y -> if (x < 5 || x >= w - 5) (if (x == 1 || x == w - 5) BEAM[0] else BEAM[1]) else if (y < 3) BEAM[0] else pick(BEAM, 0.5 - (if ((x - 5) % 9 == 0) 0.3 else 0.0)) }
-        // the frame and the straw mattress
-        rect(img, 1, 20, w - 1, h - 14) { x, y -> if (x < 5 || x >= w - 5) BEAM[1] else pick(STRAW, 0.45 + (rnd(x / 2, y / 3, 40 + v) - 0.5) * 0.3) }
-        // the bolster: pale linen, a crease where the head lay
-        blob(img, w / 2.0, 28.0, w / 2.0 - 8, 6.5) { nx, ny -> shade(argb(0xC4B89C), 1.06 - nx * 0.14 - ny * 0.22 - (if (abs(nx) < 0.25 && ny > -0.2) 0.1 else 0.0)) }
-        // the blanket: wool, falling over the sides of the frame, broad soft folds, lit from the left
-        for (y in 38 until h - 16) for (x in 3 until w - 3) {
-            val side = (if (x < 8) (8 - x) / 5.0 else if (x >= w - 8) (x - (w - 9)) / 5.0 else 0.0)
-            var t = 0.62 - (x - 3) / w.toDouble() * 0.22 - side * 0.35
-            t += kotlin.math.sin(y * 0.11 + x * 0.06 + v * 2) * 0.09 + kotlin.math.sin(y * 0.23 - x * 0.09) * 0.05
-            if ((x + y) % 2 == 0) t += 0.04
-            put(img, x, y, pick(blanket, t))
-        }
-        // turned back at the top, the linen sheet showing beneath
-        rect(img, 6, 36, w - 6, 40) { x, _ -> shade(argb(0xB8AC90), 1.0 - (x - 6) / w.toDouble() * 0.2) }
-        rect(img, 4, 40, w - 4, 44) { x, y -> pick(blanket, (if (y == 40) 0.9 else 0.5) - (x - 4) / w.toDouble() * 0.2) }
-        // a second blanket folded at the foot
-        rect(img, 5, h - 32, w - 5, h - 18) { x, y -> pick(woolens[(v + 1) % 3], 0.6 - (x - 5) / w.toDouble() * 0.25 - (if (y == h - 32) -0.2 else 0.0) - (if (y == h - 25) 0.3 else 0.0) - (if (y >= h - 20) 0.15 else 0.0)) }
-        // the foot board
-        rect(img, 1, h - 14, w - 1, h - 4) { x, y -> if (y == h - 14) BEAM[0] else if (x < 5 || x >= w - 5) BEAM[1] else BEAM[2] }
-        Sprite(img, w / 2, h - 4)
-    }
 
-    /** One tile of the counter, joined to the next ([l], [r]): a heavy top, a front of upright planks, waist high. */
-    fun counter(l: Boolean, r: Boolean, v: Int): Sprite = cached("counter/$l/$r/$v") {
-        val w = S; val h = 84; val img = PixelImage(w, h)
-        val x0 = if (l) 0 else 3; val x1 = if (r) w else w - 3
-        floorShadow(img, w / 2.0, h - 6.0, w / 2.0 + 4, 5.0)
-        rect(img, x0, 16, x1, 30) { x, y -> pick(OAK, 0.6 - (y - 16) * 0.03 + (rnd(x / 7, y / 5, 14) - 0.5) * 0.2 + (if ((y - 16) % 5 == 0) -0.2 else 0.0)) }
-        rect(img, x0, 30, x1, 33) { _, y -> if (y == 30) BEAM[0] else BEAM[2] }
-        rect(img, x0, 33, x1, h - 4) { x, y -> if ((x - x0) % 11 == 0) BEAM[2] else pick(BEAM, 0.55 - (y - 33) * 0.004 + (rnd((x - x0) / 11, 0, 42) - 0.5) * 0.2) }
-        rect(img, x0, h - 9, x1, h - 4) { _, _ -> BEAM[2] }
-        when (v % 4) {
-            0 -> { mug(img, 14, 26); mug(img, 22, 27); jug(img, 40, 27) }
-            1 -> { candle(img, 12, 26, 8); bowl(img, 36.0, 23.0); rag(img, 42, 29) }
-            2 -> { rect(img, 10, 18, 30, 27) { x, y -> if (y == 18 || x == 10) argb(0xB8AC90) else argb(0x9A8E74) }; line(img, 13.0, 21.0, 27.0, 21.0, argb(0x5A4E3E)); line(img, 13.0, 24.0, 24.0, 24.0, argb(0x5A4E3E)); mug(img, 40, 27) }
-            else -> { jug(img, 12, 27); bread(img, 38.0, 24.0); tipped(img, 26, 28) }
-        }
-        Sprite(img, w / 2, h - 4)
-    }
 
-    /** One tile of a long trestle table, joined to the next ([l], [r]), hip high: plates, mugs, a candle. */
-    fun table(l: Boolean, r: Boolean, v: Int): Sprite = cached("table/$l/$r/$v") {
-        val w = S; val h = 76; val img = PixelImage(w, h)
-        val x0 = if (l) 0 else 4; val x1 = if (r) w else w - 4
-        // the table's shadow on the floor between the legs
-        // the floor under the table lies in its shade, deepest just under the top (10.10., 6.9)
-        rect(img, x0 + 1, 37, x1 - 1, h - 3) { _, y -> ((0x90 - (y - 37) * 2).coerceIn(0x40, 0x90) shl 24) or 0x0A0806 }
-        // the top seen from above, boards running along
-        rect(img, x0, 6, x1, 32) { x, y -> pick(OAK, 0.58 - (y - 6) * 0.01 + (if ((y - 6) % 8 == 0) -0.35 else 0.0) + (rnd((x + (y - 6) / 8 * 17) / 23, (y - 6) / 8, 15 + v) - 0.5) * 0.22) }
-        rect(img, x0, 32, x1, 37) { _, y -> if (y == 32) BEAM[0] else BEAM[2] }
-        // legs at the outer ends, a trestle in the middle of a long table
-        val legs = buildList { if (!l) add(x0 + 3); if (!r) add(x1 - 8); if (l && r && v % 2 == 0) add(w / 2 - 2) }
-        for (lx in legs) rect(img, lx, 37, lx + 5, h - 4) { xx, _ -> if (xx == lx) BEAM[0] else BEAM[1] }
-        if (!l || !r) rect(img, x0 + 4, h - 22, x1 - 4, h - 19) { _, _ -> BEAM[2] }
-        when (v % 4) {
-            0 -> { candle(img, 10, 22, 7); bowl(img, 36.0, 18.0); bread(img, 26.0, 27.0) }
-            1 -> { mug(img, 20, 20); tipped(img, 8, 28); bowl(img, 42.0, 24.0); crumbs(img, 30, 30, v) }
-            2 -> { jug(img, 14, 26); bread(img, 34.0, 15.0); bowl(img, 44.0, 25.0) }
-            else -> { candle(img, 40, 20, 5); mug(img, 16, 24); crumbs(img, 22, 30, v); bread(img, 30.0, 17.0) }
-        }
-        Sprite(img, w / 2, h - 4)
-    }
 
-    /** One tile of a plank bench, joined to the next ([l], [r]), knee high. */
-    fun bench(l: Boolean, r: Boolean): Sprite = cached("bench/$l/$r") {
-        val w = S; val h = 36; val img = PixelImage(w, h)
-        val x0 = if (l) 0 else 5; val x1 = if (r) w else w - 5
-        rect(img, x0 + 1, 19, x1 - 1, h - 3) { _, y -> ((0x78 - (y - 19) * 2).coerceIn(0x40, 0x78) shl 24) or 0x0A0806 }
-        rect(img, x0, 8, x1, 16) { x, y -> pick(OAK, 0.55 - (y - 8) * 0.02 + (rnd(x / 13, 0, 43) - 0.5) * 0.2) }
-        rect(img, x0, 16, x1, 19) { _, y -> if (y == 16) BEAM[0] else BEAM[2] }
-        for (lx in buildList { if (!l) add(x0 + 3); if (!r) add(x1 - 7) }) rect(img, lx, 19, lx + 4, h - 4) { xx, _ -> if (xx == lx) BEAM[0] else BEAM[1] }
-        Sprite(img, w / 2, h - 4)
-    }
 
-    /** An oak barrel, waist high, staves and three iron hoops, a tap at the front. */
-    fun barrel(v: Int): Sprite = cached("barrel/$v") {
-        val w = 40; val h = 58; val img = PixelImage(w, h)
-        floorShadow(img, w / 2.0, h - 6.0, w / 2.0, 5.0)
-        for (y in 8 until h - 4) for (x in 2 until w - 2) {
-            val nx = (x - w / 2.0) / (w / 2.0 - 2); val bulge = 1 - 0.14 * ((y - h / 2.0) / (h / 2.0)).let { it * it }
-            if (abs(nx) > bulge) continue
-            var t = 0.6 - nx * 0.35 + (rnd(x / 5, v, 44) - 0.5) * 0.2
-            if (x % 5 == 0) t -= 0.25
-            var c = pick(BEAM.map { shade(it, 1.35) }, t)
-            if (y in 13..15 || y in h / 2 - 1..h / 2 + 1 || y in h - 13..h - 11) c = shade(IRON_R[1], 1.3 - nx * 0.4)
-            put(img, x, y, c)
-        }
-        blob(img, w / 2.0, 9.0, w / 2.0 - 3, 5.0) { nx, ny -> if (nx * nx + ny * ny > 0.75) BEAM[2] else pick(OAK, 0.5 - nx * 0.2 + (if (((nx + 1) * 6).toInt() % 3 == 0) -0.2 else 0.0)) }
-        if (v % 2 == 0) { rect(img, w / 2 - 2, h / 2 + 4, w / 2 + 2, h / 2 + 8) { _, _ -> IRON_R[0] }; put(img, w / 2, h / 2 + 9, IRON_R[1]) }
-        else mug(img, w / 2 + 3, 10)
-        Sprite(img, w / 2, h - 5)
-    }
 
-    /** Two crates stacked askew, a sack slumped against them. */
-    fun crates(v: Int): Sprite = cached("crates/$v") {
-        val w = S - 4; val h = 70; val img = PixelImage(w, h)
-        floorShadow(img, w / 2.0, h - 6.0, w / 2.0, 5.0)
-        fun crate(x0: Int, y0: Int, cw: Int, ch: Int, k: Double) {
-            val top = ch / 3
-            rect(img, x0, y0, x0 + cw, y0 + top) { x, y -> pick(OAK.map { shade(it, k) }, 0.55 + (if ((y - y0) % 5 == 0) -0.3 else 0.0) + (rnd(x / 6, y / 5, 45) - 0.5) * 0.15) }
-            rect(img, x0, y0 + top, x0 + cw, y0 + ch) { x, y -> if (x == x0 || x == x0 + cw - 1 || y == y0 + top || y == y0 + ch - 1) BEAM[2] else if ((y - y0 - top) % 7 == 0) BEAM[2] else pick(BEAM.map { shade(it, k * 1.3) }, 0.55 - (x - x0) * 0.008) }
-            line(img, x0 + 1.0, y0 + top + 1.0, x0 + cw - 2.0, y0 + ch - 2.0, BEAM[2])
-        }
-        crate(4, 26, 38, 40, 1.0)
-        crate(10 + v % 3 * 2, 2, 30, 30, 1.1)
-        blob(img, w - 12.0, h - 18.0, 9.0, 13.0) { nx, ny -> shade(argb(0x8A7A5A), 1.12 - nx * 0.25 - ny * 0.2 + (if (abs(nx + ny * 0.3) < 0.08) -0.2 else 0.0)) }
-        Sprite(img, w / 2, h - 5)
-    }
 
-    /**
-     * Odds and ends on the floor that one steps over: firewood by the hearth, else sacks of
-     * grain, a basket of turnips, a stool, a bucket, a heap of straw. Low, so they hide no one.
-     */
-    fun clutter(kind: Int, v: Int): Sprite = cached("clutter/$kind/$v") {
-        val w = S; val h = 44; val img = PixelImage(w, h)
-        val base = h - 6
-        when (kind) {
-            0 -> {
-                // firewood: split logs stacked, their cut ends towards us, an axe leaning
-                floorShadow(img, 30.0, base.toDouble(), 26.0, 5.0)
-                for (row in 0 until 3) for (k in 0 until 4 - row) {
-                    val cx = 12.0 + k * 11 + row * 5.5; val cy = base - 5.0 - row * 9
-                    blob(img, cx, cy, 5.5, 5.0) { nx, ny -> val d = nx * nx + ny * ny
-                        if (d > 0.6) shade(argb(0x4A3624), 1.0 - ny * 0.2) else pick(listOf(argb(0xB89A6A), argb(0x9A7E54), argb(0x7A6040)), 0.6 - d * 0.6 + (if (abs(d - 0.25) < 0.05) -0.3 else 0.0)) }
-                }
-                line(img, 52.0, base.toDouble(), 58.0, base - 26.0, BEAM[0]); rect(img, 54, base - 30, 61, base - 25) { x, _ -> if (x == 54) IRON_R[0] else IRON_R[1] }
-            }
-            1 -> {
-                // sacks of grain, one tipped over
-                floorShadow(img, 32.0, base.toDouble(), 26.0, 5.0)
-                blob(img, 22.0, base - 13.0, 12.0, 14.0) { nx, ny -> shade(argb(0x8E7E5C), 1.15 - nx * 0.3 - ny * 0.15 + (if (abs(nx * 0.5 + ny) < 0.06) -0.18 else 0.0)) }
-                rect(img, 19, base - 30, 25, base - 25) { x, _ -> if (x == 19) argb(0x9E8E6A) else argb(0x6E5E44) }
-                blob(img, 42.0, base - 7.0, 13.0, 8.0) { nx, ny -> shade(argb(0x847454), 1.12 - nx * 0.2 - ny * 0.3) }
-                for (k in 0 until 6) put(img, 54 + hash(k, v, 46) % 6, base - 2 - hash(k, v, 47) % 3, STRAW[0])
-            }
-            2 -> {
-                // a wicker basket of turnips
-                floorShadow(img, 30.0, base.toDouble(), 18.0, 4.0)
-                for (k in 0 until 6) blob(img, 22.0 + (k % 3) * 7, base - 18.0 + (k / 3) * 3, 4.0, 3.5) { nx, ny -> if (ny < -0.6 && abs(nx) < 0.3) argb(0x4E6A36) else shade(argb(0xC8B8C0), 1.05 - nx * 0.2 - ny * 0.3).let { if (ny > 0.2) shade(argb(0x8A5A8A), 1.0) else it } }
-                rect(img, 15, base - 15, 45, base) { x, y -> pick(STRAW, 0.6 - (x - 15) * 0.012 + (if ((x + (y / 3) * 2) % 4 == 0) -0.35 else 0.0) + (if ((y - (base - 15)) % 3 == 0) -0.15 else 0.0)) }
-                rect(img, 15, base - 15, 45, base - 13) { _, _ -> STRAW[1] }
-            }
-            3 -> {
-                // a three-legged stool
-                floorShadow(img, 32.0, base.toDouble(), 14.0, 4.0)
-                for (lx in listOf(23, 39)) line(img, lx + 2.0, base - 16.0, lx.toDouble(), base.toDouble(), BEAM[1])
-                line(img, 31.0, base - 16.0, 32.0, base - 2.0, BEAM[2])
-                blob(img, 32.0, base - 19.0, 12.0, 4.5) { nx, ny -> pick(OAK, 0.6 - nx * 0.2 - ny * 0.2) }
-                rect(img, 20, base - 19, 45, base - 16) { _, y -> if (y == base - 19) BEAM[0] else BEAM[2] }
-                blob(img, 32.0, base - 19.0, 12.0, 4.5) { nx, ny -> pick(OAK, 0.62 - nx * 0.2 - ny * 0.15) }
-            }
-            4 -> {
-                // a wooden bucket with a rope handle, a ladle in it
-                floorShadow(img, 30.0, base.toDouble(), 14.0, 4.0)
-                rect(img, 21, base - 20, 40, base) { x, y -> val nx = (x - 30.5) / 9.5
-                    if (y in base - 16..base - 15 || y in base - 6..base - 5) shade(IRON_R[1], 1.3 - nx * 0.4) else pick(BEAM.map { shade(it, 1.3) }, 0.6 - nx * 0.35 + (if (x % 4 == 0) -0.2 else 0.0)) }
-                blob(img, 30.5, base - 20.0, 9.5, 3.0) { nx, ny -> if (nx * nx + ny * ny < 0.6) argb(0x2A3436) else BEAM[0] }
-                line(img, 21.0, base - 20.0, 30.0, base - 31.0, argb(0x7A6A4A)); line(img, 30.0, base - 31.0, 40.0, base - 20.0, argb(0x7A6A4A))
-                line(img, 33.0, base - 21.0, 41.0, base - 33.0, BEAM[0])
-            }
-            else -> {
-                // a heap of straw, a pitchfork lying across
-                floorShadow(img, 32.0, base.toDouble(), 26.0, 5.0)
-                for (y in base - 16 until base) for (x in 6 until 58) {
-                    val nx = (x - 32) / 26.0; val ny = (y - (base - 2)) / 14.0
-                    if (nx * nx + ny * ny > 1 + (rnd(x, 0, 48) - 0.5) * 0.3) continue
-                    put(img, x, y, pick(STRAW, 0.55 - ny * 0.3 + (if ((x * 3 + y) % 5 == 0) -0.3 else 0.0) + (rnd(x, y, 49) - 0.5) * 0.3))
-                }
-                line(img, 4.0, base - 3.0, 52.0, base - 13.0, BEAM[0])
-                for (k in 0 until 3) line(img, 52.0, base - 13.0 + k * 2 - 2, 60.0, base - 15.0 + k * 2 - 2, IRON_R[0])
-            }
-        }
-        Sprite(img, w / 2, base)
-    }
 
-    /** A clay pot of dark herbs. */
-    fun plant(): Sprite = cached("plant") {
-        val w = 34; val h = 50; val img = PixelImage(w, h)
-        for (k in 0 until 14) {
-            val a = -1.4 + k * 0.2; val len = 14 + rnd(k, 0, 16) * 10
-            for (i in 0 until len.toInt()) put(img, (17 + kotlin.math.sin(a) * i * 0.8).toInt(), (30 - kotlin.math.cos(a) * i).toInt(), if (i > len - 4) argb(0x4E6A36) else argb(0x2E4022))
-        }
-        rect(img, 9, 30, 25, h - 4) { x, y -> shade(argb(0x7A4A30), 1.15 - (x - 9) * 0.03 - (if (y == 30) -0.2 else 0.0)) }
-        Sprite(img, w / 2, h - 4)
-    }
 
-    /** One tile of the altar: a block of pale stone under a cloth, candles, and on the middle the sun of the dawnlight. */
-    fun altar(l: Boolean, r: Boolean): Sprite = cached("altar/$l/$r") {
-        val w = S; val h = 72; val img = PixelImage(w, h)
-        val x0 = if (l) 0 else 4; val x1 = if (r) w else w - 4
-        rect(img, x0, 28, x1, h - 4) { x, y -> pick(STONE.map { shade(it, 1.25) }, 0.55 - (y - 28) * 0.01 + (rnd(x / 6, y / 5, 17) - 0.5) * 0.25 - (if ((y - 28) % 10 == 0) 0.3 else 0.0)) }
-        rect(img, x0, 24, x1, 34) { _, y -> if (y < 26) argb(0xC8BCA0) else argb(0xA89C82) }
-        candle(img, if (l) 40 else 12, 24)
-        candle(img, if (l) 50 else 22, 24)
-        if (!l) {
-            val cx = (x1 - 6).toDouble(); val cy = 14.0
-            for (k in 0 until 8) { val a = k * Math.PI / 4; for (i in 7..11) put(img, (cx + kotlin.math.cos(a) * i).toInt(), (cy + kotlin.math.sin(a) * i).toInt(), GOLD[1]) }
-            blob(img, cx, cy, 6.0, 6.0) { nx, ny -> pick(GOLD, 0.7 - nx * 0.3 - ny * 0.3) }
-        }
-        Sprite(img, w / 2, h - 4)
-    }
 
     /**
      * The fire in the hearth's mouth, [frame] 0 or 1: two logs on the irons, embers, tongues of
@@ -589,58 +306,6 @@ object MapRoom {
                 }
             }
             Sprite(img, w / 2, h - 1)
-        }
-    }
-
-    /** The furniture painted with [Sculpt] ([RoomThings], 6.14); off only for before/after pictures (preview ALTRAUM=1). */
-    @Volatile var sculpted = true
-
-    private fun obj(s: Sprite, artX: Double, artY: Double, sortY: Double = artY): WorldArt.Obj {
-        val x = Math.floorDiv(artX.toInt() - s.ax, D); val y = Math.floorDiv(artY.toInt() - s.ay, D)
-        return WorldArt.Obj(s.img, x, y, (sortY / D).toInt(), D)
-    }
-
-    /** The furniture for one tile of a room, or null for the former picture. */
-    fun objects(map: MapDef, tx: Int, ty: Int, frame: Int = 0): List<WorldArt.Obj>? {
-        val cx = (tx + 0.5) * S; val bottom = (ty + 0.95) * S
-        fun at(dx: Int, dy: Int) = if (map.inside(tx + dx, ty + dy)) map.tile(tx + dx, ty + dy) else Tile.WALL
-        fun same(dx: Int) = at(dx, 0) == map.tile(tx, ty)
-        val v = hash(tx, ty, 3)
-        return when (map.tile(tx, ty)) {
-            Tile.SHELF -> listOf(obj(if (sculpted) RoomThings.shelf(hash(tx, ty, 1) % 6) else shelf(hash(tx, ty, 1) % 5), cx, (ty + 0.7) * S))
-            Tile.BED -> when {
-                at(0, -1) == Tile.BED -> listOf(obj(longBed(hash(tx, ty, 4) % 3), cx, bottom))
-                at(0, 1) == Tile.BED -> emptyList()
-                else -> listOf(obj(bed(hash(tx, ty, 4) % 3), cx, bottom))
-            }
-            Tile.COUNTER -> listOf(obj(counter(same(-1), same(1), hash(tx, ty, 2) % 4), cx, bottom))
-            Tile.TABLE -> listOf(obj(if (sculpted) RoomThings.table(same(-1), same(1), v % 4) else table(same(-1), same(1), v % 4), cx, bottom))
-            Tile.BENCH -> listOf(obj(bench(same(-1), same(1)), cx, (ty + 0.55) * S))
-            Tile.BARREL -> listOf(obj(if (sculpted) RoomThings.barrel(v % 3) else barrel(v % 2), cx + (v % 7 - 3), (ty + 0.85) * S))
-            Tile.CRATE -> listOf(obj(crates(v % 3), cx, (ty + 0.9) * S))
-            Tile.CLUTTER -> {
-                // by the fire lies firewood; elsewhere whatever gathers in a room
-                val byFire = (-1..1).any { dx -> (-1..0).any { dy -> at(dx, dy) == Tile.HEARTH } }
-                // beside a table stands a stool; elsewhere sacks, a basket, a bucket or straw, each room its own mix
-                val byTable = (-1..1).any { dx -> at(dx, 0) == Tile.TABLE }
-                val kind = if (byFire) 0 else if (byTable) 3 else listOf(1, 2, 4, 5)[hash(tx, ty, 56) % 4]
-                listOf(obj(if (sculpted && kind == 0) RoomThings.firewood(v % 3) else clutter(kind, v % 3), cx + (v % 9 - 4), (ty + 0.8) * S))
-            }
-            Tile.PLANT -> listOf(obj(plant(), cx, bottom))
-            Tile.ALTAR -> listOf(obj(altar(same(-1), same(1)), cx, (ty + 0.8) * S))
-            Tile.HEARTH -> if (at(-1, 0) == Tile.HEARTH) emptyList() else {
-                val wide = at(1, 0) == Tile.HEARTH
-                val mouth = ((if (wide) 2 else 1) * S * 0.64).toInt()
-                listOf(obj(fire(frame, mouth), if (wide) (tx + 1.0) * S else cx, (ty + 1.0) * S - 1))
-            }
-            Tile.WALL -> {
-                // on the back wall, where nothing tall stands before it, something hangs
-                val below = at(0, 1)
-                if (ty + 1 >= map.height || below in wallTiles || below == Tile.DOOR || below == Tile.SHELF || below == Tile.BED || below == Tile.HEARTH) emptyList()
-                else wallThing(hash(tx, ty, 55) % 7)?.let { listOf(obj(it, cx, (ty + 1.0) * S - 6)) } ?: emptyList()
-            }
-            Tile.WINDOW, Tile.DOOR, Tile.WOOD_FLOOR, Tile.RUG -> emptyList()
-            else -> null
         }
     }
 }

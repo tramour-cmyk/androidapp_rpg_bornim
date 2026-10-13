@@ -256,12 +256,10 @@ fun main() {
     if (System.getenv("WEGE") != null) { renderWayDrafts(); System.exit(0) }
     System.getenv("FLORA")?.let { renderFloraSheet(it); System.exit(0) }
     if (System.getenv("HOEHLEDINGE") != null) { renderCaveThings(); System.exit(0) }
-    if (System.getenv("RAUMDINGE") != null) { renderRoomThings(); System.exit(0) }
     if (System.getenv("ISODRAFT") != null) { renderIsoDraft(); System.exit(0) }
     if (System.getenv("ISODINGE") != null) { renderIsoThings(); System.exit(0) }
     if (System.getenv("FEUER") != null) { renderIsoFire(); System.exit(0) }
     if (System.getenv("SQUATBLEND") != null) { renderSquatBlend(); System.exit(0) }
-    if (System.getenv("ALTRAUM") != null) de.bornim.core.art.MapRoom.sculpted = false
     if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }
     if (System.getenv("MAPFIGYAWS") != null) { renderMapFigureYaws(); System.exit(0) }
     if (System.getenv("SHIELDWALK") != null) { renderShieldWalk(); System.exit(0) }
@@ -273,8 +271,6 @@ fun main() {
     if (System.getenv("VILLAGEDRAFT") != null) { renderVillageDraft(); System.exit(0) }
     if (System.getenv("SITDRAFT") != null) { renderSitDraft(); System.exit(0) }
     if (System.getenv("SQUATDRAFT") != null) { renderSquatDraft(); System.exit(0) }
-    // TOWNDRAFT=1: the village and the rooms in the new style, for the films too
-    if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true
     System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
     if (System.getenv("BLENDEFILM") != null) { veilFilm(); System.exit(0) }
     System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
@@ -303,7 +299,7 @@ fun main() {
         fun village(vm: GameViewModel, minutes: Int) {
             vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
             val g = vm.game!!; g.skipDialogs()
-            de.bornim.game.ui.MapSight.all = true
+            de.bornim.game.ui.MapSight.follow()
             g.state.place = Place("village", 11, 7, Facing.UP); g.state.minutes = minutes
             val m = de.bornim.core.World["village"]
             g.state.explored["village"] = "f".repeat((m.width * m.height + 3) / 4)
@@ -340,10 +336,6 @@ fun main() {
         }
         for (near in listOf(true, false)) {
             de.bornim.game.ui.MapZoom.near = near
-            // CAVEDRAFT=1: the cave's rock standing up, gate and supports in the slant (13e, draft)
-            if (System.getenv("CAVEDRAFT") != null) de.bornim.core.art.MapCaveIso.draft = true
-            // DIAG=1: the map seen diagonally (13)
-            if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.all = true
             // PFLASTERDRAFT=1: the square's cobbles quieter (5.4, draft)
             if (System.getenv("PFLASTERDRAFT") == "2") de.bornim.core.art.MapGround.cobbleMid = true
             else if (System.getenv("PFLASTERDRAFT") != null) de.bornim.core.art.MapGround.cobbleDraft = true
@@ -516,10 +508,6 @@ fun main() {
         battleRuns()
         System.exit(0)
     }
-    System.getenv("OVERVIEW")?.let { id ->
-        renderMapOverview(id, "map_$id")
-        System.exit(0)
-    }
     if (System.getenv("SHEET") != null) { renderHeroSheet(); System.exit(0) }
     if (System.getenv("SCENES") != null) { renderSceneSheet(); System.exit(0) }
     if (System.getenv("CAVES") != null) { renderCaveSheet(); System.exit(0) }
@@ -590,11 +578,6 @@ fun main() {
     if (System.getenv("ATTACKVIEW") != null) { renderAttackViews(); System.exit(0) }
     if (System.getenv("RANGED") != null) { renderRangedViews(); System.exit(0) }
     if (System.getenv("WEAPONS") != null) { renderWeaponSheet(); System.exit(0) }
-    if (System.getenv("CAVEMAP") != null) { renderCaveMap(); System.exit(0) }
-    System.getenv("MAPS")?.let { ids ->
-        for (id in ids.split(",")) for ((t, d) in listOf("day" to 1f, "dusk" to 0.55f, "night" to 0.1f)) renderMapOverview(de.bornim.core.World[id], daylight = d, name = "${id}_$t")
-        System.exit(0)
-    }
     if (System.getenv("WOLFANIM") != null) { renderWolfAnim(); System.exit(0) }
     if (System.getenv("ELITE") != null) { renderEliteMock(); System.exit(0) }
     if (System.getenv("ABOUT") != null) {

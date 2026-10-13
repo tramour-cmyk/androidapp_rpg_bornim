@@ -58,32 +58,6 @@ class ArtPreviewTest {
     }
 
     @Test
-    fun maps() {
-        val state = GameState.newGame("X", Race.HUMAN, CharClass.WIZARD)
-        for (map in World.maps.values) {
-            val T = WorldArt.T
-            val img = canvas(map.width * T, map.height * T)
-            for (yy in 0 until map.height) for (xx in 0 until map.width) img.blit(WorldArt.ground(map, xx, yy, state, 0), xx * T, yy * T, 1)
-            class S(val sortY: Int, val draw: () -> Unit)
-            val sprites = WorldArt.objects(map, state, 0).map { o -> S(o.sortY) { img.blit(o.img, o.x, o.y, 1) } }.toMutableList()
-            for (npc in map.npcs) {
-                val bottom = npc.y * T + T - 1
-                if (npc.look.startsWith("monster:")) {
-                    val m = MonsterArt.get(npc.look.removePrefix("monster:"))
-                    sprites += S(bottom) { img.blit(m, npc.x * T + T / 2 - m.width / 2, bottom + 1 - m.height, 1) }
-                } else {
-                    sprites += S(bottom) {
-                        img.blit(WorldArt.shadow(), npc.x * T + 4, npc.y * T + 26, 1)
-                        img.blit(CharacterArt.npc(npc.look, npc.facing), npc.x * T, npc.y * T - 2, 1)
-                    }
-                }
-            }
-            sprites.sortedBy { it.sortY }.forEach { it.draw() }
-            ImageIO.write(img, "png", File(out, "map_${map.id}.png"))
-        }
-    }
-
-    @Test
     fun battleBackdrops() {
         for (kind in listOf(MapKind.FOREST, MapKind.CAVE)) {
             val bg = de.bornim.core.art.BattleArt.background(kind, 180, 200)

@@ -15,8 +15,8 @@ import kotlin.math.sqrt
  * tiles, as before.
  *
  * The ground is drawn in chunks of [CH] × [CH] tiles, ahead of time in the background
- * ([prepare]); until a chunk is ready, the map shows the old tiles there. Tiles this ground does not
- * draw (cliffs, cave mouths and the like) keep their old picture on top ([keepsOldTile]).
+ * ([prepare]); until a chunk is ready, the map stays dark there. Every tile of every map is drawn by it
+ * or by the pictures standing on it ([keepsOldTile] tells a tile that would be missing).
  */
 object MapGround {
     /** Art pixels per map pixel. */
@@ -27,12 +27,6 @@ object MapGround {
 
     /** Tiles per chunk side. */
     const val CH = 4
-
-    /** Whether this map has the new ground: the woods, and the cave ([MapCave.ground]). */
-    fun supports(map: MapDef) = map.kind == MapKind.FOREST || map.kind == MapKind.CAVE || (townDraft && (map.kind == MapKind.TOWN || map.kind == MapKind.INTERIOR))
-
-    /** The village and its rooms in the new style; seen diagonally they are finished (13.4), so always on. */
-    @Volatile var townDraft = true
 
     /*
      * 27.5 (27g ja): the water lies a little below the grass. Where the bank faces the camera (land behind the water, towards
@@ -51,7 +45,7 @@ object MapGround {
     private val drawn = setOf(
         Tile.GRASS, Tile.TALL_GRASS, Tile.FLOWERS, Tile.PATH, Tile.TREE, Tile.WATER,
         Tile.ROCK, Tile.LOG, Tile.MENHIR, Tile.SIGN, Tile.NOTICE, Tile.CHEST, Tile.CAMPFIRE,
-        // the rock face about the cave mouth in the woods ([MapFlora.caveCliff], 1b)
+        // the rock face about the cave mouth in the woods ([MapWoodIso] cliff, 1b)
         Tile.CAVE_WALL, Tile.CAVE_ENTRANCE,
     )
 
@@ -65,7 +59,7 @@ object MapGround {
     val townDrawn = mutableSetOf(Tile.COBBLE, Tile.BRIDGE, Tile.ROOF, Tile.ROOF_BLUE, Tile.WALL, Tile.WINDOW, Tile.DOOR,
         Tile.BARREL, Tile.LAMP, Tile.STALL, Tile.WELL, Tile.BENCH, Tile.HAY, Tile.BARRIER, Tile.FENCE, Tile.CROPS, Tile.VEG_BED, Tile.WASHLINE)
 
-    /** Whether [tile] on [map] keeps its former picture over the new ground. */
+    /** Whether nothing would draw [tile] on [map]: the former straight pictures are gone (13t), so this stays false on every map (MapGroundOldTileTest). */
     fun keepsOldTile(map: MapDef, tile: Tile) = map.kind != MapKind.INTERIOR && tile !in drawn && (map.kind != MapKind.CAVE || tile !in caveDrawn) &&
         (map.kind != MapKind.TOWN || tile !in townDrawn)
 
@@ -77,7 +71,6 @@ object MapGround {
 
     /** Whether the ground around ([x], [y]) on [map] is drawn: the hero's chunk and those next to it (24.1). */
     fun readyNear(map: MapDef, x: Int, y: Int): Boolean {
-        if (!supports(map)) return true
         val w = (map.width + CH - 1) / CH; val h = (map.height + CH - 1) / CH
         val hx = Math.floorDiv(x, CH); val hy = Math.floorDiv(y, CH)
         for (cy in maxOf(0, hy - 1)..minOf(h - 1, hy + 1)) for (cx in maxOf(0, hx - 1)..minOf(w - 1, hx + 1))
@@ -87,7 +80,7 @@ object MapGround {
 
     /** The chunk ([cx], [cy]) of [map], drawn right away when it is not ready yet (a brief pause, once), so the former tiles never show. */
     fun chunkNow(map: MapDef, cx: Int, cy: Int): PixelImage? {
-        if (!supports(map) || cx < 0 || cy < 0 || cx * CH >= map.width || cy * CH >= map.height) return null
+        if (cx < 0 || cy < 0 || cx * CH >= map.width || cy * CH >= map.height) return null
         chunk(map, cx, cy)?.let { return it }
         val img = draw(map, cx, cy)
         synchronized(chunks) { chunks.getOrPut("${map.id}/$cx/$cy") { img } }
@@ -96,7 +89,6 @@ object MapGround {
 
     /** Draws all chunks of [map] in the background, nearest to ([nearX], [nearY]) first (tiles). */
     fun prepare(map: MapDef, nearX: Int = 0, nearY: Int = 0) {
-        if (!supports(map)) return
         synchronized(preparing) {
             // 30.2: only this map's ground and the one before are kept, the others drawn again when visited
             recent.remove(map.id); recent.addLast(map.id)
@@ -133,7 +125,6 @@ object MapGround {
 
     /** Draws all chunks of [map] right away (for previews and tests). */
     fun prepareNow(map: MapDef) {
-        if (!supports(map)) return
         for ((cx, cy) in order(map, 0, 0)) {
             val k = "${map.id}/$cx/$cy"
             if (synchronized(chunks) { k in chunks }) continue
