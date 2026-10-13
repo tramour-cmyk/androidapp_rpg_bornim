@@ -38,6 +38,7 @@ Jeder Vorschlag zu Grafik, Animation, Klang nennt in einem kurzen Absatz die ber
 
 ## Test-Builds (78)
 
+- **Zweig nach Inhalt benennen** (Nutzer 13.10., 23:1x): `claude/tom-<thema>` bzw. `claude/jerry-<thema>` gleich beim Start anlegen und dorthin pushen, nie den von der Umgebung vorgegebenen Zufallsnamen nutzen.
 - **Sammelbuild je Testrunde** (78a): höchstens 4 Punkte in einem Build; ein Zweig lebt höchstens 1 Tag; je Punkt ein Commit. Fällt ein Punkt durch, fliegt er per `git revert` heraus, der Rest wird zusammengeführt.
 - **Nie Tom und Jerry in einem Build.** So ist jeder Rückläufer eindeutig zuzuordnen.
 - **Gebaut wird nur bei PR, auf `main` oder per Knopfdruck** (78d), nicht bei jedem Push.
