@@ -44,10 +44,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 07:02) – Entscheidungen da, Neustart
-- **Nutzer 13.10., 07:02: alle Empfehlungen der Entscheidungsseite ja**: 60e Alegreya, 60f Cinzel, 60g–60i (Kampf mit Pixelzahlen), 27.6a–c, 13x, 17r, 5la, 6g, 6f, 61a, 62a, 62b (erst ohne Auftragszeichen), 55.1a. Einzelheiten im Archiv.
-- **Weiter (Nachfolger):** (1) Entschiedenes von der Entscheidungsseite ins Bildbuch (je Eintrag `e/<nr>.html`, Bilder per `files` mit `{artifact, path}` kopieren), Seite leeren. (2) Entwürfe ins Spiel: Schalter weg, Standard an; Zweige 59 → 60 → 17r, 5la, 6g, 6f, 61/62, 55.1a, 13x je auf `main` gebracht in einem Sammelzweig, ein Build zum Test, dann PR. 27.6 (Tiefer Wald diagonal) erst mit dem diagonalen Wald (13v).
-- Bericht der Nacht im Archiv. Weck-Kette dieser Sitzung am Ende (Stufe 8): Nachfolger startet der Nutzer.
+### Tom (13.10., 07:16) – Sammelbuild
+- Bildbuch hat 60e–60i, 27.6, 13x, 17r, 5la, 6g, 6f, 61a, 62a, 55.1a; Entscheidungsseite leer.
+- Sammelzweig `claude/rpg-startup-qaae3o`: alle entschiedenen Entwürfe an (Testschalter weg, Schalter im Code stehen auf an), Kerntests grün. Nach dem Test: PR, zusammenführen, Änderungshistorie.
+- Weiter: 27.6 mit dem diagonalen Wald (13v), 17 Riemen, 55.1b Speer.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -57,14 +57,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Weiter (Freitag):** Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
-- **Tom, 0.1.632, Zweig `claude/tom-59-haendler`** (59, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38309898552): bei Thessa und Morwen kaufen/verkaufen, Menge ×5/Alle, verkaufen und zurückkaufen, Ausrüstung vergleichen, Streifen „Angelegt“ und „Nicht tragbar“.
-- **Tom, 0.1.636, Zweig `claude/tom-60-aussehen`** (60, enthält 59; erst 59 testen; https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38313842737): Testreiter „60 Aussehen“ an, Schrift, Titelschrift und Kampfzahlen durchschalten; Titelbild, Menü/Beutel, Heldenerstellung, Kampf ansehen.
-- **Tom, 0.1.639, Zweig `claude/tom-17-nachschwingen`** (17r, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38320963573; nach 59/60): Testreiter „17 Haare/Köcher schwingen nach“ an, als Heldin oder mit Bogen laufen und anhalten.
-- **Tom, 0.1.640, Zweig `claude/tom-5l-leben`** (5la, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38322497262; nach 59/60): Testreiter „5l Tagesablauf im Dorf“ an, im Dorf ein paar Minuten zusehen, Leute ansprechen, ob jemand im Weg steht.
-- **Tom, 0.1.641, Zweig `claude/tom-katze`** (6g, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38324348750; nach 59/60): Testreiter „Katze in der Schänke“ an, in der Schänke gut drei Minuten zusehen.
-- **Tom, 0.1.643, Zweig `claude/tom-6-farbstimmung`** (6f, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38326167073; nach 59/60): Testreiter „Farbstimmung je Ort“ an, Höhle, Schänke abends, Dorf in der Dämmerung ansehen.
-- **Tom, 0.1.646, Zweig `claude/tom-7-spuren`** (61a/62a, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38331553728; nach 59/60): Testreiter „Spuren“ an, Kampf gewinnen (Blut), im Regen gehen (Fußspuren), auf trockenem Weg rennen (Staub); Testreiter „8 Gezeichnete Karte im Menü“ an (Thema 62), Menü → Karte.
-- **Tom, 0.1.649, Zweig `claude/tom-55-leerlauf`** (55.1a, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38333750314; nach 59/60): Testreiter „55 Arme verschränkt/hinter dem Rücken“ an, im Dorf ein paar Minuten zusehen.
+- **Tom, Sammelbuild, Zweig `claude/rpg-startup-qaae3o`** (59, 60e–60i, 17r, 5la, 6g, 6f, 61a, 62a, 55.1a, 13x; alles an, Testschalter weg; Build läuft, Link folgt): Händler, Titel/Menü/Heldenerstellung/Kampf im neuen Aussehen, Dorf über den Tag, Katze in der Schänke, Farbstimmung, Spuren, Kartenreiter, Leerlauf, Tempel. Ersetzt die Einzelbuilds 0.1.632–0.1.649.
 
 ## Rückfragen an den Nutzer
 
