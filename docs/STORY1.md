@@ -14,7 +14,7 @@ In der Nacht, in der {name} im Gasthaus »Zum Schlafenden Greif« schlief, kamen
 
 `[64d.auftrag]` (Gespräch mit Aldric)
 **Der Auftrag**
-Ältester Aldric erzählte vom Blutzahn-Stamm in der Höhle am Nordende des Flüsterwalds. Früher waren diese Goblins feige, nun führt sie ein Hobgoblin namens Grak an. Aldric bat {name}, Lyra und das Amulett zurückzubringen, und gab ihm Tränke und Gold mit auf den Weg.
+Ältester Aldric erzählte vom Blutzahn-Stamm in der Höhle am Nordende des Flüsterwalds. Früher waren diese Goblins feige, nun führt sie ein Hobgoblin namens Grak an. Aldric bat {name}, Lyra und das Amulett zurückzubringen, und gab Tränke und Gold mit auf den Weg.
 
 `[64d.schlagbaum]` (Jorin öffnet den Schlagbaum)
 **Der Schlagbaum hebt sich**
