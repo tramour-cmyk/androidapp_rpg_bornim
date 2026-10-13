@@ -21,6 +21,47 @@ Im »Schlafenden Greif« brennt noch Licht. Die Wirtin fragt nicht viel.
 `[69.intro.5]` (Schwarzbild; gedämpft eine Glocke, Rufe, ein ferner Schrei: der Überfall, den der Held verschläft, 69b)
 Irgendwo schlägt eine Glocke. Du hörst sie nicht.
 
+## Tempelszene: Rückkehr des Amuletts (68)
+
+Freigegeben 13.10., 17:26. Abschluss von Kapitel 1, Form nach `STIL.md` „Zwischensequenzen“ (70): fünf Standbilder mit Überblendung, Du-Form, Musik „Ancient Legend“. Nach der Abgabe des Amuletts lädt Aldric den Helden zur Morgenandacht ein (`[68.aldric]`, nach dem Ring, vor „Ruh dich aus …“). Danach keine freie Wahl: schwarze Blende, nächster Morgen, sofort die Szene; danach ist das Spiel wieder frei (68a geändert, Nutzer 17:28: sonst warten alle tagelang im Tempel). Danach steht der Held am Morgen im Tempel, Lyra und Osric sind ansprechbar (68f); die Nacht zählt als Rast (68g). Lyra leitet den Tempel, Bruder Osric ist ihr Gehilfe und Heiler (68d).
+
+`[68.aldric]` (Aldric, nach dem Ring)
+Morgen bei Sonnenaufgang legt Lyra das Amulett zurück auf den Altar. Ganz Bornim wird dort sein, und du gehörst in die erste Reihe.
+
+`[68.tempel.1]` (Bild: Tempel innen, voll mit Dorfleuten, der Altar leer)
+Der Tempel ist voll. Tagelang war er kalt und leer.
+
+`[68.tempel.2]` (Bild: Aldric legt Lyra das Amulett in die Hände, der Held steht daneben)
+Aldric gibt Lyra das Amulett. Sie hält es lange, als könnte es zerbrechen.
+
+`[68.tempel.3]` (Bild: Lyra am Altar, Osric hält ihr die Kerze)
+Osric hält die Kerze ruhig. Lyra betet in Worten, die älter sind als der Tempel selbst.
+
+`[68.tempel.4]` (Bild: das erste Morgenlicht fällt durchs Tempelfenster auf das Amulett, die Gesichter werden hell)
+Das erste Licht des Tages fällt durchs Fenster. Das Amulett fängt es auf.
+
+`[68.tempel.5]` (Bild: Lyra allein, Blick in die Dämmerung; leiser Hinweis auf Kapitel 2)
+Bornim atmet auf. Nur Lyra sieht noch lange ins Grau hinaus.
+
+`[68.lyra.1]` (Lyra spricht den Helden nach dem letzten Bild von selbst an, 68j; freigegeben 17:38, 68h/68i)
+Ich verdanke dir mein Leben, {name}. Und Bornim sein Licht.
+
+`[68.lyra.2]`
+Graks Leute sprachen von einem Lager im Süden. Dort brachten sie, wen sie nicht selbst behalten wollten.
+
+`[68.lyra.3]`
+Ich weiß nicht, was er von mir will. Aber ich träume seit Wochen von grauer Asche.
+
+`[68.chronik.lager]` (Chronik, Aufträge, nach Lyras Gespräch; ohne Kartenmarke, 68k/68m)
+**Das Lager im Süden**
+Lyra erinnerte sich, dass Graks Leute von einem Lager im Süden sprachen, in das sie Gefangene brachten. Wer dort festgehalten wird und wer das Lager führt, weiß niemand in Bornim.
+
+`[68.rowena.lager]` (Rowena, nach der Tempelszene)
+Ein Lager im Süden? Die Fuhrleute meiden die Südstraße seit dem Frühjahr. Jetzt weiß ich vielleicht, warum.
+
+`[68.aldric.lager]` (Aldric, nach der Tempelszene)
+Lyra hat mir vom Lager erzählt. Wenn dort Leute aus der Gegend festsitzen, kann Bornim nicht einfach wegsehen.
+
 ## Chronik: Bisher geschehen (64d)
 
 Der Chronist erzählt in dritter Person, ein Eintrag je Wendepunkt. Hier in Spielreihenfolge, im Spiel steht der neueste oben. Überschrift fett, dann der Text.
@@ -204,7 +245,11 @@ Na, endlich wach, {name}? Für einen, der nur eine Nacht bleiben wollte, hast du
 
 ## Südrand des Dorfes (67)
 
-Bornim hat zwei Straßen. Die Südstraße über die Brücke ist der Versorgungsweg, über sie kam der Held; nur die Waldstraße nach Norden ist gesperrt. Hinter der Brücke führt ein Feldweg zum Kartenrand, mit Wegweiser „Süden: …“ (Stadtname kommt mit Kapitel 2). Am Rand bleibt der Held stehen, die Zeile kommt, er tritt einen Schritt zurück. Ab dem zweiten Versuch nur die kurze Einblendung ohne Wegklicken.
+Bornim hat zwei Straßen. Die Südstraße über die Brücke ist der Versorgungsweg, über sie kam der Held; nur die Waldstraße nach Norden ist gesperrt. Hinter der Brücke führt ein Feldweg zum Kartenrand, mit Wegweiser (Text `[67.schild]`). Am Rand bleibt der Held stehen, die Zeile kommt, er tritt einen Schritt zurück. Ab dem zweiten Versuch nur die kurze Einblendung ohne Wegklicken.
+
+`[67.schild]` (Wegweiser am Feldweg, Pfeil nach Süden; freigegeben 13.10., 17:26, ohne Entfernungsangabe)
+Rabenschanze
+(darunter klein) Schilfrode
 
 `[67.vor.1]` (vor dem Auftrag, erster Versuch)
 Du bist von Süden gekommen, um hier zu rasten. Weiterziehen kannst du später – erst willst du wissen, was in Bornim geschehen ist.
@@ -217,6 +262,8 @@ Lyra ist irgendwo im Norden. Der Weg nach Süden kann warten.
 
 `[67.k1.2]` (während Kapitel 1, ab dem zweiten Versuch)
 Der Weg nach Süden kann warten.
+
+**Entfällt (68l, Nutzer 17:42):** Nach Lyras Gespräch ist der Südrand frei; die beiden folgenden Texte werden nicht mehr gebraucht.
 
 `[67.nach.1]` (nach Kapitel 1, erster Versuch)
 Der Brief mit dem grauen Siegel lässt dich nicht los. Die Antwort liegt nicht im Süden.

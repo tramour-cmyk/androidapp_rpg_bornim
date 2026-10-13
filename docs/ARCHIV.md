@@ -1,5 +1,11 @@
 # Archiv
 
+### Tom (13.10., 16:2x) – vor Neustart
+- **Nutzer 16:2x: hat Feedback vom Testen.** Nachfolger fängt keine Arbeit an, sondern wartet nach der Startmeldung auf dieses Feedback (zu 0.1.689) und bespricht es zuerst.
+- **0.1.689** (Zweig enthält riemen, 13e, 66, 67, 64; alte Zweige nicht mehr benutzen); 62h-2 danach auf dem Zweig, nicht im Spiel. Nach „passt“: PR (Merge-Commit), Änderungshistorie (59, 60e–k, 60j, 17r, 5la–5la.3, 6g, 6f, 61a, 61, 62a, 62c, 62e–g, 59e, 55.1a/b, 13x, 13v/27.6, 13e weich, Kegelrand, Fels).
+- **13t erst nach diesen Merges** (alte Ansicht ausbauen, ~100 Stellen in `WorldScreen`/`core/art`, sonst Konflikte mit 62h/66/67); eigener Zweig von `main`.
+- Vorschau-Schalter neu: `UNERKUNDET=1`.
+
 ### Übergabe Tom (13.10., 15:4x) – vor Neustart
 - **0.1.681 beim Nutzer** (`claude/tom-17-riemen`, Prüfliste `e/t681.html`); Test 0.1.676 sonst passt. Nach „passt“: PR, Merge (Merge-Commit), Änderungshistorie: 59, 60e–k, 60j, 17r, 5la, 5la.2, 5la.3, 6g, 6f, 61a, 61, 62a, 62c, 62e, 62f/62g, 59e, 55.1a, 55.1b, 13x, 13v/27.6, 13e-Sicht weich.
 - Danach `claude/tom-66-laterne` (66a A) und `claude/tom-67-suedrand` (Entwurf a191e253+, `e/67`, wartet auf ja; enthält 66 und riemen bis cb905a16, vor PR riemen neu hineinführen) als PR.
@@ -15,6 +21,13 @@
 - Erst reden, dann arbeiten; eine Rückfrage ist keine Freigabe. Keine Arbeit in Sackgassen. Vor großen optischen Änderungen Standbilder, keine Filmstreifen.
 - Was funktioniert, muss er nicht erfahren; kurze, nummerierte Rückfragen mit Empfehlung.
 - Wahl des Spielers, Optionen, individuell und lebendig (49/50). Generisches Maskulinum, nie weibliche oder gegenderte Formen.
+
+
+## Aus BERATER.md, 13.10., 18:0x
+
+- **Entscheidungsseite (63):** Fragen gingen in vielen Chats und neuen Sitzungen unter. **„Bildbuch“ → „Beschlüsse“** (13.10.): Inhalt ist Entschiedenes, Bilder nur Mittel; Paar offen ↔ beschlossen. Link/Freigabe bleiben. **65.7** (16:14): kein Abschnitt „Erledigt“ mehr, weil alles schon in Beschlüssen und `CHANGELOG.md` steht und die Liste nur wuchs.
+- **Karte und Händler (62c, 59e):** Karte erinnert statt führt (Marken nur für Entdecktes, keine Schnellreise); Vorrat nie nach Rast, weil Rast jederzeit geht. 62e–62m (13.10.): Bekannte am gewohnten Ort statt live (der Held weiß nicht, wo jemand gerade ist), Beschriftung und Hörensagen erst nach Wissen, drei Ebenen (Nutzer), Lagerfeuer als Dienst (Nutzer), Hilfe nach Schwierigkeitsgrad statt für alle. **64:** eigener Reiter „Chronik“, weil Quests zwischen Einstellungen untergingen; „Bisher geschehen“ für Rückkehrer nach Pausen; keine Questanzeige im Spielbild (erinnert statt führt).
+- **Leitbild (44):** ein roter Faden statt verstreuter Regeln; SRD ist Gerüst, nicht Ziel; keine AD&D-Erwähnung (kein Grund). Blut „Deutlich“ als Obergrenze, Zerteilen in 3D vorher prüfen. Effekte und Hintergrundklänge bieten Tom/Jerry aktiv an (44d).
 
 ## Jerry, Übergabe 12.10., 16:59 (Auszug, aus OFFEN gekürzt 13.10.)
 

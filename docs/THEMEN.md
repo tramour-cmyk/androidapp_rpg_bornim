@@ -20,7 +20,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für `OFFEN.md`) | Berater | erledigt (PR #26) | `CHANGELOG.md` |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | erledigt | Archiv |
 | 16 | Trefferstopp | Jerry | erledigt v0.1.460 | Änderungshistorie |
-| 17 | Nachschwingen | Tom | zu testen | `OFFEN.md` |
+| 17 | Nachschwingen | Tom | erledigt (auf `main`) | `OFFEN.md` |
 | 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | Jerry | offen (18h, 18i) | `OFFEN.md` |
 | 19 | Zeitablauf der Kampfbewegungen | Jerry | erledigt v0.1.455 | `OFFEN.md` |
 | 20 | Uhrzeit der APK im ZIP | Tom | erledigt (PR #21) | `OFFEN.md` |
@@ -62,14 +62,15 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | Tom | zu testen | `OFFEN.md` |
 | 57 | Gemeinsame Beschlüsse für Entschiedenes (früher Bildbuch) | Tom | erledigt (Regel) | Archiv |
 | 58 | Umhang hängt beim Laufen über dem Schild | Tom | erledigt (PR #50) | `OFFEN.md` |
-| 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf | Tom | zu testen (59e Vorrat ruht bis 38/39) | `OFFEN.md` |
-| 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | Tom | zu testen | `OFFEN.md` |
-| 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | Tom | zu testen | `OFFEN.md` |
-| 62 | Gezeichnete Karte im Menü | Tom | in Arbeit (62e–62m) | `OFFEN.md` |
+| 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf | Tom | erledigt (59e Vorrat ruht bis 38/39) | `OFFEN.md` |
+| 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | Tom | erledigt (auf `main`) | `OFFEN.md` |
+| 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | Tom | erledigt (auf `main`) | `OFFEN.md` |
+| 62 | Gezeichnete Karte im Menü | Tom | in Arbeit | `OFFEN.md` |
 | 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom (ab Fr. mit Jerry) | in Arbeit | `OFFEN.md` |
-| 64 | Questlog: Reiter „Chronik“ (Aufträge, Bisher geschehen) | Tom (Texte Berater mit Nutzer) | offen (nach 62e) | `OFFEN.md`, Beschlüsse |
-| 66 | Licht im Dorf bei Nacht (Wache, Laterne) | Tom | offen | `OFFEN.md` |
-| 67 | Südrand des Dorfes (Feldweg, Wegweiser, Umkehr) | Tom | offen | `OFFEN.md` |
+| 64 | Questlog: Reiter „Chronik“ (Aufträge, Bisher geschehen) | Tom (Texte Berater mit Nutzer) | erledigt (auf `main`) | `OFFEN.md`, Beschlüsse |
+| 66 | Licht im Dorf bei Nacht (Wache, Laterne) | Tom | erledigt (auf `main`) | `OFFEN.md` |
+| 67 | Südrand des Dorfes (Feldweg, Wegweiser, Umkehr) | Tom | erledigt (auf `main`) | `OFFEN.md` |
 | 65 | Abläufe verschlanken (Ablaufprüfung) | Berater, Tom, Jerry | in Arbeit (65.2 Jerry) | `OFFEN.md` |
 | 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | Berater mit Nutzer; Tom, Jerry | offen | `OFFEN.md` |
 | 69 | Intro in Standbildern (Ankunft bei Nacht) | Berater mit Nutzer; Tom | offen | `OFFEN.md` |
+| 70 | Zwischensequenzen einheitlich | Berater mit Nutzer | offen | `OFFEN.md` |
