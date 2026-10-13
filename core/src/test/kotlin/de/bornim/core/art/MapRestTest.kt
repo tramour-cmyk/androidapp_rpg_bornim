@@ -1,6 +1,7 @@
 package de.bornim.core.art
 
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class MapRestTest {
@@ -40,5 +41,22 @@ class MapRestTest {
         assertTrue(same * 4 < total, "two figures move together too often: $same of $total")
         // about one breath in 4 s, in and out
         assertTrue(breaths in 250..350, "breaths: $breaths")
+    }
+
+    @Test
+    fun aGuardGroundsHisSpearAtEachLongWatch() {
+        // 55.1b (test of 0.1.662): no chance about it at a long stop; eased in and out without a jump; not at short stops
+        val watch = 12_000L
+        assertEquals(null, MapRest.spearWatch(3_000, 1_000, 4_000, 0))
+        var last = 0
+        for (t in 0L..watch step 20) {
+            val p = MapRest.spearWatch(t, watch - t, watch, 0)!!
+            val lv = if (p.rest == MapRest.Rest.SPEAR) p.level else 0
+            assertTrue(kotlin.math.abs(lv - last) <= 1, "jump at $t ms: $last to $lv")
+            last = lv
+        }
+        assertEquals(MapRest.Rest.SPEAR, MapRest.spearWatch(watch / 2, watch / 2, watch, 0)!!.rest)
+        assertEquals(MapRest.LEVELS, MapRest.spearWatch(watch / 2, watch / 2, watch, 0)!!.level)
+        assertEquals(0, last)
     }
 }

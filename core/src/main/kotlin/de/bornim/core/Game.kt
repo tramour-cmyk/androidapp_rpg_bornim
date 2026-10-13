@@ -23,6 +23,8 @@ sealed interface Move {
  */
 class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()) {
     companion object {
+        /** 55.1b: the shortest of a guard's longer watches at a patrol point. */
+        const val LONG_WATCH_MS = 10_000L
         const val ELITE_CHANCE = 0.12
         const val SHINY_CHANCE = 1.0 / 150
         /** Poison and bleeding carried out of a fight hurt once every this many steps. */
@@ -240,9 +242,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (w.x == tx && w.y == ty) {
             // Arrived: look around for a while, then head for the next point.
             w.leg = (w.leg + 1) % w.npc.patrol.size
-            w.facing = if (roamRandom.nextBoolean()) Facing.UP else Facing.entries[roamRandom.nextInt(4)]
+            // 55.1b: every other stop a longer watch (the guard grounds his spear), turned to the road or the village
+            val long = roamRandom.nextBoolean()
+            w.facing = if (long) listOf(Facing.DOWN, Facing.LEFT, Facing.RIGHT)[roamRandom.nextInt(3)]
+                else if (roamRandom.nextBoolean()) Facing.UP else Facing.entries[roamRandom.nextInt(4)]
             npcFacing.remove(w.npc.id)
-            w.nextMoveAt = now + 2500 + roamRandom.nextInt(2500)
+            w.nextMoveAt = now + if (long) LONG_WATCH_MS + roamRandom.nextInt(6000) else 2500L + roamRandom.nextInt(2500)
             changed()
             return
         }
@@ -269,7 +274,22 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (mode != Mode.Explore) return
         tickClock(delta)
         updateWalkers()
+        walkerTracks()
         updateRoamers(nowMs)
+    }
+
+    /** 61 (test of 0.1.662): villagers leave prints in the wet like the hero; between tiles where they are drawn. */
+    private fun walkerTracks() {
+        if (!Tracks.draft) return
+        val outdoors = map.kind == MapKind.FOREST || map.kind == MapKind.TOWN
+        if (!outdoors) return
+        for (w in walkersHere()) {
+            if (!w.npc.visible(state) || w.npc.look.startsWith("monster:")) continue
+            val t = ((now - w.movedAt).toDouble() / w.moveMs).coerceIn(0.0, 1.0)
+            val x = w.fromX + (w.x - w.fromX) * t + 0.5; val y = w.fromY + (w.y - w.fromY) * t + 0.5
+            val yaw = Math.toDegrees(kotlin.math.atan2((w.x - w.fromX).toDouble(), (w.y - w.fromY).toDouble()))
+            tracks.walked(map.id, x, y, yaw, map.tile(w.x, w.y), outdoors, false, now, who = w.npc.id)
+        }
     }
 
     private val sight = Sight(state)

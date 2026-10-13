@@ -92,7 +92,7 @@ object MapRest {
         val pick = when {
             roll < 0.4 -> if (r.nextBoolean()) Rest.SHIFT_L else Rest.SHIFT_R
             roll < 0.7 -> if (r.nextBoolean()) Rest.LOOK_L else Rest.LOOK_R
-            // draft (55.1b): a spear bearer grounds his spear instead
+            // draft (55.1b): a spear bearer grounds his spear instead (a guard on his round: at his longer watches, see [spearWatch])
             draft && spear -> Rest.SPEAR
             // draft (55.1): the hands now and then crossed or behind the back instead of at the belt
             draft -> r.nextDouble().let { a -> if (a < 0.35) Rest.ARMS else if (a < 0.6) Rest.BACK else Rest.BELT }
@@ -128,6 +128,26 @@ object MapRest {
         val level = if (since < EASE_MS) (LEVELS * since / EASE_MS.toDouble()).toInt().coerceIn(1, LEVELS) else LEVELS
         return Pose(rest, breath, level)
     }
+
+    /**
+     * 55.1b (test of 0.1.662: in five minutes Jorin never grounded his spear, the chance stretches missed his short
+     * stops): a guard on his round grounds his spear at each longer watch, from [SPEAR_AFTER_MS] after he stopped
+     * until [SPEAR_BEFORE_MS] before he walks on, easing in and out. [stoodMs]: since he stopped; [leftMs]: until he
+     * goes on; [watchMs]: the whole stop. Null outside a long watch; plain standing in it before and after the spear.
+     */
+    fun spearWatch(stoodMs: Long, leftMs: Long, watchMs: Long, breath: Int): Pose? {
+        if (watchMs < SPEAR_WATCH_MS) return null
+        val inMs = stoodMs - SPEAR_AFTER_MS; val outMs = leftMs - SPEAR_BEFORE_MS
+        val k = minOf(inMs, outMs)
+        // just before and after: standing plain, so no glance aside cuts into the spear
+        if (k <= 0) return Pose(Rest.NEUTRAL, breath, LEVELS)
+        return Pose(Rest.SPEAR, breath, if (k >= EASE_MS) LEVELS else (LEVELS * k / EASE_MS.toDouble()).toInt().coerceIn(1, LEVELS))
+    }
+
+    /** A stop at least this long is a watch with the spear grounded. */
+    const val SPEAR_WATCH_MS = 8_000L
+    const val SPEAR_AFTER_MS = 1_200L
+    const val SPEAR_BEFORE_MS = 900L
 
     // ------------------------------------------------------------ pictures, drawn when first wanted
 

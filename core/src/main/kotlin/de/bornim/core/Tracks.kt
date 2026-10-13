@@ -37,15 +37,19 @@ class Tracks {
     /** How wet the ground still is, 0 to 1: as wet as the rain, drying slowly after it stops. */
     var wet = 0f
         private set
-    /** Prints the boots can still leave after walking through mud. */
-    var mud = 0
-        private set
+    /** One walker's feet: the hero's, or (61, test of 0.1.662: only the hero left prints in the rain) a villager's. */
+    private class Feet {
+        var mud = 0
+        var stride = 0.0
+        var leftFoot = false
+        var lastX = Double.NaN
+        var lastY = Double.NaN
+        var lastMap = ""
+    }
+    private val feet = HashMap<String, Feet>()
 
-    private var stride = 0.0
-    private var leftFoot = false
-    private var lastX = Double.NaN
-    private var lastY = Double.NaN
-    private var lastMap = ""
+    /** Prints the hero's boots can still leave after walking through mud. */
+    val mud: Int get() = feet[HERO]?.mud ?: 0
 
     /** Advances the drying of the ground by [deltaMs] with rain at [rain] (0 to 1). */
     fun weather(rain: Float, deltaMs: Long) {
@@ -64,17 +68,20 @@ class Tracks {
     /**
      * The hero's feet at ([x], [y]) on [map], walking the way [yaw], on [ground]; [outdoors] whether rain reaches the
      * ground, [running] whether it runs. Leaves a print each step where the ground is wet and soft (or the boots
-     * still muddy), and a puff of dust each stride on a dry way when running.
+     * still muddy), and a puff of dust each stride on a dry way when running. [who] whose feet: the hero's, or a
+     * villager's by id (61), each with its own stride and mud.
      */
-    fun walked(map: String, x: Double, y: Double, yaw: Double, ground: Tile, outdoors: Boolean, running: Boolean, now: Long) {
+    fun walked(map: String, x: Double, y: Double, yaw: Double, ground: Tile, outdoors: Boolean, running: Boolean, now: Long, who: String = HERO) {
         if (!draft) return
-        if (map != lastMap || lastX.isNaN()) { lastMap = map; lastX = x; lastY = y; stride = 0.0; return }
-        stride += kotlin.math.hypot(x - lastX, y - lastY)
-        lastX = x; lastY = y
+        val f = feet.getOrPut(who) { Feet() }
+        if (map != f.lastMap || f.lastX.isNaN()) { f.lastMap = map; f.lastX = x; f.lastY = y; f.stride = 0.0; return }
+        f.stride += kotlin.math.hypot(x - f.lastX, y - f.lastY)
+        f.lastX = x; f.lastY = y
         val step = if (running) RUN_STEP else STEP
-        if (stride < step) return
-        stride = 0.0
-        leftFoot = !leftFoot
+        if (f.stride < step) return
+        f.stride = 0.0
+        f.leftFoot = !f.leftFoot
+        val leftFoot = f.leftFoot
         // the foot sets down beside the line walked, left or right of it
         val r = Math.toRadians(yaw)
         val side = (if (leftFoot) -1 else 1) * SIDE
@@ -82,10 +89,10 @@ class Tracks {
         val soft = ground == Tile.GRASS || ground == Tile.PATH || ground == Tile.FLOWERS
         val muddy = outdoors && soft && wet >= WET
         when {
-            muddy -> { mud = MUD_STEPS; add(Mark(Kind.PRINT, map, fx, fy, now, yaw, leftFoot, 1f)) }
-            mud > 0 && ground != Tile.TALL_GRASS && ground != Tile.WATER -> {
-                add(Mark(Kind.PRINT, map, fx, fy, now, yaw, leftFoot, CARRIED * mud / MUD_STEPS))
-                mud--
+            muddy -> { f.mud = MUD_STEPS; add(Mark(Kind.PRINT, map, fx, fy, now, yaw, leftFoot, 1f)) }
+            f.mud > 0 && ground != Tile.TALL_GRASS && ground != Tile.WATER -> {
+                add(Mark(Kind.PRINT, map, fx, fy, now, yaw, leftFoot, CARRIED * f.mud / MUD_STEPS))
+                f.mud--
             }
         }
         if (running && wet < DRY && (ground == Tile.PATH || ground == Tile.CAVE_FLOOR) && !leftFoot)
@@ -102,6 +109,8 @@ class Tracks {
     }
 
     companion object {
+        /** The hero's key among the walkers' feet. */
+        const val HERO = "@hero"
         /** The test switch: traces are made and drawn (draft). */
         @Volatile var draft = true
 

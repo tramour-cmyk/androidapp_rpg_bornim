@@ -134,4 +134,21 @@ class TracksTest {
         assertEquals("forest", m.map)
         assertEquals(10.5, m.x); assertEquals(19.5, m.y)
     }
+
+    @Test
+    fun villagersLeavePrintsOfTheirOwn() {
+        // 61 (test of 0.1.662): in the rain the folk leave prints too, each walker with his own stride
+        val tr = Tracks()
+        tr.settle(1f)
+        var t = 0L; var y = 5.5
+        while (y < 9.5) {
+            tr.walked("village", 5.5, y, 0.0, Tile.GRASS, true, false, t)
+            tr.walked("village", 8.5, y + 0.2, 0.0, Tile.GRASS, true, false, t, who = "bram")
+            y += 0.05; t += 16
+        }
+        val prints = tr.marks.filter { it.kind == Tracks.Kind.PRINT }
+        val hero = prints.filter { kotlin.math.abs(it.x - 5.5) < 0.2 }; val bram = prints.filter { kotlin.math.abs(it.x - 8.5) < 0.2 }
+        assertTrue(hero.size in 8..10 && bram.size in 8..10, "hero ${hero.size}, bram ${bram.size}")
+        assertTrue(bram.zipWithNext().all { (a, b) -> a.left != b.left })
+    }
 }
