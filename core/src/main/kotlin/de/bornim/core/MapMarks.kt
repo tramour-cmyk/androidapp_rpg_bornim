@@ -85,6 +85,6 @@ object MapMarks {
             .groupBy { Triple(it.map, it.x, it.y) }
             .map { (_, ms) -> ms.first().copy(done = ms.all { it.done }, label = T(ms.joinToString("\n") { it.label.de }, ms.joinToString("\n") { it.label.en })) }
         val all = out + atDoors
-        return if (MapPeople.draft) all + MapPeople.marks(s) + MapPeople.services(s) else all
+        return all + MapPeople.marks(s) + MapPeople.services(s)
     }
 }

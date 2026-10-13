@@ -120,9 +120,8 @@ fun main() {
         de.bornim.game.ui.MapLook.previewTip = -2
         shot("62e_dorf", settle = 30) { vm -> setup(vm, "village", 10, 17, Facing.DOWN) }
         if (System.getenv("ONLY") == "62e") System.exit(0)
-        // KARTE62=1 ONLY=62f: 62f/62g draft, people at their usual place, services, house names in handwriting
+        // KARTE62=1 ONLY=62f: 62f/62g, people at their usual place, services, house names in handwriting
         if (System.getenv("ONLY") == "62f") {
-            de.bornim.core.MapPeople.draft = true
             val grp = de.bornim.core.MapMarks.Group.entries
             fun known(vm: GameViewModel) {
                 val st = vm.game!!.state

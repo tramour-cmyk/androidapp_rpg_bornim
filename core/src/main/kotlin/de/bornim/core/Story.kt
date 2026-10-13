@@ -205,7 +205,7 @@ object Story {
     )
 
     /** A villager's front door that stays shut, with a line about who lives there. */
-    private fun lockedDoor(x: Int, y: Int, text: T) = Warp(x, y, Place("village", x, y + 1, Facing.DOWN), LOCKED, script { narrate(text.de, text.en) })
+    private fun lockedDoor(x: Int, y: Int, text: T) = Warp(x, y, Place("village", x, y + 1, Facing.DOWN), LOCKED, script { narrate(text.de, text.en); flag(MapPeople.heard(x, y)) })
 
     private fun jorinStop() = script {
         say(jorin, "Halt! Ohne Erlaubnis des Ältesten lasse ich niemanden in den Wald.", "Halt! Nobody enters the woods without the Elder's permission.")

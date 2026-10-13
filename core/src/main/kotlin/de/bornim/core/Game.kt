@@ -183,6 +183,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     private fun updateWalkers() {
         val p = state.place
         for (w in walkersHere()) {
+            // 62f: the map remembers where the hero came upon someone at one of their habits
+            if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 3 && w.npc.visible(state))
+                MapPeople.habitNow(w.npc.id, state.minutes, isNight, w.x, w.y)?.let { state.flags += MapPeople.seenAt(w.npc.id, it) }
             if (now < w.nextMoveAt || !w.npc.visible(state)) continue
             if (w.npc.patrol.isNotEmpty()) {
                 patrol(w)
@@ -390,6 +393,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         map.warpAt(p.x, p.y)?.let { warp ->
             sounds += de.bornim.core.audio.Sound.DOOR
             state.place = warp.to
+            if (World.maps[warp.to.map]?.kind == MapKind.INTERIOR) state.flags += MapPeople.been(warp.to.map)
             graceSteps = 3
             mapChanged = true
             changed()

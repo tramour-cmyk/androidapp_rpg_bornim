@@ -151,7 +151,7 @@ private fun MapTab(game: Game, lang: Lang) {
             PixelButton(if (german) "Orte" else "Places", Modifier.height(36.dp), selected = overview, size = 13.sp) { overview = !overview }
         }
         Spacer(Modifier.height(6.dp))
-        if (!overview && de.bornim.core.MapPeople.draft) {
+        if (!overview) {
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 val names = mapOf(
                     de.bornim.core.MapMarks.Group.QUESTS to de.bornim.core.T("Aufträge", "Quests"),
@@ -231,7 +231,7 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
             }
         }
     }
-    val houses = remember(map.id) { if (de.bornim.core.MapPeople.draft) de.bornim.core.MapPeople.houses(game.state).filter { it.map == map.id } else emptyList() }
+    val houses = remember(map.id) { de.bornim.core.MapPeople.houses(game.state).filter { it.map == map.id } }
     val measurer = androidx.compose.ui.text.rememberTextMeasurer()
     var tip by remember { mutableStateOf(MapLook.previewTipMatch?.let { w -> marks.firstOrNull { w in it.label.de } }
         ?: marks.getOrNull(if (MapLook.previewTip == -2) marks.lastIndex else MapLook.previewTip)) }
