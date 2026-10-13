@@ -1042,7 +1042,9 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     val squatImg = squat?.let { if (slotNow == homeSlot) MapFolk.squatFrame(f, slotNow, it) else null }
                     val restImg = if (idleImg == null && doing == null && squat == null && !walkingNow && slotNow == MapFigure.slot(target)) {
                         // a spear or staff on the shoulder stays there: no hands to the belt (5.3)
-                        val ps = MapRest.pose(f.id.hashCode(), clock, handsFree = f.carry == MapFigure.Carry.FREE, mayLook = !near)
+                        // 55.1b (draft): a spear can be grounded and leaned on
+                        val ps = MapRest.pose(f.id.hashCode(), clock, handsFree = f.carry == MapFigure.Carry.FREE, mayLook = !near,
+                            spear = f.outfit.items[de.bornim.core.GearSlot.MAIN_HAND]?.base == "spear")
                         MapFolk.restFrame(f, slotNow, ps.rest, ps.breath, ps.level)
                     } else null
                     val wardImg = warding?.let { wd ->

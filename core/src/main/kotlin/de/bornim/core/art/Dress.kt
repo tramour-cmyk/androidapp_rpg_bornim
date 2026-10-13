@@ -707,6 +707,9 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             }
             else -> {
                 val len = reach(main.base) * k * 0.95
+                // 55.1b (draft): grounded, the spear slides down through the hand until the butt stands on the ground
+                val slide = if (sk.rig.ground > 0 && main.base == "spear" && dir.y > 0.5)
+                    slide + (len * buttPart(main.base) - (hand.y - minOf(sk.ankle[0].y, sk.ankle[1].y) + 0.04 * h) / dir.y - slide) * sk.rig.ground else slide
                 val top = hand + dir * (len + slide)
                 val butt = hand - dir * (len * buttPart(main.base) - slide)
                 val wood = m(mix(argb(if (main.base == "staff") 0x3E2A1C else 0x6A5034), r.color.toInt(), if (r >= Rarity.RARE) 0.25 else 0.0), grain = 0.08)

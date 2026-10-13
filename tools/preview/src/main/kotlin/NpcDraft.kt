@@ -131,20 +131,24 @@ fun renderNpcRest() {
     val folk = de.bornim.core.art.MapFolk
     val F = MapFigure
     val hero = GameState.newGame("Mira", Race.HUMAN, CharClass.FIGHTER).hero
-    val rests = de.bornim.core.art.MapRest.Rest.entries
+    val rests = if (System.getenv("SPEER55") != null) listOf(de.bornim.core.art.MapRest.Rest.NEUTRAL, de.bornim.core.art.MapRest.Rest.SPEAR)
+        else de.bornim.core.art.MapRest.Rest.entries
     val k = 3
     val lab = 26
     // RUHE55=1 (55.1, draft): two of the village folk in lighter clothes, where the arms show better
-    val who = if (System.getenv("RUHE55") != null) listOf(folk.gwenna, folk.bram) else listOf(folk.garrick)
-    val rows = if (who.size > 1) listOf("Gwenna von vorn" to 0, "Gwenna schräg" to 2, "Bram von vorn" to 0, "Bram schräg" to 14)
+    // SPEER55=1 (55.1b, draft): Jorin grounding his spear, from four sides
+    val speer = System.getenv("SPEER55") != null
+    val who = if (speer) listOf(folk.jorin) else if (System.getenv("RUHE55") != null) listOf(folk.gwenna, folk.bram) else listOf(folk.garrick)
+    val rows = if (speer) listOf("Jorin von vorn" to 0, "Jorin schräg" to 2, "Jorin Seite" to 4, "Jorin hinten" to 8, "Jorin schräg vorn" to 14)
+        else if (who.size > 1) listOf("Gwenna von vorn" to 0, "Gwenna schräg" to 2, "Bram von vorn" to 0, "Bram schräg" to 14)
         else listOf("Garrick von vorn" to 0, "Garrick schräg" to 2, "Held von vorn" to -1)
-    val out = BufferedImage(F.W * k * rests.size, (F.H * k + lab) * rows.size * 2, BufferedImage.TYPE_INT_RGB)
+    val out = BufferedImage(F.W * k * rests.size, (F.H * k + lab) * rows.size * (if (speer) 1 else 2), BufferedImage.TYPE_INT_RGB)
     val g = out.createGraphics()
     g.color = Color(0x2E3628); g.fillRect(0, 0, out.width, out.height)
     g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
     g.font = Font(Font.SANS_SERIF, Font.BOLD, 18); g.color = Color(0xE8DCC0)
     var row = 0
-    for ((title, slot) in rows) for (breath in 0..1) {
+    for ((title, slot) in rows) for (breath in 0..(if (speer) 0 else 1)) {
         val y0 = row * (F.H * k + lab)
         rests.forEachIndexed { i, rest ->
             if (slot < 0 && rest.handsFree) return@forEachIndexed
@@ -159,7 +163,7 @@ fun renderNpcRest() {
         row++
     }
     g.dispose()
-    ImageIO.write(out, "png", File("build/screens/ruhe_entwurf.png"))
+    ImageIO.write(out, "png", File("build/screens/ruhe_entwurf" + (if (speer) "_speer" else "") + ".png"))
     println("wrote rest draft")
 }
 
