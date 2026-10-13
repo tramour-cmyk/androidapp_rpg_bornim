@@ -9,7 +9,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 ## Jetzt installieren
 
 - **Tom 0.1.670** (Zweig `claude/tom-17-riemen`, ersetzt 0.1.662/0.1.669): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38386596682/artifacts/11807296636 · Prüfliste `e/t670.html`: Jorin stellt bei langer Wache den Speer ab (55.1b behoben), Spuren der Leute bei Regen (61), Kartenmarken 62e. Nach „passt“: PR, zusammenführen (62d ja).
-- **Tom 0.1.668** (Zweig `claude/tom-13e-hoehle`, ersetzt 0.1.667, nur `main` plus Höhle): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38385072082/artifacts/11806290460 · Prüfliste `e/t668.html`: Höhle diagonal, neu Pilze/Kristalle/Felsbrocken.
+- **Tom 0.1.671** (Zweig `claude/tom-13e-hoehle`, ersetzt 0.1.668, nur `main` plus Höhle): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38388477124/artifacts/11806784466 · Prüfliste `e/t671.html`: Test 0.1.667 umgesetzt (Abdunklung, Lichtstrahl), Pilze/Kristalle/Felsbrocken diagonal.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Entscheidungsseite (65.3), nicht hier.
 
@@ -23,7 +23,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 13 | Diagonale Sicht | Tom | – | 13.4 auf `main` (PR #43). **13u/13w ja:** neue Orte nur diagonal, alte Ansicht eingefroren. **13v (später):** Testaufruf: Wald, Tiefer Wald, Höhle absichtlich noch gerade. **Meldung 08:43:** Tempel innen: Altar direkt vor dem Fenster, ansehen. **13s/13t ja:** 27, 13 Tempel, 42; Ziel „alte Ansicht ausgebaut“ (`KAPITEL1.md`), danach 6l. Verlauf im Archiv |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-27-4-baeume` | 5.1/5.2/5g/5h.1 auf `main`. **5m ja:** 27.4, 5.6, 5.3, 5l/5.5, 5.4, dann 27.5/27.6, je erst Standbilder. 27.4, 5.6, 5.3 (alle zwölf), 5n in PR #48. 5.4 (Pflaster-Entwurf, Fensterlicht-Fix) auf dem Zweig. **5la** Tagesablauf (Pim, Bram, Gwenna, Liska) als Entwurf auf `claude/tom-5l-leben`, Build 0.1.640 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher | Tom | `claude/tom-17-riemen` | 17a auf `main`. 17r (Haare/Köcher) im Build 0.1.660; Riemen verworfen (kaum sichtbar). Fertig mit dem PR des Zweigs |
-| 13e | Höhle diagonal (Phase 2 von 13); mit 10 (Flammen) und 11 (Lichtstrahl) | **Tom** (seit 13.10., 13y ja; vorher Jerry) | `claude/tom-13e-hoehle` (von `jerry-13e-hoehle-diagonal`) | Grundsatz 43, 48b (allgemein aus dem Raster, Datei `MapCaveIso.kt`). Jerry: Wände, Dinge, Schacht, Fackeln, Geröll (13e.2–13e.4). Tom 13.10.: `main` gemerged, Lagerfeuer, Knochen im Maßstab, Weiher als Wasser; Entwurf alt/neu auf der Entscheidungsseite (13e, 11:58). 12:4x Pilze, Kristalle, Felsbrocken diagonal (0.1.668). **Test 0.1.667 (Nutzer 13:0x):** Optik gut, Kämpfe laufen; Abdunklung über Erkundetem und Auftreffen des Lichtstrahls behoben (Wurzeln weg) → Build 0.1.671. Danach: PR, alte Ansicht ausbauen |
+| 13e | Höhle diagonal (Phase 2 von 13); mit 10 (Flammen) und 11 (Lichtstrahl) | **Tom** (seit 13.10., 13y ja; vorher Jerry) | `claude/tom-13e-hoehle` (von `jerry-13e-hoehle-diagonal`) | `MapCaveIso.kt` (43, 48b). Entwurf alt/neu auf der Entscheidungsseite (13e). Test 0.1.667: Optik gut; Abdunklung und Lichtstrahl behoben → 0.1.671. Danach: PR, alte Ansicht ausbauen |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | **26c ja:** (1) 24.8.6 und 30.8 vom Zweig `tender-goodall-a8zuny` in den nächsten Build, (2) 42, (3) Diagonalsicht fertig (27.5, Tiefer Wald, Tempel-Altar, 27.6); dann 5l, 55.2, 17 |
 | 27 | Wald „Ort fertig“ (Liste in `ENTWICKLUNG.md`): vor allem diagonale Zeichnung, Bäume rund | Tom | `claude/tom-27-wald-diagonal` | **13v/27.6 in Arbeit (13.10., 07:3x):** Wald und Tiefer Wald fest diagonal, mit 27.6a–c (ja); Lückenliste „Ort fertig“, Standbilder. 27.1/27.2/27d, 27.4/27.5/27g, 27i, 27j auf `main` (getestet 0.1.625). **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise). Verlauf im Archiv |
@@ -56,7 +56,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (13.10., 12:57) – vor Neustart
 - **Zweig `claude/tom-17-riemen`**, Build 0.1.670 (Prüfliste `e/t670.html`): 55.1b-Fix (Jorin: jeder zweite Halt Wache 10–16 s mit abgestelltem Speer, `MapRest.spearWatch`), 61 Spuren der Leute (`Game.walkerTracks`), 62e Kartenmarken. 60j, 5la.3 passen, 62d ja. Nach „passt“: PR, Merge, Änderungshistorie „Unveröffentlicht“: 59, 60e–k, 60j, 17r, 5la, 5la.2, 5la.3, 6g, 6f, 61a, 61 (Leute), 62a, 62c, 62e, 59e, 55.1a, 55.1b, 13x, 13v/27.6.
-- **13e Höhle**: Zweig `claude/tom-13e-hoehle` (von Jerrys Zweig, `main` drin), Build 0.1.668 (`e/t668.html`): Pilze, Kristalle, Felsbrocken diagonal. Rückfrage 13e offen. Vorn schwarzer Fels bewusst gelassen (Nebel, wirkt wie Fels im Dunkeln). Nach „passt“: PR nach dem von tom-17-riemen, dann alte Ansicht ausbauen (13t), dann 6l.
+- **13e Höhle**: Zweig `claude/tom-13e-hoehle` (von Jerrys Zweig, `main` drin), Build 0.1.671 (`e/t671.html`): Test 0.1.667 umgesetzt, Pilze/Kristalle/Felsbrocken diagonal. Rückfrage 13e offen. Vorn schwarzer Fels bewusst gelassen (Nebel, wirkt wie Fels im Dunkeln). Nach „passt“: PR nach dem von tom-17-riemen, dann alte Ansicht ausbauen (13t), dann 6l.
 - **Weiter:** 62f/62g Entwurf (Standbilder: Bekannte am gewohnten Ort mit Schaltern, Häuser in Handschrift). Nachfolger startet auf `claude/tom-17-riemen`.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
@@ -65,10 +65,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - Zweig `claude/jerry-13e-hoehle-diagonal` (nur Vorschau hinter `MapCaveIso.draft`, kein Build, kein PR): **13e.3 fertig** (Lichtstrahl aufrecht `drawCaveShaft`, Fackeln an der Wand mit 32-Bild-Flamme `drawCaveTorches`; Bilder 16:41, 16:50 gezeigt). **13e.4 halb:** Stalagmiten/Geröll als Höhenfeld (`relief`), Weiher abgesenkt mit Ufer; Kerntest grün, Bilder noch nicht angesehen (`tools/t bild KARTENZOOM=1 DIAG=1 CAVEDRAFT=1 ONLY=zoom_nah_c`, Aufnahmen c5, c7–c9).
 - **Nutzer 12.10., 18:0x:** Jerry ohne Guthaben bis Fr., 03:00; Tom vertritt nicht von sich aus (genug eigene Arbeit); nur wenn eigene Arbeit an etwas von Jerry hängt, darf Tom das übernehmen (Übergabe hier).
 - **13e liegt seit 13.10., 11:2x bei Tom (13y ja);** Jerry macht am Freitag mit 24.6, 30.7, 36.6, 38–40, 51–53 weiter.
-- ~~Weiter (Freitag):~~ Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
-- **Test 0.1.660 (Nutzer 13.10., 11:2x):** Laden (59e) läuft sehr gut; 60j gefällt. Karte (62c) → „Für den Berater“.
 - **Jerry, Weck-Routinen pausieren** (Berater 13.10., Nutzer freigegeben): deine acht Routinen „Jerry Selbstarbeit HH:MM“ mit `update_trigger` (`enabled: false`) pausieren, nicht löschen; Regel in `SELBST.md` „Feste Weck-Routinen“. Danach Zeile streichen.
 
 ## Für Diogenes
