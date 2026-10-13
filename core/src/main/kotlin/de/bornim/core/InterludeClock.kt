@@ -2,7 +2,7 @@ package de.bornim.core
 
 /**
  * When the black screen between places (24.1) shows what, as plain numbers so a test can run it in no time
- * (times in docs/ZWISCHENBILD.md). The screen cuts to black at once, the words come in, stay until the pictures
+ * (times in docs/DESIGN-ZWISCHENBILD.md). The screen cuts to black at once, the words come in, stay until the pictures
  * of the new place are drawn (at least long enough to be read), then fade, and the map rises out of the black.
  * It never stays longer than [CAP_MS]; a tap ends it early, but not before everything is drawn.
  */
