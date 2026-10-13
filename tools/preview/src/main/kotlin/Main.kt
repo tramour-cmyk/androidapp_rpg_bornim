@@ -199,12 +199,10 @@ fun main() {
     if (System.getenv("WEGE") != null) { renderWayDrafts(); System.exit(0) }
     System.getenv("FLORA")?.let { renderFloraSheet(it); System.exit(0) }
     if (System.getenv("HOEHLEDINGE") != null) { renderCaveThings(); System.exit(0) }
-    if (System.getenv("RAUMDINGE") != null) { renderRoomThings(); System.exit(0) }
     if (System.getenv("ISODRAFT") != null) { renderIsoDraft(); System.exit(0) }
     if (System.getenv("ISODINGE") != null) { renderIsoThings(); System.exit(0) }
     if (System.getenv("FEUER") != null) { renderIsoFire(); System.exit(0) }
     if (System.getenv("SQUATBLEND") != null) { renderSquatBlend(); System.exit(0) }
-    if (System.getenv("ALTRAUM") != null) de.bornim.core.art.MapRoom.sculpted = false
     if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }
     if (System.getenv("MAPFIGYAWS") != null) { renderMapFigureYaws(); System.exit(0) }
     if (System.getenv("SHIELDWALK") != null) { renderShieldWalk(); System.exit(0) }
@@ -216,8 +214,6 @@ fun main() {
     if (System.getenv("VILLAGEDRAFT") != null) { renderVillageDraft(); System.exit(0) }
     if (System.getenv("SITDRAFT") != null) { renderSitDraft(); System.exit(0) }
     if (System.getenv("SQUATDRAFT") != null) { renderSquatDraft(); System.exit(0) }
-    // TOWNDRAFT=1: the village and the rooms in the new style, for the films too
-    if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true
     System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
     if (System.getenv("BLENDEFILM") != null) { veilFilm(); System.exit(0) }
     System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
@@ -455,10 +451,6 @@ fun main() {
         battleRuns()
         System.exit(0)
     }
-    System.getenv("OVERVIEW")?.let { id ->
-        renderMapOverview(id, "map_$id")
-        System.exit(0)
-    }
     if (System.getenv("SHEET") != null) { renderHeroSheet(); System.exit(0) }
     if (System.getenv("SCENES") != null) { renderSceneSheet(); System.exit(0) }
     if (System.getenv("CAVES") != null) { renderCaveSheet(); System.exit(0) }
@@ -529,11 +521,6 @@ fun main() {
     if (System.getenv("ATTACKVIEW") != null) { renderAttackViews(); System.exit(0) }
     if (System.getenv("RANGED") != null) { renderRangedViews(); System.exit(0) }
     if (System.getenv("WEAPONS") != null) { renderWeaponSheet(); System.exit(0) }
-    if (System.getenv("CAVEMAP") != null) { renderCaveMap(); System.exit(0) }
-    System.getenv("MAPS")?.let { ids ->
-        for (id in ids.split(",")) for ((t, d) in listOf("day" to 1f, "dusk" to 0.55f, "night" to 0.1f)) renderMapOverview(de.bornim.core.World[id], daylight = d, name = "${id}_$t")
-        System.exit(0)
-    }
     if (System.getenv("WOLFANIM") != null) { renderWolfAnim(); System.exit(0) }
     if (System.getenv("ELITE") != null) { renderEliteMock(); System.exit(0) }
     if (System.getenv("ABOUT") != null) {

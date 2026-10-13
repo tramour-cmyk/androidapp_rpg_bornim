@@ -89,46 +89,6 @@ fun renderCaveSheet() {
     println("wrote caves")
 }
 
-/** The whole cave map with its light, without characters: an overview for drafts. */
-fun renderCaveMap() = renderMapOverview(de.bornim.core.Story.cave, lit = true, hero = 11 to 17)
-
-/** A whole map without characters; caves with their light. */
-fun renderMapOverview(map: de.bornim.core.MapDef, lit: Boolean = true, daylight: Float = 1f, hero: Pair<Int, Int> = -20 to -20, name: String = map.id) {
-    val vm = de.bornim.game.GameViewModel(android.app.Application())
-    vm.newGame("Grom", de.bornim.core.Race.HALF_ORC, de.bornim.core.CharClass.FIGHTER)
-    val state = vm.game!!.state
-    val T = de.bornim.core.art.WorldArt.T
-    val w = map.width * T; val h = map.height * T
-    val pix = IntArray(w * h)
-    for (ty in 0 until map.height) for (tx in 0 until map.width) {
-        val g = de.bornim.core.art.WorldArt.ground(map, tx, ty, state, 0)
-        for (y in 0 until T) for (x in 0 until T) pix[(ty * T + y) * w + tx * T + x] = g[x, y]
-    }
-    for (o in de.bornim.core.art.WorldArt.objects(map, state, 0).sortedBy { it.sortY }) {
-        val k = o.density
-        for (y in 0 until o.img.height / k) for (x in 0 until o.img.width / k) {
-            val p = o.img[x * k, y * k]; val px = o.x + x; val py = o.y + y
-            if ((p ushr 24) > 128 && px in 0 until w && py in 0 until h) pix[py * w + px] = p
-        }
-    }
-    val grid = if (lit) de.bornim.core.art.MapLight.lightmap(map, daylight, hero.first * T + 16, hero.second * T + 16, 0, 0, w, h) else null
-    val cell = de.bornim.core.art.MapLight.RES
-    val out = BufferedImage(w, h, BufferedImage.TYPE_INT_RGB)
-    for (y in 0 until h) for (x in 0 until w) {
-        // smooth the light grid between cell centres
-        fun ch(s: Int): Int {
-            val light = if (grid == null) 255 else (grid[x / cell, y / cell] shr s) and 0xFF
-            return (((pix[y * w + x] shr s) and 0xFF) * light / 255).coerceIn(0, 255)
-        }
-        out.setRGB(x, y, (ch(16) shl 16) or (ch(8) shl 8) or ch(0))
-    }
-    File("build/screens").mkdirs()
-    ImageIO.write(out, "png", File("build/screens/map_$name.png"))
-    println("wrote map ${map.id}")
-}
-
-private data class Quad4(val a: String, val b: de.bornim.core.Hero, val c: de.bornim.core.art.HeroFigure.Act, val d: de.bornim.core.art.HeroFigure.Strike)
-
 /** Draft sheets for the new hero figure: old versus new in a scene, all races, attack pose. */
 fun renderHeroDrafts() {
     val w = 270; val h = 370

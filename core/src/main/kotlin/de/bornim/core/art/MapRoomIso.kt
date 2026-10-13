@@ -135,17 +135,6 @@ object MapRoomIso {
         }
     }
 
-    /** Lays [src] with its anchor at (x, y) of the canvas. */
-    private fun Canvas.paste(src: PixelImage, ax: Int, ay: Int, x: Double, y: Double) {
-        val x0 = floor(x).toInt() - ax; val y0 = floor(y).toInt() - ay
-        for (yy in 0 until src.height) for (xx in 0 until src.width) {
-            val c = src[xx, yy]; val a = c ushr 24
-            if (a == 0) continue
-            val tx = x0 + xx; val ty = y0 + yy
-            if (tx !in 0 until w || ty !in 0 until h) continue
-            img.set(tx, ty, if (a == 255) c else mix(img[tx, ty], c or (0xFF shl 24), a / 255.0))
-        }
-    }
 
     // ------------------------------------------------------------------ textured faces of the walls
 
@@ -906,7 +895,6 @@ object MapRoomIso {
     private val turnipTop = m(0x6E4A6E, grain = 0.1, sat = 0.6, value = 0.8)
     private val leaf = m(0x3A5230, grain = 0.25, sat = 0.7, value = 0.8)
     private val leafDark = m(0x26361F, grain = 0.2, sat = 0.6, value = 0.8)
-    private val water = argb(0x1C2426)
 
     /** A radius in centimetres on the floor as the half width of its ellipse on the screen; the height is half of it. */
     private fun rx(cm: Double) = cm / TILE_CM * TW / sqrt(2.0)
@@ -1872,7 +1860,6 @@ object MapRoomIso {
     private val stonePale = m(0x8A8478, grain = 0.3, sat = 0.3, value = 0.85)
     private val stoneTop = m(0x9A9488, grain = 0.25, sat = 0.3, value = 0.85, bias = -0.2)
     private val linenWhite = m(0xB8B0A0, grain = 0.18, sat = 0.35, value = 0.85)
-    private val waterDark = argb(0x1E2A2C)
 
     /**
      * The altar against the back wall (−j): a block of stone under a cloth, the sun of the Dawnlight on a stand;

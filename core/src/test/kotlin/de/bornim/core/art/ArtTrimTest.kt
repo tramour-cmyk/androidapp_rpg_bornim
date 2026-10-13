@@ -19,7 +19,7 @@ class ArtTrimTest {
             assertTrue(waitFor(60_000) { MapGround.readyNear(m, 5, 5) }, "${m.id} drawn")
         }
         assertTrue(MapGround.chunk(a, 0, 0) == null, "the first map let go")
-        assertTrue(MapGround.chunk(b, 0, 0) != null || !MapGround.supports(b), "the one before kept")
+        assertTrue(MapGround.chunk(b, 0, 0) != null, "the one before kept")
         MapGround.trim()
         assertTrue(MapGround.chunk(b, 0, 0) == null, "memory short: only the last")
         assertTrue(MapGround.readyNear(c, 5, 5))

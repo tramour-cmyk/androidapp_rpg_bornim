@@ -57,10 +57,7 @@ object MapCave {
     // old bone, yellowed and stained
     private val bone = m(0xA89A7C, shine = 0.08, grain = 0.22, sat = 0.75)
     private val boneDark = m(0x7A6C54, grain = 0.25, sat = 0.75)
-    // a wolf's hide, straw, sacking
-    private val hide = m(0x5A5046, grain = 0.32, sat = 0.7)
     private val hideDark = m(0x3A322C, grain = 0.3, sat = 0.7)
-    private val straw = m(0x9A8452, grain = 0.35, sat = 0.75)
     private val strawDark = m(0x5E4E30, grain = 0.3, sat = 0.75)
     private val sacking = m(0x6E5E44, grain = 0.34, sat = 0.7, value = 0.75)
 

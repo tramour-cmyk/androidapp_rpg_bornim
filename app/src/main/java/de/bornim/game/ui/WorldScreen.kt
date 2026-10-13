@@ -471,9 +471,6 @@ object MapSight {
 
     /** A tile's diamond is 2·[K]·T map pixels wide and half as high: its diagonal as long as a tile's side (45 for 32). */
     const val K = 0.703125f
-
-    /** The doll's yaw on the screen for a yaw in the map (0 = down the map, 90 = right). */
-    fun screenYaw(mapYaw: Double): Double = mapYaw - 45.0
 }
 
 /** How close the map camera is. Near (the new default) shows about 5½ tiles across, far the former 10½. */
@@ -713,33 +710,22 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         }
 
         ground {
-        // 1) ground: in the woods the new ground without a grid (drawn ahead in the background), else the tiles
+        // 1) ground: without a grid, drawn ahead in the background
         val x0 = floor(camX.toFloat() / T).toInt()
         val y0 = floor(camY.toFloat() / T).toInt()
         val x1 = ((camX + viewW) / T).toInt()
         val y1 = ((camY + viewH) / T).toInt()
-        val fine = MapGround.supports(map)
-        if (fine) {
-            MapGround.prepare(map, p.x, p.y)
-            val ch = MapGround.CH
-            for (cy in Math.floorDiv(y0, ch)..Math.floorDiv(y1, ch)) for (cx in Math.floorDiv(x0, ch)..Math.floorDiv(x1, ch)) {
-                // never the former tiles while the new ground is drawn (23:04): the piece the hero stands on right away,
-                // the rest stays dark for the moment it takes, drawn on several cores
-                val here = cx == Math.floorDiv(p.x, ch) && cy == Math.floorDiv(p.y, ch)
-                (if (here) MapGround.chunkNow(map, cx, cy) else MapGround.chunk(map, cx, cy))?.let { put(it, cx * ch * T, cy * ch * T, MapGround.D) }
-            }
-        }
-        for (ty in y0..y1) for (tx in x0..x1) {
-            if (!map.inside(tx, ty)) continue
-            if (fine && !MapGround.keepsOldTile(map, map.tile(tx, ty))) continue
-            put(WorldArt.ground(map, tx, ty, state, frame), tx * T, ty * T)
+        MapGround.prepare(map, p.x, p.y)
+        val ch = MapGround.CH
+        for (cy in Math.floorDiv(y0, ch)..Math.floorDiv(y1, ch)) for (cx in Math.floorDiv(x0, ch)..Math.floorDiv(x1, ch)) {
+            // the piece the hero stands on right away, the rest stays dark for the moment it takes, drawn on several cores (23:04)
+            val here = cx == Math.floorDiv(p.x, ch) && cy == Math.floorDiv(p.y, ch)
+            (if (here) MapGround.chunkNow(map, cx, cy) else MapGround.chunk(map, cx, cy))?.let { put(it, cx * ch * T, cy * ch * T, MapGround.D) }
         }
 
         // shadows of trees, rocks and stones on the ground, strong by day, gone at night
-        if (fine) {
-            val sun = ((game.daylight - 0.2f) / 0.6f).coerceIn(0f, 1f)
-            if (sun > 0.02f) for (o in MapFlora.shadows(map)) put(o.img, o.x, o.y, o.density, sun)
-        }
+        val sun = ((game.daylight - 0.2f) / 0.6f).coerceIn(0f, 1f)
+        if (sun > 0.02f) for (o in MapFlora.shadows(map)) put(o.img, o.x, o.y, o.density, sun)
 
         // draft (idea 7): blood where a foe fell, footprints in the wet ground, dust kicked up running
         if (de.bornim.core.Tracks.draft) drawTracks(game.tracks.on(map.id, clock), clock, camX, camY, scale)
@@ -1116,9 +1102,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
             // Feet hidden in tall grass.
             if (map.tile(p.x, p.y) == Tile.TALL_GRASS) {
-                // on the new ground the same dark blades stand before the feet; elsewhere the former patch
-                if (MapGround.supports(map)) put(MapGround.tallFront((state.steps + (clock / 400).toInt()) % 2), heroX, heroY + T - 14, MapGround.D)
-                else put(WorldArt.tallGrassOverlay(), heroX, heroY)
+                // the same dark blades of the ground stand before the feet
+                put(MapGround.tallFront((state.steps + (clock / 400).toInt()) % 2), heroX, heroY + T - 14, MapGround.D)
             }
         }
         sprites.sortBy { it.depth }
@@ -1129,7 +1114,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         if (map.kind == MapKind.INTERIOR) drawHearthSmoke(game, map, clock, cam, camX, camY, scale)
         if (map.kind == MapKind.CAVE) drawCaveShaft(game, map, clock, cam, camX, camY, scale)
         if (map.kind == MapKind.CAVE) drawCaveTorches(game, map, clock, cam, camX, camY, scale)
-        if (map.kind == MapKind.TOWN && MapGround.supports(map)) drawTownSmoke(map, clock, cam, camX, camY, scale)
+        if (map.kind == MapKind.TOWN) drawTownSmoke(map, clock, cam, camX, camY, scale)
         if (map.kind == MapKind.FOREST) drawCampSmoke(game, map, clock, cam, camX, camY, scale)
         // what shines by itself (25.1: a lamp's glass; 25b: lit windows) is drawn over the light of the place, so the source is the brightest
         // spot around it, waking with the dusk like the light it throws; a small warm halo around it
