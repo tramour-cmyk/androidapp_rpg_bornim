@@ -1,5 +1,11 @@
 # Archiv
 
+### Tom-Übergabe (13.10., 21:4x)
+- **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/tom-diogenes` zuerst `git merge origin/main`, sonst sieht die Sitzung das alte `CLAUDE.md`. (3) Codekommentare mit alten Dateinamen anpassen (`Sfx.kt`, `Recorded.kt`, `PlaceSound.kt`, `Chronicle.kt`, `Interlude.kt`, `InterludeClock.kt`, `InterludeUi.kt`; Liste: `git grep -nE "[A-Z1]+\.md" -- '*.kt'`), im nächsten Sammelbuild. (4) 78d: Build-Auslöser in `.github/workflows/android.yml` nur noch bei PR, Push auf `main` und Knopfdruck (heute jeder Push). (5) Ab jetzt Sammelbuilds (höchstens 4 Punkte, nie mit Jerry gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`.
+- PR #55 (0.1.714) zusammengeführt. 0.1.719 auf `claude/tom-diogenes` war um 21:42 im Bau (Lauf 38456434182): beim Start prüfen, ob grün; sonst beheben, neu bauen und die Zeile auf „Dein Zug“ anpassen. Prüfliste `e/t719.html` und Zeile stehen schon.
+- Auf dem Zweig: D2-Befunde (Vermerke im Prüfbericht), D1.2/D1.3 Licht, D1.11 Bänke/Ladenkram, 3b Garrick am Feuer (Versatz in `npcPos`, `WorldScreen.kt`), 4 Glühwürmchen, 5la Leute nachts im Haus (`VillageDay.Stop.inside`, `Game.indoors`), 73b Stimmen (`Warp.knock`). Vorschau neu: `KAPITELENDE=1`, `KARTE62=1` mit `62c_orte_tief`.
+- Weiter: D1.4 Wandkram flach, D1.5 Schatten Räume, D1.16 Entwurfsschalter; dann 6l, 68.
+
 ### Aus ROLLE-BERATER.md, 13.10., 22:0x
 Sitzung 13.10. 21:01–21:38 „Entwicklerrollen und CLAUDE.md“ (76g/h, 77a–d, 78 vorgeschlagen).
 

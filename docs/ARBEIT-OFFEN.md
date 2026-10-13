@@ -44,8 +44,8 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | – | **69a–69d ja (Nutzer 13.10., 16:31):** Texte, Ablauf und Klang in `docs/STORY-K1.md` (`[69.intro.…]`), wortgetreu übernehmen |
 | 73 | Versperrte Hütten: nachts Läden zu, Rauch | Tom (Dorf) | `claude/tom-diogenes` | 73a auf `main` (0.1.714). 73b Stimmen von drinnen (Texte `STORY-K1.md`) im nächsten Build |
 | 76 | Tom und Jerry schärfen, `CLAUDE.md` entschlacken (Nutzer 13.10., 20:37) | Tom, Jerry | `main` (Notizen) | **Umgesetzt 13.10., 22:0x** nach [Entwurf](https://claude.ai/code/artifact/62e22141-83a5-40bc-8bde-80ba05a7db76) (Nutzer 21:52): `CLAUDE.md` gemeinsamer Kern, neu `ROLLE-ENTWICKLER.md`. Startaufträge in den Übergaben; danach streichen |
-| 77 | Dokumentnamen ordnen, Story-Kennungen K1-H/N/Z/W (Nutzer 13.10., 21:10) | Tom (Code), Berater (77e) | `main` | **Umbenannt 13.10., 22:0x**, Wächter in `notiz.sh`. Offen: Codekommentare (Tom, Übergabe); **77e** Inhalte neu zuordnen (Berater) |
-| 78 | Test-Builds bündeln (Nutzer 13.10., 21:35) | Tom | `main` (`.github`) | 78a/c/d ja, 78b nein (21:43); Regeln in `ROLLE-ENTWICKLER.md`. **Tom:** Build-Auslöser auf 78d umstellen (Übergabe) |
+| 77 | Dokumentnamen ordnen, Story-Kennungen K1-H/N/Z/W (Nutzer 13.10., 21:10) | Tom (Code), Berater (77e) | `main` | **Umbenannt 13.10., 22:0x**, Wächter in `notiz.sh`. Codekommentare angepasst (Tom, Zweig `claude/festive-lovelace-3ujzqi`). Offen: **77e** Inhalte neu zuordnen (Berater) |
+| 78 | Test-Builds bündeln (Nutzer 13.10., 21:35) | Tom | `main` (`.github`) | 78a/c/d ja, 78b nein (21:43); Regeln in `ROLLE-ENTWICKLER.md`. 78d umgestellt auf `claude/festive-lovelace-3ujzqi` (gilt auf `main` nach dem nächsten PR) |
 | 74 | Schrittgeräusche fehlen an allen Orten („Ort fertig“ 8; Befund Diogenes D1.1) | Jerry (Klang); Tom für Dorf und Räume | – | Berater 13.10., 19:4x: Mangel gegen bestehende Regel, kein Beschluss nötig. **Verdacht** erst bestätigen; Böden je Untergrund (Gras, Erde, Holz, Stein) |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten im Archiv). **48d–48f ja (16:51):** je Spielstand nur Startwert plus **Version des Erzeugers** speichern (Updates verändern keine bestehende Höhle, alte Erzeuger bleiben im Code); Besiegtes und Geplündertes bleibt weg, neuer Auftrag darf dieselbe Höhle neu besetzen. Nach Kapitel 1 |
 | 49 | Lehrer, Fertigkeiten, Talente | Berater mit Nutzer | – | 49d–49t ja ([Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)); **Dokument vom Nutzer freigegeben** (13.10., Namen fett markiert); abgelegt als `docs/DESIGN-HELDENBAU.md` (17:1x). Nach Kapitel 1 |
@@ -60,10 +60,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 21:4x) – an Nachfolger
-- **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/tom-diogenes` zuerst `git merge origin/main`, sonst sieht die Sitzung das alte `CLAUDE.md`. (3) Codekommentare mit alten Dateinamen anpassen (`Sfx.kt`, `Recorded.kt`, `PlaceSound.kt`, `Chronicle.kt`, `Interlude.kt`, `InterludeClock.kt`, `InterludeUi.kt`; Liste: `git grep -nE "[A-Z1]+\.md" -- '*.kt'`), im nächsten Sammelbuild. (4) 78d: Build-Auslöser in `.github/workflows/android.yml` nur noch bei PR, Push auf `main` und Knopfdruck (heute jeder Push). (5) Ab jetzt Sammelbuilds (höchstens 4 Punkte, nie mit Jerry gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`.
-- PR #55 (0.1.714) zusammengeführt. 0.1.719 auf `claude/tom-diogenes` war um 21:42 im Bau (Lauf 38456434182): beim Start prüfen, ob grün; sonst beheben, neu bauen und die Zeile auf „Dein Zug“ anpassen. Prüfliste `e/t719.html` und Zeile stehen schon.
-- Auf dem Zweig: D2-Befunde (Vermerke im Prüfbericht), D1.2/D1.3 Licht, D1.11 Bänke/Ladenkram, 3b Garrick am Feuer (Versatz in `npcPos`, `WorldScreen.kt`), 4 Glühwürmchen, 5la Leute nachts im Haus (`VillageDay.Stop.inside`, `Game.indoors`), 73b Stimmen (`Warp.knock`). Vorschau neu: `KAPITELENDE=1`, `KARTE62=1` mit `62c_orte_tief`.
+### Tom (13.10., 22:1x)
+- Startauftrag 76–78 erledigt: Zweig `claude/festive-lovelace-3ujzqi` = `claude/tom-diogenes` + `main` + Kommentare (77) + Build-Auslöser (78d). Ab jetzt baut ein Zweig erst mit PR oder Knopfdruck.
+- 0.1.719 (`claude/tom-diogenes`) grün, wartet auf Test (`e/t719.html`). Nach „passt“: PR vom neuen Zweig (enthält 719), zusammenführen.
 - Weiter: D1.4 Wandkram flach, D1.5 Schatten Räume, D1.16 Entwurfsschalter; dann 6l, 68.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
