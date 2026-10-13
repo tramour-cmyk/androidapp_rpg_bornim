@@ -60,7 +60,9 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | 55.2 auf `main`, 55.1a im Sammelbuild 0.1.650; 55.1b offen | `OFFEN.md` |
 | 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | Tom | neu 12.10. | `OFFEN.md` |
 | 58 | Umhang hängt beim Laufen über dem Schild | Tom | erledigt 12.10. (PR #50) | `OFFEN.md` |
-| 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf | Tom | entschieden, im Sammelbuild 0.1.650 (13.10.) | `OFFEN.md` |
+| 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf | Tom | entschieden, im Sammelbuild 0.1.650 (13.10.); 59e entschieden 13.10. | `OFFEN.md` |
 | 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | Tom | entschieden (Alegreya, Cinzel), im Sammelbuild 0.1.650 | `OFFEN.md` |
 | 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | Tom | entschieden, im Sammelbuild 0.1.650 | `OFFEN.md` |
-| 62 | Gezeichnete Karte im Menü | Tom | entschieden (erst ohne Auftragszeichen), im Sammelbuild 0.1.650 | `OFFEN.md` |
+| 62 | Gezeichnete Karte im Menü | Tom | entschieden (erst ohne Auftragszeichen), im Sammelbuild 0.1.650; 62c (Zoom, Übersicht, Questmarken) entschieden 13.10. | `OFFEN.md` |
+| 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom (ab Fr. mit Jerry) | angelegt 13.10., 09:06 | `OFFEN.md` |
+| 64 | Questlog: Quest-Übersicht im Menü (laufend/erledigt) | Berater mit Nutzer, dann Tom | angelegt 13.10. | `OFFEN.md` |
