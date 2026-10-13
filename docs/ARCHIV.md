@@ -1,6 +1,9 @@
 # Archiv
 
 
+
+### Tom (13.10., 13:37) – ersetzt 13:46
+- 13e ja, PR #51 auf `main`; 62f/62g Entwurf auf der Entscheidungsseite; 0.1.670 wartete auf Test.
 ## Aus BERATER.md, 13.10., 13:1x
 
 - **Nur diagonal (13):** gerade Ansicht wirkte flach; keine doppelte Arbeit in Ansichten gegen das Ziel.
