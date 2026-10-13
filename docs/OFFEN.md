@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 63** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 64** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -40,6 +40,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 60 | Ein Aussehen für alle Oberflächen wie Textkasten/Blende (schwarz, Gold, Serife) | Tom | `claude/tom-60-aussehen` | 60a–60d ja (Verlauf im Archiv). Entwürfe Schrift, Titel, Menü, Heldenerstellung, Kampf im Testreiter „60 Aussehen“, Build 0.1.636; Rückfragen 60e–60i |
 | 61 | Spuren, die bleiben: Blut, Fußspuren, Staub (Vorrat 7) | Tom | `claude/tom-7-spuren` | Entwurf, Build 0.1.646; Rückfrage 61a |
 | 62 | Gezeichnete Karte im Menü (Vorrat 8) | Tom | `claude/tom-7-spuren` | Entwurf, Build 0.1.646; Rückfragen 62a/62b |
+| 63 | Eine Entscheidungsseite für alles Offene: der Nutzer hat einen Ort für alles, was auf ihn wartet (Testfragen zu Builds, Hörproben, Design), von jeder Rolle | Tom (ab Freitag mit Jerry) | `main` (Notizen) | **Nutzer 13.10., 08:4x ja.** 63.1 jede Rückfrage an den Nutzer auf die Seite, im Chat nur Link und Nummern; zwei Abschnitte „Zu entscheiden“ und „Anzusehen“ (am Gerät). 63.2 eine gemeinsame Seite statt je Rolle, Aufbau wie Bildbuch (Inhaltsliste plus eine Datei je Eintrag, jeder schreibt nur seine), ersetzt die Seiten je Rolle; Tom legt an, gibt für Jerry frei, ab Freitag. 63.3 Inhaltsliste je Eintrag eine Zeile (Nummer, Datum, Entscheidung). 63.4 Entschiedenes ins Bildbuch und „Wer macht was“, auf der Seite „erledigt, siehe Bildbuch“. Link dann oben eintragen; Regel „Entwürfe entscheiden“ in `CLAUDE.md` dann anpassen |
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
 ## Übergaben
