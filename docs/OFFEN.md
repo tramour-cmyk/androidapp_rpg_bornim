@@ -60,7 +60,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ### Tom (13.10., 19:4x) – an Nachfolger
 - 0.1.702 (Zweig `claude/tom-13e-kegelrand`) beim Nutzer, Prüfliste `e/t702.html`; nach „passt“ PR, zusammenführen.
 - **13t** auf `claude/tom-13t-alte-ansicht` (fbd91a27): gerade Ansicht ganz raus, ~2.500 Zeilen tote Reste gelöscht (Kerntests grün). Bildvergleich Wald/Dorf/Schänke/Höhle vorher/nachher pixelgleich; Build 0.1.703 grün, dem Nutzer noch nicht angeboten: erst nach Merge von 0.1.702 `main` in den Zweig holen, neu bauen, kurze Prüfliste (alle Orte einmal betreten); nach Merge in `UMGEBUNG.md` die Schalter `TOWNDRAFT`, `OVERVIEW`, `MAPS`, `CAVEMAP`, `RAUMDINGE`, `ALTRAUM` streichen.
-- 62r bauen, sobald entschieden (Empfehlung Ziel-Beschriftung); danach 6l, 68. Begriffe 62q beachten.
+- 67a (Wegweiser) auf dem 13t-Zweig (573e0961). Nächste freie Punkte ohne Rückfrage: 3b Garrick links vom Feuer (Standbild vorher/nachher), 61b prüfen; 62r bauen, sobald entschieden (Empfehlung Ziel-Beschriftung); danach 6l, 68. Begriffe 62q beachten.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
