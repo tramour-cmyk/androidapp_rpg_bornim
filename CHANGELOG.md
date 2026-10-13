@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Höhle in der diagonalen Sicht** (13e, getestet 0.1.667/0.1.671): Felswände, Fackeln mit Flamme, Lichtstrahl durch den Schacht mit weichem Lichtfleck, Geröll und Tropfsteine, Weiher als Wasser, Lagerfeuer mit Steinring, Leuchtpilze, Kristalle und Felsbrocken; Erkundetes nur leicht abgedunkelt. PR #51.
+
 ## v0.1.656 – 13.10.2026, 10:13
 
 Zweig von Tom (Thema 58), getestet in 0.1.628 (Nutzer 12.10., 23:1x: alles klappt), PR #50 (zusammengeführt 12.10., 23:13):

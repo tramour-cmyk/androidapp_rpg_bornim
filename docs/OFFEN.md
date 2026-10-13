@@ -22,7 +22,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 13 | Diagonale Sicht | Tom | – | 13.4 auf `main` (PR #43). **13u/13w ja:** neue Orte nur diagonal, alte Ansicht eingefroren. **13v (später):** Testaufruf: Wald, Tiefer Wald, Höhle absichtlich noch gerade. **Meldung 08:43:** Tempel innen: Altar direkt vor dem Fenster, ansehen. **13s/13t ja:** 27, 13 Tempel, 42; Ziel „alte Ansicht ausgebaut“ (`KAPITEL1.md`), danach 6l. Verlauf im Archiv |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-27-4-baeume` | 5.1/5.2/5g/5h.1 auf `main`. **5m ja:** 27.4, 5.6, 5.3, 5l/5.5, 5.4, dann 27.5/27.6, je erst Standbilder. 27.4, 5.6, 5.3 (alle zwölf), 5n in PR #48. 5.4 (Pflaster-Entwurf, Fensterlicht-Fix) auf dem Zweig. **5la** Tagesablauf (Pim, Bram, Gwenna, Liska) als Entwurf auf `claude/tom-5l-leben`, Build 0.1.640 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher | Tom | `claude/tom-17-riemen` | 17a auf `main`. 17r (Haare/Köcher) im Build 0.1.660; Riemen verworfen (kaum sichtbar). Fertig mit dem PR des Zweigs |
-| 13e | Höhle diagonal (Phase 2 von 13); mit 10 (Flammen) und 11 (Lichtstrahl) | Tom | `claude/tom-13e-hoehle` | **13e ja (Nutzer 13.10., 13:3x, Beschlüsse):** PR #51, zusammenführen sobald grün. Danach alte Ansicht ausbauen (13t), dann 6l |
+| 13e | Höhle diagonal (Phase 2 von 13); mit 10 (Flammen) und 11 (Lichtstrahl) | Tom | `claude/tom-13e-hoehle` | **13e ja**, auf `main` (PR #51, 13.10., 13:4x). Weiter: alte Ansicht ausbauen (13t), dann 6l |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | **26c ja:** (1) 24.8.6 und 30.8 vom Zweig `tender-goodall-a8zuny` in den nächsten Build, (2) 42, (3) Diagonalsicht fertig (27.5, Tiefer Wald, Tempel-Altar, 27.6); dann 5l, 55.2, 17 |
 | 27 | Wald „Ort fertig“ (Liste in `ENTWICKLUNG.md`): vor allem diagonale Zeichnung, Bäume rund | Tom | `claude/tom-27-wald-diagonal` | **13v/27.6 in Arbeit (13.10., 07:3x):** Wald und Tiefer Wald fest diagonal, mit 27.6a–c (ja); Lückenliste „Ort fertig“, Standbilder. 27.1/27.2/27d, 27.4/27.5/27g, 27i, 27j auf `main` (getestet 0.1.625). **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise). Verlauf im Archiv |
@@ -54,7 +54,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (13.10., 13:37)
-- **13e ja:** PR #51 (`claude/tom-13e-hoehle`, `main` drin, Kerntests grün); nach grünem CI zusammenführen (Merge), Änderungshistorie „Unveröffentlicht“: 13e. Danach alte Ansicht ausbauen (13t), dann 6l.
+- **13e** auf `main` (PR #51). Weiter: alte Ansicht ausbauen (13t), dann 6l.
 - **Zweig `claude/tom-17-riemen`**, Build 0.1.670 (`e/t670.html`) wartet auf Test; nach „passt“ PR, Merge, Änderungshistorie: 59, 60e–k, 60j, 17r, 5la, 5la.2, 5la.3, 6g, 6f, 61a, 61 (Leute), 62a, 62c, 62e, 59e, 55.1a, 55.1b, 13x, 13v/27.6. Vorher `main` (mit 13e) mergen.
 - **62f/62g Entwurf** auf demselben Zweig hinter `MapPeople.draft` (`tools/t bild KARTE62=1 ONLY=62f`), Rückfrage `e/62f.html`. Bei „ja“: Schalter weg, Flags setzen (`been_` beim Betreten, `heard_` an verschlossenen Türen, `seenat_` beim Antreffen nach `VillageDay`), Kerntest.
 - **Weiter:** 66 Laterne Jorin (Standbilder Nacht), 67 Südrand, 62h Landkarte, 64 Chronik.
