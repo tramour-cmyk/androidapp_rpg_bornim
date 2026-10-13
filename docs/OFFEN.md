@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- Nichts.
+- **Tom 0.1.719** (Zweig `claude/tom-diogenes`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38456434182 (APK unten unter „Artifacts“) · 3b, 4, 5la, 73b, Diogenes D2 und D1.2/D1.3/D1.11; Prüfliste `e/t719.html`. Nach „passt“: PR des Zweigs, zusammenführen.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -60,8 +60,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 21:3x)
-- PR #55 (0.1.714) zusammengeführt. Zweig `claude/tom-diogenes`: D2-Befunde, D1.2/D1.3, 3b Abstand, 4 Glühwürmchen, 5la Pim nachts, 73b Stimmen; Build läuft (Weckruf steht), danach Prüfliste `e/t<build>.html`. Weiter: D1.4, D1.5, D1.11, D1.16; dann 6l, 68.
+### Tom (13.10., 21:4x) – an Nachfolger
+- PR #55 (0.1.714) zusammengeführt. 0.1.719 auf `claude/tom-diogenes` war um 21:42 im Bau (Lauf 38456434182): beim Start prüfen, ob grün; sonst beheben, neu bauen und die Zeile auf „Dein Zug“ anpassen. Prüfliste `e/t719.html` und Zeile stehen schon.
+- Auf dem Zweig: D2-Befunde (Vermerke im Prüfbericht), D1.2/D1.3 Licht, D1.11 Bänke/Ladenkram, 3b Garrick am Feuer (Versatz in `npcPos`, `WorldScreen.kt`), 4 Glühwürmchen, 5la Leute nachts im Haus (`VillageDay.Stop.inside`, `Game.indoors`), 73b Stimmen (`Warp.knock`). Vorschau neu: `KAPITELENDE=1`, `KARTE62=1` mit `62c_orte_tief`.
+- Weiter: D1.4 Wandkram flach, D1.5 Schatten Räume, D1.16 Entwurfsschalter; dann 6l, 68.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
