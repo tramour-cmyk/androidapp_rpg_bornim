@@ -16,9 +16,28 @@ class MapMarksTest {
         Jobs.take(s, Jobs["tusks"])
         assertTrue(MapMarks.of(s).isEmpty(), "Borin not yet spoken to")
         s.flags += MapMarks.met("borin")
-        val m = MapMarks.of(s).single()
+        // in the inn, and (62e) at the inn's door in the village
+        val (inside, door) = MapMarks.of(s).partition { World[it.map].kind == MapKind.INTERIOR }
+        val m = inside.single()
         assertEquals(MapMarks.Kind.GIVER, m.kind)
         assertEquals("borin", World[m.map].npcs.first { it.x == m.x && it.y == m.y }.id)
+        assertEquals(MapMarks.door(m.map), door.single().let { Triple(it.map, it.x, it.y) })
+    }
+
+    @Test
+    fun `62e the elder's quest at his door, the board once read`() {
+        val s = state()
+        assertTrue(MapMarks.of(s).isEmpty(), "nothing before the elder speaks")
+        s.flags += Story.QUEST_STARTED
+        val elder = MapMarks.of(s).filter { it.kind == MapMarks.Kind.GIVER }
+        assertEquals(setOf("elder", "village"), elder.map { it.map }.toSet())
+        assertEquals(MapMarks.door("elder"), elder.single { it.map == "village" }.let { Triple(it.map, it.x, it.y) })
+        assertTrue(MapMarks.of(s).none { it.kind == MapMarks.Kind.BOARD }, "board not read")
+        Jobs.read(s)
+        val b = MapMarks.of(s).single { it.kind == MapMarks.Kind.BOARD }
+        assertEquals(Tile.NOTICE, World[b.map].tile(b.x, b.y))
+        s.flags += Story.CHAPTER1_DONE
+        assertTrue(MapMarks.of(s).filter { it.kind == MapMarks.Kind.GIVER }.all { it.done })
     }
 
     @Test

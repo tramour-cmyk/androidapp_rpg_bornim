@@ -7,7 +7,7 @@ package de.bornim.core
  * The same facts will feed the quest log (64).
  */
 object MapMarks {
-    enum class Kind { GIVER, GOAL }
+    enum class Kind { GIVER, GOAL, BOARD }
 
     /** The flag set once the hero has spoken to [npc]. */
     fun met(npc: String) = "met_$npc"
@@ -37,8 +37,29 @@ object MapMarks {
     fun visited(s: GameState, map: MapDef): Boolean =
         s.place.map == map.id || map.kind == MapKind.TOWN || map.kind == MapKind.INTERIOR || s.explored.containsKey(map.id)
 
+    /** Where one steps into [interior] from outside: the door on the town's map (62e), or null. */
+    fun door(interior: String): Triple<String, Int, Int>? {
+        for (m in World.maps.values) {
+            if (m.id == interior) continue
+            m.warps.firstOrNull { it.to.map == interior }?.let { return Triple(m.id, it.x, it.y) }
+        }
+        return null
+    }
+
     fun of(s: GameState): List<Mark> {
         val out = ArrayList<Mark>()
+        // 62e: the main quest at the elder, once he has given it; faded when the chapter is done
+        if (s.has(Story.QUEST_STARTED)) for (m in World.maps.values) m.npcs.firstOrNull { it.id == "aldric" }?.let { n ->
+            val goal = Story.objective(s)
+            out += Mark(m.id, n.x, n.y, Kind.GIVER, s.has(Story.CHAPTER1_DONE),
+                T("Ältester Aldric: ${goal.de}", "Elder Aldric: ${goal.en}"))
+        }
+        // 62e: the notice board, once read; a fresh note says so
+        if (Jobs.all.any { s.has("job_${it.id}_seen") }) for (m in World.maps.values) {
+            val at = (0 until m.height).firstNotNullOfOrNull { y -> (0 until m.width).firstOrNull { x -> m.tile(x, y) == Tile.NOTICE }?.let { it to y } } ?: continue
+            out += Mark(m.id, at.first, at.second, Kind.BOARD, false,
+                if (Jobs.freshNote(s)) T("Anschlagbrett: ein neuer Aushang", "Notice board: a new note") else T("Anschlagbrett", "Notice board"))
+        }
         for (j in Jobs.all) {
             val taken = Jobs.isTaken(s, j)
             val done = Jobs.isDone(s, j)
@@ -51,6 +72,11 @@ object MapMarks {
                 if (seen(s, m, at.first, at.second)) out += Mark(mapId, at.first, at.second, Kind.GOAL, done, j.title)
             }
         }
-        return out
+        // 62e: who lives or works indoors is marked at the house's door as well, several at one door as one mark
+        val atDoors = out.filter { it.kind == Kind.GIVER && World.maps[it.map]?.kind == MapKind.INTERIOR }
+            .mapNotNull { mk -> door(mk.map)?.let { (map, x, y) -> mk.copy(map = map, x = x, y = y) } }
+            .groupBy { Triple(it.map, it.x, it.y) }
+            .map { (_, ms) -> ms.first().copy(done = ms.all { it.done }, label = T(ms.joinToString("\n") { it.label.de }, ms.joinToString("\n") { it.label.en })) }
+        return out + atDoors
     }
 }

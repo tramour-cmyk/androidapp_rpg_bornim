@@ -99,6 +99,8 @@ fun main() {
             g.takeJob("ring"); g.takeJob("stones"); g.takeJob("pelts")
             val st = g.state
             st.flags += de.bornim.core.MapMarks.met("gwenna"); st.flags += de.bornim.core.MapMarks.met("jorin")
+            // 62e: the main quest given, the board read
+            st.flags += de.bornim.core.Story.QUEST_STARTED; de.bornim.core.Jobs.read(st)
             // the forest seen along the way from the village to the standing stones
             val f = de.bornim.core.World["forest"]
             val stones = (0 until f.height).flatMap { yy -> (0 until f.width).filter { xx -> f.tile(xx, yy) == de.bornim.core.Tile.MENHIR }.map { it to yy } }
@@ -114,6 +116,10 @@ fun main() {
         shot("62c_wald", settle = 30) { vm -> setup(vm, "forest", 0, 0, Facing.UP) }
         de.bornim.game.ui.MapLook.previewZoom = 1.6f
         shot("62c_dorf", settle = 30) { vm -> setup(vm, "village", 17, 6, Facing.DOWN) }
+        // 62e: the elder's mark at his door, the notice board (the last mark named)
+        de.bornim.game.ui.MapLook.previewTip = -2
+        shot("62e_dorf", settle = 30) { vm -> setup(vm, "village", 10, 17, Facing.DOWN) }
+        if (System.getenv("ONLY") == "62e") System.exit(0)
         de.bornim.game.ui.MapLook.previewTip = -1
         de.bornim.game.ui.MapLook.previewOverview = true
         shot("62c_orte", settle = 30) { vm -> setup(vm, "forest", 0, 0, Facing.UP) }

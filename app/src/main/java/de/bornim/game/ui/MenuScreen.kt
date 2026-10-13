@@ -156,7 +156,7 @@ private fun MapTab(game: Game, lang: Lang) {
 /** 62c: preview switches. */
 object MapLook {
     @Volatile var previewOverview = false
-    /** A mark to show named at once, by index in the marks of the shown map (-1 none). */
+    /** A mark to show named at once, by index in the marks of the shown map (-1 none, -2 the last). */
     @Volatile var previewTip = -1
     @Volatile var previewZoom = 2.5f
 }
@@ -195,7 +195,7 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
     val img = remember(map.id, p.x, p.y) { de.bornim.core.art.MapSheet.render(map, { x, y -> seenOn(game, map, x, y) }) }
     val bmp = Bitmaps.of(img)
     val marks = remember(map.id) { de.bornim.core.MapMarks.of(game.state).filter { it.map == map.id } }
-    var tip by remember { mutableStateOf(marks.getOrNull(MapLook.previewTip)) }
+    var tip by remember { mutableStateOf(marks.getOrNull(if (MapLook.previewTip == -2) marks.lastIndex else MapLook.previewTip)) }
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().clipToBounds()) {
         val vw = constraints.maxWidth.toFloat(); val vh = constraints.maxHeight.toFloat()
         val fit = minOf(vw / img.width, vh / img.height)
@@ -234,6 +234,14 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
                 if (m.kind == de.bornim.core.MapMarks.Kind.GIVER) {
                     drawCircle(ink.copy(alpha = a), r + 2 * density, c)
                     drawCircle(Color(0xFF4F86C6).copy(alpha = a), r, c)
+                } else if (m.kind == de.bornim.core.MapMarks.Kind.BOARD) {
+                    // 62e: the notice board, a small sheet nailed up
+                    val tl = androidx.compose.ui.geometry.Offset(c.x - r * 0.85f, c.y - r)
+                    val sz = androidx.compose.ui.geometry.Size(r * 1.7f, r * 2f)
+                    drawRect(Color(0xFFE8DCC0), tl, sz)
+                    drawRect(ink, tl, sz, style = androidx.compose.ui.graphics.drawscope.Stroke(2 * density))
+                    for (k in 1..3) drawLine(ink.copy(alpha = 0.6f), androidx.compose.ui.geometry.Offset(tl.x + r * 0.35f, tl.y + r * 0.5f * k),
+                        androidx.compose.ui.geometry.Offset(tl.x + sz.width - r * 0.35f, tl.y + r * 0.5f * k), 1.2f * density)
                 } else {
                     val path = androidx.compose.ui.graphics.Path().apply {
                         moveTo(c.x, c.y - r * 1.5f); lineTo(c.x + r * 1.1f, c.y); lineTo(c.x, c.y + r * 1.5f); lineTo(c.x - r * 1.1f, c.y); close()
