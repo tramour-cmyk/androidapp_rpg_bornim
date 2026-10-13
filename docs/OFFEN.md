@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom 0.1.702** (Zweig `claude/tom-13e-kegelrand`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38428809928/artifacts/11829179520 · Prüfliste `e/t702.html`: Höhle Lagerfeuer (13e, Meldung 17:5x), Gebietskarte/Grundrisse im Tuschestil, Schilder (62h/62o/62n); enthält 0.1.693. Nach „passt“: PR, zusammenführen.
+- **Tom 0.1.702** (Zweig `claude/tom-13e-kegelrand`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38428809928/artifacts/11829179520 · Prüfliste `e/t702.html`: Höhle Lagerfeuer (13e, Meldung 17:5x), Gebietskarte/Grundrisse im Tuschestil, Schilder (62h/62o/62n); enthält 0.1.693 (**Nutzer 19:2x zu 0.1.693: Höhle mit Licht funktioniert, Gebietskarte passt**). Nach „passt“ zu 0.1.702: PR, zusammenführen.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Entscheidungsseite (65.3), nicht hier.
 
