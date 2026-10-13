@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Sitzungen** (ältere im Archiv): ab 13.10. 16:16 „Kapitel 2 Storyplan“ (41m, 69a–d, 48d–f, 62p).
 
-**Nächster Punkt:** Umfang 41j–41p und Karte in den Storyplan übernehmen (alles entschieden 16:59). **68** Tempelszene: Textentwurf.
+**Nächster Punkt:** Umfang 41j–41p und Karte in den Storyplan übernehmen (alles entschieden 16:59). **Heldenbau-Dokument:** kursive Talentnamen auf **fett** umstellen (Nutzer erkennt Kursives schlecht), dann Durchsicht mit ihm. **68** Tempelszene: Textentwurf mit Nutzer.
 
 **Zuletzt gelesen bis:** dieser Commit (13.10., 16:1x)
 
