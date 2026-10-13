@@ -2,6 +2,25 @@
 
 Freigegeben von Nutzer und Berater am 13.10. (Chronik-Texte 13:09, Südrand 13:14). Regeln und Marken: `STORY.md`. Nur Deutsch; Englisch beim Bauen übersetzen.
 
+## Intro (69)
+
+Freigegeben 13.10., 16:31. Fünf gerenderte Standbilder aus Sicht des Helden, ohne Animation, je Bild ein Text in Du-Form, zusammen etwa 30–40 Sekunden. Nur beim ersten Spielstart, Antippen überspringt; später als erster Eintrag in „Bisher geschehen“ wieder ansehbar (69d). Klang (69c): leise Wind, Fluss, Grillen; Titelmusik erst beim Schwarzbild („Ancient Legend“ bleibt der Tempelszene 68 vorbehalten). Danach weckt Rowena den Helden (`[41.rowena.wach]`).
+
+`[69.intro.1]` (Bild: die Südstraße unter dem Mond)
+Drei Tage nach Norden. Die Straße ist leer, nur der Mond geht mit.
+
+`[69.intro.2]` (Bild: Fluss und Brücke, in der Ferne Lichter von Bornim)
+Hinter der Brücke ein paar Lichter. Bornim. Ein Bett für eine Nacht, mehr willst du nicht.
+
+`[69.intro.3]` (Bild: leerer Dorfplatz, am Tempel ferne Fackeln und Schatten)
+Der Platz schläft. Nur am Tempel wandern Fackeln. Eine späte Andacht, denkst du.
+
+`[69.intro.4]` (Bild: warmes Fenster des Gasthauses, die Tür geht auf)
+Im »Schlafenden Greif« brennt noch Licht. Die Wirtin fragt nicht viel.
+
+`[69.intro.5]` (Schwarzbild; gedämpft eine Glocke, Rufe, ein ferner Schrei: der Überfall, den der Held verschläft, 69b)
+Irgendwo schlägt eine Glocke. Du hörst sie nicht.
+
 ## Chronik: Bisher geschehen (64d)
 
 Der Chronist erzählt in dritter Person, ein Eintrag je Wendepunkt. Hier in Spielreihenfolge, im Spiel steht der neueste oben. Überschrift fett, dann der Text.
