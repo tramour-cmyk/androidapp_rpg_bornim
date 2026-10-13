@@ -43,6 +43,15 @@ Das erste Licht des Tages fällt durchs Fenster. Das Amulett fängt es auf.
 `[68.tempel.5]` (Bild: Lyra allein, Blick in die Dämmerung; leiser Hinweis auf Kapitel 2)
 Bornim atmet auf. Nur Lyra sieht noch lange ins Grau hinaus.
 
+`[68.lyra.1]` (Lyra, erstes Gespräch nach der Szene; freigegeben 17:38, 68h/68i)
+Ich verdanke dir mein Leben, {name}. Und Bornim sein Licht.
+
+`[68.lyra.2]`
+Graks Leute sprachen von einem Lager im Süden. Dort brachten sie, wen sie nicht selbst behalten wollten.
+
+`[68.lyra.3]`
+Ich weiß nicht, was er von mir will. Aber ich träume seit Wochen von grauer Asche.
+
 ## Chronik: Bisher geschehen (64d)
 
 Der Chronist erzählt in dritter Person, ein Eintrag je Wendepunkt. Hier in Spielreihenfolge, im Spiel steht der neueste oben. Überschrift fett, dann der Text.
