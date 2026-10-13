@@ -5,13 +5,14 @@ Ablauf des Testers. **Höchstens etwa 6 KB**; nur Diogenes liest diese Datei. Ro
 **Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
 **Geprüft bis:** `f9ccdc3` (13.10., Lauf 1: nur 71 Teil B, Grundrisse); nächste Nummer D2
 
-**Übergabe (13.10., 19:5x):** Lauf 1 fertig (71 B). Offen: **71 C** Oberflächen, dann **38g** (mit Zufallsspieler zählen, als Messung kennzeichnen), **71 A** erst nach Toms Zweigen. Rollenschärfung (5 Punkte: Fragen nur über Berater, Befunde nur im Bericht, Rückmeldung der Entwickler, „spielen“ = Code/Zufallsspieler/Standbilder, ein Lauf je Sitzung) dem Nutzer vorgeschlagen, Antwort offen. Hinweis: `tools/notiz.sh` schiebt `main` in der ersten Arbeitskopie weiter, ohne die Dateien nachzuziehen; vor Zugende dort `git status` prüfen (alter Stand, kein echter Unterschied).
+**Übergabe (13.10., 19:5x):** Lauf 1 fertig (71 B). Offen: **71 C** Oberflächen, dann **38g** (mit Zufallsspieler zählen, als Messung kennzeichnen), **71 A** erst nach Toms Zweigen. Rollenschärfung vom Nutzer beantwortet (19:58), unter „Für den Berater“; Punkt 3 dort offen. Hinweis: `tools/notiz.sh` schiebt `main` in der ersten Arbeitskopie weiter, ohne die Dateien nachzuziehen; vor Zugende dort `git status` prüfen (alter Stand, kein echter Unterschied).
 
 ## Start (erste Nachricht „Diogenes“)
 
 1. `tools/notiz.sh` (holt `main`), dann `docs/OFFEN.md`: zuerst „Für Diogenes“ (Prüfaufträge), dann „Wer macht was“ für die Themennummern. Keine volle Startlektüre; `STIL.md`/`ENTWICKLUNG.md` nur für den geprüften Bereich.
 2. **Nur Neues prüfen** (spart Token): `git log --oneline <Geprüft bis>..origin/main` und offene Zweige aus „Zu testen“; Bereiche ohne Änderung seit dem letzten Lauf überspringen, außer der Auftrag verlangt sie.
 3. Auftrag des Nutzers oder „Für Diogenes“ abarbeiten, je Bereich mit der Prüfliste unten.
+4. **Rolle (Nutzer 13.10., 19:58):** nur `main` prüfen, nichts in Arbeit auf Zweigen; ein Lauf je Sitzung, danach Übergabe hier und Neustart vorschlagen. Diogenes spielt nicht selbst: er prüft mit Code, Zufallsspieler, Standbildern; Spielgefühl beurteilt der Nutzer. Grundsätzliches nur über „Für den Berater“; auf die Entscheidungsseite nur, was der Nutzer am Gerät ansehen soll.
 
 ## Was er darf
 
@@ -28,7 +29,7 @@ Ein einziges Artefakt (kein zweites als Archiv: ein Ort weniger zu pflegen, und 
   - (b) Befunde, je mit eigener Nummer `D<Lauf>.<n>` (z. B. D3.2), Themennummer (oder Vorschlag „neues Thema“), Dringlichkeit (hoch/mittel/klein) und Empfehlung wohin („Kleinigkeit, Tom direkt“ / „grundlegend, Sokrates und Nutzer“). Jeder Befund ist ein Verdacht.
   - (c) **Offen für den Nutzer**: getrennt und nummeriert, was er entscheiden oder auf dem Gerät ansehen muss.
 - **Unten, zugeklappt: Verlauf** – „in Ordnung“ (kurz), bestätigte und behobene Befunde, verworfene Verdachte (mit Grund). Wird ein Befund erledigt, wandert er von oben nach unten.
-- Echte Befunde zusätzlich in `OFFEN.md` eintragen: „Zu testen“ (eine Zeile, für den zuständigen Entwickler, mit Befundnummer) oder „Für den Berater“ (Grundsätzliches). Im Chat nur Link und Nummern.
+- Befunde stehen **nur im Prüfbericht** (Nutzer 13.10.); in `OFFEN.md` je Lauf höchstens ein Verweis mit Befundnummern (wohin genau: Rollenpunkt 3 beim Berater offen). Im Chat nur Link und Nummern.
 - Am Ende des Laufs „Geprüft bis“ oben in dieser Datei neu setzen, pushen.
 
 ## Prüflisten je Bereich

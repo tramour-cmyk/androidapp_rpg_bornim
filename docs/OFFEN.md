@@ -84,6 +84,7 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
+- **Diogenes, Rolle schärfen** (Nutzer 13.10., 19:58 zu fünf Vorschlägen: „1 ja, 2 ja, 3 ja oder dein Bericht geht nur an mich und Sokrates und wir entscheiden, was Tom und Jerry umsetzen sollen, 4 ja 5 ja“): (1) Grundsätzliches nur über den Berater, Entscheidungsseite nur für Ansehen am Gerät; (2) Befunde nur im Prüfbericht, in `OFFEN.md` nur ein Verweis; (3) Entwickler vermerken bestätigt/verworfen, **oder** Bericht nur an Nutzer und Sokrates, die Tom/Jerry beauftragen (bitte mit Nutzer festlegen); (4) Diogenes prüft mit Code, Zufallsspieler, Standbildern, Spielgefühl bleibt beim Nutzer; (5) ein Lauf je Sitzung, nur `main`. Bitte Rollentext in `CLAUDE.md` anpassen; `DIOGENES.md` ist nachgezogen.
 
 
 
