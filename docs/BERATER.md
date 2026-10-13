@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Aufbau, Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARCHIV.md` („Aus BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 11:1x–12:0x „Abläufe verschlanken“ (65.4, 62e–62m, 64); 13.10. 11:58–12:2x Beschlüsse, Diogenes-Auftrag, 66, Form der Chronik-Texte. **Nachfolger:** „Sokrates – Chronik-Texte“ (Nutzer startet)
+**Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 11:58–12:2x Beschlüsse, Diogenes-Auftrag, 66; 13.10. 12:24–13:1x „Chronik-Texte“ (64d/62i Texte, 67 Südrand). **Nachfolger:** „Sokrates – Story-Vorlage“ (Nutzer startet)
 
-**Nächster Punkt:** Kapitel 1 aus `Story.kt`/`Jobs.kt` lesen, [Dokument](https://claude.ai/code/artifact/a06e73b2-a039-4ae3-8c9d-380c6f74ad2e) angelegt (13.10.): je Wendepunkt ein Eintrag „Bisher geschehen“ (64d), je Ort/Person ein Hörensagen-Satz (62i); Form entschieden (siehe „Chronik-Texte“ unten). Nutzer streicht, danach `docs/STORY.md` (41).
+**Nächster Punkt:** freigegebene Texte aus dem [Dokument](https://claude.ai/code/artifact/a06e73b2-a039-4ae3-8c9d-380c6f74ad2e) wortgetreu nach `docs/STORY.md` (neu anlegen; „(neu)“-Marken weg, Bedingung je Text nennen), dann Tom in „Wer macht was“ unter 41/64/67 darauf verweisen.
 
-**Zuletzt gelesen bis:** dieser Commit (13.10., 12:2x)
+**Zuletzt gelesen bis:** dieser Commit (13.10., 13:1x)
 
 ## Ritual
 
@@ -29,16 +29,13 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - **Entscheidungsseite (63):** Fragen gingen in vielen Chats und neuen Sitzungen unter. **„Bildbuch“ → „Beschlüsse“** (13.10.): Inhalt ist Entschiedenes, Bilder nur Mittel; Paar offen ↔ beschlossen. Link/Freigabe bleiben.
 - **Karte und Händler (62c, 59e):** Karte erinnert statt führt (Marken nur für Entdecktes, keine Schnellreise); Vorrat nie nach Rast, weil Rast jederzeit geht. 62e–62m (13.10.): Bekannte am gewohnten Ort statt live (der Held weiß nicht, wo jemand gerade ist), Beschriftung und Hörensagen erst nach Wissen, drei Ebenen (Nutzer), Lagerfeuer als Dienst (Nutzer), Hilfe nach Schwierigkeitsgrad statt für alle. **64:** eigener Reiter „Chronik“, weil Quests zwischen Einstellungen untergingen; „Bisher geschehen“ für Rückkehrer nach Pausen; keine Questanzeige im Spielbild (erinnert statt führt).
 - **Oberfläche (59, 60):** schwarz, Gold, Serife wie der Textkasten; Serife mitliefern, weil Geräteschriften je Gerät anders aussehen.
-- **Nur diagonal (13):** gerade Ansicht wirkte flach; keine doppelte Arbeit in Ansichten gegen das Ziel.
-- **Sichtbarkeit (43):** diagonal rückt der rechte Rand vor die Kamera; Wichtiges steht frei, Karten werden umgestellt statt Durchsicht überall.
 - **Leitbild (44):** ein roter Faden statt verstreuter Regeln; SRD ist Gerüst, nicht Ziel; keine AD&D-Erwähnung (kein Grund). Blut „Deutlich“ als Obergrenze, Zerteilen in 3D vorher prüfen. Effekte und Hintergrundklänge bieten Tom/Jerry aktiv an (44d).
 - **Geschäftsmodell (45):** wer Abkürzungen verkauft, macht das Spiel künstlich zäh; darum nie Werbung, Beutekisten, Wartezeiten.
 - **Zufallshöhlen (48):** erst Questhöhlen zufällig, Story-Höhlen mit festem Kern; normale Blende reicht (Boden wird ohnehin neu gezeichnet, geprüft). Einzelheiten im Archiv.
 - **Heldenbau (49, 50; [Dokument](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)):** kein großer Skilltree (führt zu wenigen besten Wegen), Talente ändern Entscheidungen statt Zahlen, Talent jede gerade Stufe (sonst Kapitel ohne Wahl), Merkmale nie kaufbar (Sperre gegen Magier-Tank), gekaufte Klassen nie stärker.
 - **Balance (38):** SRD als Fundament, Stufen 5–14 als Kern über mindestens 7 Kapitel, Abweichungen mit Grund in `BALANCE.md`; Schwierigkeitsgrad erst nach Messung von „Normal“.
 - **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen (Nutzer + Berater) vor jeder Story-Änderung, damit Texte nicht von Entwicklern erfunden werden. Kapitel 2 beginnt mit „Wer ist der Graue Prophet?“ (drei Entwürfe), endet auf Stufe 8; Kapitel 1 aus `Story.kt`/`Jobs.kt` lesen. Nachtragen: Heldensätze 29.4.
-- **Chronik-Texte (64d/62i, Nutzer 13.10., 12:21):** „Bisher geschehen“ als Chronist in dritter Person (passt zum Reiter, neutral zu jedem Helden); einzelne Einträge je Wendepunkt, 2–3 Sätze, neueste oben (Rückkehrer sehen sofort den Stand, einzeln abstimmbar); Hörensagen an die erzählende Person gebunden („Bram sagt …“), „Man erzählt sich“ nur für Gerüchte ohne Quelle.
-- **Sprachausgabe:** im gesprochenen Dialog keine Ansage „Sokrates [Datum]“, beim Schreiben schon.
+- **Chronik-Texte (64d/62i, Nutzer 13.10.):** Chronist in dritter Person, Einträge je Wendepunkt (Rückkehrer sehen sofort den Stand), Hörensagen mit Quelle. Gwenna Witwe, Aldric erkennt das Auge vom Steinkreis (Nebenweg wird Spur zum Propheten), Held = Durchreisender, zweiter Hörensagen-Satz nur bei Änderung; kindlicher Ton bleibt (Nutzer: Leichtigkeit zerstört nicht das Ganze). **67 Südstraße:** Versorgung und Herkunft des Helden brauchen einen zweiten Weg; nur die Waldstraße ist gesperrt. Umkehr durch den Helden selbst statt Wand oder Wächter (erinnert statt führt), ab dem zweiten Versuch nur Kurzeinblendung.
 
 **Offen bei mir:** Texte 64d/62i (Nächster Punkt); `docs/HELDENBAU.md` nach Durchsicht der kursiven Talentnamen (offen auch Erkennungszeichen-Standbilder, Jerrys Messung); Prüfungsquests und Umlern-Tempel (41, mit Nutzer); **45b nach Jerrys Messung 38 ansprechen**; 41 Kapitel 2 stößt der Nutzer an.
 

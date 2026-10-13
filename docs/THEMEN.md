@@ -69,4 +69,5 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom (ab Fr. mit Jerry) | in Arbeit | `OFFEN.md` |
 | 64 | Questlog: Reiter „Chronik“ (Aufträge, Bisher geschehen) | Tom (Texte Berater mit Nutzer) | offen (nach 62e) | `OFFEN.md`, Beschlüsse |
 | 66 | Licht im Dorf bei Nacht (Wache, Laterne) | Tom | offen | `OFFEN.md` |
+| 67 | Südrand des Dorfes (Feldweg, Wegweiser, Umkehr) | Tom | offen | `OFFEN.md` |
 | 65 | Abläufe verschlanken (Ablaufprüfung) | Berater, Tom, Jerry | in Arbeit (65.2 Jerry) | `OFFEN.md` |
