@@ -43,6 +43,21 @@ object MapSheet {
      * The drawing of [map]; [seen] says which tiles the hero knows, ([heroX], [heroY]) where it stands (negative:
      * not on this map).
      */
+    /** The part of the map the sheet shows, in tiles: x, y, width, height. All of it, except a cave in ink (62o):
+     *  a sheet of one fixed size, the explored part in its middle, so the sheet never tells how big the cave is. */
+    class Window(val x: Int, val y: Int, val w: Int, val h: Int)
+    const val CAVE_SHEET = 30
+    fun window(map: MapDef, seen: (Int, Int) -> Boolean): Window {
+        if (!ink || map.kind != MapKind.CAVE) return Window(0, 0, map.width, map.height)
+        var x0 = Int.MAX_VALUE; var y0 = Int.MAX_VALUE; var x1 = -1; var y1 = -1
+        for (y in 0 until map.height) for (x in 0 until map.width) if (seen(x, y)) { x0 = minOf(x0, x); y0 = minOf(y0, y); x1 = maxOf(x1, x); y1 = maxOf(y1, y) }
+        if (x1 < 0) return Window(0, 0, CAVE_SHEET, CAVE_SHEET)
+        // grows only in whole sheets, so even a long cave does not show its size to the tile
+        fun size(n: Int) = ((n + 4 + CAVE_SHEET - 1) / CAVE_SHEET) * CAVE_SHEET
+        val w = size(x1 - x0 + 1); val h = size(y1 - y0 + 1)
+        return Window((x0 + x1 + 1) / 2 - w / 2, (y0 + y1 + 1) / 2 - h / 2, w, h)
+    }
+
     fun render(map: MapDef, seen: (Int, Int) -> Boolean, heroX: Int = -1, heroY: Int = -1): PixelImage {
         if (ink) return MapInk.render(map, seen)
         val w = map.width * C + 2 * PAD; val h = map.height * C + 2 * PAD

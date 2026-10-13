@@ -288,6 +288,8 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
                     onOpen: (String) -> Unit = {}) {
     val p = game.state.place
     val img = remember(map.id, p.x, p.y) { de.bornim.core.art.MapSheet.render(map, { x, y -> seenOn(game, map, x, y) }) }
+    // 62o: a cave's sheet shows only a fixed window round what is explored
+    val win = remember(map.id, p.x, p.y) { de.bornim.core.art.MapSheet.window(map, { x, y -> seenOn(game, map, x, y) }) }
     val bmp = Bitmaps.of(img)
     val marks = remember(map.id, show) {
         val all = de.bornim.core.MapMarks.of(game.state).filter { it.map == map.id && it.kind.group in show }
@@ -314,9 +316,9 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
         val fit = minOf(vw / img.width, vh / img.height)
         val density = androidx.compose.ui.platform.LocalDensity.current.density
         // centre of a tile in the picture's pixels (the inked sheet is finer than its map pixels, 62h)
-        val fine = img.width.toFloat() / (map.width * de.bornim.core.art.MapSheet.C + 2 * de.bornim.core.art.MapSheet.PAD)
-        fun cx(tx: Int) = (de.bornim.core.art.MapSheet.PAD + tx * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f) * fine
-        fun cy(ty: Int) = (de.bornim.core.art.MapSheet.PAD + ty * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f) * fine
+        val fine = img.width.toFloat() / (win.w * de.bornim.core.art.MapSheet.C + 2 * de.bornim.core.art.MapSheet.PAD)
+        fun cx(tx: Int) = (de.bornim.core.art.MapSheet.PAD + (tx - win.x) * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f) * fine
+        fun cy(ty: Int) = (de.bornim.core.art.MapSheet.PAD + (ty - win.y) * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f) * fine
         // opens zoomed in on the hero, at least so far that the map fills the frame
         var scale by remember { mutableStateOf(if (here || focus != null) maxOf(fit * MapLook.previewZoom, maxOf(vw / img.width, vh / img.height)) else fit) }
         fun clampX(o: Float) = if (img.width * scale <= vw) (vw - img.width * scale) / 2 else o.coerceIn(vw - img.width * scale, 0f)

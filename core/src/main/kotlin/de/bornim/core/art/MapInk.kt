@@ -58,7 +58,8 @@ object MapInk {
     private fun isRock(t: Tile) = t == Tile.CAVE_WALL || t == Tile.CRYSTAL || t == Tile.TORCH
 
     fun render(map: MapDef, seen: (Int, Int) -> Boolean): PixelImage {
-        val mw = map.width * C + 2 * PAD; val mh = map.height * C + 2 * PAD
+        val win = MapSheet.window(map, seen)
+        val mw = win.w * C + 2 * PAD; val mh = win.h * C + 2 * PAD
         val pw = mw * S; val ph = mh * S
         val img = PixelImage(pw, ph)
         val room = map.kind == MapKind.INTERIOR
@@ -95,7 +96,7 @@ object MapInk {
             val blot = noise(mx, my, 22.0, 1) * 0.55 + noise(mx, my, 7.0, 2) * 0.3 + rnd(x, y, 3) * 0.15
             val edge = minOf(minOf(mx, mw - mx), minOf(my, mh - my))
             var c = mix(GROUND, STAIN, (1.0 - edge / 16.0).coerceIn(0.0, 1.0) * 0.45 + (blot - 0.5) * 0.16)
-            val u = (mx - PAD) / C; val v = (my - PAD) / C
+            val u = (mx - PAD) / C + win.x; val v = (my - PAD) / C + win.y
             if (u >= 0 && v >= 0 && u < map.width && v < map.height) {
                 // known: frayed with noise, so the edge to the bare parchment is torn, not stepped
                 val k = ((knownF(u, v) - 0.5 + (noise(mx, my, 3.0, 5) - 0.5) * 0.5) * 4 + 0.5).coerceIn(0.0, 1.0)
@@ -110,7 +111,15 @@ object MapInk {
                     w = mix(w, 0xFFC8A878.toInt(), floorF(u, v) * 0.45)
                     if (room) w = mix(w, 0xFF6A5440.toInt(), houseF(u, v) * 0.8)
                     else w = mix(w, mix(STAIN, 0xFFB0644A.toInt(), 0.5), houseF(u, v) * 0.55)
-                    w = mix(w, if (cave) 0xFF6E6252.toInt() else 0xFF8A7A66.toInt(), (rockF(u, v) - 0.3).coerceIn(0.0, 1.0) * (if (cave) 1.0 else 0.6))
+                    if (cave) {
+                        // 62o: a sketched ground plan, the floor washed, the rock left bare but hatched along the wall
+                        val r = rockF(u, v)
+                        w = mix(w, 0xFFCFB386.toInt(), ((0.5 - r) * 4).coerceIn(0.0, 1.0) * (0.55 + grain))
+                        if (r > 0.5) {
+                            val band = (1 - (r - 0.5) / 0.42).coerceIn(0.0, 1.0)
+                            if ((mx + my + noise(mx, my, 4.0, 9) * 1.2) % 2.6 < 0.6) w = mix(w, SOFT, band * 0.7)
+                        }
+                    } else w = mix(w, 0xFF8A7A66.toInt(), (rockF(u, v) - 0.3).coerceIn(0.0, 1.0) * 0.6)
                     val wa = waterF(u, v)
                     if (wa > 0.35) w = mix(w, mix(WATER, GROUND, 0.25), ((wa - 0.35) * 4).coerceIn(0.0, 0.85))
                     c = mix(c, w, k)
@@ -161,8 +170,8 @@ object MapInk {
                 dot(xx, yy, mix(left, right, t))
             }
         }
-        fun mx(tx: Int) = PAD + tx * C + C / 2.0
-        fun my(ty: Int) = PAD + ty * C + C / 2.0
+        fun mx(tx: Int) = PAD + (tx - win.x) * C + C / 2.0
+        fun my(ty: Int) = PAD + (ty - win.y) * C + C / 2.0
         val leaf = mix(GREEN, GROUND, 0.2); val leafDark = mix(GREEN, INK, 0.35)
         val fir = mix(DEEP, GROUND, 0.1); val firDark = mix(DEEP, INK, 0.45)
 
@@ -245,13 +254,9 @@ object MapInk {
             }
             // hatching on roofs and on rock, a few slanted strokes inside the shape
             val t = map.tile(tx, ty)
-            if ((isHouse(t) && !room) || (cave && isRock(t))) {
-                val inside = { ax: Int, ay: Int -> map.inside(ax, ay) && (if (cave) isRock(map.tile(ax, ay)) else isHouse(map.tile(ax, ay))) }
-                val nearOpen = !(inside(tx - 1, ty) && inside(tx + 1, ty) && inside(tx, ty - 1) && inside(tx, ty + 1))
-                if (!cave || nearOpen) for (k in 0..2) {
-                    val hx = cx - 3 + k * 2.6
-                    stroke(hx, cy + 2.6, hx + 1.8, cy - 1.6, SOFT, 0.35, if (cave) 0.6 else 0.7)
-                }
+            if (isHouse(t) && !room) for (k in 0..2) {
+                val hx = cx - 3 + k * 2.6
+                stroke(hx, cy + 2.6, hx + 1.8, cy - 1.6, SOFT, 0.35, 0.7)
             }
         }
 
