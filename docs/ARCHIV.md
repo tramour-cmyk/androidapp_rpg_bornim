@@ -1,5 +1,8 @@
 # Archiv
 
+### Entwurf Berater 75h: Kosten und Nutzen des Testens (13.10., 20:4x, noch nicht freigegeben)
+Risikobasiert: Prüftiefe nach Wahrscheinlichkeit mal Schaden; Testpyramide (Kerntests, Zufallsspieler billig und dauerhaft, Code lesen mittel, Standbilder/Filme teuer, Nutzer am Gerät am teuersten, aber einzig für Spielgefühl). 75h jeder bestätigte Befund „hoch“ wird Kerntest (Regressionsnetz); 75i Diogenes nur auf Anlass (vor Release, „Ort fertig“, großer Umbau, Auftrag), nicht nach jedem Build; 75j Budget je Lauf (Startwert höchstens 10 Standbilder, kein Film, Abbruch mit Abdeckungsmeldung); 75k Kosten je bestätigtem Befund messen (Tokenzuwachs laut Neustart-Haken), Berater wertet aus; 75l Diogenes auf dem Account mit mehr Guthaben, nie zulasten wartender Entwicklung.
+
 ### Entwurf Berater 76: Tom und Jerry schärfen, CLAUDE.md entschlacken (13.10., 20:40, noch nicht freigegeben)
 Typische Fehler von Claude als Entwickler: fertig melden ohne selbst gesehen; mehr bauen als bestellt; Kerntests mit „sieht richtig aus“ verwechseln; Bedenken verschweigen statt sagen. Prompt „Wer du bist“: Eigentümer seines Bereichs; fertig = selbst gesehen und gegen „Ort fertig“/`STIL.md` geprüft; Kleines selbst, Bedenken offen, nie Texte erfinden; Erfolgsmaß: Test des Nutzers passt beim ersten Mal. `CLAUDE.md` 16,6 KB (Rollen 3,6, Feste Regeln 9,4); etwa 4 KB nur für Tom/Jerry. Haken: nur `CLAUDE.md` bleibt in langen Sitzungen sicher im Blick, darum Schrittregeln (Zeitstempel, Kerntests, Weckruf, kein Code auf `main`) als Kurzzeile im Kern; Abläufe (Stil-Abgleich, Filmen, Testreihenfolge, Prüflisten, Neustart) und Prompt nach `docs/ENTWICKLER.md` (nur Tom/Jerry beim Start); Doppelungen straffen (65.4). Ziel etwa 10–11 KB.
 
