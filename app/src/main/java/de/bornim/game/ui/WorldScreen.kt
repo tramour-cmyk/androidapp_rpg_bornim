@@ -521,8 +521,8 @@ object MapSight {
     /** Every place seen diagonally, also those still being built (only the previews, `DIAG=1`). */
     @Volatile var all = false
 
-    /** The places finished for the diagonal view (13.4): the village and its rooms; the woods and the cave follow. */
-    fun finished(map: de.bornim.core.MapDef) = all || map.kind == MapKind.TOWN || map.kind == MapKind.INTERIOR
+    /** The places finished for the diagonal view (13.4, 13v): the village, its rooms and the woods; the cave follows. */
+    fun finished(map: de.bornim.core.MapDef) = all || map.kind != MapKind.CAVE
 
     /** Turns the view to suit [map]; a new place is entered behind the black screen, so the turn is never seen. */
     fun follow(map: de.bornim.core.MapDef) { val d = finished(map); if (d != diagonal) diagonal = d }
