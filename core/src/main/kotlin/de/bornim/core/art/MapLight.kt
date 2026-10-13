@@ -53,7 +53,8 @@ object MapLight {
                     // light falls out of a lit window onto the ground in front of the house
                     Tile.WINDOW -> if (!indoor && map.tile(tx, ty + 1).walkable) out += Source(cx, ty * T + T + 6.0, Kind.WINDOW, argb(0xFFC880), T * 1.6, 0.7, When.NIGHT)
                         // indoors, a window lets in grey daylight, onto the floor on the room's side of its wall (5h.1: also in the front walls)
-                        else if (indoor && hasHearth(map)) {
+                        // D1.3: also in a room without a fire (the temple's windows)
+                        else if (indoor) {
                             val (lx, ly) = when {
                                 map.tile(tx, ty + 1).walkable -> cx to ty * T + T + 8.0
                                 map.tile(tx, ty - 1).walkable -> cx to ty * T - 8.0
@@ -71,6 +72,8 @@ object MapLight {
                     Tile.ALTAR -> out += Source(cx, cy, Kind.CANDLE, argb(0xFFE0A0), T * 3.2, 0.75)
                     Tile.COUNTER -> if (indoor) out += Source(cx, cy, Kind.CANDLE, argb(0xFFB870), T * (if (hasHearth(map)) 1.5 else 2.4), if (hasHearth(map)) 0.5 else 0.45)
                     Tile.DOOR -> if (indoor) out += Source(cx, cy - 4, Kind.DOOR, argb(0xE8ECF0), T * 3.0, 0.6, When.DAY)
+                    // D1.3: a small flame drawn on a thing (candlestick on a trunk, candle in the font) gives its small light
+                    Tile.TRUNK, Tile.FONT -> if (indoor && MapRoomIso.smallFlame(map, tx, ty)) out += Source(cx, cy - 8, Kind.CANDLE, argb(0xFFC070), T * 1.5, 0.45)
                     else -> {}
                 }
             }
@@ -175,7 +178,8 @@ object MapLight {
             MapKind.CAVE -> doubleArrayOf(0.13, 0.13, 0.18)
             // a room with a fire (new style, 10.10.) is darker about its corners: the fire lights it, the window a little
             MapKind.INTERIOR -> if (hasHearth(map)) mix(doubleArrayOf(0.13, 0.115, 0.125), doubleArrayOf(0.31, 0.29, 0.285), daylight.toDouble())
-                else mix(doubleArrayOf(0.36, 0.32, 0.3), doubleArrayOf(0.7, 0.64, 0.56), daylight.toDouble())
+                // D1.2: no fire, so at night only candles and a little moonlight: dark like the other rooms, a shade colder
+                else mix(doubleArrayOf(0.13, 0.13, 0.17), doubleArrayOf(0.62, 0.58, 0.52), daylight.toDouble())
             else -> {
                 val day = if (deep) doubleArrayOf(0.8, 0.86, 0.8) else if (map.kind == MapKind.FOREST) doubleArrayOf(0.96, 0.98, 0.93) else doubleArrayOf(1.0, 0.99, 0.96)
                 val dusk = if (deep) doubleArrayOf(0.64, 0.5, 0.5) else doubleArrayOf(0.88, 0.68, 0.6)

@@ -1678,6 +1678,8 @@ object MapRoomIso {
                 }
                 at(-0.22, -0.3).let { (x, y) -> for (k in 0 until 4) s.blob(x, y - 1 - k * 1.3, 2.2, 1.0, copper, depth = 0.4); s.blob(x + 4, y, 2.0, 0.9, pewter, depth = 0.3) }
                 at(-0.8, -0.5).let { (x, y) -> s.blob(x, y - 2, 3.0, 2.4, iron, depth = 0.8) }
+                // D1.3: a candle stub to count the coins by, the counter's light
+                at(-0.12, -0.56).let { (x, y) -> candle(x, y, 3.0, drips = true) }
             }
             1 -> {
                 // the ledger lying open, a quill in the ink; a horn lantern lit
@@ -1949,6 +1951,9 @@ object MapRoomIso {
         c.floorShadow(-0.75, -0.75, -0.25, -0.25, 0.4)
         c.box(-0.7, -0.62, -0.3, -0.38, 0.0, 6.0, oakDark, oak, oak)
         c.box(-0.54, -0.54, -0.46, -0.46, 6.0, 74.0, oakDark, oak, oak)
+        // D1.3: an iron arm off the post holds a candle beside the book, the light that reads by it
+        c.s.limb(c.x(-0.46, -0.46), c.y(-0.46, -0.46, 66.0), c.x(-0.2, -0.42), c.y(-0.2, -0.42, 70.0), 0.8, 0.8, iron)
+        c.x(-0.2, -0.42).let { x -> c.candle(x, c.y(-0.2, -0.42, 70.0), 7.0, drips = v % 3 == 2) }
         // the sloping desk, high at the back
         val i0 = -0.76; val i1 = -0.24; val j0 = -0.72; val j1 = -0.3
         c.s.poly(oakTop, c.x(i0, j0), c.y(i0, j0, 92.0), c.x(i1, j0), c.y(i1, j0, 92.0), c.x(i1, j1), c.y(i1, j1, 78.0), c.x(i0, j1), c.y(i0, j1, 78.0), tiltY = -0.85, bevel = 0.6)
@@ -2015,6 +2020,12 @@ object MapRoomIso {
 
     /** Sorted along the diagonal like a figure standing on the tile (hero: x + y + 1.5 tiles − ½ pixel). */
     private fun depth(tx: Int, ty: Int) = (tx + ty) * T + T * 3 / 2 - 1
+
+    /** D1.3: whether the picture on this tile carries a small flame of its own (a candlestick on a trunk, a candle afloat in the font), for the light layer. */
+    fun smallFlame(map: MapDef, tx: Int, ty: Int): Boolean = when (map.tile(tx, ty)) {
+        Tile.TRUNK, Tile.FONT -> hash(tx, ty, 3) % 3 == 2
+        else -> false
+    }
 
     /** The upright pictures of one tile of a room seen diagonally, or null for the pictures seen straight. */
     fun objects(map: MapDef, tx: Int, ty: Int, frame: Int = 0): List<WorldArt.Obj>? {
