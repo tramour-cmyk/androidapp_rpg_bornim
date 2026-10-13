@@ -86,6 +86,7 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
 - **Diogenes D1.1** (neues Thema?): keine Schrittgeräusche an irgendeinem Ort, obwohl „Ort fertig“ 8 sie verlangt; gilt für alle Orte.
-- **Diogenes, Fragen an den Nutzer** (Prüfbericht „Offen für den Nutzer“): Tempelboden Stein statt Holzdielen (Empfehlung ja); Höhlen-Klangbett mit Hörnern/Kreaturen ohne Quelle (D1.14, Empfehlung herausnehmen).
+- **Diogenes, Tempelboden** (Nutzer 13.10., 19:39: „1 ja“): Tempel bekommt Steinplatten statt Holzdielen; bitte in Beschlüsse und „Wer macht was“ (Vorschlag Tom, 13 Tempel).
+- **Diogenes D1.14, Höhlen-Klangbett** (Nutzer 19:39: „hinterlege das mal beim Berater“): zwei Stücke mit Hörnern/Kreaturenrufen ohne sichtbare Quelle (`grund_fs_609422`, `grund_fs_540836`) gegen „Ortsklang nur von dem, was da ist“; Diogenes empfiehlt herausnehmen.
 
 
