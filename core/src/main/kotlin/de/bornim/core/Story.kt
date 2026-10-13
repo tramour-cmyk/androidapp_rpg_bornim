@@ -91,7 +91,7 @@ object Story {
         rows = listOf(
             "TTTTTTTTTTTTTTTTT==TTTTTTTTTTTTTTTTT",
             "TTT.......T.....x==x.....TT......TTT",
-            "TT.......T......xzzx.S..T.........TT",
+            "TT.......T.....lxzzxlS..T.........TT",
             "T..^^^^^^........==.......^^^^^....T",
             "T..^^^^^^..^^^^..==....^^.^^^^^....T",
             "T..#W#D#Wb.#D#W..==....D#.W#D#Wb...T",
@@ -118,13 +118,15 @@ object Story {
             "~~~~~~~~~~~~~~~~~hh~~~~~~~~~~~~~~~~~",
             "T..........~~~~~~hh~~~.............T",
             "T..xxxxxxx===========............y.T",
-            "T..xvvvvvx..f........ccccccccccc.y.T",
-            "TT.xvvvvvx.y...f....fccccccccccc..TT",
-            "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+            "T..xvvvvvx..f....==S.ccccccccccc.y.T",
+            "TT.xvvvvvx.y...f.==.fccccccccccc..TT",
+            "TTTTTTTTTTTTTTT..==..TTTTTTTTTTTTTTT",
         ),
         warps = listOf(
             Warp(17, 0, Place("forest", 9, 30, Facing.UP), QUEST_STARTED, jorinStop()),
             Warp(18, 0, Place("forest", 10, 30, Facing.UP), QUEST_STARTED, jorinStop()),
+            // the south road (67): the way the hero came, not taken again in chapter 1
+            *(15..20).map { Warp(it, 31, Place("village", it, 30, Facing.UP), LOCKED, turnBack = true) }.toTypedArray(),
             Warp(6, 5, inside("inn")),
             Warp(28, 5, inside("shop", 7)),
             Warp(5, 20, inside("elder", 6)),
@@ -139,6 +141,7 @@ object Story {
         signs = mapOf(
             (21 to 2) to T("Norden: Flüsterwald.\nAchtung, Goblins!", "North: Whisperwood.\nBeware of goblins!"),
             (7 to 6) to T("Gasthaus »Zum Schlafenden Greif«", "The Sleeping Griffin Inn"),
+            (19 to 29) to T("Süden", "South"),
             (25 to 6) to T("Thessas Kramladen\nWaffen · Rüstungen · Tränke", "Thessa's General Store\nWeapons · Armor · Potions"),
         ),
         houseStyles = mapOf(
@@ -210,6 +213,25 @@ object Story {
     private fun jorinStop() = script {
         say(jorin, "Halt! Ohne Erlaubnis des Ältesten lasse ich niemanden in den Wald.", "Halt! Nobody enters the woods without the Elder's permission.")
         say(jorin, "Sein Haus ist unten links am Dorfplatz.", "His house is at the bottom left of the village square.")
+    }
+
+    /**
+     * What the hero thinks at the south edge of the village (67), by how far the story is: the first time
+     * in each part a line to read, after that the short one as a passing note. Second is true for the short one.
+     */
+    fun southEdge(state: GameState): Pair<T, Boolean> {
+        val (part, long, short) = when {
+            CHAPTER1_DONE in state.flags -> Triple("after", T("Der Brief mit dem grauen Siegel lässt dich nicht los. Die Antwort liegt nicht im Süden.",
+                "The letter with the grey seal won't let you go. The answer doesn't lie in the south."), T("Die Antwort liegt nicht im Süden.", "The answer doesn't lie in the south."))
+            QUEST_STARTED in state.flags -> Triple("quest", T("Lyra ist irgendwo im Norden. Der Weg nach Süden kann warten.",
+                "Lyra is somewhere in the north. The road south can wait."), T("Der Weg nach Süden kann warten.", "The road south can wait."))
+            else -> Triple("before", T("Du bist von Süden gekommen, um hier zu rasten. Weiterziehen kannst du später – erst willst du wissen, was in Bornim geschehen ist.",
+                "You came from the south to rest here. You can move on later – first you want to know what happened in Bornim."), T("Erst willst du wissen, was in Bornim geschehen ist.", "First you want to know what happened in Bornim."))
+        }
+        val seen = "south_edge_$part"
+        if (seen in state.flags) return short to true
+        state.flags += seen
+        return long to false
     }
 
     // ------------------------------------------------------------------ interiors
