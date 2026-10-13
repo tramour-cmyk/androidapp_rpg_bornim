@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | läuft | 14.10., 07:00 | 14.10., 00:20 | 14.10., 00:20 | Reserve: 55 Speer im Kampf prüfen | `claude/tom-d1-raeume` |
+| Tom | läuft | 14.10., 07:00 | 14.10., 00:20 | 14.10., 00:24 | Reserve: 5.5 Dorf-Lücken | `claude/tom-d1-raeume` |
 | Jerry | fertig | – | 12.10., 16:33 | 12.10., 16:59 | Pause bis Freitag (Nutzungsguthaben), Stand in ARBEIT-OFFEN.md | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
@@ -83,7 +83,7 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/ARBEIT-O
 2. ~~D1.16 Rest ohne `WorldScreen.kt`~~ fertig (7d9692c1; alte flache Bäume und verworfener Pflasterentwurf mit weg).
 3. ~~Sammelbuild~~ PR #57 offen (Build 0.1.721), Prüfliste `e/t721.html` auf „Dein Zug“; Vermerke D1.4/D1.5/D1.16 im Prüfbericht gesetzt.
 4. ~~27 Wald~~ Lückenliste in der Übergabe (Standbilder 00:19).
-**Reserve:** 55 Speer im Kampf (~2 m) prüfen; 5.5 Dorf Lücken prüfen; 69 Intro: Bildentwürfe (Standbilder) nach `STORY-K1.md` `[69.intro.…]`.
+**Reserve:** ~~55 Speer im Kampf prüfen~~ (Held/Skelett 2 m, Kobold ~0,9 m wie Text „fast so groß wie er selbst“; 55d in den Bericht: Kobold so lassen, Empfehlung); 5.5 Dorf Lücken prüfen; 69 Intro: Bildentwürfe (Standbilder) nach `STORY-K1.md` `[69.intro.…]`.
 
 **Vorrat für Selbstarbeit** (Reihenfolge; 23a freigegeben 11.10., 14:18; Erledigtes im Archiv, 77e):
 1. **27 Wald:** Standbilder Wald gegen Dorf bei Tag und Nacht, Lückenliste nach „Ort fertig“ (`DESIGN-ABNAHME.md`), danach Entwurf eines diagonalen Baums. Fertig, wenn: Standbilder und Liste in `ARBEIT-OFFEN.md`.
