@@ -640,7 +640,7 @@ object MapRoomIso {
      * back of planks on the side away from it ([back] +1 at the front, −1 at the back, 0 none), so it reads
      * as something in the way and not as a board on the floor to step over.
      */
-    private fun bench(joinL: Boolean, joinR: Boolean, seed: Int, back: Int = 0): PixelImage {
+    private fun bench(joinL: Boolean, joinR: Boolean, seed: Int, back: Int = 0, v: Int = 0): PixelImage {
         val zt = 26.0
         val zb = 56.0
         val c = Canvas(((if (back != 0) zb else zt) + TH + 8).toInt().let { it + it % 2 }, seed)
@@ -649,21 +649,32 @@ object MapRoomIso {
         val j0 = when (back) { 1 -> -0.84; -1 -> -0.56; else -> -0.66 }
         val j1 = j0 + 0.36
         c.floorShadow(i0, j0, i1, j1 + if (back == 1) 0.08 else 0.0, 0.4)
-        fun leg(i: Double) = c.box(i - 0.03, j0 + 0.04, i + 0.03, j1 - 0.04, 0.0, zt - 4, oakDark, oak, oak)
+        // D1.11: three looks, the same along one bench: plain posts; solid end boards, the wood stained dark; old, the seat rubbed pale and cracked
+        val top = if (v % 3 == 1) oak else oakTop
+        val side = if (v % 3 == 1) oakDark else oak
+        fun leg(i: Double) = if (v % 3 == 1) c.box(i - 0.04, j0 + 0.02, i + 0.04, j1 - 0.02, 0.0, zt - 4, oakDark, oakDark, oakDark)
+            else c.box(i - 0.03, j0 + 0.04, i + 0.03, j1 - 0.04, 0.0, zt - 4, oakDark, oak, oak)
         fun backBoard() {
             val b0 = if (back == 1) j1 else j0 - 0.08
             val b1 = b0 + 0.08
-            c.box(i0, b0, i1, b1, 0.0, zb, oakDark, oak, oakDark)
+            c.box(i0, b0, i1, b1, 0.0, zb, oakDark, side, oakDark)
             // planks and a rubbed top rail
             var k = i0 + 0.16
             while (k < i1 - 0.05) { c.s.line(c.x(k, b1), c.y(k, b1, 3.0), c.x(k, b1), c.y(k, b1, zb - 5), seam); k += 0.16 }
-            c.box(i0, b0 - 0.01, i1, b1 + 0.01, zb - 4, zb, oakTop, oak, oak)
+            c.box(i0, b0 - 0.01, i1, b1 + 0.01, zb - 4, zb, top, side, side)
+            // the old one: a carved rail under the top
+            if (v % 3 == 2) c.s.line(c.x(i0, b1), c.y(i0, b1, zb - 10), c.x(i1, b1), c.y(i1, b1, zb - 10), seam)
         }
         if (back == -1) backBoard()
         if (!joinL) leg(i0 + 0.1)
         if (!joinR) leg(i1 - 0.1)
-        c.box(i0, j0, i1, j1, zt - 4, zt, oakTop, oak, oak)
+        c.box(i0, j0, i1, j1, zt - 4, zt, top, side, side)
         c.s.line(c.x(i0, (j0 + j1) / 2), c.y(i0, (j0 + j1) / 2, zt), c.x(i1, (j0 + j1) / 2), c.y(i1, (j0 + j1) / 2, zt), seam)
+        if (v % 3 == 2) {
+            // rubbed pale where people sat, a crack along the grain
+            for (k in 0..12) { val i = i0 + (i1 - i0) * (k + 0.5) / 13; c.s.tint(c.x(i, (j0 + j1) / 2), c.y(i, (j0 + j1) / 2, zt), 2.5, 1.2, argb(0xB89C70), 0.22) }
+            c.s.line(c.x(i0 + 0.1, j0 + 0.1), c.y(i0 + 0.1, j0 + 0.1, zt), c.x(i0 + (i1 - i0) * 0.6, j0 + 0.12), c.y(i0 + (i1 - i0) * 0.6, j0 + 0.12, zt), seam)
+        }
         if (back == 1) backBoard()
         c.s.outline(outlineColor)
         return c.img
@@ -2082,7 +2093,8 @@ object MapRoomIso {
             Tile.BENCH -> {
                 // a settle beside a table: its back away from the table (13p.1)
                 val back = when { temple || at(0, -1) == Tile.TABLE -> 1; at(0, 1) == Tile.TABLE -> -1; else -> 0 }
-                one("bench", low = back == 0) { bench(same(-1), same(1), seed, back) }
+                var x0 = tx; while (at(x0 - tx - 1, 0) == Tile.BENCH) x0--
+                one("bench", low = back == 0) { bench(same(-1), same(1), seed, back, hash(x0, ty, 4)) }
             }
             // the elder's broad bed is one picture over its four tiles, laid on the front one
             Tile.BED -> if (elder) { if (at(1, 0) == Tile.BED || at(0, 1) == Tile.BED) emptyList() else one("bigbed", low = false) { elderBed(hash(tx, ty, 4), seed) } }
@@ -2114,7 +2126,7 @@ object MapRoomIso {
         "Regal" to (0 until 3).map { shelf(it, false, false, 11 + it) },
         "Theke" to (0 until 3).map { counter(it, false, false, 21 + it) },
         "Tisch" to (0 until 3).map { table(it, false, false, 31 + it) },
-        "Bank" to listOf(bench(false, false, 71, 1), bench(false, false, 72, -1), bench(false, false, 73, 0)),
+        "Bank" to (0 until 3).map { bench(false, false, 71 + it, 1, it) },
         "Bett" to (0 until 3).map { bed(it, true, true, 41 + it) },
         "Kisten" to (0 until 3).map { crates(it, 51 + it) },
         "Brennholz" to (0 until 3).map { firewood(it, 61 + it) },
@@ -2152,6 +2164,6 @@ object MapRoomIso {
         "Kerzenständer" to (0 until 3).map { candelabrum(it, 271 + it) },
         "Lesepult" to (0 until 3).map { lectern(it, 281 + it) },
         "Weihwasserbecken" to (0 until 3).map { font(it, 291 + it) },
-        "Gebetsbank" to listOf(bench(false, false, 301, 1), bench(true, false, 302, 1), bench(false, true, 303, 1)),
+        "Gebetsbank" to (0 until 3).map { bench(false, false, 301 + it, 1, it) },
     )
 }
