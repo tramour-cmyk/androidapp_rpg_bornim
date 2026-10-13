@@ -54,11 +54,11 @@ class FogTest {
         val g = game(Place("cave", 15, 14, Facing.LEFT))
         g.freeWalk.sync()
         g.freeWalk.yaw = 270.0
-        val before = g.fog(14, 10)
+        val before = g.fog(16, 10)
         g.freeWalk.yaw = 225.0
         assertEquals(Fog.HIDDEN, before, "looking left along the map the room up the diagonal stays out of the cone")
         assertEquals(Fog.VISIBLE, g.fog(15, 11), "beyond the low wall, up the diagonal")
-        assertEquals(Fog.VISIBLE, g.fog(14, 10), "the room beyond")
+        assertEquals(Fog.VISIBLE, g.fog(16, 10), "the room beyond")
         assertEquals(Fog.VISIBLE, g.fog(15, 12), "the wall itself")
     }
 
