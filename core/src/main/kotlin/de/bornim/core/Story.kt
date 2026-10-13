@@ -325,7 +325,7 @@ object Story {
             "#W##D#WW#",
         ),
         warps = interiorExit(toVillage(5, 21), 6),
-        npcs = listOf(Npc("aldric", 6, 2, "elder", Facing.DOWN) { s -> elderTalk(s) }),
+        npcs = listOf(Npc("aldric", 7, 3, "elder", Facing.DOWN) { s -> elderTalk(s) }),
     )
 
     private fun elderTalk(s: GameState): List<Cmd> = when {
