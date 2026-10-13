@@ -9,6 +9,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 ## Jetzt installieren
 
 - **Tom 0.1.662** (Zweig `claude/tom-17-riemen`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38373719219/artifacts/11799838796 · achten auf: Jorin stellt Speer ab, Speer 2 m (55.1b), Menüreiter als Zeichen (60j), Leute schauen nur bis 3 Felder/10 s zum Helden (5la.3). Laden schon gut, Karte mit Berater (62c). Danach PR (Rückfrage 62d).
+- **Tom 0.1.667** (Zweig `claude/jerry-13e-hoehle-diagonal`, nur `main` plus Höhle): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38380446160/artifacts/11803377819 · Höhle diagonal (13e): Held nie verdeckt, Gitter/Eingänge/Truhen erkennbar, Kämpfe, flüssig?
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Entscheidungsseite (65.3), nicht hier.
 
@@ -51,10 +52,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 11:00) – Build 0.1.660, Neustart empfohlen
-- Zweig `claude/tom-17-riemen` (von `ccr-5851d275-mvpqbt`, `main` drin), Build **0.1.660** (siehe „Zu testen“). Nach dem Test: PR von diesem Zweig, zusammenführen (Merge), Änderungshistorie unter „Unveröffentlicht“: 59, 60e–k, 60j, 17r, 5la, 5la.2, 6g, 6f, 61a, 62a, 62c, 59e, 55.1a, 55.1b, 13x, 13v/27.6.
-- 17 Riemen verworfen (kaum sichtbar), 17 fertig. 55.1b/60j entschieden und drin (Beschlüsse). 5la.3 ja (11:0x): 3 Felder, 10 s, im Zweig (STIL.md angepasst). 6l zurückgestellt. Toms Kapitel-1-Ziele erledigt bis auf „alte Ansicht ausgebaut“ (wartet auf Höhle, Jerry).
-- **Weiter:** Build **0.1.662** mit 5la.3 (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38373719219) prüfen, Artefakt-Link melden, „Zu testen“ und Entscheidungsseite „Anzusehen“ auf 0.1.662 umstellen; nach Test PR von `claude/tom-17-riemen`; sonst Selbstvorrat leer, beim Nutzer nach Neuem fragen (z. B. 64 Questlog nach Entwurf des Beraters).
+### Tom (13.10., 12:12) – vor Neustart
+- **Zweig `claude/tom-17-riemen`**, Build 0.1.662 (Jetzt installieren): Laden gut, 60j gefällt; offen 55.1b, 5la.3. Nach „passt“: PR, zusammenführen (Merge), Änderungshistorie „Unveröffentlicht“: 59, 60e–k, 60j, 17r, 5la, 5la.2, 5la.3, 6g, 6f, 61a, 62a, 62c, 59e, 55.1a, 55.1b, 13x, 13v/27.6. Rückfrage 62d (trotz 62c-Entwurf zusammenführen, Empf. ja).
+- **13e Höhle** (von Jerry, 13y ja): Zweig `claude/jerry-13e-hoehle-diagonal` (Worktree `../hoehle`), `main` drin; heute Lagerfeuer (aus dem Wald), Knochen im Maßstab, Weiher als Wasser (Risse/Kiesel weg, Spiegelungsfehler `bank*2.2` behoben); `MapCaveIso.draft = true`, `MapSight.finished` mit Höhle → Build 0.1.667. Rückfrage 13e auf der Seite (Bilder alt/neu). Offen: Pilze/Kristalle alte Bilder, Felsinneres vorn schwarz.
+- **Weiter:** Test 0.1.667 abwarten; nach „passt“: PR des Höhlenzweigs (nach dem von tom-17-riemen, dann Wald diagonal mit `main` zusammenführen und `MapSight.finished` um Wald ergänzen prüfen), dann alte Ansicht ausbauen (13t), dann 6l. 65.3/65.6 fertig. Entscheidungsseite: Bildbuch heißt jetzt „Beschlüsse“.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
