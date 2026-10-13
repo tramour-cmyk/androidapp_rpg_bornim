@@ -61,7 +61,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (13.10., 20:0x) – an Nachfolger
 - 0.1.702 getestet und zusammengeführt (PR #53). Sammelbuild auf `claude/tom-13t-alte-ansicht` (13t + 67a + 61b + 62s/62h + 73 Kaminrauch; enthält `claude/tom-62s-grundriss`), Prüfliste `e/t<build>.html`; nach „passt“ PR des 13t-Zweigs, zusammenführen, dann in `UMGEBUNG.md` die Schalter `TOWNDRAFT`, `OVERVIEW`, `MAPS`, `CAVEMAP`, `RAUMDINGE`, `ALTRAUM` streichen.
-- Weiter ohne Rückfrage: 73 versperrte Hütten (73a ja; Standbilder Tag/Nacht; Nutzer 19:5x „wenn er raucht, begehbar“ widerspricht 73a bei Kael, Rückfrage auf der Entscheidungsseite), 3b Garrick links vom Feuer (Standbild vorher/nachher); 62r bauen, sobald entschieden; danach 6l, 68.
+- Weiter ohne Rückfrage: 73 versperrte Hütten (73a ja; Standbilder Tag/Nacht; Nutzer 19:5x „wenn er raucht, begehbar“ widerspricht 73a bei Kael, Rückfrage auf der Entscheidungsseite), 3b Garrick links vom Feuer (Feuer `forest` 11,9, Garrick 12,9 Blick links → 10,9 Blick rechts, dazu `MapPeople`-Marke und `SafeZone`; Standbild `HELDORT=forest:8:11:U:12` zeigte weder Feuer noch Garrick, erst Kamera/Ausschnitt klären); 62r bauen, sobald entschieden; danach 6l, 68.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
