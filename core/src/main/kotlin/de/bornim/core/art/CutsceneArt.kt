@@ -3,21 +3,24 @@ package de.bornim.core.art
 import kotlin.math.abs
 import kotlin.math.exp
 import kotlin.math.floor
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
 
 /**
- * The pictures of the intro (69, draft): the traveller's arrival at Bornim by night, seen through his eyes. Painted like
- * the battle scenes ([BattleScene]): a sky with moon and stars, layered backdrops, a ground plane with depth, light only
- * from what is seen (the moon, windows, torches). Four pictures, one per text `[69.intro.1]`–`[69.intro.4]`; the fifth is black.
+ * The pictures of the cutscenes (70, draft), painted like the battle scenes ([BattleScene]): layered backdrops, a ground
+ * with depth, light only from what is seen (the moon, windows, torches, candles, the dawn).
+ * The intro (69): the traveller's arrival at Bornim by night, seen through his eyes; one picture per text
+ * `[69.intro.1]`–`[69.intro.4]`, the fifth is black. The temple (68): the sun amulet comes home, `[68.tempel.1]`–`[68.tempel.5]`.
  */
-object IntroArt {
+object CutsceneArt {
     /** Width the pictures are designed for, as the battle scenes. */
     const val W = 270
     const val H = 300
 
-    enum class Shot { ROAD, BRIDGE, SQUARE, INN }
+    enum class Shot { ROAD, BRIDGE, SQUARE, INN, TEMPLE_FULL, TEMPLE_GIVE, TEMPLE_PRAY, TEMPLE_DAWN, TEMPLE_LYRA }
 
     fun paint(shot: Shot, w: Int = W, h: Int = H): PixelImage = Painter(w, h).apply {
         when (shot) {
@@ -25,6 +28,11 @@ object IntroArt {
             Shot.BRIDGE -> bridge()
             Shot.SQUARE -> square()
             Shot.INN -> inn()
+            Shot.TEMPLE_FULL -> templeFull()
+            Shot.TEMPLE_GIVE -> templeGive()
+            Shot.TEMPLE_PRAY -> templePray()
+            Shot.TEMPLE_DAWN -> templeDawn()
+            Shot.TEMPLE_LYRA -> templeLyra()
         }
         vignette()
     }.img
@@ -392,6 +400,204 @@ object IntroArt {
                 for (x in (bx - half).toInt()..(bx + half).toInt()) set(x, y, if (abs(t - 0.2) < 0.04 || abs(t - 0.8) < 0.04) argb(0x2E3038) else mix(woodLit, wood, (x - bx + half) / (2 * half)))
             }
             grassFront(17)
+        }
+
+        // ---------------------------------------------------------- 68: the temple, the amulet comes home
+
+        /** One person, painted: [ht] tall from the feet at ([x], [base]), [robe] the clothes, lit from the side [rim] (-1 left, 1 right) by [light]. */
+        fun person(x: Double, base: Double, ht: Double, robe: Int, light: Int, rim: Int, look: Look = Look.HAIR, back: Boolean = false) {
+            val head = ht * 0.075; val sh = ht * 0.16
+            val neck = base - ht + head * 2.1
+            // robe: shoulders to the hem, widening a little
+            poly(robe, x - sh, neck + 1, x + sh, neck + 1, x + sh * 1.25, base, x - sh * 1.25, base) { px, py ->
+                val u = (px - x) / (sh * 1.25)
+                val fold = sin(px * 1.3 + py * 0.15) * 0.08
+                val lit = (u * rim).coerceIn(0.0, 1.0)
+                mix(mix(robe, dark, 0.25 - fold), light, lit * lit * 0.55)
+            }
+            // shoulders rounded
+            for (yy in (neck - 1).toInt()..(neck + sh * 0.6).toInt()) for (xx in (x - sh).toInt()..(x + sh).toInt())
+                if (((xx - x) / sh).pow(2) + ((yy - neck - sh * 0.6) / (sh * 0.8)).pow(2) < 1) set(xx, yy, mix(robe, light, ((xx - x) / sh * rim).coerceIn(0.0, 1.0) * 0.4))
+            // head
+            val hy = neck - head * 0.9
+            val skin = mix(argb(0x8A6650), dark, 0.35)
+            val hair = when (look) { Look.WHITE_BEARD -> argb(0xB8B4AC); Look.BALD -> skin; Look.HOOD -> robe; else -> argb(0x3A2A20) }
+            for (yy in (hy - head).toInt()..(hy + head).toInt()) for (xx in (x - head).toInt()..(x + head).toInt()) {
+                val q = ((xx + 0.5 - x) / head).pow(2) + ((yy + 0.5 - hy) / head).pow(2)
+                if (q >= 1) continue
+                val face = !back && (xx - x) * rim > -head * 0.2 && yy > hy - head * 0.45
+                var c = if (face || look == Look.BALD) skin else hair
+                if (look == Look.HOOD) c = robe
+                c = mix(c, light, (((xx - x) / head) * rim).coerceIn(0.0, 1.0) * 0.6)
+                set(xx, yy, c)
+            }
+            if (look == Look.WHITE_BEARD && !back) poly(argb(0xC8C4BC), x - head * 0.5, hy + head * 0.3, x + head * 0.9, hy + head * 0.3, x + head * 0.3, hy + head * 2.4)
+            if (look == Look.CIRCLET) for (xx in (x - head).toInt()..(x + head).toInt()) set(xx, (hy - head * 0.35).toInt(), mix(argb(0xE8C060), light, 0.3))
+        }
+
+        enum class Look { HAIR, HOOD, BALD, WHITE_BEARD, CIRCLET }
+
+        /** The temple's nave toward the altar: [dawn] 0 before day, 1 the first sun through the window; [candles] how many burn. */
+        fun nave(dawn: Double, candles: Int) {
+            val hz = (h * 0.62).toInt()
+            val wallL = w * 0.18; val wallR = w * 0.82; val top = h * 0.06
+            // back wall of stone blocks
+            for (y in 0 until hz) for (x in 0 until w) {
+                val bh = 9; val bw = 20; val off = (y / bh % 2) * bw / 2
+                val joint = y % bh == 0 || (x + off) % bw == 0
+                val c = mix(argb(0x2A2C34), argb(0x3A3C46), rnd((x + off) / bw, y / bh, 21) * 0.6)
+                set(x, y, if (joint) mix(c, dark, 0.5) else c)
+            }
+            // side walls in perspective
+            poly(argb(0x1A1C24), 0.0, 0.0, wallL, top + 20, wallL, hz.toDouble(), 0.0, h.toDouble())
+            poly(argb(0x1A1C24), w.toDouble(), 0.0, wallR, top + 20, wallR, hz.toDouble(), w.toDouble(), h.toDouble())
+            // pillars
+            for (side in listOf(-1, 1)) for (k in 0..1) {
+                val px = if (side < 0) wallL * (0.35 + k * 0.5) else w - wallL * (0.35 + k * 0.5)
+                val pw = 9.0 - k * 3
+                rect(px - pw, 0.0, px + pw, h * (0.9 - k * 0.12), mix(argb(0x30323C), dark, 0.2 + k * 0.1))
+                rect(px - pw, 0.0, px - pw + 2, h * (0.9 - k * 0.12), argb(0x40424E))
+            }
+            // the window above the altar, pointed, its glass grey before day and gold with the sun
+            val wx = w * 0.5; val wTop = top + 8; val wBot = hz - 70.0
+            val glass = mix(argb(0x3A4A64), argb(0xFFD890), dawn)
+            poly(glass, wx - 16, wBot, wx - 16, wTop + 22, wx, wTop, wx + 16, wTop + 22, wx + 16, wBot) { px, py ->
+                val lead = abs(px - wx) < 0.8 || ((py - wTop).toInt() % 14 == 0)
+                if (lead) argb(0x14161C) else mix(glass, Pal.WHITE, (1 - (py - wTop) / (wBot - wTop)) * 0.25 * dawn)
+            }
+            if (dawn > 0) {
+                // the beam down onto the altar, dust in it
+                for (y in wBot.toInt() until (hz + 20)) {
+                    val t = (y - wBot) / (hz + 20 - wBot)
+                    val half = 14 + t * 22; val cx = wx + t * 4
+                    for (x in (cx - half).toInt()..(cx + half).toInt()) {
+                        val e = 1 - abs(x - cx) / half
+                        blend(x, y, argb(0xFFE0A0), dawn * 0.28 * e * (1 - t * 0.4) + (if (rnd(x, y, 31) < 0.01) 0.4 * dawn else 0.0))
+                    }
+                }
+            }
+            // the sun on the wall, above the window
+            glow(wx, wTop - 2, 4.0, argb(0xE0B050), 0.3 + dawn * 0.4)
+            // floor slabs
+            for (y in hz until h) for (x in 0 until w) {
+                val d = (y - hz) / (h - hz).toDouble()
+                val sz = 3 + d * 14
+                val u = (x - w / 2.0) / (0.4 + d)
+                val joint = (y - hz) % sz.toInt().coerceAtLeast(2) == 0 || abs(u % 24) < 0.8
+                val base = mix(argb(0x34343C), argb(0x18181E), d)
+                set(x, y, if (joint) mix(base, dark, 0.5) else mix(base, argb(0x44444C), rnd((u / 24).toInt(), (y - hz) / sz.toInt().coerceAtLeast(2), 9) * 0.3))
+            }
+            // the altar: a stone block with a white cloth
+            val ax = w * 0.5; val ay = hz + 8.0
+            rect(ax - 30, ay - 26, ax + 30, ay, argb(0x3C3E48))
+            rect(ax - 30, ay - 26, ax + 30, ay - 22, argb(0x5A5C68))
+            rect(ax - 26, ay - 25, ax + 26, ay - 16, mix(argb(0xC8C0B0), dark, 0.35 - dawn * 0.25))
+            // candles on the altar and on stands
+            val spots = listOf(ax - 24 to ay - 26, ax + 24 to ay - 26, w * 0.26 to hz + 4.0, w * 0.74 to hz + 4.0, ax - 12 to ay - 26, ax + 12 to ay - 26)
+            for ((k, sp) in spots.take(candles).withIndex()) {
+                val (cx, cy) = sp
+                if (k >= 2 && k < 4) rect(cx - 1, cy, cx + 1, cy + 30, wood)
+                rect(cx - 1, cy - 6, cx + 1, cy, argb(0xD8D0C0))
+                glow(cx, cy - 8, 8.0, warmDeep, 0.25)
+                glow(cx, cy - 8, 2.5, warm, 0.8)
+                set(cx.toInt(), (cy - 8).toInt(), Pal.WHITE)
+            }
+        }
+
+        /** Rows of benches with the backs of people sitting on them, [lit] how much the dawn lights them. */
+        fun crowd(lit: Double) {
+            val hz = (h * 0.62).toInt()
+            for (row in 0 until 4) {
+                val d = 0.12 + row * 0.24
+                val y = hz + (h - hz) * d
+                val sc = 0.5 + d * 0.9
+                for (side in listOf(-1, 1)) {
+                    val x0 = w / 2.0 + side * (18 + 20 * sc); val x1 = w / 2.0 + side * (w * 0.5)
+                    // the bench back
+                    rect(min(x0, x1), y - 4 * sc, max(x0, x1), y + 2 * sc, mix(wood, dark, 0.3))
+                    var x = x0 + side * 8 * sc
+                    var k = 0
+                    while ((x - x1) * side < 0) {
+                        val robe = listOf(argb(0x4A3A2E), argb(0x3A4048), argb(0x5A4A34), argb(0x483040), argb(0x34402E))[(k + row * 3) % 5]
+                        person(x, y + 2 * sc, 44 * sc * (0.9 + rnd(k, row, 41) * 0.2), robe, argb(0xFFD8A0), 1, if (rnd(k, row, 42) < 0.3) Look.HOOD else Look.HAIR, back = true)
+                        if (lit > 0) glow(x, y - 30 * sc, 6 * sc, argb(0xFFD8A0), 0.12 * lit)
+                        x += side * (13 + rnd(k, row, 43) * 6) * sc
+                        k++
+                    }
+                }
+            }
+        }
+
+        /** The amulet: a small sun of gold, [shine] how bright it catches the light. */
+        fun amulet(x: Double, y: Double, shine: Double) {
+            glow(x, y, 3.0 + shine * 5, argb(0xFFE0A0), 0.4 + shine * 0.5)
+            for (yy in (y - 2).toInt()..(y + 2).toInt()) for (xx in (x - 2).toInt()..(x + 2).toInt()) if ((xx - x).pow(2) + (yy - y).pow(2) < 5) set(xx, yy, mix(argb(0xC89830), Pal.WHITE, shine * 0.6))
+        }
+
+        fun templeFull() {
+            nave(0.0, 6)
+            crowd(0.0)
+        }
+
+        fun templeGive() {
+            nave(0.0, 6)
+            val hz = h * 0.62
+            // closer: Aldric left with his staff, Lyra right in white, the hero's back at the right edge
+            rect(w * 0.30, hz - 70, w * 0.30 + 2, hz + 40, wood)
+            person(w * 0.36, hz + 40, 92.0, argb(0x4A3E52), warm, 1, Look.WHITE_BEARD)
+            person(w * 0.60, hz + 40, 88.0, argb(0xB8B0A0), warm, -1, Look.CIRCLET)
+            amulet(w * 0.48, hz - 12, 0.3)
+            // their hands meeting round it
+            rect(w * 0.43, hz - 13, w * 0.47, hz - 10, mix(argb(0x8A6650), warm, 0.3))
+            rect(w * 0.49, hz - 13, w * 0.54, hz - 10, mix(argb(0x8A6650), warm, 0.3))
+            person(w * 0.90, h + 20.0, 190.0, argb(0x3A2228), warm, -1, back = true)
+        }
+
+        fun templePray() {
+            nave(0.0, 2)
+            val hz = h * 0.62
+            // Lyra at the altar, her back half to us; Osric beside her holding the candle still
+            person(w * 0.50, hz + 30, 80.0, argb(0xB8B0A0), warm, -1, Look.CIRCLET, back = true)
+            person(w * 0.68, hz + 34, 84.0, argb(0x8A806A), warm, -1, Look.BALD)
+            val cx = w * 0.62; val cy = hz - 18
+            rect(cx - 1, cy, cx + 1, cy + 7, argb(0xD8D0C0))
+            glow(cx, cy - 2, 14.0, warmDeep, 0.3); glow(cx, cy - 2, 3.0, warm, 0.9)
+            set(cx.toInt(), (cy - 2).toInt(), Pal.WHITE)
+            amulet(w * 0.50, hz - 20, 0.4)
+        }
+
+        fun templeDawn() {
+            nave(1.0, 2)
+            amulet(w * 0.5, h * 0.62 - 20, 1.0)
+            crowd(1.0)
+        }
+
+        fun templeLyra() {
+            // Lyra alone at the open door, looking out into the grey of the morning
+            for (y in 0 until h) for (x in 0 until w) set(x, y, mix(argb(0x1E2028), argb(0x2A2C36), rnd(x / 20, y / 9, 51) * 0.5))
+            val dx = w * 0.30; val dw = w * 0.40; val dTop = h * 0.14; val dBot = h * 0.86
+            // outside: grey dawn over the roofs of Bornim and the hills
+            poly(argb(0x8A8C94), dx, dBot, dx, dTop + 40, dx + dw / 2, dTop, dx + dw, dTop + 40, dx + dw, dBot) { x, y ->
+                val t = (y - dTop) / (dBot - dTop)
+                val sky = mix(argb(0x7A808E), argb(0xC8B8A8), (t * 1.6).coerceIn(0.0, 1.0))
+                val hill = h * 0.56 + 6 * vnoise(x / 14.0, 3)
+                val roofs = h * 0.64 + (if ((x / 18).toInt() % 2 == 0) -6.0 else 0.0) - ((x % 18) - 9).let { abs(it) } * 0.6
+                when {
+                    y > roofs -> mix(argb(0x3A3C44), argb(0x2A2C34), (y - roofs) / 40.0)
+                    y > hill -> argb(0x5A5E68)
+                    else -> sky
+                }
+            }
+            // the door's frame
+            for ((a, b) in listOf(dx - 6 to dx, dx + dw to dx + dw + 6)) rect(a, dTop + 36, b, dBot, argb(0x14161C))
+            // Lyra in the doorway against the light, her back to us
+            person(dx + dw * 0.55, dBot, 120.0, argb(0xB8B0A0), argb(0xC8C0B8), -1, Look.CIRCLET, back = true)
+            // the floor, the door's grey light laid on it
+            for (y in dBot.toInt() until h) for (x in 0 until w) {
+                val t = (y - dBot) / (h - dBot)
+                val inBeam = abs(x - (dx + dw / 2)) < dw / 2 + t * 40
+                set(x, y, mix(argb(0x1C1C22), argb(0x5A5C64), if (inBeam) (1 - t) * 0.6 else 0.0))
+            }
         }
     }
 
