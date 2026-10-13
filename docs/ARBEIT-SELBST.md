@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | fertig | – | 13.10., 02:47 | 13.10., 06:30 | Entwürfe 61, 62, 27.6b/c, 55.1a fertig; Weck-Kette am Ende (Stufe 8), Routine 06:24 schreibt um 07:00 den Bericht | `claude/tom-55-leerlauf` |
+| Tom | läuft | 14.10., 07:00 | 13.10., 23:20 | 13.10., 23:22 | Paket 1: D1.5 Räume | `claude/tom-d1-raeume` |
 | Jerry | fertig | – | 12.10., 16:33 | 12.10., 16:59 | Pause bis Freitag (Nutzungsguthaben), Stand in ARBEIT-OFFEN.md | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
@@ -26,7 +26,7 @@ Jede Sitzung führt unten im eigenen Abschnitt zwei Listen, mit Themennummer, Re
 
 ### Feste Weck-Routinen (seit 11.10.)
 
-**Pausiert, solange keine Selbstarbeit läuft** (Nutzer 13.10.): Wer Selbstarbeit vergibt, schaltet die Routinen des eigenen Accounts wieder an (`update_trigger`, `enabled: true`), am Ende der Selbstarbeit wieder aus; nie löschen (die Repo-Einstellung von Hand ginge verloren). Tom: alle acht pausiert 13.10., 10:26.
+**Pausiert, solange keine Selbstarbeit läuft** (Nutzer 13.10.): Wer Selbstarbeit vergibt, schaltet die Routinen des eigenen Accounts wieder an (`update_trigger`, `enabled: true`), am Ende der Selbstarbeit wieder aus; nie löschen (die Repo-Einstellung von Hand ginge verloren). Tom: alle acht pausiert 13.10., 10:26; 00:24, 03:24, 06:24 wieder an 13.10., 23:2x (Selbstarbeit bis 07:00), Prompts auf diesen Text gebracht.
 
 Alle drei Stunden rund um die Uhr je Account eine Routine, die eine frische Sitzung startet: **Tom** 00:24, 03:24, 06:24, 09:24, 12:24, 15:24, 18:24, 21:24 („Tom Selbstarbeit HH:MM“), **Jerry** drei Minuten später (00:27, 03:27, … 21:27, „Jerry Selbstarbeit HH:MM“). Eine Routine arbeitet nur, wenn die eigene Zeile oben `läuft` oder `wartet auf Grenze` steht und „Bis“ noch nicht vorbei ist; sonst beendet sie sich sofort (kostet fast nichts). Der Abstand von drei Stunden sorgt dafür, dass nach jedem Zurücksetzen der Nutzungsgrenze (alle fünf Stunden) bald eine weitermacht.
 - Jede Routine braucht einmal vom Nutzer (am PC im Browser, claude.ai, Routinen): Repository `tramour-cmyk/androidapp_rpg_bornim` auswählen, Freigabe auf automatisch. Fehlt das Schreibrecht, hängt die Sitzung das Repo selbst mit `add_repo` an.
@@ -75,6 +75,13 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/ARBEIT-O
 > Weck-Sitzung Selbstarbeit für Chroniken von Bornim (Repo tramour-cmyk/androidapp_rpg_bornim), du bist **Tom** (bei Jerry: **Jerry**, „der andere“ = Tom). (1) Repo nicht da: nach /home/user/androidapp_rpg_bornim klonen; lehnt der erste Push ab („not in this session's authorized repository set“), mit add_repo anhängen (access push) und noch einmal; geht Schreiben dann nicht: kurze Nachricht mit dem Fehler, beenden. (2) `docs/ARBEIT-SELBST.md` auf `main` lesen. Eigene Zeile `läuft`, `übergeben` oder `wartet auf Grenze`, „Bis“ nicht vorbei, Paket eingetragen: nach Abschnitt „Weck-Sitzung“ weiterarbeiten. Sonst prüfen, ob die Zeile des anderen eine Vertretung verlangt (Abschnitt „Nutzungsgrenze“, 32.8); wenn nicht: sofort beenden, nichts ändern. (3) Arbeiten nach `CLAUDE.md` und `docs/ARBEIT-SELBST.md`. **Dauerlauf:** Bis „Bis“ erreicht ist, vor jedem Antwortende `send_later` (2 Minuten, an diese Sitzung: „Selbstarbeit weiter, nächster Schritt laut ARBEIT-SELBST.md“) stellen; blockiert → nächster Punkt; wird die Sitzung groß: Übergabe, Stand `übergeben`, Nachfolger mit `create_session` und diesem Text starten. Der Nutzer ist nicht da: nichts fragen, nichts auf `main` außer Notizen, Rückfragen in den Bericht.
 
 ## Tom
+
+**Paket 13.10., 23:20 bis 14.10., 07:00** (Nutzer 23:1x „Selbstarbeit ab jetzt bis morgen früh“; Zweig `claude/tom-d1-raeume`):
+1. **D1.5 Räume** (Schatten): Standbild Schänke vorher/nachher, Bodenabdunklung unter Möbeln weg, keine Punktlinie um Bodenschatten (`Sculpt.outline(solid)`). Fertig, wenn: Standbild ohne Rautenlinie, Kerntests grün, Commit, Vermerk im Prüfbericht.
+2. **D1.16 Rest ohne `WorldScreen.kt`:** Schalter `VillageDay.draft`, `MapGrade.draft`, `MapFolk.sitDraft`, `MapFlora.treeDraft`, `MapGround.cobbleDraft` (prüfen, ob false = verworfen) entfernen, Kerntests anpassen. Fertig, wenn: Kerntests und Vorschau grün, Commit.
+3. **Sammelbuild:** `git merge origin/main`, PR `claude/tom-d1-raeume` → `main` öffnen (baut nach 78d; nicht zusammenführen), Prüfliste `e/t<build>.html` und Zeile auf „Dein Zug“ (D1.4, D1.5, D1.16 sichtbar nur indirekt; 77/78d nicht prüfen). Fertig, wenn: Build grün, Link und Prüfliste stehen.
+4. **27 Wald:** Standbilder Wald bei Tag und Nacht, Lückenliste nach „Ort fertig“. Fertig, wenn: Liste in der Übergabe.
+**Reserve:** 55 Speer im Kampf (~2 m) prüfen; 5.5 Dorf Lücken prüfen; 69 Intro: Bildentwürfe (Standbilder) nach `STORY-K1.md` `[69.intro.…]`.
 
 **Vorrat für Selbstarbeit** (Reihenfolge; 23a freigegeben 11.10., 14:18; Erledigtes im Archiv, 77e):
 1. **27 Wald:** Standbilder Wald gegen Dorf bei Tag und Nacht, Lückenliste nach „Ort fertig“ (`DESIGN-ABNAHME.md`), danach Entwurf eines diagonalen Baums. Fertig, wenn: Standbilder und Liste in `ARBEIT-OFFEN.md`.
