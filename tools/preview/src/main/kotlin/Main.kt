@@ -542,6 +542,13 @@ fun main() {
             shot("59_morwen_neu", settle = 60) { vm -> shop(vm); val g = vm.game!!; g.advance(); g.enqueue(listOf(Cmd.OpenShop(listOf("potion", "remedy"), brewing = true))); vm.refresh() }
             System.exit(0)
         }
+        if (System.getenv("HAENDLER") == "alle") {
+            // 59e: selling all of a supply, then the safety question after "Sell"
+            de.bornim.game.ui.ShopLook.previewTab = 1; de.bornim.game.ui.ShopLook.previewDialog = 101
+            shot("59e_verkauf_alle", settle = 60) { vm -> shop(vm) }
+            shot("59e_verkauf_alle_frage", settle = 60, taps = (System.getenv("TAPY") ?: "1530").let { listOf(Offset(774f, it.toFloat())) }) { vm -> shop(vm) }
+            System.exit(0)
+        }
         val looks = System.getenv("HAENDLER").let { if (it == "neu") listOf(true) else listOf(false, true) }
         for (draft in looks) {
             de.bornim.game.ui.ShopLook.draft = draft

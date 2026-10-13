@@ -43,7 +43,7 @@ import de.bornim.game.GameViewModel
 /** 59 Händler: the shop in the look of the text box (in the game since 59d, 12.10.; preview `HAENDLER=1` shows old and new). */
 object ShopLook {
     @Volatile var draft = true
-    /** Preview only: the tab to open on (0 buy, 1 sell, 2 sell with things to buy back) and a dialog (gear index, 100 supply). */
+    /** Preview only: the tab to open on (0 buy, 1 sell, 2 sell with things to buy back) and a dialog (gear index, 100 supply, 101 sell all of a supply). */
     @Volatile var previewTab = 0
     @Volatile var previewDialog = -1
 }
@@ -91,8 +91,18 @@ private fun ShopBody(vm: GameViewModel, game: Game, stock: List<String>, brewing
             confirm = (if (buy) Ui.buy(lang) else Ui.sell(lang)) + " · " + Ui.price.f(lang, price),
             cancel = cancel, confirmEnabled = !buy || game.state.gold >= price,
             onConfirm = {
-                message = if (buy) game.buyGear(g) else game.sellGear(g)
-                vm.refresh()
+                fun deal() {
+                    message = if (buy) game.buyGear(g) else game.sellGear(g)
+                    vm.refresh()
+                }
+                // 59e: selling something rare or better asks once more (switch "Safety questions" in the menu)
+                if (buy || g.rarity < Rarity.RARE || !vm.confirmations) deal()
+                else dialog = DialogSpec(
+                    title = if (de) "Wirklich verkaufen?" else "Really sell?", titleColor = rarityColor(g.rarity),
+                    confirm = Ui.sell(lang) + " · " + Ui.price.f(lang, price), cancel = cancel, onConfirm = { deal() },
+                ) {
+                    Txt(g.name(lang) + " (" + g.rarity.title(lang) + ")", size = 15.sp, bold = true, color = rarityColor(g.rarity))
+                }
             },
         ) {
             GearDetails(g, game, lang)
@@ -283,18 +293,29 @@ private fun ShopBody(vm: GameViewModel, game: Game, stock: List<String>, brewing
     androidx.compose.runtime.LaunchedEffect(Unit) {
         val d = ShopLook.previewDialog
         if (d == 100) { amount = 5; supply = stock.first() }
+        else if (d == 101) { amount = Int.MAX_VALUE; supply = game.state.inventory.keys.first { Items[it].sellable } }
         else if (d >= 0) (if (buying) game.shopGear() else game.state.bag)
             .filter { game.hero.canWear(it) && GearCompare.of(game.hero, it).verdict != null }.sortedByDescending { GearCompare.of(game.hero, it).verdict }.getOrNull(d)?.let { gearDialog(it, buying) }
     }
     supply?.let { id -> ConfirmDialog(supplyDialog(game, id, buying, amount, cancel, lang, onAmount = { amount = it }) { n ->
-        message = if (buying) game.buy(id, n) else game.sell(id, n)
-        vm.refresh()
+        fun deal() {
+            message = if (buying) game.buy(id, n) else game.sell(id, n)
+            vm.refresh()
+        }
+        // 59e: selling all of a supply asks once more (switch "Safety questions" in the menu)
+        if (buying || amount != Int.MAX_VALUE || n < 2 || !vm.confirmations) deal()
+        else dialog = DialogSpec(
+            title = if (de) "Alle verkaufen?" else "Sell all?", supply = id, titleColor = rarityColor(Items[id].rarity),
+            confirm = Ui.sell(lang) + " ×$n · " + Ui.price.f(lang, game.sellPrice(id) * n), cancel = cancel, onConfirm = { deal() },
+        ) {
+            Txt(Items[id].name(lang) + " ×$n", size = 15.sp, bold = true)
+        }
     }) { supply = null } }
     dialog?.let { ConfirmDialog(it) { dialog = null } }
     }
 }
 
-/** 59.5: a supply to buy or sell, with ×1, ×5 or all of it; the price follows the number. */
+/** 59.5: a supply to buy or sell, with ×1 or ×5, when selling also all of it (59e: buying "all" is gone); the price follows the number. */
 private fun supplyDialog(game: Game, id: String, buy: Boolean, amount: Int, cancel: String, lang: Lang, onAmount: (Int) -> Unit, onDone: (Int) -> Unit): DialogSpec {
     val de = lang == Lang.DE
     val def = Items[id]
@@ -312,9 +333,11 @@ private fun supplyDialog(game: Game, id: String, buy: Boolean, amount: Int, canc
         Spacer(Modifier.height(10.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
             Txt(if (de) "Menge" else "Amount", Modifier.width(64.dp), size = 15.sp, color = Colors.textDim)
-            listOf(1 to "×1", 5 to "×5", Int.MAX_VALUE to (if (de) "Alle" else "All")).forEach { (k, label) ->
+            (listOf(1 to "×1", 5 to "×5") + if (buy) emptyList() else listOf(Int.MAX_VALUE to (if (de) "Alle" else "All"))).forEach { (k, label) ->
                 val pick = if (k == Int.MAX_VALUE) most else k
-                PixelButton(label, Modifier.weight(1f).height(40.dp), enabled = pick in 1..most, selected = n == pick.coerceAtLeast(1) && pick <= most, size = 15.sp) { onAmount(pick) }
+                // "All" stays marked as such (it asks once more), even when it is 1 or 5
+                val on = if (amount == Int.MAX_VALUE) k == Int.MAX_VALUE else k != Int.MAX_VALUE && n == pick
+                PixelButton(label, Modifier.weight(1f).height(40.dp), enabled = pick in 1..most, selected = on, size = 15.sp) { onAmount(k) }
             }
         }
         val gold = game.state.gold
