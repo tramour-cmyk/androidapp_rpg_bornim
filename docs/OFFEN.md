@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 65**
+**Nächste freie Themennummer: 66**
 
 **Entscheidungsseite (alle Rollen, 63): https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow** · Bildbuch: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
@@ -12,6 +12,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
+| 65 | Abläufe verschlanken (Ablaufprüfung, Nutzer 13.10. alle sechs Punkte ja) | Berater; Tom (65.3, 65.6); Jerry (65.2) | `main` (Notizen) | **65.1 fertig** (CLAUDE.md 19,1→14,3 KB, Seltenes in `ABLAEUFE.md`, zwei Prüfrunden). **65.2** Weck-Routinen pausiert: Tom fertig, Jerry offen (Zeile unten). **65.3 Tom:** Entscheidungsseite einziger Eingang, Abschnitt „Rückfragen“ hier weg (6l auf die Seite), oben „Jetzt installieren: Build, Link, worauf achten“. **65.4 Berater:** jeder Text an einem Ort (Entscheidung in „Wer macht was“/Bildbuch, THEMEN nur Einwort-Stand, BERATER nur Begründung). **65.5** Sprachsitzung bespricht nur, festgehalten erst nach Commit der Textsitzung. **65.6 Tom:** einmal „Zeit für ein Release?“ bei fünf getesteten Themen unter „Unveröffentlicht“ oder sieben Tagen seit dem letzten Release, was zuerst kommt; Regel in `ABLAEUFE.md`. |
 | 13 | Diagonale Sicht | Tom | – | 13.4 auf `main` (PR #43). **13u/13w ja:** neue Orte nur diagonal, alte Ansicht eingefroren. **13v (später):** Testaufruf: Wald, Tiefer Wald, Höhle absichtlich noch gerade. **Meldung 08:43:** Tempel innen: Altar direkt vor dem Fenster, ansehen. **13s/13t ja:** 27, 13 Tempel, 42; Ziel „alte Ansicht ausgebaut“ (`KAPITEL1.md`), danach 6l. Verlauf im Archiv |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-27-4-baeume` | 5.1/5.2/5g/5h.1 auf `main`. **5m ja:** 27.4, 5.6, 5.3, 5l/5.5, 5.4, dann 27.5/27.6, je erst Standbilder. 27.4, 5.6, 5.3 (alle zwölf), 5n in PR #48. 5.4 (Pflaster-Entwurf, Fensterlicht-Fix) auf dem Zweig. **5la** Tagesablauf (Pim, Bram, Gwenna, Liska) als Entwurf auf `claude/tom-5l-leben`, Build 0.1.640 |
 | 17 | Nachschwingen: Umhang, Haare, Köcher, Riemen beim Stoppen und Drehen | Tom | – | **17a** auf `main` (PR #48, getestet 0.1.625); 58 auf `main` (PR #50). **17r** Haare/Köcher als Entwurf auf `claude/tom-17-nachschwingen` (Testreiter-Schalter), Build 0.1.639. **Riemen (13.10., 10:3x) verworfen:** Entwurf Gürteltasche/Gürtelende schwingt nach, auf Kartengröße unter Wappenrock kaum 1–2 Pixel; 17 gilt mit 17r als fertig |

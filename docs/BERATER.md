@@ -6,9 +6,9 @@ Gedächtnis der Beratungssitzung: wie das Spiel gebaut ist, was warum entschiede
 
 Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grundsätzliches lernen (eine Zeile, mit Datum und Thema).
 
-**Sitzungen** (seit 13.10. thematisch benannt, keine Nummern; Regel „Sitzungsname“ in `CLAUDE.md`): 12.10. ab 15:10 Grundsatz; 12.10. Talentliste und Fertigkeiten; 12.10. 22:13–13.10. 09:0x Händler/Oberfläche/Rollen; 13.10. 09:1x–10:0x Questlog, Karte 62c, Händler 59e, Sitzungsname, Ablaufprüfung. **Nachfolger:** „Sokrates – Abläufe verschlanken“ (startet der Nutzer)
+**Sitzungen** (seit 13.10. thematisch benannt, keine Nummern; Regel „Sitzungsname“ in `CLAUDE.md`): 12.10. ab 15:10 Grundsatz; 12.10. Talentliste und Fertigkeiten; 12.10. 22:13–13.10. 09:0x Händler/Oberfläche/Rollen; 13.10. 09:1x–10:0x Questlog, Karte 62c, Händler 59e, Sitzungsname, Ablaufprüfung; 13.10. 10:08–11:0x Ablaufprüfung entschieden (65), CLAUDE.md gekürzt, Weck-Routinen pausiert. **Nachfolger:** „Sokrates – Abläufe verschlanken“ (selbst gestartet 11:0x)
 
-**Zuletzt gelesen bis:** `4ccabb6` (13.10., 10:0x) plus dieser Commit
+**Zuletzt gelesen bis:** `7aa68af` (13.10., 11:0x) plus dieser Commit
 
 ## Ritual
 
@@ -28,7 +28,7 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 
 ## Entscheidungen mit Begründung
 
-- **Nächster Punkt: Ablaufprüfung entscheiden** (13.10., 09:5x, Nutzer will in neuer Sitzung entscheiden). Befund und Empfehlungen (alle „ja“): (1) Entscheidungsseite 63 einziger Eingang für Tom/Jerry/Diogenes, Abschnitt „Rückfragen“ in OFFEN weg (6l auf die Seite), oben „Jetzt installieren: Build, Link, worauf achten“; (2) Sprachsitzung bespricht nur, festgehalten erst nach Commit der Textsitzung (sie meldete zweimal Nichtvorhandenes); (3) Entscheidungstext nur an einem Ort („Wer macht was“ bzw. Bildbuch), THEMEN nur Einwort-Stand, BERATER nur Begründung; (4) Weck-Routinen abschalten, solange keine Selbstarbeit vergeben (16 Läufe/Tag lesen je ~35 KB, bevor sie „fertig“ sehen), sonst früher Abbruch per Stand-Zeile; (5) Startlektüre real ~71 KB (~20.000 Token, nicht 12.000): CHANGELOG nicht mehr beim Start (Teil „Unveröffentlicht“ 20 KB), STIL nur passender Abschnitt; CLAUDE.md (19 KB, in jedem Zug) auf ≤10 KB, Selten-Gebrauchtes (Neustart, Release, Weckruf, Selbstarbeit) nach `ENTWICKLUNG.md`/`SELBST.md`, erst als Entwurf. (6) Neu vom Nutzer: Release-Anstoß – Tom meldet einmal „Zeit für ein Release?“, wenn „Unveröffentlicht“ z. B. mehr als fünf getestete Themen hat oder eine Woche alt ist (Vorschlag, noch nicht bestätigt).
+- **Ablaufprüfung entschieden (65, 13.10., 10:1x–11:0x):** alle sechs Punkte ja, einzeln vom Nutzer. Stand und Wer in `OFFEN.md` Thema 65. **Nächster Punkt für mich: 65.4** (jeder Text an einem Ort), dann 65.3/65.6 bei Tom nachsehen. Begründungen: CLAUDE.md lesen nur wir Sitzungen, darum knapp für uns statt für Menschen (Nutzer); Auslagern nur, wenn der Anlass selten und eindeutig ist und der Auslöser als Zeile in CLAUDE.md bleibt; Ziel ≤10 KB aufgegeben (mehr ginge nur mit Verlust), oberster Grundsatz des Nutzers: nichts Aufgabenrelevantes verlieren. Weck-Routinen pausieren statt löschen, weil die Repo-Einstellung von Hand gesetzt ist; Release-Schwelle fünf Themen oder sieben Tage.
 - **Sprachausgabe** (Nutzer 13.10.): im gesprochenen Dialog keine Ansage „Sokrates [Datum, Uhrzeit]“; beim Schreiben bleibt sie.
 - **59e, 62c, 64** (13.10., Sprachsitzung): Händler „Alle“ nur noch beim Verkaufen mit Sicherheitsabfrage; Vorrat an 38/39 gekoppelt (Nachfüllen nie nach Rast, Rast geht jederzeit). Karte erinnert statt führt: Marken nur für Entdecktes (Geber blau, Ziel gold), keine Schnellreise (eigene Grundsatzfrage). Questlog als eigenes Thema 64, Entwurf bei mir mit Nutzer. Einzelheiten in `OFFEN.md`.
 - **Sitzungsname** (13.10.): thematisch statt Nummer, für alle Rollen; Grund: Liste in der App sprechend, Reihenfolge zeigt das Datum.
@@ -65,6 +65,11 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 - **Erst prüfen, dann Kosten nennen** (48, 12.10.): Ladezeit als Kostenpunkt genannt, ohne nachzusehen; sie war keiner. Technische Behauptungen vorher kurz im Code prüfen.
 
 - **Rückfragen des Beraters** (Nutzer 13.10.): an den Nutzer immer hier im Gespräch stellen (nummeriert, mit Empfehlung), nicht über die Entscheidungsseite 63 – die ist der Eingang für fertige Fragen von Tom, Jerry und Diogenes. Erst nach der Entscheidung in die Notizen eintragen.
+
+- **Auslagern in Startlektüre spart nichts** (65, 13.10.): Was in eine Datei wandert, die beim Start ohnehin gelesen wird (`ENTWICKLUNG.md`), liegt danach genauso im Kontext. Vor einem Spar-Vorschlag prüfen, ob das Ziel überhaupt nicht gelesen wird.
+- **Gekürzte Regeln unabhängig gegenprüfen** (65): Erste Fassung verlor nichts Hartes, aber Abschwächungen („wirklich“, „taktisch“, Übergabe vor jedem Neustart). Immer zweite Prüfrunde durch einen unabhängigen Prüfer.
+- **Sprachsitzung lag wieder falsch** (13.10.): behauptete, `SELBST.md` gebe es vermutlich nicht; sie hat 16 KB. Behauptungen der Sprachsitzung vor Übernahme im Repo prüfen.
+- **Entscheidungen einzeln abwarten** (13.10.): Der Nutzer ging die Punkte einzeln durch; „ich folge deiner Empfehlung“ galt dem einen Punkt, nicht allen. Nicht vorschnell „alle freigegeben“ zusammenfassen.
 
 ## Deine Linie (der Nutzer)
 
