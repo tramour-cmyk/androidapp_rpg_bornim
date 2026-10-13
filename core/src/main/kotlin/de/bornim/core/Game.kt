@@ -179,17 +179,27 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** Where a strolling villager is right now, null for people who stand still. */
     fun walkerOf(npc: Npc): Walker? = if (!npc.moves) null else walkersHere().firstOrNull { it.npc === npc }
 
+    /** 5la: a villager who has reached their door for the night has gone in: not drawn, not met, in no one's way. */
+    fun indoors(npc: Npc): Boolean {
+        if (!VillageDay.draft || !npc.moves) return false
+        val st = VillageDay.stopAt(npc.id, state.minutes) ?: return false
+        val w = walkerOf(npc) ?: return false
+        return st.inside && w.x == st.x && w.y == st.y
+    }
+
+    private fun shown(w: Walker) = w.npc.visible(state) && !indoors(w.npc)
+
     /** The person at ([x], [y]), wherever they strolled to. */
     fun npcAt(x: Int, y: Int): Npc? = map.npcAt(x, y, state)
-        ?: walkersHere().firstOrNull { it.x == x && it.y == y && it.npc.visible(state) }?.npc
+        ?: walkersHere().firstOrNull { it.x == x && it.y == y && shown(it) }?.npc
 
     private fun updateWalkers() {
         val p = state.place
         for (w in walkersHere()) {
             // 62f: the map remembers where the hero came upon someone at one of their habits
-            if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 3 && w.npc.visible(state))
+            if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 3 && shown(w))
                 MapPeople.habitNow(w.npc.id, state.minutes, isNight, w.x, w.y)?.let { state.flags += MapPeople.seenAt(w.npc.id, it) }
-            if (now < w.nextMoveAt || !w.npc.visible(state)) continue
+            if (now < w.nextMoveAt || !shown(w)) continue
             if (w.npc.patrol.isNotEmpty()) {
                 patrol(w)
                 continue
@@ -290,7 +300,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val outdoors = map.kind == MapKind.FOREST || map.kind == MapKind.TOWN
         if (!outdoors) return
         for (w in walkersHere()) {
-            if (!w.npc.visible(state) || w.npc.look.startsWith("monster:")) continue
+            if (!shown(w) || w.npc.look.startsWith("monster:")) continue
             val t = ((now - w.movedAt).toDouble() / w.moveMs).coerceIn(0.0, 1.0)
             val x = w.fromX + (w.x - w.fromX) * t + 0.5; val y = w.fromY + (w.y - w.fromY) * t + 0.5
             val yaw = Math.toDegrees(kotlin.math.atan2((w.x - w.fromX).toDouble(), (w.y - w.fromY).toDouble()))
@@ -323,7 +333,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     /** Walkable for the hero and monsters: free of walls, people and monsters. */
     fun free(x: Int, y: Int): Boolean =
-        map.walkable(x, y, state) && roamerAt(x, y) == null && walkersHere().none { it.x == x && it.y == y && it.npc.visible(state) }
+        map.walkable(x, y, state) && roamerAt(x, y) == null && walkersHere().none { it.x == x && it.y == y && shown(it) }
 
     /** Call once after creating or loading a game. */
     fun begin() {

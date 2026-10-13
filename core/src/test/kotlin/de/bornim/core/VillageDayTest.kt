@@ -66,4 +66,28 @@ class VillageDayTest {
         }
         assertTrue(late.isEmpty(), late.joinToString("\n"))
     }
+
+    /** 5la (Nutzer 13.10., 21:1x): Pim stood outside at four in the morning; at night he is indoors, in the morning out again. */
+    @Test
+    fun pimIsInBedAtNight() {
+        VillageDay.draft = true
+        val g = game()
+        val pim = g.map.npcs.first { it.id == "pim" }
+        g.state.minutes = 19 * 60
+        var t = 1000L
+        g.update(t)
+        val seen = mutableMapOf<Int, Boolean>()
+        // from seven in the evening to noon the next day, one game minute a second
+        repeat(17 * 60 * 10) {
+            t += 100
+            g.update(t)
+            val min = g.state.minutes
+            if (min == 4 * 60 || min == 23 * 60 || min == 11 * 60) seen[min] = g.indoors(pim)
+        }
+        assertTrue(seen[23 * 60] == true, "Pim um 23 Uhr drinnen")
+        assertTrue(seen[4 * 60] == true, "Pim um 4 Uhr drinnen (im Bett)")
+        assertTrue(seen[11 * 60] == false, "Pim um 11 Uhr draußen")
+        val home = VillageDay.stopAt("pim", 4 * 60)!!
+        assertTrue(home.inside)
+    }
 }
