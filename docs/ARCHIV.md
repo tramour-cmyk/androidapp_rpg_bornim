@@ -1,5 +1,8 @@
 # Archiv
 
+### Entwurf Berater 76: Tom und Jerry schärfen, CLAUDE.md entschlacken (13.10., 20:40, noch nicht freigegeben)
+Typische Fehler von Claude als Entwickler: fertig melden ohne selbst gesehen; mehr bauen als bestellt; Kerntests mit „sieht richtig aus“ verwechseln; Bedenken verschweigen statt sagen. Prompt „Wer du bist“: Eigentümer seines Bereichs; fertig = selbst gesehen und gegen „Ort fertig“/`STIL.md` geprüft; Kleines selbst, Bedenken offen, nie Texte erfinden; Erfolgsmaß: Test des Nutzers passt beim ersten Mal. `CLAUDE.md` 16,6 KB (Rollen 3,6, Feste Regeln 9,4); etwa 4 KB nur für Tom/Jerry. Haken: nur `CLAUDE.md` bleibt in langen Sitzungen sicher im Blick, darum Schrittregeln (Zeitstempel, Kerntests, Weckruf, kein Code auf `main`) als Kurzzeile im Kern; Abläufe (Stil-Abgleich, Filmen, Testreihenfolge, Prüflisten, Neustart) und Prompt nach `docs/ENTWICKLER.md` (nur Tom/Jerry beim Start); Doppelungen straffen (65.4). Ziel etwa 10–11 KB.
+
 ### Entwurf Berater 75: Startprompt Diogenes (13.10., 20:3x, noch nicht freigegeben)
 Vorschläge 75.1 Erfolgsmaß, 75.2 kein Befund ohne Beleg und Regel, 75.3 blind zuerst mit drei Blickwinkeln, 75.4 Abdeckung und Rückfälle; 75g drei Klassen (1 Regelverstoß in einem Bereich: Zuständiger nach Grenzen in `CLAUDE.md`, Entwickler bestätigt/verwirft, kein Absegnen, nur „hoch“ geht vor; 2 grundsätzlich/Ermessen: nur Vorschlag, über Berater und Nutzer; 3 am Gerät: „Dein Zug“). Berater prüft beim Start die Verwerfquote. Prompt (soll an den Anfang von `DIOGENES.md`):
 
