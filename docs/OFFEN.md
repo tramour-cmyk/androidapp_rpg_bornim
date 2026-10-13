@@ -74,3 +74,5 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
+- **67/41 Wegweiser am Südrand** (Nutzer 13.10., 17:1x): „Auf dem Schild sollte nicht nur Süden stehen. Da müssen wir dann zusammen mit Sokrates was Schlaueres auf das Schild schreiben.“ Text mit dem Nutzer festlegen (Ziele im Süden, passend zu Kapitel 2), Tom setzt um.
+
