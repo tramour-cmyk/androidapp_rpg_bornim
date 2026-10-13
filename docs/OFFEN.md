@@ -57,11 +57,18 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Weiter (Freitag):** Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
-- **Testrückmeldung 0.1.650 (Nutzer 13.10., 08:0x):** Titel super; Schänke und Tempel gut. **60k:** „Spielstände“, „Über das Spiel“ und die Meldung zum Testmodus noch im alten Aussehen (Tom behebt). **60j:** Menüreiter als Symbole (Tasche, Karte …)? **62c:** Karte: Standort zu klein, hineinzoomen/schieben, Ortsübersicht (Dorf, Wald, Tiefer Wald, Höhle antippen → deren Karte). **5la.2:** Leute im Gang drehen sich zum Helden statt in Gehrichtung (Moonwalk, Wache im Dorf); Hinsehen kürzer.
-- **Test 0.1.650, Händler (59):** sehr schön; Anzeige „hat der Held“ gut. **59e:** Was soll „Alle“ bei Tränken? Vorschlag Vorrat je Laden (sichtbar), sonst „Alle“ weg.
+- **Testrückmeldung 0.1.650 (Nutzer 13.10., 08:0x):** Titel super; Schänke und Tempel gut. **60k:** „Spielstände“, „Über das Spiel“ und die Meldung zum Testmodus noch im alten Aussehen (Tom behebt). **60j:** Menüreiter als Symbole (Tasche, Karte …)? 62c → „Für den Berater“. **5la.2:** Leute im Gang drehen sich zum Helden statt in Gehrichtung (Moonwalk, Wache im Dorf); Hinsehen kürzer.
+- **Test 0.1.650, Händler (59):** sehr schön; Anzeige „hat der Held“ gut. 59e → „Für den Berater“.
 
 - **Tom, 0.1.653, Zweig `claude/tom-27-wald-diagonal`** (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38353849796) = Sammelbuild 0.1.650 plus Fehler 5la (Held festgesetzt, wenn jemand dicht neben ihn tritt; Kerntest), Fehler 60 (Menüreiter brechen um), 5la.2 (Moonwalk), 60k (Spielstände, Über das Spiel, Kurzmeldungen) und 13v/27.6 (Wald und Tiefer Wald fest diagonal, Rauch, Schild). Ersetzt 0.1.650/0.1.652; PR danach von diesem Zweig.
 - **Tom, 0.1.650, Sammelbuild, Zweig `claude/rpg-startup-qaae3o`** (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38350340961) (59, 60e–60i, 17r, 5la, 6g, 6f, 61a, 62a, 55.1a, 13x; alles an, Testschalter weg): Händler, Titel/Menü/Heldenerstellung/Kampf im neuen Aussehen, Dorf über den Tag, Katze in der Schänke, Farbstimmung, Spuren, Kartenreiter, Leerlauf, Tempel. Ersetzt die Einzelbuilds 0.1.632–0.1.649.
+
+## Für den Berater
+
+Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
+
+- **59e** (Test 0.1.650, Nutzer 13.10.): „Was soll „Alle“ bei Tränken? Vorschlag Vorrat je Laden (sichtbar), sonst „Alle“ weg.“ Berührt Balance, Gold, Preise (38).
+- **62c** (Test 0.1.650, Nutzer 13.10.): „Karte: Standort zu klein, hineinzoomen/schieben, Ortsübersicht (Dorf, Wald, Tiefer Wald, Höhle antippen → deren Karte).“ Größerer Umbau der Bedienung.
 
 ## Rückfragen an den Nutzer
 
