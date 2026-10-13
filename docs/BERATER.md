@@ -62,6 +62,8 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 - **Berater-Werkzeug:** Nach Push aus `../bornim-main` zeigt die Hauptkopie die eigenen Notizen als „geändert“ (gleicher Zweig, alter Index). Nie committen (dreht Änderungen zurück), sondern `git reset --hard HEAD` in der Hauptkopie; vom Nutzer freigegeben 12.10., 13:5x.
 - **Erst prüfen, dann Kosten nennen** (48, 12.10.): Ladezeit als Kostenpunkt genannt, ohne nachzusehen; sie war keiner. Technische Behauptungen vorher kurz im Code prüfen.
 
+- **Rückfragen des Beraters** (Nutzer 13.10.): an den Nutzer immer hier im Gespräch stellen (nummeriert, mit Empfehlung), nicht über die Entscheidungsseite 63 – die ist der Eingang für fertige Fragen von Tom, Jerry und Diogenes. Erst nach der Entscheidung in die Notizen eintragen.
+
 ## Deine Linie (der Nutzer)
 
 - Düster, erwachsen, glaubwürdig; nie niedlich (`STIL.md` → Richtung).
