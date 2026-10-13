@@ -2,7 +2,7 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Aufbau, Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARCHIV.md` („Aus BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 15:44–16:1x „Kapitel 2 Karte“; ab 16:16 „Kapitel 2 Storyplan“ (41m, 69a–d, 48d–f).
+**Sitzungen** (ältere im Archiv): ab 13.10. 16:16 „Kapitel 2 Storyplan“ (41m, 69a–d, 48d–f, 62p).
 
 **Nächster Punkt:** offen beim Nutzer **41n** (Bohlensteg Kultlager–Schilfrode), **41o** (Höhlen frei betretbar), **41p** (Ort im Aushang in Worten), **48d–48f** (Startwert je Spielstand, leer bleibt leer, Erzeuger-Version speichern), Rest **41m** (Kultlager, Aschfurt im Moor, nur Südstraße); alle Empfehlung ja. Danach Umfang 41j–m und Karte in den Storyplan. **68** Tempelszene: Textentwurf.
 
@@ -51,7 +51,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - **Rückfragen des Beraters** (Nutzer 13.10.) an den Nutzer immer im Gespräch stellen (nummeriert, Empfehlung), nicht über die Entscheidungsseite (die ist für Tom, Jerry, Diogenes); erst nach Entscheidung in die Notizen.
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
 - **Hauptkopie nach Push aus `../bornim-main`** zeigt Notizen als „geändert“: nie committen, `git reset --hard HEAD` (freigegeben 12.10.).
-- **Docs-Werkzeug** (41): einfache Zeilenumbrüche verschmelzen; Dialogzeilen mit Leerzeile trennen. Große Dokumente nur lesen, wenn daran gearbeitet wird.
+- **Docs-Werkzeug** (41): einfache Zeilenumbrüche verschmelzen, Dialogzeilen mit Leerzeile trennen.
 
 ## Deine Linie (der Nutzer)
 
