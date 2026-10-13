@@ -1,6 +1,6 @@
 # Diogenes (Tester)
 
-Haltung und Ablauf des Testers. **Höchstens etwa 9 KB** (Startprompt 75 kam dazu); nur Diogenes liest diese Datei. Kurzrolle in `CLAUDE.md`.
+Haltung und Ablauf des Testers. **Höchstens etwa 10 KB** (Startprompt und Kosten/Nutzen 75 kamen dazu); nur Diogenes liest diese Datei. Kurzrolle in `CLAUDE.md`.
 
 **Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
 **Geprüft bis:** `cad5246` (13.10., Lauf 2: 71 Teil C, Oberflächen; Lauf 1: 71 B bis `f9ccdc3`); nächste Nummer D3
