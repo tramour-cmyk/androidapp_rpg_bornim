@@ -761,10 +761,11 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         }
 
         // 2) shadows under characters
-        val visibleNpcs = map.npcs.filter { it.visible(state) }
+        val visibleNpcs = map.npcs.filter { it.visible(state) && !game.indoors(it) }
         // Strolling villagers slide between tiles like the hero.
         fun npcPos(npc: de.bornim.core.Npc): Pair<Int, Int> {
-            val w = game.walkerOf(npc) ?: return npc.x * T to npc.y * T
+            // 3b (Nutzer 13.10., 21:1x): Garrick keeps his tile but stands close to his fire, east of him, to warm his hands and reach the stick
+            val w = game.walkerOf(npc) ?: return npc.x * T + (if (npc.id == "garrick") T * 11 / 20 else 0) to npc.y * T
             val t = ((clock - w.movedAt).toFloat() / w.moveMs).coerceIn(0f, 1f)
             return ((w.fromX + (w.x - w.fromX) * t) * T).roundToInt() to ((w.fromY + (w.y - w.fromY) * t) * T).roundToInt()
         }
@@ -1579,16 +1580,18 @@ private fun DrawScope.drawPondLife(game: Game, map: de.bornim.core.MapDef, clock
  */
 object Fireflies {
     /** [partner]: the offset of the neighbour it sometimes answers, sharing its [period]; null for one that keeps its own time only. */
-    class Fly(private val cx: Float, private val cy: Float, private val seed: Int, private val period: Long, private val offset: Long, private val partner: Long?) {
+    class Fly(private val cx: Float, private val cy: Float, private val seed: Int, private val period: Long, private val offset: Long, private val partner: Long?,
+              private val spread: Float = 1f) {
         /** Where it is at [clock], in map pixels. */
         fun at(clock: Long): Pair<Float, Float> {
             val t = clock / 1000f
             val s = seed % 997 / 997f * 6.28f
             // drifting, with pauses: the speed itself swells and dies away
-            val pace = 0.5f + 0.5f * kotlin.math.sin(t * 0.21f + s)
-            val u = t * (0.35f + 0.25f * pace)
-            val x = cx + kotlin.math.sin(u * 0.9f + s) * 14f + kotlin.math.sin(u * 2.3f + s * 2) * 4f
-            val y = cy + kotlin.math.cos(u * 0.7f + s * 1.3f) * 9f + kotlin.math.sin(t * 0.45f + s) * 5f
+            // 4 (Nutzer 13.10., 21:1x: zu hektisch): slower, a lazy wander; the swarm's [spread] sets how far it roams
+            val pace = 0.5f + 0.5f * kotlin.math.sin(t * 0.13f + s)
+            val u = t * (0.16f + 0.12f * pace)
+            val x = cx + (kotlin.math.sin(u * 0.9f + s) * 14f + kotlin.math.sin(u * 2.3f + s * 2) * 3f) * spread
+            val y = cy + (kotlin.math.cos(u * 0.7f + s * 1.3f) * 9f) * spread + kotlin.math.sin(t * 0.25f + s) * 4f
             return x to y
         }
 
@@ -1599,10 +1602,12 @@ object Fireflies {
             val answering = p != null && Math.floorMod(hash(((clock + p) / period).toInt(), seed), 3) == 0
             val c = if (answering) clock + p!! - 650 else clock + offset
             val since = Math.floorMod(c, period)
-            val len = 520L
+            // 4 (21:1x: zu schnell an und aus): a slow swell and a long fade, each its own length
+            val len = 1300L + seed % 900
             if (since >= len) return 0f
             val u = since / len.toFloat()
-            return if (u < 0.25f) u / 0.25f else ((1 - u) / 0.75f).let { it * it }
+            val k = if (u < 0.35f) u / 0.35f else (1 - u) / 0.65f
+            return k * k * (3 - 2 * k)
         }
     }
 
@@ -1642,14 +1647,17 @@ object Fireflies {
                 centres += x to y
             }
             centres.flatMap { (x, y) ->
-                val n = 2 + hash(x, y, 89) % 4
+                // 4 (21:1x: Schwärme gleich groß): some only one or two, some a crowd, near or wide apart
+                val r = hash(x, y, 89) % 100
+                val n = when { r < 30 -> 1 + r % 2; r < 75 -> 3 + r % 3; else -> 6 + r % 4 }
+                val spread = 0.5f + (hash(x, y, 91) % 100) / 100f * (if (n > 5) 1.4f else 0.9f)
                 List(n) { k ->
                     val seed = hash(x * 31 + k, y, 90)
                     // pairs share a rhythm, so the second can answer the first
                     val lead = hash(x * 31 + k / 2 * 2, y, 90)
-                    val period = 2600L + lead % 3600
-                    Fly(x * T + T / 2f + (seed % 20 - 10), y * T + T / 2f + (seed / 20 % 16 - 8), seed,
-                        period = period, offset = (seed / 7 % 9000).toLong(), partner = if (k % 2 == 1) (lead / 7 % 9000).toLong() else null)
+                    val period = 5200L + lead % 6000
+                    Fly(x * T + T / 2f + (seed % 20 - 10) * spread, y * T + T / 2f + (seed / 20 % 16 - 8) * spread, seed,
+                        period = period, offset = (seed / 7 % 9000).toLong(), partner = if (k % 2 == 1) (lead / 7 % 9000).toLong() else null, spread = spread)
                 }
             }
         }

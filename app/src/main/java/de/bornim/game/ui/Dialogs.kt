@@ -75,6 +75,8 @@ fun ConfirmDialog(spec: DialogSpec, onDismiss: () -> Unit) {
                 Spacer(Modifier.height(8.dp))
                 Column(
                     Modifier
+                        // D2.8: on a small screen the body gives way, the buttons below stay in sight
+                        .weight(1f, fill = false)
                         .heightIn(max = 520.dp)
                         .verticalScroll(rememberScrollState())
                 ) { spec.body() }

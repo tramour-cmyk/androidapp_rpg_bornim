@@ -132,11 +132,17 @@ object Story {
             Warp(5, 20, inside("elder", 6)),
             Warp(28, 20, inside("temple", 7)),
             // Homes of villagers: locked for now.
-            lockedDoor(12, 5, T("Hier wohnt Bäcker Edrik. Es duftet nach frischem Brot, aber die Tür ist verschlossen.", "Edrik the baker lives here. It smells of fresh bread, but the door is locked.")),
-            lockedDoor(23, 5, T("Die Hütte des alten Kael. Niemand öffnet.", "Old Kael's hut. Nobody answers.")),
-            lockedDoor(5, 14, T("Hier wohnt Gwenna mit ihrer Familie. Die Tür ist verschlossen.", "Gwenna lives here with her family. The door is locked.")),
-            lockedDoor(30, 13, T("Das Haus von Schmied Dorran. Er ist wohl in seiner Werkstatt.", "Dorran the smith's house. He must be at his workshop.")),
-            lockedDoor(13, 22, T("Hier wohnt Pim mit seinen Eltern. Die Tür ist verschlossen.", "Pim lives here with his parents. The door is locked.")),
+            // 73b (Nutzer 13.10., 21:05): someone answers from inside, by the story and the hour (STORY1.md [73b.…])
+            lockedDoor(12, 5) { s, _ -> if (s.has(CHAPTER1_DONE)) voice("Du hast die Goblins vertrieben? … Morgen vielleicht. Heute nicht.", "You drove off the goblins? … Tomorrow, maybe. Not today.")
+                else voice("Wer ist da? … Ich mach nicht auf. Für niemanden.", "Who's there? … I'm not opening. Not for anyone.") },
+            lockedDoor(23, 5) { _, _ -> voice("Geh weiter. Ich hab in meinem Leben genug an fremde Türen klopfen hören.", "Move along. I've heard enough knocking at strange doors in my life.") },
+            lockedDoor(5, 14) { _, night -> if (night) voice("Nicht nachts. Nicht mehr.", "Not at night. Not any more.")
+                // [41.gwenna.tuer]
+                else T("Hier wohnt Gwenna. Seit ihr Mann nicht zurückkam, bleibt die Tür verschlossen.", "Gwenna lives here. Since her husband did not come back, the door stays locked.") },
+            lockedDoor(30, 13) { _, night -> if (night) voice("Die Esse ist kalt. Komm morgen.", "The forge is cold. Come back tomorrow.")
+                else T("Das Haus von Schmied Dorran. Er ist wohl in seiner Werkstatt.", "Dorran the smith's house. He must be at his workshop.") },
+            lockedDoor(13, 22) { _, night -> if (night) voice("Pim schläft. Und du solltest um diese Zeit auch nicht draußen sein.", "Pim is asleep. And you shouldn't be out at this hour either.")
+                else voice("Pim ist nicht da. Wenn du ihn am Schlagbaum siehst, schick ihn heim.", "Pim isn't here. If you see him at the barrier, send him home.") },
         ),
         signs = mapOf(
             (21 to 2) to T("Norden: Flüsterwald.\nAchtung, Goblins!", "North: Whisperwood.\nBeware of goblins!"),
@@ -209,7 +215,11 @@ object Story {
     )
 
     /** A villager's front door that stays shut, with a line about who lives there. */
-    private fun lockedDoor(x: Int, y: Int, text: T) = Warp(x, y, Place("village", x, y + 1, Facing.DOWN), LOCKED, script { narrate(text.de, text.en); flag(MapPeople.heard(x, y)) })
+    private fun lockedDoor(x: Int, y: Int, text: (GameState, Boolean) -> T) = Warp(x, y, Place("village", x, y + 1, Facing.DOWN), LOCKED,
+        knock = { s, night -> val t = text(s, night); script { narrate(t.de, t.en); flag(MapPeople.heard(x, y)) } })
+
+    /** 73b: words from behind a shut door, in quotes. */
+    private fun voice(de: String, en: String) = T("„$de“", "\u201C$en\u201D")
 
     private fun jorinStop() = script {
         say(jorin, "Halt! Ohne Erlaubnis des Ältesten lasse ich niemanden in den Wald.", "Halt! Nobody enters the woods without the Elder's permission.")

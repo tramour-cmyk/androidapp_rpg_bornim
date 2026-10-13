@@ -88,7 +88,17 @@ class MapMarksTest {
     @Test
     fun `62g knocking at a locked door names the house`() {
         val w = World["village"].warps.first { it.x == 12 && it.y == 5 }
-        assertTrue(w.denied.any { it == Cmd.SetFlag(MapPeople.heard(12, 5)) })
+        assertTrue(w.knock!!(GameState.newGame("T", Race.HUMAN, CharClass.CLERIC), false).any { it == Cmd.SetFlag(MapPeople.heard(12, 5)) })
+    }
+
+    /** 73b (Nutzer 13.10., 21:05): from behind Pim's door his mother answers, by day and by night otherwise. */
+    @Test
+    fun `73b a voice answers from inside by the hour`() {
+        val w = World["village"].warps.first { it.x == 13 && it.y == 22 }
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.CLERIC)
+        fun said(night: Boolean) = w.knock!!(s, night).filterIsInstance<Cmd.Say>().joinToString { it.text.de }
+        assertTrue("Pim ist nicht da" in said(false))
+        assertTrue("Pim schläft" in said(true))
     }
 
     @Test

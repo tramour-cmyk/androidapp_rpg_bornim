@@ -39,7 +39,7 @@ object MapPeople {
         Folk("liska", T("Liska", "Liska"), T("Magd im Schlafenden Greif", "maid at the Sleeping Griffin"), x = 8, y = 7,
             haunts = listOf(Haunt("shop", T("vormittags bei Thessa", "at Thessa's in the morning"), listOf(1)), Haunt("wash", T("hängt Wäsche auf", "hangs out the washing"), listOf(3)))),
         Folk("garrick", T("Jäger Garrick", "Hunter Garrick"), T("Lager im Flüsterwald", "camp in the Whisperwood"), map = "forest", x = 10, y = 9),
-        Folk("morwen", T("Kräuterfrau Morwen", "Morwen the Herbalist"), T("Hütte im Tiefen Wald", "hut in the Deep Forest"), map = "deep_forest", x = 24, y = 21),
+        Folk("morwen", T("Kräuterfrau Morwen", "Morwen the Herbalist"), T("Hütte im Tiefen Wald", "hut in the Deep Whisperwood"), map = "deep_forest", x = 24, y = 21),
     )
 
     /**

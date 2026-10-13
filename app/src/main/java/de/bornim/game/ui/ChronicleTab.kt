@@ -44,7 +44,7 @@ fun ChronicleTab(game: Game, lang: Lang, onMap: (String) -> Unit) {
     var showDone by remember { mutableStateOf(false) }
     androidx.compose.runtime.LaunchedEffect(Unit) { Chronicle.markRead(s) }
     Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-        PixelButton(if (de) "Aufträge" else "Tasks", Modifier.weight(1f).height(36.dp), selected = !soFar, size = 14.sp) { soFar = false }
+        PixelButton(if (de) "Aufträge" else "Quests", Modifier.weight(1f).height(36.dp), selected = !soFar, size = 14.sp) { soFar = false }
         PixelButton(if (de) "Bisher geschehen" else "So far", Modifier.weight(1f).height(36.dp), selected = soFar, size = 14.sp) { soFar = true }
     }
     Spacer(Modifier.height(10.dp))
