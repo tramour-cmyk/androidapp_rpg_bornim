@@ -8,6 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
+- **Tom 0.1.709** (Zweig `claude/tom-13t-alte-ansicht`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38443639762/artifacts/11836254563 · Prüfliste `e/t709.html`: 13t, 62s/62h, 73 Kaminrauch, 67a, 61b. Nach „passt“: PR des 13t-Zweigs, zusammenführen. 3b (Garrick links vom Feuer) liegt auf `claude/tom-62s-grundriss`, kommt mit dem nächsten Build.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Entscheidungsseite (65.3), nicht hier.
 
@@ -60,7 +61,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (13.10., 20:0x) – an Nachfolger
-- 0.1.702 getestet und zusammengeführt (PR #53). Sammelbuild auf `claude/tom-13t-alte-ansicht` (13t + 67a + 61b + 62s/62h + 73 Kaminrauch; enthält `claude/tom-62s-grundriss`), Prüfliste `e/t<build>.html`; nach „passt“ PR des 13t-Zweigs, zusammenführen, dann in `UMGEBUNG.md` die Schalter `TOWNDRAFT`, `OVERVIEW`, `MAPS`, `CAVEMAP`, `RAUMDINGE`, `ALTRAUM` streichen.
+- 0.1.702 getestet und zusammengeführt (PR #53). Sammelbuild 0.1.709 auf `claude/tom-13t-alte-ansicht` (13t + 67a + 61b + 62s/62h + 73 Kaminrauch), Prüfliste `e/t709.html`; nach „passt“ PR des 13t-Zweigs, zusammenführen, dann in `UMGEBUNG.md` die Schalter `TOWNDRAFT`, `OVERVIEW`, `MAPS`, `CAVEMAP`, `RAUMDINGE`, `ALTRAUM` streichen.
 - Weiter ohne Rückfrage: 73 versperrte Hütten (73a ja; Standbilder Tag/Nacht; Nutzer 19:5x „wenn er raucht, begehbar“ widerspricht 73a bei Kael, Rückfrage auf der Entscheidungsseite), 3b Garrick links vom Feuer (Feuer `forest` 11,9, Garrick 12,9 Blick links → 10,9 Blick rechts, dazu `MapPeople`-Marke und `SafeZone`; Standbild `HELDORT=forest:8:11:U:12` zeigte weder Feuer noch Garrick, erst Kamera/Ausschnitt klären); 62r bauen, sobald entschieden; danach 6l, 68.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
