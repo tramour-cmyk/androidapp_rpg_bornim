@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 61** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 63** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](STIL.md) · [Umgebung](UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](SELBST.md) · [Themen](THEMEN.md): eine Zeile je Nummer · [Archiv](ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
 
@@ -38,15 +38,17 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 
 | 59 | Händler: Kauf/Verkauf im Stil des Textkastens, Übersicht, Vergleich | Tom | `claude/tom-59-haendler` | 59a–59d ja (Verlauf im Archiv): schwarzer Laden, nicht Tragbares abgedunkelt, Streifen Angelegt, Vergleich, Rückkauf, Menge. Build 0.1.632, Test steht aus |
 | 60 | Ein Aussehen für alle Oberflächen wie Textkasten/Blende (schwarz, Gold, Serife) | Tom | `claude/tom-60-aussehen` | 60a–60d ja (Verlauf im Archiv). Entwürfe Schrift, Titel, Menü, Heldenerstellung, Kampf im Testreiter „60 Aussehen“, Build 0.1.636; Rückfragen 60e–60i |
+| 61 | Spuren, die bleiben: Blut, Fußspuren, Staub (Vorrat 7) | Tom | `claude/tom-7-spuren` | Entwurf, Build 0.1.646; Rückfrage 61a |
+| 62 | Gezeichnete Karte im Menü (Vorrat 8) | Tom | `claude/tom-7-spuren` | Entwurf, Build 0.1.646; Rückfragen 62a/62b |
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
 ## Übergaben
 
 ### Tom (13.10., 03:20) – Selbstarbeit läuft
-- **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g), 0.1.643 (6f), 0.1.646 (7a/8a), je ein Testreiter-Schalter. Rückfragen auf der Entscheidungsseite (Empf. je ja).
-- **7 Spuren** und **8 Kartenansicht** fertig als Entwurf auf `claude/tom-7-spuren` (Build 0.1.646). Ursache „Fußspuren unsichtbar“: sie lagen in der Vorschau unter Busch und Bäumen; Gang verlegt, Abdrücke kräftiger, Schlamm in Räumen hell.
+- **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g), 0.1.643 (6f), 0.1.646 (61a/62a), je ein Testreiter-Schalter. Rückfragen auf der Entscheidungsseite (Empf. je ja).
+- **61 Spuren** und **62 Kartenansicht** (Vorrat 7/8) fertig als Entwurf auf `claude/tom-7-spuren` (Build 0.1.646). Ursache „Fußspuren unsichtbar“: sie lagen in der Vorschau unter Busch und Bäumen; Gang verlegt, Abdrücke kräftiger, Schlamm in Räumen hell.
 - **Weck-Kette am Ende** (03:15): diese Sitzung ist auf Stufe 8 von 8, `send_later` und `create_session` gehen nicht mehr. Weiter nur über die Routinen (06:24) oder eine neue Sitzung des Nutzers.
-- Weiter: Vorrat 9 (29 Nebenquests, nur Entwurf zur Freigabe).
+- Vorrat 9 (29) und 10 (5l) sind schon erledigt. Weiter: 27.6c Rauchfahne am Kräuterfeuer als Entwurf, dann 17 Riemen.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -62,7 +64,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Tom, 0.1.640, Zweig `claude/tom-5l-leben`** (5la, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38322497262; nach 59/60): Testreiter „5l Tagesablauf im Dorf“ an, im Dorf ein paar Minuten zusehen, Leute ansprechen, ob jemand im Weg steht.
 - **Tom, 0.1.641, Zweig `claude/tom-katze`** (6g, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38324348750; nach 59/60): Testreiter „Katze in der Schänke“ an, in der Schänke gut drei Minuten zusehen.
 - **Tom, 0.1.643, Zweig `claude/tom-6-farbstimmung`** (6f, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38326167073; nach 59/60): Testreiter „Farbstimmung je Ort“ an, Höhle, Schänke abends, Dorf in der Dämmerung ansehen.
-- **Tom, 0.1.646, Zweig `claude/tom-7-spuren`** (7a/8a, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38331553728; nach 59/60): Testreiter „Spuren“ an, Kampf gewinnen (Blut), im Regen gehen (Fußspuren), auf trockenem Weg rennen (Staub); Testreiter „8 Gezeichnete Karte“ an, Menü → Karte.
+- **Tom, 0.1.646, Zweig `claude/tom-7-spuren`** (61a/62a, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38331553728; nach 59/60): Testreiter „Spuren“ an, Kampf gewinnen (Blut), im Regen gehen (Fußspuren), auf trockenem Weg rennen (Staub); Testreiter „62 Gezeichnete Karte“ an, Menü → Karte.
 
 ## Rückfragen an den Nutzer
 
@@ -73,7 +75,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **5la** (Tom, Entscheidungsseite): Tagesablauf im Dorf, Bewohner wechseln stündlich den Platz (Empf. ja).
 - **6g** (Tom, Entscheidungsseite): Katze in der Schänke (schläft am Herd, streckt sich, wechselt den Platz) ins Spiel (Empf. ja).
 - **6f** (Tom, Entscheidungsseite): Farbstimmung je Ort und Tageszeit ins Spiel (Empf. ja).
-- **7a, 8a, 8b** (Tom, Entscheidungsseite): Spuren ins Spiel (Empf. ja); gezeichnete Karte als Menüreiter (Empf. ja); 8b Auftragszeichen auf der Karte (Empf. erst ohne).
+- **61a, 62a, 62b** (Tom, Entscheidungsseite): Spuren ins Spiel (Empf. ja); gezeichnete Karte als Menüreiter (Empf. ja); 62b Auftragszeichen auf der Karte (Empf. erst ohne).
 
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
