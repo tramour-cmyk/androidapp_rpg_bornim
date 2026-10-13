@@ -335,17 +335,20 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
                     oy = clampY(centroid.y - (centroid.y - oy) * k + pan.y)
                 } }
                 .pointerInput(marks) { detectTapGestures { at ->
-                    // 62n: with signs, tapping a house names it
+                    // 62n: with signs, tapping a house names it; 62s: a house the hero has been in opens its ground plan
                     if (MapLook.labels == 2) houses.firstOrNull { h -> kotlin.math.hypot(ox + cx(h.x) * scale - at.x, oy + cy(h.y - 2) * scale - at.y) < 20 * density }
-                        ?.let { houseTip = it; tip = null; return@detectTapGestures }
+                        ?.let { h -> h.inside?.let { onOpen(it) } ?: run { houseTip = h; tip = null }; return@detectTapGestures }
                     houseTip = null
                     // 62p: the mouth of a cave the hero has been in opens its ground plan
+                    fun near(x: Int, y: Int, r: Float) = kotlin.math.hypot(ox + cx(x) * scale - at.x, oy + cy(y) * scale - at.y) < r * density
                     map.warps.firstOrNull { w ->
-                        de.bornim.core.World.maps[w.to.map]?.let { it.kind == de.bornim.core.MapKind.CAVE && de.bornim.core.MapMarks.visited(game.state, it) } == true &&
-                            kotlin.math.hypot(ox + cx(w.x) * scale - at.x, oy + cy(w.y) * scale - at.y) < 24 * density
+                        de.bornim.core.World.maps[w.to.map]?.let { it.kind == de.bornim.core.MapKind.CAVE && de.bornim.core.MapMarks.visited(game.state, it) } == true && near(w.x, w.y, 24f)
                     }?.let { onOpen(it.to.map); return@detectTapGestures }
                     tip = marks.minByOrNull { m -> kotlin.math.hypot(ox + cx(m.x) * scale - at.x, oy + cy(m.y) * scale - at.y) }
-                        ?.takeIf { m -> kotlin.math.hypot(ox + cx(m.x) * scale - at.x, oy + cy(m.y) * scale - at.y) < 28 * density }
+                        ?.takeIf { m -> near(m.x, m.y, 28f) }
+                    // 62s: the rest of a known house (roof, walls, a door without a mark) opens its ground plan
+                    if (tip == null) houses.firstOrNull { h -> h.inside != null && (near(h.x, h.y, 24f) || near(h.x, h.y - 1, 24f) || near(h.x, h.y - 2, 24f)) }
+                        ?.let { onOpen(it.inside!!) }
                 } }
         ) {
             drawImage(bmp, dstOffset = androidx.compose.ui.unit.IntOffset(ox.toInt(), oy.toInt()),

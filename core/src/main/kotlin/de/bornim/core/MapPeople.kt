@@ -27,6 +27,7 @@ object MapPeople {
         Folk("borin", T("Borin", "Borin"), T("sitzt meist in der Schänke", "mostly sits in the inn"), inside = "inn"),
         Folk("thessa", T("Thessa", "Thessa"), T("Kramladen", "the general store"), inside = "shop"),
         Folk("osric", T("Bruder Osric", "Brother Osric"), T("Tempel", "the temple"), inside = "temple"),
+        Folk("lyra_temple", T("Schwester Lyra", "Sister Lyra"), T("Tempel", "the temple"), inside = "temple"),
         Folk("jorin", T("Wache Jorin", "Guard Jorin"), T("Wache am Schlagbaum", "guards the barrier"), x = 15, y = 3,
             haunts = listOf(Haunt("night", T("nachts am Wachfeuer", "at the watch fire at night"), night = true))),
         Folk("bram", T("Bauer Bram", "Farmer Bram"), T("Feld im Süden", "the field in the south"), x = 20, y = 29,
@@ -54,7 +55,7 @@ object MapPeople {
     }
 
     /** A house name on the map at the door ([x], [y]) of [map]. */
-    data class House(val map: String, val x: Int, val y: Int, val name: T)
+    data class House(val map: String, val x: Int, val y: Int, val name: T, val inside: String? = null)
 
     /** The flag set once the hero has knocked at a locked door and learned who lives there. */
     fun heard(x: Int, y: Int) = "heard_${x}_$y"
@@ -82,7 +83,7 @@ object MapPeople {
             val inside = World.maps[w.to.map]
             if (inside != null && inside.kind == MapKind.INTERIOR && m.kind != MapKind.INTERIOR) {
                 // older heroes who met someone living there have been inside too
-                if (s.has(been(inside.id)) || folk.any { it.inside == inside.id && s.has(MapMarks.met(it.id)) }) out += House(m.id, w.x, w.y, shortNames[inside.id] ?: inside.name)
+                if (s.has(been(inside.id)) || folk.any { it.inside == inside.id && s.has(MapMarks.met(it.id)) }) out += House(m.id, w.x, w.y, shortNames[inside.id] ?: inside.name, inside.id)
             } else homes[w.x to w.y]?.let { if (m.id == "village" && s.has(heard(w.x, w.y))) out += House(m.id, w.x, w.y, it) }
         }
         return out
@@ -98,6 +99,9 @@ object MapPeople {
             val de = (listOf("${f.name.de} – ${f.what.de}") + known.map { it.where.de }).joinToString("; ")
             val en = (listOf("${f.name.en} – ${f.what.en}") + known.map { it.where.en }).joinToString("; ")
             out += MapMarks.Mark(map, x, y, MapMarks.Kind.PERSON, false, T(de, en), f.id)
+            // 62h (Meldung 13.10., 19:3x): the ground plan of their house shows them where they stand inside
+            f.inside?.let { World.maps[it] }?.npcs?.firstOrNull { it.id == f.id }
+                ?.let { n -> out += MapMarks.Mark(f.inside, n.x, n.y, MapMarks.Kind.PERSON, false, T(de, en), f.id) }
         }
         return out.groupBy { Triple(it.map, it.x, it.y) }
             .map { (_, ms) -> ms.first().copy(label = T(ms.joinToString("\n") { it.label.de }, ms.joinToString("\n") { it.label.en })) }

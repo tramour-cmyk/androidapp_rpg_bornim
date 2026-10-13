@@ -90,4 +90,17 @@ class MapMarksTest {
         val w = World["village"].warps.first { it.x == 12 && it.y == 5 }
         assertTrue(w.denied.any { it == Cmd.SetFlag(MapPeople.heard(12, 5)) })
     }
+
+    @Test
+    fun `62h the ground plan of the temple shows Osric and Lyra where they stand, 62s its house knows the way in`() {
+        val s = state()
+        s.flags += MapMarks.met("osric"); s.flags += MapMarks.met("lyra_temple")
+        val inside = MapPeople.marks(s).filter { it.map == "temple" }
+        val temple = World["temple"]
+        assertEquals(setOf("osric", "lyra_temple"), inside.mapNotNull { it.who }.toSet())
+        for (m in inside) assertTrue(temple.npcs.any { it.id == m.who && it.x == m.x && it.y == m.y }, "${m.who} at their place")
+        // outside, both at the temple's door, one mark
+        assertEquals(1, MapPeople.marks(s).count { it.map == "village" && ("Osric" in it.label.de) && ("Lyra" in it.label.de) })
+        assertEquals("temple", MapPeople.houses(s).single { it.name.de == "Tempel" }.inside)
+    }
 }
