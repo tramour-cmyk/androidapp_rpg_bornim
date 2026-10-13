@@ -1,5 +1,12 @@
 # Archiv
 
+
+## Aus BERATER.md, 13.10., 13:1x
+
+- **Nur diagonal (13):** gerade Ansicht wirkte flach; keine doppelte Arbeit in Ansichten gegen das Ziel.
+- **Sichtbarkeit (43):** diagonal rückt der rechte Rand vor die Kamera; Wichtiges steht frei, Karten werden umgestellt statt Durchsicht überall.
+- **Sprachausgabe:** im gesprochenen Dialog keine Ansage „Sokrates [Datum]“, beim Schreiben schon.
+
 ### Tom (Übergabe) (13.10., 12:12) – vor Neustart
 - **Zweig `claude/tom-17-riemen`**, Build 0.1.662 (Jetzt installieren): Laden gut, 60j gefällt; 5la.3 passt, 55.1b Fehler (Zeile 59–62). Nach „passt“: PR, zusammenführen (Merge), Änderungshistorie „Unveröffentlicht“: 59, 60e–k, 60j, 17r, 5la, 5la.2, 5la.3, 6g, 6f, 61a, 62a, 62c, 59e, 55.1a, 55.1b, 13x, 13v/27.6. Rückfrage 62d (trotz 62c-Entwurf zusammenführen, Empf. ja).
 - **13e Höhle** (von Jerry, 13y ja): Zweig `claude/jerry-13e-hoehle-diagonal` (Worktree `../hoehle`), `main` drin; heute Lagerfeuer (aus dem Wald), Knochen im Maßstab, Weiher als Wasser (Risse/Kiesel weg, Spiegelungsfehler `bank*2.2` behoben); `MapCaveIso.draft = true`, `MapSight.finished` mit Höhle → Build 0.1.667. Rückfrage 13e auf der Seite (Bilder alt/neu). Offen: Pilze/Kristalle alte Bilder, Felsinneres vorn schwarz.
