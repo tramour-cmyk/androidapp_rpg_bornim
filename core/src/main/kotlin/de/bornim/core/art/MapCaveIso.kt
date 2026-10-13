@@ -154,7 +154,7 @@ object MapCaveIso {
      * Whether the rock of cell ([x], [y]) is drawn no higher than about a metre (a thin wall between two rooms, or the
      * low rim towards the camera), so the hero looks over it (13e, test of 0.1.689: the room beyond a low wall stayed dark).
      */
-    fun low(map: MapDef, x: Int, y: Int): Boolean = draft && map.inside(x, y) && rockCell(map, x, y) && capCell(map, x, y) <= MID
+    fun low(map: MapDef, x: Int, y: Int): Boolean = map.inside(x, y) && rockCell(map, x, y) && capCell(map, x, y) <= MID
 
     /** The cap between the cells' middles, blended over the rock cells only (the floor has none). */
     private fun capAt(map: MapDef, gi: Double, gj: Double, caps: HashMap<Long, Double>): Double {
