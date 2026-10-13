@@ -1,5 +1,30 @@
 # Archiv
 
+### Aus STORY-REGELN.md, 77e, 13.10., 22:47
+Freigegebene Spieltexte (Thema 41), festgelegt von Nutzer und Berater. Hier nur Regeln und Verzeichnis; die Texte stehen in Teildateien. Wer an einem Text baut, öffnet nur die passende Teildatei, am besten gezielt über die Marke (`grep -n "\[67\." docs/STORY-K1.md`).
+- **Wortgetreu übernehmen.** Englisch übersetzen Tom und Jerry beim Bauen selbst. Fehlt oder passt ein Text nicht: Vorschlag in `ARBEIT-OFFEN.md` unter 41, nicht selbst erfinden. Tippfehler und Zeichensetzung direkt korrigieren (Commit beginnt mit „Text:“).
+- **Gruppen je Kapitel** (77d, Nutzer 13.10.): **K1-H** Hauptquest, **K1-N** Nebenquests, **K1-Z** Zwischensequenzen, **K1-W** Welt (Chronik, Hörensagen, Stimmen hinter Türen); Kapitel 2 entsprechend K2-H usw. Die Marken `[Thema.kurz]` bleiben unverändert. Gliederung von `STORY-K1.md` folgt mit 77e.
+- **Teilung:** je Kapitel eine Datei. Wird eine größer als etwa 15 KB, nach Ort oder Quest teilen (`STORY-K2-hoehle.md`) und hier eintragen.
+| `STORY-K1.md` | Kapitel 1: Intro (69), Tempelszene (68), Chronik „Bisher geschehen“ (64d), Hörensagen (62i), geänderte Dialogzeilen (41), Stimmen hinter Türen (73b), Südrand (67) | freigegeben 13.10. |
+Die übrigen Texte von Kapitel 1 stehen bisher nur in `Story.kt`/`Jobs.kt`; sie kommen nach `STORY-K1.md`, wenn sie geändert werden.
+
+### Aus DESIGN-ZWISCHENBILD.md, 77e, 13.10., 22:47
+# Zwischenbildschirm (Thema 24): Design und Texte
+Oct 11, 2026 · @Ralph
+9. **Englisch.** Alle Texte im Spiel haben eine deutsche und eine englische Fassung; die Sätze unten brauchen noch die englische Übersetzung.
+## Texte: Orte
+## Texte: Kampfbeginn
+## Texte: je Gegner
+- Grak Nr. 5 passt nur, solange Lyra noch gefangen ist.
+
+### Aus STORY-K1.md, 77e, 13.10., 22:47
+Freigegeben 13.10., 16:31. Fünf gerenderte Standbilder aus Sicht des Helden, ohne Animation, je Bild ein Text in Du-Form, zusammen etwa 30–40 Sekunden. Nur beim ersten Spielstart, Antippen überspringt; später als erster Eintrag in „Bisher geschehen“ wieder ansehbar (69d). Klang (69c): leise Wind, Fluss, Grillen; Titelmusik erst beim Schwarzbild („Ancient Legend“ bleibt der Tempelszene 68 vorbehalten). Danach weckt Rowena den Helden (`[41.rowena.wach]`).
+**Entfällt (68l, Nutzer 17:42):** Nach Lyras Gespräch ist der Südrand frei; die beiden folgenden Texte werden nicht mehr gebraucht.
+`[67.nach.1]` (nach Kapitel 1, erster Versuch)
+Der Brief mit dem grauen Siegel lässt dich nicht los. Die Antwort liegt nicht im Süden.
+`[67.nach.2]` (nach Kapitel 1, ab dem zweiten Versuch)
+Die Antwort liegt nicht im Süden.
+
 ### Aus ROLLE-BERATER.md, 13.10., 22:2x
 **Sitzungen** (ältere im Archiv): 13.10. 21:41–22:02 „Entwicklerrollen und Dokumentnamen“ (78 entschieden, [Entwurf 76/77](https://claude.ai/code/artifact/62e22141-83a5-40bc-8bde-80ba05a7db76) freigegeben 21:52 und umgesetzt; Schwerpunkt ganz bei Abläufen). **Nachfolger:** „Sokrates – 77e Inhalte ordnen“ (Nutzer startet mit „Sokrates“): 77e nach der Methode unter „Nächster Punkt“ (2), Tom läuft parallel, Schnitt erst bei seinem Sitzungswechsel.
 
