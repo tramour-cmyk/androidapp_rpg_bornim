@@ -18,6 +18,9 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -279,12 +282,20 @@ fun PixelButton(
                     click()
                     onClick()
                 }
-                .padding(horizontal = 10.dp),
+                .padding(horizontal = 6.dp),
             contentAlignment = Alignment.Center,
         ) {
+            val u = label.uppercase()
+            // a word is never broken (60, test 0.1.650: „TASC HE“ in the menu tabs): smaller until it fits
+            var shrink by remember(u, size) { mutableStateOf(1f) }
             Text(
-                label.uppercase(), color = if (!enabled) Veil.dim.copy(alpha = 0.6f) else if (selected) Veil.gold else Veil.text,
-                style = TextStyle(fontFamily = Serif, fontSize = (size.value * 0.7f).coerceAtLeast(10.5f).sp * TypeLook.scale, letterSpacing = 1.2.sp, fontFeatureSettings = "lnum"), textAlign = TextAlign.Center, maxLines = 2,
+                u, color = if (!enabled) Veil.dim.copy(alpha = 0.6f) else if (selected) Veil.gold else Veil.text,
+                style = TextStyle(fontFamily = Serif, fontSize = (size.value * 0.7f).coerceAtLeast(10.5f).sp * TypeLook.scale * shrink, letterSpacing = 1.2.sp * shrink, fontFeatureSettings = "lnum"), textAlign = TextAlign.Center,
+                maxLines = if (' ' in u) 2 else 1, softWrap = ' ' in u,
+                onTextLayout = { r ->
+                    val broken = r.hasVisualOverflow || (1 until r.lineCount).any { r.getLineStart(it) in 1..u.length && u[r.getLineStart(it) - 1] != ' ' }
+                    if (broken && shrink > 0.55f) shrink *= 0.9f
+                },
             )
         }
         return

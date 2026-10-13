@@ -489,7 +489,7 @@ fun main() {
             de.bornim.game.ui.MenuLook.draft = draft
             val tag = if (draft) "neu" else "alt"
             fun open(vm: GameViewModel) { geared(vm, CharClass.FIGHTER)
-                val st = vm.game!!.state; for (it in listOf("greater_potion", "remedy", "herbs", "wolf_pelt")) st.add(it, 2); vm.menuOpen = true }
+                val st = vm.game!!.state; for (it in listOf("greater_potion", "remedy", "herbs", "wolf_pelt")) st.add(it, 2); if (System.getenv("MENUE") == "neu" && !vm.testMode) vm.toggleTestMode(); vm.menuOpen = true }
             shot("60_menue_held_$tag") { vm -> open(vm) }
             shot("60_menue_beutel_$tag", taps = listOf(Offset(410f, 95f))) { vm -> open(vm) }
             shot("60_menue_beutel_fenster_$tag", taps = listOf(Offset(410f, 95f), Offset(540f, 560f))) { vm -> open(vm) }
