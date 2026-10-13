@@ -657,12 +657,25 @@ fun main() {
             val tag = if (draft) "neu" else "alt"
             fun open(vm: GameViewModel) { geared(vm, CharClass.FIGHTER)
                 val st = vm.game!!.state; for (it in listOf("greater_potion", "remedy", "herbs", "wolf_pelt")) st.add(it, 2); if (System.getenv("MENUE") == "neu" && !vm.testMode) vm.toggleTestMode(); vm.menuOpen = true }
+            // D2.11: the tabs share the width evenly (Held, Tasche, Ausrüstung, Karte, Chronik, System, and Test only with "neu")
+            val n = if (System.getenv("MENUE") == "neu") 7 else 6
+            fun tab(i: Int) = Offset(W * (i + 0.5f) / n, 95f)
             shot("60_menue_held_$tag") { vm -> open(vm) }
-            shot("60_menue_beutel_$tag", taps = listOf(Offset(410f, 95f))) { vm -> open(vm) }
-            shot("60_menue_beutel_fenster_$tag", taps = listOf(Offset(410f, 95f), Offset(540f, 560f))) { vm -> open(vm) }
-            shot("60_menue_ausruestung_$tag", taps = listOf(Offset(680f, 95f))) { vm -> open(vm) }
-            shot("60_menue_system_$tag", taps = listOf(Offset(950f, 95f))) { vm -> open(vm) }
+            shot("60_menue_beutel_$tag", taps = listOf(tab(1))) { vm -> open(vm) }
+            shot("60_menue_beutel_fenster_$tag", taps = listOf(tab(1), Offset(540f, 340f))) { vm -> open(vm) }
+            shot("60_menue_ausruestung_$tag", taps = listOf(tab(2))) { vm -> open(vm) }
+            shot("60_menue_chronik_$tag", taps = listOf(tab(4))) { vm -> open(vm) }
+            shot("60_menue_system_$tag", taps = listOf(tab(5))) { vm -> open(vm) }
         }
+        System.exit(0)
+    }
+    // KAPITELENDE=1: D2.1/D2.2: the end of the chapter and the notice board in the look of the text box
+    if (System.getenv("KAPITELENDE") != null) {
+        de.bornim.game.ui.TypeLook.choice = 2
+        shot("d2_kapitelende") { vm -> geared(vm, CharClass.FIGHTER); val g = vm.game!!; g.enqueue(listOf(Cmd.ChapterEnd)); vm.refresh() }
+        shot("d2_anschlagbrett") { vm -> geared(vm, CharClass.FIGHTER); val g = vm.game!!; val m = de.bornim.core.World["village"]
+            val (nx, ny) = (0 until m.height).firstNotNullOf { y -> (0 until m.width).firstOrNull { x -> m.tile(x, y) == de.bornim.core.Tile.NOTICE }?.let { it to y } }
+            g.state.place = Place("village", nx, ny + 1, Facing.UP); g.interact(); vm.refresh() }
         System.exit(0)
     }
     // HELDENBAU=1: 60: the hero's making old and in the look of the text box, top and scrolled down

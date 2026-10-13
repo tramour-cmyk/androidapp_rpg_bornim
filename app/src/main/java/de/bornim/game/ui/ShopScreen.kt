@@ -151,8 +151,10 @@ private fun ShopBody(vm: GameViewModel, game: Game, stock: List<String>, brewing
     ) {
         Panel(Modifier.fillMaxWidth()) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                if (veil) VeilHead(Ui.shop(lang), Modifier.weight(1f))
-                else Txt(Ui.shop(lang), Modifier.weight(1f), size = 22.sp, bold = true)
+                // D2.12: Morwen's hut is no shop
+                val head = if (brewing) (if (de) "Morwens Hütte" else "Morwen's hut") else Ui.shop(lang)
+                if (veil) VeilHead(head, Modifier.weight(1f))
+                else Txt(head, Modifier.weight(1f), size = 22.sp, bold = true)
                 Txt("${game.state.gold} G", size = 20.sp, bold = true, color = if (veil) Veil.gold else Colors.accent)
             }
         }
@@ -367,7 +369,9 @@ private fun NoEntry(size: androidx.compose.ui.unit.Dp, modifier: Modifier = Modi
 @Composable
 private fun BrewList(game: Game, lang: Lang, onPick: (Recipe) -> Unit) {
     val de = lang == Lang.DE
-    Txt(if (de) "Morwens Rezepte" else "Morwen's recipes", size = 17.sp, bold = true)
+    // D2.12: a heading like the other parts of the shop
+    val head = if (de) "Morwens Rezepte" else "Morwen's recipes"
+    if (LocalVeil.current) VeilHead(head, Modifier.padding(top = 6.dp, bottom = 2.dp)) else Txt(head, size = 17.sp, bold = true)
     Txt(
         if (de) "Kräuter wachsen auf Blumenwiesen im Wald – einfach darüberlaufen." else "Herbs grow in the forest's flower meadows – just walk over them.",
         size = 12.sp, color = Colors.textDim,
@@ -401,6 +405,14 @@ private fun BrewList(game: Game, lang: Lang, onPick: (Recipe) -> Unit) {
 
 @Composable
 fun ChapterEndScreen(vm: GameViewModel, game: Game) {
+    // D2.1: in the look of the text box (60), black with a thin gold rim like menu and shop
+    androidx.compose.runtime.CompositionLocalProvider(LocalVeil provides true) {
+        androidx.compose.foundation.layout.Box(Modifier.fillMaxSize().background(Color.Black)) { ChapterEndBody(vm, game) }
+    }
+}
+
+@Composable
+private fun ChapterEndBody(vm: GameViewModel, game: Game) {
     vm.tick
     val lang = vm.lang
     Column(
@@ -410,7 +422,7 @@ fun ChapterEndScreen(vm: GameViewModel, game: Game) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(Modifier.height(24.dp))
-        Txt(Ui.title(lang), size = 28.sp, bold = true, color = Colors.gold, align = TextAlign.Center)
+        Txt(Ui.title(lang), size = 28.sp, bold = true, color = Veil.bright, align = TextAlign.Center)
         Spacer(Modifier.height(16.dp))
         Panel(
             Modifier

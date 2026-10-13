@@ -11,7 +11,7 @@ class GearCompare private constructor(
     val rows: List<Row>,
 ) {
     /** One line: what it is, the value now and with the piece on, and whether that is better (null: no change). */
-    class Row(val label: T, val before: String, val after: String, val better: Boolean?, val note: T? = null)
+    class Row(val label: T, val before: T, val after: T, val better: Boolean?, val note: T? = null)
 
     /** +1 better, -1 worse, 0 mixed, null nothing changes. */
     val verdict: Int?
@@ -51,8 +51,9 @@ class GearCompare private constructor(
             Affix.STUN_HIT, Affix.TENACITY, Affix.GOLD_FIND, Affix.MAGIC_FIND, Affix.XP,
         )
 
-        /** Damage as dice, or a plain number for bare fists (a die of one side). */
-        private fun dmg(d: DiceExpr) = if (d.sides == 1) "${d.count + d.bonus} (Faust)" else d.label(Lang.DE)
+        /** Damage as dice, or a plain number for bare fists (a die of one side); D2.3: in both languages. */
+        private fun dmg(d: DiceExpr) = if (d.sides == 1) T("${d.count + d.bonus} (Faust)", "${d.count + d.bonus} (fist)") else T(d.label(Lang.DE), d.label(Lang.EN))
+        private fun same(v: String) = T(v, v)
 
         private class Snap(
             val ac: Int, val attack: Int, val damage: DiceExpr, val hp: Int, val spellAttack: Int, val sp: Int,
@@ -79,7 +80,7 @@ class GearCompare private constructor(
             val limit = T("Bonus wirkt nicht: Obergrenze für dieses Kapitel erreicht", "Bonus has no effect: this chapter's limit is reached")
             fun num(label: T, x: Int, y: Int, signed: Boolean = false, note: T? = null) {
                 if (x == y && note == null) return
-                fun f(v: Int) = if (signed) Rules.signed(v) else "$v"
+                fun f(v: Int) = same(if (signed) Rules.signed(v) else "$v")
                 rows += Row(label, f(x), f(y), if (x == y) null else y > x, note)
             }
             num(T("Rüstungsklasse", "Armor Class"), a.ac, b.ac, note = if (a.ac == b.ac && capped(Affix.AC)) limit else null)
@@ -104,7 +105,7 @@ class GearCompare private constructor(
                 else num(ab.full, a.scores.getValue(ab), b.scores.getValue(ab))
             }
             // abilities whose bonus a limit swallows: one line for them all
-            if (lost.isNotEmpty()) rows += Row(T("Attribute", "Abilities"), "", "", null,
+            if (lost.isNotEmpty()) rows += Row(T("Attribute", "Abilities"), same(""), same(""), null,
                 T(lost.joinToString(", ") { it.full.de } + ": Bonus wirkt nicht, Obergrenze für dieses Kapitel erreicht",
                     lost.joinToString(", ") { it.full.en } + ": no effect, this chapter's limit is reached"))
             // everything else, with the percent sign where it is one
@@ -113,10 +114,10 @@ class GearCompare private constructor(
                 val swallowed = b.raw.getValue(af) > a.raw.getValue(af) && x == y
                 if (x == y && !swallowed) continue
                 fun f(v: Int) = when {
-                    v == 0 -> "–"
-                    af == Affix.CRIT -> "ab ${20 - v}"
-                    af.percent -> "$v %"
-                    else -> "+$v"
+                    v == 0 -> same("–")
+                    af == Affix.CRIT -> T("ab ${20 - v}", "${20 - v}+")
+                    af.percent -> same("$v %")
+                    else -> same("+$v")
                 }
                 rows += Row(af.title, f(x), f(y), if (x == y) null else y > x, if (swallowed) limit else null)
             }

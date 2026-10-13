@@ -6,7 +6,7 @@ class Recipe(val output: String, val ingredients: Map<String, Int>, val gold: In
 
     /** "2× Heilkräuter, 5 Gold". */
     fun cost(lang: Lang): String =
-        (ingredients.map { (id, n) -> "$n× ${Items[id].name(lang)}" } + (if (gold > 0) listOf("$gold Gold") else emptyList())).joinToString(", ")
+        (ingredients.map { (id, n) -> "$n× ${Items[id].name(lang)}" } + (if (gold > 0) listOf(if (lang == Lang.DE) "$gold Gold" else "$gold gold") else emptyList())).joinToString(", ")
 }
 
 object Recipes {

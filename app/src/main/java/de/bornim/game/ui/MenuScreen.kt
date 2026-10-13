@@ -835,7 +835,7 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
         PixelButton((if (vm.sfxOn) Ui.sfxOn else Ui.sfxOff)(lang), Modifier.fillMaxWidth()) { vm.toggleSfx() }
         Txt(if (lang == Lang.DE) "Blut bei Treffern" else "Blood on hits", size = 15.sp, bold = true)
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            val names = if (lang == Lang.DE) listOf("Aus", "Dezent", "Deutlich") else listOf("Off", "Subtle", "More")
+            val names = if (lang == Lang.DE) listOf("Aus", "Dezent", "Deutlich") else listOf("Off", "Subtle", "Strong")
             names.forEachIndexed { i, label -> PixelButton(label, Modifier.weight(1f), selected = vm.bloodLevel == i, size = 15.sp) { vm.changeBlood(i) } }
         }
         Txt(if (lang == Lang.DE) "Kampftempo" else "Battle pace", size = 15.sp, bold = true)

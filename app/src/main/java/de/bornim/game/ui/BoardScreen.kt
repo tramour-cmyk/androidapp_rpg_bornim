@@ -1,6 +1,7 @@
 package de.bornim.game.ui
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Game
@@ -25,6 +27,14 @@ import de.bornim.game.GameViewModel
  */
 @Composable
 fun BoardScreen(vm: GameViewModel, game: Game) {
+    // D2.2: in the look of the text box (60), black with a thin gold rim like menu and shop
+    androidx.compose.runtime.CompositionLocalProvider(LocalVeil provides true) {
+        androidx.compose.foundation.layout.Box(Modifier.fillMaxSize().background(Color.Black)) { BoardBody(vm, game) }
+    }
+}
+
+@Composable
+private fun BoardBody(vm: GameViewModel, game: Game) {
     vm.tick
     val lang = vm.lang
     val de = lang == Lang.DE
@@ -39,7 +49,7 @@ fun BoardScreen(vm: GameViewModel, game: Game) {
             .padding(10.dp)
     ) {
         Panel(Modifier.fillMaxWidth()) {
-            Txt(if (de) "Anschlagbrett" else "Notice board", size = 22.sp, bold = true)
+            Txt(if (de) "Anschlagbrett" else "Notice board", size = 22.sp, bold = true, color = Veil.gold)
         }
         Spacer(Modifier.height(8.dp))
         Column(

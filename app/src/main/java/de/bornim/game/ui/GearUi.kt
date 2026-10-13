@@ -232,8 +232,8 @@ fun GearDetails(g: Gear, game: Game, lang: Lang) {
     cmp.rows.forEach { r ->
         Row(Modifier.fillMaxWidth()) {
             Txt(r.label(lang), Modifier.weight(1.8f), size = 15.sp, maxLines = 2)
-            Txt(r.before, Modifier.weight(0.9f), size = 15.sp, color = Colors.textDim)
-            Txt(r.after, Modifier.weight(0.9f), size = 15.sp, bold = r.better != null,
+            Txt(r.before(lang), Modifier.weight(0.9f), size = 15.sp, color = Colors.textDim)
+            Txt(r.after(lang), Modifier.weight(0.9f), size = 15.sp, bold = r.better != null,
                 color = when (r.better) { true -> good; false -> Colors.accent; null -> Colors.textDim })
         }
         r.note?.let { Txt(it(lang), Modifier.padding(start = 10.dp), size = 12.sp, color = Colors.textDim) }

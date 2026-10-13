@@ -21,7 +21,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.material3.Text
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -156,7 +155,7 @@ private fun TitleColumn(vm: GameViewModel) {
             Box(Modifier.width(140.dp).height(1.dp).background(Veil.rim))
             Spacer(Modifier.height(10.dp))
             Text(Ui.subtitle(lang), color = Veil.dim, textAlign = TextAlign.Center,
-                style = TextStyle(fontFamily = Serif, fontSize = 15.sp * TypeLook.scale, fontStyle = FontStyle.Italic, letterSpacing = 0.6.sp))
+                style = TextStyle(fontFamily = Serif, fontSize = 15.sp * TypeLook.scale, letterSpacing = 0.6.sp)) // D2.7: upright, italics read badly
         } else {
             Txt(Ui.title(lang), size = 34.sp, color = Colors.gold, bold = true, align = TextAlign.Center)
             Spacer(Modifier.height(6.dp))
