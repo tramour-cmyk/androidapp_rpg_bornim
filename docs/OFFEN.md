@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom 0.1.712** (Zweig `claude/tom-73-laeden`, Build läuft): 73 Läden zu, 62r Knopf „↑ Gebietskarte/Landkarte“, 3b Garrick; Prüfliste `e/t712.html`. 0.1.709 getestet und auf `main` (PR #54).
+- **Tom 0.1.712** (Zweig `claude/tom-73-laeden`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38449304620/artifacts/11839553666 · 73 Läden zu, 62r Knopf „↑ Gebietskarte/Landkarte“, 3b Garrick; Prüfliste `e/t712.html`. 0.1.709 getestet und auf `main` (PR #54).
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -19,7 +19,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2** Weck-Routinen (Jerry, Zeile unten). Regeln in `CLAUDE.md` (65.4 ein Ort, 65.7/65.8 kein „Erledigt“); Verlauf im Archiv |
-| 13 | Diagonale Sicht | Tom | `claude/tom-73-laeden` | 13t auf `main` (PR #54). Tempelboden Steinplatten fertig (kommt mit dem nächsten Build). Offen: Tempel-Altar vor dem Fenster (Meldung 08:43, ansehen), 42; danach 6l. Verlauf im Archiv |
+| 13 | Diagonale Sicht | Tom | `claude/tom-73-laeden` | 13t auf `main` (PR #54). Tempelboden Steinplatten fertig (kommt mit dem nächsten Build). Tempel-Altar geprüft (Standbild 20:48: Fenster links und rechts, Altar frei); offen 42; danach 6l. Verlauf im Archiv |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Großteil auf `main` (PR #52: 27.4, 5.6, 5.3, 5n, 5la Tagesablauf). Offen nach **5m:** 5.4 Pflaster, 5l/5.5, dann 27.5/27.6, je erst Standbilder. Verlauf im Archiv |
 | 13e | Höhle diagonal | Tom | – | Auf `main` (getestet 0.1.702). Offen nur Diogenes-Befunde der Höhle (Jerry) |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
