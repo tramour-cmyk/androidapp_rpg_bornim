@@ -1,5 +1,12 @@
 # Archiv
 
+### Aus BERATER.md, 13.10., 16:0x (doppelt zu CLAUDE.md, 65.4)
+
+- Düster, erwachsen, glaubwürdig; nie niedlich (`STIL.md` → Richtung).
+- Erst reden, dann arbeiten; eine Rückfrage ist keine Freigabe. Keine Arbeit in Sackgassen. Vor großen optischen Änderungen Standbilder, keine Filmstreifen.
+- Was funktioniert, muss er nicht erfahren; kurze, nummerierte Rückfragen mit Empfehlung.
+- Wahl des Spielers, Optionen, individuell und lebendig (49/50). Generisches Maskulinum, nie weibliche oder gegenderte Formen.
+
 ## Aus BERATER.md, 13.10., 14:1x
 
 - **Sprachsitzung** (13.10.): reicht Aufträge herüber; nur ausführen, was der Nutzer im Gespräch freigegeben hat, dann knapp mit Commit melden. Ihre Behauptungen über Werkzeuge und Dateien im Repo prüfen (lag zweimal falsch).
