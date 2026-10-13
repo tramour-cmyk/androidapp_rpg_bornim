@@ -99,7 +99,9 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
             val tabs = Tab.entries.filter { (it != Tab.TEST || vm.testMode) && (it != Tab.MAP || de.bornim.core.art.MapSheet.draft) }
             tabs.forEach { t ->
                 val badge = if (t == Tab.HERO && game.hero.unspentPoints > 0) " ★" else ""
-                PixelButton(labels.getValue(t)(lang) + badge, Modifier.weight(1f), selected = t == tab, size = if (tabs.size > 4) 11.sp else 13.sp) { tab = t }
+                // 60j (draft): a drawn sign with a small word under it
+                if (TabLook.draft && MenuLook.draft) TabButton(TabSign.valueOf(t.name), labels.getValue(t)(lang), Modifier.weight(1f), selected = t == tab, badge = badge.isNotEmpty()) { tab = t }
+                else PixelButton(labels.getValue(t)(lang) + badge, Modifier.weight(1f), selected = t == tab, size = if (tabs.size > 4) 11.sp else 13.sp) { tab = t }
             }
         }
         Spacer(Modifier.height(8.dp))

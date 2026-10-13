@@ -514,6 +514,16 @@ fun main() {
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
         for (it in de.bornim.core.Items.all) de.bornim.core.art.SupplyArt.get(it.id)
         de.bornim.game.ui.TypeLook.choice = 2
+        // MENUE=reiter (60j, draft): the tabs as signs with a small word, beside the words alone
+        if (System.getenv("MENUE") == "reiter") {
+            for (signs in listOf(false, true)) {
+                de.bornim.game.ui.TabLook.draft = signs
+                fun open(vm: GameViewModel) { geared(vm, CharClass.FIGHTER); if (!vm.testMode) vm.toggleTestMode(); vm.game!!.hero.unspentPoints = 1; vm.menuOpen = true }
+                shot("60j_reiter_" + (if (signs) "symbol" else "wort")) { vm -> open(vm) }
+                shot("60j_reiter_beutel_" + (if (signs) "symbol" else "wort"), taps = listOf(Offset(410f, 95f))) { vm -> open(vm) }
+            }
+            System.exit(0)
+        }
         val looks = if (System.getenv("MENUE") == "neu") listOf(true) else listOf(false, true)
         for (draft in looks) {
             de.bornim.game.ui.MenuLook.draft = draft
