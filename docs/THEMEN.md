@@ -64,4 +64,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | Tom | entschieden (Alegreya, Cinzel), im Sammelbuild 0.1.650 | `OFFEN.md` |
 | 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | Tom | entschieden, im Sammelbuild 0.1.650 | `OFFEN.md` |
 | 62 | Gezeichnete Karte im Menü | Tom | entschieden (erst ohne Auftragszeichen), im Sammelbuild 0.1.650 | `OFFEN.md` |
-| 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom (ab Fr. mit Jerry) | angelegt 13.10., 09:1x | `OFFEN.md` |
+| 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom (ab Fr. mit Jerry) | angelegt 13.10., 09:06 | `OFFEN.md` |

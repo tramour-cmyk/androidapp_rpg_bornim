@@ -42,7 +42,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 60 | Ein Aussehen für alle Oberflächen wie Textkasten/Blende (schwarz, Gold, Serife) | Tom | `claude/tom-60-aussehen` | 60a–60d ja (Verlauf im Archiv). Entwürfe Schrift, Titel, Menü, Heldenerstellung, Kampf im Testreiter „60 Aussehen“, Build 0.1.636; Rückfragen 60e–60i |
 | 61 | Spuren, die bleiben: Blut, Fußspuren, Staub (Vorrat 7) | Tom | `claude/tom-7-spuren` | Entwurf, Build 0.1.646; Rückfrage 61a |
 | 62 | Gezeichnete Karte im Menü (Vorrat 8) | Tom | `claude/tom-7-spuren` | Entwurf, Build 0.1.646; Rückfragen 62a/62b |
-| 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom | `main` (Notizen) | **Angelegt 13.10., 09:1x** (Link oben), Offenes übertragen (59e, 60j, 62c, 5la.3, 6l, Test 0.1.653); Regel „Entwürfe entscheiden“ in `CLAUDE.md` angepasst; ersetzt Toms alte Seite. Offen: Freigabe für Jerry (Nutzer, Teilen) am Fr. |
+| 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom | `main` (Notizen) | **Angelegt 13.10., 09:06** (Link oben), Offenes übertragen (59e, 60j, 62c, 5la.3, 6l, Test 0.1.653); Regel „Entwürfe entscheiden“ in `CLAUDE.md` angepasst; ersetzt Toms alte Seite. Offen: Freigabe für Jerry (Nutzer, Teilen) am Fr. |
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
 
 ## Übergaben
