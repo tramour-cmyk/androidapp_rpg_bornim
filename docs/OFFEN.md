@@ -50,9 +50,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 09:5x) – neue Sitzung „Tom: 63 Erledigt 59e/62c, dann Test 0.1.653 und 62c Karte“
-- 59e/62c im Bildbuch, auf der Entscheidungsseite unter „Erledigt“. Wartet auf Test 0.1.653 (danach PR von `claude/tom-27-wald-diagonal`, zusammenführen, Änderungshistorie).
-- 59e und 62c auf Zweig `ccr-5851d275-mvpqbt` (von `claude/tom-27-wald-diagonal`), Build 0.1.655. **Weiter:** 17 Riemen, 55.1b Speer.
+### Tom (13.10., 10:2x) – Release 0.1.656, Neustart
+- Release **v0.1.656** (nur `main` bis PR #50), Änderungshistorie umbenannt. 59e/62c gebaut, Test-Build **0.1.657** (Zweig `ccr-5851d275-mvpqbt`, siehe „Zu testen“, Entscheidungsseite „Anzusehen“). Nach dem Test: PR von diesem Zweig, zusammenführen, Änderungshistorie (59, 60e–k, 17r, 5la, 5la.2, 6g, 6f, 61a, 62a, 62c, 59e, 55.1a, 13x, 13v/27.6).
+- Offen: Rückfragen 60j, 5la.3 (Entscheidungsseite). **Weiter:** 17 Riemen, 55.1b Speer.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -65,8 +65,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Testrückmeldung 0.1.650 (Nutzer 13.10., 08:0x):** Titel super; Schänke und Tempel gut. **60k:** „Spielstände“, „Über das Spiel“ und die Meldung zum Testmodus noch im alten Aussehen (Tom behebt). **60j:** Menüreiter als Symbole (Tasche, Karte …)? 62c → „Für den Berater“. **5la.2:** Leute im Gang drehen sich zum Helden statt in Gehrichtung (Moonwalk, Wache im Dorf); Hinsehen kürzer.
 - **Test 0.1.650, Händler (59):** sehr schön; Anzeige „hat der Held“ gut. 59e → „Für den Berater“.
 
-- **Tom, 0.1.655, Zweig `ccr-5851d275-mvpqbt`** (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38366786782) = 0.1.653 plus 59e (Kaufen ohne „Alle“, Verkaufs-Abfrage) und 62c (Karte gezoomt, „Orte“, Marken). Ersetzt 0.1.653; PR danach von diesem Zweig.
-- **Tom, 0.1.653, Zweig `claude/tom-27-wald-diagonal`** (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38353849796) = Sammelbuild 0.1.650 plus Fehler 5la (Held festgesetzt, wenn jemand dicht neben ihn tritt; Kerntest), Fehler 60 (Menüreiter brechen um), 5la.2 (Moonwalk), 60k (Spielstände, Über das Spiel, Kurzmeldungen) und 13v/27.6 (Wald und Tiefer Wald fest diagonal, Rauch, Schild). Ersetzt 0.1.650/0.1.652; PR danach von diesem Zweig.
+- **Tom, 0.1.657, Zweig `ccr-5851d275-mvpqbt`** (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38368244111) = 0.1.653 plus 59e (Kaufen ohne „Alle“, Verkaufs-Abfrage) und 62c (Karte gezoomt, „Orte“, Marken), über Release 0.1.656 installierbar. Ersetzt 0.1.650/0.1.653/0.1.655; nach dem Test PR von diesem Zweig.
 
 ## Für Diogenes
 
