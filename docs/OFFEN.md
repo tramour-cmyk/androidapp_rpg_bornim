@@ -63,6 +63,12 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Tom, 0.1.653, Zweig `claude/tom-27-wald-diagonal`** (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38353849796) = Sammelbuild 0.1.650 plus Fehler 5la (Held festgesetzt, wenn jemand dicht neben ihn tritt; Kerntest), Fehler 60 (Menüreiter brechen um), 5la.2 (Moonwalk), 60k (Spielstände, Über das Spiel, Kurzmeldungen) und 13v/27.6 (Wald und Tiefer Wald fest diagonal, Rauch, Schild). Ersetzt 0.1.650/0.1.652; PR danach von diesem Zweig.
 - **Tom, 0.1.650, Sammelbuild, Zweig `claude/rpg-startup-qaae3o`** (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38350340961) (59, 60e–60i, 17r, 5la, 6g, 6f, 61a, 62a, 55.1a, 13x; alles an, Testschalter weg): Händler, Titel/Menü/Heldenerstellung/Kampf im neuen Aussehen, Dorf über den Tag, Katze in der Schänke, Farbstimmung, Spuren, Kartenreiter, Leerlauf, Tempel. Ersetzt die Einzelbuilds 0.1.632–0.1.649.
 
+## Für Diogenes
+
+Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nur der Nutzer startet Diogenes; Ablauf in `docs/DIOGENES.md`).
+
+- (noch keine)
+
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
