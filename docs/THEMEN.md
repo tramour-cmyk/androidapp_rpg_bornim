@@ -13,14 +13,14 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 7 | Stopp-Punkt und Zusammenarbeit der Accounts | Tom | erledigt 10.10. (weiter in 8) | Archiv |
 | 8 | Zusammenarbeit Tom und Jerry, Notizen nur auf `main` | Jerry | erledigt 10.10. | `CLAUDE.md` |
 | 9 | Monster auf der Karte | Jerry | alle 18 Gegner auf der Karte erledigt: Wolf, Goblin, Grimmzahn (v0.1.430, v0.1.438), 9i übrige Gegner (PR #29, #33, 11.10.) | `OFFEN.md` |
-| 10 | Höhle: Flammen feiner | Jerry | Teil von 13e (36e, 12.10.) | `OFFEN.md` |
-| 11 | Höhle: Lichtstrahl am Lichtschacht | Jerry | Teil von 13e (36e, 12.10.) | `OFFEN.md` |
+| 10 | Höhle: Flammen feiner | Tom (von Jerry, 13y) | Teil von 13e (36e, 12.10.) | `OFFEN.md` |
+| 11 | Höhle: Lichtstrahl am Lichtschacht | Tom (von Jerry, 13y) | Teil von 13e (36e, 12.10.) | `OFFEN.md` |
 | 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Jerry, Tom | 12a, 12b, 12.3 erledigt (v0.1.455, v0.1.471, v0.1.483) | `OFFEN.md` |
 | 13 | Diagonale Sicht | Tom | Räume erledigt (Schänke v0.1.471; Ältester, Laden, Tempel PR #20, 11.10.); 13.4 je Ort automatisch PR #43 (12.10.); weiter in 5 | `OFFEN.md` |
 | 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für `OFFEN.md`) | Berater | erledigt 11.10. (PR #26) | `CHANGELOG.md` |
 | 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | erledigt 11.10. | Archiv |
 | 16 | Trefferstopp | Jerry | erledigt, v0.1.460 | Änderungshistorie |
-| 17 | Nachschwingen | Tom | freigegeben, offen | `OFFEN.md` |
+| 17 | Nachschwingen | Tom | 17a auf `main`, 17r in 0.1.660; Riemen verworfen | `OFFEN.md` |
 | 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | Jerry | Runde 2 auf `main` (PR #23, 11.10.); 18h, 18i offen | `OFFEN.md` |
 | 19 | Zeitablauf der Kampfbewegungen | Jerry | erledigt, v0.1.455; 19e geschlossen (36e, 12.10.) | `OFFEN.md` |
 | 20 | Uhrzeit der APK im ZIP | Tom | erledigt 11.10. (PR #21) | `OFFEN.md` |
@@ -44,11 +44,11 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 38 | Balance-Langzeitplan (`BALANCE.md`) | Berater, Jerry | ja 12.10., ≥ 7 Kapitel | `OFFEN.md` |
 | 39 | Schwierigkeitsgrad im Menü | Jerry (Menü mit Tom) | ja 12.10., nach 38 | `OFFEN.md` |
 | 40 | Lautstärke Gesamt/Musik/Effekte | Jerry | ja 12.10. | `OFFEN.md` |
-| 42 | Textkasten unten im Stil der Blenden (schwarz, Sprecher Gold) | Tom | ja 12.10., nach 13 | `OFFEN.md` |
+| 42 | Textkasten unten im Stil der Blenden (schwarz, Sprecher Gold) | Tom | fertig (PR #48; Menüs mit 60) | `CHANGELOG.md` |
 | 43 | Sichtbarkeit in der diagonalen Sicht (Wichtiges frei, Durchsicht um den Helden, Verstecktes erwünscht) | Berater (Grundsatz); Tom, Jerry | festgelegt 12.10., 12:09 | `STIL.md`, `ENTWICKLUNG.md` |
 | 44 | Leitbild als roter Faden; `STIL.md` aufgeteilt in Stil und Entwicklung | Berater | erledigt 12.10., 13:08 | `LEITBILD.md` |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | Berater mit Nutzer | gesondert besprechen | `OFFEN.md` |
-| 46 | Neustart: Nachfolgerin startet die Sitzung selbst | Tom und Jerry | ja 12.10., 13:15 | `CLAUDE.md` |
+| 46 | Neustart: Nachfolger startet die Sitzung selbst | Tom und Jerry | fertig (Regel) | `CLAUDE.md` |
 | 47 | README-Einleitung nach Leitbild | Berater | ja 12.10., 13:15 | `OFFEN.md` |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
@@ -56,4 +56,13 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 51 | Sterbehaltung des Helden (Magier) sieht komisch aus | Jerry | Meldung 12.10., offen | `OFFEN.md` |
 | 52 | Feinarbeit an den Kampfanimationen | Jerry | Nutzer 12.10., später | `OFFEN.md` |
 | 53 | Zustände (Brennend) auf Krogg prüfen | Jerry | Nutzer 12.10., wenn Zeit | `OFFEN.md` |
-| 54 | Nicht warten, von selbst weiterarbeiten | Tom und Jerry | Nutzer 12.10., offen | `OFFEN.md` |
+| 54 | Nicht warten, von selbst weiterarbeiten | Tom und Jerry | fertig (Regel, Tom bestätigt 12.10.) | `CLAUDE.md` |
+| 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | 55.2 auf `main`, 55.1a im Sammelbuild 0.1.650; 55.1b offen | `OFFEN.md` |
+| 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | Tom | neu 12.10. | `OFFEN.md` |
+| 58 | Umhang hängt beim Laufen über dem Schild | Tom | erledigt 12.10. (PR #50) | `OFFEN.md` |
+| 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf | Tom | entschieden, im Sammelbuild 0.1.650 (13.10.); 59e entschieden 13.10. | `OFFEN.md` |
+| 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | Tom | entschieden (Alegreya, Cinzel), im Sammelbuild 0.1.650 | `OFFEN.md` |
+| 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | Tom | entschieden, im Sammelbuild 0.1.650 | `OFFEN.md` |
+| 62 | Gezeichnete Karte im Menü | Tom | entschieden (erst ohne Auftragszeichen), im Sammelbuild 0.1.650; 62c (Zoom, Übersicht, Questmarken) entschieden 13.10. | `OFFEN.md` |
+| 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom (ab Fr. mit Jerry) | angelegt 13.10., 09:06 | `OFFEN.md` |
+| 64 | Questlog: Quest-Übersicht im Menü (laufend/erledigt) | Berater mit Nutzer, dann Tom | angelegt 13.10. | `OFFEN.md` |

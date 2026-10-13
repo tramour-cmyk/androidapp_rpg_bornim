@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -288,6 +289,12 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         var bedStream = 0
         var nextEvent = de.bornim.core.audio.PlaceSound.firstMs(place, rnd)
         var lastEvent: de.bornim.core.audio.Sound? = null
+        // the pond (27j): calls of the frogs on the bank and dragonflies darting close, the chorus at dusk
+        val outside = game.map.kind == MapKind.TOWN || game.map.kind == MapKind.FOREST
+        val pond = if (outside) de.bornim.core.art.PondLife.of(game.map).takeIf { it.frogs.isNotEmpty() || it.flies.isNotEmpty() } else null
+        val ear = pond?.let { de.bornim.core.audio.PondSound.Ear(it) }
+        var chorus = 0f
+        var chorusStream = 0
         try {
             while (isActive) {
                 delay(tick)
@@ -316,6 +323,19 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     }
                     nextEvent = now + de.bornim.core.audio.PlaceSound.gapMs(place, rnd)
                 }
+                if (pond != null && ear != null && de.bornim.core.art.PondLife.draft) {
+                    val hx = (p.x + 0.5f) * de.bornim.core.art.WorldArt.T; val hy = (p.y + 0.5f) * de.bornim.core.art.WorldArt.T
+                    val dusk = game.daylight < 0.55f
+                    val heard = ear.hear(clock, hx, hy, dusk, flying = game.daylight > 0.4f && !game.raining)
+                    if (calm) for ((s, v) in heard) vm.play(s, v)
+                    val want = if (calm) de.bornim.core.audio.PondSound.chorusTarget(pond, hx, hy, dusk) else 0f
+                    chorus = de.bornim.core.audio.PlaceSound.approach(chorus, want, tick)
+                    when {
+                        chorus > 0f && chorusStream == 0 -> chorusStream = vm.sfx.loop(de.bornim.core.audio.Sound.FROG_CHORUS, chorus)
+                        chorus == 0f && chorusStream != 0 -> { vm.sfx.stop(chorusStream); chorusStream = 0 }
+                        else -> vm.sfx.volume(chorusStream, chorus)
+                    }
+                }
                 if (game.map.kind == MapKind.CAVE && now >= nextDrip) {
                     if (calm) vm.play(de.bornim.core.audio.Sound.DRIP, de.bornim.core.audio.Ambience.dripVolume(fire))
                     nextDrip = now + de.bornim.core.audio.Ambience.DRIP_MIN_MS + rnd.nextLong(de.bornim.core.audio.Ambience.DRIP_SPAN_MS)
@@ -325,6 +345,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             // leaving the place: its loops die away instead of breaking off (24.8.5)
             vm.sfx.fadeOut(crackle, fire)
             vm.sfx.fadeOut(bedStream, bed)
+            vm.sfx.fadeOut(chorusStream, chorus)
         }
     }
 
@@ -736,6 +757,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             return IntOffset((cam.toScreenX(fx, fy) - dw / 2f).roundToInt(), (cam.toScreenY(fx, fy) - dh).roundToInt())
         }
 
+        // while true, [put] cuts the picture out of what is drawn below it (the lit windows behind something in front)
+        var cutting = false
         fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f, corner: Boolean = false) {
             val dw = img.width * scale / density; val dh = img.height * scale / density
             val (sx, sy) = placeOf(img, x, y, density, corner)
@@ -748,7 +771,14 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 dstSize = IntSize(dw, dh),
                 alpha = alpha,
                 filterQuality = if (density > 1 && scale % density != 0) FilterQuality.Low else FilterQuality.None,
+                blendMode = if (cutting) androidx.compose.ui.graphics.BlendMode.DstOut else DrawScope.DefaultBlendMode,
             )
+        }
+        /** Whether the picture of [o] on the screen meets the screen rectangle [box]. */
+        fun overlaps(o: WorldArt.Obj, box: androidx.compose.ui.geometry.Rect): Boolean {
+            val (sx, sy) = placeOf(o.img, o.x, o.y, o.density, o.corner)
+            val dw = o.img.width * scale / o.density; val dh = o.img.height * scale / o.density
+            return sx < box.right && sx + dw > box.left && sy < box.bottom && sy + dh > box.top
         }
 
         ground {
@@ -826,7 +856,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 
         // 3) objects and characters, sorted by their foot line
         val sprites = mutableListOf<Sprite>()
-        val glowing = mutableListOf<Pair<WorldArt.Obj, Float>>()
+        val glowing = mutableListOf<Triple<WorldArt.Obj, Float, Sprite>>()
         // a tree crown standing in front of the hero turns half see-through, so the hero is not lost behind it
         fun hides(o: WorldArt.Obj): Boolean {
             val w = o.img.width / o.density; val h = o.img.height / o.density
@@ -845,8 +875,10 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 val ox = k * (fx - fy); val oy = k / 2 * (fx + fy)
                 val px = k * (hx - hy); val py = k / 2 * (hx + hy)
                 if (!(px + 8 > ox - w / 2f && px - 8 < ox + w / 2f && py > oy - h + 6 && py - 38 < oy)) return false
-                // only when something drawn really lies over the hero's body (5.2: a well beside the hero stays solid)
-                for (dy in 0..38 step 4) for (dx in -6..6 step 6) {
+                // only when something drawn really lies over the hero's body (5.2: a well beside the hero stays solid), and
+                // over the upper body: what reaches no higher than the hips (a counter, a bench, a chest, a fence) covers
+                // only the legs and stays solid (test of 0.1.590: Thessa's counter faded away)
+                for (dy in 18..38 step 4) for (dx in -6..6 step 6) {
                     val ix = ((px + dx - (ox - w / 2f)) * o.density).toInt(); val iy = ((py - dy - (oy - h)) * o.density).toInt()
                     if (o.img.opaque(ix, iy)) return true
                 }
@@ -854,7 +886,14 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             }
             if (o.density < 2) return false
             if (o.sortY <= heroY + T) return false
-            return heroX + T - 8 > o.x && heroX + 8 < o.x + w && heroY + T > o.y && heroY - 30 < o.y + h - 6
+            if (!(heroX + T - 8 > o.x && heroX + 8 < o.x + w && heroY + T > o.y && heroY - 30 < o.y + h - 6)) return false
+            // as seen diagonally (27e.1): only what is really drawn over the hero's upper body, not a crown's empty corner
+            val hx = heroX + T / 2f; val foot = heroY + T - 4f
+            for (dy in 18..38 step 4) for (dx in -6..6 step 6) {
+                val ix = ((hx + dx - o.x) * o.density).toInt(); val iy = ((foot - dy - o.y) * o.density).toInt()
+                if (o.img.opaque(ix, iy)) return true
+            }
+            return false
         }
         // seen diagonally, the fire in a room's hearth flickers through more pictures, each standing an uneven while (13n)
         val flicker = if (diag && map.kind == MapKind.INTERIOR) de.bornim.core.art.MapRoomIso.fireFrame(clock) else 0
@@ -862,19 +901,27 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // a house cut into strips (5.1) turns see-through as a whole when any strip of it stands in front of the hero
         val hidingGroups = objs.filter { it.group != 0 && hides(it) }.mapTo(HashSet()) { it.group }
         val hiding = objs.mapTo(ArrayList()) { if (it.group != 0) it.group in hidingGroups else hides(it) }
-        // seen diagonally (43; test of 0.1.576: 0.2 too strong): together the things in front of the hero cover him
-        // to 35 %, however many stand one behind the other, and they fade softly in and out
+        // (43; test of 0.1.576: 0.2 too strong; 27e.1: 35 % too weak): together the things in front of the hero cover him
+        // to half, however many stand one behind the other, and they fade softly in and out; the same for crowns, houses
+        // and furniture, seen straight too (27e: in the deep forest three crowns one behind the other hid him wholly)
         val layers = objs.indices.filter { hiding[it] }.map { objs[it].let { o -> if (o.group != 0) -o.group.toLong() else o.x.toLong() * 100_003 + o.y } }.distinct().size
-        val clear = if (!diag) 0.45f else 1f - Math.pow(0.65, 1.0 / maxOf(1, layers)).toFloat()
+        val clear = 1f - Math.pow(0.5, 1.0 / maxOf(1, layers)).toFloat()
         SeeThrough.frame(map.id, clock)
         for ((i, o) in objs.withIndex()) {
             val a = SeeThrough.alpha(if (o.group != 0) -o.group.toLong() else o.x.toLong() * 100_003 + o.y, if (hiding[i]) clear else 1f)
-            sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f) { put(o.img, o.x, o.y, o.density, a, o.corner) }
-            if (o.glow != null) glowing += o to a
+            val sp = Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f, o) { put(o.img, o.x, o.y, o.density, a, o.corner) }
+            sprites += sp
+            if (o.glow != null) glowing += Triple(o, a, sp)
         }
         // Healing herbs on the flower meadows, swaying gently so they catch the eye.
         if (map.kind == MapKind.FOREST) for (ty in 0 until map.height) for (tx in 0 until map.width) {
             if (map.tile(tx, ty) != Tile.FLOWERS || !game.herbAt(tx, ty)) continue
+            // seen diagonally (56): a herb drawn in the slant like the other things of the woods
+            if (diag) {
+                val o = de.bornim.core.art.MapWoodIso.herbObj(tx, ty, clock)
+                sprites += Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f, o) { put(o.img, o.x, o.y, o.density, 1f, o.corner) }
+                continue
+            }
             val img = WorldArt.herb()
             val sway = if ((clock / 600 + tx + ty) % 2 == 0L) 0 else 1
             val bottom = ty * T + T - 4
@@ -972,6 +1019,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     val doing = if (near || w != null || warding != null || squat != null) null else MapFolk.doing(f, clock)
                     val homeSlot = MapFigure.slot(home)
                     val target = when {
+                        // seated at his table (55.2) he stays turned to it
+                        MapFolk.sits(f) -> home
                         warding != null && wo != null -> if (warding.faceBeast)
                             Math.toDegrees(kotlin.math.atan2((wo.beastX - npc.x).toDouble(), (wo.beastY - npc.y).toDouble())) else home
                         near -> Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))
@@ -987,7 +1036,8 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                     // otherwise, standing, the small movements everyone has: breathing, shifting weight, a glance, hands to the belt
                     val squatImg = squat?.let { if (slotNow == homeSlot) MapFolk.squatFrame(f, slotNow, it) else null }
                     val restImg = if (idleImg == null && doing == null && squat == null && !walkingNow && slotNow == MapFigure.slot(target)) {
-                        val ps = MapRest.pose(f.id.hashCode(), clock, handsFree = true, mayLook = !near)
+                        // a spear or staff on the shoulder stays there: no hands to the belt (5.3)
+                        val ps = MapRest.pose(f.id.hashCode(), clock, handsFree = f.carry == MapFigure.Carry.FREE, mayLook = !near)
                         MapFolk.restFrame(f, slotNow, ps.rest, ps.breath, ps.level)
                     } else null
                     val wardImg = warding?.let { wd ->
@@ -995,7 +1045,9 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                         torches += (nx + T / 2.0) to (ny - 12.0)
                         MapFolk.wardFrame(f, slotNow, wd.ward, wd.flicker)
                     }
-                    wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 80).toInt(), MapFigure.STEPS) else 0)
+                    // draft (55.2): Borin sits at his table, now and then drinking, eating, looking round, at chance moments
+                    val sitImg = if (MapFolk.sits(f)) MapFolk.seatFrame(f, homeSlot, MapFolk.seatPoseAt(f, clock)) else null
+                    sitImg ?: wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 80).toInt(), MapFigure.STEPS) else 0)
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
                 val dollLit = doll?.let { warmEdge(it, nx, ny) }
@@ -1065,7 +1117,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                 sprites += Sprite((my + T - 1).toFloat(), mx + T / 2f) { put(mate, mx + T / 2 - mate.width / 2, my + T - mate.height) }
             }
             val picLit = pic?.let { warmEdge(it.img, rx, ry) }
-            sprites += Sprite(foot.toFloat(), rx + T / 2f) {
+            sprites += Sprite(foot.toFloat(), rx + T / 2f, cuts = false) {
                 val sx = if (pic != null) rx + T / 2 - pic.ax / MapFigure.DENSITY else rx + T / 2 - img.width / 2
                 val sy = if (pic != null) ry + T - 3 - pic.ay / MapFigure.DENSITY else foot + 1 - img.height
                 put(WorldArt.shadow(), rx + 4, ry + 26)
@@ -1118,7 +1170,14 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             val ps = MapRest.pose(7, clock, handsFree = false, mayLook = true)
             MapFigure.restFrame(state.hero, heroSlot, ps.rest, ps.breath, ps.level)
         } else null
-        val doll = warmEdge(heroRest ?: MapFigure.frameNow(state.hero, heroSlot, walkStep), heroX, heroY)
+        // 17: just stopped, the cloak swings on forward and back
+        if (walking) HeroSwing.walkedAt = clock
+        val swingMs = clock - HeroSwing.walkedAt
+        val heroSwing = if (MapFigure.swingDraft && heroRest == null && MapFigure.cloaked(state.hero) && !walking && swingMs < MapFigure.SWING_MS) {
+            val lv = MapFigure.swingLevel(swingMs)
+            if (HeroSwing.now) MapFigure.swingFrameNow(state.hero, heroSlot, lv) else MapFigure.swingFrame(state.hero, heroSlot, lv)
+        } else null
+        val doll = warmEdge(heroRest ?: heroSwing ?: MapFigure.frameNow(state.hero, heroSlot, walkStep), heroX, heroY)
         // +0.5 so the hero is drawn after objects standing on the same row
         sprites += Sprite(heroY + T - 0.5f, heroX + T / 2f) {
             put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
@@ -1142,7 +1201,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         // spot around it, waking with the dusk like the light it throws; a small warm halo around it
         val night = MapLight.strength(map, MapLight.When.NIGHT, game.daylight).toFloat()
         if (night > 0.02f) for ((i, entry) in glowing.withIndex()) {
-            val (o, a) = entry
+            val (o, a, own) = entry
             val g = o.glow ?: continue
             val seen = when (game.fog(g.tx, g.ty)) {
                 de.bornim.core.Fog.HIDDEN -> 0f
@@ -1151,8 +1210,22 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             }
             val on = night * seen * a * (0.93f + 0.07f * kotlin.math.sin(clock / 140f + i))
             if (on <= 0.02f) continue
-            put(g.img, o.x, o.y, o.density, on, o.corner)
             val at = placeOf(o.img, o.x, o.y, o.density, o.corner)
+            // test of 5.4 (temple at night): what stands in front of the shining thing (a tree, a house, a person) hides
+            // its light, so the light is drawn in a layer of its own and what is in front cut out of it
+            val gw = o.img.width * scale / o.density; val gh = o.img.height * scale / o.density
+            val box = androidx.compose.ui.geometry.Rect(at.x.toFloat(), at.y.toFloat(), (at.x + gw).toFloat(), (at.y + gh).toFloat())
+            if (box.right < 0 || box.bottom < 0 || box.left > size.width || box.top > size.height) continue
+            val front = sprites.filter { it.cuts && it.depth > own.depth && (it.obj?.let { f -> (f.group == 0 || f.group != o.group) && overlaps(f, box) } ?: true) }
+            if (front.isEmpty()) put(g.img, o.x, o.y, o.density, on, o.corner)
+            else {
+                drawContext.canvas.saveLayer(box, androidx.compose.ui.graphics.Paint())
+                put(g.img, o.x, o.y, o.density, on, o.corner)
+                cutting = true
+                front.forEach { it.draw() }
+                cutting = false
+                drawContext.canvas.restore()
+            }
             val c = Offset(at.x + g.cx * scale / o.density.toFloat(), at.y + g.cy * scale / o.density.toFloat())
             val r = T * 0.55f * scale * (0.5f + 0.5f * g.halo)
             if (g.halo > 0f) drawCircle(
@@ -1176,6 +1249,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         val outdoors = map.kind == MapKind.TOWN || map.kind == MapKind.FOREST
         if (outdoors) {
             ground { drawCritters(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH) }
+            if (de.bornim.core.art.PondLife.draft) drawPondLife(game, map, clock, cam)
             drawRain(game, map, clock, camX, camY, scale)
         }
 
@@ -1196,7 +1270,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
 }
 
 /** Something standing on the map, drawn in order of its feet: the row ([y]) seen straight, the diagonal (x + y) seen diagonally. */
-private class Sprite(val y: Float, val x: Float, val draw: () -> Unit) {
+private class Sprite(val y: Float, val x: Float, val obj: WorldArt.Obj? = null, val cuts: Boolean = true, val draw: () -> Unit) {
     val depth: Float get() = if (MapSight.diagonal) x + y else y
 }
 
@@ -1205,6 +1279,13 @@ private object HeroTurn : Turn()
 
 /** How long the hero has stood on the same spot of the map. */
 private val HeroStill = MapFolk.Stillness()
+
+/** 17 (draft): when the hero last walked, for the cloak swinging on after a stop. */
+object HeroSwing {
+    @Volatile var walkedAt = Long.MIN_VALUE / 2
+    /** The previews: draw the swung pictures at once instead of in the background. */
+    @Volatile var now = false
+}
 
 /** How far a boss has bared its fangs at the hero, eased in and out one step of [MapFoe.LEVELS] at a time (9h). */
 private object BossMood {
@@ -1411,6 +1492,111 @@ private fun DrawScope.drawCritters(
 }
 
 /**
+ * Life at the forest pond (27.6): frogs on the bank and dragonflies over the water, upright on the
+ * screen (seen diagonally they stand on the mapped point, not lying flat), dull colours dimmed with the light.
+ */
+private fun DrawScope.drawPondLife(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam) {
+    val life = de.bornim.core.art.PondLife.of(map)
+    if (life.frogs.isEmpty() && life.flies.isEmpty()) return
+    val s = cam.scale.toFloat()
+    val day = game.daylight
+    val dim = (0.35f + 0.65f * ((day - 0.15f) / 0.5f)).coerceIn(0.35f, 1f)
+    fun tone(c: Color, a: Float = 1f) = Color(c.red * dim, c.green * dim, c.blue * dim, a)
+    fun sx(x: Float, y: Float) = cam.toScreenX((x - cam.x) * s, (y - cam.y) * s)
+    fun sy(x: Float, y: Float) = cam.toScreenY((x - cam.x) * s, (y - cam.y) * s)
+    fun dot(ox: Float, oy: Float, x: Float, y: Float, w: Float, h: Float, c: Color) =
+        drawRect(c, Offset(ox + x * s, oy + y * s), androidx.compose.ui.geometry.Size(w * s, h * s))
+    // a ring on the water, flat: twice as wide as high
+    fun ring(ox: Float, oy: Float, r: Float, a: Float) {
+        if (a <= 0.01f) return
+        drawOval(
+            Color(0xFFB8C4BC).copy(alpha = a * dim), Offset(ox - r * s, oy - r * s * 0.5f),
+            androidx.compose.ui.geometry.Size(2 * r * s, r * s), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 0.6f * s),
+        )
+    }
+    val w = size.width; val h = size.height
+    val dusk = day < 0.55f
+    for (f in life.frogs) {
+        val a = f.at(clock, cam.heroX.toFloat(), cam.heroY.toFloat(), dusk)
+        val ox = sx(a.x, a.y); val oy = sy(a.x, a.y)
+        if (ox < -40 * s || oy < -40 * s || ox > w + 40 * s || oy > h + 40 * s) continue
+        val back = tone(Color(0xFF4C5530)); val top = tone(Color(0xFF65703E)); val belly = tone(Color(0xFF9A9468))
+        val dark = tone(Color(0xFF22261A)); val eye = tone(Color(0xFFB09A48))
+        val d = if (a.faceLeft) -1f else 1f
+        // x offsets mirrored for the way it faces: dx is towards its nose
+        fun part(dx: Float, y: Float, wd: Float, ht: Float, c: Color) = dot(ox, oy, if (d > 0) dx else -dx - wd, y, wd, ht, c)
+        when (a.mood) {
+            de.bornim.core.art.PondLife.Mood.UNDER -> {
+                ring(ox, oy, 2f + a.ring * 9f, 0.55f * (1f - a.ring).coerceIn(0f, 1f))
+                ring(ox, oy, 1f + a.ring * 5f, 0.4f * (1f - a.ring * 1.4f).coerceIn(0f, 1f))
+            }
+            de.bornim.core.art.PondLife.Mood.SURFACE, de.bornim.core.art.PondLife.Mood.SWIM -> {
+                // only the eyes and the top of the head above the water, a faint wake behind
+                ring(ox, oy, 2f + (a.ring % 1f) * 5f, 0.35f * (1f - a.ring % 1f))
+                part(-1f, -1f, 3f, 1f, top)
+                part(1f, -2f, 1f, 1f, dark); part(-1f, -2f, 1f, 1f, dark)
+            }
+            else -> {
+                val lift = a.lift
+                if (lift > 0f) drawOval(Color.Black.copy(alpha = 0.18f * dim), Offset(ox - 3 * s, oy - 1 * s), androidx.compose.ui.geometry.Size(6 * s, 2 * s))
+                else drawOval(Color.Black.copy(alpha = 0.25f * dim), Offset(ox - 3.5f * s, oy - 1 * s), androidx.compose.ui.geometry.Size(7 * s, 2 * s))
+                val y0 = -lift
+                if (lift > 0f) {
+                    // stretched out in the leap: long body, hind legs trailing
+                    part(-3f, y0 - 3f, 6f, 2f, back); part(-2f, y0 - 4f, 4f, 1f, top)
+                    part(-6f, y0 - 2f, 3f, 1f, dark); part(3f, y0 - 3f, 1f, 1f, dark)
+                } else {
+                    // crouched: a low, rounded body rising to the haunch at the back, the head low and flat at the
+                    // front with the eye on top, the throat pulsing under it
+                    fun oval(dx: Float, y: Float, wd: Float, ht: Float, c: Color) = drawOval(
+                        c, Offset(ox + (if (d > 0) dx else -dx - wd) * s, oy + y * s), androidx.compose.ui.geometry.Size(wd * s, ht * s),
+                    )
+                    oval(-4.5f, -3.2f, 3.6f, 3.2f, dark) // the folded hind leg, a dark curve at the back
+                    oval(-4f, -4f, 6.5f, 3.6f, back) // body
+                    oval(-3f, -4.3f, 4f, 1.6f, top) // the light back
+                    oval(1.2f, -3.4f, 3.2f, 2.4f, back) // head
+                    oval(1.4f, -1.6f, 2.8f, 1.2f + 0.8f * a.throat.coerceIn(0f, 1.2f), belly.copy(alpha = 0.55f + 0.45f * a.throat.coerceIn(0f, 1f))) // throat
+                    oval(1.8f, -4.4f, 1.5f, 1.5f, back) // eye bump
+                    part(2.2f, -4.1f, 0.8f, 0.8f, eye); part(2.5f, -3.9f, 0.4f, 0.4f, dark)
+                    part(-0.5f, -0.6f, 0.8f, 0.8f, dark); part(2.5f, -0.6f, 0.7f, 0.7f, dark) // feet
+                }
+            }
+        }
+    }
+    if (day > 0.4f && !game.raining) for (fly in life.flies) {
+        val a = fly.at(clock)
+        val ox = sx(a.x, a.y); val oy = sy(a.x, a.y)
+        if (ox < -40 * s || oy < -40 * s || ox > w + 40 * s || oy > h + 40 * s) continue
+        // its shadow on the water, then the insect above it
+        drawOval(Color.Black.copy(alpha = 0.16f * dim), Offset(ox - 2 * s, oy - 0.5f * s), androidx.compose.ui.geometry.Size(4 * s, 1 * s))
+        val cy = oy - a.h * s
+        // the heading on the screen: the map direction under the view
+        var hx = cam.toScreenX(a.dx, a.dy) - cam.toScreenX(0f, 0f); var hy = cam.toScreenY(a.dx, a.dy) - cam.toScreenY(0f, 0f)
+        val hl = kotlin.math.hypot(hx, hy).coerceAtLeast(1e-3f); hx /= hl; hy /= hl
+        val body = tone(if (fly.dark) Color(0xFF3C5A64) else Color(0xFF6A5E36))
+        val head = tone(if (fly.dark) Color(0xFF2A3E46) else Color(0xFF4A4026))
+        val beat = a.wings > 0.5f
+        val wing = Color(0xFFD8E2E6).copy(alpha = (if (beat) 0.22f else 0.12f) * dim)
+        val vein = Color(0xFFE8F0F2).copy(alpha = (if (beat) 0.3f else 0.18f) * dim)
+        // four narrow wings from the thorax, the front pair swept forward, the hind pair back; they shimmer
+        // rather than show a shape
+        val px = -hy; val py = hx
+        for (side in listOf(1f, -1f)) for ((sweep, len) in listOf(0.35f to 5f, -0.3f to 4.6f)) {
+            val ex = px * side + hx * sweep; val ey = (py * side + hy * sweep) * 0.7f
+            val el = kotlin.math.hypot(ex, ey)
+            val root = Offset(ox + hx * 0.3f * s, cy + hy * 0.3f * s)
+            val tip = Offset(root.x + ex / el * len * s, root.y + ey / el * len * s)
+            drawLine(wing, root, tip, strokeWidth = 1.1f * s)
+            drawLine(vein, root, tip, strokeWidth = 0.35f * s)
+        }
+        // the long, slender tail behind, a little thicker at the root; the thorax; the head with its big eyes
+        drawLine(body, Offset(ox - hx * 8f * s, cy - hy * 8f * s), Offset(ox - hx * 1f * s, cy - hy * 1f * s), strokeWidth = 0.55f * s)
+        drawLine(body, Offset(ox - hx * 2f * s, cy - hy * 2f * s), Offset(ox + hx * 0.8f * s, cy + hy * 0.8f * s), strokeWidth = 0.95f * s)
+        drawCircle(head, 0.75f * s, Offset(ox + hx * 1.5f * s, cy + hy * 1.5f * s))
+    }
+}
+
+/**
  * Fireflies (10.10., 4): little swarms that keep to their places in the world, over flowers and
  * meadows, at the water's edge and the edge of the wood, over fields in the village; few in the
  * deep wood and none on the paths. Each drifts slowly, now hanging still, now rising or sinking,
@@ -1516,13 +1702,19 @@ private fun DrawScope.drawTownSmoke(map: de.bornim.core.MapDef, clock: Long, cam
         val (gx, gy, z) = top
         val mx = ((gx - camX) * scale).toFloat(); val my = ((gy - camY) * scale).toFloat()
         val bx = cam.toScreenX(mx, my); val by = cam.toScreenY(mx, my) - (z * scale).toFloat()
-        for (k in 0 until 5) {
-            val period = 3200 + k * 370
-            val ph = ((clock + k * 700 + i * 1013) % period) / period.toFloat()
-            val x = bx + (kotlin.math.sin(ph * 5f + k + i) * 2f + ph * 9f) * scale
-            val y = by - ph * 30f * scale
-            val r = (2f + ph * 5f) * scale
-            drawCircle(Color(0xFF8E8A84).copy(alpha = 0.5f * (1f - ph) * kotlin.math.min(1f, ph * 8f)), r, Offset(x, y))
+        // a thin column of many soft wisps (test of 0.1.590: five hard grey discs looked like floating balls): each
+        // rises from the mouth, swells, is carried off with the wind as it climbs and thins to nothing; soft at its rim
+        val n = 14
+        for (k in 0 until n) {
+            val period = 5200L
+            val ph = (((clock + i * 1013) + k * period / n) % period) / period.toFloat()
+            val sway = kotlin.math.sin(ph * 4.2f + i * 1.7f + clock / 2300f) * (0.6f + ph * 2.2f)
+            val x = bx + (sway + ph * ph * 14f) * scale
+            val y = by - (ph * 34f + 1f) * scale
+            val r = (1.6f + ph * 6.5f) * scale
+            val a = 0.3f * (1f - ph) * (1f - ph) * kotlin.math.min(1f, ph * 10f)
+            val c = Offset(x, y)
+            drawCircle(Brush.radialGradient(listOf(Color(0xFF6E6A66).copy(alpha = a), Color(0xFF6E6A66).copy(alpha = a * 0.5f), Color(0x006E6A66)), c, r), r, c)
         }
     }
 }
@@ -2072,6 +2264,7 @@ private fun HudBar(label: String, fraction: Float, color: Color, value: String, 
 
 @Composable
 fun DialogBox(speaker: String?, text: String, done: Boolean, modifier: Modifier = Modifier) {
+    if (DialogLook.draft) { DialogBoxVeil(speaker, text, done, modifier); return }
     val time = rememberTime()
     Column(modifier.fillMaxWidth()) {
         if (speaker != null) {

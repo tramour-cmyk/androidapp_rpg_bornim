@@ -185,6 +185,11 @@ class JumpTest {
             val rigs = (0L until 60_000L step 20L).map { t -> MapRest.pose(seed, t, handsFree = true, mayLook = true).let { p -> "${t}ms ${p.rest}/${p.breath}/${p.level}" to MapRest.rig(base, p.rest, p.breath, p.level) } }
             out += stream("Leute Stehen (seed $seed)", rigs)
         }
+        // Borin at his table (55.2): ten minutes in steps of 20 ms, the poses gone into and out of through in-between pictures
+        out += stream("Borin Sitzen", (0L until 600_000L step 20L).map { t -> MapFolk.seatPoseAt(MapFolk.borin, t).let { p -> "${t}ms $p" to MapFolk.seatRig(0.0, p) } })
+        // 17 (draft): the cloak swinging on after a stop, in steps of 20 ms, from the standing picture to the standing picture
+        for (c in MapFigure.Carry.entries)
+            out += stream("Held Nachschwingen $c", (0L..MapFigure.SWING_MS step 20L).map { t -> MapFigure.swingLevel(t).let { "${t}ms $it" to MapFigure.swingRig(4, it, c) } })
         // the hero and the folk walking on the map, in every way of carrying
         for (c in MapFigure.Carry.entries)
             out += stream("Held Gehen $c", (0..MapFigure.STEPS).map { "Schritt ${it % MapFigure.STEPS}" to MapFigure.rig(90.0, it % MapFigure.STEPS, c) })

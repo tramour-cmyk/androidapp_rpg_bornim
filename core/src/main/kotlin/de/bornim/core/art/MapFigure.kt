@@ -143,6 +143,40 @@ object MapFigure {
 
     private fun carry(hero: Hero) = if (stows(hero)) Carry.FREE else if (shouldered(hero)) Carry.SHOULDER else Carry.LOW
 
+    /** 17 Nachschwingen (17a, in the game since 12.10.): the cloak swings on when the hero stops. */
+    @Volatile var swingDraft = true
+
+    /** Only a hero with a cloak or mantle swings on. */
+    fun cloaked(hero: Hero): Boolean = hero.item(GearSlot.CLOAK) != null
+
+    /** How long the cloak swings on after a stop. */
+    const val SWING_MS = 1400L
+
+    /**
+     * The cloak [ms] after the hero stopped, as [HeroFigure.Rig.cloak] (positive trails behind): the body
+     * stops, the cloth goes on forward, falls back a little past hanging straight and settles.
+     */
+    fun swingAt(ms: Long): Double =
+        if (ms < 0 || ms >= SWING_MS) 0.0 else -1.4 * kotlin.math.sin(Math.PI * ms / 450.0) * kotlin.math.exp(-ms / 500.0)
+
+    /** The swing in steps of a tenth, one picture each. */
+    fun swingLevel(ms: Long): Int = Math.round(swingAt(ms) * 10).toInt()
+
+    /** The rig of [hero]'s cloak swung to [level] tenths, standing in direction [slot]. */
+    fun swingRig(slot: Int, level: Int, carry: Carry): HeroFigure.Rig = rig(slot * 360.0 / YAWS, 0, carry).let { r ->
+        // swung forward the cloth would only go into the body: it flares out to the sides instead
+        if (level >= 0) r.copy(cloak = level / 10.0) else r.copy(cloak = level / 20.0, flare = -level / 10.0)
+    }
+
+    /** [hero] standing in direction [slot], the cloak swung to [level]: drawn in the background when first wanted. */
+    fun swingFrame(hero: Hero, slot: Int, level: Int): PixelImage? =
+        if (level == 0) frame(hero, slot, 0)
+        else MapRest.picture("swing|${look(hero)}|$slot|$level") { render(HeroBattle.doll(hero), outfit(hero), swingRig(slot, level, carry(hero))) }
+
+    /** The same, drawn now (the previews). */
+    fun swingFrameNow(hero: Hero, slot: Int, level: Int): PixelImage =
+        MapRest.pictureNow("swing|${look(hero)}|$slot|$level") { render(HeroBattle.doll(hero), outfit(hero), swingRig(slot, level, carry(hero))) }
+
     /** [hero] standing in [rest], breathing in or out: drawn in the background when first wanted, null until then. */
     fun restFrame(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage? =
         if ((rest == MapRest.Rest.NEUTRAL || level <= 0) && breath == 0) frame(hero, slot, 0)

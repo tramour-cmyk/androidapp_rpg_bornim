@@ -1,5 +1,200 @@
 # Archiv
 
+- **CLAUDE.md gekürzt (13.10., Berater, Ablaufprüfung Punkt 1):** knapp formuliert, Release und Neustart-Ablauf nach `docs/ABLAEUFE.md`; Herkunft der Regeln (Daten, Zitate, Begründungen) im alten Volltext, Commit `a48be9a`. Zwei unabhängige Prüfrunden alt gegen neu: nichts verloren.
+
+### Tom (13.10., 09:5x) – neue Sitzung „Tom: 63 Erledigt 59e/62c, dann Test 0.1.653 und 62c Karte“
+- 59e/62c im Bildbuch, auf der Entscheidungsseite unter „Erledigt“. Wartet auf Test 0.1.653 (danach PR von `claude/tom-27-wald-diagonal`, zusammenführen, Änderungshistorie).
+- 59e und 62c auf Zweig `ccr-5851d275-mvpqbt` (von `claude/tom-27-wald-diagonal`), Build 0.1.655. **Weiter:** 17 Riemen, 55.1b Speer.
+
+### Aus OFFEN.md, Tom 13.10., 09:5x
+
+### Tom (13.10., 07:25) – Sammelbuild 0.1.650 fertig, Neustart
+- Bildbuch hat alles Entschiedene bis 07:02; Entscheidungsseite leer.
+- **Sammelbuild 0.1.650** (Zweig `claude/rpg-startup-qaae3o`, siehe „Zu testen“): alle entschiedenen Entwürfe an, Testschalter weg (die Schalter im Code stehen auf an, Vorschau-Schalter bleiben für alt/neu). Kerntests grün, Standbild Schänke 07:15 geprüft. **Nach dem Test:** PR von diesem Zweig, zusammenführen, Änderungshistorie unter „Unveröffentlicht“ (59, 60e–i, 17r, 5la, 6g, 6f, 61a, 62a, 55.1a, 13x), Einzelzweige gelten dann als erledigt.
+- **Weiter:** 27.6 mit dem diagonalen Wald (13v, Zweig `claude/tom-27-6-tiefer-wald`), 17 Riemen, 55.1b Speer.
+
+- Zu testen (ersetzt durch 0.1.653): **Tom, 0.1.650, Sammelbuild, Zweig `claude/rpg-startup-qaae3o`** (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38350340961) (59, 60e–60i, 17r, 5la, 6g, 6f, 61a, 62a, 55.1a, 13x; alles an, Testschalter weg): Händler, Titel/Menü/Heldenerstellung/Kampf im neuen Aussehen, Dorf über den Tag, Katze in der Schänke, Farbstimmung, Spuren, Kartenreiter, Leerlauf, Tempel. Ersetzt die Einzelbuilds 0.1.632–0.1.649.
+
+### Aus BERATER.md, 13.10. (Heldenbau, Storyplan ausführlich)
+
+- **Heldenbau** (49, 50, 12.10.; [Dokument](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)): keine neuen Attribute (49d); Fertigkeiten 6–8 bei Lehrern (49e); Talente statt Attributspunkten als kleiner Baum, kein großer Skilltree (49f: zu teuer, führt zu wenigen besten Wegen); Rüstung höchstens eine Stufe über der Klasse, kein Schild für Magier (49g: Magier nie bester Tank). Neue Klassen als Klassenpaket (50a: zu wenige Kapitel für je eine), je Klasse zwei Pfade ab Stufe 3 (SRD + eigener), Pfad am Aussehen erkennbar (50b); Werwolf als Fluch mit Questreihe (50c); gekaufte Klassen nie stärker (Leitbild 13). **50d entschieden (16:xx):** Merkmale aus dem Code (Rüstungsstufe, Schild, Zauberer, Nah/Fern) plus Heilig/Arkan/Wild, je Pfad höchstens eins, Bestie (Fluch); jedes Merkmal öffnet mindestens zwei Dinge (50i), nie kaufbar (50f: Sperre gegen Magier-Tank), Spieler sieht ausgegraute Talente mit Grund (50g); Herkunft bei der Erstellung, 5 Stück (50j: individueller, lebendiger). **Talente als Linien** je Merkmal (49h/49i; 49n–49q, 18:1x: 9 Linien, 3 Stufen, Pfad-Linien 2, 7 einstufige, Zäh gestrichen: Lebenspunkte bleiben Klassensache); Talent auf jeder geraden Stufe (49r, Nutzer: 16/19 kämen sonst ewig spät, Kapitel ohne Wahl); Fertigkeit öffnet Möglichkeiten, Attribut gibt Zahlen (49s, Nutzer: „wenn umsetzbar“; geprüft: Gesprächsauswahl gibt es noch nicht): jedes Talent ändert eine Entscheidung, keine reinen Zahlen; höchste Stufe immer nur über Prüfungsquest beim Lehrer (49j/49l, Nutzer: „ultimative Ausbaustufe“); Umlernen nur im teuren Tempel ab Kapitel 3, letzte Wahl bis zur Rast zurücknehmbar mit Hinweis (49m; Nutzer: man kann jederzeit neu anfangen). Gold-Senke hilft gegen zu viel Gold (38).
+- **Storyplan** (41, 12.10.): Dokument auf Toms Account ([Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)), Nutzer kommentiert dort; je Kapitel Zusammenfassung, Quests, Dialoge wortgetreu. **4 Augen:** Story-Änderungen erst nach Abstimmung Nutzer + Berater an Tom/Jerry (Kapitel 1 erst nach dem Test der 12 Tester): Dokument → „freigegeben“ → `docs/STORY.md` → Tom/Jerry bauen → Berater prüft mit `tools/story.sh`. Kapitel 2: Einstieg drei Entwürfe „Wer ist der Graue Prophet?“ (Motiv, Amulett, Priesterin, Tag der Asche), Stufe 8 am Ende; Kapitel 1 dafür aus `Story.kt`/`Jobs.kt` lesen, nicht das ganze Dokument. Nachtragen: Heldensätze 29.4 (Anmerkung 7).
+
+### Aus OFFEN.md gekürzt (Sokrates, 13.10., 09:0x)
+
+| 45 | Geschäftsmodell und Umsetzung (Play Store) | Berater mit Nutzer | `main` (Notizen) | **45a ja (12.10., 13:30):** Kapitel 1 kostenlos, dann einmal Vollversion, spätere Kapitel nachkaufbar. **45c ja:** nie Werbung, Beutekisten, Wartezeiten (Leitbild 13). **45b zurückgestellt:** Beschleuniger erst nach der Messung 38 (Berater denkt daran) |
+| 48 | Zufallsgenerierte Dungeons (auch Questhöhlen?) | Berater mit Nutzer | – | Idee Nutzer 12.10., 14:0x. **48a–48c ja:** erst 48.3 Questhöhlen ganz zufällig (6–8 Kammern, verschlungen, Sackgassen, versteckter Rückweg), 48.2 später; Jerry baut 13e allgemein, prüft Beute gegen 38. Nach Kapitel 1 (Verlauf im Archiv) |
+| 49 | Lehrer, Fertigkeiten, Talente | Berater mit Nutzer | – | Idee Nutzer 12.10., 14:1x. 49d–49s ja (Verlauf im Archiv, Liste im [Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)). **49t ja:** als `docs/HELDENBAU.md` ablegen, sobald der Nutzer die kursiven Namen durchgesehen hat. Nach Kapitel 1 |
+| 50 | Weitere Klassen (Berserker, Kriegsmagier, Paladin, Werwolf …), ggf. zum Kauf | Berater mit Nutzer | – | Idee Nutzer 12.10., 14:2x, hängt an 45 und 49. 50a–50j ja: Klassenpaket, zwei Pfade je Klasse, Werwolf als Fluch, Merkmale und Herkunft (Verlauf im Archiv, Matrix im [Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)). Nach Kapitel 1 |
+| 43 | Sichtbarkeit in der diagonalen Sicht: was in der alten Karte gut zu sehen war (vor allem rechts), ist diagonal verdeckt (Garrick am Feuer, Feuerplatz, Kräuterhexe nicht sichtbar, Steinkreis) | Berater mit Nutzer (Grundsatz); Tom (Wald, Dorf), Jerry (Höhle) | `main` (Notizen) | Nutzer 12.10., 12:05: Karten je Ort umstellen, damit Leute und Wichtiges leicht sichtbar sind; Kisten dürfen versteckt sein und erst auftauchen, wenn der Held unter die Bäume geht. **43a ja (12:09):** Grundsatz in `STIL.md` (Karte und Räume, „Ort fertig“ Punkt 9). Kräuterhexe = Morwen im Tiefen Wald (Tom, wenn Tiefer Wald diagonal wird). Höhle 13e (Jerry) ebenso |
+| 63 | Eine Entscheidungsseite für alles Offene: der Nutzer hat einen Ort für alles, was auf ihn wartet (Testfragen zu Builds, Hörproben, Design), von jeder Rolle | **Tom (jetzt, Nutzer 13.10., 09:0x)** | `main` (Notizen) | **Nutzer 13.10., 08:4x ja.** 63.1 jede Rückfrage an den Nutzer auf die Seite, im Chat nur Link und Nummern; zwei Abschnitte „Zu entscheiden“ und „Anzusehen“ (am Gerät). 63.2 eine gemeinsame Seite statt je Rolle, Aufbau wie Bildbuch (Inhaltsliste plus eine Datei je Eintrag, jeder schreibt nur seine), ersetzt die Seiten je Rolle; Tom legt **heute** an und überträgt alle noch offenen Rückfragen und Testfragen an den Nutzer seit 12.10. abends (u. a. 59e, 60j, 62c, 5la.2) geordnet auf die Seite; Freigabe für Jerry am Freitag nachholen. 63.3 Inhaltsliste je Eintrag eine Zeile (Nummer, Datum, Entscheidung). 63.4 Entschiedenes ins Bildbuch und „Wer macht was“, auf der Seite „erledigt, siehe Bildbuch“. Link dann oben eintragen; Regel „Entwürfe entscheiden“ in `CLAUDE.md` dann anpassen |
+
+
+### Tom (13.10., 03:47) – Selbstarbeit, übergeben an die Routine 06:24
+- **Zu testen:** siehe „Zu testen“ unten (erst 59, 60). Rückfragen auf der Entscheidungsseite (Empf. je ja).
+- **Fertig als Entwurf (diese Nacht ab 02:47):** 61 Spuren und 62 Karte (Build 0.1.646; Fußspuren lagen in der Vorschau unter Büschen), 27.6c Rauchfahne und 27.6b Schild (Zweig `claude/tom-27-6-tiefer-wald`, Build 0.1.648, nur diagonal bzw. Schild auch gerade), 55.1a Arme verschränkt/Hände auf dem Rücken (`claude/tom-55-leerlauf`, Build 0.1.649).
+- **Weck-Kette am Ende:** diese Sitzung ist auf Stufe 8 von 8, `send_later`/`create_session` gehen nicht. Die Routine 06:24 übernimmt und schreibt **um 07:00 den Bericht** (`SELBST.md` 5) aus dieser Übergabe.
+- Vorrat leer (9 = 29 und 10 = 5l schon erledigt). Nächstes, falls Zeit: 55.1b Jorin stützt sich auf den Speer (Waffenhaltung), 17 Riemen nur auf Wunsch.
+- **Bericht Selbstarbeit 12.10., 23:23 bis 13.10., 07:00 (geschrieben 06:3x):** Fertig als Entwurf: 59 Händler (0.1.632), 60 Aussehen (0.1.636), 27.6 Tiefer Wald diagonal + 27.6b/c (0.1.648), 13 Tempel-Altar, 17r Haare/Köcher (0.1.639), 5la Tagesablauf (0.1.640), Katze 6g (0.1.641), Farbstimmung 6f (0.1.643), 61 Spuren und 62 Karte (0.1.646), 55.1a (0.1.649). Halb/offen: 55.1b Speer, 17 Riemen. Blockiert: nichts. Rückfragen: auf der Entscheidungsseite (je Empfehlung ja), 61a, 62a/62b, 60e–60i. Gemeinsame Zeit: erst 59 und 60 testen, dann Entwürfe entscheiden. Weck-Routine 06:24 hat nur den Bericht geschrieben.
+
+### Rückfragen Tom, entschieden 13.10., 07:02 (Nutzer: alle Empfehlungen ja)
+- **60e–60i** (Tom, [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F)): 60e Textschrift (Empf. Alegreya), 60f Titel (Empf. Cinzel), 60g Menü, 60h Heldenerstellung, 60i Kampf mit Pixelzahlen (Empf. je ja).
+- **27.6a–c** (Tom, [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F)): Tiefer Wald diagonal (Morwens Feuer frei) übernehmen, Schild auf die Südseite des Wegs, Rauchfahne am Kräuterfeuer als Entwurf (Empf. je ja).
+- **13x** (Tom, Entscheidungsseite): Tempel: zwei Fenster links und rechts vom Altar statt einem dahinter (Empf. ja).
+- **17r** (Tom, Entscheidungsseite): lange Haare und Köcher schwingen nach dem Anhalten nach wie der Umhang (Empf. ja).
+- **5la** (Tom, Entscheidungsseite): Tagesablauf im Dorf, Bewohner wechseln stündlich den Platz (Empf. ja).
+- **6g** (Tom, Entscheidungsseite): Katze in der Schänke (schläft am Herd, streckt sich, wechselt den Platz) ins Spiel (Empf. ja).
+- **6f** (Tom, Entscheidungsseite): Farbstimmung je Ort und Tageszeit ins Spiel (Empf. ja).
+- **61a, 62a, 62b** (Tom, Entscheidungsseite): Spuren ins Spiel (Empf. ja); gezeichnete Karte als Menüreiter (Empf. ja); 62b Auftragszeichen auf der Karte (Empf. erst ohne).
+- **55.1a** (Tom, Entscheidungsseite): Arme verschränkt und Hände auf dem Rücken im Leerlauf aller Leute (Empf. ja). **27.6b/27.6c** sind jetzt als Entwurf gebaut (Bilder dort).
+
+### Zeilen aus „Wer macht was“, gekürzt 13.10., 03:5x (Tom)
+| 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik); Jerry (Inhalt) | – | 24.1–24.4, 24.9–24.15 auf `main` (PR #30, #32, #34, #35); 24.8 Ortsklang auf `main` (PR #37). **Tom:** 24.5, 24.16–24.20 auf `main` (PR #40). 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.8.5 auf `main` (PR #38, 12.10.), danach 24.6 Kampferöffnung wartet + Herzschlag (nach Toms 24.5), knapper Kampftext in `Battle.kt`. Entscheidungen 24f/24i/24j in [`ZWISCHENBILD.md`](ZWISCHENBILD.md) und im Archiv. |
+| 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | festgelegt 11.10., 16:50 (Berater); erledigte Punkte dort abhaken. **26c ja (Nutzer 18:3x), Toms Reihenfolge:** (1) 24.8.6 und 30.8 vom alten Zweig `tender-goodall-a8zuny` in den nächsten Build, (2) 42 Textkasten (erst Standbilder), (3) Diagonalsicht fertig: 27.5, Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar, 27.6; dann 5l, 55.2, 17 |
+
+### Tom (13.10., 03:20) – Selbstarbeit läuft
+- **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g), 0.1.643 (6f), 0.1.646 (61a/62a), je ein Testreiter-Schalter. Rückfragen auf der Entscheidungsseite (Empf. je ja).
+- **61 Spuren** und **62 Kartenansicht** (Vorrat 7/8) fertig als Entwurf auf `claude/tom-7-spuren` (Build 0.1.646). Ursache „Fußspuren unsichtbar“: sie lagen in der Vorschau unter Busch und Bäumen; Gang verlegt, Abdrücke kräftiger, Schlamm in Räumen hell.
+- **Weck-Kette am Ende** (03:15): diese Sitzung ist auf Stufe 8 von 8, `send_later` und `create_session` gehen nicht mehr. Weiter nur über die Routinen (06:24) oder eine neue Sitzung des Nutzers.
+- Vorrat 9 (29) und 10 (5l) sind schon erledigt. **27.6c** Rauchfahne als Entwurf auf `claude/tom-27-6-tiefer-wald` (Bild auf der Entscheidungsseite). Weiter: 27.6b Schild, dann 17 Riemen.
+
+### Zeilen aus „Wer macht was“, gekürzt 13.10., 03:2x (Tom)
+| 23 | Aufgaben so aufteilen, dass Tom und Jerry auch in Selbstarbeit genug Vorrat haben | Tom | `main` (Notizen) | 23a ja (14:18): je 8 Punkte im Vorrat (`docs/SELBST.md`), neue nur als Entwürfe/Hörproben. **Jerry:** deine Punkte 4–8 sind eingetragen |
+| 27 | Wald „Ort fertig“ (Liste in `ENTWICKLUNG.md`): vor allem diagonale Zeichnung, Bäume rund | Tom | – | 27.1/27.2/27d, 27.4/27.5/27g, 27i, 27j auf `main` (PR #43, #48, getestet 0.1.625). **27i:** Libellen und Frösche im Spiel (Zweig, 21:4x). **27j:** Hörproben Frösche/Froschchor/Libellen im Chat (21:47, `tools/klang/teich.py`), **27k (22:0x):** nur Frosch 1–3, Chor 2, Libelle 1–2 (höchstens 3 Frösche und 2 Libellen, also leise, keine Beschallung). Verlauf im Archiv |
+| 57 | Entscheidungsseite nur mit Offenem; Entschiedenes in ein gemeinsames Bildbuch (Tom und Jerry) | Tom | `main` (Notizen) | **57a/57b ja (19:4x):** Ablauf in `CLAUDE.md` („Entwürfe entscheiden“). Entscheidungsseite Tom: https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F. **Bildbuch angelegt (20:12):** https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (Einträge `e/<nr>.html`, Bilder `i/`, Inhaltsliste `index.html`); alte Bilder nachgetragen, soweit noch vorhanden. Nutzer gibt es für Jerry frei (Teilen) |
+
+### Tom (13.10., 02:46) – Selbstarbeit, an Nachfolger übergeben
+- **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g Katze), 0.1.643 (6f Farbstimmung), je ein Testreiter-Schalter. Rückfragen 60e–60i, 27.6a–c, 13x, 17r, 5la, 6g, 6f auf der Entscheidungsseite (Empf. je ja).
+- **7 Spuren** auf `claude/tom-7-spuren` (gepusht, Build läuft): `Tracks.kt` + `TracksTest` grün, Zeichnung `drawTracks` in `WorldScreen`, Testreiter-Schalter, Vorschau `KARTENZOOM=1 DIAG=1 SPURDRAFT=1 ONLY=zoom_nah_s`. **Offen:** Blut sichtbar (Bild 02:45), Fußspuren/Staub in den Vorschaubildern nicht zu sehen, obwohl der gleiche Gang im Kerntest 16 Marken macht: prüfen, ob `walkFree` in der Vorschau läuft bzw. ob die Marken gezeichnet werden (zu klein/dunkel?); dann Bilder auf die Entscheidungsseite (Rückfrage 7a).
+- **8 Kartenansicht** halb auf demselben Zweig: `MapSheet.kt` (Tinte auf Pergament, nur Erkundetes), Reiter „Karte“ hinter `MapSheet.draft` (`MenuStart.map` für Vorschau), `MapSheetTest` grün; Bilder noch nicht gemacht: `tools/t bild KARTENBLATT=1`. Testreiter-Schalter für `MapSheet.draft` fehlt noch.
+- `HeroShelfTest` war einmal rot, während die Vorschau parallel lief (Zeittest, nicht von den Spuren); allein wiederholen. Nie Vorschau und Kerntest gleichzeitig (gemeinsamer Bau bricht).
+
+### Themen 59 und 60, Stand 13.10., 01:02 (aus „Wer macht was“)
+| 59 | Händler: Kauf/Verkauf im Stil des Textkastens, Übersicht beim Verkauf, Vergleich beim Kauf | **Tom (jetzt, Nutzer 22:49)** | `claude/tom-59-haendler` | **59a ja:** schwarz wie Textkasten (42b), Seltenheitsfarben aufhellen, erst Standbilder. **59b ja:** 59.2 nicht Tragbares abgedunkelt mit Sperrzeichen, unten eigener Block, oben Streifen mit den 9 angelegten Teilen; 59.3 Vergleich Angelegt/Neu auch bei Händlerware (`GearDetails` vergleicht heute nur Beutel); 59.4 Rückkauf der letzten 5 Verkäufe bis Laden zu; 59.5 Menge ×1/×5/alle bei Vorräten. **59c nein:** Angelegtes nicht direkt verkaufbar. 59.6/59.7 auf der Merkliste. **59d ja (23:1x):** schwarzer Laden für Thessa und Morwen eingeschaltet (`HAENDLER=1` zeigt alt/neu), 59.2–59.5 im Code, Kerntest `ShopTest`; Build vom Zweig, Test steht aus |
+| 60 | Ein Aussehen für alle Oberflächen wie Textkasten/Blende (schwarz, Gold, Serife): Menüs, Titelbild, alle Textseiten | **Tom (Selbstarbeit)** | `claude/tom-60-aussehen` | **Stand 23:59:** Entwürfe Schrift, Titel, Menü, Heldenerstellung, Kampf (Schalter im Testreiter „60 Aussehen“), Rückfragen 60e–60i auf der Entscheidungsseite. **60a ja:** erst Bausteine (`LocalVeil`/`Theme.kt`), dann je Bildschirm: Händler, Menü/Beutel, Titelbild, Heldenerstellung, Kampf zuletzt; eigene Hell-Farben (Seltenheit, Warnrot) aufhellen. **60b ja:** freie Serifenschrift mitliefern (OFL), 2–3 zur Wahl als Standbilder (heute Gerätschrift `FontFamily.Serif`). **60c ja:** Pixelschrift nur für kleine Kampfzahlen, auf Standbild prüfen. **60d ja:** direkt nach 59, 60.4 Titel groß in Gold, Kapitälchen |
+
+### Tom (12.10., 23:58) – Selbstarbeit, an Nachfolger übergeben
+- **59** Build 0.1.632 (Zweig `claude/tom-59-haendler`) wartet auf Test des Nutzers, dann PR.
+- **60** auf Zweig `claude/tom-60-aussehen` (von 59): Schriften (OFL, `tools/schrift/QUELLEN.md`), Titel, Menü, Heldenerstellung, Kampf als Entwurf; Testreiter „60 Aussehen“. Build von Commit de83b1a läuft (23:57): Link in „Zu testen“ eintragen. Rückfragen 60e–60i auf der Entscheidungsseite.
+- **Weiter:** Paket 3 (27.6 Tiefer Wald, Zweig `claude/tom-27-6-tiefer-wald` von `main`), 4 (Tempel-Altar), 5 (17 Rest), Reserve laut `SELBST.md`.
+
+### Tom (12.10., 23:20) – vor Neustart
+- **Berater 23:2x (Nutzer 23:20): 60a–60d ja**, Vorschlag und Reihenfolge in „Wer macht was“ Zeile 60; nach 59 gleich anpacken.
+
+- **59** auf Zweig `claude/tom-59-haendler`, 59d ja: Laden schwarz wie der Textkasten (`LocalVeil` in `Theme.kt` macht `Txt`/`Panel`/`PixelButton`/`GearIcon` dunkel; `ShopLook.draft = true`), 59.2 Streifen Angelegt + Block „Nicht tragbar“, 59.3 Vergleich auch bei Händlerware, 59.4 Rückkauf (`Game.buyback`), 59.5 Mengen. Build 0.1.632 fertig (23:23); nach Test des Nutzers PR und zusammenführen.
+- **58** auf `main` (PR #50, getestet 0.1.628).
+- **Weiter:** (1) Test 59 abwarten, PR; (2) 60 ein Aussehen für alle Oberflächen: `LocalVeil` ist die Grundlage, erst Vorschlag des Beraters abwarten; (3) laut 26c: Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar (Meldung 08:43), 5l, 17 Rest (Haare, Köcher).
+- Entscheidungsseite leer; 58 und 59d im Bildbuch.
+
+### Tom (12.10., 22:50) – vor Neustart
+
+- **58** auf Zweig `claude/tom-58-umhang-schild`, Build 0.1.628 fertig (22:56, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38306820619), 58a ja, Test am Gerät steht aus: Schild auf dem Rücken und Köcher drücken Umhang und Waffenrock an (`Dress.PRESS_CLOAK`, Hohlform `Pressed`/`Swept` im Umhang). Vorschau `SHIELDWALK=1|alt|andere`. Vorher/Nachher auf der Entscheidungsseite (22:48). Andere Ausrüstung geprüft: in Ordnung.
+- **Weiter:** (1) **59 Händler** jetzt (Nutzer 22:49, 59a–59c in „Wer macht was“), neuer Zweig `claude/tom-59-haendler`, erst Standbilder auf die Entscheidungsseite; (2) Test 58 abwarten, dann PR und zusammenführen; danach laut 26c: Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar (Meldung 08:43), 5l, 17 Rest (Haare, Köcher).
+- Entscheidungsseite aufgeräumt: 42d und 27k ins Bildbuch verschoben.
+
+### Tom (12.10., 22:3x) – Neustart
+
+- **Berater 22:5x (Nutzer 22:49): Thema 59 Händler jetzt anpacken** (Entscheidungen 59a–59c in „Wer macht was“), Standbilder auf die Entscheidungsseite.
+
+- **PR #48 zusammengeführt** (0.1.625 getestet, Nutzer 22:3x: passt). Auf `main`: 27e.1, 27h, 27i, 27j/27k Weiher-Klang (`PondSound`), 17a Umhang, 42d Textkasten, dazu alles bis 0.1.615. Kein offener Zweig.
+- **Weiter:** (1) **58** Umhang über dem Schild beim Gehen (Meldung 22:3x), erst Standbilder auf die Entscheidungsseite; (2) laut 26c: Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar (Meldung 08:43), 5l, 17 Rest (Haare, Köcher).
+- Hinweis: Nach dem Zusammenführen kann der Gradle-Zwischenstand von `core` veralten (Vorschau meldet „Unresolved reference“, „Int expected Int“): `rm -rf core/build/{kotlin,classes,libs}`.
+
+### Tom (12.10., 22:2x)
+
+- Zweig `claude/tom-27-4-baeume` (PR #48), `main` hineingeholt. Neu seit 0.1.624: **27i** Libellen/Frösche im Spiel, **17a** Umhang schwingt aus, **42d** Textkasten schwarz/Gold, **27j/27k** Weiher-Klang (`PondSound`: Ruf, wenn die Kehle schwillt, nach Nähe; Libelle nur nah bei Tag; Chor 2 leise in der Dämmerung; Klänge aus `tools/klang/teich.py --spiel`). Build 0.1.625 fertig (22:22).
+- **Neustart ja (Nutzer 22:2x), nach dem Test:** Nachfolger mit `create_session` oder Trigger starten. **Weiter:** Build melden, Test abwarten; dann laut 26c: Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar (Meldung 08:43), 5l, 55.2-Rest, 17 Rest (Haare, Köcher).
+- Hinweis: Nach dem Zusammenführen kann der Gradle-Zwischenstand von `core` veralten (Vorschau meldet „Unresolved reference“, „Int expected Int“): `rm -rf core/build/{kotlin,classes,libs}`.
+
+### Tom (12.10., 21:30, Selbstarbeit bis 22:00)
+
+- Zweig `claude/tom-27-4-baeume` (PR #48), `main` (PR #49) hineingeholt. Neu seit 0.1.615: **27e.1** Deckung vor dem Helden zusammen 50 % statt 35 %, gerade Sicht nur bei Bildpunkten über dem Oberkörper (`WorldScreen.hides`, ein Pfad für Kronen, Häuser, Möbel); **27h** Testschalter „Alles diagonal“ (`MapSight.all`); 56/27g Entwurfsschalter entfernt (Verhalten gleich). Entwürfe im Spiel aus: 27.6 (`PONDLIFE`, Rückfrage 27i), 17 Umhang (`SWINGDRAFT`, `Rig.flare`, Rückfrage 17a), **42 Textkasten** (`DialogLook.draft`, Vorschau `TEXTKASTEN=1`).
+- **Weiter (Nutzer 21:3x: 27i, 27j, 17a ja):** (1) 27.6 `PONDLIFE` an (ins Spiel); (2) 17 in den Gang (`SWINGDRAFT` an, `swingRig` mit `flare`, Sprungtest); (3) 27j Klang Frösche/Libellen als Hörproben; (4) 42 Standbilder auf die Entscheidungsseite (Vorschau `TEXTKASTEN=1`, die Blende braucht `settle = 150`), Rückfrage 42d. Dann ein Build.
+- Diese Sitzung kann keine Erinnerungen/Nachfolger mehr anlegen (Kettentiefe 8): die nächste Weck-Routine (21:24 war schon, also 00:24) übernimmt nur, wenn „Bis“ verlängert wird.
+
+- **49 (aus OFFEN, 12.10., 21:4x):** 49n–49q ja (18:1x): 9 Linien je Merkmal (3 Stufen, Pfad-Linien 2), 7 einstufige Talente, Zäh/Kriegszauberer gestrichen. 49r ja (18:2x): Talent auf jeder geraden Stufe, auf 4/8/12/16/20 wahlweise +2 Attribut (`BALANCE.md`). 49s ja (18:2x): Fertigkeit = neue Möglichkeit, Attribut = Zahl; neu zu bauen: Gesprächsauswahl, Verstecktes auf Karten, Schleichen.
+
+### Tom (12.10., 20:56, Selbstarbeit bis 22:00)
+- **Nutzer 21:1x:** 0.1.615 getestet, als PR #49 (Stand 957adde) zusammengeführt. **27h ja:** Testschalter „alles diagonal“ in den Testreiter. **27e.1 ja:** weniger Transparenz, und alle Transparenzen (Bäume, Häuser, Möbel, gerade und diagonal) halbwegs einheitlich. **57c:** Jerry ist zum Bildbuch eingeladen. PR #48 hat jetzt nur noch ungetestete Entwürfe (27.6, 17).
+
+- PR #48 `claude/tom-27-4-baeume`, **0.1.615** zu testen (s. u.); neue Pushes 20:4x/20:55 enthalten nur Entwürfe (im Spiel aus). Test passt → zusammenführen (Merge), CHANGELOG.
+- **27.6 fertig als Entwurf** (`PONDLIFE`, `PondLife.kt`, Kerntest `PondLifeTest`), auf der Entscheidungsseite, Rückfrage 27i.
+- **56/27g Entwurfsschalter entfernt** (c2b909f7, Verhalten gleich).
+- **17 Umhang als Entwurf fertig** (`SWINGDRAFT`, Bildbogen `SWINGBILD=1`, 103e59d): Saum hebt sich und weht nach dem Anhalten seitlich aus (`Rig.flare`, nur im Bildbogen; Kämpfe unverändert), auf der Entscheidungsseite, Rückfrage 17a. Offen: Haare/Köcher, Einbau in den Gang (nach 17a).
+
+
+### Tom (12.10., 20:29, Selbstarbeit bis 22:00)
+
+- PR #48 `claude/tom-27-4-baeume`, **0.1.615** zu testen (s. u.). Test passt → zusammenführen (Merge), CHANGELOG. Alle Entwurfs-Schalter 56a–56d, 27g, 55c stehen an (`MapWoodIso`, `MapGround.pondDraft` nur Wald, `MapFolk.sitDraft`); 27e: Kronen decken den Helden auch gerade zusammen nur zu 35 % (`WorldScreen`, Bild 20:24).
+- Entscheidungsseite leer, Bildbuch hat 56d, 27g, 55c. Rückfrage **57c** (Bildbuch für Jerry teilen) gestellt.
+- **Als Nächstes:** (1) 27.6 Leben am Weiher (Libellen, Frösche) als Entwurf auf die Entscheidungsseite. (2) 17 Nachschwingen (Vorrat). Vorschau langsam (~2,5 min je Aufruf): mehrere `HELDORT` in einem Aufruf.
+
+### Tom (12.10., 20:09, Selbstarbeit bis 22:00)
+
+- PR #48 `claude/tom-27-4-baeume`, **0.1.606** zu testen (s. u.); danach nur Vorschau-Entwürfe gepusht. Test passt → zusammenführen (Merge), CHANGELOG.
+- **Entwürfe seit 19:30** (alle auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F), Datei liegt nur in der alten Sitzung: vor dem Ändern mit `Artifact read` holen, ganz neu schreiben, mit `url` veröffentlichen): **56d** Dorf (Wäscheleine, Heu, Farn, Büsche am Dorfrand; `YARDDRAFT`, `FERNDRAFT`, `BUSHDRAFT`), Innenräume ohne Altes; **27g** Weiher mit Ufer und Schilf (`POND`); **55.2** Borin sitzt (`SITDRAFT2`: Zufallszeiten, weiche Übergänge, atmet, Hammer am Tischende; Sprungtest 0).
+- **20:24 erledigt:** alle Schalter 56a–56d, 27g, 55c an (Weiherrand nur im Wald), Kerntests grün, Build auf PR #48 läuft. 27e: Kronen decken den Helden auch gerade zusammen nur noch zu 35 % (Zweig).
+- **Als Nächstes:** (1) 27e Tiefer Wald: Held unter Kronen weg (`HELDORT=deep_forest:x:y`), Morwen sichtbar (43). (2) 27.6 Leben am Weiher (Libellen, Frösche) als Entwurf. (3) 17 Nachschwingen (Vorrat).
+
+### Übergabe Tom (12.10., 19:29, Selbstarbeit bis 22:00)
+
+- PR #48 `claude/tom-27-4-baeume`, **0.1.606** zu testen (s. u.; 0.1.607+ nur Vorschau-Entwürfe dazu). Test passt → zusammenführen (Merge), CHANGELOG.
+- **27.5 im Spiel** (ea7471d): Stamm, Felshang, Feuerstelle, Schilder diagonal (`MapWoodIso`, Schalter `draft` entfernt). Offen: Weiher mit Ufer.
+- **56 Wald fertig als Entwurf** (Vorschau-Schalter `HERBDRAFT`, `CHESTDRAFT`, `ROCKDRAFT`, `MENHIRDRAFT`, `BUSHDRAFT`; Bogen `ISODINGE=wald`), Bilder auf der [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F), **56a–56c ja (Nutzer 19:4x):** die fünf `…Draft`-Schalter in `MapWoodIso` entfernen (wie 27.5).
+- **Als Nächstes:** (1) 56 Dorf und Innenräume nach alten Bildern durchsehen (Dorf: Truhen, Steine, Büsche über `MapFlora`; Liste auf die Seite). (2) 27.5 Weiher mit Ufer. (3) 55.2 Borin sitzend (Hammer am Tisch, Stehen ↔ Sitzen, Sprungtest). (4) 27e Tiefer Wald (`HELDORT=deep_forest:x:y`).
+
+### Übergabe Tom (12.10., 18:45, Selbstarbeit bis 22:00)
+
+- PR #48 `claude/tom-27-4-baeume`, [0.1.603](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38276243431) grün (zu testen, s. u.); danach nur Vorschau-Entwürfe gepusht. Test passt → zusammenführen (Merge), CHANGELOG.
+- **Entscheidungsseite** [Artefakt](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F) (Bilder alt/neu, Empfehlung); neue Entwürfe dort einfügen (gleiche Datei neu veröffentlichen geht nur aus dieser Sitzung; sonst mit `url` lesen und aktualisieren).
+- **Als Nächstes (Reihenfolge):** (1) 27.5 ins Spiel (27f ja): `MapWoodIso.draft` an, Schild zur Höhle diagonal neu (Nutzer: perspektivisch falsch). (2) **56** Liste alter Bilder auf diagonalen Karten (Kräuter, Steine, Büsche, Schilder …), dann Entwürfe. (3) 55.2 Borin sitzend (55b ja): Hammer am Tisch, Stehen ↔ Sitzen, Sprungtest. (4) **27e:** Tiefer Wald, südlich von Morwen (Feuer links), Regen: Held unter den Kronen ganz weg; nachstellen mit `HELDORT=deep_forest:x:y[:richtung[:stunde]]`.
+- 5.4: Pflaster-Zwischending **im Spiel** (Nutzer 18:4x: gut gelungen, Commit 5b7b8cf+); Fensterlicht hinter Bäumen verdeckt. Build dazu läuft; Link melden, Testliste: Markt bei Tag, Tempel nachts.
+
+### Übergabe Tom (12.10., 17:31, Selbstarbeit ab 16:40)
+
+- PR #48 `claude/tom-27-4-baeume`, Build [0.1.600](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38269109227): 27.4, 5.6, 5.3 (alle zwölf als Puppen), 5n (Kaels Hütte 2 nach Osten, 2 breit statt 3, sonst klebt sie am Nachbarhaus), Beet/Kornfeld/Fichtenreihe neu (Test 0.1.590 b–d), Tresen fest, Rauch weich. Test passt → zusammenführen, CHANGELOG.
+- **Entwürfe (nur Vorschau, Standbilder 17:04–17:27 im Chat):** 27.5 Stamm und Feuer diagonal je 3 Varianten (`WOODDRAFT=1`, `ISODINGE=wald`), Felshang mit Höhleneingang; 55.2 Sitzhaltung (`Rig.sit`), Borin auf Hocker am Tisch (`SITDRAFT2=1`). 27f, 55b ja (18:3x).
+- (a) Held unter Kronen: nicht nachstellbar, wartet auf 27e. Vorschau `HELDORT=karte:x:y[:richtung]`.
+- **Als Nächstes:** 5.4 Dorf lebendig (Entwurf), nach Freigabe 27.5/55.2 ins Spiel.
+
+
+### Übergabe Tom (12.10., 15:57)
+
+- **49/50 aus OFFEN.md (Berater 12.10., 18:1x), Stand vor 49n:** 49 | Lehrer: Übung in Waffen, Rüstung, Rettungswürfen dazulernen (Magier lernt Bogen) | Berater mit Nutzer | – | Idee Nutzer 12.10., 14:1x. Vorschläge 49.1–49.4; Nutzer 14:2x: Optionen ja, aber Magier nie bester Tank; neue Attribute? Skilltree? Abwägung 49.5–49.8. 49d, 49g, **49e, 49f ja (15:0x)**: Fertigkeiten bei Lehrern, Talente statt Attributspunkten; Entwurf im [Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14). Nach Kapitel 1 · 50 | Weitere Klassen (Berserker, Kriegsmagier, Paladin, Werwolf …), ggf. zum Kauf | Berater mit Nutzer | – | Idee Nutzer 12.10., 14:2x, hängt an 45 und 49. 50c ja; **50a, 50b ja (15:0x):** Klassenpaket, je Klasse zwei Pfade ab Stufe 3, Pfad am Aussehen erkennbar. **50e–50h ja (16:2x):** Merkmale aus Code (Rüstungsstufe, Schild, Zauberer, Nah/Fern) plus wenige eigene, „Rüstung +1 Stufe“ ein Talent; Merkmale nie kaufbar; Spieler sieht ausgegraute Talente mit Grund und Zeile im Heldenbogen; Pfad gibt höchstens ein Merkmal. **50i, 50j ja (16:2x):** eigene Merkmale Heilig/Arkan/Wild/Pfad/Bestie, jedes öffnet mindestens zwei Dinge; Herkunft bei der Erstellung (5 Stück). Talente als Linien (49.9–49.13): **49h ja, 49i grundsätzlich ja** (Stufenzahl noch offen), **49j geändert (16:3x):** nur die höchste Stufe, immer durch Tat/Lehrer, am besten eigene Quest; **49l ja:** Prüfungsquest vom Lehrer, freiwillig. **49m ja (16:3x):** Umlernen nur im besonderen Tempel ab Kapitel 3, teuer, kein Spieltag; letzte Wahl bis zur Rast zurücknehmbar, Spieler wird bei der Wahl darauf hingewiesen. Stufenzahl je Linie beim Durchgehen der Talentliste. Matrix im [Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14). Nach Kapitel 1
+- Zweig `claude/tom-27-4-baeume`: 27.4, 5.6, 5.3, dazu (nach Test 0.1.590) Durchsicht nur bei Oberkörper (Tresen fest, geprüft `ONLY=zoom_nah_l9`) und Kaminrauch weich (ungeprüft im Bild: kein Kamin im Schuss `d2`). Push 15:56, Build läuft; kein PR.
+- **Test 0.1.590 (Nutzer 15:4x):** Dorf gut, Leute gut, **kein Absturz** bei vielen Wechseln Dorf ↔ Wald. Zaun gut. **Offen:** (a) Held im dichten Wald unter mehreren Kronen ganz weg (Bild; Ebenen-Formel/Schwelle prüfen), (b) Fichtenreihe am Dorfrand Süd gleichförmig (alles junge Fichten wegen Sichtregel, im Raster): mischen, versetzen, (c) Gemüsebeet sieht nach Kästen aus (`MapTown.vegBed`), (d) Kornfeld wirkt wie Regenstriche, (e) Rauch war harte Scheiben (behoben, prüfen). Ein Mädchen im Dorf noch alte Figur.
+- **Nutzer 16:0x:** 55a ja, **5n ja** (Haus östlich des Schlagbaums 2 Felder nach Osten), **Liska, Gwenna, Bram noch alte Figuren** (im Dorf unterwegs, als Puppen umstellen). Regel „nicht warten“ in `CLAUDE.md`: Antwort unklar („3 ja“ = 5n), nachfragen.
+- **Als Nächstes:** Build 15:56 melden, (a)–(e), Liska/Gwenna/Bram, 5n, Build, Test, PR, zusammenführen, CHANGELOG; dann 55 (55.2 zuerst), 5l/5.5, 5.4, 27.5/27.6.
+
+### Übergabe Jerry (12.10., 16:22)
+
+- **Selbstarbeit ab 16:40** (Nutzer 16:2x), Paket in `SELBST.md` (13e.2 Kisten/Truhen/Bettrolle, 13e.3 Lichtstrahl 11 + Flammen 10, 13e.4 Stalagmiten/Weiher; Reserve 38, 53, 51). Nachfolger übernimmt (Neustart-Haken).
+- **13e Entwurf 2, Wände** auf `claude/jerry-13e-hoehle-diagonal` (97bf42d, nur Vorschau): Fels als Höhenfeld je Randfeld, allgemein aus dem Kartenraster (48b), Standbilder 16:19 an den Nutzer. Schnellbild der ganzen Höhle: `CAVESHEET=1 ./gradlew -p core test --tests '*CaveSheet*' --rerun` → `core/build/preview/hoehle_plan.png` (Sekunden statt 5 min). Kein Zweig-Build zum Testen nötig (im Spiel aus).
+- Erledigt heute: PR #47 (36.5/36h/36.7/36j) zusammengeführt; 52, 53, 54 angelegt; 54 Regel „Nicht warten“ + Stop-Haken auf `main`.
+
+
+### Aus OFFEN.md ausgelagert (12.10., 16:2x, Jerry; Zeilen vor dem Kürzen)
+
+- | 44 | Leitbild als roter Faden (`LEITBILD.md`, eine Seite), Einzelheiten aufgeteilt in `STIL.md` (Aussehen, Klang, Spielgefühl) und `ENTWICKLUNG.md` (Bauen, Prüfen, „Ort fertig“) | Berater | `main` (Notizen) | Nutzer 12.10., 12:34: ja; Leitbild zuerst als Entwurf im Chat, dann verschieben (nur Text, kein neuer Inhalt), Verweise in `CLAUDE.md`. Entwurf 12:36; 44c ja, 44d ja (Hintergrundklänge und sichtbare Effekte bieten Tom/Jerry aktiv an); **44a ja (13:02):** Ziel Freigabe 16 (Killerschlag, Blut „Deutlich“ als Obergrenze; Härteres wie Zerteilen in 3D vorher prüfen). 44f ja: SRD als Gerüst, nicht Ziel; ohne AD&D-Erwähnung. **44e ja (13:08): erledigt** – `LEITBILD.md` neu, `STIL.md` aufgeteilt (Ansicht, „Ort fertig“, selbst prüfen jetzt in `ENTWICKLUNG.md`), `CLAUDE.md` liest beide. **Tom, Jerry:** bitte einmal lesen. 44g ja (13:09): AD&D-Zeile in `BALANCE.md` gestrichen |
+- | 47 | README-Einleitung nach Leitbild; Testmodus raus | Berater | `main` (Notizen) | **47a, 47b ja, erledigt (13:3x):** Einleitung neu, Testmodus nur noch in `UMGEBUNG.md`. **47c ja (13:35):** Feature-Liste (veraltet: „Vereinfachtes D&D-System“, „64-px-Sprites“, „17 Monsterarten“ statt 15 + 3 Bosse) geprüft (13:40). **47d, 47e ja (13:4x), erledigt:** Feature-Liste berichtigt und nach Leitbild geordnet, Klänge/Musik bei Lizenzen, „Fanprojekt“ und Nintendo/Blizzard gestrichen |
+- | 36 | Krogg (Vorboss Höhle) wirkt verpixelt, vor allem groß im Emulator | Jerry | – | 36.4 auf `main` (PR #46, getestet 0.1.581). **36.5 (36d ja):** Ursache gefunden (14:02): Vergrößerung beim Ausfallschritt drehte um den falschen Punkt (Bild seit 36.4 zugeschnitten); behoben, Waffe trifft jetzt die Brust, Füße aber noch hinter der Anzeige, Schritt beim Schlag ruckartig. 36e/36f ja (14:2x): 19e geschlossen, 10/11 in 13e, 30.7 Merkliste. 36g nein (darf tief, um zu treffen). 36h ja: 70 % Schritt beim Ausholen. **36.7 (Nutzer 14:2x):** Kroggs Arm beim Schlag sieht gebrochen aus. **36k ja (Nutzer 15:1x):** eigene Trefferhaltung Krogg; mit Rückweg-Fix (36j) auf `claude/great-pascal-x56kad`, **0.1.587 getestet, passt; PR #47 zusammengeführt (15:5x).** Rest: 52, 53. **36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung |
+- | 38 | Balance-Langzeitplan über alle Kapitel (Stufe, Gold, Preise, Ausrüstung, Ziel-Siegquoten) | Berater (Plan), Jerry (Messung) | `main` (Notizen) | Nutzer 12.10., 09:52: St. 6 nach kurzem Kapitel 1, zu viel Gold? zu starke Ausrüstung? Befund Berater: XP-Schwellen halbiertes SRD, Kapitel-1-Deckel St. 6, Ausrüstungsdeckel je Kapitel vorhanden; Gold wird nirgends gemessen; `ChapterSimTest` mit Ausrüstung, aber nur 2 Tränke, kein Kauf, jeder Kampf mit vollen TP. **38a ja (10:10):** Berater schreibt `BALANCE.md`, Jerry erweitert die Kapitelsimulation um Gold/Einkauf und misst Kapitel 1. **38b:** mindestens 7 Kapitel. **38d ja (10:21):** SRD als Fundament, Stufe 20 Obergrenze, eigenes Tempo, Hausregeln mit Begründung; **38c ja:** Zielkurve in `BALANCE.md`. Plan fertig; **38e/38f ja (11:23):** Jerrys Messung nach 37 und 36.1, vor 13e (in seiner Übergabe) |
+- | 41 | Storyplan: je Kapitel Grobzusammenfassung, Quests mit Inhalt und Dialogen (Kapitel 1 Ist-Stand aus `Story.kt` und Brett), dann Plot Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | Nutzer 12.10., 10:29. **41a ja (10:42):** Entwurf als Dokument zum Lesen/Kommentieren, fertige Kapitel als `docs/STORY.md`. **41b ja:** Plan wird Vorgabe, aber Änderungen gehen nur nach Abstimmung Nutzer und Berater (4 Augen) an Tom/Jerry. **Entwurf steht (10:47):** Kapitel 1 mit Dialogen und 7 Anmerkungen, Kapitel 2 offen ([Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d), Toms Account). **41c, 41d ja (10:54):** Regel „Story und Dialoge“ in `CLAUDE.md` (Tippfehler mit „Text:“ erlaubt), Werkzeug `tools/story.sh` |
+- | 13e | Höhle diagonal (Phase 2 von 13); mit 10 (Flammen feiner) und 11 (Lichtstrahl am Schacht) | Jerry | `claude/jerry-13e-hoehle-diagonal` | Grundsatz 43 beachten (Leute, Ziele, Eingänge frei zur Kamera; Kisten dürfen versteckt liegen). Entwurf 1 (Vorschau `KARTENZOOM=1 DIAG=1 CAVEDRAFT=1 ONLY=zoom_nah_c`); Lücken und Absprache mit Tom (eigene Datei `MapCaveIso.kt`, nur eine Zeile in `WorldArt.buildObjects`, Toms Dateien nicht anfassen) im Archiv. **Entwurf 2 läuft (16:22):** Wände als Höhenfeld aus dem Kartenraster stehen (Standbilder 16:19), Dinge/Licht folgen in Selbstarbeit. **48b ja (Nutzer 14:1x, über Berater):** Jerry, die diagonale Höhle bitte allgemein aus dem Kartenraster zeichnen, ohne Handarbeit an einzelnen Feldern, damit später Zufallshöhlen (48) ohne Umbau gehen |
+- | 46 | Neustart: nach „ja“ des Nutzers startet die Sitzung ihren Nachfolger selbst (erste Nachricht „Start“) und nennt nur den Namen | Tom und Jerry | `main` (Notizen) | Nutzer 12.10., 13:15 (über Berater): ja; Regel in `CLAUDE.md`. Tom 12.10., 14:45: `create_session` geht; richtiger Weg (mit Zweig und Titel nach Thema) jetzt in `CLAUDE.md`. **Jerry:** wie startest du Nachfolger (landen im Repo-Ordner)? Bitte bestätigen oder Regel ergänzen **Nutzer 14:40:** Sitzungen nach Thema benennen wie Jerry („Tom: Nr. Thema, dann Nr.“) |
+
+### Übergabe Jerry (12.10., 15:35)
+
+- **36.5/36h/36.7/36j** auf `claude/great-pascal-x56kad` (noch kein PR), Build 0.1.587 beim Nutzer im Test; Ergebnisse kommen in die neue Sitzung. Passt der Test: PR öffnen, grün abwarten, zusammenführen, CHANGELOG. 36.7 = eigene Trefferhaltung nur für `bugbear` (`FoeArt.kroggAttacks`); 36j = `FoeBack` in `BattleScreen` (Rückweg läuft weiter, wenn die Zeile endet; Fall „Held fällt“ im Film geprüft, „schnell weitertippen“ nur an der Ursache).
+- **Als Nächstes 13e Höhle diagonal, Entwurf 2** (mit 10 Flammen, 11 Lichtstrahl; 48b: allgemein aus dem Kartenraster, ohne Handarbeit je Feld; eigene Datei `MapCaveIso.kt`, Toms Dateien nicht anfassen), auf neuem Zweig. Danach 38 Messung, 24.6, 40.
+- 36.6 (Killerschlag Zerteilen bei Krogg in alter Auflösung) offen.
+
+### Übergabe Tom (12.10., 15:32, ersetzt 15:57)
+
+- Zweig `claude/tom-27-4-baeume` (mit `main`): **27.4** Bäume mit Volumen (`MapTree.kt`, an über `MapFlora.treeDraft`, Vergleich `TREESHEET=1`), **5.6** Schlagbaum/Zaun diagonal (`MapTownIso.barrier/fence`, `ISODINGE=platz`, Schüsse `d10b`, `d12`), **5.3** neun Leute als Puppen (`MapFolk.all`, Feuer-Gesten nur Garrick, Trageweise auch im Stehen). Build 0.1.590 fertig (15:34), kein PR.
+- **Offen:** 5n (Haus östlich vor dem Schlagbaum rücken?), Regel „nicht warten“ in `CLAUDE.md` (Freigabe abgelehnt, Nutzer fragen). Schuss `d12_zaun` stellt den Helden ins Wasser (anderen Platz wählen).
+- **Als Nächstes:** nach Test PR, zusammenführen; dann 5l/5.5 (Leben im Dorf, erst Standbilder), 5.4, 27.5/27.6; danach 13 Tempel, 42, Lyra diagonal.
+
 ### Übergabe Jerry (12.10., 14:30, ersetzt 15:35)
 
 - **36.5** auf `claude/great-pascal-x56kad` (kein PR, nur Zweig-Build): Drehpunkt der Lunge-Vergrößerung an die Füße (`BattleScreen`, `size` im `graphicsLayer`), 36h `FOE_WIND_STEP` 0,7. **Offen:** Sprung in den Schlag bleibt groß (Film `FILMBATCH` Krogg, Bilder ~146–153), Rücksprung nach dem Schlag hart (Lunge fällt auf 0, wenn der Angriff endet); Goblin-Angriff noch nicht gefilmt (Film tötete ihn vorher). 36g nein: tief gehen ist ok.
@@ -158,6 +353,29 @@ Zeile 24 aus „Wer macht was“ (Stand 12.10.): | 24 | Animationen fehlen nach 
 
 
 
+
+
+- **48 vollständig (aus OFFEN, 13.10., 01:32):** | 48 | Zufallsgenerierte Dungeons (auch Questhöhlen?) | Berater mit Nutzer | – | Idee Nutzer 12.10., 14:0x. **48a ja (14:1x):** erst 48.3 Questhöhlen ganz zufällig, 48.2 Story-Höhlen halb-halb später, 48.1 nein. **48b ja:** Jerry baut 13e allgemein. Normale Blende reicht (Boden wird ohnehin bei jedem Betreten neu gezeichnet), messen im Test-Reiter. **48c ja mit Änderungen (14:1x):** 6–8 Kammern, Hauptweg verschlungen (kein Schlauch), mindestens ein Weg zum Ziel (Schleife nur manchmal), Sackgassen auch ohne Lohn, Rückweg über versteckten Durchgang, der nach dem Boss aufgeht. Beute knapp: Jerry prüft Gold und Gegenstände je Höhle gegen `BALANCE.md` (38). Nach Kapitel 1 |
+
+- **Übergabe Tom (13.10., 02:25), ersetzt:** ### Tom (13.10., 02:25) – Selbstarbeit, an Nachfolger übergeben - **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g Katze), 0.1.643 (6f Farbstimmung), je ein Testreiter-Schalter. Rückfragen 60e–60i, 27.6a–c, 13x, 17r, 5la, 6g, 6f auf der Entscheidungsseite (Empf. je ja). - Entwürfe fertig auf eigenen Zweigen: `tom-27-6-tiefer-wald`, `tom-13-tempel-altar`, `tom-17-nachschwingen`, `tom-5l-leben`, `tom-katze`, `tom-6-farbstimmung` (Vorschau-Schalter in `UMGEBUNG.md`). - **Weiter:** Vorrat 7 Spuren (Blut nach Kampf an der Stelle des Gegners, Fußspuren nach Regen, Staub; nur Entwurf, neuer Zweig von `main`; Ansatz: Marken nur im Speicher, gezeichnet im `ground`-Block von `WorldScreen`), dann 8 Kartenansicht. Vorschau nur mit engem `ONLY=` (ein Lauf ~10 min).
+- **Übergabe Tom (13.10., 01:02), ersetzt:** ### Tom (13.10., 01:02) – Selbstarbeit, an Nachfolger übergeben - **59** Build 0.1.632 und **60** Build 0.1.636 warten auf Test (Zu testen). Rückfragen 60e–60i, 27.6a–c, 13x auf der Entscheidungsseite. - **27.6** Entwurf fertig: Zweig `claude/tom-27-6-tiefer-wald` (0eed32e), Kronen verdecken Morwens Feuer nicht mehr (nur DIAG). **13x** Tempel-Altar fertig: Zweig `claude/tom-13-tempel-altar` (aae8b45), zwei Fenster neben dem Altar. - **Weiter:** Paket 5 (17 Rest: Haare und Köcher schwingen nach; Ansatz: `MapFigure.cloaked` → auch lange Haare/Köcher, `Doll.kt` 533 `flick` auch aus `rig.cloak`, Köcherboden in `Dress.kt` ~578 mit `rig.cloak` nach hinten), dann Reserve. Vorschau nur mit engem `ONLY=` (ein breiter Lauf dauert über 20 min).
+
+- **Übergabe Tom (13.10., 01:52), ersetzt:** ### Tom (13.10., 01:52) – Selbstarbeit, an Nachfolger übergeben - **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g Katze), je ein Testreiter-Schalter. Rückfragen 60e–60i, 27.6a–c, 13x, 17r, 5la, 6g auf der Entscheidungsseite (Empf. je ja). - Entwürfe fertig auf eigenen Zweigen: `tom-27-6-tiefer-wald`, `tom-13-tempel-altar`, `tom-17-nachschwingen`, `tom-5l-leben`, `tom-katze` (Vorschau-Schalter in `UMGEBUNG.md`). - **Weiter:** Vorrat 6 Farbstimmung je Ort und Tageszeit (Entwurf hinter Schalter, neuer Zweig von `main`), dann 7 Spuren, 8 Kartenansicht. Vorschau nur mit engem `ONLY=`; Uhrzeit immer mit `date` ablesen.
+
+
+## Aus BERATER.md (12.10., 16:4x, gekürzt)
+
+- **Textkasten im Stil der Blenden** (42, 12.10.): heller Kasten mit rotem Sprecher war Game-Boy-Look gegen `STIL.md`. Ganz schwarz (nicht durchscheinend: lesbarer, näher an der Blende), dünner Goldrand, Sprecher Gold in Kapitälchen im Kasten, Text gebrochenes Weiß, Serife, Erzähltext kursiv. Erst nur Textkasten, Menüs später; Tom nach 13, erst Standbilder.
+- **Klang:** echte CC0-Aufnahmen statt Synthese (18); Systemklänge nur in einer Fassung; Ortsklang nur von sichtbaren Quellen und anwesenden Leuten, **kein Stimmengewirr** (24w nein, 22:06); Musik orchestral und düster, Dorf mittelalterlich (28). Einzelheiten `STIL.md` → Klang.
+- **Kampf nah am SRD** (12.10.): „Zug beenden“ jetzt (34, auch um Testkämpfe schnell zu verlieren), „Abwarten“/„Helfen“ erst mit Begleitern (Merkliste). Weihwasser nur gegen Untote, 2W6, sonst ausgegraut mit Hinweis (35): vorher 2W6 gegen alle, unglaubwürdig.
+- **Hintergrund-Fäden:** `MapGround` (fester Pool „map-ground“), `MapRest` (ein Faden „map-rest“), `MapFigure.prepare` (eigene Fäden für den Helden), `HeroShelf` (gespeicherte Bilder, 24.4), `BattleAhead` (Kampfbilder vorzeichnen, 24.5), ab 24.17 zwei Kerne. Klang: Ortsklang-Schleife in `WorldScreen` (24.8, Jerry).
+- **Zwischenspeicher:** Viele Kunst-Objekte halten Bilder in Maps. Begrenzt (LRU): `FoeArt`, `MonsterArt`, `HeroBattle`, `CaveScene`. **Unbegrenzt** (einfache `HashMap`): u. a. `WorldArt`, `MapFlora`, `MapTown`, `MapTownIso`, `ActionArt`.
+- **Vorzeichnen muss ein festes Ziel haben** (24.5, 11.10.): Im Wolfsrudel wechselte der „nächste Gegner“ ständig, jeder Wechsel brach das Zeichnen ab, Gegner wurden nie fertig. Lösung 24.18: feste Reihenfolge.
+- **Erst messen, dann beschleunigen** (24.14): Erster Start sank von 27 s auf 5,9 s, Waffenwechsel von 15,7 s auf 2,9 s, erst nachdem der Test-Reiter Zeiten zeigte.
+- **Bilder auf dem Gerät speichern lohnt** (24.4): Neustart 0,1 s statt 27 s.
+- **Abstürze ohne Bericht sind blind** (30, 11.10.): Bis heute gab es keinen Absturz-Fänger. Erst Fehlertext holen, dann suchen.
+- **Test-Builds von vor einer Korrektur haben sie nicht** (30, 12.10.): 0.1.561 (Jerry) entstand vor PR #40, stürzte ohne Bericht ab. Darum vor jedem Zweig-Build `main` holen (21.5) und beim Testangebot sagen, ob der Fänger drin ist.
+- **Gegner sind grobe Pixelkunst** (36): 0,66 px/cm, hart ganzzahlig vergrößert (`width/170`, im breiten Emulator bis ~11×). Starkes Rauschen (`grain`) wird bei wenigen Punkten zu Krisel.
 
 ## Aufgeräumt aus OFFEN.md (Jerry, 12.10., 13:50)
 

@@ -17,7 +17,12 @@ object Recorded {
         // the sound of a place (24.8)
         Sound.WIND to 3, Sound.HALL to 3, Sound.CREAK to 3, Sound.HEARTBEAT to 3,
         Sound.CUP to 3, Sound.POUR to 3, Sound.WIPE to 3, Sound.CHAIR to 3, Sound.COUGH to 3,
+        // the forest pond (27k, chosen by the user: three calls, one chorus, two dragonflies)
+        Sound.FROG to 3, Sound.FROG_CHORUS to 1, Sound.DRAGONFLY to 2,
     )
+
+    /** Fewer than three takes by the user's choice (27k): the pond's one chorus loop, its two dragonflies. */
+    val FEWER = setOf(Sound.FROG_CHORUS, Sound.DRAGONFLY)
 
     /** The asset path of take [take] (from 0) of [s]. */
     fun file(s: Sound, take: Int) = "sfx/${s.name.lowercase()}_${take + 1}.ogg"

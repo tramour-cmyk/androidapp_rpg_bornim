@@ -4,6 +4,46 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.656 – 13.10.2026, 10:13
+
+Zweig von Tom (Thema 58), getestet in 0.1.628 (Nutzer 12.10., 23:1x: alles klappt), PR #50 (zusammengeführt 12.10., 23:13):
+
+**Schild und Köcher auf dem Rücken (58)**
+- Ein umgehängter Schild liegt über Umhang und Mantel und drückt den Stoff an den Rücken; darunter fällt der Umhang frei. Der Köcher ebenso.
+
+Zweig von Tom (Thema 27e.1, 27h, 27i, 27j, 17a, 42d), getestet in 0.1.624 und 0.1.625 (Nutzer 12.10., 22:3x: passt), PR #48 (zusammengeführt 12.10., 22:3x):
+
+**Weiher im Wald (27i, 27j)**
+- Libellen schwirren tagsüber über dem Wasser; Frösche sitzen am Ufer, springen ins Wasser, wenn der Held nahe kommt, und klettern später wieder heraus.
+- Klang aus echten Aufnahmen (CC0): Ein Frosch ruft, wenn seine Kehle schwillt, lauter je näher der Held ist, und schweigt im Wasser; Libellen hört man nur ganz nah und bei Tag; in der Dämmerung ein leiser Chor.
+
+**Held und Ansicht (17a, 27e.1, 27h)**
+- Umhang und Mantel schwingen nach dem Anhalten aus und setzen sich ruhig.
+- Was vor dem Helden steht, deckt ihn zusammen nur zur Hälfte.
+- Test-Reiter: Schalter „Alles diagonal“ (auch Wald, Tiefer Wald, Höhle).
+
+**Textkasten (42d)**
+- Gespräche, Erzähltext und Aushänge in einem schwarzen Kasten mit dünnem Goldrand: Sprecher in Gold, Text in gebrochenem Weiß mit Serife, Erzähltext kursiv, ▼ in Gold.
+- Werkzeuge (nur Entwicklung): Kerntest `PondSoundTest`, `tools/klang/teich.py`.
+
+Zweig von Tom (Thema 27.4, 27.5, 27e, 5.3, 5.4, 5.6, 5n, 55.2, 56), getestet in 0.1.590 bis 0.1.615 (Nutzer 12.10., 21:1x: Dorf, Schänke, Tiefer Wald passen), PR #49 = getesteter Stand von PR #48 (zusammengeführt 12.10., 21:15):
+
+**Bäume und Dorf (27.4, 5.3, 5.4, 5.6, 5n)**
+- Bäume mit Volumen in Wald, Tiefem Wald und Dorf: Blattballen, runder Stamm mit Wurzeln, Fichten in Etagen, Dürrholz.
+- Alle zwölf Dorfbewohner sind Puppen mit Ruhebewegungen; Speer und Stab bleiben auf der Schulter.
+- Schlagbaum und Zaun diagonal; Kaels Hütte steht zwei Felder weiter östlich, der Schlagbaum ist frei.
+- Pflaster auf dem Markt ruhiger (Zwischending), Fensterlicht nachts wird von Bäumen, Häusern und Leuten verdeckt, Kaminrauch als weiche Säule; Gemüsebeet in Furchen, Kornfeld aus Halmen, junge Fichten am Dorfrand.
+- Wäscheleine, Heu, Farn und Büsche im Dorf schräg gezeichnet (56d).
+
+**Wald (27.5, 27g, 56a–56c, 27e)**
+- Stamm, Felshang mit Höhleneingang, Feuerstelle und Wegweiser diagonal; Heilkräuter, Truhen, Steine, Steinkreis, Büsche, Farn und Schilf schräg (sichtbar, sobald der Wald diagonal ist).
+- Der Weiher liegt tiefer, mit Erdstufe am Ufer (nur im Wald).
+- Kronen vor dem Helden decken ihn auch in der geraden Sicht zusammen nur zu 35 %; im Tiefen Wald verschwand er sonst ganz (27e; weniger Transparenz folgt mit 27e.1).
+
+**Schänke (55.2)**
+- Borin sitzt auf einem Hocker an seinem Tisch: trinkt, isst, sieht sich um, zu zufälligen Zeiten, atmet; der Hammer lehnt am Tischende.
+- Durchsicht nur, wenn etwas den Oberkörper verdeckt (der Tresen bleibt fest).
+
 Zweig von Jerry (Thema 36.5, 36h, 36.7, 36j), getestet in 0.1.587 (passt, keine Abstürze), PR #47 (zusammengeführt 12.10., 15:5x):
 
 **Krogg trifft (36.5, 36h, 36.7, 36j)**

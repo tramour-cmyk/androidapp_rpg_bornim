@@ -164,3 +164,6 @@ Nach den [Stil-Leitlinien](STIL.md): weg von Chiptune, hin zu glaubwürdigen Ger
 - **Testkämpfe im Dorf:** Held und Gegner erreichen sich beim Angriff nicht (alte Kulisse ohne berechneten Schritt); im Dorf gibt es sonst keine Kämpfe (08.10.).
 - **Figurgröße im Reiter „Held“** und **Kampfablauf** (Ansage mit Ausholen → Tippen → Schlag): so bestätigt.
 - **30.7 (Jerry, 36f, 12.10.):** Klänge mit 22 statt 44 kHz (etwa 5 MB Speicher weniger, Höhen etwas dumpfer); erst wenn der Speicher wieder knapp wird.
+
+- **59.6** Händler: Filter „nur tragbare“, Sortierung nach Platz – wenn es mehr Ware gibt (Nutzer 12.10., 22:49)
+- **59.7** Händler mit Gesicht: Name, Bild, Begrüßungssatz statt „Laden“; Texte Nutzer und Berater (41) (Nutzer 12.10., 22:49)

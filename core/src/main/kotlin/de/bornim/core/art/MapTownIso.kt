@@ -12,6 +12,7 @@ import kotlin.math.abs
 import kotlin.math.exp
 import kotlin.math.floor
 import kotlin.math.max
+import kotlin.math.sin
 import kotlin.math.min
 
 /**
@@ -328,9 +329,12 @@ object MapTownIso {
         if (z > top) return null
         val inner = abs(f - 0.5) < r - 0.04 && z > 51 && z < top - 5
         if (!inner) return shade(argb(0x18161A), face)
-        val a = (f - 0.5) * 34; val b = (z - 90) / 7
-        if (abs(frac(a + b) - 0.5) > 0.44 || abs(frac(a - b) - 0.5) > 0.44) return argb(0x16161A)
-        return if (night) mix(argb(0x6A3A14), argb(0xE8A858), 0.6 + frac(a * 0.37 + b * 0.21) * 0.4)
+        // the lead in diamonds big enough to read on the phone (test of 5.4: at night the fine lattice was a speckle);
+        // at night each pane a little different, brightest low in the middle where the candles stand
+        val a = (f - 0.5) * 9; val b = (z - 90) / 22
+        if (abs(frac(a + b) - 0.5) > 0.45 || abs(frac(a - b) - 0.5) > 0.45) return argb(0x16161A)
+        val pane = hash(floor(a + b).toInt(), floor(a - b).toInt(), 71) % 100 / 100.0
+        return if (night) mix(argb(0x7A4418), argb(0xF0B868), (0.95 - abs(f - 0.5) / r * 0.35 - (z - 51) / 300 + (pane - 0.5) * 0.2).coerceIn(0.0, 1.0))
         else mix(argb(0x1A2028), argb(0x4A5666), ((z - 51) / 90).coerceIn(0.0, 1.0) * 0.7)
     }
 
@@ -776,12 +780,109 @@ object MapTownIso {
         return c.img
     }
 
+    /**
+     * The barrier across the road north (5.6): a beam of oak at hip height, two tiles long, on a stout post with an
+     * iron pin where it turns ([pivot], the west tile) and resting in a forked post at its east end; iron bands at
+     * its ends. Opened, it stands upright at its post.
+     */
+    fun barrier(pivot: Boolean, open: Boolean, seed: Int): PixelImage {
+        val c = Tile1(300)
+        c.shadow(-0.5, -0.5, 0.36, 0.3)
+        val j0 = -0.55; val j1 = -0.45
+        fun iron(f: Int) = shade(argb(0x262422), if (f == 0) 0.65 else if (f == 1) 1.0 else 1.1)
+        if (pivot) {
+            // the post with a cap of iron, the beam on its east side
+            c.box(-0.86, -0.6, -0.74, -0.48, 0.0, 84.0) { f, u, w -> wood(f, w, u, seed, 0x463424) }
+            c.box(-0.87, -0.61, -0.73, -0.47, 84.0, 86.0) { f, _, _ -> iron(f) }
+            if (open) {
+                // standing up beside the post, its foot in the pin
+                c.box(-0.73, j0, -0.65, j1, 40.0, 200.0) { f, u, w ->
+                    if (w > 0.94 || w in 0.3..0.33) iron(f) else wood(f, w, u, seed + 1, 0x6A5238)
+                }
+                c.box(-0.74, -0.57, -0.64, -0.43, 58.0, 64.0) { f, _, _ -> iron(f) }
+            } else {
+                c.box(-0.73, j0, 0.0, j1, 54.0, 66.0) { f, u, w -> if (u < 0.05) iron(f) else wood(f, u, w, seed + 1, 0x6A5238) }
+                c.box(-0.74, -0.57, -0.64, -0.43, 54.0, 66.0) { f, _, _ -> iron(f) }
+            }
+        } else {
+            // the forked post the beam rests in: two prongs, the beam between them
+            val rest = -0.3
+            c.box(rest - 0.05, -0.62, rest + 0.05, -0.56, 0.0, 70.0) { f, u, w -> wood(f, w, u, seed + 2, 0x463424) }
+            c.box(rest - 0.05, -0.58, rest + 0.05, -0.42, 0.0, 54.0) { f, u, w -> wood(f, w, u, seed + 2, 0x463424) }
+            if (!open) c.box(-1.0, j0, -0.16, j1, 54.0, 66.0) { f, u, w -> if (u > 0.9 && u < 0.97) iron(f) else wood(f, u, w, seed + 1, 0x6A5238) }
+            c.box(rest - 0.05, -0.44, rest + 0.05, -0.38, 0.0, 70.0) { f, u, w -> wood(f, w, u, seed + 2, 0x463424) }
+        }
+        return c.img
+    }
+
+    /** Which look a fence has (5.6): the same along all of it, by the first tile reached going west and north. */
+    private fun fenceLook(map: MapDef, tx: Int, ty: Int): Int {
+        var x = tx; var y = ty
+        repeat(64) {
+            when {
+                map.tile(x - 1, y) == Tile.FENCE -> x--
+                map.tile(x, y - 1) == Tile.FENCE -> y--
+                else -> return Math.floorMod(hash(x, y, 16), 3)
+            }
+        }
+        return Math.floorMod(hash(x, y, 16), 3)
+    }
+
+    /**
+     * A piece of fence (5.6) around its post in the middle of the tile, joined towards the fence tiles beside it
+     * ([l] west, [r] east, [u] north, [d] south). Three looks: split rails on posts, wattle of woven hazel between
+     * stakes, a row of pointed pales on two rails.
+     */
+    fun fence(v: Int, l: Boolean, r: Boolean, u: Boolean, d: Boolean, seed: Int): PixelImage {
+        val c = Tile1(160)
+        val m = -0.5
+        // a run from the post to the tile's edge, along i (di = ±1) or j (dj = ±1)
+        fun run(di: Int, dj: Int) {
+            val (a0, a1) = if (di + dj < 0) -1.0 to m else m to 0.0
+            fun along(lo: Double, hi: Double, w: Double, z0: Double, z1: Double, tex: (Int, Double, Double) -> Int?) =
+                if (di != 0) c.box(lo, m - w, hi, m + w, z0, z1, tex) else c.box(m - w, lo, m + w, hi, z0, z1, tex)
+            when (v) {
+                0 -> for (z in listOf(18.0, 40.0)) along(a0, a1, 0.025, z, z + 6) { f, uu, w -> wood(f, if (di != 0) uu else w, if (di != 0) w else uu, seed + z.toInt(), 0x5A4632) }
+                1 -> {
+                    along(a0, a1, 0.03, 0.0, 46.0) { f, uu, w ->
+                        // the hazel woven over and under the stakes: bands of rods, each a little lit at its bulge
+                        val s = if (di != 0) uu else w
+                        val band = frac(w * 13 + (if (frac(s * 8) < 0.5) 0.5 else 0.0))
+                        val k = 0.55 + sin(band * Math.PI) * 0.45
+                        if (f == 2) shade(argb(0x4A3A28), 0.9) else shade(mix(argb(0x160F09), argb(0x56442C), k), if (f == 0) 0.65 else 1.0)
+                    }
+                    val mid = (a0 + a1) / 2
+                    along(mid - 0.02, mid + 0.02, 0.035, 0.0, 52.0) { f, uu, w -> wood(f, w, uu, seed + 5, 0x3E2E20) }
+                }
+                else -> {
+                    for (z in listOf(14.0, 36.0)) along(a0, a1, 0.02, z, z + 4) { f, uu, w -> wood(f, uu, w, seed + 7, 0x4A3828) }
+                    var p = a0 + 0.07
+                    while (p < a1 - 0.03) {
+                        val top = 44.0 + rnd((p * 100).toInt(), di * 3 + dj, seed) * 8
+                        along(p - 0.03, p + 0.03, 0.035, 0.0, top) { f, uu, w -> wood(f, w, uu, seed + (p * 50).toInt(), 0x5A4834) }
+                        p += 0.14
+                    }
+                }
+            }
+        }
+        // what lies behind the post first, then the post, then what lies in front
+        if (l) run(-1, 0)
+        if (u) run(0, -1)
+        val top = when (v) { 0 -> 56.0; 1 -> 54.0; else -> 50.0 }
+        c.box(m - 0.05, m - 0.05, m + 0.05, m + 0.05, 0.0, top) { f, uu, w -> wood(f, w, uu, seed + 9, 0x3E2E20) }
+        if (r) run(1, 0)
+        if (d) run(0, 1)
+        return c.img
+    }
+
     /** The things on the square, three looks each (preview ISODINGE=platz). */
     fun squareSheet(): List<Pair<String, List<PixelImage>>> = listOf(
         "Marktstand" to (0 until 3).map { stall(it, 501 + it) },
         "Brunnen" to (0 until 3).map { well(it, 511 + it) },
         "Laterne" to (0 until 3).map { lamp(it, 521 + it) },
         "Bank" to (0 until 3).map { bench(it, 531 + it) },
+        "Schlagbaum" to listOf(barrier(true, false, 581), barrier(false, false, 581), barrier(true, true, 581)),
+        "Zaun" to (0 until 3).map { fence(it, true, true, false, true, 591 + it) },
         "Wegweiser" to (0 until 3).map { signpost(it, 541 + it) },
         "Anschlagbrett" to (0 until 3).map { noticeBoard(it, 561 + it) },
         "Anschlagbrett mit frischem Zettel" to (0 until 3).map { noticeBoard(it, 561 + it, fresh = true) },
@@ -881,8 +982,9 @@ object MapTownIso {
      * strips one tile of the diagonal wide, each sorted by the frontmost point of the house in it, so a figure stands
      * in front of a wall it is in front of and behind one it is behind.
      */
-    fun objects(map: MapDef, tx: Int, ty: Int, freshNote: Boolean = false): List<WorldArt.Obj>? {
+    fun objects(map: MapDef, tx: Int, ty: Int, freshNote: Boolean = false, barrierOpen: Boolean = false): List<WorldArt.Obj>? {
         val t = map.tile(tx, ty)
+        fun fenceAt(x: Int, y: Int) = map.tile(x, y) == Tile.FENCE
         // the things on the square (5.2): one picture on the tile, its front corner at the foot, sorted like a figure there
         val v = Math.floorMod(hash(tx, ty, 15), 3)
         val thing: Pair<String, () -> PixelImage>? = when (t) {
@@ -893,6 +995,13 @@ object MapTownIso {
             Tile.LAMP -> "lamp/$v" to { lamp(v, 521 + v) }
             Tile.BENCH -> "bench/$v" to { bench(v, 531 + v) }
             Tile.BARREL -> "barrel/$v" to { MapRoomIso.barrelOutside(v, 551 + v) }
+            Tile.BARRIER -> (map.tile(tx - 1, ty) != Tile.BARRIER).let { pivot -> "barrier/$pivot/$barrierOpen" to { barrier(pivot, barrierOpen, 581) } }
+            Tile.FENCE -> {
+                // one look for a whole fence: the garden's or the posts beside the barrier, by its first tile
+                val l = fenceAt(tx - 1, ty); val r = fenceAt(tx + 1, ty); val u = fenceAt(tx, ty - 1); val d = fenceAt(tx, ty + 1)
+                val fv = fenceLook(map, tx, ty)
+                "fence/$fv/$l$r$u$d" to { fence(fv, l, r, u, d, 591 + fv) }
+            }
             else -> null
         }
         if (thing != null) {

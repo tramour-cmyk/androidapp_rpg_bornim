@@ -1,6 +1,6 @@
 # Entwicklung
 
-Wie gebaut und geprüft wird: die Einzelheiten zum [Leitbild](LEITBILD.md) (Grundsätze 5, 10, 11, 12). Wie das Spiel aussieht und klingt, steht in [Stil](STIL.md); Abläufe (Notizen, Builds, Nummern) in `CLAUDE.md`.
+Wie gebaut und geprüft wird: die Einzelheiten zum [Leitbild](LEITBILD.md) (Grundsätze 5, 10, 11, 12). Wie das Spiel aussieht und klingt, steht in [Stil](STIL.md); Abläufe (Notizen, Builds, Nummern) in `CLAUDE.md`, seltene (Release, Neustart) in `ABLAEUFE.md`.
 
 ## Ansicht
 

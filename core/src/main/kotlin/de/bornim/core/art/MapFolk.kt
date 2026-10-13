@@ -77,13 +77,122 @@ object MapFolk {
     val morwen = Folk("morwen", human(Sex.FEMALE, Build.SLIM, 1, 0, grey = 0x9C9890),
         Outfit(CharClass.ROGUE, kit("robe", "hood"), cloakRgb = 0x3E4A30, clothes = clothes(0x4A5A36, 0x34402A, 0x2E2A22)))
 
+    /** 55.2 (55c ja): Borin sits at his table in the inn. */
+    @Volatile var sitDraft = true
+
+    /** Borin's poses at his table (55.2): hands on the table, a drink from his flask, a bite, a look round. */
+    enum class Seat { REST, DRINK, EAT, LOOK, BREATHE }
+
+    /** A moment at the table: between [from] and [to], [k] of [BLEND] steps (like [SquatPose]). */
+    data class SeatPose(val from: Seat, val to: Seat, val k: Int) {
+        val main: Seat get() = if (k * 2 >= BLEND) to else from
+    }
+
+    /** Who sits at a table instead of standing (55.2): Borin in the inn. */
+    fun sits(f: Folk) = sitDraft && f.id == "borin"
+
+    /** What he does at the table is decided by chance in blocks of this length, never on a beat. */
+    const val SEAT_BLOCK_MS = 20_000L
+    /** Moving from one pose at the table into another takes this long. */
+    const val SEAT_MOVE_MS = 700L
+
+    private fun seat(a: Seat, b: Seat, t: Double) =
+        SeatPose(a, b, Math.round(t.coerceIn(0.0, 1.0) * BLEND).toInt()).let { if (it.k == 0) SeatPose(a, a, 0) else if (it.k == BLEND) SeatPose(b, b, 0) else it }
+
+    /**
+     * What [f] does at the table at [clockMs] (55.2): mostly hands on the table and breathing; within each block of
+     * [SEAT_BLOCK_MS] once or twice, at chance moments and for chance lengths, a drink, a bite or a look round, moving
+     * into it and back over [SEAT_MOVE_MS]. Each block starts and ends at rest, so blocks join without a jump.
+     */
+    fun seatPoseAt(f: Folk, clockMs: Long): SeatPose {
+        val n = Math.floorDiv(clockMs, SEAT_BLOCK_MS)
+        val t = clockMs - n * SEAT_BLOCK_MS
+        val r = java.util.Random(n * 9_000_011L + f.id.hashCode() * 17L + 3)
+        val acts = r.nextInt(3)
+        var at = 1_500L + (r.nextDouble() * 5_000).toLong()
+        for (k in 0 until acts) {
+            val what = listOf(Seat.DRINK, Seat.EAT, Seat.LOOK)[r.nextInt(3)]
+            val hold = 1_400L + (r.nextDouble() * (if (what == Seat.LOOK) 2_600 else 1_800)).toLong()
+            val end = at + SEAT_MOVE_MS + hold + SEAT_MOVE_MS
+            if (end > SEAT_BLOCK_MS - 500) break
+            if (t in at until end) {
+                val u = t - at
+                return when {
+                    u < SEAT_MOVE_MS -> seat(Seat.REST, what, ease(u / SEAT_MOVE_MS.toDouble()))
+                    u < SEAT_MOVE_MS + hold -> SeatPose(what, what, 0)
+                    else -> seat(what, Seat.REST, ease((u - SEAT_MOVE_MS - hold) / SEAT_MOVE_MS.toDouble()))
+                }
+            }
+            at = end + 2_000L + (r.nextDouble() * 4_000).toLong()
+        }
+        return breathing(clockMs)
+    }
+
+    /**
+     * At rest he breathes: the chest rising and falling about every four seconds, the pace drifting a little so it never
+     * keeps time; a breath is so small that going into an action from any point of it does not jump.
+     */
+    private fun breathing(clockMs: Long): SeatPose {
+        val ph = clockMs / 4_000.0 * 2 * Math.PI + 0.7 * kotlin.math.sin(clockMs / 9_300.0)
+        return seat(Seat.REST, Seat.BREATHE, 0.5 - 0.5 * kotlin.math.cos(ph))
+    }
+
+    /** The outfit Borin sits in: the hammer is put by at the table, a flask at his belt. */
+    private val seatedOutfit by lazy {
+        val o = borin.outfit
+        Outfit(o.cls, o.items.filterValues { it.base != "maul" }, leatherRgb = o.leatherRgb, clothes = o.clothes, flaskRgb = 0x8A6A2A)
+    }
+
+    /** The rig of one pose at the table, facing [yaw]. */
+    fun seatRig(yaw: Double, pose: Seat): HeroFigure.Rig {
+        // the open flask stays in his left hand, standing on the table while he rests: it never pops in or out
+        val base = MapFigure.rig(yaw, 0, MapFigure.Carry.FREE).copy(sit = 1.0, stride = 0.0, spread = 7.0,
+            rh = HeroFigure.V(12.0, 60.0, 22.0), lh = HeroFigure.V(-12.0, 60.0, 22.0), flask = 1.0, cork = 0.0)
+        return when (pose) {
+            Seat.DRINK -> base.copy(lh = HeroFigure.V(-5.0, 74.0, 11.0), flaskTilt = 70.0, headDown = -4.0)
+            Seat.EAT -> base.copy(rh = HeroFigure.V(4.0, 72.0, 11.0), headDown = 4.0)
+            Seat.LOOK -> base.copy(lh = HeroFigure.V(-12.0, 36.0, 16.0), headTurn = 45.0, twist = 10.0)
+            Seat.REST -> base
+            // a breath in: the chest and shoulders lift a little, the hands on the table stay
+            Seat.BREATHE -> base.copy(bodyY = 0.5, cloak = 0.45)
+        }
+    }
+
+    /** The rig of a [SeatPose]: the two poses mixed. */
+    fun seatRig(yaw: Double, p: SeatPose): HeroFigure.Rig {
+        val a = seatRig(yaw, p.from)
+        return if (p.k == 0) a else a.lerp(seatRig(yaw, p.to), p.k / BLEND.toDouble())
+    }
+
+    /** The picture of [f] at a [SeatPose] facing [slot]: drawn in the background, until then the nearer pose's or resting picture. */
+    fun seatFrame(f: Folk, slot: Int, p: SeatPose): PixelImage? {
+        fun one(q: SeatPose) = MapRest.picture("seat|${f.id}|$slot|${q.from}>${q.to}|${q.k}") { MapFigure.render(f.doll, seatedOutfit, seatRig(slot * 360.0 / MapFigure.YAWS, q)) }
+        return one(p) ?: one(SeatPose(p.main, p.main, 0)) ?: one(SeatPose(Seat.REST, Seat.REST, 0))
+    }
+
+    /** Draws ahead every picture of [f] at the table facing [slot]: the poses and the steps between rest and each. */
+    fun prepareSeat(f: Folk, slot: Int) {
+        for (s in Seat.entries) {
+            seatFrame(f, slot, SeatPose(s, s, 0))
+            if (s != Seat.REST) for (k in 1 until BLEND) { seatFrame(f, slot, SeatPose(Seat.REST, s, k)); seatFrame(f, slot, SeatPose(s, Seat.REST, k)) }
+        }
+    }
+
+    /** One pose of Borin at the table for the preview sheet: [pose] 0 rest, 1 drinking, 2 eating, 3 looking round. */
+    fun borinSits(slot: Int, pose: Int): PixelImage =
+        MapFigure.render(borin.doll, seatedOutfit, seatRig(slot * 360.0 / MapFigure.YAWS, Seat.entries[pose]))
+
     /** The village folk drawn as dolls so far only as drafts: shown on a sheet, not yet on the map. */
     val drafts = listOf(rowena, aldric, thessa, osric, lyra, jorin, pim, bram, liska, gwenna, borin, morwen)
 
-    private val all = listOf(garrick).associateBy { it.id }
+    // 5.3: everyone who stands about in the village, its houses and the woods (Bram, Liska, Gwenna: test of 0.1.590)
+    private val all = listOf(garrick, morwen, rowena, aldric, thessa, osric, jorin, pim, borin, bram, liska, gwenna).associateBy { it.id }
 
-    /** The doll for the person [npcId], or null when that one is still drawn the former way. */
-    fun of(npcId: String): Folk? = all[npcId]
+    /** The doll for the person [npcId], or null when that one is still drawn the former way (Lyra in the temple and in the cave is one). */
+    fun of(npcId: String): Folk? = all[npcId] ?: if (npcId.startsWith("lyra")) lyra else null
+
+    /** Only Garrick has idle loops of his own so far (warming his hands at his fire, peering into the woods); the others rest ([MapRest]). */
+    private fun loops(f: Folk) = f.id == "garrick"
 
     /** Standing still or walking: [step] as in [MapFigure.STEPS]. */
     fun draw(f: Folk, slot: Int, step: Int): PixelImage =
@@ -435,6 +544,7 @@ object MapFolk {
      * and how fast his loop runs. So the pauses between run from about 2½ s to over half a minute.
      */
     fun doing(f: Folk, clockMs: Long): Doing? {
+        if (!loops(f)) return null
         val n = Math.floorDiv(clockMs, BLOCK_MS)
         val t = clockMs - n * BLOCK_MS
         val r = java.util.Random(n * 1_000_003L + f.id.hashCode())
@@ -461,7 +571,7 @@ object MapFolk {
 
     /** One resting picture of [f], drawn now. */
     fun drawRest(f: Folk, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage =
-        MapFigure.render(f.doll, f.outfit, MapRest.rig(MapFigure.rig(slot * 360.0 / MapFigure.YAWS, 0, MapFigure.Carry.FREE), rest, breath, level))
+        MapFigure.render(f.doll, f.outfit, MapRest.rig(MapFigure.rig(slot * 360.0 / MapFigure.YAWS, 0, f.carry), rest, breath, level))
 
     /** The idle picture, or null while it is not drawn yet. */
     fun idleFrame(f: Folk, slot: Int, idle: Idle, i: Int): PixelImage? = synchronized(cache) { cache["${f.id}|$slot|$idle|$i"] }
@@ -501,11 +611,13 @@ object MapFolk {
             prepare(it, home)
             if (map.safeZones.any { z -> z.x == npc.x && z.y == npc.y }) prepareWard(it, home)
             if (squats(it)) prepareSquat(it, home)
+            if (sits(it)) prepareSeat(it, home)
         }
     }
 
     /** Draws the idle loops of [f] about its home direction [homeSlot] in the background (after its walk). */
     private fun prepareIdle(f: Folk, homeSlot: Int) {
+        if (!loops(f)) return
         val n = MapFigure.YAWS
         val jobs = buildList {
             for (i in 0 until Idle.WARM.frames) add(Triple(homeSlot, Idle.WARM, i))

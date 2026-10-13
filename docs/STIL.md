@@ -29,7 +29,7 @@ Siehe auch: [Offen](OFFEN.md) · [Merkliste](MERKLISTE.md) · [Änderungshistori
 Wunsch des Nutzers (09.10.): Wer auf der Karte steht, lebt. Jede Figur, auch der Held, atmet, verlagert ab und zu das Gewicht, schaut kurz zur Seite oder stützt die Hände in die Hüften (Baustein `MapRest`, bekommen neue Figuren automatisch). Figuren mit eigener Aufgabe bekommen eigene Handlungen obendrauf (Garrick: Hände am Feuer wärmen, in den Wald spähen).
 
 - Nie im Takt: Ob, wann, was und wie lange, entscheidet der Zufall, mit eigenem Startwert je Figur, damit zwei Figuren nebeneinander nie gleichzeitig dasselbe tun. Ein gleichmäßiger Rhythmus wirkt wie ein Roboter.
-- Figuren schauen den Helden an, wenn er nahe ist, verlieren aber nach etwa 20 s Stillstand das Interesse.
+- Figuren schauen den Helden an, wenn er nahe ist (bis 3 Felder), verlieren aber nach etwa 10 s Stillstand das Interesse (5la.3, Nutzer 13.10.).
 - Haltungen vorher in allen Blickrichtungen prüfen (vorn, schräg, Seite, hinten); was von einer Seite falsch aussieht, fliegt raus.
 - Auch Orte leben (Regel des Nutzers, 10.10., 6f): Räume, Dorf und Wald sollen lebendig wirken, nicht wie eine Kulisse. Licht flackert, Rauch steigt, Staub tanzt im Lichtstrahl, Dinge liegen so, als hätte gerade jemand sie benutzt. Grundstimmung düster durch Licht und Schatten, nicht durch Dunkelheit.
 - **Effekte aktiv anbieten (44d, Nutzer 12.10.):** Rauch, Funken, Staub im Licht, Vögel, Regen und Ähnliches unterstreichen die Lebendigkeit. Tom und Jerry schlagen sie bei jedem neuen Ort und jeder neuen Figur von sich aus vor (Standbilder), statt zu warten, bis sie fehlen.
@@ -55,6 +55,11 @@ Grundsatz des Nutzers (12.10.): Das Spiel lässt dem Spieler möglichst viel Fre
 4. **Wachstum:** Bleibt es übersichtlich, wenn mit weiteren Kapiteln viel mehr davon kommt (zehnmal so viele Aufträge, Gegenstände, Orte)?
 
 Im Vorschlag an den Nutzer stehen die vier Antworten kurz neben dem Abgleich mit den übrigen Leitlinien.
+
+## Oberfläche (Thema 60)
+
+- Alle Oberflächen sehen aus wie Blende und Textkasten (42b): schwarz, dünner Goldrand, Überschriften und Hervorhebungen in gedämpftem Gold, Text in gebrochenem Weiß, Serife (mitgeliefert, OFL); keine hellen Tafeln mehr (Nutzer 12.10., 23:20).
+- Pixelschrift nur für kleine Zahlen im Kampf. Farben, die auf Schwarz stehen (Seltenheit, Warnung), hell genug zum Lesen.
 
 ## Ausrüstung der Gegner
 

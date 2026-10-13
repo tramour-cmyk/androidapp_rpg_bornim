@@ -25,7 +25,7 @@ class RecordedTest {
     @Test
     fun systemSoundsOnceAllOthersThrice() {
         for (s in Sfx.SYSTEM) assertEquals(1, Recorded.TAKES[s] ?: Sfx.variants(s), "$s ist ein Systemklang")
-        for ((s, n) in Recorded.TAKES) if (s !in Sfx.SYSTEM) assertTrue(n >= 3, "$s braucht mindestens drei Fassungen")
+        for ((s, n) in Recorded.TAKES) if (s !in Sfx.SYSTEM && s !in Recorded.FEWER) assertTrue(n >= 3, "$s braucht mindestens drei Fassungen")
         assertEquals(3, Recorded.VOICE_TAKES)
     }
 

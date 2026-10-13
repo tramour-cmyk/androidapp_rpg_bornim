@@ -46,7 +46,7 @@ internal fun Game.skipDialogs() {
 
 @OptIn(ExperimentalComposeUiApi::class)
 private fun shot(name: String, lang: Lang = Lang.DE, taps: List<Offset> = emptyList(), lastFrames: Int = 30,
-                 over: (@androidx.compose.runtime.Composable () -> Unit)? = null, setup: (GameViewModel) -> Unit) {
+                 over: (@androidx.compose.runtime.Composable () -> Unit)? = null, settle: Int = 10, setup: (GameViewModel) -> Unit) {
     System.getenv("ONLY")?.let { if (!name.startsWith(it)) return }
     val vm = GameViewModel(Application())
     vm.ensureLang(lang)
@@ -66,7 +66,7 @@ private fun shot(name: String, lang: Lang = Lang.DE, taps: List<Offset> = emptyL
         scene.sendPointerEvent(PointerEventType.Release, p)
         frames(if (i == taps.lastIndex) lastFrames else 30)
     }
-    if (taps.isEmpty()) frames(10)
+    if (taps.isEmpty()) frames(settle)
     File(out, "$name.png").writeBytes(img!!.encodeToData(EncodedImageFormat.PNG)!!.bytes)
     scene.close()
     println("wrote $name")
@@ -102,12 +102,14 @@ fun main() {
     if (System.getenv("ALTRAUM") != null) de.bornim.core.art.MapRoom.sculpted = false
     if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }
     if (System.getenv("MAPFIGYAWS") != null) { renderMapFigureYaws(); System.exit(0) }
+    if (System.getenv("SHIELDWALK") != null) { renderShieldWalk(); System.exit(0) }
     if (System.getenv("MAPFOE") != null) { renderMapFoeDraft(); System.exit(0) }
     if (System.getenv("NPCDRAFT") != null) { renderNpcDraft(); System.exit(0) }
     if (System.getenv("NPCIDLE") != null) { renderNpcIdle(); System.exit(0) }
     if (System.getenv("NPCREST") != null) { renderNpcRest(); System.exit(0) }
     if (System.getenv("NPCTORCH") != null) { renderNpcTorch(); System.exit(0) }
     if (System.getenv("VILLAGEDRAFT") != null) { renderVillageDraft(); System.exit(0) }
+    if (System.getenv("SITDRAFT") != null) { renderSitDraft(); System.exit(0) }
     if (System.getenv("SQUATDRAFT") != null) { renderSquatDraft(); System.exit(0) }
     // TOWNDRAFT=1: the village and the rooms in the new style, for the films too
     if (System.getenv("TOWNDRAFT") != null) de.bornim.core.art.MapGround.townDraft = true
@@ -179,9 +181,28 @@ fun main() {
             if (System.getenv("CAVEDRAFT") != null) de.bornim.core.art.MapCaveIso.draft = true
             // DIAG=1: the map seen diagonally (13)
             if (System.getenv("DIAG") != null) de.bornim.game.ui.MapSight.all = true
+            // PFLASTERDRAFT=1: the square's cobbles quieter (5.4, draft)
+            if (System.getenv("PFLASTERDRAFT") == "2") de.bornim.core.art.MapGround.cobbleMid = true
+            else if (System.getenv("PFLASTERDRAFT") != null) de.bornim.core.art.MapGround.cobbleDraft = true
+            // SWINGDRAFT=1: the cloak swings on when the hero stops (17, draft)
+            if (System.getenv("SWINGDRAFT") != null) { de.bornim.core.art.MapFigure.swingDraft = true; de.bornim.game.ui.HeroSwing.now = true }
+            // PONDLIFE=1: frogs on the bank and dragonflies over the forest pond (27.6, draft)
+            if (System.getenv("PONDLIFE") != null) de.bornim.core.art.PondLife.draft = true
+            // SITDRAFT2=1: Borin sits at his table in the inn (55.2, draft)
+            if (System.getenv("SITDRAFT2") != null) de.bornim.core.art.MapFolk.sitDraft = true
+            // TREEDRAFT=1: the trees with volume (27.4, draft)
+            if (System.getenv("TREEDRAFT") != null) de.bornim.core.art.MapFlora.treeDraft = true
             // ZOOMSTUFE=1|2: the in-between zoom steps for the near shots (6.15)
             System.getenv("ZOOMSTUFE")?.let { if (near) de.bornim.game.ui.MapZoom.level = it.toInt() }
             val z = if (near) "nah" else "weit"
+            // HELDORT=karte:x:y[:richtung];…: the hero anywhere, at noon (test of 0.1.590: lost under several crowns)
+            System.getenv("HELDORT")?.split(";")?.forEach { s ->
+                val p = s.split(":")
+                val f = p.getOrNull(3)?.let { d -> Facing.entries.first { it.name.startsWith(d.uppercase()) } } ?: Facing.DOWN
+                // optional fifth field: the hour (e.g. 23 for night)
+                val hour = p.getOrNull(4)?.toInt() ?: 12
+                shot("zoom_${z}_p_${p[0]}_${p[1]}_${p[2]}" + (if (p.size > 4) "_$hour" else "")) { place(it, p[0], p[1].toInt(), p[2].toInt(), hour * 60, f) }
+            }
             shot("zoom_${z}_1_wald_tag") { place(it, "forest", 9, 10, 12 * 60) }
             shot("zoom_${z}_2_wald_nacht") { place(it, "forest", 9, 10, 23 * 60) }
             shot("zoom_${z}_3_dorf") { place(it, "village", 11, 7, 12 * 60) }
@@ -211,6 +232,12 @@ fun main() {
                 // 29: the notice board before the inn, by day and at night
                 shot("zoom_${z}_d9_brett_tag") { place(it, "village", 6, 8, 12 * 60, Facing.LEFT) }
                 shot("zoom_${z}_d10_schlagbaum") { place(it, "village", 17, 4, 12 * 60, Facing.UP) }
+                // 5.6: the barrier opened, and the garden's fence in the south west
+                shot("zoom_${z}_d10b_schlagbaum_offen") { place(it, "village", 17, 4, 12 * 60, Facing.UP); it.game!!.state.flags += de.bornim.core.Story.BARRIER_OPEN; it.refresh() }
+                shot("zoom_${z}_d12_zaun") { place(it, "village", 6, 27, 12 * 60, Facing.DOWN) }
+                // test of 0.1.590: the hero behind Thessa's counter, the counter stays solid; beside it in front
+                shot("zoom_${z}_l9_tresen_hinten") { place(it, "shop", 5, 2, 12 * 60, Facing.LEFT) }
+                shot("zoom_${z}_l9b_tresen_vorn") { place(it, "shop", 4, 4, 12 * 60, Facing.UP) }
                 // 27d: the hero pushed against the shop's front wall (free walking stops him 0.3 tiles before it), at its
                 // left end, middle and right end: the house stays solid
                 for ((n, hx) in listOf("links" to 26, "mitte" to 29, "rechts" to 30)) shot("zoom_${z}_d11_laden_$n") {
@@ -255,6 +282,7 @@ fun main() {
         System.exit(0)
     }
     if (System.getenv("BEASTDRAFT") != null) { renderBeastDrafts(); System.exit(0) }
+    if (System.getenv("SWINGBILD") != null) { renderSwingDraft(); System.exit(0) }
     if (System.getenv("DOLLDRAFT") != null) { renderShamanGhoulDrafts(); System.exit(0) }
     if (System.getenv("SHAMANDRAFT") != null) { renderShamanDraft(); System.exit(0) }
     if (System.getenv("VERMINDRAFT") != null) { renderVerminDrafts(); System.exit(0) }
@@ -286,6 +314,7 @@ fun main() {
     if (System.getenv("CAST") != null) { renderCastViews(); System.exit(0) }
     if (System.getenv("STANCE") != null) { renderStanceViews(); System.exit(0) }
     if (System.getenv("ARMS") != null) { renderArmsAndCloak(); System.exit(0) }
+    if (System.getenv("TREESHEET") != null) { renderTreeSheet(); System.exit(0) }
     if (System.getenv("BENCH") != null) { benchRender(); System.exit(0) }
     if (System.getenv("RUN") != null) { renderBattleRun(); System.exit(0) }
     if (System.getenv("PORTRAIT") != null) { renderPortraits(); System.exit(0) }
@@ -352,6 +381,26 @@ fun main() {
     if (System.getenv("ABOUT") != null) {
         shot("31_about") { it.screen = Screen.ABOUT }
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }
+        System.exit(0)
+    }
+    // TEXTKASTEN=1: the text box old and as drafted for 42 (black, gold rim, serif), with a speaker and told text
+    if (System.getenv("TEXTKASTEN") != null) {
+        fun opened(vm: GameViewModel, spoken: Boolean) {
+            vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!
+            var guard = 0
+            while (guard++ < 80) {
+                val m = g.mode
+                if (m is Mode.Dialog && (m.speaker != null) == spoken) break
+                g.advance()
+            }
+            vm.refresh()
+        }
+        for (draft in listOf(false, true)) {
+            de.bornim.game.ui.DialogLook.draft = draft
+            val tag = if (draft) "neu" else "alt"
+            shot("42_gespraech_$tag", settle = 150) { vm -> opened(vm, spoken = true) }
+            shot("42_erzaehlt_$tag", settle = 150) { vm -> opened(vm, spoken = false) }
+        }
         System.exit(0)
     }
     // BRETT=1: the notice board's window and the odd jobs in the menu (29)
