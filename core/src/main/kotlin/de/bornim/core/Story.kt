@@ -91,7 +91,7 @@ object Story {
         rows = listOf(
             "TTTTTTTTTTTTTTTTT==TTTTTTTTTTTTTTTTT",
             "TTT.......T.....x==x.....TT......TTT",
-            "TT.......T......xzzx.S..T.........TT",
+            "TT.......T.....lxzzxlS..T.........TT",
             "T..^^^^^^........==.......^^^^^....T",
             "T..^^^^^^..^^^^..==....^^.^^^^^....T",
             "T..#W#D#Wb.#D#W..==....D#.W#D#Wb...T",
