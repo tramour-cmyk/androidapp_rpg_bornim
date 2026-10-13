@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- Notizen umgebaut (76–78, Nutzer 13.10., 21:52): Dateien unter `docs/` mit Vorsilben ROLLE-/DESIGN-/STORY-/LISTE-/ARBEIT-; `CLAUDE.md` auf den gemeinsamen Kern gekürzt (16,6 → etwa 9 KB); neu `docs/ROLLE-ENTWICKLER.md` (Wer du bist, Prüftreppe, Sammelbuilds); Berater-Prompt „Wer du bist“; Wächter gegen alte Namen in `tools/notiz.sh`.
+
 - **Zusammengeführt nach Test 0.1.714** (PR #55, 13.10., 21:1x): nachts Läden zu mit Ritzenlicht (73a), Knopf der Karte nennt das Ziel (62r), Tempelboden aus Steinplatten (13), Garrick links vom Feuer (3b, Abstand folgt).
 - **Zusammengeführt nach Test 0.1.709** (PR #54, 13.10.): alte gerade Ansicht ausgebaut, alle Orte diagonal (13t); Tippen auf ein Haus der Gebietskarte öffnet seinen Grundriss, Leute im Grundriss an ihrem Platz (62s/62h); Kaminrauch sichtbar, je Kamin eigener Takt (73); Wegweiser „Rabenschanze“/„Schilfrode“ (67a); keine Fußspuren auf trockenem Boden (61b).
 - **Zusammengeführt nach Test 0.1.702** (PR #53, 13.10.): Höhle: der Blick bestimmt, was hell wird, auch hinter der Felsstufe am Lagerfeuer (13e); Gebietskarte und Grundrisse im Tuschestil, Schilder an den Häusern, Name beim Antippen (62h/62o/62n).

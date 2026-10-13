@@ -1,7 +1,7 @@
 """
 Ortsklänge für die Blende (24.8, „Hören vor Sehen“): Wind und Halle im Tempel als nahtlose 10-s-Schleifen; knarrendes
 Holz, Herzschlag und die Einzelklänge der Schänke (24.8.4: Becher, Einschenken, Wischen, Stuhl, Husten; kein
-Stimmengewirr, Regel „Ortsklang nur von dem, was da ist“ in docs/STIL.md) als einzelne Klänge. Je drei Fassungen, alle aus CC0-Aufnahmen
+Stimmengewirr, Regel „Ortsklang nur von dem, was da ist“ in docs/DESIGN-STIL.md) als einzelne Klänge. Je drei Fassungen, alle aus CC0-Aufnahmen
 (Quellen: QUELLEN.md). Schreibt nur diese Dateien, die übrigen Klänge bleiben unberührt.
 
     tools/klang/holen.sh <ordner>                          # Aufnahmen laden (einmal), dazu die Ortsaufnahmen unten

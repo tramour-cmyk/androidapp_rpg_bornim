@@ -34,6 +34,14 @@ fi
 
 neu=$(git rev-parse origin/main)
 alt=$(cat "$mark" 2>/dev/null)
+
+# Wächter Dokumentnamen (77, 13.10.): alte Dateinamen dürfen weder als Datei noch als Verweis zurückkommen.
+# Archiv und Änderungshistorie sind Verlauf und bleiben ausgenommen.
+altnamen='BERATER|DIOGENES|LEITBILD|STIL|ENTWICKLUNG|HELDENBAU|BALANCE|ZWISCHENBILD|STORY1|STORY|THEMEN|MERKLISTE|KAPITEL1|OFFEN|SELBST|ABLAEUFE|UMGEBUNG|ARCHIV'
+alt_dateien=$(git ls-tree --name-only origin/main docs/ 2>/dev/null | grep -E "^docs/($altnamen)\.md$")
+[ -n "$alt_dateien" ] && echo "FEHLER (77): alte Notizdatei wieder da: $(echo $alt_dateien). Inhalt in die neue Datei übernehmen, alte löschen, Nutzer melden."
+alt_verweise=$(git grep -l -P "(?<![\w-])($altnamen)\.md" origin/main -- CLAUDE.md docs tools ':!docs/ARBEIT-ARCHIV.md' ':!tools/notiz.sh' 2>/dev/null | sed 's/^origin\/main://')
+[ -n "$alt_verweise" ] && echo "Warnung (77): alte Dateinamen erwähnt in: $(echo $alt_verweise). Neue Namen: Vorsilben ROLLE-/DESIGN-/STORY-/LISTE-/ARBEIT- (CLAUDE.md, erster Absatz)."
 if [ "$1" = "--kurz" ]; then
     if [ -z "$alt" ]; then was="erster Aufruf, tools/notiz.sh zeigt die letzten Änderungen"
     else was="$(git rev-list --count "$alt..$neu" -- CLAUDE.md CHANGELOG.md docs 2>/dev/null) neue Änderungen seit dem letzten Mal (tools/notiz.sh zeigt sie)"; fi
@@ -50,10 +58,10 @@ else
     echo "Notizen auf main, neu seit dem letzten Aufruf:"
     TZ=Europe/Berlin git log --format='  %ad  %s' --date=format-local:'%d.%m. %H:%M' "$alt..$neu" -- CLAUDE.md CHANGELOG.md docs
 fi
-# Größenwarnung (65.4c): OFFEN.md höchstens etwa 15 KB, BERATER.md etwa 10 KB.
-for f in "docs/OFFEN.md:15000" "docs/BERATER.md:10000"; do
+# Größenwarnung (65.4c): ARBEIT-OFFEN.md höchstens etwa 15 KB, ROLLE-BERATER.md etwa 10 KB.
+for f in "docs/ARBEIT-OFFEN.md:15000" "docs/ROLLE-BERATER.md:10000"; do
     d=${f%%:*}; g=${f##*:}; n=$(git show "origin/main:$d" 2>/dev/null | wc -c)
-    [ "$n" -gt "$g" ] && echo "Warnung: $d hat $((n/100))00 Bytes (Grenze etwa $g), kürzen (CLAUDE.md „OFFEN.md klein halten“)."
+    [ "$n" -gt "$g" ] && echo "Warnung: $d hat $((n/100))00 Bytes (Grenze etwa $g), kürzen (CLAUDE.md „ARBEIT-OFFEN.md klein halten“)."
 done
 echo "$neu" > "$mark"
 echo "Arbeitskopie für Notizen: $wt"

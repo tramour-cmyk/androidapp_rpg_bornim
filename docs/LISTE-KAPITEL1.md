@@ -3,7 +3,7 @@
 Zielliste (Thema 26, Beratung mit dem Nutzer 11.10., 16:50): Kapitel 1 wird rund gemacht, bevor Neues (Kapitel 2, Gruppenkämpfe, Schmied) kommt. Ist alles abgehakt, ist dieser Stand der Kandidat für den Test mit 12 Testern (Merkliste „Veröffentlichung“). Wird beim Start nicht gelesen; wer einen Punkt erledigt, hakt ihn hier ab.
 
 **Pflicht**
-- [ ] **Alle Orte „Ort fertig“** (Liste in `ENTWICKLUNG.md`): Dorf (5, Tom), Räume (13, Tom, erledigt bis auf Prüfung), Wald (27, Tom), Höhle (13e, 10, 11, Jerry).
+- [ ] **Alle Orte „Ort fertig“** (Liste in `DESIGN-ABNAHME.md`): Dorf (5, Tom), Räume (13, Tom, erledigt bis auf Prüfung), Wald (27, Tom), Höhle (13e, 10, 11, Jerry).
 - [ ] **Alte Ansicht ausgebaut** (13t, Nutzer 12.10.): nur noch diagonal, sobald Wald, Tiefer Wald und Höhle fertig sind; bis dahin 13.4 (je Ort automatisch). Danach Zoomstufe festlegen (6l).
 - [x] **Alle Gegner auf der Karte im neuen Stil** (9i, Jerry; erledigt 11.10., PR #29, #33).
 - [ ] **Läuft rund:** kein Schweben nach Start und Kartenwechsel, Zwischenbild (24, Tom und Jerry); Sprungtest und Kollisionsprüfung 0; „Bewegungen unrund“ (19e) geklärt.
