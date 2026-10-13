@@ -21,6 +21,7 @@ import de.bornim.core.Game
 import de.bornim.core.Items
 import de.bornim.core.Jobs
 import de.bornim.core.Lang
+import de.bornim.core.MapMarks
 import de.bornim.core.Story
 
 /** 64 (draft): the chronicle as a tab of its own; preview switch. */
@@ -33,14 +34,15 @@ object ChronicleLook {
 /**
  * 64 (draft): the chronicle, two parts. "Tasks": the main task on top in gold, then the odd jobs carried, each with
  * who gave it, what to do in a sentence, how far along from the bag, the reward and where to hand it in, and a way
- * to its mark on the map; done ones folded away at the bottom. "So far": the chronicler's entries, newest on top.
+ * to the giver's mark on the map (named, in the middle); done ones folded away at the bottom. "So far": the chronicler's entries, newest on top.
  */
 @Composable
-fun ChronicleTab(game: Game, lang: Lang, onMap: () -> Unit) {
+fun ChronicleTab(game: Game, lang: Lang, onMap: (String) -> Unit) {
     val de = lang == Lang.DE
     val s = game.state
     var soFar by remember { mutableStateOf(ChronicleLook.previewSoFar) }
     var showDone by remember { mutableStateOf(false) }
+    androidx.compose.runtime.LaunchedEffect(Unit) { Chronicle.markRead(s) }
     Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         PixelButton(if (de) "Aufträge" else "Tasks", Modifier.weight(1f).height(36.dp), selected = !soFar, size = 14.sp) { soFar = false }
         PixelButton(if (de) "Bisher geschehen" else "So far", Modifier.weight(1f).height(36.dp), selected = soFar, size = 14.sp) { soFar = true }
@@ -77,8 +79,9 @@ fun ChronicleTab(game: Game, lang: Lang, onMap: () -> Unit) {
             Txt(if (ready) (if (de) "Bereit zur Abgabe – bei ${j.giverName(lang)}" else "Ready to hand in – to ${j.giverName(lang)}")
                 else "$have ${if (de) "von" else "of"} ${j.count} · $what", size = 14.sp, color = if (ready) Veil.good else Veil.gold)
             Txt((if (de) "Lohn: " else "Reward: ") + j.reward(lang), size = 13.sp, color = Veil.dim)
-            Spacer(Modifier.height(4.dp))
-            PixelButton(if (de) "Auf der Karte" else "On the map", Modifier.height(32.dp), size = 13.sp) { onMap() }
+            // only where the map has a mark of the giver (someone the hero has met, or who waits with the reward)
+            if (MapMarks.of(s).any { it.who == j.giver })
+                PixelButton(if (de) "Auf der Karte" else "On the map", Modifier.height(32.dp), size = 13.sp) { onMap(j.giver) }
         }
     }
     val done = Jobs.all.filter { Jobs.isDone(s, it) }

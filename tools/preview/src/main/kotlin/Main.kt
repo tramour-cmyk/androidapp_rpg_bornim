@@ -131,6 +131,11 @@ fun main() {
                 de.bornim.core.Jobs.take(st, de.bornim.core.Jobs.all.first()); de.bornim.core.Jobs.take(st, de.bornim.core.Jobs["stones"])
                 vm.refresh()
             }
+            // "On the map" from Thessa's job: the map opens on her mark, named
+            de.bornim.game.ui.MenuStart.chronicle = false
+            de.bornim.game.ui.MapLook.previewTip = -1
+            shot("64_karte", settle = 30) { vm -> story(vm); vm.game!!.state.flags += de.bornim.core.MapMarks.met("thessa"); de.bornim.game.ui.MapLook.focusMap = "village"; de.bornim.game.ui.MapLook.focusWho = "thessa"; vm.menuOpen = false; vm.refresh(); vm.menuOpen = true; vm.refresh() }
+            de.bornim.game.ui.MenuStart.chronicle = true
             for (sofar in listOf(false, true)) {
                 de.bornim.game.ui.ChronicleLook.previewSoFar = sofar
                 shot(if (sofar) "64_bisher" else "64_auftraege", settle = 30) { vm -> story(vm) }

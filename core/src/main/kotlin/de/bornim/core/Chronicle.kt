@@ -46,6 +46,18 @@ object Chronicle {
                 "At night Jorin had seen a fire at the standing stones, which even goblins avoid. {name} found only cold ash, boot prints heading north and a grey scrap of cloth with an open eye stitched into it. Jorin meant to take it to the Elder.")) { it.count(Jobs.RAG) > 0 || Jobs.isDone(it, Jobs["stones"]) },
     )
 
+    private fun read(id: String) = "chron_$id"
+
+    /** 64: something in the chronicle the player has not looked at yet (a new entry, a job taken): a dot at the tab. */
+    fun fresh(s: GameState): Boolean =
+        entries.any { it.reached(s) && !s.has(read(it.id)) } || Jobs.carried(s).any { !s.has(read("job_" + it.id)) }
+
+    /** Called when the chronicle is opened: everything in it counts as seen. */
+    fun markRead(s: GameState) {
+        for (e in entries) if (e.reached(s)) s.flags += read(e.id)
+        for (j in Jobs.carried(s)) s.flags += read("job_" + j.id)
+    }
+
     /** What has happened so far, the newest first. */
     fun sofar(s: GameState): List<Entry> = entries.filter { it.reached(s) }.reversed()
 }

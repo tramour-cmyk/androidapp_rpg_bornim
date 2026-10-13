@@ -99,7 +99,7 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
             val labels = mapOf(Tab.HERO to Ui.hero, Tab.BAG to Ui.bag, Tab.GEAR to Ui.gearShort, Tab.MAP to de.bornim.core.T("Karte", "Map"), Tab.CHRONICLE to de.bornim.core.T("Chronik", "Chronicle"), Tab.SYSTEM to Ui.system, Tab.TEST to de.bornim.core.T("Test", "Test"))
             val tabs = Tab.entries.filter { (it != Tab.TEST || vm.testMode) && (it != Tab.MAP || de.bornim.core.art.MapSheet.draft) && (it != Tab.CHRONICLE || ChronicleLook.draft) }
             tabs.forEach { t ->
-                val badge = if (t == Tab.HERO && game.hero.unspentPoints > 0) " ★" else ""
+                val badge = if (t == Tab.HERO && game.hero.unspentPoints > 0 || t == Tab.CHRONICLE && tab != Tab.CHRONICLE && de.bornim.core.Chronicle.fresh(game.state)) " ★" else ""
                 // 60j (draft): a drawn sign with a small word under it
                 if (TabLook.draft && MenuLook.draft) TabButton(TabSign.valueOf(t.name), labels.getValue(t)(lang), Modifier.weight(1f), selected = t == tab, badge = badge.isNotEmpty()) { tab = t }
                 else PixelButton(labels.getValue(t)(lang) + badge, Modifier.weight(1f), selected = t == tab, size = if (tabs.size > 4) 11.sp else 13.sp) { tab = t }
@@ -119,7 +119,10 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
                     Tab.BAG -> BagTab(vm, game, lang, ask)
                     Tab.GEAR -> GearTab(vm, game, lang, ask)
                     Tab.MAP -> {}
-                    Tab.CHRONICLE -> ChronicleTab(game, lang) { tab = Tab.MAP }
+                    Tab.CHRONICLE -> ChronicleTab(game, lang) { who ->
+                        de.bornim.core.MapMarks.of(game.state).firstOrNull { it.who == who }?.let { MapLook.focusMap = it.map; MapLook.focusWho = who }
+                        tab = Tab.MAP
+                    }
                     Tab.SYSTEM -> SystemTab(vm, game, lang)
                     Tab.TEST -> TestTab(vm, game, lang)
                 }
@@ -140,7 +143,8 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
 @Composable
 private fun MapTab(game: Game, lang: Lang) {
     val german = lang == Lang.DE
-    var shown by remember { mutableStateOf(game.map.id) }
+    // 64: the chronicle's "On the map" opens the map of the giver's mark
+    var shown by remember { mutableStateOf(MapLook.focusMap?.takeIf { de.bornim.core.World.maps.containsKey(it) } ?: game.map.id) }
     var overview by remember { mutableStateOf(MapLook.previewOverview) }
     val map = de.bornim.core.World[shown]
     val here = shown == game.map.id
@@ -176,6 +180,9 @@ private fun MapTab(game: Game, lang: Lang) {
 object MapLook {
     /** 62h (draft): the land map instead of the list of places, in one of its two looks; null: the list. */
     @Volatile var land: de.bornim.core.art.LandSheet.Look? = null
+    /** 64: the map and the person whose mark the map opens on, named and in the middle (from the chronicle); used once. */
+    var focusMap: String? = null
+    var focusWho: String? = null
     @Volatile var previewOverview = false
     /** A mark to show named at once, by index in the marks of the shown map (-1 none, -2 the last). */
     @Volatile var previewTip = -1
@@ -286,7 +293,8 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
     }
     val houses = remember(map.id) { de.bornim.core.MapPeople.houses(game.state).filter { it.map == map.id } }
     val measurer = androidx.compose.ui.text.rememberTextMeasurer()
-    var tip by remember { mutableStateOf(MapLook.previewTipMatch?.let { w -> marks.firstOrNull { w in it.label.de } }
+    val focus = remember { MapLook.focusWho?.let { w -> marks.firstOrNull { it.who == w } }.also { MapLook.focusWho = null; MapLook.focusMap = null } }
+    var tip by remember { mutableStateOf(focus ?: MapLook.previewTipMatch?.let { w -> marks.firstOrNull { w in it.label.de } }
         ?: marks.getOrNull(if (MapLook.previewTip == -2) marks.lastIndex else MapLook.previewTip)) }
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().clipToBounds()) {
         val vw = constraints.maxWidth.toFloat(); val vh = constraints.maxHeight.toFloat()
@@ -296,11 +304,11 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
         fun cx(tx: Int) = de.bornim.core.art.MapSheet.PAD + tx * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f
         fun cy(ty: Int) = de.bornim.core.art.MapSheet.PAD + ty * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f
         // opens zoomed in on the hero, at least so far that the map fills the frame
-        var scale by remember { mutableStateOf(if (here) maxOf(fit * MapLook.previewZoom, maxOf(vw / img.width, vh / img.height)) else fit) }
+        var scale by remember { mutableStateOf(if (here || focus != null) maxOf(fit * MapLook.previewZoom, maxOf(vw / img.width, vh / img.height)) else fit) }
         fun clampX(o: Float) = if (img.width * scale <= vw) (vw - img.width * scale) / 2 else o.coerceIn(vw - img.width * scale, 0f)
         fun clampY(o: Float) = if (img.height * scale <= vh) (vh - img.height * scale) / 2 else o.coerceIn(vh - img.height * scale, 0f)
-        var ox by remember { mutableStateOf(clampX(if (here) vw / 2 - cx(p.x) * scale else 0f)) }
-        var oy by remember { mutableStateOf(clampY(if (here) vh / 2 - cy(p.y) * scale else 0f)) }
+        var ox by remember { mutableStateOf(clampX(if (focus != null) vw / 2 - cx(focus.x) * scale else if (here) vw / 2 - cx(p.x) * scale else 0f)) }
+        var oy by remember { mutableStateOf(clampY(if (focus != null) vh / 2 - cy(focus.y) * scale else if (here) vh / 2 - cy(p.y) * scale else 0f)) }
         androidx.compose.foundation.Canvas(
             Modifier.fillMaxSize()
                 .pointerInput(Unit) { detectTransformGestures { centroid, pan, zoom, _ ->
