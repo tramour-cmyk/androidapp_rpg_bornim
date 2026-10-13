@@ -71,3 +71,5 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 66 | Licht im Dorf bei Nacht (Wache, Laterne) | Tom | offen | `OFFEN.md` |
 | 67 | Südrand des Dorfes (Feldweg, Wegweiser, Umkehr) | Tom | offen | `OFFEN.md` |
 | 65 | Abläufe verschlanken (Ablaufprüfung) | Berater, Tom, Jerry | in Arbeit (65.2 Jerry) | `OFFEN.md` |
+| 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | Berater mit Nutzer; Tom, Jerry | offen | `OFFEN.md` |
+| 69 | Intro in Standbildern (Ankunft bei Nacht) | Berater mit Nutzer; Tom | offen | `OFFEN.md` |

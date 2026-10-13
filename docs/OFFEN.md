@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 68**
+**Nächste freie Themennummer: 70**
 
 **Entscheidungsseite (alle Rollen, 63): https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow** · Beschlüsse: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
@@ -39,6 +39,8 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 66 | Licht im Dorf bei Nacht: Wache Jorin steht im Dunkeln | Tom | `claude/tom-66-laterne` | Nutzer 13.10., 12:18: „macht wenig Sinn“; Idee Laterne in der Hand oder Straßenlaterne. **66a A (Nutzer 13.10., 14:5x, Beschlüsse):** nur die zwei Laternen am Schlagbaum (`claude/tom-66-laterne`), als PR nach tom-17-riemen; Handlaterne auf der Merkliste (mit 55) |
 | 67 | Südrand des Dorfes: Feldweg hinter der Brücke, Wegweiser, Umkehr am Kartenrand | Tom | `claude/tom-67-suedrand` | **Nutzer 13.10., 13:14 ja:** nach 62e und 66, erst Standbild; Südstraße = Versorgungsweg, in Kapitel 1 nicht begehbar; Umkehr-Zeilen in `docs/STORY1.md` (`[67.…]`). Entwurf a191e253 (Weg, Wegweiser, Umkehr, Schritt zurück); Standbild: Ausgang noch von Bäumen verdeckt |
 | 45 | Geschäftsmodell (Play Store) | Berater mit Nutzer | – | 45a/45c ja (Kapitel 1 frei, Vollversion, nie Werbung/Beutekisten/Wartezeiten). **45b zurückgestellt** bis nach Messung 38. Verlauf im Archiv |
+| 68 | Szene im Tempel: Rückkehr des Sonnenamuletts als Abschluss von Kapitel 1 | Berater mit Nutzer (Text); Tom (Szene), Jerry (Klang) | – | Nutzer 13.10., 15:33; Anmerkung 4 im Storyplan; Musik „Ancient Legend“ schon dafür vorgesehen (37). Entwurf im Gespräch |
+| 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Berater mit Nutzer (Text, Bilder); Tom (Technik) | – | Nutzer 13.10., 15:33: gerenderte Standbilder ohne Animation, Sicht des Helden. Entwurf im Gespräch |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten im Archiv). Nach Kapitel 1 |
 | 49 | Lehrer, Fertigkeiten, Talente | Berater mit Nutzer | – | 49d–49t ja ([Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)); als `docs/HELDENBAU.md` ablegen, sobald der Nutzer die kursiven Namen durchgesehen hat. Nach Kapitel 1 |
 | 50 | Weitere Klassen (Klassenpaket, Werwolf als Fluch) | Berater mit Nutzer | – | 50a–50j ja (Matrix im Heldenbau, Verlauf im Archiv). Nach Kapitel 1 |
