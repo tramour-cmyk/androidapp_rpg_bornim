@@ -48,7 +48,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g), 0.1.643 (6f), 0.1.646 (61a/62a), je ein Testreiter-Schalter. Rückfragen auf der Entscheidungsseite (Empf. je ja).
 - **61 Spuren** und **62 Kartenansicht** (Vorrat 7/8) fertig als Entwurf auf `claude/tom-7-spuren` (Build 0.1.646). Ursache „Fußspuren unsichtbar“: sie lagen in der Vorschau unter Busch und Bäumen; Gang verlegt, Abdrücke kräftiger, Schlamm in Räumen hell.
 - **Weck-Kette am Ende** (03:15): diese Sitzung ist auf Stufe 8 von 8, `send_later` und `create_session` gehen nicht mehr. Weiter nur über die Routinen (06:24) oder eine neue Sitzung des Nutzers.
-- Vorrat 9 (29) und 10 (5l) sind schon erledigt. Weiter: 27.6c Rauchfahne am Kräuterfeuer als Entwurf, dann 17 Riemen.
+- Vorrat 9 (29) und 10 (5l) sind schon erledigt. **27.6c** Rauchfahne als Entwurf auf `claude/tom-27-6-tiefer-wald` (Bild auf der Entscheidungsseite). Weiter: 27.6b Schild, dann 17 Riemen.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
