@@ -1,5 +1,11 @@
 # Archiv
 
+
+### Aus BERATER.md, 13.10., 19:4x
+
+- **Intro (69):** Überfall verschlafen statt gesehen, weil die Chronik sagt „während er schlief“ und Rowenas Stein-Satz so die Pointe bleibt; eigene leise Klänge, „Ancient Legend“ bleibt der Tempelszene 68.
+- **Chronik-Texte (64d/62i):** Chronist in dritter Person, ein Eintrag je Wendepunkt, Hörensagen mit Quelle. **67 Südstraße:** zweiter Weg für Versorgung und Herkunft, Umkehr durch den Helden statt Wand. Volltext im Archiv.
+
 ### Tom (13.10., 18:2x) – an Nachfolger
 - Zweig `claude/tom-13e-kegelrand`: 13e Sichtkegel nach Blickrichtung (Meldung 17:5x) und 62h/62o/62n im Spiel (b6227e35). Build 0.1.702 beim Nutzer (Prüfliste `e/t702.html`); nach „passt“ PR, zusammenführen.
 - Danach 62r bauen, sobald entschieden (Empfehlung Ziel-Beschriftung); dann 13t weiter auf `claude/tom-13t-alte-ansicht` (Bildkontrolle gut, tote Reste löschen), 6l, 68.

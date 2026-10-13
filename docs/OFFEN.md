@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 74**
+**Nächste freie Themennummer: 75**
 
 **Entscheidungsseite (alle Rollen, 63): https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow** · Beschlüsse: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM · Prüfbericht Diogenes: https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
@@ -45,6 +45,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 62s | Gebietskarte Dorf: Tippen auf ein erkundetes Haus mit Schild öffnet keinen Grundriss (Höhle im Wald geht) | Tom | – | Nutzer 13.10., 19:3x. Behoben auf `claude/tom-62s-grundriss` (Schild/Haus öffnet Grundriss; Leute drinnen an ihrem Platz, Lyra ergänzt), im nächsten Build |
 | 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | – | **69a–69d ja (Nutzer 13.10., 16:31):** Texte, Ablauf und Klang in `docs/STORY1.md` (`[69.intro.…]`), wortgetreu übernehmen |
 | 73 | Versperrte Hütten: nachts kein Licht, kein Rauch | Tom (Dorf); Berater (73a) | – | Nutzer 19:40. Rückfrage 73a beim Berater: leer = dunkel und kalt; bewohnt, aber verschlossen (Kael vor der Tempelszene) = Läden zu, Licht nur durch Ritzen, Rauch ja. Erst nach Entscheidung bauen. **Nutzer 19:5x:** Schänke-Feuer brennt um 11:22, aber kein Kamin raucht (Fehler, Tom prüft sofort); „wenn er raucht, sollte die Hütte auch begehbar sein“ (zu 73a) |
+| 74 | Schrittgeräusche fehlen an allen Orten („Ort fertig“ 8; Befund Diogenes D1.1) | Jerry (Klang); Tom für Dorf und Räume | – | Berater 13.10., 19:4x: Mangel gegen bestehende Regel, kein Beschluss nötig. **Verdacht** erst bestätigen; Böden je Untergrund (Gras, Erde, Holz, Stein) |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten im Archiv). **48d–48f ja (16:51):** je Spielstand nur Startwert plus **Version des Erzeugers** speichern (Updates verändern keine bestehende Höhle, alte Erzeuger bleiben im Code); Besiegtes und Geplündertes bleibt weg, neuer Auftrag darf dieselbe Höhle neu besetzen. Nach Kapitel 1 |
 | 49 | Lehrer, Fertigkeiten, Talente | Berater mit Nutzer | – | 49d–49t ja ([Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)); **Dokument vom Nutzer freigegeben** (13.10., Namen fett markiert); abgelegt als `docs/HELDENBAU.md` (17:1x). Nach Kapitel 1 |
 | 50 | Weitere Klassen (Klassenpaket, Werwolf als Fluch) | Berater mit Nutzer | – | 50a–50j ja (Matrix im Heldenbau, Verlauf im Archiv). Nach Kapitel 1 |
@@ -85,7 +86,6 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
-- **Diogenes D1.1** (neues Thema?): keine Schrittgeräusche an irgendeinem Ort, obwohl „Ort fertig“ 8 sie verlangt; gilt für alle Orte.
 - **Diogenes D1.14, Höhlen-Klangbett** (Nutzer 19:39: „hinterlege das mal beim Berater“): zwei Stücke mit Hörnern/Kreaturenrufen ohne sichtbare Quelle (`grund_fs_609422`, `grund_fs_540836`) gegen „Ortsklang nur von dem, was da ist“; Diogenes empfiehlt herausnehmen.
 
 
