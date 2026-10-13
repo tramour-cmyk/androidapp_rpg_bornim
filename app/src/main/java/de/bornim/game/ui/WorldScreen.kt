@@ -1233,7 +1233,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         if (diag && map.kind == MapKind.INTERIOR) drawHearthSmoke(game, map, clock, cam, camX, camY, scale)
         if (diag && map.kind == MapKind.CAVE && de.bornim.core.art.MapCaveIso.draft) drawCaveShaft(game, map, clock, cam, camX, camY, scale)
         if (diag && map.kind == MapKind.CAVE && de.bornim.core.art.MapCaveIso.draft) drawCaveTorches(game, map, clock, cam, camX, camY, scale)
-        if (diag && map.kind == MapKind.TOWN && MapGround.supports(map)) drawTownSmoke(map, clock, cam, camX, camY, scale)
+        if (diag && map.kind == MapKind.TOWN && MapGround.supports(map)) drawTownSmoke(map, clock, cam, camX, camY, scale, game.daylight)
         if (diag && map.kind == MapKind.FOREST) drawCampSmoke(game, map, clock, cam, camX, camY, scale)
         // what shines by itself (25.1: a lamp's glass; 25b: lit windows) is drawn over the light of the place, so the source is the brightest
         // spot around it, waking with the dusk like the light it throws; a small warm halo around it
@@ -1894,24 +1894,34 @@ private object LightImage {
  * Seen diagonally (5.1): smoke rising from the mouth of each house's chimney, upright on the screen, drifting
  * a little with the wind and thinning as it climbs.
  */
-private fun DrawScope.drawTownSmoke(map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int) {
+private fun DrawScope.drawTownSmoke(map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int, daylight: Float = 1f) {
+    // by day a pale grey that stands out against the dark crowns, at night a dim one that does not glow
+    val tone = androidx.compose.ui.graphics.lerp(Color(0xFF4E4B48), Color(0xFFB3AEA7), daylight.coerceIn(0f, 1f))
+    val dense = 0.45f + 0.25f * daylight.coerceIn(0f, 1f)
     for ((i, top) in de.bornim.core.art.MapTownIso.chimneyTops(map).withIndex()) {
         val (gx, gy, z) = top
         val mx = ((gx - camX) * scale).toFloat(); val my = ((gy - camY) * scale).toFloat()
         val bx = cam.toScreenX(mx, my); val by = cam.toScreenY(mx, my) - (z * scale).toFloat()
         // a thin column of many soft wisps (test of 0.1.590: five hard grey discs looked like floating balls): each
         // rises from the mouth, swells, is carried off with the wind as it climbs and thins to nothing; soft at its rim
-        val n = 14
+        // 73 (Meldung 13.10., 19:4x: "kein Kamin raucht"): the column was so small and pale it vanished before the dark
+        // crowns; now taller, broader, denser and a lighter grey, still soft wisps that thin to nothing. Each chimney
+        // smokes in its own way (Nutzer: "nicht synchron"): its own pace, sway and lean, and a fire that draws harder
+        // and weaker in slow puffs of its own
+        val h = (i * 7919 + 1237) % 1000 / 1000f
+        val period = 5200L + (h * 2600).toLong()
+        val lean = 14f + h * 12f
+        val draw = 0.65f + 0.35f * kotlin.math.sin(clock / (5300f + h * 4100f) + h * 6.3f) * kotlin.math.sin(clock / (1900f + h * 900f) + i * 2.1f)
+        val n = 18
         for (k in 0 until n) {
-            val period = 5200L
-            val ph = (((clock + i * 1013) + k * period / n) % period) / period.toFloat()
-            val sway = kotlin.math.sin(ph * 4.2f + i * 1.7f + clock / 2300f) * (0.6f + ph * 2.2f)
-            val x = bx + (sway + ph * ph * 14f) * scale
-            val y = by - (ph * 34f + 1f) * scale
-            val r = (1.6f + ph * 6.5f) * scale
-            val a = 0.3f * (1f - ph) * (1f - ph) * kotlin.math.min(1f, ph * 10f)
+            val ph = (((clock + (h * period).toLong()) + k * period / n) % period) / period.toFloat()
+            val sway = kotlin.math.sin(ph * (3.4f + h * 1.8f) + h * 9f + clock / (2000f + h * 900f)) * (0.8f + ph * 3f)
+            val x = bx + (sway + ph * ph * lean) * scale
+            val y = by - (ph * (50f + h * 16f) + 1f) * scale
+            val r = (2.4f + ph * (8.5f + h * 3f)) * scale
+            val a = dense * draw * (1f - ph) * kotlin.math.sqrt(1f - ph) * kotlin.math.min(1f, ph * 7f)
             val c = Offset(x, y)
-            drawCircle(Brush.radialGradient(listOf(Color(0xFF6E6A66).copy(alpha = a), Color(0xFF6E6A66).copy(alpha = a * 0.5f), Color(0x006E6A66)), c, r), r, c)
+            drawCircle(Brush.radialGradient(listOf(tone.copy(alpha = a), tone.copy(alpha = a * 0.5f), tone.copy(alpha = 0f)), c, r), r, c)
         }
     }
 }
