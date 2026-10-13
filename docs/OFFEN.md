@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- Tom: neuer Build mit 13e (über niedrige Höhlenwände sehen), 62h (Landkarte Pergament) und 62p läuft, Link folgt.
+- **Tom 0.1.693** (Zweig `claude/tom-13e-kegelrand`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38418025018/artifacts/11824989422 · Prüfliste `e/t693.html`: Blick über die Felsstufe (13e), Landkarte Pergament (62h), Höhle von der Landkarte (62p). Nach „passt“: PR, zusammenführen.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Entscheidungsseite (65.3), nicht hier.
 
@@ -50,9 +50,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 17:0x)
-- PR #52 (getestet bis 0.1.689) auf `main`. Zweig `claude/tom-13e-kegelrand` neu von `main`: 13e niedrige Wände lassen Blick und Feuerlicht durch, 62h Pergament an, 62p Höhle von der Landkarte (Eingang auf der Gebietskarte, antippen öffnet den Grundriss). Build zu 90cf5df3, Prüfliste `e/t<build>.html`.
-- Danach: Gebietskarte und Grundriss im Stil der Landkarte (dreifache Auflösung, Tusche wie `LandSheet`) mit 62n/62o; erst zwei Standbilder (Vorschau `KARTE62=1 ONLY=62f`/`62h`). Dann 13t (eigener Zweig von `main`), dann 6l.
+### Tom (13.10., 17:0x) – vor Neustart
+- **0.1.693 beim Nutzer** (Zeile oben). Danach auf dem Zweig: ff3b6003 Entwurf Gebietskarte im Tuschestil (`MapInk`, Schalter `MapSheet.ink`, Vorschau `KARTE62=1 KARTENTUSCHE=1 ONLY=62f`), im Spiel aus; Build 0.1.694 ist im Spiel gleich 0.1.693.
+- Weiter: Entwurf verfeinern und mit 62n zeigen (Beschriftung Alegreya/Sepia ohne Schatten, Häuser mit Zeichen statt Namen; zwei Varianten als Standbilder, `e/62n.html`), Grundriss Höhle nach 62o, Innenräume; dann 13t (eigener Zweig von `main`), dann 6l.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
