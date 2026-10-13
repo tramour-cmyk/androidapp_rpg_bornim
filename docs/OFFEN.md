@@ -49,6 +49,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Fertig als Entwurf (diese Nacht ab 02:47):** 61 Spuren und 62 Karte (Build 0.1.646; Fußspuren lagen in der Vorschau unter Büschen), 27.6c Rauchfahne und 27.6b Schild (Zweig `claude/tom-27-6-tiefer-wald`, Build 0.1.648, nur diagonal bzw. Schild auch gerade), 55.1a Arme verschränkt/Hände auf dem Rücken (`claude/tom-55-leerlauf`, Build 0.1.649).
 - **Weck-Kette am Ende:** diese Sitzung ist auf Stufe 8 von 8, `send_later`/`create_session` gehen nicht. Die Routine 06:24 übernimmt und schreibt **um 07:00 den Bericht** (`SELBST.md` 5) aus dieser Übergabe.
 - Vorrat leer (9 = 29 und 10 = 5l schon erledigt). Nächstes, falls Zeit: 55.1b Jorin stützt sich auf den Speer (Waffenhaltung), 17 Riemen nur auf Wunsch.
+- **Bericht Selbstarbeit 12.10., 23:23 bis 13.10., 07:00 (geschrieben 06:3x):** Fertig als Entwurf: 59 Händler (0.1.632), 60 Aussehen (0.1.636), 27.6 Tiefer Wald diagonal + 27.6b/c (0.1.648), 13 Tempel-Altar, 17r Haare/Köcher (0.1.639), 5la Tagesablauf (0.1.640), Katze 6g (0.1.641), Farbstimmung 6f (0.1.643), 61 Spuren und 62 Karte (0.1.646), 55.1a (0.1.649). Halb/offen: 55.1b Speer, 17 Riemen. Blockiert: nichts. Rückfragen: auf der Entscheidungsseite (je Empfehlung ja), 61a, 62a/62b, 60e–60i. Gemeinsame Zeit: erst 59 und 60 testen, dann Entwürfe entscheiden. Weck-Routine 06:24 hat nur den Bericht geschrieben.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 

@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | übergeben | 13.10., 07:00 | 13.10., 02:47 | 13.10., 03:47 | Entwürfe 61, 62, 27.6b/c, 55.1a fertig; Weck-Kette am Ende (Stufe 8), Routine 06:24 schreibt um 07:00 den Bericht | `claude/tom-55-leerlauf` |
+| Tom | fertig | – | 13.10., 02:47 | 13.10., 06:30 | Entwürfe 61, 62, 27.6b/c, 55.1a fertig; Weck-Kette am Ende (Stufe 8), Routine 06:24 schreibt um 07:00 den Bericht | `claude/tom-55-leerlauf` |
 | Jerry | fertig | – | 12.10., 16:33 | 12.10., 16:59 | Pause bis Freitag (Nutzungsguthaben), Stand in OFFEN.md | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
