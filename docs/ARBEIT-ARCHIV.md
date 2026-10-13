@@ -1,5 +1,49 @@
 # Archiv
 
+### Aus LISTE-IDEEN.md, 77e, 13.10., 22:49
+- **Vorgaben für jede neue Karte:**
+  - **Karte und Kampfort gehören zusammen** (Standard für alle bestehenden und neuen Karten): Was auf der Karte steht, bestimmt die Kampfkulisse. Wasser, Felsen, Feuerstellen, Lager, Leuchtpilze, Lichtschächte und Fackeln auf der Karte erscheinen im Kampf an derselben Stelle wieder, auch mit demselben Licht. Kein reines Auswürfeln der Kulisse.
+  - **Stimmung wie im Kampf:** erwachsener, etwas düsterer Stil. Licht kommt von sichtbaren Quellen (Sonne/Mond, Fackeln, Feuer, Pilze, Fenster), Dunkelheit ist erlaubt, die Laterne des Helden leuchtet. Kleine Bewegung (Flackern, Tropfen, Funken, Staub) und passende Umgebungsgeräusche.
+- **Technisch beim Start von Kapitel 2:** den Merker `chapter2_started` setzen. Damit gelten automatisch:
+  - die Stufengrenze 6 fällt; EP werden ab dann wieder gesammelt (aus Kapitel 1 wird nichts nachträglich angerechnet);
+  - bessere Beute (normal bis „selten“, besondere Beute bis „sehr selten“);
+## Balance – offene Beobachtungen
+- **Kämpfer** erledigt normale Monster auf Stufe 5–6 meist in einer Runde (Zusätzlicher Angriff). Bei Bossen ist er gefordert. Falls störend: nachlegen.
+- **Feuerball:** heute einmal pro Kampf mit 8W6. Falls er doch zu stark wirkt, gibt es zwei geprüfte Alternativen: 6W6 oder höhere Kosten (9 ZP).
+- Werkzeug zum Prüfen: Kapitelsimulation `SIM=1 ./gradlew -p core test --tests '*ChapterSimTest*'`.
+
+### Aus DESIGN-HELDENBAU.md, 77e, 13.10., 22:49
+Der Spieler soll beim Heldenbau echte Wahl haben, ohne dass am Ende der Magier der beste Tank ist. Dieses Dokument sammelt den Entwurf zu den Themen 49 (Lehrer, Fertigkeiten, Talente) und 50 (weitere Klassen). Es ist ein Entwurf: Namen, Inhalte und Zahlen sind Vorschläge, Werte prüft Jerry gegen den Balance-Plan (38). Umsetzung frühestens ab Kapitel 2.
+- [ ] 50d: Merkmale – entschieden (50e–50j), Talentliste an Linien angepasst (49n–49q)
+- [ ] Talentliste: Namen und Wirkungen der neuen Talente (kursiv)
+- [ ] Fertigkeiten: `gegen Attribute abgegrenzt (49s)`
+- [ ] Ablage: nach Freigabe als `docs/DESIGN-HELDENBAU.md` ins Repo (wie `STORY-REGELN.md`)
+
+### Aus DESIGN-BALANCE.md, 77e, 13.10., 22:49
+# Balance (Thema 38) – Entwurf
+Ziel: herausfordernd, aber nicht zu leicht, über **mindestens 7 Kapitel**, Stufe 20 am Ende. Diese Datei hält die Zielkurve fest; Messungen und Vorschläge verweisen darauf. Entwurf des Beraters (12.10.); Richtung freigegeben (38d, 10:21), Zahlen werden nach Jerrys Messung justiert.
+
+### Aus DESIGN-STIL.md, 77e, 13.10., 22:49
+Wie das Spiel aussieht, klingt und sich spielt: die Einzelheiten zum [Leitbild](DESIGN-LEITBILD.md). Wie gebaut und geprüft wird (Abnahme „Ort fertig“, selbst prüfen, alte Ansicht), steht in [Entwicklung](DESIGN-ABNAHME.md). Gilt für **alle** künftigen Arbeiten an Grafik, Animation und Klang.
+- **Kein Gegner verschwindet einfach:** Jede Gegnerart bekommt eigene Sterbeanimationen (mindestens drei), erst danach blendet sie aus. Ein tödlicher kritischer Treffer bekommt einen eigenen Killerschlag (siehe Liste [Offen](ARBEIT-OFFEN.md) unter „Geplant“).
+- **Echte Aufnahmen statt Synthese** (18, 11.10.): Grundlage sind CC0-Aufnahmen; nur Lizenzen, die kommerzielle Nutzung erlauben (Regel in `CLAUDE.md`), Quellen und Lizenz je Datei festhalten; erzeugte Klänge nur, wo sich nichts findet.
+- Was noch zu überarbeiten ist, steht in der Liste [Offen](ARBEIT-OFFEN.md) unter „Geplant“.
+
+### Aus DESIGN-ABNAHME.md, 77e, 13.10., 22:49
+# Entwicklung
+5. **Durchsicht und Sichtbarkeit:** nach „Karte und Räume“ in `DESIGN-STIL.md` (43).
+6. **Lebendig:** Wind, Rauch, Tiere, Gebrauchsspuren, Wetter, je nach Ort; Effekte von Tom/Jerry selbst vorgeschlagen (44d).
+8. **Klang:** Umgebung aus echten Aufnahmen, Schritte passend zum Untergrund; Hintergrundklänge selbst vorgeschlagen und eingebaut (44d).
+- **Kein Absturz ohne Bericht** (30): Fehlertext holen, dann suchen; Test-Builds immer mit aktuellem `main` (21.5).
+
+### Aus DESIGN-LEITBILD.md, 77e, 13.10., 22:49
+Der rote Faden (Thema 44, mit dem Nutzer 12.10.). Wer unsicher ist, ob etwas ins Spiel passt, schaut zuerst hier nach. Bei Widerspruch gilt das Leitbild; die Einzelheiten stehen in [Stil](DESIGN-STIL.md) (Aussehen, Klang, Spielgefühl) und [Entwicklung](DESIGN-ABNAHME.md) (Bauen, Prüfen). Ein lebendes Dokument: Änderungen nur nach Abstimmung mit dem Nutzer.
+2. **Eine lebendige Welt.** Keine Figur steht starr, kein Ort wirkt wie Kulisse; Abwechslung statt Wiederholung, mindestens drei Varianten. Sichtbare Effekte (Rauch, Funken, Staub, Tiere, Wetter) bieten Tom und Jerry von sich aus an. → `DESIGN-STIL.md`
+5. **Eine Sicht: diagonal.** Was wichtig ist, steht frei im Blick; Verstecktes belohnt das Erkunden. Neue Orte nur diagonal, die alte Ansicht ist eingefroren und fällt weg. → `DESIGN-STIL.md` Karte, `DESIGN-ABNAHME.md`
+6. **Glaubwürdiger Klang, der die Welt belebt.** Echte Aufnahmen, Musik orchestral und düster, das Dorf mittelalterlich. Man hört nur, was da ist, aber das voll: Wind, Feuer, Tiere, Schritte, Arbeit der Leute. Hintergrundklänge bieten Tom und Jerry bei jedem neuen Ort und jeder neuen Figur von sich aus an, mit Hörproben. → `DESIGN-STIL.md` Klang
+9. **Nur freie Inhalte.** Fremdes nur mit Lizenz, die kommerzielle Nutzung erlaubt, mit Quelle je Datei. → `CLAUDE.md`
+13. **Fair bezahlen, nie nerven** (45c). Keine Werbung, keine Beutekisten oder Zufallskäufe, keine Wartezeiten oder Energie. Das Spiel ist ohne jeden Kauf gut spielbar und ausbalanciert; Käufe drängen sich nie auf. Beschleuniger nur nach Prüfung (45b, nach der Balance-Messung 38). → `DESIGN-BALANCE.md`
+
 ### Aus STORY-REGELN.md, 77e, 13.10., 22:47
 Freigegebene Spieltexte (Thema 41), festgelegt von Nutzer und Berater. Hier nur Regeln und Verzeichnis; die Texte stehen in Teildateien. Wer an einem Text baut, öffnet nur die passende Teildatei, am besten gezielt über die Marke (`grep -n "\[67\." docs/STORY-K1.md`).
 - **Wortgetreu übernehmen.** Englisch übersetzen Tom und Jerry beim Bauen selbst. Fehlt oder passt ein Text nicht: Vorschlag in `ARBEIT-OFFEN.md` unter 41, nicht selbst erfinden. Tippfehler und Zeichensetzung direkt korrigieren (Commit beginnt mit „Text:“).

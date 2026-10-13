@@ -50,18 +50,11 @@ Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstop
 
 - **Geschichte:** die Spur des „Grauen Propheten“ und der „Tag der Asche“ als Bedrohung.
 - **Neue Region:** z. B. Sumpf oder Ruinenstadt. Vorgabe: **Karten ab Kapitel 2 deutlich größer** als in Kapitel 1.
-- **Vorgaben für jede neue Karte:**
+- **Vorgaben für jede neue Karte** (Tom prüft, ob sie nach 60 noch stimmen, 77e.3; Kampfort-Regel jetzt in `DESIGN-STIL.md`):
   - Die Anzeige ist eine **feste Leiste über der Karte** (seit v0.1.40). Neue Karten werden mit dieser Leiste geplant und in der Vorschau geprüft, damit nichts davon verdeckt wird.
   - **Eingänge, Schilder und wichtige Figuren am Kartenrand** (vor allem oben) in der Vorschau genau an dieser Stelle prüfen, wie beim Höhleneingang im Flüsterwald.
   - Die sichtbare Fläche ist durch die Leiste etwas kleiner: Wege, Engstellen und Sperren (z. B. Zäune wie am Schlagbaum) so planen, dass man sie gut überblickt.
   - Die Statuszeile hat immer dieselbe Höhe; neue Zustände dürfen die Leiste nicht höher machen.
-  - **Karte und Kampfort gehören zusammen** (Standard für alle bestehenden und neuen Karten): Was auf der Karte steht, bestimmt die Kampfkulisse. Wasser, Felsen, Feuerstellen, Lager, Leuchtpilze, Lichtschächte und Fackeln auf der Karte erscheinen im Kampf an derselben Stelle wieder, auch mit demselben Licht. Kein reines Auswürfeln der Kulisse.
-  - **Stimmung wie im Kampf:** erwachsener, etwas düsterer Stil. Licht kommt von sichtbaren Quellen (Sonne/Mond, Fackeln, Feuer, Pilze, Fenster), Dunkelheit ist erlaubt, die Laterne des Helden leuchtet. Kleine Bewegung (Flackern, Tropfen, Funken, Staub) und passende Umgebungsgeräusche.
-  - Jede neue Kampfkulisse bekommt Orte, die auf der Karte als Gegenstücke vorkommen, und umgekehrt.
-- **Technisch beim Start von Kapitel 2:** den Merker `chapter2_started` setzen. Damit gelten automatisch:
-  - die Stufengrenze 6 fällt; EP werden ab dann wieder gesammelt (aus Kapitel 1 wird nichts nachträglich angerechnet);
-  - bessere Beute (normal bis „selten“, besondere Beute bis „sehr selten“);
-  - höhere Obergrenzen für Ausrüstungsboni (+2).
 - **Neue Monster (SRD):** Banditen und Kultisten, Gnoll, Worg, Harpyie (Gesang/Bezauberung), Belebte Rüstung, Mimik (Klammern), Oger, Eulenbär.
   - **Gebaut auf den 3D-Grundmodellen** (Heldenpuppe für Menschenähnliche, Vierbeiner-Modell wie beim Wolf): Rig, Bewegungen, Ausfallschritt und Stürze sind schon da; ein neues Monster braucht vor allem Ausrüstung, Maße, Kopf und eigene Haltungen. Es gelten die [Stil-Leitlinien](DESIGN-STIL.md) (je drei Varianten in Aussehen und Bewegung).
   - Aufwand nach heutiger Einschätzung:
@@ -117,13 +110,6 @@ Dorran wohnt heute nur hinter einer verschlossenen Tür („Er ist wohl in seine
 - **Attribute:** Charisma senkt seine Preise wie beim Händler. Stärke könnte erlauben, selbst am Amboss mitzuhelfen und so etwas Material zu sparen.
 - **Bedienung:** wie Morwens Brauen ein eigener Reiter im Laden („Schmieden“), mit Material-Anzeige wie bei den Rezepten.
 - **Später (Kapitel 2):** Runen oder Sockel für Ausrüstung, seltene Erze aus neuen Gebieten, eine Belohnung von Dorran für eine größere Aufgabe.
-
-## Balance – offene Beobachtungen
-
-- **Kämpfer** erledigt normale Monster auf Stufe 5–6 meist in einer Runde (Zusätzlicher Angriff). Bei Bossen ist er gefordert. Falls störend: nachlegen.
-- **Magier** ist gegen Bosse die zerbrechlichste Klasse (Grak auf Stufe 5–6: 44–62 % Siege in der Simulation).
-- **Feuerball:** heute einmal pro Kampf mit 8W6. Falls er doch zu stark wirkt, gibt es zwei geprüfte Alternativen: 6W6 oder höhere Kosten (9 ZP).
-- Werkzeug zum Prüfen: Kapitelsimulation `SIM=1 ./gradlew -p core test --tests '*ChapterSimTest*'`.
 
 ## Google Play
 

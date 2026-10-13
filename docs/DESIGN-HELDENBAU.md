@@ -4,7 +4,7 @@ Freigegeben vom Nutzer am 13.10. (Themen 49, 50). Quelle: [Dokument](https://cla
 
 ## Worum es geht
 
-Der Spieler soll beim Heldenbau echte Wahl haben, ohne dass am Ende der Magier der beste Tank ist. Dieses Dokument sammelt den Entwurf zu den Themen 49 (Lehrer, Fertigkeiten, Talente) und 50 (weitere Klassen). Es ist ein Entwurf: Namen, Inhalte und Zahlen sind Vorschläge, Werte prüft Jerry gegen den Balance-Plan (38). Umsetzung frühestens ab Kapitel 2.
+Der Spieler soll beim Heldenbau echte Wahl haben, ohne dass am Ende der Magier der beste Tank ist. Dieses Dokument sammelt den Entwurf zu den Themen 49 (Lehrer, Fertigkeiten, Talente) und 50 (weitere Klassen). Werte prüft Jerry gegen den Balance-Plan (38). Umsetzung frühestens ab Kapitel 2.
 
 | Nr. | Frage | Entscheidung |
 | --- | --- | --- |
@@ -171,9 +171,5 @@ Entschieden: 49h–49q, die Linien stehen im Abschnitt „Talente“. Entschiede
 
 ## Offene Fragen
 
-- [ ] 50d: Merkmale – entschieden (50e–50j), Talentliste an Linien angepasst (49n–49q)
-- [ ] Talentliste: Namen und Wirkungen der neuen Talente (kursiv)
-- [ ] Fertigkeiten: `gegen Attribute abgegrenzt (49s)`
 - [ ] Erkennungszeichen der Pfade: Standbilder je Klasse (Tom Karte, Jerry Kampf)
 - [ ] Werte: Jerry misst Talente gegen +2 Attribut und Rüstungsgrenze (Magier in leichter Rüstung)
-- [ ] Ablage: nach Freigabe als `docs/DESIGN-HELDENBAU.md` ins Repo (wie `STORY-REGELN.md`)

@@ -1,6 +1,6 @@
 # Stil-Leitlinien
 
-Wie das Spiel aussieht, klingt und sich spielt: die Einzelheiten zum [Leitbild](DESIGN-LEITBILD.md). Wie gebaut und geprüft wird (Abnahme „Ort fertig“, selbst prüfen, alte Ansicht), steht in [Entwicklung](DESIGN-ABNAHME.md). Gilt für **alle** künftigen Arbeiten an Grafik, Animation und Klang.
+Wie das Spiel aussieht, klingt und sich spielt: die Einzelheiten zum [Leitbild](DESIGN-LEITBILD.md). Wie gebaut und geprüft wird (Abnahme „Ort fertig“, selbst prüfen, alte Ansicht), steht in [Abnahme](DESIGN-ABNAHME.md). Gilt für **alle** künftigen Arbeiten an Grafik, Animation und Klang.
 
 Siehe auch: [Offen](ARBEIT-OFFEN.md) · [Merkliste](LISTE-IDEEN.md) · [Änderungshistorie](../CHANGELOG.md)
 
@@ -18,7 +18,7 @@ Siehe auch: [Offen](ARBEIT-OFFEN.md) · [Merkliste](LISTE-IDEEN.md) · [Änderun
 - **Kein Gegner sieht aus wie der vorige seiner Art.** Jede Gegnerart bekommt mindestens drei Varianten in Aussehen und Ausrüstung, zum Beispiel ein Goblin mit Krummsäbel und Schild, einer mit Speer, einer mit Keule und Helm. Dazu kommen Hautton, Fell oder Narben.
 - **Die Werte bleiben gleich:** Varianten sind Optik. Schaden, Rüstungsklasse und Trefferpunkte kommen aus den Monsterdaten.
 - **Jede Bewegung in mindestens drei Varianten:** Angriff, Treffer, Ausweichen und Sieg oder Niederlage, damit Kämpfe nicht gleichförmig wirken. Das gilt für Gegner wie für den Helden.
-- **Kein Gegner verschwindet einfach:** Jede Gegnerart bekommt eigene Sterbeanimationen (mindestens drei), erst danach blendet sie aus. Ein tödlicher kritischer Treffer bekommt einen eigenen Killerschlag (siehe Liste [Offen](ARBEIT-OFFEN.md) unter „Geplant“).
+- **Kein Gegner verschwindet einfach:** Jede Gegnerart bekommt eigene Sterbeanimationen (mindestens drei), erst danach blendet sie aus. Ein tödlicher kritischer Treffer bekommt einen eigenen Killerschlag (Erweiterungen in der [Merkliste](LISTE-IDEEN.md) „Sonstiges“).
 - **Größe und Körperbau variieren** im Rahmen des SRD, zum Beispiel Goblins 98–118 cm (Small), Skelette 160–185 cm, dazu schlank, normal oder kräftig. Größe, Körperbau, Ausrüstung und Hautton werden unabhängig voneinander gewählt.
 - Die Variante wird beim Kampfbeginn aus dem Erscheinungsbild-Zufall des Gegners gewählt und bleibt für diesen Gegner im ganzen Kampf gleich.
 - **Ausnahme einmalige Monster:** Bosse und andere einzigartige Monster (etwa Krogg, Grak, Grimmzahn) erscheinen nur in einer Form, ohne Varianten in Aussehen und Ausrüstung, damit man sie wiedererkennt; ihre Bewegungen haben trotzdem je drei Varianten.
@@ -44,6 +44,7 @@ Aus den Rückmeldungen des Nutzers bis 11.10. (Verlauf im [Archiv](ARBEIT-ARCHIV
   - **Verstecktes erwünscht:** Kisten und Kleinkram dürfen unter Bäumen liegen und tauchen erst auf, wenn der Held hingeht (Belohnung fürs Erkunden); keine Durchsicht für sie aus der Ferne.
 - **Maßstab:** Höhen im Maßstab des Helden (ein Tisch steht etwa hüfthoch neben ihm). Waagerechte Kreise (Fass, Eimer, Becken) sind in der diagonalen Sicht Ellipsen 2:1, ihr Schatten ebenso.
 - **Räume:** eher klein und dicht als groß und leer; jeder Ort hat eigene Möbel, die zu seinem Bewohner passen (Pult und Truhe beim Ältesten, Ladentisch und Waren bei Thessa, Altar und Bänke im Tempel), je drei Varianten. Mehrteilige Möbel (Altar, Theke, Bett über mehrere Felder) haben durchgehend dieselbe Variante. Licht von Herd, Kerze und Fenster; Gebrauchsspuren.
+- **Karte und Kampfort gehören zusammen** (Standard für alle bestehenden und neuen Karten; 77e.3): Was auf der Karte steht, bestimmt die Kampfkulisse. Wasser, Felsen, Feuerstellen, Lager, Leuchtpilze, Lichtschächte und Fackeln auf der Karte erscheinen im Kampf an derselben Stelle wieder, auch mit demselben Licht. Kein reines Auswürfeln der Kulisse. Jede neue Kampfkulisse bekommt Orte, die auf der Karte als Gegenstücke vorkommen, und umgekehrt.
 - **Begleiter und Rudel:** folgen mit eigenem Weg, eigenem Tempo und eigenem Blick, werden nie starr um den Anführer mitgedreht.
 
 ## Spielerfreundlich, einfach, frei (Thema 33)
@@ -79,10 +80,10 @@ Alle Zwischensequenzen (Intro 69, Tempelszene 68, spätere Wendepunkte) sind gle
 
 - **Weg von quietschenden Chiptune- und Nintendo-Tönen, hin zu glaubwürdigen Geräuschen**: Stahl, Holz, Leder, Schritte, Feuer, Stimmen von Tieren.
 - **Systemklänge nur in einer Fassung** (Regel des Nutzers, 11.10.): Klänge, die etwas melden (Stufenaufstieg u. ä.), gibt es genau einmal, damit man sie sofort wiedererkennt. Alle übrigen (Umwelt, Kampf, Tiere, Dinge) haben mindestens drei Varianten.
-- **Echte Aufnahmen statt Synthese** (18, 11.10.): Grundlage sind CC0-Aufnahmen; nur Lizenzen, die kommerzielle Nutzung erlauben (Regel in `CLAUDE.md`), Quellen und Lizenz je Datei festhalten; erzeugte Klänge nur, wo sich nichts findet.
+- **Echte Aufnahmen statt Synthese** (18, 11.10.): Grundlage sind CC0-Aufnahmen (Lizenzregel in `CLAUDE.md`); erzeugte Klänge nur, wo sich nichts findet.
 - Mindestens drei Varianten je Geräusch, damit es nicht eintönig wird. Die Varianten sind echte Alternativen mit eigenem Charakter (z. B. Abwehr: Klonk auf Holz und Eisen, hölzernes Pochen, Klinge gegen Klinge), nicht nur dieselbe Aufnahme in anderer Tonhöhe. Im Spiel wird zufällig gewechselt.
 - **Ortsklang nur von dem, was da ist** (Nutzer 11.10., 22:06, Thema 24.8): Was man an einem Ort hört, kommt von sichtbaren Quellen und den Leuten, die gerade dort sind. Kein Stimmengewirr und keine Menge, wo nur zwei Leute stehen (Schänke: Rowena, Borin); stattdessen Herd plus Einzelklänge der Anwesenden in unregelmäßigen Abständen (Becher abstellen, Krug, Wischen, Stuhl knarrt, Räuspern ohne Worte). Keine erkennbare Sprache.
 - **Hintergrundklänge aktiv anbieten (44d, Nutzer 12.10.):** Wind, Feuer, Tiere, Schritte, Arbeit der Leute beleben jeden Ort; Tom und Jerry bieten sie bei jedem neuen Ort und jeder neuen Figur von sich aus an, mit Hörproben.
 - Zu neuen oder geänderten Klängen gibt es Hörproben zum Vergleich (Vorschau: `SOUNDS=NAME,…`).
 - **Musik (Nutzer 11.10., 19:43, Thema 28):** einheitlich in einem Stil: **orchestral**, düster und bedrohlich, tragend; kein Metal, kein Rock, kein Chiptune. Ausnahme **Dorf:** mittelalterlich (Laute, Trommeln, etwas Bass). Dazu eine eindeutige Titelmusik.
-- Was noch zu überarbeiten ist, steht in der Liste [Offen](ARBEIT-OFFEN.md) unter „Geplant“.
+- Was noch zu überarbeiten ist, steht in der [Merkliste](LISTE-IDEEN.md) „Klänge überarbeiten“.

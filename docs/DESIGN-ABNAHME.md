@@ -1,11 +1,10 @@
-# Entwicklung
+# Abnahme
 
 Wie gebaut und geprüft wird: die Einzelheiten zum [Leitbild](DESIGN-LEITBILD.md) (Grundsätze 5, 10, 11, 12). Wie das Spiel aussieht und klingt, steht in [Stil](DESIGN-STIL.md); Abläufe (Notizen, Builds, Nummern) in `CLAUDE.md`, seltene (Release, Neustart) in `ARBEIT-ABLAEUFE.md`.
 
 ## Ansicht
 
-- **Neue Orte nur diagonal (13u, Nutzer 12.10., 12:20):** jeder neue Ort und Raum wird gleich diagonal gebaut (Vorlagen `MapRoomIso`, `MapTownIso`), nie mehr eine gerade Fassung. Der Autoschalter (13.4) ist nur die Brücke für Wald, Tiefer Wald und Höhle.
-- **Alte Ansicht eingefroren (13w, Nutzer 12.10., 12:26):** keine Arbeit und keine Fehlerbehebung mehr an der geraden Ansicht, außer bei Abstürzen; gelöscht, sobald Wald, Tiefer Wald und Höhle diagonal fertig sind.
+- **Nur diagonal (13u, 13t):** jeder Ort und Raum diagonal (Vorlagen `MapRoomIso`, `MapTownIso`); die alte gerade Ansicht ist ausgebaut (13t, 0.1.709).
 
 ## Wann ein Ort fertig ist („Ort fertig“)
 
@@ -14,12 +13,11 @@ Festgelegt mit dem Nutzer 11.10., 16:50 (Maßstab: Dorf und Räume). Gilt für D
 2. **Boden:** doppelte Auflösung, kein sichtbares Raster, Wege mit natürlichem Verlauf.
 3. **Dinge:** rund geformt mit Volumen (`Sculpt`), je mindestens drei Varianten, im Maßstab des Helden.
 4. **Licht und Schatten:** Schatten unter allem, was steht; Licht nur aus sichtbaren Quellen; nachts düster, aber lesbar.
-5. **Durchsicht und Sichtbarkeit:** nach „Karte und Räume“ in `DESIGN-STIL.md` (43).
-6. **Lebendig:** Wind, Rauch, Tiere, Gebrauchsspuren, Wetter, je nach Ort; Effekte von Tom/Jerry selbst vorgeschlagen (44d).
+5. **Sichtbar (43):** Durchsicht und freier Blick nach „Karte und Räume“ in `DESIGN-STIL.md`; Standbild je Ort aus Sicht des Helden, jede Person und jeder Questort beim Herangehen erkennbar.
+6. **Lebendig:** Wind, Rauch, Tiere, Gebrauchsspuren, Wetter, je nach Ort; Effekte selbst vorgeschlagen (44d, `DESIGN-STIL.md`).
 7. **Figuren:** alle Leute als Puppen, alle Gegner als neue Kartenmodelle.
-8. **Klang:** Umgebung aus echten Aufnahmen, Schritte passend zum Untergrund; Hintergrundklänge selbst vorgeschlagen und eingebaut (44d).
-9. **Sichtbar (43):** Standbild je Ort aus Sicht des Helden; jede Person und jeder Questort ist beim Herangehen erkennbar.
-10. **Geprüft:** Kollision 0 (nirgends hindurchlaufen), Sprungtest 0, Tippen trifft das gezeichnete Ding; Standbilder bei Tag und Nacht.
+8. **Klang:** Umgebung aus echten Aufnahmen, Schritte passend zum Untergrund; Hintergrundklänge selbst vorgeschlagen (44d, `DESIGN-STIL.md`).
+9. **Geprüft:** Kollision 0 (nirgends hindurchlaufen), Sprungtest 0, Tippen trifft das gezeichnete Ding; Standbilder bei Tag und Nacht.
 
 ## Selbst prüfen, bevor etwas gezeigt wird
 
@@ -38,4 +36,4 @@ Festgelegt mit dem Nutzer 11.10., 16:50 (Maßstab: Dorf und Räume). Gilt für D
 ## Leistung
 
 - **Erst messen, dann beschleunigen** (24.14): Zeiten im Test-Reiter oder mit `ARTMEM` messen, bevor optimiert wird.
-- **Kein Absturz ohne Bericht** (30): Fehlertext holen, dann suchen; Test-Builds immer mit aktuellem `main` (21.5).
+- **Kein Absturz ohne Bericht** (30): Fehlertext holen, dann suchen.
