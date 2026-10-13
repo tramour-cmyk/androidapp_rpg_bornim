@@ -1,5 +1,147 @@
 # Archiv
 
+### Aus THEMEN.md, 13.10., 11:2x (Stand-Spalte vor 65.4 ausführlich)
+
+| 1 | Regen, Wetterleuchten mit Donner | Tom | erledigt, v0.1.409 | Änderungshistorie |
+| 2 | Waffe verstaut (auf der Karte geschultert bzw. am Rücken) | Tom | erledigt, v0.1.409 | Änderungshistorie, `STIL.md` |
+| 3 | Garrick hockt, schürt, döst (3a weich) | Tom | erledigt, v0.1.409 (3a v0.1.430) | Änderungshistorie |
+| 4 | Glühwürmchen fest, treibende Blätter | Tom | erledigt, v0.1.409 (Blätter v0.1.430) | Änderungshistorie |
+| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | Dorf diagonal auf `main` (PR #24, 11.10.); 5.3–5.5 offen | `OFFEN.md` |
+| 6 | Innenräume (Schänke), Zoom (6.15) | Tom | Schänke erledigt (v0.1.471, in 13 aufgegangen); 6l Zoomstufe offen | `OFFEN.md` |
+| 7 | Stopp-Punkt und Zusammenarbeit der Accounts | Tom | erledigt 10.10. (weiter in 8) | Archiv |
+| 8 | Zusammenarbeit Tom und Jerry, Notizen nur auf `main` | Jerry | erledigt 10.10. | `CLAUDE.md` |
+| 9 | Monster auf der Karte | Jerry | alle 18 Gegner auf der Karte erledigt: Wolf, Goblin, Grimmzahn (v0.1.430, v0.1.438), 9i übrige Gegner (PR #29, #33, 11.10.) | `OFFEN.md` |
+| 10 | Höhle: Flammen feiner | Tom (von Jerry, 13y) | Teil von 13e (36e, 12.10.) | `OFFEN.md` |
+| 11 | Höhle: Lichtstrahl am Lichtschacht | Tom (von Jerry, 13y) | Teil von 13e (36e, 12.10.) | `OFFEN.md` |
+| 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Jerry, Tom | 12a, 12b, 12.3 erledigt (v0.1.455, v0.1.471, v0.1.483) | `OFFEN.md` |
+| 13 | Diagonale Sicht | Tom | Räume erledigt (Schänke v0.1.471; Ältester, Laden, Tempel PR #20, 11.10.); 13.4 je Ort automatisch PR #43 (12.10.); weiter in 5 | `OFFEN.md` |
+| 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für `OFFEN.md`) | Berater | erledigt 11.10. (PR #26) | `CHANGELOG.md` |
+| 15 | `OFFEN.md` entschlacken, Archiv, Themenliste | Tom | erledigt 11.10. | Archiv |
+| 16 | Trefferstopp | Jerry | erledigt, v0.1.460 | Änderungshistorie |
+| 17 | Nachschwingen | Tom | 17a auf `main`, 17r in 0.1.660; Riemen verworfen | `OFFEN.md` |
+| 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | Jerry | Runde 2 auf `main` (PR #23, 11.10.); 18h, 18i offen | `OFFEN.md` |
+| 19 | Zeitablauf der Kampfbewegungen | Jerry | erledigt, v0.1.455; 19e geschlossen (36e, 12.10.) | `OFFEN.md` |
+| 20 | Uhrzeit der APK im ZIP | Tom | erledigt 11.10. (PR #21) | `OFFEN.md` |
+| 21 | Releaseflut eindämmen | Jerry | erledigt 11.10. (PR #22; Release nur auf Zuruf, Regeln in `CLAUDE.md`) | `OFFEN.md` |
+| 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | Tom | erledigt 11.10. (`docs/SELBST.md`) | Archiv |
+| 23 | Aufgabenteilung und Vorrat für Selbstarbeit | Tom | erledigt 11.10. (`SELBST.md`) | `OFFEN.md` |
+| 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik), Jerry (Inhalt) | 24.1–24.4, 24.9–24.15 auf `main` (PR #30, #32, #34, #35, 11.10.); 24.5–24.8 offen | `OFFEN.md`, `ZWISCHENBILD.md` |
+| 25 | Laternen und Fenster nachts als Quelle zu dunkel | Tom | erledigt, getestet 0.1.512, PR #28 | `OFFEN.md` |
+| 26 | Kapitel 1 fertig (Zielliste) | Tom und Jerry | festgelegt 11.10. | `KAPITEL1.md` |
+| 27 | Wald „Ort fertig“ | Tom | offen | `OFFEN.md` |
+| 28 | Musik neu | Jerry | erledigt, getestet 0.1.540, PR #36 | `ARCHIV.md` |
+| 29 | Nebenquests (Anschlagbrett) | Tom | erledigt 12.10. (PR #42) | `CHANGELOG.md` |
+| 30 | Abstürze beim Testen | Tom (Jerry: Klang-Fäden) | offen | `OFFEN.md` |
+| 31 | Berater-Gedächtnis `docs/BERATER.md` | Berater | angelegt 11.10. | `BERATER.md` |
+| 33 | Grundsatz „Spielerfreundlich, einfach, frei“ (Prüfung vor jeder Umsetzung) | Tom und Jerry | festgelegt 12.10., 08:58, in `STIL.md` und `CLAUDE.md` | `STIL.md` |
+| 32 | Selbstarbeit: Nacht 11./12.10. fast ohne Arbeit (Routine sperrte sich wegen Herzschlag) | Jerry | offen, 32a | `OFFEN.md` |
+| 34 | Kampf: Knopf „Zug beenden“ | Jerry | erledigt 12.10. (PR #41, getestet 0.1.571) | `CHANGELOG.md` |
+| 35 | Weihwasser nur gegen Untote (2W6) | Jerry | erledigt 12.10. (PR #41, getestet 0.1.571) | `CHANGELOG.md` |
+| 36 | Krogg verpixelt (schärfen) | Jerry | 36.4 auf `main` (PR #46); offen 36.5 Ausfallschritt, 36.6 Killerschlag fein | `OFFEN.md` |
+| 37 | Kampfmusik aussortieren (3 raus, Boss-Stück anders verwenden) | Jerry | erledigt: PR #45, getestet 0.1.578, 12.10. | `CHANGELOG.md` |
+| 38 | Balance-Langzeitplan (`BALANCE.md`) | Berater, Jerry | ja 12.10., ≥ 7 Kapitel | `OFFEN.md` |
+| 39 | Schwierigkeitsgrad im Menü | Jerry (Menü mit Tom) | ja 12.10., nach 38 | `OFFEN.md` |
+| 40 | Lautstärke Gesamt/Musik/Effekte | Jerry | ja 12.10. | `OFFEN.md` |
+| 42 | Textkasten unten im Stil der Blenden (schwarz, Sprecher Gold) | Tom | fertig (PR #48; Menüs mit 60) | `CHANGELOG.md` |
+| 43 | Sichtbarkeit in der diagonalen Sicht (Wichtiges frei, Durchsicht um den Helden, Verstecktes erwünscht) | Berater (Grundsatz); Tom, Jerry | festgelegt 12.10., 12:09 | `STIL.md`, `ENTWICKLUNG.md` |
+| 44 | Leitbild als roter Faden; `STIL.md` aufgeteilt in Stil und Entwicklung | Berater | erledigt 12.10., 13:08 | `LEITBILD.md` |
+| 45 | Geschäftsmodell und Umsetzung (Play Store) | Berater mit Nutzer | gesondert besprechen | `OFFEN.md` |
+| 46 | Neustart: Nachfolger startet die Sitzung selbst | Tom und Jerry | fertig (Regel) | `CLAUDE.md` |
+| 47 | README-Einleitung nach Leitbild | Berater | ja 12.10., 13:15 | `OFFEN.md` |
+| 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
+| 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
+| 50 | Weitere Klassen, ggf. zum Kauf | Berater mit Nutzer | Idee 12.10., nach Kapitel 1 | `MERKLISTE.md` |
+| 51 | Sterbehaltung des Helden (Magier) sieht komisch aus | Jerry | Meldung 12.10., offen | `OFFEN.md` |
+| 52 | Feinarbeit an den Kampfanimationen | Jerry | Nutzer 12.10., später | `OFFEN.md` |
+| 53 | Zustände (Brennend) auf Krogg prüfen | Jerry | Nutzer 12.10., wenn Zeit | `OFFEN.md` |
+| 54 | Nicht warten, von selbst weiterarbeiten | Tom und Jerry | fertig (Regel, Tom bestätigt 12.10.) | `CLAUDE.md` |
+| 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | 55.2 auf `main`, 55.1a im Sammelbuild 0.1.650; 55.1b offen | `OFFEN.md` |
+| 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | Tom | neu 12.10. | `OFFEN.md` |
+| 58 | Umhang hängt beim Laufen über dem Schild | Tom | erledigt 12.10. (PR #50) | `OFFEN.md` |
+| 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf | Tom | entschieden, im Sammelbuild 0.1.650 (13.10.); 59e entschieden 13.10. | `OFFEN.md` |
+| 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | Tom | entschieden (Alegreya, Cinzel), im Sammelbuild 0.1.650 | `OFFEN.md` |
+| 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | Tom | entschieden, im Sammelbuild 0.1.650 | `OFFEN.md` |
+| 62 | Gezeichnete Karte im Menü | Tom | entschieden (erst ohne Auftragszeichen), im Sammelbuild 0.1.650; 62c (Zoom, Übersicht, Questmarken) entschieden 13.10. | `OFFEN.md` |
+| 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom (ab Fr. mit Jerry) | angelegt 13.10., 09:06 | `OFFEN.md` |
+| 64 | Questlog: Quest-Übersicht im Menü (laufend/erledigt) | Berater mit Nutzer, dann Tom | angelegt 13.10. | `OFFEN.md` |
+
+### Aus OFFEN.md, Berater 13.10., 11:2x (65.4a: Zeilen 59–62, 60j zusammengefasst)
+
+| 59 | Händler: Kauf/Verkauf im Stil des Textkastens, Übersicht, Vergleich | Tom | `claude/tom-59-haendler` | 59a–59d ja (Verlauf im Archiv): schwarzer Laden, nicht Tragbares abgedunkelt, Streifen Angelegt, Vergleich, Rückkauf, Menge. Build 0.1.632, Test steht aus |
+| 60 | Ein Aussehen für alle Oberflächen wie Textkasten/Blende (schwarz, Gold, Serife) | Tom | `claude/tom-60-aussehen` | 60a–60d ja (Verlauf im Archiv). Entwürfe Schrift, Titel, Menü, Heldenerstellung, Kampf im Testreiter „60 Aussehen“, Build 0.1.636; Rückfragen 60e–60i |
+| 61 | Spuren, die bleiben: Blut, Fußspuren, Staub (Vorrat 7) | Tom | `claude/tom-7-spuren` | Entwurf, Build 0.1.646; Rückfrage 61a |
+| 62 | Gezeichnete Karte im Menü (Vorrat 8) | Tom | `claude/tom-7-spuren` | Entwurf, Build 0.1.646; Rückfragen 62a/62b |
+| 60j | Menüreiter als Zeichen mit kleinem Wort | Tom | `claude/tom-17-riemen` | A ja, getestet (Nutzer 13.10., 11:2x: gefällt) |
+
+Alte Zeile 65: | 65 | Abläufe verschlanken (Ablaufprüfung, Nutzer 13.10. alle sechs Punkte ja) | Berater; Tom (65.3, 65.6); Jerry (65.2) | `main` (Notizen) | **65.1 fertig** (CLAUDE.md 19,1→14,3 KB, Seltenes in `ABLAEUFE.md`, zwei Prüfrunden). **65.2** Weck-Routinen pausiert: Tom fertig, Jerry offen (Zeile unten). **65.3 Tom fertig** (Rückfragen nur auf der Seite, oben „Jetzt installieren“). **65.4 Berater:** jeder Text an einem Ort (Entscheidung in „Wer macht was“/Bildbuch, THEMEN nur Einwort-Stand, BERATER nur Begründung). **65.5** Sprachsitzung bespricht nur, festgehalten erst nach Commit der Textsitzung. **65.6 Tom fertig** (Release-Frage, `ABLAEUFE.md`, `CLAUDE.md`). |
+
+### Aus BERATER.md, 13.10., 11:2x (Volltext vor Kürzung 65.4: Sitzungen, Ritual, Bau, Entscheidungen, Lehren)
+
+**Sitzungen** (seit 13.10. thematisch benannt, keine Nummern; Regel „Sitzungsname“ in `CLAUDE.md`): 12.10. ab 15:10 Grundsatz; 12.10. Talentliste und Fertigkeiten; 12.10. 22:13–13.10. 09:0x Händler/Oberfläche/Rollen; 13.10. 09:1x–10:0x Questlog, Karte 62c, Händler 59e, Sitzungsname, Ablaufprüfung; 13.10. 10:08–11:0x Ablaufprüfung entschieden (65), CLAUDE.md gekürzt, Weck-Routinen pausiert. **Nachfolger:** „Sokrates – Abläufe verschlanken“ (selbst gestartet 11:0x)
+
+**Zuletzt gelesen bis:** `7aa68af` (13.10., 11:0x) plus dieser Commit
+
+#### Ritual
+
+- **Start** (Nutzer schreibt „Berater“ oder „Sokrates“): diese Datei, dann `docs/OFFEN.md` (zuerst „Für den Berater“: was Tom/Jerry an mich abgegeben haben) (das Leitbild `LEITBILD.md` nur bei Grundsatzfragen), dann nur die Änderungen seit „Zuletzt gelesen bis“: `git log --format='%h %ad %s' --date=format-local:'%d.%m. %H:%M' <Stand>..origin/main` (bei Bedarf `git diff <Stand>..origin/main -- docs CHANGELOG.md`). Dazu `tools/story.sh <Stand>` (nur Textänderungen im Spiel, auch `EN alt`); bei Bedarf gegen laufende Zweige (`origin/<zweig>`). Kurz melden, was neu ist, Textänderungen gegen `docs/STORY.md` und Storyplan prüfen.
+- **Ende** („Berater, festhalten“): neue Entscheidungen und Lehren eintragen, Veraltetes kürzen, „Zuletzt gelesen bis“ neu setzen, auf `main` pushen. **Dann immer den Nachfolger selbst starten** (Nutzer 12.10., 15:0x), Titel **„Sokrates – <Grobthema>“** (seit 13.10. ohne Nummer), oben unter „Sitzungen“ eintragen: `create_session` (mit `source_url`, Zweig, Titel) oder ersatzweise `create_trigger` mit `run_once_at` in 2 Minuten, Name = Titel; Auftrag wie der eigene Start plus nächster Punkt. Dem Nutzer den Weg nennen: „Geplant“ → Aufgabe → „Verlauf“ (steht nicht in der Chatliste).
+- **Größere Entwürfe als Dokument** (Nutzer 12.10.): Matrizen, Listen, Erklärungen, die der Nutzer wiederfinden will, als Claude-Docs-Dokument (Artefakt), Link in `OFFEN.md` und hier bei den Entscheidungen; nach Freigabe als `docs/<NAME>.md` ins Repo.
+- Der Berater ändert Notizen und höchstens Werkzeug, nie Spielcode.
+
+#### Wie das Spiel gebaut ist
+
+- **Module:** `core` (Regeln, Kampf, Welt, alle Zeichnungen und Klänge als Daten, ohne Android), `app` (Compose-Oberfläche, Abspielen), `tools/preview` (Bilder, Filme, Hörproben am Rechner; Schalter in `UMGEBUNG.md`). Rund 39.000 Zeilen.
+- **Größte Dateien:** `MapRoomIso.kt` (Räume diagonal), `WorldScreen.kt` (Karte, Bedienung, Hintergrund-Anstöße), `BattleScreen.kt`, `WorldArt.kt` (Kartenobjekte), `Dress.kt`/`Doll.kt` (Kleidung, Puppen), `Battle.kt` und `Game.kt` (Regeln, Spielzustand).
+- **Zeichnen:** Alles wird zur Laufzeit gezeichnet (SDF-Formen in `art/Sdf.kt`, `Sculpt.kt`), nichts kommt als fertige Grafik. Deshalb ist Zeichenzeit der Engpass (Thema 24): Held auf der Karte 16 Richtungen × 8 Schritte = 128 Bilder, im Kampf über 300.
+- **Technik-Einzelheiten** (Fäden, Zwischenspeicher, Leistungs-Lehren 24/30/36): im Archiv, „Aus BERATER.md (12.10., 16:4x)“.
+- **Grenzen:** Tom = Leute, Dorf, Innenräume, Technik der Blende. Jerry = Monster, Höhle, Kampf, Klang. Gemeinsame Dateien (`WorldScreen.kt`) nur nach Absprache.
+- **Ablauf:** Code auf Zweigen, Build über GitHub, Nutzer testet APK auf Samsung A56 und in MuMu (kein Android Studio), dann Merge durch die Sitzung. Release nur auf Zuruf (21).
+
+#### Entscheidungen mit Begründung
+
+- **Ablaufprüfung entschieden (65, 13.10., 10:1x–11:0x):** alle sechs Punkte ja, einzeln vom Nutzer. Stand und Wer in `OFFEN.md` Thema 65. **Nächster Punkt für mich: 65.4** (jeder Text an einem Ort), dann 65.3/65.6 bei Tom nachsehen. Begründungen: CLAUDE.md lesen nur wir Sitzungen, darum knapp für uns statt für Menschen (Nutzer); Auslagern nur, wenn der Anlass selten und eindeutig ist und der Auslöser als Zeile in CLAUDE.md bleibt; Ziel ≤10 KB aufgegeben (mehr ginge nur mit Verlust), oberster Grundsatz des Nutzers: nichts Aufgabenrelevantes verlieren. Weck-Routinen pausieren statt löschen, weil die Repo-Einstellung von Hand gesetzt ist; Release-Schwelle fünf Themen oder sieben Tage.
+- **Sprachausgabe** (Nutzer 13.10.): im gesprochenen Dialog keine Ansage „Sokrates [Datum, Uhrzeit]“; beim Schreiben bleibt sie.
+- **59e, 62c, 64** (13.10., Sprachsitzung): Händler „Alle“ nur noch beim Verkaufen mit Sicherheitsabfrage; Vorrat an 38/39 gekoppelt (Nachfüllen nie nach Rast, Rast geht jederzeit). Karte erinnert statt führt: Marken nur für Entdecktes (Geber blau, Ziel gold), keine Schnellreise (eigene Grundsatzfrage). Questlog als eigenes Thema 64, Entwurf bei mir mit Nutzer. Einzelheiten in `OFFEN.md`.
+- **Sitzungsname** (13.10.): thematisch statt Nummer, für alle Rollen; Grund: Liste in der App sprechend, Reihenfolge zeigt das Datum.
+- **Rollen** (13.10.; Regeln in `CLAUDE.md`): Berater heißt **Sokrates**, berät bei Strategie, Grundsatz und grundlegendem Design (Story, Richtung, einheitliches Aussehen, Balance, Geschäftsmodell, große Umbauten), nie Code. Tom/Jerry entscheiden Kleines selbst, Grundsätzliches tragen sie unter „Für den Berater“ ein und arbeiten weiter (nicht blockieren). Grund: Nutzer will Grundsatzfragen gebündelt bei uns, ohne dass die Entwicklung steht.
+- **Diogenes** (13.10.): vierte Rolle Tester, kein eigener Account (Nutzer: zwei Accounts teuer genug), nur melden, Ablauf in `docs/DIOGENES.md`. Mein Beitrag (Nutzer wollte eigene Ideen statt Zustimmung): ein Prüfbericht statt zwei, Prüfstand (nur Neues prüfen), feste Prüflisten, Befund = Verdacht, Einzelheiten aus `CLAUDE.md` ausgelagert (spart Token jeder Sitzung). Nutzer: „Archimedes“ verworfen, baut statt prüft.
+- **Eine Entscheidungsseite (63, 13.10.):** jede Rückfrage an den Nutzer auf eine gemeinsame Seite („Zu entscheiden“/„Anzusehen“), wie Bildbuch aufgebaut; Grund: Fragen gehen in vielen Chats und neuen Sitzungen unter. Tom zieht es vor (heute, nicht Freitag: Nutzer will nicht warten).
+- **Oberfläche (59, 60, 12.10.):** Händler und alle Oberflächen schwarz, Gold, Serife wie Textkasten (`STIL.md` „Oberfläche“); Serife mitliefern (Gerätschrift sieht je Gerät anders aus), Pixelschrift nur für kleine Kampfzahlen; Angelegtes nicht verkaufbar (59c). Gebaut im Sammelbuild 0.1.650, Test gut.
+
+- **Nur diagonal** (13, 13.4, 13u, 13w, 12.10.): Gerade Ansicht wirkte flach. Testschalter weg (PR #43), fertige Orte diagonal, Wald/Tiefer Wald/Höhle gerade bis fertig; neue Orte nur diagonal (doppelte Arbeit vermeiden, Nutzer: keine Arbeit in Ansichten gegen das Ziel); alte Ansicht eingefroren (nur Absturz-Fixes), dann gelöscht. Danach Zoomstufe (6l).
+- **Sichtbarkeit** (43, 12.10.): diagonal rückt der frühere rechte Rand vor die Kamera. Wichtiges (Leute, Questziele, Eingänge, Feuer) steht frei, Karten werden dafür umgestellt (27b, gegen Toms 27.3); Durchsicht nur um den Helden; Kisten dürfen versteckt sein. Morwen (Tiefer Wald) später bei Tom.
+- **Leitbild** (44, 12.10.): `LEITBILD.md` als roter Faden (12 Grundsätze), Einzelheiten in `STIL.md` (Aussehen, Klang, Spiel) und `ENTWICKLUNG.md` (Ansicht, „Ort fertig“, Prüfen, Leistung). SRD = Gerüst, nicht Ziel (44f; Nutzer wollte weg von „nah am SRD“), keine AD&D-Erwähnung (kein zwingender Grund). Freigabe 16 (44a): Killerschlag und Blut „Deutlich“ als Obergrenze, Zerteilen in 3D vorher prüfen. Effekte und Hintergrundklänge bieten Tom/Jerry aktiv an (44d).
+- **Geschäftsmodell** (45, 12.10., 13:30): Kapitel 1 kostenlos, dann einmal Vollversion, Kapitel nachkaufbar (45a); nie Werbung, Beutekisten, Wartezeiten (45c, Leitbild 13). Grund: Wer Abkürzungen verkauft, macht das Spiel sonst künstlich zäh.
+- **Offen bei mir:** Questlog-Entwurf (64); Heldenbau nach Freigabe als `docs/HELDENBAU.md` ablegen (Rest offen: Namen kursiver Talente, Erkennungszeichen-Standbilder, Jerrys Messung); Prüfungsquests und Umlern-Tempel sind Story (41, mit Nutzer); **45b nach Jerrys Messung 38 von mir aus ansprechen**; 41 Kapitel 2 stößt der Nutzer an.
+- **Zufallshöhlen** (48, 12.10.): erst Questhöhlen ganz zufällig, Story-Höhlen später halb-halb (fester Kern), alles zufällig nein. 6–8 Kammern, verschlungen, Schleife nur manchmal, Sackgassen auch leer, Rückweg durch Durchgang nach dem Boss, Beute knapp (Jerry prüft gegen 38). Normale Blende reicht (Boden wird ohnehin bei jedem Betreten neu gezeichnet). Jerry baut 13e allgemein (48b). Nach Kapitel 1.
+- **Heldenbau** (49, 50, 12.10.; [Dokument](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)): keine neuen Attribute, Talente als Linien je Merkmal auf jeder geraden Stufe, höchste Stufe nur über Prüfungsquest, Umlernen im Tempel ab Kapitel 3; Klassenpaket mit zwei Pfaden je Klasse, Werwolf als Fluch, gekaufte Klassen nie stärker. Begründungen im Archiv („Aus BERATER.md, 13.10.“).
+- **Neustart nur bei großer Sitzung** (11.10.): Startlektüre ~12.000 Token. Nach „ja“ startet die Sitzung ihren Nachfolger selbst (46, 12.10.).
+- **Textkasten (42), Klang (18, 24w, 28), Kampf nah am SRD (34, 35):** Begründungen im Archiv (16:4x); Klang-Einzelheiten in `STIL.md`.
+- **Grundsatz „spielerfreundlich, einfach, frei“** (33, 12.10.): vier Fragen vor jeder Umsetzung von Ablauf und Bedienung (`STIL.md`).
+- **Balance** (38, 12.10.): SRD als Fundament, Stufe 20 Obergrenze, mindestens 7 Kapitel, Stufen 5–14 als Kern, 15–20 erst am Ende; Abweichungen mit Grund in `BALANCE.md`. Plan fertig; Jerrys Messung (Messplan dort) nach 37 und 36.1, vor 13e (38e/38f). Schwierigkeitsgrad (39) nach Messung von „Normal“, Lautstärke-Regler (40).
+- **Storyplan** (41, 12.10.): [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d); 4 Augen: Story-Änderungen erst nach Nutzer + Berater an Tom/Jerry (Dokument → „freigegeben“ → `docs/STORY.md` → bauen → `tools/story.sh` prüfen). Kapitel 2: Einstieg „Wer ist der Graue Prophet?“ (drei Entwürfe), Stufe 8 am Ende; Kapitel 1 aus `Story.kt`/`Jobs.kt` lesen. Nachtragen: Heldensätze 29.4. Einzelheiten im Archiv.
+
+#### Lehren
+
+- **Eigene Ideen einbringen** (13.10.): Nutzer: „du findest alles sinnvoll, was ich vorschlage … du bist mein Berater“. Jeden Vorschlag des Nutzers auf Lücken, Kosten und Doppelungen prüfen und Eigenes ergänzen, nicht nur zustimmen.
+- **Sprachsitzung parallel** (13.10.): Der Nutzer spricht oft per Sprache mit einer zweiten Sokrates-Sitzung, die Aufträge herüberreicht. Aufträge nur ausführen, wenn der Nutzer sie im Gespräch freigegeben hat; danach knapp mit Commit melden. Behauptungen der Sprachsitzung über Werkzeuge prüfen (13.10.: „Umbenenn-Werkzeug“ gab es hier nicht).
+
+- **Wiederholte Rückfragen prüfen** (12.10.): Vor dem Wiederholen einer Rückfrage in `OFFEN.md` nachsehen, ob Tom/Jerry sie schon mit dem Nutzer geklärt haben (26b, 34.1, 35a waren es).
+- **Docs-Werkzeug** (41): Einfache Zeilenumbrüche in Markdown verschmelzen zu einem Absatz; Dialogzeilen mit Leerzeile trennen.
+- **Notizen vor dem Ändern frisch holen** (12.10.): Tom/Jerry ändern `OFFEN.md` im Minutentakt; zweimal schlug mein Ersetzen fehl, weil sich die Übergabe geändert hatte. Erst `git pull`, Treffer prüfen (`assert`), dann committen; nie nach fehlgeschlagenem Ersetzen blind committen.
+- **Große Dokumente teuer** (12.10.): Storyplan ganz einlesen kostet viel; nur lesen, wenn am Dokument gearbeitet wird.
+- **Vor dem Absenden gegenlesen** (12.10., 13:10): Ein Bruchstück eigener Überlegungen („ab 20 KB teuer“) rutschte sinnlos in eine Antwort, eine Rückfrage stand ohne Nummer im Fließtext. Prüfen: jedes Fragezeichen in der nummerierten Liste? Jeder Satz mit Bezug?
+- **Selbstverständliches nicht fragen** (44d): „nur Klänge oder auch sichtbare Effekte?“ war unnötig; im Sinne des Nutzers entscheiden und nennen.
+- **Berater-Werkzeug:** Nach Push aus `../bornim-main` zeigt die Hauptkopie die eigenen Notizen als „geändert“ (gleicher Zweig, alter Index). Nie committen (dreht Änderungen zurück), sondern `git reset --hard HEAD` in der Hauptkopie; vom Nutzer freigegeben 12.10., 13:5x.
+- **Erst prüfen, dann Kosten nennen** (48, 12.10.): Ladezeit als Kostenpunkt genannt, ohne nachzusehen; sie war keiner. Technische Behauptungen vorher kurz im Code prüfen.
+
+- **Rückfragen des Beraters** (Nutzer 13.10.): an den Nutzer immer hier im Gespräch stellen (nummeriert, mit Empfehlung), nicht über die Entscheidungsseite 63 – die ist der Eingang für fertige Fragen von Tom, Jerry und Diogenes. Erst nach der Entscheidung in die Notizen eintragen.
+
+- **Auslagern in Startlektüre spart nichts** (65, 13.10.): Was in eine Datei wandert, die beim Start ohnehin gelesen wird (`ENTWICKLUNG.md`), liegt danach genauso im Kontext. Vor einem Spar-Vorschlag prüfen, ob das Ziel überhaupt nicht gelesen wird.
+- **Gekürzte Regeln unabhängig gegenprüfen** (65): Erste Fassung verlor nichts Hartes, aber Abschwächungen („wirklich“, „taktisch“, Übergabe vor jedem Neustart). Immer zweite Prüfrunde durch einen unabhängigen Prüfer.
+- **Sprachsitzung lag wieder falsch** (13.10.): behauptete, `SELBST.md` gebe es vermutlich nicht; sie hat 16 KB. Behauptungen der Sprachsitzung vor Übernahme im Repo prüfen.
+- **Entscheidungen einzeln abwarten** (13.10.): Der Nutzer ging die Punkte einzeln durch; „ich folge deiner Empfehlung“ galt dem einen Punkt, nicht allen. Nicht vorschnell „alle freigegeben“ zusammenfassen.
+
 - **CLAUDE.md gekürzt (13.10., Berater, Ablaufprüfung Punkt 1):** knapp formuliert, Release und Neustart-Ablauf nach `docs/ABLAEUFE.md`; Herkunft der Regeln (Daten, Zitate, Begründungen) im alten Volltext, Commit `a48be9a`. Zwei unabhängige Prüfrunden alt gegen neu: nichts verloren.
 
 ### Tom (13.10., 09:5x) – neue Sitzung „Tom: 63 Erledigt 59e/62c, dann Test 0.1.653 und 62c Karte“
