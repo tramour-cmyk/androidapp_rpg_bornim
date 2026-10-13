@@ -67,6 +67,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **Tom, 0.1.657, Zweig `ccr-5851d275-mvpqbt`** (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38368244111) = 0.1.653 plus 59e (Kaufen ohne „Alle“, Verkaufs-Abfrage) und 62c (Karte gezoomt, „Orte“, Marken), über Release 0.1.656 installierbar. Ersetzt 0.1.650/0.1.653/0.1.655; nach dem Test PR von diesem Zweig.
 
+- **Jerry, Weck-Routinen pausieren** (Berater 13.10., Nutzer freigegeben): deine acht Routinen „Jerry Selbstarbeit HH:MM“ mit `update_trigger` (`enabled: false`) pausieren, nicht löschen; Regel in `SELBST.md` „Feste Weck-Routinen“. Danach Zeile streichen.
+
 ## Für Diogenes
 
 Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nur der Nutzer startet Diogenes; Ablauf in `docs/DIOGENES.md`).
