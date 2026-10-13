@@ -64,7 +64,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Tom, 0.1.640, Zweig `claude/tom-5l-leben`** (5la, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38322497262; nach 59/60): Testreiter „5l Tagesablauf im Dorf“ an, im Dorf ein paar Minuten zusehen, Leute ansprechen, ob jemand im Weg steht.
 - **Tom, 0.1.641, Zweig `claude/tom-katze`** (6g, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38324348750; nach 59/60): Testreiter „Katze in der Schänke“ an, in der Schänke gut drei Minuten zusehen.
 - **Tom, 0.1.643, Zweig `claude/tom-6-farbstimmung`** (6f, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38326167073; nach 59/60): Testreiter „Farbstimmung je Ort“ an, Höhle, Schänke abends, Dorf in der Dämmerung ansehen.
-- **Tom, 0.1.646, Zweig `claude/tom-7-spuren`** (61a/62a, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38331553728; nach 59/60): Testreiter „Spuren“ an, Kampf gewinnen (Blut), im Regen gehen (Fußspuren), auf trockenem Weg rennen (Staub); Testreiter „62 Gezeichnete Karte“ an, Menü → Karte.
+- **Tom, 0.1.646, Zweig `claude/tom-7-spuren`** (61a/62a, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38331553728; nach 59/60): Testreiter „Spuren“ an, Kampf gewinnen (Blut), im Regen gehen (Fußspuren), auf trockenem Weg rennen (Staub); Testreiter „8 Gezeichnete Karte im Menü“ an (Thema 62), Menü → Karte.
 
 ## Rückfragen an den Nutzer
 
