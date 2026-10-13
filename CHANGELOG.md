@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.656 – 13.10.2026, 10:13
+
 Zweig von Tom (Thema 58), getestet in 0.1.628 (Nutzer 12.10., 23:1x: alles klappt), PR #50 (zusammengeführt 12.10., 23:13):
 
 **Schild und Köcher auf dem Rücken (58)**
