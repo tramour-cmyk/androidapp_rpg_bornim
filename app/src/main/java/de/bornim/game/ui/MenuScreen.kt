@@ -54,10 +54,10 @@ import de.bornim.game.Screen
 
 private val gearBlue = Color(0xFF2A62C8)
 
-private enum class Tab { HERO, BAG, GEAR, MAP, SYSTEM, TEST }
+private enum class Tab { HERO, BAG, GEAR, MAP, CHRONICLE, SYSTEM, TEST }
 
 /** The previews: the menu opens on the map (Vorrat 8, draft). */
-object MenuStart { @Volatile var map = false }
+object MenuStart { @Volatile var map = false; @Volatile var chronicle = false }
 
 /** 60: the menu in the look of the text box (black, gold rim, serif); a draft until chosen (preview `MENUE=1`). */
 object MenuLook {
@@ -75,7 +75,7 @@ fun MenuScreen(vm: GameViewModel, game: Game) {
 private fun MenuBody(vm: GameViewModel, game: Game) {
     vm.tick
     val lang = vm.lang
-    var tab by remember { mutableStateOf(if (MenuStart.map && de.bornim.core.art.MapSheet.draft) Tab.MAP else Tab.HERO) }
+    var tab by remember { mutableStateOf(if (MenuStart.chronicle && ChronicleLook.draft) Tab.CHRONICLE else if (MenuStart.map && de.bornim.core.art.MapSheet.draft) Tab.MAP else Tab.HERO) }
     var dialog by remember { mutableStateOf<DialogSpec?>(null) }
     val back = { if (dialog != null) dialog = null else vm.menuOpen = false }
     BackHandler { back() }
@@ -96,10 +96,10 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
             .padding(10.dp)
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            val labels = mapOf(Tab.HERO to Ui.hero, Tab.BAG to Ui.bag, Tab.GEAR to Ui.gearShort, Tab.MAP to de.bornim.core.T("Karte", "Map"), Tab.SYSTEM to Ui.system, Tab.TEST to de.bornim.core.T("Test", "Test"))
-            val tabs = Tab.entries.filter { (it != Tab.TEST || vm.testMode) && (it != Tab.MAP || de.bornim.core.art.MapSheet.draft) }
+            val labels = mapOf(Tab.HERO to Ui.hero, Tab.BAG to Ui.bag, Tab.GEAR to Ui.gearShort, Tab.MAP to de.bornim.core.T("Karte", "Map"), Tab.CHRONICLE to de.bornim.core.T("Chronik", "Chronicle"), Tab.SYSTEM to Ui.system, Tab.TEST to de.bornim.core.T("Test", "Test"))
+            val tabs = Tab.entries.filter { (it != Tab.TEST || vm.testMode) && (it != Tab.MAP || de.bornim.core.art.MapSheet.draft) && (it != Tab.CHRONICLE || ChronicleLook.draft) }
             tabs.forEach { t ->
-                val badge = if (t == Tab.HERO && game.hero.unspentPoints > 0) " ★" else ""
+                val badge = if (t == Tab.HERO && game.hero.unspentPoints > 0 || t == Tab.CHRONICLE && tab != Tab.CHRONICLE && de.bornim.core.Chronicle.fresh(game.state)) " ★" else ""
                 // 60j (draft): a drawn sign with a small word under it
                 if (TabLook.draft && MenuLook.draft) TabButton(TabSign.valueOf(t.name), labels.getValue(t)(lang), Modifier.weight(1f), selected = t == tab, badge = badge.isNotEmpty()) { tab = t }
                 else PixelButton(labels.getValue(t)(lang) + badge, Modifier.weight(1f), selected = t == tab, size = if (tabs.size > 4) 11.sp else 13.sp) { tab = t }
@@ -112,13 +112,17 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
                 .fillMaxWidth()
         ) {
             // 62c: the map zooms and pans by itself, so it does not sit in the scrolling column
-            if (tab == Tab.MAP) MapTab(game, lang)
+            if (tab == Tab.MAP) MapTab(game, lang) { tab = Tab.CHRONICLE }
             else Column(Modifier.verticalScroll(rememberScrollState())) {
                 when (tab) {
                     Tab.HERO -> HeroTab(vm, game, lang, ask)
                     Tab.BAG -> BagTab(vm, game, lang, ask)
                     Tab.GEAR -> GearTab(vm, game, lang, ask)
                     Tab.MAP -> {}
+                    Tab.CHRONICLE -> ChronicleTab(game, lang) { who ->
+                        de.bornim.core.MapMarks.of(game.state).firstOrNull { it.who == who }?.let { MapLook.focusMap = it.map; MapLook.focusWho = who }
+                        tab = Tab.MAP
+                    }
                     Tab.SYSTEM -> SystemTab(vm, game, lang)
                     Tab.TEST -> TestTab(vm, game, lang)
                 }
@@ -137,9 +141,10 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
  * (no travel). Marks remind, never lead ([de.bornim.core.MapMarks]): tapping one names it.
  */
 @Composable
-private fun MapTab(game: Game, lang: Lang) {
+private fun MapTab(game: Game, lang: Lang, onChronicle: () -> Unit = {}) {
     val german = lang == Lang.DE
-    var shown by remember { mutableStateOf(game.map.id) }
+    // 64: the chronicle's "On the map" opens the map of the giver's mark
+    var shown by remember { mutableStateOf(MapLook.focusMap?.takeIf { de.bornim.core.World.maps.containsKey(it) } ?: game.map.id) }
     var overview by remember { mutableStateOf(MapLook.previewOverview) }
     val map = de.bornim.core.World[shown]
     val here = shown == game.map.id
@@ -147,7 +152,7 @@ private fun MapTab(game: Game, lang: Lang) {
     var show by remember { mutableStateOf(MapLook.previewShow) }
     Column(Modifier.fillMaxSize()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Txt(if (overview) (if (german) "Besuchte Orte" else "Places visited") else map.name(lang), Modifier.weight(1f), size = 20.sp, bold = true)
+            Txt(if (overview) (if (MapLook.land != null) (if (german) "Landkarte" else "Map of the land") else if (german) "Besuchte Orte" else "Places visited") else map.name(lang), Modifier.weight(1f), size = 20.sp, bold = true)
             PixelButton(if (german) "Orte" else "Places", Modifier.height(36.dp), selected = overview, size = 13.sp) { overview = !overview }
         }
         Spacer(Modifier.height(6.dp))
@@ -164,14 +169,20 @@ private fun MapTab(game: Game, lang: Lang) {
             }
             Spacer(Modifier.height(6.dp))
         }
-        if (overview) PlaceList(game, lang) { shown = it; overview = false }
+        if (overview && MapLook.land != null) LandView(game, lang, MapLook.land!!) { shown = it; overview = false }
+        else if (overview) PlaceList(game, lang) { shown = it; overview = false }
         // test of 0.1.676: a switch keeps the zoom and the place on the map (the view used to start afresh)
-        else androidx.compose.runtime.key(shown) { MapView(game, lang, map, here, show) }
+        else androidx.compose.runtime.key(shown) { MapView(game, lang, map, here, show, onChronicle) }
     }
 }
 
 /** 62c: preview switches. */
 object MapLook {
+    /** 62h (draft): the land map instead of the list of places, in one of its two looks; null: the list. */
+    @Volatile var land: de.bornim.core.art.LandSheet.Look? = null
+    /** 64: the map and the person whose mark the map opens on, named and in the middle (from the chronicle); used once. */
+    var focusMap: String? = null
+    var focusWho: String? = null
     @Volatile var previewOverview = false
     /** A mark to show named at once, by index in the marks of the shown map (-1 none, -2 the last). */
     @Volatile var previewTip = -1
@@ -182,6 +193,54 @@ object MapLook {
     @Volatile var previewShow: Set<de.bornim.core.MapMarks.Group> = de.bornim.core.MapMarks.Group.entries.toSet()
     /** 62g: the handwriting of the house names (Fondamento, OFL). */
     val hand by lazy { androidx.compose.ui.text.font.FontFamily(androidx.compose.ui.text.font.Font(de.bornim.game.R.font.fondamento_regular, androidx.compose.ui.text.font.FontWeight.Normal)) }
+}
+
+/**
+ * 62h (draft): the land map, the top level of the map: every place as a small drawing, the unknown ones under fog,
+ * the names in handwriting, the hero's place marked red. Tapping a known place opens its map; it never travels.
+ */
+@Composable
+private fun LandView(game: Game, lang: Lang, look: de.bornim.core.art.LandSheet.Look, onPick: (String) -> Unit) {
+    val s = game.state
+    fun known(id: String) = de.bornim.core.World.maps[id]?.let { de.bornim.core.MapMarks.visited(s, it) } == true
+    val img = remember(look) { de.bornim.core.art.LandSheet.render(look) { known(it) } }
+    val bmp = Bitmaps.of(img)
+    val measurer = androidx.compose.ui.text.rememberTextMeasurer()
+    val noir = look == de.bornim.core.art.LandSheet.Look.NOIR
+    val ink = if (noir) Color(0xFFC9A86A) else Color(0xFF4A3622)
+    // where the hero is: the outdoor place, also from inside a house
+    val here = game.map.let { m -> if (m.kind == de.bornim.core.MapKind.INTERIOR) "village" else m.id }
+    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().clipToBounds()) {
+        val vw = constraints.maxWidth.toFloat(); val vh = constraints.maxHeight.toFloat()
+        val scale = minOf(vw / img.width, vh / img.height)
+        val ox = (vw - img.width * scale) / 2; val oy = (vh - img.height * scale) / 2
+        val density = androidx.compose.ui.platform.LocalDensity.current.density
+        androidx.compose.foundation.Canvas(Modifier.fillMaxSize().pointerInput(Unit) { detectTapGestures { at ->
+            de.bornim.core.art.LandSheet.spots.firstOrNull { sp ->
+                known(sp.map) && kotlin.math.hypot(ox + sp.x * scale - at.x, oy + sp.y * scale - at.y) < sp.r * scale
+            }?.let { onPick(it.map) }
+        } }) {
+            drawImage(bmp, dstOffset = androidx.compose.ui.unit.IntOffset(ox.toInt(), oy.toInt()),
+                dstSize = androidx.compose.ui.unit.IntSize((img.width * scale).toInt(), (img.height * scale).toInt()),
+                filterQuality = androidx.compose.ui.graphics.FilterQuality.None)
+            for (sp in de.bornim.core.art.LandSheet.spots) {
+                val name = if (known(sp.map)) de.bornim.core.World[sp.map].name(lang) else "?"
+                val style = androidx.compose.ui.text.TextStyle(fontFamily = MapLook.hand, fontSize = 15.sp, color = ink)
+                val t = measurer.measure(name, style)
+                drawText(t, topLeft = androidx.compose.ui.geometry.Offset(ox + sp.x * scale - t.size.width / 2f, oy + sp.labelY * scale))
+                if (sp.map == here) {
+                    val c = androidx.compose.ui.geometry.Offset(ox + sp.x * scale, oy + (sp.y - sp.r * 0.15f) * scale)
+                    drawCircle(Color(0x55B0302A), 16 * density, c)
+                    drawCircle(Color(0xFFB0302A), 10 * density, c, style = androidx.compose.ui.graphics.drawscope.Stroke(3 * density))
+                    drawCircle(Color(0xFFB0302A), 3.5f * density, c)
+                }
+            }
+            // the south road leaves the drawing: an arrow and where it goes
+            val style = androidx.compose.ui.text.TextStyle(fontFamily = MapLook.hand, fontSize = 13.sp, color = ink.copy(alpha = 0.8f))
+            val t = measurer.measure(if (lang == Lang.DE) "nach Süden" else "to the south", style)
+            drawText(t, topLeft = androidx.compose.ui.geometry.Offset(ox + 108 * scale, oy + 278 * scale))
+        }
+    }
 }
 
 /** The places the hero has been to, each a small picture of its map; tapping one shows it. */
@@ -214,7 +273,7 @@ private fun seenOn(game: Game, m: de.bornim.core.MapDef, x: Int, y: Int): Boolea
 
 @Composable
 private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Boolean,
-                    show: Set<de.bornim.core.MapMarks.Group> = de.bornim.core.MapMarks.Group.entries.toSet()) {
+                    show: Set<de.bornim.core.MapMarks.Group> = de.bornim.core.MapMarks.Group.entries.toSet(), onChronicle: () -> Unit = {}) {
     val p = game.state.place
     val img = remember(map.id, p.x, p.y) { de.bornim.core.art.MapSheet.render(map, { x, y -> seenOn(game, map, x, y) }) }
     val bmp = Bitmaps.of(img)
@@ -234,7 +293,8 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
     }
     val houses = remember(map.id) { de.bornim.core.MapPeople.houses(game.state).filter { it.map == map.id } }
     val measurer = androidx.compose.ui.text.rememberTextMeasurer()
-    var tip by remember { mutableStateOf(MapLook.previewTipMatch?.let { w -> marks.firstOrNull { w in it.label.de } }
+    val focus = remember { MapLook.focusWho?.let { w -> marks.firstOrNull { it.who == w } }.also { MapLook.focusWho = null; MapLook.focusMap = null } }
+    var tip by remember { mutableStateOf(focus ?: MapLook.previewTipMatch?.let { w -> marks.firstOrNull { w in it.label.de } }
         ?: marks.getOrNull(if (MapLook.previewTip == -2) marks.lastIndex else MapLook.previewTip)) }
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().clipToBounds()) {
         val vw = constraints.maxWidth.toFloat(); val vh = constraints.maxHeight.toFloat()
@@ -244,11 +304,11 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
         fun cx(tx: Int) = de.bornim.core.art.MapSheet.PAD + tx * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f
         fun cy(ty: Int) = de.bornim.core.art.MapSheet.PAD + ty * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f
         // opens zoomed in on the hero, at least so far that the map fills the frame
-        var scale by remember { mutableStateOf(if (here) maxOf(fit * MapLook.previewZoom, maxOf(vw / img.width, vh / img.height)) else fit) }
+        var scale by remember { mutableStateOf(if (here || focus != null) maxOf(fit * MapLook.previewZoom, maxOf(vw / img.width, vh / img.height)) else fit) }
         fun clampX(o: Float) = if (img.width * scale <= vw) (vw - img.width * scale) / 2 else o.coerceIn(vw - img.width * scale, 0f)
         fun clampY(o: Float) = if (img.height * scale <= vh) (vh - img.height * scale) / 2 else o.coerceIn(vh - img.height * scale, 0f)
-        var ox by remember { mutableStateOf(clampX(if (here) vw / 2 - cx(p.x) * scale else 0f)) }
-        var oy by remember { mutableStateOf(clampY(if (here) vh / 2 - cy(p.y) * scale else 0f)) }
+        var ox by remember { mutableStateOf(clampX(if (focus != null) vw / 2 - cx(focus.x) * scale else if (here) vw / 2 - cx(p.x) * scale else 0f)) }
+        var oy by remember { mutableStateOf(clampY(if (focus != null) vh / 2 - cy(focus.y) * scale else if (here) vh / 2 - cy(p.y) * scale else 0f)) }
         androidx.compose.foundation.Canvas(
             Modifier.fillMaxSize()
                 .pointerInput(Unit) { detectTransformGestures { centroid, pan, zoom, _ ->
@@ -318,7 +378,14 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
         }
         tip?.takeIf { it in marks }?.let { m ->
             Panel(Modifier.align(Alignment.BottomCenter).padding(8.dp)) {
-                Txt(m.label(lang), size = 15.sp, color = if (m.kind == de.bornim.core.MapMarks.Kind.GIVER) Color(0xFF8DB4E2) else Veil.bright)
+                Column {
+                    Txt(m.label(lang), size = 15.sp, color = if (m.kind == de.bornim.core.MapMarks.Kind.GIVER) Color(0xFF8DB4E2) else Veil.bright)
+                    // 64: a quest's mark leads to its entry in the chronicle
+                    if (ChronicleLook.draft && (m.kind == de.bornim.core.MapMarks.Kind.GIVER || m.kind == de.bornim.core.MapMarks.Kind.GOAL)) {
+                        Spacer(Modifier.height(6.dp))
+                        PixelButton(if (lang == Lang.DE) "In der Chronik" else "In the chronicle", Modifier.height(32.dp), size = 13.sp) { onChronicle() }
+                    }
+                }
             }
         }
     }
@@ -644,9 +711,12 @@ private fun GearTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
 @Composable
 private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
     vm.tick // redraw after every change
-    Txt(Ui.quest(lang), size = 18.sp, bold = true)
-    Txt(Story.objective(game.state)(lang), size = 16.sp)
-    JobList(vm, game, lang)
+    // 64a: with the chronicle the tasks leave this tab
+    if (!ChronicleLook.draft) {
+        Txt(Ui.quest(lang), size = 18.sp, bold = true)
+        Txt(Story.objective(game.state)(lang), size = 16.sp)
+        JobList(vm, game, lang)
+    }
     Spacer(Modifier.height(6.dp))
     // The exact installed version, e.g. for bug reports.
     Txt(
