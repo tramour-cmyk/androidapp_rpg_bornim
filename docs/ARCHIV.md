@@ -1,5 +1,11 @@
 # Archiv
 
+### Tom (13.10., 16:2x) – vor Neustart
+- **Nutzer 16:2x: hat Feedback vom Testen.** Nachfolger fängt keine Arbeit an, sondern wartet nach der Startmeldung auf dieses Feedback (zu 0.1.689) und bespricht es zuerst.
+- **0.1.689** (Zweig enthält riemen, 13e, 66, 67, 64; alte Zweige nicht mehr benutzen); 62h-2 danach auf dem Zweig, nicht im Spiel. Nach „passt“: PR (Merge-Commit), Änderungshistorie (59, 60e–k, 60j, 17r, 5la–5la.3, 6g, 6f, 61a, 61, 62a, 62c, 62e–g, 59e, 55.1a/b, 13x, 13v/27.6, 13e weich, Kegelrand, Fels).
+- **13t erst nach diesen Merges** (alte Ansicht ausbauen, ~100 Stellen in `WorldScreen`/`core/art`, sonst Konflikte mit 62h/66/67); eigener Zweig von `main`.
+- Vorschau-Schalter neu: `UNERKUNDET=1`.
+
 ### Übergabe Tom (13.10., 15:4x) – vor Neustart
 - **0.1.681 beim Nutzer** (`claude/tom-17-riemen`, Prüfliste `e/t681.html`); Test 0.1.676 sonst passt. Nach „passt“: PR, Merge (Merge-Commit), Änderungshistorie: 59, 60e–k, 60j, 17r, 5la, 5la.2, 5la.3, 6g, 6f, 61a, 61, 62a, 62c, 62e, 62f/62g, 59e, 55.1a, 55.1b, 13x, 13v/27.6, 13e-Sicht weich.
 - Danach `claude/tom-66-laterne` (66a A) und `claude/tom-67-suedrand` (Entwurf a191e253+, `e/67`, wartet auf ja; enthält 66 und riemen bis cb905a16, vor PR riemen neu hineinführen) als PR.

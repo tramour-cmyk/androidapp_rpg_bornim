@@ -4,7 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
-- **Höhle: Licht blendet beim Drehen weich über** (13e, getestet 0.1.681): was aus dem Blick gerät, dunkelt in etwa einer halben Sekunde ab, Lichtstrahl und Fackeln folgen. Zweig `claude/tom-13e-kegelrand`, noch nicht auf `main`.
+- **Zusammengeführt nach Test bis 0.1.689** (PR #52, 13.10.): Händler im Stil des Textkastens mit Vergleich beim Kauf, „Alle“ nur beim Verkaufen mit Abfrage (59, 59e); ein Aussehen für alle Oberflächen, Menüreiter als gezeichnete Zeichen (60e–k, 60j); Spuren aus Blut, Fußspuren und Staub (61, 61a); gezeichnete Karte mit Lücken, Bekannten am gewohnten Ort, Diensten und Schaltern (62a, 62c, 62e–g); Chronik mit Aufträgen und „Bisher geschehen“ (64); Laternen am Schlagbaum für Wache Jorin (66); Südrand mit Feldweg, Wegweiser und Umkehr (67); Haare und Köcher schwingen nach (17r); Tagesablauf im Dorf (5la–5la.3); Katze in der Schänke (6g); Farbstimmung je Ort und Tageszeit (6f); Leerlauf mit verschränkten Armen, Jorin stützt sich auf den Speer (55.1a/b); Tempelfenster (13x); Wald und Tiefer Wald fest diagonal (13v/27.6); Höhle: Rand des Blickfelds rund und weich, Felsen weich (13e).
+- **Höhle: Licht blendet beim Drehen weich über** (13e, getestet 0.1.681): was aus dem Blick gerät, dunkelt in etwa einer halben Sekunde ab, Lichtstrahl und Fackeln folgen.
 - **Höhle in der diagonalen Sicht** (13e, getestet 0.1.667/0.1.671): Felswände, Fackeln mit Flamme, Lichtstrahl durch den Schacht mit weichem Lichtfleck, Geröll und Tropfsteine, Weiher als Wasser, Lagerfeuer mit Steinring, Leuchtpilze, Kristalle und Felsbrocken; Erkundetes nur leicht abgedunkelt. PR #51.
 
 ## v0.1.656 – 13.10.2026, 10:13
