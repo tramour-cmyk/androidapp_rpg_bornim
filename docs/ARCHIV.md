@@ -1,5 +1,16 @@
 # Archiv
 
+
+### Aus BERATER.md, 13.10., 19:4x
+
+- **Intro (69):** Überfall verschlafen statt gesehen, weil die Chronik sagt „während er schlief“ und Rowenas Stein-Satz so die Pointe bleibt; eigene leise Klänge, „Ancient Legend“ bleibt der Tempelszene 68.
+- **Chronik-Texte (64d/62i):** Chronist in dritter Person, ein Eintrag je Wendepunkt, Hörensagen mit Quelle. **67 Südstraße:** zweiter Weg für Versorgung und Herkunft, Umkehr durch den Helden statt Wand. Volltext im Archiv.
+
+### Tom (13.10., 18:2x) – an Nachfolger
+- Zweig `claude/tom-13e-kegelrand`: 13e Sichtkegel nach Blickrichtung (Meldung 17:5x) und 62h/62o/62n im Spiel (b6227e35). Build 0.1.702 beim Nutzer (Prüfliste `e/t702.html`); nach „passt“ PR, zusammenführen.
+- Danach 62r bauen, sobald entschieden (Empfehlung Ziel-Beschriftung); dann 13t weiter auf `claude/tom-13t-alte-ansicht` (Bildkontrolle gut, tote Reste löschen), 6l, 68.
+- Begriffe 62q beachten: Stufen Landkarte/Gebietskarte/Grundriss, „Ebene“ nur für übereinanderliegende Teile eines Grundrisses.
+
 ### Tom (13.10., 16:2x) – vor Neustart
 - **Nutzer 16:2x: hat Feedback vom Testen.** Nachfolger fängt keine Arbeit an, sondern wartet nach der Startmeldung auf dieses Feedback (zu 0.1.689) und bespricht es zuerst.
 - **0.1.689** (Zweig enthält riemen, 13e, 66, 67, 64; alte Zweige nicht mehr benutzen); 62h-2 danach auf dem Zweig, nicht im Spiel. Nach „passt“: PR (Merge-Commit), Änderungshistorie (59, 60e–k, 60j, 17r, 5la–5la.3, 6g, 6f, 61a, 61, 62a, 62c, 62e–g, 59e, 55.1a/b, 13x, 13v/27.6, 13e weich, Kegelrand, Fels).
@@ -22,6 +33,19 @@
 - Was funktioniert, muss er nicht erfahren; kurze, nummerierte Rückfragen mit Empfehlung.
 - Wahl des Spielers, Optionen, individuell und lebendig (49/50). Generisches Maskulinum, nie weibliche oder gegenderte Formen.
 
+
+## Aus BERATER.md, 13.10., 18:5x
+
+- **Start** („Berater“/„Sokrates“): diese Datei, dann `docs/OFFEN.md` (zuerst „Für den Berater“; `LEITBILD.md` nur bei Grundsatzfragen), dann nur Änderungen seit „Zuletzt gelesen bis“: `git log --format='%h %ad %s' --date=format-local:'%d.%m. %H:%M' <Stand>..origin/main` (bei Bedarf `git diff <Stand>..origin/main -- docs CHANGELOG.md`), dazu `tools/story.sh <Stand>` (Textänderungen im Spiel, auch `EN alt`; bei Bedarf gegen `origin/<zweig>`). Kurz melden, Texte gegen `docs/STORY.md` und Storyplan prüfen.
+- **Rollen:** Grundsatzfragen gebündelt beim Berater, ohne dass die Entwicklung steht (Tom/Jerry blockieren nicht). Diogenes ohne eigenen Account (zwei sind teuer genug); ein Prüfbericht, Prüfstand, feste Listen, Befund = Verdacht, Ablauf ausgelagert (spart Token jeder Sitzung). „Archimedes“ verworfen (baut statt prüft). Sitzungsnamen thematisch: Liste sprechend, Reihenfolge zeigt das Datum.
+- **Chronik-Texte (64d/62i, Nutzer 13.10.):** Chronist in dritter Person, Einträge je Wendepunkt (Rückkehrer sehen sofort den Stand), Hörensagen mit Quelle; kindlicher Ton bleibt. **67 Südstraße:** zweiter Weg für Versorgung und Herkunft; Umkehr durch den Helden selbst statt Wand (erinnert statt führt). Einzelheiten im Archiv („16:0x“).
+- **Kartenbegriffe (62p):** Stufen nach Enthaltensein (draußen Gebiet, hinter einem Eingang Grundriss; Nutzer: „die Höhle ist nichts anderes als ein Haus“); **62q:** „Ebene“ für übereinanderliegende Teile zurück, weil die Verwechslung mit den Stufen weg ist und „Stockwerk“ in Höhlen schief klingt (Nutzer 17:33).
+- **Zufallshöhlen (48, 41m):** erst Questhöhlen zufällig, Story-Höhlen mit festem Kern; je eine pro Landschaft statt alle am Rastort (Erkundung, Nutzer 16:29). Einzelheiten im Archiv.
+- **Ende** („Berater, festhalten“; Hauptkopie danach `git reset --hard HEAD`): Entscheidungen und Lehren eintragen, Veraltetes kürzen, „Zuletzt gelesen bis“ setzen, pushen. **Dann Nachfolger:** Titel „Sokrates – <Grobthema>“, oben unter „Sitzungen“ eintragen, Auftrag wie der eigene Start plus nächster Punkt. Der Nutzer startet ihn selbst mit kurzer Nachricht („Sokrates“; 13.10.: sonst verschwindet er unter „Geplant“), nichts zum Kopieren: den nächsten Punkt hier unter „Nächster Punkt“ eintragen; nur auf Wunsch selbst starten (`create_session` mit `source_url`, Zweig, Titel; ersatzweise `create_trigger`, `run_once_at` in 2 Minuten).
+- **Abläufe (65):** `CLAUDE.md` lesen nur Sitzungen, darum knapp für uns; Auslagern nur bei seltenem, eindeutigem Anlass mit Auslöserzeile in `CLAUDE.md`; ≤10 KB für `CLAUDE.md` aufgegeben (ginge nur mit Verlust). Oberster Grundsatz des Nutzers: nichts Aufgabenrelevantes verlieren. Weck-Routinen pausieren statt löschen (Repo-Einstellung von Hand gesetzt). **65.4** jeder Text an einem Ort: Doppelungen kosten Token beim Start und laufen auseinander (59e stand an sechs Stellen).
+- **Heldenbau (49, 50; [Dokument](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)):** kein großer Skilltree (führt zu wenigen besten Wegen), Talente ändern Entscheidungen statt Zahlen, Talent jede gerade Stufe (sonst Kapitel ohne Wahl), Merkmale nie kaufbar (Sperre gegen Magier-Tank), gekaufte Klassen nie stärker.
+- **Tempelszene (68, 70):** Zwischensequenzen alle gleich gebaut, damit sie als Reihe wirken (Nutzer); Osric im Bild statt Erklärung, warum nur Lyra die Gebete kennt (Begründungen im Text wirken konstruiert, Nutzer 17:21); Lyra leitet den Tempel; Wegweiser nennt echte Ziele ohne Entfernung. **Blende statt Termin** (68e–g): in freier Welt kein „morgen früh im Tempel“, sonst warten alle tagelang (Nutzer); Nacht = Rast. **Einstieg Kapitel 2** (68j–m): Lyra spricht von selbst, Chronik-Auftrag ohne Marke, Rowena/Aldric erinnern, Südrand frei: niemand geht verloren, nichts führt.
+- **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen (Nutzer + Berater) vor jeder Story-Änderung, damit Texte nicht von Entwicklern erfunden werden. Kapitel 2 beginnt mit „Wer ist der Graue Prophet?“: **Mischung ja (Nutzer 13.10., 14:08)** – Kult mit weitergegebenem Titel trägt sieben Kapitel, Ziel das Siegel des Amuletts von vor hundert Jahren (Lyra kennt die alten Gebete), Traumstimme bleibt offen; Held erfährt in Kapitel 2 nur vom Kult (14:16); endet auf Stufe 8; Kapitel 1 aus `Story.kt`/`Jobs.kt` lesen. Nachtragen: Heldensätze 29.4. **Vorlage geteilt** (Nutzer 13.10.): `STORY.md` nur Verzeichnis, Texte je Kapitel in Teildateien (ab ~15 KB weiter nach Ort/Quest), feste Marke je Text, damit bei 8–9 Kapiteln niemand alles lesen muss.
 
 ## Aus BERATER.md, 13.10., 18:0x
 
