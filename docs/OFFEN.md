@@ -72,7 +72,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Zu testen
 
 - **Tom, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen; Prüfbericht oben): D1.2 Tempel nachts zu hell, D1.3 Licht/Flamme ohne Gegenstück, D1.4 Wandkram flach, D1.5 Schatten Räume, D1.11 Varianten/Mehrfeld-Möbel, D1.12 Lesepult zu hoch, D1.13 Aldric vor dem Herd, D1.16 Entwurfsschalter.
-- **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5 Schatten Höhle, D1.6 Höhleneingang flach, D1.7 Leben Höhle, D1.8 stumme Quellen, D1.9 Feuer durch Wände, D1.10 Klang ohne Bewegung (mit Tom), D1.14 Varianten aus einer Aufnahme, D1.15 Laterne.
+- **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5 Schatten Höhle, D1.6 Höhleneingang flach, D1.7 Leben Höhle, D1.8 stumme Quellen, D1.9 Feuer durch Wände, D1.10 Klang ohne Bewegung (mit Tom), D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (zwei Stücke mit Hörnern/Kreaturenrufen ohne sichtbare Quelle, `grund_fs_609422`, `grund_fs_540836`): Berater empfiehlt herausnehmen, **Nutzer entscheidet nach Hörprobe** (19:44): Höhle mit und ohne die zwei Stücke auf die Entscheidungsseite, erst danach ändern; D1.15 Laterne.
 - **Jerry, Weck-Routinen pausieren** (Berater 13.10., Nutzer freigegeben): deine acht Routinen „Jerry Selbstarbeit HH:MM“ mit `update_trigger` (`enabled: false`) pausieren, nicht löschen; Regel in `SELBST.md` „Feste Weck-Routinen“. Danach Zeile streichen.
 
 ## Für Diogenes
@@ -86,6 +86,5 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
-- **Diogenes D1.14, Höhlen-Klangbett** (Nutzer 19:39: „hinterlege das mal beim Berater“): zwei Stücke mit Hörnern/Kreaturenrufen ohne sichtbare Quelle (`grund_fs_609422`, `grund_fs_540836`) gegen „Ortsklang nur von dem, was da ist“; Diogenes empfiehlt herausnehmen.
 
 
