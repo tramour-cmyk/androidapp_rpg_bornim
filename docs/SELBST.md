@@ -68,7 +68,7 @@ Alle drei Stunden rund um die Uhr je Account eine Routine, die eine frische Sitz
 
 ### 5. Bericht
 
-**Entwürfe als Artefakt** (Nutzer 12.10., 18:3x; Ablauf seit Thema 57 in `CLAUDE.md`, „Entscheidungsseite“): eigene Entscheidungsseite nur mit Offenem, Entschiedenes in die gemeinsamen Beschlüsse; im Chat nur Link und Nummern.
+**Entwürfe als Artefakt** (Nutzer 12.10., 18:3x; Ablauf seit Thema 57 in `CLAUDE.md`, „Seite „Dein Zug““): eigene Seite „Dein Zug“ nur mit Offenem, Entschiedenes in die gemeinsamen Beschlüsse; im Chat nur Link und Nummern.
 
 Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md` und als Nachricht im Chat der letzten Sitzung: was fertig ist (mit Nummern), was halb, was blockiert und warum; Zweig und Zweig-Build mit Link und Testliste; Entwürfe als Standbilder mit Uhrzeit; selbst entschiedene und neue Rückfragen, nummeriert; Verbrauch (Grenze erreicht? welche Routinen haben gearbeitet). Die Punkte für den Nutzer wandern in „Für gemeinsame Zeit“.
 
@@ -95,9 +95,9 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/OFFEN.md
 
 **Paket** (Selbstarbeit 12.10., 23:23 bis 13.10., 07:00, Nutzer 23:2x „Du bist der Chef“: offene Fragen nach eigener Empfehlung entscheiden, in den Bericht):
 1. ~~59 melden~~ (erledigt 23:2x).
-2. **60 Ein Aussehen für alle Oberflächen** (60a–60d ja, Berater 23:2x; direkt nach 59) auf neuem Zweig `claude/tom-60-aussehen` **vom Zweig `claude/tom-59-haendler`** (baut auf `LocalVeil`): (a) 60b: 2–3 freie Serifenschriften (OFL, Lizenz und Quelle je Datei festhalten) als Standbilder zur Wahl, Empfehlung nennen; (b) je Bildschirm als Entwurf hinter Schalter: Menü/Beutel, Titelbild (60.4 Titel groß in Gold, Kapitälchen), Heldenerstellung; Kampf zuletzt (60c Pixelschrift nur für kleine Kampfzahlen). Fertig, wenn: Standbilder alt/neu auf der Entscheidungsseite, Kerntests grün, Vorschau baut.
-3. ~~27.6/43~~ (Entwurf fertig 00:24). **27.6/43 Tiefer Wald diagonal** (Morwen und ihre Hütte frei sichtbar, Wege, Bäume rund wie im Wald) auf neuem Zweig `claude/tom-27-6-tiefer-wald` von `main`, nur Entwurf hinter Schalter. Fertig, wenn: Standbilder Tag/Nacht auf der Entscheidungsseite, Lückenliste „Ort fertig“, Kollision 0.
-4. ~~13~~ (Entwurf fertig 01:00, 13x). **13 Tempel innen:** Altar steht direkt vor dem Fenster (Meldung 08:43): umstellen. Fertig, wenn: Standbild alt/neu auf der Entscheidungsseite.
+2. **60 Ein Aussehen für alle Oberflächen** (60a–60d ja, Berater 23:2x; direkt nach 59) auf neuem Zweig `claude/tom-60-aussehen` **vom Zweig `claude/tom-59-haendler`** (baut auf `LocalVeil`): (a) 60b: 2–3 freie Serifenschriften (OFL, Lizenz und Quelle je Datei festhalten) als Standbilder zur Wahl, Empfehlung nennen; (b) je Bildschirm als Entwurf hinter Schalter: Menü/Beutel, Titelbild (60.4 Titel groß in Gold, Kapitälchen), Heldenerstellung; Kampf zuletzt (60c Pixelschrift nur für kleine Kampfzahlen). Fertig, wenn: Standbilder alt/neu auf der Seite „Dein Zug“, Kerntests grün, Vorschau baut.
+3. ~~27.6/43~~ (Entwurf fertig 00:24). **27.6/43 Tiefer Wald diagonal** (Morwen und ihre Hütte frei sichtbar, Wege, Bäume rund wie im Wald) auf neuem Zweig `claude/tom-27-6-tiefer-wald` von `main`, nur Entwurf hinter Schalter. Fertig, wenn: Standbilder Tag/Nacht auf der Seite „Dein Zug“, Lückenliste „Ort fertig“, Kollision 0.
+4. ~~13~~ (Entwurf fertig 01:00, 13x). **13 Tempel innen:** Altar steht direkt vor dem Fenster (Meldung 08:43): umstellen. Fertig, wenn: Standbild alt/neu auf der Seite „Dein Zug“.
 5. ~~17 Rest~~ (Entwurf fertig 01:12, 17r, Build 0.1.639). **17 Rest** (neuer Zweig `claude/tom-17-nachschwingen` von `main`): Haare und Köcher schwingen nach (wie 17a), Entwurf hinter Schalter. Fertig, wenn: Sprungtest 0, Standbilder.
 6. ~~5l~~ (Entwurf fertig 01:30, 5la, Build 0.1.640). ~~Vorrat 5 Katze~~ (Entwurf fertig 01:52, 6g, Build 0.1.641). ~~Vorrat 6~~ (Entwurf fertig 02:22, 6f, Build 0.1.643). ~~Vorrat 7, 8~~ (Entwürfe fertig 03:20, Themen 61/62, Build 0.1.646). Vorrat 9 und 10 schon erledigt (29 PR #42, 5la). 27.6c/27.6b und 55.1a als Entwurf fertig (03:46). Weiter: Bericht um 07:00; falls Zeit 55.1b (Speer aufstützen). Reserve: 5l Leben im Dorf (Entwurf: Bewohner gehen Wege, Tagesablauf), dann Vorrat oben (5 Katze, 6, 7).
 

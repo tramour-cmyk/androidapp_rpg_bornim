@@ -4,7 +4,7 @@ Nicht beim Start lesen. Nur, wenn der Anlass eintritt; der Auslöser steht jewei
 
 ## Release vorschlagen (65.6)
 
-Einmal „Zeit für ein Release?“ fragen (Rückfrage auf der Entscheidungsseite), sobald unter „## Unveröffentlicht“ in `CHANGELOG.md` fünf getestete Themen stehen oder sieben Tage seit dem letzten Release vergangen sind, was zuerst kommt. Nicht wiederholen, bis ein Release erfolgt ist oder der Nutzer neu fragen lässt.
+Einmal „Zeit für ein Release?“ fragen (Rückfrage auf der Seite „Dein Zug“), sobald unter „## Unveröffentlicht“ in `CHANGELOG.md` fünf getestete Themen stehen oder sieben Tage seit dem letzten Release vergangen sind, was zuerst kommt. Nicht wiederholen, bis ein Release erfolgt ist oder der Nutzer neu fragen lässt.
 
 ## Release (nur wenn der Nutzer „Release“ sagt, Thema 21)
 

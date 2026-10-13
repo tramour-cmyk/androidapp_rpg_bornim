@@ -26,7 +26,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 - **Abläufe (65):** Oberster Grundsatz des Nutzers: nichts Aufgabenrelevantes verlieren; darum `CLAUDE.md` knapp, aber ohne feste Grenze, Auslagern nur bei seltenem Anlass. **65.4** jeder Text an einem Ort, weil Doppelungen Token kosten und auseinanderlaufen. Volltext im Archiv („18:5x“).
 - **Rollen:** Grundsatzfragen beim Berater, ohne dass die Entwicklung steht; Diogenes ohne eigenen Account, Befund = Verdacht, Ablauf ausgelagert; Sitzungsnamen thematisch. Volltext im Archiv.
-- **Entscheidungsseite (63):** Fragen gingen in Chats unter; „Beschlüsse“ statt „Bildbuch“; kein „Erledigt“ (65.7). Volltext im Archiv.
+- **Seite „Dein Zug“ (63):** Fragen gingen in Chats unter; „Beschlüsse“ statt „Bildbuch“; kein „Erledigt“ (65.7). Volltext im Archiv.
 - **Karte und Händler (62c, 59e, 64):** Karte erinnert statt führt; Bekannte am gewohnten Ort; Wissen vor Beschriftung; Chronik als eigener Reiter. Volltext im Archiv.
 - **Kartenbegriffe (62p/62q):** Stufen nach Enthaltensein (draußen Gebiet, hinter einem Eingang Grundriss); „Ebene“ für übereinanderliegende Teile, „Stockwerk“ klingt in Höhlen schief.
 - **Oberfläche (59, 60):** schwarz, Gold, Serife wie der Textkasten; Serife mitliefern, weil Geräteschriften je Gerät anders aussehen.
@@ -50,7 +50,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - **Ideen sind der Auftrag** (13.10.): „du bist mein Berater“, „dein Job, Ideen zu entwickeln“. Jeden Vorschlag auf Lücken, Kosten, Doppelungen prüfen, Eigenes mit Empfehlung ergänzen, Korrekturen des Nutzers offen übernehmen.
 - **Stand prüfen, bevor ich ihn als offen nenne** (13.10., 17:0x): Heldenbau war längst freigegeben, die Notiz veraltet. Offenes vor dem Nennen in Commits/Beschlüssen gegenprüfen; Entschiedenes sofort in `OFFEN.md` nachtragen.
 - **Entscheidungen einzeln abwarten** (13.10.): „ich folge deiner Empfehlung“ galt einem Punkt, nicht allen.
-- **Rückfragen des Beraters** (13.10.) im Gespräch stellen (nummeriert, Empfehlung), nicht über die Entscheidungsseite; erst nach Entscheidung in die Notizen.
+- **Rückfragen des Beraters** (13.10.) im Gespräch stellen (nummeriert, Empfehlung), nicht über die Seite „Dein Zug“; erst nach Entscheidung in die Notizen.
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
 - **Entwürfe sofort in die Notizen** (13.10.): der Rabenschanze-Entwurf stand nur im Chat und war nach dem Neustart nur als Kurznotiz da; Entwürfe gleich in Storyplan oder `OFFEN.md`.
 - **Meldungen in fremden Bereichen** (13.10.): erst `git pull` und nachsehen, ob Tom/Jerry sie schon eingetragen haben (62s stand doppelt).

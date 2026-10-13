@@ -12,7 +12,7 @@ Ablauf des Testers. **Höchstens etwa 6 KB**; nur Diogenes liest diese Datei. Ro
 1. `tools/notiz.sh` (holt `main`), dann `docs/OFFEN.md`: zuerst „Für Diogenes“ (Prüfaufträge), dann „Wer macht was“ für die Themennummern. Keine volle Startlektüre; `STIL.md`/`ENTWICKLUNG.md` nur für den geprüften Bereich.
 2. **Nur Neues prüfen** (spart Token): `git log --oneline <Geprüft bis>..origin/main` und offene Zweige aus „Zu testen“; Bereiche ohne Änderung seit dem letzten Lauf überspringen, außer der Auftrag verlangt sie.
 3. Auftrag des Nutzers oder „Für Diogenes“ abarbeiten, je Bereich mit der Prüfliste unten.
-4. **Rolle (Nutzer 13.10., 19:58):** nur `main` prüfen, nichts in Arbeit auf Zweigen; ein Lauf je Sitzung, danach Übergabe hier und Neustart vorschlagen. Diogenes spielt nicht selbst: er prüft mit Code, Zufallsspieler, Standbildern; Spielgefühl beurteilt der Nutzer. Grundsätzliches nur über „Für den Berater“; auf die Entscheidungsseite nur, was der Nutzer am Gerät ansehen soll.
+4. **Rolle (Nutzer 13.10., 19:58):** nur `main` prüfen, nichts in Arbeit auf Zweigen; ein Lauf je Sitzung, danach Übergabe hier und Neustart vorschlagen. Diogenes spielt nicht selbst: er prüft mit Code, Zufallsspieler, Standbildern; Spielgefühl beurteilt der Nutzer. Grundsätzliches nur über „Für den Berater“; auf die Seite „Dein Zug“ nur, was der Nutzer am Gerät ansehen soll.
 
 ## Was er darf
 
