@@ -2,7 +2,7 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Aufbau, Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARCHIV.md` („Aus BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Sitzungen** (ältere im Archiv): 13.10. 18:08–19:0x „Kapitel 2 Plot“ (2a–2d, 3a–3e, 71 für Diogenes, 72 Marktvergleich, Rolle geschärft); 18:58–19:5x „Kapitel 2 und Profil“ (4a–4d, Bericht 72 umgebaut, Figurenliste Kapitel 2, Namen N1–N4, 73a, 74, D1.14 an Jerry, Tempelboden in Beschlüsse). **Nachfolger:** „Sokrates – Kapitel 2 und Profil“ (Nutzer startet mit „Sokrates“)
+**Sitzungen** (ältere im Archiv): 13.10. 18:58–19:5x „Kapitel 2 und Profil“ (4a–4d, Bericht 72, Figurenliste, N1–N4, 73a, 74); 19:52– „Kapitel 2 und Profil“ (72 als PDF, 75 Diogenes, 75e „Dein Zug“, 76 begonnen). **Nachfolger:** „Sokrates – Kapitel 2 und Profil“ (Nutzer startet mit „Sokrates“)
 
 **Nächster Punkt:** (1) Bericht Marktvergleich fertig (Auftrag, Erfassen, Auswerten, Folgern, je Vorschlag „Grundlage“); Nutzer liest ihn (19:37), nach Freigabe als `docs/MARKT.md` ablegen. Offen: 62s Buildnummer (vermutlich 0.1.702, nur für Tom wichtig). (2) Offene Rückfragen mit vollem Wortlaut und Empfehlung zeigen: **72a–72j** im [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b). (3) Kultlager (41).
 
@@ -10,7 +10,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 ## Ritual
 
-- **Start** („Berater“/„Sokrates“): diese Datei, dann `docs/OFFEN.md` (zuerst „Für den Berater“), dann nur Änderungen seit „Zuletzt gelesen bis“ (`git log … <Stand>..origin/main`, `tools/story.sh <Stand>`). Kurz melden, Texte gegen `STORY.md` und Storyplan prüfen.
+- **Start** („Berater“/„Sokrates“): diese Datei, dann `docs/OFFEN.md` (zuerst „Für den Berater“), Verwerfquote im Prüfbericht Diogenes (viele verworfen: Prüfweise nachschärfen, 75g), dann nur Änderungen seit „Zuletzt gelesen bis“ (`git log … <Stand>..origin/main`, `tools/story.sh <Stand>`). Kurz melden, Texte gegen `STORY.md` und Storyplan prüfen.
 - **Ende** („Berater, festhalten“): Entscheidungen und Lehren eintragen, Veraltetes kürzen (Volltext ins Archiv), „Zuletzt gelesen bis“ setzen, pushen, Hauptkopie `git reset --hard HEAD`. **Nachfolger:** Titel „Sokrates – <Grobthema>“ unter „Sitzungen“, nächsten Punkt hier eintragen; der Nutzer startet ihn selbst mit „Sokrates“ (sonst verschwindet er unter „Geplant“), nur auf Wunsch selbst starten (`create_session`, ersatzweise `create_trigger` in 2 Minuten).
 - **Größere Entwürfe als Claude-Docs-Dokument** (Nutzer 12.10.; Matrizen, Listen, Erklärungen, die der Nutzer wiederfinden will), Link in `OFFEN.md` und hier; nach Freigabe als `docs/<NAME>.md` ins Repo.
 - Der Berater ändert Notizen und höchstens Werkzeug, nie Spielcode.
@@ -25,7 +25,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 ## Begründungen der Entscheidungen
 
 - **Abläufe (65):** Oberster Grundsatz des Nutzers: nichts Aufgabenrelevantes verlieren; darum `CLAUDE.md` knapp, aber ohne feste Grenze, Auslagern nur bei seltenem Anlass. **65.4** jeder Text an einem Ort, weil Doppelungen Token kosten und auseinanderlaufen. Volltext im Archiv („18:5x“).
-- **Rollen:** Grundsatzfragen beim Berater, ohne dass die Entwicklung steht; Diogenes ohne eigenen Account, Befund = Verdacht, Ablauf ausgelagert; Sitzungsnamen thematisch. Volltext im Archiv.
+- **Rollen:** Grundsatzfragen beim Berater, ohne dass die Entwicklung steht; Sitzungsnamen thematisch. **Diogenes (75):** Claude als Tester neigt zu Rauschen, Bestätigen statt Widerlegen, Entwickleraugen und stillen Lücken; darum Erfolgsmaß „bestätigte Befunde“, Beleg und Regel, blind zuerst, Abdeckung melden. **75g** drei Klassen, weil sonst der Nutzer Verteiler oder wir Nadelöhr würden; Regelverstöße brauchen kein Absegnen (Regel schon entschieden). **„Dein Zug“ (75e):** Seite hält Entscheidungen und Tests. Entwurf im Archiv.
 - **Seite „Dein Zug“ (63):** Fragen gingen in Chats unter; „Beschlüsse“ statt „Bildbuch“; kein „Erledigt“ (65.7). Volltext im Archiv.
 - **Karte und Händler (62c, 59e, 64):** Karte erinnert statt führt; Bekannte am gewohnten Ort; Wissen vor Beschriftung; Chronik als eigener Reiter. Volltext im Archiv.
 - **Kartenbegriffe (62p/62q):** Stufen nach Enthaltensein (draußen Gebiet, hinter einem Eingang Grundriss); „Ebene“ für übereinanderliegende Teile, „Stockwerk“ klingt in Höhlen schief.

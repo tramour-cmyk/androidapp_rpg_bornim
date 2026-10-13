@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 76**
+**Nächste freie Themennummer: 77**
 
 **Seite „Dein Zug“ (alle Rollen, 63): https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow** · Beschlüsse: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM · Prüfbericht Diogenes: https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
@@ -45,7 +45,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 62s | Gebietskarte Dorf: Tippen auf ein erkundetes Haus mit Schild öffnet keinen Grundriss (Höhle im Wald geht) | Tom | – | Nutzer 13.10., 19:3x. Behoben auf `claude/tom-62s-grundriss` (Schild/Haus öffnet Grundriss; Leute drinnen an ihrem Platz, Lyra ergänzt), im nächsten Build |
 | 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | – | **69a–69d ja (Nutzer 13.10., 16:31):** Texte, Ablauf und Klang in `docs/STORY1.md` (`[69.intro.…]`), wortgetreu übernehmen |
 | 73 | Versperrte Hütten: nachts kein Licht, kein Rauch | Tom (Dorf) | – | Nutzer 19:40; **73a ja (19:43):** leer = dunkel und kalt; bewohnt, aber verschlossen (Kael vor der Tempelszene) = Läden zu, Licht nur durch Ritzen, Rauch ja. Vorher Standbilder Tag/Nacht. **Nutzer 19:5x:** Schänke-Feuer brennt um 11:22, aber kein Kamin raucht (Fehler, Tom prüft sofort); „wenn er raucht, sollte die Hütte auch begehbar sein“; Rauch nicht synchron (19:5x). Rauch größer, eigener Takt je Kamin in 0.1.709. Befund: alle acht Dorfkamine gehören zu Häusern mit Raum (Schänke, Laden, Ältester) oder bekannten Bewohnern (Bäcker, Kael, Gwenna, Schmied, Pim), kein leeres Haus raucht; offen nur Läden/Ritzenlicht nachts (Standbilder) |
-| 75 | Diogenes schärfen: Rolle, Prüfweise, Startprompt (Nutzer 13.10., 20:04) | Berater mit Nutzer | `main` (Notizen) | Entwurf (Prompt) im Archiv „Entwurf Berater 75“; offen 75a, 75b, 75d und **75g** (Adressat und Zuweisung der Befunde, Nutzer 20:28; ersetzt 75c und Punkt 3 aus „Für den Berater“); **75e/75f ja (20:25):** Entscheidungsseite heißt jetzt „Bornim – Dein Zug“, Begriff in allen Notizen ersetzt |
+| 76 | Tom und Jerry schärfen, `CLAUDE.md` durch Auslagern entschlacken (Nutzer 13.10., 20:37) | Berater mit Nutzer | `main` (Notizen) | Im Gespräch |
 | 74 | Schrittgeräusche fehlen an allen Orten („Ort fertig“ 8; Befund Diogenes D1.1) | Jerry (Klang); Tom für Dorf und Räume | – | Berater 13.10., 19:4x: Mangel gegen bestehende Regel, kein Beschluss nötig. **Verdacht** erst bestätigen; Böden je Untergrund (Gras, Erde, Holz, Stein) |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten im Archiv). **48d–48f ja (16:51):** je Spielstand nur Startwert plus **Version des Erzeugers** speichern (Updates verändern keine bestehende Höhle, alte Erzeuger bleiben im Code); Besiegtes und Geplündertes bleibt weg, neuer Auftrag darf dieselbe Höhle neu besetzen. Nach Kapitel 1 |
 | 49 | Lehrer, Fertigkeiten, Talente | Berater mit Nutzer | – | 49d–49t ja ([Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)); **Dokument vom Nutzer freigegeben** (13.10., Namen fett markiert); abgelegt als `docs/HELDENBAU.md` (17:1x). Nach Kapitel 1 |
@@ -85,7 +85,6 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
-- **Diogenes, Rolle schärfen** (Nutzer 13.10., 19:58 zu fünf Vorschlägen: „1 ja, 2 ja, 3 ja oder dein Bericht geht nur an mich und Sokrates und wir entscheiden, was Tom und Jerry umsetzen sollen, 4 ja 5 ja“): (1) Grundsätzliches nur über den Berater, Seite „Dein Zug“ nur für Ansehen am Gerät; (2) Befunde nur im Prüfbericht, in `OFFEN.md` nur ein Verweis; (3) Entwickler vermerken bestätigt/verworfen, **oder** Bericht nur an Nutzer und Sokrates, die Tom/Jerry beauftragen (bitte mit Nutzer festlegen); (4) Diogenes prüft mit Code, Zufallsspieler, Standbildern, Spielgefühl bleibt beim Nutzer; (5) ein Lauf je Sitzung, nur `main`. Bitte Rollentext in `CLAUDE.md` anpassen; `DIOGENES.md` ist nachgezogen.
 
 
 
