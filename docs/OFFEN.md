@@ -55,7 +55,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ### Tom (13.10., 12:12) – vor Neustart
 - **Zweig `claude/tom-17-riemen`**, Build 0.1.662 (Jetzt installieren): Laden gut, 60j gefällt; offen 55.1b, 5la.3. Nach „passt“: PR, zusammenführen (Merge), Änderungshistorie „Unveröffentlicht“: 59, 60e–k, 60j, 17r, 5la, 5la.2, 5la.3, 6g, 6f, 61a, 62a, 62c, 59e, 55.1a, 55.1b, 13x, 13v/27.6. Rückfrage 62d (trotz 62c-Entwurf zusammenführen, Empf. ja).
 - **13e Höhle** (von Jerry, 13y ja): Zweig `claude/jerry-13e-hoehle-diagonal` (Worktree `../hoehle`), `main` drin; heute Lagerfeuer (aus dem Wald), Knochen im Maßstab, Weiher als Wasser (Risse/Kiesel weg, Spiegelungsfehler `bank*2.2` behoben); `MapCaveIso.draft = true`, `MapSight.finished` mit Höhle → Build 0.1.667. Rückfrage 13e auf der Seite (Bilder alt/neu). Offen: Pilze/Kristalle alte Bilder, Felsinneres vorn schwarz.
-- **Weiter:** Test 0.1.667 abwarten; nach „passt“: PR des Höhlenzweigs (nach dem von tom-17-riemen, dann Wald diagonal mit `main` zusammenführen und `MapSight.finished` um Wald ergänzen prüfen), dann alte Ansicht ausbauen (13t), dann 6l. 65.3/65.6 fertig. Entscheidungsseite: Bildbuch heißt jetzt „Beschlüsse“.
+- **Weiter:** Test 0.1.667 abwarten; nach „passt“: PR des Höhlenzweigs (nach dem von tom-17-riemen, dann Wald diagonal mit `main` zusammenführen und `MapSight.finished` um Wald ergänzen prüfen), dann alte Ansicht ausbauen (13t), dann 6l. 65.3/65.6 fertig. Entscheidungsseite: Bildbuch heißt jetzt „Beschlüsse“. Prüflisten `e/t662.html`, `e/t667.html` (neue Regel in `CLAUDE.md`). Nachfolger startet auf `claude/tom-13e-hoehle` (von Jerrys Höhlenzweig); weiter auf den beiden genannten Zweigen.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
