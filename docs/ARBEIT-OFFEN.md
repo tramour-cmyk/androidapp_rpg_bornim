@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom 0.1.719** (Zweig `claude/tom-diogenes`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38456434182 (APK unten unter „Artifacts“) · 3b, 4, 5la, 73b, Diogenes D2 und D1.2/D1.3/D1.11; Prüfliste `e/t719.html`. Nach „passt“: PR des Zweigs, zusammenführen.
+- Nichts von Tom (0.1.719 getestet und zusammengeführt, PR #56).
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -20,7 +20,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 |---|---|---|---|---|
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2** Weck-Routinen (Jerry, Zeile unten). Regeln in `CLAUDE.md` (65.4 ein Ort, 65.7/65.8 kein „Erledigt“); Verlauf im Archiv |
 | 13 | Diagonale Sicht | Tom | `claude/tom-73-laeden` | 13t auf `main` (PR #54); Tempelboden Steinplatten in 0.1.714. Verlauf im Archiv |
-| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` (27.4, 5.3, 5.4, 5.6, 5n, 5la). Pim nachts im Haus (5la, Nutzer 21:1x; auch Gwenna, Liska) im nächsten Build. Offen 5.5 (prüfen, ob noch etwas fehlt). Verlauf im Archiv |
+| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` (27.4, 5.3, 5.4, 5.6, 5n, 5la). Offen 5.5 (prüfen, ob noch etwas fehlt). Verlauf im Archiv |
 | 13e | Höhle diagonal | Tom | – | Auf `main` (getestet 0.1.702). Offen nur Diogenes-Befunde der Höhle (Jerry) |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`, auch 24.8.6 (Türen 0,5 s). **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`LISTE-KAPITEL1.md`](LISTE-KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | **26c:** (1) 24.8.6/30.8, (2) 42, (3) Diagonalsicht erledigt (auf `main`), ebenso 55.2 und 17; Toms Teil von 26c fertig |
@@ -39,10 +39,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | Tom (Szene, Bilder), Jerry (Klang „Ancient Legend“) | – | **68a–68m ja (Nutzer 17:16–18:02):** Ablauf, Texte, Einstieg Kapitel 2 alles in `docs/STORY-K1.md` (`[68.…]`, auch `[67.schild]`, `[67.nach.…]` entfällt); Form `DESIGN-STIL.md` „Zwischensequenzen“ |
 | 70 | Zwischensequenzen einheitlich (Intro 69, Tempel 68, spätere Wendepunkte) | Berater mit Nutzer | `main` (Notizen) | Nutzer 17:08: alle Zwischensequenzen ähnlich gebaut; Muster in `DESIGN-STIL.md` „Zwischensequenzen“ |
 | 62q | Begriffe: Landkarte → Gebietskarte → Grundriss → **Ebene** (übereinander im Grundriss; „Stockwerk“ entfällt) | alle | – | **Ja (Nutzer 17:33)**, Regel in `CLAUDE.md` „Begriffe“; Tom/Jerry/Diogenes bitte so in Spiel, Prüflisten und Notizen |
-| 3b | Garrick links vom Feuer, Gesicht zur Kamera | Tom | `claude/tom-diogenes` | Nutzer 21:1x zu weit vom Feuer: steht jetzt dicht am Steinring (im nächsten Build) |
-| 4 | Glühwürmchen am Fluss | Tom | `claude/tom-diogenes` | Nutzer 21:1x zu hektisch, Schwärme gleich groß: langsamer, Leuchten schwillt an und ab, Schwärme 1–9 (im nächsten Build) |
 | 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | – | **69a–69d ja (Nutzer 13.10., 16:31):** Texte, Ablauf und Klang in `docs/STORY-K1.md` (`[69.intro.…]`), wortgetreu übernehmen |
-| 73 | Versperrte Hütten: nachts Läden zu, Rauch | Tom (Dorf) | `claude/tom-diogenes` | 73a auf `main` (0.1.714). 73b Stimmen von drinnen (Texte `STORY-K1.md`) im nächsten Build |
 | 76 | Tom und Jerry schärfen, `CLAUDE.md` entschlacken (Nutzer 13.10., 20:37) | Tom, Jerry | `main` (Notizen) | **Umgesetzt 13.10., 22:0x** nach [Entwurf](https://claude.ai/code/artifact/62e22141-83a5-40bc-8bde-80ba05a7db76) (Nutzer 21:52): `CLAUDE.md` gemeinsamer Kern, neu `ROLLE-ENTWICKLER.md`. Startaufträge in den Übergaben; danach streichen |
 | 77 | Dokumentnamen ordnen, Story-Kennungen K1-H/N/Z/W (Nutzer 13.10., 21:10) | Tom (Code), Berater (77e) | `main` | **Umbenannt 13.10., 22:0x**, Wächter in `notiz.sh`. Codekommentare angepasst (Tom, Zweig `claude/festive-lovelace-3ujzqi`). **77e** [Entwurf](https://claude.ai/code/artifact/13e3b53a-e28d-40c1-9d94-30225272d38a): **77e.1–77e.6 ja (Nutzer 22:22)**, **Umbau läuft seit 13.10., 22:4x (Sokrates)**: bitte bis zur Fertigmeldung keine Notizdateien umstellen, nur eintragen; vor jedem Eintrag `git pull`. **Tom:** Vorgaben zu Leiste und Kartenrand (`LISTE-IDEEN.md` „Kapitel 2“) prüfen, ob sie nach 60 noch stimmen (77e.3) |
 | 78 | Test-Builds bündeln (Nutzer 13.10., 21:35) | Tom | `main` (`.github`) | 78a/c/d ja, 78b nein (21:43); Regeln in `ROLLE-ENTWICKLER.md`. 78d umgestellt auf `claude/festive-lovelace-3ujzqi` (gilt auf `main` nach dem nächsten PR) |
@@ -73,9 +70,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **13e liegt seit 13.10., 11:2x bei Tom (13y ja);** Jerry macht am Freitag mit 24.6, 30.7, 36.6, 38–40, 51–53 weiter.
 ## Zu testen
 
-- **Tom, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen; Prüfbericht oben): offen D1.4 Wandkram flach, D1.5 Schatten Räume, D1.11 Varianten/Mehrfeld-Möbel, D1.16 Entwurfsschalter; D1.2/D1.3 auf `claude/tom-diogenes`, D1.12/D1.13 auf `main`.
+- **Tom, Diogenes-Befunde Lauf 1** (Prüfbericht oben): D1.4, D1.16 (Oberflächen) und D1.5 (Räume) auf `claude/festive-lovelace-3ujzqi`, im nächsten Sammelbuild; Rest von D1.16 (Schalter in `WorldScreen.kt` und Kerntests) offen.
 - **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5 Schatten Höhle, D1.6 Höhleneingang flach, D1.7 Leben Höhle, D1.8 stumme Quellen, D1.9 Feuer durch Wände, D1.10 Klang ohne Bewegung (mit Tom), D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (zwei Stücke mit Hörnern/Kreaturenrufen ohne sichtbare Quelle, `grund_fs_609422`, `grund_fs_540836`): Berater empfiehlt herausnehmen, **Nutzer entscheidet nach Hörprobe** (19:44): Höhle mit und ohne die zwei Stücke auf die Seite „Dein Zug“, erst danach ändern; D1.15 Laterne.
-- **Tom, Diogenes-Befunde Lauf 2**: alle Klasse-1-Befunde bestätigt und auf `claude/tom-diogenes` behoben (Vermerke im Prüfbericht); nach Test streichen.
 - **Jerry, Weck-Routinen pausieren** (Berater 13.10., Nutzer freigegeben): deine acht Routinen „Jerry Selbstarbeit HH:MM“ mit `update_trigger` (`enabled: false`) pausieren, nicht löschen; Regel in `ARBEIT-SELBST.md` „Feste Weck-Routinen“. Danach Zeile streichen.
 
 ## Für Diogenes

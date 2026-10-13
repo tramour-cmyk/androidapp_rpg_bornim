@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Zusammengeführt nach Test 0.1.719** (PR #56, 13.10., 22:4x): Garrick dicht am Feuer (3b, Rückläufer: 1); Glühwürmchen ruhiger, Leuchten schwillt an und ab, Schwärme 1–9 (4, Rückläufer: 1); Pim, Gwenna, Liska nachts im Haus (5la); Stimmen hinter verschlossenen Türen (73b); Diogenes-Befunde: Kapitelende und Anschlagbrett schwarz-golden, Englisch im Vergleich, Farben, „…“ beim Abschneiden u. a. (D2), Licht nur aus Quellen in Räumen (D1.2/D1.3), Bänke und Ladenkram in drei Formen (D1.11).
 - Notizen umgebaut (76–78, Nutzer 13.10., 21:52): Dateien unter `docs/` mit Vorsilben ROLLE-/DESIGN-/STORY-/LISTE-/ARBEIT-; `CLAUDE.md` auf den gemeinsamen Kern gekürzt (16,6 → etwa 9 KB); neu `docs/ROLLE-ENTWICKLER.md` (Wer du bist, Prüftreppe, Sammelbuilds); Berater-Prompt „Wer du bist“; Wächter gegen alte Namen in `tools/notiz.sh`.
 
 - **Zusammengeführt nach Test 0.1.714** (PR #55, 13.10., 21:1x): nachts Läden zu mit Ritzenlicht (73a), Knopf der Karte nennt das Ziel (62r), Tempelboden aus Steinplatten (13), Garrick links vom Feuer (3b, Abstand folgt).
