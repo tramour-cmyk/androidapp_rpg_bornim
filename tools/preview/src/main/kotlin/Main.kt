@@ -119,6 +119,15 @@ fun main() {
         // 62e: the elder's mark at his door, the notice board (the last mark named)
         de.bornim.game.ui.MapLook.previewTip = -2
         shot("62e_dorf", settle = 30) { vm -> setup(vm, "village", 10, 17, Facing.DOWN) }
+        // KARTE62=1 ONLY=62h: 62h (draft) the land map in both looks, from the woods (cave and deep woods not yet seen)
+        if (System.getenv("ONLY") == "62h") {
+            de.bornim.game.ui.MapLook.previewOverview = true
+            for (look in de.bornim.core.art.LandSheet.Look.entries) {
+                de.bornim.game.ui.MapLook.land = look
+                shot("62h_${look.name.lowercase()}", settle = 30) { vm -> setup(vm, "forest", 0, 0, Facing.UP) }
+            }
+            System.exit(0)
+        }
         if (System.getenv("ONLY") == "62e") System.exit(0)
         // KARTE62=1 ONLY=62f: 62f/62g, people at their usual place, services, house names in handwriting
         if (System.getenv("ONLY") == "62f") {

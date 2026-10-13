@@ -147,7 +147,7 @@ private fun MapTab(game: Game, lang: Lang) {
     var show by remember { mutableStateOf(MapLook.previewShow) }
     Column(Modifier.fillMaxSize()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Txt(if (overview) (if (german) "Besuchte Orte" else "Places visited") else map.name(lang), Modifier.weight(1f), size = 20.sp, bold = true)
+            Txt(if (overview) (if (MapLook.land != null) (if (german) "Landkarte" else "Map of the land") else if (german) "Besuchte Orte" else "Places visited") else map.name(lang), Modifier.weight(1f), size = 20.sp, bold = true)
             PixelButton(if (german) "Orte" else "Places", Modifier.height(36.dp), selected = overview, size = 13.sp) { overview = !overview }
         }
         Spacer(Modifier.height(6.dp))
@@ -164,7 +164,8 @@ private fun MapTab(game: Game, lang: Lang) {
             }
             Spacer(Modifier.height(6.dp))
         }
-        if (overview) PlaceList(game, lang) { shown = it; overview = false }
+        if (overview && MapLook.land != null) LandView(game, lang, MapLook.land!!) { shown = it; overview = false }
+        else if (overview) PlaceList(game, lang) { shown = it; overview = false }
         // test of 0.1.676: a switch keeps the zoom and the place on the map (the view used to start afresh)
         else androidx.compose.runtime.key(shown) { MapView(game, lang, map, here, show) }
     }
@@ -172,6 +173,8 @@ private fun MapTab(game: Game, lang: Lang) {
 
 /** 62c: preview switches. */
 object MapLook {
+    /** 62h (draft): the land map instead of the list of places, in one of its two looks; null: the list. */
+    @Volatile var land: de.bornim.core.art.LandSheet.Look? = null
     @Volatile var previewOverview = false
     /** A mark to show named at once, by index in the marks of the shown map (-1 none, -2 the last). */
     @Volatile var previewTip = -1
@@ -182,6 +185,54 @@ object MapLook {
     @Volatile var previewShow: Set<de.bornim.core.MapMarks.Group> = de.bornim.core.MapMarks.Group.entries.toSet()
     /** 62g: the handwriting of the house names (Fondamento, OFL). */
     val hand by lazy { androidx.compose.ui.text.font.FontFamily(androidx.compose.ui.text.font.Font(de.bornim.game.R.font.fondamento_regular, androidx.compose.ui.text.font.FontWeight.Normal)) }
+}
+
+/**
+ * 62h (draft): the land map, the top level of the map: every place as a small drawing, the unknown ones under fog,
+ * the names in handwriting, the hero's place marked red. Tapping a known place opens its map; it never travels.
+ */
+@Composable
+private fun LandView(game: Game, lang: Lang, look: de.bornim.core.art.LandSheet.Look, onPick: (String) -> Unit) {
+    val s = game.state
+    fun known(id: String) = de.bornim.core.World.maps[id]?.let { de.bornim.core.MapMarks.visited(s, it) } == true
+    val img = remember(look) { de.bornim.core.art.LandSheet.render(look) { known(it) } }
+    val bmp = Bitmaps.of(img)
+    val measurer = androidx.compose.ui.text.rememberTextMeasurer()
+    val noir = look == de.bornim.core.art.LandSheet.Look.NOIR
+    val ink = if (noir) Color(0xFFC9A86A) else Color(0xFF4A3622)
+    // where the hero is: the outdoor place, also from inside a house
+    val here = game.map.let { m -> if (m.kind == de.bornim.core.MapKind.INTERIOR) "village" else m.id }
+    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().clipToBounds()) {
+        val vw = constraints.maxWidth.toFloat(); val vh = constraints.maxHeight.toFloat()
+        val scale = minOf(vw / img.width, vh / img.height)
+        val ox = (vw - img.width * scale) / 2; val oy = (vh - img.height * scale) / 2
+        val density = androidx.compose.ui.platform.LocalDensity.current.density
+        androidx.compose.foundation.Canvas(Modifier.fillMaxSize().pointerInput(Unit) { detectTapGestures { at ->
+            de.bornim.core.art.LandSheet.spots.firstOrNull { sp ->
+                known(sp.map) && kotlin.math.hypot(ox + sp.x * scale - at.x, oy + sp.y * scale - at.y) < sp.r * scale
+            }?.let { onPick(it.map) }
+        } }) {
+            drawImage(bmp, dstOffset = androidx.compose.ui.unit.IntOffset(ox.toInt(), oy.toInt()),
+                dstSize = androidx.compose.ui.unit.IntSize((img.width * scale).toInt(), (img.height * scale).toInt()),
+                filterQuality = androidx.compose.ui.graphics.FilterQuality.None)
+            for (sp in de.bornim.core.art.LandSheet.spots) {
+                val name = if (known(sp.map)) de.bornim.core.World[sp.map].name(lang) else "?"
+                val style = androidx.compose.ui.text.TextStyle(fontFamily = MapLook.hand, fontSize = 15.sp, color = ink)
+                val t = measurer.measure(name, style)
+                drawText(t, topLeft = androidx.compose.ui.geometry.Offset(ox + sp.x * scale - t.size.width / 2f, oy + sp.labelY * scale))
+                if (sp.map == here) {
+                    val c = androidx.compose.ui.geometry.Offset(ox + sp.x * scale, oy + (sp.y - sp.r * 0.15f) * scale)
+                    drawCircle(Color(0x55B0302A), 16 * density, c)
+                    drawCircle(Color(0xFFB0302A), 10 * density, c, style = androidx.compose.ui.graphics.drawscope.Stroke(3 * density))
+                    drawCircle(Color(0xFFB0302A), 3.5f * density, c)
+                }
+            }
+            // the south road leaves the drawing: an arrow and where it goes
+            val style = androidx.compose.ui.text.TextStyle(fontFamily = MapLook.hand, fontSize = 13.sp, color = ink.copy(alpha = 0.8f))
+            val t = measurer.measure(if (lang == Lang.DE) "nach Süden" else "to the south", style)
+            drawText(t, topLeft = androidx.compose.ui.geometry.Offset(ox + 108 * scale, oy + 278 * scale))
+        }
+    }
 }
 
 /** The places the hero has been to, each a small picture of its map; tapping one shows it. */
