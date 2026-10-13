@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 11:58–12:2x Beschlüsse, Diogenes-Auftrag, 66; 13.10. 12:24–13:1x „Chronik-Texte“ (64d/62i Texte, 67 Südrand). **Nachfolger:** „Sokrates – Story-Vorlage“ (Nutzer startet)
 
-**Nächster Punkt:** freigegebene Texte aus dem [Dokument](https://claude.ai/code/artifact/a06e73b2-a039-4ae3-8c9d-380c6f74ad2e) wortgetreu nach `docs/STORY.md` (neu anlegen; „(neu)“-Marken weg, Bedingung je Text nennen), dann Tom in „Wer macht was“ unter 41/64/67 darauf verweisen.
+**Nächster Punkt:** erledigt 13.10., 13:5x: `STORY.md` als Verzeichnis, Texte in `STORY1.md` mit Marken (Nutzer: Teildateien, damit nicht alles gelesen wird). Offen siehe unten.
 
 **Zuletzt gelesen bis:** dieser Commit (13.10., 13:1x)
 
@@ -34,10 +34,10 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - **Zufallshöhlen (48):** erst Questhöhlen zufällig, Story-Höhlen mit festem Kern; normale Blende reicht (Boden wird ohnehin neu gezeichnet, geprüft). Einzelheiten im Archiv.
 - **Heldenbau (49, 50; [Dokument](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)):** kein großer Skilltree (führt zu wenigen besten Wegen), Talente ändern Entscheidungen statt Zahlen, Talent jede gerade Stufe (sonst Kapitel ohne Wahl), Merkmale nie kaufbar (Sperre gegen Magier-Tank), gekaufte Klassen nie stärker.
 - **Balance (38):** SRD als Fundament, Stufen 5–14 als Kern über mindestens 7 Kapitel, Abweichungen mit Grund in `BALANCE.md`; Schwierigkeitsgrad erst nach Messung von „Normal“.
-- **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen (Nutzer + Berater) vor jeder Story-Änderung, damit Texte nicht von Entwicklern erfunden werden. Kapitel 2 beginnt mit „Wer ist der Graue Prophet?“ (drei Entwürfe), endet auf Stufe 8; Kapitel 1 aus `Story.kt`/`Jobs.kt` lesen. Nachtragen: Heldensätze 29.4.
+- **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen (Nutzer + Berater) vor jeder Story-Änderung, damit Texte nicht von Entwicklern erfunden werden. Kapitel 2 beginnt mit „Wer ist der Graue Prophet?“ (drei Entwürfe), endet auf Stufe 8; Kapitel 1 aus `Story.kt`/`Jobs.kt` lesen. Nachtragen: Heldensätze 29.4. **Vorlage geteilt** (Nutzer 13.10.): `STORY.md` nur Verzeichnis, Texte je Kapitel in Teildateien (ab ~15 KB weiter nach Ort/Quest), feste Marke je Text, damit bei 8–9 Kapiteln niemand alles lesen muss.
 - **Chronik-Texte (64d/62i, Nutzer 13.10.):** Chronist in dritter Person, Einträge je Wendepunkt (Rückkehrer sehen sofort den Stand), Hörensagen mit Quelle. Gwenna Witwe, Aldric erkennt das Auge vom Steinkreis (Nebenweg wird Spur zum Propheten), Held = Durchreisender, zweiter Hörensagen-Satz nur bei Änderung; kindlicher Ton bleibt (Nutzer: Leichtigkeit zerstört nicht das Ganze). **67 Südstraße:** Versorgung und Herkunft des Helden brauchen einen zweiten Weg; nur die Waldstraße ist gesperrt. Umkehr durch den Helden selbst statt Wand oder Wächter (erinnert statt führt), ab dem zweiten Versuch nur Kurzeinblendung.
 
-**Offen bei mir:** Texte 64d/62i (Nächster Punkt); `docs/HELDENBAU.md` nach Durchsicht der kursiven Talentnamen (offen auch Erkennungszeichen-Standbilder, Jerrys Messung); Prüfungsquests und Umlern-Tempel (41, mit Nutzer); **45b nach Jerrys Messung 38 ansprechen**; 41 Kapitel 2 stößt der Nutzer an.
+**Offen bei mir:** `docs/HELDENBAU.md` nach Durchsicht der kursiven Talentnamen (offen auch Erkennungszeichen-Standbilder, Jerrys Messung); Prüfungsquests und Umlern-Tempel (41, mit Nutzer); **45b nach Jerrys Messung 38 ansprechen**; 41 Kapitel 2 stößt der Nutzer an.
 
 ## Lehren
 
