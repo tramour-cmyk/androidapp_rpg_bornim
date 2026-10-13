@@ -58,7 +58,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 52 | Feinarbeit an den Kampfanimationen | Jerry | ruht | `OFFEN.md` |
 | 53 | Zustände (Brennend) auf Krogg prüfen | Jerry | ruht | `OFFEN.md` |
 | 54 | Nicht warten, von selbst weiterarbeiten | Tom und Jerry | erledigt (Regel) | `CLAUDE.md` |
-| 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | zu testen | `OFFEN.md` |
+| 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | in Arbeit | `OFFEN.md` |
 | 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | Tom | zu testen | `OFFEN.md` |
 | 57 | Gemeinsame Beschlüsse für Entschiedenes (früher Bildbuch) | Tom | erledigt (Regel) | Archiv |
 | 58 | Umhang hängt beim Laufen über dem Schild | Tom | erledigt (PR #50) | `OFFEN.md` |
@@ -76,5 +76,5 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 70 | Zwischensequenzen einheitlich | Berater mit Nutzer | offen | `OFFEN.md` |
 | 71 | Bestandsprüfung Stil und Klang aller Orte | Diogenes | offen | `OFFEN.md` |
 | 72 | Profil und Marktvergleich | Berater mit Nutzer | offen | `OFFEN.md` |
-| 75 | Diogenes schärfen; Kosten und Nutzen des Testens | Berater mit Nutzer | offen | `OFFEN.md` |
+| 75 | Diogenes schärfen; Kosten und Nutzen des Testens | Berater mit Nutzer | fertig | `DIOGENES.md` |
 | 76 | Tom und Jerry schärfen, CLAUDE.md entschlacken | Berater mit Nutzer | offen | `OFFEN.md` |

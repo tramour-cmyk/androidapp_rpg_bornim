@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom 0.1.712** (Zweig `claude/tom-73-laeden`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38449304620/artifacts/11839553666 · 73 Läden zu, 62r Knopf „↑ Gebietskarte/Landkarte“, 3b Garrick; Prüfliste `e/t712.html`. 0.1.709 getestet und auf `main` (PR #54).
+- **Tom 0.1.714** (Zweig `claude/tom-73-laeden`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38450120858/artifacts/11840815047 · 73 Läden zu, 62r Knopf, 3b Garrick, 13 Tempelboden; Prüfliste `e/t714.html`. Nach „passt“: PR des Zweigs, zusammenführen.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -19,13 +19,13 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2** Weck-Routinen (Jerry, Zeile unten). Regeln in `CLAUDE.md` (65.4 ein Ort, 65.7/65.8 kein „Erledigt“); Verlauf im Archiv |
-| 13 | Diagonale Sicht | Tom | `claude/tom-73-laeden` | 13t auf `main` (PR #54). Tempelboden Steinplatten fertig (kommt mit dem nächsten Build). Tempel-Altar geprüft (Standbild 20:48: Fenster links und rechts, Altar frei); offen 42; danach 6l. Verlauf im Archiv |
-| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Großteil auf `main` (PR #52: 27.4, 5.6, 5.3, 5n, 5la Tagesablauf). Offen nach **5m:** 5.4 Pflaster, 5l/5.5, dann 27.5/27.6, je erst Standbilder. Verlauf im Archiv |
+| 13 | Diagonale Sicht | Tom | `claude/tom-73-laeden` | 13t auf `main` (PR #54); Tempelboden Steinplatten in 0.1.714. Verlauf im Archiv |
+| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` (27.4, 5.3, 5.4, 5.6, 5n, 5la). Offen nur 5.5 (prüfen, ob noch etwas fehlt). Verlauf im Archiv |
 | 13e | Höhle diagonal | Tom | – | Auf `main` (getestet 0.1.702). Offen nur Diogenes-Befunde der Höhle (Jerry) |
-| 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
-| 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | **26c ja:** (1) 24.8.6 und 30.8 vom Zweig `tender-goodall-a8zuny` in den nächsten Build, (2) 42, (3) Diagonalsicht fertig (27.5, Tiefer Wald, Tempel-Altar, 27.6); dann 5l, 55.2, 17 |
+| 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`, auch 24.8.6 (Türen 0,5 s). **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
+| 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | **26c:** (1) 24.8.6/30.8, (2) 42, (3) Diagonalsicht erledigt (auf `main`), ebenso 55.2 und 17; Toms Teil von 26c fertig |
 | 27 | Wald „Ort fertig“ (Liste in `ENTWICKLUNG.md`) | Tom | – | Wald und Tiefer Wald fest diagonal auf `main` (13v/27.6, PR #52). Offen: Lückenliste „Ort fertig“ mit Standbildern; **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise). Verlauf im Archiv |
-| 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | 30.1/30.2/30b auf `main` (PR #40, getestet 0.1.559). 30.8 „App aktualisiert“ auf `claude/tender-goodall-a8zuny` (kommt mit 26c in den nächsten Build). Offen: Abstürze beobachten (Nutzer 13.10.: seit Langem keine mehr; kein Android Studio, bei neuem Absturz `adb logcat` mit Anleitung von Tom); 30.7 (Klang 22 kHz) mit Jerry. Verlauf im Archiv |
+| 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | 30.1/30.2/30b/30.8 auf `main`. Offen: Abstürze beobachten (bei neuem Absturz `adb logcat` mit Anleitung von Tom); 30.7 (Klang 22 kHz) mit Jerry. Verlauf im Archiv |
 | 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben) | Jerry | – | Meldung Nutzer 12.10., 15:4x mit Bildschirmfoto (Wiese, alte Kampfansicht). Erst Standbild der Sterbehaltungen aller Klassen, dann Vorschlag |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt | Jerry | – | 36.4–36.7, 36h/36j/36k auf `main` (PR #46, #47, getestet 0.1.587). Rest in 52, 53. **Offen 36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung. Verlauf im Archiv |
 | 38 | Balance-Langzeitplan über alle Kapitel (Stufe, Gold, Preise, Ausrüstung, Ziel-Siegquoten) | Berater (Plan), Jerry (Messung) | `main` (Notizen) | Plan in `BALANCE.md` fertig (38a–38d ja). **38e/38f ja (11:23):** Jerry erweitert `ChapterSimTest` um Gold/Einkauf und misst Kapitel 1 (Reserve der Selbstarbeit). **38g ja (16:06):** Spieldauer zählt Diogenes (Zeile unten); 38h Eichung mit Uhr durch Nutzer später. Verlauf im Archiv |
@@ -39,16 +39,15 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | Tom (Szene, Bilder), Jerry (Klang „Ancient Legend“) | – | **68a–68m ja (Nutzer 17:16–18:02):** Ablauf, Texte, Einstieg Kapitel 2 alles in `docs/STORY1.md` (`[68.…]`, auch `[67.schild]`, `[67.nach.…]` entfällt); Form `STIL.md` „Zwischensequenzen“ |
 | 70 | Zwischensequenzen einheitlich (Intro 69, Tempel 68, spätere Wendepunkte) | Berater mit Nutzer | `main` (Notizen) | Nutzer 17:08: alle Zwischensequenzen ähnlich gebaut; Muster in `STIL.md` „Zwischensequenzen“ |
 | 62q | Begriffe: Landkarte → Gebietskarte → Grundriss → **Ebene** (übereinander im Grundriss; „Stockwerk“ entfällt) | alle | – | **Ja (Nutzer 17:33)**, Regel in `CLAUDE.md` „Begriffe“; Tom/Jerry/Diogenes bitte so in Spiel, Prüflisten und Notizen |
-| 3b | Garrick links vom Feuer, Gesicht zur Kamera | Tom | `claude/tom-73-laeden` | Nutzer 17:10; fertig, kommt mit dem nächsten Build |
+| 3b | Garrick links vom Feuer, Gesicht zur Kamera | Tom | `claude/tom-73-laeden` | In 0.1.714 |
 | 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | – | **69a–69d ja (Nutzer 13.10., 16:31):** Texte, Ablauf und Klang in `docs/STORY1.md` (`[69.intro.…]`), wortgetreu übernehmen |
-| 73 | Versperrte Hütten: nachts Läden zu, Rauch | Tom (Dorf) | `claude/tom-73-laeden` | 73a ja; Kaminrauch auf `main` (PR #54). Läden mit Ritzenlicht in 0.1.712. **73b A (Nutzer 20:5x):** Rauch heißt bewohnt, Verschlossene rauchen weiter; Antwort von drinnen beim Anklopfen braucht Texte (Zeile „Für den Berater“) |
-| 75 | Diogenes: Kosten und Nutzen des Testens (Nutzer 13.10., 20:43: „so viel testen wie nötig, so wenig wie möglich“) | Berater mit Nutzer | `main` (Notizen) | Rolle fertig (`DIOGENES.md`); Entwurf im Archiv „Entwurf Berater 75h“; offen 75h–75l |
-| 76 | Tom und Jerry schärfen, `CLAUDE.md` durch Auslagern entschlacken (Nutzer 13.10., 20:37) | Berater mit Nutzer | `main` (Notizen) | Entwurf im Archiv „Entwurf Berater 76“; offen 76a–76d |
+| 73 | Versperrte Hütten: nachts Läden zu, Rauch | Tom (Dorf) | `claude/tom-73-laeden` | 73a ja; Kaminrauch auf `main` (PR #54). Läden mit Ritzenlicht in 0.1.714. **73b A (Nutzer 20:5x):** Rauch heißt bewohnt, Verschlossene rauchen weiter; Antwort von drinnen beim Anklopfen braucht Texte (Zeile „Für den Berater“) |
+| 76 | Tom und Jerry schärfen, `CLAUDE.md` durch Auslagern entschlacken (Nutzer 13.10., 20:37) | Berater mit Nutzer | `main` (Notizen) | **76a–76f ja (Nutzer 20:56):** Prompt für Tom und Jerry mit Prüftreppe, Kern in `CLAUDE.md` plus `docs/ENTWICKLER.md`; erst Entwurf beider Dateien zum Lesen (nächste Berater-Sitzung), dann Umbau; offen 76g/76h (Berater-Prompt, Absatz kürzen) |
 | 74 | Schrittgeräusche fehlen an allen Orten („Ort fertig“ 8; Befund Diogenes D1.1) | Jerry (Klang); Tom für Dorf und Räume | – | Berater 13.10., 19:4x: Mangel gegen bestehende Regel, kein Beschluss nötig. **Verdacht** erst bestätigen; Böden je Untergrund (Gras, Erde, Holz, Stein) |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten im Archiv). **48d–48f ja (16:51):** je Spielstand nur Startwert plus **Version des Erzeugers** speichern (Updates verändern keine bestehende Höhle, alte Erzeuger bleiben im Code); Besiegtes und Geplündertes bleibt weg, neuer Auftrag darf dieselbe Höhle neu besetzen. Nach Kapitel 1 |
 | 49 | Lehrer, Fertigkeiten, Talente | Berater mit Nutzer | – | 49d–49t ja ([Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)); **Dokument vom Nutzer freigegeben** (13.10., Namen fett markiert); abgelegt als `docs/HELDENBAU.md` (17:1x). Nach Kapitel 1 |
 | 50 | Weitere Klassen (Klassenpaket, Werwolf als Fluch) | Berater mit Nutzer | – | 50a–50j ja (Matrix im Heldenbau, Verlauf im Archiv). Nach Kapitel 1 |
-| 55 | Mehr Leerlauf für alle Leute (Waffe, Armhaltung), Szenen wie Sitzen am Tisch | Tom | – | 55.1a/b auf `main` (PR #52). **55c ja:** 55.2 Borin sitzt am Tisch (`SITDRAFT2`) ins Spiel; Speer überall etwa 2 m (Kampf mitprüfen). Verlauf im Archiv |
+| 55 | Mehr Leerlauf für alle Leute (Waffe, Armhaltung), Szenen wie Sitzen am Tisch | Tom | – | 55.1a/b und 55.2 (Borin sitzt am Tisch) auf `main`. Offen: Speer überall etwa 2 m im Kampf mitprüfen. Verlauf im Archiv |
 | 43 | Sichtbarkeit in der diagonalen Sicht (Leute, Ziele, Eingänge frei zur Kamera) | Tom (Wald, Dorf), Jerry (Höhle) | – | **43a ja:** Grundsatz in `STIL.md` („Ort fertig“ Punkt 9); Kisten dürfen versteckt sein. Morwen sichtbar, wenn Tiefer Wald diagonal (Tom); Höhle 13e (Jerry). Verlauf im Archiv |
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry | – | Nutzer 12.10., 15:4x nach Test 0.1.587: Krogg fürs Erste so lassen, später alle Kampfanimationen gesamt überarbeiten. Nach Kapitel-1-Wichtigem |
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg | Jerry | – | Prüfthema, Nutzer 12.10., 15:4x (Test 0.1.587): wenn Zeit ist und nichts Wichtigeres ansteht; alle großen Gegner mitprüfen |
@@ -58,9 +57,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 20:0x) – an Nachfolger
-- 0.1.709 getestet und zusammengeführt (PR #54), Schalter in `UMGEBUNG.md` gestrichen. 0.1.712 auf `claude/tom-73-laeden` (73 Läden, 62r, 3b), Prüfliste `e/t712.html`; Tempelboden (13) dort schon committet, kommt mit dem nächsten Build.
-- Zweig `claude/tom-73-laeden` (= 13t + 3b + 73 Läden): dort 62r (A) bauen, dann nächster Build; danach 6l, 68.
+### Tom (13.10., 21:0x)
+- 0.1.714 auf `claude/tom-73-laeden` wartet auf Test (Prüfliste `e/t714.html`); nach „passt“ PR, zusammenführen. Jetzt: Diogenes-Befunde Tom (Zeilen „Zu testen“, zuerst D2.1), 73b-Texte einbauen, sobald festgelegt; dann 6l, 68.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
