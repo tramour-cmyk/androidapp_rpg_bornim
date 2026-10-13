@@ -1,5 +1,33 @@
 # Archiv
 
+### Entwurf Berater 75h: Kosten und Nutzen des Testens (13.10., 20:4x, noch nicht freigegeben)
+Risikobasiert: Prüftiefe nach Wahrscheinlichkeit mal Schaden; Testpyramide (Kerntests, Zufallsspieler billig und dauerhaft, Code lesen mittel, Standbilder/Filme teuer, Nutzer am Gerät am teuersten, aber einzig für Spielgefühl). 75h jeder bestätigte Befund „hoch“ wird Kerntest (Regressionsnetz); 75i Diogenes nur auf Anlass (vor Release, „Ort fertig“, großer Umbau, Auftrag), nicht nach jedem Build; 75j Budget je Lauf (Startwert höchstens 10 Standbilder, kein Film, Abbruch mit Abdeckungsmeldung); 75k Kosten je bestätigtem Befund messen (Tokenzuwachs laut Neustart-Haken), Berater wertet aus; 75l Diogenes auf dem Account mit mehr Guthaben, nie zulasten wartender Entwicklung.
+
+### Entwurf Berater 76: Tom und Jerry schärfen, CLAUDE.md entschlacken (13.10., 20:40, noch nicht freigegeben)
+Typische Fehler von Claude als Entwickler: fertig melden ohne selbst gesehen; mehr bauen als bestellt; Kerntests mit „sieht richtig aus“ verwechseln; Bedenken verschweigen statt sagen. Prompt „Wer du bist“: Eigentümer seines Bereichs; fertig = selbst gesehen und gegen „Ort fertig“/`STIL.md` geprüft; Kleines selbst, Bedenken offen, nie Texte erfinden; Erfolgsmaß: Test des Nutzers passt beim ersten Mal. `CLAUDE.md` 16,6 KB (Rollen 3,6, Feste Regeln 9,4); etwa 4 KB nur für Tom/Jerry. Haken: nur `CLAUDE.md` bleibt in langen Sitzungen sicher im Blick, darum Schrittregeln (Zeitstempel, Kerntests, Weckruf, kein Code auf `main`) als Kurzzeile im Kern; Abläufe (Stil-Abgleich, Filmen, Testreihenfolge, Prüflisten, Neustart) und Prompt nach `docs/ENTWICKLER.md` (nur Tom/Jerry beim Start); Doppelungen straffen (65.4). Ziel etwa 10–11 KB.
+
+### Entwurf Berater 75: Startprompt Diogenes (13.10., 20:3x, noch nicht freigegeben)
+Vorschläge 75.1 Erfolgsmaß, 75.2 kein Befund ohne Beleg und Regel, 75.3 blind zuerst mit drei Blickwinkeln, 75.4 Abdeckung und Rückfälle; 75g drei Klassen (1 Regelverstoß in einem Bereich: Zuständiger nach Grenzen in `CLAUDE.md`, Entwickler bestätigt/verwirft, kein Absegnen, nur „hoch“ geht vor; 2 grundsätzlich/Ermessen: nur Vorschlag, über Berater und Nutzer; 3 am Gerät: „Dein Zug“). Berater prüft beim Start die Verwerfquote. Prompt (soll an den Anfang von `DIOGENES.md`):
+
+**Wer du bist.** Du bist Diogenes, der Tester der Chroniken von Bornim. Wie dein Namensgeber gehst du mit der Laterne: Du glaubst nichts, was du nicht selbst gesehen hast. Dein Wert ist, dass du nicht mitgebaut hast. Tom und Jerry kennen ihre Absicht und sehen deshalb, was sie sehen wollen; du siehst, was da ist.
+
+**Dein Ziel.** Fehler finden, bevor der Nutzer sie am Gerät findet. Ein guter Lauf hat wenige, belegte, wichtige Befunde; ein schlechter viele Vermutungen. Dein Erfolg ist, wie viele deiner Befunde die Entwickler bestätigen.
+
+**Wie du prüfst.** (1) Blind zuerst: gegen die Regeln (`LEITBILD`, `STIL`, „Ort fertig“ in `ENTWICKLUNG`, `STORY`, `BALANCE`, Beschlüsse), nicht gegen Übergaben; erst danach nachsehen, ob etwas Absicht ist. (2) Wie ein Spieler, der nichts weiß: Findet man Ziel, Eingang, Händler nur mit dem, was das Spiel zeigt und sagt? Was, wenn er die Reihenfolge ändert, trödelt, nachts kommt, flieht, speichert und lädt? (3) Wie einer, der es brechen will: Ränder (wenig Trefferpunkte, volles Gepäck, Englisch, kleiner Bildschirm, jeder Schwierigkeitsgrad), Zufallsspieler mit mehreren Startwerten. (4) Erst widerlegen, dann melden: Versuche jeden Verdacht mit Code, zweitem Standbild oder Test zu entkräften. Was übrig bleibt, meldest du.
+
+**Was ein Befund braucht:** Beleg (Datei und Zeile, Standbild mit Uhrzeit, Testausgabe oder Startwert); verletzte Regel mit Fundstelle; Wirkung auf den Spieler (hoch: Absturz, Festhängen, Quest unlösbar, falscher Text; mittel: sichtbar falsch; klein: Feinschliff); Sicherheit (sicher, wahrscheinlich, Verdacht); Klasse: bei Klasse 1 nennst du den Zuständigen nach den Grenzen in `CLAUDE.md`, bei Klasse 2 empfiehlst du nur, Klasse 3 kommt auf „Dein Zug“. Ohne Regel ist es eine Anregung, höchstens drei je Lauf. Gut: „D2.3 (13e, hoch, sicher): Zufallsspieler mit Startwert 4711 hängt in der Höhle auf Feld 12:7 fest, `CaveMap.kt:212`; verletzt ‚Ort fertig‘ 5. Klasse 1, Tom.“ Schlecht: „Die Höhle wirkt etwas leer.“ (kein Beleg, keine Regel; Wirkung beurteilt der Nutzer)
+
+**Grenzen.** Du änderst nichts am Spiel, auch keinen Tippfehler, damit Befund und Behebung getrennt bleiben. Spielgefühl beurteilt der Nutzer. Ein Lauf je Sitzung, nur `main`. Standbilder kosten viel: erst Code und Tests, Bilder gezielt.
+
+**Am Ende.** Oben im Prüfbericht höchstens die fünf wichtigsten Befunde, der Rest knapp darunter. Dazu immer: was du nicht geprüft hast und warum. Behobene Befunde früherer Läufe kurz nachprüfen.
+
+### Aus OFFEN.md „Wer macht was“, 13.10., 20:0x (Tom gekürzt)
+- | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-27-4-baeume` | 5.1/5.2/5g/5h.1 auf `main`. **5m ja:** 27.4, 5.6, 5.3, 5l/5.5, 5.4, dann 27.5/27.6, je erst Standbilder. 27.4, 5.6, 5.3 (alle zwölf), 5n in PR #48. 5.4 (Pflaster-Entwurf, Fensterlicht-Fix) auf dem Zweig. **5la** Tagesablauf (Pim, Bram, Gwenna, Liska) als Entwurf auf `claude/tom-5l-leben`, Build 0.1.640 |
+- | 27 | Wald „Ort fertig“ (Liste in `ENTWICKLUNG.md`): vor allem diagonale Zeichnung, Bäume rund | Tom | `claude/tom-27-wald-diagonal` | **13v/27.6 in Arbeit (13.10., 07:3x):** Wald und Tiefer Wald fest diagonal, mit 27.6a–c (ja); Lückenliste „Ort fertig“, Standbilder. 27.1/27.2/27d, 27.4/27.5/27g, 27i, 27j auf `main` (getestet 0.1.625). **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise). Verlauf im Archiv |
+- | 55 | Mehr Leerlauf für alle Leute (Waffe, Armhaltung) und Szenen wie Sitzen am Tisch in der Schänke | Tom | – | Nutzer 12.10., 15:5x. **55a ja:** 55.2 zuerst. **55.2 auf dem Zweig** (`SITDRAFT2`, Borin sitzt am Tisch, Sprungtest 0); **55c ja (20:1x):** ins Spiel. **55.1a** Arme verschränkt/Rücken als Entwurf auf `claude/tom-55-leerlauf` (Build 0.1.649). **55.1b B ja (Nutzer 13.10., 10:5x):** Jorin stellt den Speer ab, und Speer überall etwa 2 m (Kampf mitprüfen); auf `claude/tom-17-riemen` |
+- | 56 | Alte Objekte auf den neuen Karten (Nutzer 12.10., 18:3x) | Tom | `claude/tom-27-4-baeume` | **56a–56c ja (19:4x):** Kräuter, Truhe, Steine, Steinkreis, Büsche im Wald ins Spiel (Schalter entfernt, c2b909f7). **56d ja (20:1x):** Dorf (`YARDDRAFT`, `FERNDRAFT`) ins Spiel; Innenräume ohne Altes |
+
+
 
 ### Aus BERATER.md, 13.10., 19:4x
 
@@ -33,6 +61,11 @@
 - Was funktioniert, muss er nicht erfahren; kurze, nummerierte Rückfragen mit Empfehlung.
 - Wahl des Spielers, Optionen, individuell und lebendig (49/50). Generisches Maskulinum, nie weibliche oder gegenderte Formen.
 
+
+### (alt) Tom (13.10., 19:4x) – an Nachfolger
+- 0.1.702 (Zweig `claude/tom-13e-kegelrand`) beim Nutzer, Prüfliste `e/t702.html`; nach „passt“ PR, zusammenführen.
+- **13t** auf `claude/tom-13t-alte-ansicht` (fbd91a27): gerade Ansicht ganz raus, ~2.500 Zeilen tote Reste gelöscht (Kerntests grün). Bildvergleich Wald/Dorf/Schänke/Höhle vorher/nachher pixelgleich; Build 0.1.703 grün, dem Nutzer noch nicht angeboten: erst nach Merge von 0.1.702 `main` in den Zweig holen, neu bauen, kurze Prüfliste (alle Orte einmal betreten); nach Merge in `UMGEBUNG.md` die Schalter `TOWNDRAFT`, `OVERVIEW`, `MAPS`, `CAVEMAP`, `RAUMDINGE`, `ALTRAUM` streichen.
+- 67a (Wegweiser) auf dem 13t-Zweig (573e0961). Nächste freie Punkte ohne Rückfrage: 3b Garrick links vom Feuer (Standbild vorher/nachher), 61b prüfen; 62r bauen, sobald entschieden (Empfehlung Ziel-Beschriftung); danach 6l, 68. Begriffe 62q beachten.
 
 ## Aus BERATER.md, 13.10., 18:5x
 

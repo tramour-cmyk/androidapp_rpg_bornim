@@ -2,15 +2,15 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Aufbau, Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARCHIV.md` („Aus BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Sitzungen** (ältere im Archiv): 13.10. 18:08–19:0x „Kapitel 2 Plot“ (2a–2d, 3a–3e, 71 für Diogenes, 72 Marktvergleich, Rolle geschärft); 18:58–19:5x „Kapitel 2 und Profil“ (4a–4d, Bericht 72 umgebaut, Figurenliste Kapitel 2, Namen N1–N4, 73a, 74, D1.14 an Jerry, Tempelboden in Beschlüsse). **Nachfolger:** „Sokrates – Kapitel 2 und Profil“ (Nutzer startet mit „Sokrates“)
+**Sitzungen** (ältere im Archiv): 13.10. 18:58–19:5x „Kapitel 2 und Profil“ (4a–4d, Bericht 72, Figurenliste, N1–N4, 73a, 74); 19:52– „Kapitel 2 und Profil“ (72 als PDF, 75 Diogenes, 75e „Dein Zug“, 76 begonnen). **Nachfolger:** „Sokrates – Kapitel 2 und Profil“ (Nutzer startet mit „Sokrates“)
 
-**Nächster Punkt:** (1) Bericht Marktvergleich fertig (Auftrag, Erfassen, Auswerten, Folgern, je Vorschlag „Grundlage“); Nutzer liest ihn (19:37), nach Freigabe als `docs/MARKT.md` ablegen. Offen: 62s Buildnummer (vermutlich 0.1.702, nur für Tom wichtig). (2) Offene Rückfragen mit vollem Wortlaut und Empfehlung zeigen: **72a–72j** im [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b). (3) Kultlager (41).
+**Nächster Punkt:** (0) **75h–75l** Kosten/Nutzen des Testens (Entwurf im Archiv „Entwurf Berater 75h“). (1) **76** Tom und Jerry schärfen, `CLAUDE.md` entschlacken: Entwurf im Archiv „Entwurf Berater 76“; offen **76a–76d** (Prompt „Wer du bist“, Kern in `CLAUDE.md` plus `docs/ENTWICKLER.md`, Schrittregeln als Kurzzeile im Kern bleiben, erst Entwurf beider Dateien als Dokument, Umbau im Nachfolger). (2) **72**: Freigabe Marktvergleich (PDF geliefert 20:00), dann als `docs/MARKT.md`; **72a–72j** mit vollem Wortlaut und Empfehlung zeigen ([Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b)). (3) Kultlager (41). Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g). Beim „festhalten“ `OFFEN.md` (17 KB) und diese Datei kürzen.
 
-**Zuletzt gelesen bis:** dieser Commit (13.10., 19:5x)
+**Zuletzt gelesen bis:** dieser Commit (13.10., 20:4x)
 
 ## Ritual
 
-- **Start** („Berater“/„Sokrates“): diese Datei, dann `docs/OFFEN.md` (zuerst „Für den Berater“), dann nur Änderungen seit „Zuletzt gelesen bis“ (`git log … <Stand>..origin/main`, `tools/story.sh <Stand>`). Kurz melden, Texte gegen `STORY.md` und Storyplan prüfen.
+- **Start** („Berater“/„Sokrates“): diese Datei, dann `docs/OFFEN.md` (zuerst „Für den Berater“), Verwerfquote im Prüfbericht Diogenes (viele verworfen: Prüfweise nachschärfen, 75g), dann nur Änderungen seit „Zuletzt gelesen bis“ (`git log … <Stand>..origin/main`, `tools/story.sh <Stand>`). Kurz melden, Texte gegen `STORY.md` und Storyplan prüfen.
 - **Ende** („Berater, festhalten“): Entscheidungen und Lehren eintragen, Veraltetes kürzen (Volltext ins Archiv), „Zuletzt gelesen bis“ setzen, pushen, Hauptkopie `git reset --hard HEAD`. **Nachfolger:** Titel „Sokrates – <Grobthema>“ unter „Sitzungen“, nächsten Punkt hier eintragen; der Nutzer startet ihn selbst mit „Sokrates“ (sonst verschwindet er unter „Geplant“), nur auf Wunsch selbst starten (`create_session`, ersatzweise `create_trigger` in 2 Minuten).
 - **Größere Entwürfe als Claude-Docs-Dokument** (Nutzer 12.10.; Matrizen, Listen, Erklärungen, die der Nutzer wiederfinden will), Link in `OFFEN.md` und hier; nach Freigabe als `docs/<NAME>.md` ins Repo.
 - Der Berater ändert Notizen und höchstens Werkzeug, nie Spielcode.
@@ -25,8 +25,8 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 ## Begründungen der Entscheidungen
 
 - **Abläufe (65):** Oberster Grundsatz des Nutzers: nichts Aufgabenrelevantes verlieren; darum `CLAUDE.md` knapp, aber ohne feste Grenze, Auslagern nur bei seltenem Anlass. **65.4** jeder Text an einem Ort, weil Doppelungen Token kosten und auseinanderlaufen. Volltext im Archiv („18:5x“).
-- **Rollen:** Grundsatzfragen beim Berater, ohne dass die Entwicklung steht; Diogenes ohne eigenen Account, Befund = Verdacht, Ablauf ausgelagert; Sitzungsnamen thematisch. Volltext im Archiv.
-- **Entscheidungsseite (63):** Fragen gingen in Chats unter; „Beschlüsse“ statt „Bildbuch“; kein „Erledigt“ (65.7). Volltext im Archiv.
+- **Rollen:** Grundsatzfragen beim Berater, ohne dass die Entwicklung steht; Sitzungsnamen thematisch. **Diogenes (75):** Claude als Tester neigt zu Rauschen, Bestätigen statt Widerlegen, Entwickleraugen und stillen Lücken; darum Erfolgsmaß „bestätigte Befunde“, Beleg und Regel, blind zuerst, Abdeckung melden. **75g** drei Klassen, weil sonst der Nutzer Verteiler oder wir Nadelöhr würden; Regelverstöße brauchen kein Absegnen (Regel schon entschieden). **„Dein Zug“ (75e):** Seite hält Entscheidungen und Tests. Entwurf im Archiv.
+- **Seite „Dein Zug“ (63):** Fragen gingen in Chats unter; „Beschlüsse“ statt „Bildbuch“; kein „Erledigt“ (65.7). Volltext im Archiv.
 - **Karte und Händler (62c, 59e, 64):** Karte erinnert statt führt; Bekannte am gewohnten Ort; Wissen vor Beschriftung; Chronik als eigener Reiter. Volltext im Archiv.
 - **Kartenbegriffe (62p/62q):** Stufen nach Enthaltensein (draußen Gebiet, hinter einem Eingang Grundriss); „Ebene“ für übereinanderliegende Teile, „Stockwerk“ klingt in Höhlen schief.
 - **Oberfläche (59, 60):** schwarz, Gold, Serife wie der Textkasten; Serife mitliefern, weil Geräteschriften je Gerät anders aussehen.
@@ -50,7 +50,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - **Ideen sind der Auftrag** (13.10.): „du bist mein Berater“, „dein Job, Ideen zu entwickeln“. Jeden Vorschlag auf Lücken, Kosten, Doppelungen prüfen, Eigenes mit Empfehlung ergänzen, Korrekturen des Nutzers offen übernehmen.
 - **Stand prüfen, bevor ich ihn als offen nenne** (13.10., 17:0x): Heldenbau war längst freigegeben, die Notiz veraltet. Offenes vor dem Nennen in Commits/Beschlüssen gegenprüfen; Entschiedenes sofort in `OFFEN.md` nachtragen.
 - **Entscheidungen einzeln abwarten** (13.10.): „ich folge deiner Empfehlung“ galt einem Punkt, nicht allen.
-- **Rückfragen des Beraters** (13.10.) im Gespräch stellen (nummeriert, Empfehlung), nicht über die Entscheidungsseite; erst nach Entscheidung in die Notizen.
+- **Rückfragen des Beraters** (13.10.) im Gespräch stellen (nummeriert, Empfehlung), nicht über die Seite „Dein Zug“; erst nach Entscheidung in die Notizen.
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
 - **Entwürfe sofort in die Notizen** (13.10.): der Rabenschanze-Entwurf stand nur im Chat und war nach dem Neustart nur als Kurznotiz da; Entwürfe gleich in Storyplan oder `OFFEN.md`.
 - **Meldungen in fremden Bereichen** (13.10.): erst `git pull` und nachsehen, ob Tom/Jerry sie schon eingetragen haben (62s stand doppelt).

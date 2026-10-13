@@ -66,7 +66,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | Tom | erledigt (auf `main`) | `OFFEN.md` |
 | 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | Tom | erledigt (auf `main`) | `OFFEN.md` |
 | 62 | Gezeichnete Karte im Menü | Tom | in Arbeit | `OFFEN.md` |
-| 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom (ab Fr. mit Jerry) | in Arbeit | `OFFEN.md` |
+| 63 | Eine Seite „Dein Zug“ für alles Offene (alle Rollen) | Tom (ab Fr. mit Jerry) | in Arbeit | `OFFEN.md` |
 | 64 | Questlog: Reiter „Chronik“ (Aufträge, Bisher geschehen) | Tom (Texte Berater mit Nutzer) | erledigt (auf `main`) | `OFFEN.md`, Beschlüsse |
 | 66 | Licht im Dorf bei Nacht (Wache, Laterne) | Tom | erledigt (auf `main`) | `OFFEN.md` |
 | 67 | Südrand des Dorfes (Feldweg, Wegweiser, Umkehr) | Tom | erledigt (auf `main`) | `OFFEN.md` |
@@ -76,3 +76,5 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 70 | Zwischensequenzen einheitlich | Berater mit Nutzer | offen | `OFFEN.md` |
 | 71 | Bestandsprüfung Stil und Klang aller Orte | Diogenes | offen | `OFFEN.md` |
 | 72 | Profil und Marktvergleich | Berater mit Nutzer | offen | `OFFEN.md` |
+| 75 | Diogenes schärfen; Kosten und Nutzen des Testens | Berater mit Nutzer | offen | `OFFEN.md` |
+| 76 | Tom und Jerry schärfen, CLAUDE.md entschlacken | Berater mit Nutzer | offen | `OFFEN.md` |
