@@ -50,5 +50,10 @@ else
     echo "Notizen auf main, neu seit dem letzten Aufruf:"
     TZ=Europe/Berlin git log --format='  %ad  %s' --date=format-local:'%d.%m. %H:%M' "$alt..$neu" -- CLAUDE.md CHANGELOG.md docs
 fi
+# Größenwarnung (65.4c): OFFEN.md höchstens etwa 15 KB, BERATER.md etwa 10 KB.
+for f in "docs/OFFEN.md:15000" "docs/BERATER.md:10000"; do
+    d=${f%%:*}; g=${f##*:}; n=$(git show "origin/main:$d" 2>/dev/null | wc -c)
+    [ "$n" -gt "$g" ] && echo "Warnung: $d hat $((n/100))00 Bytes (Grenze etwa $g), kürzen (CLAUDE.md „OFFEN.md klein halten“)."
+done
 echo "$neu" > "$mark"
 echo "Arbeitskopie für Notizen: $wt"

@@ -2,6 +2,10 @@
 
 Nicht beim Start lesen. Nur, wenn der Anlass eintritt; der Auslöser steht jeweils in `CLAUDE.md`.
 
+## Release vorschlagen (65.6)
+
+Einmal „Zeit für ein Release?“ fragen (Rückfrage auf der Entscheidungsseite), sobald unter „## Unveröffentlicht“ in `CHANGELOG.md` fünf getestete Themen stehen oder sieben Tage seit dem letzten Release vergangen sind, was zuerst kommt. Nicht wiederholen, bis ein Release erfolgt ist oder der Nutzer neu fragen lässt.
+
 ## Release (nur wenn der Nutzer „Release“ sagt, Thema 21)
 
 1. `gh workflow run android.yml -R tramour-cmyk/androidapp_rpg_bornim --ref main -f release=true` (Version 0.1.<Laufnummer>, Notizen aus „## Unveröffentlicht“ in `CHANGELOG.md`).
