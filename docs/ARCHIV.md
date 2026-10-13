@@ -1,5 +1,8 @@
 # Archiv
 
+### Aus BERATER.md, 13.10., 20:5x
+- **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen vor jeder Story-Änderung, damit Entwickler keine Texte erfinden. Kult mit weitergegebenem Titel trägt sieben Kapitel (Mischung, 14:08); Held erfährt in Kapitel 2 nur vom Kult; Vorlage je Kapitel geteilt, feste Marke je Text. **Kapitel 2 (2a–2d, 3a–3e):** Hinweise doppelt, damit jede Reihenfolge stimmt (freie Welt); Schilfrode verschlossen ohne Jorrit, sperrt aber nie den Weg (Anreiz statt Pfeil). **Rabenschanze (4a–4d, 19:25):** Mauerbruch als zweiter Weg (72.5), Silber aus Aschfurt und Liste „Ring fehlt“ binden die Station an Vorgeschichte und Kult. Volltext im Archiv („18:5x“).
+
 ### Entwurf Berater 75h: Kosten und Nutzen des Testens (13.10., 20:4x, noch nicht freigegeben)
 Risikobasiert: Prüftiefe nach Wahrscheinlichkeit mal Schaden; Testpyramide (Kerntests, Zufallsspieler billig und dauerhaft, Code lesen mittel, Standbilder/Filme teuer, Nutzer am Gerät am teuersten, aber einzig für Spielgefühl). 75h jeder bestätigte Befund „hoch“ wird Kerntest (Regressionsnetz); 75i Diogenes nur auf Anlass (vor Release, „Ort fertig“, großer Umbau, Auftrag), nicht nach jedem Build; 75j Budget je Lauf (Startwert höchstens 10 Standbilder, kein Film, Abbruch mit Abdeckungsmeldung); 75k Kosten je bestätigtem Befund messen (Tokenzuwachs laut Neustart-Haken), Berater wertet aus; 75l Diogenes auf dem Account mit mehr Guthaben, nie zulasten wartender Entwicklung.
 
