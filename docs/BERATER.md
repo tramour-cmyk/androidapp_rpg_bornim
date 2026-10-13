@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 12:24–13:1x „Chronik-Texte“ (64d/62i, 67); 13.10. 13:21–14:1x „Story-Vorlage“ (STORY.md geteilt, Richtung Prophet). **Nachfolger:** „Sokrates – Kapitel 2“ (Nutzer startet, wartet auf Antwort)
 
-**Nächster Punkt:** (1) erledigt 14:2x: Talentnamen im Heldenbau fett mit Markierung (rot gibt es im Editor nicht), Nutzer sieht durch. (2) Grobzusammenfassung Kapitel 2 in den Storyplan, Abschnitt „Kapitel 2“ (Richtung siehe Begründungen 41; 41-2 ja: am Ende erfährt der Held nur vom Kult, Titel erst Kapitel 3/4), Nutzer kommentiert dort.
+**Nächster Punkt:** Grobzusammenfassung Kapitel 2 steht im Storyplan (Entwurf „Das Graumoor“, 13.10. 15:2x); Rückfragen 41e–41h an den Nutzer offen (Region, Begleiter, Gwennas Mann, Siegel-Hälften), dann Quests mit Dialogen.
 
 **Zuletzt gelesen bis:** dieser Commit (13.10., 14:1x)
 
