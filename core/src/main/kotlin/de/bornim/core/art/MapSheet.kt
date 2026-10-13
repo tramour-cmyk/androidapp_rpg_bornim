@@ -14,6 +14,9 @@ object MapSheet {
     /** Draft switch (test tab, preview `KARTENBLATT=1`). */
     @Volatile var draft = true
 
+    /** 62h/62n (draft, preview `KARTENTUSCHE=1`): drawn like the land map, [MapInk.S] times finer ([MapInk]). */
+    @Volatile var ink = false
+
     /** Pixels per tile, and the margin of bare parchment round the map. */
     const val C = 8
     const val PAD = 10
@@ -41,6 +44,7 @@ object MapSheet {
      * not on this map).
      */
     fun render(map: MapDef, seen: (Int, Int) -> Boolean, heroX: Int = -1, heroY: Int = -1): PixelImage {
+        if (ink) return MapInk.render(map, seen)
         val w = map.width * C + 2 * PAD; val h = map.height * C + 2 * PAD
         val img = PixelImage(w, h)
         // parchment: warm, blotchy, darker towards the edges

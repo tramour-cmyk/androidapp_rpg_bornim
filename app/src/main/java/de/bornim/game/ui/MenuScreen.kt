@@ -306,9 +306,10 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
         val vw = constraints.maxWidth.toFloat(); val vh = constraints.maxHeight.toFloat()
         val fit = minOf(vw / img.width, vh / img.height)
         val density = androidx.compose.ui.platform.LocalDensity.current.density
-        // centre of a tile in the picture's pixels
-        fun cx(tx: Int) = de.bornim.core.art.MapSheet.PAD + tx * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f
-        fun cy(ty: Int) = de.bornim.core.art.MapSheet.PAD + ty * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f
+        // centre of a tile in the picture's pixels (the inked sheet is finer than its map pixels, 62h)
+        val fine = img.width.toFloat() / (map.width * de.bornim.core.art.MapSheet.C + 2 * de.bornim.core.art.MapSheet.PAD)
+        fun cx(tx: Int) = (de.bornim.core.art.MapSheet.PAD + tx * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f) * fine
+        fun cy(ty: Int) = (de.bornim.core.art.MapSheet.PAD + ty * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f) * fine
         // opens zoomed in on the hero, at least so far that the map fills the frame
         var scale by remember { mutableStateOf(if (here || focus != null) maxOf(fit * MapLook.previewZoom, maxOf(vw / img.width, vh / img.height)) else fit) }
         fun clampX(o: Float) = if (img.width * scale <= vw) (vw - img.width * scale) / 2 else o.coerceIn(vw - img.width * scale, 0f)
@@ -336,11 +337,11 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
         ) {
             drawImage(bmp, dstOffset = androidx.compose.ui.unit.IntOffset(ox.toInt(), oy.toInt()),
                 dstSize = androidx.compose.ui.unit.IntSize((img.width * scale).toInt(), (img.height * scale).toInt()),
-                filterQuality = androidx.compose.ui.graphics.FilterQuality.None)
+                filterQuality = if (fine > 1f) androidx.compose.ui.graphics.FilterQuality.Low else androidx.compose.ui.graphics.FilterQuality.None)
             val ink = Color(0xFF4A3622)
             // 62g: house names in ink, on the roof above the door
             for (h in houses) {
-                val style = androidx.compose.ui.text.TextStyle(fontFamily = MapLook.hand, fontSize = (de.bornim.core.art.MapSheet.C * 0.8f * scale / density / fontScale).sp, color = ink)
+                val style = androidx.compose.ui.text.TextStyle(fontFamily = MapLook.hand, fontSize = (de.bornim.core.art.MapSheet.C * fine * 0.8f * scale / density / fontScale).sp, color = ink)
                 val t = measurer.measure(h.name(lang), style)
                 val at = androidx.compose.ui.geometry.Offset(ox + cx(h.x) * scale - t.size.width / 2f, oy + cy(h.y - 2) * scale - t.size.height / 2f)
                 drawText(t, topLeft = at)
