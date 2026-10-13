@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -48,7 +49,10 @@ import de.bornim.game.Screen
 
 private val gearBlue = Color(0xFF2A62C8)
 
-private enum class Tab { HERO, BAG, GEAR, SYSTEM, TEST }
+private enum class Tab { HERO, BAG, GEAR, MAP, SYSTEM, TEST }
+
+/** The previews: the menu opens on the map (Vorrat 8, draft). */
+object MenuStart { @Volatile var map = false }
 
 /** 60: the menu in the look of the text box (black, gold rim, serif); a draft until chosen (preview `MENUE=1`). */
 object MenuLook {
@@ -66,7 +70,7 @@ fun MenuScreen(vm: GameViewModel, game: Game) {
 private fun MenuBody(vm: GameViewModel, game: Game) {
     vm.tick
     val lang = vm.lang
-    var tab by remember { mutableStateOf(Tab.HERO) }
+    var tab by remember { mutableStateOf(if (MenuStart.map && de.bornim.core.art.MapSheet.draft) Tab.MAP else Tab.HERO) }
     var dialog by remember { mutableStateOf<DialogSpec?>(null) }
     val back = { if (dialog != null) dialog = null else vm.menuOpen = false }
     BackHandler { back() }
@@ -87,8 +91,8 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
             .padding(10.dp)
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            val labels = mapOf(Tab.HERO to Ui.hero, Tab.BAG to Ui.bag, Tab.GEAR to Ui.gearShort, Tab.SYSTEM to Ui.system, Tab.TEST to de.bornim.core.T("Test", "Test"))
-            val tabs = Tab.entries.filter { it != Tab.TEST || vm.testMode }
+            val labels = mapOf(Tab.HERO to Ui.hero, Tab.BAG to Ui.bag, Tab.GEAR to Ui.gearShort, Tab.MAP to de.bornim.core.T("Karte", "Map"), Tab.SYSTEM to Ui.system, Tab.TEST to de.bornim.core.T("Test", "Test"))
+            val tabs = Tab.entries.filter { (it != Tab.TEST || vm.testMode) && (it != Tab.MAP || de.bornim.core.art.MapSheet.draft) }
             tabs.forEach { t ->
                 val badge = if (t == Tab.HERO && game.hero.unspentPoints > 0) " ★" else ""
                 PixelButton(labels.getValue(t)(lang) + badge, Modifier.weight(1f), selected = t == tab, size = if (tabs.size > 4) 11.sp else 13.sp) { tab = t }
@@ -105,6 +109,7 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
                     Tab.HERO -> HeroTab(vm, game, lang, ask)
                     Tab.BAG -> BagTab(vm, game, lang, ask)
                     Tab.GEAR -> GearTab(vm, game, lang, ask)
+                    Tab.MAP -> MapTab(game, lang)
                     Tab.SYSTEM -> SystemTab(vm, game, lang)
                     Tab.TEST -> TestTab(vm, game, lang)
                 }
@@ -114,6 +119,26 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
         BackRow(Ui.close(lang)) { back() }
     }
     dialog?.let { ConfirmDialog(it) { dialog = null } }
+    }
+}
+
+/** Vorrat 8 (draft): the drawn map of the place, only what the hero has seen, the hero a red mark. */
+@Composable
+private fun MapTab(game: Game, lang: Lang) {
+    val map = game.map
+    val p = game.state.place
+    val img = remember(map.id, p.x, p.y) {
+        de.bornim.core.art.MapSheet.render(map, { x, y -> game.fog(x, y) != de.bornim.core.Fog.HIDDEN }, p.x, p.y)
+    }
+    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        Txt(map.name(lang), size = 20.sp, bold = true)
+        Spacer(Modifier.height(6.dp))
+        androidx.compose.foundation.Image(
+            bitmap = Bitmaps.of(img),
+            contentDescription = null,
+            filterQuality = androidx.compose.ui.graphics.FilterQuality.None,
+            modifier = Modifier.fillMaxWidth().aspectRatio(img.width.toFloat() / img.height),
+        )
     }
 }
 

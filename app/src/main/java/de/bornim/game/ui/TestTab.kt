@@ -219,6 +219,22 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.refresh()
             vm.toast = if (grade) t("Höhle kalt-grünlich, Räume mit Feuer warm, Dämmerung violett, Ränder etwas dunkler.", "Cave cold and greenish, rooms with a fire warm, dusk violet, edges a little darker.") else t("Farben wie bisher.", "Colours as before.")
         }
+        // draft (idea 7): traces that stay a while
+        var tracks by remember { mutableStateOf(de.bornim.core.Tracks.draft) }
+        PixelButton(t("Spuren (Blut, Fußspuren, Staub): ", "Traces (blood, footprints, dust): ") + (if (tracks) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.Tracks.draft = !de.bornim.core.Tracks.draft
+            tracks = de.bornim.core.Tracks.draft
+            vm.refresh()
+            vm.toast = if (tracks) t("Blut nach gewonnenem Kampf, Fußspuren bei nassem Boden (auch mit Schlamm in die Häuser), Staub beim Rennen auf trockenem Weg.", "Blood after a won fight, footprints on wet ground (muddy boots carry them indoors), dust when running on a dry way.") else t("Keine Spuren.", "No traces.")
+        }
+        // draft (idea 8): the drawn map in the menu
+        var sheet by remember { mutableStateOf(de.bornim.core.art.MapSheet.draft) }
+        PixelButton(t("8 Gezeichnete Karte im Menü: ", "8 Drawn map in the menu: ") + (if (sheet) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.art.MapSheet.draft = !de.bornim.core.art.MapSheet.draft
+            sheet = de.bornim.core.art.MapSheet.draft
+            vm.refresh()
+            vm.toast = if (sheet) t("Im Menü ein Reiter „Karte“: der Ort als Tinte auf Pergament, nur was der Held gesehen hat.", "A “Map” tab in the menu: the place in ink on parchment, only what the hero has seen.") else t("Kein Kartenreiter.", "No map tab.")
+        }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()
             vm.refresh()

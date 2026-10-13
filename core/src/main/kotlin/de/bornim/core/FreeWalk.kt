@@ -144,6 +144,8 @@ class FreeWalk(private val game: Game) {
         val moved = hypot(x - sx, y - sy)
         walked += moved
         moving = moved > 1e-6
+        if (moving) game.tracks.walked(mapId, x, y, yaw, game.map.tile(floor(x).toInt(), floor(y).toInt()),
+            game.map.kind == MapKind.FOREST || game.map.kind == MapKind.TOWN, pace > WALK * 1.4, nowMs)
         // the way the hero faces, for what lies ahead (talking, opening, …): the nearer grid direction
         val f = if (abs(dx) > abs(dy)) (if (dx > 0) Facing.RIGHT else Facing.LEFT) else (if (dy > 0) Facing.DOWN else Facing.UP)
         if (game.state.place.facing != f && game.mode == Mode.Explore) game.face(f)
