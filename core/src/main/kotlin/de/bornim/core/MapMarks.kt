@@ -7,12 +7,19 @@ package de.bornim.core
  * The same facts will feed the quest log (64).
  */
 object MapMarks {
-    enum class Kind { GIVER, GOAL, BOARD }
+    /** 62f: each kind belongs to one of the three switches on the map: quests, people, services. */
+    enum class Group { QUESTS, PEOPLE, SERVICES }
+
+    enum class Kind(val group: Group) {
+        GIVER(Group.QUESTS), GOAL(Group.QUESTS), BOARD(Group.SERVICES),
+        PERSON(Group.PEOPLE), INN(Group.SERVICES), SHOP(Group.SERVICES), TEMPLE(Group.SERVICES), FIRE(Group.SERVICES),
+    }
 
     /** The flag set once the hero has spoken to [npc]. */
     fun met(npc: String) = "met_$npc"
 
-    data class Mark(val map: String, val x: Int, val y: Int, val kind: Kind, val done: Boolean, val label: T)
+    /** [who]: the person a giver or person mark stands for (62f: their habits join their quest mark). */
+    data class Mark(val map: String, val x: Int, val y: Int, val kind: Kind, val done: Boolean, val label: T, val who: String? = null)
 
     /** Where a job's errand leads, if it leads to one place: Gwenna's ring in the cave's chest, Jorin's rag at the stones. */
     private fun goal(j: Jobs.Job): Pair<String, Pair<Int, Int>>? = when (j.id) {
@@ -52,7 +59,7 @@ object MapMarks {
         if (s.has(Story.QUEST_STARTED)) for (m in World.maps.values) m.npcs.firstOrNull { it.id == "aldric" }?.let { n ->
             val goal = Story.objective(s)
             out += Mark(m.id, n.x, n.y, Kind.GIVER, s.has(Story.CHAPTER1_DONE),
-                T("Ältester Aldric: ${goal.de}", "Elder Aldric: ${goal.en}"))
+                T("Ältester Aldric: ${goal.de}", "Elder Aldric: ${goal.en}"), "aldric")
         }
         // 62e: the notice board, once read; a fresh note says so
         if (Jobs.all.any { s.has("job_${it.id}_seen") }) for (m in World.maps.values) {
@@ -65,7 +72,7 @@ object MapMarks {
             val done = Jobs.isDone(s, j)
             if (!taken && !done) continue
             if (s.has(met(j.giver))) for (m in World.maps.values) m.npcs.firstOrNull { it.id == j.giver }?.let { n ->
-                out += Mark(m.id, n.x, n.y, Kind.GIVER, done, T("${j.giverName.de}: ${j.title.de}", "${j.giverName.en}: ${j.title.en}"))
+                out += Mark(m.id, n.x, n.y, Kind.GIVER, done, T("${j.giverName.de}: ${j.title.de}", "${j.giverName.en}: ${j.title.en}"), j.giver)
             }
             goal(j)?.let { (mapId, at) ->
                 val m = World.maps[mapId] ?: return@let
@@ -77,6 +84,7 @@ object MapMarks {
             .mapNotNull { mk -> door(mk.map)?.let { (map, x, y) -> mk.copy(map = map, x = x, y = y) } }
             .groupBy { Triple(it.map, it.x, it.y) }
             .map { (_, ms) -> ms.first().copy(done = ms.all { it.done }, label = T(ms.joinToString("\n") { it.label.de }, ms.joinToString("\n") { it.label.en })) }
-        return out + atDoors
+        val all = out + atDoors
+        return if (MapPeople.draft) all + MapPeople.marks(s) + MapPeople.services(s) else all
     }
 }

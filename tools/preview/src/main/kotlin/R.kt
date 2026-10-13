@@ -12,5 +12,6 @@ object R {
         const val alegreya_sc_medium = 6
         const val cinzel_semibold = 7
         const val imfell_regular = 8
+        const val fondamento_regular = 9
     }
 }

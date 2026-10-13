@@ -9,5 +9,6 @@ Alle aus dem Google-Fonts-Archiv (https://github.com/google/fonts, Ordner `ofl/�
 | `alegreya_sc_medium.ttf` | `ofl/alegreyasc/AlegreyaSC-Medium.ttf` | wie Alegreya | auf Latein-1 gekürzt |
 | `cinzel_semibold.ttf` | `ofl/cinzel/Cinzel[wght].ttf` | The Cinzel Project Authors (Natanael Gama) | Schnitt 600, gekürzt |
 | `imfell_regular.ttf` | `ofl/imfellenglish/IMFeENrm28P.ttf` | Igino Marini (nach Drucktypen von John Fell, 17. Jh.) | gekürzt |
+| `fondamento_regular.ttf` (62g, Hausnamen auf der Karte in Handschrift) | `ofl/fondamento/Fondamento-Regular.ttf` | Brian J. Bonislawsky (Astigmatic); „Reserved Font Name“ Fondamento | **unverändert** (wegen des reservierten Namens nicht gekürzt) |
 
 Erzeugt mit `schnitte.py` (fontTools; Quellen nach `src/` laden).

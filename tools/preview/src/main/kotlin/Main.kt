@@ -120,6 +120,46 @@ fun main() {
         de.bornim.game.ui.MapLook.previewTip = -2
         shot("62e_dorf", settle = 30) { vm -> setup(vm, "village", 10, 17, Facing.DOWN) }
         if (System.getenv("ONLY") == "62e") System.exit(0)
+        // KARTE62=1 ONLY=62f: 62f/62g draft, people at their usual place, services, house names in handwriting
+        if (System.getenv("ONLY") == "62f") {
+            de.bornim.core.MapPeople.draft = true
+            val grp = de.bornim.core.MapMarks.Group.entries
+            fun known(vm: GameViewModel) {
+                val st = vm.game!!.state
+                for (id in listOf("rowena", "borin", "thessa", "osric", "bram", "pim", "liska", "garrick")) st.flags += de.bornim.core.MapMarks.met(id)
+                st.flags += de.bornim.core.MapPeople.seenAt("bram", "evening"); st.flags += de.bornim.core.MapPeople.seenAt("pim", "square")
+                for (i in listOf("inn", "shop", "elder")) st.flags += de.bornim.core.MapPeople.been(i)
+                st.flags += de.bornim.core.MapPeople.heard(12, 5); st.flags += de.bornim.core.MapPeople.heard(13, 22)
+                vm.refresh()
+            }
+            de.bornim.game.ui.MapLook.previewZoom = 1.15f
+            de.bornim.game.ui.MapLook.previewTip = -1
+            de.bornim.game.ui.MapLook.previewTipMatch = "Rowena"
+            shot("62f_dorf_alle", settle = 30) { vm -> setup(vm, "village", 9, 12, Facing.DOWN); known(vm) }
+            de.bornim.game.ui.MapLook.previewTipMatch = "Thessa"
+            shot("62f_dorf_rechts", settle = 30) { vm -> setup(vm, "village", 27, 12, Facing.DOWN); known(vm) }
+            de.bornim.game.ui.MapLook.previewTipMatch = "Wache Jorin"
+            shot("62f_dorf_jorin", settle = 30) { vm -> setup(vm, "village", 17, 6, Facing.DOWN); known(vm) }
+            de.bornim.game.ui.MapLook.previewTipMatch = "Bauer Bram"
+            de.bornim.game.ui.MapLook.previewShow = setOf(grp[1])
+            shot("62f_dorf_leute", settle = 30) { vm -> setup(vm, "village", 17, 24, Facing.DOWN); known(vm) }
+            de.bornim.game.ui.MapLook.previewTipMatch = null
+            de.bornim.game.ui.MapLook.previewShow = setOf(grp[2])
+            shot("62f_dorf_dienste", settle = 30) { vm -> setup(vm, "village", 9, 12, Facing.DOWN); known(vm) }
+            de.bornim.game.ui.MapLook.previewShow = grp.toSet()
+            de.bornim.game.ui.MapLook.previewTipMatch = "Garrick"
+            shot("62f_wald", settle = 30) { vm ->
+                setup(vm, "forest", 0, 0, Facing.UP); known(vm)
+                // the camp seen as well
+                val st = vm.game!!.state; val f = de.bornim.core.World["forest"]
+                val old = st.explored["forest"]!!
+                val bits = BooleanArray(f.width * f.height) { i -> val c = old.getOrNull(i / 4)?.digitToInt(16) ?: 0
+                    (c shr (i % 4)) and 1 == 1 || (i % f.width - 12) * (i % f.width - 12) + (i / f.width - 9) * (i / f.width - 9) <= 30 || (i % f.width - 10) in -2..2 && i / f.width in 9..30 }
+                st.explored["forest"] = bits.toList().chunked(4).joinToString("") { c -> c.withIndex().sumOf { (b, v) -> if (v) 1 shl b else 0 }.toString(16) }
+                vm.refresh()
+            }
+            System.exit(0)
+        }
         de.bornim.game.ui.MapLook.previewTip = -1
         de.bornim.game.ui.MapLook.previewOverview = true
         shot("62c_orte", settle = 30) { vm -> setup(vm, "forest", 0, 0, Facing.UP) }
