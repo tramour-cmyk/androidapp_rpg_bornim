@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Aufbau, Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARCHIV.md` („Aus BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 13:21–14:1x „Story-Vorlage“; 13.10. 14:18–15:3x „Kapitel 2“ (Heldenbau markiert, Grobzusammenfassung Graumoor, Umfang 41i). **Nachfolger:** „Sokrates – Kapitel 2 Karte“ (Nutzer startet mit „Sokrates“)
+**Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 14:18–15:3x „Kapitel 2“; 13.10. 15:44–16:1x „Kapitel 2 Karte“ (41j–l, Karte, 38g, 62n/62o). **Nachfolger:** „Sokrates – Kapitel 2 Storyplan“ (Nutzer startet mit „Sokrates“)
 
-**Nächster Punkt:** Kapitel 2 „Das Graumoor“ (Grobzusammenfassung im Storyplan). Nutzer 15:28: Grundidee gut; Kapitel 1 ist Einweisung, Kapitel 2 muss im Umfang deutlich mehr bieten (Karten, Höhlen, Zufallsdungeons 48). 41j/k/l ja (15:58); [Karte](https://claude.ai/artifact/LUvNvJofCbNpvv7Rm7zJsu) (≈12.200 Felder, ≈3× Kapitel 1; Dauer geschätzt 4–6 h) zur Durchsicht; offen 38g (Jerry misst Spieldauer). Danach Umfang in den Storyplan. Dazu **68** Tempelszene (Lyra legt Amulett auf den Altar, „Ancient Legend“, Licht flackert einmal) und **69** Intro (fünf Standbilder: Südstraße, Brücke, Dorfplatz mit Fackeln am Tempel = Überfall, Fenster des Greifs, „Du schläfst wie ein Stein“); Rückfragen 68a, 69a, 69b offen, Texte nach Freigabe in den Storyplan.
+**Nächster Punkt:** **41m** offen (Anordnung Karte Kapitel 2: Kultlager südlich versetzt, Aschfurt im Moor, Zufallshöhlen bei Schilfrode, nach Bornim nur Südstraße; Empfehlung ja), danach Umfang 41j–l und Karte in den Storyplan. **68/69** (Tempelszene, Intro): Nutzer bringt den Wortlaut aus der alten Sitzung, dann Textentwürfe. Karten und Bilder immer auch als PNG in den Chat.
 
-**Zuletzt gelesen bis:** dieser Commit (13.10., 15:3x)
+**Zuletzt gelesen bis:** dieser Commit (13.10., 16:1x)
 
 ## Ritual
 
