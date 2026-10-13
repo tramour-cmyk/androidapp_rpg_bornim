@@ -119,6 +119,24 @@ fun main() {
         // 62e: the elder's mark at his door, the notice board (the last mark named)
         de.bornim.game.ui.MapLook.previewTip = -2
         shot("62e_dorf", settle = 30) { vm -> setup(vm, "village", 10, 17, Facing.DOWN) }
+        // KARTE62=1 ONLY=64: 64 (draft) the chronicle, tasks and "so far", the hero half through chapter 1 with a job
+        if (System.getenv("ONLY") == "64") {
+            de.bornim.game.ui.ChronicleLook.draft = true
+            de.bornim.game.ui.MenuStart.chronicle = true
+            fun story(vm: GameViewModel) {
+                setup(vm, "village", 17, 6, Facing.DOWN)
+                val st = vm.game!!.state
+                for (f in listOf(de.bornim.core.Story.BARRIER_OPEN, de.bornim.core.Story.HUNTER_MET, de.bornim.core.Story.KROGG_DEFEATED)) st.flags += f
+                st.explored["cave"] = "0"
+                de.bornim.core.Jobs.take(st, de.bornim.core.Jobs.all.first()); de.bornim.core.Jobs.take(st, de.bornim.core.Jobs["stones"])
+                vm.refresh()
+            }
+            for (sofar in listOf(false, true)) {
+                de.bornim.game.ui.ChronicleLook.previewSoFar = sofar
+                shot(if (sofar) "64_bisher" else "64_auftraege", settle = 30) { vm -> story(vm) }
+            }
+            System.exit(0)
+        }
         // KARTE62=1 ONLY=62h: 62h (draft) the land map in both looks, from the woods (cave and deep woods not yet seen)
         if (System.getenv("ONLY") == "62h") {
             de.bornim.game.ui.MapLook.previewOverview = true

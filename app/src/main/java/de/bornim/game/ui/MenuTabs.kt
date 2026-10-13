@@ -35,7 +35,7 @@ object TabLook {
     @Volatile var draft = true
 }
 
-enum class TabSign { HERO, BAG, GEAR, MAP, SYSTEM, TEST }
+enum class TabSign { HERO, BAG, GEAR, MAP, CHRONICLE, SYSTEM, TEST }
 
 @Composable
 fun TabButton(sign: TabSign, label: String, modifier: Modifier = Modifier, selected: Boolean, badge: Boolean = false, onClick: () -> Unit) {
@@ -99,6 +99,14 @@ fun DrawScope.glyph(sign: TabSign, c: Color, badge: Boolean = false) {
                 drawCircle(c, 0.7f * u, o(x, y))
             drawLine(c, o(17f, 7.5f), o(19.5f, 10f), thin.width, StrokeCap.Round)
             drawLine(c, o(19.5f, 7.5f), o(17f, 10f), thin.width, StrokeCap.Round)
+        }
+        TabSign.CHRONICLE -> {
+            // 64: a scroll, rolled at both ends, three lines of writing
+            drawRoundRect(c, o(4f, 3.5f), Size(16f * u, 3.5f * u), androidx.compose.ui.geometry.CornerRadius(1.7f * u), style = line)
+            drawRoundRect(c, o(4f, 17f), Size(16f * u, 3.5f * u), androidx.compose.ui.geometry.CornerRadius(1.7f * u), style = line)
+            drawLine(c, o(6f, 7f), o(6f, 17f), line.width, StrokeCap.Round)
+            drawLine(c, o(18f, 7f), o(18f, 17f), line.width, StrokeCap.Round)
+            for (y in listOf(9.5f, 12f, 14.5f)) drawLine(c, o(8.5f, y), o(if (y == 14.5f) 12.5f else 15.5f, y), thin.width, StrokeCap.Round)
         }
         TabSign.SYSTEM -> {
             // an hourglass: the game's time, saving and loading

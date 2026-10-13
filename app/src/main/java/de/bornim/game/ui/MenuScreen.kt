@@ -54,10 +54,10 @@ import de.bornim.game.Screen
 
 private val gearBlue = Color(0xFF2A62C8)
 
-private enum class Tab { HERO, BAG, GEAR, MAP, SYSTEM, TEST }
+private enum class Tab { HERO, BAG, GEAR, MAP, CHRONICLE, SYSTEM, TEST }
 
 /** The previews: the menu opens on the map (Vorrat 8, draft). */
-object MenuStart { @Volatile var map = false }
+object MenuStart { @Volatile var map = false; @Volatile var chronicle = false }
 
 /** 60: the menu in the look of the text box (black, gold rim, serif); a draft until chosen (preview `MENUE=1`). */
 object MenuLook {
@@ -75,7 +75,7 @@ fun MenuScreen(vm: GameViewModel, game: Game) {
 private fun MenuBody(vm: GameViewModel, game: Game) {
     vm.tick
     val lang = vm.lang
-    var tab by remember { mutableStateOf(if (MenuStart.map && de.bornim.core.art.MapSheet.draft) Tab.MAP else Tab.HERO) }
+    var tab by remember { mutableStateOf(if (MenuStart.chronicle && ChronicleLook.draft) Tab.CHRONICLE else if (MenuStart.map && de.bornim.core.art.MapSheet.draft) Tab.MAP else Tab.HERO) }
     var dialog by remember { mutableStateOf<DialogSpec?>(null) }
     val back = { if (dialog != null) dialog = null else vm.menuOpen = false }
     BackHandler { back() }
@@ -96,8 +96,8 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
             .padding(10.dp)
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            val labels = mapOf(Tab.HERO to Ui.hero, Tab.BAG to Ui.bag, Tab.GEAR to Ui.gearShort, Tab.MAP to de.bornim.core.T("Karte", "Map"), Tab.SYSTEM to Ui.system, Tab.TEST to de.bornim.core.T("Test", "Test"))
-            val tabs = Tab.entries.filter { (it != Tab.TEST || vm.testMode) && (it != Tab.MAP || de.bornim.core.art.MapSheet.draft) }
+            val labels = mapOf(Tab.HERO to Ui.hero, Tab.BAG to Ui.bag, Tab.GEAR to Ui.gearShort, Tab.MAP to de.bornim.core.T("Karte", "Map"), Tab.CHRONICLE to de.bornim.core.T("Chronik", "Chronicle"), Tab.SYSTEM to Ui.system, Tab.TEST to de.bornim.core.T("Test", "Test"))
+            val tabs = Tab.entries.filter { (it != Tab.TEST || vm.testMode) && (it != Tab.MAP || de.bornim.core.art.MapSheet.draft) && (it != Tab.CHRONICLE || ChronicleLook.draft) }
             tabs.forEach { t ->
                 val badge = if (t == Tab.HERO && game.hero.unspentPoints > 0) " ★" else ""
                 // 60j (draft): a drawn sign with a small word under it
@@ -119,6 +119,7 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
                     Tab.BAG -> BagTab(vm, game, lang, ask)
                     Tab.GEAR -> GearTab(vm, game, lang, ask)
                     Tab.MAP -> {}
+                    Tab.CHRONICLE -> ChronicleTab(game, lang) { tab = Tab.MAP }
                     Tab.SYSTEM -> SystemTab(vm, game, lang)
                     Tab.TEST -> TestTab(vm, game, lang)
                 }
@@ -695,9 +696,12 @@ private fun GearTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
 @Composable
 private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
     vm.tick // redraw after every change
-    Txt(Ui.quest(lang), size = 18.sp, bold = true)
-    Txt(Story.objective(game.state)(lang), size = 16.sp)
-    JobList(vm, game, lang)
+    // 64a: with the chronicle the tasks leave this tab
+    if (!ChronicleLook.draft) {
+        Txt(Ui.quest(lang), size = 18.sp, bold = true)
+        Txt(Story.objective(game.state)(lang), size = 16.sp)
+        JobList(vm, game, lang)
+    }
     Spacer(Modifier.height(6.dp))
     // The exact installed version, e.g. for bug reports.
     Txt(
