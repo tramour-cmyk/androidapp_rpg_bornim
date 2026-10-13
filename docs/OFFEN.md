@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom 0.1.702** (Zweig `claude/tom-13e-kegelrand`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38428809928/artifacts/11829179520 · Prüfliste `e/t702.html`: Höhle Lagerfeuer (13e, Meldung 17:5x), Gebietskarte/Grundrisse im Tuschestil, Schilder (62h/62o/62n); enthält 0.1.693 (**Nutzer 19:2x zu 0.1.693: Höhle mit Licht funktioniert, Gebietskarte passt**). Nach „passt“ zu 0.1.702: PR, zusammenführen.
+- **Tom 0.1.702** (Zweig `claude/tom-13e-kegelrand`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38428809928/artifacts/11829179520 · Prüfliste `e/t702.html`: Höhle Lagerfeuer (13e, Meldung 17:5x), Gebietskarte/Grundrisse im Tuschestil, Schilder (62h/62o/62n); enthält 0.1.693 (**Nutzer 19:2x zu 0.1.693: Höhle mit Licht funktioniert, Gebietskarte passt**). **Nutzer 19:3x:** 62h „passt halbwegs“: im Grundriss Tempel fehlen die zwei Leute (Bild im Chat). Offen in 0.1.702: Lagerfeuer-Raum (13e), Schilder (62n). Nach „passt“ zu 0.1.702: PR, zusammenführen.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Entscheidungsseite (65.3), nicht hier.
 
@@ -42,7 +42,8 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 67a | Wegweiser am Südrand: „Rabenschanze“, darunter klein „Schilfrode“ | Tom | `claude/tom-13t-alte-ansicht` | **Ja (Nutzer 17:26)**, Text `[67.schild]` in `docs/STORY1.md`; auf dem Zweig (Text beim Antippen zweizeilig), kommt mit 13t |
 | 3b | Garrick sitzt links vom Feuer statt rechts, damit man in der diagonalen Sicht seine Bewegungen sieht (jetzt mit dem Rücken zur Kamera) | Tom | – | Nutzer 13.10., 17:10; Kräuterfrau prüft der Nutzer noch |
 | 62s | Gebietskarte Dorf: Tippen auf erkundetes Haus (Schild da) öffnet keinen Grundriss; Wald → Höhle geht | Tom | `claude/tom-13e-kegelrand` | Nutzer 19:24 zum Testbuild (vermutlich 0.1.702). Fehler, Zusammenhang mit 62r „Hineintippen tiefer“ |
-| 61b | Fußspuren im Tiefen Wald bei der Kräuterfrau, obwohl es nicht regnet | Tom | – | Nutzer 17:11. **Verdacht**, erst prüfen: Boden trocknet nach Regen langsam nach oder Schlamm an den Stiefeln? Spuren nur, wo der Boden sichtbar nass ist (Berater) |
+| 61b | Fußspuren im Tiefen Wald bei der Kräuterfrau, obwohl es nicht regnet | Tom | `claude/tom-13t-alte-ansicht` | Bestätigt: Boden blieb unsichtbar 4 min nass und nahm Spuren an; jetzt 1 min (Commit nach 573e0961), kommt mit 13t |
+| 62s | Gebietskarte Dorf: Tippen auf ein erkundetes Haus mit Schild öffnet keinen Grundriss (Höhle im Wald geht) | Tom | – | Nutzer 13.10., 19:3x. Zusammen mit 62o/62r ansehen; ebenso fehlende Leute im Grundriss Tempel |
 | 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | – | **69a–69d ja (Nutzer 13.10., 16:31):** Texte, Ablauf und Klang in `docs/STORY1.md` (`[69.intro.…]`), wortgetreu übernehmen |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten im Archiv). **48d–48f ja (16:51):** je Spielstand nur Startwert plus **Version des Erzeugers** speichern (Updates verändern keine bestehende Höhle, alte Erzeuger bleiben im Code); Besiegtes und Geplündertes bleibt weg, neuer Auftrag darf dieselbe Höhle neu besetzen. Nach Kapitel 1 |
 | 49 | Lehrer, Fertigkeiten, Talente | Berater mit Nutzer | – | 49d–49t ja ([Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)); **Dokument vom Nutzer freigegeben** (13.10., Namen fett markiert); abgelegt als `docs/HELDENBAU.md` (17:1x). Nach Kapitel 1 |
