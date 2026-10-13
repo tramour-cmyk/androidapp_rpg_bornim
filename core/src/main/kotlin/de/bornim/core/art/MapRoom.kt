@@ -93,6 +93,22 @@ object MapRoom {
                 // the doorway: the threshold and grey daylight falling in
                 c = if (ly < 8) BEAM[2] else if (lx < 8 || lx >= S - 8) BEAM[1] else shade(argb(0x8A8270), 0.7 + ly / S.toDouble() * 0.3)
             } else {
+                // the temple (13, Nutzer 13.10., 19:39): worn stone slabs instead of boards, each its own size and shade
+                if (map.id.substringBefore('_') == "temple" && t != Tile.RUG) {
+                    val row = Math.floorDiv(y, 22)
+                    val shift = (rnd(row, 0, 41) * 60).toInt()
+                    val w = 28 + (rnd(row, 1, 42) * 18).toInt()
+                    val slab = Math.floorDiv(x + shift, w)
+                    var st = 0.5 + (rnd(row, slab, 43) - 0.5) * 0.28 + (vnoise(x.toDouble(), y.toDouble(), 5.0, 44) - 0.5) * 0.18
+                    val mx = (x - map.width * S / 2.0) / (map.width * S / 2.0); val my = (y - map.height * S / 2.0) / (map.height * S / 2.0)
+                    st += (1 - sqrt(mx * mx + my * my)).coerceAtLeast(0.0) * 0.12
+                    if (Math.floorMod(y, 22) == 0 || Math.floorMod(x + shift, w) == 0) st -= 0.4
+                    if (rnd(x / 2, y / 2, 45) < 0.006) st -= 0.25
+                    st -= wallShade(map, tx, ty, lx, ly)
+                    if (t in furniture) st -= 0.18
+                    put(img, xx, yy, pick(STONE, st))
+                    continue
+                }
                 // oak boards running across, each its own shade, the joints dark, worn pale in the middle of the room
                 val board = Math.floorDiv(y, 9)
                 val shift = (rnd(board, 0, 6) * 80).toInt()
