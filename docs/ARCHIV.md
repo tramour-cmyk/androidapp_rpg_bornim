@@ -1,5 +1,13 @@
 # Archiv
 
+
+### Übergabe Tom, abgelöst 13.10., 12:10
+
+#### Tom (13.10., 11:00) – Build 0.1.660, Neustart empfohlen
+- Zweig `claude/tom-17-riemen` (von `ccr-5851d275-mvpqbt`, `main` drin), Build **0.1.660** (siehe „Zu testen“). Nach dem Test: PR von diesem Zweig, zusammenführen (Merge), Änderungshistorie unter „Unveröffentlicht“: 59, 60e–k, 60j, 17r, 5la, 5la.2, 6g, 6f, 61a, 62a, 62c, 59e, 55.1a, 55.1b, 13x, 13v/27.6.
+- 17 Riemen verworfen (kaum sichtbar), 17 fertig. 55.1b/60j entschieden und drin (Beschlüsse). 5la.3 ja (11:0x): 3 Felder, 10 s, im Zweig (STIL.md angepasst). 6l zurückgestellt. Toms Kapitel-1-Ziele erledigt bis auf „alte Ansicht ausgebaut“ (wartet auf Höhle, Jerry).
+- **Weiter:** Build **0.1.662** mit 5la.3 (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38373719219) prüfen, Artefakt-Link melden, „Zu testen“ und Entscheidungsseite „Anzusehen“ auf 0.1.662 umstellen; nach Test PR von `claude/tom-17-riemen`; sonst Selbstvorrat leer, beim Nutzer nach Neuem fragen (z. B. 64 Questlog nach Entwurf des Beraters).
+
 ### Aus THEMEN.md, 13.10., 11:2x (Stand-Spalte vor 65.4 ausführlich)
 
 | 1 | Regen, Wetterleuchten mit Donner | Tom | erledigt, v0.1.409 | Änderungshistorie |
@@ -504,14 +512,6 @@ Zeile 24 aus „Wer macht was“ (Stand 12.10.): | 24 | Animationen fehlen nach 
 
 - **Übergabe Tom (13.10., 01:52), ersetzt:** ### Tom (13.10., 01:52) – Selbstarbeit, an Nachfolger übergeben - **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g Katze), je ein Testreiter-Schalter. Rückfragen 60e–60i, 27.6a–c, 13x, 17r, 5la, 6g auf der Entscheidungsseite (Empf. je ja). - Entwürfe fertig auf eigenen Zweigen: `tom-27-6-tiefer-wald`, `tom-13-tempel-altar`, `tom-17-nachschwingen`, `tom-5l-leben`, `tom-katze` (Vorschau-Schalter in `UMGEBUNG.md`). - **Weiter:** Vorrat 6 Farbstimmung je Ort und Tageszeit (Entwurf hinter Schalter, neuer Zweig von `main`), dann 7 Spuren, 8 Kartenansicht. Vorschau nur mit engem `ONLY=`; Uhrzeit immer mit `date` ablesen.
 
-
-
-## Übergabe Tom, abgelöst 13.10., 12:10
-
-### Tom (13.10., 11:00) – Build 0.1.660, Neustart empfohlen
-- Zweig `claude/tom-17-riemen` (von `ccr-5851d275-mvpqbt`, `main` drin), Build **0.1.660** (siehe „Zu testen“). Nach dem Test: PR von diesem Zweig, zusammenführen (Merge), Änderungshistorie unter „Unveröffentlicht“: 59, 60e–k, 60j, 17r, 5la, 5la.2, 6g, 6f, 61a, 62a, 62c, 59e, 55.1a, 55.1b, 13x, 13v/27.6.
-- 17 Riemen verworfen (kaum sichtbar), 17 fertig. 55.1b/60j entschieden und drin (Beschlüsse). 5la.3 ja (11:0x): 3 Felder, 10 s, im Zweig (STIL.md angepasst). 6l zurückgestellt. Toms Kapitel-1-Ziele erledigt bis auf „alte Ansicht ausgebaut“ (wartet auf Höhle, Jerry).
-- **Weiter:** Build **0.1.662** mit 5la.3 (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38373719219) prüfen, Artefakt-Link melden, „Zu testen“ und Entscheidungsseite „Anzusehen“ auf 0.1.662 umstellen; nach Test PR von `claude/tom-17-riemen`; sonst Selbstvorrat leer, beim Nutzer nach Neuem fragen (z. B. 64 Questlog nach Entwurf des Beraters).
 
 ## Aus BERATER.md (12.10., 16:4x, gekürzt)
 
