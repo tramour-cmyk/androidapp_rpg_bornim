@@ -65,10 +65,10 @@ object MapRest {
         return r
     }
 
-    /** Where the hand holds the grounded spear (55.1b): beside the hip, below the spear's head. */
-    private const val SPEAR_R = 16.0
+    /** Where the hand holds the grounded spear (55.1b): beside the hip, not before it (seen from above a spear in front looks short). */
+    private const val SPEAR_R = 19.0
     private const val SPEAR_U = 62.0
-    private const val SPEAR_F = 10.0
+    private const val SPEAR_F = 3.0
 
     /** Length of the stretches chance picks a stance for. */
     const val BLOCK_MS = 9_000L

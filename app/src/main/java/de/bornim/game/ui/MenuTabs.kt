@@ -27,12 +27,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 /**
- * 60j (draft): the menu tabs as a drawn sign with a small word under it, gold lines on black like the
+ * 60j (A ja, 13.10.): the menu tabs as a drawn sign with a small word under it, gold lines on black like the
  * frame of the text box. The signs are drawn on a grid of 24 by 24, in lines, never filled.
  */
 object TabLook {
-    /** The test switch: off shows the words alone, as now. */
-    @Volatile var draft = false
+    /** Off shows the words alone, as before (previews, for comparison). */
+    @Volatile var draft = true
 }
 
 enum class TabSign { HERO, BAG, GEAR, MAP, SYSTEM, TEST }

@@ -707,7 +707,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             }
             else -> {
                 val len = reach(main.base) * k * 0.95
-                // 55.1b (draft): grounded, the spear slides down through the hand until the butt stands on the ground
+                // 55.1b : grounded, the spear slides down through the hand until the butt stands on the ground
                 val slide = if (sk.rig.ground > 0 && main.base == "spear" && dir.y > 0.5)
                     slide + (len * buttPart(main.base) - (hand.y - minOf(sk.ankle[0].y, sk.ankle[1].y) + 0.04 * h) / dir.y - slide) * sk.rig.ground else slide
                 val top = hand + dir * (len + slide)
@@ -1410,14 +1410,14 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         fun stows(g: Gear): Boolean = g.def.isWeapon && !g.def.ranged && g.base !in ROUND && !g.def.twoHanded && g.base != "halberd" && g.base != "wand"
         /**
          * How far a staff reaches back past the hand, as a part of its reach: a wizard's staff is held high, a fighting
-         * staff in the middle, a spear (175 cm on a human) in its back third.
+         * staff in the middle, a spear (200 cm on a human) in its back third.
          */
         fun buttPart(base: String) = when (base) { "staff" -> 1.45; "quarterstaff" -> 1.0; "spear" -> 0.42; else -> 0.0 }
         /** About how far a weapon reaches beyond the hand, in cm: the front of its drawing at true size. */
         fun reach(base: String) = when (base) {
             "dagger" -> 28.0; "shortsword" -> 47.0; "scimitar" -> 65.0; "rapier" -> 80.0; "longsword" -> 75.0; "greatsword" -> 103.0
             "handaxe" -> 36.0; "battleaxe" -> 64.0; "greataxe" -> 96.0; "mace" -> 54.0; "morningstar" -> 66.0; "warhammer" -> 53.0; "maul" -> 85.0
-            "spear" -> 123.0; "halberd" -> 131.0; "wand" -> 60.0; "quarterstaff" -> 85.0; "staff" -> 70.0; else -> 100.0
+            "spear" -> 148.0; "halberd" -> 131.0; "wand" -> 60.0; "quarterstaff" -> 85.0; "staff" -> 70.0; else -> 100.0
         }
 
         fun frac(v: Double) = v - floor(v)
