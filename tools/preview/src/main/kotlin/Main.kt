@@ -91,6 +91,7 @@ fun geared(vm: GameViewModel, cls: CharClass, race: Race = Race.DWARF) {
 fun main() {
     System.getenv("FILM")?.let { fightFilm(it); System.exit(0) }
     System.getenv("FILMBATCH")?.let { fightBatch(it); System.exit(0) }
+    if (System.getenv("KARTENBLATT") != null) { renderMapSheets(); System.exit(0) }
     if (System.getenv("WEGE") != null) { renderWayDrafts(); System.exit(0) }
     System.getenv("FLORA")?.let { renderFloraSheet(it); System.exit(0) }
     if (System.getenv("HOEHLEDINGE") != null) { renderCaveThings(); System.exit(0) }
@@ -213,6 +214,50 @@ fun main() {
                 // 13e: the cave seen diagonally, room by room (entrance, both side halls, Krogg, the pool, Grak's hall)
                 for ((k, at) in listOf("1_eingang" to (10 to 17), "2_westhalle" to (4 to 9), "3_krogg" to (15 to 10), "4_suedost" to (16 to 15), "5_weiher" to (5 to 15), "6_grak" to (10 to 3))) {
                     shot("zoom_${z}_c${k}") { place(it, "cave", at.first, at.second, 12 * 60) }
+                }
+                // SPURDRAFT=1: traces that stay a while (idea 7, draft): blood, footprints after the rain, dust, mud carried in
+                if (System.getenv("SPURDRAFT") != null) {
+                    de.bornim.core.Tracks.draft = true
+                    /** Walks the hero freely ([dist] tiles each way of [legs]) from [t0] ms of the app clock on. */
+                    fun walkFree(g: de.bornim.core.Game, legs: List<Pair<Double, Double>>, dist: Double, run: Boolean = false, t0: Long = 0L) {
+                        val fw = g.freeWalk; fw.sync()
+                        var t = t0
+                        for ((vx, vy) in legs) {
+                            val w0 = fw.walked
+                            var guard = 0
+                            while (fw.walked - w0 < dist && guard++ < 400) { fw.walk(vx, vy, 40, if (run) de.bornim.core.FreeWalk.RUN else de.bornim.core.FreeWalk.WALK, t); t += 40 }
+                        }
+                    }
+                    shot("zoom_${z}_s1_blut") {
+                        place(it, "forest", 9, 9, 12 * 60, Facing.UP)
+                        val tr = it.game!!.tracks
+                        tr.blood("forest", 10.3, 10.6, 0, 3)
+                        tr.blood("forest", 7.8, 9.4, -150_000, 11)
+                        tr.blood("forest", 12.5, 11.6, -280_000, 5)
+                    }
+                    shot("zoom_${z}_s2_nach_regen") {
+                        place(it, "forest", 9, 11, 12 * 60, Facing.UP)
+                        it.game!!.tracks.settle(1f)
+                        walkFree(it.game!!, listOf(0.0 to -1.0, -1.0 to -0.6), 1.8)
+                    }
+                    shot("zoom_${z}_s2b_im_regen") {
+                        place(it, "forest", 9, 11, 12 * 60, Facing.UP)
+                        de.bornim.core.Weather.mode = de.bornim.core.Weather.Mode.ALWAYS; it.game!!.settleWeather()
+                        walkFree(it.game!!, listOf(0.0 to -1.0, -1.0 to -0.6), 1.8)
+                    }
+                    shot("zoom_${z}_s3_staub") {
+                        place(it, "forest", 9, 22, 12 * 60, Facing.UP)
+                        walkFree(it.game!!, listOf(0.0 to -1.0), 2.4, run = true, t0 = 900L)
+                    }
+                    shot("zoom_${z}_s4_schlamm_schaenke") {
+                        place(it, "inn", 4, 6, 12 * 60, Facing.UP)
+                        val g = it.game!!
+                        // the boots muddy from the wet village, then into the inn
+                        g.tracks.settle(1f)
+                        for (k in 0..40) g.tracks.walked("village", 5.5, 5.0 + k * 0.05, 0.0, de.bornim.core.Tile.GRASS, true, false, 0L)
+                        g.tracks.settle(0f)
+                        walkFree(g, listOf(0.0 to -1.0, 1.0 to -0.4), 1.6)
+                    }
                 }
                 shot("zoom_${z}_6_weiher") { place(it, "forest", 7, 15, 12 * 60) }
                 shot("zoom_${z}_7_steinkreis") { place(it, "forest", 10, 25, 17 * 60 + 30) }
