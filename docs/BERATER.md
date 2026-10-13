@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Sitzungen** (ältere im Archiv): ab 13.10. 16:16 „Kapitel 2 Storyplan“ (41m, 69a–d, 48d–f, 62p).
 
-**Nächster Punkt:** Umfang 41j–41p und Karte in den Storyplan übernehmen (alles entschieden 16:59). **Heldenbau-Dokument:** kursive Talentnamen auf **fett** umstellen (Nutzer erkennt Kursives schlecht), dann Durchsicht mit ihm. **68** Tempelszene: Textentwurf mit Nutzer.
+**Nächster Punkt:** Umfang 41j–41p und Karte in den Storyplan übernehmen (alles entschieden 16:59). **Heldenbau** ist freigegeben: als `docs/HELDENBAU.md` ablegen (Export aus dem Dokument). **68** Tempelszene: Textentwurf mit Nutzer.
 
 **Zuletzt gelesen bis:** dieser Commit (13.10., 16:1x)
 
@@ -39,7 +39,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - **Intro (69):** Überfall verschlafen statt gesehen, weil die Chronik sagt „während er schlief“ und Rowenas Stein-Satz so die Pointe bleibt; eigene leise Klänge, „Ancient Legend“ bleibt der Tempelszene 68.
 - **Chronik-Texte (64d/62i, Nutzer 13.10.):** Chronist in dritter Person, Einträge je Wendepunkt (Rückkehrer sehen sofort den Stand), Hörensagen mit Quelle; kindlicher Ton bleibt. **67 Südstraße:** zweiter Weg für Versorgung und Herkunft; Umkehr durch den Helden selbst statt Wand (erinnert statt führt). Einzelheiten im Archiv („16:0x“).
 
-**Offen bei mir:** `docs/HELDENBAU.md` nach Durchsicht der kursiven Talentnamen (offen auch Erkennungszeichen-Standbilder, Jerrys Messung); Prüfungsquests und Umlern-Tempel (41, mit Nutzer); **45b nach Jerrys Messung 38 ansprechen**; 41 Kapitel 2 stößt der Nutzer an.
+**Offen bei mir:** `docs/HELDENBAU.md` ablegen (Dokument freigegeben; offen nur Erkennungszeichen-Standbilder, Jerrys Messung); Prüfungsquests und Umlern-Tempel (41, mit Nutzer); **45b nach Jerrys Messung 38 ansprechen**; 41 Kapitel 2 stößt der Nutzer an.
 
 ## Lehren
 
