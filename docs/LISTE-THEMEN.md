@@ -7,7 +7,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 1 | Regen, Wetterleuchten mit Donner | Tom | erledigt v0.1.409 | Änderungshistorie |
 | 2 | Waffe verstaut (auf der Karte geschultert bzw. am Rücken) | Tom | erledigt v0.1.409 | Änderungshistorie, `DESIGN-STIL.md` |
 | 3 | Garrick hockt, schürt, döst (3a weich) | Tom | erledigt v0.1.430 | Änderungshistorie |
-| 4 | Glühwürmchen fest, treibende Blätter | Tom | wieder offen | `ARBEIT-OFFEN.md` |
+| 4 | Glühwürmchen fest, treibende Blätter | Tom | erledigt (PR #56) | `ARBEIT-OFFEN.md` |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | in Arbeit | `ARBEIT-OFFEN.md` |
 | 6 | Innenräume (Schänke), Zoom (6.15) | Tom | erledigt v0.1.471 (6l ruht) | `ARBEIT-OFFEN.md` |
 | 7 | Stopp-Punkt und Zusammenarbeit der Accounts | Tom | erledigt | Archiv |
@@ -76,6 +76,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 70 | Zwischensequenzen einheitlich | Berater mit Nutzer | offen | `ARBEIT-OFFEN.md` |
 | 71 | Bestandsprüfung Stil und Klang aller Orte | Diogenes | offen | `ARBEIT-OFFEN.md` |
 | 72 | Profil und Marktvergleich | Berater mit Nutzer | offen | `ARBEIT-OFFEN.md` |
+| 73 | Versperrte Hütten: nachts Läden zu, Stimmen | Tom | erledigt (PR #55, #56) | Änderungshistorie |
 | 75 | Diogenes schärfen; Kosten und Nutzen des Testens | Berater mit Nutzer | fertig | `ROLLE-TESTER.md` |
 | 76 | Tom und Jerry schärfen, CLAUDE.md entschlacken | Tom, Jerry | in Arbeit | `ARBEIT-OFFEN.md` |
 | 77 | Dokumentnamen ordnen | Tom, Berater | in Arbeit | `ARBEIT-OFFEN.md` |
