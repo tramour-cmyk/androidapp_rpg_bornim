@@ -5,6 +5,8 @@ Ablauf des Testers. **Höchstens etwa 6 KB**; nur Diogenes liest diese Datei. Ro
 **Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
 **Geprüft bis:** `f9ccdc3` (13.10., Lauf 1: nur 71 Teil B, Grundrisse); nächste Nummer D2
 
+**Übergabe (13.10., 19:5x):** Lauf 1 fertig (71 B). Offen: **71 C** Oberflächen, dann **38g** (mit Zufallsspieler zählen, als Messung kennzeichnen), **71 A** erst nach Toms Zweigen. Rollenschärfung (5 Punkte: Fragen nur über Berater, Befunde nur im Bericht, Rückmeldung der Entwickler, „spielen“ = Code/Zufallsspieler/Standbilder, ein Lauf je Sitzung) dem Nutzer vorgeschlagen, Antwort offen. Hinweis: `tools/notiz.sh` schiebt `main` in der ersten Arbeitskopie weiter, ohne die Dateien nachzuziehen; vor Zugende dort `git status` prüfen (alter Stand, kein echter Unterschied).
+
 ## Start (erste Nachricht „Diogenes“)
 
 1. `tools/notiz.sh` (holt `main`), dann `docs/OFFEN.md`: zuerst „Für Diogenes“ (Prüfaufträge), dann „Wer macht was“ für die Themennummern. Keine volle Startlektüre; `STIL.md`/`ENTWICKLUNG.md` nur für den geprüften Bereich.
