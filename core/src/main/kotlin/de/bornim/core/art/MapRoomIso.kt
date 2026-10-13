@@ -2104,7 +2104,8 @@ object MapRoomIso {
             Tile.CLUTTER -> if (elder) listOf(obj(cached("$key/stick") { stick(v, seed) }, fx, fy, d - T / 2, false)) else {
                 val byFire = (-1..1).any { dx -> (-1..0).any { dy -> at(dx, dy) == Tile.HEARTH } }
                 val byTable = (-1..1).any { dx -> at(dx, 0) == Tile.TABLE }
-                val kind = if (shop) 1 else if (byFire) 0 else if (byTable) 3 else listOf(1, 2, 4, 5)[hash(tx, ty, 56) % 4]
+                // D1.11: the shop keeps sacks, baskets and buckets of wares, not only sacks
+                val kind = if (shop) listOf(1, 1, 2, 4)[hash(tx, ty, 56) % 4] else if (byFire) 0 else if (byTable) 3 else listOf(1, 2, 4, 5)[hash(tx, ty, 56) % 4]
                 // low things: the hero stepping over them is drawn in front of them
                 listOf(obj(cached("$key/clutter") { when (kind) {
                     0 -> firewood(v, seed)
