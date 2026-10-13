@@ -211,6 +211,14 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.refresh()
             vm.toast = if (cat) t("Eine Katze schläft am Herd und wechselt ab und zu den Platz (Runde gut drei Minuten).", "A cat sleeps by the hearth and now and then moves (a round of three minutes).") else t("Keine Katze.", "No cat.")
         }
+        // draft (idea 11): the colour mood of each place and hour
+        var grade by remember { mutableStateOf(de.bornim.core.art.MapGrade.draft) }
+        PixelButton(t("Farbstimmung je Ort: ", "Colour mood per place: ") + (if (grade) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.art.MapGrade.draft = !de.bornim.core.art.MapGrade.draft
+            grade = de.bornim.core.art.MapGrade.draft
+            vm.refresh()
+            vm.toast = if (grade) t("Höhle kalt-grünlich, Räume mit Feuer warm, Dämmerung violett, Ränder etwas dunkler.", "Cave cold and greenish, rooms with a fire warm, dusk violet, edges a little darker.") else t("Farben wie bisher.", "Colours as before.")
+        }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()
             vm.refresh()
