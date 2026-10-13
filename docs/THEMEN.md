@@ -65,7 +65,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf | Tom | zu testen (59e Vorrat ruht bis 38/39) | `OFFEN.md` |
 | 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | Tom | zu testen | `OFFEN.md` |
 | 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | Tom | zu testen | `OFFEN.md` |
-| 62 | Gezeichnete Karte im Menü | Tom | zu testen (62c offen beim Berater) | `OFFEN.md` |
+| 62 | Gezeichnete Karte im Menü | Tom | in Arbeit (62e–62m) | `OFFEN.md` |
 | 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom (ab Fr. mit Jerry) | in Arbeit | `OFFEN.md` |
 | 64 | Questlog: Quest-Übersicht im Menü (laufend/erledigt) | Berater mit Nutzer, dann Tom | offen | `OFFEN.md` |
 | 65 | Abläufe verschlanken (Ablaufprüfung) | Berater, Tom, Jerry | in Arbeit (65.2 Jerry) | `OFFEN.md` |
