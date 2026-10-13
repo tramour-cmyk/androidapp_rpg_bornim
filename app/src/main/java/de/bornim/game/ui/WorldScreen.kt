@@ -1230,11 +1230,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         if (night > 0.02f) for ((i, entry) in glowing.withIndex()) {
             val (o, a, own) = entry
             val g = o.glow ?: continue
-            val seen = when (game.fog(g.tx, g.ty)) {
-                de.bornim.core.Fog.HIDDEN -> 0f
-                de.bornim.core.Fog.SEEN -> 0.4f
-                de.bornim.core.Fog.VISIBLE -> 1f
-            }
+            val seen = LightImage.seen(game, g.tx, g.ty, 0.4f, clock)
             val on = night * seen * a * (0.93f + 0.07f * kotlin.math.sin(clock / 140f + i))
             if (on <= 0.02f) continue
             val at = placeOf(o.img, o.x, o.y, o.density, o.corner)
@@ -1780,7 +1776,70 @@ object Fireflies {
 /** The light image of the current view, redrawn only when hero, view or daylight change. */
 private object LightImage {
     var key = ""
+    /** The light of the place without the fog of war, and with it ([img], what is drawn). */
+    var base: de.bornim.core.art.PixelImage? = null
     var img: de.bornim.core.art.PixelImage? = null
+    var fogKey = ""
+    var fogAt = 0L
+
+    /** How long a tile takes to come fully into sight or to fall out of it. */
+    private const val FADE_MS = 450f
+    private var fadeMap = ""
+    private var shown = FloatArray(0)
+    private var lastMs = 0L
+    /** Counts the frames of a fade, so the fogged image is made again while it runs. */
+    var fadeStep = 0
+        private set
+
+    /**
+     * How much of a light or a smoke at tile ([tx], [ty]) shows: 0 never seen, [dim] out of sight, 1 in sight; fading
+     * along with the fog while the light of the place is drawn, else straight from the fog of war.
+     */
+    fun seen(game: Game, tx: Int, ty: Int, dim: Float, clock: Long): Float {
+        val map = game.map
+        if (map.id != fadeMap || !map.inside(tx, ty) || clock - lastMs > 200) return when (game.fog(tx, ty)) {
+            de.bornim.core.Fog.HIDDEN -> 0f
+            de.bornim.core.Fog.SEEN -> dim
+            de.bornim.core.Fog.VISIBLE -> 1f
+        }
+        val sh = shown[ty * map.width + tx]
+        val sd = seenDimOf(map)
+        return if (sh >= sd) dim * (1f - sh) / (1f - sd) else dim + (1f - dim) * (sd - sh) / sd
+    }
+
+    private fun seenDimOf(map: de.bornim.core.MapDef) = if (MapSight.diagonal && map.kind == MapKind.CAVE) 0.15f else 0.5f
+
+    /** How dark the fog makes tile ([tx], [ty]) right now: 1 unknown, 0 in sight. */
+    fun shade(map: de.bornim.core.MapDef, tx: Int, ty: Int): Float =
+        if (map.id == fadeMap && map.inside(tx, ty)) shown[ty * map.width + tx] else 1f
+
+    /** Moves every tile's fog a step towards what the hero sees now; true while some tile is still fading. */
+    fun fade(game: Game, map: de.bornim.core.MapDef, clock: Long): Boolean {
+        // test of 0.1.667 (13e): seen diagonally one looks over the low walls into rooms explored already, and
+        // the dimmed fog lay over them like a dark cloth; there what is known but out of sight dims only a little
+        val seenDim = seenDimOf(map)
+        val fresh = map.id != fadeMap || shown.size != map.width * map.height
+        if (fresh) { fadeMap = map.id; shown = FloatArray(map.width * map.height) }
+        val step = if (fresh) 1f else minOf(1f, (clock - lastMs).coerceIn(0L, 100L) / FADE_MS * 3f)
+        lastMs = clock
+        var moving = false
+        for (ty in 0 until map.height) for (tx in 0 until map.width) {
+            val goal = when (game.fog(tx, ty)) {
+                de.bornim.core.Fog.HIDDEN -> 1f
+                de.bornim.core.Fog.SEEN -> seenDim
+                de.bornim.core.Fog.VISIBLE -> 0f
+            }
+            val i = ty * map.width + tx
+            val now = shown[i]
+            if (now == goal) continue
+            // eases in: each change takes about as long, however big (unknown to clear, or out of sight to clear)
+            val next = now + (goal - now) * step
+            shown[i] = if (kotlin.math.abs(goal - next) < 0.01f) goal else next
+            moving = true
+        }
+        if (moving) fadeStep++
+        return moving
+    }
 }
 
 /**
@@ -1826,11 +1885,7 @@ private fun DrawScope.drawCampSmoke(game: Game, map: de.bornim.core.MapDef, cloc
     val col = if (herbs) Color(0xFFC2CAB6) else Color(0xFFB4B0A8)
     for (ty in 0 until map.height) for (tx in 0 until map.width) {
         if (map.tile(tx, ty) != de.bornim.core.Tile.CAMPFIRE) continue
-        val seen = when (game.fog(tx, ty)) {
-            de.bornim.core.Fog.HIDDEN -> 0f
-            de.bornim.core.Fog.SEEN -> 0.5f
-            de.bornim.core.Fog.VISIBLE -> 1f
-        }
+        val seen = LightImage.seen(game, tx, ty, 0.5f, clock)
         if (seen <= 0f) continue
         val mx = (((tx + 0.5f) * T - camX) * scale); val my = (((ty + 0.5f) * T - camY) * scale)
         // from just above the flames
@@ -1862,11 +1917,7 @@ private fun DrawScope.drawHearthSmoke(game: Game, map: de.bornim.core.MapDef, cl
     val px = scale.toFloat()
     for ((i, src) in MapLight.sources(map).withIndex()) {
         if (src.kind != MapLight.Kind.FIRE) continue
-        val seen = when (game.fog(floor(src.x / T).toInt(), floor(src.y / T).toInt())) {
-            de.bornim.core.Fog.HIDDEN -> 0f
-            de.bornim.core.Fog.SEEN -> 0.4f
-            de.bornim.core.Fog.VISIBLE -> 1f
-        }
+        val seen = LightImage.seen(game, floor(src.x / T).toInt(), floor(src.y / T).toInt(), 0.4f, clock)
         if (seen <= 0f) continue
         // the fire: the light sits 4 pixels in front of the wall, the fire 0.2 tiles inside it
         val mx = ((src.x - camX) * scale).toFloat(); val my = ((src.y - 4 - T * 0.2 - camY) * scale).toFloat()
@@ -1904,11 +1955,7 @@ private fun DrawScope.drawCaveShaft(game: Game, map: de.bornim.core.MapDef, cloc
     val px = scale.toFloat()
     for ((i, src) in MapLight.sources(map).withIndex()) {
         if (src.kind != MapLight.Kind.SKY) continue
-        val seen = when (game.fog(floor(src.x / T).toInt(), floor(src.y / T).toInt())) {
-            de.bornim.core.Fog.HIDDEN -> 0f
-            de.bornim.core.Fog.SEEN -> 0.4f
-            de.bornim.core.Fog.VISIBLE -> 1f
-        }
+        val seen = LightImage.seen(game, floor(src.x / T).toInt(), floor(src.y / T).toInt(), 0.4f, clock)
         if (seen <= 0f) continue
         val mx = ((src.x - camX) * scale).toFloat(); val my = ((src.y - camY) * scale).toFloat()
         val bx = cam.toScreenX(mx, my); val by = cam.toScreenY(mx, my)
@@ -1977,11 +2024,7 @@ private fun DrawScope.drawCaveTorches(game: Game, map: de.bornim.core.MapDef, cl
     for (ty in 0 until map.height) for (tx in 0 until map.width) {
         if (map.tile(tx, ty) != Tile.TORCH) continue
         val (fx, fy) = de.bornim.core.art.MapCaveIso.torchFace(map, tx, ty) ?: continue
-        val seen = when (game.fog(floor(fx / T + 0.3).toInt(), floor(fy / T + 0.3).toInt())) {
-            de.bornim.core.Fog.HIDDEN -> 0f
-            de.bornim.core.Fog.SEEN -> 0.4f
-            de.bornim.core.Fog.VISIBLE -> 1f
-        }
+        val seen = LightImage.seen(game, floor(fx / T + 0.3).toInt(), floor(fy / T + 0.3).toInt(), 0.4f, clock)
         if (seen <= 0f) continue
         val mx = ((fx - camX) * scale).toFloat(); val my = ((fy - camY) * scale).toFloat()
         // the head of the torch about 1.1 m up the face, lowered to the hero's scale like the rooms' heights (13p.6)
@@ -2070,23 +2113,28 @@ private fun DrawScope.drawMapLight(
     val x0 = Math.floorDiv(camX, res) * res - res; val y0 = Math.floorDiv(camY, res) * res - res
     val w = ((viewW.toInt() / res) + 3) * res; val h = ((viewH.toInt() / res) + 3) * res
     val fog = game.fogged
-    val key = "${map.id}/${MapSight.diagonal}/$x0/$y0/$w/$h/${hx / 3}/${hy / 3}/${(day * 64).toInt()}/${if (fog) "${game.state.place.x},${game.state.place.y},${game.state.place.facing}" else ""}"
+    val key = "${map.id}/${MapSight.diagonal}/$x0/$y0/$w/$h/${hx / 3}/${hy / 3}/${(day * 64).toInt()}"
     if (LightImage.key != key) {
-        val img = MapLight.lightmap(map, day, hx, hy, x0, y0, w, h)
+        LightImage.base = MapLight.lightmap(map, day, hx, hy, x0, y0, w, h)
+        LightImage.key = key
+        LightImage.fogKey = ""
+    }
+    // the fog of war over it: what comes into sight or goes out of it fades over a moment instead of switching
+    // (test 13.10.: turning round in the cave was "almost like a light switch")
+    val fade = if (fog) LightImage.fade(game, map, clock) else false
+    val fogKey = if (fog) "${game.state.place.x},${game.state.place.y},${game.state.place.facing}/${LightImage.fadeStep}" else "-"
+    if (LightImage.fogKey != fogKey && (!fade || clock - LightImage.fogAt >= 40 || LightImage.fogKey == "")) {
+        LightImage.fogKey = fogKey
+        LightImage.fogAt = clock
+        val base = LightImage.base ?: return
+        val img = if (fog) de.bornim.core.art.PixelImage(base.width, base.height, base.pixels.copyOf()) else base
         if (fog) {
             // darken by the fog of war, smoothly between tile centres: unexplored black, out of sight dim
             val tx0 = Math.floorDiv(x0, T) - 1; val ty0 = Math.floorDiv(y0, T) - 1
             val tw = w / T + 4; val th = h / T + 4
             // test of 0.1.667 (13e): seen diagonally one looks over the low walls into rooms explored already, and
             // the dimmed fog lay over them like a dark cloth; there what is known but out of sight dims only a little
-            val seenDim = if (MapSight.diagonal && map.kind == MapKind.CAVE) 0.15f else 0.5f
-            val raw = FloatArray(tw * th) { i ->
-                when (game.fog(tx0 + i % tw, ty0 + i / tw)) {
-                    de.bornim.core.Fog.HIDDEN -> 1f
-                    de.bornim.core.Fog.SEEN -> seenDim
-                    de.bornim.core.Fog.VISIBLE -> 0f
-                }
-            }
+            val raw = FloatArray(tw * th) { i -> LightImage.shade(map, tx0 + i % tw, ty0 + i / tw) }
             // softened over the neighbouring tiles, so the edge of the unknown is round, not a
             // staircase of tiles (it shows when the map is zoomed in); what is in sight stays clear
             val fa = FloatArray(tw * th) { i ->
@@ -2114,7 +2162,6 @@ private fun DrawScope.drawMapLight(
         // seen diagonally, the walls and the tall things of a room stand where the light image has the ground behind them
         if (MapSight.diagonal && map.kind == MapKind.INTERIOR) uprightLight(img, map, x0, y0, res)
         LightImage.img = img
-        LightImage.key = key
     }
     val grid = LightImage.img ?: return
     drawImage(
@@ -2134,11 +2181,7 @@ private fun DrawScope.drawMapLight(
         val r = (src.reach * 0.75 * scale).toFloat()
         // a light the hero has never seen stays dark, one out of sight shines dimmed: it must not light up what the
         // fog of war hides
-        val seen = when (game.fog(floor(src.x / T).toInt(), floor(src.y / T).toInt())) {
-            de.bornim.core.Fog.HIDDEN -> 0f
-            de.bornim.core.Fog.SEEN -> 0.4f
-            de.bornim.core.Fog.VISIBLE -> 1f
-        }
+        val seen = LightImage.seen(game, floor(src.x / T).toInt(), floor(src.y / T).toInt(), 0.4f, clock)
         val on = MapLight.strength(map, src.shines, day).toFloat() * seen
         if (on <= 0.02f || !visible(c, r)) continue
         val t = clock.toFloat()
