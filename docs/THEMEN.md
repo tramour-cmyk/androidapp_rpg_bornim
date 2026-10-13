@@ -13,8 +13,8 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 7 | Stopp-Punkt und Zusammenarbeit der Accounts | Tom | erledigt | Archiv |
 | 8 | Zusammenarbeit Tom und Jerry, Notizen nur auf `main` | Jerry | erledigt | `CLAUDE.md` |
 | 9 | Monster auf der Karte | Jerry | erledigt (PR #33) | `OFFEN.md` |
-| 10 | Höhle: Flammen feiner | Tom (von Jerry, 13y) | in Arbeit (mit 13e) | `OFFEN.md` |
-| 11 | Höhle: Lichtstrahl am Lichtschacht | Tom (von Jerry, 13y) | in Arbeit (mit 13e) | `OFFEN.md` |
+| 10 | Höhle: Flammen feiner | Tom (von Jerry, 13y) | auf `main` (mit 13e, PR #51) | `CHANGELOG.md` |
+| 11 | Höhle: Lichtstrahl am Lichtschacht | Tom (von Jerry, 13y) | auf `main` (mit 13e, PR #51) | `CHANGELOG.md` |
 | 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Jerry, Tom | erledigt v0.1.483 | `OFFEN.md` |
 | 13 | Diagonale Sicht | Tom | in Arbeit | `OFFEN.md` |
 | 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für `OFFEN.md`) | Berater | erledigt (PR #26) | `CHANGELOG.md` |
@@ -69,4 +69,5 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 63 | Eine Entscheidungsseite für alles Offene (alle Rollen) | Tom (ab Fr. mit Jerry) | in Arbeit | `OFFEN.md` |
 | 64 | Questlog: Reiter „Chronik“ (Aufträge, Bisher geschehen) | Tom (Texte Berater mit Nutzer) | offen (nach 62e) | `OFFEN.md`, Beschlüsse |
 | 66 | Licht im Dorf bei Nacht (Wache, Laterne) | Tom | offen | `OFFEN.md` |
+| 67 | Südrand des Dorfes (Feldweg, Wegweiser, Umkehr) | Tom | offen | `OFFEN.md` |
 | 65 | Abläufe verschlanken (Ablaufprüfung) | Berater, Tom, Jerry | in Arbeit (65.2 Jerry) | `OFFEN.md` |
