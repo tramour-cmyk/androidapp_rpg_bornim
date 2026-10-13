@@ -29,7 +29,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 48 | Zufallsgenerierte Dungeons (auch Questhöhlen?) | Berater mit Nutzer | – | Idee Nutzer 12.10., 14:0x. **48a–48c ja:** erst 48.3 Questhöhlen ganz zufällig (6–8 Kammern, verschlungen, Sackgassen, versteckter Rückweg), 48.2 später; Jerry baut 13e allgemein, prüft Beute gegen 38. Nach Kapitel 1 (Verlauf im Archiv) |
 | 49 | Lehrer, Fertigkeiten, Talente | Berater mit Nutzer | – | Idee Nutzer 12.10., 14:1x. 49d–49s ja (Verlauf im Archiv, Liste im [Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)). **49t ja:** als `docs/HELDENBAU.md` ablegen, sobald der Nutzer die kursiven Namen durchgesehen hat. Nach Kapitel 1 |
 | 50 | Weitere Klassen (Berserker, Kriegsmagier, Paladin, Werwolf …), ggf. zum Kauf | Berater mit Nutzer | – | Idee Nutzer 12.10., 14:2x, hängt an 45 und 49. 50a–50j ja: Klassenpaket, zwei Pfade je Klasse, Werwolf als Fluch, Merkmale und Herkunft (Verlauf im Archiv, Matrix im [Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)). Nach Kapitel 1 |
-| 55 | Mehr Leerlauf für alle Leute (Waffe, Armhaltung) und Szenen wie Sitzen am Tisch in der Schänke | Tom | – | Nutzer 12.10., 15:5x. **55a ja:** 55.2 zuerst. **55.2 auf dem Zweig** (`SITDRAFT2`, Borin sitzt am Tisch, Sprungtest 0); **55c ja (20:1x):** ins Spiel. 55.1 offen (Verlauf im Archiv) |
+| 55 | Mehr Leerlauf für alle Leute (Waffe, Armhaltung) und Szenen wie Sitzen am Tisch in der Schänke | Tom | – | Nutzer 12.10., 15:5x. **55a ja:** 55.2 zuerst. **55.2 auf dem Zweig** (`SITDRAFT2`, Borin sitzt am Tisch, Sprungtest 0); **55c ja (20:1x):** ins Spiel. **55.1a** Arme verschränkt/Rücken als Entwurf auf `claude/tom-55-leerlauf` (Build 0.1.649) |
 | 43 | Sichtbarkeit in der diagonalen Sicht: was in der alten Karte gut zu sehen war (vor allem rechts), ist diagonal verdeckt (Garrick am Feuer, Feuerplatz, Kräuterhexe nicht sichtbar, Steinkreis) | Berater mit Nutzer (Grundsatz); Tom (Wald, Dorf), Jerry (Höhle) | `main` (Notizen) | Nutzer 12.10., 12:05: Karten je Ort umstellen, damit Leute und Wichtiges leicht sichtbar sind; Kisten dürfen versteckt sein und erst auftauchen, wenn der Held unter die Bäume geht. **43a ja (12:09):** Grundsatz in `STIL.md` (Karte und Räume, „Ort fertig“ Punkt 9). Kräuterhexe = Morwen im Tiefen Wald (Tom, wenn Tiefer Wald diagonal wird). Höhle 13e (Jerry) ebenso |
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry | – | Nutzer 12.10., 15:4x nach Test 0.1.587: Krogg fürs Erste so lassen, später alle Kampfanimationen gesamt überarbeiten. Nach Kapitel-1-Wichtigem |
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg | Jerry | – | Prüfthema, Nutzer 12.10., 15:4x (Test 0.1.587): wenn Zeit ist und nichts Wichtigeres ansteht; alle großen Gegner mitprüfen |
@@ -44,11 +44,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 03:20) – Selbstarbeit läuft
-- **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g), 0.1.643 (6f), 0.1.646 (61a/62a), je ein Testreiter-Schalter. Rückfragen auf der Entscheidungsseite (Empf. je ja).
-- **61 Spuren** und **62 Kartenansicht** (Vorrat 7/8) fertig als Entwurf auf `claude/tom-7-spuren` (Build 0.1.646). Ursache „Fußspuren unsichtbar“: sie lagen in der Vorschau unter Busch und Bäumen; Gang verlegt, Abdrücke kräftiger, Schlamm in Räumen hell.
-- **Weck-Kette am Ende** (03:15): diese Sitzung ist auf Stufe 8 von 8, `send_later` und `create_session` gehen nicht mehr. Weiter nur über die Routinen (06:24) oder eine neue Sitzung des Nutzers.
-- Vorrat 9 (29) und 10 (5l) sind schon erledigt. **27.6c** Rauchfahne als Entwurf auf `claude/tom-27-6-tiefer-wald` (Bild auf der Entscheidungsseite). Weiter: 27.6b Schild, dann 17 Riemen.
+### Tom (13.10., 03:47) – Selbstarbeit, übergeben an die Routine 06:24
+- **Zu testen** (nach 59 und 60): 0.1.639 (17r), 0.1.640 (5la), 0.1.641 (6g), 0.1.643 (6f), 0.1.646 (61a/62a), 0.1.649 (55.1a), je ein Testreiter-Schalter. Rückfragen auf der Entscheidungsseite (Empf. je ja).
+- **Fertig als Entwurf (diese Nacht ab 02:47):** 61 Spuren und 62 Karte (Build 0.1.646; Fußspuren lagen in der Vorschau unter Büschen), 27.6c Rauchfahne und 27.6b Schild (Zweig `claude/tom-27-6-tiefer-wald`, Build 0.1.648, nur diagonal bzw. Schild auch gerade), 55.1a Arme verschränkt/Hände auf dem Rücken (`claude/tom-55-leerlauf`, Build 0.1.649).
+- **Weck-Kette am Ende:** diese Sitzung ist auf Stufe 8 von 8, `send_later`/`create_session` gehen nicht. Die Routine 06:24 übernimmt und schreibt **um 07:00 den Bericht** (`SELBST.md` 5) aus dieser Übergabe.
+- Vorrat leer (9 = 29 und 10 = 5l schon erledigt). Nächstes, falls Zeit: 55.1b Jorin stützt sich auf den Speer (Waffenhaltung), 17 Riemen nur auf Wunsch.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -65,6 +65,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Tom, 0.1.641, Zweig `claude/tom-katze`** (6g, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38324348750; nach 59/60): Testreiter „Katze in der Schänke“ an, in der Schänke gut drei Minuten zusehen.
 - **Tom, 0.1.643, Zweig `claude/tom-6-farbstimmung`** (6f, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38326167073; nach 59/60): Testreiter „Farbstimmung je Ort“ an, Höhle, Schänke abends, Dorf in der Dämmerung ansehen.
 - **Tom, 0.1.646, Zweig `claude/tom-7-spuren`** (61a/62a, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38331553728; nach 59/60): Testreiter „Spuren“ an, Kampf gewinnen (Blut), im Regen gehen (Fußspuren), auf trockenem Weg rennen (Staub); Testreiter „8 Gezeichnete Karte im Menü“ an (Thema 62), Menü → Karte.
+- **Tom, 0.1.649, Zweig `claude/tom-55-leerlauf`** (55.1a, https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38333750314; nach 59/60): Testreiter „55 Arme verschränkt/hinter dem Rücken“ an, im Dorf ein paar Minuten zusehen.
 
 ## Rückfragen an den Nutzer
 
@@ -76,6 +77,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **6g** (Tom, Entscheidungsseite): Katze in der Schänke (schläft am Herd, streckt sich, wechselt den Platz) ins Spiel (Empf. ja).
 - **6f** (Tom, Entscheidungsseite): Farbstimmung je Ort und Tageszeit ins Spiel (Empf. ja).
 - **61a, 62a, 62b** (Tom, Entscheidungsseite): Spuren ins Spiel (Empf. ja); gezeichnete Karte als Menüreiter (Empf. ja); 62b Auftragszeichen auf der Karte (Empf. erst ohne).
+- **55.1a** (Tom, Entscheidungsseite): Arme verschränkt und Hände auf dem Rücken im Leerlauf aller Leute (Empf. ja). **27.6b/27.6c** sind jetzt als Entwurf gebaut (Bilder dort).
 
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.
