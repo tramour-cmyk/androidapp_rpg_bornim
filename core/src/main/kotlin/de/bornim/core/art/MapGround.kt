@@ -41,6 +41,10 @@ object MapGround {
     /** 5.4 middle way, in the game since the user chose it (12.10., 18:4x; the first draft was cold and sterile): warm stones that differ, earthen joints, moss, a gap now and then. */
     @Volatile var cobbleMid = true
 
+    /** 27/5.5 draft: puddles in the ruts fewer, softer and earthen instead of hard blue-black dashes; only in the preview. */
+    @Volatile var puddleDraft = false
+    private val PUDDLE_SOFT = rgb(0x2C2A24)
+
     /** Tiles drawn by this ground; anything else keeps its old picture on top. */
     private val drawn = setOf(
         Tile.GRASS, Tile.TALL_GRASS, Tile.FLOWERS, Tile.PATH, Tile.TREE, Tile.WATER,
@@ -461,7 +465,14 @@ object MapGround {
                     for (i in 0..2) tmp[i] += (PATH_HI[i] - tmp[i]) * mid * 0.35
                     val rut = !cap && other > 46 && abs(d - 14) < 2.4 + (vnoise(x, y, 14.0, 19) - 0.5) * 1.6
                     if (rut) {
-                        if (vnoise(x, y, 30.0, 20) > 0.72) { for (i in 0..2) tmp[i] = PUDDLE[i].toDouble(); if (vnoise(x, y, 3.0, 21) > 0.8) for (i in 0..2) tmp[i] += (GLINT[i] - tmp[i]) * 0.4 }
+                        val wet = vnoise(x, y, 30.0, 20)
+                        if (puddleDraft && wet > 0.78) {
+                            // a shallow puddle: the rut's earth darkened toward its middle, a faint sheen, no hard edge
+                            val k = ((wet - 0.78) / 0.1).coerceIn(0.0, 1.0) * (1 - abs(d - 14) / 3.2).coerceIn(0.0, 1.0)
+                            for (i in 0..2) tmp[i] += (RUT[i] - tmp[i]) * 0.6
+                            for (i in 0..2) tmp[i] += (PUDDLE_SOFT[i] - tmp[i]) * k * 0.7
+                            if (vnoise(x, y, 3.0, 21) > 0.86) for (i in 0..2) tmp[i] += (GLINT[i] - tmp[i]) * 0.15 * k
+                        } else if (!puddleDraft && wet > 0.72) { for (i in 0..2) tmp[i] = PUDDLE[i].toDouble(); if (vnoise(x, y, 3.0, 21) > 0.8) for (i in 0..2) tmp[i] += (GLINT[i] - tmp[i]) * 0.4 }
                         else for (i in 0..2) tmp[i] += (RUT[i] - tmp[i]) * 0.6
                     }
                     for (i in 0..2) col[i] += (tmp[i] - col[i]) * p

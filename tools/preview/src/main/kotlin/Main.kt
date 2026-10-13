@@ -356,6 +356,8 @@ fun main() {
             // KATZEINN=ms with the inn shots: the cat (draft), that far into its round
             if (System.getenv("KATZEINN") != null) { de.bornim.core.art.MapCat.draft = true; de.bornim.game.ui.HeroSwing.now = true; de.bornim.core.art.MapCat.shift = System.getenv("KATZEINN").toLongOrNull() ?: 0L }
             if (System.getenv("SWINGDRAFT") != null) { de.bornim.core.art.MapFigure.swingDraft = true; de.bornim.game.ui.HeroSwing.now = true }
+            // PFUETZE=1: puddles in the ruts softer and earthen (27/5.5, draft)
+            if (System.getenv("PFUETZE") != null) de.bornim.core.art.MapGround.puddleDraft = true
             // PONDLIFE=1: frogs on the bank and dragonflies over the forest pond (27.6, draft)
             if (System.getenv("PONDLIFE") != null) de.bornim.core.art.PondLife.draft = true
             // SITDRAFT2=1: Borin sits at his table in the inn (55.2, draft)
