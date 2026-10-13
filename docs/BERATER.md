@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Sitzungen** (ältere im Archiv): ab 13.10. 16:16 „Kapitel 2 Storyplan“ (41m, 69a–d, 48d–f, 62p).
 
-**Nächster Punkt:** offen beim Nutzer **41n** (Bohlensteg Kultlager–Schilfrode), **41o** (Höhlen frei betretbar), **41p** (Ort im Aushang in Worten), **48d–48f** (Startwert je Spielstand, leer bleibt leer, Erzeuger-Version speichern), Rest **41m** (Kultlager, Aschfurt im Moor, nur Südstraße); alle Empfehlung ja. Danach Umfang 41j–m und Karte in den Storyplan. **68** Tempelszene: Textentwurf.
+**Nächster Punkt:** Rest **41m** (Kultlager nur über Stege/Bruchwald, Aschfurt im Moor, nach Bornim nur Südstraße; Empfehlung ja), danach Umfang 41j–p und Karte in den Storyplan. **68** Tempelszene: Textentwurf.
 
 **Zuletzt gelesen bis:** dieser Commit (13.10., 16:1x)
 
