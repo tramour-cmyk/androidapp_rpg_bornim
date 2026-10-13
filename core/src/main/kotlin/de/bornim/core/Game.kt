@@ -387,7 +387,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                 val (text, short) = Story.southEdge(state)
                 if (short) notices += text else enqueue(listOf(Cmd.Say(null, text)))
                 stepBack = dir.opposite
-            } else enqueue(warp.denied)
+            } else enqueue(warp.knock?.invoke(state, isNight) ?: warp.denied)
             return Move.Blocked
         }
         roamerAt(nx, ny)?.let { r ->

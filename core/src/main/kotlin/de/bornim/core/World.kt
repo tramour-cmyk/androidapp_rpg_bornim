@@ -102,7 +102,9 @@ data class HouseStyle(
 )
 
 /** A way to another place; while [requires] is missing, [denied] runs instead, or for [turnBack] (67) the hero thinks better of it and steps back. */
-data class Warp(val x: Int, val y: Int, val to: Place, val requires: String? = null, val denied: List<Cmd> = emptyList(), val turnBack: Boolean = false)
+data class Warp(val x: Int, val y: Int, val to: Place, val requires: String? = null, val denied: List<Cmd> = emptyList(), val turnBack: Boolean = false,
+    /** 73b: what is said from inside on knocking, by the story and whether it is night; null: [denied] as it is. */
+    val knock: ((GameState, Boolean) -> List<Cmd>)? = null)
 
 data class Chest(val id: String, val x: Int, val y: Int, val item: String? = null, val count: Int = 1, val gold: Int = 0)
 
