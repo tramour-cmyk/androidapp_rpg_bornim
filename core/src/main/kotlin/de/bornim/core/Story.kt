@@ -346,8 +346,9 @@ object Story {
         name = T("Tempel des Morgenlichts", "Temple of the Dawnlight"),
         kind = MapKind.INTERIOR,
         // 13q.9: floor plan A, a broad altar between two candlesticks, two blocks of pews with aisles in the middle and along the walls, the lectern beside the altar
+        // 13 (Meldung 12.10., 08:43): the altar stood right before the one window; now two windows flank it
         rows = listOf(
-            "####W####",
+            "#W#####W#",
             "#kNAAANk#",
             "#kkkkdkk#",
             "#knnknnkW",

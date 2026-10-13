@@ -91,6 +91,7 @@ fun geared(vm: GameViewModel, cls: CharClass, race: Race = Race.DWARF) {
 fun main() {
     System.getenv("FILM")?.let { fightFilm(it); System.exit(0) }
     System.getenv("FILMBATCH")?.let { fightBatch(it); System.exit(0) }
+    if (System.getenv("KARTENBLATT") != null) { renderMapSheets(); System.exit(0) }
     if (System.getenv("WEGE") != null) { renderWayDrafts(); System.exit(0) }
     System.getenv("FLORA")?.let { renderFloraSheet(it); System.exit(0) }
     if (System.getenv("HOEHLEDINGE") != null) { renderCaveThings(); System.exit(0) }
@@ -185,11 +186,19 @@ fun main() {
             if (System.getenv("PFLASTERDRAFT") == "2") de.bornim.core.art.MapGround.cobbleMid = true
             else if (System.getenv("PFLASTERDRAFT") != null) de.bornim.core.art.MapGround.cobbleDraft = true
             // SWINGDRAFT=1: the cloak swings on when the hero stops (17, draft)
+            // SWINGMORE=1: long hair and the quiver swing on too (17 Rest, draft)
+            if (System.getenv("SWINGMORE") != null) de.bornim.core.art.Dress.SWING_MORE = true
+            // DORFTAG=1: the villagers go about their day (5l, draft)
+            if (System.getenv("DORFTAG") != null) de.bornim.core.VillageDay.draft = true
+            // KATZEINN=ms with the inn shots: the cat (draft), that far into its round
+            if (System.getenv("KATZEINN") != null) { de.bornim.core.art.MapCat.draft = true; de.bornim.game.ui.HeroSwing.now = true; de.bornim.core.art.MapCat.shift = System.getenv("KATZEINN").toLongOrNull() ?: 0L }
             if (System.getenv("SWINGDRAFT") != null) { de.bornim.core.art.MapFigure.swingDraft = true; de.bornim.game.ui.HeroSwing.now = true }
             // PONDLIFE=1: frogs on the bank and dragonflies over the forest pond (27.6, draft)
             if (System.getenv("PONDLIFE") != null) de.bornim.core.art.PondLife.draft = true
             // SITDRAFT2=1: Borin sits at his table in the inn (55.2, draft)
             if (System.getenv("SITDRAFT2") != null) de.bornim.core.art.MapFolk.sitDraft = true
+            // FARBDRAFT=1: the colour mood of each place and hour (idea 11, draft)
+            if (System.getenv("FARBDRAFT") != null) de.bornim.core.art.MapGrade.draft = true
             // TREEDRAFT=1: the trees with volume (27.4, draft)
             if (System.getenv("TREEDRAFT") != null) de.bornim.core.art.MapFlora.treeDraft = true
             // ZOOMSTUFE=1|2: the in-between zoom steps for the near shots (6.15)
@@ -213,6 +222,51 @@ fun main() {
                 // 13e: the cave seen diagonally, room by room (entrance, both side halls, Krogg, the pool, Grak's hall)
                 for ((k, at) in listOf("1_eingang" to (10 to 17), "2_westhalle" to (4 to 9), "3_krogg" to (15 to 10), "4_suedost" to (16 to 15), "5_weiher" to (5 to 15), "6_grak" to (10 to 3))) {
                     shot("zoom_${z}_c${k}") { place(it, "cave", at.first, at.second, 12 * 60) }
+                }
+                // SPURDRAFT=1: traces that stay a while (idea 7, draft): blood, footprints after the rain, dust, mud carried in
+                if (System.getenv("SPURDRAFT") != null) {
+                    de.bornim.core.Tracks.draft = true
+                    /** Walks the hero freely ([dist] tiles each way of [legs]) from [t0] ms of the app clock on. */
+                    fun walkFree(g: de.bornim.core.Game, legs: List<Pair<Double, Double>>, dist: Double, run: Boolean = false, t0: Long = 0L) {
+                        val fw = g.freeWalk; fw.sync()
+                        var t = t0
+                        for ((vx, vy) in legs) {
+                            val w0 = fw.walked
+                            var guard = 0
+                            while (fw.walked - w0 < dist && guard++ < 400) { fw.walk(vx, vy, 40, if (run) de.bornim.core.FreeWalk.RUN else de.bornim.core.FreeWalk.WALK, t); t += 40 }
+                        }
+                    }
+                    shot("zoom_${z}_s1_blut") {
+                        place(it, "forest", 9, 9, 12 * 60, Facing.UP)
+                        val tr = it.game!!.tracks
+                        tr.blood("forest", 10.3, 10.6, 0, 3)
+                        tr.blood("forest", 7.8, 9.4, -150_000, 11)
+                        tr.blood("forest", 12.5, 11.6, -280_000, 5)
+                    }
+                    shot("zoom_${z}_s2_nach_regen") {
+                        // towards the onlooker down the way, so the prints lie behind the hero and nothing stands in front of them
+                        place(it, "forest", 9, 18, 12 * 60, Facing.DOWN)
+                        it.game!!.tracks.settle(1f)
+                        walkFree(it.game!!, listOf(0.0 to 1.0), 2.6)
+                    }
+                    shot("zoom_${z}_s2b_im_regen") {
+                        place(it, "forest", 9, 18, 12 * 60, Facing.DOWN)
+                        de.bornim.core.Weather.mode = de.bornim.core.Weather.Mode.ALWAYS; it.game!!.settleWeather()
+                        walkFree(it.game!!, listOf(0.0 to 1.0), 2.6)
+                    }
+                    shot("zoom_${z}_s3_staub") {
+                        place(it, "forest", 9, 18, 12 * 60, Facing.DOWN)
+                        walkFree(it.game!!, listOf(0.0 to 1.0), 2.4, run = true, t0 = 1000L)
+                    }
+                    shot("zoom_${z}_s4_schlamm_schaenke") {
+                        place(it, "inn", 2, 6, 12 * 60, Facing.RIGHT)
+                        val g = it.game!!
+                        // the boots muddy from the wet village, then into the inn
+                        g.tracks.settle(1f)
+                        for (k in 0..40) g.tracks.walked("village", 5.5, 5.0 + k * 0.05, 0.0, de.bornim.core.Tile.GRASS, true, false, 0L)
+                        g.tracks.settle(0f)
+                        walkFree(g, listOf(1.0 to 0.0), 2.2)
+                    }
                 }
                 shot("zoom_${z}_6_weiher") { place(it, "forest", 7, 15, 12 * 60) }
                 shot("zoom_${z}_7_steinkreis") { place(it, "forest", 10, 25, 17 * 60 + 30) }
@@ -283,6 +337,7 @@ fun main() {
     }
     if (System.getenv("BEASTDRAFT") != null) { renderBeastDrafts(); System.exit(0) }
     if (System.getenv("SWINGBILD") != null) { renderSwingDraft(); System.exit(0) }
+    if (System.getenv("KATZE") != null) { renderCatDraft(); System.exit(0) }
     if (System.getenv("DOLLDRAFT") != null) { renderShamanGhoulDrafts(); System.exit(0) }
     if (System.getenv("SHAMANDRAFT") != null) { renderShamanDraft(); System.exit(0) }
     if (System.getenv("VERMINDRAFT") != null) { renderVerminDrafts(); System.exit(0) }
@@ -400,6 +455,108 @@ fun main() {
             val tag = if (draft) "neu" else "alt"
             shot("42_gespraech_$tag", settle = 150) { vm -> opened(vm, spoken = true) }
             shot("42_erzaehlt_$tag", settle = 150) { vm -> opened(vm, spoken = false) }
+        }
+        System.exit(0)
+    }
+    // SCHRIFT=1: 60b/60.4: the free serifs on trial in the text box, the shop and the title (SCHRIFT=titel: only the title faces)
+    if (System.getenv("SCHRIFT") != null) {
+        for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
+        val tags = listOf("geraet", "garamond", "alegreya", "fell")
+        val only = System.getenv("SCHRIFT")
+        de.bornim.game.ui.DialogLook.draft = true; de.bornim.game.ui.ShopLook.draft = true; de.bornim.game.ui.TitleLook.draft = true
+        for ((i, tag) in tags.withIndex()) {
+            de.bornim.game.ui.TypeLook.choice = i; de.bornim.game.ui.TypeLook.title = 0
+            shot("60_titel_$tag") { it.screen = Screen.TITLE }
+            if (only == "titel") continue
+            shot("60_gespraech_$tag", settle = 150) { vm -> vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!
+                var guard = 0; while (guard++ < 80) { val m = g.mode; if (m is Mode.Dialog && m.speaker != null) break; g.advance() }; vm.refresh() }
+            de.bornim.game.ui.ShopLook.previewTab = 0; de.bornim.game.ui.ShopLook.previewDialog = 0
+            shot("60_laden_$tag", settle = 60) { vm -> geared(vm, CharClass.WIZARD, Race.ELF); val g = vm.game!!; g.state.gold = 640
+                g.enqueue(listOf(Cmd.OpenShop(Story.shopStock))); vm.refresh() }
+        }
+        // the title in the faces made as capitals, with the body in Alegreya
+        de.bornim.game.ui.TypeLook.choice = 2
+        for ((t, tag) in listOf(1 to "cinzel", 2 to "alegreya_sc")) { de.bornim.game.ui.TypeLook.title = t; shot("60_titel_$tag") { it.screen = Screen.TITLE } }
+        System.exit(0)
+    }
+    // MENUE=1: 60: the menu old and in the look of the text box, each tab (MENUE=neu: only the new)
+    if (System.getenv("MENUE") != null) {
+        for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
+        for (it in de.bornim.core.Items.all) de.bornim.core.art.SupplyArt.get(it.id)
+        de.bornim.game.ui.TypeLook.choice = 2
+        val looks = if (System.getenv("MENUE") == "neu") listOf(true) else listOf(false, true)
+        for (draft in looks) {
+            de.bornim.game.ui.MenuLook.draft = draft
+            val tag = if (draft) "neu" else "alt"
+            fun open(vm: GameViewModel) { geared(vm, CharClass.FIGHTER)
+                val st = vm.game!!.state; for (it in listOf("greater_potion", "remedy", "herbs", "wolf_pelt")) st.add(it, 2); vm.menuOpen = true }
+            shot("60_menue_held_$tag") { vm -> open(vm) }
+            shot("60_menue_beutel_$tag", taps = listOf(Offset(410f, 95f))) { vm -> open(vm) }
+            shot("60_menue_beutel_fenster_$tag", taps = listOf(Offset(410f, 95f), Offset(540f, 560f))) { vm -> open(vm) }
+            shot("60_menue_ausruestung_$tag", taps = listOf(Offset(680f, 95f))) { vm -> open(vm) }
+            shot("60_menue_system_$tag", taps = listOf(Offset(950f, 95f))) { vm -> open(vm) }
+        }
+        System.exit(0)
+    }
+    // HELDENBAU=1: 60: the hero's making old and in the look of the text box, top and scrolled down
+    if (System.getenv("HELDENBAU") != null) {
+        de.bornim.game.ui.TypeLook.choice = 2
+        for (draft in listOf(false, true)) {
+            de.bornim.game.ui.CreateLook.draft = draft
+            val tag = if (draft) "neu" else "alt"
+            shot("60_heldenbau_$tag") { it.screen = Screen.CREATE }
+        }
+        System.exit(0)
+    }
+    // KAMPF60=1: 60: the fight's boxes old and in the look of the text box: opening line, the menu, a blow with its number
+    if (System.getenv("KAMPF60") != null) {
+        de.bornim.game.ui.TypeLook.choice = 2
+        val setup: (GameViewModel) -> Unit = { vm -> vm.newGame("Borin", Race.DWARF, CharClass.CLERIC); val g = vm.game!!; g.skipDialogs()
+            g.state.place = Place("forest", 10, 20, Facing.UP); g.enqueue(listOf(Cmd.Fight("goblin"))); vm.refresh() }
+        val msgBox = Offset(W / 2f, H - 300f)
+        for (draft in listOf(false, true)) {
+            de.bornim.game.ui.BattleLook.draft = draft
+            val tag = if (draft) "neu" else "alt"
+            shot("60_kampf_$tag", setup = setup)
+            shot("60_kampf_menue_$tag", taps = List(2) { msgBox }, setup = setup)
+        }
+        de.bornim.game.ui.BattleLook.pixelNumbers = false
+        shot("60_kampf_menue_serif", taps = List(2) { msgBox }, setup = setup)
+        System.exit(0)
+    }
+    // HAENDLER=1: the shop old and as drafted for 59 (black like the text box, overview when selling, comparison when buying)
+    if (System.getenv("HAENDLER") != null) {
+        for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
+        for (it in de.bornim.core.Items.all) de.bornim.core.art.SupplyArt.get(it.id)
+        fun shop(vm: GameViewModel) {
+            geared(vm, CharClass.WIZARD, Race.ELF); val g = vm.game!!
+            g.state.gold = 640
+            for (it in listOf("potion", "remedy", "wolf_pelt", "boar_tusk", "herbs")) g.state.add(it, 3)
+            g.enqueue(listOf(Cmd.OpenShop(Story.shopStock))); vm.refresh()
+        }
+        if (System.getenv("HAENDLER") == "morwen") {
+            de.bornim.game.ui.ShopLook.previewTab = 0; de.bornim.game.ui.ShopLook.previewDialog = -1
+            shot("59_morwen_neu", settle = 60) { vm -> shop(vm); val g = vm.game!!; g.advance(); g.enqueue(listOf(Cmd.OpenShop(listOf("potion", "remedy"), brewing = true))); vm.refresh() }
+            System.exit(0)
+        }
+        val looks = System.getenv("HAENDLER").let { if (it == "neu") listOf(true) else listOf(false, true) }
+        for (draft in looks) {
+            de.bornim.game.ui.ShopLook.draft = draft
+            val tag = if (draft) "neu" else "alt"
+            for ((name, tab, dlg) in listOf(Triple("kauf", 0, -1), Triple("verkauf", 1, -1), Triple("kauf_ruestung", 0, 0),
+                    Triple("kauf_vorrat", 0, 100), Triple("verkauf_rueckkauf", 2, -1))) {
+                de.bornim.game.ui.ShopLook.previewTab = tab; de.bornim.game.ui.ShopLook.previewDialog = dlg
+                shot("59_${name}_$tag", settle = 60) { vm -> shop(vm)
+                    if (tab == 1) { val g = vm.game!!; val st = g.state; val d = Dice(kotlin.random.Random(9))
+                        val keep = st.bag.filter { st.hero.canWear(it) }.take(3)
+                        st.bag.clear(); st.bag += keep; st.inventory.keys.toList().forEach { if (it != "potion") st.inventory.remove(it) }
+                        listOf(GearSlot.CHEST, GearSlot.OFF_HAND, GearSlot.MAIN_HAND).forEach { sl ->
+                            var x = Loot.generate(st, d, 9, Rarity.RARE, CharClass.FIGHTER, sl); var k = 0
+                            while (st.hero.canWear(x) && k++ < 30) x = Loot.generate(st, d, 9, Rarity.RARE, CharClass.FIGHTER, sl)
+                            st.addGear(x) }
+                        vm.refresh() }
+                    if (tab == 2) { val g = vm.game!!; g.state.bag.take(3).toList().forEach { g.sellGear(it) }; g.sell("wolf_pelt", 3); vm.refresh() } }
+            }
         }
         System.exit(0)
     }

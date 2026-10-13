@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,13 +47,13 @@ fun DialogBoxVeil(speaker: String?, text: String, done: Boolean, modifier: Modif
     ) {
         Column {
             if (speaker != null) {
-                Text(speaker.uppercase(), color = BoxInk.gold, style = TextStyle(fontFamily = FontFamily.Serif, fontSize = 12.sp, letterSpacing = 3.sp))
+                Text(speaker.uppercase(), color = BoxInk.gold, style = TextStyle(fontFamily = Serif, fontSize = 12.sp * TypeLook.scale, letterSpacing = 3.sp))
                 Spacer(Modifier.height(6.dp))
             }
             Text(
                 text, color = BoxInk.text,
                 style = TextStyle(
-                    fontFamily = FontFamily.Serif, fontSize = 17.sp, lineHeight = 24.sp, letterSpacing = 0.3.sp,
+                    fontFamily = Serif, fontSize = 17.sp * TypeLook.scale, lineHeight = 24.sp, letterSpacing = 0.3.sp,
                     fontStyle = if (speaker == null) FontStyle.Italic else FontStyle.Normal,
                 ),
             )

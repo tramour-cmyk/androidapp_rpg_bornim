@@ -577,7 +577,9 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         if (!quiver) return
         val qz = -d.chestDepth - (if (slung && o.items[GearSlot.CLOAK] != null) 0.05 else 0.035) * h
         val top = sk.upper.apply(P3(d.shoulderX * 0.45, d.shoulderY - 0.01 * h, qz))
-        val bottom = sk.upper.apply(P3(-d.shoulderX * 0.15, d.hipY + 0.15 * d.trunk, qz))
+        // 17 (draft): swinging on past a stop, the free bottom of the quiver swings off the back and a little aside
+        val qs = if (SWING_MORE) sk.rig.cloak else 0.0
+        val bottom = sk.upper.apply(P3(-d.shoulderX * 0.15 + qs * 0.035 * h, d.hipY + 0.15 * d.trunk + abs(qs) * 0.02 * h, qz - abs(qs) * 0.08 * h))
         val case = add(RoundCone(bottom, top, 0.03 * h, 0.034 * h, BodyPart.GEAR, Doll.ITEM), leather)
         // 58: worn over the cloak, the quiver presses the cloth in, or the cloth swallows it
         if (PRESS_CLOAK) cloakCloth?.holes?.add(Swept(case, sk.upper.dir(P3(0.0, 0.0, -1.0)), 0.25 * h, 0.5))
@@ -1383,6 +1385,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         @Volatile var BOLD = 1.45
         /** 58: a shield slung on the back presses the cloak under it (false: the old look, for comparison). */
         @Volatile var PRESS_CLOAK = true
+        /** 17 (draft, `SWINGMORE=1`): long hair and the quiver swing on with the cloak ([HeroFigure.Rig.cloak]). */
+        @Volatile var SWING_MORE = true
         /** How far each weapon's grip and pommel reach back behind the fist, in cm. */
         private val GRIP_BACK = mapOf("dagger" to 7.0, "shortsword" to 8.5, "scimitar" to 8.0, "rapier" to 8.5, "longsword" to 12.5,
             "greatsword" to 25.5, "handaxe" to 9.0, "battleaxe" to 12.0, "greataxe" to 35.0, "mace" to 11.5, "warhammer" to 9.0, "maul" to 30.0, "halberd" to 45.0)

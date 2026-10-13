@@ -33,7 +33,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -65,7 +64,7 @@ fun InterludeVeil(name: String, line: String?, veil: Float, words: Float, modifi
         Column(Modifier.fillMaxWidth().padding(horizontal = 36.dp).alpha(words), horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 name.uppercase(), color = VeilInk.name, textAlign = TextAlign.Center,
-                style = TextStyle(fontFamily = FontFamily.Serif, fontSize = 13.sp, letterSpacing = 4.sp),
+                style = TextStyle(fontFamily = Serif, fontSize = 13.sp * TypeLook.scale, letterSpacing = 4.sp),
             )
             if (line != null) {
                 Spacer(Modifier.height(14.dp))
@@ -73,7 +72,7 @@ fun InterludeVeil(name: String, line: String?, veil: Float, words: Float, modifi
                 Spacer(Modifier.height(18.dp))
                 Text(
                     line, color = VeilInk.text, textAlign = TextAlign.Center,
-                    style = TextStyle(fontFamily = FontFamily.Serif, fontSize = 19.sp, lineHeight = 28.sp, letterSpacing = 0.6.sp),
+                    style = TextStyle(fontFamily = Serif, fontSize = 19.sp * TypeLook.scale, lineHeight = 28.sp, letterSpacing = 0.6.sp),
                 )
             }
         }

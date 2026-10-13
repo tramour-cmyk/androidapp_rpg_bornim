@@ -19,7 +19,14 @@ class MapRestTest {
             val (h, _) = MapRest.at(11, t, handsFree = false, mayLook = false)
             assertTrue(!h.handsFree && !h.looks)
         }
-        assertTrue(seen == MapRest.Rest.entries.toSet(), "missing: ${MapRest.Rest.entries - seen}")
+        // the arms crossed and the hands behind the back only with the draft (55.1)
+        val drafted = setOf(MapRest.Rest.ARMS, MapRest.Rest.BACK)
+        assertTrue(seen == MapRest.Rest.entries.toSet() - drafted, "missing: ${MapRest.Rest.entries - drafted - seen}, unexpected: ${seen intersect drafted}")
+        MapRest.draft = true
+        try {
+            val more = (0L until 600_000L step 100L).map { MapRest.at(11, it, handsFree = true, mayLook = true).first }.toSet()
+            assertTrue(more == MapRest.Rest.entries.toSet(), "with the draft missing: ${MapRest.Rest.entries - more}")
+        } finally { MapRest.draft = false }
         assertTrue(same * 4 < total, "two figures move together too often: $same of $total")
         // about one breath in 4 s, in and out
         assertTrue(breaths in 250..350, "breaths: $breaths")

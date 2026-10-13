@@ -3,6 +3,9 @@ package de.bornim.core.art
 import de.bornim.core.Facing
 import de.bornim.core.GearSlot
 import de.bornim.core.Hero
+import de.bornim.core.Icon
+import de.bornim.core.Race
+import de.bornim.core.Sex
 
 /**
  * The hero on the map as the same doll as in battle (09.10.): seen at a slant from above, at true
@@ -108,7 +111,9 @@ object MapFigure {
     private fun who(hero: Hero) = "${hero.name}/${hero.race}/${hero.sex}/${hero.build}/${hero.skinTone}/${hero.hairTone}/${hero.cls}"
 
     private fun look(hero: Hero) = "${who(hero)}/${hero.bothHands()}/" +
-        GearSlot.entries.joinToString(",") { s -> hero.item(s)?.let { "${it.base}:${it.rarity}" } ?: "-" }
+        GearSlot.entries.joinToString(",") { s -> hero.item(s)?.let { "${it.base}:${it.rarity}" } ?: "-" } +
+        // 17 (draft): hair and quiver swinging on are drawn into the pictures, so they are drawn anew when it is switched
+        (if (Dress.SWING_MORE) "/17" else "")
 
     private val cache = HashMap<String, PixelImage>()
     private var preparing: String? = null
@@ -146,8 +151,9 @@ object MapFigure {
     /** 17 Nachschwingen (17a, in the game since 12.10.): the cloak swings on when the hero stops. */
     @Volatile var swingDraft = true
 
-    /** Only a hero with a cloak or mantle swings on. */
-    fun cloaked(hero: Hero): Boolean = hero.item(GearSlot.CLOAK) != null
+    /** Only a hero with a cloak or mantle swings on; in the draft (17, `SWINGMORE=1`) also long hair and a quiver. */
+    fun cloaked(hero: Hero): Boolean = hero.item(GearSlot.CLOAK) != null ||
+        Dress.SWING_MORE && (hero.sex == Sex.FEMALE || hero.race == Race.ELF || hero.item(GearSlot.MAIN_HAND)?.def?.icon == Icon.BOW)
 
     /** How long the cloak swings on after a stop. */
     const val SWING_MS = 1400L

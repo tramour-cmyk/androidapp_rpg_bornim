@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -61,13 +62,17 @@ private fun rarityTint(r: Rarity): Color = when (r) {
 /** Item icon in a frame colored by rarity. Empty slots show a faint placeholder. */
 @Composable
 fun GearIcon(g: Gear?, size: Dp, modifier: Modifier = Modifier) {
-    val shape = RoundedCornerShape(6.dp)
+    val shape = RoundedCornerShape(if (LocalVeil.current) 3.dp else 6.dp)
+    // 59: on black the frame is dark, a breath of the rarity's color behind the piece, its rim lightened
+    val veil = LocalVeil.current
+    val rim = g?.let { if (veil) Veil.of(rarityColor(it.rarity)) else rarityColor(it.rarity) } ?: if (veil) Veil.dim.copy(alpha = 0.35f) else Color(0xFFB8B0A0)
     Box(
         modifier
             .size(size)
             .clip(shape)
-            .background(g?.let { rarityTint(it.rarity) } ?: Color(0xFFDAD4C4))
-            .border(if (g != null && g.rarity >= Rarity.EPIC) 3.dp else 2.dp, g?.let { rarityColor(it.rarity) } ?: Color(0xFFB8B0A0), shape),
+            .background(if (veil) (g?.let { Veil.of(rarityColor(it.rarity)).copy(alpha = 0.16f).compositeOver(Color(0xFF0E0C0A)) } ?: Color(0xFF0E0C0A))
+                else g?.let { rarityTint(it.rarity) } ?: Color(0xFFDAD4C4))
+            .border(if (g != null && g.rarity >= Rarity.EPIC) (if (veil) 2.dp else 3.dp) else if (veil) 1.dp else 2.dp, rim, shape),
         contentAlignment = Alignment.Center,
     ) {
         if (g != null) GearPicture(g.base, g.rarity, size * 0.78f)
@@ -157,7 +162,8 @@ fun GearDetails(g: Gear, game: Game, lang: Lang) {
         (if (d.weight != Weight.NONE) " · " + d.weight.title(lang) else ""), size = 13.sp, bold = d.isWeapon && d.twoHanded,
         color = if (d.isWeapon && d.twoHanded) Colors.accent else Colors.textDim)
     // what comes off for it: the piece in its place, and a shield for a two-handed weapon (or the other way round)
-    val cmp = if (g in game.state.bag && hero.canWear(g)) GearCompare.of(hero, g) else null
+    // 59.3: also for the dealer's goods, never for what is worn
+    val cmp = if (hero.canWear(g) && hero.gear.values.none { it.uid == g.uid }) GearCompare.of(hero, g) else null
     cmp?.replaced?.takeIf { it.isNotEmpty() }?.let { off ->
         val other = off.any { it.slot != d.slot }
         Txt((if (de) "Ersetzt: " else "Replaces: ") + off.joinToString(", ") { it.name(lang) }, size = 13.sp, bold = other,
@@ -214,7 +220,7 @@ fun GearDetails(g: Gear, game: Game, lang: Lang) {
     if (d.focus > 0 && !hero.cls.caster) Txt(if (de) "Zauberkraft nützt nur Zauberwirkern." else "Spell power only helps spellcasters.", size = 13.sp, color = Colors.textDim)
 
     // comparison: everything that changes, what is worn now beside what it would be, gains green and losses red
-    if (cmp == null) return
+    if (cmp == null || cmp.rows.isEmpty()) return
     Spacer(Modifier.height(8.dp))
     Row(Modifier.fillMaxWidth()) {
         Txt(if (de) "Vergleich" else "Compare", Modifier.weight(1.8f), size = 15.sp, bold = true)

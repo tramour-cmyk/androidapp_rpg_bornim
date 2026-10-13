@@ -4,13 +4,19 @@ import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
 
-/** 17 (draft): the hero's cloak swinging on after a stop, in a few directions, picture by picture (`SWINGBILD=1`). */
+/**
+ * 17 (draft): the hero's cloak swinging on after a stop, in a few directions, picture by picture (`SWINGBILD=1`).
+ * `SWINGMORE=1`: long hair and the quiver swing on too (17 Rest); the sheet also shows a woman and an archer without a cloak.
+ */
 fun renderSwingDraft() {
     val F = de.bornim.core.art.MapFigure
+    val more = System.getenv("SWINGMORE") != null
+    de.bornim.core.art.Dress.SWING_MORE = more
     val times = listOf(0L, 120L, 225L, 400L, 675L, 900L, 1400L)
     // a fighter starts without a cloak: one in a short cloak, one in a long mantle
     // and an elf woman, her long hair swinging on too
-    val heroes = listOf("cloak", "mantle", "elf")
+    // and (17 Rest) a woman and two archers, one without a cloak
+    val heroes = System.getenv("SWINGWHO")?.split(",") ?: listOf("cloak", "mantle", "elf", "woman", "archer", "archer-cloak")
     // seen diagonally the pictures are turned by 45°: slots as the screen shows them
     val slots = listOf(4, 12)
     val z = 4
@@ -21,8 +27,13 @@ fun renderSwingDraft() {
     for ((n, base) in heroes.withIndex()) {
         val elf = base == "elf"
         val hero = de.bornim.core.GameState.newGame(if (elf) "Liriel" else "Alrik", if (elf) de.bornim.core.Race.ELF else de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER).hero
-        if (elf) hero.sex = de.bornim.core.Sex.FEMALE
-        hero.equip(de.bornim.core.Gear(900L + n, if (elf) "cloak" else base, de.bornim.core.Rarity.UNCOMMON, 3))
+        if (elf || base == "woman") hero.sex = de.bornim.core.Sex.FEMALE
+        if (base.startsWith("archer")) hero.equip(de.bornim.core.Gear(950L + n, "longbow", de.bornim.core.Rarity.COMMON, 3))
+        when (base) {
+            "woman", "archer" -> {}
+            "archer-cloak" -> hero.equip(de.bornim.core.Gear(900L + n, "cloak", de.bornim.core.Rarity.UNCOMMON, 3))
+            else -> hero.equip(de.bornim.core.Gear(900L + n, if (elf) "cloak" else base, de.bornim.core.Rarity.UNCOMMON, 3))
+        }
         for (slot in slots) {
             val y0 = row * (ch + 16)
             for ((c, t) in times.withIndex()) {
@@ -38,6 +49,6 @@ fun renderSwingDraft() {
             row++
         }
     }
-    ImageIO.write(img, "png", File("build/screens/entwurf_nachschwingen.png"))
+    ImageIO.write(img, "png", File("build/screens/entwurf_nachschwingen" + (if (more) "_neu" else "") + ".png"))
     println("wrote swing draft")
 }
