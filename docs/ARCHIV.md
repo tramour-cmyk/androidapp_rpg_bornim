@@ -34,6 +34,11 @@
 - Wahl des Spielers, Optionen, individuell und lebendig (49/50). Generisches Maskulinum, nie weibliche oder gegenderte Formen.
 
 
+### (alt) Tom (13.10., 19:4x) – an Nachfolger
+- 0.1.702 (Zweig `claude/tom-13e-kegelrand`) beim Nutzer, Prüfliste `e/t702.html`; nach „passt“ PR, zusammenführen.
+- **13t** auf `claude/tom-13t-alte-ansicht` (fbd91a27): gerade Ansicht ganz raus, ~2.500 Zeilen tote Reste gelöscht (Kerntests grün). Bildvergleich Wald/Dorf/Schänke/Höhle vorher/nachher pixelgleich; Build 0.1.703 grün, dem Nutzer noch nicht angeboten: erst nach Merge von 0.1.702 `main` in den Zweig holen, neu bauen, kurze Prüfliste (alle Orte einmal betreten); nach Merge in `UMGEBUNG.md` die Schalter `TOWNDRAFT`, `OVERVIEW`, `MAPS`, `CAVEMAP`, `RAUMDINGE`, `ALTRAUM` streichen.
+- 67a (Wegweiser) auf dem 13t-Zweig (573e0961). Nächste freie Punkte ohne Rückfrage: 3b Garrick links vom Feuer (Standbild vorher/nachher), 61b prüfen; 62r bauen, sobald entschieden (Empfehlung Ziel-Beschriftung); danach 6l, 68. Begriffe 62q beachten.
+
 ## Aus BERATER.md, 13.10., 18:5x
 
 - **Start** („Berater“/„Sokrates“): diese Datei, dann `docs/OFFEN.md` (zuerst „Für den Berater“; `LEITBILD.md` nur bei Grundsatzfragen), dann nur Änderungen seit „Zuletzt gelesen bis“: `git log --format='%h %ad %s' --date=format-local:'%d.%m. %H:%M' <Stand>..origin/main` (bei Bedarf `git diff <Stand>..origin/main -- docs CHANGELOG.md`), dazu `tools/story.sh <Stand>` (Textänderungen im Spiel, auch `EN alt`; bei Bedarf gegen `origin/<zweig>`). Kurz melden, Texte gegen `docs/STORY.md` und Storyplan prüfen.
