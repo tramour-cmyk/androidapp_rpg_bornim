@@ -17,7 +17,8 @@ ANKUENDIGUNG = re.compile(
 )
 
 
-VORRAT_LEER = re.compile(r"vorrat leer", re.IGNORECASE)
+# „an den Nachfolger übergeben“: nach einem Neustart arbeitet die alte Sitzung nicht neben der neuen weiter
+VORRAT_LEER = re.compile(r"vorrat leer|an den nachfolger (übergeben|uebergeben)", re.IGNORECASE)
 
 
 def letzter_text(pfad):
