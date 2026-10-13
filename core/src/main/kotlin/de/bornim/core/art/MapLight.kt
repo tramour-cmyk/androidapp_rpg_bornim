@@ -238,14 +238,20 @@ object MapLight {
             val gx = px / CELL - 0.5 - cx0; val gy = py / CELL - 0.5 - cy0
             val ix = floor(gx).toInt().coerceIn(0, gw - 2); val iy = floor(gy).toInt().coerceIn(0, gh - 2)
             val fx = (gx - ix).coerceIn(0.0, 1.0); val fy = (gy - iy).coerceIn(0.0, 1.0)
-            val tx = floor(px / T).toInt(); val ty = floor(py / T).toInt()
-            // in caves the top of a rock mass (rock below it too) gets little light
-            val roof = map.kind == MapKind.CAVE && map.tile(tx, ty) in opaque && map.tile(tx, ty + 1) in opaque
+            // in caves the top of a rock mass (rock below it too) gets little light, shading off between the tile
+            // centres (test 13.10.: by whole tiles it showed as hard straight edges and bands across the rock)
+            val roof = if (map.kind != MapKind.CAVE) 0.0 else {
+                val rx = px / T - 0.5; val ry = py / T - 0.5
+                val tx = floor(rx).toInt(); val ty = floor(ry).toInt()
+                val ux = rx - tx; val uy = ry - ty
+                fun top(ax: Int, ay: Int) = if (map.tile(ax, ay) in opaque && map.tile(ax, ay + 1) in opaque) 1.0 else 0.0
+                (top(tx, ty) * (1 - ux) + top(tx + 1, ty) * ux) * (1 - uy) + (top(tx, ty + 1) * (1 - ux) + top(tx + 1, ty + 1) * ux) * uy
+            }
             fun ch(c: Int): Int {
                 fun at(ax: Int, ay: Int) = g[(ay * gw + ax) * 3 + c]
                 val a = at(ix, iy) * (1 - fx) + at(ix + 1, iy) * fx
                 val b = at(ix, iy + 1) * (1 - fx) + at(ix + 1, iy + 1) * fx
-                val v = (a * (1 - fy) + b * fy) * (if (roof) 0.5 else 1.0)
+                val v = (a * (1 - fy) + b * fy) * (1.0 - 0.5 * roof)
                 return (v.coerceIn(0.0, 1.0) * 255).toInt()
             }
             img.pixels[y * ow + x] = (0xFF shl 24) or (ch(0) shl 16) or (ch(1) shl 8) or ch(2)

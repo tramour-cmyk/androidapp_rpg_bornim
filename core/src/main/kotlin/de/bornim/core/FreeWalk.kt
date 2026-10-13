@@ -20,9 +20,9 @@ import kotlin.math.min
 class FreeWalk(private val game: Game) {
     /** Where the hero's feet are, in tiles. */
     var x = 0.0
-        private set
+        internal set
     var y = 0.0
-        private set
+        internal set
 
     /** The way the hero walks or last walked, as a yaw in the map: 0 down the map, 90 to the right. */
     var yaw = 0.0
@@ -92,17 +92,31 @@ class FreeWalk(private val game: Game) {
         }
     }
 
-    /** Whether the hero's circle at ([cx], [cy]) overlaps a blocked tile; returns that tile or null. */
-    private fun hit(cx: Double, cy: Double): Pair<Int, Int>? {
+    /** The squared distance from ([cx], [cy]) to what fills the tile ([tx], [ty]). */
+    private fun gap2(cx: Double, cy: Double, tx: Int, ty: Int): Double {
+        val f = footprint(tx, ty)
+        val nx = cx.coerceIn(tx + f[0], tx + f[2]); val ny = cy.coerceIn(ty + f[1], ty + f[3])
+        return (cx - nx) * (cx - nx) + (cy - ny) * (cy - ny)
+    }
+
+    /**
+     * Whether the hero's circle at ([cx], [cy]) overlaps a blocked tile; returns that tile or null. A tile
+     * that already overlaps the hero where it stands now ([fx], [fy]), because someone stepped onto it close
+     * by (5la, test 0.1.650: Bram walking past at the bridge), only stops a move that comes nearer to it, so
+     * the hero can always walk away.
+     */
+    private fun hit(cx: Double, cy: Double, fx: Double = x, fy: Double = y): Pair<Int, Int>? {
         // the middle of the hero never goes into a blocked tile, whatever part of it the thing fills
         val mx = floor(cx).toInt(); val my = floor(cy).toInt()
         if (blocked(mx, my) && footprint(mx, my) !== FULL) return mx to my
         for (ty in floor(cy - RADIUS).toInt()..floor(cy + RADIUS).toInt())
             for (tx in floor(cx - RADIUS).toInt()..floor(cx + RADIUS).toInt()) {
                 if (!blocked(tx, ty)) continue
-                val f = footprint(tx, ty)
-                val nx = cx.coerceIn(tx + f[0], tx + f[2]); val ny = cy.coerceIn(ty + f[1], ty + f[3])
-                if ((cx - nx) * (cx - nx) + (cy - ny) * (cy - ny) < RADIUS * RADIUS - 1e-9) return tx to ty
+                val g = gap2(cx, cy, tx, ty)
+                if (g >= RADIUS * RADIUS - 1e-9) continue
+                val was = gap2(fx, fy, tx, ty)
+                if (was < RADIUS * RADIUS - 1e-9 && g >= was) continue
+                return tx to ty
             }
         return null
     }
@@ -144,6 +158,8 @@ class FreeWalk(private val game: Game) {
         val moved = hypot(x - sx, y - sy)
         walked += moved
         moving = moved > 1e-6
+        if (moving) game.tracks.walked(mapId, x, y, yaw, game.map.tile(floor(x).toInt(), floor(y).toInt()),
+            game.map.kind == MapKind.FOREST || game.map.kind == MapKind.TOWN, pace > WALK * 1.4, nowMs)
         // the way the hero faces, for what lies ahead (talking, opening, …): the nearer grid direction
         val f = if (abs(dx) > abs(dy)) (if (dx > 0) Facing.RIGHT else Facing.LEFT) else (if (dy > 0) Facing.DOWN else Facing.UP)
         if (game.state.place.facing != f && game.mode == Mode.Explore) game.face(f)

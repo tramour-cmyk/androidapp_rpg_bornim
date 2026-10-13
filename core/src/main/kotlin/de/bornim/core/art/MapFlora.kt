@@ -528,7 +528,10 @@ object MapFlora {
                 // (north and west): there the stones of the circle count too, but a chest may stay hidden under the trees
                 val diag = MapFigure.viewYaw != 0.0
                 fun seen(x: Int, y: Int) = map.tile(x, y) == Tile.MENHIR || (important(x, y) && map.tile(x, y) != Tile.CHEST)
-                val shades = if (diag) (0..8).any { bx -> (0..8).any { by -> bx + by in 1..8 && kotlin.math.abs(bx - by) <= 2 && seen(tx - bx, ty - by) } }
+                // the old oaks of the deep forest (27.6) stand so close that a crown twelve steps in front still reaches
+                // over Morwen's fire: there the reach goes as high as the tallest crown (about 12 half tiles)
+                val reach = if (deep) 12 else 8
+                val shades = if (diag) (0..reach).any { bx -> (0..reach).any { by -> bx + by in 1..reach && kotlin.math.abs(bx - by) <= 2 && seen(tx - bx, ty - by) } }
                     else (1..3).any { dy -> (-1..1).any { dx -> important(tx + dx, ty - dy) } }
                 if (shades) {
                     // a row of them at the edge of the village is no hedge (test of 0.1.590): set off a little each, some
@@ -537,7 +540,7 @@ object MapFlora {
                     fun young(k: Int) = obj(spruce(hash(tx, ty, 6 + k) % 6, 0, young = true),
                         cx + (rnd(tx, ty, 18 + k) - 0.5) * S * 0.6, cy + S * (0.45 + rnd(tx, ty, 20 + k) * 0.3))
                     return when {
-                        map.kind != de.bornim.core.MapKind.TOWN -> listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
+                        map.kind != de.bornim.core.MapKind.TOWN && !(deep && diag) -> listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
                         // seen diagonally (56, draft): the bush in the slant like those of the undergrowth
                         pick < 3 && diag -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
                         pick < 3 -> listOf(obj(bush(hash(tx, ty, 19) % 6), cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5, cy + S * 0.5))

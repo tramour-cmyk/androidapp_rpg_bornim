@@ -23,6 +23,8 @@ sealed interface Move {
  */
 class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()) {
     companion object {
+        /** 55.1b: the shortest of a guard's longer watches at a patrol point. */
+        const val LONG_WATCH_MS = 10_000L
         const val ELITE_CHANCE = 0.12
         const val SHINY_CHANCE = 1.0 / 150
         /** Poison and bleeding carried out of a fight hurt once every this many steps. */
@@ -46,6 +48,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     var mapChanged = false
 
     private val queue = ArrayDeque<Cmd>()
+
+    /** A step the hero takes back by itself after turning round at the edge of a map (67); the app walks it and clears it. */
+    var stepBack: Facing? = null
 
     /** Short messages for the app to show as a toast. */
     val notices = ArrayDeque<T>()
@@ -117,7 +122,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     private var thunderAt = 0L
 
     /** The rain at once as heavy as the weather says (previews and tests). */
-    fun settleWeather() { rainLevel = if (raining) 1f else 0f }
+    fun settleWeather() { rainLevel = if (raining) 1f else 0f; tracks.settle(rainLevel) }
+
+    /** Traces that stay a while: blood, footprints, dust (idea 7, draft). */
+    val tracks = Tracks()
 
     /** A flash of sheet lightning far off, the thunder following a few seconds later. */
     fun flash() {
@@ -129,6 +137,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         clockMs += deltaMs
         val target = if (raining) 1f else 0f
         rainLevel = if (rainLevel < target) minOf(target, rainLevel + deltaMs / Weather.FADE_MS) else maxOf(target, rainLevel - deltaMs / Weather.FADE_MS)
+        tracks.weather(if (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN) rainLevel else 0f, deltaMs)
         if (thunderAt != 0L && now >= thunderAt) {
             thunderAt = 0L
             if (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN) sounds += de.bornim.core.audio.Sound.THUNDER
@@ -160,7 +169,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     private val walkers = HashMap<String, List<Walker>>()
 
-    private fun walkersHere(): List<Walker> = walkers.getOrPut(state.place.map) { map.npcs.filter { it.moves }.map { Walker(it) } }
+    private fun walkersHere(): List<Walker> = walkers.getOrPut(state.place.map) {
+        map.npcs.filter { it.moves }.map { n ->
+            // 5l (draft): coming into the village, everyone is already where their day has taken them
+            Walker(n).also { w -> if (VillageDay.draft) VillageDay.stopAt(n.id, state.minutes)?.let { st -> if (map.walkable(st.x, st.y, state)) { w.x = st.x; w.y = st.y; w.fromX = st.x; w.fromY = st.y } } }
+        }
+    }
 
     /** Where a strolling villager is right now, null for people who stand still. */
     fun walkerOf(npc: Npc): Walker? = if (!npc.moves) null else walkersHere().firstOrNull { it.npc === npc }
@@ -172,9 +186,18 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     private fun updateWalkers() {
         val p = state.place
         for (w in walkersHere()) {
+            // 62f: the map remembers where the hero came upon someone at one of their habits
+            if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 3 && w.npc.visible(state))
+                MapPeople.habitNow(w.npc.id, state.minutes, isNight, w.x, w.y)?.let { state.flags += MapPeople.seenAt(w.npc.id, it) }
             if (now < w.nextMoveAt || !w.npc.visible(state)) continue
             if (w.npc.patrol.isNotEmpty()) {
                 patrol(w)
+                continue
+            }
+            // 5l (draft): off to the next place of the day, else stroll about there
+            val stop = if (VillageDay.draft) VillageDay.stopAt(w.npc.id, state.minutes) else null
+            if (stop != null && !VillageDay.near(stop, w.x, w.y)) {
+                goTowards(w, stop.x, stop.y)
                 continue
             }
             w.nextMoveAt = now + 1500 + roamRandom.nextInt(2500)
@@ -183,13 +206,34 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             val d = Facing.entries[roamRandom.nextInt(4)]
             val nx = w.x + d.dx; val ny = w.y + d.dy
             w.facing = d
-            if (kotlin.math.abs(nx - w.npc.x) + kotlin.math.abs(ny - w.npc.y) > w.npc.wander) continue
+            if (kotlin.math.abs(nx - (stop?.x ?: w.npc.x)) + kotlin.math.abs(ny - (stop?.y ?: w.npc.y)) > (stop?.wander ?: w.npc.wander)) continue
             if (!free(nx, ny) || map.warpAt(nx, ny) != null || (nx == p.x && ny == p.y)) continue
             w.fromX = w.x; w.fromY = w.y
             w.x = nx; w.y = ny
             w.movedAt = now
             changed()
         }
+    }
+
+    /** One step of a villager on the way to ([tx], [ty]) (5l), along the shortest way round houses and fences, past no door. */
+    private fun goTowards(w: Walker, tx: Int, ty: Int) {
+        val p = state.place
+        w.nextMoveAt = now + 650
+        // wait while the hero stands next to them, e.g. to talk
+        if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 1) return
+        fun open(x: Int, y: Int) = map.walkable(x, y, state) && map.warpAt(x, y) == null
+        // round the others where there is room, else straight on and wait for them
+        val d = VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height) { x, y -> open(x, y) && free(x, y) && !(x == p.x && y == p.y) }
+            ?: VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height) { x, y -> open(x, y) } ?: return
+        val nx = w.x + d.dx; val ny = w.y + d.dy
+        w.facing = d
+        npcFacing.remove(w.npc.id)
+        // someone in the way: wait a moment, they move on
+        if (!free(nx, ny) || (nx == p.x && ny == p.y)) { w.nextMoveAt = now + 400 + roamRandom.nextInt(600); return }
+        w.fromX = w.x; w.fromY = w.y
+        w.x = nx; w.y = ny
+        w.movedAt = now
+        changed()
     }
 
     /** One step of a guard's round: walk to the next patrol point, look around there, go on. */
@@ -204,9 +248,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (w.x == tx && w.y == ty) {
             // Arrived: look around for a while, then head for the next point.
             w.leg = (w.leg + 1) % w.npc.patrol.size
-            w.facing = if (roamRandom.nextBoolean()) Facing.UP else Facing.entries[roamRandom.nextInt(4)]
+            // 55.1b: every other stop a longer watch (the guard grounds his spear), turned to the road or the village
+            val long = roamRandom.nextBoolean()
+            w.facing = if (long) listOf(Facing.DOWN, Facing.LEFT, Facing.RIGHT)[roamRandom.nextInt(3)]
+                else if (roamRandom.nextBoolean()) Facing.UP else Facing.entries[roamRandom.nextInt(4)]
             npcFacing.remove(w.npc.id)
-            w.nextMoveAt = now + 2500 + roamRandom.nextInt(2500)
+            w.nextMoveAt = now + if (long) LONG_WATCH_MS + roamRandom.nextInt(6000) else 2500L + roamRandom.nextInt(2500)
             changed()
             return
         }
@@ -233,7 +280,22 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (mode != Mode.Explore) return
         tickClock(delta)
         updateWalkers()
+        walkerTracks()
         updateRoamers(nowMs)
+    }
+
+    /** 61 (test of 0.1.662): villagers leave prints in the wet like the hero; between tiles where they are drawn. */
+    private fun walkerTracks() {
+        if (!Tracks.draft) return
+        val outdoors = map.kind == MapKind.FOREST || map.kind == MapKind.TOWN
+        if (!outdoors) return
+        for (w in walkersHere()) {
+            if (!w.npc.visible(state) || w.npc.look.startsWith("monster:")) continue
+            val t = ((now - w.movedAt).toDouble() / w.moveMs).coerceIn(0.0, 1.0)
+            val x = w.fromX + (w.x - w.fromX) * t + 0.5; val y = w.fromY + (w.y - w.fromY) * t + 0.5
+            val yaw = Math.toDegrees(kotlin.math.atan2((w.x - w.fromX).toDouble(), (w.y - w.fromY).toDouble()))
+            tracks.walked(map.id, x, y, yaw, map.tile(w.x, w.y), outdoors, false, now, who = w.npc.id)
+        }
     }
 
     private val sight = Sight(state)
@@ -247,6 +309,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val f = sight.fog(map, x, y, isNight)
         return if (seeAll) Fog.VISIBLE else f
     }
+
+    /** Whether the point ([x], [y]), in tiles, is in sight, finer than a tile (see [Sight.inSight]). */
+    fun inSight(x: Double, y: Double): Boolean = !fogged || seeAll || sight.inSight(map, x, y, isNight)
 
     /** Free walking of the hero (13g): a position between the tiles, used by the diagonal view. */
     val freeWalk = FreeWalk(this)
@@ -308,7 +373,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val warp = map.warpAt(nx, ny)
         if (warp != null && warp.requires != null && !state.has(warp.requires)) {
             changed()
-            enqueue(warp.denied)
+            if (warp.turnBack) {
+                val (text, short) = Story.southEdge(state)
+                if (short) notices += text else enqueue(listOf(Cmd.Say(null, text)))
+                stepBack = dir.opposite
+            } else enqueue(warp.denied)
             return Move.Blocked
         }
         roamerAt(nx, ny)?.let { r ->
@@ -334,6 +403,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         map.warpAt(p.x, p.y)?.let { warp ->
             sounds += de.bornim.core.audio.Sound.DOOR
             state.place = warp.to
+            if (World.maps[warp.to.map]?.kind == MapKind.INTERIOR) state.flags += MapPeople.been(warp.to.map)
             graceSteps = 3
             mapChanged = true
             changed()
@@ -637,6 +707,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
         npcAt(tx, ty)?.let { npc ->
             npcFacing[npc.id] = p.facing.opposite
+            state.flags += MapMarks.met(npc.id)
             enqueue(Jobs.handIn(state, npc.id) ?: npc.talk(state))
             return
         }
@@ -797,6 +868,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     return
                 }
                 is Cmd.OpenShop -> {
+                    buyback.clear()
                     mode = Mode.Shop(c.stock, c.brewing)
                     changed()
                     return
@@ -1017,6 +1089,15 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                 }
             }
         }
+        if (battle.outcome == Outcome.WON) {
+            // draft (idea 7): blood where the foe fell, else on the tile before the hero
+            val p = state.place
+            val (bx, by) = battleRoamer?.let { it.x + 0.5 to it.y + 0.5 } ?: when (p.facing) {
+                Facing.UP -> p.x + 0.5 to p.y - 0.5; Facing.DOWN -> p.x + 0.5 to p.y + 1.5
+                Facing.LEFT -> p.x - 0.5 to p.y + 0.5; Facing.RIGHT -> p.x + 1.5 to p.y + 0.5
+            }
+            tracks.blood(p.map, bx, by, now, battleRoamer?.uid ?: state.steps)
+        }
         battleRoamer = null
         if (battle.outcome == Outcome.LOST) state.ailments.clear() else keepAilments(battle)
         when (battle.outcome) {
@@ -1074,15 +1155,44 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     fun buyPrice(g: Gear): Int = Perks.buyPrice(hero, g.price)
 
-    fun buy(id: String): String {
+    fun buy(id: String, n: Int = 1): String {
         val def = Items[id]
-        val price = buyPrice(id)
+        val price = buyPrice(id) * n
+        if (n < 1) return Ui.nothing(lang)
         if (state.gold < price) return Ui.notEnoughGold(lang)
         state.gold -= price
-        state.add(id)
+        state.add(id, n)
         sounds += de.bornim.core.audio.Sound.COINS
         changed()
-        return Ui.bought.f(lang, def.name(lang))
+        return Ui.bought.f(lang, def.name(lang) + if (n > 1) " ×$n" else "")
+    }
+
+    /** 59.5: how many of [id] the hero can buy with the gold in hand. */
+    fun canBuy(id: String): Int = state.gold / buyPrice(id)
+
+    /** One thing sold in this visit to the shop (59.4), to be bought back at the price it fetched. */
+    class Sold(val gear: Gear?, val item: String?, val count: Int, val price: Int) {
+        fun name(lang: Lang) = (gear?.name(lang) ?: Items[item!!].name(lang)) + if (count > 1) " ×$count" else ""
+    }
+
+    /** 59.4: the last five sales, newest first, until the shop closes; not saved. */
+    val buyback = ArrayDeque<Sold>()
+
+    private fun sold(s: Sold) {
+        buyback.addFirst(s)
+        while (buyback.size > 5) buyback.removeLast()
+    }
+
+    /** 59.4: takes [s] back for what it fetched. */
+    fun buyBack(s: Sold): String {
+        if (s !in buyback) return Ui.cannotSell(lang)
+        if (state.gold < s.price) return Ui.notEnoughGold(lang)
+        state.gold -= s.price
+        if (s.gear != null) state.bag += s.gear else state.add(s.item!!, s.count)
+        buyback.remove(s)
+        sounds += de.bornim.core.audio.Sound.COINS
+        changed()
+        return Ui.bought.f(lang, s.name(lang))
     }
 
     fun sellPrice(id: String): Int = Perks.sellPrice(hero, Items[id].price / 2)
@@ -1127,6 +1237,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     fun sellGear(g: Gear): String {
         if (!state.bag.remove(g)) return Ui.cannotSell(lang)
         state.gold += sellPrice(g)
+        sold(Sold(g, null, 1, sellPrice(g)))
         sounds += de.bornim.core.audio.Sound.COINS
         changed()
         return Ui.sold.f(lang, g.name(lang))
@@ -1135,7 +1246,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** Sells every common piece in the bag at once. */
     fun sellAllCommon(): Int {
         val junk = state.bag.filter { it.rarity == Rarity.COMMON }
-        junk.forEach { state.bag.remove(it); state.gold += sellPrice(it) }
+        junk.forEach { state.bag.remove(it); state.gold += sellPrice(it); sold(Sold(it, null, 1, sellPrice(it))) }
         changed()
         return junk.size
     }
@@ -1145,13 +1256,14 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         changed()
     }
 
-    fun sell(id: String): String {
+    fun sell(id: String, n: Int = 1): String {
         val def = Items[id]
-        if (!def.sellable || !state.remove(id)) return Ui.cannotSell(lang)
-        state.gold += sellPrice(id)
+        if (n < 1 || !def.sellable || !state.remove(id, n)) return Ui.cannotSell(lang)
+        state.gold += sellPrice(id) * n
+        sold(Sold(null, id, n, sellPrice(id) * n))
         sounds += de.bornim.core.audio.Sound.COINS
         changed()
-        return Ui.sold.f(lang, def.name(lang))
+        return Ui.sold.f(lang, def.name(lang) + if (n > 1) " ×$n" else "")
     }
 
     fun changed() {
