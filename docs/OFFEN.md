@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- Tom: neuer Build mit 13e (über niedrige Höhlenwände sehen) und 62h (Landkarte Pergament) läuft, Link folgt.
+- Tom: neuer Build mit 13e (über niedrige Höhlenwände sehen), 62h (Landkarte Pergament) und 62p läuft, Link folgt.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Entscheidungsseite (65.3), nicht hier.
 
@@ -33,7 +33,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 40 | Lautstärke im Menü: Gesamt, Musik, Effekte (heute nur Musik an/aus) | Jerry | neu von `main` | Nutzer 12.10., 09:52. **40a ja (10:10):** drei Regler, Ortsklang bei Effekten |
 | 41 | Storyplan: je Kapitel Zusammenfassung, Quests, Dialoge; dann Plot Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | 41a–41d ja: Entwurf Kapitel 1 steht ([Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)), Texte in `docs/STORY.md` (Verzeichnis, Teildateien je Kapitel); Regel „Story und Dialoge“ in `CLAUDE.md`. Kapitel 2: Grobzusammenfassung „Das Graumoor“ im Dokument (15:2x), Grundidee gut (Nutzer 15:28); Kapitel 2 muss im Umfang deutlich mehr bieten als Kapitel 1 (41i), **41j ja (15:58):** 5 Gebiete (Südstraße, Rabenschanze, Schilfrode, Graumoor dreiteilig, Aschfurt mit Katakomben), 3 Zufallshöhlen aus Schilfrode, 5–6 Nebenaufgaben; **41k ja:** Moor bei Nacht gefährlicher, Fähre nur bei Tag; **41l:** kein fester Begleiter, Fuhrmann bis zur Rabenschanze. **41m ja (16:29):** je eine Zufallshöhle pro Landschaft (Steinbruch Südstraße, Lehmhang Schilfrode, Hügelgrab Bruchwald), Aufträge am Aushang Schilfrode ([Karte](https://claude.ai/artifact/LUvNvJofCbNpvv7Rm7zJsu), 16:3x); **41n–41p ja (16:51):** Bohlensteg Kultlager–Schilfrode legt der Held nach Befreien der Gefangenen frei, Höhlen frei betretbar, Aushang nennt den Ort in Worten statt Kartenmarke. Offen 41m-Rest |
 | 59e | Händler: Menge „Alle“, Vorrat je Laden | Tom (jetzt); Jerry mit 38/39 (Vorrat) | – | Entschieden 13.10. (Beschlüsse): „Alle“ beim Kaufen weg, beim Verkaufen mit Abfrage (in 0.1.660). Vorrat je Laden erst mit 38/39, nie nach Zeit/Rast, Menge nach Schwierigkeitsgrad |
-| 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p) | Tom; 62m Jerry mit 39 | `claude/tom-13e-kegelrand` | 62e–62g auf `main`. **62h ja (Nutzer 16:3x, Beschlüsse):** zweiter Entwurf ins Spiel, derselbe Stil für Gebietskarte und Grundriss (in Arbeit); **62n/62o ja (16:09, Beschlüsse, Sokrates):** Beschriftung in Textkasten-Schrift/Sepia, Gebietskarte Zeichen statt Hausnamen (ersetzt Handschrift 62g), Höhlen-Grundriss als Skizze mit festem Ausschnitt; erst zwei Standbilder; **62p ja (16:48):** Begriffe in `CLAUDE.md`; Höhlen und Burgen sind Grundrisse, also **Tom: Höhle von der Landkarte nehmen**, Eingang auf der Gebietskarte des Flüsterwalds; 62i–62k mit 64; 62l/62m später |
+| 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p) | Tom; 62m Jerry mit 39 | `claude/tom-13e-kegelrand` | 62e–62g auf `main`. **62h ja (Nutzer 16:3x, Beschlüsse):** zweiter Entwurf ins Spiel, derselbe Stil für Gebietskarte und Grundriss (in Arbeit); **62n/62o ja (16:09, Beschlüsse, Sokrates):** Beschriftung in Textkasten-Schrift/Sepia, Gebietskarte Zeichen statt Hausnamen (ersetzt Handschrift 62g), Höhlen-Grundriss als Skizze mit festem Ausschnitt; erst zwei Standbilder; **62p ja (16:48):** Begriffe in `CLAUDE.md`; Höhlen und Burgen sind Grundrisse, Höhle von der Landkarte genommen, Eingang auf der Gebietskarte (im nächsten Build); 62i–62k mit 64; 62l/62m später |
 | 45 | Geschäftsmodell (Play Store) | Berater mit Nutzer | – | 45a/45c ja (Kapitel 1 frei, Vollversion, nie Werbung/Beutekisten/Wartezeiten). **45b zurückgestellt** bis nach Messung 38. Verlauf im Archiv |
 | 68 | Szene im Tempel: Rückkehr des Sonnenamuletts als Abschluss von Kapitel 1 | Berater mit Nutzer (Text); Tom (Szene), Jerry (Klang) | – | Nutzer 13.10., 15:33; Anmerkung 4 im Storyplan; Musik „Ancient Legend“ schon dafür vorgesehen (37). Entwurf im Gespräch |
 | 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | – | **69a–69d ja (Nutzer 13.10., 16:31):** Texte, Ablauf und Klang in `docs/STORY1.md` (`[69.intro.…]`), wortgetreu übernehmen |
@@ -50,9 +50,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 16:5x)
-- PR #52 (getestet bis 0.1.689) auf `main`. Zweig `claude/tom-13e-kegelrand` neu von `main`: 13e niedrige Wände + 62h Pergament an, Build läuft (Weckruf 16:58), dann Prüfliste.
-- Danach: 62p (Höhle von der Landkarte, Eingang auf der Gebietskarte), Gebietskarte und Grundriss im Stil der Landkarte mit 62n/62o (erst zwei Standbilder), dann 13t (eigener Zweig von `main`), dann 6l.
+### Tom (13.10., 17:0x)
+- PR #52 (getestet bis 0.1.689) auf `main`. Zweig `claude/tom-13e-kegelrand` neu von `main`: 13e niedrige Wände lassen Blick und Feuerlicht durch, 62h Pergament an, 62p Höhle von der Landkarte (Eingang auf der Gebietskarte, antippen öffnet den Grundriss). Build zu 90cf5df3, Prüfliste `e/t<build>.html`.
+- Danach: Gebietskarte und Grundriss im Stil der Landkarte (dreifache Auflösung, Tusche wie `LandSheet`) mit 62n/62o; erst zwei Standbilder (Vorschau `KARTE62=1 ONLY=62f`/`62h`). Dann 13t (eigener Zweig von `main`), dann 6l.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
