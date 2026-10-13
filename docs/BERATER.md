@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Aufbau, Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARCHIV.md` („Aus BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Sitzungen** (ältere im Archiv): 13.10. 17:05–18:0x „Storyplan und Tempelszene“ (68a–m, 70, 62q, 67a, 3b/61b an Tom). **Nachfolger:** „Sokrates – Kapitel 2 Plot“ (Nutzer startet mit „Sokrates“)
+**Sitzungen** (ältere im Archiv): 13.10. 18:08–19:0x „Kapitel 2 Plot“ (2a–2d, 3a–3e, 71 für Diogenes, 72 Marktvergleich, Rolle geschärft). **Nachfolger:** „Sokrates – Kapitel 2 und Profil“ (Nutzer startet mit „Sokrates“)
 
-**Nächster Punkt:** Kapitel 2 Plot (41): Ankunft Südstraße/Fuhrmann, Rabenschanze, Kultlager mit Gefangenen; Einstieg steht (`[68.lyra.…]`, `[68.…lager]` in `STORY1.md`).
+**Nächster Punkt:** offene Rückfragen mit vollem Wortlaut und Empfehlung zeigen: **4a–4d** Rabenschanze (Entwurf im Chat 13.10., 18:37: Mauerbruch statt Oger, Silber aus Aschfurt, Liste „Ring fehlt“, Hauptmann Vesk; alle Empfehlung ja; Texte noch nicht im Storyplan) und **72a–72j** im [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b). Danach Kultlager (41).
 
-**Zuletzt gelesen bis:** dieser Commit (13.10., 18:0x)
+**Zuletzt gelesen bis:** dieser Commit (13.10., 19:0x)
 
 ## Ritual
 
@@ -41,7 +41,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - **Tempelszene (68, 70):** Zwischensequenzen gleich gebaut, damit sie als Reihe wirken; Osric im Bild statt Erklärung (Begründungen im Text wirken konstruiert); **Blende statt Termin**, sonst wartet man in freier Welt tagelang; Einstieg Kapitel 2 erinnert statt führt. Volltext im Archiv („18:5x“).
 - **Chronik-Texte (64d/62i, Nutzer 13.10.):** Chronist in dritter Person, Einträge je Wendepunkt (Rückkehrer sehen sofort den Stand), Hörensagen mit Quelle; kindlicher Ton bleibt. **67 Südstraße:** zweiter Weg für Versorgung und Herkunft; Umkehr durch den Helden selbst statt Wand (erinnert statt führt). Einzelheiten im Archiv („16:0x“).
 
-**Offen bei mir:** Heldenbau-Rest (Erkennungszeichen, Messung); Prüfungsquests und Umlern-Tempel (41, mit Nutzer); **45b nach Jerrys Messung 38 ansprechen**; 41 Kapitel 2 stößt der Nutzer an.
+**Offen bei mir:** 4a–4d, 72a–72j; Heldenbau-Rest (Erkennungszeichen, Messung); Prüfungsquests und Umlern-Tempel (41); 45b nach Messung 38 (Empfehlung 72i: streichen).
 
 ## Lehren
 
