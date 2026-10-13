@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom 0.1.714** (Zweig `claude/tom-73-laeden`): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38450120858/artifacts/11840815047 · 73 Läden zu, 62r Knopf, 3b Garrick, 13 Tempelboden; Prüfliste `e/t714.html`. Nach „passt“: PR des Zweigs, zusammenführen.
+- Nichts.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -20,7 +20,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 |---|---|---|---|---|
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2** Weck-Routinen (Jerry, Zeile unten). Regeln in `CLAUDE.md` (65.4 ein Ort, 65.7/65.8 kein „Erledigt“); Verlauf im Archiv |
 | 13 | Diagonale Sicht | Tom | `claude/tom-73-laeden` | 13t auf `main` (PR #54); Tempelboden Steinplatten in 0.1.714. Verlauf im Archiv |
-| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` (27.4, 5.3, 5.4, 5.6, 5n, 5la). Offen nur 5.5 (prüfen, ob noch etwas fehlt). Verlauf im Archiv |
+| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` (27.4, 5.3, 5.4, 5.6, 5n, 5la). **Nutzer 21:1x:** Pim steht um 4 Uhr draußen, gehört ins Bett (5la). Offen 5.5 (prüfen, ob noch etwas fehlt). Verlauf im Archiv |
 | 13e | Höhle diagonal | Tom | – | Auf `main` (getestet 0.1.702). Offen nur Diogenes-Befunde der Höhle (Jerry) |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`, auch 24.8.6 (Türen 0,5 s). **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | **26c:** (1) 24.8.6/30.8, (2) 42, (3) Diagonalsicht erledigt (auf `main`), ebenso 55.2 und 17; Toms Teil von 26c fertig |
@@ -39,10 +39,11 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | Tom (Szene, Bilder), Jerry (Klang „Ancient Legend“) | – | **68a–68m ja (Nutzer 17:16–18:02):** Ablauf, Texte, Einstieg Kapitel 2 alles in `docs/STORY1.md` (`[68.…]`, auch `[67.schild]`, `[67.nach.…]` entfällt); Form `STIL.md` „Zwischensequenzen“ |
 | 70 | Zwischensequenzen einheitlich (Intro 69, Tempel 68, spätere Wendepunkte) | Berater mit Nutzer | `main` (Notizen) | Nutzer 17:08: alle Zwischensequenzen ähnlich gebaut; Muster in `STIL.md` „Zwischensequenzen“ |
 | 62q | Begriffe: Landkarte → Gebietskarte → Grundriss → **Ebene** (übereinander im Grundriss; „Stockwerk“ entfällt) | alle | – | **Ja (Nutzer 17:33)**, Regel in `CLAUDE.md` „Begriffe“; Tom/Jerry/Diogenes bitte so in Spiel, Prüflisten und Notizen |
-| 3b | Garrick links vom Feuer, Gesicht zur Kamera | Tom | `claude/tom-73-laeden` | In 0.1.714 |
+| 3b | Garrick links vom Feuer, Gesicht zur Kamera | Tom | – | Auf `main` (0.1.714). **Nutzer 21:1x:** zu weit vom Feuer, Hände wärmen und Feuerstock nehmen sehen nicht richtig aus; näher heran |
+| 4 | Glühwürmchen am Fluss | Tom | – | **Nutzer 13.10., 21:1x:** zu hektisch, zu schnell an und aus; Schwärme alle gleich groß. Ruhiger, Schwarmgrößen verschieden |
 | 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | – | **69a–69d ja (Nutzer 13.10., 16:31):** Texte, Ablauf und Klang in `docs/STORY1.md` (`[69.intro.…]`), wortgetreu übernehmen |
-| 73 | Versperrte Hütten: nachts Läden zu, Rauch | Tom (Dorf) | `claude/tom-73-laeden` | 73a ja; Kaminrauch auf `main` (PR #54). Läden mit Ritzenlicht in 0.1.714. **73b A (Nutzer 20:5x):** Rauch heißt bewohnt, Verschlossene rauchen weiter; Antwort von drinnen beim Anklopfen braucht Texte (Zeile „Für den Berater“) |
-| 76 | Tom und Jerry schärfen, `CLAUDE.md` durch Auslagern entschlacken (Nutzer 13.10., 20:37) | Berater mit Nutzer | `main` (Notizen) | **76a–76f ja (Nutzer 20:56):** Prompt für Tom und Jerry mit Prüftreppe, Kern in `CLAUDE.md` plus `docs/ENTWICKLER.md`; erst Entwurf beider Dateien zum Lesen (nächste Berater-Sitzung), dann Umbau; offen 76g/76h (Berater-Prompt, Absatz kürzen) |
+| 73 | Versperrte Hütten: nachts Läden zu, Rauch | Tom (Dorf) | `claude/tom-73-laeden` | 73a ja; Kaminrauch auf `main` (PR #54). Läden mit Ritzenlicht in 0.1.714. **73b A (Nutzer 20:5x):** Rauch heißt bewohnt, Verschlossene rauchen weiter; **Texte ja (Nutzer 21:05):** `STORY1.md` `[73b.…]`, Tom baut ein |
+| 76 | Tom und Jerry schärfen, `CLAUDE.md` durch Auslagern entschlacken (Nutzer 13.10., 20:37) | Berater mit Nutzer | `main` (Notizen) | **76a–76f ja (Nutzer 20:56):** Prompt für Tom und Jerry mit Prüftreppe, Kern in `CLAUDE.md` plus `docs/ENTWICKLER.md`; erst Entwurf beider Dateien zum Lesen (nächste Berater-Sitzung), dann Umbau; **76g/76h ja (Nutzer 21:02):** Berater-Prompt „Wer du bist“ oben in `BERATER.md` (ersetzt „Deine Linie“, Datei wächst nicht), Berater-Absatz in `CLAUDE.md` auf zwei Sätze; beides im Entwurf |
 | 74 | Schrittgeräusche fehlen an allen Orten („Ort fertig“ 8; Befund Diogenes D1.1) | Jerry (Klang); Tom für Dorf und Räume | – | Berater 13.10., 19:4x: Mangel gegen bestehende Regel, kein Beschluss nötig. **Verdacht** erst bestätigen; Böden je Untergrund (Gras, Erde, Holz, Stein) |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten im Archiv). **48d–48f ja (16:51):** je Spielstand nur Startwert plus **Version des Erzeugers** speichern (Updates verändern keine bestehende Höhle, alte Erzeuger bleiben im Code); Besiegtes und Geplündertes bleibt weg, neuer Auftrag darf dieselbe Höhle neu besetzen. Nach Kapitel 1 |
 | 49 | Lehrer, Fertigkeiten, Talente | Berater mit Nutzer | – | 49d–49t ja ([Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)); **Dokument vom Nutzer freigegeben** (13.10., Namen fett markiert); abgelegt als `docs/HELDENBAU.md` (17:1x). Nach Kapitel 1 |
@@ -57,8 +58,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 21:0x)
-- 0.1.714 auf `claude/tom-73-laeden` wartet auf Test (Prüfliste `e/t714.html`); nach „passt“ PR, zusammenführen. Jetzt: Diogenes-Befunde Tom (Zeilen „Zu testen“, zuerst D2.1), 73b-Texte einbauen, sobald festgelegt; dann 6l, 68.
+### Tom (13.10., 21:05) – an Nachfolger
+- 0.1.714 (Zweig `claude/tom-73-laeden`: 73 Läden, 62r, 3b, 13 Tempelboden) wartet auf Test, Prüfliste `e/t714.html`; nach „passt“ PR des Zweigs, zusammenführen. Auf dem Zweig danach schon D1.12 (Lesepult niedriger) und D1.13 (Aldric 7,3), Build läuft von selbst; beim PR mit erwähnen.
+- Weiter ohne Rückfrage: Diogenes-Befunde Tom (D1.2, D1.3, D1.4, D1.5, D1.11, D1.16, Zeile „Zu testen“), 73b-Texte einbauen, sobald unter „Für den Berater“ festgelegt; dann 6l, 68.
+- Diese Sitzung erreichte die Grenze der Nachfolger-Kette: sie konnte keinen Weckruf und keinen Nachfolger anlegen; der Nutzer startet die neue Sitzung selbst.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
@@ -67,7 +70,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **13e liegt seit 13.10., 11:2x bei Tom (13y ja);** Jerry macht am Freitag mit 24.6, 30.7, 36.6, 38–40, 51–53 weiter.
 ## Zu testen
 
-- **Tom, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen; Prüfbericht oben): D1.2 Tempel nachts zu hell, D1.3 Licht/Flamme ohne Gegenstück, D1.4 Wandkram flach, D1.5 Schatten Räume, D1.11 Varianten/Mehrfeld-Möbel, D1.12 Lesepult zu hoch, D1.13 Aldric vor dem Herd, D1.16 Entwurfsschalter.
+- **Tom, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen; Prüfbericht oben): D1.2 Tempel nachts zu hell, D1.3 Licht/Flamme ohne Gegenstück, D1.4 Wandkram flach, D1.5 Schatten Räume, D1.11 Varianten/Mehrfeld-Möbel, D1.12 (bestätigt, niedriger auf `claude/tom-73-laeden`, nach 0.1.714), D1.13 (bestätigt, Aldric steht jetzt bei 7,3, gleicher Zweig), D1.16 Entwurfsschalter.
 - **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5 Schatten Höhle, D1.6 Höhleneingang flach, D1.7 Leben Höhle, D1.8 stumme Quellen, D1.9 Feuer durch Wände, D1.10 Klang ohne Bewegung (mit Tom), D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (zwei Stücke mit Hörnern/Kreaturenrufen ohne sichtbare Quelle, `grund_fs_609422`, `grund_fs_540836`): Berater empfiehlt herausnehmen, **Nutzer entscheidet nach Hörprobe** (19:44): Höhle mit und ohne die zwei Stücke auf die Seite „Dein Zug“, erst danach ändern; D1.15 Laterne.
 - **Tom, Diogenes-Befunde Lauf 2** (Klasse 1, Verdachte, Vermerk im Prüfbericht): D2.1 Kapitelende alt (hoch), D2.2 Anschlagbrett hell, D2.3 Englisch im Vergleich, D2.4 englische Begriffe (Oberfläche), D2.6 Farben außerhalb der Palette, D2.7 Untertitel kursiv, D2.8 Überlauf ohne „…“, D2.9 Gitter im Höhlengrundriss, D2.10 Bach treppig, D2.11 Vorschau `MENUE`, D2.12 Laden.
 - **Jerry, Weck-Routinen pausieren** (Berater 13.10., Nutzer freigegeben): deine acht Routinen „Jerry Selbstarbeit HH:MM“ mit `update_trigger` (`enabled: false`) pausieren, nicht löschen; Regel in `SELBST.md` „Feste Weck-Routinen“. Danach Zeile streichen.
@@ -82,7 +85,6 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
-- **41/73b Texte** (Tom 13.10., 20:5x): Nach 73b A antwortet beim Anklopfen an verschlossenen bewohnten Häusern (Bäcker Edrik, Kael, Gwenna, Schmied Dorran, Pim) jemand von drinnen; heute steht dort z. B. bei Kael „Niemand öffnet.“ (`Story.kt` `lockedDoor`). Bitte Antworten je Haus, ggf. nach Tageszeit, in `STORY1.md` festlegen; Tom baut sie dann ein.
 
 - **41 Story-Texte (Diogenes D2.13, D2.4 Chronik-Teil):** „Bugbear“ im deutschen Text und fehlendes Verb in der Chronik; englische Namen uneinheitlich (Morning Light/Dawnlight, herbwoman/Herbalist). Steht so in `STORY1.md`; Nutzer und Berater entscheiden.
 

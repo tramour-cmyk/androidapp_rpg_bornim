@@ -15,6 +15,6 @@ Freigegebene Spieltexte (Thema 41), festgelegt von Nutzer und Berater. Hier nur 
 
 | Datei | Inhalt | Stand |
 |---|---|---|
-| `STORY1.md` | Kapitel 1: Intro (69), Tempelszene (68), Chronik „Bisher geschehen“ (64d), Hörensagen (62i), geänderte Dialogzeilen (41), Südrand (67) | freigegeben 13.10. |
+| `STORY1.md` | Kapitel 1: Intro (69), Tempelszene (68), Chronik „Bisher geschehen“ (64d), Hörensagen (62i), geänderte Dialogzeilen (41), Stimmen hinter Türen (73b), Südrand (67) | freigegeben 13.10. |
 
 Die übrigen Texte von Kapitel 1 stehen bisher nur in `Story.kt`/`Jobs.kt`; sie kommen nach `STORY1.md`, wenn sie geändert werden.
