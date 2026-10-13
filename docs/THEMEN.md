@@ -75,3 +75,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 69 | Intro in Standbildern (Ankunft bei Nacht) | Berater mit Nutzer; Tom | offen | `OFFEN.md` |
 | 70 | Zwischensequenzen einheitlich | Berater mit Nutzer | offen | `OFFEN.md` |
 | 71 | Bestandsprüfung Stil und Klang aller Orte | Diogenes | offen | `OFFEN.md` |
+| 72 | Profil und Marktvergleich | Berater mit Nutzer | offen | `OFFEN.md` |
