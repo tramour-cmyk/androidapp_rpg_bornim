@@ -55,7 +55,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 16:1x)
+### Tom (13.10., 16:2x) – vor Neustart
+- **Nutzer 16:2x: hat Feedback vom Testen.** Nachfolger fängt keine Arbeit an, sondern wartet nach der Startmeldung auf dieses Feedback (zu 0.1.689) und bespricht es zuerst.
+- **Rückfrage offen:** 62h zweiter Entwurf (`e/62h-2`, Empfehlung: so ins Spiel); einschalten heißt `MapLook.land` = Pergament als Vorgabe.
 - **0.1.689** (`claude/tom-13e-kegelrand` = riemen + 13e Kegelrand/Fels + 66 + 67 + 64 ins Spiel, ersetzt 0.1.681), Prüfliste `e/t689.html`; 62h zweiter Entwurf danach auf dem Zweig (nicht im Spiel, `MapLook.land` null). Nach „passt“: PR dieses Zweigs (enthält riemen), Merge-Commit; Änderungshistorie wie bisher (59, 60e–k, 60j, 17r, 5la, 5la.2, 5la.3, 6g, 6f, 61a, 61, 62a, 62c, 62e, 62f/62g, 59e, 55.1a, 55.1b, 13x, 13v/27.6, 13e Sicht weich, Kegelrand, Fels).
 - 66, 67, 62h/64 sind in diesen Zweig zusammengeführt; die alten Zweige nicht mehr benutzen.
 - **13t erst nach diesen Merges** (alte Ansicht ausbauen, ~100 Stellen in `WorldScreen`/`core/art`, sonst Konflikte mit 62h/66/67); eigener Zweig von `main`.
