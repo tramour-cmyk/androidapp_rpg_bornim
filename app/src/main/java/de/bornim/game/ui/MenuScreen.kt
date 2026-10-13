@@ -112,7 +112,7 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
                 .fillMaxWidth()
         ) {
             // 62c: the map zooms and pans by itself, so it does not sit in the scrolling column
-            if (tab == Tab.MAP) MapTab(game, lang)
+            if (tab == Tab.MAP) MapTab(game, lang) { tab = Tab.CHRONICLE }
             else Column(Modifier.verticalScroll(rememberScrollState())) {
                 when (tab) {
                     Tab.HERO -> HeroTab(vm, game, lang, ask)
@@ -141,7 +141,7 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
  * (no travel). Marks remind, never lead ([de.bornim.core.MapMarks]): tapping one names it.
  */
 @Composable
-private fun MapTab(game: Game, lang: Lang) {
+private fun MapTab(game: Game, lang: Lang, onChronicle: () -> Unit = {}) {
     val german = lang == Lang.DE
     // 64: the chronicle's "On the map" opens the map of the giver's mark
     var shown by remember { mutableStateOf(MapLook.focusMap?.takeIf { de.bornim.core.World.maps.containsKey(it) } ?: game.map.id) }
@@ -172,7 +172,7 @@ private fun MapTab(game: Game, lang: Lang) {
         if (overview && MapLook.land != null) LandView(game, lang, MapLook.land!!) { shown = it; overview = false }
         else if (overview) PlaceList(game, lang) { shown = it; overview = false }
         // test of 0.1.676: a switch keeps the zoom and the place on the map (the view used to start afresh)
-        else androidx.compose.runtime.key(shown) { MapView(game, lang, map, here, show) }
+        else androidx.compose.runtime.key(shown) { MapView(game, lang, map, here, show, onChronicle) }
     }
 }
 
@@ -273,7 +273,7 @@ private fun seenOn(game: Game, m: de.bornim.core.MapDef, x: Int, y: Int): Boolea
 
 @Composable
 private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Boolean,
-                    show: Set<de.bornim.core.MapMarks.Group> = de.bornim.core.MapMarks.Group.entries.toSet()) {
+                    show: Set<de.bornim.core.MapMarks.Group> = de.bornim.core.MapMarks.Group.entries.toSet(), onChronicle: () -> Unit = {}) {
     val p = game.state.place
     val img = remember(map.id, p.x, p.y) { de.bornim.core.art.MapSheet.render(map, { x, y -> seenOn(game, map, x, y) }) }
     val bmp = Bitmaps.of(img)
@@ -378,7 +378,14 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
         }
         tip?.takeIf { it in marks }?.let { m ->
             Panel(Modifier.align(Alignment.BottomCenter).padding(8.dp)) {
-                Txt(m.label(lang), size = 15.sp, color = if (m.kind == de.bornim.core.MapMarks.Kind.GIVER) Color(0xFF8DB4E2) else Veil.bright)
+                Column {
+                    Txt(m.label(lang), size = 15.sp, color = if (m.kind == de.bornim.core.MapMarks.Kind.GIVER) Color(0xFF8DB4E2) else Veil.bright)
+                    // 64: a quest's mark leads to its entry in the chronicle
+                    if (ChronicleLook.draft && (m.kind == de.bornim.core.MapMarks.Kind.GIVER || m.kind == de.bornim.core.MapMarks.Kind.GOAL)) {
+                        Spacer(Modifier.height(6.dp))
+                        PixelButton(if (lang == Lang.DE) "In der Chronik" else "In the chronicle", Modifier.height(32.dp), size = 13.sp) { onChronicle() }
+                    }
+                }
             }
         }
     }
