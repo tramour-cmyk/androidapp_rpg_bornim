@@ -44,12 +44,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 03:47) – Selbstarbeit, übergeben an die Routine 06:24
-- **Zu testen:** siehe „Zu testen“ unten (erst 59, 60). Rückfragen auf der Entscheidungsseite (Empf. je ja).
-- **Fertig als Entwurf (diese Nacht ab 02:47):** 61 Spuren und 62 Karte (Build 0.1.646; Fußspuren lagen in der Vorschau unter Büschen), 27.6c Rauchfahne und 27.6b Schild (Zweig `claude/tom-27-6-tiefer-wald`, Build 0.1.648, nur diagonal bzw. Schild auch gerade), 55.1a Arme verschränkt/Hände auf dem Rücken (`claude/tom-55-leerlauf`, Build 0.1.649).
-- **Weck-Kette am Ende:** diese Sitzung ist auf Stufe 8 von 8, `send_later`/`create_session` gehen nicht. Die Routine 06:24 übernimmt und schreibt **um 07:00 den Bericht** (`SELBST.md` 5) aus dieser Übergabe.
-- Vorrat leer (9 = 29 und 10 = 5l schon erledigt). Nächstes, falls Zeit: 55.1b Jorin stützt sich auf den Speer (Waffenhaltung), 17 Riemen nur auf Wunsch.
-- **Bericht Selbstarbeit 12.10., 23:23 bis 13.10., 07:00 (geschrieben 06:3x):** Fertig als Entwurf: 59 Händler (0.1.632), 60 Aussehen (0.1.636), 27.6 Tiefer Wald diagonal + 27.6b/c (0.1.648), 13 Tempel-Altar, 17r Haare/Köcher (0.1.639), 5la Tagesablauf (0.1.640), Katze 6g (0.1.641), Farbstimmung 6f (0.1.643), 61 Spuren und 62 Karte (0.1.646), 55.1a (0.1.649). Halb/offen: 55.1b Speer, 17 Riemen. Blockiert: nichts. Rückfragen: auf der Entscheidungsseite (je Empfehlung ja), 61a, 62a/62b, 60e–60i. Gemeinsame Zeit: erst 59 und 60 testen, dann Entwürfe entscheiden. Weck-Routine 06:24 hat nur den Bericht geschrieben.
+### Tom (13.10., 07:02) – Entscheidungen da, Neustart
+- **Nutzer 13.10., 07:02: alle Empfehlungen der Entscheidungsseite ja**: 60e Alegreya, 60f Cinzel, 60g–60i (Kampf mit Pixelzahlen), 27.6a–c, 13x, 17r, 5la, 6g, 6f, 61a, 62a, 62b (erst ohne Auftragszeichen), 55.1a. Einzelheiten im Archiv.
+- **Weiter (Nachfolger):** (1) Entschiedenes von der Entscheidungsseite ins Bildbuch (je Eintrag `e/<nr>.html`, Bilder per `files` mit `{artifact, path}` kopieren), Seite leeren. (2) Entwürfe ins Spiel: Schalter weg, Standard an; Zweige 59 → 60 → 17r, 5la, 6g, 6f, 61/62, 55.1a, 13x je auf `main` gebracht in einem Sammelzweig, ein Build zum Test, dann PR. 27.6 (Tiefer Wald diagonal) erst mit dem diagonalen Wald (13v).
+- Bericht der Nacht im Archiv. Weck-Kette dieser Sitzung am Ende (Stufe 8): Nachfolger startet der Nutzer.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -70,15 +68,6 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Rückfragen an den Nutzer
 
-- **60e–60i** (Tom, [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F)): 60e Textschrift (Empf. Alegreya), 60f Titel (Empf. Cinzel), 60g Menü, 60h Heldenerstellung, 60i Kampf mit Pixelzahlen (Empf. je ja).
-- **27.6a–c** (Tom, [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F)): Tiefer Wald diagonal (Morwens Feuer frei) übernehmen, Schild auf die Südseite des Wegs, Rauchfahne am Kräuterfeuer als Entwurf (Empf. je ja).
-- **13x** (Tom, Entscheidungsseite): Tempel: zwei Fenster links und rechts vom Altar statt einem dahinter (Empf. ja).
-- **17r** (Tom, Entscheidungsseite): lange Haare und Köcher schwingen nach dem Anhalten nach wie der Umhang (Empf. ja).
-- **5la** (Tom, Entscheidungsseite): Tagesablauf im Dorf, Bewohner wechseln stündlich den Platz (Empf. ja).
-- **6g** (Tom, Entscheidungsseite): Katze in der Schänke (schläft am Herd, streckt sich, wechselt den Platz) ins Spiel (Empf. ja).
-- **6f** (Tom, Entscheidungsseite): Farbstimmung je Ort und Tageszeit ins Spiel (Empf. ja).
-- **61a, 62a, 62b** (Tom, Entscheidungsseite): Spuren ins Spiel (Empf. ja); gezeichnete Karte als Menüreiter (Empf. ja); 62b Auftragszeichen auf der Karte (Empf. erst ohne).
-- **55.1a** (Tom, Entscheidungsseite): Arme verschränkt und Hände auf dem Rücken im Leerlauf aller Leute (Empf. ja). **27.6b/27.6c** sind jetzt als Entwurf gebaut (Bilder dort).
 
 
 - **6l** (Tom): endgültige Zoomstufe der Karte (vorläufig 6,75 Kacheln). **Zurückgestellt** (Nutzer 11.10., 13:00), bis die Umstellung auf die diagonale Sicht mit allen Facetten fertig ist.

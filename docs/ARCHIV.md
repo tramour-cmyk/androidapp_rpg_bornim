@@ -1,5 +1,23 @@
 # Archiv
 
+### Tom (13.10., 03:47) – Selbstarbeit, übergeben an die Routine 06:24
+- **Zu testen:** siehe „Zu testen“ unten (erst 59, 60). Rückfragen auf der Entscheidungsseite (Empf. je ja).
+- **Fertig als Entwurf (diese Nacht ab 02:47):** 61 Spuren und 62 Karte (Build 0.1.646; Fußspuren lagen in der Vorschau unter Büschen), 27.6c Rauchfahne und 27.6b Schild (Zweig `claude/tom-27-6-tiefer-wald`, Build 0.1.648, nur diagonal bzw. Schild auch gerade), 55.1a Arme verschränkt/Hände auf dem Rücken (`claude/tom-55-leerlauf`, Build 0.1.649).
+- **Weck-Kette am Ende:** diese Sitzung ist auf Stufe 8 von 8, `send_later`/`create_session` gehen nicht. Die Routine 06:24 übernimmt und schreibt **um 07:00 den Bericht** (`SELBST.md` 5) aus dieser Übergabe.
+- Vorrat leer (9 = 29 und 10 = 5l schon erledigt). Nächstes, falls Zeit: 55.1b Jorin stützt sich auf den Speer (Waffenhaltung), 17 Riemen nur auf Wunsch.
+- **Bericht Selbstarbeit 12.10., 23:23 bis 13.10., 07:00 (geschrieben 06:3x):** Fertig als Entwurf: 59 Händler (0.1.632), 60 Aussehen (0.1.636), 27.6 Tiefer Wald diagonal + 27.6b/c (0.1.648), 13 Tempel-Altar, 17r Haare/Köcher (0.1.639), 5la Tagesablauf (0.1.640), Katze 6g (0.1.641), Farbstimmung 6f (0.1.643), 61 Spuren und 62 Karte (0.1.646), 55.1a (0.1.649). Halb/offen: 55.1b Speer, 17 Riemen. Blockiert: nichts. Rückfragen: auf der Entscheidungsseite (je Empfehlung ja), 61a, 62a/62b, 60e–60i. Gemeinsame Zeit: erst 59 und 60 testen, dann Entwürfe entscheiden. Weck-Routine 06:24 hat nur den Bericht geschrieben.
+
+### Rückfragen Tom, entschieden 13.10., 07:02 (Nutzer: alle Empfehlungen ja)
+- **60e–60i** (Tom, [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F)): 60e Textschrift (Empf. Alegreya), 60f Titel (Empf. Cinzel), 60g Menü, 60h Heldenerstellung, 60i Kampf mit Pixelzahlen (Empf. je ja).
+- **27.6a–c** (Tom, [Entscheidungsseite](https://claude.ai/artifact/WRX6B7eYg8woV22pufbG3F)): Tiefer Wald diagonal (Morwens Feuer frei) übernehmen, Schild auf die Südseite des Wegs, Rauchfahne am Kräuterfeuer als Entwurf (Empf. je ja).
+- **13x** (Tom, Entscheidungsseite): Tempel: zwei Fenster links und rechts vom Altar statt einem dahinter (Empf. ja).
+- **17r** (Tom, Entscheidungsseite): lange Haare und Köcher schwingen nach dem Anhalten nach wie der Umhang (Empf. ja).
+- **5la** (Tom, Entscheidungsseite): Tagesablauf im Dorf, Bewohner wechseln stündlich den Platz (Empf. ja).
+- **6g** (Tom, Entscheidungsseite): Katze in der Schänke (schläft am Herd, streckt sich, wechselt den Platz) ins Spiel (Empf. ja).
+- **6f** (Tom, Entscheidungsseite): Farbstimmung je Ort und Tageszeit ins Spiel (Empf. ja).
+- **61a, 62a, 62b** (Tom, Entscheidungsseite): Spuren ins Spiel (Empf. ja); gezeichnete Karte als Menüreiter (Empf. ja); 62b Auftragszeichen auf der Karte (Empf. erst ohne).
+- **55.1a** (Tom, Entscheidungsseite): Arme verschränkt und Hände auf dem Rücken im Leerlauf aller Leute (Empf. ja). **27.6b/27.6c** sind jetzt als Entwurf gebaut (Bilder dort).
+
 ### Zeilen aus „Wer macht was“, gekürzt 13.10., 03:5x (Tom)
 | 24 | Animationen fehlen nach Spielstart und Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik); Jerry (Inhalt) | – | 24.1–24.4, 24.9–24.15 auf `main` (PR #30, #32, #34, #35); 24.8 Ortsklang auf `main` (PR #37). **Tom:** 24.5, 24.16–24.20 auf `main` (PR #40). 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.8.5 auf `main` (PR #38, 12.10.), danach 24.6 Kampferöffnung wartet + Herzschlag (nach Toms 24.5), knapper Kampftext in `Battle.kt`. Entscheidungen 24f/24i/24j in [`ZWISCHENBILD.md`](ZWISCHENBILD.md) und im Archiv. |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`KAPITEL1.md`](KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | festgelegt 11.10., 16:50 (Berater); erledigte Punkte dort abhaken. **26c ja (Nutzer 18:3x), Toms Reihenfolge:** (1) 24.8.6 und 30.8 vom alten Zweig `tender-goodall-a8zuny` in den nächsten Build, (2) 42 Textkasten (erst Standbilder), (3) Diagonalsicht fertig: 27.5, Tiefer Wald diagonal (Morwen sichtbar, 43), Tempel-Altar, 27.6; dann 5l, 55.2, 17 |
