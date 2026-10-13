@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 73**
+**Nächste freie Themennummer: 74**
 
 **Entscheidungsseite (alle Rollen, 63): https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow** · Beschlüsse: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM · Prüfbericht Diogenes: https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
@@ -19,7 +19,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2** Weck-Routinen (Jerry, Zeile unten). Regeln in `CLAUDE.md` (65.4 ein Ort, 65.7/65.8 kein „Erledigt“); Verlauf im Archiv |
-| 13 | Diagonale Sicht | Tom | – | 13.4 auf `main`. **Meldung 08:43:** Tempel-Altar direkt vor dem Fenster, ansehen. **13s/13t ja:** 27, 13 Tempel, 42; dann alte Ansicht ausbauen (13t), danach 6l. Verlauf im Archiv |
+| 13 | Diagonale Sicht | Tom | – | 13.4 auf `main`. **Meldung 08:43:** Tempel-Altar direkt vor dem Fenster, ansehen. **13s/13t ja:** 27, 13 Tempel (**Boden Steinplatten statt Holzdielen, Nutzer 19:39 ja**), 42; dann alte Ansicht ausbauen (13t), danach 6l. Verlauf im Archiv |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-27-4-baeume` | 5.1/5.2/5g/5h.1 auf `main`. **5m ja:** 27.4, 5.6, 5.3, 5l/5.5, 5.4, dann 27.5/27.6, je erst Standbilder. 27.4, 5.6, 5.3 (alle zwölf), 5n in PR #48. 5.4 (Pflaster-Entwurf, Fensterlicht-Fix) auf dem Zweig. **5la** Tagesablauf (Pim, Bram, Gwenna, Liska) als Entwurf auf `claude/tom-5l-leben`, Build 0.1.640 |
 | 13e | Höhle diagonal (Phase 2 von 13); mit 10 (Flammen) und 11 (Lichtstrahl) | Tom | `claude/tom-13e-kegelrand` | Auf `main` (PR #51); Überblenden beim Drehen getestet 0.1.681. Kegelrand/Fels auf `main` (PR #52). **Meldung 17:5x (dritte!):** Raum hinter der Felsstufe am Lagerfeuer dunkel; Ursache Sichtkegel nach Kartenrichtung statt Blick, behoben im nächsten Build. **Meldung 16:3x** (zu viel Schatten hinter der Felsstufe am Lagerfeuer): niedrige Wände lassen Blick und Feuerlicht durch, im nächsten Build. Danach 13t, dann 6l |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. 24.8.6 (Türen 0,5 s) auf `claude/tender-goodall-a8zuny`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
@@ -41,10 +41,10 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 62q | Begriffe: Landkarte → Gebietskarte → Grundriss → **Ebene** (übereinander im Grundriss; „Stockwerk“ entfällt) | alle | – | **Ja (Nutzer 17:33)**, Regel in `CLAUDE.md` „Begriffe“; Tom/Jerry/Diogenes bitte so in Spiel, Prüflisten und Notizen |
 | 67a | Wegweiser am Südrand: „Rabenschanze“, darunter klein „Schilfrode“ | Tom | `claude/tom-13t-alte-ansicht` | **Ja (Nutzer 17:26)**, Text `[67.schild]` in `docs/STORY1.md`; auf dem Zweig (Text beim Antippen zweizeilig), kommt mit 13t |
 | 3b | Garrick sitzt links vom Feuer statt rechts, damit man in der diagonalen Sicht seine Bewegungen sieht (jetzt mit dem Rücken zur Kamera) | Tom | – | Nutzer 13.10., 17:10; Kräuterfrau prüft der Nutzer noch |
-| 62s | Gebietskarte Dorf: Tippen auf erkundetes Haus (Schild da) öffnet keinen Grundriss; Wald → Höhle geht | Tom | `claude/tom-13e-kegelrand` | Nutzer 19:24 zum Testbuild (vermutlich 0.1.702). Fehler, Zusammenhang mit 62r „Hineintippen tiefer“ |
 | 61b | Fußspuren im Tiefen Wald bei der Kräuterfrau, obwohl es nicht regnet | Tom | `claude/tom-13t-alte-ansicht` | Bestätigt: Boden blieb unsichtbar 4 min nass und nahm Spuren an; jetzt 1 min (Commit nach 573e0961), kommt mit 13t |
 | 62s | Gebietskarte Dorf: Tippen auf ein erkundetes Haus mit Schild öffnet keinen Grundriss (Höhle im Wald geht) | Tom | – | Nutzer 13.10., 19:3x. Zusammen mit 62o/62r ansehen; ebenso fehlende Leute im Grundriss Tempel |
 | 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | – | **69a–69d ja (Nutzer 13.10., 16:31):** Texte, Ablauf und Klang in `docs/STORY1.md` (`[69.intro.…]`), wortgetreu übernehmen |
+| 73 | Versperrte Hütten: nachts kein Licht, kein Rauch | Tom (Dorf); Berater (73a) | – | Nutzer 19:40. Rückfrage 73a beim Berater: leer = dunkel und kalt; bewohnt, aber verschlossen (Kael vor der Tempelszene) = Läden zu, Licht nur durch Ritzen, Rauch ja. Erst nach Entscheidung bauen |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten im Archiv). **48d–48f ja (16:51):** je Spielstand nur Startwert plus **Version des Erzeugers** speichern (Updates verändern keine bestehende Höhle, alte Erzeuger bleiben im Code); Besiegtes und Geplündertes bleibt weg, neuer Auftrag darf dieselbe Höhle neu besetzen. Nach Kapitel 1 |
 | 49 | Lehrer, Fertigkeiten, Talente | Berater mit Nutzer | – | 49d–49t ja ([Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14)); **Dokument vom Nutzer freigegeben** (13.10., Namen fett markiert); abgelegt als `docs/HELDENBAU.md` (17:1x). Nach Kapitel 1 |
 | 50 | Weitere Klassen (Klassenpaket, Werwolf als Fluch) | Berater mit Nutzer | – | 50a–50j ja (Matrix im Heldenbau, Verlauf im Archiv). Nach Kapitel 1 |
@@ -86,7 +86,6 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
 - **Diogenes D1.1** (neues Thema?): keine Schrittgeräusche an irgendeinem Ort, obwohl „Ort fertig“ 8 sie verlangt; gilt für alle Orte.
-- **Diogenes, Tempelboden** (Nutzer 13.10., 19:39: „1 ja“): Tempel bekommt Steinplatten statt Holzdielen; bitte in Beschlüsse und „Wer macht was“ (Vorschlag Tom, 13 Tempel).
 - **Diogenes D1.14, Höhlen-Klangbett** (Nutzer 19:39: „hinterlege das mal beim Berater“): zwei Stücke mit Hörnern/Kreaturenrufen ohne sichtbare Quelle (`grund_fs_609422`, `grund_fs_540836`) gegen „Ortsklang nur von dem, was da ist“; Diogenes empfiehlt herausnehmen.
 
 
