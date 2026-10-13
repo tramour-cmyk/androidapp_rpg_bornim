@@ -22,6 +22,9 @@ private val caveRock = setOf(Tile.CAVE_WALL, Tile.CRYSTAL, Tile.TORCH)
 class Sight(private val state: GameState) {
     private var key = ""
     private var visible = BooleanArray(0)
+    /** Tiles near enough with nothing opaque in between, whichever way the hero looks (for [inSight]). */
+    private var clear = BooleanArray(0)
+    private var reach = 0.0
     private val explored = HashMap<String, BooleanArray>()
 
     fun fog(map: MapDef, x: Int, y: Int, night: Boolean): Fog {
@@ -48,6 +51,26 @@ class Sight(private val state: GameState) {
             exploredOf(map)[i] -> Fog.SEEN
             else -> Fog.HIDDEN
         }
+    }
+
+    /**
+     * Whether the point ([x], [y]), in tiles, is in sight right now: finer than a tile, so the edge of the cone is a
+     * line and not a staircase of tiles (13e, test 13.10.: "square"); what blocks the view still counts by tile.
+     */
+    fun inSight(map: MapDef, x: Double, y: Double, night: Boolean): Boolean {
+        val tx = kotlin.math.floor(x).toInt(); val ty = kotlin.math.floor(y).toInt()
+        if (!map.inside(tx, ty)) return false
+        update(map, night)
+        if (map.kind == MapKind.CAVE && map.tile(tx, ty) in caveRock) return fog(map, tx, ty, night) == Fog.VISIBLE
+        val i = ty * map.width + tx
+        if (!clear[i]) return false
+        val p = state.place
+        val dx = x - (p.x + 0.5); val dy = y - (p.y + 0.5)
+        val d = sqrt(dx * dx + dy * dy)
+        // the small circle around covers the tiles next to the hero, corners included
+        if (d <= 2.0) return true
+        if (d > reach) return false
+        return (dx * p.facing.dx + dy * p.facing.dy) / d >= 0.17
     }
 
     fun known(map: MapDef, x: Int, y: Int, night: Boolean): Boolean = fog(map, x, y, night) != Fog.HIDDEN
@@ -81,14 +104,17 @@ class Sight(private val state: GameState) {
         if (k == key) return
         key = k
         visible = BooleanArray(map.width * map.height)
+        clear = BooleanArray(map.width * map.height)
         // A wise hero sees a little further.
         val radius = (if (night || map.kind == MapKind.CAVE) 4.2 else 5.2) + Perks.sightBonus(state.hero)
-        val r = radius.toInt() + 1
+        reach = radius
+        val r = radius.toInt() + 2
         for (dy in -r..r) for (dx in -r..r) {
             val x = p.x + dx; val y = p.y + dy
             if (!map.inside(x, y)) continue
             val d = sqrt((dx * dx + dy * dy).toDouble())
             val near = d <= 1.5
+            if (d <= radius + 1 && (near || lineOfSight(map, p.x, p.y, x, y))) clear[y * map.width + x] = true
             if (!near) {
                 if (d > radius) continue
                 // within 80° to either side of the walking direction

@@ -235,7 +235,8 @@ fun main() {
             g.state.place = Place(map, x, y, facing); g.state.minutes = minutes
             // everything explored, so the shots show the ground; the new ground drawn right away
             val m = de.bornim.core.World[map]
-            g.state.explored[map] = "f".repeat((m.width * m.height + 3) / 4)
+            // UNERKUNDET=1: nothing explored yet, so the edge of the sight shows against the black (13e)
+            if (System.getenv("UNERKUNDET") == null) g.state.explored[map] = "f".repeat((m.width * m.height + 3) / 4)
             de.bornim.core.art.MapGround.prepareNow(m)
             val t0 = System.currentTimeMillis()
             de.bornim.core.art.MapFigure.prepareNow(g.state.hero)

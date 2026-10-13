@@ -307,6 +307,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         return if (seeAll) Fog.VISIBLE else f
     }
 
+    /** Whether the point ([x], [y]), in tiles, is in sight, finer than a tile (see [Sight.inSight]). */
+    fun inSight(x: Double, y: Double): Boolean = !fogged || seeAll || sight.inSight(map, x, y, isNight)
+
     /** Free walking of the hero (13g): a position between the tiles, used by the diagonal view. */
     val freeWalk = FreeWalk(this)
 

@@ -1809,6 +1809,19 @@ private object LightImage {
 
     private fun seenDimOf(map: de.bornim.core.MapDef) = if (MapSight.diagonal && map.kind == MapKind.CAVE) 0.15f else 0.5f
 
+    /** Each tile is split into SUB × SUB parts for the fog, so the edge of the cone is round (13e, test 13.10.). */
+    const val SUB = 4
+    private var sub = FloatArray(0)
+    /** Where the parts of the tiles head for, worked out again only when the hero moves or turns. */
+    private var subGoal = FloatArray(0)
+    private var goalKey = ""
+
+    /** How dark the fog makes part ([sx], [sy]) (in [SUB]ths of a tile) right now: 1 unknown, 0 in sight. */
+    fun shadeSub(map: de.bornim.core.MapDef, sx: Int, sy: Int): Float {
+        val tx = Math.floorDiv(sx, SUB); val ty = Math.floorDiv(sy, SUB)
+        return if (map.id == fadeMap && map.inside(tx, ty)) sub[sy * map.width * SUB + sx] else 1f
+    }
+
     /** How dark the fog makes tile ([tx], [ty]) right now: 1 unknown, 0 in sight. */
     fun shade(map: de.bornim.core.MapDef, tx: Int, ty: Int): Float =
         if (map.id == fadeMap && map.inside(tx, ty)) shown[ty * map.width + tx] else 1f
@@ -1819,23 +1832,42 @@ private object LightImage {
         // the dimmed fog lay over them like a dark cloth; there what is known but out of sight dims only a little
         val seenDim = seenDimOf(map)
         val fresh = map.id != fadeMap || shown.size != map.width * map.height
-        if (fresh) { fadeMap = map.id; shown = FloatArray(map.width * map.height) }
+        if (fresh) { fadeMap = map.id; shown = FloatArray(map.width * map.height); sub = FloatArray(map.width * map.height * SUB * SUB) }
         val step = if (fresh) 1f else minOf(1f, (clock - lastMs).coerceIn(0L, 100L) / FADE_MS * 3f)
         lastMs = clock
         var moving = false
+        val sw = map.width * SUB
+        val p = game.state.place
+        val gk = "${map.id}/${p.x}/${p.y}/${p.facing}/${game.isNight}/${de.bornim.core.Game.seeAll}"
+        val newGoals = fresh || gk != goalKey
+        if (newGoals) { goalKey = gk; if (subGoal.size != sub.size) subGoal = FloatArray(sub.size) }
         for (ty in 0 until map.height) for (tx in 0 until map.width) {
-            val goal = when (game.fog(tx, ty)) {
+            val fog = game.fog(tx, ty)
+            val goal = when (fog) {
                 de.bornim.core.Fog.HIDDEN -> 1f
                 de.bornim.core.Fog.SEEN -> seenDim
                 de.bornim.core.Fog.VISIBLE -> 0f
             }
             val i = ty * map.width + tx
             val now = shown[i]
-            if (now == goal) continue
-            // eases in: each change takes about as long, however big (unknown to clear, or out of sight to clear)
-            val next = now + (goal - now) * step
-            shown[i] = if (kotlin.math.abs(goal - next) < 0.01f) goal else next
-            moving = true
+            if (now != goal) {
+                // eases in: each change takes about as long, however big (unknown to clear, or out of sight to clear)
+                val next = now + (goal - now) * step
+                shown[i] = if (kotlin.math.abs(goal - next) < 0.01f) goal else next
+                moving = true
+            }
+            // the parts of the tile: in sight by the cone's own edge, else as the tile (never seen, or out of sight)
+            val out = if (fog == de.bornim.core.Fog.HIDDEN) 1f else seenDim
+            for (v in 0 until SUB) for (u in 0 until SUB) {
+                val j = (ty * SUB + v) * sw + tx * SUB + u
+                if (newGoals) subGoal[j] = if (game.inSight(tx + (u + 0.5) / SUB, ty + (v + 0.5) / SUB)) 0f else out
+                val g = subGoal[j]
+                val n = sub[j]
+                if (n == g) continue
+                val next = n + (g - n) * step
+                sub[j] = if (kotlin.math.abs(g - next) < 0.01f) g else next
+                moving = true
+            }
         }
         if (moving) fadeStep++
         return moving
@@ -2130,30 +2162,37 @@ private fun DrawScope.drawMapLight(
         val img = if (fog) de.bornim.core.art.PixelImage(base.width, base.height, base.pixels.copyOf()) else base
         if (fog) {
             // darken by the fog of war, smoothly between tile centres: unexplored black, out of sight dim
-            val tx0 = Math.floorDiv(x0, T) - 1; val ty0 = Math.floorDiv(y0, T) - 1
-            val tw = w / T + 4; val th = h / T + 4
+            // in parts of a tile (LightImage.SUB): the edge of the cone follows the hero's view, not the tiles
+            val S = LightImage.SUB
+            val tx0 = (Math.floorDiv(x0, T) - 1) * S; val ty0 = (Math.floorDiv(y0, T) - 1) * S
+            val tw = (w / T + 4) * S; val th = (h / T + 4) * S
             // test of 0.1.667 (13e): seen diagonally one looks over the low walls into rooms explored already, and
             // the dimmed fog lay over them like a dark cloth; there what is known but out of sight dims only a little
-            val raw = FloatArray(tw * th) { i -> LightImage.shade(map, tx0 + i % tw, ty0 + i / tw) }
-            // softened over the neighbouring tiles, so the edge of the unknown is round, not a
-            // staircase of tiles (it shows when the map is zoomed in); what is in sight stays clear
+            val raw = FloatArray(tw * th) { i -> LightImage.shadeSub(map, tx0 + i % tw, ty0 + i / tw) }
+            // softened over about a tile (test 13.10.: the edge of the cone hard and "square"), once along and once
+            // across; what is in sight stays clear
+            val kern = floatArrayOf(1f, 3f, 6f, 8f, 6f, 3f, 1f)
+            val kr = kern.size / 2
+            val half = FloatArray(tw * th) { i ->
+                val cx = i % tw; val cy = i / tw
+                var sum = 0f; var n = 0f
+                for (k in kern.indices) { val x = (cx + k - kr).coerceIn(0, tw - 1); sum += raw[cy * tw + x] * kern[k]; n += kern[k] }
+                sum / n
+            }
             val fa = FloatArray(tw * th) { i ->
                 val cx = i % tw; val cy = i / tw
                 var sum = 0f; var n = 0f
-                for (dy in -1..1) for (dx in -1..1) {
-                    val x = (cx + dx).coerceIn(0, tw - 1); val y = (cy + dy).coerceIn(0, th - 1)
-                    val wgt = if (dx == 0 && dy == 0) 4f else if (dx == 0 || dy == 0) 2f else 1f
-                    sum += raw[y * tw + x] * wgt; n += wgt
-                }
+                for (k in kern.indices) { val y = (cy + k - kr).coerceIn(0, th - 1); sum += half[y * tw + cx] * kern[k]; n += kern[k] }
                 if (raw[i] == 0f) minOf(sum / n, 0.35f) else sum / n
             }
             for (yy in 0 until img.height) for (xx in 0 until img.width) {
-                val fx = (x0 + xx * res + res / 2f) / T - 0.5f - tx0; val fy = (y0 + yy * res + res / 2f) / T - 0.5f - ty0
+                val fx = (x0 + xx * res + res / 2f) * S / T - 0.5f - tx0; val fy = (y0 + yy * res + res / 2f) * S / T - 0.5f - ty0
                 val ix = floor(fx).toInt().coerceIn(0, tw - 2); val iy = floor(fy).toInt().coerceIn(0, th - 2)
                 val ux = (fx - ix).coerceIn(0f, 1f); val uy = (fy - iy).coerceIn(0f, 1f)
                 val a = (fa[iy * tw + ix] * (1 - ux) + fa[iy * tw + ix + 1] * ux) * (1 - uy) + (fa[(iy + 1) * tw + ix] * (1 - ux) + fa[(iy + 1) * tw + ix + 1] * ux) * uy
                 if (a <= 0f) continue
-                val k = 1f - a * (if (a > 0.95f) 1f else 0.92f)
+                // black only where nothing is known, reached without a step (it showed as a line round the unknown)
+                val k = 1f - a * (0.92f + 0.08f * ((a - 0.85f) / 0.15f).coerceIn(0f, 1f))
                 val c = img.pixels[yy * img.width + xx]
                 val r = (((c shr 16) and 0xFF) * k).toInt(); val g = (((c shr 8) and 0xFF) * k).toInt(); val b = ((c and 0xFF) * k).toInt()
                 img.pixels[yy * img.width + xx] = (0xFF shl 24) or (r shl 16) or (g shl 8) or b
