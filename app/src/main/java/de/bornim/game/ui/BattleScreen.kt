@@ -450,8 +450,21 @@ private class BattleUi(val battle: Battle) {
     }
 }
 
+/** 60: the fight's boxes and menus in the look of the text box; a draft until chosen (preview `KAMPF60=1`). */
+object BattleLook {
+    @Volatile var draft = false
+    /** 60c: the small numbers and labels of the boxes (level, hit points, CR) stay in the pixel font. */
+    @Volatile var pixelNumbers = true
+}
+
 @Composable
 fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
+    if (BattleLook.draft) androidx.compose.runtime.CompositionLocalProvider(LocalVeil provides true) { BattleBody(vm, game, battle) }
+    else BattleBody(vm, game, battle)
+}
+
+@Composable
+private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
     vm.tick
     val lang = vm.lang
     BattlePace.set(vm.battleTempo)
@@ -749,7 +762,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
     val a = step?.anim
     val t = if (shakeFor == ui.animKey) shake.value else 0f
 
-    Column(Modifier.fillMaxSize().background(Colors.night)) {
+    Column(Modifier.fillMaxSize().background(if (LocalVeil.current) Color.Black else Colors.night)) {
         // --- Scene
         BoxWithConstraints(
             Modifier
@@ -1358,7 +1371,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                         Txt(end.title, size = 19.sp, bold = true, color = Colors.accent)
                         for (l in end.lines) Txt(l.text, size = 15.sp, color = l.rarity?.let { rarityColor(it) } ?: Colors.text)
                     }
-                    Txt("▼", Modifier.align(Alignment.BottomEnd), size = 16.sp, color = Colors.accent)
+                    Txt("▼", Modifier.align(Alignment.BottomEnd), size = 16.sp, color = if (LocalVeil.current) Veil.gold else Colors.accent)
                 }
             } else if (step != null || battle.outcome != Outcome.ONGOING) {
                 Panel(
@@ -1370,7 +1383,7 @@ fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
                         step?.takeIf { !it.lead && it.anim != Anim.ENEMY_FAINT && !silent }?.let { words(it).take(revealed) } ?: "", size = 20.sp,
                         color = step?.rarity?.let { rarityColor(it) } ?: Colors.text,
                     )
-                    if (textDone) Txt("▼", Modifier.align(Alignment.BottomEnd), size = 16.sp, color = Colors.accent)
+                    if (textDone) Txt("▼", Modifier.align(Alignment.BottomEnd), size = 16.sp, color = if (LocalVeil.current) Veil.gold else Colors.accent)
                 }
             } else {
                 when (ui.menu) {
@@ -1457,12 +1470,12 @@ private fun EnemyBox(battle: Battle, hp: Int, status: Map<de.bornim.core.Status,
                         battle.elite -> rarityColor(de.bornim.core.Rarity.EPIC)
                         else -> Colors.text
                     })
-                Txt("Lv.${battle.level}", size = 15.sp, bold = true)
+                Txt("Lv.${battle.level}", size = 15.sp, bold = true, pixel = BattleLook.pixelNumbers)
             }
-            Txt((if (lang == Lang.DE) "HG " else "CR ") + battle.monster.cr, size = 13.sp, color = Colors.textDim)
+            Txt((if (lang == Lang.DE) "HG " else "CR ") + battle.monster.cr, size = 13.sp, color = Colors.textDim, pixel = BattleLook.pixelNumbers)
             Spacer(Modifier.height(3.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Txt(Ui.hp(lang), size = 12.sp, bold = true, color = Colors.accent)
+                Txt(Ui.hp(lang), size = 12.sp, bold = true, color = Colors.accent, pixel = BattleLook.pixelNumbers)
                 Spacer(Modifier.width(4.dp))
                 Bar(frac, hpColor(frac), Modifier.fillMaxWidth())
             }
@@ -1496,21 +1509,21 @@ private fun HeroBox(battle: Battle, hp: Int, sp: Int, status: Map<de.bornim.core
         Column {
             Row {
                 Txt(hero.name, Modifier.weight(1f), size = 17.sp, bold = true, maxLines = 1)
-                Txt("Lv.${hero.level}", size = 15.sp, bold = true)
+                Txt("Lv.${hero.level}", size = 15.sp, bold = true, pixel = BattleLook.pixelNumbers)
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Txt(Ui.hp(lang), size = 12.sp, bold = true, color = Colors.accent)
+                Txt(Ui.hp(lang), size = 12.sp, bold = true, color = Colors.accent, pixel = BattleLook.pixelNumbers)
                 Spacer(Modifier.width(4.dp))
                 Bar(frac, hpColor(frac), Modifier.fillMaxWidth())
             }
-            Txt("${shownHp.toInt()} / ${hero.maxHp}", Modifier.align(Alignment.End), size = 14.sp, bold = true)
+            Txt("${shownHp.toInt()} / ${hero.maxHp}", Modifier.align(Alignment.End), size = 14.sp, bold = true, pixel = BattleLook.pixelNumbers)
             if (hero.maxSp > 0) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Txt(Ui.sp(lang), size = 12.sp, bold = true, color = Colors.sp)
+                    Txt(Ui.sp(lang), size = 12.sp, bold = true, color = Colors.sp, pixel = BattleLook.pixelNumbers)
                     Spacer(Modifier.width(4.dp))
                     Bar(sp.toFloat() / hero.maxSp, Colors.sp, Modifier.weight(1f), 6.dp)
                     Spacer(Modifier.width(4.dp))
-                    Txt("$sp", size = 12.sp)
+                    Txt("$sp", size = 12.sp, pixel = BattleLook.pixelNumbers)
                 }
             }
             val next = Rules.xpToNext(hero.level)

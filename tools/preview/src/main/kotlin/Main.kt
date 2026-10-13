@@ -403,6 +403,108 @@ fun main() {
         }
         System.exit(0)
     }
+    // SCHRIFT=1: 60b/60.4: the free serifs on trial in the text box, the shop and the title (SCHRIFT=titel: only the title faces)
+    if (System.getenv("SCHRIFT") != null) {
+        for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
+        val tags = listOf("geraet", "garamond", "alegreya", "fell")
+        val only = System.getenv("SCHRIFT")
+        de.bornim.game.ui.DialogLook.draft = true; de.bornim.game.ui.ShopLook.draft = true; de.bornim.game.ui.TitleLook.draft = true
+        for ((i, tag) in tags.withIndex()) {
+            de.bornim.game.ui.TypeLook.choice = i; de.bornim.game.ui.TypeLook.title = 0
+            shot("60_titel_$tag") { it.screen = Screen.TITLE }
+            if (only == "titel") continue
+            shot("60_gespraech_$tag", settle = 150) { vm -> vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!
+                var guard = 0; while (guard++ < 80) { val m = g.mode; if (m is Mode.Dialog && m.speaker != null) break; g.advance() }; vm.refresh() }
+            de.bornim.game.ui.ShopLook.previewTab = 0; de.bornim.game.ui.ShopLook.previewDialog = 0
+            shot("60_laden_$tag", settle = 60) { vm -> geared(vm, CharClass.WIZARD, Race.ELF); val g = vm.game!!; g.state.gold = 640
+                g.enqueue(listOf(Cmd.OpenShop(Story.shopStock))); vm.refresh() }
+        }
+        // the title in the faces made as capitals, with the body in Alegreya
+        de.bornim.game.ui.TypeLook.choice = 2
+        for ((t, tag) in listOf(1 to "cinzel", 2 to "alegreya_sc")) { de.bornim.game.ui.TypeLook.title = t; shot("60_titel_$tag") { it.screen = Screen.TITLE } }
+        System.exit(0)
+    }
+    // MENUE=1: 60: the menu old and in the look of the text box, each tab (MENUE=neu: only the new)
+    if (System.getenv("MENUE") != null) {
+        for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
+        for (it in de.bornim.core.Items.all) de.bornim.core.art.SupplyArt.get(it.id)
+        de.bornim.game.ui.TypeLook.choice = 2
+        val looks = if (System.getenv("MENUE") == "neu") listOf(true) else listOf(false, true)
+        for (draft in looks) {
+            de.bornim.game.ui.MenuLook.draft = draft
+            val tag = if (draft) "neu" else "alt"
+            fun open(vm: GameViewModel) { geared(vm, CharClass.FIGHTER)
+                val st = vm.game!!.state; for (it in listOf("greater_potion", "remedy", "herbs", "wolf_pelt")) st.add(it, 2); vm.menuOpen = true }
+            shot("60_menue_held_$tag") { vm -> open(vm) }
+            shot("60_menue_beutel_$tag", taps = listOf(Offset(410f, 95f))) { vm -> open(vm) }
+            shot("60_menue_beutel_fenster_$tag", taps = listOf(Offset(410f, 95f), Offset(540f, 560f))) { vm -> open(vm) }
+            shot("60_menue_ausruestung_$tag", taps = listOf(Offset(680f, 95f))) { vm -> open(vm) }
+            shot("60_menue_system_$tag", taps = listOf(Offset(950f, 95f))) { vm -> open(vm) }
+        }
+        System.exit(0)
+    }
+    // HELDENBAU=1: 60: the hero's making old and in the look of the text box, top and scrolled down
+    if (System.getenv("HELDENBAU") != null) {
+        de.bornim.game.ui.TypeLook.choice = 2
+        for (draft in listOf(false, true)) {
+            de.bornim.game.ui.CreateLook.draft = draft
+            val tag = if (draft) "neu" else "alt"
+            shot("60_heldenbau_$tag") { it.screen = Screen.CREATE }
+        }
+        System.exit(0)
+    }
+    // KAMPF60=1: 60: the fight's boxes old and in the look of the text box: opening line, the menu, a blow with its number
+    if (System.getenv("KAMPF60") != null) {
+        de.bornim.game.ui.TypeLook.choice = 2
+        val setup: (GameViewModel) -> Unit = { vm -> vm.newGame("Borin", Race.DWARF, CharClass.CLERIC); val g = vm.game!!; g.skipDialogs()
+            g.state.place = Place("forest", 10, 20, Facing.UP); g.enqueue(listOf(Cmd.Fight("goblin"))); vm.refresh() }
+        val msgBox = Offset(W / 2f, H - 300f)
+        for (draft in listOf(false, true)) {
+            de.bornim.game.ui.BattleLook.draft = draft
+            val tag = if (draft) "neu" else "alt"
+            shot("60_kampf_$tag", setup = setup)
+            shot("60_kampf_menue_$tag", taps = List(2) { msgBox }, setup = setup)
+        }
+        de.bornim.game.ui.BattleLook.pixelNumbers = false
+        shot("60_kampf_menue_serif", taps = List(2) { msgBox }, setup = setup)
+        System.exit(0)
+    }
+    // HAENDLER=1: the shop old and as drafted for 59 (black like the text box, overview when selling, comparison when buying)
+    if (System.getenv("HAENDLER") != null) {
+        for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
+        for (it in de.bornim.core.Items.all) de.bornim.core.art.SupplyArt.get(it.id)
+        fun shop(vm: GameViewModel) {
+            geared(vm, CharClass.WIZARD, Race.ELF); val g = vm.game!!
+            g.state.gold = 640
+            for (it in listOf("potion", "remedy", "wolf_pelt", "boar_tusk", "herbs")) g.state.add(it, 3)
+            g.enqueue(listOf(Cmd.OpenShop(Story.shopStock))); vm.refresh()
+        }
+        if (System.getenv("HAENDLER") == "morwen") {
+            de.bornim.game.ui.ShopLook.previewTab = 0; de.bornim.game.ui.ShopLook.previewDialog = -1
+            shot("59_morwen_neu", settle = 60) { vm -> shop(vm); val g = vm.game!!; g.advance(); g.enqueue(listOf(Cmd.OpenShop(listOf("potion", "remedy"), brewing = true))); vm.refresh() }
+            System.exit(0)
+        }
+        val looks = System.getenv("HAENDLER").let { if (it == "neu") listOf(true) else listOf(false, true) }
+        for (draft in looks) {
+            de.bornim.game.ui.ShopLook.draft = draft
+            val tag = if (draft) "neu" else "alt"
+            for ((name, tab, dlg) in listOf(Triple("kauf", 0, -1), Triple("verkauf", 1, -1), Triple("kauf_ruestung", 0, 0),
+                    Triple("kauf_vorrat", 0, 100), Triple("verkauf_rueckkauf", 2, -1))) {
+                de.bornim.game.ui.ShopLook.previewTab = tab; de.bornim.game.ui.ShopLook.previewDialog = dlg
+                shot("59_${name}_$tag", settle = 60) { vm -> shop(vm)
+                    if (tab == 1) { val g = vm.game!!; val st = g.state; val d = Dice(kotlin.random.Random(9))
+                        val keep = st.bag.filter { st.hero.canWear(it) }.take(3)
+                        st.bag.clear(); st.bag += keep; st.inventory.keys.toList().forEach { if (it != "potion") st.inventory.remove(it) }
+                        listOf(GearSlot.CHEST, GearSlot.OFF_HAND, GearSlot.MAIN_HAND).forEach { sl ->
+                            var x = Loot.generate(st, d, 9, Rarity.RARE, CharClass.FIGHTER, sl); var k = 0
+                            while (st.hero.canWear(x) && k++ < 30) x = Loot.generate(st, d, 9, Rarity.RARE, CharClass.FIGHTER, sl)
+                            st.addGear(x) }
+                        vm.refresh() }
+                    if (tab == 2) { val g = vm.game!!; g.state.bag.take(3).toList().forEach { g.sellGear(it) }; g.sell("wolf_pelt", 3); vm.refresh() } }
+            }
+        }
+        System.exit(0)
+    }
     // BRETT=1: the notice board's window and the odd jobs in the menu (29)
     if (System.getenv("BRETT") != null) {
         fun jobs(vm: GameViewModel) {

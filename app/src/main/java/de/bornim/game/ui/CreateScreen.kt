@@ -45,8 +45,20 @@ import de.bornim.core.art.CharacterArt
 import de.bornim.game.GameViewModel
 import de.bornim.game.Screen
 
+/** 60: the hero's making in the look of the text box; a draft until chosen (preview `HELDENBAU=1`). */
+object CreateLook {
+    @Volatile var draft = false
+}
+
 @Composable
 fun CreateScreen(vm: GameViewModel) {
+    if (CreateLook.draft) androidx.compose.runtime.CompositionLocalProvider(LocalVeil provides true) {
+        Box(Modifier.fillMaxSize().background(androidx.compose.ui.graphics.Color.Black)) { CreateBody(vm) }
+    } else CreateBody(vm)
+}
+
+@Composable
+private fun CreateBody(vm: GameViewModel) {
     val lang = vm.lang
     var name by remember { mutableStateOf(Ui.defaultName(lang)) }
     var race by remember { mutableStateOf(Race.HUMAN) }
@@ -90,8 +102,10 @@ fun CreateScreen(vm: GameViewModel) {
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             Txt(Ui.yourName(lang), color = Colors.textLight, bold = true)
+            val veil = LocalVeil.current
             Box(
-                Modifier
+                if (veil) Modifier.fillMaxWidth().background(Veil.raised).border(1.dp, Veil.rim).padding(12.dp)
+                else Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(8.dp))
                     .border(3.dp, Colors.border, RoundedCornerShape(8.dp))
@@ -102,7 +116,9 @@ fun CreateScreen(vm: GameViewModel) {
                     value = name,
                     onValueChange = { name = it.take(12) },
                     singleLine = true,
-                    textStyle = BaseText.copy(fontSize = 28.sp),
+                    textStyle = if (veil) androidx.compose.ui.text.TextStyle(fontFamily = Serif, fontSize = 24.sp * TypeLook.scale, color = Veil.text, letterSpacing = 0.5.sp)
+                        else BaseText.copy(fontSize = 28.sp),
+                    cursorBrush = androidx.compose.ui.graphics.SolidColor(if (veil) Veil.gold else Colors.text),
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words, imeAction = ImeAction.Done),
                     modifier = Modifier.fillMaxWidth(),
                 )
@@ -221,6 +237,7 @@ private fun <E> Choices(items: List<E>, selected: E, label: (E) -> String, onPic
 /** A row of colour swatches with their names, one picked. */
 @Composable
 private fun ToneChoices(label: String, tones: List<de.bornim.core.Appearance.Tone>, selected: Int, lang: Lang, onPick: (Int) -> Unit) {
+    val veil = LocalVeil.current
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         Txt(label, Modifier.width(52.dp), size = 14.sp, color = Colors.textLight)
         tones.forEachIndexed { i, t ->
@@ -229,10 +246,10 @@ private fun ToneChoices(label: String, tones: List<de.bornim.core.Appearance.Ton
                     Modifier
                         .size(34.dp)
                         .clip(RoundedCornerShape(6.dp))
-                        .border(if (i == selected) 3.dp else 1.dp, if (i == selected) Colors.accent else Colors.border, RoundedCornerShape(6.dp))
+                        .border(if (i == selected) 3.dp else 1.dp, if (i == selected) (if (veil) Veil.gold else Colors.accent) else Colors.border, RoundedCornerShape(6.dp))
                         .background(androidx.compose.ui.graphics.Color(0xFF000000 or t.rgb.toLong()))
                 )
-                Txt(t.title(lang), size = 11.sp, color = if (i == selected) Colors.accent else Colors.textDim, maxLines = 1)
+                Txt(t.title(lang), size = 11.sp, color = if (i == selected) (if (veil) Veil.gold else Colors.accent) else Colors.textDim, maxLines = 1)
             }
         }
     }

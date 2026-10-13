@@ -797,6 +797,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     return
                 }
                 is Cmd.OpenShop -> {
+                    buyback.clear()
                     mode = Mode.Shop(c.stock, c.brewing)
                     changed()
                     return
@@ -1074,15 +1075,44 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     fun buyPrice(g: Gear): Int = Perks.buyPrice(hero, g.price)
 
-    fun buy(id: String): String {
+    fun buy(id: String, n: Int = 1): String {
         val def = Items[id]
-        val price = buyPrice(id)
+        val price = buyPrice(id) * n
+        if (n < 1) return Ui.nothing(lang)
         if (state.gold < price) return Ui.notEnoughGold(lang)
         state.gold -= price
-        state.add(id)
+        state.add(id, n)
         sounds += de.bornim.core.audio.Sound.COINS
         changed()
-        return Ui.bought.f(lang, def.name(lang))
+        return Ui.bought.f(lang, def.name(lang) + if (n > 1) " ×$n" else "")
+    }
+
+    /** 59.5: how many of [id] the hero can buy with the gold in hand. */
+    fun canBuy(id: String): Int = state.gold / buyPrice(id)
+
+    /** One thing sold in this visit to the shop (59.4), to be bought back at the price it fetched. */
+    class Sold(val gear: Gear?, val item: String?, val count: Int, val price: Int) {
+        fun name(lang: Lang) = (gear?.name(lang) ?: Items[item!!].name(lang)) + if (count > 1) " ×$count" else ""
+    }
+
+    /** 59.4: the last five sales, newest first, until the shop closes; not saved. */
+    val buyback = ArrayDeque<Sold>()
+
+    private fun sold(s: Sold) {
+        buyback.addFirst(s)
+        while (buyback.size > 5) buyback.removeLast()
+    }
+
+    /** 59.4: takes [s] back for what it fetched. */
+    fun buyBack(s: Sold): String {
+        if (s !in buyback) return Ui.cannotSell(lang)
+        if (state.gold < s.price) return Ui.notEnoughGold(lang)
+        state.gold -= s.price
+        if (s.gear != null) state.bag += s.gear else state.add(s.item!!, s.count)
+        buyback.remove(s)
+        sounds += de.bornim.core.audio.Sound.COINS
+        changed()
+        return Ui.bought.f(lang, s.name(lang))
     }
 
     fun sellPrice(id: String): Int = Perks.sellPrice(hero, Items[id].price / 2)
@@ -1127,6 +1157,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     fun sellGear(g: Gear): String {
         if (!state.bag.remove(g)) return Ui.cannotSell(lang)
         state.gold += sellPrice(g)
+        sold(Sold(g, null, 1, sellPrice(g)))
         sounds += de.bornim.core.audio.Sound.COINS
         changed()
         return Ui.sold.f(lang, g.name(lang))
@@ -1135,7 +1166,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** Sells every common piece in the bag at once. */
     fun sellAllCommon(): Int {
         val junk = state.bag.filter { it.rarity == Rarity.COMMON }
-        junk.forEach { state.bag.remove(it); state.gold += sellPrice(it) }
+        junk.forEach { state.bag.remove(it); state.gold += sellPrice(it); sold(Sold(it, null, 1, sellPrice(it))) }
         changed()
         return junk.size
     }
@@ -1145,13 +1176,14 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         changed()
     }
 
-    fun sell(id: String): String {
+    fun sell(id: String, n: Int = 1): String {
         val def = Items[id]
-        if (!def.sellable || !state.remove(id)) return Ui.cannotSell(lang)
-        state.gold += sellPrice(id)
+        if (n < 1 || !def.sellable || !state.remove(id, n)) return Ui.cannotSell(lang)
+        state.gold += sellPrice(id) * n
+        sold(Sold(null, id, n, sellPrice(id) * n))
         sounds += de.bornim.core.audio.Sound.COINS
         changed()
-        return Ui.sold.f(lang, def.name(lang))
+        return Ui.sold.f(lang, def.name(lang) + if (n > 1) " ×$n" else "")
     }
 
     fun changed() {
