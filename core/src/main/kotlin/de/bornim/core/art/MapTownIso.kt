@@ -68,13 +68,14 @@ object MapTownIso {
      * A house picture: [front] the wall along the front, one letter a tile ('#' wall, 'W' window, 'D' door); [side]
      * the east wall the same way; [d] tiles deep; [roof], [walls] and [feature] from the map's [HouseStyle];
      * [chimney] the middle of the chimney along i (null: none), standing at the back wall over the hearth inside;
-     * [night] lit windows. The ground under i = j = 0 lies at ([ox], [oy]) of the picture.
+     * [night] lit windows; [shut] (73a) a house one cannot enter but someone lives in: at night its shutters are
+     * closed, the light only coming through the cracks. The ground under i = j = 0 lies at ([ox], [oy]) of the picture.
      */
     class Picture(val img: PixelImage, val ox: Double, val oy: Double, val chimneyTop: Triple<Double, Double, Double>? = null)
 
     fun house(
         front: String, side: String, d: Int, roof: RoofKind, walls: WallKind, feature: HouseFeature, seed: Int,
-        chimney: Double? = null, night: Boolean = false,
+        chimney: Double? = null, night: Boolean = false, shut: Boolean = false,
     ): Picture {
         val n = front.length
         val lk = looks[Math.floorMod(seed, looks.size)]
@@ -141,7 +142,7 @@ object MapTownIso {
             val tile = floor(u).toInt().coerceIn(0, len - 1); val f = u - tile
             val kind = letters.getOrElse(tile) { '#' }
             if (kind == 'D') (if (temple) archDoor(f, z, face, s) else door(f, z, face, s))?.let { return it }
-            if (kind == 'W') (if (temple) archWindow(f, z, face, night) else window(f, z, face, night, s + tile))?.let { return it }
+            if (kind == 'W') (if (temple) archWindow(f, z, face, night) else if (night && shut) shutWindow(f, z, face, s + tile) else window(f, z, face, night, s + tile))?.let { return it }
             return surface(u, z, face, s, eave)
         }
         plane(p(0.0, d.toDouble(), 0.0), p(n.toDouble(), 0.0, 0.0), p(0.0, 0.0, eave)) { u, v -> wall(u * n, v * eave, n, front, litFront, seed) }
@@ -380,6 +381,32 @@ object MapTownIso {
         // by day the glass is dark, with a little sky in its upper panes
         val t = ((z - 61) / 46).coerceIn(0.0, 1.0)
         return mix(argb(0x14181C), argb(0x4A5866), t * 0.6)
+    }
+
+    /**
+     * A window with its shutters closed for the night (73a): two leaves of planks meeting in the middle, the light of
+     * the room inside showing only through the gap between them, the joints of the planks and around the edges.
+     */
+    private fun shutWindow(f: Double, z: Double, face: Double, seed: Int): Int? {
+        if (z < 56 || z > 112 || f < 0.16 || f > 0.84) return null
+        if (f < 0.2 || f > 0.8 || z < 59 || z > 109) return shade(if (z > 105) argb(0x18120E) else argb(0x3A2C20), face)
+        val warm = { k: Double -> mix(argb(0x5A3010), argb(0xE8A050), (k * (0.75 + vnoise(f * 10, z / 5, seed) * 0.25)).coerceIn(0.0, 1.0)) }
+        // the frame's edge, a thin line where the leaves do not quite close against it, brighter towards the bottom
+        if (f < 0.215 || f > 0.785 || z < 60.5 || z > 107.5) return if ((z < 62 || abs(f - 0.5) < 0.2) && rnd(floor(z / 3).toInt(), floor(f * 9).toInt(), seed) > 0.6) warm(0.5) else shade(argb(0x241A12), face)
+        // the gap between the two leaves
+        if (abs(f - 0.5) < 0.014) return warm(0.95)
+        // planks: four to a leaf, their joints let a little through here and there
+        val leaf = if (f < 0.5) (f - 0.215) / 0.285 else (f - 0.5) / 0.285
+        val k = floor(leaf * 4).toInt() + if (f < 0.5) 0 else 4
+        val joint = frac(leaf * 4) < 0.07
+        if (joint && rnd(k, floor(z / 4).toInt(), seed + 3) > 0.8) return warm(0.6)
+        // a knot hole or two
+        if (rnd(k, floor(z / 4).toInt(), seed + 5) > 0.985) return warm(0.8)
+        val brace = abs(z - 70) < 1.8 || abs(z - 98) < 1.8
+        var v = 0.38 + (rnd(k, 0, seed) - 0.5) * 0.18 + (vnoise(f * 40, z / 9, seed + 7) - 0.5) * 0.1
+        if (joint) v -= 0.18
+        if (brace) v += 0.08
+        return shade(mix(argb(0x120E0A), argb(0x4E3C2E), v.coerceIn(0.0, 1.0)), face)
     }
 
     /** A heavy plank door under a lintel, iron straps, a worn step in front. */
@@ -956,7 +983,7 @@ object MapTownIso {
                 ?.let { hs -> (hs.average() + 0.5) / room.width * f.n }
             else -> if (style.mirrored) f.n * 0.25 + 0.1 else f.n * 0.75 - 0.1
         }
-        return house(front, side, f.d, style.roof, style.walls, style.feature, seed, chimney, night)
+        return house(front, side, f.d, style.roof, style.walls, style.feature, seed, chimney, night, shut = room == null && style.feature != HouseFeature.BELL_TOWER)
     }
 
     private val sliceCache = HashMap<String, List<WorldArt.Obj>>()

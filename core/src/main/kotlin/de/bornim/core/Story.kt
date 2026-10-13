@@ -325,7 +325,7 @@ object Story {
             "#W##D#WW#",
         ),
         warps = interiorExit(toVillage(5, 21), 6),
-        npcs = listOf(Npc("aldric", 6, 2, "elder", Facing.DOWN) { s -> elderTalk(s) }),
+        npcs = listOf(Npc("aldric", 7, 3, "elder", Facing.DOWN) { s -> elderTalk(s) }),
     )
 
     private fun elderTalk(s: GameState): List<Cmd> = when {
@@ -461,7 +461,8 @@ object Story {
             Chest("forest_3", 2, 24, gold = 40),
         ),
         npcs = listOf(
-            Npc("garrick", 12, 9, "hunter", Facing.LEFT) { s ->
+            // 3b (Nutzer 13.10., 17:10): left of the fire, so seen diagonally he faces the camera instead of turning his back
+            Npc("garrick", 10, 9, "hunter", Facing.RIGHT) { s ->
                 if (!s.has(HUNTER_MET)) script {
                     say(garrick, "Ein Abenteurer? Setz dich ans Feuer. Ich bin Garrick, Jäger aus Bornim.", "An adventurer? Sit by the fire. I'm Garrick, a hunter from Bornim.")
                     say(garrick, "Im hohen Gras lauern Riesenratten, Wölfe und Goblin-Späher. Auf dem Weg bist du sicherer.", "Giant rats, wolves and goblin scouts lurk in the tall grass. You're safer on the path.")
@@ -491,7 +492,7 @@ object Story {
         ),
         areaLevel = 1,
         safeZones = listOf(
-            SafeZone(12, 9, 4, T("Jäger Garrick schwenkt seine Fackel – die Biester weichen zurück!", "Hunter Garrick waves his torch – the beasts back off!")),
+            SafeZone(10, 9, 4, T("Jäger Garrick schwenkt seine Fackel – die Biester weichen zurück!", "Hunter Garrick waves his torch – the beasts back off!")),
             SafeZone(10, 30, 3),
             SafeZone(10, 1, 2),
             SafeZone(19, 10, 2),

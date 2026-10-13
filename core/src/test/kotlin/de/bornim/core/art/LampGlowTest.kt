@@ -42,9 +42,10 @@ class LampGlowTest {
             for ((o, g) in glows) {
                 val lit = g.img.pixels.indices.filter { (g.img.pixels[it] ushr 24) != 0 }
                 assertTrue(lit.isNotEmpty() && g.img.width == o.img.width && g.img.height == o.img.height, "house at $x,$y: glow fits its strip")
-                // only on the house, on the window glass, which is brighter at night than by day
+                // only on the house, on the window glass, which is brighter at night than by day; closed shutters
+                // (73a) are darker wood with only cracks of light, so a few bright pixels are enough
                 for (i in lit) assertTrue((o.img.pixels[i] ushr 24) != 0, "house at $x,$y: shines off the house")
-                assertTrue(lit.sumOf { lum(g.img.pixels[it]) - lum(o.img.pixels[it]) } / lit.size > 40, "house at $x,$y: windows not brighter at night")
+                assertTrue(lit.count { lum(g.img.pixels[it]) - lum(o.img.pixels[it]) > 40 } >= 4, "house at $x,$y: windows not brighter at night")
             }
         }
         assertTrue(houses >= 4, "lit windows on only $houses houses")
