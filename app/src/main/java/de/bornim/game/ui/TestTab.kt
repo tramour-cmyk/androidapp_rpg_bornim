@@ -235,6 +235,14 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.refresh()
             vm.toast = if (sheet) t("Im Menü ein Reiter „Karte“: der Ort als Tinte auf Pergament, nur was der Held gesehen hat.", "A “Map” tab in the menu: the place in ink on parchment, only what the hero has seen.") else t("Kein Kartenreiter.", "No map tab.")
         }
+        // draft (55.1): more stances for the arms of everyone standing about
+        var arms by remember { mutableStateOf(de.bornim.core.art.MapRest.draft) }
+        PixelButton(t("55 Arme verschränkt/hinter dem Rücken: ", "55 Arms crossed/behind the back: ") + (if (arms) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.art.MapRest.draft = !de.bornim.core.art.MapRest.draft
+            arms = de.bornim.core.art.MapRest.draft
+            vm.refresh()
+            vm.toast = if (arms) t("Wer herumsteht, verschränkt ab und zu die Arme oder legt die Hände auf den Rücken.", "Whoever stands about now and then crosses the arms or clasps the hands behind the back.") else t("Wie bisher: Hände nur an den Gürtel.", "As before: hands only to the belt.")
+        }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()
             vm.refresh()
