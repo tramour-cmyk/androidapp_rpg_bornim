@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 12:24–13:1x „Chronik-Texte“ (64d/62i, 67); 13.10. 13:21–14:1x „Story-Vorlage“ (STORY.md geteilt, Richtung Prophet). **Nachfolger:** „Sokrates – Kapitel 2“ (Nutzer startet, wartet auf Antwort)
 
-**Nächster Punkt:** (1) Heldenbau-[Dokument](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14): die zu prüfenden kursiven Talentnamen **fett und rot** setzen (Nutzer 14:16: kursiv kaum erkennbar), dann melden. (2) Grobzusammenfassung Kapitel 2 in den Storyplan, Abschnitt „Kapitel 2“ (Richtung siehe Begründungen 41; 41-2 ja: am Ende erfährt der Held nur vom Kult, Titel erst Kapitel 3/4), Nutzer kommentiert dort.
+**Nächster Punkt:** (1) erledigt 14:2x: Talentnamen im Heldenbau fett mit Markierung (rot gibt es im Editor nicht), Nutzer sieht durch. (2) Grobzusammenfassung Kapitel 2 in den Storyplan, Abschnitt „Kapitel 2“ (Richtung siehe Begründungen 41; 41-2 ja: am Ende erfährt der Held nur vom Kult, Titel erst Kapitel 3/4), Nutzer kommentiert dort.
 
 **Zuletzt gelesen bis:** dieser Commit (13.10., 14:1x)
 
@@ -41,7 +41,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 ## Lehren
 
-- **Markierungen zum Prüfen fett oder rot, nie nur kursiv** (13.10.): Nutzer erkennt Kursives auf dem Handy kaum.
+- **Markierungen zum Prüfen fett mit Markierung, nie nur kursiv** (13.10.): Nutzer erkennt Kursives auf dem Handy kaum; Docs-Editor kann keine rote Schrift.
 - **Empfehlungen wiederholen, nicht verweisen** (13.10.): „die Empfehlungen sind ja wieder weg“. Offene Rückfragen jedes Mal mit vollem Wortlaut und Empfehlung zeigen, nie „stehen weiter“.
 - **Eigene Ideen einbringen** (13.10.): „du findest alles sinnvoll, was ich vorschlage … du bist mein Berater“. Jeden Vorschlag auf Lücken, Kosten, Doppelungen prüfen und Eigenes ergänzen.
 - **Ideen sind der Auftrag** (13.10.): Nutzer: „das ist dein Job, Ideen zu entwickeln und uns gegenseitig zu verbessern“. Zu jedem Thema eigene Ideen mit Empfehlung, und Korrekturen des Nutzers (drei Ebenen, Lagerfeuer als Dienst) offen übernehmen.
