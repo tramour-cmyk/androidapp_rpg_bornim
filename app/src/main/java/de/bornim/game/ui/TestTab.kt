@@ -195,6 +195,14 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.refresh()
             vm.toast = if (swingMore) t("Nach dem Anhalten schwingen auch lange Haare und der Köcher nach (Entwurf 17).", "After a stop long hair and the quiver swing on too (draft 17).") else t("Nur der Umhang schwingt nach.", "Only the cloak swings on.")
         }
+        // 5l (draft): the villagers go about their day
+        var villageDay by remember { mutableStateOf(de.bornim.core.VillageDay.draft) }
+        PixelButton(t("5l Tagesablauf im Dorf: ", "5l Village day: ") + (if (villageDay) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.VillageDay.draft = !de.bornim.core.VillageDay.draft
+            villageDay = de.bornim.core.VillageDay.draft
+            vm.refresh()
+            vm.toast = if (villageDay) t("Pim, Bram, Gwenna und Liska gehen je nach Uhrzeit an andere Plätze (eine Spielstunde ist eine Minute).", "Pim, Bram, Gwenna and Liska move between places by the hour (a game hour is a minute).") else t("Alle bleiben an ihrem Platz.", "Everyone keeps to their spot.")
+        }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()
             vm.refresh()
