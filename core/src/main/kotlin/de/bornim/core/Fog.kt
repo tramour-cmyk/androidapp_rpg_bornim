@@ -19,7 +19,9 @@ private val caveRock = setOf(Tile.CAVE_WALL, Tile.CRYSTAL, Tile.TORCH)
  * trees, rocks and walls. Everything ever seen stays explored (and is saved); only what is in sight
  * right now is [Fog.VISIBLE].
  */
-class Sight(private val state: GameState) {
+class Sight(private val state: GameState, private val lookYaw: () -> Double = { yawOf(state.place.facing) }) {
+    private var lookX = 0.0
+    private var lookY = 1.0
     private var key = ""
     private var visible = BooleanArray(0)
     /** Tiles near enough with nothing opaque in between, whichever way the hero looks (for [inSight]). */
@@ -70,7 +72,7 @@ class Sight(private val state: GameState) {
         // the small circle around covers the tiles next to the hero, corners included
         if (d <= 2.0) return true
         if (d > reach) return false
-        return (dx * p.facing.dx + dy * p.facing.dy) / d >= 0.17
+        return (dx * lookX + dy * lookY) / d >= 0.17
     }
 
     fun known(map: MapDef, x: Int, y: Int, night: Boolean): Boolean = fog(map, x, y, night) != Fog.HIDDEN
@@ -100,9 +102,12 @@ class Sight(private val state: GameState) {
 
     private fun update(map: MapDef, night: Boolean) {
         val p = state.place
-        val k = "${map.id}/${p.x}/${p.y}/${p.facing}/$night"
+        // the way the hero looks, in steps of 5° so the cone does not work anew for every small turn
+        val yaw = Math.round(lookYaw() / 5.0) * 5.0
+        val k = "${map.id}/${p.x}/${p.y}/$yaw/$night"
         if (k == key) return
         key = k
+        lookX = kotlin.math.sin(Math.toRadians(yaw)); lookY = kotlin.math.cos(Math.toRadians(yaw))
         visible = BooleanArray(map.width * map.height)
         clear = BooleanArray(map.width * map.height)
         // A wise hero sees a little further.
@@ -118,7 +123,7 @@ class Sight(private val state: GameState) {
             if (!near) {
                 if (d > radius) continue
                 // within 80° to either side of the walking direction
-                val cos = (dx * p.facing.dx + dy * p.facing.dy) / d
+                val cos = (dx * lookX + dy * lookY) / d
                 if (cos < 0.17) continue
                 if (!lineOfSight(map, p.x, p.y, x, y)) continue
             }
@@ -155,3 +160,6 @@ class Sight(private val state: GameState) {
         }
     }
 }
+
+/** A facing as a yaw in the map: 0 down the map, 90 to the right. */
+private fun yawOf(f: Facing) = when (f) { Facing.DOWN -> 0.0; Facing.RIGHT -> 90.0; Facing.UP -> 180.0; Facing.LEFT -> 270.0 }

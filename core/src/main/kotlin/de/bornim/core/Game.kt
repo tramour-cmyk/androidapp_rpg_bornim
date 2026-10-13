@@ -298,7 +298,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
     }
 
-    private val sight = Sight(state)
+    private val sight = Sight(state) { freeWalk.lookYaw() }
 
     /** Wild areas (forest, cave) are covered by fog until the hero has seen them. */
     val fogged: Boolean get() = map.kind == MapKind.FOREST || map.kind == MapKind.CAVE

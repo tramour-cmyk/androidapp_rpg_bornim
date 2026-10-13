@@ -48,6 +48,21 @@ class FogTest {
     }
 
     @Test
+    fun theConeFollowsTheWayTheHeroLooksNotTheNearestMapDirection() {
+        // test 13.10., 17:5x (third report): by the camp fire the hero walked up the screen, up the diagonal of the map;
+        // the facing on the map snapped to the left, and the cone left the room beyond the low wall in the dark
+        val g = game(Place("cave", 15, 14, Facing.LEFT))
+        g.freeWalk.sync()
+        g.freeWalk.yaw = 270.0
+        val before = g.fog(14, 10)
+        g.freeWalk.yaw = 225.0
+        assertEquals(Fog.HIDDEN, before, "looking left along the map the room up the diagonal stays out of the cone")
+        assertEquals(Fog.VISIBLE, g.fog(15, 11), "beyond the low wall, up the diagonal")
+        assertEquals(Fog.VISIBLE, g.fog(14, 10), "the room beyond")
+        assertEquals(Fog.VISIBLE, g.fog(15, 12), "the wall itself")
+    }
+
+    @Test
     fun exploredStaysSeenAndIsSaved() {
         val g = game(Place("forest", 10, 20, Facing.UP))
         assertEquals(Fog.VISIBLE, g.fog(10, 16))
