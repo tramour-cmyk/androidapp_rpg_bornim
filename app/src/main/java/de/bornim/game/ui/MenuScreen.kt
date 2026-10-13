@@ -137,8 +137,8 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
 
 /**
  * 62 the drawn map of the place, only what the hero has seen. 62c: it opens zoomed in on the hero (a red ring with
- * the way he faces), two fingers zoom, one pans; "Places" lists the places visited so far, tapping one shows its map
- * (no travel). Marks remind, never lead ([de.bornim.core.MapMarks]): tapping one names it.
+ * the way he faces), two fingers zoom, one pans; tapping a house or the cave goes a level down, the button up right a
+ * level up (62r: ground plan, area map, land map); tapping a place on the land map shows its map (no travel). Marks remind, never lead ([de.bornim.core.MapMarks]): tapping one names it.
  */
 @Composable
 private fun MapTab(game: Game, lang: Lang, onChronicle: () -> Unit = {}) {
@@ -153,7 +153,12 @@ private fun MapTab(game: Game, lang: Lang, onChronicle: () -> Unit = {}) {
     Column(Modifier.fillMaxSize()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Txt(if (overview) (if (MapLook.land != null) (if (german) "Landkarte" else "Map of the land") else if (german) "Besuchte Orte" else "Places visited") else map.name(lang), Modifier.weight(1f), size = 20.sp, bold = true)
-            PixelButton(if (german) "Orte" else "Places", Modifier.height(36.dp), selected = overview, size = 13.sp) { overview = !overview }
+            // 62r (Nutzer 13.10., 20:4x: A): one level up, the button naming where it goes; none on the land map
+            if (!overview) {
+                val up = MapLook.parentOf(shown)
+                val label = if (up != null) (if (german) "↑ Gebietskarte" else "↑ Area map") else if (german) "↑ Landkarte" else "↑ Land map"
+                PixelButton(label, Modifier.height(36.dp), size = 13.sp) { if (up != null) shown = up else overview = true }
+            }
         }
         Spacer(Modifier.height(6.dp))
         if (!overview) {
@@ -184,6 +189,18 @@ object MapLook {
     var focusMap: String? = null
     var focusWho: String? = null
     @Volatile var previewOverview = false
+
+    /**
+     * 62r: the map one level up from a ground plan (62p): the area map whose entrance leads into it (a house's room,
+     * the cave), or null for an area map, whose level up is the land map.
+     */
+    fun parentOf(id: String): String? {
+        val m = de.bornim.core.World.maps[id] ?: return null
+        if (m.kind != de.bornim.core.MapKind.INTERIOR && m.kind != de.bornim.core.MapKind.CAVE) return null
+        return de.bornim.core.World.maps.values.firstOrNull { o ->
+            o.kind != de.bornim.core.MapKind.INTERIOR && o.kind != de.bornim.core.MapKind.CAVE && o.warps.any { it.to.map == id }
+        }?.id
+    }
     /** A mark to show named at once, by index in the marks of the shown map (-1 none, -2 the last). */
     @Volatile var previewTip = -1
     @Volatile var previewZoom = 2.5f

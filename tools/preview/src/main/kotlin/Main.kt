@@ -115,6 +115,13 @@ fun main() {
             vm.menuOpen = true; vm.refresh()
         }
         de.bornim.game.ui.MenuStart.map = true
+        // KARTE62=1 ONLY=62r: 62r the button one level up, from the inn's ground plan and from the village
+        if (System.getenv("ONLY") == "62r") {
+            de.bornim.game.ui.MapLook.previewTip = -1
+            shot("62r_schaenke", settle = 30) { vm -> setup(vm, "inn", 4, 4, Facing.UP) }
+            shot("62r_dorf", settle = 30) { vm -> setup(vm, "village", 17, 6, Facing.DOWN) }
+            System.exit(0)
+        }
         de.bornim.game.ui.MapLook.previewTip = 0
         shot("62c_wald", settle = 30) { vm -> setup(vm, "forest", 0, 0, Facing.UP) }
         de.bornim.game.ui.MapLook.previewZoom = 1.6f
