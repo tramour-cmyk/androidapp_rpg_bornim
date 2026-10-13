@@ -1797,13 +1797,30 @@ private fun DrawScope.drawCaveShaft(game: Game, map: de.bornim.core.MapDef, cloc
                 path,
                 androidx.compose.ui.graphics.Brush.verticalGradient(
                     0f to Color(0xFFE8F0FF).copy(alpha = 0f), 0.25f to Color(0xFFE8F0FF).copy(alpha = base * 0.15f),
-                    0.55f to Color(0xFFE8F0FF).copy(alpha = base * 0.6f), 0.85f to Color(0xFFE8F0FF).copy(alpha = base),
-                    1f to Color(0xFFE8F0FF).copy(alpha = base * 0.4f),
+                    0.55f to Color(0xFFE8F0FF).copy(alpha = base * 0.6f), 0.8f to Color(0xFFE8F0FF).copy(alpha = base),
+                    // test of 0.1.667: the beam ended in a straight edge on the floor; now it runs out into the pool
+                    1f to Color(0xFFE8F0FF).copy(alpha = 0f),
                     startY = upper, endY = bottom,
                 ),
                 blendMode = androidx.compose.ui.graphics.BlendMode.Plus,
             )
         }
+        // where it falls: a soft oval of light on the floor (a circle seen at the slant, 2:1), brightest in the middle,
+        // breathing a little as clouds pass far above
+        val pool = at(0.0, 0.0)
+        val breathe = 0.92f + 0.08f * kotlin.math.sin(clock / 2300f + i)
+        val rx = 24f * scale; val ry = 12f * scale
+        drawContext.canvas.save()
+        drawContext.canvas.translate(pool.x, pool.y)
+        drawContext.canvas.scale(1f, ry / rx)
+        drawCircle(
+            androidx.compose.ui.graphics.Brush.radialGradient(
+                0f to Color(0xFFE8F0FF).copy(alpha = 0.16f * seen * breathe), 0.45f to Color(0xFFE8F0FF).copy(alpha = 0.09f * seen * breathe),
+                1f to Color(0xFFE8F0FF).copy(alpha = 0f), center = Offset.Zero, radius = rx,
+            ),
+            radius = rx, center = Offset.Zero, blendMode = androidx.compose.ui.graphics.BlendMode.Plus,
+        )
+        drawContext.canvas.restore()
         for (k in 0 until 10) {
             // motes sinking slowly through the light, glinting as they turn
             val period = 6000 + k * 730
@@ -1928,10 +1945,13 @@ private fun DrawScope.drawMapLight(
             // darken by the fog of war, smoothly between tile centres: unexplored black, out of sight dim
             val tx0 = Math.floorDiv(x0, T) - 1; val ty0 = Math.floorDiv(y0, T) - 1
             val tw = w / T + 4; val th = h / T + 4
+            // test of 0.1.667 (13e): seen diagonally one looks over the low walls into rooms explored already, and
+            // the dimmed fog lay over them like a dark cloth; there what is known but out of sight dims only a little
+            val seenDim = if (MapSight.diagonal && map.kind == MapKind.CAVE) 0.15f else 0.5f
             val raw = FloatArray(tw * th) { i ->
                 when (game.fog(tx0 + i % tw, ty0 + i / tw)) {
                     de.bornim.core.Fog.HIDDEN -> 1f
-                    de.bornim.core.Fog.SEEN -> 0.5f
+                    de.bornim.core.Fog.SEEN -> seenDim
                     de.bornim.core.Fog.VISIBLE -> 0f
                 }
             }

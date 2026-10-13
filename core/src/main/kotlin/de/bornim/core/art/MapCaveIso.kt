@@ -1008,6 +1008,9 @@ object MapCaveIso {
             }
             Tile.STALAGMITE -> return listOf(thing(map, tx, ty, "${map.id}/stal/$tx/$ty") { stalagmites(tx, ty) })
             Tile.RUBBLE -> return listOf(thing(map, tx, ty, "${map.id}/rubble/$tx/$ty", flat = true) { rubbleTile(tx, ty) })
+            // the roots hung from the roof in the old view; seen diagonally there is no roof, and they stood on the
+            // floor like poles in the light (test of 0.1.667: the beam looked false where it lands)
+            Tile.SKYLIGHT -> return emptyList()
             Tile.ROCK -> return listOf(thing(map, tx, ty, "${map.id}/boulder/$tx/$ty") { boulderTile(tx, ty) })
             Tile.GLOWSHROOM -> {
                 val sv = Math.floorMod(hash(tx, ty, 46), 3)
