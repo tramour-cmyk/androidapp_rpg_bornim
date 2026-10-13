@@ -103,7 +103,7 @@ class Tracks {
 
     companion object {
         /** The test switch: traces are made and drawn (draft). */
-        @Volatile var draft = false
+        @Volatile var draft = true
 
         const val BLOOD_MS = 6 * 60_000L
         const val PRINT_MS = 2 * 60_000L

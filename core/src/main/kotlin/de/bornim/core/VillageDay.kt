@@ -7,7 +7,7 @@ package de.bornim.core
  * for each other) and stroll about there as before. Off: everyone keeps to their one spot.
  */
 object VillageDay {
-    @Volatile var draft = false
+    @Volatile var draft = true
 
     /** From minute [from] of the day on, stroll [wander] tiles around ([x], [y]). */
     data class Stop(val from: Int, val x: Int, val y: Int, val wander: Int)

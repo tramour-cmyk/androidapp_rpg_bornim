@@ -76,30 +76,6 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
                 }
             }
         }
-        // 60: the drafts of one look for all screens (menu, hero's making, title, fight) and the fonts on trial, until chosen
-        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            val on = MenuLook.draft
-            PixelButton(t("60 Aussehen: ", "60 look: ") + if (on) t("neu", "new") else t("alt", "old"), Modifier.weight(1f), size = 13.sp) {
-                val v = !on
-                MenuLook.draft = v; CreateLook.draft = v; TitleLook.draft = v; BattleLook.draft = v
-                if (v && TypeLook.choice == 0) { TypeLook.choice = 2; TypeLook.title = 1 }
-                vm.refresh()
-            }
-            PixelButton(t("Schrift: ", "Font: ") + TypeLook.names[TypeLook.choice], Modifier.weight(1f), size = 13.sp) {
-                TypeLook.choice = (TypeLook.choice + 1) % TypeLook.names.size
-                vm.refresh()
-            }
-        }
-        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            PixelButton(t("Titel: ", "Title: ") + listOf(t("wie Text", "as text"), "Cinzel", "Alegreya SC")[TypeLook.title], Modifier.weight(1f), size = 13.sp) {
-                TypeLook.title = (TypeLook.title + 1) % 3
-                vm.refresh()
-            }
-            PixelButton(t("Kampfzahlen: ", "Fight numbers: ") + if (BattleLook.pixelNumbers) "Pixel" else t("Serife", "serif"), Modifier.weight(1f), size = 13.sp) {
-                BattleLook.pixelNumbers = !BattleLook.pixelNumbers
-                vm.refresh()
-            }
-        }
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             PixelButton("+1000 " + t("Gold", "gold"), Modifier.weight(1f), size = 14.sp) {
                 game.cheatGold(1000)
@@ -186,62 +162,6 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             MapSight.follow(game.map)
             vm.refresh()
             vm.toast = if (allDiag) t("Jeder Ort diagonal, auch die noch nicht fertigen (Wald, Tiefer Wald, Höhle).", "Every place diagonal, also those not finished yet (woods, deep woods, cave).") else t("Nur fertige Orte diagonal (Dorf, Innenräume).", "Only finished places diagonal (village, rooms).")
-        }
-        // 17 (draft): long hair and the quiver swing on after a stop, like the cloak
-        var swingMore by remember { mutableStateOf(de.bornim.core.art.Dress.SWING_MORE) }
-        PixelButton(t("17 Haare/Köcher schwingen nach: ", "17 Hair/quiver swing on: ") + (if (swingMore) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
-            de.bornim.core.art.Dress.SWING_MORE = !de.bornim.core.art.Dress.SWING_MORE
-            swingMore = de.bornim.core.art.Dress.SWING_MORE
-            vm.refresh()
-            vm.toast = if (swingMore) t("Nach dem Anhalten schwingen auch lange Haare und der Köcher nach (Entwurf 17).", "After a stop long hair and the quiver swing on too (draft 17).") else t("Nur der Umhang schwingt nach.", "Only the cloak swings on.")
-        }
-        // 5l (draft): the villagers go about their day
-        var villageDay by remember { mutableStateOf(de.bornim.core.VillageDay.draft) }
-        PixelButton(t("5l Tagesablauf im Dorf: ", "5l Village day: ") + (if (villageDay) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
-            de.bornim.core.VillageDay.draft = !de.bornim.core.VillageDay.draft
-            villageDay = de.bornim.core.VillageDay.draft
-            vm.refresh()
-            vm.toast = if (villageDay) t("Pim, Bram, Gwenna und Liska gehen je nach Uhrzeit an andere Plätze (eine Spielstunde ist eine Minute).", "Pim, Bram, Gwenna and Liska move between places by the hour (a game hour is a minute).") else t("Alle bleiben an ihrem Platz.", "Everyone keeps to their spot.")
-        }
-        // draft: the cat in the inn
-        var cat by remember { mutableStateOf(de.bornim.core.art.MapCat.draft) }
-        PixelButton(t("Katze in der Schänke: ", "Cat in the inn: ") + (if (cat) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
-            de.bornim.core.art.MapCat.draft = !de.bornim.core.art.MapCat.draft
-            cat = de.bornim.core.art.MapCat.draft
-            vm.refresh()
-            vm.toast = if (cat) t("Eine Katze schläft am Herd und wechselt ab und zu den Platz (Runde gut drei Minuten).", "A cat sleeps by the hearth and now and then moves (a round of three minutes).") else t("Keine Katze.", "No cat.")
-        }
-        // draft (idea 11): the colour mood of each place and hour
-        var grade by remember { mutableStateOf(de.bornim.core.art.MapGrade.draft) }
-        PixelButton(t("Farbstimmung je Ort: ", "Colour mood per place: ") + (if (grade) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
-            de.bornim.core.art.MapGrade.draft = !de.bornim.core.art.MapGrade.draft
-            grade = de.bornim.core.art.MapGrade.draft
-            vm.refresh()
-            vm.toast = if (grade) t("Höhle kalt-grünlich, Räume mit Feuer warm, Dämmerung violett, Ränder etwas dunkler.", "Cave cold and greenish, rooms with a fire warm, dusk violet, edges a little darker.") else t("Farben wie bisher.", "Colours as before.")
-        }
-        // draft (idea 7): traces that stay a while
-        var tracks by remember { mutableStateOf(de.bornim.core.Tracks.draft) }
-        PixelButton(t("Spuren (Blut, Fußspuren, Staub): ", "Traces (blood, footprints, dust): ") + (if (tracks) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
-            de.bornim.core.Tracks.draft = !de.bornim.core.Tracks.draft
-            tracks = de.bornim.core.Tracks.draft
-            vm.refresh()
-            vm.toast = if (tracks) t("Blut nach gewonnenem Kampf, Fußspuren bei nassem Boden (auch mit Schlamm in die Häuser), Staub beim Rennen auf trockenem Weg.", "Blood after a won fight, footprints on wet ground (muddy boots carry them indoors), dust when running on a dry way.") else t("Keine Spuren.", "No traces.")
-        }
-        // draft (idea 8): the drawn map in the menu
-        var sheet by remember { mutableStateOf(de.bornim.core.art.MapSheet.draft) }
-        PixelButton(t("8 Gezeichnete Karte im Menü: ", "8 Drawn map in the menu: ") + (if (sheet) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
-            de.bornim.core.art.MapSheet.draft = !de.bornim.core.art.MapSheet.draft
-            sheet = de.bornim.core.art.MapSheet.draft
-            vm.refresh()
-            vm.toast = if (sheet) t("Im Menü ein Reiter „Karte“: der Ort als Tinte auf Pergament, nur was der Held gesehen hat.", "A “Map” tab in the menu: the place in ink on parchment, only what the hero has seen.") else t("Kein Kartenreiter.", "No map tab.")
-        }
-        // draft (55.1): more stances for the arms of everyone standing about
-        var arms by remember { mutableStateOf(de.bornim.core.art.MapRest.draft) }
-        PixelButton(t("55 Arme verschränkt/hinter dem Rücken: ", "55 Arms crossed/behind the back: ") + (if (arms) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
-            de.bornim.core.art.MapRest.draft = !de.bornim.core.art.MapRest.draft
-            arms = de.bornim.core.art.MapRest.draft
-            vm.refresh()
-            vm.toast = if (arms) t("Wer herumsteht, verschränkt ab und zu die Arme oder legt die Hände auf den Rücken.", "Whoever stands about now and then crosses the arms or clasps the hands behind the back.") else t("Wie bisher: Hände nur an den Gürtel.", "As before: hands only to the belt.")
         }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()

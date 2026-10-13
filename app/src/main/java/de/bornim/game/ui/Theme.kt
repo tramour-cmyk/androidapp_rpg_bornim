@@ -48,7 +48,7 @@ val PixelFont = FontFamily(
  * 0 is the device's serif as before; [scale] evens out their sizes, as some are small on the line.
  */
 object TypeLook {
-    var choice = 0
+    var choice = 2
     val names = listOf("Gerät (Serif)", "EB Garamond", "Alegreya", "IM Fell English")
     private val families by lazy {
         listOf(
@@ -63,7 +63,7 @@ object TypeLook {
     val scale: Float get() = scales[choice]
 
     /** 60.4: the face of the title: 0 the serif in capitals, 1 Cinzel, 2 the small capitals of Alegreya. */
-    var title = 0
+    var title = 1
     private val titles by lazy { listOf(FontFamily(Font(R.font.cinzel_semibold, FontWeight.SemiBold)), FontFamily(Font(R.font.alegreya_sc_medium, FontWeight.Medium))) }
     val titleFace: FontFamily get() = if (title == 0) serif else titles[title - 1]
 }

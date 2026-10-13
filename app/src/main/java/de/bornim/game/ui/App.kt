@@ -118,7 +118,7 @@ fun rememberTime(): Long {
 
 /** 60.4: the title screen in the look of the text box: black, the title large in gold capitals, the buttons as in the shop. */
 object TitleLook {
-    var draft = false
+    var draft = true
 }
 
 @Composable

@@ -12,7 +12,7 @@ import de.bornim.core.Tile
  */
 object MapGrade {
     /** Draft switch (test tab, preview `FARBDRAFT=1`). */
-    @Volatile var draft = false
+    @Volatile var draft = true
 
     /**
      * The grade: [tint] (rgb, 0xRRGGBB) multiplied over the picture with weight [amount] (0 … 1),

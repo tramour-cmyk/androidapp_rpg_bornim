@@ -19,7 +19,7 @@ object MapRest {
     }
 
     /** The test switch (55.1, draft): more stances for the arms, held longer. */
-    @Volatile var draft = false
+    @Volatile var draft = true
 
     /** Steps into and out of a stance (12b: the glance aside turned the head 38° in one picture): [LEVELS] is the stance itself. */
     const val LEVELS = 4

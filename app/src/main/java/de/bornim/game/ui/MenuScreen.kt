@@ -56,7 +56,7 @@ object MenuStart { @Volatile var map = false }
 
 /** 60: the menu in the look of the text box (black, gold rim, serif); a draft until chosen (preview `MENUE=1`). */
 object MenuLook {
-    @Volatile var draft = false
+    @Volatile var draft = true
 }
 
 @Composable

@@ -12,7 +12,7 @@ import de.bornim.core.Tile
  */
 object MapSheet {
     /** Draft switch (test tab, preview `KARTENBLATT=1`). */
-    @Volatile var draft = false
+    @Volatile var draft = true
 
     /** Pixels per tile, and the margin of bare parchment round the map. */
     const val C = 8

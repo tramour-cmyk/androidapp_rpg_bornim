@@ -6,7 +6,7 @@ package de.bornim.core.art
  * in cm (y up, z forward), a little larger than life so it reads at map size.
  */
 object MapCat {
-    @Volatile var draft = false
+    @Volatile var draft = true
     /** The previews: the moment of its round shown (ms), instead of the clock. */
     @Volatile var shift = 0L
 

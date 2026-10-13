@@ -47,7 +47,7 @@ import de.bornim.game.Screen
 
 /** 60: the hero's making in the look of the text box; a draft until chosen (preview `HELDENBAU=1`). */
 object CreateLook {
-    @Volatile var draft = false
+    @Volatile var draft = true
 }
 
 @Composable

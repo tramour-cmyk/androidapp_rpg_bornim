@@ -452,7 +452,7 @@ private class BattleUi(val battle: Battle) {
 
 /** 60: the fight's boxes and menus in the look of the text box; a draft until chosen (preview `KAMPF60=1`). */
 object BattleLook {
-    @Volatile var draft = false
+    @Volatile var draft = true
     /** 60c: the small numbers and labels of the boxes (level, hit points, CR) stay in the pixel font. */
     @Volatile var pixelNumbers = true
 }

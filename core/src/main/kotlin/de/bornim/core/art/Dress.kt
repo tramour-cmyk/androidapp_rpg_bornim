@@ -1386,7 +1386,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         /** 58: a shield slung on the back presses the cloak under it (false: the old look, for comparison). */
         @Volatile var PRESS_CLOAK = true
         /** 17 (draft, `SWINGMORE=1`): long hair and the quiver swing on with the cloak ([HeroFigure.Rig.cloak]). */
-        @Volatile var SWING_MORE = false
+        @Volatile var SWING_MORE = true
         /** How far each weapon's grip and pommel reach back behind the fist, in cm. */
         private val GRIP_BACK = mapOf("dagger" to 7.0, "shortsword" to 8.5, "scimitar" to 8.0, "rapier" to 8.5, "longsword" to 12.5,
             "greatsword" to 25.5, "handaxe" to 9.0, "battleaxe" to 12.0, "greataxe" to 35.0, "mace" to 11.5, "warhammer" to 9.0, "maul" to 30.0, "halberd" to 45.0)
