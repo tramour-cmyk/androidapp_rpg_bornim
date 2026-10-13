@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | läuft | 14.10., 07:00 | 14.10., 00:20 | 14.10., 00:46 | Vorrat leer bis auf WorldScreen-Fragen; Bericht | `claude/tom-69-intro` |
+| Tom | fertig | – | 14.10., 00:20 | 14.10., 00:56 | Vorrat leer, Bericht in ARBEIT-OFFEN.md | `claude/tom-69-intro` |
 | Jerry | fertig | – | 12.10., 16:33 | 12.10., 16:59 | Pause bis Freitag (Nutzungsguthaben), Stand in ARBEIT-OFFEN.md | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
@@ -89,7 +89,8 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/ARBEIT-O
 1. **27 Wald:** Standbilder Wald gegen Dorf bei Tag und Nacht, Lückenliste nach „Ort fertig“ (`DESIGN-ABNAHME.md`), danach Entwurf eines diagonalen Baums. Fertig, wenn: Standbilder und Liste in `ARBEIT-OFFEN.md`.
 
 **Für gemeinsame Zeit:**
-- 5.1: Standbilder ansehen, dann Zweig-Build auf dem Gerät testen.
+- t721: Sammelbuild 0.1.721 auf dem Gerät testen (PR #57).
+- 69e, 27l, 55d auf „Dein Zug“ entscheiden; danach 69/68 Figuren, 27l.
 
 ## Jerry
 
