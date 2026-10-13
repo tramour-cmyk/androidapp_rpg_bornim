@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Aufbau, Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARCHIV.md` („Aus BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Sitzungen** (ältere im Archiv): 13.10. 18:08–19:0x „Kapitel 2 Plot“ (2a–2d, 3a–3e, 71 für Diogenes, 72 Marktvergleich, Rolle geschärft). **Nachfolger:** „Sokrates – Kapitel 2 und Profil“ (Nutzer startet mit „Sokrates“)
+**Sitzungen** (ältere im Archiv): 13.10. 18:08–19:0x „Kapitel 2 Plot“ (2a–2d, 3a–3e, 71 für Diogenes, 72 Marktvergleich, Rolle geschärft); 18:58–19:5x „Kapitel 2 und Profil“ (4a–4d, Bericht 72 umgebaut, Figurenliste Kapitel 2, Namen N1–N4, 73a, 74, D1.14 an Jerry, Tempelboden in Beschlüsse). **Nachfolger:** „Sokrates – Kapitel 2 und Profil“ (Nutzer startet mit „Sokrates“)
 
-**Nächster Punkt:** (1) Marktvergleich ist als Bericht umgebaut (19:3x: Auftrag, 1. Erfassen, 2. Auswerten, 3. Folgern, je Vorschlag „Grundlage“); Nutzer liest ihn zuerst (19:37), dann 72a–72j. (1b) Figurenliste im Storyplan: Kapitel-2-Figuren mit Spalte „Aussehen, eigene Handlung, Klang“ (19:4x); Namen ja (19:50). (2) Offene Rückfragen mit vollem Wortlaut und Empfehlung zeigen: **72a–72j** im [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b). (3) Kultlager (41).
+**Nächster Punkt:** (1) Bericht Marktvergleich fertig (Auftrag, Erfassen, Auswerten, Folgern, je Vorschlag „Grundlage“); Nutzer liest ihn (19:37), nach Freigabe als `docs/MARKT.md` ablegen. Offen: 62s Buildnummer (vermutlich 0.1.702, nur für Tom wichtig). (2) Offene Rückfragen mit vollem Wortlaut und Empfehlung zeigen: **72a–72j** im [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b). (3) Kultlager (41).
 
-**Zuletzt gelesen bis:** dieser Commit (13.10., 19:0x)
+**Zuletzt gelesen bis:** dieser Commit (13.10., 19:5x)
 
 ## Ritual
 
@@ -53,6 +53,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - **Rückfragen des Beraters** (13.10.) im Gespräch stellen (nummeriert, Empfehlung), nicht über die Entscheidungsseite; erst nach Entscheidung in die Notizen.
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
 - **Entwürfe sofort in die Notizen** (13.10.): der Rabenschanze-Entwurf stand nur im Chat und war nach dem Neustart nur als Kurznotiz da; Entwürfe gleich in Storyplan oder `OFFEN.md`.
+- **Meldungen in fremden Bereichen** (13.10.): erst `git pull` und nachsehen, ob Tom/Jerry sie schon eingetragen haben (62s stand doppelt).
 - **Docs:** Dialogzeilen mit Leerzeile trennen (41).
 - **Freie Welt mitdenken** (13.10., 68): bei jeder Szene fragen, was passiert, wenn der Spieler nicht hingeht oder trödelt.
 - **Sprachmodus** (13.10.): Aufträge kommen dann als Nachricht der Sprachsitzung; als entschieden gilt nur ein ausdrückliches Ja des Nutzers, Unklares (3d) offen benennen.
