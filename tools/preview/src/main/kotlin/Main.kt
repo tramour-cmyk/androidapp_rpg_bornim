@@ -583,6 +583,8 @@ fun main() {
     if (System.getenv("BLOCKVIEW") != null) { renderBlockViews(); System.exit(0) }
     if (System.getenv("SPRUNGBILD") != null) { renderJumpStills(); System.exit(0) }
     if (System.getenv("TREFFERBILD") != null) { renderHitStills(); System.exit(0) }
+    // INTROBILD=1: the four painted pictures of the intro (69, draft), with their texts
+    if (System.getenv("INTROBILD") != null) { renderIntroSheet(); System.exit(0) }
     if (System.getenv("BACKVIEW") != null) { renderBackViews(); System.exit(0) }
     if (System.getenv("ATTACKVIEW") != null) { renderAttackViews(); System.exit(0) }
     if (System.getenv("RANGED") != null) { renderRangedViews(); System.exit(0) }
