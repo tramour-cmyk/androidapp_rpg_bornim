@@ -44,7 +44,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 38 | Balance-Langzeitplan (`BALANCE.md`) | Berater, Jerry | ja 12.10., ≥ 7 Kapitel | `OFFEN.md` |
 | 39 | Schwierigkeitsgrad im Menü | Jerry (Menü mit Tom) | ja 12.10., nach 38 | `OFFEN.md` |
 | 40 | Lautstärke Gesamt/Musik/Effekte | Jerry | ja 12.10. | `OFFEN.md` |
-| 42 | Textkasten unten im Stil der Blenden (schwarz, Sprecher Gold) | Tom | ja 12.10., nach 13 | `OFFEN.md` |
+| 42 | Textkasten unten im Stil der Blenden (schwarz, Sprecher Gold) | Tom | fertig (PR #48; Menüs mit 60) | `CHANGELOG.md` |
 | 43 | Sichtbarkeit in der diagonalen Sicht (Wichtiges frei, Durchsicht um den Helden, Verstecktes erwünscht) | Berater (Grundsatz); Tom, Jerry | festgelegt 12.10., 12:09 | `STIL.md`, `ENTWICKLUNG.md` |
 | 44 | Leitbild als roter Faden; `STIL.md` aufgeteilt in Stil und Entwicklung | Berater | erledigt 12.10., 13:08 | `LEITBILD.md` |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | Berater mit Nutzer | gesondert besprechen | `OFFEN.md` |

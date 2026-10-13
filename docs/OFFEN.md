@@ -33,9 +33,8 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](MERKLISTE.md): Ideen für sp�
 | 39 | Schwierigkeitsgrad im Menü | Jerry (Werte), Menü mit Tom | – | Nutzer 12.10., 09:52. Nach 38 („Normal“ erst festlegen). **39a ja (10:10):** Leicht/Normal/Schwer über Gegner-TP und -Schaden, jederzeit umstellbar |
 | 40 | Lautstärke im Menü: Gesamt, Musik, Effekte (heute nur Musik an/aus) | Jerry | neu von `main` | Nutzer 12.10., 09:52. **40a ja (10:10):** drei Regler, Ortsklang bei Effekten |
 | 41 | Storyplan: je Kapitel Zusammenfassung, Quests, Dialoge; dann Plot Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | 41a–41d ja: Entwurf Kapitel 1 steht ([Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)), fertige Kapitel als `docs/STORY.md`, Änderungen nur nach Abstimmung Nutzer und Berater; Regel „Story und Dialoge“ in `CLAUDE.md`, `tools/story.sh`. Kapitel 2 offen |
-| 42 | Textkasten unten im Stil der Blenden: schwarzer Kasten, Sprecher in Gold, Text in gebrochenem Weiß (heute cremefarben mit dunkler Schrift, Sprecher rot) | Tom | – | Nutzer 12.10., 11:24 (über Berater). **42a ja:** erst nur Textkasten (Gespräch, Erzähltext, Aushänge), Menüs später. **42b ja:** ganz schwarz, dünner Goldrand, Sprecher Gold in Kapitälchen im Kasten, Text gebrochenes Weiß, Serife wie Blenden, Erzähltext kursiv, ▼ gold. **42c ja (11:39):** erst Standbilder. **42d:** Textkasten auf `main` (PR #48, getestet 0.1.625). Offen: Menüs später (42a) |
 | 59e | Händler: Menge „Alle“, Vorrat je Laden | Tom (jetzt); Jerry mit 38/39 (Vorrat) | – | Entschieden 13.10. (Bildbuch): „Alle“ beim Kaufen weg, beim Verkaufen mit Abfrage (in 0.1.660). Vorrat je Laden erst mit 38/39, nie nach Zeit/Rast, Menge nach Schwierigkeitsgrad |
-| 62c | Karte: zoomen, Ortsübersicht, Questmarken | Tom | `claude/tom-17-riemen` | Entschieden 13.10. (Bildbuch), in 0.1.660 (Marken nur für Anschlagbrett-Quests; Hauptquest mit 64) |
+| 62c | Karte: zoomen, Ortsübersicht, Questmarken | Berater mit Nutzer, dann Tom | `claude/tom-17-riemen` | Entwurf in 0.1.660. **Nutzer 13.10., 11:2x:** Karten, Markierungen, Orte grundsätzlich nochmal besprechen (siehe „Für den Berater“) |
 | 64 | Questlog: eigene Übersicht im Menü (laufend/erledigt, je Geber, Ziel, Stand) | Berater mit Nutzer (Entwurf), dann Tom | – | Nutzer 13.10.: Menü mit Haupt- und Anschlagbrett-Quests wird unübersichtlich. Noch nicht in Arbeit; Daten gemeinsam mit 62c-Marken |
 | 45 | Geschäftsmodell (Play Store) | Berater mit Nutzer | – | 45a/45c ja (Kapitel 1 frei, Vollversion, nie Werbung/Beutekisten/Wartezeiten). **45b zurückgestellt** bis nach Messung 38. Verlauf im Archiv |
 | 48 | Zufallsgenerierte Dungeons | Berater mit Nutzer; Jerry baut | – | 48a–48c ja (Einzelheiten in `BERATER.md` und Archiv). Nach Kapitel 1 |
@@ -70,6 +69,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Weiter (Freitag):** Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
+- **Test 0.1.660 (Nutzer 13.10., 11:2x):** Laden (59e) läuft sehr gut. Karte (62c) → „Für den Berater“.
 - **Jerry, Weck-Routinen pausieren** (Berater 13.10., Nutzer freigegeben): deine acht Routinen „Jerry Selbstarbeit HH:MM“ mit `update_trigger` (`enabled: false`) pausieren, nicht löschen; Regel in `SELBST.md` „Feste Weck-Routinen“. Danach Zeile streichen.
 
 ## Für Diogenes
@@ -81,3 +81,5 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
+
+- **62c** (Tom): Nutzer 13.10., 11:2x nach Test 0.1.660: „bezüglich Karten, Markierungen und Orte müssen wir uns grundsätzlich nochmal unterhalten.“ Mit 64 (Questlog) zusammen besprechen.
