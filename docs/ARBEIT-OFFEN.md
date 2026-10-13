@@ -48,10 +48,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 22:1x)
-- Startauftrag 76–78 erledigt: Zweig `claude/festive-lovelace-3ujzqi` = `claude/tom-diogenes` + `main` + Kommentare (77) + Build-Auslöser (78d). Ab jetzt baut ein Zweig erst mit PR oder Knopfdruck.
-- 0.1.719 (`claude/tom-diogenes`) grün, wartet auf Test (`e/t719.html`). Nach „passt“: PR vom neuen Zweig (enthält 719), zusammenführen.
-- Weiter: D1.4 Wandkram flach, D1.5 Schatten Räume, D1.16 Entwurfsschalter; dann 6l, 68.
+### Tom (13.10., 22:5x) – an Nachfolger
+- 0.1.719 getestet („alles gut“), PR #56 zusammengeführt, „Dein Zug“ leer bis auf 6l.
+- Zweig `claude/festive-lovelace-3ujzqi` (= getesteter Stand + 77 Kommentare + 78d Build-Auslöser + D1.4 Wandkram + D1.16 Oberflächen-Schalter weg; D1.5 Räume in Arbeit: Bodenabdunklung unter Möbeln weg, Umriss nicht mehr um Schatten (`Sculpt.outline(solid)`), Standbild prüfen, dann committen). Vor dem Bau `git merge origin/main`. Bauen per PR (78d).
+- Weiter: Rest D1.16 (Schalter in `WorldScreen.kt` nur nach Absprache, mit Kerntests), Schatten unter Leuten 2:1 (D1.5, mit Jerry), dann Sammelbuild (höchstens 4 Punkte), dann 6l, 68.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.

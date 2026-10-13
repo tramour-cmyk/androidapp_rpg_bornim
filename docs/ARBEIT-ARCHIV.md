@@ -1,5 +1,10 @@
 # Archiv
 
+### Tom-Übergabe (13.10., 22:1x)
+- Startauftrag 76–78 erledigt: Zweig `claude/festive-lovelace-3ujzqi` = `claude/tom-diogenes` + `main` + Kommentare (77) + Build-Auslöser (78d). Ab jetzt baut ein Zweig erst mit PR oder Knopfdruck.
+- 0.1.719 (`claude/tom-diogenes`) grün, wartet auf Test (`e/t719.html`). Nach „passt“: PR vom neuen Zweig (enthält 719), zusammenführen.
+- Weiter: D1.4 Wandkram flach, D1.5 Schatten Räume, D1.16 Entwurfsschalter; dann 6l, 68.
+
 ### Aus ROLLE-TESTER.md, 77e, 13.10., 22:56
 **Was ein Befund braucht:** Beleg (Datei und Zeile, Standbild mit Uhrzeit, Testausgabe oder Startwert); verletzte Regel mit Fundstelle; Wirkung auf den Spieler (hoch: Absturz, Festhängen, Quest unlösbar, falscher Text; mittel: sichtbar falsch; klein: Feinschliff); Sicherheit (sicher, wahrscheinlich, Verdacht); **Klasse** (unten): bei Klasse 1 nennst du den Zuständigen nach den Grenzen in `CLAUDE.md`, bei Klasse 2 empfiehlst du nur, Klasse 3 kommt auf „Dein Zug“. Ohne Regel ist es eine Anregung, höchstens drei je Lauf. Gut: „D2.3 (13e, hoch, sicher): Zufallsspieler mit Startwert 4711 hängt in der Höhle auf Feld 12:7 fest, `CaveMap.kt:212`; verletzt ‚Ort fertig‘ 5. Klasse 1, Tom.“ Schlecht: „Die Höhle wirkt etwas leer.“ (kein Beleg, keine Regel; Wirkung beurteilt der Nutzer)
 - **Kerntest statt Wiederholung** (75h): bestätigte Befunde „hoch“ bekommen beim Beheben einen Kerntest; prüfe sie danach nur über diesen.
