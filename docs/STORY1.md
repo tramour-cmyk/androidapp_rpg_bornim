@@ -243,6 +243,31 @@ Ein graues Auge … wie auf dem Fetzen, den Jorin mir vom Steinkreis brachte. Da
 `[41.rowena.wach]` (Rowena beim Aufwachen; bisher „Na, endlich wach, {name}? Du hast geschlafen wie ein Stein.“)
 Na, endlich wach, {name}? Für einen, der nur eine Nacht bleiben wollte, hast du geschlafen wie ein Stein.
 
+## Stimmen hinter verschlossenen Türen (73b)
+
+Beim Anklopfen an verschlossene, bewohnte Häuser antwortet jemand von drinnen (Nutzer 13.10., 21:05). Ersetzt bzw. ergänzt den Text von `lockedDoor` in `Story.kt`. Wo eine Zeile fehlt, bleibt der bisherige Text.
+
+`[73b.edrik]` (Bäcker Edrik, immer verschlossen; bisher „Hier wohnt Bäcker Edrik. Es duftet nach frischem Brot, aber die Tür ist verschlossen.“)
+Wer ist da? … Ich mach nicht auf. Für niemanden.
+
+`[73b.edrik.ende]` (Edrik nach Kapitelende)
+Du hast die Goblins vertrieben? … Morgen vielleicht. Heute nicht.
+
+`[73b.kael]` (Der alte Kael; bisher „Die Hütte des alten Kael. Niemand öffnet.“)
+Geh weiter. Ich hab in meinem Leben genug an fremde Türen klopfen hören.
+
+`[73b.gwenna.nacht]` (Gwenna, nur nachts; tagsüber `[41.gwenna.tuer]`)
+Nicht nachts. Nicht mehr.
+
+`[73b.dorran.nacht]` (Schmied Dorran, nur nachts; tagsüber bleibt „Das Haus von Schmied Dorran. Er ist wohl in seiner Werkstatt.“)
+Die Esse ist kalt. Komm morgen.
+
+`[73b.pim.tag]` (Pims Mutter von drinnen, tagsüber; bisher „Hier wohnt Pim mit seinen Eltern. Die Tür ist verschlossen.“)
+Pim ist nicht da. Wenn du ihn am Schlagbaum siehst, schick ihn heim.
+
+`[73b.pim.nacht]` (Pims Mutter, nachts)
+Pim schläft. Und du solltest um diese Zeit auch nicht draußen sein.
+
 ## Südrand des Dorfes (67)
 
 Bornim hat zwei Straßen. Die Südstraße über die Brücke ist der Versorgungsweg, über sie kam der Held; nur die Waldstraße nach Norden ist gesperrt. Hinter der Brücke führt ein Feldweg zum Kartenrand, mit Wegweiser (Text `[67.schild]`). Am Rand bleibt der Held stehen, die Zeile kommt, er tritt einen Schritt zurück. Ab dem zweiten Versuch nur die kurze Einblendung ohne Wegklicken.
