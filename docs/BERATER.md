@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Sitzungen** (ältere im Archiv): 13.10. 16:16–17:0x „Kapitel 2 Storyplan“ (41m–p, 69a–d, 48d–f, 62p). **Nachfolger:** „Sokrates – Storyplan und Tempelszene“ (Nutzer startet mit „Sokrates“)
 
-**Nächster Punkt:** 68f/68g (Ort nach der Szene, Nacht als Rast), dann Kapitel 2 Plot (41).
+**Nächster Punkt:** Kapitel 2 Plot (41), Lyras erste Sätze nach der Tempelszene.
 
 **Zuletzt gelesen bis:** dieser Commit (13.10., 17:0x)
 

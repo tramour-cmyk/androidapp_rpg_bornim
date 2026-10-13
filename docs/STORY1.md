@@ -23,7 +23,7 @@ Irgendwo schlägt eine Glocke. Du hörst sie nicht.
 
 ## Tempelszene: Rückkehr des Amuletts (68)
 
-Freigegeben 13.10., 17:26. Abschluss von Kapitel 1, Form nach `STIL.md` „Zwischensequenzen“ (70): fünf Standbilder mit Überblendung, Du-Form, Musik „Ancient Legend“. Nach der Abgabe des Amuletts lädt Aldric den Helden zur Morgenandacht ein (`[68.aldric]`, nach dem Ring, vor „Ruh dich aus …“). Danach keine freie Wahl: schwarze Blende, nächster Morgen, sofort die Szene; danach ist das Spiel wieder frei (68a geändert, Nutzer 17:28: sonst warten alle tagelang im Tempel). Lyra leitet den Tempel, Bruder Osric ist ihr Gehilfe und Heiler (68d).
+Freigegeben 13.10., 17:26. Abschluss von Kapitel 1, Form nach `STIL.md` „Zwischensequenzen“ (70): fünf Standbilder mit Überblendung, Du-Form, Musik „Ancient Legend“. Nach der Abgabe des Amuletts lädt Aldric den Helden zur Morgenandacht ein (`[68.aldric]`, nach dem Ring, vor „Ruh dich aus …“). Danach keine freie Wahl: schwarze Blende, nächster Morgen, sofort die Szene; danach ist das Spiel wieder frei (68a geändert, Nutzer 17:28: sonst warten alle tagelang im Tempel). Danach steht der Held am Morgen im Tempel, Lyra und Osric sind ansprechbar (68f); die Nacht zählt als Rast (68g). Lyra leitet den Tempel, Bruder Osric ist ihr Gehilfe und Heiler (68d).
 
 `[68.aldric]` (Aldric, nach dem Ring)
 Morgen bei Sonnenaufgang legt Lyra das Amulett zurück auf den Altar. Ganz Bornim wird dort sein, und du gehörst in die erste Reihe.
