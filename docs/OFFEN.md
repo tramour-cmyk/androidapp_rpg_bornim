@@ -54,8 +54,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (13.10., 11:00) – Build 0.1.660, Neustart empfohlen
 - Zweig `claude/tom-17-riemen` (von `ccr-5851d275-mvpqbt`, `main` drin), Build **0.1.660** (siehe „Zu testen“). Nach dem Test: PR von diesem Zweig, zusammenführen (Merge), Änderungshistorie unter „Unveröffentlicht“: 59, 60e–k, 60j, 17r, 5la, 5la.2, 6g, 6f, 61a, 62a, 62c, 59e, 55.1a, 55.1b, 13x, 13v/27.6.
-- 17 Riemen verworfen (kaum sichtbar), 17 fertig. 55.1b/60j entschieden und drin (Bildbuch). Offen: Rückfrage 5la.3 (Entscheidungsseite); 6l zurückgestellt. Toms Kapitel-1-Ziele erledigt bis auf „alte Ansicht ausgebaut“ (wartet auf Höhle, Jerry).
-- **Weiter:** nach Test PR; 5la.3 nach Antwort; sonst Selbstvorrat leer, beim Nutzer nach Neuem fragen (z. B. 64 Questlog nach Entwurf des Beraters).
+- 17 Riemen verworfen (kaum sichtbar), 17 fertig. 55.1b/60j entschieden und drin (Bildbuch). 5la.3 ja (11:0x): 3 Felder, 10 s, im Zweig (STIL.md angepasst). 6l zurückgestellt. Toms Kapitel-1-Ziele erledigt bis auf „alte Ansicht ausgebaut“ (wartet auf Höhle, Jerry).
+- **Weiter:** Build mit 5la.3 (Lauf nach Push 11:0x) melden; nach Test PR; sonst Selbstvorrat leer, beim Nutzer nach Neuem fragen (z. B. 64 Questlog nach Entwurf des Beraters).
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -68,7 +68,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Testrückmeldung 0.1.650 (Nutzer 13.10., 08:0x):** Titel super; Schänke und Tempel gut. **60k:** „Spielstände“, „Über das Spiel“ und die Meldung zum Testmodus noch im alten Aussehen (Tom behebt). **60j:** Menüreiter als Symbole (Tasche, Karte …)? 62c → „Für den Berater“. **5la.2:** Leute im Gang drehen sich zum Helden statt in Gehrichtung (Moonwalk, Wache im Dorf); Hinsehen kürzer.
 - **Test 0.1.650, Händler (59):** sehr schön; Anzeige „hat der Held“ gut. 59e → „Für den Berater“.
 
-- **Tom, 0.1.660, Zweig `claude/tom-17-riemen`** (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38372223411/artifacts/11799856944) = 0.1.657 (59e, 62c, alles aus 0.1.653) plus 55.1b (Jorin stellt Speer ab, Speer 2 m) und 60j (Reiter als Zeichen). Ersetzt 0.1.657; nach dem Test PR von diesem Zweig.
+- **Tom, 0.1.660, Zweig `claude/tom-17-riemen`** (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38372223411/artifacts/11799856944) = 0.1.657 (59e, 62c, alles aus 0.1.653) plus 55.1b (Jorin stellt Speer ab, Speer 2 m) und 60j (Reiter als Zeichen); der nächste Build vom Zweig hat dazu 5la.3 (Hinsehen 3 Felder, 10 s). Ersetzt 0.1.657; nach dem Test PR von diesem Zweig.
 
 - **Jerry, Weck-Routinen pausieren** (Berater 13.10., Nutzer freigegeben): deine acht Routinen „Jerry Selbstarbeit HH:MM“ mit `update_trigger` (`enabled: false`) pausieren, nicht löschen; Regel in `SELBST.md` „Feste Weck-Routinen“. Danach Zeile streichen.
 
