@@ -57,7 +57,7 @@ object MapInk {
     private fun isHouse(t: Tile) = t == Tile.ROOF || t == Tile.ROOF_BLUE || t == Tile.WALL || t == Tile.WINDOW
     private fun isRock(t: Tile) = t == Tile.CAVE_WALL || t == Tile.CRYSTAL || t == Tile.TORCH
 
-    fun render(map: MapDef, seen: (Int, Int) -> Boolean): PixelImage {
+    fun render(map: MapDef, seen: (Int, Int) -> Boolean, gateOpen: Boolean = false): PixelImage {
         val win = MapSheet.window(map, seen)
         val mw = win.w * C + 2 * PAD; val mh = win.h * C + 2 * PAD
         val pw = mw * S; val ph = mh * S
@@ -78,7 +78,21 @@ object MapInk {
         fun clamp(tx: Int, ty: Int) = Pair(tx.coerceIn(0, map.width - 1), ty.coerceIn(0, map.height - 1))
         fun tileIs(p: (Tile) -> Boolean): (Int, Int) -> Double = { x, y -> val (cx, cy) = clamp(x, y); if (p(map.tile(cx, cy))) 1.0 else 0.0 }
         val knownF = field { x, y -> if (known(x, y)) 1.0 else 0.0 }
-        val waterF = field(tileIs { it == Tile.WATER })
+        // D2.10: the water from a blurred grid and with a slight wander, so a bank runs in curves, not in steps of tiles
+        val wet = tileIs { it == Tile.WATER }
+        val kern = doubleArrayOf(1.0, 4.0, 6.0, 4.0, 1.0)
+        val waterGrid = Array(map.height + 4) { y -> DoubleArray(map.width + 4) { x ->
+            var sum = 0.0
+            for (j in 0..4) for (i in 0..4) sum += kern[i] * kern[j] * wet(x - 2 + i - 2, y - 2 + j - 2)
+            sum / 256.0
+        } }
+        val waterBlur = field { x, y -> waterGrid[(y + 2).coerceIn(0, map.height + 3)][(x + 2).coerceIn(0, map.width + 3)] }
+        val waterSharp = field(wet)
+        val waterF: (Double, Double) -> Double = { u, v ->
+            val wu = u + (noise(u, v, 2.5, 31) - 0.5) * 0.5; val wv = v + (noise(u, v, 2.5, 37) - 0.5) * 0.5
+            // a brook one tile wide would blur away: its middle stays from the sharp field
+            maxOf(waterBlur(wu, wv), waterSharp(wu, wv) * 0.62)
+        }
         val houseF = field(tileIs(::isHouse))
         val rockF = field(tileIs { isRock(it) || (!cave && it == Tile.ROCK) })
         val treeF = field(tileIs { it == Tile.TREE })
@@ -125,7 +139,8 @@ object MapInk {
                     // inked edges where water, houses and rock meet the ground: a thin line along the 0.5 contour
                     for ((f, a) in listOf(waterF to 0.55, houseF to 0.9, rockF to 0.75)) {
                         val d = abs(f(u, v) - 0.5)
-                        if (d < 0.06) c = mix(c, if (f === waterF) SOFT else INK, a * k * (1 - d / 0.06))
+                        val wd = if (f === waterF) 0.035 else 0.06 // the blurred water rises slower: a thinner band keeps its line fine
+                        if (d < wd) c = mix(c, if (f === waterF) SOFT else INK, a * k * (1 - d / wd))
                     }
                 }
             }
@@ -237,7 +252,9 @@ object MapInk {
                 Tile.SIGN, Tile.NOTICE -> { stroke(cx, cy - 2, cx, cy + 3, INK, 0.5); stroke(cx - 2.2, cy - 2, cx + 2.2, cy - 2, INK, 0.9); stroke(cx - 2, cy - 0.8, cx + 2, cy - 0.8, SOFT, 0.5) }
                 Tile.WELL, Tile.FONT -> { disc(cx, cy, 2.4, WATER, 0.7); ring(cx, cy, 2.4, INK, 0.55) }
                 Tile.FENCE -> { stroke(cx - C / 2.0, cy, cx + C / 2.0, cy, INK, 0.4, 0.8); for (k in -1..1) stroke(cx + k * 2.6, cy - 1, cx + k * 2.6, cy + 1, INK, 0.5) }
-                Tile.GATE -> stroke(cx - C / 2.0, cy, cx + C / 2.0, cy, RED, 0.8)
+                // D2.9: a red bar while shut; drawn up, only its stubs at the sides
+                Tile.GATE -> if (!gateOpen) stroke(cx - C / 2.0, cy, cx + C / 2.0, cy, RED, 0.8)
+                    else { stroke(cx - C / 2.0, cy, cx - C / 2.0 + 1.6, cy, INK, 0.6); stroke(cx + C / 2.0 - 1.6, cy, cx + C / 2.0, cy, INK, 0.6) }
                 Tile.CROPS, Tile.VEG_BED -> for (k in 0..2) stroke(cx - 3.2, cy - 2.5 + k * 2.5, cx + 3.2, cy - 2.5 + k * 2.5, 0xFF5E7030.toInt(), 0.4, 0.7)
                 Tile.TABLE, Tile.COUNTER, Tile.BED, Tile.SHELF, Tile.DESK, Tile.STALL, Tile.BENCH, Tile.RACK, Tile.ALTAR, Tile.ARMCHAIR -> {
                     // one piece over several tiles: run on to the next tile of the same kind, outline only the outer sides

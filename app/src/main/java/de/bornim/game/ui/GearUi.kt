@@ -83,9 +83,9 @@ fun GearIcon(g: Gear?, size: Dp, modifier: Modifier = Modifier) {
                     .align(Alignment.TopEnd)
                     .padding(2.dp)
                     .clip(RoundedCornerShape(3.dp))
-                    .background(Color(0xE0302838))
+                    .background(Color(0xE0000000))
                     .padding(horizontal = 2.dp)
-            ) { Txt("2H", size = (size.value / 5f).coerceIn(8f, 12f).sp, color = Color.White, bold = true) }
+            ) { Txt("2H", size = (size.value / 5f).coerceIn(8f, 12f).sp, color = Veil.gold, bold = true) }
         }
     }
 }
@@ -227,7 +227,7 @@ fun GearDetails(g: Gear, game: Game, lang: Lang) {
         Txt(if (de) "Angelegt" else "Worn", Modifier.weight(0.9f), size = 13.sp, color = Colors.textDim)
         Txt(if (de) "Neu" else "New", Modifier.weight(0.9f), size = 13.sp, color = Colors.textDim)
     }
-    Box(Modifier.fillMaxWidth().padding(vertical = 3.dp).height(1.dp).background(Colors.textDim.copy(alpha = 0.35f)))
+    Box(Modifier.fillMaxWidth().padding(vertical = 3.dp).height(1.dp).background(if (LocalVeil.current) Veil.rim else Colors.textDim.copy(alpha = 0.35f)))
     val good = Color(0xFF2A8A3A)
     cmp.rows.forEach { r ->
         Row(Modifier.fillMaxWidth()) {

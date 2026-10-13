@@ -58,8 +58,8 @@ object MapSheet {
         return Window((x0 + x1 + 1) / 2 - w / 2, (y0 + y1 + 1) / 2 - h / 2, w, h)
     }
 
-    fun render(map: MapDef, seen: (Int, Int) -> Boolean, heroX: Int = -1, heroY: Int = -1): PixelImage {
-        if (ink) return MapInk.render(map, seen)
+    fun render(map: MapDef, seen: (Int, Int) -> Boolean, heroX: Int = -1, heroY: Int = -1, gateOpen: Boolean = false): PixelImage {
+        if (ink) return MapInk.render(map, seen, gateOpen)
         val w = map.width * C + 2 * PAD; val h = map.height * C + 2 * PAD
         val img = PixelImage(w, h)
         // parchment: warm, blotchy, darker towards the edges

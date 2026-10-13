@@ -180,6 +180,7 @@ object Veil {
     fun of(c: Color): Color = when (c) {
         Colors.text -> text
         Colors.textDim -> dim
+        Colors.textLight -> text // D2.6: no cold white on black
         Colors.accent -> warn
         Colors.border -> gold // the dark blue of notes (a people's gift), unreadable on black
         Color(0xFF5E5E68) -> Color(0xFFBDB6A8) // common
@@ -216,6 +217,7 @@ fun Txt(
             letterSpacing = 0.2.sp,
             textAlign = align,
             maxLines = maxLines,
+            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, // D2.8: cut text ends in "…"
             lineHeight = size * 1.35f,
         )
         return
@@ -230,6 +232,7 @@ fun Txt(
         letterSpacing = if (bold) 0.5.sp else 0.3.sp,
         textAlign = align,
         maxLines = maxLines,
+        overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
         lineHeight = size * 1.5f,
     )
 }
@@ -334,15 +337,15 @@ fun Bar(fraction: Float, color: Color, modifier: Modifier = Modifier, height: Dp
     Box(
         modifier
             .height(height)
-            .clip(RoundedCornerShape(3.dp))
-            .background(Color(0xFF404048))
+            .clip(RoundedCornerShape(1.dp))
+            .background(Color(0xFF2A251D)) // D2.6: a warm dark track, not grey
             .padding(1.dp)
     ) {
         Box(
             Modifier
                 .fillMaxWidth(fraction.coerceIn(0f, 1f))
                 .height(height)
-                .clip(RoundedCornerShape(2.dp))
+                .clip(RoundedCornerShape(1.dp))
                 .background(color)
         )
     }

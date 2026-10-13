@@ -258,6 +258,8 @@ fun main() {
         de.bornim.game.ui.MapLook.previewTip = -1
         de.bornim.game.ui.MapLook.previewOverview = true
         shot("62c_orte", settle = 30) { vm -> setup(vm, "forest", 0, 0, Facing.UP) }
+        // D2.8: with the Deep Whisperwood known, its long name by the right edge
+        shot("62c_orte_tief", settle = 30) { vm -> setup(vm, "deep_forest", 20, 20, Facing.UP) }
         System.exit(0)
     }
     if (System.getenv("WEGE") != null) { renderWayDrafts(); System.exit(0) }

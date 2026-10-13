@@ -254,7 +254,9 @@ private fun LandView(game: Game, lang: Lang, look: de.bornim.core.art.LandSheet.
                 val halo = androidx.compose.ui.graphics.Shadow(if (noir) Color(0xFF0E0D0B) else Color(0xFFE6D3A8), blurRadius = 6 * density)
                 val style = androidx.compose.ui.text.TextStyle(fontFamily = MapLook.hand, fontSize = 16.sp, color = ink, shadow = halo)
                 val t = measurer.measure(name, style)
-                drawText(t, topLeft = androidx.compose.ui.geometry.Offset(ox + sp.labelX * scale - t.size.width / 2f, oy + sp.labelY * scale))
+                // D2.8: a long name near the edge moves inwards instead of running over it
+                val lx = (ox + sp.labelX * scale - t.size.width / 2f).coerceIn(ox + 4 * density, maxOf(ox + 4 * density, ox + de.bornim.core.art.LandSheet.W * scale - t.size.width - 4 * density))
+                drawText(t, topLeft = androidx.compose.ui.geometry.Offset(lx, oy + sp.labelY * scale))
                 if (sp.map == here) {
                     val c = androidx.compose.ui.geometry.Offset(ox + sp.x * scale, oy + (sp.y - sp.r * 0.15f) * scale)
                     drawCircle(Color(0x55B0302A), 16 * density, c)
@@ -279,7 +281,8 @@ private fun PlaceList(game: Game, lang: Lang, onPick: (String) -> Unit) {
     val places = (if (game.map.kind == de.bornim.core.MapKind.INTERIOR) listOf(game.map) else emptyList()) + outdoor
     Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         places.forEach { m ->
-            val img = remember(m.id) { de.bornim.core.art.MapSheet.render(m, { x, y -> seenOn(game, m, x, y) }) }
+            val gate = game.state.has(de.bornim.core.Story.GATE_OPEN)
+            val img = remember(m.id, gate) { de.bornim.core.art.MapSheet.render(m, { x, y -> seenOn(game, m, x, y) }, gateOpen = gate) }
             Row(Modifier.fillMaxWidth().tap { onPick(m.id) }, verticalAlignment = Alignment.CenterVertically) {
                 androidx.compose.foundation.Image(
                     bitmap = Bitmaps.of(img), contentDescription = null,
@@ -304,7 +307,8 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
                     show: Set<de.bornim.core.MapMarks.Group> = de.bornim.core.MapMarks.Group.entries.toSet(), onChronicle: () -> Unit = {},
                     onOpen: (String) -> Unit = {}) {
     val p = game.state.place
-    val img = remember(map.id, p.x, p.y) { de.bornim.core.art.MapSheet.render(map, { x, y -> seenOn(game, map, x, y) }) }
+    val gate = game.state.has(de.bornim.core.Story.GATE_OPEN)
+    val img = remember(map.id, p.x, p.y, gate) { de.bornim.core.art.MapSheet.render(map, { x, y -> seenOn(game, map, x, y) }, gateOpen = gate) }
     // 62o: a cave's sheet shows only a fixed window round what is explored
     val win = remember(map.id, p.x, p.y) { de.bornim.core.art.MapSheet.window(map, { x, y -> seenOn(game, map, x, y) }) }
     val bmp = Bitmaps.of(img)
@@ -431,7 +435,7 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
         tip?.takeIf { it in marks }?.let { m ->
             Panel(Modifier.align(Alignment.BottomCenter).padding(8.dp)) {
                 Column {
-                    Txt(m.label(lang), size = 15.sp, color = if (m.kind == de.bornim.core.MapMarks.Kind.GIVER) Color(0xFF8DB4E2) else Veil.bright)
+                    Txt(m.label(lang), size = 15.sp, color = Veil.bright) // D2.6: gold like every hint
                     // 64: a quest's mark leads to its entry in the chronicle
                     if (ChronicleLook.draft && (m.kind == de.bornim.core.MapMarks.Kind.GIVER || m.kind == de.bornim.core.MapMarks.Kind.GOAL)) {
                         Spacer(Modifier.height(6.dp))
@@ -603,7 +607,7 @@ private fun HeroTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
             }, size = if (h.unspentPoints > 0) 14.sp else 16.sp, maxLines = 1)
             val score = h.score(a) + add
             Txt(if (add > 0) "${h.score(a)}→$score" else "$score", Modifier.width(56.dp), size = 16.sp, bold = true,
-                color = if (add > 0) Color(0xFF2E8B3E) else Colors.text)
+                color = if (add > 0) Color(0xFF2A8A3A) else Colors.text) // D2.6: the green Veil lightens on black
             // Part of the score that comes from equipped gear, shown separately.
             val fromGear = h.gearBonus(a)
             // A star marks gear that would give more than the chapter allows.
