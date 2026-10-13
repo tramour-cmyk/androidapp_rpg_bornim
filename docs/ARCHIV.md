@@ -16,6 +16,10 @@
 - Was funktioniert, muss er nicht erfahren; kurze, nummerierte Rückfragen mit Empfehlung.
 - Wahl des Spielers, Optionen, individuell und lebendig (49/50). Generisches Maskulinum, nie weibliche oder gegenderte Formen.
 
+## Jerry, Übergabe 12.10., 16:59 (Auszug, aus OFFEN gekürzt 13.10.)
+
+- Zweig `claude/jerry-13e-hoehle-diagonal` (nur Vorschau hinter `MapCaveIso.draft`, kein Build, kein PR): **13e.3 fertig** (Lichtstrahl aufrecht `drawCaveShaft`, Fackeln an der Wand mit 32-Bild-Flamme `drawCaveTorches`; Bilder 16:41, 16:50 gezeigt). **13e.4 halb:** Stalagmiten/Geröll als Höhenfeld (`relief`), Weiher abgesenkt mit Ufer; Kerntest grün, Bilder noch nicht angesehen (`tools/t bild KARTENZOOM=1 DIAG=1 CAVEDRAFT=1 ONLY=zoom_nah_c`, Aufnahmen c5, c7–c9).
+
 ## Aus BERATER.md, 13.10., 14:1x
 
 - **Sprachsitzung** (13.10.): reicht Aufträge herüber; nur ausführen, was der Nutzer im Gespräch freigegeben hat, dann knapp mit Commit melden. Ihre Behauptungen über Werkzeuge und Dateien im Repo prüfen (lag zweimal falsch).
