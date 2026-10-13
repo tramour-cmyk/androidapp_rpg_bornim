@@ -7,7 +7,8 @@ import kotlin.math.sqrt
 
 /**
  * 62h (draft): the land map, the top of the three levels of the map. All places of the land as small drawings
- * (Bornim by the river, the Whisperwood, the deep woods, the Bloodfang cave in the hills), joined by their ways;
+ * (Bornim by the river, the Whisperwood, the deep woods, the hills in the north), joined by their ways; caves and
+ * castles are ground plans, not places of the land (62p): the Bloodfang cave shows on the map of the Whisperwood;
  * what the hero has not been to lies under fog. Two looks to choose from: ink on parchment like the maps of the
  * places, or gold on black like the rest of the menu. The names are written over it by the app.
  */
@@ -25,7 +26,6 @@ object LandSheet {
         Spot("village", 100, 226, 26, labelY = 214, labelX = 60),
         Spot("forest", 92, 140, 40, labelY = 174, labelX = 54),
         Spot("deep_forest", 166, 112, 28),
-        Spot("cave", 84, 56, 22),
     )
 
     private class Ink(val ground: Int, val stain: Int, val ink: Int, val soft: Int, val water: Int, val green: Int, val deep: Int, val fog: Int)
@@ -174,14 +174,13 @@ object LandSheet {
         for (i in 0 until 14) { val wx = 8.0 + i * 14 + rnd(i, 5, 41) * 6; val wy = river(wx); stroke(wx, wy - 0.4, wx + 2.5, wy - 0.9, k.ink, 0.35, 0.45) }
         stroke(96.5, river(101.0) - 4.2, 105.5, river(101.0) - 4.2, k.ink, 0.6); stroke(96.5, river(101.0) + 4.2, 105.5, river(101.0) + 4.2, k.ink, 0.6)
         for (i in 0..4) stroke(97.5 + i * 2.0, river(101.0) - 3.8, 97.5 + i * 2.0, river(101.0) + 3.8, mix(k.stain, k.ink, 0.4), 0.9, 0.8)
-        // the ways: Bornim to the woods, through them to the cave and to the deep woods, and south over the bridge;
+        // the ways: Bornim to the woods, through them to the deep woods, and south over the bridge;
         // they stop short of the names (the app writes those), so no line runs through a word
         way(100.0, 208.0, 95.0, 179.0, 1)
-        way(93.0, 104.0, 86.0, 74.0, 2)
         way(122.0, 130.0, 145.0, 117.0, 3)
         way(101.0, 252.0, 102.0, 294.0, 4)
 
-        // the hills in the north: humps with shade and hatching to the east, the dark mouth of the cave at the foot
+        // the hills in the north: humps with shade and hatching to the east
         for (hh in listOf(Triple(44.0, 62.0, 15.0), Triple(124.0, 64.0, 14.0), Triple(68.0, 52.0, 19.0), Triple(100.0, 54.0, 17.0))) {
             val (hx, hy, r) = hh
             disc(hx, hy, r, mix(k.ground, k.stain, 0.2), 1.0, 0.72, upper = true)
@@ -191,9 +190,6 @@ object LandSheet {
             for (s in 0..5) { val sx = hx + r * 0.15 + s * r * 0.13; stroke(sx, hy - r * 0.45 + s * 0.6, sx - 1.6, hy - 0.5, k.soft, 0.35, 0.8) }
             stroke(hx - r * 0.55, hy - r * 0.2, hx - r * 0.35, hy - r * 0.45, k.soft, 0.35, 0.6)
         }
-        disc(84.0, 58.5, 4.2, k.ink, if (look == Look.NOIR) 0.45 else 0.9, 1.15)
-        disc(84.0, 61.0, 4.6, mix(k.ground, k.stain, 0.18), 1.0, 0.5)
-        stroke(78.5, 61.0, 89.5, 61.0, k.ink, 0.5, 0.8)
         // the Whisperwood: broad-leaved trees and firs round a clearing with its pond, back ones first
         wash(92.0, 140.0, 38.0, k.green, 0.3, 21)
         disc(78.0, 151.0, 5.5, k.water, 0.75, 0.7)

@@ -159,6 +159,15 @@ object MapSheet {
         for (wp in map.warps) {
             if (!known(wp.x, wp.y)) continue
             val cx = px(wp.x, wp.y) + C / 2; val cy = py(wp.x, wp.y) + C / 2
+            // 62p: a cave is a ground plan of its own; its mouth is drawn where the way goes in (tapping it opens the plan)
+            if (de.bornim.core.World.maps[wp.to.map]?.kind == MapKind.CAVE && map.kind != MapKind.CAVE) {
+                for (y in -4..3) for (x in -5..5) {
+                    val d = x * x / 25.0 + (y + 1) * (y + 1) / 16.0
+                    if (y <= 2 && d <= 1.0) img.set(cx + x, cy + y, mix(img[cx + x, cy + y], if (d > 0.7) INK else 0xFF2A2018.toInt(), 0.9))
+                }
+                for (x in -6..6) img.set(cx + x, cy + 3, INK_SOFT)
+                continue
+            }
             val (dx, dy) = when {
                 wp.y == 0 -> 0 to -1; wp.y == map.height - 1 -> 0 to 1
                 wp.x == 0 -> -1 to 0; wp.x == map.width - 1 -> 1 to 0

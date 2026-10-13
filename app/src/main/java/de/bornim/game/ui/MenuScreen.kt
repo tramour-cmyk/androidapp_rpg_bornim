@@ -172,7 +172,7 @@ private fun MapTab(game: Game, lang: Lang, onChronicle: () -> Unit = {}) {
         if (overview && MapLook.land != null) LandView(game, lang, MapLook.land!!) { shown = it; overview = false }
         else if (overview) PlaceList(game, lang) { shown = it; overview = false }
         // test of 0.1.676: a switch keeps the zoom and the place on the map (the view used to start afresh)
-        else androidx.compose.runtime.key(shown) { MapView(game, lang, map, here, show, onChronicle) }
+        else androidx.compose.runtime.key(shown) { MapView(game, lang, map, here, show, onChronicle) { shown = it } }
     }
 }
 
@@ -208,8 +208,8 @@ private fun LandView(game: Game, lang: Lang, look: de.bornim.core.art.LandSheet.
     val measurer = androidx.compose.ui.text.rememberTextMeasurer()
     val noir = look == de.bornim.core.art.LandSheet.Look.NOIR
     val ink = if (noir) Color(0xFFC9A86A) else Color(0xFF4A3622)
-    // where the hero is: the outdoor place, also from inside a house
-    val here = game.map.let { m -> if (m.kind == de.bornim.core.MapKind.INTERIOR) "village" else m.id }
+    // where the hero is: the outdoor place, also from inside a house or the cave (62p: a ground plan, not a place of the land)
+    val here = game.map.let { m -> when (m.kind) { de.bornim.core.MapKind.INTERIOR -> "village"; de.bornim.core.MapKind.CAVE -> "forest"; else -> m.id } }
     androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().clipToBounds()) {
         val vw = constraints.maxWidth.toFloat(); val vh = constraints.maxHeight.toFloat()
         // the drawing is finer than its map units (LandSheet.S); places sit in map units
@@ -278,7 +278,8 @@ private fun seenOn(game: Game, m: de.bornim.core.MapDef, x: Int, y: Int): Boolea
 
 @Composable
 private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Boolean,
-                    show: Set<de.bornim.core.MapMarks.Group> = de.bornim.core.MapMarks.Group.entries.toSet(), onChronicle: () -> Unit = {}) {
+                    show: Set<de.bornim.core.MapMarks.Group> = de.bornim.core.MapMarks.Group.entries.toSet(), onChronicle: () -> Unit = {},
+                    onOpen: (String) -> Unit = {}) {
     val p = game.state.place
     val img = remember(map.id, p.x, p.y) { de.bornim.core.art.MapSheet.render(map, { x, y -> seenOn(game, map, x, y) }) }
     val bmp = Bitmaps.of(img)
@@ -324,6 +325,11 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
                     oy = clampY(centroid.y - (centroid.y - oy) * k + pan.y)
                 } }
                 .pointerInput(marks) { detectTapGestures { at ->
+                    // 62p: the mouth of a cave the hero has been in opens its ground plan
+                    map.warps.firstOrNull { w ->
+                        de.bornim.core.World.maps[w.to.map]?.let { it.kind == de.bornim.core.MapKind.CAVE && de.bornim.core.MapMarks.visited(game.state, it) } == true &&
+                            kotlin.math.hypot(ox + cx(w.x) * scale - at.x, oy + cy(w.y) * scale - at.y) < 24 * density
+                    }?.let { onOpen(it.to.map); return@detectTapGestures }
                     tip = marks.minByOrNull { m -> kotlin.math.hypot(ox + cx(m.x) * scale - at.x, oy + cy(m.y) * scale - at.y) }
                         ?.takeIf { m -> kotlin.math.hypot(ox + cx(m.x) * scale - at.x, oy + cy(m.y) * scale - at.y) < 28 * density }
                 } }
