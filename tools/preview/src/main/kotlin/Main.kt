@@ -344,25 +344,14 @@ fun main() {
         }
         for (near in listOf(true, false)) {
             de.bornim.game.ui.MapZoom.near = near
-            // PFLASTERDRAFT=1: the square's cobbles quieter (5.4, draft)
-            if (System.getenv("PFLASTERDRAFT") == "2") de.bornim.core.art.MapGround.cobbleMid = true
-            else if (System.getenv("PFLASTERDRAFT") != null) de.bornim.core.art.MapGround.cobbleDraft = true
             // SWINGDRAFT=1: the cloak swings on when the hero stops (17, draft)
             // SWINGMORE=1: long hair and the quiver swing on too (17 Rest, draft)
             if (System.getenv("SWINGMORE") != null) de.bornim.core.art.Dress.SWING_MORE = true
-            // DORFTAG=1: the villagers go about their day (5l, draft)
-            if (System.getenv("DORFTAG") != null) de.bornim.core.VillageDay.draft = true
             // KATZEINN=ms with the inn shots: the cat (draft), that far into its round
             if (System.getenv("KATZEINN") != null) { de.bornim.core.art.MapCat.draft = true; de.bornim.game.ui.HeroSwing.now = true; de.bornim.core.art.MapCat.shift = System.getenv("KATZEINN").toLongOrNull() ?: 0L }
             if (System.getenv("SWINGDRAFT") != null) { de.bornim.core.art.MapFigure.swingDraft = true; de.bornim.game.ui.HeroSwing.now = true }
             // PONDLIFE=1: frogs on the bank and dragonflies over the forest pond (27.6, draft)
             if (System.getenv("PONDLIFE") != null) de.bornim.core.art.PondLife.draft = true
-            // SITDRAFT2=1: Borin sits at his table in the inn (55.2, draft)
-            if (System.getenv("SITDRAFT2") != null) de.bornim.core.art.MapFolk.sitDraft = true
-            // FARBDRAFT=1: the colour mood of each place and hour (idea 11, draft)
-            if (System.getenv("FARBDRAFT") != null) de.bornim.core.art.MapGrade.draft = true
-            // TREEDRAFT=1: the trees with volume (27.4, draft)
-            if (System.getenv("TREEDRAFT") != null) de.bornim.core.art.MapFlora.treeDraft = true
             // ZOOMSTUFE=1|2: the in-between zoom steps for the near shots (6.15)
             System.getenv("ZOOMSTUFE")?.let { if (near) de.bornim.game.ui.MapZoom.level = it.toInt() }
             val z = if (near) "nah" else "weit"

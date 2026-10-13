@@ -1,15 +1,12 @@
 package de.bornim.core
 
 import kotlin.random.Random
-import kotlin.test.AfterTest
 import kotlin.test.Test
 import kotlin.test.assertTrue
 import kotlin.test.fail
 
-/** 5l Leben im Dorf (draft): every place of the day can be reached, and the villagers get there in time. */
+/** 5l Leben im Dorf: every place of the day can be reached, and the villagers get there in time. */
 class VillageDayTest {
-    @AfterTest fun off() { VillageDay.draft = false }
-
     private fun game(): Game {
         val g = Game(GameState.newGame("T", Race.HUMAN, CharClass.CLERIC), Lang.DE, Dice(Random(5)))
         var guard = 0
@@ -43,7 +40,6 @@ class VillageDayTest {
 
     @Test
     fun villagersGetToEachPlaceInTime() {
-        VillageDay.draft = true
         val g = game()
         g.state.minutes = 0
         var t = 1000L
@@ -70,7 +66,6 @@ class VillageDayTest {
     /** 5la (Nutzer 13.10., 21:1x): Pim stood outside at four in the morning; at night he is indoors, in the morning out again. */
     @Test
     fun pimIsInBedAtNight() {
-        VillageDay.draft = true
         val g = game()
         val pim = g.map.npcs.first { it.id == "pim" }
         g.state.minutes = 19 * 60

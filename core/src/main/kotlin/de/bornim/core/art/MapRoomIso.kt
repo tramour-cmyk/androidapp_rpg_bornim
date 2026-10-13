@@ -2071,7 +2071,7 @@ object MapRoomIso {
         fun one(k: String, low: Boolean = true, make: () -> PixelImage) = listOf(obj(cached("$key/$k", make), fx, fy, d, low))
         // draft (55.2): a stool under Borin where he sits at his table in the inn
         // and his hammer put by, its head on the floor, the handle leaning on the table's end
-        if (MapFolk.sitDraft && map.id == "inn" && tx == 8 && ty == 4) return listOf(obj(cached("$key/stool") { stool(0, seed) }, fx, fy, d - T, true),
+        if (map.id == "inn" && tx == 8 && ty == 4) return listOf(obj(cached("$key/stool") { stool(0, seed) }, fx, fy, d - T, true),
             obj(cached("$key/maul") { maulLeaning(seed) }, fx, fy, d - T, true))
         return when (map.tile(tx, ty)) {
             Tile.WALL, Tile.WINDOW, Tile.HEARTH -> {

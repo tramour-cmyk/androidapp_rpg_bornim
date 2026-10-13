@@ -172,7 +172,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     private fun walkersHere(): List<Walker> = walkers.getOrPut(state.place.map) {
         map.npcs.filter { it.moves }.map { n ->
             // 5l (draft): coming into the village, everyone is already where their day has taken them
-            Walker(n).also { w -> if (VillageDay.draft) VillageDay.stopAt(n.id, state.minutes)?.let { st -> if (map.walkable(st.x, st.y, state)) { w.x = st.x; w.y = st.y; w.fromX = st.x; w.fromY = st.y } } }
+            Walker(n).also { w -> VillageDay.stopAt(n.id, state.minutes)?.let { st -> if (map.walkable(st.x, st.y, state)) { w.x = st.x; w.y = st.y; w.fromX = st.x; w.fromY = st.y } } }
         }
     }
 
@@ -181,7 +181,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     /** 5la: a villager who has reached their door for the night has gone in: not drawn, not met, in no one's way. */
     fun indoors(npc: Npc): Boolean {
-        if (!VillageDay.draft || !npc.moves) return false
+        if (!npc.moves) return false
         val st = VillageDay.stopAt(npc.id, state.minutes) ?: return false
         val w = walkerOf(npc) ?: return false
         return st.inside && w.x == st.x && w.y == st.y
@@ -205,7 +205,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                 continue
             }
             // 5l (draft): off to the next place of the day, else stroll about there
-            val stop = if (VillageDay.draft) VillageDay.stopAt(w.npc.id, state.minutes) else null
+            val stop = VillageDay.stopAt(w.npc.id, state.minutes)
             if (stop != null && !VillageDay.near(stop, w.x, w.y)) {
                 goTowards(w, stop.x, stop.y)
                 continue

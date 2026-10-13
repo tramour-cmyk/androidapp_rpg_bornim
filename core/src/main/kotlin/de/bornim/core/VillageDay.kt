@@ -1,14 +1,12 @@
 package de.bornim.core
 
 /**
- * 5l Leben im Dorf (draft, `DORFTAG=1`, test tab): the villagers go about their day. Each has a few places,
+ * 5l Leben im Dorf: the villagers go about their day. Each has a few places,
  * one from each hour on: in the morning to work, at noon home or to the square, in the evening to the inn,
  * at night to their own door. They walk there along the paths (a step at a time, waiting for the hero and
- * for each other) and stroll about there as before. Off: everyone keeps to their one spot.
+ * for each other) and stroll about there as before.
  */
 object VillageDay {
-    @Volatile var draft = true
-
     /** From minute [from] of the day on, stroll [wander] tiles around ([x], [y]); [inside]: once at the door, gone in for the night. */
     data class Stop(val from: Int, val x: Int, val y: Int, val wander: Int, val inside: Boolean = false)
 
