@@ -1948,13 +1948,13 @@ object MapRoomIso {
         val (ox, oy) = c.mid()
         c.floorShadow(-0.75, -0.75, -0.25, -0.25, 0.4)
         c.box(-0.7, -0.62, -0.3, -0.38, 0.0, 6.0, oakDark, oak, oak)
-        c.box(-0.54, -0.54, -0.46, -0.46, 6.0, 74.0, oakDark, oak, oak)
+        c.box(-0.54, -0.54, -0.46, -0.46, 6.0, 62.0, oakDark, oak, oak)
         // the sloping desk, high at the back
         val i0 = -0.76; val i1 = -0.24; val j0 = -0.72; val j1 = -0.3
-        c.s.poly(oakTop, c.x(i0, j0), c.y(i0, j0, 92.0), c.x(i1, j0), c.y(i1, j0, 92.0), c.x(i1, j1), c.y(i1, j1, 78.0), c.x(i0, j1), c.y(i0, j1, 78.0), tiltY = -0.85, bevel = 0.6)
-        c.box(i0, j1 - 0.02, i1, j1 + 0.02, 74.0, 80.0, oakTop, oak, oak)
-        c.s.poly(oak, c.x(i1, j0), c.y(i1, j0, 92.0), c.x(i1, j1), c.y(i1, j1, 78.0), c.x(i1, j1), c.y(i1, j1, 74.0), c.x(i1, j0), c.y(i1, j0, 86.0), tiltX = 0.55, bevel = 0.5)
-        fun top(i: Double, j: Double) = c.x(i, j) to c.y(i, j, 78.0 + 14 * (j1 - j) / (j1 - j0) + 1)
+        c.s.poly(oakTop, c.x(i0, j0), c.y(i0, j0, 80.0), c.x(i1, j0), c.y(i1, j0, 80.0), c.x(i1, j1), c.y(i1, j1, 66.0), c.x(i0, j1), c.y(i0, j1, 66.0), tiltY = -0.85, bevel = 0.6)
+        c.box(i0, j1 - 0.02, i1, j1 + 0.02, 62.0, 68.0, oakTop, oak, oak)
+        c.s.poly(oak, c.x(i1, j0), c.y(i1, j0, 80.0), c.x(i1, j1), c.y(i1, j1, 66.0), c.x(i1, j1), c.y(i1, j1, 62.0), c.x(i1, j0), c.y(i1, j0, 74.0), tiltX = 0.55, bevel = 0.5)
+        fun top(i: Double, j: Double) = c.x(i, j) to c.y(i, j, 66.0 + 14 * (j1 - j) / (j1 - j0) + 1)
         fun quad(ia: Double, ja: Double, ib: Double, jb: Double, mat: Mat) {
             val (ax, ay) = top(ia, ja); val (bx, by) = top(ib, ja); val (cx, cy) = top(ib, jb); val (dx, dy) = top(ia, jb)
             c.s.poly(mat, ax, ay, bx, by, cx, cy, dx, dy, tiltY = -0.85, bevel = 0.3)
