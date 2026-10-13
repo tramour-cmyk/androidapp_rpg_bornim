@@ -95,6 +95,8 @@ fun main() {
     // KARTE62=1: the map tab of 62c, zoomed in on the hero, with quest marks and the list of places
     if (System.getenv("KARTE62") != null) {
         if (System.getenv("KARTENTUSCHE") != null) de.bornim.core.art.MapSheet.ink = true
+        System.getenv("SCHILDER")?.toIntOrNull()?.let { de.bornim.game.ui.MapLook.labels = it }
+        System.getenv("HAUSNAME")?.let { de.bornim.game.ui.MapLook.previewHouse = it }
         fun setup(vm: GameViewModel, mapId: String, x: Int, y: Int, facing: Facing) {
             vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
             g.takeJob("ring"); g.takeJob("stones"); g.takeJob("pelts")

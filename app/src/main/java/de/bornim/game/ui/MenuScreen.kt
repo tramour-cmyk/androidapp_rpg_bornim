@@ -192,6 +192,12 @@ object MapLook {
     /** 62f: which switches are on when the map opens. */
     @Volatile var previewShow: Set<de.bornim.core.MapMarks.Group> = de.bornim.core.MapMarks.Group.entries.toSet()
     /** 62g: the handwriting of the house names (Fondamento, OFL). */
+    /** 62n (draft, preview `SCHILDER=1` or `=2`): 0 house names in handwriting (62g); 1 small names in the text box's serif, sepia; 2 signs on the houses, the name on tapping. */
+    @Volatile var labels = 0
+    /** 62n: the serif of the text box (Alegreya, OFL). */
+    val serif by lazy { androidx.compose.ui.text.font.FontFamily(androidx.compose.ui.text.font.Font(de.bornim.game.R.font.alegreya_regular, androidx.compose.ui.text.font.FontWeight.Normal)) }
+    /** 62n: a house whose name to show at once (preview), the first whose German name holds this. */
+    @Volatile var previewHouse: String? = null
     val hand by lazy { androidx.compose.ui.text.font.FontFamily(androidx.compose.ui.text.font.Font(de.bornim.game.R.font.fondamento_regular, androidx.compose.ui.text.font.FontWeight.Normal)) }
 }
 
@@ -298,6 +304,7 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
         }
     }
     val houses = remember(map.id) { de.bornim.core.MapPeople.houses(game.state).filter { it.map == map.id } }
+    var houseTip by remember { mutableStateOf(MapLook.previewHouse?.let { w -> houses.firstOrNull { w in it.name.de } }) }
     val measurer = androidx.compose.ui.text.rememberTextMeasurer()
     val focus = remember { MapLook.focusWho?.let { w -> marks.firstOrNull { it.who == w } }.also { MapLook.focusWho = null; MapLook.focusMap = null } }
     var tip by remember { mutableStateOf(focus ?: MapLook.previewTipMatch?.let { w -> marks.firstOrNull { w in it.label.de } }
@@ -326,6 +333,10 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
                     oy = clampY(centroid.y - (centroid.y - oy) * k + pan.y)
                 } }
                 .pointerInput(marks) { detectTapGestures { at ->
+                    // 62n: with signs, tapping a house names it
+                    if (MapLook.labels == 2) houses.firstOrNull { h -> kotlin.math.hypot(ox + cx(h.x) * scale - at.x, oy + cy(h.y - 1) * scale - at.y) < 20 * density }
+                        ?.let { houseTip = it; tip = null; return@detectTapGestures }
+                    houseTip = null
                     // 62p: the mouth of a cave the hero has been in opens its ground plan
                     map.warps.firstOrNull { w ->
                         de.bornim.core.World.maps[w.to.map]?.let { it.kind == de.bornim.core.MapKind.CAVE && de.bornim.core.MapMarks.visited(game.state, it) } == true &&
@@ -339,9 +350,15 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
                 dstSize = androidx.compose.ui.unit.IntSize((img.width * scale).toInt(), (img.height * scale).toInt()),
                 filterQuality = if (fine > 1f) androidx.compose.ui.graphics.FilterQuality.Low else androidx.compose.ui.graphics.FilterQuality.None)
             val ink = Color(0xFF4A3622)
-            // 62g: house names in ink, on the roof above the door
+            // 62g: house names in ink, on the roof above the door; 62n: in sepia serif, or a sign instead
             for (h in houses) {
-                val style = androidx.compose.ui.text.TextStyle(fontFamily = MapLook.hand, fontSize = (de.bornim.core.art.MapSheet.C * fine * 0.8f * scale / density / fontScale).sp, color = ink)
+                if (MapLook.labels == 2) {
+                    drawHouseSign(h.name.de, androidx.compose.ui.geometry.Offset(ox + cx(h.x) * scale, oy + cy(h.y - 1) * scale), 9 * density, ink, density)
+                    continue
+                }
+                val sepia = Color(0xFF5A3E26)
+                val style = if (MapLook.labels == 1) androidx.compose.ui.text.TextStyle(fontFamily = MapLook.serif, fontSize = (de.bornim.core.art.MapSheet.C * fine * 0.62f * scale / density / fontScale).sp, color = sepia)
+                    else androidx.compose.ui.text.TextStyle(fontFamily = MapLook.hand, fontSize = (de.bornim.core.art.MapSheet.C * fine * 0.8f * scale / density / fontScale).sp, color = ink)
                 val t = measurer.measure(h.name(lang), style)
                 val at = androidx.compose.ui.geometry.Offset(ox + cx(h.x) * scale - t.size.width / 2f, oy + cy(h.y - 2) * scale - t.size.height / 2f)
                 drawText(t, topLeft = at)
@@ -388,6 +405,7 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
                 }, red)
             }
         }
+        houseTip?.let { h -> Panel(Modifier.align(Alignment.BottomCenter).padding(8.dp)) { Txt(h.name(lang), size = 15.sp, color = Veil.bright) } }
         tip?.takeIf { it in marks }?.let { m ->
             Panel(Modifier.align(Alignment.BottomCenter).padding(8.dp)) {
                 Column {
@@ -399,6 +417,55 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
                     }
                 }
             }
+        }
+    }
+}
+
+/**
+ * 62n (draft): a small hanging sign over a house's door, drawn in ink like an inn's sign: a bracket from the wall, a
+ * board on two short chains, on it what the house is: a mug, a purse, a sun, an anvil, a loaf, a scroll, else a door.
+ */
+private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawHouseSign(name: String, c: androidx.compose.ui.geometry.Offset, r: Float, ink: Color, density: Float) {
+    fun o(x: Float, y: Float) = androidx.compose.ui.geometry.Offset(c.x + x * r, c.y + y * r)
+    val line = androidx.compose.ui.graphics.drawscope.Stroke(1.4f * density, cap = androidx.compose.ui.graphics.StrokeCap.Round)
+    val w = 1.6f * density
+    // the bracket and the chains
+    drawLine(ink, o(-1.3f, -1.5f), o(1.2f, -1.5f), w, androidx.compose.ui.graphics.StrokeCap.Round)
+    drawLine(ink, o(-1.3f, -1.5f), o(-0.6f, -0.9f), w * 0.8f)
+    drawLine(ink, o(-0.75f, -1.5f), o(-0.75f, -1.05f), w * 0.7f); drawLine(ink, o(0.75f, -1.5f), o(0.75f, -1.05f), w * 0.7f)
+    // the board
+    val tl = o(-1.05f, -1.05f); val sz = androidx.compose.ui.geometry.Size(2.1f * r, 1.75f * r)
+    drawRoundRect(Color(0xFFEFE4C8), tl, sz, androidx.compose.ui.geometry.CornerRadius(0.2f * r))
+    drawRoundRect(ink, tl, sz, androidx.compose.ui.geometry.CornerRadius(0.2f * r), style = androidx.compose.ui.graphics.drawscope.Stroke(1.6f * density))
+    val m = o(0f, -0.18f)
+    fun p(x: Float, y: Float) = androidx.compose.ui.geometry.Offset(m.x + x * r, m.y + y * r)
+    val sz2 = { a: Float, b: Float -> androidx.compose.ui.geometry.Size(a * r, b * r) }
+    when {
+        name.startsWith("Schänke") -> {
+            drawRect(ink, p(-0.4f, -0.4f), sz2(0.6f, 0.8f), style = line)
+            drawArc(ink, -90f, 180f, false, p(0.05f, -0.25f), sz2(0.4f, 0.45f), style = line)
+        }
+        name.startsWith("Kramladen") -> {
+            drawCircle(ink, 0.38f * r, p(0f, 0.08f), style = line)
+            drawLine(ink, p(-0.22f, -0.38f), p(0.22f, -0.38f), w)
+        }
+        name.startsWith("Tempel") -> {
+            drawCircle(ink, 0.2f * r, m)
+            for (k in 0 until 8) { val a = k * Math.PI / 4; drawLine(ink, p((kotlin.math.cos(a) * 0.3).toFloat(), (kotlin.math.sin(a) * 0.3).toFloat()), p((kotlin.math.cos(a) * 0.5).toFloat(), (kotlin.math.sin(a) * 0.5).toFloat()), w * 0.7f) }
+        }
+        name.startsWith("Schmied") -> {
+            drawLine(ink, p(-0.55f, -0.15f), p(0.5f, -0.15f), w * 1.8f)
+            drawLine(ink, p(-0.1f, -0.1f), p(-0.05f, 0.3f), w * 1.4f)
+            drawLine(ink, p(-0.35f, 0.38f), p(0.3f, 0.38f), w * 1.4f)
+        }
+        name.startsWith("Bäcker") -> drawOval(ink, p(-0.5f, -0.25f), sz2(1.0f, 0.55f), style = line)
+        name.startsWith("Ältester") -> {
+            drawRect(ink, p(-0.35f, -0.4f), sz2(0.7f, 0.8f), style = line)
+            for (k in 0..2) drawLine(ink, p(-0.2f, -0.18f + k * 0.2f), p(0.2f, -0.18f + k * 0.2f), w * 0.6f)
+        }
+        else -> {
+            drawRect(ink, p(-0.25f, -0.35f), sz2(0.5f, 0.75f), style = line)
+            drawCircle(ink, 0.05f * r, p(0.12f, 0.05f))
         }
     }
 }
