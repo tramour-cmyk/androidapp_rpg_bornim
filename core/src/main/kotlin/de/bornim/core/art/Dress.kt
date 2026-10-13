@@ -577,7 +577,9 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         if (!quiver) return
         val qz = -d.chestDepth - (if (slung && o.items[GearSlot.CLOAK] != null) 0.05 else 0.035) * h
         val top = sk.upper.apply(P3(d.shoulderX * 0.45, d.shoulderY - 0.01 * h, qz))
-        val bottom = sk.upper.apply(P3(-d.shoulderX * 0.15, d.hipY + 0.15 * d.trunk, qz))
+        // 17 (draft): swinging on past a stop, the free bottom of the quiver swings off the back and a little aside
+        val qs = if (SWING_MORE) sk.rig.cloak else 0.0
+        val bottom = sk.upper.apply(P3(-d.shoulderX * 0.15 + qs * 0.035 * h, d.hipY + 0.15 * d.trunk + abs(qs) * 0.02 * h, qz - abs(qs) * 0.08 * h))
         val case = add(RoundCone(bottom, top, 0.03 * h, 0.034 * h, BodyPart.GEAR, Doll.ITEM), leather)
         // 58: worn over the cloak, the quiver presses the cloth in, or the cloth swallows it
         if (PRESS_CLOAK) cloakCloth?.holes?.add(Swept(case, sk.upper.dir(P3(0.0, 0.0, -1.0)), 0.25 * h, 0.5))
@@ -705,6 +707,9 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             }
             else -> {
                 val len = reach(main.base) * k * 0.95
+                // 55.1b : grounded, the spear slides down through the hand until the butt stands on the ground
+                val slide = if (sk.rig.ground > 0 && main.base == "spear" && dir.y > 0.5)
+                    slide + (len * buttPart(main.base) - (hand.y - minOf(sk.ankle[0].y, sk.ankle[1].y) + 0.04 * h) / dir.y - slide) * sk.rig.ground else slide
                 val top = hand + dir * (len + slide)
                 val butt = hand - dir * (len * buttPart(main.base) - slide)
                 val wood = m(mix(argb(if (main.base == "staff") 0x3E2A1C else 0x6A5034), r.color.toInt(), if (r >= Rarity.RARE) 0.25 else 0.0), grain = 0.08)
@@ -1383,6 +1388,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         @Volatile var BOLD = 1.45
         /** 58: a shield slung on the back presses the cloak under it (false: the old look, for comparison). */
         @Volatile var PRESS_CLOAK = true
+        /** 17 (draft, `SWINGMORE=1`): long hair and the quiver swing on with the cloak ([HeroFigure.Rig.cloak]). */
+        @Volatile var SWING_MORE = true
         /** How far each weapon's grip and pommel reach back behind the fist, in cm. */
         private val GRIP_BACK = mapOf("dagger" to 7.0, "shortsword" to 8.5, "scimitar" to 8.0, "rapier" to 8.5, "longsword" to 12.5,
             "greatsword" to 25.5, "handaxe" to 9.0, "battleaxe" to 12.0, "greataxe" to 35.0, "mace" to 11.5, "warhammer" to 9.0, "maul" to 30.0, "halberd" to 45.0)
@@ -1403,14 +1410,14 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         fun stows(g: Gear): Boolean = g.def.isWeapon && !g.def.ranged && g.base !in ROUND && !g.def.twoHanded && g.base != "halberd" && g.base != "wand"
         /**
          * How far a staff reaches back past the hand, as a part of its reach: a wizard's staff is held high, a fighting
-         * staff in the middle, a spear (175 cm on a human) in its back third.
+         * staff in the middle, a spear (200 cm on a human) in its back third.
          */
         fun buttPart(base: String) = when (base) { "staff" -> 1.45; "quarterstaff" -> 1.0; "spear" -> 0.42; else -> 0.0 }
         /** About how far a weapon reaches beyond the hand, in cm: the front of its drawing at true size. */
         fun reach(base: String) = when (base) {
             "dagger" -> 28.0; "shortsword" -> 47.0; "scimitar" -> 65.0; "rapier" -> 80.0; "longsword" -> 75.0; "greatsword" -> 103.0
             "handaxe" -> 36.0; "battleaxe" -> 64.0; "greataxe" -> 96.0; "mace" -> 54.0; "morningstar" -> 66.0; "warhammer" -> 53.0; "maul" -> 85.0
-            "spear" -> 123.0; "halberd" -> 131.0; "wand" -> 60.0; "quarterstaff" -> 85.0; "staff" -> 70.0; else -> 100.0
+            "spear" -> 148.0; "halberd" -> 131.0; "wand" -> 60.0; "quarterstaff" -> 85.0; "staff" -> 70.0; else -> 100.0
         }
 
         fun frac(v: Double) = v - floor(v)

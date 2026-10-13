@@ -91,7 +91,7 @@ object Story {
         rows = listOf(
             "TTTTTTTTTTTTTTTTT==TTTTTTTTTTTTTTTTT",
             "TTT.......T.....x==x.....TT......TTT",
-            "TT.......T......xzzx.S..T.........TT",
+            "TT.......T.....lxzzxlS..T.........TT",
             "T..^^^^^^........==.......^^^^^....T",
             "T..^^^^^^..^^^^..==....^^.^^^^^....T",
             "T..#W#D#Wb.#D#W..==....D#.W#D#Wb...T",
@@ -205,7 +205,7 @@ object Story {
     )
 
     /** A villager's front door that stays shut, with a line about who lives there. */
-    private fun lockedDoor(x: Int, y: Int, text: T) = Warp(x, y, Place("village", x, y + 1, Facing.DOWN), LOCKED, script { narrate(text.de, text.en) })
+    private fun lockedDoor(x: Int, y: Int, text: T) = Warp(x, y, Place("village", x, y + 1, Facing.DOWN), LOCKED, script { narrate(text.de, text.en); flag(MapPeople.heard(x, y)) })
 
     private fun jorinStop() = script {
         say(jorin, "Halt! Ohne Erlaubnis des Ältesten lasse ich niemanden in den Wald.", "Halt! Nobody enters the woods without the Elder's permission.")
@@ -346,8 +346,9 @@ object Story {
         name = T("Tempel des Morgenlichts", "Temple of the Dawnlight"),
         kind = MapKind.INTERIOR,
         // 13q.9: floor plan A, a broad altar between two candlesticks, two blocks of pews with aisles in the middle and along the walls, the lectern beside the altar
+        // 13 (Meldung 12.10., 08:43): the altar stood right before the one window; now two windows flank it
         rows = listOf(
-            "####W####",
+            "#W#####W#",
             "#kNAAANk#",
             "#kkkkdkk#",
             "#knnknnkW",
@@ -498,9 +499,9 @@ object Story {
             "TTTTT.I...I..=TTTTTTT=TTTTTTTTTT,,,=,,TTTTTT",
             "TT.T.........=TTTTTTT=TTTTTTTT,TT,T=,TTTTTTT",
             "TTT..I.T...I==TTTTTff=fffTTT,,,,,,T=TTTTTTTT",
-            "TT.S........=..TTffT.=ffT.,,,,,,,===TTTTTTTT",
+            "TT..........=..TTffT.=ffT.,,,,,,,===TTTTTTTT",
             "=======.....=.T......=....,,,,,,,=,TTTTTTTTT",
-            "TT....========.r.....=============,,TTTTTTTT",
+            "TT.S..========.r.....=============,,TTTTTTTT",
             "TTT.fff.,,,,,==========T..,====,,,,TTTTTTTTT",
             "TTT.ff.,,,,,,,.==.........,,,,=,,,TTTTTTTTTT",
             "TTT.....,,,,,T==.....F.,.,,,,,=,,,TTTTTTTTTT",
@@ -524,7 +525,8 @@ object Story {
             Warp(0, 18, Place("forest", 18, 10, Facing.LEFT)),
         ),
         signs = mapOf(
-            (3 to 17) to T("Tiefer Flüsterwald\nHier endet der Weg der Jäger.\nNur für erfahrene Abenteurer!", "Deep Whisperwood\nThe hunters' trail ends here.\nFor seasoned adventurers only!"),
+            // 27.6b (draft): south of the way, in the light and before the trees (north of it the sign stood in deep shade)
+            (3 to 19) to T("Tiefer Flüsterwald\nHier endet der Weg der Jäger.\nNur für erfahrene Abenteurer!", "Deep Whisperwood\nThe hunters' trail ends here.\nFor seasoned adventurers only!"),
         ),
         chests = listOf(
             Chest("deep_1", 37, 7, randomGear(Rarity.RARE)),

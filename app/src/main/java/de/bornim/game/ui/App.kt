@@ -18,6 +18,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.material3.Text
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -82,8 +87,9 @@ fun BornimApp(vm: GameViewModel) {
             when (vm.screen) {
                 Screen.TITLE -> TitleScreen(vm)
                 Screen.CREATE -> CreateScreen(vm)
-                Screen.ABOUT -> AboutScreen(vm)
-                Screen.SLOTS -> SlotsScreen(vm)
+                // 60k (test 0.1.650): the saved games and the about page in the title's look too
+                Screen.ABOUT -> TitleVeil { AboutScreen(vm) }
+                Screen.SLOTS -> TitleVeil { SlotsScreen(vm) }
                 Screen.PLAYING -> PlayScreen(vm)
             }
             vm.toast?.let { msg ->
@@ -91,11 +97,10 @@ fun BornimApp(vm: GameViewModel) {
                     delay(1800)
                     vm.toast = null
                 }
-                Panel(
-                    Modifier
-                        .align(Alignment.TopCenter)
-                        .padding(16.dp)
-                ) { Txt(msg, size = 16.sp) }
+                // 60k: the short notes (test mode on, …) black with the gold rim as well
+                Box(Modifier.align(Alignment.TopCenter).padding(16.dp)) {
+                    TitleVeil(fill = false) { Panel { Txt(msg, size = 16.sp) } }
+                }
             }
         }
     }
@@ -111,20 +116,52 @@ fun rememberTime(): Long {
     return t
 }
 
+/** 60.4: the title screen in the look of the text box: black, the title large in gold capitals, the buttons as in the shop. */
+object TitleLook {
+    var draft = true
+}
+
+/** The look of the text box (60) for the pages round the title, on black. */
+@Composable
+private fun TitleVeil(fill: Boolean = true, content: @Composable () -> Unit) {
+    if (!TitleLook.draft) { content(); return }
+    CompositionLocalProvider(LocalVeil provides true) {
+        if (fill) Box(Modifier.fillMaxSize().background(Color.Black)) { content() } else content()
+    }
+}
+
 @Composable
 fun TitleScreen(vm: GameViewModel) {
+    if (TitleLook.draft) CompositionLocalProvider(LocalVeil provides true) { TitleColumn(vm) } else TitleColumn(vm)
+}
+
+@Composable
+private fun TitleColumn(vm: GameViewModel) {
     val lang = vm.lang
+    val veil = LocalVeil.current
     Column(
         Modifier
             .fillMaxSize()
-            .background(Brush.verticalGradient(listOf(Colors.night, Colors.nightLight, Colors.night)))
+            .background(if (veil) Brush.verticalGradient(listOf(Color.Black, Color(0xFF0E0C09), Color.Black))
+                else Brush.verticalGradient(listOf(Colors.night, Colors.nightLight, Colors.night)))
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        Txt(Ui.title(lang), size = 34.sp, color = Colors.gold, bold = true, align = TextAlign.Center)
-        Spacer(Modifier.height(6.dp))
-        Txt(Ui.subtitle(lang), size = 18.sp, color = Colors.textLight, align = TextAlign.Center)
+        if (veil) {
+            // capitals and small capitals: the serif's own small capitals where it has them, Cinzel and Alegreya SC are made so
+            Text(Ui.title(lang), color = Veil.bright, textAlign = TextAlign.Center, style = TextStyle(fontFamily = TypeLook.titleFace,
+                fontSize = 36.sp, lineHeight = 42.sp, letterSpacing = 2.sp, fontWeight = FontWeight.SemiBold, fontFeatureSettings = "smcp"))
+            Spacer(Modifier.height(10.dp))
+            Box(Modifier.width(140.dp).height(1.dp).background(Veil.rim))
+            Spacer(Modifier.height(10.dp))
+            Text(Ui.subtitle(lang), color = Veil.dim, textAlign = TextAlign.Center,
+                style = TextStyle(fontFamily = Serif, fontSize = 15.sp * TypeLook.scale, fontStyle = FontStyle.Italic, letterSpacing = 0.6.sp))
+        } else {
+            Txt(Ui.title(lang), size = 34.sp, color = Colors.gold, bold = true, align = TextAlign.Center)
+            Spacer(Modifier.height(6.dp))
+            Txt(Ui.subtitle(lang), size = 18.sp, color = Colors.textLight, align = TextAlign.Center)
+        }
         Spacer(Modifier.height(28.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             // one of each class as the doll, in its starting gear, of different peoples and looks
@@ -173,7 +210,7 @@ fun TitleScreen(vm: GameViewModel) {
                 vm.toast = if (vm.testMode) (if (lang == Lang.DE) "Testmodus aktiviert" else "Test mode enabled")
                 else (if (lang == Lang.DE) "Testmodus deaktiviert" else "Test mode disabled")
             }
-        }, size = 14.sp, color = Colors.textLight)
+        }, size = 14.sp, color = if (veil) Colors.textDim else Colors.textLight)
         Spacer(Modifier.height(4.dp))
         Txt("v${de.bornim.game.BuildConfig.VERSION_NAME} · SRD 5.1 · CC BY 4.0", size = 12.sp, color = Colors.textDim)
         if (vm.testMode) Txt(if (lang == Lang.DE) "Testmodus aktiv" else "Test mode on", size = 12.sp, color = Colors.accent)
@@ -199,7 +236,7 @@ fun AboutScreen(vm: GameViewModel) {
                 Spacer(Modifier.height(10.dp))
                 Txt(Ui.aboutText(vm.lang), size = 16.sp)
                 Spacer(Modifier.height(10.dp))
-                Txt("Font: Jersey 10 – SIL Open Font License 1.1", size = 14.sp, color = Colors.textDim)
+                Txt("Fonts: Jersey 10, Alegreya, Cinzel, EB Garamond, IM Fell English – SIL Open Font License 1.1", size = 14.sp, color = Colors.textDim)
             }
         }
         Spacer(Modifier.height(12.dp))

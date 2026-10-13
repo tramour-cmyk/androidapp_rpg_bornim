@@ -38,7 +38,9 @@ class NavigationTest {
             for (npc in m.npcs) {
                 val g = game(start)
                 if (!npc.visible(g.state)) continue
-                val r = g.route(npc.x, npc.y)
+                // 5l: a villager with a day may be elsewhere than his spot on the map
+                val at = g.walkerOf(npc)
+                val r = g.route(at?.x ?: npc.x, at?.y ?: npc.y)
                 println("$mapId ${npc.id} route=${r?.steps?.size}")
                 if (r == null) continue
                 walk(g, r)

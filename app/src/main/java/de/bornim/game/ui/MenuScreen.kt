@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -24,9 +25,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.background
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.drawText
 import de.bornim.core.Ability
 import de.bornim.core.Perks
 import de.bornim.core.Facing
@@ -47,13 +54,28 @@ import de.bornim.game.Screen
 
 private val gearBlue = Color(0xFF2A62C8)
 
-private enum class Tab { HERO, BAG, GEAR, SYSTEM, TEST }
+private enum class Tab { HERO, BAG, GEAR, MAP, SYSTEM, TEST }
+
+/** The previews: the menu opens on the map (Vorrat 8, draft). */
+object MenuStart { @Volatile var map = false }
+
+/** 60: the menu in the look of the text box (black, gold rim, serif); a draft until chosen (preview `MENUE=1`). */
+object MenuLook {
+    @Volatile var draft = true
+}
 
 @Composable
 fun MenuScreen(vm: GameViewModel, game: Game) {
+    if (MenuLook.draft) androidx.compose.runtime.CompositionLocalProvider(LocalVeil provides true) {
+        Box(Modifier.fillMaxSize().background(Color.Black)) { MenuBody(vm, game) }
+    } else MenuBody(vm, game)
+}
+
+@Composable
+private fun MenuBody(vm: GameViewModel, game: Game) {
     vm.tick
     val lang = vm.lang
-    var tab by remember { mutableStateOf(Tab.HERO) }
+    var tab by remember { mutableStateOf(if (MenuStart.map && de.bornim.core.art.MapSheet.draft) Tab.MAP else Tab.HERO) }
     var dialog by remember { mutableStateOf<DialogSpec?>(null) }
     val back = { if (dialog != null) dialog = null else vm.menuOpen = false }
     BackHandler { back() }
@@ -74,11 +96,13 @@ fun MenuScreen(vm: GameViewModel, game: Game) {
             .padding(10.dp)
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            val labels = mapOf(Tab.HERO to Ui.hero, Tab.BAG to Ui.bag, Tab.GEAR to Ui.gearShort, Tab.SYSTEM to Ui.system, Tab.TEST to de.bornim.core.T("Test", "Test"))
-            val tabs = Tab.entries.filter { it != Tab.TEST || vm.testMode }
+            val labels = mapOf(Tab.HERO to Ui.hero, Tab.BAG to Ui.bag, Tab.GEAR to Ui.gearShort, Tab.MAP to de.bornim.core.T("Karte", "Map"), Tab.SYSTEM to Ui.system, Tab.TEST to de.bornim.core.T("Test", "Test"))
+            val tabs = Tab.entries.filter { (it != Tab.TEST || vm.testMode) && (it != Tab.MAP || de.bornim.core.art.MapSheet.draft) }
             tabs.forEach { t ->
                 val badge = if (t == Tab.HERO && game.hero.unspentPoints > 0) " ★" else ""
-                PixelButton(labels.getValue(t)(lang) + badge, Modifier.weight(1f), selected = t == tab, size = if (tabs.size > 4) 11.sp else 13.sp) { tab = t }
+                // 60j (draft): a drawn sign with a small word under it
+                if (TabLook.draft && MenuLook.draft) TabButton(TabSign.valueOf(t.name), labels.getValue(t)(lang), Modifier.weight(1f), selected = t == tab, badge = badge.isNotEmpty()) { tab = t }
+                else PixelButton(labels.getValue(t)(lang) + badge, Modifier.weight(1f), selected = t == tab, size = if (tabs.size > 4) 11.sp else 13.sp) { tab = t }
             }
         }
         Spacer(Modifier.height(8.dp))
@@ -87,11 +111,14 @@ fun MenuScreen(vm: GameViewModel, game: Game) {
                 .weight(1f)
                 .fillMaxWidth()
         ) {
-            Column(Modifier.verticalScroll(rememberScrollState())) {
+            // 62c: the map zooms and pans by itself, so it does not sit in the scrolling column
+            if (tab == Tab.MAP) MapTab(game, lang)
+            else Column(Modifier.verticalScroll(rememberScrollState())) {
                 when (tab) {
                     Tab.HERO -> HeroTab(vm, game, lang, ask)
                     Tab.BAG -> BagTab(vm, game, lang, ask)
                     Tab.GEAR -> GearTab(vm, game, lang, ask)
+                    Tab.MAP -> {}
                     Tab.SYSTEM -> SystemTab(vm, game, lang)
                     Tab.TEST -> TestTab(vm, game, lang)
                 }
@@ -101,6 +128,248 @@ fun MenuScreen(vm: GameViewModel, game: Game) {
         BackRow(Ui.close(lang)) { back() }
     }
     dialog?.let { ConfirmDialog(it) { dialog = null } }
+    }
+}
+
+/**
+ * 62 the drawn map of the place, only what the hero has seen. 62c: it opens zoomed in on the hero (a red ring with
+ * the way he faces), two fingers zoom, one pans; "Places" lists the places visited so far, tapping one shows its map
+ * (no travel). Marks remind, never lead ([de.bornim.core.MapMarks]): tapping one names it.
+ */
+@Composable
+private fun MapTab(game: Game, lang: Lang) {
+    val german = lang == Lang.DE
+    var shown by remember { mutableStateOf(game.map.id) }
+    var overview by remember { mutableStateOf(MapLook.previewOverview) }
+    val map = de.bornim.core.World[shown]
+    val here = shown == game.map.id
+    // 62f: three switches, all on when new
+    var show by remember { mutableStateOf(MapLook.previewShow) }
+    Column(Modifier.fillMaxSize()) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Txt(if (overview) (if (german) "Besuchte Orte" else "Places visited") else map.name(lang), Modifier.weight(1f), size = 20.sp, bold = true)
+            PixelButton(if (german) "Orte" else "Places", Modifier.height(36.dp), selected = overview, size = 13.sp) { overview = !overview }
+        }
+        Spacer(Modifier.height(6.dp))
+        if (!overview) {
+            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                val names = mapOf(
+                    de.bornim.core.MapMarks.Group.QUESTS to de.bornim.core.T("Aufträge", "Quests"),
+                    de.bornim.core.MapMarks.Group.PEOPLE to de.bornim.core.T("Leute", "People"),
+                    de.bornim.core.MapMarks.Group.SERVICES to de.bornim.core.T("Dienste", "Services"),
+                )
+                for ((g, t) in names) PixelButton(t(lang), Modifier.weight(1f).height(34.dp), selected = g in show, size = 13.sp) {
+                    show = if (g in show) show - g else show + g
+                }
+            }
+            Spacer(Modifier.height(6.dp))
+        }
+        if (overview) PlaceList(game, lang) { shown = it; overview = false }
+        else androidx.compose.runtime.key(shown, show) { MapView(game, lang, map, here, show) }
+    }
+}
+
+/** 62c: preview switches. */
+object MapLook {
+    @Volatile var previewOverview = false
+    /** A mark to show named at once, by index in the marks of the shown map (-1 none, -2 the last). */
+    @Volatile var previewTip = -1
+    @Volatile var previewZoom = 2.5f
+    /** A mark to show named at once, the first whose German line holds this. */
+    @Volatile var previewTipMatch: String? = null
+    /** 62f: which switches are on when the map opens. */
+    @Volatile var previewShow: Set<de.bornim.core.MapMarks.Group> = de.bornim.core.MapMarks.Group.entries.toSet()
+    /** 62g: the handwriting of the house names (Fondamento, OFL). */
+    val hand by lazy { androidx.compose.ui.text.font.FontFamily(androidx.compose.ui.text.font.Font(de.bornim.game.R.font.fondamento_regular, androidx.compose.ui.text.font.FontWeight.Normal)) }
+}
+
+/** The places the hero has been to, each a small picture of its map; tapping one shows it. */
+@Composable
+private fun PlaceList(game: Game, lang: Lang, onPick: (String) -> Unit) {
+    val s = game.state
+    val outdoor = de.bornim.core.World.maps.values.filter { it.kind != de.bornim.core.MapKind.INTERIOR && de.bornim.core.MapMarks.visited(s, it) }
+    val places = (if (game.map.kind == de.bornim.core.MapKind.INTERIOR) listOf(game.map) else emptyList()) + outdoor
+    Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        places.forEach { m ->
+            val img = remember(m.id) { de.bornim.core.art.MapSheet.render(m, { x, y -> seenOn(game, m, x, y) }) }
+            Row(Modifier.fillMaxWidth().tap { onPick(m.id) }, verticalAlignment = Alignment.CenterVertically) {
+                androidx.compose.foundation.Image(
+                    bitmap = Bitmaps.of(img), contentDescription = null,
+                    filterQuality = androidx.compose.ui.graphics.FilterQuality.None,
+                    modifier = Modifier.height(84.dp).aspectRatio(img.width.toFloat() / img.height),
+                )
+                Spacer(Modifier.width(12.dp))
+                Column(Modifier.weight(1f)) {
+                    Txt(m.name(lang), size = 17.sp, bold = true)
+                    if (m.id == game.map.id) Txt(if (lang == Lang.DE) "Hier bist du" else "You are here", size = 13.sp, color = Veil.dim)
+                }
+            }
+        }
+    }
+}
+
+private fun seenOn(game: Game, m: de.bornim.core.MapDef, x: Int, y: Int): Boolean =
+    if (m.id == game.map.id) game.fog(x, y) != de.bornim.core.Fog.HIDDEN else de.bornim.core.MapMarks.seen(game.state, m, x, y)
+
+@Composable
+private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Boolean,
+                    show: Set<de.bornim.core.MapMarks.Group> = de.bornim.core.MapMarks.Group.entries.toSet()) {
+    val p = game.state.place
+    val img = remember(map.id, p.x, p.y) { de.bornim.core.art.MapSheet.render(map, { x, y -> seenOn(game, map, x, y) }) }
+    val bmp = Bitmaps.of(img)
+    val marks = remember(map.id) {
+        val all = de.bornim.core.MapMarks.of(game.state).filter { it.map == map.id && it.kind.group in show }
+        // 62f: someone with a quest has the quest's mark; their habits join its line instead of a second mark
+        val persons = all.filter { it.kind == de.bornim.core.MapMarks.Kind.PERSON }
+        val givers = all.filter { it.kind == de.bornim.core.MapMarks.Kind.GIVER }.mapNotNull { it.who }.toSet()
+        all.mapNotNull { m ->
+            when {
+                m.kind == de.bornim.core.MapMarks.Kind.PERSON && m.who in givers -> null
+                m.kind == de.bornim.core.MapMarks.Kind.GIVER -> persons.firstOrNull { it.who == m.who }
+                    ?.let { pm -> m.copy(label = de.bornim.core.T(m.label.de + "\n– " + pm.label.de.substringAfter(" – "), m.label.en + "\n– " + pm.label.en.substringAfter(" – "))) } ?: m
+                else -> m
+            }
+        }
+    }
+    val houses = remember(map.id) { de.bornim.core.MapPeople.houses(game.state).filter { it.map == map.id } }
+    val measurer = androidx.compose.ui.text.rememberTextMeasurer()
+    var tip by remember { mutableStateOf(MapLook.previewTipMatch?.let { w -> marks.firstOrNull { w in it.label.de } }
+        ?: marks.getOrNull(if (MapLook.previewTip == -2) marks.lastIndex else MapLook.previewTip)) }
+    androidx.compose.foundation.layout.BoxWithConstraints(Modifier.fillMaxSize().clipToBounds()) {
+        val vw = constraints.maxWidth.toFloat(); val vh = constraints.maxHeight.toFloat()
+        val fit = minOf(vw / img.width, vh / img.height)
+        val density = androidx.compose.ui.platform.LocalDensity.current.density
+        // centre of a tile in the picture's pixels
+        fun cx(tx: Int) = de.bornim.core.art.MapSheet.PAD + tx * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f
+        fun cy(ty: Int) = de.bornim.core.art.MapSheet.PAD + ty * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f
+        // opens zoomed in on the hero, at least so far that the map fills the frame
+        var scale by remember { mutableStateOf(if (here) maxOf(fit * MapLook.previewZoom, maxOf(vw / img.width, vh / img.height)) else fit) }
+        fun clampX(o: Float) = if (img.width * scale <= vw) (vw - img.width * scale) / 2 else o.coerceIn(vw - img.width * scale, 0f)
+        fun clampY(o: Float) = if (img.height * scale <= vh) (vh - img.height * scale) / 2 else o.coerceIn(vh - img.height * scale, 0f)
+        var ox by remember { mutableStateOf(clampX(if (here) vw / 2 - cx(p.x) * scale else 0f)) }
+        var oy by remember { mutableStateOf(clampY(if (here) vh / 2 - cy(p.y) * scale else 0f)) }
+        androidx.compose.foundation.Canvas(
+            Modifier.fillMaxSize()
+                .pointerInput(Unit) { detectTransformGestures { centroid, pan, zoom, _ ->
+                    val ns = (scale * zoom).coerceIn(fit, fit * 6f)
+                    val k = ns / scale
+                    scale = ns
+                    ox = clampX(centroid.x - (centroid.x - ox) * k + pan.x)
+                    oy = clampY(centroid.y - (centroid.y - oy) * k + pan.y)
+                } }
+                .pointerInput(Unit) { detectTapGestures { at ->
+                    tip = marks.minByOrNull { m -> kotlin.math.hypot(ox + cx(m.x) * scale - at.x, oy + cy(m.y) * scale - at.y) }
+                        ?.takeIf { m -> kotlin.math.hypot(ox + cx(m.x) * scale - at.x, oy + cy(m.y) * scale - at.y) < 28 * density }
+                } }
+        ) {
+            drawImage(bmp, dstOffset = androidx.compose.ui.unit.IntOffset(ox.toInt(), oy.toInt()),
+                dstSize = androidx.compose.ui.unit.IntSize((img.width * scale).toInt(), (img.height * scale).toInt()),
+                filterQuality = androidx.compose.ui.graphics.FilterQuality.None)
+            val ink = Color(0xFF4A3622)
+            // 62g: house names in ink, on the roof above the door
+            for (h in houses) {
+                val style = androidx.compose.ui.text.TextStyle(fontFamily = MapLook.hand, fontSize = (de.bornim.core.art.MapSheet.C * 0.8f * scale / density / fontScale).sp, color = ink)
+                val t = measurer.measure(h.name(lang), style)
+                val at = androidx.compose.ui.geometry.Offset(ox + cx(h.x) * scale - t.size.width / 2f, oy + cy(h.y - 2) * scale - t.size.height / 2f)
+                drawText(t, topLeft = at)
+            }
+            for (m in marks) {
+                val c = androidx.compose.ui.geometry.Offset(ox + cx(m.x) * scale, oy + cy(m.y) * scale)
+                val a = if (m.done) 0.4f else 1f
+                val r = 7 * density
+                if (m.kind == de.bornim.core.MapMarks.Kind.GIVER) {
+                    drawCircle(ink.copy(alpha = a), r + 2 * density, c)
+                    drawCircle(Color(0xFF4F86C6).copy(alpha = a), r, c)
+                } else if (m.kind == de.bornim.core.MapMarks.Kind.BOARD) {
+                    // 62e: the notice board, a small sheet nailed up
+                    val tl = androidx.compose.ui.geometry.Offset(c.x - r * 0.85f, c.y - r)
+                    val sz = androidx.compose.ui.geometry.Size(r * 1.7f, r * 2f)
+                    drawRect(Color(0xFFE8DCC0), tl, sz)
+                    drawRect(ink, tl, sz, style = androidx.compose.ui.graphics.drawscope.Stroke(2 * density))
+                    for (k in 1..3) drawLine(ink.copy(alpha = 0.6f), androidx.compose.ui.geometry.Offset(tl.x + r * 0.35f, tl.y + r * 0.5f * k),
+                        androidx.compose.ui.geometry.Offset(tl.x + sz.width - r * 0.35f, tl.y + r * 0.5f * k), 1.2f * density)
+                } else if (m.kind != de.bornim.core.MapMarks.Kind.GOAL) {
+                    drawService(m.kind, c, r, ink, density)
+                } else {
+                    val path = androidx.compose.ui.graphics.Path().apply {
+                        moveTo(c.x, c.y - r * 1.5f); lineTo(c.x + r * 1.1f, c.y); lineTo(c.x, c.y + r * 1.5f); lineTo(c.x - r * 1.1f, c.y); close()
+                    }
+                    drawPath(path, Color(0xFFD9BC82).copy(alpha = a))
+                    drawPath(path, ink.copy(alpha = a), style = androidx.compose.ui.graphics.drawscope.Stroke(2 * density))
+                }
+            }
+            if (here) {
+                // the hero: a red ring, a dot, and a small wedge the way he faces
+                val c = androidx.compose.ui.geometry.Offset(ox + cx(p.x) * scale, oy + cy(p.y) * scale)
+                val red = Color(0xFFB0302A)
+                val r = 11 * density
+                drawCircle(Color(0x55B0302A), r * 1.6f, c)
+                drawCircle(red, r, c, style = androidx.compose.ui.graphics.drawscope.Stroke(3 * density))
+                drawCircle(red, r * 0.35f, c)
+                val f = p.facing
+                val tipAt = androidx.compose.ui.geometry.Offset(c.x + f.dx * r * 1.9f, c.y + f.dy * r * 1.9f)
+                val side = androidx.compose.ui.geometry.Offset(-f.dy * r * 0.55f, f.dx * r * 0.55f)
+                val base = androidx.compose.ui.geometry.Offset(c.x + f.dx * r * 1.15f, c.y + f.dy * r * 1.15f)
+                drawPath(androidx.compose.ui.graphics.Path().apply {
+                    moveTo(tipAt.x, tipAt.y); lineTo(base.x + side.x, base.y + side.y); lineTo(base.x - side.x, base.y - side.y); close()
+                }, red)
+            }
+        }
+        tip?.let { m ->
+            Panel(Modifier.align(Alignment.BottomCenter).padding(8.dp)) {
+                Txt(m.label(lang), size = 15.sp, color = if (m.kind == de.bornim.core.MapMarks.Kind.GIVER) Color(0xFF8DB4E2) else Veil.bright)
+            }
+        }
+    }
+}
+
+/**
+ * 62f: the marks of people and services, drawn in ink on a round of paper like the rest of the map: a bust for
+ * someone the hero knows, a mug for the inn, a coin purse for the shop, a sun for the temple, a flame for a campfire.
+ */
+private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawService(
+    kind: de.bornim.core.MapMarks.Kind, c: androidx.compose.ui.geometry.Offset, r: Float, ink: Color, density: Float,
+) {
+    val paper = Color(0xFFEFE4C8)
+    fun o(x: Float, y: Float) = androidx.compose.ui.geometry.Offset(x, y)
+    val line = androidx.compose.ui.graphics.drawscope.Stroke(1.6f * density, cap = androidx.compose.ui.graphics.StrokeCap.Round)
+    drawCircle(paper, r * 1.25f, c)
+    drawCircle(ink, r * 1.25f, c, style = androidx.compose.ui.graphics.drawscope.Stroke(1.8f * density))
+    when (kind) {
+        de.bornim.core.MapMarks.Kind.PERSON -> {
+            drawCircle(ink, r * 0.36f, o(c.x, c.y - r * 0.32f))
+            drawArc(ink, 180f, 180f, true, o(c.x - r * 0.62f, c.y + r * 0.16f), androidx.compose.ui.geometry.Size(r * 1.24f, r * 1.1f))
+        }
+        de.bornim.core.MapMarks.Kind.INN -> {
+            drawRect(ink, o(c.x - r * 0.5f, c.y - r * 0.45f), androidx.compose.ui.geometry.Size(r * 0.75f, r * 1.0f), style = line)
+            drawArc(ink, -90f, 180f, false, o(c.x + r * 0.05f, c.y - r * 0.25f), androidx.compose.ui.geometry.Size(r * 0.5f, r * 0.55f), style = line)
+            drawLine(ink, o(c.x - r * 0.55f, c.y - r * 0.6f), o(c.x + r * 0.3f, c.y - r * 0.6f), 2.4f * density, androidx.compose.ui.graphics.StrokeCap.Round)
+        }
+        de.bornim.core.MapMarks.Kind.SHOP -> {
+            drawCircle(ink, r * 0.48f, o(c.x, c.y + r * 0.15f), style = line)
+            drawLine(ink, o(c.x - r * 0.28f, c.y - r * 0.42f), o(c.x + r * 0.28f, c.y - r * 0.42f), 1.6f * density, androidx.compose.ui.graphics.StrokeCap.Round)
+            drawLine(ink, o(c.x - r * 0.18f, c.y - r * 0.62f), o(c.x, c.y - r * 0.42f), 1.4f * density)
+            drawLine(ink, o(c.x + r * 0.18f, c.y - r * 0.62f), o(c.x, c.y - r * 0.42f), 1.4f * density)
+        }
+        de.bornim.core.MapMarks.Kind.TEMPLE -> {
+            drawCircle(ink, r * 0.3f, c)
+            for (k in 0 until 8) {
+                val a = k * Math.PI / 4
+                drawLine(ink, o(c.x + (r * 0.45f * kotlin.math.cos(a)).toFloat(), c.y + (r * 0.45f * kotlin.math.sin(a)).toFloat()),
+                    o(c.x + (r * 0.78f * kotlin.math.cos(a)).toFloat(), c.y + (r * 0.78f * kotlin.math.sin(a)).toFloat()), 1.4f * density, androidx.compose.ui.graphics.StrokeCap.Round)
+            }
+        }
+        de.bornim.core.MapMarks.Kind.FIRE -> {
+            drawPath(androidx.compose.ui.graphics.Path().apply {
+                moveTo(c.x, c.y - r * 0.75f)
+                cubicTo(c.x + r * 0.55f, c.y - r * 0.2f, c.x + r * 0.5f, c.y + r * 0.45f, c.x, c.y + r * 0.45f)
+                cubicTo(c.x - r * 0.5f, c.y + r * 0.45f, c.x - r * 0.55f, c.y - r * 0.1f, c.x - r * 0.15f, c.y - r * 0.35f)
+                cubicTo(c.x - r * 0.1f, c.y - r * 0.1f, c.x + r * 0.05f, c.y - r * 0.25f, c.x, c.y - r * 0.75f)
+                close()
+            }, Color(0xFFA8452A))
+            drawLine(ink, o(c.x - r * 0.55f, c.y + r * 0.6f), o(c.x + r * 0.55f, c.y + r * 0.6f), 1.8f * density, androidx.compose.ui.graphics.StrokeCap.Round)
+        }
+        else -> {}
     }
 }
 

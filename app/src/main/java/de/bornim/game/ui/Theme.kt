@@ -18,6 +18,9 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,6 +45,34 @@ import de.bornim.game.R
 val PixelFont = FontFamily(
     Font(R.font.jersey10, FontWeight.Normal),
 )
+
+/**
+ * 60b: the serif of the black screens (text box, shop, menus). [choice] picks among the free fonts on trial,
+ * 0 is the device's serif as before; [scale] evens out their sizes, as some are small on the line.
+ */
+object TypeLook {
+    var choice = 2
+    val names = listOf("Gerät (Serif)", "EB Garamond", "Alegreya", "IM Fell English")
+    private val families by lazy {
+        listOf(
+            FontFamily.Serif,
+            FontFamily(Font(R.font.ebgaramond_regular, FontWeight.Normal), Font(R.font.ebgaramond_semibold, FontWeight.SemiBold)),
+            FontFamily(Font(R.font.alegreya_regular, FontWeight.Normal), Font(R.font.alegreya_semibold, FontWeight.SemiBold)),
+            FontFamily(Font(R.font.imfell_regular, FontWeight.Normal)),
+        )
+    }
+    private val scales = listOf(1f, 1.1f, 1.04f, 1.08f)
+    val serif: FontFamily get() = families[choice]
+    val scale: Float get() = scales[choice]
+
+    /** 60.4: the face of the title: 0 the serif in capitals, 1 Cinzel, 2 the small capitals of Alegreya. */
+    var title = 1
+    private val titles by lazy { listOf(FontFamily(Font(R.font.cinzel_semibold, FontWeight.SemiBold)), FontFamily(Font(R.font.alegreya_sc_medium, FontWeight.Medium))) }
+    val titleFace: FontFamily get() = if (title == 0) serif else titles[title - 1]
+}
+
+/** The serif of the black screens, as chosen in [TypeLook]. */
+val Serif: FontFamily get() = TypeLook.serif
 
 object Colors {
     val night = Color(0xFF1C1A2E)
@@ -127,6 +158,40 @@ private fun hurtTint(shade: Color?, hurt: Float): Color {
     return Color(s.red * (1f - 0.2f * h), s.green * (1f - 0.42f * h), s.blue * (1f - 0.42f * h), 1f)
 }
 
+/**
+ * 59: inside a window in the look of the text box (42b, the black screens): black, a thin gold rim, off-white serif.
+ * [Txt], [Panel], [PixelButton] and [GearIcon] turn dark by themselves, so the details and lists need no copy of their own.
+ */
+val LocalVeil = androidx.compose.runtime.staticCompositionLocalOf { false }
+
+/** The ink of the black screens (as the text box); the light colors of the panels map onto it. */
+object Veil {
+    val text = Color(0xFFE6DDCB)
+    val dim = Color(0xFF948A78)
+    val gold = Color(0xFFB59A6A)
+    /** 60.4: the title's gold, brighter than the headings. */
+    val bright = Color(0xFFD9BC82)
+    val rim = Color(0xAAB59A6A)
+    val warn = Color(0xFFD9785A)
+    val good = Color(0xFF86C46E)
+    val raised = Color(0xFF17140F)
+
+    /** A color meant for the light panels, as it reads on black: rarities lightened, text off-white. */
+    fun of(c: Color): Color = when (c) {
+        Colors.text -> text
+        Colors.textDim -> dim
+        Colors.accent -> warn
+        Colors.border -> gold // the dark blue of notes (a people's gift), unreadable on black
+        Color(0xFF5E5E68) -> Color(0xFFBDB6A8) // common
+        Color(0xFF2A8A3A) -> good // uncommon, better
+        Color(0xFF2A62C8) -> Color(0xFF82AAF2) // rare, affixes
+        Color(0xFF7A38C0) -> Color(0xFFBC8EF2) // very rare
+        Color(0xFFD0680A) -> Color(0xFFF29E50) // epic
+        Color(0xFFB08800) -> Color(0xFFEAC650) // divine
+        else -> c
+    }
+}
+
 @Composable
 fun Txt(
     text: String,
@@ -136,13 +201,31 @@ fun Txt(
     bold: Boolean = false,
     align: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
+    pixel: Boolean = false,
 ) {
+    // 60c: [pixel] keeps the pixel font for the small numbers of a fight (hit points, level), also on black
+    if (LocalVeil.current && !pixel) {
+        Text(
+            text = text,
+            modifier = modifier,
+            // lining figures: Alegreya and Fell draw old-style ones by default, uneven in a column of values
+            style = TextStyle(fontFamily = Serif, fontFeatureSettings = "lnum"),
+            fontSize = size * 0.95f * TypeLook.scale,
+            color = Veil.of(color),
+            fontWeight = if (bold) FontWeight.SemiBold else FontWeight.Normal,
+            letterSpacing = 0.2.sp,
+            textAlign = align,
+            maxLines = maxLines,
+            lineHeight = size * 1.35f,
+        )
+        return
+    }
     Text(
         text = text,
         modifier = modifier,
         style = LocalTextStyle.current.merge(BaseText),
         fontSize = size * 1.3f, // Jersey 10 is a compact font
-        color = color,
+        color = if (LocalVeil.current) Veil.of(color) else color,
         fontWeight = FontWeight.Normal,
         letterSpacing = if (bold) 0.5.sp else 0.3.sp,
         textAlign = align,
@@ -151,9 +234,19 @@ fun Txt(
     )
 }
 
+/** A heading in the black windows: small, spaced capitals in gold, as the speaker in the text box. */
+@Composable
+fun VeilHead(text: String, modifier: Modifier = Modifier, color: Color = Veil.gold) {
+    Text(text.uppercase(), modifier, color = color, style = TextStyle(fontFamily = Serif, fontSize = 12.sp * TypeLook.scale, letterSpacing = 3.sp))
+}
+
 /** The classic double-bordered text box. */
 @Composable
 fun Panel(modifier: Modifier = Modifier, background: Color = Colors.panel, content: @Composable BoxScope.() -> Unit) {
+    if (LocalVeil.current) {
+        Box(modifier.background(Color.Black).border(1.dp, Veil.rim).padding(horizontal = 14.dp, vertical = 10.dp), content = content)
+        return
+    }
     Box(
         modifier
             .clip(RoundedCornerShape(8.dp))
@@ -179,6 +272,34 @@ fun PixelButton(
     onClick: () -> Unit,
 ) {
     val click = LocalClick.current
+    if (LocalVeil.current) {
+        Box(
+            modifier
+                .height(48.dp)
+                .background(if (selected) Veil.raised else Color.Black)
+                .border(if (selected) 1.5.dp else 1.dp, if (!enabled) Veil.dim.copy(alpha = 0.4f) else if (selected) Veil.gold else Veil.rim)
+                .clickable(enabled = enabled) {
+                    click()
+                    onClick()
+                }
+                .padding(horizontal = 6.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            val u = label.uppercase()
+            // a word is never broken (60, test 0.1.650: „TASC HE“ in the menu tabs): smaller until it fits
+            var shrink by remember(u, size) { mutableStateOf(1f) }
+            Text(
+                u, color = if (!enabled) Veil.dim.copy(alpha = 0.6f) else if (selected) Veil.gold else Veil.text,
+                style = TextStyle(fontFamily = Serif, fontSize = (size.value * 0.7f).coerceAtLeast(10.5f).sp * TypeLook.scale * shrink, letterSpacing = 1.2.sp * shrink, fontFeatureSettings = "lnum"), textAlign = TextAlign.Center,
+                maxLines = if (' ' in u) 2 else 1, softWrap = ' ' in u,
+                onTextLayout = { r ->
+                    val broken = r.hasVisualOverflow || (1 until r.lineCount).any { r.getLineStart(it) in 1..u.length && u[r.getLineStart(it) - 1] != ' ' }
+                    if (broken && shrink > 0.55f) shrink *= 0.9f
+                },
+            )
+        }
+        return
+    }
     val bg = when {
         !enabled -> Colors.panelDark
         selected -> Colors.selected

@@ -510,11 +510,11 @@ object MapFolk {
         for ((a, b) in pairs) for (k in 1 until BLEND) squatFrame(f, homeSlot, SquatPose(a, b, k))
     }
 
-    /** How near (in tiles each way) the hero must be for the folk to look at it. */
-    const val WATCH_TILES = 4.0
+    /** How near (in tiles each way) the hero must be for the folk to look at it (5la.3, 13.10.: 3, was 4). */
+    const val WATCH_TILES = 3.0
 
-    /** After the hero has stood this long on one spot, the folk lose interest and go back to what they did (20:56). */
-    const val BORED_MS = 20_000L
+    /** After the hero has stood this long on one spot, the folk lose interest and go back to what they did (5la.3: 10 s, was 20). */
+    const val BORED_MS = 10_000L
 
     /** Whether one of the folk looks at a hero [dx], [dy] tiles away who has stood still for [stillMs]. */
     fun watches(dx: Double, dy: Double, stillMs: Long): Boolean =
@@ -565,9 +565,24 @@ object MapFolk {
     const val BLOCK_MS = 16_000L
 
     /** [f] standing in [rest], breathing in or out: drawn in the background when first wanted, null until then. */
-    fun restFrame(f: Folk, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage? =
-        if ((rest == MapRest.Rest.NEUTRAL || level <= 0) && breath == 0) frame(f, slot, 0)
-        else MapRest.picture("folk|${f.id}|$slot|$rest|$breath|$level") { drawRest(f, slot, rest, breath, level) }
+    fun restFrame(f: Folk, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage? {
+        if ((rest == MapRest.Rest.NEUTRAL || level <= 0) && breath == 0) return frame(f, slot, 0)
+        MapRest.picture(restKey(f, slot, rest, breath, level)) { drawRest(f, slot, rest, breath, level) }?.let { return it }
+        // not drawn yet (test of 0.1.670: the figure fell back to plain standing for a moment and twitched):
+        // the nearest step of the same stance that is ready, the other breath before plain standing
+        for (d in 1..MapRest.LEVELS) for (lv in listOf(level - d, level + d)) {
+            if (lv !in 1..MapRest.LEVELS) continue
+            MapRest.cached(restKey(f, slot, rest, breath, lv))?.let { return it }
+        }
+        return MapRest.cached(restKey(f, slot, rest, 1 - breath, level))
+    }
+
+    private fun restKey(f: Folk, slot: Int, rest: MapRest.Rest, breath: Int, level: Int) = "folk|${f.id}|$slot|$rest|$breath|$level"
+
+    /** Asks for every step of [rest] in both breaths ahead of time, so going into it has all its pictures (55.1b). */
+    fun prepareRest(f: Folk, slot: Int, rest: MapRest.Rest) {
+        for (b in 0..1) for (lv in 1..MapRest.LEVELS) MapRest.picture(restKey(f, slot, rest, b, lv)) { drawRest(f, slot, rest, b, lv) }
+    }
 
     /** One resting picture of [f], drawn now. */
     fun drawRest(f: Folk, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage =

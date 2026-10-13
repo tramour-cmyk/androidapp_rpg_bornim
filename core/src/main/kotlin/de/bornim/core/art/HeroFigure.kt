@@ -139,6 +139,8 @@ object HeroFigure {
         val sit: Double = 0.0,
         /** 0..1 (17, draft): the cloak's hem flares out to the sides and lifts, as when the cloth swings on past a stop. */
         val flare: Double = 0.0,
+        /** 0..1 (55.1b, draft): a spear slid down through the hand until its butt stands on the ground beside the foot. */
+        val ground: Double = 0.0,
     ) {
         fun lerp(o: Rig, t: Double): Rig {
             fun l(a: Double, b: Double) = a + (b - a) * t
@@ -148,7 +150,7 @@ object HeroFigure {
                 l(headTurn, o.headTurn), l(headDown, o.headDown), l(cloak, o.cloak), l(glow, o.glow), l(draw, o.draw), l(trail, o.trail),
                 l(elbowUp, o.elbowUp), elbowAt.lerp(o.elbowAt, t), l(twist, o.twist), l(grip, o.grip), l(roll, o.roll), l(foreLevel, o.foreLevel), l(aim, o.aim), l(brace, o.brace), rPole.lerp(o.rPole, t), l(stock, o.stock), l(glowAt, o.glowAt), l(freeHand, o.freeHand), l(bowTilt, o.bowTilt),
                 l(fallF, o.fallF), l(fallS, o.fallS), l(flask, o.flask), l(flaskTilt, o.flaskTilt), l(cork, o.cork),
-                sit = l(sit, o.sit), flare = l(flare, o.flare),
+                sit = l(sit, o.sit), flare = l(flare, o.flare), ground = l(ground, o.ground),
             )
         }
     }

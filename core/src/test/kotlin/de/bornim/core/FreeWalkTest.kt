@@ -46,6 +46,26 @@ class FreeWalkTest {
     }
 
     @Test
+    fun walksAwayFromSomeoneWhoSteppedCloseBy() {
+        // 5la (test 0.1.650): Bram stepped onto the tile beside the hero while its body reached into it;
+        // the hero could then move no more, in no direction
+        val g = game("village")
+        g.freeWalk.sync()
+        val p = g.state.place
+        g.freeWalk.x = p.x + 0.85
+        val w = g.map.npcs.filter { it.moves }.firstNotNullOf { g.walkerOf(it) }
+        w.x = p.x + 1; w.y = p.y; w.fromX = w.x; w.fromY = w.y
+        assertTrue(!g.free(p.x + 1, p.y), "the villager stands beside the hero")
+        val x0 = g.freeWalk.x
+        g.go(-1.0, 0.0, 300)
+        assertTrue(g.freeWalk.x < x0 - 0.2, "walked away: ${g.freeWalk.x}")
+        // but never further into them
+        g.freeWalk.x = p.x + 0.85; g.state.place = p
+        g.go(1.0, 0.0, 300)
+        assertTrue(g.freeWalk.x <= p.x + 0.85 + 1e-9, "not into the villager: ${g.freeWalk.x}")
+    }
+
+    @Test
     fun neverInsideAWallAndSlidesAlongIt() {
         val g = game("village")
         g.freeWalk.sync()
