@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 13:21–14:1x „Story-Vorlage“; 13.10. 14:18–15:3x „Kapitel 2“ (Heldenbau markiert, Grobzusammenfassung Graumoor, Umfang 41i). **Nachfolger:** „Sokrates – Kapitel 2 Karte“ (Nutzer startet mit „Sokrates“)
 
-**Nächster Punkt:** Kapitel 2 „Das Graumoor“ (Grobzusammenfassung im Storyplan). Nutzer 15:28: Grundidee gut; Kapitel 1 ist Einweisung, Kapitel 2 muss im Umfang deutlich mehr bieten (Karten, Höhlen, Zufallsdungeons 48). Als Nächstes: Umfang 41i in den Storyplan und Grobentwurf der Landkarte (Gebiete, Wege, Größen) als Bild; offen 41e–41h.
+**Nächster Punkt:** Kapitel 2 „Das Graumoor“ (Grobzusammenfassung im Storyplan). Nutzer 15:28: Grundidee gut; Kapitel 1 ist Einweisung, Kapitel 2 muss im Umfang deutlich mehr bieten (Karten, Höhlen, Zufallsdungeons 48). Als Nächstes: Umfang 41i in den Storyplan und Grobentwurf der Landkarte (Gebiete, Wege, Größen) als Bild; offen 41e–41i. Dazu **68** Tempelszene (Lyra legt Amulett auf den Altar, „Ancient Legend“, Licht flackert einmal) und **69** Intro (fünf Standbilder: Südstraße, Brücke, Dorfplatz mit Fackeln am Tempel = Überfall, Fenster des Greifs, „Du schläfst wie ein Stein“); Rückfragen 68a, 69a, 69b offen, Texte nach Freigabe in den Storyplan.
 
 **Zuletzt gelesen bis:** dieser Commit (13.10., 15:3x)
 
