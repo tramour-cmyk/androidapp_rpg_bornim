@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom 0.1.676** (Zweig `claude/tom-17-riemen`, ersetzt 0.1.670): wird gebaut (13.10., 13:57), Link folgt · Prüfliste `e/t676.html`: Jorin ohne Zucken (55.1b), Anschlagbrett-Marke, 62f/62g (Leute, Dienste, Hausnamen). Nach „passt“: PR, zusammenführen (62d ja).
+- **Tom 0.1.676** (Zweig `claude/tom-17-riemen`, ersetzt 0.1.670): https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38393735424/artifacts/11810738534 · Prüfliste `e/t676.html`: Jorin ohne Zucken (55.1b), Anschlagbrett-Marke, 62f/62g (Leute, Dienste, Hausnamen). Nach „passt“: PR, zusammenführen (62d ja).
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Entscheidungsseite (65.3), nicht hier.
 
