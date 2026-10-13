@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 11:1x–12:0x „Abläufe verschlanken“ (65.4, 62e–62m, 64); 13.10. 11:58–12:2x Beschlüsse, Diogenes-Auftrag, 66, Form der Chronik-Texte. **Nachfolger:** „Sokrates – Chronik-Texte“ (Nutzer startet)
 
-**Nächster Punkt:** Kapitel 1 aus `Story.kt`/`Jobs.kt` lesen, Claude-Docs-Dokument anlegen: je Wendepunkt ein Eintrag „Bisher geschehen“ (64d), je Ort/Person ein Hörensagen-Satz (62i); Form entschieden (siehe „Chronik-Texte“ unten). Nutzer streicht, danach `docs/STORY.md` (41).
+**Nächster Punkt:** Kapitel 1 aus `Story.kt`/`Jobs.kt` lesen, [Dokument](https://claude.ai/code/artifact/a06e73b2-a039-4ae3-8c9d-380c6f74ad2e) angelegt (13.10.): je Wendepunkt ein Eintrag „Bisher geschehen“ (64d), je Ort/Person ein Hörensagen-Satz (62i); Form entschieden (siehe „Chronik-Texte“ unten). Nutzer streicht, danach `docs/STORY.md` (41).
 
 **Zuletzt gelesen bis:** dieser Commit (13.10., 12:2x)
 
