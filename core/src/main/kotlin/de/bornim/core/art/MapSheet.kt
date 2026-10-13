@@ -15,7 +15,7 @@ object MapSheet {
     @Volatile var draft = true
 
     /** 62h/62n (draft, preview `KARTENTUSCHE=1`): drawn like the land map, [MapInk.S] times finer ([MapInk]). */
-    @Volatile var ink = false
+    @Volatile var ink = true
 
     /** Pixels per tile, and the margin of bare parchment round the map. */
     const val C = 8

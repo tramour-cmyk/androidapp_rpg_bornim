@@ -193,7 +193,7 @@ object MapLook {
     @Volatile var previewShow: Set<de.bornim.core.MapMarks.Group> = de.bornim.core.MapMarks.Group.entries.toSet()
     /** 62g: the handwriting of the house names (Fondamento, OFL). */
     /** 62n (draft, preview `SCHILDER=1` or `=2`): 0 house names in handwriting (62g); 1 small names in the text box's serif, sepia; 2 signs on the houses, the name on tapping. */
-    @Volatile var labels = 0
+    @Volatile var labels = 2
     /** 62n: the serif of the text box (Alegreya, OFL). */
     val serif by lazy { androidx.compose.ui.text.font.FontFamily(androidx.compose.ui.text.font.Font(de.bornim.game.R.font.alegreya_regular, androidx.compose.ui.text.font.FontWeight.Normal)) }
     /** 62n: a house whose name to show at once (preview), the first whose German name holds this. */
