@@ -465,6 +465,8 @@ fun main() {
     if (System.getenv("XBOW") != null) { renderCrossbowProbe(); System.exit(0) }
     if (System.getenv("ITEMS") != null) { renderItemSheet(); System.exit(0) }
     if (System.getenv("HEROSPEAR") != null) { renderHeroSpear(); System.exit(0) }
+    if (System.getenv("SPEERSTUFEN") != null) { renderSpearSteps(); System.exit(0) }
+    System.getenv("SPEERRF")?.let { renderSpearGrid(it.toInt()); System.exit(0) }
     if (System.getenv("ARMS3D") != null) { renderArms3d(); System.exit(0) }
     if (System.getenv("BEAST") != null) { renderBeastDraft(); System.exit(0) }
     if (System.getenv("BEASTSCENE") != null) { renderBeastScene(); System.exit(0) }

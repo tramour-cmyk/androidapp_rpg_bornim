@@ -565,9 +565,24 @@ object MapFolk {
     const val BLOCK_MS = 16_000L
 
     /** [f] standing in [rest], breathing in or out: drawn in the background when first wanted, null until then. */
-    fun restFrame(f: Folk, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage? =
-        if ((rest == MapRest.Rest.NEUTRAL || level <= 0) && breath == 0) frame(f, slot, 0)
-        else MapRest.picture("folk|${f.id}|$slot|$rest|$breath|$level") { drawRest(f, slot, rest, breath, level) }
+    fun restFrame(f: Folk, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage? {
+        if ((rest == MapRest.Rest.NEUTRAL || level <= 0) && breath == 0) return frame(f, slot, 0)
+        MapRest.picture(restKey(f, slot, rest, breath, level)) { drawRest(f, slot, rest, breath, level) }?.let { return it }
+        // not drawn yet (test of 0.1.670: the figure fell back to plain standing for a moment and twitched):
+        // the nearest step of the same stance that is ready, the other breath before plain standing
+        for (d in 1..MapRest.LEVELS) for (lv in listOf(level - d, level + d)) {
+            if (lv !in 1..MapRest.LEVELS) continue
+            MapRest.cached(restKey(f, slot, rest, breath, lv))?.let { return it }
+        }
+        return MapRest.cached(restKey(f, slot, rest, 1 - breath, level))
+    }
+
+    private fun restKey(f: Folk, slot: Int, rest: MapRest.Rest, breath: Int, level: Int) = "folk|${f.id}|$slot|$rest|$breath|$level"
+
+    /** Asks for every step of [rest] in both breaths ahead of time, so going into it has all its pictures (55.1b). */
+    fun prepareRest(f: Folk, slot: Int, rest: MapRest.Rest) {
+        for (b in 0..1) for (lv in 1..MapRest.LEVELS) MapRest.picture(restKey(f, slot, rest, b, lv)) { drawRest(f, slot, rest, b, lv) }
+    }
 
     /** One resting picture of [f], drawn now. */
     fun drawRest(f: Folk, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage =

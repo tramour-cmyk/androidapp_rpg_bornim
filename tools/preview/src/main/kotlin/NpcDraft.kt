@@ -285,3 +285,50 @@ fun renderSitDraft() {
     javax.imageio.ImageIO.write(out, "png", java.io.File(dir, "sitzen_borin.png"))
     println("wrote sitzen_borin")
 }
+
+/** 55.1b (test of 0.1.670): Jorin grounding his spear, every turn by every step of the ease. SPEERSTUFEN=1 */
+fun renderSpearSteps() {
+    val F = MapFigure
+    val jorin = de.bornim.core.art.MapFolk.jorin
+    val k = 2
+    val levels = 0..de.bornim.core.art.MapRest.LEVELS
+    val out = BufferedImage(F.W * k * levels.count(), F.H * k * F.YAWS, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics()
+    g.color = Color(0x2E3628); g.fillRect(0, 0, out.width, out.height)
+    g.font = Font(Font.SANS_SERIF, Font.BOLD, 16); g.color = Color(0xE8DCC0)
+    for (slot in 0 until F.YAWS) for (lv in levels) {
+        val img = de.bornim.core.art.MapFolk.drawRest(jorin, slot, de.bornim.core.art.MapRest.Rest.SPEAR, 0, lv)
+        for (y in 0 until F.H * k) for (x in 0 until F.W * k) {
+            val q = img[x / k, y / k]; if ((q ushr 24) < 128) continue
+            out.setRGB(lv * F.W * k + x, slot * F.H * k + y, q)
+        }
+        g.drawString("$slot/$lv", lv * F.W * k + 4, slot * F.H * k + 16)
+    }
+    g.dispose()
+    ImageIO.write(out, "png", File("build/screens/speer_stufen.png"))
+    println("wrote spear steps")
+}
+
+/** 55.1b: where the grounded spear shows when Jorin is turned [SPEERRF] (slot): hand r across, f down. SPEERRF=2 */
+fun renderSpearGrid(slot: Int) {
+    val F = MapFigure
+    val jorin = de.bornim.core.art.MapFolk.jorin
+    val k = 2
+    val rs = listOf(-10.0, -4.0, 4.0, 10.0, 19.0, 26.0); val fs = listOf(-10.0, -4.0, 3.0, 9.0, 15.0)
+    val out = BufferedImage(F.W * k * rs.size, F.H * k * fs.size, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics()
+    g.color = Color(0x2E3628); g.fillRect(0, 0, out.width, out.height)
+    g.font = Font(Font.SANS_SERIF, Font.BOLD, 16); g.color = Color(0xE8DCC0)
+    val base = de.bornim.core.art.MapRest.rig(MapFigure.rig(slot * 360.0 / F.YAWS, 0, jorin.carry), de.bornim.core.art.MapRest.Rest.SPEAR, 0)
+    for ((i, r) in rs.withIndex()) for ((j, f) in fs.withIndex()) {
+        val img = F.render(jorin.doll, jorin.outfit, base.copy(rh = de.bornim.core.art.HeroFigure.V(r, base.rh.u, f), weapon = de.bornim.core.art.HeroFigure.V(0.0, 1.0, 0.04)))
+        for (y in 0 until F.H * k) for (x in 0 until F.W * k) {
+            val q = img[x / k, y / k]; if ((q ushr 24) < 128) continue
+            out.setRGB(i * F.W * k + x, j * F.H * k + y, q)
+        }
+        g.drawString("r${r.toInt()} f${f.toInt()}", i * F.W * k + 4, j * F.H * k + 16)
+    }
+    g.dispose()
+    ImageIO.write(out, "png", File("build/screens/speer_raster.png"))
+    println("wrote spear grid")
+}

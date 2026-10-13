@@ -1050,6 +1050,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
                         val ps = (if (spear && w != null && npc.patrol.isNotEmpty() && MapRest.draft) {
                             val stopped = w.movedAt + w.moveMs
                             MapRest.spearWatch(clock - stopped, w.nextMoveAt - clock, w.nextMoveAt - stopped, ps0.breath)
+                                ?.also { MapFolk.prepareRest(f, slotNow, MapRest.Rest.SPEAR) }
                         } else null) ?: ps0
                         MapFolk.restFrame(f, slotNow, ps.rest, ps.breath, ps.level)
                     } else null

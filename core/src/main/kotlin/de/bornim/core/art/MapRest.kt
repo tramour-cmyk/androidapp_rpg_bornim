@@ -58,8 +58,19 @@ object MapRest {
             // the hands clasped behind, at the small of the back, the chest a little forward
             Rest.BACK -> base.copy(rh = HeroFigure.V(3.0, 60.0, -9.0), lh = HeroFigure.V(-3.0, 60.0, -9.0), spread = 7.5, lean = -0.04)
             // the spear upright beside the right foot, the right hand on the shaft at the chest, the weight over to that side
-            Rest.SPEAR -> base.copy(rh = HeroFigure.V(SPEAR_R, SPEAR_U, SPEAR_F), weapon = HeroFigure.V(0.0, 1.0, 0.04), aim = 1.0, ground = 1.0,
-                bodyX = 1.5, spread = 8.0, headTurn = -6.0, twist = -4.0)
+            Rest.SPEAR -> {
+                // turned so his right side faces away the spear was gone behind him (test of 0.1.670): in those few
+                // turns the hand holds it where it shows (tried out with SPEERRF), in profile the shaft leans a little ahead
+                val (r, f, lean) = when (Math.floorMod(Math.round(base.yaw / (360.0 / MapFigure.YAWS)).toInt(), MapFigure.YAWS)) {
+                    1 -> Triple(SPEAR_R + 6, SPEAR_F, 0.04)
+                    2 -> Triple(SPEAR_R, SPEAR_F - 10, 0.04)
+                    3 -> Triple(SPEAR_R - 5, SPEAR_F + 8, 0.13)
+                    4 -> Triple(SPEAR_R - 3, SPEAR_F + 6, 0.11)
+                    else -> Triple(SPEAR_R, SPEAR_F, 0.04)
+                }
+                base.copy(rh = HeroFigure.V(r, SPEAR_U, f), weapon = HeroFigure.V(0.0, 1.0, lean), aim = 1.0, ground = 1.0,
+                    bodyX = 1.5, spread = 8.0, headTurn = -6.0, twist = -4.0)
+            }
         }
         if (up > 0) r = r.copy(bodyY = r.bodyY + up, rh = r.rh.copy(u = r.rh.u + up * 0.5), lh = r.lh.copy(u = r.lh.u + up * 0.5))
         return r
@@ -141,8 +152,11 @@ object MapRest {
         val k = minOf(inMs, outMs)
         // just before and after: standing plain, so no glance aside cuts into the spear
         if (k <= 0) return Pose(Rest.NEUTRAL, breath, LEVELS)
-        return Pose(Rest.SPEAR, breath, if (k >= EASE_MS) LEVELS else (LEVELS * k / EASE_MS.toDouble()).toInt().coerceIn(1, LEVELS))
+        return Pose(Rest.SPEAR, breath, if (k >= SPEAR_EASE_MS) LEVELS else (LEVELS * k / SPEAR_EASE_MS.toDouble()).toInt().coerceIn(1, LEVELS))
     }
+
+    /** Grounding the spear and taking it up again is a bigger move than a glance: slower than [EASE_MS] (test of 0.1.670). */
+    const val SPEAR_EASE_MS = 800L
 
     /** A stop at least this long is a watch with the spear grounded. */
     const val SPEAR_WATCH_MS = 8_000L
@@ -158,6 +172,9 @@ object MapRest {
     private val worker = java.util.concurrent.Executors.newSingleThreadExecutor { r ->
         Thread(r, "map-rest").also { it.isDaemon = true; it.priority = Thread.MIN_PRIORITY + 1 }
     }
+
+    /** The picture under [key] if it is drawn already, without asking for it. */
+    fun cached(key: String): PixelImage? = synchronized(cache) { cache[key] }
 
     /** The picture under [key], or null; when missing it is drawn in the background with [draw]. */
     fun picture(key: String, draw: () -> PixelImage): PixelImage? {
