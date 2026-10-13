@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Sitzungen** (thematisch benannt; ältere im Archiv): 13.10. 12:24–13:1x „Chronik-Texte“ (64d/62i, 67); 13.10. 13:21–14:1x „Story-Vorlage“ (STORY.md geteilt, Richtung Prophet). **Nachfolger:** „Sokrates – Kapitel 2“ (Nutzer startet, wartet auf Antwort)
 
-**Nächster Punkt:** Grobzusammenfassung Kapitel 2 steht im Storyplan (Entwurf „Das Graumoor“, 13.10. 15:2x); Rückfragen 41e–41h an den Nutzer offen (Region, Begleiter, Gwennas Mann, Siegel-Hälften), dann Quests mit Dialogen.
+**Nächster Punkt:** Kapitel 2 „Das Graumoor“ (Grobzusammenfassung im Storyplan). Nutzer 15:28: Grundidee gut; Kapitel 1 ist Einweisung, Kapitel 2 muss im Umfang deutlich mehr bieten (Karten, Höhlen, Zufallsdungeons 48). Als Nächstes: Umfang 41i in den Storyplan und Grobentwurf der Landkarte (Gebiete, Wege, Größen) als Bild; offen 41e–41h.
 
 **Zuletzt gelesen bis:** dieser Commit (13.10., 14:1x)
 
