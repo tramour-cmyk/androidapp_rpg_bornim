@@ -117,7 +117,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     private var thunderAt = 0L
 
     /** The rain at once as heavy as the weather says (previews and tests). */
-    fun settleWeather() { rainLevel = if (raining) 1f else 0f }
+    fun settleWeather() { rainLevel = if (raining) 1f else 0f; tracks.settle(rainLevel) }
+
+    /** Traces that stay a while: blood, footprints, dust (idea 7, draft). */
+    val tracks = Tracks()
 
     /** A flash of sheet lightning far off, the thunder following a few seconds later. */
     fun flash() {
@@ -129,6 +132,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         clockMs += deltaMs
         val target = if (raining) 1f else 0f
         rainLevel = if (rainLevel < target) minOf(target, rainLevel + deltaMs / Weather.FADE_MS) else maxOf(target, rainLevel - deltaMs / Weather.FADE_MS)
+        tracks.weather(if (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN) rainLevel else 0f, deltaMs)
         if (thunderAt != 0L && now >= thunderAt) {
             thunderAt = 0L
             if (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN) sounds += de.bornim.core.audio.Sound.THUNDER
@@ -1016,6 +1020,15 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     r.calmUntil = now + 8000
                 }
             }
+        }
+        if (battle.outcome == Outcome.WON) {
+            // draft (idea 7): blood where the foe fell, else on the tile before the hero
+            val p = state.place
+            val (bx, by) = battleRoamer?.let { it.x + 0.5 to it.y + 0.5 } ?: when (p.facing) {
+                Facing.UP -> p.x + 0.5 to p.y - 0.5; Facing.DOWN -> p.x + 0.5 to p.y + 1.5
+                Facing.LEFT -> p.x - 0.5 to p.y + 0.5; Facing.RIGHT -> p.x + 1.5 to p.y + 0.5
+            }
+            tracks.blood(p.map, bx, by, now, battleRoamer?.uid ?: state.steps)
         }
         battleRoamer = null
         if (battle.outcome == Outcome.LOST) state.ailments.clear() else keepAilments(battle)

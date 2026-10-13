@@ -163,6 +163,14 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.refresh()
             vm.toast = if (allDiag) t("Jeder Ort diagonal, auch die noch nicht fertigen (Wald, Tiefer Wald, Höhle).", "Every place diagonal, also those not finished yet (woods, deep woods, cave).") else t("Nur fertige Orte diagonal (Dorf, Innenräume).", "Only finished places diagonal (village, rooms).")
         }
+        // draft (idea 7): traces that stay a while
+        var tracks by remember { mutableStateOf(de.bornim.core.Tracks.draft) }
+        PixelButton(t("Spuren (Blut, Fußspuren, Staub): ", "Traces (blood, footprints, dust): ") + (if (tracks) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.Tracks.draft = !de.bornim.core.Tracks.draft
+            tracks = de.bornim.core.Tracks.draft
+            vm.refresh()
+            vm.toast = if (tracks) t("Blut nach gewonnenem Kampf, Fußspuren bei nassem Boden (auch mit Schlamm in die Häuser), Staub beim Rennen auf trockenem Weg.", "Blood after a won fight, footprints on wet ground (muddy boots carry them indoors), dust when running on a dry way.") else t("Keine Spuren.", "No traces.")
+        }
         PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatRespawnBosses()
             vm.refresh()

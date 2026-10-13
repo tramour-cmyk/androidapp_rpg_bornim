@@ -810,6 +810,9 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
             if (sun > 0.02f) for (o in MapFlora.shadows(map)) put(o.img, o.x, o.y, o.density, sun)
         }
 
+        // draft (idea 7): blood where a foe fell, footprints in the wet ground, dust kicked up running
+        if (de.bornim.core.Tracks.draft) drawTracks(game.tracks.on(map.id, clock), clock, camX, camY, scale)
+
         // Target of a tapped walk: a softly pulsing frame.
         if (marker != null) {
             val pulse = 0.5f + 0.5f * kotlin.math.sin(time / 160f)
@@ -1324,6 +1327,60 @@ private open class Turn {
  * Draws the fog in half-tile cells; each cell blends the fog of its tile with the neighbours
  * on that side, so the edges of the sight cone are soft instead of blocky.
  */
+/**
+ * Traces on the ground (idea 7, draft), under the turned mapping when seen diagonally: blood darkening as it dries,
+ * the prints of boots pointing the way walked (a sole and a heel), puffs of dust widening and thinning.
+ */
+private fun DrawScope.drawTracks(marks: List<de.bornim.core.Tracks.Mark>, clock: Long, camX: Int, camY: Int, scale: Int) {
+    val T = WorldArt.T
+    fun at(x: Double, y: Double) = Offset(((x * T - camX) * scale).toFloat(), ((y * T - camY) * scale).toFloat())
+    fun oval(c: Offset, w: Float, h: Float, color: Color) =
+        drawOval(color, Offset(c.x - w * scale / 2f, c.y - h * scale / 2f), androidx.compose.ui.geometry.Size(w * scale, h * scale))
+    for (m in marks) {
+        val a = m.alpha(clock)
+        if (a <= 0.01f) continue
+        val c = at(m.x, m.y)
+        when (m.kind) {
+            de.bornim.core.Tracks.Kind.BLOOD -> {
+                // fresh red, drying to a dark brown within the first minutes
+                val dry = (m.age(clock) / 0.4f).coerceIn(0f, 1f)
+                val col = androidx.compose.ui.graphics.lerp(Color(0xFF8E1A12), Color(0xFF5A1C14), dry).copy(alpha = 0.85f * a)
+                val rnd = kotlin.random.Random(m.seed)
+                // the pool: a few overlapping blobs, longer one way, then the splashes round it
+                val lean = rnd.nextFloat() * 6.28f
+                repeat(4 + rnd.nextInt(3)) {
+                    val d = rnd.nextFloat() * 6f; val w = 6f + rnd.nextFloat() * 6f
+                    val o = Offset(c.x + kotlin.math.cos(lean) * d * scale * (if (it % 2 == 0) 1 else -1), c.y + kotlin.math.sin(lean) * d * scale * 0.7f)
+                    oval(o, w, w * (0.55f + rnd.nextFloat() * 0.3f), col)
+                }
+                repeat(5 + rnd.nextInt(4)) {
+                    val ang = rnd.nextFloat() * 6.28f; val d = 9f + rnd.nextFloat() * 9f; val r = 1.2f + rnd.nextFloat() * 1.6f
+                    oval(Offset(c.x + kotlin.math.cos(ang) * d * scale, c.y + kotlin.math.sin(ang) * d * scale), r, r, col)
+                }
+            }
+            de.bornim.core.Tracks.Kind.PRINT -> {
+                // mud pressed down outdoors; carried in on the boots, a lighter, dried smear
+                val col = (if (m.strength >= 1f) Color(0xFF2A1E12) else Color(0xFF5A4630)).copy(alpha = 0.5f * a)
+                withTransform({ rotate(-m.yaw.toFloat(), c) }) {
+                    // the foot points down the map before turning: the sole ahead, the heel behind
+                    oval(Offset(c.x, c.y + 1.4f * scale), 3f, 4.4f, col)
+                    oval(Offset(c.x, c.y - 2.6f * scale), 2.6f, 2.2f, col)
+                }
+            }
+            de.bornim.core.Tracks.Kind.DUST -> {
+                val age = m.age(clock)
+                val rnd = kotlin.random.Random(m.seed)
+                repeat(3) {
+                    val ang = rnd.nextFloat() * 6.28f; val d = 1.5f + age * 3f
+                    val r = 2f + age * 5f + rnd.nextFloat() * 1.5f
+                    oval(Offset(c.x + kotlin.math.cos(ang) * d * scale, c.y + kotlin.math.sin(ang) * d * scale), r, r * 0.8f,
+                        Color(0xFFD6C29A).copy(alpha = 0.4f * (1f - age)))
+                }
+            }
+        }
+    }
+}
+
 private fun DrawScope.drawFog(game: Game, camX: Int, camY: Int, scale: Int, viewW: Float, viewH: Float) {
     val T = WorldArt.T
     val x0 = floor(camX.toFloat() / T).toInt() - 1
