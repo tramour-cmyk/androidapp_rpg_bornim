@@ -1359,8 +1359,8 @@ private fun DrawScope.drawTracks(marks: List<de.bornim.core.Tracks.Mark>, clock:
                 }
             }
             de.bornim.core.Tracks.Kind.PRINT -> {
-                // mud pressed down outdoors; carried in on the boots, a lighter, dried smear
-                val col = (if (m.strength >= 1f) Color(0xFF231810) else Color(0xFF5A4630)).copy(alpha = 0.7f * a)
+                // mud pressed down outdoors; carried in on the boots, a pale smear of dried mud (shows on dark boards and rugs)
+                val col = (if (m.strength >= 1f) Color(0xFF231810) else Color(0xFF9A8262)).copy(alpha = 0.7f * a)
                 withTransform({ rotate(-m.yaw.toFloat(), c) }) {
                     // the foot points down the map before turning: the sole ahead, the heel behind
                     oval(Offset(c.x, c.y + 1.5f * scale), 3.4f, 5f, col)

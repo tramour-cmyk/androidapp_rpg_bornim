@@ -251,13 +251,13 @@ fun main() {
                         walkFree(it.game!!, listOf(0.0 to 1.0), 2.4, run = true, t0 = 1000L)
                     }
                     shot("zoom_${z}_s4_schlamm_schaenke") {
-                        place(it, "inn", 4, 6, 12 * 60, Facing.UP)
+                        place(it, "inn", 2, 6, 12 * 60, Facing.RIGHT)
                         val g = it.game!!
                         // the boots muddy from the wet village, then into the inn
                         g.tracks.settle(1f)
                         for (k in 0..40) g.tracks.walked("village", 5.5, 5.0 + k * 0.05, 0.0, de.bornim.core.Tile.GRASS, true, false, 0L)
                         g.tracks.settle(0f)
-                        walkFree(g, listOf(0.0 to -1.0, 1.0 to -0.4), 1.6)
+                        walkFree(g, listOf(1.0 to 0.0), 2.2)
                     }
                 }
                 shot("zoom_${z}_6_weiher") { place(it, "forest", 7, 15, 12 * 60) }
