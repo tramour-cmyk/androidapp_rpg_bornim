@@ -55,10 +55,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 15:27)
+### Tom (13.10., 15:4x) – vor Neustart
 - **0.1.681 beim Nutzer** (`claude/tom-17-riemen`, Prüfliste `e/t681.html`); Test 0.1.676 sonst passt. Nach „passt“: PR, Merge (Merge-Commit), Änderungshistorie: 59, 60e–k, 60j, 17r, 5la, 5la.2, 5la.3, 6g, 6f, 61a, 61, 62a, 62c, 62e, 62f/62g, 59e, 55.1a, 55.1b, 13x, 13v/27.6, 13e-Sicht weich.
 - Danach `claude/tom-66-laterne` (66a A) und `claude/tom-67-suedrand` (Entwurf a191e253+, `e/67`, wartet auf ja; enthält 66 und riemen bis cb905a16, vor PR riemen neu hineinführen) als PR.
 - **62h und 64 Entwürfe** auf `claude/tom-62h-landkarte` (von riemen): `LandSheet.kt`/`LandView` (`MapLook.land`), `Chronicle.kt`/`ChronicleTab.kt` (`ChronicleLook.draft`); `e/62h`, `e/64` warten. Sprung Chronik → Kartenmarke und Stern am Reiter fertig (059b5ceb). Marke → Chronik fertig. Ohne Entscheidung weiter: 13t (alte Ansicht ausbauen): seit 13e ist überall diagonal (`MapSight.finished` immer wahr), also gerade Zeichnung in `WorldScreen`/`WorldArt` und `MapSight.diagonal`-Zweige (15 Stellen) entfernen; eigener Zweig von `main` nach Merge von riemen, frische Sitzung.
+- **13e offen (Nutzer 15:4x):** Rand des Sichtkegels in der Höhle bleibt im Stand hart und schräg-kantig („quadratisch ausgeblendet“, Bilder 14:3x); 0.1.681 macht nur das Umschalten weich. Fix: Nebel weicher zeichnen (Weichzeichnung über 2–3 Kacheln oder weicher Winkelabfall des Kegels in `Fog`/`LightImage`), Standbild `HELDORT=cave:16:12:U:18` vorher/nachher, auf `claude/tom-17-riemen`, vor 13t.
 - Lehre: während Builds und Rückfragen am nächsten Punkt weiterarbeiten (Nutzer 14:5x).
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
