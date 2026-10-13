@@ -1195,6 +1195,7 @@ private fun MapView(game: Game, rev: Int, progress: Float, fromX: Int, fromY: In
         ground { if (MapLight.needed(map, game.daylight)) drawMapLight(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH) }
         if (diag && map.kind == MapKind.INTERIOR) drawHearthSmoke(game, map, clock, cam, camX, camY, scale)
         if (diag && map.kind == MapKind.TOWN && MapGround.supports(map)) drawTownSmoke(map, clock, cam, camX, camY, scale)
+        if (diag && map.kind == MapKind.FOREST) drawCampSmoke(game, map, clock, cam, camX, camY, scale)
         // what shines by itself (25.1: a lamp's glass; 25b: lit windows) is drawn over the light of the place, so the source is the brightest
         // spot around it, waking with the dusk like the light it throws; a small warm halo around it
         val night = MapLight.strength(map, MapLight.When.NIGHT, game.daylight).toFloat()
@@ -1713,6 +1714,44 @@ private fun DrawScope.drawTownSmoke(map: de.bornim.core.MapDef, clock: Long, cam
             val a = 0.3f * (1f - ph) * (1f - ph) * kotlin.math.min(1f, ph * 10f)
             val c = Offset(x, y)
             drawCircle(Brush.radialGradient(listOf(Color(0xFF6E6A66).copy(alpha = a), Color(0xFF6E6A66).copy(alpha = a * 0.5f), Color(0x006E6A66)), c, r), r, c)
+        }
+    }
+}
+
+/**
+ * Seen diagonally (27.6c, draft): smoke rising from the camp fires in the woods, a loose column of soft wisps like
+ * the chimneys' (drawTownSmoke), carried off with the wind as it climbs; over Morwen's herb fire in the deep woods
+ * paler and faintly green. Only over fires the hero has seen.
+ */
+private fun DrawScope.drawCampSmoke(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int) {
+    val T = WorldArt.T
+    val herbs = map.id == "deep_forest"
+    // pale against the dark woods (dark grey like the chimneys' was lost against the ground)
+    val col = if (herbs) Color(0xFFC2CAB6) else Color(0xFFB4B0A8)
+    for (ty in 0 until map.height) for (tx in 0 until map.width) {
+        if (map.tile(tx, ty) != de.bornim.core.Tile.CAMPFIRE) continue
+        val seen = when (game.fog(tx, ty)) {
+            de.bornim.core.Fog.HIDDEN -> 0f
+            de.bornim.core.Fog.SEEN -> 0.5f
+            de.bornim.core.Fog.VISIBLE -> 1f
+        }
+        if (seen <= 0f) continue
+        val mx = (((tx + 0.5f) * T - camX) * scale); val my = (((ty + 0.5f) * T - camY) * scale)
+        // from just above the flames
+        val bx = cam.toScreenX(mx, my); val by = cam.toScreenY(mx, my) - 12f * scale
+        if (bx < -60f * scale || bx > size.width + 60f * scale || by < -10f || by > size.height + 60f * scale) continue
+        val n = 16
+        val seed = tx * 31 + ty * 7
+        for (k in 0 until n) {
+            val period = 6400L
+            val ph = (((clock + seed * 211) + k * period / n) % period) / period.toFloat()
+            val sway = kotlin.math.sin(ph * 3.6f + seed + clock / 2700f) * (0.8f + ph * 3f)
+            val x = bx + (sway + ph * ph * 18f) * scale
+            val y = by - (ph * 56f) * scale
+            val r = (2.2f + ph * 9f) * scale
+            val a = (if (herbs) 0.42f else 0.34f) * seen * (1f - ph) * (1f - ph) * kotlin.math.min(1f, ph * 8f)
+            val c = Offset(x, y)
+            drawCircle(Brush.radialGradient(listOf(col.copy(alpha = a), col.copy(alpha = a * 0.5f), col.copy(alpha = 0f)), c, r), r, c)
         }
     }
 }

@@ -498,9 +498,9 @@ object Story {
             "TTTTT.I...I..=TTTTTTT=TTTTTTTTTT,,,=,,TTTTTT",
             "TT.T.........=TTTTTTT=TTTTTTTT,TT,T=,TTTTTTT",
             "TTT..I.T...I==TTTTTff=fffTTT,,,,,,T=TTTTTTTT",
-            "TT.S........=..TTffT.=ffT.,,,,,,,===TTTTTTTT",
+            "TT..........=..TTffT.=ffT.,,,,,,,===TTTTTTTT",
             "=======.....=.T......=....,,,,,,,=,TTTTTTTTT",
-            "TT....========.r.....=============,,TTTTTTTT",
+            "TT.S..========.r.....=============,,TTTTTTTT",
             "TTT.fff.,,,,,==========T..,====,,,,TTTTTTTTT",
             "TTT.ff.,,,,,,,.==.........,,,,=,,,TTTTTTTTTT",
             "TTT.....,,,,,T==.....F.,.,,,,,=,,,TTTTTTTTTT",
@@ -524,7 +524,8 @@ object Story {
             Warp(0, 18, Place("forest", 18, 10, Facing.LEFT)),
         ),
         signs = mapOf(
-            (3 to 17) to T("Tiefer Flüsterwald\nHier endet der Weg der Jäger.\nNur für erfahrene Abenteurer!", "Deep Whisperwood\nThe hunters' trail ends here.\nFor seasoned adventurers only!"),
+            // 27.6b (draft): south of the way, in the light and before the trees (north of it the sign stood in deep shade)
+            (3 to 19) to T("Tiefer Flüsterwald\nHier endet der Weg der Jäger.\nNur für erfahrene Abenteurer!", "Deep Whisperwood\nThe hunters' trail ends here.\nFor seasoned adventurers only!"),
         ),
         chests = listOf(
             Chest("deep_1", 37, 7, randomGear(Rarity.RARE)),
