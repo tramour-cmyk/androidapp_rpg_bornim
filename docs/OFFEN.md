@@ -58,7 +58,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ### Tom (13.10., 18:1x)
 - **13e Meldung 17:5x behoben** (Zweig `claude/tom-13e-kegelrand`, 36ce407b): Sichtkegel folgt der echten Blickrichtung (`FreeWalk.lookYaw`), nicht der nächsten Kartenrichtung; Kerntest `FogTest.theConeFollows…`. Build läuft, Weckruf 18:17; danach Prüfliste `e/t<build>.html`, ersetzt 0.1.693.
 - 62n und 62h/62o (Gebietskarte, Grundrisse Höhle und Räume im Tuschestil) auf der Entscheidungsseite, im Spiel aus.
-- 13t angefangen auf `claude/tom-13t-alte-ansicht` (gerade Ansicht und alte Höhle ausgebaut, übersetzt, Kerntests grün; Bildkontrolle `KARTENZOOM=1 HELDORT=…` steht aus; `DIAG=1`/`CAVEDRAFT=1` gibt es dort nicht mehr, `UMGEBUNG.md` beim Zusammenführen anpassen). Dann 6l, 68.
+- 13t angefangen auf `claude/tom-13t-alte-ansicht` (gerade Ansicht und alte Höhle ausgebaut, übersetzt, Kerntests grün, Bildkontrolle Wald/Dorf/Schänke/Höhle gut; offen: tote Reste der geraden Zeichnung löschen (z. B. `WorldArt.chimneys`), `MapSight.diagonal` in `LightImage` des Zweigs 13e beim Zusammenführen; `DIAG=1`/`CAVEDRAFT=1` gibt es dort nicht mehr, `UMGEBUNG.md` beim Zusammenführen anpassen). Dann 6l, 68.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
 - **Nutzer 17:0x:** Nutzungsguthaben fast aufgebraucht, Jerry arbeitet erst ab Freitag weiter; Selbstarbeit beendet (`SELBST.md`: fertig, Weck-Routinen beenden sich von selbst). Tom arbeitet allein weiter; Jerrys Themen (13e, 24.6, 30.7, 36.6, 38, 39, 40, 51–53) ruhen, nichts davon ist dringend.
