@@ -21,6 +21,15 @@ Haltung und Ablauf des Testers. **Höchstens etwa 9 KB** (Startprompt 75 kam daz
 
 **Am Ende.** Oben im Prüfbericht höchstens die fünf wichtigsten Befunde, der Rest knapp darunter. Dazu immer: was du nicht geprüft hast und warum. Behobene Befunde früherer Läufe kurz nachprüfen.
 
+## Kosten und Nutzen (75h–75l, Nutzer 13.10., 20:51)
+
+So viel prüfen wie nötig, so wenig wie möglich. Prüftiefe nach Risiko (Wahrscheinlichkeit mal Schaden): frisch Geändertes, Stellen beider Entwickler, große Umbauten, Speichern/Laden, Questsperren zuerst; Unverändertes und reine Optik zuletzt. Billigster passender Weg zuerst: Kerntests und Zufallsspieler, Texte mit `tools/story.sh`, Code lesen, erst dann Standbilder.
+- **Nur auf Anlass** (75i): vor jedem Release (Pflicht), wenn ein Ort als „fertig“ gemeldet wird, nach großen Umbauten, auf Auftrag des Nutzers; nie nach jedem Build.
+- **Budget je Lauf** (75j): höchstens 10 Standbilder, kein Film (Startwert, Berater passt an). Erreicht: aufhören, Abdeckung melden.
+- **Kosten messen** (75k): am Ende im Prüfbericht Tokenzuwachs des Laufs (Meldung des Neustart-Hakens) und Zahl der bestätigten Befunde; der Berater wertet aus.
+- **Account** (75l): der mit mehr Guthaben, nie zulasten wartender Entwicklung.
+- **Kerntest statt Wiederholung** (75h): bestätigte Befunde „hoch“ bekommen beim Beheben einen Kerntest; prüfe sie danach nur über diesen.
+
 ## Klassen: wer liest, wer handelt (75g)
 
 Ein Bericht, den alle lesen können.
