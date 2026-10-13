@@ -320,7 +320,7 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
         fun cx(tx: Int) = (de.bornim.core.art.MapSheet.PAD + (tx - win.x) * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f) * fine
         fun cy(ty: Int) = (de.bornim.core.art.MapSheet.PAD + (ty - win.y) * de.bornim.core.art.MapSheet.C + de.bornim.core.art.MapSheet.C / 2f) * fine
         // opens zoomed in on the hero, at least so far that the map fills the frame
-        var scale by remember { mutableStateOf(if (here || focus != null) maxOf(fit * MapLook.previewZoom, maxOf(vw / img.width, vh / img.height)) else fit) }
+        var scale by remember { mutableStateOf(if (map.kind != de.bornim.core.MapKind.INTERIOR && (here || focus != null)) maxOf(fit * MapLook.previewZoom, maxOf(vw / img.width, vh / img.height)) else fit) }
         fun clampX(o: Float) = if (img.width * scale <= vw) (vw - img.width * scale) / 2 else o.coerceIn(vw - img.width * scale, 0f)
         fun clampY(o: Float) = if (img.height * scale <= vh) (vh - img.height * scale) / 2 else o.coerceIn(vh - img.height * scale, 0f)
         var ox by remember { mutableStateOf(clampX(if (focus != null) vw / 2 - cx(focus.x) * scale else if (here) vw / 2 - cx(p.x) * scale else 0f)) }

@@ -108,12 +108,11 @@ object MapInk {
                     w = mix(w, 0xFF98A858.toInt(), fieldF(u, v) * 0.55)
                     w = mix(w, 0xFFC4B898.toInt(), cobbleF(u, v) * 0.6)
                     if (town) w = mix(w, 0xFFC8A47A.toInt(), ((pathF(u, v) - 0.3) * 2.2 + grain).coerceIn(0.0, 0.7))
-                    w = mix(w, 0xFFC8A878.toInt(), floorF(u, v) * 0.45)
-                    if (room) w = mix(w, 0xFF6A5440.toInt(), houseF(u, v) * 0.8)
-                    else w = mix(w, mix(STAIN, 0xFFB0644A.toInt(), 0.5), houseF(u, v) * 0.55)
-                    if (cave) {
-                        // 62o: a sketched ground plan, the floor washed, the rock left bare but hatched along the wall
-                        val r = rockF(u, v)
+                    if (!room) w = mix(w, 0xFFC8A878.toInt(), floorF(u, v) * 0.45)
+                    if (!room) w = mix(w, mix(STAIN, 0xFFB0644A.toInt(), 0.5), houseF(u, v) * 0.55)
+                    if (cave || room) {
+                        // 62o: a sketched ground plan, the floor washed, the rock (or a room's walls) left bare but hatched along the wall
+                        val r = if (cave) rockF(u, v) else houseF(u, v)
                         w = mix(w, 0xFFCFB386.toInt(), ((0.5 - r) * 4).coerceIn(0.0, 1.0) * (0.55 + grain))
                         if (r > 0.5) {
                             val band = (1 - (r - 0.5) / 0.42).coerceIn(0.0, 1.0)
@@ -241,9 +240,32 @@ object MapInk {
                 Tile.GATE -> stroke(cx - C / 2.0, cy, cx + C / 2.0, cy, RED, 0.8)
                 Tile.CROPS, Tile.VEG_BED -> for (k in 0..2) stroke(cx - 3.2, cy - 2.5 + k * 2.5, cx + 3.2, cy - 2.5 + k * 2.5, 0xFF5E7030.toInt(), 0.4, 0.7)
                 Tile.TABLE, Tile.COUNTER, Tile.BED, Tile.SHELF, Tile.DESK, Tile.STALL, Tile.BENCH, Tile.RACK, Tile.ALTAR, Tile.ARMCHAIR -> {
-                    for (yy in ((cy - 3) * S).toInt()..((cy + 3) * S).toInt()) for (xx in ((cx - 3) * S).toInt()..((cx + 3) * S).toInt()) dot(xx, yy, 0xFF8A6440.toInt(), 0.5)
-                    stroke(cx - 3, cy - 3, cx + 3, cy - 3, INK, 0.45); stroke(cx - 3, cy + 3, cx + 3, cy + 3, INK, 0.45)
-                    stroke(cx - 3, cy - 3, cx - 3, cy + 3, INK, 0.45); stroke(cx + 3, cy - 3, cx + 3, cy + 3, INK, 0.45)
+                    // one piece over several tiles: run on to the next tile of the same kind, outline only the outer sides
+                    val t0 = map.tile(tx, ty)
+                    fun same(dx: Int, dy: Int) = map.inside(tx + dx, ty + dy) && map.tile(tx + dx, ty + dy) == t0
+                    val inset = when (t0) { Tile.BENCH, Tile.SHELF, Tile.RACK -> 2.2; Tile.ARMCHAIR -> 1.4; else -> 0.6 }
+                    val l = if (same(-1, 0)) cx - C / 2.0 else cx - C / 2.0 + inset
+                    val r = if (same(1, 0)) cx + C / 2.0 else cx + C / 2.0 - inset
+                    val tp = if (same(0, -1)) cy - C / 2.0 else cy - C / 2.0 + inset
+                    val bt = if (same(0, 1)) cy + C / 2.0 else cy + C / 2.0 - inset
+                    val fill = when (t0) {
+                        Tile.BED -> 0xFFC2B494.toInt(); Tile.ALTAR -> 0xFFB0A48C.toInt(); Tile.COUNTER -> 0xFF7A5434.toInt()
+                        Tile.SHELF, Tile.RACK -> 0xFF6E5038.toInt(); Tile.STALL -> 0xFFA07040.toInt(); else -> 0xFF957048.toInt()
+                    }
+                    // half-open on the shared sides, so two tiles of one piece leave no darker seam
+                    for (yy in (tp * S).toInt() until (bt * S).toInt() + (if (same(0, 1)) 0 else 1))
+                        for (xx in (l * S).toInt() until (r * S).toInt() + (if (same(1, 0)) 0 else 1)) dot(xx, yy, fill, 0.75)
+                    if (!same(0, -1)) stroke(l, tp, r, tp, INK, 0.45)
+                    if (!same(0, 1)) stroke(l, bt, r, bt, INK, 0.45)
+                    if (!same(-1, 0)) stroke(l, tp, l, bt, INK, 0.45)
+                    if (!same(1, 0)) stroke(r, tp, r, bt, INK, 0.45)
+                    when (t0) {
+                        // the bed's pillow at its head (the end without more bed above), the table's planks, the altar's cloth
+                        Tile.BED -> if (!same(0, -1)) for (yy in ((tp + 0.8) * S).toInt()..((tp + 2.6) * S).toInt()) for (xx in ((l + 1) * S).toInt()..((r - 1) * S).toInt()) dot(xx, yy, GROUND, 0.9)
+                        Tile.TABLE, Tile.DESK, Tile.COUNTER -> stroke(l + 0.6, (tp + bt) / 2, r - 0.6, (tp + bt) / 2, INK, 0.25, 0.45)
+                        Tile.ALTAR -> stroke(l + (if (same(-1, 0)) 0.0 else 0.8), (tp + bt) / 2, r - (if (same(1, 0)) 0.0 else 0.8), (tp + bt) / 2, RED, 0.9, 0.8)
+                        else -> {}
+                    }
                 }
                 Tile.BARREL, Tile.PLANT, Tile.CANDLES, Tile.LAMP, Tile.CRATE -> { disc(cx, cy, 1.6, 0xFF8A6440.toInt(), 0.7); ring(cx, cy, 1.6, INK, 0.4) }
                 Tile.TORCH -> disc(cx, cy, 1.1, 0xFFD87830.toInt())

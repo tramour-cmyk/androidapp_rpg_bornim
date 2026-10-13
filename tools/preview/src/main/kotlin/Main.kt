@@ -194,6 +194,20 @@ fun main() {
             }
             System.exit(0)
         }
+        // KARTE62=1 KARTENTUSCHE=1 ONLY=62r: the ground plans of the rooms in ink, the hero inside
+        if (System.getenv("ONLY") == "62r") {
+            de.bornim.game.ui.MapLook.previewTip = -9
+            for (room in (System.getenv("RAEUME") ?: "inn,shop,elder,temple").split(",")) {
+                val m = de.bornim.core.World[room]
+                val d = m.warps.first()
+                shot("62r_$room", settle = 30) { vm ->
+                    setup(vm, "village", 9, 12, Facing.DOWN)
+                    vm.game!!.state.place = Place(room, d.x, (d.y - 1).coerceAtLeast(0), Facing.UP)
+                    vm.refresh(); vm.menuOpen = false; vm.refresh(); vm.menuOpen = true; vm.refresh()
+                }
+            }
+            System.exit(0)
+        }
         if (System.getenv("ONLY") == "62e") System.exit(0)
         // KARTE62=1 ONLY=62f: 62f/62g, people at their usual place, services, house names in handwriting
         if (System.getenv("ONLY") == "62f") {
