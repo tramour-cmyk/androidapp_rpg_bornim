@@ -58,7 +58,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (13.10., 19:4x) – an Nachfolger
 - 0.1.702 (Zweig `claude/tom-13e-kegelrand`) beim Nutzer, Prüfliste `e/t702.html`; nach „passt“ PR, zusammenführen.
-- **13t** auf `claude/tom-13t-alte-ansicht` (fbd91a27): gerade Ansicht ganz raus, ~2.500 Zeilen tote Reste gelöscht (Kerntests grün). Offen: Bildvergleich vorher/nachher (`KARTENZOOM=1 ONLY=zoom_nah_`, Vorher-Stand = 68bf1e20), dann Build und Prüfliste; nach Merge in `UMGEBUNG.md` die Schalter `TOWNDRAFT`, `OVERVIEW`, `MAPS`, `CAVEMAP`, `RAUMDINGE`, `ALTRAUM` streichen.
+- **13t** auf `claude/tom-13t-alte-ansicht` (fbd91a27): gerade Ansicht ganz raus, ~2.500 Zeilen tote Reste gelöscht (Kerntests grün). Bildvergleich Wald/Dorf/Schänke/Höhle vorher/nachher pixelgleich; Build 0.1.703 grün, dem Nutzer noch nicht angeboten: erst nach Merge von 0.1.702 `main` in den Zweig holen, neu bauen, kurze Prüfliste (alle Orte einmal betreten); nach Merge in `UMGEBUNG.md` die Schalter `TOWNDRAFT`, `OVERVIEW`, `MAPS`, `CAVEMAP`, `RAUMDINGE`, `ALTRAUM` streichen.
 - 62r bauen, sobald entschieden (Empfehlung Ziel-Beschriftung); danach 6l, 68. Begriffe 62q beachten.
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
