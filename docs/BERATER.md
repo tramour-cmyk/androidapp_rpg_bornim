@@ -6,9 +6,9 @@ Gedächtnis der Beratungssitzung: wie das Spiel gebaut ist, was warum entschiede
 
 Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grundsätzliches lernen (eine Zeile, mit Datum und Thema).
 
-**Letzte Sitzungsnummer:** 02 (01 = Sitzung ab 15:10 am 12.10., Zählung ab da; 02 = „Talentliste und Fertigkeiten“, 18:02)
+**Letzte Sitzungsnummer:** 03 (01 = ab 15:10 am 12.10.; 02 = „Talentliste und Fertigkeiten“; 03 = 12.10. 22:13 bis 13.10. 09:0x, Händler/Oberfläche/Rollen). **Nachfolger: „04 Sokrates - Grundsatzfragen“** (startet der Nutzer selbst)
 
-**Zuletzt gelesen bis:** `7de4f5c` (12.10., 16:39)
+**Zuletzt gelesen bis:** `7df7e29` (13.10., 09:00) plus dieser Commit
 
 ## Ritual
 
@@ -28,6 +28,12 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 
 ## Entscheidungen mit Begründung
 
+- **Nächster Punkt (04):** 59e (Vorrat je Laden sichtbar, sonst „Alle“ bei Tränken weg; berührt Balance 38) und 62c (Karte: Standort zu klein, zoomen/schieben, Ortsübersicht Dorf/Wald/Tiefer Wald/Höhle antippen). Beide unter „Für den Berater“ in `OFFEN.md`; nehmen, sobald sie auf Toms neuer Seite (63) stehen. Selbst nur beraten, Entscheidung in „Wer macht was“, Zeile unter „Für den Berater“ streichen.
+- **Rollen** (13.10.; Regeln in `CLAUDE.md`): Berater heißt **Sokrates**, berät bei Strategie, Grundsatz und grundlegendem Design (Story, Richtung, einheitliches Aussehen, Balance, Geschäftsmodell, große Umbauten), nie Code. Tom/Jerry entscheiden Kleines selbst, Grundsätzliches tragen sie unter „Für den Berater“ ein und arbeiten weiter (nicht blockieren). Grund: Nutzer will Grundsatzfragen gebündelt bei uns, ohne dass die Entwicklung steht.
+- **Diogenes** (13.10.): vierte Rolle Tester, kein eigener Account (Nutzer: zwei Accounts teuer genug), nur melden, Ablauf in `docs/DIOGENES.md`. Mein Beitrag (Nutzer wollte eigene Ideen statt Zustimmung): ein Prüfbericht statt zwei, Prüfstand (nur Neues prüfen), feste Prüflisten, Befund = Verdacht, Einzelheiten aus `CLAUDE.md` ausgelagert (spart Token jeder Sitzung). Nutzer: „Archimedes“ verworfen, baut statt prüft.
+- **Eine Entscheidungsseite (63, 13.10.):** jede Rückfrage an den Nutzer auf eine gemeinsame Seite („Zu entscheiden“/„Anzusehen“), wie Bildbuch aufgebaut; Grund: Fragen gehen in vielen Chats und neuen Sitzungen unter. Tom zieht es vor (heute, nicht Freitag: Nutzer will nicht warten).
+- **Oberfläche (59, 60, 12.10.):** Händler und alle Oberflächen schwarz, Gold, Serife wie Textkasten (`STIL.md` „Oberfläche“); Serife mitliefern (Gerätschrift sieht je Gerät anders aus), Pixelschrift nur für kleine Kampfzahlen; Angelegtes nicht verkaufbar (59c). Gebaut im Sammelbuild 0.1.650, Test gut.
+
 - **Nur diagonal** (13, 13.4, 13u, 13w, 12.10.): Gerade Ansicht wirkte flach. Testschalter weg (PR #43), fertige Orte diagonal, Wald/Tiefer Wald/Höhle gerade bis fertig; neue Orte nur diagonal (doppelte Arbeit vermeiden, Nutzer: keine Arbeit in Ansichten gegen das Ziel); alte Ansicht eingefroren (nur Absturz-Fixes), dann gelöscht. Danach Zoomstufe (6l).
 - **Sichtbarkeit** (43, 12.10.): diagonal rückt der frühere rechte Rand vor die Kamera. Wichtiges (Leute, Questziele, Eingänge, Feuer) steht frei, Karten werden dafür umgestellt (27b, gegen Toms 27.3); Durchsicht nur um den Helden; Kisten dürfen versteckt sein. Morwen (Tiefer Wald) später bei Tom.
 - **Leitbild** (44, 12.10.): `LEITBILD.md` als roter Faden (12 Grundsätze), Einzelheiten in `STIL.md` (Aussehen, Klang, Spiel) und `ENTWICKLUNG.md` (Ansicht, „Ort fertig“, Prüfen, Leistung). SRD = Gerüst, nicht Ziel (44f; Nutzer wollte weg von „nah am SRD“), keine AD&D-Erwähnung (kein zwingender Grund). Freigabe 16 (44a): Killerschlag und Blut „Deutlich“ als Obergrenze, Zerteilen in 3D vorher prüfen. Effekte und Hintergrundklänge bieten Tom/Jerry aktiv an (44d).
@@ -42,6 +48,9 @@ Tom und Jerry dürfen unter „Lehren“ selbst eintragen, wenn sie etwas Grunds
 - **Storyplan** (41, 12.10.): Dokument auf Toms Account ([Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)), Nutzer kommentiert dort; je Kapitel Zusammenfassung, Quests, Dialoge wortgetreu. **4 Augen:** Story-Änderungen erst nach Abstimmung Nutzer + Berater an Tom/Jerry (Kapitel 1 erst nach dem Test der 12 Tester): Dokument → „freigegeben“ → `docs/STORY.md` → Tom/Jerry bauen → Berater prüft mit `tools/story.sh`. Kapitel 2: Einstieg drei Entwürfe „Wer ist der Graue Prophet?“ (Motiv, Amulett, Priesterin, Tag der Asche), Stufe 8 am Ende; Kapitel 1 dafür aus `Story.kt`/`Jobs.kt` lesen, nicht das ganze Dokument. Nachtragen: Heldensätze 29.4 (Anmerkung 7).
 
 ## Lehren
+
+- **Eigene Ideen einbringen** (13.10.): Nutzer: „du findest alles sinnvoll, was ich vorschlage … du bist mein Berater“. Jeden Vorschlag des Nutzers auf Lücken, Kosten und Doppelungen prüfen und Eigenes ergänzen, nicht nur zustimmen.
+- **Sprachsitzung parallel** (13.10.): Der Nutzer spricht oft per Sprache mit einer zweiten Sokrates-Sitzung, die Aufträge herüberreicht. Aufträge nur ausführen, wenn der Nutzer sie im Gespräch freigegeben hat; danach knapp mit Commit melden.
 
 - **Wiederholte Rückfragen prüfen** (12.10.): Vor dem Wiederholen einer Rückfrage in `OFFEN.md` nachsehen, ob Tom/Jerry sie schon mit dem Nutzer geklärt haben (26b, 34.1, 35a waren es).
 - **Docs-Werkzeug** (41): Einfache Zeilenumbrüche in Markdown verschmelzen zu einem Absatz; Dialogzeilen mit Leerzeile trennen.
