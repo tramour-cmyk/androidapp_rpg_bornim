@@ -165,7 +165,8 @@ private fun MapTab(game: Game, lang: Lang) {
             Spacer(Modifier.height(6.dp))
         }
         if (overview) PlaceList(game, lang) { shown = it; overview = false }
-        else androidx.compose.runtime.key(shown, show) { MapView(game, lang, map, here, show) }
+        // test of 0.1.676: a switch keeps the zoom and the place on the map (the view used to start afresh)
+        else androidx.compose.runtime.key(shown) { MapView(game, lang, map, here, show) }
     }
 }
 
@@ -217,7 +218,7 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
     val p = game.state.place
     val img = remember(map.id, p.x, p.y) { de.bornim.core.art.MapSheet.render(map, { x, y -> seenOn(game, map, x, y) }) }
     val bmp = Bitmaps.of(img)
-    val marks = remember(map.id) {
+    val marks = remember(map.id, show) {
         val all = de.bornim.core.MapMarks.of(game.state).filter { it.map == map.id && it.kind.group in show }
         // 62f: someone with a quest has the quest's mark; their habits join its line instead of a second mark
         val persons = all.filter { it.kind == de.bornim.core.MapMarks.Kind.PERSON }
@@ -257,7 +258,7 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
                     ox = clampX(centroid.x - (centroid.x - ox) * k + pan.x)
                     oy = clampY(centroid.y - (centroid.y - oy) * k + pan.y)
                 } }
-                .pointerInput(Unit) { detectTapGestures { at ->
+                .pointerInput(marks) { detectTapGestures { at ->
                     tip = marks.minByOrNull { m -> kotlin.math.hypot(ox + cx(m.x) * scale - at.x, oy + cy(m.y) * scale - at.y) }
                         ?.takeIf { m -> kotlin.math.hypot(ox + cx(m.x) * scale - at.x, oy + cy(m.y) * scale - at.y) < 28 * density }
                 } }
@@ -315,7 +316,7 @@ private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Bo
                 }, red)
             }
         }
-        tip?.let { m ->
+        tip?.takeIf { it in marks }?.let { m ->
             Panel(Modifier.align(Alignment.BottomCenter).padding(8.dp)) {
                 Txt(m.label(lang), size = 15.sp, color = if (m.kind == de.bornim.core.MapMarks.Kind.GIVER) Color(0xFF8DB4E2) else Veil.bright)
             }
