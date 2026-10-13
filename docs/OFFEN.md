@@ -44,10 +44,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (13.10., 07:16) – Sammelbuild
-- Bildbuch hat 60e–60i, 27.6, 13x, 17r, 5la, 6g, 6f, 61a, 62a, 55.1a; Entscheidungsseite leer.
-- Sammelzweig `claude/rpg-startup-qaae3o`: alle entschiedenen Entwürfe an (Testschalter weg, Schalter im Code stehen auf an), Kerntests grün. Nach dem Test: PR, zusammenführen, Änderungshistorie.
-- **Nutzer 07:1x: Neustart nach der Build-Meldung ja.** Weiter (Nachfolger): Test Sammelbuild abwarten, dann PR und zusammenführen; 27.6 mit dem diagonalen Wald (13v), 17 Riemen, 55.1b Speer.
+### Tom (13.10., 07:25) – Sammelbuild 0.1.650 fertig, Neustart
+- Bildbuch hat alles Entschiedene bis 07:02; Entscheidungsseite leer.
+- **Sammelbuild 0.1.650** (Zweig `claude/rpg-startup-qaae3o`, siehe „Zu testen“): alle entschiedenen Entwürfe an, Testschalter weg (die Schalter im Code stehen auf an, Vorschau-Schalter bleiben für alt/neu). Kerntests grün, Standbild Schänke 07:15 geprüft. **Nach dem Test:** PR von diesem Zweig, zusammenführen, Änderungshistorie unter „Unveröffentlicht“ (59, 60e–i, 17r, 5la, 6g, 6f, 61a, 62a, 55.1a, 13x), Einzelzweige gelten dann als erledigt.
+- **Weiter:** 27.6 mit dem diagonalen Wald (13v, Zweig `claude/tom-27-6-tiefer-wald`), 17 Riemen, 55.1b Speer.
 
 ### Jerry (12.10., 16:59) – Pause bis Freitag
 
@@ -57,7 +57,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Weiter (Freitag):** Bilder 13e.4 prüfen (Geröll zu eiförmig? Weiher noch zu sehr Boden), Lückenliste „Ort fertig“, dann Rückfrage 54a erledigt.
 ## Zu testen
 
-- **Tom, Sammelbuild, Zweig `claude/rpg-startup-qaae3o`** (59, 60e–60i, 17r, 5la, 6g, 6f, 61a, 62a, 55.1a, 13x; alles an, Testschalter weg; Build läuft, Link folgt): Händler, Titel/Menü/Heldenerstellung/Kampf im neuen Aussehen, Dorf über den Tag, Katze in der Schänke, Farbstimmung, Spuren, Kartenreiter, Leerlauf, Tempel. Ersetzt die Einzelbuilds 0.1.632–0.1.649.
+- **Tom, 0.1.650, Sammelbuild, Zweig `claude/rpg-startup-qaae3o`** (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38350340961) (59, 60e–60i, 17r, 5la, 6g, 6f, 61a, 62a, 55.1a, 13x; alles an, Testschalter weg): Händler, Titel/Menü/Heldenerstellung/Kampf im neuen Aussehen, Dorf über den Tag, Katze in der Schänke, Farbstimmung, Spuren, Kartenreiter, Leerlauf, Tempel. Ersetzt die Einzelbuilds 0.1.632–0.1.649.
 
 ## Rückfragen an den Nutzer
 
