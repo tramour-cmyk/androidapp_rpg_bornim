@@ -115,15 +115,9 @@ fun rememberTime(): Long {
     return t
 }
 
-/** 60.4: the title screen in the look of the text box: black, the title large in gold capitals, the buttons as in the shop. */
-object TitleLook {
-    var draft = true
-}
-
 /** The look of the text box (60) for the pages round the title, on black. */
 @Composable
 private fun TitleVeil(fill: Boolean = true, content: @Composable () -> Unit) {
-    if (!TitleLook.draft) { content(); return }
     CompositionLocalProvider(LocalVeil provides true) {
         if (fill) Box(Modifier.fillMaxSize().background(Color.Black)) { content() } else content()
     }
@@ -131,7 +125,8 @@ private fun TitleVeil(fill: Boolean = true, content: @Composable () -> Unit) {
 
 @Composable
 fun TitleScreen(vm: GameViewModel) {
-    if (TitleLook.draft) CompositionLocalProvider(LocalVeil provides true) { TitleColumn(vm) } else TitleColumn(vm)
+    // 60.4: the title screen in the look of the text box: black, the title large in gold capitals, the buttons as in the shop
+    CompositionLocalProvider(LocalVeil provides true) { TitleColumn(vm) }
 }
 
 @Composable

@@ -131,7 +131,6 @@ fun main() {
         shot("62e_dorf", settle = 30) { vm -> setup(vm, "village", 10, 17, Facing.DOWN) }
         // KARTE62=1 ONLY=64: 64 (draft) the chronicle, tasks and "so far", the hero half through chapter 1 with a job
         if (System.getenv("ONLY") == "64") {
-            de.bornim.game.ui.ChronicleLook.draft = true
             de.bornim.game.ui.MenuStart.chronicle = true
             fun story(vm: GameViewModel) {
                 setup(vm, "village", 17, 6, Facing.DOWN)
@@ -622,7 +621,7 @@ fun main() {
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
         val tags = listOf("geraet", "garamond", "alegreya", "fell")
         val only = System.getenv("SCHRIFT")
-        de.bornim.game.ui.DialogLook.draft = true; de.bornim.game.ui.ShopLook.draft = true; de.bornim.game.ui.TitleLook.draft = true
+        de.bornim.game.ui.DialogLook.draft = true
         for ((i, tag) in tags.withIndex()) {
             de.bornim.game.ui.TypeLook.choice = i; de.bornim.game.ui.TypeLook.title = 0
             shot("60_titel_$tag") { it.screen = Screen.TITLE }
@@ -645,18 +644,16 @@ fun main() {
         de.bornim.game.ui.TypeLook.choice = 2
         // MENUE=reiter (60j, draft): the tabs as signs with a small word, beside the words alone
         if (System.getenv("MENUE") == "reiter") {
-            for (signs in listOf(false, true)) {
-                de.bornim.game.ui.TabLook.draft = signs
+            for (signs in listOf(true)) {
                 fun open(vm: GameViewModel) { geared(vm, CharClass.FIGHTER); if (!vm.testMode) vm.toggleTestMode(); vm.game!!.hero.unspentPoints = 1; vm.menuOpen = true }
                 shot("60j_reiter_" + (if (signs) "symbol" else "wort")) { vm -> open(vm) }
                 shot("60j_reiter_beutel_" + (if (signs) "symbol" else "wort"), taps = listOf(Offset(410f, 95f))) { vm -> open(vm) }
             }
             System.exit(0)
         }
-        val looks = if (System.getenv("MENUE") == "neu") listOf(true) else listOf(false, true)
-        for (draft in looks) {
-            de.bornim.game.ui.MenuLook.draft = draft
-            val tag = if (draft) "neu" else "alt"
+        // D1.16: only the look of the text box is left; "alt" is gone with its switch
+        run {
+            val tag = "neu"
             fun open(vm: GameViewModel) { geared(vm, CharClass.FIGHTER)
                 val st = vm.game!!.state; for (it in listOf("greater_potion", "remedy", "herbs", "wolf_pelt")) st.add(it, 2); if (System.getenv("MENUE") == "neu" && !vm.testMode) vm.toggleTestMode(); vm.menuOpen = true }
             // D2.11: the tabs share the width evenly (Held, Tasche, Ausrüstung, Karte, Chronik, System, and Test only with "neu")
@@ -683,11 +680,7 @@ fun main() {
     // HELDENBAU=1: 60: the hero's making old and in the look of the text box, top and scrolled down
     if (System.getenv("HELDENBAU") != null) {
         de.bornim.game.ui.TypeLook.choice = 2
-        for (draft in listOf(false, true)) {
-            de.bornim.game.ui.CreateLook.draft = draft
-            val tag = if (draft) "neu" else "alt"
-            shot("60_heldenbau_$tag") { it.screen = Screen.CREATE }
-        }
+        shot("60_heldenbau_neu") { it.screen = Screen.CREATE }
         System.exit(0)
     }
     // KAMPF60=1: 60: the fight's boxes old and in the look of the text box: opening line, the menu, a blow with its number
@@ -728,10 +721,8 @@ fun main() {
             shot("59e_verkauf_alle_frage", settle = 60, taps = (System.getenv("TAPY") ?: "1530").let { listOf(Offset(774f, it.toFloat())) }) { vm -> shop(vm) }
             System.exit(0)
         }
-        val looks = System.getenv("HAENDLER").let { if (it == "neu") listOf(true) else listOf(false, true) }
-        for (draft in looks) {
-            de.bornim.game.ui.ShopLook.draft = draft
-            val tag = if (draft) "neu" else "alt"
+        run {
+            val tag = "neu"
             for ((name, tab, dlg) in listOf(Triple("kauf", 0, -1), Triple("verkauf", 1, -1), Triple("kauf_ruestung", 0, 0),
                     Triple("kauf_vorrat", 0, 100), Triple("verkauf_rueckkauf", 2, -1))) {
                 de.bornim.game.ui.ShopLook.previewTab = tab; de.bornim.game.ui.ShopLook.previewDialog = dlg
