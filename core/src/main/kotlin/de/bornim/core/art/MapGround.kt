@@ -35,6 +35,9 @@ object MapGround {
      */
     private val BANK_L = intArrayOf(0x76, 0x5E, 0x40); private val BANK_D = intArrayOf(0x26, 0x1E, 0x14); private val ROOT = intArrayOf(0x18, 0x12, 0x0C)
 
+    /** 27l (user 14.10.): puddles in the ruts are few, soft and earthen, not hard blue-black dashes. */
+    private val PUDDLE_SOFT = rgb(0x2C2A24)
+
     /** Tiles drawn by this ground; anything else keeps its old picture on top. */
     private val drawn = setOf(
         Tile.GRASS, Tile.TALL_GRASS, Tile.FLOWERS, Tile.PATH, Tile.TREE, Tile.WATER,
@@ -74,7 +77,8 @@ object MapGround {
 
     /** The chunk ([cx], [cy]) of [map], drawn right away when it is not ready yet (a brief pause, once), so the former tiles never show. */
     fun chunkNow(map: MapDef, cx: Int, cy: Int): PixelImage? {
-        if (cx < 0 || cy < 0 || cx * CH >= map.width || cy * CH >= map.height) return null
+        val r = if (MapEdge.applies(map)) 1 else 0
+        if (cx < -r || cy < -r || cx * CH >= map.width + r * CH || cy * CH >= map.height + r * CH) return null
         chunk(map, cx, cy)?.let { return it }
         val img = draw(map, cx, cy)
         synchronized(chunks) { chunks.getOrPut("${map.id}/$cx/$cy") { img } }
@@ -129,7 +133,8 @@ object MapGround {
 
     private fun order(map: MapDef, nx: Int, ny: Int): List<Pair<Int, Int>> {
         val w = (map.width + CH - 1) / CH; val h = (map.height + CH - 1) / CH
-        val all = (0 until h).flatMap { y -> (0 until w).map { x -> x to y } }
+        val r = if (MapEdge.applies(map)) 1 else 0
+        val all = (-r until h + r).flatMap { y -> (-r until w + r).map { x -> x to y } }
         return all.sortedBy { (x, y) -> abs(x * CH + CH / 2 - nx) + abs(y * CH + CH / 2 - ny) }
     }
 
@@ -167,7 +172,7 @@ object MapGround {
     private val EARTH_D = rgb(0x3A2E22); private val EARTH_L = rgb(0x6A5840)
     private val LITTER = rgb(0x5E4426)
     private val TALL_D = rgb(0x1A2412); private val TALL_BLADE_D = rgb(0x1E2A16); private val TALL_BLADE_L = rgb(0x6E7A44)
-    private val PATH_D = rgb(0x4E3E2C); private val PATH_L = rgb(0x806A4C); private val PATH_HI = rgb(0x948062); private val VERGE = rgb(0x4A4630); private val PUDDLE = rgb(0x1E2224); private val RUT = rgb(0x2E241A); private val CREEP = rgb(0x3A4A26)
+    private val PATH_D = rgb(0x4E3E2C); private val PATH_L = rgb(0x806A4C); private val PATH_HI = rgb(0x948062); private val VERGE = rgb(0x4A4630); private val RUT = rgb(0x2E241A); private val CREEP = rgb(0x3A4A26)
     private val WATER_S = rgb(0x2A3A3C); private val WATER_D = rgb(0x0E1A1E); private val GLINT = rgb(0x7A8E90); private val MUD = rgb(0x2A2218)
 
     private fun mixInto(out: DoubleArray, c: IntArray, t: Double) {
@@ -407,8 +412,14 @@ object MapGround {
                     for (i in 0..2) tmp[i] += (PATH_HI[i] - tmp[i]) * mid * 0.35
                     val rut = !cap && other > 46 && abs(d - 14) < 2.4 + (vnoise(x, y, 14.0, 19) - 0.5) * 1.6
                     if (rut) {
-                        if (vnoise(x, y, 30.0, 20) > 0.72) { for (i in 0..2) tmp[i] = PUDDLE[i].toDouble(); if (vnoise(x, y, 3.0, 21) > 0.8) for (i in 0..2) tmp[i] += (GLINT[i] - tmp[i]) * 0.4 }
-                        else for (i in 0..2) tmp[i] += (RUT[i] - tmp[i]) * 0.6
+                        val wet = vnoise(x, y, 30.0, 20)
+                        if (wet > 0.78) {
+                            // a shallow puddle: the rut's earth darkened toward its middle, a faint sheen, no hard edge
+                            val k = ((wet - 0.78) / 0.1).coerceIn(0.0, 1.0) * (1 - abs(d - 14) / 3.2).coerceIn(0.0, 1.0)
+                            for (i in 0..2) tmp[i] += (RUT[i] - tmp[i]) * 0.6
+                            for (i in 0..2) tmp[i] += (PUDDLE_SOFT[i] - tmp[i]) * k * 0.7
+                            if (vnoise(x, y, 3.0, 21) > 0.86) for (i in 0..2) tmp[i] += (GLINT[i] - tmp[i]) * 0.15 * k
+                        } else for (i in 0..2) tmp[i] += (RUT[i] - tmp[i]) * 0.6
                     }
                     for (i in 0..2) col[i] += (tmp[i] - col[i]) * p
                     if (p < 0.85 && n3 > 0.5) mixInto(col, CREEP, 0.6)

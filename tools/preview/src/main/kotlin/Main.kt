@@ -67,6 +67,12 @@ private fun shot(name: String, lang: Lang = Lang.DE, taps: List<Offset> = emptyL
         frames(if (i == taps.lastIndex) lastFrames else 30)
     }
     if (taps.isEmpty()) frames(settle)
+    // RANDZEIT=1: how long a picture of the scene takes to draw, averaged over 30 (27m: the ring beyond the edge)
+    if (System.getenv("RANDZEIT") != null) {
+        val t0 = System.nanoTime()
+        repeat(30) { img = scene.render(time); time += 33_000_000L }
+        println("zeit $name: ${"%.1f".format((System.nanoTime() - t0) / 1e6 / 30)} ms je Bild, Rand ${if (de.bornim.core.art.MapEdge.on) "an" else "aus"}")
+    }
     File(out, "$name.png").writeBytes(img!!.encodeToData(EncodedImageFormat.PNG)!!.bytes)
     scene.close()
     println("wrote $name")
@@ -321,6 +327,8 @@ fun main() {
         System.exit(0)
     }
     if (System.getenv("KARTENZOOM") != null) {
+        // RANDAUS=1: without the ring beyond the edge, to compare (27m)
+        if (System.getenv("RANDAUS") != null) de.bornim.core.art.MapEdge.on = false
         // the map near (new) and far (former), at noon and at night, in the forest, the village, an inn and the cave
         fun place(vm: GameViewModel, map: String, x: Int, y: Int, minutes: Int, facing: Facing = Facing.UP) {
             vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
