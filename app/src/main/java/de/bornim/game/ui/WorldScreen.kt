@@ -1108,6 +1108,19 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 }
             }
         }
+        // 83b: the hens by the hay bales, by day and in the dry; they run off flapping when the hero comes close
+        if (de.bornim.core.art.MapHen.draft && game.daylight > 0.3f && !game.raining) {
+            for (h in de.bornim.core.art.MapHen.of(map)) {
+                val a = h.at(clock, heroX + T / 2f, heroY + T - 3f, map)
+                val hs = MapFigure.slot(a.yaw)
+                val himg = (if (HeroSwing.now) de.bornim.core.art.MapHen.frameNow(a, hs) else de.bornim.core.art.MapHen.frame(a, hs)) ?: continue
+                val fx = a.x.toInt(); val fy = a.y.toInt()
+                sprites += Sprite(fy + 2f, a.x) {
+                    put(WorldArt.smallShadow(), fx - 6, fy - 3)
+                    put(himg, fx - de.bornim.core.art.MapHen.AX / MapFigure.DENSITY, fy - de.bornim.core.art.MapHen.GY / MapFigure.DENSITY, MapFigure.DENSITY)
+                }
+            }
+        }
         val heroSwing = if (MapFigure.swingDraft && heroRest == null && MapFigure.cloaked(state.hero) && !walking && swingMs < MapFigure.SWING_MS) {
             val lv = MapFigure.swingLevel(swingMs)
             if (HeroSwing.now) MapFigure.swingFrameNow(state.hero, heroSlot, lv) else MapFigure.swingFrame(state.hero, heroSlot, lv)
@@ -1428,31 +1441,6 @@ private fun DrawScope.drawCritters(
             if (flee > 0f) {
                 val wing = if ((clock / 70) % 2 == 0L) -2f else 1f
                 px(fx - 1, fy + wing, 2f, 1f, brown); px(fx + 2, fy + wing, 2f, 1f, brown)
-            }
-        }
-        // Chickens scratching around the hay bales
-        for (ty in ty0..ty1) for (tx in tx0..tx1) {
-            if (map.tile(tx, ty) != Tile.HAY) continue
-            for (k in 0 until 3) {
-                val seed = hash(tx, ty, 20 + k) % 1000
-                val t = clock / 2600f + seed
-                // slow wandering on a little loop beside the bale, pecking now and then
-                val cx = tx * T + 16f + kotlin.math.sin(t * 0.9f + k * 2.1f) * 26f + (if (k == 1) -30f else 0f)
-                val cy = ty * T + 28f + kotlin.math.cos(t * 0.7f + k) * 8f
-                val faceLeft = kotlin.math.cos(t * 0.9f + k * 2.1f) < 0
-                if (covered(cx, cy)) continue
-                val peck = (clock / 180 + seed) % 11 < 2
-                val dir = if (faceLeft) -1f else 1f
-                val white = Color(0xFFF4F0E8); val shade = Color(0xFFC8C0B0)
-                px(cx - 3, cy - 4, 6f, 4f, white)
-                px(cx - 3, cy - 1, 6f, 1f, shade)
-                px(cx - 3 * dir - (if (faceLeft) 1 else 0), cy - 4, 1f, 2f, shade) // tail
-                val hx = cx + 3 * dir - (if (faceLeft) 1 else 0)
-                val hy = if (peck) cy - 3 else cy - 6
-                px(hx, hy, 2f, 2f, white)
-                px(hx, hy - 1, 1f, 1f, Color(0xFFD83030)) // comb
-                px(hx + dir * 2 - (if (faceLeft) 1 else 0), hy + 1, 1f, 1f, Color(0xFFE8A020)) // beak
-                px(cx - 1, cy, 1f, 1f, Color(0xFFE8A020)); px(cx + 1, cy, 1f, 1f, Color(0xFFE8A020)) // legs
             }
         }
         // Leaves drifting through the forest. They belong to the world, not to the screen (10.10., 4: at
