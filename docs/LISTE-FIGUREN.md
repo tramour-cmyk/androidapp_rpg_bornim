@@ -23,7 +23,7 @@ Nachschlagen (70.5, Nutzer 14.10.): wie wiederkehrende Leute und einmalige Monst
 | Pim | Kind, klein | zu großer Kittel | Graublau | – | Dorf |
 | Bauer Bram | breit, sonnenverbrannt, Bart | grobes Leinenhemd | Leinen, Erdbraun | – | Dorf |
 | Liska | schlank, Magd | Kopftuch | verblichenes Rot | – | Dorf |
-| Der alte Kael | sehr alt, gebeugt | Wolldecke um die Schultern, angesengte Laterne mit Familienzeichen (dasselbe Zeichen an seinem Elternhaus in Aschfurt, 6d); die Laterne steht schon in Kapitel 1 neben seiner Tür (80) | – | Husten, Stock auf Holz; sitzt nach der Tempelszene vor dem Haus, dreht die Laterne, schaut nach Süden | eigenes Haus |
+| Der alte Kael | sehr alt, gebeugt | Wolldecke um die Schultern, angesengte Laterne; Familienzeichen Raute mit Balken (alte Hausmarke; dasselbe Zeichen über der Tür seines Elternhauses in Aschfurt, 6d); in Kapitel 1 steht die Laterne auf einem kniehohen Steinsockel neben seiner Tür, Zeichen in den Sockel gemeißelt, nachts schwach bernsteinfarben brennend (80, 80a) | – | Husten, Stock auf Holz; sitzt nach der Tempelszene vor dem Haus, dreht die Laterne, schaut nach Süden | eigenes Haus |
 
 Noch ohne Aussehen: Bäcker Edrik, Schmied Dorran.
 
