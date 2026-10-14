@@ -1,6 +1,6 @@
 # Offen
 
-Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARBEIT-ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
+Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main` (Regeln in `CLAUDE.md`, auch zur Größe).
 
 **Nächste freie Themennummer: 87**
 
@@ -29,13 +29,13 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 85 | Testmenü aufräumen: alte Einträge, die keiner mehr braucht („irgendwas mit Donnern“; Nutzer 14.10., 18:5x) | Tom (Technik); Jerry prüft seine Einträge | `claude/tom-85-testmenue` | Wetterleuchten-Knopf und „Garrick döst“ entfernt (beide seit 10.10. als vorübergehend markiert); kommt in Toms nächsten Sammelbuild |
 | 82 | Verschlossene Tür: Held verschwand beim Anklopfen hinter der Hauswand (Nutzer 14.10., 15:5x) | Tom | `claude/tom-d1-schatten` | Behoben, in 0.1.740 |
 | 81 | Teamleiter „Ford“ (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–n (`ROLLE-FORD.md`). Co-Pilot seit 16:02; Routine in „Voll“ (`trig_013heqXJ1KkkxTYVzmTcpzaf`, :28); Telegram-Weg steht (18:1x). Pilot und Bewährung (81i) auf Zuruf; Jerry-Ford ab Fr. |
-| 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`enabled: false`, nicht löschen). **65.8** Rückfragen als Holschuld (Nutzer 14.10., 17:2x): nur auf „Dein Zug“, im Chat nur einmal bei Entstehung und ein Satz beim Start, aufzählen auf „Hast du Rückfragen?“; Aufträge anderer Agenten einmal mit Stellungnahme, „Kritisch“ nur bei Stillstand (Nutzer 17:3x); in `CLAUDE.md`. **65.9** Startmeldung höchstens drei Zeilen, Berater-Ritual verschlankt (Nutzer 17:3x); Weiter-Haken schweigt bei Sokrates/Diogenes (Nutzer 17:3x ja); „Vorrat leer, auf Dein Zug n offen von mir“ (Nutzer 17:4x) |
-| 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-13e-hoehle-fertig` | D1.9, D1.5, D1.6 fertig; 13e.5 passt; 13e.6 = B umgesetzt (kein Heldenlicht; Fackel → 84.1). Sammelbuild 0.1.738 (PR #62, t738) beim Nutzer; danach D1.7 Leben (Vorschlag mit Standbild) |
+| 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`enabled: false`, nicht löschen). 65.8/65.9 stehen in `CLAUDE.md` |
+| 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-13e-hoehle-fertig` | In 0.1.741 (PR #62, t738); 13e.6 = B (kein Heldenlicht, Fackel → 84.1). Danach D1.7 Leben (Standbild, Absprache `WorldScreen.kt`) |
 | 83 | Dorf Süd: weder die eingezäunten Beete im Westen noch die Weizenfelder im Osten zu sehen; Bäume wegnehmen oder andere Lösung? (Nutzer 14.10., 17:3x, Test t732) | Tom | – | **A** (Nutzer 14.10., 20:4x, Beschlüsse): Waldrand vor Beeten/Feldern zurücknehmen, Hecke; Standbild vor Einbau. Umfasst t732 Punkt 8: Hühner am Südrand nicht zu sehen (Nutzer 19:3x) |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-5-5-dorf-luecken` | Auf `main` bis 5la; 5.5 in 0.1.739 (t732) |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`LISTE-KAPITEL1.md`](LISTE-KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | Toms Teil von 26c fertig |
-| 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Tom | `claude/tom-5-5-dorf-luecken` | 27m.1–27m.5, Waldrand West/Nord, Tiefer Wald (Nutzer 18:4x/18:5x) in 0.1.739 (PR #60, t732). **Dorf** (18:5x, vom Wald kommend, abends, rechts schwarze Fläche): im Standbild 20 Uhr keine Kante mehr, vermutlich mit 0.1.739 behoben; Nachtest in t732. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise) |
+| 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Tom | `claude/tom-5-5-dorf-luecken` | In 0.1.739 (PR #60, t732), auch schwarze Kante Dorf abends. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise) |
 | 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | Abstürze beobachten (bei neuem `adb logcat` mit Anleitung von Tom); 30.7 Merkliste |
 | 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben) | Jerry | – | Meldung Nutzer 12.10., 15:4x mit Bildschirmfoto (Wiese, alte Kampfansicht). Erst Standbild der Sterbehaltungen aller Klassen, dann Vorschlag |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt | Jerry | – | 36.4–36.7, 36h/36j/36k auf `main` (PR #46, #47, getestet 0.1.587). Rest in 52, 53. **Offen 36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung. Verlauf im Archiv |
@@ -62,15 +62,14 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 20:4x) – an Nachfolger
-- PR #60 (0.1.739), #61 (0.1.740), #62 (0.1.741) beim Nutzer, in dieser Reihenfolge; abonnieren. **0.1.739:** Nutzer meint, schon getestet („was ich nicht ansprach, war okay“, 20:4x); geklärt wird nur, ob er 0.1.739 (nach 19:30) oder noch 0.1.736 hatte; bei 0.1.739 PR #60 zusammenführen. Nummern nur aufsteigend (Regel in `ROLLE-ENTWICKLER.md`).
-- **83 A bauen** (Zweig von `main`): Felder `c`/Beete `v` liegen in Zeile 28–30 von `Story.village`, Zeile 31 ist Baumreihe. `MapFlora.objects` macht dort schon junge Fichten/Büsche (`shades`); verdeckt wird vor allem vom Ring hinter dem Rand: `MapEdge.trees` nutzt fremde Orte (`OFF`), prüft keine Felder. Plan: in Zeile 31 vor Feldern/Beeten nur Büsche (Hecke); im Ring südlich keine Bäume bis Tiefe 3, wo nordwestlich (wie `shades`) Feld/Beet/Zaun/Heu liegt. Standbild vorher/nachher (`HELDORT=village:6:29:D:12`, `village:26:29:D:12`) auf „Dein Zug“, dann Sammelbuild.
-- **74 einbauen** (Zweig `claude/tom-74-schritte`): nur Held, Untergrund je Feld, ein Klang je Aufsetzen, Rennen dichter und leiser. **85** auf `claude/tom-85-testmenue` fertig, kommt mit in den nächsten Sammelbuild.
-- Draußen nachts bleibt das kleine Licht um den Helden (13e.6 B nur Höhle). 13e D1.7 Leben Höhle braucht Absprache wegen `WorldScreen.kt`.
+### Tom (14.10., 20:5x)
+- PR #60 (0.1.739), #61 (0.1.740), #62 (0.1.741) beim Nutzer, in dieser Reihenfolge, abonniert. 0.1.739: klären, ob er nach 19:30 installiert hat; dann PR #60 zusammenführen.
+- **83 A** (Zweig von `main`): Felder `c`/Beete `v` in Zeile 28–30 von `Story.village`, Zeile 31 Baumreihe → Hecke; Ring `MapEdge.trees` südlich ohne Bäume bis Tiefe 3 vor Feld/Beet/Zaun/Heu. Standbilder `HELDORT=village:6:29:D:12`, `village:26:29:D:12`.
+- **74 einbauen** (`claude/tom-74-schritte`): nur Held, Untergrund je Feld. **85** fertig, mit in den nächsten Sammelbuild. Draußen nachts bleibt das kleine Licht um den Helden.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
-- **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.
-- Pause bis Fr., 03:00 (Guthaben); Selbstarbeit beendet. Tom vertritt nicht von sich aus, nur wenn eigene Arbeit an Jerrys Themen hängt. Ab Fr. weiter mit 24.6, 36.6, 38–40, 51–53; 13e liegt seit 13y bei Tom; Zweig `claude/jerry-13e-hoehle-diagonal` (13e.3 fertig, 13e.4 halb; Einzelheiten im Archiv).
+- **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
+- Pause bis Fr., 03:00. Danach 24.6, 36.6, 38–40, 51–53; 13e liegt bei Tom; Zweig `claude/jerry-13e-hoehle-diagonal` (13e.3 fertig, 13e.4 halb; Archiv).
 ## Zu testen
 
 - **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5/D1.6/D1.9/D1.15 Höhle bei Tom (13e); D1.7 Leben Höhle, D1.8 stumme Quellen, D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (`grund_fs_609422`, `grund_fs_540836`, Hörner/Kreaturen ohne Quelle): Berater empfiehlt herausnehmen, **Nutzer entscheidet nach Hörprobe** (Höhle mit und ohne auf „Dein Zug“), erst danach ändern.
