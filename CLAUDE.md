@@ -50,7 +50,7 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, alles unter `docs/`. Nur auf `main`; dire
 
 **Seite „Dein Zug“** (63): Jede Rückfrage und Testfrage an den Nutzer steht auf https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow (Artefakt bei Tom, Jerry hat Schreibrecht; Abschnitte „Zu entscheiden“, „Anzusehen“); im Chat nur Link und Nummern. Je Punkt eine Datei `e/<nr>.html` plus Zeile in der Liste; jeder schreibt nur seine Einträge. Entscheidet der Nutzer: Eintrag in die Beschlüsse (https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) und in „Wer macht was“, Zeile auf „Dein Zug“ im selben Schritt löschen. Vor dem Ändern eines Artefakts es lesen, dann dieselbe URL neu veröffentlichen. Gilt auch für den Berater; im Gespräch wird besprochen, nicht abgefragt.
 
-**Begriffe** (62p/62q): **Landkarte** (alle Gebiete eines Landes) → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang). Übereinanderliegende Teile eines Grundrisses heißen **Ebene**, nie „Stockwerk“; „Ebene“ nie für die Kartenstufen. So auch im Spiel und in Prüflisten.
+**Begriffe** (62p/62q): **Landkarte** (alle Gebiete eines Landes) → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang). Wo gekämpft wird, heißt **Kampfort** (nie „Bühne“; 72.12). Übereinanderliegende Teile eines Grundrisses heißen **Ebene**, nie „Stockwerk“; „Ebene“ nie für die Kartenstufen. So auch im Spiel und in Prüflisten.
 
 **Sitzungen**
 - **Neustart nur bei großer Sitzung** (jede neue kostet rund 20.000 Token Startlektüre): bei vielen Bildern oder Filmen, langen Testausgaben, mehreren Stunden oder Meldung des Neustart-Hakens, an der nächsten Bruchstelle. Ablauf in `ARBEIT-ABLAEUFE.md`.
