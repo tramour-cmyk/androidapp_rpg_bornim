@@ -91,7 +91,9 @@ object MapTownIso {
         val chimTop = ridge - (d / 2.0 - cjMid) * TH / 2 / ZS + 52
         val towerTop = ridge + 92
         // the picture: from the back corner (0, 0) at the top to the front corner (n, d) on the ground
-        val left = d + o + 0.3; val right = n + o + 0.3
+        // 5.5: wide enough for the soft shadow down left too (it reaches 1.3 tiles past the front), else it ends in a
+        // straight upright edge on the grass where the picture stops
+        val left = d + 1.4; val right = n + o + 0.3
         val w = (floor((left + right) * TW / 2 / 4).toInt() + 2) * 4
         val topZ = maxOf(ridge, if (chimney != null) chimTop else 0.0, if (temple) towerTop + 50 else 0.0) + 8
         val h = ((n + d) * TH / 2 + topZ * ZS + 24).toInt() / 2 * 2
