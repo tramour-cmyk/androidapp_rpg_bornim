@@ -2,14 +2,13 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARBEIT-ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 81**
+**Nächste freie Themennummer: 82**
 
 **Seite „Dein Zug“ (alle Rollen, 63): https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow** · Beschlüsse: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM · Prüfbericht Diogenes: https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 ## Jetzt installieren
 
-- **Tom 0.1.728** (Sammelbuild 27l Licht am Fuß, Pfützen weich, Nähte weg, 77.1 Leiste; PR #58): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38518119453/artifacts/11872409132), Prüfliste `e/t728.html` auf „Dein Zug“.
-- **Tom 0.1.729** (Sammelbuild 27m Kartenrand, Bildrate im Test-Reiter, 80 Kaels Laterne; enthält 0.1.728): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38540695663/artifacts/11882212389), Prüfliste `e/t729.html` auf „Dein Zug“.
+- **Tom Sammelbuild 0.1.732** (5.5, 27m.1–27m.5; PR #60, Zweig `claude/tom-5-5-dorf-luecken`): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38554145752/artifacts/11889780000), Prüfliste `e/t732.html` auf „Dein Zug“. Nach „passt“: PR #60 zusammenführen, `CHANGELOG.md`, t732 und `e/5-5.html` von „Dein Zug“, hier leeren.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -19,12 +18,13 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
+| 81 | Teamleiter „Ford“ als Schaltzentrale: hält Tom und Jerry beschäftigt, meldet dem Nutzer Entscheidungen, startet Sitzungen (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beratung läuft (Sokrates 13:1x) |
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`update_trigger`, `enabled: false`, nicht löschen; `ARBEIT-SELBST.md`). Regeln in `CLAUDE.md` |
 | 13 | Diagonale Sicht | Tom | `claude/tom-73-laeden` | 13t auf `main` (PR #54); Tempelboden Steinplatten in 0.1.714. Verlauf im Archiv |
-| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` (27.4, 5.3, 5.4, 5.6, 5n, 5la). Offen 5.5 (prüfen, ob noch etwas fehlt). Verlauf im Archiv |
+| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-5-5-dorf-luecken` | Auf `main` bis 5la. **5.5** Marktstand und Fahrspuren auf dem Zweig (`e/5-5.html`); Lichtfleck Ost kein Fehler |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`, auch 24.8.6 (Türen 0,5 s). **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`LISTE-KAPITEL1.md`](LISTE-KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | **26c:** (1) 24.8.6/30.8, (2) 42, (3) Diagonalsicht erledigt (auf `main`), ebenso 55.2 und 17; Toms Teil von 26c fertig |
-| 27 | Wald „Ort fertig“ (Liste in `DESIGN-ABNAHME.md`) | Tom | `claude/tom-27m-rand` | **27l** (Licht am Fuß, Pfützen, Nähte) in PR #58, wartet auf Test 0.1.728. **27m ja** (Nutzer 14.10., 09:1x, Beschlüsse): Wald 6 Reihen über den Rand, läuft ins Dunkel aus; fest eingebaut, offen: Bildrate, mehr Bäume, Standbilder aller Ränder, Sammelbuild mit 80. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise) |
+| 27 | Wald „Ort fertig“ (Liste in `DESIGN-ABNAHME.md`) | Tom | `claude/tom-5-5-dorf-luecken` | 27l/27m auf `main` (PR #59, getestet 0.1.729). Auf dem Zweig für den nächsten Sammelbuild: **27m.1** Wald schließt sich hinter Weg Süd, **27m.3/27m.5** Rand im Wald (Westrand) und abends dunkel → erste 2 Reihen behalten Licht, **27m.4** Weg Ost frei; **27m.2** Tiere hinter Bäumen (ja, Nutzer 13:0x) umgesetzt. Alles in PR #60. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise) |
 | 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | 30.1/30.2/30b/30.8 auf `main`. Offen: Abstürze beobachten (bei neuem Absturz `adb logcat` mit Anleitung von Tom); 30.7 bewusst gelassen (Merkliste) |
 | 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben) | Jerry | – | Meldung Nutzer 12.10., 15:4x mit Bildschirmfoto (Wiese, alte Kampfansicht). Erst Standbild der Sterbehaltungen aller Klassen, dann Vorschlag |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt | Jerry | – | 36.4–36.7, 36h/36j/36k auf `main` (PR #46, #47, getestet 0.1.587). Rest in 52, 53. **Offen 36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung. Verlauf im Archiv |
@@ -37,12 +37,12 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p) | Tom; 62m Jerry mit 39 | `claude/tom-73-laeden` | Bis 62r auf `main` (PR #53, #55). 62i–62k mit 64; 62l/62m später |
 | 45 | Geschäftsmodell (Play Store) | Berater mit Nutzer | – | 45a/45c ja (Kapitel 1 frei, Vollversion, nie Werbung/Beutekisten/Wartezeiten). **45b zurückgestellt** bis nach Messung 38. Verlauf im Archiv |
 | 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | Tom (Szene, Bilder), Jerry (Klang „Ancient Legend“) | – | 68a–68m ja: Texte in `STORY-K1.md` (`[68.…]`), Wegweiser `[67.schild]` in `STORY-K1-W.md`; Form `DESIGN-STIL.md` „Zwischensequenzen“. Bildentwurf gemalt mit 69 auf `claude/tom-69-intro` (Figuren Platzhalter), hängt an **69e** |
-| 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | `claude/tom-69-intro` | 69a–69d ja (`STORY-K1.md` `[69.intro.…]`). **Tom, 69e dritte Runde (Nutzer 14.10., 11:2x, ja):** (1) Brücke ganz ins Bild als Weg zu den Lichtern, mit Geländer; (2) Vordergrund-Gras um etwa ein Drittel kürzen; (3) Laterne am nahen Brückenkopf, warmes Licht auf Bohlen und Wasser; (4) Scheibe unter der Tanne weg, mehr Ufer unter dem Haus; (5) Tanne mit Volumen (Mondseite heller, Schattenseite, Astlagen in der Tiefe, Stamm zwischen den Ästen, weicher Bodenschatten). Bild und Diagonalwelt müssen zusammenpassen; wird das Bild schöner als die Karte (z. B. Tanne), Karte später nachziehen (Vorschlag an Nutzer). Danach Musterbild (70.1); Schritt 2 = 70.3 leises Leben (Glühwürmchen, fließendes Wasser, Baum wiegt sich, Rauch zieht) |
+| 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | `claude/tom-69e-musterbild` | 69a–69d ja (`STORY-K1.md` `[69.intro.…]`). Dritte Runde gut, als Musterbild noch nicht. **Tom, 69e vierte und letzte Runde (Nutzer 14.10., 13:1x, Beschlüsse):** (a) Blick direkt am Brückenanfang, erste Bohlen am unteren Bildrand, Brücke, Laterne und Haus größer (unteres Drittel nicht leer); (b) Häuser und Flächen wie die Diagonalwelt (dunkles Holz, bemooste Dächer, Struktur in Holz, Stein, Erde). Fertig: auf „Dein Zug“ mit „erst Sokrates, dann du“ und Zeile unter „Für den Berater“; **Sokrates äußert aktiv seine Meinung**, dann entscheidet der Nutzer über das Musterbild (70.1), ohne weitere Runde. Danach 70.3 leises Leben; Karten-Tanne später nachziehen (Vorschlag) |
 | 70 | Zwischensequenzen: Bildsprache für alle Kapitel (Nutzer 14.10., 08:00) | Berater mit Nutzer; Tom (Probebilder 69e) | `main` (Notizen) | Entschieden 14.10. (Beschlüsse, Regeln `DESIGN-STIL.md`): 70.1 Musterbild nach 69e; 70.2, 70.4, 70.5 ja (Aussehen nur in `LISTE-FIGUREN.md`); 70.3 leises Leben nach der Stilwahl im Test-Build |
 | 79 | Kampfhintergründe an die Diagonalwelt angleichen (Nutzer 14.10., 08:34: „genau angelehnt an der Diagonalwelt“; Befund Standbild 60i: hell, grobes Pixelkorn, Wiese mit Wölkchen) | Berater mit Nutzer; Jerry (Bilder) | – | Nur Aussehen (Farben, Licht, Formen; Nutzer 14.10., 09:08), Ansicht bleibt bei 72b. Erst aktuelles Standbild (Jerry ab Fr.), dann Entwurf nach dem Musterbild aus 70.1; Aufbau des Kampfes (Gegner vorn, Held von hinten) gehört zu 72b |
-| 80 | Kaels angesengte Laterne neben seiner Haustür im Dorf (Nutzer 14.10., 09:4x; Aussehen `LISTE-FIGUREN.md`, Spur zu Aschfurt 6d) | Tom | `claude/tom-27m-rand` | Gebaut (Dorf 24/6, an der Wand neben der Tür, unbeleuchtet), Standbild auf „Dein Zug“ (14.10., 10:26); kommt in den Sammelbuild mit 27m. Kael selbst erst in Kapitel 2 |
-| 77 | Dokumentnamen ordnen, Story-Kennungen K1-H/N/Z/W (Nutzer 13.10., 21:10) | Tom (Code), Berater (77e) | `main` | Umbenannt 13.10., 77e umgebaut (Verlauf im Archiv). **77.1** (Leiste schwarz mit Goldlinie) in PR #58, wartet auf Test 0.1.728 |
-| 74 | Schrittgeräusche fehlen an allen Orten („Ort fertig“ 8; Befund Diogenes D1.1) | Jerry (Klang); Tom für Dorf und Räume | – | Berater 13.10., 19:4x: Mangel gegen bestehende Regel, kein Beschluss nötig. **Verdacht** erst bestätigen; Böden je Untergrund (Gras, Erde, Holz, Stein) |
+| 80 | Kaels angesengte Laterne neben seiner Haustür im Dorf (Aussehen `LISTE-FIGUREN.md`) | Tom | `claude/tom-80a-sockel` | 80a (Nutzer 14.10., 13:0x, Beschlüsse) gebaut: Steinsockel mit Zeichen A, nachts schwaches Bernsteinlicht (`kaelLantern(lit)`, Lichtquelle in `MapLight`); Standbilder Tag/Nacht auf „Dein Zug“ (`e/80a-2.html`, 13:2x). Nach „passt“ in den nächsten Sammelbuild |
+| 77 | Dokumentnamen ordnen, Story-Kennungen K1-H/N/Z/W (Nutzer 13.10., 21:10) | Tom (Code), Berater (77e) | `main` | Erledigt; 77.1 Leiste auf `main` (PR #59, getestet). Verlauf im Archiv |
+| 74 | Schrittgeräusche fehlen an allen Orten („Ort fertig“ 8; Befund Diogenes D1.1) | Jerry (Klang); Tom für Dorf und Räume | – | **Bestätigt** (Tom 14.10., 12:5x): kein Schrittklang im Code, keine Aufnahme in `assets/sfx`. **Jerry:** CC0-Schritte je Untergrund (Gras, Erde/Weg, Pflaster, Holzdielen, Stein), je 3 Varianten; Tom liefert danach den Untergrund je Feld für Dorf und Räume |
 | 55 | Mehr Leerlauf für alle Leute (Waffe, Armhaltung), Szenen wie Sitzen am Tisch | Tom | – | 55.1a/b und 55.2 (Borin sitzt am Tisch) auf `main`. Kampf geprüft 14.10.: Held 2 m (Dress, wächst mit der Größe), Skelett ebenso; Kobold (80 cm) ~0,9 m; **55d** so lassen (Nutzer 14.10., 07:0x, Beschlüsse). Verlauf im Archiv |
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry | – | Nutzer 12.10., 15:4x nach Test 0.1.587: Krogg fürs Erste so lassen, später alle Kampfanimationen gesamt überarbeiten. Nach Kapitel-1-Wichtigem. Dazu: Rudelwölfe beißen ins Leere (gemeldet 08.10., v0.1.210; Vorschlag im Archiv) |
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg | Jerry | – | Prüfthema, Nutzer 12.10., 15:4x (Test 0.1.587): wenn Zeit ist und nichts Wichtigeres ansteht; alle großen Gegner mitprüfen |
@@ -51,11 +51,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 10:45) – an Nachfolger
-- **PR #58** abonniert, grün, wartet auf Test 0.1.728; nach „passt“: zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“, „Jetzt installieren“ leeren.
-- **27m + 80** (Zweig `claude/tom-27m-rand`, committet, noch nicht gepusht): Rand mit mehr Bäumen, Ausgänge/Wege/Wasser frei; Kaels Laterne (Dorf 24/6); Test-Reiter „Bildrate anzeigen“ (`FrameMeter` in `WorldScreen.kt`, Jerry zur Kenntnis). Messung Vorschau (`RANDZEIT=1`, `RANDAUS=1`): je Bild Rand an/aus Wald-Ecke 3,1/1,7 s, Mitte 2,2/1,9 s, Tiefer Wald 5,4/3,7 s, Dorf-Ecke 3,8/1,1 s (Rechner ohne Grafikchip, nur Vergleich). Standbilder aller Ränder fertig (`e/b/27m_raender.jpg`); **Sammelbuild 0.1.729** (Knopfdruck, Lauf 38540695663) auf „Dein Zug“ (t729), wartet auf Test; nach „passt“ PR von `claude/tom-27m-rand` nach `main`, `CHANGELOG.md`. Am Ostrand des Dorfes verdecken Randkronen den Helden halb (beobachten).
-- **69e** zweite Runde, **80** und **t729** auf „Dein Zug“: der Nutzer entscheidet und testet in der neuen Sitzung (11:2x). Danach je nach Antwort: 69e als Musterbild 70.1 und übrige Intro-Bilder (Zweig `claude/tom-69-intro`), PR für `claude/tom-27m-rand`.
-- **Nutzer 09:3x:** erst kurz antworten, dann höchstens etwa 5 Minuten am Stück arbeiten.
+### Tom (14.10., 13:1x) – an Nachfolger
+- **PR #60** (Sammelbuild 5.5 + 27m.1–27m.5, Zweig `claude/tom-5-5-dorf-luecken`, enthält `main` mit PR #59): Build läuft. Nachfolger: `subscribe_pr_activity` #60, APK-Link in „Jetzt installieren“, Prüfliste `e/t7xx.html` auf „Dein Zug“ (Anzusehen; `e/5-5.html` dann dort einbinden und die Zeile 5.5 ersetzen): Marktstand von hinten, Fahrspuren, Schattenkante nördlich vom Platz, Weg Süd zu, Hühner am Südrand hinter Kronen, Rand Wald West/abends Dorf, Weg Ost im Wald.
+- 27m.2 in `WorldScreen.kt` (`covered()`; Notiz an Jerry: nur Zeichenreihenfolge der kleinen Tiere). 0.1.728/0.1.729 auf `main` (PR #59, #58 geschlossen).
+- **Nachfolger-Stand 13:2x:** 0.1.732 grün, Prüfliste t732 auf „Dein Zug“, PR #60 abonniert. 80a auf `claude/tom-80a-sockel` (Standbilder `e/80a-2.html`). Weiter mit 69e vierte Runde. **74** wartet auf Jerrys Aufnahmen.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.
@@ -74,4 +73,5 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
+
 

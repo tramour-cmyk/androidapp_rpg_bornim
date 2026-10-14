@@ -49,6 +49,8 @@ object WorldArt {
         val out = mutableListOf<Obj>()
         // the woods' and the village's undergrowth
         if (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN) out += MapFlora.undergrowth(map)
+        // beyond the edge the wood goes on (27m)
+        if (MapEdge.applies(map)) out += MapEdge.trees(map)
         val freshNote = map.kind == MapKind.TOWN && Jobs.freshNote(state)
         val gate = state.has(Story.GATE_OPEN)
         for (ty in 0 until map.height) for (tx in 0 until map.width) {
