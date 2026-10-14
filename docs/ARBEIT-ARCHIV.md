@@ -1,5 +1,9 @@
 # Archiv
 
+### Aus ARBEIT-OFFEN.md, 14.10., 15:3x (Übergabe Tom 15:2x, Zeile 27 Volltext)
+- Nachfolger: PR #60 abonnieren; dann D1.5 Schatten 2:1, D1.10, D1.11-Rest.
+| 27 | Wald „Ort fertig“ (Liste in `DESIGN-ABNAHME.md`) | Tom | `claude/tom-5-5-dorf-luecken` | 27l/27m auf `main` (PR #59, getestet 0.1.729). Auf dem Zweig für den nächsten Sammelbuild: **27m.1** Wald schließt sich hinter Weg Süd, **27m.3/27m.5** Rand im Wald (Westrand) und abends dunkel → erste 2 Reihen behalten Licht, **27m.4** Weg Ost frei; **27m.2** Tiere hinter Bäumen (ja, Nutzer 13:0x) umgesetzt. Alles in PR #60. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise) |
+
 ### Aus ARBEIT-OFFEN.md, 14.10., 15:2x (Übergabe Tom 14:3x)
 - PR #60 abonniert; Vertretung Jerry: 52 fertig, 74 Hörprobe, 26 beim Berater; 69e drei Fehler behoben.
 
