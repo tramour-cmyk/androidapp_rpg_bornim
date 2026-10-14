@@ -85,6 +85,7 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
+- **72q erledigt?** (Tom, Nutzer 14.10., 20:4x: „72q ist glaube ich irgendwie auch entschieden; bitte nochmal Sokrates vorlegen, ob es erledigt ist; wenn nicht, dann beraten“). Beschlüsse 72.7–72.10 (Held plus ein Begleiter) scheinen die Gruppenfrage zu beantworten; offen wirkt nur noch die Aufstellung fest oder veränderlich. Prüfen, dann 72q von „Dein Zug“ nehmen oder beraten.
 - **86 Ideen Bewegung und Übersicht** (Tom, Nutzer 14.10., 18:5x, „alle an den Sokrates übergeben, damit der das bewertet“): **86.1** im Testmodus Standort mit einfachen Koordinaten einblenden wie die Bildrate, beide deutlich heller („wenn ich es einblende, will ich es auch sehen und lesen können“); **86.2** halbtransparente Minimap oben links oder rechts, nur bekannte Gebiete, zur groben Übersicht; **86.3** Ausdauer beim Bewegen auf der Gebietskarte: leer = nur noch gehen, nicht rennen; **86.4** im Menü Empfindlichkeit der Joystick-Steuerung (ab wann gelaufen/gerannt wird).
 - **26 Ausgleich Magier** (Tom für Jerry, 14.10.; Simulation: Magier 45 % gegen Grak, mit Zauber Schild 78–87 %; Entwurf `claude/tom-26-magier-schild`, im Spiel aus; Bosse auf Stufe 5–6 über Ziel 50–65 %). Zurückgestellt (Nutzer 16:02): wird mit 72b entschieden (Schild als Reaktion des Magiers).
 
