@@ -54,14 +54,14 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (14.10., 15:3x)
 - PR #60 abonniert (grün, wartet auf t732; nach „passt“ zusammenführen, `CHANGELOG.md`). Beim Nutzer offen: t732, 69e, 74. **Nächster Sammelbuild** (neuer Zweig von `main`, nach t732): 52, 80a, D1.5, D1.10.
-- **D1.5** Schatten 2:1 fertig auf `claude/tom-d1-schatten` (ceb9452, `WorldArt.shadow()` 15,6×7,8; Standbild 15:2x). Jetzt **D1.10** (Rowena wischt/schenkt ohne Bewegung, Borins Becher ohne Trinkhaltung), dann **D1.11-Rest** (Tür/Fenster nur eine Form; mehrteilige Möbel je Feld andere Variante). D1.16-Rest nur nach Absprache.
+- **D1.5** (ceb9452) und **D1.10** (d9899f4f) fertig auf `claude/tom-d1-schatten`: Schatten 2:1; Rowena wischt/schenkt ein (`NPCIDLE=rowena`), Schänkenklänge kommen aus dem Bewegungsplan (`PlaceSound.folk`), zufällig nur Husten und Knarren. Jetzt **D1.11-Rest** (Tür/Fenster nur eine Form; mehrteilige Möbel je Feld andere Variante). D1.16-Rest nur nach Absprache.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.
 - Pause bis Fr., 03:00 (Guthaben); Selbstarbeit beendet. Tom vertritt nicht von sich aus, nur wenn eigene Arbeit an Jerrys Themen hängt. Ab Fr. weiter mit 24.6, 36.6, 38–40, 51–53; 13e liegt seit 13y bei Tom; Zweig `claude/jerry-13e-hoehle-diagonal` (13e.3 fertig, 13e.4 halb; Einzelheiten im Archiv).
 ## Zu testen
 
-- **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5 Schatten Höhle (Figurenschatten `WorldArt.shadow()` ist jetzt 2:1 auch für Monster, Tom 14.10.), D1.6 Höhleneingang flach, D1.7 Leben Höhle, D1.8 stumme Quellen, D1.9 Feuer durch Wände, D1.10 Klang ohne Bewegung (mit Tom), D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (zwei Stücke mit Hörnern/Kreaturenrufen ohne sichtbare Quelle, `grund_fs_609422`, `grund_fs_540836`): Berater empfiehlt herausnehmen, **Nutzer entscheidet nach Hörprobe** (19:44): Höhle mit und ohne die zwei Stücke auf die Seite „Dein Zug“, erst danach ändern; D1.15 Laterne.
+- **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5 Schatten Höhle (Figurenschatten `WorldArt.shadow()` ist jetzt 2:1 auch für Monster, Tom 14.10.), D1.6 Höhleneingang flach, D1.7 Leben Höhle, D1.8 stumme Quellen, D1.9 Feuer durch Wände, D1.10 erledigt (Tom 14.10.: Klangschleife in `WorldScreen.kt` ruft `PlaceSound.folk`, drei Zeilen; Schänke ohne Zufalls-Wischen), D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (zwei Stücke mit Hörnern/Kreaturenrufen ohne sichtbare Quelle, `grund_fs_609422`, `grund_fs_540836`): Berater empfiehlt herausnehmen, **Nutzer entscheidet nach Hörprobe** (19:44): Höhle mit und ohne die zwei Stücke auf die Seite „Dein Zug“, erst danach ändern; D1.15 Laterne.
 
 ## Für Diogenes
 
