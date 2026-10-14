@@ -21,7 +21,7 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 
 1. `tools/notiz.sh` (holt `main`, zeigt Namen und Notiz-Änderungen). Meldet es „unbekannt“: Nutzer fragen, nichts anfangen.
 2. Startlektüre der eigenen Rolle: Tom und Jerry „Vor jeder Arbeit lesen“ in `ROLLE-ENTWICKLER.md`; Sokrates das Ritual in `ROLLE-BERATER.md`; Diogenes `ROLLE-TESTER.md`.
-3. Kurz melden: Name, eigene Themen mit Nummer und Stand, ein Satz mit Link, falls auf „Dein Zug“ etwas offen ist, was die anderen seit dem letzten Mal eingetragen haben. Dann auf die Nachricht eingehen.
+3. Höchstens drei Zeilen (65.9, Nutzer 14.10.: Start ohne Brimborium): Name; nur Neues seit dem letzten Mal, das den Nutzer betrifft (Aufträge anderer Agenten mit Stellungnahme); ein Satz mit Link, falls auf „Dein Zug“ etwas offen ist. Stand der eigenen Themen nicht aufzählen (steht in „Wer macht was“). Dann auf die Nachricht eingehen.
 
 ## Notizen nur auf `main`
 
