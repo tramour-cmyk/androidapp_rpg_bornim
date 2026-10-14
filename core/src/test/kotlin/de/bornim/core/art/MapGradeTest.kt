@@ -5,16 +5,16 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-/** Idea 11 (draft): the colour mood of each place and hour points the right way and stays gentle. */
+/** Idea 11: the colour mood of each place and hour points the right way and stays gentle. */
 class MapGradeTest {
     private fun warmth(g: MapGrade.Grade) = g.red - g.blue
 
     @Test fun moods() {
-        val cave = MapGrade.grade(World["cave"], 1f)
-        val inn = MapGrade.grade(World["inn"], 1f)
-        val noon = MapGrade.grade(World["village"], 1f)
-        val dusk = MapGrade.grade(World["village"], 0.5f)
-        val night = MapGrade.grade(World["village"], 0f)
+        val cave = MapGrade.of(World["cave"], 1f)
+        val inn = MapGrade.of(World["inn"], 1f)
+        val noon = MapGrade.of(World["village"], 1f)
+        val dusk = MapGrade.of(World["village"], 0.5f)
+        val night = MapGrade.of(World["village"], 0f)
         // the cave cold and greenish, the inn warm
         assertTrue(cave.green > cave.red && cave.blue < cave.green, "cave: green over red")
         assertTrue(warmth(inn) > 40, "inn warm: ${warmth(inn)}")
@@ -29,13 +29,12 @@ class MapGradeTest {
         }
     }
 
-    @Test fun offLeavesThePictureAlone() {
-        MapGrade.draft = false
-        val g = MapGrade.of(World["cave"], 1f)
+    @Test fun noneLeavesThePictureAlone() {
+        val g = MapGrade.none
         val img = PixelImage(8, 8, IntArray(64) { 0xFF808080.toInt() })
         assertEquals(img.pixels.toList(), MapGrade.apply(img, g).pixels.toList())
         // on, the middle keeps its brightness while the corner darkens
-        val on = MapGrade.apply(img, MapGrade.grade(World["cave"], 1f))
+        val on = MapGrade.apply(img, MapGrade.of(World["cave"], 1f))
         assertTrue((on.pixels[4 * 8 + 4] and 0xFF) > (on.pixels[0] and 0xFF))
     }
 }

@@ -10,7 +10,7 @@ Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), comm
 
 | Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
 |---|---|---|---|---|---|---|
-| Tom | läuft | 14.10., 07:00 | 14.10., 00:20 | 14.10., 00:38 | Reserve: 69 Intro gemalte Szenen (Entwurf) | `claude/tom-69-intro` |
+| Tom | fertig | – | 14.10., 00:20 | 14.10., 00:56 | Vorrat leer, Bericht in ARBEIT-OFFEN.md | `claude/tom-69-intro` |
 | Jerry | fertig | – | 12.10., 16:33 | 12.10., 16:59 | Pause bis Freitag (Nutzungsguthaben), Stand in ARBEIT-OFFEN.md | `claude/jerry-13e-hoehle-diagonal` |
 
 Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
@@ -26,7 +26,7 @@ Jede Sitzung führt unten im eigenen Abschnitt zwei Listen, mit Themennummer, Re
 
 ### Feste Weck-Routinen (seit 11.10.)
 
-**Pausiert, solange keine Selbstarbeit läuft** (Nutzer 13.10.): Wer Selbstarbeit vergibt, schaltet die Routinen des eigenen Accounts wieder an (`update_trigger`, `enabled: true`), am Ende der Selbstarbeit wieder aus; nie löschen (die Repo-Einstellung von Hand ginge verloren). Tom: alle acht pausiert 13.10., 10:26; 00:24, 03:24, 06:24 wieder an 13.10., 23:2x (Selbstarbeit bis 07:00), Prompts auf diesen Text gebracht.
+**Pausiert, solange keine Selbstarbeit läuft** (Nutzer 13.10.): Wer Selbstarbeit vergibt, schaltet die Routinen des eigenen Accounts wieder an (`update_trigger`, `enabled: true`), am Ende der Selbstarbeit wieder aus; nie löschen (die Repo-Einstellung von Hand ginge verloren). Tom: alle acht pausiert 13.10., 10:26; 00:24, 03:24, 06:24 wieder an 13.10., 23:2x, wieder aus 14.10., 00:57 (Vorrat leer).
 
 Alle drei Stunden rund um die Uhr je Account eine Routine, die eine frische Sitzung startet: **Tom** 00:24, 03:24, 06:24, 09:24, 12:24, 15:24, 18:24, 21:24 („Tom Selbstarbeit HH:MM“), **Jerry** drei Minuten später (00:27, 03:27, … 21:27, „Jerry Selbstarbeit HH:MM“). Eine Routine arbeitet nur, wenn die eigene Zeile oben `läuft` oder `wartet auf Grenze` steht und „Bis“ noch nicht vorbei ist; sonst beendet sie sich sofort (kostet fast nichts). Der Abstand von drei Stunden sorgt dafür, dass nach jedem Zurücksetzen der Nutzungsgrenze (alle fünf Stunden) bald eine weitermacht.
 - Jede Routine braucht einmal vom Nutzer (am PC im Browser, claude.ai, Routinen): Repository `tramour-cmyk/androidapp_rpg_bornim` auswählen, Freigabe auf automatisch. Fehlt das Schreibrecht, hängt die Sitzung das Repo selbst mit `add_repo` an.
@@ -83,13 +83,14 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/ARBEIT-O
 2. ~~D1.16 Rest ohne `WorldScreen.kt`~~ fertig (7d9692c1; alte flache Bäume und verworfener Pflasterentwurf mit weg).
 3. ~~Sammelbuild~~ PR #57 offen (Build 0.1.721), Prüfliste `e/t721.html` auf „Dein Zug“; Vermerke D1.4/D1.5/D1.16 im Prüfbericht gesetzt.
 4. ~~27 Wald~~ Lückenliste in der Übergabe (Standbilder 00:19).
-**Reserve:** ~~55 Speer im Kampf prüfen~~ (Held/Skelett 2 m, Kobold ~0,9 m wie Text „fast so groß wie er selbst“; 55d in den Bericht: Kobold so lassen, Empfehlung); ~~5.5 Dorf Lücken prüfen~~ (Liste in der Übergabe); 69 Intro: Bildentwürfe (Standbilder) nach `STORY-K1.md` `[69.intro.…]`.
+**Reserve:** ~~55 Speer im Kampf prüfen~~ (Held/Skelett 2 m, Kobold ~0,9 m wie Text „fast so groß wie er selbst“; 55d in den Bericht: Kobold so lassen, Empfehlung); ~~5.5 Dorf Lücken prüfen~~ (Liste in der Übergabe); ~~69 Intro-Bildentwürfe~~ (gemalte Nachtbilder, `claude/tom-69-intro` 2a87af2b, `INTROBILD=1`, Standbild 00:43; 69e in den Bericht).
 
 **Vorrat für Selbstarbeit** (Reihenfolge; 23a freigegeben 11.10., 14:18; Erledigtes im Archiv, 77e):
 1. **27 Wald:** Standbilder Wald gegen Dorf bei Tag und Nacht, Lückenliste nach „Ort fertig“ (`DESIGN-ABNAHME.md`), danach Entwurf eines diagonalen Baums. Fertig, wenn: Standbilder und Liste in `ARBEIT-OFFEN.md`.
 
 **Für gemeinsame Zeit:**
-- 5.1: Standbilder ansehen, dann Zweig-Build auf dem Gerät testen.
+- t721: Sammelbuild 0.1.721 auf dem Gerät testen (PR #57).
+- 69e, 27l, 55d auf „Dein Zug“ entscheiden; danach 69/68 Figuren, 27l.
 
 ## Jerry
 

@@ -2,7 +2,7 @@ package de.bornim.core
 
 /**
  * 64d: "So far" in the chronicle, told by a chronicler: one entry per turning point of the story, the newest on top.
- * The texts are the ones agreed by the user and the adviser (`docs/STORY1.md`, marks `[64d.…]`), word for word.
+ * The texts are the ones agreed by the user and the adviser (`docs/STORY-K1.md`, marks `[64d.…]`), word for word.
  */
 object Chronicle {
     class Entry(val id: String, val side: Boolean, val title: T, val text: T, val reached: (GameState) -> Boolean)

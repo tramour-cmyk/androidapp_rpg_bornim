@@ -6,7 +6,7 @@ import java.io.File
 import javax.imageio.ImageIO
 
 /**
- * The trees side by side on grass (27.4): the upper row as they are, the lower one with volume.
+ * The trees side by side on grass (27.4).
  * TREESHEET=1, scaled ×2, written to build/screens/baeume.png.
  */
 fun renderTreeSheet() {
@@ -14,9 +14,7 @@ fun renderTreeSheet() {
         MapFlora.oak(0, 2, false), MapFlora.oak(1, 1, false), MapFlora.oak(3, 2, false), MapFlora.oak(5, 0, true),
         MapFlora.spruce(0, 2), MapFlora.spruce(3, 1), MapFlora.spruce(1, 0, young = true), MapFlora.deadTree(0), MapFlora.deadTree(2),
     )
-    MapFlora.treeDraft = false; val old = row()
-    MapFlora.treeDraft = true; val new = row()
-    // the game's own choice again
+    val old = row(); val new = old
     val k = 2
     val cellW = old.zip(new).sumOf { (a, b) -> maxOf(a.img.width, b.img.width) } + 8 * old.size
     val rowH = maxOf(old.maxOf { it.img.height }, new.maxOf { it.img.height }) + 24

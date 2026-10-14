@@ -131,7 +131,6 @@ fun main() {
         shot("62e_dorf", settle = 30) { vm -> setup(vm, "village", 10, 17, Facing.DOWN) }
         // KARTE62=1 ONLY=64: 64 (draft) the chronicle, tasks and "so far", the hero half through chapter 1 with a job
         if (System.getenv("ONLY") == "64") {
-            de.bornim.game.ui.ChronicleLook.draft = true
             de.bornim.game.ui.MenuStart.chronicle = true
             fun story(vm: GameViewModel) {
                 setup(vm, "village", 17, 6, Facing.DOWN)
@@ -345,25 +344,14 @@ fun main() {
         }
         for (near in listOf(true, false)) {
             de.bornim.game.ui.MapZoom.near = near
-            // PFLASTERDRAFT=1: the square's cobbles quieter (5.4, draft)
-            if (System.getenv("PFLASTERDRAFT") == "2") de.bornim.core.art.MapGround.cobbleMid = true
-            else if (System.getenv("PFLASTERDRAFT") != null) de.bornim.core.art.MapGround.cobbleDraft = true
             // SWINGDRAFT=1: the cloak swings on when the hero stops (17, draft)
             // SWINGMORE=1: long hair and the quiver swing on too (17 Rest, draft)
             if (System.getenv("SWINGMORE") != null) de.bornim.core.art.Dress.SWING_MORE = true
-            // DORFTAG=1: the villagers go about their day (5l, draft)
-            if (System.getenv("DORFTAG") != null) de.bornim.core.VillageDay.draft = true
             // KATZEINN=ms with the inn shots: the cat (draft), that far into its round
             if (System.getenv("KATZEINN") != null) { de.bornim.core.art.MapCat.draft = true; de.bornim.game.ui.HeroSwing.now = true; de.bornim.core.art.MapCat.shift = System.getenv("KATZEINN").toLongOrNull() ?: 0L }
             if (System.getenv("SWINGDRAFT") != null) { de.bornim.core.art.MapFigure.swingDraft = true; de.bornim.game.ui.HeroSwing.now = true }
             // PONDLIFE=1: frogs on the bank and dragonflies over the forest pond (27.6, draft)
             if (System.getenv("PONDLIFE") != null) de.bornim.core.art.PondLife.draft = true
-            // SITDRAFT2=1: Borin sits at his table in the inn (55.2, draft)
-            if (System.getenv("SITDRAFT2") != null) de.bornim.core.art.MapFolk.sitDraft = true
-            // FARBDRAFT=1: the colour mood of each place and hour (idea 11, draft)
-            if (System.getenv("FARBDRAFT") != null) de.bornim.core.art.MapGrade.draft = true
-            // TREEDRAFT=1: the trees with volume (27.4, draft)
-            if (System.getenv("TREEDRAFT") != null) de.bornim.core.art.MapFlora.treeDraft = true
             // ZOOMSTUFE=1|2: the in-between zoom steps for the near shots (6.15)
             System.getenv("ZOOMSTUFE")?.let { if (near) de.bornim.game.ui.MapZoom.level = it.toInt() }
             val z = if (near) "nah" else "weit"
@@ -624,7 +612,7 @@ fun main() {
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
         val tags = listOf("geraet", "garamond", "alegreya", "fell")
         val only = System.getenv("SCHRIFT")
-        de.bornim.game.ui.DialogLook.draft = true; de.bornim.game.ui.ShopLook.draft = true; de.bornim.game.ui.TitleLook.draft = true
+        de.bornim.game.ui.DialogLook.draft = true
         for ((i, tag) in tags.withIndex()) {
             de.bornim.game.ui.TypeLook.choice = i; de.bornim.game.ui.TypeLook.title = 0
             shot("60_titel_$tag") { it.screen = Screen.TITLE }
@@ -647,18 +635,16 @@ fun main() {
         de.bornim.game.ui.TypeLook.choice = 2
         // MENUE=reiter (60j, draft): the tabs as signs with a small word, beside the words alone
         if (System.getenv("MENUE") == "reiter") {
-            for (signs in listOf(false, true)) {
-                de.bornim.game.ui.TabLook.draft = signs
+            for (signs in listOf(true)) {
                 fun open(vm: GameViewModel) { geared(vm, CharClass.FIGHTER); if (!vm.testMode) vm.toggleTestMode(); vm.game!!.hero.unspentPoints = 1; vm.menuOpen = true }
                 shot("60j_reiter_" + (if (signs) "symbol" else "wort")) { vm -> open(vm) }
                 shot("60j_reiter_beutel_" + (if (signs) "symbol" else "wort"), taps = listOf(Offset(410f, 95f))) { vm -> open(vm) }
             }
             System.exit(0)
         }
-        val looks = if (System.getenv("MENUE") == "neu") listOf(true) else listOf(false, true)
-        for (draft in looks) {
-            de.bornim.game.ui.MenuLook.draft = draft
-            val tag = if (draft) "neu" else "alt"
+        // D1.16: only the look of the text box is left; "alt" is gone with its switch
+        run {
+            val tag = "neu"
             fun open(vm: GameViewModel) { geared(vm, CharClass.FIGHTER)
                 val st = vm.game!!.state; for (it in listOf("greater_potion", "remedy", "herbs", "wolf_pelt")) st.add(it, 2); if (System.getenv("MENUE") == "neu" && !vm.testMode) vm.toggleTestMode(); vm.menuOpen = true }
             // D2.11: the tabs share the width evenly (Held, Tasche, Ausrüstung, Karte, Chronik, System, and Test only with "neu")
@@ -685,11 +671,7 @@ fun main() {
     // HELDENBAU=1: 60: the hero's making old and in the look of the text box, top and scrolled down
     if (System.getenv("HELDENBAU") != null) {
         de.bornim.game.ui.TypeLook.choice = 2
-        for (draft in listOf(false, true)) {
-            de.bornim.game.ui.CreateLook.draft = draft
-            val tag = if (draft) "neu" else "alt"
-            shot("60_heldenbau_$tag") { it.screen = Screen.CREATE }
-        }
+        shot("60_heldenbau_neu") { it.screen = Screen.CREATE }
         System.exit(0)
     }
     // KAMPF60=1: 60: the fight's boxes old and in the look of the text box: opening line, the menu, a blow with its number
@@ -730,10 +712,8 @@ fun main() {
             shot("59e_verkauf_alle_frage", settle = 60, taps = (System.getenv("TAPY") ?: "1530").let { listOf(Offset(774f, it.toFloat())) }) { vm -> shop(vm) }
             System.exit(0)
         }
-        val looks = System.getenv("HAENDLER").let { if (it == "neu") listOf(true) else listOf(false, true) }
-        for (draft in looks) {
-            de.bornim.game.ui.ShopLook.draft = draft
-            val tag = if (draft) "neu" else "alt"
+        run {
+            val tag = "neu"
             for ((name, tab, dlg) in listOf(Triple("kauf", 0, -1), Triple("verkauf", 1, -1), Triple("kauf_ruestung", 0, 0),
                     Triple("kauf_vorrat", 0, 100), Triple("verkauf_rueckkauf", 2, -1))) {
                 de.bornim.game.ui.ShopLook.previewTab = tab; de.bornim.game.ui.ShopLook.previewDialog = dlg

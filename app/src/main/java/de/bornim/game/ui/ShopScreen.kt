@@ -40,9 +40,8 @@ import de.bornim.core.Ui
 import de.bornim.core.art.IconArt
 import de.bornim.game.GameViewModel
 
-/** 59 Händler: the shop in the look of the text box (in the game since 59d, 12.10.; preview `HAENDLER=1` shows old and new). */
+/** 59 Händler: the shop in the look of the text box (in the game since 59d, 12.10.); what the preview opens on. */
 object ShopLook {
-    @Volatile var draft = true
     /** Preview only: the tab to open on (0 buy, 1 sell, 2 sell with things to buy back) and a dialog (gear index, 100 supply, 101 sell all of a supply). */
     @Volatile var previewTab = 0
     @Volatile var previewDialog = -1
@@ -50,9 +49,9 @@ object ShopLook {
 
 @Composable
 fun ShopScreen(vm: GameViewModel, game: Game, stock: List<String>, brewing: Boolean = false) {
-    if (ShopLook.draft) androidx.compose.runtime.CompositionLocalProvider(LocalVeil provides true) {
+    androidx.compose.runtime.CompositionLocalProvider(LocalVeil provides true) {
         androidx.compose.foundation.layout.Box(Modifier.fillMaxSize().background(Color.Black)) { ShopBody(vm, game, stock, brewing) }
-    } else ShopBody(vm, game, stock, brewing)
+    }
 }
 
 @Composable

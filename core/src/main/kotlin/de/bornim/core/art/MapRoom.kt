@@ -54,9 +54,6 @@ object MapRoom {
 
     private val wallTiles = setOf(Tile.WALL, Tile.WINDOW, Tile.HEARTH)
 
-    /** Things standing on the floor: the boards about them lie in their shade. */
-    private val furniture = setOf(Tile.TABLE, Tile.BED, Tile.SHELF, Tile.COUNTER, Tile.BARREL, Tile.CRATE, Tile.BENCH, Tile.CLUTTER, Tile.PLANT, Tile.ALTAR, Tile.DESK, Tile.TRUNK, Tile.ARMCHAIR, Tile.RACK, Tile.CANDLES, Tile.FONT)
-
     /** How tall the back wall's face stands, in art pixels, drawn on the row below its top. */
     private const val FACE = 40
 
@@ -105,7 +102,6 @@ object MapRoom {
                     if (Math.floorMod(y, 22) == 0 || Math.floorMod(x + shift, w) == 0) st -= 0.4
                     if (rnd(x / 2, y / 2, 45) < 0.006) st -= 0.25
                     st -= wallShade(map, tx, ty, lx, ly)
-                    if (t in furniture) st -= 0.18
                     put(img, xx, yy, pick(STONE, st))
                     continue
                 }
@@ -123,9 +119,6 @@ object MapRoom {
                 if (vnoise(x.toDouble(), y.toDouble(), 22.0, 33) > 0.74) tt -= 0.08
                 val shadeK = wallShade(map, tx, ty, lx, ly)
                 tt -= shadeK
-                if (t in furniture) tt -= 0.18
-                // behind the counter, out of the light
-                if (map.inside(tx, ty + 1) && map.tile(tx, ty + 1) == Tile.COUNTER) tt -= 0.12 + (ly / S.toDouble()) * 0.1
                 c = pick(BOARD, tt)
                 // straw trodden in, more of it towards the walls
                 val sx = Math.floorDiv(x, 7); val sy = Math.floorDiv(y, 7)

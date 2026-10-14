@@ -11,9 +11,6 @@ import de.bornim.core.Tile
  * red mark, the ways out small red arrows.
  */
 object MapSheet {
-    /** Draft switch (test tab, preview `KARTENBLATT=1`). */
-    @Volatile var draft = true
-
     /** 62h/62n (draft, preview `KARTENTUSCHE=1`): drawn like the land map, [MapInk.S] times finer ([MapInk]). */
     @Volatile var ink = true
 

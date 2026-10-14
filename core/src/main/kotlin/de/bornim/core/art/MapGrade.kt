@@ -5,15 +5,12 @@ import de.bornim.core.MapKind
 import de.bornim.core.Tile
 
 /**
- * The colour mood of a place and an hour (idea 11, draft): laid over the finished map like the grade
+ * The colour mood of a place and an hour (idea 11): laid over the finished map like the grade
  * of a film. The cave cold and greenish, a room with a fire warm, the dusk outdoors violet, the night
  * a little colder still; and everywhere the edges of the picture a little darker, so the eye stays
  * with the hero. The light of the place itself stays with [MapLight]; this only tints it.
  */
 object MapGrade {
-    /** Draft switch (test tab, preview `FARBDRAFT=1`). */
-    @Volatile var draft = true
-
     /**
      * The grade: [tint] (rgb, 0xRRGGBB) multiplied over the picture with weight [amount] (0 … 1),
      * and [vignette], how dark the corners get (0 … 1).
@@ -24,13 +21,11 @@ object MapGrade {
         val blue get() = tint and 0xFF
     }
 
-    private val none = Grade(0xFFFFFF, 0f, 0f)
+    /** No grade at all. */
+    val none = Grade(0xFFFFFF, 0f, 0f)
 
-    /** The grade of [map] at [daylight] (0 night … 1 day); none while the draft is off. */
-    fun of(map: MapDef, daylight: Float): Grade = if (!draft) none else grade(map, daylight)
-
-    /** The grade regardless of the switch (for the tests and the preview). */
-    fun grade(map: MapDef, daylight: Float): Grade {
+    /** The grade of [map] at [daylight] (0 night … 1 day). */
+    fun of(map: MapDef, daylight: Float): Grade {
         val d = daylight.coerceIn(0f, 1f)
         return when (map.kind) {
             // rock, damp and moss: cold and a little green; the light tints, it does not darken (dark places are dark already)
