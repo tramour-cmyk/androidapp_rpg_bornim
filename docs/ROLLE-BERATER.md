@@ -6,7 +6,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Sitzungen** (ältere im Archiv): 14.10. 09:15–09:5x „Kultlager und Aschfurt“: 41 Station 3 (5a–5f) und 4 (6a–6f) entschieden, Plot Kapitel 2 damit vollständig; 70.2/70.5 ja: `LISTE-FIGUREN.md` einzige Quelle fürs Aussehen; 80 neu (Kaels Laterne, Tom). Schwerpunkt: Spiel fast ganz, Abläufe kaum. Lehre: drei von sechs Rückfragen brauchten Erklärung, also Kontext gleich in die Rückfrage.
 
-**Nächster Punkt:** (1) **41 Texte Kapitel 2** (Dialoge, Erzähltexte, Aushänge Schilfrode; Namen offen: Aufseher „Brand“, Sohn von Merle und Ansel), Nebenaufgaben 5–6 Stück. (2) 69e: Toms Probebild (09:48) liegt vor; Sokrates empfahl 09:51 (1) präzise als Richtung plus zweite Runde (warme Lichtkegel wie im Spiel, enger Ausschnitt mit Haus groß vorn, Abstraktion über Formen statt Unschärfe); Nutzer entscheidet, dann Musterbild (70.1), 70.3. (3) 79 nach dem Musterbild (Jerry ab Fr.). (4) 72a–72j. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
+**Nächster Punkt:** (1) **41 Texte Kapitel 2** (Dialoge, Erzähltexte, Aushänge Schilfrode; Namen offen: Aufseher „Brand“, Sohn von Merle und Ansel), Nebenaufgaben 5–6 Stück. (2) 69e: Nutzer 09:5x: (1) präzise in Augenhöhe, keine Abstraktion, detailreicher; Tom macht zweite Runde, dann Musterbild (70.1), 70.3. (3) 79 nach dem Musterbild (Jerry ab Fr.). (4) 72a–72j. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
 
 **Zuletzt gelesen bis:** dieser Commit (14.10., 09:5x)
 
