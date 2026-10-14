@@ -154,6 +154,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         staff()
         flask()
         torch()
+        lantern()
         arms3d()
         return out
     }
@@ -666,6 +667,24 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
             add(RoundCone(base, tip, (if (k == 1) 0.04 else 0.028) * h, 0.004 * h, BodyPart.GEAR, Doll.TRIM), fire)
         }
         add(Ellipsoid(head + P3.Y * (0.045 * h), P3(0.025 * h, 0.045 * h, 0.025 * h), Frame.IDENTITY, BodyPart.GEAR, Doll.TRIM), core)
+    }
+
+    /**
+     * 13e.6 (draft, `LATERNE=1`): a small hooded lantern hanging at the left hip, iron cap and frame, horn panes glowing
+     * amber; the source of the light round the hero in the cave and at night (D1.15). Larger than life, as the flask.
+     */
+    private fun lantern() {
+        if (!LANTERN || d.kind != null || alone) return
+        val u = h / 175.0 * 2.8
+        val iron = m(argb(0x2A2622), shine = 0.4, grain = 0.2)
+        val horn = Mat(Ramp(intArrayOf(argb(0xC8702A), argb(0xE89A40), argb(0xF8C060), argb(0xFFE098), argb(0xFFF0C8), argb(0xFFF8E8))), bias = 0.45, inline = false)
+        // hooked on the belt, hanging free beside the thigh: the hips do not turn with the chest
+        val top = sk.lower.apply(P3(-d.hipX * 2.4, beltY - 0.02 * h, 0.02 * h))
+        val mid = top - P3.Y * (3.4 * u)
+        add(RoundCone(top, top - P3.Y * (1.4 * u), 0.35 * u, 0.35 * u, BodyPart.GEAR, Doll.ITEM), iron)
+        add(RoundCone(top - P3.Y * (1.2 * u), mid + P3.Y * (2.0 * u), 0.5 * u, 2.0 * u, BodyPart.GEAR, Doll.ITEM), iron)
+        add(Box(mid, P3(1.6 * u, 2.0 * u, 1.6 * u), Frame.IDENTITY, 0.3, BodyPart.GEAR, Doll.TRIM), horn)
+        add(Box(mid - P3.Y * (2.2 * u), P3(1.9 * u, 0.4 * u, 1.9 * u), Frame.IDENTITY, 0.3, BodyPart.GEAR, Doll.ITEM), iron)
     }
 
     private fun flask() {
@@ -1390,6 +1409,8 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         @Volatile var PRESS_CLOAK = true
         /** 17 (draft, `SWINGMORE=1`): long hair and the quiver swing on with the cloak ([HeroFigure.Rig.cloak]). */
         @Volatile var SWING_MORE = true
+        /** 13e.6 (draft, `LATERNE=1`): the hero's lantern at the hip, off in the game until the user has chosen. */
+        @Volatile var LANTERN = false
         /** How far each weapon's grip and pommel reach back behind the fist, in cm. */
         private val GRIP_BACK = mapOf("dagger" to 7.0, "shortsword" to 8.5, "scimitar" to 8.0, "rapier" to 8.5, "longsword" to 12.5,
             "greatsword" to 25.5, "handaxe" to 9.0, "battleaxe" to 12.0, "greataxe" to 35.0, "mace" to 11.5, "warhammer" to 9.0, "maul" to 30.0, "halberd" to 45.0)
