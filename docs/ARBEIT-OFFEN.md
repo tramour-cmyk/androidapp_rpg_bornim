@@ -12,6 +12,8 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 - **Tom Sammelbuild 0.1.732** (5.5, 27m.1–27m.5; PR #60, Zweig `claude/tom-5-5-dorf-luecken`): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38554145752/artifacts/11889780000), Prüfliste `e/t732.html` auf „Dein Zug“. Nach „passt“: PR #60 zusammenführen, `CHANGELOG.md`, t732 und `e/5-5.html` von „Dein Zug“, hier leeren.
 
+- **Tom Sammelbuild 0.1.733** (82, 52, 80a, D1.5/D1.10/D1.11; PR #61, Zweig `claude/tom-d1-schatten`, nach t732 testen): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38576807017/artifacts/11902500727), Prüfliste `e/t733.html`. Nach „passt“: PR #61 zusammenführen, `CHANGELOG.md`, t733 von „Dein Zug“, hier leeren.
+
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
 Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](DESIGN-STIL.md) · [Umgebung](ARBEIT-UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](ARBEIT-SELBST.md) · [Themen](LISTE-THEMEN.md): eine Zeile je Nummer · [Archiv](ARBEIT-ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
@@ -21,7 +23,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 82 | Verschlossene Tür: Held verschwand beim Anklopfen hinter der Hauswand (Nutzer 14.10., 15:5x, Pims Haus); alle Zugänge | Tom | `claude/tom-d1-schatten` | Behoben (f088ebd0): Tür mit Bedingung zählt beim Laufen als Wand, Dagegenlaufen klopft an; gilt für alle bedingten Zugänge außer Umkehr am Kartenrand; Kerntest. Kommt in den nächsten Sammelbuild |
-| 81 | Teamleiter „Ford“: hält Tom und Jerry beschäftigt, meldet dem Nutzer Entscheidungen, startet Sitzungen (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–i, 81k–l (Beschlüsse/Archiv). **81m Telegram-Push** aus Sitzung und Routine bestätigt (Nutzer 15:2x), Weg in `ROLLE-FORD.md`. Routinen gebaut (15:28): „Ford (Tom)“ stündlich, aus bis zur Stellung; „Ford Start“ (aus Probe 1/2 umgebaut). **81n** (Nutzer 15:48: Ford soll auch Arbeit finden, die nicht in der Übergabe steht, z. B. Diogenes-Befunde): ja (16:02), eingebaut in `ROLLE-FORD.md` Schritt 3a und `ROLLE-ENTWICKLER.md`. Co-Pilot seit 16:02; Pilot und drei Nächte Bewährung (81i) erst auf Zuruf; Jerry-Ford ab Fr. [Entwurf Ford](https://claude.ai/code/artifact/ff3ae8ab-a448-4a79-b928-3a09f424b45c) |
+| 81 | Teamleiter „Ford“: hält Tom und Jerry beschäftigt, meldet dem Nutzer Entscheidungen, startet Sitzungen (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–n (Beschlüsse/Archiv; Telegram-Push und Routinen in `ROLLE-FORD.md`). Co-Pilot seit 16:02; Pilot und drei Nächte Bewährung (81i) erst auf Zuruf; Jerry-Ford ab Fr. [Entwurf Ford](https://claude.ai/code/artifact/ff3ae8ab-a448-4a79-b928-3a09f424b45c) |
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`update_trigger`, `enabled: false`, nicht löschen; `ARBEIT-SELBST.md`). Regeln in `CLAUDE.md` |
 | 13 | Diagonale Sicht | Tom | `claude/tom-73-laeden` | 13t auf `main` (PR #54). Verlauf im Archiv |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-5-5-dorf-luecken` | Auf `main` bis 5la. **5.5** Marktstand und Fahrspuren auf dem Zweig (`e/5-5.html`); Lichtfleck Ost kein Fehler |
@@ -54,7 +56,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (14.10., 16:0x) – an Nachfolger
-- **Zuerst** PR #60 (t732, grün) und **PR #61** (Sammelbuild 52, 80a, D1-Reste, 82; Zweig `claude/tom-d1-schatten`, Build lief 16:01) abonnieren. Ist #61 grün: Prüfliste aus dem Entwurf `e/tPR61-entwurf.html` auf „Dein Zug“ (BUILD, ZEIT, APKLINK ersetzen) als `e/t<build>.html` mit APK-Link auf „Dein Zug“, Zeile unter „Anzusehen“. Punkte: 82 Tür (Pims Haus), 52 Rudelwölfe, 80a Laterne Tag/Nacht, D1.5 Schatten, D1.10 Schänke (4 Felder von Rowena, 30 s), D1.11 Fenster je Haus/Regal.
+- PR #60 (t732) und #61 (t733) abonniert, Prüflisten auf „Dein Zug“ (Nachfolger 16:1x).
 - **Dann Vertretung Jerry (Nutzer 16:0x: „prüfe, was anliegt und wichtig ist, auch wenn es bei Jerry liegt“):** Ziel Kapitel 1 fertig (`LISTE-KAPITEL1.md`). Wichtigster Brocken: **Höhle „Ort fertig“** (13e liegt seit 13y bei Tom): D1.5 Höhle (alte 3:1-Bodenschatten doppelt, Rautenschatten `MapCaveIso.kt:474` → Ellipse), D1.9 Feuer klingt durch Wände, D1.6 Eingang flach/schwarzes Rechteck, D1.15 Laterne ohne Quelle, D1.7 Leben. Jerrys Zweig `claude/jerry-13e-hoehle-diagonal` ist alt (ohne gemeinsame Basis mit `main`), nur als Vorlage für 13e.4 (Stalagmiten, Weiher). Erst Liste mit Reihenfolge dem Nutzer nennen, dann bauen. Offen bei Jerry außerdem 36.6, 51, 53, 40 (Regler), 24.6.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
