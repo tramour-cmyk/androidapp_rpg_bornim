@@ -341,16 +341,20 @@ class Sculpt(val w: Int, val h: Int, private val seed: Int = 0) {
         }
     }
 
-    /** Selective outline: a darkened version of the neighbouring color instead of plain black. */
-    fun outline(dark: Int = Pal.OUTLINE) {
+    /**
+     * Selective outline: a darkened version of the neighbouring color instead of plain black. Pixels fainter than
+     * [solid] (alpha 0..255) count as see-through, so a soft shadow laid on the floor gets no hard rim (D1.5).
+     */
+    fun outline(dark: Int = Pal.OUTLINE, solid: Int = 1) {
         val src = img.copy()
+        fun on(x: Int, y: Int) = (src[x, y] ushr 24) >= solid
         for (y in 0 until h) for (x in 0 until w) {
-            if (src.opaque(x, y)) continue
+            if (on(x, y)) continue
             val n = when {
-                src.opaque(x, y + 1) -> src[x, y + 1] to 0.62
-                src.opaque(x + 1, y) -> src[x + 1, y] to 0.62
-                src.opaque(x - 1, y) -> src[x - 1, y] to 0.78
-                src.opaque(x, y - 1) -> src[x, y - 1] to 0.8
+                on(x, y + 1) -> src[x, y + 1] to 0.62
+                on(x + 1, y) -> src[x + 1, y] to 0.62
+                on(x - 1, y) -> src[x - 1, y] to 0.78
+                on(x, y - 1) -> src[x, y - 1] to 0.8
                 else -> null
             } ?: continue
             img.set(x, y, mix(n.first or (0xFF shl 24), dark, n.second))

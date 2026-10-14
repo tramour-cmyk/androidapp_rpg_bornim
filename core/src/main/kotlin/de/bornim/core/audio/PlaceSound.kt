@@ -8,7 +8,7 @@ import kotlin.random.Random
 /**
  * What a place sounds like (24.8), heard from the moment the black screen comes down, before the picture: wind outside,
  * the still air of the temple hall, wood creaking now and then in the houses, a drop in the cave at once. Only what is
- * there makes a sound (STIL.md, Klang; 24.8.4): no crowd in the inn, but the innkeeper wiping, pouring, setting down a
+ * there makes a sound (DESIGN-STIL.md, Klang; 24.8.4): no crowd in the inn, but the innkeeper wiping, pouring, setting down a
  * cup, and a guest's chair or cough, one at a time and never in step.
  */
 object PlaceSound {

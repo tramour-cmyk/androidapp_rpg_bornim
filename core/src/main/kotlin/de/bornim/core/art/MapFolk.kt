@@ -77,9 +77,6 @@ object MapFolk {
     val morwen = Folk("morwen", human(Sex.FEMALE, Build.SLIM, 1, 0, grey = 0x9C9890),
         Outfit(CharClass.ROGUE, kit("robe", "hood"), cloakRgb = 0x3E4A30, clothes = clothes(0x4A5A36, 0x34402A, 0x2E2A22)))
 
-    /** 55.2 (55c ja): Borin sits at his table in the inn. */
-    @Volatile var sitDraft = true
-
     /** Borin's poses at his table (55.2): hands on the table, a drink from his flask, a bite, a look round. */
     enum class Seat { REST, DRINK, EAT, LOOK, BREATHE }
 
@@ -89,7 +86,7 @@ object MapFolk {
     }
 
     /** Who sits at a table instead of standing (55.2): Borin in the inn. */
-    fun sits(f: Folk) = sitDraft && f.id == "borin"
+    fun sits(f: Folk) = f.id == "borin"
 
     /** What he does at the table is decided by chance in blocks of this length, never on a beat. */
     const val SEAT_BLOCK_MS = 20_000L

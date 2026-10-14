@@ -3,7 +3,7 @@ package de.bornim.core.audio
 /**
  * Sounds played from recordings (18): CC0 recordings cut with tools/klang, as app/src/main/assets/sfx/<name>_<n>.ogg.
  * A sound listed here is played from its files instead of being synthesized. The sounds that announce something (the
- * system sounds) come in one take only, so they are known at once; all others come in at least three (STIL.md, Klang).
+ * system sounds) come in one take only, so they are known at once; all others come in at least three (DESIGN-STIL.md, Klang).
  */
 object Recorded {
     /** How many takes of each recorded sound there are. */
