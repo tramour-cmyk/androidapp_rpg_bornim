@@ -53,9 +53,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 15:58) – an Nachfolger
-- PR #60 abonniert (grün, wartet auf t732; nach „passt“ zusammenführen, `CHANGELOG.md`). Beim Nutzer offen: t732, 69e, 74.
-- **Sammelbuild PR #61** (Zweig `claude/tom-d1-schatten`, `main` + beide Zweige hineingemergt, Build läuft, abonniert): **52** (`claude/tom-52-rudel`), **80a** (`claude/tom-80a-sockel`), **D1-Reste** (D1.5 Schatten 2:1, D1.10 Rowena/Schänkenklang, D1.11 Fenster/Regale) und **82** (Tür) auf `claude/tom-d1-schatten`. Prüfliste `e/t<build>.html`; Vermerke im Prüfbericht gesetzt. Danach D1.16-Rest nur nach Absprache.
+### Tom (14.10., 16:0x) – an Nachfolger
+- **Zuerst** PR #60 (t732, grün) und **PR #61** (Sammelbuild 52, 80a, D1-Reste, 82; Zweig `claude/tom-d1-schatten`, Build lief 16:01) abonnieren. Ist #61 grün: Prüfliste aus dem Entwurf (Vorgänger, Inhalt unten) als `e/t<build>.html` mit APK-Link auf „Dein Zug“, Zeile unter „Anzusehen“. Punkte: 82 Tür (Pims Haus), 52 Rudelwölfe, 80a Laterne Tag/Nacht, D1.5 Schatten, D1.10 Schänke (4 Felder von Rowena, 30 s), D1.11 Fenster je Haus/Regal.
+- **Dann Vertretung Jerry (Nutzer 16:0x: „prüfe, was anliegt und wichtig ist, auch wenn es bei Jerry liegt“):** Ziel Kapitel 1 fertig (`LISTE-KAPITEL1.md`). Wichtigster Brocken: **Höhle „Ort fertig“** (13e liegt seit 13y bei Tom): D1.5 Höhle (alte 3:1-Bodenschatten doppelt, Rautenschatten `MapCaveIso.kt:474` → Ellipse), D1.9 Feuer klingt durch Wände, D1.6 Eingang flach/schwarzes Rechteck, D1.15 Laterne ohne Quelle, D1.7 Leben. Jerrys Zweig `claude/jerry-13e-hoehle-diagonal` ist alt (ohne gemeinsame Basis mit `main`), nur als Vorlage für 13e.4 (Stalagmiten, Weiher). Erst Liste mit Reihenfolge dem Nutzer nennen, dann bauen. Offen bei Jerry außerdem 36.6, 51, 53, 40 (Regler), 24.6.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.

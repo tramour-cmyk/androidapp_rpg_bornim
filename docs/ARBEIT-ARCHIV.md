@@ -1,5 +1,9 @@
 # Archiv
 
+### Aus ARBEIT-OFFEN.md, 14.10., 16:0x (Übergabe Tom 15:58)
+- PR #60 abonniert (grün, wartet auf t732; nach „passt“ zusammenführen, `CHANGELOG.md`). Beim Nutzer offen: t732, 69e, 74.
+- **Sammelbuild PR #61** (Zweig `claude/tom-d1-schatten`, `main` + beide Zweige hineingemergt, Build läuft, abonniert): **52** (`claude/tom-52-rudel`), **80a** (`claude/tom-80a-sockel`), **D1-Reste** (D1.5 Schatten 2:1, D1.10 Rowena/Schänkenklang, D1.11 Fenster/Regale) und **82** (Tür) auf `claude/tom-d1-schatten`. Prüfliste `e/t<build>.html`; Vermerke im Prüfbericht gesetzt. Danach D1.16-Rest nur nach Absprache.
+
 ### Aus ARBEIT-OFFEN.md, 14.10., 15:58 (Übergabe Tom 15:3x)
 - PR #60 abonniert (grün, wartet auf t732; nach „passt“ zusammenführen, `CHANGELOG.md`). Beim Nutzer offen: t732, 69e, 74. **Nächster Sammelbuild** (neuer Zweig von `main`, nach t732): 52, 80a, D1.5, D1.10.
 - **D1.5** (ceb9452) und **D1.10** (d9899f4f) fertig auf `claude/tom-d1-schatten`: Schatten 2:1; Rowena wischt/schenkt ein (`NPCIDLE=rowena`), Schänkenklänge kommen aus dem Bewegungsplan (`PlaceSound.folk`), zufällig nur Husten und Knarren. Jetzt **D1.11-Rest** (Tür/Fenster nur eine Form; mehrteilige Möbel je Feld andere Variante). D1.16-Rest nur nach Absprache.
