@@ -1,6 +1,6 @@
 # Archiv
 
-### Aus ARBEIT-OFFEN.md, 14.10., 20:5x (Übergabe Tom 19:4x)
+### Aus ARBEIT-OFFEN.md, 14.10., 20:4x (Übergabe Tom 19:4x)
 - PR #60 (0.1.739), #61, #62 beim Nutzer (oben), abonnieren. Weiter: 85 auf `claude/tom-85-testmenue` (2 Knöpfe raus) in den nächsten Sammelbuild; 74 Hörprobe 2 beim Nutzer, dann einbauen; 83 A bauen (Standbild zuerst); 13e D1.7 Leben Höhle (Rauch `drawCampSmoke`, `WorldScreen.kt`, nach Absprache).
 - Draußen bei Nacht bleibt das kleine Licht um den Helden (13e.6 B nur Höhle); falls der Berater B auch für draußen meint: `MapLight.kt` (`lantern`).
 
