@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom Sammelbuild** (5.5, 27m.1–27m.5; PR #60, Zweig `claude/tom-5-5-dorf-luecken`): Build läuft (14.10., 13:0x), Link und Prüfliste folgen.
+- **Tom Sammelbuild 0.1.732** (5.5, 27m.1–27m.5; PR #60, Zweig `claude/tom-5-5-dorf-luecken`): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38554145752/artifacts/11889780000), Prüfliste `e/t732.html` auf „Dein Zug“. Nach „passt“: PR #60 zusammenführen, `CHANGELOG.md`, t732 und `e/5-5.html` von „Dein Zug“, hier leeren.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
