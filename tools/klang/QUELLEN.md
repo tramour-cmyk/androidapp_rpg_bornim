@@ -137,7 +137,7 @@ CC0 1.0, Lizenz in den Paketen (License.txt) und auf der Quellseite geprüft am 
 | Klang | Aufnahme(n) | Urheber, Paket | Quelle |
 |---|---|---|---|
 | `schritt_gras_1–3` | footstep_grass_000, _002, _004 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
-| `schritt_erde_1–3` | footstep01, 04, 07 | Kenney, RPG Audio | https://kenney.nl/assets/rpg-audio |
-| `schritt_pflaster_1–3` | footstep_concrete_000, _002, _004 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
+| `schritt_erde_1–3` (zweite Runde) | 3202 „Footsteps on Gravels #3“, Schritte bei 2,81 / 3,46 / 4,84 s | Pierre, BigSoundBank, CC0 (Seite geprüft 14.10.2026) | https://bigsoundbank.com/footsteps-on-gravels-3-s3202.html |
+| `schritt_pflaster_1–3` (zweite Runde) | 0606 „Step, Shoe on Stone Staircase“, Schritte bei 1,15 / 9,85 / 10,7 s | BigSoundBank, CC0 | https://bigsoundbank.com/search?q=footsteps |
 | `schritt_holz_1–3` | footstep_wood_000, _002, _003 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
 | `schritt_stein_1–3` | footstep_concrete_001, _003, _004 (tiefer, mit Höhlenhall) | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |

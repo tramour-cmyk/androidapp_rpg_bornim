@@ -4,7 +4,7 @@ dazu je Untergrund ein Gang von acht Schritten zum Anhören. Alle CC0 (QUELLEN.m
 
     python3 tools/klang/schritte.py <ordner mit den Aufnahmen> <ziel>     # WAV-Proben und die Gänge
 
-Aufnahmen: Kenney „Impact Sounds“ (footstep_grass/concrete/wood_00x.ogg) und „RPG Audio“ (footstep0x.ogg), beide CC0,
+Aufnahmen: Kenney „Impact Sounds“ (footstep_grass/concrete/wood_00x.ogg), BigSoundBank 3202 und 0606 (Erde, Pflaster), alle CC0,
 aus den Paketen, die tools/klang/holen.sh lädt.
 """
 import sys, os, numpy as np
@@ -16,10 +16,13 @@ L = lambda f: trim(load(os.path.join(D, f)))
 S = {}
 # Gras: weich, die Höhen gedämpft
 S["gras"] = [lowpass(pitch(L(f"footstep_grass_00{i}.ogg"), -1), 6000, 2) for i in (0, 2, 4)]
-# Erde und Weg: Stiefel auf festgetretenem Boden mit etwas Kies
-S["erde"] = [lowpass(L(f"footstep0{i}.ogg"), 5500, 2) for i in (1, 4, 7)]
-# Pflaster: hart, kurz, ein wenig dunkler
-S["pflaster"] = [lowpass(pitch(L(f"footstep_concrete_00{i}.ogg"), -1), 6500, 2) for i in (0, 2, 4)]
+C = lambda f, t, d: trim(cut(load(os.path.join(D, f)), t - 0.02, t + d + 0.12))
+# Erde und Weg (zweite Runde, Nutzer 14.10.: klang wie Pflaster): weiches Knirschen auf festgetretenem Boden mit wenig Kies,
+# BigSoundBank „Footsteps on Gravels #3“, Höhen stark gedämpft und etwas tiefer, damit es nach Erde statt Kies klingt
+S["erde"] = [lowpass(pitch(C("bsb_3202.mp3", t, 0.25), -2), 2800, 2) for t in (2.81, 3.46, 4.84)]
+# Pflaster (zweite Runde: war sehr stumpf): Ledersohle auf Stein, hell und kurz mit kleinem Nachklang zwischen Häusern,
+# BigSoundBank „Step, Shoe on Stone Staircase“
+S["pflaster"] = [reverb(highpass(C("bsb_0606.mp3", t, 0.18), 90, 2), 0.08, 0.35, seed=k + 1) for k, t in enumerate((1.15, 9.85, 10.7))]
 # Holzdielen in den Häusern: hohl, tiefer, mit dem kleinen Hall eines Raumes
 S["holz"] = [reverb(highpass(pitch(L(f"footstep_wood_00{i}.ogg"), -1), 110, 2), 0.1, 0.4, seed=i + 1) for i in (0, 2, 3)]
 # Stein in der Höhle: tief, mit langem Nachhall
