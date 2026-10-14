@@ -47,10 +47,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 00:56) – Bericht Selbstarbeit (Vorrat leer, „Bis“ 07:00 nicht gebraucht)
-- **Fertig:** Paket 1–4 (Vorgänger: D1.5, D1.16-Rest, Sammelbuild **0.1.721** PR #57 (abgenommen und zusammengeführt 14.10., 07:1x), Prüfliste `e/t721.html`, 27-Lückenliste). Reserve: **55** Speer im Kampf (Held/Skelett 2 m; Kobold ~0,9 m → **55d**); **5.5** Dorf-Lückenliste (unten); **69** Intro als gemalte Nachtbilder + **68** Tempelszene als Entwurf (`claude/tom-69-intro` 05e6b18b, `CutsceneArt`, `INTROBILD=1`; Figuren Platzhalter → **69e**); 27 Pfützen weich als Entwurf (`claude/tom-27-pfuetzen` 86de0cc8, `PFUETZE=1`). Kein Build, nichts zusammengeführt.
-- **Lücken** Wald (27, Vorgänger) und Dorf (5.5): Kartenrand gerade schwarze Schräge, Bäume/Kornfeld abgeschnitten; Nähte an Bodenstück-Kanten (`WorldScreen.kt`); Menhire flau mit Kante quer: Bild in Ordnung, Licht auf der Karte nach Bildschirmstelle statt Fuß (**27l**); nachts Kronen hell ums Licht (D1.15, Jerry); Schritte fehlen (74, Jerry).
-- **Rückfragen auf „Dein Zug“** (Empfehlung): 55d entschieden (so lassen); 69e gemalte Bilder (B), danach Figuren als Puppen in Augenhöhe; 27l Licht am Fuß messen (`WorldScreen.kt`, mit Jerry). Routinen 03:24/06:24 aus. Nächstes nach Antworten: 69/68 Figuren, 27l, PR #57 nach Test.
+### Tom (14.10., 07:40)
+- **Heute:** 0.1.721 abgenommen, PR #57 zusammengeführt; 55d so lassen; 77e.3 Vorgaben neu gefasst; 69e beim Berater (Sokrates schlägt Probebilder vor). **Sammelbuild PR #58** (Zweig `ccr-e4144697-7oy67j`): 27l Licht am Fuß (`footLight`), Pfützen weich, 77.1 Leiste; PR abonniert, danach Prüfliste `e/t<build>.html`.
+- **Lücken** Wald (27) und Dorf (5.5), ohne Entscheidung zu bauen: Kartenrand gerade schwarze Schräge, Bäume/Kornfeld abgeschnitten; Nähte an Bodenstück-Kanten (`WorldScreen.kt`); nachts Kronen hell ums Licht (D1.15, Jerry); Schritte fehlen (74, Jerry).
+- **Nächstes:** Nähte untersuchen, dann Kartenrand (erst Standbilder); 69/68 nach Entscheidung 69e.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.
