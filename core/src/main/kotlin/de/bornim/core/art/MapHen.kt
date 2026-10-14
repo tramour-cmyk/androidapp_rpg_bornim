@@ -179,6 +179,13 @@ object MapHen {
         private var bout = Long.MIN_VALUE
         /** The pose it had before the present mood, so the new one starts with a blend from it, not a jump. */
         private var from = "low"
+
+        // what is to be heard (83c), read by the sound loop: how often it has run off, the bout it is in and what
+        // it does in it (0 pecking, 1 scratching, 2 looking up), and the rake of the foot it is at
+        @Volatile var fled = 0; private set
+        @Volatile var heardBout = Long.MIN_VALUE; private set
+        @Volatile var heardKind = -1; private set
+        @Volatile var heardRake = Long.MIN_VALUE; private set
         private var mood = Mood.IDLE
         private var since = Long.MIN_VALUE
         private var last = Long.MIN_VALUE
@@ -215,6 +222,7 @@ object MapHen {
             last = clock
             val near = hypot(heroX - x, heroY - y)
             fun go(m: Mood) {
+                if (m == Mood.FLEE) fled++
                 from = when (mood) { Mood.FLEE, Mood.WARY -> "alert"; Mood.WALK -> "stand"; Mood.IDLE -> "low" }
                 mood = m; since = clock
             }
@@ -291,7 +299,10 @@ object MapHen {
             // each new bout turns it a little, and it keeps that way
             if (slot != bout) { bout = slot; yaw += (hash(slot.toInt(), seed, 6) % 3 - 1) * 35.0 }
             val face = yaw
-            return when (hash(slot.toInt(), seed, 5) % 6) {
+            val kind = hash(slot.toInt(), seed, 5) % 6
+            heardKind = when (kind) { 0, 1, 2 -> 0; 3, 4 -> 1; else -> 2 }
+            heardBout = slot
+            return when (kind) {
                 0, 1, 2 -> {
                     // pecking: head low, then a quick jab to the ground, two or three times a second, now and then a pause
                     // each jab starts and ends with the head low, so a bout begins and ends without a jump
@@ -303,6 +314,7 @@ object MapHen {
                 3, 4 -> {
                     // scratching: raking back with one foot, then a look at the ground
                     val r = u % RAKE
+                    heardRake = slot * 16 + u / RAKE
                     if (r < 420) At(x, y, face, "low>scratch", (if (r < 210) r * 8 / 210 else (420 - r) * 8 / 210).toInt().coerceIn(0, 8), variant)
                     else At(x, y, face, "low", 0, variant)
                 }

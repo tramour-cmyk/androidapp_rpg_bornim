@@ -254,6 +254,8 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         val ear = pond?.let { de.bornim.core.audio.PondSound.Ear(it) }
         var chorus = 0f
         var chorusStream = 0
+        // the hens (83c): clucking, scratching, alarm and wings, from what each hen is doing
+        val henEar = if (game.map.kind == MapKind.TOWN) de.bornim.core.art.MapHen.of(game.map).takeIf { it.isNotEmpty() }?.let { de.bornim.core.audio.HenSound.Ear(it) } else null
         try {
             while (isActive) {
                 delay(tick)
@@ -298,6 +300,10 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                         chorus == 0f && chorusStream != 0 -> { vm.sfx.stop(chorusStream); chorusStream = 0 }
                         else -> vm.sfx.volume(chorusStream, chorus)
                     }
+                }
+                if (henEar != null && de.bornim.core.art.MapHen.draft) {
+                    val heard = henEar.hear((p.x + 0.5f) * de.bornim.core.art.WorldArt.T, (p.y + 0.5f) * de.bornim.core.art.WorldArt.T)
+                    if (calm) for ((s, v) in heard) vm.play(s, v)
                 }
                 if (game.map.kind == MapKind.CAVE && now >= nextDrip) {
                     if (calm) vm.play(de.bornim.core.audio.Sound.DRIP, de.bornim.core.audio.Ambience.dripVolume(fire))

@@ -10,7 +10,7 @@ Aufnahmen: BigSoundBank (Joseph Sardin, CC0) 1039 „Hens worried“, 0975 „He
 import sys, os, numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from klang import *
 D, OUT = sys.argv[1], sys.argv[2]
-os.makedirs(OUT, exist_ok=True)
+if OUT != "--spiel": os.makedirs(OUT, exist_ok=True)
 L = lambda n: load(os.path.join(D, f"bsb_{n}.mp3"))
 
 def win(x, a, b, fi=0.02, fo=0.10): return cut(x, a, b, fi, fo)
@@ -33,6 +33,19 @@ def rake(a, b, seed): return yard(lowpass(highpass(pitch(win(earth, a, b, 0.005,
 S["scharren"] = [rake(0.14, 0.30, 1), rake(1.50, 1.68, 2), rake(9.58, 9.70, 3)]
 
 def finish(x, rms=-22): return norm(trim(x, -55), -1.0, rms)
+
+# ins Spiel (bis zur Wahl des Nutzers auf „Dein Zug“ 83c alle Proben)
+if OUT == "--spiel":
+    import subprocess
+    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    chosen = {"hen_cluck": S["gluck"], "hen_scratch": S["scharren"], "hen_alarm": S["gacker"], "hen_flap": S["flattern"]}
+    for name, takes in chosen.items():
+        for i, x in enumerate(takes):
+            tmp = os.path.join(sfx, "_tmp.wav"); write(tmp, finish(x, -26 if name == "hen_scratch" else -22))
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", tmp, "-ac", "1", "-ar", "44100", "-c:a", "libvorbis", "-q:a", "4",
+                            "-map_metadata", "-1", os.path.join(sfx, f"{name}_{i + 1}.ogg")], check=True)
+            os.remove(tmp)
+    print("Hühner-Klänge nach", os.path.normpath(sfx)); sys.exit(0)
 for name, takes in S.items():
     for i, x in enumerate(takes): write(os.path.join(OUT, f"{name}_{i + 1}.wav"), finish(x, -26 if name == "scharren" else -22))
 
