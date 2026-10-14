@@ -35,6 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.zIndex
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.draw.clip
@@ -1128,11 +1129,15 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                         baseY + mPx * (ly - MonsterArt.groundLine(packDef.mate)).toFloat(),
                     )
                 }
+                // 52 (bug 08.10.: the mates bit into thin air from their place at the back): a new-style mate springs to the
+                // leader's place, a little in front of it, bites from there as the leader would, and goes back; drawn in front
+                val toX = if (mateNew) (sceneW * foeX + 14.dp - baseX) * mateIn else 0.dp
+                val toY = if (mateNew) (sceneH * foeY + 16.dp - baseY) * mateIn else 0.dp
                 Box(
-                    Modifier.offset(
+                    Modifier.zIndex(if (mateNew && (acting || landing)) 1f else 0f).offset(
                         // old-style mates leap in while their attack is named and spring back with the hit or the miss
-                        x = baseX - mateAnchor + (intro.value * 260).dp + (if (!mateNew) -(mateIn * 26).dp else 0.dp) + (if (fleeing) (t * 140).dp else 0.dp),
-                        y = baseY - mateFeet + (if (!mateNew) (mateIn * 12).dp else 0.dp),
+                        x = baseX - mateAnchor + (intro.value * 260).dp + (if (!mateNew) -(mateIn * 26).dp else toX) + (if (fleeing) (t * 140).dp else 0.dp),
+                        y = baseY - mateFeet + (if (!mateNew) (mateIn * 12).dp else toY),
                     )
                 ) {
                     val mAlpha = (if (fleeing) 1f - t else 1f) * enemyAlphaBase(a, ui.enemyGone, t)
