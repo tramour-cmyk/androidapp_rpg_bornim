@@ -20,6 +20,21 @@ import kotlin.math.sqrt
  * Every kind of thing comes in three looks (preview HOEHLEDINGE=1).
  */
 object MapCave {
+    /**
+     * The tile at ([x], [y]) as the cave is drawn: beyond the edge of the map the rock goes on (D1.6), and the passage
+     * of the mouth runs straight on out a few tiles, towards the daylight.
+     */
+    internal fun caveTile(map: MapDef, x: Int, y: Int): Tile {
+        if (map.inside(x, y)) return map.tile(x, y)
+        val cx = x.coerceIn(0, map.width - 1); val cy = y.coerceIn(0, map.height - 1)
+        // only straight out of a mouth on the edge, not round the corner
+        val straight = (x == cx) != (y == cy)
+        return if (straight && map.tile(cx, cy) == Tile.CAVE_EXIT && maxOf(abs(x - cx), abs(y - cy)) <= MOUTH) Tile.CAVE_EXIT else Tile.CAVE_WALL
+    }
+
+    /** How many tiles the passage of the mouth runs on beyond the edge of the map. */
+    const val MOUTH = 4
+
     class Sprite(val img: PixelImage, val ax: Int, val ay: Int)
 
     private fun hash(a: Int, b: Int, s: Int): Int {
@@ -740,7 +755,7 @@ object MapCave {
     fun objects(map: MapDef, tx: Int, ty: Int, frame: Int = 0, chestOpen: Boolean = false, gateOpen: Boolean = false): List<WorldArt.Obj>? {
         val v = hash(tx, ty, 77) % 3
         val cx = (tx + 0.5) * S; val top = ty * S.toDouble()
-        return when (map.tile(tx, ty)) {
+        return when (caveTile(map, tx, ty)) {
             Tile.CAVE_FLOOR, Tile.CAVE_WALL, Tile.CAVE_EXIT, Tile.WATER -> emptyList()
             Tile.STALAGMITE -> listOf(obj(cached("stalagmite/$v") { stalagmite(v) }, cx, top + S * 0.82))
             Tile.ROCK -> listOf(obj(cached("boulder/$v") { boulder(v) }, cx, top + S * 0.8))
@@ -759,8 +774,8 @@ object MapCave {
             Tile.SKYLIGHT -> listOf(obj(cached("roots/$v") { roots(v) }, cx, top - S * 0.4, top))
             // supports and the gate span the passage: drawn once, at the left one of each pair
             // (right behind the gate the gate's own frame is enough)
-            Tile.SUPPORT -> if (map.tile(tx - 1, ty) == Tile.SUPPORT || map.tile(tx, ty - 1) == Tile.GATE) emptyList() else listOf(obj(cached("support/$v") { support(v) }, (tx + 1.0) * S, top + S * 0.6))
-            Tile.GATE -> if (gateOpen || map.tile(tx - 1, ty) == Tile.GATE) emptyList() else listOf(obj(cached("gate/0") { gate(0) }, (tx + 1.0) * S, top + S * 0.62))
+            Tile.SUPPORT -> if (caveTile(map, tx - 1, ty) == Tile.SUPPORT || caveTile(map, tx, ty - 1) == Tile.GATE) emptyList() else listOf(obj(cached("support/$v") { support(v) }, (tx + 1.0) * S, top + S * 0.6))
+            Tile.GATE -> if (gateOpen || caveTile(map, tx - 1, ty) == Tile.GATE) emptyList() else listOf(obj(cached("gate/0") { gate(0) }, (tx + 1.0) * S, top + S * 0.62))
             else -> null
         }
     }
@@ -789,7 +804,7 @@ object MapCave {
         val ix = floor(fx).toInt(); val iy = floor(fy).toInt()
         var u = fx - ix; var w = fy - iy
         u = u * u * (3 - 2 * u); w = w * w * (3 - 2 * w)
-        fun at(tx: Int, ty: Int) = if (test(map.tile(tx, ty))) 1.0 else 0.0
+        fun at(tx: Int, ty: Int) = if (test(caveTile(map, tx, ty))) 1.0 else 0.0
         return (at(ix, iy) * (1 - u) + at(ix + 1, iy) * u) * (1 - w) + (at(ix, iy + 1) * (1 - u) + at(ix + 1, iy + 1) * u) * w
     }
 
@@ -808,7 +823,7 @@ object MapCave {
      * edge only ever draws back into the rock tiles, never out over the floor: a wall's foot lies in its own tile.
      */
     internal fun rockAt(map: MapDef, x: Double, y: Double): Double {
-        if (!rockTiles(map.tile(floor(x / S).toInt(), floor(y / S).toInt()))) return 0.0
+        if (!rockTiles(caveTile(map, floor(x / S).toInt(), floor(y / S).toInt()))) return 0.0
         return field(map, x, y, rockTiles) - (fbm(x, y, 56.0, 4) * 0.6 + vnoise(x, y, 11.0, 6) * 0.4) * 0.4
     }
     private val waterTiles: (Tile) -> Boolean = { it == Tile.WATER }
@@ -820,7 +835,7 @@ object MapCave {
     private fun c3(c: Int) = doubleArrayOf(((c shr 16) and 0xFF).toDouble(), ((c shr 8) and 0xFF).toDouble(), (c and 0xFF).toDouble())
     private val FLOOR_D = c3(0x3A342F); private val FLOOR_L = c3(0x665E54); private val FLOOR_M = c3(0x4A4038); private val DUST = c3(0x5A4E40)
     private val MOSS_G = c3(0x3A4A2C); private val POOL_RIM = c3(0x22201C); private val POOL_S = c3(0x1E2A2C); private val GLINT = c3(0x5E8A88); private val POOL_D = c3(0x06090A)
-    private val PUD = c3(0x1E262A); private val SHEEN = c3(0x7A8890); private val EARTH = c3(0x3A2E22); private val MOSS_OUT = c3(0x3A4A26)
+    private val LITTER = c3(0x5A4A2A); private val PUD = c3(0x1E262A); private val SHEEN = c3(0x7A8890); private val EARTH = c3(0x3A2E22); private val MOSS_OUT = c3(0x3A4A26)
     private val FACE_L = c3(0x6E665C); private val FACE_D = c3(0x3A342F); private val STREAK = c3(0x2A3034)
     private val TOP_D = c3(0x2A2624); private val TOP_L = c3(0x4A423A); private val LIP = c3(0x6A6258); private val EDGE = c3(0x7A7268)
 
@@ -875,13 +890,13 @@ object MapCave {
         }
         // the mouth of the cave: daylight and the forest come in from there
         val exits = ArrayList<DoubleArray>()
-        for (ty in 0 until map.height) for (tx in 0 until map.width) if (map.tile(tx, ty) == Tile.CAVE_EXIT) exits += doubleArrayOf((tx + 0.5) * S, (ty + 1.0) * S)
+        for (ty in -MOUTH until map.height + MOUTH) for (tx in -MOUTH until map.width + MOUTH) if (caveTile(map, tx, ty) == Tile.CAVE_EXIT) exits += doubleArrayOf((tx + 0.5) * S, (ty + 1.0) * S)
         // soft shadows under the rock that stands on the floor, round round the middle of the tile (2:1 when seen
         // diagonally, D1.5); chests, crates, bedrolls, bones and the fire bring their own
         val standing = setOf(Tile.STALAGMITE, Tile.ROCK, Tile.RUBBLE)
         val shadows = ArrayList<DoubleArray>()
         for (ty in cy * MapGround.CH - 1..(cy + 1) * MapGround.CH) for (tx in cx * MapGround.CH - 1..(cx + 1) * MapGround.CH) {
-            if (map.tile(tx, ty) in standing) shadows += doubleArrayOf((tx + 0.5) * S, (ty + 0.5) * S, S * 0.46, S * 0.46)
+            if (caveTile(map, tx, ty) in standing) shadows += doubleArrayOf((tx + 0.5) * S, (ty + 0.5) * S, S * 0.46, S * 0.46)
         }
 
         val img = PixelImage(size, size)
@@ -933,6 +948,12 @@ object MapCave {
                     mixIn(col, EARTH, (out * 1.4 * (0.6 + 0.6 * n2)).coerceAtMost(0.85))
                     val mo = ((fbm(x, y, 16.0, 34) - 0.48) * 4).coerceIn(0.0, 1.0) * (out * 1.6).coerceAtMost(1.0)
                     if (mo > 0) mixIn(col, MOSS_OUT, mo * 0.8)
+                }
+                // out through the mouth (D1.6): leaf litter and daylight, brighter the further out
+                val beyond = maxOf(-x, x - map.width * S, -y, y - map.height * S) / S
+                if (beyond > 0) {
+                    mixIn(col, LITTER, (beyond / 1.5).coerceAtMost(0.8) * (0.7 + 0.5 * n2))
+                    for (k in 0..2) col[k] *= 1 + (beyond / MOUTH).coerceAtMost(1.0) * 0.9
                 }
                 // the pool: deep and black in a stone basin
                 val wv = field(map, x, y, waterTiles) + (fbm(x, y, 48.0, 21) - 0.5) * 0.5
@@ -1037,7 +1058,7 @@ object MapCave {
         }
         val crackC = argb(0x100E0C); val lipC = argb(0x82786A)
         for (ty in cy * MapGround.CH - 2..(cy + 1) * MapGround.CH + 1) for (tx in cx * MapGround.CH - 2..(cx + 1) * MapGround.CH + 1) {
-            if (rockTiles(map.tile(tx, ty))) continue
+            if (rockTiles(caveTile(map, tx, ty))) continue
             if (rnd(tx, ty, 50) < 0.45) {
                 var x = (tx + rnd(tx, ty, 51)) * S - ox; var y = (ty + rnd(tx, ty, 52)) * S - oy
                 var a = rnd(tx, ty, 53) * 2 * PI
