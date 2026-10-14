@@ -779,8 +779,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         val visibleNpcs = map.npcs.filter { it.visible(state) && !game.indoors(it) }
         // Strolling villagers slide between tiles like the hero.
         fun npcPos(npc: de.bornim.core.Npc): Pair<Int, Int> {
-            // 3b (Nutzer 13.10., 21:1x): Garrick keeps his tile but stands close to his fire, east of him, to warm his hands and reach the stick
-            val w = game.walkerOf(npc) ?: return npc.x * T + (if (npc.id == "garrick") T * 11 / 20 else 0) to npc.y * T
+            // standing still: close to the fire (Garrick, 3b) or up to the counter (87.2)
+            val w = game.walkerOf(npc) ?: return de.bornim.core.art.MapFolk.nudge(npc, map).let { (ox, oy) -> npc.x * T + ox to npc.y * T + oy }
             val t = ((clock - w.movedAt).toFloat() / w.moveMs).coerceIn(0f, 1f)
             return ((w.fromX + (w.x - w.fromX) * t) * T).roundToInt() to ((w.fromY + (w.y - w.fromY) * t) * T).roundToInt()
         }
