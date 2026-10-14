@@ -26,7 +26,8 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 ## Ablauf eines Laufs
 
 1. `tools/notiz.sh`, Stellung lesen; „aus“ → beenden.
-2. Laufende Sitzungen: `list_sessions` (`mine`), Status `working`/`blocked` mit passendem Titel zählt als laufend.
+2. **Pause:** steht in der Übergabe eines Agenten „Pause bis <Zeit>“, lässt Ford ihn bis dahin aus (kein Start, kein Push). Der Nutzer sagt die Pause einem beliebigen Agenten, der trägt sie ein.
+2a. Laufende Sitzungen: `list_sessions` (`mine`), Status `working`/`blocked` mit passendem Titel zählt als laufend.
 3. Je Agent (Tom, Sokrates, Diogenes): Vorrat in der Übergabe (Punkt ohne Entscheidung des Nutzers; Diogenes: Auftrag unter „Für Diogenes“), keine laufende Sitzung, keine Startmarke jünger als 20 Minuten im Protokoll? Pilot: **Startsperre:** Zeile „HH:MM Start <Name>“ ins Protokoll, pushen; abgelehnt → `git pull`, neu prüfen; erst nach erfolgreichem Push „Ford Start“ auslösen. Co-Pilot: Push „<Name> hat Vorrat, keine Sitzung“.
 4. Seit dem letzten Lauf (Protokoll oder `git log --since`) neu: Zeile „Für den Berater“, „Jetzt installieren“ oder eine Übergabe „wartet auf Nutzer“ → Push mit Nummer (nachts Nachtliste).
 5. Vorrat aller leer → einmal am Tag Push „Vorrat leer“ (spätestens 21 Uhr).
