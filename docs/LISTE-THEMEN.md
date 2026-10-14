@@ -58,7 +58,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 52 | Feinarbeit an den Kampfanimationen | Jerry | ruht |
 | 53 | Zustände (Brennend) auf Krogg prüfen | Jerry | ruht |
 | 54 | Nicht warten, von selbst weiterarbeiten | Tom und Jerry | erledigt |
-| 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | in Arbeit |
+| 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | erledigt |
 | 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | Tom | erledigt |
 | 57 | Gemeinsame Beschlüsse für Entschiedenes (früher Bildbuch) | Tom | erledigt |
 | 58 | Umhang hängt beim Laufen über dem Schild | Tom | erledigt |
