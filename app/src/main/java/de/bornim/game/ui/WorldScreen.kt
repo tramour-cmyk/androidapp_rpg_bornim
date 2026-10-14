@@ -330,6 +330,8 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 .background(Color.Black)
         ) {
             MapView(game, rev, route?.target, clock)
+            // test tab (27m): frames per second and the slowest frame of the last second, top left over the map
+            if (FrameMeter.on) Txt(FrameMeter.text, Modifier.align(Alignment.TopStart).background(Color(0xAA000000)).padding(4.dp), size = 12.sp, pixel = true)
             if (touch) {
                 TouchLayer(
                     onDir = { d -> heldDir = d },
@@ -647,6 +649,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
     val frame = ((time / 450) % 2).toInt()
     Canvas(Modifier.fillMaxSize()) {
         rev.hashCode() // read so the canvas redraws on game changes
+        if (FrameMeter.on) FrameMeter.tick(System.nanoTime())
         val state = game.state
         val map = game.map
         val T = WorldArt.T
@@ -2593,4 +2596,22 @@ private fun DPad(onDir: (Facing?) -> Unit) {
 @Composable
 fun BackRow(label: String, onBack: () -> Unit) {
     PixelButton(label, Modifier.fillMaxWidth(), onClick = onBack)
+}
+
+/** Test tab (27m): counts the map's frames, so the rate can be read on the phone where the edge of the wood is drawn. */
+object FrameMeter {
+    var on by mutableStateOf(false)
+    var text by mutableStateOf("")
+        private set
+    private var since = 0L; private var last = 0L; private var count = 0; private var worst = 0L
+
+    fun tick(now: Long) {
+        if (last != 0L) worst = maxOf(worst, now - last)
+        last = now; count++
+        if (since == 0L) since = now
+        if (now - since >= 1_000_000_000L) {
+            text = "${(count * 1e9 / (now - since)).roundToInt()} B/s · max ${worst / 1_000_000} ms"
+            since = now; count = 0; worst = 0L
+        }
+    }
 }

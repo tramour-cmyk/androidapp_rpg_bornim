@@ -125,6 +125,10 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             ignore = de.bornim.core.Game.monstersIgnoreHero
             vm.toast = if (ignore) t("Monster laufen und stehen wie sonst, greifen aber nicht an. Wer selbst hineinläuft, kämpft.", "Monsters go about as ever but never attack. Walk into one to fight.") else t("Monster jagen dich wieder.", "Monsters hunt you again.")
         }
+        // 27m: frames per second over the map, to see whether the wood beyond the edge slows the phone
+        PixelButton(t("Bildrate anzeigen: ", "Show frame rate: ") + (if (FrameMeter.on) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            FrameMeter.on = !FrameMeter.on
+        }
         var seeAll by remember { mutableStateOf(de.bornim.core.Game.seeAll) }
         PixelButton(t("Sichtlinie aus (alles sichtbar): ", "Line of sight off (see all): ") + (if (seeAll) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
             de.bornim.core.Game.seeAll = !de.bornim.core.Game.seeAll
