@@ -58,7 +58,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 22:3x) – an Nachfolger
+### Tom (14.10., 22:1x) – an Nachfolger
 - **0.1.746** (PR #63) beim Nutzer, Prüfliste t746; PR abonnieren.
 - **83b** Hühner auf `claude/tom-83b-huehner` (Sammelzweig hineingeführt): `MapHen` im Kern (drei Gefieder, picken, scharren, fliehen), `MapHenTest`, Vorschau `HUEHNER=1`; im Dorf `KARTENZOOM=1 KATZEINN=0 ONLY=zoom_nah_p HELDORT=village:29:27:l`. Offen: kurzer Film picken ↔ gehen ↔ wegflattern vor dem Build.
 - **83c** Klang: nach Wahl des Nutzers (`e/83c.html`) Sounds `HEN_CLUCK`, `HEN_SCRATCH`, `HEN_ALARM`, `HEN_FLAP` wie `PondSound` (Ear je Huhn, nur sichtbar, tagsüber) einbauen; `huehner.py --spiel` fehlt noch.
