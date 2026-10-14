@@ -43,11 +43,11 @@ Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstop
 
 - **Geschichte:** die Spur des „Grauen Propheten“ und der „Tag der Asche“ als Bedrohung.
 - **Neue Region:** z. B. Sumpf oder Ruinenstadt. Vorgabe: **Karten ab Kapitel 2 deutlich größer** als in Kapitel 1.
-- **Vorgaben für jede neue Karte** (Tom prüft, ob sie nach 60 noch stimmen, 77e.3; Kampfort-Regel jetzt in `DESIGN-STIL.md`):
-  - Die Anzeige ist eine **feste Leiste über der Karte** (seit v0.1.40). Neue Karten werden mit dieser Leiste geplant und in der Vorschau geprüft, damit nichts davon verdeckt wird.
-  - **Eingänge, Schilder und wichtige Figuren am Kartenrand** (vor allem oben) in der Vorschau genau an dieser Stelle prüfen, wie beim Höhleneingang im Flüsterwald.
-  - Die sichtbare Fläche ist durch die Leiste etwas kleiner: Wege, Engstellen und Sperren (z. B. Zäune wie am Schlagbaum) so planen, dass man sie gut überblickt.
-  - Die Statuszeile hat immer dieselbe Höhe; neue Zustände dürfen die Leiste nicht höher machen.
+- **Vorgaben für jede neue Karte** (geprüft nach 60 und 13t, Tom 14.10., 77e.3; Kampfort-Regel in `DESIGN-STIL.md`):
+  - Die Anzeige ist eine **feste Leiste über der Karte**; die Karte liegt darunter und wird nie von ihr verdeckt. Die Kamera folgt dem Helden ohne Anschlag am Rand (Füße etwas unter der Bildmitte), also gibt es keinen „oberen Rand unter der Leiste“ mehr.
+  - **Kartenränder laufen diagonal:** oben sitzt die Nordecke, links und rechts die Ecken West und Ost. Nahe am Rand sieht man jenseits davon schwarze Schrägen (Lücke 27/5.5). Neue Karten bekommen am Rand einen Abschluss (Bäume, Felsen, Zaun, Wasser), damit keine Schräge ins Bild ragt; Eingänge, Schilder und wichtige Figuren am Rand in der Vorschau vom Weg dorthin prüfen.
+  - Das Blickfeld ist ein gedrehtes Rechteck um den Helden, flach und breit: Wege, Engstellen und Sperren (z. B. Zäune wie am Schlagbaum) so legen, dass sie quer über den Bildschirm laufen statt steil nach oben.
+  - Die Leiste hat immer dieselbe Höhe (eine Zeile für Zustände steht auch leer); neue Zustände reihen sich nebeneinander und machen sie nicht höher.
 - **Neue Monster (SRD):** Banditen und Kultisten, Gnoll, Worg, Harpyie (Gesang/Bezauberung), Belebte Rüstung, Mimik (Klammern), Oger, Eulenbär.
   - **Gebaut auf den 3D-Grundmodellen** (Heldenpuppe für Menschenähnliche, Vierbeiner-Modell wie beim Wolf): Rig, Bewegungen, Ausfallschritt und Stürze sind schon da; ein neues Monster braucht vor allem Ausrüstung, Maße, Kopf und eigene Haltungen. Es gelten die [Stil-Leitlinien](DESIGN-STIL.md) (je drei Varianten in Aussehen und Bewegung).
   - Aufwand nach heutiger Einschätzung:
