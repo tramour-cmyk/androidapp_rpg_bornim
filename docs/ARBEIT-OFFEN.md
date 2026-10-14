@@ -10,9 +10,7 @@ Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main`
 
 ## Jetzt installieren
 
-- **Tom Sammelbuild 0.1.741** (passt bis auf D1.5 Truhe und 13e.6, Nutzer 21:1x; Konflikt mit `main` gelöst, wird nach grünem Build zusammengeführt; Höhle: 13e.5, 13e.6 B, D1.5, D1.9; PR #62, Zweig `claude/tom-13e-hoehle-fertig`): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38609455363/artifacts/11916159370), Prüfliste `e/t738.html`.
-
-Nach „passt“ (PR #62): zusammenführen, `CHANGELOG.md`, Prüfliste von „Dein Zug“, hier leeren.
+- **Tom Sammelbuild** (83 Hecke, 85, 87; PR #63, Zweig `claude/tom-sammel-83-85-87`): baut, Link und Prüfliste folgen.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -23,12 +21,12 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 86 | Bewegung und Übersicht (Nutzer 14.10., 18:5x) | Tom (86.1, 86.2, 86.4, 86.3 Ausdauer); Jerry (86.3 Keuchen, Lärm, Initiative); Berater mit Nutzer (86.9) | – | **Tom, 86.1** Testmodus Standort mit Koordinaten, heller; **86.4** Joystick-Empfindlichkeit im Menü; **86.2 A** Kartenzeichen in der Leiste (Beschlüsse). **86.3 beschlossen** (Nutzer 21:3x, Beschlüsse): Ausdauer zählt über Kartenwechsel, Richtwert 20 s bei KON 10 (±3 s je Bonus), Erholung gehend 40 s, stehend 20 s, Rast voll; leer = gehen bis ein Viertel; Rüstung zu schwer für Stärke halbiert; senkrechter Balken nur wenn nicht voll. **Jerry:** Keuchen als Klang, außer Atem = Initiative mit Nachteil, Rennen laut = Gegner hören früher (braucht Lärm-Wirkung, 84.4). **86.6** Ausdauertrank verdoppelt bis zur Rast, Preis wie Heiltrank. **86.9** Met in der Schänke statt freier Erholung, viel Met = betrunken (Idee Nutzer 21:3x, in Beratung) |
-| 87 | Schänke nach Test 0.1.740 (Nutzer 14.10., 20:5x): **87.1** Katze flackert beim Laufen und läuft durch den Tisch vor dem Tresen; **87.2** Rowena wischt in der Luft statt am Tresen (Klang passt, D1.10); **87.3** Borin trinkt ohne Becher (Klang passt) | Tom | – | Neu |
-| 85 | Testmenü aufräumen: alte Einträge, die keiner mehr braucht („irgendwas mit Donnern“; Nutzer 14.10., 18:5x) | Tom (Technik); Jerry prüft seine Einträge | `claude/tom-85-testmenue` | Wetterleuchten-Knopf und „Garrick döst“ entfernt (beide seit 10.10. als vorübergehend markiert); kommt in Toms nächsten Sammelbuild |
+| 87 | Schänke nach Test 0.1.740 (Nutzer 14.10., 20:5x): **87.1** Katze flackert beim Laufen und läuft durch den Tisch vor dem Tresen; **87.2** Rowena wischt in der Luft statt am Tresen (Klang passt, D1.10); **87.3** Borin trinkt ohne Becher (Klang passt) | Tom | `claude/tom-sammel-83-85-87` | Alle drei gebaut (Katzenweg, Tresen auch Thessa, Zinnkrug), PR #63. Jerry zur Kenntnis: eine Zeile `WorldScreen.kt` (`npcPos` ruft `MapFolk.nudge`) |
+| 85 | Testmenü aufräumen: alte Einträge, die keiner mehr braucht („irgendwas mit Donnern“; Nutzer 14.10., 18:5x) | Tom (Technik); Jerry prüft seine Einträge | `claude/tom-85-testmenue` | Wetterleuchten-Knopf und „Garrick döst“ entfernt (beide seit 10.10. als vorübergehend markiert); im Sammelbuild PR #63 |
 | 81 | Teamleiter „Ford“ (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–n (`ROLLE-FORD.md`). Co-Pilot seit 16:02; Routine in „Voll“ (`trig_013heqXJ1KkkxTYVzmTcpzaf`, :28); Telegram-Weg steht (18:1x). Pilot und Bewährung (81i) auf Zuruf; Jerry-Ford ab Fr. |
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`enabled: false`, nicht löschen). 65.8/65.9 stehen in `CLAUDE.md` |
-| 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-13e-hoehle-fertig` | In 0.1.741 (PR #62, t738); **Befund 21:1x:** Truhe in der Pilzecke ohne sichtbaren Schatten (D1.5); 13e.6 Helligkeit beim Berater; 13e.6 = B (kein Heldenlicht, Fackel → 84.1). Danach D1.7 Leben (Standbild, Absprache `WorldScreen.kt`) |
-| 83 | Dorf Süd: Beete, Weizenfelder, Hühner am Südrand nicht zu sehen (Nutzer 14.10., 17:3x/19:3x, t732) | Tom | `claude/tom-83-hecke` | A (Beschlüsse) gebaut: Hecke, Ring ohne hohe Kronen vor Feld/Beet/Heu. **83a** auf „Dein Zug“: Hecke passt? Hühner (heute weiße Punkte aus der alten Ansicht in `WorldScreen.kt`) als richtige Figuren? |
+| 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | – | 0.1.741 auf `main` (PR #62); **Befund 21:1x:** Truhe in der Pilzecke ohne sichtbaren Schatten (D1.5); 13e.6 Helligkeit beim Berater; 13e.6 = B (kein Heldenlicht, Fackel → 84.1). Danach D1.7 Leben (Standbild, Absprache `WorldScreen.kt`) |
+| 83 | Dorf Süd: Beete, Weizenfelder, Hühner am Südrand nicht zu sehen (Nutzer 14.10., 17:3x/19:3x) | Tom | `claude/tom-sammel-83-85-87` | Hecke passt (83a, Beschlüsse), im Sammelbuild PR #63. **83b** Hühner: am Boden (nie wie auf dem Baum), sichtbarer Platz, besser bewegt (scharren, picken; Nutzer 21:2x); Zeichnung heute in `WorldScreen.kt` |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` bis 5.5 |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`LISTE-KAPITEL1.md`](LISTE-KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | Toms Teil von 26c fertig |
@@ -59,10 +57,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 20:5x)
-- PR #60 zusammengeführt (0.1.739 passt, Nutzer 20:5x). #61 zusammengeführt (0.1.740 passt bis auf 87). #62 (0.1.741) beim Nutzer, abonniert. Dann 87.
-- **83 A** (Zweig von `main`): Felder `c`/Beete `v` in Zeile 28–30 von `Story.village`, Zeile 31 Baumreihe → Hecke; Ring `MapEdge.trees` südlich ohne Bäume bis Tiefe 3 vor Feld/Beet/Zaun/Heu. Standbilder `HELDORT=village:6:29:D:12`, `village:26:29:D:12`.
-- **74 einbauen** (`claude/tom-74-schritte`): nur Held, Untergrund je Feld. **85** fertig, mit in den nächsten Sammelbuild. Draußen nachts bleibt das kleine Licht um den Helden.
+### Tom (14.10., 21:3x)
+- PR #63 (83 Hecke, 85, 87) baut, abonniert: Prüfliste `e/t<build>.html` auf „Dein Zug“, Link hier oben.
+- **83b Hühner** (Nutzer 21:2x): richtige kleine Figuren am Boden, sichtbarer Platz (Heuballen Südost oder Hof bei Bram), scharren, picken, flattern weg; erst Standbild. **13e Befund:** Truhe in der Pilzecke ohne Schatten (D1.5). **74** einbauen (`claude/tom-74-schritte`). Draußen nachts bleibt das kleine Licht um den Helden.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
