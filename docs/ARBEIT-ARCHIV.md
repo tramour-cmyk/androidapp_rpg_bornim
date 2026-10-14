@@ -1,5 +1,24 @@
 # Archiv
 
+### Tom (14.10., 08:05)
+- **Heute:** 0.1.721 abgenommen, PR #57 zusammengeführt (`main` grün); 55d so lassen; 77e.3 Vorgaben neu gefasst; 69e beim Berater. **0.1.728** (PR #58, Zweig `ccr-e4144697-7oy67j`, abonniert, grün): 27l Licht am Fuß (`footLight`), Pfützen weich, Nähte weg (Bodenstücke überlappen), 77.1 Leiste; Prüfliste `e/t728.html`. Nach Test: PR #58 zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“.
+- **27m** Kartenrand-Entwurf auf „Dein Zug“ (`claude/tom-27m-rand` 5ce92886, `RAND=1`, `MapEdge`): bei Ja fest einbauen (Schalter weg), vorher Bildrate messen.
+- **Lücken** sonst: nachts Kronen hell ums Licht (D1.15, Jerry); Schritte fehlen (74, Jerry). 69/68 nach Entscheidung 69e. Vorrat leer.
+
+### Aus ROLLE-BERATER.md, Übergabe 13.10., 22:5x
+**Übergabe (13.10., 22:5x):**
+
+**Sitzungen** (ältere im Archiv): 13.10. 22:40–22:5x „77e Umbau“: Notizen nach dem [Entwurf](https://claude.ai/code/artifact/13e3b53a-e28d-40c1-9d94-30225272d38a) umgebaut, je Dateigruppe ein Commit, Prüfskript ohne Verlust (jede alte Zeile im Bestand oder Archiv, 81 Marken wortgleich, keine toten Verweise). Schwerpunkt: ganz Abläufe, zum dritten Mal in Folge; nächste Sitzung Spiel.
+
+**Nächster Punkt:** (1) **41 Kultlager** (Storyplan Kapitel 2). (2) **72**: Freigabe Marktvergleich, **72a–72j** mit Wortlaut und Empfehlung. (3) Rückläufer je Build zählen (76f). Offen aus 77e nur bei Tom: Leiste/Kartenrand prüfen (77e.3), Marken `[24.…]` optional als Kommentar in `Interlude.kt`; Satz zu Build-Auslösern in `ARBEIT-UMGEBUNG.md` angleichen, sobald 78d auf `main` ist. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
+
+**Zuletzt gelesen bis:** dieser Commit (13.10., 22:5x)
+
+### Tom (14.10., 00:56) – Bericht Selbstarbeit (Vorrat leer, „Bis“ 07:00 nicht gebraucht)
+- **Fertig:** Paket 1–4 (Vorgänger: D1.5, D1.16-Rest, Sammelbuild **0.1.721** PR #57 (abgenommen und zusammengeführt 14.10., 07:1x), Prüfliste `e/t721.html`, 27-Lückenliste). Reserve: **55** Speer im Kampf (Held/Skelett 2 m; Kobold ~0,9 m → **55d**); **5.5** Dorf-Lückenliste (unten); **69** Intro als gemalte Nachtbilder + **68** Tempelszene als Entwurf (`claude/tom-69-intro` 05e6b18b, `CutsceneArt`, `INTROBILD=1`; Figuren Platzhalter → **69e**); 27 Pfützen weich als Entwurf (`claude/tom-27-pfuetzen` 86de0cc8, `PFUETZE=1`). Kein Build, nichts zusammengeführt.
+- **Lücken** Wald (27, Vorgänger) und Dorf (5.5): Kartenrand gerade schwarze Schräge, Bäume/Kornfeld abgeschnitten; Nähte an Bodenstück-Kanten (`WorldScreen.kt`); Menhire flau mit Kante quer: Bild in Ordnung, Licht auf der Karte nach Bildschirmstelle statt Fuß (**27l**); nachts Kronen hell ums Licht (D1.15, Jerry); Schritte fehlen (74, Jerry).
+- **Rückfragen auf „Dein Zug“** (Empfehlung): 55d entschieden (so lassen); 69e gemalte Bilder (B), danach Figuren als Puppen in Augenhöhe; 27l Licht am Fuß messen (`WorldScreen.kt`, mit Jerry). Routinen 03:24/06:24 aus. Nächstes nach Antworten: 69/68 Figuren, 27l, PR #57 nach Test.
+
 ### Tom (14.10., 00:19) – an Nachfolger (Selbstarbeit bis 14.10., 07:00)
 - Fertig: Paket 1–4. D1.16-Rest (7d9692c1); Sammelbuild **0.1.721** grün, PR #57 offen (nicht zusammenführen, PR abonniert), Prüfliste `e/t721.html`; Prüfbericht-Vermerke D1.4/D1.5/D1.16. Standbilder 27 im Chat (00:19).
 - **27 Wald, Lücken nach „Ort fertig“** (Standbilder 12/23 Uhr, Lager, Weiher, Höhleneingang, Südweg, Osten): (2) dünne dunkle Nähte quer über den Boden an den Kanten der Bodenstücke (4×4 Felder), auch auf der Lichtung; Ursache vermutlich Zeichnen der Stücke in `WorldScreen.kt` (`put`, gedrehte Abbildung) → nur nach Absprache, Rückfrage in den Bericht; Wegränder mit harten blauschwarzen Strichen. (1) Kartenrand Nord/Süd/Ost als gerade schwarze Schräge, Stämme abgeschnitten; Höhleneingang draußen flache graue Platte (mit Jerry 13e/D1.6). (3) Menhire mit harter Hell-Dunkel-Kante quer und ohne Fuß/Schatten; Bild selbst in Ordnung (`ISODINGE=wald`: Moos, Spirale, Schatten), erst auf der Karte flau mit Kante: vermutlich Licht nach Bildschirmposition statt nach Fuß des Dings (`drawMapLight`, `WorldScreen.kt`) → **27l** in den Bericht. (4) Nachts hellt das Licht um den Helden nahe Kronen stark auf, ohne sichtbare Quelle (wie D1.15). (6/8) Frosch am Weiher da; Schritte fehlen (74, Jerry). Tag gegen Dorf: Wald unter dem Dach deutlich dunkler, gewollt.

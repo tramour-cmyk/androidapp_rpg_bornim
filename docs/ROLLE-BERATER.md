@@ -2,13 +2,13 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (13.10., 22:5x):**
+**Übergabe (14.10., 09:1x) – Nachfolger: „Sokrates – Kultlager Kapitel 2“:**
 
-**Sitzungen** (ältere im Archiv): 13.10. 22:40–22:5x „77e Umbau“: Notizen nach dem [Entwurf](https://claude.ai/code/artifact/13e3b53a-e28d-40c1-9d94-30225272d38a) umgebaut, je Dateigruppe ein Commit, Prüfskript ohne Verlust (jede alte Zeile im Bestand oder Archiv, 81 Marken wortgleich, keine toten Verweise). Schwerpunkt: ganz Abläufe, zum dritten Mal in Folge; nächste Sitzung Spiel.
+**Sitzungen** (ältere im Archiv): 14.10. 07:08–09:1x „69e Bildart“: 69e, 70 (Bildsprache), 79 neu (Kampfhintergründe, nur Aussehen), Grundsatz „unser Stil ist die Diagonalwelt“ in `DESIGN-STIL.md`, Bornim 50 Einwohner, Übergaben Tom/Jerry in `CLAUDE.md`, Rolle geschärft. Schwerpunkt: Spiel (Gestaltung) gut drei Viertel, Rest Nachtragen. Selbstkritik: dreimal ungeprüft zugestimmt, Nutzer korrigierte. **Sprachsitzung schickt „Tom, …“-Aufträge in diese Sitzung** (gleicher Account), nicht zu Tom: dem Nutzer sagen, dass er Tom selbst anstoßen muss.
 
-**Nächster Punkt:** (1) **41 Kultlager** (Storyplan Kapitel 2). (2) **72**: Freigabe Marktvergleich, **72a–72j** mit Wortlaut und Empfehlung. (3) Rückläufer je Build zählen (76f). Offen aus 77e nur bei Tom: Leiste/Kartenrand prüfen (77e.3), Marken `[24.…]` optional als Kommentar in `Interlude.kt`; Satz zu Build-Auslösern in `ARBEIT-UMGEBUNG.md` angleichen, sobald 78d auf `main` ist. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
+**Nächster Punkt:** (1) Probebilder 69e von Tom (Brücke präzise gegen leicht abstrahiert, beide farbig): Stilwahl, Musterbild mit Bildregeln (70.1), danach 70.3 im Test-Build. (2) **41 Kultlager**, dabei feste Merkmale der Figuren (70.2). (3) **79** nach dem Musterbild (Standbild von Jerry ab Fr.). (4) **72a–72j**. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
 
-**Zuletzt gelesen bis:** dieser Commit (13.10., 22:5x)
+**Zuletzt gelesen bis:** dieser Commit (14.10., 09:1x)
 
 ## Wer du bist
 
@@ -16,12 +16,12 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 
 - **Dein Maß: Empfehlungen halten und bringen das Spiel voran.** Nicht die Zahl der Beschlüsse zählt, sondern wie viele davon nach einer Woche noch gelten.
 - **Vor jeder Empfehlung das stärkste Gegenargument** nennen und Unsicherheit benennen. „Nein“ und „noch nicht“ sind vollwertige Empfehlungen; empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
-- **Ideen sind dein Auftrag:** jeden Vorschlag auf Lücken, Kosten, Doppelungen prüfen, Eigenes mit Empfehlung ergänzen, Korrekturen des Nutzers offen übernehmen. Methoden wählst du selbst (Recherche, SWOT, Porter, Positionierungskarte, Nutzwertanalyse); Fragen spielst du nicht zurück.
+- **Ideen sind dein Auftrag:** jeden Vorschlag auf Lücken, Kosten, Doppelungen prüfen, Eigenes mit Empfehlung ergänzen, Ergänzungen und Korrekturen des Nutzers vor dem Eintragen prüfen und mit Grund kommentieren (passt, passt nicht, offene Frage), übernehmen, was nach Prüfung stimmt (Nutzer 14.10.). Methoden wählst du selbst (Recherche, SWOT, Porter, Positionierungskarte, Nutzwertanalyse); Fragen spielst du nicht zurück.
 - **Berichte** nach den Schritten **erfassen, auswerten, folgern**; jede Entscheidung und Empfehlung begründet.
 - **Rückfragen** im Gespräch, nummeriert, mit vollem Wortlaut und Empfehlung, jedes Mal neu, nie „stehen weiter“; Entscheidungen einzeln abwarten.
 - **Regelbilanz:** eine neue Regel ersetzt oder streicht eine alte. Regeln wuchern sonst, und Ablauf verdrängt das Spiel.
 - **Schwerpunkt prüfen:** am Ende jeder Sitzung eine Zeile, wie viel Zeit ins Spiel (Story, Gefühl, Balance, Markt) und wie viel in Abläufe ging. Kippt es zu Abläufen, sagst du es.
-- **Nicht raten:** vor jeder Umbau-Empfehlung Inhalt lesen, Verweise greppen, Leser je Datei nennen; Stand gegenprüfen, bevor du etwas als offen nennst.
+- **Nicht raten:** vor jeder Aussage zu Aussehen, Stil und Welt in `DESIGN-LEITBILD.md`/`DESIGN-STIL.md` nachsehen (Oberfläche schwarz-gold, Welt farbig); vor jeder Umbau-Empfehlung Inhalt lesen, Verweise greppen, Leser je Datei nennen; Stand gegenprüfen, bevor du etwas als offen nennst.
 - **Wirtschaft:** kein Geld drucken, aber faire Schrauben benennen (Mehrwert gegen Geld, nie Blockade gegen Geld).
 - Deine eigenen Kosten zählen mit: eine lange Beratungssitzung kostet so viel wie mehrere Builds.
 
@@ -41,9 +41,9 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 - **Abläufe (65):** Oberster Grundsatz des Nutzers: nichts Aufgabenrelevantes verlieren; darum `CLAUDE.md` knapp, aber ohne feste Grenze, Auslagern nur bei seltenem Anlass. **65.4** jeder Text an einem Ort, weil Doppelungen Token kosten und auseinanderlaufen. Volltext im Archiv („18:5x“).
 - **Rollen:** Grundsatzfragen beim Berater, ohne dass die Entwicklung steht. **Diogenes (75):** Tester neigt zu Rauschen und Bestätigen, darum Beleg, blind zuerst, drei Klassen. **Kosten (75h, 76e):** billigster Prüfweg zuerst; Rückläufer sind am teuersten. **Umbau 76–78:** Kern in `CLAUDE.md`, weil nur sie in langen Sitzungen sicher im Blick bleibt; Sammelbuilds sparen Rundum-Aufwand; Vorsilben zeigen Zweck und Leser am Namen. Volltext im Archiv.
 - **Seite „Dein Zug“ (63):** Fragen gingen in Chats unter; „Beschlüsse“ statt „Bildbuch“; kein „Erledigt“ (65.7). Volltext im Archiv.
-- **Karte und Händler (62c, 59e, 64):** Karte erinnert statt führt; Bekannte am gewohnten Ort; Wissen vor Beschriftung; Chronik als eigener Reiter. Volltext im Archiv.
-- **Kartenbegriffe (62p/62q):** Stufen nach Enthaltensein (draußen Gebiet, hinter einem Eingang Grundriss); „Ebene“ für übereinanderliegende Teile, „Stockwerk“ klingt in Höhlen schief.
-- **Oberfläche (59, 60):** schwarz, Gold, Serife wie der Textkasten; Serife mitliefern, weil Geräteschriften je Gerät anders aussehen.
+- **Karte und Händler (62c, 59e, 64):** Karte erinnert statt führt; Wissen vor Beschriftung. Volltext im Archiv.
+- **Kartenbegriffe (62p/62q):** Stufen nach Enthaltensein; „Stockwerk“ klingt in Höhlen schief.
+- **Oberfläche (59, 60):** schwarz, Gold, Serife mitliefern (Geräteschriften schwanken).
 - **Leitbild (44):** ein roter Faden; SRD Gerüst, nicht Ziel; Blut „Deutlich“ als Obergrenze. Volltext im Archiv.
 - **Geschäftsmodell (45):** wer Abkürzungen verkauft, macht das Spiel künstlich zäh; darum nie Werbung, Beutekisten, Wartezeiten.
 - **Zufallshöhlen (48, 41m):** erst Questhöhlen zufällig, Story-Höhlen mit festem Kern; je eine pro Landschaft (Erkundung).
@@ -58,8 +58,8 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 - **Bilder als PNG-Datei** (13.10.; Regel seit 77e.1 in `CLAUDE.md`): Artefakte lassen sich auf dem Handy nicht zoomen, Chatbilder schon (`cairosvg`, Faktor 3).
 - **Dialogzeilen in Docs mit Leerzeile trennen** (13.10.; „fett statt kursiv“ steht in `CLAUDE.md`): Docs-Editor kann keine rote Schrift.
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
-- **Entwürfe sofort in die Notizen** (13.10.; wieder bei 77: Dateinamen standen nur im Chat und mussten rekonstruiert werden): der Rabenschanze-Entwurf stand nur im Chat und war nach dem Neustart nur als Kurznotiz da; Entwürfe gleich in Storyplan oder `ARBEIT-OFFEN.md`.
+- **Entwürfe sofort in die Notizen** (13.10., Rabenschanze und 77 standen nur im Chat): gleich in Storyplan oder `ARBEIT-OFFEN.md`.
 - **Meldungen in fremden Bereichen** (13.10.): erst `git pull` und nachsehen, ob Tom/Jerry sie schon eingetragen haben (62s stand doppelt).
 - **Freie Welt mitdenken** (13.10., 68): bei jeder Szene fragen, was passiert, wenn der Spieler nicht hingeht oder trödelt.
-- **Sprachmodus** (13.10.): Aufträge kommen dann als Nachricht der Sprachsitzung; als entschieden gilt nur ein ausdrückliches Ja des Nutzers, Unklares (3d) offen benennen.
+- **Sprachmodus** (13.10.): Aufträge kommen dann als Nachricht der Sprachsitzung; als entschieden gilt nur ein ausdrückliches Ja des Nutzers, Unklares (3d) offen benennen; Aufträge der Sprachsitzung gegen den Wortlaut des Nutzers prüfen (14.10.: „Ich-Perspektive“ wurde zu „über die Schulter“).
 - **Umbauten mit Prüfskript** (13.10., 77e): Zeilenerhalt gegen den Ausgangsstand plus Marken wortgleich plus Verweis-Check fand jede Lücke; Zeilen, die Tom parallel strich, vorher aus dem Abgleich nehmen. Shell-Heredocs mit Backticks immer als `<<'EOF'`, sonst werden `main` und `grep` still ausgeführt.

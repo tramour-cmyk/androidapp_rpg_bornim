@@ -6,6 +6,7 @@ Siehe auch: [Offen](ARBEIT-OFFEN.md) · [Merkliste](LISTE-IDEEN.md) · [Änderun
 
 ## Richtung
 
+- **Unser Stil ist die lebendige Diagonalwelt** (Nutzer 14.10.): Details, Mikrobewegungen, Licht aus Quellen, Klang. Alles andere richtet sich daran aus, auch Standbilder der Zwischensequenzen und Kampf (79). „Dieselbe Welt“ heißt gleiche Farben, Formen, Licht und Stimmung, nicht derselbe Blickwinkel.
 - **Weg vom Nintendo- und Pokémon-Stil** (knuffig, quietschbunt, Spielzeug), **hin zu erwachsener, etwas düsterer Fantasy.**
 - Bessere Grafik: echte Formen, Licht und Schatten, glaubwürdige Proportionen (Körpermaße, Waffengrößen nach realen Vorbildern).
 - Bessere Übergänge: keine Sprünge zwischen Haltungen, Bewegungen gehen fließend ineinander über.
@@ -75,6 +76,11 @@ Alle Zwischensequenzen (Intro 69, Tempelszene 68, spätere Wendepunkte) sind gle
 - je Bild **ein kurzer Text** im Textkasten-Stil; Texte legen Nutzer und Berater fest (`STORY-REGELN.md`)
 - **Klang je Szene**: leise Geräusche (Intro) oder ein eigenes Musikstück (Tempel: „Ancient Legend“), Geräusche bleiben darunter leise
 - Antippen überspringt; danach in der Chronik unter „Bisher geschehen“ wieder ansehbar
+- **Figuren** an Umriss und festem Merkmal erkennbar (etwa Lyra Stirnreif, Osric Kerze), nicht am Gesicht; Rückenansicht oder Schattenriss (70.2)
+- **Selten:** je Kapitel höchstens Anfang und Ende, dazu selten ein Wendepunkt (70.4)
+- **Bild:** dieselbe Welt (Grundsatz unter „Richtung“), leicht abstrahiert: ruhigere Formen, weniger Einzelheiten, ein Hauch von Gemälde, weder Ölgemälde noch Bildschirmfoto; Grad am Probebild (69e). Musterbild folgt nach den Probebildern (70.1)
+- **Blickwinkel:** Ich-Perspektive des Helden oder ein Bild ohne ihn (Stimmung, anderer Schauplatz); der Held erscheint nie, weil er wählbar ist (Geschlecht, Klasse, Ausrüstung); andere Figuren dürfen ins Bild (wie Lyra in der Tempeltür)
+- **Leises Leben** (Flackern, Lichtfall, Staub) wird nach der Stilwahl in einem Test-Build an einer Szene entschieden (70.3)
 
 ## Klang
 
