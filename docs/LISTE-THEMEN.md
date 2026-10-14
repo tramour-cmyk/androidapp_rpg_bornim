@@ -80,7 +80,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 74 | Schrittgeräusche je Untergrund an allen Orten | Jerry (Klang), Tom (Dorf, Räume) | offen |
 | 75 | Diogenes schärfen; Kosten und Nutzen des Testens | Berater mit Nutzer | erledigt |
 | 76 | Tom und Jerry schärfen, CLAUDE.md entschlacken | Tom, Jerry | erledigt |
-| 77 | Dokumentnamen ordnen | Tom, Berater | in Arbeit |
+| 77 | Dokumentnamen ordnen | Tom, Berater | erledigt |
 | 78 | Test-Builds bündeln | Tom | fertig |
 | 79 | Kampfhintergründe wie Diagonalwelt | Berater, Jerry | offen |
 | 80 | Kaels Laterne im Dorf | Tom | offen |
