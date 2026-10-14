@@ -1,6 +1,9 @@
 # Archiv
 
 
+### Aus ROLLE-BERATER.md, 14.10., 13:0x
+- **Umbauten mit Prüfskript** (13.10., 77e): Zeilenerhalt gegen den Ausgangsstand plus Marken wortgleich plus Verweis-Check fand jede Lücke; Zeilen, die Tom parallel strich, vorher aus dem Abgleich nehmen. Shell-Heredocs mit Backticks immer als `<<'EOF'`, sonst werden `main` und `grep` still ausgeführt.
+
 ### Tom (14.10., 12:5x, Nachtrag 12:5x) – an Nachfolger
 - Zweig `claude/tom-5-5-dorf-luecken` (enthält `claude/tom-27m-rand`), Kerntests grün, kein Build: **5.5** Marktstand (Unterbau fest, nur Tuch durchsichtig), Fahrspuren weich, Hausschatten ohne Kante; **27m.1/.3/.4/.5** Rand (`MapEdge.kt`: `CLOSE`, Lücke `-3..1`, `fade` mit 2 Reihen Licht). „Dein Zug“: `e/5-5.html` (Anzusehen), `e/27m-2.html` (Frage `WorldScreen.kt`: Tiere in die Zeichenreihenfolge), Nachtrag `e/80a.html`.
 - Nutzer testet 0.1.729 (läuft). Danach Sammelbuild per PR vom 5.5-Zweig (enthält #58 und 27m; #58 schließen), Prüfliste mit 5.5 und 27m.1–27m.5; `CHANGELOG.md`, t728/t729 von „Dein Zug“, „Jetzt installieren“ leeren.
@@ -125,6 +128,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - Signatur: Keystore und Passwort liegen nur als GitHub-Secrets. Nie committen, ebenso `local.properties`.
 - `./gradlew -p core test`: Kerntests, vor jedem Commit (Exit-Code prüfen).
 - Erinnerungen an frühere Gespräche: alles Wichtige steht in `CLAUDE.md`, `docs/ARBEIT-OFFEN.md` (Übergaben), `docs/DESIGN-STIL.md`, `docs/LISTE-IDEEN.md`, `CHANGELOG.md`; der Verlauf in `docs/ARBEIT-ARCHIV.md`.
+
 ## Notizen auf `main` (seit 10.10.)
 `tools/notiz.sh` holt `main`, legt die Arbeitskopie `../bornim-main` für Notizen an, meldet den Namen der Sitzung (Tom oder Jerry, aus der Tabelle in `CLAUDE.md`) und zeigt, was sich seit dem letzten Aufruf an `CLAUDE.md`, `CHANGELOG.md` und `docs/` geändert hat. Der Starthaken ruft es mit `--kurz` auf.
 

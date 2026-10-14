@@ -6,7 +6,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Sitzungen** (ältere im Archiv): 14.10. 09:58–11:2x „Texte Kapitel 2“: ganzer Textentwurf Kapitel 2 im [Dokument](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413) (Stationen 1–4, Schilfrode, Kapitelende, sechs Aushänge, Prüfpunkte 1.1–6.3); Namen Rask und Fenn ja; Antwortzeit-Regel in `CLAUDE.md` ergänzt (Nutzer ja). Schwerpunkt: fast nur Spiel. Lehre: schwächere Fassungen nicht zur Ansicht stehen lassen, gleich die bessere schreiben.
 
-**Nächster Punkt:** (1) **Nutzer prüft den Entwurf** (Prüfpunkte fett), offen 4.4 (Fenn stirbt ohne Merles Worte, Merle-Zeile), 5.3 (Szene mit Joss' Frau), 6.3 (Antworten und Belohnungen der Aushänge nach Freigabe). Nach Freigabe wortgetreu nach `docs/STORY-K2.md` und `STORY-K2-W.md` (Marken `[41.…]`, `[24.ort.…]`), Verzeichnis in `STORY-REGELN.md`. (2) **69e** dritte Runde an Tom (Nutzer 11:2x ja, Auftrag in „Wer macht was“), danach Musterbild und 70.3 leises Leben; offen: Karte nachziehen, falls das Bild schöner wird. (3) 79 nach dem Musterbild. (4) 72a–72j.
+**Nächster Punkt:** (1) **Nutzer prüft den Entwurf** (Prüfpunkte fett), offen 4.4 (Fenn stirbt ohne Merles Worte, Merle-Zeile), 5.3 (Szene mit Joss' Frau), 6.3 (Antworten und Belohnungen der Aushänge nach Freigabe). Nach Freigabe wortgetreu nach `docs/STORY-K2.md` und `STORY-K2-W.md` (Marken `[41.…]`, `[24.ort.…]`), Verzeichnis in `STORY-REGELN.md`. (2) **69e** dritte Runde liegt vor; Sokrates 13:05: als Musterbild „noch nicht“, letzte Runde vorgeschlagen (Blick am Brückenanfang, unteres Drittel leer; Häuser und Flächen wie Diagonalwelt: dunkles Holz, Moos, Struktur), Nutzer entscheidet. 80a entschieden (13:0x). (3) 79 nach dem Musterbild. (4) 72a–72j.
 
 **Zuletzt gelesen bis:** dieser Commit (14.10., 11:2x)
 
@@ -55,11 +55,12 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 
 ## Lehren
 
+- **Beim Start alle Punkte zu eigenen Themen auf „Dein Zug“ lesen** (14.10., 69e übersehen, weil an den Nutzer adressiert).
 - **Bilder als PNG-Datei** (13.10.; Regel seit 77e.1 in `CLAUDE.md`): Artefakte zoomen auf dem Handy nicht (`cairosvg`, Faktor 3).
-- **Dialogzeilen in Docs mit Leerzeile trennen** (13.10.; „fett statt kursiv“ steht in `CLAUDE.md`): Docs-Editor kann keine rote Schrift.
+- **Dialogzeilen in Docs mit Leerzeile trennen** (13.10.).
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
 - **Entwürfe sofort in die Notizen** (13.10., Rabenschanze und 77 standen nur im Chat): gleich in Storyplan oder `ARBEIT-OFFEN.md`.
 - **Meldungen in fremden Bereichen** (13.10.): erst `git pull` und nachsehen, ob Tom/Jerry sie schon eingetragen haben (62s stand doppelt).
 - **Freie Welt mitdenken** (13.10., 68): bei jeder Szene fragen, was passiert, wenn der Spieler nicht hingeht oder trödelt.
 - **Sprachmodus** (13.10.): Aufträge kommen als Nachricht der Sprachsitzung; entschieden ist nur ein ausdrückliches Ja des Nutzers, Unklares (3d) benennen, gegen seinen Wortlaut prüfen (14.10.: „Ich-Perspektive“ wurde zu „über die Schulter“).
-- **Umbauten mit Prüfskript** (13.10., 77e): Zeilenerhalt gegen den Ausgangsstand plus Marken wortgleich plus Verweis-Check fand jede Lücke; Zeilen, die Tom parallel strich, vorher aus dem Abgleich nehmen. Shell-Heredocs mit Backticks immer als `<<'EOF'`, sonst werden `main` und `grep` still ausgeführt.
+- **Umbauten mit Prüfskript** (13.10., 77e): Zeilenerhalt, Marken wortgleich, Verweis-Check; Heredocs mit Backticks als `<<'EOF'` (Volltext im Archiv).
