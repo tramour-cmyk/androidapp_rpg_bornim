@@ -18,14 +18,19 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 | Co-Pilot | stündlich | nur Push: etwas wartet, Build fertig, Sitzung hängt |
 | Pilot | stündlich | startet Sitzungen, wo Vorrat ist; Push tagsüber, nachts gesammelt |
 
+## Routinen (Toms Account, 81m)
+
+- **„Ford (Tom)“** `trig_01FsgMqH7CB5fZ1rofMS6YzX`: stündlich, aus solange Stellung „aus“; wer die Stellung umträgt, schaltet sie (`update_trigger`, `enabled`).
+- **„Ford Start“** `trig_01CxFdYLgTMAbudcd5yeq1AN`: an, ohne Zeitplan; startet eine frische Sitzung; Ford löst sie mit `fire_trigger` aus, Text = erste Nachricht („Sokrates“, „Diogenes“ oder bei Tom „Start“) plus Auftrag aus der Übergabe. So gestartete Sitzungen stehen beim Nutzer unter „Geplant“ → „Ford Start“ → „Verlauf“.
+
 ## Ablauf eines Laufs
 
 1. `tools/notiz.sh`, Stellung lesen; „aus“ → beenden.
-2. Je Agent: Vorrat in der Übergabe, Herzschlag älter als 40 Minuten, keine Startmarke jünger als 20 Minuten? Pilot: Startmarke eintragen, pushen, Start-Routine mit Auftrag aus der Übergabe auslösen. Co-Pilot: Push „<Name> hat Vorrat, keine Sitzung“.
-3. „Für Diogenes“ mit Auftrag, Diogenes läuft nicht → starten (wie 2).
-4. Neue Zeile „Für den Berater“ oder neuer Punkt auf „Dein Zug“ seit dem letzten Lauf → Push (nachts Morgenliste).
-5. Vorrat aller leer → einmal Push „Vorrat leer“ (spätestens 21 Uhr).
-6. 7 Uhr: Morgenmeldung mit der Nachtliste.
+2. Laufende Sitzungen: `list_sessions` (`mine`), Status `working`/`blocked` mit passendem Titel zählt als laufend.
+3. Je Agent (Tom, Sokrates, Diogenes): Vorrat in der Übergabe (Punkt ohne Entscheidung des Nutzers; Diogenes: Auftrag unter „Für Diogenes“), keine laufende Sitzung, keine Startmarke jünger als 20 Minuten im Protokoll? Pilot: **Startsperre:** Zeile „HH:MM Start <Name>“ ins Protokoll, pushen; abgelehnt → `git pull`, neu prüfen; erst nach erfolgreichem Push „Ford Start“ auslösen. Co-Pilot: Push „<Name> hat Vorrat, keine Sitzung“.
+4. Seit dem letzten Lauf (Protokoll oder `git log --since`) neu: Zeile „Für den Berater“, „Jetzt installieren“ oder eine Übergabe „wartet auf Nutzer“ → Push mit Nummer (nachts Nachtliste).
+5. Vorrat aller leer → einmal am Tag Push „Vorrat leer“ (spätestens 21 Uhr).
+6. 7 Uhr: Morgenmeldung mit der Nachtliste (22–7 Uhr nur ins Protokoll, nicht pushen).
 7. Etwas getan → Zeile ins Protokoll unten, pushen; sonst nichts schreiben.
 
 ## Push (81a, 81l, 81m)
