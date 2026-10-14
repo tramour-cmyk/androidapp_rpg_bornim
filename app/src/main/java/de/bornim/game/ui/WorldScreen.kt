@@ -2036,6 +2036,49 @@ private fun uprightLight(img: de.bornim.core.art.PixelImage, map: de.bornim.core
     }
 }
 
+/**
+ * Seen diagonally outdoors (27l, user 14.10.): a standing stone, a sign or a boulder covers, on the screen, the ground
+ * behind it, and took that ground's light: half in the shade of the crowns, half in the clearing, with a hard edge
+ * across. Such a thing now takes the light at its foot, over its whole height. Heights in map pixels on the screen.
+ */
+private fun footLight(img: de.bornim.core.art.PixelImage, map: de.bornim.core.MapDef, x0: Int, y0: Int, res: Int) {
+    val T = WorldArt.T
+    val k = MapSight.K
+    // height and width of the thing's picture on the screen, in map pixels; 0 for everything else
+    fun size(t: Tile): Pair<Float, Float> = when (t) {
+        Tile.MENHIR -> 44f to 12f
+        Tile.SIGN -> 40f to 10f
+        Tile.ROCK -> 24f to 28f
+        else -> 0f to 0f
+    }
+    val src = img.pixels.copyOf()
+    for (yy in 0 until img.height) for (xx in 0 until img.width) {
+        val px = x0 + xx * res + res / 2f; val py = y0 + yy * res + res / 2f
+        val fx = floor(px / T).toInt(); val fy = floor(py / T).toInt()
+        // a thing standing on a tile in front covers this ground on the screen if it lies inside its outline:
+        // up by its height (going back on the map by h / K along both axes), and half its width to either side
+        var foot: Pair<Int, Int>? = null; var front = Int.MIN_VALUE; var weight = 0f
+        for (dy in 0..2) for (dx in 0..2) {
+            val tx = fx + dx; val ty = fy + dy
+            if (!map.inside(tx, ty) || tx + ty <= front) continue
+            val (h, w) = size(map.tile(tx, ty))
+            if (h <= 0f) continue
+            val a = px - (tx * T + T / 2f); val b = py - (ty * T + T / 2f)
+            val up = -k / 2 * (a + b); val side = k * (a - b)
+            // full inside, fading out over a few pixels at the sides and the top, so no box of light shows round it
+            val wt = ((w / 2 - kotlin.math.abs(side)) / 4f).coerceIn(0f, 1f) * ((h - up) / 8f).coerceIn(0f, 1f) * ((up + 4f) / 4f).coerceIn(0f, 1f)
+            if (wt > 0f) { foot = tx to ty; front = tx + ty; weight = wt }
+        }
+        val (tx, ty) = foot ?: continue
+        // the ground in the middle of the thing's tile
+        val sx = ((tx * T + T / 2f - x0) / res).toInt(); val sy = ((ty * T + T / 2f - y0) / res).toInt()
+        if (sx !in 0 until img.width || sy !in 0 until img.height) continue
+        val c = src[sy * img.width + sx]; val o = src[yy * img.width + xx]
+        fun mix(sh: Int) = ((((o shr sh) and 0xFF) * (1 - weight) + ((c shr sh) and 0xFF) * weight).toInt()).coerceIn(0, 255)
+        img.pixels[yy * img.width + xx] = (0xFF shl 24) or (mix(16) shl 16) or (mix(8) shl 8) or mix(0)
+    }
+}
+
 private fun DrawScope.drawMapLight(
     game: Game, map: de.bornim.core.MapDef, clock: Long, camX: Int, camY: Int, scale: Int, heroX: Int, heroY: Int, viewW: Float, viewH: Float,
 ) {
@@ -2102,6 +2145,7 @@ private fun DrawScope.drawMapLight(
         }
         // seen diagonally, the walls and the tall things of a room stand where the light image has the ground behind them
         if (map.kind == MapKind.INTERIOR) uprightLight(img, map, x0, y0, res)
+        else footLight(img, map, x0, y0, res)
         LightImage.img = img
     }
     val grid = LightImage.img ?: return
