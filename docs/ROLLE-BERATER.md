@@ -56,7 +56,6 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 ## Lehren
 
 - **Beim Start alle Punkte zu eigenen Themen auf „Dein Zug“ lesen** (14.10., 69e übersehen, weil an den Nutzer adressiert).
-- **Bilder als PNG-Datei** (13.10.; Regel seit 77e.1 in `CLAUDE.md`): Artefakte zoomen auf dem Handy nicht (`cairosvg`, Faktor 3).
 - **Dialogzeilen in Docs mit Leerzeile trennen** (13.10.).
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
 - **Entwürfe sofort in die Notizen** (13.10., Rabenschanze und 77 standen nur im Chat): gleich in Storyplan oder `ARBEIT-OFFEN.md`.

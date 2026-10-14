@@ -1,6 +1,9 @@
 # Archiv
 
 
+### Aus ROLLE-BERATER.md, 14.10., 13:4x (Regel steht in CLAUDE.md, 77e.1)
+- **Bilder als PNG-Datei** (13.10.; Regel seit 77e.1 in `CLAUDE.md`): Artefakte zoomen auf dem Handy nicht (`cairosvg`, Faktor 3).
+
 ### Aus ROLLE-BERATER.md, 14.10., 13:0x
 - **Umbauten mit Prüfskript** (13.10., 77e): Zeilenerhalt gegen den Ausgangsstand plus Marken wortgleich plus Verweis-Check fand jede Lücke; Zeilen, die Tom parallel strich, vorher aus dem Abgleich nehmen. Shell-Heredocs mit Backticks immer als `<<'EOF'`, sonst werden `main` und `grep` still ausgeführt.
 
