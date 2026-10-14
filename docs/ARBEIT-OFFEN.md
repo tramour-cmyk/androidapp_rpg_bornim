@@ -4,7 +4,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 **Nächste freie Themennummer: 83**
 
-**Ford: aus** (81g; Stellung aus / Co-Pilot / Pilot, Startlektüre `ROLLE-FORD.md`)
+**Ford: Co-Pilot** (Nutzer 14.10., 16:02; 81g; Stellung aus / Co-Pilot / Pilot, Startlektüre `ROLLE-FORD.md`)
 
 **Seite „Dein Zug“ (alle Rollen, 63): https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow** · Beschlüsse: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM · Prüfbericht Diogenes: https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
@@ -21,7 +21,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 82 | Verschlossene Tür: Held verschwand beim Anklopfen hinter der Hauswand (Nutzer 14.10., 15:5x, Pims Haus); alle Zugänge | Tom | `claude/tom-d1-schatten` | Behoben (f088ebd0): Tür mit Bedingung zählt beim Laufen als Wand, Dagegenlaufen klopft an; gilt für alle bedingten Zugänge außer Umkehr am Kartenrand; Kerntest. Kommt in den nächsten Sammelbuild |
-| 81 | Teamleiter „Ford“: hält Tom und Jerry beschäftigt, meldet dem Nutzer Entscheidungen, startet Sitzungen (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–i, 81k–l (Beschlüsse/Archiv). **81m Telegram-Push** aus Sitzung und Routine bestätigt (Nutzer 15:2x), Weg in `ROLLE-FORD.md`. Routinen gebaut (15:28): „Ford (Tom)“ stündlich, aus bis zur Stellung; „Ford Start“ (aus Probe 1/2 umgebaut). **81n** (Nutzer 15:48: Ford soll auch Arbeit finden, die nicht in der Übergabe steht, z. B. Diogenes-Befunde): Vorschlag feste Quellen als Hinweis, Entwickler melden „leer“ erst nach Durchsicht; wartet auf Ja. Nächstes: Nutzer wählt Stellung, dann drei Nächte Pilot (81i); Jerry-Ford ab Fr. [Entwurf Ford](https://claude.ai/code/artifact/ff3ae8ab-a448-4a79-b928-3a09f424b45c) |
+| 81 | Teamleiter „Ford“: hält Tom und Jerry beschäftigt, meldet dem Nutzer Entscheidungen, startet Sitzungen (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–i, 81k–l (Beschlüsse/Archiv). **81m Telegram-Push** aus Sitzung und Routine bestätigt (Nutzer 15:2x), Weg in `ROLLE-FORD.md`. Routinen gebaut (15:28): „Ford (Tom)“ stündlich, aus bis zur Stellung; „Ford Start“ (aus Probe 1/2 umgebaut). **81n** (Nutzer 15:48: Ford soll auch Arbeit finden, die nicht in der Übergabe steht, z. B. Diogenes-Befunde): ja (16:02), eingebaut in `ROLLE-FORD.md` Schritt 3a und `ROLLE-ENTWICKLER.md`. Co-Pilot seit 16:02; Pilot und drei Nächte Bewährung (81i) erst auf Zuruf; Jerry-Ford ab Fr. [Entwurf Ford](https://claude.ai/code/artifact/ff3ae8ab-a448-4a79-b928-3a09f424b45c) |
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`update_trigger`, `enabled: false`, nicht löschen; `ARBEIT-SELBST.md`). Regeln in `CLAUDE.md` |
 | 13 | Diagonale Sicht | Tom | `claude/tom-73-laeden` | 13t auf `main` (PR #54). Verlauf im Archiv |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-5-5-dorf-luecken` | Auf `main` bis 5la. **5.5** Marktstand und Fahrspuren auf dem Zweig (`e/5-5.html`); Lichtfleck Ost kein Fehler |
@@ -74,6 +74,6 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
-- **26 Ausgleich Magier** (Tom für Jerry, 14.10., 13:4x, Simulation `ChapterSimTest`, 400 Kämpfe): Siege gegen Grak Stufe 5 Kämpfer 92 %, Kleriker 88 %, Schurke 82 %, Magier 45 % (mit vorher gewirkter Magierrüstung 69 %). Vorschlag: SRD-Zauber **Schild** als selbsttätige Reaktion (+5 RK bis zum nächsten Zug, 2 ZP): Magier 87 % mit Rüstung, 78 % ohne (Stufe 6: 93/85 %); Entwurf `claude/tom-26-magier-schild` (im Spiel aus). Nebenbefund: Bosse auf Stufe 5–6 für alle über dem Ziel 50–65 % (38). → Rückfrage **26d** (Sokrates 15:03, im Gespräch): Schild ja, selbsttätig mit Schalter „Schild bereit“ (Standard an); nach Boss-Anpassung (38) neu messen.
+- **26 Ausgleich Magier** (Tom für Jerry, 14.10., 13:4x, Simulation `ChapterSimTest`, 400 Kämpfe): Siege gegen Grak Stufe 5 Kämpfer 92 %, Kleriker 88 %, Schurke 82 %, Magier 45 % (mit vorher gewirkter Magierrüstung 69 %). Vorschlag: SRD-Zauber **Schild** als selbsttätige Reaktion (+5 RK bis zum nächsten Zug, 2 ZP): Magier 87 % mit Rüstung, 78 % ohne (Stufe 6: 93/85 %); Entwurf `claude/tom-26-magier-schild` (im Spiel aus). Nebenbefund: Bosse auf Stufe 5–6 für alle über dem Ziel 50–65 % (38). → Rückfrage **26d** (Sokrates 15:03, im Gespräch): Schild ja, selbsttätig mit Schalter „Schild bereit“ (Standard an); nach Boss-Anpassung (38) neu messen. **Zurückgestellt** (Nutzer 16:02): gehört zur Grundsatzfrage Kampf (72b, Marktvergleich), dort mit besprechen.
 
 
