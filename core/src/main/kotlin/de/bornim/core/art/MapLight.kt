@@ -77,6 +77,8 @@ object MapLight {
                     else -> {}
                 }
             }
+            // 80a: old Kael's lantern on its plinth by his door, a small dull amber island at night
+            if (map.id == "village") MapTownIso.KAEL_LANTERN.let { (lx, ly) -> out += Source(lx * T + 6.0, ly * T + 6.0, Kind.CANDLE, argb(0xE09A50), T * 1.2, 0.3, When.NIGHT) }
             out
         }
     }
