@@ -83,6 +83,7 @@ object MapRoomIso {
     private val straw = m(0x9A8450, grain = 0.45, sat = 0.7, value = 0.85)
     private val bread = m(0x9A7040, grain = 0.3, sat = 0.82, value = 0.9)
     private val stoneMat = m(0x6A645A, grain = 0.3, sat = 0.4, value = 0.85)
+    private val stoneDark = m(0x3E3A34, grain = 0.35, sat = 0.4, value = 0.8)
 
     private val outlineColor = argb(0x0E0C0A)
     /** Only what is drawn solid gets an outline, never the soft shadow on the floor (D1.5). */
@@ -270,7 +271,11 @@ object MapRoomIso {
     }
 
     /** A window with small leaded panes in a deep reveal, local u 0..1 of its tile. */
-    private fun window(f: Double, z: Double, face: Double): Int? {
+    /**
+     * A window in a timber wall at (local u 0..1 of its tile, z); three looks (D1.11), one per house: [v] 0 leaded
+     * diamonds, 1 square panes behind a wooden cross, 2 round bullseye panes of crown glass.
+     */
+    private fun window(f: Double, z: Double, face: Double, v: Int = 0): Int? {
         if (f !in 0.2..0.8 || z !in 46.0..98.0) return null
         val frame = f < 0.26 || f > 0.74 || z < 51 || z > 93
         if (frame) {
@@ -278,13 +283,29 @@ object MapRoomIso {
             val inner = f < 0.23 || z > 96
             return shade(if (inner) argb(0x1A1410) else argb(0x3E2E22), face)
         }
+        val t = (z - 51) / 42
+        val pane = mix(argb(0x2E3A4A), argb(0x6A7A8A), t * 0.7 + 0.15)
+        when (Math.floorMod(v, 3)) {
+            1 -> {
+                // a stout wooden cross, small square panes in lead
+                if (abs(f - 0.5) < 0.025 || abs(z - 72) < 2.2) return shade(argb(0x3E2E22), face)
+                if (frac((f - 0.26) * 12) < 0.1 || (z - 51) % 7 < 1.0) return argb(0x1E1C1A)
+                return pane
+            }
+            2 -> {
+                // bullseye panes: each round, thick in the middle where the glass was spun, darker at its rim
+                val cu = (f - 0.26) / 0.48 * 3; val cw = (z - 51) / 42 * 5
+                val d = kotlin.math.hypot(frac(cu) - 0.5, frac(cw) - 0.5)
+                if (d > 0.47) return argb(0x1E1C1A)
+                return mix(argb(0x2A3A34), argb(0x7A8C7E), (t * 0.5 + 0.2 + (if (d < 0.12) 0.25 else -d * 0.4)).coerceIn(0.0, 1.0))
+            }
+        }
         // leaded diamonds
         val a = (f - 0.5) * 30; val b = (z - 72) / 6
         val lead = abs(frac(a + b) - 0.5) > 0.44 || abs(frac(a - b) - 0.5) > 0.44
         if (abs(f - 0.5) < 0.012 || abs(z - 72) < 1.2) return shade(argb(0x2A2018), face)
         if (lead) return argb(0x1E1C1A)
-        val t = (z - 51) / 42
-        return mix(argb(0x2E3A4A), argb(0x6A7A8A), t * 0.7 + 0.15)
+        return pane
     }
 
     /**
@@ -307,8 +328,11 @@ object MapRoomIso {
         return shade(mix(argb(0x23211E), argb(0x8C867A), v.coerceIn(0.0, 1.0)), face)
     }
 
-    /** A tall narrow window under a round arch in a stone wall (13q.10), local u 0..1 of its tile. */
-    private fun archWindow(f: Double, z: Double, face: Double): Int? {
+    /**
+     * A tall narrow window under a round arch in a stone wall (13q.10), local u 0..1 of its tile; three looks (D1.11):
+     * [v] 0 small square panes, 1 leaded diamonds, 2 two lights parted by a stone mullion.
+     */
+    private fun archWindow(f: Double, z: Double, face: Double, v: Int = 0): Int? {
         val dx = (f - 0.5) / 0.2
         if (abs(dx) > 1.25) return null
         val crown = 92 + 12 * sqrt((1 - (dx / 1.25) * (dx / 1.25)).coerceAtLeast(0.0))
@@ -322,7 +346,14 @@ object MapRoomIso {
         // the deep reveal: the left side and the arch in shadow
         if (dx < -0.78 || z > inner - 3) return shade(argb(0x14110E), face)
         // small square panes of greenish glass in lead, brighter towards the top
-        val lead = frac((f - 0.5) * 22) < 0.12 || (z - 42) % 9 < 1.2
+        val lead = when (Math.floorMod(v, 3)) {
+            1 -> { val a = (f - 0.5) * 26; val b = (z - 60) / 7; abs(frac(a + b) - 0.5) > 0.44 || abs(frac(a - b) - 0.5) > 0.44 }
+            2 -> {
+                if (abs(dx) < 0.12) return shade(mix(argb(0x23211E), argb(0x9A9488), 0.6), face)
+                frac((f - 0.5) * 22) < 0.12 || (z - 42) % 12 < 1.2
+            }
+            else -> frac((f - 0.5) * 22) < 0.12 || (z - 42) % 9 < 1.2
+        }
         if (lead) return argb(0x1E1C1A)
         val t = (z - 42) / (inner - 42)
         return mix(argb(0x2E3C3A), argb(0x7A8C84), t * 0.7 + 0.15)
@@ -402,6 +433,8 @@ object MapRoomIso {
         val tile = map.tile(tx, ty)
         // the temple is built of stone (13q.10), every other room of timber and plaster
         val stone = map.id.substringBefore('_') == "temple"
+        // D1.11: one look of window for the whole house
+        val look = houseLook(map)
         fun timber(u: Double, z: Double, seed: Int, face: Double, top: Double) =
             if (stone) ashlar(u, z, seed, face, top) else this.timber(u, z, seed, face, top)
         fun beam(u: Double, z: Double, seed: Int, face: Double) =
@@ -425,7 +458,7 @@ object MapRoomIso {
                 when {
                     !full -> timber(u, z, seed, face, 400.0)
                     tile == Tile.HEARTH -> hearth(u, z, h0.toDouble(), (h1 - h0 + 1).toDouble(), face, seed) ?: timber(u, z, seed, face, WALL)
-                    tile == Tile.WINDOW -> (if (stone) archWindow(f, z, face) else window(f, z, face)) ?: timber(u, z, seed, face, WALL)
+                    tile == Tile.WINDOW -> (if (stone) archWindow(f, z, face, look) else window(f, z, face, look)) ?: timber(u, z, seed, face, WALL)
                     else -> hanging(wallThing(map, tx, ty, false), f, z, face) { timber(u, z, seed, face, WALL) } ?: timber(u, z, seed, face, WALL)
                 }
             }
@@ -477,7 +510,16 @@ object MapRoomIso {
     }
 
     /** The door in the front wall: a worn threshold between the cut-off walls. */
-    private fun door(tx: Int, ty: Int): PixelImage {
+    /** Which of three looks a house's windows and door sill have (D1.11): the same all through one house. */
+    private fun houseLook(map: MapDef) = when (map.id.substringBefore('_')) {
+        "inn", "temple" -> 0
+        "shop" -> 1
+        "elder" -> 2
+        else -> Math.floorMod(map.id.hashCode(), 3)
+    }
+
+    /** The way out at the front: a sill over the step; three looks (D1.11): [v] 0 an oak sill, 1 a stone slab, 2 a worn plank shod with iron. */
+    private fun door(tx: Int, ty: Int, v: Int = 0): PixelImage {
         val c = Canvas((8 + TH + 4).toInt().let { it + it % 2 }, tx + ty)
         // the step outside: trodden earth, fading into the dark
         for (py in 0 until c.h) for (px in 0 until W) {
@@ -487,7 +529,14 @@ object MapRoomIso {
             val k = (1 - (j + 1) / 1.0).coerceIn(0.0, 1.0)
             c.img.set(px, py, mix(argb(0x0A0807), argb(0x3A3024), k * 0.7 + (rnd(px / 2, py, 77) - 0.5) * 0.1))
         }
-        c.box(-1.0, -1.0, 0.0, -1.0 + THICK, 0.0, 4.0, oakTop, oakDark, oakDark)
+        when (Math.floorMod(v, 3)) {
+            1 -> c.box(-1.02, -1.04, 0.02, -1.0 + THICK + 0.06, 0.0, 5.0, stoneDark, stoneDark, stoneDark)
+            2 -> {
+                c.box(-1.0, -1.0, 0.0, -1.0 + THICK, 0.0, 3.0, oak, oakDark, oakDark)
+                c.box(-0.98, -1.0 + THICK - 0.03, -0.02, -1.0 + THICK, 3.0, 3.6, iron, iron, iron)
+            }
+            else -> c.box(-1.0, -1.0, 0.0, -1.0 + THICK, 0.0, 4.0, oakTop, oakDark, oakDark)
+        }
         c.s.outline(outlineColor, SOLID)
         return c.img
     }
@@ -2060,6 +2109,9 @@ object MapRoomIso {
     fun objects(map: MapDef, tx: Int, ty: Int, frame: Int = 0): List<WorldArt.Obj>? {
         fun at(dx: Int, dy: Int) = if (map.inside(tx + dx, ty + dy)) map.tile(tx + dx, ty + dy) else Tile.WALL
         fun same(dx: Int) = at(dx, 0) == map.tile(tx, ty)
+        // D1.11: shelves over several tiles keep one look all along, that of their first tile (counters and tables are
+        // alike all along anyway; only what stands on them changes from tile to tile)
+        fun runStart(): Int { var x0 = tx; while (at(x0 - tx - 1, 0) == map.tile(tx, ty)) x0--; return x0 }
         val v = hash(tx, ty, 3)
         val seed = tx * 131 + ty * 17
         val key = "${map.id}/$tx/$ty"
@@ -2089,10 +2141,10 @@ object MapRoomIso {
                 }
                 out
             }
-            Tile.DOOR -> if (ty == map.height - 1) one("door") { door(tx, ty) } else emptyList()
-            Tile.SHELF -> if (shop) one("goods", low = false) { goodsShelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
-                else if (elder) one("books", low = false) { bookshelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
-                else one("shelf", low = false) { shelf(hash(tx, ty, 1) % 3, same(-1), same(1), seed) }
+            Tile.DOOR -> if (ty == map.height - 1) one("door") { door(tx, ty, houseLook(map)) } else emptyList()
+            Tile.SHELF -> if (shop) one("goods", low = false) { goodsShelf(hash(runStart(), ty, 1) % 3, same(-1), same(1), seed) }
+                else if (elder) one("books", low = false) { bookshelf(hash(runStart(), ty, 1) % 3, same(-1), same(1), seed) }
+                else one("shelf", low = false) { shelf(hash(runStart(), ty, 1) % 3, same(-1), same(1), seed) }
             Tile.DESK -> if (temple) one("lectern", low = false) { lectern(v, seed) } else one("desk", low = false) { desk(v, seed) }
             Tile.TRUNK -> one("trunk") { chest(v, seed) }
             Tile.ARMCHAIR -> one("armchair", low = false) { armchair(v, seed) }
