@@ -1,5 +1,24 @@
 # Archiv
 
+
+### Tom (14.10., 09:52) – an Nachfolger
+- **PR #58** abonniert, grün, wartet auf Test 0.1.728; nach „passt“: zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“, „Jetzt installieren“ leeren.
+- **69e** (Zweig `claude/tom-69-intro`, `BRUECKE69E=1`, `tools/preview/.../BridgeProbe.kt`): Brücke Feld für Feld aus der Dorfkarte, Diagonalansicht daneben; auf „Dein Zug“, Sokrates benachrichtigt. Schild ist rechteckiges Brett auf mittigem Pflock (Nutzer 09:5x). Entschieden (Zeile 69): (1) präzise, zweite Runde; danach Musterbild 70.1 und übrige Intro-Bilder genauso aus der Karte.
+- **27m** (Zweig `claude/tom-27m-rand`, Rand fest eingebaut, gepusht): **ja (Nutzer 09:53), selbständig weiter:** Bildrate messen, mehr Bäume rund um die Karte, Standbilder aller Ränder Tag/Nacht (Wald, Tiefer Wald, Dorf mit Südrand), dann Sammelbuild. **69e zweite Runde** (Nutzer 10:0x: „Und dann unbedingt den neuen Bildentwurf für die Zwischensequenzen“) vorgezogen, auf „Dein Zug“ (10:12; noch offen: Rauch, Schild ins Bild). Danach **80** Kaels Laterne.
+- **Nutzer 09:3x:** erst kurz antworten, dann höchstens etwa 5 Minuten am Stück arbeiten (unter „Für den Berater“).
+### Tom (14.10., 09:15) – an Nachfolger
+- **Zuerst:** PR #58 abonnieren (`subscribe_pr_activity`), 0.1.728 wartet auf Test des Nutzers (später); nach „passt“: zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“, „Jetzt installieren“ leeren.
+- **Dann 27m** (ja, 09:1x) auf Zweig `claude/tom-27m-rand` (Entwurf 5ce92886): erst `git merge origin/main` (nach PR #58 auch dessen Stand), Schalter `MapEdge.draft` und `RAND` weg, fest für Wald/Tiefer Wald/Dorf; Bildrate messen (`ARTMEM`/Test-Reiter), mehr Bäume rund um die Karte; Standbilder Tag/Nacht aller Ränder (auch Süden mit Feldweg und Umkehr, Osten), dann Sammelbuild.
+- Sonst: 69/68 beim Berater (70/69e: Probebild Brücke zweimal, farbig); D1.15 und 74 bei Jerry. Neu von Sokrates: Thema 79 (Kampfhintergründe an Diagonalwelt).
+### Aus ROLLE-BERATER.md, Übergabe 14.10., 09:1x
+**Übergabe (14.10., 09:1x) – Nachfolger: „Sokrates – Kultlager Kapitel 2“:**
+
+**Sitzungen** (ältere im Archiv): 14.10. 07:08–09:1x „69e Bildart“: 69e, 70 (Bildsprache), 79 neu (Kampfhintergründe, nur Aussehen), Grundsatz „unser Stil ist die Diagonalwelt“ in `DESIGN-STIL.md`, Bornim 50 Einwohner, Übergaben Tom/Jerry in `CLAUDE.md`, Rolle geschärft. Schwerpunkt: Spiel (Gestaltung) gut drei Viertel, Rest Nachtragen. Selbstkritik: dreimal ungeprüft zugestimmt, Nutzer korrigierte. **Sprachsitzung schickt „Tom, …“-Aufträge in diese Sitzung** (gleicher Account), nicht zu Tom: dem Nutzer sagen, dass er Tom selbst anstoßen muss.
+
+**Nächster Punkt:** (1) Probebilder 69e von Tom (Brücke präzise gegen leicht abstrahiert, beide farbig): Stilwahl, Musterbild mit Bildregeln (70.1), danach 70.3 im Test-Build. (2) **41 Kultlager**, dabei feste Merkmale der Figuren (70.2). (3) **79** nach dem Musterbild (Standbild von Jerry ab Fr.). (4) **72a–72j**. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
+
+**Zuletzt gelesen bis:** dieser Commit (14.10., 09:1x)
+
 ### Tom (14.10., 08:05)
 - **Heute:** 0.1.721 abgenommen, PR #57 zusammengeführt (`main` grün); 55d so lassen; 77e.3 Vorgaben neu gefasst; 69e beim Berater. **0.1.728** (PR #58, Zweig `ccr-e4144697-7oy67j`, abonniert, grün): 27l Licht am Fuß (`footLight`), Pfützen weich, Nähte weg (Bodenstücke überlappen), 77.1 Leiste; Prüfliste `e/t728.html`. Nach Test: PR #58 zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“.
 - **27m** Kartenrand-Entwurf auf „Dein Zug“ (`claude/tom-27m-rand` 5ce92886, `RAND=1`, `MapEdge`): bei Ja fest einbauen (Schalter weg), vorher Bildrate messen.

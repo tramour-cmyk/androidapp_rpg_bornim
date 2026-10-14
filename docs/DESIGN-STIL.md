@@ -76,9 +76,9 @@ Alle Zwischensequenzen (Intro 69, Tempelszene 68, spätere Wendepunkte) sind gle
 - je Bild **ein kurzer Text** im Textkasten-Stil; Texte legen Nutzer und Berater fest (`STORY-REGELN.md`)
 - **Klang je Szene**: leise Geräusche (Intro) oder ein eigenes Musikstück (Tempel: „Ancient Legend“), Geräusche bleiben darunter leise
 - Antippen überspringt; danach in der Chronik unter „Bisher geschehen“ wieder ansehbar
-- **Figuren** an Umriss und festem Merkmal erkennbar (etwa Lyra Stirnreif, Osric Kerze), nicht am Gesicht; Rückenansicht oder Schattenriss (70.2)
+- **Figuren** an Umriss und festem Merkmal erkennbar (Merkmale in `LISTE-FIGUREN.md`), nicht am Gesicht; Rückenansicht oder Schattenriss (70.2)
 - **Selten:** je Kapitel höchstens Anfang und Ende, dazu selten ein Wendepunkt (70.4)
-- **Bild:** dieselbe Welt (Grundsatz unter „Richtung“), leicht abstrahiert: ruhigere Formen, weniger Einzelheiten, ein Hauch von Gemälde, weder Ölgemälde noch Bildschirmfoto; Grad am Probebild (69e). Musterbild folgt nach den Probebildern (70.1)
+- **Bild:** dieselbe Welt (Grundsatz unter „Richtung“), **präzise und so detailreich wie die Diagonalwelt** (Nutzer 14.10., 09:5x: keine Abstraktion, keine Pinselstriche, eher mehr Rechenleistung, feiner): Licht aus Quellen mit warmen Lichtkegeln auf Weg und Wasser, Spiegelungen (Mond im Wasser), Leben im Bild; enger Ausschnitt, Wichtiges groß im Vordergrund; Augenhöhe. Musterbild folgt aus der zweiten Runde 69e (70.1)
 - **Blickwinkel:** Ich-Perspektive des Helden oder ein Bild ohne ihn (Stimmung, anderer Schauplatz); der Held erscheint nie, weil er wählbar ist (Geschlecht, Klasse, Ausrüstung); andere Figuren dürfen ins Bild (wie Lyra in der Tempeltür)
 - **Leises Leben** (Flackern, Lichtfall, Staub) wird nach der Stilwahl in einem Test-Build an einer Szene entschieden (70.3)
 

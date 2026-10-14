@@ -83,3 +83,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 77 | Dokumentnamen ordnen | Tom, Berater | in Arbeit |
 | 78 | Test-Builds bündeln | Tom | fertig |
 | 79 | Kampfhintergründe wie Diagonalwelt | Berater, Jerry | offen |
+| 80 | Kaels Laterne im Dorf | Tom | offen |
