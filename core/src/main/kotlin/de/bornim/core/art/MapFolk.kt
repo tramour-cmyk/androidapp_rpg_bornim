@@ -42,7 +42,7 @@ object MapFolk {
 
     /** Rowena, who keeps the inn: sturdy, sleeves rolled, a long dress of brown wool, an apron's pale. */
     val rowena = Folk("rowena", human(Sex.FEMALE, Build.STRONG, 1, 3),
-        Outfit(CharClass.FIGHTER, kit("robe", "boots"), clothes = clothes(0x6A4A34, 0x9A8A70, 0x3E2E22)))
+        Outfit(CharClass.FIGHTER, kit("robe", "boots"), clothes = clothes(0x6A4A34, 0x9A8A70, 0x3E2E22), flaskRgb = 0x7A4A2A))
     /** Elder Aldric: old and thin, white beard, a long robe of faded plum, a staff on his shoulder. */
     val aldric = Folk("aldric", human(Sex.MALE, Build.SLIM, 0, 0, beard = true, grey = 0xC8C4BC),
         Outfit(CharClass.FIGHTER, kit("robe", "mantle", "quarterstaff"), cloakRgb = 0x3A3040, clothes = clothes(0x5A4A5E, 0x3E3242, 0x2E2630)), MapFigure.Carry.SHOULDER)
@@ -104,25 +104,35 @@ object MapFolk {
     fun seatPoseAt(f: Folk, clockMs: Long): SeatPose {
         val n = Math.floorDiv(clockMs, SEAT_BLOCK_MS)
         val t = clockMs - n * SEAT_BLOCK_MS
+        for (s in seatActs(f, n)) if (t in s.at until s.end) {
+            val u = t - s.at
+            return when {
+                u < SEAT_MOVE_MS -> seat(Seat.REST, s.what, ease(u / SEAT_MOVE_MS.toDouble()))
+                u < SEAT_MOVE_MS + s.hold -> SeatPose(s.what, s.what, 0)
+                else -> seat(s.what, Seat.REST, ease((u - SEAT_MOVE_MS - s.hold) / SEAT_MOVE_MS.toDouble()))
+            }
+        }
+        return breathing(clockMs)
+    }
+
+    /** One action at the table, from [at] to [end] ms into its block, held [hold] ms between moving in and out. */
+    private class SeatAct(val what: Seat, val at: Long, val hold: Long, val end: Long)
+
+    /** The actions of [f] at the table in block [n] of [SEAT_BLOCK_MS], fixed by chance (so picture and sound agree). */
+    private fun seatActs(f: Folk, n: Long): List<SeatAct> {
         val r = java.util.Random(n * 9_000_011L + f.id.hashCode() * 17L + 3)
         val acts = r.nextInt(3)
         var at = 1_500L + (r.nextDouble() * 5_000).toLong()
+        val out = mutableListOf<SeatAct>()
         for (k in 0 until acts) {
             val what = listOf(Seat.DRINK, Seat.EAT, Seat.LOOK)[r.nextInt(3)]
             val hold = 1_400L + (r.nextDouble() * (if (what == Seat.LOOK) 2_600 else 1_800)).toLong()
             val end = at + SEAT_MOVE_MS + hold + SEAT_MOVE_MS
             if (end > SEAT_BLOCK_MS - 500) break
-            if (t in at until end) {
-                val u = t - at
-                return when {
-                    u < SEAT_MOVE_MS -> seat(Seat.REST, what, ease(u / SEAT_MOVE_MS.toDouble()))
-                    u < SEAT_MOVE_MS + hold -> SeatPose(what, what, 0)
-                    else -> seat(what, Seat.REST, ease((u - SEAT_MOVE_MS - hold) / SEAT_MOVE_MS.toDouble()))
-                }
-            }
+            out += SeatAct(what, at, hold, end)
             at = end + 2_000L + (r.nextDouble() * 4_000).toLong()
         }
-        return breathing(clockMs)
+        return out
     }
 
     /**
@@ -188,8 +198,11 @@ object MapFolk {
     /** The doll for the person [npcId], or null when that one is still drawn the former way (Lyra in the temple and in the cave is one). */
     fun of(npcId: String): Folk? = all[npcId] ?: if (npcId.startsWith("lyra")) lyra else null
 
-    /** Only Garrick has idle loops of his own so far (warming his hands at his fire, peering into the woods); the others rest ([MapRest]). */
-    private fun loops(f: Folk) = f.id == "garrick"
+    /**
+     * Who has idle loops of their own: Garrick (warming his hands at his fire, peering into the woods) and Rowena behind
+     * her counter (wiping it, pouring a jug; D1.10: her sounds come with these movements); the others rest ([MapRest]).
+     */
+    private fun loops(f: Folk) = f.id == "garrick" || f.id == "rowena"
 
     /** Standing still or walking: [step] as in [MapFigure.STEPS]. */
     fun draw(f: Folk, slot: Int, step: Int): PixelImage =
@@ -200,7 +213,7 @@ object MapFolk {
      * and rubs them, [PEER] shades the eyes with the right hand and looks slowly from side to side.
      * Each is a short loop of [frames] pictures, shown [frameMs] apiece.
      */
-    enum class Idle(val frames: Int, val frameMs: Long) { WARM(4, 260), PEER(5, 420) }
+    enum class Idle(val frames: Int, val frameMs: Long) { WARM(4, 260), PEER(5, 420), WIPE(4, 230), POUR(3, 380) }
 
     /** The pose of [idle] at picture [i], the body turned to [yaw]. */
     fun idleRig(yaw: Double, idle: Idle, i: Int): HeroFigure.Rig {
@@ -222,6 +235,24 @@ object MapFolk {
                     headDown = -1.5, headTurn = turn, twist = turn * 0.2,
                     rh = HeroFigure.V(2.0, 95.0, 9.0), elbowUp = 0.7, elbowAt = HeroFigure.V(24.0, 86.0, 6.0),
                     lh = HeroFigure.V(-16.0, 54.0, 6.0),
+                )
+            }
+            Idle.WIPE -> {
+                // bent a little over the counter, the right hand with the cloth going round on the board, the left resting on it
+                val (cx, cz) = listOf(0.0 to 1.0, 1.0 to 0.0, 0.0 to -1.0, -1.0 to 0.0)[Math.floorMod(i, 4)]
+                base.copy(
+                    lean = 0.3, headDown = 4.5, spread = 7.0, twist = cx * 4.0,
+                    rh = HeroFigure.V(8.0 + cx * 9.0, 68.0, 30.0 + cz * 7.0),
+                    lh = HeroFigure.V(-13.0, 66.0, 26.0),
+                )
+            }
+            Idle.POUR -> {
+                // a jug in the left hand over the counter: lifted (0), tipped (1), poured out (2); the right hand holds the cup below
+                val tilt = listOf(0.0, 55.0, 95.0)[i.coerceIn(0, 2)]
+                base.copy(
+                    lean = 0.12, headDown = 3.5, flask = 1.0, cork = 0.0, flaskTilt = tilt,
+                    lh = HeroFigure.V(-3.0, 80.0 - tilt * 0.04, 28.0),
+                    rh = HeroFigure.V(5.0, 70.0, 30.0),
                 )
             }
         }
@@ -541,22 +572,74 @@ object MapFolk {
      * and how fast his loop runs. So the pauses between run from about 2½ s to over half a minute.
      */
     fun doing(f: Folk, clockMs: Long): Doing? {
-        if (!loops(f)) return null
         val n = Math.floorDiv(clockMs, BLOCK_MS)
-        val t = clockMs - n * BLOCK_MS
+        val a = act(f, n) ?: return null
+        val t = clockMs - n * BLOCK_MS - a.start
+        if (t < 0 || t >= a.length) return null
+        val step = (t / (a.idle.frameMs * a.pace)).toInt()
+        val frame = when (a.idle) {
+            // peering sweeps there and back
+            Idle.PEER -> { val m = 2 * (a.idle.frames - 1); val q = Math.floorMod(step, m); if (q < a.idle.frames) q else m - q }
+            // pouring: the jug lifted, tipped and held while it runs, then lowered again
+            Idle.POUR -> { val back = ((a.length - t) / (a.idle.frameMs * a.pace)).toInt(); minOf(step, back, 2) }
+            // warming and wiping loop
+            else -> Math.floorMod(step, a.idle.frames)
+        }
+        return Doing(a.idle, frame, if (a.idle == Idle.PEER) a.off else 0)
+    }
+
+    /** One loop in block [n]: it starts [start] ms into the block and lasts [length] ms. */
+    private class Act(val idle: Idle, val start: Long, val length: Long, val pace: Double, val off: Int)
+
+    /** What [f] does in block [n] of [BLOCK_MS], or null for nothing: fixed by chance, so picture and sound agree. */
+    private fun act(f: Folk, n: Long): Act? {
+        if (!loops(f)) return null
         val r = java.util.Random(n * 1_000_003L + f.id.hashCode())
         if (r.nextDouble() < 0.2) return null
         val start = 2_000L + (r.nextDouble() * 7_000).toLong()
+        if (f.id == "rowena") {
+            // as long as the sound of it (wiping about 3 s, pouring about 4 s), so neither runs on without the other
+            val pour = r.nextDouble() < 0.4
+            return if (pour) Act(Idle.POUR, start, POUR_MS, 1.0, 0) else Act(Idle.WIPE, start, WIPE_MS, 0.85 + r.nextDouble() * 0.3, 0)
+        }
         val length = 3_500L + (r.nextDouble() * 3_000).toLong()
         val idle = if (r.nextDouble() < 0.35) Idle.PEER else Idle.WARM
         val pace = 0.8 + r.nextDouble() * 0.45
         val off = PEER_OFFSETS[r.nextInt(PEER_OFFSETS.size)]
-        if (t < start || t >= start + length) return null
-        val step = ((t - start) / (idle.frameMs * pace)).toInt()
-        // peering sweeps there and back; warming loops
-        val frame = if (idle == Idle.PEER) { val m = 2 * (idle.frames - 1); val q = Math.floorMod(step, m); if (q < idle.frames) q else m - q }
-            else Math.floorMod(step, idle.frames)
-        return Doing(idle, frame, if (idle == Idle.PEER) off else 0)
+        return Act(idle, start, length, pace, off)
+    }
+
+    const val WIPE_MS = 3_000L
+    const val POUR_MS = 4_600L
+    /** The pour is heard from when the jug is tipped, after it is lifted. */
+    const val POUR_SOUND_MS = 380L
+
+    /**
+     * The sounds [f]'s own movements make between [fromMs] (excluded) and [toMs] on the clock (D1.10): Rowena's cloth
+     * as she starts wiping and her jug as she tips it; Borin's flask set down on the table after a drink and his chair
+     * as he turns to look round.
+     */
+    fun sounds(f: Folk, fromMs: Long, toMs: Long): List<de.bornim.core.audio.Sound> {
+        if (toMs <= fromMs) return emptyList()
+        val out = mutableListOf<de.bornim.core.audio.Sound>()
+        fun hit(at: Long) = at > fromMs && at <= toMs
+        if (loops(f)) for (n in Math.floorDiv(fromMs, BLOCK_MS)..Math.floorDiv(toMs, BLOCK_MS)) {
+            val a = act(f, n) ?: continue
+            val at = n * BLOCK_MS + a.start
+            when (a.idle) {
+                Idle.WIPE -> if (hit(at)) out += de.bornim.core.audio.Sound.WIPE
+                Idle.POUR -> if (hit(at + POUR_SOUND_MS)) out += de.bornim.core.audio.Sound.POUR
+                else -> {}
+            }
+        }
+        if (sits(f)) for (n in Math.floorDiv(fromMs, SEAT_BLOCK_MS)..Math.floorDiv(toMs, SEAT_BLOCK_MS)) {
+            for (s in seatActs(f, n)) when (s.what) {
+                Seat.DRINK -> if (hit(n * SEAT_BLOCK_MS + s.end)) out += de.bornim.core.audio.Sound.CUP
+                Seat.LOOK -> if (hit(n * SEAT_BLOCK_MS + s.at)) out += de.bornim.core.audio.Sound.CHAIR
+                else -> {}
+            }
+        }
+        return out
     }
 
     const val BLOCK_MS = 16_000L
@@ -632,8 +715,12 @@ object MapFolk {
         if (!loops(f)) return
         val n = MapFigure.YAWS
         val jobs = buildList {
-            for (i in 0 until Idle.WARM.frames) add(Triple(homeSlot, Idle.WARM, i))
-            for (o in PEER_OFFSETS) for (i in 0 until Idle.PEER.frames) add(Triple(Math.floorMod(homeSlot + o, n), Idle.PEER, i))
+            if (f.id == "rowena") {
+                for (idle in listOf(Idle.WIPE, Idle.POUR)) for (i in 0 until idle.frames) add(Triple(homeSlot, idle, i))
+            } else {
+                for (i in 0 until Idle.WARM.frames) add(Triple(homeSlot, Idle.WARM, i))
+                for (o in PEER_OFFSETS) for (i in 0 until Idle.PEER.frames) add(Triple(Math.floorMod(homeSlot + o, n), Idle.PEER, i))
+            }
         }
         for ((s, idle, i) in jobs) {
             val k = "${f.id}|$s|$idle|$i"

@@ -245,6 +245,9 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         var bedStream = 0
         var nextEvent = de.bornim.core.audio.PlaceSound.firstMs(place, rnd)
         var lastEvent: de.bornim.core.audio.Sound? = null
+        // D1.10: what the people do with their hands is heard with the movement, on the clock their pictures run on
+        var folkHeardTo = clock
+        val folkStill = MapFolk.Stillness()
         // the pond (27j): calls of the frogs on the bank and dragonflies darting close, the chorus at dusk
         val outside = game.map.kind == MapKind.TOWN || game.map.kind == MapKind.FOREST
         val pond = if (outside) de.bornim.core.art.PondLife.of(game.map).takeIf { it.frogs.isNotEmpty() || it.flies.isNotEmpty() } else null
@@ -279,6 +282,10 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     }
                     nextEvent = now + de.bornim.core.audio.PlaceSound.gapMs(place, rnd)
                 }
+                val folkTo = clock
+                if (calm) for (s in de.bornim.core.audio.PlaceSound.folk(game.map, game.state, folkHeardTo, folkTo, p.x, p.y, folkStill.forMs(p.x, p.y, folkTo)))
+                    vm.play(s, de.bornim.core.audio.PlaceSound.EVENT_VOLUME)
+                folkHeardTo = folkTo
                 if (pond != null && ear != null && de.bornim.core.art.PondLife.draft) {
                     val hx = (p.x + 0.5f) * de.bornim.core.art.WorldArt.T; val hy = (p.y + 0.5f) * de.bornim.core.art.WorldArt.T
                     val dusk = game.daylight < 0.55f
