@@ -86,3 +86,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 80 | Kaels Laterne im Dorf | Tom | offen |
 | 81 | Teamleiter „Ford“ | Berater | offen |
 | 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | Berater | offen |
+| 85 | Testmenü aufräumen | Tom | offen |

@@ -2,9 +2,9 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 18:2x) – Nachfolger: „Sokrates – Kampfsystem“:**
+**Übergabe (14.10., 19:2x) – Nachfolger: „Sokrates – Kampfsystem“:**
 
-**Nächster Punkt:** (0) **72b Kampf:** [Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4), Baustein 7; Nutzer schickt weitere Gedanken, dann 72k–72o, 26d hängt daran; Schleichen (84.3) und Schnellwechsel (84.2) mit 72b festlegen. (1) **84 Licht und Laut:** 13e.6 = B, 84.4 Stufen beschlossen; Kernregel „Licht gegen Heimlichkeit“ gefragt (18:0x, noch ohne Antwort), dann kurzes Konzept mit Zahlen für Tom (Fackel im Laden) und Jerry. (2) **81 Ford** steht (Routine `trig_013heqXJ1KkkxTYVzmTcpzaf` in „Voll“, Telegram belegt); nächster Schritt Regelbilanz (Weck-Routinen in `ARBEIT-SELBST.md` durch Ford ersetzen, `CLAUDE.md` kürzen); Pilot nur auf Zuruf. (3) **41** Entwurf beim Nutzer (4.4, 5.3, 6.3). (4) **69e** Runde 4: Meinung gegen `DESIGN-STIL.md`, dann 70.1, danach 79. (5) 72a–72j.
+**Nächster Punkt:** (0) **72q Gruppe** mit dem Nutzer am Rechner besprechen, nicht vorab entscheiden: Held plus zwei, je Figur selbst oder Automatik (72.6), Begleiter mit Haltung, Reihen vorn/hinten; das Kampf-Dokument nahm den Einzelhelden nur als Ausgangslage (Ergänzung am Ende des [Dokuments](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4)). Danach 72p, 72k–72o, 26d; Schleichen (84.3), Schnellwechsel (84.2). (1) **84** Kernregel „Licht gegen Heimlichkeit“ noch ohne Antwort. (2) **81 Ford** Regelbilanz, Pilot nur auf Zuruf. (3) **41** Entwurf beim Nutzer. (4) **69e** Runde 4, dann 70.1, 79. (5) 72a–72j.
 
 **Zuletzt gelesen bis:** 61d7506b (14.10., 18:2x)
 
@@ -57,7 +57,7 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 
 - **Werkzeugausgaben kosten Token** (14.10.): Beschlussseite (17 KB) beim Ändern nur einmal lesen; Suchen eng fassen (`ARBEIT-ARCHIV.md` ausschließen, Zeilen kürzen).
 - **Ablauf nicht vorführen** (14.10., 65.9): der Nutzer sieht den Nutzen pro Antwort; Startritual, Wiederholungen und Haken-Runden ohne Neues sind Kosten. Zeit nur von der Systemuhr, auch im Gespräch (17:3x geschätzt).
-- **Nur ausdrückliches Ja des Nutzers entscheidet** (13.10., Sprachmodus): Unklares gegen seinen Wortlaut prüfen.
+- **Nur ausdrückliches Ja des Nutzers entscheidet** (13.10., Sprachmodus): Unklares gegen seinen Wortlaut prüfen. Im Sprachmodus nie aus dem Gedächtnis gegen eigene Dokumente reden (14.10., 72q: zwei widersprüchliche Aussagen).
 - **Technik erst belegen, dann zusagen** (14.10., 81j): Push und E-Mail aus Routinen kamen trotz „erfolgreich“ nie an; Erfolgsmeldung eines Werkzeugs ist kein Beleg, nur die Bestätigung des Nutzers.
 - **Beim Start alle Punkte zu eigenen Themen auf „Dein Zug“ lesen** (14.10., 69e übersehen, weil an den Nutzer adressiert).
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
