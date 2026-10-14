@@ -74,6 +74,6 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
-- **26 Ausgleich Magier** (Tom für Jerry, 14.10., 13:4x, Simulation `ChapterSimTest`, 400 Kämpfe): Siege gegen Grak Stufe 5 Kämpfer 92 %, Kleriker 88 %, Schurke 82 %, Magier 45 % (mit vorher gewirkter Magierrüstung 69 %). Vorschlag: SRD-Zauber **Schild** als selbsttätige Reaktion (+5 RK bis zum nächsten Zug, 2 ZP): Magier 87 % mit Rüstung, 78 % ohne (Stufe 6: 93/85 %); Entwurf `claude/tom-26-magier-schild` (im Spiel aus). Nebenbefund: Bosse auf Stufe 5–6 für alle über dem Ziel 50–65 % (38). → Rückfrage **26d** (Sokrates 15:0x, im Gespräch).
+- **26 Ausgleich Magier** (Tom für Jerry, 14.10., 13:4x, Simulation `ChapterSimTest`, 400 Kämpfe): Siege gegen Grak Stufe 5 Kämpfer 92 %, Kleriker 88 %, Schurke 82 %, Magier 45 % (mit vorher gewirkter Magierrüstung 69 %). Vorschlag: SRD-Zauber **Schild** als selbsttätige Reaktion (+5 RK bis zum nächsten Zug, 2 ZP): Magier 87 % mit Rüstung, 78 % ohne (Stufe 6: 93/85 %); Entwurf `claude/tom-26-magier-schild` (im Spiel aus). Nebenbefund: Bosse auf Stufe 5–6 für alle über dem Ziel 50–65 % (38). → Rückfrage **26d** (Sokrates 15:03, im Gespräch): Schild ja, selbsttätig mit Schalter „Schild bereit“ (Standard an); nach Boss-Anpassung (38) neu messen.
 
 
