@@ -77,7 +77,8 @@ object MapGround {
 
     /** The chunk ([cx], [cy]) of [map], drawn right away when it is not ready yet (a brief pause, once), so the former tiles never show. */
     fun chunkNow(map: MapDef, cx: Int, cy: Int): PixelImage? {
-        if (cx < 0 || cy < 0 || cx * CH >= map.width || cy * CH >= map.height) return null
+        val r = if (MapEdge.applies(map)) 1 else 0
+        if (cx < -r || cy < -r || cx * CH >= map.width + r * CH || cy * CH >= map.height + r * CH) return null
         chunk(map, cx, cy)?.let { return it }
         val img = draw(map, cx, cy)
         synchronized(chunks) { chunks.getOrPut("${map.id}/$cx/$cy") { img } }
@@ -132,7 +133,8 @@ object MapGround {
 
     private fun order(map: MapDef, nx: Int, ny: Int): List<Pair<Int, Int>> {
         val w = (map.width + CH - 1) / CH; val h = (map.height + CH - 1) / CH
-        val all = (0 until h).flatMap { y -> (0 until w).map { x -> x to y } }
+        val r = if (MapEdge.applies(map)) 1 else 0
+        val all = (-r until h + r).flatMap { y -> (-r until w + r).map { x -> x to y } }
         return all.sortedBy { (x, y) -> abs(x * CH + CH / 2 - nx) + abs(y * CH + CH / 2 - ny) }
     }
 
