@@ -54,7 +54,7 @@ Leute aus Schilfrode tragen einen **Ölhaut-Umhang**; daran erkennt man sie auch
 | Figur | Umriss, Statur | Merkmal | Farben | Ort |
 |---|---|---|---|---|
 | Hauptmann Vesk | ehemaliger Zöllner | schwarze Rabenfedern am Helm, Säbel, Silberbeutel (klirrt bei jedem Schritt) | verblichenes Zöllnerwams über Kettenhemd, langer Mantel | Rabenschanze |
-| Aufseher (Vorschlag „Brand“, Aussehen offen) | – | – | graue Kutte | Kultlager |
+| Rask, Aufseher der Grauen (Aussehen offen) | – | – | graue Kutte | Kultlager |
 | Der Aschenpriester | – | Räuchergefäß mit Glut an einer Kette, offenes graues Auge auf der Brust, Gesicht mit Asche geweißt | graue Robe mit verkohltem Saum | Aschfurt, Kapelle |
 | Gruft-Unhold | ausgezehrt, lange Klauen | Reste eines Ölhaut-Umhangs | graue Haut, tote Augen | Aschfurt, Kapelle |
 
