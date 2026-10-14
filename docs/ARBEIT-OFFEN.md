@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARBEIT-ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 82**
+**Nächste freie Themennummer: 83**
 
 **Ford: aus** (81g; Stellung aus / Co-Pilot / Pilot, Startlektüre `ROLLE-FORD.md`)
 
@@ -20,6 +20,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
+| 82 | Verschlossene Tür: Held verschwindet beim Anklopfen, Text kommt, Held taucht wieder auf (Nutzer 14.10., 15:5x, Bild Pims Haus); alle Zugänge prüfen | Tom | `claude/tom-d1-schatten` | Ursache: freies Laufen lässt ihn halb ins Türfeld, Füße hinter der Hauswand. Behebung: verschlossene Tür zählt beim Laufen als Wand, Anklopfen beim Dagegenlaufen |
 | 81 | Teamleiter „Ford“: hält Tom und Jerry beschäftigt, meldet dem Nutzer Entscheidungen, startet Sitzungen (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–i, 81k–l (Beschlüsse/Archiv). **81m Telegram-Push** aus Sitzung und Routine bestätigt (Nutzer 15:2x), Weg in `ROLLE-FORD.md`. Routinen gebaut (15:28): „Ford (Tom)“ stündlich, aus bis zur Stellung; „Ford Start“ (aus Probe 1/2 umgebaut). Nächstes: Nutzer wählt Stellung, dann drei Nächte Pilot (81i); Jerry-Ford ab Fr. [Entwurf Ford](https://claude.ai/code/artifact/ff3ae8ab-a448-4a79-b928-3a09f424b45c) |
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`update_trigger`, `enabled: false`, nicht löschen; `ARBEIT-SELBST.md`). Regeln in `CLAUDE.md` |
 | 13 | Diagonale Sicht | Tom | `claude/tom-73-laeden` | 13t auf `main` (PR #54). Verlauf im Archiv |
