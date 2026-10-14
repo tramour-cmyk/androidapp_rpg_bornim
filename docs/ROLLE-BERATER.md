@@ -2,7 +2,7 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 20:4x) – Nachfolger: „Sokrates – Kampfsystem“:**
+**Übergabe (14.10., 20:3x) – Nachfolger: „Sokrates – Kampfsystem“:**
 
 **Nächster Punkt:** (0) **72k Richtung des Kampfes** (A/B/C) neu besprechen, jetzt mit Begleiter (72.7–72.10, 72s beschlossen: Held plus ein Begleiter ab Kapitel 2). Der Nutzer will erst klären, wie Kämpfe künftig aussehen, dann die Probe (72.10). Dabei: wer reagiert im Gegnerzug (Vorschlag: nur die angegriffene Figur), Reihen vorn/hinten statt nah/fern (Baustein 7, Regelbilanz). Kampf-Dokument hat dazu noch keinen Abschnitt; Volltext lesen, nicht aus dem Gedächtnis. Offen 72r (Ausfall-Maß; Empfehlung Kämpfe, Rast ist gratis), 72t (Söldner in vier Klassen, Stufe fest, Begleiter der Geschichte steigen auf). Danach 72p, 72l–72o, 26d; 41 Begleiter-Figuren für Kapitel 2; 84.3, 84.2. (1) **84** Kernregel. (2) **81 Ford** Pilot auf Zuruf. (3) **41** Entwurf. (4) **69e**, 70.1, 79.
 
