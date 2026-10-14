@@ -1,5 +1,9 @@
 # Archiv
 
+### Aus ARBEIT-OFFEN.md, 14.10., 20:5x (Übergabe Tom 19:4x)
+- PR #60 (0.1.739), #61, #62 beim Nutzer (oben), abonnieren. Weiter: 85 auf `claude/tom-85-testmenue` (2 Knöpfe raus) in den nächsten Sammelbuild; 74 Hörprobe 2 beim Nutzer, dann einbauen; 83 A bauen (Standbild zuerst); 13e D1.7 Leben Höhle (Rauch `drawCampSmoke`, `WorldScreen.kt`, nach Absprache).
+- Draußen bei Nacht bleibt das kleine Licht um den Helden (13e.6 B nur Höhle); falls der Berater B auch für draußen meint: `MapLight.kt` (`lantern`).
+
 ### Aus ARBEIT-OFFEN.md, 14.10., 19:4x (Übergabe Tom 19:2x)
 - PR #60, #61, #62 beim Nutzer (oben); neu abonnieren. **Zuerst:** Build PR #60 (0711ca4c) prüfen, `e/t732.html` auf neue Version und APK (nachtesten: Punkt 6, Nordwestecke Wald, Tiefer Wald östlich Morwen, nordwestlich Wolfsboss, Südostrand). Dann Dorf-Meldung (Zeile 27): Standbild Nordeingang abends (`HELDORT=village:17:2:R:20`), vermutlich Ende des Lichtbilds.
 - Weiter: (1) 74 Erde/Pflaster neu wählen (CC0), zweite Hörprobe, dann einbauen (nur Held; 74a: ein Klang je Aufsetzen, beim Rennen dichter und leiser); (2) 83 wartet auf Entscheidung; (3) 13e D1.7 Leben Höhle (Vorschlag mit Standbild; Rauch: `drawCampSmoke` auch für Höhle, `WorldScreen.kt`, nach Absprache).

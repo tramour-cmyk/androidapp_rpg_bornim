@@ -53,7 +53,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 70 | Zwischensequenzen: Bildsprache für alle Kapitel (Nutzer 14.10., 08:00) | Berater mit Nutzer; Tom (69e) | `main` (Notizen) | Entschieden (Beschlüsse, `DESIGN-STIL.md`): 70.1 Musterbild nach 69e; 70.2, 70.4, 70.5 ja; 70.3 nach Stilwahl im Test-Build |
 | 79 | Kampfhintergründe an die Diagonalwelt angleichen (Nutzer 14.10., 08:34) | Berater mit Nutzer; Jerry (Bilder) | – | Nur Aussehen (Nutzer 09:08), Aufbau des Kampfbildes gehört zu 72b. Erst Standbild (Jerry ab Fr.), dann Entwurf nach Musterbild 70.1 |
 | 80 | Kaels angesengte Laterne neben seiner Haustür im Dorf (Aussehen `LISTE-FIGUREN.md`) | Tom | `claude/tom-80a-sockel` | 80a **passt** (Beschlüsse), in 0.1.740 |
-| 74 | Schrittgeräusche fehlen an allen Orten („Ort fertig“ 8; Befund Diogenes D1.1) | Tom (Vertretung für Jerry, Nutzer 14.10., 13:3x) | `claude/tom-74-schritte` | Gras, Holz, Stein passen; Erde und Pflaster neu (BigSoundBank CC0), zweite Hörprobe auf „Dein Zug“ (`e/74.html`). 74a: ein Klang je Aufsetzen, beim Rennen dichter und leiser. Dann einbauen (nur Held) |
+| 74 | Schrittgeräusche fehlen an allen Orten („Ort fertig“ 8; Befund Diogenes D1.1) | Tom (Vertretung für Jerry, Nutzer 14.10., 13:3x) | `claude/tom-74-schritte` | **Alle fünf genommen** (Nutzer 14.10., 20:5x, Beschlüsse; Rezept `tools/klang/schritte.py` auf dem Zweig). 74a: ein Klang je Aufsetzen, beim Rennen dichter und leiser. Dann einbauen (nur Held) |
 | 55 | Mehr Leerlauf für alle Leute, Szenen wie Sitzen am Tisch | Tom | – | Auf `main`; 55d so lassen (Beschlüsse) |
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry; Rudelwölfe Tom (Vertretung) | `claude/tom-52-rudel` | Krogg so lassen, später alle gesamt (Jerry). Rudelwölfe **passt** (Beschlüsse), in 0.1.740 |
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg | Jerry | – | Prüfthema, Nutzer 12.10., 15:4x (Test 0.1.587): wenn Zeit ist und nichts Wichtigeres ansteht; alle großen Gegner mitprüfen |
@@ -62,9 +62,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 19:4x)
-- PR #60 (0.1.739), #61, #62 beim Nutzer (oben), abonnieren. Weiter: 85 auf `claude/tom-85-testmenue` (2 Knöpfe raus) in den nächsten Sammelbuild; 74 Hörprobe 2 beim Nutzer, dann einbauen; 83 A bauen (Standbild zuerst); 13e D1.7 Leben Höhle (Rauch `drawCampSmoke`, `WorldScreen.kt`, nach Absprache).
-- Draußen bei Nacht bleibt das kleine Licht um den Helden (13e.6 B nur Höhle); falls der Berater B auch für draußen meint: `MapLight.kt` (`lantern`).
+### Tom (14.10., 20:5x) – an Nachfolger
+- PR #60 (0.1.739), #61 (0.1.740), #62 (0.1.741) beim Nutzer, in dieser Reihenfolge; abonnieren. Nummern nur aufsteigend (Regel in `ROLLE-ENTWICKLER.md`).
+- **83 A bauen** (Zweig von `main`): Felder `c`/Beete `v` liegen in Zeile 28–30 von `Story.village`, Zeile 31 ist Baumreihe. `MapFlora.objects` macht dort schon junge Fichten/Büsche (`shades`); verdeckt wird vor allem vom Ring hinter dem Rand: `MapEdge.trees` nutzt fremde Orte (`OFF`), prüft keine Felder. Plan: in Zeile 31 vor Feldern/Beeten nur Büsche (Hecke); im Ring südlich keine Bäume bis Tiefe 3, wo nordwestlich (wie `shades`) Feld/Beet/Zaun/Heu liegt. Standbild vorher/nachher (`HELDORT=village:6:29:D:12`, `village:26:29:D:12`) auf „Dein Zug“, dann Sammelbuild.
+- **74 einbauen** (Zweig `claude/tom-74-schritte`): nur Held, Untergrund je Feld, ein Klang je Aufsetzen, Rennen dichter und leiser. **85** auf `claude/tom-85-testmenue` fertig, kommt mit in den nächsten Sammelbuild.
+- Draußen nachts bleibt das kleine Licht um den Helden (13e.6 B nur Höhle). 13e D1.7 Leben Höhle braucht Absprache wegen `WorldScreen.kt`.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.
