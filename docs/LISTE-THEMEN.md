@@ -73,7 +73,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 65 | Abläufe verschlanken (Ablaufprüfung) | Berater, Tom, Jerry | in Arbeit |
 | 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | Berater mit Nutzer; Tom, Jerry | offen |
 | 69 | Intro in Standbildern (Ankunft bei Nacht) | Berater (69e); Tom | offen |
-| 70 | Zwischensequenzen einheitlich | Berater mit Nutzer | erledigt |
+| 70 | Zwischensequenzen einheitlich, Bildsprache | Berater mit Nutzer | in Arbeit |
 | 71 | Bestandsprüfung Stil und Klang aller Orte | Diogenes | offen |
 | 72 | Profil und Marktvergleich | Berater mit Nutzer | offen |
 | 73 | Versperrte Hütten: nachts Läden zu, Stimmen | Tom | erledigt |
@@ -82,3 +82,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 76 | Tom und Jerry schärfen, CLAUDE.md entschlacken | Tom, Jerry | erledigt |
 | 77 | Dokumentnamen ordnen | Tom, Berater | in Arbeit |
 | 78 | Test-Builds bündeln | Tom | fertig |
+| 79 | Kampfhintergründe wie Diagonalwelt | Berater, Jerry | offen |

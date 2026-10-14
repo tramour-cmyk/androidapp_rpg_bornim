@@ -75,6 +75,9 @@ Alle Zwischensequenzen (Intro 69, Tempelszene 68, spätere Wendepunkte) sind gle
 - je Bild **ein kurzer Text** im Textkasten-Stil; Texte legen Nutzer und Berater fest (`STORY-REGELN.md`)
 - **Klang je Szene**: leise Geräusche (Intro) oder ein eigenes Musikstück (Tempel: „Ancient Legend“), Geräusche bleiben darunter leise
 - Antippen überspringt; danach in der Chronik unter „Bisher geschehen“ wieder ansehbar
+- **Figuren** an Umriss und festem Merkmal erkennbar (etwa Lyra Stirnreif, Osric Kerze), nicht am Gesicht; Rückenansicht oder Schattenriss (70.2)
+- **Selten:** je Kapitel höchstens Anfang und Ende, dazu selten ein Wendepunkt (70.4)
+- **Bild:** passt zur lebendigen, farbigen Welt der Diagonalansicht (69e.2); Musterbild folgt nach den Probebildern (70.1)
 
 ## Klang
 
