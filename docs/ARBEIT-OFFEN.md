@@ -10,7 +10,7 @@ Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main`
 
 ## Jetzt installieren
 
-- **Tom Sammelbuild 0.1.741** (zuerst; Höhle: 13e.5, 13e.6 B, D1.5, D1.9; PR #62, Zweig `claude/tom-13e-hoehle-fertig`): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38609455363/artifacts/11916159370), Prüfliste `e/t738.html`.
+- **Tom Sammelbuild 0.1.741** (passt bis auf D1.5 Truhe und 13e.6, Nutzer 21:1x; Konflikt mit `main` gelöst, wird nach grünem Build zusammengeführt; Höhle: 13e.5, 13e.6 B, D1.5, D1.9; PR #62, Zweig `claude/tom-13e-hoehle-fertig`): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38609455363/artifacts/11916159370), Prüfliste `e/t738.html`.
 
 Nach „passt“ (PR #62): zusammenführen, `CHANGELOG.md`, Prüfliste von „Dein Zug“, hier leeren.
 
@@ -28,7 +28,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 81 | Teamleiter „Ford“ (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–n (`ROLLE-FORD.md`). Co-Pilot seit 16:02; Routine in „Voll“ (`trig_013heqXJ1KkkxTYVzmTcpzaf`, :28); Telegram-Weg steht (18:1x). Pilot und Bewährung (81i) auf Zuruf; Jerry-Ford ab Fr. |
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`enabled: false`, nicht löschen). 65.8/65.9 stehen in `CLAUDE.md` |
 | 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-13e-hoehle-fertig` | In 0.1.741 (PR #62, t738); **Befund 21:1x:** Truhe in der Pilzecke ohne sichtbaren Schatten (D1.5); 13e.6 Helligkeit beim Berater; 13e.6 = B (kein Heldenlicht, Fackel → 84.1). Danach D1.7 Leben (Standbild, Absprache `WorldScreen.kt`) |
-| 83 | Dorf Süd: weder die eingezäunten Beete im Westen noch die Weizenfelder im Osten zu sehen; Bäume wegnehmen oder andere Lösung? (Nutzer 14.10., 17:3x, Test t732) | Tom | – | **A** (Nutzer 14.10., 20:4x, Beschlüsse): Waldrand vor Beeten/Feldern zurücknehmen, Hecke; Standbild vor Einbau. Umfasst t732 Punkt 8: Hühner am Südrand nicht zu sehen (Nutzer 19:3x) |
+| 83 | Dorf Süd: Beete, Weizenfelder, Hühner am Südrand nicht zu sehen (Nutzer 14.10., 17:3x/19:3x, t732) | Tom | `claude/tom-83-hecke` | A (Beschlüsse) gebaut: Hecke, Ring ohne hohe Kronen vor Feld/Beet/Heu. **83a** auf „Dein Zug“: Hecke passt? Hühner (heute weiße Punkte aus der alten Ansicht in `WorldScreen.kt`) als richtige Figuren? |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` bis 5.5 |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`LISTE-KAPITEL1.md`](LISTE-KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | Toms Teil von 26c fertig |
