@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -2324,7 +2325,10 @@ private fun HudChip(info: HudInfo, lang: de.bornim.core.Lang, modifier: Modifier
     val german = lang == de.bornim.core.Lang.DE
     // Compact: bars on the left, level, points and time on the right, so the map stays visible.
     Row(
-        (if (bar) modifier.background(Color(0xFF14141E)) else modifier.clip(RoundedCornerShape(8.dp)).background(Color(0xAA000000)))
+        (if (bar) modifier.background(Color.Black).drawBehind {
+            // a thin gold line below, like the frame of the dialog box (60, 77.1)
+            drawLine(Veil.rim, Offset(0f, size.height - 0.5f), Offset(size.width, size.height - 0.5f), 1.dp.toPx())
+        } else modifier.clip(RoundedCornerShape(8.dp)).background(Color(0xAA000000)))
             .tap(onMenu)
             .padding(horizontal = if (bar) 10.dp else 6.dp, vertical = 3.dp),
         verticalAlignment = Alignment.CenterVertically,
