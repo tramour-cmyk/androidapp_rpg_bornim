@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- (nichts; nächster Sammelbuild Tom: 5.5, 27m.1–27m.5)
+- **Tom Sammelbuild** (5.5, 27m.1–27m.5; PR #60, Zweig `claude/tom-5-5-dorf-luecken`): Build läuft (14.10., 13:0x), Link und Prüfliste folgen.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -23,7 +23,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-5-5-dorf-luecken` | Auf `main` bis 5la. **5.5** Marktstand und Fahrspuren auf dem Zweig (`e/5-5.html`); Lichtfleck Ost kein Fehler |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`, auch 24.8.6 (Türen 0,5 s). **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`LISTE-KAPITEL1.md`](LISTE-KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | **26c:** (1) 24.8.6/30.8, (2) 42, (3) Diagonalsicht erledigt (auf `main`), ebenso 55.2 und 17; Toms Teil von 26c fertig |
-| 27 | Wald „Ort fertig“ (Liste in `DESIGN-ABNAHME.md`) | Tom | `claude/tom-5-5-dorf-luecken` | 27l/27m auf `main` (PR #59, getestet 0.1.729). Auf dem Zweig für den nächsten Sammelbuild: **27m.1** Wald schließt sich hinter Weg Süd, **27m.3/27m.5** Rand im Wald (Westrand) und abends dunkel → erste 2 Reihen behalten Licht, **27m.4** Weg Ost frei; **27m.2** Tiere hinter Bäumen: ja (Nutzer 13:0x), Tom in `WorldScreen.kt`. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise) |
+| 27 | Wald „Ort fertig“ (Liste in `DESIGN-ABNAHME.md`) | Tom | `claude/tom-5-5-dorf-luecken` | 27l/27m auf `main` (PR #59, getestet 0.1.729). Auf dem Zweig für den nächsten Sammelbuild: **27m.1** Wald schließt sich hinter Weg Süd, **27m.3/27m.5** Rand im Wald (Westrand) und abends dunkel → erste 2 Reihen behalten Licht, **27m.4** Weg Ost frei; **27m.2** Tiere hinter Bäumen (ja, Nutzer 13:0x) umgesetzt. Alles in PR #60. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise) |
 | 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | 30.1/30.2/30b/30.8 auf `main`. Offen: Abstürze beobachten (bei neuem Absturz `adb logcat` mit Anleitung von Tom); 30.7 bewusst gelassen (Merkliste) |
 | 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben) | Jerry | – | Meldung Nutzer 12.10., 15:4x mit Bildschirmfoto (Wiese, alte Kampfansicht). Erst Standbild der Sterbehaltungen aller Klassen, dann Vorschlag |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt | Jerry | – | 36.4–36.7, 36h/36j/36k auf `main` (PR #46, #47, getestet 0.1.587). Rest in 52, 53. **Offen 36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung. Verlauf im Archiv |
@@ -50,11 +50,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 12:5x, Nachtrag 12:5x) – an Nachfolger
-- Zweig `claude/tom-5-5-dorf-luecken` (enthält `claude/tom-27m-rand`), Kerntests grün, kein Build: **5.5** Marktstand (Unterbau fest, nur Tuch durchsichtig), Fahrspuren weich, Hausschatten ohne Kante; **27m.1/.3/.4/.5** Rand (`MapEdge.kt`: `CLOSE`, Lücke `-3..1`, `fade` mit 2 Reihen Licht). „Dein Zug“: `e/5-5.html` (Anzusehen), `e/27m-2.html` (Frage `WorldScreen.kt`: Tiere in die Zeichenreihenfolge), Nachtrag `e/80a.html`.
-- Nutzer testet 0.1.729 (läuft). Danach Sammelbuild per PR vom 5.5-Zweig (enthält #58 und 27m; #58 schließen), Prüfliste mit 5.5 und 27m.1–27m.5; `CHANGELOG.md`, t728/t729 von „Dein Zug“, „Jetzt installieren“ leeren.
-- **80/80a:** Laterne im Spiel unsichtbar; Steinsockel mit brennender Laterne erst nach Sokrates und Nutzer (`kaelLantern()` in `MapTownIso.kt`). **69e** wartet.
-- **Nächste Arbeit:** 27m.2 nach Antwort; 74 bestätigt, wartet auf Jerrys Aufnahmen; sonst Vorrat `ARBEIT-SELBST.md`.
+### Tom (14.10., 13:1x) – an Nachfolger
+- **PR #60** (Sammelbuild 5.5 + 27m.1–27m.5, Zweig `claude/tom-5-5-dorf-luecken`, enthält `main` mit PR #59): Build läuft. Nachfolger: `subscribe_pr_activity` #60, APK-Link in „Jetzt installieren“, Prüfliste `e/t7xx.html` auf „Dein Zug“ (Anzusehen; `e/5-5.html` dann dort einbinden und die Zeile 5.5 ersetzen): Marktstand von hinten, Fahrspuren, Schattenkante nördlich vom Platz, Weg Süd zu, Hühner am Südrand hinter Kronen, Rand Wald West/abends Dorf, Weg Ost im Wald.
+- 27m.2 in `WorldScreen.kt` (`covered()`; Notiz an Jerry: nur Zeichenreihenfolge der kleinen Tiere). 0.1.728/0.1.729 auf `main` (PR #59, #58 geschlossen).
+- **80a/69e:** Nutzer klärt mit Sokrates; danach Steinsockel mit brennender Laterne (`kaelLantern()`), 69e-Musterbild. **74** wartet auf Jerrys Aufnahmen. Sonst Vorrat leer.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.

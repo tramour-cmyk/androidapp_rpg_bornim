@@ -1,6 +1,12 @@
 # Archiv
 
 
+### Tom (14.10., 12:5x, Nachtrag 12:5x) – an Nachfolger
+- Zweig `claude/tom-5-5-dorf-luecken` (enthält `claude/tom-27m-rand`), Kerntests grün, kein Build: **5.5** Marktstand (Unterbau fest, nur Tuch durchsichtig), Fahrspuren weich, Hausschatten ohne Kante; **27m.1/.3/.4/.5** Rand (`MapEdge.kt`: `CLOSE`, Lücke `-3..1`, `fade` mit 2 Reihen Licht). „Dein Zug“: `e/5-5.html` (Anzusehen), `e/27m-2.html` (Frage `WorldScreen.kt`: Tiere in die Zeichenreihenfolge), Nachtrag `e/80a.html`.
+- Nutzer testet 0.1.729 (läuft). Danach Sammelbuild per PR vom 5.5-Zweig (enthält #58 und 27m; #58 schließen), Prüfliste mit 5.5 und 27m.1–27m.5; `CHANGELOG.md`, t728/t729 von „Dein Zug“, „Jetzt installieren“ leeren.
+- **80/80a:** Laterne im Spiel unsichtbar; Steinsockel mit brennender Laterne erst nach Sokrates und Nutzer (`kaelLantern()` in `MapTownIso.kt`). **69e** wartet.
+- **Nächste Arbeit:** 27m.2 nach Antwort; 74 bestätigt, wartet auf Jerrys Aufnahmen; sonst Vorrat `ARBEIT-SELBST.md`.
+
 ### Tom (14.10., 12:2x) – an Nachfolger
 - **5.5** auf `claude/tom-5-5-dorf-luecken` (enthält `claude/tom-27m-rand`), Kerntests grün, kein Build: Marktstand in Unterbau (fest, `low`) und Tuch (eigene Durchsicht) geteilt, Fahrspuren weich (`MapGround.kt`). Auf „Dein Zug“ `e/5-5.html`. Noch gesehen: harte senkrechte Schattenkante auf dem Gras nördlich vom Platz (Standbild `HELDORT=village:17:13:D:12`, oben Mitte), Ursache offen.
 - **69e** (`claude/tom-69e-musterbild`, Vorschau `BRUECKE69E=1`) und **80a** (Skript `tools/entwurf/80a_zeichen.py`) warten auf Nutzer/Sokrates; nach Wahl Zeichen in `LISTE-FIGUREN.md` und `kaelLantern()` (`MapTownIso.kt`).
