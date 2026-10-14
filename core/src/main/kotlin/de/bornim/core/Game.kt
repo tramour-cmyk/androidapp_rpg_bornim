@@ -313,10 +313,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** Wild areas (forest, cave) are covered by fog until the hero has seen them. */
     val fogged: Boolean get() = map.kind == MapKind.FOREST || map.kind == MapKind.CAVE
 
-    fun fog(x: Int, y: Int): Fog {
+    /** [view]: for drawing the place (see [Sight.fog]); false for the map in the menu. */
+    fun fog(x: Int, y: Int, view: Boolean = true): Fog {
         if (!fogged) return Fog.VISIBLE
         // explored as ever, so switching the test view off again leaves the map as the hero has seen it
-        val f = sight.fog(map, x, y, isNight)
+        val f = sight.fog(map, x, y, isNight, view)
         return if (seeAll) Fog.VISIBLE else f
     }
 

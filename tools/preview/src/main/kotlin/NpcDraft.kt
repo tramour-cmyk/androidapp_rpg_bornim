@@ -97,7 +97,16 @@ fun renderNpcIdle() {
     val folk = de.bornim.core.art.MapFolk
     val F = MapFigure
     val k = 3
-    val rows = listOf(
+    // NPCIDLE=rowena (D1.10): Rowena wiping her counter and pouring from a jug, as she faces in the inn and a little turned
+    val rowena = System.getenv("NPCIDLE") == "rowena"
+    val who = if (rowena) folk.rowena else folk.garrick
+    val home = F.slot(F.yawOf(de.bornim.core.Facing.DOWN))
+    val rows = if (rowena) listOf(
+        Triple("Theke wischen (wie in der Schänke)", de.bornim.core.art.MapFolk.Idle.WIPE, home),
+        Triple("einschenken (wie in der Schänke)", de.bornim.core.art.MapFolk.Idle.POUR, home),
+        Triple("Theke wischen, schräg", de.bornim.core.art.MapFolk.Idle.WIPE, home + 2),
+        Triple("einschenken, schräg", de.bornim.core.art.MapFolk.Idle.POUR, home + 2),
+    ) else listOf(
         Triple("Hände wärmen, zum Feuer (links)", de.bornim.core.art.MapFolk.Idle.WARM, 12),
         Triple("Hände wärmen, schräg vorn", de.bornim.core.art.MapFolk.Idle.WARM, 14),
         Triple("in den Wald spähen, schräg vorn", de.bornim.core.art.MapFolk.Idle.PEER, 2),
@@ -114,7 +123,7 @@ fun renderNpcIdle() {
         val y0 = r * (F.H * k + lab)
         g.drawString(title, 8, y0 + 20)
         for (i in 0 until idle.frames) {
-            val img = folk.drawIdle(folk.garrick, slot, idle, i)
+            val img = folk.drawIdle(who, slot, idle, i)
             for (y in 0 until F.H * k) for (x in 0 until F.W * k) {
                 val q = img[x / k, y / k]; if ((q ushr 24) < 128) continue
                 out.setRGB(i * F.W * k + x, y0 + lab + y, q)
@@ -122,7 +131,7 @@ fun renderNpcIdle() {
         }
     }
     g.dispose()
-    ImageIO.write(out, "png", File("build/screens/npc_garrick_leerlauf.png"))
+    ImageIO.write(out, "png", File(if (rowena) "build/screens/npc_rowena_arbeit.png" else "build/screens/npc_garrick_leerlauf.png"))
     println("wrote idle draft")
 }
 

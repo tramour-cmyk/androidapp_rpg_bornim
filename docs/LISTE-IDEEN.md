@@ -63,7 +63,8 @@ Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstop
 
 ## Gruppe und Kampf
 
-- **Begleiter:** Lyra (Heilerin) oder Jäger Garrick als zweites Gruppenmitglied.
+- **Gefährte:** Lyra (Heilerin) oder Jäger Garrick als zweites Gruppenmitglied.
+- **Begleiter mit Bindung (72.15, Entwurf Sokrates 14.10.):** ein Begleiter zur Zeit, kommt aus Geschichte oder Welt, nie gekauft (45). Vertrautheit in 4 Stufen wächst durch gemeinsame Orte, Füttern am Feuerplatz, Nutzen seiner Gabe, nie durch Töten oder Warten; jede Stufe öffnet ein Verhalten und zeigt sich am Tier (Halsband, Narbe, Gruß). Hund (Wolf-Modell): hört Gegner früher (84), folgt Spuren (61a), weckt bei Überfall an der Rast (86.11), findet Verstecktes. Später Rabe (späht Nebel der Karte), Katze (Fallen, Geheimtüren). Verletzt zieht er sich bis zur Rast zurück, stirbt nie. Tiermeister: derselbe Begleiter, kämpft zusätzlich. Erst nach Probe 72.10, Start mit einem Hund.
 - **Echte Gruppenkämpfe:** mehrere Gegner gleichzeitig mit Zielauswahl, eigenen Lebensbalken und Flächenzaubern gegen alle. Großer Umbau; die heutigen Rudel (Begleiter im Hintergrund) wären die Vorstufe.
 - **Kampfaktionen für Gruppen** (Nutzer 12.10., zu 34): „Abwarten“ (SRD *Bereithalten*: Angriff zurückhalten, zuschlagen, sobald der Gegner herankommt) und „Helfen“ (Gefährte greift im Vorteil an). „Zug beenden“ selbst ist Thema 34.
 - **Weitere Zauber** ab Stufe 5 für alle Zauberklassen.
@@ -130,3 +131,4 @@ Nach den [Stil-Leitlinien](DESIGN-STIL.md): weg von Chiptune, hin zu glaubwürdi
 - **59.6** Händler: Filter „nur tragbare“, Sortierung nach Platz – wenn es mehr Ware gibt (Nutzer 12.10., 22:49)
 - **59.7** Händler mit Gesicht: Name, Bild, Begrüßungssatz statt „Laden“; Texte Nutzer und Berater (41) (Nutzer 12.10., 22:49)
 - **Handlaterne für Jorin** (66a, 13.10.): Laterne in der freien Hand bei Nacht, neue Haltungen für Gehen, Wache, Abstellen; zusammen mit 55 (mehr Leerlauf).
+- **86.5 Pferd** (Nutzer 14.10., 21:2x, zu 86.3 Ausdauer): Reittier für lange Wege draußen; neben Schnellreise (Idee 09.10.).

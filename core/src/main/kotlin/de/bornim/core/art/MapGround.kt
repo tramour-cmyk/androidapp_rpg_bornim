@@ -410,16 +410,21 @@ object MapGround {
                     // the middle, between the ruts, is trodden lighter; the ruts are deep and dark
                     val mid = (1 - d / 10).coerceIn(0.0, 1.0)
                     for (i in 0..2) tmp[i] += (PATH_HI[i] - tmp[i]) * mid * 0.35
-                    val rut = !cap && other > 46 && abs(d - 14) < 2.4 + (vnoise(x, y, 14.0, 19) - 0.5) * 1.6
-                    if (rut) {
+                    // 5.5 (test 00:40: hard dark strokes ruled along the tracks): each rut wanders a little, its edges
+                    // soft, deeper here and shallower there, almost gone in places, as wheels press it into the earth
+                    val off = abs(d - 14 - (vnoise(x, y, 46.0, 23) - 0.5) * 3.0)
+                    val half = 2.8 + (vnoise(x, y, 14.0, 19) - 0.5) * 1.6
+                    val r = (1 - off / half).coerceIn(0.0, 1.0)
+                    if (!cap && other > 46 && r > 0) {
+                        val k = r * r * (3 - 2 * r) * (0.2 + 0.55 * fbm(x, y, 36.0, 24))
+                        for (i in 0..2) tmp[i] += (RUT[i] - tmp[i]) * k
                         val wet = vnoise(x, y, 30.0, 20)
                         if (wet > 0.78) {
                             // a shallow puddle: the rut's earth darkened toward its middle, a faint sheen, no hard edge
-                            val k = ((wet - 0.78) / 0.1).coerceIn(0.0, 1.0) * (1 - abs(d - 14) / 3.2).coerceIn(0.0, 1.0)
-                            for (i in 0..2) tmp[i] += (RUT[i] - tmp[i]) * 0.6
-                            for (i in 0..2) tmp[i] += (PUDDLE_SOFT[i] - tmp[i]) * k * 0.7
-                            if (vnoise(x, y, 3.0, 21) > 0.86) for (i in 0..2) tmp[i] += (GLINT[i] - tmp[i]) * 0.15 * k
-                        } else for (i in 0..2) tmp[i] += (RUT[i] - tmp[i]) * 0.6
+                            val q = ((wet - 0.78) / 0.1).coerceIn(0.0, 1.0) * (1 - off / 3.2).coerceIn(0.0, 1.0)
+                            for (i in 0..2) tmp[i] += (PUDDLE_SOFT[i] - tmp[i]) * q * 0.7
+                            if (vnoise(x, y, 3.0, 21) > 0.86) for (i in 0..2) tmp[i] += (GLINT[i] - tmp[i]) * 0.15 * q
+                        }
                     }
                     for (i in 0..2) col[i] += (tmp[i] - col[i]) * p
                     if (p < 0.85 && n3 > 0.5) mixInto(col, CREEP, 0.6)

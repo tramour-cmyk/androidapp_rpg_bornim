@@ -80,7 +80,17 @@ class FreeWalk(private val game: Game) {
         val p = game.state.place
         if (tx == p.x && ty == p.y) return false
         if (now < refusedUntil && refused == (tx to ty)) return true
-        return !game.free(tx, ty)
+        return !game.free(tx, ty) || shut(tx, ty)
+    }
+
+    /**
+     * A door that stays shut (82, test 14.10.: knocking, the hero walked half into the door, his feet behind the house's
+     * wall, and was gone until the words were read): the hero's body stays outside it like a wall's, and walking into
+     * it knocks ([pushed]). Not the turning back at the edge of the map, which takes a step of its own (67).
+     */
+    private fun shut(tx: Int, ty: Int): Boolean {
+        val w = game.map.warpAt(tx, ty) ?: return false
+        return w.requires != null && !w.turnBack && !game.state.has(w.requires)
     }
 
     /**
@@ -214,7 +224,8 @@ class FreeWalk(private val game: Game) {
         val m = game.map
         val acts = game.roamerAt(tile.first, tile.second) != null || m.tile(tile.first, tile.second) == Tile.BARRIER || m.warpAt(tile.first, tile.second) != null
         if (!acts) return
-        bumpCooldown = nowMs + 600
+        // knocking again only after a while, when the hero still walks against the door after the words
+        bumpCooldown = nowMs + if (shut(tile.first, tile.second)) 1_500 else 600
         game.move(if (ox > 0) Facing.RIGHT else if (ox < 0) Facing.LEFT else if (oy > 0) Facing.DOWN else Facing.UP)
     }
 

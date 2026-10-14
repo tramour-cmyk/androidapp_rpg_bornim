@@ -34,7 +34,7 @@ Schnellstes Werkzeug je Anlass: `tools/t` (Übersicht ohne Befehl). Befund mit W
 
 ## Vor dem Bauen: Stil-Abgleich
 
-Jeder Vorschlag zu Grafik, Animation, Klang nennt in einem kurzen Absatz die berührten Punkte aus `DESIGN-STIL.md`, die entstehenden Übergänge (z. B. Stehen ↔ Hocken ↔ Aufstehen ↔ Gehen, Anführer dreht ↔ Rudel folgt) und wie sie geprüft werden (Kerntest, Film des Übergangs hinein und heraus). Bei Spielablauf und Bedienung ebenso die vier Fragen „Spielerfreundlich, einfach, frei“ (33). Erst danach bauen. „Erst Standbilder“ heißt: Entwurf bauen und Bilder zeigen, nicht vorher fragen.
+Jeder Vorschlag zu Grafik, Animation, Klang nennt in einem kurzen Absatz die berührten Punkte aus `DESIGN-STIL.md`, die entstehenden Übergänge (z. B. Stehen ↔ Hocken ↔ Aufstehen ↔ Gehen, Anführer dreht ↔ Rudel folgt) und wie sie geprüft werden (Kerntest, Film des Übergangs hinein und heraus). Bei Spielablauf und Bedienung ebenso die vier Fragen „Spielerfreundlich, einfach, frei“ (33). Den Abgleich in Stichworten auf die Seite zum Punkt auf „Dein Zug“ schreiben (sonst in den Commit), damit Nutzer und Berater ihn sehen (88). Erst danach bauen. „Erst Standbilder“ heißt: Entwurf bauen und Bilder zeigen, nicht vorher fragen.
 
 ## Test-Builds (78)
 
@@ -46,6 +46,7 @@ Jeder Vorschlag zu Grafik, Animation, Klang nennt in einem kurzen Absatz die ber
 - **Vor jedem Zweig-Build `main` holen:** `git fetch origin main && git merge origin/main` (zusammenführen, nie Verlaufsänderung), Kerntests, dann pushen; so enthält jede Test-APK alles Freigegebene des anderen. Die Laufnummer muss höher sein als das installierte Release, sonst lässt sich die APK nicht installieren.
 - **Weckruf nach jedem Push, der baut:** PR abonnieren (`subscribe_pr_activity`) oder ohne PR `send_later` (~6 Minuten). Nie „ich melde mich“ ohne Weckruf.
 - **Zu jedem Build:** direkter Link (Release oder Artefakt), nie die APK im Chat, dazu eine **Prüfliste** auf „Dein Zug“ (`e/t<build>.html`). **Nur, was ein Mensch sehen muss** (78c): Logik und Regeln prüfen Kerntests und Diogenes. Je Punkt wo und wann (Ort, Tageszeit, wie lange zusehen, vorher im Code nachsehen), was tun, woran man richtig und falsch erkennt; Bilder mit der Uhrzeit ihrer Entstehung.
+- **Nummern nur aufsteigend** (Nutzer 14.10., 19:4x): Android installiert keine niedrigere Version über eine höhere. Beim Nutzer ausstehende Builds müssen in Testreihenfolge steigende Nummern haben; wird ein früher zu testender Build neu gebaut, alle späteren danach per Knopfdruck neu bauen. Auf „Dein Zug“ heißt der Eintrag nach der Version, die gerade verlinkt ist (z. B. „0.1.739“), nicht nach der ersten.
 - **Testreihenfolge abstimmen:** vor jedem Testangebot in `ARBEIT-OFFEN.md` nachsehen, was der andere testen lassen will, und dem Nutzer sagen, was zuerst (mit Grund, z. B. ein Build enthält den anderen schon oder der andere wartet länger).
 - **Code auf `main` nur per PR nach Test des Nutzers.** Sagt er, der Test passt: PR selbst zusammenführen, sobald er grün ist (Merge, nie Squash/Rebase; der Nutzer klickt nicht); getesteten Build von „Dein Zug“ löschen, Ergebnis in `CHANGELOG.md`.
 
@@ -55,7 +56,7 @@ Fällt ein Punkt beim Nutzer durch, steht im `CHANGELOG.md`-Eintrag des spätere
 
 ## Nicht warten (54)
 
-Ist das nächste Thema freigegeben oder steht in der eigenen Übergabe und ist nichts vom Nutzer zu entscheiden: sofort anfangen, ohne Ankündigung, ohne auf „los“ zu warten; Meldungen sind Zwischenstände, kein Halt. Ein Zug endet nur, wenn (a) eine Entscheidung des Nutzers fehlt (Rückfrage mit Empfehlung, bis dahin am nächsten Punkt weiter), (b) auf Build oder Test gewartet wird und ein Weckruf steht, oder (c) wirklich nichts mehr da ist (Vorrat aus `ARBEIT-SELBST.md` nehmen oder melden). **Warten ist nie ein Zugende** (Nutzer 13.10.: „Das darf nicht sein“): Build läuft, Test oder Rückfrage offen → sofort den nächsten Punkt anfangen. Der Stop-Haken `tools/weiter-haken.py` hält jedes Zugende einmal auf; nur „Vorrat leer“ oder nach einem Neustart „an den Nachfolger übergeben“ lässt sofort durch.
+Ist das nächste Thema freigegeben oder steht in der eigenen Übergabe und ist nichts vom Nutzer zu entscheiden: sofort anfangen, ohne Ankündigung, ohne auf „los“ zu warten; Meldungen sind Zwischenstände, kein Halt. Ein Zug endet nur, wenn (a) eine Entscheidung des Nutzers fehlt (Rückfrage mit Empfehlung, bis dahin am nächsten Punkt weiter), (b) auf Build oder Test gewartet wird und ein Weckruf steht, oder (c) wirklich nichts mehr da ist: „leer“ erst nach Durchsicht der eigenen Zeilen in „Wer macht was“, „Zu testen“ (auch Diogenes-Befunde) und `LISTE-KAPITEL1.md`, dann Vorrat aus `ARBEIT-SELBST.md` (81n). **Warten ist nie ein Zugende** (Nutzer 13.10.: „Das darf nicht sein“): Build läuft, Test oder Rückfrage offen → sofort den nächsten Punkt anfangen. Der Stop-Haken `tools/weiter-haken.py` hält jedes Zugende einmal auf (nur Tom und Jerry, bei Sokrates und Diogenes schweigt er, 65.9); nur „Vorrat leer“ oder nach einem Neustart „an den Nachfolger übergeben“ lässt sofort durch.
 
 ## Befunde von Diogenes (75g)
 

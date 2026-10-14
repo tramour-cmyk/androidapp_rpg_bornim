@@ -1,5 +1,79 @@
 # Archiv
 
+## Aus ROLLE-BERATER.md, 14.10., 22:2x
+
+- **Oberfläche (59, 60):** schwarz, Gold, eigene Serife (Geräteschriften schwanken).
+- **Rollen:** Grundsatzfragen beim Berater, ohne dass die Entwicklung steht. **Diogenes (75):** Tester neigt zu Rauschen und Bestätigen, darum Beleg, blind zuerst, drei Klassen. **Kosten (75h, 76e):** billigster Prüfweg zuerst; Rückläufer sind am teuersten. **Umbau 76–78:** Kern in `CLAUDE.md`, weil nur sie in langen Sitzungen sicher im Blick bleibt; Sammelbuilds sparen Rundum-Aufwand; Vorsilben zeigen Zweck und Leser am Namen. Volltext im Archiv.
+- **Tempelszene (68, 70):** Zwischensequenzen gleich gebaut, damit sie als Reihe wirken; Osric im Bild statt Erklärung (Begründungen im Text wirken konstruiert); **Blende statt Termin**, sonst wartet man in freier Welt tagelang; Einstieg Kapitel 2 erinnert statt führt. Volltext im Archiv („18:5x“).
+- **Karte und Händler (62c, 59e, 64):** Karte erinnert statt führt; Wissen vor Beschriftung. Volltext im Archiv.
+- **Seite „Dein Zug“ (63):** Fragen gingen in Chats unter; „Beschlüsse“ statt „Bildbuch“; kein „Erledigt“ (65.7). Volltext im Archiv.
+- **Zufallshöhlen (48, 41m):** erst Questhöhlen zufällig, Story-Höhlen mit festem Kern; je eine pro Landschaft (Erkundung).
+- **Kartenbegriffe (62p/62q):** Stufen nach Enthaltensein; „Stockwerk“ klingt in Höhlen schief.
+
+**Übergabe (14.10., 21:4x) – Nachfolger: „Sokrates – Kampfsystem“:**
+
+**Nächster Punkt:** (0) **72k Richtung des Kampfes** (A/B/C) mit Begleiter (72.7–72.10, 72r, 72s, 72t beschlossen); Nutzer will erst klären, wie Kämpfe aussehen, dann Probe (72.10). Dabei: wer reagiert im Gegnerzug, Reihen vorn/hinten statt nah/fern (Regelbilanz), Aufstellung fest oder veränderlich (aus 72q; 72q auf „Dein Zug“ als erledigt vorgeschlagen, Nutzer hat noch nicht bestätigt), außer Atem = Initiative mit Nachteil (86.3), 26 Magier-Schild. Kampf-Dokument im Volltext lesen. Danach 72p, 72l–72o, 26d; 41 Begleiter-Figuren Kapitel 2; 84.3, 84.2. (1) **86.11** Überfall bei der Rast, Feuerholz (Empfehlung 21:3x: Überfall ja, Holz billig kaufbar, nie Sammelpflicht, erst mit 72b/38; Nutzer hat nicht geantwortet). (2) Helligkeitsregler (13e.6, offen). (3) **84**, **81 Ford**, **41**, 70.1, 79.
+Sitzung 14.10. abends: 86.1–86.10, 13e.6, 69e entschieden (Beschlüsse). Lehre: Nutzer will Widerspruch, nicht schnelles Ja (69e Laterne zu schnell gestrichen).
+
+
+
+### Aus ARBEIT-OFFEN.md, 14.10., 20:4x (Übergabe Tom 19:4x)
+- PR #60 (0.1.739), #61, #62 beim Nutzer (oben), abonnieren. Weiter: 85 auf `claude/tom-85-testmenue` (2 Knöpfe raus) in den nächsten Sammelbuild; 74 Hörprobe 2 beim Nutzer, dann einbauen; 83 A bauen (Standbild zuerst); 13e D1.7 Leben Höhle (Rauch `drawCampSmoke`, `WorldScreen.kt`, nach Absprache).
+- Draußen bei Nacht bleibt das kleine Licht um den Helden (13e.6 B nur Höhle); falls der Berater B auch für draußen meint: `MapLight.kt` (`lantern`).
+
+### Aus ARBEIT-OFFEN.md, 14.10., 19:4x (Übergabe Tom 19:2x)
+- PR #60, #61, #62 beim Nutzer (oben); neu abonnieren. **Zuerst:** Build PR #60 (0711ca4c) prüfen, `e/t732.html` auf neue Version und APK (nachtesten: Punkt 6, Nordwestecke Wald, Tiefer Wald östlich Morwen, nordwestlich Wolfsboss, Südostrand). Dann Dorf-Meldung (Zeile 27): Standbild Nordeingang abends (`HELDORT=village:17:2:R:20`), vermutlich Ende des Lichtbilds.
+- Weiter: (1) 74 Erde/Pflaster neu wählen (CC0), zweite Hörprobe, dann einbauen (nur Held; 74a: ein Klang je Aufsetzen, beim Rennen dichter und leiser); (2) 83 wartet auf Entscheidung; (3) 13e D1.7 Leben Höhle (Vorschlag mit Standbild; Rauch: `drawCampSmoke` auch für Höhle, `WorldScreen.kt`, nach Absprache).
+- Draußen bei Nacht leuchtet weiter das kleine Licht um den Helden (13e.6 B nur für die Höhle umgesetzt); falls der Berater B auch für draußen meint, ist es eine Zeile in `MapLight.kt` (`lantern`).
+
+### Aus ARBEIT-OFFEN.md, 14.10., 17:5x (Übergabe Tom 17:3x)
+- **Reihenfolge:** (1) PR #60 neu abonnieren, neuer Build (Waldrand West) → `e/t732.html` auf neuen Build und APK-Link umstellen, nur Waldrand West nachtesten; (2) 13e.5 in die Beschlüsse, von „Dein Zug“ nehmen; (3) Sammelbuild 13e (D1.5, D1.6, D1.9) per PR mit Prüfliste; (4) 74a beantworten, Erde/Pflaster neu wählen; (5) 83 Standbild und Vorschlag.
+- **t732-Rückläufer Waldrand West** behoben (Zeile 27), Build von PR #60 läuft: Prüfliste `e/t732.html` auf neuen Build umstellen (nur Waldrand West nachtesten). PR #60 (t732) und #61 (t733, Build 0.1.733) sind abonniert, Prüflisten stehen auf „Dein Zug“; beim Nachfolger neu abonnieren. Nach „passt“ zusammenführen (#60 zuerst).
+- **13e Höhle** (Vertretung Jerry), Zweig `claude/tom-13e-hoehle-fertig` (von `main`, gepusht, noch kein PR): D1.9 Feuer per Wegsuche statt Luftlinie (`Ambience.nearestFire`), D1.5 Höhle (alte Bodenschatten nur noch rund unter Fels; Raute → Ellipse), D1.6 (`MapCave.caveTile`: Fels und Gang hinter dem Kartenrand, `MapEdge.applies` gilt jetzt auch für die Höhle). Kerntests grün. Offen beim Nutzer **13e.5** (Eingang) ; **13e.6** Laterne liegt beim Berater (Grundsatz, Nutzer 16:5x); Entwurf `Dress.LANTERN`/`LATERNE=1` im Spiel aus. Sammelbuild mit D1.5, D1.6, D1.9 jetzt bauen (PR, Prüfliste), nicht auf 13e.6 warten (höchstens 4 Punkte) mit Prüfliste. Danach D1.7 Leben (Vorschlag mit Standbild, Stil-Abgleich). Ansatz Rauch: `drawCampSmoke` in `WorldScreen.kt:1127` auch für `MapKind.CAVE`, ohne Windversatz (zwei Zeilen, nach Absprache); im Standbild `ONLY=zoom_nah_c9` war noch kein Rauch zu sehen (vermutlich `LightImage.seen` in der Vorschau 0), daher nicht committet.
+- Beim Nutzer offen: t732, t733, 69e, 74, 13e.5/13e.6. Offen bei Jerry außerdem 36.6, 51, 53, 40, 24.6.
+
+### Aus ARBEIT-OFFEN.md, 14.10., 16:4x (Übergabe Tom 16:0x)
+- PR #60 (t732) und #61 (t733) abonniert, Prüflisten auf „Dein Zug“ (Nachfolger 16:1x).
+- **Dann Vertretung Jerry (Nutzer 16:0x: „prüfe, was anliegt und wichtig ist, auch wenn es bei Jerry liegt“):** Ziel Kapitel 1 fertig (`LISTE-KAPITEL1.md`). Wichtigster Brocken: **Höhle „Ort fertig“** (13e liegt seit 13y bei Tom): D1.5 Höhle (alte 3:1-Bodenschatten doppelt, Rautenschatten `MapCaveIso.kt:474` → Ellipse), D1.9 Feuer klingt durch Wände, D1.6 Eingang flach/schwarzes Rechteck, D1.15 Laterne ohne Quelle, D1.7 Leben. Jerrys Zweig `claude/jerry-13e-hoehle-diagonal` ist alt (ohne gemeinsame Basis mit `main`), nur als Vorlage für 13e.4 (Stalagmiten, Weiher). Erst Liste mit Reihenfolge dem Nutzer nennen, dann bauen. Offen bei Jerry außerdem 36.6, 51, 53, 40 (Regler), 24.6.
+
+### Aus ARBEIT-OFFEN.md, 14.10., 16:0x (Übergabe Tom 15:58)
+- PR #60 abonniert (grün, wartet auf t732; nach „passt“ zusammenführen, `CHANGELOG.md`). Beim Nutzer offen: t732, 69e, 74.
+- **Sammelbuild PR #61** (Zweig `claude/tom-d1-schatten`, `main` + beide Zweige hineingemergt, Build läuft, abonniert): **52** (`claude/tom-52-rudel`), **80a** (`claude/tom-80a-sockel`), **D1-Reste** (D1.5 Schatten 2:1, D1.10 Rowena/Schänkenklang, D1.11 Fenster/Regale) und **82** (Tür) auf `claude/tom-d1-schatten`. Prüfliste `e/t<build>.html`; Vermerke im Prüfbericht gesetzt. Danach D1.16-Rest nur nach Absprache.
+
+### Aus ARBEIT-OFFEN.md, 14.10., 15:58 (Übergabe Tom 15:3x)
+- PR #60 abonniert (grün, wartet auf t732; nach „passt“ zusammenführen, `CHANGELOG.md`). Beim Nutzer offen: t732, 69e, 74. **Nächster Sammelbuild** (neuer Zweig von `main`, nach t732): 52, 80a, D1.5, D1.10.
+- **D1.5** (ceb9452) und **D1.10** (d9899f4f) fertig auf `claude/tom-d1-schatten`: Schatten 2:1; Rowena wischt/schenkt ein (`NPCIDLE=rowena`), Schänkenklänge kommen aus dem Bewegungsplan (`PlaceSound.folk`), zufällig nur Husten und Knarren. Jetzt **D1.11-Rest** (Tür/Fenster nur eine Form; mehrteilige Möbel je Feld andere Variante). D1.16-Rest nur nach Absprache.
+
+### Aus ARBEIT-OFFEN.md, 14.10., 15:3x (Übergabe Tom 15:2x, Zeile 27 Volltext)
+- Nachfolger: PR #60 abonnieren; dann D1.5 Schatten 2:1, D1.10, D1.11-Rest.
+| 27 | Wald „Ort fertig“ (Liste in `DESIGN-ABNAHME.md`) | Tom | `claude/tom-5-5-dorf-luecken` | 27l/27m auf `main` (PR #59, getestet 0.1.729). Auf dem Zweig für den nächsten Sammelbuild: **27m.1** Wald schließt sich hinter Weg Süd, **27m.3/27m.5** Rand im Wald (Westrand) und abends dunkel → erste 2 Reihen behalten Licht, **27m.4** Weg Ost frei; **27m.2** Tiere hinter Bäumen (ja, Nutzer 13:0x) umgesetzt. Alles in PR #60. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise) |
+
+### Aus ARBEIT-OFFEN.md, 14.10., 15:2x (Übergabe Tom 14:3x)
+- PR #60 abonniert; Vertretung Jerry: 52 fertig, 74 Hörprobe, 26 beim Berater; 69e drei Fehler behoben.
+
+### Aus ARBEIT-OFFEN.md, 14.10., 14:3x (Übergabe Tom 13:1x)
+- **PR #60** (Sammelbuild 5.5 + 27m.1–27m.5, Zweig `claude/tom-5-5-dorf-luecken`, enthält `main` mit PR #59): Build läuft. Nachfolger: `subscribe_pr_activity` #60, APK-Link in „Jetzt installieren“, Prüfliste `e/t7xx.html` auf „Dein Zug“ (Anzusehen; `e/5-5.html` dann dort einbinden und die Zeile 5.5 ersetzen): Marktstand von hinten, Fahrspuren, Schattenkante nördlich vom Platz, Weg Süd zu, Hühner am Südrand hinter Kronen, Rand Wald West/abends Dorf, Weg Ost im Wald.
+- 27m.2 in `WorldScreen.kt` (`covered()`; Notiz an Jerry: nur Zeichenreihenfolge der kleinen Tiere). 0.1.728/0.1.729 auf `main` (PR #59, #58 geschlossen).
+- **Nachfolger-Stand 13:5x:** 0.1.732 grün, Prüfliste t732, **PR #60 abonnieren** (`subscribe_pr_activity`; nach „passt“ zusammenführen, `CHANGELOG.md`). 80a `claude/tom-80a-sockel` (`e/80a-2.html`), 69e vierte Runde (`e/69e-4.html`, erst Sokrates). **Vertretung Jerry (Nutzer 13:3x):** 74 Hörprobe `e/74.html`; 7 Ausgleich Magier gemessen (Zeile „Für den Berater“, Entwurf `claude/tom-26-magier-schild`); **5 Rudelwölfe (52)** fertig (14:30): Jungwolf macht den Sprung des Leitwolfs (`lungeAt`/`lungeOffset`) bis zum Helden, `claude/tom-52-rudel`, Prüfliste `e/52.html`. Film: `fighter:wolf 5 6 XWXWWWWW defend,defend` (Seed 12 zwei Jungwölfe; in Runde 1 ist der Wolf bei „Held zuerst“ überrascht, darum kein Biss). Für `tools/klang` vorher `pip install scipy soundfile`.
+
+### Aus ROLLE-BERATER.md, 14.10., 14:2x
+- **Sitzungen** (ältere im Archiv): 14.10. 13:06–13:4x „Teamleiter Ford“ (81, parallel): Rolle Ford beschlossen (81a–81c, 81g–81i), [Entwurf](https://claude.ai/code/artifact/ff3ae8ab-a448-4a79-b928-3a09f424b45c), Probelauf 81d bestanden (Routine startet Code-Sitzung, die selbst eine zweite auslöst, auto); Befund Doppelzeilen → Startsperre. 14.10. 11:30–13:1x „Texte Kapitel 2, Freigabe“: 80a entschieden (Sockel, Zeichen A), 69e begutachtet und vierte Runde beauftragt; Nutzer liest den Textentwurf noch. Schwerpunkt: Spiel.
+
+### Aus ARBEIT-OFFEN.md, 14.10., 14:2x (Volltext gekürzter Zeilen)
+| 41 | Storyplan; Plot Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | Plot Kapitel 2 vollständig (Stationen 1–4 ja, 5b noch nicht; [Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)). Jetzt: Texte Kapitel 2 in Spielreihenfolge ([Entwurf](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413), ganz, zur Prüfung). Namen ja (Nutzer 14.10., 11:1x): Aufseher **Rask**, Sohn **Fenn**; Reihenfolge wie Spiel, Nebenaufgaben zuletzt; 4.4 offen, bis der Nutzer den Text gelesen hat |
+| 72 | Profil und Marktvergleich: Mittelweg Rollenspiel/Kampf prüfen, Profil schärfen | Berater mit Nutzer | `main` (Notizen) | Auftrag Nutzer 13.10. (Sprachmodus); [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b) fertig (18:5x); mit Wirtschaft, SWOT, Porter, Positionierungskarte; offen 72a–72j (Profil, Kampf, Wunden, zweiter Weg, Schmied, Gruppenkämpfe, Preis, Unterstützerpaket, Beschleuniger, iOS) |
+| 81 | Teamleiter „Ford“ als Schaltzentrale: hält Tom und Jerry beschäftigt, meldet dem Nutzer Entscheidungen, startet Sitzungen (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | **81a ja** Push an Nutzer, wenn jemand auf ihn wartet; **81b ja** Ford-Entwurf zeigen (Code-Sitzungen, auch nachts, idiotensicher); **81c ja** Ford darf Diogenes starten (Nutzer 13:25). Sokrates: Entwurf und Probelauf. **81g ja:** Stellungen **aus / Co-Pilot** (Nutzer da, nur Push) **/ Pilot** (startet Sitzungen); **81h ja** auch bei Jerry „Ford“; **81i ja** drei Nächte Bewährung, dann Bilanz (Nutzer 13:37). Push von Ford nur in Co-Pilot/Pilot. **Push-Form** (Nutzer 13:44): „Name TT.MM. HH:MM: Inhalt“, Nummer vorn im Inhalt. **81d Probelauf** 13:41 bestanden (Kette trägt, auto); Befund: Zeilen doppelt, Ford braucht Sperre gegen Doppelstart. **81j Meldeweg:** Push/E-Mail aus Sitzung und Routine kommen nicht an (nur Freigabe-Anfragen); keine Connectors (Sokrates 14:2x). Vorschlag 81l: App **ntfy** (kostenlos, ntfy.sh aus der Umgebung erreichbar), geheimes Thema, Ford sendet per `curl`; Ausweich „Dein Zug“ + Morgenmeldung. [Entwurf Ford](https://claude.ai/code/artifact/ff3ae8ab-a448-4a79-b928-3a09f424b45c) |
+| 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | `claude/tom-69e-musterbild` | 69a–69d ja (`STORY-K1.md` `[69.intro.…]`). Dritte Runde gut, als Musterbild noch nicht. **69e vierte Runde fertig** (Tom 14.10., 13:3x, `e/69e-4.html`, Vorschau `BRUECKE69E=1`): Blick am Brückenanfang, Häuser aus dunklem Holz mit Steinsockel und Moos. **Sokrates (13:5x): ja als Musterbild für Blick, Stoffe, Licht**, aber vorher drei Fehler beheben (Laterne schwebt über dem Pfosten, Pfosten steht im Wasser; Mond sitzt genau auf dem Schornstein; rechtes Geländer endet mitten auf der Brücke); Nutzer entscheidet. Danach 70.3 leises Leben; Karten-Tanne später nachziehen (Vorschlag) |
+| 77 | Dokumentnamen ordnen, Story-Kennungen K1-H/N/Z/W (Nutzer 13.10., 21:10) | Tom (Code), Berater (77e) | `main` | Erledigt; 77.1 Leiste auf `main` (PR #59, getestet). Verlauf im Archiv |
+
+
+### Aus ROLLE-BERATER.md, 14.10., 13:4x
+- **Meldungen in fremden Bereichen** (13.10.): erst `git pull` und nachsehen, ob Tom/Jerry sie schon eingetragen haben (62s stand doppelt).
+- **Umbauten mit Prüfskript** (13.10., 77e): Zeilenerhalt, Marken wortgleich, Verweis-Check; Heredocs mit Backticks als `<<'EOF'` (Volltext im Archiv).
+- Sitzung 14.10. 09:58–11:2x „Texte Kapitel 2“: ganzer Entwurf im [Dokument](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413); Rask und Fenn ja.
+
+### Aus ROLLE-BERATER.md, 14.10., 13:4x (Regel steht in CLAUDE.md, 77e.1)
+- **Bilder als PNG-Datei** (13.10.; Regel seit 77e.1 in `CLAUDE.md`): Artefakte zoomen auf dem Handy nicht (`cairosvg`, Faktor 3).
 
 ### Aus ROLLE-BERATER.md, 14.10., 13:0x
 - **Umbauten mit Prüfskript** (13.10., 77e): Zeilenerhalt gegen den Ausgangsstand plus Marken wortgleich plus Verweis-Check fand jede Lücke; Zeilen, die Tom parallel strich, vorher aus dem Abgleich nehmen. Shell-Heredocs mit Backticks immer als `<<'EOF'`, sonst werden `main` und `grep` still ausgeführt.
@@ -128,6 +202,15 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - Signatur: Keystore und Passwort liegen nur als GitHub-Secrets. Nie committen, ebenso `local.properties`.
 - `./gradlew -p core test`: Kerntests, vor jedem Commit (Exit-Code prüfen).
 - Erinnerungen an frühere Gespräche: alles Wichtige steht in `CLAUDE.md`, `docs/ARBEIT-OFFEN.md` (Übergaben), `docs/DESIGN-STIL.md`, `docs/LISTE-IDEEN.md`, `CHANGELOG.md`; der Verlauf in `docs/ARBEIT-ARCHIV.md`.
+
+
+## Aus ROLLE-BERATER.md, 14.10., 18:2x (alte Übergabe)
+
+**Übergabe (14.10., 17:2x) – Nachfolger: „Sokrates – Kampfsystem“:**
+
+**Nächster Punkt:** (0) **72b Kampf:** [Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) mit Baustein 7 (Abstand nah/fern, Attribute; zur Rückmeldung 16:55); Nutzer schickt weitere Gedanken, dann 72k–72o (B empfohlen, Probe Jerry ab Fr.), 26d hängt daran. (1) **81 Ford** Co-Pilot; Telegram-Schlüssel fehlt in der Umgebung der Routine (auch Lauf 17:29; Ford weicht auf App-Push aus), Frage auf „Dein Zug“ (`e/81.html`); Pilot nur auf Zuruf; Jerry-Ford ab Fr.; danach Regelbilanz (Weck-Routinen in `ARBEIT-SELBST.md` durch Ford ersetzen, `CLAUDE.md` kürzen). (2) **13e.6** Licht: empfohlen B plus Fackel in der Hand (17:24 gefragt). (3) **41** Entwurf beim Nutzer (4.4, 5.3, 6.3), nach Freigabe wortgetreu nach `STORY-K2*.md`. (4) **69e** Runde 4: aktiv Meinung äußern gegen `DESIGN-STIL.md`, dann 70.1, danach 79. (5) 72a–72j.
+
+**Zuletzt gelesen bis:** 80acc969 (14.10., 17:4x)
 
 ## Notizen auf `main` (seit 10.10.)
 `tools/notiz.sh` holt `main`, legt die Arbeitskopie `../bornim-main` für Notizen an, meldet den Namen der Sitzung (Tom oder Jerry, aus der Tabelle in `CLAUDE.md`) und zeigt, was sich seit dem letzten Aufruf an `CLAUDE.md`, `CHANGELOG.md` und `docs/` geändert hat. Der Starthaken ruft es mit `--kurz` auf.
