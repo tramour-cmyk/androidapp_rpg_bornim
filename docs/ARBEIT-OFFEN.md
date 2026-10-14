@@ -9,6 +9,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 ## Jetzt installieren
 
 - **Tom 0.1.728** (Sammelbuild 27l Licht am Fuß, Pfützen weich, Nähte weg, 77.1 Leiste; PR #58): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38518119453/artifacts/11872409132), Prüfliste `e/t728.html` auf „Dein Zug“.
+- **Tom 0.1.729** (Sammelbuild 27m Kartenrand, Bildrate im Test-Reiter, 80 Kaels Laterne; enthält 0.1.728): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38540695663/artifacts/11882212389), Prüfliste `e/t729.html` auf „Dein Zug“.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -52,7 +53,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (14.10., 10:45) – an Nachfolger
 - **PR #58** abonniert, grün, wartet auf Test 0.1.728; nach „passt“: zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“, „Jetzt installieren“ leeren.
-- **27m + 80** (Zweig `claude/tom-27m-rand`, committet, noch nicht gepusht): Rand mit mehr Bäumen, Ausgänge/Wege/Wasser frei; Kaels Laterne (Dorf 24/6); Test-Reiter „Bildrate anzeigen“ (`FrameMeter` in `WorldScreen.kt`, Jerry zur Kenntnis). Messung Vorschau (`RANDZEIT=1`, `RANDAUS=1`): je Bild Rand an/aus Wald-Ecke 3,1/1,7 s, Mitte 2,2/1,9 s, Tiefer Wald 5,4/3,7 s, Dorf-Ecke 3,8/1,1 s (Rechner ohne Grafikchip, nur Vergleich). Standbilder aller Ränder fertig (`e/b/27m_raender.jpg`); **Sammelbuild gepusht 11:03**, Weckruf 11:12: Prüfliste auf „Dein Zug“ (Bildrate am Rand, Ausgänge frei, Laterne), „Jetzt installieren“. Am Ostrand des Dorfes verdecken Randkronen den Helden halb (beobachten).
+- **27m + 80** (Zweig `claude/tom-27m-rand`, committet, noch nicht gepusht): Rand mit mehr Bäumen, Ausgänge/Wege/Wasser frei; Kaels Laterne (Dorf 24/6); Test-Reiter „Bildrate anzeigen“ (`FrameMeter` in `WorldScreen.kt`, Jerry zur Kenntnis). Messung Vorschau (`RANDZEIT=1`, `RANDAUS=1`): je Bild Rand an/aus Wald-Ecke 3,1/1,7 s, Mitte 2,2/1,9 s, Tiefer Wald 5,4/3,7 s, Dorf-Ecke 3,8/1,1 s (Rechner ohne Grafikchip, nur Vergleich). Standbilder aller Ränder fertig (`e/b/27m_raender.jpg`); **Sammelbuild 0.1.729** (Knopfdruck, Lauf 38540695663) auf „Dein Zug“ (t729), wartet auf Test; nach „passt“ PR von `claude/tom-27m-rand` nach `main`, `CHANGELOG.md`. Am Ostrand des Dorfes verdecken Randkronen den Helden halb (beobachten).
 - **69e** zweite Runde und **80** auf „Dein Zug“, warten auf Nutzer.
 - **Nutzer 09:3x:** erst kurz antworten, dann höchstens etwa 5 Minuten am Stück arbeiten.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
