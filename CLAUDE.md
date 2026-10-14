@@ -36,7 +36,7 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, alles unter `docs/`. Nur auf `main`; dire
 **Umgang mit dem Nutzer**
 - Deutsch, Berliner Zeit. Generisches Maskulinum („der Nachfolger“, „die Tester“), nie weibliche oder gegenderte Formen. Zum Prüfen fett markieren, nie nur kursiv.
 - Zeitstempel immer von der Systemuhr: `TZ=Europe/Berlin date "+%d.%m., %H:%M"`, nie schätzen.
-- Erst auf Rückmeldungen und Fragen antworten und besprechen, dann arbeiten. Eine Rückfrage ist keine Freigabe. Vor großen optischen Änderungen Standbilder zeigen, nie Bildfolgen.
+- Erst auf Rückmeldungen und Fragen antworten und besprechen, dann arbeiten: auf jede Nachricht zuerst in ein, zwei Sätzen antworten; Arbeitsschritte höchstens etwa 5 Minuten, dazwischen kurz Stand melden (bei Builds gilt der Weckruf; Nutzer 14.10.). Eine Rückfrage ist keine Freigabe. Vor großen optischen Änderungen Standbilder zeigen, nie Bildfolgen.
 - Rückfragen gebündelt am Ende, nummeriert, mit Empfehlung und vollem Wortlaut; offene früherer Antworten wiederholen, nie nur verweisen.
 - Was funktioniert und kein Fehler ist, muss der Nutzer nicht erfahren.
 

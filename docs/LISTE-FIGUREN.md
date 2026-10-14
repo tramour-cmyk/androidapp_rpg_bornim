@@ -46,7 +46,7 @@ Leute aus Schilfrode tragen einen **Ölhaut-Umhang**; daran erkennt man sie auch
 | Tobin | abgemagert, Bart verwildert, nie ganz aufrecht | reibt den leeren Ringfinger, grauer Stofffetzen ums Handgelenk | – | sitzt zu Hause still neben Gwenna (oder bei Merle, 5e) | Kultlager, dann Bornim oder Schilfrode |
 | Fährmann Ansel | hager | langer Stakstock (senkrecht, viel länger als Stab und Speer) | Ölhaut | Wasser gegen den Kahn, Seil knarrt; flickt bei Tag ein Seil | Fähranleger |
 | Merle | – | Kopftuch, Korb mit Schilf | Ölhaut | schaut die Straße nach Norden hinunter, später flicht sie Schilfmatten | Schilfrode, Dorfrand |
-| Merles und Ansels Sohn (Name offen) | jung | graue Kutte über Ölhaut | Grau | Wache am Steg des Kultlagers (5a) | Kultlager |
+| Fenn, Sohn von Merle und Ansel | jung | graue Kutte über Ölhaut | Grau | Wache am Steg des Kultlagers (5a) | Kultlager |
 | Händler Wendel | – | Stand unter Schilfdach | – | wischt den Tresen, ordnet Kisten | Schilfrode |
 
 **Einmalige Gegner**
