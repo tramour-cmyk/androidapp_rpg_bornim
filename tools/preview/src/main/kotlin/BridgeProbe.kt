@@ -74,8 +74,8 @@ private class BridgePainter(val detail: Boolean) {
     /** Round 4: the banks follow the camera, now at the foot of the bridge. */
     val ZN get() = wz(28.0); val ZF get() = ZN + 7.0
 
-    // the moon, high up on the left
-    val moonX = 250.0; val moonY = 255.0
+    // the moon, high up on the left, clear of the roof, its chimney and the fir (Sokrates 14.10.: it sat on the chimney)
+    val moonX = 120.0; val moonY = 175.0
 
     // the night colours of the diagonal world (village at 23:00)
     val skyTop = Color(0x060A1C); val skyLow = Color(0x2A3654)
@@ -213,7 +213,7 @@ private class BridgePainter(val detail: Boolean) {
 
     // ---- the scene built from the village map (69e): one tile is 2 m, the traveller stands on the south road behind the edge
     val map = de.bornim.core.World["village"]
-    val camTx = 18.0; val camTy = 30.2
+    val camTx = 18.0; val camTy = 30.5
     fun wx(tx: Double) = (tx - camTx) * 2
     /** Round 2: the river by the bridge drawn twice as wide as its two tiles, so it reads at eye level (user: may differ from the map). */
     /** and the bank behind it narrower, so the half-timbered house stands close behind the water. */
@@ -858,9 +858,10 @@ private class BridgePainter(val detail: Boolean) {
      */
     fun bridgeLantern(hw: Double, y: Double, z0: Double, z1: Double) {
         val wood = Color(0x221A14); val woodLit = night(0x7A5C40, 1.3)
-        val lx = hw + 0.1; val lz = z0 + 0.25; val lh = y + 1.85
+        val lx = hw - 0.06; val lz = z0 + 0.1; val lh = y + 1.75
         // the warm pool on the deck and on the water beside the bridge
-        val lpx = sx(lx, lz); val lpy = sy(lh, lz)
+        // (the lantern sits on the top of the tall near post, its foot on the post: Sokrates 14.10., it floated above it)
+        val lpx = sx(lx, lz); val lpy = sy(lh, lz) - f * 0.16 / lz * 0.3
         run {
             val r = f * 2.6 / lz; val t = g.transform; g.translate(sx(lx - 0.7, lz + 1.4), sy(y, lz + 1.4)); g.scale(1.0, 0.3)
             g.paint = RadialGradientPaint(Point2D.Double(0.0, 0.0), r.toFloat(), floatArrayOf(0f, 0.45f, 1f),
@@ -884,7 +885,9 @@ private class BridgePainter(val detail: Boolean) {
                 val pw = 0.07; val ph = if (side > 0 && k == 0) 1.75 else 1.0
                 val near = 1 - k / posts.toDouble()
                 val c = if (side < 0) mix(wood, woodLit, 0.35) else wood
-                quad(c, x - pw, y, z, x + pw, y, z, x + pw, y + ph, z, x - pw, y + ph, z)
+                // the two near posts stand on the bank, down to the ground, where the railings begin
+                val foot = if (k == 0) 0.0 else y
+                quad(c, x - pw, foot, z, x + pw, foot, z, x + pw, y + ph, z, x - pw, y + ph, z)
                 // the moon on the left face, the lantern on the near posts
                 line(alpha(woodLit, 0.6), maxOf(1.0, f * 0.012 / z), sx(x - pw, z), sy(y, z), sx(x - pw, z), sy(y + ph, z))
                 val warmth = exp(-sqrt((x - lx) * (x - lx) + (z - lz) * (z - lz)) / 2.0)
