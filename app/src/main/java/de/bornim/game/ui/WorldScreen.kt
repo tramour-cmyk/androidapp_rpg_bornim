@@ -1745,8 +1745,9 @@ private object LightImage {
             var best = 1f
             for (k in 0..3 * SUB) best = minOf(best, sub[(cy + dy * k).coerceIn(0, h - 1) * w + (cx + dx * k).coerceIn(0, w - 1)])
             // nothing to find out there (t732, north edge: the ground before it lay behind a row of trees, never seen,
-            // and the wood beyond stayed black): never darker than what is known but out of sight
-            return minOf(best, seenDimOf(map))
+            // and the wood beyond stayed black): never darker than what is known but out of sight; not in a cave, where
+            // the rock beyond the edge shows only as far as the hero has been
+            return if (map.kind == MapKind.CAVE) best else minOf(best, seenDimOf(map))
         }
         return if (map.id == fadeMap && map.inside(tx, ty)) sub[sy * map.width * SUB + sx] else 1f
     }
