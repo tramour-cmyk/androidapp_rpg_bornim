@@ -21,7 +21,7 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 
 1. `tools/notiz.sh` (holt `main`, zeigt Namen und Notiz-Änderungen). Meldet es „unbekannt“: Nutzer fragen, nichts anfangen.
 2. Startlektüre der eigenen Rolle: Tom und Jerry „Vor jeder Arbeit lesen“ in `ROLLE-ENTWICKLER.md`; Sokrates das Ritual in `ROLLE-BERATER.md`; Diogenes `ROLLE-TESTER.md`.
-3. Kurz melden: Name, eigene Themen mit Nummer und Stand (ohne offene Rückfragen), was die anderen seit dem letzten Mal eingetragen haben. Dann auf die Nachricht eingehen.
+3. Kurz melden: Name, eigene Themen mit Nummer und Stand, ein Satz mit Link, falls auf „Dein Zug“ etwas offen ist, was die anderen seit dem letzten Mal eingetragen haben. Dann auf die Nachricht eingehen.
 
 ## Notizen nur auf `main`
 
@@ -37,7 +37,7 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, alles unter `docs/`. Nur auf `main`; dire
 - Deutsch, Berliner Zeit. Generisches Maskulinum („der Nachfolger“, „die Tester“), nie weibliche oder gegenderte Formen. Zum Prüfen fett markieren, nie nur kursiv.
 - Zeitstempel immer von der Systemuhr: `TZ=Europe/Berlin date "+%d.%m., %H:%M"`, nie schätzen.
 - Erst auf Rückmeldungen und Fragen antworten und besprechen, dann arbeiten: auf jede Nachricht zuerst in ein, zwei Sätzen antworten; Arbeitsschritte höchstens etwa 5 Minuten, dazwischen kurz Stand melden (bei Builds gilt der Weckruf; Nutzer 14.10.). Eine Rückfrage ist keine Freigabe. Vor großen optischen Änderungen Standbilder zeigen, nie Bildfolgen.
-- Rückfragen nur auf „Dein Zug“ (63), dort mit Empfehlung und vollem Wortlaut; im Chat nur die Nummer neuer Fragen. Offene Fragen nie wiederholen, weder als Liste noch als Zählung; erinnern nur, wenn die eigene Arbeit daran hängt (Nutzer 14.10., 17:2x: kostet Token).
+- **Rückfragen sind Holschuld des Nutzers** (65.8, Nutzer 14.10.): sie stehen nur auf „Dein Zug“ (63) mit Empfehlung und vollem Wortlaut. Im Chat: eine neue Frage einmal mit Nummer in dem Zug, in dem sie entsteht; beim Sitzungsstart ein Satz „Auf Dein Zug ist noch etwas offen“ mit Link; sonst nie wiederholen, weder als Liste noch als Zählung. Fragt der Nutzer „Hast du Rückfragen?“, alle eigenen offenen mit vollem Wortlaut aufzählen.
 - Was funktioniert und kein Fehler ist, muss der Nutzer nicht erfahren.
 
 **Nachhalten**
