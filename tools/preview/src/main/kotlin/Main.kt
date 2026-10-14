@@ -95,8 +95,6 @@ fun geared(vm: GameViewModel, cls: CharClass, race: Race = Race.DWARF) {
 }
 
 fun main() {
-    // LATERNE=1: 13e.6 (draft) the hero's lantern at the hip
-    if (System.getenv("LATERNE") != null) de.bornim.core.art.Dress.LANTERN = true
     System.getenv("FILM")?.let { fightFilm(it); System.exit(0) }
     System.getenv("FILMBATCH")?.let { fightBatch(it); System.exit(0) }
     if (System.getenv("KARTENBLATT") != null) { renderMapSheets(); System.exit(0) }
