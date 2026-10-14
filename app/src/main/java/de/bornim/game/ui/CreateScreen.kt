@@ -45,16 +45,12 @@ import de.bornim.core.art.CharacterArt
 import de.bornim.game.GameViewModel
 import de.bornim.game.Screen
 
-/** 60: the hero's making in the look of the text box; a draft until chosen (preview `HELDENBAU=1`). */
-object CreateLook {
-    @Volatile var draft = true
-}
-
 @Composable
 fun CreateScreen(vm: GameViewModel) {
-    if (CreateLook.draft) androidx.compose.runtime.CompositionLocalProvider(LocalVeil provides true) {
+    // 60: the hero's making in the look of the text box
+    androidx.compose.runtime.CompositionLocalProvider(LocalVeil provides true) {
         Box(Modifier.fillMaxSize().background(androidx.compose.ui.graphics.Color.Black)) { CreateBody(vm) }
-    } else CreateBody(vm)
+    }
 }
 
 @Composable

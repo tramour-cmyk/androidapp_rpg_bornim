@@ -37,7 +37,7 @@ object Sfx {
         Sound.ENEMY_DOWN, Sound.ALERT, Sound.AMBUSH, Sound.SWING, Sound.SWING_HEAVY,
     )
 
-    /** The sounds that announce something: one take only, so they are known at once (18h; STIL.md, Klang). */
+    /** The sounds that announce something: one take only, so they are known at once (18h; DESIGN-STIL.md, Klang). */
     val SYSTEM = setOf(Sound.LEVEL_UP, Sound.CLICK, Sound.LOOT_EPIC, Sound.ENCOUNTER)
 
     /** Sounds that exist only as recordings (the sound of a place, 24.8): nothing is synthesized for them. */

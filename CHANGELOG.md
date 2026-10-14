@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Zusammengeführt nach Test 0.1.721** (PR #57, 14.10., 07:1x): Wandkram in Räumen mit Schatten auf der Wand und hellen/dunklen Kanten, nichts mehr hinter Möbeln (D1.4); keine eckig dunklen Felder unter Möbeln, kein Umriss um Bodenschatten (D1.5); Entwurfsschalter entfernt, die fest an waren (D1.16); Builds nur noch für PR, `main` und auf Knopfdruck (78d).
 - **Zusammengeführt nach Test 0.1.719** (PR #56, 13.10., 22:4x): Garrick dicht am Feuer (3b, Rückläufer: 1); Glühwürmchen ruhiger, Leuchten schwillt an und ab, Schwärme 1–9 (4, Rückläufer: 1); Pim, Gwenna, Liska nachts im Haus (5la); Stimmen hinter verschlossenen Türen (73b); Diogenes-Befunde: Kapitelende und Anschlagbrett schwarz-golden, Englisch im Vergleich, Farben, „…“ beim Abschneiden u. a. (D2), Licht nur aus Quellen in Räumen (D1.2/D1.3), Bänke und Ladenkram in drei Formen (D1.11).
 - Notizen umgebaut (76–78, Nutzer 13.10., 21:52): Dateien unter `docs/` mit Vorsilben ROLLE-/DESIGN-/STORY-/LISTE-/ARBEIT-; `CLAUDE.md` auf den gemeinsamen Kern gekürzt (16,6 → etwa 9 KB); neu `docs/ROLLE-ENTWICKLER.md` (Wer du bist, Prüftreppe, Sammelbuilds); Berater-Prompt „Wer du bist“; Wächter gegen alte Namen in `tools/notiz.sh`.
 
