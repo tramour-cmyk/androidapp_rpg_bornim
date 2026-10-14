@@ -129,3 +129,15 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools
 | boss | `boss_fantasy_choir1` | Fantasy Choir 1 | cesisco | https://opengameart.org/content/fantasy-choir-3-orchestral-pieces |
 | boss | `boss_fantasy_choir2` | Fantasy Choir 2 | cesisco | https://opengameart.org/content/fantasy-choir-3-orchestral-pieces |
 | Rückkehr Amulett (37a, noch ungenutzt) | `boss_ancient_legend` | The Ancient Legend | vitalezzz | https://opengameart.org/content/the-ancient-legend |
+
+## Runde 5 (74 Schritte je Untergrund, Hörproben, noch nicht im Spiel)
+
+CC0 1.0, Lizenz in den Paketen (License.txt) und auf der Quellseite geprüft am 14.10.2026. Rezept: `tools/klang/schritte.py`.
+
+| Klang | Aufnahme(n) | Urheber, Paket | Quelle |
+|---|---|---|---|
+| `schritt_gras_1–3` | footstep_grass_000, _002, _004 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
+| `schritt_erde_1–3` | footstep01, 04, 07 | Kenney, RPG Audio | https://kenney.nl/assets/rpg-audio |
+| `schritt_pflaster_1–3` | footstep_concrete_000, _002, _004 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
+| `schritt_holz_1–3` | footstep_wood_000, _002, _003 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
+| `schritt_stein_1–3` | footstep_concrete_001, _003, _004 (tiefer, mit Höhlenhall) | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
