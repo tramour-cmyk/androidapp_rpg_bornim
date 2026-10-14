@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom Sammelbuild** (27l Licht am Fuß, 27l Pfützen weich, 77.1 Leiste; PR #58): Build läuft, danach APK-Link und Prüfliste auf „Dein Zug“.
+- **Tom Sammelbuild** (27l Licht am Fuß, 27l Pfützen weich, Nähte weg, 77.1 Leiste; PR #58): Build läuft, danach APK-Link und Prüfliste auf „Dein Zug“.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -49,8 +49,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (14.10., 07:40)
 - **Heute:** 0.1.721 abgenommen, PR #57 zusammengeführt; 55d so lassen; 77e.3 Vorgaben neu gefasst; 69e beim Berater (Sokrates schlägt Probebilder vor). **Sammelbuild PR #58** (Zweig `ccr-e4144697-7oy67j`): 27l Licht am Fuß (`footLight`), Pfützen weich, 77.1 Leiste; PR abonniert, danach Prüfliste `e/t<build>.html`.
-- **Lücken** Wald (27) und Dorf (5.5), ohne Entscheidung zu bauen: Kartenrand gerade schwarze Schräge, Bäume/Kornfeld abgeschnitten; Nähte an Bodenstück-Kanten (`WorldScreen.kt`); nachts Kronen hell ums Licht (D1.15, Jerry); Schritte fehlen (74, Jerry).
-- **Nächstes:** Nähte untersuchen, dann Kartenrand (erst Standbilder); 69/68 nach Entscheidung 69e.
+- **Lücken** Wald (27) und Dorf (5.5), ohne Entscheidung zu bauen: Kartenrand gerade schwarze Schräge, Bäume/Kornfeld abgeschnitten; ~~Nähte~~ (in PR #58); nachts Kronen hell ums Licht (D1.15, Jerry); Schritte fehlen (74, Jerry).
+- **Nächstes:** Kartenrand (erst Standbilder); 69/68 nach Entscheidung 69e.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.
