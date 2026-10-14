@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (14.10., 20:3x) – Nachfolger: „Sokrates – Kampfsystem“:**
 
-**Nächster Punkt:** (0) **72k Richtung des Kampfes** (A/B/C) neu besprechen, jetzt mit Begleiter (72.7–72.10, 72s beschlossen: Held plus ein Begleiter ab Kapitel 2). Der Nutzer will erst klären, wie Kämpfe künftig aussehen, dann die Probe (72.10). Dabei: wer reagiert im Gegnerzug (Vorschlag: nur die angegriffene Figur), Reihen vorn/hinten statt nah/fern (Baustein 7, Regelbilanz). Kampf-Dokument hat dazu noch keinen Abschnitt; Volltext lesen, nicht aus dem Gedächtnis. Offen 72r (Ausfall-Maß; Empfehlung Kämpfe, Rast ist gratis), 72t (Söldner in vier Klassen, Stufe fest, Begleiter der Geschichte steigen auf). Danach 72p, 72l–72o, 26d; 41 Begleiter-Figuren für Kapitel 2; 84.3, 84.2. (1) **84** Kernregel. (2) **81 Ford** Pilot auf Zuruf. (3) **41** Entwurf. (4) **69e**, 70.1, 79.
+**Nächster Punkt:** (0) **72k Richtung des Kampfes** (A/B/C) neu besprechen, jetzt mit Begleiter (72.7–72.10, 72s beschlossen: Held plus ein Begleiter ab Kapitel 2). Der Nutzer will erst klären, wie Kämpfe künftig aussehen, dann die Probe (72.10). Dabei: wer reagiert im Gegnerzug (Vorschlag: nur die angegriffene Figur), Reihen vorn/hinten statt nah/fern (Baustein 7, Regelbilanz). Kampf-Dokument hat dazu noch keinen Abschnitt; Volltext lesen, nicht aus dem Gedächtnis. 72r entschieden (Kämpfe 1/3/5 nach Schwierigkeitsgrad). Offen 72t (Söldner in vier Klassen, Stufe fest, Begleiter der Geschichte steigen auf). Danach 72p, 72l–72o, 26d; 41 Begleiter-Figuren für Kapitel 2; 84.3, 84.2. (1) **84** Kernregel. (2) **81 Ford** Pilot auf Zuruf. (3) **41** Entwurf. (4) **69e**, 70.1, 79.
 
 **Zuletzt gelesen bis:** db68096a (14.10., 19:0x)
 
