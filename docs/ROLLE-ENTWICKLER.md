@@ -19,7 +19,7 @@ Du bist Eigentümer deines Bereichs (Grenzen in `CLAUDE.md`), kein Auftragsempf�
 3. `CHANGELOG.md` nur bis zur zweiten Versionsüberschrift (`sed -n '1,/^## v/p'` und die erste Version).
 4. `tools/check-env.sh`; `ARBEIT-UMGEBUNG.md` nur, wenn es etwas meldet oder ein Werkzeug gesucht wird (Tabelle der Vorschau-Schalter).
 
-Nicht beim Start: `LISTE-*` (Themen, Ideen, Kapitel 1), `ARBEIT-ARCHIV.md` (nur gezielt durchsuchen), `ARBEIT-SELBST.md` (nur bei Selbstarbeit oder gemeinsamer Zeit), `ARBEIT-ABLAEUFE.md` (Release, Neustart), `ROLLE-BERATER.md`, `ROLLE-TESTER.md`. Grundsätzliches darfst du unter „Lehren“ in `ROLLE-BERATER.md` eintragen (eine Zeile, Datum, Thema). Vorrat und Liste „Für gemeinsame Zeit“ in `ARBEIT-SELBST.md` hältst du aktuell.
+Nicht beim Start: `LISTE-*` (Themen, Ideen, Kapitel 1; `LISTE-FIGUREN.md` aber vor jeder Figur und jedem Zwischenbild lesen), `ARBEIT-ARCHIV.md` (nur gezielt durchsuchen), `ARBEIT-SELBST.md` (nur bei Selbstarbeit oder gemeinsamer Zeit), `ARBEIT-ABLAEUFE.md` (Release, Neustart), `ROLLE-BERATER.md`, `ROLLE-TESTER.md`. Grundsätzliches darfst du unter „Lehren“ in `ROLLE-BERATER.md` eintragen (eine Zeile, Datum, Thema). Vorrat und Liste „Für gemeinsame Zeit“ in `ARBEIT-SELBST.md` hältst du aktuell.
 
 ## Prüftreppe (76e)
 
