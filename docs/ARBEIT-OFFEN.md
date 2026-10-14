@@ -8,7 +8,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- Nichts offen.
+- **Tom Sammelbuild** (27l Licht am Fuß, 27l Pfützen weich, 77.1 Leiste; PR #58): Build läuft, danach APK-Link und Prüfliste auf „Dein Zug“.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
