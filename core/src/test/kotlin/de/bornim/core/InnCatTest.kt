@@ -6,6 +6,7 @@ import kotlin.test.assertTrue
 
 /** 87.1 (test of 0.1.740): the inn's cat walked through the table in front of the bar. */
 class InnCatTest {
+    private val MAPS = listOf(Story.village, Story.inn, Story.shop, Story.temple, Story.forest, Story.cave)
 
     @Test
     fun theCatWalksOnlyOverFreeFloor() {
@@ -24,5 +25,15 @@ class InnCatTest {
             assertTrue(MapCat.SPOTS[(n + 1) % MapCat.SPOTS.size] == (x.toDouble() to y.toDouble()), "Weg $n endet am nächsten Platz")
         }
         assertTrue(bad.isEmpty(), bad.joinToString())
+    }
+
+    /** 87.2: Rowena (and Thessa) stand up to their counters, so the cloth reaches the board; nobody else is moved by it. */
+    @Test
+    fun rowenaStandsAtHerCounter() {
+        val rowena = Story.inn.npcs.first { it.id == "rowena" }
+        assertTrue(de.bornim.core.art.MapFolk.nudge(rowena, Story.inn).second > 0)
+        val moved = MAPS.flatMap { m -> m.npcs.filter { de.bornim.core.art.MapFolk.nudge(it, m) != (0 to 0) }.map { it.id } }.toSet()
+        println("verschoben: $moved")
+        assertTrue(moved == setOf("rowena", "thessa", "garrick"), "verschoben: $moved")
     }
 }

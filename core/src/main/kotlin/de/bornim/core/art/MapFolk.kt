@@ -77,6 +77,19 @@ object MapFolk {
     val morwen = Folk("morwen", human(Sex.FEMALE, Build.SLIM, 1, 0, grey = 0x9C9890),
         Outfit(CharClass.ROGUE, kit("robe", "hood"), cloakRgb = 0x3E4A30, clothes = clothes(0x4A5A36, 0x34402A, 0x2E2A22)))
 
+    /**
+     * How far [npc] stands off the middle of its tile, in map pixels: Garrick close to his fire (3b), and whoever stands
+     * at a counter facing it close up to it, so the cloth and the jug reach the board (87.2, test of 0.1.740: Rowena
+     * wiped the air half a tile behind her counter).
+     */
+    fun nudge(npc: de.bornim.core.Npc, map: de.bornim.core.MapDef): Pair<Int, Int> {
+        val T = WorldArt.T
+        if (npc.id == "garrick") return T * 11 / 20 to 0
+        val f = npc.facing
+        if (map.tile(npc.x + f.dx, npc.y + f.dy) == de.bornim.core.Tile.COUNTER) return f.dx * T * 2 / 5 to f.dy * T * 2 / 5
+        return 0 to 0
+    }
+
     /** Borin's poses at his table (55.2): hands on the table, a drink from his flask, a bite, a look round. */
     enum class Seat { REST, DRINK, EAT, LOOK, BREATHE }
 
