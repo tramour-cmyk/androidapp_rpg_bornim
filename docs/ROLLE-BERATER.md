@@ -2,11 +2,12 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 20:3x) – Nachfolger: „Sokrates – Kampfsystem“:**
+**Übergabe (14.10., 21:4x) – Nachfolger: „Sokrates – Kampfsystem“:**
 
-**Nächster Punkt:** (0) **72k Richtung des Kampfes** (A/B/C) neu besprechen, jetzt mit Begleiter (72.7–72.10, 72s beschlossen: Held plus ein Begleiter ab Kapitel 2). Der Nutzer will erst klären, wie Kämpfe künftig aussehen, dann die Probe (72.10). Dabei: wer reagiert im Gegnerzug (Vorschlag: nur die angegriffene Figur), Reihen vorn/hinten statt nah/fern (Baustein 7, Regelbilanz). Kampf-Dokument hat dazu noch keinen Abschnitt; Volltext lesen, nicht aus dem Gedächtnis. 72r entschieden (Kämpfe 1/3/5 nach Schwierigkeitsgrad). 72t entschieden (Söldner vier Klassen, steigen nicht auf). Danach 72p, 72l–72o, 26d; 41 Begleiter-Figuren für Kapitel 2; 84.3, 84.2. (1) **84** Kernregel. (2) **81 Ford** Pilot auf Zuruf. (3) **41** Entwurf. (4) **69e**, 70.1, 79.
+**Nächster Punkt:** (0) **72k Richtung des Kampfes** (A/B/C) mit Begleiter (72.7–72.10, 72r, 72s, 72t beschlossen); Nutzer will erst klären, wie Kämpfe aussehen, dann Probe (72.10). Dabei: wer reagiert im Gegnerzug, Reihen vorn/hinten statt nah/fern (Regelbilanz), Aufstellung fest oder veränderlich (aus 72q; 72q auf „Dein Zug“ als erledigt vorgeschlagen, Nutzer hat noch nicht bestätigt), außer Atem = Initiative mit Nachteil (86.3), 26 Magier-Schild. Kampf-Dokument im Volltext lesen. Danach 72p, 72l–72o, 26d; 41 Begleiter-Figuren Kapitel 2; 84.3, 84.2. (1) **86.11** Überfall bei der Rast, Feuerholz (Empfehlung 21:3x: Überfall ja, Holz billig kaufbar, nie Sammelpflicht, erst mit 72b/38; Nutzer hat nicht geantwortet). (2) Helligkeitsregler (13e.6, offen). (3) **84**, **81 Ford**, **41**, 70.1, 79.
+Sitzung 14.10. abends: 86.1–86.10, 13e.6, 69e entschieden (Beschlüsse). Lehre: Nutzer will Widerspruch, nicht schnelles Ja (69e Laterne zu schnell gestrichen).
 
-**Zuletzt gelesen bis:** db68096a (14.10., 19:0x)
+**Zuletzt gelesen bis:** b5df4cfa (14.10., 21:4x)
 
 ## Wer du bist
 
@@ -54,6 +55,8 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 - **Tempelszene (68, 70):** Zwischensequenzen gleich gebaut, damit sie als Reihe wirken; Osric im Bild statt Erklärung (Begründungen im Text wirken konstruiert); **Blende statt Termin**, sonst wartet man in freier Welt tagelang; Einstieg Kapitel 2 erinnert statt führt. Volltext im Archiv („18:5x“).
 
 ## Lehren
+
+- **Hinweise des Nutzers prüfen statt übernehmen** (14.10., 69e): erst erfassen, auswerten, folgern; „nicht immer nur Ja sagen“.
 
 - **Werkzeugausgaben kosten Token** (14.10.): Beschlussseite (17 KB) beim Ändern nur einmal lesen; Suchen eng fassen (`ARBEIT-ARCHIV.md` ausschließen, Zeilen kürzen).
 - **Ablauf nicht vorführen** (14.10., 65.9): der Nutzer sieht den Nutzen pro Antwort; Startritual, Wiederholungen und Haken-Runden ohne Neues sind Kosten. Zeit nur von der Systemuhr, auch im Gespräch (17:3x geschätzt).
