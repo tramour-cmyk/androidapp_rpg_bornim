@@ -1734,10 +1734,17 @@ private object LightImage {
     /** How dark the fog makes part ([sx], [sy]) (in [SUB]ths of a tile) right now: 1 unknown, 0 in sight. */
     fun shadeSub(map: de.bornim.core.MapDef, sx: Int, sy: Int): Float {
         val tx = Math.floorDiv(sx, SUB); val ty = Math.floorDiv(sy, SUB)
-        // beyond the edge the wood goes on (27m): it is as known as the edge next to it
+        // beyond the edge the wood goes on (27m): it is as known as the edge next to it, or as the ground up to three
+        // tiles further in (t732: behind a row of trees at the edge the hero never sees the edge itself, and the wood
+        // beyond stayed black)
         if (de.bornim.core.art.MapEdge.applies(map) && !map.inside(tx, ty)) {
-            val cx = sx.coerceIn(0, map.width * SUB - 1); val cy = sy.coerceIn(0, map.height * SUB - 1)
-            return if (map.id == fadeMap) sub[cy * map.width * SUB + cx] else 1f
+            if (map.id != fadeMap) return 1f
+            val w = map.width * SUB; val h = map.height * SUB
+            val cx = sx.coerceIn(0, w - 1); val cy = sy.coerceIn(0, h - 1)
+            val dx = Integer.signum(cx - sx); val dy = Integer.signum(cy - sy)
+            var best = 1f
+            for (k in 0..3 * SUB) best = minOf(best, sub[(cy + dy * k).coerceIn(0, h - 1) * w + (cx + dx * k).coerceIn(0, w - 1)])
+            return best
         }
         return if (map.id == fadeMap && map.inside(tx, ty)) sub[sy * map.width * SUB + sx] else 1f
     }
