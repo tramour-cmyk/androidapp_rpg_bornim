@@ -102,6 +102,8 @@ class Battle(
     private val usesLeft = mutableMapOf<Skill, Int>()
     /** Mage Armor lasts 8 hours (26.1): cast before this fight, it holds from the first round. */
     var mageArmor = state.mageArmorOn; private set
+    /** 26 draft: the Shield spell holds until the hero's next turn. */
+    private var shieldUp = false
     var blessed = false; private set
     /** A good meal before the fight: +1 to attack rolls and +1 weapon damage. */
     val wellFed: Boolean = state.wellFed.also { state.wellFed = false }
@@ -614,7 +616,13 @@ class Battle(
         val mode = foeMode(if (Status.BLIND in foeStatus) -1 else 0)
         val roll = dice.d20(mode)
         val crit = roll == 20
-        if (roll == 1 || (!crit && roll + enemyAttack - attackPenalty(onHero = false) < heroAc)) {
+        // 26 draft (off in the game): the SRD Shield spell as the wizard's reaction, +5 AC until his next turn when a hit
+        // would land that +5 turns into a miss, for SHIELD_DRAFT spell points
+        val total = roll + enemyAttack - attackPenalty(onHero = false)
+        if (shieldDraft > 0 && hero.cls == CharClass.WIZARD && !crit && roll != 1 && !shieldUp && total >= heroAc && total < heroAc + 5 && hero.sp >= shieldDraft) {
+            hero.sp -= shieldDraft; shieldUp = true
+        }
+        if (roll == 1 || (!crit && total < heroAc + (if (shieldUp) 5 else 0))) {
             val shield = hero.item(GearSlot.OFF_HAND)?.def?.kind == BaseKind.SHIELD
             val kind = if (defending) defenceFx() else if (shield && dice.chance(0.6)) FxKind.BLOCK else FxKind.DODGE
             say(Msg.foeMisses.f(lang, foe), Anim.MISS, fx = fx(kind, onHero = true, past = monster.attackFx))
@@ -814,6 +822,7 @@ class Battle(
 
     /** Before the hero may act: statuses tick, and a stunned hero gives the foe another turn. */
     private fun heroTurnStart() {
+        shieldUp = false
         var guard = 0
         while (outcome == Outcome.ONGOING && guard++ < 4) {
             if (tick(onHero = true)) return
@@ -1009,6 +1018,8 @@ class Battle(
     private fun crValue(cr: String): Double = cr.split("/").let { if (it.size == 2) it[0].toDouble() / it[1].toDouble() else it[0].toDouble() }
 
     companion object {
+        /** 26 draft for the simulation (0 = off, as in the game): spell points the Shield reaction costs. */
+        @JvmStatic var shieldDraft = 0
         /** From this cleric level Turn Undead destroys undead of challenge rating 1/2 or lower (SRD: Destroy Undead). */
         const val DESTROY_UNDEAD_LEVEL = 5
         /** Mage Armor holds 8 hours of game time, as in the SRD (26.1). */

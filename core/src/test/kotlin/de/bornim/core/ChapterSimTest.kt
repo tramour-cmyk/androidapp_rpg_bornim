@@ -70,6 +70,8 @@ class ChapterSimTest {
     @Test
     fun chapterOne() {
         if (System.getenv("SIM") == null) return
+        // SIM_SHIELD=n: the wizard has the Shield reaction for n spell points (26 draft)
+        Battle.shieldDraft = System.getenv("SIM_SHIELD")?.toInt() ?: 0
         val sb = StringBuilder()
         val setups = listOf(
             1 to listOf("wolf" to 1, "goblin" to 1, "kobold" to 1, "boar" to 1),
