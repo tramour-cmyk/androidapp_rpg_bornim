@@ -48,10 +48,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 07:40)
-- **Heute:** 0.1.721 abgenommen, PR #57 zusammengeführt; 55d so lassen; 77e.3 Vorgaben neu gefasst; 69e beim Berater (Sokrates schlägt Probebilder vor). **Sammelbuild PR #58** (Zweig `ccr-e4144697-7oy67j`): 27l Licht am Fuß (`footLight`), Pfützen weich, 77.1 Leiste; Build 0.1.728 grün, Prüfliste `e/t728.html`.
-- **Lücken** Wald (27) und Dorf (5.5), ohne Entscheidung zu bauen: Kartenrand (27m, Entwurf); ~~Nähte~~ (in PR #58); nachts Kronen hell ums Licht (D1.15, Jerry); Schritte fehlen (74, Jerry).
-- **Nächstes:** 27m nach Antwort (Kartenrand-Entwurf auf „Dein Zug“); 69/68 nach Entscheidung 69e.
+### Tom (14.10., 08:05)
+- **Heute:** 0.1.721 abgenommen, PR #57 zusammengeführt (`main` grün); 55d so lassen; 77e.3 Vorgaben neu gefasst; 69e beim Berater. **0.1.728** (PR #58, Zweig `ccr-e4144697-7oy67j`, abonniert, grün): 27l Licht am Fuß (`footLight`), Pfützen weich, Nähte weg (Bodenstücke überlappen), 77.1 Leiste; Prüfliste `e/t728.html`. Nach Test: PR #58 zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“.
+- **27m** Kartenrand-Entwurf auf „Dein Zug“ (`claude/tom-27m-rand` 5ce92886, `RAND=1`, `MapEdge`): bei Ja fest einbauen (Schalter weg), vorher Bildrate messen.
+- **Lücken** sonst: nachts Kronen hell ums Licht (D1.15, Jerry); Schritte fehlen (74, Jerry). 69/68 nach Entscheidung 69e. Vorrat leer.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.
