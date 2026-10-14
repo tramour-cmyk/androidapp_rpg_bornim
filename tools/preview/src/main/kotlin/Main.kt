@@ -573,6 +573,8 @@ fun main() {
     if (System.getenv("TREFFERBILD") != null) { renderHitStills(); System.exit(0) }
     // INTROBILD=1: the painted pictures of the cutscenes (70, draft): intro (69) and temple (68), with their texts
     if (System.getenv("INTROBILD") != null) { renderIntroSheet(); System.exit(0) }
+    // BRUECKE69E=1: the probe of the intro bridge at full resolution, precise and slightly abstracted (69e, draft)
+    if (System.getenv("BRUECKE69E") != null) { renderBridgeProbe(); System.exit(0) }
     if (System.getenv("BACKVIEW") != null) { renderBackViews(); System.exit(0) }
     if (System.getenv("ATTACKVIEW") != null) { renderAttackViews(); System.exit(0) }
     if (System.getenv("RANGED") != null) { renderRangedViews(); System.exit(0) }
