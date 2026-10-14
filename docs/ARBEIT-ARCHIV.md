@@ -1,5 +1,10 @@
 # Archiv
 
+### Aus ARBEIT-OFFEN.md, 14.10., 19:4x (Übergabe Tom 19:2x)
+- PR #60, #61, #62 beim Nutzer (oben); neu abonnieren. **Zuerst:** Build PR #60 (0711ca4c) prüfen, `e/t732.html` auf neue Version und APK (nachtesten: Punkt 6, Nordwestecke Wald, Tiefer Wald östlich Morwen, nordwestlich Wolfsboss, Südostrand). Dann Dorf-Meldung (Zeile 27): Standbild Nordeingang abends (`HELDORT=village:17:2:R:20`), vermutlich Ende des Lichtbilds.
+- Weiter: (1) 74 Erde/Pflaster neu wählen (CC0), zweite Hörprobe, dann einbauen (nur Held; 74a: ein Klang je Aufsetzen, beim Rennen dichter und leiser); (2) 83 wartet auf Entscheidung; (3) 13e D1.7 Leben Höhle (Vorschlag mit Standbild; Rauch: `drawCampSmoke` auch für Höhle, `WorldScreen.kt`, nach Absprache).
+- Draußen bei Nacht leuchtet weiter das kleine Licht um den Helden (13e.6 B nur für die Höhle umgesetzt); falls der Berater B auch für draußen meint, ist es eine Zeile in `MapLight.kt` (`lantern`).
+
 ### Aus ARBEIT-OFFEN.md, 14.10., 17:5x (Übergabe Tom 17:3x)
 - **Reihenfolge:** (1) PR #60 neu abonnieren, neuer Build (Waldrand West) → `e/t732.html` auf neuen Build und APK-Link umstellen, nur Waldrand West nachtesten; (2) 13e.5 in die Beschlüsse, von „Dein Zug“ nehmen; (3) Sammelbuild 13e (D1.5, D1.6, D1.9) per PR mit Prüfliste; (4) 74a beantworten, Erde/Pflaster neu wählen; (5) 83 Standbild und Vorschlag.
 - **t732-Rückläufer Waldrand West** behoben (Zeile 27), Build von PR #60 läuft: Prüfliste `e/t732.html` auf neuen Build umstellen (nur Waldrand West nachtesten). PR #60 (t732) und #61 (t733, Build 0.1.733) sind abonniert, Prüflisten stehen auf „Dein Zug“; beim Nachfolger neu abonnieren. Nach „passt“ zusammenführen (#60 zuerst).
