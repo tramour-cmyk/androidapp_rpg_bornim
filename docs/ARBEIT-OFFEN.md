@@ -2,7 +2,7 @@
 
 Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es nur auf `main`; Tom und Jerry tragen sofort ein und pushen (Regeln in `CLAUDE.md`). **Höchstens etwa 15 KB:** je Eintrag höchstens 3 Zeilen, je Person genau eine Übergabe (die neue ersetzt die alte, die alte wandert nach [Archiv](ARBEIT-ARCHIV.md)), getestete Builds raus (Ergebnis in die Änderungshistorie).
 
-**Nächste freie Themennummer: 84**
+**Nächste freie Themennummer: 85**
 
 **Ford: Co-Pilot** (Nutzer 14.10., 16:02; 81g; Stellung aus / Co-Pilot / Pilot, Startlektüre `ROLLE-FORD.md`)
 
@@ -25,7 +25,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 82 | Verschlossene Tür: Held verschwand beim Anklopfen hinter der Hauswand (Nutzer 14.10., 15:5x, Pims Haus); alle Zugänge | Tom | `claude/tom-d1-schatten` | Behoben (f088ebd0): Tür mit Bedingung zählt beim Laufen als Wand, Dagegenlaufen klopft an; gilt für alle bedingten Zugänge außer Umkehr am Kartenrand; Kerntest. Kommt in den nächsten Sammelbuild |
 | 81 | Teamleiter „Ford“ (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–n (`ROLLE-FORD.md`). Co-Pilot seit 16:02; Telegram-Schlüssel fehlt in der Umgebung der Routine (in Sitzungen vorhanden), Rückfrage beim Nutzer (17:24). Pilot und Bewährung (81i) auf Zuruf; Jerry-Ford ab Fr. |
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`enabled: false`, nicht löschen). **65.8** Rückfragen als Holschuld (Nutzer 14.10., 17:2x): nur auf „Dein Zug“, im Chat nur einmal bei Entstehung und ein Satz beim Start, aufzählen auf „Hast du Rückfragen?“; Aufträge anderer Agenten einmal mit Stellungnahme, „Kritisch“ nur bei Stillstand (Nutzer 17:3x); in `CLAUDE.md`. **65.9** Startmeldung höchstens drei Zeilen, Berater-Ritual verschlankt (Nutzer 17:3x); Weiter-Haken schweigt bei Sokrates/Diogenes (Nutzer 17:3x ja); „Vorrat leer, auf Dein Zug n offen von mir“ (Nutzer 17:4x) |
-| 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-13e-hoehle-fertig` | D1.9, D1.5, D1.6 fertig (Kerntests); 13e.5 passt (Beschlüsse); **13e.6** beim Berater. Jetzt Sammelbuild; danach D1.7 Leben (Vorschlag mit Standbild) |
+| 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-13e-hoehle-fertig` | D1.9, D1.5, D1.6 fertig (Kerntests); 13e.5 passt (Beschlüsse); **13e.6 = B** (Nutzer 14.10., 17:5x): kein Heldenlicht, Höhle nur aus eigenen Quellen; Tom, Laternen-Entwurf verwerfen; Fackel als Gegenstand → 84.1. Jetzt Sammelbuild; danach D1.7 Leben (Vorschlag mit Standbild) |
 | 13 | Diagonale Sicht | Tom | `claude/tom-73-laeden` | 13t auf `main` (PR #54). Verlauf im Archiv |
 | 83 | Dorf Süd: weder die eingezäunten Beete im Westen noch die Weizenfelder im Osten zu sehen; Bäume wegnehmen oder andere Lösung? (Nutzer 14.10., 17:3x, Test t732) | Tom | – | Neu. Erst Standbild der Stelle, dann Vorschlag (Bäume lichten, Durchsicht, Kamera) auf „Dein Zug“ |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-5-5-dorf-luecken` | Auf `main` bis 5la. **5.5** Marktstand und Fahrspuren auf dem Zweig (`e/5-5.html`); Lichtfleck Ost kein Fehler |
@@ -40,6 +40,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 40 | Lautstärke im Menü: Gesamt, Musik, Effekte (heute nur Musik an/aus) | Jerry | neu von `main` | Nutzer 12.10., 09:52. **40a ja (10:10):** drei Regler, Ortsklang bei Effekten |
 | 41 | Storyplan; Texte Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | [Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d) Kapitel 2 fertig (ohne 5b). [Textentwurf](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413) beim Nutzer; offen 4.4, 5.3, 6.3 |
 | 72 | Profil und Marktvergleich | Berater mit Nutzer | `main` (Notizen) | [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b) fertig. **72b Kampfsystem neu** ([Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4)): Rückfragen 72k–72o beim Nutzer; Nutzer 16:55: zu kämpferlastig, Attribute sollen wirken, Gedanken folgen; Vorschlag Abstand nah/fern und Attribute im Dokument (17:2x). 72.5 ja. Offen 72a, 72c–72j |
+| 84 | Licht und Laut (Nutzer 14.10., 17:5x; baut auf Idee 4 in `LISTE-IDEEN.md` und `Perks.kt` auf) | Berater mit Nutzer | `main` (Notizen) | **84.1** Fackel als Gegenstand (Laden, nimmt die Nebenhand); **84.2** Schnellwechsel zweier Handbelegungen; **84.3** Schleichen; **84.4** Lauschen beim Stehen mit Richtungszeichen. Empfehlung im Gespräch 14.10.; Kampfteile mit 72b |
 | 59e | Händler: Menge „Alle“, Vorrat je Laden | Tom (jetzt); Jerry mit 38/39 (Vorrat) | – | Entschieden 13.10. (Beschlüsse): „Alle“ beim Kaufen weg, beim Verkaufen mit Abfrage (in 0.1.660). Vorrat je Laden erst mit 38/39, nie nach Zeit/Rast, Menge nach Schwierigkeitsgrad |
 | 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p) | Tom; 62m Jerry mit 39 | `claude/tom-73-laeden` | Bis 62r auf `main` (PR #53, #55). 62i–62k mit 64; 62l/62m später |
 | 45 | Geschäftsmodell (Play Store) | Berater mit Nutzer | – | 45a/45c ja (Beschlüsse). 45b zurückgestellt bis nach 38 |
@@ -77,7 +78,6 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
-- **13e.6 Licht um den Helden ohne Quelle** (Tom für Jerry, D1.15; Nutzer 14.10., 16:5x: „wie kann denn, wenn an der Hüfte die Laterne hängt, unten ein Schatten sein? … das entscheiden wir mal grundsätzlich, weil ich weiß nicht, ob ich begeistert bin von der Idee einer Laterne an der Hüfte“). Wege: A Laterne am Helden (Hüfte, Hand, Stab), B kein Heldenlicht, Höhle nur aus ihren Quellen; dazu: Figurenschatten heute immer fest unter den Füßen, unabhängig vom Licht. Entwurf A `LATERNE=1` (im Spiel aus).
 - **26 Ausgleich Magier** (Tom für Jerry, 14.10.; Simulation: Magier 45 % gegen Grak, mit Zauber Schild 78–87 %; Entwurf `claude/tom-26-magier-schild`, im Spiel aus; Bosse auf Stufe 5–6 über Ziel 50–65 %). Zurückgestellt (Nutzer 16:02): wird mit 72b entschieden (Schild als Reaktion des Magiers).
 
 

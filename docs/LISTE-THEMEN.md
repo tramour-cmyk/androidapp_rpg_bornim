@@ -85,3 +85,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 79 | Kampfhintergründe wie Diagonalwelt | Berater, Jerry | offen |
 | 80 | Kaels Laterne im Dorf | Tom | offen |
 | 81 | Teamleiter „Ford“ | Berater | offen |
+| 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | Berater | offen |
