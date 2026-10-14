@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 18:5x) – Nachfolger: „Sokrates – Kampfsystem“:**
+**Übergabe (14.10., 20:4x) – Nachfolger: „Sokrates – Kampfsystem“:**
 
-**Nächster Punkt:** (0) **72q Gruppe** mit dem Nutzer am Rechner besprechen, nicht vorab entscheiden: Held plus zwei, je Figur selbst oder Automatik (72.6), Begleiter mit Haltung, Reihen vorn/hinten; das Kampf-Dokument empfiehlt den Einzelhelden, ohne ihn gegen eine Gruppe abzuwägen (Ergänzung am Ende des [Dokuments](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4)). Danach 72p, 72k–72o, 26d; Schleichen (84.3), Schnellwechsel (84.2). (1) **84** Kernregel „Licht gegen Heimlichkeit“ noch ohne Antwort. (2) **81 Ford** Regelbilanz, Pilot nur auf Zuruf. (3) **41** Entwurf beim Nutzer. (4) **69e** Runde 4, dann 70.1, 79. (5) 72a–72j.
+**Nächster Punkt:** (0) **72k Richtung des Kampfes** (A/B/C) neu besprechen, jetzt mit Begleiter (72.7–72.10, 72s beschlossen: Held plus ein Begleiter ab Kapitel 2). Der Nutzer will erst klären, wie Kämpfe künftig aussehen, dann die Probe (72.10). Dabei: wer reagiert im Gegnerzug (Vorschlag: nur die angegriffene Figur), Reihen vorn/hinten statt nah/fern (Baustein 7, Regelbilanz). Kampf-Dokument hat dazu noch keinen Abschnitt; Volltext lesen, nicht aus dem Gedächtnis. Offen 72r (Ausfall-Maß; Empfehlung Kämpfe, Rast ist gratis), 72t (Söldner in vier Klassen, Stufe fest, Begleiter der Geschichte steigen auf). Danach 72p, 72l–72o, 26d; 41 Begleiter-Figuren für Kapitel 2; 84.3, 84.2. (1) **84** Kernregel. (2) **81 Ford** Pilot auf Zuruf. (3) **41** Entwurf. (4) **69e**, 70.1, 79.
 
-**Zuletzt gelesen bis:** 61d7506b (14.10., 18:2x)
+**Zuletzt gelesen bis:** db68096a (14.10., 19:0x)
 
 ## Wer du bist
 
