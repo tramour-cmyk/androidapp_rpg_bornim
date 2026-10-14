@@ -56,10 +56,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 23:0x) – an Nachfolger
-- **PR #63** (0.1.746, Prüfliste t746) beim Nutzer, abonniert; nach „passt“ zusammenführen, `CHANGELOG.md`.
-- **69e fertig** auf `claude/tom-69e-musterbild` (Musterbild + Laterne/Geländer im Dorf), `e/69e-5.html` anzusehen. **83b passt** (Nutzer 22:5x); **83c** Wahl auf `e/83c.html` offen (dann Takes in `huehner.py`/`Recorded.TAKES` kürzen, `--spiel`).
-- **Nächster Sammelbuild** (neuer Zweig von `main`, nach t746): 69e (Weltteil), 83b/83c, D1.5 Truhe (`claude/tom-d1-5-truhe`), 74 Schritte (eingebaut, `claude/tom-74-schritte`); höchstens 4 Punkte. Danach 86.1, 86.4, 86.2, 86.3 (Zeile 86), 6l. Prüfliste mit Hühnern am Heuballen Südost (x 33, y 28) und Brücke nachts (x 18, y 25).
+### Tom (14.10., 23:2x) – Nachfolger gewünscht
+- **Vorrat, in dieser Reihenfolge:** (1) **69** übrige Intro-Bilder im Stil des Musterbilds rendern (`[69.intro.1]` Südstraße, `.3` Dorfplatz mit Fackeln, `.4` Gasthausfenster mit Rowena als Umriss; 5 schwarz), als ein Satz „Anzusehen“ auf Dein Zug mit Stil-Abgleich (88), Zeile `e/69e-5.html` dort löschen; dann Intro bauen. Vorlage `BridgeProbe.kt` auf `claude/tom-69e-musterbild`. (2) **83c Scharren** neu aus echten CC0-Aufnahmen (Suchergebnis siehe nächste Zeile), Hörprobe auf Dein Zug; sonst bleibt es. Dann `huehner.py` `--spiel`. (3) Danach 86.1, 86.4, 86.2, 86.3, 6l.
+- **Sammelbuild** erst nach „passt“ zu 0.1.746 (PR #63 abonnieren): 69e-Welt, 83b/83c, D1.5 Truhe, 74 Schritte (alle fertig auf ihren Zweigen); Prüfliste mit Hühnern (x 33, y 28) und Brücke nachts (x 18, y 25).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
