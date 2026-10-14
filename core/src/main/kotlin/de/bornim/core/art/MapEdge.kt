@@ -32,6 +32,13 @@ object MapEdge {
             val cx = tx.coerceIn(0, map.width - 1); val cy = ty.coerceIn(0, map.height - 1)
             val alongX = ty < 0 || ty >= map.height
             if ((-1..1).any { k -> (if (alongX) map.tile((cx + k).coerceIn(0, map.width - 1), cy) else map.tile(cx, (cy + k).coerceIn(0, map.height - 1))) != Tile.TREE }) continue
+            // in the village the fields and beds behind the edge stay in sight (83): no tall crowns in front of them,
+            // a hedge in the first two rows beyond the edge and open ground behind it
+            if (map.kind == MapKind.TOWN && MapFlora.shades(map, tx, ty)) {
+                val depth = maxOf(-tx, tx - map.width + 1, -ty, ty - map.height + 1)
+                if (depth <= 2) out += MapFlora.shrubs(map, tx, ty)
+                continue
+            }
             val far = MapFlora.objects(map, tx + OFF, ty + OFF) ?: continue
             for (o in far) out += WorldArt.Obj(o.img, o.x - OFF * T, o.y - OFF * T, o.sortY - OFF * T, o.density, o.low, o.corner, o.group, o.glow, o.area)
             // denser than the wood inside (user 14.10.: more trees round the map): on every other tile a second tree,
