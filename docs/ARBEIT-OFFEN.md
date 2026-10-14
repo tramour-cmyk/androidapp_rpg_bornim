@@ -51,10 +51,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 12:5x) – an Nachfolger
-- Zweig `claude/tom-5-5-dorf-luecken` (enthält `claude/tom-27m-rand`), Kerntests grün, kein Build: **5.5** Marktstand (Unterbau fest, nur Tuch durchsichtig), Fahrspuren weich; **27m.1/.3/.4/.5** Rand (`MapEdge.kt`: `CLOSE`, Lücke `-3..1`, `fade` mit 2 Reihen Licht). „Dein Zug“: `e/5-5.html` (Anzusehen), `e/27m-2.html` (Frage `WorldScreen.kt`: Tiere in die Zeichenreihenfolge), Nachtrag `e/80a.html`.
+### Tom (14.10., 12:5x, Nachtrag 12:5x) – an Nachfolger
+- Zweig `claude/tom-5-5-dorf-luecken` (enthält `claude/tom-27m-rand`), Kerntests grün, kein Build: **5.5** Marktstand (Unterbau fest, nur Tuch durchsichtig), Fahrspuren weich, Hausschatten ohne Kante; **27m.1/.3/.4/.5** Rand (`MapEdge.kt`: `CLOSE`, Lücke `-3..1`, `fade` mit 2 Reihen Licht). „Dein Zug“: `e/5-5.html` (Anzusehen), `e/27m-2.html` (Frage `WorldScreen.kt`: Tiere in die Zeichenreihenfolge), Nachtrag `e/80a.html`.
 - Nutzer testet 0.1.729 (läuft). Danach Sammelbuild per PR vom 5.5-Zweig (enthält #58 und 27m; #58 schließen), Prüfliste mit 5.5 und 27m.1–27m.5; `CHANGELOG.md`, t728/t729 von „Dein Zug“, „Jetzt installieren“ leeren.
-- **80/80a:** Laterne im Spiel unsichtbar; Steinsockel mit brennender Laterne erst nach Sokrates und Nutzer (`kaelLantern()` in `MapTownIso.kt`). **69e** wartet. Offen gesehen: harte senkrechte Schattenkante nördlich vom Platz (`HELDORT=village:17:13:D:12`, oben Mitte).
+- **80/80a:** Laterne im Spiel unsichtbar; Steinsockel mit brennender Laterne erst nach Sokrates und Nutzer (`kaelLantern()` in `MapTownIso.kt`). **69e** wartet.
 - **Nächste Arbeit:** 27m.2 nach Antwort; sonst 74 (Schritte Dorf/Räume: Verdacht bestätigen, nur Befund).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
