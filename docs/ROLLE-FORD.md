@@ -44,3 +44,6 @@ Form „Name TT.MM. HH:MM: Inhalt“, Nummer vorn; nur Nummern und Stichworte, n
 ## Protokoll
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
+
+- 17:29 14.10.: Telegram-Schlüssel fehlt weiter; Meldung 13e.6 (Für den Berater) über App-Push.
+- 16:30 14.10.: Telegram-Push fehlgeschlagen (TELEGRAM_BOT_TOKEN fehlt in der Routine-Umgebung); Meldung t732/t733, Tom-Nachfolger, Diogenes 38g über App-Push.

@@ -39,10 +39,36 @@ def letzter_text(pfad):
     return text
 
 
+# 54 gilt nur für Tom und Jerry (Nutzer 14.10., 17:3x, 65.9): Sokrates und Diogenes starten mit ihrem Namen als
+# erster Nachricht (bei Ford-Starts steht er im angehängten Text); dort schweigt der Haken.
+ROLLE_OHNE_HAKEN = re.compile(r"\b(sokrates|diogenes)\b", re.IGNORECASE)
+
+
+def erste_nachricht(pfad):
+    with open(pfad, encoding="utf-8", errors="replace") as f:
+        for zeile in f:
+            if '"user"' not in zeile:
+                continue
+            try:
+                d = json.loads(zeile)
+            except ValueError:
+                continue
+            if d.get("type") != "user" or d.get("isSidechain") or d.get("isMeta"):
+                continue
+            c = (d.get("message") or {}).get("content")
+            if isinstance(c, list):
+                c = "\n".join(x.get("text", "") for x in c if isinstance(x, dict) and x.get("type") == "text")
+            if isinstance(c, str) and c.strip() and not c.lstrip().startswith("<"):
+                return c
+    return ""
+
+
 def main():
     try:
         e = json.load(sys.stdin)
         if e.get("stop_hook_active"):
+            return
+        if ROLLE_OHNE_HAKEN.search(erste_nachricht(e["transcript_path"])[:300]):
             return
         t = e.get("last_assistant_message") or letzter_text(e["transcript_path"])
         # 54, Nutzer 13.10., 15:2x: „Das darf nicht sein“ (Tom hatte auf Build und Entscheidung gewartet, obwohl
