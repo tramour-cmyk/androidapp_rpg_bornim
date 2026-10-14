@@ -295,7 +295,7 @@ private fun PlaceList(game: Game, lang: Lang, onPick: (String) -> Unit) {
 }
 
 private fun seenOn(game: Game, m: de.bornim.core.MapDef, x: Int, y: Int): Boolean =
-    if (m.id == game.map.id) game.fog(x, y) != de.bornim.core.Fog.HIDDEN else de.bornim.core.MapMarks.seen(game.state, m, x, y)
+    if (m.id == game.map.id) game.fog(x, y, view = false) != de.bornim.core.Fog.HIDDEN else de.bornim.core.MapMarks.seen(game.state, m, x, y)
 
 @Composable
 private fun MapView(game: Game, lang: Lang, map: de.bornim.core.MapDef, here: Boolean,
