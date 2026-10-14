@@ -10,11 +10,11 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 ## Jetzt installieren
 
-- **Tom Sammelbuild 0.1.739** (ersetzt 0.1.736; 5.5, 27m.1–27m.5, Waldrand West und Nord, Tiefer Wald; PR #60, Zweig `claude/tom-5-5-dorf-luecken`): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38606896939/artifacts/11915841464), Prüfliste `e/t732.html` auf „Dein Zug“ (nur Punkt 6, Nordwestecke, Tiefer Wald nachtesten).
+- **Tom Sammelbuild 0.1.739** (zuerst; ersetzt 0.1.736; 5.5, 27m.1–27m.5, Waldrand West und Nord, Tiefer Wald; PR #60, Zweig `claude/tom-5-5-dorf-luecken`): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38606896939/artifacts/11915841464), Prüfliste „0.1.739“ (`e/t732.html`) auf „Dein Zug“ (nur Punkt 6, Nordwestecke, Tiefer Wald nachtesten).
 
-- **Tom Sammelbuild 0.1.733** (82, 52, 80a, D1.5/D1.10/D1.11; PR #61, Zweig `claude/tom-d1-schatten`, nach t732 testen): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38576807017/artifacts/11902500727), Prüfliste `e/t733.html`.
+- **Tom Sammelbuild 0.1.740** (neu gebaut statt 0.1.733, Nummer muss steigen; 82, 52, 80a, D1.5/D1.10/D1.11; PR #61, Zweig `claude/tom-d1-schatten`, nach 0.1.739): APK auf „Dein Zug“, Prüfliste `e/t733.html`.
 
-- **Tom Sammelbuild 0.1.738** (Höhle: 13e.5, 13e.6 B, D1.5, D1.9; PR #62, Zweig `claude/tom-13e-hoehle-fertig`, nach t733 testen): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38596687723/artifacts/11909509487), Prüfliste `e/t738.html`.
+- **Tom Sammelbuild 0.1.741** (neu gebaut statt 0.1.738; Höhle: 13e.5, 13e.6 B, D1.5, D1.9; PR #62, Zweig `claude/tom-13e-hoehle-fertig`, nach 0.1.740): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38609455363/artifacts/11916159370), Prüfliste `e/t738.html`.
 
 Nach „passt“ je PR (Reihenfolge #60, #61, #62): zusammenführen, `CHANGELOG.md`, Prüfliste von „Dein Zug“, hier leeren.
 
@@ -26,8 +26,8 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
-| 85 | Testmenü aufräumen: alte Einträge, die keiner mehr braucht („irgendwas mit Donnern“; Nutzer 14.10., 18:5x) | Tom (Technik); Jerry prüft seine Einträge | – | Neu. Einträge auflisten, Veraltetes mit Grund entfernen |
-| 82 | Verschlossene Tür: Held verschwand beim Anklopfen hinter der Hauswand (Nutzer 14.10., 15:5x) | Tom | `claude/tom-d1-schatten` | Behoben, in 0.1.733 (t733) |
+| 85 | Testmenü aufräumen: alte Einträge, die keiner mehr braucht („irgendwas mit Donnern“; Nutzer 14.10., 18:5x) | Tom (Technik); Jerry prüft seine Einträge | `claude/tom-85-testmenue` | Wetterleuchten-Knopf und „Garrick döst“ entfernt (beide seit 10.10. als vorübergehend markiert); kommt in Toms nächsten Sammelbuild |
+| 82 | Verschlossene Tür: Held verschwand beim Anklopfen hinter der Hauswand (Nutzer 14.10., 15:5x) | Tom | `claude/tom-d1-schatten` | Behoben, in 0.1.740 |
 | 81 | Teamleiter „Ford“ (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–n (`ROLLE-FORD.md`). Co-Pilot seit 16:02; Routine in „Voll“ (`trig_013heqXJ1KkkxTYVzmTcpzaf`, :28); Telegram-Weg steht (18:1x). Pilot und Bewährung (81i) auf Zuruf; Jerry-Ford ab Fr. |
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`enabled: false`, nicht löschen). **65.8** Rückfragen als Holschuld (Nutzer 14.10., 17:2x): nur auf „Dein Zug“, im Chat nur einmal bei Entstehung und ein Satz beim Start, aufzählen auf „Hast du Rückfragen?“; Aufträge anderer Agenten einmal mit Stellungnahme, „Kritisch“ nur bei Stillstand (Nutzer 17:3x); in `CLAUDE.md`. **65.9** Startmeldung höchstens drei Zeilen, Berater-Ritual verschlankt (Nutzer 17:3x); Weiter-Haken schweigt bei Sokrates/Diogenes (Nutzer 17:3x ja); „Vorrat leer, auf Dein Zug n offen von mir“ (Nutzer 17:4x) |
 | 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-13e-hoehle-fertig` | D1.9, D1.5, D1.6 fertig; 13e.5 passt; 13e.6 = B umgesetzt (kein Heldenlicht; Fackel → 84.1). Sammelbuild 0.1.738 (PR #62, t738) beim Nutzer; danach D1.7 Leben (Vorschlag mit Standbild) |
@@ -52,10 +52,10 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 69 | Intro: Ankunft des Reisenden bei Nacht in Standbildern mit Text, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | `claude/tom-69e-musterbild` | 69a–69d ja (`STORY-K1.md` `[69.intro.…]`). **69e vierte Runde** (`e/69e-4.html`, Vorschau `BRUECKE69E=1`): Sokrates ja als Musterbild für Blick, Stoffe, Licht ; die drei Korrekturen sind eingebaut (Tom 14:33: Laterne auf dem Pfosten am Ufer, Mond frei, beide Geländer ab Ufer); Nutzer entscheidet. Danach 70.3 |
 | 70 | Zwischensequenzen: Bildsprache für alle Kapitel (Nutzer 14.10., 08:00) | Berater mit Nutzer; Tom (69e) | `main` (Notizen) | Entschieden (Beschlüsse, `DESIGN-STIL.md`): 70.1 Musterbild nach 69e; 70.2, 70.4, 70.5 ja; 70.3 nach Stilwahl im Test-Build |
 | 79 | Kampfhintergründe an die Diagonalwelt angleichen (Nutzer 14.10., 08:34) | Berater mit Nutzer; Jerry (Bilder) | – | Nur Aussehen (Nutzer 09:08), Aufbau des Kampfbildes gehört zu 72b. Erst Standbild (Jerry ab Fr.), dann Entwurf nach Musterbild 70.1 |
-| 80 | Kaels angesengte Laterne neben seiner Haustür im Dorf (Aussehen `LISTE-FIGUREN.md`) | Tom | `claude/tom-80a-sockel` | 80a **passt** (Beschlüsse), in 0.1.733 (t733) |
+| 80 | Kaels angesengte Laterne neben seiner Haustür im Dorf (Aussehen `LISTE-FIGUREN.md`) | Tom | `claude/tom-80a-sockel` | 80a **passt** (Beschlüsse), in 0.1.740 |
 | 74 | Schrittgeräusche fehlen an allen Orten („Ort fertig“ 8; Befund Diogenes D1.1) | Tom (Vertretung für Jerry, Nutzer 14.10., 13:3x) | `claude/tom-74-schritte` | Gras, Holz, Stein passen; **Erde** und **Pflaster** neu wählen, zweite Hörprobe. 74a: ein Klang je Aufsetzen, beim Rennen dichter und leiser. Dann einbauen (nur Held) |
 | 55 | Mehr Leerlauf für alle Leute, Szenen wie Sitzen am Tisch | Tom | – | Auf `main`; 55d so lassen (Beschlüsse) |
-| 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry; Rudelwölfe Tom (Vertretung) | `claude/tom-52-rudel` | Krogg so lassen, später alle gesamt (Jerry). Rudelwölfe **passt** (Beschlüsse), in 0.1.733 (t733) |
+| 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry; Rudelwölfe Tom (Vertretung) | `claude/tom-52-rudel` | Krogg so lassen, später alle gesamt (Jerry). Rudelwölfe **passt** (Beschlüsse), in 0.1.740 |
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg | Jerry | – | Prüfthema, Nutzer 12.10., 15:4x (Test 0.1.587): wenn Zeit ist und nichts Wichtigeres ansteht; alle großen Gegner mitprüfen |
 | 63 | Eine Seite „Dein Zug“ für alles Offene (alle Rollen; Beschlüsse für Entschiedenes, 57) | Tom | `main` (Notizen) | Steht; offen: Freigabe für Jerry (Nutzer, Teilen) am Fr. |
 Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
