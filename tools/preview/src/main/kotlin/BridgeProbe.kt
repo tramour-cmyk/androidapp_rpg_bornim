@@ -675,14 +675,23 @@ private class BridgePainter(val detail: Boolean) {
     }
 
     /** The signpost at the bridge (67): a post with one board, dark wood, the moon on its left edge. */
+    /** The sign at the bridge, as in the diagonal world: a square board of planks on one post set in its middle. */
     fun signpost(x: Double, z: Double) {
-        val px = sx(x, z); val base = sy(0.0, z); val top = sy(1.6, z)
-        line(Color(0x1E1714), f * 0.12 / z, px, base, px, top)
-        line(alpha(Color(0x5A4C44), 0.8), 1.4, px - f * 0.06 / z, base, px - f * 0.06 / z, top)
-        val bw = f * 1.1 / z; val bh = f * 0.38 / z; val by = sy(1.4, z)
-        poly(Color(0x2A201C), px - bw * 0.15, by, px + bw, by - bh * 0.1, px + bw + bh * 0.4, by + bh * 0.4, px + bw, by + bh * 0.9, px - bw * 0.15, by + bh)
-        line(alpha(Color(0x6A5C50), 0.8), 1.4, px - bw * 0.15, by, px + bw, by - bh * 0.1)
-        if (detail) for (k in 0 until 3) line(Color(0x161210), 1.4, px + bw * (0.05 + 0.25 * k), by + bh * 0.4, px + bw * (0.2 + 0.25 * k), by + bh * 0.42)
+        val bx0 = x - 0.55; val bx1 = x + 0.55; val by0 = 1.0; val by1 = 1.7
+        // the post, from the ground up into the board
+        quad(night(dTimber, 1.1), x - 0.07, 0.0, z, x + 0.07, 0.0, z, x + 0.07, by1 - 0.05, z, x - 0.07, by1 - 0.05, z)
+        line(alpha(night(dPlank, 1.8), 0.7), maxOf(1.0, f * 0.02 / z), sx(x - 0.07, z), sy(0.0, z), sx(x - 0.07, z), sy(by0, z))
+        // the board: three planks, the moon on its upper and left edges
+        quad(night(dPlank), bx0, by0, z, bx1, by0, z, bx1, by1, z, bx0, by1, z)
+        if (detail) for (k in 1..2) { val y = by0 + (by1 - by0) * k / 3
+            line(night(0x1E140C), maxOf(1.0, f * 0.015 / z), sx(bx0, z), sy(y, z), sx(bx1, z), sy(y, z)) }
+        line(alpha(night(dPlank, 1.9), 0.8), maxOf(1.0, f * 0.025 / z), sx(bx0, z), sy(by1, z), sx(bx1, z), sy(by1, z))
+        line(alpha(night(dPlank, 1.6), 0.7), maxOf(1.0, f * 0.02 / z), sx(bx0, z), sy(by0, z), sx(bx0, z), sy(by1, z))
+        // carved letters, too far to read
+        if (detail) for (k in 0 until 2) for (m in 0 until 4) {
+            val y = by0 + (by1 - by0) * (0.68 - 0.36 * k); val xa = bx0 + 0.15 + m * 0.21
+            line(night(0x140E0A), maxOf(1.0, f * 0.012 / z), sx(xa, z), sy(y, z), sx(xa + 0.14, z), sy(y, z))
+        }
     }
 
     fun vignette() {
