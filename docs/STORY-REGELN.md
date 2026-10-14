@@ -8,6 +8,7 @@ Freigegebene Spieltexte (Thema 41), festgelegt von Nutzer und Berater. Hier nur 
 - **Marke je Text** in eckigen Klammern: `[Thema.kurz]`, z. B. `[64d.greif]`, `[67.vor.1]`. Die Marke bleibt fest, auch wenn sich der Text ändert; sie darf im Code als Kommentar stehen.
 - **Bedingung** steht hinter der Marke in Klammern: wann der Text erscheint.
 - `{name}` ist der Name des Helden.
+- **Bornim** hat etwa 50 Einwohner (Nutzer 14.10., 69e.4); Szenen mit „dem ganzen Dorf“ zeigen höchstens so viele, der Tempel fasst 25–30.
 - **Feste Namen** (Nutzer 13.10., 21:29; D2.4/D2.13): überall gleich, auch im Englischen. Bugbear = **Grottenschrat** (Krogg heißt „Krogg der Grobian“ / „Krogg the Brute“); Tempel des Morgenlichts = **Temple of the Dawnlight**; Kräuterfrau Morwen = **Morwen the Herbalist**; Tiefer Flüsterwald = **Deep Whisperwood** (nie „Tiefer Wald“ / „Deep Forest“); Aufträge = **Quests**.
 - **Gruppen je Kapitel** (77d, Nutzer 13.10.): **K1-H** Hauptquest, **K1-N** Nebenquests, **K1-Z** Zwischensequenzen, **K1-W** Welt (Chronik, Hörensagen, Stimmen hinter Türen); Kapitel 2 entsprechend K2-H usw. Die Marken `[Thema.kurz]` bleiben unverändert.
 - **Teilung nach Gruppe; Kapitelübergreifendes in eigener Datei** (77e): je Kapitel `STORY-K<n>.md` (H, N, Z) und `STORY-K<n>-W.md` (Welt); Texte, die in allen Kapiteln gelten, in eigener Datei (`STORY-BLENDE.md`). Jede Datei höchstens etwa 15 KB; neue hier eintragen.
