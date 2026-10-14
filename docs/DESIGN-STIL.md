@@ -79,7 +79,7 @@ Alle Zwischensequenzen (Intro 69, Tempelszene 68, spätere Wendepunkte) sind gle
 - **Figuren** an Umriss und festem Merkmal erkennbar (etwa Lyra Stirnreif, Osric Kerze), nicht am Gesicht; Rückenansicht oder Schattenriss (70.2)
 - **Selten:** je Kapitel höchstens Anfang und Ende, dazu selten ein Wendepunkt (70.4)
 - **Bild:** dieselbe Welt (Grundsatz unter „Richtung“), leicht abstrahiert: ruhigere Formen, weniger Einzelheiten, ein Hauch von Gemälde, weder Ölgemälde noch Bildschirmfoto; Grad am Probebild (69e). Musterbild folgt nach den Probebildern (70.1)
-- **Blickwinkel:** Standard aus den Augen des Helden (wie die Intro-Entwürfe von Tom, Held nicht im Bild); ist der Held nicht dabei, ein frei gewähltes Stimmungsbild (wie Lyra in der Tempeltür)
+- **Blickwinkel:** Ich-Perspektive des Helden oder ein Bild ohne ihn (Stimmung, anderer Schauplatz); der Held erscheint nie, weil er wählbar ist (Geschlecht, Klasse, Ausrüstung); andere Figuren dürfen ins Bild (wie Lyra in der Tempeltür)
 - **Leises Leben** (Flackern, Lichtfall, Staub) wird nach der Stilwahl in einem Test-Build an einer Szene entschieden (70.3)
 
 ## Klang
