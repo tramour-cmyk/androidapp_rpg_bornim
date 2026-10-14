@@ -1,5 +1,14 @@
 # Archiv
 
+### Aus ROLLE-BERATER.md, Übergabe 14.10., 09:1x
+**Übergabe (14.10., 09:1x) – Nachfolger: „Sokrates – Kultlager Kapitel 2“:**
+
+**Sitzungen** (ältere im Archiv): 14.10. 07:08–09:1x „69e Bildart“: 69e, 70 (Bildsprache), 79 neu (Kampfhintergründe, nur Aussehen), Grundsatz „unser Stil ist die Diagonalwelt“ in `DESIGN-STIL.md`, Bornim 50 Einwohner, Übergaben Tom/Jerry in `CLAUDE.md`, Rolle geschärft. Schwerpunkt: Spiel (Gestaltung) gut drei Viertel, Rest Nachtragen. Selbstkritik: dreimal ungeprüft zugestimmt, Nutzer korrigierte. **Sprachsitzung schickt „Tom, …“-Aufträge in diese Sitzung** (gleicher Account), nicht zu Tom: dem Nutzer sagen, dass er Tom selbst anstoßen muss.
+
+**Nächster Punkt:** (1) Probebilder 69e von Tom (Brücke präzise gegen leicht abstrahiert, beide farbig): Stilwahl, Musterbild mit Bildregeln (70.1), danach 70.3 im Test-Build. (2) **41 Kultlager**, dabei feste Merkmale der Figuren (70.2). (3) **79** nach dem Musterbild (Standbild von Jerry ab Fr.). (4) **72a–72j**. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
+
+**Zuletzt gelesen bis:** dieser Commit (14.10., 09:1x)
+
 ### Tom (14.10., 08:05)
 - **Heute:** 0.1.721 abgenommen, PR #57 zusammengeführt (`main` grün); 55d so lassen; 77e.3 Vorgaben neu gefasst; 69e beim Berater. **0.1.728** (PR #58, Zweig `ccr-e4144697-7oy67j`, abonniert, grün): 27l Licht am Fuß (`footLight`), Pfützen weich, Nähte weg (Bodenstücke überlappen), 77.1 Leiste; Prüfliste `e/t728.html`. Nach Test: PR #58 zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“.
 - **27m** Kartenrand-Entwurf auf „Dein Zug“ (`claude/tom-27m-rand` 5ce92886, `RAND=1`, `MapEdge`): bei Ja fest einbauen (Schalter weg), vorher Bildrate messen.

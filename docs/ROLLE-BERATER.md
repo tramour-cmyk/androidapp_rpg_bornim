@@ -2,13 +2,13 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 09:1x) – Nachfolger: „Sokrates – Kultlager Kapitel 2“:**
+**Übergabe (14.10., 09:5x) – Nachfolger: „Sokrates – Texte Kapitel 2“:**
 
-**Sitzungen** (ältere im Archiv): 14.10. 07:08–09:1x „69e Bildart“: 69e, 70 (Bildsprache), 79 neu (Kampfhintergründe, nur Aussehen), Grundsatz „unser Stil ist die Diagonalwelt“ in `DESIGN-STIL.md`, Bornim 50 Einwohner, Übergaben Tom/Jerry in `CLAUDE.md`, Rolle geschärft. Schwerpunkt: Spiel (Gestaltung) gut drei Viertel, Rest Nachtragen. Selbstkritik: dreimal ungeprüft zugestimmt, Nutzer korrigierte. **Sprachsitzung schickt „Tom, …“-Aufträge in diese Sitzung** (gleicher Account), nicht zu Tom: dem Nutzer sagen, dass er Tom selbst anstoßen muss.
+**Sitzungen** (ältere im Archiv): 14.10. 09:15–09:5x „Kultlager und Aschfurt“: 41 Station 3 (5a–5f) und 4 (6a–6f) entschieden, Plot Kapitel 2 damit vollständig; 70.2/70.5 ja: `LISTE-FIGUREN.md` einzige Quelle fürs Aussehen; 80 neu (Kaels Laterne, Tom). Schwerpunkt: Spiel fast ganz, Abläufe kaum. Lehre: drei von sechs Rückfragen brauchten Erklärung, also Kontext gleich in die Rückfrage.
 
-**Nächster Punkt:** (1) Probebilder 69e von Tom (Brücke präzise gegen leicht abstrahiert, beide farbig): Stilwahl, Musterbild mit Bildregeln (70.1), danach 70.3 im Test-Build. (2) **41 Kultlager**, dabei feste Merkmale der Figuren (70.2). (3) **79** nach dem Musterbild (Standbild von Jerry ab Fr.). (4) **72a–72j**. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
+**Nächster Punkt:** (1) **41 Texte Kapitel 2** (Dialoge, Erzähltexte, Aushänge Schilfrode; Namen offen: Aufseher „Brand“, Sohn von Merle und Ansel), Nebenaufgaben 5–6 Stück. (2) Probebilder 69e von Tom: Stilwahl, Musterbild (70.1), dann 70.3. (3) 79 nach dem Musterbild (Jerry ab Fr.). (4) 72a–72j. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
 
-**Zuletzt gelesen bis:** dieser Commit (14.10., 09:1x)
+**Zuletzt gelesen bis:** dieser Commit (14.10., 09:5x)
 
 ## Wer du bist
 
