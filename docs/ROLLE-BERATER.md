@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (14.10., 07:4x):**
 
-**Sitzungen** (ältere im Archiv): 14.10. 07:08–07:4x „Sokrates – 69e Bildart“: 69e geprüft (A fällt aus, B gegen Leitbild: Pixelkorn, Welt passt nicht zur Karte, Fenster gegen 13x, Menge zu groß), Nutzer entschied Probebild B fein gemalt und C Tusche wie eine Chronik (Beschlüsse). Schwerpunkt: Spiel (Gestaltung), Abläufe nur Nachziehen.
+**Sitzungen** (ältere im Archiv): 14.10. 07:08–07:4x „Sokrates – 69e Bildart“: 69e geprüft Nutzer entschied Probebild B fein gemalt und C Tusche wie eine Chronik (Beschlüsse). Schwerpunkt: Spiel (Gestaltung), Abläufe nur Nachziehen.
 
 **Nächster Punkt:** (1) Probebilder 69e von Tom: Stilwahl B/C mit dem Nutzer, Grad der Abstraktion, Musterbild mit Bildregeln (70.1); danach 70.3 im Test-Build. (2) **41 Kultlager**, dabei feste Merkmale der Figuren (70.2). (3) **79** Kampfhintergründe (aktuelles Standbild von Jerry ab Fr.); klären, ob „Kampf richtet sich nach der Diagonalwelt“ nur Aussehen meint oder auch Ansicht (dann 72b). (4) **72a–72j**. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
 
