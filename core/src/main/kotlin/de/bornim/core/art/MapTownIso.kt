@@ -725,9 +725,10 @@ object MapTownIso {
 
     /**
      * A market stall (5.2): a trestle table of planks under a cloth roof on four poles, wares on it. Three looks with
-     * their own cloth and wares: apples and cabbages, loaves and sacks, pots and a string of onions.
+     * their own cloth and wares: apples and cabbages, loaves and sacks, pots and a string of onions. [withCloth] false: all
+     * but the cloth roof (5.5: on the map the roof fades on its own when the hero stands behind the stall).
      */
-    fun stall(v: Int, seed: Int): PixelImage {
+    fun stall(v: Int, seed: Int, withCloth: Boolean = true): PixelImage {
         val c = Tile1(220)
         c.shadow(-0.5, -0.45, 0.55, 0.4)
         val i0 = -0.9; val i1 = -0.1; val j0 = -0.72; val j1 = -0.28
@@ -742,6 +743,7 @@ object MapTownIso {
             val col = wares[hash(k, 2, seed) % wares.size]
             c.cylinder(wi, wj, rr, 48.0, 48.0 + rr * 90, { _, z, lit -> shade(argb(col), lit * (0.7 + 0.3 * (z - 48) / (rr * 90))) })
         }
+        if (!withCloth) return c.img
         // the cloth: sloping from the back poles down to the front, striped, its hem hanging ragged
         val cloth = when (v) { 0 -> 0x5A3A2A to 0x7A6E58; 1 -> 0x3E4A3A to 0x6E6A52; else -> 0x4A3A4E to 0x7A7060 }
         c.plane(doubleArrayOf(i0 - 0.06, j0 - 0.04, 132.0), doubleArrayOf(i1 - i0 + 0.12, 0.0, 0.0), doubleArrayOf(0.0, j1 - j0 + 0.16, -26.0)) { u, w ->
@@ -752,6 +754,21 @@ object MapTownIso {
             if (w < 0.4 * rnd(floor(u * 30).toInt(), 1, seed + 4)) null else shade(argb(if (floor(u * 6).toInt() % 2 == 0) cloth.first else cloth.second), 0.65)
         }
         return c.img
+    }
+
+    /** Only the cloth roof of a [stall]: the pixels where the whole stall differs from the one without its cloth. */
+    fun stallCloth(v: Int, seed: Int): PixelImage = litWindows(stall(v, seed, false), stall(v, seed))
+
+    /**
+     * [img] without its empty rows at the top, an even number of them (drawn at half size); [PixelImage.oy] says how many.
+     * Pictures stand on their lower edge, so it is drawn where it was; but the cloth and the rest of a stall now have
+     * different places, and the see-through goes by place, so each fades on its own.
+     */
+    private fun cutTop(img: PixelImage): PixelImage {
+        var n = 0
+        while (n < img.height - 2 && (0 until img.width).none { img.opaque(it, n) }) n++
+        n -= n % 2
+        return PixelImage(img.width, img.height - n, img.pixels.copyOfRange(n * img.width, img.pixels.size), 0, n)
     }
 
     /**
@@ -1061,10 +1078,20 @@ object MapTownIso {
             val wx = (tx + 1) * T; val wy = (ty + 1) * T
             return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, corner = true))
         }
+        // 5.5 (test 00:40: a light see-through column at the stall): the table, wares and poles stay solid like a counter,
+        // only the cloth roof fades when the hero stands behind the stall; together the same picture as before
+        if (t == Tile.STALL) {
+            val T = WorldArt.T
+            val base = synchronized(sliceCache) { thingCache.getOrPut("stall/$v/base") { cutTop(stall(v, 501 + v, false)) } }
+            val roof = synchronized(sliceCache) { thingCache.getOrPut("stall/$v/roof") { stallCloth(v, 501 + v) } }
+            val wx = (tx + 1) * T; val wy = (ty + 1) * T
+            val sortY = (tx + ty) * T + T * 3 / 2 - 1 - wx
+            return listOf(WorldArt.Obj(base, wx - base.width / 4, wy - base.height / 2, sortY, 2, low = true, corner = true),
+                WorldArt.Obj(roof, wx - roof.width / 4, wy - roof.height / 2, sortY, 2, corner = true))
+        }
         val thing: Pair<String, () -> PixelImage>? = when (t) {
             Tile.SIGN -> "sign/$v" to { signpost(v, 71) }
             Tile.NOTICE -> "notice/$v/$freshNote" to { noticeBoard(v, 561 + v, freshNote) }
-            Tile.STALL -> "stall/$v" to { stall(v, 501 + v) }
             Tile.WELL -> "well/$v" to { well(v, 511 + v) }
             Tile.LAMP -> "lamp/$v" to { lamp(v, 521 + v) }
             Tile.BENCH -> "bench/$v" to { bench(v, 531 + v) }
