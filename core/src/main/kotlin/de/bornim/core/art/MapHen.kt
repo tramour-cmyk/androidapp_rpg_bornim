@@ -90,9 +90,13 @@ object MapHen {
         for (s in listOf(-1.0, 1.0)) {
             val shoulder = on(s * 5.6, 3.5, 4.0)
             val folded = tilt.apply(P3(s * 0.12, -0.25, -1.0)).norm()
-            val spread = P3(s * 0.85, 0.5, -0.2).norm()
+            val spread = P3(s * 0.95, 0.28, -0.25).norm()
             val dir = folded.lerp(spread, p.wing).norm()
-            val ax = (P3.Y cross dir).let { if (it.len() < 1e-3) P3.X else it.norm() }
+            // the thin side of the wing: sideways while folded, up when spread (a flat feathered fan, not a plate on edge)
+            val thinFolded = (P3.Y cross dir).let { if (it.len() < 1e-3) P3.X else it.norm() }
+            val thinSpread = (dir cross P3.Z).let { if (it.len() < 1e-3) P3.Y else it.norm() }.let { if (it.y < 0) -it else it }
+            val mixed = thinFolded.lerp(thinSpread, p.wing)
+            val ax = (mixed - dir * (mixed dot dir)).let { if (it.len() < 1e-3) thinFolded else it.norm() }
             val ay = (dir cross ax).norm()
             val c = shoulder + dir * (6.5 + 1.5 * p.wing)
             ell(c, 1.5, 5.0 + 1.5 * p.wing, 8.0 + 1.5 * p.wing, pl.body, BODY, Frame(ax, ay, dir))
@@ -166,7 +170,15 @@ object MapHen {
      */
     class Hen(val homeX: Float, val homeY: Float, val seed: Int, val variant: Int) {
         var x = homeX; var y = homeY
+        /** Where it wants to face, and where it faces now: it turns at most [TURN] degrees a second, never snaps round. */
         private var yaw = (seed % 8) * 45.0
+        private var shown = yaw
+        /** The way round an obstacle it took last, kept so it does not dither left and right. */
+        private var aside = 0
+        private var stuck = false
+        private var bout = Long.MIN_VALUE
+        /** The pose it had before the present mood, so the new one starts with a blend from it, not a jump. */
+        private var from = "low"
         private var mood = Mood.IDLE
         private var since = Long.MIN_VALUE
         private var last = Long.MIN_VALUE
@@ -191,8 +203,8 @@ object MapHen {
             if (d < 0.5f) return true
             val s = minOf(d, speed * dt / 1000f)
             val nx = x + dx / d * s; val ny = y + dy / d * s
-            yaw = Math.toDegrees(atan2(dx.toDouble(), dy.toDouble()))
             if (!free(map, nx, ny)) return false
+            yaw = Math.toDegrees(atan2(dx.toDouble(), dy.toDouble()))
             x = nx; y = ny
             return true
         }
@@ -202,7 +214,10 @@ object MapHen {
             val dt = if (last == Long.MIN_VALUE) 0L else (clock - last).coerceIn(0L, 200L)
             last = clock
             val near = hypot(heroX - x, heroY - y)
-            fun go(m: Mood) { mood = m; since = clock }
+            fun go(m: Mood) {
+                from = when (mood) { Mood.FLEE, Mood.WARY -> "alert"; Mood.WALK -> "stand"; Mood.IDLE -> "low" }
+                mood = m; since = clock
+            }
             if (near < SHY && mood != Mood.FLEE) go(Mood.FLEE)
             when (mood) {
                 Mood.FLEE -> {
@@ -211,10 +226,15 @@ object MapHen {
                         // straight away from the hero, bending aside where the way is blocked
                         val ax = x - heroX; val ay = y - heroY
                         val base = atan2(ax.toDouble(), ay.toDouble())
-                        val side = if (seed % 2 == 0) 1 else -1
+                        val side = if (aside != 0) aside else if (seed % 2 == 0) 1 else -1
+                        stuck = true
                         for (turn in listOf(0, 35, -35, 70, -70, 110, -110)) {
                             val a = base + Math.toRadians((turn * side).toDouble())
-                            if (step(map, x + sin(a).toFloat() * 20f, y + cos(a).toFloat() * 20f, RUN_SPEED, dt)) break
+                            if (step(map, x + sin(a).toFloat() * 20f, y + cos(a).toFloat() * 20f, RUN_SPEED, dt)) {
+                                stuck = false
+                                if (turn != 0) aside = if (turn > 0) side else -side
+                                break
+                            }
                         }
                     }
                 }
@@ -246,13 +266,21 @@ object MapHen {
                     walkSlot = slot
                 }
             }
+            if (mood != Mood.FLEE) aside = 0
             val t = clock - since
-            return when (mood) {
-                Mood.FLEE -> At(x, y, yaw, "run", Math.floorMod((clock / 45).toInt(), 8), variant)
-                Mood.WALK -> At(x, y, yaw, "walk", Math.floorMod((clock / 80).toInt(), 8), variant)
-                Mood.WARY -> At(x, y, yaw, if (t < 300) "stand>alert" else "alert", if (t < 300) (t * 8 / 300).toInt() else 0, variant)
-                Mood.IDLE -> idle(clock)
+            val a = when (mood) {
+                Mood.FLEE -> if (stuck) At(x, y, yaw, "alert", 0, variant) else At(x, y, yaw, "run", Math.floorMod((clock / 45).toInt(), 8), variant)
+                Mood.WALK -> if (t < BLEND) At(x, y, yaw, "$from>stand", (t * 8 / BLEND).toInt(), variant) else At(x, y, yaw, "walk", Math.floorMod((clock / 80).toInt(), 8), variant)
+                Mood.WARY -> At(x, y, yaw, if (t < 300) "run>alert" else "alert", if (t < 300) (t * 8 / 300).toInt() else 0, variant)
+                Mood.IDLE -> if (t < BLEND && from != "low") At(x, y, yaw, "$from>low", (t * 8 / BLEND).toInt(), variant) else idle(clock)
             }
+            // turning: towards where it wants to face, quick when running, unhurried otherwise
+            val want = a.yaw
+            var d = (want - shown) % 360.0
+            if (d > 180) d -= 360.0 else if (d < -180) d += 360.0
+            val most = (if (mood == Mood.FLEE) TURN_RUN else TURN) * dt / 1000.0
+            shown += d.coerceIn(-most, most)
+            return a.copy(yaw = shown)
         }
 
         /** What it does standing: pecking mostly, a bout of scratching, looking up; each bout a few seconds. */
@@ -260,27 +288,39 @@ object MapHen {
             val c = clock + seed * 313L
             val slot = Math.floorDiv(c, BOUT)
             val u = Math.floorMod(c, BOUT)
-            // a bout of scratching turns it a little; it keeps that way
-            val face = yaw + (hash(slot.toInt(), seed, 6) % 3 - 1) * 35.0
+            // each new bout turns it a little, and it keeps that way
+            if (slot != bout) { bout = slot; yaw += (hash(slot.toInt(), seed, 6) % 3 - 1) * 35.0 }
+            val face = yaw
             return when (hash(slot.toInt(), seed, 5) % 6) {
                 0, 1, 2 -> {
                     // pecking: head low, then a quick jab to the ground, two or three times a second, now and then a pause
-                    val jab = Math.floorMod(u + seed * 7L, 420L)
-                    val pause = hash((u / 1300).toInt(), seed, 8) % 3 == 0
+                    // each jab starts and ends with the head low, so a bout begins and ends without a jump
+                    val jab = u % JAB
+                    val pause = hash((u / JAB).toInt(), seed + slot.toInt(), 8) % 3 == 0
                     if (pause || jab > 260) At(x, y, face, "low", 0, variant)
                     else At(x, y, face, "low>peck", (if (jab < 130) jab * 8 / 130 else (260 - jab) * 8 / 130).toInt().coerceIn(0, 8), variant)
                 }
                 3, 4 -> {
                     // scratching: raking back with one foot, then a look at the ground
-                    val r = Math.floorMod(u, 700L)
-                    if (r < 420) At(x, y, face, "stand>scratch", (if (r < 210) r * 8 / 210 else (420 - r) * 8 / 210).toInt().coerceIn(0, 8), variant)
+                    val r = u % RAKE
+                    if (r < 420) At(x, y, face, "low>scratch", (if (r < 210) r * 8 / 210 else (420 - r) * 8 / 210).toInt().coerceIn(0, 8), variant)
                     else At(x, y, face, "low", 0, variant)
                 }
-                else -> At(x, y, face, if (u < 2_000) "alert" else "stand", 0, variant)
+                // looking up a while, the head raised and lowered again
+                else -> when {
+                    u < BLEND -> At(x, y, face, "low>alert", (u * 8 / BLEND).toInt(), variant)
+                    u < 1_800 -> At(x, y, face, "alert", 0, variant)
+                    u < 1_800 + BLEND -> At(x, y, face, "alert>low", ((u - 1_800) * 8 / BLEND).toInt(), variant)
+                    else -> At(x, y, face, "low", 0, variant)
+                }
             }
         }
     }
 
+    /** How long a change of pose between moods takes. */
+    private const val BLEND = 300L
+    private const val TURN = 240.0
+    private const val TURN_RUN = 720.0
     const val SHY = 46f
     const val SAFE = 90f
     /** How far from home it strolls, and how far it may run off. */
@@ -289,7 +329,10 @@ object MapHen {
     private const val WALK_SPEED = 16f
     private const val RUN_SPEED = 85f
     private const val SLOT = 4_200L
-    private const val BOUT = 3_100L
+    /** A bout of pecking or scratching is whole jabs and rakes long. */
+    private const val JAB = 440L
+    private const val RAKE = 770L
+    private const val BOUT = 3_080L
 
     // ---------------------------------------------------------------- the places
 
