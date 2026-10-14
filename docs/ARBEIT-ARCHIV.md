@@ -1,6 +1,12 @@
 # Archiv
 
 
+### Tom (14.10., 12:2x) – an Nachfolger
+- **5.5** auf `claude/tom-5-5-dorf-luecken` (enthält `claude/tom-27m-rand`), Kerntests grün, kein Build: Marktstand in Unterbau (fest, `low`) und Tuch (eigene Durchsicht) geteilt, Fahrspuren weich (`MapGround.kt`). Auf „Dein Zug“ `e/5-5.html`. Noch gesehen: harte senkrechte Schattenkante auf dem Gras nördlich vom Platz (Standbild `HELDORT=village:17:13:D:12`, oben Mitte), Ursache offen.
+- **69e** (`claude/tom-69e-musterbild`, Vorschau `BRUECKE69E=1`) und **80a** (Skript `tools/entwurf/80a_zeichen.py`) warten auf Nutzer/Sokrates; nach Wahl Zeichen in `LISTE-FIGUREN.md` und `kaelLantern()` (`MapTownIso.kt`).
+- **t729:** nach „passt“ eine PR von `claude/tom-5-5-dorf-luecken` oder `claude/tom-27m-rand` (enthält #58; #58 dann schließen), `CHANGELOG.md`, t728/t729 von „Dein Zug“, „Jetzt installieren“ leeren. Ostrand: Randkronen verdecken Helden halb (beobachten).
+- **Nächste Arbeit:** 74 (Schritte Dorf/Räume: Verdacht bestätigen, nur Befund).
+
 ### Tom (14.10., 11:4x) – an Nachfolger
 - **69e dritter Entwurf** (nur Entwurf, kein Musterbild ohne Freigabe; Nutzer 11:4x) auf `claude/tom-69e-musterbild` (enthält `claude/tom-69-intro`), Vorschau `BRUECKE69E=1` → `probe69e_r3.png`; auf „Dein Zug“. Nach „ja“: Musterbild 70.1, übrige Intro-Bilder und Tempelszene genauso; Karten-Tanne später nachziehen (Vorschlag).
 - **80** Position entschieden (Beschlüsse). **80a** Familienzeichen: Entwürfe A Raute / B Laterne am Haken / C Mühlrad auf „Dein Zug“, Zeile „Für den Berater“; Skript `tools/entwurf/80a_zeichen.py` auf `claude/tom-69e-musterbild`. Nach Wahl: `LISTE-FIGUREN.md` (Kael) und `kaelLantern()` in `MapTownIso.kt` (Zweig `claude/tom-27m-rand`) zeichnen.
