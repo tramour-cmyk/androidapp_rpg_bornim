@@ -20,7 +20,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
-| 82 | Verschlossene Tür: Held verschwindet beim Anklopfen, Text kommt, Held taucht wieder auf (Nutzer 14.10., 15:5x, Bild Pims Haus); alle Zugänge prüfen | Tom | `claude/tom-d1-schatten` | Ursache: freies Laufen lässt ihn halb ins Türfeld, Füße hinter der Hauswand. Behebung: verschlossene Tür zählt beim Laufen als Wand, Anklopfen beim Dagegenlaufen |
+| 82 | Verschlossene Tür: Held verschwand beim Anklopfen hinter der Hauswand (Nutzer 14.10., 15:5x, Pims Haus); alle Zugänge | Tom | `claude/tom-d1-schatten` | Behoben (f088ebd0): Tür mit Bedingung zählt beim Laufen als Wand, Dagegenlaufen klopft an; gilt für alle bedingten Zugänge außer Umkehr am Kartenrand; Kerntest. Kommt in den nächsten Sammelbuild |
 | 81 | Teamleiter „Ford“: hält Tom und Jerry beschäftigt, meldet dem Nutzer Entscheidungen, startet Sitzungen (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–i, 81k–l (Beschlüsse/Archiv). **81m Telegram-Push** aus Sitzung und Routine bestätigt (Nutzer 15:2x), Weg in `ROLLE-FORD.md`. Routinen gebaut (15:28): „Ford (Tom)“ stündlich, aus bis zur Stellung; „Ford Start“ (aus Probe 1/2 umgebaut). Nächstes: Nutzer wählt Stellung, dann drei Nächte Pilot (81i); Jerry-Ford ab Fr. [Entwurf Ford](https://claude.ai/code/artifact/ff3ae8ab-a448-4a79-b928-3a09f424b45c) |
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`update_trigger`, `enabled: false`, nicht löschen; `ARBEIT-SELBST.md`). Regeln in `CLAUDE.md` |
 | 13 | Diagonale Sicht | Tom | `claude/tom-73-laeden` | 13t auf `main` (PR #54). Verlauf im Archiv |
@@ -53,9 +53,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 15:3x)
-- PR #60 abonniert (grün, wartet auf t732; nach „passt“ zusammenführen, `CHANGELOG.md`). Beim Nutzer offen: t732, 69e, 74. **Nächster Sammelbuild** (neuer Zweig von `main`, nach t732): 52, 80a, D1.5, D1.10.
-- **D1.5** (ceb9452) und **D1.10** (d9899f4f) fertig auf `claude/tom-d1-schatten`: Schatten 2:1; Rowena wischt/schenkt ein (`NPCIDLE=rowena`), Schänkenklänge kommen aus dem Bewegungsplan (`PlaceSound.folk`), zufällig nur Husten und Knarren. Jetzt **D1.11-Rest** (Tür/Fenster nur eine Form; mehrteilige Möbel je Feld andere Variante). D1.16-Rest nur nach Absprache.
+### Tom (14.10., 16:0x) – an Nachfolger
+- PR #60 abonniert (grün, wartet auf t732; nach „passt“ zusammenführen, `CHANGELOG.md`). Beim Nutzer offen: t732, 69e, 74.
+- **Nächster Sammelbuild** (höchstens 4 Punkte, neuer Zweig `claude/tom-sammel-82` von `main`, die drei Zweige hineinmergen): **52** (`claude/tom-52-rudel`), **80a** (`claude/tom-80a-sockel`), **D1-Reste** (D1.5 Schatten 2:1, D1.10 Rowena/Schänkenklang, D1.11 Fenster/Regale) und **82** (Tür) auf `claude/tom-d1-schatten`. Prüfliste `e/t<build>.html`; Vermerke im Prüfbericht gesetzt. Danach D1.16-Rest nur nach Absprache.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.
