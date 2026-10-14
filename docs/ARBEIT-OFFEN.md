@@ -82,6 +82,7 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 - **72q erledigt?** (Tom, Nutzer 14.10., 20:4x: „72q ist glaube ich irgendwie auch entschieden; bitte nochmal Sokrates vorlegen, ob es erledigt ist; wenn nicht, dann beraten“). Beschlüsse 72.7–72.10 (Held plus ein Begleiter) scheinen die Gruppenfrage zu beantworten; offen wirkt nur noch die Aufstellung fest oder veränderlich. Prüfen, dann 72q von „Dein Zug“ nehmen oder beraten.
+- **13e.6 Höhle zu hell?** (Tom, Nutzer 14.10., 21:0x, Test 0.1.741, Bildschirmfoto: Lagerhöhle mit Feuer unten, Kristalle und Pilze oben links, Held in der Mitte gut zu sehen): „dafür, dass es dunkel sein soll, ist es sehr hell, oder... Leg das mal mit Bild Sokrates zur Beratung vor, wie das zu schleichen und lauschen passt und zur Atmosphäre allgemein“. Standbild: Zweig `claude/tom-13e-hoehle-fertig`, Vorschau `KARTENZOOM=1 ONLY=zoom_nah_5`.
 - **26 Ausgleich Magier** (Tom für Jerry, 14.10.; Simulation: Magier 45 % gegen Grak, mit Zauber Schild 78–87 %; Entwurf `claude/tom-26-magier-schild`, im Spiel aus; Bosse auf Stufe 5–6 über Ziel 50–65 %). Zurückgestellt (Nutzer 16:02): wird mit 72b entschieden (Schild als Reaktion des Magiers).
 
 
