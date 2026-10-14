@@ -182,6 +182,18 @@ private class BridgePainter(val detail: Boolean) {
 
     /** Round 2: a little life (fireflies over the bank, smoke from the chimneys, a bat before the moon). */
     fun life() {
+        // smoke from the chimney of the near house, drifting off to the right and thinning, its left side in the moon
+        for (hs in buildings().filter { it.z < 22 && !it.temple }) {
+            val top = hs.wall + hs.roof; val zr = hs.z + hs.d / 2 + 0.5
+            val x0 = sx(hs.x - hs.w / 2 + hs.w * 0.72 + 0.35, zr); val y0 = sy(top + 0.8, zr)
+            for (k in 0 until 60) {
+                val t = k / 60.0
+                val x = x0 + t * t * 220 + kotlin.math.sin(t * 9) * 12 * t; val y = y0 - t * 260 - 6
+                val r = 10 + t * 60
+                glow(x, y, r, Color(0x8A94AC), 0.16 * (1 - t))
+                glow(x - r * 0.3, y - r * 0.2, r * 0.6, Color(0xB8C4DC), 0.08 * (1 - t))
+            }
+        }
         for (i in 0 until 26) {
             val x = rnd(i, 901) * W; val y = sy(0.0, 6.0) + (rnd(i, 902) - 0.3) * 260
             val r = 1.4 + rnd(i, 903) * 1.6
