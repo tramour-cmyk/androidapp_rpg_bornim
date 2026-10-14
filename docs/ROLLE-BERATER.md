@@ -2,7 +2,7 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 19:2x) – Nachfolger: „Sokrates – Kampfsystem“:**
+**Übergabe (14.10., 18:5x) – Nachfolger: „Sokrates – Kampfsystem“:**
 
 **Nächster Punkt:** (0) **72q Gruppe** mit dem Nutzer am Rechner besprechen, nicht vorab entscheiden: Held plus zwei, je Figur selbst oder Automatik (72.6), Begleiter mit Haltung, Reihen vorn/hinten; das Kampf-Dokument nahm den Einzelhelden nur als Ausgangslage (Ergänzung am Ende des [Dokuments](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4)). Danach 72p, 72k–72o, 26d; Schleichen (84.3), Schnellwechsel (84.2). (1) **84** Kernregel „Licht gegen Heimlichkeit“ noch ohne Antwort. (2) **81 Ford** Regelbilanz, Pilot nur auf Zuruf. (3) **41** Entwurf beim Nutzer. (4) **69e** Runde 4, dann 70.1, 79. (5) 72a–72j.
 
