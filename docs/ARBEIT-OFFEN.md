@@ -57,7 +57,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 16:4x) – an Nachfolger
+### Tom (14.10., 17:3x) – an Nachfolger
+- **Reihenfolge:** (1) PR #60 neu abonnieren, neuer Build (Waldrand West) → `e/t732.html` auf neuen Build und APK-Link umstellen, nur Waldrand West nachtesten; (2) 13e.5 in die Beschlüsse, von „Dein Zug“ nehmen; (3) Sammelbuild 13e (D1.5, D1.6, D1.9) per PR mit Prüfliste; (4) 74a beantworten, Erde/Pflaster neu wählen; (5) 83 Standbild und Vorschlag.
 - **t732-Rückläufer Waldrand West** behoben (Zeile 27), Build von PR #60 läuft: Prüfliste `e/t732.html` auf neuen Build umstellen (nur Waldrand West nachtesten). PR #60 (t732) und #61 (t733, Build 0.1.733) sind abonniert, Prüflisten stehen auf „Dein Zug“; beim Nachfolger neu abonnieren. Nach „passt“ zusammenführen (#60 zuerst).
 - **13e Höhle** (Vertretung Jerry), Zweig `claude/tom-13e-hoehle-fertig` (von `main`, gepusht, noch kein PR): D1.9 Feuer per Wegsuche statt Luftlinie (`Ambience.nearestFire`), D1.5 Höhle (alte Bodenschatten nur noch rund unter Fels; Raute → Ellipse), D1.6 (`MapCave.caveTile`: Fels und Gang hinter dem Kartenrand, `MapEdge.applies` gilt jetzt auch für die Höhle). Kerntests grün. Offen beim Nutzer **13e.5** (Eingang) ; **13e.6** Laterne liegt beim Berater (Grundsatz, Nutzer 16:5x); Entwurf `Dress.LANTERN`/`LATERNE=1` im Spiel aus. Sammelbuild mit D1.5, D1.6, D1.9 jetzt bauen (PR, Prüfliste), nicht auf 13e.6 warten (höchstens 4 Punkte) mit Prüfliste. Danach D1.7 Leben (Vorschlag mit Standbild, Stil-Abgleich). Ansatz Rauch: `drawCampSmoke` in `WorldScreen.kt:1127` auch für `MapKind.CAVE`, ohne Windversatz (zwei Zeilen, nach Absprache); im Standbild `ONLY=zoom_nah_c9` war noch kein Rauch zu sehen (vermutlich `LightImage.seen` in der Vorschau 0), daher nicht committet.
 - Beim Nutzer offen: t732, t733, 69e, 74, 13e.5/13e.6. Offen bei Jerry außerdem 36.6, 51, 53, 40, 24.6.
