@@ -2,13 +2,13 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (13.10., 22:5x):**
+**Übergabe (14.10., 07:4x):**
 
-**Sitzungen** (ältere im Archiv): 13.10. 22:40–22:5x „77e Umbau“: Notizen nach dem [Entwurf](https://claude.ai/code/artifact/13e3b53a-e28d-40c1-9d94-30225272d38a) umgebaut, je Dateigruppe ein Commit, Prüfskript ohne Verlust (jede alte Zeile im Bestand oder Archiv, 81 Marken wortgleich, keine toten Verweise). Schwerpunkt: ganz Abläufe, zum dritten Mal in Folge; nächste Sitzung Spiel.
+**Sitzungen** (ältere im Archiv): 14.10. 07:08–07:4x „Sokrates – 69e Bildart“: 69e geprüft (A fällt aus, B gegen Leitbild: Pixelkorn, Welt passt nicht zur Karte, Fenster gegen 13x, Menge zu groß), Nutzer entschied Probebild B fein gemalt und C Tusche wie eine Chronik (Beschlüsse). Schwerpunkt: Spiel (Gestaltung), Abläufe nur Nachziehen.
 
-**Nächster Punkt:** (1) **41 Kultlager** (Storyplan Kapitel 2). (2) **72**: Freigabe Marktvergleich, **72a–72j** mit Wortlaut und Empfehlung. (3) Rückläufer je Build zählen (76f). Offen aus 77e nur bei Tom: Leiste/Kartenrand prüfen (77e.3), Marken `[24.…]` optional als Kommentar in `Interlude.kt`; Satz zu Build-Auslösern in `ARBEIT-UMGEBUNG.md` angleichen, sobald 78d auf `main` ist. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
+**Nächster Punkt:** (1) Antworten abwarten: **69e.4** Bornim fest etwa 50 Einwohner, Tempelszene 25–30 Leute (Bänke voll, Stehende an den Wänden); bei Ja Zahl in `STORY-REGELN.md` „Feste Namen“. **Rollen-Lücke Tom↔Jerry:** Regel „‚Tom, …‘/‚Jerry, …‘ meint den Genannten“ auch für Übergaben in den Notizen (Zeile in „Wer macht was“ beim Thema); bei Ja in `CLAUDE.md` erweitern, keine neue Rubrik. (2) Probebilder 69e von Tom: Stilwahl B/C mit dem Nutzer. (3) **41 Kultlager**. (4) **72a–72j** mit Wortlaut und Empfehlung. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
 
-**Zuletzt gelesen bis:** dieser Commit (13.10., 22:5x)
+**Zuletzt gelesen bis:** dieser Commit (14.10., 07:4x)
 
 ## Wer du bist
 

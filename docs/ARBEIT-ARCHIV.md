@@ -1,5 +1,14 @@
 # Archiv
 
+### Aus ROLLE-BERATER.md, Übergabe 13.10., 22:5x
+**Übergabe (13.10., 22:5x):**
+
+**Sitzungen** (ältere im Archiv): 13.10. 22:40–22:5x „77e Umbau“: Notizen nach dem [Entwurf](https://claude.ai/code/artifact/13e3b53a-e28d-40c1-9d94-30225272d38a) umgebaut, je Dateigruppe ein Commit, Prüfskript ohne Verlust (jede alte Zeile im Bestand oder Archiv, 81 Marken wortgleich, keine toten Verweise). Schwerpunkt: ganz Abläufe, zum dritten Mal in Folge; nächste Sitzung Spiel.
+
+**Nächster Punkt:** (1) **41 Kultlager** (Storyplan Kapitel 2). (2) **72**: Freigabe Marktvergleich, **72a–72j** mit Wortlaut und Empfehlung. (3) Rückläufer je Build zählen (76f). Offen aus 77e nur bei Tom: Leiste/Kartenrand prüfen (77e.3), Marken `[24.…]` optional als Kommentar in `Interlude.kt`; Satz zu Build-Auslösern in `ARBEIT-UMGEBUNG.md` angleichen, sobald 78d auf `main` ist. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
+
+**Zuletzt gelesen bis:** dieser Commit (13.10., 22:5x)
+
 ### Tom (14.10., 00:56) – Bericht Selbstarbeit (Vorrat leer, „Bis“ 07:00 nicht gebraucht)
 - **Fertig:** Paket 1–4 (Vorgänger: D1.5, D1.16-Rest, Sammelbuild **0.1.721** PR #57 (abgenommen und zusammengeführt 14.10., 07:1x), Prüfliste `e/t721.html`, 27-Lückenliste). Reserve: **55** Speer im Kampf (Held/Skelett 2 m; Kobold ~0,9 m → **55d**); **5.5** Dorf-Lückenliste (unten); **69** Intro als gemalte Nachtbilder + **68** Tempelszene als Entwurf (`claude/tom-69-intro` 05e6b18b, `CutsceneArt`, `INTROBILD=1`; Figuren Platzhalter → **69e**); 27 Pfützen weich als Entwurf (`claude/tom-27-pfuetzen` 86de0cc8, `PFUETZE=1`). Kein Build, nichts zusammengeführt.
 - **Lücken** Wald (27, Vorgänger) und Dorf (5.5): Kartenrand gerade schwarze Schräge, Bäume/Kornfeld abgeschnitten; Nähte an Bodenstück-Kanten (`WorldScreen.kt`); Menhire flau mit Kante quer: Bild in Ordnung, Licht auf der Karte nach Bildschirmstelle statt Fuß (**27l**); nachts Kronen hell ums Licht (D1.15, Jerry); Schritte fehlen (74, Jerry).
