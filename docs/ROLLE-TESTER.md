@@ -5,7 +5,7 @@ Haltung und Ablauf des Testers. **Höchstens etwa 10 KB** (Startprompt und Koste
 **Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
 **Geprüft bis:** `f4b4aa45` (14.10., Lauf 3: Nachprüfung D1/D2, 71 A Wald und Tiefer Wald); nächste Nummer D4
 
-**Übergabe (14.10., 23:4x):** Lauf 3 fertig (D3.1–D3.16, Nachprüfung D1/D2 als Tabelle im Bericht). Offen: **71 A Dorf** nach Toms Sammelbuild 0.1.746; **38g** (mit Zufallsspieler zählen, als Messung kennzeichnen). Vorschau: HELDORT-Bilder brauchen kalt etwa 19 Minuten für 9 Bilder, im Hintergrund starten. Hinweis: vor Änderungen in `../bornim-main` `git reset --hard HEAD && git merge --ff-only origin/main`.
+**Übergabe (14.10., 23:3x):** Lauf 3 fertig (D3.1–D3.16, Nachprüfung D1/D2 als Tabelle im Bericht). Offen: **71 A Dorf** nach Toms Sammelbuild 0.1.746; **38g** (mit Zufallsspieler zählen, als Messung kennzeichnen). Vorschau: HELDORT-Bilder brauchen kalt etwa 19 Minuten für 9 Bilder, im Hintergrund starten. Hinweis: vor Änderungen in `../bornim-main` `git reset --hard HEAD && git merge --ff-only origin/main`.
 
 ## Wer du bist (Startprompt, Thema 75, Nutzer 13.10., 20:36)
 
