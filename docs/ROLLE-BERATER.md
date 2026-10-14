@@ -6,7 +6,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Nächster Punkt:** (0) **72b Kampf:** [Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) mit Baustein 7 (Abstand nah/fern, Attribute; zur Rückmeldung 16:55); Nutzer schickt weitere Gedanken, dann 72k–72o (B empfohlen, Probe Jerry ab Fr.), 26d hängt daran. (1) **81 Ford** Co-Pilot; Telegram-Schlüssel fehlt in der Umgebung der Routine (auch Lauf 17:29; Ford weicht auf App-Push aus), Frage auf „Dein Zug“ (`e/81.html`); Pilot nur auf Zuruf; Jerry-Ford ab Fr.; danach Regelbilanz (Weck-Routinen in `ARBEIT-SELBST.md` durch Ford ersetzen, `CLAUDE.md` kürzen). (2) **13e.6** Licht: empfohlen B plus Fackel in der Hand (17:24 gefragt). (3) **41** Entwurf beim Nutzer (4.4, 5.3, 6.3), nach Freigabe wortgetreu nach `STORY-K2*.md`. (4) **69e** Runde 4: aktiv Meinung äußern gegen `DESIGN-STIL.md`, dann 70.1, danach 79. (5) 72a–72j.
 
-**Zuletzt gelesen bis:** ab9a456 (14.10., 17:17)
+**Zuletzt gelesen bis:** 80acc969 (14.10., 17:4x)
 
 ## Wer du bist
 
@@ -37,6 +37,7 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 ## Begründungen der Entscheidungen
 
 - **Abläufe (65):** Oberster Grundsatz des Nutzers: nichts Aufgabenrelevantes verlieren; darum `CLAUDE.md` knapp, aber ohne feste Grenze, Auslagern nur bei seltenem Anlass. **65.4** jeder Text an einem Ort, weil Doppelungen Token kosten und auseinanderlaufen. Volltext im Archiv („18:5x“).
+- **Rückfragen als Holschuld (65.8, 65.9):** wiederholte Fragen und lange Startmeldungen kosteten in jeder Antwort Token und verdeckten das Neue; „Dein Zug“ ist der eine Ort. Einmal nennen bei Entstehung und bei Aufträgen anderer Agenten, sonst nur „Kritisch“ bei Stillstand; Weiter-Haken nur für Entwickler, weil Berater und Tester meist auf den Nutzer warten.
 - **Rollen:** Grundsatzfragen beim Berater, ohne dass die Entwicklung steht. **Diogenes (75):** Tester neigt zu Rauschen und Bestätigen, darum Beleg, blind zuerst, drei Klassen. **Kosten (75h, 76e):** billigster Prüfweg zuerst; Rückläufer sind am teuersten. **Umbau 76–78:** Kern in `CLAUDE.md`, weil nur sie in langen Sitzungen sicher im Blick bleibt; Sammelbuilds sparen Rundum-Aufwand; Vorsilben zeigen Zweck und Leser am Namen. Volltext im Archiv.
 - **Seite „Dein Zug“ (63):** Fragen gingen in Chats unter; „Beschlüsse“ statt „Bildbuch“; kein „Erledigt“ (65.7). Volltext im Archiv.
 - **Karte und Händler (62c, 59e, 64):** Karte erinnert statt führt; Wissen vor Beschriftung. Volltext im Archiv.
@@ -53,6 +54,7 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 
 ## Lehren
 
+- **Ablauf nicht vorführen** (14.10., 65.9): der Nutzer sieht den Nutzen pro Antwort; Startritual, Wiederholungen und Haken-Runden ohne Neues sind Kosten. Zeit nur von der Systemuhr, auch im Gespräch (17:3x geschätzt).
 - **Technik erst belegen, dann zusagen** (14.10., 81j): Push und E-Mail aus Routinen kamen trotz „erfolgreich“ nie an; Erfolgsmeldung eines Werkzeugs ist kein Beleg, nur die Bestätigung des Nutzers.
 - **Beim Start alle Punkte zu eigenen Themen auf „Dein Zug“ lesen** (14.10., 69e übersehen, weil an den Nutzer adressiert).
 - **Dialogzeilen in Docs mit Leerzeile trennen** (13.10.).
