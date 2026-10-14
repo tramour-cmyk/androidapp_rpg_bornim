@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (14.10., 13:4x) – Nachfolger: „Sokrates – Ford bauen“ (Kapitel-2-Punkte laufen weiter):**
 
-**Sitzungen:** 14.10. 15:0x Schlüssel fehlte, 26d gestellt; 15:03 Schlüssel fehlt weiter, 26d neu gestellt.
+**Sitzungen:** 14.10. 15:0x Schlüssel fehlte, 26d gestellt; 15:03 Schlüssel fehlt weiter, 26d neu gestellt. 15:1x Schlüssel da, Bot antwortet, aber keine Nachricht des Nutzers beim Bot.
 
 **Nächster Punkt:** (0) **Ford bauen:** sobald `TELEGRAM_BOT_TOKEN` in der Umgebung steht (fehlte 15:00): Chat-Kennung per `getUpdates` (Nutzer schrieb „/start“), zwei Test-Pushs (Sitzung, Routine), Push-Weg in `ROLLE-FORD.md` von ntfy auf Telegram, dann stündliche Ford-Routine (Jerry-Account ab Fr.), Start-Routinen je Rolle, Startsperre; `CLAUDE.md` (Diogenes-Start, 81a) und `ARBEIT-SELBST.md` kürzen (Regelbilanz); „Ford Probe 1/2“ (aus) löschen nur nach Rückfrage; dann drei Nächte Pilot (81i). (1) **Nutzer prüft den Entwurf** (Prüfpunkte fett), offen 4.4 (Fenn stirbt ohne Merles Worte, Merle-Zeile), 5.3 (Szene mit Joss' Frau), 6.3 (Antworten und Belohnungen der Aushänge nach Freigabe). Nach Freigabe wortgetreu nach `docs/STORY-K2.md` und `STORY-K2-W.md` (Marken `[41.…]`, `[24.ort.…]`), Verzeichnis in `STORY-REGELN.md`. (2) **69e** vierte und letzte Runde bei Tom (Nutzer 13:1x ja, Auftrag in „Wer macht was“). Liegt sie vor (Zeile „Für den Berater“, „Dein Zug“): **aktiv Meinung äußern** (Nutzer), gegen `DESIGN-STIL.md` „Zwischensequenzen“ und ein Bildschirmfoto der Diagonalwelt prüfen, dann entscheidet der Nutzer über das Musterbild 70.1. 80a entschieden (13:0x). (3) 79 nach dem Musterbild. (4) 72a–72j.
 
