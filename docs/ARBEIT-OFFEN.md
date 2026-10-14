@@ -52,10 +52,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 14:3x)
-- **PR #60** (0.1.732, Prüfliste t732) abonniert; nach „passt“ zusammenführen, `CHANGELOG.md`, t732 und `e/5-5.html` von „Dein Zug“. Offen beim Nutzer: 52, 74, 80a (je `e/…html`), 69e erst Sokrates.
-- **Vertretung Jerry:** 52 Rudelwölfe fertig (`claude/tom-52-rudel`), 74 Hörprobe, 26 Magier beim Berater. Für `tools/klang` vorher `pip install scipy soundfile`.
-- **69e:** Sokrates' drei Fehler behoben (Blick 0,3 Felder zurück, Mond links oben), `e/69e-4.html` neu; wartet auf Nutzer.
+### Tom (14.10., 15:2x) – an Nachfolger
+- **Zuerst PR #60 abonnieren** (`subscribe_pr_activity`; grün, wartet auf Test t732; nach „passt“ zusammenführen, `CHANGELOG.md`). Beim Nutzer offen: t732, 52, 69e (Sokrates ja, Fehler behoben), 74, 80a (je `e/…html` auf „Dein Zug“).
+- **Dann Diogenes-Reste (Tom):** **D1.5** Schatten unter Leuten 2:1 statt 3:1: `WorldArt.shadow()` (`ellipse(12,4,11,3.5)` in 24×8), gilt auch für Monster auf der Karte (Notiz an Jerry); Vorher-Bild `KARTENZOOM=1 ONLY=zoom_nah_3_dorf`; Zweig `claude/tom-d1-schatten` (leer, von `main`). Dann **D1.10** (Rowena wischt/schenkt ohne Bewegung, Borins Becher ohne Trinkhaltung), **D1.11-Rest** (Tür, Fenster, Bogenfenster nur eine Form; mehrteilige Möbel je Feld andere Variante). D1.16-Rest nur nach Absprache (`WorldScreen.kt`).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.

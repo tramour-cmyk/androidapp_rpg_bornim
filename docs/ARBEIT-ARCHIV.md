@@ -1,5 +1,8 @@
 # Archiv
 
+### Aus ARBEIT-OFFEN.md, 14.10., 15:2x (Übergabe Tom 14:3x)
+- PR #60 abonniert; Vertretung Jerry: 52 fertig, 74 Hörprobe, 26 beim Berater; 69e drei Fehler behoben.
+
 ### Aus ARBEIT-OFFEN.md, 14.10., 14:3x (Übergabe Tom 13:1x)
 - **PR #60** (Sammelbuild 5.5 + 27m.1–27m.5, Zweig `claude/tom-5-5-dorf-luecken`, enthält `main` mit PR #59): Build läuft. Nachfolger: `subscribe_pr_activity` #60, APK-Link in „Jetzt installieren“, Prüfliste `e/t7xx.html` auf „Dein Zug“ (Anzusehen; `e/5-5.html` dann dort einbinden und die Zeile 5.5 ersetzen): Marktstand von hinten, Fahrspuren, Schattenkante nördlich vom Platz, Weg Süd zu, Hühner am Südrand hinter Kronen, Rand Wald West/abends Dorf, Weg Ost im Wald.
 - 27m.2 in `WorldScreen.kt` (`covered()`; Notiz an Jerry: nur Zeichenreihenfolge der kleinen Tiere). 0.1.728/0.1.729 auf `main` (PR #59, #58 geschlossen).
