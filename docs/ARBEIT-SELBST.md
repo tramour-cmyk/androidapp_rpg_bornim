@@ -97,11 +97,11 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/ARBEIT-O
 **Vorrat für Selbstarbeit** (Reihenfolge; Erledigtes im Archiv, 77e):
 1. **24.6 Kampferöffnung wartet** + Herzschlag in der Blende (nach Toms 24.5 auf `main`).
 2. **18 Stimmen der übrigen Gegner** (Angriff, Schmerz, Tod, je drei Fassungen), nur als Hörproben.
-3. **Schritte je Untergrund** (74), Hörproben (23a, 11.10., 14:18).
+3. ~~Schritte je Untergrund~~ (74): Hörprobe von Tom (Vertretung 14.10.) auf „Dein Zug“.
 4. **Raumklang** (Idee 8), Hörproben.
-5. **Rudelwölfe beißen ins Leere** (Fehler 08.10., Offen 52), mit Film.
+5. ~~Rudelwölfe beißen ins Leere~~ (52): von Tom (Vertretung 14.10.) behoben, `claude/tom-52-rudel`, `e/52.html`.
 6. **Musik in Schichten** (Idee 10), Hörproben.
-7. **Ausgleich Magier** (26): Siegquoten aller Klassen gegen Krogg und Grak aus der Simulation, Vorschlag zum Angleichen. Fertig, wenn: Zahlen vorher/nachher im Bericht.
+7. ~~Ausgleich Magier~~ (26): von Tom (Vertretung 14.10.) gemessen, Vorschlag unter „Für den Berater“.
 
 **Für gemeinsame Zeit:**
 - 24e/24.6: Kampferöffnung wartet, bis Kampfbilder fertig sind (nach Toms 24.1–24.3).
