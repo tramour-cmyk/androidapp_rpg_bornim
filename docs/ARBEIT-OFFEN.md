@@ -50,11 +50,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 09:52) – an Nachfolger
+### Tom (14.10., 10:45) – an Nachfolger
 - **PR #58** abonniert, grün, wartet auf Test 0.1.728; nach „passt“: zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“, „Jetzt installieren“ leeren.
-- **69e** (Zweig `claude/tom-69-intro`, `BRUECKE69E=1`, `tools/preview/.../BridgeProbe.kt`): Brücke Feld für Feld aus der Dorfkarte, Diagonalansicht daneben; auf „Dein Zug“, Sokrates benachrichtigt. Schild ist rechteckiges Brett auf mittigem Pflock (Nutzer 09:5x). Entschieden (Zeile 69): (1) präzise, zweite Runde; danach Musterbild 70.1 und übrige Intro-Bilder genauso aus der Karte.
-- **27m** (Zweig `claude/tom-27m-rand`, Rand fest eingebaut, gepusht): **ja (Nutzer 09:53), selbständig weiter:** Bildrate messen, mehr Bäume rund um die Karte, Standbilder aller Ränder Tag/Nacht (Wald, Tiefer Wald, Dorf mit Südrand), dann Sammelbuild. **69e zweite Runde** (Nutzer 10:0x: „Und dann unbedingt den neuen Bildentwurf für die Zwischensequenzen“) vorgezogen, auf „Dein Zug“ (10:12; noch offen: Rauch, Schild ins Bild). Danach **80** Kaels Laterne.
-- **Nutzer 09:3x:** erst kurz antworten, dann höchstens etwa 5 Minuten am Stück arbeiten (unter „Für den Berater“).
+- **27m + 80** (Zweig `claude/tom-27m-rand`, committet, noch nicht gepusht): Rand mit mehr Bäumen, Ausgänge/Wege/Wasser frei; Kaels Laterne (Dorf 24/6); Test-Reiter „Bildrate anzeigen“ (`FrameMeter` in `WorldScreen.kt`, Jerry zur Kenntnis). Messung Vorschau (`RANDZEIT=1`, `RANDAUS=1`): je Bild Rand an/aus Wald-Ecke 3,1/1,7 s, Mitte 2,2/1,9 s, Tiefer Wald 5,4/3,7 s, Dorf-Ecke 3,8/1,1 s (Rechner ohne Grafikchip, nur Vergleich). Offen: Standbilder aller Ränder Tag/Nacht (laufen), dann pushen = Sammelbuild, Prüfliste auf „Dein Zug“ mit Bildrate am Rand.
+- **69e** zweite Runde und **80** auf „Dein Zug“, warten auf Nutzer.
+- **Nutzer 09:3x:** erst kurz antworten, dann höchstens etwa 5 Minuten am Stück arbeiten.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.
