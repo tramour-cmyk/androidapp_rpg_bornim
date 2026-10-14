@@ -2,13 +2,13 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 07:4x):**
+**Übergabe (14.10., 09:1x) – Nachfolger: „Sokrates – Kultlager Kapitel 2“:**
 
-**Sitzungen** (ältere im Archiv): 14.10. 07:08–07:4x „Sokrates – 69e Bildart“: 69e geprüft Nutzer entschied Probebild B fein gemalt und C Tusche wie eine Chronik (Beschlüsse). Schwerpunkt: Spiel (Gestaltung), Abläufe nur Nachziehen.
+**Sitzungen** (ältere im Archiv): 14.10. 07:08–09:1x „69e Bildart“: 69e, 70 (Bildsprache), 79 neu (Kampfhintergründe, nur Aussehen), Grundsatz „unser Stil ist die Diagonalwelt“ in `DESIGN-STIL.md`, Bornim 50 Einwohner, Übergaben Tom/Jerry in `CLAUDE.md`, Rolle geschärft. Schwerpunkt: Spiel (Gestaltung) gut drei Viertel, Rest Nachtragen. Selbstkritik: dreimal ungeprüft zugestimmt, Nutzer korrigierte. **Sprachsitzung schickt „Tom, …“-Aufträge in diese Sitzung** (gleicher Account), nicht zu Tom: dem Nutzer sagen, dass er Tom selbst anstoßen muss.
 
-**Nächster Punkt:** (1) Probebilder 69e von Tom: Stilwahl B/C mit dem Nutzer, Grad der Abstraktion, Musterbild mit Bildregeln (70.1); danach 70.3 im Test-Build. (2) **41 Kultlager**, dabei feste Merkmale der Figuren (70.2). (3) **79** Kampfhintergründe (aktuelles Standbild von Jerry ab Fr.); klären, ob „Kampf richtet sich nach der Diagonalwelt“ nur Aussehen meint oder auch Ansicht (dann 72b). (4) **72a–72j**. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
+**Nächster Punkt:** (1) Probebilder 69e von Tom (Brücke präzise gegen leicht abstrahiert, beide farbig): Stilwahl, Musterbild mit Bildregeln (70.1), danach 70.3 im Test-Build. (2) **41 Kultlager**, dabei feste Merkmale der Figuren (70.2). (3) **79** nach dem Musterbild (Standbild von Jerry ab Fr.). (4) **72a–72j**. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
 
-**Zuletzt gelesen bis:** dieser Commit (14.10., 07:4x)
+**Zuletzt gelesen bis:** dieser Commit (14.10., 09:1x)
 
 ## Wer du bist
 
@@ -41,9 +41,9 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 - **Abläufe (65):** Oberster Grundsatz des Nutzers: nichts Aufgabenrelevantes verlieren; darum `CLAUDE.md` knapp, aber ohne feste Grenze, Auslagern nur bei seltenem Anlass. **65.4** jeder Text an einem Ort, weil Doppelungen Token kosten und auseinanderlaufen. Volltext im Archiv („18:5x“).
 - **Rollen:** Grundsatzfragen beim Berater, ohne dass die Entwicklung steht. **Diogenes (75):** Tester neigt zu Rauschen und Bestätigen, darum Beleg, blind zuerst, drei Klassen. **Kosten (75h, 76e):** billigster Prüfweg zuerst; Rückläufer sind am teuersten. **Umbau 76–78:** Kern in `CLAUDE.md`, weil nur sie in langen Sitzungen sicher im Blick bleibt; Sammelbuilds sparen Rundum-Aufwand; Vorsilben zeigen Zweck und Leser am Namen. Volltext im Archiv.
 - **Seite „Dein Zug“ (63):** Fragen gingen in Chats unter; „Beschlüsse“ statt „Bildbuch“; kein „Erledigt“ (65.7). Volltext im Archiv.
-- **Karte und Händler (62c, 59e, 64):** Karte erinnert statt führt; Bekannte am gewohnten Ort; Wissen vor Beschriftung; Chronik als eigener Reiter. Volltext im Archiv.
-- **Kartenbegriffe (62p/62q):** Stufen nach Enthaltensein (draußen Gebiet, hinter einem Eingang Grundriss); „Ebene“ für übereinanderliegende Teile, „Stockwerk“ klingt in Höhlen schief.
-- **Oberfläche (59, 60):** schwarz, Gold, Serife wie der Textkasten; Serife mitliefern, weil Geräteschriften je Gerät anders aussehen.
+- **Karte und Händler (62c, 59e, 64):** Karte erinnert statt führt; Wissen vor Beschriftung. Volltext im Archiv.
+- **Kartenbegriffe (62p/62q):** Stufen nach Enthaltensein; „Stockwerk“ klingt in Höhlen schief.
+- **Oberfläche (59, 60):** schwarz, Gold, Serife mitliefern (Geräteschriften schwanken).
 - **Leitbild (44):** ein roter Faden; SRD Gerüst, nicht Ziel; Blut „Deutlich“ als Obergrenze. Volltext im Archiv.
 - **Geschäftsmodell (45):** wer Abkürzungen verkauft, macht das Spiel künstlich zäh; darum nie Werbung, Beutekisten, Wartezeiten.
 - **Zufallshöhlen (48, 41m):** erst Questhöhlen zufällig, Story-Höhlen mit festem Kern; je eine pro Landschaft (Erkundung).
