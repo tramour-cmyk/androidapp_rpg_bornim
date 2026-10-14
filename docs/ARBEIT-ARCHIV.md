@@ -1,5 +1,9 @@
 # Archiv
 
+### Aus ARBEIT-OFFEN.md, 14.10., 16:4x (Übergabe Tom 16:0x)
+- PR #60 (t732) und #61 (t733) abonniert, Prüflisten auf „Dein Zug“ (Nachfolger 16:1x).
+- **Dann Vertretung Jerry (Nutzer 16:0x: „prüfe, was anliegt und wichtig ist, auch wenn es bei Jerry liegt“):** Ziel Kapitel 1 fertig (`LISTE-KAPITEL1.md`). Wichtigster Brocken: **Höhle „Ort fertig“** (13e liegt seit 13y bei Tom): D1.5 Höhle (alte 3:1-Bodenschatten doppelt, Rautenschatten `MapCaveIso.kt:474` → Ellipse), D1.9 Feuer klingt durch Wände, D1.6 Eingang flach/schwarzes Rechteck, D1.15 Laterne ohne Quelle, D1.7 Leben. Jerrys Zweig `claude/jerry-13e-hoehle-diagonal` ist alt (ohne gemeinsame Basis mit `main`), nur als Vorlage für 13e.4 (Stalagmiten, Weiher). Erst Liste mit Reihenfolge dem Nutzer nennen, dann bauen. Offen bei Jerry außerdem 36.6, 51, 53, 40 (Regler), 24.6.
+
 ### Aus ARBEIT-OFFEN.md, 14.10., 16:0x (Übergabe Tom 15:58)
 - PR #60 abonniert (grün, wartet auf t732; nach „passt“ zusammenführen, `CHANGELOG.md`). Beim Nutzer offen: t732, 69e, 74.
 - **Sammelbuild PR #61** (Zweig `claude/tom-d1-schatten`, `main` + beide Zweige hineingemergt, Build läuft, abonniert): **52** (`claude/tom-52-rudel`), **80a** (`claude/tom-80a-sockel`), **D1-Reste** (D1.5 Schatten 2:1, D1.10 Rowena/Schänkenklang, D1.11 Fenster/Regale) und **82** (Tür) auf `claude/tom-d1-schatten`. Prüfliste `e/t<build>.html`; Vermerke im Prüfbericht gesetzt. Danach D1.16-Rest nur nach Absprache.

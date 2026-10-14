@@ -56,16 +56,17 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 16:0x) – an Nachfolger
-- PR #60 (t732) und #61 (t733) abonniert, Prüflisten auf „Dein Zug“ (Nachfolger 16:1x).
-- **Dann Vertretung Jerry (Nutzer 16:0x: „prüfe, was anliegt und wichtig ist, auch wenn es bei Jerry liegt“):** Ziel Kapitel 1 fertig (`LISTE-KAPITEL1.md`). Wichtigster Brocken: **Höhle „Ort fertig“** (13e liegt seit 13y bei Tom): D1.5 Höhle (alte 3:1-Bodenschatten doppelt, Rautenschatten `MapCaveIso.kt:474` → Ellipse), D1.9 Feuer klingt durch Wände, D1.6 Eingang flach/schwarzes Rechteck, D1.15 Laterne ohne Quelle, D1.7 Leben. Jerrys Zweig `claude/jerry-13e-hoehle-diagonal` ist alt (ohne gemeinsame Basis mit `main`), nur als Vorlage für 13e.4 (Stalagmiten, Weiher). Erst Liste mit Reihenfolge dem Nutzer nennen, dann bauen. Offen bei Jerry außerdem 36.6, 51, 53, 40 (Regler), 24.6.
+### Tom (14.10., 16:4x) – an Nachfolger
+- PR #60 (t732) und #61 (t733, Build 0.1.733) sind abonniert, Prüflisten stehen auf „Dein Zug“; beim Nachfolger neu abonnieren. Nach „passt“ zusammenführen (#60 zuerst).
+- **13e Höhle** (Vertretung Jerry), Zweig `claude/tom-13e-hoehle-fertig` (von `main`, gepusht, noch kein PR): D1.9 Feuer per Wegsuche statt Luftlinie (`Ambience.nearestFire`), D1.5 Höhle (alte Bodenschatten nur noch rund unter Fels; Raute → Ellipse), D1.6 (`MapCave.caveTile`: Fels und Gang hinter dem Kartenrand, `MapEdge.applies` gilt jetzt auch für die Höhle). Kerntests grün. Offen beim Nutzer **13e.5** (Eingang) und **13e.6** (A Gürtellaterne / B kein eigenes Licht, Empfehlung A); danach Entwurf 13e.6 als Standbild, dann Sammelbuild (höchstens 4 Punkte) mit Prüfliste. Danach D1.7 Leben (Vorschlag mit Standbild, Stil-Abgleich).
+- Beim Nutzer offen: t732, t733, 69e, 74, 13e.5/13e.6. Offen bei Jerry außerdem 36.6, 51, 53, 40, 24.6.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.
 - Pause bis Fr., 03:00 (Guthaben); Selbstarbeit beendet. Tom vertritt nicht von sich aus, nur wenn eigene Arbeit an Jerrys Themen hängt. Ab Fr. weiter mit 24.6, 36.6, 38–40, 51–53; 13e liegt seit 13y bei Tom; Zweig `claude/jerry-13e-hoehle-diagonal` (13e.3 fertig, 13e.4 halb; Einzelheiten im Archiv).
 ## Zu testen
 
-- **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5 Schatten Höhle (Figurenschatten `WorldArt.shadow()` ist jetzt 2:1 auch für Monster, Tom 14.10.), D1.6 Höhleneingang flach, D1.7 Leben Höhle, D1.8 stumme Quellen, D1.9 Feuer durch Wände, D1.10 erledigt (Tom 14.10.: Klangschleife in `WorldScreen.kt` ruft `PlaceSound.folk`, drei Zeilen; Schänke ohne Zufalls-Wischen), D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (zwei Stücke mit Hörnern/Kreaturenrufen ohne sichtbare Quelle, `grund_fs_609422`, `grund_fs_540836`): Berater empfiehlt herausnehmen, **Nutzer entscheidet nach Hörprobe** (19:44): Höhle mit und ohne die zwei Stücke auf die Seite „Dein Zug“, erst danach ändern; D1.15 Laterne.
+- **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5/D1.6/D1.9/D1.15 Höhle bei Tom (13e); D1.7 Leben Höhle, D1.8 stumme Quellen, D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (`grund_fs_609422`, `grund_fs_540836`, Hörner/Kreaturen ohne Quelle): Berater empfiehlt herausnehmen, **Nutzer entscheidet nach Hörprobe** (Höhle mit und ohne auf „Dein Zug“), erst danach ändern.
 
 ## Für Diogenes
 
