@@ -20,7 +20,7 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 
 ## Routinen (Toms Account, 81m)
 
-- **„Ford (Tom)“** `trig_01FsgMqH7CB5fZ1rofMS6YzX`: stündlich, aus solange Stellung „aus“; wer die Stellung umträgt, schaltet sie (`update_trigger`, `enabled`).
+- **„Ford (Tom)“** `trig_013heqXJ1KkkxTYVzmTcpzaf` (Umgebung „Voll“, seit 14.10., 18:10; alte `trig_01FsgMqH7CB5fZ1rofMS6YzX` aus): stündlich, aus solange Stellung „aus“; wer die Stellung umträgt, schaltet sie (`update_trigger`, `enabled`).
 - **„Ford Start“** `trig_01CxFdYLgTMAbudcd5yeq1AN`: an, ohne Zeitplan; startet eine frische Sitzung; Ford löst sie mit `fire_trigger` aus, Text = erste Nachricht („Sokrates“, „Diogenes“ oder bei Tom „Start“) plus Auftrag aus der Übergabe. So gestartete Sitzungen stehen beim Nutzer unter „Geplant“ → „Ford Start“ → „Verlauf“.
 
 ## Ablauf eines Laufs
