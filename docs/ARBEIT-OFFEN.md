@@ -50,10 +50,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 09:15) – an Nachfolger
-- **Zuerst:** PR #58 abonnieren (`subscribe_pr_activity`), 0.1.728 wartet auf Test des Nutzers (später); nach „passt“: zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“, „Jetzt installieren“ leeren.
-- **Dann 27m** (ja, 09:1x) auf Zweig `claude/tom-27m-rand` (Entwurf 5ce92886): erst `git merge origin/main` (nach PR #58 auch dessen Stand), Schalter `MapEdge.draft` und `RAND` weg, fest für Wald/Tiefer Wald/Dorf; Bildrate messen (`ARTMEM`/Test-Reiter), mehr Bäume rund um die Karte; Standbilder Tag/Nacht aller Ränder (auch Süden mit Feldweg und Umkehr, Osten), dann Sammelbuild.
-- Sonst: 69/68 beim Berater (70/69e: Probebild Brücke zweimal, farbig); D1.15 und 74 bei Jerry. Neu von Sokrates: Thema 79 (Kampfhintergründe an Diagonalwelt).
+### Tom (14.10., 09:52) – an Nachfolger
+- **PR #58** abonniert, grün, wartet auf Test 0.1.728; nach „passt“: zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“, „Jetzt installieren“ leeren.
+- **69e** (Zweig `claude/tom-69-intro`, `BRUECKE69E=1`, `tools/preview/.../BridgeProbe.kt`): Brücke Feld für Feld aus der Dorfkarte, Diagonalansicht daneben; auf „Dein Zug“, Sokrates benachrichtigt. Wartet auf Wahl (1)/(2); danach Musterbild 70.1 und übrige Intro-Bilder genauso aus der Karte.
+- **27m** (Zweig `claude/tom-27m-rand`, Rand fest eingebaut, gepusht): Standbilder aller Ränder und Bildrate erst nach Ja des Nutzers (er hatte sie abgebrochen). Dann **80** Kaels Laterne.
+- **Nutzer 09:3x:** erst kurz antworten, dann höchstens etwa 5 Minuten am Stück arbeiten (unter „Für den Berater“).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.

@@ -1,5 +1,10 @@
 # Archiv
 
+
+### Tom (14.10., 09:15) – an Nachfolger
+- **Zuerst:** PR #58 abonnieren (`subscribe_pr_activity`), 0.1.728 wartet auf Test des Nutzers (später); nach „passt“: zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“, „Jetzt installieren“ leeren.
+- **Dann 27m** (ja, 09:1x) auf Zweig `claude/tom-27m-rand` (Entwurf 5ce92886): erst `git merge origin/main` (nach PR #58 auch dessen Stand), Schalter `MapEdge.draft` und `RAND` weg, fest für Wald/Tiefer Wald/Dorf; Bildrate messen (`ARTMEM`/Test-Reiter), mehr Bäume rund um die Karte; Standbilder Tag/Nacht aller Ränder (auch Süden mit Feldweg und Umkehr, Osten), dann Sammelbuild.
+- Sonst: 69/68 beim Berater (70/69e: Probebild Brücke zweimal, farbig); D1.15 und 74 bei Jerry. Neu von Sokrates: Thema 79 (Kampfhintergründe an Diagonalwelt).
 ### Aus ROLLE-BERATER.md, Übergabe 14.10., 09:1x
 **Übergabe (14.10., 09:1x) – Nachfolger: „Sokrates – Kultlager Kapitel 2“:**
 
