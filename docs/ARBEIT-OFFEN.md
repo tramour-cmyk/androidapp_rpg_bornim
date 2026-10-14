@@ -53,7 +53,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (14.10., 11:4x) – an Nachfolger
 - **69e dritter Entwurf** (nur Entwurf, kein Musterbild ohne Freigabe; Nutzer 11:4x) auf `claude/tom-69e-musterbild` (enthält `claude/tom-69-intro`), Vorschau `BRUECKE69E=1` → `probe69e_r3.png`; auf „Dein Zug“. Nach „ja“: Musterbild 70.1, übrige Intro-Bilder und Tempelszene genauso; Karten-Tanne später nachziehen (Vorschlag).
-- **80** Position entschieden (Beschlüsse). **80a** Familienzeichen: Entwürfe A Raute / B Laterne am Haken / C Mühlrad auf „Dein Zug“, Zeile „Für den Berater“; Skript im Scratchpad verloren, Bild `e/b/80a_zeichen.jpg`. Nach Wahl: `LISTE-FIGUREN.md` (Kael) und `kaelLantern()` in `MapTownIso.kt` (Zweig `claude/tom-27m-rand`) zeichnen.
+- **80** Position entschieden (Beschlüsse). **80a** Familienzeichen: Entwürfe A Raute / B Laterne am Haken / C Mühlrad auf „Dein Zug“, Zeile „Für den Berater“; Skript `tools/entwurf/80a_zeichen.py` auf `claude/tom-69e-musterbild`. Nach Wahl: `LISTE-FIGUREN.md` (Kael) und `kaelLantern()` in `MapTownIso.kt` (Zweig `claude/tom-27m-rand`) zeichnen.
 - **t729** (enthält PR #58 / t728 ganz): Nutzer testet nur 0.1.729 mit beiden Prüflisten. Nach „passt“: PR #58 und `claude/tom-27m-rand` zusammenführen (27m-Zweig enthält #58; eine PR genügt, #58 dann schließen), `CHANGELOG.md`, t728/t729 von „Dein Zug“, „Jetzt installieren“ leeren. Ostrand Dorf: Randkronen verdecken Helden halb (beobachten).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
