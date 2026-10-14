@@ -3,6 +3,7 @@ Hörproben der Schritte je Untergrund (74): Gras, Erde/Weg, Pflaster, Holzdielen
 dazu je Untergrund ein Gang von acht Schritten zum Anhören. Alle CC0 (QUELLEN.md, Runde 5).
 
     python3 tools/klang/schritte.py <ordner mit den Aufnahmen> <ziel>     # WAV-Proben und die Gänge
+    python3 tools/klang/schritte.py <ordner mit den Aufnahmen> --spiel    # alle fünf (Nutzer 14.10., 20:4x) nach app/src/main/assets/sfx
 
 Aufnahmen: Kenney „Impact Sounds“ (footstep_grass/concrete/wood_00x.ogg), BigSoundBank 3202 und 0606 (Erde, Pflaster), alle CC0,
 aus den Paketen, die tools/klang/holen.sh lädt.
@@ -10,7 +11,7 @@ aus den Paketen, die tools/klang/holen.sh lädt.
 import sys, os, numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from klang import *
 D, OUT = sys.argv[1], sys.argv[2]
-os.makedirs(OUT, exist_ok=True)
+if OUT != "--spiel": os.makedirs(OUT, exist_ok=True)
 L = lambda f: trim(load(os.path.join(D, f)))
 
 S = {}
@@ -30,6 +31,18 @@ S["stein"] = [reverb(lowpass(pitch(L(f"footstep_concrete_00{i}.ogg"), -3), 4500,
 
 def finish(x, rms=-24): return norm(trim(highpass(x, 40), -55), -1.0, rms)
 
+# Gewählt vom Nutzer (74, 14.10., 20:4x): alle fünf Untergründe, je drei Fassungen
+if OUT == "--spiel":
+    import subprocess
+    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    names = {"gras": "step_grass", "erde": "step_earth", "pflaster": "step_cobble", "holz": "step_wood", "stein": "step_stone"}
+    for name, takes in S.items():
+        for i, x in enumerate(takes):
+            tmp = os.path.join(sfx, "_tmp.wav"); write(tmp, finish(x))
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", tmp, "-ac", "1", "-ar", "44100", "-c:a", "libvorbis", "-q:a", "4",
+                            "-map_metadata", "-1", os.path.join(sfx, f"{names[name]}_{i + 1}.ogg")], check=True)
+            os.remove(tmp)
+    print("Schritte nach", os.path.normpath(sfx)); sys.exit(0)
 for name, takes in S.items():
     for i, x in enumerate(takes): write(os.path.join(OUT, f"schritt_{name}_{i + 1}.wav"), finish(x))
     # ein Gang: acht Schritte im Gehtempo (0,48 s), die Fassungen wechseln, nie zweimal dieselbe hintereinander, leicht ungleich laut

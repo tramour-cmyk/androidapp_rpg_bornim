@@ -19,6 +19,8 @@ object Recorded {
         Sound.CUP to 3, Sound.POUR to 3, Sound.WIPE to 3, Sound.CHAIR to 3, Sound.COUGH to 3,
         // the forest pond (27k, chosen by the user: three calls, one chorus, two dragonflies)
         Sound.FROG to 3, Sound.FROG_CHORUS to 1, Sound.DRAGONFLY to 2,
+        // the hero's steps (74, all five chosen by the user)
+        Sound.STEP_GRASS to 3, Sound.STEP_EARTH to 3, Sound.STEP_COBBLE to 3, Sound.STEP_WOOD to 3, Sound.STEP_STONE to 3,
     )
 
     /** Fewer than three takes by the user's choice (27k): the pond's one chorus loop, its two dragonflies. */
