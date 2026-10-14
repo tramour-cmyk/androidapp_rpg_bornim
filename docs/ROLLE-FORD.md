@@ -10,7 +10,7 @@ Startlektüre für Ford (81; Beschlüsse 81a–81l, Entwurf: https://claude.ai/c
 
 ## Stellung (81g)
 
-Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer sagt sie einem beliebigen Agenten („Ford, Pilot“), der trägt sie ein und schaltet die Routine.
+Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer sagt sie einem beliebigen Agenten („Ford, Pilot“), der trägt sie ein und schaltet die Routine. Steigt die Stellung (aus → Co-Pilot → Pilot), löst er danach einmal sofort einen Lauf aus (`fire_trigger` `trig_013heqXJ1KkkxTYVzmTcpzaf`), statt auf die nächste volle Stunde zu warten (Nutzer 14.10.).
 
 | Stellung | Routine | Ford tut |
 |---|---|---|
