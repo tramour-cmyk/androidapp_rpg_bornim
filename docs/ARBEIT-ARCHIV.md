@@ -177,6 +177,15 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - `./gradlew -p core test`: Kerntests, vor jedem Commit (Exit-Code prüfen).
 - Erinnerungen an frühere Gespräche: alles Wichtige steht in `CLAUDE.md`, `docs/ARBEIT-OFFEN.md` (Übergaben), `docs/DESIGN-STIL.md`, `docs/LISTE-IDEEN.md`, `CHANGELOG.md`; der Verlauf in `docs/ARBEIT-ARCHIV.md`.
 
+
+## Aus ROLLE-BERATER.md, 14.10., 18:2x (alte Übergabe)
+
+**Übergabe (14.10., 17:2x) – Nachfolger: „Sokrates – Kampfsystem“:**
+
+**Nächster Punkt:** (0) **72b Kampf:** [Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) mit Baustein 7 (Abstand nah/fern, Attribute; zur Rückmeldung 16:55); Nutzer schickt weitere Gedanken, dann 72k–72o (B empfohlen, Probe Jerry ab Fr.), 26d hängt daran. (1) **81 Ford** Co-Pilot; Telegram-Schlüssel fehlt in der Umgebung der Routine (auch Lauf 17:29; Ford weicht auf App-Push aus), Frage auf „Dein Zug“ (`e/81.html`); Pilot nur auf Zuruf; Jerry-Ford ab Fr.; danach Regelbilanz (Weck-Routinen in `ARBEIT-SELBST.md` durch Ford ersetzen, `CLAUDE.md` kürzen). (2) **13e.6** Licht: empfohlen B plus Fackel in der Hand (17:24 gefragt). (3) **41** Entwurf beim Nutzer (4.4, 5.3, 6.3), nach Freigabe wortgetreu nach `STORY-K2*.md`. (4) **69e** Runde 4: aktiv Meinung äußern gegen `DESIGN-STIL.md`, dann 70.1, danach 79. (5) 72a–72j.
+
+**Zuletzt gelesen bis:** 80acc969 (14.10., 17:4x)
+
 ## Notizen auf `main` (seit 10.10.)
 `tools/notiz.sh` holt `main`, legt die Arbeitskopie `../bornim-main` für Notizen an, meldet den Namen der Sitzung (Tom oder Jerry, aus der Tabelle in `CLAUDE.md`) und zeigt, was sich seit dem letzten Aufruf an `CLAUDE.md`, `CHANGELOG.md` und `docs/` geändert hat. Der Starthaken ruft es mit `--kurz` auf.
 

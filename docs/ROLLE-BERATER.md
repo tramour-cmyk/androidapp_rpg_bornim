@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 17:2x) – Nachfolger: „Sokrates – Kampfsystem“:**
+**Übergabe (14.10., 18:2x) – Nachfolger: „Sokrates – Kampfsystem“:**
 
-**Nächster Punkt:** (0) **72b Kampf:** [Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) mit Baustein 7 (Abstand nah/fern, Attribute; zur Rückmeldung 16:55); Nutzer schickt weitere Gedanken, dann 72k–72o (B empfohlen, Probe Jerry ab Fr.), 26d hängt daran. (1) **81 Ford** Co-Pilot; Telegram-Schlüssel fehlt in der Umgebung der Routine (auch Lauf 17:29; Ford weicht auf App-Push aus), Frage auf „Dein Zug“ (`e/81.html`); Pilot nur auf Zuruf; Jerry-Ford ab Fr.; danach Regelbilanz (Weck-Routinen in `ARBEIT-SELBST.md` durch Ford ersetzen, `CLAUDE.md` kürzen). (2) **13e.6** Licht: empfohlen B plus Fackel in der Hand (17:24 gefragt). (3) **41** Entwurf beim Nutzer (4.4, 5.3, 6.3), nach Freigabe wortgetreu nach `STORY-K2*.md`. (4) **69e** Runde 4: aktiv Meinung äußern gegen `DESIGN-STIL.md`, dann 70.1, danach 79. (5) 72a–72j.
+**Nächster Punkt:** (0) **72b Kampf:** [Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4), Baustein 7; Nutzer schickt weitere Gedanken, dann 72k–72o, 26d hängt daran; Schleichen (84.3) und Schnellwechsel (84.2) mit 72b festlegen. (1) **84 Licht und Laut:** 13e.6 = B, 84.4 Stufen beschlossen; Kernregel „Licht gegen Heimlichkeit“ gefragt (18:0x, noch ohne Antwort), dann kurzes Konzept mit Zahlen für Tom (Fackel im Laden) und Jerry. (2) **81 Ford** steht (Routine `trig_013heqXJ1KkkxTYVzmTcpzaf` in „Voll“, Telegram belegt); nächster Schritt Regelbilanz (Weck-Routinen in `ARBEIT-SELBST.md` durch Ford ersetzen, `CLAUDE.md` kürzen); Pilot nur auf Zuruf. (3) **41** Entwurf beim Nutzer (4.4, 5.3, 6.3). (4) **69e** Runde 4: Meinung gegen `DESIGN-STIL.md`, dann 70.1, danach 79. (5) 72a–72j.
 
-**Zuletzt gelesen bis:** 80acc969 (14.10., 17:4x)
+**Zuletzt gelesen bis:** 61d7506b (14.10., 18:2x)
 
 ## Wer du bist
 
@@ -50,6 +50,7 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 - **Balance (38):** SRD als Fundament, Stufen 5–14 als Kern über mindestens 7 Kapitel, Abweichungen mit Grund in `DESIGN-BALANCE.md`; Schwierigkeitsgrad erst nach Messung von „Normal“.
 - **Profil (72; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b)):** Lücke = fürs Handy gebautes Rollenspiel mit eigenem Look und Geschichte (zwischen Darkest Dungeon und Exiled Kingdoms); größte Schwäche der Menü-Zweikampf.
 - **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen, damit Entwickler keine Texte erfinden; Kult mit weitergegebenem Titel trägt sieben Kapitel; Kapitel 2: Hinweise doppelt (freie Welt), Anreiz statt Pfeil, zweiter Weg (72.5). Volltext im Archiv („20:5x“).
+- **Licht und Laut (13e.6, 84):** Held ohne eigenes Licht, weil Licht nur aus sichtbaren Quellen kommt (Leitbild); Fackel kostet die Nebenhand und macht sichtbar, Dunkel erlaubt Schleichen und Lauschen: eine Wahl je Höhle statt Pflichtkauf. Welle statt Pfeil, weil Pfeile führen (62c); Hören in Stufen, damit Stehenbleiben lohnt, ohne Pflicht zu werden.
 - **Tempelszene (68, 70):** Zwischensequenzen gleich gebaut, damit sie als Reihe wirken; Osric im Bild statt Erklärung (Begründungen im Text wirken konstruiert); **Blende statt Termin**, sonst wartet man in freier Welt tagelang; Einstieg Kapitel 2 erinnert statt führt. Volltext im Archiv („18:5x“).
 
 ## Lehren
