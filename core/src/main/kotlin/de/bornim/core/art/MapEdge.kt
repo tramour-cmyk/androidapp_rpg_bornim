@@ -4,19 +4,17 @@ import de.bornim.core.MapDef
 import de.bornim.core.MapKind
 
 /**
- * The edge of a map outdoors (27/5.5, draft): instead of a straight black slant where the map ends, the wood goes on
- * for a few rows of trees beyond it and fades into the dark. Only in the preview until the user has seen it.
+ * The edge of a map outdoors (27m): instead of a straight black slant where the map ends, the wood goes on
+ * for a few rows of trees beyond it and fades into the dark.
  */
 object MapEdge {
-    @Volatile var draft = false
-
     /** How many tiles beyond the edge the wood is drawn. */
     const val RING = 6
 
     /** Trees beyond the edge are chosen as if they stood this far away, where every tile is wood and nothing must stay in sight. */
     private const val OFF = 1000
 
-    fun applies(map: MapDef) = draft && (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN)
+    fun applies(map: MapDef) = (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN)
 
     /** The trees standing in the ring beyond the edge of [map]. */
     fun trees(map: MapDef): List<WorldArt.Obj> {

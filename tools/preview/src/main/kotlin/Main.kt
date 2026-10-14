@@ -335,8 +335,6 @@ fun main() {
             de.bornim.core.art.MapFigure.prepareNow(g.state.hero)
             de.bornim.core.art.MapFolk.prepareNow(de.bornim.core.art.MapFolk.garrick)
             println("map figure: ${System.currentTimeMillis() - t0} ms for 64 pictures")
-            // RAND=1: beyond the edge the wood goes on and fades into the dark (27/5.5, draft)
-            if (System.getenv("RAND") != null) de.bornim.core.art.MapEdge.draft = true
             // RAIN=1: it pours, at full strength at once
             de.bornim.core.Weather.mode = if (System.getenv("RAIN") != null) de.bornim.core.Weather.Mode.ALWAYS else de.bornim.core.Weather.Mode.NEVER
             g.settleWeather()
