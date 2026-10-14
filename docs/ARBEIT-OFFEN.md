@@ -10,13 +10,11 @@ Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main`
 
 ## Jetzt installieren
 
-- **Tom Sammelbuild 0.1.739** (zuerst; ersetzt 0.1.736; 5.5, 27m.1–27m.5, Waldrand West und Nord, Tiefer Wald; PR #60, Zweig `claude/tom-5-5-dorf-luecken`): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38606896939/artifacts/11915841464), Prüfliste „0.1.739“ (`e/t732.html`) auf „Dein Zug“ (nur Punkt 6, Nordwestecke, Tiefer Wald nachtesten).
-
-- **Tom Sammelbuild 0.1.740** (neu gebaut statt 0.1.733, Nummer muss steigen; 82, 52, 80a, D1.5/D1.10/D1.11; PR #61, Zweig `claude/tom-d1-schatten`, nach 0.1.739): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38609446594/artifacts/11916384478), Prüfliste `e/t733.html`.
+- **Tom Sammelbuild 0.1.740** (zuerst; 82, 52, 80a, D1.5/D1.10/D1.11; PR #61, Zweig `claude/tom-d1-schatten`): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38609446594/artifacts/11916384478), Prüfliste `e/t733.html`.
 
 - **Tom Sammelbuild 0.1.741** (neu gebaut statt 0.1.738; Höhle: 13e.5, 13e.6 B, D1.5, D1.9; PR #62, Zweig `claude/tom-13e-hoehle-fertig`, nach 0.1.740): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38609455363/artifacts/11916159370), Prüfliste `e/t738.html`.
 
-Nach „passt“ je PR (Reihenfolge #60, #61, #62): zusammenführen, `CHANGELOG.md`, Prüfliste von „Dein Zug“, hier leeren.
+Nach „passt“ je PR (Reihenfolge #61, #62): zusammenführen, `CHANGELOG.md`, Prüfliste von „Dein Zug“, hier leeren.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -33,10 +31,10 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`enabled: false`, nicht löschen). 65.8/65.9 stehen in `CLAUDE.md` |
 | 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-13e-hoehle-fertig` | In 0.1.741 (PR #62, t738); 13e.6 = B (kein Heldenlicht, Fackel → 84.1). Danach D1.7 Leben (Standbild, Absprache `WorldScreen.kt`) |
 | 83 | Dorf Süd: weder die eingezäunten Beete im Westen noch die Weizenfelder im Osten zu sehen; Bäume wegnehmen oder andere Lösung? (Nutzer 14.10., 17:3x, Test t732) | Tom | – | **A** (Nutzer 14.10., 20:4x, Beschlüsse): Waldrand vor Beeten/Feldern zurücknehmen, Hecke; Standbild vor Einbau. Umfasst t732 Punkt 8: Hühner am Südrand nicht zu sehen (Nutzer 19:3x) |
-| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-5-5-dorf-luecken` | Auf `main` bis 5la; 5.5 in 0.1.739 (t732) |
+| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` bis 5.5 |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`LISTE-KAPITEL1.md`](LISTE-KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | Toms Teil von 26c fertig |
-| 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Tom | `claude/tom-5-5-dorf-luecken` | In 0.1.739 (PR #60, t732), auch schwarze Kante Dorf abends. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise) |
+| 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Tom | – | Auf `main` bis 27m. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise) |
 | 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | Abstürze beobachten (bei neuem `adb logcat` mit Anleitung von Tom); 30.7 Merkliste |
 | 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben) | Jerry | – | Meldung Nutzer 12.10., 15:4x mit Bildschirmfoto (Wiese, alte Kampfansicht). Erst Standbild der Sterbehaltungen aller Klassen, dann Vorschlag |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt | Jerry | – | 36.4–36.7, 36h/36j/36k auf `main` (PR #46, #47, getestet 0.1.587). Rest in 52, 53. **Offen 36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung. Verlauf im Archiv |
@@ -64,7 +62,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (14.10., 20:5x)
-- PR #60 (0.1.739), #61 (0.1.740), #62 (0.1.741) beim Nutzer, in dieser Reihenfolge, abonniert. 0.1.739: klären, ob er nach 19:30 installiert hat; dann PR #60 zusammenführen.
+- PR #60 zusammengeführt (0.1.739 passt, Nutzer 20:5x). #61 (0.1.740), #62 (0.1.741) beim Nutzer, in dieser Reihenfolge, abonniert.
 - **83 A** (Zweig von `main`): Felder `c`/Beete `v` in Zeile 28–30 von `Story.village`, Zeile 31 Baumreihe → Hecke; Ring `MapEdge.trees` südlich ohne Bäume bis Tiefe 3 vor Feld/Beet/Zaun/Heu. Standbilder `HELDORT=village:6:29:D:12`, `village:26:29:D:12`.
 - **74 einbauen** (`claude/tom-74-schritte`): nur Held, Untergrund je Feld. **85** fertig, mit in den nächsten Sammelbuild. Draußen nachts bleibt das kleine Licht um den Helden.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
