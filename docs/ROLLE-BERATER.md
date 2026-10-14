@@ -61,5 +61,5 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 - **Entwürfe sofort in die Notizen** (13.10., Rabenschanze und 77 standen nur im Chat): gleich in Storyplan oder `ARBEIT-OFFEN.md`.
 - **Meldungen in fremden Bereichen** (13.10.): erst `git pull` und nachsehen, ob Tom/Jerry sie schon eingetragen haben (62s stand doppelt).
 - **Freie Welt mitdenken** (13.10., 68): bei jeder Szene fragen, was passiert, wenn der Spieler nicht hingeht oder trödelt.
-- **Sprachmodus** (13.10.): Aufträge kommen dann als Nachricht der Sprachsitzung; als entschieden gilt nur ein ausdrückliches Ja des Nutzers, Unklares (3d) offen benennen.
+- **Sprachmodus** (13.10.): Aufträge kommen dann als Nachricht der Sprachsitzung; als entschieden gilt nur ein ausdrückliches Ja des Nutzers, Unklares (3d) offen benennen; Aufträge der Sprachsitzung gegen den Wortlaut des Nutzers prüfen (14.10.: „Ich-Perspektive“ wurde zu „über die Schulter“).
 - **Umbauten mit Prüfskript** (13.10., 77e): Zeilenerhalt gegen den Ausgangsstand plus Marken wortgleich plus Verweis-Check fand jede Lücke; Zeilen, die Tom parallel strich, vorher aus dem Abgleich nehmen. Shell-Heredocs mit Backticks immer als `<<'EOF'`, sonst werden `main` und `grep` still ausgeführt.
