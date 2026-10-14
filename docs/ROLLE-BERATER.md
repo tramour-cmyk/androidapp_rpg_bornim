@@ -2,13 +2,13 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 09:5x) – Nachfolger: „Sokrates – Texte Kapitel 2“:**
+**Übergabe (14.10., 11:2x) – Nachfolger: „Sokrates – Texte Kapitel 2, Freigabe“:**
 
-**Sitzungen** (ältere im Archiv): 14.10. 09:15–09:5x „Kultlager und Aschfurt“: 41 Station 3 (5a–5f) und 4 (6a–6f) entschieden, Plot Kapitel 2 damit vollständig; 70.2/70.5 ja: `LISTE-FIGUREN.md` einzige Quelle fürs Aussehen; 80 neu (Kaels Laterne, Tom). Schwerpunkt: Spiel fast ganz, Abläufe kaum. Lehre: drei von sechs Rückfragen brauchten Erklärung, also Kontext gleich in die Rückfrage.
+**Sitzungen** (ältere im Archiv): 14.10. 09:58–11:2x „Texte Kapitel 2“: ganzer Textentwurf Kapitel 2 im [Dokument](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413) (Stationen 1–4, Schilfrode, Kapitelende, sechs Aushänge, Prüfpunkte 1.1–6.3); Namen Rask und Fenn ja; Antwortzeit-Regel in `CLAUDE.md` ergänzt (Nutzer ja). 69e zweite Runde begutachtet. Schwerpunkt: fast nur Spiel. Lehre: Fassungen, die ich selbst schwächer finde, nicht zur Ansicht stehen lassen, sondern gleich die bessere schreiben.
 
-**Nächster Punkt:** (1) **41 Texte Kapitel 2** (Dialoge, Erzähltexte, Aushänge Schilfrode; Namen offen: Aufseher „Brand“, Sohn von Merle und Ansel), Nebenaufgaben 5–6 Stück. (2) 69e: Nutzer 09:5x: (1) präzise in Augenhöhe, keine Abstraktion, detailreicher; Tom macht zweite Runde, dann Musterbild (70.1), 70.3. (3) 79 nach dem Musterbild (Jerry ab Fr.). (4) 72a–72j. Jerry braucht ab Fr. Schreibrecht auf den Prüfbericht (75g).
+**Nächster Punkt:** (1) **Nutzer prüft den Entwurf** (Prüfpunkte fett), offen 4.4 (Fenn stirbt ohne Merles Worte, Merle-Zeile), 5.3 (Szene mit Joss' Frau), 6.3 (Antworten und Belohnungen der Aushänge nach Freigabe). Nach Freigabe wortgetreu nach `docs/STORY-K2.md` und `STORY-K2-W.md` (Marken `[41.…]`, `[24.ort.…]`), Verzeichnis in `STORY-REGELN.md`. (2) **69e:** Empfehlung an den Nutzer 11:13: dritte kurze Runde (Brücke ganz ins Bild als Weg zu den Lichtern mit Geländer, Vordergrund um ein Drittel kürzen, Laterne am nahen Brückenkopf mit warmem Licht auf Bohlen und Wasser, Scheibe unter der Tanne weg, mehr Ufer); Antwort offen, dann an Tom. (3) 79 nach dem Musterbild. (4) 72a–72j.
 
-**Zuletzt gelesen bis:** dieser Commit (14.10., 09:5x)
+**Zuletzt gelesen bis:** dieser Commit (14.10., 11:2x)
 
 ## Wer du bist
 
