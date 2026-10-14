@@ -215,9 +215,10 @@ object MapLight {
             val o = (gy * gw + gx) * 3
             for (c in 0..2) g[o + c] = amb[c] * st.shade[m] + st.always[m * 3 + c] + st.night[m * 3 + c] * kn + st.day[m * 3 + c] * kd
         }
-        // the lantern: always in caves, outdoors only when it gets dark
+        // the lantern: outdoors only when it gets dark; never in a cave, which is lit only by its own fires, torches,
+        // shafts and mushrooms (13e.6 = B, user 14.10.: no light round the hero without a source)
         val lantern = when (map.kind) {
-            MapKind.CAVE -> 0.9
+            MapKind.CAVE -> 0.0
             MapKind.INTERIOR -> 0.0
             // in the village the street lamps and windows light the way, the lantern stays small
             MapKind.TOWN -> 0.4 * kn
