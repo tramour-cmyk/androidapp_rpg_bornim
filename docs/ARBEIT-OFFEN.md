@@ -53,7 +53,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 16:0x) – an Nachfolger
+### Tom (14.10., 15:58) – an Nachfolger
 - PR #60 abonniert (grün, wartet auf t732; nach „passt“ zusammenführen, `CHANGELOG.md`). Beim Nutzer offen: t732, 69e, 74.
 - **Nächster Sammelbuild** (höchstens 4 Punkte, neuer Zweig `claude/tom-sammel-82` von `main`, die drei Zweige hineinmergen): **52** (`claude/tom-52-rudel`), **80a** (`claude/tom-80a-sockel`), **D1-Reste** (D1.5 Schatten 2:1, D1.10 Rowena/Schänkenklang, D1.11 Fenster/Regale) und **82** (Tür) auf `claude/tom-d1-schatten`. Prüfliste `e/t<build>.html`; Vermerke im Prüfbericht gesetzt. Danach D1.16-Rest nur nach Absprache.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00

@@ -1,6 +1,6 @@
 # Archiv
 
-### Aus ARBEIT-OFFEN.md, 14.10., 16:0x (Übergabe Tom 15:3x)
+### Aus ARBEIT-OFFEN.md, 14.10., 15:58 (Übergabe Tom 15:3x)
 - PR #60 abonniert (grün, wartet auf t732; nach „passt“ zusammenführen, `CHANGELOG.md`). Beim Nutzer offen: t732, 69e, 74. **Nächster Sammelbuild** (neuer Zweig von `main`, nach t732): 52, 80a, D1.5, D1.10.
 - **D1.5** (ceb9452) und **D1.10** (d9899f4f) fertig auf `claude/tom-d1-schatten`: Schatten 2:1; Rowena wischt/schenkt ein (`NPCIDLE=rowena`), Schänkenklänge kommen aus dem Bewegungsplan (`PlaceSound.folk`), zufällig nur Husten und Knarren. Jetzt **D1.11-Rest** (Tür/Fenster nur eine Form; mehrteilige Möbel je Feld andere Variante). D1.16-Rest nur nach Absprache.
 
