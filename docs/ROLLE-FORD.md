@@ -28,10 +28,10 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 6. 7 Uhr: Morgenmeldung mit der Nachtliste.
 7. Etwas getan → Zeile ins Protokoll unten, pushen; sonst nichts schreiben.
 
-## Push (81a, 81l)
+## Push (81a, 81l, 81m)
 
-Nur Push, keine E-Mail (Nutzer 14.10.). Weg: ntfy (App beim Nutzer), Thema steht nur im Text der Ford-Routine, nie im Repo:
-`curl -s -d "Ford 14.10. 13:44: 5.5 Build fertig, Prüfliste auf Dein Zug" https://ntfy.sh/<Thema>`
+Nur Push, keine E-Mail (Nutzer 14.10.). Weg: Telegram-Bot `@Bornim_Ford_Bot`, Schlüssel nur als Umgebungsvariable `TELEGRAM_BOT_TOKEN`, nie im Repo oder Chat:
+`curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" --data-urlencode "chat_id=8965432899" --data-urlencode "text=Ford 14.10. 13:44: 5.5 Build fertig, Prüfliste auf Dein Zug"`
 Form „Name TT.MM. HH:MM: Inhalt“, Nummer vorn; nur Nummern und Stichworte, nie Spieltexte. Alle Meldungen über den Tom-Ford (81k); der Jerry-Ford startet nur Jerry.
 
 ## Protokoll
