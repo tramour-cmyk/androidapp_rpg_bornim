@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (14.10., 11:2x) – Nachfolger: „Sokrates – Texte Kapitel 2, Freigabe“:**
 
-**Sitzungen** (ältere im Archiv): 14.10. 09:58–11:2x „Texte Kapitel 2“: ganzer Textentwurf Kapitel 2 im [Dokument](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413) (Stationen 1–4, Schilfrode, Kapitelende, sechs Aushänge, Prüfpunkte 1.1–6.3); Namen Rask und Fenn ja; Antwortzeit-Regel in `CLAUDE.md` ergänzt (Nutzer ja). 69e zweite Runde begutachtet. Schwerpunkt: fast nur Spiel. Lehre: Fassungen, die ich selbst schwächer finde, nicht zur Ansicht stehen lassen, sondern gleich die bessere schreiben.
+**Sitzungen** (ältere im Archiv): 14.10. 09:58–11:2x „Texte Kapitel 2“: ganzer Textentwurf Kapitel 2 im [Dokument](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413) (Stationen 1–4, Schilfrode, Kapitelende, sechs Aushänge, Prüfpunkte 1.1–6.3); Namen Rask und Fenn ja; Antwortzeit-Regel in `CLAUDE.md` ergänzt (Nutzer ja). Schwerpunkt: fast nur Spiel. Lehre: schwächere Fassungen nicht zur Ansicht stehen lassen, gleich die bessere schreiben.
 
 **Nächster Punkt:** (1) **Nutzer prüft den Entwurf** (Prüfpunkte fett), offen 4.4 (Fenn stirbt ohne Merles Worte, Merle-Zeile), 5.3 (Szene mit Joss' Frau), 6.3 (Antworten und Belohnungen der Aushänge nach Freigabe). Nach Freigabe wortgetreu nach `docs/STORY-K2.md` und `STORY-K2-W.md` (Marken `[41.…]`, `[24.ort.…]`), Verzeichnis in `STORY-REGELN.md`. (2) **69e** dritte Runde an Tom (Nutzer 11:2x ja, Auftrag in „Wer macht was“), danach Musterbild und 70.3 leises Leben; offen: Karte nachziehen, falls das Bild schöner wird. (3) 79 nach dem Musterbild. (4) 72a–72j.
 
