@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -329,6 +330,8 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 .background(Color.Black)
         ) {
             MapView(game, rev, route?.target, clock)
+            // test tab (27m): frames per second and the slowest frame of the last second, top left over the map
+            if (FrameMeter.on) Txt(FrameMeter.text, Modifier.align(Alignment.TopStart).background(Color(0xAA000000)).padding(4.dp), size = 12.sp, pixel = true)
             if (touch) {
                 TouchLayer(
                     onDir = { d -> heldDir = d },
@@ -646,6 +649,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
     val frame = ((time / 450) % 2).toInt()
     Canvas(Modifier.fillMaxSize()) {
         rev.hashCode() // read so the canvas redraws on game changes
+        if (FrameMeter.on) FrameMeter.tick(System.nanoTime())
         val state = game.state
         val map = game.map
         val T = WorldArt.T
@@ -687,8 +691,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
 
         // while true, [put] cuts the picture out of what is drawn below it (the lit windows behind something in front)
         var cutting = false
-        fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f, corner: Boolean = false) {
-            val dw = img.width * scale / density; val dh = img.height * scale / density
+        fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f, corner: Boolean = false, bleed: Int = 0) {
+            val dw = img.width * scale / density + bleed; val dh = img.height * scale / density + bleed
             val (sx, sy) = placeOf(img, x, y, density, corner)
             if (!flat && (sx > size.width || sy > size.height || sx + dw < 0 || sy + dh < 0)) return
             drawImage(
@@ -720,7 +724,11 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         for (cy in Math.floorDiv(y0, ch)..Math.floorDiv(y1, ch)) for (cx in Math.floorDiv(x0, ch)..Math.floorDiv(x1, ch)) {
             // the piece the hero stands on right away, the rest stays dark for the moment it takes, drawn on several cores (23:04)
             val here = cx == Math.floorDiv(p.x, ch) && cy == Math.floorDiv(p.y, ch)
-            (if (here) MapGround.chunkNow(map, cx, cy) else MapGround.chunk(map, cx, cy))?.let { put(it, cx * ch * T, cy * ch * T, MapGround.D) }
+            (if (here) MapGround.chunkNow(map, cx, cy) else MapGround.chunk(map, cx, cy))?.let {
+                // turned, the edges of a piece are smoothed and the black below showed through as a thin seam (27):
+                // each piece reaches two pixels into the next
+                put(it, cx * ch * T, cy * ch * T, MapGround.D, bleed = 2)
+            }
         }
 
         // shadows of trees, rocks and stones on the ground, strong by day, gone at night
@@ -1710,6 +1718,11 @@ private object LightImage {
     /** How dark the fog makes part ([sx], [sy]) (in [SUB]ths of a tile) right now: 1 unknown, 0 in sight. */
     fun shadeSub(map: de.bornim.core.MapDef, sx: Int, sy: Int): Float {
         val tx = Math.floorDiv(sx, SUB); val ty = Math.floorDiv(sy, SUB)
+        // beyond the edge the wood goes on (27m): it is as known as the edge next to it
+        if (de.bornim.core.art.MapEdge.applies(map) && !map.inside(tx, ty)) {
+            val cx = sx.coerceIn(0, map.width * SUB - 1); val cy = sy.coerceIn(0, map.height * SUB - 1)
+            return if (map.id == fadeMap) sub[cy * map.width * SUB + cx] else 1f
+        }
         return if (map.id == fadeMap && map.inside(tx, ty)) sub[sy * map.width * SUB + sx] else 1f
     }
 
@@ -2035,6 +2048,49 @@ private fun uprightLight(img: de.bornim.core.art.PixelImage, map: de.bornim.core
     }
 }
 
+/**
+ * Seen diagonally outdoors (27l, user 14.10.): a standing stone, a sign or a boulder covers, on the screen, the ground
+ * behind it, and took that ground's light: half in the shade of the crowns, half in the clearing, with a hard edge
+ * across. Such a thing now takes the light at its foot, over its whole height. Heights in map pixels on the screen.
+ */
+private fun footLight(img: de.bornim.core.art.PixelImage, map: de.bornim.core.MapDef, x0: Int, y0: Int, res: Int) {
+    val T = WorldArt.T
+    val k = MapSight.K
+    // height and width of the thing's picture on the screen, in map pixels; 0 for everything else
+    fun size(t: Tile): Pair<Float, Float> = when (t) {
+        Tile.MENHIR -> 44f to 12f
+        Tile.SIGN -> 40f to 10f
+        Tile.ROCK -> 24f to 28f
+        else -> 0f to 0f
+    }
+    val src = img.pixels.copyOf()
+    for (yy in 0 until img.height) for (xx in 0 until img.width) {
+        val px = x0 + xx * res + res / 2f; val py = y0 + yy * res + res / 2f
+        val fx = floor(px / T).toInt(); val fy = floor(py / T).toInt()
+        // a thing standing on a tile in front covers this ground on the screen if it lies inside its outline:
+        // up by its height (going back on the map by h / K along both axes), and half its width to either side
+        var foot: Pair<Int, Int>? = null; var front = Int.MIN_VALUE; var weight = 0f
+        for (dy in 0..2) for (dx in 0..2) {
+            val tx = fx + dx; val ty = fy + dy
+            if (!map.inside(tx, ty) || tx + ty <= front) continue
+            val (h, w) = size(map.tile(tx, ty))
+            if (h <= 0f) continue
+            val a = px - (tx * T + T / 2f); val b = py - (ty * T + T / 2f)
+            val up = -k / 2 * (a + b); val side = k * (a - b)
+            // full inside, fading out over a few pixels at the sides and the top, so no box of light shows round it
+            val wt = ((w / 2 - kotlin.math.abs(side)) / 4f).coerceIn(0f, 1f) * ((h - up) / 8f).coerceIn(0f, 1f) * ((up + 4f) / 4f).coerceIn(0f, 1f)
+            if (wt > 0f) { foot = tx to ty; front = tx + ty; weight = wt }
+        }
+        val (tx, ty) = foot ?: continue
+        // the ground in the middle of the thing's tile
+        val sx = ((tx * T + T / 2f - x0) / res).toInt(); val sy = ((ty * T + T / 2f - y0) / res).toInt()
+        if (sx !in 0 until img.width || sy !in 0 until img.height) continue
+        val c = src[sy * img.width + sx]; val o = src[yy * img.width + xx]
+        fun mix(sh: Int) = ((((o shr sh) and 0xFF) * (1 - weight) + ((c shr sh) and 0xFF) * weight).toInt()).coerceIn(0, 255)
+        img.pixels[yy * img.width + xx] = (0xFF shl 24) or (mix(16) shl 16) or (mix(8) shl 8) or mix(0)
+    }
+}
+
 private fun DrawScope.drawMapLight(
     game: Game, map: de.bornim.core.MapDef, clock: Long, camX: Int, camY: Int, scale: Int, heroX: Int, heroY: Int, viewW: Float, viewH: Float,
 ) {
@@ -2101,6 +2157,15 @@ private fun DrawScope.drawMapLight(
         }
         // seen diagonally, the walls and the tall things of a room stand where the light image has the ground behind them
         if (map.kind == MapKind.INTERIOR) uprightLight(img, map, x0, y0, res)
+        else footLight(img, map, x0, y0, res)
+        // beyond the edge the wood fades into the dark (27m)
+        if (de.bornim.core.art.MapEdge.applies(map)) for (yy in 0 until img.height) for (xx in 0 until img.width) {
+            val f = de.bornim.core.art.MapEdge.fade(map, x0 + xx * res + res / 2f, y0 + yy * res + res / 2f)
+            if (f >= 1f) continue
+            val c = img.pixels[yy * img.width + xx]
+            val r = (((c shr 16) and 0xFF) * f).toInt(); val g = (((c shr 8) and 0xFF) * f).toInt(); val b = ((c and 0xFF) * f).toInt()
+            img.pixels[yy * img.width + xx] = (0xFF shl 24) or (r shl 16) or (g shl 8) or b
+        }
         LightImage.img = img
     }
     val grid = LightImage.img ?: return
@@ -2324,7 +2389,10 @@ private fun HudChip(info: HudInfo, lang: de.bornim.core.Lang, modifier: Modifier
     val german = lang == de.bornim.core.Lang.DE
     // Compact: bars on the left, level, points and time on the right, so the map stays visible.
     Row(
-        (if (bar) modifier.background(Color(0xFF14141E)) else modifier.clip(RoundedCornerShape(8.dp)).background(Color(0xAA000000)))
+        (if (bar) modifier.background(Color.Black).drawBehind {
+            // a thin gold line below, like the frame of the dialog box (60, 77.1)
+            drawLine(Veil.rim, Offset(0f, size.height - 0.5f), Offset(size.width, size.height - 0.5f), 1.dp.toPx())
+        } else modifier.clip(RoundedCornerShape(8.dp)).background(Color(0xAA000000)))
             .tap(onMenu)
             .padding(horizontal = if (bar) 10.dp else 6.dp, vertical = 3.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -2528,4 +2596,22 @@ private fun DPad(onDir: (Facing?) -> Unit) {
 @Composable
 fun BackRow(label: String, onBack: () -> Unit) {
     PixelButton(label, Modifier.fillMaxWidth(), onClick = onBack)
+}
+
+/** Test tab (27m): counts the map's frames, so the rate can be read on the phone where the edge of the wood is drawn. */
+object FrameMeter {
+    var on by mutableStateOf(false)
+    var text by mutableStateOf("")
+        private set
+    private var since = 0L; private var last = 0L; private var count = 0; private var worst = 0L
+
+    fun tick(now: Long) {
+        if (last != 0L) worst = maxOf(worst, now - last)
+        last = now; count++
+        if (since == 0L) since = now
+        if (now - since >= 1_000_000_000L) {
+            text = "${(count * 1e9 / (now - since)).roundToInt()} B/s · max ${worst / 1_000_000} ms"
+            since = now; count = 0; worst = 0L
+        }
+    }
 }
