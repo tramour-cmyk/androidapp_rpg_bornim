@@ -29,7 +29,7 @@ fun renderBridgeProbe() {
     // round 2 (user 14.10., 09:5x): only the precise one, finer, at eye level, tight on the house, the river and the bridge
     val precise = BridgePainter(detail = true).paint()
     File("build/screens").mkdirs()
-    ImageIO.write(precise, "png", File("build/screens/probe69e_r2.png"))
+    ImageIO.write(precise, "png", File("build/screens/probe69e_r3.png"))
     // with its text below as in the app
     val text = "Hinter der Brücke ein paar Lichter. Bornim. Ein Bett für eine Nacht, mehr willst du nicht."
     val w = BridgePainter.W; val h = BridgePainter.H; val box = 170
@@ -46,8 +46,8 @@ fun renderBridgeProbe() {
         line += " $word"
     }
     g.drawString(line.trim(), 54, ly)
-    ImageIO.write(out, "png", File("build/screens/probe69e_r2_text.png"))
-    println("wrote build/screens/probe69e_r2_text.png")
+    ImageIO.write(out, "png", File("build/screens/probe69e_r3_text.png"))
+    println("wrote build/screens/probe69e_r3_text.png")
 }
 
 private class BridgePainter(val detail: Boolean) {
@@ -64,9 +64,9 @@ private class BridgePainter(val detail: Boolean) {
     }
 
     // the camera: the traveller's eyes on the south road, looking north over the bridge
-    val hy = 520.0; val f = 1100.0; val eye = 2.5; val cx = W / 2.0
-    /** The traveller stands at the left edge of the road and looks a little to the right, at the bridge. */
-    val camX = -3.0; val pan = -80.0
+    val hy = 520.0; val f = 1080.0; val eye = 2.5; val cx = W / 2.0
+    /** Round 3: the traveller stands a little left on the road and looks along it; the whole bridge leads to the lights. */
+    val camX = -0.7; val pan = -151.0
     fun sx(x: Double, z: Double) = cx + f * (x - camX) / z - pan
     fun sy(y: Double, z: Double) = hy + f * (eye - y) / z
 
@@ -74,7 +74,7 @@ private class BridgePainter(val detail: Boolean) {
     val ZN = 9.0; val ZF = 16.0
 
     // the moon, high up on the left
-    val moonX = 470.0; val moonY = 140.0
+    val moonX = 250.0; val moonY = 255.0
 
     // the night colours of the diagonal world (village at 23:00)
     val skyTop = Color(0x060A1C); val skyLow = Color(0x2A3654)
@@ -150,7 +150,7 @@ private class BridgePainter(val detail: Boolean) {
             val x = -16 + rnd(i, 801) * 22; if (abs(x) < 2.4) continue
             val z = zb - 0.1 - rnd(i, 802) * 1.0
             val px = sx(x, z); if (px < -20 || px > W + 20) continue
-            val py = sy(0.0, z); val h = f * (0.25 + rnd(i, 803) * 0.45) / z
+            val py = sy(0.0, z); val h = f * (0.17 + rnd(i, 803) * 0.3) / z
             val lean = (rnd(i, 804) - 0.4) * h * 0.25
             val c = if (rnd(i, 805) > 0.7) Color(0x3A4A38) else Color(0x16201A)
             val p = Path2D.Double(); p.moveTo(px, py); p.quadTo(px + lean * 0.2, py - h * 0.6, px + lean, py - h)
@@ -162,7 +162,7 @@ private class BridgePainter(val detail: Boolean) {
             val z = 1.6 + rnd(i, 811).let { it * it } * (zb - 2.0)
             val x = camX + (rnd(i, 812) - 0.5) * z * 1.3
             if (abs(x) < 1.9 && z > 1.6) continue
-            val px = sx(x, z); val py = sy(0.0, z); val l = f * (0.08 + rnd(i, 813) * 0.12) / z
+            val px = sx(x, z); val py = sy(0.0, z); val l = f * (0.053 + rnd(i, 813) * 0.08) / z
             line(alpha(if (rnd(i, 814) > 0.6) Color(0x4A5A40) else Color(0x1A2620), 0.85), maxOf(1.0, f * 0.012 / z), px, py, px + (rnd(i, 815) - 0.5) * l * 0.7, py - l)
         }
         // stones and two ruts on the road up to the bridge
@@ -183,7 +183,7 @@ private class BridgePainter(val detail: Boolean) {
     /** Round 2: a little life (fireflies over the bank, smoke from the chimneys, a bat before the moon). */
     fun life() {
         // smoke from the chimney of the near house, drifting off to the right and thinning, its left side in the moon
-        for (hs in buildings().filter { it.z < 22 && !it.temple }) {
+        for (hs in buildings().filter { it.z < 25 && !it.temple }) {
             val top = hs.wall + hs.roof; val zr = hs.z + hs.d / 2 + 0.5
             val x0 = sx(hs.x - hs.w / 2 + hs.w * 0.72 + 0.35, zr); val y0 = sy(top + 0.8, zr)
             for (k in 0 until 60) {
@@ -212,11 +212,11 @@ private class BridgePainter(val detail: Boolean) {
 
     // ---- the scene built from the village map (69e): one tile is 2 m, the traveller stands on the south road behind the edge
     val map = de.bornim.core.World["village"]
-    val camTx = 18.0; val camTy = 31.5
+    val camTx = 18.0; val camTy = 32.5
     fun wx(tx: Double) = (tx - camTx) * 2
     /** Round 2: the river by the bridge drawn twice as wide as its two tiles, so it reads at eye level (user: may differ from the map). */
     /** and the bank behind it narrower, so the half-timbered house stands close behind the water. */
-    fun depth(t: Int) = when (t) { 26, 27 -> 5.0; 23, 24, 25 -> 1.2; else -> 2.0 }
+    fun depth(t: Int) = when (t) { 26, 27 -> 5.0; 24 -> 2.4; 23 -> 1.6; 25 -> 1.2; else -> 2.0 }
     fun wz(ty: Double): Double {
         var z = 0.0; var t = ty
         while (t < camTy) { val k = kotlin.math.floor(t).toInt(); val next = minOf(camTy, (k + 1).toDouble()); z += (next - t) * depth(k); t = next }
@@ -224,7 +224,8 @@ private class BridgePainter(val detail: Boolean) {
         return z
     }
     fun ch(tx: Int, ty: Int): Char = when {
-        ty > 31 && tx in 15..20 -> '='          // the south road goes on beyond the edge
+        ty > 31 && tx in 17..18 -> '='          // the south road goes on beyond the edge
+        ty > 31 -> '.'
         !map.inside(tx, ty) -> if (ty < 0 && (tx * 7 + ty * 13) % 3 == 0 || ty >= 0 && (tx * 7 + ty * 13) % 5 == 0) 'T' else '.'
         else -> map.tile(tx, ty).ch
     }
@@ -282,8 +283,9 @@ private class BridgePainter(val detail: Boolean) {
                     // round 2: the fir before the half-timbered house stands a little east, beside it, not before its window
                     val shift = if (tx == 14 && ty == 24) 2.6 else 0.0
                     val bx = sx(x + shift + (tileHash(tx, ty, 3) - 0.5), z); val by = sy(0.0, z)
-                    g.color = alpha(Color(0x04060A), 0.45); g.fill(Ellipse2D.Double(bx - f * 1.8 / z, by - f * 0.4 / z, f * 3.6 / z, f * 0.8 / z))
-                    firShape(bx, by, f * hgt / z, f * hgt * 0.42 / z, far(night(dFir), z), far(night(0x4E7A5A), z), if (detail) 0.7 else 0.5) }
+                    softShadow(bx, by, f * 2.2 / z)
+                    if (shift > 0) firVolume(bx, by, f * hgt * 1.15 / z, f * hgt * 0.68 / z, z)
+                    else firShape(bx, by, f * hgt / z, f * hgt * 0.42 / z, far(night(dFir), z), far(night(0x4E7A5A), z), if (detail) 0.7 else 0.5) }
                 'c' -> items += z to { wheatTile(tx, ty) }
                 'y' -> items += z to { hay(x, z) }
                 'x' -> items += z to { fence(tx, ty) }
@@ -695,7 +697,7 @@ private class BridgePainter(val detail: Boolean) {
         }
     }
 
-    /** The bridge: flat planks over beams, no railing, as in the diagonal world; posts stand in the water. */
+    /** The bridge: flat planks over beams with a railing (round 3); posts stand in the water. */
     fun bridge() {
         val z0 = wz(28.0) - 0.3; val z1 = wz(26.0) + 0.3; val y = 0.18; val hw = 2.0
         // posts into the water, far ones first
@@ -728,6 +730,130 @@ private class BridgePainter(val detail: Boolean) {
         // the side beams along the deck
         line(Color(0x18120F), maxOf(2.0, f * 0.12 / z0), sx(-hw, z0), sy(y, z0), sx(-hw, z1), sy(y, z1))
         line(Color(0x18120F), maxOf(2.0, f * 0.12 / z0), sx(hw, z0), sy(y, z0), sx(hw, z1), sy(y, z1))
+        bridgeLantern(hw, y, z0, z1)
+    }
+
+    /** A soft shadow on the ground, falling away from the moon (to the right). */
+    fun softShadow(x: Double, y: Double, r: Double) {
+        val t = g.transform; g.translate(x + r * 0.25, y); g.scale(1.0, 0.22)
+        g.paint = RadialGradientPaint(Point2D.Double(0.0, 0.0), r.toFloat(), floatArrayOf(0f, 0.5f, 1f),
+            arrayOf(alpha(Color(0x04060A), 0.55), alpha(Color(0x04060A), 0.25), alpha(Color(0x04060A), 0.0)), MultipleGradientPaint.CycleMethod.NO_CYCLE)
+        g.fill(Ellipse2D.Double(-r, -r, r * 2, r * 2)); g.transform = t
+    }
+
+    /**
+     * Round 3: the fir before the house with volume: the trunk shows between the tiers, every tier lit on the moon side (left)
+     * and dark on the other, the drooping branches dark underneath where they lie in each other's shadow, needles in fine strokes.
+     */
+    fun firVolume(x: Double, base: Double, h: Double, w: Double, z: Double) {
+        val dark = far(Color(0x070E0C), z); val mid = far(night(dFir, 1.1), z); val lit = far(night(0x9CC4A0, 1.45), z)
+        // the trunk, its left edge in the moon
+        val tw = maxOf(2.0, w * 0.06)
+        line(Color(0x1A1210), tw, x, base, x, base - h * 0.9)
+        line(alpha(Color(0x5A4A40), 0.6), maxOf(1.0, tw * 0.3), x - tw * 0.3, base, x - tw * 0.3, base - h * 0.75)
+        val tiers = 9; val step = h * 0.92 / tiers
+        for (k in 0 until tiers) {
+            val t0 = k / tiers.toDouble()
+            val yb = base - h * 0.05 - step * k; val yt = yb - step * 1.4
+            val half = (w * 0.5 * (1 - t0) * (1 - t0 * 0.15) + w * 0.03) * (0.88 + 0.24 * rnd(k, 939))
+            val sag = step * 0.3
+            // the upper side of the tier: from the trunk the branches rise a little, then bow down to the hanging tips
+            fun upper(u: Double) = yt + (yb - yt) * Math.pow(abs(u), 0.75)
+            // the lower side: a thick layer of twigs below, ragged where the fronds hang down
+            val thick = step * 0.8
+            val teeth = 9
+            val path = Path2D.Double(); path.moveTo(x, yt)
+            for (j in -teeth..teeth) { val u = j / teeth.toDouble(); path.lineTo(x + half * u, upper(u) - step * 0.08 * (1 - abs(u))) }
+            for (j in teeth downTo -teeth) {
+                val u = j / teeth.toDouble()
+                val frond = if (j % 2 == 0) step * (0.18 + 0.25 * rnd(k * 31 + j, 933)) else 0.0
+                val yy = upper(u) + thick * (1 - 0.55 * abs(u)) * (0.35 + 0.65 * (1 - abs(u))) + frond + (rnd(k * 31 + j, 931) - 0.5) * step * 0.12
+                path.lineTo(x + half * u * (0.97 + 0.06 * rnd(k * 31 + j, 932)), yy)
+            }
+            path.closePath()
+            // the moon side lit, the far side dark
+            g.paint = java.awt.LinearGradientPaint(Point2D.Double(x - half, 0.0), Point2D.Double(x + half + 0.01, 0.0), floatArrayOf(0f, 0.4f, 1f),
+                arrayOf(lit, mid, dark))
+            g.fill(path)
+            // underneath, where the tier above shades it, and deep inside by the trunk, it is darker
+            val clip = g.clip; g.clip(path)
+            g.paint = GradientPaint(0f, (yb - sag).toFloat(), alpha(dark, 0.0), 0f, yb.toFloat(), alpha(dark, 0.8)); g.fill(path)
+            g.paint = RadialGradientPaint(Point2D.Double(x + half * 0.1, yb - sag * 0.6), (half * 0.55).toFloat(), floatArrayOf(0f, 1f),
+                arrayOf(alpha(Color(0x040806), 0.6), alpha(Color(0x040806), 0.0)), MultipleGradientPaint.CycleMethod.NO_CYCLE); g.fill(path)
+            // needles: short strokes, light on the moon side
+            for (i in 0 until 160) {
+                val u = rnd(k * 100 + i, 941) * 2 - 1; val v = rnd(k * 100 + i, 942)
+                val px = x + half * u * (1 - v * 0.6); val py = yt + (yb - yt) * (0.35 + v * 0.65) - sag * (1 - u * u) * v
+                val c = if (u < -0.15 && rnd(k * 100 + i, 943) > 0.35) alpha(lit, 0.45) else alpha(dark, 0.6)
+                line(c, maxOf(0.6, w * 0.006), px, py, px + u * step * 0.12, py + step * 0.1)
+            }
+            g.clip = clip
+            // the moon catches the upper left rim of every tier
+            line(alpha(lit, 0.7), maxOf(1.0, w * 0.01), x - half * 0.92, yb - sag * 0.15, x - half * 0.15, yt + step * 0.3)
+        }
+    }
+
+    /**
+     * Round 3: a railing along both edges (posts, a top rail and a middle rail), and a lantern on the near right post,
+     * its warm light on the planks, the posts and the water beside the bridge.
+     */
+    fun bridgeLantern(hw: Double, y: Double, z0: Double, z1: Double) {
+        val wood = Color(0x221A14); val woodLit = night(0x7A5C40, 1.3)
+        val lx = hw + 0.1; val lz = z0 + 0.25; val lh = y + 1.85
+        // the warm pool on the deck and on the water beside the bridge
+        val lpx = sx(lx, lz); val lpy = sy(lh, lz)
+        run {
+            val r = f * 2.6 / lz; val t = g.transform; g.translate(sx(lx - 0.7, lz + 1.4), sy(y, lz + 1.4)); g.scale(1.0, 0.3)
+            g.paint = RadialGradientPaint(Point2D.Double(0.0, 0.0), r.toFloat(), floatArrayOf(0f, 0.45f, 1f),
+                arrayOf(alpha(warm, 0.5), alpha(warmDeep, 0.2), alpha(warmDeep, 0.0)), MultipleGradientPaint.CycleMethod.NO_CYCLE)
+            g.fill(Ellipse2D.Double(-r, -r, r * 2, r * 2)); g.transform = t
+        }
+        for (i in 0 until 160) {
+            val zz = lz + 0.6 + rnd(i, 951).let { it * it } * 6.0; val xx = hw + 0.2 + rnd(i, 952) * 3.5
+            val d = sqrt((xx - lx) * (xx - lx) + (zz - lz) * (zz - lz))
+            val a = 0.7 * exp(-d / 2.2) * (0.4 + 0.6 * rnd(i, 953))
+            val l = f * (0.08 + rnd(i, 954) * 0.3) / zz
+            line(alpha(if (i % 3 == 0) warmDeep else warm, a), maxOf(1.0, f * 0.012 / zz), sx(xx, zz) - l / 2, sy(0.0, zz), sx(xx, zz) + l / 2, sy(0.0, zz))
+        }
+        // the railings, far posts first
+        val posts = 7
+        for (side in listOf(-1.0, 1.0)) {
+            val x = side * (hw - 0.06)
+            val tops = ArrayList<Pair<Double, Double>>()
+            for (k in posts downTo 0) {
+                val z = z0 + 0.1 + (z1 - z0 - 0.2) * k / posts
+                val pw = 0.07; val ph = if (side > 0 && k == 0) 1.75 else 1.0
+                val near = 1 - k / posts.toDouble()
+                val c = if (side < 0) mix(wood, woodLit, 0.35) else wood
+                quad(c, x - pw, y, z, x + pw, y, z, x + pw, y + ph, z, x - pw, y + ph, z)
+                // the moon on the left face, the lantern on the near posts
+                line(alpha(woodLit, 0.6), maxOf(1.0, f * 0.012 / z), sx(x - pw, z), sy(y, z), sx(x - pw, z), sy(y + ph, z))
+                val warmth = exp(-sqrt((x - lx) * (x - lx) + (z - lz) * (z - lz)) / 2.0)
+                if (warmth > 0.05) quad(alpha(warm, 0.45 * warmth), x - pw, y, z, x + pw, y, z, x + pw, y + ph, z, x - pw, y + ph, z)
+                tops += z to near
+            }
+            for (rh in listOf(1.0, 0.5)) {
+                val za = z0 + 0.1; val zb = z1 - 0.1
+                line(Color(0x1E1712), maxOf(1.5, f * 0.06 / za), sx(x, za), sy(y + rh, za), sx(x, zb), sy(y + rh, zb))
+                // the top rail catches light: moon on the left rail, lantern warm near the right
+                if (rh == 1.0) {
+                    val lc = if (side < 0) alpha(woodLit, 0.55) else alpha(warm, 0.5)
+                    val zc = if (side < 0) zb else za + 2.5
+                    line(lc, maxOf(1.0, f * 0.015 / za), sx(x, za), sy(y + rh + 0.02, za), sx(x, zc), sy(y + rh + 0.02, zc))
+                }
+            }
+        }
+        // the lantern on the tall near post: iron cap, glass with the flame, a ring
+        val s = f * 0.16 / lz
+        poly(Color(0x14110E), lpx - s * 0.7, lpy - s * 1.0, lpx + s * 0.7, lpy - s * 1.0, lpx + s * 0.35, lpy - s * 1.45, lpx - s * 0.35, lpy - s * 1.45)
+        glow(lpx, lpy - s * 0.3, f * 4.0 / lz, warmDeep, 0.32)
+        glow(lpx, lpy - s * 0.3, f * 1.0 / lz, warm, 0.7)
+        g.color = Color(0xFFD890); g.fill(java.awt.geom.Rectangle2D.Double(lpx - s * 0.5, lpy - s * 1.0, s * 1.0, s * 1.2))
+        g.color = Color(0xFFF4D0); g.fill(Ellipse2D.Double(lpx - s * 0.16, lpy - s * 0.65, s * 0.32, s * 0.55))
+        g.color = Color(0x14110E)
+        for (u in listOf(-0.5, 0.0, 0.5)) g.fill(java.awt.geom.Rectangle2D.Double(lpx + s * u - s * 0.05, lpy - s * 1.0, s * 0.1, s * 1.2))
+        g.fill(java.awt.geom.Rectangle2D.Double(lpx - s * 0.6, lpy + s * 0.15, s * 1.2, s * 0.15))
+        g.stroke = BasicStroke(maxOf(1.0, s * 0.08).toFloat()); g.draw(Ellipse2D.Double(lpx - s * 0.18, lpy - s * 1.8, s * 0.36, s * 0.4))
     }
 
     /** A breath of mist over the water, lit by the moon. */
