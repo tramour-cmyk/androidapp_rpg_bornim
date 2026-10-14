@@ -65,9 +65,9 @@ private class BridgePainter(val detail: Boolean) {
     }
 
     // the camera: the traveller's eyes on the south road, looking north over the bridge
-    val hy = 640.0; val f = 1400.0; val eye = 1.7; val cx = W / 2.0
+    val hy = 700.0; val f = 1100.0; val eye = 1.7; val cx = W / 2.0
     /** The traveller stands at the left edge of the road and looks a little to the right, at the bridge. */
-    val camX = -1.4; val pan = f * 1.4 / 12.0
+    val camX = 0.0; val pan = 0.0
     fun sx(x: Double, z: Double) = cx + f * (x - camX) / z - pan
     fun sy(y: Double, z: Double) = hy + f * (eye - y) / z
 
@@ -82,10 +82,10 @@ private class BridgePainter(val detail: Boolean) {
     val grass = Color(0x1C2824); val grassLit = Color(0x2E3E36)
     val earth = Color(0x34302E); val earthLit = Color(0x4A4440)
     val water = Color(0x0B1520); val waterLit = Color(0x1E2C3E)
-    val plank = Color(0x2E2622); val plankLit = Color(0x4C4038)
-    val plaster = Color(0x3C3E4A); val plasterLit = Color(0x5A5C68)
-    val timber = Color(0x1A1616); val stone = Color(0x2A2C34); val stoneLit = Color(0x40424C)
-    val roof = Color(0x1E1E26); val roofLit = Color(0x34343E)
+    val plank get() = night(0x6A5038); val plankLit get() = night(0x6A5038, 1.5)
+    val plaster get() = night(0xB0A690); val plasterLit get() = night(0xB0A690, 1.35)
+    val timber get() = night(0x3A2A1E); val stone get() = night(0x7A766A); val stoneLit get() = night(0x7A766A, 1.35)
+    val roof get() = night(0x4C463E); val roofLit get() = night(0x4C463E, 1.5)
     val fir = Color(0x0E1A18); val firLit = Color(0x22362E)
     val wheat = Color(0x4A4430); val wheatLit = Color(0x6E6646)
     val warm = Color(0xFFC060); val warmDeep = Color(0xE07A28)
@@ -129,21 +129,177 @@ private class BridgePainter(val detail: Boolean) {
     fun paint(): BufferedImage {
         sky()
         forestBand()
-        // the north bank, then the village from far to near
-        poly(far(grass, 60.0), 0.0, hy, W.toDouble(), hy, W.toDouble(), sy(0.0, ZF), 0.0, sy(0.0, ZF))
-        groundStrokes(ZF, 120.0, grassLit, 900)
-        lane(ZF, 60.0)
-        houses()
-        river()
-        bridge()
+        mapScene()
         mist()
-        southBank()
-        field()
-        road()
-        trees()
-        signpost()
         vignette()
         return img
+    }
+
+    // ---- the scene built from the village map (69e): one tile is 2 m, the traveller stands on the south road behind the edge
+    val map = de.bornim.core.World["village"]
+    val camTx = 18.0; val camTy = 34.0
+    fun wx(tx: Double) = (tx - camTx) * 2
+    fun wz(ty: Double) = (camTy - ty) * 2
+    fun ch(tx: Int, ty: Int): Char = when {
+        ty > 31 && tx in 15..20 -> '='          // the south road goes on beyond the edge
+        !map.inside(tx, ty) -> if (ty < 0 && (tx * 7 + ty * 13) % 3 == 0 || ty >= 0 && (tx * 7 + ty * 13) % 5 == 0) 'T' else '.'
+        else -> map.tile(tx, ty).ch
+    }
+    /** Day colours of the diagonal world, darkened and cooled for the night as its light does at 23:00. */
+    fun night(day: Int, k: Double = 1.0): Color {
+        val r = (day shr 16 and 0xFF) * 0.34 * k; val g2 = (day shr 8 and 0xFF) * 0.38 * k; val b = (day and 0xFF) * 0.52 * k
+        return Color(r.toInt().coerceIn(0, 255), g2.toInt().coerceIn(0, 255), b.toInt().coerceIn(0, 255))
+    }
+    val dGrass = 0x56603A; val dEarth = 0x7A6448; val dWater = 0x16262E; val dSoil = 0x4A3A2A; val dCobble = 0x6E665A
+    val dPlaster = 0xB0A690; val dTimber = 0x3A2A1E; val dRoof = 0x4C463E; val dSlate = 0x46566E; val dStone = 0x7A766A
+    val dPlank = 0x6A5038; val dFir = 0x24402E; val dWheat = 0xB89850; val dHay = 0xA88E50
+
+    fun tileHash(tx: Int, ty: Int, s: Int) = rnd(tx * 131 + ty * 7919, s)
+
+    fun mapScene() {
+        // the ground, far rows first, on a backdrop that reaches the horizon
+        poly(far(night(dGrass), 120.0), 0.0, hy - 2, W.toDouble(), hy - 2, W.toDouble(), H.toDouble(), 0.0, H.toDouble())
+        for (ty in -30..33) for (tx in -12..48) {
+            val zN = wz(ty + 1.0); val zF = wz(ty.toDouble())
+            if (zF <= 0.5) continue
+            val zn = maxOf(zN, 0.5)
+            val c = ch(tx, ty)
+            val base = when (c) {
+                '=' -> dEarth; '~', 'h' -> dWater; 'c', 'v' -> dSoil; 'o', 'w', 'm', 'n', 'q', 'l' -> dCobble
+                else -> dGrass
+            }
+            val j = 0.92 + 0.16 * tileHash(tx, ty, 1)
+            val col = if (c == '~' || c == 'h') night(base) else night(base, j)
+            quad(far(col, zn), wx(tx - 0.02), 0.0, zn, wx(tx + 1.02), 0.0, zn, wx(tx + 1.02), 0.0, zF + 0.04, wx(tx - 0.02), 0.0, zF + 0.04)
+        }
+        // soft edges: the banks get a rim of wet earth, the road a fringe of grass
+        for (ty in 0..33) for (tx in -12..48) {
+            val zN = wz(ty + 1.0); val zF = wz(ty.toDouble()); if (zF <= 0.5) continue
+            val c = ch(tx, ty); val water = c == '~' || c == 'h'
+            if (!water) continue
+            val zn = maxOf(zN, 0.5)
+            fun land(x: Int, y: Int) = ch(x, y).let { it != '~' && it != 'h' }
+            val rim = far(night(0x3A3024), zn)
+            if (land(tx, ty - 1)) line(rim, maxOf(2.0, f * 0.2 / zF), sx(wx(tx.toDouble()), zF), sy(0.0, zF), sx(wx(tx + 1.0), zF), sy(0.0, zF))
+            if (land(tx, ty + 1)) line(rim, maxOf(2.0, f * 0.25 / zn), sx(wx(tx.toDouble()), zn), sy(0.0, zn), sx(wx(tx + 1.0), zn), sy(0.0, zn))
+            if (land(tx - 1, ty)) line(rim, 3.0, sx(wx(tx.toDouble()), zn), sy(0.0, zn), sx(wx(tx.toDouble()), zF), sy(0.0, zF))
+            if (land(tx + 1, ty)) line(rim, 3.0, sx(wx(tx + 1.0), zn), sy(0.0, zn), sx(wx(tx + 1.0), zF), sy(0.0, zF))
+        }
+        waterLight()
+        mapStrokes()
+        // everything standing, far to near
+        val items = ArrayList<Pair<Double, () -> Unit>>()
+        for (h in buildings()) items += h.z to { house(h, h.temple) }
+        for (ty in -30..33) for (tx in -12..48) {
+            val c = ch(tx, ty); val x = wx(tx + 0.5); val z = wz(ty + 0.5)
+            if (z < 1.0) continue
+            when (c) {
+                'T' -> items += z to { val hgt = 5.0 + 2 * tileHash(tx, ty, 2); val bx = sx(x + (tileHash(tx, ty, 3) - 0.5), z); val by = sy(0.0, z)
+                    g.color = alpha(Color(0x04060A), 0.45); g.fill(Ellipse2D.Double(bx - f * 1.8 / z, by - f * 0.4 / z, f * 3.6 / z, f * 0.8 / z))
+                    firShape(bx, by, f * hgt / z, f * hgt * 0.42 / z, far(night(dFir), z), far(night(0x4E7A5A), z), if (detail) 0.7 else 0.5) }
+                'c' -> items += z to { wheatTile(tx, ty) }
+                'y' -> items += z to { hay(x, z) }
+                'x' -> items += z to { fence(tx, ty) }
+                'S' -> items += z to { signpost(x, z) }
+                'l' -> items += z to { lamp(x, z) }
+                'f' -> items += z to { flowers(tx, ty) }
+            }
+        }
+        items += wz(28.0) - 0.01 to { bridge() }
+        for ((_, draw) in items.sortedByDescending { it.first }) draw()
+    }
+
+    /** Blades of grass on the grass tiles, pebbles and ruts on the road. */
+    fun mapStrokes() {
+        if (!detail) return
+        for (i in 0 until 9000) {
+            val ty = -2 + (rnd(i, 601) * 36).toInt(); val tx = -12 + (rnd(i, 602) * 60).toInt()
+            val z = wz(ty + rnd(i, 603)); if (z < 3.5) continue
+            val x = wx(tx + rnd(i, 604)); val px = sx(x, z); if (px < -20 || px > W + 20) continue
+            val py = sy(0.0, z)
+            when (ch(tx, ty)) {
+                '.', ',', 'f' -> { val l = f * 0.22 / z
+                    line(alpha(far(night(if (rnd(i, 605) > 0.5) 0x8A9660 else 0x3A4428), z), 0.7), maxOf(0.8, f * 0.02 / z), px, py, px + (rnd(i, 606) - 0.5) * l * 0.6, py - l) }
+                '=' -> { val r = f * (0.02 + 0.03 * rnd(i, 607)) / z
+                    g.color = alpha(far(night(if (rnd(i, 608) > 0.5) 0xA89478 else 0x4A3A28), z), 0.7); g.fill(Ellipse2D.Double(px - r, py - r * 0.4, r * 2, r * 0.8)) }
+            }
+        }
+        // wheel ruts along the south road
+        for (rx in listOf(-0.8, 0.8)) quad(alpha(night(0x4A3A28), 0.45), rx - 0.15, 0.0, 3.5, rx + 0.15, 0.0, 3.5, rx + 0.15, 0.0, wz(28.0), rx - 0.15, 0.0, wz(28.0))
+    }
+
+    /** The moon and the lit windows mirrored on the water tiles. */
+    fun waterLight() {
+        val n = if (detail) 500 else 160
+        for (i in 0 until n) {
+            val tx = -12 + (rnd(i, 301) * 60).toInt(); val ty = 24 + (rnd(i, 302) * 5).toInt()
+            if (ch(tx, ty) != '~') continue
+            val z = wz(ty + rnd(i, 303)); val x = wx(tx + rnd(i, 304))
+            val px = sx(x, z); val py = sy(0.0, z)
+            val nearMoon = abs(px - moonX) < 60 + 900 / z
+            val l = (if (nearMoon) 18.0 else 8.0) * (8.0 / z)
+            line(alpha(if (nearMoon) Color(0xD8E0F0) else night(0x9AB0C0, 1.6), if (nearMoon) 0.55 else 0.35), maxOf(1.0, 10 / z), px - l, py, px + l, py)
+        }
+    }
+
+    data class Building(val x0: Double, val x1: Double, val z: Double, val d: Double, val windows: List<Double>, val door: Double?, val temple: Boolean, val lit: Boolean)
+
+    /** The houses of the map: a row of wall tiles (# W D) is a front, the roof tiles (^ M) behind it are its body. */
+    fun buildings(): List<House> {
+        val out = ArrayList<House>()
+        for (ty in 0..31) {
+            var tx = 0
+            while (tx < map.width) {
+                if (ch(tx, ty) !in "#WD") { tx++; continue }
+                val a = tx; while (tx < map.width && ch(tx, ty) in "#WD") tx++
+                val b = tx
+                var top = ty; while (top > 0 && (a until b).any { ch(it, top - 1) in "^M" }) top--
+                val temple = (a until b).any { ch(it, ty - 1) == 'M' }
+                val wins = (a until b).filter { ch(it, ty) == 'W' }
+                val lit = wins.filter { tileHash(it, ty, 9) < 0.45 || temple }.map { (it - a) }
+                val w = (b - a) * 2.0; val d = (ty + 1 - top) * 2.0
+                out += House(wx((a + b) / 2.0), wz(ty + 1.0), w, d, if (temple) 6.0 else 3.8, if (temple) 4.6 else 3.4, lit, temple)
+                    .also { h -> houseWin[h] = wins.map { wx(it + 0.5) } to (a until b).firstOrNull { ch(it, ty) == 'D' }?.let { wx(it + 0.5) } }
+            }
+        }
+        return out
+    }
+    val houseWin = HashMap<House, Pair<List<Double>, Double?>>()
+
+    fun wheatTile(tx: Int, ty: Int) {
+        val n = if (detail) 70 else 18
+        for (i in 0 until n) {
+            val z = wz(ty + rnd(i, 401 + tx)); val x = wx(tx + rnd(i, 402 + ty))
+            if (z < 1.0) continue
+            val px = sx(x, z); val py = sy(0.0, z); val l = f * (0.9 + 0.25 * rnd(i, 403)) / z
+            val c = if (rnd(i, 404) > 0.45) night(dWheat, 1.25) else night(dWheat, 0.8)
+            line(alpha(far(c, z), 0.85), maxOf(1.0, f * (if (detail) 0.03 else 0.07) / z), px, py, px - l * 0.12, py - l)
+            if (detail && i % 2 == 0) { g.color = alpha(far(night(dWheat, 1.5), z), 0.8); g.fill(Ellipse2D.Double(px - l * 0.14 - f * 0.02 / z, py - l - f * 0.06 / z, f * 0.04 / z, f * 0.12 / z)) }
+        }
+    }
+    fun hay(x: Double, z: Double) {
+        val px = sx(x, z); val py = sy(0.0, z); val r = f * 1.0 / z
+        g.color = far(night(dHay), z); g.fill(Ellipse2D.Double(px - r, py - r * 1.3, r * 2, r * 1.5))
+        g.color = alpha(far(night(dHay, 1.5), z), 0.6); g.fill(Ellipse2D.Double(px - r * 0.9, py - r * 1.25, r * 0.9, r * 1.0))
+    }
+    fun fence(tx: Int, ty: Int) {
+        val z = wz(ty + 0.5); val x0 = wx(tx.toDouble()); val x1 = wx(tx + 1.0)
+        val c = far(night(dTimber, 1.4), z)
+        line(c, maxOf(1.0, f * 0.06 / z), sx(x0, z), sy(0.8, z), sx(x1, z), sy(0.8, z))
+        line(c, maxOf(1.0, f * 0.06 / z), sx(x0, z), sy(0.45, z), sx(x1, z), sy(0.45, z))
+        line(c, maxOf(1.0, f * 0.1 / z), sx(x0, z), sy(0.0, z), sx(x0, z), sy(1.0, z))
+    }
+    fun lamp(x: Double, z: Double) {
+        line(far(Color(0x14120F), z), maxOf(1.0, f * 0.1 / z), sx(x, z), sy(0.0, z), sx(x, z), sy(2.4, z))
+        glow(sx(x, z), sy(2.4, z), f * 3.0 / z, warmDeep, 0.35); glow(sx(x, z), sy(2.4, z), f * 0.5 / z, warm, 0.9)
+    }
+    fun flowers(tx: Int, ty: Int) {
+        if (!detail) return
+        for (i in 0 until 14) {
+            val z = wz(ty + rnd(i, 501 + tx)); val x = wx(tx + rnd(i, 502 + ty)); if (z < 1.0) continue
+            val r = f * 0.05 / z
+            g.color = alpha(far(night(if (i % 3 == 0) 0xD8D0E8 else 0xC8A0C0, 1.3), z), 0.8); g.fill(Ellipse2D.Double(sx(x, z) - r, sy(0.25, z) - r, r * 2, r * 2))
+        }
     }
 
     fun sky() {
@@ -306,7 +462,7 @@ private class BridgePainter(val detail: Boolean) {
         }
         // the roof: the slope towards us, its eave a little over the wall
         val ov = 0.5
-        quad(far(roof, z0), x0 - ov, hs.wall - 0.3, z0 - ov, x1 + ov, hs.wall - 0.3, z0 - ov, x1 + ov, top, zr, x0 - ov, top, zr)
+        quad(far(if (temple) night(dSlate) else roof, z0), x0 - ov, hs.wall - 0.3, z0 - ov, x1 + ov, hs.wall - 0.3, z0 - ov, x1 + ov, top, zr, x0 - ov, top, zr)
         // moonlight lies on the left part of the slope
         quad(alpha(far(roofLit, z0), 0.55), x0 - ov, hs.wall - 0.3, z0 - ov, x0 + hs.w * 0.35, hs.wall - 0.3, z0 - ov, x0 + hs.w * 0.35, top, zr, x0 - ov, top, zr)
         texture(quadShape(x0 - ov, hs.wall - 0.3, z0 - ov, x1 + ov, hs.wall - 0.3, z0 - ov, x1 + ov, top, zr, x0 - ov, top, zr), z0, Color(0x101016), roofLit, 120, 0.12, 0.35)
@@ -322,14 +478,14 @@ private class BridgePainter(val detail: Boolean) {
             val chx = x0 + hs.w * 0.72
             quad(far(stone, z0), chx, top - 1.2, zr + 0.5, chx + 0.7, top - 1.2, zr + 0.5, chx + 0.7, top + 0.8, zr + 0.5, chx, top + 0.8, zr + 0.5)
         }
-        // windows: three slots on the front, some lit
+        // windows and the door where the map has them; some windows lit
+        val (wins, door) = houseWin[hs] ?: (emptyList<Double>() to null)
         val wy0 = if (temple) 2.0 else 1.3; val wy1 = if (temple) 4.6 else 2.4
-        for (k in 0 until 3) {
-            if (temple && k == 1) continue
-            val wx = x0 + hs.w * (0.2 + 0.3 * k) - 0.45; val wx1 = wx + 0.9
-            val lit = k in hs.lit
+        for ((k, wcx) in wins.withIndex()) {
+            val wx = wcx - 0.45; val wx1 = wx + 0.9
+            val lit = temple || rnd((wcx * 10).toInt() + 500, (z0 * 10).toInt()) < 0.5
             if (lit) {
-                val mx = sx((wx + wx1) / 2, z0); val my = sy((wy0 + wy1) / 2, z0)
+                val mx = sx(wcx, z0); val my = sy((wy0 + wy1) / 2, z0)
                 glow(mx, my, f * 3.2 / z0, warmDeep, 0.35)
                 glow(mx, my, f * 1.2 / z0, warm, 0.5)
             }
@@ -337,21 +493,17 @@ private class BridgePainter(val detail: Boolean) {
             if (detail) {
                 val tw = maxOf(1.0, f * 0.08 / z0)
                 val wc = far(timber, z0)
-                line(wc, tw, sx((wx + wx1) / 2, z0), sy(wy0, z0), sx((wx + wx1) / 2, z0), sy(wy1, z0))
+                line(wc, tw, sx(wcx, z0), sy(wy0, z0), sx(wcx, z0), sy(wy1, z0))
                 line(wc, tw, sx(wx, z0), sy((wy0 + wy1) / 2, z0), sx(wx1, z0), sy((wy0 + wy1) / 2, z0))
             }
         }
-        // the door
-        if (temple) {
-            val dx = hs.x - 1.0
-            quad(far(Color(0x0A0A10), z0), dx, 0.0, z0, dx + 2.0, 0.0, z0, dx + 2.0, 3.2, z0, dx, 3.2, z0)
-            for (tx in listOf(dx - 0.8, dx + 2.8)) {
+        if (door != null) {
+            val dw = if (temple) 1.0 else 0.55; val dh = if (temple) 3.2 else 2.1
+            quad(far(Color(if (temple) 0x0A0A10 else 0x241A16), z0), door - dw, 0.0, z0, door + dw, 0.0, z0, door + dw, dh, z0, door - dw, dh, z0)
+            if (temple) for (tx in listOf(door - dw - 0.7, door + dw + 0.7)) {
                 glow(sx(tx, z0), sy(2.6, z0), f * 2.4 / z0, warmDeep, 0.4)
                 glow(sx(tx, z0), sy(2.6, z0), f * 0.6 / z0, warm, 0.9)
             }
-        } else {
-            val dx = x0 + hs.w * 0.5 - 0.5
-            quad(far(Color(0x241A16), z0), dx, 0.0, z0, dx + 1.0, 0.0, z0, dx + 1.0, 2.1, z0, dx, 2.1, z0)
         }
     }
 
@@ -401,9 +553,9 @@ private class BridgePainter(val detail: Boolean) {
 
     /** The bridge: flat planks over beams, no railing, as in the diagonal world; posts stand in the water. */
     fun bridge() {
-        val z0 = ZN - 0.5; val z1 = ZF + 0.7; val y = 0.32; val hw = 1.5
+        val z0 = wz(28.0) - 0.3; val z1 = wz(26.0) + 0.3; val y = 0.18; val hw = 2.0
         // posts into the water, far ones first
-        for (z in listOf(15.0, 12.6, 10.4)) for (x in listOf(-hw + 0.15, hw - 0.15)) {
+        if (false) for (z in listOf(wz(26.3), wz(27.0), wz(27.7))) for (x in listOf(-hw + 0.15, hw - 0.15)) {
             quad(Color(0x1A1412), x - 0.13, -0.4, z, x + 0.13, -0.4, z, x + 0.13, y, z, x - 0.13, y, z)
             line(alpha(Color(0x8090A8), 0.35), 1.4, sx(x - 0.3, z), sy(-0.02, z), sx(x + 0.3, z), sy(-0.02, z))
         }
@@ -523,8 +675,7 @@ private class BridgePainter(val detail: Boolean) {
     }
 
     /** The signpost at the bridge (67): a post with one board, dark wood, the moon on its left edge. */
-    fun signpost() {
-        val x = -2.9; val z = 8.1
+    fun signpost(x: Double, z: Double) {
         val px = sx(x, z); val base = sy(0.0, z); val top = sy(1.6, z)
         line(Color(0x1E1714), f * 0.12 / z, px, base, px, top)
         line(alpha(Color(0x5A4C44), 0.8), 1.4, px - f * 0.06 / z, base, px - f * 0.06 / z, top)
