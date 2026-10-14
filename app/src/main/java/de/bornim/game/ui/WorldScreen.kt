@@ -688,8 +688,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
 
         // while true, [put] cuts the picture out of what is drawn below it (the lit windows behind something in front)
         var cutting = false
-        fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f, corner: Boolean = false) {
-            val dw = img.width * scale / density; val dh = img.height * scale / density
+        fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f, corner: Boolean = false, bleed: Int = 0) {
+            val dw = img.width * scale / density + bleed; val dh = img.height * scale / density + bleed
             val (sx, sy) = placeOf(img, x, y, density, corner)
             if (!flat && (sx > size.width || sy > size.height || sx + dw < 0 || sy + dh < 0)) return
             drawImage(
@@ -721,7 +721,11 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         for (cy in Math.floorDiv(y0, ch)..Math.floorDiv(y1, ch)) for (cx in Math.floorDiv(x0, ch)..Math.floorDiv(x1, ch)) {
             // the piece the hero stands on right away, the rest stays dark for the moment it takes, drawn on several cores (23:04)
             val here = cx == Math.floorDiv(p.x, ch) && cy == Math.floorDiv(p.y, ch)
-            (if (here) MapGround.chunkNow(map, cx, cy) else MapGround.chunk(map, cx, cy))?.let { put(it, cx * ch * T, cy * ch * T, MapGround.D) }
+            (if (here) MapGround.chunkNow(map, cx, cy) else MapGround.chunk(map, cx, cy))?.let {
+                // turned, the edges of a piece are smoothed and the black below showed through as a thin seam (27):
+                // each piece reaches two pixels into the next
+                put(it, cx * ch * T, cy * ch * T, MapGround.D, bleed = 2)
+            }
         }
 
         // shadows of trees, rocks and stones on the ground, strong by day, gone at night
