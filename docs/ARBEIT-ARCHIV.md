@@ -1,5 +1,20 @@
 # Archiv
 
+## Aus ROLLE-BERATER.md, 14.10., 22:2x
+
+- **Tempelszene (68, 70):** Zwischensequenzen gleich gebaut, damit sie als Reihe wirken; Osric im Bild statt Erklärung (Begründungen im Text wirken konstruiert); **Blende statt Termin**, sonst wartet man in freier Welt tagelang; Einstieg Kapitel 2 erinnert statt führt. Volltext im Archiv („18:5x“).
+- **Karte und Händler (62c, 59e, 64):** Karte erinnert statt führt; Wissen vor Beschriftung. Volltext im Archiv.
+- **Seite „Dein Zug“ (63):** Fragen gingen in Chats unter; „Beschlüsse“ statt „Bildbuch“; kein „Erledigt“ (65.7). Volltext im Archiv.
+- **Zufallshöhlen (48, 41m):** erst Questhöhlen zufällig, Story-Höhlen mit festem Kern; je eine pro Landschaft (Erkundung).
+- **Kartenbegriffe (62p/62q):** Stufen nach Enthaltensein; „Stockwerk“ klingt in Höhlen schief.
+
+**Übergabe (14.10., 21:4x) – Nachfolger: „Sokrates – Kampfsystem“:**
+
+**Nächster Punkt:** (0) **72k Richtung des Kampfes** (A/B/C) mit Begleiter (72.7–72.10, 72r, 72s, 72t beschlossen); Nutzer will erst klären, wie Kämpfe aussehen, dann Probe (72.10). Dabei: wer reagiert im Gegnerzug, Reihen vorn/hinten statt nah/fern (Regelbilanz), Aufstellung fest oder veränderlich (aus 72q; 72q auf „Dein Zug“ als erledigt vorgeschlagen, Nutzer hat noch nicht bestätigt), außer Atem = Initiative mit Nachteil (86.3), 26 Magier-Schild. Kampf-Dokument im Volltext lesen. Danach 72p, 72l–72o, 26d; 41 Begleiter-Figuren Kapitel 2; 84.3, 84.2. (1) **86.11** Überfall bei der Rast, Feuerholz (Empfehlung 21:3x: Überfall ja, Holz billig kaufbar, nie Sammelpflicht, erst mit 72b/38; Nutzer hat nicht geantwortet). (2) Helligkeitsregler (13e.6, offen). (3) **84**, **81 Ford**, **41**, 70.1, 79.
+Sitzung 14.10. abends: 86.1–86.10, 13e.6, 69e entschieden (Beschlüsse). Lehre: Nutzer will Widerspruch, nicht schnelles Ja (69e Laterne zu schnell gestrichen).
+
+
+
 ### Aus ARBEIT-OFFEN.md, 14.10., 20:4x (Übergabe Tom 19:4x)
 - PR #60 (0.1.739), #61, #62 beim Nutzer (oben), abonnieren. Weiter: 85 auf `claude/tom-85-testmenue` (2 Knöpfe raus) in den nächsten Sammelbuild; 74 Hörprobe 2 beim Nutzer, dann einbauen; 83 A bauen (Standbild zuerst); 13e D1.7 Leben Höhle (Rauch `drawCampSmoke`, `WorldScreen.kt`, nach Absprache).
 - Draußen bei Nacht bleibt das kleine Licht um den Helden (13e.6 B nur Höhle); falls der Berater B auch für draußen meint: `MapLight.kt` (`lantern`).
