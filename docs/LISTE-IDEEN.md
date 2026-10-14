@@ -63,7 +63,7 @@ Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstop
 
 ## Gruppe und Kampf
 
-- **Begleiter:** Lyra (Heilerin) oder Jäger Garrick als zweites Gruppenmitglied.
+- **Gefährte:** Lyra (Heilerin) oder Jäger Garrick als zweites Gruppenmitglied.
 - **Echte Gruppenkämpfe:** mehrere Gegner gleichzeitig mit Zielauswahl, eigenen Lebensbalken und Flächenzaubern gegen alle. Großer Umbau; die heutigen Rudel (Begleiter im Hintergrund) wären die Vorstufe.
 - **Kampfaktionen für Gruppen** (Nutzer 12.10., zu 34): „Abwarten“ (SRD *Bereithalten*: Angriff zurückhalten, zuschlagen, sobald der Gegner herankommt) und „Helfen“ (Gefährte greift im Vorteil an). „Zug beenden“ selbst ist Thema 34.
 - **Weitere Zauber** ab Stufe 5 für alle Zauberklassen.
