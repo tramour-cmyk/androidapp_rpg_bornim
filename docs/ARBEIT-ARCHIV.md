@@ -1,6 +1,11 @@
 # Archiv
 
 
+### Aus ROLLE-BERATER.md, 14.10., 13:4x
+- **Meldungen in fremden Bereichen** (13.10.): erst `git pull` und nachsehen, ob Tom/Jerry sie schon eingetragen haben (62s stand doppelt).
+- **Umbauten mit Prüfskript** (13.10., 77e): Zeilenerhalt, Marken wortgleich, Verweis-Check; Heredocs mit Backticks als `<<'EOF'` (Volltext im Archiv).
+- Sitzung 14.10. 09:58–11:2x „Texte Kapitel 2“: ganzer Entwurf im [Dokument](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413); Rask und Fenn ja.
+
 ### Aus ROLLE-BERATER.md, 14.10., 13:4x (Regel steht in CLAUDE.md, 77e.1)
 - **Bilder als PNG-Datei** (13.10.; Regel seit 77e.1 in `CLAUDE.md`): Artefakte zoomen auf dem Handy nicht (`cairosvg`, Faktor 3).
 

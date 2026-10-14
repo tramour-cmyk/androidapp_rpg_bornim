@@ -2,13 +2,13 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 13:1x) – Nachfolger: „Sokrates – Texte Kapitel 2, Freigabe“:**
+**Übergabe (14.10., 13:4x) – Nachfolger: „Sokrates – Ford bauen“ (Kapitel-2-Punkte laufen weiter):**
 
-**Sitzungen** (ältere im Archiv): 14.10. 11:30–13:1x „Texte Kapitel 2, Freigabe“: 80a entschieden (Sockel, Zeichen A), 69e begutachtet und vierte Runde beauftragt; Nutzer liest den Textentwurf noch. Schwerpunkt: Spiel. 14.10. 09:58–11:2x „Texte Kapitel 2“: ganzer Entwurf im [Dokument](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413); Rask und Fenn ja.
+**Sitzungen** (ältere im Archiv): 14.10. 13:06–13:4x „Teamleiter Ford“ (81, parallel): Rolle Ford beschlossen (81a–81c, 81g–81i), [Entwurf](https://claude.ai/code/artifact/ff3ae8ab-a448-4a79-b928-3a09f424b45c), Probelauf 81d bestanden (Routine startet Code-Sitzung, die selbst eine zweite auslöst, auto); Befund Doppelzeilen → Startsperre. 14.10. 11:30–13:1x „Texte Kapitel 2, Freigabe“: 80a entschieden (Sockel, Zeichen A), 69e begutachtet und vierte Runde beauftragt; Nutzer liest den Textentwurf noch. Schwerpunkt: Spiel.
 
-**Nächster Punkt:** (1) **Nutzer prüft den Entwurf** (Prüfpunkte fett), offen 4.4 (Fenn stirbt ohne Merles Worte, Merle-Zeile), 5.3 (Szene mit Joss' Frau), 6.3 (Antworten und Belohnungen der Aushänge nach Freigabe). Nach Freigabe wortgetreu nach `docs/STORY-K2.md` und `STORY-K2-W.md` (Marken `[41.…]`, `[24.ort.…]`), Verzeichnis in `STORY-REGELN.md`. (2) **69e** vierte und letzte Runde bei Tom (Nutzer 13:1x ja, Auftrag in „Wer macht was“). Liegt sie vor (Zeile „Für den Berater“, „Dein Zug“): **aktiv Meinung äußern** (Nutzer), gegen `DESIGN-STIL.md` „Zwischensequenzen“ und ein Bildschirmfoto der Diagonalwelt prüfen, dann entscheidet der Nutzer über das Musterbild 70.1. 80a entschieden (13:0x). (3) 79 nach dem Musterbild. (4) 72a–72j.
+**Nächster Punkt:** (0) **Ford bauen** nach Entwurf (81j Push angekommen? offen): `docs/ROLLE-FORD.md` mit kurzer Startlektüre, Stellung oben in `ARBEIT-OFFEN.md`, Start-Routinen je Rolle, stündliche Ford-Routine (Jerry-Account ab Fr.), Startsperre, Push-Form; `CLAUDE.md` (Diogenes-Start, 81a) und `ARBEIT-SELBST.md` kürzen (Regelbilanz); Test-Routinen „Ford Probe 1/2“ (aus) löschen nur nach Rückfrage; dann drei Nächte Pilot (81i). (1) **Nutzer prüft den Entwurf** (Prüfpunkte fett), offen 4.4 (Fenn stirbt ohne Merles Worte, Merle-Zeile), 5.3 (Szene mit Joss' Frau), 6.3 (Antworten und Belohnungen der Aushänge nach Freigabe). Nach Freigabe wortgetreu nach `docs/STORY-K2.md` und `STORY-K2-W.md` (Marken `[41.…]`, `[24.ort.…]`), Verzeichnis in `STORY-REGELN.md`. (2) **69e** vierte und letzte Runde bei Tom (Nutzer 13:1x ja, Auftrag in „Wer macht was“). Liegt sie vor (Zeile „Für den Berater“, „Dein Zug“): **aktiv Meinung äußern** (Nutzer), gegen `DESIGN-STIL.md` „Zwischensequenzen“ und ein Bildschirmfoto der Diagonalwelt prüfen, dann entscheidet der Nutzer über das Musterbild 70.1. 80a entschieden (13:0x). (3) 79 nach dem Musterbild. (4) 72a–72j.
 
-**Zuletzt gelesen bis:** dieser Commit (14.10., 13:1x)
+**Zuletzt gelesen bis:** dieser Commit (14.10., 13:4x)
 
 ## Wer du bist
 
@@ -59,7 +59,5 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 - **Dialogzeilen in Docs mit Leerzeile trennen** (13.10.).
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
 - **Entwürfe sofort in die Notizen** (13.10., Rabenschanze und 77 standen nur im Chat): gleich in Storyplan oder `ARBEIT-OFFEN.md`.
-- **Meldungen in fremden Bereichen** (13.10.): erst `git pull` und nachsehen, ob Tom/Jerry sie schon eingetragen haben (62s stand doppelt).
 - **Freie Welt mitdenken** (13.10., 68): bei jeder Szene fragen, was passiert, wenn der Spieler nicht hingeht oder trödelt.
 - **Sprachmodus** (13.10.): Aufträge kommen als Nachricht der Sprachsitzung; entschieden ist nur ein ausdrückliches Ja des Nutzers, Unklares (3d) benennen, gegen seinen Wortlaut prüfen (14.10.: „Ich-Perspektive“ wurde zu „über die Schulter“).
-- **Umbauten mit Prüfskript** (13.10., 77e): Zeilenerhalt, Marken wortgleich, Verweis-Check; Heredocs mit Backticks als `<<'EOF'` (Volltext im Archiv).
