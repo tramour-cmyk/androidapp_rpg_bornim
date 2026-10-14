@@ -52,10 +52,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 13:1x) – an Nachfolger
-- **PR #60** (Sammelbuild 5.5 + 27m.1–27m.5, Zweig `claude/tom-5-5-dorf-luecken`, enthält `main` mit PR #59): Build läuft. Nachfolger: `subscribe_pr_activity` #60, APK-Link in „Jetzt installieren“, Prüfliste `e/t7xx.html` auf „Dein Zug“ (Anzusehen; `e/5-5.html` dann dort einbinden und die Zeile 5.5 ersetzen): Marktstand von hinten, Fahrspuren, Schattenkante nördlich vom Platz, Weg Süd zu, Hühner am Südrand hinter Kronen, Rand Wald West/abends Dorf, Weg Ost im Wald.
-- 27m.2 in `WorldScreen.kt` (`covered()`; Notiz an Jerry: nur Zeichenreihenfolge der kleinen Tiere). 0.1.728/0.1.729 auf `main` (PR #59, #58 geschlossen).
-- **Nachfolger-Stand 13:5x:** 0.1.732 grün, Prüfliste t732, **PR #60 abonnieren** (`subscribe_pr_activity`; nach „passt“ zusammenführen, `CHANGELOG.md`). 80a `claude/tom-80a-sockel` (`e/80a-2.html`), 69e vierte Runde (`e/69e-4.html`, erst Sokrates). **Vertretung Jerry (Nutzer 13:3x):** 74 Hörprobe `e/74.html`; 7 Ausgleich Magier gemessen (Zeile „Für den Berater“, Entwurf `claude/tom-26-magier-schild`); **5 Rudelwölfe (52)** fertig (14:30): Jungwolf macht den Sprung des Leitwolfs (`lungeAt`/`lungeOffset`) bis zum Helden, `claude/tom-52-rudel`, Prüfliste `e/52.html`. Film: `fighter:wolf 5 6 XWXWWWWW defend,defend` (Seed 12 zwei Jungwölfe; in Runde 1 ist der Wolf bei „Held zuerst“ überrascht, darum kein Biss). Für `tools/klang` vorher `pip install scipy soundfile`.
+### Tom (14.10., 14:3x)
+- **PR #60** (0.1.732, Prüfliste t732) abonniert; nach „passt“ zusammenführen, `CHANGELOG.md`, t732 und `e/5-5.html` von „Dein Zug“. Offen beim Nutzer: 52, 74, 80a (je `e/…html`), 69e erst Sokrates.
+- **Vertretung Jerry:** 52 Rudelwölfe fertig (`claude/tom-52-rudel`), 74 Hörprobe, 26 Magier beim Berater. Für `tools/klang` vorher `pip install scipy soundfile`.
+- **69e:** die drei Fehler aus Sokrates' Blick (Laterne/Pfosten, Mond auf Schornstein, Geländer rechts) auf `claude/tom-69e-musterbild` beheben, neue Standbilder `e/69e-4.html`.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.

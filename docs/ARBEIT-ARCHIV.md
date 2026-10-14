@@ -1,5 +1,10 @@
 # Archiv
 
+### Aus ARBEIT-OFFEN.md, 14.10., 14:3x (Übergabe Tom 13:1x)
+- **PR #60** (Sammelbuild 5.5 + 27m.1–27m.5, Zweig `claude/tom-5-5-dorf-luecken`, enthält `main` mit PR #59): Build läuft. Nachfolger: `subscribe_pr_activity` #60, APK-Link in „Jetzt installieren“, Prüfliste `e/t7xx.html` auf „Dein Zug“ (Anzusehen; `e/5-5.html` dann dort einbinden und die Zeile 5.5 ersetzen): Marktstand von hinten, Fahrspuren, Schattenkante nördlich vom Platz, Weg Süd zu, Hühner am Südrand hinter Kronen, Rand Wald West/abends Dorf, Weg Ost im Wald.
+- 27m.2 in `WorldScreen.kt` (`covered()`; Notiz an Jerry: nur Zeichenreihenfolge der kleinen Tiere). 0.1.728/0.1.729 auf `main` (PR #59, #58 geschlossen).
+- **Nachfolger-Stand 13:5x:** 0.1.732 grün, Prüfliste t732, **PR #60 abonnieren** (`subscribe_pr_activity`; nach „passt“ zusammenführen, `CHANGELOG.md`). 80a `claude/tom-80a-sockel` (`e/80a-2.html`), 69e vierte Runde (`e/69e-4.html`, erst Sokrates). **Vertretung Jerry (Nutzer 13:3x):** 74 Hörprobe `e/74.html`; 7 Ausgleich Magier gemessen (Zeile „Für den Berater“, Entwurf `claude/tom-26-magier-schild`); **5 Rudelwölfe (52)** fertig (14:30): Jungwolf macht den Sprung des Leitwolfs (`lungeAt`/`lungeOffset`) bis zum Helden, `claude/tom-52-rudel`, Prüfliste `e/52.html`. Film: `fighter:wolf 5 6 XWXWWWWW defend,defend` (Seed 12 zwei Jungwölfe; in Runde 1 ist der Wolf bei „Held zuerst“ überrascht, darum kein Biss). Für `tools/klang` vorher `pip install scipy soundfile`.
+
 ### Aus ROLLE-BERATER.md, 14.10., 14:2x
 - **Sitzungen** (ältere im Archiv): 14.10. 13:06–13:4x „Teamleiter Ford“ (81, parallel): Rolle Ford beschlossen (81a–81c, 81g–81i), [Entwurf](https://claude.ai/code/artifact/ff3ae8ab-a448-4a79-b928-3a09f424b45c), Probelauf 81d bestanden (Routine startet Code-Sitzung, die selbst eine zweite auslöst, auto); Befund Doppelzeilen → Startsperre. 14.10. 11:30–13:1x „Texte Kapitel 2, Freigabe“: 80a entschieden (Sockel, Zeichen A), 69e begutachtet und vierte Runde beauftragt; Nutzer liest den Textentwurf noch. Schwerpunkt: Spiel.
 
