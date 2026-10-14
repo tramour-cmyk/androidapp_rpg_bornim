@@ -2,7 +2,6 @@ package de.bornim.core.audio
 
 import de.bornim.core.MapDef
 import de.bornim.core.Tile
-import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.min
 
@@ -24,17 +23,39 @@ object Ambience {
     const val DRIP_SPAN_MS = 6000L
     const val DRIP_VOLUME = 0.45f
 
-    /** Distance in tiles from ([x], [y]) to the nearest campfire or hearth, or null if none is within reach. */
+    /** Walls the crackle does not pass: it comes round them by the open way, or not at all (D1.9). */
+    private val WALLS = setOf(Tile.WALL, Tile.CAVE_WALL, Tile.CRYSTAL, Tile.TORCH, Tile.WINDOW, Tile.ROOF, Tile.ROOF_BLUE)
+
+    /**
+     * Distance in tiles from ([x], [y]) to the nearest campfire or hearth by the open way, round walls and never
+     * through them (D1.9), or null if none is within reach. Steps go straight or diagonally, a diagonal only where
+     * neither side is wall.
+     */
     fun nearestFire(map: MapDef, x: Int, y: Int): Double? {
         val r = FIRE_FAR.toInt() + 1
-        var best: Double? = null
-        for (dy in -r..r) for (dx in -r..r) {
-            val t = map.tile(x + dx, y + dy)
-            if (t != Tile.CAMPFIRE && t != Tile.HEARTH) continue
-            val d = hypot(dx.toDouble(), dy.toDouble())
-            if (best == null || d < best) best = d
+        val n = 2 * r + 1
+        val dist = DoubleArray(n * n) { Double.MAX_VALUE }
+        fun open(tx: Int, ty: Int) = map.inside(tx, ty) && map.tile(tx, ty) !in WALLS
+        fun fire(tx: Int, ty: Int) = map.tile(tx, ty).let { it == Tile.CAMPFIRE || it == Tile.HEARTH }
+        val queue = java.util.PriorityQueue<Pair<Double, Int>>(compareBy { it.first })
+        dist[r * n + r] = 0.0; queue += 0.0 to (r * n + r)
+        while (queue.isNotEmpty()) {
+            val (d, k) = queue.poll()
+            if (d > dist[k] || d >= FIRE_FAR) continue
+            val cx = k % n - r; val cy = k / n - r
+            if (fire(x + cx, y + cy)) return d
+            // the fire stands in the way of walking, not of sound; other things that cannot be walked on carry it on
+            for (dy in -1..1) for (dx in -1..1) {
+                if (dx == 0 && dy == 0) continue
+                val nx = cx + dx; val ny = cy + dy
+                if (nx < -r || nx > r || ny < -r || ny > r || !open(x + nx, y + ny)) continue
+                if (dx != 0 && dy != 0 && (!open(x + cx + dx, y + cy) || !open(x + cx, y + cy + dy))) continue
+                val nd = d + if (dx != 0 && dy != 0) Math.sqrt(2.0) else 1.0
+                val nk = (ny + r) * n + nx + r
+                if (nd < dist[nk]) { dist[nk] = nd; queue += nd to nk }
+            }
         }
-        return best
+        return null
     }
 
     /** How loud the crackle should be at [dist] tiles from the fire: silent far off, swelling smoothly towards it. */
