@@ -1,6 +1,11 @@
 # Archiv
 
 
+### Tom (14.10., 09:52) – an Nachfolger
+- **PR #58** abonniert, grün, wartet auf Test 0.1.728; nach „passt“: zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“, „Jetzt installieren“ leeren.
+- **69e** (Zweig `claude/tom-69-intro`, `BRUECKE69E=1`, `tools/preview/.../BridgeProbe.kt`): Brücke Feld für Feld aus der Dorfkarte, Diagonalansicht daneben; auf „Dein Zug“, Sokrates benachrichtigt. Schild ist rechteckiges Brett auf mittigem Pflock (Nutzer 09:5x). Entschieden (Zeile 69): (1) präzise, zweite Runde; danach Musterbild 70.1 und übrige Intro-Bilder genauso aus der Karte.
+- **27m** (Zweig `claude/tom-27m-rand`, Rand fest eingebaut, gepusht): **ja (Nutzer 09:53), selbständig weiter:** Bildrate messen, mehr Bäume rund um die Karte, Standbilder aller Ränder Tag/Nacht (Wald, Tiefer Wald, Dorf mit Südrand), dann Sammelbuild. **69e zweite Runde** (Nutzer 10:0x: „Und dann unbedingt den neuen Bildentwurf für die Zwischensequenzen“) vorgezogen, auf „Dein Zug“ (10:12; noch offen: Rauch, Schild ins Bild). Danach **80** Kaels Laterne.
+- **Nutzer 09:3x:** erst kurz antworten, dann höchstens etwa 5 Minuten am Stück arbeiten (unter „Für den Berater“).
 ### Tom (14.10., 09:15) – an Nachfolger
 - **Zuerst:** PR #58 abonnieren (`subscribe_pr_activity`), 0.1.728 wartet auf Test des Nutzers (später); nach „passt“: zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“, „Jetzt installieren“ leeren.
 - **Dann 27m** (ja, 09:1x) auf Zweig `claude/tom-27m-rand` (Entwurf 5ce92886): erst `git merge origin/main` (nach PR #58 auch dessen Stand), Schalter `MapEdge.draft` und `RAND` weg, fest für Wald/Tiefer Wald/Dorf; Bildrate messen (`ARTMEM`/Test-Reiter), mehr Bäume rund um die Karte; Standbilder Tag/Nacht aller Ränder (auch Süden mit Feldweg und Umkehr, Osten), dann Sammelbuild.
