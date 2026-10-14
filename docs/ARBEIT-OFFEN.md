@@ -10,7 +10,7 @@ Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main`
 
 ## Jetzt installieren
 
-- **Tom Sammelbuild** (83 Hecke, 85, 87; PR #63, Zweig `claude/tom-sammel-83-85-87`): baut, Link und Prüfliste folgen.
+- **Tom Sammelbuild 0.1.746** (83 Hecke, 85, 87; PR #63, Zweig `claude/tom-sammel-83-85-87`): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38624703687/artifacts/11923257701), Prüfliste `e/t746.html`. Nach „passt“: zusammenführen, `CHANGELOG.md`, Prüfliste von „Dein Zug“.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -57,9 +57,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 21:3x)
-- PR #63 (83 Hecke, 85, 87) baut, abonniert: Prüfliste `e/t<build>.html` auf „Dein Zug“, Link hier oben.
-- **83b Hühner** (Nutzer 21:2x): richtige kleine Figuren am Boden, sichtbarer Platz (Heuballen Südost oder Hof bei Bram), scharren, picken, flattern weg; erst Standbild. **D1.5 Truhe** behoben auf `claude/tom-d1-5-truhe` (Schatten breiter, über den Feldrand), für den nächsten Sammelbuild. **74** einbauen (`claude/tom-74-schritte`). Draußen nachts bleibt das kleine Licht um den Helden.
+### Tom (14.10., 21:5x) – an Nachfolger
+- **0.1.746** (PR #63) beim Nutzer, Prüfliste t746; PR abonnieren.
+- **83b Hühner** (Nutzer 21:2x, Beschlüsse 83a): richtige kleine Figuren am Boden (nie wie auf einem Baum), sichtbarer Platz (Heuballen Südost `y` bei 33/28–29 oder freie Fläche bei Brams Feld), scharren, picken, flattern weg, wenn der Held kommt; drei Varianten. Heute weiße Punkte in `WorldScreen.kt` `drawCritters` (Bodenschicht, alte gerade Koordinaten): Figur in den Kern (wie `MapCat`), Zeichnen mit Jerry absprechen. Erst Standbild auf „Dein Zug“.
+- **D1.5 Truhe** fertig auf `claude/tom-d1-5-truhe`, **74 Schritte** einbauen (`claude/tom-74-schritte`); beide mit 83b in den nächsten Sammelbuild (höchstens 4 Punkte).
+- Draußen nachts bleibt das kleine Licht um den Helden. 13e.6 Helligkeit Höhle liegt beim Berater.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
