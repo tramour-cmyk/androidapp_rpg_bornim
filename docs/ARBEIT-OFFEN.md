@@ -57,7 +57,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (14.10., 22:2x) – an Nachfolger
-- **Zuerst 69e** (Nutzer 22:3x: „63i vorziehen, unser Zwischenbild, das du nochmal vorgelegt hast“; eine 63i gibt es nicht, gemeint ist nach Toms Lesart das Brückenbild 69e): Beschluss in Zeile 69 umsetzen (Haus links wie Diagonalwelt, Laterne und Holzgeländer am südlichen Brückenkopf in die Welt), dann „Anzusehen“ auf „Dein Zug“. Danach 74 und Sammelbuild.
+- **Zuerst 69e** (Nutzer 22:3x: „63i vorziehen, unser Zwischenbild, das du nochmal vorgelegt hast“; eine 63i gibt es nicht, gemeint ist nach Toms Lesart das Brückenbild 69e): Beschluss in Zeile 69 umsetzen (Haus links wie Diagonalwelt, Laterne und Holzgeländer am südlichen Brückenkopf in die Welt), dann „Anzusehen“ auf „Dein Zug“. Danach 74 und Sammelbuild. Ein erster Entwurf des Hauses (Bruchstein, Schieferdach mit Flechte, Bohlentür, erleuchtetes Kreuzfenster neben der Tür) entstand in `BridgeProbe.kt` `house()`, wurde auf „Stopp“ des Nutzers aber nicht gesichert: neu bauen.
 - **0.1.746** (PR #63) beim Nutzer, Prüfliste t746; PR abonnieren.
 - **83b + 83c** fertig auf `claude/tom-83b-huehner` (enthält Sammelzweig): Figur `MapHen` (weich drehen, Übergänge, Fächerflügel; Film `HUEHNERFILM=1`), Klang `HenSound` mit allen Proben. Nach Wahl auf `e/83c.html`: Takes in `huehner.py` (`chosen`) und `Recorded.TAKES` kürzen, `--spiel`, Dateien löschen.
 - Nächster Sammelbuild: 83b/83c, **D1.5 Truhe** (`claude/tom-d1-5-truhe`), **74 Schritte** (einbauen, `claude/tom-74-schritte`); höchstens 4 Punkte, Prüfliste mit Hühnern am Heuballen Südost (x 33, y 28).
