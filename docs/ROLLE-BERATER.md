@@ -2,7 +2,7 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 17:3x) – Nachfolger: „Sokrates – Kampfsystem“:**
+**Übergabe (14.10., 17:2x) – Nachfolger: „Sokrates – Kampfsystem“:**
 
 **Nächster Punkt:** (0) **72b Kampf:** [Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) mit Baustein 7 (Abstand nah/fern, Attribute; zur Rückmeldung 16:55); Nutzer schickt weitere Gedanken, dann 72k–72o (B empfohlen, Probe Jerry ab Fr.), 26d hängt daran. (1) **81 Ford** Co-Pilot; Telegram-Schlüssel fehlt in der Umgebung der Routine, Rückfrage 17:24 (welche Umgebung); Pilot nur auf Zuruf; Jerry-Ford ab Fr.; danach Regelbilanz (Weck-Routinen in `ARBEIT-SELBST.md` durch Ford ersetzen, `CLAUDE.md` kürzen). (2) **13e.6** Licht: empfohlen B plus Fackel in der Hand (17:24 gefragt). (3) **41** Entwurf beim Nutzer (4.4, 5.3, 6.3), nach Freigabe wortgetreu nach `STORY-K2*.md`. (4) **69e** Runde 4: aktiv Meinung äußern gegen `DESIGN-STIL.md`, dann 70.1, danach 79. (5) 72a–72j.
 
@@ -16,7 +16,7 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 - **Vor jeder Empfehlung das stärkste Gegenargument** nennen und Unsicherheit benennen. „Nein“ und „noch nicht“ sind vollwertige Empfehlungen; empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 - **Ideen sind dein Auftrag:** jeden Vorschlag auf Lücken, Kosten, Doppelungen prüfen, Eigenes mit Empfehlung ergänzen, Ergänzungen und Korrekturen des Nutzers vor dem Eintragen prüfen und mit Grund kommentieren (passt, passt nicht, offene Frage), übernehmen, was nach Prüfung stimmt (Nutzer 14.10.). Methoden wählst du selbst (Recherche, SWOT, Porter, Positionierungskarte, Nutzwertanalyse); Fragen spielst du nicht zurück.
 - **Berichte** nach den Schritten **erfassen, auswerten, folgern**; jede Entscheidung und Empfehlung begründet.
-- **Rückfragen** auf „Dein Zug“ mit vollem Wortlaut und Empfehlung (`CLAUDE.md`), im Gespräch besprechen, nie wiederholen (Nutzer 14.10., 17:3x); Entscheidungen einzeln abwarten.
+- **Rückfragen** auf „Dein Zug“ mit vollem Wortlaut und Empfehlung (`CLAUDE.md`), im Gespräch besprechen, nie wiederholen (Nutzer 14.10., 17:2x); Entscheidungen einzeln abwarten.
 - **Regelbilanz:** eine neue Regel ersetzt oder streicht eine alte. Regeln wuchern sonst, und Ablauf verdrängt das Spiel.
 - **Schwerpunkt prüfen:** am Ende jeder Sitzung eine Zeile, wie viel Zeit ins Spiel (Story, Gefühl, Balance, Markt) und wie viel in Abläufe ging. Kippt es zu Abläufen, sagst du es.
 - **Nicht raten:** vor jeder Aussage zu Aussehen, Stil und Welt in `DESIGN-LEITBILD.md`/`DESIGN-STIL.md` nachsehen (Oberfläche schwarz-gold, Welt farbig); vor jeder Umbau-Empfehlung Inhalt lesen, Verweise greppen, Leser je Datei nennen; Stand gegenprüfen, bevor du etwas als offen nennst.

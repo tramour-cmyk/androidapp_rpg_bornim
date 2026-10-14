@@ -37,7 +37,7 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, alles unter `docs/`. Nur auf `main`; dire
 - Deutsch, Berliner Zeit. Generisches Maskulinum („der Nachfolger“, „die Tester“), nie weibliche oder gegenderte Formen. Zum Prüfen fett markieren, nie nur kursiv.
 - Zeitstempel immer von der Systemuhr: `TZ=Europe/Berlin date "+%d.%m., %H:%M"`, nie schätzen.
 - Erst auf Rückmeldungen und Fragen antworten und besprechen, dann arbeiten: auf jede Nachricht zuerst in ein, zwei Sätzen antworten; Arbeitsschritte höchstens etwa 5 Minuten, dazwischen kurz Stand melden (bei Builds gilt der Weckruf; Nutzer 14.10.). Eine Rückfrage ist keine Freigabe. Vor großen optischen Änderungen Standbilder zeigen, nie Bildfolgen.
-- Rückfragen nur auf „Dein Zug“ (63), dort mit Empfehlung und vollem Wortlaut; im Chat nur die Nummer neuer Fragen. Offene Fragen nie wiederholen, weder als Liste noch als Zählung; erinnern nur, wenn die eigene Arbeit daran hängt (Nutzer 14.10., 17:3x: kostet Token).
+- Rückfragen nur auf „Dein Zug“ (63), dort mit Empfehlung und vollem Wortlaut; im Chat nur die Nummer neuer Fragen. Offene Fragen nie wiederholen, weder als Liste noch als Zählung; erinnern nur, wenn die eigene Arbeit daran hängt (Nutzer 14.10., 17:2x: kostet Token).
 - Was funktioniert und kein Fehler ist, muss der Nutzer nicht erfahren.
 
 **Nachhalten**
