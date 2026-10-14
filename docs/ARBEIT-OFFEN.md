@@ -52,7 +52,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (14.10., 10:45) – an Nachfolger
 - **PR #58** abonniert, grün, wartet auf Test 0.1.728; nach „passt“: zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“, „Jetzt installieren“ leeren.
-- **27m + 80** (Zweig `claude/tom-27m-rand`, committet, noch nicht gepusht): Rand mit mehr Bäumen, Ausgänge/Wege/Wasser frei; Kaels Laterne (Dorf 24/6); Test-Reiter „Bildrate anzeigen“ (`FrameMeter` in `WorldScreen.kt`, Jerry zur Kenntnis). Messung Vorschau (`RANDZEIT=1`, `RANDAUS=1`): je Bild Rand an/aus Wald-Ecke 3,1/1,7 s, Mitte 2,2/1,9 s, Tiefer Wald 5,4/3,7 s, Dorf-Ecke 3,8/1,1 s (Rechner ohne Grafikchip, nur Vergleich). Offen: Standbilder aller Ränder Tag/Nacht (laufen), dann pushen = Sammelbuild, Prüfliste auf „Dein Zug“ mit Bildrate am Rand.
+- **27m + 80** (Zweig `claude/tom-27m-rand`, committet, noch nicht gepusht): Rand mit mehr Bäumen, Ausgänge/Wege/Wasser frei; Kaels Laterne (Dorf 24/6); Test-Reiter „Bildrate anzeigen“ (`FrameMeter` in `WorldScreen.kt`, Jerry zur Kenntnis). Messung Vorschau (`RANDZEIT=1`, `RANDAUS=1`): je Bild Rand an/aus Wald-Ecke 3,1/1,7 s, Mitte 2,2/1,9 s, Tiefer Wald 5,4/3,7 s, Dorf-Ecke 3,8/1,1 s (Rechner ohne Grafikchip, nur Vergleich). Standbilder aller Ränder fertig (`e/b/27m_raender.jpg`); **Sammelbuild gepusht 11:03**, Weckruf 11:12: Prüfliste auf „Dein Zug“ (Bildrate am Rand, Ausgänge frei, Laterne), „Jetzt installieren“. Am Ostrand des Dorfes verdecken Randkronen den Helden halb (beobachten).
 - **69e** zweite Runde und **80** auf „Dein Zug“, warten auf Nutzer.
 - **Nutzer 09:3x:** erst kurz antworten, dann höchstens etwa 5 Minuten am Stück arbeiten.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
