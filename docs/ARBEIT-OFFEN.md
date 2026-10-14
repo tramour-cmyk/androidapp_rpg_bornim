@@ -23,7 +23,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` (27.4, 5.3, 5.4, 5.6, 5n, 5la). Offen 5.5 (prüfen, ob noch etwas fehlt). Verlauf im Archiv |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`, auch 24.8.6 (Türen 0,5 s). **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`LISTE-KAPITEL1.md`](LISTE-KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | **26c:** (1) 24.8.6/30.8, (2) 42, (3) Diagonalsicht erledigt (auf `main`), ebenso 55.2 und 17; Toms Teil von 26c fertig |
-| 27 | Wald „Ort fertig“ (Liste in `DESIGN-ABNAHME.md`) | Tom | `ccr-e4144697-7oy67j` | **27l ja** (Nutzer 14.10., 07:2x, Beschlüsse): Licht für stehende Dinge am Fuß messen (`WorldScreen.kt`, alle Karten, Jerry zur Kenntnis), erst Entwurf mit Standbildern vorher/nachher; Pfützen weich, Nähte weg (alle drei in PR #58). **27m** Kartenrand: Entwurf (Wald geht über den Rand weiter, läuft ins Dunkel aus; `claude/tom-27m-rand`, `RAND=1`) auf „Dein Zug“; **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise) |
+| 27 | Wald „Ort fertig“ (Liste in `DESIGN-ABNAHME.md`) | Tom | `ccr-e4144697-7oy67j` | **27l ja** (Nutzer 14.10., 07:2x, Beschlüsse): Licht für stehende Dinge am Fuß messen (`WorldScreen.kt`, alle Karten, Jerry zur Kenntnis), erst Entwurf mit Standbildern vorher/nachher; Pfützen weich, Nähte weg (alle drei in PR #58). **27m ja** (Nutzer 14.10., 09:1x, Beschlüsse): Wald geht 6 Reihen über den Rand weiter und läuft ins Dunkel aus; Entwurf `claude/tom-27m-rand` (`RAND=1`, `MapEdge`) fest einbauen, vorher Bildrate messen; **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise) |
 | 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | 30.1/30.2/30b/30.8 auf `main`. Offen: Abstürze beobachten (bei neuem Absturz `adb logcat` mit Anleitung von Tom); 30.7 bewusst gelassen (Merkliste) |
 | 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben) | Jerry | – | Meldung Nutzer 12.10., 15:4x mit Bildschirmfoto (Wiese, alte Kampfansicht). Erst Standbild der Sterbehaltungen aller Klassen, dann Vorschlag |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt | Jerry | – | 36.4–36.7, 36h/36j/36k auf `main` (PR #46, #47, getestet 0.1.587). Rest in 52, 53. **Offen 36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung. Verlauf im Archiv |
@@ -49,10 +49,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (14.10., 08:05)
-- **Heute:** 0.1.721 abgenommen, PR #57 zusammengeführt (`main` grün); 55d so lassen; 77e.3 Vorgaben neu gefasst; 69e beim Berater. **0.1.728** (PR #58, Zweig `ccr-e4144697-7oy67j`, abonniert, grün): 27l Licht am Fuß (`footLight`), Pfützen weich, Nähte weg (Bodenstücke überlappen), 77.1 Leiste; Prüfliste `e/t728.html`. Nach Test: PR #58 zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“.
-- **27m** Kartenrand-Entwurf auf „Dein Zug“ (`claude/tom-27m-rand` 5ce92886, `RAND=1`, `MapEdge`): bei Ja fest einbauen (Schalter weg), vorher Bildrate messen.
-- **Lücken** sonst: nachts Kronen hell ums Licht (D1.15, Jerry); Schritte fehlen (74, Jerry). 69/68 nach Entscheidung 69e. Vorrat leer.
+### Tom (14.10., 09:15) – an Nachfolger
+- **Zuerst:** PR #58 abonnieren (`subscribe_pr_activity`), 0.1.728 wartet auf Test des Nutzers (später); nach „passt“: zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“, „Jetzt installieren“ leeren.
+- **Dann 27m** (ja, 09:1x) auf Zweig `claude/tom-27m-rand` (Entwurf 5ce92886): erst `git merge origin/main` (nach PR #58 auch dessen Stand), Schalter `MapEdge.draft` und `RAND` weg, fest für Wald/Tiefer Wald/Dorf; Bildrate messen (`ARTMEM`/Test-Reiter), mehr Bäume rund um die Karte; Standbilder Tag/Nacht aller Ränder (auch Süden mit Feldweg und Umkehr, Osten), dann Sammelbuild.
+- Sonst: 69/68 beim Berater (70/69e: Probebild Brücke zweimal, farbig); D1.15 und 74 bei Jerry. Neu von Sokrates: Thema 79 (Kampfhintergründe an Diagonalwelt).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10., 22:0x), vor allem anderen:** (1) Notizen umbenannt, `CLAUDE.md` neu; deine Startlektüre steht jetzt in `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“), bitte ganz lesen. (2) Im Zweig `claude/jerry-13e-hoehle-diagonal` (und jedem anderen) zuerst `git merge origin/main`. (3) Ab jetzt Sammelbuilds (höchstens 4 Punkte, Zweig höchstens 1 Tag, nie mit Tom gemischt) und „(Rückläufer: n)“ im `CHANGELOG.md`. Sonst nichts zu tun.

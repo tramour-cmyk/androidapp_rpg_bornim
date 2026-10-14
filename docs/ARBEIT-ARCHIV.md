@@ -1,5 +1,10 @@
 # Archiv
 
+### Tom (14.10., 08:05)
+- **Heute:** 0.1.721 abgenommen, PR #57 zusammengeführt (`main` grün); 55d so lassen; 77e.3 Vorgaben neu gefasst; 69e beim Berater. **0.1.728** (PR #58, Zweig `ccr-e4144697-7oy67j`, abonniert, grün): 27l Licht am Fuß (`footLight`), Pfützen weich, Nähte weg (Bodenstücke überlappen), 77.1 Leiste; Prüfliste `e/t728.html`. Nach Test: PR #58 zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“.
+- **27m** Kartenrand-Entwurf auf „Dein Zug“ (`claude/tom-27m-rand` 5ce92886, `RAND=1`, `MapEdge`): bei Ja fest einbauen (Schalter weg), vorher Bildrate messen.
+- **Lücken** sonst: nachts Kronen hell ums Licht (D1.15, Jerry); Schritte fehlen (74, Jerry). 69/68 nach Entscheidung 69e. Vorrat leer.
+
 ### Aus ROLLE-BERATER.md, Übergabe 13.10., 22:5x
 **Übergabe (13.10., 22:5x):**
 
