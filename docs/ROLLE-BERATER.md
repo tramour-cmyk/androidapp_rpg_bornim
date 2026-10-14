@@ -2,13 +2,13 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 11:2x) – Nachfolger: „Sokrates – Texte Kapitel 2, Freigabe“:**
+**Übergabe (14.10., 13:1x) – Nachfolger: „Sokrates – Texte Kapitel 2, Freigabe“:**
 
-**Sitzungen** (ältere im Archiv): 14.10. 09:58–11:2x „Texte Kapitel 2“: ganzer Textentwurf Kapitel 2 im [Dokument](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413) (Stationen 1–4, Schilfrode, Kapitelende, sechs Aushänge, Prüfpunkte 1.1–6.3); Namen Rask und Fenn ja; Antwortzeit-Regel in `CLAUDE.md` ergänzt (Nutzer ja). Schwerpunkt: fast nur Spiel. Lehre: schwächere Fassungen nicht zur Ansicht stehen lassen, gleich die bessere schreiben.
+**Sitzungen** (ältere im Archiv): 14.10. 11:30–13:1x „Texte Kapitel 2, Freigabe“: 80a entschieden (Sockel, Zeichen A), 69e begutachtet und vierte Runde beauftragt; Nutzer liest den Textentwurf noch. Schwerpunkt: Spiel. 14.10. 09:58–11:2x „Texte Kapitel 2“: ganzer Entwurf im [Dokument](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413); Rask und Fenn ja.
 
-**Nächster Punkt:** (1) **Nutzer prüft den Entwurf** (Prüfpunkte fett), offen 4.4 (Fenn stirbt ohne Merles Worte, Merle-Zeile), 5.3 (Szene mit Joss' Frau), 6.3 (Antworten und Belohnungen der Aushänge nach Freigabe). Nach Freigabe wortgetreu nach `docs/STORY-K2.md` und `STORY-K2-W.md` (Marken `[41.…]`, `[24.ort.…]`), Verzeichnis in `STORY-REGELN.md`. (2) **69e** dritte Runde liegt vor; Sokrates 13:05: als Musterbild „noch nicht“, letzte Runde vorgeschlagen (Blick am Brückenanfang, unteres Drittel leer; Häuser und Flächen wie Diagonalwelt: dunkles Holz, Moos, Struktur), Nutzer entscheidet. 80a entschieden (13:0x). (3) 79 nach dem Musterbild. (4) 72a–72j.
+**Nächster Punkt:** (1) **Nutzer prüft den Entwurf** (Prüfpunkte fett), offen 4.4 (Fenn stirbt ohne Merles Worte, Merle-Zeile), 5.3 (Szene mit Joss' Frau), 6.3 (Antworten und Belohnungen der Aushänge nach Freigabe). Nach Freigabe wortgetreu nach `docs/STORY-K2.md` und `STORY-K2-W.md` (Marken `[41.…]`, `[24.ort.…]`), Verzeichnis in `STORY-REGELN.md`. (2) **69e** vierte und letzte Runde bei Tom (Nutzer 13:1x ja, Auftrag in „Wer macht was“). Liegt sie vor (Zeile „Für den Berater“, „Dein Zug“): **aktiv Meinung äußern** (Nutzer), gegen `DESIGN-STIL.md` „Zwischensequenzen“ und ein Bildschirmfoto der Diagonalwelt prüfen, dann entscheidet der Nutzer über das Musterbild 70.1. 80a entschieden (13:0x). (3) 79 nach dem Musterbild. (4) 72a–72j.
 
-**Zuletzt gelesen bis:** dieser Commit (14.10., 11:2x)
+**Zuletzt gelesen bis:** dieser Commit (14.10., 13:1x)
 
 ## Wer du bist
 
