@@ -467,14 +467,14 @@ object MapCaveIso {
             s.poly(right, x(i1, j0), y(i1, j0, z0), x(i1, j1), y(i1, j1, z0), x(i1, j1), y(i1, j1, z1), x(i1, j0), y(i1, j0, z1), tiltX = 0.55, tiltY = 0.3, bevel = bevel)
             s.poly(top, x(i0, j0), y(i0, j0, z1), x(i1, j0), y(i1, j0, z1), x(i1, j1), y(i1, j1, z1), x(i0, j1), y(i0, j1, z1), tiltY = -0.72, bevel = bevel * 0.6)
         }
-        /** A soft shadow round the footprint, laid first. */
+        /** A soft shadow round the footprint, laid first: an ellipse on the floor (2:1 on the screen, D1.5), not a lozenge. */
         fun shadow(i0: Double, j0: Double, i1: Double, j1: Double, a: Double = 0.5) {
             val ci = (i0 + i1) / 2; val cj = (j0 + j1) / 2
-            val ri = (i1 - i0) / 2 + 0.08; val rj = (j1 - j0) / 2 + 0.08
+            val ri = (i1 - i0) / 2 * 1.2 + 0.06; val rj = (j1 - j0) / 2 * 1.2 + 0.06
             for (py in 0 until h) for (px in 0 until w) {
                 val aa = (px + 0.5 - w / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
                 val i = (aa + bb) / 2; val j = (bb - aa) / 2
-                val d = max(abs((i - ci) / ri), abs((j - cj) / rj))
+                val d = Math.hypot((i - ci) / ri, (j - cj) / rj)
                 if (d >= 1.0 || i < -1 || j < -1 || i > 0 || j > 0) continue
                 under.set(px, py, (((1 - d) * a * 255).toInt().coerceIn(0, 255) shl 24) or 0x0A0806)
             }

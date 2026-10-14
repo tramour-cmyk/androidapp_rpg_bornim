@@ -876,11 +876,12 @@ object MapCave {
         // the mouth of the cave: daylight and the forest come in from there
         val exits = ArrayList<DoubleArray>()
         for (ty in 0 until map.height) for (tx in 0 until map.width) if (map.tile(tx, ty) == Tile.CAVE_EXIT) exits += doubleArrayOf((tx + 0.5) * S, (ty + 1.0) * S)
-        // soft shadows under the things that stand on the floor
-        val standing = setOf(Tile.STALAGMITE, Tile.CRATE, Tile.ROCK, Tile.CHEST, Tile.CAMPFIRE, Tile.BEDROLL, Tile.BONES, Tile.RUBBLE)
+        // soft shadows under the rock that stands on the floor, round round the middle of the tile (2:1 when seen
+        // diagonally, D1.5); chests, crates, bedrolls, bones and the fire bring their own
+        val standing = setOf(Tile.STALAGMITE, Tile.ROCK, Tile.RUBBLE)
         val shadows = ArrayList<DoubleArray>()
         for (ty in cy * MapGround.CH - 1..(cy + 1) * MapGround.CH) for (tx in cx * MapGround.CH - 1..(cx + 1) * MapGround.CH) {
-            if (map.tile(tx, ty) in standing) shadows += doubleArrayOf((tx + 0.58) * S, (ty + 0.8) * S, S * 0.5, S * 0.17)
+            if (map.tile(tx, ty) in standing) shadows += doubleArrayOf((tx + 0.5) * S, (ty + 0.5) * S, S * 0.46, S * 0.46)
         }
 
         val img = PixelImage(size, size)
