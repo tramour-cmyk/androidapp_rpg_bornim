@@ -35,7 +35,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | `claude/tom-5-5-dorf-luecken` | Auf `main` bis 5la; 5.5 in 0.1.739 (t732) |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`LISTE-KAPITEL1.md`](LISTE-KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | Toms Teil von 26c fertig |
-| 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Tom | `claude/tom-5-5-dorf-luecken` | 27m.1–27m.5, Waldrand West/Nord, Tiefer Wald (Nutzer 18:4x/18:5x) in 0.1.739 (PR #60, t732). **Dorf** (18:5x, vom Wald kommend, abends): rechts senkrecht abgeschnittene schwarze Fläche, offen. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise) |
+| 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Tom | `claude/tom-5-5-dorf-luecken` | 27m.1–27m.5, Waldrand West/Nord, Tiefer Wald (Nutzer 18:4x/18:5x) in 0.1.739 (PR #60, t732). **Dorf** (18:5x, vom Wald kommend, abends, rechts schwarze Fläche): im Standbild 20 Uhr keine Kante mehr, vermutlich mit 0.1.739 behoben; Nachtest in t732. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise) |
 | 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | Abstürze beobachten (bei neuem `adb logcat` mit Anleitung von Tom); 30.7 Merkliste |
 | 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben) | Jerry | – | Meldung Nutzer 12.10., 15:4x mit Bildschirmfoto (Wiese, alte Kampfansicht). Erst Standbild der Sterbehaltungen aller Klassen, dann Vorschlag |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt | Jerry | – | 36.4–36.7, 36h/36j/36k auf `main` (PR #46, #47, getestet 0.1.587). Rest in 52, 53. **Offen 36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung. Verlauf im Archiv |
@@ -63,7 +63,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (14.10., 19:4x)
-- PR #60 (0.1.739), #61, #62 beim Nutzer (oben), abonnieren. Weiter: (1) Dorf-Meldung Zeile 27: Standbild Nordeingang abends (`HELDORT=village:17:2:R:20`), vermutlich Ende des Lichtbilds; (2) 85 Testmenü; (3) 74 Erde/Pflaster (CC0), Hörprobe; (4) 83 wartet; (5) 13e D1.7 Leben Höhle (Rauch `drawCampSmoke`, `WorldScreen.kt`, nach Absprache).
+- PR #60 (0.1.739), #61, #62 beim Nutzer (oben), abonnieren. Weiter: 85 auf `claude/tom-85-testmenue` (2 Knöpfe raus) in den nächsten Sammelbuild; 74 Hörprobe 2 beim Nutzer, dann einbauen; 83 wartet; 13e D1.7 Leben Höhle (Rauch `drawCampSmoke`, `WorldScreen.kt`, nach Absprache).
 - Draußen bei Nacht bleibt das kleine Licht um den Helden (13e.6 B nur Höhle); falls der Berater B auch für draußen meint: `MapLight.kt` (`lantern`).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
