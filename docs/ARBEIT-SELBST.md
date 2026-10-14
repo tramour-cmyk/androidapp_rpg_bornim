@@ -86,22 +86,21 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/ARBEIT-O
 **Reserve:** ~~55 Speer im Kampf prüfen~~ (Held/Skelett 2 m, Kobold ~0,9 m wie Text „fast so groß wie er selbst“; 55d in den Bericht: Kobold so lassen, Empfehlung); ~~5.5 Dorf Lücken prüfen~~ (Liste in der Übergabe); ~~69 Intro-Bildentwürfe~~ (gemalte Nachtbilder, `claude/tom-69-intro` 2a87af2b, `INTROBILD=1`, Standbild 00:43; 69e in den Bericht).
 
 **Vorrat für Selbstarbeit** (Reihenfolge; 23a freigegeben 11.10., 14:18; Erledigtes im Archiv, 77e):
-1. **27 Wald:** Standbilder Wald gegen Dorf bei Tag und Nacht, Lückenliste nach „Ort fertig“ (`DESIGN-ABNAHME.md`), danach Entwurf eines diagonalen Baums. Fertig, wenn: Standbilder und Liste in `ARBEIT-OFFEN.md`.
+1. ~~27 Wald~~ Lückenliste und 27l/27m erledigt (in 0.1.729 und PR #60).
 
 **Für gemeinsame Zeit:**
-- t721: Sammelbuild 0.1.721 auf dem Gerät testen (PR #57).
-- 69e, 27l, 55d auf „Dein Zug“ entscheiden; danach 69/68 Figuren, 27l.
+- t732 (PR #60) und Sammelbuild PR #61 auf dem Gerät testen; 69e und 74 auf „Dein Zug“ entscheiden; danach 69/68 Figuren.
 
 ## Jerry
 
 **Vorrat für Selbstarbeit** (Reihenfolge; Erledigtes im Archiv, 77e):
 1. **24.6 Kampferöffnung wartet** + Herzschlag in der Blende (nach Toms 24.5 auf `main`).
 2. **18 Stimmen der übrigen Gegner** (Angriff, Schmerz, Tod, je drei Fassungen), nur als Hörproben.
-3. **Schritte je Untergrund** (74), Hörproben (23a, 11.10., 14:18).
+3. ~~Schritte je Untergrund~~ (74): Hörprobe von Tom (Vertretung 14.10.) auf „Dein Zug“.
 4. **Raumklang** (Idee 8), Hörproben.
-5. **Rudelwölfe beißen ins Leere** (Fehler 08.10., Offen 52), mit Film.
+5. ~~Rudelwölfe beißen ins Leere~~ (52): von Tom (Vertretung 14.10.) behoben, `claude/tom-52-rudel`, `e/52.html`.
 6. **Musik in Schichten** (Idee 10), Hörproben.
-7. **Ausgleich Magier** (26): Siegquoten aller Klassen gegen Krogg und Grak aus der Simulation, Vorschlag zum Angleichen. Fertig, wenn: Zahlen vorher/nachher im Bericht.
+7. ~~Ausgleich Magier~~ (26): von Tom (Vertretung 14.10.) gemessen, Vorschlag unter „Für den Berater“.
 
 **Für gemeinsame Zeit:**
 - 24e/24.6: Kampferöffnung wartet, bis Kampfbilder fertig sind (nach Toms 24.1–24.3).
