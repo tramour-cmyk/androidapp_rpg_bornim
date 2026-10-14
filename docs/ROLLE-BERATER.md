@@ -2,9 +2,9 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 22:2x) – Nachfolger: „Sokrates – Zoomstufe und Begleiter“:**
+**Übergabe (14.10., 22:2x) – Nachfolger: „Sokrates – Verschleiß und Begleiter“:**
 
-**Nächster Punkt:** (0) **6l Zoomstufe** auf „Dein Zug“ (Empfehlung: fest 6,75, eine Stufe näher wählbar, nie weiter, keine Automatik; Tom prüft Tablet; Nutzer-Satz „dazu sollte man es nochmal …“ war abgeschnitten, nachfragen). (1) **72o Verschleiß** Feinheiten (kommt, Nutzer will genauer überlegen). (2) **41** Begleiter-Figuren Kapitel 2 (72s). (3) 84.3, 84.2, 72a/72c–72j, 81 Ford (Befunde ohne Vermerk zählen: Empfehlung noch nicht), 79/72u nach Probe und Standbild.
+**Nächster Punkt:** (0) 6l beschlossen (22:1x). (1) **72o Verschleiß** Feinheiten (kommt, Nutzer will genauer überlegen). (2) **41** Begleiter-Figuren Kapitel 2 (72s). (3) 84.3, 84.2, 72a/72c–72j, 81 Ford (Befunde ohne Vermerk zählen: Empfehlung noch nicht), 79/72u nach Probe und Standbild.
 Sitzung 14.10., 21:4x–22:2x: 72.11 (B mit zwei Reihen), 72.12 „Kampfort“, 72.13 (Automatik, Wunden, Verschleiß), 86.11, 88, 13e.6 Regler beschlossen; 72q, 72l, 26d erledigt; 72u Kampfort aus der Karte offen bis Probe und Standbild. Schwerpunkt: fast ganz Spiel (Kampf, Bild, Rast), wenig Ablauf (88).
 
 **Zuletzt gelesen bis:** ee9e1418 (14.10., 22:2x)
