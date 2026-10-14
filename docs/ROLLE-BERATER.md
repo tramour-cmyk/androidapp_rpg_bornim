@@ -4,11 +4,11 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (14.10., 13:4x) – Nachfolger: „Sokrates – Ford bauen“ (Kapitel-2-Punkte laufen weiter):**
 
-**Sitzungen:** 14.10. 15:0x Schlüssel fehlte, 26d gestellt; 15:03 Schlüssel fehlt weiter, 26d neu gestellt. 15:2x Telegram bestätigt, Ford-Routinen gebaut.
+**Sitzungen:** 14.10. 15:0x Schlüssel fehlte, 26d gestellt; 15:03 Schlüssel fehlt weiter, 26d neu gestellt. 15:2x Telegram bestätigt, Ford-Routinen gebaut. 15:44 Neustart.
 
 **Nächster Punkt:** (0) **Ford:** Push und Routinen fertig (15:28, `ROLLE-FORD.md`). Offen: Stellung vom Nutzer (Empfehlung Co-Pilot heute, Pilot ab Nacht), erste Läufe prüfen; `CLAUDE.md` (Diogenes-Start, 81a) und `ARBEIT-SELBST.md` kürzen (Regelbilanz: Weck-Routinen durch Ford ersetzen, nach Bewährung 81i); Jerry-Ford ab Fr. (1) **Nutzer prüft den Entwurf** (Prüfpunkte fett), offen 4.4 (Fenn stirbt ohne Merles Worte, Merle-Zeile), 5.3 (Szene mit Joss' Frau), 6.3 (Antworten und Belohnungen der Aushänge nach Freigabe). Nach Freigabe wortgetreu nach `docs/STORY-K2.md` und `STORY-K2-W.md` (Marken `[41.…]`, `[24.ort.…]`), Verzeichnis in `STORY-REGELN.md`. (2) **69e** vierte und letzte Runde bei Tom (Nutzer 13:1x ja, Auftrag in „Wer macht was“). Liegt sie vor (Zeile „Für den Berater“, „Dein Zug“): **aktiv Meinung äußern** (Nutzer), gegen `DESIGN-STIL.md` „Zwischensequenzen“ und ein Bildschirmfoto der Diagonalwelt prüfen, dann entscheidet der Nutzer über das Musterbild 70.1. 80a entschieden (13:0x). (3) 79 nach dem Musterbild. (4) 72a–72j.
 
-**Zuletzt gelesen bis:** dieser Commit (14.10., 15:03)
+**Zuletzt gelesen bis:** 57c3e84 (14.10., 15:39)
 
 ## Wer du bist
 
