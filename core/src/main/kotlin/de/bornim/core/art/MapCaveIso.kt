@@ -125,7 +125,7 @@ object MapCaveIso {
     /** One tile's length in upright units, for the slope of the rock (a tile about 1.4 m). */
     private const val TILE_Z = 80.0
 
-    private fun rockCell(map: MapDef, x: Int, y: Int) = isRock(map.tile(x, y))
+    private fun rockCell(map: MapDef, x: Int, y: Int) = isRock(MapCave.caveTile(map, x, y))
 
     /**
      * How high the rock may stand in cell ([x], [y]), from the cave's plan alone (48b: no tile drawn by hand, so a cave
@@ -467,14 +467,14 @@ object MapCaveIso {
             s.poly(right, x(i1, j0), y(i1, j0, z0), x(i1, j1), y(i1, j1, z0), x(i1, j1), y(i1, j1, z1), x(i1, j0), y(i1, j0, z1), tiltX = 0.55, tiltY = 0.3, bevel = bevel)
             s.poly(top, x(i0, j0), y(i0, j0, z1), x(i1, j0), y(i1, j0, z1), x(i1, j1), y(i1, j1, z1), x(i0, j1), y(i0, j1, z1), tiltY = -0.72, bevel = bevel * 0.6)
         }
-        /** A soft shadow round the footprint, laid first. */
+        /** A soft shadow round the footprint, laid first: an ellipse on the floor (2:1 on the screen, D1.5), not a lozenge. */
         fun shadow(i0: Double, j0: Double, i1: Double, j1: Double, a: Double = 0.5) {
             val ci = (i0 + i1) / 2; val cj = (j0 + j1) / 2
-            val ri = (i1 - i0) / 2 + 0.08; val rj = (j1 - j0) / 2 + 0.08
+            val ri = (i1 - i0) / 2 * 1.2 + 0.06; val rj = (j1 - j0) / 2 * 1.2 + 0.06
             for (py in 0 until h) for (px in 0 until w) {
                 val aa = (px + 0.5 - w / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
                 val i = (aa + bb) / 2; val j = (bb - aa) / 2
-                val d = max(abs((i - ci) / ri), abs((j - cj) / rj))
+                val d = Math.hypot((i - ci) / ri, (j - cj) / rj)
                 if (d >= 1.0 || i < -1 || j < -1 || i > 0 || j > 0) continue
                 under.set(px, py, (((1 - d) * a * 255).toInt().coerceIn(0, 255) shl 24) or 0x0A0806)
             }
@@ -925,7 +925,7 @@ object MapCaveIso {
      */
     fun torchFace(map: MapDef, tx: Int, ty: Int): Pair<Double, Double>? {
         val T = WorldArt.T.toDouble()
-        val east = !isRock(map.tile(tx + 1, ty)); val south = !isRock(map.tile(tx, ty + 1))
+        val east = !isRock(MapCave.caveTile(map, tx + 1, ty)); val south = !isRock(MapCave.caveTile(map, tx, ty + 1))
         return when {
             east && south -> (tx + 1) * T - 1 to (ty + 1) * T - 1
             east -> (tx + 1) * T - 1 to (ty + 0.5) * T
@@ -986,17 +986,17 @@ object MapCaveIso {
 
     /** The cave's tiles seen diagonally, or null for those still drawn by [MapCave]. */
     fun objects(map: MapDef, tx: Int, ty: Int, frame: Int, chestOpen: Boolean, gateOpen: Boolean): List<WorldArt.Obj>? {
-        val t = map.tile(tx, ty)
+        val t = MapCave.caveTile(map, tx, ty)
         val v = (hash(tx, ty, 41) / 7) % 3
         when (t) {
             Tile.SUPPORT -> {
-                val left = map.tile(tx - 1, ty) != Tile.SUPPORT
+                val left = MapCave.caveTile(map, tx - 1, ty) != Tile.SUPPORT
                 val sv = Math.floorMod(hash(if (left) tx else tx - 1, ty, 43), 3)
                 return listOf(thing(map, tx, ty, "support/$left/$sv") { support(left, sv) })
             }
             Tile.GATE -> {
                 if (gateOpen) return emptyList()
-                val left = map.tile(tx - 1, ty) != Tile.GATE
+                val left = MapCave.caveTile(map, tx - 1, ty) != Tile.GATE
                 return listOf(thing(map, tx, ty, "gate/$left") { gate(left) })
             }
             Tile.CHEST -> return listOf(thing(map, tx, ty, "chest/$v/$chestOpen", low = true) { chest(v, chestOpen) })
@@ -1022,13 +1022,13 @@ object MapCaveIso {
             else -> {}
         }
         if (!isRock(t)) return null
-        val edge = (-1..1).any { a -> (-1..1).any { b -> !isRock(map.tile(tx + a, ty + b)) } }
+        val edge = (-1..1).any { a -> (-1..1).any { b -> !isRock(MapCave.caveTile(map, tx + a, ty + b)) } }
         if (!edge) return if (t == Tile.CAVE_WALL) emptyList() else MapCave.objects(map, tx, ty, frame, chestOpen, gateOpen)
         val wall = thing(map, tx, ty, "${map.id}/rock/$tx/$ty") { rockTile(map, tx, ty) }
         // crystals grow from the face towards the floor (13e); a torch on a back face is drawn live by the screen
         // (13e.3, 10: [torchFace]), one with no back face to hang on keeps its old picture, in front of the wall
         if (t == Tile.CRYSTAL) {
-            val (di, dj) = listOf(0 to 1, 1 to 0, 0 to -1, -1 to 0).firstOrNull { (a, b) -> !isRock(map.tile(tx + a, ty + b)) } ?: return listOf(wall)
+            val (di, dj) = listOf(0 to 1, 1 to 0, 0 to -1, -1 to 0).firstOrNull { (a, b) -> !isRock(MapCave.caveTile(map, tx + a, ty + b)) } ?: return listOf(wall)
             val cv = Math.floorMod(hash(tx, ty, 47), 3)
             return listOf(wall, thing(map, tx, ty, "crystals/$cv/$di/$dj/${(tx + ty * 3) % 4}") { crystals(cv, di, dj, (tx + ty * 3) % 4) })
         }

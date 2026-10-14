@@ -6,7 +6,8 @@ import de.bornim.core.Tile
 
 /**
  * The edge of a map outdoors (27m): instead of a straight black slant where the map ends, the wood goes on
- * for a few rows of trees beyond it and fades into the dark.
+ * for a few rows of trees beyond it and fades into the dark. In the cave the rock goes on, and the passage of the
+ * mouth runs out towards the daylight (D1.6).
  */
 object MapEdge {
     /** How many tiles beyond the edge the wood is drawn. */
@@ -22,10 +23,11 @@ object MapEdge {
     /** Off only in the preview, to measure what the ring costs (RANDZEIT). */
     var on = true
 
-    fun applies(map: MapDef) = on && (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN)
+    fun applies(map: MapDef) = on && (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN || map.kind == MapKind.CAVE)
 
     /** The trees standing in the ring beyond the edge of [map]. */
     fun trees(map: MapDef): List<WorldArt.Obj> {
+        if (map.kind == MapKind.CAVE) return rock(map)
         val out = ArrayList<WorldArt.Obj>()
         val T = WorldArt.T
         for (ty in -RING until map.height + RING) for (tx in -RING until map.width + RING) {
@@ -55,14 +57,26 @@ object MapEdge {
         return out
     }
 
+    /** The rock beyond the edge of a cave: the faces along the passage of the mouth (D1.6). */
+    private fun rock(map: MapDef): List<WorldArt.Obj> {
+        val out = ArrayList<WorldArt.Obj>()
+        for (ty in -RING until map.height + RING) for (tx in -RING until map.width + RING) {
+            if (map.inside(tx, ty)) continue
+            MapCaveIso.objects(map, tx, ty, 0, chestOpen = false, gateOpen = false)?.let { out += it }
+        }
+        return out
+    }
+
     /** How much light is left at map pixel ([px], [py]): 1 inside the map, fading to 0 over the ring beyond its edge. */
     fun fade(map: MapDef, px: Float, py: Float): Float {
         val T = WorldArt.T
         // 27m.3/27m.5 (test of 0.1.729: little wood round the forest, at dusk round the village too): the first rows
         // beyond the edge keep their light, so the wood shows there by day and at dusk alike, then it fades
-        val keep = 2f * T
+        val keep = if (map.kind == MapKind.CAVE) 0f else 2f * T
         val d = maxOf(0f, -px, px - map.width * T, -py, py - map.height * T) - keep
         if (d <= 0f) return 1f
+        // the passage out of the cave stays lit: the daylight comes in from there
+        if (map.kind == MapKind.CAVE && MapCave.caveTile(map, Math.floorDiv(px.toInt(), T), Math.floorDiv(py.toInt(), T)) == Tile.CAVE_EXIT) return 1f
         val u = (1f - d / ((RING * 0.9f * T) - keep)).coerceIn(0f, 1f)
         return u * u * (3 - 2 * u)
     }
