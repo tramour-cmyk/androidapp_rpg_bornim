@@ -157,10 +157,10 @@ object MapFolk {
         return seat(Seat.REST, Seat.BREATHE, 0.5 - 0.5 * kotlin.math.cos(ph))
     }
 
-    /** The outfit Borin sits in: the hammer is put by at the table, a flask at his belt. */
+    /** The outfit Borin sits in: the hammer is put by at the table, a tankard in his hand (87.3). */
     private val seatedOutfit by lazy {
         val o = borin.outfit
-        Outfit(o.cls, o.items.filterValues { it.base != "maul" }, leatherRgb = o.leatherRgb, clothes = o.clothes, flaskRgb = 0x8A6A2A)
+        Outfit(o.cls, o.items.filterValues { it.base != "maul" }, leatherRgb = o.leatherRgb, clothes = o.clothes, flaskRgb = 0x8A6A2A, tankard = true)
     }
 
     /** The rig of one pose at the table, facing [yaw]. */
