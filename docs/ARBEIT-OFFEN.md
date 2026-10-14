@@ -12,7 +12,7 @@ Nur was gerade **in Arbeit**, **zu testen** oder **zu entscheiden** ist. Gibt es
 
 - **Tom Sammelbuild 0.1.739** (zuerst; ersetzt 0.1.736; 5.5, 27m.1–27m.5, Waldrand West und Nord, Tiefer Wald; PR #60, Zweig `claude/tom-5-5-dorf-luecken`): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38606896939/artifacts/11915841464), Prüfliste „0.1.739“ (`e/t732.html`) auf „Dein Zug“ (nur Punkt 6, Nordwestecke, Tiefer Wald nachtesten).
 
-- **Tom Sammelbuild 0.1.740** (neu gebaut statt 0.1.733, Nummer muss steigen; 82, 52, 80a, D1.5/D1.10/D1.11; PR #61, Zweig `claude/tom-d1-schatten`, nach 0.1.739): APK auf „Dein Zug“, Prüfliste `e/t733.html`.
+- **Tom Sammelbuild 0.1.740** (neu gebaut statt 0.1.733, Nummer muss steigen; 82, 52, 80a, D1.5/D1.10/D1.11; PR #61, Zweig `claude/tom-d1-schatten`, nach 0.1.739): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38609446594/artifacts/11916384478), Prüfliste `e/t733.html`.
 
 - **Tom Sammelbuild 0.1.741** (neu gebaut statt 0.1.738; Höhle: 13e.5, 13e.6 B, D1.5, D1.9; PR #62, Zweig `claude/tom-13e-hoehle-fertig`, nach 0.1.740): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38609455363/artifacts/11916159370), Prüfliste `e/t738.html`.
 
