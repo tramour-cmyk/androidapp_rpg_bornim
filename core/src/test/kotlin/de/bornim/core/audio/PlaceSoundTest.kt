@@ -29,16 +29,47 @@ class PlaceSoundTest {
     fun theInnSoundsOfTheTwoWhoAreThere() {
         val present = PlaceSound.present(Story.inn, st)
         assertTrue("innkeeper" in present && "dwarf" in present, "Rowena und Borin: $present")
+        // at chance only a cough and the wood; wiping, pouring, cup and chair come with the movements (D1.10)
         val ev = PlaceSound.events(PlaceSound.Kind.TAVERN, present).map { it.first }.toSet()
-        assertEquals(setOf(Sound.WIPE, Sound.POUR, Sound.CUP, Sound.CHAIR, Sound.COUGH, Sound.CREAK), ev)
-        // without the innkeeper nobody wipes or pours; an empty inn only creaks
-        val guests = PlaceSound.events(PlaceSound.Kind.TAVERN, listOf("dwarf")).map { it.first }
-        assertTrue(Sound.WIPE !in guests && Sound.POUR !in guests)
+        assertEquals(setOf(Sound.COUGH, Sound.CREAK), ev)
         assertEquals(listOf(Sound.CREAK), PlaceSound.events(PlaceSound.Kind.TAVERN, emptyList()).map { it.first })
+        // over ten minutes both of them are heard at work: Rowena wipes and pours, Borin sets down his flask and shifts
+        val heard = PlaceSound.folk(Story.inn, st, 0L, 600_000L, 8, 8, 0L).toSet()
+        assertEquals(setOf(Sound.WIPE, Sound.POUR, Sound.CUP, Sound.CHAIR), heard)
     }
 
     @Test
-    fun coughRareNeverTwiceInARowGapsUneven() {
+    fun theInnSoundsComeWithTheMovements() {
+        val rowena = de.bornim.core.art.MapFolk.of("rowena")!!
+        val borin = de.bornim.core.art.MapFolk.of("borin")!!
+        var wipes = 0; var pours = 0; var cups = 0; var chairs = 0
+        // stepping the clock as the game does: each sound once, at the moment its movement begins (or the flask goes down)
+        for (t in 0L until 1_200_000L step 100L) {
+            for (s in de.bornim.core.art.MapFolk.sounds(rowena, t, t + 100)) {
+                val d = de.bornim.core.art.MapFolk.doing(rowena, t + 100)
+                when (s) {
+                    Sound.WIPE -> { wipes++; assertEquals(de.bornim.core.art.MapFolk.Idle.WIPE, d?.idle, "Wischen ohne Bewegung bei $t") }
+                    Sound.POUR -> { pours++; assertEquals(de.bornim.core.art.MapFolk.Idle.POUR, d?.idle, "Einschenken ohne Krug bei $t") }
+                    else -> error("Rowena: $s")
+                }
+            }
+            for (s in de.bornim.core.art.MapFolk.sounds(borin, t, t + 100)) {
+                val before = de.bornim.core.art.MapFolk.seatPoseAt(borin, t - 200)
+                when (s) {
+                    Sound.CUP -> { cups++; assertTrue(before.from == de.bornim.core.art.MapFolk.Seat.DRINK || before.to == de.bornim.core.art.MapFolk.Seat.DRINK, "Becher ohne Trinken bei $t: $before") }
+                    Sound.CHAIR -> { chairs++; assertEquals(de.bornim.core.art.MapFolk.Seat.LOOK, de.bornim.core.art.MapFolk.seatPoseAt(borin, t + 500).to, "Stuhl ohne Umdrehen bei $t") }
+                    else -> error("Borin: $s")
+                }
+            }
+        }
+        assertTrue(wipes > 20 && pours > 15 && cups > 5 && chairs > 5, "Wischen $wipes, Einschenken $pours, Becher $cups, Stuhl $chairs in 20 min")
+        // a hero standing right before her counter: she looks at him and does not work, so nothing is heard of her
+        val near = PlaceSound.folk(Story.inn, st, 0L, 600_000L, 1, 3, 0L)
+        assertTrue(Sound.WIPE !in near && Sound.POUR !in near)
+    }
+
+    @Test
+    fun coughNeverTwiceInARowGapsUneven() {
         val ev = PlaceSound.events(PlaceSound.Kind.TAVERN, listOf("innkeeper", "dwarf"))
         val rnd = Random(7)
         var last: Sound? = null
@@ -49,9 +80,9 @@ class PlaceSoundTest {
             if (s == Sound.COUGH) coughs++
             last = s
         }
-        assertTrue(coughs in 40..200, "Husten $coughs von 2000 (selten, etwa jedes 10.–20.)")
+        assertTrue(coughs in 900..1100, "Husten $coughs von 2000 (im Wechsel mit dem Knarren, bei 12–30 s Pause etwa jede dreiviertel Minute)")
         val gaps = List(200) { PlaceSound.gapMs(PlaceSound.Kind.TAVERN, rnd) }
-        assertTrue(gaps.all { it in 3000L..8000L } && gaps.toSet().size > 50)
+        assertTrue(gaps.all { it in 12000L..30000L } && gaps.toSet().size > 50)
         assertTrue(PlaceSound.firstMs(PlaceSound.Kind.TAVERN, rnd) < 2500L)
     }
 

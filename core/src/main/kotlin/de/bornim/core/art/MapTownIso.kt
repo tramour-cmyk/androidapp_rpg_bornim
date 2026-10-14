@@ -91,7 +91,9 @@ object MapTownIso {
         val chimTop = ridge - (d / 2.0 - cjMid) * TH / 2 / ZS + 52
         val towerTop = ridge + 92
         // the picture: from the back corner (0, 0) at the top to the front corner (n, d) on the ground
-        val left = d + o + 0.3; val right = n + o + 0.3
+        // 5.5: wide enough for the soft shadow down left too (it reaches 1.3 tiles past the front), else it ends in a
+        // straight upright edge on the grass where the picture stops
+        val left = d + 1.4; val right = n + o + 0.3
         val w = (floor((left + right) * TW / 2 / 4).toInt() + 2) * 4
         val topZ = maxOf(ridge, if (chimney != null) chimTop else 0.0, if (temple) towerTop + 50 else 0.0) + 8
         val h = ((n + d) * TH / 2 + topZ * ZS + 24).toInt() / 2 * 2
@@ -725,9 +727,10 @@ object MapTownIso {
 
     /**
      * A market stall (5.2): a trestle table of planks under a cloth roof on four poles, wares on it. Three looks with
-     * their own cloth and wares: apples and cabbages, loaves and sacks, pots and a string of onions.
+     * their own cloth and wares: apples and cabbages, loaves and sacks, pots and a string of onions. [withCloth] false: all
+     * but the cloth roof (5.5: on the map the roof fades on its own when the hero stands behind the stall).
      */
-    fun stall(v: Int, seed: Int): PixelImage {
+    fun stall(v: Int, seed: Int, withCloth: Boolean = true): PixelImage {
         val c = Tile1(220)
         c.shadow(-0.5, -0.45, 0.55, 0.4)
         val i0 = -0.9; val i1 = -0.1; val j0 = -0.72; val j1 = -0.28
@@ -742,6 +745,7 @@ object MapTownIso {
             val col = wares[hash(k, 2, seed) % wares.size]
             c.cylinder(wi, wj, rr, 48.0, 48.0 + rr * 90, { _, z, lit -> shade(argb(col), lit * (0.7 + 0.3 * (z - 48) / (rr * 90))) })
         }
+        if (!withCloth) return c.img
         // the cloth: sloping from the back poles down to the front, striped, its hem hanging ragged
         val cloth = when (v) { 0 -> 0x5A3A2A to 0x7A6E58; 1 -> 0x3E4A3A to 0x6E6A52; else -> 0x4A3A4E to 0x7A7060 }
         c.plane(doubleArrayOf(i0 - 0.06, j0 - 0.04, 132.0), doubleArrayOf(i1 - i0 + 0.12, 0.0, 0.0), doubleArrayOf(0.0, j1 - j0 + 0.16, -26.0)) { u, w ->
@@ -752,6 +756,21 @@ object MapTownIso {
             if (w < 0.4 * rnd(floor(u * 30).toInt(), 1, seed + 4)) null else shade(argb(if (floor(u * 6).toInt() % 2 == 0) cloth.first else cloth.second), 0.65)
         }
         return c.img
+    }
+
+    /** Only the cloth roof of a [stall]: the pixels where the whole stall differs from the one without its cloth. */
+    fun stallCloth(v: Int, seed: Int): PixelImage = litWindows(stall(v, seed, false), stall(v, seed))
+
+    /**
+     * [img] without its empty rows at the top, an even number of them (drawn at half size); [PixelImage.oy] says how many.
+     * Pictures stand on their lower edge, so it is drawn where it was; but the cloth and the rest of a stall now have
+     * different places, and the see-through goes by place, so each fades on its own.
+     */
+    private fun cutTop(img: PixelImage): PixelImage {
+        var n = 0
+        while (n < img.height - 2 && (0 until img.width).none { img.opaque(it, n) }) n++
+        n -= n % 2
+        return PixelImage(img.width, img.height - n, img.pixels.copyOfRange(n * img.width, img.pixels.size), 0, n)
     }
 
     /**
@@ -787,40 +806,67 @@ object MapTownIso {
     val KAEL_LANTERN = 24 to 6
 
     /**
-     * 80 (user 14.10.): old Kael's hand lantern, unlit, beside his door: iron frame, horn panes gone brown and sooty,
-     * scorched black up one side, a ring on the cap, and on its front pane his family's mark in brass (the same mark as
-     * on his parents' house in Aschfurt, chapter 2).
+     * 80 (user 14.10.): old Kael's hand lantern beside his door: iron frame, horn panes gone brown and sooty, scorched
+     * black up one side, a ring on the cap. 80a (user 14.10., Beschlüsse): it stands on a knee-high plinth of rough
+     * stone, his family's mark cut into its front (a lozenge with a bar through it, the same mark as on his parents'
+     * house in Aschfurt, chapter 2). [lit]: only what shines at night, a weak amber through the sooty horn, nothing
+     * like a street lamp; everything else drawn clear.
      */
-    fun kaelLantern(): PixelImage {
-        val c = Tile1(80)
-        val i0 = -0.86; val i1 = -0.77; val j0 = -0.86; val j1 = -0.77
-        c.shadow((i0 + i1) / 2, (j0 + j1) / 2, 0.08, 0.4)
+    fun kaelLantern(lit: Boolean = false): PixelImage {
+        val c = Tile1(110)
+        fun dark(col: Int) = if (lit) 0 else col
+        // the plinth, about 50 cm high and 30 across, its stones uneven and their edges worn
+        val p0 = -0.94; val p1 = -0.68; val ph = 28.0
+        if (!lit) c.shadow((p0 + p1) / 2, (p0 + p1) / 2, 0.2, 0.4)
+        c.box(p0, p0, p1, p1, 0.0, ph) { f, u, w ->
+            val n = Math.floorMod(hash((u * 40).toInt(), (w * 30).toInt() + f * 97, 803), 100)
+            // three courses of rough stone, joints a little crooked
+            val course = (w * 3 + (if ((w * 3).toInt() % 2 == 0) u * 0.15 else -u * 0.1)).let { it - floor(it) }
+            val joint = course < 0.07 || (f != 2 && abs(((u + (w * 3).toInt() * 0.37) * 2.2).let { it - floor(it) } - 0.5) < 0.04)
+            val m = abs(u - 0.5) * 1.3 + abs(w - 0.55)
+            val base = mix(argb(0x4E4A44), argb(0x3C3934), n / 120.0)
+            dark(when {
+                f == 2 -> shade(base, 1.08)
+                // 80a: the mark cut into the front face, a groove darker than the stone
+                f == 1 && m < 0.26 && abs(m - 0.18) < 0.055 -> shade(base, 0.38)
+                f == 1 && abs(w - 0.55) < 0.045 && abs(u - 0.5) < 0.28 -> shade(base, 0.38)
+                joint -> shade(base, if (f == 0) 0.45 else 0.62)
+                else -> shade(base, if (f == 0) 0.7 else 0.95)
+            })
+        }
+        val i0 = -0.86; val i1 = -0.76; val j0 = -0.86; val j1 = -0.76
         val iron = argb(0x24221F)
         // the foot, a little wider
-        c.box(i0 - 0.01, j0 - 0.01, i1 + 0.01, j1 + 0.01, 0.0, 2.0) { f, _, _ -> shade(iron, if (f == 0) 0.7 else 0.95) }
-        c.box(i0, j0, i1, j1, 2.0, 16.0) { f, u, w ->
+        c.box(i0 - 0.01, j0 - 0.01, i1 + 0.01, j1 + 0.01, ph, ph + 2.0) { f, _, _ -> dark(shade(iron, if (f == 0) 0.7 else 0.95)) }
+        c.box(i0, j0, i1, j1, ph + 2.0, ph + 18.0) { f, u, w ->
             val frame = u < 0.14 || u > 0.86 || w < 0.08 || w > 0.92
             // the soot of an old fire runs up the left face and darkens every pane towards the top
             val scorch = if (f == 0) (0.35 + w * 0.6) * (1 - u * 0.7) else w * 0.35
             when {
-                f == 2 -> argb(0x1A1816)
-                frame -> shade(argb(0x2E2A26), if (f == 0) 0.7 else 1.0)
-                // the family mark on the front pane: a lozenge with a bar through it, in dull brass
-                f == 1 && abs(u - 0.5) * 1.3 + abs(w - 0.5) < 0.2 && abs(abs(u - 0.5) * 1.3 + abs(w - 0.5) - 0.14) < 0.06 -> argb(0x8A7034)
-                f == 1 && abs(w - 0.5) < 0.03 && abs(u - 0.5) < 0.22 -> argb(0x8A7034)
+                f == 2 -> dark(argb(0x1A1816))
+                frame -> dark(shade(argb(0x2E2A26), if (f == 0) 0.7 else 1.0))
+                // a small flame low in the middle, its light dulled by the horn and darkest where the soot is
+                lit -> shade(mix(mix(argb(0xA86E30), argb(0x583818), Math.hypot((u - 0.5) * 1.6, (w - 0.35) * 1.3).coerceIn(0.0, 1.0)), argb(0x140C06), scorch.coerceIn(0.0, 0.85)), if (f == 0) 0.75 else 1.0)
                 else -> shade(mix(mix(argb(0x3E3020), argb(0x5E4A2C), w * 0.4), argb(0x100C0A), scorch.coerceIn(0.0, 0.9)), if (f == 0) 0.8 else 1.0)
             }
         }
+        if (lit) return c.img
         // the cap, a squat pyramid, and the ring to carry it by
-        c.plane(doubleArrayOf(i0 - 0.01, j1 + 0.01, 16.0), doubleArrayOf(i1 - i0 + 0.02, 0.0, 0.0), doubleArrayOf((i1 - i0) / 2, -(j1 - j0) / 2, 4.0)) { u, w -> if (abs(u - 0.5) > 0.5 * (1 - w)) null else shade(iron, 0.75) }
-        c.plane(doubleArrayOf(i1 + 0.01, j0 - 0.01, 16.0), doubleArrayOf(0.0, j1 - j0 + 0.02, 0.0), doubleArrayOf(-(i1 - i0) / 2, (j1 - j0) / 2, 4.0)) { u, w -> if (abs(u - 0.5) > 0.5 * (1 - w)) null else iron }
+        c.plane(doubleArrayOf(i0 - 0.01, j1 + 0.01, ph + 18.0), doubleArrayOf(i1 - i0 + 0.02, 0.0, 0.0), doubleArrayOf((i1 - i0) / 2, -(j1 - j0) / 2, 4.0)) { u, w -> if (abs(u - 0.5) > 0.5 * (1 - w)) null else shade(iron, 0.75) }
+        c.plane(doubleArrayOf(i1 + 0.01, j0 - 0.01, ph + 18.0), doubleArrayOf(0.0, j1 - j0 + 0.02, 0.0), doubleArrayOf(-(i1 - i0) / 2, (j1 - j0) / 2, 4.0)) { u, w -> if (abs(u - 0.5) > 0.5 * (1 - w)) null else iron }
         val mi = (i0 + i1) / 2; val mj = (j0 + j1) / 2
         for (k in 0 until 24) {
             val a = Math.PI * k / 23
-            val x = c.sx(mi, mj) + kotlin.math.cos(a) * 2.0; val y = c.sy(mi, mj, 20.0) - kotlin.math.sin(a) * 2.5
+            val x = c.sx(mi, mj) + kotlin.math.cos(a) * 2.0; val y = c.sy(mi, mj, ph + 22.0) - kotlin.math.sin(a) * 2.5
             c.img.set(x.toInt(), y.toInt(), argb(0x2A2622))
         }
         return c.img
+    }
+
+    /** 80a: what of Kael's lantern shines at night, with the middle of its light; a faint glow, not a lamp's. */
+    fun kaelLanternGlow(): WorldArt.Glow {
+        val c = Tile1(110)
+        return WorldArt.Glow(kaelLantern(lit = true), c.sx(-0.81, -0.81).toInt(), c.sy(-0.81, -0.81, 37.0).toInt(), halo = 0.2f)
     }
 
     /** Where a lamp's lantern sits (i, j on the tile, height of its foot): hanging from an arm on the first look. */
@@ -1058,13 +1104,24 @@ object MapTownIso {
         if (map.id == "village" && tx == KAEL_LANTERN.first && ty == KAEL_LANTERN.second) {
             val T = WorldArt.T
             val img = synchronized(sliceCache) { thingCache.getOrPut("kael_lantern") { kaelLantern() } }
+            val glow = synchronized(sliceCache) { glowCache.getOrPut(-80) { kaelLanternGlow() } }.at(tx, ty)
             val wx = (tx + 1) * T; val wy = (ty + 1) * T
-            return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, corner = true))
+            return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, corner = true, glow = glow))
+        }
+        // 5.5 (test 00:40: a light see-through column at the stall): the table, wares and poles stay solid like a counter,
+        // only the cloth roof fades when the hero stands behind the stall; together the same picture as before
+        if (t == Tile.STALL) {
+            val T = WorldArt.T
+            val base = synchronized(sliceCache) { thingCache.getOrPut("stall/$v/base") { cutTop(stall(v, 501 + v, false)) } }
+            val roof = synchronized(sliceCache) { thingCache.getOrPut("stall/$v/roof") { stallCloth(v, 501 + v) } }
+            val wx = (tx + 1) * T; val wy = (ty + 1) * T
+            val sortY = (tx + ty) * T + T * 3 / 2 - 1 - wx
+            return listOf(WorldArt.Obj(base, wx - base.width / 4, wy - base.height / 2, sortY, 2, low = true, corner = true),
+                WorldArt.Obj(roof, wx - roof.width / 4, wy - roof.height / 2, sortY, 2, corner = true))
         }
         val thing: Pair<String, () -> PixelImage>? = when (t) {
             Tile.SIGN -> "sign/$v" to { signpost(v, 71) }
             Tile.NOTICE -> "notice/$v/$freshNote" to { noticeBoard(v, 561 + v, freshNote) }
-            Tile.STALL -> "stall/$v" to { stall(v, 501 + v) }
             Tile.WELL -> "well/$v" to { well(v, 511 + v) }
             Tile.LAMP -> "lamp/$v" to { lamp(v, 521 + v) }
             Tile.BENCH -> "bench/$v" to { bench(v, 531 + v) }

@@ -1,5 +1,14 @@
 # Archiv
 
+### Aus ARBEIT-OFFEN.md, 14.10., 20:4x (Übergabe Tom 19:4x)
+- PR #60 (0.1.739), #61, #62 beim Nutzer (oben), abonnieren. Weiter: 85 auf `claude/tom-85-testmenue` (2 Knöpfe raus) in den nächsten Sammelbuild; 74 Hörprobe 2 beim Nutzer, dann einbauen; 83 A bauen (Standbild zuerst); 13e D1.7 Leben Höhle (Rauch `drawCampSmoke`, `WorldScreen.kt`, nach Absprache).
+- Draußen bei Nacht bleibt das kleine Licht um den Helden (13e.6 B nur Höhle); falls der Berater B auch für draußen meint: `MapLight.kt` (`lantern`).
+
+### Aus ARBEIT-OFFEN.md, 14.10., 19:4x (Übergabe Tom 19:2x)
+- PR #60, #61, #62 beim Nutzer (oben); neu abonnieren. **Zuerst:** Build PR #60 (0711ca4c) prüfen, `e/t732.html` auf neue Version und APK (nachtesten: Punkt 6, Nordwestecke Wald, Tiefer Wald östlich Morwen, nordwestlich Wolfsboss, Südostrand). Dann Dorf-Meldung (Zeile 27): Standbild Nordeingang abends (`HELDORT=village:17:2:R:20`), vermutlich Ende des Lichtbilds.
+- Weiter: (1) 74 Erde/Pflaster neu wählen (CC0), zweite Hörprobe, dann einbauen (nur Held; 74a: ein Klang je Aufsetzen, beim Rennen dichter und leiser); (2) 83 wartet auf Entscheidung; (3) 13e D1.7 Leben Höhle (Vorschlag mit Standbild; Rauch: `drawCampSmoke` auch für Höhle, `WorldScreen.kt`, nach Absprache).
+- Draußen bei Nacht leuchtet weiter das kleine Licht um den Helden (13e.6 B nur für die Höhle umgesetzt); falls der Berater B auch für draußen meint, ist es eine Zeile in `MapLight.kt` (`lantern`).
+
 ### Aus ARBEIT-OFFEN.md, 14.10., 17:5x (Übergabe Tom 17:3x)
 - **Reihenfolge:** (1) PR #60 neu abonnieren, neuer Build (Waldrand West) → `e/t732.html` auf neuen Build und APK-Link umstellen, nur Waldrand West nachtesten; (2) 13e.5 in die Beschlüsse, von „Dein Zug“ nehmen; (3) Sammelbuild 13e (D1.5, D1.6, D1.9) per PR mit Prüfliste; (4) 74a beantworten, Erde/Pflaster neu wählen; (5) 83 Standbild und Vorschlag.
 - **t732-Rückläufer Waldrand West** behoben (Zeile 27), Build von PR #60 läuft: Prüfliste `e/t732.html` auf neuen Build umstellen (nur Waldrand West nachtesten). PR #60 (t732) und #61 (t733, Build 0.1.733) sind abonniert, Prüflisten stehen auf „Dein Zug“; beim Nachfolger neu abonnieren. Nach „passt“ zusammenführen (#60 zuerst).
@@ -176,6 +185,15 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 - Signatur: Keystore und Passwort liegen nur als GitHub-Secrets. Nie committen, ebenso `local.properties`.
 - `./gradlew -p core test`: Kerntests, vor jedem Commit (Exit-Code prüfen).
 - Erinnerungen an frühere Gespräche: alles Wichtige steht in `CLAUDE.md`, `docs/ARBEIT-OFFEN.md` (Übergaben), `docs/DESIGN-STIL.md`, `docs/LISTE-IDEEN.md`, `CHANGELOG.md`; der Verlauf in `docs/ARBEIT-ARCHIV.md`.
+
+
+## Aus ROLLE-BERATER.md, 14.10., 18:2x (alte Übergabe)
+
+**Übergabe (14.10., 17:2x) – Nachfolger: „Sokrates – Kampfsystem“:**
+
+**Nächster Punkt:** (0) **72b Kampf:** [Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) mit Baustein 7 (Abstand nah/fern, Attribute; zur Rückmeldung 16:55); Nutzer schickt weitere Gedanken, dann 72k–72o (B empfohlen, Probe Jerry ab Fr.), 26d hängt daran. (1) **81 Ford** Co-Pilot; Telegram-Schlüssel fehlt in der Umgebung der Routine (auch Lauf 17:29; Ford weicht auf App-Push aus), Frage auf „Dein Zug“ (`e/81.html`); Pilot nur auf Zuruf; Jerry-Ford ab Fr.; danach Regelbilanz (Weck-Routinen in `ARBEIT-SELBST.md` durch Ford ersetzen, `CLAUDE.md` kürzen). (2) **13e.6** Licht: empfohlen B plus Fackel in der Hand (17:24 gefragt). (3) **41** Entwurf beim Nutzer (4.4, 5.3, 6.3), nach Freigabe wortgetreu nach `STORY-K2*.md`. (4) **69e** Runde 4: aktiv Meinung äußern gegen `DESIGN-STIL.md`, dann 70.1, danach 79. (5) 72a–72j.
+
+**Zuletzt gelesen bis:** 80acc969 (14.10., 17:4x)
 
 ## Notizen auf `main` (seit 10.10.)
 `tools/notiz.sh` holt `main`, legt die Arbeitskopie `../bornim-main` für Notizen an, meldet den Namen der Sitzung (Tom oder Jerry, aus der Tabelle in `CLAUDE.md`) und zeigt, was sich seit dem letzten Aufruf an `CLAUDE.md`, `CHANGELOG.md` und `docs/` geändert hat. Der Starthaken ruft es mit `--kurz` auf.

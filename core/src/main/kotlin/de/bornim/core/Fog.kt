@@ -29,21 +29,34 @@ class Sight(private val state: GameState, private val lookYaw: () -> Double = { 
     private var reach = 0.0
     private val explored = HashMap<String, BooleanArray>()
 
-    fun fog(map: MapDef, x: Int, y: Int, night: Boolean): Fog {
+    /** [view]: for drawing the place, where a tree outdoors is never black; false for the map in the menu. */
+    fun fog(map: MapDef, x: Int, y: Int, night: Boolean, view: Boolean = true): Fog {
         if (!map.inside(x, y)) return Fog.HIDDEN
         update(map, night)
         val own = raw(map, x, y)
         // in a cave the sight stops at the first rock: the rock behind it would stay black for good. Rock
         // counts as known as well as the nearest floor within two tiles, so a room shows with its walls.
-        if (map.kind != MapKind.CAVE || map.tile(x, y) !in caveRock) return own
+        // Outdoors a tree is never black (t732, deep wood: behind the first row a thick stand of trees, never to be
+        // seen into nor walked into, stayed black for good, and a black stripe lay between the hero and the wood
+        // beyond the edge): there is nothing to find in it, so out of sight it is dimmed as known.
+        val cave = map.kind == MapKind.CAVE
+        if (map.kind == MapKind.INTERIOR || !solid(map, x, y, cave)) return own
+        if (!cave) return if (!view || own == Fog.VISIBLE) own else Fog.SEEN
+        val r = 2
         var best = own
-        for (dy in -2..2) for (dx in -2..2) {
+        for (dy in -r..r) for (dx in -r..r) {
             val nx = x + dx; val ny = y + dy
-            if (!map.inside(nx, ny) || map.tile(nx, ny) in caveRock) continue
+            if (!map.inside(nx, ny) || solid(map, nx, ny, cave)) continue
             val f = raw(map, nx, ny)
             if (f.ordinal > best.ordinal) best = f
         }
         return best
+    }
+
+    /** What the sight cannot pass and nobody walks into: the rock of a cave, the trees outdoors. */
+    private fun solid(map: MapDef, x: Int, y: Int, cave: Boolean): Boolean {
+        val t = map.tile(x, y)
+        return if (cave) t in caveRock else t == Tile.TREE
     }
 
     private fun raw(map: MapDef, x: Int, y: Int): Fog {

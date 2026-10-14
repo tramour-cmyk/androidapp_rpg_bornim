@@ -16,7 +16,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 10 | Höhle: Flammen feiner | Tom (von Jerry, 13y) | erledigt |
 | 11 | Höhle: Lichtstrahl am Lichtschacht | Tom (von Jerry, 13y) | erledigt |
 | 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Jerry, Tom | erledigt v0.1.483 |
-| 13 | Diagonale Sicht | Tom | in Arbeit |
+| 13 | Diagonale Sicht | Tom | erledigt |
 | 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für `ARBEIT-OFFEN.md`) | Berater | erledigt |
 | 15 | `ARBEIT-OFFEN.md` entschlacken, Archiv, Themenliste | Tom | erledigt |
 | 16 | Trefferstopp | Jerry | erledigt v0.1.460 |
@@ -83,5 +83,8 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 77 | Dokumentnamen ordnen | Tom, Berater | erledigt |
 | 78 | Test-Builds bündeln | Tom | fertig |
 | 79 | Kampfhintergründe wie Diagonalwelt | Berater, Jerry | offen |
-| 80 | Kaels Laterne im Dorf | Tom | offen |
+| 80 | Kaels Laterne im Dorf | Tom | erledigt |
 | 81 | Teamleiter „Ford“ | Berater | offen |
+| 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | Berater | offen |
+| 85 | Testmenü aufräumen | Tom | offen |
+| 87 | Schänke: Katze, Rowena, Borins Becher | Tom | offen |

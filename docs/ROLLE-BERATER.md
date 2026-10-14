@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 17:2x) – Nachfolger: „Sokrates – Kampfsystem“:**
+**Übergabe (14.10., 20:3x) – Nachfolger: „Sokrates – Kampfsystem“:**
 
-**Nächster Punkt:** (0) **72b Kampf:** [Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) mit Baustein 7 (Abstand nah/fern, Attribute; zur Rückmeldung 16:55); Nutzer schickt weitere Gedanken, dann 72k–72o (B empfohlen, Probe Jerry ab Fr.), 26d hängt daran. (1) **81 Ford** Co-Pilot; Telegram-Schlüssel fehlt in der Umgebung der Routine (auch Lauf 17:29; Ford weicht auf App-Push aus), Frage auf „Dein Zug“ (`e/81.html`); Pilot nur auf Zuruf; Jerry-Ford ab Fr.; danach Regelbilanz (Weck-Routinen in `ARBEIT-SELBST.md` durch Ford ersetzen, `CLAUDE.md` kürzen). (2) **13e.6** Licht: empfohlen B plus Fackel in der Hand (17:24 gefragt). (3) **41** Entwurf beim Nutzer (4.4, 5.3, 6.3), nach Freigabe wortgetreu nach `STORY-K2*.md`. (4) **69e** Runde 4: aktiv Meinung äußern gegen `DESIGN-STIL.md`, dann 70.1, danach 79. (5) 72a–72j.
+**Nächster Punkt:** (0) **72k Richtung des Kampfes** (A/B/C) neu besprechen, jetzt mit Begleiter (72.7–72.10, 72s beschlossen: Held plus ein Begleiter ab Kapitel 2). Der Nutzer will erst klären, wie Kämpfe künftig aussehen, dann die Probe (72.10). Dabei: wer reagiert im Gegnerzug (Vorschlag: nur die angegriffene Figur), Reihen vorn/hinten statt nah/fern (Baustein 7, Regelbilanz). Kampf-Dokument hat dazu noch keinen Abschnitt; Volltext lesen, nicht aus dem Gedächtnis. 72r entschieden (Kämpfe 1/3/5 nach Schwierigkeitsgrad). 72t entschieden (Söldner vier Klassen, steigen nicht auf). Danach 72p, 72l–72o, 26d; 41 Begleiter-Figuren für Kapitel 2; 84.3, 84.2. (1) **84** Kernregel. (2) **81 Ford** Pilot auf Zuruf. (3) **41** Entwurf. (4) **69e**, 70.1, 79.
 
-**Zuletzt gelesen bis:** ab9a456 (14.10., 17:17)
+**Zuletzt gelesen bis:** db68096a (14.10., 19:0x)
 
 ## Wer du bist
 
@@ -37,6 +37,7 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 ## Begründungen der Entscheidungen
 
 - **Abläufe (65):** Oberster Grundsatz des Nutzers: nichts Aufgabenrelevantes verlieren; darum `CLAUDE.md` knapp, aber ohne feste Grenze, Auslagern nur bei seltenem Anlass. **65.4** jeder Text an einem Ort, weil Doppelungen Token kosten und auseinanderlaufen. Volltext im Archiv („18:5x“).
+- **Rückfragen als Holschuld (65.8, 65.9):** wiederholte Fragen und lange Startmeldungen kosteten in jeder Antwort Token und verdeckten das Neue; „Dein Zug“ ist der eine Ort. Einmal nennen bei Entstehung und bei Aufträgen anderer Agenten, sonst nur „Kritisch“ bei Stillstand; Weiter-Haken nur für Entwickler, weil Berater und Tester meist auf den Nutzer warten.
 - **Rollen:** Grundsatzfragen beim Berater, ohne dass die Entwicklung steht. **Diogenes (75):** Tester neigt zu Rauschen und Bestätigen, darum Beleg, blind zuerst, drei Klassen. **Kosten (75h, 76e):** billigster Prüfweg zuerst; Rückläufer sind am teuersten. **Umbau 76–78:** Kern in `CLAUDE.md`, weil nur sie in langen Sitzungen sicher im Blick bleibt; Sammelbuilds sparen Rundum-Aufwand; Vorsilben zeigen Zweck und Leser am Namen. Volltext im Archiv.
 - **Seite „Dein Zug“ (63):** Fragen gingen in Chats unter; „Beschlüsse“ statt „Bildbuch“; kein „Erledigt“ (65.7). Volltext im Archiv.
 - **Karte und Händler (62c, 59e, 64):** Karte erinnert statt führt; Wissen vor Beschriftung. Volltext im Archiv.
@@ -49,14 +50,16 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 - **Balance (38):** SRD als Fundament, Stufen 5–14 als Kern über mindestens 7 Kapitel, Abweichungen mit Grund in `DESIGN-BALANCE.md`; Schwierigkeitsgrad erst nach Messung von „Normal“.
 - **Profil (72; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b)):** Lücke = fürs Handy gebautes Rollenspiel mit eigenem Look und Geschichte (zwischen Darkest Dungeon und Exiled Kingdoms); größte Schwäche der Menü-Zweikampf.
 - **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen, damit Entwickler keine Texte erfinden; Kult mit weitergegebenem Titel trägt sieben Kapitel; Kapitel 2: Hinweise doppelt (freie Welt), Anreiz statt Pfeil, zweiter Weg (72.5). Volltext im Archiv („20:5x“).
+- **Licht und Laut (13e.6, 84):** Held ohne eigenes Licht, weil Licht nur aus sichtbaren Quellen kommt (Leitbild); Fackel kostet die Nebenhand und macht sichtbar, Dunkel erlaubt Schleichen und Lauschen: eine Wahl je Höhle statt Pflichtkauf. Welle statt Pfeil, weil Pfeile führen (62c); Hören in Stufen, damit Stehenbleiben lohnt, ohne Pflicht zu werden.
 - **Tempelszene (68, 70):** Zwischensequenzen gleich gebaut, damit sie als Reihe wirken; Osric im Bild statt Erklärung (Begründungen im Text wirken konstruiert); **Blende statt Termin**, sonst wartet man in freier Welt tagelang; Einstieg Kapitel 2 erinnert statt führt. Volltext im Archiv („18:5x“).
 
 ## Lehren
 
+- **Werkzeugausgaben kosten Token** (14.10.): Beschlussseite (17 KB) beim Ändern nur einmal lesen; Suchen eng fassen (`ARBEIT-ARCHIV.md` ausschließen, Zeilen kürzen).
+- **Ablauf nicht vorführen** (14.10., 65.9): der Nutzer sieht den Nutzen pro Antwort; Startritual, Wiederholungen und Haken-Runden ohne Neues sind Kosten. Zeit nur von der Systemuhr, auch im Gespräch (17:3x geschätzt).
+- **Nur ausdrückliches Ja des Nutzers entscheidet** (13.10., Sprachmodus): Unklares gegen seinen Wortlaut prüfen. Im Sprachmodus nie aus dem Gedächtnis gegen eigene Dokumente reden (14.10., 72q: zwei widersprüchliche Aussagen).
 - **Technik erst belegen, dann zusagen** (14.10., 81j): Push und E-Mail aus Routinen kamen trotz „erfolgreich“ nie an; Erfolgsmeldung eines Werkzeugs ist kein Beleg, nur die Bestätigung des Nutzers.
 - **Beim Start alle Punkte zu eigenen Themen auf „Dein Zug“ lesen** (14.10., 69e übersehen, weil an den Nutzer adressiert).
-- **Dialogzeilen in Docs mit Leerzeile trennen** (13.10.).
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
 - **Entwürfe sofort in die Notizen** (13.10., Rabenschanze und 77 standen nur im Chat): gleich in Storyplan oder `ARBEIT-OFFEN.md`.
 - **Freie Welt mitdenken** (13.10., 68): bei jeder Szene fragen, was passiert, wenn der Spieler nicht hingeht oder trödelt.
-- **Sprachmodus** (13.10.): entschieden ist nur ein ausdrückliches Ja des Nutzers; Unklares benennen, gegen seinen Wortlaut prüfen (14.10.: „Ich-Perspektive“ wurde zu „über die Schulter“).
