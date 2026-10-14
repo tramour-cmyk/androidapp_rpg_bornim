@@ -4,11 +4,11 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (14.10., 13:4x) – Nachfolger: „Sokrates – Ford bauen“ (Kapitel-2-Punkte laufen weiter):**
 
-**Sitzungen** (ältere im Archiv): 14.10. 15:0x: Telegram-Schlüssel fehlte, 26d gestellt. Schwerpunkt bisher: Abläufe.
+**Sitzungen:** 14.10. 15:0x Schlüssel fehlte, 26d gestellt; 15:1x Schlüssel fehlt weiter, 26d neu gestellt.
 
 **Nächster Punkt:** (0) **Ford bauen:** sobald `TELEGRAM_BOT_TOKEN` in der Umgebung steht (fehlte 15:00): Chat-Kennung per `getUpdates` (Nutzer schrieb „/start“), zwei Test-Pushs (Sitzung, Routine), Push-Weg in `ROLLE-FORD.md` von ntfy auf Telegram, dann stündliche Ford-Routine (Jerry-Account ab Fr.), Start-Routinen je Rolle, Startsperre; `CLAUDE.md` (Diogenes-Start, 81a) und `ARBEIT-SELBST.md` kürzen (Regelbilanz); „Ford Probe 1/2“ (aus) löschen nur nach Rückfrage; dann drei Nächte Pilot (81i). (1) **Nutzer prüft den Entwurf** (Prüfpunkte fett), offen 4.4 (Fenn stirbt ohne Merles Worte, Merle-Zeile), 5.3 (Szene mit Joss' Frau), 6.3 (Antworten und Belohnungen der Aushänge nach Freigabe). Nach Freigabe wortgetreu nach `docs/STORY-K2.md` und `STORY-K2-W.md` (Marken `[41.…]`, `[24.ort.…]`), Verzeichnis in `STORY-REGELN.md`. (2) **69e** vierte und letzte Runde bei Tom (Nutzer 13:1x ja, Auftrag in „Wer macht was“). Liegt sie vor (Zeile „Für den Berater“, „Dein Zug“): **aktiv Meinung äußern** (Nutzer), gegen `DESIGN-STIL.md` „Zwischensequenzen“ und ein Bildschirmfoto der Diagonalwelt prüfen, dann entscheidet der Nutzer über das Musterbild 70.1. 80a entschieden (13:0x). (3) 79 nach dem Musterbild. (4) 72a–72j.
 
-**Zuletzt gelesen bis:** dieser Commit (14.10., 13:4x)
+**Zuletzt gelesen bis:** dieser Commit (14.10., 15:1x)
 
 ## Wer du bist
 
@@ -34,7 +34,7 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 
 ## Wie das Spiel gebaut ist (Rest in `CLAUDE.md`)
 
-- **Zeichnen** zur Laufzeit (SDF in `art/Sdf.kt`, `Sculpt.kt`), keine fertigen Grafiken; Zeichenzeit ist der Engpass (24: Held 128 Bilder auf der Karte, über 300 im Kampf). Technik-Lehren 24/30/36 im Archiv („12.10., 16:4x“).
+- **Zeichnen** zur Laufzeit (SDF, `art/Sdf.kt`, `Sculpt.kt`), keine fertigen Grafiken; Engpass Zeichenzeit (24). Technik-Lehren im Archiv („12.10., 16:4x“).
 
 ## Begründungen der Entscheidungen
 
@@ -43,7 +43,7 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 - **Seite „Dein Zug“ (63):** Fragen gingen in Chats unter; „Beschlüsse“ statt „Bildbuch“; kein „Erledigt“ (65.7). Volltext im Archiv.
 - **Karte und Händler (62c, 59e, 64):** Karte erinnert statt führt; Wissen vor Beschriftung. Volltext im Archiv.
 - **Kartenbegriffe (62p/62q):** Stufen nach Enthaltensein; „Stockwerk“ klingt in Höhlen schief.
-- **Oberfläche (59, 60):** schwarz, Gold, Serife mitliefern (Geräteschriften schwanken).
+- **Oberfläche (59, 60):** schwarz, Gold, eigene Serife (Geräteschriften schwanken).
 - **Leitbild (44):** ein roter Faden; SRD Gerüst, nicht Ziel; Blut „Deutlich“ als Obergrenze. Volltext im Archiv.
 - **Geschäftsmodell (45):** wer Abkürzungen verkauft, macht das Spiel künstlich zäh; darum nie Werbung, Beutekisten, Wartezeiten.
 - **Zufallshöhlen (48, 41m):** erst Questhöhlen zufällig, Story-Höhlen mit festem Kern; je eine pro Landschaft (Erkundung).
@@ -61,4 +61,4 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
 - **Entwürfe sofort in die Notizen** (13.10., Rabenschanze und 77 standen nur im Chat): gleich in Storyplan oder `ARBEIT-OFFEN.md`.
 - **Freie Welt mitdenken** (13.10., 68): bei jeder Szene fragen, was passiert, wenn der Spieler nicht hingeht oder trödelt.
-- **Sprachmodus** (13.10.): Aufträge kommen als Nachricht der Sprachsitzung; entschieden ist nur ein ausdrückliches Ja des Nutzers, Unklares (3d) benennen, gegen seinen Wortlaut prüfen (14.10.: „Ich-Perspektive“ wurde zu „über die Schulter“).
+- **Sprachmodus** (13.10.): entschieden ist nur ein ausdrückliches Ja des Nutzers; Unklares benennen, gegen seinen Wortlaut prüfen (14.10.: „Ich-Perspektive“ wurde zu „über die Schulter“).
