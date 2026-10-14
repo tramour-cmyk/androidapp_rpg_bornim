@@ -63,7 +63,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (14.10., 20:4x) – an Nachfolger
-- PR #60 (0.1.739), #61 (0.1.740), #62 (0.1.741) beim Nutzer, in dieser Reihenfolge; abonnieren. Nummern nur aufsteigend (Regel in `ROLLE-ENTWICKLER.md`).
+- PR #60 (0.1.739), #61 (0.1.740), #62 (0.1.741) beim Nutzer, in dieser Reihenfolge; abonnieren. **0.1.739:** Nutzer meint, schon getestet („was ich nicht ansprach, war okay“, 20:4x); geklärt wird nur, ob er 0.1.739 (nach 19:30) oder noch 0.1.736 hatte; bei 0.1.739 PR #60 zusammenführen. Nummern nur aufsteigend (Regel in `ROLLE-ENTWICKLER.md`).
 - **83 A bauen** (Zweig von `main`): Felder `c`/Beete `v` liegen in Zeile 28–30 von `Story.village`, Zeile 31 ist Baumreihe. `MapFlora.objects` macht dort schon junge Fichten/Büsche (`shades`); verdeckt wird vor allem vom Ring hinter dem Rand: `MapEdge.trees` nutzt fremde Orte (`OFF`), prüft keine Felder. Plan: in Zeile 31 vor Feldern/Beeten nur Büsche (Hecke); im Ring südlich keine Bäume bis Tiefe 3, wo nordwestlich (wie `shades`) Feld/Beet/Zaun/Heu liegt. Standbild vorher/nachher (`HELDORT=village:6:29:D:12`, `village:26:29:D:12`) auf „Dein Zug“, dann Sammelbuild.
 - **74 einbauen** (Zweig `claude/tom-74-schritte`): nur Held, Untergrund je Feld, ein Klang je Aufsetzen, Rennen dichter und leiser. **85** auf `claude/tom-85-testmenue` fertig, kommt mit in den nächsten Sammelbuild.
 - Draußen nachts bleibt das kleine Licht um den Helden (13e.6 B nur Höhle). 13e D1.7 Leben Höhle braucht Absprache wegen `WorldScreen.kt`.
