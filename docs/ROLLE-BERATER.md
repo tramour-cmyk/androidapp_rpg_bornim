@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (14.10., 18:5x) – Nachfolger: „Sokrates – Kampfsystem“:**
 
-**Nächster Punkt:** (0) **72q Gruppe** mit dem Nutzer am Rechner besprechen, nicht vorab entscheiden: Held plus zwei, je Figur selbst oder Automatik (72.6), Begleiter mit Haltung, Reihen vorn/hinten; das Kampf-Dokument nahm den Einzelhelden nur als Ausgangslage (Ergänzung am Ende des [Dokuments](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4)). Danach 72p, 72k–72o, 26d; Schleichen (84.3), Schnellwechsel (84.2). (1) **84** Kernregel „Licht gegen Heimlichkeit“ noch ohne Antwort. (2) **81 Ford** Regelbilanz, Pilot nur auf Zuruf. (3) **41** Entwurf beim Nutzer. (4) **69e** Runde 4, dann 70.1, 79. (5) 72a–72j.
+**Nächster Punkt:** (0) **72q Gruppe** mit dem Nutzer am Rechner besprechen, nicht vorab entscheiden: Held plus zwei, je Figur selbst oder Automatik (72.6), Begleiter mit Haltung, Reihen vorn/hinten; das Kampf-Dokument empfiehlt den Einzelhelden, ohne ihn gegen eine Gruppe abzuwägen (Ergänzung am Ende des [Dokuments](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4)). Danach 72p, 72k–72o, 26d; Schleichen (84.3), Schnellwechsel (84.2). (1) **84** Kernregel „Licht gegen Heimlichkeit“ noch ohne Antwort. (2) **81 Ford** Regelbilanz, Pilot nur auf Zuruf. (3) **41** Entwurf beim Nutzer. (4) **69e** Runde 4, dann 70.1, 79. (5) 72a–72j.
 
 **Zuletzt gelesen bis:** 61d7506b (14.10., 18:2x)
 
