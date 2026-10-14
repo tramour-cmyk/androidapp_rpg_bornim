@@ -54,4 +54,20 @@ class AmbienceTest {
         assertTrue(quiet > 20, "kaum Höhle ohne Feuer: $quiet")
         assertTrue(Ambience.dripVolume(Ambience.FIRE_MAX) in 0.1f..Ambience.DRIP_VOLUME)
     }
+
+    @Test
+    fun theFireIsNotHeardThroughWalls() {
+        // D1.9: in the passage at (11,15) the goblins' fire lay two walls away as the crow flies
+        val cave = World.maps.values.first { it.kind == MapKind.CAVE }
+        val near = (-7..7).flatMap { dy -> (-7..7).map { dx -> dx to dy } }
+            .filter { (dx, dy) -> cave.tile(11 + dx, 15 + dy) == Tile.CAMPFIRE }
+            .minOf { (dx, dy) -> Math.hypot(dx.toDouble(), dy.toDouble()) }
+        val heard = Ambience.nearestFire(cave, 11, 15)
+        assertTrue(heard == null || heard > near + 1.5, "Feuer durch die Wand: Weg $heard, Luftlinie $near")
+        // on open floor the way is the straight line
+        for (m in World.maps.values) for (y in 0 until m.height) for (x in 0 until m.width) {
+            if (m.tile(x, y) != Tile.CAMPFIRE && m.tile(x, y) != Tile.HEARTH) continue
+            if (m.tile(x, y + 1).walkable && m.tile(x, y + 2).walkable) assertEquals(2.0, Ambience.nearestFire(m, x, y + 2), "${m.id} $x,$y")
+        }
+    }
 }

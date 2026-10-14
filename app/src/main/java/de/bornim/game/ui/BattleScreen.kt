@@ -35,6 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.zIndex
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.draw.clip
@@ -1091,7 +1092,9 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
             if (packDef != null) for (i in 0 until mateCount) {
                 val acting = a == Anim.PACK_ACT && step?.packActor == i
                 // the mate's own hit or miss right after its attack: the strike and the way back
-                val landing = (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && step?.packActor == i && !step.isTick() && moving
+                // (a new-style mate stays at the bite until its way back starts, it does not hop home in between)
+                val landing = (a == Anim.HERO_HIT || a == Anim.MISS || a == Anim.HERO_FAINT) && step?.packActor == i && !step.isTick() &&
+                    (moving || (MonsterArt.isNewStyle(packDef.mate) && t < 0.5f))
                 val mateIn = when { acting -> leap; landing -> 1f - leap; else -> 0f }
                 val mateLook = MonsterLook(battle.look.seed + 101 * (i + 1))
                 val mateNew = MonsterArt.isNewStyle(packDef.mate)
@@ -1128,12 +1131,32 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                         baseY + mPx * (ly - MonsterArt.groundLine(packDef.mate)).toFloat(),
                     )
                 }
+                // 52 (bug 08.10.: the mates bit into thin air from their place at the back): a new-style mate makes the
+                // leader's bite, the same step to the hero frame by frame, so its jaws land on the hero, and back; drawn in front
+                val mateLungeF = if (!mateNew || !(acting || landing)) 0f else {
+                    val n = MonsterArt.frameCount(packDef.mate, mateLook, Act.ATTACK, i)
+                    val strike = MonsterArt.strikeFrame(packDef.mate, mateLook, i)
+                    val pos = if (acting) strike * leap.toDouble() else strike + (n - 1 - strike) * t.toDouble()
+                    MonsterArt.lungeAt(packDef.mate, mateLook, i, pos).toFloat()
+                }
+                val mateLunge = if (mateLungeF <= 0f) androidx.compose.ui.unit.DpOffset.Zero else {
+                    val (ox, oy) = MonsterArt.lungeOffset(packDef.mate, mateLook, i, ((baseX + (intro.value * 260).dp) / mPx).toDouble(), (baseY / mPx).toDouble(),
+                        ((sceneW * heroX + artDp * 8f) / mPx).toDouble(), ((sceneH * heroY - artDp * 82f) / mPx).toDouble())
+                    androidx.compose.ui.unit.DpOffset(mPx * (ox * mateLungeF).toFloat(), mPx * (oy * mateLungeF).toFloat())
+                }
+                val mateScale = 1f + (MonsterArt.LUNGE_SCALE.toFloat() - 1f) * mateLungeF
                 Box(
-                    Modifier.offset(
+                    Modifier.zIndex(if (mateNew && (acting || landing)) 1f else 0f).offset(
                         // old-style mates leap in while their attack is named and spring back with the hit or the miss
-                        x = baseX - mateAnchor + (intro.value * 260).dp + (if (!mateNew) -(mateIn * 26).dp else 0.dp) + (if (fleeing) (t * 140).dp else 0.dp),
-                        y = baseY - mateFeet + (if (!mateNew) (mateIn * 12).dp else 0.dp),
-                    )
+                        x = baseX - mateAnchor + (intro.value * 260).dp + (if (!mateNew) -(mateIn * 26).dp else mateLunge.x) + (if (fleeing) (t * 140).dp else 0.dp),
+                        y = baseY - mateFeet + (if (!mateNew) (mateIn * 12).dp else mateLunge.y),
+                    ).graphicsLayer {
+                        if (mateScale != 1f) {
+                            scaleX = mateScale; scaleY = mateScale
+                            // round the feet, as the leader's lunge
+                            if (size.width > 0f && size.height > 0f) transformOrigin = androidx.compose.ui.graphics.TransformOrigin(mateAnchor.toPx() / size.width, mateFeet.toPx() / size.height)
+                        }
+                    }
                 ) {
                     val mAlpha = (if (fleeing) 1f - t else 1f) * enemyAlphaBase(a, ui.enemyGone, t)
                     if (mateFrame != null) Box(Modifier.offset(x = mPx / MonsterArt.fine(packDef.mate).toFloat() * mateFrame.ox, y = mPx / MonsterArt.fine(packDef.mate).toFloat() * mateFrame.oy)) { PixelSprite(mateFrame, mPx / MonsterArt.fine(packDef.mate).toFloat(), alpha = mAlpha, shade = shade, overflow = true) }

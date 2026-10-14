@@ -90,6 +90,29 @@ class FreeWalkTest {
         g.go(0.6, -1.0, 600)
         assertTrue(g.freeWalk.x > x0 + 0.2 || g.mode != Mode.Explore, "slid along the wall: $x0 -> ${g.freeWalk.x}")
     }
+
+    @Test
+    fun aShutDoorKnocksAndTheHeroStaysOutside() {
+        // 82 (test 14.10.): at Pim's door the hero vanished behind the wall while the words from inside were read
+        val g = game("village")
+        val doors = g.map.warps.filter { it.requires != null && !it.turnBack && !g.state.has(it.requires) && it.knock != null }
+        assertTrue(doors.isNotEmpty(), "locked doors in the village")
+        var t = 50_000L
+        for (d in doors) {
+            t += 5_000
+            g.state.place = Place("village", d.x, d.y + 1, Facing.UP)
+            while (g.mode is Mode.Dialog) g.advance()
+            g.freeWalk.sync()
+            var knocked = false
+            repeat(80) {
+                g.freeWalk.walk(0.0, -1.0, 16, FreeWalk.WALK, t); t += 16
+                if (g.mode is Mode.Dialog) knocked = true
+            }
+            assertTrue(knocked, "knocking at ${d.x},${d.y}")
+            assertEquals(d.y + 1, g.state.place.y, "still before the door ${d.x},${d.y}")
+            assertTrue(g.freeWalk.y >= d.y + 1 + FreeWalk.RADIUS - 1e-6, "body outside the door ${d.x},${d.y}: ${g.freeWalk.y}")
+        }
+    }
 }
 
 /** 13p.5: the floor before the counter at the wall (1,4), beside the barrel in the corner, can be stepped on. */
@@ -134,4 +157,5 @@ class InnCornerTest {
         assertTrue(g.freeWalk.y < 2.05, "stops at ${g.freeWalk.y}")
         assertEquals(ActionKind.LOOK, g.actionAhead())
     }
+
 }

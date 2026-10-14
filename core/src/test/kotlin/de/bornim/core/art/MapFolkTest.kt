@@ -25,7 +25,7 @@ class MapFolkTest {
         assertTrue(gaps.min() >= 2_000, "loops too close: ${gaps.min()}")
         assertTrue(gaps.max() - gaps.min() > 8_000, "pauses too even: ${gaps.min()}..${gaps.max()}")
         assertTrue(lengths.max() - lengths.min() > 1_500, "loops too even: ${lengths.min()}..${lengths.max()}")
-        assertTrue(kinds == MapFolk.Idle.entries.toSet())
+        assertTrue(kinds == setOf(MapFolk.Idle.WARM, MapFolk.Idle.PEER))
         println("pauses ${gaps.min()}..${gaps.max()} ms, loops ${lengths.min()}..${lengths.max()} ms")
     }
 }

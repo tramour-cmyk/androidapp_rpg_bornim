@@ -245,6 +245,9 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         var bedStream = 0
         var nextEvent = de.bornim.core.audio.PlaceSound.firstMs(place, rnd)
         var lastEvent: de.bornim.core.audio.Sound? = null
+        // D1.10: what the people do with their hands is heard with the movement, on the clock their pictures run on
+        var folkHeardTo = clock
+        val folkStill = MapFolk.Stillness()
         // the pond (27j): calls of the frogs on the bank and dragonflies darting close, the chorus at dusk
         val outside = game.map.kind == MapKind.TOWN || game.map.kind == MapKind.FOREST
         val pond = if (outside) de.bornim.core.art.PondLife.of(game.map).takeIf { it.frogs.isNotEmpty() || it.flies.isNotEmpty() } else null
@@ -279,6 +282,10 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     }
                     nextEvent = now + de.bornim.core.audio.PlaceSound.gapMs(place, rnd)
                 }
+                val folkTo = clock
+                if (calm) for (s in de.bornim.core.audio.PlaceSound.folk(game.map, game.state, folkHeardTo, folkTo, p.x, p.y, folkStill.forMs(p.x, p.y, folkTo)))
+                    vm.play(s, de.bornim.core.audio.PlaceSound.EVENT_VOLUME)
+                folkHeardTo = folkTo
                 if (pond != null && ear != null && de.bornim.core.art.PondLife.draft) {
                     val hx = (p.x + 0.5f) * de.bornim.core.art.WorldArt.T; val hy = (p.y + 0.5f) * de.bornim.core.art.WorldArt.T
                     val dusk = game.daylight < 0.55f
@@ -1172,7 +1179,21 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         }
         val outdoors = map.kind == MapKind.TOWN || map.kind == MapKind.FOREST
         if (outdoors) {
-            ground { drawCritters(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH) }
+            // 27m.2 (test of 0.1.729: hens on the crowns at the edge): a small creature behind a tree or a house, where a
+            // picture standing further down the diagonal really covers its spot, is not drawn, like a figure would be hidden
+            fun covered(mx: Float, my: Float): Boolean {
+                val sx = cam.toScreenX((mx - camX) * scale, (my - camY) * scale); val sy = cam.toScreenY((mx - camX) * scale, (my - camY) * scale)
+                // asked while the ground is drawn: where the upright pictures stand is measured as outside it
+                val wasFlat = flat; flat = false
+                try { for (sp in sprites) {
+                    val o = sp.obj ?: continue
+                    if (!sp.cuts || sp.depth <= mx + my) continue
+                    val at = placeOf(o.img, o.x, o.y, o.density, o.corner)
+                    if (o.img.opaque(((sx - at.x) * o.density / scale).toInt(), ((sy - at.y) * o.density / scale).toInt())) return true
+                } } finally { flat = wasFlat }
+                return false
+            }
+            ground { drawCritters(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH, ::covered) }
             if (de.bornim.core.art.PondLife.draft) drawPondLife(game, map, clock, cam)
             drawRain(game, map, clock, camX, camY, scale)
         }
@@ -1362,7 +1383,7 @@ private fun hash(a: Int, b: Int, c: Int = 0): Int {
 /** Butterflies, birds, chimney smoke, fireflies and leaves: small things that make the world feel alive. */
 private fun DrawScope.drawCritters(
     game: Game, map: de.bornim.core.MapDef, clock: Long, camX: Int, camY: Int, scale: Int,
-    heroX: Int, heroY: Int, viewW: Float, viewH: Float,
+    heroX: Int, heroY: Int, viewW: Float, viewH: Float, covered: (Float, Float) -> Boolean = { _, _ -> false },
 ) {
     val T = WorldArt.T
     val day = game.daylight
@@ -1379,6 +1400,7 @@ private fun DrawScope.drawCritters(
             val x = tx * T + 16 + kotlin.math.sin(clock / 700f + seed) * 12f
             val y = ty * T + 8 + kotlin.math.cos(clock / 530f + seed * 0.7f) * 7f
             val open = (clock / 90 + seed) % 2 == 0L
+            if (covered(x, y)) continue
             val c = listOf(Color.White, Color(0xFFF8E060), Color(0xFFF0A040), Color(0xFF80B8F8))[seed % 4]
             if (open) {
                 px(x - 2, y, 2f, 2f, c); px(x + 1, y, 2f, 2f, c)
@@ -1397,7 +1419,7 @@ private fun DrawScope.drawCritters(
             val flee = ((80.0 - dist) / 30.0).coerceIn(0.0, 1.0).toFloat()
             val fx = bx + flee * 70f
             val fy = by - flee * 90f
-            if (flee >= 1f) continue
+            if (flee >= 1f || covered(fx, fy)) continue
             val brown = Color(0xFF7A5030)
             val hop = if (flee == 0f && (clock / 140 + hash(tx, ty)) % 9 == 0L) 1f else 0f
             px(fx, fy - hop, 3f, 2f, brown)
@@ -1418,6 +1440,7 @@ private fun DrawScope.drawCritters(
                 val cx = tx * T + 16f + kotlin.math.sin(t * 0.9f + k * 2.1f) * 26f + (if (k == 1) -30f else 0f)
                 val cy = ty * T + 28f + kotlin.math.cos(t * 0.7f + k) * 8f
                 val faceLeft = kotlin.math.cos(t * 0.9f + k * 2.1f) < 0
+                if (covered(cx, cy)) continue
                 val peck = (clock / 180 + seed) % 11 < 2
                 val dir = if (faceLeft) -1f else 1f
                 val white = Color(0xFFF4F0E8); val shade = Color(0xFFC8C0B0)
@@ -1456,7 +1479,7 @@ private fun DrawScope.drawCritters(
             val (x, y) = f.at(clock)
             if (x < camX - 16 || y < camY - 16 || x > camX + viewW + 16 || y > camY + viewH + 16) continue
             val glow = f.glow(clock) * fade
-            if (glow <= 0.02f) continue
+            if (glow <= 0.02f || covered(x, y)) continue
             val o = Offset((x - camX) * scale, (y - camY) * scale)
             // the faint light it throws on the grass below it
             val g = Offset(o.x, o.y + 7f * scale)
@@ -1718,10 +1741,20 @@ private object LightImage {
     /** How dark the fog makes part ([sx], [sy]) (in [SUB]ths of a tile) right now: 1 unknown, 0 in sight. */
     fun shadeSub(map: de.bornim.core.MapDef, sx: Int, sy: Int): Float {
         val tx = Math.floorDiv(sx, SUB); val ty = Math.floorDiv(sy, SUB)
-        // beyond the edge the wood goes on (27m): it is as known as the edge next to it
+        // beyond the edge the wood goes on (27m): it is as known as the edge next to it, or as the ground up to three
+        // tiles further in (t732: behind a row of trees at the edge the hero never sees the edge itself, and the wood
+        // beyond stayed black)
         if (de.bornim.core.art.MapEdge.applies(map) && !map.inside(tx, ty)) {
-            val cx = sx.coerceIn(0, map.width * SUB - 1); val cy = sy.coerceIn(0, map.height * SUB - 1)
-            return if (map.id == fadeMap) sub[cy * map.width * SUB + cx] else 1f
+            if (map.id != fadeMap) return 1f
+            val w = map.width * SUB; val h = map.height * SUB
+            val cx = sx.coerceIn(0, w - 1); val cy = sy.coerceIn(0, h - 1)
+            val dx = Integer.signum(cx - sx); val dy = Integer.signum(cy - sy)
+            var best = 1f
+            for (k in 0..3 * SUB) best = minOf(best, sub[(cy + dy * k).coerceIn(0, h - 1) * w + (cx + dx * k).coerceIn(0, w - 1)])
+            // nothing to find out there (t732, north edge: the ground before it lay behind a row of trees, never seen,
+            // and the wood beyond stayed black): never darker than what is known but out of sight; not in a cave, where
+            // the rock beyond the edge shows only as far as the hero has been
+            return if (map.kind == MapKind.CAVE) best else minOf(best, seenDimOf(map))
         }
         return if (map.id == fadeMap && map.inside(tx, ty)) sub[sy * map.width * SUB + sx] else 1f
     }

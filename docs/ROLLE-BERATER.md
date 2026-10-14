@@ -2,11 +2,12 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 18:5x) – Nachfolger: „Sokrates – Kampfsystem“:**
+**Übergabe (14.10., 22:2x) – Nachfolger: „Sokrates – Verschleiß und Begleiter“:**
 
-**Nächster Punkt:** (0) **72q Gruppe** mit dem Nutzer am Rechner besprechen, nicht vorab entscheiden: Held plus zwei, je Figur selbst oder Automatik (72.6), Begleiter mit Haltung, Reihen vorn/hinten; das Kampf-Dokument empfiehlt den Einzelhelden, ohne ihn gegen eine Gruppe abzuwägen (Ergänzung am Ende des [Dokuments](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4)). Danach 72p, 72k–72o, 26d; Schleichen (84.3), Schnellwechsel (84.2). (1) **84** Kernregel „Licht gegen Heimlichkeit“ noch ohne Antwort. (2) **81 Ford** Regelbilanz, Pilot nur auf Zuruf. (3) **41** Entwurf beim Nutzer. (4) **69e** Runde 4, dann 70.1, 79. (5) 72a–72j.
+**Nächster Punkt:** (0) 6l beschlossen (22:1x). (1) **72o Verschleiß** Feinheiten (kommt, Nutzer will genauer überlegen). (2) **41** Begleiter-Figuren Kapitel 2 (72s). (3) 84.3, 84.2, 72a/72c–72j, 81 Ford (Befunde ohne Vermerk zählen: Empfehlung noch nicht), 79/72u nach Probe und Standbild.
+Sitzung 14.10., 21:4x–22:2x: 72.11 (B mit zwei Reihen), 72.12 „Kampfort“, 72.13 (Automatik, Wunden, Verschleiß), 86.11, 88, 13e.6 Regler beschlossen; 72q, 72l, 26d erledigt; 72u Kampfort aus der Karte offen bis Probe und Standbild. Schwerpunkt: fast ganz Spiel (Kampf, Bild, Rast), wenig Ablauf (88).
 
-**Zuletzt gelesen bis:** 61d7506b (14.10., 18:2x)
+**Zuletzt gelesen bis:** ee9e1418 (14.10., 22:2x)
 
 ## Wer du bist
 
@@ -36,24 +37,22 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 
 ## Begründungen der Entscheidungen
 
+Weitere (Rollen, Oberfläche, Tempelszene, Karte und Händler, Dein Zug, Zufallshöhlen, Kartenbegriffe) im Archiv („14.10., 22:2x“).
+
 - **Abläufe (65):** Oberster Grundsatz des Nutzers: nichts Aufgabenrelevantes verlieren; darum `CLAUDE.md` knapp, aber ohne feste Grenze, Auslagern nur bei seltenem Anlass. **65.4** jeder Text an einem Ort, weil Doppelungen Token kosten und auseinanderlaufen. Volltext im Archiv („18:5x“).
 - **Rückfragen als Holschuld (65.8, 65.9):** wiederholte Fragen und lange Startmeldungen kosteten in jeder Antwort Token und verdeckten das Neue; „Dein Zug“ ist der eine Ort. Einmal nennen bei Entstehung und bei Aufträgen anderer Agenten, sonst nur „Kritisch“ bei Stillstand; Weiter-Haken nur für Entwickler, weil Berater und Tester meist auf den Nutzer warten.
-- **Rollen:** Grundsatzfragen beim Berater, ohne dass die Entwicklung steht. **Diogenes (75):** Tester neigt zu Rauschen und Bestätigen, darum Beleg, blind zuerst, drei Klassen. **Kosten (75h, 76e):** billigster Prüfweg zuerst; Rückläufer sind am teuersten. **Umbau 76–78:** Kern in `CLAUDE.md`, weil nur sie in langen Sitzungen sicher im Blick bleibt; Sammelbuilds sparen Rundum-Aufwand; Vorsilben zeigen Zweck und Leser am Namen. Volltext im Archiv.
-- **Seite „Dein Zug“ (63):** Fragen gingen in Chats unter; „Beschlüsse“ statt „Bildbuch“; kein „Erledigt“ (65.7). Volltext im Archiv.
-- **Karte und Händler (62c, 59e, 64):** Karte erinnert statt führt; Wissen vor Beschriftung. Volltext im Archiv.
-- **Kartenbegriffe (62p/62q):** Stufen nach Enthaltensein; „Stockwerk“ klingt in Höhlen schief.
-- **Oberfläche (59, 60):** schwarz, Gold, eigene Serife (Geräteschriften schwanken).
 - **Leitbild (44):** ein roter Faden; SRD Gerüst, nicht Ziel; Blut „Deutlich“ als Obergrenze. Volltext im Archiv.
 - **Geschäftsmodell (45):** wer Abkürzungen verkauft, macht das Spiel künstlich zäh; darum nie Werbung, Beutekisten, Wartezeiten.
-- **Zufallshöhlen (48, 41m):** erst Questhöhlen zufällig, Story-Höhlen mit festem Kern; je eine pro Landschaft (Erkundung).
 - **Heldenbau (49, 50; `DESIGN-HELDENBAU.md`):** kein großer Skilltree (führt zu wenigen besten Wegen), Talente ändern Entscheidungen statt Zahlen, Merkmale nie kaufbar, gekaufte Klassen nie stärker. Volltext im Archiv („18:5x“).
 - **Balance (38):** SRD als Fundament, Stufen 5–14 als Kern über mindestens 7 Kapitel, Abweichungen mit Grund in `DESIGN-BALANCE.md`; Schwierigkeitsgrad erst nach Messung von „Normal“.
+- **Kampf (72.11, 72u):** B, weil Absicht und Reaktion den Gegnerzug füllen und mit Gefährte A doppelt Menü wäre; Reihen statt Raster (C) bringen das meiste der Stellung für einen Bruchteil; Ring nur bei angekündigter Absicht gegen Tipp-Fließband; Platztausch kostet den Zug. Wörtliches Hineinzoomen zu grob (Kampffiguren 2,2-mal feiner), darum Kampfort aus der Karte neu gezeichnet; Zeichenzeit unterscheidet nicht (24.5 gibt es). Pokémon-Eindruck kommt eher vom Stillstand als vom Hintergrund.
 - **Profil (72; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b)):** Lücke = fürs Handy gebautes Rollenspiel mit eigenem Look und Geschichte (zwischen Darkest Dungeon und Exiled Kingdoms); größte Schwäche der Menü-Zweikampf.
 - **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen, damit Entwickler keine Texte erfinden; Kult mit weitergegebenem Titel trägt sieben Kapitel; Kapitel 2: Hinweise doppelt (freie Welt), Anreiz statt Pfeil, zweiter Weg (72.5). Volltext im Archiv („20:5x“).
 - **Licht und Laut (13e.6, 84):** Held ohne eigenes Licht, weil Licht nur aus sichtbaren Quellen kommt (Leitbild); Fackel kostet die Nebenhand und macht sichtbar, Dunkel erlaubt Schleichen und Lauschen: eine Wahl je Höhle statt Pflichtkauf. Welle statt Pfeil, weil Pfeile führen (62c); Hören in Stufen, damit Stehenbleiben lohnt, ohne Pflicht zu werden.
-- **Tempelszene (68, 70):** Zwischensequenzen gleich gebaut, damit sie als Reihe wirken; Osric im Bild statt Erklärung (Begründungen im Text wirken konstruiert); **Blende statt Termin**, sonst wartet man in freier Welt tagelang; Einstieg Kapitel 2 erinnert statt führt. Volltext im Archiv („18:5x“).
 
 ## Lehren
+
+- **Hinweise des Nutzers prüfen statt übernehmen** (14.10., 69e, 72u): erst erfassen, auswerten, folgern; „nicht immer nur Ja sagen“. Ein „klingt gut“ beim Lesen ist kein Beschluss; eigene Argumente nicht fallenlassen, wenn der Nutzer eine Idee bringt, sondern sie dagegen prüfen (72u: zweimal zu schnell eingetragen).
 
 - **Werkzeugausgaben kosten Token** (14.10.): Beschlussseite (17 KB) beim Ändern nur einmal lesen; Suchen eng fassen (`ARBEIT-ARCHIV.md` ausschließen, Zeilen kürzen).
 - **Ablauf nicht vorführen** (14.10., 65.9): der Nutzer sieht den Nutzen pro Antwort; Startritual, Wiederholungen und Haken-Runden ohne Neues sind Kosten. Zeit nur von der Systemuhr, auch im Gespräch (17:3x geschätzt).

@@ -8,8 +8,8 @@ import kotlin.random.Random
 /**
  * What a place sounds like (24.8), heard from the moment the black screen comes down, before the picture: wind outside,
  * the still air of the temple hall, wood creaking now and then in the houses, a drop in the cave at once. Only what is
- * there makes a sound (DESIGN-STIL.md, Klang; 24.8.4): no crowd in the inn, but the innkeeper wiping, pouring, setting down a
- * cup, and a guest's chair or cough, one at a time and never in step.
+ * there makes a sound (DESIGN-STIL.md, Klang; 24.8.4): no crowd in the inn, but the innkeeper wiping, pouring, a guest setting
+ * down his flask or shifting his chair, each heard with the movement that makes it ([folk], D1.10), and now and then a cough.
  */
 object PlaceSound {
     enum class Kind { OUTSIDE, TAVERN, HALL, ROOM, CAVE }
@@ -50,25 +50,34 @@ object PlaceSound {
     const val HOST = "innkeeper"
 
     /**
-     * The single sounds the place and the people in it make, each with its weight: the innkeeper's work, the guests'
-     * cups, chairs and now and then a cough (rare), wood creaking in rooms. Empty where nothing makes a sound.
+     * The single sounds at chance moments, each with its weight: a guest's cough now and then, wood creaking in rooms.
+     * Empty where nothing makes a sound. What the people do with their hands is heard with the movement ([folk]).
      */
     fun events(kind: Kind, present: List<String>): List<Pair<Sound, Int>> {
         val out = mutableListOf<Pair<Sound, Int>>()
-        if (kind == Kind.TAVERN) {
-            if (HOST in present) out += listOf(Sound.WIPE to 4, Sound.POUR to 3, Sound.CUP to 3)
-            if (present.any { it != HOST }) out += listOf(Sound.CUP to 5, Sound.CHAIR to 3, Sound.COUGH to 1)
-        }
-        if (kind == Kind.TAVERN || kind == Kind.ROOM) out += Sound.CREAK to 1
+        if (kind == Kind.TAVERN && present.any { it != HOST }) out += Sound.COUGH to 1
+        if (kind == Kind.TAVERN || kind == Kind.ROOM) out += Sound.CREAK to 2
         return out
     }
+
+    /**
+     * The sounds the people on [map] make with their movements between [fromMs] (excluded) and [toMs] on the map's
+     * clock (D1.10): Rowena's cloth and jug, Borin's flask set down and his chair. Nobody works while looking at a hero
+     * standing near (tile [heroX], [heroY], still for [stillMs]), so then nothing is heard either.
+     */
+    fun folk(map: MapDef, state: GameState, fromMs: Long, toMs: Long, heroX: Int, heroY: Int, stillMs: Long): List<Sound> =
+        map.npcs.filter { it.visible(state) }.flatMap { npc ->
+            val f = de.bornim.core.art.MapFolk.of(npc.id) ?: return@flatMap emptyList()
+            val watching = !de.bornim.core.art.MapFolk.sits(f) &&
+                de.bornim.core.art.MapFolk.watches((heroX - npc.x).toDouble(), (heroY - npc.y).toDouble(), stillMs)
+            if (watching) emptyList() else de.bornim.core.art.MapFolk.sounds(f, fromMs, toMs)
+        }
 
     /** The looks of the people standing on [map] now. */
     fun present(map: MapDef, state: GameState): List<String> = map.npcs.filter { it.visible(state) }.map { it.look }
 
-    /** Pause before the next single sound: lively in the inn (3–8 s), rare elsewhere (12–30 s). */
-    fun gapMs(kind: Kind, rnd: Random): Long =
-        if (kind == Kind.TAVERN) 3000L + rnd.nextLong(5000) else 12000L + rnd.nextLong(18000)
+    /** Pause before the next single sound at chance: rare (12–30 s); the inn's life comes from its people ([folk]). */
+    fun gapMs(kind: Kind, rnd: Random): Long = 12000L + rnd.nextLong(18000)
 
     /** The first single sound comes soon after arriving, while the screen is still dark. */
     fun firstMs(kind: Kind, rnd: Random): Long = 600L + rnd.nextLong(if (kind == Kind.TAVERN) 1500 else 4000)

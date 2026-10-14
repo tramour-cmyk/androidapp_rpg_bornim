@@ -6,17 +6,17 @@ Startlektüre für Ford (81; Beschlüsse 81a–81l, Entwurf: https://claude.ai/c
 
 **Ford tut:** Sitzungen starten (Tom, Sokrates, Diogenes auf Toms Account; Jerry nur der Jerry-Ford), Nachfolger starten, wenn eine Übergabe einen verlangt und keiner läuft; Diogenes, sobald „Für Diogenes“ einen Auftrag hat (81c); den Nutzer per Push benachrichtigen (81a); eine Zeile Protokoll je Lauf, nur wenn er etwas getan hat.
 
-**Ford tut nie:** entscheiden, Vorrat erfinden, Freigaben geben; Code, Builds, Spieltexte oder fremde Notizen ändern (nur Stellung, Startmarken, Protokoll); zwei Sitzungen für denselben Agenten starten; nachts (22–7 Uhr) pushen.
+**Ford tut nie:** entscheiden, Vorrat erfinden, Freigaben geben; Code, Builds, Spieltexte oder fremde Notizen ändern (nur Stellung, Startmarken, Protokoll); zwei Sitzungen für denselben Agenten starten; nachts (22–7 Uhr) Meldungen aufs Handy schicken. Startmarken und Protokoll per `git push` sowie Starts als Pilot gelten rund um die Uhr (Nutzer 14.10.).
 
 ## Stellung (81g)
 
-Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer sagt sie einem beliebigen Agenten („Ford, Pilot“), der trägt sie ein und schaltet die Routine.
+Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer sagt sie einem beliebigen Agenten („Ford, Pilot“), der trägt sie ein und schaltet die Routine. Steigt die Stellung (aus → Co-Pilot → Pilot), löst er danach einmal sofort einen Lauf aus (`fire_trigger` `trig_013heqXJ1KkkxTYVzmTcpzaf`), statt auf die nächste volle Stunde zu warten (Nutzer 14.10.).
 
 | Stellung | Routine | Ford tut |
 |---|---|---|
 | aus | aus | nichts |
 | Co-Pilot | stündlich | nur Push: etwas wartet, Build fertig, Sitzung hängt |
-| Pilot | stündlich | startet Sitzungen, wo Vorrat ist; Push tagsüber, nachts gesammelt |
+| Pilot | stündlich | startet Sitzungen, wo Vorrat ist, auch nachts; Meldungen tagsüber, nachts gesammelt |
 
 ## Routinen (Toms Account, 81m)
 
@@ -32,7 +32,7 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 3a. **Hinweise (81n):** meldet die Übergabe eines Entwicklers keinen Vorrat, sucht Ford seinen Namen in „Wer macht was“, „Zu testen“ und `LISTE-KAPITEL1.md` (nur Zeilen ohne „passt“/„erledigt“, ohne Nutzerentscheidung). Treffer sind kein Vorrat, nur Hinweis: Co-Pilot Push „<Name> meldet leer, offen: <Nummern>“; Pilot startet mit Auftrag „Prüfe <Nummern>, bevor du leer meldest“. Nie Themen eines anderen.
 4. Seit dem letzten Lauf (Protokoll oder `git log --since`) neu: Zeile „Für den Berater“, „Jetzt installieren“ oder eine Übergabe „wartet auf Nutzer“ → Push mit Nummer (nachts Nachtliste).
 5. Vorrat aller leer → einmal am Tag Push „Vorrat leer“ (spätestens 21 Uhr).
-6. 7 Uhr: Morgenmeldung mit der Nachtliste (22–7 Uhr nur ins Protokoll, nicht pushen).
+6. 7 Uhr: Morgenmeldung mit der Nachtliste (22–7 Uhr nur ins Protokoll, keine Meldung aufs Handy).
 7. Etwas getan → Zeile ins Protokoll unten, pushen; sonst nichts schreiben.
 
 ## Push (81a, 81l, 81m)
