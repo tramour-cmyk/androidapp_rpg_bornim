@@ -29,7 +29,7 @@ fun renderBridgeProbe() {
     // round 2 (user 14.10., 09:5x): only the precise one, finer, at eye level, tight on the house, the river and the bridge
     val precise = BridgePainter(detail = true).paint()
     File("build/screens").mkdirs()
-    ImageIO.write(precise, "png", File("build/screens/probe69e_r3.png"))
+    ImageIO.write(precise, "png", File("build/screens/probe69e_r4.png"))
     // with its text below as in the app
     val text = "Hinter der Brücke ein paar Lichter. Bornim. Ein Bett für eine Nacht, mehr willst du nicht."
     val w = BridgePainter.W; val h = BridgePainter.H; val box = 170
@@ -46,8 +46,8 @@ fun renderBridgeProbe() {
         line += " $word"
     }
     g.drawString(line.trim(), 54, ly)
-    ImageIO.write(out, "png", File("build/screens/probe69e_r3_text.png"))
-    println("wrote build/screens/probe69e_r3_text.png")
+    ImageIO.write(out, "png", File("build/screens/probe69e_r4_text.png"))
+    println("wrote build/screens/probe69e_r4_text.png")
 }
 
 private class BridgePainter(val detail: Boolean) {
@@ -66,12 +66,13 @@ private class BridgePainter(val detail: Boolean) {
     // the camera: the traveller's eyes on the south road, looking north over the bridge
     val hy = 520.0; val f = 1080.0; val eye = 2.5; val cx = W / 2.0
     /** Round 3: the traveller stands a little left on the road and looks along it; the whole bridge leads to the lights. */
-    val camX = -0.7; val pan = -151.0
+    val camX = 0.5; val pan = -80.0
     fun sx(x: Double, z: Double) = cx + f * (x - camX) / z - pan
     fun sy(y: Double, z: Double) = hy + f * (eye - y) / z
 
     /** The river between its banks. */
-    val ZN = 9.0; val ZF = 16.0
+    /** Round 4: the banks follow the camera, now at the foot of the bridge. */
+    val ZN get() = wz(28.0); val ZF get() = ZN + 7.0
 
     // the moon, high up on the left
     val moonX = 250.0; val moonY = 255.0
@@ -173,7 +174,7 @@ private class BridgePainter(val detail: Boolean) {
             g.fill(Ellipse2D.Double(sx(x, z) - r, sy(0.0, z) - r * 0.45, r * 2, r * 0.9))
         }
         // rings on the water where something rose
-        for ((x, z) in listOf(-7.0 to 12.0, -10.5 to 9.5, 2.8 to 14.0)) for (k in 1..3) {
+        for ((x, z) in listOf(-7.0 to 7.5, -10.5 to 5.0, 2.8 to 9.5)) for (k in 1..3) {
             val r = f * 0.22 * k / z
             g.color = alpha(Color(0x8A9CB8), 0.35 / k); g.stroke = BasicStroke(1.2f)
             g.draw(Ellipse2D.Double(sx(x, z) - r, sy(0.0, z) - r * 0.18, r * 2, r * 0.36))
@@ -195,7 +196,7 @@ private class BridgePainter(val detail: Boolean) {
             }
         }
         for (i in 0 until 26) {
-            val x = rnd(i, 901) * W; val y = sy(0.0, 6.0) + (rnd(i, 902) - 0.3) * 260
+            val x = rnd(i, 901) * W; val y = sy(0.0, 3.0) + (rnd(i, 902) - 0.3) * 260
             val r = 1.4 + rnd(i, 903) * 1.6
             glow(x, y, r * 7, Color(0xC8E070), 0.35)
             g.color = alpha(Color(0xF0F8B0), 0.9); g.fill(Ellipse2D.Double(x - r / 2, y - r / 2, r, r))
@@ -212,7 +213,7 @@ private class BridgePainter(val detail: Boolean) {
 
     // ---- the scene built from the village map (69e): one tile is 2 m, the traveller stands on the south road behind the edge
     val map = de.bornim.core.World["village"]
-    val camTx = 18.0; val camTy = 32.5
+    val camTx = 18.0; val camTy = 30.2
     fun wx(tx: Double) = (tx - camTx) * 2
     /** Round 2: the river by the bridge drawn twice as wide as its two tiles, so it reads at eye level (user: may differ from the map). */
     /** and the bank behind it narrower, so the half-timbered house stands close behind the water. */
@@ -268,6 +269,19 @@ private class BridgePainter(val detail: Boolean) {
             if (land(tx, ty + 1)) line(rim, maxOf(2.0, f * 0.25 / zn), sx(wx(tx.toDouble()), zn), sy(0.0, zn), sx(wx(tx + 1.0), zn), sy(0.0, zn))
             if (land(tx - 1, ty)) line(rim, 3.0, sx(wx(tx.toDouble()), zn), sy(0.0, zn), sx(wx(tx.toDouble()), zF), sy(0.0, zF))
             if (land(tx + 1, ty)) line(rim, 3.0, sx(wx(tx + 1.0), zn), sy(0.0, zn), sx(wx(tx + 1.0), zF), sy(0.0, zF))
+        }
+        // round 4 (structure in the earth): on the roads and the cobbles, clods, pebbles and a worn pale track, as on the map
+        if (detail) for (ty in -30..33) for (tx in -12..48) {
+            val c = ch(tx, ty); if (c !in "=.omwnql".toSet() || c == '.' && ty <= 31) continue
+            val zN = wz(ty + 1.0); val zF = wz(ty.toDouble()); if (zF <= 0.5 || zF > 60) continue
+            val zn = maxOf(zN, 0.5); val cobble = c != '=' && c != '.'
+            for (i in 0 until (if (zF < 25) 70 else 20)) {
+                val z = zn + (zF - zn) * rnd(i, 1001 + tx * 31 + ty * 7); val x = wx(tx + rnd(i, 1002 + tx * 17 + ty * 11))
+                val r = f * (if (cobble) 0.09 + rnd(i, 1003) * 0.06 else 0.02 + rnd(i, 1003) * 0.05) / z
+                val v = rnd(i, 1004)
+                g.color = alpha(far(night(if (v > 0.55) 0x8A7A62 else 0x2E2418, if (cobble) 1.1 else 1.0), z), if (cobble) 0.55 else 0.6)
+                g.fill(Ellipse2D.Double(sx(x, z) - r, sy(0.0, z) - r * 0.4, r * 2, r * 0.8))
+            }
         }
         waterLight()
         lightPools()
@@ -563,7 +577,7 @@ private class BridgePainter(val detail: Boolean) {
     fun house(hs: House, temple: Boolean) {
         val x0 = hs.x - hs.w / 2; val x1 = hs.x + hs.w / 2; val z0 = hs.z; val z1 = hs.z + hs.d
         val zr = (z0 + z1) / 2; val top = hs.wall + hs.roof
-        val wallC = far(if (temple) stone else plaster, z0); val wallLit = far(if (temple) stoneLit else plasterLit, z0)
+        val wallC = far(if (temple) stone else night(0x4E3A28), z0); val wallLit = far(if (temple) stoneLit else night(0x4E3A28, 1.35), z0)
         // the side we see: the one facing the road; the moon from the left lights left sides
         val sideX = if (hs.x > 0) x0 else x1
         val sideC = if (hs.x > 0) wallLit else wallC
@@ -572,31 +586,55 @@ private class BridgePainter(val detail: Boolean) {
         poly(sideC, sx(sideX, z0), sy(hs.wall, z0), sx(sideX, z1), sy(hs.wall, z1), sx(sideX, zr), sy(top, zr))
         // the front
         quad(wallC, x0, 0.0, z0, x1, 0.0, z0, x1, hs.wall, z0, x0, hs.wall, z0)
-        texture(quadShape(x0, 0.0, z0, x1, 0.0, z0, x1, hs.wall, z0, x0, hs.wall, z0), z0, Color(0x2A2A30), plasterLit, if (temple) 40 else 900, if (temple) 0.12 else 0.035, if (temple) 0.5 else 1.0)
-        texture(quadShape(sideX, 0.0, z0, sideX, 0.0, z1, sideX, hs.wall, z1, sideX, hs.wall, z0), z0, Color(0x2A2A30), plasterLit, 900, 0.035)
-        // the stone base and the timber frame
+        if (temple) {
+            texture(quadShape(x0, 0.0, z0, x1, 0.0, z0, x1, hs.wall, z0, x0, hs.wall, z0), z0, Color(0x2A2A30), stoneLit, 40, 0.12, 0.5)
+            texture(quadShape(sideX, 0.0, z0, sideX, 0.0, z1, sideX, hs.wall, z1, sideX, hs.wall, z0), z0, Color(0x2A2A30), stoneLit, 900, 0.035)
+        }
+        // round 4 (user 14.10., 13:1x: houses as in the diagonal world): walls of dark upright boards on a footing of field stone
         if (!temple) {
-            quad(far(stone, z0), x0, 0.0, z0, x1, 0.0, z0, x1, 0.6, z0, x0, 0.6, z0)
-            texture(quadShape(x0, 0.0, z0, x1, 0.0, z0, x1, 0.6, z0, x0, 0.6, z0), z0, Color(0x16181E), stoneLit, 900, 0.06, 0.6)
-            if (detail) {
-                val tw = maxOf(1.2, f * 0.22 / z0)
-                val tc = far(timber, z0)
-                line(tc, tw, sx(x0, z0), sy(0.6, z0), sx(x1, z0), sy(0.6, z0))
-                line(tc, tw, sx(x0, z0), sy(hs.wall * 0.55, z0), sx(x1, z0), sy(hs.wall * 0.55, z0))
-                line(tc, tw, sx(x0, z0), sy(hs.wall, z0), sx(x1, z0), sy(hs.wall, z0))
-                val n = (hs.w / 1.6).toInt()
-                for (k in 0..n) {
-                    val x = x0 + hs.w * k / n
-                    line(tc, tw, sx(x, z0), sy(0.6, z0), sx(x, z0), sy(hs.wall, z0))
-                    if (k < n && k % 2 == 0) line(tc, tw * 0.8, sx(x, z0), sy(0.6, z0), sx(x + hs.w / n, z0), sy(hs.wall * 0.55, z0))
+            val fy = 0.7
+            fun boards(xa: Double, za: Double, xb: Double, zb: Double, lit: Boolean) {
+                val len = Math.hypot(xb - xa, zb - za); val n = (len / 0.28).toInt().coerceAtLeast(1)
+                for (k in 0 until n) {
+                    val t0 = k / n.toDouble(); val t1 = (k + 1) / n.toDouble()
+                    val ax = xa + (xb - xa) * t0; val az = za + (zb - za) * t0; val bx = xa + (xb - xa) * t1; val bz = za + (zb - za) * t1
+                    val v = rnd(k, 71 + (xa * 10).toInt())
+                    val c = night(if (v > 0.66) 0x5E4632 else if (v > 0.33) 0x4E3A28 else 0x443222, if (lit) 1.35 else 1.0)
+                    quad(far(c, za), ax, fy, az, bx, fy, bz, bx, hs.wall, bz, ax, hs.wall, az)
+                    if (detail) {
+                        // the joint between two boards, and the grain running up each
+                        line(far(Color(0x0E0A08), za), maxOf(1.0, f * 0.025 / az), sx(ax, az), sy(fy, az), sx(ax, az), sy(hs.wall, az))
+                        for (q in 0 until 3) {
+                            val u = 0.2 + 0.6 * rnd(k * 3 + q, 73); val gx = ax + (bx - ax) * u; val gz = az + (bz - az) * u
+                            val y0 = fy + (hs.wall - fy) * rnd(k * 3 + q, 74); val y1 = (y0 + 0.4 + rnd(k * 3 + q, 75) * 0.9).coerceAtMost(hs.wall)
+                            line(alpha(far(Color(0x1A120C), gz), 0.5), maxOf(0.8, f * 0.01 / gz), sx(gx, gz), sy(y0, gz), sx(gx, gz), sy(y1, gz))
+                        }
+                    }
                 }
-                // the frame on the side
-                if (abs(sx(sideX, z1) - sx(sideX, z0)) > 90) for (k in 0..3) { val z = z0 + hs.d * k / 3; line(tc, tw * 0.9, sx(sideX, z), sy(0.6, z), sx(sideX, z), sy(hs.wall, z)) }
-            } else {
-                // only the main beams
-                val tw = maxOf(1.2, f * 0.26 / z0)
-                line(far(timber, z0), tw, sx(x0, z0), sy(hs.wall * 0.55, z0), sx(x1, z0), sy(hs.wall * 0.55, z0))
             }
+            boards(x0, z0, x1, z0, false)
+            boards(sideX, z0, sideX, z1, hs.x > 0)
+            // the field-stone footing, its stones in two uneven courses
+            for ((xa, za, xb, zb) in listOf(listOf(x0, z0, x1, z0), listOf(sideX, z0, sideX, z1))) {
+                quad(far(stone, za), xa, 0.0, za, xb, 0.0, zb, xb, fy, zb, xa, fy, za)
+                if (!detail) continue
+                for (row in 0 until 2) {
+                    var t = rnd(row, 81) * 0.1; val ya = fy * row / 2; val yb = fy * (row + 1) / 2
+                    val len = Math.hypot(xb - xa, zb - za)
+                    while (t < 1) {
+                        val t1 = (t + (0.35 + rnd((t * 100).toInt(), 82 + row) * 0.4) / len).coerceAtMost(1.0)
+                        val ax = xa + (xb - xa) * t; val az = za + (zb - za) * t; val bx = xa + (xb - xa) * t1; val bz = za + (zb - za) * t1
+                        val v = rnd((t * 100).toInt(), 84 + row)
+                        quad(far(night(if (v > 0.5) 0x7A766A else 0x66625A, 0.9 + v * 0.35), za), ax + 0.03, ya + 0.03, az, bx - 0.03, ya + 0.03, bz, bx - 0.03, yb - 0.03, bz, ax + 0.03, yb - 0.03, az)
+                        t = t1
+                    }
+                }
+            }
+            // the corner posts
+            val tw = maxOf(1.5, f * 0.16 / z0)
+            line(far(timber, z0), tw, sx(x0, z0), sy(fy, z0), sx(x0, z0), sy(hs.wall, z0))
+            line(far(timber, z0), tw, sx(x1, z0), sy(fy, z0), sx(x1, z0), sy(hs.wall, z0))
+            line(far(timber, z0), tw, sx(sideX, z1), sy(fy, z1), sx(sideX, z1), sy(hs.wall, z1))
         } else if (detail) {
             // ashlar courses on the temple
             for (k in 1..9) { val y = hs.wall * k / 10; line(far(Color(0x22242C), z0), 1.0, sx(x0, z0), sy(y, z0), sx(x1, z0), sy(y, z0)) }
@@ -616,6 +654,20 @@ private class BridgePainter(val detail: Boolean) {
             if (z0 < 30) { val sw = 0.45; var x = x0 - ov + (if (k % 2 == 0) sw / 2 else 0.0)
                 val t2 = (k - 1) / rows.toDouble(); val y2 = hs.wall - 0.3 + (top - hs.wall + 0.3) * t2; val z2 = z0 - ov + (zr - z0 + ov) * t2
                 while (x < x1 + ov) { line(alpha(far(Color(0x16161C), z0), 0.7), 0.8, sx(x, z), sy(y, z), sx(x, z2), sy(y2, z2)); x += sw * (0.8 + 0.4 * rnd((x * 10).toInt(), k)) } }
+        }
+        // round 4: moss in patches on the shingles, thicker towards the eave, as on the diagonal world's roofs
+        if (detail && !temple) {
+            val clip = g.clip; g.clip(quadShape(x0 - ov, hs.wall - 0.3, z0 - ov, x1 + ov, hs.wall - 0.3, z0 - ov, x1 + ov, top, zr, x0 - ov, top, zr))
+            for (i in 0 until (hs.w * 14).toInt()) {
+                val t = rnd(i, 91 + (hs.x * 10).toInt()).let { it * it }
+                val x = x0 - ov + (hs.w + 2 * ov) * rnd(i, 92 + (hs.x * 10).toInt())
+                val y = hs.wall - 0.3 + (top - hs.wall + 0.3) * t; val z = z0 - ov + (zr - z0 + ov) * t
+                val r = f * (0.12 + rnd(i, 93) * 0.3) / z
+                val lit = x < x0 + hs.w * 0.35
+                g.color = alpha(far(night(if (rnd(i, 94) > 0.5) 0x5A6A34 else 0x46562A, if (lit) 1.4 else 1.0), z), 0.55)
+                g.fill(Ellipse2D.Double(sx(x, z) - r, sy(y, z) - r * 0.4, r * 2, r * 0.8))
+            }
+            g.clip = clip
         }
         // the ridge catches the moon
         line(far(roofLit, z0), maxOf(1.0, f * 0.12 / zr), sx(x0 - ov, zr), sy(top, zr), sx(x1 + ov, zr), sy(top, zr))
@@ -709,7 +761,7 @@ private class BridgePainter(val detail: Boolean) {
         quad(Color(0x1E1816), -hw, y - 0.18, z0, hw, y - 0.18, z0, hw, y, z0, -hw, y, z0)
         quad(plank, -hw, y, z0, hw, y, z0, hw, y, z1, -hw, y, z1)
         // the moon from the left lights the deck faintly, more on the left
-        g.paint = GradientPaint(sx(-hw, 9.0).toFloat(), 0f, alpha(plankLit, 0.75), sx(hw, 9.0).toFloat(), 0f, alpha(plankLit, 0.1))
+        g.paint = GradientPaint(sx(-hw, ZN).toFloat(), 0f, alpha(plankLit, 0.75), sx(hw, ZN).toFloat(), 0f, alpha(plankLit, 0.1))
         val deck = Path2D.Double().apply {
             moveTo(sx(-hw, z0), sy(y, z0)); lineTo(sx(hw, z0), sy(y, z0)); lineTo(sx(hw, z1), sy(y, z1)); lineTo(sx(-hw, z1), sy(y, z1)); closePath()
         }
@@ -723,6 +775,13 @@ private class BridgePainter(val detail: Boolean) {
                 val zm = z + (z1 - z0) / n / 2
                 val shade = rnd(k, 61)
                 if (shade > 0.6) quad(alpha(Color(0x5A4C44), 0.25), -hw, y, z + 0.02, hw, y, z + 0.02, hw, y, zm + 0.1, -hw, y, zm + 0.1)
+                // round 4: the grain along each plank and here and there a knot
+                for (q in 0 until 5) {
+                    val zg = z + (z1 - z0) / n * (0.2 + 0.6 * rnd(k * 5 + q, 63)); val xa = -hw + 2 * hw * rnd(k * 5 + q, 64); val xb = (xa + 0.6 + rnd(k * 5 + q, 65) * 1.6).coerceAtMost(hw)
+                    line(alpha(Color(0x1A120C), 0.45), maxOf(0.8, f * 0.008 / zg), sx(xa, zg), sy(y, zg), sx(xb, zg), sy(y, zg))
+                }
+                if (rnd(k, 66) > 0.6) { val kx = -hw + 2 * hw * rnd(k, 67); val kr = f * 0.035 / zm
+                    g.color = alpha(Color(0x140E0A), 0.6); g.fill(Ellipse2D.Double(sx(kx, zm) - kr, sy(y, zm) - kr * 0.35, kr * 2, kr * 0.7)) }
                 // nail heads where the planks lie on the beams
                 for (x in listOf(-hw + 0.2, hw - 0.2)) g.fill(Ellipse2D.Double(sx(x, zm) - 1.2, sy(y, zm) - 1.2, 2.4, 2.4))
             }
