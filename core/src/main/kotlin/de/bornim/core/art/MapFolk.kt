@@ -373,7 +373,6 @@ object MapFolk {
      * a beast turns up, the caller lets him stand at once (he starts up).
      */
     fun squatAt(f: Folk, clockMs: Long, night: Boolean): Squat? {
-        if (forceDoze) return dozing(f, clockMs)
         val n = Math.floorDiv(clockMs, SQUAT_BLOCK_MS)
         val t = clockMs - n * SQUAT_BLOCK_MS
         val r = java.util.Random(n * 7_000_003L + f.id.hashCode() * 31L + 5)
@@ -430,7 +429,6 @@ object MapFolk {
      * stands.
      */
     fun squatPoseAt(f: Folk, clockMs: Long, night: Boolean): SquatPose? {
-        if (forceDoze) return dozePose(f, clockMs + 20_000)
         val n = Math.floorDiv(clockMs, SQUAT_BLOCK_MS)
         val t = clockMs - n * SQUAT_BLOCK_MS
         val r = java.util.Random(n * 7_000_003L + f.id.hashCode() * 31L + 5)
@@ -527,8 +525,6 @@ object MapFolk {
             ?: (p.main?.let { squatFrame(f, slot, it) } ?: frame(f, slot, 0))
     }
 
-    /** Test switch: Garrick sits and dozes all the time (10.10., 3a; to be removed again). */
-    @Volatile var forceDoze = false
 
     /** Draws ahead the squatting pictures of [f] facing its fire at [homeSlot]. */
     fun prepareSquat(f: Folk, homeSlot: Int) {
