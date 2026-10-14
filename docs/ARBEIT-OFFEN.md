@@ -52,8 +52,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (14.10., 09:52) – an Nachfolger
 - **PR #58** abonniert, grün, wartet auf Test 0.1.728; nach „passt“: zusammenführen, `CHANGELOG.md`, `t728` von „Dein Zug“, „Jetzt installieren“ leeren.
-- **69e** (Zweig `claude/tom-69-intro`, `BRUECKE69E=1`, `tools/preview/.../BridgeProbe.kt`): Brücke Feld für Feld aus der Dorfkarte, Diagonalansicht daneben; auf „Dein Zug“, Sokrates benachrichtigt. Schild ist rechteckiges Brett auf mittigem Pflock (Nutzer 09:5x). **Nutzer bespricht die Wahl mit Sokrates** (09:53), Tom wartet; danach Musterbild 70.1 und übrige Intro-Bilder genauso aus der Karte.
-- **27m** (Zweig `claude/tom-27m-rand`, Rand fest eingebaut, gepusht): **ja (Nutzer 09:53), selbständig weiter:** Bildrate messen, mehr Bäume rund um die Karte, Standbilder aller Ränder Tag/Nacht (Wald, Tiefer Wald, Dorf mit Südrand), dann Sammelbuild. Danach **80** Kaels Laterne (Standbild auf „Dein Zug“).
+- **69e** (Zweig `claude/tom-69-intro`, `BRUECKE69E=1`, `tools/preview/.../BridgeProbe.kt`): Brücke Feld für Feld aus der Dorfkarte, Diagonalansicht daneben; auf „Dein Zug“, Sokrates benachrichtigt. Schild ist rechteckiges Brett auf mittigem Pflock (Nutzer 09:5x). Entschieden (Zeile 69): (1) präzise, zweite Runde; danach Musterbild 70.1 und übrige Intro-Bilder genauso aus der Karte.
+- **27m** (Zweig `claude/tom-27m-rand`, Rand fest eingebaut, gepusht): **ja (Nutzer 09:53), selbständig weiter:** Bildrate messen, mehr Bäume rund um die Karte, Standbilder aller Ränder Tag/Nacht (Wald, Tiefer Wald, Dorf mit Südrand), dann Sammelbuild. **Danach unbedingt 69e zweite Runde** (Nutzer 10:0x: „Und dann unbedingt den neuen Bildentwurf für die Zwischensequenzen“), dann **80** Kaels Laterne.
 - **Nutzer 09:3x:** erst kurz antworten, dann höchstens etwa 5 Minuten am Stück arbeiten (unter „Für den Berater“).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
