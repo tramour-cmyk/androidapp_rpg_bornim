@@ -67,13 +67,13 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5/D1.6/D1.9/D1.15 Höhle bei Tom (13e); D1.7 Leben Höhle, D1.8 stumme Quellen, D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (`grund_fs_609422`, `grund_fs_540836`, Hörner/Kreaturen ohne Quelle): Berater empfiehlt nach Umweltklang-Regel (15.10.): Tropfen und fernes Grollen behalten, Hörner herausnehmen (passen zu keiner Quelle der Geschichte); **Nutzer entscheidet nach Hörprobe** (Höhle mit und ohne auf „Dein Zug“), erst danach ändern.
 - **Diogenes Lauf 3** (14.10., Prüfbericht, Verdachte, erst bestätigen): **Jerry** D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald, D3.4 Endlosklänge reißen ab, D3.5/D3.6 Monster, D3.8–D3.10, D3.12; **Tom** D1.3/D1.11, D3.3, D3.5, D3.7, D3.11 in Build A (PR #65); Jerry zur Kenntnis: drei Zeilen `WorldScreen.kt` (Fackelschein).
 - **Diogenes Lauf 6** (15.10., 71 A Dorf, Prüfbericht, Verdachte, erst bestätigen): **Tom** D6.1–D6.3, D6.5–D6.7 in Build A (PR #65). **Jerry** D6.4 Fluss stumm.
+- **Diogenes Lauf 7** (15.10., 71 Nachprüfung Dorf nach 0.1.748, Prüfbericht, Verdacht, erst bestätigen): **Tom** D7.1 Hühner verschwinden schlagartig bei Regen und Dämmerung. Sonst in Ordnung (Hühner, Schritte, Intro, Brücke).
 
 ## Für Diogenes
 
 Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nur der Nutzer startet Diogenes; Ablauf in `docs/ROLLE-TESTER.md`).
 
 - **90 Tagesrückblick** nach dem 22.10., 9 Uhr: die Rückblicke der Woche (Telegram, Sitzungen „Sokrates – Tagesrückblick“) gegen die Quellen in `ROLLE-BERATER.md` „Tagesrückblick“ prüfen: Stimmten die Fakten, wurden Empfehlungen umgesetzt, was hat die Woche gekostet; Ergebnis im Prüfbericht vor der Bilanz am 23.10.
-- **71 Nachprüfung Dorf** (0.1.748 ist auf `main`, 15.10., 16:0x) (Hühner 83b/c, Schritte 74, Intro 69; Lauf 6 hat nur `main` geprüft).
 
 ## Für den Berater
 

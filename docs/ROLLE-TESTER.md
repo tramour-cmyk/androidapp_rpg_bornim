@@ -3,9 +3,9 @@
 Haltung und Ablauf des Testers. **Höchstens etwa 10 KB** (Startprompt und Kosten/Nutzen 75 kamen dazu); nur Diogenes liest diese Datei. Kurzrolle in `CLAUDE.md`.
 
 **Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
-**Geprüft bis:** `583a6a4` (15.10., Lauf 6: 71 A Dorf; letzter Code e61c74d, 0.1.746); nächste Nummer D7
+**Geprüft bis:** `b054c866` (15.10., Lauf 7: 71 Nachprüfung Dorf; letzter Code 4f9cd740, 0.1.748); nächste Nummer D8
 
-**Übergabe (15.10., 12:1x):** Lauf 6 fertig: 71 A Dorf, D6.1–D6.7 im Bericht (Tom sechs, Jerry D6.4), „Zu testen“ eingetragen. 71 damit ganz durch. Offen unter „Für Diogenes“: Nachprüfung Dorf nach Toms 0.1.748 auf `main`. Bilder: 9 Bilder kalt etwa 12 Minuten. Nachfolger: Diogenes – 71 Nachprüfung Dorf (erst wenn 0.1.748 auf `main` ist).
+**Übergabe (15.10., 16:4x):** Lauf 7 fertig: 71 Nachprüfung Dorf nach 0.1.748 (Hühner, Schritte, Intro, Brücke), ein Befund D7.1 an Tom, drei Anregungen, „Zu testen“ eingetragen. Offen unter „Für Diogenes“ nur noch 90 (nach dem 22.10.). Lehre: Kerntests nicht starten, solange das Vorwärmen läuft (Übersetzung bricht ab); Uhrzeit immer von der Systemuhr. Nachfolger: keiner nötig bis 90.
 
 ## Wer du bist (Startprompt, Thema 75, Nutzer 13.10., 20:36)
 

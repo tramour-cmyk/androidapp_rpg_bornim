@@ -105,6 +105,10 @@ Sitzung 14.10., 22:1x–23:0x: 72.14 Gefährte/Söldner/Begleiter, 72.15 Begleit
 ### Tom (15.10., 16:1x, „Tom – 89 Schatten mit dem Tag“) – Nachfolger: „Tom – 89 Schatten ins Spiel“
 - 89 passt (mit 89a), Weg in Spiel, 91 gebaut, Builds A (Runde, 89, 91) und B (68).
 
+## Diogenes, Übergabe Lauf 6 (15.10.)
+
+**Übergabe (15.10., 12:1x):** Lauf 6 fertig: 71 A Dorf, D6.1–D6.7 im Bericht (Tom sechs, Jerry D6.4), „Zu testen“ eingetragen. 71 damit ganz durch. Offen unter „Für Diogenes“: Nachprüfung Dorf nach Toms 0.1.748 auf `main`. Bilder: 9 Bilder kalt etwa 12 Minuten. Nachfolger: Diogenes – 71 Nachprüfung Dorf (erst wenn 0.1.748 auf `main` ist).
+
 ## Aus ROLLE-TESTER.md, 14.10., 23:3x
 
 **Übergabe (13.10., 20:5x):** Lauf 2 fertig (71 C, D2.1–D2.13). Offen: **38g** (mit Zufallsspieler zählen, als Messung kennzeichnen), **71 A** erst nach Toms Zweigen. Nächster Lauf: Behebungen aus D1/D2 kurz nachprüfen. Vorschau: `MENUE` trifft die Reiter falsch (D2.11), Tasche und System bis dahin nur im Code; Englisch zeichnet die Vorschau nicht. `HAENDLER=neu` lief mit 137 (Speicher) ab, einzeln mit `ONLY=59_…` neu starten. Hinweis: `tools/notiz.sh` schiebt `main` in beiden Arbeitskopien weiter, ohne die Dateien nachzuziehen; vor Änderungen `git reset --hard HEAD && git merge --ff-only origin/main` (kein echter Unterschied).
