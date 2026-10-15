@@ -52,6 +52,7 @@ Weitere (Leitbild, Balance, Rollen, Oberfläche, Tempelszene, Karte und Händler
 
 ## Lehren
 
+- **Auch Abgrenzungen des Nutzers erst prüfen, dann schreiben** (15.10., 98.1): seine Hut-Abgrenzung sofort in zwei Dokumente geschrieben; Nutzer: „wieder völlig unkritisch übernommen“. Übersehen hatte ich die doppelte Sammelstelle (Fords Eingang).
 - **Erst abwägen, dann schreiben** (15.10., 98): auf „Was hältst du davon?“ schrieb ich den Entwurf gleich um; der Nutzer: „dann bist du für mich nicht mehr als eine bessere Schreibmaschine … da brauche ich Pro und Contra“. Bei Firmen- und Begriffsfragen erst Pro, Contra, Empfehlung im Gespräch, Dokument erst nach Einigung.
 - **Keine Wegweiser, wo Erkunden reicht; die Spieler sind erwachsen** (15.10., D3.13a): ich schlug Rauchfahne und Kräuterbündel als Wegweiser vor; Nutzer: „die sind ja nicht doof … wink mit dem Zaunpfahl“. Anreiz statt Pfeil heißt auch: kein Anreiz, wo Erkunden reicht.
 - **Beim Kürzen die eigene Rolle gegen die Beschlüsse prüfen** (15.10., 65.11): der Entwurf übernahm „Berater“ aus der alten `CLAUDE.md` und verlor die Projektleitung (90); der Nutzer: „das ist doch was Essentielles“. Vor jedem Kürzen Beschlüsse und „Wer macht was“ gegen den neuen Text lesen.
