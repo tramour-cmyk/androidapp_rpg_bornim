@@ -30,6 +30,8 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 23:23 15.10.: Selbstneustart Ford (≈280 Tsd. Token, nach Umstellung 98)
+- 23:21 15.10.: Umstellung fertig (Sokrates, 560658a9), Startsperre aufgehoben; Tom weiter; Start Diogenes (98 Nachprüfung Umbau)
 - 23:05 15.10.: Startsperre Umstellung 98 (Go des Nutzers, Sokrates) bis „Umstellung fertig“; Tom angehalten
 - 23:00 15.10.: Start Sokrates (Neustart, 73e12092); 99d Sparmodus bis Sa 21:00: kein Tagesrückblick 16.10., Sokrates und Diogenes nur auf Zuruf
 - 22:53 15.10.: Ford-Wache zurückgeholt (D13.2, war archiviert), Uhr aktiv; Diogenes (98) archiviert
