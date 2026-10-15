@@ -889,6 +889,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     hero.restoreFully()
                     state.ailments.clear()
                     state.respawn = state.place
+                    Stamina.refill(state)
                 }
                 Cmd.ChapterEnd -> {
                     mode = Mode.ChapterEnd

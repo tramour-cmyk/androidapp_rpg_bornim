@@ -336,6 +336,8 @@ fun main() {
             vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
             val g = vm.game!!; g.skipDialogs()
             g.state.place = Place(map, x, y, facing); g.state.minutes = minutes
+            // AUSDAUER=0.4[:w]: the breath for running that low, ":w" out of breath (86.3)
+            System.getenv("AUSDAUER")?.split(":")?.let { a -> g.state.stamina = a[0].toDouble(); g.state.winded = a.getOrNull(1) == "w" }
             // everything explored, so the shots show the ground; the new ground drawn right away
             val m = de.bornim.core.World[map]
             // UNERKUNDET=1: nothing explored yet, so the edge of the sight shows against the black (13e)

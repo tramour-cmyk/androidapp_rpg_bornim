@@ -182,10 +182,12 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             withFrameMillis { now ->
                 val dt = if (lastFrame == 0L) 16L else (now - lastFrame).coerceIn(0L, 100L)
                 lastFrame = now
+                // 86.3: running uses up breath; out of breath, the hero walks
+                val runs = de.bornim.core.Stamina.step(game.state, dt, vx != 0.0 || vy != 0.0, running)
                 if (vx != 0.0 || vy != 0.0) {
                     // a tapped walk slows down for the last bit so it does not overshoot the middle of the tile
                     val left = if (sv == null && waypoints.isNotEmpty()) kotlin.math.hypot(vx, vy) else 9.0
-                    val pace = (if (running) de.bornim.core.FreeWalk.RUN else de.bornim.core.FreeWalk.WALK) * (if (sv == null) 1.15 else 1.0)
+                    val pace = (if (runs) de.bornim.core.FreeWalk.RUN else de.bornim.core.FreeWalk.WALK) * (if (sv == null) 1.15 else 1.0)
                     fw.walk(vx, vy, dt, pace * minOf(1.0, 0.25 + left * 4), now)
                 } else fw.walk(0.0, 0.0, dt, 0.0, now)
             }
@@ -341,6 +343,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             MapView(game, rev, route?.target, clock)
             // test tab (27m, 86.1): frame rate and the hero's place, top left over the map
             TestReadout(game, rev, Modifier.align(Alignment.TopStart))
+            StaminaBar(game.state, rev, Modifier.align(Alignment.CenterEnd).padding(end = 10.dp))
             if (touch) {
                 TouchLayer(
                     feel = vm.stickFeel,
