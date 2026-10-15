@@ -56,8 +56,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 10:2x, „Tom – D1 Kerze und Gitter“)
-- **D1.3/D1.11 gebaut** (`claude/tom-d1-kerze-gitter`, d07588cb): Kerze auf dem Herdsims (Laden) mit eigenem kleinem Licht; Höhlengitter drei Formen (Graks Gitter: von Goblins geflickt, Holzpfahl und Seil), Höhlenfackel drei Formen (Halter, Ring am Arm, im Spalt verkeilt). Standbilder geprüft. Jerry zur Kenntnis: 6 Zeilen `WorldScreen.kt` (`drawCaveTorches`). Nächster Sammelbuild.
+### Tom (15.10., 10:4x, „Tom – D1 Kerze und Gitter“) – Nachfolger: „Tom – Sammelbuild nach 0.1.746“
+- **D1.3/D1.11 gebaut** (`claude/tom-d1-kerze-gitter`, d07588cb, Vorschau-Lauf grün): Kerze auf dem Herdsims (Laden) mit eigenem kleinem Licht; Höhlengitter drei Formen (Graks Gitter: von Goblins geflickt, Holzpfahl und Seil), Höhlenfackel drei Formen (Halter, Ring am Arm, im Spalt verkeilt). Standbilder geprüft. Jerry zur Kenntnis: 6 Zeilen `WorldScreen.kt` (`drawCaveTorches`). Nächster Sammelbuild.
 - **Vorrat:** D1.7 Leben Höhle (Absprache `WorldScreen.kt`). 13e.6 wartet auf Dein Zug (`e/13e6-2.html`), nach „passt“ `MapLight.caveDark` fest an (`caveSeenDim` 0,45), Schalter weg. 83c Scharren wartet.
 - **Sammelbuild** erst nach „passt“ zu 0.1.746 (PR #63): 69e-Welt und Intro (`claude/tom-69e-musterbild`), 83b/83c, D1.5 Truhe, 74 Schritte, 86 plus 6l (`claude/tom-6l-zoom` enthält 86), D3 (`claude/tom-d3-wald`), 13e.6, D1.3/D1.11; höchstens 4 Punkte je Build.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
