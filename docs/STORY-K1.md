@@ -32,6 +32,9 @@ Und ehrlich, {name}: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag
 Krogg? Grottenschrate schlagen aus dem Dunkel zu, und der erste Hieb ist der schlimmste. Aber ihre Nasen sind fein.
 Wirf ihm das hier vor die Füße, sobald er auftaucht. Der Rauch beißt in den Augen, und sein Hieb geht ins Leere.
 
+`[D4.1.rauch.tasche]` (Beschreibung des Rauchbündels in der Tasche; Nutzer 15.10., 12:2x)
+Ein Bündel beißender Kräuter von Morwen. Krogg vor die Füße werfen: Der Rauch nimmt ihm den ersten Hieb. Nur im Kampf.
+
 `[D4.1.chronik]` (Chronik, Aufträge, nach Garricks Hinweis; erledigt mit dem Rauchbündel oder Kroggs Fall)
 **Rauch gegen Krogg**
 Garrick riet {name}, vor dem Kampf gegen Krogg die Kräuterfrau Morwen im Tiefen Flüsterwald aufzusuchen. Sie kenne ein Mittel gegen den ersten Hieb eines Grottenschrats.
