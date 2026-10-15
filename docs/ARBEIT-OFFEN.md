@@ -10,7 +10,7 @@ Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main`
 
 ## Jetzt installieren
 
-- **Tom Sammelbuild nach 0.1.746** (69 Intro, 83b/83c Hühner, D1.5, 74 Schritte; PR #64, Zweig `claude/tom-sammel-nach-746`): Build läuft, APK und Prüfliste folgen.
+- **Tom Sammelbuild 0.1.748** (69 Intro, 83b/83c Hühner, D1.5, 74 Schritte; PR #64, Zweig `claude/tom-sammel-nach-746`): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38711947097/artifacts/11960827780), Prüfliste `e/t748.html`. Nach „passt“: zusammenführen, `CHANGELOG.md`, Prüfliste von „Dein Zug“.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -55,7 +55,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (15.10., 11:3x, „Tom – Sammelbuild nach 0.1.746“) – Nachfolger: „Tom – D3.13 Morwens Hütte“
-- **PR #64** Sammelbuild (69 Intro, 83b/83c, D1.5, 74), Weckruf 11:34: APK in „Jetzt installieren“, Prüfliste `e/t<nr>.html` statt `t746` auf Dein Zug.
+- **PR #64 = 0.1.748** auf Dein Zug (`e/t748.html`), wartet auf Test; nach „passt“ zusammenführen, `CHANGELOG.md`, Zeile von Dein Zug.
 - **D3.13 Entwurf** `claude/tom-d3-13-huette` (Kerntests grün): Dorfhaus (Stroh, Bohlen) 2×2 bei (17,21)–(18,22) neben Morwens Feuer, `MapTownIso.houseObjects` auch im Wald, Tür zu (Warp `LOCKED`, kein Text; Anklopftext ggf. 41). Standbild `HELDORT=deep_forest:20:24:U:12`: steht gut, aber zu hoch und schmal für eine Kate, Stroh nicht erkennbar, Kräuterbündel fehlen. Dann Standbild auf Dein Zug.
 - **Danach:** 70.3 B Bild 3 als Probe; Runde nach #64: 86 plus 6l, D3 (Konflikt `MapFlora.kt`), 13e.6 fest (`claude/tom-13e6-dunkler`, Konflikt Vorschau `Main.kt`), D1.3/D1.11. D1.7 nach Absprache mit Jerry (ab Fr.).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
