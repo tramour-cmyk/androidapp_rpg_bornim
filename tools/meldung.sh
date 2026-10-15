@@ -31,7 +31,7 @@ print("<b>" + html.escape(os.environ["KOPF"]) + "</b>\n" + t)')
 if [ -n "$art" ]; then
   methode=sendPhoto; [ $art = document ] && methode=sendDocument
   antwort=$(curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/$methode" \
-    -F "chat_id=8965432899" -F "disable_notification=$still" -F "$art=@$bild" -F "caption=$zeile" -F "parse_mode=HTML" 2>&1)
+    -F "chat_id=8965432899" -F "disable_notification=$still" -F "$art=@$bild" --form-string "caption=$zeile" -F "parse_mode=HTML" 2>&1)
 else
   antwort=$(curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
     --data-urlencode "chat_id=8965432899" --data-urlencode "disable_notification=$still" \
