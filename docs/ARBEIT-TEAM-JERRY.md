@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **Pause bis Fr. 16.10., nachmittags (Chef 22:2x)** (D13.7): Jerry hat ab 16.10., 03:00 wieder Guthaben, der Chef richtet erst Fr. nachmittags den Telegram-Schlüssel auf Pro ein und startet Jerry dann von Hand; Ford und Ford 2 starten bis dahin nicht.
 
-**offen 27, davon A 0, wartet auf Chef 4**
+**offen 28, davon A 0, wartet auf Chef 4**
 
 **Übergabe (12.10., 16:59; gekürzt 77e):** **Startauftrag, vor allem anderen:** `docs/ROLLE-TEAM.md` ganz lesen (seit Umbau 98, 15.10.: Firma WireStormTCS, `CLAUDE.md` und `docs/FIRMA.md`); in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`. Zweig `claude/jerry-13e-hoehle-diagonal` (13e.3 fertig, 13e.4 halb; 13e bleibt bei Tom (Zuteilung des Chefs, D14.3); Archiv). **65.2:** deine acht pausierten Weck-Routinen „Jerry Selbstarbeit HH:27“ auf Pro löschen (Ford weckt, 81s; D13.8d).
 
@@ -12,6 +12,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 | Nr. | Thema | Stand | Zweig |
 |---|---|---|---|
+| D1.7 | von Team Tom (16.10., 01:42): Absprache `WorldScreen.kt` für 13e D1.7 (Höhle ist Tom zugeteilt): neue Funktion `drawCaveLife`, Tropfen- und Sporenblock aus `drawMapLight` entfernt, Funken dort nicht mehr in der Höhle, `drawCampSmoke` auch für `CAVE` (Zweig `claude/tom-13e-hoehle-leben`, be636682). Fertig, wenn Jerry „passt“ oder Einwand in Toms Vorrat schreibt; vorher nicht auf `main` | offen | – |
 | 24.6 | Kampferöffnung wartet + Herzschlag in der Blende (nach Toms 24.5 auf `main`) | offen; **wartet auf Chef** (24e: wartet, bis Kampfbilder fertig sind) | – |
 | 72.10 | Probe Held plus Söldner gegen Grak auf dem gemalten Kampfort (drei Absichten, Ring, zwei Reihen mit je zwei Plätzen, Platztausch, Automatik nach 72.13); danach 72o (vorher Vorschaubilder je Zustand auf Dein Zug), 72.15, sechs Plätze (72v) | offen; Beschlüsse 72.6–72.15, 72o, 72r–72v; [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) | – |
 | 72u | Standbild Grak im Wald | offen, Entscheidung nach Probe | – |
