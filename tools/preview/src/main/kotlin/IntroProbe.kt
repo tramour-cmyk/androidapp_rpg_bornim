@@ -764,7 +764,7 @@ internal class SquarePainter : IntroPainter() {
         M(x0, wall - 0.05, y1 + ov).let { a -> M(x0, ridge + 0.1, ym).let { b -> M(x0, wall - 0.05, y0 - ov).let { d ->
             line(far(night(0x8A9AB8, 1.35), zt), 2.0, a.x, a.y, b.x, b.y); line(far(night(0x8A9AB8, 1.1), zt), 1.6, b.x, b.y, d.x, d.y) } } }
         // the tall west window and the round window above it, the candles inside faintly warm; the sun disc on the gable's top
-        archWindow({ u, v -> M(x0, v, u) }, ym, 0.3, 2.6, 5.4, zt, 0.3)
+        archWindow({ u, v -> M(x0, v, u) }, ym, 0.22, 3.0, 5.6, zt, 0.3)
         run {
             val o = M(x0, 7.5, ym); val r = 0.5 * f / zt
             g.color = far(night(0x9A968A, 1.15), zt); g.fill(Ellipse2D.Double(o.x - r * 0.62, o.y - r * 1.15, r * 1.24, r * 2.3))
