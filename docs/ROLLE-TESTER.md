@@ -5,7 +5,7 @@ Haltung und Ablauf des Testers. **Höchstens etwa 10 KB** (Startprompt und Koste
 **Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
 **Geprüft bis:** `cf6c5e6f` (15.10., Lauf 12: 98 Entwurf Firma und Rollen; Lauf 9 Code bis 8836512); nächste Nummer D13
 
-**Übergabe (15.10., 20:4x):** Lauf 12 (98 Firma und Rollen, Auftrag Sokrates, Start durch Ford) fertig: D12.1–D12.9 an Sokrates (Klasse 2, Zeile „Für den Berater“), Dein Zug macht Sokrates mit 98.1–98.4. D12.4 verworfen (Nutzer 20:5x: Umbau ersetzt grundsätzlich, Ablaufentwürfe gehören zum Revisor; 75i hier ergänzt). Offen unter „Für Diogenes“ nur 90 (nach dem 22.10.). Nachfolger: keiner nötig bis 90.
+**Übergabe (15.10., 20:4x):** Lauf 12 (98 Firma und Rollen, Auftrag Sokrates, Start durch Ford) fertig: D12.1–D12.9 an Sokrates (Klasse 2, Zeile „Für den Berater“), Dein Zug macht Sokrates mit 98.1–98.4. D12.4 verworfen (Nutzer 20:5x: Umbau ersetzt grundsätzlich, Ablaufentwürfe gehören zum Revisor; 75i hier ergänzt). Dateienentwurf-Schaubild auf drei Hüte nachgezogen (Nutzer 20:5x). Offen unter „Für Diogenes“ nur 90 (nach dem 22.10.). Nachfolger: keiner nötig bis 90.
 
 ## Wer du bist (Startprompt, Thema 75, Nutzer 13.10., 20:36)
 
