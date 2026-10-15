@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 
 **offen 25, davon A 0, wartet auf Chef 2**
 
-**Übergabe (15.10., 23:44, „Tom – 69f Intromusik“) – Nachfolger: „Tom – 26 Ort fertig“:** PR #67 (0.1.753) wartet auf Test des Chefs, abonniert (Nachfolger neu abonnieren); nach „passt“ #67 zusammenführen, #66 schließen, dann PR für `claude/tom-sammelbuild-nach-753` (D3.3 + 89 + 69f, 0c27e7a8, Kerntests grün) mit Prüfliste (69f: Titelmusik vom Heldenbau leise ins Intro, Schwarzbild voll, im Gasthaus 6 s Ausklang, dann Dorfmusik; Intro aus der Chronik: Titelmusik leise von vorn). Jetzt: 26 (Standbilder „Ort fertig“, `tools/t spieler`).
+**Übergabe (16.10., 00:4x, „Tom – 26 Ort fertig“) – Nachfolger: „Tom – 68 Tempelszene“:** PR #67 (0.1.753) wartet auf Test des Chefs, abonniert (Nachfolger neu abonnieren); nach „passt“ #67 zusammenführen, #66 schließen, dann PR für `claude/tom-sammelbuild-nach-753` (D3.3 + 89 + 69f, 0c27e7a8) mit Prüfliste (69f: Titelmusik vom Heldenbau leise ins Intro, Schwarzbild voll, im Gasthaus 6 s Ausklang, dann Dorfmusik). **26 Lückenliste (16.10., 00:4x):** Standbilder Tag (12 Uhr) und Nacht (23 Uhr), Dorf an 5 Stellen, Gasthaus, Laden, Ältester, Tempel, Wald, Tiefer Wald. Auf `main` (5b0f2869) Dachnähte und Laternenschein auf dem Tempeldach, auf dem Sammelstand 0c27e7a8 beide weg (D9.1, D3.13a). Offen nur: Heldenlicht draußen, Tiefer Wald mittags so dunkel wie ein Innenraum, nachts nur im Heldenlicht lesbar → D3.14 mit 84.1. Räume ohne Lücke. Zufallsspieler grün (24 Läufe), Kerntests 314 grün. Jetzt: 68.
 
 ## Zeilen
 
@@ -23,7 +23,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 | 95 | Atem: „Atem mit Anzeige (Balken rechts) hört man nicht und der Balken funktioniert nicht.“ (Chef 15.10., 16:5x) | Balken (95a) passt (Test 0.1.752); Keuchen bei Jerry | – |
 | 96 | Gesprächstext zu lang für das Feld (Chef 15.10., 17:0x) | Test 0.1.752 passt; mit PR #67 auf `main`, dann streichen | wie 94 |
 | 93 | „Die Beete westlich gehen nicht bis zum Zaun.“ (Chef 15.10., 16:5x) | Test 0.1.752 passt (`MapTownIso.fenceSpot`); mit PR #67 auf `main`, dann streichen | wie 94 |
-| 26 | Kapitel 1 fertig: Zielliste vor Neuem (`LISTE-KAPITEL1.md`) | Toms Teil von 26c fertig. **Ort fertig Dorf, Räume, Wald:** je Ort Standbilder gegen `DESIGN-ABNAHME.md`, **fertig, wenn** Lückenliste mit Uhrzeit in der Übergabe. **Durchgespielt:** `PlayerSimTest`, **fertig, wenn** grün oder Befund eingetragen | – |
+| 26 | Kapitel 1 fertig: Zielliste vor Neuem (`LISTE-KAPITEL1.md`) | Toms Teil erledigt (16.10., 00:4x): Ort fertig Dorf, Räume, Wald ohne Lücke außer D3.14 (Lückenliste in der Übergabe); Zufallsspieler grün. Offen: Höhle (13e), Durchspielen durch den Chef nach #67 | – |
 | 13e | Höhle „Ort fertig“ (Zuteilung des Chefs 14.10., 16:0x; bleibt bei Tom, D14.3) | D1.3/D1.11, D1.5, 13e.6 auf `main`. Helligkeitsregler bei Jerry (40). Danach D1.7 Leben (Absprache `WorldScreen.kt`). Mond mit D3.14 | – |
 | 86 | Bewegung und Übersicht (Chef 14.10., 18:5x) | 86.1–86.4 auf `main` (0.1.750). Beschlossen, Bau offen: 86.6, 86.9, 86.10 (Rest bei Jerry). Einzelheiten in den Beschlüssen | – |
 | 72.14 | Gefährte/Söldner/Begleiter in Spieltexten (mit Jerry) | offen | – |
