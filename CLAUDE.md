@@ -31,7 +31,7 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, alles unter `docs/`. Nur auf `main`; dire
 
 ## Feste Regeln
 
-**Bei jedem Schritt:** Zeitstempel von der Systemuhr · vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Nutzers · nie APK oder Hörprobe in den Chat; Standbilder zum Ansehen zusätzlich als PNG-Datei schicken (Dateiversand, nicht im Gespräch lesen; 77e.1).
+**Bei jedem Schritt:** Zeitstempel von der Systemuhr · vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Nutzers · nie APK oder Hörprobe in den Chat; Standbilder zum Ansehen zusätzlich als PNG-Datei schicken (Dateiversand, nicht im Gespräch lesen; 77e.1) und an Telegram (`tools/meldung.sh --bild`, für Pixelprüfung `--datei`; 81r).
 
 **Umgang mit dem Nutzer**
 - Deutsch, Berliner Zeit. Generisches Maskulinum („der Nachfolger“, „die Tester“), nie weibliche oder gegenderte Formen. Zum Prüfen fett markieren, nie nur kursiv.
