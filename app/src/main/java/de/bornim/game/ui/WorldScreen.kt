@@ -1172,7 +1172,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         if (map.kind == MapKind.CAVE) drawCaveTorches(game, map, clock, cam, camX, camY, scale)
         if (map.kind == MapKind.TOWN) drawTownSmoke(map, clock, cam, camX, camY, scale, game.daylight)
         if (map.kind == MapKind.FOREST || map.kind == MapKind.CAVE) drawCampSmoke(game, map, clock, cam, camX, camY, scale)
-        if (map.kind == MapKind.CAVE) drawCaveLife(game, map, clock, cam, camX, camY, scale)
+        if (map.kind != MapKind.INTERIOR && MapLight.needed(map, game.daylight)) drawRisingLife(game, map, clock, cam, camX, camY, scale)
+        if (map.kind == MapKind.CAVE) drawCaveDrops(game, map, clock, cam, camX, camY, scale)
         // what shines by itself (25.1: a lamp's glass; 25b: lit windows) is drawn over the light of the place, so the source is the brightest
         // spot around it, waking with the dusk like the light it throws; a small warm halo around it
         val night = MapLight.strength(map, MapLight.When.NIGHT, game.daylight).toFloat()
@@ -1833,7 +1834,8 @@ private object LightImage {
 /**
  * Light on the map: the light image multiplied over it (dark where nothing shines), a glow around
  * every light that flickers (fire) or pulses (mushrooms), and small life: sparks over fires, spores
- * over mushrooms, dust in daylight; in caves the small life stands upright on the screen ([drawCaveLife]).
+ * over mushrooms, dust in daylight; under the open sky and in caves sparks and spores stand upright on the screen
+ * ([drawRisingLife]), drops in caves fall straight down ([drawCaveDrops]).
  */
 /**
  * Seen diagonally (5.1): smoke rising from the mouth of each house's chimney, upright on the screen, drifting
@@ -1909,11 +1911,11 @@ private fun DrawScope.drawCampSmoke(game: Game, map: de.bornim.core.MapDef, cloc
 }
 
 /**
- * D1.7: the small life of the cave, seen diagonally (it was drawn on the tilted floor, so it drifted aslant): sparks
- * leaving the goblins' fire and spores leaving the glowing mushrooms rise upright on the screen; drops fall straight
- * down from the dark onto the floor near the hero and leave a ring lying flat on it. Only where the hero has seen.
+ * D1.7, 27n: the small life over fires and mushrooms, seen diagonally (it was drawn on the tilted floor, so it drifted
+ * aslant): sparks leaving a camp fire and spores leaving the glowing mushrooms rise upright on the screen, in the
+ * cave as in the woods. Only where the hero has seen.
  */
-private fun DrawScope.drawCaveLife(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int) {
+private fun DrawScope.drawRisingLife(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int) {
     val T = WorldArt.T
     val px = scale.toFloat()
     val zs = de.bornim.core.art.MapRoomIso.ZS.toFloat()
@@ -1944,6 +1946,20 @@ private fun DrawScope.drawCaveLife(game: Game, map: de.bornim.core.MapDef, clock
             }
             else -> {}
         }
+    }
+}
+
+/**
+ * D1.7: drops fall straight down from the dark of the cave onto the floor near the hero and leave a ring lying flat
+ * on it. Only where the hero has seen.
+ */
+private fun DrawScope.drawCaveDrops(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int) {
+    val T = WorldArt.T
+    val px = scale.toFloat()
+    val zs = de.bornim.core.art.MapRoomIso.ZS.toFloat()
+    fun foot(x: Double, y: Double): Offset {
+        val mx = ((x - camX) * scale).toFloat(); val my = ((y - camY) * scale).toFloat()
+        return Offset(cam.toScreenX(mx, my), cam.toScreenY(mx, my))
     }
     // drops: a few at a time on the floor round the middle of the view, each on a tile of its own
     val cx = floor(cam.mapX(size.width / 2, size.height / 2) / T).toInt(); val cy = floor(cam.mapY(size.width / 2, size.height / 2) / T).toInt()
@@ -2346,8 +2362,8 @@ private fun DrawScope.drawMapLight(
         val px = scale.toFloat()
         when (src.kind) {
             // seen diagonally, a hearth's sparks and smoke rise upright on the screen (drawHearthSmoke)
-            // in the cave both rise upright on the screen (drawCaveLife, D1.7)
-            MapLight.Kind.FIRE, MapLight.Kind.TORCH -> if (!(indoor && src.kind == MapLight.Kind.FIRE) && map.kind != MapKind.CAVE) { for (k in 0 until (if (src.kind == MapLight.Kind.FIRE) 5 else 2)) {
+            // a camp fire's sparks rise upright on the screen (drawRisingLife, D1.7, 27n), a cave torch's too (drawCaveTorches)
+            MapLight.Kind.FIRE, MapLight.Kind.TORCH -> { if (src.kind == MapLight.Kind.TORCH && map.kind != MapKind.CAVE) for (k in 0 until 2) {
                 // sparks rising and fading
                 val period = 1400 + k * 230
                 val ph = ((clock + k * 517 + i * 131) % period) / period.toFloat()
@@ -2377,7 +2393,7 @@ private fun DrawScope.drawMapLight(
                 val sy = src.y - 8 + ((k * 23) % 30) + kotlin.math.sin(ph * 3f + k * 2) * 6 + ph * 6
                 drawRect(Color(0xFFF0E8D8).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * 0.55f * on), at(sx, sy), androidx.compose.ui.geometry.Size(px, px))
             }
-            MapLight.Kind.SHROOM -> if (map.kind != MapKind.CAVE) for (k in 0 until 3) {
+            MapLight.Kind.SHROOM -> if (indoor) for (k in 0 until 3) {
                 // spores drifting up from the mushrooms
                 val period = 3200 + k * 700
                 val ph = ((clock + k * 1100 + i * 377) % period) / period.toFloat()
