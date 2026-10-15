@@ -60,6 +60,7 @@ tools/meldung.sh Ford "Du bist dran: [0.1.748](dz:e/t748.html) testen.\n\n[Tom](
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 21:42 15.10.: Start Sokrates (Neustart, 13d9016d)
 - 21:18 15.10.: Start Sokrates (Neustart, a0d72206)
 - 21:05 15.10.: Ford neu, Uhr trig_018F9ggGoC6AXkQxfSpU4XQZ, alte Uhr gelöscht, Archivieren des Vorgängers abgelehnt
 - 21:04 15.10.: Selbstneustart Ford (über 300 Tsd. Token)
