@@ -63,7 +63,7 @@ object WorldArt {
                 // the rooms' walls and furniture stand upright, turned with the room
                 MapKind.INTERIOR -> MapRoomIso.objects(map, tx, ty, flicker)
                 // the trunks, the fire, the rock face and the signs of the woods stand in the slant too (27.5)
-                MapKind.FOREST -> MapWoodIso.objects(map, tx, ty, frame, open) ?: MapFlora.objects(map, tx, ty, frame, open)
+                MapKind.FOREST -> MapWoodIso.objects(map, tx, ty, frame, open) ?: MapTownIso.houseObjects(map, tx, ty) ?: MapFlora.objects(map, tx, ty, frame, open)
             } ?: continue
         }
         return out

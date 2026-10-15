@@ -14,4 +14,9 @@ class IntroArt(private val context: Any? = null) {
         val f = File("../../app/src/main/assets/intro/intro_${index + 1}.jpg")
         if (f.exists()) ImageIO.read(f)?.toComposeImageBitmap() else null
     }
+    private val layers = HashMap<Int, ImageBitmap?>()
+    fun layer(index: Int): ImageBitmap? = layers.getOrPut(index) {
+        val f = File("../../app/src/main/assets/intro/intro_${index + 1}_zug.png")
+        if (f.exists()) ImageIO.read(f)?.toComposeImageBitmap() else null
+    }
 }

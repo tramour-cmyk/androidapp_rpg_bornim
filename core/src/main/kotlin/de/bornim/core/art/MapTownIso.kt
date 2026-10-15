@@ -81,11 +81,11 @@ object MapTownIso {
         val lk = looks[Math.floorMod(seed, looks.size)]
         val temple = feature == HouseFeature.BELL_TOWER
         val thatch = roof == RoofKind.STRAW
-        val eave = if (temple) 176.0 else 150.0     // eaves at 2.6 m, the temple higher
-        val o = 0.28                                // the roof hangs over the walls
-        val pitch = if (thatch) 1.25 else 1.0       // rise per run: thatch steeper
+        // D3.13: a herbalist's cot in the woods, low under a deep, steep thatch hanging far out
+        val hut = feature == HouseFeature.HUT
+        val sh = shape(d, roof, feature)
+        val eave = sh.eave; val o = sh.overhang; val ridge = sh.ridge
         val run = d / 2.0 + o
-        val ridge = eave + run * ZT * pitch
         // the chimney at the back wall rises far enough to show a good part over the ridge
         val cjMid = 0.22
         val chimTop = ridge - (d / 2.0 - cjMid) * TH / 2 / ZS + 52
@@ -121,16 +121,6 @@ object MapTownIso {
         }
         fun p(i: Double, j: Double, z: Double) = doubleArrayOf(i, j, z)
 
-        // ---- a soft shadow on the ground, falling down left of the house (the sun stands up right)
-        for (py in 0 until h) for (px in 0 until w) {
-            val aa = (px + 0.5 - ox) / (TW / 2); val bb = (py + 0.5 - oy) / (TH / 2)
-            val i = (aa + bb) / 2; val j = (bb - aa) / 2
-            val di = max(-0.2 - i, i - n - 0.1); val dj = max(-0.2 - j, j - d - 0.5)
-            val e = max(di, dj)
-            if (e > 0.3) continue
-            val k = ((0.3 - e) / 0.3).coerceIn(0.0, 1.0) * 0.5
-            img.set(px, py, ((k * 255).toInt() shl 24) or 0x0A0806)
-        }
 
         // ---- the walls: the front (j = d, down left, in the house's own shade) and the east side (i = n, in the sun)
         val litFront = 0.72; val litSide = 1.0
@@ -143,8 +133,10 @@ object MapTownIso {
         fun wall(u: Double, z: Double, len: Int, letters: String, face: Double, s: Int): Int? {
             val tile = floor(u).toInt().coerceIn(0, len - 1); val f = u - tile
             val kind = letters.getOrElse(tile) { '#' }
-            if (kind == 'D') (if (temple) archDoor(f, z, face, s) else door(f, z, face, s))?.let { return it }
-            if (kind == 'W') (if (temple) archWindow(f, z, face, night) else if (night && shut) shutWindow(f, z, face, s + tile) else window(f, z, face, night, s + tile))?.let { return it }
+            // the cot's door and windows lower, under its low eaves
+            val zo = if (hut) z * 1.45 else z
+            if (kind == 'D') (if (temple) archDoor(f, z, face, s) else door(f, zo, face, s))?.let { return it }
+            if (kind == 'W') (if (temple) archWindow(f, z, face, night) else if (night && shut) shutWindow(f, zo, face, s + tile) else window(f, zo, face, night, s + tile))?.let { return it }
             return surface(u, z, face, s, eave)
         }
         plane(p(0.0, d.toDouble(), 0.0), p(n.toDouble(), 0.0, 0.0), p(0.0, 0.0, eave)) { u, v -> wall(u * n, v * eave, n, front, litFront, seed) }
@@ -185,7 +177,49 @@ object MapTownIso {
             }
         }
         // the edge of the roof, thick thatch at the eaves and along the gable: a band under the slope
-        val thick = if (thatch) 16.0 else 5.0
+        val thick = if (hut) 20.0 else if (thatch) 16.0 else 5.0
+        // ---- the cot's herbs (D3.13): bundles hung head down to dry under the eaves, along the front (the door kept
+        // clear) and along the sunny side towards the fire
+        if (hut) {
+            val herbs = intArrayOf(0x8A9A6A, 0x7A7238, 0x84709E, 0xB8AE8A, 0x9A5E34, 0x6C8448)
+            /** One bundle hanging from [zTop] at (i, j), drawn in the plane along [ai], [aj]. */
+            fun bundle(k: Int, i: Double, j: Double, ai: Double, aj: Double, zTop: Double, face: Double) {
+                val col = argb(herbs[hash(k, seed, 71) % herbs.size])
+                val len = 26.0 + rnd(k, 1, seed + 72) * 12
+                val hw = 0.09 + rnd(k, 2, seed + 73) * 0.04
+                val str = 4.0 + rnd(k, 5, seed + 79) * 6
+                plane(p(i - ai * hw, j - aj * hw, zTop - str - len), p(ai * hw * 2, aj * hw * 2, 0.0), p(0.0, 0.0, len + str)) { u, v ->
+                    val dz = (1 - v) * (len + str)                 // down from where it hangs
+                    val c = abs(u - 0.5) * 2
+                    when {
+                        dz < str -> if (c < 0.08) argb(0x2A2016) else null
+                        dz < str + 3 -> if (c < 0.24) shade(argb(0x5A4428), face) else null
+                        else -> {
+                            // tied stalks at the top, the heads spreading and hanging down, ragged at the tips
+                            val t = (dz - str - 3) / len
+                            val wv = 0.22 + 0.78 * Math.sin(Math.PI * min(1.0, t * 0.6 + 0.1))
+                            if (c > wv * (0.8 + rnd(floor(u * 14).toInt(), floor(dz / 3).toInt(), seed + 75) * 0.25) || t > 0.98 - rnd(floor(u * 10).toInt(), 0, seed + 76) * 0.22) null
+                            else shade(mix(argb(0x1A140C), col, (0.62 + (rnd(floor(u * 16).toInt(), floor(dz / 2).toInt(), seed + 77) - 0.5) * 0.5 - c * 0.25).coerceIn(0.0, 1.0)), face)
+                        }
+                    }
+                }
+            }
+            val door = front.indexOf('D')
+            var k = 0
+            var hi = 0.2
+            while (hi < n - 0.1) {
+                if (door < 0 || floor(hi).toInt() != door) bundle(k, hi + (rnd(k, 3, seed + 74) - 0.5) * 0.06, d + o * 0.5, 1.0, 0.0, eave - thick + 4, litFront * 1.1)
+                k++
+                hi += 0.3 + rnd(k, 4, seed + 78) * 0.12
+            }
+            val sideDoor = side.indexOf('D')
+            var hj = 0.3
+            while (hj < d - 0.2) {
+                if (sideDoor < 0 || floor(hj).toInt() != sideDoor) bundle(k, n + o * 0.45, hj, 0.0, 1.0, eave + 2, litSide * 0.95)
+                k++
+                hj += 0.34 + rnd(k, 4, seed + 78) * 0.12
+            }
+        }
         plane(p(ri0, d + o, eave - thick), p(ri1 - ri0, 0.0, 0.0), p(0.0, 0.0, thick)) { u, v -> edgeTex(u * (ri1 - ri0), v, !thatch, lk, seed) }
         plane(p(ri1, d / 2.0, ridge - thick), p(0.0, run, eave - ridge), p(0.0, 0.0, thick)) { u, v -> edgeTex(u * run * 2, v, !thatch, lk, seed + 3) }
         plane(p(ri0, d / 2.0, ridge), p(ri1 - ri0, 0.0, 0.0), p(0.0, run, eave - ridge)) { u, v -> roofTex(u, v) }
@@ -570,13 +604,14 @@ object MapTownIso {
      */
     fun signpost(v: Int, seed: Int): PixelImage {
         val c = Tile1(150)
-        c.shadow(-0.45, -0.35, 0.42)
         val j0 = -0.42; val j1 = -0.36
-        val (i0, i1) = if (v == 1) -0.86 to -0.14 else -0.82 to -0.18
-        val z0 = if (v == 1) 54.0 else 70.0; val z1 = z0 + 30
+        // D3.7: a fourth look for the woods, a short board low on a post off its middle, as if it had sagged
+        val (i0, i1) = when (v) { 1 -> -0.86 to -0.14; 3 -> -0.8 to -0.34; else -> -0.82 to -0.18 }
+        val z0 = when (v) { 1 -> 54.0; 3 -> 46.0; else -> 70.0 }; val z1 = z0 + (if (v == 3) 26 else 30)
         fun post(i: Double, top: Double) = c.box(i - 0.04, j0 - 0.07, i + 0.04, j0 + 0.0, 0.0, top) { f, u, w -> wood(f, w, u, seed + 3, 0x4A3828) }
         when (v) {
             1 -> { post(i0 + 0.05, z1 + 2); post(i1 - 0.05, z1 + 2) }
+            3 -> post(-0.68, z1 + 6)
             else -> post(-0.5, z1 + 10)
         }
         // the board: an arrow points along +i on the third look
@@ -604,7 +639,6 @@ object MapTownIso {
      */
     fun noticeBoard(v: Int, seed: Int, fresh: Boolean = false): PixelImage {
         val c = Tile1(220)
-        c.shadow(-0.5, -0.4, 0.45, 0.4)
         val j0 = -0.44; val j1 = -0.38
         val i0 = -0.94; val i1 = -0.06
         val z0 = 52.0; val z1 = 118.0
@@ -693,7 +727,6 @@ object MapTownIso {
      */
     fun well(v: Int, seed: Int): PixelImage {
         val c = Tile1(230)
-        c.shadow(-0.5, -0.5, 0.5)
         val r = 0.36
         fun post(i: Double, j: Double) = c.box(i - 0.035, j - 0.035, i + 0.035, j + 0.035, 30.0, 150.0) { f, u, w -> wood(f, w, u, seed + 2, 0x4A3828) }
         // the back post stands behind the ring, the front one before it
@@ -730,19 +763,22 @@ object MapTownIso {
      * their own cloth and wares: apples and cabbages, loaves and sacks, pots and a string of onions. [withCloth] false: all
      * but the cloth roof (5.5: on the map the roof fades on its own when the hero stands behind the stall).
      */
-    fun stall(v: Int, seed: Int, withCloth: Boolean = true): PixelImage {
+    fun stall(v: Int, seed: Int, withCloth: Boolean = true, west: Boolean = false, east: Boolean = false, wareSeed: Int = seed): PixelImage {
         val c = Tile1(220)
-        c.shadow(-0.5, -0.45, 0.55, 0.4)
-        val i0 = -0.9; val i1 = -0.1; val j0 = -0.72; val j1 = -0.28
-        for ((pi, pj) in listOf(i0 to j0, i1 to j0, i0 to j1, i1 to j1))
+        // D6.5: a stall over two tiles is one stall: towards a stall tile beside it the board and the cloth run on to the
+        // edge of the tile, and the poles stand only at the stall's two ends
+        val i0 = if (west) -1.0 else -0.9; val i1 = if (east) 0.0 else -0.1; val j0 = -0.72; val j1 = -0.28
+        for ((pi, pj) in listOf(i0 to j0, i1 to j0, i0 to j1, i1 to j1)) if (!(pi == i0 && west) && !(pi == i1 && east))
             c.box(pi - 0.025, pj - 0.025, pi + 0.025, pj + 0.025, 0.0, if (pj == j0) 130.0 else 112.0) { f, u, w -> wood(f, w, u, seed + 1, 0x3E2E22) }
         c.box(i0, j0, i1, j1, 42.0, 48.0) { f, u, w -> wood(f, u, w, seed + 2, 0x5A4430) }
         // the wares: little round heaps on the board
         val wares = when (v) { 0 -> listOf(0x7A2A1E, 0x5A6E2E, 0x8A3A22); 1 -> listOf(0x8A6A3A, 0x9A7A46, 0x6E5E44); else -> listOf(0x6A4A34, 0x4E5A4E, 0x8A7A5E) }
+        // D6.5: laid out loosely, not in a 3 × 3 grid, each tile of a long stall its own
         for (k in 0 until 9) {
-            val wi = i0 + 0.1 + (k % 3) * 0.27 + (rnd(k, 1, seed) - 0.5) * 0.06; val wj = j0 + 0.1 + (k / 3) * 0.12
-            val rr = if (v == 1) 0.07 else 0.05
-            val col = wares[hash(k, 2, seed) % wares.size]
+            val wi = -0.8 + (k % 3) * 0.27 + (rnd(k, 1, wareSeed) - 0.5) * 0.16; val wj = j0 + 0.1 + (k / 3) * 0.12 + (rnd(k, 5, wareSeed) - 0.5) * 0.06
+            if (rnd(k, 6, wareSeed) < 0.15) continue
+            val rr = (if (v == 1) 0.07 else 0.05) * (0.8 + rnd(k, 7, wareSeed) * 0.4)
+            val col = wares[hash(k, 2, wareSeed) % wares.size]
             c.cylinder(wi, wj, rr, 48.0, 48.0 + rr * 90, { _, z, lit -> shade(argb(col), lit * (0.7 + 0.3 * (z - 48) / (rr * 90))) })
         }
         if (!withCloth) return c.img
@@ -759,7 +795,8 @@ object MapTownIso {
     }
 
     /** Only the cloth roof of a [stall]: the pixels where the whole stall differs from the one without its cloth. */
-    fun stallCloth(v: Int, seed: Int): PixelImage = litWindows(stall(v, seed, false), stall(v, seed))
+    fun stallCloth(v: Int, seed: Int, west: Boolean = false, east: Boolean = false): PixelImage =
+        litWindows(stall(v, seed, false, west, east), stall(v, seed, true, west, east))
 
     /**
      * [img] without its empty rows at the top, an even number of them (drawn at half size); [PixelImage.oy] says how many.
@@ -783,7 +820,6 @@ object MapTownIso {
         fun dark(col: Int) = if (lit) 0 else col
         // ([ci], [cj]): where the post stands on the tile, the middle unless set (69e: the bridge lantern on the bank's corner)
         val di = ci + 0.5; val dj = cj + 0.5
-        if (!lit) c.shadow(ci, cj, 0.2, 0.35)
         val iron = v == 2
         val (li, lj, lz) = lampHead(v, ci, cj)
         c.box(-0.54 + di, -0.54 + dj, -0.46 + di, -0.46 + dj, 0.0, 6.0) { f, _, _ -> dark(shade(argb(0x4A463E), if (f == 0) 0.6 else 0.9)) }
@@ -889,6 +925,9 @@ object MapTownIso {
     private const val BL_I = -0.84
     private const val BL_J = -0.14
 
+    /** 89: where on its tile the bridge lantern's post stands (local i, j). */
+    fun bridgeLanternLocal() = BL_I to BL_J
+
     /** The bridge lantern's light on the map: the middle of the tile point its post stands on (map pixels). */
     fun bridgeLanternAt(): Pair<Double, Double> = (BRIDGE_LANTERN.first + 1 + BL_I) * WorldArt.T to (BRIDGE_LANTERN.second + 1 + BL_J) * WorldArt.T
 
@@ -930,7 +969,6 @@ object MapTownIso {
      */
     fun barrier(pivot: Boolean, open: Boolean, seed: Int): PixelImage {
         val c = Tile1(300)
-        c.shadow(-0.5, -0.5, 0.36, 0.3)
         val j0 = -0.55; val j1 = -0.45
         fun iron(f: Int) = shade(argb(0x262422), if (f == 0) 0.65 else if (f == 1) 1.0 else 1.1)
         if (pivot) {
@@ -1084,17 +1122,42 @@ object MapTownIso {
         return out
     }
 
+    /**
+     * The measures of a house's roof in upright units: the eaves, the ridge, how far the roof hangs over the walls
+     * (tiles); for the temple also the bell tower ([towerI] along i from the back corner, its top with the cap).
+     */
+    class Shape(val eave: Double, val ridge: Double, val overhang: Double, val towerI: Double? = null, val towerTop: Double = 0.0)
+
+    private fun shape(d: Int, roof: RoofKind, feature: HouseFeature): Shape {
+        val temple = feature == HouseFeature.BELL_TOWER
+        // D3.13: a herbalist's cot in the woods, low under a deep, steep thatch hanging far out
+        val hut = feature == HouseFeature.HUT
+        // (user 15.10., 12:0x: far too big; flatter and smaller): 2×2, eaves a little over the hero's head, a flatter thatch
+        val eave = if (temple) 176.0 else if (hut) 84.0 else 150.0     // eaves at 2.6 m, the temple higher, the cot's lower
+        val o = if (hut) 0.3 else 0.28             // the roof hangs over the walls
+        val pitch = if (hut) 0.6 else if (roof == RoofKind.STRAW) 1.25 else 1.0       // rise per run: thatch steeper, the cot's flatter
+        val ridge = eave + (d / 2.0 + o) * ZT * pitch
+        return Shape(eave, ridge, o, if (temple) -0.625 else null, ridge + 92 + 40)
+    }
+
+    private fun styleOf(map: MapDef, f: Footprint) =
+        map.houseStyles[f.x to f.top] ?: HouseStyle(if (map.tile(f.x, f.top) == Tile.ROOF_BLUE) RoofKind.SLATE else RoofKind.STRAW, WallKind.TIMBER)
+
+    /** 89: the measures of the house on [f] for its shadow ([MapSun]); the tower's place counted from the east end. */
+    fun shape(map: MapDef, f: Footprint): Shape = styleOf(map, f).let { shape(f.d, it.roof, it.feature) }
+
     private fun picture(map: MapDef, f: Footprint, night: Boolean): Picture {
-        val style = map.houseStyles[f.x to f.top] ?: HouseStyle(if (map.tile(f.x, f.top) == Tile.ROOF_BLUE) RoofKind.SLATE else RoofKind.STRAW, WallKind.TIMBER)
+        val style = styleOf(map, f)
         val letters = (0 until f.n).joinToString("") { when (map.tile(f.x + it, f.y)) { Tile.WINDOW -> "W"; Tile.DOOR -> "D"; else -> "#" } }
         val door = letters.indexOf('D')
         val seed = hash(f.x, f.y, 5) % 997
         val room = roomOf(map, f)
-        val (front, side) = room?.let { windowsFromRoom(it, f.n, f.d, door) }
+        // D3.13: the cot's door is in its east side, towards Morwen's fire (user 15.10., 12:0x); the map's door tile is a wall
+        val (front, side) = if (style.feature == HouseFeature.HUT) letters to "#D" else room?.let { windowsFromRoom(it, f.n, f.d, door) }
             ?: (letters to (if (f.d >= 3) "#W#" else if (seed % 2 == 0) "W#" else "#W"))
         // the chimney over the hearth inside, at the same share of the length; houses without a room: towards one end
         val chimney: Double? = when {
-            style.feature == HouseFeature.BELL_TOWER -> null
+            style.feature == HouseFeature.BELL_TOWER || style.feature == HouseFeature.HUT -> null
             room != null -> (0 until room.width).filter { room.tile(it, 0) == Tile.HEARTH }.takeIf { it.isNotEmpty() }
                 ?.let { hs -> (hs.average() + 0.5) / room.width * f.n }
             else -> if (style.mirrored) f.n * 0.25 + 0.1 else f.n * 0.75 - 0.1
@@ -1169,8 +1232,13 @@ object MapTownIso {
         // only the cloth roof fades when the hero stands behind the stall; together the same picture as before
         if (t == Tile.STALL) {
             val T = WorldArt.T
-            val base = synchronized(sliceCache) { thingCache.getOrPut("stall/$v/base") { cutTop(stall(v, 501 + v, false)) } }
-            val roof = synchronized(sliceCache) { thingCache.getOrPut("stall/$v/roof") { stallCloth(v, 501 + v) } }
+            // D6.5: a stall over several tiles takes the look of its westmost tile and joins up
+            val west = map.tile(tx - 1, ty) == Tile.STALL; val east = map.tile(tx + 1, ty) == Tile.STALL
+            var x0 = tx; while (map.tile(x0 - 1, ty) == Tile.STALL) x0--
+            val sv = Math.floorMod(hash(x0, ty, 15), 3)
+            val ws = Math.floorMod(hash(tx, ty, 16), 7)
+            val base = synchronized(sliceCache) { thingCache.getOrPut("stall/$sv/base/$west/$east/$ws") { cutTop(stall(sv, 501 + sv, false, west, east, 601 + ws)) } }
+            val roof = synchronized(sliceCache) { thingCache.getOrPut("stall/$sv/roof/$west/$east") { stallCloth(sv, 501 + sv, west, east) } }
             val wx = (tx + 1) * T; val wy = (ty + 1) * T
             val sortY = (tx + ty) * T + T * 3 / 2 - 1 - wx
             return listOf(WorldArt.Obj(base, wx - base.width / 4, wy - base.height / 2, sortY, 2, low = true, corner = true),
@@ -1199,6 +1267,15 @@ object MapTownIso {
             val wx = (tx + 1) * T; val wy = (ty + 1) * T
             return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, t == Tile.BENCH, corner = true, glow = glow))
         }
+        return houseObjects(map, tx, ty)
+    }
+
+    /**
+     * The upright strips of the house standing on ([tx], [ty]), or null when no house is there; also for a lone hut
+     * in the woods (D3.13, Morwen's).
+     */
+    fun houseObjects(map: MapDef, tx: Int, ty: Int): List<WorldArt.Obj>? {
+        val t = map.tile(tx, ty)
         if (t in roofTiles) return emptyList()
         if (t !in wallTiles) return null
         if (tx > 0 && map.tile(tx - 1, ty) in wallTiles) return emptyList()

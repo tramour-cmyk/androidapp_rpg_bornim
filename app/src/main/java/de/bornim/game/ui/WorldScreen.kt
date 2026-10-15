@@ -183,14 +183,16 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             withFrameMillis { now ->
                 val dt = if (lastFrame == 0L) 16L else (now - lastFrame).coerceIn(0L, 100L)
                 lastFrame = now
+                // 86.3: running uses up breath; out of breath, the hero walks
+                val runs = de.bornim.core.Stamina.step(game.state, dt, vx != 0.0 || vy != 0.0, running)
                 if (vx != 0.0 || vy != 0.0) {
                     // a tapped walk slows down for the last bit so it does not overshoot the middle of the tile
                     val left = if (sv == null && waypoints.isNotEmpty()) kotlin.math.hypot(vx, vy) else 9.0
-                    val pace = (if (running) de.bornim.core.FreeWalk.RUN else de.bornim.core.FreeWalk.WALK) * (if (sv == null) 1.15 else 1.0)
+                    val pace = (if (runs) de.bornim.core.FreeWalk.RUN else de.bornim.core.FreeWalk.WALK) * (if (sv == null) 1.15 else 1.0)
                     fw.walk(vx, vy, dt, pace * minOf(1.0, 0.25 + left * 4), now)
                 } else fw.walk(0.0, 0.0, dt, 0.0, now)
                 // 74: a step's sound each time a foot sets down, by the ground under it
-                if (feet.fell(fw.walked) && fw.moving) {
+                if (feet.fell(fw.walked) && fw.moving && vm.stepsOn) {
                     val tile = game.map.tile(kotlin.math.floor(fw.x).toInt(), kotlin.math.floor(fw.y).toInt())
                     vm.play(de.bornim.core.audio.Footsteps.sound(game.map, tile), de.bornim.core.audio.Footsteps.volume(tile, running))
                 }
@@ -340,6 +342,8 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         HudChip(
             HudInfo.of(game), game.lang,
             Modifier.fillMaxWidth(), bar = true,
+            // 86.2: the map sign beside the bag, not while talking or fighting
+            onMap = if (game.mode == Mode.Explore) ({ vm.openMap() }) else null,
         ) { if (game.mode == Mode.Explore) vm.menuOpen = true }
         Box(
             Modifier
@@ -349,10 +353,12 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 .background(Color.Black)
         ) {
             MapView(game, rev, route?.target, clock)
-            // test tab (27m): frames per second and the slowest frame of the last second, top left over the map
-            if (FrameMeter.on) Txt(FrameMeter.text, Modifier.align(Alignment.TopStart).background(Color(0xAA000000)).padding(4.dp), size = 12.sp, pixel = true)
+            // test tab (27m, 86.1): frame rate and the hero's place, top left over the map
+            TestReadout(game, rev, Modifier.align(Alignment.TopStart))
+            StaminaBar(game.state, rev, Modifier.align(Alignment.CenterEnd).padding(end = 10.dp))
             if (touch) {
                 TouchLayer(
+                    feel = vm.stickFeel,
                     onDir = { d -> heldDir = d },
                     onStick = { stick = it },
                     onRun = { running = it },
@@ -583,18 +589,19 @@ private fun tappedThing(game: Game, cam: Cam, px: Float, py: Float, fx: Int, fy:
 }
 
 @Composable
-private fun TouchLayer(onDir: (Facing?) -> Unit, onStick: (Offset?) -> Unit, onRun: (Boolean) -> Unit, onTap: (Offset, Float, Float) -> Unit) {
+private fun TouchLayer(feel: Int, onDir: (Facing?) -> Unit, onStick: (Offset?) -> Unit, onRun: (Boolean) -> Unit, onTap: (Offset, Float, Float) -> Unit) {
     var origin by remember { mutableStateOf<Offset?>(null) }
     var knob by remember { mutableStateOf(Offset.Zero) }
     var stickDir by remember { mutableStateOf<Facing?>(null) }
     val density = LocalDensity.current
-    val slop = with(density) { 14.dp.toPx() }
-    val runAt = with(density) { 70.dp.toPx() }
+    // 86.4: the menu's joystick setting, how far a drag goes before the hero walks and runs
+    val slop = with(density) { StickFeel.walkAt(feel).dp.toPx() }
+    val runAt = with(density) { StickFeel.runAt(feel).dp.toPx() }
     val radius = with(density) { 46.dp.toPx() }
     Box(
         Modifier
             .fillMaxSize()
-            .pointerInput(Unit) {
+            .pointerInput(feel) {
                 awaitEachGesture {
                     val down = awaitFirstDown()
                     val start = down.position
@@ -796,6 +803,13 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             val t = ((clock - w.movedAt).toFloat() / w.moveMs).coerceIn(0f, 1f)
             return ((w.fromX + (w.x - w.fromX) * t) * T).roundToInt() to ((w.fromY + (w.y - w.fromY) * t) * T).roundToInt()
         }
+        // 89: by day under the open sky the people throw their shadow by the sun, lying on the ground with the rest
+        val sunUp = ((game.daylight - 0.2f) / 0.6f).coerceIn(0f, 1f)
+        if (sunUp > 0.02f && (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN)) ground {
+            val f = de.bornim.core.art.MapSun.figure()
+            for (npc in visibleNpcs) if (!npc.look.startsWith("monster:")) npcPos(npc).let { (nx, ny) -> put(f.img, nx + T / 2 - f.fx, ny + 14 - f.fy, alpha = sunUp) }
+            put(f.img, heroX + T / 2 - f.fx, heroY + 14 - f.fy, alpha = sunUp)
+        }
         for (npc in visibleNpcs) if (!npc.look.startsWith("monster:")) {
             val (nx, ny) = npcPos(npc)
             put(WorldArt.shadow(), nx + 4, ny + 26)
@@ -978,8 +992,9 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                         MapFolk.restFrame(f, slotNow, ps.rest, ps.breath, ps.level)
                     } else null
                     val wardImg = warding?.let { wd ->
-                        // the torch lights its bearer and whoever stands near; it rides about a tile above the feet
-                        torches += (nx + T / 2.0) to (ny - 12.0)
+                        // the torch lights its bearer and whoever stands near: kept at the bearer's feet on the map, drawn
+                        // raised above them on the screen (D3.5)
+                        torches += (nx + T / 2.0) to (ny + T * 0.85)
                         MapFolk.wardFrame(f, slotNow, wd.ward, wd.flicker)
                     }
                     // draft (55.2): Borin sits at his table, now and then drinking, eating, looking round, at chance moments
@@ -1192,7 +1207,9 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         // a torch carried about throws a warm, flickering glow around it, the stronger the darker it is
         for ((tx, ty) in torches) {
             val flick = 0.85f + 0.15f * kotlin.math.sin(clock / 70f) * kotlin.math.sin(clock / 113f)
-            val c = Offset(((tx - camX) * scale).toFloat(), ((ty - camY) * scale).toFloat())
+            // D3.5: seen diagonally, through the camera's turn like the figure, then about a tile and a half up
+            val mx = ((tx - camX) * scale).toFloat(); val my = ((ty - camY) * scale).toFloat()
+            val c = Offset(cam.toScreenX(mx, my), cam.toScreenY(mx, my) - T * 1.4f * scale)
             val rad = T * 2.1f * scale * flick
             drawCircle(
                 androidx.compose.ui.graphics.Brush.radialGradient(
@@ -1729,7 +1746,8 @@ private object LightImage {
         return if (sh >= sd) dim * (1f - sh) / (1f - sd) else dim + (1f - dim) * (sd - sh) / sd
     }
 
-    private fun seenDimOf(map: de.bornim.core.MapDef) = if (map.kind == MapKind.CAVE) 0.15f else 0.5f
+    // 13e.6 (draft): in the cave what was seen once does not stay bright; out of sight it sinks into the dark
+    private fun seenDimOf(map: de.bornim.core.MapDef) = if (map.kind == MapKind.CAVE) de.bornim.core.art.MapLight.CAVE_SEEN_DIM else 0.5f
 
     /** Each tile is split into SUB × SUB parts for the fog, so the edge of the cone is round (13e, test 13.10.). */
     const val SUB = 4
@@ -2009,8 +2027,13 @@ private fun DrawScope.drawCaveTorches(game: Game, map: de.bornim.core.MapDef, cl
         // the head of the torch about 1.1 m up the face, lowered to the hero's scale like the rooms' heights (13p.6)
         val bx = cam.toScreenX(mx, my); val by = cam.toScreenY(mx, my) - (62 * de.bornim.core.art.MapRoomIso.ZS * scale).toFloat()
         val t = (clock + tx * 397 + ty * 211).toFloat()
-        // bracket and stick, leaning out of the rock
-        drawRect(Color(0xFF2A2624).copy(alpha = seen), Offset(bx - 2.5f * u, by + 9 * u), androidx.compose.ui.geometry.Size(5 * u, 1.6f * u))
+        // bracket and stick, leaning out of the rock; three looks (D1.11): a flat bracket, a ring on a longer arm, wedged in a crack
+        when (de.bornim.core.art.MapCaveIso.torchLook(map, tx, ty)) {
+            0 -> drawRect(Color(0xFF2A2624).copy(alpha = seen), Offset(bx - 2.5f * u, by + 9 * u), androidx.compose.ui.geometry.Size(5 * u, 1.6f * u))
+            1 -> { drawLine(Color(0xFF2A2624).copy(alpha = seen), Offset(bx - 3.5f * u, by + 12 * u), Offset(bx, by + 7 * u), strokeWidth = 1.4f * u)
+                drawOval(Color(0xFF34302C).copy(alpha = seen), Offset(bx - 1.8f * u, by + 6.2f * u), androidx.compose.ui.geometry.Size(3.6f * u, 1.8f * u), style = androidx.compose.ui.graphics.drawscope.Stroke(1.1f * u)) }
+            else -> for (k in 0..1) drawOval(Color(0xFF2E2A26).copy(alpha = seen), Offset(bx - (2.6f - k * 2.4f) * u, by + (12.2f - k * 0.8f) * u), androidx.compose.ui.geometry.Size(2.6f * u, 1.8f * u))
+        }
         drawLine(Color(0xFF3E2C1E).copy(alpha = seen), Offset(bx - 0.6f * u, by + 13 * u), Offset(bx + 0.6f * u, by + 1 * u), strokeWidth = 2.2f * u)
         drawOval(Color(0xFF1C1612).copy(alpha = seen), Offset(bx - 2.2f * u, by - 0.4f * u), androidx.compose.ui.geometry.Size(4.4f * u, 3 * u))
         // the flame: frames of a living flame (MapCaveIso.flame), each torch at its own point of the loop
@@ -2418,7 +2441,7 @@ private data class HudInfo(
 }
 
 @Composable
-private fun HudChip(info: HudInfo, lang: de.bornim.core.Lang, modifier: Modifier, bar: Boolean = false, onMenu: () -> Unit) {
+private fun HudChip(info: HudInfo, lang: de.bornim.core.Lang, modifier: Modifier, bar: Boolean = false, onMap: (() -> Unit)? = null, onMenu: () -> Unit) {
     val german = lang == de.bornim.core.Lang.DE
     // Compact: bars on the left, level, points and time on the right, so the map stays visible.
     Row(
@@ -2466,6 +2489,13 @@ private fun HudChip(info: HudInfo, lang: de.bornim.core.Lang, modifier: Modifier
             }
         }
         if (bar) Spacer(Modifier.weight(1f)) else Spacer(Modifier.width(6.dp))
+        // 86.2: the map sign of the menu tab opens the map at once; a finger wide, well apart from the bag
+        if (onMap != null) {
+            Box(Modifier.size(44.dp, 40.dp).tap(onMap), contentAlignment = Alignment.Center) {
+                Canvas(Modifier.size(28.dp)) { glyph(TabSign.MAP, Veil.gold) }
+            }
+            Spacer(Modifier.width(14.dp))
+        }
         // The bag opens the menu.
         PixelImageView(ActionArt.icon(ActionArt.Extra.MENU), 28.dp)
     }

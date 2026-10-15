@@ -27,7 +27,6 @@ object MapFlora {
 
     private fun rnd(x: Int, y: Int, s: Int) = (hash(x, y, s) % 10000) / 10000.0
 
-    private val SHADOW_RGB = 0x080C06
 
     // ------------------------------------------------------------------ the kinds
 
@@ -88,8 +87,13 @@ object MapFlora {
         val town = map.kind == de.bornim.core.MapKind.TOWN
         fun young(k: Int) = obj(spruce(hash(tx, ty, 6 + k) % 6, 0, young = true),
             cx + (rnd(tx, ty, 18 + k) - 0.5) * S * 0.6, cy + S * (0.45 + rnd(tx, ty, 20 + k) * 0.3))
+        // D6.2: someone (or a door) just behind, towards the top of the screen, would still be half hidden by young
+        // spruces taller than a person: there only a low bush
+        val close = (0..3).any { bx -> (0..3).any { by -> bx + by in 1..3 && (map.npcs.any { it.x == tx - bx && it.y == ty - by } || map.warpAt(tx - bx, ty - by) != null) } }
         return when {
-            !town && !deep -> listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
+            close -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
+            // D3.3: in the woods too set off a little each, now and then two side by side, never in rows
+            !town && !deep -> if (pick < 3) listOf(young(0), young(1)) else listOf(young(0))
             // the bush in the slant like those of the undergrowth (56)
             pick < (if (town) 6 else 3) -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
             pick < (if (town) 8 else 5) -> listOf(young(0), young(1))
@@ -155,47 +159,6 @@ object MapFlora {
 
     // ------------------------------------------------------------------ shadows
 
-    /** A soft shadow on the ground: an ellipse fading at its rim. */
-    private fun shadowImage(rx: Int, ry: Int, a: Double): PixelImage = synchronized(cache) {
-        val key = "shadow/$rx/$ry/${(a * 100).toInt()}"
-        cache[key]?.img ?: PixelImage(rx * 2, ry * 2).also { img ->
-            for (y in 0 until ry * 2) for (x in 0 until rx * 2) {
-                val dx = (x + 0.5 - rx) / rx; val dy = (y + 0.5 - ry) / ry
-                val d = dx * dx + dy * dy
-                if (d >= 1) continue
-                val k = a * (1 - d).let { it * (2 - it) }
-                img.pixels[y * img.width + x] = ((k * 255).toInt().coerceIn(0, 255) shl 24) or SHADOW_RGB
-            }
-            cache[key] = Sprite(img, rx, ry)
-        }
-    }
-
-    private val shadowCache = HashMap<String, List<WorldArt.Obj>>()
-
-    /**
-     * The shadows of trees, rocks and stones on the ground, falling to the lower right (the light
-     * comes from the upper left). Drawn under everything that stands, faded by the time of day.
-     */
-    fun shadows(map: MapDef): List<WorldArt.Obj> = synchronized(shadowCache) {
-        // no sun in the cave: the things there have their shadows in the ground
-        if (map.kind != de.bornim.core.MapKind.FOREST) return emptyList()
-        shadowCache.getOrPut(map.id) {
-            val out = ArrayList<WorldArt.Obj>()
-            for (ty in 0 until map.height) for (tx in 0 until map.width) {
-                val list = objects(map, tx, ty) ?: continue
-                for (o in list) {
-                    val w = o.img.width; val h = o.img.height
-                    val footX = o.x * D + w / 2; val footY = (o.sortY) * D
-                    val (rx, ry, ox) = when (map.tile(tx, ty)) {
-                        Tile.TREE -> Triple(w * 0.42, w * 0.22, w * 0.3)
-                        Tile.CAMPFIRE -> continue
-                        else -> Triple(w * 0.45, 12.0, 8.0)
-                    }
-                    val img = shadowImage(rx.toInt(), ry.toInt(), if (map.tile(tx, ty) == Tile.TREE) 0.42 else 0.36)
-                    out += WorldArt.Obj(img, Math.floorDiv(footX + ox.toInt() - rx.toInt(), D), Math.floorDiv(footY - ry.toInt() + 2, D), 0, D)
-                }
-            }
-            out
-        }
-    }
+    /** The shadows of all that stands under the open sky, by the sun ([MapSun], 89); drawn under it, faded by the time of day. */
+    fun shadows(map: MapDef): List<WorldArt.Obj> = MapSun.shadows(map)
 }

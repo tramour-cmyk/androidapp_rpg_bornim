@@ -168,6 +168,19 @@ fun main() {
             }
             System.exit(0)
         }
+        // KARTE62=1 ONLY=d41: D4.1 Garrick's hint to Morwen under "Aufträge", and once the bundle is given, among the done
+        if (System.getenv("ONLY") == "d41") {
+            de.bornim.game.ui.MenuStart.chronicle = true
+            de.bornim.game.ui.ChronicleLook.previewSoFar = false
+            for (given in listOf(false, true)) shot(if (given) "d41_erledigt" else "d41_auftrag", settle = 30) { vm ->
+                setup(vm, "forest", 10, 10, Facing.UP)
+                val st = vm.game!!.state
+                st.flags += setOf(de.bornim.core.Story.BARRIER_OPEN, de.bornim.core.Story.HUNTER_MET, de.bornim.core.Story.KROGG_HINT)
+                if (given) { st.flags += de.bornim.core.Story.SMOKE_GIVEN; st.add(de.bornim.core.Story.SMOKE_BUNDLE, 1) }
+                vm.refresh()
+            }
+            System.exit(0)
+        }
         // KARTE62=1 ONLY=62h: 62h (draft) the land map in both looks, from the woods (cave and deep woods not yet seen)
         if (System.getenv("ONLY") == "62h") {
             de.bornim.game.ui.MapLook.previewOverview = true
@@ -279,6 +292,10 @@ fun main() {
         System.exit(0)
     }
     if (System.getenv("WEGE") != null) { renderWayDrafts(); System.exit(0) }
+    // SONNE=morgen|mittag|abend: the shadows at that stand of the sun (89); SONNE=1 in the map shots: by the hour
+    System.getenv("SONNE")?.let { s ->
+        de.bornim.core.art.MapSun.stand = when (s) { "morgen" -> de.bornim.core.art.MapSun.Stand.MORNING; "abend" -> de.bornim.core.art.MapSun.Stand.EVENING; else -> de.bornim.core.art.MapSun.Stand.NOON }
+    }
     System.getenv("FLORA")?.let { renderFloraSheet(it); System.exit(0) }
     if (System.getenv("HOEHLEDINGE") != null) { renderCaveThings(); System.exit(0) }
     if (System.getenv("ISODRAFT") != null) { renderIsoDraft(); System.exit(0) }
@@ -340,11 +357,19 @@ fun main() {
     if (System.getenv("KARTENZOOM") != null) {
         // RANDAUS=1: without the ring beyond the edge, to compare (27m)
         if (System.getenv("RANDAUS") != null) de.bornim.core.art.MapEdge.on = false
+        // STANDORT=1: frame rate and the hero's place over the map, as the test tab shows them (86.1)
+        if (System.getenv("STANDORT") != null) { de.bornim.game.ui.FrameMeter.on = true; de.bornim.game.ui.PlaceMeter.on = true }
         // the map near (new) and far (former), at noon and at night, in the forest, the village, an inn and the cave
         fun place(vm: GameViewModel, map: String, x: Int, y: Int, minutes: Int, facing: Facing = Facing.UP) {
             vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
             val g = vm.game!!; g.skipDialogs()
             g.state.place = Place(map, x, y, facing); g.state.minutes = minutes
+            // the sun's stand by the hour of the shot, or the one SONNE= names (89)
+            g.sunCut()
+            when (System.getenv("SONNE")) { "morgen" -> de.bornim.core.art.MapSun.Stand.MORNING; "mittag" -> de.bornim.core.art.MapSun.Stand.NOON; "abend" -> de.bornim.core.art.MapSun.Stand.EVENING; else -> null }
+                ?.let { de.bornim.core.art.MapSun.stand = it }
+            // AUSDAUER=0.4[:w]: the breath for running that low, ":w" out of breath (86.3)
+            System.getenv("AUSDAUER")?.split(":")?.let { a -> g.state.stamina = a[0].toDouble(); g.state.winded = a.getOrNull(1) == "w" }
             // everything explored, so the shots show the ground; the new ground drawn right away
             val m = de.bornim.core.World[map]
             // UNERKUNDET=1: nothing explored yet, so the edge of the sight shows against the black (13e)

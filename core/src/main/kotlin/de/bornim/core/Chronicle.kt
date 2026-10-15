@@ -46,16 +46,35 @@ object Chronicle {
                 "At night Jorin had seen a fire at the standing stones, which even goblins avoid. {name} found only cold ash, boot prints heading north and a grey scrap of cloth with an open eye stitched into it. Jorin meant to take it to the Elder.")) { it.count(Jobs.RAG) > 0 || Jobs.isDone(it, Jobs["stones"]) },
     )
 
+    /** A task of the story beside the main one (D4.1): shown under "Aufträge" from [given] until [done]. */
+    class Task(val id: String, val title: T, val text: T, val given: (GameState) -> Boolean, val done: (GameState) -> Boolean)
+
+    val tasks = listOf(
+        Task("rauch", T("Rauch gegen Krogg", "Smoke against Krogg"),
+            T("Garrick riet {name}, vor dem Kampf gegen Krogg die Kräuterfrau Morwen im Tiefen Flüsterwald aufzusuchen. Sie kenne ein Mittel gegen den ersten Hieb eines Grottenschrats.",
+                "Garrick advised {name} to seek out Morwen the herbwoman in the Deep Whisperwood before fighting Krogg. He said she knew a means against a bugbear's first blow."),
+            given = { it.has(Story.KROGG_HINT) },
+            done = { it.has(Story.SMOKE_GIVEN) || it.has(Story.KROGG_DEFEATED) }),
+    )
+
+    /** Story tasks the hero carries now. */
+    fun openTasks(s: GameState): List<Task> = tasks.filter { it.given(s) && !it.done(s) }
+
+    /** Story tasks once given and now done. */
+    fun doneTasks(s: GameState): List<Task> = tasks.filter { it.given(s) && it.done(s) }
+
     private fun read(id: String) = "chron_$id"
 
     /** 64: something in the chronicle the player has not looked at yet (a new entry, a job taken): a dot at the tab. */
     fun fresh(s: GameState): Boolean =
-        entries.any { it.reached(s) && !s.has(read(it.id)) } || Jobs.carried(s).any { !s.has(read("job_" + it.id)) }
+        entries.any { it.reached(s) && !s.has(read(it.id)) } || Jobs.carried(s).any { !s.has(read("job_" + it.id)) } ||
+            openTasks(s).any { !s.has(read("task_" + it.id)) }
 
     /** Called when the chronicle is opened: everything in it counts as seen. */
     fun markRead(s: GameState) {
         for (e in entries) if (e.reached(s)) s.flags += read(e.id)
         for (j in Jobs.carried(s)) s.flags += read("job_" + j.id)
+        for (t in openTasks(s)) s.flags += read("task_" + t.id)
     }
 
     /** What has happened so far, the newest first. */

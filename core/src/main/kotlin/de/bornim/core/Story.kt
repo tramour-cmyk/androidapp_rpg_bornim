@@ -19,6 +19,12 @@ object Story {
     const val CHAPTER1_DONE = "chapter1_done"
     const val GRIMFANG_DEFEATED = "grimfang_defeated"
     const val HERBALIST_MET = "hedda_met"
+    /** D4.1: Garrick sent the hero to Morwen for help against Krogg. */
+    const val KROGG_HINT = "krogg_hint"
+    /** D4.1: Morwen gave the hero her smoke bundle against Krogg's first blow. */
+    const val SMOKE_GIVEN = "smoke_given"
+    /** D4.1: below this level Garrick warns the hero off Krogg. */
+    const val KROGG_WARN_BELOW = 3
     /** Never set: doors that stay locked. */
     const val LOCKED = "locked_forever"
     /** Set when chapter 2 begins; until then the hero cannot rise above [CHAPTER1_LEVEL_CAP]. */
@@ -31,6 +37,22 @@ object Story {
         "Auf den bunten Blumenwiesen im Wald wachsen Heilkräuter – achte auf die hellgrünen Pflanzen und lauf einfach darüber. Was du pflückst, wächst am nächsten Tag nach. Bring sie mir, dann braue ich dir Tränke für ein paar Münzen. Fledermausflügel und Giftdrüsen nehme ich auch.",
         "Healing herbs grow in the colourful flower meadows of the forest – look for the light green plants and just walk over them. What you pick grows back the next day. Bring them to me and I'll brew you potions for a few coins. I'll take bat wings and venom glands too.",
     )
+
+    /** D4.1: Morwen hands over her smoke bundle once, after Garrick was met and while Krogg lives. */
+    fun wantsSmoke(s: GameState): Boolean = s.has(HUNTER_MET) && !s.has(KROGG_DEFEATED) && !s.has(SMOKE_GIVEN)
+
+    private fun ScriptBuilder.smokeAgainstKrogg(s: GameState) {
+        if (!wantsSmoke(s)) return
+        say(morwen, "Krogg? Grottenschrate schlagen aus dem Dunkel zu, und der erste Hieb ist der schlimmste. Aber ihre Nasen sind fein.",
+            "Krogg? Bugbears strike from the dark, and the first blow is the worst. But their noses are keen.")
+        say(morwen, "Wirf ihm das hier vor die Füße, sobald er auftaucht. Der Rauch beißt in den Augen, und sein Hieb geht ins Leere.",
+            "Throw this at his feet as soon as he shows up. The smoke stings the eyes, and his blow goes astray.")
+        give(SMOKE_BUNDLE, 1)
+        flag(SMOKE_GIVEN)
+    }
+
+    /** D4.1: Morwen's smoke bundle; in the fight it takes Krogg's first blow (Jerry). */
+    const val SMOKE_BUNDLE = "smoke_bundle"
 
     /** The chapter the hero is playing: it sets the level cap, the best loot and the gear limits. */
     fun chapter(s: GameState): Int = if (s.has(CHAPTER2_STARTED)) 2 else 1
@@ -480,8 +502,15 @@ object Story {
                     give("potion", 2)
                     flag(HUNTER_MET)
                 } else if (!s.has(KROGG_DEFEATED)) script {
-                    say(garrick, "Ich habe Goblins belauscht. Ihr Bugbear Krogg trägt den Schlüssel zu Graks Halle.", "I overheard some goblins. Their bugbear Krogg carries the key to Grak's hall.")
+                    say(garrick, "Ich habe Goblins belauscht. Ihr Grottenschrat Krogg trägt den Schlüssel zu Graks Halle.", "I overheard some goblins. Their bugbear Krogg carries the key to Grak's hall.")
                     say(garrick, "Er haust im Ostflügel der Höhle. Ruh dich vorher gut aus!", "He lurks in the east wing of the cave. Rest well before you face him!")
+                    // D4.1: the way to Krogg leads past Morwen
+                    say(garrick, "Geh nicht mit leeren Händen zu ihm. Morwen, die Kräuterfrau im Tiefen Flüsterwald, weiß, wie man so einem den ersten Hieb nimmt.",
+                        "Don't go to him empty-handed. Morwen, the herbwoman in the Deep Whisperwood, knows how to take the first blow out of one like him.")
+                    if (s.hero.level < KROGG_WARN_BELOW)
+                        say(garrick, "Und ehrlich, {name}: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald.",
+                            "And honestly, {name}: the way you look now, Krogg will knock you down with a single blow. Gather a few scars in the Deep Whisperwood first.")
+                    flag(KROGG_HINT)
                 } else script {
                     say(garrick, "Du siehst aus, als könntest du eine Rast gebrauchen. Das Feuer brennt noch.", "You look like you could use a rest. The fire's still burning.")
                 }
@@ -537,8 +566,8 @@ object Story {
             "=======.....=.T......=....,,,,,,,=,TTTTTTTTT",
             "TT.S..========.r.....=============,,TTTTTTTT",
             "TTT.fff.,,,,,==========T..,====,,,,TTTTTTTTT",
-            "TTT.ff.,,,,,,,.==.........,,,,=,,,TTTTTTTTTT",
-            "TTT.....,,,,,T==.....F.,.,,,,,=,,,TTTTTTTTTT",
+            "TTT.ff.,,,,,,,.==.^^......,,,,=,,,TTTTTTTTTT",
+            "TTT.....,,,,,T==..W#.F.,.,,,,,=,,,TTTTTTTTTT",
             "TTTTTTT...TTTT=TT.....,,,,,,,,=TTTTTTTTTTTTT",
             "TTTTTTTTTTTTTT=TTTT....,,,,,TT====TTTTTTTTTT",
             "TTTTTTTTTTT,T==TTTT.T..TTTTTTT...=....T.TTTT",
@@ -557,7 +586,10 @@ object Story {
         ),
         warps = listOf(
             Warp(0, 18, Place("forest", 18, 10, Facing.LEFT)),
+            // D3.13: Morwen's hut, its door in the east side towards her fire; she is out there, the door stays shut
+            Warp(19, 22, Place("deep_forest", 20, 22, Facing.RIGHT), LOCKED),
         ),
+        houseStyles = mapOf((18 to 21) to HouseStyle(RoofKind.STRAW, WallKind.PLANKS, feature = HouseFeature.HUT)),
         signs = mapOf(
             // 27.6b (draft): south of the way, in the light and before the trees (north of it the sign stood in deep shade)
             (3 to 19) to T("Tiefer Flüsterwald\nHier endet der Weg der Jäger.\nNur für erfahrene Abenteurer!", "Deep Whisperwood\nThe hunters' trail ends here.\nFor seasoned adventurers only!"),
@@ -576,6 +608,11 @@ object Story {
                     say(morwen, "Im Norden haust Grimmzahn, der Leitwolf. Groß wie ein Pony und doppelt so bösartig. Nimm das hier mit.", "In the north lives Grimfang, the alpha wolf. Big as a pony and twice as vicious. Take this with you.")
                     give("remedy", 1)
                     flag(HERBALIST_MET)
+                    smokeAgainstKrogg(s)
+                    say(morwen, HERBALIST_HERBS.de, HERBALIST_HERBS.en)
+                    shop(HERBALIST_STOCK, brewing = true)
+                } else if (wantsSmoke(s)) script {
+                    smokeAgainstKrogg(s)
                     say(morwen, HERBALIST_HERBS.de, HERBALIST_HERBS.en)
                     shop(HERBALIST_STOCK, brewing = true)
                 } else script {

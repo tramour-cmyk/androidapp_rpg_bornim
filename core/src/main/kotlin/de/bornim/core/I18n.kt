@@ -28,6 +28,8 @@ object Ui {
     val musicOff = T("Musik: Aus", "Music: Off")
     val sfxOn = T("Effekte: An", "Sound FX: On")
     val sfxOff = T("Effekte: Aus", "Sound FX: Off")
+    val stepsOn = T("Schritte: An", "Footsteps: On")
+    val stepsOff = T("Schritte: Aus", "Footsteps: Off")
     val controlsTouch = T("Steuerung: Touch", "Controls: Touch")
     val controlsClassic = T("Steuerung: Steuerkreuz", "Controls: D-pad")
     val actionRight = T("Aktionstaste: rechts", "Action button: right")

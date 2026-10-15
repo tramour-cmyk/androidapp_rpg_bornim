@@ -74,7 +74,7 @@ class CaveSheetTest {
         }
         ImageIO.write(sheet, "png", File("build/preview/hoehle_dinge.png"))
         // every look of each, on plain floor, twice the size: chests shut and open, crates, sleeping places
-        val looks = listOf(Tile.CHEST to false, Tile.CHEST to true, Tile.CRATE to false, Tile.BEDROLL to false)
+        val looks = listOf(Tile.CHEST to false, Tile.CHEST to true, Tile.CRATE to false, Tile.BEDROLL to false, Tile.GATE to false, Tile.GATE to true)
         val gw = 100; val gh = 150
         val gal = BufferedImage(3 * gw * 2, looks.size * gh * 2, BufferedImage.TYPE_INT_ARGB)
         for ((r, look) in looks.withIndex()) for (v in 0 until 3) {

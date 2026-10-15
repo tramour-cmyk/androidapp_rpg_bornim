@@ -37,8 +37,12 @@ fun renderFloraSheet(spec: String) {
     val state = de.bornim.core.GameState.newGame("X", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER)
     val ch = MapGround.CH
     for (cy in 0..(map.height / ch)) for (cx in 0..(map.width / ch)) MapGround.chunk(map, cx, cy)?.let { blend(it, cx * ch * S, cy * ch * S, 1) }
-    for (o in MapFlora.shadows(map)) blend(o.img, o.x * D, o.y * D, 1)
-    for (o in WorldArt.objects(map, state, 0).sortedBy { it.sortY }) blend(o.img, o.x * D, o.y * D, D / o.density)
+    for (o in MapFlora.shadows(map)) blend(o.img, o.x * D, o.y * D, D / o.density)
+    // SCHATTENNUR=1: only the shadows on the ground, the houses' footprints outlined red (89, to check the fall)
+    if (System.getenv("SCHATTENNUR") != null) for ((f, _) in de.bornim.core.art.MapTownIso.houses(map)) {
+        for (x in f.x * S until (f.x + f.n) * S) for (y in listOf(f.top * S, (f.y + 1) * S - 1)) if (x - x0 * S in 0 until w && y - y0 * S in 0 until h) out.setRGB(x - x0 * S, y - y0 * S, 0xFF0000)
+        for (y in f.top * S until (f.y + 1) * S) for (x in listOf(f.x * S, (f.x + f.n) * S - 1)) if (x - x0 * S in 0 until w && y - y0 * S in 0 until h) out.setRGB(x - x0 * S, y - y0 * S, 0xFF0000)
+    } else for (o in WorldArt.objects(map, state, 0).sortedBy { it.sortY }) blend(o.img, o.x * D, o.y * D, D / o.density)
     File("build/screens").mkdirs()
     ImageIO.write(out, "png", File("build/screens/flora_${p[0]}_$x0-$y0.png"))
     println("wrote flora")

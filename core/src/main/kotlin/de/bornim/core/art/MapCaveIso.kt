@@ -371,9 +371,9 @@ object MapCaveIso {
         return shade(mix(argb(0x120C08), argb(rgb), t.coerceIn(0.0, 1.0)), k)
     }
 
-    private fun iron(face: Int, u: Double, v: Double, seed: Int): Int {
+    private fun iron(face: Int, u: Double, v: Double, seed: Int, rusty: Double = 0.62): Int {
         val k = when (face) { 0 -> 0.5; 1 -> 0.85; else -> 0.95 }
-        val rust = vnoise(u * 8, v * 14, seed) > 0.62
+        val rust = vnoise(u * 8, v * 14, seed) > rusty
         val t = 0.45 + (rnd(floor(u * 40).toInt(), floor(v * 50).toInt(), seed + 1) - 0.5) * 0.2
         return shade(mix(argb(0x14120F), if (rust) argb(0x6A3A1E) else argb(0x4A4844), t), k)
     }
@@ -407,19 +407,49 @@ object MapCaveIso {
         return c.img
     }
 
-    /** One tile of the iron gate across the passage before Grak's hall: bars, two cross bands, the post at its end. */
-    private fun gate(left: Boolean): PixelImage {
+    /**
+     * One tile of the iron gate across the passage before Grak's hall: bars, cross bands, the post at its end. [v] one of
+     * three, the same all across the gate (D1.11): straight bars with two bands; old and rusted, three bands, a bar bent
+     * and spikes broken off; patched by the goblins, a bar replaced by a sharpened stake and the top band a rope lashing.
+     * The two halves differ in which bar is bent or patched, so the gate is not one picture twice.
+     */
+    private fun gate(left: Boolean, v: Int = 0): PixelImage {
         val c = Tile1(TH.toInt() + (140 * ZS).toInt() + 20)
-        val seed = 3400
+        val seed = 3400 + v * 17 + (if (left) 0 else 5)
         val j = -0.5
         val n = 5
+        val odd = if (left) 1 else 3
         for (k in 0 until n) {
             val i = -1.0 + (k + 0.5) / n
-            c.box(i - 0.025, j - 0.025, i + 0.025, j + 0.025, 0.0, 116.0) { f, u, w -> iron(f, u, w, seed + k) }
-            // the spike on top
-            c.box(i - 0.015, j - 0.015, i + 0.015, j + 0.015, 116.0, 126.0) { f, u, w -> iron(f, u, w, seed + k) }
+            val rust = if (v == 1) 0.48 else 0.62
+            when {
+                v == 2 && k == odd -> {
+                    // a stake of rough wood in place of a lost bar, cut to a point and taller than the iron
+                    c.box(i - 0.05, j - 0.05, i + 0.05, j + 0.05, 0.0, 120.0) { f, u, w -> wood(f, u, w, seed + k, 0x7A5C3A) }
+                    c.box(i - 0.025, j - 0.025, i + 0.025, j + 0.025, 120.0, 134.0) { f, u, w -> wood(f, u, w, seed + k, 0x7A5C3A) }
+                }
+                v == 1 && k == odd -> {
+                    // bent: the lower half stands, the upper leans aside, joined by a short crooked piece
+                    c.box(i - 0.025, j - 0.025, i + 0.025, j + 0.025, 0.0, 58.0) { f, u, w -> iron(f, u, w, seed + k, rust) }
+                    for (q in 0 until 4) c.box(i - 0.025 + q * 0.03, j - 0.025, i + 0.025 + q * 0.03, j + 0.025, 58.0 + q * 3, 62.0 + q * 3) { f, u, w -> iron(f, u, w, seed + k, rust) }
+                    c.box(i + 0.075, j - 0.025, i + 0.125, j + 0.025, 70.0, 108.0) { f, u, w -> iron(f, u, w, seed + k, rust) }
+                }
+                else -> {
+                    val h = if (v == 2) 110.0 + (k * 7 + (if (left) 3 else 0)) % 4 * 3 else 116.0
+                    c.box(i - 0.025, j - 0.025, i + 0.025, j + 0.025, 0.0, h) { f, u, w -> iron(f, u, w, seed + k, rust) }
+                    // the spike on top; on the old gate some are broken off
+                    if (v != 1 || (k + odd) % 3 != 0) c.box(i - 0.015, j - 0.015, i + 0.015, j + 0.015, h, h + 10) { f, u, w -> iron(f, u, w, seed + k, rust) }
+                }
+            }
         }
-        for (z in doubleArrayOf(24.0, 92.0)) c.box(-1.0, j - 0.03, 0.0, j + 0.03, z, z + 6) { f, u, w -> iron(f, u, w, seed + 11) }
+        val bands = when (v) { 1 -> doubleArrayOf(18.0, 56.0, 94.0); else -> doubleArrayOf(24.0, 92.0) }
+        for (z in bands) {
+            if (v == 2 && z > 50) {
+                // the top band lost, the bars lashed with rope instead: a thick cord sagging a little between them
+                c.box(-1.0, j - 0.035, -0.5, j + 0.035, z + 1, z + 6) { f, u, w -> wood(f, u, w, seed + 13, 0x6A5A3C) }
+                c.box(-0.5, j - 0.035, 0.0, j + 0.035, z - 1, z + 4) { f, u, w -> wood(f, u, w, seed + 14, 0x6A5A3C) }
+            } else c.box(-1.0, j - 0.03, 0.0, j + 0.03, z, z + 6) { f, u, w -> iron(f, u, w, seed + 11, if (v == 1) 0.48 else 0.62) }
+        }
         // the stone post the gate is set in, at the passage's end
         val pi = if (left) -0.95 else -0.05
         c.box(pi - 0.07, j - 0.1, pi + 0.07, j + 0.1, 0.0, 132.0) { f, u, w -> rock(f, u, w * 132, seed + 20, 260.0) }
@@ -937,6 +967,26 @@ object MapCaveIso {
         }
     }
 
+    /**
+     * Which of three looks the gate has (D1.11), the same all across it: from its leftmost tile. The seed is picked so
+     * the one gate of chapter 1 (Grak's hall) is the one the goblins patched; the old look stays for later caves.
+     */
+    fun gateLook(map: MapDef, tx: Int, ty: Int): Int {
+        var x0 = tx
+        while (MapCave.caveTile(map, x0 - 1, ty) == Tile.GATE) x0--
+        return Math.floorMod(hash(x0, ty, 50), 3)
+    }
+
+    /**
+     * Which of three looks a torch in the rock has (D1.11): an iron bracket, an iron ring on a longer arm, or no iron at
+     * all, the stick wedged into a crack with stones. Neighbouring torches on one face never share a look.
+     */
+    fun torchLook(map: MapDef, tx: Int, ty: Int): Int {
+        var n = 0
+        for (y in 0 until map.height) for (x in 0 until map.width) if (map.tile(x, y) == Tile.TORCH && (y < ty || (y == ty && x < tx))) n++
+        return Math.floorMod(n + hash(map.width, map.height, 53), 3)
+    }
+
     /** Frames of [flame]; the screen steps through them about twelve times a second. */
     const val FLAMES = 32
     /** The flame's root in [flame]'s picture (2 art pixels to the map pixel). */
@@ -984,6 +1034,8 @@ object MapCaveIso {
     internal fun sample(t: Tile, v: Int, open: Boolean = false): PixelImage = when (t) {
         Tile.CHEST -> chest(v, open)
         Tile.CRATE -> crates(v)
+        // the gate's two halves: [open] stands for the right one here
+        Tile.GATE -> gate(!open, v)
         else -> bedroll(v)
     }
 
@@ -1000,7 +1052,8 @@ object MapCaveIso {
             Tile.GATE -> {
                 if (gateOpen) return emptyList()
                 val left = MapCave.caveTile(map, tx - 1, ty) != Tile.GATE
-                return listOf(thing(map, tx, ty, "gate/$left") { gate(left) })
+                val gv = gateLook(map, tx, ty)
+                return listOf(thing(map, tx, ty, "gate/$left/$gv") { gate(left, gv) })
             }
             Tile.CHEST -> return listOf(thing(map, tx, ty, "chest/$v/$chestOpen", low = true) { chest(v, chestOpen) })
             Tile.CRATE -> return listOf(thing(map, tx, ty, "crates/$v") { crates(v) })

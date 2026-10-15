@@ -27,6 +27,17 @@ object MapWoodIso {
     /** Height units to one tile's length: the hero (about 100 units) stands a little over a tile tall. */
     private const val ZT = 84.0
 
+    private val menhirOrder = HashMap<String, Map<Int, Int>>()
+
+    /** How many standing stones come before ([tx], [ty]) on [map], row by row. */
+    private fun menhirIndex(map: MapDef, tx: Int, ty: Int): Int = synchronized(menhirOrder) {
+        menhirOrder.getOrPut(map.id) {
+            val out = HashMap<Int, Int>()
+            for (y in 0 until map.height) for (x in 0 until map.width) if (map.tile(x, y) == Tile.MENHIR) out[y * map.width + x] = out.size
+            out
+        }[ty * map.width + tx] ?: 0
+    }
+
     private fun hash(a: Int, b: Int, s: Int): Int {
         var n = a * 374761393 + b * 668265263 + s * 1442695041
         n = (n xor (n ushr 13)) * 1274126177
@@ -401,6 +412,29 @@ object MapWoodIso {
         val c = Canvas(80)
         val seed = 760 + tx * 7 + ty * 13
         val ridges = 3
+        // D6.7: the plants set by hand, not in a grid: unevenly spaced, now and then one missing, each of its own size
+        class Plant(val i: Double, val j: Double, val sc: Double, val ps: Int, val k: Int)
+        val plants = ArrayList<Plant>()
+        for (r in 0 until ridges) {
+            val rj = -1 + (r + 0.5) / ridges
+            for (k in 0 until 4) {
+                if (rnd(tx * 4 + k, ty * 3 + r, seed + 2) < 0.12) continue
+                plants += Plant(-1 + (k + 0.5) / 4 + (rnd(tx * 4 + k, ty * 3 + r, seed) - 0.5) * 0.16,
+                    rj + (rnd(tx * 4 + k, ty * 3 + r, seed + 1) - 0.5) * 0.07,
+                    0.8 + rnd(tx * 4 + k, ty * 3 + r, seed + 3) * 0.4, seed + r * 31 + k * 7, k)
+            }
+        }
+        // D6.1: each plant's soft shadow on the earth, falling down left (+j) like the houses', longer for the leeks
+        fun shadowAt(i: Double, j: Double): Double {
+            var s = 0.0
+            for (p in plants) {
+                val len = if (v == 1) 0.11 else 0.07
+                val di = (i - p.i - 0.015) / (0.08 * p.sc); val dj = (j - p.j - len * p.sc) / ((0.06 + len) * p.sc)
+                val d = di * di + dj * dj
+                if (d < 1) s = max(s, (1 - d) * (1 - d))
+            }
+            return s
+        }
         // the earth: ridges along i, furrows between, clods
         var i = -1.02
         while (i <= 0.02) {
@@ -410,33 +444,30 @@ object MapWoodIso {
                 val z = 4.0 * sin(PI * ph) + (vnoise((tx + i) * 30, (ty + j) * 30, seed) - 0.5) * 1.2
                 val nj = -cos(PI * ph) * 0.6
                 val col = mix(argb(0x4A3A28), argb(0x2A2016), vnoise((tx + i) * 50, (ty + j) * 50, 761))
-                c.pt(i, j, z, shade(col, lit(0.0, nj, 1.0)))
+                c.pt(i, j, z, shade(col, lit(0.0, nj, 1.0) * (1 - 0.4 * shadowAt(i, j))))
                 j += 0.004
             }
             i += 0.004
         }
-        for (r in 0 until ridges) {
-            val rj = -1 + (r + 0.5) / ridges
-            for (k in 0 until 4) {
-                val pi = -1 + (k + 0.5) / 4 + (rnd(tx * 4 + k, ty * 3 + r, seed) - 0.5) * 0.06
-                val pj = rj + (rnd(tx * 4 + k, ty * 3 + r, seed + 1) - 0.5) * 0.04
-                val ps = seed + r * 31 + k * 7
+        for (pl in plants) {
+            run {
+                val pi = pl.i; val pj = pl.j; val sc = pl.sc; val ps = pl.ps; val k = pl.k
                 when (v) {
                     0 -> for (a in 0..60) for (b in 0..18) {
                         // a cabbage: a round head in loose outer leaves
                         val az = 2 * PI * a / 60; val el = PI / 2 * b / 18
                         val ni = cos(az) * cos(el); val nj = sin(az) * cos(el); val nz = sin(el)
-                        val rad = 0.095 * (1 + (vnoise(az * 2, el * 3, ps) - 0.5) * 0.25)
+                        val rad = 0.095 * sc * (1 + (vnoise(az * 2, el * 3, ps) - 0.5) * 0.25)
                         val vein = abs(sin(az * 5 + el * 2)) > 0.94
                         val col = if (vein) argb(0x9AB07A) else mix(argb(0x6A8A4A), argb(0x3E5A2E), 1 - nz)
-                        c.pt(pi + rad * ni, pj + rad * nj, 5 + 9 * nz, shade(col, lit(ni, nj, nz)))
+                        c.pt(pi + rad * ni, pj + rad * nj, 5 + 9 * sc * nz, shade(col, lit(ni, nj, nz)))
                     }
                     1 -> for (l in 0 until 5) {
                         // a leek: pale stem, dark blue-green leaves fanning
                         val a = l * PI * 2 / 5 + rnd(k, l, ps) * 0.6
                         for (t in 0..40) {
                             val f = t / 40.0
-                            val z = 4 + f * 26; val off = f * f * 0.07
+                            val z = 4 + f * 26 * sc; val off = f * f * 0.07 * sc
                             val col = if (f < 0.35) argb(0xD8D8B8) else mix(argb(0x5A7A5A), argb(0x3A5A44), f)
                             for (w in -1..1) c.pt(pi + cos(a) * off + w * 0.004, pj + sin(a) * off, z, shade(col, 0.9 + 0.1 * w))
                         }
@@ -447,8 +478,8 @@ object MapWoodIso {
                         for (t in 0..24) for (w in -3..3) {
                             val f = t / 24.0
                             val bw = sin(PI * f) * 0.02 * (w / 3.0)
-                            val z = 5 + f * 14 - f * f * 6
-                            c.pt(pi + cos(a) * f * 0.09 - sin(a) * bw, pj + sin(a) * f * 0.09 + cos(a) * bw, z, shade(mix(argb(0x5E8040), argb(0x3A5A2A), f), 0.85 + 0.25 * (1 - abs(w) / 3.0)))
+                            val z = 5 + (f * 14 - f * f * 6) * sc
+                            c.pt(pi + cos(a) * f * 0.09 * sc - sin(a) * bw, pj + sin(a) * f * 0.09 * sc + cos(a) * bw, z, shade(mix(argb(0x5E8040), argb(0x3A5A2A), f), 0.85 + 0.25 * (1 - abs(w) / 3.0)))
                         }
                         for (a2 in 0..20) c.pt(pi + 0.02 * cos(a2 * 0.3), pj + 0.02 * sin(a2 * 0.3), 3.5, argb(0xD8C8D0))
                     }
@@ -704,14 +735,16 @@ object MapWoodIso {
      * to a rounded, broken top and leaning a little; weathered grey with pale lichen, moss creeping up from the foot,
      * and on its broad face a worn spiral cut long ago. Four looks ([v]), each slab turned its own way.
      */
+    /** 89: the height (upright units) and the turn of the menhir on ([tx], [ty]), for its shadow ([MapSun]). */
+    fun menhirShape(map: MapDef, tx: Int, ty: Int): Pair<Double, Double> = menhirSize(Math.floorMod(menhirIndex(map, tx, ty), 4))
+    private fun menhirSize(v: Int) = (104.0 + (v * 9) % 22) to listOf(0.3, 1.2, -0.4, 0.8)[v % 4]
+
     fun menhir(v: Int): PixelImage {
         val c = Canvas(170)
         val seed = 870 + v * 19
         val ci = -0.5; val cj = -0.5
-        val h = 104.0 + (v * 9) % 22
-        val turn = listOf(0.3, 1.2, -0.4, 0.8)[v % 4]
+        val (h, turn) = menhirSize(v)
         val lean = listOf(0.04, -0.03, 0.06, 0.0)[v % 4]
-        c.shadow(ci + 0.08, cj + 0.04, 0.4, 0.32, 0.5)
         // a rounded box in cross-section (superellipse), broad along u, thin along w
         val ru0 = 0.32; val rw0 = 0.17
         var z = 0.0
@@ -948,14 +981,16 @@ object MapWoodIso {
      * (weathered grey at the top, golden below), a low loose heap with a pitchfork stuck in it, a round cock. Straws run
      * down the sides, single ones stick out; lit from above and the right.
      */
+    /** 89: the radius (tiles) and height (upright units) of the hay on ([tx], [ty]), for its shadow ([MapSun]). */
+    fun hayShape(tx: Int, ty: Int): Pair<Double, Double> = haySize(Math.floorMod(hash(tx, ty, 38), 3))
+    private fun haySize(v: Int) = when (v) { 0 -> 0.38; 1 -> 0.42; else -> 0.34 } to when (v) { 0 -> 100.0; 1 -> 55.0; else -> 78.0 }
+
     fun hay(v: Int): PixelImage {
         val c = Canvas(140)
         val seed = 960 + v * 31
         val ci = -0.5; val cj = -0.5
-        val R = when (v) { 0 -> 0.38; 1 -> 0.42; else -> 0.34 }
-        val H = when (v) { 0 -> 100.0; 1 -> 55.0; else -> 78.0 }
+        val (R, H) = haySize(v)
         val bulge = when (v) { 0 -> 2.0; 1 -> 0.9; else -> 2.8 }
-        c.shadow(ci + 0.08, cj + 0.05, R + 0.08, R * 0.9 + 0.06, 0.5)
         val gold = argb(0xC4A866); val straw = argb(0x9A8048); val deep = argb(0x5E4A26); val grey = argb(0x8A8270)
         // the side: radius by height, slumped a little to one side
         fun rad(u: Double) = R * (1 - u.pow(bulge)).coerceAtLeast(0.0).pow(0.55)
@@ -1029,7 +1064,6 @@ object MapWoodIso {
         fun inTile(g: Double) = g >= k - 0.02 && g <= k + 1.02
         val wood = argb(0x5A4430)
         for (g in listOf(g0, g1)) if (inTile(g)) {
-            c.shadow(i(g), cj + 0.02, 0.06, 0.05, 0.5)
             for (zz in 0..(top * 3).toInt()) for (a in 0 until 8) {
                 val an = a * PI / 4; val z = zz / 3.0
                 c.pt(i(g) + cos(an) * 0.025, cj + sin(an) * 0.025, z, shade(mix(wood, argb(0x3A2C20), vnoise(z / 6, an, seed)), lit(cos(an), sin(an), 0.0)))
@@ -1097,6 +1131,9 @@ object MapWoodIso {
                 "corn/$tx/$ty" to { corn(tx, ty, e) }
             }
             Tile.HAY -> Math.floorMod(hash(tx, ty, 38), 3).let { v -> "hay/$v" to { hay(v) } }
+            // D6.3: reeds along the river in the village too, as in the woods, but not beside the bridge
+            Tile.WATER -> return if ((-1..1).any { d -> map.tile(tx + d, ty) == Tile.BRIDGE || map.tile(tx, ty + d) == Tile.BRIDGE }) null
+                else objects(map, tx, ty, 0)
             Tile.WASHLINE -> {
                 var x0 = tx; while (map.tile(x0 - 1, ty) == Tile.WASHLINE) x0--
                 var n = 0; while (map.tile(x0 + n, ty) == Tile.WASHLINE) n++
@@ -1116,7 +1153,8 @@ object MapWoodIso {
 
     /** The new pictures for one tile of the woods seen diagonally, or null where the former ones stay. */
     fun objects(map: MapDef, tx: Int, ty: Int, frame: Int, open: Boolean = false): List<WorldArt.Obj>? {
-        if (map.kind != MapKind.FOREST) return null
+        // D6.3: the village asks only for the reeds along its river
+        if (map.kind != MapKind.FOREST && !(map.kind == MapKind.TOWN && map.tile(tx, ty) == Tile.WATER)) return null
         val t = map.tile(tx, ty)
         val key: Pair<String, () -> PixelImage> = when (t) {
             Tile.LOG -> {
@@ -1137,10 +1175,16 @@ object MapWoodIso {
             }
             // the signs of the woods: the village's signposts, a board on one post or on two; not the look with the
             // arrow, which would point along +i whatever the way
-            Tile.MENHIR -> Math.floorMod(hash(tx, ty, 37), 4).let { v -> "menhir/$v" to { menhir(v) } }
+            // D3.7: by its place in the map's order, so the stones of a circle follow one another through the four looks
+            // (by hash three of four were alike in both circles)
+            Tile.MENHIR -> Math.floorMod(menhirIndex(map, tx, ty), 4).let { v -> "menhir/$v" to { menhir(v) } }
             Tile.ROCK -> Math.floorMod(hash(tx, ty, 36), 3).let { v -> "rock/$v" to { boulders(v) } }
             Tile.CHEST -> Math.floorMod(hash(tx, ty, 35), 3).let { v -> "chest/$v/$open" to { chest(v, open) } }
-            Tile.SIGN -> Math.floorMod(hash(tx, ty, 33), 2).let { v -> "sign/$v" to { MapTownIso.signpost(v, 71) } }
+            // D3.7: three looks and the grain of each its own, so no two signs of the woods are alike
+            Tile.SIGN -> Math.floorMod(hash(tx, ty, 33), 3).let { k ->
+                val v = intArrayOf(0, 1, 3)[k]; val seed = 71 + 13 * Math.floorMod(hash(tx, ty, 34), 5)
+                "sign/$v/$seed" to { MapTownIso.signpost(v, seed) }
+            }
             // reeds along the far bank (27.5): where land lies behind the water, now and then a clump near it
             Tile.WATER -> {
                 val west = map.tile(tx - 1, ty) != Tile.WATER; val north = map.tile(tx, ty - 1) != Tile.WATER
