@@ -779,19 +779,23 @@ object MapTownIso {
      * their own cloth and wares: apples and cabbages, loaves and sacks, pots and a string of onions. [withCloth] false: all
      * but the cloth roof (5.5: on the map the roof fades on its own when the hero stands behind the stall).
      */
-    fun stall(v: Int, seed: Int, withCloth: Boolean = true): PixelImage {
+    fun stall(v: Int, seed: Int, withCloth: Boolean = true, west: Boolean = false, east: Boolean = false, wareSeed: Int = seed): PixelImage {
         val c = Tile1(220)
         c.shadow(-0.5, -0.45, 0.55, 0.4)
-        val i0 = -0.9; val i1 = -0.1; val j0 = -0.72; val j1 = -0.28
-        for ((pi, pj) in listOf(i0 to j0, i1 to j0, i0 to j1, i1 to j1))
+        // D6.5: a stall over two tiles is one stall: towards a stall tile beside it the board and the cloth run on to the
+        // edge of the tile, and the poles stand only at the stall's two ends
+        val i0 = if (west) -1.0 else -0.9; val i1 = if (east) 0.0 else -0.1; val j0 = -0.72; val j1 = -0.28
+        for ((pi, pj) in listOf(i0 to j0, i1 to j0, i0 to j1, i1 to j1)) if (!(pi == i0 && west) && !(pi == i1 && east))
             c.box(pi - 0.025, pj - 0.025, pi + 0.025, pj + 0.025, 0.0, if (pj == j0) 130.0 else 112.0) { f, u, w -> wood(f, w, u, seed + 1, 0x3E2E22) }
         c.box(i0, j0, i1, j1, 42.0, 48.0) { f, u, w -> wood(f, u, w, seed + 2, 0x5A4430) }
         // the wares: little round heaps on the board
         val wares = when (v) { 0 -> listOf(0x7A2A1E, 0x5A6E2E, 0x8A3A22); 1 -> listOf(0x8A6A3A, 0x9A7A46, 0x6E5E44); else -> listOf(0x6A4A34, 0x4E5A4E, 0x8A7A5E) }
+        // D6.5: laid out loosely, not in a 3 × 3 grid, each tile of a long stall its own
         for (k in 0 until 9) {
-            val wi = i0 + 0.1 + (k % 3) * 0.27 + (rnd(k, 1, seed) - 0.5) * 0.06; val wj = j0 + 0.1 + (k / 3) * 0.12
-            val rr = if (v == 1) 0.07 else 0.05
-            val col = wares[hash(k, 2, seed) % wares.size]
+            val wi = -0.8 + (k % 3) * 0.27 + (rnd(k, 1, wareSeed) - 0.5) * 0.16; val wj = j0 + 0.1 + (k / 3) * 0.12 + (rnd(k, 5, wareSeed) - 0.5) * 0.06
+            if (rnd(k, 6, wareSeed) < 0.15) continue
+            val rr = (if (v == 1) 0.07 else 0.05) * (0.8 + rnd(k, 7, wareSeed) * 0.4)
+            val col = wares[hash(k, 2, wareSeed) % wares.size]
             c.cylinder(wi, wj, rr, 48.0, 48.0 + rr * 90, { _, z, lit -> shade(argb(col), lit * (0.7 + 0.3 * (z - 48) / (rr * 90))) })
         }
         if (!withCloth) return c.img
@@ -808,7 +812,8 @@ object MapTownIso {
     }
 
     /** Only the cloth roof of a [stall]: the pixels where the whole stall differs from the one without its cloth. */
-    fun stallCloth(v: Int, seed: Int): PixelImage = litWindows(stall(v, seed, false), stall(v, seed))
+    fun stallCloth(v: Int, seed: Int, west: Boolean = false, east: Boolean = false): PixelImage =
+        litWindows(stall(v, seed, false, west, east), stall(v, seed, true, west, east))
 
     /**
      * [img] without its empty rows at the top, an even number of them (drawn at half size); [PixelImage.oy] says how many.
@@ -1219,8 +1224,13 @@ object MapTownIso {
         // only the cloth roof fades when the hero stands behind the stall; together the same picture as before
         if (t == Tile.STALL) {
             val T = WorldArt.T
-            val base = synchronized(sliceCache) { thingCache.getOrPut("stall/$v/base") { cutTop(stall(v, 501 + v, false)) } }
-            val roof = synchronized(sliceCache) { thingCache.getOrPut("stall/$v/roof") { stallCloth(v, 501 + v) } }
+            // D6.5: a stall over several tiles takes the look of its westmost tile and joins up
+            val west = map.tile(tx - 1, ty) == Tile.STALL; val east = map.tile(tx + 1, ty) == Tile.STALL
+            var x0 = tx; while (map.tile(x0 - 1, ty) == Tile.STALL) x0--
+            val sv = Math.floorMod(hash(x0, ty, 15), 3)
+            val ws = Math.floorMod(hash(tx, ty, 16), 7)
+            val base = synchronized(sliceCache) { thingCache.getOrPut("stall/$sv/base/$west/$east/$ws") { cutTop(stall(sv, 501 + sv, false, west, east, 601 + ws)) } }
+            val roof = synchronized(sliceCache) { thingCache.getOrPut("stall/$sv/roof/$west/$east") { stallCloth(sv, 501 + sv, west, east) } }
             val wx = (tx + 1) * T; val wy = (ty + 1) * T
             val sortY = (tx + ty) * T + T * 3 / 2 - 1 - wx
             return listOf(WorldArt.Obj(base, wx - base.width / 4, wy - base.height / 2, sortY, 2, low = true, corner = true),
