@@ -84,6 +84,10 @@ Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/ARBEIT-O
 
 **Vorrat für Selbstarbeit** (Reihenfolge; 23a freigegeben 11.10., 14:18; Erledigtes im Archiv, 77e):
 1. ~~27 Wald~~ Lückenliste und 27l/27m erledigt (in 0.1.729 und PR #60).
+2. **92 Bram** (Nutzer 15.10., 22:4x: „tausend Dinge in der Nachtarbeit“): Platzmachen ohne Gerät nachweisen; fertig, wenn ein Kerntest Held-gegen-Bram an der Brücke fängt (nie festhängen).
+3. **Ort fertig Dorf, Räume, Wald** (26, `LISTE-KAPITEL1.md`): je Ort Standbilder gegen `DESIGN-ABNAHME.md`; fertig, wenn eine Lückenliste mit Uhrzeit in der Übergabe steht.
+4. **Durchgespielt** (26): `PlayerSimTest` laufen lassen; fertig, wenn grün oder Befund eingetragen.
+5. **Eigene Zeilen in `ARBEIT-OFFEN.md` kürzen** (Erledigtes von Tom ins Archiv; Umbau 98 nicht vorwegnehmen).
 
 **Für gemeinsame Zeit:**
 - t732 (PR #60) und Sammelbuild PR #61 auf dem Gerät testen; 69e und 74 auf „Dein Zug“ entscheiden; danach 69/68 Figuren.
