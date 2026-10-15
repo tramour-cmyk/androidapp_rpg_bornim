@@ -4,9 +4,9 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (15.10., 12:4x) – Nachfolger: „Sokrates – Gefährte und Verschleiß“:**
 
-**Nächster Punkt:** (1) **72o.1** Zeichen für Verschleiß in Ausrüstung und Tasche: im Chat 12:4x vorgeschlagen (Empfehlung A: Rissmarke an der Ecke des Feldes, Form zählt die Stufe, Rahmenfarbe dazu); ohne Antwort auf Dein Zug. (2) **72s** Gefährte für Kapitel 2, dann 84.x. (3) `ARBEIT-OFFEN.md` über 15 KB: Erledigtes ins Archiv. Heute erledigt: 90 Tagesrückblick (Probe 16.–22.10.), 72o B, D4.1 Taschentext, 70.6 A (Bild 3 neu nach Karte, an Tom), 89 ja (alle Außenkarten).
+**Nächster Punkt:** (1) **72o.1** auf Dein Zug (`e/72o1.html`, 12:5x; Rahmenfarbe verworfen, ist schon Seltenheit). (2) **72s** Gefährte für Kapitel 2, dann 84.x. (3) `ARBEIT-OFFEN.md` über 15 KB: Erledigtes ins Archiv. Heute erledigt: 90 Tagesrückblick (Probe 16.–22.10.), 72o B, D4.1 Taschentext, 70.6 A (Bild 3 neu nach Karte, an Tom), 89 ja (alle Außenkarten).
 
-**Zuletzt gelesen bis:** 030f4955 (15.10., 12:4x)
+**Zuletzt gelesen bis:** dd9cd451 (15.10., 12:5x)
 
 ## Wer du bist
 
