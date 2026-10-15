@@ -14,7 +14,7 @@ import sys
 FRAGE = re.compile(r"\?\s*(\*\*)?\s*$", re.MULTILINE)
 EMPFEHLUNG = re.compile(r"empfehl|empfiehl|vorschlag|schlage .{0,30}vor|würde ich|zu entscheiden", re.IGNORECASE)
 # Testbitte (D8.5): auch „Anzusehen“ gehört auf Dein Zug
-TEST = re.compile(r"\b(ansehen|anschauen|testen|anhören|hören|ausprobieren)\b", re.IGNORECASE)
+TEST = re.compile(r"\b(ansehen|anschauen|schau|sieh|teste\w*|anhören|hör\w*|ausprobier\w*|probier\w*)\b", re.IGNORECASE)
 # Empfehlung und Testbitte zählen nur, wenn sie den Nutzer ansprechen (D8.6: Berichte zitieren Empfehlungen)
 ANSPRACHE = re.compile(r"\b(du|dir|dich|dein\w*)\b", re.IGNORECASE)
 # Themennummern wie 68n, 72s.1, D3.13, 90a, 7.2
@@ -50,7 +50,10 @@ def main():
         if not t or FREI.search(t):
             return
         ohne = re.sub(r"`[^`]*`|\]\([^)]*\)|https?://\S+|\[\d{1,2}\.\d{1,2}\.,? ?\d{1,2}:\d{2}\]|\b\d+\.\d+\.\d+\b|\b\d{1,2}\.\d{1,2}\.", "", t)
-        if not (FRAGE.search(ohne) or ((EMPFEHLUNG.search(ohne) or TEST.search(ohne)) and ANSPRACHE.search(ohne))):
+        # Empfehlung und Testbitte nur, wenn derselbe Satz den Nutzer anspricht (ein „du“ irgendwo reichte nicht)
+        saetze = re.split(r"(?<=[.!?:;])\s+|\n+| – ", ohne)
+        bitte = any((EMPFEHLUNG.search(z) or TEST.search(z)) and ANSPRACHE.search(z) for z in saetze)
+        if not (FRAGE.search(ohne) or bitte):
             return
         nummern = sorted({n for n in NUMMER.findall(ohne) if re.search(r"[a-zA-Z.]", n)})
         liste = ", ".join(nummern[:12]) or "keine Nummer gefunden"
