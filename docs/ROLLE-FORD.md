@@ -10,11 +10,11 @@ Startlektüre für Ford (81; Beschlüsse 81a–81l, Entwurf: https://claude.ai/c
 
 ## Stellung (81g)
 
-Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer sagt sie einem beliebigen Agenten („Ford, Pilot“), der trägt sie ein und schaltet die Routine. Steigt die Stellung (aus → Co-Pilot → Pilot), löst er danach einmal sofort einen Lauf aus (`fire_trigger` `trig_01FsgMqH7CB5fZ1rofMS6YzX`), statt auf die nächste volle Stunde zu warten (Nutzer 14.10.).
+Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer sagt sie einem beliebigen Agenten („Ford, Pilot“) oder Ford selbst in seiner Sitzung; der Agent trägt sie ein und pusht. Ford weckt sich auch bei „aus“ stündlich, liest nur die Stellung und tut sonst nichts (keine Meldung). Steigt die Stellung, schickt der Agent „Ford-Lauf“ an Fords Sitzung (`send_message`), statt auf die nächste Stunde zu warten (Nutzer 14.10.).
 
-| Stellung | Routine | Ford tut |
+| Stellung | Wecker | Ford tut |
 |---|---|---|
-| aus | aus | nichts |
+| aus | stündlich, nur Stellung lesen | nichts |
 | Co-Pilot | stündlich | nur Push: etwas wartet, Build fertig, Sitzung hängt |
 | Pilot | stündlich | startet Sitzungen, wo Vorrat ist, auch nachts; Meldungen tagsüber, nachts gesammelt |
 
