@@ -60,6 +60,7 @@ tools/meldung.sh Ford "Du bist dran: [0.1.748](dz:e/t748.html) testen.\n\n[Tom](
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 20:31 15.10.: Start Diogenes (98 Entwurf Firma und Rollen, Auftrag Sokrates)
 - 20:28 15.10.: Start Sokrates (Neustart, 00dd62d5)
 - 20:17 15.10.: Start Sokrates (Neustart, fd4eb365)
 - 20:12 15.10.: Startsperre aufgehoben (Sokrates: erst Struktur, kein Umbau)
