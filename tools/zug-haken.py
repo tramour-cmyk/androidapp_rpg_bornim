@@ -13,6 +13,10 @@ import sys
 # Frage an den Nutzer: Satz endet mit „?“ (nicht in Code oder Links); Empfehlung oder Vorschlag in eigenen Worten
 FRAGE = re.compile(r"\?\s*(\*\*)?\s*$", re.MULTILINE)
 EMPFEHLUNG = re.compile(r"empfehl|empfiehl|vorschlag|schlage .{0,30}vor|würde ich|zu entscheiden", re.IGNORECASE)
+# Testbitte (D8.5): auch „Anzusehen“ gehört auf Dein Zug
+TEST = re.compile(r"\b(ansehen|anschauen|testen|anhören|hören|ausprobieren)\b", re.IGNORECASE)
+# Empfehlung und Testbitte zählen nur, wenn sie den Nutzer ansprechen (D8.6: Berichte zitieren Empfehlungen)
+ANSPRACHE = re.compile(r"\b(du|dir|dich|dein\w*)\b", re.IGNORECASE)
 # Themennummern wie 68n, 72s.1, D3.13, 90a, 7.2
 NUMMER = re.compile(r"\b(D?\d{1,3}[a-z]?(?:\.\d{1,2})?[a-z]?)\b")
 FREI = re.compile(r"vorrat leer|weiter in .{0,80}: https://", re.IGNORECASE)
@@ -45,16 +49,16 @@ def main():
         t = e.get("last_assistant_message") or letzter_text(e["transcript_path"])
         if not t or FREI.search(t):
             return
-        ohne = re.sub(r"`[^`]*`|\]\([^)]*\)|https?://\S+", "", t)
-        if not (FRAGE.search(ohne) or EMPFEHLUNG.search(ohne)):
+        ohne = re.sub(r"`[^`]*`|\]\([^)]*\)|https?://\S+|\[\d{1,2}\.\d{1,2}\.,? ?\d{1,2}:\d{2}\]|\b\d+\.\d+\.\d+\b|\b\d{1,2}\.\d{1,2}\.", "", t)
+        if not (FRAGE.search(ohne) or ((EMPFEHLUNG.search(ohne) or TEST.search(ohne)) and ANSPRACHE.search(ohne))):
             return
-        nummern = sorted({n for n in NUMMER.findall(ohne) if re.search(r"[a-zA-Z.]", n) and not re.fullmatch(r"\d+\.\d+\.", n)})
+        nummern = sorted({n for n in NUMMER.findall(ohne) if re.search(r"[a-zA-Z.]", n)})
         liste = ", ".join(nummern[:12]) or "keine Nummer gefunden"
         print(json.dumps({
             "decision": "block",
             "reason": "Dein-Zug-Haken (63): Deine Antwort enthält eine Frage oder Empfehlung an den Nutzer (Nummern: "
                       + liste + "). Steht jede davon auf „Dein Zug“ (e/<nr>.html und Zeile in der Liste) und hat eine "
-                      "Nummer in ARBEIT-OFFEN.md? Fehlt etwas: jetzt eintragen, ohne es im Chat zu erwähnen. Ohne "
+                      "Nummer in ARBEIT-OFFEN.md? Gilt auch für Testbitten („Anzusehen“). Fehlt etwas: jetzt eintragen, ohne es im Chat zu erwähnen. Ohne "
                       "Nummer: erst Nummer vergeben. Steht schon alles dort oder ist es keine Frage an den Nutzer: "
                       "einfach erneut beenden.",
         }))

@@ -57,12 +57,11 @@ def zuwachs(werte):
 def text(stufe, plus, gesamt):
     k = lambda n: f"{round(n / 1000)} Tsd."
     kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist seit dem Start um etwa {k(plus)} Token gewachsen (jetzt {k(gesamt)}, Schwelle {k(AB)}); Erinnerung Nr. {stufe}."
+    # 81r: der Anlass entscheidet, nicht ein Ja des Nutzers; kein Vorschlag im Chat (D8.2: der löste den Dein-Zug-Haken aus)
     if stufe == 1:
-        rest = "Schlage dem Nutzer am Ende dieser Antwort kurz vor, an der nächsten Bruchstelle (Thema fertig, Build ausgeliefert) eine neue Sitzung zu starten; vorher Übergabe in docs/ARBEIT-OFFEN.md."
-    elif stufe <= 3:
-        rest = "Erinnere den Nutzer am Ende dieser Antwort noch einmal deutlich an den Neustart und nenne die Größe; biete an, jetzt die Übergabe zu schreiben."
+        rest = "An der nächsten Bruchstelle (Thema fertig, Build ausgeliefert): Übergabe mit „Nachfolger: <Titel>“ pushen, send_message an Ford „Neustart <Name>, <Commit>“ (81r, ARBEIT-ABLAEUFE.md „Neustart“). Im Chat nichts dazu."
     else:
-        rest = "Jede weitere Nachricht kostet jetzt viel. Weise den Nutzer am Anfang dieser Antwort mit einem Satz darauf hin und empfiehl, jetzt die Übergabe zu schreiben und neu zu starten."
+        rest = "Zweite Erinnerung: jetzt den Schritt beenden, Übergabe pushen, Neustart über Ford (81r); im Chat danach genau „Weiter in <Titel>: <Link>“."
     return kopf + " " + rest
 
 
