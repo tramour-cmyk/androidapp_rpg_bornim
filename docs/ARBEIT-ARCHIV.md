@@ -1,5 +1,9 @@
 # Archiv
 
+### Aus ARBEIT-OFFEN.md, 15.10., 07:1x (Übergabe Tom 14.10., 23:2x)
+- **Vorrat, in dieser Reihenfolge:** (1) **69** übrige Intro-Bilder im Stil des Musterbilds rendern (`[69.intro.1]` Südstraße, `.3` Dorfplatz mit Fackeln, `.4` Gasthausfenster mit Rowena als Umriss; 5 schwarz), als ein Satz „Anzusehen“ auf Dein Zug mit Stil-Abgleich (88), Zeile `e/69e-5.html` dort löschen; dann Intro bauen. Vorlage `BridgeProbe.kt` auf `claude/tom-69e-musterbild`. (2) **83c Scharren** neu aus echten CC0-Aufnahmen Echte Aufnahme nur auf Freesound (wil_j_wil 571660, CC0, Hühner scharren im Gras, laute Pute; von hier 403, nur von Hand ladbar); Ersatz BigSoundBank CC0: 0163 Strohbesen (Schnitte 2,00–2,32 / 2,73–3,08 / 3,67–4,04 / 8,28–8,60 s), 0137 Füße im Laub (1,70–2,14 / 3,53–3,86 / 5,31–5,61, Hochpass 300 Hz), 0024 Besen. Hörprobe auf Dein Zug; sonst bleibt es. Dann `huehner.py` `--spiel`. (3) Danach 86.1, 86.4, 86.2, 86.3, 6l.
+- **Sammelbuild** erst nach „passt“ zu 0.1.746 (PR #63 abonnieren): 69e-Welt, 83b/83c, D1.5 Truhe, 74 Schritte (alle fertig auf ihren Zweigen); Prüfliste mit Hühnern (x 33, y 28) und Brücke nachts (x 18, y 25).
+
 ## Aus ROLLE-TESTER.md, 14.10., 23:3x
 
 **Übergabe (13.10., 20:5x):** Lauf 2 fertig (71 C, D2.1–D2.13). Offen: **38g** (mit Zufallsspieler zählen, als Messung kennzeichnen), **71 A** erst nach Toms Zweigen. Nächster Lauf: Behebungen aus D1/D2 kurz nachprüfen. Vorschau: `MENUE` trifft die Reiter falsch (D2.11), Tasche und System bis dahin nur im Code; Englisch zeichnet die Vorschau nicht. `HAENDLER=neu` lief mit 137 (Speicher) ab, einzeln mit `ONLY=59_…` neu starten. Hinweis: `tools/notiz.sh` schiebt `main` in beiden Arbeitskopien weiter, ohne die Dateien nachzuziehen; vor Änderungen `git reset --hard HEAD && git merge --ff-only origin/main` (kein echter Unterschied).
