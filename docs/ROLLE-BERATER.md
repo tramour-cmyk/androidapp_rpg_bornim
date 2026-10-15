@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (15.10., 10:23) – Sitzung „Sokrates – Befunde Wald und Verschleiß“ läuft:**
 
-**Nächster Punkt:** (1) **D4.1 Texte** (beschlossen A): Questschritt zu Morwen vor der Höhle (Grund: Mittel gegen das Gift der Höhle oder Weg zum Ostflügel) und Garricks Warnung unter Stufe 3, Vorschlag unter 41 mit dem Nutzer, dann an Tom. (2) **72o Verschleiß**, dann 72s, 84.x. Auf Dein Zug **81s** (D5.1 Stundenuhr, D5.4, D5.5; bei Ja: `create_trigger` mit `persistent_session_id` Fords Sitzung, stündlich, `send_later`-Kette in `ROLLE-FORD.md` ersetzen; Routinen löschen, `ARBEIT-SELBST.md`-Abschnitt streichen). (3) 81r beobachten; Jerrys `TELEGRAM_BOT_TOKEN` (Nutzer). 81p/81r stehen in den Beschlüssen.
+**Nächster Punkt:** (1) **D4.1 Texte** (beschlossen A): Questschritt zu Morwen vor der Höhle (Grund: Mittel gegen das Gift der Höhle oder Weg zum Ostflügel) und Garricks Warnung unter Stufe 3, Vorschlag unter 41 mit dem Nutzer, dann an Tom. (2) **72o Verschleiß**, dann 72s, 84.x. **81s Probe** um 12:10 prüfen (Wecker an mich gestellt): landete die Stundenuhr in Fords Sitzung, dann Kette in `ROLLE-FORD.md` streichen, sonst Uhr löschen. (3) 81r beobachten; Jerrys `TELEGRAM_BOT_TOKEN` (Nutzer). 81p/81r stehen in den Beschlüssen.
 
 **Zuletzt gelesen bis:** 95af033a (15.10., 10:2x)
 
