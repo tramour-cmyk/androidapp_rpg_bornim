@@ -255,12 +255,13 @@ object Story {
     /**
      * What the hero thinks at the south edge of the village (67), by how far the story is: the first time
      * in each part a line to read, after that the short one as a passing note. Second is true for the short one.
-     * After Lyra spoke of the camp in the south (68l) the edge has nothing more to say: null, the hero only steps back
-     * until chapter 2 opens the road.
+     * After Lyra spoke of the camp in the south (68l) the edge says plainly that the road comes later (68p), the same
+     * line each time, until chapter 2 opens the road.
      */
     fun southEdge(state: GameState): Pair<T, Boolean>? {
-        if (CAMP_TOLD in state.flags) return null
         val (part, long, short) = when {
+            CAMP_TOLD in state.flags -> T("Der Weg nach Süden ist noch nicht begehbar. Kapitel 2 folgt mit einem späteren Update.",
+                "The road south cannot be travelled yet. Chapter 2 follows in a later update.").let { Triple("camp", it, it) }
             CHAPTER1_DONE in state.flags -> Triple("after", T("Der Brief mit dem grauen Siegel lässt dich nicht los. Die Antwort liegt nicht im Süden.",
                 "The letter with the grey seal won't let you go. The answer doesn't lie in the south."), T("Die Antwort liegt nicht im Süden.", "The answer doesn't lie in the south."))
             QUEST_STARTED in state.flags -> Triple("quest", T("Lyra ist irgendwo im Norden. Der Weg nach Süden kann warten.",
@@ -804,7 +805,7 @@ object Story {
     }
 
     val chapterEndText = T(
-        "Bornim feiert bis tief in die Nacht. Das Sonnenamulett leuchtet wieder im Tempel, und Schwester Lyra ist in Sicherheit.\n\nDoch der Brief mit dem grauen Siegel lässt dich nicht los. Wer ist der Graue Prophet? Und was ist der Tag der Asche?\n\nENDE VON KAPITEL 1\n\nDu kannst weiterspielen, Monster jagen und deinen Helden verbessern.",
-        "Bornim celebrates deep into the night. The Sun Amulet shines in the temple once more, and Sister Lyra is safe.\n\nBut the letter with the grey seal won't leave your mind. Who is the Grey Prophet? And what is the Day of Ashes?\n\nEND OF CHAPTER 1\n\nYou can keep playing, hunt monsters and improve your hero.",
+        "Bornim feiert bis tief in die Nacht. Das Sonnenamulett ist zurück in Bornim, und Schwester Lyra ist in Sicherheit.\n\nDoch der Brief mit dem grauen Siegel lässt dich nicht los. Wer ist der Graue Prophet? Und was ist der Tag der Asche?\n\nENDE VON KAPITEL 1\n\nDu kannst weiterspielen, Monster jagen und deinen Helden verbessern.",
+        "Bornim celebrates deep into the night. The Sun Amulet is back in Bornim, and Sister Lyra is safe.\n\nBut the letter with the grey seal won't leave your mind. Who is the Grey Prophet? And what is the Day of Ashes?\n\nEND OF CHAPTER 1\n\nYou can keep playing, hunt monsters and improve your hero.",
     )
 }
