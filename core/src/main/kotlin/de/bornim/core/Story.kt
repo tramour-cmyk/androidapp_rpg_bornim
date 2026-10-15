@@ -255,8 +255,11 @@ object Story {
     /**
      * What the hero thinks at the south edge of the village (67), by how far the story is: the first time
      * in each part a line to read, after that the short one as a passing note. Second is true for the short one.
+     * After Lyra spoke of the camp in the south (68l) the edge has nothing more to say: null, the hero only steps back
+     * until chapter 2 opens the road.
      */
-    fun southEdge(state: GameState): Pair<T, Boolean> {
+    fun southEdge(state: GameState): Pair<T, Boolean>? {
+        if (CAMP_TOLD in state.flags) return null
         val (part, long, short) = when {
             CHAPTER1_DONE in state.flags -> Triple("after", T("Der Brief mit dem grauen Siegel lässt dich nicht los. Die Antwort liegt nicht im Süden.",
                 "The letter with the grey seal won't let you go. The answer doesn't lie in the south."), T("Die Antwort liegt nicht im Süden.", "The answer doesn't lie in the south."))

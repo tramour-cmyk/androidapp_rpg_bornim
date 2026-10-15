@@ -399,8 +399,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (warp != null && warp.requires != null && !state.has(warp.requires)) {
             changed()
             if (warp.turnBack) {
-                val (text, short) = Story.southEdge(state)
-                if (short) notices += text else enqueue(listOf(Cmd.Say(null, text)))
+                Story.southEdge(state)?.let { (text, short) -> if (short) notices += text else enqueue(listOf(Cmd.Say(null, text))) }
                 stepBack = dir.opposite
             } else enqueue(warp.knock?.invoke(state, isNight) ?: warp.denied)
             return Move.Blocked
