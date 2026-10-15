@@ -3,9 +3,9 @@
 Haltung und Ablauf des Testers. **Höchstens etwa 10 KB** (Startprompt und Kosten/Nutzen 75 kamen dazu); nur Diogenes liest diese Datei. Kurzrolle in `CLAUDE.md`.
 
 **Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
-**Geprüft bis:** `b054c866` (15.10., Lauf 7: 71 Nachprüfung Dorf; letzter Code 4f9cd740, 0.1.748); nächste Nummer D9; Lauf 8: 65.11 Haken und Entwurf, ohne Spielcode
+**Geprüft bis:** `24a4fde` (15.10., Lauf 9: Nachprüfung 0.1.750, Sonnenschatten 89; letzter Code 8836512); nächste Nummer D10
 
-**Übergabe (15.10., 16:4x):** Lauf 7 fertig: 71 Nachprüfung Dorf nach 0.1.748 (Hühner, Schritte, Intro, Brücke), ein Befund D7.1 an Tom, drei Anregungen, „Zu testen“ eingetragen. Offen unter „Für Diogenes“ nur noch 90 (nach dem 22.10.). Lehre: Kerntests nicht starten, solange das Vorwärmen läuft (Übersetzung bricht ab); Uhrzeit immer von der Systemuhr; `meldung.sh` nur aus `/home/user/bornim-main/tools/` (Sokrates 16:30). Nachfolger: keiner nötig bis 90.
+**Übergabe (15.10., 18:1x):** Lauf 9 fertig: Nachprüfung 0.1.750, drei Befunde an Tom (D9.1 Nähte an Häusern, D9.2 Schattenschicht hält das Bild an, D9.3 Abendstand nach Mitternacht), D6.2/D6.3/D6.5 behoben, D3.3 teilweise. Lehre: Ein Hilfstest zum Messen gehört nur lokal hin und wird danach gelöscht; zum Vergleich mit einem alten Stand eine eigene Arbeitskopie (`git worktree`) im Scratchpad anlegen. Offen unter „Für Diogenes“ nur 90 (nach dem 22.10.). Nachfolger: keiner nötig bis 90.
 
 ## Wer du bist (Startprompt, Thema 75, Nutzer 13.10., 20:36)
 
