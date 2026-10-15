@@ -4,6 +4,7 @@ package de.bornim.core.art
 object ArtMemory {
     fun trim() {
         MapGround.trim()
+        MapSun.trim()
         MapFolk.keepOnly(MapFolk.shown?.let { MapFolk.idsOn(it) } ?: emptySet())
     }
 }
