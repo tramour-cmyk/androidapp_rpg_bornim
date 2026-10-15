@@ -7,6 +7,7 @@ leer“ in der Nachricht lässt sofort durch. Wartet sie begründet (Build mit W
 noch einmal; beim zweiten Mal lässt der Haken sie durch (stop_hook_active), es gibt also nie eine Schleife.
 """
 import json
+import os
 import re
 import sys
 
@@ -63,12 +64,30 @@ def erste_nachricht(pfad):
     return ""
 
 
+def ist_ford():
+    """D5.3: Fords Sitzung erkennt der Haken auch an der Kennung in ROLLE-FORD.md (Ford 15.10., 12:02: der Name
+    in der ersten Nachricht reichte nicht). Liest die frische Notizkopie, sonst die eigene."""
+    kennung = os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID", "").split("_", 1)[-1]
+    if not kennung:
+        return False
+    for wurzel in (os.path.join(os.path.dirname(os.environ.get("CLAUDE_PROJECT_DIR", ".")), "bornim-main"),
+                   os.environ.get("CLAUDE_PROJECT_DIR", ".")):
+        try:
+            with open(os.path.join(wurzel, "docs", "ROLLE-FORD.md"), encoding="utf-8") as f:
+                for zeile in f:
+                    if "Ford lebt in einer Sitzung" in zeile:
+                        return ("session_" + kennung) in zeile.split("Vorgänger")[0]
+        except OSError:
+            continue
+    return False
+
+
 def main():
     try:
         e = json.load(sys.stdin)
         if e.get("stop_hook_active"):
             return
-        if ROLLE_OHNE_HAKEN.search(erste_nachricht(e["transcript_path"])[:300]):
+        if ist_ford() or ROLLE_OHNE_HAKEN.search(erste_nachricht(e["transcript_path"])[:300]):
             return
         t = e.get("last_assistant_message") or letzter_text(e["transcript_path"])
         # 54, Nutzer 13.10., 15:2x: „Das darf nicht sein“ (Tom hatte auf Build und Entscheidung gewartet, obwohl
