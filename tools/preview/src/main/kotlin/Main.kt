@@ -805,6 +805,21 @@ fun main() {
         shot("41_brett_menue", taps = listOf(Offset(950f, 95f))) { vm -> jobs(vm); vm.menuOpen = true; vm.refresh() }
         System.exit(0)
     }
+    // RAST=1: 86.9/86.10 the "Rasten?" window by a campfire, Rowena's counter, the room, and after a rest
+    if (System.getenv("RAST") != null) {
+        fun at(vm: GameViewModel, place: Place, minutes: Int) {
+            vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
+            g.state.gold = 37; g.state.minutes = minutes; g.state.place = place; g.interact()
+            // the map is the one already shown: no black screen of arrival over the world
+            de.bornim.game.ui.VeilMemory.game = g; de.bornim.game.ui.VeilMemory.map = place.map
+            g.mapChanged = true; vm.refresh()
+        }
+        shot("50_rast_feuer", lastFrames = 150) { vm -> at(vm, Place("forest", 10, 9, Facing.RIGHT), 20 * 60) }
+        shot("51_rast_feuer_lang_heute", lastFrames = 150) { vm -> at(vm, Place("forest", 10, 9, Facing.RIGHT), 20 * 60); vm.game!!.state.longRestDay = vm.game!!.state.day; vm.refresh() }
+        shot("52_rast_schaenke", lastFrames = 150) { vm -> at(vm, Place("inn", 1, 3, Facing.UP), 20 * 60); val g = vm.game!!; while (g.mode is Mode.Dialog) g.advance(); vm.refresh() }
+        shot("53_rast_nachher", lastFrames = 150) { vm -> at(vm, Place("forest", 10, 9, Facing.RIGHT), 20 * 60); val g = vm.game!!; g.hero.hp = 2; g.rest(de.bornim.core.Resting.Kind.SHORT, de.bornim.core.Resting.Spot.FIRE); vm.refresh() }
+        System.exit(0)
+    }
     if (System.getenv("GEARSHOTS") != null) {
         // drawn ahead, so the shots show the built pictures rather than the stand-ins
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)

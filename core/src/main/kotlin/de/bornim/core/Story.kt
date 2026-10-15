@@ -36,7 +36,7 @@ object Story {
     const val CHAPTER1_LEVEL_CAP = 6
 
     /** What Morwen sells; she also brews potions from ingredients. */
-    private val HERBALIST_STOCK = listOf("potion", "greater_potion", "remedy", "holy_water")
+    private val HERBALIST_STOCK = listOf("potion", "greater_potion", "remedy", "stamina_potion", "holy_water")
     private val HERBALIST_HERBS = T(
         "Auf den bunten Blumenwiesen im Wald wachsen Heilkräuter – achte auf die hellgrünen Pflanzen und lauf einfach darüber. Was du pflückst, wächst am nächsten Tag nach. Bring sie mir, dann braue ich dir Tränke für ein paar Münzen. Fledermausflügel und Giftdrüsen nehme ich auch.",
         "Healing herbs grow in the colourful flower meadows of the forest – look for the light green plants and just walk over them. What you pick grows back the next day. Bring them to me and I'll brew you potions for a few coins. I'll take bat wings and venom glands too.",
@@ -88,7 +88,7 @@ object Story {
     private val morwen = T("Kräuterfrau Morwen", "Morwen the Herbalist")
 
     /** Consumables sold by Thessa; her gear stock is generated (see [Loot.shopGear]). */
-    val shopStock = listOf("potion", "greater_potion", "superior_potion", "remedy", "alchemist_fire", "holy_water")
+    val shopStock = listOf("potion", "greater_potion", "superior_potion", "remedy", "stamina_potion", "alchemist_fire", "holy_water")
 
     /** Chest item resolved per class, so every hero finds a fitting weapon. */
     const val CLASS_WEAPON = "@class_weapon"
@@ -293,21 +293,26 @@ object Story {
         ),
         warps = interiorExit(toVillage(6, 6)),
         npcs = listOf(
+            // 86.9: after her word Rowena's counter: mead and a room
             Npc("rowena", 1, 2, "innkeeper", Facing.DOWN) { s ->
                 when {
                     !s.has(QUEST_STARTED) -> script {
                         say(rowena, "Ältester Aldric wartet auf dich. Sein Haus liegt unten links am Dorfplatz.", "Elder Aldric is waiting for you. His house is at the bottom left of the village square.")
+                        tavern()
                     }
                     !s.has(CHAPTER1_DONE) -> script {
                         say(rowena, "Pass auf dich auf, {name}. Wenn du verletzt bist: Bruder Osric im Tempel heilt jeden, der darum bittet.", "Take care, {name}. If you're hurt, Brother Osric at the temple heals anyone who asks.")
+                        tavern()
                     }
                     // [68.rowena.lager]
                     s.has(CAMP_TOLD) -> script {
                         say(rowena, "Ein Lager im Süden? Die Fuhrleute meiden die Südstraße seit dem Frühjahr. Jetzt weiß ich vielleicht, warum.",
                             "A camp in the south? The carters have avoided the south road since spring. Now I may know why.")
+                        tavern()
                     }
                     else -> script {
                         say(rowena, "Für den Helden von Bornim geht das Bier heute aufs Haus!", "Drinks are on the house for the hero of Bornim tonight!")
+                        tavern()
                     }
                 }
             },

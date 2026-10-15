@@ -57,6 +57,12 @@ class GameState(
     var stamina: Double = 1.0,
     /** 86.3: run empty; the hero walks until a quarter of the breath is back. */
     var winded: Boolean = false,
+    /** 86.6: a stamina draught doubles the breath for running until the next rest. */
+    var staminaBoost: Boolean = false,
+    /** 86.10: the day the last long rest ended; one long rest a game day ([Resting]). */
+    var longRestDay: Int = 0,
+    /** 86.9: mead drunk since the last rest; from [Resting.DRUNK] on the hero is drunk. */
+    var mead: Int = 0,
 ) {
     init {
         hero.chapter = Story.chapter(this)
@@ -68,6 +74,9 @@ class GameState(
     val clock: Long get() = day * 24L * 60 + minutes
     /** Mage Armor cast within the last 8 hours of game time (26.1); it only counts without body armor. */
     val mageArmorOn: Boolean get() = clock < mageArmorUntil
+
+    /** 86.9: drunk, poisoned after the SRD (disadvantage on attacks and checks) until the next rest. */
+    val drunk: Boolean get() = mead >= Resting.DRUNK
 
     fun ailment(st: Status): Int = ailments[st.name] ?: 0
     fun has(flag: String) = flag in flags

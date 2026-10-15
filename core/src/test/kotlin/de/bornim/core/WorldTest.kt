@@ -105,7 +105,7 @@ class Bot(val game: Game) {
         while (game.mode != Mode.Explore) {
             if (++guard > 10_000) fail("stuck in ${game.mode}")
             when (val m = game.mode) {
-                is Mode.Dialog, is Mode.Shop, Mode.ChapterEnd, Mode.Board, Mode.TempleScene -> game.advance()
+                is Mode.Dialog, is Mode.Shop, Mode.ChapterEnd, Mode.Board, Mode.TempleScene, is Mode.Rest -> game.advance()
                 is Mode.Fight -> {
                     battles++
                     val b = m.battle

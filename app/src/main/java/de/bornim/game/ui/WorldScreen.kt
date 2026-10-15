@@ -96,6 +96,7 @@ fun PlayScreen(vm: GameViewModel) {
         mode is Mode.Shop -> ShopScreen(vm, game, mode.stock, mode.brewing)
         mode == Mode.ChapterEnd -> ChapterEndScreen(vm, game)
         mode == Mode.Board -> BoardScreen(vm, game)
+        mode is Mode.Rest -> RestScreen(vm, game, mode.spot)
         vm.menuOpen -> MenuScreen(vm, game)
         else -> WorldScreen(vm, game)
     }
