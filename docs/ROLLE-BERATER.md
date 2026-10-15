@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (15.10., 17:2x) – Nachfolger: „Sokrates – CLAUDE.md kürzen und Kapitel 2“:**
+**Übergabe (15.10., 18:0x) – Nachfolger: „Sokrates – Kapitel 2 und Dein Zug“:**
 
-**Nächster Punkt:** (1) Auf Dein Zug von mir: **65.11** (Entwurf [CLAUDE.md kürzen](https://claude.ai/code/artifact/2acaeffb-b81a-40ab-8a10-d6a0380bedc5), D8.1–D8.7 eingearbeitet; bei Ja alle Umzüge laut Tabelle in einem Schritt, `ARBEIT-ABLAEUFE.md` „Dein Zug“, „Rückfragen“, „Nachhalten“ neu), **90a**, **68n/68o/68p** (bei Ja an Tom; 68o/68p Texte unter 41), **91a**, **72s.1**. (2) Morgen erster Tagesrückblick (90, Tag 1 von 7). (3) `ARBEIT-OFFEN.md` über 15 KB, diese Datei über 10 KB. Heute: Dein-Zug-Haken (`tools/zug-haken.py`, aus der Notizkopie), `meldung.sh` leitet alte Kopien weiter, Neustart-Haken nach 81r, Prozessregeln vorher an Diogenes (Ritual).
+**Nächster Punkt:** (1) Auf Dein Zug von mir: **65.11** (Entwurf abgeglichen, 6,2 KB, Empfehlung übernehmen; bei Ja alle Umzüge laut Tabelle in einem Schritt), **90a**, **68n/68o/68p**, **91a**, **72s.1**. (2) Morgen erster Tagesrückblick (90, Tag 1 von 7). (3) `ARBEIT-OFFEN.md` über 15 KB, diese Datei über 10 KB. Heute: Projektleitung in Rolle und Entwurf, Dein-Zug-Haken je Satz (D8.6), D3.13a beschlossen (Hütte versteckt im Süden, kein Wink: Nutzer will keine Wegweiser für erwachsene Spieler).
 
-**Zuletzt gelesen bis:** HEAD (15.10., 17:2x)
+**Zuletzt gelesen bis:** HEAD (15.10., 18:0x)
 
 ## Wer du bist
 
@@ -52,6 +52,7 @@ Weitere (Leitbild, Balance, Rollen, Oberfläche, Tempelszene, Karte und Händler
 
 ## Lehren
 
+- **Keine Winke für erwachsene Spieler** (15.10., D3.13a): ich schlug Rauchfahne und Kräuterbündel als Wegweiser vor; Nutzer: „die sind ja nicht doof … wink mit dem Zaunpfahl“. Anreiz statt Pfeil heißt auch: kein Anreiz, wo Erkunden reicht.
 - **Beim Kürzen die eigene Rolle gegen die Beschlüsse prüfen** (15.10., 65.11): der Entwurf übernahm „Berater“ aus der alten `CLAUDE.md` und verlor die Projektleitung (90); der Nutzer: „das ist doch was Essentielles“. Vor jedem Kürzen Beschlüsse und „Wer macht was“ gegen den neuen Text lesen.
 - **Befunde selbst abholen, nichts vorschlagen, was schon da ist** (15.10., 65.11): Diogenes' Lauf 8 lag längst vor, ich schlug vor, „nach dem Befund“ neu zu starten; der Nutzer: „wer hat jetzt was davon“. Vor jeder Antwort Prüfbericht und `git log` ansehen, dann handeln.
 - **Regeln ins Werkzeug, nicht ins Gedächtnis** (15.10., 81r): Nutzer 16:3x: „nur ständig dafür sorgen, von mir gegebene Anweisungen nachzukontrollieren … mit Delegation hat das nichts zu tun“. Links fehlten, weil Agenten die alte Kopie riefen; behoben durch Weiterleitung im Werkzeug, nicht durch eine weitere Zeile. Ich selbst vergaß Dein Zug für 68n–p.

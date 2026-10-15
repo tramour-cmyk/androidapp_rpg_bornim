@@ -114,6 +114,16 @@ Sitzung 14.10., 22:1x–23:0x: 72.14 Gefährte/Söldner/Begleiter, 72.15 Begleit
 - 89 passt (mit 89a), Weg in Spiel, 91 gebaut, Builds A (Runde, 89, 91) und B (68).
 
 
+
+## Aus ROLLE-BERATER.md, 15.10., 18:0x (Übergabe)
+
+**Übergabe (15.10., 17:2x) – Nachfolger: „Sokrates – CLAUDE.md kürzen und Kapitel 2“:**
+
+**Nächster Punkt:** (1) Auf Dein Zug von mir: **65.11** (Entwurf [CLAUDE.md kürzen](https://claude.ai/code/artifact/2acaeffb-b81a-40ab-8a10-d6a0380bedc5), D8.1–D8.7 eingearbeitet; bei Ja alle Umzüge laut Tabelle in einem Schritt, `ARBEIT-ABLAEUFE.md` „Dein Zug“, „Rückfragen“, „Nachhalten“ neu), **90a**, **68n/68o/68p** (bei Ja an Tom; 68o/68p Texte unter 41), **91a**, **72s.1**. (2) Morgen erster Tagesrückblick (90, Tag 1 von 7). (3) `ARBEIT-OFFEN.md` über 15 KB, diese Datei über 10 KB. Heute: Dein-Zug-Haken (`tools/zug-haken.py`, aus der Notizkopie), `meldung.sh` leitet alte Kopien weiter, Neustart-Haken nach 81r, Prozessregeln vorher an Diogenes (Ritual).
+
+**Zuletzt gelesen bis:** HEAD (15.10., 17:2x)
+
+
 ## Aus ROLLE-BERATER.md, 15.10., 17:3x (Lehre)
 
 - **Anweisungen an andere Sitzungen sauber halten** (15.10., D5.3): `git checkout origin/main -- <Datei>` ließ Fords Arbeitskopie „geändert“ zurück, der Git-Haken erzwang drei Zusatzzeilen; besser `git merge --ff-only origin/main`.
