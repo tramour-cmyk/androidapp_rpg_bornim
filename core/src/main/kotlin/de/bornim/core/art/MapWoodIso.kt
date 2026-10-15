@@ -27,6 +27,17 @@ object MapWoodIso {
     /** Height units to one tile's length: the hero (about 100 units) stands a little over a tile tall. */
     private const val ZT = 84.0
 
+    private val menhirOrder = HashMap<String, Map<Int, Int>>()
+
+    /** How many standing stones come before ([tx], [ty]) on [map], row by row. */
+    private fun menhirIndex(map: MapDef, tx: Int, ty: Int): Int = synchronized(menhirOrder) {
+        menhirOrder.getOrPut(map.id) {
+            val out = HashMap<Int, Int>()
+            for (y in 0 until map.height) for (x in 0 until map.width) if (map.tile(x, y) == Tile.MENHIR) out[y * map.width + x] = out.size
+            out
+        }[ty * map.width + tx] ?: 0
+    }
+
     private fun hash(a: Int, b: Int, s: Int): Int {
         var n = a * 374761393 + b * 668265263 + s * 1442695041
         n = (n xor (n ushr 13)) * 1274126177
@@ -1137,10 +1148,16 @@ object MapWoodIso {
             }
             // the signs of the woods: the village's signposts, a board on one post or on two; not the look with the
             // arrow, which would point along +i whatever the way
-            Tile.MENHIR -> Math.floorMod(hash(tx, ty, 37), 4).let { v -> "menhir/$v" to { menhir(v) } }
+            // D3.7: by its place in the map's order, so the stones of a circle follow one another through the four looks
+            // (by hash three of four were alike in both circles)
+            Tile.MENHIR -> Math.floorMod(menhirIndex(map, tx, ty), 4).let { v -> "menhir/$v" to { menhir(v) } }
             Tile.ROCK -> Math.floorMod(hash(tx, ty, 36), 3).let { v -> "rock/$v" to { boulders(v) } }
             Tile.CHEST -> Math.floorMod(hash(tx, ty, 35), 3).let { v -> "chest/$v/$open" to { chest(v, open) } }
-            Tile.SIGN -> Math.floorMod(hash(tx, ty, 33), 2).let { v -> "sign/$v" to { MapTownIso.signpost(v, 71) } }
+            // D3.7: three looks and the grain of each its own, so no two signs of the woods are alike
+            Tile.SIGN -> Math.floorMod(hash(tx, ty, 33), 3).let { k ->
+                val v = intArrayOf(0, 1, 3)[k]; val seed = 71 + 13 * Math.floorMod(hash(tx, ty, 34), 5)
+                "sign/$v/$seed" to { MapTownIso.signpost(v, seed) }
+            }
             // reeds along the far bank (27.5): where land lies behind the water, now and then a clump near it
             Tile.WATER -> {
                 val west = map.tile(tx - 1, ty) != Tile.WATER; val north = map.tile(tx, ty - 1) != Tile.WATER
