@@ -65,8 +65,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Zu testen
 
 - **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5/D1.6/D1.9/D1.15 Höhle bei Tom (13e); D1.7 Leben Höhle, D1.8 stumme Quellen, D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (`grund_fs_609422`, `grund_fs_540836`, Hörner/Kreaturen ohne Quelle): Berater empfiehlt nach Umweltklang-Regel (15.10.): Tropfen und fernes Grollen behalten, Hörner herausnehmen (passen zu keiner Quelle der Geschichte); **Nutzer entscheidet nach Hörprobe** (Höhle mit und ohne auf „Dein Zug“), erst danach ändern.
-- **Diogenes Lauf 3** (14.10., Prüfbericht, Verdachte, erst bestätigen): **Jerry** D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald, D3.4 Endlosklänge reißen ab, D3.5/D3.6 Monster, D3.8–D3.10, D3.12; **Tom** D1.3/D1.11-Rest gebaut (`claude/tom-d1-kerze-gitter`); D3.3, D3.5, D3.7, D3.11 bestätigt und gebaut (`claude/tom-d3-wald`, Standbilder und Fackelfilm geprüft; D3.11 erledigt sich mit D3.7: dort steht jetzt das niedrige Schild, verdeckt nur die Füße); nächster Sammelbuild. Jerry zur Kenntnis: drei Zeilen `WorldScreen.kt` (Fackelschein).
-- **Diogenes Lauf 6** (15.10., 71 A Dorf, Prüfbericht, Verdachte, erst bestätigen): **Tom** D6.2, D6.3 (Böschung, Schilf, Bohlen), D6.5, D6.7 bestätigt und gebaut (`claude/tom-runde-nach-748-b`, Standbilder geprüft); D6.1/D6.6 bestätigt und gebaut (`claude/tom-89-schatten`). **Jerry** D6.4 Fluss stumm.
+- **Diogenes Lauf 3** (14.10., Prüfbericht, Verdachte, erst bestätigen): **Jerry** D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald, D3.4 Endlosklänge reißen ab, D3.5/D3.6 Monster, D3.8–D3.10, D3.12; **Tom** D1.3/D1.11, D3.3, D3.5, D3.7, D3.11 in Build A (PR #65); Jerry zur Kenntnis: drei Zeilen `WorldScreen.kt` (Fackelschein).
+- **Diogenes Lauf 6** (15.10., 71 A Dorf, Prüfbericht, Verdachte, erst bestätigen): **Tom** D6.1–D6.3, D6.5–D6.7 in Build A (PR #65). **Jerry** D6.4 Fluss stumm.
 
 ## Für Diogenes
 
