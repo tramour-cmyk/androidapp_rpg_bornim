@@ -55,10 +55,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 16:1x, „Tom – 89 Schatten mit dem Tag“) – Nachfolger: „Tom – 89 Schatten ins Spiel“
-- **89 passt** (mit 89a): Zweig `claude/tom-89-schatten` (von `claude/tom-runde-nach-748-b`), `MapSun` bisher nur in der Vorschau (`SONNE=1|morgen|mittag|abend`, `SCHATTENNUR=1` mit `FLORA=`). Jetzt: `MapSun.on` fest und Schalter weg, Stand beim Kartenwechsel und nach der Rast setzen (Spielstand), Figurenschatten nach Sonnenstand, Standbilder prüfen, dann in Build A.
-- **91** gebaut auf `claude/tom-91-schritte` (von `main`), in den nächsten Sammelbuild. 0.1.748 ist auf `main` (Weckruf Build 16:24 gestellt).
-- Builds: Build A aus `claude/tom-runde-nach-748-b` plus 89 und 91 (höchstens 4 Punkte je Sammelbuild beachten), dann Build B aus `claude/tom-68-tempelszene` (68 bei Sokrates zur Bewertung).
+### Tom (15.10., 16:4x, „Tom – 89 Schatten ins Spiel“)
+- Build A = PR #65 (`claude/tom-89-schatten-spiel`: Runde nach 0.1.748, 89, 91), auf Weckruf warten, dann auf „Dein Zug“ zum Installieren.
+- Danach Build B aus `claude/tom-68-tempelszene` (68 bei Sokrates, 70.6 auf Dein Zug).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.

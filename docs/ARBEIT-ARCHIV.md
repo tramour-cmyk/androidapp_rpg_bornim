@@ -102,6 +102,9 @@ Sitzung 14.10., 22:1x–23:0x: 72.14 Gefährte/Söldner/Begleiter, 72.15 Begleit
 - **Sammelbuild** erst nach „passt“ zu 0.1.746 (PR #63 abonnieren): 69e-Welt, 83b/83c, D1.5 Truhe, 74 Schritte (alle fertig auf ihren Zweigen); Prüfliste mit Hühnern (x 33, y 28) und Brücke nachts (x 18, y 25).
 
 
+### Tom (15.10., 16:1x, „Tom – 89 Schatten mit dem Tag“) – Nachfolger: „Tom – 89 Schatten ins Spiel“
+- 89 passt (mit 89a), Weg in Spiel, 91 gebaut, Builds A (Runde, 89, 91) und B (68).
+
 ## Aus ROLLE-TESTER.md, 14.10., 23:3x
 
 **Übergabe (13.10., 20:5x):** Lauf 2 fertig (71 C, D2.1–D2.13). Offen: **38g** (mit Zufallsspieler zählen, als Messung kennzeichnen), **71 A** erst nach Toms Zweigen. Nächster Lauf: Behebungen aus D1/D2 kurz nachprüfen. Vorschau: `MENUE` trifft die Reiter falsch (D2.11), Tasche und System bis dahin nur im Code; Englisch zeichnet die Vorschau nicht. `HAENDLER=neu` lief mit 137 (Speicher) ab, einzeln mit `ONLY=59_…` neu starten. Hinweis: `tools/notiz.sh` schiebt `main` in beiden Arbeitskopien weiter, ohne die Dateien nachzuziehen; vor Änderungen `git reset --hard HEAD && git merge --ff-only origin/main` (kein echter Unterschied).
