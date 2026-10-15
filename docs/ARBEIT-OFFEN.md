@@ -28,7 +28,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` bis 5.5 |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`LISTE-KAPITEL1.md`](LISTE-KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | Toms Teil von 26c fertig |
-| 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Tom | – | Auf `main` bis 27m. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise). **D3.13** (Nutzer 15.10.): **Tom** Morwens Hütte (Kate mit Kräuterbündeln, Kessel und Feuer davor). **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1 |
+| 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Tom | – | Auf `main` bis 27m. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise). **D3.13** (Nutzer 15.10.): **Tom** Morwens Hütte gebaut (Kate 3×2, Kräuterbündel, `claude/tom-d3-13-morwen-huette`), Standbild auf Dein Zug (`e/d313.html`); nach „passt“ nächster Sammelbuild. **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1 |
 | 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | Abstürze beobachten (bei neuem `adb logcat` mit Anleitung von Tom); 30.7 Merkliste |
 | 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben) | Jerry | – | Meldung Nutzer 12.10., 15:4x; erneut 14.10., 21:1x (Test 0.1.741, Alrik liegt mit Brand 2, „sieht immer noch nicht richtig aus“). Erst Standbild der Sterbehaltungen aller Klassen, dann Vorschlag |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt | Jerry | – | 36.4–36.7, 36h/36j/36k auf `main` (PR #46, #47, getestet 0.1.587). Rest in 52, 53. **Offen 36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung. Verlauf im Archiv |
@@ -54,10 +54,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 11:3x, „Tom – Sammelbuild nach 0.1.746“) – Nachfolger: „Tom – D3.13 Morwens Hütte“
+### Tom (15.10., 11:4x, „Tom – D3.13 Morwens Hütte“) – Nachfolger: „Tom – 70.3 Bild 3 Probe“
 - **PR #64 = 0.1.748** auf Dein Zug (`e/t748.html`), wartet auf Test; nach „passt“ zusammenführen, `CHANGELOG.md`, Zeile von Dein Zug.
-- **D3.13 Entwurf** `claude/tom-d3-13-huette` (Kerntests grün): Dorfhaus (Stroh, Bohlen) 2×2 bei (17,21)–(18,22) neben Morwens Feuer, `MapTownIso.houseObjects` auch im Wald, Tür zu (Warp `LOCKED`, kein Text; Anklopftext ggf. 41). Standbild `HELDORT=deep_forest:20:24:U:12`: steht gut, aber zu hoch und schmal für eine Kate, Stroh nicht erkennbar, Kräuterbündel fehlen. Dann Standbild auf Dein Zug.
-- **Danach:** 70.3 B Bild 3 als Probe; Runde nach #64: 86 plus 6l, D3 (Konflikt `MapFlora.kt`), 13e.6 fest (`claude/tom-13e6-dunkler`, Konflikt Vorschau `Main.kt`), D1.3/D1.11. D1.7 nach Absprache mit Jerry (ab Fr.).
+- **D3.13** fertig bis Standbild (`claude/tom-d3-13-morwen-huette`, ersetzt `claude/tom-d3-13-huette`; `HouseFeature.HUT`): Dein Zug `e/d313.html`, wartet auf „passt“.
+- **Jetzt:** 70.3 B Bild 3 als Probe; dann Runde nach #64: 86 plus 6l, D3 (Konflikt `MapFlora.kt`), 13e.6 fest (Konflikt Vorschau `Main.kt`), D1.3/D1.11, D3.13. D1.7 nach Absprache mit Jerry (ab Fr.).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
