@@ -1,5 +1,13 @@
 # Archiv
 
+### Aus ROLLE-BERATER.md, 15.10., 16:2x (Sokrates, Übergabe)
+
+**Übergabe (15.10., 13:3x) – Nachfolger: „Sokrates – Gefährte und Morwens Kate“:**
+
+**Nächster Punkt:** (1) **72s.1** Gefährte Kapitel 2 auf Dein Zug (Empfehlung A Garrick, Seite nach Nutzer 13:3x korrigiert); nach Entscheidung Storyplan 41l („kein fester Begleiter“) anpassen und Gefährten-Zeilen je Station unter 41 planen. (2) **D3.13** Erdkate abseits des Wegs im Chat 13:00 vorgeschlagen (halb eingegraben, Sodendach fast bis zum Boden, niedrige Front mit Tür zum Feuer, am Lichtungsrand mit Rücken zu den Bäumen); Antwort offen, bei Ja an Tom (Draufsicht, Standbild). (3) 84.x; `ARBEIT-OFFEN.md` über 15 KB. Heute: 72o.1 A mit C, 72v noch nicht, Sprungmarke in `tools/meldung.sh` (Regel in `CLAUDE.md`).
+
+**Zuletzt gelesen bis:** aeda142e (15.10., 13:3x)
+
 ### Tom-Übergabe (15.10., 13:2x, „Tom – Runde nach 0.1.748 (2)“) – Nachfolger: „Tom – 70.6 Bild 3 und 68 Tempelszene“
 - Sammelzweig jetzt `claude/tom-runde-nach-748-b`: D4.1, Bild 3 (überholt durch 70.6), D3.13 zweiter Entwurf (`e/d313.html`), dazu 86 plus 6l, D3, 13e.6 fest, D1.3/D1.11 zusammengeführt (Kerntests grün, App nur über CI prüfbar). Mehr als 4 Punkte (78a): nach „passt“ zu #64 in zwei Builds teilen (A: 86/6l, 13e.6, D3, D1.3/D1.11; B: D4.1, Bild 3, D3.13). Dazu D6.2/D6.3/D6.5/D6.7 (Build A). **Zuerst 70.6** (Sokrates 12:4x, Beschluss A): Bild 3 neu vom Platz (14/11.5) nach Südosten, Brunnen vorn, Tempel fern (West- und Nordseite), Fackelzug auf der unteren Straße zum Tempelweg; Wege und Pflaster nur wie auf der Karte, Draufsicht mit Standpunkt und Blickfeld beilegen; der alte Eintrag `e/b3.html` ist von Dein Zug genommen. **Dann:** 68 Tempelszene (hängt nicht mehr an 69e): fünf Standbilder nach `[68.tempel.1–5]` im Stil des Intros (`CutsceneArt.kt` hat einen Entwurf, Vorschau `INTROBILD=1`), Ablauf nach `STORY-K1.md` K1-Z (Einladung, Blende, Morgen im Tempel, Lyra, Lager-Auftrag); erst `LISTE-FIGUREN.md` lesen, Standbilder auf Dein Zug, eigener Zweig von `claude/tom-runde-nach-748-b`.
 - **PR #64 = 0.1.748** auf Dein Zug (`e/t748.html`), wartet auf Test; nach „passt“ zusammenführen, `CHANGELOG.md`, Zeile von Dein Zug.
