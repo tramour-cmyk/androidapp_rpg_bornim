@@ -6,7 +6,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Nächster Punkt:** (1) **72s.1** Gefährte Kapitel 2 auf Dein Zug (Empfehlung A Garrick, Seite nach Nutzer 13:3x korrigiert); nach Entscheidung Storyplan 41l („kein fester Begleiter“) anpassen und Gefährten-Zeilen je Station unter 41 planen. (2) **D3.13** Erdkate abseits des Wegs im Chat 13:00 vorgeschlagen (halb eingegraben, Sodendach fast bis zum Boden, niedrige Front mit Tür zum Feuer, am Lichtungsrand mit Rücken zu den Bäumen); Antwort offen, bei Ja an Tom (Draufsicht, Standbild). (3) 84.x; `ARBEIT-OFFEN.md` über 15 KB. Heute: 72o.1 A mit C, 72v noch nicht, Sprungmarke in `tools/meldung.sh` (Regel in `CLAUDE.md`).
 
-**Zuletzt gelesen bis:** ec818d09 (15.10., 13:3x)
+**Zuletzt gelesen bis:** aeda142e (15.10., 13:3x)
 
 ## Wer du bist
 
@@ -51,14 +51,10 @@ Weitere (Leitbild, Balance, Rollen, Oberfläche, Tempelszene, Karte und Händler
 
 ## Lehren
 
-Ältere (Notizen frisch holen, Entwürfe sofort, freie Welt, Werkzeugausgaben) im Archiv („15.10., 12:5x“).
+Ältere (Notizen frisch holen, Entwürfe sofort, freie Welt, Werkzeugausgaben, Ablauf nicht vorführen, nur ausdrückliches Ja, Technik belegen) im Archiv („15.10., 12:5x“, „15.10., 13:3x“).
 
 - **Vor einer Oberflächen-Empfehlung den Code ansehen, und keine Ausgangslage unterstellen** (15.10., 72o.1/72s.1): Die Rahmenfarbe war schon die Seltenheit, und „bei seinem Söldner bleiben“ unterstellte einen Söldner, den der Spieler nie nehmen muss.
 - **Hinweise des Nutzers prüfen statt übernehmen** (14.10., 69e, 72u): erst erfassen, auswerten, folgern; „nicht immer nur Ja sagen“. Ein „klingt gut“ beim Lesen ist kein Beschluss; eigene Argumente nicht fallenlassen, wenn der Nutzer eine Idee bringt, sondern sie dagegen prüfen (72u: zweimal zu schnell eingetragen).
-
-- **Ablauf nicht vorführen** (14.10., 65.9): der Nutzer sieht den Nutzen pro Antwort; Startritual, Wiederholungen und Haken-Runden ohne Neues sind Kosten. Zeit nur von der Systemuhr, auch im Gespräch (17:3x geschätzt).
-- **Nur ausdrückliches Ja des Nutzers entscheidet** (13.10., Sprachmodus): Unklares gegen seinen Wortlaut prüfen. Im Sprachmodus nie aus dem Gedächtnis gegen eigene Dokumente reden (14.10., 72q: zwei widersprüchliche Aussagen).
-- **Technik erst belegen, dann zusagen** (14.10., 81j): Push und E-Mail aus Routinen kamen trotz „erfolgreich“ nie an; Erfolgsmeldung eines Werkzeugs ist kein Beleg, nur die Bestätigung des Nutzers.
 - **Werkzeuge im Zielort prüfen, nicht hier** (15.10., 81p): diese Sitzung hat `create_session`, Routinen-Sitzungen nicht; dreimal falsch angenommen, erst die Probe mit ToolSearch im Zielort zählt.
 - **Anweisungen an andere Sitzungen sauber halten** (15.10., D5.3): `git checkout origin/main -- <Datei>` ließ Fords Arbeitskopie „geändert“ zurück, der Git-Haken erzwang drei Zusatzzeilen; besser `git merge --ff-only origin/main`.
 - **Bildvorschläge an der Karte nachrechnen** (15.10., 70.6): meine Empfehlung „Nordstraße, Tempel rechts schräg, Platz in der Tiefe“ war geometrisch unmöglich (Tempel 70° rechts); vor jedem Standpunkt eine Draufsicht mit Blickfeld.
