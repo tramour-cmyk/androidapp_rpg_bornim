@@ -88,7 +88,11 @@ object MapFlora {
         val town = map.kind == de.bornim.core.MapKind.TOWN
         fun young(k: Int) = obj(spruce(hash(tx, ty, 6 + k) % 6, 0, young = true),
             cx + (rnd(tx, ty, 18 + k) - 0.5) * S * 0.6, cy + S * (0.45 + rnd(tx, ty, 20 + k) * 0.3))
+        // D6.2: someone (or a door) just behind, towards the top of the screen, would still be half hidden by young
+        // spruces taller than a person: there only a low bush
+        val close = (0..3).any { bx -> (0..3).any { by -> bx + by in 1..3 && (map.npcs.any { it.x == tx - bx && it.y == ty - by } || map.warpAt(tx - bx, ty - by) != null) } }
         return when {
+            close -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
             // D3.3: in the woods too set off a little each, now and then two side by side, never in rows
             !town && !deep -> if (pick < 3) listOf(young(0), young(1)) else listOf(young(0))
             // the bush in the slant like those of the undergrowth (56)
