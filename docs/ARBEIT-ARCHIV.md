@@ -1,4 +1,8 @@
 # Archiv
+### Übergabe Diogenes (15.10., 22:5x), abgelöst 23:3x
+
+**Übergabe (15.10., 22:5x):** Lauf 13 (98 Firmenordnung und Rollenkonzept, Start durch Ford 22:38) fertig: kein Go in der damaligen Fassung, D13.1–D13.11 an Sokrates, vier Fragen an den Chef im Prüfbericht (inzwischen beantwortet und eingearbeitet). Nachfolger: keiner nötig bis zum nächsten Auftrag.
+
 ### Umbau 98 (15.10., 23:1x, Sokrates): alte Dateien im Volltext
 
 Vor dem Umbau zur Firma WireStormTCS (98) galten diese drei Dateien; ihr Inhalt ist auf Vorräte und Rollendateien verteilt (`docs/FIRMA.md`). Stand vor dem Umbau: Commit 8abeae7b.
