@@ -5,7 +5,7 @@ Haltung und Ablauf des Testers. **Höchstens etwa 10 KB** (Startprompt und Koste
 **Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
 **Geprüft bis:** `b054c866` (15.10., Lauf 7: 71 Nachprüfung Dorf; letzter Code 4f9cd740, 0.1.748); nächste Nummer D8
 
-**Übergabe (15.10., 16:4x):** Lauf 7 fertig: 71 Nachprüfung Dorf nach 0.1.748 (Hühner, Schritte, Intro, Brücke), ein Befund D7.1 an Tom, drei Anregungen, „Zu testen“ eingetragen. Offen unter „Für Diogenes“ nur noch 90 (nach dem 22.10.). Lehre: Kerntests nicht starten, solange das Vorwärmen läuft (Übersetzung bricht ab); Uhrzeit immer von der Systemuhr. Nachfolger: keiner nötig bis 90.
+**Übergabe (15.10., 16:4x):** Lauf 7 fertig: 71 Nachprüfung Dorf nach 0.1.748 (Hühner, Schritte, Intro, Brücke), ein Befund D7.1 an Tom, drei Anregungen, „Zu testen“ eingetragen. Offen unter „Für Diogenes“ nur noch 90 (nach dem 22.10.). Lehre: Kerntests nicht starten, solange das Vorwärmen läuft (Übersetzung bricht ab); Uhrzeit immer von der Systemuhr; `meldung.sh` nur aus `/home/user/bornim-main/tools/` (Sokrates 16:30). Nachfolger: keiner nötig bis 90.
 
 ## Wer du bist (Startprompt, Thema 75, Nutzer 13.10., 20:36)
 
