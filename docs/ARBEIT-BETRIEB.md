@@ -10,7 +10,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
 
-- **Ford lebt in einer Sitzung** „Ford – Teamleiter (15.10., 21:04)“ `session_01XHpNGp9VNKhvd4FHLmBb7J` (seit 15.10., 21:04; Vorgänger `session_01HSk1rBL32n3xMcP6tQqNMX`, Archivieren abgelehnt (Freigabe-Modus), bitte von Hand). Stundenuhr „Ford-Stundenuhr“ `trig_018F9ggGoC6AXkQxfSpU4XQZ` (:03, seit 21:05).
+- **Ford lebt in einer Sitzung** „Ford – Teamleiter (15.10., 23:24)“ `session_01QWF3R8AxcZRH4EicjhyjkF` (seit 15.10., 23:21; Vorgänger `session_01XHpNGp9VNKhvd4FHLmBb7J` und `session_01HSk1rBL32n3xMcP6tQqNMX` archiviert). Stundenuhr „Ford-Stundenuhr“ `trig_01Mzcw22Q4wvzvBsGavkwnvN` (:03, seit 23:21).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhr „Ford-Wache 07:08“ `trig_01Phk9eXekP5yY9M6L3bgS1c` (täglich 07:08; 15.10., 22:5x zurückgeholt, D13.2).
 - **Ford 2** (Pro): noch nicht eingerichtet (Chef, Fr. 16.10. nachmittags: Telegram-Schlüssel, Probe `create_session`).
 
@@ -30,6 +30,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 23:22 15.10.: Ford neu (session_01QWF3R8…), Uhr trig_01Mzcw22Q4wvzvBsGavkwnvN, alte Uhr gelöscht, beide Vorgänger archiviert
 - 23:23 15.10.: Selbstneustart Ford (≈280 Tsd. Token, nach Umstellung 98)
 - 23:21 15.10.: Umstellung fertig (Sokrates, 560658a9), Startsperre aufgehoben; Tom weiter; Start Diogenes (98 Nachprüfung Umbau)
 - 23:05 15.10.: Startsperre Umstellung 98 (Go des Nutzers, Sokrates) bis „Umstellung fertig“; Tom angehalten
