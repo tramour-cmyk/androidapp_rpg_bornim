@@ -212,7 +212,7 @@ internal object MapTree {
 
     /** A spruce in drooping tiers, as [MapFlora.spruce]. */
     fun spruce(variant: Int, size: Int, young: Boolean): MapFlora.Sprite {
-        val r = if (young) S * 0.44 + variant % 2 * 2 else S * (0.78 + size * 0.14) + variant % 2 * 3
+        val r = if (young) S * (0.38 + size * 0.06) + variant % 2 * 2 else S * (0.78 + size * 0.14) + variant % 2 * 3
         val w = (r * 2.1).toInt(); val h = (r * 3.9).toInt()
         val c = Canvas(w, h)
         val base = h - 5.0
