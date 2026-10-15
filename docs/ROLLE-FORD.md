@@ -58,6 +58,7 @@ tools/meldung.sh Ford "Du bist dran: [0.1.748](dz:e/t748.html) testen.\n\n[Tom](
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 18:14 15.10.: Start Tom (Neustart, 614fa9b1)
 - 18:01 15.10.: Start Sokrates (Neustart, 757149f7)
 - 17:50 15.10.: Start Tom (Neustart, 9ee372e1)
 - 17:19 15.10.: Start Sokrates (Neustart, bca8602)
