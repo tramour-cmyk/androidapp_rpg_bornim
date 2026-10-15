@@ -65,6 +65,18 @@ Ein Lager im Süden? Die Fuhrleute meiden die Südstraße seit dem Frühjahr. Je
 `[68.aldric.lager]` (Aldric, nach der Tempelszene)
 Lyra hat mir vom Lager erzählt. Wenn dort Leute aus der Gegend festsitzen, kann Bornim nicht einfach wegsehen.
 
+`[68.kapitelende]` (Kapitelende-Karte nach Aldric, vor Nacht und Andacht, `Story.chapterEndText`; 68o, Nutzer 15.10., 17:4x)
+Bornim feiert bis tief in die Nacht. Das Sonnenamulett ist zurück in Bornim, und Schwester Lyra ist in Sicherheit.
+
+Doch der Brief mit dem grauen Siegel lässt dich nicht los. Wer ist der Graue Prophet? Und was ist der Tag der Asche?
+
+ENDE VON KAPITEL 1
+
+Du kannst weiterspielen, Monster jagen und deinen Helden verbessern.
+
+`[68.suedrand]` (Textkasten am Südrand, solange Kapitel 2 fehlt; 68p, Nutzer 15.10., 17:4x)
+Der Weg nach Süden ist noch nicht begehbar. Kapitel 2 folgt mit einem späteren Update.
+
 
 ## K1-N Nebenquests
 

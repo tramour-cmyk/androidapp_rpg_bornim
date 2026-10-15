@@ -3,7 +3,7 @@
 Haltung und Ablauf des Testers. **Höchstens etwa 10 KB** (Startprompt und Kosten/Nutzen 75 kamen dazu); nur Diogenes liest diese Datei. Kurzrolle in `CLAUDE.md`.
 
 **Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
-**Geprüft bis:** `b054c866` (15.10., Lauf 7: 71 Nachprüfung Dorf; letzter Code 4f9cd740, 0.1.748); nächste Nummer D8
+**Geprüft bis:** `b054c866` (15.10., Lauf 7: 71 Nachprüfung Dorf; letzter Code 4f9cd740, 0.1.748); nächste Nummer D9; Lauf 8: 65.11 Haken und Entwurf, ohne Spielcode
 
 **Übergabe (15.10., 16:4x):** Lauf 7 fertig: 71 Nachprüfung Dorf nach 0.1.748 (Hühner, Schritte, Intro, Brücke), ein Befund D7.1 an Tom, drei Anregungen, „Zu testen“ eingetragen. Offen unter „Für Diogenes“ nur noch 90 (nach dem 22.10.). Lehre: Kerntests nicht starten, solange das Vorwärmen läuft (Übersetzung bricht ab); Uhrzeit immer von der Systemuhr; `meldung.sh` nur aus `/home/user/bornim-main/tools/` (Sokrates 16:30). Nachfolger: keiner nötig bis 90.
 
