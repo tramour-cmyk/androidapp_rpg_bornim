@@ -49,13 +49,30 @@ object MapSun {
 
     private const val R = 32            // layer pixels a tile (one to a world pixel)
     private const val CH = 8            // tiles a piece
+    private const val G = 4             // shade samples a tile (89)
     private const val ALPHA = 0.46
     private const val SHADOW_RGB = 0x0A0806
     /** Upright drawing units a tile (as [MapTownIso]: 57 to the metre, a tile 116 cm). */
     private const val ZT = 66.0
 
-    /** A drawn layer and when it was done ([System.nanoTime]), so it can fade in. */
-    class Ready(val pieces: List<WorldArt.Obj>, val at: Long)
+    /**
+     * A drawn layer and when it was done ([System.nanoTime]), so it can fade in; with [shade], how dark the ground lies
+     * in shadow, [G] samples a tile, each the mean of its pixels (89: the people standing in it darken with it).
+     */
+    class Ready(val pieces: List<WorldArt.Obj>, val at: Long, private val shade: ByteArray = ByteArray(0), private val sw: Int = 0) {
+        private val sh = if (sw == 0) 0 else shade.size / sw
+
+        /** How dark the shadow lies at ([x], [y]) in tiles, 0 in the sun, up to about half; smooth between the samples. */
+        fun at(x: Double, y: Double): Float {
+            if (sw == 0) return 0f
+            val gx = (x * G - 0.5).coerceIn(0.0, sw - 1.0); val gy = (y * G - 0.5).coerceIn(0.0, sh - 1.0)
+            val ix = min(gx.toInt(), sw - 2).coerceAtLeast(0); val iy = min(gy.toInt(), sh - 2).coerceAtLeast(0)
+            val u = (gx - ix).coerceIn(0.0, 1.0); val v = (gy - iy).coerceIn(0.0, 1.0)
+            fun s(i: Int, j: Int) = (shade[min(j, sh - 1) * sw + min(i, sw - 1)].toInt() and 0xFF) / 255.0
+            val k = (s(ix, iy) * (1 - u) + s(ix + 1, iy) * u) * (1 - v) + (s(ix, iy + 1) * (1 - u) + s(ix + 1, iy + 1) * u) * v
+            return k.toFloat()
+        }
+    }
 
     /** The layers drawn, the last used last; only [KEEP] are kept (30.2). */
     private val cache = LinkedHashMap<String, Ready>(8, 0.75f, true)
@@ -64,10 +81,10 @@ object MapSun {
 
     private fun applies(map: MapDef) = map.kind == MapKind.FOREST || map.kind == MapKind.TOWN
 
-    private fun build(map: MapDef, stand: Stand) = Layer(map, stand).also { it.cast(map) }.pieces()
+    private fun build(map: MapDef, stand: Stand) = Layer(map, stand).also { it.cast(map) }.let { Ready(it.pieces(), System.nanoTime(), it.shade(), map.width * G) }
 
-    private fun keep(key: String, pieces: List<WorldArt.Obj>): Ready = synchronized(cache) {
-        cache.getOrPut(key) { Ready(pieces, System.nanoTime()) }.also {
+    private fun keep(key: String, drawn: Ready): Ready = synchronized(cache) {
+        cache.getOrPut(key) { drawn }.also {
             while (cache.size > KEEP) cache.remove(cache.keys.first())
         }
     }
@@ -78,6 +95,13 @@ object MapSun {
         val key = "${map.id}/$stand"
         synchronized(cache) { cache[key] }?.let { return it.pieces }
         return keep(key, build(map, stand)).pieces
+    }
+
+    /** The layer of [map] for [stand] with its shade, drawn now if need be (previews, tests). */
+    fun drawn(map: MapDef, stand: Stand = this.stand): Ready? {
+        if (!applies(map)) return null
+        shadows(map, stand)
+        return synchronized(cache) { cache["${map.id}/$stand"] }
     }
 
     /**
@@ -92,6 +116,12 @@ object MapSun {
         prepare(map, stand)
         return null
     }
+
+    /**
+     * 89: how bright a person standing with the feet at ([x], [y]) tiles is drawn, 1 in the sun: in the shadow of a
+     * house or a crown as dark as the ground there, a little lighter (the open sky still lights an upright body).
+     */
+    fun bright(r: Ready, x: Double, y: Double): Float = 1f - 0.85f * r.at(x, y)
 
     /** Starts drawing the layer of [map] for [stand] in the background, if it is not there yet. */
     fun prepare(map: MapDef, stand: Stand = this.stand) {
@@ -347,6 +377,18 @@ object MapSun {
                     blob(c[0] - ux * stretch, c[1] - uy * stretch, c[0] + ux * stretch, c[1] + uy * stretch, rc, 0.44, soft = rc * 0.45, dapple = tx * 31 + ty * 17)
                 }
             }
+        }
+
+        /** How dark each [G]th of a tile lies, the mean of its pixels (so the leaves' patches do not flicker on a figure). */
+        fun shade(): ByteArray {
+            val sw = map.width * G; val sh = map.height * G; val b = R / G
+            val out = ByteArray(sw * sh)
+            for (gy in 0 until sh) for (gx in 0 until sw) {
+                var sum = 0f
+                for (y in gy * b until (gy + 1) * b) for (x in gx * b until (gx + 1) * b) sum += a[y * w + x]
+                out[gy * sw + gx] = (sum / (b * b) * 255).toInt().coerceIn(0, 255).toByte()
+            }
+            return out
         }
 
         /** The layer cut into pieces, empty ones left out. */
