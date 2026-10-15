@@ -45,6 +45,7 @@ Form „Name TT.MM. HH:MM: Inhalt“, Nummer vorn; nur Nummern und Stichworte, n
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 07:05 15.10.: Start Tom, Diogenes (38g); Morgenmeldung 0.1.746, 71 D3.13–16 über App-Push (Telegram-Schlüssel fehlt).
 - 07:05 Start Tom
 - 07:05 Start Diogenes
 - 17:29 14.10.: Telegram-Schlüssel fehlt weiter; Meldung 13e.6 (Für den Berater) über App-Push.
