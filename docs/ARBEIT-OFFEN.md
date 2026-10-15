@@ -76,10 +76,13 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nur der Nutzer startet Diogenes; Ablauf in `docs/ROLLE-TESTER.md`).
 
+- **65.11 Lauf 10** (Nutzer 15.10., 18:1x, an Diogenes): „nochmal 65.11 dir ansiehst, mit Stellungnahme von Sokrates und den Umbau nochmal darauf prüfst, dass definitiv alle Agentenrollen klar sind, … wie ihr Agenten miteinander agiert und … wie ihr euch gegenseitig starten oder nicht starten könnt, sodass für mich kein Leerlauf entsteht, auch nicht in der Nacht. … wesentliche Informationen auf Telegram … mit Hyperlink versehen, so Sitzungsbeschreibungen als auch die Protokollnummern“. Diogenes läuft (15.10., 18:1x).
 - **90 Tagesrückblick** nach dem 22.10., 9 Uhr: die Rückblicke der Woche (Telegram, Sitzungen „Sokrates – Tagesrückblick“) gegen die Quellen in `ROLLE-BERATER.md` „Tagesrückblick“ prüfen: Stimmten die Fakten, wurden Empfehlungen umgesetzt, was hat die Woche gekostet; Ergebnis im Prüfbericht vor der Bilanz am 23.10.
 
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
+
+- **89 Figuren im Schatten** (Diogenes, 15.10., Nutzer 18:1x, zu Lauf 9): „Wenn Figuren im Schatten eines Hauses oder Objekte stehen, können sie ja nicht hell sein, oder? Ja, wenn das aber zu viel Detail und Rechenleistung frisst, dann lassen wir das jetzt mal an der Stelle, weil das sind alles Feintuning und nicht das Wichtigste.“ Thema bei Tom (89); Diogenes empfiehlt: nach D9.2, nur wenn billig (Schattenschicht an der Fußstelle abfragen), sonst Ideenliste.
 
 
