@@ -62,6 +62,7 @@ Je Agent eine eigene Zeile mit „Name:“ vorn (das Werkzeug setzt Kopf und Nam
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 10:20 15.10.: Start Sokrates (Neustart, 7f7feb23)
 - 10:03 15.10.: Start Tom (Nachfolger gewünscht, D1.3/D1.11)
 - 08:04 15.10.: Start Diogenes (38g; Start 07:05 landete in Toms Sitzung, 81q)
 - 07:50 15.10.: Start Tom (Ford-Sitzung, erster Lauf)
