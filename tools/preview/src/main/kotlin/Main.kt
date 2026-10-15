@@ -659,12 +659,15 @@ fun main() {
             }
             vm.refresh()
         }
-        for (draft in listOf(false, true)) {
+        if (System.getenv("TEXTKASTEN") != "96") for (draft in listOf(false, true)) {
             de.bornim.game.ui.DialogLook.draft = draft
             val tag = if (draft) "neu" else "alt"
             shot("42_gespraech_$tag", settle = 150) { vm -> opened(vm, spoken = true) }
             shot("42_erzaehlt_$tag", settle = 150) { vm -> opened(vm, spoken = false) }
         }
+        // 96 (TEXTKASTEN=96: only this): Garrick's long warning, the box grows, nothing is cut
+        de.bornim.game.ui.DialogLook.draft = true
+        shot("96_lang", settle = 300) { vm -> opened(vm, spoken = true); de.bornim.core.Game::class.java.getDeclaredField("mode").apply { isAccessible = true }.set(vm.game!!, Mode.Dialog("Jäger Garrick", "Und ehrlich, Mira: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald, dann reden wir weiter.")); vm.refresh() }
         System.exit(0)
     }
     // SCHRIFT=1: 60b/60.4: the free serifs on trial in the text box, the shop and the title (SCHRIFT=titel: only the title faces)

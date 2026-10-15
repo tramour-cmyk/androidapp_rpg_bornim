@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -403,6 +404,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 DialogBox(
                     speaker = dialog.speaker,
                     text = dialog.text.take(revealed),
+                    full = dialog.text,
                     done = dialogDone,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
@@ -2516,8 +2518,8 @@ private fun HudBar(label: String, fraction: Float, color: Color, value: String, 
 }
 
 @Composable
-fun DialogBox(speaker: String?, text: String, done: Boolean, modifier: Modifier = Modifier) {
-    if (DialogLook.draft) { DialogBoxVeil(speaker, text, done, modifier); return }
+fun DialogBox(speaker: String?, text: String, done: Boolean, modifier: Modifier = Modifier, full: String = text) {
+    if (DialogLook.draft) { DialogBoxVeil(speaker, text, done, modifier, full); return }
     val time = rememberTime()
     Column(modifier.fillMaxWidth()) {
         if (speaker != null) {
@@ -2526,9 +2528,9 @@ fun DialogBox(speaker: String?, text: String, done: Boolean, modifier: Modifier 
         Panel(
             Modifier
                 .fillMaxWidth()
-                .height(120.dp)
+                .heightIn(min = 120.dp)
         ) {
-            Txt(text, size = 18.sp)
+            Box { Txt(full, size = 18.sp, color = Color.Transparent); Txt(text, size = 18.sp) }
             if (done && (time / 400) % 2 == 0L) {
                 Txt("▼", Modifier.align(Alignment.BottomEnd), size = 14.sp, color = Colors.accent)
             }
