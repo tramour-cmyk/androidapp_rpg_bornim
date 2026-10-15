@@ -1,5 +1,12 @@
 # Archiv
 
+### Aus ARBEIT-OFFEN.md, 15.10., 11:4x (Tom)
+
+#### Übergabe Tom (15.10., 11:3x, „Tom – Sammelbuild nach 0.1.746“) – Nachfolger: „Tom – D3.13 Morwens Hütte“
+- **PR #64 = 0.1.748** auf Dein Zug (`e/t748.html`), wartet auf Test; nach „passt“ zusammenführen, `CHANGELOG.md`, Zeile von Dein Zug.
+- **D3.13 Entwurf** `claude/tom-d3-13-huette` (Kerntests grün): Dorfhaus (Stroh, Bohlen) 2×2 bei (17,21)–(18,22) neben Morwens Feuer, `MapTownIso.houseObjects` auch im Wald, Tür zu (Warp `LOCKED`, kein Text; Anklopftext ggf. 41). Standbild `HELDORT=deep_forest:20:24:U:12`: steht gut, aber zu hoch und schmal für eine Kate, Stroh nicht erkennbar, Kräuterbündel fehlen. Dann Standbild auf Dein Zug.
+- **Danach:** 70.3 B Bild 3 als Probe; Runde nach #64: 86 plus 6l, D3 (Konflikt `MapFlora.kt`), 13e.6 fest (`claude/tom-13e6-dunkler`, Konflikt Vorschau `Main.kt`), D1.3/D1.11. D1.7 nach Absprache mit Jerry (ab Fr.).
+
 ### Aus ARBEIT-SELBST.md, 15.10., 11:0x (Sokrates, 81s)
 
 #### Feste Weck-Routinen (seit 11.10.)
