@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (15.10., 21:0x) – Nachfolger: „Sokrates – Firma und Rollen, Entscheidung“:**
+**Übergabe (15.10., 21:1x) – Nachfolger: „Sokrates – Firma und Rollen, Begriffe“:**
 
-**Nächster Punkt:** (1) **98** [Entwurf Firma und Rollen](https://claude.ai/code/artifact/1757d98a-8847-4483-9c51-05be34b45356) auf Dein Zug `e/98.html`; Diogenes Lauf 12 eingearbeitet (D12.1–D12.3, Anrede „Tom, …“ = Team; D12.4 vom Nutzer verworfen: Umbau ersetzt als Ganzes, Ablaufentwürfe weiter an Diogenes). Im Gespräch dazu (Nutzer 21:0x): Vertretung entfällt (Regel 5 ergänzt, gilt erst, wenn Werkzeug Rolle aus erster Nachricht erkennt, D11.1 nicht gebaut); **98.5** Besetzung als eigene Datei `ARBEIT-BESETZUNG.md` (eine Zeile je Sitzung, auch weitere Teammitglieder und Leihsitzungen; Werkzeug schreibt), beschlossen 21:0x, im Entwurf eingearbeitet. D12.5–D12.9 beim Umbau. **Nichts umbauen** bis zur Einigung; Zeitpunkt Umbau offen. (2) Im Gespräch offen: D11.2 (in 98.5 aufgegangen), D11.3, `LISTE-THEMEN.md` behalten. (3) 99d Sparmodus, 65.11, 72s.1, D10 auf Dein Zug. Ford-Wache-Uhr feuert in archivierte Sitzung: Ford fragen.
+**Nächster Punkt:** (1) **98** im Gespräch offen: Begriff für das frühere „Stufe 1“. Nutzer 21:1x: „Eigener Verantwortungsbereich“; Sokrates dagegen: Verwechslung mit dem Arbeitsbereich (Tom liest „Dorf = ich entscheide“, auch Aussehen), Sonderrecht Sokrates geht unter; Vorschlag „Darf selbst entscheiden:“ je Rollendatei mit Liste. Nutzer hat noch nicht geantwortet: **erst Pro und Contra besprechen, dann schreiben.** [Entwurf](https://claude.ai/code/artifact/1757d98a-8847-4483-9c51-05be34b45356) steht vorläufig auf „eigener Verantwortungsbereich“; `e/98.html` (98.2) sagt noch „Vorentscheid“, nachziehen nach Einigung. 98.5 beschlossen (Beschlüsse). Rest wie zuvor: 98.1–98.4 auf Dein Zug, D11.3, `LISTE-THEMEN.md` behalten, Zeitpunkt Umbau offen. (2) 99d Sparmodus, 65.11, 72s.1, D10 auf Dein Zug. Ford-Wache-Uhr feuert in archivierte Sitzung: Ford fragen.
 
-**Zuletzt gelesen bis:** dd71cdc4 (15.10., 21:0x)
+**Zuletzt gelesen bis:** 0a3cf231 (15.10., 21:1x)
 
 ## Wer du bist
 
@@ -52,6 +52,7 @@ Weitere (Leitbild, Balance, Rollen, Oberfläche, Tempelszene, Karte und Händler
 
 ## Lehren
 
+- **Erst abwägen, dann schreiben** (15.10., 98): auf „Was hältst du davon?“ schrieb ich den Entwurf gleich um; der Nutzer: „dann bist du für mich nicht mehr als eine bessere Schreibmaschine … da brauche ich Pro und Contra“. Bei Firmen- und Begriffsfragen erst Pro, Contra, Empfehlung im Gespräch, Dokument erst nach Einigung.
 - **Keine Wegweiser, wo Erkunden reicht; die Spieler sind erwachsen** (15.10., D3.13a): ich schlug Rauchfahne und Kräuterbündel als Wegweiser vor; Nutzer: „die sind ja nicht doof … wink mit dem Zaunpfahl“. Anreiz statt Pfeil heißt auch: kein Anreiz, wo Erkunden reicht.
 - **Beim Kürzen die eigene Rolle gegen die Beschlüsse prüfen** (15.10., 65.11): der Entwurf übernahm „Berater“ aus der alten `CLAUDE.md` und verlor die Projektleitung (90); der Nutzer: „das ist doch was Essentielles“. Vor jedem Kürzen Beschlüsse und „Wer macht was“ gegen den neuen Text lesen.
 - **Befunde selbst abholen, nichts vorschlagen, was schon da ist** (15.10., 65.11): Diogenes' Lauf 8 lag längst vor, ich schlug vor, „nach dem Befund“ neu zu starten; der Nutzer: „wer hat jetzt was davon“. Vor jeder Antwort Prüfbericht und `git log` ansehen, dann handeln.
