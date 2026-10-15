@@ -46,12 +46,16 @@ Nur Push, keine E-Mail (Nutzer 14.10.). Weg: Telegram-Bot `@Bornim_Ford_Bot`, Sc
 Form „Name TT.MM. HH:MM: Inhalt“, Nummer vorn; nur Nummern und Stichworte, nie Spieltexte. Alle Meldungen über den Tom-Ford (81k); der Jerry-Ford startet nur Jerry.
 **Laufbericht (81p, 81r):** Telegram ist das Protokoll. Jeder Lauf eine Nachricht über `tools/meldung.sh Ford "…"`, lautlos (Läufe ohne Tat nur die Zeile „Geprüft: …“ je Agent mit Grund, z. B. „Diogenes: kein Auftrag“, „Tom: läuft“; Nutzer 15.10.: Prüfschritte sichtbar; zugleich Lebenszeichen); `--laut` nur, wenn der Nutzer dran ist. In Fords Sitzung je Lauf nur „Ford HH:MM ok“, damit sie schlank bleibt (die Zeilen unten sind nur Startmarken). Kurze Sätze in dieser Reihenfolge:
 ```
-Ford 15.10. 07:28
-Geprüft: Tom 5 Punkte Vorrat (69, 83c, 86.1 …), Diogenes Auftrag 38g, Sokrates nichts, Jerry Pause bis Fr.
-Gestartet: Tom – 69 Intro-Bilder https://claude.ai/code/<id>; Diogenes – 38g Spieldauer https://claude.ai/code/<id>
-Seit dem letzten Lauf: Tom hat angefangen (Commit 07:08), arbeitet an 69.
-Fehlgeschlagen: keins (sonst Fehler wörtlich)
+tools/meldung.sh Ford "Lauf
+Tom: läuft (D1.3 Kerze und Kammer)
+Diogenes: wartet auf 0.1.746 (PR #63)
+Sokrates: nur Nutzerentscheidungen (D3.13–16)
+Jerry: Pause bis Fr.
+Gestartet: Tom – D1.3 https://claude.ai/code/<id>
+Seit dem letzten Lauf: Tom hat D3 gebaut (Commit 09:15)
+Fehlgeschlagen: keins"
 ```
+Je Agent eine eigene Zeile mit „Name:“ vorn (das Werkzeug setzt Kopf und Namen fett, Nutzer 15.10.), dahinter Stand und in Klammern kurz worum es geht.
 „Seit dem letzten Lauf“ prüft Ford mit `list_sessions` und `git log`: ob die Gestarteten angefangen haben (erster Commit), weiterarbeiten oder hängen. Zeilen ohne Inhalt weglassen.
 
 ## Protokoll
