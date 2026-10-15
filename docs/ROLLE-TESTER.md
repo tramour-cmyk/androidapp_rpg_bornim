@@ -3,9 +3,9 @@
 Haltung und Ablauf des Testers. **Höchstens etwa 10 KB** (Startprompt und Kosten/Nutzen 75 kamen dazu); nur Diogenes liest diese Datei. Kurzrolle in `CLAUDE.md`.
 
 **Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
-**Geprüft bis:** `f53ab83a` (15.10., Lauf 11: 98 Firmenbild, 99 Niederlassungen; Lauf 9 Code bis 8836512); nächste Nummer D12
+**Geprüft bis:** `cf6c5e6f` (15.10., Lauf 12: 98 Entwurf Firma und Rollen; Lauf 9 Code bis 8836512); nächste Nummer D13
 
-**Übergabe (15.10., 19:1x):** Lauf 11 (98/99 auf Auftrag, Start durch Ford) fertig: D11.1–D11.5 an Sokrates, Paket auf Dein Zug `e/d11.html`. Probe 2 und 3 aus dem Entwurf selbst gemacht (`list_sessions`, `rate_limit_info`); Probe 1 nur durch Nutzer oder Ford. Danach auf Wunsch des Nutzers [Dateienentwurf 98](https://claude.ai/code/artifact/175308b5-b47b-4568-9cb2-2bd17569ee7e); Sokrates gemeldet: neue Zeile „Direkt sagen, Ford im Bilde“ (rev 11) widerspricht Nutzer 19:3x „alles läuft über den Betriebsleiter“. Offen unter „Für Diogenes“ nur 90 (nach dem 22.10.). Nachfolger: keiner nötig bis 90.
+**Übergabe (15.10., 20:4x):** Lauf 12 (98 Firma und Rollen, Auftrag Sokrates, Start durch Ford) fertig: D12.1–D12.9 an Sokrates (Klasse 2, Zeile „Für den Berater“), Dein Zug macht Sokrates mit 98.1–98.4. Offen unter „Für Diogenes“ nur 90 (nach dem 22.10.). Nachfolger: keiner nötig bis 90.
 
 ## Wer du bist (Startprompt, Thema 75, Nutzer 13.10., 20:36)
 

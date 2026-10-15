@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (15.10., 19:5x) – Nachfolger: „Sokrates – Firmenbild und Listen“:**
+**Übergabe (15.10., 20:5x) – Nachfolger: „Sokrates – Entwurf Firma und Rollen“:**
 
-**Nächster Punkt:** (1) **99d** Sparmodus bis Sa 21:00 im Gespräch gefragt, Antwort offen (Wochenlimit Max 5x bei 76 % am Do 19:40). (2) **98** [Entwurf Vorspann](https://claude.ai/code/artifact/1b48fd6e-a38e-48d8-9851-baf8f568eb1f) (rev 12: Teams statt Personen, Stufe 1, „Alles läuft über den Betriebsleiter“, Ford handelt auf Nachricht sofort) mit Diogenes' [Dateienentwurf](https://claude.ai/code/artifact/175308b5-b47b-4568-9cb2-2bd17569ee7e) zusammenführen: drei Hüte Sokrates (ein Agent, Titel nennt Hut), Ideen bleiben in `LISTE-IDEEN.md`, Paare ROLLE-X/ARBEIT-X, Umbau in einem Schritt mit Stichtag nach Probe 90; Befund D11 auf Dein Zug `e/d11.html`; Wortlaute unter „Für den Berater“. (3) **99:** Wochengrenze bindet, Jerry bleibt auf Pro-Account, Max 5x behalten, Prüfung vor 10.11. (4) Alt: 65.11, 72s.1, D10, 97a auf Dein Zug. „Auftrag Diogenes <Nr>“ an Ford gilt (Commit 5aaa741c).
+**Nächster Punkt:** (1) **98** [Entwurf Firma und Rollen](https://claude.ai/code/artifact/1757d98a-8847-4483-9c51-05be34b45356) fertig, Diogenes Lauf 12 eingearbeitet (D12.1–D12.4), auf Dein Zug `e/98.html` (98.1–98.4); D12.5–D12.9 beim Umbau mitnehmen. **Nichts umbauen** bis zur Einigung. (2) Im Gespräch offen: D11.2 (Empfehlung ja: Werkzeug schreibt Besetzung, Ford 2 Jerrys Teil, Commit nur bei Änderung), D11.3, `LISTE-THEMEN.md` behalten, Zeitpunkt Umbau. 99f beschlossen (Nutzer richtet Telegram-Schlüssel auf Pro am Fr ein). (3) 99d Sparmodus, 65.11, 72s.1, D10 auf Dein Zug. Ford-Wache-Uhr feuert in archivierte Sitzung: Ford fragen.
 
-**Zuletzt gelesen bis:** HEAD (15.10., 19:5x)
+**Zuletzt gelesen bis:** 23ec887e (15.10., 20:5x)
 
 ## Wer du bist
 

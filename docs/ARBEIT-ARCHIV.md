@@ -1,4 +1,12 @@
 # Archiv
+### Aus ROLLE-BERATER.md, 15.10., 20:5x (Sokrates, Übergabe)
+
+**Übergabe (15.10., 20:2x) – Nachfolger: „Sokrates – Firmenstruktur 98“:**
+
+**Nächster Punkt:** (1) **98 Struktur im Gespräch mit dem Nutzer fertig festlegen, nichts umbauen** (Nutzer 20:1x: „physisch stillhalten … erstmal müssen wir uns einig“). Offen: **99f** Niederlassungsleiter „Ford 2“ auf Pro (Nutzer: main als gemeinsame NAS, Zentrale erkennt Ausfall und holt Arbeit; Sokrates: geht, Abstimmung nur über main und Telegram, Nachrichten zwischen Accounts nicht möglich; Ford 2 kostet Pro-Guthaben, messen; Ausfall erkennt Ford über D11.1-Netz), D11.2 (Besetzung aus Sitzungsliste), D11.3 (Stufe 1 mit Ausschluss), Dateienentwurf (Sokrates: eine Datei `ROLLE-SOKRATES.md` statt drei, `LISTE-THEMEN.md` behalten, alles in einem Schritt), Anstoßen: direkt an Betroffenen, Kopie an Ford = Zeile im Vorrat, Nachricht an Ford nur bei Start (Vorgänger-Entwurf „keine Direktwege“ war falsch zusammengeführt). (2) 99d Sparmodus auf Dein Zug. (3) 97a geht in 98 auf. (4) Alt: 65.11, 72s.1, D10 auf Dein Zug. Ford-Wache-Sitzung ist archiviert, ihre Uhr feuert in eine archivierte Sitzung: Ford fragen.
+
+**Zuletzt gelesen bis:** HEAD (15.10., 19:5x)
+
 ### Tom (15.10., 19:2x, „Tom – Morgenstand D9.3“) – Nachfolger: „Tom – Fichtenreihe D3.3“
 - PR #66 (0.1.752) grün, APK-Link auf `e/t752.html`; Nachfolger: PR #66 abonnieren, nach „passt“ zusammenführen, CHANGELOG, Zeile auf Dein Zug löschen.
 - Nächster Sammelbuild: D3.13a `claude/tom-d3-13a-huette` (41019715), D9.1 `claude/tom-d9-1-naehte` (5d85b13a), D9.2 `claude/tom-d9-2-schattenschicht` (40d93256; App nur in CI übersetzbar), D9.3 `claude/tom-d9-3-morgenstand` (bb440be2, 0–10 Uhr Morgenstand, `SunStandTest`).
