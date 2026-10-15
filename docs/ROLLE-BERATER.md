@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (15.10., 11:5x) – Nachfolger: „Sokrates – Ford-Läufe und Verschleiß“:**
 
-**Nächster Punkt:** (1) **81t beschlossen** (Nutzer beim Vorgänger: Ford prüft „nach …“ jeden Lauf, `ROLLE-FORD.md` Schritt 3). **81u nein** (Nutzer 11:5x), Ford auf eine Zeile je Weckung hingewiesen. (2) **81s erledigt** (Uhr kam 12:03 an, `ROLLE-FORD.md` umgeschrieben; Weiter-Haken erkennt Ford an der Kennung, 7baf634d). (3) **72o Verschleiß**, dann 72s, 84.x. Heute beschlossen: D4.1 Texte (Rauchbündel), „Kurz und einfach“ (`CLAUDE.md`), Ford-Bericht und laute Meldungen (`ROLLE-FORD.md`).
+**Nächster Punkt:** (1) **81t beschlossen** (Nutzer beim Vorgänger: Ford prüft „nach …“ jeden Lauf, `ROLLE-FORD.md` Schritt 3). **81u nein** (Nutzer 11:5x), Ford auf eine Zeile je Weckung hingewiesen. (2) **81s erledigt** (Uhr kam 12:03 an, `ROLLE-FORD.md` umgeschrieben; Weiter-Haken erkennt Ford an der Kennung, 7baf634d). (3) **72o** auf Dein Zug (15.10., 12:1x, Empfehlung B), Antwort abwarten; weiter mit **72s**, dann 84.x. Heute beschlossen: D4.1 Texte (Rauchbündel), „Kurz und einfach“ (`CLAUDE.md`), Ford-Bericht und laute Meldungen (`ROLLE-FORD.md`).
 
 **Zuletzt gelesen bis:** ff16011b (15.10., 11:38)
 
