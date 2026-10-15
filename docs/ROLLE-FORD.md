@@ -27,6 +27,8 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 
 Nachricht „Neustart <Name>, <Commit>“ (per `send_message`, sofort, nicht erst zum Stundenlauf): `git fetch`, liegt der Commit auf `origin/main` und nennt die Übergabe von <Name> „Nachfolger: <Titel>“? Nein → Antwort „Übergabe fehlt“, nichts starten. Ja → Startmarke wie Schritt 3, `create_session` nach `ARBEIT-ABLAEUFE.md` „Neustart“ 2 (Titel aus der Übergabe, erste Nachricht der Name), Antwort an den Absender und lautlose Meldung mit Link; danach den Absender archivieren (`archive_session`, 81v). Erledigte Sitzungen ohne Nachfolger (Diogenes, Rückblick) archiviert der nächste Lauf. Gilt ab Co-Pilot, auch nachts.
 
+Nachricht „Auftrag Diogenes <Nr>“ (Nutzer 15.10., 19:1x, 98): sofort Schritt 3 nur für Diogenes (Auftrag unter „Für Diogenes“, keine laufende Diogenes-Sitzung, Startsperre), nicht erst zum Stundenlauf; Antwort an den Absender.
+
 ## Ablauf eines Laufs
 
 1. `tools/notiz.sh`, Stellung lesen; „aus“ → beenden.

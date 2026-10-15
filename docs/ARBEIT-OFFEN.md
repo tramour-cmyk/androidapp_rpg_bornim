@@ -78,7 +78,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Für Diogenes
 
-Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nur der Nutzer startet Diogenes; Ablauf in `docs/ROLLE-TESTER.md`).
+Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer, dann `send_message` an Ford „Auftrag Diogenes <Nr>“; nur Nutzer oder Ford starten Diogenes; Ablauf in `docs/ROLLE-TESTER.md`).
 
 - **90 Tagesrückblick** nach dem 22.10., 9 Uhr: die Rückblicke der Woche (Telegram, Sitzungen „Sokrates – Tagesrückblick“) gegen die Quellen in `ROLLE-BERATER.md` „Tagesrückblick“ prüfen: Stimmten die Fakten, wurden Empfehlungen umgesetzt, was hat die Woche gekostet; Ergebnis im Prüfbericht vor der Bilanz am 23.10.
 - **98 Firmenbild und 99 Niederlassungen** (sofort): [Entwurf](https://claude.ai/code/artifact/1b48fd6e-a38e-48d8-9851-baf8f568eb1f) nach den Fragen im Abschnitt „Prüfauftrag“ prüfen („Ist es effizient? Bringt es uns was? Werden die Rollen klarer?“) und die Machbarkeit zweier Accounts gegenprüfen; Befund auf Dein Zug.
