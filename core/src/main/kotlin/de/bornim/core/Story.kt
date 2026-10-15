@@ -566,17 +566,17 @@ object Story {
             "=======.....=.T......=....,,,,,,,=,TTTTTTTTT",
             "TT.S..========.r.....=============,,TTTTTTTT",
             "TTT.fff.,,,,,==========T..,====,,,,TTTTTTTTT",
-            "TTT.ff.,,,,,,,.==.^^......,,,,=,,,TTTTTTTTTT",
-            "TTT.....,,,,,T==..W#.F.,.,,,,,=,,,TTTTTTTTTT",
+            "TTT.ff.,,,,,,,.==.........,,,,=,,,TTTTTTTTTT",
+            "TTT.....,,,,,T==.......,.,,,,,=,,,TTTTTTTTTT",
             "TTTTTTT...TTTT=TT.....,,,,,,,,=TTTTTTTTTTTTT",
             "TTTTTTTTTTTTTT=TTTT....,,,,,TT====TTTTTTTTTT",
-            "TTTTTTTTTTT,T==TTTT.T..TTTTTTT...=....T.TTTT",
-            "TTTTTTTTT,,,==,,TTTTTTTTTTTTT....=......TTTT",
-            "TTTTTTTT,,,,=,,,,TTTTTTTTTTT...===......TTTT",
-            "TTTTTTT,,,,,=,,,,,,,TTTTTTTT...=....~....TTT",
-            "TTTTT,T,,,OO=,,,,,,,TTTTTTT....=..~~~~~...TT",
-            "TTTTTT,,,,r,=,,,,,,TTTTTTTTT...=.~~~~~~...TT",
-            "TTTTT,,,,,,,,,,,,,,TTTTTTTTT..ff..~~~~~C..TT",
+            "TTTTTTTTTTT,T==TTTT.T=.TTTTTTT...=....T.TTTT",
+            "TTTTTTTTT,,,==,,TTTTT=TTTTTTT....=......TTTT",
+            "TTTTTTTT,,,,=,,,,TTTT..^^.TTT..===......TTTT",
+            "TTTTTTT,,,,,=,,,,TT....##.TTT..=....~....TTT",
+            "TTTTT,T,,,OO=,,,,TT.......TTT..=..~~~~~...TT",
+            "TTTTTT,,,,r,=,,,,TTT...F..TTT..=.~~~~~~...TT",
+            "TTTTT,,,,,,,,,,,,TTT.....TTTT.ff..~~~~~C..TT",
             "TTTTTT,,,C,,,,,,,,,TTTTTTTTTT.fff...~...TTTT",
             "TTTTTTTr,,,,,,,,,TTTTTTTTTTTTTTT.......TTTTT",
             "TTTTTTTT,,,,,,,,,TTTTTTTTTTTTTTTT.T..TTTTTTT",
@@ -586,10 +586,11 @@ object Story {
         ),
         warps = listOf(
             Warp(0, 18, Place("forest", 18, 10, Facing.LEFT)),
-            // D3.13: Morwen's hut, its door in the east side towards her fire; she is out there, the door stays shut
-            Warp(19, 22, Place("deep_forest", 20, 22, Facing.RIGHT), LOCKED),
+            // D3.13a: Morwen's hut on its own clearing south of the camp place, its door to the south towards her fire;
+            // she is out there, the door stays shut
+            Warp(23, 28, Place("deep_forest", 23, 29, Facing.DOWN), LOCKED),
         ),
-        houseStyles = mapOf((18 to 21) to HouseStyle(RoofKind.STRAW, WallKind.PLANKS, feature = HouseFeature.HUT)),
+        houseStyles = mapOf((23 to 27) to HouseStyle(RoofKind.STRAW, WallKind.PLANKS, feature = HouseFeature.HUT)),
         signs = mapOf(
             // 27.6b (draft): south of the way, in the light and before the trees (north of it the sign stood in deep shade)
             (3 to 19) to T("Tiefer Flüsterwald\nHier endet der Weg der Jäger.\nNur für erfahrene Abenteurer!", "Deep Whisperwood\nThe hunters' trail ends here.\nFor seasoned adventurers only!"),
@@ -601,7 +602,7 @@ object Story {
             Chest("deep_4", 27, 4, randomGear(Rarity.VERY_RARE)),
         ),
         npcs = listOf(
-            Npc("morwen", 24, 21, "herbalist", Facing.LEFT) { s ->
+            Npc("morwen", 25, 30, "herbalist", Facing.LEFT) { s ->
                 if (!s.has(HERBALIST_MET)) script {
                     say(morwen, "Na sieh an, jemand wagt sich so tief in den Wald. Ich bin Morwen, ich sammle hier Kräuter.", "Well, well, someone dares to come this deep into the woods. I'm Morwen, I gather herbs here.")
                     say(morwen, "Am Feuer bist du sicher: Der Rauch meiner Kräuter hält die Biester fern.", "You're safe by the fire: the smoke of my herbs keeps the beasts away.")
