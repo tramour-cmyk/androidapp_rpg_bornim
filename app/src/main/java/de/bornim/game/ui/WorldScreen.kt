@@ -328,6 +328,8 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         HudChip(
             HudInfo.of(game), game.lang,
             Modifier.fillMaxWidth(), bar = true,
+            // 86.2: the map sign beside the bag, not while talking or fighting
+            onMap = if (game.mode == Mode.Explore) ({ vm.openMap() }) else null,
         ) { if (game.mode == Mode.Explore) vm.menuOpen = true }
         Box(
             Modifier
@@ -337,10 +339,11 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 .background(Color.Black)
         ) {
             MapView(game, rev, route?.target, clock)
-            // test tab (27m): frames per second and the slowest frame of the last second, top left over the map
-            if (FrameMeter.on) Txt(FrameMeter.text, Modifier.align(Alignment.TopStart).background(Color(0xAA000000)).padding(4.dp), size = 12.sp, pixel = true)
+            // test tab (27m, 86.1): frame rate and the hero's place, top left over the map
+            TestReadout(game, rev, Modifier.align(Alignment.TopStart))
             if (touch) {
                 TouchLayer(
+                    feel = vm.stickFeel,
                     onDir = { d -> heldDir = d },
                     onStick = { stick = it },
                     onRun = { running = it },
@@ -571,18 +574,19 @@ private fun tappedThing(game: Game, cam: Cam, px: Float, py: Float, fx: Int, fy:
 }
 
 @Composable
-private fun TouchLayer(onDir: (Facing?) -> Unit, onStick: (Offset?) -> Unit, onRun: (Boolean) -> Unit, onTap: (Offset, Float, Float) -> Unit) {
+private fun TouchLayer(feel: Int, onDir: (Facing?) -> Unit, onStick: (Offset?) -> Unit, onRun: (Boolean) -> Unit, onTap: (Offset, Float, Float) -> Unit) {
     var origin by remember { mutableStateOf<Offset?>(null) }
     var knob by remember { mutableStateOf(Offset.Zero) }
     var stickDir by remember { mutableStateOf<Facing?>(null) }
     val density = LocalDensity.current
-    val slop = with(density) { 14.dp.toPx() }
-    val runAt = with(density) { 70.dp.toPx() }
+    // 86.4: the menu's joystick setting, how far a drag goes before the hero walks and runs
+    val slop = with(density) { StickFeel.walkAt(feel).dp.toPx() }
+    val runAt = with(density) { StickFeel.runAt(feel).dp.toPx() }
     val radius = with(density) { 46.dp.toPx() }
     Box(
         Modifier
             .fillMaxSize()
-            .pointerInput(Unit) {
+            .pointerInput(feel) {
                 awaitEachGesture {
                     val down = awaitFirstDown()
                     val start = down.position
@@ -2418,7 +2422,7 @@ private data class HudInfo(
 }
 
 @Composable
-private fun HudChip(info: HudInfo, lang: de.bornim.core.Lang, modifier: Modifier, bar: Boolean = false, onMenu: () -> Unit) {
+private fun HudChip(info: HudInfo, lang: de.bornim.core.Lang, modifier: Modifier, bar: Boolean = false, onMap: (() -> Unit)? = null, onMenu: () -> Unit) {
     val german = lang == de.bornim.core.Lang.DE
     // Compact: bars on the left, level, points and time on the right, so the map stays visible.
     Row(
@@ -2466,6 +2470,13 @@ private fun HudChip(info: HudInfo, lang: de.bornim.core.Lang, modifier: Modifier
             }
         }
         if (bar) Spacer(Modifier.weight(1f)) else Spacer(Modifier.width(6.dp))
+        // 86.2: the map sign of the menu tab opens the map at once; a finger wide, well apart from the bag
+        if (onMap != null) {
+            Box(Modifier.size(44.dp, 40.dp).tap(onMap), contentAlignment = Alignment.Center) {
+                Canvas(Modifier.size(28.dp)) { glyph(TabSign.MAP, Veil.gold) }
+            }
+            Spacer(Modifier.width(14.dp))
+        }
         // The bag opens the menu.
         PixelImageView(ActionArt.icon(ActionArt.Extra.MENU), 28.dp)
     }

@@ -329,6 +329,8 @@ fun main() {
     if (System.getenv("KARTENZOOM") != null) {
         // RANDAUS=1: without the ring beyond the edge, to compare (27m)
         if (System.getenv("RANDAUS") != null) de.bornim.core.art.MapEdge.on = false
+        // STANDORT=1: frame rate and the hero's place over the map, as the test tab shows them (86.1)
+        if (System.getenv("STANDORT") != null) { de.bornim.game.ui.FrameMeter.on = true; de.bornim.game.ui.PlaceMeter.on = true }
         // the map near (new) and far (former), at noon and at night, in the forest, the village, an inn and the cave
         fun place(vm: GameViewModel, map: String, x: Int, y: Int, minutes: Int, facing: Facing = Facing.UP) {
             vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)

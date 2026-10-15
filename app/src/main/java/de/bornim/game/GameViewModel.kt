@@ -125,6 +125,15 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         prefs.edit().putBoolean(KEY_AUTO, battleAuto).apply()
     }
 
+    /** 86.4: how far a drag goes before the hero walks and runs: 0 fine, 1 normal (default), 2 calm (`StickFeel`). */
+    var stickFeel by mutableStateOf(prefs.getInt(KEY_STICK, 1).coerceIn(0, 2))
+        private set
+
+    fun changeStickFeel(level: Int) {
+        stickFeel = level.coerceIn(0, 2)
+        prefs.edit().putInt(KEY_STICK, stickFeel).apply()
+    }
+
     fun changeTempo(level: Int) {
         battleTempo = level.coerceIn(0, 2)
         prefs.edit().putInt(KEY_TEMPO, battleTempo).apply()
@@ -164,6 +173,14 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     var menuOpen by mutableStateOf(false)
+
+    /** 86.2: the menu was opened by the map sign in the bar: it shows the map, and the sign or Back leads straight back into the game. */
+    var mapDirect by mutableStateOf(false)
+
+    fun openMap() {
+        mapDirect = true
+        menuOpen = true
+    }
     var toast by mutableStateOf<String?>(null)
 
     // ------------------------------------------------------------ save slots
@@ -318,6 +335,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_BLOOD = "blood"
         private const val KEY_TEMPO = "battle_tempo"
         private const val KEY_AUTO = "battle_auto"
+        private const val KEY_STICK = "stick_feel"
     }
 }
 
