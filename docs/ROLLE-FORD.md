@@ -60,6 +60,7 @@ tools/meldung.sh Ford "Du bist dran: [0.1.748](dz:e/t748.html) testen.\n\n[Tom](
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 20:17 15.10.: Start Sokrates (Neustart, fd4eb365)
 - 20:12 15.10.: Startsperre aufgehoben (Sokrates: erst Struktur, kein Umbau)
 - 20:10 15.10.: Startsperre Umbau 98 (Sokrates, df9b3c03) bis „Umbau fertig“
 - 19:57 15.10.: Start Tom (Neustart, b2f2205f)
