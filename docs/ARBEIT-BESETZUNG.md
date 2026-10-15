@@ -6,7 +6,7 @@
 
 | Rolle | Sitzung | Zeile | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford – Teamleiter (15.10., 21:04)](https://claude.ai/code/session_01XHpNGp9VNKhvd4FHLmBb7J) | Betrieb | – | 15.10., 21:04 |
+| Ford | [Ford – Teamleiter (15.10., 23:24)](https://claude.ai/code/session_01QWF3R8AxcZRH4EicjhyjkF) | Betrieb | – | 15.10., 23:21 |
 | Sokrates Projekt | [Sokrates – Umstellung 98 (15.10., 23:00)](https://claude.ai/code/session_01X3jpru4SB2KTUHJXN1dDYq) | 98 | `main` (Notizen) | 15.10., 23:00 |
-| Team Tom | [Tom – Sammelbuild PR #67 (15.10., 22:24)](https://claude.ai/code/session_01XGj7cdY9z1dddz7JgSJNFQ) | 94 | `claude/tom-94-huehner-sammelbuild` | 15.10., 22:24 |
+| Team Tom | [Tom – 69f Intromusik (15.10., 23:21)](https://claude.ai/code/session_011Lmi6wUMHZQKpssADBFwVL) | 69f | `claude/tom-69f-intromusik` | 15.10., 23:21 |
 | Diogenes | [Diogenes – 98 Nachprüfung Umbau (15.10., 23:21)](https://claude.ai/code/session_011612wuYWCdjzZAzCYTocjF) | 98 | `diogenes-98-nachpruefung` | 15.10., 23:21 |
