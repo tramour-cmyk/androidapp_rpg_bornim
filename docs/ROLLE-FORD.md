@@ -45,6 +45,7 @@ Form „Name TT.MM. HH:MM: Inhalt“, Nummer vorn; nur Nummern und Stichworte, n
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 07:28 15.10.: Probe 81p nicht möglich: create_session fehlt in der Routine (ToolSearch „create_session“: „No matching deferred tools found“; list_sessions ebenso). Kein Start, Diogenes nicht doppelt gestartet.
 - 07:05 15.10.: Start Tom, Diogenes (38g); Morgenmeldung 0.1.746, 71 D3.13–16 über App-Push (Telegram-Schlüssel fehlt).
 - 07:05 Start Tom
 - 07:05 Start Diogenes
