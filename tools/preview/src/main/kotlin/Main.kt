@@ -95,6 +95,17 @@ fun geared(vm: GameViewModel, cls: CharClass, race: Race = Race.DWARF) {
 }
 
 fun main() {
+    // 69: new heroes in the stills start in the world, not in the intro; INTROBILD=ms,ms,… shows the intro at those times
+    de.bornim.game.ui.IntroLook.auto = false
+    System.getenv("INTROBILD")?.let { list ->
+        for (ms in list.split(",").map { it.trim().toLong() }) for (lang in listOf(Lang.DE, Lang.EN)) {
+            if (lang == Lang.EN && System.getenv("INTROEN") == null) continue
+            de.bornim.game.ui.IntroLook.auto = true
+            de.bornim.game.ui.IntroLook.fromMs = maxOf(0L, ms - 1600L)
+            shot("intro_${ms}_${lang.name.lowercase()}", lang) { vm -> vm.newGame("Thora", Race.HUMAN, CharClass.FIGHTER) }
+        }
+        System.exit(0)
+    }
     System.getenv("FILM")?.let { fightFilm(it); System.exit(0) }
     System.getenv("FILMBATCH")?.let { fightBatch(it); System.exit(0) }
     if (System.getenv("KARTENBLATT") != null) { renderMapSheets(); System.exit(0) }
@@ -592,6 +603,12 @@ fun main() {
     if (System.getenv("BLOCKVIEW") != null) { renderBlockViews(); System.exit(0) }
     if (System.getenv("SPRUNGBILD") != null) { renderJumpStills(); System.exit(0) }
     if (System.getenv("TREFFERBILD") != null) { renderHitStills(); System.exit(0) }
+    // INTROBILD=1: the painted pictures of the cutscenes (70, draft): intro (69) and temple (68), with their texts
+    if (System.getenv("INTROBILD") != null) { renderIntroSheet(); System.exit(0) }
+    // BRUECKE69E=1: the probe of the intro bridge at full resolution, precise and slightly abstracted (69e, draft)
+    if (System.getenv("BRUECKE69E") != null) { renderBridgeProbe(); System.exit(0) }
+    // INTRO69=1 (or 3, 4; anything else: all): the other intro pictures in the style of the model picture (69, draft)
+    if (System.getenv("INTRO69") != null) { renderIntroProbe(); System.exit(0) }
     if (System.getenv("BACKVIEW") != null) { renderBackViews(); System.exit(0) }
     if (System.getenv("ATTACKVIEW") != null) { renderAttackViews(); System.exit(0) }
     if (System.getenv("RANGED") != null) { renderRangedViews(); System.exit(0) }

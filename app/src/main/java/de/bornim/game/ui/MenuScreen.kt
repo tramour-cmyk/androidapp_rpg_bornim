@@ -114,7 +114,7 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
                     Tab.BAG -> BagTab(vm, game, lang, ask)
                     Tab.GEAR -> GearTab(vm, game, lang, ask)
                     Tab.MAP -> {}
-                    Tab.CHRONICLE -> ChronicleTab(game, lang) { who ->
+                    Tab.CHRONICLE -> ChronicleTab(game, lang, onIntro = { vm.watchIntro() }) { who ->
                         de.bornim.core.MapMarks.of(game.state).firstOrNull { it.who == who }?.let { MapLook.focusMap = it.map; MapLook.focusWho = who }
                         tab = Tab.MAP
                     }

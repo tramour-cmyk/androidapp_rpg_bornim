@@ -58,6 +58,16 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     val music = MusicPlayer(app)
     val sfx = SfxPlayer(app)
+    val introArt = IntroArt(app)
+
+    /** The intro is on screen (69): at the first start of a new hero, or again from the chronicle. */
+    var intro by mutableStateOf(false)
+        private set
+    /** Which of its pictures shows, for the music (the title music only with the black one, 69c). */
+    var introPicture by mutableIntStateOf(0)
+
+    fun watchIntro() { introPicture = 0; menuOpen = false; intro = true }
+    fun endIntro() { intro = false; introPicture = 0 }
 
     var sfxOn by mutableStateOf(prefs.getString(KEY_SFX, "on") != "off")
         private set
@@ -232,6 +242,9 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         game = g
         menuOpen = false
         screen = Screen.PLAYING
+        // 69: the arrival by night, once, before Rowena wakes the hero
+        introPicture = 0
+        intro = de.bornim.game.ui.IntroLook.auto
         g.begin()
         prepareFigures(g)
         save()

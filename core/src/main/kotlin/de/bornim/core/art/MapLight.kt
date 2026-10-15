@@ -78,6 +78,8 @@ object MapLight {
                 }
             }
             // 80a: old Kael's lantern on its plinth by his door, a small dull amber island at night
+            // 69e: the lantern at the south end of the bridge, the crossing lit on the way to the inn
+            if (map.id == "village") MapTownIso.bridgeLanternAt().let { (lx, ly) -> out += Source(lx, ly, Kind.LAMP, argb(0xFFD49A), T * 2.4, 0.8, When.NIGHT) }
             if (map.id == "village") MapTownIso.KAEL_LANTERN.let { (lx, ly) -> out += Source(lx * T + 6.0, ly * T + 6.0, Kind.CANDLE, argb(0xE09A50), T * 1.2, 0.3, When.NIGHT) }
             out
         }
