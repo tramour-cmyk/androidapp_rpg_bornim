@@ -82,6 +82,20 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 12.10.2026. Proben mit `tool
 | `libelle_1–2` | Creature, Insect - Dragonfly, Caught in Net (240549) | jaegrover, Freesound | https://freesound.org/s/240549/ |
 | `libelle_3` | Insect wings (511326) | onehugeeye, Freesound | https://freesound.org/s/511326/ |
 
+## Runde 5: Hühner im Dorf (83c, Hörproben, noch nicht im Spiel)
+
+Alle BigSoundBank, Urheber Joseph Sardin, CC0 1.0 („CC0 (public domain): Free and royalty-free“, Quellseite geprüft 14.10.2026). Rezept `tools/klang/huehner.py`.
+
+| Nr. | Titel | Verwendet für | Quelle |
+|---|---|---|---|
+| 1039 | Hens worried | Glucksen 1–2 | https://bigsoundbank.com/hens-worried-s1039.html |
+| 0975 | Hen lays #1 | Glucksen 3 | https://bigsoundbank.com/hen-lays-1-s0975.html |
+| 1040 | Hen scared | Gackern 1–3 | https://bigsoundbank.com/hen-scared-s1040.html |
+| 0453 | Annoyed hen | Gackern 4 | https://bigsoundbank.com/annoyed-hen-s0453.html |
+| 0840 | Flight of a pigeon | Flügelschlag 1 | https://bigsoundbank.com/flight-of-a-pigeon-s0840.html |
+| 2891, 2894 | Flight bird #1, #4 | Flügelschlag 2–3 | https://bigsoundbank.com/flight-bird-1-s2891.html |
+| 3202 | Schritte auf Erde (wie 74) | Scharren 1–3 | https://bigsoundbank.com |
+
 ## Musik (Thema 28, Auswahl des Nutzers 11.10.2026)
 
 Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools/klang/musik_holen.sh`. Vorgabe in `docs/DESIGN-STIL.md` (orchestral, düster; Dorf mittelalterlich). Titel, Sieg und Kapitelende sind fest vergeben; alle übrigen Stücke darf die Sitzung frei den Lagen zuordnen (Nutzer 28f, 11.10.); die Lage unten ist der Vorschlag. Nicht genommen: Great Labyrinth, Menace, Epic Fight Theme (aussortiert 37, 12.10.), The Final Battle, Battle Theme (wolfgang), War Theme, Open Warfare, Prepare to Fight, Epic Combat, Medieval Battle (Hörproben 37, 12.10.; Battle Theme A von cynicmusic nur Reserve), Eerie Forest, Boss Battle #2 Symphonic Metal, The Bard's Tale, Opening Theme. Freesound: Vorschau (128 kbit/s), Lizenz gilt für die Aufnahme.
@@ -129,3 +143,7 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools
 | boss | `boss_fantasy_choir1` | Fantasy Choir 1 | cesisco | https://opengameart.org/content/fantasy-choir-3-orchestral-pieces |
 | boss | `boss_fantasy_choir2` | Fantasy Choir 2 | cesisco | https://opengameart.org/content/fantasy-choir-3-orchestral-pieces |
 | Rückkehr Amulett (37a, noch ungenutzt) | `boss_ancient_legend` | The Ancient Legend | vitalezzz | https://opengameart.org/content/the-ancient-legend |
+
+## 83c Scharren, zweiter Versuch (15.10.)
+
+BigSoundBank, Joseph Sardin, CC0 (https://bigsoundbank.com, Lizenz auf der Seite: CC0): 0163 „Straw broom“ (Strohbesen), 0137 „Feet in leaves“ (Füße im Laub). Schnitte in `scharren.py`.

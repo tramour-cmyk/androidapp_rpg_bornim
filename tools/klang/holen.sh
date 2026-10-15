@@ -38,6 +38,10 @@ for p in 710/710246_10954437 426/426462_3597414 240/240549_4337854 511/511326_56
     f="fs_$(basename "$p" | cut -d_ -f1).mp3"
     [ -s "$f" ] || { curl -sSfL -m 300 -A "Mozilla/5.0" -o "$f" "https://cdn.freesound.org/previews/$p-hq.mp3"; sleep 3; }
 done
+# Runde 5 (83c Hühner): BigSoundBank (CC0)
+for n in 1039 0975 1040 0453 0840 2891 2894 3202; do
+    get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
+done
 python3 -m pip -q install py7zr numpy scipy soundfile >/dev/null 2>&1 || true
 for z in *.zip; do d="x_${z%.zip}"; [ -d "$d" ] || { mkdir -p "$d"; unzip -qo "$z" -d "$d"; }; done
 for z in *.7z; do d="x_${z%.7z}"; [ -d "$d" ] || { mkdir -p "$d"; python3 -I -m py7zr x "$z" "$d"; }; done
