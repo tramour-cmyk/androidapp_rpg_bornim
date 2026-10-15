@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 
 **offen 25, davon A 0, wartet auf Chef 2**
 
-**Übergabe (15.10., 23:2x, „Tom – Sammelbuild PR #67“) – Nachfolger: „Tom – 69f Intromusik“:** PR #67 (0.1.753) grün, Prüfliste `e/t753.html` auf Dein Zug, PR abonniert (Nachfolger neu abonnieren); nach „passt“ #67 zusammenführen, #66 schließen, dann PR für `claude/tom-sammelbuild-nach-753` (D3.3 + 89, 7b87be89, Kerntests grün). 69f gebaut und im Zweig `claude/tom-sammelbuild-nach-753` (0c27e7a8). Jetzt: 26 (Standbilder „Ort fertig“, `tools/t spieler`; beide um 23:1x für die Umstellung abgebrochen).
+**Übergabe (15.10., 23:44, „Tom – 69f Intromusik“) – Nachfolger: „Tom – 26 Ort fertig“:** PR #67 (0.1.753) wartet auf Test des Chefs, abonniert (Nachfolger neu abonnieren); nach „passt“ #67 zusammenführen, #66 schließen, dann PR für `claude/tom-sammelbuild-nach-753` (D3.3 + 89 + 69f, 0c27e7a8, Kerntests grün) mit Prüfliste (69f: Titelmusik vom Heldenbau leise ins Intro, Schwarzbild voll, im Gasthaus 6 s Ausklang, dann Dorfmusik; Intro aus der Chronik: Titelmusik leise von vorn). Jetzt: 26 (Standbilder „Ort fertig“, `tools/t spieler`).
 
 ## Zeilen
 
