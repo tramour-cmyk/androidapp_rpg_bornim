@@ -60,6 +60,7 @@ tools/meldung.sh Ford "Du bist dran: [0.1.748](dz:e/t748.html) testen.\n\n[Tom](
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 22:04 15.10.: Diogenes (98 Entwurf, ruhend) archiviert
 - 22:02 15.10.: Start Sokrates (Neustart, 1f47ae27)
 - 21:42 15.10.: Start Sokrates (Neustart, 13d9016d)
 - 21:18 15.10.: Start Sokrates (Neustart, a0d72206)
