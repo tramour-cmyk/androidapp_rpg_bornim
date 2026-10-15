@@ -79,5 +79,7 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
+- **81 Abläufe ohne Leerlauf** (Nutzer 15.10., 10:3x an Diogenes: „die ganzen Prozessschritte … auf Stimmigkeit und mögliche Lücken, dass wir wieder Leerlauf haben“): Prüfbericht Lauf 5, **D5.1** (Ford-Wecker ohne Netz, hoch) bis D5.5; alles Notizen und Werkzeug, also Sokrates.
+
 
 
