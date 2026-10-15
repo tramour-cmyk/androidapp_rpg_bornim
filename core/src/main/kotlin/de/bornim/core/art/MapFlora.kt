@@ -94,7 +94,8 @@ object MapFlora {
                     fun young(k: Int) = obj(spruce(hash(tx, ty, 6 + k) % 6, 0, young = true),
                         cx + (rnd(tx, ty, 18 + k) - 0.5) * S * 0.6, cy + S * (0.45 + rnd(tx, ty, 20 + k) * 0.3))
                     return when {
-                        map.kind != de.bornim.core.MapKind.TOWN && !deep -> listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
+                        // D3.3: in the woods too set off a little each, now and then two side by side, never in rows
+                        map.kind != de.bornim.core.MapKind.TOWN && !deep -> if (pick < 3) listOf(young(0), young(1)) else listOf(young(0))
                         // the bush in the slant like those of the undergrowth (56)
                         pick < 3 -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
                         pick < 5 -> listOf(young(0), young(1))

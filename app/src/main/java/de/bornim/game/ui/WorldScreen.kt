@@ -966,8 +966,9 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                         MapFolk.restFrame(f, slotNow, ps.rest, ps.breath, ps.level)
                     } else null
                     val wardImg = warding?.let { wd ->
-                        // the torch lights its bearer and whoever stands near; it rides about a tile above the feet
-                        torches += (nx + T / 2.0) to (ny - 12.0)
+                        // the torch lights its bearer and whoever stands near: kept at the bearer's feet on the map, drawn
+                        // raised above them on the screen (D3.5)
+                        torches += (nx + T / 2.0) to (ny + T * 0.85)
                         MapFolk.wardFrame(f, slotNow, wd.ward, wd.flicker)
                     }
                     // draft (55.2): Borin sits at his table, now and then drinking, eating, looking round, at chance moments
@@ -1167,7 +1168,9 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         // a torch carried about throws a warm, flickering glow around it, the stronger the darker it is
         for ((tx, ty) in torches) {
             val flick = 0.85f + 0.15f * kotlin.math.sin(clock / 70f) * kotlin.math.sin(clock / 113f)
-            val c = Offset(((tx - camX) * scale).toFloat(), ((ty - camY) * scale).toFloat())
+            // D3.5: seen diagonally, through the camera's turn like the figure, then about a tile and a half up
+            val mx = ((tx - camX) * scale).toFloat(); val my = ((ty - camY) * scale).toFloat()
+            val c = Offset(cam.toScreenX(mx, my), cam.toScreenY(mx, my) - T * 1.4f * scale)
             val rad = T * 2.1f * scale * flick
             drawCircle(
                 androidx.compose.ui.graphics.Brush.radialGradient(

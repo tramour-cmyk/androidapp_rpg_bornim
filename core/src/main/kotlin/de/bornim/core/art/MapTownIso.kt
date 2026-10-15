@@ -572,11 +572,13 @@ object MapTownIso {
         val c = Tile1(150)
         c.shadow(-0.45, -0.35, 0.42)
         val j0 = -0.42; val j1 = -0.36
-        val (i0, i1) = if (v == 1) -0.86 to -0.14 else -0.82 to -0.18
-        val z0 = if (v == 1) 54.0 else 70.0; val z1 = z0 + 30
+        // D3.7: a fourth look for the woods, a short board low on a post off its middle, as if it had sagged
+        val (i0, i1) = when (v) { 1 -> -0.86 to -0.14; 3 -> -0.8 to -0.34; else -> -0.82 to -0.18 }
+        val z0 = when (v) { 1 -> 54.0; 3 -> 46.0; else -> 70.0 }; val z1 = z0 + (if (v == 3) 26 else 30)
         fun post(i: Double, top: Double) = c.box(i - 0.04, j0 - 0.07, i + 0.04, j0 + 0.0, 0.0, top) { f, u, w -> wood(f, w, u, seed + 3, 0x4A3828) }
         when (v) {
             1 -> { post(i0 + 0.05, z1 + 2); post(i1 - 0.05, z1 + 2) }
+            3 -> post(-0.68, z1 + 6)
             else -> post(-0.5, z1 + 10)
         }
         // the board: an arrow points along +i on the third look
