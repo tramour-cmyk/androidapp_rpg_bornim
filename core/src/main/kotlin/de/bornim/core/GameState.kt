@@ -53,6 +53,10 @@ class GameState(
     var wellFed: Boolean = false,
     /** Mage Armor holds until this game minute (day × 1440 + minute), 8 hours after it was cast (26.1). */
     var mageArmorUntil: Long = 0,
+    /** 86.3: breath for running, 0 to 1 ([Stamina]); kept across changes of map. */
+    var stamina: Double = 1.0,
+    /** 86.3: run empty; the hero walks until a quarter of the breath is back. */
+    var winded: Boolean = false,
 ) {
     init {
         hero.chapter = Story.chapter(this)

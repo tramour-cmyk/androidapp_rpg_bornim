@@ -353,11 +353,15 @@ fun main() {
     if (System.getenv("KARTENZOOM") != null) {
         // RANDAUS=1: without the ring beyond the edge, to compare (27m)
         if (System.getenv("RANDAUS") != null) de.bornim.core.art.MapEdge.on = false
+        // STANDORT=1: frame rate and the hero's place over the map, as the test tab shows them (86.1)
+        if (System.getenv("STANDORT") != null) { de.bornim.game.ui.FrameMeter.on = true; de.bornim.game.ui.PlaceMeter.on = true }
         // the map near (new) and far (former), at noon and at night, in the forest, the village, an inn and the cave
         fun place(vm: GameViewModel, map: String, x: Int, y: Int, minutes: Int, facing: Facing = Facing.UP) {
             vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
             val g = vm.game!!; g.skipDialogs()
             g.state.place = Place(map, x, y, facing); g.state.minutes = minutes
+            // AUSDAUER=0.4[:w]: the breath for running that low, ":w" out of breath (86.3)
+            System.getenv("AUSDAUER")?.split(":")?.let { a -> g.state.stamina = a[0].toDouble(); g.state.winded = a.getOrNull(1) == "w" }
             // everything explored, so the shots show the ground; the new ground drawn right away
             val m = de.bornim.core.World[map]
             // UNERKUNDET=1: nothing explored yet, so the edge of the sight shows against the black (13e)

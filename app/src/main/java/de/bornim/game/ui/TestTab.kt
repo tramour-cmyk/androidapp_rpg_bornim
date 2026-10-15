@@ -118,6 +118,10 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         PixelButton(t("Bildrate anzeigen: ", "Show frame rate: ") + (if (FrameMeter.on) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
             FrameMeter.on = !FrameMeter.on
         }
+        // 86.1: the hero's map and tile over the map, to name a place when reporting
+        PixelButton(t("Standort anzeigen: ", "Show position: ") + (if (PlaceMeter.on) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            PlaceMeter.on = !PlaceMeter.on
+        }
         var seeAll by remember { mutableStateOf(de.bornim.core.Game.seeAll) }
         PixelButton(t("Sichtlinie aus (alles sichtbar): ", "Line of sight off (see all): ") + (if (seeAll) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
             de.bornim.core.Game.seeAll = !de.bornim.core.Game.seeAll

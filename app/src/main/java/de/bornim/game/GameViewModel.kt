@@ -16,6 +16,7 @@ import de.bornim.core.Race
 import de.bornim.core.audio.Sound
 import de.bornim.game.audio.MusicPlayer
 import de.bornim.game.audio.SfxPlayer
+import de.bornim.game.ui.MapZoom
 import java.util.Locale
 
 enum class Screen { TITLE, CREATE, PLAYING, ABOUT, SLOTS }
@@ -135,6 +136,30 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         prefs.edit().putBoolean(KEY_AUTO, battleAuto).apply()
     }
 
+    /** 86.4: how far a drag goes before the hero walks and runs: 0 fine, 1 normal (default), 2 calm (`StickFeel`). */
+    var stickFeel by mutableStateOf(prefs.getInt(KEY_STICK, 1).coerceIn(0, 2))
+        private set
+
+    fun changeStickFeel(level: Int) {
+        stickFeel = level.coerceIn(0, 2)
+        prefs.edit().putInt(KEY_STICK, stickFeel).apply()
+    }
+
+    /** 6l: the map one step nearer (5.6 tiles across) instead of the default 6.75; kept across starts (`MapZoom`). */
+    var mapNear by mutableStateOf(prefs.getBoolean(KEY_MAP_NEAR, false))
+        private set
+
+    init {
+        MapZoom.level = if (mapNear) 0 else 1
+    }
+
+    fun changeMapNear(near: Boolean) {
+        mapNear = near
+        MapZoom.level = if (near) 0 else 1
+        prefs.edit().putBoolean(KEY_MAP_NEAR, near).apply()
+        refresh()
+    }
+
     fun changeTempo(level: Int) {
         battleTempo = level.coerceIn(0, 2)
         prefs.edit().putInt(KEY_TEMPO, battleTempo).apply()
@@ -174,6 +199,14 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     var menuOpen by mutableStateOf(false)
+
+    /** 86.2: the menu was opened by the map sign in the bar: it shows the map, and the sign or Back leads straight back into the game. */
+    var mapDirect by mutableStateOf(false)
+
+    fun openMap() {
+        mapDirect = true
+        menuOpen = true
+    }
     var toast by mutableStateOf<String?>(null)
 
     // ------------------------------------------------------------ save slots
@@ -331,6 +364,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_BLOOD = "blood"
         private const val KEY_TEMPO = "battle_tempo"
         private const val KEY_AUTO = "battle_auto"
+        private const val KEY_STICK = "stick_feel"
+        private const val KEY_MAP_NEAR = "map_near"
     }
 }
 

@@ -71,7 +71,9 @@ fun MenuScreen(vm: GameViewModel, game: Game) {
 private fun MenuBody(vm: GameViewModel, game: Game) {
     vm.tick
     val lang = vm.lang
-    var tab by remember { mutableStateOf(if (MenuStart.chronicle) Tab.CHRONICLE else if (MenuStart.map) Tab.MAP else Tab.HERO) }
+    var tab by remember { mutableStateOf(if (MenuStart.chronicle) Tab.CHRONICLE else if (MenuStart.map || vm.mapDirect) Tab.MAP else Tab.HERO) }
+    // 86.2: opened by the map sign, it is only the map until another tab is chosen
+    DisposableEffect(Unit) { onDispose { vm.mapDirect = false } }
     var dialog by remember { mutableStateOf<DialogSpec?>(null) }
     val back = { if (dialog != null) dialog = null else vm.menuOpen = false }
     BackHandler { back() }
@@ -97,7 +99,11 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
             tabs.forEach { t ->
                 val badge = if (t == Tab.HERO && game.hero.unspentPoints > 0 || t == Tab.CHRONICLE && tab != Tab.CHRONICLE && de.bornim.core.Chronicle.fresh(game.state)) " ★" else ""
                 // 60j: a drawn sign with a small word under it
-                TabButton(TabSign.valueOf(t.name), labels.getValue(t)(lang), Modifier.weight(1f), selected = t == tab, badge = badge.isNotEmpty()) { tab = t }
+                TabButton(TabSign.valueOf(t.name), labels.getValue(t)(lang), Modifier.weight(1f), selected = t == tab, badge = badge.isNotEmpty()) {
+                    // 86.2: the map tab tapped again, after the map sign opened it: straight back into the game
+                    if (vm.mapDirect && t == Tab.MAP && tab == Tab.MAP) vm.menuOpen = false
+                    else { if (t != Tab.MAP) vm.mapDirect = false; tab = t }
+                }
             }
         }
         Spacer(Modifier.height(8.dp))
@@ -839,8 +845,24 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
         }
         PixelButton(if (lang == Lang.DE) (if (vm.battleAuto) "Kampftext: weiter automatisch" else "Kampftext: weiter mit Antippen")
             else (if (vm.battleAuto) "Battle text: goes on by itself" else "Battle text: tap to go on"), Modifier.fillMaxWidth()) { vm.toggleBattleAuto() }
+        // 6l: the map at the default 6.75 tiles across or one step nearer, never further out
+        Txt(if (lang == Lang.DE) "Kartenausschnitt" else "Map view", size = 15.sp, bold = true)
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            PixelButton("Normal", Modifier.weight(1f), selected = !vm.mapNear, size = 15.sp) { vm.changeMapNear(false) }
+            PixelButton(if (lang == Lang.DE) "Näher" else "Nearer", Modifier.weight(1f), selected = vm.mapNear, size = 15.sp) { vm.changeMapNear(true) }
+        }
         PixelButton((if (vm.touchControls) Ui.controlsTouch else Ui.controlsClassic)(lang), Modifier.fillMaxWidth()) { vm.toggleControls() }
-        if (vm.touchControls) Txt(Ui.touchHint(lang), size = 13.sp, color = Colors.textDim)
+        if (vm.touchControls) {
+            Txt(Ui.touchHint(lang), size = 13.sp, color = Colors.textDim)
+            // 86.4: how far a drag goes before the hero walks and runs
+            Txt("Joystick", size = 15.sp, bold = true)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                val names = if (lang == Lang.DE) listOf("Fein", "Normal", "Ruhig") else listOf("Fine", "Normal", "Calm")
+                names.forEachIndexed { i, label -> PixelButton(label, Modifier.weight(1f), selected = vm.stickFeel == i, size = 15.sp) { vm.changeStickFeel(i) } }
+            }
+            Txt(if (lang == Lang.DE) "Fein: kurzes Ziehen genügt zum Gehen und Rennen. Ruhig: erst weit ziehen, man geht länger, bevor man rennt."
+                else "Fine: a short drag walks and runs. Calm: drag further, you walk longer before you run.", size = 13.sp, color = Colors.textDim)
+        }
         PixelButton((if (vm.leftHanded) Ui.actionLeft else Ui.actionRight)(lang), Modifier.fillMaxWidth()) { vm.toggleLeftHanded() }
         PixelButton((if (vm.haptics) Ui.hapticsOn else Ui.hapticsOff)(lang), Modifier.fillMaxWidth()) { vm.toggleHaptics() }
         PixelButton((if (vm.confirmations) Ui.confirmOn else Ui.confirmOff)(lang), Modifier.fillMaxWidth()) { vm.toggleConfirmations() }
