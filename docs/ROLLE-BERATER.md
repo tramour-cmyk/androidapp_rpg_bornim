@@ -6,7 +6,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Nächster Punkt:** (1) **72s.1** Gefährte Kapitel 2 auf Dein Zug (Empfehlung A Garrick, Seite nach Nutzer 13:3x korrigiert); nach Entscheidung Storyplan 41l („kein fester Begleiter“) anpassen und Gefährten-Zeilen je Station unter 41 planen. (2) **D3.13** Erdkate abseits des Wegs im Chat 13:00 vorgeschlagen (halb eingegraben, Sodendach fast bis zum Boden, niedrige Front mit Tür zum Feuer, am Lichtungsrand mit Rücken zu den Bäumen); Antwort offen, bei Ja an Tom (Draufsicht, Standbild). (3) 84.x; `ARBEIT-OFFEN.md` über 15 KB. Heute: 72o.1 A mit C, 72v noch nicht, Sprungmarke in `tools/meldung.sh` (Regel in `CLAUDE.md`).
 
-**Zuletzt gelesen bis:** {STAND} (15.10., 13:3x)
+**Zuletzt gelesen bis:** ec818d09 (15.10., 13:3x)
 
 ## Wer du bist
 
