@@ -86,6 +86,6 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 80 | Kaels Laterne im Dorf | Tom | erledigt |
 | 81 | Teamleiter „Ford“ | Berater | offen |
 | 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | Berater | offen |
-| 85 | Testmenü aufräumen | Tom | offen |
-| 87 | Schänke: Katze, Rowena, Borins Becher | Tom | offen |
+| 85 | Testmenü aufräumen | Tom | fertig |
+| 87 | Schänke: Katze, Rowena, Borins Becher | Tom | fertig |
 | 88 | Leitlinien-Abgleich sichtbar | Berater | erledigt |

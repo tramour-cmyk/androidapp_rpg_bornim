@@ -77,6 +77,19 @@ object MapFolk {
     val morwen = Folk("morwen", human(Sex.FEMALE, Build.SLIM, 1, 0, grey = 0x9C9890),
         Outfit(CharClass.ROGUE, kit("robe", "hood"), cloakRgb = 0x3E4A30, clothes = clothes(0x4A5A36, 0x34402A, 0x2E2A22)))
 
+    /**
+     * How far [npc] stands off the middle of its tile, in map pixels: Garrick close to his fire (3b), and whoever stands
+     * at a counter facing it close up to it, so the cloth and the jug reach the board (87.2, test of 0.1.740: Rowena
+     * wiped the air half a tile behind her counter).
+     */
+    fun nudge(npc: de.bornim.core.Npc, map: de.bornim.core.MapDef): Pair<Int, Int> {
+        val T = WorldArt.T
+        if (npc.id == "garrick") return T * 11 / 20 to 0
+        val f = npc.facing
+        if (map.tile(npc.x + f.dx, npc.y + f.dy) == de.bornim.core.Tile.COUNTER) return f.dx * T * 2 / 5 to f.dy * T * 2 / 5
+        return 0 to 0
+    }
+
     /** Borin's poses at his table (55.2): hands on the table, a drink from his flask, a bite, a look round. */
     enum class Seat { REST, DRINK, EAT, LOOK, BREATHE }
 
@@ -144,10 +157,10 @@ object MapFolk {
         return seat(Seat.REST, Seat.BREATHE, 0.5 - 0.5 * kotlin.math.cos(ph))
     }
 
-    /** The outfit Borin sits in: the hammer is put by at the table, a flask at his belt. */
+    /** The outfit Borin sits in: the hammer is put by at the table, a tankard in his hand (87.3). */
     private val seatedOutfit by lazy {
         val o = borin.outfit
-        Outfit(o.cls, o.items.filterValues { it.base != "maul" }, leatherRgb = o.leatherRgb, clothes = o.clothes, flaskRgb = 0x8A6A2A)
+        Outfit(o.cls, o.items.filterValues { it.base != "maul" }, leatherRgb = o.leatherRgb, clothes = o.clothes, flaskRgb = 0x8A6A2A, tankard = true)
     }
 
     /** The rig of one pose at the table, facing [yaw]. */
@@ -373,7 +386,6 @@ object MapFolk {
      * a beast turns up, the caller lets him stand at once (he starts up).
      */
     fun squatAt(f: Folk, clockMs: Long, night: Boolean): Squat? {
-        if (forceDoze) return dozing(f, clockMs)
         val n = Math.floorDiv(clockMs, SQUAT_BLOCK_MS)
         val t = clockMs - n * SQUAT_BLOCK_MS
         val r = java.util.Random(n * 7_000_003L + f.id.hashCode() * 31L + 5)
@@ -430,7 +442,6 @@ object MapFolk {
      * stands.
      */
     fun squatPoseAt(f: Folk, clockMs: Long, night: Boolean): SquatPose? {
-        if (forceDoze) return dozePose(f, clockMs + 20_000)
         val n = Math.floorDiv(clockMs, SQUAT_BLOCK_MS)
         val t = clockMs - n * SQUAT_BLOCK_MS
         val r = java.util.Random(n * 7_000_003L + f.id.hashCode() * 31L + 5)
@@ -527,8 +538,6 @@ object MapFolk {
             ?: (p.main?.let { squatFrame(f, slot, it) } ?: frame(f, slot, 0))
     }
 
-    /** Test switch: Garrick sits and dozes all the time (10.10., 3a; to be removed again). */
-    @Volatile var forceDoze = false
 
     /** Draws ahead the squatting pictures of [f] facing its fire at [homeSlot]. */
     fun prepareSquat(f: Folk, homeSlot: Int) {

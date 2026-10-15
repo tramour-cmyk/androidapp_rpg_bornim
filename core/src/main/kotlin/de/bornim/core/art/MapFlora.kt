@@ -59,6 +59,44 @@ object MapFlora {
 
 
 
+    /** Whether a tall crown on tile ([tx], [ty]) would hide something that must stay in sight (43). */
+    fun shades(map: MapDef, tx: Int, ty: Int): Boolean {
+        val deep = map.id == "deep_forest"
+        // a chest just north of this tree must stay visible: a slim young spruce instead of a broad crown
+        // the tall crowns reach up to three tiles north: where they would hide something one needs to
+        // find (a chest, the fire, a sign, someone to talk to, a way out), a young spruce stands instead
+        fun important(x: Int, y: Int) = map.tile(x, y).let { it == Tile.CHEST || it == Tile.CAMPFIRE || it == Tile.SIGN || it == Tile.CAVE_ENTRANCE ||
+            // in the village: the fields and yards behind the edge of the wood stay in sight
+            (map.kind == de.bornim.core.MapKind.TOWN && (it == Tile.CROPS || it == Tile.VEG_BED || it == Tile.HAY || it == Tile.FENCE || it == Tile.WASHLINE)) } ||
+            map.npcs.any { it.x == x && it.y == y } || map.warpAt(x, y) != null
+        // seen diagonally (43), a tall crown hides what lies up to eight tiles behind it towards the top of the screen
+        // (north and west): there the stones of the circle count too, but a chest may stay hidden under the trees
+        fun seen(x: Int, y: Int) = map.inside(x, y) && (map.tile(x, y) == Tile.MENHIR || (important(x, y) && map.tile(x, y) != Tile.CHEST))
+        // the old oaks of the deep forest (27.6) stand so close that a crown twelve steps in front still reaches
+        // over Morwen's fire: there the reach goes as high as the tallest crown (about 12 half tiles)
+        val reach = if (deep) 12 else 8
+        return (0..reach).any { bx -> (0..reach).any { by -> bx + by in 1..reach && kotlin.math.abs(bx - by) <= 2 && seen(tx - bx, ty - by) } }
+    }
+
+    /** The low growth on a tile where a tall crown would hide something ([shades]); also beyond the edge (83). */
+    fun shrubs(map: MapDef, tx: Int, ty: Int): List<WorldArt.Obj> {
+        val deep = map.id == "deep_forest"
+        val cx = (tx + 0.5) * S; val cy = (ty + 0.5) * S
+        // set off a little each, some two small ones side by side; in the village mostly bushes, a hedge in front
+        // of the fields and beds (83, user 14.10.)
+        val pick = hash(tx, ty, 17) % 10
+        val town = map.kind == de.bornim.core.MapKind.TOWN
+        fun young(k: Int) = obj(spruce(hash(tx, ty, 6 + k) % 6, 0, young = true),
+            cx + (rnd(tx, ty, 18 + k) - 0.5) * S * 0.6, cy + S * (0.45 + rnd(tx, ty, 20 + k) * 0.3))
+        return when {
+            !town && !deep -> listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
+            // the bush in the slant like those of the undergrowth (56)
+            pick < (if (town) 6 else 3) -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
+            pick < (if (town) 8 else 5) -> listOf(young(0), young(1))
+            else -> listOf(young(0))
+        }
+    }
+
     // ------------------------------------------------------------------ on the map
 
     private fun obj(s: Sprite, artX: Double, artY: Double): WorldArt.Obj {
@@ -73,34 +111,7 @@ object MapFlora {
         return when (map.tile(tx, ty)) {
             Tile.TREE -> {
                 val out = ArrayList<WorldArt.Obj>()
-                // a chest just north of this tree must stay visible: a slim young spruce instead of a broad crown
-                // the tall crowns reach up to three tiles north: where they would hide something one needs to
-                // find (a chest, the fire, a sign, someone to talk to, a way out), a young spruce stands instead
-                fun important(x: Int, y: Int) = map.tile(x, y).let { it == Tile.CHEST || it == Tile.CAMPFIRE || it == Tile.SIGN || it == Tile.CAVE_ENTRANCE ||
-                    // in the village: the fields and yards behind the edge of the wood stay in sight
-                    (map.kind == de.bornim.core.MapKind.TOWN && (it == Tile.CROPS || it == Tile.VEG_BED || it == Tile.HAY || it == Tile.FENCE || it == Tile.WASHLINE)) } ||
-                    map.npcs.any { it.x == x && it.y == y } || map.warpAt(x, y) != null
-                // seen diagonally (43), a tall crown hides what lies up to eight tiles behind it towards the top of the screen
-                // (north and west): there the stones of the circle count too, but a chest may stay hidden under the trees
-                fun seen(x: Int, y: Int) = map.tile(x, y) == Tile.MENHIR || (important(x, y) && map.tile(x, y) != Tile.CHEST)
-                // the old oaks of the deep forest (27.6) stand so close that a crown twelve steps in front still reaches
-                // over Morwen's fire: there the reach goes as high as the tallest crown (about 12 half tiles)
-                val reach = if (deep) 12 else 8
-                val shades = (0..reach).any { bx -> (0..reach).any { by -> bx + by in 1..reach && kotlin.math.abs(bx - by) <= 2 && seen(tx - bx, ty - by) } }
-                if (shades) {
-                    // a row of them at the edge of the village is no hedge (test of 0.1.590): set off a little each, some
-                    // a bush instead, some two small ones side by side
-                    val pick = hash(tx, ty, 17) % 10
-                    fun young(k: Int) = obj(spruce(hash(tx, ty, 6 + k) % 6, 0, young = true),
-                        cx + (rnd(tx, ty, 18 + k) - 0.5) * S * 0.6, cy + S * (0.45 + rnd(tx, ty, 20 + k) * 0.3))
-                    return when {
-                        map.kind != de.bornim.core.MapKind.TOWN && !deep -> listOf(obj(spruce(hash(tx, ty, 6) % 6, 0, young = true), cx, cy + S * 0.6))
-                        // the bush in the slant like those of the undergrowth (56)
-                        pick < 3 -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
-                        pick < 5 -> listOf(young(0), young(1))
-                        else -> listOf(young(0))
-                    }
-                }
+                if (shades(map, tx, ty)) return shrubs(map, tx, ty)
                 val count = if (hash(tx, ty, 1) % 3 == 0) 2 else 1
                 for (k in 0 until count) {
                     val kind = hash(tx, ty, k * 7 + 2) % 10

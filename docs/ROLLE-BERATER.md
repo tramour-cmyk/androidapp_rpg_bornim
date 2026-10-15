@@ -2,12 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 23:0x) – Nachfolger: „Sokrates – Verschleiß und Gefährten“:**
+**Übergabe (15.10., 11:1x) – Nachfolger: „Sokrates – Questweg Morwen und Verschleiß“:**
 
-**Nächster Punkt:** (1) **72o Verschleiß** Feinheiten (Nutzer überlegt). (2) **72s** Gefährte für Kapitel 2 (Empfehlung Fenn ab Kultlager, Gegenargument Söldner-Wechsel und Überläufer-Klischee; Storyplan 5a erst wörtlich lesen). (3) 84.3, 84.2, 72a/72c–72j, 79/72u nach Probe und Standbild. Später: Hund als erster Begleiter in der Geschichte (72.15, mit 41), eigenes Haus (LISTE-IDEEN).
-Sitzung 14.10., 22:1x–23:0x: 72.14 Gefährte/Söldner/Begleiter, 72.15 Begleiter mit Bindung, 69e Musterbild angenommen (Intro-Bilder an Tom), Ford auf Pilot, startet auch nachts, bei höherer Stellung sofort auslösen. Schwerpunkt: überwiegend Spiel, Ford als kleiner Ablaufteil.
+**Nächster Punkt:** (1) **D4.1 Texte** (beschlossen A): Questschritt zu Morwen vor der Höhle (Grund: Mittel gegen das Gift der Höhle oder Weg zum Ostflügel) und Garricks Warnung unter Stufe 3, Vorschlag unter 41 mit dem Nutzer, dann an Tom. (2) **72o Verschleiß**, dann 72s, 84.x. **81s Probe** prüft diese Sitzung um 12:06 (Wecker `trig_018mbpMFEPXiNSPffp9mf6em`): landete die Stundenuhr in Fords Sitzung, Ford die Kette einstellen lassen und `ROLLE-FORD.md` umschreiben, sonst Uhr löschen. (3) 81r beobachten; Jerrys `TELEGRAM_BOT_TOKEN` (Nutzer). 81p/81r stehen in den Beschlüssen.
 
-**Zuletzt gelesen bis:** 05dc6f7e (15.10., 06:5x)
+**Zuletzt gelesen bis:** 6f26fa3e (15.10., 11:0x)
 
 ## Wer du bist
 
@@ -27,7 +26,7 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 ## Ritual
 
 - **Start** („Berater“/„Sokrates“): diese Datei, dann `docs/ARBEIT-OFFEN.md` (zuerst „Für den Berater“), nur Änderungen seit „Zuletzt gelesen bis“ (`git log … <Stand>..origin/main`, `tools/story.sh <Stand>`; geänderte Texte gegen `STORY-REGELN.md` und Storyplan prüfen); Verwerfquote Diogenes (75g) und Rückläufer (76f) nur, wenn seitdem ein Lauf oder Build war. Melden nach `CLAUDE.md` Sitzungsstart 3.
-- **Ende** („Berater, festhalten“): Entscheidungen und Lehren eintragen, Veraltetes kürzen (Volltext ins Archiv), „Zuletzt gelesen bis“ setzen, pushen, Hauptkopie `git reset --hard HEAD`. **Nachfolger:** Titel „Sokrates – <Grobthema>“ in der Übergabe, nächsten Punkt dort eintragen; der Nutzer startet ihn selbst mit „Sokrates“ (sonst verschwindet er unter „Geplant“), nur auf Wunsch selbst starten (`ARBEIT-ABLAEUFE.md` „Neustart“).
+- **Ende** („Berater, festhalten“): Entscheidungen und Lehren eintragen, Veraltetes kürzen (Volltext ins Archiv), „Zuletzt gelesen bis“ setzen, pushen, Hauptkopie `git reset --hard HEAD`. **Nachfolger:** Titel „Sokrates – <Grobthema>“ in der Übergabe, nächsten Punkt dort eintragen; Neustart über Ford wie alle (81r, `ARBEIT-ABLAEUFE.md` „Neustart“).
 - **Größere Entwürfe als Claude-Docs-Dokument** (Nutzer 12.10.; Matrizen, Listen, Erklärungen, die der Nutzer wiederfinden will), Link in `ARBEIT-OFFEN.md` und hier; nach Freigabe als `docs/<NAME>.md` ins Repo.
 - Der Berater ändert Notizen und höchstens Werkzeug, nie Spielcode.
 
@@ -48,6 +47,7 @@ Weitere (Rollen, Oberfläche, Tempelszene, Karte und Händler, Dein Zug, Zufalls
 - **Kampf (72.11, 72u):** B, weil Absicht und Reaktion den Gegnerzug füllen und mit Gefährte A doppelt Menü wäre; Reihen statt Raster (C) bringen das meiste der Stellung für einen Bruchteil; Ring nur bei angekündigter Absicht gegen Tipp-Fließband; Platztausch kostet den Zug. Wörtliches Hineinzoomen zu grob (Kampffiguren 2,2-mal feiner), darum Kampfort aus der Karte neu gezeichnet; Zeichenzeit unterscheidet nicht (24.5 gibt es). Pokémon-Eindruck kommt eher vom Stillstand als vom Hintergrund.
 - **Profil (72; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b)):** Lücke = fürs Handy gebautes Rollenspiel mit eigenem Look und Geschichte (zwischen Darkest Dungeon und Exiled Kingdoms); größte Schwäche der Menü-Zweikampf.
 - **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen, damit Entwickler keine Texte erfinden; Kult mit weitergegebenem Titel trägt sieben Kapitel; Kapitel 2: Hinweise doppelt (freie Welt), Anreiz statt Pfeil, zweiter Weg (72.5). Volltext im Archiv („20:5x“).
+- **Neustart und Protokoll (81r):** Agenten meldeten „voll“, starteten aber nie, weil der Ablauf ein Ja verlangte, das im Arbeitsfluss nie kam; darum entscheidet der Anlass (Thema fertig, Haken), Ford startet, weil er doppelte Starts sperrt. Telegram als Protokoll, weil Länge dort nichts kostet; jeder meldet selbst, sonst stünde jede Zeile auch in Fords Gespräch.
 - **Licht und Laut (13e.6, 84):** Held ohne eigenes Licht, weil Licht nur aus sichtbaren Quellen kommt (Leitbild); Fackel kostet die Nebenhand und macht sichtbar, Dunkel erlaubt Schleichen und Lauschen: eine Wahl je Höhle statt Pflichtkauf. Welle statt Pfeil, weil Pfeile führen (62c); Hören in Stufen, damit Stehenbleiben lohnt, ohne Pflicht zu werden.
 
 ## Lehren
@@ -58,7 +58,7 @@ Weitere (Rollen, Oberfläche, Tempelszene, Karte und Händler, Dein Zug, Zufalls
 - **Ablauf nicht vorführen** (14.10., 65.9): der Nutzer sieht den Nutzen pro Antwort; Startritual, Wiederholungen und Haken-Runden ohne Neues sind Kosten. Zeit nur von der Systemuhr, auch im Gespräch (17:3x geschätzt).
 - **Nur ausdrückliches Ja des Nutzers entscheidet** (13.10., Sprachmodus): Unklares gegen seinen Wortlaut prüfen. Im Sprachmodus nie aus dem Gedächtnis gegen eigene Dokumente reden (14.10., 72q: zwei widersprüchliche Aussagen).
 - **Technik erst belegen, dann zusagen** (14.10., 81j): Push und E-Mail aus Routinen kamen trotz „erfolgreich“ nie an; Erfolgsmeldung eines Werkzeugs ist kein Beleg, nur die Bestätigung des Nutzers.
-- **Umgebaute Routine neu prüfen** (15.10., 81o): Ford-Routine um 18:10 ersetzt, nur die alte geprüft; die neue hatte keine Verbindungen, die Nacht lief leer.
+- **Werkzeuge im Zielort prüfen, nicht hier** (15.10., 81p): diese Sitzung hat `create_session`, Routinen-Sitzungen nicht; dreimal falsch angenommen, erst die Probe mit ToolSearch im Zielort zählt.
 - **Beim Start alle Punkte zu eigenen Themen auf „Dein Zug“ lesen** (14.10., 69e übersehen, weil an den Nutzer adressiert).
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
 - **Entwürfe sofort in die Notizen** (13.10., Rabenschanze und 77 standen nur im Chat): gleich in Storyplan oder `ARBEIT-OFFEN.md`.

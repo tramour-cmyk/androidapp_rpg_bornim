@@ -42,23 +42,25 @@ class Outfit(val cls: CharClass, val items: Map<GearSlot, Gear>, val rusty: Bool
     /** The weapons put away (walking about on the map, 10.10.): a blade in its scabbard at the hip, an axe or mace at the belt. */
     val weaponStowed: Boolean = false,
     /** Only the second weapon put away, the main one in hand (a goblin on the map, 9k: a dagger held out at the hip reads wrong). */
-    val offStowed: Boolean = false) {
+    val offStowed: Boolean = false,
+    /** A pewter tankard in place of the flask (87.3: Borin at his table drinks from a mug one can see). */
+    val tankard: Boolean = false) {
     fun base(slot: GearSlot): String? = items[slot]?.base
     fun rarity(slot: GearSlot): Rarity = items[slot]?.rarity ?: Rarity.COMMON
     val twoHands: Boolean get() = items[GearSlot.MAIN_HAND]?.def?.let { (it.twoHanded || bothHands && it.versatile != null) && !it.ranged } == true
     val hasShield: Boolean get() = items[GearSlot.OFF_HAND]?.def?.kind == BaseKind.SHIELD && !twoHands
 
     /** The same outfit with a draught of [rgb] in the flask. */
-    fun withFlask(rgb: Int) = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, rgb, fetish, shieldOnBack, bowOnBack, leatherRgb, clothes, bald, weaponStowed, offStowed)
+    fun withFlask(rgb: Int) = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, rgb, fetish, shieldOnBack, bowOnBack, leatherRgb, clothes, bald, weaponStowed, offStowed, tankard)
 
     /** The same outfit with the shield slung on the back. */
-    fun withShieldOnBack() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, true, bowOnBack, leatherRgb, clothes, bald, weaponStowed, offStowed)
+    fun withShieldOnBack() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, true, bowOnBack, leatherRgb, clothes, bald, weaponStowed, offStowed, tankard)
 
     /** The same outfit with the second weapon put away at the hip, the main one still in hand. */
-    fun withOffStowed() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, shieldOnBack, bowOnBack, leatherRgb, clothes, bald, weaponStowed, true)
+    fun withOffStowed() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, shieldOnBack, bowOnBack, leatherRgb, clothes, bald, weaponStowed, true, tankard)
 
     /** The same outfit with the weapons that can be put away at the hip or belt ([Dress.stows]) put away. */
-    fun withWeaponStowed() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, shieldOnBack, bowOnBack, leatherRgb, clothes, bald, true, offStowed)
+    fun withWeaponStowed() = Outfit(cls, items, rusty, crude, pelt, bothHands, cloakRgb, flaskRgb, fetish, shieldOnBack, bowOnBack, leatherRgb, clothes, bald, true, offStowed, tankard)
 
     companion object {
         fun of(hero: Hero) = Outfit(hero.cls, GearSlot.entries.mapNotNull { s -> hero.item(s)?.let { s to it } }.toMap(), bothHands = hero.bothHands())
@@ -670,6 +672,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
 
     private fun flask() {
         if (sk.rig.flask < 0.5) return
+        if (o.tankard) return tankard()
         val hand = sk.hand(0)
         val across = sk.upper.dir(P3.X)
         val a = Math.toRadians(sk.rig.flaskTilt)
@@ -684,6 +687,31 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         add(Ellipsoid(belly + up * (0.6 * u) + sk.upper.dir(P3.Z) * (1.2 * u), P3(1.6 * u, 2.2 * u, 1.2 * u), Frame.along(up), BodyPart.GEAR, Doll.TRIM), draught)
         add(RoundCone(belly + up * (3.6 * u), belly + up * (7.0 * u), 1.3 * u, 1.0 * u, BodyPart.GEAR, Doll.ITEM), glass)
         if (sk.rig.cork > 0.5) add(RoundCone(belly + up * (7.0 * u), belly + up * (8.6 * u), 1.15 * u, 1.05 * u, BodyPart.GEAR, Doll.TRIM), m(argb(0x6A4E32), grain = 0.2))
+    }
+
+    /**
+     * A pewter tankard in the free hand (87.3): a stout cylinder with a handle on the far side and ale with a head of foam,
+     * upright in the hand and tipped back towards the face as [flask] is; drawn larger than life so it reads on the map.
+     */
+    private fun tankard() {
+        val hand = sk.hand(0)
+        val across = sk.upper.dir(P3.X)
+        val a = Math.toRadians(sk.rig.flaskTilt)
+        val up = (sk.upper.dir(P3.Y) * kotlin.math.cos(a) - sk.upper.dir(P3.Z) * kotlin.math.sin(a)).norm()
+        val u = h / 175.0 * 2.8
+        val pewter = m(argb(0x9A9890), shine = 0.8, bias = 0.08)
+        val dark = m(argb(0x5A5850), shine = 0.4)
+        val foam = m(argb(0xE8DCC0), shine = 0.3, bias = 0.2)
+        val foot = hand + up * (-2.0 * u) + across * (1.2 * u)
+        val top = foot + up * (7.0 * u)
+        add(RoundCone(foot, top, 2.7 * u, 2.5 * u, BodyPart.GEAR, Doll.ITEM), pewter)
+        // bands round the foot and the rim
+        add(RoundCone(foot, foot + up * (0.8 * u), 2.85 * u, 2.85 * u, BodyPart.GEAR, Doll.TRIM), dark)
+        add(RoundCone(top - up * (0.6 * u), top, 2.65 * u, 2.65 * u, BodyPart.GEAR, Doll.TRIM), dark)
+        add(Ellipsoid(top + up * (0.3 * u), P3(2.3 * u, 0.7 * u, 2.3 * u), Frame.along(up), BodyPart.GEAR, Doll.TRIM), foam)
+        // the handle on the side away from the hand
+        val side = foot + up * (3.5 * u) - across * (3.0 * u)
+        add(Ellipsoid(side, P3(0.7 * u, 2.4 * u, 0.9 * u), Frame.along(up), BodyPart.GEAR, Doll.ITEM), pewter)
     }
 
     private fun staff() {

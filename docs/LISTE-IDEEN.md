@@ -11,6 +11,7 @@ Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstop
 - **Aktive Abwehr per Tippen (Idee 1):** kurzes Zeitfenster beim gegnerischen Hieb, Tippen = Parieren mit halbem Schaden. Nutzer findet die Idee nicht gut, soll aber erhalten bleiben. Wäre eine Ausnahme von „kein Tippen mitten in einer Aktion“; nur als abschaltbarer Versuch.
 - **Trefferchancen sichtbar machen (Teil von Idee 2):** Chance vor dem Angriff anzeigen.
 - **Verletzungen bis zur Rast (Idee 3):** Wer tief fällt, behält eine Wunde (z. B. −1 RK), sichtbar als Verband am Helden; das Gasthaus heilt sie.
+- **Rauchbündel allgemein** (Sokrates 15.10., D4.1): später bei Morwen kaufbar gegen jeden Hinterhalt oder ersten Hieb, damit der Gegenstand mehr als einen Zweck hat.
 - **Licht als Mechanik (Idee 4):** Fackel brennt ab; im Dunkeln sieht man Lauerer später, Untote sind stärker.
 - (im Vorrat, 23a) **Raumklang (Idee 8):** Hall in der Höhle, gedämpft und nah in der Schänke, offen im Wald.
 - (im Vorrat, 23a) **Musik in Schichten (Idee 10):** Nähert sich ein Jäger, schleicht sich eine dunkle Spur in die Musik, bevor der Kampf beginnt; Stille bewusst einsetzen. Erweitert die neue Musik (28).

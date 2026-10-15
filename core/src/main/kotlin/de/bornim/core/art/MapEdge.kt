@@ -44,6 +44,12 @@ object MapEdge {
             val depth = maxOf(-tx, tx - map.width + 1, -ty, ty - map.height + 1)
             val wet = map.tile(cx, cy) == Tile.WATER || map.tile(cx, cy) == Tile.BRIDGE
             if (open && (depth < CLOSE || wet)) continue
+            // in the village the fields and beds behind the edge stay in sight (83): no tall crowns in front of them,
+            // a hedge in the first two rows beyond the edge and open ground behind it
+            if (map.kind == MapKind.TOWN && MapFlora.shades(map, tx, ty)) {
+                if (depth <= 2) out += MapFlora.shrubs(map, tx, ty)
+                continue
+            }
             val far = MapFlora.objects(map, tx + OFF, ty + OFF) ?: continue
             for (o in far) out += WorldArt.Obj(o.img, o.x - OFF * T, o.y - OFF * T, o.sortY - OFF * T, o.density, o.low || open, o.corner, o.group, o.glow, o.area)
             if (open) continue
