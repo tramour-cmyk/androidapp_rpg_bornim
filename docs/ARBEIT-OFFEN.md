@@ -2,7 +2,7 @@
 
 Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main` (Regeln in `CLAUDE.md`, auch zur Größe).
 
-**Nächste freie Themennummer: 97**
+**Nächste freie Themennummer: 98**
 
 **Ford: Pilot** (Nutzer 14.10., in Toms Sitzung, eingetragen 22:5x; 81g; Stellung aus / Co-Pilot / Pilot, Startlektüre `ROLLE-FORD.md`; wer die Stellung erhöht, löst Ford sofort einmal aus)
 
@@ -83,3 +83,4 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
+- **97 Vorrang in der Arbeitsliste** (Diogenes, Nutzer 15.10., 18:3x): „Macht es Sinn, unsere Arbeitsliste auch nach Kategorien oder Prioritäten ABC oder 1, 2, 3 zu kategorisieren, damit klar ist, was zuerst abgearbeitet werden muss? Ähnlich eigentlich zu deinen Empfehlungen, die du ja auch mit Klassen einteilst.“ Diogenes: ja, eine Spalte A/B/C in „Wer macht was“ nach Wirkung (A hält Arbeit oder Spiel an, B sichtbar falsch oder wartet auf dich, C Feinschliff); Ford und die „Vorrat:“-Zeile (D10.2) arbeiten A vor B vor C ab; Vorrang setzt nur der Nutzer oder Sokrates.
