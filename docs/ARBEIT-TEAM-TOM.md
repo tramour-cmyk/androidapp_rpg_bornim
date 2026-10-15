@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 
 **offen 25, davon A 0, wartet auf Chef 2**
 
-**Übergabe (15.10., 22:2x, „Tom – Hühner 94 und Sammelbuild“) – Nachfolger: „Tom – Sammelbuild PR #67“:** Sammelbuild **PR #67** (`claude/tom-94-huehner-sammelbuild`) = Build B (PR #66, 0.1.752, vom Chef geprüft) + 94 Hühner + D3.13a (Hütte, Hauslicht weich, Laterne nicht aufs Dach, kein Lampenschein auf Tempeldach; „passt“ 21:3x) + 100 + D9.1–D9.3; beide PRs abonniert. 0.1.753 grün (22:29), Prüfliste `e/t753.html` auf Dein Zug (94 Hühner nah ansehen, 68 über Testknopf 100, 92 Bram, D3.13a nachts); nach „passt“ #67 zusammenführen, #66 schließen (in #67 enthalten). Nächster Sammelbuild D3.3 + 89 steht auf `claude/tom-sammelbuild-nach-753` (7b87be89, Kerntests grün), PR erst nach „passt“ zu 0.1.753. Angehalten 23:1x (Ford, Umstellung 98): 92 Bram erledigt (`MakeWayTest` gibt es), Standbilder „Ort fertig“ (26) und `PlayerSimTest` abgebrochen, neu starten.
+**Übergabe (15.10., 23:2x, „Tom – Sammelbuild PR #67“) – Nachfolger: „Tom – 69f Intromusik“:** PR #67 (0.1.753) grün, Prüfliste `e/t753.html` auf Dein Zug, PR abonniert (Nachfolger neu abonnieren); nach „passt“ #67 zusammenführen, #66 schließen, dann PR für `claude/tom-sammelbuild-nach-753` (D3.3 + 89, 7b87be89, Kerntests grün). Jetzt: 69f A bauen (beschlossen), danach 26 (Standbilder „Ort fertig“, `tools/t spieler`; beide um 23:1x für die Umstellung abgebrochen).
 
 ## Zeilen
 
