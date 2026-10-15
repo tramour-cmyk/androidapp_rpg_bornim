@@ -179,7 +179,7 @@ object MapTownIso {
         // the edge of the roof, thick thatch at the eaves and along the gable: a band under the slope
         val thick = if (hut) 20.0 else if (thatch) 16.0 else 5.0
         // ---- the cot's herbs (D3.13): bundles hung head down to dry under the eaves, along the front (the door kept
-        // clear) and along the sunny side towards the fire
+        // clear) and along the sunny side
         if (hut) {
             val herbs = intArrayOf(0x8A9A6A, 0x7A7238, 0x84709E, 0xB8AE8A, 0x9A5E34, 0x6C8448)
             /** One bundle hanging from [zTop] at (i, j), drawn in the plane along [ai], [aj]. */
@@ -1178,8 +1178,10 @@ object MapTownIso {
         val door = letters.indexOf('D')
         val seed = hash(f.x, f.y, 5) % 997
         val room = roomOf(map, f)
-        // D3.13: the cot's door is in its east side, towards Morwen's fire (user 15.10., 12:0x); the map's door tile is a wall
-        val (front, side) = if (style.feature == HouseFeature.HUT) letters to "#D" else room?.let { windowsFromRoom(it, f.n, f.d, door) }
+        // D3.13a: the cot's door is in its front (south), towards Morwen's fire; the map's door tile is a wall with a
+        // locked warp, so the door is where the warp is
+        val hutDoor = if (style.feature == HouseFeature.HUT) map.warps.firstOrNull { it.y == f.y && it.x in f.x until f.x + f.n }?.let { it.x - f.x } else null
+        val (front, side) = if (style.feature == HouseFeature.HUT) letters.mapIndexed { i, c -> if (i == hutDoor) 'D' else c }.joinToString("") to "##" else room?.let { windowsFromRoom(it, f.n, f.d, door) }
             ?: (letters to (if (f.d >= 3) "#W#" else if (seed % 2 == 0) "W#" else "#W"))
         // the chimney over the hearth inside, at the same share of the length; houses without a room: towards one end
         val chimney: Double? = when {

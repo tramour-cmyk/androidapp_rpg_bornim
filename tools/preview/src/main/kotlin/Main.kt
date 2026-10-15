@@ -903,7 +903,7 @@ fun main() {
     // Chapter 1 maps in their new light
     for ((n, spec) in listOf(
         "forest_day" to Triple("forest", 15 to 26, 12 * 60), "forest_dusk" to Triple("forest", 4 to 19, 19 * 60 + 30), "forest_night" to Triple("forest", 11 to 9, 23 * 60),
-        "deep_day" to Triple("deep_forest", 8 to 15, 12 * 60), "deep_night" to Triple("deep_forest", 22 to 21, 23 * 60),
+        "deep_day" to Triple("deep_forest", 8 to 15, 12 * 60), "deep_night" to Triple("deep_forest", 23 to 31, 23 * 60),
         "village_day" to Triple("village", 17 to 12, 12 * 60), "village_dusk" to Triple("village", 17 to 12, 19 * 60 + 30), "village_night" to Triple("village", 17 to 12, 23 * 60),
         "inn_day" to Triple("inn", 5 to 5, 12 * 60), "temple_night" to Triple("temple", 5 to 5, 23 * 60),
     )) {
@@ -1149,7 +1149,7 @@ fun main() {
         g.skipDialogs()
         g.state.gold = 80
         for ((id, n) in listOf("herbs" to 5, "raw_meat" to 2, "roast_meat" to 1, "wolf_pelt" to 2, "boar_tusk" to 1, "spider_gland" to 1, "bat_wing" to 1)) g.state.add(id, n)
-        g.state.place = Place("deep_forest", 23, 21, Facing.RIGHT)
+        g.state.place = Place("deep_forest", 24, 30, Facing.RIGHT)
     }
     shot("52_hedda_brew", taps = listOf(Offset(900f, 250f))) { vm ->
         stocked(vm)
