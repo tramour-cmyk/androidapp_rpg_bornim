@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (15.10., 11:1x) – Nachfolger: „Sokrates – Questweg Morwen und Verschleiß“:**
+**Übergabe (15.10., 11:5x) – Nachfolger: „Sokrates – Ford-Läufe und Verschleiß“:**
 
-**Nächster Punkt:** (1) **D4.1 Texte** (beschlossen A): Questschritt zu Morwen vor der Höhle (Grund: Mittel gegen das Gift der Höhle oder Weg zum Ostflügel) und Garricks Warnung unter Stufe 3, Vorschlag unter 41 mit dem Nutzer, dann an Tom. (2) **72o Verschleiß**, dann 72s, 84.x. **81s Probe** prüft diese Sitzung um 12:06 (Wecker `trig_018mbpMFEPXiNSPffp9mf6em`): landete die Stundenuhr in Fords Sitzung, Ford die Kette einstellen lassen und `ROLLE-FORD.md` umschreiben, sonst Uhr löschen. (3) 81r beobachten; Jerrys `TELEGRAM_BOT_TOKEN` (Nutzer). 81p/81r stehen in den Beschlüssen.
+**Nächster Punkt:** (1) **Zwei Vorschläge zu Ford dem Nutzer zur Entscheidung (offen, im Gespräch gestellt):** (a) Auftrag für Diogenes mit Bedingung („nach …“): Ford prüft sie jeden Lauf gegen `main`/PR (Lücke: 0.1.746 seit 11:17 auf main, Diogenes erst 11:51 auf Anstoß gestartet); (b) jede Weckung durch Nachricht löst Schritte 1–3 des Laufs aus, nicht nur „ok“. Empfehlung beide ja. (2) **81s:** um 12:06 prüfen, ob `trig_01XSM2AKJtWvwXZgTBnkRMjw` um 12:03 in Fords Sitzung landete (`list_triggers` last_run, `list_events`): ja → Ford Kette einstellen lassen, `ROLLE-FORD.md` umschreiben; nein → Uhr löschen; dem Nutzer eine Zeile. Prüfen, ob Fords 12:03-Bericht die neue Form hat (fett, drei Absätze, in seiner Sitzung nur „ok“). (3) **72o Verschleiß**, dann 72s, 84.x. Heute beschlossen: D4.1 Texte (Rauchbündel), „Kurz und einfach“ (`CLAUDE.md`), Ford-Bericht und laute Meldungen (`ROLLE-FORD.md`).
 
-**Zuletzt gelesen bis:** 6f26fa3e (15.10., 11:0x)
+**Zuletzt gelesen bis:** ff16011b (15.10., 11:38)
 
 ## Wer du bist
 
