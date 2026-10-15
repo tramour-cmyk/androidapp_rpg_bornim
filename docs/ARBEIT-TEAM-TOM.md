@@ -24,7 +24,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 | 96 | Gesprächstext zu lang für das Feld (Chef 15.10., 17:0x) | Test 0.1.752 passt; mit PR #67 auf `main`, dann streichen | wie 94 |
 | 93 | „Die Beete westlich gehen nicht bis zum Zaun.“ (Chef 15.10., 16:5x) | Test 0.1.752 passt (`MapTownIso.fenceSpot`); mit PR #67 auf `main`, dann streichen | wie 94 |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem (`LISTE-KAPITEL1.md`) | Toms Teil von 26c fertig. **Ort fertig Dorf, Räume, Wald:** je Ort Standbilder gegen `DESIGN-ABNAHME.md`, **fertig, wenn** Lückenliste mit Uhrzeit in der Übergabe. **Durchgespielt:** `PlayerSimTest`, **fertig, wenn** grün oder Befund eingetragen | – |
-| 13e | Höhle „Ort fertig“ (Vertretung Jerry, Chef 14.10., 16:0x) | D1.3/D1.11, D1.5, 13e.6 auf `main`. Helligkeitsregler bei Jerry (40). Danach D1.7 Leben (Absprache `WorldScreen.kt`). Mond mit D3.14 | – |
+| 13e | Höhle „Ort fertig“ (Zuteilung des Chefs 14.10., 16:0x; bleibt bei Tom, D14.3) | D1.3/D1.11, D1.5, 13e.6 auf `main`. Helligkeitsregler bei Jerry (40). Danach D1.7 Leben (Absprache `WorldScreen.kt`). Mond mit D3.14 | – |
 | 86 | Bewegung und Übersicht (Chef 14.10., 18:5x) | 86.1–86.4 auf `main` (0.1.750). Beschlossen, Bau offen: 86.6, 86.9, 86.10 (Rest bei Jerry). Einzelheiten in den Beschlüssen | – |
 | 72.14 | Gefährte/Söldner/Begleiter in Spieltexten (mit Jerry) | offen | – |
 | 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p) | bis 62r auf `main`; 62i–62k mit 64; 62l später (62m bei Jerry mit 39) | – |

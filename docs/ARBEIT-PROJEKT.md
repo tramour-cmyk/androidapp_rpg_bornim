@@ -2,17 +2,17 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kosten-Nutzen der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 8, davon A 1, wartet auf Chef 2**
+**offen 8, davon A 1, wartet auf Chef 1**
 
 **Gelesen bis:** `cd8fcfb6` (15.10., 23:3x; Umbau 98 = `560658a9`)
 
-**Übergabe (15.10., 23:4x, „Sokrates Projekt – Nachprüfung Umbau 98“):** D14 eingearbeitet bis auf D14.3 (Chef gefragt). Offen ohne Chef: 16.10. Ford-Morgenmeldung „Umbau läuft / hakt“ (98, Prüfen 4); hakt sie, Rückweg prüfen. Sparmodus 99d bis Sa 21:00: Sokrates Projekt nur auf Zuruf. Nachfolger: keiner bis Zuruf („Sokrates Projekt – <Thema>“).
+**Übergabe (15.10., 23:4x, „Sokrates Projekt – Nachprüfung Umbau 98“):** D14 eingearbeitet, D14.3 entschieden (bei Tom); nur Beschlüsse-Eintrag offen. Chef 23:3x: „Die Kaffeekasse ist trockengelegt“: nichts starten, nur auf Zuruf. Offen ohne Chef: 16.10. Ford-Morgenmeldung „Umbau läuft / hakt“ (98, Prüfen 4); hakt sie, Rückweg prüfen. Sparmodus 99d bis Sa 21:00: Sokrates Projekt nur auf Zuruf. Nachfolger: keiner bis Zuruf („Sokrates Projekt – <Thema>“).
 
 ## Zeilen
 
 | Nr. | Thema | Stand |
 |---|---|---|
-| D14 | Diogenes Lauf 14, Nachprüfung Umbau 98 ([Prüfbericht](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ)); Urteil: Umbau trägt | 15.10., 23:4x: D14.1 (Teams oben im Vorrat), D14.2 (Auftrag Diogenes ab Co-Pilot), D14.4 (Probe 18.–22.10., „Tag n von 5“), Anregung a (`notiz.sh` meldet auf Max „Zentrale“) eingearbeitet. **D14.3** (13e bei Tom: zurück zu Jerry, sobald er läuft, oder bei Tom als Zuteilung) **wartet auf Chef**, im Chat gefragt |
+| D14 | Diogenes Lauf 14, Nachprüfung Umbau 98 | erledigt 15.10., 23:4x (D14.1, .2, .4, Anregung a, b). **D14.3** Chef 23:3x: „Zuteilung des Chefs. Also bleibt bei Tom.“ Eingetragen bei Tom und Jerry; Beschlüsse-Eintrag beim nächsten Lauf (Chef: „Die Kaffeekasse ist trockengelegt.“), dann Zeile streichen |
 | 98 | Firma WireStormTCS (Chef 15.10., 18:5x: „kleine, aufstrebende Software-Schmiede … ganz vorne, damit alle wissen, wie sie zusammenarbeiten“) | **A.** Umgebaut 15.10., 23:1x nach Go des Chefs (23:0x: „Go! Welcome WireStormTCS!“); Sicherung: Stand vor dem Umbau 8abeae7b (Tag `vor-umbau-98` vom Proxy abgelehnt). **Prüfen:** (1) Sokrates sofort erledigt; (2) Diogenes blind gegen [Firmenordnung](https://claude.ai/code/artifact/1757d98a-8847-4483-9c51-05be34b45356) und [Rollenkonzept](https://claude.ai/code/artifact/3a9cbaec-bc3a-47b9-9ff1-c89f4bf59faa); (3) Ford die ersten 24 Stunden je Start `list_events`; (4) Ford Morgenmeldung 16.10. „Umbau läuft / hakt“. **Rückweg** (Chef entscheidet; Empfehlung nur, wenn in 24 Stunden eine Rolle falsch startet und ein Commit es nicht behebt; danach nur vorwärts): Ford stoppt alle Sitzungen; `git revert` des Umbau-Commits; was seither in die neuen Vorräte kam, von Hand zurück (`git diff <Umbau>..HEAD -- docs/ARBEIT-*.md`; Revert hat drei Konflikte: BESETZUNG, BETRIEB, TEAM-TOM, D14 Anregung b); Wache-Auftrag zurück (Wortlaut unten); Ford neu starten; etwa 15 Minuten |
 | 99 | Zwei Niederlassungen (Chef 15.10., 19:0x) | beschlossen D11.1, 99d, 99f (`docs/FIRMA.md` „Zentrale und Niederlassung“). **99d** Sparmodus bis Sa 17.10., 21:00: Tom weiter, Jerry sobald er läuft, Sokrates und Diogenes nur auf Zuruf, kein Rückblick 16.10., Ford ohne Leihsitzungen. **Chef, Fr. nachmittags:** Telegram-Schlüssel auf Pro, Jerry von Hand starten, dann Probe `create_session` für Ford 2; Messung zwei Tage (über 10 % von Jerrys Woche → streichen). Kosten: Prüfung beider Accounts um den 10.11. (99e); Woche über `rate_limit_info` |
 | 99d | Stellung zurück: Ford „Co-Pilot bis Sa 17.10., 21:00, danach Pilot“ (Chef 22:5x) | Ford stellt im ersten Lauf danach selbst zurück; prüfen am 18.10. (D13.1) |
