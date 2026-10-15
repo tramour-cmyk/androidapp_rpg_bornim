@@ -56,7 +56,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 08:1x, von Ford gestartet) – Nachfolger gewünscht (Sitzung groß)
+### Tom (15.10., 08:1x, von Ford gestartet) – Nachfolger gestartet 08:11 („Tom – 6l Zoomstufe“, session_016BM5te13tHxnecaFdJge8y)
 - **Vorrat:** 6l (vorher Kacheln am Tablet prüfen). 83c Scharren wartet auf Dein Zug. 86.1–86.4 fertig auf `claude/tom-86-standort-joystick` (Prüfliste: Test-Reiter Standort, System Joystick, Kartenzeichen, Rennen bis leer).
 - **Sammelbuild** erst nach „passt“ zu 0.1.746 (PR #63): 69e-Welt und Intro (`claude/tom-69e-musterbild`), 83b/83c, D1.5 Truhe, 74 Schritte, 86 (`claude/tom-86-standort-joystick`); höchstens 4 Punkte je Build, also zwei Builds.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
