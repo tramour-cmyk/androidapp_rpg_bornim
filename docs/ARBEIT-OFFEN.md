@@ -56,10 +56,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 13:2x, „Tom – Runde nach 0.1.748 (2)“) – Nachfolger: „Tom – 70.6 Bild 3 und 68 Tempelszene“
-- Sammelzweig jetzt `claude/tom-runde-nach-748-b`: D4.1, Bild 3 (überholt durch 70.6), D3.13 zweiter Entwurf (`e/d313.html`), dazu 86 plus 6l, D3, 13e.6 fest, D1.3/D1.11 zusammengeführt (Kerntests grün, App nur über CI prüfbar). Mehr als 4 Punkte (78a): nach „passt“ zu #64 in zwei Builds teilen (A: 86/6l, 13e.6, D3, D1.3/D1.11; B: D4.1, Bild 3, D3.13). Dazu D6.2/D6.3/D6.5/D6.7 (Build A). **Zuerst 70.6** (Sokrates 12:4x, Beschluss A): Bild 3 neu vom Platz (14/11.5) nach Südosten, Brunnen vorn, Tempel fern (West- und Nordseite), Fackelzug auf der unteren Straße zum Tempelweg; Wege und Pflaster nur wie auf der Karte, Draufsicht mit Standpunkt und Blickfeld beilegen; der alte Eintrag `e/b3.html` ist von Dein Zug genommen. **Dann:** 68 Tempelszene (hängt nicht mehr an 69e): fünf Standbilder nach `[68.tempel.1–5]` im Stil des Intros (`CutsceneArt.kt` hat einen Entwurf, Vorschau `INTROBILD=1`), Ablauf nach `STORY-K1.md` K1-Z (Einladung, Blende, Morgen im Tempel, Lyra, Lager-Auftrag); erst `LISTE-FIGUREN.md` lesen, Standbilder auf Dein Zug, eigener Zweig von `claude/tom-runde-nach-748-b`.
-- **PR #64 = 0.1.748** auf Dein Zug (`e/t748.html`), wartet auf Test; nach „passt“ zusammenführen, `CHANGELOG.md`, Zeile von Dein Zug.
-- Entscheidungsbilder immer auch an Telegram (`tools/meldung.sh --bild`), Nutzer 15.10., 12:2x erinnert.
+### Tom (15.10., 14:4x, „Tom – 70.6 Bild 3 und 68 Tempelszene“) – Nachfolger: „Tom – 89 Schatten mit dem Tag“
+- Zweig `claude/tom-68-tempelszene` (enthält `claude/tom-runde-nach-748-b` ganz): **70.6** Bild 3 neu (Ebenen `intro_3*.png/jpg`, `IntroLife`, Vorschau `INTRO69=3`, `INTRO69=leben`, `INTROBILD=ms`), auf Dein Zug `e/706.html`; **68** fünf Bilder erster Entwurf (`TempleProbe.kt`, `TEMPEL68=n`, Assets mit `TEMPEL68=app`, App-Vorschau `TEMPELBILD=ms`) auf Dein Zug `e/68.html`, Ablauf fertig (`TempleSceneTest`), 68l Südrand still. Beides wartet auf den Nutzer; nach Ja zu 68 Figuren und Licht verfeinern (wie Intro Bild 3), dann Build.
+- Builds: erst #64 (0.1.748, wartet auf Test), dann Build A aus `claude/tom-runde-nach-748-b` (86/6l, 13e.6, D3, D1.3/D1.11, D6.x), dann Build B aus diesem Zweig (D4.1, 70.6, D3.13, 68), nachdem A auf `main` ist.
+- Für den Berater eingetragen: 68 (Kapitelende-Text vor der Andacht), 68l (Südrand bis Kapitel 2).
+- **Weiter: 89** (Beschluss 12:4x): erst D6.1/D6.6 (Prüfbericht Lauf 6), dann Probe im Dorf mit Standbildern aller drei Sonnenstände; eigener Zweig von `claude/tom-runde-nach-748-b`.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
