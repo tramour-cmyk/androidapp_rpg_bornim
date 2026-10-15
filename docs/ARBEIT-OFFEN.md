@@ -48,7 +48,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 45 | Geschäftsmodell (Play Store) | Berater mit Nutzer | – | 45a/45c ja (Beschlüsse). 45b zurückgestellt bis nach 38 |
 | 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | Tom (Szene, Bilder), Jerry (Klang „Ancient Legend“) | `claude/tom-build-b-fertig` (Build B) | 68a–68m ja: Texte in `STORY-K1.md` (`[68.…]`). **Tom:** Ablauf gebaut (Einladung, Kapitelende-Karte, Nacht als Rast, fünf Bilder, Lyra, Auftrag „Das Lager im Süden“, Rowena/Aldric, Südrand still; `TempleSceneTest`); **68, 68n, 68o, 68p nach Empfehlung** (Nutzer 17:4x): Aufbau so, Bild 4 neu (Ostfenster); **Tom:** Figuren und Licht verfeinern, Kapitelende-Text `[68.kapitelende]` und Südrand-Zeile `[68.suedrand]` (`STORY-K1.md`) einbauen, dann Build B. Jerry zur Kenntnis: `MusicScene.TEMPLE` spielt `MusicLib.amuletReturn`, `Mode.TempleScene` |
 | 69 | Intro: Ankunft bei Nacht in Standbildern, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | – | 69a–69e ja (`STORY-K1.md` `[69.intro.…]`, Beschlüsse). Intro auf `main` (0.1.748). **Jerry, 69c:** leiser Klang unter Bild 1–4 (`MusicScene.INTRO`). 70.3 später |
-| 70 | Zwischensequenzen: Bildsprache für alle Kapitel (Nutzer 14.10., 08:00) | Berater mit Nutzer; Tom (Bild 3) | `main` (Notizen) | Entschieden (Beschlüsse, `DESIGN-STIL.md`): 70.1, 70.2, 70.4, 70.5, **70.3 B** (Licht und Luft bewegt, ein Ereignis je Bild, Figuren nie selbst), **70.6 A** (Bild 3 vom Platz, Brunnen vorn, Tempel fern, Fackelzug verschwindet hinter der Tempelecke). **Tom:** 70.6 gebaut (`claude/tom-68-tempelszene`, Standpunkt 3 Kacheln südlich wegen Marktstand), auf Dein Zug `e/706.html`; nach „passt“ in Sammelbuild B statt des alten Bilds 3 |
+| 70 | Zwischensequenzen: Bildsprache für alle Kapitel (Nutzer 14.10., 08:00) | Berater mit Nutzer; Tom (Bild 3) | `main` (Notizen) | Entschieden (Beschlüsse, `DESIGN-STIL.md`): 70.1, 70.2, 70.4, 70.5, **70.3 B** (Licht und Luft bewegt, ein Ereignis je Bild, Figuren nie selbst), **70.6 A** (Bild 3 vom Platz, Brunnen vorn, Tempel fern, Fackelzug verschwindet hinter der Tempelecke). **Tom:** 70.6 in 0.1.752 (Build B) |
 | 79 | Kampfhintergründe an die Diagonalwelt angleichen (Nutzer 14.10., 08:34) | Berater mit Nutzer; Jerry (Bilder) | – | Nur Aussehen (Nutzer 09:08); hängt an 72u (Kampfort aus der Karte oder gemalt). Erst Standbild (Jerry ab Fr.), dann Entwurf nach Musterbild 70.1 |
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry; Rudelwölfe Tom (Vertretung) | – | Krogg so lassen, später alle gesamt (Jerry). Rudelwölfe auf `main` |
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg | Jerry | – | Prüfthema, Nutzer 12.10., 15:4x (Test 0.1.587): wenn Zeit ist und nichts Wichtigeres ansteht; alle großen Gegner mitprüfen |
@@ -57,8 +57,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 18:1x, „Tom – Build B fertig (68, 92–96)“)
-- Build B = 0.1.752, PR #66 (`claude/tom-build-b-fertig`), Prüfliste `e/t752.html`; PR abonniert. Nach „passt“: PR zusammenführen, CHANGELOG, Zeile auf Dein Zug löschen.
+### Tom (15.10., 18:1x, „Tom – Build B fertig (68, 92–96)“) – Nachfolger: „Tom – Morwens Hütte D3.13a“
+- Build B = 0.1.752, PR #66 (`claude/tom-build-b-fertig`), Prüfliste `e/t752.html`. Nachfolger: PR #66 abonnieren, bei Rot reparieren, bei Grün APK-Link auf `e/t752.html`; nach „passt“ zusammenführen, CHANGELOG, Zeile auf Dein Zug löschen.
+- Dann D3.13a (Zeile 27): Draufsicht und Standbild, neuer Zweig von `main`.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
