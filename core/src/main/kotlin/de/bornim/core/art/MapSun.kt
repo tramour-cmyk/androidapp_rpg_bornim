@@ -247,17 +247,17 @@ object MapSun {
                         rod(bx - 1.0, by - 0.5, u(70.0), bx, by - 0.5, u(70.0), 0.04)
                     }
                     t == Tile.FENCE -> {
-                        // a fence is a thin wall about a metre high: from the post in the middle to each fence beside it
-                        val m = -0.5; val top = u(50.0)
+                        // a fence is a thin wall about a metre high: from the post to each fence beside it (93: a garden's on its edge)
+                        val (mi, mj) = MapTownIso.fenceSpot(map, tx, ty); val top = u(50.0)
                         fun run(i0: Double, j0: Double, i1: Double, j1: Double) = solid(listOf(
                             doubleArrayOf(bx + i0, by + j0, 0.0), doubleArrayOf(bx + i1, by + j1, 0.0),
                             doubleArrayOf(bx + i0, by + j0, top), doubleArrayOf(bx + i1, by + j1, top),
                             doubleArrayOf(bx + i0 + 0.03, by + j0 + 0.03, 0.0), doubleArrayOf(bx + i1 + 0.03, by + j1 + 0.03, top)), alpha = 0.36, soft = 0.05)
-                        post(m, m, 56.0, 0.05)
-                        if (map.tile(tx - 1, ty) == Tile.FENCE) run(-1.0, m, m, m)
-                        if (map.tile(tx + 1, ty) == Tile.FENCE) run(m, m, 0.0, m)
-                        if (map.tile(tx, ty - 1) == Tile.FENCE) run(m, -1.0, m, m)
-                        if (map.tile(tx, ty + 1) == Tile.FENCE) run(m, m, m, 0.0)
+                        post(mi, mj, 56.0, 0.05)
+                        if (map.tile(tx - 1, ty) == Tile.FENCE) run(-1.0, mj, mi, mj)
+                        if (map.tile(tx + 1, ty) == Tile.FENCE) run(mi, mj, 0.0, mj)
+                        if (map.tile(tx, ty - 1) == Tile.FENCE) run(mi, -1.0, mi, mj)
+                        if (map.tile(tx, ty + 1) == Tile.FENCE) run(mi, mj, mi, 0.0)
                     }
                     t == Tile.HAY -> {
                         // a heap: its foot a ring, its top a point

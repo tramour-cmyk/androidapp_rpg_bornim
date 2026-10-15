@@ -6,6 +6,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.CornerRadius
@@ -22,12 +23,15 @@ import de.bornim.core.GameState
  */
 @Composable
 fun StaminaBar(state: GameState, rev: Int, modifier: Modifier = Modifier) {
-    // [rev] changes every frame of walking, so the bar follows the store
-    val full = state.stamina >= 1.0
+    // [rev] changes every frame of walking, so the bar follows the store (95: it must be read here, an unused
+    // parameter is left out of the comparison and the bar stood still once it had faded in)
+    val stamina = remember(rev) { state.stamina }
+    val winded = remember(rev) { state.winded }
+    val full = stamina >= 1.0
     val shown by animateFloatAsState(if (full) 0f else 1f, tween(if (full) 900 else 250), label = "stamina")
     if (shown <= 0f) return
-    val fill = state.stamina.toFloat()
-    val color = if (state.winded) Color(0xFF9A4A3A) else Veil.gold
+    val fill = stamina.toFloat()
+    val color = if (winded) Color(0xFF9A4A3A) else Veil.gold
     Canvas(modifier.size(10.dp, 96.dp).alpha(shown)) {
         val r = CornerRadius(2.dp.toPx())
         drawRoundRect(Color(0xCC000000), cornerRadius = r)

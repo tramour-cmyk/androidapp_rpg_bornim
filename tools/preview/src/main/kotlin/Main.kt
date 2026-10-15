@@ -97,6 +97,14 @@ fun geared(vm: GameViewModel, cls: CharClass, race: Race = Race.DWARF) {
 fun main() {
     // 69: new heroes in the stills start in the world, not in the intro; INTROBILD=ms,ms,… shows the intro at those times
     de.bornim.game.ui.IntroLook.auto = false
+    // TEMPELBILD=ms,ms,…: the temple scene (68) in the app at those times, as watched again from the chronicle
+    System.getenv("TEMPELBILD")?.let { list ->
+        for (ms in list.split(",").map { it.trim().toLong() }) {
+            de.bornim.game.ui.IntroLook.fromMs = maxOf(0L, ms - 1600L)
+            shot("tempel_${ms}_de", Lang.DE) { vm -> vm.newGame("Thora", Race.HUMAN, CharClass.FIGHTER); vm.watchTemple() }
+        }
+        System.exit(0)
+    }
     System.getenv("INTROBILD")?.let { list ->
         for (ms in list.split(",").map { it.trim().toLong() }) for (lang in listOf(Lang.DE, Lang.EN)) {
             if (lang == Lang.EN && System.getenv("INTROEN") == null) continue
@@ -623,6 +631,8 @@ fun main() {
     if (System.getenv("BRUECKE69E") != null) { renderBridgeProbe(); System.exit(0) }
     // INTRO69=1 (or 3, 4; anything else: all): the other intro pictures in the style of the model picture (69, draft)
     if (System.getenv("INTRO69") != null) { renderIntroProbe(); System.exit(0) }
+    // TEMPEL68=1..5 (anything else: all): the temple scene at the end of chapter 1 in the style of the intro (68, draft)
+    if (System.getenv("TEMPEL68") != null) { renderTempleProbe(); System.exit(0) }
     if (System.getenv("BACKVIEW") != null) { renderBackViews(); System.exit(0) }
     if (System.getenv("ATTACKVIEW") != null) { renderAttackViews(); System.exit(0) }
     if (System.getenv("RANGED") != null) { renderRangedViews(); System.exit(0) }
@@ -649,12 +659,15 @@ fun main() {
             }
             vm.refresh()
         }
-        for (draft in listOf(false, true)) {
+        if (System.getenv("TEXTKASTEN") != "96") for (draft in listOf(false, true)) {
             de.bornim.game.ui.DialogLook.draft = draft
             val tag = if (draft) "neu" else "alt"
             shot("42_gespraech_$tag", settle = 150) { vm -> opened(vm, spoken = true) }
             shot("42_erzaehlt_$tag", settle = 150) { vm -> opened(vm, spoken = false) }
         }
+        // 96 (TEXTKASTEN=96: only this): Garrick's long warning, the box grows, nothing is cut
+        de.bornim.game.ui.DialogLook.draft = true
+        shot("96_lang", settle = 300) { vm -> opened(vm, spoken = true); de.bornim.core.Game::class.java.getDeclaredField("mode").apply { isAccessible = true }.set(vm.game!!, Mode.Dialog("Jäger Garrick", "Und ehrlich, Mira: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald, dann reden wir weiter.")); vm.refresh() }
         System.exit(0)
     }
     // SCHRIFT=1: 60b/60.4: the free serifs on trial in the text box, the shop and the title (SCHRIFT=titel: only the title faces)
