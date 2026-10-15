@@ -64,7 +64,11 @@ object MapLight {
                             out += Source(lx, ly, Kind.WINDOW, argb(0xD8E0EC), T * 2.6, 0.55, When.DAY)
                         }
                     // a fire in the back wall: the light comes out of its mouth onto the floor in front
-                    Tile.HEARTH -> if (map.tile(tx - 1, ty) != Tile.HEARTH) out += Source((tx + 1) * T.toDouble(), (ty + 1) * T + 4.0, Kind.FIRE, argb(0xFF9046), T * 3.6, 1.05)
+                    Tile.HEARTH -> {
+                        if (map.tile(tx - 1, ty) != Tile.HEARTH) out += Source((tx + 1) * T.toDouble(), (ty + 1) * T + 4.0, Kind.FIRE, argb(0xFF9046), T * 3.6, 1.05)
+                        // D1.3: a candle on the mantel shelf gives its own small light, a paler yellow beside the fire's orange
+                        if (MapRoomIso.smallFlame(map, tx, ty)) out += Source(cx, (ty + 1) * T + 4.0, Kind.CANDLE, argb(0xFFC070), T * 1.4, 0.4)
+                    }
                     // a candle on a table: a small warm island, the dark close about it (10.10., 6.8)
                     Tile.TABLE -> if (indoor) out += Source(cx, cy, Kind.CANDLE, argb(0xFFB870), T * (if (hasHearth(map)) 1.7 else 2.8), if (hasHearth(map)) 0.62 else 0.6)
                     Tile.CANDLES -> out += Source(cx, cy - 10, Kind.CANDLE, argb(0xFFC880), T * 2.2, 0.7)
