@@ -122,4 +122,13 @@ class MusicDirectorTest {
         if (!dir.isDirectory) return
         for (n in MusicLib.all) assertTrue(java.io.File(dir, "$n.ogg").isFile, "missing $n.ogg")
     }
+
+    @Test
+    fun theIntroIsQuietUntilItsBlackPicture() {
+        // 69c: no music under the intro's pictures; the title music only with the black one
+        val d = MusicDirector(3)
+        d.update(MusicScene.TITLE, 0)
+        for (t in 0L..120_000L step 500L) assertNull(d.update(MusicScene.INTRO, 1_000 + t).music)
+        assertEquals(MusicLib.title.name, d.update(MusicScene.TITLE, 200_000).music?.name)
+    }
 }

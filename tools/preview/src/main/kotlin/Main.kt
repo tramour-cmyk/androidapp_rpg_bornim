@@ -95,6 +95,17 @@ fun geared(vm: GameViewModel, cls: CharClass, race: Race = Race.DWARF) {
 }
 
 fun main() {
+    // 69: new heroes in the stills start in the world, not in the intro; INTROBILD=ms,ms,… shows the intro at those times
+    de.bornim.game.ui.IntroLook.auto = false
+    System.getenv("INTROBILD")?.let { list ->
+        for (ms in list.split(",").map { it.trim().toLong() }) for (lang in listOf(Lang.DE, Lang.EN)) {
+            if (lang == Lang.EN && System.getenv("INTROEN") == null) continue
+            de.bornim.game.ui.IntroLook.auto = true
+            de.bornim.game.ui.IntroLook.fromMs = maxOf(0L, ms - 1600L)
+            shot("intro_${ms}_${lang.name.lowercase()}", lang) { vm -> vm.newGame("Thora", Race.HUMAN, CharClass.FIGHTER) }
+        }
+        System.exit(0)
+    }
     System.getenv("FILM")?.let { fightFilm(it); System.exit(0) }
     System.getenv("FILMBATCH")?.let { fightBatch(it); System.exit(0) }
     if (System.getenv("KARTENBLATT") != null) { renderMapSheets(); System.exit(0) }
