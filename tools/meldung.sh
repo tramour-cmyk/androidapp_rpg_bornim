@@ -27,8 +27,8 @@ zeile=$(KOPF="$name $zeit" TEXT="$text" python3 -c '
 import os, re, html
 t = html.escape(os.environ["TEXT"].replace("\\n", "\n"), quote=False)
 t = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
-dz = "https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow/"
-url = lambda u: dz + u[3:] if u.startswith("dz:") else u
+dz = "https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow"
+url = lambda u: dz + "#" + u[3:].removeprefix("e/").removesuffix(".html") if u.startswith("dz:") else u
 # Sprungmarke (Nutzer 15.10.): Zeile „[72o.1](dz:e/72o1.html): …“ macht die fette Nummer selbst zum Link
 t = re.sub(r"(?m)^(\s*(?:⚠\s*)?)\[([^\]]{1,30})\]\(([^)\s]+)\):", lambda m: m.group(1) + "<a href=\"" + url(m.group(3)) + "\"><b>" + m.group(2) + ":</b></a>", t)
 t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", lambda m: "<a href=\"" + url(m.group(2)) + "\">" + m.group(1) + "</a>", t)
