@@ -61,9 +61,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 18:5x, „Tom – Morwens Hütte D3.13a“) – Nachfolger: „Tom – Nähte an Häusern D9.1“
+### Tom (15.10., 19:1x, „Tom – Nähte an Häusern D9.1“) – Nachfolger: „Tom – Schattenschicht D9.2“
 - PR #66 (0.1.752) grün, APK-Link auf `e/t752.html`; Nachfolger: PR #66 abonnieren, nach „passt“ zusammenführen, CHANGELOG, Zeile auf Dein Zug löschen.
-- D3.13a auf Zweig `claude/tom-d3-13a-huette` (41019715), Standbilder auf Dein Zug `e/d313a-2.html`; nach „passt“ in den nächsten Sammelbuild. Dann D9.1 (Nähte im Hausdach, im Standbild D3.13a sichtbar), D9.2, D9.3.
+- D3.13a auf `claude/tom-d3-13a-huette` (41019715, Dein Zug `e/d313a-2.html`), D9.1 auf `claude/tom-d9-1-naehte` (5d85b13a, Standbild Markt 8 Uhr ohne Nähte); beide in den nächsten Sammelbuild.
+- Vorrat: D9.2 (Schattenschicht im Hintergrund oder während der Blende rechnen, `MapSun.kt:60`, `WorldScreen.kt:762`), D9.3 (0–10 Uhr Morgenstand), D3.3 Rest, dann 89 Figuren im Schatten.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
