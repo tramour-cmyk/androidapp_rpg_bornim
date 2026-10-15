@@ -309,7 +309,10 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         top?.let { g.color = stoneAt(4.5, h, 1.5, 1.4); g.fill(it) }
         // the cloth over the middle of the front, with the sun in gold thread
         val cl = room(t3(3.6, 0.25, s + 0.01), t3(5.4, 0.25, s + 0.01), t3(5.4, h + 0.01, s + 0.01), t3(3.6, h + 0.01, s + 0.01))
-        cl?.let { g.color = mix(stoneAt(4.5, 0.6, s, 1.55), Color(0xE8E0D0), if (dawn) 0.2 else 0.05); g.fill(it) }
+        // 68: the cloth plainly white against the stone, its hem a little darker, so the sun sits on it and does not float
+        cl?.let { g.color = mix(stoneAt(4.5, 0.6, s, 1.55), Color(0xE8E0D0), if (dawn) 0.35 else 0.25); g.fill(it) }
+        val h0 = P(3.6, 0.25, s + 0.012); val h1 = P(5.4, 0.25, s + 0.012)
+        if (cl != null) line(alpha(Color(0x2A2018), 0.45), maxOf(1.0, 0.02 * f / cz(4.5, s)), h0.x, h0.y, h1.x, h1.y)
         val sc = P(4.5, 0.62, s + 0.02); val sz = cz(4.5, s); val r = 0.17 * f / sz
         if (sz > 0.3) {
             for (k in 0 until 12) { val ang = PI * 2 * k / 12; line(Color(0xB08A3A), maxOf(1.0, 0.012 * f / sz), sc.x + cos(ang) * r * 0.6, sc.y + sin(ang) * r * 0.6, sc.x + cos(ang) * r * 1.2, sc.y + sin(ang) * r * 1.2) }
