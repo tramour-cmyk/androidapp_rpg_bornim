@@ -61,7 +61,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 20:0x, „Tom – Figuren im Schatten 89“)
+### Tom (15.10., 20:0x, „Tom – Figuren im Schatten 89“) – Nachfolger: „Tom – Sammelbuild nach 0.1.752“
 - PR #66 (0.1.752) grün, APK-Link auf `e/t752.html`; Nachfolger: PR #66 abonnieren, nach „passt“ zusammenführen, CHANGELOG, Zeile auf Dein Zug löschen.
 - Nächster Sammelbuild (voll): D3.13a `claude/tom-d3-13a-huette` (41019715), D9.1 `claude/tom-d9-1-naehte` (5d85b13a), D9.2 `claude/tom-d9-2-schattenschicht` (40d93256; App nur in CI übersetzbar), D9.3 `claude/tom-d9-3-morgenstand` (bb440be2). Danach: D3.3 `claude/tom-d3-3-fichtenreihe` (1984a990).
 - Danach außerdem: 89 `claude/tom-89-figuren-schatten` (31fb73ab, auf D9.2 gebaut, also nach diesem Sammelbuild).
