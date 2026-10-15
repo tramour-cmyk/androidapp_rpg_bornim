@@ -97,6 +97,14 @@ fun geared(vm: GameViewModel, cls: CharClass, race: Race = Race.DWARF) {
 fun main() {
     // 69: new heroes in the stills start in the world, not in the intro; INTROBILD=ms,ms,… shows the intro at those times
     de.bornim.game.ui.IntroLook.auto = false
+    // TEMPELBILD=ms,ms,…: the temple scene (68) in the app at those times, as watched again from the chronicle
+    System.getenv("TEMPELBILD")?.let { list ->
+        for (ms in list.split(",").map { it.trim().toLong() }) {
+            de.bornim.game.ui.IntroLook.fromMs = maxOf(0L, ms - 1600L)
+            shot("tempel_${ms}_de", Lang.DE) { vm -> vm.newGame("Thora", Race.HUMAN, CharClass.FIGHTER); vm.watchTemple() }
+        }
+        System.exit(0)
+    }
     System.getenv("INTROBILD")?.let { list ->
         for (ms in list.split(",").map { it.trim().toLong() }) for (lang in listOf(Lang.DE, Lang.EN)) {
             if (lang == Lang.EN && System.getenv("INTROEN") == null) continue

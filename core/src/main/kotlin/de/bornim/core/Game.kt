@@ -9,6 +9,8 @@ sealed interface Mode {
     /** The notice board before the inn (29): its notes, each to take up or leave. */
     data object Board : Mode
     data object ChapterEnd : Mode
+    /** 68: a cutscene's pictures fill the screen; [Game.advance] when they are over or skipped. */
+    data object TempleScene : Mode
 }
 
 /** Result of a movement attempt, used by the UI to animate. */
@@ -31,6 +33,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         const val AILMENT_STEPS = 4
         /** Share of flower tiles that carry a healing herb on a given day. */
         const val HERB_CHANCE = 0.5
+        /** 68: when the morning service begins, minutes after midnight. */
+        const val SUNRISE_MIN = 6 * 60 + 30
         /** Test switch (9f): monsters go about as ever but never notice or attack the hero; bumping into one still fights. */
         @Volatile var monstersIgnoreHero = false
         /** Test switch (9f.2): no line of sight and no fog: the whole map and every monster on it is in view. */
@@ -907,6 +911,23 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     mode = Mode.ChapterEnd
                     changed()
                     return
+                }
+                Cmd.TempleScene -> {
+                    mode = Mode.TempleScene
+                    changed()
+                    return
+                }
+                is Cmd.Morning -> {
+                    // the night counts as a rest (68g): healed, the clock at sunrise of the next day, the hero where the morning finds them
+                    hero.restoreFully()
+                    state.ailments.clear()
+                    Stamina.refill(state)
+                    if (state.minutes >= SUNRISE_MIN) state.day++
+                    state.minutes = SUNRISE_MIN
+                    state.place = c.place
+                    state.respawn = c.place
+                    if (World.maps[c.place.map]?.kind == MapKind.INTERIOR) state.flags += MapPeople.been(c.place.map)
+                    mapChanged = true
                 }
             }
         }

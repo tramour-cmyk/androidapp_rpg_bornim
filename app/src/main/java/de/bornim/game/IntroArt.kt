@@ -28,4 +28,9 @@ class IntroArt(private val context: Context) {
     fun front(index: Int): ImageBitmap? = fronts.getOrPut(index) {
         runCatching { context.assets.open("intro/intro_${index + 1}_vorn.png").use { BitmapFactory.decodeStream(it)?.asImageBitmap() } }.getOrNull()
     }
+    private val templePics = HashMap<Int, ImageBitmap?>()
+    /** Picture [index] (0-based) of the temple scene (68), `assets/tempel/tempel_<n>.jpg` (`tools/preview` `TempleProbe.kt`). */
+    fun temple(index: Int): ImageBitmap? = templePics.getOrPut(index) {
+        runCatching { context.assets.open("tempel/tempel_${index + 1}.jpg").use { BitmapFactory.decodeStream(it)?.asImageBitmap() } }.getOrNull()
+    }
 }

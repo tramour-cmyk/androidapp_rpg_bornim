@@ -56,6 +56,7 @@ class PlayerSimTest {
                 if (j != null && r.rnd.nextInt(2) == 0) { r.note("aushang:${j.id}"); g.takeJob(j.id) } else { r.note("brett-zu"); g.advance() }
             }
             Mode.ChapterEnd -> { r.note("kapitelende") }
+            Mode.TempleScene -> { r.note("tempelszene"); g.advance() }
             Mode.Explore -> {
                 // as the map screen does: the clock runs (monsters roam), the hero walks a route a tap away
                 r.clock += 200; g.update(r.clock)

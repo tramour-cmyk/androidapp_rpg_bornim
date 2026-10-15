@@ -33,6 +33,20 @@ fun renderTempleProbe() {
         4 to "Das erste Licht des Tages fällt durchs Fenster. Das Amulett fängt es auf.",
         5 to "Bornim atmet auf. Nur Lyra sieht noch lange ins Grau hinaus.",
     )
+    // TEMPEL68=app: the five pictures as the app's assets (JPEG, like the intro's)
+    if (System.getenv("TEMPEL68") == "app") {
+        val dir = File("../../app/src/main/assets/tempel").apply { mkdirs() }
+        for (n in 1..5) {
+            val img = TemplePainter(n).paint()
+            val rgb = java.awt.image.BufferedImage(img.width, img.height, java.awt.image.BufferedImage.TYPE_INT_RGB).also { it.createGraphics().drawImage(img, 0, 0, null) }
+            val writer = ImageIO.getImageWritersByFormatName("jpg").next()
+            val param = writer.defaultWriteParam.apply { compressionMode = javax.imageio.ImageWriteParam.MODE_EXPLICIT; compressionQuality = 0.9f }
+            javax.imageio.stream.FileImageOutputStream(File(dir, "tempel_$n.jpg")).use { out -> writer.output = out; writer.write(null, javax.imageio.IIOImage(rgb, null, null), param) }
+            writer.dispose()
+        }
+        println("wrote ${dir.path}/tempel_1..5.jpg")
+        return
+    }
     val only = System.getenv("TEMPEL68")?.toIntOrNull()
     for (n in 1..5) {
         if (only != null && only != n) continue
