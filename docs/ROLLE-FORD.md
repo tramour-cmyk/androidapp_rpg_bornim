@@ -60,6 +60,7 @@ tools/meldung.sh Ford "Du bist dran: [0.1.748](dz:e/t748.html) testen.\n\n[Tom](
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 22:52 15.10.: Start Sokrates (Neustart, 297d25d1)
 - 22:51 15.10.: Stellung Co-Pilot bis Sa 17.10., 21:00 (Nutzer, 8bf4c31c); erster Lauf danach stellt auf Pilot zurück, pusht, meldet lautlos
 - 22:45 15.10.: Start Sokrates (Neustart, 43787ff8)
 - 22:38 15.10.: Start Diogenes (98 Firma und Rollen prüfen, Auftrag Sokrates)
