@@ -30,6 +30,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 23:21 15.10.: Start Tom (Neustart, 3b01b364, 69f Intromusik)
 - 23:22 15.10.: Ford neu (session_01QWF3R8…), Uhr trig_01Mzcw22Q4wvzvBsGavkwnvN, alte Uhr gelöscht, beide Vorgänger archiviert
 - 23:23 15.10.: Selbstneustart Ford (≈280 Tsd. Token, nach Umstellung 98)
 - 23:21 15.10.: Umstellung fertig (Sokrates, 560658a9), Startsperre aufgehoben; Tom weiter; Start Diogenes (98 Nachprüfung Umbau)
