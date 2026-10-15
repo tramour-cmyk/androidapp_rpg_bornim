@@ -20,8 +20,8 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 
 ## Routinen (Toms Account, 81m)
 
-- **„Ford (Tom)“** `trig_01FsgMqH7CB5fZ1rofMS6YzX` (wieder an seit 15.10., 07:04, 81o; hat die Verbindungen Claude_Code_Remote und Repo; die Routine in „Voll“ `trig_013heqXJ1KkkxTYVzmTcpzaf` ist aus, weil ohne Verbindung keine Starts und kein Push gingen; neue Routinen nur in der claude.ai-Oberfläche anlegen, aus einer Sitzung entstehen sie ohne Verbindung): stündlich, aus solange Stellung „aus“; wer die Stellung umträgt, schaltet sie (`update_trigger`, `enabled`).
-- **„Ford Start“** `trig_01CxFdYLgTMAbudcd5yeq1AN`: an, ohne Zeitplan; startet eine frische Sitzung; Ford löst sie mit `fire_trigger` aus, Text = erste Nachricht („Sokrates“, „Diogenes“ oder bei Tom „Start“) plus Auftrag aus der Übergabe. So gestartete Sitzungen stehen beim Nutzer unter „Geplant“ → „Ford Start“ → „Verlauf“.
+- **Ford lebt in einer Sitzung** (81p, 15.10., 07:49): „Ford – Teamleiter“ `session_01FzS8BqjmXcYkZ9vdUJbipG` (Umgebung „Voll“: `create_session`, `list_sessions`, Telegram-Schlüssel). Jeder Lauf stellt zuerst `send_later` (60 Minuten, „Ford-Lauf“) an sich selbst; Auftrag stand in der ersten Nachricht. Stellung „aus“: Kette nicht neu stellen. Über etwa 300.000 Token meldet Ford „Neustart“; den Nachfolger legt Sokrates oder Tom mit `create_session` an und schickt den Auftrag aus der Sitzung des Vorgängers.
+- **Warum keine Routine** (Proben 15.10., 07:28–07:48): Routinen-Sitzungen haben kein `create_session`/`list_sessions`, auch in „Voll“, auch per „Jetzt ausführen“ an eine feste Sitzung (legt trotzdem eine neue an); „Claude Code Remote“ ist in der Oberfläche nicht wählbar, `connectors` beim Anlegen für das Konto gesperrt. Cowork-Routinen („Ford Start“) haben die Verbindung, aber kein Telegram und unsichtbare Sitzungen. „Ford Start“ und alle Ford-Routinen nicht mehr benutzen.
 
 ## Ablauf eines Laufs
 
