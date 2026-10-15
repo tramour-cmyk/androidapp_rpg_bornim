@@ -79,6 +79,7 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
+- **81, Ford doppelt** (Tom 15.10., 07:3x): der Lauf 07:05 hat zwei Tom-Sitzungen gestartet (`session_01NnNp4ZhY2cuac4UV6KZYcB`, `session_01KXUdLCTUzTRkKmWmXLSBB6`); beide bauten 69 parallel. Die zweite steht still; ihre Fassung nur zum Vergleich auf `claude/tom-69-intro-zweitfassung` (`INTRO69=1,3,4`), gilt nicht.
 - **71, Diogenes Lauf 3, Klasse 2** (Prüfbericht): D3.13 Morwens Hütte fehlt, Texte nennen sie; D3.14 Heldenlicht draußen ohne Quelle (mit 84.1); D3.15 Vögel, Grillen, Eulen ohne Quelle und Entfernung; D3.16 kursiver Erzähltext (42) gegen D2.7.
 
 
