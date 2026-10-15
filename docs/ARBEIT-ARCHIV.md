@@ -1,5 +1,10 @@
 # Archiv
 
+### Aus ARBEIT-OFFEN.md, 15.10., 10:2x (Tom kürzt 86, 13e, 69)
+| 86 | Bewegung und Übersicht (Nutzer 14.10., 18:5x) | Tom (86.1, 86.2, 86.4, 86.3 Ausdauer); Jerry (86.3 Keuchen, Lärm, Initiative; 86.11 mit 72b/38) | `claude/tom-86-standort-joystick` | Alle Einzelheiten in den Beschlüssen. **Tom:** 86.1 (Test-Reiter „Standort anzeigen“), 86.4 (System: Joystick Fein/Normal/Ruhig), 86.2 (Kartenzeichen des Menüreiters neben dem Beutel), 86.3 Ausdauer (`Stamina`, Balken rechts) gebaut, nächster Sammelbuild; Jerry zur Kenntnis: etwa 15 Zeilen `WorldScreen.kt` (Leiste, `TouchLayer`, Laufschleife); für Keuchen und Initiative `GameState.winded`/`stamina`. **Jerry:** Keuchen, außer Atem = Initiative mit Nachteil, Rennen laut (84.4). Beschlossen, Bau offen: 86.6 Ausdauertrank, 86.9 Met und Zimmer, 86.10 Rast kostet Zeit (ersetzt `Cmd.Rest`), 86.11 Rast nur an Feuerplätzen, Überfall möglich |
+| 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-13e6-dunkler` | 0.1.741 auf `main`; D1.5 Truhe auf `claude/tom-d1-5-truhe`. **13e.6 dunkler:** Entwurf (Schalter `HOEHLEDUNKEL`, im Spiel aus), Standbilder auf Dein Zug (`e/13e6-2.html`); Ursache: Gesehenes außer Sicht in der Höhle nur 15 % dunkler. Helligkeitsregler Jerry mit 40. Danach D1.7 Leben (Absprache `WorldScreen.kt`) |
+| 69 | Intro: Ankunft bei Nacht in Standbildern, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | `claude/tom-69e-musterbild` | 69a–69e ja (`STORY-K1.md` `[69.intro.…]`; Musterbild angenommen, Beschlüsse); 69e-Welt (Haus, Brückenlaterne) in den nächsten Sammelbuild. Bilder `.1`, `.3`, `.4` auf Dein Zug (15.10.); **Intro gebaut** (`Intro.kt`, `IntroScreen.kt`, Kerntest `IntroTest`, Vorschau `INTROBILD=ms`; Chronik „Die Ankunft ansehen“), nächster Sammelbuild. **Jerry, 69c:** leiser Klang unter Bild 1–4 (Wind, Fluss, Grillen; heute still, `MusicScene.INTRO`). 70.3 später |
+
 ### Aus ROLLE-BERATER.md, 15.10., 10:2x
 **Übergabe (15.10., 07:5x) – Nachfolger: „Sokrates – Befunde Wald und Verschleiß“:**
 
