@@ -54,12 +54,64 @@ object MapSun {
     /** Upright drawing units a tile (as [MapTownIso]: 57 to the metre, a tile 116 cm). */
     private const val ZT = 66.0
 
-    private val cache = HashMap<String, List<WorldArt.Obj>>()
+    /** A drawn layer and when it was done ([System.nanoTime]), so it can fade in. */
+    class Ready(val pieces: List<WorldArt.Obj>, val at: Long)
 
-    /** The shadow layer of [map] for [stand], or nothing under a roof or underground. */
-    fun shadows(map: MapDef, stand: Stand = this.stand): List<WorldArt.Obj> = synchronized(cache) {
-        if (map.kind != MapKind.FOREST && map.kind != MapKind.TOWN) return emptyList()
-        cache.getOrPut("${map.id}/$stand") { Layer(map, stand).also { it.cast(map) }.pieces() }
+    /** The layers drawn, the last used last; only [KEEP] are kept (30.2). */
+    private val cache = LinkedHashMap<String, Ready>(8, 0.75f, true)
+    private const val KEEP = 4
+    private val drawing = HashSet<String>()
+
+    private fun applies(map: MapDef) = map.kind == MapKind.FOREST || map.kind == MapKind.TOWN
+
+    private fun build(map: MapDef, stand: Stand) = Layer(map, stand).also { it.cast(map) }.pieces()
+
+    private fun keep(key: String, pieces: List<WorldArt.Obj>): Ready = synchronized(cache) {
+        cache.getOrPut(key) { Ready(pieces, System.nanoTime()) }.also {
+            while (cache.size > KEEP) cache.remove(cache.keys.first())
+        }
+    }
+
+    /** The shadow layer of [map] for [stand], or nothing under a roof or underground; drawn now if need be (previews, tests). */
+    fun shadows(map: MapDef, stand: Stand = this.stand): List<WorldArt.Obj> {
+        if (!applies(map)) return emptyList()
+        val key = "${map.id}/$stand"
+        synchronized(cache) { cache[key] }?.let { return it.pieces }
+        return keep(key, build(map, stand)).pieces
+    }
+
+    /**
+     * D9.2: the layer of [map] for [stand] if it is drawn, else null and it is drawn in the background (in the Tiefer
+     * Wald it takes over half a second, too long for one picture); the shadows come in a moment later, at a cut
+     * usually still under the fade.
+     */
+    fun ready(map: MapDef, stand: Stand = this.stand): Ready? {
+        if (!applies(map)) return null
+        val key = "${map.id}/$stand"
+        synchronized(cache) { cache[key] }?.let { return it }
+        prepare(map, stand)
+        return null
+    }
+
+    /** Starts drawing the layer of [map] for [stand] in the background, if it is not there yet. */
+    fun prepare(map: MapDef, stand: Stand = this.stand) {
+        if (!applies(map)) return
+        val key = "${map.id}/$stand"
+        synchronized(cache) { if (key in cache || !drawing.add(key)) return }
+        worker.execute {
+            try {
+                de.bornim.core.Guard.run("Schatten $key") { keep(key, build(map, stand)) }
+            } finally {
+                synchronized(cache) { drawing.remove(key) }
+            }
+        }
+    }
+
+    /** 30.2: memory short: only the layer used last is kept. */
+    fun trim() = synchronized(cache) { while (cache.size > 1) cache.remove(cache.keys.first()) }
+
+    private val worker = java.util.concurrent.Executors.newSingleThreadExecutor { r ->
+        Thread(r, "map-sun").also { it.isDaemon = true; it.priority = Thread.NORM_PRIORITY - 1 }
     }
 
     /**
