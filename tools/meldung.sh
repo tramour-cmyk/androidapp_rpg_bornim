@@ -5,6 +5,7 @@
 #   tools/meldung.sh --bild <datei> <Name> "<Text>"     Standbild mit der Zeile als Unterschrift (Telegram verkleinert)
 #   tools/meldung.sh --datei <datei> <Name> "<Text>"    Bild in voller Auflösung als Datei (Pixelprüfung)
 # Kostet in der Sitzung nichts: das Bild wird nur hochgeladen, nicht gelesen. Optionen kombinierbar, --laut zuerst.
+# Kopf: Name verlinkt automatisch auf die eigene Sitzung. Pflicht für alle (Nutzer 15.10.): jede Nummer mit Seite auf „Dein Zug“ als Sprungmarke.
 # Sprungmarke: „[72o.1](dz:e/72o1.html): …“ macht die Nummer zum Link auf den Punkt in „Dein Zug“ (dz: = Seite „Dein Zug“), [Wort](URL) im Text ebenso.
 # Form: Kopf „Name TT.MM. HH:MM“, darunter je Thema eine Zeile „81s: …“ (Ford: je Agent „Tom: …“), getrennt mit \n; nur Nummern und Stichworte, nie Spieltexte.
 # Schlüssel nur aus der Umgebungsvariable TELEGRAM_BOT_TOKEN, nie ins Repo oder in den Chat.
@@ -23,7 +24,9 @@ if [ $laut = 1 ]; then
 fi
 still=true; [ $laut = 1 ] && still=false
 # Aussehen (Nutzer 15.10.): Kopf fett in eigener Zeile; Zeilen, die mit „Name:“ oder „Nummer:“ beginnen, bis zum Doppelpunkt fett; **x** fett.
-zeile=$(KOPF="$name $zeit" TEXT="$text" python3 -c '
+# Kopf verlinkt auf die Sitzung des Absenders (Nutzer 15.10., 16:0x), wenn die Umgebung sie kennt
+sitzung=""; case "$CLAUDE_CODE_REMOTE_SESSION_ID" in cse_*) sitzung="https://claude.ai/code/session_${CLAUDE_CODE_REMOTE_SESSION_ID#cse_}" ;; esac
+zeile=$(NAME="$name" ZEIT="$zeit" SITZUNG="$sitzung" TEXT="$text" python3 -c '
 import os, re, html
 t = html.escape(os.environ["TEXT"].replace("\\n", "\n"), quote=False)
 t = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
@@ -33,7 +36,9 @@ url = lambda u: dz + "#" + u[3:].removeprefix("e/").removesuffix(".html") if u.s
 t = re.sub(r"(?m)^(\s*(?:⚠\s*)?)\[([^\]]{1,30})\]\(([^)\s]+)\):", lambda m: m.group(1) + "<a href=\"" + url(m.group(3)) + "\"><b>" + m.group(2) + ":</b></a>", t)
 t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", lambda m: "<a href=\"" + url(m.group(2)) + "\">" + m.group(1) + "</a>", t)
 t = re.sub(r"(?m)^(\s*(?:⚠\s*)?)([\wÄÖÜäöüß][\wÄÖÜäöüß .,/–-]{0,30}):", r"\1<b>\2:</b>", t)
-print("<b>" + html.escape(os.environ["KOPF"]) + "</b>\n" + t)')
+n = "<b>" + html.escape(os.environ["NAME"]) + "</b>"
+if os.environ["SITZUNG"]: n = "<a href=\"" + os.environ["SITZUNG"] + "\">" + n + "</a>"
+print(n + " <b>" + os.environ["ZEIT"] + "</b>\n" + t)')
 if [ -n "$art" ]; then
   methode=sendPhoto; [ $art = document ] && methode=sendDocument
   antwort=$(curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/$methode" \
