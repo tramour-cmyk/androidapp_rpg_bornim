@@ -143,3 +143,7 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools
 | boss | `boss_fantasy_choir1` | Fantasy Choir 1 | cesisco | https://opengameart.org/content/fantasy-choir-3-orchestral-pieces |
 | boss | `boss_fantasy_choir2` | Fantasy Choir 2 | cesisco | https://opengameart.org/content/fantasy-choir-3-orchestral-pieces |
 | Rückkehr Amulett (37a, noch ungenutzt) | `boss_ancient_legend` | The Ancient Legend | vitalezzz | https://opengameart.org/content/the-ancient-legend |
+
+## 83c Scharren, zweiter Versuch (15.10.)
+
+BigSoundBank, Joseph Sardin, CC0 (https://bigsoundbank.com, Lizenz auf der Seite: CC0): 0163 „Straw broom“ (Strohbesen), 0137 „Feet in leaves“ (Füße im Laub). Schnitte in `scharren.py`.
