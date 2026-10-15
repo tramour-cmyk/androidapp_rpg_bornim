@@ -88,4 +88,5 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer, da
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
 - **98/99** (Diogenes Lauf 11, 15.10., 19:1x): D11.1–D11.5 im Prüfbericht, Paket auf Dein Zug `e/d11.html` (ja mit D11.1–D11.3); D11.4/D11.5 zieht Sokrates nach.
+- **98** (Nutzer 15.10., 19:2x, an Diogenes): „ein Dokument, das die Firma beschreibt … das für alle gilt. Dann … ein Dokument, … wer arbeitet gerade woran. Damit der Betriebsleiter … sieht … wer tut was. Dann braucht man eine Aufgabenliste, wie viele Aufgaben sind da, wem sind die zugeteilt, … welche Priorität … für alle Rollen dieser Firma eine eigene Liste … Entwicklerliste, die Kreativliste, die Prüfliste“. Diogenes: ersetzt D11.2 (Besetzung bleibt, aber vom Werkzeug aus `list_sessions` erzeugt; „Wer macht was“ wird Aufgabenliste mit Vorrang, je Rolle eine Datei).
 
