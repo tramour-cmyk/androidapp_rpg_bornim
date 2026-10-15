@@ -1,5 +1,11 @@
 # Archiv
 
+### Aus ROLLE-BERATER.md, 15.10., 07:4x (Übergabe Sokrates 14.10., 23:0x)
+**Übergabe (14.10., 23:0x) – Nachfolger: „Sokrates – Verschleiß und Gefährten“:**
+
+**Nächster Punkt:** (1) **72o Verschleiß** Feinheiten (Nutzer überlegt). (2) **72s** Gefährte für Kapitel 2 (Empfehlung Fenn ab Kultlager, Gegenargument Söldner-Wechsel und Überläufer-Klischee; Storyplan 5a erst wörtlich lesen). (3) 84.3, 84.2, 72a/72c–72j, 79/72u nach Probe und Standbild. Später: Hund als erster Begleiter in der Geschichte (72.15, mit 41), eigenes Haus (LISTE-IDEEN).
+Sitzung 14.10., 22:1x–23:0x: 72.14 Gefährte/Söldner/Begleiter, 72.15 Begleiter mit Bindung, 69e Musterbild angenommen (Intro-Bilder an Tom), Ford auf Pilot, startet auch nachts, bei höherer Stellung sofort auslösen. Schwerpunkt: überwiegend Spiel, Ford als kleiner Ablaufteil.
+
 ### Aus ARBEIT-OFFEN.md, 15.10., 07:1x (Übergabe Tom 14.10., 23:2x)
 - **Vorrat, in dieser Reihenfolge:** (1) **69** übrige Intro-Bilder im Stil des Musterbilds rendern (`[69.intro.1]` Südstraße, `.3` Dorfplatz mit Fackeln, `.4` Gasthausfenster mit Rowena als Umriss; 5 schwarz), als ein Satz „Anzusehen“ auf Dein Zug mit Stil-Abgleich (88), Zeile `e/69e-5.html` dort löschen; dann Intro bauen. Vorlage `BridgeProbe.kt` auf `claude/tom-69e-musterbild`. (2) **83c Scharren** neu aus echten CC0-Aufnahmen Echte Aufnahme nur auf Freesound (wil_j_wil 571660, CC0, Hühner scharren im Gras, laute Pute; von hier 403, nur von Hand ladbar); Ersatz BigSoundBank CC0: 0163 Strohbesen (Schnitte 2,00–2,32 / 2,73–3,08 / 3,67–4,04 / 8,28–8,60 s), 0137 Füße im Laub (1,70–2,14 / 3,53–3,86 / 5,31–5,61, Hochpass 300 Hz), 0024 Besen. Hörprobe auf Dein Zug; sonst bleibt es. Dann `huehner.py` `--spiel`. (3) Danach 86.1, 86.4, 86.2, 86.3, 6l.
 - **Sammelbuild** erst nach „passt“ zu 0.1.746 (PR #63 abonnieren): 69e-Welt, 83b/83c, D1.5 Truhe, 74 Schritte (alle fertig auf ihren Zweigen); Prüfliste mit Hühnern (x 33, y 28) und Brücke nachts (x 18, y 25).
