@@ -35,9 +35,12 @@ object MapSun {
         EVENING(1.0, -0.2, 1.2);
 
         companion object {
-            /** The stand for the minute of the day [minutes] (at night that of the evening; the moon follows with D3.14). */
+            /**
+             * The stand for the minute of the day [minutes]: after midnight already that of the morning to come, from
+             * 15 o'clock that of the evening (D9.3; at night the moon follows with D3.14).
+             */
             fun at(minutes: Int): Stand = when (Math.floorMod(minutes, 24 * 60) / 60) {
-                in 5 until 10 -> MORNING
+                in 0 until 10 -> MORNING
                 in 10 until 15 -> NOON
                 else -> EVENING
             }
