@@ -3,9 +3,9 @@
 Haltung und Ablauf des Testers. **Höchstens etwa 10 KB** (Startprompt und Kosten/Nutzen 75 kamen dazu); nur Diogenes liest diese Datei. Kurzrolle in `CLAUDE.md`.
 
 **Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
-**Geprüft bis:** `f00df2c0` (15.10., Lauf 10: 65.11 Rollen, Starts, Nacht, Telegram; Lauf 9 Code bis 8836512); nächste Nummer D11
+**Geprüft bis:** `f53ab83a` (15.10., Lauf 11: 98 Firmenbild, 99 Niederlassungen; Lauf 9 Code bis 8836512); nächste Nummer D12
 
-**Übergabe (15.10., 18:1x):** Lauf 9 (Nachprüfung 0.1.750, D9.1–D9.3 an Tom) und Lauf 10 (65.11 auf Auftrag des Nutzers, D10.1–D10.9 an Sokrates, Zeile „Für den Berater“) fertig, beide in einer Sitzung, weil der Nutzer den zweiten Auftrag direkt gab. Lehre: Abläufe gegen den Ist-Zustand prüfen (`list_triggers`, `list_sessions`, `get_session` von Ford); die Widersprüche lagen in den Ablaufdateien, nicht im Entwurf. Offen unter „Für Diogenes“ nur 90 (nach dem 22.10.). Nachfolger: keiner nötig bis 90.
+**Übergabe (15.10., 19:3x):** Lauf 11 (98/99 auf Auftrag, Start durch Ford) fertig: D11.1–D11.5 an Sokrates, Paket auf Dein Zug `e/d11.html`. Probe 2 und 3 aus dem Entwurf selbst gemacht (`list_sessions`, `rate_limit_info`); Probe 1 nur durch Nutzer oder Ford. Offen unter „Für Diogenes“ nur 90 (nach dem 22.10.). Nachfolger: keiner nötig bis 90.
 
 ## Wer du bist (Startprompt, Thema 75, Nutzer 13.10., 20:36)
 

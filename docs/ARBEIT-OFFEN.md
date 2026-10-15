@@ -82,9 +82,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer, dann `send_message` an Ford „Auftrag Diogenes <Nr>“; nur Nutzer oder Ford starten Diogenes; Ablauf in `docs/ROLLE-TESTER.md`).
 
 - **90 Tagesrückblick** nach dem 22.10., 9 Uhr: die Rückblicke der Woche (Telegram, Sitzungen „Sokrates – Tagesrückblick“) gegen die Quellen in `ROLLE-BERATER.md` „Tagesrückblick“ prüfen: Stimmten die Fakten, wurden Empfehlungen umgesetzt, was hat die Woche gekostet; Ergebnis im Prüfbericht vor der Bilanz am 23.10.
-- **98 Firmenbild und 99 Niederlassungen** (sofort): [Entwurf](https://claude.ai/code/artifact/1b48fd6e-a38e-48d8-9851-baf8f568eb1f) nach den Fragen im Abschnitt „Prüfauftrag“ prüfen („Ist es effizient? Bringt es uns was? Werden die Rollen klarer?“) und die Machbarkeit zweier Accounts gegenprüfen; Befund auf Dein Zug.
 
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
+
+- **98/99** (Diogenes Lauf 11, 15.10., 19:3x): D11.1–D11.5 im Prüfbericht, Paket auf Dein Zug `e/d11.html` (ja mit D11.1–D11.3); D11.4/D11.5 zieht Sokrates nach.
 
