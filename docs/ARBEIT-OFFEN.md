@@ -2,7 +2,7 @@
 
 Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main` (Regeln in `CLAUDE.md`, auch zur Größe).
 
-**Nächste freie Themennummer: 89**
+**Nächste freie Themennummer: 90**
 
 **Ford: Pilot** (Nutzer 14.10., in Toms Sitzung, eingetragen 22:5x; 81g; Stellung aus / Co-Pilot / Pilot, Startlektüre `ROLLE-FORD.md`; wer die Stellung erhöht, löst Ford sofort einmal aus)
 
@@ -77,4 +77,5 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
+- **89 Schatten mit dem Tag** (Nutzer 15.10., 12:1x, zu D6.1): „Müssten sich die nicht auch im Laufe des Tages ändern? Also die Länge und die Richtung der Schatten? … ist das zu viel Rechenaufwand? Stottert dann das Bild?“ Diogenes: heute feste Richtung, nur Stärke mit der Tageszeit; Hausschatten im Hausbild; Vorschlag wenige vorberechnete Sonnenstände, langsam überblendet.
 
