@@ -91,4 +91,22 @@ class TempleSceneTest {
         for (l in TempleScene.lines) assertTrue(l.de.isNotBlank() && l.en.isNotBlank())
         assertTrue(TempleScene.at(TempleScene.totalMs).done)
     }
+
+    /** 100: the test switch puts a fresh game just before the chapter's end; talking to Aldric starts it. */
+    @Test
+    fun theTestSwitchLeadsToTheChaptersEnd() {
+        val state = GameState.newGame("Tester", Race.HUMAN, CharClass.FIGHTER)
+        val bot = Bot(Game(state, Lang.DE, Dice(Random(7))))
+        val g = bot.game
+        g.begin(); bot.settle()
+        g.cheatChapterEnd()
+        assertEquals("elder", state.place.map)
+        val npc = g.map.npcs.first { it.id == "aldric" }
+        bot.approach(npc.x, npc.y)
+        g.interact()
+        var guard = 0
+        var end = false
+        while (g.mode != Mode.Explore && ++guard < 200) { if (g.mode == Mode.ChapterEnd) end = true; g.advance() }
+        assertTrue(end && state.has(Story.TEMPLE_SEEN), "chapter end and temple scene follow")
+    }
 }

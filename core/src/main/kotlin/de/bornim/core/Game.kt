@@ -1129,6 +1129,25 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         return g
     }
 
+    /**
+     * 100 (user 15.10., 20:5x: the temple scene could not be tested without playing the chapter through): the cave
+     * done, Lyra free, the sun amulet in the bag, an evening, the hero before Aldric in his house; talking to him
+     * brings the amulet home and the chapter's end follows.
+     */
+    fun cheatChapterEnd() {
+        if (mode !is Mode.Explore) return
+        state.flags += listOf(Story.INTRO_DONE, Story.QUEST_STARTED, Story.BARRIER_OPEN, Story.KROGG_DEFEATED, Story.GRAK_DEFEATED, Story.LYRA_RESCUED)
+        if (state.count("sun_amulet") == 0) state.add("sun_amulet", 1)
+        if (state.minutes < 18 * 60) state.minutes = 20 * 60
+        val elder = World["elder"]
+        val npc = elder.npcs.first { it.id == "aldric" }
+        val (x, y, f) = listOf(Triple(npc.x, npc.y + 1, Facing.UP), Triple(npc.x - 1, npc.y, Facing.RIGHT), Triple(npc.x + 1, npc.y, Facing.LEFT))
+            .first { (x, y) -> elder.tile(x, y).walkable }
+        state.place = Place("elder", x, y, f)
+        sunCut()
+        changed()
+    }
+
     fun cheatWarp(place: Place) {
         if (mode !is Mode.Explore) return
         state.place = place
