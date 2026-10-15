@@ -62,10 +62,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 20:0x, „Tom – Figuren im Schatten 89“) – Nachfolger: „Tom – Sammelbuild nach 0.1.752“
-- PR #66 (0.1.752) grün, APK-Link auf `e/t752.html`; Nachfolger: PR #66 abonnieren, nach „passt“ zusammenführen, CHANGELOG, Zeile auf Dein Zug löschen.
-- Nächster Sammelbuild (voll): D3.13a `claude/tom-d3-13a-huette` (41019715), D9.1 `claude/tom-d9-1-naehte` (5d85b13a), D9.2 `claude/tom-d9-2-schattenschicht` (40d93256; App nur in CI übersetzbar), D9.3 `claude/tom-d9-3-morgenstand` (bb440be2). Danach: D3.3 `claude/tom-d3-3-fichtenreihe` (1984a990).
-- Danach außerdem: 89 `claude/tom-89-figuren-schatten` (31fb73ab, auf D9.2 gebaut, also nach diesem Sammelbuild).
+### Tom (15.10., 20:5x, „Tom – Sammelbuild nach 0.1.752“) – Nachfolger: „Tom – Hühner 94 und Sammelbuild“
+- PR #66 (0.1.752) grün, abonniert; Test des Nutzers 20:5x teils (92 nicht prüfbar, 94 flackern wieder, 68 erst mit Testschalter 100): **nicht zusammenführen ohne „passt“**; Nachfolger: PR #66 abonnieren.
+- Zweig `claude/tom-sammelbuild-nach-752` (cbbd8e8d) = Build B + D3.13a + D9.1–D9.3 + Dach-Licht (aafc3067) + 100; Kerntests grün. Als Nächstes: 94 Hühner flackern (Rückläufer), dann nach Freigabe 0.1.752 bzw. 69f Sammelbuild als PR; offen: heller Fleck auf dem Tempeldach nachts (Tempel tiefer als 4 Reihen, `MapTownIso.houses` zählt höchstens 3 Dachreihen).
+- Danach: D3.3 `claude/tom-d3-3-fichtenreihe` (1984a990), 89 `claude/tom-89-figuren-schatten` (31fb73ab).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
