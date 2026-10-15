@@ -583,6 +583,8 @@ fun main() {
     if (System.getenv("INTROBILD") != null) { renderIntroSheet(); System.exit(0) }
     // BRUECKE69E=1: the probe of the intro bridge at full resolution, precise and slightly abstracted (69e, draft)
     if (System.getenv("BRUECKE69E") != null) { renderBridgeProbe(); System.exit(0) }
+    // INTRO69=1 (or 3, 4; anything else: all): the other intro pictures in the style of the model picture (69, draft)
+    if (System.getenv("INTRO69") != null) { renderIntroProbe(); System.exit(0) }
     if (System.getenv("BACKVIEW") != null) { renderBackViews(); System.exit(0) }
     if (System.getenv("ATTACKVIEW") != null) { renderAttackViews(); System.exit(0) }
     if (System.getenv("RANGED") != null) { renderRangedViews(); System.exit(0) }

@@ -50,7 +50,7 @@ fun renderBridgeProbe() {
     println("wrote build/screens/probe69e_r4_text.png")
 }
 
-private class BridgePainter(val detail: Boolean) {
+internal open class BridgePainter(val detail: Boolean = true) {
     companion object { const val W = 1080; const val H = 1200 }
 
     /** Drawn at twice the size and scaled down, so every edge is fine (round 2: "feiner"). */
@@ -64,9 +64,9 @@ private class BridgePainter(val detail: Boolean) {
     }
 
     // the camera: the traveller's eyes on the south road, looking north over the bridge
-    val hy = 520.0; val f = 1080.0; val eye = 2.5; val cx = W / 2.0
+    open val hy = 520.0; open val f = 1080.0; open val eye = 2.5; val cx = W / 2.0
     /** Round 3: the traveller stands a little left on the road and looks along it; the whole bridge leads to the lights. */
-    val camX = 0.5; val pan = -80.0
+    open val camX = 0.5; open val pan = -80.0
     fun sx(x: Double, z: Double) = cx + f * (x - camX) / z - pan
     fun sy(y: Double, z: Double) = hy + f * (eye - y) / z
 
@@ -75,7 +75,7 @@ private class BridgePainter(val detail: Boolean) {
     val ZN get() = wz(28.0); val ZF get() = ZN + 7.0
 
     // the moon, high up on the left, clear of the roof, its chimney and the fir (Sokrates 14.10.: it sat on the chimney)
-    val moonX = 120.0; val moonY = 175.0
+    open val moonX = 120.0; open val moonY = 175.0
 
     // the night colours of the diagonal world (village at 23:00)
     val skyTop = Color(0x060A1C); val skyLow = Color(0x2A3654)
@@ -126,7 +126,8 @@ private class BridgePainter(val detail: Boolean) {
         g.fill(Ellipse2D.Double(x - r, y - r, r * 2, r * 2))
     }
 
-    fun paint(): BufferedImage {
+    /** The scene itself; [paint] draws it at twice the size and scales it down. */
+    open fun scene() {
         sky()
         forestBand()
         mapScene()
@@ -134,6 +135,10 @@ private class BridgePainter(val detail: Boolean) {
         mist()
         life()
         vignette()
+    }
+
+    fun paint(): BufferedImage {
+        scene()
         val small = BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB)
         small.createGraphics().apply {
             setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC)
