@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (15.10., 07:5x) – Nachfolger: „Sokrates – Befunde Wald und Verschleiß“:**
 
-**Nächster Punkt:** (1) **81p prüfen:** läuft Fords Wecker-Kette (`send_later` stündlich in `session_01FzS8BqjmXcYkZ9vdUJbipG`)? Beleg: Startmarken in `ROLLE-FORD.md` und Telegram beim Nutzer. Offen beim Nutzer: Routine „Ford (auf Tom)“ `trig_01VVgCZWBppgdhRdoa6SQhkW` ausschalten (nur er darf), Diogenes von 07:05 (Cowork) anhalten; „Ford Start“ danach löschen. Beschluss 81p noch in die Beschlussseite. (2) **D3.13–D3.16** mit Empfehlung vorgelegt, Nutzer entscheidet noch (D3.13 Hütte bauen; D3.14 Heldenlicht draußen weg, Mondlicht; D3.15 nein, Klang bleibt; D3.16 Kursiv weg). (3) 72o, 72s, 84.x (Archiv „15.10., 07:4x“).
+**Nächster Punkt:** (1) **81p prüfen:** läuft Fords Wecker-Kette (`send_later` stündlich in `session_011gYhreNUNhcPNYyLPG7kJs`)? Beleg: Startmarken in `ROLLE-FORD.md` und Telegram beim Nutzer. Offen beim Nutzer: Routine „Ford (auf Tom)“ `trig_01VVgCZWBppgdhRdoa6SQhkW` ausschalten (nur er darf), Diogenes von 07:05 (Cowork) anhalten; „Ford Start“ danach löschen. Beschluss 81p noch in die Beschlussseite. (2) **D3.13–D3.16** mit Empfehlung vorgelegt, Nutzer entscheidet noch (D3.13 Hütte bauen; D3.14 Heldenlicht draußen weg, Mondlicht; D3.15 nein, Klang bleibt; D3.16 Kursiv weg). (3) 72o, 72s, 84.x (Archiv „15.10., 07:4x“).
 Sitzung 15.10., 07:37–07:5x: Ford als Sitzung statt Routine, erster Lauf startete Tom (86). Schwerpunkt: nur Ablauf; nötig, damit Ford überhaupt startet. Nächste Sitzung bitte Spiel.
 
 **Zuletzt gelesen bis:** 0042dfa5 (15.10., 07:5x)
