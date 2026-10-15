@@ -59,9 +59,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 18:1x, „Tom – Build B fertig (68, 92–96)“) – Nachfolger: „Tom – Morwens Hütte D3.13a“
-- Build B = 0.1.752, PR #66 (`claude/tom-build-b-fertig`), Prüfliste `e/t752.html`. Nachfolger: PR #66 abonnieren, bei Rot reparieren, bei Grün APK-Link auf `e/t752.html`; nach „passt“ zusammenführen, CHANGELOG, Zeile auf Dein Zug löschen.
-- Dann D3.13a (Zeile 27): Draufsicht und Standbild, neuer Zweig von `main`.
+### Tom (15.10., 18:5x, „Tom – Morwens Hütte D3.13a“) – Nachfolger: „Tom – Nähte an Häusern D9.1“
+- PR #66 (0.1.752) grün, APK-Link auf `e/t752.html`; Nachfolger: PR #66 abonnieren, nach „passt“ zusammenführen, CHANGELOG, Zeile auf Dein Zug löschen.
+- D3.13a auf Zweig `claude/tom-d3-13a-huette` (41019715), Standbilder auf Dein Zug `e/d313a-2.html`; nach „passt“ in den nächsten Sammelbuild. Dann D9.1 (Nähte im Hausdach, im Standbild D3.13a sichtbar), D9.2, D9.3.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.

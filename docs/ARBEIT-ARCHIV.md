@@ -1,5 +1,9 @@
 # Archiv
 
+### Tom-Übergabe (15.10., 18:1x, „Tom – Build B fertig (68, 92–96)“) – Nachfolger: „Tom – Morwens Hütte D3.13a“
+- Build B = 0.1.752, PR #66 (`claude/tom-build-b-fertig`), Prüfliste `e/t752.html`. Nachfolger: PR #66 abonnieren, bei Rot reparieren, bei Grün APK-Link auf `e/t752.html`; nach „passt“ zusammenführen, CHANGELOG, Zeile auf Dein Zug löschen.
+- Dann D3.13a (Zeile 27): Draufsicht und Standbild, neuer Zweig von `main`.
+
 ### Aus ROLLE-BERATER.md, 15.10., 17:2x (Sokrates, Übergabe)
 
 **Übergabe (15.10., 16:2x) – Nachfolger: „Sokrates – Gefährte, Kate und Messung“:**
