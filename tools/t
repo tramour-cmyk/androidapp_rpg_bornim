@@ -21,7 +21,7 @@ bild|film)
     # Vorschau mit Schaltern: tools/t bild FOEANIM=ghoul:0   ·   tools/t film FILMBATCH=datei FILMSTEP=40
     # Filme laufen in Echtzeit: höchstens 4–5 Kämpfe je Aufruf, nur wenn sich eine Bewegung sichtbar ändert.
     shift
-    [ $# -gt 0 ] || { echo "Schalter fehlen, z. B. tools/t bild VERMINANIM=stirge:0 (Liste: docs/ARBEIT-OFFEN.md, Übergabe-Notiz)"; exit 2; }
+    [ $# -gt 0 ] || { echo "Schalter fehlen, z. B. tools/t bild VERMINANIM=stirge:0 (Liste: docs/ARBEIT-UMGEBUNG.md, Übergabe-Notiz)"; exit 2; }
     mark=$(mktemp); timed env "$@" bash -c 'cd tools/preview && ../../gradlew -q run'; rc=$?
     echo "Neue Bilder:"; find tools/preview/build/screens -newer "$mark" -type f | sort | head -40
     n=$(find tools/preview/build/screens -newer "$mark" -type f | wc -l); [ "$n" -gt 40 ] && echo "… insgesamt $n"

@@ -2,7 +2,7 @@
 
 Wie das Spiel aussieht, klingt und sich spielt: die Einzelheiten zum [Leitbild](DESIGN-LEITBILD.md). Wie gebaut und geprüft wird (Abnahme „Ort fertig“, selbst prüfen, alte Ansicht), steht in [Abnahme](DESIGN-ABNAHME.md). Gilt für **alle** künftigen Arbeiten an Grafik, Animation und Klang.
 
-Siehe auch: [Offen](ARBEIT-OFFEN.md) · [Merkliste](LISTE-IDEEN.md) · [Änderungshistorie](../CHANGELOG.md)
+Siehe auch: [Vorräte](FIRMA.md) · [Merkliste](LISTE-IDEEN.md) · [Änderungshistorie](../CHANGELOG.md)
 
 ## Richtung
 

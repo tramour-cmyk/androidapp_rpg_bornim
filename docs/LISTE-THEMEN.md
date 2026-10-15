@@ -1,6 +1,6 @@
 # Themen
 
-Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen**, nur wenn eine Nummer gesucht wird. Stand nur als ein Wort (offen, in Arbeit, zu testen, erledigt vX, ruht; 65.4), Einzelheiten nie hier. Wo etwas steht, findet `grep -rn` über die Nummer in Offen, Archiv und Änderungshistorie (77e.4). Wer ein Thema anlegt, abschließt oder abgibt, ändert hier die eine Zeile (der Zähler „Nächste freie Themennummer“ steht in [Offen](ARBEIT-OFFEN.md)). Unterpunkte (z. B. 13q.4) und Verlauf stehen im [Archiv](ARBEIT-ARCHIV.md), Umgesetztes in der [Änderungshistorie](../CHANGELOG.md).
+Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen**, nur wenn eine Nummer gesucht wird. Stand nur als ein Wort (offen, in Arbeit, zu testen, erledigt vX, ruht; 65.4), Einzelheiten nie hier. Wo etwas steht, findet `grep -rn` über die Nummer in den Vorräten (`docs/ARBEIT-…`), Archiv und Änderungshistorie (77e.4). Wer ein Thema anlegt, abschließt oder abgibt, ändert hier die eine Zeile (der Zähler „Nächste freie Themennummer“ steht in [Betrieb](ARBEIT-BETRIEB.md)). Unterpunkte (z. B. 13q.4) und Verlauf stehen im [Archiv](ARBEIT-ARCHIV.md), Umgesetztes in der [Änderungshistorie](../CHANGELOG.md).
 
 | Nr. | Thema | Wer | Stand |
 |---|---|---|---|
@@ -17,8 +17,8 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 11 | Höhle: Lichtstrahl am Lichtschacht | Tom (von Jerry, 13y) | erledigt |
 | 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Jerry, Tom | erledigt v0.1.483 |
 | 13 | Diagonale Sicht | Tom | erledigt |
-| 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für `ARBEIT-OFFEN.md`) | Berater | erledigt |
-| 15 | `ARBEIT-OFFEN.md` entschlacken, Archiv, Themenliste | Tom | erledigt |
+| 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für die Vorräte) | Berater | erledigt |
+| 15 | Offen-Liste entschlacken, Archiv, Themenliste (heute Vorräte, 98) | Tom | erledigt |
 | 16 | Trefferstopp | Jerry | erledigt v0.1.460 |
 | 17 | Nachschwingen | Tom | erledigt |
 | 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | Jerry | offen |
@@ -34,7 +34,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 28 | Musik neu | Jerry | erledigt v0.1.540 |
 | 29 | Nebenquests (Anschlagbrett) | Tom | erledigt |
 | 30 | Abstürze beim Testen | Tom (Jerry: Klang-Fäden) | offen |
-| 31 | Berater-Gedächtnis `docs/ROLLE-BERATER.md` | Berater | erledigt |
+| 31 | Berater-Gedächtnis (seit 98 drei Rollendateien Sokrates) | Berater | erledigt |
 | 33 | Grundsatz „Spielerfreundlich, einfach, frei“ (Prüfung vor jeder Umsetzung) | Tom und Jerry | erledigt |
 | 32 | Selbstarbeit: Nacht 11./12.10. fast ohne Arbeit (Routine sperrte sich wegen Herzschlag) | Jerry | erledigt |
 | 34 | Kampf: Knopf „Zug beenden“ | Jerry | erledigt v0.1.571 |
@@ -90,3 +90,12 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 87 | Schänke: Katze, Rowena, Borins Becher | Tom | fertig |
 | 88 | Leitlinien-Abgleich sichtbar | Berater | erledigt |
 | 91 | Schrittgeräusche eigenständig abschaltbar | Tom, Berater | offen |
+| 92 | Bram blockiert an der Brücke | Tom | zu testen |
+| 93 | Beete bis zum Zaun | Tom | zu testen |
+| 94 | Hühner auf dem Fluss | Tom | zu testen |
+| 95 | Atem hörbar, Balken | Tom, Jerry | offen |
+| 96 | Gesprächstext zu lang | Tom | zu testen |
+| 97 | Vorrang in der Arbeitsliste | Projekt | in 98 |
+| 98 | Firma WireStormTCS | Projekt | umgebaut |
+| 99 | Zwei Niederlassungen | Projekt | offen |
+| 100 | Testschalter Ende Kapitel 1 | Tom | zu testen |

@@ -2,11 +2,11 @@
 
 Ideen und Vorschläge aus der bisherigen Entwicklung, die noch **nicht umgesetzt** sind. Gesammelt, damit wir sie später prüfen, neu bewerten oder verwerfen können. Stand: 11.10.2026, 11:45 (Berliner Zeit).
 
-Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md), was gerade ansteht oder zu entscheiden ist in der Liste [Offen](ARBEIT-OFFEN.md). Für alle Ideen gelten die [Stil-Leitlinien](DESIGN-STIL.md).
+Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md), was gerade ansteht oder zu entscheiden ist in den Vorräten (`docs/ARBEIT-…`, Übersicht in [FIRMA.md](FIRMA.md)). Für alle Ideen gelten die [Stil-Leitlinien](DESIGN-STIL.md).
 
 ## Ideenrunde 10.10. (Tom-Beratung, 13:36)
 
-Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstopp (16), Nachschwingen (17), Pechsträhnen dämpfen (18), siehe [Offen](ARBEIT-OFFEN.md). Der Rest:
+Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstopp (16), Nachschwingen (17), Pechsträhnen dämpfen (18), siehe die Vorräte. Der Rest:
 
 - **Aktive Abwehr per Tippen (Idee 1):** kurzes Zeitfenster beim gegnerischen Hieb, Tippen = Parieren mit halbem Schaden. Nutzer findet die Idee nicht gut, soll aber erhalten bleiben. Wäre eine Ausnahme von „kein Tippen mitten in einer Aktion“; nur als abschaltbarer Versuch.
 - **Trefferchancen sichtbar machen (Teil von Idee 2):** Chance vor dem Angriff anzeigen.

@@ -4,7 +4,7 @@
   neustart-haken.py prompt   bei jeder Nachricht des Nutzers (UserPromptSubmit): misst, wie stark das Gespräch
                              seit dem Start gewachsen ist, und erinnert ab der Schwelle an einen Neustart,
                              erst selten, dann immer öfter, je länger der Nutzer weiterarbeitet.
-  neustart-haken.py start    beim Sitzungsstart (SessionStart): warnt, wenn docs/ARBEIT-OFFEN.md zu groß ist.
+  neustart-haken.py start    beim Sitzungsstart (SessionStart): warnt, wenn ein Vorrat docs/ARBEIT-*.md zu groß ist.
 
 Die Größe kommt aus dem Gesprächsprotokoll (transcript_path): Token der letzten Antwort (Eingabe, auch
 zwischengespeichert). Gemessen wird der Zuwachs gegenüber der ersten Antwort, weil schon der Start je nach
@@ -93,12 +93,19 @@ def prompt(eingabe):
 
 def start(eingabe):
     wurzel = os.environ.get("CLAUDE_PROJECT_DIR") or eingabe.get("cwd") or "."
-    offen = os.path.join(wurzel, "docs", "ARBEIT-OFFEN.md")
-    if os.path.exists(offen):
-        n = os.path.getsize(offen)
+    # 98: jeder Vorrat ARBEIT-*.md, außer Archiv, Abläufe und Umgebung (Nachschlagen, kein Vorrat).
+    docs = os.path.join(wurzel, "docs")
+    try:
+        namen = sorted(os.listdir(docs))
+    except OSError:
+        return
+    for name in namen:
+        if not (name.startswith("ARBEIT-") and name.endswith(".md")) or name in ("ARBEIT-ARCHIV.md", "ARBEIT-ABLAEUFE.md", "ARBEIT-UMGEBUNG.md"):
+            continue
+        n = os.path.getsize(os.path.join(docs, name))
         if n > OFFEN_MAX:
-            print(f"Bornim: docs/ARBEIT-OFFEN.md ist {round(n / 1000)} KB groß (Grenze {round(OFFEN_MAX / 1000)} KB). "
-                  "Nach der Regel „ARBEIT-OFFEN.md klein halten“ in CLAUDE.md aufräumen (Erledigtes ins Archiv bzw. in die Änderungshistorie).")
+            print(f"Bornim: docs/{name} ist {round(n / 1000)} KB groß (Grenze {round(OFFEN_MAX / 1000)} KB). "
+                  "Nach der Regel „Vorräte klein halten“ in CLAUDE.md aufräumen (Erledigtes ins Archiv bzw. in die Änderungshistorie).")
 
 
 def main():

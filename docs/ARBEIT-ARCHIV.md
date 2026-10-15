@@ -1,4 +1,341 @@
 # Archiv
+### Umbau 98 (15.10., 23:1x, Sokrates): alte Dateien im Volltext
+
+Vor dem Umbau zur Firma WireStormTCS (98) galten diese drei Dateien; ihr Inhalt ist auf Vorräte und Rollendateien verteilt (`docs/FIRMA.md`). Stand vor dem Umbau: Commit 8abeae7b.
+
+#### Fords Protokoll, ältere Zeilen (bis 15.10., 21:03) und Proben 14.10.
+
+- 20:17 15.10.: Start Sokrates (Neustart, fd4eb365)
+- 20:12 15.10.: Startsperre aufgehoben (Sokrates: erst Struktur, kein Umbau)
+- 20:10 15.10.: Startsperre Umbau 98 (Sokrates, df9b3c03) bis „Umbau fertig“
+- 19:57 15.10.: Start Tom (Neustart, b2f2205f)
+- 19:56 15.10.: Start Sokrates (Neustart, e7995329)
+- 19:39 15.10.: Start Tom (Neustart, 69b295e0)
+- 19:27 15.10.: Start Tom (Neustart, 9c866349)
+- 19:18 15.10.: Start Tom (Neustart, 5bd0ce8a)
+- 19:11 15.10.: Start Diogenes (98/99, Auftrag Sokrates)
+- 19:11 15.10.: Start Tom (Neustart, ad5ee062)
+- 18:52 15.10.: Start Tom (Neustart, d0dd90b1)
+- 18:50 15.10.: Start Sokrates (Neustart, 70e3d99c)
+- 18:21 15.10.: Ford neu, Uhr trig_01WNTRj5BTL136wVgL65ztCm, Vorgänger archiviert
+- 18:19 15.10.: Selbstneustart Ford (285 Tsd. Token)
+- 18:14 15.10.: Start Tom (Neustart, 614fa9b1)
+- 18:01 15.10.: Start Sokrates (Neustart, 757149f7)
+- 17:50 15.10.: Start Tom (Neustart, 9ee372e1)
+- 17:19 15.10.: Start Sokrates (Neustart, bca8602)
+- 16:38 15.10.: Start Tom (Neustart, d460b87e)
+- 16:19 15.10.: Start Sokrates (Neustart, 3c22460d)
+- 16:12 15.10.: Start Tom (Neustart, ccb89546), Start Diogenes (71 Nachprüfung Dorf, 0.1.748 auf main)
+- 14:23 15.10.: Start Tom (Neustart, 8d676c3f)
+- 13:36 15.10.: Selbstneustart Ford (287 Tsd. Token), Stundenuhr umgestellt
+- 13:35 15.10.: Start Sokrates (Neustart, 6281f8b7)
+- 13:18 15.10.: Start Tom (Neustart, 316e0357)
+- 12:54 15.10.: Start Sokrates (Neustart, b7f362f5)
+- 12:25 15.10.: Start Tom (Neustart, b35feeb7)
+- 12:23 15.10.: Start Sokrates (Neustart, 6588219b)
+- 12:03 15.10.: Start Tom (Neustart, 9b2f7fe5)
+- 11:52 15.10.: Start Sokrates (Neustart, 69bef187)
+- 11:51 15.10.: Start Diogenes (71 A Dorf, 0.1.746 auf main)
+- 11:47 15.10.: Start Tom (Neustart, 21c79c9d)
+- 11:26 15.10.: Start Tom (Neustart, ff69c498)
+- 11:15 15.10.: Start Sokrates (Neustart, 3a615460)
+- 10:37 15.10.: Start Tom (Neustart, 0ded1a86)
+- 10:20 15.10.: Start Sokrates (Neustart, 7f7feb23)
+- 10:03 15.10.: Start Tom (Nachfolger gewünscht, D1.3/D1.11)
+- 08:04 15.10.: Start Diogenes (38g; Start 07:05 landete in Toms Sitzung, 81q)
+- 07:50 15.10.: Start Tom (Ford-Sitzung, erster Lauf)
+- 07:28 15.10.: Probe 81p nicht möglich: create_session fehlt in der Routine (ToolSearch „create_session“: „No matching deferred tools found“; list_sessions ebenso). Kein Start, Diogenes nicht doppelt gestartet.
+- 07:05 15.10.: Start Tom, Diogenes (38g); Morgenmeldung 0.1.746, 71 D3.13–16 über App-Push (Telegram-Schlüssel fehlt).
+- 07:05 Start Tom
+- 07:05 Start Diogenes
+- 17:29 14.10.: Telegram-Schlüssel fehlt weiter; Meldung 13e.6 (Für den Berater) über App-Push.
+- 16:30 14.10.: Telegram-Push fehlgeschlagen (TELEGRAM_BOT_TOKEN fehlt in der Routine-Umgebung); Meldung t732/t733, Tom-Nachfolger, Diogenes 38g über App-Push.
+
+- 14.10., 13:41 Probe 1: Code-Sitzung aus Routine gestartet, Repo da, Push geht.
+- 14.10., 13:41 Probe 1: Code-Sitzung aus Routine gestartet, Repo da, Push geht.
+- 14.10., 13:42 Probe 2: Sitzung gestartet von Probe 1, Repo da, Push geht.
+- 14.10., 13:42 Probe 2: Sitzung gestartet von Probe 1, Repo da, Push geht.
+- 14.10., 13:43 Probe 2: Sitzung gestartet von Probe 1, Repo da, Push geht. (erneuter Auslöser in derselben Sitzung)
+
+#### Alte `docs/ARBEIT-OFFEN.md` (Wer macht was, Übergaben, Zu testen, Für Diogenes, Für den Berater)
+
+#### Offen
+
+Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main` (Regeln in `CLAUDE.md`, auch zur Größe).
+
+**Nächste freie Themennummer: 101**
+
+**Ford: Co-Pilot bis Sa 17.10., 21:00** (Wochenwechsel Max; danach stellt Ford selbst wieder auf Pilot; Nutzer 15.10., 22:5x: „dann kriegt Ford die Stellung Co-Pilot … wieder zurückstellen … wenn wir wieder volles Guthaben haben“; vorher Pilot, Nutzer 14.10.; 81g; Stellung aus / Co-Pilot / Pilot, Startlektüre `ROLLE-FORD.md`; wer die Stellung erhöht, löst Ford sofort einmal aus)
+
+**Seite „Dein Zug“ (alle Rollen, 63): https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow** · Beschlüsse: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM · Prüfbericht Diogenes: https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+
+#### Jetzt installieren
+
+Nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
+
+Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
+
+Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für später · [Änderungshistorie](../CHANGELOG.md): was umgesetzt ist · [Stil-Leitlinien](DESIGN-STIL.md) · [Umgebung](ARBEIT-UMGEBUNG.md) (auch alle Vorschau-Schalter) · [Selbstarbeit](ARBEIT-SELBST.md) · [Themen](LISTE-THEMEN.md): eine Zeile je Nummer · [Archiv](ARBEIT-ARCHIV.md): Verlauf. Themen und Archiv werden nicht beim Start gelesen.
+
+#### Wer macht was
+
+| Nr. | Thema | Wer | Zweig | Stand |
+|---|---|---|---|---|
+| 96 | Gesprächstext zu lang für das Feld: „Text kann nicht gescrollt werden, sondern nächster Text kommt.“ (Nutzer 15.10., 17:0x) | Tom | `claude/tom-build-b-fertig` | In 0.1.752 (PR #66, Build B), Test 0.1.752 passt (Nutzer 20:5x) |
+| 100 | Testschalter ans Ende von Kapitel 1 (Nutzer 15.10., 20:5x, Test 0.1.752: „Da brauche ich eine Testumgebung. Ein Testschalter dafür, dass ich ans Ende komme … sonst müsste ich komplett durchspielen“; Chronik zeigte nur die Bilder) | Tom | `claude/tom-sammelbuild-nach-752` | Knopf „Kapitel 1 bis kurz vor Ende“ im Testreiter gebaut (cbbd8e8d), im Sammelbuild PR #67; dann 68 prüfen |
+| 92 | Bauer Bram blockiert an der Brücke den Weg, Held steckt fest (Nutzer 15.10., 16:5x, Test 0.1.750); Idee: „Held muss NPC schieben können. Keine Gegner, aber neutrale.“ | Tom | `claude/tom-build-b-fertig` | In 0.1.752 (PR #66, Build B), Test 0.1.752 (Nutzer 20:5x): nicht prüfbar, Held blieb nicht hängen; bleibt offen |
+| 93 | „Die Beete westlich gehen nicht bis zum Zaun.“ (Nutzer 15.10., 16:5x) | Tom | – | In 0.1.752 (PR #66, Build B), Test 0.1.752 passt (Nutzer 20:5x): Zaun am Beetrand (`MapTownIso.fenceSpot`) |
+| 94 | „Hühner landen teilweise auf dem Fluss.“ (Nutzer 15.10., 16:5x); dazu D7.1 Hühner verschwinden schlagartig | Tom | `claude/tom-build-b-fertig` | In 0.1.752 (PR #66, Build B), Test 0.1.752 (Nutzer 20:5x): „machen es richtig, aber jetzt flackern sie leider wieder“ → behoben (625302e3: eigene Bildablage, letztes Bild bleibt stehen), im Sammelbuild PR #67 |
+| 95 | Atem: „Atem mit Anzeige (Balken rechts) hört man nicht und der Balken funktioniert nicht.“ (Nutzer 15.10., 16:5x, zu 86) | Tom (Balken); Jerry (Keuchen, 86.3) | – | **Tom:** 95a passt (Test 0.1.752, Nutzer 20:5x). **Jerry, 95:** Keuchen hörbar machen (ab Fr.) |
+| 86 | Bewegung und Übersicht (Nutzer 14.10., 18:5x) | Tom (86.1–86.4); Jerry (86.3 Keuchen, Lärm, Initiative; 86.11 mit 72b/38) | – | Einzelheiten in den Beschlüssen. **Tom:** 86.1–86.4 auf `main` (0.1.750). **Jerry:** Keuchen, Initiative mit Nachteil, Rennen laut (84.4); zur Kenntnis `GameState.winded`/`stamina`. Beschlossen, Bau offen: 86.6, 86.9, 86.10, 86.11 |
+| 90 | Projektleitung: täglicher Rückblick (Nutzer 15.10., 12:4x) | Berater; Ford startet | `main` (Notizen) | **Probe 16.–22.10. beschlossen** (12:5x, Beschlüsse): Sokrates morgens nach Fords Morgenmeldung (`ROLLE-FORD.md` 6a, `ROLLE-BERATER.md` „Tagesrückblick“). **Sokrates** achtet auf die Woche (jeder Rückblick nennt „Tag n von 7“) und Diogenes prüft die Woche vorher (Nutzer 12:5x, „Für Diogenes“); 23.10. Bilanz mit Nutzer: weiter oder abschaffen. **90a beschlossen** (17:4x): bis 23.10. keine neue Ablaufregel ohne Wegfall einer alten, Ausnahme nur bei ernsthaftem Fall |
+| 81 | Teamleiter „Ford“ (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–n, 81p, 81r, 81s (Uhr statt Kette, bestätigt 12:03), 81t, 81u (nein), 81v (Nutzer 15.10., 13:4x: Titel mit Startzeit, Vorgänger archivieren) (`ROLLE-FORD.md`, `ARBEIT-ABLAEUFE.md` „Neustart“); Ford lebt in „Ford – Teamleiter“, Stellung oben; Jerry-Ford ab Fr. **Nutzer:** `TELEGRAM_BOT_TOKEN` in Jerrys Umgebung. Verlauf 81o–81r im Archiv („Aus ARBEIT-OFFEN.md, 15.10., 10:2x (Sokrates, 81)“). **D10** (Diogenes Lauf 10): D10.1 erledigt (Nutzer 18:2x: Reihenfolge Selbstneustart, Netz „Ford-Wache“ 07:08, Zeile in `CLAUDE.md`); D10.2–D10.5 als Paket auf Dein Zug; D10.8 mit 65.11 |
+| 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`enabled: false`, nicht löschen). 65.8/65.9 stehen in `CLAUDE.md`. **65.10** (Nutzer 14.10., 23:1x): Selbstarbeit ist abgeschafft, Ford ersetzt sie; Notizen nachziehen (`CLAUDE.md`-Zeile, `ARBEIT-SELBST.md` ins Archiv, Neustart ohne Nutzer: Übergabe „Nachfolger gewünscht“, Ford startet). **65.11** (Nutzer 15.10., 16:4x „mach beides“: Haken und Kürzen): Dein-Zug-Haken gebaut; Entwurf CLAUDE.md halbieren ([Dokument](https://claude.ai/code/artifact/2acaeffb-b81a-40ab-8a10-d6a0380bedc5)) auf Dein Zug; Diogenes Lauf 8 (D8.1–D8.7) eingearbeitet 17:1x; Nutzer 17:2x: Projektleitung (90) fehlte in der Sokrates-Zeile, ergänzt. Haken prüft je Satz (D8.6, Nutzer 17:3x frei). Abgleich mit Beschlüssen 17:3x: sechs Regeln wieder im Entwurf, 6,2 KB nachgemessen |
+| 97 | Vorrang in der Arbeitsliste (Nutzer 15.10., 18:3x: „… nach Kategorien oder Prioritäten ABC oder 1, 2, 3 …“) | Berater mit Nutzer | `main` (Notizen) | **97a** geht in 98 auf (Nutzer 15.10., 20:0x: „durch die Firmenneugründung … mitbeantworten“): Vorrang = Reihenfolge der Zeilen plus „A“ im Dateienentwurf; Dein-Zug-Eintrag gestrichen |
+| 98 | Firmenbild als Vorspann für alle (Nutzer 15.10., 18:5x: „kleine, aufstrebende Software-Schmiede … Chef bin ich … Sokrates schräger Kreativdirektor … Diogenes Prüfer, Revisor … Team Jerry und Team Tom … Ford CEO, stellt Leiharbeiter ein … wichtige Entscheidungen mir oder als Stufe 1 Sokrates“; „ganz vorne, damit alle wissen, wie sie zusammenarbeiten“) | Berater mit Nutzer | `main` (Notizen) | Drei Dokumente: [Firmenordnung](https://claude.ai/code/artifact/1757d98a-8847-4483-9c51-05be34b45356), [Rollenkonzept](https://claude.ai/code/artifact/3a9cbaec-bc3a-47b9-9ff1-c89f4bf59faa), Umbauplan. Beschlossen 98.1, 98.5, 98.8, **98.2, 98.3, 98.6** (Nutzer 22:4x: „98.2 ja … 98.3 … Betriebsleiter … 98.6 … ein Vorrat je Team. Ja.“); **98.4 und 98.7 beschlossen** (Nutzer 22:4x: „98.4 macht doch Sinn, dass wir das alles gleich mit erledigen“; 98.7 gilt ab Einrichtung Pro am Freitag), D11 und 65.11 gehen im Umbau auf (D11.2–D11.5 und die CLAUDE.md-Kürzung stecken in Firmenordnung und Rollenkonzept), alle drei von Dein Zug gestrichen. **Nutzer hat beide gelesen, Go** (22:4x: „Diogenes … auf Herz und Nieren prüfen … wenn er ein Go gibt und keine offenen Fragen sind, die ich noch entscheiden muss, dann sag Ford, dass er alle Sitzungen stoppen soll und dann stellen wir um … Neubetrieb in der Firma Wirestorm“) → Diogenes (Für Diogenes); danach **Sokrates**: Befund holen, offene Fragen auf Dein Zug, sonst **vor dem Umstellen noch einmal Go des Nutzers** (Nutzer 15.10., 22:4x: „bevor du umstellst, gibst du mir noch einmal die Chance, ein Go zu geben“), erst dann Ford „alle Sitzungen stoppen“, Umbau. Verlauf im Archiv („15.10., 22:3x, 98“) |
+| 99 | Machbarkeitsstudie zwei Niederlassungen (Nutzer 15.10., 19:0x: „Warum können wir hier nicht Jerry starten? … wie die zwei Niederlassungen, meine zwei Accounts, miteinander arbeiten können … Machbarkeitsstudie, Realisierungsstudie“) | Berater mit Nutzer, Diogenes prüft | `main` (Notizen) | Studie im Entwurf zu 98 (Abschnitt „Machbarkeit“), Empfehlung C nach Proben; 99c Nutzer 19:0x: Account erst seit 10.10.; Nutzer 19:4x Bild: Woche 76 % (Do 19:40), reicht bei dem Tempo bis Sa früh, Reset Sa 21:00 → Wochengrenze bindet: A verworfen, Jerry bleibt auf zweitem Account, Leihsitzungen nur dort; **99d** Sparmodus bis Sa 21:00 (Tom und Jerry weiter, Sokrates/Diogenes nur auf Zuruf, Rückblick 16.10. entfällt, Ford ohne Leihsitzungen und ohne Diogenes-Start) im Gespräch gefragt 19:4x. Nutzer 19:5x: Max monatlich, Pro (Jerry) jahresweise, Max behalten? Sokrates: Sitzungen 12.–15.10. API-Gegenwert 623 $ (Tom 63 %, Sokrates 19 %, Diogenes 11 %, Ford 4 %); Pro allein trüge das nicht → Max behalten, Abläufe senken, monatlich prüfen; 99e Nutzer 19:5x: kleinste Stufe (Max 5x), seit Sa 10.10., Woche läuft Sa 21:00 → 5x passt knapp, kein Aufstocken, Abläufe senken, Prüfung vor Verlängerung um den 10.11. Wochenstand lesbar über `rate_limit_info` (`seven_day`, `allowed_warning`). **D11.1 neu beschlossen** (Nutzer 20:1x, Beschlüsse): Jerry bleibt auf Pro, meldet leeres Guthaben selbst, Netz 2 h ohne Commit, Ford holt ihn in die Zentrale, wenn Max Luft hat; Werkzeug erkennt Jerry an erster Nachricht. **99f** im Gespräch (Nutzer 20:1x): Niederlassungsleiter „Ford 2“ auf Pro, Abstimmung über main („gemeinsame NAS … fällt die Niederlassung weg, muss die Zentrale das erkennen und die Arbeiten in die Zentrale holen“); Sokrates 20:2x: ja, schmal (nur Jerry starten, Leerlauf billig, 2 Tage messen, über 10 % von Jerrys Woche → streichen); Nutzer 20:2x „Warum Telegram nur Ford 1?“ → Korrektur: jeder meldet selbst sofort (81r), auch Ford 2 lautlos seine Starts, 81k nur gegen doppelte Ford-Hinweise. **99f beschlossen** (Nutzer 20:2x, Beschlüsse): ja, schmal, mit Messung. **Nutzer:** Telegram-Schlüssel auf dem Pro-Account einrichten (Fr nachmittags, zu Hause); danach Probe `create_session` dort; Nutzer 20:3x Rückfrage „was macht Ford 2 konkret?“: nur Jerry-Sitzungen auf Pro starten, wenn Vorrat und keine Sitzung; Nutzer 20:3x: bleibt ja („kann nicht ständig darauf gucken“) ; Nutzer 22:2x: Jerry hat ab 16.10., 03:00 wieder Guthaben, „hat keine Ahnung, was hier läuft … keinen eigenen Niederlassungsort eingerichtet … frühestens morgen Freitagnachmittag“ → **Jerry ruht bis Fr. nachmittags**, kein Start durch Ford; dann Telegram-Schlüssel auf Pro, Jerry von Hand starten (liest `main`, Umbau 98 ist bis dahin nicht gemacht, es gelten die heutigen Regeln), danach Probe `create_session` für Ford 2 **99d beschlossen** (Nutzer 15.10., 22:5x): Sparmodus bis Sa 21:00, Tom weiter, Jerry sobald er läuft, Sokrates und Diogenes nur auf Zuruf, kein Rückblick 16.10., Ford ohne Leihsitzungen und startet Diogenes nicht selbst. |
+| 89 | Figuren im Schatten (Nutzer 15.10., 18:1x: „Wenn Figuren im Schatten eines Hauses oder Objekte stehen, können sie ja nicht hell sein … wenn das aber zu viel Detail und Rechenleistung frisst, dann lassen wir das“) | Tom | `claude/tom-89-figuren-schatten` | Gebaut (31fb73ab, enthält D9.2): Held und Dorfbewohner im Schatten so dunkel wie der Boden dort (56 % im Hausschatten); mit D3.3 auf `claude/tom-sammelbuild-nach-753` (7b87be89, Kerntests grün), PR erst nach „passt“ zu 0.1.753 |
+| 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | – | D1.3/D1.11, D1.5, 13e.6 auf `main`. Helligkeitsregler Jerry mit 40. Danach D1.7 Leben (Absprache `WorldScreen.kt`). Mond mit D3.14 (89) |
+| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` bis 5.5 |
+| 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
+| 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`LISTE-KAPITEL1.md`](LISTE-KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | Toms Teil von 26c fertig |
+| 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Tom | – | Auf `main` bis 27m. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise). **D3.13** Morwens Hütte: zweiter Entwurf (2×2, flacher, Tür zum Feuer) auf Dein Zug. **Nutzer 15.10., 17:4x:** Ort komisch, lieber halb im Wald, Tür nach Süden; **Tom D3.13a beschlossen** (Nutzer 18:0x, Beschlüsse): Pfad vom Lagerplatz nach Süden zu eigener Lichtung, geduckte Kate Tür Süd, Feuer davor, ohne Wegweiser; Nutzer 15.10., 20:0x: „gefällt mir sehr gut, können wir so umsetzen“, Nachfrage Standbild Nacht: Dach halb hell, halb dunkel, Feuerlicht perspektivisch unstimmig → geklärt (Licht lag wie Boden über dem Dach; jetzt nehmen Häuser das Licht vor sich, auch im Dorf; aafc3067), Nutzer 22:2x: „Passt. Sieht jetzt gut aus.“ (dazu eec298ea: Laterne nicht aufs Dach, kein Lampenschein auf dem Tempeldach); **Nutzer 15.10., 20:5x:** nachher harte Lichtkanten (nordöstlich und östlich der Kate je ein Strich; im Dorf zwischen den oberen zwei Häusern), vorher schöner → weicher Übergang an Hausumrissen gebaut (12cce7ae), vorher/nachher auf Dein Zug `e/d313a-2.html`; dann Sammelbuild (Zweig `claude/tom-sammelbuild-nach-752`, D3.13a, D9.1–D9.3 schon zusammengeführt). **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1 |
+| 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | Abstürze beobachten (bei neuem `adb logcat` mit Anleitung von Tom); 30.7 Merkliste |
+| 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben) | Jerry | – | Meldung Nutzer 12.10., 15:4x; erneut 14.10., 21:1x (Test 0.1.741, Alrik liegt mit Brand 2, „sieht immer noch nicht richtig aus“). Erst Standbild der Sterbehaltungen aller Klassen, dann Vorschlag |
+| 36 | Krogg (Vorboss Höhle) wirkt verpixelt | Jerry | – | 36.4–36.7, 36h/36j/36k auf `main` (PR #46, #47, getestet 0.1.587). Rest in 52, 53. **Offen 36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung. Verlauf im Archiv |
+| 38 | Balance-Langzeitplan über alle Kapitel (Stufe, Gold, Preise, Ausrüstung, Ziel-Siegquoten) | Berater (Plan), Jerry (Messung) | `main` (Notizen) | Plan in `DESIGN-BALANCE.md`. Jerry erweitert `ChapterSimTest` um Gold/Einkauf und misst Kapitel 1 (38e/38f); 38g gemessen (Prüfbericht Lauf 4); **D4.1** beschlossen, Texte freigegeben (`STORY-K1.md` [D4.1.*], 15.10.): **Tom, D4.1** gebaut (`claude/tom-runde-nach-748`, nächster Sammelbuild; Taschentext jetzt `[D4.1.rauch.tasche]` statt des vorläufigen; Jerry zur Kenntnis: Gegenstand `Story.SMOKE_BUNDLE`, Merker `SMOKE_GIVEN`); **Jerry, D4.1** Kampfwirkung Rauchbündel (nimmt Krogg den ersten Hieb), danach Diogenes neu messen; 38h Eichung durch Nutzer später. **D4.1 A** (Nutzer 15.10., 10:5x): Quest vor der Höhle über Morwen, Garrick warnt unter Stufe 3; **Sokrates** Texte mit Nutzer unter 41, dann **Tom** baut, dann Diogenes misst neu (Ziel zielstrebig Stufe 2–3, Median höchstens 3 Tode) |
+| 39 | Schwierigkeitsgrad im Menü | Jerry (Werte), Menü mit Tom | – | Nach 38. Leicht/Normal/Schwer über Gegner-TP und -Schaden (39a); auf Leicht Questziele gold (62m). Beschlüsse |
+| 40 | Lautstärke im Menü: Gesamt, Musik, Effekte (heute nur Musik an/aus) | Jerry | neu von `main` | Nutzer 12.10., 09:52. **40a ja (10:10):** drei Regler, Ortsklang bei Effekten; **Jerry, 13e.6** Helligkeitsregler auf derselben Einstellungsseite: Abgleich mit Prüfbild („Zeichen gerade noch sichtbar“), hellt die Höhle nicht auf (Wert mit Tom) |
+| 41 | Storyplan; Texte Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | [Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d) Kapitel 2 fertig (ohne 5b). [Textentwurf](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413) beim Nutzer; offen 4.4, 5.3, 6.3 |
+| 72 | Profil und Kampfsystem | Berater mit Nutzer; Jerry (Probe, Bau) | `main` (Notizen) | [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4); beschlossen siehe Beschlüsse (72.6–72.15, 72o B, 72o.1 A mit C, 72r–72t, 72v). **Jerry, 72.10** Probe Held plus Söldner gegen Grak auf dem gemalten Kampfort (drei Absichten, Ring, zwei Reihen mit je zwei Plätzen, Platztausch, Automatik nach 72.13); danach 72o (vorher Vorschaubilder je Zustand auf Dein Zug), 72.15, sechs Plätze (72v). **72u** Standbild Grak im Wald (Jerry), Entscheidung nach Probe. **Jerry, Tom, 72.14:** Gefährte/Söldner/Begleiter in Spieltexten. **72s.1** auf Dein Zug (Gefährte Kapitel 2, Empfehlung A Garrick). Offen 72a, 72c–72j |
+| 84 | Licht und Laut (Nutzer 14.10., 17:5x; baut auf Idee 4 in `LISTE-IDEEN.md` und `Perks.kt` auf) | Berater mit Nutzer | `main` (Notizen) | **84.1** Fackel als Gegenstand (Laden, nimmt die Nebenhand); **84.2** Schnellwechsel zweier Handbelegungen; **84.3** Schleichen; **84.4** Lauschen beim Stehen: Welle am Helden zur Quelle hin, Stärke = Deutlichkeit (Nutzer 18:0x), Wort nur bei deutlichem Hören; nicht für Sichtbares; Stufen Stehen > Schleichen > Gehen > Rennen (Nutzer 18:1x: „sehr gut“). Empfehlung im Gespräch 14.10.; Kampfteile mit 72b. **D3.14** hängt an 84.1 (Heldenlicht draußen weg, Mondlicht); **Jerry, D3.15:** Tiefer Wald ohne Vögel (mit D3.2), pickende Vögel scharren und flattern hörbar; Umweltklang nach `DESIGN-STIL.md` (Nutzer 11:1x): Tiefer Wald selten fernes Wolfsgeheul, Höhle Tropfen und Grollen (echte Aufnahmen, CC0) |
+| 59e | Händler: Menge „Alle“, Vorrat je Laden | Tom (jetzt); Jerry mit 38/39 (Vorrat) | – | „Alle“ erledigt (0.1.660). Vorrat je Laden mit 38/39 (Beschlüsse) |
+| 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p) | Tom; 62m Jerry mit 39 | – | Bis 62r auf `main`; 62i–62k mit 64; 62l/62m später |
+| 45 | Geschäftsmodell (Play Store) | Berater mit Nutzer | – | 45a/45c ja (Beschlüsse). 45b zurückgestellt bis nach 38 |
+| 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | Tom (Szene, Bilder), Jerry (Klang „Ancient Legend“) | `claude/tom-build-b-fertig` (Build B) | 68a–68m ja: Texte in `STORY-K1.md` (`[68.…]`). **Tom:** Ablauf gebaut (Einladung, Kapitelende-Karte, Nacht als Rast, fünf Bilder, Lyra, Auftrag „Das Lager im Süden“, Rowena/Aldric, Südrand still; `TempleSceneTest`); **68, 68n, 68o, 68p nach Empfehlung** (Nutzer 17:4x): Aufbau so, Bild 4 neu (Ostfenster); **Tom:** Figuren und Licht verfeinern, Kapitelende-Text `[68.kapitelende]` und Südrand-Zeile `[68.suedrand]` (`STORY-K1.md`) einbauen, dann Build B. Jerry zur Kenntnis: `MusicScene.TEMPLE` spielt `MusicLib.amuletReturn`, `Mode.TempleScene` |
+| 69 | Intro: Ankunft bei Nacht in Standbildern, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | – | 69a–69e ja (`STORY-K1.md` `[69.intro.…]`, Beschlüsse). Intro auf `main` (0.1.748). **Jerry, 69c:** leiser Klang unter Bild 1–4 (`MusicScene.INTRO`). 70.3 später. Test 0.1.752 (Nutzer 20:5x): „Intro ist genial“; Titelmusik setzt erst am Schluss ein, dann schlagartig Wirtshausmusik → **69f** Nutzer 22:2x: eher A, aber eigene Intromusik oder B offen → **69f A beschlossen** (Nutzer 22:4x, Beschlüsse): **Tom** baut: Titelmusik leise unter Bild 1–4, zum Schwarzbild voller, im Gasthaus etwa 6 s aus; läuft sie nach der Heldenerstellung noch, weiter, sonst leise von vorn |
+| 70 | Zwischensequenzen: Bildsprache für alle Kapitel (Nutzer 14.10., 08:00) | Berater mit Nutzer; Tom (Bild 3) | `main` (Notizen) | Entschieden (Beschlüsse, `DESIGN-STIL.md`): 70.1, 70.2, 70.4, 70.5, **70.3 B** (Licht und Luft bewegt, ein Ereignis je Bild, Figuren nie selbst), **70.6 A** (Bild 3 vom Platz, Brunnen vorn, Tempel fern, Fackelzug verschwindet hinter der Tempelecke). **Tom:** 70.6 in 0.1.752 (Build B) |
+| 79 | Kampfhintergründe an die Diagonalwelt angleichen (Nutzer 14.10., 08:34) | Berater mit Nutzer; Jerry (Bilder) | – | Nur Aussehen (Nutzer 09:08); hängt an 72u (Kampfort aus der Karte oder gemalt). Erst Standbild (Jerry ab Fr.), dann Entwurf nach Musterbild 70.1 |
+| 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Jerry; Rudelwölfe Tom (Vertretung) | – | Krogg so lassen, später alle gesamt (Jerry). Rudelwölfe auf `main` |
+| 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg | Jerry | – | Prüfthema, Nutzer 12.10., 15:4x (Test 0.1.587): wenn Zeit ist und nichts Wichtigeres ansteht; alle großen Gegner mitprüfen |
+| 63 | Eine Seite „Dein Zug“ für alles Offene (alle Rollen; Beschlüsse für Entschiedenes, 57) | Tom | `main` (Notizen) | Steht; offen: Freigabe für Jerry (Nutzer, Teilen) am Fr. |
+Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, Höhle, Kampf, Klang. Keiner arbeitet an Themen des anderen.
+
+#### Übergaben
+
+#### Tom (15.10., 22:2x, „Tom – Hühner 94 und Sammelbuild“) – Nachfolger: „Tom – Sammelbuild PR #67“
+- Sammelbuild **PR #67** (`claude/tom-94-huehner-sammelbuild`) = Build B (PR #66, 0.1.752, vom Nutzer geprüft) + 94 Hühner + D3.13a (Hütte, Hauslicht weich, Laterne nicht aufs Dach, kein Lampenschein auf Tempeldach; „passt“ 21:3x) + 100 + D9.1–D9.3; beide PRs abonniert. Wenn grün: Prüfliste `e/t<build>.html` auf Dein Zug (94 Hühner nah ansehen, 68 über Testknopf 100, 92 Bram, D3.13a nachts), dann nach „passt“ #67 zusammenführen, #66 schließen (in #67 enthalten).
+- 0.1.753 grün (22:29), Prüfliste `e/t753.html` auf Dein Zug; nach „passt“ #67 zusammenführen, #66 schließen. 69f liegt beim Berater. Nächster Sammelbuild D3.3 + 89 steht auf `claude/tom-sammelbuild-nach-753` (7b87be89, Kerntests grün), PR erst nach „passt“ zu 0.1.753.
+#### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
+
+- **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
+- Pause bis Fr., 03:00. Danach 24.6, 36.6, 38–40, 51–53; 13e liegt bei Tom; Zweig `claude/jerry-13e-hoehle-diagonal` (13e.3 fertig, 13e.4 halb; Archiv).
+#### Zu testen
+
+- **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5/D1.6/D1.9/D1.15 Höhle bei Tom (13e); D1.7 Leben Höhle, D1.8 stumme Quellen, D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (`grund_fs_609422`, `grund_fs_540836`, Hörner/Kreaturen ohne Quelle): Berater empfiehlt nach Umweltklang-Regel (15.10.): Tropfen und fernes Grollen behalten, Hörner herausnehmen (passen zu keiner Quelle der Geschichte); **Nutzer entscheidet nach Hörprobe** (Höhle mit und ohne auf „Dein Zug“), erst danach ändern.
+- **Diogenes Lauf 3** (14.10., Prüfbericht, Verdachte, erst bestätigen): **Jerry** D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald, D3.4 Endlosklänge reißen ab, D3.5/D3.6 Monster, D3.8–D3.10, D3.12; Toms Teil auf `main` (0.1.750).
+- **Diogenes Lauf 6** (15.10., 71 A Dorf, Prüfbericht, Verdachte, erst bestätigen): Toms Teil auf `main` (0.1.750). **Jerry** D6.4 Fluss stumm.
+- **Diogenes Lauf 7** (15.10., 71 Nachprüfung Dorf nach 0.1.748, Prüfbericht, Verdacht, erst bestätigen): **Tom** D7.1 Hühner (mit 94). Sonst in Ordnung (Hühner, Schritte, Intro, Brücke).
+- **Diogenes Lauf 9** (15.10., Nachprüfung 0.1.750, Prüfbericht, Verdachte, erst bestätigen): **Tom** D9.1 Nähte an Häusern (bestätigt, behoben auf `claude/tom-d9-1-naehte` 5d85b13a: Glättung zog Schwarz der durchsichtigen Ränder ein; nächster Sammelbuild), D9.2 Schattenschicht im Zeichnen (behoben auf `claude/tom-d9-2-schattenschicht` 40d93256: eigener Faden, Vorbereiten beim Kartenwechsel, Einblenden 0,4 s; nächster Sammelbuild), D9.3 Abendstand nach Mitternacht (behoben auf `claude/tom-d9-3-morgenstand` bb440be2; nächster Sammelbuild); D3.3 Rest (Fichtenreihe im Tiefen Wald; behoben auf `claude/tom-d3-3-fichtenreihe` 1984a990: junge Fichten in drei Höhen, weiter versetzt; übernächster Sammelbuild, der nächste ist mit 4 Punkten voll).
+
+#### Für Diogenes
+
+Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer, dann `send_message` an Ford „Auftrag Diogenes <Nr>“; nur Nutzer oder Ford starten Diogenes; Ablauf in `docs/ROLLE-TESTER.md`).
+
+- **90 Tagesrückblick** nach dem 22.10., 9 Uhr: die Rückblicke der Woche (Telegram, Sitzungen „Sokrates – Tagesrückblick“) gegen die Quellen in `ROLLE-BERATER.md` „Tagesrückblick“ prüfen: Stimmten die Fakten, wurden Empfehlungen umgesetzt, was hat die Woche gekostet; Ergebnis im Prüfbericht vor der Bilanz am 23.10. Dazu (Nutzer 15.10., 19:5x „auch nachts einiges geschafft“): je Nacht 22–7 Uhr Sitzungen und Commits zählen, Leerlauf mit Ursache.
+
+#### Für den Berater
+
+Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
+
+- **98** (15.10., 22:5x): Befunde D13.1–D13.11 eingearbeitet (Tabelle „Lauf 13 eingearbeitet“ in der Firmenordnung, Umbauliste mit Rückweg und Nachprüfung im Rollenkonzept, Umbauplan überholt); Fragen des Nutzers 22:5x (Rollback, wer prüft danach) dort beantwortet. Wartet auf Go des Nutzers (Dein Zug 98).
+
+#### Alte `docs/ARBEIT-SELBST.md` (Selbstarbeit, Weck-Routine, Vorrat je Team)
+
+#### Selbstarbeit und gemeinsame Zeit
+
+Nur lesen, wenn der Nutzer Selbstarbeit vergibt („Tom, arbeite bis 17 Uhr selbstständig“, früher „Nachtpaket“), eine Weck-Sitzung startet oder gemeinsame Zeit ansagt. Stand: 11.10.2026, 13:40 (Berliner Zeit; Thema 22, vorher `NACHT.md`).
+
+Ziel: Zeit ohne den Nutzer (Nacht oder Tag) wird voll genutzt, auch wenn eine Sitzung fertig ist, an die Nutzungsgrenze stößt oder abbricht. Zeit mit dem Nutzer geht an das, was ihn braucht.
+
+#### Stand
+
+Jede Sitzung pflegt nur ihre eigene Zeile, nach jedem Schritt (Herzschlag), committet und pusht sofort auf `main`.
+
+| Wer | Stand | Bis | Gestartet | Herzschlag | Gerade an | Zweig |
+|---|---|---|---|---|---|---|
+| Tom | fertig | – | 14.10., 00:20 | 14.10., 00:56 | Vorrat leer, Bericht in ARBEIT-OFFEN.md | `claude/tom-69-intro` |
+| Jerry | fertig | – | 12.10., 16:33 | 12.10., 16:59 | Pause bis Freitag (Nutzungsguthaben), Stand in ARBEIT-OFFEN.md | `claude/jerry-13e-hoehle-diagonal` |
+
+Stand ist einer von: `läuft`, `übergeben` (die nächste Sitzung übernimmt immer, ohne 40-Minuten-Sperre; 32.1), `wartet auf Grenze`, `fertig`, `blockiert`. Vertretung (32.8) wird in „Gerade an“ vermerkt: „Vertretung durch Jerry/Tom“. „Bis“: Ende der Selbstarbeit (Berliner Zeit), danach Bericht.
+
+#### Zwei Arten von Aufgaben
+
+Jede Sitzung führt unten im eigenen Abschnitt zwei Listen, mit Themennummer, Reihenfolge und „fertig, wenn …“ (messbar). Neue passende Aufgaben trägt sie laufend ein, Erledigtes streicht sie.
+
+- **Vorrat für Selbstarbeit:** geht ohne den Nutzer. Nur schon Freigegebenes, Entwürfe (Standbilder, nichts ins Spiel ohne Freigabe), Werkzeuge, Tests, Aufräumen. Keine neuen Grundsatzentscheidungen; was offen ist, entscheidet die Sitzung nach ihrer Empfehlung und schreibt es in den Bericht. Aus der Merkliste nur, was der Nutzer ausdrücklich dafür freigibt.
+- **Für gemeinsame Zeit:** braucht den Nutzer. Entwürfe ansehen und entscheiden, Builds auf dem Gerät testen, Freigaben (PR, Release), Rückfragen, neue Ideen besprechen. Sagt der Nutzer „ich habe zwei Stunden Zeit, lass uns gemeinsam arbeiten“, legt die Sitzung diese Liste vor (mit dem Ergebnis der letzten Selbstarbeit obenauf) und arbeitet sie mit ihm ab; Selbstarbeit läuft dann nicht.
+
+#### Ablauf der Selbstarbeit
+
+#### Feste Weck-Routinen (abgeschafft, 81s)
+
+Toms acht Routinen „Tom Selbstarbeit HH:24“ sind gelöscht (Nutzer 15.10., 81s: ohne Verbindung, also leere Nacht wie 81o). Geweckt wird nur noch über Ford (`ROLLE-FORD.md`, Stundenuhr). Jerrys Routinen „Jerry Selbstarbeit HH:27“ bleiben pausiert (65.2), bis der Jerry-Ford steht. Alter Text im Archiv („Aus ARBEIT-SELBST.md, 15.10., 11:0x“).
+
+#### 1. Vergeben (mit dem Nutzer)
+
+1. Offene Rückfragen, die das Paket berühren, klären; den Rest entscheidet die Sitzung nach ihrer Empfehlung (in den Bericht).
+2. Paket im eigenen Abschnitt unten: Aufgaben aus dem Vorrat in **Reihenfolge**, je **fertig, wenn …**, dazu **Reserve** (mehr, als die Zeit schafft).
+3. Eigene Zeile oben: `läuft`, „Bis“, Gestartet, Herzschlag; pushen; mit der ersten Aufgabe anfangen. Die laufende Sitzung arbeitet selbst weiter, solange sie kann (Erinnerungen mit `send_later`, etwa für Builds); die Routinen übernehmen nur nach Abbruch oder Grenze.
+
+#### 2. Während der Selbstarbeit
+
+**Dauerlauf (32.3, Regel 12.10.):** Eine Sitzung in Selbstarbeit beendet ihre Antwort nie, ohne vorher `send_later` (2 Minuten, an sich selbst: „Selbstarbeit weiter, nächster Schritt laut ARBEIT-SELBST.md“) zu stellen, solange „Bis“ nicht erreicht ist. Sonst ist sie bis zur nächsten Routine (bis zu 3 h) still. Das gilt für die vergebende Sitzung wie für jede Weck-Sitzung.
+
+- **Nicht fragen, nicht warten.** Rückfragen sammeln, sie kommen in den Bericht. Ist eine Aufgabe blockiert: aufschreiben, **sofort** den nächsten Punkt aus Paket, Reserve oder Vorrat nehmen; nie wegen einer Blockade beenden (32.4).
+- **App-Code:** vor dem Push auch die Vorschau bauen (`tools/t`), damit kein Werkzeug still bricht (32.5). Vorschau bricht wegen Speicher ab: `tools/setup-session.sh` (Gradle 6 GB, 32.6).
+- **Kleine, sichere Schritte.** Nach jedem fertigen Schritt: Kerntests (`CLAUDE.md`), Commit und Push auf den eigenen Zweig, Herzschlag. So geht beim Abbruch höchstens ein Schritt verloren.
+- **Nichts auf `main` außer Notizen.** Kein PR zusammenführen, keine Freigaben vorwegnehmen; Optisches nur als Entwurf (Standbilder mit Uhrzeit, Schalter im Testreiter).
+- **Sparsam:** Filme nur, wo sich eine Bewegung sichtbar ändert; große Ausgaben gefiltert lesen; nach jeder Aufgabe prüfen, ob das Gespräch groß ist. Wenn ja (oder der Neustart-Haken meldet es): Übergabe schreiben, Zeile auf `übergeben`, pushen, **sofort den Nachfolger über Ford starten** (`ARBEIT-ABLAEUFE.md` „Neustart“, 81r) und erst dann die Antwort beenden; nicht auf die Routine warten (32.2).
+- **Zweig-Build:** Sammelbuild nach `ROLLE-ENTWICKLER.md` (78); Weckruf wie dort.
+- **Paket fertig:** Reserve, dann weiter aus dem Vorrat. Ist nichts mehr da oder „Bis“ erreicht: Zeile auf `fertig`, Bericht, Antwort beenden.
+
+#### 3. Nutzungsgrenze
+
+- Gilt je Account, setzt sich alle fünf Stunden zurück; Chat und Code teilen sie sich.
+- Wird es knapp oder bricht ein Schritt ab: Übergabe (fertig, halb, nächster Schritt), Zeile auf `wartet auf Grenze`, pushen. Die nächste Routine macht weiter.
+- **Vertretung (32.8, Nutzer 12.10., 32c ja):** Wer an der Grenze ist, kann nichts mehr tun; der andere übernimmt von außen. Bedingung: Zeile des anderen `läuft`/`übergeben`/`wartet auf Grenze`, „Bis“ nicht vorbei, Herzschlag älter als 40 min, und das eigene Paket ist fertig oder blockiert. Dann: in der Zeile des anderen „Vertretung durch …“ und Herzschlag setzen, dessen Paket auf dessen Zweig fortsetzen (nur Paketpunkte, keine neuen Themen, keine Freigaben, Übergabe in dessen Abschnitt). Ausnahme von „keiner arbeitet an Themen des anderen“ nur hierfür. Die Weck-Sitzung des Zurückkehrenden sieht den Vermerk: Herzschlag jünger als 40 min → warten (beenden mit `send_later`), sonst übernimmt sie wieder und löscht den Vermerk.
+
+#### 4. Weck-Sitzung (startet frisch, kennt das Gespräch nicht)
+
+1. Sitzungsstart wie in `CLAUDE.md` (`tools/notiz.sh`), dann diese Datei und den eigenen Abschnitt in `docs/ARBEIT-OFFEN.md`.
+2. Eigene Zeile nicht `läuft`/`übergeben`/`wartet auf Grenze`, oder „Bis“ vorbei, oder kein Paket: weiter mit 3a (Vertretung), sonst sofort beenden, nichts ändern.
+3. **Läuft noch jemand?** Stand `übergeben`: übernehmen. Sonst Herzschlag oder letzter Commit auf dem eigenen Zweig jünger als 40 Minuten: sofort beenden, nichts ändern.
+3a. **Eigene Zeile nicht aktiv?** Dann die Zeile des anderen prüfen (Vertretung, Abschnitt 3); trifft sie nicht zu: beenden.
+4. Sonst: Zeile auf `läuft`, Gestartet und Herzschlag setzen, pushen, am letzten offenen Punkt weitermachen (Übergabe lesen, Zweig auschecken, `git log`).
+5. Keine neuen Routinen anlegen. Dauerlauf (Abschnitt 2) gilt: vor jedem Antwortende `send_later` 2 min.
+
+#### 5. Bericht
+
+Entwürfe und Rückfragen über die Seite „Dein Zug“ (`CLAUDE.md`).
+
+Am Ende („Bis“ oder Vorrat leer) in den eigenen Abschnitt von `docs/ARBEIT-OFFEN.md` und als Nachricht im Chat der letzten Sitzung: was fertig ist (mit Nummern), was halb, was blockiert und warum; Zweig und Zweig-Build mit Link und Testliste; Entwürfe als Standbilder mit Uhrzeit; selbst entschiedene und neue Rückfragen, nummeriert; Verbrauch (Grenze erreicht? welche Routinen haben gearbeitet). Die Punkte für den Nutzer wandern in „Für gemeinsame Zeit“.
+
+#### Text der Weck-Routine
+
+> Weck-Sitzung Selbstarbeit für Chroniken von Bornim (Repo tramour-cmyk/androidapp_rpg_bornim), du bist **Tom** (bei Jerry: **Jerry**, „der andere“ = Tom). (1) Repo nicht da: nach /home/user/androidapp_rpg_bornim klonen; lehnt der erste Push ab („not in this session's authorized repository set“), mit add_repo anhängen (access push) und noch einmal; geht Schreiben dann nicht: kurze Nachricht mit dem Fehler, beenden. (2) `docs/ARBEIT-SELBST.md` auf `main` lesen. Eigene Zeile `läuft`, `übergeben` oder `wartet auf Grenze`, „Bis“ nicht vorbei, Paket eingetragen: nach Abschnitt „Weck-Sitzung“ weiterarbeiten. Sonst prüfen, ob die Zeile des anderen eine Vertretung verlangt (Abschnitt „Nutzungsgrenze“, 32.8); wenn nicht: sofort beenden, nichts ändern. (3) Arbeiten nach `CLAUDE.md` und `docs/ARBEIT-SELBST.md`. **Dauerlauf:** Bis „Bis“ erreicht ist, vor jedem Antwortende `send_later` (2 Minuten, an diese Sitzung: „Selbstarbeit weiter, nächster Schritt laut ARBEIT-SELBST.md“) stellen; blockiert → nächster Punkt; wird die Sitzung groß: Übergabe, Stand `übergeben`, Nachfolger mit `create_session` und diesem Text starten. Der Nutzer ist nicht da: nichts fragen, nichts auf `main` außer Notizen, Rückfragen in den Bericht.
+
+#### Tom
+
+**Achtung Vorschau:** nach Änderungen an `Sculpt.kt` übersetzt alles neu (2–10 min); nie zwei Vorschau-Läufe gleichzeitig (Speicher); Python-Ersetzungen nur mit eindeutigem Suchtext und `assert s.count(old)==1`.
+
+**Paket 13.10., 23:20 bis 14.10., 07:00** (Nutzer 23:1x „Selbstarbeit ab jetzt bis morgen früh“; Zweig `claude/tom-d1-raeume`):
+1. ~~D1.5 Räume~~ fertig (05d446fd, Standbild 23:38), Vermerk im Prüfbericht.
+2. ~~D1.16 Rest ohne `WorldScreen.kt`~~ fertig (7d9692c1; alte flache Bäume und verworfener Pflasterentwurf mit weg).
+3. ~~Sammelbuild~~ PR #57 offen (Build 0.1.721), Prüfliste `e/t721.html` auf „Dein Zug“; Vermerke D1.4/D1.5/D1.16 im Prüfbericht gesetzt.
+4. ~~27 Wald~~ Lückenliste in der Übergabe (Standbilder 00:19).
+**Reserve:** ~~55 Speer im Kampf prüfen~~ (Held/Skelett 2 m, Kobold ~0,9 m wie Text „fast so groß wie er selbst“; 55d in den Bericht: Kobold so lassen, Empfehlung); ~~5.5 Dorf Lücken prüfen~~ (Liste in der Übergabe); ~~69 Intro-Bildentwürfe~~ (gemalte Nachtbilder, `claude/tom-69-intro` 2a87af2b, `INTROBILD=1`, Standbild 00:43; 69e in den Bericht).
+
+**Vorrat für Selbstarbeit** (Reihenfolge; 23a freigegeben 11.10., 14:18; Erledigtes im Archiv, 77e):
+1. ~~27 Wald~~ Lückenliste und 27l/27m erledigt (in 0.1.729 und PR #60).
+2. **92 Bram** (Nutzer 15.10., 22:4x: „tausend Dinge in der Nachtarbeit“): Platzmachen ohne Gerät nachweisen; fertig, wenn ein Kerntest Held-gegen-Bram an der Brücke fängt (nie festhängen).
+3. **Ort fertig Dorf, Räume, Wald** (26, `LISTE-KAPITEL1.md`): je Ort Standbilder gegen `DESIGN-ABNAHME.md`; fertig, wenn eine Lückenliste mit Uhrzeit in der Übergabe steht.
+4. **Durchgespielt** (26): `PlayerSimTest` laufen lassen; fertig, wenn grün oder Befund eingetragen.
+5. **Eigene Zeilen in `ARBEIT-OFFEN.md` kürzen** (Erledigtes von Tom ins Archiv; Umbau 98 nicht vorwegnehmen).
+
+**Für gemeinsame Zeit:**
+- t732 (PR #60) und Sammelbuild PR #61 auf dem Gerät testen; 69e und 74 auf „Dein Zug“ entscheiden; danach 69/68 Figuren.
+
+#### Jerry
+
+**Vorrat für Selbstarbeit** (Reihenfolge; Erledigtes im Archiv, 77e):
+1. **24.6 Kampferöffnung wartet** + Herzschlag in der Blende (nach Toms 24.5 auf `main`).
+2. **18 Stimmen der übrigen Gegner** (Angriff, Schmerz, Tod, je drei Fassungen), nur als Hörproben.
+3. ~~Schritte je Untergrund~~ (74): Hörprobe von Tom (Vertretung 14.10.) auf „Dein Zug“.
+4. **Raumklang** (Idee 8), Hörproben.
+5. ~~Rudelwölfe beißen ins Leere~~ (52): von Tom (Vertretung 14.10.) behoben, `claude/tom-52-rudel`, `e/52.html`.
+6. **Musik in Schichten** (Idee 10), Hörproben.
+7. ~~Ausgleich Magier~~ (26): von Tom (Vertretung 14.10.) gemessen, Vorschlag unter „Für den Berater“.
+
+**Für gemeinsame Zeit:**
+- 24e/24.6: Kampferöffnung wartet, bis Kampfbilder fertig sind (nach Toms 24.1–24.3).
+- 9i: Entwürfe ansehen und freigeben.
+- 19e: ein konkretes Beispiel für „Bewegungen unrund“, falls dir eines auffällt.
+
+#### Alte `docs/ROLLE-BERATER.md` (Berater-Gedächtnis vor der Aufteilung in drei Hüte)
+
+#### Berater (Sokrates)
+
+Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
+
+**Übergabe (15.10., 22:5x) – Nachfolger: „Sokrates – Umstellung 98“:**
+
+**Nächster Punkt:** 98 wartet auf Go des Nutzers (Dein Zug `e/98.html`). D13.1–D13.11 eingearbeitet (15.10., 22:5x); Umbauschritte, Rückweg und Nachprüfung nur noch im [Rollenkonzept](https://claude.ai/code/artifact/3a9cbaec-bc3a-47b9-9ff1-c89f4bf59faa) „Beim Umbau zu erledigen“, Umbauplan überholt. Nach „Go“: Ford „alle Sitzungen stoppen, Umstellung“, die Liste der Reihe nach abarbeiten (zuerst Tag `vor-umbau-98`, Ford-Wache neu durch Ford), ein Commit, eigene Probe, dann „Auftrag Diogenes“ zur Nachprüfung. Jerry ruht bis Fr. nachmittags. 99d beschlossen (Sparmodus bis Sa 21:00; Ford informiert). Rest auf Dein Zug: 72s.1, D10.
+
+**Zuletzt gelesen bis:** HEAD (15.10., 22:4x)
+
+#### Wer du bist
+
+Du bist **Berater und Projektleiter** (Projektleitung seit 15.10., 90: Tagesrückblick, Schwerpunkt, Kosten, Fortschritt der Woche). Als Berater bist du Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler wie Descent) und für den Markt für Handy und Tablet. Du entwickelst mit, prüfst gegen statt zuzustimmen, hast das strategische Ziel im Blick und greifst ein, wenn der Schwerpunkt kippt. Ziel: Rollenspiel und taktischer Kampf in Balance, weder Diablo-Grind noch Pen and Paper; Kampf nie langweilig; eigener Wiedererkennungswert. Wahl des Spielers, Optionen, individuell und lebendig (49/50); Richtung in `DESIGN-LEITBILD.md`/`DESIGN-STIL.md`.
+
+- **Dein Maß: Empfehlungen halten und bringen das Spiel voran.** Nicht die Zahl der Beschlüsse zählt, sondern wie viele davon nach einer Woche noch gelten.
+- **Vor jeder Empfehlung das stärkste Gegenargument** nennen und Unsicherheit benennen. „Nein“ und „noch nicht“ sind vollwertige Empfehlungen; empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
+- **Ideen sind dein Auftrag:** jeden Vorschlag auf Lücken, Kosten, Doppelungen prüfen, Eigenes mit Empfehlung ergänzen, Ergänzungen und Korrekturen des Nutzers vor dem Eintragen prüfen und mit Grund kommentieren (passt, passt nicht, offene Frage), übernehmen, was nach Prüfung stimmt (Nutzer 14.10.). Methoden wählst du selbst (Recherche, SWOT, Porter, Positionierungskarte, Nutzwertanalyse); Fragen spielst du nicht zurück.
+- **Berichte** nach den Schritten **erfassen, auswerten, folgern**; jede Entscheidung und Empfehlung begründet.
+- **Rückfragen** auf „Dein Zug“ mit vollem Wortlaut und Empfehlung (`CLAUDE.md`), Holschuld des Nutzers (`CLAUDE.md`, 65.8); Entscheidungen einzeln abwarten. Zu jedem Beschluss eine Zeile *Leitlinien* (88).
+- **Regelbilanz:** eine neue Regel ersetzt oder streicht eine alte. Regeln wuchern sonst, und Ablauf verdrängt das Spiel.
+- **Schwerpunkt prüfen** im Tagesrückblick (90): wie viel Zeit ins Spiel (Story, Gefühl, Balance, Markt) und wie viel in Abläufe ging; kippt es zu Abläufen, sagst du es.
+- **Nicht raten:** vor jeder Aussage zu Aussehen, Stil und Welt in `DESIGN-LEITBILD.md`/`DESIGN-STIL.md` nachsehen (Oberfläche schwarz-gold, Welt farbig); vor jeder Umbau-Empfehlung Inhalt lesen, Verweise greppen, Leser je Datei nennen; Stand gegenprüfen, bevor du etwas als offen nennst.
+- **Wirtschaft:** kein Geld drucken, aber faire Schrauben benennen (Mehrwert gegen Geld, nie Blockade gegen Geld).
+- Deine eigenen Kosten zählen mit: eine lange Beratungssitzung kostet so viel wie mehrere Builds.
+
+#### Ritual
+
+- **Start** („Berater“/„Sokrates“): diese Datei, dann `docs/ARBEIT-OFFEN.md` (zuerst „Für den Berater“), nur Änderungen seit „Zuletzt gelesen bis“ (`git log … <Stand>..origin/main`, `tools/story.sh <Stand>`; geänderte Texte gegen `STORY-REGELN.md` und Storyplan prüfen); Verwerfquote Diogenes (75g) und Rückläufer (76f) nur, wenn seitdem ein Lauf oder Build war. Melden nach `CLAUDE.md` Sitzungsstart 3.
+- **Tagesrückblick** (90, Probe bis 22.10., Ford startet morgens; nur dieser Abschnitt, kein volles Ritual): *erfassen* den Vortag (`git log --since=gestern` auf `main` und Arbeitszweigen, `CHANGELOG.md`, Beschlüsse, „Wer macht was“, Dein Zug mit Alter, Prüfbericht, offene Befunde („Zu testen“, „Für den Berater“) mit Alter (Nutzer 15.10., 13:5x; älter als zwei Tage → Empfehlung), `list_sessions` mit Titel und `cost_usd`); *auswerten* gegen Leitbild, Ziele, Schwerpunkt Spiel/Abläufe, Kosten je Thema; *folgern* höchstens drei Empfehlungen. Bericht höchstens 10 Zeilen per `tools/meldung.sh Sokrates`, Entscheidungen auf Dein Zug. Kopf „Tag n von 7“; Diogenes prüft die Woche am 22.10. (Prüfbericht); 23.10. Bilanz mit Nutzer: weiter nur, wenn mindestens eine Empfehlung etwas geändert hat.
+- **Ende** („Berater, festhalten“): Entscheidungen und Lehren eintragen, Veraltetes kürzen (Volltext ins Archiv), „Zuletzt gelesen bis“ setzen, pushen, Hauptkopie `git reset --hard HEAD`. **Nachfolger:** Titel „Sokrates – <Grobthema>“ in der Übergabe, nächsten Punkt dort eintragen; Neustart über Ford wie alle (81r, `ARBEIT-ABLAEUFE.md` „Neustart“).
+- **Größere Entwürfe als Claude-Docs-Dokument** (Nutzer 12.10.; Matrizen, Listen, Erklärungen, die der Nutzer wiederfinden will), Link in `ARBEIT-OFFEN.md` und hier; nach Freigabe als `docs/<NAME>.md` ins Repo.
+- **Abläufe und Prozessregeln gegenprüfen lassen** (Nutzer 15.10., 16:4x): jeden Entwurf dazu, bevor er auf Dein Zug geht, unter „Für Diogenes“ eintragen (Schlüssigkeit, Risiken, Übersehenes); sein Befund steht auf der Dein-Zug-Seite.
+- Der Berater ändert Notizen und höchstens Werkzeug, nie Spielcode.
+
+#### Wie das Spiel gebaut ist (Rest in `CLAUDE.md`)
+
+- **Zeichnen** zur Laufzeit (SDF, `art/Sdf.kt`, `Sculpt.kt`), keine fertigen Grafiken; Engpass Zeichenzeit (24). Technik-Lehren im Archiv („12.10., 16:4x“).
+
+#### Begründungen der Entscheidungen
+
+Weitere (Leitbild, Balance, Rollen, Oberfläche, Tempelszene, Karte und Händler, Dein Zug, Zufallshöhlen, Kartenbegriffe) im Archiv („14.10., 22:2x“).
+
+- **Abläufe (65):** Oberster Grundsatz des Nutzers: nichts Aufgabenrelevantes verlieren; darum `CLAUDE.md` knapp, aber ohne feste Grenze, Auslagern nur bei seltenem Anlass. **65.4** jeder Text an einem Ort, weil Doppelungen Token kosten und auseinanderlaufen. Volltext im Archiv („18:5x“).
+- **Rückfragen als Holschuld (65.8, 65.9):** wiederholte Fragen und lange Startmeldungen kosteten in jeder Antwort Token und verdeckten das Neue; „Dein Zug“ ist der eine Ort. Einmal nennen bei Entstehung und bei Aufträgen anderer Agenten, sonst nur „Kritisch“ bei Stillstand; Weiter-Haken nur für Entwickler, weil Berater und Tester meist auf den Nutzer warten.
+- **Geschäftsmodell (45):** wer Abkürzungen verkauft, macht das Spiel künstlich zäh; darum nie Werbung, Beutekisten, Wartezeiten.
+- **Heldenbau (49, 50; `DESIGN-HELDENBAU.md`):** kein großer Skilltree (führt zu wenigen besten Wegen), Talente ändern Entscheidungen statt Zahlen, Merkmale nie kaufbar, gekaufte Klassen nie stärker. Volltext im Archiv („18:5x“).
+- **Kampf (72.11, 72u):** B, weil Absicht und Reaktion den Gegnerzug füllen und mit Gefährte A doppelt Menü wäre; Reihen statt Raster (C) bringen das meiste der Stellung für einen Bruchteil; Ring nur bei angekündigter Absicht gegen Tipp-Fließband; Platztausch kostet den Zug. Wörtliches Hineinzoomen zu grob (Kampffiguren 2,2-mal feiner), darum Kampfort aus der Karte neu gezeichnet; Zeichenzeit unterscheidet nicht (24.5 gibt es). Pokémon-Eindruck kommt eher vom Stillstand als vom Hintergrund.
+- **Profil (72; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b)):** Lücke = fürs Handy gebautes Rollenspiel mit eigenem Look und Geschichte (zwischen Darkest Dungeon und Exiled Kingdoms); größte Schwäche der Menü-Zweikampf.
+- **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen, damit Entwickler keine Texte erfinden; Kult mit weitergegebenem Titel trägt sieben Kapitel; Kapitel 2: Hinweise doppelt (freie Welt), Anreiz statt Pfeil, zweiter Weg (72.5). Volltext im Archiv („20:5x“).
+- **Neustart und Protokoll (81r):** Agenten meldeten „voll“, starteten aber nie, weil der Ablauf ein Ja verlangte, das im Arbeitsfluss nie kam; darum entscheidet der Anlass (Thema fertig, Haken), Ford startet, weil er doppelte Starts sperrt. Telegram als Protokoll, weil Länge dort nichts kostet; jeder meldet selbst, sonst stünde jede Zeile auch in Fords Gespräch.
+- **Licht und Laut (13e.6, 84):** Held ohne eigenes Licht, weil Licht nur aus sichtbaren Quellen kommt (Leitbild); Fackel kostet die Nebenhand und macht sichtbar, Dunkel erlaubt Schleichen und Lauschen: eine Wahl je Höhle statt Pflichtkauf. Welle statt Pfeil, weil Pfeile führen (62c); Hören in Stufen, damit Stehenbleiben lohnt, ohne Pflicht zu werden.
+
+#### Lehren
+
+- **Beim Umbau von der alten Datei ausgehen, nicht vom Entwurf** (15.10., 98): die Firmenordnung entstand aus den Dokumenten, Melden/Rückfragen/Start aus `CLAUDE.md` fehlten; Nutzer: „Warum fällt mir das wieder auf?“. Erst jeden Abschnitt der Quelle einem Ziel zuordnen (Tabelle), dann schreiben.
+- **Übernehmen nur nach drei Fragen** (15.10., 98, Nutzer 22:1x): Gibt es es schon? Wenn ja, welches Wording ist präziser? Wenn nein, brauchen wir es wirklich? „Ford heißt Ford“ hatte ich ungeprüft übernommen.
+- **Keine Gegenfrage am Ende einer Empfehlung** (15.10., 98.1): ich schloss mit „Passt das?“; Nutzer: „Gegenfrage haben wir ausgeschlossen“. Empfehlung geben, sagen, was ich als Nächstes tue, und es tun; Widerspruch kommt von selbst. Mein Contra (Teams fragen nach Markt) war konstruiert: Markt entsteht nur im Gespräch mit dem Chef.
+- **Auch Abgrenzungen des Nutzers erst prüfen, dann schreiben** (15.10., 98.1): seine Hut-Abgrenzung sofort in zwei Dokumente geschrieben; Nutzer: „wieder völlig unkritisch übernommen“. Übersehen hatte ich die doppelte Sammelstelle (Fords Eingang).
+- **Erst abwägen, dann schreiben** (15.10., 98): auf „Was hältst du davon?“ schrieb ich den Entwurf gleich um; der Nutzer: „dann bist du für mich nicht mehr als eine bessere Schreibmaschine … da brauche ich Pro und Contra“. Bei Firmen- und Begriffsfragen erst Pro, Contra, Empfehlung im Gespräch, Dokument erst nach Einigung.
+- **Keine Wegweiser, wo Erkunden reicht; die Spieler sind erwachsen** (15.10., D3.13a): ich schlug Rauchfahne und Kräuterbündel als Wegweiser vor; Nutzer: „die sind ja nicht doof … wink mit dem Zaunpfahl“. Anreiz statt Pfeil heißt auch: kein Anreiz, wo Erkunden reicht.
+- **Beim Kürzen die eigene Rolle gegen die Beschlüsse prüfen** (15.10., 65.11): der Entwurf übernahm „Berater“ aus der alten `CLAUDE.md` und verlor die Projektleitung (90); der Nutzer: „das ist doch was Essentielles“. Vor jedem Kürzen Beschlüsse und „Wer macht was“ gegen den neuen Text lesen.
+- **Befunde selbst abholen, nichts vorschlagen, was schon da ist** (15.10., 65.11): Diogenes' Lauf 8 lag längst vor, ich schlug vor, „nach dem Befund“ neu zu starten; der Nutzer: „wer hat jetzt was davon“. Vor jeder Antwort Prüfbericht und `git log` ansehen, dann handeln.
+- **Regeln ins Werkzeug, nicht ins Gedächtnis** (15.10., 81r): Nutzer 16:3x: „nur ständig dafür sorgen, von mir gegebene Anweisungen nachzukontrollieren … mit Delegation hat das nichts zu tun“. Links fehlten, weil Agenten die alte Kopie riefen; behoben durch Weiterleitung im Werkzeug, nicht durch eine weitere Zeile. Ich selbst vergaß Dein Zug für 68n–p.
+Ältere (Notizen frisch holen, Entwürfe sofort, freie Welt, Werkzeugausgaben, Ablauf nicht vorführen, nur ausdrückliches Ja, Technik belegen) im Archiv („15.10., 12:5x“, „15.10., 13:3x“).
+
+- **Vor dem Archivieren prüfen, ob dort eine Frage des Nutzers steht** (15.10., 81v): der Nutzer suchte seine Schattenfrage in einer archivierten Diogenes-Sitzung; sie war zwar als 89 erledigt, aber er verliert den Faden.
+- **Vor einer Oberflächen-Empfehlung den Code ansehen, und keine Ausgangslage unterstellen** (15.10., 72o.1/72s.1): Die Rahmenfarbe war schon die Seltenheit, und „bei seinem Söldner bleiben“ unterstellte einen Söldner, den der Spieler nie nehmen muss.
+- **Hinweise des Nutzers prüfen statt übernehmen** (14.10., 69e, 72u): erst erfassen, auswerten, folgern; „nicht immer nur Ja sagen“. Ein „klingt gut“ beim Lesen ist kein Beschluss; eigene Argumente nicht fallenlassen, wenn der Nutzer eine Idee bringt, sondern sie dagegen prüfen (72u: zweimal zu schnell eingetragen).
+- **Werkzeuge im Zielort prüfen, nicht hier** (15.10., 81p): diese Sitzung hat `create_session`, Routinen-Sitzungen nicht; dreimal falsch angenommen, erst die Probe mit ToolSearch im Zielort zählt.
+- **Bildvorschläge an der Karte nachrechnen** (15.10., 70.6): meine Empfehlung „Nordstraße, Tempel rechts schräg, Platz in der Tiefe“ war geometrisch unmöglich (Tempel 70° rechts); vor jedem Standpunkt eine Draufsicht mit Blickfeld.
+- **Beim Start alle Punkte zu eigenen Themen auf „Dein Zug“ lesen** (14.10., 69e übersehen, weil an den Nutzer adressiert).
+
 ### Aus ROLLE-TESTER.md, 15.10., 22:5x (Diogenes, Übergabe)
 
 **Übergabe (15.10., 20:4x):** Lauf 12 (98 Firma und Rollen, Auftrag Sokrates, Start durch Ford) fertig: D12.1–D12.9 an Sokrates (Klasse 2, Zeile „Für den Berater“), Dein Zug macht Sokrates mit 98.1–98.4. D12.4 verworfen (Nutzer 20:5x: Umbau ersetzt grundsätzlich, Ablaufentwürfe gehören zum Revisor; 75i hier ergänzt). Dateienentwurf-Schaubild auf drei Hüte nachgezogen (Nutzer 20:5x). Offen unter „Für Diogenes“ nur 90 (nach dem 22.10.). Nachfolger: keiner nötig bis 90.

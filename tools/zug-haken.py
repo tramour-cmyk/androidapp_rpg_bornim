@@ -61,7 +61,7 @@ def main():
             "decision": "block",
             "reason": "Dein-Zug-Haken (63): Deine Antwort enthält eine Frage oder Empfehlung an den Nutzer (Nummern: "
                       + liste + "). Steht jede davon auf „Dein Zug“ (e/<nr>.html und Zeile in der Liste) und hat eine "
-                      "Nummer in ARBEIT-OFFEN.md? Gilt auch für Testbitten („Anzusehen“). Fehlt etwas: jetzt eintragen, ohne es im Chat zu erwähnen. Ohne "
+                      "Zeile mit Nummer im Vorrat (ARBEIT-…)? Gilt auch für Testbitten („Anzusehen“). Fehlt etwas: jetzt eintragen, ohne es im Chat zu erwähnen. Ohne "
                       "Nummer: erst Nummer vergeben. Steht schon alles dort oder ist es keine Frage an den Nutzer: "
                       "einfach erneut beenden.",
         }))

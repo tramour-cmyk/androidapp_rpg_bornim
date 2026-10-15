@@ -65,7 +65,7 @@ def erste_nachricht(pfad):
 
 
 def ist_ford():
-    """D5.3: Fords Sitzung erkennt der Haken auch an der Kennung in ROLLE-FORD.md (Ford 15.10., 12:02: der Name
+    """D5.3: Fords Sitzung erkennt der Haken auch an der Kennung in ARBEIT-BETRIEB.md (98; Ford 15.10., 12:02: der Name
     in der ersten Nachricht reichte nicht). Liest die frische Notizkopie, sonst die eigene."""
     kennung = os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID", "").split("_", 1)[-1]
     if not kennung:
@@ -73,7 +73,7 @@ def ist_ford():
     for wurzel in (os.path.join(os.path.dirname(os.environ.get("CLAUDE_PROJECT_DIR", ".")), "bornim-main"),
                    os.environ.get("CLAUDE_PROJECT_DIR", ".")):
         try:
-            with open(os.path.join(wurzel, "docs", "ROLLE-FORD.md"), encoding="utf-8") as f:
+            with open(os.path.join(wurzel, "docs", "ARBEIT-BETRIEB.md"), encoding="utf-8") as f:
                 for zeile in f:
                     if "Ford lebt in einer Sitzung" in zeile:
                         return ("session_" + kennung) in zeile.split("Vorgänger")[0]
@@ -99,9 +99,9 @@ def main():
         print(json.dumps({
             "decision": "block",
             "reason": "Weiter-Haken (Thema 54): " + grund + "Bevor du den Zug beendest: Ein Build, ein Test oder eine "
-                      "Rückfrage ist kein Grund aufzuhören. Steht in deiner Übergabe oder in „Wer macht was“ ein Punkt, "
+                      "Rückfrage ist kein Grund aufzuhören. Steht in deiner Übergabe oder in deinem Vorrat ein Punkt, "
                       "der keine Entscheidung des Nutzers braucht (auch: Standbilder eines Entwurfs, Weckruf melden, "
-                      "Notizen nachziehen, Vorrat aus ARBEIT-SELBST.md)? Dann jetzt damit anfangen, ohne Ankündigung. "
+                      "Notizen nachziehen, nächste Zeile im Vorrat)? Dann jetzt damit anfangen, ohne Ankündigung. "
                       "Nur wenn wirklich nichts mehr da ist: in der Nachricht „Vorrat leer“ schreiben und beenden.",
         }))
     except Exception:
