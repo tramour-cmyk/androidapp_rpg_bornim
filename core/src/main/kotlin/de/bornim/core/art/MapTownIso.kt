@@ -1318,13 +1318,25 @@ object MapTownIso {
             val lit = PixelImage(92, hh)
             var any = false
             for (y in 0 until img.height) for (x in max(0, mid - 46) until min(img.width, mid + 46)) {
-                if (floor((x + 0.5 - pic.ox) / (TW / 2)).toInt() != k) continue
+                // each strip reaches two pixels into its neighbours (D9.1): scaled by an odd zoom its edges are
+                // smoothed and rounded, and the ground below showed through as a thin upright seam
+                val u = x + 0.5 - pic.ox - k * TW / 2
+                if (u < -2 || u >= TW / 2 + 2) continue
                 val col = img[x, y]
                 if (col ushr 24 == 0) continue
                 strip.set(x - (mid - 46), y + (hh - Math.round(bottom).toInt()), col); any = true
                 glow?.get(x, y)?.takeIf { it ushr 24 != 0 }?.let { lit.set(x - (mid - 46), y + (hh - Math.round(bottom).toInt()), it) }
             }
             if (!any) continue
+            // the clear pixels around what is drawn take the colour beside them (D9.1): smoothed without it, the edge
+            // took in their black and showed as a dark seam over the neighbour strip
+            val edge = strip.pixels.copyOf()
+            for (y in 0 until hh) for (x in 0 until 92) {
+                if (strip.opaque(x, y)) continue
+                val nb = listOf(strip[x - 1, y], strip[x + 1, y], strip[x, y - 1], strip[x, y + 1]).firstOrNull { it ushr 24 != 0 } ?: continue
+                edge[y * 92 + x] = nb and 0xFFFFFF
+            }
+            edge.copyInto(strip.pixels)
             // drop the empty rows on top, so the strip's box (see-through test) holds only what is drawn
             var top = 0
             while (top < hh - 2 && (0 until 92).none { strip.opaque(it, top) }) top++
