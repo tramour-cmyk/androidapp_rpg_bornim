@@ -2,9 +2,9 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (15.10., 23:1x) – Nachfolger: „Sokrates – Umstellung 98“:**
+**Übergabe (15.10., 22:5x) – Nachfolger: „Sokrates – Umstellung 98“:**
 
-**Nächster Punkt:** 98 wartet auf Go des Nutzers (Dein Zug `e/98.html`). D13.1–D13.11 eingearbeitet (15.10., 23:1x); Umbauschritte, Rückweg und Nachprüfung nur noch im [Rollenkonzept](https://claude.ai/code/artifact/3a9cbaec-bc3a-47b9-9ff1-c89f4bf59faa) „Beim Umbau zu erledigen“, Umbauplan überholt. Nach „Go“: Ford „alle Sitzungen stoppen, Umstellung“, die Liste der Reihe nach abarbeiten (zuerst Tag `vor-umbau-98`, Ford-Wache neu durch Ford), ein Commit, eigene Probe, dann „Auftrag Diogenes“ zur Nachprüfung. Jerry ruht bis Fr. nachmittags. Rest auf Dein Zug: 99d, 72s.1, D10.
+**Nächster Punkt:** 98 wartet auf Go des Nutzers (Dein Zug `e/98.html`). D13.1–D13.11 eingearbeitet (15.10., 22:5x); Umbauschritte, Rückweg und Nachprüfung nur noch im [Rollenkonzept](https://claude.ai/code/artifact/3a9cbaec-bc3a-47b9-9ff1-c89f4bf59faa) „Beim Umbau zu erledigen“, Umbauplan überholt. Nach „Go“: Ford „alle Sitzungen stoppen, Umstellung“, die Liste der Reihe nach abarbeiten (zuerst Tag `vor-umbau-98`, Ford-Wache neu durch Ford), ein Commit, eigene Probe, dann „Auftrag Diogenes“ zur Nachprüfung. Jerry ruht bis Fr. nachmittags. Rest auf Dein Zug: 99d, 72s.1, D10.
 
 **Zuletzt gelesen bis:** HEAD (15.10., 22:4x)
 

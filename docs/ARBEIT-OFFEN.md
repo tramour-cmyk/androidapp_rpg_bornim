@@ -87,5 +87,5 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer, da
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
-- **98** (15.10., 23:1x): Befunde D13.1–D13.11 eingearbeitet (Tabelle „Lauf 13 eingearbeitet“ in der Firmenordnung, Umbauliste mit Rückweg und Nachprüfung im Rollenkonzept, Umbauplan überholt); Fragen des Nutzers 23:0x (Rollback, wer prüft danach) dort beantwortet. Wartet auf Go des Nutzers (Dein Zug 98).
+- **98** (15.10., 22:5x): Befunde D13.1–D13.11 eingearbeitet (Tabelle „Lauf 13 eingearbeitet“ in der Firmenordnung, Umbauliste mit Rückweg und Nachprüfung im Rollenkonzept, Umbauplan überholt); Fragen des Nutzers 22:5x (Rollback, wer prüft danach) dort beantwortet. Wartet auf Go des Nutzers (Dein Zug 98).
 
