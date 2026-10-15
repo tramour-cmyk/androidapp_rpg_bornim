@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (15.10., 18:0x) – Nachfolger: „Sokrates – Kapitel 2 und Dein Zug“:**
+**Übergabe (15.10., 18:3x) – Nachfolger: „Sokrates – Dein Zug und Rückblick“:**
 
 **Nächster Punkt:** (1) Auf Dein Zug von mir: **65.11** (Entwurf abgeglichen, Diogenes Lauf 10 teilt „übernehmen“, plus D10.8 einarbeiten; bei Ja alle Umzüge laut Tabelle in einem Schritt), **72s.1**, **D10** (Paket D10.2–D10.5), **97a**. D10.1 erledigt 18:3x (Ford-Wache `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhr `trig_01Phk9eXekP5yY9M6L3bgS1c`). (2) Morgen erster Tagesrückblick (90, Tag 1 von 7). (3) `ARBEIT-OFFEN.md` über 15 KB, diese Datei über 10 KB.
 
-**Zuletzt gelesen bis:** HEAD (15.10., 18:0x)
+**Zuletzt gelesen bis:** HEAD (15.10., 18:3x)
 
 ## Wer du bist
 
