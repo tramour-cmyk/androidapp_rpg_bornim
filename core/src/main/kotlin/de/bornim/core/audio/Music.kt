@@ -4,14 +4,17 @@ import de.bornim.core.MapKind
 import kotlin.random.Random
 
 /** Where the player is, as far as the music cares (28). */
-/** [INTRO]: the intro's pictures before its black one (69c): no music, only quiet sounds. */
+/** [INTRO]: the intro's pictures before its black one: the title music, quietly under the sounds (69c, 69f). */
 enum class MusicScene { TITLE, VILLAGE, FOREST, CAVE, BATTLE, BOSS, CHAPTER_END, INTRO }
 
 /** One recorded piece in `assets/music` (without the `.ogg`). [loop]: plays on until the scene changes. */
 data class Track(val name: String, val loop: Boolean = false)
 
-/** What should be heard now: a piece of music (or none), a sound bed under it (cave), and how quickly to fade to it. */
-data class MusicWant(val music: Track?, val bed: String?, val fadeMs: Int)
+/**
+ * What should be heard now: a piece of music (or none), a sound bed under it (cave), and how quickly to fade to it;
+ * [level]: the music's loudness against its usual one (quieter under the intro's pictures, 69f).
+ */
+data class MusicWant(val music: Track?, val bed: String?, val fadeMs: Int, val level: Float = 1f)
 
 /** The recorded music (28, all CC0; sources in `tools/klang/QUELLEN.md`), named after the scene it plays in. */
 object MusicLib {
@@ -45,9 +48,8 @@ object MusicLib {
         MusicScene.CAVE -> cave
         MusicScene.BATTLE -> battle
         MusicScene.BOSS -> boss
-        MusicScene.TITLE -> listOf(title.name)
+        MusicScene.TITLE, MusicScene.INTRO -> listOf(title.name)
         MusicScene.CHAPTER_END -> listOf(chapterEnd.name)
-        MusicScene.INTRO -> emptyList()
     }
 
     fun sceneOf(kind: MapKind): MusicScene = when (kind) {
@@ -61,7 +63,9 @@ object MusicLib {
  * Decides which piece plays (28.1). Pure and driven by the clock, so the rules are tested in the core:
  * - never the same piece twice in a row (per scene), the next one chosen at random;
  * - out in the world a piece plays once, then 10–30 s of silence; in the cave the bed runs on and music comes only now and then;
- * - place to place a soft crossfade (~2 s), into a fight at once, after a won fight the victory piece, then the place again.
+ * - place to place a soft crossfade (~2 s), into a fight at once, after a won fight the victory piece, then the place again;
+ * - the title music carries the intro (69f): quietly under its pictures, fuller with the black one; it goes on if it is
+ *   already playing, else starts quietly from the top; in the game it dies away over [TITLE_OUT_MS] before the place's music.
  * The player asks [update] a few times a second and tells it which piece has run out.
  */
 class MusicDirector(seed: Long = System.nanoTime()) {
@@ -87,8 +91,10 @@ class MusicDirector(seed: Long = System.nanoTime()) {
             quietUntil = timeMs + if (s == MusicScene.CAVE) rnd.nextLong(CAVE_QUIET_MIN_MS, CAVE_QUIET_MAX_MS + 1) else rnd.nextLong(QUIET_MIN_MS, QUIET_MAX_MS + 1)
         }
         if (s != scene) enter(s, timeMs)
-        if (music == null && timeMs >= quietUntil && s != MusicScene.CHAPTER_END && s != MusicScene.INTRO) music = Track(pick(s))
-        return MusicWant(music, bed, fadeMs)
+        if (music == null && timeMs >= quietUntil && s != MusicScene.CHAPTER_END && s != MusicScene.INTRO) {
+            music = Track(pick(s)); fadeMs = PLACE_FADE_MS
+        }
+        return MusicWant(music, bed, fadeMs, if (s == MusicScene.INTRO) INTRO_LEVEL else 1f)
     }
 
     private fun enter(s: MusicScene, timeMs: Long) {
@@ -102,9 +108,14 @@ class MusicDirector(seed: Long = System.nanoTime()) {
         }
         when {
             fight -> { music = Track(pick(s), loop = true); fadeMs = FIGHT_FADE_MS; victoryPending = false }
-            s == MusicScene.TITLE -> { music = MusicLib.title; fadeMs = PLACE_FADE_MS }
+            // the same piece: the player lets it run on and only changes its loudness
+            s == MusicScene.TITLE || s == MusicScene.INTRO -> { music = MusicLib.title; fadeMs = PLACE_FADE_MS }
             s == MusicScene.CHAPTER_END -> { music = MusicLib.chapterEnd; fadeMs = PLACE_FADE_MS }
-            s == MusicScene.INTRO -> { music = null; fadeMs = PLACE_FADE_MS }
+            // from the title or the intro into the game: the title music dies away, then the place's music (69f)
+            from == MusicScene.TITLE || from == MusicScene.INTRO -> {
+                music = null; fadeMs = TITLE_OUT_MS
+                quietUntil = timeMs + if (s == MusicScene.CAVE) rnd.nextLong(CAVE_FIRST_MIN_MS, CAVE_FIRST_MAX_MS + 1) else TITLE_OUT_MS.toLong()
+            }
             victoryPending && (from == MusicScene.BATTLE || from == MusicScene.BOSS) -> {
                 victoryPending = false
                 music = MusicLib.victory; fadeMs = FIGHT_FADE_MS
@@ -133,6 +144,10 @@ class MusicDirector(seed: Long = System.nanoTime()) {
     companion object {
         const val PLACE_FADE_MS = 2000
         const val FIGHT_FADE_MS = 300
+        /** How long the title music takes to die away in the game (69f, „etwa 6 s“). */
+        const val TITLE_OUT_MS = 6000
+        /** The title music under the intro's pictures, against its usual loudness (69f: leaves room for its sounds, 69c). */
+        const val INTRO_LEVEL = 0.4f
         const val QUIET_MIN_MS = 10_000L
         const val QUIET_MAX_MS = 30_000L
         const val CAVE_FIRST_MIN_MS = 20_000L

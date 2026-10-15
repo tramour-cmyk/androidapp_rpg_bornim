@@ -57,7 +57,7 @@ fun BornimApp(vm: GameViewModel) {
     val fight = (vm.game?.mode as? Mode.Fight)?.takeIf { vm.screen == Screen.PLAYING }
     val musicScene = when {
         vm.screen != Screen.PLAYING || vm.game == null -> MusicScene.TITLE
-        // 69c: no music under the intro's pictures, the title music with the black one
+        // 69f: the title music quietly under the intro's pictures, fuller with the black one
         vm.intro -> if (vm.introPicture >= de.bornim.core.Intro.black) MusicScene.TITLE else MusicScene.INTRO
         vm.game?.mode is Mode.ChapterEnd -> MusicScene.CHAPTER_END
         fight == null -> MusicLib.sceneOf(vm.game!!.map.kind)
