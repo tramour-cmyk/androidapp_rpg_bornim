@@ -312,6 +312,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     private fun prepareFigures(g: Game) {
         val map = de.bornim.core.World[g.state.place.map]
         de.bornim.core.art.MapGround.prepare(map, g.state.place.x, g.state.place.y)
+        de.bornim.core.art.MapSun.prepare(map)
         de.bornim.core.art.MapFigure.prepare(g.state.hero, de.bornim.core.art.MapFigure.yawOf(g.state.place.facing))
         bagSeen = null
         de.bornim.core.art.MapFolk.prepareFor(map)
@@ -342,6 +343,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
             g.mapChanged = false
             de.bornim.core.World[g.state.place.map].let { m ->
                 de.bornim.core.art.MapGround.prepare(m, g.state.place.x, g.state.place.y)
+                de.bornim.core.art.MapSun.prepare(m)
                 de.bornim.core.art.MapFolk.prepareFor(m)
             }
             save()

@@ -759,7 +759,11 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
 
         // shadows of trees, rocks and stones on the ground, strong by day, gone at night
         val sun = ((game.daylight - 0.2f) / 0.6f).coerceIn(0f, 1f)
-        if (sun > 0.02f) for (o in MapFlora.shadows(map)) put(o.img, o.x, o.y, o.density, sun)
+        // D9.2: drawn in the background; once there they fade in over 0.4 s rather than appear at once
+        if (sun > 0.02f) MapFlora.shadowsReady(map)?.let { r ->
+            val fade = ((System.nanoTime() - r.at) / 4e8).toFloat().coerceIn(0f, 1f)
+            for (o in r.pieces) put(o.img, o.x, o.y, o.density, sun * fade)
+        }
 
         // draft (idea 7): blood where a foe fell, footprints in the wet ground, dust kicked up running
         if (de.bornim.core.Tracks.draft) drawTracks(game.tracks.on(map.id, clock), clock, camX, camY, scale)
