@@ -4,7 +4,7 @@ Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main`
 
 **Nächste freie Themennummer: 101**
 
-**Ford: Pilot** (Nutzer 14.10., in Toms Sitzung, eingetragen 22:5x; 81g; Stellung aus / Co-Pilot / Pilot, Startlektüre `ROLLE-FORD.md`; wer die Stellung erhöht, löst Ford sofort einmal aus)
+**Ford: Co-Pilot bis Sa 17.10., 21:00** (Wochenwechsel Max; danach stellt Ford selbst wieder auf Pilot; Nutzer 15.10., 22:5x: „dann kriegt Ford die Stellung Co-Pilot … wieder zurückstellen … wenn wir wieder volles Guthaben haben“; vorher Pilot, Nutzer 14.10.; 81g; Stellung aus / Co-Pilot / Pilot, Startlektüre `ROLLE-FORD.md`; wer die Stellung erhöht, löst Ford sofort einmal aus)
 
 **Seite „Dein Zug“ (alle Rollen, 63): https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow** · Beschlüsse: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM · Prüfbericht Diogenes: https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
@@ -87,5 +87,5 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer, da
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
-- **98** (Diogenes Lauf 13, 15.10., 22:5x, [Prüfbericht](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ)): **kein Go in der heutigen Fassung**, Struktur trägt; D13.1–D13.11 (Betrieb am Umstelltag: Ford Pilot startet Hüte, Ford-Wache archiviert, Werkzeuge und `ARBEIT-ABLAEUFE.md` lesen alte Orte, Umbauplan widerspricht, Besetzung ohne Werkzeug, Netz holt Jerry auf Max, Sicht auf Pro). Vier Fragen an den Chef vor dem Umstellen (98.6, Fords Stellung bis Sa 21:00, Besetzung von Hand, 75l). **Nutzer 15.10., 22:5x:** 98.6 „jedes Team einen Vorrat“; **75l** „klar, fest hier auf dem Max-Account“ (Diogenes nur in der Zentrale); Stellung: „warum Co-Pilot?“ (Diogenes erklärt, offen); Besetzung: „wer entwickelt denn das Werkzeug dafür?“ (Diogenes: kein eigenes Skript möglich, `list_sessions` gibt es nur in Sitzungen; Ford schreibt die Besetzung in jedem Lauf, Sokrates Projekt passt Fords Ablauf an).
+- **98** (Diogenes Lauf 13, 15.10., 22:5x, [Prüfbericht](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ)): **kein Go in der heutigen Fassung**, Struktur trägt; D13.1–D13.11 (Betrieb am Umstelltag: Ford Pilot startet Hüte, Ford-Wache archiviert, Werkzeuge und `ARBEIT-ABLAEUFE.md` lesen alte Orte, Umbauplan widerspricht, Besetzung ohne Werkzeug, Netz holt Jerry auf Max, Sicht auf Pro). Vier Fragen an den Chef vor dem Umstellen (98.6, Fords Stellung bis Sa 21:00, Besetzung von Hand, 75l). **Nutzer 15.10., 22:5x:** 98.6 „jedes Team einen Vorrat“; **75l** „klar, fest hier auf dem Max-Account“ (Diogenes nur in der Zentrale); Stellung: **Co-Pilot bis Sa 21:00** (Nutzer 22:5x, oben eingetragen); Besetzung: „wer entwickelt denn das Werkzeug dafür?“ (Diogenes: kein eigenes Skript möglich, `list_sessions` gibt es nur in Sitzungen; Ford schreibt die Besetzung in jedem Lauf, Sokrates Projekt passt Fords Ablauf an).
 
