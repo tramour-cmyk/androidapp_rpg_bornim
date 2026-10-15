@@ -745,7 +745,6 @@ object MapWoodIso {
         val ci = -0.5; val cj = -0.5
         val (h, turn) = menhirSize(v)
         val lean = listOf(0.04, -0.03, 0.06, 0.0)[v % 4]
-        if (!MapSun.on) c.shadow(ci + 0.08, cj + 0.04, 0.4, 0.32, 0.5)
         // a rounded box in cross-section (superellipse), broad along u, thin along w
         val ru0 = 0.32; val rw0 = 0.17
         var z = 0.0
@@ -992,7 +991,6 @@ object MapWoodIso {
         val ci = -0.5; val cj = -0.5
         val (R, H) = haySize(v)
         val bulge = when (v) { 0 -> 2.0; 1 -> 0.9; else -> 2.8 }
-        if (!MapSun.on) c.shadow(ci + 0.08, cj + 0.05, R + 0.08, R * 0.9 + 0.06, 0.5)
         val gold = argb(0xC4A866); val straw = argb(0x9A8048); val deep = argb(0x5E4A26); val grey = argb(0x8A8270)
         // the side: radius by height, slumped a little to one side
         fun rad(u: Double) = R * (1 - u.pow(bulge)).coerceAtLeast(0.0).pow(0.55)
@@ -1066,7 +1064,6 @@ object MapWoodIso {
         fun inTile(g: Double) = g >= k - 0.02 && g <= k + 1.02
         val wood = argb(0x5A4430)
         for (g in listOf(g0, g1)) if (inTile(g)) {
-            if (!MapSun.on) c.shadow(i(g), cj + 0.02, 0.06, 0.05, 0.5)
             for (zz in 0..(top * 3).toInt()) for (a in 0 until 8) {
                 val an = a * PI / 4; val z = zz / 3.0
                 c.pt(i(g) + cos(an) * 0.025, cj + sin(an) * 0.025, z, shade(mix(wood, argb(0x3A2C20), vnoise(z / 6, an, seed)), lit(cos(an), sin(an), 0.0)))

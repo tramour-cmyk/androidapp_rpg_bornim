@@ -157,6 +157,16 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
     }
 
+    /**
+     * 89: the sun's stand for the shadows follows the hour only at a cut (a change of map, a rest, a new or loaded
+     * game), so they never wander while one looks; the stand is not saved, a loaded game takes it from its hour.
+     */
+    fun sunCut() {
+        de.bornim.core.art.MapSun.stand = de.bornim.core.art.MapSun.Stand.at(state.minutes)
+    }
+
+    init { sunCut() }
+
     /** Sleep until morning (beds in the inn). */
     private fun sleep() {
         state.minutes = 7 * 60
@@ -414,6 +424,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         map.warpAt(p.x, p.y)?.let { warp ->
             sounds += de.bornim.core.audio.Sound.DOOR
             state.place = warp.to
+            sunCut()
             if (World.maps[warp.to.map]?.kind == MapKind.INTERIOR) state.flags += MapPeople.been(warp.to.map)
             graceSteps = 3
             mapChanged = true
@@ -890,6 +901,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     state.ailments.clear()
                     state.respawn = state.place
                     Stamina.refill(state)
+                    sunCut()
                 }
                 Cmd.ChapterEnd -> {
                     mode = Mode.ChapterEnd
@@ -949,6 +961,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val total = state.minutes + hours * 60
         state.day += total / (24 * 60)
         state.minutes = total % (24 * 60)
+        sunCut()
         changed()
     }
 
@@ -1070,6 +1083,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     fun cheatWarp(place: Place) {
         if (mode !is Mode.Explore) return
         state.place = place
+        sunCut()
         changed()
     }
 
@@ -1123,6 +1137,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                 state.gold -= lost
                 hero.restoreFully()
                 state.place = state.respawn
+                sunCut()
                 mapChanged = true
                 enqueue(listOf(Cmd.Say(null, T(
                     "Du erwachst an einem sicheren Ort … Du hast {0} Gold verloren.",

@@ -27,7 +27,6 @@ object MapFlora {
 
     private fun rnd(x: Int, y: Int, s: Int) = (hash(x, y, s) % 10000) / 10000.0
 
-    private val SHADOW_RGB = 0x080C06
 
     // ------------------------------------------------------------------ the kinds
 
@@ -160,51 +159,6 @@ object MapFlora {
 
     // ------------------------------------------------------------------ shadows
 
-    /** A soft shadow on the ground: an ellipse fading at its rim. */
-    private fun shadowImage(rx: Int, ry: Int, a: Double): PixelImage = synchronized(cache) {
-        val key = "shadow/$rx/$ry/${(a * 100).toInt()}"
-        cache[key]?.img ?: PixelImage(rx * 2, ry * 2).also { img ->
-            for (y in 0 until ry * 2) for (x in 0 until rx * 2) {
-                val dx = (x + 0.5 - rx) / rx; val dy = (y + 0.5 - ry) / ry
-                val d = dx * dx + dy * dy
-                if (d >= 1) continue
-                val k = a * (1 - d).let { it * (2 - it) }
-                img.pixels[y * img.width + x] = ((k * 255).toInt().coerceIn(0, 255) shl 24) or SHADOW_RGB
-            }
-            cache[key] = Sprite(img, rx, ry)
-        }
-    }
-
-    private val shadowCache = HashMap<String, List<WorldArt.Obj>>()
-
-    /**
-     * The shadows of trees, rocks and stones on the ground under the open sky (woods and village, D6.1), falling the
-     * way the houses' do: down left on the screen, along the map's +y, a little to +x (the sun stands up right, D6.6).
-     * Drawn under everything that stands, faded by the time of day.
-     */
-    fun shadows(map: MapDef): List<WorldArt.Obj> = if (MapSun.on) MapSun.shadows(map) else synchronized(shadowCache) {
-        // no sun in the cave and indoors: the things there have their shadows in the ground
-        if (map.kind != de.bornim.core.MapKind.FOREST && map.kind != de.bornim.core.MapKind.TOWN) return emptyList()
-        shadowCache.getOrPut(map.id) {
-            val out = ArrayList<WorldArt.Obj>()
-            for (ty in 0 until map.height) for (tx in 0 until map.width) {
-                val list = objects(map, tx, ty) ?: continue
-                for (o in list) {
-                    // the bushes bring their own shadow (MapWoodIso.bush)
-                    if (o.corner) continue
-                    val w = o.img.width; val h = o.img.height
-                    val footX = o.x * D + w / 2; val footY = (o.sortY) * D
-                    // radii across and along the fall, and how far the middle lies from the foot (map pixels)
-                    val (rx, ry, oy) = when (map.tile(tx, ty)) {
-                        Tile.TREE -> Triple(w * 0.3, w * 0.4, w * 0.3)
-                        Tile.CAMPFIRE -> continue
-                        else -> Triple(w * 0.3, w * 0.3, 8.0)
-                    }
-                    val img = shadowImage(rx.toInt(), ry.toInt(), if (map.tile(tx, ty) == Tile.TREE) 0.42 else 0.36)
-                    out += WorldArt.Obj(img, Math.floorDiv(footX + (oy * 0.2).toInt() - rx.toInt(), D), Math.floorDiv(footY + oy.toInt() - ry.toInt(), D), 0, D)
-                }
-            }
-            out
-        }
-    }
+    /** The shadows of all that stands under the open sky, by the sun ([MapSun], 89); drawn under it, faded by the time of day. */
+    fun shadows(map: MapDef): List<WorldArt.Obj> = MapSun.shadows(map)
 }

@@ -121,16 +121,6 @@ object MapTownIso {
         }
         fun p(i: Double, j: Double, z: Double) = doubleArrayOf(i, j, z)
 
-        // ---- a soft shadow on the ground, falling down left of the house (the sun stands up right); 89: or by the sun
-        if (!MapSun.on) for (py in 0 until h) for (px in 0 until w) {
-            val aa = (px + 0.5 - ox) / (TW / 2); val bb = (py + 0.5 - oy) / (TH / 2)
-            val i = (aa + bb) / 2; val j = (bb - aa) / 2
-            val di = max(-0.2 - i, i - n - 0.1); val dj = max(-0.2 - j, j - d - 0.5)
-            val e = max(di, dj)
-            if (e > 0.3) continue
-            val k = ((0.3 - e) / 0.3).coerceIn(0.0, 1.0) * 0.5
-            img.set(px, py, ((k * 255).toInt() shl 24) or 0x0A0806)
-        }
 
         // ---- the walls: the front (j = d, down left, in the house's own shade) and the east side (i = n, in the sun)
         val litFront = 0.72; val litSide = 1.0
@@ -589,17 +579,6 @@ object MapTownIso {
             plane(doubleArrayOf(i1, j0, z0), doubleArrayOf(0.0, j1 - j0, 0.0), doubleArrayOf(0.0, 0.0, z1 - z0)) { u, v -> tex(1, u, v) }
             plane(doubleArrayOf(i0, j0, z1), doubleArrayOf(i1 - i0, 0.0, 0.0), doubleArrayOf(0.0, j1 - j0, 0.0)) { u, v -> tex(2, u, v) }
         }
-        /** D6.1: a soft shadow on the ground over the rectangle (i0, j0)–(i1, j1), fading over [soft] at its edges. */
-        fun shadowBand(i0: Double, j0: Double, i1: Double, j1: Double, a: Double = 0.4, soft: Double = 0.04) {
-            for (py in 0 until h) for (px in 0 until w) {
-                val aa = (px + 0.5 - w / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
-                val i = (aa + bb) / 2; val j = (bb - aa) / 2
-                val e = minOf(i - i0, i1 - i, j - j0, j1 - j)
-                if (e <= 0) continue
-                val k = (e / soft).coerceAtMost(1.0)
-                img.set(px, py, ((k * a * 255).toInt() shl 24) or 0x0A0806)
-            }
-        }
         fun shadow(ci: Double, cj: Double, r: Double, a: Double = 0.45) {
             for (py in 0 until h) for (px in 0 until w) {
                 val aa = (px + 0.5 - w / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
@@ -625,7 +604,6 @@ object MapTownIso {
      */
     fun signpost(v: Int, seed: Int): PixelImage {
         val c = Tile1(150)
-        if (!MapSun.on) c.shadow(-0.45, -0.35, 0.42)
         val j0 = -0.42; val j1 = -0.36
         // D3.7: a fourth look for the woods, a short board low on a post off its middle, as if it had sagged
         val (i0, i1) = when (v) { 1 -> -0.86 to -0.14; 3 -> -0.8 to -0.34; else -> -0.82 to -0.18 }
@@ -661,7 +639,6 @@ object MapTownIso {
      */
     fun noticeBoard(v: Int, seed: Int, fresh: Boolean = false): PixelImage {
         val c = Tile1(220)
-        if (!MapSun.on) c.shadow(-0.5, -0.4, 0.45, 0.4)
         val j0 = -0.44; val j1 = -0.38
         val i0 = -0.94; val i1 = -0.06
         val z0 = 52.0; val z1 = 118.0
@@ -750,7 +727,6 @@ object MapTownIso {
      */
     fun well(v: Int, seed: Int): PixelImage {
         val c = Tile1(230)
-        if (!MapSun.on) c.shadow(-0.5, -0.5, 0.5)
         val r = 0.36
         fun post(i: Double, j: Double) = c.box(i - 0.035, j - 0.035, i + 0.035, j + 0.035, 30.0, 150.0) { f, u, w -> wood(f, w, u, seed + 2, 0x4A3828) }
         // the back post stands behind the ring, the front one before it
@@ -789,7 +765,6 @@ object MapTownIso {
      */
     fun stall(v: Int, seed: Int, withCloth: Boolean = true, west: Boolean = false, east: Boolean = false, wareSeed: Int = seed): PixelImage {
         val c = Tile1(220)
-        if (!MapSun.on) c.shadow(-0.5, -0.45, 0.55, 0.4)
         // D6.5: a stall over two tiles is one stall: towards a stall tile beside it the board and the cloth run on to the
         // edge of the tile, and the poles stand only at the stall's two ends
         val i0 = if (west) -1.0 else -0.9; val i1 = if (east) 0.0 else -0.1; val j0 = -0.72; val j1 = -0.28
@@ -845,7 +820,6 @@ object MapTownIso {
         fun dark(col: Int) = if (lit) 0 else col
         // ([ci], [cj]): where the post stands on the tile, the middle unless set (69e: the bridge lantern on the bank's corner)
         val di = ci + 0.5; val dj = cj + 0.5
-        if (!lit && !MapSun.on) c.shadow(ci, cj, 0.2, 0.35)
         val iron = v == 2
         val (li, lj, lz) = lampHead(v, ci, cj)
         c.box(-0.54 + di, -0.54 + dj, -0.46 + di, -0.46 + dj, 0.0, 6.0) { f, _, _ -> dark(shade(argb(0x4A463E), if (f == 0) 0.6 else 0.9)) }
@@ -995,7 +969,6 @@ object MapTownIso {
      */
     fun barrier(pivot: Boolean, open: Boolean, seed: Int): PixelImage {
         val c = Tile1(300)
-        if (!MapSun.on) c.shadow(-0.5, -0.5, 0.36, 0.3)
         val j0 = -0.55; val j1 = -0.45
         fun iron(f: Int) = shade(argb(0x262422), if (f == 0) 0.65 else if (f == 1) 1.0 else 1.1)
         if (pivot) {
@@ -1072,15 +1045,6 @@ object MapTownIso {
                     }
                 }
             }
-        }
-        // D6.1: the fence's shadow on the ground first, falling down left (+j) like the houses' (89: or by the sun)
-        val sh = if (v == 0) 0.3 else 0.4
-        if (!MapSun.on) {
-            c.shadowBand(m - 0.06, m - 0.04, m + 0.1, m + 0.14, sh)
-            if (l) c.shadowBand(-1.0, m - 0.02, m, m + 0.12, sh)
-            if (r) c.shadowBand(m, m - 0.02, 0.0, m + 0.12, sh)
-            if (u) c.shadowBand(m - 0.02, -1.0, m + 0.08, m, sh)
-            if (d) c.shadowBand(m - 0.02, m, m + 0.08, 0.0, sh)
         }
         // what lies behind the post first, then the post, then what lies in front
         if (l) run(-1, 0)

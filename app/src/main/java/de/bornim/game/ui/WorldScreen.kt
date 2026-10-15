@@ -803,6 +803,13 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             val t = ((clock - w.movedAt).toFloat() / w.moveMs).coerceIn(0f, 1f)
             return ((w.fromX + (w.x - w.fromX) * t) * T).roundToInt() to ((w.fromY + (w.y - w.fromY) * t) * T).roundToInt()
         }
+        // 89: by day under the open sky the people throw their shadow by the sun, lying on the ground with the rest
+        val sunUp = ((game.daylight - 0.2f) / 0.6f).coerceIn(0f, 1f)
+        if (sunUp > 0.02f && (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN)) ground {
+            val f = de.bornim.core.art.MapSun.figure()
+            for (npc in visibleNpcs) if (!npc.look.startsWith("monster:")) npcPos(npc).let { (nx, ny) -> put(f.img, nx + T / 2 - f.fx, ny + 14 - f.fy, alpha = sunUp) }
+            put(f.img, heroX + T / 2 - f.fx, heroY + 14 - f.fy, alpha = sunUp)
+        }
         for (npc in visibleNpcs) if (!npc.look.startsWith("monster:")) {
             val (nx, ny) = npcPos(npc)
             put(WorldArt.shadow(), nx + 4, ny + 26)

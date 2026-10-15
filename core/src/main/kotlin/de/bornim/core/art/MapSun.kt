@@ -11,7 +11,7 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 /**
- * Shadows with the time of day (89, draft, only in the preview SONNE=…): on the maps under the open sky everything
+ * Shadows with the time of day (89): on the maps under the open sky everything
  * that stands throws its shadow by one sun, cast from its shape and height: the houses (walls, eaves, ridge), the
  * trees (trunk and crown, dappled), wells, stalls, lamps, signs, the notice board, the barrier, fences, hay and the
  * washing lines. Three fixed stands of the sun, changed only at a cut (a change of map, the fade after a rest): in
@@ -22,9 +22,6 @@ import kotlin.math.sqrt
  * drawn where [MapFlora.shadows] is (under everything that stands, faded by the time of day).
  */
 object MapSun {
-    /** Whether the shadows come from here; else each picture brings its own and the trees' lie under them (D6.1). */
-    @Volatile var on = false
-
     /**
      * Where the sun stands: ([dx], [dy]) the way the shadows fall on the map (x east, y south), [len] how long a
      * shadow is for each tile of height.
@@ -63,6 +60,52 @@ object MapSun {
     fun shadows(map: MapDef, stand: Stand = this.stand): List<WorldArt.Obj> = synchronized(cache) {
         if (map.kind != MapKind.FOREST && map.kind != MapKind.TOWN) return emptyList()
         cache.getOrPut("${map.id}/$stand") { Layer(map, stand).also { it.cast(map) }.pieces() }
+    }
+
+    /**
+     * The shadow a person throws by the sun at [stand], lying on the ground (map pixels, [WorldArt.T] a tile, drawn
+     * under the turned mapping): narrow at the feet, as wide as the shoulders further out, the head at the end.
+     * ([fx], [fy]) is where the feet stand in [img].
+     */
+    class Figure(val img: PixelImage, val fx: Int, val fy: Int)
+
+    private val figures = HashMap<Stand, Figure>()
+
+    /** A person's shadow for [stand]; [Figure.img] faded with the day like the layer. */
+    fun figure(stand: Stand = this.stand): Figure = synchronized(figures) {
+        figures.getOrPut(stand) {
+            val t = WorldArt.T.toDouble()
+            val n = sqrt(stand.dx * stand.dx + stand.dy * stand.dy)
+            val ux = stand.dx / n; val uy = stand.dy / n
+            // a person of 1.70 m on tiles of 1.16 m; shoulders 0.45 m across, feet together about 0.25 m
+            val len = stand.len * 1.47 * t
+            val rFoot = 0.11 * t; val rBody = 0.19 * t; val rHead = 0.1 * t
+            val pad = (rBody + 2).toInt()
+            val ex = ux * len; val ey = uy * len
+            val x0 = floor(min(0.0, ex)).toInt() - pad; val x1 = (max(0.0, ex)).toInt() + pad
+            val y0 = floor(min(0.0, ey)).toInt() - pad; val y1 = (max(0.0, ey)).toInt() + pad
+            val img = PixelImage(x1 - x0 + 1, y1 - y0 + 1)
+            for (py in 0 until img.height) for (px in 0 until img.width) {
+                val x = px + x0 + 0.5; val y = py + y0 + 0.5
+                // along the shadow (0 at the feet, 1 at the top of the head) and across it
+                val a = ((x * ux + y * uy) / len)
+                val c = kotlin.math.abs(-x * uy + y * ux)
+                val k = when {
+                    a < 0 -> rFoot - sqrt(x * x + y * y)
+                    // the legs widen to the hips, the body to the shoulders, then the neck narrows
+                    a <= 0.82 -> (rFoot + (rBody - rFoot) * smooth(a / 0.7)) - c
+                    else -> {
+                        // the head: a round end over the neck
+                        val hx = x - ux * len * 0.9; val hy = y - uy * len * 0.9
+                        max(rHead - sqrt(hx * hx + hy * hy), (rBody * (1 - (a - 0.82) / 0.06).coerceAtLeast(0.0)) - c)
+                    }
+                }
+                if (k <= 0) continue
+                val alpha = ALPHA * smooth(k / 1.5)
+                img.pixels[py * img.width + px] = ((alpha * 255).toInt().coerceIn(0, 255) shl 24) or SHADOW_RGB
+            }
+            Figure(img, -x0, -y0)
+        }
     }
 
     /** The soft layer: how dark each pixel lies in shadow, the darkest caster winning (no shadow on a shadow). */
