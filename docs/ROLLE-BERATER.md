@@ -53,6 +53,7 @@ Weitere (Leitbild, Balance, Rollen, Oberfläche, Tempelszene, Karte und Händler
 ## Lehren
 
 - **Beim Umbau von der alten Datei ausgehen, nicht vom Entwurf** (15.10., 98): die Firmenordnung entstand aus den Dokumenten, Melden/Rückfragen/Start aus `CLAUDE.md` fehlten; Nutzer: „Warum fällt mir das wieder auf?“. Erst jeden Abschnitt der Quelle einem Ziel zuordnen (Tabelle), dann schreiben.
+- **Übernehmen nur nach drei Fragen** (15.10., 98, Nutzer 22:1x): Gibt es es schon? Wenn ja, welches Wording ist präziser? Wenn nein, brauchen wir es wirklich? „Ford heißt Ford“ hatte ich ungeprüft übernommen.
 - **Keine Gegenfrage am Ende einer Empfehlung** (15.10., 98.1): ich schloss mit „Passt das?“; Nutzer: „Gegenfrage haben wir ausgeschlossen“. Empfehlung geben, sagen, was ich als Nächstes tue, und es tun; Widerspruch kommt von selbst. Mein Contra (Teams fragen nach Markt) war konstruiert: Markt entsteht nur im Gespräch mit dem Chef.
 - **Auch Abgrenzungen des Nutzers erst prüfen, dann schreiben** (15.10., 98.1): seine Hut-Abgrenzung sofort in zwei Dokumente geschrieben; Nutzer: „wieder völlig unkritisch übernommen“. Übersehen hatte ich die doppelte Sammelstelle (Fords Eingang).
 - **Erst abwägen, dann schreiben** (15.10., 98): auf „Was hältst du davon?“ schrieb ich den Entwurf gleich um; der Nutzer: „dann bist du für mich nicht mehr als eine bessere Schreibmaschine … da brauche ich Pro und Contra“. Bei Firmen- und Begriffsfragen erst Pro, Contra, Empfehlung im Gespräch, Dokument erst nach Einigung.
