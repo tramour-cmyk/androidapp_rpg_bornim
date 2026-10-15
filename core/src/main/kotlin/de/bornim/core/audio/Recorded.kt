@@ -21,6 +21,8 @@ object Recorded {
         Sound.FROG to 3, Sound.FROG_CHORUS to 1, Sound.DRAGONFLY to 2,
         // the village hens (83c; takes until the user has chosen: all of the samples)
         Sound.HEN_CLUCK to 3, Sound.HEN_SCRATCH to 3, Sound.HEN_ALARM to 4, Sound.HEN_FLAP to 3,
+        // the hero's steps (74, all five chosen by the user)
+        Sound.STEP_GRASS to 3, Sound.STEP_EARTH to 3, Sound.STEP_COBBLE to 3, Sound.STEP_WOOD to 3, Sound.STEP_STONE to 3,
     )
 
     /** Fewer than three takes by the user's choice (27k): the pond's one chorus loop, its two dragonflies. */

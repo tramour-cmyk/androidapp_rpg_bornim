@@ -137,6 +137,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
     // Movement loop: grid steps with a short slide animation.
     LaunchedEffect(game) {
         var lastFrame = 0L
+        val feet = de.bornim.core.audio.Footsteps.Feet()
         while (isActive) {
             // turned round at the edge of the map (67): once the line is read, one step back the way the hero came
             if (game.mode == Mode.Explore && !VeilMemory.active) game.stepBack?.let { d ->
@@ -188,6 +189,11 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     val pace = (if (running) de.bornim.core.FreeWalk.RUN else de.bornim.core.FreeWalk.WALK) * (if (sv == null) 1.15 else 1.0)
                     fw.walk(vx, vy, dt, pace * minOf(1.0, 0.25 + left * 4), now)
                 } else fw.walk(0.0, 0.0, dt, 0.0, now)
+                // 74: a step's sound each time a foot sets down, by the ground under it
+                if (feet.fell(fw.walked) && fw.moving) {
+                    val tile = game.map.tile(kotlin.math.floor(fw.x).toInt(), kotlin.math.floor(fw.y).toInt())
+                    vm.play(de.bornim.core.audio.Footsteps.sound(game.map, tile), de.bornim.core.audio.Footsteps.volume(tile, running))
+                }
             }
             vm.refresh()
         }

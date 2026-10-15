@@ -147,3 +147,14 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools
 ## 83c Scharren, zweiter Versuch (15.10.)
 
 BigSoundBank, Joseph Sardin, CC0 (https://bigsoundbank.com, Lizenz auf der Seite: CC0): 0163 „Straw broom“ (Strohbesen), 0137 „Feet in leaves“ (Füße im Laub). Schnitte in `scharren.py`.
+## Runde 6 (74 Schritte je Untergrund, Hörproben, noch nicht im Spiel)
+
+CC0 1.0, Lizenz in den Paketen (License.txt) und auf der Quellseite geprüft am 14.10.2026. Rezept: `tools/klang/schritte.py`.
+
+| Klang | Aufnahme(n) | Urheber, Paket | Quelle |
+|---|---|---|---|
+| `step_grass_1–3` | footstep_grass_000, _002, _004 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
+| `step_earth_1–3` (zweite Runde) | 3202 „Footsteps on Gravels #3“, Schritte bei 2,81 / 3,46 / 4,84 s | Pierre, BigSoundBank, CC0 (Seite geprüft 14.10.2026) | https://bigsoundbank.com/footsteps-on-gravels-3-s3202.html |
+| `step_cobble_1–3` (zweite Runde) | 0606 „Step, Shoe on Stone Staircase“, Schritte bei 1,15 / 9,85 / 10,7 s | BigSoundBank, CC0 | https://bigsoundbank.com/search?q=footsteps |
+| `step_wood_1–3` | footstep_wood_000, _002, _003 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
+| `step_stone_1–3` | footstep_concrete_001, _003, _004 (tiefer, mit Höhlenhall) | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
