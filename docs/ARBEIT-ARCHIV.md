@@ -1,5 +1,9 @@
 # Archiv
 
+### Aus ROLLE-BERATER.md, 15.10., 08:5x (Lehre)
+
+- **Umgebaute Routine neu prüfen** (15.10., 81o): Ford-Routine um 18:10 ersetzt, nur die alte geprüft; die neue hatte keine Verbindungen, die Nacht lief leer.
+
 ### Aus ROLLE-BERATER.md, 15.10., 07:5x
 **Übergabe (15.10., 07:4x) – Nachfolger: „Sokrates – Ford und Befunde Wald“:**
 
