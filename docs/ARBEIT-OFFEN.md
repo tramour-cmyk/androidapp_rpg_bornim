@@ -81,7 +81,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer, dann `send_message` an Ford „Auftrag Diogenes <Nr>“; nur Nutzer oder Ford starten Diogenes; Ablauf in `docs/ROLLE-TESTER.md`).
 
-- **90 Tagesrückblick** nach dem 22.10., 9 Uhr: die Rückblicke der Woche (Telegram, Sitzungen „Sokrates – Tagesrückblick“) gegen die Quellen in `ROLLE-BERATER.md` „Tagesrückblick“ prüfen: Stimmten die Fakten, wurden Empfehlungen umgesetzt, was hat die Woche gekostet; Ergebnis im Prüfbericht vor der Bilanz am 23.10.
+- **90 Tagesrückblick** nach dem 22.10., 9 Uhr: die Rückblicke der Woche (Telegram, Sitzungen „Sokrates – Tagesrückblick“) gegen die Quellen in `ROLLE-BERATER.md` „Tagesrückblick“ prüfen: Stimmten die Fakten, wurden Empfehlungen umgesetzt, was hat die Woche gekostet; Ergebnis im Prüfbericht vor der Bilanz am 23.10. Dazu (Nutzer 15.10., 19:5x „auch nachts einiges geschafft“): je Nacht 22–7 Uhr Sitzungen und Commits zählen, Leerlauf mit Ursache.
 
 ## Für den Berater
 
