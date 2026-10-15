@@ -57,7 +57,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (15.10., 12:2x, „Tom – Runde nach 0.1.748“) – Nachfolger: „Tom – Runde nach 0.1.748 (2)“
 - **PR #64 = 0.1.748** auf Dein Zug (`e/t748.html`), wartet auf Test; nach „passt“ zusammenführen, `CHANGELOG.md`, Zeile von Dein Zug.
-- Sammelzweig `claude/tom-runde-nach-748`: **D4.1** (Garrick, Morwen, Rauchbündel, Chronik; `KroggSmokeTest`) und **70.3 Bild 3 neu** (69-Intro-Stand von `claude/tom-70-3-bild3`). **Jetzt:** Bild 3 als „Anzusehen“ auf Dein Zug (`e/b3.html`, Bild `bild3_neu.png` aus Vorschau `INTRO69=3`); dann weitere Zweige hineinführen: 86 plus 6l, D3 (Konflikt `MapFlora.kt`), 13e.6 fest (Konflikt Vorschau `Main.kt`), D1.3/D1.11, D3.13; dann Sammelbuild-PR. D1.7 nach Absprache mit Jerry (ab Fr.).
+- Sammelzweig `claude/tom-runde-nach-748`: **D4.1** (Garrick, Morwen, Rauchbündel, Chronik; `KroggSmokeTest`) und **70.3 Bild 3 neu** (69-Intro-Stand von `claude/tom-70-3-bild3`). **Jetzt:** D3.13 Hütte kleiner und flacher (etwa 2×2, Tür zum Feuer, Kräuter bleiben; Nutzer 12:0x, Zeile 27), neues Standbild auf Dein Zug; Bild 3 als „Anzusehen“ auf Dein Zug (`e/b3.html`, Bild `bild3_neu.png` aus Vorschau `INTRO69=3`); dann weitere Zweige hineinführen: 86 plus 6l, D3 (Konflikt `MapFlora.kt`), 13e.6 fest (Konflikt Vorschau `Main.kt`), D1.3/D1.11, D3.13; dann Sammelbuild-PR. D1.7 nach Absprache mit Jerry (ab Fr.).
 - Entscheidungsbilder immer auch an Telegram (`tools/meldung.sh --bild`), Nutzer 15.10., 12:2x erinnert.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
