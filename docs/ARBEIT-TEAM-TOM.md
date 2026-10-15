@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 
 **offen 25, davon A 0, wartet auf Chef 3**
 
-**Übergabe (16.10., 01:2x, „Tom – 86 Bewegung Rest“):** 86.6/86.9/86.10 gebaut (70cea82d auf `claude/tom-86-bewegung-rest`, enthält `claude/tom-sammelbuild-nach-753`; Kerntests 340 grün, Zufallsspieler grün, Standbilder `RAST=1` selbst gesehen). Wortlaut bei Kreativ (86), Kampfwirkung „betrunken“ bei Jerry. PR #67 abonniert; nach „passt“ zu 0.1.753 #67 zusammenführen, #66 schließen, dann **ein** PR von `claude/tom-86-bewegung-rest` (D3.3 + 89 + 69f + 86 = 4 Punkte) mit Prüfliste (69f wie zuvor; 86: am Lagerfeuer „Rasten?“, Blende, Zeit +1/+8 Std.; bei Rowena Met und Zimmer, fünfter Met betrunken; Bett im Gasthaus = Zimmer; Ausdauertrank bei Thessa/Morwen).
+**Übergabe (16.10., 01:2x, „Tom – 86 Bewegung Rest“) – Nachfolger: „Tom – 72.14 Begriffe“:** 86.6/86.9/86.10 gebaut (70cea82d auf `claude/tom-86-bewegung-rest`, enthält `claude/tom-sammelbuild-nach-753`; Kerntests 340 grün, Zufallsspieler grün, Standbilder `RAST=1` selbst gesehen). Wortlaut bei Kreativ (86), Kampfwirkung „betrunken“ bei Jerry. PR #67 abonniert; nach „passt“ zu 0.1.753 #67 zusammenführen, #66 schließen, dann **ein** PR von `claude/tom-86-bewegung-rest` (D3.3 + 89 + 69f + 86 = 4 Punkte) mit Prüfliste (69f wie zuvor; 86: am Lagerfeuer „Rasten?“, Blende, Zeit +1/+8 Std.; bei Rowena Met und Zimmer, fünfter Met betrunken; Bett im Gasthaus = Zimmer; Ausdauertrank bei Thessa/Morwen). Jetzt: 72.14 (Spieltexte und Oberfläche nach „Begleiter“ für Menschen durchsuchen, durch Gefährte/Söldner ersetzen; Zweig von `claude/tom-86-bewegung-rest`).
 
 ## Zeilen
 
