@@ -1142,6 +1142,15 @@ object MapTownIso {
             val wx = (tx + 1) * T; val wy = (ty + 1) * T
             return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, t == Tile.BENCH, corner = true, glow = glow))
         }
+        return houseObjects(map, tx, ty)
+    }
+
+    /**
+     * The upright strips of the house standing on ([tx], [ty]), or null when no house is there; also for a lone hut
+     * in the woods (D3.13, Morwen's).
+     */
+    fun houseObjects(map: MapDef, tx: Int, ty: Int): List<WorldArt.Obj>? {
+        val t = map.tile(tx, ty)
         if (t in roofTiles) return emptyList()
         if (t !in wallTiles) return null
         if (tx > 0 && map.tile(tx - 1, ty) in wallTiles) return emptyList()
