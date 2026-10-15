@@ -9,6 +9,12 @@
 # Sprungmarke: „[72o.1](dz:e/72o1.html): …“ macht die Nummer zum Link auf den Punkt in „Dein Zug“ (dz: = Seite „Dein Zug“), [Wort](URL) im Text ebenso.
 # Form: Kopf „Name TT.MM. HH:MM“, darunter je Thema eine Zeile „81s: …“ (Ford: je Agent „Tom: …“), getrennt mit \n; nur Nummern und Stichworte, nie Spieltexte.
 # Schlüssel nur aus der Umgebungsvariable TELEGRAM_BOT_TOKEN, nie ins Repo oder in den Chat.
+# Veraltete Kopie im Arbeitszweig (Nutzer 15.10.: Meldungen ohne Links): an die Notizkopie auf main weitergeben
+haupt=/home/user/bornim-main/tools/meldung.sh
+if [ -z "$MELDUNG_WEITER" ] && [ -f "$haupt" ] && [ "$(realpath "$0")" != "$(realpath "$haupt")" ]; then
+  git -C /home/user/bornim-main pull -q --no-rebase origin main >/dev/null 2>&1
+  MELDUNG_WEITER=1 exec "$haupt" "$@"
+fi
 laut=0
 bild=""; art=""
 [ "$1" = "--laut" ] && { laut=1; shift; }
