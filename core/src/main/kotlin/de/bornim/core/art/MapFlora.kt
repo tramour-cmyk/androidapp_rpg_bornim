@@ -85,8 +85,11 @@ object MapFlora {
         // of the fields and beds (83, user 14.10.)
         val pick = hash(tx, ty, 17) % 10
         val town = map.kind == de.bornim.core.MapKind.TOWN
-        fun young(k: Int) = obj(spruce(hash(tx, ty, 6 + k) % 6, 0, young = true),
-            cx + (rnd(tx, ty, 18 + k) - 0.5) * S * 0.6, cy + S * (0.45 + rnd(tx, ty, 20 + k) * 0.3))
+        // D3.3: in the deep forest the young ones grow in three heights and stand further apart within their tile,
+        // so that a run of such tiles never reads as one row
+        fun young(k: Int) = obj(spruce(hash(tx, ty, 6 + k) % 6, if (deep) hash(tx, ty, 24 + k) % 3 else 1, young = true),
+            cx + (rnd(tx, ty, 18 + k) - 0.5) * S * (if (deep) 0.9 else 0.6),
+            cy + S * (if (deep) 0.2 + rnd(tx, ty, 20 + k) * 0.75 else 0.45 + rnd(tx, ty, 20 + k) * 0.3))
         // D6.2: someone (or a door) just behind, towards the top of the screen, would still be half hidden by young
         // spruces taller than a person: there only a low bush
         val close = (0..3).any { bx -> (0..3).any { by -> bx + by in 1..3 && (map.npcs.any { it.x == tx - bx && it.y == ty - by } || map.warpAt(tx - bx, ty - by) != null) } }
@@ -96,7 +99,7 @@ object MapFlora {
             !town && !deep -> if (pick < 3) listOf(young(0), young(1)) else listOf(young(0))
             // the bush in the slant like those of the undergrowth (56)
             pick < (if (town) 6 else 3) -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
-            pick < (if (town) 8 else 5) -> listOf(young(0), young(1))
+            pick < (if (town) 8 else 6) -> listOf(young(0), young(1))
             else -> listOf(young(0))
         }
     }
@@ -161,4 +164,7 @@ object MapFlora {
 
     /** The shadows of all that stands under the open sky, by the sun ([MapSun], 89); drawn under it, faded by the time of day. */
     fun shadows(map: MapDef): List<WorldArt.Obj> = MapSun.shadows(map)
+
+    /** The same without waiting (D9.2): null while the layer is still drawn in the background. */
+    fun shadowsReady(map: MapDef): MapSun.Ready? = MapSun.ready(map)
 }

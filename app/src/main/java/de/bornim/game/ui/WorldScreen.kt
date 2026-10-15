@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -403,6 +404,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 DialogBox(
                     speaker = dialog.speaker,
                     text = dialog.text.take(revealed),
+                    full = dialog.text,
                     done = dialogDone,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
@@ -717,7 +719,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
 
         // while true, [put] cuts the picture out of what is drawn below it (the lit windows behind something in front)
         var cutting = false
-        fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f, corner: Boolean = false, bleed: Int = 0) {
+        fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f, corner: Boolean = false, bleed: Int = 0,
+                filter: androidx.compose.ui.graphics.ColorFilter? = null) {
             val dw = img.width * scale / density + bleed; val dh = img.height * scale / density + bleed
             val (sx, sy) = placeOf(img, x, y, density, corner)
             if (!flat && (sx > size.width || sy > size.height || sx + dw < 0 || sy + dh < 0)) return
@@ -728,6 +731,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 dstOffset = IntOffset(sx, sy),
                 dstSize = IntSize(dw, dh),
                 alpha = alpha,
+                colorFilter = filter,
                 filterQuality = if (density > 1 && scale % density != 0) FilterQuality.Low else FilterQuality.None,
                 blendMode = if (cutting) androidx.compose.ui.graphics.BlendMode.DstOut else DrawScope.DefaultBlendMode,
             )
@@ -737,6 +741,23 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             val (sx, sy) = placeOf(o.img, o.x, o.y, o.density, o.corner)
             val dw = o.img.width * scale / o.density; val dh = o.img.height * scale / o.density
             return sx < box.right && sx + dw > box.left && sy < box.bottom && sy + dh > box.top
+        }
+
+        // the shadow layer of the sun and how strongly it shows now (by day, faded in)
+        val sunNow = ((game.daylight - 0.2f) / 0.6f).coerceIn(0f, 1f)
+        val sunLayer = if (sunNow > 0.02f) MapFlora.shadowsReady(map) else null
+        val sunShade = sunLayer?.let { sunNow * ((System.nanoTime() - it.at) / 4e8).toFloat().coerceIn(0f, 1f) } ?: 0f
+        /**
+         * 89: a person standing in the shadow of a house or a crown is drawn as dark as the ground there; [fx], [fy] the
+         * feet in map pixels. Steps of 1/32, so the filters are few.
+         */
+        val shaded = HashMap<Int, androidx.compose.ui.graphics.ColorFilter>()
+        fun shadeAt(fx: Int, fy: Int): androidx.compose.ui.graphics.ColorFilter? {
+            val r = sunLayer ?: return null
+            val b = 1f - (1f - de.bornim.core.art.MapSun.bright(r, fx.toDouble() / T, fy.toDouble() / T)) * sunShade
+            val q = ((1f - b) * 32).roundToInt()
+            if (q <= 0) return null
+            return shaded.getOrPut(q) { (1f - q / 32f).let { m -> androidx.compose.ui.graphics.ColorFilter.lighting(Color(m, m, m), Color.Black) } }
         }
 
         ground {
@@ -758,8 +779,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         }
 
         // shadows of trees, rocks and stones on the ground, strong by day, gone at night
-        val sun = ((game.daylight - 0.2f) / 0.6f).coerceIn(0f, 1f)
-        if (sun > 0.02f) for (o in MapFlora.shadows(map)) put(o.img, o.x, o.y, o.density, sun)
+        // D9.2: drawn in the background; once there they fade in over 0.4 s rather than appear at once
+        if (sunLayer != null) for (o in sunLayer.pieces) put(o.img, o.x, o.y, o.density, sunShade)
 
         // draft (idea 7): blood where a foe fell, footprints in the wet ground, dust kicked up running
         if (de.bornim.core.Tracks.draft) drawTracks(game.tracks.on(map.id, clock), clock, camX, camY, scale)
@@ -1003,11 +1024,12 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
                 val dollLit = doll?.let { warmEdge(it, nx, ny) }
+                val dark = shadeAt(nx + T / 2, ny + 14)
                 sprites += Sprite((ny + T - 1).toFloat(), nx + T / 2f) {
                     // pictures may be wider than the standing ones (a raised torch): the feet stay in the middle, near the bottom
                     if (dollLit != null) put(dollLit, nx + T / 2 - dollLit.width / 2 / MapFigure.DENSITY,
-                        ny + T - 3 - (dollLit.height - MapFigure.FOOT_BELOW) / MapFigure.DENSITY, MapFigure.DENSITY)
-                    else put(img, nx, ny - 2)
+                        ny + T - 3 - (dollLit.height - MapFigure.FOOT_BELOW) / MapFigure.DENSITY, MapFigure.DENSITY, filter = dark)
+                    else put(img, nx, ny - 2, filter = dark)
                 }
             }
         }
@@ -1135,16 +1157,19 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 }
             }
         }
-        // 83b: the hens by the hay bales, by day and in the dry; they run off flapping when the hero comes close
-        if (de.bornim.core.art.MapHen.draft && game.daylight > 0.3f && !game.raining) {
+        // 83b: the hens by the hay bales; they run off flapping when the hero comes close, and in the rain and at dusk
+        // they hurry off under the trees (94, D7.1)
+        if (de.bornim.core.art.MapHen.draft) {
+            val away = game.daylight <= 0.3f || game.raining
             for (h in de.bornim.core.art.MapHen.of(map)) {
-                val a = h.at(clock, heroX + T / 2f, heroY + T - 3f, map)
+                val a = h.at(clock, heroX + T / 2f, heroY + T - 3f, map, away)
+                if (a.shown <= 0f) continue
                 val hs = MapFigure.slot(a.yaw)
                 val himg = (if (HeroSwing.now) de.bornim.core.art.MapHen.frameNow(a, hs) else de.bornim.core.art.MapHen.frame(a, hs)) ?: continue
                 val fx = a.x.toInt(); val fy = a.y.toInt()
                 sprites += Sprite(fy + 2f, a.x) {
-                    put(WorldArt.smallShadow(), fx - 6, fy - 3)
-                    put(himg, fx - de.bornim.core.art.MapHen.AX / MapFigure.DENSITY, fy - de.bornim.core.art.MapHen.GY / MapFigure.DENSITY, MapFigure.DENSITY)
+                    put(WorldArt.smallShadow(), fx - 6, fy - 3, alpha = a.shown)
+                    put(himg, fx - de.bornim.core.art.MapHen.AX / MapFigure.DENSITY, fy - de.bornim.core.art.MapHen.GY / MapFigure.DENSITY, MapFigure.DENSITY, alpha = a.shown)
                 }
             }
         }
@@ -1154,8 +1179,9 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         } else null
         val doll = warmEdge(heroRest ?: heroSwing ?: MapFigure.frameNow(state.hero, heroSlot, walkStep), heroX, heroY)
         // +0.5 so the hero is drawn after objects standing on the same row
+        val heroDark = shadeAt(heroX + T / 2, heroY + 14)
         sprites += Sprite(heroY + T - 0.5f, heroX + T / 2f) {
-            put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
+            put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY, filter = heroDark)
             // Feet hidden in tall grass.
             if (map.tile(p.x, p.y) == Tile.TALL_GRASS) {
                 // the same dark blades of the ground stand before the feet
@@ -2243,7 +2269,8 @@ private fun DrawScope.drawMapLight(
         // a light the hero has never seen stays dark, one out of sight shines dimmed: it must not light up what the
         // fog of war hides
         val seen = LightImage.seen(game, floor(src.x / T).toInt(), floor(src.y / T).toInt(), 0.4f, clock)
-        val on = MapLight.strength(map, src.shines, day).toFloat() * seen
+        // a light standing behind a house throws no glow over its roof (D3.13a)
+        val on = MapLight.strength(map, src.shines, day).toFloat() * seen * (1f - MapLight.behindHouse(map, src.x, src.y))
         if (on <= 0.02f || !visible(c, r)) continue
         val t = clock.toFloat()
         val indoor = map.kind == MapKind.INTERIOR
@@ -2513,8 +2540,8 @@ private fun HudBar(label: String, fraction: Float, color: Color, value: String, 
 }
 
 @Composable
-fun DialogBox(speaker: String?, text: String, done: Boolean, modifier: Modifier = Modifier) {
-    if (DialogLook.draft) { DialogBoxVeil(speaker, text, done, modifier); return }
+fun DialogBox(speaker: String?, text: String, done: Boolean, modifier: Modifier = Modifier, full: String = text) {
+    if (DialogLook.draft) { DialogBoxVeil(speaker, text, done, modifier, full); return }
     val time = rememberTime()
     Column(modifier.fillMaxWidth()) {
         if (speaker != null) {
@@ -2523,9 +2550,9 @@ fun DialogBox(speaker: String?, text: String, done: Boolean, modifier: Modifier 
         Panel(
             Modifier
                 .fillMaxWidth()
-                .height(120.dp)
+                .heightIn(min = 120.dp)
         ) {
-            Txt(text, size = 18.sp)
+            Box { Txt(full, size = 18.sp, color = Color.Transparent); Txt(text, size = 18.sp) }
             if (done && (time / 400) % 2 == 0L) {
                 Txt("▼", Modifier.align(Alignment.BottomEnd), size = 14.sp, color = Colors.accent)
             }
