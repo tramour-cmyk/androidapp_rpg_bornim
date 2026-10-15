@@ -18,9 +18,9 @@ Ein graues Auge … wie auf dem Fetzen, den Jorin mir vom Steinkreis brachte. Da
 `[41.garrick.krogg]` (Garrick über Krogg; bisher „Ich habe Goblins belauscht. Ihr Bugbear Krogg trägt den Schlüssel zu Graks Halle.“)
 Ich habe Goblins belauscht. Ihr Grottenschrat Krogg trägt den Schlüssel zu Graks Halle.
 
-### Weg über Morwen vor der Höhle (D4.1) – ENTWURF, nicht freigegeben
+### Weg über Morwen vor der Höhle (D4.1)
 
-Sokrates 15.10.; Grund: Bugbear-Merkmal „erster Hieb trifft härter“ (`Monsters.kt`) und Morwens Rauch (`[62i.ort.tiefwald]`). Rauchbündel nimmt Krogg den ersten Hieb (Kampfwirkung Jerry, Dialog Tom).
+Freigegeben 15.10., 11:3x (Nutzer mit Sokrates); Grund: Bugbear-Merkmal „erster Hieb trifft härter“ (`Monsters.kt`) und Morwens Rauch (`[62i.ort.tiefwald]`). Rauchbündel nimmt Krogg den ersten Hieb (Kampfwirkung Jerry, Dialog Tom).
 
 `[D4.1.garrick.morwen]` (Garrick nach `[41.garrick.krogg]` und „Er haust im Ostflügel …“, bis Krogg fällt)
 Geh nicht mit leeren Händen zu ihm. Morwen, die Kräuterfrau im Tiefen Flüsterwald, weiß, wie man so einem den ersten Hieb nimmt.
