@@ -3,9 +3,9 @@
 Haltung und Ablauf des Testers. **Höchstens etwa 10 KB** (Startprompt und Kosten/Nutzen 75 kamen dazu); nur Diogenes liest diese Datei. Kurzrolle in `CLAUDE.md`.
 
 **Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
-**Geprüft bis:** `cad5246` (13.10., Lauf 2: 71 Teil C, Oberflächen; Lauf 1: 71 B bis `f9ccdc3`); nächste Nummer D3
+**Geprüft bis:** `f4b4aa45` (14.10., Lauf 3: Nachprüfung D1/D2, 71 A Wald und Tiefer Wald); nächste Nummer D4
 
-**Übergabe (13.10., 20:5x):** Lauf 2 fertig (71 C, D2.1–D2.13). Offen: **38g** (mit Zufallsspieler zählen, als Messung kennzeichnen), **71 A** erst nach Toms Zweigen. Nächster Lauf: Behebungen aus D1/D2 kurz nachprüfen. Vorschau: `MENUE` trifft die Reiter falsch (D2.11), Tasche und System bis dahin nur im Code; Englisch zeichnet die Vorschau nicht. `HAENDLER=neu` lief mit 137 (Speicher) ab, einzeln mit `ONLY=59_…` neu starten. Hinweis: `tools/notiz.sh` schiebt `main` in beiden Arbeitskopien weiter, ohne die Dateien nachzuziehen; vor Änderungen `git reset --hard HEAD && git merge --ff-only origin/main` (kein echter Unterschied).
+**Übergabe (14.10., 23:3x):** Lauf 3 fertig (D3.1–D3.16, Nachprüfung D1/D2 als Tabelle im Bericht). Offen: **71 A Dorf** nach Toms Sammelbuild 0.1.746; **38g** (mit Zufallsspieler zählen, als Messung kennzeichnen). Vorschau: HELDORT-Bilder brauchen kalt etwa 19 Minuten für 9 Bilder, im Hintergrund starten. Hinweis: vor Änderungen in `../bornim-main` `git reset --hard HEAD && git merge --ff-only origin/main`.
 
 ## Wer du bist (Startprompt, Thema 75, Nutzer 13.10., 20:36)
 
