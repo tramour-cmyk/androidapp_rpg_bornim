@@ -54,9 +54,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 10:5x, „Tom – Sammelbuild nach 0.1.746“)
-- **Sammelbuild** `claude/tom-sammel-nach-746`, PR #64 (68ac1641, auf PR #63 aufgesetzt): 69e Welt und Intro, 83b/83c Hühner, D1.5 Truhe, 74 Schritte; 83c Strohbesen drin. Kerntests grün. 0.1.746 zusammengeführt (PR #63); Weckruf 11:34 für APK und Prüfliste.
-- **Danach** (je höchstens 4 Punkte): 86 plus 6l (`claude/tom-6l-zoom`), D3 (Konflikt `MapFlora.kt`), 13e.6 fest an (`claude/tom-13e6-dunkler`, Konflikt Vorschau `Main.kt`), D1.3/D1.11. Vorrat: D1.7 Leben Höhle (Absprache `WorldScreen.kt`, Jerry ab Fr.).
+### Tom (15.10., 11:3x, „Tom – Sammelbuild nach 0.1.746“) – Nachfolger: „Tom – D3.13 Morwens Hütte“
+- **PR #64** Sammelbuild (69 Intro, 83b/83c, D1.5, 74), Weckruf 11:34: APK in „Jetzt installieren“, Prüfliste `e/t<nr>.html` statt `t746` auf Dein Zug.
+- **D3.13 Entwurf** `claude/tom-d3-13-huette` (Kerntests grün): Dorfhaus (Stroh, Bohlen) 2×2 bei (17,21)–(18,22) neben Morwens Feuer, `MapTownIso.houseObjects` auch im Wald, Tür zu (Warp `LOCKED`, kein Text; Anklopftext ggf. 41). Standbild `HELDORT=deep_forest:20:24:U:12`: steht gut, aber zu hoch und schmal für eine Kate, Stroh nicht erkennbar, Kräuterbündel fehlen. Dann Standbild auf Dein Zug.
+- **Danach:** 70.3 B Bild 3 als Probe; Runde nach #64: 86 plus 6l, D3 (Konflikt `MapFlora.kt`), 13e.6 fest (`claude/tom-13e6-dunkler`, Konflikt Vorschau `Main.kt`), D1.3/D1.11. D1.7 nach Absprache mit Jerry (ab Fr.).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
