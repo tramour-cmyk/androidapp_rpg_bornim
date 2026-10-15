@@ -39,5 +39,11 @@ class SouthEdgeTest {
         assertTrue(tryLeave(g)!!.startsWith("Der Brief mit dem grauen Siegel"))
         assertEquals("Die Antwort liegt nicht im Süden.", tryLeave(g))
         assertEquals(Mode.Explore, g.mode)
+        // 68l: after Lyra spoke of the camp in the south the edge says nothing more; the hero still steps back
+        g.state.flags += Story.CAMP_TOLD
+        val before = g.notices.size
+        assertEquals(null, Story.southEdge(g.state))
+        g.move(Facing.DOWN)
+        assertEquals(Mode.Explore, g.mode); assertEquals(before, g.notices.size)
     }
 }
