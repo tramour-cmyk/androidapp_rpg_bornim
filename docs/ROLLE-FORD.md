@@ -60,6 +60,7 @@ tools/meldung.sh Ford "Du bist dran: [0.1.748](dz:e/t748.html) testen.\n\n[Tom](
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 23:00 15.10.: Start Sokrates (Neustart, 73e12092); 99d Sparmodus bis Sa 21:00: kein Tagesrückblick 16.10., Sokrates und Diogenes nur auf Zuruf
 - 22:53 15.10.: Ford-Wache zurückgeholt (D13.2, war archiviert), Uhr aktiv; Diogenes (98) archiviert
 - 22:52 15.10.: Start Sokrates (Neustart, 297d25d1)
 - 22:51 15.10.: Stellung Co-Pilot bis Sa 17.10., 21:00 (Nutzer, 8bf4c31c); erster Lauf danach stellt auf Pilot zurück, pusht, meldet lautlos
