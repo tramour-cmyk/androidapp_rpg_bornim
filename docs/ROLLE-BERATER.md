@@ -37,14 +37,12 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 
 ## Begründungen der Entscheidungen
 
-Weitere (Rollen, Oberfläche, Tempelszene, Karte und Händler, Dein Zug, Zufallshöhlen, Kartenbegriffe) im Archiv („14.10., 22:2x“).
+Weitere (Leitbild, Balance, Rollen, Oberfläche, Tempelszene, Karte und Händler, Dein Zug, Zufallshöhlen, Kartenbegriffe) im Archiv („14.10., 22:2x“).
 
 - **Abläufe (65):** Oberster Grundsatz des Nutzers: nichts Aufgabenrelevantes verlieren; darum `CLAUDE.md` knapp, aber ohne feste Grenze, Auslagern nur bei seltenem Anlass. **65.4** jeder Text an einem Ort, weil Doppelungen Token kosten und auseinanderlaufen. Volltext im Archiv („18:5x“).
 - **Rückfragen als Holschuld (65.8, 65.9):** wiederholte Fragen und lange Startmeldungen kosteten in jeder Antwort Token und verdeckten das Neue; „Dein Zug“ ist der eine Ort. Einmal nennen bei Entstehung und bei Aufträgen anderer Agenten, sonst nur „Kritisch“ bei Stillstand; Weiter-Haken nur für Entwickler, weil Berater und Tester meist auf den Nutzer warten.
-- **Leitbild (44):** ein roter Faden; SRD Gerüst, nicht Ziel; Blut „Deutlich“ als Obergrenze. Volltext im Archiv.
 - **Geschäftsmodell (45):** wer Abkürzungen verkauft, macht das Spiel künstlich zäh; darum nie Werbung, Beutekisten, Wartezeiten.
 - **Heldenbau (49, 50; `DESIGN-HELDENBAU.md`):** kein großer Skilltree (führt zu wenigen besten Wegen), Talente ändern Entscheidungen statt Zahlen, Merkmale nie kaufbar, gekaufte Klassen nie stärker. Volltext im Archiv („18:5x“).
-- **Balance (38):** SRD als Fundament, Stufen 5–14 als Kern über mindestens 7 Kapitel, Abweichungen mit Grund in `DESIGN-BALANCE.md`; Schwierigkeitsgrad erst nach Messung von „Normal“.
 - **Kampf (72.11, 72u):** B, weil Absicht und Reaktion den Gegnerzug füllen und mit Gefährte A doppelt Menü wäre; Reihen statt Raster (C) bringen das meiste der Stellung für einen Bruchteil; Ring nur bei angekündigter Absicht gegen Tipp-Fließband; Platztausch kostet den Zug. Wörtliches Hineinzoomen zu grob (Kampffiguren 2,2-mal feiner), darum Kampfort aus der Karte neu gezeichnet; Zeichenzeit unterscheidet nicht (24.5 gibt es). Pokémon-Eindruck kommt eher vom Stillstand als vom Hintergrund.
 - **Profil (72; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b)):** Lücke = fürs Handy gebautes Rollenspiel mit eigenem Look und Geschichte (zwischen Darkest Dungeon und Exiled Kingdoms); größte Schwäche der Menü-Zweikampf.
 - **Storyplan (41; [Dokument](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d)):** vier Augen, damit Entwickler keine Texte erfinden; Kult mit weitergegebenem Titel trägt sieben Kapitel; Kapitel 2: Hinweise doppelt (freie Welt), Anreiz statt Pfeil, zweiter Weg (72.5). Volltext im Archiv („20:5x“).
@@ -53,9 +51,10 @@ Weitere (Rollen, Oberfläche, Tempelszene, Karte und Händler, Dein Zug, Zufalls
 
 ## Lehren
 
+Ältere (Notizen frisch holen, Entwürfe sofort, freie Welt, Werkzeugausgaben) im Archiv („15.10., 12:5x“).
+
 - **Hinweise des Nutzers prüfen statt übernehmen** (14.10., 69e, 72u): erst erfassen, auswerten, folgern; „nicht immer nur Ja sagen“. Ein „klingt gut“ beim Lesen ist kein Beschluss; eigene Argumente nicht fallenlassen, wenn der Nutzer eine Idee bringt, sondern sie dagegen prüfen (72u: zweimal zu schnell eingetragen).
 
-- **Werkzeugausgaben kosten Token** (14.10.): Beschlussseite (17 KB) beim Ändern nur einmal lesen; Suchen eng fassen (`ARBEIT-ARCHIV.md` ausschließen, Zeilen kürzen).
 - **Ablauf nicht vorführen** (14.10., 65.9): der Nutzer sieht den Nutzen pro Antwort; Startritual, Wiederholungen und Haken-Runden ohne Neues sind Kosten. Zeit nur von der Systemuhr, auch im Gespräch (17:3x geschätzt).
 - **Nur ausdrückliches Ja des Nutzers entscheidet** (13.10., Sprachmodus): Unklares gegen seinen Wortlaut prüfen. Im Sprachmodus nie aus dem Gedächtnis gegen eigene Dokumente reden (14.10., 72q: zwei widersprüchliche Aussagen).
 - **Technik erst belegen, dann zusagen** (14.10., 81j): Push und E-Mail aus Routinen kamen trotz „erfolgreich“ nie an; Erfolgsmeldung eines Werkzeugs ist kein Beleg, nur die Bestätigung des Nutzers.
@@ -63,6 +62,3 @@ Weitere (Rollen, Oberfläche, Tempelszene, Karte und Händler, Dein Zug, Zufalls
 - **Anweisungen an andere Sitzungen sauber halten** (15.10., D5.3): `git checkout origin/main -- <Datei>` ließ Fords Arbeitskopie „geändert“ zurück, der Git-Haken erzwang drei Zusatzzeilen; besser `git merge --ff-only origin/main`.
 - **Bildvorschläge an der Karte nachrechnen** (15.10., 70.6): meine Empfehlung „Nordstraße, Tempel rechts schräg, Platz in der Tiefe“ war geometrisch unmöglich (Tempel 70° rechts); vor jedem Standpunkt eine Draufsicht mit Blickfeld.
 - **Beim Start alle Punkte zu eigenen Themen auf „Dein Zug“ lesen** (14.10., 69e übersehen, weil an den Nutzer adressiert).
-- **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
-- **Entwürfe sofort in die Notizen** (13.10., Rabenschanze und 77 standen nur im Chat): gleich in Storyplan oder `ARBEIT-OFFEN.md`.
-- **Freie Welt mitdenken** (13.10., 68): bei jeder Szene fragen, was passiert, wenn der Spieler nicht hingeht oder trödelt.
