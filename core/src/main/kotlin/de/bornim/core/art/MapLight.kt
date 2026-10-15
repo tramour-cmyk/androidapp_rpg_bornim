@@ -211,36 +211,22 @@ object MapLight {
      * walls and roof take the light in front of its door row instead, along the house the way it falls there, fading a
      * towards the ambient light as they rise (at the ridge 60 %).
      */
-    private class Cover(val x0: Int, val y0: Int, val w: Int, val h: Int, val frontY: Double, val at: FloatArray, val fade: FloatArray, val depth: FloatArray, val weight: FloatArray)
+    private class Cover(val x0: Int, val y0: Int, val w: Int, val h: Int, val frontY: Double, val at: FloatArray, val fade: FloatArray, val depth: FloatArray, val weight: FloatArray, val eaveFade: Double, val home: Box)
+    /** A rectangle in map pixels. */
+    private class Box(val left: Double, val top: Double, val right: Double, val bottom: Double)
 
     /**
-     * How far (light image pixels) the light of a house runs soft into the ground light round it: at its outline it
-     * changed at a line before, which showed as hard strokes beside the cot and between houses (user 15.10., 20:5x).
+     * How far (light image pixels) inside its outline the light of a house runs soft into the ground light there: at the
+     * outline it changed at a line before, which showed as hard strokes beside the cot and between houses (user 15.10., 20:5x).
      */
     private const val SOFT = 10
 
     /**
-     * The house's light spread [SOFT] beyond its outline (each pixel outside takes that of the nearest inside), and
-     * how much of it each pixel takes: 1 well inside, ½ at the outline, 0 [SOFT] outside.
+     * How much of the house's light each pixel takes: 1 [SOFT] inside its outline and further in, down to 0 at the
+     * outline and outside, where the ground keeps its own.
      */
-    private fun soften(bw: Int, bh: Int, at: FloatArray, fade: FloatArray, depth: FloatArray): FloatArray {
+    private fun soften(bw: Int, bh: Int, at: FloatArray): FloatArray {
         val inside = BooleanArray(bw * bh) { !at[it].isNaN() }
-        // spread outwards ring by ring
-        var front = (0 until bw * bh).filter { inside[it] }
-        repeat(SOFT) {
-            val next = ArrayList<Int>()
-            for (i in front) {
-                val u = i % bw; val v = i / bw
-                for ((du, dv) in listOf(1 to 0, -1 to 0, 0 to 1, 0 to -1)) {
-                    val nu = u + du; val nv = v + dv
-                    if (nu < 0 || nv < 0 || nu >= bw || nv >= bh) continue
-                    val n = nv * bw + nu
-                    if (!at[n].isNaN()) continue
-                    at[n] = at[i]; fade[n] = fade[i]; depth[n] = depth[i]; next += n
-                }
-            }
-            front = next
-        }
         // the share: the inside averaged over a square 2·SOFT+1 wide, eased (two passes, rows then columns)
         val r = SOFT
         val rows = FloatArray(bw * bh)
@@ -258,7 +244,11 @@ object MapLight {
             for (v in -r - 1 until bh) {
                 if (v + r < bh && v + r >= 0) sum += rows[(v + r) * bw + u]
                 if (v - r - 1 >= 0) sum -= rows[(v - r - 1) * bw + u]
-                if (v >= 0) { val t = (sum / ((2 * r + 1) * (2 * r + 1))).coerceIn(0f, 1f); share[v * bw + u] = t * t * (3 - 2 * t) }
+                if (v >= 0 && inside[v * bw + u]) {
+                    // inside only: the ground round the house keeps its own light, the house blends into it at its outline
+                    val t = ((sum / ((2 * r + 1) * (2 * r + 1)) - 0.5f) * 2f).coerceIn(0f, 1f)
+                    share[v * bw + u] = t * t * (3 - 2 * t)
+                }
             }
         }
         return share
@@ -278,8 +268,8 @@ object MapLight {
                 fun height(x: Double, y: Double) = if (x < x0 || x > x1 || y < y0 || y > y1) -1.0 else g.ridge - kotlin.math.abs(y - ym) / run * (g.ridge - g.eave)
                 val reach = g.ridge * zs
                 // the ground (in light image pixels) the house can stand before on screen
-                val bx0 = floor((x0 - reach) * T / RES).toInt() - SOFT; val by0 = floor((y0 - reach) * T / RES).toInt() - SOFT
-                val bw = kotlin.math.ceil(x1 * T / RES).toInt() + SOFT - bx0; val bh = kotlin.math.ceil(y1 * T / RES).toInt() + SOFT - by0
+                val bx0 = floor((x0 - reach) * T / RES).toInt(); val by0 = floor((y0 - reach) * T / RES).toInt()
+                val bw = kotlin.math.ceil(x1 * T / RES).toInt() - bx0; val bh = kotlin.math.ceil(y1 * T / RES).toInt() - by0
                 val at = FloatArray(bw * bh) { Float.NaN }; val fade = FloatArray(bw * bh); val depth = FloatArray(bw * bh)
                 val steps = (reach * 16).toInt() + 1
                 for (v in 0 until bh) for (u in 0 until bw) {
@@ -296,10 +286,28 @@ object MapLight {
                         break
                     }
                 }
-                val weight = soften(bw, bh, at, fade, depth)
-                Cover(bx0, by0, bw, bh, (f.y + 1.5) * T, at, fade, depth, weight)
+                val weight = soften(bw, bh, at)
+                Cover(bx0, by0, bw, bh, (f.y + 1.15) * T, at, fade, depth, weight, 0.6 * g.eave / g.ridge, Box(x0 * T, y0 * T, x1 * T, y1 * T))
             }
         }
+    }
+
+    /**
+     * How much a house stands before the ground at map pixel ([px], [py]) on screen: 1 hidden, 0 in sight, soft at
+     * its outline. A lamp behind the temple threw its glow onto the roof (D3.13a, night picture of 15.10.).
+     */
+    fun behindHouse(map: MapDef, px: Double, py: Double): Float {
+        val lx = floor(px / RES).toInt(); val ly = floor(py / RES).toInt()
+        val houses = covers(map)
+        // a window or a lamp on a house, or just before it, is in sight, even where a neighbour stands before its foot
+        if (houses.any { c -> px >= c.home.left - T * 0.6 && px <= c.home.right + T * 0.6 && py >= c.home.top - T * 0.6 && py <= c.home.bottom + T * 0.6 }) return 0f
+        var most = 0f
+        for (c in houses) {
+            val u = lx - c.x0; val v = ly - c.y0
+            if (u < 0 || v < 0 || u >= c.w || v >= c.h) continue
+            most = maxOf(most, c.weight[v * c.w + u])
+        }
+        return most
     }
 
     /** Whether the map needs a light image at all (a village at noon does not). */
@@ -334,6 +342,8 @@ object MapLight {
             MapKind.TOWN -> 0.4 * kn
             else -> 0.9 * kn
         }
+        // the light without the hero's lantern, for the roofs: carried at the hip it lights the walls, not the roof (D3.13a)
+        val unlit = g.copyOf()
         add(map, g, gw, gh, Source(heroX.toDouble(), heroY.toDouble(), Kind.TORCH, lanternColor, T * (if (map.kind == MapKind.TOWN) 2.2 else 3.4), 1.0), lantern, cx0, cy0)
         // 13e.6: the hero in the dark of a cave as an outline with a faint rim, no light on the ground round him
         if (map.kind == MapKind.CAVE) add(map, g, gw, gh, Source(heroX.toDouble(), heroY.toDouble(), Kind.TORCH, argb(0xA8B4D0), T * 0.55, 0.16), 1.0, cx0, cy0)
@@ -375,11 +385,11 @@ object MapLight {
                 fun top(ax: Int, ay: Int) = if (map.tile(ax, ay) in opaque && map.tile(ax, ay + 1) in opaque) 1.0 else 0.0
                 (top(tx, ty) * (1 - ux) + top(tx + 1, ty) * ux) * (1 - uy) + (top(tx, ty + 1) * (1 - ux) + top(tx + 1, ty + 1) * ux) * uy
             }
-            fun ground(qx: Double, qy: Double, c: Int): Double {
+            fun ground(qx: Double, qy: Double, c: Int, src: DoubleArray = g): Double {
                 val gx = qx / CELL - 0.5 - cx0; val gy = qy / CELL - 0.5 - cy0
                 val ix = floor(gx).toInt().coerceIn(0, gw - 2); val iy = floor(gy).toInt().coerceIn(0, gh - 2)
                 val fx = (gx - ix).coerceIn(0.0, 1.0); val fy = (gy - iy).coerceIn(0.0, 1.0)
-                fun at(ax: Int, ay: Int) = g[(ay * gw + ax) * 3 + c]
+                fun at(ax: Int, ay: Int) = src[(ay * gw + ax) * 3 + c]
                 val a = at(ix, iy) * (1 - fx) + at(ix + 1, iy) * fx
                 val b = at(ix, iy + 1) * (1 - fx) + at(ix + 1, iy + 1) * fx
                 return a * (1 - fy) + b * fy
@@ -389,7 +399,10 @@ object MapLight {
                 val k = cover
                 if (k != null) {
                     val fade = k.fade[ci].toDouble(); val share = k.weight[ci].toDouble()
-                    val lit = ground(k.at[ci].toDouble(), k.frontY, c) * (1 - fade) + amb[c] * fade
+                    // the lantern's share fades out up the wall, gone at the eaves
+                    val up = (fade / k.eaveFade).coerceIn(0.0, 1.0)
+                    val front = ground(k.at[ci].toDouble(), k.frontY, c) * (1 - up) + ground(k.at[ci].toDouble(), k.frontY, c, unlit) * up
+                    val lit = front * (1 - fade) + amb[c] * fade
                     v = v * (1 - share) + lit * share
                 }
                 return (v.coerceIn(0.0, 1.0) * 255).toInt()

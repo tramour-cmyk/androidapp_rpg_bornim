@@ -2252,7 +2252,8 @@ private fun DrawScope.drawMapLight(
         // a light the hero has never seen stays dark, one out of sight shines dimmed: it must not light up what the
         // fog of war hides
         val seen = LightImage.seen(game, floor(src.x / T).toInt(), floor(src.y / T).toInt(), 0.4f, clock)
-        val on = MapLight.strength(map, src.shines, day).toFloat() * seen
+        // a light standing behind a house throws no glow over its roof (D3.13a)
+        val on = MapLight.strength(map, src.shines, day).toFloat() * seen * (1f - MapLight.behindHouse(map, src.x, src.y))
         if (on <= 0.02f || !visible(c, r)) continue
         val t = clock.toFloat()
         val indoor = map.kind == MapKind.INTERIOR
