@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (15.10., 12:2x) – Nachfolger: „Sokrates – Gefährte und Schatten“:**
+**Übergabe (15.10., 12:4x) – Nachfolger: „Sokrates – Gefährte und Verschleiß“:**
 
-**Nächster Punkt:** (1) **Ford-Lauf 13:03 prüfen** (um 13:06): `list_events` (assistant) von `session_01L32mhfHojkz6thnmuBiZD1`, nur „Ford 13:03 ok“? Ergebnis dem Nutzer in einer Zeile (Nutzer fragte 12:1x, ob es noch ein Problem gibt; Antwort: nein, nur Kleinigkeiten). (2) Auf Dein Zug offen von mir: **72o** Verschleiß (Empfehlung B), **89** Schatten mit dem Tag (drei Sonnenstände); Antwort abwarten, dann Beschlüsse und „Wer macht was“. (3) **72s** Gefährte für Kapitel 2, dann 84.x. Heute erledigt: 81s (Stundenuhr statt Kette), 81t ja, 81u nein, D5.3 Weiter-Haken erkennt Ford an der Kennung, Intro Bild 3 mit Tom geklärt (Zeile 70).
+**Nächster Punkt:** (1) Auf Dein Zug offen von mir: **72o** Verschleiß (Empfehlung B); Antwort abwarten, dann Beschlüsse und „Wer macht was“. (2) **72s** Gefährte für Kapitel 2, dann 84.x. (3) `ARBEIT-OFFEN.md` über 15 KB: Erledigtes ins Archiv. Heute erledigt: D4.1 Taschentext, 70.6 A (Bild 3 neu nach Karte, an Tom), 89 ja (alle Außenkarten).
 
-**Zuletzt gelesen bis:** d1d78b7a (15.10., 12:2x)
+**Zuletzt gelesen bis:** 030f4955 (15.10., 12:4x)
 
 ## Wer du bist
 
@@ -60,6 +60,7 @@ Weitere (Rollen, Oberfläche, Tempelszene, Karte und Händler, Dein Zug, Zufalls
 - **Technik erst belegen, dann zusagen** (14.10., 81j): Push und E-Mail aus Routinen kamen trotz „erfolgreich“ nie an; Erfolgsmeldung eines Werkzeugs ist kein Beleg, nur die Bestätigung des Nutzers.
 - **Werkzeuge im Zielort prüfen, nicht hier** (15.10., 81p): diese Sitzung hat `create_session`, Routinen-Sitzungen nicht; dreimal falsch angenommen, erst die Probe mit ToolSearch im Zielort zählt.
 - **Anweisungen an andere Sitzungen sauber halten** (15.10., D5.3): `git checkout origin/main -- <Datei>` ließ Fords Arbeitskopie „geändert“ zurück, der Git-Haken erzwang drei Zusatzzeilen; besser `git merge --ff-only origin/main`.
+- **Bildvorschläge an der Karte nachrechnen** (15.10., 70.6): meine Empfehlung „Nordstraße, Tempel rechts schräg, Platz in der Tiefe“ war geometrisch unmöglich (Tempel 70° rechts); vor jedem Standpunkt eine Draufsicht mit Blickfeld.
 - **Beim Start alle Punkte zu eigenen Themen auf „Dein Zug“ lesen** (14.10., 69e übersehen, weil an den Nutzer adressiert).
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
 - **Entwürfe sofort in die Notizen** (13.10., Rabenschanze und 77 standen nur im Chat): gleich in Storyplan oder `ARBEIT-OFFEN.md`.
