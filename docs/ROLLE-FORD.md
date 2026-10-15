@@ -46,9 +46,10 @@ Nur Push, keine E-Mail (Nutzer 14.10.). Weg: Telegram-Bot `@Bornim_Ford_Bot`, Sc
 Immer über `/home/user/bornim-main/tools/meldung.sh` nach `git pull` (setzt Kopf, Namen und Nummern fett), nie aus der Startkopie oder per `curl` von Hand (Nutzer 15.10.: Fords Meldungen kamen ohne Fett, weil die Startkopie veraltet war). Nur Nummern und Stichworte, nie Spieltexte. Alle Meldungen über den Tom-Ford (81k); der Jerry-Ford startet nur Jerry.
 **Laufbericht (81p, 81r):** Telegram ist das Protokoll. Jeder Lauf eine Nachricht über `tools/meldung.sh Ford "…"`, lautlos (Läufe ohne Tat nur die Zeile „Geprüft: …“ je Agent mit Grund, z. B. „Diogenes: kein Auftrag“, „Tom: läuft“; Nutzer 15.10.: Prüfschritte sichtbar; zugleich Lebenszeichen); `--laut` nur, wenn der Nutzer dran ist. **In Fords Sitzung genau eine Zeile „Ford HH:MM ok“, sonst nichts** (keine Zusammenfassung, auch nicht auf `send_message`; Nutzer 15.10., 11:3x); nur wenn `meldung.sh` einen Fehler meldet, den ganzen Bericht dort mit „Telegram fehlgeschlagen“, damit sie schlank bleibt (die Zeilen unten sind nur Startmarken). Aufbau in drei Absätzen (Leerzeile = `\n\n`; Nutzer 15.10., 11:2x: fett je Agent, Einleitung, sinnvolle Absätze):
 ```
-tools/meldung.sh Ford "Alles läuft, nichts wartet auf dich.\n\nTom: läuft (D1.3 Kerze und Kammer)\nDiogenes: wartet auf 0.1.746 (PR #63)\nSokrates: wartet auf dich (D4.1 Texte)\nJerry: Pause bis Fr.\n\nGestartet: [Tom – D1.3](https://claude.ai/code/<id>)\nSeit dem letzten Lauf: Tom hat D3 gebaut (Commit 09:15)"
+tools/meldung.sh Ford "Du bist dran: [0.1.748](dz:e/t748.html) testen.\n\n[Tom](https://claude.ai/code/<id>): läuft (89 Schatten)\nDiogenes: wartet auf 0.1.748 (71 Dorf)\n[Sokrates](https://claude.ai/code/<id>): wartet auf dich ([72s.1](dz:e/72s1.html) Gefährte)\nJerry: Pause bis Fr.\n\nGestartet: [Tom – D1.3](https://claude.ai/code/<id>)\nSeit dem letzten Lauf: Tom hat D3 gebaut (Commit 09:15)"
 ```
 1. **Einleitung:** ein Satz, ob der Nutzer dran ist („Du bist dran: 5.5 testen“ oder „Alles läuft, nichts wartet auf dich“).
+**Links** (Nutzer 15.10., 15:5x): jede Nummer mit Seite auf „Dein Zug“ als Sprungmarke `[72s.1](dz:e/72s1.html)`, jeder laufende Agent als Link auf seine Sitzung `[Tom](URL):`.
 2. **Je Agent eine Zeile** „Name:“ vorn (das Werkzeug setzt Kopf und Namen fett), Stand, in Klammern kurz worum es geht; immer alle vier, das ist das Lebenszeichen.
 3. **Ereignisse** (Gestartet, Seit dem letzten Lauf, Fehlgeschlagen) nur, wenn es welche gibt; sonst entfällt der Absatz. Sitzungen als Link im Titel (`[Titel](URL)`, Nutzer 15.10.), nie die nackte Adresse.
 „Seit dem letzten Lauf“ prüft Ford mit `list_sessions` und `git log`: ob die Gestarteten angefangen haben (erster Commit), weiterarbeiten oder hängen. Zeilen ohne Inhalt weglassen.
@@ -57,6 +58,7 @@ tools/meldung.sh Ford "Alles läuft, nichts wartet auf dich.\n\nTom: läuft (D1.
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 16:12 15.10.: Start Tom (Neustart, ccb89546), Start Diogenes (71 Nachprüfung Dorf, 0.1.748 auf main)
 - 14:23 15.10.: Start Tom (Neustart, 8d676c3f)
 - 13:36 15.10.: Selbstneustart Ford (287 Tsd. Token), Stundenuhr umgestellt
 - 13:35 15.10.: Start Sokrates (Neustart, 6281f8b7)

@@ -137,6 +137,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
     // Movement loop: grid steps with a short slide animation.
     LaunchedEffect(game) {
         var lastFrame = 0L
+        val feet = de.bornim.core.audio.Footsteps.Feet()
         while (isActive) {
             // turned round at the edge of the map (67): once the line is read, one step back the way the hero came
             if (game.mode == Mode.Explore && !VeilMemory.active) game.stepBack?.let { d ->
@@ -190,6 +191,11 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     val pace = (if (runs) de.bornim.core.FreeWalk.RUN else de.bornim.core.FreeWalk.WALK) * (if (sv == null) 1.15 else 1.0)
                     fw.walk(vx, vy, dt, pace * minOf(1.0, 0.25 + left * 4), now)
                 } else fw.walk(0.0, 0.0, dt, 0.0, now)
+                // 74: a step's sound each time a foot sets down, by the ground under it
+                if (feet.fell(fw.walked) && fw.moving) {
+                    val tile = game.map.tile(kotlin.math.floor(fw.x).toInt(), kotlin.math.floor(fw.y).toInt())
+                    vm.play(de.bornim.core.audio.Footsteps.sound(game.map, tile), de.bornim.core.audio.Footsteps.volume(tile, running))
+                }
             }
             vm.refresh()
         }
@@ -256,6 +262,8 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         val ear = pond?.let { de.bornim.core.audio.PondSound.Ear(it) }
         var chorus = 0f
         var chorusStream = 0
+        // the hens (83c): clucking, scratching, alarm and wings, from what each hen is doing
+        val henEar = if (game.map.kind == MapKind.TOWN) de.bornim.core.art.MapHen.of(game.map).takeIf { it.isNotEmpty() }?.let { de.bornim.core.audio.HenSound.Ear(it) } else null
         try {
             while (isActive) {
                 delay(tick)
@@ -300,6 +308,10 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                         chorus == 0f && chorusStream != 0 -> { vm.sfx.stop(chorusStream); chorusStream = 0 }
                         else -> vm.sfx.volume(chorusStream, chorus)
                     }
+                }
+                if (henEar != null && de.bornim.core.art.MapHen.draft) {
+                    val heard = henEar.hear((p.x + 0.5f) * de.bornim.core.art.WorldArt.T, (p.y + 0.5f) * de.bornim.core.art.WorldArt.T)
+                    if (calm) for ((s, v) in heard) vm.play(s, v)
                 }
                 if (game.map.kind == MapKind.CAVE && now >= nextDrip) {
                     if (calm) vm.play(de.bornim.core.audio.Sound.DRIP, de.bornim.core.audio.Ambience.dripVolume(fire))
@@ -1116,6 +1128,19 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 }
             }
         }
+        // 83b: the hens by the hay bales, by day and in the dry; they run off flapping when the hero comes close
+        if (de.bornim.core.art.MapHen.draft && game.daylight > 0.3f && !game.raining) {
+            for (h in de.bornim.core.art.MapHen.of(map)) {
+                val a = h.at(clock, heroX + T / 2f, heroY + T - 3f, map)
+                val hs = MapFigure.slot(a.yaw)
+                val himg = (if (HeroSwing.now) de.bornim.core.art.MapHen.frameNow(a, hs) else de.bornim.core.art.MapHen.frame(a, hs)) ?: continue
+                val fx = a.x.toInt(); val fy = a.y.toInt()
+                sprites += Sprite(fy + 2f, a.x) {
+                    put(WorldArt.smallShadow(), fx - 6, fy - 3)
+                    put(himg, fx - de.bornim.core.art.MapHen.AX / MapFigure.DENSITY, fy - de.bornim.core.art.MapHen.GY / MapFigure.DENSITY, MapFigure.DENSITY)
+                }
+            }
+        }
         val heroSwing = if (MapFigure.swingDraft && heroRest == null && MapFigure.cloaked(state.hero) && !walking && swingMs < MapFigure.SWING_MS) {
             val lv = MapFigure.swingLevel(swingMs)
             if (HeroSwing.now) MapFigure.swingFrameNow(state.hero, heroSlot, lv) else MapFigure.swingFrame(state.hero, heroSlot, lv)
@@ -1438,31 +1463,6 @@ private fun DrawScope.drawCritters(
             if (flee > 0f) {
                 val wing = if ((clock / 70) % 2 == 0L) -2f else 1f
                 px(fx - 1, fy + wing, 2f, 1f, brown); px(fx + 2, fy + wing, 2f, 1f, brown)
-            }
-        }
-        // Chickens scratching around the hay bales
-        for (ty in ty0..ty1) for (tx in tx0..tx1) {
-            if (map.tile(tx, ty) != Tile.HAY) continue
-            for (k in 0 until 3) {
-                val seed = hash(tx, ty, 20 + k) % 1000
-                val t = clock / 2600f + seed
-                // slow wandering on a little loop beside the bale, pecking now and then
-                val cx = tx * T + 16f + kotlin.math.sin(t * 0.9f + k * 2.1f) * 26f + (if (k == 1) -30f else 0f)
-                val cy = ty * T + 28f + kotlin.math.cos(t * 0.7f + k) * 8f
-                val faceLeft = kotlin.math.cos(t * 0.9f + k * 2.1f) < 0
-                if (covered(cx, cy)) continue
-                val peck = (clock / 180 + seed) % 11 < 2
-                val dir = if (faceLeft) -1f else 1f
-                val white = Color(0xFFF4F0E8); val shade = Color(0xFFC8C0B0)
-                px(cx - 3, cy - 4, 6f, 4f, white)
-                px(cx - 3, cy - 1, 6f, 1f, shade)
-                px(cx - 3 * dir - (if (faceLeft) 1 else 0), cy - 4, 1f, 2f, shade) // tail
-                val hx = cx + 3 * dir - (if (faceLeft) 1 else 0)
-                val hy = if (peck) cy - 3 else cy - 6
-                px(hx, hy, 2f, 2f, white)
-                px(hx, hy - 1, 1f, 1f, Color(0xFFD83030)) // comb
-                px(hx + dir * 2 - (if (faceLeft) 1 else 0), hy + 1, 1f, 1f, Color(0xFFE8A020)) // beak
-                px(cx - 1, cy, 1f, 1f, Color(0xFFE8A020)); px(cx + 1, cy, 1f, 1f, Color(0xFFE8A020)) // legs
             }
         }
         // Leaves drifting through the forest. They belong to the world, not to the screen (10.10., 4: at

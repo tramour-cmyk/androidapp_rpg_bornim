@@ -110,4 +110,7 @@ object WorldArt {
 
     /** Soft shadow under a character's feet: a level circle, so 2:1 in the diagonal view (D1.5). */
     fun shadow(): PixelImage = cached("char-shadow", 24, 8) { ellipse(12.0, 4.0, 7.8, 3.9, SHADOW) }
+
+    /** The same under something small, a hen or a cat (83b). */
+    fun smallShadow(): PixelImage = cached("small-shadow", 12, 6) { ellipse(6.0, 3.0, 4.4, 2.2, SHADOW) }
 }

@@ -532,6 +532,8 @@ fun main() {
     if (System.getenv("BEASTDRAFT") != null) { renderBeastDrafts(); System.exit(0) }
     if (System.getenv("SWINGBILD") != null) { renderSwingDraft(); System.exit(0) }
     if (System.getenv("KATZE") != null) { renderCatDraft(); System.exit(0) }
+    if (System.getenv("HUEHNER") != null) { renderHenDraft(); System.exit(0) }
+    if (System.getenv("HUEHNERFILM") != null) { renderHenFilm(); System.exit(0) }
     if (System.getenv("DOLLDRAFT") != null) { renderShamanGhoulDrafts(); System.exit(0) }
     if (System.getenv("SHAMANDRAFT") != null) { renderShamanDraft(); System.exit(0) }
     if (System.getenv("VERMINDRAFT") != null) { renderVerminDrafts(); System.exit(0) }

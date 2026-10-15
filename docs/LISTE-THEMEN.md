@@ -77,7 +77,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 71 | Bestandsprüfung Stil und Klang aller Orte | Diogenes | offen |
 | 72 | Profil und Marktvergleich | Berater mit Nutzer | offen |
 | 73 | Versperrte Hütten: nachts Läden zu, Stimmen | Tom | erledigt |
-| 74 | Schrittgeräusche je Untergrund an allen Orten | Jerry (Klang), Tom (Dorf, Räume) | offen |
+| 74 | Schrittgeräusche je Untergrund an allen Orten | Jerry (Klang), Tom (Dorf, Räume) | erledigt |
 | 75 | Diogenes schärfen; Kosten und Nutzen des Testens | Berater mit Nutzer | erledigt |
 | 76 | Tom und Jerry schärfen, CLAUDE.md entschlacken | Tom, Jerry | erledigt |
 | 77 | Dokumentnamen ordnen | Tom, Berater | erledigt |
@@ -89,3 +89,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 85 | Testmenü aufräumen | Tom | fertig |
 | 87 | Schänke: Katze, Rowena, Borins Becher | Tom | fertig |
 | 88 | Leitlinien-Abgleich sichtbar | Berater | erledigt |
+| 91 | Schrittgeräusche eigenständig abschaltbar | Tom, Berater | offen |
