@@ -87,5 +87,5 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer, da
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
-- **98/99** (Diogenes Lauf 11, 15.10., 19:3x): D11.1–D11.5 im Prüfbericht, Paket auf Dein Zug `e/d11.html` (ja mit D11.1–D11.3); D11.4/D11.5 zieht Sokrates nach.
+- **98/99** (Diogenes Lauf 11, 15.10., 19:1x): D11.1–D11.5 im Prüfbericht, Paket auf Dein Zug `e/d11.html` (ja mit D11.1–D11.3); D11.4/D11.5 zieht Sokrates nach.
 

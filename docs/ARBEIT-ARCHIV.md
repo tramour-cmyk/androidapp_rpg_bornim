@@ -1,6 +1,6 @@
 # Archiv
 
-### Aus ROLLE-TESTER.md, 15.10., 19:3x (Diogenes, Übergabe)
+### Aus ROLLE-TESTER.md, 15.10., 19:1x (Diogenes, Übergabe)
 
 **Übergabe (15.10., 18:1x):** Lauf 9 (Nachprüfung 0.1.750, D9.1–D9.3 an Tom) und Lauf 10 (65.11 auf Auftrag des Nutzers, D10.1–D10.9 an Sokrates, Zeile „Für den Berater“) fertig, beide in einer Sitzung, weil der Nutzer den zweiten Auftrag direkt gab. Lehre: Abläufe gegen den Ist-Zustand prüfen (`list_triggers`, `list_sessions`, `get_session` von Ford); die Widersprüche lagen in den Ablaufdateien, nicht im Entwurf. Offen unter „Für Diogenes“ nur 90 (nach dem 22.10.). Nachfolger: keiner nötig bis 90.
 
