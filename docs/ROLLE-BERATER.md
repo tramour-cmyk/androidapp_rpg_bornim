@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (15.10., 22:5x) – Nachfolger: „Sokrates – Umstellung 98“:**
 
-**Nächster Punkt:** 98 wartet auf Go des Nutzers (Dein Zug `e/98.html`). D13.1–D13.11 eingearbeitet (15.10., 22:5x); Umbauschritte, Rückweg und Nachprüfung nur noch im [Rollenkonzept](https://claude.ai/code/artifact/3a9cbaec-bc3a-47b9-9ff1-c89f4bf59faa) „Beim Umbau zu erledigen“, Umbauplan überholt. Nach „Go“: Ford „alle Sitzungen stoppen, Umstellung“, die Liste der Reihe nach abarbeiten (zuerst Tag `vor-umbau-98`, Ford-Wache neu durch Ford), ein Commit, eigene Probe, dann „Auftrag Diogenes“ zur Nachprüfung. Jerry ruht bis Fr. nachmittags. Rest auf Dein Zug: 99d, 72s.1, D10.
+**Nächster Punkt:** 98 wartet auf Go des Nutzers (Dein Zug `e/98.html`). D13.1–D13.11 eingearbeitet (15.10., 22:5x); Umbauschritte, Rückweg und Nachprüfung nur noch im [Rollenkonzept](https://claude.ai/code/artifact/3a9cbaec-bc3a-47b9-9ff1-c89f4bf59faa) „Beim Umbau zu erledigen“, Umbauplan überholt. Nach „Go“: Ford „alle Sitzungen stoppen, Umstellung“, die Liste der Reihe nach abarbeiten (zuerst Tag `vor-umbau-98`, Ford-Wache neu durch Ford), ein Commit, eigene Probe, dann „Auftrag Diogenes“ zur Nachprüfung. Jerry ruht bis Fr. nachmittags. 99d beschlossen (Sparmodus bis Sa 21:00; Ford informiert). Rest auf Dein Zug: 72s.1, D10.
 
 **Zuletzt gelesen bis:** HEAD (15.10., 22:4x)
 
