@@ -139,9 +139,10 @@ object MapCat {
     // ---------------------------------------------------------------- the cat's day in the inn
 
     /** Where it lies, in tiles of the inn: before the hearth, by the barrel, in the middle of the room (free to see, 43). */
-    private val SPOTS = listOf(5.0 to 2.0, 1.0 to 4.0, 6.0 to 3.0)
-    /** The way from each spot to the next, round the bar and the tables (corners in tiles, the spot last); under the chairs it may go. */
-    private val WAYS = listOf(listOf(5.0 to 4.0, 1.0 to 4.0), listOf(4.0 to 4.0, 4.0 to 3.0, 6.0 to 3.0), listOf(5.0 to 3.0, 5.0 to 2.0))
+    internal val SPOTS = listOf(5.0 to 2.0, 1.0 to 4.0, 6.0 to 3.0)
+    /** The way from each spot to the next, round the bar and the tables (corners in tiles, the spot last): over the rug and
+     *  past the end of the bar, never through the table in front of it (87.1, test of 0.1.740). */
+    internal val WAYS = listOf(listOf(5.0 to 5.0, 2.0 to 5.0, 2.0 to 4.0, 1.0 to 4.0), listOf(2.0 to 4.0, 2.0 to 5.0, 5.0 to 5.0, 5.0 to 3.0, 6.0 to 3.0), listOf(5.0 to 3.0, 5.0 to 2.0))
     /** How long it sleeps at each spot, in ms. */
     private val NAPS = listOf(70_000L, 45_000L, 40_000L)
     /** Waking up: sit up, sit a while, get up, stretch and back, then off. */
@@ -199,8 +200,19 @@ object MapCat {
     }
 
     /** The cat at [a], drawn in the background when first wanted (null until then); [slot] as [MapFigure.slot]. */
-    fun frame(a: At, slot: Int): PixelImage? =
-        MapRest.picture("cat|${a.key}|${a.k}|$slot") { render(poseOf(a.key, a.k), slot * 360.0 / MapFigure.YAWS) }
+    fun frame(a: At, slot: Int): PixelImage? {
+        // the steps of the walk are drawn ahead in all directions; until a picture is ready the last one stays, so the
+        // cat never blinks out for a frame (87.1, test of 0.1.740: it flickered as it walked)
+        if (!warmed) {
+            warmed = true
+            for (sl in 0 until MapFigure.YAWS step MapFigure.YAWS / 4) for (k in 0 until 8) MapRest.picture("cat|walk|$k|$sl") { render(poseOf("walk", k), sl * 360.0 / MapFigure.YAWS) }
+        }
+        val img = MapRest.picture("cat|${a.key}|${a.k}|$slot") { render(poseOf(a.key, a.k), slot * 360.0 / MapFigure.YAWS) }
+        if (img != null) last = img
+        return img ?: last
+    }
+    @Volatile private var warmed = false
+    @Volatile private var last: PixelImage? = null
 
     /** The same, drawn now (the previews). */
     fun frameNow(a: At, slot: Int): PixelImage =
