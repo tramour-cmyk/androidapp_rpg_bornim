@@ -55,9 +55,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 16:4x, „Tom – 89 Schatten ins Spiel“)
-- Build A = PR #65 (`claude/tom-89-schatten-spiel`: Runde nach 0.1.748, 89, 91), auf Weckruf warten, dann auf „Dein Zug“ zum Installieren.
-- Danach Build B aus `claude/tom-68-tempelszene` (68 bei Sokrates, 70.6 auf Dein Zug).
+### Tom (15.10., 16:5x, „Tom – 89 Schatten ins Spiel“) – Nachfolger: „Tom – Build B Tempelszene“
+- 0.1.750 (Build A, PR #65) beim Nutzer, Prüfliste `e/t750.html`; nach „passt“ PR #65 zusammenführen, CHANGELOG „Zusammengeführt nach Test 0.1.750“, Zeilen 89/91/86/6l/13e aufräumen. PR #65 neu abonnieren.
+- Danach Build B aus `claude/tom-68-tempelszene` (68n–68p bei Sokrates/Nutzer auf Dein Zug).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
