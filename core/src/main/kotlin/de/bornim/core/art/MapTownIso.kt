@@ -83,9 +83,10 @@ object MapTownIso {
         val thatch = roof == RoofKind.STRAW
         // D3.13: a herbalist's cot in the woods, low under a deep, steep thatch hanging far out
         val hut = feature == HouseFeature.HUT
-        val eave = if (temple) 176.0 else if (hut) 112.0 else 150.0     // eaves at 2.6 m, the temple higher, the cot's at 1.95 m
-        val o = if (hut) 0.42 else 0.28             // the roof hangs over the walls
-        val pitch = if (hut) 1.4 else if (thatch) 1.25 else 1.0       // rise per run: thatch steeper
+        // (user 15.10., 12:0x: far too big; flatter and smaller): 2×2, eaves a little over the hero's head, a flatter thatch
+        val eave = if (temple) 176.0 else if (hut) 84.0 else 150.0     // eaves at 2.6 m, the temple higher, the cot's lower
+        val o = if (hut) 0.3 else 0.28             // the roof hangs over the walls
+        val pitch = if (hut) 0.6 else if (thatch) 1.25 else 1.0       // rise per run: thatch steeper, the cot's flatter
         val run = d / 2.0 + o
         val ridge = eave + run * ZT * pitch
         // the chimney at the back wall rises far enough to show a good part over the ridge
@@ -146,7 +147,7 @@ object MapTownIso {
             val tile = floor(u).toInt().coerceIn(0, len - 1); val f = u - tile
             val kind = letters.getOrElse(tile) { '#' }
             // the cot's door and windows lower, under its low eaves
-            val zo = if (hut) z * 1.12 else z
+            val zo = if (hut) z * 1.45 else z
             if (kind == 'D') (if (temple) archDoor(f, z, face, s) else door(f, zo, face, s))?.let { return it }
             if (kind == 'W') (if (temple) archWindow(f, z, face, night) else if (night && shut) shutWindow(f, zo, face, s + tile) else window(f, zo, face, night, s + tile))?.let { return it }
             return surface(u, z, face, s, eave)
@@ -189,7 +190,7 @@ object MapTownIso {
             }
         }
         // the edge of the roof, thick thatch at the eaves and along the gable: a band under the slope
-        val thick = if (hut) 24.0 else if (thatch) 16.0 else 5.0
+        val thick = if (hut) 20.0 else if (thatch) 16.0 else 5.0
         // ---- the cot's herbs (D3.13): bundles hung head down to dry under the eaves, along the front (the door kept
         // clear) and along the sunny side towards the fire
         if (hut) {
@@ -224,9 +225,10 @@ object MapTownIso {
                 k++
                 hi += 0.3 + rnd(k, 4, seed + 78) * 0.12
             }
+            val sideDoor = side.indexOf('D')
             var hj = 0.3
             while (hj < d - 0.2) {
-                bundle(k, n + o * 0.45, hj, 0.0, 1.0, eave + 2, litSide * 0.95)
+                if (sideDoor < 0 || floor(hj).toInt() != sideDoor) bundle(k, n + o * 0.45, hj, 0.0, 1.0, eave + 2, litSide * 0.95)
                 k++
                 hj += 0.34 + rnd(k, 4, seed + 78) * 0.12
             }
@@ -1135,7 +1137,8 @@ object MapTownIso {
         val door = letters.indexOf('D')
         val seed = hash(f.x, f.y, 5) % 997
         val room = roomOf(map, f)
-        val (front, side) = room?.let { windowsFromRoom(it, f.n, f.d, door) }
+        // D3.13: the cot's door is in its east side, towards Morwen's fire (user 15.10., 12:0x); the map's door tile is a wall
+        val (front, side) = if (style.feature == HouseFeature.HUT) letters to "#D" else room?.let { windowsFromRoom(it, f.n, f.d, door) }
             ?: (letters to (if (f.d >= 3) "#W#" else if (seed % 2 == 0) "W#" else "#W"))
         // the chimney over the hearth inside, at the same share of the length; houses without a room: towards one end
         val chimney: Double? = when {
