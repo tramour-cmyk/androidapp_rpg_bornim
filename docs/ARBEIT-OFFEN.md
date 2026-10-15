@@ -80,6 +80,7 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
+- **65.11** (Diogenes Lauf 8, 15.10., Nutzer 16:59 „Prüfe 65.11“): D8.1–D8.7 im Prüfbericht. Wichtigste: Haken wirkt nur in Zweigen, die ihn enthalten (D8.1); Neustart- und Dein-Zug-Haken widersprechen sich (D8.2); Entwurf verliert „Rolle statt Kennung“ (D8.3) und zählt `tools/` zu den Notizen (D8.4).
 - **91** (Tom, 15.10., Nutzer 16:0x): „Schrittgeräusche müssen eigenständig abschaltbar sein. Zusätzlich zu den Effekten. Die Töne können auf Dauer nerven. Leg die Idee mal auch Sokrates vor.“ Tom hat einen Schalter an/aus im System-Reiter gebaut; Frage an Sokrates: reicht an/aus, oder eigener Regler neben Gesamt/Musik/Effekte (40), oder Schritte allgemein leiser? **Sokrates 91a:** an/aus reicht (Empfehlung), im Chat 16:2x.
 
 - **68** (Tom, 15.10., Nutzer 16:1x): „68 Sokrates vorlegen, der soll das mal bewerten, bitte. Und ob das jetzt auch mit unserer neuen Musterstilkarte vereinbar ist, dann alles und so.“ Fünf Bilder der Tempelszene auf Dein Zug `e/68.html`; Bewertung gegen das Musterbild (70.1, 69e) und 70.3. **Sokrates 68n:** Aufbau ja außer Bild 4 (Ostfenster im Bild, Strahl aufs Amulett, Gesichter hell, schwebende Sonne weg), im Chat 16:2x.
