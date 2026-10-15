@@ -54,6 +54,7 @@ Fehlgeschlagen: keins (sonst Fehler wörtlich)
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 07:50 15.10.: Start Tom (Ford-Sitzung, erster Lauf)
 - 07:28 15.10.: Probe 81p nicht möglich: create_session fehlt in der Routine (ToolSearch „create_session“: „No matching deferred tools found“; list_sessions ebenso). Kein Start, Diogenes nicht doppelt gestartet.
 - 07:05 15.10.: Start Tom, Diogenes (38g); Morgenmeldung 0.1.746, 71 D3.13–16 über App-Push (Telegram-Schlüssel fehlt).
 - 07:05 Start Tom
