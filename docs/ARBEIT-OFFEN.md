@@ -69,6 +69,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Diogenes Lauf 3** (14.10., Prüfbericht, Verdachte, erst bestätigen): **Jerry** D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald, D3.4 Endlosklänge reißen ab, D3.5/D3.6 Monster, D3.8–D3.10, D3.12; Toms Teil auf `main` (0.1.750).
 - **Diogenes Lauf 6** (15.10., 71 A Dorf, Prüfbericht, Verdachte, erst bestätigen): Toms Teil auf `main` (0.1.750). **Jerry** D6.4 Fluss stumm.
 - **Diogenes Lauf 7** (15.10., 71 Nachprüfung Dorf nach 0.1.748, Prüfbericht, Verdacht, erst bestätigen): **Tom** D7.1 Hühner (mit 94). Sonst in Ordnung (Hühner, Schritte, Intro, Brücke).
+- **Diogenes Lauf 9** (15.10., Nachprüfung 0.1.750, Prüfbericht, Verdachte, erst bestätigen): **Tom** D9.1 Nähte an Häusern, D9.2 Schattenschicht im Zeichnen (Tiefer Wald bis 0,6 s am Rechner), D9.3 Abendstand nach Mitternacht; D3.3 Rest (Fichtenreihe im Tiefen Wald).
 
 ## Für Diogenes
 
