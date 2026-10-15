@@ -1,6 +1,6 @@
 # Vorrat Team Tom
 
-Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; Übergabe an der Zeile des Punkts. Größe höchstens etwa 15 KB (`CLAUDE.md`).
+Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 **offen 25, davon A 0, wartet auf Chef 2**
 

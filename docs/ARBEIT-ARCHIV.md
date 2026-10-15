@@ -1,4 +1,8 @@
 # Archiv
+### Übergabe Sokrates Projekt (15.10., 23:1x), abgelöst 23:4x
+
+**Übergabe (15.10., 23:1x, „Sokrates – Umstellung 98“):** Umbau 98 gemacht (ein Commit, Notizen und Werkzeug), Prüfung 1 (Sokrates) erledigt, Diogenes beauftragt (Zeile 98 in `ARBEIT-PRUEFUNG.md`), Ford „Umstellung fertig“. Nächster Punkt: Befund Diogenes Lauf 14 liegt vor (Zeile D14, Urteil: Umbau trägt, kein Rückweg): D14.1–D14.4 einarbeiten (Chef 23:2x: liegt richtig bei Sokrates Projekt); 16.10. Morgenmeldung Ford „Umbau läuft / hakt“ lesen. Sparmodus 99d bis Sa 21:00: Sokrates nur auf Zuruf. Nachfolger: „Sokrates Projekt – Nachprüfung Umbau 98“.
+
 ### Übergabe Diogenes (15.10., 22:5x), abgelöst 23:3x
 
 **Übergabe (15.10., 22:5x):** Lauf 13 (98 Firmenordnung und Rollenkonzept, Start durch Ford 22:38) fertig: kein Go in der damaligen Fassung, D13.1–D13.11 an Sokrates, vier Fragen an den Chef im Prüfbericht (inzwischen beantwortet und eingearbeitet). Nachfolger: keiner nötig bis zum nächsten Auftrag.

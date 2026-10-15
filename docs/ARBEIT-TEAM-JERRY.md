@@ -1,6 +1,6 @@
 # Vorrat Team Jerry
 
-Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; Übergabe an der Zeile des Punkts. Größe höchstens etwa 15 KB (`CLAUDE.md`).
+Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 **Pause bis Fr. 16.10., nachmittags (Chef 22:2x)** (D13.7): Jerry hat ab 16.10., 03:00 wieder Guthaben, der Chef richtet erst Fr. nachmittags den Telegram-Schlüssel auf Pro ein und startet Jerry dann von Hand; Ford und Ford 2 starten bis dahin nicht.
 

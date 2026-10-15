@@ -54,7 +54,7 @@ Steht oben in `ARBEIT-BETRIEB.md` („Ford: aus / Co-Pilot / Pilot“). Der Chef
 
 Nachricht „Neustart <Name>, <Commit>“ (per `send_message`, sofort, nicht erst zum Stundenlauf): `git fetch`; liegt der Commit auf `origin/main` und nennt die Übergabe im Vorrat, den der Kopf der Rollendatei von <Name> nennt, „Nachfolger: <Titel>“? Nein → Antwort „Übergabe fehlt“, nichts starten. Ja → Startmarke wie Schritt 3, `create_session` nach `ARBEIT-ABLAEUFE.md` „Neustart“ 2 (Titel aus der Übergabe, erste Nachricht das Startwort der Rolle mit Hut: „Tom“, „Sokrates Projekt“), Antwort an den Absender und lautlose Meldung mit Link; danach den Absender archivieren (`archive_session`, 81v; vorher prüfen, ob dort eine Frage des Chefs offen steht). Erledigte Sitzungen ohne Nachfolger (Diogenes, Rückblick) archiviert der nächste Lauf. Gilt ab Co-Pilot, auch nachts.
 
-Nachricht „Auftrag Diogenes <Nr>“ (Chef 15.10., 19:1x): sofort Schritt 3 nur für Diogenes (Zeile in `ARBEIT-PRUEFUNG.md`, keine laufende Diogenes-Sitzung, Startsperre); Antwort an den Absender.
+Nachricht „Auftrag Diogenes <Nr>“ (Chef 15.10., 19:1x): sofort Schritt 3 nur für Diogenes (Zeile in `ARBEIT-PRUEFUNG.md`, keine laufende Diogenes-Sitzung, Startsperre); Antwort an den Absender. Gilt wie ein Neustart ab Co-Pilot (D14.2).
 
 ### Ablauf eines Laufs
 

@@ -16,7 +16,7 @@ Zusammengeführte PRs stehen bis dahin unter „## Unveröffentlicht“.
 
 ## Neustart (81r: Thema fertig oder zweite Erinnerung des Hakens; kein Ja nötig)
 
-1. Übergabe mit „Nachfolger: <Titel>“ im eigenen Vorrat schreiben und pushen (D13.4: Teams an der Zeile des Punkts, alle anderen oben im Vorrat, den der Kopf ihrer Rollendatei nennt).
+1. Übergabe mit „Nachfolger: <Titel>“ im eigenen Vorrat schreiben und pushen (oben im Vorrat, den der Kopf der Rollendatei nennt; D13.4, D14.1).
 1a. `send_message` an Fords Sitzung (Kennung oben in `ARBEIT-BETRIEB.md`): „Neustart <Name>, <Commit>“. Ford startet und meldet den Link per Telegram; dem Nutzer im Chat nur „weiter in <Titel>“. Antwortet Ford nicht in 5 Minuten (oder Jerry ohne Ford): weiter mit 2; Diogenes startet nie selbst, sondern meldet `--laut`.
 2. Nachfolger selbst starten (vorher Startmarke „HH:MM Start <Name> (selbst)“ ins Protokoll von `ARBEIT-BETRIEB.md` pushen, D5.2), in derselben Umgebung: `create_session` mit erster Nachricht = Startwort der Rolle mit Hut („Tom“, „Sokrates Projekt“, „Diogenes“), nie „Start“, **immer mit** `source_url` des Repos, `outcome_branch` = neuer Zweig `claude/<name>-<nr>-<stichwort>` und Titel nach Rolle und Thema mit Startzeit („Tom – 27.4 Bäume, dann 5.6 Schlagbaum (15.10., 13:40)“, „Sokrates Projekt – Nachprüfung 98 (16.10., 09:12)“, 81v); danach Vorgänger archivieren (`archive_session`, sonst Ford). Ohne Zweig steht die Sitzung in der App unter „Sonstiges“ statt im Repo-Ordner. Ford liest beim Start die erste Antwort (Rolle, Vorrat richtig?) und trägt die Sitzung in `ARBEIT-BESETZUNG.md` ein.
 3. Dem Nutzer nur den Namen der neuen Sitzung nennen; er wechselt bloß hinüber.

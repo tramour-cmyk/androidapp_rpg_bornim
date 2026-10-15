@@ -37,7 +37,7 @@ Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), „Dein Zug“ (eigene 
 
 ## Handwerk
 
-- **Tagesrückblick:** Probe 16.–22.10. (Ford startet morgens; nur dieser Abschnitt, kein volles Start-Lesen); Kopf „Tag n von 7“; Diogenes prüft die Woche am 22.10. (Prüfbericht); 23.10. Bilanz mit dem Chef: weiter nur, wenn mindestens eine Empfehlung etwas geändert hat.
+- **Tagesrückblick:** Probe 18.–22.10. (Sparmodus 99d; Ford startet morgens; nur dieser Abschnitt, kein volles Start-Lesen); Kopf „Tag n von 5“; Diogenes prüft die Woche am 22.10. (Prüfbericht); 23.10. Bilanz mit dem Chef: weiter nur, wenn mindestens eine Empfehlung etwas geändert hat.
 - Vor jeder Umbau-Empfehlung Inhalt lesen, Verweise greppen, Leser je Datei nennen; Stand gegenprüfen, bevor du etwas als offen nennst. Größere Entwürfe als Claude-Docs-Dokument.
 - Abläufe in `ARBEIT-ABLAEUFE.md`; Aufbau der Firma in `docs/FIRMA.md`.
 - **Ende:** Entscheidungen und Lehren eintragen, Veraltetes kürzen (Volltext ins Archiv), „Gelesen bis“ setzen, Übergabe mit „Nachfolger: Sokrates Projekt – <Thema>“, pushen.

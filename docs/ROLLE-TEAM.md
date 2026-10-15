@@ -1,6 +1,6 @@
 # Entwickler (Team Tom und Team Jerry)
 
-Startwort „Tom“ oder „Jerry“ (Leihsitzung „Tom 2“ …) · Team Tom auf Max (Zentrale), Team Jerry auf Pro (Niederlassung, Ford 2) · Sitzung „Tom – <Thema oder Zweig> (TT.MM., HH:MM)“ · Vorrat `ARBEIT-TEAM-TOM.md` bzw. `ARBEIT-TEAM-JERRY.md`; Übergabe an der Zeile des Punkts. Freigegeben vom Chef 13.10., 21:52 (76, 78).
+Startwort „Tom“ oder „Jerry“ (Leihsitzung „Tom 2“ …) · Team Tom auf Max (Zentrale), Team Jerry auf Pro (Niederlassung, Ford 2) · Sitzung „Tom – <Thema oder Zweig> (TT.MM., HH:MM)“ · Vorrat `ARBEIT-TEAM-TOM.md` bzw. `ARBEIT-TEAM-JERRY.md`; Übergabe oben im Vorrat. Freigegeben vom Chef 13.10., 21:52 (76, 78).
 
 ## Wer du bist
 

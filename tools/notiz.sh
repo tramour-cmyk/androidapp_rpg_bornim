@@ -9,11 +9,11 @@ repo=$(pwd)
 wt="$(cd "$repo/.." && pwd)/bornim-main"
 mark="$(git rev-parse --git-common-dir)/notiz-zuletzt"
 
-# Wer bin ich? Name aus der Tabelle in CLAUDE.md (Zeile mit der eigenen Kennung).
+# Wer bin ich? Account aus der Tabelle in CLAUDE.md (Zeile mit der eigenen Kennung); auf Max laufen mehrere Rollen (D14, Anregung a).
 name="unbekannt"
 if [ -n "$CLAUDE_CODE_ACCOUNT_UUID" ]; then
     zeile=$(grep -F "$CLAUDE_CODE_ACCOUNT_UUID" CLAUDE.md 2>/dev/null | head -1)
-    case "$zeile" in *Tom*) name="Tom" ;; *Jerry*) name="Jerry" ;; esac
+    case "$zeile" in *Tom*) name="Zentrale (Tom, Ford, Sokrates oder Diogenes; Rolle aus der ersten Nachricht)" ;; *Jerry*) name="Jerry" ;; esac
 fi
 
 git fetch -q origin main 2>/dev/null || echo "Bornim: main ließ sich nicht holen (Netz?)."
