@@ -182,7 +182,7 @@ object MapFlora {
      * way the houses' do: down left on the screen, along the map's +y, a little to +x (the sun stands up right, D6.6).
      * Drawn under everything that stands, faded by the time of day.
      */
-    fun shadows(map: MapDef): List<WorldArt.Obj> = synchronized(shadowCache) {
+    fun shadows(map: MapDef): List<WorldArt.Obj> = if (MapSun.on) MapSun.shadows(map) else synchronized(shadowCache) {
         // no sun in the cave and indoors: the things there have their shadows in the ground
         if (map.kind != de.bornim.core.MapKind.FOREST && map.kind != de.bornim.core.MapKind.TOWN) return emptyList()
         shadowCache.getOrPut(map.id) {

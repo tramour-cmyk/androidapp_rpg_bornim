@@ -292,6 +292,11 @@ fun main() {
         System.exit(0)
     }
     if (System.getenv("WEGE") != null) { renderWayDrafts(); System.exit(0) }
+    // SONNE=morgen|mittag|abend: shadows by the sun at that stand (89, draft); SONNE=1 in the map shots: by the hour
+    System.getenv("SONNE")?.let { s ->
+        de.bornim.core.art.MapSun.on = true
+        de.bornim.core.art.MapSun.stand = when (s) { "morgen" -> de.bornim.core.art.MapSun.Stand.MORNING; "abend" -> de.bornim.core.art.MapSun.Stand.EVENING; else -> de.bornim.core.art.MapSun.Stand.NOON }
+    }
     System.getenv("FLORA")?.let { renderFloraSheet(it); System.exit(0) }
     if (System.getenv("HOEHLEDINGE") != null) { renderCaveThings(); System.exit(0) }
     if (System.getenv("ISODRAFT") != null) { renderIsoDraft(); System.exit(0) }
@@ -360,6 +365,8 @@ fun main() {
             vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
             val g = vm.game!!; g.skipDialogs()
             g.state.place = Place(map, x, y, facing); g.state.minutes = minutes
+            // SONNE=1: shadows by the sun, its stand by the hour of the shot (89, draft)
+            if (System.getenv("SONNE") == "1") de.bornim.core.art.MapSun.stand = de.bornim.core.art.MapSun.Stand.at(minutes)
             // AUSDAUER=0.4[:w]: the breath for running that low, ":w" out of breath (86.3)
             System.getenv("AUSDAUER")?.split(":")?.let { a -> g.state.stamina = a[0].toDouble(); g.state.winded = a.getOrNull(1) == "w" }
             // everything explored, so the shots show the ground; the new ground drawn right away

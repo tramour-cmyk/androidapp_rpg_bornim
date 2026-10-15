@@ -979,14 +979,17 @@ object MapWoodIso {
      * (weathered grey at the top, golden below), a low loose heap with a pitchfork stuck in it, a round cock. Straws run
      * down the sides, single ones stick out; lit from above and the right.
      */
+    /** 89: the radius (tiles) and height (upright units) of the hay on ([tx], [ty]), for its shadow ([MapSun]). */
+    fun hayShape(tx: Int, ty: Int): Pair<Double, Double> = haySize(Math.floorMod(hash(tx, ty, 38), 3))
+    private fun haySize(v: Int) = when (v) { 0 -> 0.38; 1 -> 0.42; else -> 0.34 } to when (v) { 0 -> 100.0; 1 -> 55.0; else -> 78.0 }
+
     fun hay(v: Int): PixelImage {
         val c = Canvas(140)
         val seed = 960 + v * 31
         val ci = -0.5; val cj = -0.5
-        val R = when (v) { 0 -> 0.38; 1 -> 0.42; else -> 0.34 }
-        val H = when (v) { 0 -> 100.0; 1 -> 55.0; else -> 78.0 }
+        val (R, H) = haySize(v)
         val bulge = when (v) { 0 -> 2.0; 1 -> 0.9; else -> 2.8 }
-        c.shadow(ci + 0.08, cj + 0.05, R + 0.08, R * 0.9 + 0.06, 0.5)
+        if (!MapSun.on) c.shadow(ci + 0.08, cj + 0.05, R + 0.08, R * 0.9 + 0.06, 0.5)
         val gold = argb(0xC4A866); val straw = argb(0x9A8048); val deep = argb(0x5E4A26); val grey = argb(0x8A8270)
         // the side: radius by height, slumped a little to one side
         fun rad(u: Double) = R * (1 - u.pow(bulge)).coerceAtLeast(0.0).pow(0.55)
@@ -1060,7 +1063,7 @@ object MapWoodIso {
         fun inTile(g: Double) = g >= k - 0.02 && g <= k + 1.02
         val wood = argb(0x5A4430)
         for (g in listOf(g0, g1)) if (inTile(g)) {
-            c.shadow(i(g), cj + 0.02, 0.06, 0.05, 0.5)
+            if (!MapSun.on) c.shadow(i(g), cj + 0.02, 0.06, 0.05, 0.5)
             for (zz in 0..(top * 3).toInt()) for (a in 0 until 8) {
                 val an = a * PI / 4; val z = zz / 3.0
                 c.pt(i(g) + cos(an) * 0.025, cj + sin(an) * 0.025, z, shade(mix(wood, argb(0x3A2C20), vnoise(z / 6, an, seed)), lit(cos(an), sin(an), 0.0)))
