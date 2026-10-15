@@ -54,7 +54,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 11:4x, „Tom – D3.13 Morwens Hütte“) – Nachfolger: „Tom – 70.3 Bild 3 Probe“
+### Tom (15.10., 12:0x, „Tom – 70.3 Bild 3 Probe“) – Nachfolger: „Tom – Runde nach 0.1.748“
 - **PR #64 = 0.1.748** auf Dein Zug (`e/t748.html`), wartet auf Test; nach „passt“ zusammenführen, `CHANGELOG.md`, Zeile von Dein Zug.
 - **D3.13** fertig bis Standbild (`claude/tom-d3-13-morwen-huette`, ersetzt `claude/tom-d3-13-huette`; `HouseFeature.HUT`): Dein Zug `e/d313.html`, wartet auf „passt“.
 - **Jetzt:** 70.3 B Bild 3 als Probe; **D4.1** Quest über Morwen bauen (Sokrates 11:38, Thema 38, Texte `STORY-K1.md` `[D4.1.*]`); dann Runde nach #64: 86 plus 6l, D3 (Konflikt `MapFlora.kt`), 13e.6 fest (Konflikt Vorschau `Main.kt`), D1.3/D1.11, D3.13. D1.7 nach Absprache mit Jerry (ab Fr.).
