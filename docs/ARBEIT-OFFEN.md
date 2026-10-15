@@ -20,11 +20,11 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
-| 96 | Gesprächstext zu lang für das Feld: „Text kann nicht gescrollt werden, sondern nächster Text kommt.“ (Nutzer 15.10., 17:0x) | Tom | `claude/tom-build-b-tempel` | Gebaut: Feld wächst mit dem ganzen Text; Build B |
-| 92 | Bauer Bram blockiert an der Brücke den Weg, Held steckt fest (Nutzer 15.10., 16:5x, Test 0.1.750); Idee: „Held muss NPC schieben können. Keine Gegner, aber neutrale.“ | Tom | `claude/tom-build-b-tempel` | Gebaut: wer zweimal angelaufen wird, tritt zur Seite, sonst Platztausch; Wachen nicht (`MakeWayTest`); Build B |
-| 93 | „Die Beete westlich gehen nicht bis zum Zaun.“ (Nutzer 15.10., 16:5x) | Tom | – | Standbild 17:4x (`KARTENZOOM=1 ONLY=zoom_nah_p HELDORT=village:5:29:L`): Grasstreifen zwischen Nordzaun und Beet (Zaun mitten im Feld gezeichnet), Westzaun fehlt fast; Beet ans Zaunfeld heranziehen |
-| 94 | „Hühner landen teilweise auf dem Fluss.“ (Nutzer 15.10., 16:5x); dazu D7.1 Hühner verschwinden schlagartig | Tom | `claude/tom-build-b-tempel` | Gebaut: Abstand zum Ufer, bei Regen und Dämmerung unter die Bäume und wieder heraus (`MapHenTest`); Build B |
-| 95 | Atem: „Atem mit Anzeige (Balken rechts) hört man nicht und der Balken funktioniert nicht.“ (Nutzer 15.10., 16:5x, zu 86) | Tom (Balken); Jerry (Keuchen, 86.3) | – | **95a B** (Nutzer 17:4x): Balken erscheint, sinkt beim Rennen nicht; **Tom** Ursache suchen (`Stamina.step` in `WorldScreen.kt` Z. 188, `running`). **Jerry, 95:** Keuchen hörbar machen (ab Fr.) |
+| 96 | Gesprächstext zu lang für das Feld: „Text kann nicht gescrollt werden, sondern nächster Text kommt.“ (Nutzer 15.10., 17:0x) | Tom | `claude/tom-build-b-fertig` | In 0.1.752 (PR #66, Build B), Test auf Dein Zug `e/t752.html` |
+| 92 | Bauer Bram blockiert an der Brücke den Weg, Held steckt fest (Nutzer 15.10., 16:5x, Test 0.1.750); Idee: „Held muss NPC schieben können. Keine Gegner, aber neutrale.“ | Tom | `claude/tom-build-b-fertig` | In 0.1.752 (PR #66, Build B), Test auf Dein Zug `e/t752.html` |
+| 93 | „Die Beete westlich gehen nicht bis zum Zaun.“ (Nutzer 15.10., 16:5x) | Tom | – | In 0.1.752 (PR #66, Build B), Test auf Dein Zug `e/t752.html`: Zaun am Beetrand (`MapTownIso.fenceSpot`) |
+| 94 | „Hühner landen teilweise auf dem Fluss.“ (Nutzer 15.10., 16:5x); dazu D7.1 Hühner verschwinden schlagartig | Tom | `claude/tom-build-b-fertig` | In 0.1.752 (PR #66, Build B), Test auf Dein Zug `e/t752.html` |
+| 95 | Atem: „Atem mit Anzeige (Balken rechts) hört man nicht und der Balken funktioniert nicht.“ (Nutzer 15.10., 16:5x, zu 86) | Tom (Balken); Jerry (Keuchen, 86.3) | – | **Tom:** 95a in 0.1.752 (Balken las den Vorrat nicht neu). **Jerry, 95:** Keuchen hörbar machen (ab Fr.) |
 | 86 | Bewegung und Übersicht (Nutzer 14.10., 18:5x) | Tom (86.1–86.4); Jerry (86.3 Keuchen, Lärm, Initiative; 86.11 mit 72b/38) | – | Einzelheiten in den Beschlüssen. **Tom:** 86.1–86.4 auf `main` (0.1.750). **Jerry:** Keuchen, Initiative mit Nachteil, Rennen laut (84.4); zur Kenntnis `GameState.winded`/`stamina`. Beschlossen, Bau offen: 86.6, 86.9, 86.10, 86.11 |
 | 90 | Projektleitung: täglicher Rückblick (Nutzer 15.10., 12:4x) | Berater; Ford startet | `main` (Notizen) | **Probe 16.–22.10. beschlossen** (12:5x, Beschlüsse): Sokrates morgens nach Fords Morgenmeldung (`ROLLE-FORD.md` 6a, `ROLLE-BERATER.md` „Tagesrückblick“). **Sokrates** achtet auf die Woche (jeder Rückblick nennt „Tag n von 7“) und Diogenes prüft die Woche vorher (Nutzer 12:5x, „Für Diogenes“); 23.10. Bilanz mit Nutzer: weiter oder abschaffen. **90a beschlossen** (17:4x): bis 23.10. keine neue Ablaufregel ohne Wegfall einer alten, Ausnahme nur bei ernsthaftem Fall |
 | 81 | Teamleiter „Ford“ (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–n, 81p, 81r, 81s (Uhr statt Kette, bestätigt 12:03), 81t, 81u (nein), 81v (Nutzer 15.10., 13:4x: Titel mit Startzeit, Vorgänger archivieren) (`ROLLE-FORD.md`, `ARBEIT-ABLAEUFE.md` „Neustart“); Ford lebt in „Ford – Teamleiter“, Stellung oben; Jerry-Ford ab Fr. **Nutzer:** `TELEGRAM_BOT_TOKEN` in Jerrys Umgebung. Verlauf 81o–81r im Archiv („Aus ARBEIT-OFFEN.md, 15.10., 10:2x (Sokrates, 81)“) |
@@ -57,9 +57,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 17:4x, „Tom – Build B Tempelszene“) – Nachfolger: „Tom – Build B fertig (68, 92–96)“
-- Zweig `claude/tom-build-b-tempel` (auf `main` mit 0.1.750): 70.6, 68 Ablauf und Bilder, 68n Bild 4 neu, 94/D7.1 Hühner, 92 Platz machen, 96 Gesprächsfeld; Kerntests grün. Noch kein PR, kein Build.
-- Vor dem Build: 68 verfeinern und 68o/68p einbauen (Zeile 68), 95a B (Zeile 95), 93 Beete (Zeile 93). Dann PR „Sammelbuild B“, Prüfliste auf Dein Zug, `e/t75x.html`.
+### Tom (15.10., 18:1x, „Tom – Build B fertig (68, 92–96)“)
+- Build B = 0.1.752, PR #66 (`claude/tom-build-b-fertig`), Prüfliste `e/t752.html`; PR abonniert. Nach „passt“: PR zusammenführen, CHANGELOG, Zeile auf Dein Zug löschen.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
