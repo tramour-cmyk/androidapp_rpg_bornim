@@ -1010,18 +1010,44 @@ object MapTownIso {
     }
 
     /**
-     * A piece of fence (5.6) around its post in the middle of the tile, joined towards the fence tiles beside it
+     * Where a fence stands in its tile (93): a garden's fence on the edge towards its beds, so the beds reach it with
+     * no strip of grass between; any other in the middle. The offsets along i (x) and j (y) inside the tile, -1 to 0.
+     * Each straight run of fence moves as a whole, so its corners still meet.
+     */
+    fun fenceSpot(map: MapDef, tx: Int, ty: Int): Pair<Double, Double> {
+        fun f(x: Int, y: Int) = map.tile(x, y) == Tile.FENCE
+        fun bed(x: Int, y: Int) = map.tile(x, y) == Tile.VEG_BED
+        // the run along x through the tile, and along y
+        var x0 = tx; while (f(x0 - 1, ty)) x0--
+        var x1 = tx; while (f(x1 + 1, ty)) x1++
+        var y0 = ty; while (f(tx, y0 - 1)) y0--
+        var y1 = ty; while (f(tx, y1 + 1)) y1++
+        val j = when {
+            (x0..x1).any { bed(it, ty + 1) } -> -0.1
+            (x0..x1).any { bed(it, ty - 1) } -> -0.9
+            else -> -0.5
+        }
+        val i = when {
+            (y0..y1).any { bed(tx + 1, it) } -> -0.1
+            (y0..y1).any { bed(tx - 1, it) } -> -0.9
+            else -> -0.5
+        }
+        return i to j
+    }
+
+    /**
+     * A piece of fence (5.6) around its post at ([mi], [mj]) in the tile (the middle unless [fenceSpot] moves it), joined towards the fence tiles beside it
      * ([l] west, [r] east, [u] north, [d] south). Three looks: split rails on posts, wattle of woven hazel between
      * stakes, a row of pointed pales on two rails.
      */
-    fun fence(v: Int, l: Boolean, r: Boolean, u: Boolean, d: Boolean, seed: Int): PixelImage {
+    fun fence(v: Int, l: Boolean, r: Boolean, u: Boolean, d: Boolean, seed: Int, mi: Double = -0.5, mj: Double = -0.5): PixelImage {
         val c = Tile1(160)
-        val m = -0.5
         // a run from the post to the tile's edge, along i (di = ±1) or j (dj = ±1)
         fun run(di: Int, dj: Int) {
+            val m = if (di != 0) mi else mj
             val (a0, a1) = if (di + dj < 0) -1.0 to m else m to 0.0
             fun along(lo: Double, hi: Double, w: Double, z0: Double, z1: Double, tex: (Int, Double, Double) -> Int?) =
-                if (di != 0) c.box(lo, m - w, hi, m + w, z0, z1, tex) else c.box(m - w, lo, m + w, hi, z0, z1, tex)
+                if (di != 0) c.box(lo, mj - w, hi, mj + w, z0, z1, tex) else c.box(mi - w, lo, mi + w, hi, z0, z1, tex)
             when (v) {
                 0 -> for (z in listOf(18.0, 40.0)) along(a0, a1, 0.025, z, z + 6) { f, uu, w -> wood(f, if (di != 0) uu else w, if (di != 0) w else uu, seed + z.toInt(), 0x5A4632) }
                 1 -> {
@@ -1050,7 +1076,7 @@ object MapTownIso {
         if (l) run(-1, 0)
         if (u) run(0, -1)
         val top = when (v) { 0 -> 56.0; 1 -> 54.0; else -> 50.0 }
-        c.box(m - 0.05, m - 0.05, m + 0.05, m + 0.05, 0.0, top) { f, uu, w -> wood(f, w, uu, seed + 9, 0x3E2E20) }
+        c.box(mi - 0.05, mj - 0.05, mi + 0.05, mj + 0.05, 0.0, top) { f, uu, w -> wood(f, w, uu, seed + 9, 0x3E2E20) }
         if (r) run(1, 0)
         if (d) run(0, 1)
         return c.img
@@ -1256,7 +1282,8 @@ object MapTownIso {
                 // one look for a whole fence: the garden's or the posts beside the barrier, by its first tile
                 val l = fenceAt(tx - 1, ty); val r = fenceAt(tx + 1, ty); val u = fenceAt(tx, ty - 1); val d = fenceAt(tx, ty + 1)
                 val fv = fenceLook(map, tx, ty)
-                "fence/$fv/$l$r$u$d" to { fence(fv, l, r, u, d, 591 + fv) }
+                val (mi, mj) = fenceSpot(map, tx, ty)
+                "fence/$fv/$l$r$u$d/$mi/$mj" to { fence(fv, l, r, u, d, 591 + fv, mi, mj) }
             }
             else -> null
         }
