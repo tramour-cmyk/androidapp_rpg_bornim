@@ -20,12 +20,12 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 
 ## Routinen (Toms Account, 81m)
 
-- **Ford lebt in einer Sitzung** (81p, 15.10., 07:49): „Ford – Teamleiter“ `session_01L32mhfHojkz6thnmuBiZD1` (seit 15.10., 09:00; Vorgänger `session_011gYhreNUNhcPNYyLPG7kJs`; Umgebung „Voll“: `create_session`, `list_sessions`, Telegram-Schlüssel). Geweckt wird er durch die Stundenuhr „Ford-Stundenuhr“ `trig_01XSM2AKJtWvwXZgTBnkRMjw` (:03, feuert in diese Sitzung; 81s, bestätigt 15.10., 12:03); keine `send_later`-Kette mehr. Beim Selbstneustart die Uhr mit `persistent_session_id` der neuen Sitzung neu anlegen, die alte löschen, beides hier eintragen. Stellung „aus“: Uhr bleibt, Ford liest nur die Stellung. **Ford startet sich selbst neu** (81r): zeigt `get_session` (eigene Sitzung) `context_usage.used_tokens` über 300.000, legt er „Ford – Teamleiter“ mit `create_session` neu an (erste Nachricht: sein eigener Auftrag), trägt die neue Kennung hier ein, pusht, meldet lautlos und stellt keinen Wecker mehr. Ausfall: Tom und Sokrates wecken ihn (`CLAUDE.md`).
+- **Ford lebt in einer Sitzung** (81p, 15.10., 07:49): „Ford – Teamleiter“ `session_01N7Qjx8DiTjJzihMELhsmP9` (seit 15.10., 13:36; Vorgänger `session_01L32mhfHojkz6thnmuBiZD1`; Umgebung „Voll“: `create_session`, `list_sessions`, Telegram-Schlüssel). Geweckt wird er durch die Stundenuhr „Ford-Stundenuhr“ `trig_01UFqeYAeHkvXHJGywiqnbjL` (seit 13:36; vorher `trig_01XSM2AKJtWvwXZgTBnkRMjw`, gelöscht) (:03, feuert in diese Sitzung; 81s, bestätigt 15.10., 12:03); keine `send_later`-Kette mehr. Beim Selbstneustart die Uhr mit `persistent_session_id` der neuen Sitzung neu anlegen, die alte löschen, beides hier eintragen. Stellung „aus“: Uhr bleibt, Ford liest nur die Stellung. **Ford startet sich selbst neu** (81r): zeigt `get_session` (eigene Sitzung) `context_usage.used_tokens` über 300.000, legt er „Ford – Teamleiter“ mit `create_session` neu an (erste Nachricht: sein eigener Auftrag), trägt die neue Kennung hier ein, pusht, meldet lautlos und stellt keinen Wecker mehr. Ausfall: Tom und Sokrates wecken ihn (`CLAUDE.md`).
 - **Warum keine Routine** (Proben 15.10., 07:28–07:48): Routinen-Sitzungen haben kein `create_session`/`list_sessions`, auch in „Voll“, auch per „Jetzt ausführen“ an eine feste Sitzung (legt trotzdem eine neue an); „Claude Code Remote“ ist in der Oberfläche nicht wählbar, `connectors` beim Anlegen für das Konto gesperrt. Cowork-Routinen („Ford Start“) haben die Verbindung, aber kein Telegram und unsichtbare Sitzungen. „Ford Start“ und alle Ford-Routinen nicht mehr benutzen.
 
 ## Neustart auf Meldung (81r)
 
-Nachricht „Neustart <Name>, <Commit>“ (per `send_message`, sofort, nicht erst zum Stundenlauf): `git fetch`, liegt der Commit auf `origin/main` und nennt die Übergabe von <Name> „Nachfolger: <Titel>“? Nein → Antwort „Übergabe fehlt“, nichts starten. Ja → Startmarke wie Schritt 3, `create_session` nach `ARBEIT-ABLAEUFE.md` „Neustart“ 2 (Titel aus der Übergabe, erste Nachricht der Name), Antwort an den Absender und lautlose Meldung mit Link. Gilt ab Co-Pilot, auch nachts.
+Nachricht „Neustart <Name>, <Commit>“ (per `send_message`, sofort, nicht erst zum Stundenlauf): `git fetch`, liegt der Commit auf `origin/main` und nennt die Übergabe von <Name> „Nachfolger: <Titel>“? Nein → Antwort „Übergabe fehlt“, nichts starten. Ja → Startmarke wie Schritt 3, `create_session` nach `ARBEIT-ABLAEUFE.md` „Neustart“ 2 (Titel aus der Übergabe, erste Nachricht der Name), Antwort an den Absender und lautlose Meldung mit Link; danach den Absender archivieren (`archive_session`, 81v). Beim Selbstneustart archiviert der neue Ford den alten. Erledigte Sitzungen ohne Nachfolger (Diogenes, Rückblick) archiviert der nächste Lauf. Gilt ab Co-Pilot, auch nachts.
 
 ## Ablauf eines Laufs
 
@@ -37,6 +37,7 @@ Nachricht „Neustart <Name>, <Commit>“ (per `send_message`, sofort, nicht ers
 4. Seit dem letzten Lauf (Protokoll oder `git log --since`) neu: „Jetzt installieren“ oder eine Übergabe „wartet auf Nutzer“ → Meldung `--laut` mit Nummer (nachts automatisch lautlos). Neue Zeile „Für den Berater“ nur lautlos (hält niemanden auf, Holschuld; Nutzer 15.10.). **Sitzung hängt** (zwei Läufe hintereinander `working`/`blocked` ohne neues `updated_at` und ohne Commit) → `--laut` mit Name und Link (Nutzer 15.10.).
 5. Vorrat aller leer → einmal am Tag Push „Vorrat leer“ (spätestens 21 Uhr).
 6. 7 Uhr: Morgenmeldung `--laut`: wer woran arbeitet, was über Nacht fertig wurde, was auf den Nutzer wartet.
+6a. **Tagesrückblick (90, Probe 16.–22.10.):** erster Lauf ab 8 Uhr startet einmal je Tag Sokrates mit Titel „Sokrates – Tagesrückblick TT.MM.“, erste Nachricht „Sokrates Tagesrückblick“ (Startsperre wie Schritt 3; nicht, wenn schon eine Sokrates-Sitzung läuft: dann `send_message` „Tagesrückblick“ an sie). Am 23.10. ist der Rückblick die Bilanz der Woche (Titel „Sokrates – Bilanz Tagesrückblick“); danach nur, wenn sie in „Wer macht was“ 90 „weiter“ sagt.
 7. Etwas getan → Zeile ins Protokoll unten, pushen; sonst nichts schreiben.
 
 ## Push (81a, 81l, 81m)
@@ -45,17 +46,22 @@ Nur Push, keine E-Mail (Nutzer 14.10.). Weg: Telegram-Bot `@Bornim_Ford_Bot`, Sc
 Immer über `/home/user/bornim-main/tools/meldung.sh` nach `git pull` (setzt Kopf, Namen und Nummern fett), nie aus der Startkopie oder per `curl` von Hand (Nutzer 15.10.: Fords Meldungen kamen ohne Fett, weil die Startkopie veraltet war). Nur Nummern und Stichworte, nie Spieltexte. Alle Meldungen über den Tom-Ford (81k); der Jerry-Ford startet nur Jerry.
 **Laufbericht (81p, 81r):** Telegram ist das Protokoll. Jeder Lauf eine Nachricht über `tools/meldung.sh Ford "…"`, lautlos (Läufe ohne Tat nur die Zeile „Geprüft: …“ je Agent mit Grund, z. B. „Diogenes: kein Auftrag“, „Tom: läuft“; Nutzer 15.10.: Prüfschritte sichtbar; zugleich Lebenszeichen); `--laut` nur, wenn der Nutzer dran ist. **In Fords Sitzung genau eine Zeile „Ford HH:MM ok“, sonst nichts** (keine Zusammenfassung, auch nicht auf `send_message`; Nutzer 15.10., 11:3x); nur wenn `meldung.sh` einen Fehler meldet, den ganzen Bericht dort mit „Telegram fehlgeschlagen“, damit sie schlank bleibt (die Zeilen unten sind nur Startmarken). Aufbau in drei Absätzen (Leerzeile = `\n\n`; Nutzer 15.10., 11:2x: fett je Agent, Einleitung, sinnvolle Absätze):
 ```
-tools/meldung.sh Ford "Alles läuft, nichts wartet auf dich.\n\nTom: läuft (D1.3 Kerze und Kammer)\nDiogenes: wartet auf 0.1.746 (PR #63)\nSokrates: wartet auf dich (D4.1 Texte)\nJerry: Pause bis Fr.\n\nGestartet: Tom – D1.3 https://claude.ai/code/<id>\nSeit dem letzten Lauf: Tom hat D3 gebaut (Commit 09:15)"
+tools/meldung.sh Ford "Alles läuft, nichts wartet auf dich.\n\nTom: läuft (D1.3 Kerze und Kammer)\nDiogenes: wartet auf 0.1.746 (PR #63)\nSokrates: wartet auf dich (D4.1 Texte)\nJerry: Pause bis Fr.\n\nGestartet: [Tom – D1.3](https://claude.ai/code/<id>)\nSeit dem letzten Lauf: Tom hat D3 gebaut (Commit 09:15)"
 ```
 1. **Einleitung:** ein Satz, ob der Nutzer dran ist („Du bist dran: 5.5 testen“ oder „Alles läuft, nichts wartet auf dich“).
 2. **Je Agent eine Zeile** „Name:“ vorn (das Werkzeug setzt Kopf und Namen fett), Stand, in Klammern kurz worum es geht; immer alle vier, das ist das Lebenszeichen.
-3. **Ereignisse** (Gestartet, Seit dem letzten Lauf, Fehlgeschlagen) nur, wenn es welche gibt; sonst entfällt der Absatz.
+3. **Ereignisse** (Gestartet, Seit dem letzten Lauf, Fehlgeschlagen) nur, wenn es welche gibt; sonst entfällt der Absatz. Sitzungen als Link im Titel (`[Titel](URL)`, Nutzer 15.10.), nie die nackte Adresse.
 „Seit dem letzten Lauf“ prüft Ford mit `list_sessions` und `git log`: ob die Gestarteten angefangen haben (erster Commit), weiterarbeiten oder hängen. Zeilen ohne Inhalt weglassen.
 
 ## Protokoll
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 14:23 15.10.: Start Tom (Neustart, 8d676c3f)
+- 13:36 15.10.: Selbstneustart Ford (287 Tsd. Token), Stundenuhr umgestellt
+- 13:35 15.10.: Start Sokrates (Neustart, 6281f8b7)
+- 13:18 15.10.: Start Tom (Neustart, 316e0357)
+- 12:54 15.10.: Start Sokrates (Neustart, b7f362f5)
 - 12:25 15.10.: Start Tom (Neustart, b35feeb7)
 - 12:23 15.10.: Start Sokrates (Neustart, 6588219b)
 - 12:03 15.10.: Start Tom (Neustart, 9b2f7fe5)
