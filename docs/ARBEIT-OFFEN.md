@@ -56,11 +56,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 14:4x, „Tom – 70.6 Bild 3 und 68 Tempelszene“) – Nachfolger: „Tom – 89 Schatten mit dem Tag“
-- Zweig `claude/tom-68-tempelszene` (enthält `claude/tom-runde-nach-748-b` ganz): **70.6** Bild 3 neu (Ebenen `intro_3*.png/jpg`, `IntroLife`, Vorschau `INTRO69=3`, `INTRO69=leben`, `INTROBILD=ms`), auf Dein Zug `e/706.html`; **68** fünf Bilder erster Entwurf (`TempleProbe.kt`, `TEMPEL68=n`, Assets mit `TEMPEL68=app`, App-Vorschau `TEMPELBILD=ms`) auf Dein Zug `e/68.html`, Ablauf fertig (`TempleSceneTest`), 68l Südrand still. Beides wartet auf den Nutzer; nach Ja zu 68 Figuren und Licht verfeinern (wie Intro Bild 3), dann Build.
-- Builds: erst #64 (0.1.748, wartet auf Test), dann Build A aus `claude/tom-runde-nach-748-b` (86/6l, 13e.6, D3, D1.3/D1.11, D6.x), dann Build B aus diesem Zweig (D4.1, 70.6, D3.13, 68), nachdem A auf `main` ist.
-- Für den Berater eingetragen: 68 (Kapitelende-Text vor der Andacht), 68l (Südrand bis Kapitel 2).
-- **Weiter: 89** (Beschluss 12:4x): erst D6.1/D6.6 (Prüfbericht Lauf 6), dann Probe im Dorf mit Standbildern aller drei Sonnenstände; eigener Zweig von `claude/tom-runde-nach-748-b`.
+### Tom (15.10., 15:2x, „Tom – 89 Schatten mit dem Tag“) – Nachfolger: „Tom – 89 Schatten im Spiel“ (erst nach Ja zu `e/89.html`)
+- Zweig `claude/tom-89-schatten` (von `claude/tom-runde-nach-748-b`): D6.1/D6.6 fest gebaut; `MapSun` (Schatten aus Form und Höhe, drei Stände) nur in der Vorschau (`SONNE=1|morgen|mittag|abend`, `SCHATTENNUR=1` mit `FLORA=`), Dorf und Wald. Nach Ja: `MapSun.on` fest, Stand beim Kartenwechsel und nach der Rast setzen (Game.kt), 89a Figurenschatten (WorldScreen.kt, Jerry zur Kenntnis), Mond mit D3.14.
+- Sonst wie vorher: #64 (0.1.748) wartet auf Test, dann Build A, dann Build B (`claude/tom-68-tempelszene`: 68, 70.6, D3.13, D4.1).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
