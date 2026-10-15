@@ -40,7 +40,7 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 Nur Push, keine E-Mail (Nutzer 14.10.). Weg: Telegram-Bot `@Bornim_Ford_Bot`, Schlüssel nur als Umgebungsvariable `TELEGRAM_BOT_TOKEN`, nie im Repo oder Chat:
 `curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" --data-urlencode "chat_id=8965432899" --data-urlencode "text=Ford 14.10. 13:44: 5.5 Build fertig, Prüfliste auf Dein Zug"`
 Form „Name TT.MM. HH:MM: Inhalt“, Nummer vorn; nur Nummern und Stichworte, nie Spieltexte. Alle Meldungen über den Tom-Ford (81k); der Jerry-Ford startet nur Jerry.
-**Laufbericht (81p, Nutzer 15.10.):** Nach jedem Lauf mit Tat eine Telegram-Nachricht, das ist Fords Protokoll für den Nutzer (die Zeilen unten sind nur Startmarken). Kurze Sätze in dieser Reihenfolge:
+**Laufbericht (81p, Nutzer 15.10.):** Nach jedem Lauf mit Tat eine Telegram-Nachricht, wörtlich auch als Antwort in Fords Sitzung (Läufe ohne Tat dort eine Zeile „Ford HH:MM: nichts zu tun“; Nutzer 15.10.); das ist Fords Protokoll für den Nutzer (die Zeilen unten sind nur Startmarken). Kurze Sätze in dieser Reihenfolge:
 ```
 Ford 15.10. 07:28
 Geprüft: Tom 5 Punkte Vorrat (69, 83c, 86.1 …), Diogenes Auftrag 38g, Sokrates nichts, Jerry Pause bis Fr.
