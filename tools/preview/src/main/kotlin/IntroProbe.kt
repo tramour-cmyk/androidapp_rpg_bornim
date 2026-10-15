@@ -684,8 +684,8 @@ internal class SquarePainter : IntroPainter() {
     }
 
     /**
-     * The temple far off: its west gable towards us, dressed stone in courses, a round window lit faintly over a tall arched
-     * one; the long north side in the shade with two tall windows, candle-warm (the late devotion); a slate roof whose ridge
+     * The temple far off: its west gable towards us, dressed stone in courses, no window in it (as inside, `Story.temple`),
+     * only a dark round opening high up; the long north side in the shade with two tall windows, candle-warm (the late devotion); a slate roof whose ridge
      * runs east, the bell tower at the east end with its louvred opening and a pointed cap. The moon (right front) lays a cold
      * edge on the gable's verge, the ridge and the tower.
      */
@@ -763,14 +763,14 @@ internal class SquarePainter : IntroPainter() {
         // the gable's verge, catching the moon
         M(x0, wall - 0.05, y1 + ov).let { a -> M(x0, ridge + 0.1, ym).let { b -> M(x0, wall - 0.05, y0 - ov).let { d ->
             line(far(night(0x8A9AB8, 1.35), zt), 2.0, a.x, a.y, b.x, b.y); line(far(night(0x8A9AB8, 1.1), zt), 1.6, b.x, b.y, d.x, d.y) } } }
-        // the tall west window and the round window above it, the candles inside faintly warm; the sun disc on the gable's top
-        archWindow({ u, v -> M(x0, v, u) }, ym, 0.22, 3.0, 5.6, zt, 0.3)
+        // the west wall has no window inside (Story.temple); only a dark round opening high in the gable to the roof space,
+        // the moon's sheen on its glass; the sun disc on the gable's top
         run {
-            val o = M(x0, 7.5, ym); val r = 0.5 * f / zt
+            val o = M(x0, 7.5, ym); val r = 0.45 * f / zt
             g.color = far(night(0x9A968A, 1.15), zt); g.fill(Ellipse2D.Double(o.x - r * 0.62, o.y - r * 1.15, r * 1.24, r * 2.3))
-            g.color = Color(0x9A5A22); g.fill(Ellipse2D.Double(o.x - r * 0.48, o.y - r * 0.9, r * 0.96, r * 1.8))
-            glow(o.x, o.y, r * 2.2, warmDeep, 0.2)
-            for (k in 0 until 4) { val a = Math.PI * k / 4; line(Color(0x2A1A10), 1.0, o.x - cos(a) * r * 0.48, o.y - sin(a) * r * 0.9, o.x + cos(a) * r * 0.48, o.y + sin(a) * r * 0.9) }
+            g.color = Color(0x0C1018); g.fill(Ellipse2D.Double(o.x - r * 0.48, o.y - r * 0.9, r * 0.96, r * 1.8))
+            g.color = alpha(Color(0x8A96B4), 0.35); g.fill(Ellipse2D.Double(o.x - r * 0.1, o.y - r * 0.85, r * 0.5, r * 0.8))
+            for (k in 0 until 4) { val a = Math.PI * k / 4; line(Color(0x2A2A30), 1.0, o.x - cos(a) * r * 0.48, o.y - sin(a) * r * 0.9, o.x + cos(a) * r * 0.48, o.y + sin(a) * r * 0.9) }
         }
         run {
             val sun = M(x0, 9.2, ym); val sr = 0.3 * f / zt
