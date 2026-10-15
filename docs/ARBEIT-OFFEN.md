@@ -2,7 +2,7 @@
 
 Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main` (Regeln in `CLAUDE.md`, auch zur Größe).
 
-**Nächste freie Themennummer: 100**
+**Nächste freie Themennummer: 101**
 
 **Ford: Pilot** (Nutzer 14.10., in Toms Sitzung, eingetragen 22:5x; 81g; Stellung aus / Co-Pilot / Pilot, Startlektüre `ROLLE-FORD.md`; wer die Stellung erhöht, löst Ford sofort einmal aus)
 
@@ -20,11 +20,12 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
-| 96 | Gesprächstext zu lang für das Feld: „Text kann nicht gescrollt werden, sondern nächster Text kommt.“ (Nutzer 15.10., 17:0x) | Tom | `claude/tom-build-b-fertig` | In 0.1.752 (PR #66, Build B), Test auf Dein Zug `e/t752.html` |
-| 92 | Bauer Bram blockiert an der Brücke den Weg, Held steckt fest (Nutzer 15.10., 16:5x, Test 0.1.750); Idee: „Held muss NPC schieben können. Keine Gegner, aber neutrale.“ | Tom | `claude/tom-build-b-fertig` | In 0.1.752 (PR #66, Build B), Test auf Dein Zug `e/t752.html` |
-| 93 | „Die Beete westlich gehen nicht bis zum Zaun.“ (Nutzer 15.10., 16:5x) | Tom | – | In 0.1.752 (PR #66, Build B), Test auf Dein Zug `e/t752.html`: Zaun am Beetrand (`MapTownIso.fenceSpot`) |
-| 94 | „Hühner landen teilweise auf dem Fluss.“ (Nutzer 15.10., 16:5x); dazu D7.1 Hühner verschwinden schlagartig | Tom | `claude/tom-build-b-fertig` | In 0.1.752 (PR #66, Build B), Test auf Dein Zug `e/t752.html` |
-| 95 | Atem: „Atem mit Anzeige (Balken rechts) hört man nicht und der Balken funktioniert nicht.“ (Nutzer 15.10., 16:5x, zu 86) | Tom (Balken); Jerry (Keuchen, 86.3) | – | **Tom:** 95a in 0.1.752 (Balken las den Vorrat nicht neu). **Jerry, 95:** Keuchen hörbar machen (ab Fr.) |
+| 96 | Gesprächstext zu lang für das Feld: „Text kann nicht gescrollt werden, sondern nächster Text kommt.“ (Nutzer 15.10., 17:0x) | Tom | `claude/tom-build-b-fertig` | In 0.1.752 (PR #66, Build B), Test 0.1.752 passt (Nutzer 20:5x) |
+| 100 | Testschalter ans Ende von Kapitel 1 (Nutzer 15.10., 20:5x, Test 0.1.752: „Da brauche ich eine Testumgebung. Ein Testschalter dafür, dass ich ans Ende komme … sonst müsste ich komplett durchspielen“; Chronik zeigte nur die Bilder) | Tom | `claude/tom-sammelbuild-nach-752` | In Arbeit: Knopf im Testreiter, dann 68 im nächsten Build prüfen. 70.6 Intro: Rückmeldung folgt |
+| 92 | Bauer Bram blockiert an der Brücke den Weg, Held steckt fest (Nutzer 15.10., 16:5x, Test 0.1.750); Idee: „Held muss NPC schieben können. Keine Gegner, aber neutrale.“ | Tom | `claude/tom-build-b-fertig` | In 0.1.752 (PR #66, Build B), Test 0.1.752 (Nutzer 20:5x): nicht prüfbar, Held blieb nicht hängen; bleibt offen |
+| 93 | „Die Beete westlich gehen nicht bis zum Zaun.“ (Nutzer 15.10., 16:5x) | Tom | – | In 0.1.752 (PR #66, Build B), Test 0.1.752 passt (Nutzer 20:5x): Zaun am Beetrand (`MapTownIso.fenceSpot`) |
+| 94 | „Hühner landen teilweise auf dem Fluss.“ (Nutzer 15.10., 16:5x); dazu D7.1 Hühner verschwinden schlagartig | Tom | `claude/tom-build-b-fertig` | In 0.1.752 (PR #66, Build B), Test 0.1.752 (Nutzer 20:5x): „machen es richtig, aber jetzt flackern sie leider wieder“ → **Tom**, Rückläufer |
+| 95 | Atem: „Atem mit Anzeige (Balken rechts) hört man nicht und der Balken funktioniert nicht.“ (Nutzer 15.10., 16:5x, zu 86) | Tom (Balken); Jerry (Keuchen, 86.3) | – | **Tom:** 95a passt (Test 0.1.752, Nutzer 20:5x). **Jerry, 95:** Keuchen hörbar machen (ab Fr.) |
 | 86 | Bewegung und Übersicht (Nutzer 14.10., 18:5x) | Tom (86.1–86.4); Jerry (86.3 Keuchen, Lärm, Initiative; 86.11 mit 72b/38) | – | Einzelheiten in den Beschlüssen. **Tom:** 86.1–86.4 auf `main` (0.1.750). **Jerry:** Keuchen, Initiative mit Nachteil, Rennen laut (84.4); zur Kenntnis `GameState.winded`/`stamina`. Beschlossen, Bau offen: 86.6, 86.9, 86.10, 86.11 |
 | 90 | Projektleitung: täglicher Rückblick (Nutzer 15.10., 12:4x) | Berater; Ford startet | `main` (Notizen) | **Probe 16.–22.10. beschlossen** (12:5x, Beschlüsse): Sokrates morgens nach Fords Morgenmeldung (`ROLLE-FORD.md` 6a, `ROLLE-BERATER.md` „Tagesrückblick“). **Sokrates** achtet auf die Woche (jeder Rückblick nennt „Tag n von 7“) und Diogenes prüft die Woche vorher (Nutzer 12:5x, „Für Diogenes“); 23.10. Bilanz mit Nutzer: weiter oder abschaffen. **90a beschlossen** (17:4x): bis 23.10. keine neue Ablaufregel ohne Wegfall einer alten, Ausnahme nur bei ernsthaftem Fall |
 | 81 | Teamleiter „Ford“ (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–n, 81p, 81r, 81s (Uhr statt Kette, bestätigt 12:03), 81t, 81u (nein), 81v (Nutzer 15.10., 13:4x: Titel mit Startzeit, Vorgänger archivieren) (`ROLLE-FORD.md`, `ARBEIT-ABLAEUFE.md` „Neustart“); Ford lebt in „Ford – Teamleiter“, Stellung oben; Jerry-Ford ab Fr. **Nutzer:** `TELEGRAM_BOT_TOKEN` in Jerrys Umgebung. Verlauf 81o–81r im Archiv („Aus ARBEIT-OFFEN.md, 15.10., 10:2x (Sokrates, 81)“). **D10** (Diogenes Lauf 10): D10.1 erledigt (Nutzer 18:2x: Reihenfolge Selbstneustart, Netz „Ford-Wache“ 07:08, Zeile in `CLAUDE.md`); D10.2–D10.5 als Paket auf Dein Zug; D10.8 mit 65.11 |
