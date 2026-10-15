@@ -845,6 +845,12 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
         }
         PixelButton(if (lang == Lang.DE) (if (vm.battleAuto) "Kampftext: weiter automatisch" else "Kampftext: weiter mit Antippen")
             else (if (vm.battleAuto) "Battle text: goes on by itself" else "Battle text: tap to go on"), Modifier.fillMaxWidth()) { vm.toggleBattleAuto() }
+        // 6l: the map at the default 6.75 tiles across or one step nearer, never further out
+        Txt(if (lang == Lang.DE) "Kartenausschnitt" else "Map view", size = 15.sp, bold = true)
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            PixelButton("Normal", Modifier.weight(1f), selected = !vm.mapNear, size = 15.sp) { vm.changeMapNear(false) }
+            PixelButton(if (lang == Lang.DE) "Näher" else "Nearer", Modifier.weight(1f), selected = vm.mapNear, size = 15.sp) { vm.changeMapNear(true) }
+        }
         PixelButton((if (vm.touchControls) Ui.controlsTouch else Ui.controlsClassic)(lang), Modifier.fillMaxWidth()) { vm.toggleControls() }
         if (vm.touchControls) {
             Txt(Ui.touchHint(lang), size = 13.sp, color = Colors.textDim)
