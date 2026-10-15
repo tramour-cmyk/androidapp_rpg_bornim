@@ -56,9 +56,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 08:5x, „Tom – 6l Zoomstufe“)
-- **Vorrat:** D3.11 Schild vor dem Helden prüfen; D3-Zweig Standbilder (Fichten, Schilder, Menhire, Fackelfilm `WARDFILM=1`). 13e.6 wartet auf Dein Zug, nach „passt“ `MapLight.caveDark` an und Schalter weg. 83c Scharren wartet auf Dein Zug.
-- **Sammelbuild** erst nach „passt“ zu 0.1.746 (PR #63): 69e-Welt und Intro (`claude/tom-69e-musterbild`), 83b/83c, D1.5 Truhe, 74 Schritte, 86 plus 6l (`claude/tom-6l-zoom` enthält 86), D3 und 13e.6; höchstens 4 Punkte je Build.
+### Tom (15.10., 09:0x, „Tom – 6l Zoomstufe“) – Nachfolger gewünscht (Sitzung groß)
+- **Vorrat:** D1.7 Leben Höhle (Absprache `WorldScreen.kt`); Tom-Teile von D1.3/D1.11 (Kerze Herdsims, Höhlengitter und -fackel eine Form). 13e.6 wartet auf Dein Zug (`e/13e6-2.html`), nach „passt“ `MapLight.caveDark` fest an (Wert `caveSeenDim` 0,45) und Schalter weg. 83c Scharren wartet.
+- **Sammelbuild** erst nach „passt“ zu 0.1.746 (PR #63): 69e-Welt und Intro (`claude/tom-69e-musterbild`), 83b/83c, D1.5 Truhe, 74 Schritte, 86 plus 6l (`claude/tom-6l-zoom` enthält 86), D3 (`claude/tom-d3-wald`), 13e.6; höchstens 4 Punkte je Build.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
@@ -66,7 +66,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Zu testen
 
 - **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5/D1.6/D1.9/D1.15 Höhle bei Tom (13e); D1.7 Leben Höhle, D1.8 stumme Quellen, D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (`grund_fs_609422`, `grund_fs_540836`, Hörner/Kreaturen ohne Quelle): Berater empfiehlt herausnehmen, **Nutzer entscheidet nach Hörprobe** (Höhle mit und ohne auf „Dein Zug“), erst danach ändern.
-- **Diogenes Lauf 3** (14.10., Prüfbericht, Verdachte, erst bestätigen): **Jerry** D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald, D3.4 Endlosklänge reißen ab, D3.5/D3.6 Monster, D3.8–D3.10, D3.12; **Tom** D3.3 Fichtenraster, D3.5 Fackelschein, D3.7 Schilder/Menhire bestätigt und gebaut (`claude/tom-d3-wald`, Standbilder folgen), D3.11 Schild verdeckt Helden in Prüfung.
+- **Diogenes Lauf 3** (14.10., Prüfbericht, Verdachte, erst bestätigen): **Jerry** D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald, D3.4 Endlosklänge reißen ab, D3.5/D3.6 Monster, D3.8–D3.10, D3.12; **Tom** D3.3, D3.5, D3.7, D3.11 bestätigt und gebaut (`claude/tom-d3-wald`, Standbilder und Fackelfilm geprüft; D3.11 erledigt sich mit D3.7: dort steht jetzt das niedrige Schild, verdeckt nur die Füße); nächster Sammelbuild. Jerry zur Kenntnis: drei Zeilen `WorldScreen.kt` (Fackelschein).
 
 ## Für Diogenes
 
