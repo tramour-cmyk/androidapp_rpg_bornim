@@ -592,6 +592,17 @@ object MapTownIso {
             plane(doubleArrayOf(i1, j0, z0), doubleArrayOf(0.0, j1 - j0, 0.0), doubleArrayOf(0.0, 0.0, z1 - z0)) { u, v -> tex(1, u, v) }
             plane(doubleArrayOf(i0, j0, z1), doubleArrayOf(i1 - i0, 0.0, 0.0), doubleArrayOf(0.0, j1 - j0, 0.0)) { u, v -> tex(2, u, v) }
         }
+        /** D6.1: a soft shadow on the ground over the rectangle (i0, j0)–(i1, j1), fading over [soft] at its edges. */
+        fun shadowBand(i0: Double, j0: Double, i1: Double, j1: Double, a: Double = 0.4, soft: Double = 0.04) {
+            for (py in 0 until h) for (px in 0 until w) {
+                val aa = (px + 0.5 - w / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
+                val i = (aa + bb) / 2; val j = (bb - aa) / 2
+                val e = minOf(i - i0, i1 - i, j - j0, j1 - j)
+                if (e <= 0) continue
+                val k = (e / soft).coerceAtMost(1.0)
+                img.set(px, py, ((k * a * 255).toInt() shl 24) or 0x0A0806)
+            }
+        }
         fun shadow(ci: Double, cj: Double, r: Double, a: Double = 0.45) {
             for (py in 0 until h) for (px in 0 until w) {
                 val aa = (px + 0.5 - w / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
@@ -1062,6 +1073,13 @@ object MapTownIso {
                 }
             }
         }
+        // D6.1: the fence's shadow on the ground first, falling down left (+j) like the houses'
+        val sh = if (v == 0) 0.3 else 0.4
+        c.shadowBand(m - 0.06, m - 0.04, m + 0.1, m + 0.14, sh)
+        if (l) c.shadowBand(-1.0, m - 0.02, m, m + 0.12, sh)
+        if (r) c.shadowBand(m, m - 0.02, 0.0, m + 0.12, sh)
+        if (u) c.shadowBand(m - 0.02, -1.0, m + 0.08, m, sh)
+        if (d) c.shadowBand(m - 0.02, m, m + 0.08, 0.0, sh)
         // what lies behind the post first, then the post, then what lies in front
         if (l) run(-1, 0)
         if (u) run(0, -1)

@@ -412,6 +412,29 @@ object MapWoodIso {
         val c = Canvas(80)
         val seed = 760 + tx * 7 + ty * 13
         val ridges = 3
+        // D6.7: the plants set by hand, not in a grid: unevenly spaced, now and then one missing, each of its own size
+        class Plant(val i: Double, val j: Double, val sc: Double, val ps: Int, val k: Int)
+        val plants = ArrayList<Plant>()
+        for (r in 0 until ridges) {
+            val rj = -1 + (r + 0.5) / ridges
+            for (k in 0 until 4) {
+                if (rnd(tx * 4 + k, ty * 3 + r, seed + 2) < 0.12) continue
+                plants += Plant(-1 + (k + 0.5) / 4 + (rnd(tx * 4 + k, ty * 3 + r, seed) - 0.5) * 0.16,
+                    rj + (rnd(tx * 4 + k, ty * 3 + r, seed + 1) - 0.5) * 0.07,
+                    0.8 + rnd(tx * 4 + k, ty * 3 + r, seed + 3) * 0.4, seed + r * 31 + k * 7, k)
+            }
+        }
+        // D6.1: each plant's soft shadow on the earth, falling down left (+j) like the houses', longer for the leeks
+        fun shadowAt(i: Double, j: Double): Double {
+            var s = 0.0
+            for (p in plants) {
+                val len = if (v == 1) 0.11 else 0.07
+                val di = (i - p.i - 0.015) / (0.08 * p.sc); val dj = (j - p.j - len * p.sc) / ((0.06 + len) * p.sc)
+                val d = di * di + dj * dj
+                if (d < 1) s = max(s, (1 - d) * (1 - d))
+            }
+            return s
+        }
         // the earth: ridges along i, furrows between, clods
         var i = -1.02
         while (i <= 0.02) {
@@ -421,20 +444,14 @@ object MapWoodIso {
                 val z = 4.0 * sin(PI * ph) + (vnoise((tx + i) * 30, (ty + j) * 30, seed) - 0.5) * 1.2
                 val nj = -cos(PI * ph) * 0.6
                 val col = mix(argb(0x4A3A28), argb(0x2A2016), vnoise((tx + i) * 50, (ty + j) * 50, 761))
-                c.pt(i, j, z, shade(col, lit(0.0, nj, 1.0)))
+                c.pt(i, j, z, shade(col, lit(0.0, nj, 1.0) * (1 - 0.4 * shadowAt(i, j))))
                 j += 0.004
             }
             i += 0.004
         }
-        for (r in 0 until ridges) {
-            val rj = -1 + (r + 0.5) / ridges
-            for (k in 0 until 4) {
-                // D6.7: set by hand, not in a grid: unevenly spaced, now and then one missing, each of its own size
-                if (rnd(tx * 4 + k, ty * 3 + r, seed + 2) < 0.12) continue
-                val pi = -1 + (k + 0.5) / 4 + (rnd(tx * 4 + k, ty * 3 + r, seed) - 0.5) * 0.16
-                val pj = rj + (rnd(tx * 4 + k, ty * 3 + r, seed + 1) - 0.5) * 0.07
-                val sc = 0.8 + rnd(tx * 4 + k, ty * 3 + r, seed + 3) * 0.4
-                val ps = seed + r * 31 + k * 7
+        for (pl in plants) {
+            run {
+                val pi = pl.i; val pj = pl.j; val sc = pl.sc; val ps = pl.ps; val k = pl.k
                 when (v) {
                     0 -> for (a in 0..60) for (b in 0..18) {
                         // a cabbage: a round head in loose outer leaves

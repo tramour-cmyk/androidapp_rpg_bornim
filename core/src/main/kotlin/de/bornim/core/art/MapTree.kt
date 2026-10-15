@@ -11,7 +11,7 @@ import kotlin.math.sqrt
 
 /**
  * Trees with volume (27.4): the crowns of oaks are heaped from lit clumps of leaves around a round
- * body, so they bulge towards the light (upper left) and fall into shade underneath and inside; the
+ * body, so they bulge towards the light (upper right) and fall into shade underneath and inside; the
  * trunk is a round column with bark, roots spreading on the ground and boughs reaching into the
  * crown, shaded where the crown hangs over it. Spruces stand in drooping tiers of needles, each tier
  * shading the one below. Dead trees are bare round limbs. Every shape is lit from its surface
@@ -51,8 +51,8 @@ internal object MapTree {
     private val BARK = ramp(0x17110E, 0x261D17, 0x382B21, 0x4D3C2D, 0x65503C, 0x7C6650)
     private val DEAD = ramp(0x1C1A18, 0x2E2A26, 0x433D36, 0x5A5248, 0x736A5D, 0x8A8172)
 
-    // light from the upper left and a little in front, as everywhere on the map
-    private val L = norm(-0.55, -0.7, 0.55)
+    // light from the upper right and a little in front, as on the houses and everything else on the map (D6.6)
+    private val L = norm(0.55, -0.7, 0.55)
 
     private fun norm(x: Double, y: Double, z: Double): DoubleArray {
         val l = sqrt(x * x + y * y + z * z).coerceAtLeast(1e-9)

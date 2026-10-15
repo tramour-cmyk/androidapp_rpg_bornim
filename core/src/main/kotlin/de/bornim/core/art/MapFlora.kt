@@ -178,26 +178,30 @@ object MapFlora {
     private val shadowCache = HashMap<String, List<WorldArt.Obj>>()
 
     /**
-     * The shadows of trees, rocks and stones on the ground, falling to the lower right (the light
-     * comes from the upper left). Drawn under everything that stands, faded by the time of day.
+     * The shadows of trees, rocks and stones on the ground under the open sky (woods and village, D6.1), falling the
+     * way the houses' do: down left on the screen, along the map's +y, a little to +x (the sun stands up right, D6.6).
+     * Drawn under everything that stands, faded by the time of day.
      */
     fun shadows(map: MapDef): List<WorldArt.Obj> = synchronized(shadowCache) {
-        // no sun in the cave: the things there have their shadows in the ground
-        if (map.kind != de.bornim.core.MapKind.FOREST) return emptyList()
+        // no sun in the cave and indoors: the things there have their shadows in the ground
+        if (map.kind != de.bornim.core.MapKind.FOREST && map.kind != de.bornim.core.MapKind.TOWN) return emptyList()
         shadowCache.getOrPut(map.id) {
             val out = ArrayList<WorldArt.Obj>()
             for (ty in 0 until map.height) for (tx in 0 until map.width) {
                 val list = objects(map, tx, ty) ?: continue
                 for (o in list) {
+                    // the bushes bring their own shadow (MapWoodIso.bush)
+                    if (o.corner) continue
                     val w = o.img.width; val h = o.img.height
                     val footX = o.x * D + w / 2; val footY = (o.sortY) * D
-                    val (rx, ry, ox) = when (map.tile(tx, ty)) {
-                        Tile.TREE -> Triple(w * 0.42, w * 0.22, w * 0.3)
+                    // radii across and along the fall, and how far the middle lies from the foot (map pixels)
+                    val (rx, ry, oy) = when (map.tile(tx, ty)) {
+                        Tile.TREE -> Triple(w * 0.3, w * 0.4, w * 0.3)
                         Tile.CAMPFIRE -> continue
-                        else -> Triple(w * 0.45, 12.0, 8.0)
+                        else -> Triple(w * 0.3, w * 0.3, 8.0)
                     }
                     val img = shadowImage(rx.toInt(), ry.toInt(), if (map.tile(tx, ty) == Tile.TREE) 0.42 else 0.36)
-                    out += WorldArt.Obj(img, Math.floorDiv(footX + ox.toInt() - rx.toInt(), D), Math.floorDiv(footY - ry.toInt() + 2, D), 0, D)
+                    out += WorldArt.Obj(img, Math.floorDiv(footX + (oy * 0.2).toInt() - rx.toInt(), D), Math.floorDiv(footY + oy.toInt() - ry.toInt(), D), 0, D)
                 }
             }
             out
