@@ -57,7 +57,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (15.10., 12:5x, „Tom – Runde nach 0.1.748 (2)“)
-- Sammelzweig jetzt `claude/tom-runde-nach-748-b`: D4.1, Bild 3 (Dein Zug `e/b3.html`), D3.13 zweiter Entwurf (`e/d313.html`), dazu 86 plus 6l, D3, 13e.6 fest, D1.3/D1.11 zusammengeführt (Kerntests grün, App nur über CI prüfbar). Mehr als 4 Punkte (78a): nach „passt“ zu #64 in zwei Builds teilen (A: 86/6l, 13e.6, D3, D1.3/D1.11; B: D4.1, Bild 3, D3.13). **Jetzt:** Diogenes Lauf 6 (D6.2, D6.3, D6.5, D6.7) bestätigen.
+- Sammelzweig jetzt `claude/tom-runde-nach-748-b`: D4.1, Bild 3 (Dein Zug `e/b3.html`), D3.13 zweiter Entwurf (`e/d313.html`), dazu 86 plus 6l, D3, 13e.6 fest, D1.3/D1.11 zusammengeführt (Kerntests grün, App nur über CI prüfbar). Mehr als 4 Punkte (78a): nach „passt“ zu #64 in zwei Builds teilen (A: 86/6l, 13e.6, D3, D1.3/D1.11; B: D4.1, Bild 3, D3.13). Dazu D6.2/D6.3/D6.5/D6.7 (Build A).
 - **PR #64 = 0.1.748** auf Dein Zug (`e/t748.html`), wartet auf Test; nach „passt“ zusammenführen, `CHANGELOG.md`, Zeile von Dein Zug.
 - Entscheidungsbilder immer auch an Telegram (`tools/meldung.sh --bild`), Nutzer 15.10., 12:2x erinnert.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
@@ -68,7 +68,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5/D1.6/D1.9/D1.15 Höhle bei Tom (13e); D1.7 Leben Höhle, D1.8 stumme Quellen, D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (`grund_fs_609422`, `grund_fs_540836`, Hörner/Kreaturen ohne Quelle): Berater empfiehlt nach Umweltklang-Regel (15.10.): Tropfen und fernes Grollen behalten, Hörner herausnehmen (passen zu keiner Quelle der Geschichte); **Nutzer entscheidet nach Hörprobe** (Höhle mit und ohne auf „Dein Zug“), erst danach ändern.
 - **Diogenes Lauf 3** (14.10., Prüfbericht, Verdachte, erst bestätigen): **Jerry** D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald, D3.4 Endlosklänge reißen ab, D3.5/D3.6 Monster, D3.8–D3.10, D3.12; **Tom** D1.3/D1.11-Rest gebaut (`claude/tom-d1-kerze-gitter`); D3.3, D3.5, D3.7, D3.11 bestätigt und gebaut (`claude/tom-d3-wald`, Standbilder und Fackelfilm geprüft; D3.11 erledigt sich mit D3.7: dort steht jetzt das niedrige Schild, verdeckt nur die Füße); nächster Sammelbuild. Jerry zur Kenntnis: drei Zeilen `WorldScreen.kt` (Fackelschein).
-- **Diogenes Lauf 6** (15.10., 71 A Dorf, Prüfbericht, Verdachte, erst bestätigen): **Tom** D6.1 Bäume, Zaun, Beete ohne Schatten; D6.2 Pim hinter jungen Fichten; D6.3 Ufer und Brücke flach; D6.5 Doppelstände; D6.6 Lichtrichtung; D6.7 Beetraster. **Jerry** D6.4 Fluss stumm.
+- **Diogenes Lauf 6** (15.10., 71 A Dorf, Prüfbericht, Verdachte, erst bestätigen): **Tom** D6.2, D6.3 (Böschung, Schilf, Bohlen), D6.5, D6.7 bestätigt und gebaut (`claude/tom-runde-nach-748-b`, Standbilder geprüft); D6.1/D6.6 hängen an 89. **Jerry** D6.4 Fluss stumm.
 
 ## Für Diogenes
 
