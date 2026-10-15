@@ -64,7 +64,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (15.10., 22:2x, „Tom – Hühner 94 und Sammelbuild“) – Nachfolger: „Tom – Sammelbuild PR #67“
 - Sammelbuild **PR #67** (`claude/tom-94-huehner-sammelbuild`) = Build B (PR #66, 0.1.752, vom Nutzer geprüft) + 94 Hühner + D3.13a (Hütte, Hauslicht weich, Laterne nicht aufs Dach, kein Lampenschein auf Tempeldach; „passt“ 21:3x) + 100 + D9.1–D9.3; beide PRs abonniert. Wenn grün: Prüfliste `e/t<build>.html` auf Dein Zug (94 Hühner nah ansehen, 68 über Testknopf 100, 92 Bram, D3.13a nachts), dann nach „passt“ #67 zusammenführen, #66 schließen (in #67 enthalten).
-- 0.1.753 grün (22:29), Prüfliste `e/t753.html` auf Dein Zug; nach „passt“ #67 zusammenführen, #66 schließen. 69f liegt beim Berater. Nächster Sammelbuild D3.3 + 89 steht auf `claude/tom-sammelbuild-nach-753` (7b87be89, Kerntests grün), PR erst nach „passt“ zu 0.1.753.
+- 0.1.753 grün (22:29), Prüfliste `e/t753.html` auf Dein Zug; nach „passt“ #67 zusammenführen, #66 schließen. 69f liegt beim Berater. Nächster Sammelbuild D3.3 + 89 steht auf `claude/tom-sammelbuild-nach-753` (7b87be89, Kerntests grün), PR erst nach „passt“ zu 0.1.753. Angehalten 23:1x (Ford, Umstellung 98): Vorrat in `ARBEIT-SELBST.md` (Tom 2–5); 2 Bram erledigt (`MakeWayTest` gibt es), 3 Standbilder und 4 `PlayerSimTest` abgebrochen, neu starten.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
