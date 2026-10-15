@@ -57,8 +57,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (15.10., 10:5x, „Tom – Sammelbuild nach 0.1.746“)
-- **Sammelzweig vorbereitet** `claude/tom-sammel-nach-746` (68ac1641, auf PR #63 aufgesetzt): 69e Welt und Intro, 83b/83c Hühner, D1.5 Truhe, 74 Schritte (Klangliste mit Hühnern zusammengeführt). Kerntests grün. **PR erst nach „passt“ zu 0.1.746**, dann Prüfliste und Weckruf.
-- **Danach** (je höchstens 4 Punkte): 86 plus 6l (`claude/tom-6l-zoom`), D3 (Konflikt `MapFlora.kt`), 13e.6 passt (Konflikt Vorschau `Main.kt`), D1.3/D1.11. Vorrat: D1.7 Leben Höhle (Absprache `WorldScreen.kt`, Jerry ab Fr.).
+- **Sammelzweig vorbereitet** `claude/tom-sammel-nach-746` (68ac1641, auf PR #63 aufgesetzt): 69e Welt und Intro, 83b/83c Hühner, D1.5 Truhe, 74 Schritte; 83c Strohbesen drin. Kerntests grün. **PR erst nach „passt“ zu 0.1.746**, dann Prüfliste und Weckruf.
+- **Danach** (je höchstens 4 Punkte): 86 plus 6l (`claude/tom-6l-zoom`), D3 (Konflikt `MapFlora.kt`), 13e.6 fest an (`claude/tom-13e6-dunkler`, Konflikt Vorschau `Main.kt`), D1.3/D1.11. Vorrat: D1.7 Leben Höhle (Absprache `WorldScreen.kt`, Jerry ab Fr.).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
