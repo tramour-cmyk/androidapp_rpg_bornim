@@ -1,4 +1,8 @@
 # Archiv
+### Übergabe Team Tom (16.10., 00:4x), abgelöst 16.10., 00:5x
+
+**Übergabe (16.10., 00:4x, „Tom – 26 Ort fertig“) – Nachfolger: „Tom – 68 Tempelszene“:** PR #67 (0.1.753) wartet auf Test des Chefs, abonniert (Nachfolger neu abonnieren); nach „passt“ #67 zusammenführen, #66 schließen, dann PR für `claude/tom-sammelbuild-nach-753` (D3.3 + 89 + 69f, 0c27e7a8) mit Prüfliste (69f: Titelmusik vom Heldenbau leise ins Intro, Schwarzbild voll, im Gasthaus 6 s Ausklang, dann Dorfmusik). **26 Lückenliste (16.10., 00:4x):** Standbilder Tag (12 Uhr) und Nacht (23 Uhr), Dorf an 5 Stellen, Gasthaus, Laden, Ältester, Tempel, Wald, Tiefer Wald. Auf `main` (5b0f2869) Dachnähte und Laternenschein auf dem Tempeldach, auf dem Sammelstand 0c27e7a8 beide weg (D9.1, D3.13a). Offen nur: Heldenlicht draußen, Tiefer Wald mittags so dunkel wie ein Innenraum, nachts nur im Heldenlicht lesbar → D3.14 mit 84.1. Räume ohne Lücke. Zufallsspieler grün (24 Läufe), Kerntests 314 grün. Jetzt: 68.
+
 ### Übergabe Team Tom (15.10., 23:44), abgelöst 16.10., 00:4x
 
 **Übergabe (15.10., 23:44, „Tom – 69f Intromusik“) – Nachfolger: „Tom – 26 Ort fertig“:** PR #67 (0.1.753) wartet auf Test des Chefs, abonniert (Nachfolger neu abonnieren); nach „passt“ #67 zusammenführen, #66 schließen, dann PR für `claude/tom-sammelbuild-nach-753` (D3.3 + 89 + 69f, 0c27e7a8, Kerntests grün) mit Prüfliste (69f: Titelmusik vom Heldenbau leise ins Intro, Schwarzbild voll, im Gasthaus 6 s Ausklang, dann Dorfmusik; Intro aus der Chronik: Titelmusik leise von vorn). Jetzt: 26 (Standbilder „Ort fertig“, `tools/t spieler`).

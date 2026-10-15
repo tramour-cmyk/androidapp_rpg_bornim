@@ -2,9 +2,9 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 25, davon A 0, wartet auf Chef 2**
+**offen 25, davon A 0, wartet auf Chef 3**
 
-**Übergabe (16.10., 00:4x, „Tom – 26 Ort fertig“) – Nachfolger: „Tom – 68 Tempelszene“:** PR #67 (0.1.753) wartet auf Test des Chefs, abonniert (Nachfolger neu abonnieren); nach „passt“ #67 zusammenführen, #66 schließen, dann PR für `claude/tom-sammelbuild-nach-753` (D3.3 + 89 + 69f, 0c27e7a8) mit Prüfliste (69f: Titelmusik vom Heldenbau leise ins Intro, Schwarzbild voll, im Gasthaus 6 s Ausklang, dann Dorfmusik). **26 Lückenliste (16.10., 00:4x):** Standbilder Tag (12 Uhr) und Nacht (23 Uhr), Dorf an 5 Stellen, Gasthaus, Laden, Ältester, Tempel, Wald, Tiefer Wald. Auf `main` (5b0f2869) Dachnähte und Laternenschein auf dem Tempeldach, auf dem Sammelstand 0c27e7a8 beide weg (D9.1, D3.13a). Offen nur: Heldenlicht draußen, Tiefer Wald mittags so dunkel wie ein Innenraum, nachts nur im Heldenlicht lesbar → D3.14 mit 84.1. Räume ohne Lücke. Zufallsspieler grün (24 Läufe), Kerntests 314 grün. Jetzt: 68.
+**Übergabe (16.10., 00:5x, „Tom – 68 Tempelszene“) – Nachfolger: „Tom – 86 Bewegung Rest“:** 68 fertig gebaut: Ablauf, fünf Bilder, `[68.kapitelende]` und `[68.suedrand]` wortgetreu im Code, `TempleSceneTest` (mit Testschalter 100) und `WorldTest` grün; wartet nur auf den Test des Chefs mit PR #67 (0.1.753). PR #67 abonniert (Nachfolger neu abonnieren); nach „passt“ #67 zusammenführen, #66 schließen, dann PR für `claude/tom-sammelbuild-nach-753` (D3.3 + 89 + 69f, 0c27e7a8) mit Prüfliste (69f: Titelmusik vom Heldenbau leise ins Intro, Schwarzbild voll, im Gasthaus 6 s Ausklang, dann Dorfmusik). Jetzt: 86.6 Ausdauertrank, 86.9 Met und Zimmer, 86.10 Rast kostet Zeit (Beschlüsse lesen; eigener Zweig von `claude/tom-sammelbuild-nach-753`).
 
 ## Zeilen
 
@@ -18,7 +18,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 | 89 | Figuren im Schatten (Chef 15.10., 18:1x: „Wenn Figuren im Schatten eines Hauses oder Objekte stehen, können sie ja nicht hell sein … wenn das aber zu viel Detail und Rechenleistung frisst, dann lassen wir das“) | Gebaut (31fb73ab, enthält D9.2): Held und Dorfbewohner im Schatten so dunkel wie der Boden (56 % im Hausschatten); mit D3.3 und 69f auf nächstem Sammelbuild, PR erst nach „passt“ zu 0.1.753 | `claude/tom-sammelbuild-nach-753` |
 | D3.3 | Rest Fichtenreihe im Tiefen Wald (Diogenes Lauf 3) | behoben (1984a990: junge Fichten in drei Höhen, weiter versetzt), mit 89 | wie 89 |
 | 69 | Intro: Ankunft bei Nacht in Standbildern, endet im Gasthaus | Intro auf `main` (0.1.748), Chef 20:5x „Intro ist genial“. **69f A** gebaut (0c27e7a8, Kerntests grün): Titelmusik leise unter Bild 1–4, Schwarzbild voll, im Spiel 6 s Ausklang, dann Ortsmusik; mit D3.3 + 89 im nächsten Sammelbuild | wie 89 |
-| 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | 68a–68p beschlossen, Texte `STORY-K1.md` (`[68.…]`), in Build B; Figuren und Licht verfeinern, `[68.kapitelende]`, `[68.suedrand]` einbauen; Prüfung mit 100. Zur Kenntnis Jerry: `MusicScene.TEMPLE`, `Mode.TempleScene` | – |
+| 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | Gebaut (Build B): Ablauf, fünf Bilder, `[68.kapitelende]`, `[68.suedrand]`; `TempleSceneTest` grün (16.10., 00:5x); **wartet auf Chef** (Test mit Knopf 100 in PR #67). Zur Kenntnis Jerry: `MusicScene.TEMPLE`, `Mode.TempleScene` | – |
 | 38 | D4.1 Rauchbündel, Quest vor der Höhle über Morwen, Garrick warnt unter Stufe 3 (D4.1 A, Chef 15.10., 10:5x) | gebaut (`claude/tom-runde-nach-748`, nächster Sammelbuild; Text `[D4.1.rauch.tasche]`; Gegenstand `Story.SMOKE_BUNDLE`, Merker `SMOKE_GIVEN`); weitere Texte von Kreativ, dann bauen | `claude/tom-runde-nach-748` |
 | 95 | Atem: „Atem mit Anzeige (Balken rechts) hört man nicht und der Balken funktioniert nicht.“ (Chef 15.10., 16:5x) | Balken (95a) passt (Test 0.1.752); Keuchen bei Jerry | – |
 | 96 | Gesprächstext zu lang für das Feld (Chef 15.10., 17:0x) | Test 0.1.752 passt; mit PR #67 auf `main`, dann streichen | wie 94 |
