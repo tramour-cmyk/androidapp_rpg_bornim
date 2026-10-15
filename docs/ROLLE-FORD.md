@@ -37,7 +37,7 @@ Nachricht „Neustart <Name>, <Commit>“ (per `send_message`, sofort, nicht ers
 4. Seit dem letzten Lauf (Protokoll oder `git log --since`) neu: „Jetzt installieren“ oder eine Übergabe „wartet auf Nutzer“ → Meldung `--laut` mit Nummer (nachts automatisch lautlos). Neue Zeile „Für den Berater“ nur lautlos (hält niemanden auf, Holschuld; Nutzer 15.10.). **Sitzung hängt** (zwei Läufe hintereinander `working`/`blocked` ohne neues `updated_at` und ohne Commit) → `--laut` mit Name und Link (Nutzer 15.10.).
 5. Vorrat aller leer → einmal am Tag Push „Vorrat leer“ (spätestens 21 Uhr).
 6. 7 Uhr: Morgenmeldung `--laut`: wer woran arbeitet, was über Nacht fertig wurde, was auf den Nutzer wartet.
-6a. **Tagesrückblick (90, Probe 16.–22.10.):** erster Lauf ab 8 Uhr startet einmal je Tag Sokrates mit Titel „Sokrates – Tagesrückblick TT.MM.“, erste Nachricht „Sokrates Tagesrückblick“ (Startsperre wie Schritt 3; nicht, wenn schon eine Sokrates-Sitzung läuft: dann `send_message` „Tagesrückblick“ an sie). Ab 23.10. nur, wenn die Bilanz in „Wer macht was“ 90 „weiter“ sagt.
+6a. **Tagesrückblick (90, Probe 16.–22.10.):** erster Lauf ab 8 Uhr startet einmal je Tag Sokrates mit Titel „Sokrates – Tagesrückblick TT.MM.“, erste Nachricht „Sokrates Tagesrückblick“ (Startsperre wie Schritt 3; nicht, wenn schon eine Sokrates-Sitzung läuft: dann `send_message` „Tagesrückblick“ an sie). Am 23.10. ist der Rückblick die Bilanz der Woche (Titel „Sokrates – Bilanz Tagesrückblick“); danach nur, wenn sie in „Wer macht was“ 90 „weiter“ sagt.
 7. Etwas getan → Zeile ins Protokoll unten, pushen; sonst nichts schreiben.
 
 ## Push (81a, 81l, 81m)
