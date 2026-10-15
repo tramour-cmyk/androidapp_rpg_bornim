@@ -2,12 +2,12 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (15.10., 07:4x) – Nachfolger: „Sokrates – Ford und Befunde Wald“:**
+**Übergabe (15.10., 07:5x) – Nachfolger: „Sokrates – Befunde Wald und Verschleiß“:**
 
-**Nächster Punkt:** (1) **81p Probe**, sobald der Nutzer Ford in der claude.ai-Oberfläche neu angelegt hat (Text im Chat 15.10., 07:34: Umgebung „Voll“, Repo, Verbindung Claude Code Remote, `create_session` statt „Ford Start“, Laufbericht per Telegram nach `ROLLE-FORD.md`): alte `trig_01FsgMqH7CB5fZ1rofMS6YzX` aus, neue Kennung in `ROLLE-FORD.md`, Ablauf dort auf `create_session`/`list_sessions` umstellen, einmal auslösen; Beleg = Diogenes in der Sitzungsliste des Nutzers plus Telegram-Nachricht. Beschluss 81p noch in die Beschlussseite. (2) **D3.13–D3.16** (Prüfbericht Diogenes) mit Empfehlung vorgelegt, Nutzer hat noch nicht entschieden: D3.13 Hütte bauen (Tom), D3.14 Heldenlicht draußen weg, Mondlicht als Grundhelligkeit (Tom, Standbild), D3.15 nein, Hintergrundklang bleibt (Jerry: Flügelschlag), D3.16 Kursiv weg, Erzähler gedämpfte Farbe. (3) Rest der alten Übergabe im Archiv („15.10., 07:4x“): 72o, 72s, 84.x.
-Sitzung 15.10., 06:57–07:4x: Nacht leer, weil Ford-Routine ohne Verbindung (81o); alte Routine wieder an, Tom läuft (Cowork, unsichtbar). Schwerpunkt: fast nur Ablauf; nötig, weil Ford sonst nachts nichts startet.
+**Nächster Punkt:** (1) **81p prüfen:** läuft Fords Wecker-Kette (`send_later` stündlich in `session_01FzS8BqjmXcYkZ9vdUJbipG`)? Beleg: Startmarken in `ROLLE-FORD.md` und Telegram beim Nutzer. Offen beim Nutzer: Routine „Ford (auf Tom)“ `trig_01VVgCZWBppgdhRdoa6SQhkW` ausschalten (nur er darf), Diogenes von 07:05 (Cowork) anhalten; „Ford Start“ danach löschen. Beschluss 81p noch in die Beschlussseite. (2) **D3.13–D3.16** mit Empfehlung vorgelegt, Nutzer entscheidet noch (D3.13 Hütte bauen; D3.14 Heldenlicht draußen weg, Mondlicht; D3.15 nein, Klang bleibt; D3.16 Kursiv weg). (3) 72o, 72s, 84.x (Archiv „15.10., 07:4x“).
+Sitzung 15.10., 07:37–07:5x: Ford als Sitzung statt Routine, erster Lauf startete Tom (86). Schwerpunkt: nur Ablauf; nötig, damit Ford überhaupt startet. Nächste Sitzung bitte Spiel.
 
-**Zuletzt gelesen bis:** 18e8b32f (15.10., 07:4x)
+**Zuletzt gelesen bis:** 0042dfa5 (15.10., 07:5x)
 
 ## Wer du bist
 

@@ -1,5 +1,11 @@
 # Archiv
 
+### Aus ROLLE-BERATER.md, 15.10., 07:5x
+**Übergabe (15.10., 07:4x) – Nachfolger: „Sokrates – Ford und Befunde Wald“:**
+
+**Nächster Punkt:** (1) **81p Probe**, sobald der Nutzer Ford in der claude.ai-Oberfläche neu angelegt hat (Text im Chat 15.10., 07:34: Umgebung „Voll“, Repo, Verbindung Claude Code Remote, `create_session` statt „Ford Start“, Laufbericht per Telegram nach `ROLLE-FORD.md`): alte `trig_01FsgMqH7CB5fZ1rofMS6YzX` aus, neue Kennung in `ROLLE-FORD.md`, Ablauf dort auf `create_session`/`list_sessions` umstellen, einmal auslösen; Beleg = Diogenes in der Sitzungsliste des Nutzers plus Telegram-Nachricht. Beschluss 81p noch in die Beschlussseite. (2) **D3.13–D3.16** (Prüfbericht Diogenes) mit Empfehlung vorgelegt, Nutzer hat noch nicht entschieden: D3.13 Hütte bauen (Tom), D3.14 Heldenlicht draußen weg, Mondlicht als Grundhelligkeit (Tom, Standbild), D3.15 nein, Hintergrundklang bleibt (Jerry: Flügelschlag), D3.16 Kursiv weg, Erzähler gedämpfte Farbe. (3) Rest der alten Übergabe im Archiv („15.10., 07:4x“): 72o, 72s, 84.x.
+Sitzung 15.10., 06:57–07:4x: Nacht leer, weil Ford-Routine ohne Verbindung (81o); alte Routine wieder an, Tom läuft (Cowork, unsichtbar). Schwerpunkt: fast nur Ablauf; nötig, weil Ford sonst nachts nichts startet.
+
 ### Aus ROLLE-BERATER.md, 15.10., 07:4x (Übergabe Sokrates 14.10., 23:0x)
 **Übergabe (14.10., 23:0x) – Nachfolger: „Sokrates – Verschleiß und Gefährten“:**
 
