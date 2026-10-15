@@ -329,6 +329,9 @@ fun main() {
     if (System.getenv("KARTENZOOM") != null) {
         // RANDAUS=1: without the ring beyond the edge, to compare (27m)
         if (System.getenv("RANDAUS") != null) de.bornim.core.art.MapEdge.on = false
+        // HOEHLEDUNKEL=1: the cave darker (13e.6, draft)
+        if (System.getenv("HOEHLEDUNKEL") != null) de.bornim.core.art.MapLight.caveDark = true
+        System.getenv("HOEHLEDIM")?.let { de.bornim.core.art.MapLight.caveSeenDim = it.toFloat() }
         // the map near (new) and far (former), at noon and at night, in the forest, the village, an inn and the cave
         fun place(vm: GameViewModel, map: String, x: Int, y: Int, minutes: Int, facing: Facing = Facing.UP) {
             vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
