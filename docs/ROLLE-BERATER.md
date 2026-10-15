@@ -7,7 +7,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 **Nächster Punkt:** (1) **72o Verschleiß** Feinheiten (Nutzer überlegt). (2) **72s** Gefährte für Kapitel 2 (Empfehlung Fenn ab Kultlager, Gegenargument Söldner-Wechsel und Überläufer-Klischee; Storyplan 5a erst wörtlich lesen). (3) 84.3, 84.2, 72a/72c–72j, 79/72u nach Probe und Standbild. Später: Hund als erster Begleiter in der Geschichte (72.15, mit 41), eigenes Haus (LISTE-IDEEN).
 Sitzung 14.10., 22:1x–23:0x: 72.14 Gefährte/Söldner/Begleiter, 72.15 Begleiter mit Bindung, 69e Musterbild angenommen (Intro-Bilder an Tom), Ford auf Pilot, startet auch nachts, bei höherer Stellung sofort auslösen. Schwerpunkt: überwiegend Spiel, Ford als kleiner Ablaufteil.
 
-**Zuletzt gelesen bis:** 34227a2a (14.10., 23:0x)
+**Zuletzt gelesen bis:** 05dc6f7e (15.10., 06:5x)
 
 ## Wer du bist
 
