@@ -57,6 +57,7 @@ tools/meldung.sh Ford "Alles läuft, nichts wartet auf dich.\n\nTom: läuft (D1.
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 13:35 15.10.: Start Sokrates (Neustart, 6281f8b7)
 - 13:18 15.10.: Start Tom (Neustart, 316e0357)
 - 12:54 15.10.: Start Sokrates (Neustart, b7f362f5)
 - 12:25 15.10.: Start Tom (Neustart, b35feeb7)
