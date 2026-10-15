@@ -150,7 +150,7 @@ private fun DrawScope.squareLife(zug: ImageBitmap?, u: Long, ms: Long) {
         glow(IntroLife.smokeX + IntroLife.drift(t, i) + sway * t, IntroLife.smokeY - 6 - t * 220, 8 + t * 50, smoke, a)
     }
     // the candles in the open temple door breathe
-    glow(IntroLife.sx(2f, 25f), IntroLife.sy(1.65f, 25f), IntroLife.F * 1.2f / 25f, Color(0xFFFFD080), 0.12f * (IntroLife.flicker(11, ms) - 0.8f) / 0.4f)
+    glow(IntroLife.sx(IntroLife.doorX, IntroLife.doorZ), IntroLife.sy(1.65f, IntroLife.doorZ), IntroLife.F * 1.2f / IntroLife.doorZ, Color(0xFFFFD080), 0.12f * (IntroLife.flicker(11, ms) - 0.8f) / 0.4f)
     // the torchlight lying on the stones under each torch, added to the painted stones
     for ((i, b) in torches) {
         val gx = mx(IntroLife.sx(b.x, b.z)); val gy = my(IntroLife.sy(0f, b.z))
