@@ -26,7 +26,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 | D6.4 | Diogenes Lauf 6: Fluss stumm | offen (Verdacht) | – |
 | 69c | Intro: leiser Klang unter Bild 1–4 (`MusicScene.INTRO`) | offen | – |
 | 68 | Tempelszene: Klang „Ancient Legend“ (`MusicScene.TEMPLE` spielt `MusicLib.amuletReturn`) | offen | – |
-| 72.14 | Gefährte/Söldner/Begleiter in Spieltexten (mit Tom) | offen | – |
+| 72.14 | Gefährte/Söldner/Begleiter in Spieltexten (Toms Teil erledigt 16.10., 01:26) | von Team Tom: in Texten heißt kein Mensch „Begleiter“. Einziger Treffer Feuerball (`Rules.kt` FIREBALL: „Verjagt Begleiter …“, meint das gegnerische Rudel); mit eigenem Hund (72.15) mehrdeutig, Wortlaut in deinem Bereich, etwa „Verjagt Rudel und Späher des Gegners“; prüf neue Kampftexte so | – |
 | 79 | Kampfhintergründe an die Diagonalwelt angleichen (Chef 14.10., 08:34; nur Aussehen) | hängt an 72u; erst Standbild, dann Entwurf nach Musterbild 70.1 | – |
 | 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben; Chef 12.10., 15:4x, erneut 14.10., 21:1x, Test 0.1.741) | erst Standbild der Sterbehaltungen aller Klassen, dann Vorschlag | – |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt | 36.4–36.7, 36h/36j/36k auf `main`; **offen 36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung | – |
