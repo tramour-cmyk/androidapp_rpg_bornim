@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (15.10., 12:4x) – Nachfolger: „Sokrates – Gefährte und Verschleiß“:**
 
-**Nächster Punkt:** (1) **72o.1** entschieden (A mit C, 13:2x). **Sprungmarke Telegram** (`tools/meldung.sh`, `[Nr](dz:e/<datei>)`): Probe 2 mit Anker läuft, Nutzer meldet, ob er auf der Seite des Punkts landet; danach Regel in `CLAUDE.md` (Telegram-Zeile) oder zurückbauen. (1b) **D3.13** Erdkate abseits des Wegs vorgeschlagen, Antwort offen. (2) **72s.1** auf Dein Zug (12:5x, Empfehlung A Garrick; nach Entscheidung Storyplan 41l anpassen), dann 84.x. (3) `ARBEIT-OFFEN.md` über 15 KB: Erledigtes ins Archiv. Heute erledigt: 90 Tagesrückblick (Probe 16.–22.10.), 72o B, D4.1 Taschentext, 70.6 A (Bild 3 neu nach Karte, an Tom), 89 ja (alle Außenkarten).
+**Nächster Punkt:** (1) **72o.1** entschieden (A mit C, 13:2x). Sprungmarke Telegram läuft (Nutzer 13:3x), Regel in `CLAUDE.md`. (1b) **D3.13** Erdkate abseits des Wegs vorgeschlagen, Antwort offen. (2) **72s.1** auf Dein Zug (12:5x, Empfehlung A Garrick; nach Entscheidung Storyplan 41l anpassen), dann 84.x. (3) `ARBEIT-OFFEN.md` über 15 KB: Erledigtes ins Archiv. Heute erledigt: 90 Tagesrückblick (Probe 16.–22.10.), 72o B, D4.1 Taschentext, 70.6 A (Bild 3 neu nach Karte, an Tom), 89 ja (alle Außenkarten).
 
 **Zuletzt gelesen bis:** 567ed758 (15.10., 12:5x)
 
