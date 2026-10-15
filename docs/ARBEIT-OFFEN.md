@@ -25,8 +25,8 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 85 | Testmenü aufräumen: alte Einträge, die keiner mehr braucht („irgendwas mit Donnern“; Nutzer 14.10., 18:5x) | Tom (Technik); Jerry prüft seine Einträge | `claude/tom-85-testmenue` | Wetterleuchten-Knopf und „Garrick döst“ entfernt (beide seit 10.10. als vorübergehend markiert); im Sammelbuild PR #63 |
 | 81 | Teamleiter „Ford“ (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–n, 81p, 81r (`ROLLE-FORD.md`, `ARBEIT-ABLAEUFE.md` „Neustart“); Ford lebt in „Ford – Teamleiter“, Co-Pilot. Pilot und Bewährung (81i) auf Zuruf; Jerry-Ford ab Fr. **Nutzer:** `TELEGRAM_BOT_TOKEN` in Jerrys Umgebung. **81s** (Diogenes Lauf 5): D5.2, D5.3, D5.5 umgesetzt; D5.1 Stundenuhr statt `send_later`-Kette, D5.4 alte Routinen löschen, alte Ford-Sitzung archivieren auf Dein Zug. Verlauf 81o–81r im Archiv („Aus ARBEIT-OFFEN.md, 15.10., 10:2x (Sokrates, 81)“) |
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`enabled: false`, nicht löschen). 65.8/65.9 stehen in `CLAUDE.md`. **65.10** (Nutzer 14.10., 23:1x): Selbstarbeit ist abgeschafft, Ford ersetzt sie; Notizen nachziehen (`CLAUDE.md`-Zeile, `ARBEIT-SELBST.md` ins Archiv, Neustart ohne Nutzer: Übergabe „Nachfolger gewünscht“, Ford startet) |
-| 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-13e6-dunkler` | D1.5 Truhe auf `claude/tom-d1-5-truhe`, D1.3/D1.11 auf `claude/tom-d1-kerze-gitter`. **13e.6 dunkler:** Entwurf (Schalter `HOEHLEDUNKEL`), Standbilder auf Dein Zug (`e/13e6-2.html`). Helligkeitsregler Jerry mit 40. Danach D1.7 Leben (Absprache `WorldScreen.kt`) |
-| 83 | Dorf Süd: Beete, Weizenfelder, Hühner am Südrand (Nutzer 14.10.) | Tom | `claude/tom-83b-huehner` | 83a Hecke in PR #63; 83b Hühner passt; 83c Klang passt bis auf **Scharren**: Hörprobe A/B/C auf Dein Zug (`e/83c-2.html`, `scharren.py`), nach Wahl `scharren.py <ordner> --spiel besen|laub`, sonst bleibt A. Nächster Sammelbuild. Jerry zur Kenntnis |
+| 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-13e6-dunkler` | D1.5 Truhe auf `claude/tom-d1-5-truhe`, D1.3/D1.11 auf `claude/tom-d1-kerze-gitter`. **13e.6 dunkler: passt** (Nutzer 15.10., 10:5x), wird fest eingeschaltet, nächster Sammelbuild. Helligkeitsregler Jerry mit 40. Danach D1.7 Leben (Absprache `WorldScreen.kt`) |
+| 83 | Dorf Süd: Beete, Weizenfelder, Hühner am Südrand (Nutzer 14.10.) | Tom | `claude/tom-83b-huehner` | 83a Hecke in PR #63; 83b Hühner passt; 83c Scharren **B Strohbesen** (Nutzer 15.10., 10:5x). Nächster Sammelbuild. Jerry zur Kenntnis |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` bis 5.5 |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`LISTE-KAPITEL1.md`](LISTE-KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | Toms Teil von 26c fertig |
@@ -58,7 +58,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ### Tom (15.10., 10:5x, „Tom – Sammelbuild nach 0.1.746“)
 - **Sammelzweig vorbereitet** `claude/tom-sammel-nach-746` (68ac1641, auf PR #63 aufgesetzt): 69e Welt und Intro, 83b/83c Hühner, D1.5 Truhe, 74 Schritte (Klangliste mit Hühnern zusammengeführt). Kerntests grün. **PR erst nach „passt“ zu 0.1.746**, dann Prüfliste und Weckruf.
-- **Danach** (je höchstens 4 Punkte): 86 plus 6l (`claude/tom-6l-zoom`), D3 (Konflikt `MapFlora.kt`), 13e.6 (Konflikt Vorschau `Main.kt`, wartet auf Dein Zug `e/13e6-2.html`), D1.3/D1.11. Vorrat: D1.7 Leben Höhle (Absprache `WorldScreen.kt`, Jerry ab Fr.). 83c Scharren wartet.
+- **Danach** (je höchstens 4 Punkte): 86 plus 6l (`claude/tom-6l-zoom`), D3 (Konflikt `MapFlora.kt`), 13e.6 passt (Konflikt Vorschau `Main.kt`), D1.3/D1.11. Vorrat: D1.7 Leben Höhle (Absprache `WorldScreen.kt`, Jerry ab Fr.).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
@@ -77,6 +77,8 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
+
+- **70.3, D4.1, D3.13–16** (Nutzer 15.10., 10:5x, in Toms Sitzung; Sokrates per Nachricht): „70.3 wähle ich B. D4.1 folgen wir grundsätzlich der Empfehlung, aber ich möchte, dass Sokrates nochmal darüber nachdenkt, dass die Spieler ja nicht doof sind. Und wenn sie merken, es ist zu schwierig, dann grinden sie erst und versuchen es dann eigentlich nochmal. Also wenn Sokrates jetzt den Einwand oder so nicht als Bruch sieht, dann können wir gerne der Empfehlung bei D4.1 folgen. Dann D3.13 bis 16 folge ich der Empfehlung, außer bei D3.16. Kursiv geht natürlich. […] Also bitte so lassen, Erzähler, Kursiv.“
 
 
 
