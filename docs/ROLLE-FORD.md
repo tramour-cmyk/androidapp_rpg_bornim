@@ -44,18 +44,13 @@ Nachricht „Neustart <Name>, <Commit>“ (per `send_message`, sofort, nicht ers
 Nur Push, keine E-Mail (Nutzer 14.10.). Weg: Telegram-Bot `@Bornim_Ford_Bot`, Schlüssel nur als Umgebungsvariable `TELEGRAM_BOT_TOKEN`, nie im Repo oder Chat:
 `curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" --data-urlencode "chat_id=8965432899" --data-urlencode "text=Ford 14.10. 13:44: 5.5 Build fertig, Prüfliste auf Dein Zug"`
 Form „Name TT.MM. HH:MM: Inhalt“, Nummer vorn; nur Nummern und Stichworte, nie Spieltexte. Alle Meldungen über den Tom-Ford (81k); der Jerry-Ford startet nur Jerry.
-**Laufbericht (81p, 81r):** Telegram ist das Protokoll. Jeder Lauf eine Nachricht über `tools/meldung.sh Ford "…"`, lautlos (Läufe ohne Tat nur die Zeile „Geprüft: …“ je Agent mit Grund, z. B. „Diogenes: kein Auftrag“, „Tom: läuft“; Nutzer 15.10.: Prüfschritte sichtbar; zugleich Lebenszeichen); `--laut` nur, wenn der Nutzer dran ist. In Fords Sitzung je Lauf nur „Ford HH:MM ok“, damit sie schlank bleibt (die Zeilen unten sind nur Startmarken). Kurze Sätze in dieser Reihenfolge:
+**Laufbericht (81p, 81r):** Telegram ist das Protokoll. Jeder Lauf eine Nachricht über `tools/meldung.sh Ford "…"`, lautlos (Läufe ohne Tat nur die Zeile „Geprüft: …“ je Agent mit Grund, z. B. „Diogenes: kein Auftrag“, „Tom: läuft“; Nutzer 15.10.: Prüfschritte sichtbar; zugleich Lebenszeichen); `--laut` nur, wenn der Nutzer dran ist. In Fords Sitzung je Lauf nur „Ford HH:MM ok“, damit sie schlank bleibt (die Zeilen unten sind nur Startmarken). Aufbau in drei Absätzen (Leerzeile = `\n\n`; Nutzer 15.10., 11:2x: fett je Agent, Einleitung, sinnvolle Absätze):
 ```
-tools/meldung.sh Ford "Lauf
-Tom: läuft (D1.3 Kerze und Kammer)
-Diogenes: wartet auf 0.1.746 (PR #63)
-Sokrates: nur Nutzerentscheidungen (D3.13–16)
-Jerry: Pause bis Fr.
-Gestartet: Tom – D1.3 https://claude.ai/code/<id>
-Seit dem letzten Lauf: Tom hat D3 gebaut (Commit 09:15)
-Fehlgeschlagen: keins"
+tools/meldung.sh Ford "Alles läuft, nichts wartet auf dich.\n\nTom: läuft (D1.3 Kerze und Kammer)\nDiogenes: wartet auf 0.1.746 (PR #63)\nSokrates: wartet auf dich (D4.1 Texte)\nJerry: Pause bis Fr.\n\nGestartet: Tom – D1.3 https://claude.ai/code/<id>\nSeit dem letzten Lauf: Tom hat D3 gebaut (Commit 09:15)"
 ```
-Je Agent eine eigene Zeile mit „Name:“ vorn (das Werkzeug setzt Kopf und Namen fett, Nutzer 15.10.), dahinter Stand und in Klammern kurz worum es geht.
+1. **Einleitung:** ein Satz, ob der Nutzer dran ist („Du bist dran: 5.5 testen“ oder „Alles läuft, nichts wartet auf dich“).
+2. **Je Agent eine Zeile** „Name:“ vorn (das Werkzeug setzt Kopf und Namen fett), Stand, in Klammern kurz worum es geht; immer alle vier, das ist das Lebenszeichen.
+3. **Ereignisse** (Gestartet, Seit dem letzten Lauf, Fehlgeschlagen) nur, wenn es welche gibt; sonst entfällt der Absatz.
 „Seit dem letzten Lauf“ prüft Ford mit `list_sessions` und `git log`: ob die Gestarteten angefangen haben (erster Commit), weiterarbeiten oder hängen. Zeilen ohne Inhalt weglassen.
 
 ## Protokoll
