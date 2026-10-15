@@ -70,6 +70,16 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     fun watchIntro() { introPicture = 0; menuOpen = false; intro = true }
     fun endIntro() { intro = false; introPicture = 0 }
 
+    /** The temple scene (68) watched again from the chronicle; the first time the game's mode shows it. */
+    var templeAgain by mutableStateOf(false)
+        private set
+    fun watchTemple() { menuOpen = false; templeAgain = true }
+    /** The temple scene is over or skipped: back to the chronicle's game, or on with the morning the first time. */
+    fun endTemple() {
+        if (templeAgain) templeAgain = false
+        else game?.let { if (it.mode == de.bornim.core.Mode.TempleScene) { it.advance(); refresh() } }
+    }
+
     var sfxOn by mutableStateOf(prefs.getString(KEY_SFX, "on") != "off")
         private set
 

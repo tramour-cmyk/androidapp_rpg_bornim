@@ -44,6 +44,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Intro
 import de.bornim.core.IntroLife
+import de.bornim.core.Reel
+import de.bornim.core.TempleScene
 import de.bornim.game.GameViewModel
 
 /** How the intro starts: [auto] plays it for every new hero (the preview turns it off); [fromMs] starts it later (stills). */
@@ -58,24 +60,42 @@ object IntroLook {
  */
 @Composable
 fun IntroScreen(vm: GameViewModel) {
+    ReelScreen(vm, Intro, onPicture = { vm.introPicture = it }, onEnd = { vm.endIntro() }) { index, alpha, ms -> IntroPicture(vm, index, alpha, ms) }
+}
+
+/**
+ * The temple scene at the end of chapter 1 (68), built like the intro: five painted pictures with their sentences, the music
+ * „Ancient Legend“ under it. A tap skips it; afterwards the morning goes on (or, watched again, the chronicle comes back).
+ */
+@Composable
+fun TempleSceneScreen(vm: GameViewModel) {
+    ReelScreen(vm, TempleScene, onPicture = {}, onEnd = { vm.endTemple() }) { index, alpha, _ ->
+        val img = vm.introArt.temple(index)
+        if (img != null) Image(img, null, Modifier.fillMaxSize().alpha(alpha), contentScale = ContentScale.Crop)
+    }
+}
+
+/** A cutscene on screen: [reel]'s clock, the picture (drawn by [picture]) over the one before, the sentence below. */
+@Composable
+private fun ReelScreen(vm: GameViewModel, reel: Reel, onPicture: (Int) -> Unit, onEnd: () -> Unit, picture: @Composable (Int, Float, Long) -> Unit) {
     val start = remember { IntroLook.fromMs }
     val ms by produceState(start) {
         val t0 = withFrameMillis { it }
         while (true) withFrameMillis { value = start + it - t0 }
     }
-    val f = Intro.at(ms)
-    LaunchedEffect(f.picture) { vm.introPicture = f.picture }
-    LaunchedEffect(f.done) { if (f.done) vm.endIntro() }
+    val f = reel.at(ms)
+    LaunchedEffect(f.picture) { onPicture(f.picture) }
+    LaunchedEffect(f.done) { if (f.done) onEnd() }
     Box(
         Modifier.fillMaxSize().background(Color.Black)
-            .clickable(remember { MutableInteractionSource() }, indication = null) { vm.endIntro() },
+            .clickable(remember { MutableInteractionSource() }, indication = null) { onEnd() },
         contentAlignment = Alignment.Center,
     ) {
         Column(Modifier.fillMaxWidth().alpha(1f - f.gone), horizontalAlignment = Alignment.CenterHorizontally) {
             // the picture: 1080 × 1200, as wide as the screen allows
             Box(Modifier.fillMaxWidth().aspectRatio(0.9f)) {
-                f.under?.let { IntroPicture(vm, it, 1f, ms) }
-                IntroPicture(vm, f.picture, f.mix, ms)
+                f.under?.let { picture(it, 1f, ms) }
+                picture(f.picture, f.mix, ms)
             }
             Spacer(Modifier.height(14.dp))
             // the sentence in the text box: black, the thin gold rim, the serif of the black screens
@@ -85,7 +105,7 @@ fun IntroScreen(vm: GameViewModel) {
                 contentAlignment = Alignment.CenterStart,
             ) {
                 Text(
-                    Intro.lines[f.picture](vm.lang), color = Veil.text, textAlign = TextAlign.Start,
+                    reel.lines[f.picture](vm.lang), color = Veil.text, textAlign = TextAlign.Start,
                     style = TextStyle(fontFamily = Serif, fontSize = 19.sp * TypeLook.scale, lineHeight = 27.sp, letterSpacing = 0.4.sp),
                 )
             }
