@@ -41,6 +41,7 @@ if [ -n "$art" ]; then
 else
   antwort=$(curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
     --data-urlencode "chat_id=8965432899" --data-urlencode "disable_notification=$still" \
-    --data-urlencode "text=$zeile" --data-urlencode "parse_mode=HTML" 2>&1)
+    --data-urlencode "text=$zeile" --data-urlencode "parse_mode=HTML" \
+    --data-urlencode "link_preview_options={\"is_disabled\":true}" 2>&1)  # keine Vorschaukarten (Nutzer 15.10.)
 fi
 case "$antwort" in *'"ok":true'*) echo "meldung: gesendet" ;; *) echo "meldung: Fehler: ${antwort:0:200}" >&2; exit 1 ;; esac
