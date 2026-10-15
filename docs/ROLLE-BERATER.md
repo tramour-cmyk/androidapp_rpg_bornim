@@ -52,7 +52,7 @@ Weitere (Leitbild, Balance, Rollen, Oberfläche, Tempelszene, Karte und Händler
 
 ## Lehren
 
-- **Keine Winke für erwachsene Spieler** (15.10., D3.13a): ich schlug Rauchfahne und Kräuterbündel als Wegweiser vor; Nutzer: „die sind ja nicht doof … wink mit dem Zaunpfahl“. Anreiz statt Pfeil heißt auch: kein Anreiz, wo Erkunden reicht.
+- **Keine Wegweiser, wo Erkunden reicht; die Spieler sind erwachsen** (15.10., D3.13a): ich schlug Rauchfahne und Kräuterbündel als Wegweiser vor; Nutzer: „die sind ja nicht doof … wink mit dem Zaunpfahl“. Anreiz statt Pfeil heißt auch: kein Anreiz, wo Erkunden reicht.
 - **Beim Kürzen die eigene Rolle gegen die Beschlüsse prüfen** (15.10., 65.11): der Entwurf übernahm „Berater“ aus der alten `CLAUDE.md` und verlor die Projektleitung (90); der Nutzer: „das ist doch was Essentielles“. Vor jedem Kürzen Beschlüsse und „Wer macht was“ gegen den neuen Text lesen.
 - **Befunde selbst abholen, nichts vorschlagen, was schon da ist** (15.10., 65.11): Diogenes' Lauf 8 lag längst vor, ich schlug vor, „nach dem Befund“ neu zu starten; der Nutzer: „wer hat jetzt was davon“. Vor jeder Antwort Prüfbericht und `git log` ansehen, dann handeln.
 - **Regeln ins Werkzeug, nicht ins Gedächtnis** (15.10., 81r): Nutzer 16:3x: „nur ständig dafür sorgen, von mir gegebene Anweisungen nachzukontrollieren … mit Delegation hat das nichts zu tun“. Links fehlten, weil Agenten die alte Kopie riefen; behoben durch Weiterleitung im Werkzeug, nicht durch eine weitere Zeile. Ich selbst vergaß Dein Zug für 68n–p.
