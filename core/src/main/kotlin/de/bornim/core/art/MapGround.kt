@@ -438,7 +438,8 @@ object MapGround {
             if (w > 0.5) {
                 lerp(WATER_S, WATER_D, (w - 0.5) * 3.2, col)
                 if (abs(kotlin.math.sin(y * 0.35 + fbm(x, y, 30.0, 12) * 6)) > 0.985 && vnoise(x, y, 16.0, 13) > 0.55) mixInto(col, GLINT, 0.45)
-                if (map.kind == MapKind.FOREST) {
+                // D6.3: the bank in the village as in the woods
+                if (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN) {
                     val gx = waterAt(map, x + 3, y) - waterAt(map, x - 3, y); val gy = waterAt(map, x, y + 3) - waterAt(map, x, y - 3)
                     val gl = sqrt(gx * gx + gy * gy)
                     if (gl > 1e-4) {
@@ -470,10 +471,11 @@ object MapGround {
                 // the bridge: planks across the river, gaps between them, dark at the edges
                 val tx = floor(x / S).toInt(); val ty = floor(y / S).toInt()
                 if (map.tile(tx, ty) == Tile.BRIDGE) {
-                    val ly = y - ty * S
-                    val plank = floor(ly / 8).toInt()
-                    lerp(PLANK_D, PLANK_L, 0.35 + rnd(plank, tx, 65) * 0.4 + (vnoise(x * 0.2, y, 4.0, 66) - 0.5) * 0.3, tmp)
-                    if (ly % 8 < 1.2) for (i in 0..2) tmp[i] = MORTAR[i] * 0.6
+                    // D6.3: the planks counted over the whole bridge, each one board across its width, not again in every tile
+                    val ly = y - floor(y / 8) * 8
+                    val plank = floor(y / 8).toInt()
+                    lerp(PLANK_D, PLANK_L, 0.35 + rnd(plank, 0, 65) * 0.4 + (vnoise(x * 0.2, y, 4.0, 66) - 0.5) * 0.3, tmp)
+                    if (ly < 1.2) for (i in 0..2) tmp[i] = MORTAR[i] * 0.6
                     val lx = x - tx * S
                     val side = map.tile(tx - 1, ty) != Tile.BRIDGE && lx < 5 || map.tile(tx + 1, ty) != Tile.BRIDGE && lx > S - 5
                     if (side) for (i in 0..2) tmp[i] = PLANK_D[i] * 0.7

@@ -1111,6 +1111,9 @@ object MapWoodIso {
                 "corn/$tx/$ty" to { corn(tx, ty, e) }
             }
             Tile.HAY -> Math.floorMod(hash(tx, ty, 38), 3).let { v -> "hay/$v" to { hay(v) } }
+            // D6.3: reeds along the river in the village too, as in the woods, but not beside the bridge
+            Tile.WATER -> return if ((-1..1).any { d -> map.tile(tx + d, ty) == Tile.BRIDGE || map.tile(tx, ty + d) == Tile.BRIDGE }) null
+                else objects(map, tx, ty, 0)
             Tile.WASHLINE -> {
                 var x0 = tx; while (map.tile(x0 - 1, ty) == Tile.WASHLINE) x0--
                 var n = 0; while (map.tile(x0 + n, ty) == Tile.WASHLINE) n++
@@ -1130,7 +1133,8 @@ object MapWoodIso {
 
     /** The new pictures for one tile of the woods seen diagonally, or null where the former ones stay. */
     fun objects(map: MapDef, tx: Int, ty: Int, frame: Int, open: Boolean = false): List<WorldArt.Obj>? {
-        if (map.kind != MapKind.FOREST) return null
+        // D6.3: the village asks only for the reeds along its river
+        if (map.kind != MapKind.FOREST && !(map.kind == MapKind.TOWN && map.tile(tx, ty) == Tile.WATER)) return null
         val t = map.tile(tx, ty)
         val key: Pair<String, () -> PixelImage> = when (t) {
             Tile.LOG -> {
