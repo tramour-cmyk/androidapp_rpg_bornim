@@ -20,7 +20,7 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 
 ## Routinen (Toms Account, 81m)
 
-- **Ford lebt in einer Sitzung** (81p, 15.10., 07:49): „Ford – Teamleiter“ `session_01L32mhfHojkz6thnmuBiZD1` (seit 15.10., 09:00; Vorgänger `session_011gYhreNUNhcPNYyLPG7kJs`; Umgebung „Voll“: `create_session`, `list_sessions`, Telegram-Schlüssel). Geweckt wird er durch die Stundenuhr „Ford-Stundenuhr“ `trig_01XSM2AKJtWvwXZgTBnkRMjw` (:03, feuert in diese Sitzung; 81s, bestätigt 15.10., 12:03); keine `send_later`-Kette mehr. Beim Selbstneustart die Uhr mit `persistent_session_id` der neuen Sitzung neu anlegen, die alte löschen, beides hier eintragen. Stellung „aus“: Uhr bleibt, Ford liest nur die Stellung. **Ford startet sich selbst neu** (81r): zeigt `get_session` (eigene Sitzung) `context_usage.used_tokens` über 300.000, legt er „Ford – Teamleiter“ mit `create_session` neu an (erste Nachricht: sein eigener Auftrag), trägt die neue Kennung hier ein, pusht, meldet lautlos und stellt keinen Wecker mehr. Ausfall: Tom und Sokrates wecken ihn (`CLAUDE.md`).
+- **Ford lebt in einer Sitzung** (81p, 15.10., 07:49): „Ford – Teamleiter“ `session_01N7Qjx8DiTjJzihMELhsmP9` (seit 15.10., 13:36; Vorgänger `session_01L32mhfHojkz6thnmuBiZD1`; Umgebung „Voll“: `create_session`, `list_sessions`, Telegram-Schlüssel). Geweckt wird er durch die Stundenuhr „Ford-Stundenuhr“ `trig_01UFqeYAeHkvXHJGywiqnbjL` (seit 13:36; vorher `trig_01XSM2AKJtWvwXZgTBnkRMjw`, gelöscht) (:03, feuert in diese Sitzung; 81s, bestätigt 15.10., 12:03); keine `send_later`-Kette mehr. Beim Selbstneustart die Uhr mit `persistent_session_id` der neuen Sitzung neu anlegen, die alte löschen, beides hier eintragen. Stellung „aus“: Uhr bleibt, Ford liest nur die Stellung. **Ford startet sich selbst neu** (81r): zeigt `get_session` (eigene Sitzung) `context_usage.used_tokens` über 300.000, legt er „Ford – Teamleiter“ mit `create_session` neu an (erste Nachricht: sein eigener Auftrag), trägt die neue Kennung hier ein, pusht, meldet lautlos und stellt keinen Wecker mehr. Ausfall: Tom und Sokrates wecken ihn (`CLAUDE.md`).
 - **Warum keine Routine** (Proben 15.10., 07:28–07:48): Routinen-Sitzungen haben kein `create_session`/`list_sessions`, auch in „Voll“, auch per „Jetzt ausführen“ an eine feste Sitzung (legt trotzdem eine neue an); „Claude Code Remote“ ist in der Oberfläche nicht wählbar, `connectors` beim Anlegen für das Konto gesperrt. Cowork-Routinen („Ford Start“) haben die Verbindung, aber kein Telegram und unsichtbare Sitzungen. „Ford Start“ und alle Ford-Routinen nicht mehr benutzen.
 
 ## Neustart auf Meldung (81r)
@@ -57,6 +57,7 @@ tools/meldung.sh Ford "Alles läuft, nichts wartet auf dich.\n\nTom: läuft (D1.
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 13:36 15.10.: Selbstneustart Ford (287 Tsd. Token), Stundenuhr umgestellt
 - 13:35 15.10.: Start Sokrates (Neustart, 6281f8b7)
 - 13:18 15.10.: Start Tom (Neustart, 316e0357)
 - 12:54 15.10.: Start Sokrates (Neustart, b7f362f5)
