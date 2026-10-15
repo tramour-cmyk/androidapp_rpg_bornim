@@ -29,7 +29,7 @@ for f in "wind%20background%20noise%202.wav" park_ambience_wind.wav tree_creak.f
     get "$O/$f" "$(echo "$f" | sed 's/%20/ /g')"
 done
 # BigSoundBank (CC0): Becher, Einschenken, Wischen, Stuhl, Husten
-for n in 0627 1204 1205 1721 1156 1933 0689 1104 0666 3053 0518 0488 2183 0207; do
+for n in 3202 0606 0627 1204 1205 1721 1156 1933 0689 1104 0666 3053 0518 0488 2183 0207; do
     get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
 done
 # Runde 4 (27j Waldweiher): Frösche, Libellen
@@ -37,6 +37,10 @@ get "$O/croak_03.mp3" croak_03.mp3
 for p in 710/710246_10954437 426/426462_3597414 240/240549_4337854 511/511326_562829; do
     f="fs_$(basename "$p" | cut -d_ -f1).mp3"
     [ -s "$f" ] || { curl -sSfL -m 300 -A "Mozilla/5.0" -o "$f" "https://cdn.freesound.org/previews/$p-hq.mp3"; sleep 3; }
+done
+# Runde 5 (83c Hühner): BigSoundBank (CC0)
+for n in 1039 0975 1040 0453 0840 2891 2894 3202 0163 0137; do
+    get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
 done
 python3 -m pip -q install py7zr numpy scipy soundfile >/dev/null 2>&1 || true
 for z in *.zip; do d="x_${z%.zip}"; [ -d "$d" ] || { mkdir -p "$d"; unzip -qo "$z" -d "$d"; }; done

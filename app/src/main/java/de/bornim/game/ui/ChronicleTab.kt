@@ -36,7 +36,7 @@ object ChronicleLook {
  * to the giver's mark on the map (named, in the middle); done ones folded away at the bottom. "So far": the chronicler's entries, newest on top.
  */
 @Composable
-fun ChronicleTab(game: Game, lang: Lang, onMap: (String) -> Unit) {
+fun ChronicleTab(game: Game, lang: Lang, onIntro: (() -> Unit)? = null, onMap: (String) -> Unit) {
     val de = lang == Lang.DE
     val s = game.state
     var soFar by remember { mutableStateOf(ChronicleLook.previewSoFar) }
@@ -53,6 +53,11 @@ fun ChronicleTab(game: Game, lang: Lang, onMap: (String) -> Unit) {
             if (i > 0) Spacer(Modifier.height(12.dp))
             Txt(e.title(lang), size = 17.sp, bold = true, color = if (i == 0) Veil.bright else Veil.gold)
             Txt(e.text(lang).replace("{name}", name), size = 15.sp, color = if (i == 0) Veil.text else Veil.dim)
+        }
+        // 69d: the arrival by night belongs before the first entry; it can be watched again
+        if (onIntro != null) {
+            Spacer(Modifier.height(12.dp))
+            PixelButton(if (de) "Die Ankunft ansehen" else "Watch the arrival", Modifier.fillMaxWidth().height(36.dp), size = 14.sp) { onIntro() }
         }
         return
     }

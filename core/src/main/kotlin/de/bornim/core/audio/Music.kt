@@ -4,7 +4,8 @@ import de.bornim.core.MapKind
 import kotlin.random.Random
 
 /** Where the player is, as far as the music cares (28). */
-enum class MusicScene { TITLE, VILLAGE, FOREST, CAVE, BATTLE, BOSS, CHAPTER_END }
+/** [INTRO]: the intro's pictures before its black one (69c): no music, only quiet sounds. */
+enum class MusicScene { TITLE, VILLAGE, FOREST, CAVE, BATTLE, BOSS, CHAPTER_END, INTRO }
 
 /** One recorded piece in `assets/music` (without the `.ogg`). [loop]: plays on until the scene changes. */
 data class Track(val name: String, val loop: Boolean = false)
@@ -46,6 +47,7 @@ object MusicLib {
         MusicScene.BOSS -> boss
         MusicScene.TITLE -> listOf(title.name)
         MusicScene.CHAPTER_END -> listOf(chapterEnd.name)
+        MusicScene.INTRO -> emptyList()
     }
 
     fun sceneOf(kind: MapKind): MusicScene = when (kind) {
@@ -85,7 +87,7 @@ class MusicDirector(seed: Long = System.nanoTime()) {
             quietUntil = timeMs + if (s == MusicScene.CAVE) rnd.nextLong(CAVE_QUIET_MIN_MS, CAVE_QUIET_MAX_MS + 1) else rnd.nextLong(QUIET_MIN_MS, QUIET_MAX_MS + 1)
         }
         if (s != scene) enter(s, timeMs)
-        if (music == null && timeMs >= quietUntil && s != MusicScene.CHAPTER_END) music = Track(pick(s))
+        if (music == null && timeMs >= quietUntil && s != MusicScene.CHAPTER_END && s != MusicScene.INTRO) music = Track(pick(s))
         return MusicWant(music, bed, fadeMs)
     }
 
@@ -102,6 +104,7 @@ class MusicDirector(seed: Long = System.nanoTime()) {
             fight -> { music = Track(pick(s), loop = true); fadeMs = FIGHT_FADE_MS; victoryPending = false }
             s == MusicScene.TITLE -> { music = MusicLib.title; fadeMs = PLACE_FADE_MS }
             s == MusicScene.CHAPTER_END -> { music = MusicLib.chapterEnd; fadeMs = PLACE_FADE_MS }
+            s == MusicScene.INTRO -> { music = null; fadeMs = PLACE_FADE_MS }
             victoryPending && (from == MusicScene.BATTLE || from == MusicScene.BOSS) -> {
                 victoryPending = false
                 music = MusicLib.victory; fadeMs = FIGHT_FADE_MS

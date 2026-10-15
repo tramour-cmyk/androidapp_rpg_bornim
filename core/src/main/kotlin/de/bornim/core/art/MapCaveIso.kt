@@ -468,15 +468,17 @@ object MapCaveIso {
             s.poly(top, x(i0, j0), y(i0, j0, z1), x(i1, j0), y(i1, j0, z1), x(i1, j1), y(i1, j1, z1), x(i0, j1), y(i0, j1, z1), tiltY = -0.72, bevel = bevel * 0.6)
         }
         /** A soft shadow round the footprint, laid first: an ellipse on the floor (2:1 on the screen, D1.5), not a lozenge. */
-        fun shadow(i0: Double, j0: Double, i1: Double, j1: Double, a: Double = 0.5) {
+        fun shadow(i0: Double, j0: Double, i1: Double, j1: Double, a: Double = 0.5, pad: Double = 0.06, edge: Double = 1.0) {
             val ci = (i0 + i1) / 2; val cj = (j0 + j1) / 2
-            val ri = (i1 - i0) / 2 * 1.2 + 0.06; val rj = (j1 - j0) / 2 * 1.2 + 0.06
+            val ri = (i1 - i0) / 2 * 1.2 + pad; val rj = (j1 - j0) / 2 * 1.2 + pad
+            // a wide shadow may reach over the front edges of the tile, where the floor is still seen
+            val reach = if (pad > 0.06) 0.25 else 0.0
             for (py in 0 until h) for (px in 0 until w) {
                 val aa = (px + 0.5 - w / 2.0) / (TW / 2); val bb = (py + 0.5 - h) / (TH / 2)
                 val i = (aa + bb) / 2; val j = (bb - aa) / 2
                 val d = Math.hypot((i - ci) / ri, (j - cj) / rj)
-                if (d >= 1.0 || i < -1 || j < -1 || i > 0 || j > 0) continue
-                under.set(px, py, (((1 - d) * a * 255).toInt().coerceIn(0, 255) shl 24) or 0x0A0806)
+                if (d >= 1.0 || i < -1 || j < -1 || i > reach || j > reach) continue
+                under.set(px, py, ((minOf(1.0, (1 - d) * edge) * a * 255).toInt().coerceIn(0, 255) shl 24) or 0x0A0806)
             }
         }
         /** Fills the level rectangle between (i0, j0) and (i1, j1) at height [z] with [c]: the dark inside of a box. */
@@ -513,11 +515,12 @@ object MapCaveIso {
      * hand daubed on the front and a skull on the lid. [open]: the lid thrown back, the box empty but for straw.
      */
     private fun chest(v: Int, open: Boolean): PixelImage {
-        val c = Canvas(TH.toInt() + 80, 4100 + v)
+        val c = Canvas(TH.toInt() + 80, 4100 + v, w = 140)
         val i0 = -0.84; val i1 = -0.16; val j0 = -0.74; val j1 = -0.32
         val zb = 27.0; val zl = 35.0
         val wood = if (v == 1) plankDark else plank
-        c.shadow(i0, j0, i1, j1, 0.5)
+        // reaching well out round the box, so it shows on the dark floor (D1.5, test of 0.1.741: no shadow to be seen)
+        c.shadow(i0, j0, i1, j1, 0.9, pad = 0.22, edge = 3.5)
         if (open) c.box(i0, j0 - 0.06, i1, j0, zb, zb + 32, plankDark, plankDark, wood)
         c.box(i0, j0, i1, j1, 0.0, zb, plankTop, wood, wood)
         if (open) {
