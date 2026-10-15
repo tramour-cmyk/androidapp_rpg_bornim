@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (15.10., 10:23) – Sitzung „Sokrates – Befunde Wald und Verschleiß“ läuft:**
 
-**Nächster Punkt:** (1) Antworten des Nutzers zu **D4.1** (`e/d41.html`, Empfehlung A: Quest über Morwen im Tiefen Wald, Warnung unter Stufe 3; danach Texte unter 41, Bau Tom, Nachmessung Diogenes) und **D3.13–D3.16** (`e/d3-13.html`) eintragen. (2) **72o Verschleiß** durchdenken (Kampf-Dokument, 72.13: „kommt, Feinheiten mit Sokrates“), dann 72s, 84.x (Archiv „15.10., 07:4x“). (3) 81r beobachten; Jerrys `TELEGRAM_BOT_TOKEN` (Nutzer). 81p/81r stehen in den Beschlüssen.
+**Nächster Punkt:** (1) Antworten des Nutzers zu **D4.1** (`e/d41.html`, Empfehlung A: Quest über Morwen im Tiefen Wald, Warnung unter Stufe 3; danach Texte unter 41, Bau Tom, Nachmessung Diogenes) und **D3.13–D3.16** (`e/d3-13.html`) eintragen. (2) **72o Verschleiß** durchdenken (Kampf-Dokument, 72.13: „kommt, Feinheiten mit Sokrates“), dann 72s, 84.x (Archiv „15.10., 07:4x“). Auf Dein Zug außerdem **70.3** (Leben im Intro, Empfehlung B) und **81s** (D5.1 Stundenuhr, D5.4, D5.5; bei Ja: `create_trigger` mit `persistent_session_id` Fords Sitzung, stündlich, `send_later`-Kette in `ROLLE-FORD.md` ersetzen; Routinen löschen, `ARBEIT-SELBST.md`-Abschnitt streichen). (3) 81r beobachten; Jerrys `TELEGRAM_BOT_TOKEN` (Nutzer). 81p/81r stehen in den Beschlüssen.
 
 **Zuletzt gelesen bis:** 95af033a (15.10., 10:2x)
 
