@@ -6,7 +6,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Nächster Punkt:** 98. [Rollenkonzept](https://claude.ai/code/artifact/3a9cbaec-bc3a-47b9-9ff1-c89f4bf59faa): Nutzer hat es gelesen, **Go** (22:3x); Abgleich eingedampft zu „Beim Umbau zu erledigen“ (Volltext im Dokumentverlauf). [Firmenordnung](https://claude.ai/code/artifact/1757d98a-8847-4483-9c51-05be34b45356): **liest der Nutzer noch**; nach seinem Go Diogenes für beide in einem Lauf (Zeile „Für Diogenes“, Ford „Auftrag Diogenes 98“; Prüfung gegen Wortlaute 98/99, D11.1, 99f, Schwerpunkt Ablauf und Zentrale/Niederlassung; blind, ohne Abgleichtabelle). Beschlossen 98.1, 98.5, 98.8 (Beschlüsse eingetragen). **98.6:** Nutzer 22:3x „ist ja schon entschieden“, war aber nur Empfehlung; Eintragen hat er abgebrochen → nicht als Beschluss eintragen, bis er ausdrücklich ja sagt (vorbereitet: Zeile in Beschlüsse, `e/98.html`). **98.3:** Nutzer 22:3x „Teamleiter wüsste ich nicht, dass wir ihn genannt haben … Betriebsleiter“ → beantwortet: „Teamleiter“ ist nur der alte Name aus 81 (Sitzungstitel, Überschrift `ROLLE-FORD.md`), 98.3 benennt genau das um; Ford 2 heißt Niederlassungsleiter. Offen auf `e/98.html`: 98.2–98.4, 98.6, 98.7. Beim Umbau: Leitlinien-Zeile (88) in `CLAUDE.md`, Ford-Wache-Auftrag auf `ARBEIT-BETRIEB.md`. Jerry ruht bis Fr. nachmittags (99). Rest: 99d, 65.11, 72s.1, D10 auf Dein Zug.
 
-**Zuletzt gelesen bis:** 68c2c312 (15.10., 22:3x)
+**Zuletzt gelesen bis:** 9aa2f357 (15.10., 22:4x)
 
 ## Wer du bist
 
