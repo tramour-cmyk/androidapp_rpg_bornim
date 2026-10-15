@@ -14,9 +14,10 @@ Einmal „Zeit für ein Release?“ fragen (Rückfrage auf der Seite „Dein Zug
 
 Zusammengeführte PRs stehen bis dahin unter „## Unveröffentlicht“.
 
-## Neustart (nach „ja“ des Nutzers, Thema 46)
+## Neustart (81r: Thema fertig oder zweite Erinnerung des Hakens; kein Ja nötig)
 
-1. Übergabe in `docs/ARBEIT-OFFEN.md` schreiben und pushen.
+1. Übergabe mit „Nachfolger: <Titel>“ schreiben und pushen (Tom, Jerry in `ARBEIT-OFFEN.md`, Sokrates, Diogenes oben in ihrer ROLLE-Datei).
+1a. `send_message` an Fords Sitzung (`ROLLE-FORD.md`): „Neustart <Name>, <Commit>“. Ford startet und meldet den Link per Telegram; dem Nutzer im Chat nur „weiter in <Titel>“. Antwortet Ford nicht in 5 Minuten (oder Jerry ohne Ford): weiter mit 2.
 2. Nachfolger selbst starten, in derselben Umgebung: `create_session` mit erster Nachricht „Start“ (wie `ARBEIT-SELBST.md` 32.2), **immer mit** `source_url` des Repos, `outcome_branch` = neuer Zweig `claude/<name>-<nr>-<stichwort>` und Titel nach Thema („Tom: 27.4 Bäume, dann 5.6 Schlagbaum“). Ohne Zweig steht die Sitzung in der App unter „Sonstiges“ statt im Repo-Ordner.
 3. Dem Nutzer nur den Namen der neuen Sitzung nennen; er wechselt bloß hinüber.
 4. Gibt es `create_session` nicht (in gewöhnlichen Sitzungen nicht vorhanden): einmalige geplante Aufgabe in 2 Minuten (`create_trigger` mit `run_once_at`, eigenständiger Auftrag wie „Start“ plus Repo, Name = Titel); sie startet eine frische Sitzung.

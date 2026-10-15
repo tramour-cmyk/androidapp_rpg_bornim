@@ -36,7 +36,7 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, alles unter `docs/`. Nur auf `main`; dire
 **Umgang mit dem Nutzer**
 - Deutsch, Berliner Zeit. Generisches Maskulinum („der Nachfolger“, „die Tester“), nie weibliche oder gegenderte Formen. Zum Prüfen fett markieren, nie nur kursiv.
 - Zeitstempel immer von der Systemuhr: `TZ=Europe/Berlin date "+%d.%m., %H:%M"`, nie schätzen.
-- Erst auf Rückmeldungen und Fragen antworten und besprechen, dann arbeiten: auf jede Nachricht zuerst in ein, zwei Sätzen antworten; Arbeitsschritte höchstens etwa 5 Minuten, dazwischen kurz Stand melden (bei Builds gilt der Weckruf; Nutzer 14.10.). Eine Rückfrage ist keine Freigabe. Vor großen optischen Änderungen Standbilder zeigen, nie Bildfolgen.
+- Erst auf Rückmeldungen und Fragen antworten und besprechen, dann arbeiten: auf jede Nachricht zuerst in ein, zwei Sätzen antworten; Arbeitsschritte höchstens etwa 5 Minuten, dazwischen Stand als eine Zeile `tools/meldung.sh <Name> "<Nr> <Stand>"` (Telegram ist das Protokoll, lautlos; `--laut` nur, wenn der Nutzer dran ist; 81r), im Chat nur kurz (bei Builds gilt der Weckruf; Nutzer 14.10.). Eine Rückfrage ist keine Freigabe. Vor großen optischen Änderungen Standbilder zeigen, nie Bildfolgen.
 - **Rückfragen sind Holschuld des Nutzers** (65.8, Nutzer 14.10.): sie stehen nur auf „Dein Zug“ (63) mit Empfehlung und vollem Wortlaut. Im Chat: eine neue Frage einmal mit Nummer in dem Zug, in dem sie entsteht; beim Sitzungsstart ein Satz „Auf Dein Zug ist noch etwas offen“ mit Link; sonst nie wiederholen, weder als Liste noch als Zählung, außer bei „Vorrat leer“: dann „Vorrat leer, auf Dein Zug n offen von mir“ (nur eigene Einträge). Fragt der Nutzer „Hast du Rückfragen?“, alle eigenen offenen mit vollem Wortlaut aufzählen. **Auftrag eines anderen Agenten** (z. B. „Für den Berater“): beim nächsten Gespräch einmal aktiv mit eigener Stellungnahme einbringen, dann auf „Dein Zug“; was dort steht, gilt als angesprochen. **Kritisch** nur, wenn ohne Antwort die Arbeit steht (sonst „Vorrat leer“): eine Zeile „Kritisch: <Nr.>, weil …“, einmal je Gespräch.
 - Was funktioniert und kein Fehler ist, muss der Nutzer nicht erfahren.
 
@@ -53,7 +53,8 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, alles unter `docs/`. Nur auf `main`; dire
 **Begriffe** (62p/62q): **Landkarte** (alle Gebiete eines Landes) → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang). Wo gekämpft wird, heißt **Kampfort** (nie „Bühne“; 72.12). Menschen an der Seite des Helden sind **Gefährte** oder **Söldner**, alles andere **Begleiter** (72.14). Übereinanderliegende Teile eines Grundrisses heißen **Ebene**, nie „Stockwerk“; „Ebene“ nie für die Kartenstufen. So auch im Spiel und in Prüflisten.
 
 **Sitzungen**
-- **Neustart nur bei großer Sitzung** (jede neue kostet rund 20.000 Token Startlektüre): bei vielen Bildern oder Filmen, langen Testausgaben, mehreren Stunden oder Meldung des Neustart-Hakens, an der nächsten Bruchstelle. Ablauf in `ARBEIT-ABLAEUFE.md`.
+- **Eine Sitzung je Thema, Neustart über Ford** (81r, ersetzt die Ja-Pflicht): Thema fertig oder zweite Erinnerung des Neustart-Hakens → Schritt beenden, Übergabe mit „Nachfolger: <Titel>“ pushen, `send_message` an Fords Sitzung „Neustart <Name>, <Commit>“; ohne Antwort in 5 Minuten selbst starten. Nur „noch nicht“ des Nutzers hält auf. Ablauf in `ARBEIT-ABLAEUFE.md`.
+- **Ford muss laufen** (außer Stellung „aus“): Tom und Sokrates prüfen beim Start `get_session` der Sitzung in `ROLLE-FORD.md`; `updated_at` älter als 70 Minuten → `send_message` „Ford-Lauf“.
 - **Selbstarbeit und gemeinsame Zeit:** gilt `ARBEIT-SELBST.md`.
 - Weniger Freigabe-Rückfragen steuert der Freigabe-Modus im Eingabefeld der App, nicht der Code.
 

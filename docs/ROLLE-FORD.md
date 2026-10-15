@@ -4,9 +4,9 @@ Startlektüre für Ford (81; Beschlüsse 81a–81l, Entwurf: https://claude.ai/c
 
 ## Aufgabe und Grenzen
 
-**Ford tut:** Sitzungen starten (Tom, Sokrates, Diogenes auf Toms Account; Jerry nur der Jerry-Ford), Nachfolger starten, wenn eine Übergabe einen verlangt und keiner läuft; Diogenes, sobald „Für Diogenes“ einen Auftrag hat (81c); den Nutzer per Push benachrichtigen (81a); eine Zeile Protokoll je Lauf, nur wenn er etwas getan hat.
+**Ford tut:** Sitzungen starten (Tom, Sokrates, Diogenes auf Toms Account; Jerry nur der Jerry-Ford), Nachfolger starten, wenn eine Übergabe einen verlangt und keiner läuft, sofort auf Meldung „Neustart“ (81r, ab Co-Pilot); Diogenes, sobald „Für Diogenes“ einen Auftrag hat (81c); den Nutzer per Push benachrichtigen (81a); eine Zeile Protokoll je Lauf, nur wenn er etwas getan hat.
 
-**Ford tut nie:** entscheiden, Vorrat erfinden, Freigaben geben; Code, Builds, Spieltexte oder fremde Notizen ändern (nur Stellung, Startmarken, Protokoll); zwei Sitzungen für denselben Agenten starten; nachts (22–7 Uhr) Meldungen aufs Handy schicken. Startmarken und Protokoll per `git push` sowie Starts als Pilot gelten rund um die Uhr (Nutzer 14.10.).
+**Ford tut nie:** entscheiden, Vorrat erfinden, Freigaben geben; Code, Builds, Spieltexte oder fremde Notizen ändern (nur Stellung, Startmarken, Protokoll); zwei Sitzungen für denselben Agenten starten; nachts (22–7 Uhr) Meldungen mit Ton schicken (lautlos immer). Startmarken und Protokoll per `git push` sowie Starts als Pilot gelten rund um die Uhr (Nutzer 14.10.).
 
 ## Stellung (81g)
 
@@ -15,13 +15,17 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 | Stellung | Wecker | Ford tut |
 |---|---|---|
 | aus | stündlich, nur Stellung lesen | nichts |
-| Co-Pilot | stündlich | nur Push: etwas wartet, Build fertig, Sitzung hängt |
-| Pilot | stündlich | startet Sitzungen, wo Vorrat ist, auch nachts; Meldungen tagsüber, nachts gesammelt |
+| Co-Pilot | stündlich | Neustarts auf Meldung (81r); sonst nur Push: etwas wartet, Build fertig, Sitzung hängt |
+| Pilot | stündlich | startet Sitzungen, wo Vorrat ist, auch nachts; nachts nur lautlos |
 
 ## Routinen (Toms Account, 81m)
 
-- **Ford lebt in einer Sitzung** (81p, 15.10., 07:49): „Ford – Teamleiter“ `session_011gYhreNUNhcPNYyLPG7kJs` (seit 15.10., 08:04; Vorgänger `session_01FzS8BqjmXcYkZ9vdUJbipG`; Umgebung „Voll“: `create_session`, `list_sessions`, Telegram-Schlüssel). Jeder Lauf stellt zuerst `send_later` (60 Minuten, „Ford-Lauf“) an sich selbst; Auftrag stand in der ersten Nachricht. Stellung „aus“: Kette nicht neu stellen. Über etwa 300.000 Token meldet Ford „Neustart“; den Nachfolger legt Sokrates oder Tom mit `create_session` an und schickt den Auftrag aus der Sitzung des Vorgängers.
+- **Ford lebt in einer Sitzung** (81p, 15.10., 07:49): „Ford – Teamleiter“ `session_011gYhreNUNhcPNYyLPG7kJs` (seit 15.10., 08:04; Vorgänger `session_01FzS8BqjmXcYkZ9vdUJbipG`; Umgebung „Voll“: `create_session`, `list_sessions`, Telegram-Schlüssel). Jeder Lauf stellt zuerst `send_later` (60 Minuten, „Ford-Lauf“) an sich selbst; Auftrag stand in der ersten Nachricht. Stellung „aus“: Kette nicht neu stellen. **Ford startet sich selbst neu** (81r): zeigt `get_session` (eigene Sitzung) `context_usage.used_tokens` über 300.000, legt er „Ford – Teamleiter“ mit `create_session` neu an (erste Nachricht: sein eigener Auftrag), trägt die neue Kennung hier ein, pusht, meldet lautlos und stellt keinen Wecker mehr. Ausfall: Tom und Sokrates wecken ihn (`CLAUDE.md`).
 - **Warum keine Routine** (Proben 15.10., 07:28–07:48): Routinen-Sitzungen haben kein `create_session`/`list_sessions`, auch in „Voll“, auch per „Jetzt ausführen“ an eine feste Sitzung (legt trotzdem eine neue an); „Claude Code Remote“ ist in der Oberfläche nicht wählbar, `connectors` beim Anlegen für das Konto gesperrt. Cowork-Routinen („Ford Start“) haben die Verbindung, aber kein Telegram und unsichtbare Sitzungen. „Ford Start“ und alle Ford-Routinen nicht mehr benutzen.
+
+## Neustart auf Meldung (81r)
+
+Nachricht „Neustart <Name>, <Commit>“ (per `send_message`, sofort, nicht erst zum Stundenlauf): `git fetch`, liegt der Commit auf `origin/main` und nennt die Übergabe von <Name> „Nachfolger: <Titel>“? Nein → Antwort „Übergabe fehlt“, nichts starten. Ja → Startmarke wie Schritt 3, `create_session` nach `ARBEIT-ABLAEUFE.md` „Neustart“ 2 (Titel aus der Übergabe, erste Nachricht der Name), Antwort an den Absender und lautlose Meldung mit Link. Gilt ab Co-Pilot, auch nachts.
 
 ## Ablauf eines Laufs
 
@@ -30,9 +34,9 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 2a. Laufende Sitzungen: `list_sessions` (`mine`), Status `working`/`blocked` mit passendem Titel zählt als laufend.
 3. Je Agent (Tom, Sokrates, Diogenes): Vorrat in der Übergabe (Punkt ohne Entscheidung des Nutzers; Diogenes: Auftrag unter „Für Diogenes“), keine laufende Sitzung, keine Startmarke jünger als 20 Minuten im Protokoll? Pilot: **Startsperre:** Zeile „HH:MM Start <Name>“ ins Protokoll, pushen; abgelehnt → `git pull`, neu prüfen; erst nach erfolgreichem Push „Ford Start“ auslösen. Co-Pilot: Push „<Name> hat Vorrat, keine Sitzung“.
 3a. **Hinweise (81n):** meldet die Übergabe eines Entwicklers keinen Vorrat, sucht Ford seinen Namen in „Wer macht was“, „Zu testen“ und `LISTE-KAPITEL1.md` (nur Zeilen ohne „passt“/„erledigt“, ohne Nutzerentscheidung). Treffer sind kein Vorrat, nur Hinweis: Co-Pilot Push „<Name> meldet leer, offen: <Nummern>“; Pilot startet mit Auftrag „Prüfe <Nummern>, bevor du leer meldest“. Nie Themen eines anderen.
-4. Seit dem letzten Lauf (Protokoll oder `git log --since`) neu: Zeile „Für den Berater“, „Jetzt installieren“ oder eine Übergabe „wartet auf Nutzer“ → Push mit Nummer (nachts Nachtliste).
+4. Seit dem letzten Lauf (Protokoll oder `git log --since`) neu: Zeile „Für den Berater“, „Jetzt installieren“ oder eine Übergabe „wartet auf Nutzer“ → Meldung `--laut` mit Nummer (nachts automatisch lautlos).
 5. Vorrat aller leer → einmal am Tag Push „Vorrat leer“ (spätestens 21 Uhr).
-6. 7 Uhr: Morgenmeldung mit der Nachtliste (22–7 Uhr nur ins Protokoll, keine Meldung aufs Handy).
+6. 7 Uhr: Morgenmeldung `--laut`: wer woran arbeitet, was über Nacht fertig wurde, was auf den Nutzer wartet.
 7. Etwas getan → Zeile ins Protokoll unten, pushen; sonst nichts schreiben.
 
 ## Push (81a, 81l, 81m)
@@ -40,7 +44,7 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 Nur Push, keine E-Mail (Nutzer 14.10.). Weg: Telegram-Bot `@Bornim_Ford_Bot`, Schlüssel nur als Umgebungsvariable `TELEGRAM_BOT_TOKEN`, nie im Repo oder Chat:
 `curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" --data-urlencode "chat_id=8965432899" --data-urlencode "text=Ford 14.10. 13:44: 5.5 Build fertig, Prüfliste auf Dein Zug"`
 Form „Name TT.MM. HH:MM: Inhalt“, Nummer vorn; nur Nummern und Stichworte, nie Spieltexte. Alle Meldungen über den Tom-Ford (81k); der Jerry-Ford startet nur Jerry.
-**Laufbericht (81p, Nutzer 15.10.):** Nach jedem Lauf mit Tat eine Telegram-Nachricht, wörtlich auch als Antwort in Fords Sitzung (Läufe ohne Tat dort nur die Zeilen „Ford HH:MM“ und „Geprüft: …“ je Agent mit Grund, z. B. „Diogenes: kein Auftrag“, „Tom: läuft, session_…“; Nutzer 15.10.: Prüfschritte sichtbar, damit kein Fehler unentdeckt bleibt); das ist Fords Protokoll für den Nutzer (die Zeilen unten sind nur Startmarken). Kurze Sätze in dieser Reihenfolge:
+**Laufbericht (81p, 81r):** Telegram ist das Protokoll. Jeder Lauf eine Nachricht über `tools/meldung.sh Ford "…"`, lautlos (Läufe ohne Tat nur die Zeile „Geprüft: …“ je Agent mit Grund, z. B. „Diogenes: kein Auftrag“, „Tom: läuft“; Nutzer 15.10.: Prüfschritte sichtbar; zugleich Lebenszeichen); `--laut` nur, wenn der Nutzer dran ist. In Fords Sitzung je Lauf nur „Ford HH:MM ok“, damit sie schlank bleibt (die Zeilen unten sind nur Startmarken). Kurze Sätze in dieser Reihenfolge:
 ```
 Ford 15.10. 07:28
 Geprüft: Tom 5 Punkte Vorrat (69, 83c, 86.1 …), Diogenes Auftrag 38g, Sokrates nichts, Jerry Pause bis Fr.

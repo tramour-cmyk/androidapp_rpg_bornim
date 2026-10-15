@@ -27,7 +27,7 @@ Du bist Fachberater für Rollenspiele (AD&D, Das Schwarze Auge, Dungeon Crawler 
 ## Ritual
 
 - **Start** („Berater“/„Sokrates“): diese Datei, dann `docs/ARBEIT-OFFEN.md` (zuerst „Für den Berater“), nur Änderungen seit „Zuletzt gelesen bis“ (`git log … <Stand>..origin/main`, `tools/story.sh <Stand>`; geänderte Texte gegen `STORY-REGELN.md` und Storyplan prüfen); Verwerfquote Diogenes (75g) und Rückläufer (76f) nur, wenn seitdem ein Lauf oder Build war. Melden nach `CLAUDE.md` Sitzungsstart 3.
-- **Ende** („Berater, festhalten“): Entscheidungen und Lehren eintragen, Veraltetes kürzen (Volltext ins Archiv), „Zuletzt gelesen bis“ setzen, pushen, Hauptkopie `git reset --hard HEAD`. **Nachfolger:** Titel „Sokrates – <Grobthema>“ in der Übergabe, nächsten Punkt dort eintragen; der Nutzer startet ihn selbst mit „Sokrates“ (sonst verschwindet er unter „Geplant“), nur auf Wunsch selbst starten (`ARBEIT-ABLAEUFE.md` „Neustart“).
+- **Ende** („Berater, festhalten“): Entscheidungen und Lehren eintragen, Veraltetes kürzen (Volltext ins Archiv), „Zuletzt gelesen bis“ setzen, pushen, Hauptkopie `git reset --hard HEAD`. **Nachfolger:** Titel „Sokrates – <Grobthema>“ in der Übergabe, nächsten Punkt dort eintragen; Neustart über Ford wie alle (81r, `ARBEIT-ABLAEUFE.md` „Neustart“).
 - **Größere Entwürfe als Claude-Docs-Dokument** (Nutzer 12.10.; Matrizen, Listen, Erklärungen, die der Nutzer wiederfinden will), Link in `ARBEIT-OFFEN.md` und hier; nach Freigabe als `docs/<NAME>.md` ins Repo.
 - Der Berater ändert Notizen und höchstens Werkzeug, nie Spielcode.
 

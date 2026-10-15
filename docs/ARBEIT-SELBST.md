@@ -45,7 +45,7 @@ Alle drei Stunden rund um die Uhr je Account eine Routine, die eine frische Sitz
 - **App-Code:** vor dem Push auch die Vorschau bauen (`tools/t`), damit kein Werkzeug still bricht (32.5). Vorschau bricht wegen Speicher ab: `tools/setup-session.sh` (Gradle 6 GB, 32.6).
 - **Kleine, sichere Schritte.** Nach jedem fertigen Schritt: Kerntests (`CLAUDE.md`), Commit und Push auf den eigenen Zweig, Herzschlag. So geht beim Abbruch höchstens ein Schritt verloren.
 - **Nichts auf `main` außer Notizen.** Kein PR zusammenführen, keine Freigaben vorwegnehmen; Optisches nur als Entwurf (Standbilder mit Uhrzeit, Schalter im Testreiter).
-- **Sparsam:** Filme nur, wo sich eine Bewegung sichtbar ändert; große Ausgaben gefiltert lesen; nach jeder Aufgabe prüfen, ob das Gespräch groß ist. Wenn ja (oder der Neustart-Haken meldet es): Übergabe schreiben, Zeile auf `übergeben`, pushen, **sofort selbst einen Nachfolger starten** (`ARBEIT-ABLAEUFE.md` „Neustart“, Auftrag: Text der Weck-Routine) und erst dann die Antwort beenden; nicht auf die Routine warten (32.2).
+- **Sparsam:** Filme nur, wo sich eine Bewegung sichtbar ändert; große Ausgaben gefiltert lesen; nach jeder Aufgabe prüfen, ob das Gespräch groß ist. Wenn ja (oder der Neustart-Haken meldet es): Übergabe schreiben, Zeile auf `übergeben`, pushen, **sofort den Nachfolger über Ford starten** (`ARBEIT-ABLAEUFE.md` „Neustart“, 81r) und erst dann die Antwort beenden; nicht auf die Routine warten (32.2).
 - **Zweig-Build:** Sammelbuild nach `ROLLE-ENTWICKLER.md` (78); Weckruf wie dort.
 - **Paket fertig:** Reserve, dann weiter aus dem Vorrat. Ist nichts mehr da oder „Bis“ erreicht: Zeile auf `fertig`, Bericht, Antwort beenden.
 
