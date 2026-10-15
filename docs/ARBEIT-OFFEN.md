@@ -61,10 +61,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 19:2x, „Tom – Schattenschicht D9.2“) – Nachfolger: „Tom – Morgenstand D9.3“
+### Tom (15.10., 19:2x, „Tom – Morgenstand D9.3“) – Nachfolger: „Tom – Fichtenreihe D3.3“
 - PR #66 (0.1.752) grün, APK-Link auf `e/t752.html`; Nachfolger: PR #66 abonnieren, nach „passt“ zusammenführen, CHANGELOG, Zeile auf Dein Zug löschen.
-- Nächster Sammelbuild: D3.13a `claude/tom-d3-13a-huette` (41019715), D9.1 `claude/tom-d9-1-naehte` (5d85b13a), D9.2 `claude/tom-d9-2-schattenschicht` (40d93256; App nur in CI übersetzbar, dort prüfen).
-- Vorrat: D9.3 (`MapSun.Stand.at`: 0–10 Uhr Morgenstand statt Abend), D3.3 Rest, dann 89 Figuren im Schatten.
+- Nächster Sammelbuild: D3.13a `claude/tom-d3-13a-huette` (41019715), D9.1 `claude/tom-d9-1-naehte` (5d85b13a), D9.2 `claude/tom-d9-2-schattenschicht` (40d93256; App nur in CI übersetzbar), D9.3 `claude/tom-d9-3-morgenstand` (bb440be2, 0–10 Uhr Morgenstand, `SunStandTest`).
+- Vorrat: D3.3 Rest (Fichtenreihe im Tiefen Wald), dann 89 Figuren im Schatten.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
@@ -75,7 +75,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 - **Diogenes Lauf 3** (14.10., Prüfbericht, Verdachte, erst bestätigen): **Jerry** D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald, D3.4 Endlosklänge reißen ab, D3.5/D3.6 Monster, D3.8–D3.10, D3.12; Toms Teil auf `main` (0.1.750).
 - **Diogenes Lauf 6** (15.10., 71 A Dorf, Prüfbericht, Verdachte, erst bestätigen): Toms Teil auf `main` (0.1.750). **Jerry** D6.4 Fluss stumm.
 - **Diogenes Lauf 7** (15.10., 71 Nachprüfung Dorf nach 0.1.748, Prüfbericht, Verdacht, erst bestätigen): **Tom** D7.1 Hühner (mit 94). Sonst in Ordnung (Hühner, Schritte, Intro, Brücke).
-- **Diogenes Lauf 9** (15.10., Nachprüfung 0.1.750, Prüfbericht, Verdachte, erst bestätigen): **Tom** D9.1 Nähte an Häusern (bestätigt, behoben auf `claude/tom-d9-1-naehte` 5d85b13a: Glättung zog Schwarz der durchsichtigen Ränder ein; nächster Sammelbuild), D9.2 Schattenschicht im Zeichnen (behoben auf `claude/tom-d9-2-schattenschicht` 40d93256: eigener Faden, Vorbereiten beim Kartenwechsel, Einblenden 0,4 s; nächster Sammelbuild), D9.3 Abendstand nach Mitternacht; D3.3 Rest (Fichtenreihe im Tiefen Wald).
+- **Diogenes Lauf 9** (15.10., Nachprüfung 0.1.750, Prüfbericht, Verdachte, erst bestätigen): **Tom** D9.1 Nähte an Häusern (bestätigt, behoben auf `claude/tom-d9-1-naehte` 5d85b13a: Glättung zog Schwarz der durchsichtigen Ränder ein; nächster Sammelbuild), D9.2 Schattenschicht im Zeichnen (behoben auf `claude/tom-d9-2-schattenschicht` 40d93256: eigener Faden, Vorbereiten beim Kartenwechsel, Einblenden 0,4 s; nächster Sammelbuild), D9.3 Abendstand nach Mitternacht (behoben auf `claude/tom-d9-3-morgenstand` bb440be2; nächster Sammelbuild); D3.3 Rest (Fichtenreihe im Tiefen Wald).
 
 ## Für Diogenes
 
