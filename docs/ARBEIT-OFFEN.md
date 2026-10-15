@@ -2,7 +2,7 @@
 
 Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main` (Regeln in `CLAUDE.md`, auch zur Größe).
 
-**Nächste freie Themennummer: 92**
+**Nächste freie Themennummer: 96**
 
 **Ford: Pilot** (Nutzer 14.10., in Toms Sitzung, eingetragen 22:5x; 81g; Stellung aus / Co-Pilot / Pilot, Startlektüre `ROLLE-FORD.md`; wer die Stellung erhöht, löst Ford sofort einmal aus)
 
@@ -20,6 +20,10 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
+| 92 | Bauer Bram blockiert an der Brücke den Weg, Held steckt fest (Nutzer 15.10., 16:5x, Test 0.1.750, Bild); Idee: „Held muss NPC schieben können. Keine Gegner, aber neutrale.“ | Tom | – | Neu. **92.1** Vorschlag folgt (Schieben/Platztausch mit Neutralen) |
+| 93 | „Die Beete westlich gehen nicht bis zum Zaun.“ (Nutzer 15.10., 16:5x) | Tom | – | Neu |
+| 94 | „Hühner landen teilweise auf dem Fluss.“ (Nutzer 15.10., 16:5x); dazu D7.1 Hühner verschwinden schlagartig bei Regen und Dämmerung | Tom | – | Neu, in Arbeit |
+| 95 | Atem: „Atem mit Anzeige (Balken rechts) hört man nicht und der Balken funktioniert nicht.“ (Nutzer 15.10., 16:5x, zu 86) | Tom (Balken); Jerry (Keuchen, 86.3) | – | Neu. **Jerry, 95:** Keuchen hörbar machen (ab Fr.) |
 | 86 | Bewegung und Übersicht (Nutzer 14.10., 18:5x) | Tom (86.1–86.4); Jerry (86.3 Keuchen, Lärm, Initiative; 86.11 mit 72b/38) | `claude/tom-runde-nach-748-b` | Einzelheiten in den Beschlüssen. **Tom:** 86.1–86.4 gebaut, Build A. **Jerry:** Keuchen, Initiative mit Nachteil, Rennen laut (84.4); zur Kenntnis `GameState.winded`/`stamina`. Beschlossen, Bau offen: 86.6, 86.9, 86.10, 86.11 |
 | 90 | Projektleitung: täglicher Rückblick (Nutzer 15.10., 12:4x) | Berater; Ford startet | `main` (Notizen) | **Probe 16.–22.10. beschlossen** (12:5x, Beschlüsse): Sokrates morgens nach Fords Morgenmeldung (`ROLLE-FORD.md` 6a, `ROLLE-BERATER.md` „Tagesrückblick“). **Sokrates** achtet auf die Woche (jeder Rückblick nennt „Tag n von 7“) und Diogenes prüft die Woche vorher (Nutzer 12:5x, „Für Diogenes“); 23.10. Bilanz mit Nutzer: weiter oder abschaffen. **90a** auf Dein Zug |
 | 91 | Schrittgeräusche eigenständig abschaltbar, zusätzlich zu den Effekten (Nutzer 15.10., 16:0x: „Die Töne können auf Dauer nerven“) | Tom (Bau); Berater (Idee) | `claude/tom-91-schritte` | **Tom:** Schalter „Schritte: An/Aus“ im System-Reiter gebaut, gespeichert (eine Zeile `WorldScreen.kt`, Jerry zur Kenntnis); in Build A (PR #65). **Sokrates:** Stellungnahme (Für den Berater) |
