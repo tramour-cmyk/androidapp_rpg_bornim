@@ -623,6 +623,8 @@ fun main() {
     if (System.getenv("BRUECKE69E") != null) { renderBridgeProbe(); System.exit(0) }
     // INTRO69=1 (or 3, 4; anything else: all): the other intro pictures in the style of the model picture (69, draft)
     if (System.getenv("INTRO69") != null) { renderIntroProbe(); System.exit(0) }
+    // TEMPEL68=1..5 (anything else: all): the temple scene at the end of chapter 1 in the style of the intro (68, draft)
+    if (System.getenv("TEMPEL68") != null) { renderTempleProbe(); System.exit(0) }
     if (System.getenv("BACKVIEW") != null) { renderBackViews(); System.exit(0) }
     if (System.getenv("ATTACKVIEW") != null) { renderAttackViews(); System.exit(0) }
     if (System.getenv("RANGED") != null) { renderRangedViews(); System.exit(0) }
