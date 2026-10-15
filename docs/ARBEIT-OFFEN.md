@@ -21,7 +21,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 96 | Gesprächstext zu lang für das Feld: „Text kann nicht gescrollt werden, sondern nächster Text kommt.“ (Nutzer 15.10., 17:0x, Garrick-Warnung vor Krogg, Bild) | Tom | – | Neu |
-| 92 | Bauer Bram blockiert an der Brücke den Weg, Held steckt fest (Nutzer 15.10., 16:5x, Test 0.1.750, Bild); Idee: „Held muss NPC schieben können. Keine Gegner, aber neutrale.“ | Tom | – | Neu. **92.1** Vorschlag folgt (Schieben/Platztausch mit Neutralen) |
+| 92 | Bauer Bram blockiert an der Brücke den Weg, Held steckt fest (Nutzer 15.10., 16:5x, Test 0.1.750); Idee: „Held muss NPC schieben können. Keine Gegner, aber neutrale.“ | Tom | `claude/tom-build-b-tempel` | Gebaut: wer zweimal angelaufen wird, tritt zur Seite, sonst Platztausch; Wachen nicht (`MakeWayTest`); Build B |
 | 93 | „Die Beete westlich gehen nicht bis zum Zaun.“ (Nutzer 15.10., 16:5x) | Tom | – | Neu |
 | 94 | „Hühner landen teilweise auf dem Fluss.“ (Nutzer 15.10., 16:5x); dazu D7.1 Hühner verschwinden schlagartig | Tom | `claude/tom-build-b-tempel` | Gebaut: Abstand zum Ufer, bei Regen und Dämmerung unter die Bäume und wieder heraus (`MapHenTest`); Build B |
 | 95 | Atem: „Atem mit Anzeige (Balken rechts) hört man nicht und der Balken funktioniert nicht.“ (Nutzer 15.10., 16:5x, zu 86) | Tom (Balken); Jerry (Keuchen, 86.3) | – | Neu. **Jerry, 95:** Keuchen hörbar machen (ab Fr.) |
