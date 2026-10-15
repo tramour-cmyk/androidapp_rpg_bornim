@@ -40,6 +40,15 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "command -v python3 >/dev/null && python3 \"$CLAUDE_PROJECT_DIR\"/tools/zug-haken.py 2>/dev/null; true",
+            "timeout": 10
+          }
+        ]
       }
     ]
   }

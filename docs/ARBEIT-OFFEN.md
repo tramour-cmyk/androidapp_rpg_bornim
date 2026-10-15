@@ -10,7 +10,7 @@ Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main`
 
 ## Jetzt installieren
 
-Nichts.
+**0.1.750** (Build A, PR #65, Tom: 89, 91, Runde nach 0.1.748), Prüfliste auf Dein Zug `e/t750.html`.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -21,9 +21,9 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 86 | Bewegung und Übersicht (Nutzer 14.10., 18:5x) | Tom (86.1–86.4); Jerry (86.3 Keuchen, Lärm, Initiative; 86.11 mit 72b/38) | `claude/tom-runde-nach-748-b` | Einzelheiten in den Beschlüssen. **Tom:** 86.1–86.4 gebaut, Build A. **Jerry:** Keuchen, Initiative mit Nachteil, Rennen laut (84.4); zur Kenntnis `GameState.winded`/`stamina`. Beschlossen, Bau offen: 86.6, 86.9, 86.10, 86.11 |
-| 90 | Projektleitung: täglicher Rückblick (Nutzer 15.10., 12:4x) | Berater; Ford startet | `main` (Notizen) | **Probe 16.–22.10. beschlossen** (12:5x, Beschlüsse): Sokrates morgens nach Fords Morgenmeldung (`ROLLE-FORD.md` 6a, `ROLLE-BERATER.md` „Tagesrückblick“). **Sokrates** achtet auf die Woche (jeder Rückblick nennt „Tag n von 7“) und Diogenes prüft die Woche vorher (Nutzer 12:5x, „Für Diogenes“); 23.10. Bilanz mit Nutzer: weiter oder abschaffen |
-| 91 | Schrittgeräusche eigenständig abschaltbar, zusätzlich zu den Effekten (Nutzer 15.10., 16:0x: „Die Töne können auf Dauer nerven“) | Tom (Bau); Berater (Idee) | `claude/tom-91-schritte` | **Tom:** Schalter „Schritte: An/Aus“ im System-Reiter gebaut, gespeichert (eine Zeile `WorldScreen.kt`, Jerry zur Kenntnis); nächster Sammelbuild. **Sokrates:** Stellungnahme (Für den Berater) |
-| 89 | Schatten mit dem Tag (Nutzer 15.10., 12:1x, zu D6.1) | Tom | `claude/tom-89-schatten` | **89/89a passt** (Nutzer 16:1x, Beschlüsse). **Tom:** `MapSun.on` fest, Stand beim Kartenwechsel und nach der Rast setzen (`Game.kt`), Figurenschatten mit der Sonne (`WorldScreen.kt`, Jerry zur Kenntnis), dann Sammelbuild; Mond mit D3.14 |
+| 90 | Projektleitung: täglicher Rückblick (Nutzer 15.10., 12:4x) | Berater; Ford startet | `main` (Notizen) | **Probe 16.–22.10. beschlossen** (12:5x, Beschlüsse): Sokrates morgens nach Fords Morgenmeldung (`ROLLE-FORD.md` 6a, `ROLLE-BERATER.md` „Tagesrückblick“). **Sokrates** achtet auf die Woche (jeder Rückblick nennt „Tag n von 7“) und Diogenes prüft die Woche vorher (Nutzer 12:5x, „Für Diogenes“); 23.10. Bilanz mit Nutzer: weiter oder abschaffen. **90a** auf Dein Zug |
+| 91 | Schrittgeräusche eigenständig abschaltbar, zusätzlich zu den Effekten (Nutzer 15.10., 16:0x: „Die Töne können auf Dauer nerven“) | Tom (Bau); Berater (Idee) | `claude/tom-91-schritte` | **Tom:** Schalter „Schritte: An/Aus“ im System-Reiter gebaut, gespeichert (eine Zeile `WorldScreen.kt`, Jerry zur Kenntnis); in Build A (PR #65). **Sokrates:** Stellungnahme (Für den Berater) |
+| 89 | Schatten mit dem Tag (Nutzer 15.10., 12:1x, zu D6.1) | Tom | `claude/tom-89-schatten-spiel` | **89/89a passt** (Nutzer 16:1x, Beschlüsse). **Tom:** fest im Spiel gebaut (Stand bei Kartenwechsel, Rast, Laden; Menschen werfen Sonnenschatten), in 0.1.750 (PR #65). Jerry zur Kenntnis: `WorldScreen.kt` Schritt 2, Monster haben noch nur den runden Fußschatten. Mond mit D3.14 |
 | 81 | Teamleiter „Ford“ (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–n, 81p, 81r, 81s (Uhr statt Kette, bestätigt 12:03), 81t, 81u (nein), 81v (Nutzer 15.10., 13:4x: Titel mit Startzeit, Vorgänger archivieren) (`ROLLE-FORD.md`, `ARBEIT-ABLAEUFE.md` „Neustart“); Ford lebt in „Ford – Teamleiter“, Stellung oben; Jerry-Ford ab Fr. **Nutzer:** `TELEGRAM_BOT_TOKEN` in Jerrys Umgebung. Verlauf 81o–81r im Archiv („Aus ARBEIT-OFFEN.md, 15.10., 10:2x (Sokrates, 81)“) |
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`enabled: false`, nicht löschen). 65.8/65.9 stehen in `CLAUDE.md`. **65.10** (Nutzer 14.10., 23:1x): Selbstarbeit ist abgeschafft, Ford ersetzt sie; Notizen nachziehen (`CLAUDE.md`-Zeile, `ARBEIT-SELBST.md` ins Archiv, Neustart ohne Nutzer: Übergabe „Nachfolger gewünscht“, Ford startet) |
 | 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-runde-nach-748-b` | D1.5 in #64; D1.3/D1.11 und 13e.6 fest in Build A. Helligkeitsregler Jerry mit 40. Danach D1.7 Leben (Absprache `WorldScreen.kt`) |
@@ -55,10 +55,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 16:1x, „Tom – 89 Schatten mit dem Tag“) – Nachfolger: „Tom – 89 Schatten ins Spiel“
-- **89 passt** (mit 89a): Zweig `claude/tom-89-schatten` (von `claude/tom-runde-nach-748-b`), `MapSun` bisher nur in der Vorschau (`SONNE=1|morgen|mittag|abend`, `SCHATTENNUR=1` mit `FLORA=`). Jetzt: `MapSun.on` fest und Schalter weg, Stand beim Kartenwechsel und nach der Rast setzen (Spielstand), Figurenschatten nach Sonnenstand, Standbilder prüfen, dann in Build A.
-- **91** gebaut auf `claude/tom-91-schritte` (von `main`), in den nächsten Sammelbuild. 0.1.748 ist auf `main` (Weckruf Build 16:24 gestellt).
-- Builds: Build A aus `claude/tom-runde-nach-748-b` plus 89 und 91 (höchstens 4 Punkte je Sammelbuild beachten), dann Build B aus `claude/tom-68-tempelszene` (68 bei Sokrates zur Bewertung).
+### Tom (15.10., 16:5x, „Tom – 89 Schatten ins Spiel“) – Nachfolger: „Tom – Build B Tempelszene“
+- 0.1.750 (Build A, PR #65) beim Nutzer, Prüfliste `e/t750.html`; nach „passt“ PR #65 zusammenführen, CHANGELOG „Zusammengeführt nach Test 0.1.750“, Zeilen 89/91/86/6l/13e aufräumen. PR #65 neu abonnieren.
+- Danach Build B aus `claude/tom-68-tempelszene` (68n–68p bei Sokrates/Nutzer auf Dein Zug).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
@@ -66,23 +65,23 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Zu testen
 
 - **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5/D1.6/D1.9/D1.15 Höhle bei Tom (13e); D1.7 Leben Höhle, D1.8 stumme Quellen, D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (`grund_fs_609422`, `grund_fs_540836`, Hörner/Kreaturen ohne Quelle): Berater empfiehlt nach Umweltklang-Regel (15.10.): Tropfen und fernes Grollen behalten, Hörner herausnehmen (passen zu keiner Quelle der Geschichte); **Nutzer entscheidet nach Hörprobe** (Höhle mit und ohne auf „Dein Zug“), erst danach ändern.
-- **Diogenes Lauf 3** (14.10., Prüfbericht, Verdachte, erst bestätigen): **Jerry** D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald, D3.4 Endlosklänge reißen ab, D3.5/D3.6 Monster, D3.8–D3.10, D3.12; **Tom** D1.3/D1.11-Rest gebaut (`claude/tom-d1-kerze-gitter`); D3.3, D3.5, D3.7, D3.11 bestätigt und gebaut (`claude/tom-d3-wald`, Standbilder und Fackelfilm geprüft; D3.11 erledigt sich mit D3.7: dort steht jetzt das niedrige Schild, verdeckt nur die Füße); nächster Sammelbuild. Jerry zur Kenntnis: drei Zeilen `WorldScreen.kt` (Fackelschein).
-- **Diogenes Lauf 6** (15.10., 71 A Dorf, Prüfbericht, Verdachte, erst bestätigen): **Tom** D6.2, D6.3 (Böschung, Schilf, Bohlen), D6.5, D6.7 bestätigt und gebaut (`claude/tom-runde-nach-748-b`, Standbilder geprüft); D6.1/D6.6 bestätigt und gebaut (`claude/tom-89-schatten`). **Jerry** D6.4 Fluss stumm.
+- **Diogenes Lauf 3** (14.10., Prüfbericht, Verdachte, erst bestätigen): **Jerry** D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald, D3.4 Endlosklänge reißen ab, D3.5/D3.6 Monster, D3.8–D3.10, D3.12; **Tom** D1.3/D1.11, D3.3, D3.5, D3.7, D3.11 in Build A (PR #65); Jerry zur Kenntnis: drei Zeilen `WorldScreen.kt` (Fackelschein).
+- **Diogenes Lauf 6** (15.10., 71 A Dorf, Prüfbericht, Verdachte, erst bestätigen): **Tom** D6.1–D6.3, D6.5–D6.7 in Build A (PR #65). **Jerry** D6.4 Fluss stumm.
+- **Diogenes Lauf 7** (15.10., 71 Nachprüfung Dorf nach 0.1.748, Prüfbericht, Verdacht, erst bestätigen): **Tom** D7.1 Hühner verschwinden schlagartig bei Regen und Dämmerung. Sonst in Ordnung (Hühner, Schritte, Intro, Brücke).
 
 ## Für Diogenes
 
 Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nur der Nutzer startet Diogenes; Ablauf in `docs/ROLLE-TESTER.md`).
 
 - **90 Tagesrückblick** nach dem 22.10., 9 Uhr: die Rückblicke der Woche (Telegram, Sitzungen „Sokrates – Tagesrückblick“) gegen die Quellen in `ROLLE-BERATER.md` „Tagesrückblick“ prüfen: Stimmten die Fakten, wurden Empfehlungen umgesetzt, was hat die Woche gekostet; Ergebnis im Prüfbericht vor der Bilanz am 23.10.
-- **71 Nachprüfung Dorf** (0.1.748 ist auf `main`, 15.10., 16:0x) (Hühner 83b/c, Schritte 74, Intro 69; Lauf 6 hat nur `main` geprüft).
 
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
-- **91** (Tom, 15.10., Nutzer 16:0x): „Schrittgeräusche müssen eigenständig abschaltbar sein. Zusätzlich zu den Effekten. Die Töne können auf Dauer nerven. Leg die Idee mal auch Sokrates vor.“ Tom hat einen Schalter an/aus im System-Reiter gebaut; Frage an Sokrates: reicht an/aus, oder eigener Regler neben Gesamt/Musik/Effekte (40), oder Schritte allgemein leiser?
+- **91** (Tom, 15.10., Nutzer 16:0x): „Schrittgeräusche müssen eigenständig abschaltbar sein. Zusätzlich zu den Effekten. Die Töne können auf Dauer nerven. Leg die Idee mal auch Sokrates vor.“ Tom hat einen Schalter an/aus im System-Reiter gebaut; Frage an Sokrates: reicht an/aus, oder eigener Regler neben Gesamt/Musik/Effekte (40), oder Schritte allgemein leiser? **Sokrates 91a:** an/aus reicht (Empfehlung), im Chat 16:2x.
 
-- **68** (Tom, 15.10., Nutzer 16:1x): „68 Sokrates vorlegen, der soll das mal bewerten, bitte. Und ob das jetzt auch mit unserer neuen Musterstilkarte vereinbar ist, dann alles und so.“ Fünf Bilder der Tempelszene auf Dein Zug `e/68.html`; Bewertung gegen das Musterbild (70.1, 69e) und 70.3.
-- **68** (Tom, 15.10.): Der Kapitelende-Text (`Story.chapterEndText`: „Bornim feiert bis tief in die Nacht. Das Sonnenamulett leuchtet wieder im Tempel …“) kommt jetzt nach Aldric, vor Nacht und Morgenandacht; „leuchtet wieder im Tempel“ passt erst nach der Andacht. Text anpassen (41) oder Karte nach Lyras Gespräch?
-- **68l** (Tom, 15.10.): „Südrand frei“ nach Lyras Gespräch, Kapitel 2 fehlt aber noch: bis dahin tritt der Held am Rand still zurück. Reicht das, oder braucht es eine Zeile (41)?
+- **68** (Tom, 15.10., Nutzer 16:1x): „68 Sokrates vorlegen, der soll das mal bewerten, bitte. Und ob das jetzt auch mit unserer neuen Musterstilkarte vereinbar ist, dann alles und so.“ Fünf Bilder der Tempelszene auf Dein Zug `e/68.html`; Bewertung gegen das Musterbild (70.1, 69e) und 70.3. **Sokrates 68n:** Aufbau ja außer Bild 4 (Ostfenster im Bild, Strahl aufs Amulett, Gesichter hell, schwebende Sonne weg), im Chat 16:2x.
+- **68** (Tom, 15.10.): Der Kapitelende-Text (`Story.chapterEndText`: „Bornim feiert bis tief in die Nacht. Das Sonnenamulett leuchtet wieder im Tempel …“) kommt jetzt nach Aldric, vor Nacht und Morgenandacht; „leuchtet wieder im Tempel“ passt erst nach der Andacht. Text anpassen (41) oder Karte nach Lyras Gespräch? **Sokrates 68o:** Karte bleibt (passt zu „feiert bis tief in die Nacht“), nur „leuchtet wieder im Tempel“ → „ist zurück in Bornim“.
+- **68l** (Tom, 15.10.): „Südrand frei“ nach Lyras Gespräch, Kapitel 2 fehlt aber noch: bis dahin tritt der Held am Rand still zurück. Reicht das, oder braucht es eine Zeile (41)? **Sokrates 68p:** eine ehrliche Zeile, z. B. „Der Weg nach Süden ist noch nicht begehbar. Kapitel 2 folgt mit einem späteren Update.“
 
