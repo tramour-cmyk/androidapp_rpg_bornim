@@ -55,7 +55,7 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, alles unter `docs/`. Nur auf `main`; dire
 **Sitzungen**
 - **Eine Sitzung je Thema, Neustart über Ford** (81r, ersetzt die Ja-Pflicht): Thema fertig oder zweite Erinnerung des Neustart-Hakens → Schritt beenden, Übergabe mit „Nachfolger: <Titel>“ pushen, `send_message` an Fords Sitzung „Neustart <Name>, <Commit>“; ohne Antwort in 5 Minuten selbst starten (Diogenes nie: dann `tools/meldung.sh --laut`). Nur „noch nicht“ des Nutzers hält auf. Ablauf in `ARBEIT-ABLAEUFE.md`.
 - **Ford muss laufen** (außer Stellung „aus“): Tom und Sokrates prüfen beim Start `get_session` der Sitzung in `ROLLE-FORD.md`; `updated_at` älter als 70 Minuten → `send_message` „Ford-Lauf“.
-- **Selbstarbeit und gemeinsame Zeit:** gilt `ARBEIT-SELBST.md`.
+- **Kommt um 7 Uhr keine Morgenmeldung, steht Ford** (D10.1): dann ein Wort an Tom oder Sokrates. Netz: die Sitzung „Ford-Wache“ prüft Ford jeden Morgen um 07:08 und meldet mit Ton (`ROLLE-FORD.md`).
 - Weniger Freigabe-Rückfragen steuert der Freigabe-Modus im Eingabefeld der App, nicht der Code.
 
 ## Technik und Sicherheit
