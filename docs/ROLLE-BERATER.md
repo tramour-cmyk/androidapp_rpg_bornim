@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (15.10., 18:0x) – Nachfolger: „Sokrates – Kapitel 2 und Dein Zug“:**
 
-**Nächster Punkt:** (1) Auf Dein Zug von mir: **65.11** (Entwurf abgeglichen, 6,2 KB, Empfehlung übernehmen; bei Ja alle Umzüge laut Tabelle in einem Schritt), **72s.1**. 68n–p, 90a (Ausnahme für ernsthafte Fälle), 91a am 15.10., 18:0x eingetragen (Beschlüsse, `STORY-K1.md` `[68.kapitelende]`/`[68.suedrand]`). (2) Morgen erster Tagesrückblick (90, Tag 1 von 7). (3) `ARBEIT-OFFEN.md` über 15 KB, diese Datei über 10 KB.
+**Nächster Punkt:** (1) Auf Dein Zug von mir: **65.11** (Entwurf abgeglichen, Diogenes Lauf 10 teilt „übernehmen“, plus D10.8 einarbeiten; bei Ja alle Umzüge laut Tabelle in einem Schritt), **72s.1**, **D10** (Paket D10.2–D10.5), **97a**. D10.1 erledigt 18:3x (Ford-Wache `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhr `trig_01Phk9eXekP5yY9M6L3bgS1c`). (2) Morgen erster Tagesrückblick (90, Tag 1 von 7). (3) `ARBEIT-OFFEN.md` über 15 KB, diese Datei über 10 KB.
 
 **Zuletzt gelesen bis:** HEAD (15.10., 18:0x)
 
