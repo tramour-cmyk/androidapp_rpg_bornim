@@ -1,5 +1,11 @@
 # Archiv
 
+### Tom-Übergabe (15.10., 19:1x, „Tom – Nähte an Häusern D9.1“) – Nachfolger: „Tom – Schattenschicht D9.2“
+- PR #66 (0.1.752) grün, APK-Link auf `e/t752.html`; Nachfolger: PR #66 abonnieren, nach „passt“ zusammenführen, CHANGELOG, Zeile auf Dein Zug löschen.
+- D3.13a auf `claude/tom-d3-13a-huette` (41019715, Dein Zug `e/d313a-2.html`), D9.1 auf `claude/tom-d9-1-naehte` (5d85b13a, Standbild Markt 8 Uhr ohne Nähte); beide in den nächsten Sammelbuild.
+- D9.2 auf `claude/tom-d9-2-schattenschicht` (40d93256), nächster Sammelbuild.
+- Vorrat: D9.3 (0–10 Uhr Morgenstand), D3.3 Rest, dann 89 Figuren im Schatten.
+
 ### Aus ROLLE-TESTER.md, 15.10., 19:1x (Diogenes, Übergabe)
 
 **Übergabe (15.10., 18:1x):** Lauf 9 (Nachprüfung 0.1.750, D9.1–D9.3 an Tom) und Lauf 10 (65.11 auf Auftrag des Nutzers, D10.1–D10.9 an Sokrates, Zeile „Für den Berater“) fertig, beide in einer Sitzung, weil der Nutzer den zweiten Auftrag direkt gab. Lehre: Abläufe gegen den Ist-Zustand prüfen (`list_triggers`, `list_sessions`, `get_session` von Ford); die Widersprüche lagen in den Ablaufdateien, nicht im Entwurf. Offen unter „Für Diogenes“ nur 90 (nach dem 22.10.). Nachfolger: keiner nötig bis 90.
