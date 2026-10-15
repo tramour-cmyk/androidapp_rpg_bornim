@@ -10,7 +10,7 @@ Startlektüre für Ford (81; Beschlüsse 81a–81l, Entwurf: https://claude.ai/c
 
 ## Stellung (81g)
 
-Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer sagt sie einem beliebigen Agenten („Ford, Pilot“), der trägt sie ein und schaltet die Routine. Steigt die Stellung (aus → Co-Pilot → Pilot), löst er danach einmal sofort einen Lauf aus (`fire_trigger` `trig_013heqXJ1KkkxTYVzmTcpzaf`), statt auf die nächste volle Stunde zu warten (Nutzer 14.10.).
+Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer sagt sie einem beliebigen Agenten („Ford, Pilot“), der trägt sie ein und schaltet die Routine. Steigt die Stellung (aus → Co-Pilot → Pilot), löst er danach einmal sofort einen Lauf aus (`fire_trigger` `trig_01FsgMqH7CB5fZ1rofMS6YzX`), statt auf die nächste volle Stunde zu warten (Nutzer 14.10.).
 
 | Stellung | Routine | Ford tut |
 |---|---|---|
@@ -20,7 +20,7 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 
 ## Routinen (Toms Account, 81m)
 
-- **„Ford (Tom)“** `trig_013heqXJ1KkkxTYVzmTcpzaf` (Umgebung „Voll“, seit 14.10., 18:10; alte `trig_01FsgMqH7CB5fZ1rofMS6YzX` aus): stündlich, aus solange Stellung „aus“; wer die Stellung umträgt, schaltet sie (`update_trigger`, `enabled`).
+- **„Ford (Tom)“** `trig_01FsgMqH7CB5fZ1rofMS6YzX` (wieder an seit 15.10., 07:04, 81o; hat die Verbindungen Claude_Code_Remote und Repo; die Routine in „Voll“ `trig_013heqXJ1KkkxTYVzmTcpzaf` ist aus, weil ohne Verbindung keine Starts und kein Push gingen; neue Routinen nur in der claude.ai-Oberfläche anlegen, aus einer Sitzung entstehen sie ohne Verbindung): stündlich, aus solange Stellung „aus“; wer die Stellung umträgt, schaltet sie (`update_trigger`, `enabled`).
 - **„Ford Start“** `trig_01CxFdYLgTMAbudcd5yeq1AN`: an, ohne Zeitplan; startet eine frische Sitzung; Ford löst sie mit `fire_trigger` aus, Text = erste Nachricht („Sokrates“, „Diogenes“ oder bei Tom „Start“) plus Auftrag aus der Übergabe. So gestartete Sitzungen stehen beim Nutzer unter „Geplant“ → „Ford Start“ → „Verlauf“.
 
 ## Ablauf eines Laufs
