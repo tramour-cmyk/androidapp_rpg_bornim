@@ -429,25 +429,28 @@ object MapWoodIso {
         for (r in 0 until ridges) {
             val rj = -1 + (r + 0.5) / ridges
             for (k in 0 until 4) {
-                val pi = -1 + (k + 0.5) / 4 + (rnd(tx * 4 + k, ty * 3 + r, seed) - 0.5) * 0.06
-                val pj = rj + (rnd(tx * 4 + k, ty * 3 + r, seed + 1) - 0.5) * 0.04
+                // D6.7: set by hand, not in a grid: unevenly spaced, now and then one missing, each of its own size
+                if (rnd(tx * 4 + k, ty * 3 + r, seed + 2) < 0.12) continue
+                val pi = -1 + (k + 0.5) / 4 + (rnd(tx * 4 + k, ty * 3 + r, seed) - 0.5) * 0.16
+                val pj = rj + (rnd(tx * 4 + k, ty * 3 + r, seed + 1) - 0.5) * 0.07
+                val sc = 0.8 + rnd(tx * 4 + k, ty * 3 + r, seed + 3) * 0.4
                 val ps = seed + r * 31 + k * 7
                 when (v) {
                     0 -> for (a in 0..60) for (b in 0..18) {
                         // a cabbage: a round head in loose outer leaves
                         val az = 2 * PI * a / 60; val el = PI / 2 * b / 18
                         val ni = cos(az) * cos(el); val nj = sin(az) * cos(el); val nz = sin(el)
-                        val rad = 0.095 * (1 + (vnoise(az * 2, el * 3, ps) - 0.5) * 0.25)
+                        val rad = 0.095 * sc * (1 + (vnoise(az * 2, el * 3, ps) - 0.5) * 0.25)
                         val vein = abs(sin(az * 5 + el * 2)) > 0.94
                         val col = if (vein) argb(0x9AB07A) else mix(argb(0x6A8A4A), argb(0x3E5A2E), 1 - nz)
-                        c.pt(pi + rad * ni, pj + rad * nj, 5 + 9 * nz, shade(col, lit(ni, nj, nz)))
+                        c.pt(pi + rad * ni, pj + rad * nj, 5 + 9 * sc * nz, shade(col, lit(ni, nj, nz)))
                     }
                     1 -> for (l in 0 until 5) {
                         // a leek: pale stem, dark blue-green leaves fanning
                         val a = l * PI * 2 / 5 + rnd(k, l, ps) * 0.6
                         for (t in 0..40) {
                             val f = t / 40.0
-                            val z = 4 + f * 26; val off = f * f * 0.07
+                            val z = 4 + f * 26 * sc; val off = f * f * 0.07 * sc
                             val col = if (f < 0.35) argb(0xD8D8B8) else mix(argb(0x5A7A5A), argb(0x3A5A44), f)
                             for (w in -1..1) c.pt(pi + cos(a) * off + w * 0.004, pj + sin(a) * off, z, shade(col, 0.9 + 0.1 * w))
                         }
@@ -458,8 +461,8 @@ object MapWoodIso {
                         for (t in 0..24) for (w in -3..3) {
                             val f = t / 24.0
                             val bw = sin(PI * f) * 0.02 * (w / 3.0)
-                            val z = 5 + f * 14 - f * f * 6
-                            c.pt(pi + cos(a) * f * 0.09 - sin(a) * bw, pj + sin(a) * f * 0.09 + cos(a) * bw, z, shade(mix(argb(0x5E8040), argb(0x3A5A2A), f), 0.85 + 0.25 * (1 - abs(w) / 3.0)))
+                            val z = 5 + (f * 14 - f * f * 6) * sc
+                            c.pt(pi + cos(a) * f * 0.09 * sc - sin(a) * bw, pj + sin(a) * f * 0.09 * sc + cos(a) * bw, z, shade(mix(argb(0x5E8040), argb(0x3A5A2A), f), 0.85 + 0.25 * (1 - abs(w) / 3.0)))
                         }
                         for (a2 in 0..20) c.pt(pi + 0.02 * cos(a2 * 0.3), pj + 0.02 * sin(a2 * 0.3), 3.5, argb(0xD8C8D0))
                     }
