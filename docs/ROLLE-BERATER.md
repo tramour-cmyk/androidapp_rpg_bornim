@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (15.10., 10:23) – Sitzung „Sokrates – Befunde Wald und Verschleiß“ läuft:**
+**Übergabe (15.10., 11:1x) – Nachfolger: „Sokrates – Questweg Morwen und Verschleiß“:**
 
-**Nächster Punkt:** (1) **D4.1 Texte** (beschlossen A): Questschritt zu Morwen vor der Höhle (Grund: Mittel gegen das Gift der Höhle oder Weg zum Ostflügel) und Garricks Warnung unter Stufe 3, Vorschlag unter 41 mit dem Nutzer, dann an Tom. (2) **72o Verschleiß**, dann 72s, 84.x. **81s Probe** um 12:10 prüfen (Wecker an mich gestellt): landete die Stundenuhr in Fords Sitzung, dann Kette in `ROLLE-FORD.md` streichen, sonst Uhr löschen. (3) 81r beobachten; Jerrys `TELEGRAM_BOT_TOKEN` (Nutzer). 81p/81r stehen in den Beschlüssen.
+**Nächster Punkt:** (1) **D4.1 Texte** (beschlossen A): Questschritt zu Morwen vor der Höhle (Grund: Mittel gegen das Gift der Höhle oder Weg zum Ostflügel) und Garricks Warnung unter Stufe 3, Vorschlag unter 41 mit dem Nutzer, dann an Tom. (2) **72o Verschleiß**, dann 72s, 84.x. **81s Probe** prüft die alte Sitzung `session_018Bv4nj1MDM37zFTWiS8S8n` um 12:10 selbst (Wecker dort); Nachfolger nur nachsehen, ob die Zeile in `ARBEIT-OFFEN.md` 81 erledigt ist: landete die Stundenuhr in Fords Sitzung, dann Kette in `ROLLE-FORD.md` streichen, sonst Uhr löschen. (3) 81r beobachten; Jerrys `TELEGRAM_BOT_TOKEN` (Nutzer). 81p/81r stehen in den Beschlüssen.
 
-**Zuletzt gelesen bis:** 95af033a (15.10., 10:2x)
+**Zuletzt gelesen bis:** 6f26fa3e (15.10., 11:0x)
 
 ## Wer du bist
 
