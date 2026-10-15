@@ -62,7 +62,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 21:4x, „Tom – Hühner 94 und Sammelbuild“)
+### Tom (15.10., 22:2x, „Tom – Hühner 94 und Sammelbuild“) – Nachfolger: „Tom – Sammelbuild PR #67“
 - Sammelbuild **PR #67** (`claude/tom-94-huehner-sammelbuild`) = Build B (PR #66, 0.1.752, vom Nutzer geprüft) + 94 Hühner + D3.13a (Hütte, Hauslicht weich, Laterne nicht aufs Dach, kein Lampenschein auf Tempeldach; „passt“ 21:3x) + 100 + D9.1–D9.3; beide PRs abonniert. Wenn grün: Prüfliste `e/t<build>.html` auf Dein Zug (94 Hühner nah ansehen, 68 über Testknopf 100, 92 Bram, D3.13a nachts), dann nach „passt“ #67 zusammenführen, #66 schließen (in #67 enthalten).
 - 69f liegt beim Berater („Für den Berater“). Danach: D3.3 `claude/tom-d3-3-fichtenreihe` (1984a990), 89 `claude/tom-89-figuren-schatten` (31fb73ab).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
