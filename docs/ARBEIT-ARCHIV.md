@@ -1,5 +1,13 @@
 # Archiv
 
+### Aus ROLLE-BERATER.md, 15.10., 13:3x (Sokrates, Übergabe)
+
+**Übergabe (15.10., 12:4x) – Nachfolger: „Sokrates – Gefährte und Verschleiß“:**
+
+**Nächster Punkt:** (1) **72o.1** entschieden (A mit C, 13:2x). Sprungmarke Telegram läuft (Nutzer 13:3x), Regel in `CLAUDE.md`. (1b) **D3.13** Erdkate abseits des Wegs vorgeschlagen, Antwort offen. (2) **72s.1** auf Dein Zug (12:5x, Empfehlung A Garrick; nach Entscheidung Storyplan 41l anpassen), dann 84.x. (3) `ARBEIT-OFFEN.md` über 15 KB: Erledigtes ins Archiv. Heute erledigt: 90 Tagesrückblick (Probe 16.–22.10.), 72o B, D4.1 Taschentext, 70.6 A (Bild 3 neu nach Karte, an Tom), 89 ja (alle Außenkarten).
+
+**Zuletzt gelesen bis:** 567ed758 (15.10., 12:5x)
+
 ### Aus ARBEIT-OFFEN.md, 15.10., 13:1x (Tom, gekürzt)
 
 | 86 | Bewegung und Übersicht (Nutzer 14.10., 18:5x) | Tom (86.1, 86.2, 86.4, 86.3 Ausdauer); Jerry (86.3 Keuchen, Lärm, Initiative; 86.11 mit 72b/38) | `claude/tom-86-standort-joystick` | Einzelheiten in den Beschlüssen. **Tom:** 86.1–86.4 gebaut (`Stamina`), nächster Sammelbuild; Jerry zur Kenntnis: etwa 15 Zeilen `WorldScreen.kt`, `GameState.winded`/`stamina`. **Jerry:** Keuchen, Initiative mit Nachteil, Rennen laut (84.4). Beschlossen, Bau offen: 86.6, 86.9, 86.10, 86.11 |

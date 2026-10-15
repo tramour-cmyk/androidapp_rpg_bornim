@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (15.10., 12:4x) – Nachfolger: „Sokrates – Gefährte und Verschleiß“:**
+**Übergabe (15.10., 13:3x) – Nachfolger: „Sokrates – Gefährte und Morwens Kate“:**
 
-**Nächster Punkt:** (1) **72o.1** entschieden (A mit C, 13:2x). Sprungmarke Telegram läuft (Nutzer 13:3x), Regel in `CLAUDE.md`. (1b) **D3.13** Erdkate abseits des Wegs vorgeschlagen, Antwort offen. (2) **72s.1** auf Dein Zug (12:5x, Empfehlung A Garrick; nach Entscheidung Storyplan 41l anpassen), dann 84.x. (3) `ARBEIT-OFFEN.md` über 15 KB: Erledigtes ins Archiv. Heute erledigt: 90 Tagesrückblick (Probe 16.–22.10.), 72o B, D4.1 Taschentext, 70.6 A (Bild 3 neu nach Karte, an Tom), 89 ja (alle Außenkarten).
+**Nächster Punkt:** (1) **72s.1** Gefährte Kapitel 2 auf Dein Zug (Empfehlung A Garrick, Seite nach Nutzer 13:3x korrigiert); nach Entscheidung Storyplan 41l („kein fester Begleiter“) anpassen und Gefährten-Zeilen je Station unter 41 planen. (2) **D3.13** Erdkate abseits des Wegs im Chat 13:00 vorgeschlagen (halb eingegraben, Sodendach fast bis zum Boden, niedrige Front mit Tür zum Feuer, am Lichtungsrand mit Rücken zu den Bäumen); Antwort offen, bei Ja an Tom (Draufsicht, Standbild). (3) 84.x; `ARBEIT-OFFEN.md` über 15 KB. Heute: 72o.1 A mit C, 72v noch nicht, Sprungmarke in `tools/meldung.sh` (Regel in `CLAUDE.md`).
 
-**Zuletzt gelesen bis:** 567ed758 (15.10., 12:5x)
+**Zuletzt gelesen bis:** {STAND} (15.10., 13:3x)
 
 ## Wer du bist
 
@@ -53,6 +53,7 @@ Weitere (Leitbild, Balance, Rollen, Oberfläche, Tempelszene, Karte und Händler
 
 Ältere (Notizen frisch holen, Entwürfe sofort, freie Welt, Werkzeugausgaben) im Archiv („15.10., 12:5x“).
 
+- **Vor einer Oberflächen-Empfehlung den Code ansehen, und keine Ausgangslage unterstellen** (15.10., 72o.1/72s.1): Die Rahmenfarbe war schon die Seltenheit, und „bei seinem Söldner bleiben“ unterstellte einen Söldner, den der Spieler nie nehmen muss.
 - **Hinweise des Nutzers prüfen statt übernehmen** (14.10., 69e, 72u): erst erfassen, auswerten, folgern; „nicht immer nur Ja sagen“. Ein „klingt gut“ beim Lesen ist kein Beschluss; eigene Argumente nicht fallenlassen, wenn der Nutzer eine Idee bringt, sondern sie dagegen prüfen (72u: zweimal zu schnell eingetragen).
 
 - **Ablauf nicht vorführen** (14.10., 65.9): der Nutzer sieht den Nutzen pro Antwort; Startritual, Wiederholungen und Haken-Runden ohne Neues sind Kosten. Zeit nur von der Systemuhr, auch im Gespräch (17:3x geschätzt).
