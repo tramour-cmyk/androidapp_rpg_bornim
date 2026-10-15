@@ -57,7 +57,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ### Tom (15.10., 12:0x, „Tom – 70.3 Bild 3 Probe“) – Nachfolger: „Tom – Runde nach 0.1.748“
 - **PR #64 = 0.1.748** auf Dein Zug (`e/t748.html`), wartet auf Test; nach „passt“ zusammenführen, `CHANGELOG.md`, Zeile von Dein Zug.
 - **D3.13** fertig bis Standbild (`claude/tom-d3-13-morwen-huette`, ersetzt `claude/tom-d3-13-huette`; `HouseFeature.HUT`): Dein Zug `e/d313.html`, wartet auf „passt“.
-- **Jetzt:** 70.3 B Bild 3 als Probe; **D4.1** Quest über Morwen bauen (Sokrates 11:38, Thema 38, Texte `STORY-K1.md` `[D4.1.*]`); dann Runde nach #64: 86 plus 6l, D3 (Konflikt `MapFlora.kt`), 13e.6 fest (Konflikt Vorschau `Main.kt`), D1.3/D1.11, D3.13. D1.7 nach Absprache mit Jerry (ab Fr.).
+- **70.3 Probe** gebaut (`claude/tom-70-3-bild3`, fb99033); Bild 3 wartet auf Sokrates (Tempeltür, „Für den Berater“). **Jetzt:** **D4.1** Quest über Morwen bauen (Sokrates 11:38, Thema 38, Texte `STORY-K1.md` `[D4.1.*]`); dann Runde nach #64: 86 plus 6l, D3 (Konflikt `MapFlora.kt`), 13e.6 fest (Konflikt Vorschau `Main.kt`), D1.3/D1.11, D3.13. D1.7 nach Absprache mit Jerry (ab Fr.).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
