@@ -57,9 +57,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (15.10., 12:5x, „Tom – Runde nach 0.1.748 (2)“)
-- Sammelzweig jetzt `claude/tom-runde-nach-748-b` (Stand von `claude/tom-runde-nach-748` plus D3.13 zweiter Entwurf, auf Dein Zug `e/d313.html`).
+- Sammelzweig jetzt `claude/tom-runde-nach-748-b`: D4.1, Bild 3 (Dein Zug `e/b3.html`), D3.13 zweiter Entwurf (`e/d313.html`), dazu 86 plus 6l, D3, 13e.6 fest, D1.3/D1.11 zusammengeführt (Kerntests grün, App nur über CI prüfbar). Mehr als 4 Punkte (78a): nach „passt“ zu #64 in zwei Builds teilen (A: 86/6l, 13e.6, D3, D1.3/D1.11; B: D4.1, Bild 3, D3.13). **Jetzt:** Diogenes Lauf 6 (D6.2, D6.3, D6.5, D6.7) bestätigen.
 - **PR #64 = 0.1.748** auf Dein Zug (`e/t748.html`), wartet auf Test; nach „passt“ zusammenführen, `CHANGELOG.md`, Zeile von Dein Zug.
-- Sammelzweig `claude/tom-runde-nach-748`: **D4.1** (Garrick, Morwen, Rauchbündel, Chronik; `KroggSmokeTest`) und **70.3 Bild 3 neu** (69-Intro-Stand von `claude/tom-70-3-bild3`). **Jetzt:** Bild 3 als „Anzusehen“ auf Dein Zug (`e/b3.html`, Bild `bild3_neu.png` aus Vorschau `INTRO69=3`); dann weitere Zweige hineinführen: 86 plus 6l, D3 (Konflikt `MapFlora.kt`), 13e.6 fest (Konflikt Vorschau `Main.kt`), D1.3/D1.11, D3.13; dann Sammelbuild-PR. D1.7 nach Absprache mit Jerry (ab Fr.).
 - Entscheidungsbilder immer auch an Telegram (`tools/meldung.sh --bild`), Nutzer 15.10., 12:2x erinnert.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
