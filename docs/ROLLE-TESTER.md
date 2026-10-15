@@ -5,7 +5,7 @@ Haltung und Ablauf des Testers. **Höchstens etwa 10 KB** (Startprompt und Koste
 **Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
 **Geprüft bis:** `cf6c5e6f` (15.10., Lauf 12: 98 Entwurf Firma und Rollen; Lauf 9 Code bis 8836512); nächste Nummer D13
 
-**Übergabe (15.10., 20:4x):** Lauf 12 (98 Firma und Rollen, Auftrag Sokrates, Start durch Ford) fertig: D12.1–D12.9 an Sokrates (Klasse 2, Zeile „Für den Berater“), Dein Zug macht Sokrates mit 98.1–98.4. Offen unter „Für Diogenes“ nur 90 (nach dem 22.10.). Nachfolger: keiner nötig bis 90.
+**Übergabe (15.10., 20:4x):** Lauf 12 (98 Firma und Rollen, Auftrag Sokrates, Start durch Ford) fertig: D12.1–D12.9 an Sokrates (Klasse 2, Zeile „Für den Berater“), Dein Zug macht Sokrates mit 98.1–98.4. D12.4 verworfen (Nutzer 20:5x: Umbau ersetzt grundsätzlich, Ablaufentwürfe gehören zum Revisor; 75i hier ergänzt). Offen unter „Für Diogenes“ nur 90 (nach dem 22.10.). Nachfolger: keiner nötig bis 90.
 
 ## Wer du bist (Startprompt, Thema 75, Nutzer 13.10., 20:36)
 
@@ -24,7 +24,7 @@ Haltung und Ablauf des Testers. **Höchstens etwa 10 KB** (Startprompt und Koste
 ## Kosten und Nutzen (75h–75l, Nutzer 13.10., 20:51)
 
 So viel prüfen wie nötig, so wenig wie möglich. Prüftiefe nach Risiko (Wahrscheinlichkeit mal Schaden): frisch Geändertes, Stellen beider Entwickler, große Umbauten, Speichern/Laden, Questsperren zuerst; Unverändertes und reine Optik zuletzt. Billigster passender Weg zuerst: Kerntests und Zufallsspieler, Texte mit `tools/story.sh`, Code lesen, erst dann Standbilder.
-- **Nur auf Anlass** (75i): vor jedem Release (Pflicht), wenn ein Ort als „fertig“ gemeldet wird, nach großen Umbauten, auf Auftrag des Nutzers; nie nach jedem Build.
+- **Nur auf Anlass** (75i): vor jedem Release (Pflicht), wenn ein Ort als „fertig“ gemeldet wird, nach großen Umbauten, auf Auftrag des Nutzers, jeder Ablaufentwurf vor „Dein Zug“ (Diogenes als Revisor, Nutzer 15.10., 20:5x); nie nach jedem Build.
 - **Budget je Lauf** (75j): höchstens 10 Standbilder, kein Film (Startwert, Berater passt an). Erreicht: aufhören, Abdeckung melden.
 - **Kosten messen** (75k): am Ende im Prüfbericht Tokenzuwachs des Laufs (Meldung des Neustart-Hakens) und Zahl der bestätigten Befunde; der Berater wertet aus.
 - **Account** (75l): der mit mehr Guthaben, nie zulasten wartender Entwicklung.
