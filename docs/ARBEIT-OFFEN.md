@@ -30,7 +30,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` bis 5.5 |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`LISTE-KAPITEL1.md`](LISTE-KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | Toms Teil von 26c fertig |
-| 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Tom | – | Auf `main` bis 27m. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise). **D3.13** (Nutzer 15.10.): **Tom** Morwens Hütte gebaut (Kate 3×2, Kräuterbündel, `claude/tom-d3-13-morwen-huette`), Standbild auf Dein Zug (`e/d313.html`). **Nutzer 15.10., 12:0x:** „viel zu groß … flacher, kleiner, das mit den Kräutern ist nice … die Tür Richtung Feuer“; **Tom** baut kleiner und flacher (Kräuter an der Außenwand bleiben), Tür zum Feuer, neues Standbild. **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1 |
+| 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Tom | – | Auf `main` bis 27m. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise). **D3.13** (Nutzer 15.10.): **Tom** Morwens Hütte gebaut (Kate 3×2, Kräuterbündel, `claude/tom-d3-13-morwen-huette`), Standbild auf Dein Zug (`e/d313.html`). **Nutzer 15.10., 12:0x:** „viel zu groß … flacher, kleiner, das mit den Kräutern ist nice … die Tür Richtung Feuer“; **Tom** zweiter Entwurf gebaut (2×2, Traufe 1,5 m, flaches Stroh, Tür in der Ostseite zum Feuer; `claude/tom-runde-nach-748-b`), Standbild auf Dein Zug. **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1 |
 | 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | Abstürze beobachten (bei neuem `adb logcat` mit Anleitung von Tom); 30.7 Merkliste |
 | 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben) | Jerry | – | Meldung Nutzer 12.10., 15:4x; erneut 14.10., 21:1x (Test 0.1.741, Alrik liegt mit Brand 2, „sieht immer noch nicht richtig aus“). Erst Standbild der Sterbehaltungen aller Klassen, dann Vorschlag |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt | Jerry | – | 36.4–36.7, 36h/36j/36k auf `main` (PR #46, #47, getestet 0.1.587). Rest in 52, 53. **Offen 36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung. Verlauf im Archiv |
@@ -56,9 +56,10 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 12:2x, „Tom – Runde nach 0.1.748“) – Nachfolger: „Tom – Runde nach 0.1.748 (2)“
+### Tom (15.10., 12:5x, „Tom – Runde nach 0.1.748 (2)“)
+- Sammelzweig jetzt `claude/tom-runde-nach-748-b` (Stand von `claude/tom-runde-nach-748` plus D3.13 zweiter Entwurf, auf Dein Zug `e/d313.html`).
 - **PR #64 = 0.1.748** auf Dein Zug (`e/t748.html`), wartet auf Test; nach „passt“ zusammenführen, `CHANGELOG.md`, Zeile von Dein Zug.
-- Sammelzweig `claude/tom-runde-nach-748`: **D4.1** (Garrick, Morwen, Rauchbündel, Chronik; `KroggSmokeTest`) und **70.3 Bild 3 neu** (69-Intro-Stand von `claude/tom-70-3-bild3`). **Jetzt:** D3.13 Hütte kleiner und flacher (etwa 2×2, Tür zum Feuer, Kräuter bleiben; Nutzer 12:0x, Zeile 27), neues Standbild auf Dein Zug; Bild 3 als „Anzusehen“ auf Dein Zug (`e/b3.html`, Bild `bild3_neu.png` aus Vorschau `INTRO69=3`); dann weitere Zweige hineinführen: 86 plus 6l, D3 (Konflikt `MapFlora.kt`), 13e.6 fest (Konflikt Vorschau `Main.kt`), D1.3/D1.11, D3.13; dann Sammelbuild-PR. D1.7 nach Absprache mit Jerry (ab Fr.).
+- Sammelzweig `claude/tom-runde-nach-748`: **D4.1** (Garrick, Morwen, Rauchbündel, Chronik; `KroggSmokeTest`) und **70.3 Bild 3 neu** (69-Intro-Stand von `claude/tom-70-3-bild3`). **Jetzt:** Bild 3 als „Anzusehen“ auf Dein Zug (`e/b3.html`, Bild `bild3_neu.png` aus Vorschau `INTRO69=3`); dann weitere Zweige hineinführen: 86 plus 6l, D3 (Konflikt `MapFlora.kt`), 13e.6 fest (Konflikt Vorschau `Main.kt`), D1.3/D1.11, D3.13; dann Sammelbuild-PR. D1.7 nach Absprache mit Jerry (ab Fr.).
 - Entscheidungsbilder immer auch an Telegram (`tools/meldung.sh --bild`), Nutzer 15.10., 12:2x erinnert.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
