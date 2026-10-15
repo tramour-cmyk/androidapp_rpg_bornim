@@ -32,18 +32,21 @@ fun renderIntroProbe() {
         3 to "Der Platz schläft. Nur am Tempel wandern Fackeln. Eine späte Andacht, denkst du.",
         4 to "Im »Schlafenden Greif« brennt noch Licht. Die Wirtin fragt nicht viel.",
     )
-    // INTRO69=leben: the layers of picture 3 for the app (70.3 B): the picture under the life and the torch bearers' layer
+    // INTRO69=leben: the layers of picture 3 for the app (70.3 B, 70.6 A): the picture under the life, the bearers' cut-outs, the temple in front
     if (System.getenv("INTRO69") == "leben") {
         val dir = File("../../app/src/main/assets/intro")
         val base = SquarePainter().apply { part = SquarePainter.Part.BASE }.paint()
         val rgb = BufferedImage(base.width, base.height, BufferedImage.TYPE_INT_RGB).also { it.createGraphics().drawImage(base, 0, 0, null) }
         writeJpeg(rgb, File(dir, "intro_3.jpg"))
         ImageIO.write(SquarePainter().apply { part = SquarePainter.Part.GROUP }.paint(), "png", File(dir, "intro_3_zug.png"))
-        println("wrote ${dir.path}/intro_3.jpg, intro_3_zug.png")
+        ImageIO.write(SquarePainter().apply { part = SquarePainter.Part.FRONT }.paint(), "png", File(dir, "intro_3_vorn.png"))
+        println("wrote ${dir.path}/intro_3.jpg, intro_3_zug.png, intro_3_vorn.png")
         return
     }
     val only = System.getenv("INTRO69")?.toIntOrNull()
-    for ((n, painter) in listOf(1 to { RoadPainter() }, 3 to { SquarePainter() }, 4 to { InnPainter() })) {
+    // INTRO69=3 with STILL=ms: picture 3 with the procession where it is at that moment (70.6)
+    val still = System.getenv("STILL")?.toLongOrNull() ?: 1500L
+    for ((n, painter) in listOf(1 to { RoadPainter() }, 3 to { SquarePainter().apply { this.still = still } }, 4 to { InnPainter() })) {
         if (only != null && only != n) continue
         val img = painter().paint()
         ImageIO.write(img, "png", File("build/screens/intro69_$n.png"))
@@ -439,311 +442,392 @@ internal class RoadPainter : IntroPainter() {
 }
 
 /**
- * `[69.intro.3]` re-staged (Sokrates 15.10., 12:0x, after the user's 11:5x): the hero a few steps past the bridge on the north
- * road, looking up it to the sleeping square in the depth, turned a little to the right. On the right the temple at a slant,
- * its south front with the open door towards the lower street as on the village map; a few cloaked figures with torches have
- * come up the path from the street and stand before its steps, their light warm on the stones, their shadows towards us.
- * Laid out in the world (X east, N north, metres; [IntroLife.camX]/[IntroLife.camZ] turn it into the camera's x, z).
+ * `[69.intro.3]` after the village map (70.6 A, Nutzer 15.10., 12:4x): the hero stands on the sleeping square and looks south-east.
+ * The well in front, the empty cobbles round it, a bench and a dark lantern post at the square's corner; beyond the grass the
+ * temple far off, its west gable towards us, the north side in the shade, the bell tower at its east end. The torch procession
+ * goes along the lower street to the temple path and disappears behind the temple's corner (the one event, 70.3 B); behind it the
+ * river with the moon in it, the fields of the south bank and the trees at the village's edge. Every road, path and patch of
+ * cobbles lies where `Story.village` has it (one tile = 2 m; [IntroLife.mapX]/[IntroLife.mapZ] turn the map into the camera).
  */
 internal class SquarePainter : IntroPainter() {
     override val hy = IntroLife.HY.toDouble(); override val eye = IntroLife.EYE.toDouble(); override val camX = 0.0; override val pan = IntroLife.PAN.toDouble()
-    override val moonX = 150.0; override val moonY = 115.0
+    override val moonX = 880.0; override val moonY = 150.0
 
     /**
-     * What to paint (70.3 B): [Part.ALL] the whole still; [Part.BASE] the picture the app shows under the life, without the
-     * bearers, their flames, their light on the stones and in the puddle, the smoke and the bats; [Part.GROUP] only the
-     * bearers (silhouettes, rims, shadows, torch shafts) on a clear ground, the layer the app moves.
+     * What to paint (70.3 B): [Part.ALL] the whole still at [still] ms; [Part.BASE] the picture the app shows under the life,
+     * without the bearers, their flames and their light; [Part.GROUP] the bearers as cut-outs on a clear sheet, slot by slot
+     * ([IntroLife.slotX]); [Part.FRONT] only the temple on a clear ground, the layer the app lays over the bearers.
      */
-    enum class Part { ALL, BASE, GROUP }
+    enum class Part { ALL, BASE, GROUP, FRONT }
     var part = Part.ALL
+    var still = 1500L
 
-    // the world and its turn into the camera
-    fun cxw(wx: Double, wn: Double) = IntroLife.camX(wx.toFloat(), wn.toFloat()).toDouble()
-    fun czw(wx: Double, wn: Double) = IntroLife.camZ(wx.toFloat(), wn.toFloat()).toDouble()
-    fun P(wx: Double, y: Double, wn: Double) = Point2D.Double(sx(cxw(wx, wn), czw(wx, wn)), sy(y, czw(wx, wn)))
+    // the map and its turn into the camera
+    fun cx(tx: Double, ty: Double) = IntroLife.mapX(tx.toFloat(), ty.toFloat()).toDouble()
+    fun cz(tx: Double, ty: Double) = IntroLife.mapZ(tx.toFloat(), ty.toFloat()).toDouble()
+    /** A map point at height [y] on the screen. */
+    fun M(tx: Double, y: Double, ty: Double) = Point2D.Double(sx(cx(tx, ty), cz(tx, ty)), sy(y, cz(tx, ty)))
     fun shape(vararg p: Point2D.Double) = Path2D.Double().apply { moveTo(p[0].x, p[0].y); for (i in 1 until p.size) lineTo(p[i].x, p[i].y); closePath() }
-    fun fillW(c: Color, vararg p: Point2D.Double) { g.color = c; g.fill(shape(*p)) }
-    /** A flat patch of ground between wx0..wx1 and wn0..wn1. */
-    fun patch(wx0: Double, wx1: Double, wn0: Double, wn1: Double) = shape(P(wx0, 0.0, wn0), P(wx1, 0.0, wn0), P(wx1, 0.0, wn1), P(wx0, 0.0, wn1))
+    fun fillM(c: Color, vararg p: Point2D.Double) { g.color = c; g.fill(shape(*p)) }
 
-    // the temple (map: front "W#D#W#" at x 26..31, the door at 28, the path down to the lower street)
-    val tx0 = IntroLife.TEMPLE_X.toDouble(); val tn = IntroLife.TEMPLE_N.toDouble(); val tw = IntroLife.TEMPLE_W.toDouble(); val td = 9.0
-    val twall = 6.2; val troof = 4.4; val tdoor = IntroLife.DOOR_A.toDouble()
-    /** A point on the temple: [a] metres along its front from the west corner, [y] up, [d] metres behind the front (minus: before it). */
-    fun T(a: Double, y: Double, d: Double = 0.0) = P(tx0 + a, y, tn + d)
-    fun tz(a: Double, d: Double = 0.0) = czw(tx0 + a, tn + d)
-    // the streets: the north road under the hero, the lower street across, the path up to the temple
-    val streetN0 = 3.0; val streetN1 = 5.6
-
-    /** The house left beyond the square whose chimney smokes (camera coordinates, as [IntroLife.smokeX] expects). */
-    val farLeft = House(-12.0, 26.0, 8.0, 6.0, 3.6, 3.2, listOf(1))
-    val farRight = House(-1.5, 36.0, 9.0, 7.0, 3.8, 3.4, listOf(0, 2))
-    val farMid = House(-22.0, 34.0, 9.0, 7.0, 3.8, 3.4, listOf(1))
-
-    init {
-        houseWin[farLeft] = listOf(-14.5, -10.0) to -12.2
-        houseWin[farRight] = listOf(-4.0, 1.2) to -1.4
-        houseWin[farMid] = listOf(-24.5) to -21.0
+    /** A flat patch of ground on the map, cut off just before the hero's feet so nothing behind the camera folds over. */
+    fun patch(tx0: Double, tx1: Double, ty0: Double, ty1: Double): Path2D.Double? {
+        var pts = listOf(tx0 to ty0, tx1 to ty0, tx1 to ty1, tx0 to ty1).map { (x, y) -> cx(x, y) to cz(x, y) }
+        val zMin = 0.8
+        val out = ArrayList<Pair<Double, Double>>()
+        for (i in pts.indices) {
+            val a = pts[i]; val b = pts[(i + 1) % pts.size]
+            if (a.second >= zMin) out += a
+            if ((a.second >= zMin) != (b.second >= zMin)) { val t = (zMin - a.second) / (b.second - a.second); out += (a.first + (b.first - a.first) * t) to zMin }
+        }
+        if (out.size < 3) return null
+        pts = out
+        return Path2D.Double().apply { pts.forEachIndexed { i, (x, z) -> if (i == 0) moveTo(sx(x, z), sy(0.0, z)) else lineTo(sx(x, z), sy(0.0, z)) }; closePath() }
+    }
+    /** All tiles of the map in [chars] as one area, runs of a row merged. */
+    fun area(chars: String, tx0: Int = 8, tx1: Int = 48, ty0: Int = 9, ty1: Int = 42): java.awt.geom.Area {
+        val a = java.awt.geom.Area()
+        for (ty in ty0..ty1) { var tx = tx0
+            while (tx <= tx1) { if (ch(tx, ty) !in chars) { tx++; continue }
+                val s = tx; while (tx <= tx1 && ch(tx, ty) in chars) tx++
+                patch(s.toDouble(), tx.toDouble(), ty.toDouble(), ty + 1.0)?.let { a.add(java.awt.geom.Area(it)) } } }
+        return a
     }
 
-    /** Warm light on the ground at camera (x, z): the open door, and the torches in the full still. */
-    fun torchLight(x: Double, z: Double): Double {
-        val t = if (part != Part.ALL) 0.0 else IntroLife.bearers.filter { it.torch }.sumOf { b -> 0.6 * exp(-Math.hypot(x - b.x, z - b.z) / 2.0) }
-        val d = 0.45 * exp(-Math.hypot((x - IntroLife.doorX) / 1.8, (z - IntroLife.doorZ) / 2.2))
-        return t + d
-    }
+    /** Where the bearers are in the still (camera x, z), and whether each is in sight. */
+    val bearersNow by lazy { IntroLife.bearers.indices.map { IntroLife.at(it, still) } }
+    /** Warm light on the ground at camera (x, z) from the torches, in the full still only. */
+    fun torchLight(x: Double, z: Double): Double = if (part != Part.ALL) 0.0 else
+        IntroLife.bearers.withIndex().filter { it.value.torch }.sumOf { (i, _) -> val (bx, bz) = bearersNow[i]
+            if (IntroLife.behindTemple(bx, bz)) 0.0 else 0.6 * exp(-Math.hypot(x - bx, z - bz) / 2.2) }
 
     override fun scene() {
-        if (part == Part.GROUP) { torchBearers(); return }
+        when (part) {
+            Part.GROUP -> { for (i in IntroLife.bearers.indices) bearer(i, IntroLife.slotCamX(i).toDouble(), IntroLife.SHEET_Z.toDouble()); return }
+            Part.FRONT -> { temple(); return }
+            else -> {}
+        }
         sky()
         backdrop(far(night(dGrass, 0.8), 80.0))
-        forestBand()
+        edgeWood()
         ground()
-        // standing things, far to near
-        firShape(sx(-30.0, 44.0), sy(0.0, 44.0), f * 12.0 / 44, f * 5.0 / 44, far(fir, 44.0), far(firLit, 44.0), 0.6)
-        firShape(sx(-6.0, 46.0), sy(0.0, 46.0), f * 13.0 / 46, f * 5.4 / 46, far(fir, 46.0), far(firLit, 46.0), 0.6)
-        firShape(sx(16.0, 40.0), sy(0.0, 40.0), f * 14.0 / 40, f * 5.6 / 40, far(fir, 40.0), far(firLit, 40.0), 0.6)
-        house(farRight, false)
-        house(farMid, false)
-        house(farLeft, false)
-        stall(cxw(-7.0, 28.0), czw(-7.0, 28.0))
-        well(cxw(-1.0, 24.0), czw(-1.0, 24.0))
-        firShape(sx(cxw(-8.0, 17.0), czw(-8.0, 17.0)), sy(0.0, czw(-8.0, 17.0)), f * 9.0 / czw(-8.0, 17.0), f * 3.6 / czw(-8.0, 17.0), far(fir, 14.0), far(firLit, 14.0), 0.65)
+        // standing things, far to near: the trees at the edge and beyond, the hay, then the trees by the street
+        val trees = ArrayList<Pair<Double, Double>>()
+        for (ty in 9..44) for (tx in 18..52) if (ch(tx, ty) == 'T') {
+            val x = tx + 0.3 + 0.4 * tileHash(tx, ty, 61); val y = ty + 0.3 + 0.4 * tileHash(tx, ty, 62)
+            if (cz(x, y) > 4 && abs(cx(x, y) / cz(x, y)) < 0.75) trees += x to y
+        }
+        val hays = listOf(33.5 to 28.5, 33.5 to 29.5)
+        val items = trees.map { (x, y) -> cz(x, y) to { leafTree(x, y) } } + hays.map { (x, y) -> cz(x, y) to { haystack(x, y) } }
+        for ((_, draw) in items.sortedByDescending { it.first }) draw()
+        if (part == Part.ALL) for ((i, p) in bearersNow.withIndex().sortedByDescending { it.value.second }) bearer(i, p.first.toDouble(), p.second.toDouble())
         temple()
-        if (part == Part.ALL) torchBearers()
-        verge()
-        if (part == Part.ALL) life2()
-        nearDark(0.45)
+        lampPost(cx(23.6, 17.5), cz(23.6, 17.5))
+        bench(21.5, 16.5)
+        well(cx(17.5, 14.5), cz(17.5, 14.5))
+        puddle()
+        nearDark(0.55)
         vignette()
     }
 
-    /** The ground: grass, the earthen roads with their pebbles and ruts, the cobbles of the square and before the temple. */
+    /** The ground: grass, the earthen roads with pebbles and ruts, the river, the fields, the cobbles of the square. */
     fun ground() {
-        // grass everywhere first, darker near
-        fillW(night(dGrass, 0.75), P(-60.0, 0.0, 0.6), P(60.0, 0.0, 0.6), P(60.0, 0.0, 60.0), P(-60.0, 0.0, 60.0))
         val clip = g.clip
-        // the square and the temple forecourt: cobbles, clipped to their patches
-        for ((wx0, wx1, wn0, wn1) in listOf(listOf(-12.0, 10.0, 19.0, 38.0), listOf(tx0 - 1.2, tx0 + tw + 1.0, streetN1, tn))) {
-            g.clip(patch(wx0, wx1, wn0, wn1))
-            val xs = listOf(cxw(wx0, wn0), cxw(wx1, wn0), cxw(wx1, wn1), cxw(wx0, wn1)); val zs = listOf(czw(wx0, wn0), czw(wx1, wn0), czw(wx1, wn1), czw(wx0, wn1))
-            cobbles(xs.min(), xs.max(), maxOf(1.0, zs.min()), zs.max(), ::torchLight)
-            g.clip = clip
+        // grass everywhere first
+        patch(-10.0, 60.0, 9.0, 60.0)?.let { g.color = night(dGrass, 0.72); g.fill(it) }
+        // the river: dark water, brighter towards the far bank where it mirrors the sky, the moon in it
+        val water = area("~h")
+        g.clip(water)
+        g.paint = GradientPaint(0f, sy(0.0, cz(30.0, 27.0)).toFloat(), mix(night(dWater, 1.2), skyLow, 0.4), 0f, sy(0.0, cz(30.0, 25.0)).toFloat(), night(dWater, 0.9)); g.fill(water)
+        val wb = water.bounds2D
+        for (i in 0 until 160) {
+            val t = rnd(i, 31); val y = wb.y + wb.height * t
+            val x = moonX + (rnd(i, 32) - 0.5) * (10.0 + 40 * t) * 2; val l = (6.0 + rnd(i, 33) * 18) * (0.6 + t)
+            line(alpha(Color(0xD8E0F0), 0.25 + 0.5 * (1 - t) * rnd(i, 34)), 1.0 + t, x - l / 2, y, x + l / 2, y)
         }
-        // the earthen roads: the north road from the bridge up to the square, the lower street across, the temple path
-        val earthC = night(dEarth, 1.0)
-        val roads = listOf(listOf(-1.5, 1.5, 0.6, 19.4), listOf(-60.0, 60.0, streetN0, streetN1), listOf(tx0 + tdoor - 1.1, tx0 + tdoor + 1.1, streetN1 - 0.2, tn - 2.4))
-        for ((wx0, wx1, wn0, wn1) in roads) { g.color = earthC; g.fill(patch(wx0, wx1, wn0, wn1)) }
-        // grass fringes along the road edges, soft
-        for ((wx0, wx1, wn0, wn1) in roads) for (e in listOf(wx0, wx1)) if (abs(e) < 50)
-            for (k in 0 until 60) { val wn = wn0 + (wn1 - wn0) * rnd(k, 811 + (e * 10).toInt()); val z = czw(e, wn); if (z < 1.2) continue
-                val p = P(e + (rnd(k, 812) - 0.5) * 0.3, 0.0, wn); val l = f * (0.08 + 0.12 * rnd(k, 813)) / z
-                line(alpha(night(0x6A7650, 0.9), 0.7), maxOf(0.8, f * 0.012 / z), p.x, p.y, p.x + (rnd(k, 814) - 0.5) * l, p.y - l) }
-        for (k in 0 until 50) { val wn = streetN0 + (streetN1 - streetN0) * rnd(k, 815); val wx = -30.0 + 60 * rnd(k, 816)
-            val edge = if (rnd(k, 817) > 0.5) streetN0 else streetN1; val z = czw(wx, edge); if (z < 1.2 || wx in -1.6..1.6) continue
-            val p = P(wx, 0.0, edge); val l = f * (0.08 + 0.12 * rnd(k, 818)) / z
-            line(alpha(night(0x6A7650, 0.9), 0.7), maxOf(0.8, f * 0.012 / z), p.x, p.y, p.x + (rnd(k, 819) - 0.5) * l, p.y - l) }
-        // pebbles, clods and a pale worn track on the earth
-        for ((ax0, ax1, wn0, wn1) in roads) { val wx0 = maxOf(ax0, -12.0); val wx1 = minOf(ax1, 24.0)
-          for (i in 0 until ((wx1 - wx0) * (wn1 - wn0) * 60).toInt().coerceAtMost(9000)) {
-            val wx = wx0 + (wx1 - wx0) * rnd(i, 821 + (wx0 * 3).toInt()); val wn = wn0 + (wn1 - wn0) * rnd(i, 822 + (wn0 * 7).toInt())
-            val z = czw(wx, wn); if (z < 1.6 || z > 50) continue
-            val px = sx(cxw(wx, wn), z); if (px < -20 || px > W + 20) continue
-            val r = f * (0.012 + 0.026 * rnd(i, 823)) / z; val v = rnd(i, 824)
-            g.color = alpha(far(mix(night(if (v > 0.55) 0x9A8A70 else 0x2E2418, if (v > 0.55) 1.05 else 1.0), Color(0xB07A40), (torchLight(cxw(wx, wn), z) * 0.8).coerceAtMost(0.7)), z), 0.6)
+        for (i in 0 until 220) { val y = wb.y + wb.height * rnd(i, 41); val x = wb.x + wb.width * rnd(i, 42); val l = 5.0 + 16 * rnd(i, 43)
+            line(alpha(waterLit, 0.6), 1.0, x, y, x + l, y + (rnd(i, 44) - 0.5)) }
+        g.clip = clip
+        // the bank: a dark lip of earth and reeds along the water's edge
+        for (ty in 24..28) for (tx in 18..52) if (ch(tx, ty) in "~h") for ((dx, dy) in listOf(0 to -1, 0 to 1)) if (ch(tx, ty + dy) !in "~h") {
+            val yy = if (dy < 0) ty.toDouble() else ty + 1.0
+            for (k in 0 until 6) { val x = tx + rnd(k, tx * 31 + ty) ; val z = cz(x, yy); if (z < 2) continue
+                val p = M(x, 0.0, yy); val l = f * (0.4 + 0.5 * rnd(k, tx + 7 * ty)) / z
+                line(alpha(night(0x4A5A3A, 0.9), 0.8), maxOf(0.8, f * 0.03 / z), p.x, p.y, p.x + (rnd(k, 99) - 0.5) * l * 0.3, p.y - l) }
+        }
+        // the wheat beyond the river, pale under the moon
+        val crops = area("c")
+        g.color = night(dWheat, 0.75); g.fill(crops)
+        g.clip(crops); val cb = crops.bounds2D
+        for (i in 0 until 900) { val x = cb.x + cb.width * rnd(i, 51); val y = cb.y + cb.height * rnd(i, 52); val l = 2.0 + 4 * (y - cb.y) / cb.height
+            line(alpha(night(dWheat, if (rnd(i, 53) > 0.5) 1.3 else 0.6), 0.8), 1.0, x, y, x - 0.5, y - l) }
+        g.clip = clip
+        // the earthen roads: the lower street, the temple path, the road to the forge, the north road at the right edge
+        val earth = area("=")
+        g.color = night(dEarth, 0.95); g.fill(earth)
+        g.clip(earth)
+        // a pale worn middle and two darker ruts along the lower street and the road to the forge
+        for ((ty, txa, txb) in listOf(Triple(23.5, 5.0, 31.0), Triple(14.5, 24.0, 32.0))) {
+            fillM(alpha(night(0x9A8A70), 0.18), M(txa, 0.0, ty - 0.16), M(txb, 0.0, ty - 0.16), M(txb, 0.0, ty + 0.16), M(txa, 0.0, ty + 0.16))
+            for (r in listOf(-0.3, 0.3)) fillM(alpha(night(0x3A2C1E), 0.5), M(txa, 0.0, ty + r - 0.05), M(txb, 0.0, ty + r - 0.05), M(txb, 0.0, ty + r + 0.05), M(txa, 0.0, ty + r + 0.05))
+        }
+        // pebbles and clods
+        for (ty in 13..24) for (tx in 16..32) if (ch(tx, ty) == '=') for (i in 0 until 40) {
+            val x = tx + rnd(i, 821 + tx); val y = ty + rnd(i, 822 + ty); val z = cz(x, y); if (z < 2) continue
+            val px = sx(cx(x, y), z); val r = f * (0.03 + 0.05 * rnd(i, 823)) / z; val v = rnd(i, 824)
+            g.color = alpha(far(mix(night(if (v > 0.55) 0x9A8A70 else 0x2E2418, 1.0), Color(0xB07A40), (torchLight(cx(x, y), z) * 0.8).coerceAtMost(0.7)), z), 0.6)
             g.fill(Ellipse2D.Double(px - r, sy(0.0, z) - r * 0.4, r * 2, r * 0.8))
-        } }
-        // wheel ruts along the north road and the lower street
-        for (rx in listOf(-0.75, 0.75)) fillW(alpha(night(0x3A2C1E), 0.45), P(rx - 0.14, 0.0, 0.8), P(rx + 0.14, 0.0, 0.8), P(rx + 0.14, 0.0, 19.0), P(rx - 0.14, 0.0, 19.0))
-        for (rn in listOf(streetN0 + 0.8, streetN1 - 0.8)) fillW(alpha(night(0x3A2C1E), 0.4), P(-40.0, 0.0, rn - 0.13), P(40.0, 0.0, rn - 0.13), P(40.0, 0.0, rn + 0.13), P(-40.0, 0.0, rn + 0.13))
-        // grass blades on the near grass, left of the road and right of it before the street
-        for (i in 0 until 4000) {
-            val wx = -14.0 + 32 * rnd(i, 831); val wn = 0.6 + 18 * rnd(i, 832)
-            if (wx in -1.6..1.6 || wn in streetN0 - 0.1..streetN1 + 0.1 || wx > tx0 - 1.3 && wn > streetN1) continue
-            val z = czw(wx, wn); if (z < 1.0) continue
-            val p = P(wx, 0.0, wn); if (p.x < -20 || p.x > W + 20) continue
-            val l = f * (0.1 + 0.16 * rnd(i, 833)) / z
-            line(alpha(night(if (rnd(i, 834) > 0.5) 0x7A8658 else 0x34402A), 0.75), maxOf(0.8, f * 0.014 / z), p.x, p.y, p.x + (rnd(i, 835) - 0.5) * l * 0.6, p.y - l)
         }
-        // the door's warm light on the forecourt and the path
-        groundPool(IntroLife.doorX.toDouble(), IntroLife.doorZ - 1.8, 3.2, warmDeep, 0.28)
-        puddle()
+        // the torches' light on the street (full still only; in the app it goes with them)
+        if (part == Part.ALL) for ((i, b) in IntroLife.bearers.withIndex()) if (b.torch) { val (bx, bz) = bearersNow[i]
+            if (!IntroLife.behindTemple(bx, bz)) groundPool(bx.toDouble(), bz.toDouble(), 3.6, warmDeep, 0.3) }
+        g.clip = clip
+        // grass fringes along the earth's edges, so the roads do not end in ruled lines
+        for (ty in 13..27) for (tx in 16..34) if (ch(tx, ty) == '=') for ((dx, dy) in listOf(0 to -1, 0 to 1, -1 to 0, 1 to 0)) if (ch(tx + dx, ty + dy) != '=') {
+            for (k in 0 until 14) {
+                val u = rnd(k, tx * 53 + ty * 7 + dx * 3 + dy)
+                val x = if (dx == 0) tx + u else if (dx < 0) tx.toDouble() else tx + 1.0
+                val y = if (dy == 0) ty + u else if (dy < 0) ty.toDouble() else ty + 1.0
+                val z = cz(x, y); if (z < 2) continue
+                val p = M(x + (rnd(k, 91) - 0.5) * 0.12, 0.0, y + (rnd(k, 92) - 0.5) * 0.12); val l = f * (0.1 + 0.15 * rnd(k, 813)) / z
+                line(alpha(night(0x6A7650, 0.9), 0.7), maxOf(0.8, f * 0.014 / z), p.x, p.y, p.x + (rnd(k, 814) - 0.5) * l, p.y - l)
+            }
+        }
+        // flowers in the grass where the map has them
+        for (ty in 15..30) for (tx in 18..40) if (ch(tx, ty) == 'f') for (i in 0 until 26) {
+            val x = tx + rnd(i, 501 + tx); val y = ty + rnd(i, 502 + ty); val z = cz(x, y); if (z < 2) continue
+            val r = maxOf(0.7, f * 0.05 / z)
+            g.color = alpha(far(night(if (i % 3 == 0) 0xD8D0E8 else 0xC8A0C0, 1.1), z), 0.5); g.fill(Ellipse2D.Double(sx(cx(x, y), z) - r, sy(0.2, z) - r, r * 2, r * 2))
+        }
+        // grass blades on the grass between the square and the temple and round the square
+        for (i in 0 until 5000) {
+            val x = 10.0 + 26 * rnd(i, 831); val y = 9.0 + 16 * rnd(i, 832)
+            if (ch(x.toInt(), y.toInt()) !in ".f") continue
+            val z = cz(x, y); if (z < 1.5) continue
+            val p = M(x, 0.0, y); if (p.x < -20 || p.x > W + 20) continue
+            val l = f * (0.08 + 0.14 * rnd(i, 833)) / z
+            line(alpha(night(if (rnd(i, 834) > 0.5) 0x7A8658 else 0x34402A), 0.7), maxOf(0.7, f * 0.012 / z), p.x, p.y, p.x + (rnd(i, 835) - 0.5) * l * 0.6, p.y - l)
+        }
+        // the square: cobbles, clipped to its tiles
+        val square = area("omnwlq", 10, 26, 9, 19)
+        g.clip(square)
+        val sb = square.bounds2D
+        val zs = listOf(cz(12.0, 11.0), cz(24.0, 11.0), cz(24.0, 18.0), cz(12.0, 18.0))
+        val xs = listOf(cx(12.0, 11.0), cx(24.0, 11.0), cx(24.0, 18.0), cx(12.0, 18.0), cx(14.5, 14.5))
+        if (!sb.isEmpty) cobbles(xs.min() - 4, xs.max() + 4, 0.8, zs.max(), ::torchLight)
+        // the moon from the right front: the far stones catch a little of it
+        g.paint = GradientPaint(0f, sy(0.0, 22.0).toFloat(), alpha(Color(0xA8B4D0), 0.10), 0f, sy(0.0, 6.0).toFloat(), alpha(Color(0xA8B4D0), 0.0)); g.fill(square)
+        g.clip = clip
+        // the cobbles' edge against the grass: a few loose stones and tufts
+        for (ty in 10..18) for (tx in 11..25) if (ch(tx, ty) in "omnwlq") for ((dx, dy) in listOf(0 to 1, 1 to 0)) if (ch(tx + dx, ty + dy) !in "omnwlq") for (k in 0 until 10) {
+            val u = rnd(k, tx * 17 + ty * 5 + dx)
+            val x = if (dx == 0) tx + u else tx + 1.0; val y = if (dy == 0) ty + u else ty + 1.0
+            val z = cz(x, y); if (z < 1.5) continue
+            val p = M(x, 0.0, y); val l = f * (0.08 + 0.12 * rnd(k, 71)) / z
+            line(alpha(night(0x5A6A44, 0.9), 0.75), maxOf(0.8, f * 0.014 / z), p.x, p.y, p.x + (rnd(k, 72) - 0.5) * l, p.y - l)
+        }
+    }
+
+    /** The wood beyond the village's edge: one dark mass of crowns on the horizon, the moon on its upper rim only. */
+    fun edgeWood() {
+        val z = 90.0; val p = Path2D.Double(); p.moveTo(0.0, hy + 4)
+        val top = ArrayList<Point2D.Double>()
+        for (xi in 0..W step 6) {
+            val u = xi / W.toDouble()
+            val hgt = 11.0 + 3.0 * sin(u * 23.0 + 1.3) + 2.0 * sin(u * 61.0) + 1.2 * sin(u * 137.0 + 0.4)
+            val pt = Point2D.Double(xi.toDouble(), sy(hgt, z)); top += pt; p.lineTo(pt.x, pt.y)
+        }
+        p.lineTo(W.toDouble(), hy + 4); p.closePath()
+        g.color = far(Color(0x0A120E), z * 0.6); g.fill(p)
+        for (i in 1 until top.size) line(alpha(far(night(0x8AB07A, 0.9), z), 0.35), 1.2, top[i - 1].x, top[i - 1].y, top[i].x, top[i].y)
+    }
+
+    /** A haystack of the south bank, far off: a dome of hay, the moon on its right shoulder. */
+    fun haystack(tx: Double, ty: Double) {
+        val x = cx(tx, ty); val z = cz(tx, ty); val px = sx(x, z); val py = sy(0.0, z); val r = f * 0.8 / z
+        g.color = far(night(dHay, 0.55), z); g.fill(Ellipse2D.Double(px - r, py - r * 1.5, r * 2, r * 1.7))
+        g.color = alpha(far(night(dHay, 0.95), z), 0.5); g.fill(Ellipse2D.Double(px - r * 0.1, py - r * 1.45, r * 0.9, r * 1.0))
     }
 
     /**
-     * The temple at a slant: dressed stone in courses, the west side with its gable towards us in the moon, a slate roof with a
-     * bell gable on the ridge, tall arched windows faintly lit, a porch on two columns before the open door, the sun disc on
-     * its gable (the temple of the sun amulet), two broad steps.
+     * A broad-leaved tree of the village's edge as the diagonal world draws it: a short trunk and a round crown of leaf
+     * clusters, the moon (right) on their upper right, the inside and the underside dark.
+     */
+    fun leafTree(tx: Double, ty: Double) {
+        val x = cx(tx, ty); val z = cz(tx, ty); val s = f / z
+        val seed = (tx * 31 + ty * 17).toInt()
+        val h = 6.5 + 2.5 * rnd(seed, 1); val r = 2.4 + 0.9 * rnd(seed, 2)
+        val px = sx(x, z); val py = sy(0.0, z)
+        softShadow(px - 0.6 * s, py, 2.4 * s)
+        val dark = far(Color(0x08100C), z); val mid = far(night(0x3E6034, 0.95), z); val lit = far(night(0x8AB07A, 1.25), z)
+        line(far(Color(0x1A1410), z), maxOf(1.0, 0.32 * s), px, py, px, py - (h - r) * s)
+        val ccx = px; val ccy = py - (h - r * 0.8) * s
+        // the crown: clusters from the back and bottom to the front and top
+        val n = if (z < 40) 26 else 14
+        val blobs = (0 until n).map { k ->
+            val a = rnd(seed + k, 3) * Math.PI * 2; val d = Math.sqrt(rnd(seed + k, 4)) * r * 0.75
+            Triple(ccx + cos(a) * d * s, ccy + sin(a) * d * s * 0.85, (0.55 + 0.35 * rnd(seed + k, 5)) * r * s * 0.55)
+        }.sortedBy { -it.second }
+        g.color = dark; g.fill(Ellipse2D.Double(ccx - r * s, ccy - r * s * 0.9, 2 * r * s, 1.8 * r * s))
+        for ((bx, by, br) in blobs) {
+            val up = ((ccy - by) / (r * s) * 0.5 + (bx - ccx) / (r * s) * 0.5).coerceIn(-1.0, 1.0)
+            g.paint = RadialGradientPaint(Point2D.Double(bx + br * 0.35, by - br * 0.4), (br * 1.3).toFloat(), floatArrayOf(0f, 0.55f, 1f),
+                arrayOf(mix(mid, lit, 0.3 + 0.5 * up), mid, dark), MultipleGradientPaint.CycleMethod.NO_CYCLE)
+            g.fill(Ellipse2D.Double(bx - br, by - br * 0.9, br * 2, br * 1.8))
+        }
+        // leaves catching the moon along the upper right rim
+        if (z < 60) for (k in 0 until 120) {
+            val a = -Math.PI / 2 + rnd(seed + k, 7) * Math.PI * 0.9 - 0.2; val d = r * (0.75 + 0.25 * rnd(seed + k, 8))
+            val lx = ccx + cos(a) * d * s; val ly = ccy + sin(a) * d * s * 0.85; val lr = maxOf(0.6, 0.07 * s)
+            g.color = alpha(lit, 0.5); g.fill(Ellipse2D.Double(lx - lr, ly - lr, lr * 2, lr * 2))
+        }
+    }
+
+    /**
+     * The temple far off: its west gable towards us, dressed stone in courses, a round window lit faintly over a tall arched
+     * one; the long north side in the shade with two tall windows, candle-warm (the late devotion); a slate roof whose ridge
+     * runs east, the bell tower at the east end with its louvred opening and a pointed cap. The moon (right front) lays a cold
+     * edge on the gable's verge, the ridge and the tower.
      */
     fun temple() {
-        val zf = tz(tw / 2)
-        val ry = twall + troof; val rd = td / 2
-        // the west side and its gable, lit by the moon from the left
-        val side = shape(T(0.0, 0.0), T(0.0, 0.0, td), T(0.0, twall, td), T(0.0, twall, 0.0))
-        g.color = far(night(0x8A867A, 1.05), zf); g.fill(side)
-        texture(side, zf, Color(0x22242C), night(0xB0AC9E, 1.3), 700, 0.05)
+        val x0 = IntroLife.TEMPLE_TX0.toDouble(); val x1 = IntroLife.TEMPLE_TX1.toDouble()
+        val y0 = IntroLife.TEMPLE_TY0.toDouble(); val y1 = IntroLife.TEMPLE_TY1.toDouble()
+        val wall = 6.2; val ridge = wall + 4.4; val ym = (y0 + y1) / 2; val ov = 0.25
+        val zt = cz(x0, ym)
+        val stoneC = night(dStone, 0.95); val stoneD = night(dStone, 0.75)
+        // the bell tower first: it stands at the east end behind the roof
+        val bx0 = 30.6; val bx1 = 32.0; val by0 = ym - 0.7; val by1 = ym + 0.7; val bt = 15.0; val bcap = 18.2
+        val tz = cz(bx0, by0)
+        fillM(far(stoneD, tz), M(bx0, 0.0, by0), M(bx1, 0.0, by0), M(bx1, bt, by0), M(bx0, bt, by0))
+        fillM(far(stoneC, tz), M(bx0, 0.0, by1), M(bx0, 0.0, by0), M(bx0, bt, by0), M(bx0, bt, by1))
+        texture(shape(M(bx0, 0.0, by1), M(bx0, 0.0, by0), M(bx0, bt, by0), M(bx0, bt, by1)), tz, Color(0x22242C), night(0xB0AC9E, 1.3), 600, 0.05)
+        // the belfry: a dark arched opening on each side we see, a louvre of boards in it
+        for ((face, a0, a1) in listOf(Triple(0, by0 + 0.35, by1 - 0.35), Triple(1, bx0 + 0.35, bx1 - 0.35))) {
+            val pts = (0..12).map { j -> val t = Math.PI * j / 12; val u = (a0 + a1) / 2 - cos(t) * (a1 - a0) / 2; val v = 13.6 + sin(t) * (a1 - a0) / 2
+                if (face == 0) M(bx0, v, u) else M(u, v, by0) }
+            val open = Path2D.Double().apply { val b0 = if (face == 0) M(bx0, 12.0, a0) else M(a0, 12.0, by0); moveTo(b0.x, b0.y)
+                for (p in pts) lineTo(p.x, p.y); val b1 = if (face == 0) M(bx0, 12.0, a1) else M(a1, 12.0, by0); lineTo(b1.x, b1.y); closePath() }
+            g.color = far(Color(0x080A10), tz); g.fill(open)
+            for (k in 0 until 4) { val v = 12.3 + k * 0.4; val pa = if (face == 0) M(bx0, v, a0) else M(a0, v, by0); val pb = if (face == 0) M(bx0, v, a1) else M(a1, v, by0)
+                line(alpha(far(night(0x6A5038, 1.1), tz), 0.9), 1.2, pa.x, pa.y, pb.x, pb.y) }
+        }
+        fillM(far(night(0x8A867A, 1.1), tz), M(bx0 - 0.15, bt, by1 + 0.15), M(bx0 - 0.15, bt, by0 - 0.15), M(bx0 - 0.15, bt + 0.35, by0 - 0.15), M(bx0 - 0.15, bt + 0.35, by1 + 0.15))
+        fillM(far(night(0x8A867A, 0.9), tz), M(bx0 - 0.15, bt, by0 - 0.15), M(bx1 + 0.15, bt, by0 - 0.15), M(bx1 + 0.15, bt + 0.35, by0 - 0.15), M(bx0 - 0.15, bt + 0.35, by0 - 0.15))
+        val apex = M((bx0 + bx1) / 2, bcap, (by0 + by1) / 2)
+        fillM(far(night(dSlate, 0.85), tz), M(bx0 - 0.25, bt + 0.35, by1 + 0.25), M(bx0 - 0.25, bt + 0.35, by0 - 0.25), apex)
+        fillM(far(night(dSlate, 0.65), tz), M(bx0 - 0.25, bt + 0.35, by0 - 0.25), M(bx1 + 0.25, bt + 0.35, by0 - 0.25), apex)
+        M(bx0 - 0.25, bt + 0.35, by0 - 0.25).let { a -> line(far(night(0x8A9AB8, 1.3), tz), 1.4, a.x, a.y, apex.x, apex.y) }
+        line(far(night(0xC8A050, 1.2), tz), 1.4, apex.x, apex.y, apex.x, apex.y - 0.9 * f / tz)
+        // the roof's north slope, slate in rows, the ridge in the moon
+        val roofN = shape(M(x0 - ov, wall - 0.2, y0 - ov), M(x1 + ov, wall - 0.2, y0 - ov), M(x1 + ov, ridge, ym), M(x0 - ov, ridge, ym))
+        g.color = far(night(dSlate, 0.8), zt); g.fill(roofN)
         val clip = g.clip
-        g.clip(side)
+        g.clip(roofN)
+        for (k in 1 until 16) { val t = k / 16.0; val yy = wall - 0.2 + (ridge - wall + 0.2) * t; val ty = y0 - ov + (ym - y0 + ov) * t
+            val a = M(x0 - ov, yy, ty); val b = M(x1 + ov, yy, ty); line(alpha(Color(0x0C0E14), 0.7), 1.0, a.x, a.y, b.x, b.y) }
+        texture(roofN, zt, Color(0x101016), night(0x8A9AC0), 400, 0.05, 0.35)
+        g.clip = clip
+        M(x0 - ov, ridge, ym).let { a -> M(x1 + ov, ridge, ym).let { b -> line(far(night(0x8A9AB8, 1.4), zt), 1.8, a.x, a.y, b.x, b.y) } }
+        // the north wall: in the shade, stone courses, two tall windows faintly warm
+        val north = shape(M(x0, 0.0, y0), M(x1, 0.0, y0), M(x1, wall, y0), M(x0, wall, y0))
+        g.color = far(stoneD, zt); g.fill(north)
+        texture(north, zt, Color(0x22242C), night(0xB0AC9E, 1.1), 600, 0.05)
+        g.clip(north)
         var yy = 0.0; var c = 0
-        while (yy < twall) { val p0 = T(0.0, yy); val p1 = T(0.0, yy, td); line(far(Color(0x2A2A30), zf), 1.0, p0.x, p0.y, p1.x, p1.y); yy += 0.44 + 0.08 * rnd(c++, 641) }
-        g.paint = GradientPaint(T(0.0, 0.0).x.toFloat(), 0f, alpha(Color(0xA8B4D0), 0.22), T(0.0, 0.0, td).x.toFloat(), 0f, alpha(Color(0xA8B4D0), 0.0)); g.fill(side)
+        while (yy < wall) { val a = M(x0, yy, y0); val b = M(x1, yy, y0); line(far(Color(0x2A2A30), zt), 1.0, a.x, a.y, b.x, b.y); yy += 0.44 + 0.08 * rnd(c++, 641) }
+        g.paint = GradientPaint(M(x0, 0.0, y0).x.toFloat(), 0f, alpha(Color(0x05060A), 0.15), M(x1, 0.0, y0).x.toFloat(), 0f, alpha(Color(0x05060A), 0.45)); g.fill(north)
         g.clip = clip
-        val gable = shape(T(0.0, twall - 0.05, -0.5), T(0.0, twall - 0.05, td + 0.5), T(0.0, ry, rd))
-        g.color = far(night(0x8A867A, 1.12), zf); g.fill(gable)
-        texture(gable, zf, Color(0x22242C), night(0xB0AC9E, 1.3), 500, 0.05)
-        // the roof's front slope: slate, rows of it, the moon on the west end, the ridge lit
-        val rf = shape(T(-0.5, twall - 0.2, -0.5), T(tw + 0.5, twall - 0.2, -0.5), T(tw + 0.5, ry, rd), T(-0.5, ry, rd))
-        g.color = far(night(dSlate, 0.95), zf); g.fill(rf)
-        g.clip(rf)
-        for (k in 1 until 20) { val t = k / 20.0; val y = twall - 0.2 + (ry - twall + 0.2) * t; val d = -0.5 + (rd + 0.5) * t
-            val a = T(-0.5, y, d); val b = T(tw + 0.5, y, d); line(alpha(Color(0x0C0E14), 0.7), 1.0, a.x, a.y, b.x, b.y) }
-        texture(rf, zf, Color(0x101016), night(0x8A9AC0), 500, 0.05, 0.35)
-        g.paint = GradientPaint(T(-0.5, ry, rd).x.toFloat(), 0f, alpha(Color(0x8A9AC0), 0.28), T(5.0, ry, rd).x.toFloat(), 0f, alpha(Color(0x8A9AC0), 0.0)); g.fill(rf)
-        g.clip = clip
-        // the verge along the gable, catching the moon
-        T(0.0, twall - 0.05, -0.5).let { a -> T(0.0, ry, rd).let { b -> line(far(night(0x8A9AB8, 1.3), zf), 2.0, a.x, a.y, b.x, b.y) } }
-        T(-0.5, ry, rd).let { a -> T(tw + 0.5, ry, rd).let { b -> line(far(night(0x8A9AB8, 1.3), zf), 2.0, a.x, a.y, b.x, b.y) } }
-        // the bell gable on the ridge above the door: a stone frame, the bell in its arch
-        run {
-            val bz = tz(tdoor, rd); val s = f / bz
-            val bg = shape(T(tdoor - 0.9, ry, rd), T(tdoor - 0.9, ry + 2.0, rd), T(tdoor, ry + 2.8, rd), T(tdoor + 0.9, ry + 2.0, rd), T(tdoor + 0.9, ry, rd))
-            g.color = far(night(0x8A867A, 1.05), bz); g.fill(bg)
-            val o = T(tdoor, ry + 1.55, rd)
-            g.color = far(Color(0x0A0C12), bz); g.fill(java.awt.geom.RoundRectangle2D.Double(o.x - 0.42 * s, o.y - 0.3 * s, 0.84 * s, 1.3 * s, 0.84 * s, 0.84 * s))
-            val bell = Path2D.Double(); val bcx = o.x; val bcy = o.y + 0.1 * s
-            bell.moveTo(bcx - 0.12 * s, bcy - 0.3 * s); bell.quadTo(bcx - 0.14 * s, bcy, bcx - 0.3 * s, bcy + 0.18 * s); bell.lineTo(bcx + 0.3 * s, bcy + 0.18 * s)
-            bell.quadTo(bcx + 0.14 * s, bcy, bcx + 0.12 * s, bcy - 0.3 * s); bell.closePath()
-            g.color = far(night(0x9A8050, 1.2), bz); g.fill(bell)
-            line(alpha(far(night(0xD0D8E8, 1.2), bz), 0.5), 1.2, bcx - 0.12 * s, bcy - 0.28 * s, bcx - 0.26 * s, bcy + 0.15 * s)
-        }
-        // the front: dressed stone in courses, the joints set off, the torchlight rising from below
-        val front = shape(T(0.0, 0.0), T(tw, 0.0), T(tw, twall), T(0.0, twall))
-        g.color = far(night(0x7E7A6E, 0.9), zf); g.fill(front)
-        texture(front, zf, Color(0x22242C), night(0xB0AC9E, 1.2), 700, 0.05)
-        g.clip(front)
-        var y = 0.0; c = 0
-        while (y < twall) {
+        for (wa in listOf(27.6, 29.6)) archWindow({ u, v -> M(u, v, y0) }, wa, 0.38, 1.9, 4.7, cz(wa, y0), 0.35)
+        // the west wall with its gable, towards us; the moon only grazes it
+        val west = shape(M(x0, 0.0, y1), M(x0, 0.0, y0), M(x0, wall, y0), M(x0, ridge, ym), M(x0, wall, y1))
+        g.color = far(stoneC, zt); g.fill(west)
+        texture(west, zt, Color(0x22242C), night(0xB0AC9E, 1.25), 800, 0.05)
+        g.clip(west)
+        yy = 0.0; c = 0
+        while (yy < ridge) {
             val hgt = 0.42 + 0.1 * rnd(c, 621)
-            T(0.0, y).let { a -> T(tw, y).let { b -> line(far(Color(0x2A2A30), zf), 1.0, a.x, a.y, b.x, b.y) } }
-            var a = rnd(c, 622) * 0.8
-            while (a < tw) { val p0 = T(a, y); val p1 = T(a, minOf(twall, y + hgt)); line(far(Color(0x2A2A30), zf), 1.0, p0.x, p0.y, p1.x, p1.y); a += 0.7 + 0.5 * rnd((a * 10).toInt(), c) }
-            y += hgt; c++
+            M(x0, yy, y1).let { a -> M(x0, yy, y0).let { b -> line(far(Color(0x2A2A30), zt), 1.0, a.x, a.y, b.x, b.y) } }
+            var a = y0 + rnd(c, 622) * 0.4
+            while (a < y1) { val p0 = M(x0, yy, a); val p1 = M(x0, yy + hgt, a); line(far(Color(0x2A2A30), zt), 1.0, p0.x, p0.y, p1.x, p1.y); a += 0.35 + 0.25 * rnd((a * 10).toInt(), c) }
+            yy += hgt; c++
         }
-        // the front lies in the shade of the moon (it comes from the left, behind the west side): darker towards the east
-        g.paint = GradientPaint(T(0.0, 0.0).x.toFloat(), 0f, alpha(Color(0x05060A), 0.1), T(tw, 0.0).x.toFloat(), 0f, alpha(Color(0x05060A), 0.45)); g.fill(front)
-        // the warm light of the door and the torches on the lower stones
-        val dl = T(tdoor, 0.0); val s0 = f / tz(tdoor)
-        g.paint = java.awt.RadialGradientPaint(Point2D.Double(dl.x, dl.y), (4.5 * s0).toFloat(), floatArrayOf(0f, 0.5f, 1f),
-            arrayOf(alpha(Color(0xE08A3A), 0.55), alpha(Color(0xE08A3A), 0.2), alpha(Color(0xE08A3A), 0.0)), java.awt.MultipleGradientPaint.CycleMethod.NO_CYCLE)
-        g.fill(front)
+        g.paint = GradientPaint(0f, M(x0, ridge, ym).y.toFloat(), alpha(Color(0xA8B4D0), 0.12), 0f, M(x0, 0.0, ym).y.toFloat(), alpha(Color(0x05060A), 0.25)); g.fill(west)
         g.clip = clip
-        // the corner quoins and a plinth course
-        for (a0 in listOf(0.0, tw)) { var qy = 0.0; var k = 0
-            while (qy < twall) { val w = if (k % 2 == 0) 0.5 else 0.32
-                val aa = if (a0 == 0.0) 0.0 else tw - w
-                fillW(far(night(0x9A968A, if (a0 == 0.0) 1.15 else 0.9), zf), T(aa, qy), T(aa + w, qy), T(aa + w, qy + 0.4), T(aa, qy + 0.4))
-                if (a0 == 0.0) fillW(far(night(0x9A968A, 1.25), zf), T(0.0, qy, 0.0), T(0.0, qy, w), T(0.0, qy + 0.4, w), T(0.0, qy + 0.4, 0.0))
+        // corner quoins on both corners we see, and the plinth
+        for (cy in listOf(y0, y1)) { var qy = 0.0; var k = 0
+            while (qy < wall) { val w = if (k % 2 == 0) 0.25 else 0.16; val inward = if (cy == y0) w else -w
+                fillM(far(night(0x9A968A, 1.15), zt), M(x0, qy, cy), M(x0, qy, cy + inward), M(x0, qy + 0.4, cy + inward), M(x0, qy + 0.4, cy))
                 qy += 0.42; k++ } }
-        fillW(far(night(0x6A665C), zf), T(0.0, 0.0), T(tw, 0.0), T(tw, 0.5), T(0.0, 0.5))
-        fillW(far(night(0x7A766A, 1.1), zf), T(0.0, 0.0, 0.0), T(0.0, 0.0, td), T(0.0, 0.5, td), T(0.0, 0.5, 0.0))
-        // tall arched windows (map: W at 26 and 30), the candles inside faintly warm
-        for (wa in listOf(1.5, 9.0)) {
-            val z = tz(wa); val s = f / z
-            fun arch(a0: Double, a1: Double, y0: Double, y1: Double): Path2D.Double {
-                val p = Path2D.Double(); val r = (a1 - a0) / 2; val m = (a0 + a1) / 2
-                T(a0, y0).let { p.moveTo(it.x, it.y) }; T(a0, y1 - r).let { p.lineTo(it.x, it.y) }
-                for (j in 1..12) { val t = Math.PI * j / 12; T(m - cos(t) * r, y1 - r + sin(t) * r).let { p.lineTo(it.x, it.y) } }
-                T(a1, y0).let { p.lineTo(it.x, it.y) }; p.closePath(); return p
-            }
-            g.color = far(night(0x6A665C, 1.2), z); g.fill(arch(wa - 0.72, wa + 0.72, 1.7, 4.75))
-            val a = arch(wa - 0.55, wa + 0.55, 1.8, 4.6)
-            g.color = Color(0xB06A28); g.fill(a)
-            val b = a.bounds2D
-            g.paint = GradientPaint(0f, b.y.toFloat(), alpha(Color(0xFFC060), 0.6), 0f, (b.y + b.height).toFloat(), alpha(Color(0xFFC060), 0.1)); g.fill(a)
-            T(wa, 1.8).let { p -> T(wa, 4.6).let { q -> line(Color(0x2A1A10), 1.5, p.x, p.y, q.x, q.y) } }
-            T(wa - 0.55, 3.3).let { p -> T(wa + 0.55, 3.3).let { q -> line(Color(0x2A1A10), 1.2, p.x, p.y, q.x, q.y) } }
-            glow(b.centerX, b.centerY, 1.4 * s, warmDeep, 0.25)
-        }
-        // the open door: warm light inside, an arch of voussoirs, the altar's candles far inside
+        fillM(far(night(0x6A665C), zt), M(x0, 0.0, y1), M(x0, 0.0, y0), M(x0, 0.5, y0), M(x0, 0.5, y1))
+        fillM(far(night(0x5A564C), zt), M(x0, 0.0, y0), M(x1, 0.0, y0), M(x1, 0.5, y0), M(x0, 0.5, y0))
+        // the gable's verge, catching the moon
+        M(x0, wall - 0.05, y1 + ov).let { a -> M(x0, ridge + 0.1, ym).let { b -> M(x0, wall - 0.05, y0 - ov).let { d ->
+            line(far(night(0x8A9AB8, 1.35), zt), 2.0, a.x, a.y, b.x, b.y); line(far(night(0x8A9AB8, 1.1), zt), 1.6, b.x, b.y, d.x, d.y) } } }
+        // the tall west window and the round window above it, the candles inside faintly warm; the sun disc on the gable's top
+        archWindow({ u, v -> M(x0, v, u) }, ym, 0.3, 2.6, 5.4, zt, 0.3)
         run {
-            val z = tz(tdoor); val s = f / z
-            fun arch(a0: Double, a1: Double, y1: Double): Path2D.Double {
-                val p = Path2D.Double(); val r = (a1 - a0) / 2; val m = (a0 + a1) / 2
-                T(a0, 0.0).let { p.moveTo(it.x, it.y) }; T(a0, y1 - r).let { p.lineTo(it.x, it.y) }
-                for (j in 1..14) { val t = Math.PI * j / 14; T(m - cos(t) * r, y1 - r + sin(t) * r).let { p.lineTo(it.x, it.y) } }
-                T(a1, 0.0).let { p.lineTo(it.x, it.y) }; p.closePath(); return p
-            }
-            g.color = far(night(0x9A968A, 1.15), z); g.fill(arch(tdoor - 1.2, tdoor + 1.2, 3.35))
-            val door = arch(tdoor - 0.9, tdoor + 0.9, 3.0); val b = door.bounds2D
-            g.paint = GradientPaint(0f, b.y.toFloat(), Color(0x8A4A1C), 0f, (b.y + b.height).toFloat(), Color(0xFFB050)); g.fill(door)
-            // the reveal: the door is set into a thick wall, its west jamb seen
-            fillW(Color(0x5A3418), T(tdoor - 0.9, 0.0), T(tdoor - 0.9, 0.0, 0.6), T(tdoor - 0.9, 2.1, 0.6), T(tdoor - 0.9, 2.1))
-            for (k in -2..2) glow(b.centerX + k * 0.18 * s, b.y + b.height * 0.55, 0.12 * s, Color(0xFFF0C0), 0.9)
-            glow(b.centerX, b.y + b.height * 0.6, 1.2 * s, Color(0xFFD080), 0.35)
+            val o = M(x0, 7.5, ym); val r = 0.5 * f / zt
+            g.color = far(night(0x9A968A, 1.15), zt); g.fill(Ellipse2D.Double(o.x - r * 0.62, o.y - r * 1.15, r * 1.24, r * 2.3))
+            g.color = Color(0x9A5A22); g.fill(Ellipse2D.Double(o.x - r * 0.48, o.y - r * 0.9, r * 0.96, r * 1.8))
+            glow(o.x, o.y, r * 2.2, warmDeep, 0.2)
+            for (k in 0 until 4) { val a = Math.PI * k / 4; line(Color(0x2A1A10), 1.0, o.x - cos(a) * r * 0.48, o.y - sin(a) * r * 0.9, o.x + cos(a) * r * 0.48, o.y + sin(a) * r * 0.9) }
         }
-        // the porch: two columns and a gable over the door, the sun disc on it; two broad steps, warm from the torches
-        val pd = -1.6; val pw = 1.7; val ph = 3.9
-        val pz = tz(tdoor, pd); val ps = f / pz
-        for (k in 0 until 2) {
-            val d = pd - 0.9 + k * 0.45; val yb = k * 0.2; val ext = 1.0 - k * 0.3
-            fillW(far(mix(night(0x7A766A), Color(0xA06A38), 0.45), pz), T(tdoor - pw - ext, yb, d), T(tdoor + pw + ext, yb, d), T(tdoor + pw + ext, yb + 0.2, d), T(tdoor - pw - ext, yb + 0.2, d))
-            fillW(far(mix(night(0x8A867A, 1.1), Color(0xC08848), 0.5), pz), T(tdoor - pw - ext, yb + 0.2, d), T(tdoor + pw + ext, yb + 0.2, d), T(tdoor + pw + ext, yb + 0.2, d + 0.45), T(tdoor - pw - ext, yb + 0.2, d + 0.45))
-            // the step's west end, in the moon
-            fillW(far(night(0x8A867A, 1.2), pz), T(tdoor - pw - ext, yb, d), T(tdoor - pw - ext, yb, d + 0.45), T(tdoor - pw - ext, yb + 0.2, d + 0.45), T(tdoor - pw - ext, yb + 0.2, d))
+        run {
+            val sun = M(x0, 9.2, ym); val sr = 0.3 * f / zt
+            for (k in 0 until 12) { val a = Math.PI * 2 * k / 12
+                line(far(night(0xC8A050, 1.2), zt), 1.2, sun.x + cos(a) * sr * 0.35, sun.y + sin(a) * sr * 0.75, sun.x + cos(a) * sr * 0.6, sun.y + sin(a) * sr * 1.3) }
+            g.color = far(night(0xD0A850, 1.3), zt); g.fill(Ellipse2D.Double(sun.x - sr * 0.3, sun.y - sr * 0.65, sr * 0.6, sr * 1.3))
         }
-        // the porch floor from the steps to the door, and its roof back to the wall
-        fillW(far(mix(night(0x7A766A), Color(0xB07A40), 0.5), pz), T(tdoor - pw - 0.4, 0.4, pd), T(tdoor + pw + 0.4, 0.4, pd), T(tdoor + pw + 0.4, 0.4, 0.0), T(tdoor - pw - 0.4, 0.4, 0.0))
-        fillW(far(night(0x4A4A52), pz), T(tdoor - pw - 0.4, ph + 0.45, pd), T(tdoor - pw - 0.4, ph + 0.45, 0.0), T(tdoor, ph + 1.6, 0.0), T(tdoor, ph + 1.6, pd))
-        for (pa in listOf(tdoor - pw, tdoor + pw)) {
-            fillW(far(night(0x9A968A, 1.0), pz), T(pa - 0.26, 0.4, pd), T(pa + 0.26, 0.4, pd), T(pa + 0.26, ph, pd), T(pa - 0.26, ph, pd))
-            fillW(far(night(0xA8A498, 1.15), pz), T(pa - 0.26, 0.4, pd), T(pa - 0.26, 0.4, pd + 0.5), T(pa - 0.26, ph, pd + 0.5), T(pa - 0.26, ph, pd))
-            T(pa + 0.23, 0.4, pd).let { a -> T(pa + 0.15, ph * 0.6, pd).let { b -> line(alpha(Color(0xFFB060), 0.55), maxOf(1.0, 0.05 * ps), a.x, a.y, b.x, b.y) } }
-            fillW(far(night(0x8A867A, 1.1), pz), T(pa - 0.32, ph, pd), T(pa + 0.32, ph, pd), T(pa + 0.32, ph + 0.18, pd), T(pa - 0.32, ph + 0.18, pd))
-        }
-        fillW(far(night(0x8A867A, 1.05), pz), T(tdoor - pw - 0.4, ph + 0.18, pd), T(tdoor + pw + 0.4, ph + 0.18, pd), T(tdoor + pw + 0.4, ph + 0.45, pd), T(tdoor - pw - 0.4, ph + 0.45, pd))
-        fillW(far(night(0x9A968A, 1.05), pz), T(tdoor - pw - 0.5, ph + 0.45, pd), T(tdoor, ph + 1.6, pd), T(tdoor + pw + 0.5, ph + 0.45, pd))
-        fillW(alpha(far(night(0x4A5A7A), pz), 0.9), T(tdoor - pw - 0.65, ph + 0.4, pd), T(tdoor, ph + 1.65, pd), T(tdoor, ph + 1.85, pd), T(tdoor - pw - 0.65, ph + 0.6, pd))
-        fillW(alpha(far(night(0x4A5A7A, 0.8), pz), 0.9), T(tdoor + pw + 0.65, ph + 0.4, pd), T(tdoor, ph + 1.65, pd), T(tdoor, ph + 1.85, pd), T(tdoor + pw + 0.65, ph + 0.6, pd))
-        val sun = T(tdoor, ph + 0.95, pd); val sr = 0.28 * ps
-        for (k in 0 until 12) { val a = Math.PI * 2 * k / 12
-            line(far(night(0xC8A050, 1.2), pz), 1.6, sun.x + cos(a) * sr * 0.8, sun.y + sin(a) * sr * 0.8, sun.x + cos(a) * sr * 1.4, sun.y + sin(a) * sr * 1.4) }
-        g.color = far(night(0xD0A850, 1.3), pz); g.fill(Ellipse2D.Double(sun.x - sr * 0.75, sun.y - sr * 0.75, sr * 1.5, sr * 1.5))
     }
 
-    /** Cloaked figures before the temple steps, torches high; one without a torch in the middle. Long shadows towards us. */
-    fun torchBearers() {
-        val fires = ArrayList<Triple<Double, Double, Double>>()
-        val torches = IntroLife.bearers.filter { it.torch }
-        for ((i, b) in IntroLife.bearers.withIndex()) {
-            val x = b.x.toDouble(); val z = b.z.toDouble()
-            // the shadow, thrown away from the door's light and the torches round it: towards us
-            val p = Path2D.Double()
-            p.moveTo(sx(x - 0.2, z), sy(0.0, z)); p.lineTo(sx(x + 0.2, z), sy(0.0, z))
-            val zz = z - 5.0; val dx = (x - IntroLife.doorX) * 0.7
-            p.lineTo(sx(x + dx + 0.4, zz), sy(0.0, zz)); p.lineTo(sx(x + dx - 0.4, zz), sy(0.0, zz)); p.closePath()
-            g.paint = GradientPaint(0f, sy(0.0, z).toFloat(), alpha(Color(0x060508), 0.5), 0f, sy(0.0, zz).toFloat(), alpha(Color(0x060508), 0.0)); g.fill(p)
-            val s = f / z
-            val t = cloaked(x, z, b.h.toDouble(), far(Color(0x0C0908), z), b.torch, lean = b.lean.toDouble())
-            // the warm rim of the torches on the cloaks: on the side facing the nearest torch
-            val near = torches.filter { it != b }.minByOrNull { Math.hypot((it.x - b.x).toDouble(), (it.z - b.z).toDouble()) }
-            val side = if (b.torch) 1.0 else if (near != null && near.x < b.x) -1.0 else 1.0
-            line(alpha(warm, 0.5), maxOf(1.0, 0.03 * s), sx(x + 0.3 * side, z), sy(0.1, z), sx(x + 0.22 * side, z), sy(1.35, z))
-            line(alpha(warm, 0.35), maxOf(1.0, 0.025 * s), sx(x + 0.2 * side, z), sy(1.4, z), sx(x + 0.08 * side, z), sy(1.62, z))
-            if (t != null) fires += Triple(t.first, t.second, s)
+    /** A tall arched window on a wall: [at] maps (along, up) to the screen; the lead in it, the candlelight faint behind it. */
+    fun archWindow(at: (Double, Double) -> Point2D.Double, m: Double, r: Double, v0: Double, v1: Double, z: Double, warmth: Double) {
+        fun arch(rr: Double, a: Double, b: Double): Path2D.Double {
+            val p = Path2D.Double(); at(m - rr, a).let { p.moveTo(it.x, it.y) }; at(m - rr, b - rr).let { p.lineTo(it.x, it.y) }
+            for (j in 1..12) { val t = Math.PI * j / 12; at(m - cos(t) * rr, b - rr + sin(t) * rr).let { p.lineTo(it.x, it.y) } }
+            at(m + rr, a).let { p.lineTo(it.x, it.y) }; p.closePath(); return p
         }
-        // the flames burn in the app over the moved layer (70.3)
-        if (part == Part.ALL) for ((k, fr) in fires.withIndex()) flame(fr.first, fr.second, fr.third * 1.5, k)
+        g.color = far(night(0x6A665C, 1.2), z); g.fill(arch(r + 0.14, v0 - 0.1, v1 + 0.12))
+        val a = arch(r, v0, v1); val b = a.bounds2D
+        g.color = mix(Color(0x3A2410), Color(0xB06A28), warmth); g.fill(a)
+        g.paint = GradientPaint(0f, b.y.toFloat(), alpha(Color(0xFFC060), 0.45 * warmth), 0f, (b.y + b.height).toFloat(), alpha(Color(0xFFC060), 0.05)); g.fill(a)
+        at(m, v0).let { p -> at(m, v1).let { q -> line(Color(0x2A1A10), 1.0, p.x, p.y, q.x, q.y) } }
+        glow(b.centerX, b.centerY, b.height * 0.9, warmDeep, 0.18 * warmth)
     }
 
-    /** The near verge: tall grass and a few stones where the north road meets the lower street, in the dark. */
-    fun verge() {
-        for (i in 0 until 700) {
-            val wx = if (rnd(i, 851) > 0.5) -1.6 - 6 * rnd(i, 852) else 1.6 + 1.2 * rnd(i, 852)
-            val wn = 0.7 + 2.2 * rnd(i, 853)
-            val z = czw(wx, wn); if (z < 0.9) continue
-            val p = P(wx, 0.0, wn); if (p.x < -30 || p.x > W + 30) continue
-            val l = f * (0.12 + 0.16 * rnd(i, 854)) / z
-            line(alpha(night(if (rnd(i, 855) > 0.6) 0x7A8658 else 0x2A3420, 0.9), 0.85), maxOf(1.0, f * 0.018 / z), p.x, p.y, p.x + (rnd(i, 856) - 0.4) * l * 0.7, p.y - l)
+    /**
+     * One torch bearer standing at camera (x, z): the hooded cloak as a silhouette (70.2), its shadow falling towards us and
+     * to the left away from the moon, the warm rim of its own torch on the right; the flame only in the full still (the app
+     * draws it over the moving cut-out).
+     */
+    fun bearer(i: Int, x: Double, z: Double) {
+        val b = IntroLife.bearers[i]; val s = f / z
+        val p = Path2D.Double()
+        p.moveTo(sx(x - 0.22, z), sy(0.0, z)); p.lineTo(sx(x + 0.22, z), sy(0.0, z))
+        val zz = z - 2.6; val dx = -0.9
+        p.lineTo(sx(x + dx + 0.3, zz), sy(0.0, zz)); p.lineTo(sx(x + dx - 0.3, zz), sy(0.0, zz)); p.closePath()
+        g.paint = GradientPaint(0f, sy(0.0, z).toFloat(), alpha(Color(0x060508), 0.5), 0f, sy(0.0, zz).toFloat(), alpha(Color(0x060508), 0.0)); g.fill(p)
+        val t = cloaked(x, z, b.h.toDouble(), far(Color(0x0C0908), z), b.torch, lean = b.lean.toDouble())
+        val side = if (b.torch) 1.0 else -1.0
+        line(alpha(warm, if (b.torch) 0.5 else 0.25), maxOf(1.0, 0.03 * s), sx(x + 0.3 * side, z), sy(0.1, z), sx(x + 0.22 * side, z), sy(1.35, z))
+        line(alpha(warm, if (b.torch) 0.35 else 0.18), maxOf(1.0, 0.025 * s), sx(x + 0.2 * side, z), sy(1.4, z), sx(x + 0.08 * side, z), sy(1.62, z))
+        line(alpha(Color(0xA8B4D0), 0.35), maxOf(0.8, 0.02 * s), sx(x - 0.31, z), sy(0.1, z), sx(x - 0.2, z), sy(1.3, z))
+        if (part == Part.ALL && t != null) flame(t.first, t.second, s * 1.5, i)
+    }
+
+    /** A bench of the square as the diagonal world has it: a plank seat on two blocks, its long side east to west. */
+    fun bench(tx: Double, ty: Double) {
+        val z = cz(tx, ty); val s = f / z
+        softShadow(sx(cx(tx, ty), z) - 0.4 * s, sy(0.0, z), 1.1 * s)
+        val l = 0.75; val d = 0.18; val h = 0.45
+        for (e in listOf(-l + 0.15, l - 0.15)) {
+            fillM(night(dTimber, 1.1), M(tx + e - 0.06, 0.0, ty - d), M(tx + e + 0.06, 0.0, ty - d), M(tx + e + 0.06, h, ty - d), M(tx + e - 0.06, h, ty - d))
+            fillM(night(dTimber, 1.3), M(tx + e - 0.06, 0.0, ty + d), M(tx + e - 0.06, 0.0, ty - d), M(tx + e - 0.06, h, ty - d), M(tx + e - 0.06, h, ty + d))
         }
+        fillM(night(dPlank, 1.25), M(tx - l, h, ty - d), M(tx + l, h, ty - d), M(tx + l, h, ty + d), M(tx - l, h, ty + d))
+        fillM(night(dPlank, 0.9), M(tx - l, h - 0.07, ty + d), M(tx - l, h - 0.07, ty - d), M(tx - l, h, ty - d), M(tx - l, h, ty + d))
+        fillM(night(dPlank, 0.75), M(tx - l, h - 0.07, ty - d), M(tx + l, h - 0.07, ty - d), M(tx + l, h, ty - d), M(tx - l, h, ty - d))
+        M(tx - l, h, ty + d).let { a -> M(tx + l, h, ty + d).let { b -> line(alpha(Color(0xA8B4D0), 0.4), 1.0, a.x, a.y, b.x, b.y) } }
     }
 
     fun well(x: Double, z: Double) {
@@ -805,34 +889,6 @@ internal class SquarePainter : IntroPainter() {
         line(alpha(Color(0xC8D0E0), 0.5), 1.5, e1.x, e1.y, apex.x, apex.y)
     }
 
-    /** A market stall closed for the night: posts, the counter, the canvas let down in folds, a roof of boards, crates. */
-    fun stall(x: Double, z: Double) {
-        val w = 2.8; val d = 1.4; val hgt = 2.2
-        softShadow(sx(x, z) + 0.8 * f / z, sy(0.0, z), 2.2 * f / z)
-        quad(night(0x2E261E), x - w / 2, 0.0, z + d, x + w / 2, 0.0, z + d, x + w / 2, hgt, z + d, x - w / 2, hgt, z + d)
-        quad(night(0x5A4430), x - w / 2, 0.0, z, x + w / 2, 0.0, z, x + w / 2, 0.9, z, x - w / 2, 0.9, z)
-        for (k in 0 until 3) line(Color(0x1A120C), 1.2, sx(x - w / 2, z), sy(0.3 * k + 0.2, z), sx(x + w / 2, z), sy(0.3 * k + 0.2, z))
-        for (k in 0 until 16) {
-            val a = x - w / 2 + w * k / 16; val b = a + w / 16
-            val c = if (k % 2 == 0) night(0x8A7A5C, 0.48) else night(0x6A5C46, 0.46)
-            val sag = 0.05 * sin(k * 1.3)
-            quad(c, a, 0.95, z - 0.02, b, 0.95, z - 0.02, b, hgt - 0.12 + sag, z - 0.02, a, hgt - 0.12 + sag, z - 0.02)
-        }
-        g.paint = GradientPaint(sx(x - w / 2, z).toFloat(), 0f, alpha(Color(0xC8CCD8), 0.1), sx(x + w / 2, z).toFloat(), 0f, alpha(Color(0x05060A), 0.4))
-        g.fill(quadShape(x - w / 2, 0.95, z - 0.02, x + w / 2, 0.95, z - 0.02, x + w / 2, hgt - 0.1, z - 0.02, x - w / 2, hgt - 0.1, z - 0.02))
-        // the torches far behind warm the right edge of the canvas a little
-        line(alpha(warm, 0.3), 1.5, sx(x + w / 2, z), sy(1.0, z), sx(x + w / 2, z), sy(hgt - 0.1, z))
-        quad(night(0x3A2E24, 1.2), x - w / 2 - 0.25, hgt, z - 0.35, x + w / 2 + 0.25, hgt, z - 0.35, x + w / 2 + 0.25, hgt + 0.5, z + d, x - w / 2 - 0.25, hgt + 0.5, z + d)
-        line(alpha(Color(0xC8D0E0), 0.4), 1.4, sx(x - w / 2 - 0.25, z - 0.35), sy(hgt, z - 0.35), sx(x + w / 2 + 0.25, z - 0.35), sy(hgt, z - 0.35))
-        for (px in listOf(x - w / 2, x + w / 2)) quad(night(dTimber, 1.2), px - 0.07, 0.0, z - 0.03, px + 0.07, 0.0, z - 0.03, px + 0.07, hgt, z - 0.03, px - 0.07, hgt, z - 0.03)
-        // stacked crates beside it
-        for ((cx, cy, cw) in listOf(Triple(x - w / 2 - 0.85, 0.0, 0.6), Triple(x - w / 2 - 0.75, 0.5, 0.45))) {
-            quad(night(0x5A4430, 1.05), cx, cy, z - 0.3, cx + cw, cy, z - 0.3, cx + cw, cy + 0.5, z - 0.3, cx, cy + 0.5, z - 0.3)
-            line(Color(0x1A120C), 1.2, sx(cx, z - 0.3), sy(cy + 0.25, z - 0.3), sx(cx + cw, z - 0.3), sy(cy + 0.25, z - 0.3))
-            line(alpha(Color(0xC8D0E0), 0.35), 1.2, sx(cx, z - 0.3), sy(cy + 0.5, z - 0.3), sx(cx + cw, z - 0.3), sy(cy + 0.5, z - 0.3))
-        }
-    }
-
     /** A lantern post at the corner of the square, its lantern dark: the square sleeps. */
     fun lampPost(x: Double, z: Double) {
         val s = f / z
@@ -849,7 +905,7 @@ internal class SquarePainter : IntroPainter() {
     }
 
 
-    /** A puddle in a rut of the lower street: the torches mirrored straight below themselves, the moon's sheen at its rim. */
+    /** A puddle on the cobbles near the square's south edge: the torches mirrored straight below themselves, the moon at its rim. */
     fun puddle() {
         val x = IntroLife.PUDDLE_X.toDouble(); val z = IntroLife.PUDDLE_Z.toDouble(); val w = IntroLife.PUDDLE_W.toDouble()
         val p = Path2D.Double()
@@ -857,33 +913,18 @@ internal class SquarePainter : IntroPainter() {
         p.closePath()
         g.color = Color(0x0A0E18); g.fill(p)
         val clip = g.clip; g.clip(p)
-        g.paint = GradientPaint(0f, sy(0.0, z + w * 0.4).toFloat(), Color(0x141C30), 0f, sy(0.0, z - w * 0.4).toFloat(), Color(0x080C16)); g.fill(p)
-        if (part == Part.ALL) for (b in IntroLife.bearers.filter { it.torch }) {
-            val mx = sx(b.x + 0.45, b.z.toDouble())
+        g.paint = GradientPaint(0f, sy(0.0, z + w * 0.4).toFloat(), Color(0x18223A), 0f, sy(0.0, z - w * 0.4).toFloat(), Color(0x080C16)); g.fill(p)
+        if (part == Part.ALL) for ((i, b) in IntroLife.bearers.withIndex()) if (b.torch) {
+            val (bx, bz) = bearersNow[i]; if (IntroLife.behindTemple(bx, bz)) continue
+            val mx = sx(bx + IntroLife.tipX(b).toDouble(), bz.toDouble())
             val y0 = sy(0.0, z + w * 0.6); val y1 = sy(0.0, z - w * 0.6)
             g.paint = GradientPaint(0f, y0.toFloat(), alpha(warm, 0.7), 0f, y1.toFloat(), alpha(warmDeep, 0.0))
-            g.fill(java.awt.geom.Rectangle2D.Double(mx - 4.0, y0, 8.0, y1 - y0))
-            glow(mx, y0 + 8, 22.0, warmDeep, 0.3)
-            for (k in 1 until 6) { val yy = y0 + (y1 - y0) * k / 6.0; line(alpha(Color(0x0A0E18), 0.6), 1.2, mx - 6, yy, mx + 6, yy + 1) }
+            g.fill(java.awt.geom.Rectangle2D.Double(mx - 3.0, y0, 6.0, y1 - y0))
+            glow(mx, y0 + 6, 16.0, warmDeep, 0.3)
+            for (k in 1 until 6) { val yy = y0 + (y1 - y0) * k / 6.0; line(alpha(Color(0x0A0E18), 0.6), 1.2, mx - 5, yy, mx + 5, yy + 1) }
         }
         g.clip = clip
         line(alpha(Color(0x8A96B4), 0.5), 1.0, sx(x - w, z), sy(0.0, z), sx(x, z + w * 0.4), sy(0.0, z + w * 0.4))
-    }
-
-    /** Life: smoke from the chimney of the house beyond the square, two bats before the moon. */
-    fun life2() {
-        val x0 = IntroLife.smokeX.toDouble(); val y0 = IntroLife.smokeY.toDouble()
-        for (k in 0 until 50) { val t = k / 50.0
-            glow(x0 + t * t * 160 + sin(t * 9) * 10 * t, y0 - t * 220 - 6, 8 + t * 50, Color(0x8A94AC), 0.15 * (1 - t)) }
-        for ((bx, by, sc) in listOf(Triple(moonX + 70, moonY - 40, 1.0), Triple(moonX + 260, moonY + 30, 0.6))) {
-            val w = 15.0 * sc
-            val p = Path2D.Double()
-            p.moveTo(bx - w, by - w * 0.3); p.quadTo(bx - w * 0.5, by + w * 0.1, bx - w * 0.15, by - w * 0.05)
-            p.lineTo(bx, by + w * 0.12); p.lineTo(bx + w * 0.15, by - w * 0.05)
-            p.quadTo(bx + w * 0.5, by + w * 0.1, bx + w, by - w * 0.3); p.quadTo(bx + w * 0.4, by + w * 0.25, bx, by + w * 0.3)
-            p.quadTo(bx - w * 0.4, by + w * 0.25, bx - w, by - w * 0.3); p.closePath()
-            g.color = Color(0x06080E); g.fill(p)
-        }
     }
 }
 

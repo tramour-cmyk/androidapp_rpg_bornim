@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 /**
  * The intro's pictures (69), rendered ahead on the computer (`tools/preview` `IntroProbe.kt`, `BridgeProbe.kt`) and shipped
  * as `assets/intro/intro_<n>.jpg`, n = 1..4; picture 5 is black. A picture with life (70.3) also has the layer that moves,
- * `intro_<n>_zug.png`. Loaded once, on demand.
+ * `intro_<n>_zug.png` (70.6: cut-outs, slot by slot) and what stands in front of it, `intro_<n>_vorn.png`. Loaded once, on demand.
  */
 class IntroArt(private val context: Context) {
     private val cache = HashMap<Int, ImageBitmap?>()
@@ -22,5 +22,10 @@ class IntroArt(private val context: Context) {
     /** The moving layer of picture [index] (0-based), or null if it has none. */
     fun layer(index: Int): ImageBitmap? = layers.getOrPut(index) {
         runCatching { context.assets.open("intro/intro_${index + 1}_zug.png").use { BitmapFactory.decodeStream(it)?.asImageBitmap() } }.getOrNull()
+    }
+    private val fronts = HashMap<Int, ImageBitmap?>()
+    /** What stands in front of the moving layer of picture [index] (70.6: the temple), or null if nothing does. */
+    fun front(index: Int): ImageBitmap? = fronts.getOrPut(index) {
+        runCatching { context.assets.open("intro/intro_${index + 1}_vorn.png").use { BitmapFactory.decodeStream(it)?.asImageBitmap() } }.getOrNull()
     }
 }
