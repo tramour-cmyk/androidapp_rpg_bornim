@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (15.10., 10:3x) – Sitzung „Sokrates – Befunde Wald und Verschleiß“ läuft:**
+**Übergabe (15.10., 10:23) – Sitzung „Sokrates – Befunde Wald und Verschleiß“ läuft:**
 
 **Nächster Punkt:** (1) Antworten des Nutzers zu **D4.1** (`e/d41.html`, Empfehlung A: Quest über Morwen im Tiefen Wald, Warnung unter Stufe 3; danach Texte unter 41, Bau Tom, Nachmessung Diogenes) und **D3.13–D3.16** (`e/d3-13.html`) eintragen. (2) **72o Verschleiß** durchdenken (Kampf-Dokument, 72.13: „kommt, Feinheiten mit Sokrates“), dann 72s, 84.x (Archiv „15.10., 07:4x“). (3) 81r beobachten; Jerrys `TELEGRAM_BOT_TOKEN` (Nutzer). 81p/81r stehen in den Beschlüssen.
 
-**Zuletzt gelesen bis:** 95af033a (15.10., 10:3x)
+**Zuletzt gelesen bis:** 95af033a (15.10., 10:2x)
 
 ## Wer du bist
 
