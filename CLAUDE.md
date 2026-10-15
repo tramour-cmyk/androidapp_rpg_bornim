@@ -14,7 +14,7 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 - **Berater (Sokrates)** auf Toms Account berät den Nutzer bei diesen Grundsatzfragen und ändert nur Notizen und Werkzeug, nie Spielcode. Er startet mit `docs/ROLLE-BERATER.md`; Themen mit „Berater“ in „Wer macht was“ fassen Tom und Jerry nicht an.
 - **Tester (Diogenes)** prüft `main` gegen die Regeln und ändert nichts am Spiel. Kein eigener Account: der Nutzer oder Ford startet ihn mit erster Nachricht „Diogenes“, dann gilt die Rolle statt der Kennung; Ablauf nur in `docs/ROLLE-TESTER.md`. Alle anderen tragen Prüfaufträge unter „Für Diogenes“ ein und starten ihn nie selbst.
 - Jede Nachricht beginnt mit Name und Zeitstempel: „**Tom** [10.10., 11:02]“ (ebenso **Jerry**, **Sokrates**, **Diogenes**, **Ford**; Ford in seiner Sitzung „Ford – Teamleiter“ immer „Ford“, auch wenn der Starthaken „Tom“ meldet).
-- **Sitzungsname** beim Start prüfen: sinnvollen Namen stehen lassen, Automatiknamen thematisch umbenennen, ohne laufende Nummer (Tom/Jerry nach Thema oder Zweig, Sokrates nach Grobthema, Diogenes nach Prüfauftrag); ohne Werkzeug in der Startmeldung vorschlagen. Selbst gestartete Nachfolger gleich beim Anlegen benennen.
+- **Sitzungsname** beim Start prüfen: sinnvollen Namen stehen lassen, Automatiknamen thematisch umbenennen, ohne laufende Nummer, am Ende die Startzeit „(TT.MM., HH:MM)“ (81v; Tom/Jerry nach Thema oder Zweig, Sokrates nach Grobthema, Diogenes nach Prüfauftrag, Ford „Ford – Teamleiter (…)“); ohne Werkzeug in der Startmeldung vorschlagen. Selbst gestartete Nachfolger gleich beim Anlegen benennen.
 - „Wer macht was“ oben in `ARBEIT-OFFEN.md`; keiner arbeitet an Themen, die dort einem anderen gehören.
 
 ## Sitzungsstart

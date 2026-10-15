@@ -25,7 +25,7 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 
 ## Neustart auf Meldung (81r)
 
-Nachricht „Neustart <Name>, <Commit>“ (per `send_message`, sofort, nicht erst zum Stundenlauf): `git fetch`, liegt der Commit auf `origin/main` und nennt die Übergabe von <Name> „Nachfolger: <Titel>“? Nein → Antwort „Übergabe fehlt“, nichts starten. Ja → Startmarke wie Schritt 3, `create_session` nach `ARBEIT-ABLAEUFE.md` „Neustart“ 2 (Titel aus der Übergabe, erste Nachricht der Name), Antwort an den Absender und lautlose Meldung mit Link. Gilt ab Co-Pilot, auch nachts.
+Nachricht „Neustart <Name>, <Commit>“ (per `send_message`, sofort, nicht erst zum Stundenlauf): `git fetch`, liegt der Commit auf `origin/main` und nennt die Übergabe von <Name> „Nachfolger: <Titel>“? Nein → Antwort „Übergabe fehlt“, nichts starten. Ja → Startmarke wie Schritt 3, `create_session` nach `ARBEIT-ABLAEUFE.md` „Neustart“ 2 (Titel aus der Übergabe, erste Nachricht der Name), Antwort an den Absender und lautlose Meldung mit Link; danach den Absender archivieren (`archive_session`, 81v). Beim Selbstneustart archiviert der neue Ford den alten. Erledigte Sitzungen ohne Nachfolger (Diogenes, Rückblick) archiviert der nächste Lauf. Gilt ab Co-Pilot, auch nachts.
 
 ## Ablauf eines Laufs
 
