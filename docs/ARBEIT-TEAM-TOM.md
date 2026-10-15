@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 
 **offen 25, davon A 0, wartet auf Chef 3**
 
-**Übergabe (16.10., 00:5x, „Tom – 68 Tempelszene“) – Nachfolger: „Tom – 86 Bewegung Rest“:** 68 fertig gebaut: Ablauf, fünf Bilder, `[68.kapitelende]` und `[68.suedrand]` wortgetreu im Code, `TempleSceneTest` (mit Testschalter 100) und `WorldTest` grün; wartet nur auf den Test des Chefs mit PR #67 (0.1.753). PR #67 abonniert (Nachfolger neu abonnieren); nach „passt“ #67 zusammenführen, #66 schließen, dann PR für `claude/tom-sammelbuild-nach-753` (D3.3 + 89 + 69f, 0c27e7a8) mit Prüfliste (69f: Titelmusik vom Heldenbau leise ins Intro, Schwarzbild voll, im Gasthaus 6 s Ausklang, dann Dorfmusik). Jetzt: 86.6 Ausdauertrank, 86.9 Met und Zimmer, 86.10 Rast kostet Zeit (Beschlüsse lesen; eigener Zweig von `claude/tom-sammelbuild-nach-753`).
+**Übergabe (16.10., 01:2x, „Tom – 86 Bewegung Rest“):** 86.6/86.9/86.10 gebaut (70cea82d auf `claude/tom-86-bewegung-rest`, enthält `claude/tom-sammelbuild-nach-753`; Kerntests 340 grün, Zufallsspieler grün, Standbilder `RAST=1` selbst gesehen). Wortlaut bei Kreativ (86), Kampfwirkung „betrunken“ bei Jerry. PR #67 abonniert; nach „passt“ zu 0.1.753 #67 zusammenführen, #66 schließen, dann **ein** PR von `claude/tom-86-bewegung-rest` (D3.3 + 89 + 69f + 86 = 4 Punkte) mit Prüfliste (69f wie zuvor; 86: am Lagerfeuer „Rasten?“, Blende, Zeit +1/+8 Std.; bei Rowena Met und Zimmer, fünfter Met betrunken; Bett im Gasthaus = Zimmer; Ausdauertrank bei Thessa/Morwen).
 
 ## Zeilen
 
@@ -25,7 +25,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 | 93 | „Die Beete westlich gehen nicht bis zum Zaun.“ (Chef 15.10., 16:5x) | Test 0.1.752 passt (`MapTownIso.fenceSpot`); mit PR #67 auf `main`, dann streichen | wie 94 |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem (`LISTE-KAPITEL1.md`) | Toms Teil erledigt (16.10., 00:4x): Ort fertig Dorf, Räume, Wald ohne Lücke außer D3.14 (Lückenliste in der Übergabe); Zufallsspieler grün. Offen: Höhle (13e), Durchspielen durch den Chef nach #67 | – |
 | 13e | Höhle „Ort fertig“ (Zuteilung des Chefs 14.10., 16:0x; bleibt bei Tom, D14.3) | D1.3/D1.11, D1.5, 13e.6 auf `main`. Helligkeitsregler bei Jerry (40). Danach D1.7 Leben (Absprache `WorldScreen.kt`). Mond mit D3.14 | – |
-| 86 | Bewegung und Übersicht (Chef 14.10., 18:5x) | 86.1–86.4 auf `main` (0.1.750). Beschlossen, Bau offen: 86.6, 86.9, 86.10 (Rest bei Jerry). Einzelheiten in den Beschlüssen | – |
+| 86 | Bewegung und Übersicht (Chef 14.10., 18:5x) | 86.1–86.4 auf `main` (0.1.750). 86.6/86.9/86.10 gebaut (70cea82d), nächster Sammelbuild mit 89/D3.3/69f; Preise Met 2, Zimmer 5 Gold im Test eichen; Wortlaut bei Kreativ (Rest bei Jerry) | `claude/tom-86-bewegung-rest` |
 | 72.14 | Gefährte/Söldner/Begleiter in Spieltexten (mit Jerry) | offen | – |
 | 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p) | bis 62r auf `main`; 62i–62k mit 64; 62l später (62m bei Jerry mit 39) | – |
 | 59e | Händler: Menge „Alle“, Vorrat je Laden | „Alle“ erledigt (0.1.660); Vorrat je Laden bei Jerry mit 38/39 | – |
