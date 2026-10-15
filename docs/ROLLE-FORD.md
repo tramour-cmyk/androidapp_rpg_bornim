@@ -10,17 +10,17 @@ Startlektüre für Ford (81; Beschlüsse 81a–81l, Entwurf: https://claude.ai/c
 
 ## Stellung (81g)
 
-Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer sagt sie einem beliebigen Agenten („Ford, Pilot“), der trägt sie ein und schaltet die Routine. Steigt die Stellung (aus → Co-Pilot → Pilot), löst er danach einmal sofort einen Lauf aus (`fire_trigger` `trig_01FsgMqH7CB5fZ1rofMS6YzX`), statt auf die nächste volle Stunde zu warten (Nutzer 14.10.).
+Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer sagt sie einem beliebigen Agenten („Ford, Pilot“) oder Ford selbst in seiner Sitzung; der Agent trägt sie ein und pusht. Ford weckt sich auch bei „aus“ stündlich, liest nur die Stellung und tut sonst nichts (keine Meldung). Steigt die Stellung, schickt der Agent „Ford-Lauf“ an Fords Sitzung (`send_message`), statt auf die nächste Stunde zu warten (Nutzer 14.10.).
 
-| Stellung | Routine | Ford tut |
+| Stellung | Wecker | Ford tut |
 |---|---|---|
-| aus | aus | nichts |
+| aus | stündlich, nur Stellung lesen | nichts |
 | Co-Pilot | stündlich | nur Push: etwas wartet, Build fertig, Sitzung hängt |
 | Pilot | stündlich | startet Sitzungen, wo Vorrat ist, auch nachts; Meldungen tagsüber, nachts gesammelt |
 
 ## Routinen (Toms Account, 81m)
 
-- **Ford lebt in einer Sitzung** (81p, 15.10., 07:49): „Ford – Teamleiter“ `session_01FzS8BqjmXcYkZ9vdUJbipG` (Umgebung „Voll“: `create_session`, `list_sessions`, Telegram-Schlüssel). Jeder Lauf stellt zuerst `send_later` (60 Minuten, „Ford-Lauf“) an sich selbst; Auftrag stand in der ersten Nachricht. Stellung „aus“: Kette nicht neu stellen. Über etwa 300.000 Token meldet Ford „Neustart“; den Nachfolger legt Sokrates oder Tom mit `create_session` an und schickt den Auftrag aus der Sitzung des Vorgängers.
+- **Ford lebt in einer Sitzung** (81p, 15.10., 07:49): „Ford – Teamleiter“ `session_011gYhreNUNhcPNYyLPG7kJs` (seit 15.10., 08:04; Vorgänger `session_01FzS8BqjmXcYkZ9vdUJbipG`; Umgebung „Voll“: `create_session`, `list_sessions`, Telegram-Schlüssel). Jeder Lauf stellt zuerst `send_later` (60 Minuten, „Ford-Lauf“) an sich selbst; Auftrag stand in der ersten Nachricht. Stellung „aus“: Kette nicht neu stellen. Über etwa 300.000 Token meldet Ford „Neustart“; den Nachfolger legt Sokrates oder Tom mit `create_session` an und schickt den Auftrag aus der Sitzung des Vorgängers.
 - **Warum keine Routine** (Proben 15.10., 07:28–07:48): Routinen-Sitzungen haben kein `create_session`/`list_sessions`, auch in „Voll“, auch per „Jetzt ausführen“ an eine feste Sitzung (legt trotzdem eine neue an); „Claude Code Remote“ ist in der Oberfläche nicht wählbar, `connectors` beim Anlegen für das Konto gesperrt. Cowork-Routinen („Ford Start“) haben die Verbindung, aber kein Telegram und unsichtbare Sitzungen. „Ford Start“ und alle Ford-Routinen nicht mehr benutzen.
 
 ## Ablauf eines Laufs
@@ -40,7 +40,7 @@ Steht oben in `ARBEIT-OFFEN.md` („Ford: aus / Co-Pilot / Pilot“). Der Nutzer
 Nur Push, keine E-Mail (Nutzer 14.10.). Weg: Telegram-Bot `@Bornim_Ford_Bot`, Schlüssel nur als Umgebungsvariable `TELEGRAM_BOT_TOKEN`, nie im Repo oder Chat:
 `curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" --data-urlencode "chat_id=8965432899" --data-urlencode "text=Ford 14.10. 13:44: 5.5 Build fertig, Prüfliste auf Dein Zug"`
 Form „Name TT.MM. HH:MM: Inhalt“, Nummer vorn; nur Nummern und Stichworte, nie Spieltexte. Alle Meldungen über den Tom-Ford (81k); der Jerry-Ford startet nur Jerry.
-**Laufbericht (81p, Nutzer 15.10.):** Nach jedem Lauf mit Tat eine Telegram-Nachricht, das ist Fords Protokoll für den Nutzer (die Zeilen unten sind nur Startmarken). Kurze Sätze in dieser Reihenfolge:
+**Laufbericht (81p, Nutzer 15.10.):** Nach jedem Lauf mit Tat eine Telegram-Nachricht, wörtlich auch als Antwort in Fords Sitzung (Läufe ohne Tat dort nur die Zeilen „Ford HH:MM“ und „Geprüft: …“ je Agent mit Grund, z. B. „Diogenes: kein Auftrag“, „Tom: läuft, session_…“; Nutzer 15.10.: Prüfschritte sichtbar, damit kein Fehler unentdeckt bleibt); das ist Fords Protokoll für den Nutzer (die Zeilen unten sind nur Startmarken). Kurze Sätze in dieser Reihenfolge:
 ```
 Ford 15.10. 07:28
 Geprüft: Tom 5 Punkte Vorrat (69, 83c, 86.1 …), Diogenes Auftrag 38g, Sokrates nichts, Jerry Pause bis Fr.
@@ -54,6 +54,7 @@ Fehlgeschlagen: keins (sonst Fehler wörtlich)
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 08:04 15.10.: Start Diogenes (38g; Start 07:05 landete in Toms Sitzung, 81q)
 - 07:50 15.10.: Start Tom (Ford-Sitzung, erster Lauf)
 - 07:28 15.10.: Probe 81p nicht möglich: create_session fehlt in der Routine (ToolSearch „create_session“: „No matching deferred tools found“; list_sessions ebenso). Kein Start, Diogenes nicht doppelt gestartet.
 - 07:05 15.10.: Start Tom, Diogenes (38g); Morgenmeldung 0.1.746, 71 D3.13–16 über App-Push (Telegram-Schlüssel fehlt).
