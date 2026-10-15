@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (15.10., 11:5x) – Nachfolger: „Sokrates – Ford-Läufe und Verschleiß“:**
 
-**Nächster Punkt:** (1) **81t/81u auf Dein Zug** (15.10., 11:56; Empfehlung 81t B: Erfüller streicht „nach …“ und schickt „Ford-Lauf“; 81u nein, nur eine Zeile je Weckung). (2) **81s:** um 12:06 prüfen, ob `trig_01XSM2AKJtWvwXZgTBnkRMjw` um 12:03 in Fords Sitzung landete (`list_triggers` last_run, `list_events`): ja → Ford Kette einstellen lassen, `ROLLE-FORD.md` umschreiben; nein → Uhr löschen; dem Nutzer eine Zeile. Prüfen, ob Fords 12:03-Bericht die neue Form hat (fett, drei Absätze, in seiner Sitzung nur „ok“). (3) **72o Verschleiß**, dann 72s, 84.x. Heute beschlossen: D4.1 Texte (Rauchbündel), „Kurz und einfach“ (`CLAUDE.md`), Ford-Bericht und laute Meldungen (`ROLLE-FORD.md`).
+**Nächster Punkt:** (1) **81t beschlossen** (Nutzer beim Vorgänger: Ford prüft „nach …“ jeden Lauf, `ROLLE-FORD.md` Schritt 3). **81u auf Dein Zug** (Empfehlung nein, nur eine Zeile je Weckung). (2) **81s:** um 12:06 prüfen, ob `trig_01XSM2AKJtWvwXZgTBnkRMjw` um 12:03 in Fords Sitzung landete (`list_triggers` last_run, `list_events`): ja → Ford Kette einstellen lassen, `ROLLE-FORD.md` umschreiben; nein → Uhr löschen; dem Nutzer eine Zeile. Prüfen, ob Fords 12:03-Bericht die neue Form hat (fett, drei Absätze, in seiner Sitzung nur „ok“). (3) **72o Verschleiß**, dann 72s, 84.x. Heute beschlossen: D4.1 Texte (Rauchbündel), „Kurz und einfach“ (`CLAUDE.md`), Ford-Bericht und laute Meldungen (`ROLLE-FORD.md`).
 
 **Zuletzt gelesen bis:** ff16011b (15.10., 11:38)
 
