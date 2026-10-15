@@ -45,7 +45,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p) | Tom; 62m Jerry mit 39 | – | Bis 62r auf `main`; 62i–62k mit 64; 62l/62m später |
 | 45 | Geschäftsmodell (Play Store) | Berater mit Nutzer | – | 45a/45c ja (Beschlüsse). 45b zurückgestellt bis nach 38 |
 | 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | Tom (Szene, Bilder), Jerry (Klang „Ancient Legend“) | – | 68a–68m ja: Texte in `STORY-K1.md` (`[68.…]`), Wegweiser `[67.schild]` in `STORY-K1-W.md`; Form `DESIGN-STIL.md` „Zwischensequenzen“. Bildentwurf gemalt mit 69 auf `claude/tom-69-intro` (Figuren Platzhalter), hängt an **69e** |
-| 69 | Intro: Ankunft bei Nacht in Standbildern, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | `claude/tom-69e-musterbild` | 69a–69e ja (`STORY-K1.md` `[69.intro.…]`, Beschlüsse). Intro und 69e-Welt gebaut (`Intro.kt`, `IntroTest`, Vorschau `INTROBILD=ms`), nächster Sammelbuild; Bilder auf Dein Zug. **Jerry, 69c:** leiser Klang unter Bild 1–4 (`MusicScene.INTRO`). 70.3 später |
+| 69 | Intro: Ankunft bei Nacht in Standbildern, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | `claude/tom-69e-musterbild` | 69a–69e ja (`STORY-K1.md` `[69.intro.…]`, Beschlüsse). Intro und 69e-Welt gebaut (`Intro.kt`, `IntroTest`, Vorschau `INTROBILD=ms`), nächster Sammelbuild; Bilder „sehr gut“ (Nutzer 15.10., 10:3x). **Jerry, 69c:** leiser Klang unter Bild 1–4 (`MusicScene.INTRO`). 70.3 später |
 | 70 | Zwischensequenzen: Bildsprache für alle Kapitel (Nutzer 14.10., 08:00) | Berater mit Nutzer; Tom (69e) | `main` (Notizen) | Entschieden (Beschlüsse, `DESIGN-STIL.md`): 70.1 Musterbild nach 69e; 70.2, 70.4, 70.5 ja; 70.3 nach Stilwahl im Test-Build |
 | 79 | Kampfhintergründe an die Diagonalwelt angleichen (Nutzer 14.10., 08:34) | Berater mit Nutzer; Jerry (Bilder) | – | Nur Aussehen (Nutzer 09:08); hängt an 72u (Kampfort aus der Karte oder gemalt). Erst Standbild (Jerry ab Fr.), dann Entwurf nach Musterbild 70.1 |
 | 74 | Schrittgeräusche fehlen („Ort fertig“ 8; D1.1) | Tom (Vertretung Jerry) | `claude/tom-74-schritte` | Eingebaut (fünf Untergründe, `Footsteps`, `FootstepsTest`); nächster Sammelbuild. Jerry zur Kenntnis: fünf Zeilen `WorldScreen.kt` |
@@ -78,6 +78,8 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
+
+- **69/70, Leben in Zwischenbildern** (Nutzer 15.10., 10:3x, Bilder auf Dein Zug `e/69-intro.html`): „69 sieht sehr gut aus. Bitte noch Sokrates vorlegen. Der soll dazu auch mal Stellung nehmen … ob wir das lebendig durch Animation machen wollen oder lebendig einfügen durch trotzdem Bildelemente, die feststehen.“ Heute fest gemalt: Kaminrauch, Fledermaus vor dem Mond, Motte am Tempelfenster (`IntroProbe.kt` `life2`); `IntroScreen` blendet nur über.
 
 - **81 Abläufe ohne Leerlauf** (Nutzer 15.10., 10:3x an Diogenes: „die ganzen Prozessschritte … auf Stimmigkeit und mögliche Lücken, dass wir wieder Leerlauf haben“): Prüfbericht Lauf 5, **D5.1** (Ford-Wecker ohne Netz, hoch) bis D5.5; alles Notizen und Werkzeug, also Sokrates.
 
