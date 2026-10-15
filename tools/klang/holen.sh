@@ -39,7 +39,7 @@ for p in 710/710246_10954437 426/426462_3597414 240/240549_4337854 511/511326_56
     [ -s "$f" ] || { curl -sSfL -m 300 -A "Mozilla/5.0" -o "$f" "https://cdn.freesound.org/previews/$p-hq.mp3"; sleep 3; }
 done
 # Runde 5 (83c Hühner): BigSoundBank (CC0)
-for n in 1039 0975 1040 0453 0840 2891 2894 3202; do
+for n in 1039 0975 1040 0453 0840 2891 2894 3202 0163 0137; do
     get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
 done
 python3 -m pip -q install py7zr numpy scipy soundfile >/dev/null 2>&1 || true

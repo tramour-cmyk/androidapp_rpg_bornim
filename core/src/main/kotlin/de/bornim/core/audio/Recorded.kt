@@ -19,8 +19,8 @@ object Recorded {
         Sound.CUP to 3, Sound.POUR to 3, Sound.WIPE to 3, Sound.CHAIR to 3, Sound.COUGH to 3,
         // the forest pond (27k, chosen by the user: three calls, one chorus, two dragonflies)
         Sound.FROG to 3, Sound.FROG_CHORUS to 1, Sound.DRAGONFLY to 2,
-        // the village hens (83c; takes until the user has chosen: all of the samples)
-        Sound.HEN_CLUCK to 3, Sound.HEN_SCRATCH to 3, Sound.HEN_ALARM to 4, Sound.HEN_FLAP to 3,
+        // the village hens (83c; scratching: the straw broom, chosen by the user)
+        Sound.HEN_CLUCK to 3, Sound.HEN_SCRATCH to 4, Sound.HEN_ALARM to 4, Sound.HEN_FLAP to 3,
     )
 
     /** Fewer than three takes by the user's choice (27k): the pond's one chorus loop, its two dragonflies. */
