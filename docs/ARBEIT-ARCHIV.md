@@ -1,4 +1,8 @@
 # Archiv
+### Übergabe Team Tom (15.10., 23:2x), abgelöst 23:44
+
+**Übergabe (15.10., 23:2x, „Tom – Sammelbuild PR #67“) – Nachfolger: „Tom – 69f Intromusik“:** PR #67 (0.1.753) grün, Prüfliste `e/t753.html` auf Dein Zug, PR abonniert (Nachfolger neu abonnieren); nach „passt“ #67 zusammenführen, #66 schließen, dann PR für `claude/tom-sammelbuild-nach-753` (D3.3 + 89, 7b87be89, Kerntests grün). 69f gebaut und im Zweig `claude/tom-sammelbuild-nach-753` (0c27e7a8). Jetzt: 26 (Standbilder „Ort fertig“, `tools/t spieler`; beide um 23:1x für die Umstellung abgebrochen).
+
 ### Übergabe Sokrates Projekt (15.10., 23:1x), abgelöst 23:4x
 
 **Übergabe (15.10., 23:1x, „Sokrates – Umstellung 98“):** Umbau 98 gemacht (ein Commit, Notizen und Werkzeug), Prüfung 1 (Sokrates) erledigt, Diogenes beauftragt (Zeile 98 in `ARBEIT-PRUEFUNG.md`), Ford „Umstellung fertig“. Nächster Punkt: Befund Diogenes Lauf 14 liegt vor (Zeile D14, Urteil: Umbau trägt, kein Rückweg): D14.1–D14.4 einarbeiten (Chef 23:2x: liegt richtig bei Sokrates Projekt); 16.10. Morgenmeldung Ford „Umbau läuft / hakt“ lesen. Sparmodus 99d bis Sa 21:00: Sokrates nur auf Zuruf. Nachfolger: „Sokrates Projekt – Nachprüfung Umbau 98“.
