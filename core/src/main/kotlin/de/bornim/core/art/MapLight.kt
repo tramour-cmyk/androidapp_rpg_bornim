@@ -204,6 +204,52 @@ object MapLight {
 
     private fun hasHearth(map: MapDef) = (0 until map.height).any { y -> (0 until map.width).any { x -> map.tile(x, y) == Tile.HEARTH } }
 
+    /**
+     * D3.13a (user 15.10., 20:0x: the cot's roof at night half bright, half dark): the light image lies on the ground and
+     * is laid over everything, so a roof showed the light of the ground behind its house (seen diagonally a point [z]
+     * high stands where the ground [z] · ZS / TH tiles further back would). Where a house covers the ground on screen its
+     * walls and roof take the light in front of its door row instead, along the house the way it falls there, fading a
+     * towards the ambient light as they rise (at the ridge 60 %).
+     */
+    private class Cover(val x0: Int, val y0: Int, val w: Int, val h: Int, val frontY: Double, val at: FloatArray, val fade: FloatArray, val depth: FloatArray)
+
+    private val coverCache = HashMap<String, List<Cover>>()
+
+    private fun covers(map: MapDef): List<Cover> = synchronized(coverCache) {
+        coverCache.getOrPut(map.id) {
+            if (map.kind == MapKind.CAVE || map.kind == MapKind.INTERIOR) return@getOrPut emptyList()
+            val zs = MapRoomIso.ZS / MapRoomIso.TH
+            MapTownIso.houses(map).map { (f, _) ->
+                val g = MapTownIso.shape(map, f)
+                val o = g.overhang
+                val x0 = f.x - o; val x1 = f.x + f.n + o; val y0 = f.top - o; val y1 = f.y + 1 + o; val ym = (f.top + f.y + 1) / 2.0
+                val run = ym - y0
+                fun height(x: Double, y: Double) = if (x < x0 || x > x1 || y < y0 || y > y1) -1.0 else g.ridge - kotlin.math.abs(y - ym) / run * (g.ridge - g.eave)
+                val reach = g.ridge * zs
+                // the ground (in light image pixels) the house can stand before on screen
+                val bx0 = floor((x0 - reach) * T / RES).toInt(); val by0 = floor((y0 - reach) * T / RES).toInt()
+                val bw = kotlin.math.ceil(x1 * T / RES).toInt() - bx0; val bh = kotlin.math.ceil(y1 * T / RES).toInt() - by0
+                val at = FloatArray(bw * bh) { Float.NaN }; val fade = FloatArray(bw * bh); val depth = FloatArray(bw * bh)
+                val steps = (reach * 16).toInt() + 1
+                for (v in 0 until bh) for (u in 0 until bw) {
+                    val gx = ((bx0 + u) * RES + RES / 2.0) / T; val gy = ((by0 + v) * RES + RES / 2.0) / T
+                    // along the line of sight from the viewer down to this ground point: the first point inside the house
+                    for (k in steps downTo 0) {
+                        val sft = reach * k / steps
+                        val z = sft / zs
+                        val hz = height(gx + sft, gy + sft)
+                        if (hz < 0 || z > hz) continue
+                        at[v * bw + u] = ((gx + sft).coerceIn(f.x + 0.0, f.x + f.n + 0.0) * T).toFloat()
+                        fade[v * bw + u] = (0.6 * z / g.ridge).toFloat()
+                        depth[v * bw + u] = sft.toFloat()
+                        break
+                    }
+                }
+                Cover(bx0, by0, bw, bh, (f.y + 1.5) * T, at, fade, depth)
+            }
+        }
+    }
+
     /** Whether the map needs a light image at all (a village at noon does not). */
     fun needed(map: MapDef, daylight: Float): Boolean = map.kind != MapKind.TOWN || daylight < 0.85f
 
@@ -253,8 +299,20 @@ object MapLight {
         }
         val ow = w / RES; val oh = h / RES
         val img = PixelImage(ow, oh)
+        val houses = covers(map)
         for (y in 0 until oh) for (x in 0 until ow) {
-            val px = x0 + x * RES + RES / 2.0; val py = y0 + y * RES + RES / 2.0
+            var px = x0 + x * RES + RES / 2.0; var py = y0 + y * RES + RES / 2.0
+            // a house standing before this ground on screen: the light in front of it (D3.13a)
+            var fade = 0.0
+            var best = -1f
+            val lx = Math.floorDiv(x0, RES) + x; val ly = Math.floorDiv(y0, RES) + y
+            for (c in houses) {
+                val u = lx - c.x0; val v = ly - c.y0
+                if (u < 0 || v < 0 || u >= c.w || v >= c.h) continue
+                val i = v * c.w + u
+                if (c.at[i].isNaN() || c.depth[i] <= best) continue
+                best = c.depth[i]; px = c.at[i].toDouble(); py = c.frontY; fade = c.fade[i].toDouble()
+            }
             val gx = px / CELL - 0.5 - cx0; val gy = py / CELL - 0.5 - cy0
             val ix = floor(gx).toInt().coerceIn(0, gw - 2); val iy = floor(gy).toInt().coerceIn(0, gh - 2)
             val fx = (gx - ix).coerceIn(0.0, 1.0); val fy = (gy - iy).coerceIn(0.0, 1.0)
@@ -271,7 +329,7 @@ object MapLight {
                 fun at(ax: Int, ay: Int) = g[(ay * gw + ax) * 3 + c]
                 val a = at(ix, iy) * (1 - fx) + at(ix + 1, iy) * fx
                 val b = at(ix, iy + 1) * (1 - fx) + at(ix + 1, iy + 1) * fx
-                val v = (a * (1 - fy) + b * fy) * (1.0 - 0.5 * roof)
+                val v = (a * (1 - fy) + b * fy) * (1.0 - 0.5 * roof) * (1 - fade) + amb[c] * fade
                 return (v.coerceIn(0.0, 1.0) * 255).toInt()
             }
             img.pixels[y * ow + x] = (0xFF shl 24) or (ch(0) shl 16) or (ch(1) shl 8) or ch(2)
