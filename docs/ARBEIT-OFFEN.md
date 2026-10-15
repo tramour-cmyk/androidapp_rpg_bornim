@@ -2,7 +2,7 @@
 
 Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main` (Regeln in `CLAUDE.md`, auch zur Größe).
 
-**Nächste freie Themennummer: 90**
+**Nächste freie Themennummer: 91**
 
 **Ford: Pilot** (Nutzer 14.10., in Toms Sitzung, eingetragen 22:5x; 81g; Stellung aus / Co-Pilot / Pilot, Startlektüre `ROLLE-FORD.md`; wer die Stellung erhöht, löst Ford sofort einmal aus)
 
@@ -21,6 +21,7 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 86 | Bewegung und Übersicht (Nutzer 14.10., 18:5x) | Tom (86.1, 86.2, 86.4, 86.3 Ausdauer); Jerry (86.3 Keuchen, Lärm, Initiative; 86.11 mit 72b/38) | `claude/tom-86-standort-joystick` | Einzelheiten in den Beschlüssen. **Tom:** 86.1–86.4 gebaut (`Stamina`), nächster Sammelbuild; Jerry zur Kenntnis: etwa 15 Zeilen `WorldScreen.kt`, `GameState.winded`/`stamina`. **Jerry:** Keuchen, Initiative mit Nachteil, Rennen laut (84.4). Beschlossen, Bau offen: 86.6, 86.9, 86.10, 86.11 |
+| 90 | Projektleitung: täglicher Rückblick (Nutzer 15.10., 12:4x: „brauchen wir eine Art Projektmanager?“) | Berater mit Nutzer | `main` (Notizen) | Vorschlag im Chat 12:5x: keine neue Rolle, Sokrates morgens nach Fords Morgenmeldung, Quellen Git, Beschlüsse, Sitzungsliste mit Kosten (Telegram nicht lesbar); Antwort abwarten |
 | 89 | Schatten mit dem Tag (Nutzer 15.10., 12:1x, zu D6.1) | Tom | – | **Beschlossen 12:4x** (Beschlüsse): alle Gebietskarten unter freiem Himmel, drei feste Sonnenstände, nachts weicher Mondschatten (mit D3.14), Wechsel nur bei Kartenwechsel oder Rast. **Tom:** erst D6.1/D6.6, dann Probe im Dorf mit Standbildern aller drei Stände |
 | 81 | Teamleiter „Ford“ (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–n, 81p, 81r, 81s (Uhr statt Kette, bestätigt 12:03), 81t, 81u (nein) (`ROLLE-FORD.md`, `ARBEIT-ABLAEUFE.md` „Neustart“); Ford lebt in „Ford – Teamleiter“, Stellung oben; Jerry-Ford ab Fr. **Nutzer:** `TELEGRAM_BOT_TOKEN` in Jerrys Umgebung. Verlauf 81o–81r im Archiv („Aus ARBEIT-OFFEN.md, 15.10., 10:2x (Sokrates, 81)“) |
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`enabled: false`, nicht löschen). 65.8/65.9 stehen in `CLAUDE.md`. **65.10** (Nutzer 14.10., 23:1x): Selbstarbeit ist abgeschafft, Ford ersetzt sie; Notizen nachziehen (`CLAUDE.md`-Zeile, `ARBEIT-SELBST.md` ins Archiv, Neustart ohne Nutzer: Übergabe „Nachfolger gewünscht“, Ford startet) |
