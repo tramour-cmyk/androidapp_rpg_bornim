@@ -64,7 +64,7 @@ private fun writeJpeg(img: BufferedImage, file: File) {
 }
 
 /** The picture with its text box below, as in the app (same as the model picture). */
-private fun withText(img: BufferedImage, text: String): BufferedImage {
+internal fun withText(img: BufferedImage, text: String): BufferedImage {
     val w = img.width; val h = img.height; val box = 170
     val out = BufferedImage(w, h + box, BufferedImage.TYPE_INT_RGB)
     val g = out.createGraphics()
