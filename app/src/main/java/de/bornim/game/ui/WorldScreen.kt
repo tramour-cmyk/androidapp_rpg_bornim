@@ -1135,16 +1135,19 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 }
             }
         }
-        // 83b: the hens by the hay bales, by day and in the dry; they run off flapping when the hero comes close
-        if (de.bornim.core.art.MapHen.draft && game.daylight > 0.3f && !game.raining) {
+        // 83b: the hens by the hay bales; they run off flapping when the hero comes close, and in the rain and at dusk
+        // they hurry off under the trees (94, D7.1)
+        if (de.bornim.core.art.MapHen.draft) {
+            val away = game.daylight <= 0.3f || game.raining
             for (h in de.bornim.core.art.MapHen.of(map)) {
-                val a = h.at(clock, heroX + T / 2f, heroY + T - 3f, map)
+                val a = h.at(clock, heroX + T / 2f, heroY + T - 3f, map, away)
+                if (a.shown <= 0f) continue
                 val hs = MapFigure.slot(a.yaw)
                 val himg = (if (HeroSwing.now) de.bornim.core.art.MapHen.frameNow(a, hs) else de.bornim.core.art.MapHen.frame(a, hs)) ?: continue
                 val fx = a.x.toInt(); val fy = a.y.toInt()
                 sprites += Sprite(fy + 2f, a.x) {
-                    put(WorldArt.smallShadow(), fx - 6, fy - 3)
-                    put(himg, fx - de.bornim.core.art.MapHen.AX / MapFigure.DENSITY, fy - de.bornim.core.art.MapHen.GY / MapFigure.DENSITY, MapFigure.DENSITY)
+                    put(WorldArt.smallShadow(), fx - 6, fy - 3, alpha = a.shown)
+                    put(himg, fx - de.bornim.core.art.MapHen.AX / MapFigure.DENSITY, fy - de.bornim.core.art.MapHen.GY / MapFigure.DENSITY, MapFigure.DENSITY, alpha = a.shown)
                 }
             }
         }
