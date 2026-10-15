@@ -60,6 +60,7 @@ tools/meldung.sh Ford "Du bist dran: [0.1.748](dz:e/t748.html) testen.\n\n[Tom](
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 19:11 15.10.: Start Diogenes (98/99, Auftrag Sokrates)
 - 19:11 15.10.: Start Tom (Neustart, ad5ee062)
 - 18:52 15.10.: Start Tom (Neustart, d0dd90b1)
 - 18:50 15.10.: Start Sokrates (Neustart, 70e3d99c)
