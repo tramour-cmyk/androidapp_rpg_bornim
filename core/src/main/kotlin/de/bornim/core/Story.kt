@@ -537,8 +537,8 @@ object Story {
             "=======.....=.T......=....,,,,,,,=,TTTTTTTTT",
             "TT.S..========.r.....=============,,TTTTTTTT",
             "TTT.fff.,,,,,==========T..,====,,,,TTTTTTTTT",
-            "TTT.ff.,,,,,,,.==^^.......,,,,=,,,TTTTTTTTTT",
-            "TTT.....,,,,,T==.DW..F.,.,,,,,=,,,TTTTTTTTTT",
+            "TTT.ff.,,,,,,,.==^^^......,,,,=,,,TTTTTTTTTT",
+            "TTT.....,,,,,T==.WD#.F.,.,,,,,=,,,TTTTTTTTTT",
             "TTTTTTT...TTTT=TT.....,,,,,,,,=TTTTTTTTTTTTT",
             "TTTTTTTTTTTTTT=TTTT....,,,,,TT====TTTTTTTTTT",
             "TTTTTTTTTTT,T==TTTT.T..TTTTTTT...=....T.TTTT",
@@ -558,9 +558,9 @@ object Story {
         warps = listOf(
             Warp(0, 18, Place("forest", 18, 10, Facing.LEFT)),
             // D3.13: Morwen's hut; she is out at her fire, the door stays shut
-            Warp(17, 22, Place("deep_forest", 17, 23, Facing.DOWN), LOCKED),
+            Warp(18, 22, Place("deep_forest", 18, 23, Facing.DOWN), LOCKED),
         ),
-        houseStyles = mapOf((17 to 21) to HouseStyle(RoofKind.STRAW, WallKind.PLANKS)),
+        houseStyles = mapOf((17 to 21) to HouseStyle(RoofKind.STRAW, WallKind.PLANKS, feature = HouseFeature.HUT)),
         signs = mapOf(
             // 27.6b (draft): south of the way, in the light and before the trees (north of it the sign stood in deep shade)
             (3 to 19) to T("Tiefer Flüsterwald\nHier endet der Weg der Jäger.\nNur für erfahrene Abenteurer!", "Deep Whisperwood\nThe hunters' trail ends here.\nFor seasoned adventurers only!"),

@@ -91,7 +91,7 @@ enum class MapKind { TOWN, INTERIOR, FOREST, CAVE }
 
 enum class RoofKind { RED, BLUE, SLATE, STRAW, SHINGLE }
 enum class WallKind { TIMBER, STONE, PLANKS }
-enum class HouseFeature { NONE, INN_SIGN, AWNING, BELL_TOWER }
+enum class HouseFeature { NONE, INN_SIGN, AWNING, BELL_TOWER, HUT }
 
 /** Look of a house on a town map; [mirrored] puts the chimney on the left. */
 data class HouseStyle(
