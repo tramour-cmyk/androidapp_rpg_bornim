@@ -82,7 +82,7 @@ Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nu
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
-- **65.11 / 81 Diogenes Lauf 10** (15.10., 18:3x, Auftrag Nutzer 18:1x, Prüfbericht): Entwurf in Ordnung, Empfehlung „übernehmen“ geteilt, plus eine Zeile (D10.8). Vorher Abläufe: **D10.1 (hoch)** nachts weckt nur Ford, Selbstneustart steht bevor (285 von 300 Tsd. Token), Uhr-Übergabe ungeregelt, kein Netz; D10.2 „Vorrat:“-Zeile in jeder Übergabe; D10.3 erste Nachricht = Name; D10.4 eine Datei für Startmarken; D10.5 wer Diogenes startet; D10.6 Links macht `meldung.sh` selbst; D10.7, D10.9 Reste.
+- **65.11 / 81 Diogenes Lauf 10** (15.10., 18:1x, Auftrag Nutzer 18:1x, Prüfbericht): Entwurf in Ordnung, Empfehlung „übernehmen“ geteilt, plus eine Zeile (D10.8). Vorher Abläufe: **D10.1 (hoch)** nachts weckt nur Ford, Selbstneustart steht bevor (285 von 300 Tsd. Token), Uhr-Übergabe ungeregelt, kein Netz; D10.2 „Vorrat:“-Zeile in jeder Übergabe; D10.3 erste Nachricht = Name; D10.4 eine Datei für Startmarken; D10.5 wer Diogenes startet; D10.6 Links macht `meldung.sh` selbst; D10.7, D10.9 Reste.
 
 - **89 Figuren im Schatten** (Diogenes, 15.10., Nutzer 18:1x, zu Lauf 9): „Wenn Figuren im Schatten eines Hauses oder Objekte stehen, können sie ja nicht hell sein, oder? Ja, wenn das aber zu viel Detail und Rechenleistung frisst, dann lassen wir das jetzt mal an der Stelle, weil das sind alles Feintuning und nicht das Wichtigste.“ Thema bei Tom (89); Diogenes empfiehlt: nach D9.2, nur wenn billig (Schattenschicht an der Fußstelle abfragen), sonst Ideenliste.
 
