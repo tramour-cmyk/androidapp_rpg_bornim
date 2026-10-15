@@ -1,5 +1,12 @@
 # Archiv
 
+### Aus ARBEIT-OFFEN.md, 15.10., 13:1x (Tom, gekürzt)
+
+| 86 | Bewegung und Übersicht (Nutzer 14.10., 18:5x) | Tom (86.1, 86.2, 86.4, 86.3 Ausdauer); Jerry (86.3 Keuchen, Lärm, Initiative; 86.11 mit 72b/38) | `claude/tom-86-standort-joystick` | Einzelheiten in den Beschlüssen. **Tom:** 86.1–86.4 gebaut (`Stamina`), nächster Sammelbuild; Jerry zur Kenntnis: etwa 15 Zeilen `WorldScreen.kt`, `GameState.winded`/`stamina`. **Jerry:** Keuchen, Initiative mit Nachteil, Rennen laut (84.4). Beschlossen, Bau offen: 86.6, 86.9, 86.10, 86.11 |
+| 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-13e6-dunkler` | D1.5 Truhe auf `claude/tom-d1-5-truhe`, D1.3/D1.11 auf `claude/tom-d1-kerze-gitter`. **13e.6 dunkler: passt** (Nutzer 15.10., 10:5x), wird fest eingeschaltet, nächster Sammelbuild. Helligkeitsregler Jerry mit 40. Danach D1.7 Leben (Absprache `WorldScreen.kt`) |
+| 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Tom | – | Auf `main` bis 27m. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise). **D3.13** (Nutzer 15.10.): **Tom** Morwens Hütte gebaut (Kate 3×2, Kräuterbündel, `claude/tom-d3-13-morwen-huette`), Standbild auf Dein Zug (`e/d313.html`). **Nutzer 15.10., 12:0x:** „viel zu groß … flacher, kleiner, das mit den Kräutern ist nice … die Tür Richtung Feuer“; **Tom** zweiter Entwurf gebaut (2×2, Traufe 1,5 m, flaches Stroh, Tür in der Ostseite zum Feuer; `claude/tom-runde-nach-748-b`), Standbild auf Dein Zug. **Nutzer 15.10., 13:0x:** „richtig überzeugt bin ich nicht“, noch zu groß, steht direkt am Weg (von Westen kommend verdeckt sie); Sokrates schlägt im Gespräch Erdkate abseits des Wegs vor, Antwort offen, Tom wartet. **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1 |
+| 69 | Intro: Ankunft bei Nacht in Standbildern, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | `claude/tom-69e-musterbild` | 69a–69e ja (`STORY-K1.md` `[69.intro.…]`, Beschlüsse). Intro und 69e-Welt gebaut (`Intro.kt`, `IntroTest`, Vorschau `INTROBILD=ms`), nächster Sammelbuild; Bilder „sehr gut“ (Nutzer 15.10., 10:3x). **Jerry, 69c:** leiser Klang unter Bild 1–4 (`MusicScene.INTRO`). 70.3 später |
+
 ### Aus ROLLE-BERATER.md, 15.10., 12:5x (Sokrates, Größe)
 
 - **Leitbild (44):** ein roter Faden; SRD Gerüst, nicht Ziel; Blut „Deutlich“ als Obergrenze. Volltext im Archiv.
@@ -63,6 +70,7 @@ Sitzung 14.10., 22:1x–23:0x: 72.14 Gefährte/Söldner/Begleiter, 72.15 Begleit
 ### Aus ARBEIT-OFFEN.md, 15.10., 07:1x (Übergabe Tom 14.10., 23:2x)
 - **Vorrat, in dieser Reihenfolge:** (1) **69** übrige Intro-Bilder im Stil des Musterbilds rendern (`[69.intro.1]` Südstraße, `.3` Dorfplatz mit Fackeln, `.4` Gasthausfenster mit Rowena als Umriss; 5 schwarz), als ein Satz „Anzusehen“ auf Dein Zug mit Stil-Abgleich (88), Zeile `e/69e-5.html` dort löschen; dann Intro bauen. Vorlage `BridgeProbe.kt` auf `claude/tom-69e-musterbild`. (2) **83c Scharren** neu aus echten CC0-Aufnahmen Echte Aufnahme nur auf Freesound (wil_j_wil 571660, CC0, Hühner scharren im Gras, laute Pute; von hier 403, nur von Hand ladbar); Ersatz BigSoundBank CC0: 0163 Strohbesen (Schnitte 2,00–2,32 / 2,73–3,08 / 3,67–4,04 / 8,28–8,60 s), 0137 Füße im Laub (1,70–2,14 / 3,53–3,86 / 5,31–5,61, Hochpass 300 Hz), 0024 Besen. Hörprobe auf Dein Zug; sonst bleibt es. Dann `huehner.py` `--spiel`. (3) Danach 86.1, 86.4, 86.2, 86.3, 6l.
 - **Sammelbuild** erst nach „passt“ zu 0.1.746 (PR #63 abonnieren): 69e-Welt, 83b/83c, D1.5 Truhe, 74 Schritte (alle fertig auf ihren Zweigen); Prüfliste mit Hühnern (x 33, y 28) und Brücke nachts (x 18, y 25).
+
 
 ## Aus ROLLE-TESTER.md, 14.10., 23:3x
 
