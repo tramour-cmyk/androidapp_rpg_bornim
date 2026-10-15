@@ -61,6 +61,14 @@ fun ChronicleTab(game: Game, lang: Lang, onMap: (String) -> Unit) {
         Txt(if (de) "Hauptauftrag" else "Main task", size = 13.sp, color = Veil.gold)
         Txt(Story.objective(s)(lang), size = 16.sp, bold = true, color = Veil.bright)
     }
+    // tasks the story gives beside the main one (D4.1)
+    for (t in Chronicle.openTasks(s)) {
+        Spacer(Modifier.height(8.dp))
+        Column(Modifier.fillMaxWidth().border(1.dp, Veil.rim).padding(horizontal = 12.dp, vertical = 8.dp)) {
+            Txt(t.title(lang), size = 16.sp, bold = true, color = Veil.text)
+            Txt(t.text(lang).replace("{name}", game.hero.name), size = 14.sp, color = Veil.text)
+        }
+    }
     val carried = Jobs.carried(s)
     if (carried.isNotEmpty()) {
         Spacer(Modifier.height(12.dp))
@@ -84,9 +92,12 @@ fun ChronicleTab(game: Game, lang: Lang, onMap: (String) -> Unit) {
         }
     }
     val done = Jobs.all.filter { Jobs.isDone(s, it) }
-    if (done.isNotEmpty()) {
+    val doneTasks = Chronicle.doneTasks(s)
+    val doneCount = done.size + doneTasks.size
+    if (doneCount > 0) {
         Spacer(Modifier.height(12.dp))
-        PixelButton((if (de) "Erledigt (${done.size})" else "Done (${done.size})") + if (showDone) " ▴" else " ▾", Modifier.fillMaxWidth().height(32.dp), size = 13.sp) { showDone = !showDone }
+        PixelButton((if (de) "Erledigt ($doneCount)" else "Done ($doneCount)") + if (showDone) " ▴" else " ▾", Modifier.fillMaxWidth().height(32.dp), size = 13.sp) { showDone = !showDone }
+        if (showDone) for (t in doneTasks) Txt("✓ " + t.title(lang), size = 14.sp, color = Veil.dim)
         if (showDone) for (j in done) Txt("✓ " + j.title(lang) + " · " + j.giverName(lang), size = 14.sp, color = Veil.dim)
     }
 }

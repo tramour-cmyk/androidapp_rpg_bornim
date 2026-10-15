@@ -1022,7 +1022,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     /** Puts Krogg and Grak back on the map. */
     fun cheatRespawnBosses() {
-        state.flags -= setOf(Story.KROGG_DEFEATED, Story.GRAK_DEFEATED, Story.GRIMFANG_DEFEATED)
+        state.flags -= setOf(Story.KROGG_DEFEATED, Story.GRAK_DEFEATED, Story.GRIMFANG_DEFEATED, Story.SMOKE_GIVEN)
         changed()
     }
 

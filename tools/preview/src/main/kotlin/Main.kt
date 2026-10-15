@@ -157,6 +157,19 @@ fun main() {
             }
             System.exit(0)
         }
+        // KARTE62=1 ONLY=d41: D4.1 Garrick's hint to Morwen under "Aufträge", and once the bundle is given, among the done
+        if (System.getenv("ONLY") == "d41") {
+            de.bornim.game.ui.MenuStart.chronicle = true
+            de.bornim.game.ui.ChronicleLook.previewSoFar = false
+            for (given in listOf(false, true)) shot(if (given) "d41_erledigt" else "d41_auftrag", settle = 30) { vm ->
+                setup(vm, "forest", 10, 10, Facing.UP)
+                val st = vm.game!!.state
+                st.flags += setOf(de.bornim.core.Story.BARRIER_OPEN, de.bornim.core.Story.HUNTER_MET, de.bornim.core.Story.KROGG_HINT)
+                if (given) { st.flags += de.bornim.core.Story.SMOKE_GIVEN; st.add(de.bornim.core.Story.SMOKE_BUNDLE, 1) }
+                vm.refresh()
+            }
+            System.exit(0)
+        }
         // KARTE62=1 ONLY=62h: 62h (draft) the land map in both looks, from the woods (cave and deep woods not yet seen)
         if (System.getenv("ONLY") == "62h") {
             de.bornim.game.ui.MapLook.previewOverview = true
