@@ -73,12 +73,12 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nur der Nutzer startet Diogenes; Ablauf in `docs/ROLLE-TESTER.md`).
 
 - **71 Bestandsprüfung Stil und Klang** (Nutzer 13.10., 18:16): Liste „Bestandsprüfung (71)“ in `ROLLE-TESTER.md`. **B**, **C** und **A** Wald/Tiefer Wald erledigt (Lauf 1–3); **A Dorf** nach Toms Sammelbuild 0.1.746.
-- **38g Spieldauer Kapitel 1** (Berater 13.10., Nutzer 16:06 ja): beim Durchspielen je Abschnitt (Dorf, Wald, Tiefer Wald, Höhle, Rückkehr) zählen statt stoppen: gelaufene Felder, Kämpfe mit Runden, gelesene Dialogzeilen, Rasten, Menüaufrufe; Tabelle im Bericht. Berater rechnet daraus menschliche Spielzeit (38h Eichung durch Nutzer später).
 
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
+- **38g, Diogenes Lauf 4** (Prüfbericht): Messung fertig, Tabelle je Abschnitt zum Umrechnen in Spielzeit; Klasse 2: D4.1 zielstrebig erreicht die Höhle mit Stufe 1 und stirbt dort im Median 16 Mal.
 - **71, Diogenes Lauf 3, Klasse 2** (Prüfbericht): D3.13 Morwens Hütte fehlt, Texte nennen sie; D3.14 Heldenlicht draußen ohne Quelle (mit 84.1); D3.15 Vögel, Grillen, Eulen ohne Quelle und Entfernung; D3.16 kursiver Erzähltext (42) gegen D2.7.
 
 

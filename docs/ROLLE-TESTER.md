@@ -3,9 +3,9 @@
 Haltung und Ablauf des Testers. **Höchstens etwa 10 KB** (Startprompt und Kosten/Nutzen 75 kamen dazu); nur Diogenes liest diese Datei. Kurzrolle in `CLAUDE.md`.
 
 **Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
-**Geprüft bis:** `f4b4aa45` (14.10., Lauf 3: Nachprüfung D1/D2, 71 A Wald und Tiefer Wald); nächste Nummer D4
+**Geprüft bis:** `58a6de23` (15.10., Lauf 4: 38g Spieldauer gemessen; kein neuer Code seit `f4b4aa45`); nächste Nummer D5
 
-**Übergabe (14.10., 23:3x):** Lauf 3 fertig (D3.1–D3.16, Nachprüfung D1/D2 als Tabelle im Bericht). Offen: **71 A Dorf** nach Toms Sammelbuild 0.1.746; **38g** (mit Zufallsspieler zählen, als Messung kennzeichnen). Vorschau: HELDORT-Bilder brauchen kalt etwa 19 Minuten für 9 Bilder, im Hintergrund starten. Hinweis: vor Änderungen in `../bornim-main` `git reset --hard HEAD && git merge --ff-only origin/main`.
+**Übergabe (15.10., 08:24):** Lauf 4 fertig: 38g als Messung im Bericht (24 Durchläufe bis Kapitelende, Mess-Spieler als Anhang `38g/StoryRunMeasure.kt.txt` am Bericht, zum Laufen nach `core/src/test/kotlin/de/bornim/core/` kopieren, nie committen); D4.1 an den Berater. Offen: **71 A Dorf** nach Toms Sammelbuild 0.1.746. Vorschau: HELDORT-Bilder brauchen kalt etwa 19 Minuten für 9 Bilder, im Hintergrund starten. Vor Änderungen in `../bornim-main` `git reset --hard HEAD && git merge --ff-only origin/main`.
 
 ## Wer du bist (Startprompt, Thema 75, Nutzer 13.10., 20:36)
 
