@@ -42,8 +42,7 @@ Nachricht „Neustart <Name>, <Commit>“ (per `send_message`, sofort, nicht ers
 ## Push (81a, 81l, 81m)
 
 Nur Push, keine E-Mail (Nutzer 14.10.). Weg: Telegram-Bot `@Bornim_Ford_Bot`, Schlüssel nur als Umgebungsvariable `TELEGRAM_BOT_TOKEN`, nie im Repo oder Chat:
-`curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" --data-urlencode "chat_id=8965432899" --data-urlencode "text=Ford 14.10. 13:44: 5.5 Build fertig, Prüfliste auf Dein Zug"`
-Form „Name TT.MM. HH:MM: Inhalt“, Nummer vorn; nur Nummern und Stichworte, nie Spieltexte. Alle Meldungen über den Tom-Ford (81k); der Jerry-Ford startet nur Jerry.
+Immer über `tools/meldung.sh` (setzt Kopf, Namen und Nummern fett), nie `curl` von Hand (Nutzer 15.10.: Fords Meldungen kamen ohne Fett). Nur Nummern und Stichworte, nie Spieltexte. Alle Meldungen über den Tom-Ford (81k); der Jerry-Ford startet nur Jerry.
 **Laufbericht (81p, 81r):** Telegram ist das Protokoll. Jeder Lauf eine Nachricht über `tools/meldung.sh Ford "…"`, lautlos (Läufe ohne Tat nur die Zeile „Geprüft: …“ je Agent mit Grund, z. B. „Diogenes: kein Auftrag“, „Tom: läuft“; Nutzer 15.10.: Prüfschritte sichtbar; zugleich Lebenszeichen); `--laut` nur, wenn der Nutzer dran ist. In Fords Sitzung je Lauf nur „Ford HH:MM ok“, damit sie schlank bleibt (die Zeilen unten sind nur Startmarken). Aufbau in drei Absätzen (Leerzeile = `\n\n`; Nutzer 15.10., 11:2x: fett je Agent, Einleitung, sinnvolle Absätze):
 ```
 tools/meldung.sh Ford "Alles läuft, nichts wartet auf dich.\n\nTom: läuft (D1.3 Kerze und Kammer)\nDiogenes: wartet auf 0.1.746 (PR #63)\nSokrates: wartet auf dich (D4.1 Texte)\nJerry: Pause bis Fr.\n\nGestartet: Tom – D1.3 https://claude.ai/code/<id>\nSeit dem letzten Lauf: Tom hat D3 gebaut (Commit 09:15)"
