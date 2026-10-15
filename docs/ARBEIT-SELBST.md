@@ -24,12 +24,9 @@ Jede Sitzung führt unten im eigenen Abschnitt zwei Listen, mit Themennummer, Re
 
 ## Ablauf der Selbstarbeit
 
-### Feste Weck-Routinen (seit 11.10.)
+### Feste Weck-Routinen (abgeschafft, 81s)
 
-**Pausiert, solange keine Selbstarbeit läuft** (Nutzer 13.10.): Wer Selbstarbeit vergibt, schaltet die Routinen des eigenen Accounts wieder an (`update_trigger`, `enabled: true`), am Ende der Selbstarbeit wieder aus; nie löschen (die Repo-Einstellung von Hand ginge verloren). Tom: alle acht pausiert 13.10., 10:26; 00:24, 03:24, 06:24 wieder an 13.10., 23:2x, wieder aus 14.10., 00:57 (Vorrat leer).
-
-Alle drei Stunden rund um die Uhr je Account eine Routine, die eine frische Sitzung startet: **Tom** 00:24, 03:24, 06:24, 09:24, 12:24, 15:24, 18:24, 21:24 („Tom Selbstarbeit HH:MM“), **Jerry** drei Minuten später (00:27, 03:27, … 21:27, „Jerry Selbstarbeit HH:MM“). Eine Routine arbeitet nur, wenn die eigene Zeile oben `läuft` oder `wartet auf Grenze` steht und „Bis“ noch nicht vorbei ist; sonst beendet sie sich sofort (kostet fast nichts). Der Abstand von drei Stunden sorgt dafür, dass nach jedem Zurücksetzen der Nutzungsgrenze (alle fünf Stunden) bald eine weitermacht.
-- Jede Routine braucht einmal vom Nutzer (am PC im Browser, claude.ai, Routinen): Repository `tramour-cmyk/androidapp_rpg_bornim` auswählen, Freigabe auf automatisch. Fehlt das Schreibrecht, hängt die Sitzung das Repo selbst mit `add_repo` an.
+Toms acht Routinen „Tom Selbstarbeit HH:24“ sind gelöscht (Nutzer 15.10., 81s: ohne Verbindung, also leere Nacht wie 81o). Geweckt wird nur noch über Ford (`ROLLE-FORD.md`, Stundenuhr). Jerrys Routinen „Jerry Selbstarbeit HH:27“ bleiben pausiert (65.2), bis der Jerry-Ford steht. Alter Text im Archiv („Aus ARBEIT-SELBST.md, 15.10., 11:0x“).
 
 ### 1. Vergeben (mit dem Nutzer)
 
@@ -45,7 +42,7 @@ Alle drei Stunden rund um die Uhr je Account eine Routine, die eine frische Sitz
 - **App-Code:** vor dem Push auch die Vorschau bauen (`tools/t`), damit kein Werkzeug still bricht (32.5). Vorschau bricht wegen Speicher ab: `tools/setup-session.sh` (Gradle 6 GB, 32.6).
 - **Kleine, sichere Schritte.** Nach jedem fertigen Schritt: Kerntests (`CLAUDE.md`), Commit und Push auf den eigenen Zweig, Herzschlag. So geht beim Abbruch höchstens ein Schritt verloren.
 - **Nichts auf `main` außer Notizen.** Kein PR zusammenführen, keine Freigaben vorwegnehmen; Optisches nur als Entwurf (Standbilder mit Uhrzeit, Schalter im Testreiter).
-- **Sparsam:** Filme nur, wo sich eine Bewegung sichtbar ändert; große Ausgaben gefiltert lesen; nach jeder Aufgabe prüfen, ob das Gespräch groß ist. Wenn ja (oder der Neustart-Haken meldet es): Übergabe schreiben, Zeile auf `übergeben`, pushen, **sofort selbst einen Nachfolger starten** (`ARBEIT-ABLAEUFE.md` „Neustart“, Auftrag: Text der Weck-Routine) und erst dann die Antwort beenden; nicht auf die Routine warten (32.2).
+- **Sparsam:** Filme nur, wo sich eine Bewegung sichtbar ändert; große Ausgaben gefiltert lesen; nach jeder Aufgabe prüfen, ob das Gespräch groß ist. Wenn ja (oder der Neustart-Haken meldet es): Übergabe schreiben, Zeile auf `übergeben`, pushen, **sofort den Nachfolger über Ford starten** (`ARBEIT-ABLAEUFE.md` „Neustart“, 81r) und erst dann die Antwort beenden; nicht auf die Routine warten (32.2).
 - **Zweig-Build:** Sammelbuild nach `ROLLE-ENTWICKLER.md` (78); Weckruf wie dort.
 - **Paket fertig:** Reserve, dann weiter aus dem Vorrat. Ist nichts mehr da oder „Bis“ erreicht: Zeile auf `fertig`, Bericht, Antwort beenden.
 

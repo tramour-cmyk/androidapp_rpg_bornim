@@ -18,6 +18,24 @@ Ein graues Auge … wie auf dem Fetzen, den Jorin mir vom Steinkreis brachte. Da
 `[41.garrick.krogg]` (Garrick über Krogg; bisher „Ich habe Goblins belauscht. Ihr Bugbear Krogg trägt den Schlüssel zu Graks Halle.“)
 Ich habe Goblins belauscht. Ihr Grottenschrat Krogg trägt den Schlüssel zu Graks Halle.
 
+### Weg über Morwen vor der Höhle (D4.1) – ENTWURF, nicht freigegeben
+
+Sokrates 15.10.; Grund: Bugbear-Merkmal „erster Hieb trifft härter“ (`Monsters.kt`) und Morwens Rauch (`[62i.ort.tiefwald]`). Rauchbündel nimmt Krogg den ersten Hieb (Kampfwirkung Jerry, Dialog Tom).
+
+`[D4.1.garrick.morwen]` (Garrick nach `[41.garrick.krogg]` und „Er haust im Ostflügel …“, bis Krogg fällt)
+Geh nicht mit leeren Händen zu ihm. Morwen, die Kräuterfrau im Tiefen Flüsterwald, weiß, wie man so einem den ersten Hieb nimmt.
+
+`[D4.1.garrick.warnung]` (nur Heldenstufe unter 3, danach)
+Und ehrlich, {name}: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald.
+
+`[D4.1.morwen.krogg]` (Morwen, sobald Garrick getroffen und Krogg nicht besiegt, einmal; gibt 1 Rauchbündel)
+Krogg? Grottenschrate schlagen aus dem Dunkel zu, und der erste Hieb ist der schlimmste. Aber ihre Nasen sind fein.
+Wirf ihm das hier vor die Füße, sobald er auftaucht. Der Rauch beißt in den Augen, und sein Hieb geht ins Leere.
+
+`[D4.1.chronik]` (Chronik, Aufträge, nach Garricks Hinweis; erledigt mit dem Rauchbündel oder Kroggs Fall)
+**Rauch gegen Krogg**
+Garrick riet {name}, vor dem Kampf gegen Krogg die Kräuterfrau Morwen im Tiefen Flüsterwald aufzusuchen. Sie kenne ein Mittel gegen den ersten Hieb eines Grottenschrats.
+
 ### Rund um die Tempelszene (68)
 
 Vor und nach der Szene (Ablauf unter K1-Z).

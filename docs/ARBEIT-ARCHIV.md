@@ -1,5 +1,53 @@
 # Archiv
 
+### Aus ARBEIT-SELBST.md, 15.10., 11:0x (Sokrates, 81s)
+
+#### Feste Weck-Routinen (seit 11.10.)
+
+**Pausiert, solange keine Selbstarbeit läuft** (Nutzer 13.10.): Wer Selbstarbeit vergibt, schaltet die Routinen des eigenen Accounts wieder an (`update_trigger`, `enabled: true`), am Ende der Selbstarbeit wieder aus; nie löschen (die Repo-Einstellung von Hand ginge verloren). Tom: alle acht pausiert 13.10., 10:26; 00:24, 03:24, 06:24 wieder an 13.10., 23:2x, wieder aus 14.10., 00:57 (Vorrat leer).
+
+Alle drei Stunden rund um die Uhr je Account eine Routine, die eine frische Sitzung startet: **Tom** 00:24, 03:24, 06:24, 09:24, 12:24, 15:24, 18:24, 21:24 („Tom Selbstarbeit HH:MM“), **Jerry** drei Minuten später (00:27, 03:27, … 21:27, „Jerry Selbstarbeit HH:MM“). Eine Routine arbeitet nur, wenn die eigene Zeile oben `läuft` oder `wartet auf Grenze` steht und „Bis“ noch nicht vorbei ist; sonst beendet sie sich sofort (kostet fast nichts). Der Abstand von drei Stunden sorgt dafür, dass nach jedem Zurücksetzen der Nutzungsgrenze (alle fünf Stunden) bald eine weitermacht.
+- Jede Routine braucht einmal vom Nutzer (am PC im Browser, claude.ai, Routinen): Repository `tramour-cmyk/androidapp_rpg_bornim` auswählen, Freigabe auf automatisch. Fehlt das Schreibrecht, hängt die Sitzung das Repo selbst mit `add_repo` an.
+
+
+### Aus ARBEIT-OFFEN.md, 15.10., 10:2x (Sokrates, 81)
+
+| 81 | Teamleiter „Ford“ (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–n (`ROLLE-FORD.md`). Co-Pilot seit 16:02; Routine `trig_01FsgMqH7CB5fZ1rofMS6YzX` (:28); Telegram-Weg steht (18:1x). Pilot und Bewährung (81i) auf Zuruf; Jerry-Ford ab Fr. **81o** (Nutzer 15.10., 07:0x: Nacht ohne Arbeit): neue Routine ohne Verbindung Claude_Code_Remote, Ford konnte weder starten noch pushen; behoben 07:05 mit der alten Routine (Tom und Diogenes gestartet, Tom schrieb 07:08 auf `main`); offen: dort fehlt der Telegram-Schlüssel, Meldungen nur über App-Push; eine Routine mit Verbindung und Umgebung „Voll“ legt nur der Nutzer in der claude.ai-Oberfläche an. **81p** (Nutzer 07:2x: Ford und seine Sitzungen unsichtbar): „Ford Start“ erzeugt Cowork-Sitzungen, nicht in der Code-Liste; **beschlossen:** Ford meldet jeden Lauf mit Tat per Telegram (versucht, gestartet mit Aufgabe und Link, Fehler), Sitzungen sichtbar mit Titel „Tom – …“. Probe 07:25: in Cowork fehlen `create_session`/`list_sessions` und Telegram → Nutzer legt Ford-Routine in der claude.ai-Oberfläche neu an (Umgebung „Voll“, Repo, Verbindung Claude Code Remote). **81q** (Tom 07:3x: Ford startete Tom doppelt, Diogenes-Auslöser landete in Toms Sitzung): „Ford Start“ ist richtig eingestellt (neue Sitzung je Auslösung); Vermutung: Auslösen während ein Lauf noch arbeitet, hängt an diesen an. Kein eigener Beschluss, erledigt sich mit `create_session` (81p); Zweig `claude/tom-69-intro-zweitfassung` gilt nicht. **81p umgesetzt 07:49:** Ford lebt in der Sitzung „Ford – Teamleiter“, weckt sich per `send_later` (`ROLLE-FORD.md`); Telegram belegt (Nutzer 07:45); **erster Lauf belegt** 07:50 (Tom gestartet, Telegram angekommen, Nutzer 07:5x). **81r beschlossen** (Nutzer 15.10., 08:1x: „voll“ gemeldet, nie neu gestartet; Ja 08:15): eine Sitzung je Thema, Neustart über Ford ab Co-Pilot ohne Ja des Nutzers, Telegram ist das Protokoll (`tools/meldung.sh`, lautlos, ⚠ mit Ton nur wenn Nutzer dran), Ford startet sich selbst neu, Tom/Sokrates wecken ihn. **Nutzer:** `TELEGRAM_BOT_TOKEN` in Jerrys Umgebung eintragen. Probe: Sokrates' eigener Neustart |
+
+### Aus ARBEIT-OFFEN.md, 15.10., 10:2x (Tom kürzt 86, 13e, 69)
+| 86 | Bewegung und Übersicht (Nutzer 14.10., 18:5x) | Tom (86.1, 86.2, 86.4, 86.3 Ausdauer); Jerry (86.3 Keuchen, Lärm, Initiative; 86.11 mit 72b/38) | `claude/tom-86-standort-joystick` | Alle Einzelheiten in den Beschlüssen. **Tom:** 86.1 (Test-Reiter „Standort anzeigen“), 86.4 (System: Joystick Fein/Normal/Ruhig), 86.2 (Kartenzeichen des Menüreiters neben dem Beutel), 86.3 Ausdauer (`Stamina`, Balken rechts) gebaut, nächster Sammelbuild; Jerry zur Kenntnis: etwa 15 Zeilen `WorldScreen.kt` (Leiste, `TouchLayer`, Laufschleife); für Keuchen und Initiative `GameState.winded`/`stamina`. **Jerry:** Keuchen, außer Atem = Initiative mit Nachteil, Rennen laut (84.4). Beschlossen, Bau offen: 86.6 Ausdauertrank, 86.9 Met und Zimmer, 86.10 Rast kostet Zeit (ersetzt `Cmd.Rest`), 86.11 Rast nur an Feuerplätzen, Überfall möglich |
+| 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-13e6-dunkler` | 0.1.741 auf `main`; D1.5 Truhe auf `claude/tom-d1-5-truhe`. **13e.6 dunkler:** Entwurf (Schalter `HOEHLEDUNKEL`, im Spiel aus), Standbilder auf Dein Zug (`e/13e6-2.html`); Ursache: Gesehenes außer Sicht in der Höhle nur 15 % dunkler. Helligkeitsregler Jerry mit 40. Danach D1.7 Leben (Absprache `WorldScreen.kt`) |
+| 69 | Intro: Ankunft bei Nacht in Standbildern, endet im Gasthaus | Tom (Bilder, Technik), Jerry (Klang) | `claude/tom-69e-musterbild` | 69a–69e ja (`STORY-K1.md` `[69.intro.…]`; Musterbild angenommen, Beschlüsse); 69e-Welt (Haus, Brückenlaterne) in den nächsten Sammelbuild. Bilder `.1`, `.3`, `.4` auf Dein Zug (15.10.); **Intro gebaut** (`Intro.kt`, `IntroScreen.kt`, Kerntest `IntroTest`, Vorschau `INTROBILD=ms`; Chronik „Die Ankunft ansehen“), nächster Sammelbuild. **Jerry, 69c:** leiser Klang unter Bild 1–4 (Wind, Fluss, Grillen; heute still, `MusicScene.INTRO`). 70.3 später |
+
+### Aus ROLLE-BERATER.md, 15.10., 10:2x
+**Übergabe (15.10., 07:5x) – Nachfolger: „Sokrates – Befunde Wald und Verschleiß“:**
+
+**Nächster Punkt:** (1) **81p prüfen:** läuft Fords Wecker-Kette (`send_later` stündlich in `session_011gYhreNUNhcPNYyLPG7kJs`)? Beleg: Startmarken in `ROLLE-FORD.md` und Telegram beim Nutzer. Offen beim Nutzer: Routine „Ford (auf Tom)“ `trig_01VVgCZWBppgdhRdoa6SQhkW` ausschalten (nur er darf), Diogenes von 07:05 (Cowork) anhalten; „Ford Start“ danach löschen. Beschluss 81p noch in die Beschlussseite. (2) **D3.13–D3.16** mit Empfehlung vorgelegt, Nutzer entscheidet noch (D3.13 Hütte bauen; D3.14 Heldenlicht draußen weg, Mondlicht; D3.15 nein, Klang bleibt; D3.16 Kursiv weg). (3) 72o, 72s, 84.x (Archiv „15.10., 07:4x“).
+Sitzung 15.10., 07:37–07:5x: Ford als Sitzung statt Routine, erster Lauf startete Tom (86). Schwerpunkt: nur Ablauf; nötig, damit Ford überhaupt startet. Nächste Sitzung bitte Spiel.
+
+**Zuletzt gelesen bis:** 0042dfa5 (15.10., 07:5x)
+
+
+### Aus ROLLE-BERATER.md, 15.10., 08:5x (Lehre)
+
+- **Umgebaute Routine neu prüfen** (15.10., 81o): Ford-Routine um 18:10 ersetzt, nur die alte geprüft; die neue hatte keine Verbindungen, die Nacht lief leer.
+
+### Aus ROLLE-BERATER.md, 15.10., 07:5x
+**Übergabe (15.10., 07:4x) – Nachfolger: „Sokrates – Ford und Befunde Wald“:**
+
+**Nächster Punkt:** (1) **81p Probe**, sobald der Nutzer Ford in der claude.ai-Oberfläche neu angelegt hat (Text im Chat 15.10., 07:34: Umgebung „Voll“, Repo, Verbindung Claude Code Remote, `create_session` statt „Ford Start“, Laufbericht per Telegram nach `ROLLE-FORD.md`): alte `trig_01FsgMqH7CB5fZ1rofMS6YzX` aus, neue Kennung in `ROLLE-FORD.md`, Ablauf dort auf `create_session`/`list_sessions` umstellen, einmal auslösen; Beleg = Diogenes in der Sitzungsliste des Nutzers plus Telegram-Nachricht. Beschluss 81p noch in die Beschlussseite. (2) **D3.13–D3.16** (Prüfbericht Diogenes) mit Empfehlung vorgelegt, Nutzer hat noch nicht entschieden: D3.13 Hütte bauen (Tom), D3.14 Heldenlicht draußen weg, Mondlicht als Grundhelligkeit (Tom, Standbild), D3.15 nein, Hintergrundklang bleibt (Jerry: Flügelschlag), D3.16 Kursiv weg, Erzähler gedämpfte Farbe. (3) Rest der alten Übergabe im Archiv („15.10., 07:4x“): 72o, 72s, 84.x.
+Sitzung 15.10., 06:57–07:4x: Nacht leer, weil Ford-Routine ohne Verbindung (81o); alte Routine wieder an, Tom läuft (Cowork, unsichtbar). Schwerpunkt: fast nur Ablauf; nötig, weil Ford sonst nachts nichts startet.
+
+### Aus ROLLE-BERATER.md, 15.10., 07:4x (Übergabe Sokrates 14.10., 23:0x)
+**Übergabe (14.10., 23:0x) – Nachfolger: „Sokrates – Verschleiß und Gefährten“:**
+
+**Nächster Punkt:** (1) **72o Verschleiß** Feinheiten (Nutzer überlegt). (2) **72s** Gefährte für Kapitel 2 (Empfehlung Fenn ab Kultlager, Gegenargument Söldner-Wechsel und Überläufer-Klischee; Storyplan 5a erst wörtlich lesen). (3) 84.3, 84.2, 72a/72c–72j, 79/72u nach Probe und Standbild. Später: Hund als erster Begleiter in der Geschichte (72.15, mit 41), eigenes Haus (LISTE-IDEEN).
+Sitzung 14.10., 22:1x–23:0x: 72.14 Gefährte/Söldner/Begleiter, 72.15 Begleiter mit Bindung, 69e Musterbild angenommen (Intro-Bilder an Tom), Ford auf Pilot, startet auch nachts, bei höherer Stellung sofort auslösen. Schwerpunkt: überwiegend Spiel, Ford als kleiner Ablaufteil.
+
+### Aus ARBEIT-OFFEN.md, 15.10., 07:1x (Übergabe Tom 14.10., 23:2x)
+- **Vorrat, in dieser Reihenfolge:** (1) **69** übrige Intro-Bilder im Stil des Musterbilds rendern (`[69.intro.1]` Südstraße, `.3` Dorfplatz mit Fackeln, `.4` Gasthausfenster mit Rowena als Umriss; 5 schwarz), als ein Satz „Anzusehen“ auf Dein Zug mit Stil-Abgleich (88), Zeile `e/69e-5.html` dort löschen; dann Intro bauen. Vorlage `BridgeProbe.kt` auf `claude/tom-69e-musterbild`. (2) **83c Scharren** neu aus echten CC0-Aufnahmen Echte Aufnahme nur auf Freesound (wil_j_wil 571660, CC0, Hühner scharren im Gras, laute Pute; von hier 403, nur von Hand ladbar); Ersatz BigSoundBank CC0: 0163 Strohbesen (Schnitte 2,00–2,32 / 2,73–3,08 / 3,67–4,04 / 8,28–8,60 s), 0137 Füße im Laub (1,70–2,14 / 3,53–3,86 / 5,31–5,61, Hochpass 300 Hz), 0024 Besen. Hörprobe auf Dein Zug; sonst bleibt es. Dann `huehner.py` `--spiel`. (3) Danach 86.1, 86.4, 86.2, 86.3, 6l.
+- **Sammelbuild** erst nach „passt“ zu 0.1.746 (PR #63 abonnieren): 69e-Welt, 83b/83c, D1.5 Truhe, 74 Schritte (alle fertig auf ihren Zweigen); Prüfliste mit Hühnern (x 33, y 28) und Brücke nachts (x 18, y 25).
+
 ## Aus ROLLE-TESTER.md, 14.10., 23:3x
 
 **Übergabe (13.10., 20:5x):** Lauf 2 fertig (71 C, D2.1–D2.13). Offen: **38g** (mit Zufallsspieler zählen, als Messung kennzeichnen), **71 A** erst nach Toms Zweigen. Nächster Lauf: Behebungen aus D1/D2 kurz nachprüfen. Vorschau: `MENUE` trifft die Reiter falsch (D2.11), Tasche und System bis dahin nur im Code; Englisch zeichnet die Vorschau nicht. `HAENDLER=neu` lief mit 137 (Speicher) ab, einzeln mit `ONLY=59_…` neu starten. Hinweis: `tools/notiz.sh` schiebt `main` in beiden Arbeitskopien weiter, ohne die Dateien nachzuziehen; vor Änderungen `git reset --hard HEAD && git merge --ff-only origin/main` (kein echter Unterschied).
