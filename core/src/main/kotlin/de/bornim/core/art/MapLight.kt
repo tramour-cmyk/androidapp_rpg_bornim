@@ -15,14 +15,8 @@ import kotlin.math.sqrt
  * light. The result is a light image that is multiplied over the map.
  */
 object MapLight {
-    /**
-     * 13e.6 (draft, user 14.10.: the cave too bright in the test of 0.1.741): away from visible sources nearly black,
-     * only outlines; the hero in the dark only a faint rim. Off: as before.
-     */
-    @Volatile var caveDark = false
-
-    /** 13e.6: with [caveDark], how far what was seen once sinks into the dark out of sight (before 0.15). */
-    @Volatile var caveSeenDim = 0.45f
+    /** 13e.6 (user 15.10.: passt): in a cave what was seen once sinks this far into the dark out of sight (outdoors 0.5). */
+    const val CAVE_SEEN_DIM = 0.45f
 
     /** Map pixels per light grid cell. */
     const val CELL = 8
@@ -186,7 +180,8 @@ object MapLight {
         val deep = map.id == "deep_forest"
         fun mix(a: DoubleArray, b: DoubleArray, t: Double) = DoubleArray(3) { a[it] + (b[it] - a[it]) * t.coerceIn(0.0, 1.0) }
         return when (map.kind) {
-            MapKind.CAVE -> if (caveDark) doubleArrayOf(0.05, 0.05, 0.075) else doubleArrayOf(0.13, 0.13, 0.18)
+            // 13e.6: away from visible sources nearly black, only outlines
+            MapKind.CAVE -> doubleArrayOf(0.05, 0.05, 0.075)
             // a room with a fire (new style, 10.10.) is darker about its corners: the fire lights it, the window a little
             MapKind.INTERIOR -> if (hasHearth(map)) mix(doubleArrayOf(0.13, 0.115, 0.125), doubleArrayOf(0.31, 0.29, 0.285), daylight.toDouble())
                 // D1.2: no fire, so at night only candles and a little moonlight: dark like the other rooms, a shade colder
@@ -237,7 +232,7 @@ object MapLight {
         }
         add(map, g, gw, gh, Source(heroX.toDouble(), heroY.toDouble(), Kind.TORCH, lanternColor, T * (if (map.kind == MapKind.TOWN) 2.2 else 3.4), 1.0), lantern, cx0, cy0)
         // 13e.6: the hero in the dark of a cave as an outline with a faint rim, no light on the ground round him
-        if (map.kind == MapKind.CAVE && caveDark) add(map, g, gw, gh, Source(heroX.toDouble(), heroY.toDouble(), Kind.TORCH, argb(0xA8B4D0), T * 0.55, 0.16), 1.0, cx0, cy0)
+        if (map.kind == MapKind.CAVE) add(map, g, gw, gh, Source(heroX.toDouble(), heroY.toDouble(), Kind.TORCH, argb(0xA8B4D0), T * 0.55, 0.16), 1.0, cx0, cy0)
         // in a cave the light stops at the rock tile by tile; softened, the edge of the light is round, not a staircase
         if (map.kind == MapKind.CAVE) repeat(2) {
             val src = g.copyOf()

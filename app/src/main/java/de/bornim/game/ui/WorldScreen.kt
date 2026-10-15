@@ -1730,7 +1730,7 @@ private object LightImage {
     }
 
     // 13e.6 (draft): in the cave what was seen once does not stay bright; out of sight it sinks into the dark
-    private fun seenDimOf(map: de.bornim.core.MapDef) = if (map.kind == MapKind.CAVE) (if (de.bornim.core.art.MapLight.caveDark) de.bornim.core.art.MapLight.caveSeenDim else 0.15f) else 0.5f
+    private fun seenDimOf(map: de.bornim.core.MapDef) = if (map.kind == MapKind.CAVE) de.bornim.core.art.MapLight.CAVE_SEEN_DIM else 0.5f
 
     /** Each tile is split into SUB × SUB parts for the fog, so the edge of the cone is round (13e, test 13.10.). */
     const val SUB = 4
