@@ -81,9 +81,11 @@ object MapTownIso {
         val lk = looks[Math.floorMod(seed, looks.size)]
         val temple = feature == HouseFeature.BELL_TOWER
         val thatch = roof == RoofKind.STRAW
-        val eave = if (temple) 176.0 else 150.0     // eaves at 2.6 m, the temple higher
-        val o = 0.28                                // the roof hangs over the walls
-        val pitch = if (thatch) 1.25 else 1.0       // rise per run: thatch steeper
+        // D3.13: a herbalist's cot in the woods, low under a deep, steep thatch hanging far out
+        val hut = feature == HouseFeature.HUT
+        val eave = if (temple) 176.0 else if (hut) 112.0 else 150.0     // eaves at 2.6 m, the temple higher, the cot's at 1.95 m
+        val o = if (hut) 0.42 else 0.28             // the roof hangs over the walls
+        val pitch = if (hut) 1.4 else if (thatch) 1.25 else 1.0       // rise per run: thatch steeper
         val run = d / 2.0 + o
         val ridge = eave + run * ZT * pitch
         // the chimney at the back wall rises far enough to show a good part over the ridge
@@ -143,8 +145,10 @@ object MapTownIso {
         fun wall(u: Double, z: Double, len: Int, letters: String, face: Double, s: Int): Int? {
             val tile = floor(u).toInt().coerceIn(0, len - 1); val f = u - tile
             val kind = letters.getOrElse(tile) { '#' }
-            if (kind == 'D') (if (temple) archDoor(f, z, face, s) else door(f, z, face, s))?.let { return it }
-            if (kind == 'W') (if (temple) archWindow(f, z, face, night) else if (night && shut) shutWindow(f, z, face, s + tile) else window(f, z, face, night, s + tile))?.let { return it }
+            // the cot's door and windows lower, under its low eaves
+            val zo = if (hut) z * 1.12 else z
+            if (kind == 'D') (if (temple) archDoor(f, z, face, s) else door(f, zo, face, s))?.let { return it }
+            if (kind == 'W') (if (temple) archWindow(f, z, face, night) else if (night && shut) shutWindow(f, zo, face, s + tile) else window(f, zo, face, night, s + tile))?.let { return it }
             return surface(u, z, face, s, eave)
         }
         plane(p(0.0, d.toDouble(), 0.0), p(n.toDouble(), 0.0, 0.0), p(0.0, 0.0, eave)) { u, v -> wall(u * n, v * eave, n, front, litFront, seed) }
@@ -185,7 +189,48 @@ object MapTownIso {
             }
         }
         // the edge of the roof, thick thatch at the eaves and along the gable: a band under the slope
-        val thick = if (thatch) 16.0 else 5.0
+        val thick = if (hut) 24.0 else if (thatch) 16.0 else 5.0
+        // ---- the cot's herbs (D3.13): bundles hung head down to dry under the eaves, along the front (the door kept
+        // clear) and along the sunny side towards the fire
+        if (hut) {
+            val herbs = intArrayOf(0x8A9A6A, 0x7A7238, 0x84709E, 0xB8AE8A, 0x9A5E34, 0x6C8448)
+            /** One bundle hanging from [zTop] at (i, j), drawn in the plane along [ai], [aj]. */
+            fun bundle(k: Int, i: Double, j: Double, ai: Double, aj: Double, zTop: Double, face: Double) {
+                val col = argb(herbs[hash(k, seed, 71) % herbs.size])
+                val len = 26.0 + rnd(k, 1, seed + 72) * 12
+                val hw = 0.09 + rnd(k, 2, seed + 73) * 0.04
+                val str = 4.0 + rnd(k, 5, seed + 79) * 6
+                plane(p(i - ai * hw, j - aj * hw, zTop - str - len), p(ai * hw * 2, aj * hw * 2, 0.0), p(0.0, 0.0, len + str)) { u, v ->
+                    val dz = (1 - v) * (len + str)                 // down from where it hangs
+                    val c = abs(u - 0.5) * 2
+                    when {
+                        dz < str -> if (c < 0.08) argb(0x2A2016) else null
+                        dz < str + 3 -> if (c < 0.24) shade(argb(0x5A4428), face) else null
+                        else -> {
+                            // tied stalks at the top, the heads spreading and hanging down, ragged at the tips
+                            val t = (dz - str - 3) / len
+                            val wv = 0.22 + 0.78 * Math.sin(Math.PI * min(1.0, t * 0.6 + 0.1))
+                            if (c > wv * (0.8 + rnd(floor(u * 14).toInt(), floor(dz / 3).toInt(), seed + 75) * 0.25) || t > 0.98 - rnd(floor(u * 10).toInt(), 0, seed + 76) * 0.22) null
+                            else shade(mix(argb(0x1A140C), col, (0.62 + (rnd(floor(u * 16).toInt(), floor(dz / 2).toInt(), seed + 77) - 0.5) * 0.5 - c * 0.25).coerceIn(0.0, 1.0)), face)
+                        }
+                    }
+                }
+            }
+            val door = front.indexOf('D')
+            var k = 0
+            var hi = 0.2
+            while (hi < n - 0.1) {
+                if (door < 0 || floor(hi).toInt() != door) bundle(k, hi + (rnd(k, 3, seed + 74) - 0.5) * 0.06, d + o * 0.5, 1.0, 0.0, eave - thick + 4, litFront * 1.1)
+                k++
+                hi += 0.3 + rnd(k, 4, seed + 78) * 0.12
+            }
+            var hj = 0.3
+            while (hj < d - 0.2) {
+                bundle(k, n + o * 0.45, hj, 0.0, 1.0, eave + 2, litSide * 0.95)
+                k++
+                hj += 0.34 + rnd(k, 4, seed + 78) * 0.12
+            }
+        }
         plane(p(ri0, d + o, eave - thick), p(ri1 - ri0, 0.0, 0.0), p(0.0, 0.0, thick)) { u, v -> edgeTex(u * (ri1 - ri0), v, !thatch, lk, seed) }
         plane(p(ri1, d / 2.0, ridge - thick), p(0.0, run, eave - ridge), p(0.0, 0.0, thick)) { u, v -> edgeTex(u * run * 2, v, !thatch, lk, seed + 3) }
         plane(p(ri0, d / 2.0, ridge), p(ri1 - ri0, 0.0, 0.0), p(0.0, run, eave - ridge)) { u, v -> roofTex(u, v) }
@@ -1094,7 +1139,7 @@ object MapTownIso {
             ?: (letters to (if (f.d >= 3) "#W#" else if (seed % 2 == 0) "W#" else "#W"))
         // the chimney over the hearth inside, at the same share of the length; houses without a room: towards one end
         val chimney: Double? = when {
-            style.feature == HouseFeature.BELL_TOWER -> null
+            style.feature == HouseFeature.BELL_TOWER || style.feature == HouseFeature.HUT -> null
             room != null -> (0 until room.width).filter { room.tile(it, 0) == Tile.HEARTH }.takeIf { it.isNotEmpty() }
                 ?.let { hs -> (hs.average() + 0.5) / room.width * f.n }
             else -> if (style.mirrored) f.n * 0.25 + 0.1 else f.n * 0.75 - 0.1
@@ -1199,6 +1244,15 @@ object MapTownIso {
             val wx = (tx + 1) * T; val wy = (ty + 1) * T
             return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, t == Tile.BENCH, corner = true, glow = glow))
         }
+        return houseObjects(map, tx, ty)
+    }
+
+    /**
+     * The upright strips of the house standing on ([tx], [ty]), or null when no house is there; also for a lone hut
+     * in the woods (D3.13, Morwen's).
+     */
+    fun houseObjects(map: MapDef, tx: Int, ty: Int): List<WorldArt.Obj>? {
+        val t = map.tile(tx, ty)
         if (t in roofTiles) return emptyList()
         if (t !in wallTiles) return null
         if (tx > 0 && map.tile(tx - 1, ty) in wallTiles) return emptyList()

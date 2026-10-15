@@ -44,6 +44,8 @@ object MapGround {
         Tile.ROCK, Tile.LOG, Tile.MENHIR, Tile.SIGN, Tile.NOTICE, Tile.CHEST, Tile.CAMPFIRE,
         // the rock face about the cave mouth in the woods ([MapWoodIso] cliff, 1b)
         Tile.CAVE_WALL, Tile.CAVE_ENTRANCE,
+        // a lone hut in the woods (D3.13, Morwen's): the house's strips stand on the ground drawn under it
+        Tile.ROOF, Tile.WALL, Tile.WINDOW, Tile.DOOR,
     )
 
     /** Tiles drawn by the cave's ground ([MapCave]); only inside the cave (09.10., 23:04: the cliff about the cave mouth in the woods is still the former one). */
