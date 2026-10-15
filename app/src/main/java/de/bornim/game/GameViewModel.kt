@@ -82,6 +82,15 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         prefs.edit().putString(KEY_SFX, if (sfxOn) "on" else "off").apply()
     }
 
+    /** 91: the hero's footsteps on their own switch, besides the effects (user 15.10.: they can grate in the long run). */
+    var stepsOn by mutableStateOf(prefs.getString(KEY_STEPS, "on") != "off")
+        private set
+
+    fun toggleSteps() {
+        stepsOn = !stepsOn
+        prefs.edit().putString(KEY_STEPS, if (stepsOn) "on" else "off").apply()
+    }
+
     fun play(s: Sound, volume: Float = 0.8f) = sfx.play(s, volume)
     fun voice(id: String, cue: de.bornim.core.audio.Recorded.Cue, volume: Float = 0.8f) = sfx.voice(id, cue, volume)
 
@@ -323,6 +332,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_LANG = "lang"
         private const val KEY_MUSIC = "music"
         private const val KEY_SFX = "sfx"
+        private const val KEY_STEPS = "steps"
         private const val KEY_TEST = "test_mode"
         private const val KEY_CONTROLS = "controls"
         private const val KEY_LEFT = "left_handed"

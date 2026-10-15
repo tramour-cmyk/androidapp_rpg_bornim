@@ -827,6 +827,8 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
         PixelButton(Ui.language(lang), Modifier.fillMaxWidth()) { vm.toggleLang() }
         PixelButton((if (vm.musicOn) Ui.musicOn else Ui.musicOff)(lang), Modifier.fillMaxWidth()) { vm.toggleMusic() }
         PixelButton((if (vm.sfxOn) Ui.sfxOn else Ui.sfxOff)(lang), Modifier.fillMaxWidth()) { vm.toggleSfx() }
+        // 91: the footsteps on their own, under the effects
+        PixelButton((if (vm.stepsOn) Ui.stepsOn else Ui.stepsOff)(lang), Modifier.fillMaxWidth()) { vm.toggleSteps() }
         Txt(if (lang == Lang.DE) "Blut bei Treffern" else "Blood on hits", size = 15.sp, bold = true)
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             val names = if (lang == Lang.DE) listOf("Aus", "Dezent", "Deutlich") else listOf("Off", "Subtle", "Strong")
