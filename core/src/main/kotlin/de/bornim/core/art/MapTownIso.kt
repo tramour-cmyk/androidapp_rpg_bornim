@@ -777,17 +777,19 @@ object MapTownIso {
      * A street lamp (5.2): a lantern of iron and horn on a post of oak or iron; three looks. [lit] (25.1): only the
      * horn panes, glowing from the flame inside, hottest in the middle and low down; the rest left clear.
      */
-    fun lamp(v: Int, seed: Int, lit: Boolean = false): PixelImage {
+    fun lamp(v: Int, seed: Int, lit: Boolean = false, ci: Double = -0.5, cj: Double = -0.5): PixelImage {
         val c = Tile1(240)
         // lit, everything but the glass is drawn clear, so what stands in front of the glass still hides it
         fun dark(col: Int) = if (lit) 0 else col
-        if (!lit) c.shadow(-0.5, -0.5, 0.2, 0.35)
+        // ([ci], [cj]): where the post stands on the tile, the middle unless set (69e: the bridge lantern on the bank's corner)
+        val di = ci + 0.5; val dj = cj + 0.5
+        if (!lit) c.shadow(ci, cj, 0.2, 0.35)
         val iron = v == 2
-        val (li, lj, lz) = lampHead(v)
-        c.box(-0.54, -0.54, -0.46, -0.46, 0.0, 6.0) { f, _, _ -> dark(shade(argb(0x4A463E), if (f == 0) 0.6 else 0.9)) }
-        c.box(-0.52, -0.52, -0.48, -0.48, 0.0, 170.0) { f, u, w -> dark(if (iron) shade(argb(0x262422), if (f == 0) 0.7 else 1.0) else wood(f, w, u, seed, 0x3E2E22)) }
+        val (li, lj, lz) = lampHead(v, ci, cj)
+        c.box(-0.54 + di, -0.54 + dj, -0.46 + di, -0.46 + dj, 0.0, 6.0) { f, _, _ -> dark(shade(argb(0x4A463E), if (f == 0) 0.6 else 0.9)) }
+        c.box(-0.52 + di, -0.52 + dj, -0.48 + di, -0.48 + dj, 0.0, 170.0) { f, u, w -> dark(if (iron) shade(argb(0x262422), if (f == 0) 0.7 else 1.0) else wood(f, w, u, seed, 0x3E2E22)) }
         // an arm out towards the front, the lantern hanging from it on the first look; else sitting on top
-        if (v == 0) c.box(-0.52, -0.52, -0.48, -0.26, 160.0, 164.0) { f, u, w -> dark(wood(f, u, w, seed + 1, 0x3E2E22)) }
+        if (v == 0) c.box(-0.52 + di, -0.52 + dj, -0.48 + di, -0.26 + dj, 160.0, 164.0) { f, u, w -> dark(wood(f, u, w, seed + 1, 0x3E2E22)) }
         c.box(li - 0.07, lj - 0.07, li + 0.07, lj + 0.07, lz, lz + 22) { f, u, w ->
             val frame = u < 0.15 || u > 0.85 || w < 0.1 || w > 0.9
             when {
@@ -870,13 +872,41 @@ object MapTownIso {
     }
 
     /** Where a lamp's lantern sits (i, j on the tile, height of its foot): hanging from an arm on the first look. */
-    private fun lampHead(v: Int) = if (v == 0) Triple(-0.5, -0.3, 136.0) else Triple(-0.5, -0.5, 170.0)
+    private fun lampHead(v: Int, ci: Double = -0.5, cj: Double = -0.5) = if (v == 0) Triple(ci, cj + 0.2, 136.0) else Triple(ci, cj, 170.0)
 
     /** The glass of lamp [v] shining at night (25.1), with the middle of its light in the picture. */
-    fun lampGlow(v: Int): WorldArt.Glow {
-        val (li, lj, lz) = lampHead(v)
+    fun lampGlow(v: Int, ci: Double = -0.5, cj: Double = -0.5): WorldArt.Glow {
+        val (li, lj, lz) = lampHead(v, ci, cj)
         val c = Tile1(240)
-        return WorldArt.Glow(lamp(v, 521 + v, lit = true), c.sx(li, lj).toInt(), c.sy(li, lj, lz + 11).toInt())
+        return WorldArt.Glow(lamp(v, 521 + v, lit = true, ci = ci, cj = cj), c.sx(li, lj).toInt(), c.sy(li, lj, lz + 11).toInt())
+    }
+
+    /**
+     * 69e (user 14.10., 21:4x, as in the intro picture): a lantern on an oak post at the south end of the bridge, on the
+     * bank east of it (the tile, and where on it the post stands), lighting the crossing at night on the way to the inn.
+     */
+    val BRIDGE_LANTERN = 19 to 27
+    private const val BL_I = -0.84
+    private const val BL_J = -0.14
+
+    /** The bridge lantern's light on the map: the middle of the tile point its post stands on (map pixels). */
+    fun bridgeLanternAt(): Pair<Double, Double> = (BRIDGE_LANTERN.first + 1 + BL_I) * WorldArt.T to (BRIDGE_LANTERN.second + 1 + BL_J) * WorldArt.T
+
+    /**
+     * 69e: the low railing of the bridge, one piece of it along the west ([west]) or east edge of a bridge tile, for
+     * the half of the tile from [j0] to [j1] (local j, −1 north to 0 south): split rails on short posts, about hip high
+     * to the hero, a post at the piece's north end ([post0]) and south end ([post1]): at the ends of the bridge and halfway along each tile.
+     */
+    fun bridgeRail(west: Boolean, j0: Double, j1: Double, post0: Boolean, post1: Boolean, seed: Int): PixelImage {
+        val c = Tile1(110)
+        val i = if (west) -0.94 else -0.06
+        fun post(j: Double) = c.box(i - 0.035, j - 0.035, i + 0.035, j + 0.035, 0.0, 50.0) { f, u, w -> wood(f, w, u, seed + (j * 40).toInt(), 0x3E2E20) }
+        // what lies behind first: the rails run along j, the post at the far end before them, the near one after
+        if (post0) post(j0 + 0.035)
+        c.box(i - 0.02, j0, i + 0.02, j1, 20.0, 25.0) { f, u, w -> wood(f, u, w, seed + 3, 0x4A3828) }
+        c.box(i - 0.03, j0, i + 0.03, j1, 42.0, 48.0) { f, u, w -> wood(f, u, w, seed + 5, 0x5A4632) }
+        if (post1) post(j1 - 0.035)
+        return c.img
     }
 
     /** A bench (5.2): a thick plank on two blocks or trestles, along the map's x; three looks. */
@@ -1107,6 +1137,33 @@ object MapTownIso {
             val glow = synchronized(sliceCache) { glowCache.getOrPut(-80) { kaelLanternGlow() } }.at(tx, ty)
             val wx = (tx + 1) * T; val wy = (ty + 1) * T
             return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, corner = true, glow = glow))
+        }
+        // 69e: the bridge lantern on the bank's corner by the south end of the bridge, its glass lit at night
+        if (map.id == "village" && tx == BRIDGE_LANTERN.first && ty == BRIDGE_LANTERN.second) {
+            val T = WorldArt.T
+            val img = synchronized(sliceCache) { thingCache.getOrPut("bridge_lantern") { lamp(1, 527, ci = BL_I, cj = BL_J) } }
+            val glow = synchronized(sliceCache) { glowCache.getOrPut(-69) { lampGlow(1, BL_I, BL_J) } }.at(tx, ty)
+            val wx = (tx + 1) * T; val wy = (ty + 1) * T
+            val depth = ((tx + 1 + BL_I + ty + 1 + BL_J) * T + T / 2 - 1).toInt()
+            return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, depth - wx, 2, corner = true, glow = glow))
+        }
+        // 69e: the low railing along both sides of the bridge, in half-tile pieces so the hero walks before or behind each
+        if (map.id == "village" && t == Tile.BRIDGE) {
+            val T = WorldArt.T
+            val wx = (tx + 1) * T; val wy = (ty + 1) * T
+            val out = ArrayList<WorldArt.Obj>()
+            for (west in listOf(true, false)) {
+                if (map.tile(if (west) tx - 1 else tx + 1, ty) == Tile.BRIDGE) continue
+                val north = map.tile(tx, ty - 1) != Tile.BRIDGE; val south = map.tile(tx, ty + 1) != Tile.BRIDGE
+                for ((j0, j1) in listOf(-1.0 to -0.5, -0.5 to 0.0)) {
+                    val p0 = j0 == -1.0 && north; val p1 = j1 == -0.5 || south
+                    val img = synchronized(sliceCache) { thingCache.getOrPut("bridge_rail/$west/$j0/$p0/$p1") { bridgeRail(west, j0, j1, p0, p1, 611) } }
+                    val i = if (west) -0.94 else -0.06
+                    val depth = ((tx + 1 + i + ty + 1 + (j0 + j1) / 2) * T + T / 2 - 1).toInt()
+                    out += WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, depth - wx, 2, low = true, corner = true)
+                }
+            }
+            return out
         }
         // 5.5 (test 00:40: a light see-through column at the stall): the table, wares and poles stay solid like a counter,
         // only the cloth roof fades when the hero stands behind the stall; together the same picture as before

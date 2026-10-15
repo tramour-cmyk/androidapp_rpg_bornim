@@ -34,7 +34,7 @@ Schnellstes Werkzeug je Anlass: `tools/t` (Übersicht ohne Befehl). Befund mit W
 
 ## Vor dem Bauen: Stil-Abgleich
 
-Jeder Vorschlag zu Grafik, Animation, Klang nennt in einem kurzen Absatz die berührten Punkte aus `DESIGN-STIL.md`, die entstehenden Übergänge (z. B. Stehen ↔ Hocken ↔ Aufstehen ↔ Gehen, Anführer dreht ↔ Rudel folgt) und wie sie geprüft werden (Kerntest, Film des Übergangs hinein und heraus). Bei Spielablauf und Bedienung ebenso die vier Fragen „Spielerfreundlich, einfach, frei“ (33). Erst danach bauen. „Erst Standbilder“ heißt: Entwurf bauen und Bilder zeigen, nicht vorher fragen.
+Jeder Vorschlag zu Grafik, Animation, Klang nennt in einem kurzen Absatz die berührten Punkte aus `DESIGN-STIL.md`, die entstehenden Übergänge (z. B. Stehen ↔ Hocken ↔ Aufstehen ↔ Gehen, Anführer dreht ↔ Rudel folgt) und wie sie geprüft werden (Kerntest, Film des Übergangs hinein und heraus). Bei Spielablauf und Bedienung ebenso die vier Fragen „Spielerfreundlich, einfach, frei“ (33). Den Abgleich in Stichworten auf die Seite zum Punkt auf „Dein Zug“ schreiben (sonst in den Commit), damit Nutzer und Berater ihn sehen (88). Erst danach bauen. „Erst Standbilder“ heißt: Entwurf bauen und Bilder zeigen, nicht vorher fragen.
 
 ## Test-Builds (78)
 
