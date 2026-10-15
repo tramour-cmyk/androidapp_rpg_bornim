@@ -964,11 +964,14 @@ object MapCaveIso {
         }
     }
 
-    /** Which of three looks the gate has (D1.11), the same all across it: from its leftmost tile. */
+    /**
+     * Which of three looks the gate has (D1.11), the same all across it: from its leftmost tile. The seed is picked so
+     * the one gate of chapter 1 (Grak's hall) is the one the goblins patched; the old look stays for later caves.
+     */
     fun gateLook(map: MapDef, tx: Int, ty: Int): Int {
         var x0 = tx
         while (MapCave.caveTile(map, x0 - 1, ty) == Tile.GATE) x0--
-        return Math.floorMod(hash(x0, ty, 47), 3)
+        return Math.floorMod(hash(x0, ty, 50), 3)
     }
 
     /**
