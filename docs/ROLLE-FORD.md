@@ -58,6 +58,7 @@ Fehlgeschlagen: keins (sonst Fehler wörtlich)
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen.
 
+- 10:03 15.10.: Start Tom (Nachfolger gewünscht, D1.3/D1.11)
 - 08:04 15.10.: Start Diogenes (38g; Start 07:05 landete in Toms Sitzung, 81q)
 - 07:50 15.10.: Start Tom (Ford-Sitzung, erster Lauf)
 - 07:28 15.10.: Probe 81p nicht möglich: create_session fehlt in der Routine (ToolSearch „create_session“: „No matching deferred tools found“; list_sessions ebenso). Kein Start, Diogenes nicht doppelt gestartet.
