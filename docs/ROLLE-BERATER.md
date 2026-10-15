@@ -4,7 +4,7 @@ Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in 
 
 **Übergabe (15.10., 20:5x) – Nachfolger: „Sokrates – Entwurf Firma und Rollen“:**
 
-**Nächster Punkt:** (1) **98** [Entwurf Firma und Rollen](https://claude.ai/code/artifact/1757d98a-8847-4483-9c51-05be34b45356) fertig (20:4x), Prüfauftrag „Für Diogenes“ und „Auftrag Diogenes 98“ an Ford gesendet; nach Befund auf Dein Zug (mit 98.1–98.4). **Nichts umbauen** bis zur Einigung. (2) Im Gespräch offen: D11.2 (Empfehlung ja: Werkzeug schreibt Besetzung, Ford 2 Jerrys Teil, Commit nur bei Änderung), D11.3, `LISTE-THEMEN.md` behalten, Zeitpunkt Umbau. 99f beschlossen (Nutzer richtet Telegram-Schlüssel auf Pro am Fr ein). (3) 99d Sparmodus, 65.11, 72s.1, D10 auf Dein Zug. Ford-Wache-Uhr feuert in archivierte Sitzung: Ford fragen.
+**Nächster Punkt:** (1) **98** [Entwurf Firma und Rollen](https://claude.ai/code/artifact/1757d98a-8847-4483-9c51-05be34b45356) fertig, Diogenes Lauf 12 eingearbeitet (D12.1–D12.4), auf Dein Zug `e/98.html` (98.1–98.4); D12.5–D12.9 beim Umbau mitnehmen. **Nichts umbauen** bis zur Einigung. (2) Im Gespräch offen: D11.2 (Empfehlung ja: Werkzeug schreibt Besetzung, Ford 2 Jerrys Teil, Commit nur bei Änderung), D11.3, `LISTE-THEMEN.md` behalten, Zeitpunkt Umbau. 99f beschlossen (Nutzer richtet Telegram-Schlüssel auf Pro am Fr ein). (3) 99d Sparmodus, 65.11, 72s.1, D10 auf Dein Zug. Ford-Wache-Uhr feuert in archivierte Sitzung: Ford fragen.
 
 **Zuletzt gelesen bis:** 23ec887e (15.10., 20:5x)
 
