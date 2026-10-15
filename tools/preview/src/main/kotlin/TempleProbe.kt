@@ -68,12 +68,12 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         1 -> Cam(7.45, 5.8, 328.0, 600.0)    // the back corner by the door: the full pews at a slant, the empty altar beyond
         2 -> Cam(4.15, 3.75, 8.0, 560.0)     // first row, by the aisle: Aldric and Lyra before the altar
         3 -> Cam(4.55, 3.8, 6.0, 560.0)      // first row: Lyra at the altar, Osric with the candle
-        4 -> Cam(3.65, 3.8, 14.0, 560.0)     // first row, left: the sun through the east window onto the amulet
+        4 -> Cam(2.6, 3.5, 66.0, 560.0)      // first row, left, turned to the east: the window on the right, its shaft onto the amulet (68n)
         else -> Cam(4.5, 3.2, 180.0, 600.0)  // the nave, turned to the door: Lyra in it, the grey morning outside
     }
     override val hy = cam.hy; override val eye = 1.65; override val camX = 0.0; override val pan = 0.0
     /** A wider lens inside than outside: the nave is only 11 m wide and the eye stands in it (picture 1 at the door). */
-    override val f = when (shot) { 1 -> 680.0; 4 -> 720.0; 5 -> 760.0; else -> 760.0 }
+    override val f = when (shot) { 1 -> 680.0; 4 -> 640.0; 5 -> 760.0; else -> 760.0 }
     override val moonX = -999.0; override val moonY = -999.0
     val T = 1.6
     val wallH = 6.0
@@ -346,7 +346,7 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
 
     /** The sun amulet: a gold disc with a pale stone in it; [shine] 0..1 how much light it catches. */
     fun amuletAt(x: Double, y: Double, s: Double, shine: Double) {
-        if (shine > 0.6) { glow(x, y, 1.6 * s, Color(0xFFD070), 0.55 * shine); glow(x, y, 0.5 * s, Color(0xFFF4D0), 0.9 * shine) }
+        if (shine > 0.6) { glow(x, y, 0.6 * s, Color(0xFFD070), 0.4 * shine); glow(x, y, 0.22 * s, Color(0xFFF4D0), 0.8 * shine) }
         else glow(x, y, 0.4 * s, Color(0xFFC060), 0.4)
         val r = 0.07 * s
         g.color = mix(Color(0xB08A3A), Color(0xFFE6A0), shine); g.fill(Ellipse2D.Double(x - r, y - r, r * 2, r * 2))
@@ -433,7 +433,7 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         1 -> crowd() + listOf(Who(4.15, 2.45, Kind.ALDRIC, 0.0, 1.78))
         2 -> crowdFront() + listOf(Who(4.32, 2.5, Kind.ALDRIC, 82.0, 1.78), Who(4.86, 2.45, Kind.LYRA, 265.0, 1.68))
         3 -> crowdFront() + listOf(Who(4.45, 2.3, Kind.LYRA, 0.0, 1.68), Who(5.15, 2.6, Kind.OSRIC, 320.0, 1.7))
-        4 -> crowdFront() + listOf(Who(3.75, 2.35, Kind.LYRA, 40.0, 1.68), Who(5.0, 2.45, Kind.OSRIC, 300.0, 1.7))
+        4 -> crowdFront() + listOf(Who(4.95, 2.45, Kind.LYRA, 305.0, 1.68), Who(6.2, 2.25, Kind.OSRIC, 285.0, 1.7))
         else -> listOf(Who(4.5, 5.95, Kind.LYRA, 180.0, 1.68))
     }
 
@@ -602,8 +602,7 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         g.paint = GradientPaint(src[0].x.toFloat(), src[0].y.toFloat(), Color(0xFFE0A0), dst.x.toFloat(), dst.y.toFloat(), Color(0xFFC060))
         g.fill(beam)
         g.composite = old
-        glow(dst.x, dst.y, 1.4 * s, Color(0xFFD070), 0.45)
-        amuletAt(dst.x, dst.y, s, 1.0)
+        glow(dst.x, dst.y, 0.35 * s, Color(0xFFE090), 0.5)
     }
 
     /** Dust in the air: in the candlelight before the dawn, in the sun shaft in picture 4, in the grey from the door in picture 5. */
