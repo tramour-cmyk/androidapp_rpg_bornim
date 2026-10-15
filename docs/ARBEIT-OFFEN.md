@@ -82,11 +82,11 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer, dann `send_message` an Ford „Auftrag Diogenes <Nr>“; nur Nutzer oder Ford starten Diogenes; Ablauf in `docs/ROLLE-TESTER.md`).
 
 - **90 Tagesrückblick** nach dem 22.10., 9 Uhr: die Rückblicke der Woche (Telegram, Sitzungen „Sokrates – Tagesrückblick“) gegen die Quellen in `ROLLE-BERATER.md` „Tagesrückblick“ prüfen: Stimmten die Fakten, wurden Empfehlungen umgesetzt, was hat die Woche gekostet; Ergebnis im Prüfbericht vor der Bilanz am 23.10. Dazu (Nutzer 15.10., 19:5x „auch nachts einiges geschafft“): je Nacht 22–7 Uhr Sitzungen und Commits zählen, Leerlauf mit Ursache.
-- **98** Firmenordnung und Rollenkonzept (beide Docs-Links in „Wer macht was“ 98), **auf Herz und Nieren** (Nutzer 15.10., 22:4x): blind, ohne Abgleichtabelle; gegen Wortlaute 98/99, D11.1, 99f und die heutigen Regeln (`CLAUDE.md`, ROLLE-Dateien): geht beim Umstellen etwas verloren, Schwerpunkt Ablauf, Zentrale/Niederlassung, Lücken; Ergebnis Go oder Befunde, mit Liste der Fragen, die der Nutzer vor dem Umstellen entscheiden muss.
 
 ## Für den Berater
 
 Grundsatzfragen (Rollen in `CLAUDE.md`): Tom und Jerry tragen ein und arbeiten weiter; Nutzer und Berater entscheiden, der Berater streicht die Zeile und trägt die Entscheidung in „Wer macht was“ ein.
 
+- **98** (Diogenes Lauf 13, 15.10., 22:5x, [Prüfbericht](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ)): **kein Go in der heutigen Fassung**, Struktur trägt; D13.1–D13.11 (Betrieb am Umstelltag: Ford Pilot startet Hüte, Ford-Wache archiviert, Werkzeuge und `ARBEIT-ABLAEUFE.md` lesen alte Orte, Umbauplan widerspricht, Besetzung ohne Werkzeug, Netz holt Jerry auf Max, Sicht auf Pro). Vier Fragen an den Chef vor dem Umstellen (98.6, Fords Stellung bis Sa 21:00, Besetzung von Hand, 75l).
 - **98/99** (Diogenes Lauf 11, 15.10., 19:1x): D11.1–D11.5 im Prüfbericht, Paket auf Dein Zug `e/d11.html` (ja mit D11.1–D11.3); D11.4/D11.5 zieht Sokrates nach.
 
