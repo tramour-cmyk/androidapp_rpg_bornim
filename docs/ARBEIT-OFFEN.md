@@ -10,7 +10,7 @@ Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main`
 
 ## Jetzt installieren
 
-- **Tom Sammelbuild 0.1.746** (83 Hecke, 85, 87; PR #63, Zweig `claude/tom-sammel-83-85-87`): [APK](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38624703687/artifacts/11923257701), Prüfliste `e/t746.html`. Nach „passt“: zusammenführen, `CHANGELOG.md`, Prüfliste von „Dein Zug“.
+- **Tom Sammelbuild nach 0.1.746** (69 Intro, 83b/83c Hühner, D1.5, 74 Schritte; PR #64, Zweig `claude/tom-sammel-nach-746`): Build läuft, APK und Prüfliste folgen.
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -21,12 +21,10 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | Nr. | Thema | Wer | Zweig | Stand |
 |---|---|---|---|---|
 | 86 | Bewegung und Übersicht (Nutzer 14.10., 18:5x) | Tom (86.1, 86.2, 86.4, 86.3 Ausdauer); Jerry (86.3 Keuchen, Lärm, Initiative; 86.11 mit 72b/38) | `claude/tom-86-standort-joystick` | Einzelheiten in den Beschlüssen. **Tom:** 86.1–86.4 gebaut (`Stamina`), nächster Sammelbuild; Jerry zur Kenntnis: etwa 15 Zeilen `WorldScreen.kt`, `GameState.winded`/`stamina`. **Jerry:** Keuchen, Initiative mit Nachteil, Rennen laut (84.4). Beschlossen, Bau offen: 86.6, 86.9, 86.10, 86.11 |
-| 87 | Schänke nach Test 0.1.740 (Nutzer 14.10., 20:5x): **87.1** Katze flackert beim Laufen und läuft durch den Tisch vor dem Tresen; **87.2** Rowena wischt in der Luft statt am Tresen (Klang passt, D1.10); **87.3** Borin trinkt ohne Becher (Klang passt) | Tom | `claude/tom-sammel-83-85-87` | Alle drei gebaut (Katzenweg, Tresen auch Thessa, Zinnkrug), PR #63. Jerry zur Kenntnis: eine Zeile `WorldScreen.kt` (`npcPos` ruft `MapFolk.nudge`) |
-| 85 | Testmenü aufräumen: alte Einträge, die keiner mehr braucht („irgendwas mit Donnern“; Nutzer 14.10., 18:5x) | Tom (Technik); Jerry prüft seine Einträge | `claude/tom-85-testmenue` | Wetterleuchten-Knopf und „Garrick döst“ entfernt (beide seit 10.10. als vorübergehend markiert); im Sammelbuild PR #63 |
 | 81 | Teamleiter „Ford“ (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–n, 81p, 81r (`ROLLE-FORD.md`, `ARBEIT-ABLAEUFE.md` „Neustart“); Ford lebt in „Ford – Teamleiter“, Co-Pilot. Pilot und Bewährung (81i) auf Zuruf; Jerry-Ford ab Fr. **Nutzer:** `TELEGRAM_BOT_TOKEN` in Jerrys Umgebung. **81s** (Nutzer 15.10., 11:0x: „ja mit Probe“): D5.2–D5.5 erledigt (Routinen gelöscht, alte Ford-Sitzung archiviert); **D5.1 Probe** Stundenuhr `trig_01XSM2AKJtWvwXZgTBnkRMjw` (:03) in Fords Sitzung, Sokrates prüft 12:10, dann ersetzt sie die `send_later`-Kette. Verlauf 81o–81r im Archiv („Aus ARBEIT-OFFEN.md, 15.10., 10:2x (Sokrates, 81)“) |
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`enabled: false`, nicht löschen). 65.8/65.9 stehen in `CLAUDE.md`. **65.10** (Nutzer 14.10., 23:1x): Selbstarbeit ist abgeschafft, Ford ersetzt sie; Notizen nachziehen (`CLAUDE.md`-Zeile, `ARBEIT-SELBST.md` ins Archiv, Neustart ohne Nutzer: Übergabe „Nachfolger gewünscht“, Ford startet) |
 | 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-13e6-dunkler` | D1.5 Truhe auf `claude/tom-d1-5-truhe`, D1.3/D1.11 auf `claude/tom-d1-kerze-gitter`. **13e.6 dunkler: passt** (Nutzer 15.10., 10:5x), wird fest eingeschaltet, nächster Sammelbuild. Helligkeitsregler Jerry mit 40. Danach D1.7 Leben (Absprache `WorldScreen.kt`) |
-| 83 | Dorf Süd: Beete, Weizenfelder, Hühner am Südrand (Nutzer 14.10.) | Tom | `claude/tom-83b-huehner` | 83a Hecke in PR #63; 83b Hühner passt; 83c Scharren **B Strohbesen** (Nutzer 15.10., 10:5x). Nächster Sammelbuild. Jerry zur Kenntnis |
+| 83 | Dorf Süd: Beete, Weizenfelder, Hühner am Südrand (Nutzer 14.10.) | Tom | `claude/tom-83b-huehner` | 83a Hecke auf `main`; 83b Hühner passt; 83c Scharren **B Strohbesen** (Nutzer 15.10., 10:5x). Nächster Sammelbuild. Jerry zur Kenntnis |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` bis 5.5 |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`LISTE-KAPITEL1.md`](LISTE-KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | Toms Teil von 26c fertig |
@@ -57,7 +55,7 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Übergaben
 
 ### Tom (15.10., 10:5x, „Tom – Sammelbuild nach 0.1.746“)
-- **Sammelzweig vorbereitet** `claude/tom-sammel-nach-746` (68ac1641, auf PR #63 aufgesetzt): 69e Welt und Intro, 83b/83c Hühner, D1.5 Truhe, 74 Schritte; 83c Strohbesen drin. Kerntests grün. **PR erst nach „passt“ zu 0.1.746**, dann Prüfliste und Weckruf.
+- **Sammelbuild** `claude/tom-sammel-nach-746`, PR #64 (68ac1641, auf PR #63 aufgesetzt): 69e Welt und Intro, 83b/83c Hühner, D1.5 Truhe, 74 Schritte; 83c Strohbesen drin. Kerntests grün. 0.1.746 zusammengeführt (PR #63); Weckruf 11:34 für APK und Prüfliste.
 - **Danach** (je höchstens 4 Punkte): 86 plus 6l (`claude/tom-6l-zoom`), D3 (Konflikt `MapFlora.kt`), 13e.6 fest an (`claude/tom-13e6-dunkler`, Konflikt Vorschau `Main.kt`), D1.3/D1.11. Vorrat: D1.7 Leben Höhle (Absprache `WorldScreen.kt`, Jerry ab Fr.).
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
