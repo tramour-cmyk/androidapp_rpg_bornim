@@ -4,7 +4,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 **offen 7, davon A 1, wartet auf Chef 1**
 
-**Gelesen bis:** Umbau-Commit 98 (15.10., 23:1x)
+**Gelesen bis:** `44880c5e` (Umbau 98 = `560658a9`, 15.10., 23:1x)
 
 **Übergabe (15.10., 23:1x, „Sokrates – Umstellung 98“):** Umbau 98 gemacht (ein Commit, Notizen und Werkzeug), Prüfung 1 (Sokrates) erledigt, Diogenes beauftragt (Zeile 98 in `ARBEIT-PRUEFUNG.md`), Ford „Umstellung fertig“. Nächster Punkt: Befund von Diogenes holen und einarbeiten; 16.10. Morgenmeldung Ford „Umbau läuft / hakt“ lesen. Sparmodus 99d bis Sa 21:00: Sokrates nur auf Zuruf. Nachfolger: „Sokrates Projekt – Nachprüfung Umbau 98“ (erst nach Diogenes' Befund).
 
