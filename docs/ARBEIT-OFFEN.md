@@ -66,12 +66,13 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 - **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5/D1.6/D1.9/D1.15 Höhle bei Tom (13e); D1.7 Leben Höhle, D1.8 stumme Quellen, D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (`grund_fs_609422`, `grund_fs_540836`, Hörner/Kreaturen ohne Quelle): Berater empfiehlt nach Umweltklang-Regel (15.10.): Tropfen und fernes Grollen behalten, Hörner herausnehmen (passen zu keiner Quelle der Geschichte); **Nutzer entscheidet nach Hörprobe** (Höhle mit und ohne auf „Dein Zug“), erst danach ändern.
 - **Diogenes Lauf 3** (14.10., Prüfbericht, Verdachte, erst bestätigen): **Jerry** D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald, D3.4 Endlosklänge reißen ab, D3.5/D3.6 Monster, D3.8–D3.10, D3.12; **Tom** D1.3/D1.11-Rest gebaut (`claude/tom-d1-kerze-gitter`); D3.3, D3.5, D3.7, D3.11 bestätigt und gebaut (`claude/tom-d3-wald`, Standbilder und Fackelfilm geprüft; D3.11 erledigt sich mit D3.7: dort steht jetzt das niedrige Schild, verdeckt nur die Füße); nächster Sammelbuild. Jerry zur Kenntnis: drei Zeilen `WorldScreen.kt` (Fackelschein).
+- **Diogenes Lauf 6** (15.10., 71 A Dorf, Prüfbericht, Verdachte, erst bestätigen): **Tom** D6.1 Bäume, Zaun, Beete ohne Schatten; D6.2 Pim hinter jungen Fichten; D6.3 Ufer und Brücke flach; D6.5 Doppelstände; D6.6 Lichtrichtung; D6.7 Beetraster. **Jerry** D6.4 Fluss stumm.
 
 ## Für Diogenes
 
 Prüfaufträge für den Tester (alle tragen ein, eine Zeile mit Themennummer; nur der Nutzer startet Diogenes; Ablauf in `docs/ROLLE-TESTER.md`).
 
-- **71 Bestandsprüfung Stil und Klang** (Nutzer 13.10., 18:16): Liste „Bestandsprüfung (71)“ in `ROLLE-TESTER.md`. **B**, **C** und **A** Wald/Tiefer Wald erledigt (Lauf 1–3); **A Dorf** nach Toms Sammelbuild 0.1.746.
+- **71 Nachprüfung Dorf** nach Toms Sammelbuild 0.1.748 auf `main` (Hühner 83b/c, Schritte 74, Intro 69; Lauf 6 hat nur `main` geprüft).
 
 ## Für den Berater
 

@@ -3,9 +3,9 @@
 Haltung und Ablauf des Testers. **Höchstens etwa 10 KB** (Startprompt und Kosten/Nutzen 75 kamen dazu); nur Diogenes liest diese Datei. Kurzrolle in `CLAUDE.md`.
 
 **Prüfbericht:** https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ (bei Toms Account)
-**Geprüft bis:** `7eccf136` (15.10., Lauf 5: Abläufe der Agenten, Auftrag des Nutzers; kein neuer Code seit `f4b4aa45`); nächste Nummer D6
+**Geprüft bis:** `583a6a4` (15.10., Lauf 6: 71 A Dorf; letzter Code e61c74d, 0.1.746); nächste Nummer D7
 
-**Übergabe (15.10., 10:3x):** Lauf 5 fertig: D5.1–D5.5 (Ford-Wecker ohne Netz, „läuft“ zu eng, Weiter-Haken bei Ford, tote Selbstarbeits-Routinen, Widerspruch in `ROLLE-FORD.md`) im Bericht, Zeile „Für den Berater“. Offen: **71 A Dorf** nach Toms Sammelbuild 0.1.746. Vorschau: HELDORT-Bilder brauchen kalt etwa 19 Minuten für 9 Bilder, im Hintergrund starten. Vor Änderungen in `../bornim-main` `git reset --hard HEAD && git merge --ff-only origin/main`. Nachfolger: Diogenes – 71 A Dorf (erst wenn Toms Sammelbuild 0.1.746 auf `main` ist; bis dahin nichts zu prüfen).
+**Übergabe (15.10., 12:1x):** Lauf 6 fertig: 71 A Dorf, D6.1–D6.7 im Bericht (Tom sechs, Jerry D6.4), „Zu testen“ eingetragen. 71 damit ganz durch. Offen unter „Für Diogenes“: Nachprüfung Dorf nach Toms 0.1.748 auf `main`. Bilder: 9 Bilder kalt etwa 12 Minuten. Nachfolger: Diogenes – 71 Nachprüfung Dorf (erst wenn 0.1.748 auf `main` ist).
 
 ## Wer du bist (Startprompt, Thema 75, Nutzer 13.10., 20:36)
 
