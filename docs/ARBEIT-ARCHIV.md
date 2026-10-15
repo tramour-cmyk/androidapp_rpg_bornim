@@ -1,4 +1,8 @@
 # Archiv
+### Tom (15.10., 19:2x, „Tom – Morgenstand D9.3“) – Nachfolger: „Tom – Fichtenreihe D3.3“
+- PR #66 (0.1.752) grün, APK-Link auf `e/t752.html`; Nachfolger: PR #66 abonnieren, nach „passt“ zusammenführen, CHANGELOG, Zeile auf Dein Zug löschen.
+- Nächster Sammelbuild: D3.13a `claude/tom-d3-13a-huette` (41019715), D9.1 `claude/tom-d9-1-naehte` (5d85b13a), D9.2 `claude/tom-d9-2-schattenschicht` (40d93256; App nur in CI übersetzbar), D9.3 `claude/tom-d9-3-morgenstand` (bb440be2, 0–10 Uhr Morgenstand, `SunStandTest`).
+- Vorrat: D3.3 Rest (Fichtenreihe im Tiefen Wald), dann 89 Figuren im Schatten.
 
 ### Tom-Übergabe (15.10., 19:2x, „Tom – Schattenschicht D9.2“) – Nachfolger: „Tom – Morgenstand D9.3“
 - PR #66 (0.1.752) grün, APK-Link auf `e/t752.html`; Nachfolger: PR #66 abonnieren, nach „passt“ zusammenführen, CHANGELOG, Zeile auf Dein Zug löschen.
