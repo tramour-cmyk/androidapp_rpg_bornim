@@ -10,7 +10,7 @@ Nur was **in Arbeit**, **zu testen** oder **zu entscheiden** ist; nur auf `main`
 
 ## Jetzt installieren
 
-**0.1.750** (Build A, PR #65, Tom: 89, 91, Runde nach 0.1.748), Prüfliste auf Dein Zug `e/t750.html`.
+Nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
 
 Rückfragen und Testfragen an den Nutzer stehen nur auf der Seite „Dein Zug“ (65.3), nicht hier.
 
@@ -24,17 +24,15 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 93 | „Die Beete westlich gehen nicht bis zum Zaun.“ (Nutzer 15.10., 16:5x) | Tom | – | Neu |
 | 94 | „Hühner landen teilweise auf dem Fluss.“ (Nutzer 15.10., 16:5x); dazu D7.1 Hühner verschwinden schlagartig bei Regen und Dämmerung | Tom | – | Neu, in Arbeit |
 | 95 | Atem: „Atem mit Anzeige (Balken rechts) hört man nicht und der Balken funktioniert nicht.“ (Nutzer 15.10., 16:5x, zu 86) | Tom (Balken); Jerry (Keuchen, 86.3) | – | Neu. **Jerry, 95:** Keuchen hörbar machen (ab Fr.) |
-| 86 | Bewegung und Übersicht (Nutzer 14.10., 18:5x) | Tom (86.1–86.4); Jerry (86.3 Keuchen, Lärm, Initiative; 86.11 mit 72b/38) | `claude/tom-runde-nach-748-b` | Einzelheiten in den Beschlüssen. **Tom:** 86.1–86.4 gebaut, Build A. **Jerry:** Keuchen, Initiative mit Nachteil, Rennen laut (84.4); zur Kenntnis `GameState.winded`/`stamina`. Beschlossen, Bau offen: 86.6, 86.9, 86.10, 86.11 |
+| 86 | Bewegung und Übersicht (Nutzer 14.10., 18:5x) | Tom (86.1–86.4); Jerry (86.3 Keuchen, Lärm, Initiative; 86.11 mit 72b/38) | – | Einzelheiten in den Beschlüssen. **Tom:** 86.1–86.4 auf `main` (0.1.750). **Jerry:** Keuchen, Initiative mit Nachteil, Rennen laut (84.4); zur Kenntnis `GameState.winded`/`stamina`. Beschlossen, Bau offen: 86.6, 86.9, 86.10, 86.11 |
 | 90 | Projektleitung: täglicher Rückblick (Nutzer 15.10., 12:4x) | Berater; Ford startet | `main` (Notizen) | **Probe 16.–22.10. beschlossen** (12:5x, Beschlüsse): Sokrates morgens nach Fords Morgenmeldung (`ROLLE-FORD.md` 6a, `ROLLE-BERATER.md` „Tagesrückblick“). **Sokrates** achtet auf die Woche (jeder Rückblick nennt „Tag n von 7“) und Diogenes prüft die Woche vorher (Nutzer 12:5x, „Für Diogenes“); 23.10. Bilanz mit Nutzer: weiter oder abschaffen. **90a** auf Dein Zug |
-| 91 | Schrittgeräusche eigenständig abschaltbar, zusätzlich zu den Effekten (Nutzer 15.10., 16:0x: „Die Töne können auf Dauer nerven“) | Tom (Bau); Berater (Idee) | `claude/tom-91-schritte` | **Tom:** Schalter „Schritte: An/Aus“ im System-Reiter gebaut, gespeichert (eine Zeile `WorldScreen.kt`, Jerry zur Kenntnis); in Build A (PR #65). **Sokrates:** Stellungnahme (Für den Berater) |
-| 89 | Schatten mit dem Tag (Nutzer 15.10., 12:1x, zu D6.1) | Tom | `claude/tom-89-schatten-spiel` | **89/89a passt** (Nutzer 16:1x, Beschlüsse). **Tom:** fest im Spiel gebaut (Stand bei Kartenwechsel, Rast, Laden; Menschen werfen Sonnenschatten), in 0.1.750 (PR #65). Jerry zur Kenntnis: `WorldScreen.kt` Schritt 2, Monster haben noch nur den runden Fußschatten. Mond mit D3.14 |
 | 81 | Teamleiter „Ford“ (Nutzer 14.10., 13:09) | Berater mit Nutzer | `main` (Notizen) | Beschlossen 81a–c, 81g–n, 81p, 81r, 81s (Uhr statt Kette, bestätigt 12:03), 81t, 81u (nein), 81v (Nutzer 15.10., 13:4x: Titel mit Startzeit, Vorgänger archivieren) (`ROLLE-FORD.md`, `ARBEIT-ABLAEUFE.md` „Neustart“); Ford lebt in „Ford – Teamleiter“, Stellung oben; Jerry-Ford ab Fr. **Nutzer:** `TELEGRAM_BOT_TOKEN` in Jerrys Umgebung. Verlauf 81o–81r im Archiv („Aus ARBEIT-OFFEN.md, 15.10., 10:2x (Sokrates, 81)“) |
 | 65 | Abläufe verschlanken (Nutzer 13.10. alle Punkte ja) | Berater; Jerry (65.2) | `main` (Notizen) | Fertig bis auf **65.2:** Jerry pausiert seine acht Weck-Routinen „Jerry Selbstarbeit HH:MM“ (`enabled: false`, nicht löschen). 65.8/65.9 stehen in `CLAUDE.md`. **65.10** (Nutzer 14.10., 23:1x): Selbstarbeit ist abgeschafft, Ford ersetzt sie; Notizen nachziehen (`CLAUDE.md`-Zeile, `ARBEIT-SELBST.md` ins Archiv, Neustart ohne Nutzer: Übergabe „Nachfolger gewünscht“, Ford startet). **65.11** (Nutzer 15.10., 16:4x „mach beides“: Haken und Kürzen): Dein-Zug-Haken gebaut; Entwurf CLAUDE.md halbieren ([Dokument](https://claude.ai/code/artifact/2acaeffb-b81a-40ab-8a10-d6a0380bedc5)) auf Dein Zug |
-| 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | `claude/tom-runde-nach-748-b` | D1.5 in #64; D1.3/D1.11 und 13e.6 fest in Build A. Helligkeitsregler Jerry mit 40. Danach D1.7 Leben (Absprache `WorldScreen.kt`) |
+| 13e | Höhle „Ort fertig“ (Vertretung Jerry, Nutzer 14.10., 16:0x) | Tom | – | D1.3/D1.11, D1.5, 13e.6 auf `main`. Helligkeitsregler Jerry mit 40. Danach D1.7 Leben (Absprache `WorldScreen.kt`). Mond mit D3.14 (89) |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | – | Auf `main` bis 5.5 |
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm | Tom (Technik); Jerry (Inhalt) | – | Großteil auf `main`. **Jerry:** 24.6 Kampferöffnung wartet + Herzschlag. Verlauf im Archiv |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem ([`LISTE-KAPITEL1.md`](LISTE-KAPITEL1.md)) | Tom und Jerry, je ihr Teil | `main` (Notizen) | Toms Teil von 26c fertig |
-| 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Tom | `claude/tom-runde-nach-748-b` | Auf `main` bis 27m. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise). **D3.13** Morwens Hütte: zweiter Entwurf (2×2, flacher, Tür zum Feuer) auf Dein Zug. **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1 |
+| 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Tom | – | Auf `main` bis 27m. **27k:** nur Frosch 1–3, Chor 2, Libelle 1–2 (leise). **D3.13** Morwens Hütte: zweiter Entwurf (2×2, flacher, Tür zum Feuer) auf Dein Zug. **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1 |
 | 30 | Abstürze beim Testen | Tom (Technik); Jerry prüft seine Klang-Fäden | – | Abstürze beobachten (bei neuem `adb logcat` mit Anleitung von Tom); 30.7 Merkliste |
 | 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben) | Jerry | – | Meldung Nutzer 12.10., 15:4x; erneut 14.10., 21:1x (Test 0.1.741, Alrik liegt mit Brand 2, „sieht immer noch nicht richtig aus“). Erst Standbild der Sterbehaltungen aller Klassen, dann Vorschlag |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt | Jerry | – | 36.4–36.7, 36h/36j/36k auf `main` (PR #46, #47, getestet 0.1.587). Rest in 52, 53. **Offen 36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung. Verlauf im Archiv |
@@ -43,7 +41,6 @@ Die Listen: **Offen** (diese Datei) · [Merkliste](LISTE-IDEEN.md): Ideen für s
 | 40 | Lautstärke im Menü: Gesamt, Musik, Effekte (heute nur Musik an/aus) | Jerry | neu von `main` | Nutzer 12.10., 09:52. **40a ja (10:10):** drei Regler, Ortsklang bei Effekten; **Jerry, 13e.6** Helligkeitsregler auf derselben Einstellungsseite: Abgleich mit Prüfbild („Zeichen gerade noch sichtbar“), hellt die Höhle nicht auf (Wert mit Tom) |
 | 41 | Storyplan; Texte Kapitel 2 | Berater mit Nutzer | `main` (Notizen) | [Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d) Kapitel 2 fertig (ohne 5b). [Textentwurf](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413) beim Nutzer; offen 4.4, 5.3, 6.3 |
 | 72 | Profil und Kampfsystem | Berater mit Nutzer; Jerry (Probe, Bau) | `main` (Notizen) | [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4); beschlossen siehe Beschlüsse (72.6–72.15, 72o B, 72o.1 A mit C, 72r–72t, 72v). **Jerry, 72.10** Probe Held plus Söldner gegen Grak auf dem gemalten Kampfort (drei Absichten, Ring, zwei Reihen mit je zwei Plätzen, Platztausch, Automatik nach 72.13); danach 72o (vorher Vorschaubilder je Zustand auf Dein Zug), 72.15, sechs Plätze (72v). **72u** Standbild Grak im Wald (Jerry), Entscheidung nach Probe. **Jerry, Tom, 72.14:** Gefährte/Söldner/Begleiter in Spieltexten. **72s.1** auf Dein Zug (Gefährte Kapitel 2, Empfehlung A Garrick). Offen 72a, 72c–72j |
-| 6l | Zoomstufe der Karte | Tom | `claude/tom-6l-zoom` (auf 86) | Gebaut: System-Reiter „Kartenausschnitt: Normal / Näher“ (6,75 / 5,6), gespeichert; Testmenü-Stufen bleiben. Tablet geprüft (gerechnet): quer gleich viel wie Handy, hoch nur 9–11 statt 12–15 Kacheln; kein Hindernis. Nächster Sammelbuild |
 | 84 | Licht und Laut (Nutzer 14.10., 17:5x; baut auf Idee 4 in `LISTE-IDEEN.md` und `Perks.kt` auf) | Berater mit Nutzer | `main` (Notizen) | **84.1** Fackel als Gegenstand (Laden, nimmt die Nebenhand); **84.2** Schnellwechsel zweier Handbelegungen; **84.3** Schleichen; **84.4** Lauschen beim Stehen: Welle am Helden zur Quelle hin, Stärke = Deutlichkeit (Nutzer 18:0x), Wort nur bei deutlichem Hören; nicht für Sichtbares; Stufen Stehen > Schleichen > Gehen > Rennen (Nutzer 18:1x: „sehr gut“). Empfehlung im Gespräch 14.10.; Kampfteile mit 72b. **D3.14** hängt an 84.1 (Heldenlicht draußen weg, Mondlicht); **Jerry, D3.15:** Tiefer Wald ohne Vögel (mit D3.2), pickende Vögel scharren und flattern hörbar; Umweltklang nach `DESIGN-STIL.md` (Nutzer 11:1x): Tiefer Wald selten fernes Wolfsgeheul, Höhle Tropfen und Grollen (echte Aufnahmen, CC0) |
 | 59e | Händler: Menge „Alle“, Vorrat je Laden | Tom (jetzt); Jerry mit 38/39 (Vorrat) | – | „Alle“ erledigt (0.1.660). Vorrat je Laden mit 38/39 (Beschlüsse) |
 | 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p) | Tom; 62m Jerry mit 39 | – | Bis 62r auf `main`; 62i–62k mit 64; 62l/62m später |
@@ -59,9 +56,8 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 
 ## Übergaben
 
-### Tom (15.10., 16:5x, „Tom – 89 Schatten ins Spiel“) – Nachfolger: „Tom – Build B Tempelszene“
-- 0.1.750 (Build A, PR #65) beim Nutzer, Prüfliste `e/t750.html`; nach „passt“ PR #65 zusammenführen, CHANGELOG „Zusammengeführt nach Test 0.1.750“, Zeilen 89/91/86/6l/13e aufräumen. PR #65 neu abonnieren.
-- Danach Build B aus `claude/tom-68-tempelszene` (68n–68p bei Sokrates/Nutzer auf Dein Zug).
+### Tom (15.10., 16:5x, „Tom – Build B Tempelszene“)
+- 0.1.750 abgenommen, PR #65 zusammengeführt. Build B (`claude/tom-build-b-tempel`: 68, 70.6) wartet auf 68n–68p. Jetzt 94 (Hühner) mit D7.1, dann 92, 93, 95.
 ### Jerry (12.10., 16:59; gekürzt 77e) – Pause bis Freitag, 03:00
 
 - **Startauftrag Berater (76–78, 13.10.), vor allem anderen:** Startlektüre jetzt `docs/ROLLE-ENTWICKLER.md` („Vor jeder Arbeit lesen“) ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`.
@@ -69,9 +65,9 @@ Tom: Leute auf der Karte, Dorf und Innenräume. Jerry: Monster auf der Karte, H�
 ## Zu testen
 
 - **Jerry, Diogenes-Befunde Lauf 1** (Verdachte, erst bestätigen): D1.5/D1.6/D1.9/D1.15 Höhle bei Tom (13e); D1.7 Leben Höhle, D1.8 stumme Quellen, D1.14 Varianten aus einer Aufnahme; **D1.14 Höhlen-Klangbett** (`grund_fs_609422`, `grund_fs_540836`, Hörner/Kreaturen ohne Quelle): Berater empfiehlt nach Umweltklang-Regel (15.10.): Tropfen und fernes Grollen behalten, Hörner herausnehmen (passen zu keiner Quelle der Geschichte); **Nutzer entscheidet nach Hörprobe** (Höhle mit und ohne auf „Dein Zug“), erst danach ändern.
-- **Diogenes Lauf 3** (14.10., Prüfbericht, Verdachte, erst bestätigen): **Jerry** D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald, D3.4 Endlosklänge reißen ab, D3.5/D3.6 Monster, D3.8–D3.10, D3.12; **Tom** D1.3/D1.11, D3.3, D3.5, D3.7, D3.11 in Build A (PR #65); Jerry zur Kenntnis: drei Zeilen `WorldScreen.kt` (Fackelschein).
-- **Diogenes Lauf 6** (15.10., 71 A Dorf, Prüfbericht, Verdachte, erst bestätigen): **Tom** D6.1–D6.3, D6.5–D6.7 in Build A (PR #65). **Jerry** D6.4 Fluss stumm.
-- **Diogenes Lauf 7** (15.10., 71 Nachprüfung Dorf nach 0.1.748, Prüfbericht, Verdacht, erst bestätigen): **Tom** D7.1 Hühner verschwinden schlagartig bei Regen und Dämmerung. Sonst in Ordnung (Hühner, Schritte, Intro, Brücke).
+- **Diogenes Lauf 3** (14.10., Prüfbericht, Verdachte, erst bestätigen): **Jerry** D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald, D3.4 Endlosklänge reißen ab, D3.5/D3.6 Monster, D3.8–D3.10, D3.12; Toms Teil auf `main` (0.1.750).
+- **Diogenes Lauf 6** (15.10., 71 A Dorf, Prüfbericht, Verdachte, erst bestätigen): Toms Teil auf `main` (0.1.750). **Jerry** D6.4 Fluss stumm.
+- **Diogenes Lauf 7** (15.10., 71 Nachprüfung Dorf nach 0.1.748, Prüfbericht, Verdacht, erst bestätigen): **Tom** D7.1 Hühner (mit 94). Sonst in Ordnung (Hühner, Schritte, Intro, Brücke).
 
 ## Für Diogenes
 
