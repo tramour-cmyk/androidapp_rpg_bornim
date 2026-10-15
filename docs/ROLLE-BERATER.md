@@ -2,11 +2,11 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (15.10., 16:2x) – Nachfolger: „Sokrates – Gefährte, Kate und Messung“:**
+**Übergabe (15.10., 17:2x) – Nachfolger: „Sokrates – CLAUDE.md kürzen und Kapitel 2“:**
 
-**Nächster Punkt:** (1) **72s.1** auf Dein Zug (Empfehlung A Garrick); nach Entscheidung Storyplan 41l anpassen, Gefährten-Zeilen je Station unter 41. (2) **D3.13** Erdkate (halb eingegraben, Sodendach fast bis zum Boden, Tür zum Feuer, Lichtungsrand) im Chat zweimal genannt, Antwort offen; bei Ja an Tom. (3) **90** im Chat 14:0x vorgeschlagen, Antwort offen: bis 23.10. keine neue Ablaufregel ohne Ersatz; Tagesrückblick zählt Code- gegen Notiz-Commits (12.10. 92:296, 13.10. 81:299, 14.10. 49:292, 15.10. bis 14 Uhr 28:149). (4) Erste Telegram-Probe mit Sitzungslink im Kopf (16:17) vom Nutzer bestätigen lassen. (5) `ARBEIT-OFFEN.md` noch über 15 KB. Heute: 81v (Titel mit Startzeit, Vorgänger archivieren; 23 alte Sitzungen archiviert, zwei Diogenes wiederhergestellt), 70.6 „passt“ an Tom, Idee Mond nach Himmelsrichtung, Links in allen Telegram-Meldungen.
+**Nächster Punkt:** (1) Auf Dein Zug von mir: **65.11** (Entwurf [CLAUDE.md kürzen](https://claude.ai/code/artifact/2acaeffb-b81a-40ab-8a10-d6a0380bedc5), D8.1–D8.7 eingearbeitet; bei Ja alle Umzüge laut Tabelle in einem Schritt, `ARBEIT-ABLAEUFE.md` „Dein Zug“, „Rückfragen“, „Nachhalten“ neu), **90a**, **68n/68o/68p** (bei Ja an Tom; 68o/68p Texte unter 41), **91a**, **72s.1**. (2) Morgen erster Tagesrückblick (90, Tag 1 von 7). (3) `ARBEIT-OFFEN.md` über 15 KB, diese Datei über 10 KB. Heute: Dein-Zug-Haken (`tools/zug-haken.py`, aus der Notizkopie), `meldung.sh` leitet alte Kopien weiter, Neustart-Haken nach 81r, Prozessregeln vorher an Diogenes (Ritual).
 
-**Zuletzt gelesen bis:** 4efa7f77 (15.10., 16:2x)
+**Zuletzt gelesen bis:** HEAD (15.10., 17:2x)
 
 ## Wer du bist
 
@@ -52,6 +52,7 @@ Weitere (Leitbild, Balance, Rollen, Oberfläche, Tempelszene, Karte und Händler
 
 ## Lehren
 
+- **Befunde selbst abholen, nichts vorschlagen, was schon da ist** (15.10., 65.11): Diogenes' Lauf 8 lag längst vor, ich schlug vor, „nach dem Befund“ neu zu starten; der Nutzer: „wer hat jetzt was davon“. Vor jeder Antwort Prüfbericht und `git log` ansehen, dann handeln.
 - **Regeln ins Werkzeug, nicht ins Gedächtnis** (15.10., 81r): Nutzer 16:3x: „nur ständig dafür sorgen, von mir gegebene Anweisungen nachzukontrollieren … mit Delegation hat das nichts zu tun“. Links fehlten, weil Agenten die alte Kopie riefen; behoben durch Weiterleitung im Werkzeug, nicht durch eine weitere Zeile. Ich selbst vergaß Dein Zug für 68n–p.
 Ältere (Notizen frisch holen, Entwürfe sofort, freie Welt, Werkzeugausgaben, Ablauf nicht vorführen, nur ausdrückliches Ja, Technik belegen) im Archiv („15.10., 12:5x“, „15.10., 13:3x“).
 
