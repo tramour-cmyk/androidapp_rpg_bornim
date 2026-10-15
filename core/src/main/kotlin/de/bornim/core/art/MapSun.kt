@@ -126,7 +126,7 @@ object MapSun {
 
         fun cast(map: MapDef) {
             houses(map)
-            if (map.kind == MapKind.TOWN) things(map)
+            things(map)
             trees(map)
         }
 
@@ -150,7 +150,7 @@ object MapSun {
             doubleArrayOf(x0, y0, z0), doubleArrayOf(x1, y0, z0), doubleArrayOf(x0, y1, z0), doubleArrayOf(x1, y1, z0),
             doubleArrayOf(x0, y0, z1), doubleArrayOf(x1, y0, z1), doubleArrayOf(x0, y1, z1), doubleArrayOf(x1, y1, z1))
 
-        /** The things of the village that stand higher than a knee; places as in [MapTownIso] (i, j from −1 to 0 on a tile). */
+        /** The things of the village and the woods that stand higher than a knee; places as in [MapTownIso] (i, j from −1 to 0 on a tile). */
         private fun things(map: MapDef) {
             for (ty in 0 until map.height) for (tx in 0 until map.width) {
                 // a point on the tile: local (i, j) as the pictures have it
@@ -181,6 +181,15 @@ object MapSun {
                         val (ci, cj) = if (bridge) MapTownIso.bridgeLanternLocal() else -0.5 to -0.5
                         post(ci, cj, 170.0, 0.035)
                         solid(box(bx + ci - 0.08, by + cj - 0.08, bx + ci + 0.08, by + cj + 0.08, u(140.0), u(192.0)))
+                    }
+                    t == Tile.MENHIR -> {
+                        // a slab, broad along its turn, thin across, narrower towards the top
+                        val (hh, turn) = MapWoodIso.menhirShape(map, tx, ty)
+                        val ca = cos(turn); val sa = sin(turn)
+                        fun corner(u: Double, w: Double, z: Double, k: Double) =
+                            doubleArrayOf(bx - 0.5 + (u * ca - w * sa) * k, by - 0.5 + (u * sa + w * ca) * k, z)
+                        solid(listOf(-1.0, 1.0).flatMap { su -> listOf(-1.0, 1.0).flatMap { sw ->
+                            listOf(corner(su * 0.32, sw * 0.17, 0.0, 1.0), corner(su * 0.32, sw * 0.17, u(hh), 0.6)) } }, soft = 0.07)
                     }
                     t == Tile.SIGN -> {
                         post(-0.5, -0.4, 110.0)
@@ -237,7 +246,7 @@ object MapSun {
                     val hT = hpx / (ZT * MapRoomIso.ZS)
                     val rc = wpx / 2.0 / (MapRoomIso.TW / sqrt(2.0)) * 0.85
                     val hc = (hT - rc * 0.9).coerceAtLeast(rc)
-                    rod(fx, fy, 0.0, fx, fy, hc - rc * 0.6, 0.05)
+                    rod(fx, fy, 0.0, fx, fy, hc - rc * 0.6, 0.05, alpha = 0.32)
                     val c = fall(fx, fy, hc)
                     val stretch = rc * (sqrt(1 + s.len * s.len) - 1) * 0.8
                     blob(c[0] - ux * stretch, c[1] - uy * stretch, c[0] + ux * stretch, c[1] + uy * stretch, rc, 0.44, soft = rc * 0.45, dapple = tx * 31 + ty * 17)

@@ -735,14 +735,17 @@ object MapWoodIso {
      * to a rounded, broken top and leaning a little; weathered grey with pale lichen, moss creeping up from the foot,
      * and on its broad face a worn spiral cut long ago. Four looks ([v]), each slab turned its own way.
      */
+    /** 89: the height (upright units) and the turn of the menhir on ([tx], [ty]), for its shadow ([MapSun]). */
+    fun menhirShape(map: MapDef, tx: Int, ty: Int): Pair<Double, Double> = menhirSize(Math.floorMod(menhirIndex(map, tx, ty), 4))
+    private fun menhirSize(v: Int) = (104.0 + (v * 9) % 22) to listOf(0.3, 1.2, -0.4, 0.8)[v % 4]
+
     fun menhir(v: Int): PixelImage {
         val c = Canvas(170)
         val seed = 870 + v * 19
         val ci = -0.5; val cj = -0.5
-        val h = 104.0 + (v * 9) % 22
-        val turn = listOf(0.3, 1.2, -0.4, 0.8)[v % 4]
+        val (h, turn) = menhirSize(v)
         val lean = listOf(0.04, -0.03, 0.06, 0.0)[v % 4]
-        c.shadow(ci + 0.08, cj + 0.04, 0.4, 0.32, 0.5)
+        if (!MapSun.on) c.shadow(ci + 0.08, cj + 0.04, 0.4, 0.32, 0.5)
         // a rounded box in cross-section (superellipse), broad along u, thin along w
         val ru0 = 0.32; val rw0 = 0.17
         var z = 0.0
