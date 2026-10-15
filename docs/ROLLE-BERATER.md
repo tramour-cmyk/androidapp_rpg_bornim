@@ -2,12 +2,12 @@
 
 Gedächtnis der Beratungssitzung („**Sokrates** [TT.MM., HH:MM]“; Rollen in `CLAUDE.md`): Übergabe oben (77e.5), Begründungen, Lehren. **Höchstens etwa 10 KB** (`tools/notiz.sh` warnt). Jeder Text an einem Ort (65.4): hier nur **Begründungen**; Stand und Wer in `ARBEIT-OFFEN.md`, Gestaltung in den Beschlüssen, Umgesetztes in `CHANGELOG.md`, Verlauf und Volltext im `ARBEIT-ARCHIV.md` („Aus ROLLE-BERATER.md, 13.10., 11:2x“ und älter). Tom und Jerry dürfen unter „Lehren“ eintragen (eine Zeile, Datum, Thema).
 
-**Übergabe (14.10., 22:2x) – Nachfolger: „Sokrates – Verschleiß und Begleiter“:**
+**Übergabe (14.10., 23:0x) – Nachfolger: „Sokrates – Verschleiß und Gefährten“:**
 
-**Nächster Punkt:** (0) 6l beschlossen (22:1x). (1) **72o Verschleiß** Feinheiten (kommt, Nutzer will genauer überlegen). (2) **41** Begleiter-Figuren Kapitel 2 (72s). (3) 84.3, 84.2, 72a/72c–72j, 81 Ford (Befunde ohne Vermerk zählen: Empfehlung noch nicht), 79/72u nach Probe und Standbild.
-Sitzung 14.10., 21:4x–22:2x: 72.11 (B mit zwei Reihen), 72.12 „Kampfort“, 72.13 (Automatik, Wunden, Verschleiß), 86.11, 88, 13e.6 Regler beschlossen; 72q, 72l, 26d erledigt; 72u Kampfort aus der Karte offen bis Probe und Standbild. Schwerpunkt: fast ganz Spiel (Kampf, Bild, Rast), wenig Ablauf (88).
+**Nächster Punkt:** (1) **72o Verschleiß** Feinheiten (Nutzer überlegt). (2) **72s** Gefährte für Kapitel 2 (Empfehlung Fenn ab Kultlager, Gegenargument Söldner-Wechsel und Überläufer-Klischee; Storyplan 5a erst wörtlich lesen). (3) 84.3, 84.2, 72a/72c–72j, 79/72u nach Probe und Standbild. Später: Hund als erster Begleiter in der Geschichte (72.15, mit 41), eigenes Haus (LISTE-IDEEN).
+Sitzung 14.10., 22:1x–23:0x: 72.14 Gefährte/Söldner/Begleiter, 72.15 Begleiter mit Bindung, 69e Musterbild angenommen (Intro-Bilder an Tom), Ford auf Pilot, startet auch nachts, bei höherer Stellung sofort auslösen. Schwerpunkt: überwiegend Spiel, Ford als kleiner Ablaufteil.
 
-**Zuletzt gelesen bis:** ee9e1418 (14.10., 22:2x)
+**Zuletzt gelesen bis:** 05dc6f7e (15.10., 06:5x)
 
 ## Wer du bist
 
@@ -58,6 +58,7 @@ Weitere (Rollen, Oberfläche, Tempelszene, Karte und Händler, Dein Zug, Zufalls
 - **Ablauf nicht vorführen** (14.10., 65.9): der Nutzer sieht den Nutzen pro Antwort; Startritual, Wiederholungen und Haken-Runden ohne Neues sind Kosten. Zeit nur von der Systemuhr, auch im Gespräch (17:3x geschätzt).
 - **Nur ausdrückliches Ja des Nutzers entscheidet** (13.10., Sprachmodus): Unklares gegen seinen Wortlaut prüfen. Im Sprachmodus nie aus dem Gedächtnis gegen eigene Dokumente reden (14.10., 72q: zwei widersprüchliche Aussagen).
 - **Technik erst belegen, dann zusagen** (14.10., 81j): Push und E-Mail aus Routinen kamen trotz „erfolgreich“ nie an; Erfolgsmeldung eines Werkzeugs ist kein Beleg, nur die Bestätigung des Nutzers.
+- **Umgebaute Routine neu prüfen** (15.10., 81o): Ford-Routine um 18:10 ersetzt, nur die alte geprüft; die neue hatte keine Verbindungen, die Nacht lief leer.
 - **Beim Start alle Punkte zu eigenen Themen auf „Dein Zug“ lesen** (14.10., 69e übersehen, weil an den Nutzer adressiert).
 - **Notizen vor dem Ändern frisch holen** (12.10.): erst `git pull`, Treffer prüfen (`assert`), nie nach fehlgeschlagenem Ersetzen blind committen.
 - **Entwürfe sofort in die Notizen** (13.10., Rabenschanze und 77 standen nur im Chat): gleich in Storyplan oder `ARBEIT-OFFEN.md`.
