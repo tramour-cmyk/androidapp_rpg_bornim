@@ -112,4 +112,26 @@ class MapHenTest {
             assertTrue(hypot(lx - src.homeX, ly - src.homeY) < MapHen.ROAM + 12f, "hen from ${src.homeX},${src.homeY} not home again: ${lx},${ly}")
         }
     }
+
+    /**
+     * 94 (test of 0.1.752: the hens flickered): every picture half an hour among the hens calls for fits on their own
+     * shelf, so none is pushed out and drawn again while a hen waits for it (on the villagers' 360 they did not fit).
+     */
+    @Test
+    fun theirPicturesFitOnTheirShelf() {
+        val keys = HashSet<String>()
+        val hens = MapHen.of(village).map { MapHen.Hen(it.homeX, it.homeY, it.seed, it.variant) }
+        val cx = hens.map { it.homeX }.average().toFloat(); val cy = hens.map { it.homeY }.average().toFloat()
+        for (t in 0L..1_800_000L step 40L) {
+            // the hero comes by now and then, round and through the yard
+            val a = t / 9_000.0
+            val r = if ((t / 30_000) % 2 == 0L) 30f else 160f
+            val hx = cx + (kotlin.math.cos(a) * r).toFloat(); val hy = cy + (kotlin.math.sin(a) * r).toFloat()
+            val away = (t / 120_000) % 4 == 3L
+            for (h in hens) { val at = h.at(t, hx, hy, village, away); if (at.shown > 0f) keys += MapHen.key(at, MapFigure.slot(at.yaw)) }
+        }
+        println("hen pictures in 30 minutes: ${keys.size}")
+        assertTrue(keys.size > 360, "the test no longer shows the old trouble (${keys.size})")
+        assertTrue(keys.size <= MapHen.SHELF, "${keys.size} pictures, room for ${MapHen.SHELF}")
+    }
 }

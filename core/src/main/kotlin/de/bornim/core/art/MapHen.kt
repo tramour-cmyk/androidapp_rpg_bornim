@@ -144,7 +144,7 @@ object MapHen {
     // ---------------------------------------------------------------- what a hen does
 
     /** Where a hen is and how it looks: map pixels of its feet, facing map direction [yaw], pose [key] at step [k] of 8. */
-    data class At(val x: Float, val y: Float, val yaw: Double, val key: String, val k: Int, val variant: Int, val shown: Float = 1f)
+    data class At(val x: Float, val y: Float, val yaw: Double, val key: String, val k: Int, val variant: Int, val shown: Float = 1f, val seed: Int = 0)
 
     private fun pose(name: String) = when (name) {
         "low" -> LOW; "peck" -> PECK; "scratch" -> SCRATCH; "alert" -> ALERT; "run" -> RUN; else -> STAND
@@ -347,7 +347,7 @@ object MapHen {
             if (d > 180) d -= 360.0 else if (d < -180) d += 360.0
             val most = (if (mood == Mood.FLEE) TURN_RUN else TURN) * dt / 1000.0
             shown += d.coerceIn(-most, most)
-            return a.copy(yaw = shown, shown = seen)
+            return a.copy(yaw = shown, shown = seen, seed = seed)
         }
 
         /** What it does standing: pecking mostly, a bout of scratching, looking up; each bout a few seconds. */
@@ -447,15 +447,29 @@ object MapHen {
     // ---------------------------------------------------------------- the pictures
 
     /** The hen at [a], drawn in the background when first wanted (null until then); [slot] as [MapFigure.slot]. */
-    fun frame(a: At, slot: Int): PixelImage? =
-        MapRest.picture(key(a, slot)) { render(poseOf(a.key, a.k), a.variant, slot * 360.0 / MapFigure.YAWS) }
+    fun frame(a: At, slot: Int): PixelImage? {
+        // until a picture is ready the hen's last one stays, so it never blinks out for a frame (94, test of 0.1.752:
+        // the hens flickered; like the cat, 87.1)
+        val img = shelf.picture(key(a, slot)) { render(poseOf(a.key, a.k), a.variant, slot * 360.0 / MapFigure.YAWS) }
+        synchronized(last) { if (img != null) last[a.seed] = img else return last[a.seed] }
+        return img
+    }
+    private val last = HashMap<Int, PixelImage>()
 
     /** The same, drawn now (the previews). */
     fun frameNow(a: At, slot: Int): PixelImage =
-        MapRest.pictureNow(key(a, slot)) { render(poseOf(a.key, a.k), a.variant, slot * 360.0 / MapFigure.YAWS) }
+        shelf.pictureNow(key(a, slot)) { render(poseOf(a.key, a.k), a.variant, slot * 360.0 / MapFigure.YAWS) }
+
+    /**
+     * The hens' own pictures: they have many (three plumages, sixteen directions, every step of a move), and on the
+     * shelf of the villagers they pushed each other out, to be drawn again and again (94). Room for what half an hour
+     * among them calls for ([MapHenTest]); small pictures (48 × 48, 9 KB each).
+     */
+    const val SHELF = 2_400
+    private val shelf = MapRest.Shelf(SHELF)
 
     /** Blends go in steps of two of eight: enough for so small a figure, half the pictures. */
-    private fun key(a: At, slot: Int) = "hen|${a.variant}|${a.key}|${if ('>' in a.key) a.k / 2 * 2 else a.k}|$slot"
+    internal fun key(a: At, slot: Int) = "hen|${a.variant}|${a.key}|${if ('>' in a.key) a.k / 2 * 2 else a.k}|$slot"
 
     /** The picture's size and where the feet stand in it. */
     const val W = 48; const val H = 48; const val AX = 24; const val GY = 40

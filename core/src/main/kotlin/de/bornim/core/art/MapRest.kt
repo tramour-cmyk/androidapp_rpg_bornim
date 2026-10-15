@@ -165,32 +165,47 @@ object MapRest {
 
     // ------------------------------------------------------------ pictures, drawn when first wanted
 
-    private val cache = object : LinkedHashMap<String, PixelImage>(256, 0.75f, true) {
-        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > 360
-    }
-    private val queued = HashSet<String>()
+    private val shelf = Shelf(360)
+
+    /** The picture under [key] if it is drawn already, without asking for it. */
+    fun cached(key: String): PixelImage? = shelf.cached(key)
+
+    /** The picture under [key], or null; when missing it is drawn in the background with [draw]. */
+    fun picture(key: String, draw: () -> PixelImage): PixelImage? = shelf.picture(key, draw)
+
+    /** Draws the picture under [key] right away (previews and tests). */
+    fun pictureNow(key: String, draw: () -> PixelImage): PixelImage = shelf.pictureNow(key, draw)
+
     private val worker = java.util.concurrent.Executors.newSingleThreadExecutor { r ->
         Thread(r, "map-rest").also { it.isDaemon = true; it.priority = Thread.MIN_PRIORITY + 1 }
     }
 
-    /** The picture under [key] if it is drawn already, without asking for it. */
-    fun cached(key: String): PixelImage? = synchronized(cache) { cache[key] }
+    /**
+     * Pictures drawn when first wanted, at most [size] kept (the least used go first), drawn one after the other in
+     * the background. A figure with many pictures keeps its own shelf, so it does not push the others' out (94).
+     */
+    class Shelf(private val size: Int) {
+        private val cache = object : LinkedHashMap<String, PixelImage>(256, 0.75f, true) {
+            override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > this@Shelf.size
+        }
+        private val queued = HashSet<String>()
 
-    /** The picture under [key], or null; when missing it is drawn in the background with [draw]. */
-    fun picture(key: String, draw: () -> PixelImage): PixelImage? {
-        synchronized(cache) {
-            cache[key]?.let { return it }
-            if (!queued.add(key)) return null
+        fun cached(key: String): PixelImage? = synchronized(cache) { cache[key] }
+
+        fun picture(key: String, draw: () -> PixelImage): PixelImage? {
+            synchronized(cache) {
+                cache[key]?.let { return it }
+                if (!queued.add(key)) return null
+            }
+            worker.execute {
+                var img: PixelImage? = null
+                de.bornim.core.Guard.run("Atmen") { img = draw() }
+                synchronized(cache) { queued.remove(key); if (img != null) cache[key] = img }
+            }
+            return null
         }
-        worker.execute {
-            var img: PixelImage? = null
-            de.bornim.core.Guard.run("Atmen") { img = draw() }
-            synchronized(cache) { queued.remove(key); if (img != null) cache[key] = img }
-        }
-        return null
+
+        fun pictureNow(key: String, draw: () -> PixelImage): PixelImage =
+            synchronized(cache) { cache[key] } ?: draw().also { synchronized(cache) { cache[key] = it } }
     }
-
-    /** Draws the picture under [key] right away (previews and tests). */
-    fun pictureNow(key: String, draw: () -> PixelImage): PixelImage =
-        synchronized(cache) { cache[key] } ?: draw().also { synchronized(cache) { cache[key] = it } }
 }
