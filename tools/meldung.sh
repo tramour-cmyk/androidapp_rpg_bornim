@@ -5,6 +5,7 @@
 #   tools/meldung.sh --bild <datei> <Name> "<Text>"     Standbild mit der Zeile als Unterschrift (Telegram verkleinert)
 #   tools/meldung.sh --datei <datei> <Name> "<Text>"    Bild in voller Auflösung als Datei (Pixelprüfung)
 # Kostet in der Sitzung nichts: das Bild wird nur hochgeladen, nicht gelesen. Optionen kombinierbar, --laut zuerst.
+# Sprungmarke: „[72o.1](dz:e/72o1.html): …“ macht die Nummer zum Link auf den Punkt in „Dein Zug“ (dz: = Seite „Dein Zug“), [Wort](URL) im Text ebenso.
 # Form: Kopf „Name TT.MM. HH:MM“, darunter je Thema eine Zeile „81s: …“ (Ford: je Agent „Tom: …“), getrennt mit \n; nur Nummern und Stichworte, nie Spieltexte.
 # Schlüssel nur aus der Umgebungsvariable TELEGRAM_BOT_TOKEN, nie ins Repo oder in den Chat.
 laut=0
@@ -26,6 +27,11 @@ zeile=$(KOPF="$name $zeit" TEXT="$text" python3 -c '
 import os, re, html
 t = html.escape(os.environ["TEXT"].replace("\\n", "\n"), quote=False)
 t = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
+dz = "https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow/"
+url = lambda u: dz + u[3:] if u.startswith("dz:") else u
+# Sprungmarke (Nutzer 15.10.): Zeile „[72o.1](dz:e/72o1.html): …“ macht die fette Nummer selbst zum Link
+t = re.sub(r"(?m)^(\s*(?:⚠\s*)?)\[([^\]]{1,30})\]\(([^)\s]+)\):", lambda m: m.group(1) + "<a href=\"" + url(m.group(3)) + "\"><b>" + m.group(2) + ":</b></a>", t)
+t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", lambda m: "<a href=\"" + url(m.group(2)) + "\">" + m.group(1) + "</a>", t)
 t = re.sub(r"(?m)^(\s*(?:⚠\s*)?)([\wÄÖÜäöüß][\wÄÖÜäöüß .,/–-]{0,30}):", r"\1<b>\2:</b>", t)
 print("<b>" + html.escape(os.environ["KOPF"]) + "</b>\n" + t)')
 if [ -n "$art" ]; then
