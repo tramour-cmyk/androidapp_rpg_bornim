@@ -192,7 +192,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     fw.walk(vx, vy, dt, pace * minOf(1.0, 0.25 + left * 4), now)
                 } else fw.walk(0.0, 0.0, dt, 0.0, now)
                 // 74: a step's sound each time a foot sets down, by the ground under it
-                if (feet.fell(fw.walked) && fw.moving) {
+                if (feet.fell(fw.walked) && fw.moving && vm.stepsOn) {
                     val tile = game.map.tile(kotlin.math.floor(fw.x).toInt(), kotlin.math.floor(fw.y).toInt())
                     vm.play(de.bornim.core.audio.Footsteps.sound(game.map, tile), de.bornim.core.audio.Footsteps.volume(tile, running))
                 }
