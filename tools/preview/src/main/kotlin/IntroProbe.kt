@@ -17,6 +17,7 @@ import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.exp
 import kotlin.math.sin
+import de.bornim.core.IntroLife
 
 /**
  * 69 (draft): the other intro pictures in the style of the accepted model picture `[69.intro.2]` (69e, [BridgePainter]):
@@ -31,6 +32,16 @@ fun renderIntroProbe() {
         3 to "Der Platz schläft. Nur am Tempel wandern Fackeln. Eine späte Andacht, denkst du.",
         4 to "Im »Schlafenden Greif« brennt noch Licht. Die Wirtin fragt nicht viel.",
     )
+    // INTRO69=leben: the layers of picture 3 for the app (70.3 B): the picture under the life and the torch bearers' layer
+    if (System.getenv("INTRO69") == "leben") {
+        val dir = File("../../app/src/main/assets/intro")
+        val base = SquarePainter().apply { part = SquarePainter.Part.BASE }.paint()
+        val rgb = BufferedImage(base.width, base.height, BufferedImage.TYPE_INT_RGB).also { it.createGraphics().drawImage(base, 0, 0, null) }
+        writeJpeg(rgb, File(dir, "intro_3.jpg"))
+        ImageIO.write(SquarePainter().apply { part = SquarePainter.Part.GROUP }.paint(), "png", File(dir, "intro_3_zug.png"))
+        println("wrote ${dir.path}/intro_3.jpg, intro_3_zug.png")
+        return
+    }
     val only = System.getenv("INTRO69")?.toIntOrNull()
     for ((n, painter) in listOf(1 to { RoadPainter() }, 3 to { SquarePainter() }, 4 to { InnPainter() })) {
         if (only != null && only != n) continue
@@ -39,6 +50,14 @@ fun renderIntroProbe() {
         ImageIO.write(withText(img, texts.getValue(n)), "png", File("build/screens/intro69_${n}_text.png"))
         println("wrote build/screens/intro69_${n}_text.png")
     }
+}
+
+/** A JPEG at a quality that keeps the night's soft gradients free of blocks. */
+private fun writeJpeg(img: BufferedImage, file: File) {
+    val writer = ImageIO.getImageWritersByFormatName("jpg").next()
+    val param = writer.defaultWriteParam.apply { compressionMode = javax.imageio.ImageWriteParam.MODE_EXPLICIT; compressionQuality = 0.9f }
+    javax.imageio.stream.FileImageOutputStream(file).use { out -> writer.output = out; writer.write(null, javax.imageio.IIOImage(img, null, null), param) }
+    writer.dispose()
 }
 
 /** The picture with its text box below, as in the app (same as the model picture). */
@@ -431,8 +450,16 @@ internal class SquarePainter : IntroPainter() {
     val tz = 25.0; val tx0 = -4.5; val tx1 = 8.5; val twall = 6.2; val tdoor = 2.0
     val left = House(-10.0, 12.0, 8.0, 7.0, 3.8, 3.4, listOf(1))
     val right = House(12.5, 14.0, 9.0, 7.0, 3.8, 3.6, listOf(0))
-    /** The torch bearers walking up to the temple (x, z, carries a torch). */
-    val bearers = listOf(Triple(0.6, 22.2, true), Triple(2.7, 21.4, true), Triple(1.6, 23.4, false), Triple(4.4, 22.6, true), Triple(2.2, 24.4, true))
+    /** The torch bearers walking up to the temple (x, z, carries a torch), where their walk ends (70.3: `IntroLife`). */
+    val bearers = IntroLife.bearers.map { Triple(it.x.toDouble(), it.z.toDouble(), it.torch) }
+
+    /**
+     * What to paint (70.3 B): [Part.ALL] the whole still as before; [Part.BASE] the picture the app shows under the life,
+     * without the bearers, their flames, their light on the stones and in the puddle, the smoke and the bats;
+     * [Part.GROUP] only the bearers (silhouettes, rims, shadows, torch shafts) on a clear ground, the layer the app moves.
+     */
+    enum class Part { ALL, BASE, GROUP }
+    var part = Part.ALL
 
     init {
         houseWin[left] = listOf(-12.0, -7.6) to -9.8
@@ -441,12 +468,13 @@ internal class SquarePainter : IntroPainter() {
 
     fun torchLight(x: Double, z: Double): Double {
         if (z > tz) return 0.0
-        val t = bearers.filter { it.third }.sumOf { (bx, bz, _) -> 0.55 * exp(-Math.hypot(x - bx, z - bz) / 2.2) }
+        val t = if (part != Part.ALL) 0.0 else bearers.filter { it.third }.sumOf { (bx, bz, _) -> 0.55 * exp(-Math.hypot(x - bx, z - bz) / 2.2) }
         val d = 0.5 * exp(-Math.hypot((x - tdoor) / 1.6, (z - tz) / 2.5))
         return t + d
     }
 
     override fun scene() {
+        if (part == Part.GROUP) { torchBearers(); return }
         sky()
         backdrop(far(night(0x3A3630), 80.0))
         forestBand()
@@ -459,13 +487,13 @@ internal class SquarePainter : IntroPainter() {
         firShape(sx(-7.0, tz + 6), sy(0.0, tz + 6), f * 13.0 / (tz + 6), f * 5.2 / (tz + 6), far(fir, tz + 6), far(firLit, tz + 6), 0.6)
         firShape(sx(12.0, tz + 4), sy(0.0, tz + 4), f * 11.0 / (tz + 4), f * 4.6 / (tz + 4), far(fir, tz + 4), far(firLit, tz + 4), 0.6)
         temple()
-        torchBearers()
+        if (part == Part.ALL) torchBearers()
         house(right, false)
         house(left, false)
         stall(4.2, 9.5)
         well(-2.6, 8.0)
         puddle(1.6, 5.6, 1.1)
-        life2()
+        if (part == Part.ALL) life2()
         nearDark(0.45)
         vignette()
     }
@@ -571,6 +599,7 @@ internal class SquarePainter : IntroPainter() {
         val fires = ArrayList<Triple<Double, Double, Double>>()
         val torches = bearers.filter { it.third }
         for ((i, b) in bearers.sortedByDescending { it.second }.withIndex()) {
+            val lb = IntroLife.bearers[i]
             val (x, z, torch) = b
             // the shadow, thrown away from the torches round it and the door behind: towards us
             val p = Path2D.Double()
@@ -579,7 +608,7 @@ internal class SquarePainter : IntroPainter() {
             p.lineTo(sx(x + dx + 0.4, zz), sy(0.0, zz)); p.lineTo(sx(x + dx - 0.4, zz), sy(0.0, zz)); p.closePath()
             g.paint = GradientPaint(0f, sy(0.0, z).toFloat(), alpha(Color(0x060508), 0.5), 0f, sy(0.0, zz).toFloat(), alpha(Color(0x060508), 0.0)); g.fill(p)
             val s = f / z
-            val t = cloaked(x, z, 1.68 - 0.1 * rnd(i, 601), far(Color(0x0C0908), z), torch, lean = (rnd(i, 602) - 0.5) * 0.08)
+            val t = cloaked(x, z, lb.h.toDouble(), far(Color(0x0C0908), z), torch, lean = lb.lean.toDouble())
             // the warm rim of the torches on the cloaks: on the side facing the nearest torch
             val near = torches.filter { it != b }.minByOrNull { Math.hypot(it.first - x, it.second - z) }
             val side = if (torch) 1.0 else if (near != null && near.first < x) -1.0 else 1.0
@@ -587,7 +616,8 @@ internal class SquarePainter : IntroPainter() {
             line(alpha(warm, 0.35), maxOf(1.0, 0.025 * s), sx(x + 0.2 * side, z), sy(1.4, z), sx(x + 0.08 * side, z), sy(1.62, z))
             if (t != null) fires += Triple(t.first, t.second, s)
         }
-        for ((k, fr) in fires.withIndex()) flame(fr.first, fr.second, fr.third * 1.5, k)
+        // the flames burn in the app over the moved layer (70.3)
+        if (part == Part.ALL) for ((k, fr) in fires.withIndex()) flame(fr.first, fr.second, fr.third * 1.5, k)
     }
 
     /** The well: a ring of field stone, two posts with a little shingled roof, the winch, the rope, the bucket on the rim. */
@@ -704,7 +734,7 @@ internal class SquarePainter : IntroPainter() {
         val clip = g.clip; g.clip(p)
         // the sky and the temple mirrored dark, the torches as warm wavering streaks
         g.paint = GradientPaint(0f, sy(0.0, z + w * 0.4).toFloat(), Color(0x141C30), 0f, sy(0.0, z - w * 0.4).toFloat(), Color(0x080C16)); g.fill(p)
-        for (b in bearers.filter { it.third }) {
+        for (b in bearers.filter { it.third && part == Part.ALL }) {
             val mx = sx(b.first + 0.45, b.second)
             val y0 = sy(0.0, z + w * 0.6); val y1 = sy(0.0, z - w * 0.6)
             g.paint = GradientPaint(0f, y0.toFloat(), alpha(warm, 0.7), 0f, y1.toFloat(), alpha(warmDeep, 0.0))
