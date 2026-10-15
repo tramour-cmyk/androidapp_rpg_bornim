@@ -2099,9 +2099,11 @@ object MapRoomIso {
     /** Sorted along the diagonal like a figure standing on the tile (hero: x + y + 1.5 tiles − ½ pixel). */
     private fun depth(tx: Int, ty: Int) = (tx + ty) * T + T * 3 / 2 - 1
 
-    /** D1.3: whether the picture on this tile carries a small flame of its own (a candlestick on a trunk, a candle afloat in the font), for the light layer. */
+    /** D1.3: whether the picture on this tile carries a small flame of its own (a candlestick on a trunk, a candle afloat in the font, a candle on the mantel), for the light layer. */
     fun smallFlame(map: MapDef, tx: Int, ty: Int): Boolean = when (map.tile(tx, ty)) {
         Tile.TRUNK, Tile.FONT -> hash(tx, ty, 3) % 3 == 2
+        // the candle on the hearth's mantel shelf (look 1 of [walls]' mantel)
+        Tile.HEARTH -> tall(map, tx, ty) && room(map, tx, ty + 1) && hash(tx, ty, 61) % 3 == 1
         else -> false
     }
 

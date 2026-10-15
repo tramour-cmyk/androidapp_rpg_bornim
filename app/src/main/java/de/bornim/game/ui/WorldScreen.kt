@@ -2009,8 +2009,13 @@ private fun DrawScope.drawCaveTorches(game: Game, map: de.bornim.core.MapDef, cl
         // the head of the torch about 1.1 m up the face, lowered to the hero's scale like the rooms' heights (13p.6)
         val bx = cam.toScreenX(mx, my); val by = cam.toScreenY(mx, my) - (62 * de.bornim.core.art.MapRoomIso.ZS * scale).toFloat()
         val t = (clock + tx * 397 + ty * 211).toFloat()
-        // bracket and stick, leaning out of the rock
-        drawRect(Color(0xFF2A2624).copy(alpha = seen), Offset(bx - 2.5f * u, by + 9 * u), androidx.compose.ui.geometry.Size(5 * u, 1.6f * u))
+        // bracket and stick, leaning out of the rock; three looks (D1.11): a flat bracket, a ring on a longer arm, wedged in a crack
+        when (de.bornim.core.art.MapCaveIso.torchLook(map, tx, ty)) {
+            0 -> drawRect(Color(0xFF2A2624).copy(alpha = seen), Offset(bx - 2.5f * u, by + 9 * u), androidx.compose.ui.geometry.Size(5 * u, 1.6f * u))
+            1 -> { drawLine(Color(0xFF2A2624).copy(alpha = seen), Offset(bx - 3.5f * u, by + 12 * u), Offset(bx, by + 7 * u), strokeWidth = 1.4f * u)
+                drawOval(Color(0xFF34302C).copy(alpha = seen), Offset(bx - 1.8f * u, by + 6.2f * u), androidx.compose.ui.geometry.Size(3.6f * u, 1.8f * u), style = androidx.compose.ui.graphics.drawscope.Stroke(1.1f * u)) }
+            else -> for (k in 0..1) drawOval(Color(0xFF2E2A26).copy(alpha = seen), Offset(bx - (2.6f - k * 2.4f) * u, by + (12.2f - k * 0.8f) * u), androidx.compose.ui.geometry.Size(2.6f * u, 1.8f * u))
+        }
         drawLine(Color(0xFF3E2C1E).copy(alpha = seen), Offset(bx - 0.6f * u, by + 13 * u), Offset(bx + 0.6f * u, by + 1 * u), strokeWidth = 2.2f * u)
         drawOval(Color(0xFF1C1612).copy(alpha = seen), Offset(bx - 2.2f * u, by - 0.4f * u), androidx.compose.ui.geometry.Size(4.4f * u, 3 * u))
         // the flame: frames of a living flame (MapCaveIso.flame), each torch at its own point of the loop
