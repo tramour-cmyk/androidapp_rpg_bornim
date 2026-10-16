@@ -1,5 +1,7 @@
 # 99g · Dokumente für Pro
 
+**Entschieden** (Chef 16.10., 12:4x: „dann entscheide ich hier mal, dass wir gestaffelt umziehen. Also jetzt mit Design Kampf MD, genau das. Und den Rest legen wir auf Wiedervorlage. Marktvergleich bleibt auf jeden Fall auf Max-Account und geht nicht ins Repo. … irgendwer sollte dann auch der Niederlassung Bescheid geben, dass sie jetzt Zugriff aufs Dokument haben.“) · Sokrates Projekt trägt den Beschluss ein und löscht diese Datei.
+
 Sokrates Projekt · 16.10., 07:2x · fortgeschrieben von Diogenes 16.10., 12:34 (Zuruf Chef)
 
 Kurz: Alle lebenden Artefakte ins Repo, gestaffelt: Kampf jetzt, Rest nach Sa 21:00; nur Marktvergleich bleibt auf Max (Empfehlung)
