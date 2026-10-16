@@ -396,6 +396,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun refresh() {
+        // 119: the sounds take on the room the hero is in (also in a fight there)
+        game?.let { g -> de.bornim.core.World.maps[g.state.place.map]?.let { sfx.room = de.bornim.core.audio.PlaceSound.kindOf(it) } }
         game?.sounds?.let { q -> while (q.isNotEmpty()) sfx.play(q.removeFirst()) }
         game?.placedSounds?.let { q -> while (q.isNotEmpty()) q.removeFirst().let { (s, v) -> sfx.play(s, v) } }
         val g = game

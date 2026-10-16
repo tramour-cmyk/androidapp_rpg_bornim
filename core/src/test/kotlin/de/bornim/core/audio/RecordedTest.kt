@@ -34,6 +34,14 @@ class RecordedTest {
         assertEquals("wolf", Recorded.voiceOf("dire_wolf")?.first)
         assertEquals("goblin", Recorded.voiceOf("goblin_archer")?.first)
         assertEquals("skeleton", Recorded.voiceOf("skeleton")?.first)
-        assertEquals(null, Recorded.voiceOf("ochre_jelly"))
+        assertEquals("ochre_jelly", Recorded.voiceOf("ochre_jelly")?.first)
+        assertEquals("bugbear", Recorded.voiceOf("bugbear")?.first)
+        assertEquals(null, Recorded.voiceOf("nobody"))
+    }
+
+    @Test
+    fun everyMonsterHasAVoice() {
+        val mute = de.bornim.core.Monsters.all.map { it.id }.filter { Recorded.voiceOf(it) == null }
+        assertTrue(mute.isEmpty(), "Gegner ohne Stimme (18.11): $mute")
     }
 }

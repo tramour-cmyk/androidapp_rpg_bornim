@@ -8,6 +8,7 @@ import android.os.Looper
 import android.os.SystemClock
 import de.bornim.core.audio.PlaceSound
 import de.bornim.core.audio.Recorded
+import de.bornim.core.audio.Room
 import de.bornim.core.audio.Sfx
 import de.bornim.core.audio.Sound
 import de.bornim.core.audio.Synth
@@ -15,11 +16,13 @@ import java.io.File
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.Executors
 import kotlin.concurrent.thread
 
 /**
  * Plays the sound effects: the recorded ones from the app's files ([Recorded], 18), the others synthesized and rendered
- * once into the cache as WAV files; and the creatures' voices.
+ * once into the cache as WAV files; and the creatures' voices. In a room ([room], 119) the sounds that happen there are
+ * played in its version (hall in the cave, close and muffled in the inn), loaded when the hero enters it.
  */
 class SfxPlayer(private val context: Context) {
     private val pool = SoundPool.Builder()
@@ -41,8 +44,24 @@ class SfxPlayer(private val context: Context) {
     /** The sliders' factor for every effect, the place's sounds and voices included (40). */
     var gain = 1f
 
+    /** The room versions of the place the hero is in (119), by [key]; only those whose loading has finished are played. */
+    private val roomIds = ConcurrentHashMap<String, Int>()
+    private val ready: MutableSet<Int> = ConcurrentHashMap.newKeySet()
+    private val roomLoader = Executors.newSingleThreadExecutor { Thread(it, "sfx-room").apply { isDaemon = true } }
+    @Volatile private var roomKind = PlaceSound.Kind.OUTSIDE
+    private val dir = File(context.cacheDir, "sfx-$VERSION").apply { mkdirs() }
+
+    /** The kind of place the hero is in: entering one, its versions load (until then the dry ones play). */
+    var room: PlaceSound.Kind
+        get() = roomKind
+        set(k) {
+            if (k == roomKind) return
+            roomKind = k
+            roomLoader.execute { runCatching { loadRoom(k) } }
+        }
+
     init {
-        val dir = File(context.cacheDir, "sfx-$VERSION").apply { mkdirs() }
+        pool.setOnLoadCompleteListener { _, id, status -> if (status == 0) ready += id }
         // 30.6: a file that will not load (missing, a full disk for the cache) only stays silent, it never ends the app
         thread(name = "sfx-render", isDaemon = true) { runCatching {
             for (v in Recorded.VOICES) for (c in Recorded.Cue.entries)
@@ -64,6 +83,35 @@ class SfxPlayer(private val context: Context) {
         } }
     }
 
+    /**
+     * Loads the versions for [k] and lets the last room's go two seconds later, so a sound still ringing on as the hero
+     * steps through the door is not cut off. Skipped if the hero is somewhere else again by then.
+     */
+    private fun loadRoom(k: PlaceSound.Kind) {
+        if (roomKind != k) return
+        val old = HashMap(roomIds)
+        roomIds.clear()
+        if (Room.acoustics(k) != null) {
+            for (asset in Room.recordingsFor(k)) { if (roomKind != k) break; roomIds[asset] = load(Room.file(k, asset)) }
+            for (s in Room.soundsFor(k)) {
+                if (roomKind != k) break
+                if (Recorded.TAKES[s] != null || s in Sfx.RECORDED_ONLY) continue
+                for (v in 0 until Sfx.variants(s)) roomIds[key(s, v)] = runCatching {
+                    val f = File(dir, "${k.name.lowercase()}/${s.name.lowercase()}_$v.wav")
+                    if (!f.exists()) { f.parentFile?.mkdirs(); writeWav(f, Room.apply(Sfx.render(s, v), Synth.SAMPLE_RATE, k)) }
+                    synchronized(lock) { if (released) 0 else pool.load(f.path, 1) }
+                }.getOrDefault(0)
+            }
+        }
+        main.postDelayed({ for (id in old.values) if (id != 0) { ready -= id; pool.unload(id) } }, ROOM_UNLOAD_MS)
+    }
+
+    /** What a take is known by among the room versions: its file for a recording, its sound and number for the others. */
+    private fun key(s: Sound, take: Int) = if (Recorded.TAKES[s] != null) Recorded.file(s, take) else "synth/${s.name}/$take"
+
+    /** The room version of [key] if the hero is in a room and it has loaded, else [dry]. */
+    private fun inRoom(key: String, dry: Int): Int = roomIds[key]?.takeIf { it in ready } ?: dry
+
     /** The take loaded from [asset], or 0 (silent) if it cannot be read. */
     private fun load(asset: String): Int = runCatching {
         synchronized(lock) { if (released) 0 else context.assets.openFd(asset).use { pool.load(it, 1) } }
@@ -76,7 +124,8 @@ class SfxPlayer(private val context: Context) {
     fun play(s: Sound, left: Float, right: Float, take: Int = -1) {
         if (!enabled || gain <= 0f) return
         val takes = ids[s] ?: return
-        pool.play(takes[if (take in takes.indices) take else kotlin.random.Random.nextInt(takes.size)], left * gain, right * gain, 1, 0, 1f)
+        val t = if (take in takes.indices) take else kotlin.random.Random.nextInt(takes.size)
+        pool.play(if (Room.affects(s)) inRoom(key(s, t), takes[t]) else takes[t], left * gain, right * gain, 1, 0, 1f)
     }
 
     /**
@@ -116,10 +165,12 @@ class SfxPlayer(private val context: Context) {
         if (!enabled || gain <= 0f) return
         val (v, rate) = Recorded.voiceOf(id) ?: return
         val takes = voices["$v/${cue.name}"] ?: return
-        pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume * gain, volume * gain, 1, 0, rate)
+        val t = kotlin.random.Random.nextInt(takes.size)
+        pool.play(inRoom(Recorded.voiceFile(v, cue, t), takes[t]), volume * gain, volume * gain, 1, 0, rate)
     }
 
     fun release() {
+        roomLoader.shutdownNow()
         main.removeCallbacksAndMessages(null)
         synchronized(lock) { released = true; pool.release() }
     }
@@ -142,5 +193,6 @@ class SfxPlayer(private val context: Context) {
         private const val MAX_STREAMS = 8
         /** Above the one-shots (1); SoundPool stops the lowest-ranked stream when all are busy. */
         private const val LOOP_PRIORITY = 2
+        private const val ROOM_UNLOAD_MS = 2000L
     }
 }
