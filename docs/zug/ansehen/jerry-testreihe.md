@@ -1,23 +1,26 @@
 # Jerry · Testreihe 16.10. (#70, #72–#82)
 
-Jerry · 16.10., 11:2x · übertragen von Sokrates Projekt aus Jerrys Vorrat (Jerry nicht erreichbar bis ≈13 Uhr); Jerry ergänzt Prüflisten und löscht Erledigtes. Vorher und Nachher, Standbilder und Hörproben kamen per Telegram.
+Jerry · 16.10., 13:5x · von Sokrates Projekt übertragen (11:2x), von Jerry ergänzt. Vorher-/Nachher-Bilder und Hörproben kamen per Telegram.
 
-Kurz: Elf Builds von Jerry, Reihenfolge nach Toms 0.1.757 (#71): Keuchen, Rauchbündel, Lautstärke, Umweltklang, Fluss, Intro-Klang, Glocke, Sterbehaltung, Krogg, Zustände, Absturz Klang
+Kurz: Zwölf Builds von Jerry nach Toms #71: Keuchen, Rauchbündel, Lautstärke, Umweltklang, Türklang, Fluss, Intro-Klang, Glocke, Sterbehaltung, Krogg, Zustände, Absturz Klang
 
-Reihenfolge: nach Toms [0.1.757](t757-sammelbuild.md) (#71). APK je PR unten in den Prüfungen („Artifacts“).
+**Vorher wichtig:** Die Builds stammen von 08–10 Uhr, ihre Nummern liegen unter `main` 0.1.773 und sie enthalten Toms #71 noch nicht. Hast du 0.1.773 installiert, lässt Android sie nicht darüber installieren. Dann baue ich alle zwölf neu, mit `main` darin und in dieser Reihenfolge steigend; dafür brauche ich dein Okay (Rückfrage [108a](dz:108a)).
 
-| # | PR | Nr. | Was | Worauf achten |
-|---|---|---|---|---|
-| 1 | [#70](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/70) | 95 | Atem: Keuchen | leer gerannt keucht der Held, erst dicht, dann leiser mit Pausen, 5–10 s, bis er wieder rennen darf |
-| 2 | [#72](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/72) | 38, D4.1 | Rauchbündel im Kampf | Held wirft das Bündel zu Kampfbeginn selbst, Kroggs erster Hieb geht ins Leere; bei Niederlage wieder in der Tasche |
-| 3 | [#73](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/73) | 40, 13e.6 | Lautstärke und Helligkeit | System-Reiter: drei Regler (Gesamt, Musik, Effekte); „Dunkle Töne“ hebt Schwarz höchstens 10 %, Prüfzeichen gerade noch sichtbar |
-| 4 | [#74](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/74) | 84, D3.15 | Umweltklang | Tiefer Wald ohne Gesang, Eule, nachts fernes Wolfsgeheul alle 1–2½ min; Höhle leises Grollen; Vögel auf der Wiese flattern und scharren |
-| 5 | [#76](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/76) | D6.4 | Fluss rauscht | am Fluss Rauschen, auf der Brücke am lautesten, ab 8 Feldern still; Weiher still |
-| 6 | [#77](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/77) | 69c | Intro-Klang Bild 1–4 | je Bild eigene leise Mischung (Wind, Grillen, Fluss), zum Schwarzbild still |
-| 7 | [#78](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/78) | 69c.1 | Intro Bild 5 | dumpfe Glocke, drei Rufe, ein ferner Schrei unter der Titelmusik |
-| 8 | [#79](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/79) | 51 | Sterbehaltung | Held liegt am Boden, kein Arm in der Luft, fällt nicht aus dem Bild |
-| 9 | [#80](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/80) | 36.6 | Krogg Todesstoß | Stücke beim Zerteilen und Durchbohren aus dem feinen Bild (Oberkörper teils hinter dem Rand: bekannt) |
-| 10 | [#81](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/81) | 53 | Zustände auf Krogg | „Brennend“ und andere sitzen auf dem Umriss, nicht daneben |
-| 11 | [#82](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/82) | 30 | Absturz beim Beenden | Spiel während des Ladens beenden: kein Absturz (sonst nichts zu sehen) |
+APK je PR: unten im PR unter „Checks“ → „build“ → „Artifacts“. Testmenü: Reiter „Test“ (Uhrzeit +3 h, Teleport, „Held trifft immer kritisch“, „Bosse zurücksetzen“, „Alle Vorräte auf mindestens 10“).
 
-**Außerdem bei Jerry, wartet auf dich:** D1.14 Höhlen-Klangbett (Empfehlung: Tropfen und Grollen behalten, Hörner heraus; Hörprobe mit und ohne fehlt noch, Jerry schickt sie per Telegram). 72u Standbild Grak im Wald (A/B/C): die Frage stellt Sokrates Kreativ.
+| # | PR | Nr. | Wo und wie | Richtig | Falsch |
+|---|---|---|---|---|---|
+| 1 | [#70](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/70) | 95 | draußen rennen, bis die Atemanzeige leer ist; dann stehen bleiben, 10 s zuhören | Held keucht erst dicht, dann leiser mit Pausen, 5–10 s, bis er wieder rennen darf | stumm, oder Keuchen läuft weiter, wenn er wieder rennen darf |
+| 2 | [#72](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/72) | 38, D4.1 | Höhle, Rauchbündel in der Tasche (beim Händler oder „Vorräte auffüllen“), Kampf gegen Krogg beginnen; danach verlieren | Held wirft das Bündel zu Kampfbeginn selbst, Kroggs erster Hieb geht ins Leere; nach Niederlage liegt das Bündel wieder in der Tasche | Bündel bleibt ungenutzt oder ist nach der Niederlage weg |
+| 3 | [#73](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/73) | 40, 13e.6 | Menü → System: drei Regler; in der Höhle „Dunkle Töne“ von 0 auf 100 % | Gesamt, Musik, Effekte wirken einzeln (Ortsklang hängt an „Effekte“); Schwarz hebt sich höchstens leicht, Prüfzeichen gerade noch sichtbar | ein Regler ohne Wirkung; Höhle sieht hell und grau aus |
+| 4 | [#74](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/74) | 84, D3.15 | Tiefer Wald nachts (Uhrzeit +3 h), 3 min stehen; Höhle 3 min; Wiese am Dorf, auf pickende Vögel zugehen | Tiefer Wald ohne Vogelgesang und Eule, fernes Wolfsgeheul alle 1–2½ min von einer Seite; Höhle selten leises Grollen; Vögel flattern hörbar auf, scharren ab und zu | Vogelgesang im Tiefen Wald; Geheul laut oder im Takt |
+| 5 | [#75](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/75) | D3.1, D3.4 | im Dorf durch eine Tür gehen und daneben an der Wand entlang; am Lagerfeuer stehen, während Kampfklänge spielen | Türklang nur auf der Tür; Feuer und Ortsklang reißen nicht ab | Türklang ohne Tür; Feuer verstummt |
+| 6 | [#76](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/76) | D6.4 | im Dorf zum Fluss und über die Brücke, dann 10 Felder weg | Rauschen am Fluss, auf der Brücke am lautesten, ab etwa 8 Feldern still; Weiher still | kein Rauschen, oder es reißt beim Gehen ab |
+| 7 | [#77](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/77) | 69c | neues Spiel, Intro nicht überspringen | Bild 1–4 je eigene leise Mischung (Wind, Grillen, Fluss), zum Schwarzbild still | Klang lauter als die Musik; Sprung zwischen den Bildern |
+| 8 | [#78](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/78) | 69c.1 | wie 7, bis Bild 5; dann antippen | dumpfe Glocke schwillt an, drei Rufe, ein ferner Schrei unter der Titelmusik; Antippen: Glocke klingt aus | Glocke bricht hart ab |
+| 9 | [#79](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/79) | 51 | einen Kampf verlieren (Magier und eine zweite Klasse), dreimal | Held liegt am Boden, kein Arm in der Luft, fällt nicht aus dem Bild | Arm steht nach oben; Held verschwindet links |
+| 10 | [#80](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/80) | 36.6 | Test: „Held trifft immer kritisch“ an, „Bosse zurücksetzen“, Krogg töten (Schwert und Speer) | Stücke beim Zerteilen und Durchbohren so fein wie Krogg selbst | grobe Pixel an den Stücken (Oberkörper teils hinter dem Rand: bekannt) |
+| 11 | [#81](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/81) | 53 | Krogg mit Feuer treffen (Feuerzauber oder Alchemistenfeuer) | Flammen sitzen auf Kroggs Umriss | Flammen links neben ihm |
+| 12 | [#82](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/82) | 30 | App starten und sofort beenden (Zurück), dreimal | kein Absturz (sonst nichts zu sehen) | „App wurde beendet“ |
+
+**Außerdem bei Jerry, wartet auf dich:** D1.14 Höhlen-Klangbett (Empfehlung: Tropfen und Grollen behalten, Hörner heraus; Hörprobe mit und ohne folgt per Telegram). 72u Standbild Grak im Wald (A/B/C): die Frage stellt Sokrates Kreativ. 18 Gegnerstimmen: [18.11](dz:1811).
