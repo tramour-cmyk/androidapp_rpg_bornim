@@ -6,7 +6,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `5338741b` (16.10., Lauf 22: Nachprüfung Umbau 106.1, nur Notizen und Werkzeuge; Lauf 9 Code bis 8836512); nächste Nummer D23.
 
-**Übergabe (16.10., 22:4x, Lauf 22):** 106.1 nachgeprüft, Prüfbericht Lauf 22: Umbau trägt; D22.1 (hoch) Ford startet Homer nicht für Muss-Zeilen, 39.2 und 112 aus dem Wochenziel stehen; D22.2 Befundzeilen ohne Vorgang (Kosten); D22.3 Liste gegen Vorräte; D22.4 Story-Namensmuster; D22.5 Reste. Zeilen an Perikles (D22.1–D22.3, D22.5) und Homer (D22.4, D22.5c). Nachfolger: keiner nötig bis zum nächsten Auftrag.
+**Übergabe (16.10., 22:4x, Lauf 22):** 106.1 nachgeprüft, Prüfbericht Lauf 22: Umbau trägt; D22.1 (hoch) Ford startet Homer nicht für Muss-Zeilen, 39.2 und 112 aus dem Wochenziel stehen; D22.2 Befundzeilen ohne Vorgang (Kosten); D22.3 Liste gegen Vorräte; D22.4 Story-Namensmuster; D22.5 Reste. Zeilen an Perikles (D22.1–D22.3, D22.5) und Homer (D22.4, D22.5c); 106.1a Chef ja, Perikles läuft (22:55). Nachfolger: keiner nötig bis zum nächsten Auftrag.
 
 ## Zeilen
 
