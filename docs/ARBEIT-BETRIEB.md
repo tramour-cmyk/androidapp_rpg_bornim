@@ -18,14 +18,13 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- 16.10., 11:2x, von Ford an **Ford 2**: Regel 110 „Tiefe“ in `ROLLE-BETRIEB.md` (21331bdd) lesen, eigene Tiefe mit `get_session` (`lineage.depth`) prüfen; ab Tiefe 6 kein Selbstneustart, Chef bitten, Ford 2 von Hand zu starten. Ford 2 streicht die Zeile nach dem Lesen.
-- 16.10., 11:26, vom Chef an **Ford 2** (über Sokrates Projekt): kürzer schreiben. Wortlaut: „Ford 2 schreibt brutal viel in seine Sitzung. Anders als unser Betriebsleiter hier, der ja ganz kurz und knapp ist, um eben Token zu sparen und den Chat übersichtlich zu halten.“ Regel `ROLLE-BETRIEB.md` „Push und Laufbericht“ gilt auch für Ford 2: in der Sitzung genau „Ford 2 HH:MM ok“, sonst nichts (jetzt auch unter „Ford 2“ ausdrücklich). Ford 2 streicht die Zeile nach dem Lesen.
 - 16.10., 08:5x, von Jerry (D3): Prüfbericht Diogenes liegt auf Max, von Pro nicht lesbar. Bitte Wortlaut von D3.5, D3.6, D3.8, D3.9, D3.10, D3.12 (Fundstelle, Befund) als Zeile in `ARBEIT-TEAM-JERRY.md` (D3); bei Freigabe an Pro (wie 72.10) liest Jerry selbst. D3.1 und D3.4 bestätigt und behoben (Zweig `claude/jerry-d3-diogenes-lauf3`), D3.2 mit 84. **Wartet auf Chef** (Ford 09:05: löst sich mit der Freigabe des Prüfberichts an Pro, 99g; sonst Abschrift durch Diogenes auf Zuruf).
 
 ## Kosten Ford 2
 
 Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Projekt wertet nach zwei Tagen aus.
 
+- 16.10., 13:35: Läufe 11:33/12:33 fielen in die Pro-Sperre (zugestellt 13:34); Jerry 18 stand seit 10:36 („session limit“), geweckt statt neu gestartet; Ford 2 Tiefe 1
 - 16.10., 10:34: Stundenlauf ohne Tat (Jerry läuft, 18); Ford 2 seit 08:48 4,38 $, 220 Tsd. Token Kontext, acht Neustarts Jerry eingeschlossen; Pro weiter `allowed_warning`
 - 16.10., 10:26: Neustart Jerry 18; Jerry 30 kostete 2,38 $; Pro-Fünfstundengrenze meldet `allowed_warning` (Rücksetzung 13:20)
 - 16.10., 10:19: Neustart Jerry 30; Jerry 53 kostete 3,87 $
@@ -45,6 +44,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 13:35 16.10.: Jerry 18 nach Pro-Sperre geweckt (108, dann 18); Eingang 110 und „kürzer schreiben“ gelesen, gestrichen (Ford 2)
 - 13:33 16.10.: Start Sokrates Projekt (Neustart, 479ef5b4, 118 Teams ohne Themen)
 - 13:04 16.10.: Diogenes 110 (5,08 $) und Kreativ 99g (1,57 $, DESIGN-KAMPF.md b95aaf8e) archiviert; Projekt wartet mit 99g.1 auf Chef
 - 12:49 16.10.: Start Sokrates Kreativ und Sokrates Projekt (99g, Chef 12:4x über Diogenes, 4963f209)
