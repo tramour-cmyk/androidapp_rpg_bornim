@@ -179,7 +179,7 @@ object MapTownIso {
         // the edge of the roof, thick thatch at the eaves and along the gable: a band under the slope
         val thick = if (hut) 20.0 else if (thatch) 16.0 else 5.0
         // ---- the cot's herbs (D3.13): bundles hung head down to dry under the eaves, along the front (the door kept
-        // clear) and along the sunny side towards the fire
+        // clear) and along the sunny side
         if (hut) {
             val herbs = intArrayOf(0x8A9A6A, 0x7A7238, 0x84709E, 0xB8AE8A, 0x9A5E34, 0x6C8448)
             /** One bundle hanging from [zTop] at (i, j), drawn in the plane along [ai], [aj]. */
@@ -1010,18 +1010,44 @@ object MapTownIso {
     }
 
     /**
-     * A piece of fence (5.6) around its post in the middle of the tile, joined towards the fence tiles beside it
+     * Where a fence stands in its tile (93): a garden's fence on the edge towards its beds, so the beds reach it with
+     * no strip of grass between; any other in the middle. The offsets along i (x) and j (y) inside the tile, -1 to 0.
+     * Each straight run of fence moves as a whole, so its corners still meet.
+     */
+    fun fenceSpot(map: MapDef, tx: Int, ty: Int): Pair<Double, Double> {
+        fun f(x: Int, y: Int) = map.tile(x, y) == Tile.FENCE
+        fun bed(x: Int, y: Int) = map.tile(x, y) == Tile.VEG_BED
+        // the run along x through the tile, and along y
+        var x0 = tx; while (f(x0 - 1, ty)) x0--
+        var x1 = tx; while (f(x1 + 1, ty)) x1++
+        var y0 = ty; while (f(tx, y0 - 1)) y0--
+        var y1 = ty; while (f(tx, y1 + 1)) y1++
+        val j = when {
+            (x0..x1).any { bed(it, ty + 1) } -> -0.1
+            (x0..x1).any { bed(it, ty - 1) } -> -0.9
+            else -> -0.5
+        }
+        val i = when {
+            (y0..y1).any { bed(tx + 1, it) } -> -0.1
+            (y0..y1).any { bed(tx - 1, it) } -> -0.9
+            else -> -0.5
+        }
+        return i to j
+    }
+
+    /**
+     * A piece of fence (5.6) around its post at ([mi], [mj]) in the tile (the middle unless [fenceSpot] moves it), joined towards the fence tiles beside it
      * ([l] west, [r] east, [u] north, [d] south). Three looks: split rails on posts, wattle of woven hazel between
      * stakes, a row of pointed pales on two rails.
      */
-    fun fence(v: Int, l: Boolean, r: Boolean, u: Boolean, d: Boolean, seed: Int): PixelImage {
+    fun fence(v: Int, l: Boolean, r: Boolean, u: Boolean, d: Boolean, seed: Int, mi: Double = -0.5, mj: Double = -0.5): PixelImage {
         val c = Tile1(160)
-        val m = -0.5
         // a run from the post to the tile's edge, along i (di = ±1) or j (dj = ±1)
         fun run(di: Int, dj: Int) {
+            val m = if (di != 0) mi else mj
             val (a0, a1) = if (di + dj < 0) -1.0 to m else m to 0.0
             fun along(lo: Double, hi: Double, w: Double, z0: Double, z1: Double, tex: (Int, Double, Double) -> Int?) =
-                if (di != 0) c.box(lo, m - w, hi, m + w, z0, z1, tex) else c.box(m - w, lo, m + w, hi, z0, z1, tex)
+                if (di != 0) c.box(lo, mj - w, hi, mj + w, z0, z1, tex) else c.box(mi - w, lo, mi + w, hi, z0, z1, tex)
             when (v) {
                 0 -> for (z in listOf(18.0, 40.0)) along(a0, a1, 0.025, z, z + 6) { f, uu, w -> wood(f, if (di != 0) uu else w, if (di != 0) w else uu, seed + z.toInt(), 0x5A4632) }
                 1 -> {
@@ -1050,7 +1076,7 @@ object MapTownIso {
         if (l) run(-1, 0)
         if (u) run(0, -1)
         val top = when (v) { 0 -> 56.0; 1 -> 54.0; else -> 50.0 }
-        c.box(m - 0.05, m - 0.05, m + 0.05, m + 0.05, 0.0, top) { f, uu, w -> wood(f, w, uu, seed + 9, 0x3E2E20) }
+        c.box(mi - 0.05, mj - 0.05, mi + 0.05, mj + 0.05, 0.0, top) { f, uu, w -> wood(f, w, uu, seed + 9, 0x3E2E20) }
         if (r) run(1, 0)
         if (d) run(0, 1)
         return c.img
@@ -1152,8 +1178,10 @@ object MapTownIso {
         val door = letters.indexOf('D')
         val seed = hash(f.x, f.y, 5) % 997
         val room = roomOf(map, f)
-        // D3.13: the cot's door is in its east side, towards Morwen's fire (user 15.10., 12:0x); the map's door tile is a wall
-        val (front, side) = if (style.feature == HouseFeature.HUT) letters to "#D" else room?.let { windowsFromRoom(it, f.n, f.d, door) }
+        // D3.13a: the cot's door is in its front (south), towards Morwen's fire; the map's door tile is a wall with a
+        // locked warp, so the door is where the warp is
+        val hutDoor = if (style.feature == HouseFeature.HUT) map.warps.firstOrNull { it.y == f.y && it.x in f.x until f.x + f.n }?.let { it.x - f.x } else null
+        val (front, side) = if (style.feature == HouseFeature.HUT) letters.mapIndexed { i, c -> if (i == hutDoor) 'D' else c }.joinToString("") to "##" else room?.let { windowsFromRoom(it, f.n, f.d, door) }
             ?: (letters to (if (f.d >= 3) "#W#" else if (seed % 2 == 0) "W#" else "#W"))
         // the chimney over the hearth inside, at the same share of the length; houses without a room: towards one end
         val chimney: Double? = when {
@@ -1256,7 +1284,8 @@ object MapTownIso {
                 // one look for a whole fence: the garden's or the posts beside the barrier, by its first tile
                 val l = fenceAt(tx - 1, ty); val r = fenceAt(tx + 1, ty); val u = fenceAt(tx, ty - 1); val d = fenceAt(tx, ty + 1)
                 val fv = fenceLook(map, tx, ty)
-                "fence/$fv/$l$r$u$d" to { fence(fv, l, r, u, d, 591 + fv) }
+                val (mi, mj) = fenceSpot(map, tx, ty)
+                "fence/$fv/$l$r$u$d/$mi/$mj" to { fence(fv, l, r, u, d, 591 + fv, mi, mj) }
             }
             else -> null
         }
@@ -1318,13 +1347,25 @@ object MapTownIso {
             val lit = PixelImage(92, hh)
             var any = false
             for (y in 0 until img.height) for (x in max(0, mid - 46) until min(img.width, mid + 46)) {
-                if (floor((x + 0.5 - pic.ox) / (TW / 2)).toInt() != k) continue
+                // each strip reaches two pixels into its neighbours (D9.1): scaled by an odd zoom its edges are
+                // smoothed and rounded, and the ground below showed through as a thin upright seam
+                val u = x + 0.5 - pic.ox - k * TW / 2
+                if (u < -2 || u >= TW / 2 + 2) continue
                 val col = img[x, y]
                 if (col ushr 24 == 0) continue
                 strip.set(x - (mid - 46), y + (hh - Math.round(bottom).toInt()), col); any = true
                 glow?.get(x, y)?.takeIf { it ushr 24 != 0 }?.let { lit.set(x - (mid - 46), y + (hh - Math.round(bottom).toInt()), it) }
             }
             if (!any) continue
+            // the clear pixels around what is drawn take the colour beside them (D9.1): smoothed without it, the edge
+            // took in their black and showed as a dark seam over the neighbour strip
+            val edge = strip.pixels.copyOf()
+            for (y in 0 until hh) for (x in 0 until 92) {
+                if (strip.opaque(x, y)) continue
+                val nb = listOf(strip[x - 1, y], strip[x + 1, y], strip[x, y - 1], strip[x, y + 1]).firstOrNull { it ushr 24 != 0 } ?: continue
+                edge[y * 92 + x] = nb and 0xFFFFFF
+            }
+            edge.copyInto(strip.pixels)
             // drop the empty rows on top, so the strip's box (see-through test) holds only what is drawn
             var top = 0
             while (top < hh - 2 && (0 until 92).none { strip.opaque(it, top) }) top++

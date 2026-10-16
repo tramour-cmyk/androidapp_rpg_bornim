@@ -1,5 +1,21 @@
 # Archiv
+### Übergabe Team Jerry (16.10., 06:55), abgelöst 16.10., 07:30
+
+**Übergabe (16.10., 06:55, „Jerry – 72.10 Probe Grak“) – Nachfolger: Jerry – 72u Standbild Grak im Wald:** 72.10 Kampfkern auf `claude/jerry-72-10-probe-grak` (9566107c, Entwurfs-PR #68, Kerntests grün): `Skirmish` mit Reihen, Platztausch, Ring-Stufen, Automatik nach 72.13, KO-Zählung. **Hängt am Kampf-Dokument** (Max, von Pro nicht lesbar; Abschrift im Eingang von `ARBEIT-BETRIEB.md` erbeten): Graks drei Absichten und Ring-Wirkung sind vorläufig, Oberfläche erst danach. Weiter gilt: `docs/ROLLE-TEAM.md` ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds höchstens 4 Punkte, nie mit Tom gemischt. **65.2:** zwei pausierte Weck-Routinen „Jerry Selbstarbeit“ (12:27, 15:27) auf Pro noch löschen.
+
+### Übergabe Sokrates Projekt (15.10., 23:4x), abgelöst 16.10., 07:10
+
+**Übergabe (15.10., 23:4x, „Sokrates Projekt – Nachprüfung Umbau 98“):** D14 eingearbeitet, D14.3 entschieden (bei Tom); Beschlüsse-Eintrag erledigt. Chef 23:3x: „Die Kaffeekasse ist trockengelegt“: nichts starten, nur auf Zuruf. Offen ohne Chef: 16.10. Ford-Morgenmeldung „Umbau läuft / hakt“ (98, Prüfen 4); hakt sie, Rückweg prüfen. Sparmodus 99d bis Sa 21:00: Sokrates Projekt nur auf Zuruf. Nachfolger: keiner bis Zuruf („Sokrates Projekt – <Thema>“).
+
+### Übergabe Team Jerry (16.10., 06:46), abgelöst 16.10., 06:55
+
+**Übergabe (16.10., 06:46, „Jerry – D1.7 Absprache“) – Nachfolger: Jerry – 72.10 Probe Grak:** D1.7 passt, in Toms Vorrat vermerkt. Weiter gilt: `docs/ROLLE-TEAM.md` ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds höchstens 4 Punkte, nie mit Tom gemischt. 24.6 wartet auf Chef, darum 72.10. **65.2:** zwei pausierte Weck-Routinen „Jerry Selbstarbeit“ (12:27, 15:27) auf Pro noch löschen.
+
 ### Übergabe Team Tom (16.10., 01:42), abgelöst 16.10., 01:5x
+
+Jerry, alte Übergabe: **Übergabe (12.10., 16:59; gekürzt 77e):** **Startauftrag, vor allem anderen:** `docs/ROLLE-TEAM.md` ganz lesen (seit Umbau 98, 15.10.: Firma WireStormTCS, `CLAUDE.md` und `docs/FIRMA.md`); in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`. Zweig `claude/jerry-13e-hoehle-diagonal` (13e.3 fertig, 13e.4 halb; 13e bleibt bei Tom (Zuteilung des Chefs, D14.3); Archiv). **65.2:** deine acht pausierten Weck-Routinen „Jerry Selbstarbeit HH:27“ auf Pro löschen (Ford weckt, 81s; D13.8d).
+
+**Übergabe (16.10., 01:5x, „Tom – 27n Funken im Wald senkrecht“) – Nachfolger: „Tom – 38 Rauchbündel Dialoge“:** 27n gebaut auf `claude/tom-27n-funken-wald` (292e1678, enthält D1.7 be636682; Kerntests grün, Film am Lagerfeuer im Flüsterwald selbst gesehen): `drawCaveLife` heißt `drawRisingLife` und gilt für alle Karten außer Innenräumen (Funken über Lagerfeuern, Sporen über Leuchtpilzen senkrecht), Tropfen der Höhle in `drawCaveDrops`. Ersetzt D1.7 im nächsten Sammelbuild nach #67 (Prüfliste wie D1.7, dazu: Flüsterwald nachts am Lagerfeuer 10 s zusehen, Funken steigen senkrecht aus den Flammen). Absprache `WorldScreen.kt`: Jerrys Zeile D1.7 ergänzt. Sonst unverändert: PR #67 wartet auf Test des Chefs (neu abonnieren); nach „passt“ #67 zusammenführen, #66 schließen, dann **ein** PR von `claude/tom-86-bewegung-rest` (D3.3 + 89 + 69f + 86), danach 27n. Jetzt: 38 (Texte `[D4.1.…]` in `STORY-K1.md` sind seit 15.10., 11:3x freigegeben: Garrick-Hinweis und Warnung unter Stufe 3, Morwen gibt Rauchbündel, Chronik; Kampfwirkung bei Jerry).
 
 **Übergabe (16.10., 01:42, „Tom – 13e Höhle D1.7 Leben“) – Nachfolger: „Tom – 27n Funken im Wald senkrecht“:** D1.7 gebaut auf `claude/tom-13e-hoehle-leben` (be636682, Kerntests grün, Standbild und Film selbst gesehen): Funken, Sporen und Tropfen der Höhle wurden auf der gekippten Bodenebene gezeichnet und zogen schräg, jetzt senkrecht (`drawCaveLife`); Goblinfeuer raucht (`drawCampSmoke` auch für `CAVE`, ohne Wind). Berührt `WorldScreen.kt` (Absprache: Zeile in Jerrys Vorrat). In den nächsten Sammelbuild nach PR #67 (Prüfliste: Höhle Südost am Goblinfeuer 10 s zusehen: Rauch gerade nach oben, Funken senkrecht; bei den Leuchtpilzen Sporen senkrecht; Tropfen fallen senkrecht, Ring flach). Sonst unverändert: PR #67 wartet auf Test des Chefs (neu abonnieren); nach „passt“ #67 zusammenführen, #66 schließen, dann **ein** PR von `claude/tom-86-bewegung-rest` (D3.3 + 89 + 69f + 86), danach D1.7. Jetzt: 27n (derselbe Fehler bei Lagerfeuern draußen: Funken in `drawMapLight` auf der Bodenebene, ziehen schräg).
 
@@ -532,6 +548,8 @@ Sitzung 14.10., 22:1x–23:0x: 72.14 Gefährte/Söldner/Begleiter, 72.15 Begleit
 
 
 
+
+Jerry alt (16.10., 07:30): **Übergabe (16.10., 07:30, „Jerry – 72u Standbild Grak im Wald“) – Nachfolger: Jerry – 95 Keuchen hörbar:** 72u Standbild fertig (Telegram 07:2x, Zeile 72u; Kreativ soll entscheiden lassen); Zweig `claude/jerry-72u-standbild-grak`, Entwurfs-PR #69 (nur Vorschau `KAMPFORT=`, baut; nicht zusammenführen ohne Bedarf). 72.10 Kampfkern weiter auf `claude/jerry-72-10-probe-grak` (PR #68), wartet auf Kampf-Dokument: **Pro hat keinen Zugriff** auf den Inhalt (Claude Docs verweigert) und nicht auf Dein Zug (Chef 07:2x informiert, Freigabe fehlt). Weiter gilt: `docs/ROLLE-TEAM.md` ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds höchstens 4 Punkte, nie mit Tom gemischt; Zeitstempel immer von der Uhr. **65.2:** zwei pausierte Weck-Routinen „Jerry Selbstarbeit“ (12:27, 15:27) auf Pro noch löschen.
 ## Aus ROLLE-BERATER.md, 15.10., 18:0x (Übergabe)
 
 **Übergabe (15.10., 17:2x) – Nachfolger: „Sokrates – CLAUDE.md kürzen und Kapitel 2“:**
