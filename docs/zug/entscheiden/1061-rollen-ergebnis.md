@@ -4,7 +4,7 @@ Sokrates Projekt · 16.10., 21:52 · Anlass Chef 16.10., 16:3x: „ob die Rollen
 
 Kurz: Zusammenfassung: alle sechs Rollen Sa ab 21:15 in einem Rutsch, je Rolle eine Kennzahl mit Quelle und eine Schwäche; dazu 124, 125, 126; ein „Paket ja“ genügt
 
-**Frage:** Samstag ab 21:15 alles in einem Rutsch umbauen, wie unten zusammengefasst? Ein „Paket ja“ entscheidet 106.1, 124, 125 und 126 zusammen; einzelne Abweichungen dazuschreiben.
+**Frage:** Samstag ab 21:15 alles in einem Rutsch umbauen, wie unten zusammengefasst? Ein „Paket ja“ entscheidet 106.1, 124, 125, 126 und 115 zusammen; Abweichungen dazuschreiben (z. B. andere Namen als Perikles und Homer). Sonst ist für Samstag nichts offen.
 
 **Empfehlung:** Ja. Das Muster ist der Entwurf für `ROLLE-TEAM` unten; alle Rollendateien bekommen dieselben Teile: Wer du bist · Gutes Ergebnis (echtes Beispiel) · Dein Maß (eine Zahl mit Quelle) · Dein typischer Fehler (einer) · Was du tust / nicht tust · Wen du ansprichst · Start. Mechanik (Uhren, Kennungen, Test-Builds, Neustart) zieht in `LISTE-…`; je Rollendatei unter 4 KB (heute 4–14 KB). Keine neue Rolle.
 
@@ -26,6 +26,12 @@ Zählen einmal vergeben (D18.4): **erfassen** die Rollen selbst bzw. Ford beim N
 - **124** Hauptthemen E, G, Q, B, M und Preis je Vorgang (Ford erfasst beim Neustart, Projekt wertet, Diogenes prüft).
 - **125** Projekt heißt Perikles, Kreativ Homer, Sokrates bleibt Berater (Namen auf Ihren Wunsch änderbar).
 - **126** jede Zeile M oder K; Kür nur, wenn nichts Muss startbar ist; Wochenziel montags vom Projektmanager.
+- **Lehren und Empfehlungen** (Chef 21:5x: „aus Lessons learned, aus den Empfehlungen von Diogenes und anderen Beratern … ein rundes Gesamtpäckchen … und wir messbare Ziele am Schluss erreichen“), je in die Rolle, der sie gehört:
+  - Ford: alle Aufträge und Befunde regelmäßig auf Zuteilung und Alter prüfen (107); Titel gegen Rollentabelle (101); Notfall-Selbststart ohne Tiefensperre (D16).
+  - Alle: eine Idee (auch des Chefs) heißt prüfen, nicht bauen; Zeile in den Vorrat, der Vorrang entscheidet (115, Empfehlung Tom; ersetzt „Ideen in `LISTE-IDEEN.md`“).
+  - Kreativ: fertiges Muster sofort als Muster festschreiben, mit Fundstelle (112).
+  - Wer eine Grundsatzfrage hat, legt die Zug-Datei selbst an, Hut nur auf Zuruf, Story bei Kreativ (D21, beschlossen; kommt mit, damit `ROLLE-TEAM` nicht zweimal umgebaut wird).
+  - Teams: Testbitte nur mit Build über der zuletzt getesteten Nummer (102); Sparmodus als Abschnitt in `FIRMA.md` (102).
 - **128, D18–D21** eingearbeitet; dazu wie beschlossen 117 (Namen), 99g.1 (Vorgangsarchiv), 122 (Inhaltsverzeichnis), 102 (Abgleich).
 
 **Ablauf Sa 17.10.:** ab 21:15 (Max-Guthaben neu) eine Sitzung Sokrates Projekt: erst Namen (117, 125), dann die sechs Rollendateien, dann Vorräte (Spalte Bereich, M/K), zuletzt Inhaltsverzeichnis; bei der zweiten Erinnerung des Hakens Übergabe an einen Nachfolger. Danach prüft Diogenes. Die erste Woche danach liefert die ersten Zahlen.
