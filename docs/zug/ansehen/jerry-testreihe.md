@@ -72,3 +72,14 @@ Hörproben per Telegram (16.10., 20:0x). Stil-Abgleich: echte Aufnahmen statt Sy
 | 9.1 | D3.10 | Test: „Regen: immer“; im Wald oder Dorf stehen, 1 min zuhören, dann „Regen: nie“ | Regen rauscht gleichmäßig ohne Knacken an der Schleifenstelle; nach dem Umschalten wird er über einige Sekunden leiser | kein Regen zu hören; Knacken alle 12 s; bricht hart ab |
 | 9.2 | D3.10 | bei Regen ein Haus betreten, wieder hinaus; einen Kampf beginnen | drinnen still, draußen wieder Regen; im Kampf still | Regen drinnen gleich laut; im Kampf weiter |
 | 9.3 | D3.10 | bei Regen draußen 5–10 min warten (Wetterleuchten kommt selten) | einige Sekunden nach dem Leuchten fernes, tiefes Grollen ohne Krachen | kein Donner; schrilles Krachen |
+
+## Build 10 · Wölfe und Monster auf der Karte · [PR #95](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/95)
+
+Hörproben per Telegram (16.10., 19:36 und 19:5x). Stil-Abgleich: echte Aufnahmen, drei Fassungen je Klang mit eigenem Charakter; „was man sieht, klingt selbst“. Übergänge: Ruhe (Laute) ↔ bemerkt („!“, Laute verstummen, Jagd) ↔ zurück nach Hause (wieder Laute). Geprüft mit Kerntest `MonsterIdleTest`; das Gefühl nur am Gerät.
+
+| # | Nr. | Wo und wie | Richtig | Falsch |
+|---|---|---|---|---|
+| 10.1 | D3.8 | Tiefer Wald, 3–5 min stehen (Wolfsgeheul kommt selten) | drei verschieden klingende ferne Wölfe: ein einzelner, ein anderer, ein Rudel | immer derselbe Wolf |
+| 10.2 | D3.9 | Wald: Test „Monster greifen nicht an“ an, an Wolf, Keiler, Goblin bis auf 2–5 Felder herangehen, je 30 s stehen | jedes Tier ab und zu leise zu hören (Schnüffeln, Grunzen, Räuspern), näher lauter, ab etwa 7 Feldern still; nie mehrere zugleich | stumm; zu laut oder zu oft; Tiere klingen gleich |
+| 10.3 | D3.9 | Höhle (gleicher Testschalter): Skelett, Zombie, Fledermaus, Goblin | Knochen klappern, Stöhnen, Flügel; passt zum Tier | falscher Laut zum Tier |
+
