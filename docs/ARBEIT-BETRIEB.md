@@ -74,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 00:51 17.10.: Chef: Build 12 passt (wörtlich in Jerrys D3)
 - 00:41 17.10.: Chef: Build 11 passt (wörtlich in Jerrys 86); 131 Laufen/Ausdauer bei Sokrates angelegt
 - 00:35 17.10.: Chef: Build 8 passt (wörtlich in Jerrys 72.10); 130 Kampfgefühl (8.5) bei Sokrates angelegt
 - 00:22 17.10.: Perikles 99g.2 fertig (5af1dd15), archiviert (3,48 $ auf 99); Nachfolger in den Eingang
