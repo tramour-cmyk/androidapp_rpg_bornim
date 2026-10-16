@@ -34,7 +34,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 | 59e | Händler: Vorrat je Laden (mit 38/39) | offen | – |
 | 30 | Abstürze: eigene Klang-Fäden prüfen | **gebaut** (16.10., 10:3x, 01522e0e, PR #82, Kerntests grün): Beenden während `sfx-render` lädt konnte den SoundPool mitten in `load()` freigeben (nativer Absturz); jetzt unter Sperre. Sonst ohne Befund (`MusicPlayer` Hauptfaden, keine Klangaufrufe aus Hintergrundfäden). Kein Kerntest möglich (Android-Klasse). **Wartet auf Chef** (Test nach #81) | `claude/jerry-30-klang-faeden` |
 | 18 | Stimmen der übrigen Gegner (Angriff, Schmerz, Tod, je drei Fassungen), nur als Hörproben | **Hörproben fertig** (16.10., 13:5x, 06699886, `tools/klang/stimmen.py`): 12 Gegner, je 9 Fassungen, CC0 (BigSoundBank, OpenGameArt), per Telegram; **wartet auf Chef** ([18.11](dz:1811)); danach ins Spiel (`Recorded.voiceOf`) | `claude/jerry-18-gegnerstimmen` |
-| – | Raumklang (Idee 8), Hörproben | offen (Selbstarbeit) | – |
+| 119 | Raumklang (Idee 8): Hall in der Höhle, gedämpft und nah in der Schänke, offen im Wald; Hörproben | in Arbeit (16.10., 13:5x) | `claude/jerry-idee8-raumklang` |
 | – | Musik in Schichten (Idee 10), Hörproben | offen (Selbstarbeit) | – |
 | 9i | Entwürfe ansehen und freigeben | **wartet auf Chef** | – |
 | 19e | Ein konkretes Beispiel für „Bewegungen unrund“ | **wartet auf Chef**, falls ihm eines auffällt | – |
