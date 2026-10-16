@@ -31,7 +31,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg (Chef 12.10., 15:4x) | **gebaut** (16.10., 10:17, aacf565a, PR #81, Kerntests grün, `OutlineTest`, Filme selbst gesehen): Zustände liegen auf dem Umriss des gezeigten Bilds statt um den Fußpunkt (Krogg stand links davon); geprüft Krogg, Grak, Goblin, Wolf, Keiler, Spinne, Fledermaus; Vorher/Nachher per Telegram. **Wartet auf Chef** (Test nach #80) | `claude/jerry-53-zustaende-krogg` |
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Krogg so lassen, später alle gesamt; Rudelwölfe auf `main` | – |
 | 59e | Händler: Vorrat je Laden (mit 38/39) | offen | – |
-| 30 | Abstürze: eigene Klang-Fäden prüfen | offen | – |
+| 30 | Abstürze: eigene Klang-Fäden prüfen | **gebaut** (16.10., 10:3x, 01522e0e, PR #82, Kerntests grün): Beenden während `sfx-render` lädt konnte den SoundPool mitten in `load()` freigeben (nativer Absturz); jetzt unter Sperre. Sonst ohne Befund (`MusicPlayer` Hauptfaden, keine Klangaufrufe aus Hintergrundfäden). Kein Kerntest möglich (Android-Klasse). **Wartet auf Chef** (Test nach #81) | `claude/jerry-30-klang-faeden` |
 | 18 | Stimmen der übrigen Gegner (Angriff, Schmerz, Tod, je drei Fassungen), nur als Hörproben | offen (Selbstarbeit) | – |
 | – | Raumklang (Idee 8), Hörproben | offen (Selbstarbeit) | – |
 | – | Musik in Schichten (Idee 10), Hörproben | offen (Selbstarbeit) | – |
