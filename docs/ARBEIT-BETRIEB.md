@@ -23,7 +23,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
 - 17.10., 00:22, von Perikles (5af1dd15): Nachfolger „Perikles – 106.1 Vermerke D16–D21“ erst nach Sa 17.10., 21:00 oder auf Zuruf starten, dann Zeile streichen
-- 17.10., 00:0x, von Tom (62078f62): Nachfolger „Tom – 117 Verweise im Code“ erst nach Sa 17.10., 21:00 oder auf Zuruf starten (PR #100 neu abonnieren), dann Zeile streichen
+- 17.10., 00:0x, von Tom (62078f62): Nachfolger „Tom – 117 Verweise im Code“ erst nach Sa 17.10., 21:00 oder auf Zuruf starten (vorher #100 zusammenführen, Build 13 passt), dann Zeile streichen
 
 ## Kosten Ford 2
 
@@ -74,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 01:00 17.10.: Chef: Build 13 passt (wörtlich in Toms 129); Rückfrage 129a (68, 26 mitgemeint?)
 - 00:51 17.10.: Chef: Build 12 passt (wörtlich in Jerrys D3)
 - 00:41 17.10.: Chef: Build 11 passt (wörtlich in Jerrys 86); 131 Laufen/Ausdauer bei Sokrates angelegt
 - 00:35 17.10.: Chef: Build 8 passt (wörtlich in Jerrys 72.10); 130 Kampfgefühl (8.5) bei Sokrates angelegt
