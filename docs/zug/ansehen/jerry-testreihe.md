@@ -2,9 +2,9 @@
 
 Jerry · 16.10., 13:5x · von Sokrates Projekt übertragen (11:2x), von Jerry ergänzt. Vorher-/Nachher-Bilder und Hörproben kamen per Telegram.
 
-Kurz: Zwölf Builds von Jerry nach Toms #71: Keuchen, Rauchbündel, Lautstärke, Umweltklang, Türklang, Fluss, Intro-Klang, Glocke, Sterbehaltung, Krogg, Zustände, Absturz Klang
+Kurz: 13 Builds von Jerry nach Toms #71: Keuchen, Rauchbündel, Lautstärke, Umweltklang, Türklang, Fluss, Intro-Klang, Glocke, Sterbehaltung, Krogg, Zustände, Absturz Klang, betrunken
 
-**Vorher wichtig:** Die Builds stammen von 08–10 Uhr, ihre Nummern liegen unter `main` 0.1.773 und sie enthalten Toms #71 noch nicht. Hast du 0.1.773 installiert, lässt Android sie nicht darüber installieren. Dann baue ich alle zwölf neu, mit `main` darin und in dieser Reihenfolge steigend; dafür brauche ich dein Okay (Rückfrage [108a](dz:108a)).
+**Vorher wichtig:** Die Builds stammen von 08–10 Uhr, ihre Nummern liegen unter `main` 0.1.773 und sie enthalten Toms #71 noch nicht. Hast du 0.1.773 installiert, lässt Android sie nicht darüber installieren. Dann baue ich #70–#82 neu (#84 ist schon mit `main` gebaut), mit `main` darin und in dieser Reihenfolge steigend; dafür brauche ich dein Okay (Rückfrage [108a](dz:108a)).
 
 APK je PR: unten im PR unter „Checks“ → „build“ → „Artifacts“. Testmenü: Reiter „Test“ (Uhrzeit +3 h, Teleport, „Held trifft immer kritisch“, „Bosse zurücksetzen“, „Alle Vorräte auf mindestens 10“).
 
@@ -22,5 +22,6 @@ APK je PR: unten im PR unter „Checks“ → „build“ → „Artifacts“. T
 | 10 | [#80](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/80) | 36.6 | Test: „Held trifft immer kritisch“ an, „Bosse zurücksetzen“, Krogg töten (Schwert und Speer) | Stücke beim Zerteilen und Durchbohren so fein wie Krogg selbst | grobe Pixel an den Stücken (Oberkörper teils hinter dem Rand: bekannt) |
 | 11 | [#81](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/81) | 53 | Krogg mit Feuer treffen (Feuerzauber oder Alchemistenfeuer) | Flammen sitzen auf Kroggs Umriss | Flammen links neben ihm |
 | 12 | [#82](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/82) | 30 | App starten und sofort beenden (Zurück), dreimal | kein Absturz (sonst nichts zu sehen) | „App wurde beendet“ |
+| 13 | [#84](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/84) | 86.9 | in der Schänke Met trinken bis „betrunken“, dann draußen kämpfen und einmal fliehen | Held trifft seltener, Flucht misslingt öfter (im Kampf keine Anzeige, das ist so gewollt) | kein Unterschied zu nüchtern; Absturz beim Kampf nach dem Met |
 
 **Außerdem bei Jerry, wartet auf dich:** D1.14 Höhlen-Klangbett (Empfehlung: Tropfen und Grollen behalten, Hörner heraus; Hörprobe mit und ohne folgt per Telegram). 72u Standbild Grak im Wald (A/B/C): die Frage stellt Sokrates Kreativ. 18 Gegnerstimmen: [18.11](dz:1811).
