@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 27, davon A 0, wartet auf Chef 12**
 
-**Übergabe (16.10., 10:24, „Jerry – 30 Klang-Fäden“) – Nachfolger: Jerry – 18 Gegnerstimmen:** 30 gebaut (PR #82, baut). #81 grün, Testbitte per Telegram (nach #80), 30 gleich mit angekündigt. Testreihenfolge #70, #72–#82. Nachfolger: #70, #72–#82 neu abonnieren; bei Grün #82 nur kurze Zeile per Telegram (Testbitte steht). Dann 18 (59e hängt an 38). Rest der alten Übergaben gilt (86.9 kein PR vor #71; nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
+**Übergabe (16.10., 13:44, „Jerry – 18 Gegnerstimmen“) – Nachfolger: Jerry – Raumklang (Idee 8):** 18 Hörproben fertig (PR #85, nur Werkzeug, baut nicht), per Telegram, wartet auf Chef ([18.11](dz:1811)); Wahl dann mit `stimmen.py` ins Spiel (`--spiel` fehlt noch, wie `huehner.py`). 108 erledigt: Testreihe ergänzt; Rückfrage [108a](dz:108a) (Builds #70–#82 unter 0.1.773, ohne #71): bei „A“ in jeden Zweig `main` einmischen, Kerntests, in Testreihenfolge einzeln pushen (ein Sammel-Skript lehnte der Freigabe-Modus ab). 86.9 PR #84 (baut). D1.14 Hörproben gesendet ([D1.14](dz:d114)). Nachfolger: #70, #72–#82, #84, #85 abonnieren. Rest der alten Übergaben gilt (nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
 
 ## Zeilen
 
