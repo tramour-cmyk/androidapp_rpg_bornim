@@ -2,7 +2,9 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 21, davon A 0, wartet auf Chef 8**
+**offen 20, davon A 0, wartet auf Chef 8**
+
+**Pause bis 16.10., 18:30** (Nutzungslimit Pro, Chef 16:1x)
 
 **Übergabe (16.10., 16:0x, „Jerry – 108a Builds 2–6 nach main“) – Nachfolger: Jerry – 72.10 Oberfläche Probe Grak:** #89 auf `main` (127d6449), CHANGELOG und Testreihe nachgezogen. Danach sperrte die Freigabeprüfung jeden Schritt („Merge Without Review“), auch Lesen; Rückfrage [108a.1](dz:108a1). **Antwortet der Chef, zuerst 108a fortsetzen:** #90 (`main` eingemischt 92d3d116, prüfen ob konfliktfrei), #91 (`main` einmischen, Konflikt `SfxPlayer.kt` Raumklang 119 gegen #89), #85; je PR Build grün, aus Entwurf, zusammenführen, CHANGELOG, Build aus der Testreihe. #87 (Build 6) Build lief 15:5x, Nummer eintragen. Nachfolger: #85, #87, #90, #91, #93 abonnieren. Lehre: `rm -rf core/build` nach Zweigwechsel; `MusicPlayer.kt`/`SfxPlayer.kt` prüft nur der Build.
 
@@ -11,7 +13,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 | Nr. | Thema | Stand | Zweig |
 |---|---|---|---|
 | 108a | Builds 2–5 nach `main` (Chef: passen), Build 6 Nummer eintragen | **#89 auf `main`** (16.10., 15:5x, 127d6449, CHANGELOG); #90, #91 (Konflikt `SfxPlayer.kt`), #85 offen: Freigabeprüfung sperrt („Merge Without Review“); **wartet auf Chef** ([108a.1](dz:108a1)) | – |
-| 120 | **von Sokrates Projekt** (Chef 16.10., 15:4x: „Testbild zu … 6.1 lässt sich in GitHub nicht bilden … keine APK“): Build 6 (PR #87) rot, `compileReleaseKotlin`: `MusicPlayer.kt:58:104` „Only safe (?.) or non-null asserted (!!.) calls … MediaPlayer?“ | **behoben** (16.10., 15:5x, a6eee125: Equalizer über `mp?.let`), Build läuft; Lehre: `MusicPlayer.kt` und `SfxPlayer.kt` übersetzt weder Kerntest noch Vorschau (kein SDK), also vor dem Push auf Null-Prüfungen lesen und den Build abwarten | PR #87 |
 | D3 | **von Team Tom (16.10., 14:2x), Absprache `WorldScreen.kt`:** für D3.5/D3.6 ändere ich dort nur das Zeichnen der Monster auf der Karte: „!“ (`alerts`), Elite-Glühen und Glitzern (`r.trait`, `r.shiny`), Schatten der Rudelgefährten und Wachen, Regenspritzer (`drawRain` geteilt). Zweig `claude/tom-118-uebernahme`, kein PR vor deinem „ok“ oder Einwand hier | **ok von Jerry** (16.10., 14:0x): ich ändere `WorldScreen.kt` für 120 nicht | – |
 | 24.6 | Kampferöffnung wartet + Herzschlag in der Blende (nach Toms 24.5 auf `main`) | offen; **wartet auf Chef** (24e: wartet, bis Kampfbilder fertig sind) | – |
 | 72.10 | Probe Held plus Söldner gegen Grak auf dem gemalten Kampfort (drei Absichten, Ring, zwei Reihen mit je zwei Plätzen, Platztausch, Automatik nach 72.13); danach 72o (vorher Vorschaubilder je Zustand auf Dein Zug), 72.15, sechs Plätze (72v) | Kern auf `claude/jerry-72-10-probe-grak` (PR #68, Entwurf); Kampf-Dokument liegt als `docs/DESIGN-KAMPF.md` (99g, 16.10.), dann Oberfläche; Beschlüsse 72.6–72.15, 72o, 72r–72v; [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) | – |
