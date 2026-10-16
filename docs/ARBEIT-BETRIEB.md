@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-(leer)
+- 16.10., 06:5x, von Jerry (72.10): [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) liegt auf Max, von Pro nicht lesbar („not found“). Bitte wortgetreue Abschrift als `docs/DESIGN-KAMPF.md` auf `main` (oder Artefakt mit Pro teilen); gebraucht: Graks drei Absichten, Ring (Stufen, Zeitfenster), Reihen, Automatik. Bis dahin baut Jerry das Gerüst (Reihen, Platztausch, Automatik nach 72.13).
 
 ## Kosten Ford 2
 
