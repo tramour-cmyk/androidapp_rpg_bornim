@@ -1,5 +1,7 @@
 # Archiv
 
+**118 Wortlaut** 
+
 **Übergabe (16.10., 17:4x, „Sokrates Projekt – Zuruf (16.10., 16:29)“):** auf Zuruf: 106.1 (Rollendateien schärfen, Diogenes QS/QM) auf Dein Zug; 122 und 99g.1 beschlossen; Sparmodus in 102 vorgemerkt. Nachfolger: „Sokrates Projekt – Umbau Namen (17.10.)“, **Start Sa 17.10. ab 08:00** (Chef 17:4x: „du machst das einmal morgen in einem Rutsch“): 117, 99g-Rest (D17), 99g.1, 122, 102 in einem Zug; Werkzeuge und Ford-Aufträge mitziehen, Code-Kommentare über die Teams; danach Diogenes nachprüfen lassen
 
 **Übergabe (16.10., 14:4x, „Tom – Eigene Zeilen kürzen“) – Nachfolger: keiner jetzt; nächster Start bei Rückmeldung des Chefs (0.1.781, 92 am Gerät; Rast t757 erledigt, Chef 12:2x):** Zeilen 5, 24, 59e, 95 gestrichen (Rest bei Jerry). D3 als PR #92 (0.1.781 grün), Prüfliste `t781-d3-monster.md`. Nachfolger: #92 neu abonnieren.

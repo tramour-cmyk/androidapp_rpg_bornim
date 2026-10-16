@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kosten-Nutzen der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 23, davon A 1, wartet auf Chef 1**
+**offen 25, davon A 1, wartet auf Chef 3**
 
 **Gelesen bis:** `a3e536f1` (16.10., 20:1x)
 
@@ -12,10 +12,12 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 | Nr. | Thema | Stand |
 |---|---|---|
+| 125 | Drei eigene Namen statt Sokrates-Hüte (Chef 16.10., 20:2x, Wortlaut in der Zug-Datei) | **auf Dein Zug**; bei Ja mit 117 am Sa |
+| 124 | Vorgänge in Hauptthemen gliedern, Preis je Vorgang (Chef 16.10., 20:2x, Wortlaut in der Zug-Datei) | **auf Dein Zug**; Probe ab So 18.10., Bilanz 23.10. |
 | D17 | **von Diogenes** (Lauf 17, 99g Umzug aller Artefakte; Prüfbericht): D17.1 Beschlüsse nur Text ins Repo, Bilder/Hörproben bleiben im Artefakt; D17.2 Docs-Dokumente per Ausfuhr, Kommentare vorher sichten, Doppeladressen ersetzen; D17.3 Graumoor-Karte; D17.4 Marktvergleich (Frage Chef in 99g); D17.5 gestaffelt: Kampf jetzt, Rest nach Sa 21:00, Regelbilanz an fünf Stellen | entschieden 12:4x, Umsetzung mit 99g nach Sa 21:00; **99g.1 beschlossen** 17:3x (Chef: „99g.1 ja“): Beschlüsse → `docs/VORGANGSARCHIV.md`, nur Text, mit 117 |
 | D16 | **von Diogenes** (Lauf 16, 110 Sitzungstiefe; Prüfbericht https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ): D16.1 Notfall-Selbststart (`ARBEIT-ABLAEUFE.md` Neustart 2) ohne Tiefensperre, Nachfolger auf 8 ohne Weckruf; D16.2 Tiefe Ford 2 in seine Kennungszeile; D16.3 Regel verweist auf gelöschte Zug-Datei 110; Anregung: Hand-Start Ford morgens | offen; im Prüfbericht „bestätigt“/„verworfen“ vermerken |
 | 122 | Inhaltsverzeichnis `docs/README.md` | **A, beschlossen** 17:4x (Chef: „122 ja, du machst das einmal morgen in einem Rutsch“): von Hand, ohne Action; Gliederung Jetzt/Spiel/Firma (Beschlüsse 122); **Sa 17.10. in einem Rutsch** mit 117, 99g-Rest, 99g.1, 102 |
-| 118 | Teams ohne Themen (Chef 16.10., 13:3x: „wie wäre es, wenn die … nicht mehr thematisch arbeiten, sondern arbeiten einfach die Liste ab und ergänzen sich im Sinne von, okay, ich brauche das andere, dann mach doch du das, ich mach das. Also keine thematische Trennung mehr. Was spricht dafür, was spricht dagegen?“) | **umgesetzt** 16.10., 13:56 (Chef 13:5x: „118 B“, dann „Sofort“): `CLAUDE.md` Regel 6, `ROLLE-TEAM.md`, `FIRMA.md` Pro-Ausfall; Zeilen an Tom und Jerry. Rest: Bilanz 23.10. (Übernahmen, Rückläufer) |
+| 118 | Teams ohne Themen (Chef 16.10., 13:3x, Wortlaut im Archiv) | **umgesetzt** 16.10., 13:56 (Chef 13:5x: „118 B“, dann „Sofort“): `CLAUDE.md` Regel 6, `ROLLE-TEAM.md`, `FIRMA.md` Pro-Ausfall; Zeilen an Tom und Jerry. Rest: Bilanz 23.10. (Übernahmen, Rückläufer) |
 | 117 | Namen in `docs/`, Archiv, Ausmisten | **beschlossen** (Chef 13:1x Kern; 13:3x: „117.1, ja. Punkt 2, ja. Punkt 3, ja, aber nicht Liste Ideen. Punkt 4, ja. Punkt 5, ja. Punkt 6, ja.“). **Nach Sa 21:00 in einem Zug mit 99g-Rest und 102:** `ARBEIT-ARCHIV` einfrieren (Regel streichen, 90a); umbenennen `ARBEIT-ABLAEUFE`→`LISTE-RELEASE-NEUSTART`, `ARBEIT-UMGEBUNG`→`LISTE-BAUEN-TESTEN`, `STORY-K1-W`→`STORY-K1-WELT`, `STORY-K1`→`STORY-K1-HANDLUNG`, `LISTE-THEMEN`→`LISTE-VORGAENGE`, `DESIGN-ZWISCHENBILD`→`DESIGN-BLENDE`, `LISTE-KAPITEL1`→`LISTE-ABNAHME-KAPITEL1`, `ROLLE-TEAM`→`ROLLE-ENTWICKLUNG`, Titel `LISTE-IDEEN` „Ideen“; „Dein Zug“ → „Chefsache“ (`docs/chefsache/`, Werkzeuge); ausmisten nach Zug-Datei 117.3 (Git c5a5cb33..), `LISTE-IDEEN` nicht anfassen; Verweise in Code-Kommentaren über die Teams |
 | 116 | `DESIGN-ZWISCHENBILD.md` umbenennen (Chef 16.10., 12:4x) | **beschlossen** mit 117 (Chef 13:1x): `DESIGN-BLENDE.md`, nach Sa 21:00 |
 | 115 | Idee heißt prüfen, nicht bauen (Chef 16.10., 12:2x: „Ach Leute, wenn ich eine Idee äußere, heißt das nicht umsetzen. Dann heißt das, irgendwer soll die Idee prüfen. Müssen wir das wo festschreiben?“; 12:3x: „Wenn überhaupt, müsste es erstmal auf irgendeinem Vorrat landen und dann von der Priorisierung her entschieden werden, … ob es wichtig ist, es gleich zu machen oder nicht.“) | von Team Tom: Anlass 114 (gleich gebaut, PR #83 jetzt Entwurf). Empfehlung Tom: keine neue Regel, CLAUDE.md „Ideen in `LISTE-IDEEN.md`“ ersetzen durch „Idee (auch des Chefs): Zeile in den Vorrat des Bereichs, nicht bauen; wann, entscheidet der Vorrang“ (90a) |
