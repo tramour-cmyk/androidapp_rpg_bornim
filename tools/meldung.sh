@@ -51,6 +51,9 @@ url = lambda u: dz(u) if u.startswith("dz:") else u
 # Sprungmarke (Nutzer 15.10.): Zeile „[72o.1](dz:72o1): …“ macht die fette Nummer selbst zum Link
 t = re.sub(r"(?m)^(\s*(?:⚠\s*)?)\[([^\]]{1,30})\]\(([^)\s]+)\):", lambda m: m.group(1) + "<a href=\"" + url(m.group(3)) + "\"><b>" + m.group(2) + ":</b></a>", t)
 t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", lambda m: "<a href=\"" + url(m.group(2)) + "\">" + m.group(1) + "</a>", t)
+# Nackte Adresse (105, Chef 16.10.: „Hyperlink nicht unterlegt, sondern extra“): „Titel“: URL -> Titel als Link, sonst das Wort „Link“
+t = re.sub(r"„([^“<]+)“:?\s*(https?://[^\s<]+)", lambda m: "<a href=\"" + m.group(2) + "\">„" + m.group(1) + "“</a>", t)
+t = re.sub(r"(?<![\"=>])(https?://[^\s<]+?)([.,;)]?(?:\s|$))", lambda m: "<a href=\"" + m.group(1) + "\">Link</a>" + m.group(2), t)
 t = re.sub(r"(?m)^(\s*(?:⚠\s*)?)([\wÄÖÜäöüß][\wÄÖÜäöüß .,/–-]{0,30}):", r"\1<b>\2:</b>", t)
 # Selbsttätig (105, Nutzer 16.10.: Links fehlen, Fettdruck uneinheitlich): auch ohne [..](dz:..) wird jede Nummer mit Datei
 # auf Dein Zug (72s.1, 99g, D10, 0.1.757 -> t757) fetter Link, „PR #71“ Link auf den PR, „Tom:“ am Zeilenanfang Link auf die laufende Sitzung (Besetzung).
