@@ -2,7 +2,7 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 16, Muss 2, A 0, Chefsache 1**
+**offen 17, Muss 2, A 0, Chefsache 1**
 
 **Gelesen bis:** `8abeae7b` (15.10., 23:0x; für `tools/story.sh`)
 
@@ -28,3 +28,4 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | 70 | K | Zwischensequenzen: Bildsprache für alle Kapitel (Chef 14.10., 08:00) | entschieden (Vorgangsarchiv, `DESIGN-STIL.md`): 70.1–70.6; Rest später, mit dem nächsten Kapitel |
 | 106.1 | K | **von Diogenes (16.10., 22:4x), Lauf 22** (`docs/PRUEFBERICHT.md`): D22.4 `STORY-REGELN.md`:14 nennt für neue Kapitel noch `STORY-K<n>.md` / `-W.md`, nach 117 `STORY-K<n>-HANDLUNG.md` / `-WELT.md`; D22.5c Übergabe nennt „39.1 auf Chefsache“ (entschieden) und die alte Startregel | offen |
 | 99g | K | **von Perikles (16.10., 23:03):** Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach Sa 17.10., 21:00 (Vorgangsarchiv 99g; D17.2: Docs `export`, offene Kommentare des Chefs vorher sichten, oben im Dokument „abgelöst, gilt `docs/…`“; D17.3: Karte als Bild unter 60 KB oder bleibt auf Max, entscheidest du); Verweise in den Notizen nachziehen, dann Zeile an Diogenes | offen |
+| 133 | K | **Idee von Chef (17.10., 01:09, an Tom):** „Auch eine Idee noch, dem Spiel ab und zu eine Wahl zu geben, aus mehreren Optionen, um den Plot voranzubringen. Also Gesprächsdialog-Optionen. Oder wenn ein Gegner besiegt wurde, ob man ihn halt leben lässt oder zum Beispiel tötet. Ja, legt es mal jemanden vor.“ | prüfen (115): Vorschlag für den Chef, wo und wie oft Wahlen in Kapitel 1–2 passen, mit Folgen |
