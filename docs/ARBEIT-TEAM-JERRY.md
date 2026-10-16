@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 28, davon A 0, wartet auf Chef 11**
+**offen 28, davon A 0, wartet auf Chef 12**
 
 **Übergabe (16.10., 14:05, „Jerry – Raumklang (Idee 8)“) – Nachfolger: Jerry – Musik in Schichten (Idee 10):** 119 Raumklang gebaut (PR #86, Entwurf, baut), Hörproben per Telegram, wartet auf Chef ([119](dz:119)); bei Ja Prüfliste in die Testreihe (Testreihenfolge nach #84), bei Änderung `Room.acoustics` anpassen, dann `RAUMKLANG=spiel` (Vorschau) neu backen und `RAUMPROBEN=1`. Nachfolger: #70, #72–#82, #84, #85, #86 abonnieren. Rest der Übergabe vom 16.10., 13:44 gilt (im Archiv: 18.11, 108a, D1.14, D4.1 an Diogenes nach #72).
 
@@ -38,6 +38,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 | 30 | Abstürze: eigene Klang-Fäden prüfen | **gebaut** (16.10., 10:3x, 01522e0e, PR #82, Kerntests grün): Beenden während `sfx-render` lädt konnte den SoundPool mitten in `load()` freigeben (nativer Absturz); jetzt unter Sperre. Sonst ohne Befund (`MusicPlayer` Hauptfaden, keine Klangaufrufe aus Hintergrundfäden). Kein Kerntest möglich (Android-Klasse). **Wartet auf Chef** (Test nach #81) | `claude/jerry-30-klang-faeden` |
 | 18 | Stimmen der übrigen Gegner (Angriff, Schmerz, Tod, je drei Fassungen), nur als Hörproben | **Hörproben fertig** (16.10., 13:5x, 06699886, `tools/klang/stimmen.py`): 12 Gegner, je 9 Fassungen, CC0 (BigSoundBank, OpenGameArt), per Telegram; **Chef 16.10., 14:0x: „18.11 passt“** (Beschluss eingetragen): alle Fassungen ins Spiel (`Recorded.voiceOf`), offen | `claude/jerry-18-gegnerstimmen` |
 | 119 | Raumklang (Idee 8): Hall in der Höhle, gedämpft und nah in der Schänke, offen im Wald; Hörproben | **gebaut** (16.10., 14:0x, PR #86, Kerntests grün, Vorschau übersetzt): Höhle, Tempelhalle, Schänke, Kammer je eigene Fassung der Ereignisklänge, draußen trocken; Hörproben per Telegram (13:5x); **Chef 16.10., 14:0x: „119 ja“** (Beschluss eingetragen, Prüfliste Nr. 14 in der Testreihe); **wartet auf Chef** (Test nach #84) | `claude/jerry-idee8-raumklang` |
-| 120 | Musik in Schichten (Idee 10): nähert sich ein Jäger, schleicht sich eine dunkle Spur in die Musik, bevor der Kampf beginnt; Stille bewusst einsetzen; Hörproben | in Arbeit (16.10., 14:0x) | `claude/jerry-idee10-musik-schichten` |
+| 120 | Musik in Schichten (Idee 10): nähert sich ein Jäger, schleicht sich eine dunkle Spur in die Musik, bevor der Kampf beginnt; Stille bewusst einsetzen; Hörproben | **Hörproben fertig** (16.10., 14:2x, PR #87 nur Werkzeug `tools/klang/schichten.py`): 0 heute, 1–3 Spur (Cello, gedehnte Celli, tiefe Streicher) mit Stille vor dem Kampf, 4 nur Stille; per Telegram; **wartet auf Chef** ([120](dz:120)); danach ins Spiel (`MusicDirector`, Nähe des nächsten Jägers) | `claude/jerry-idee10-musik-schichten` |
 | 9i | Entwürfe ansehen und freigeben | **wartet auf Chef** | – |
 | 19e | Ein konkretes Beispiel für „Bewegungen unrund“ | **wartet auf Chef**, falls ihm eines auffällt | – |
