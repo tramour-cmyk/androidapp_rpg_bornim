@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 27, davon A 0, wartet auf Chef 9**
+**offen 27, davon A 0, wartet auf Chef 10**
 
 **Übergabe (16.10., 09:29, „Jerry – 69c.1 Intro Glocke“) – Nachfolger: Jerry – 51 Sterbehaltung:** 69c.1 gebaut (62b7f54a, **PR #78**, baut auf #77, Kerntests grün, Vorschau übersetzt; Hörprobe Schwarzbild unter Titelmusik per Telegram 09:28). Testbitte #77 09:2x per Telegram raus; #78-Prüfliste steht im PR (Schwarzbild: Glocke dumpf, Rufe, ferner Schrei; Antippen: Glocke klingt aus). Testreihenfolge #70, #72–#78. Nachfolger: #70, #72–#78 neu abonnieren; bei Grün #78 Testbitte per Telegram (nach #77). Rest der alten Übergabe gilt (86.9 kein PR vor #71; nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
 
@@ -26,7 +26,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 | 69c.1 | Intro Bild 5 (Schwarzbild): gedämpft Glocke, Rufe, ein ferner Schrei (`STORY-K1.md` `[69.intro.5]`, 69b), unter Toms Titelmusik | **gebaut** (16.10., 09:2x, PR #78 auf #77, Kerntests grün, Vorschau übersetzt): Glocke dumpf als Schleife (schwillt an, klingt beim Antippen aus), drei Rufe verschiedener Stimmen, ein ferner Schrei; je drei CC0-Fassungen; Pegel gegen leisen Musikanfang (−45 dB) gemessen, Hörprobe per Telegram. **Wartet auf Chef** (Test nach #77) | `claude/jerry-69c-1-intro-glocke` |
 | 72.14 | Gefährte/Söldner/Begleiter in Spieltexten (Toms Teil erledigt 16.10., 01:26) | Feuerball-Wortlaut bei Kreativ angefragt (16.10., 09:1x); dann übernehmen; neue Kampftexte so prüfen | – |
 | 79 | Kampfhintergründe an die Diagonalwelt angleichen (Chef 14.10., 08:34; nur Aussehen) | hängt an 72u; erst Standbild, dann Entwurf nach Musterbild 70.1 | – |
-| 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben; Chef 12.10., 15:4x, erneut 14.10., 21:1x, Test 0.1.741) | erst Standbild der Sterbehaltungen aller Klassen, dann Vorschlag | – |
+| 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben; Chef 12.10., 15:4x, erneut 14.10., 21:1x, Test 0.1.741) | **gebaut** (16.10., 09:38, 53a02d65, PR #79, Kerntests grün): Sturz 2 oberer Arm stand in die Luft (alle Klassen), liegt jetzt am Boden; Sturz 3 fiel links aus dem Bild, dreht sich jetzt beim Knien und fällt nach rechts; Vorher/Nachher per Telegram. Magier-Robe beim Sturz aufs Gesicht wirkt kastig (nicht geändert). **Wartet auf Chef** (Test nach #78) | `claude/jerry-51-sterbehaltung` |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt | 36.4–36.7, 36h/36j/36k auf `main`; **offen 36.6:** Killerschlag mit Zerteilen bei Krogg noch in alter Auflösung | – |
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Krogg so lassen, später alle gesamt; Rudelwölfe auf `main` | – |
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg (Chef 12.10., 15:4x) | wenn Zeit ist; alle großen Gegner mitprüfen | – |
