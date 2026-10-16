@@ -6,7 +6,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
-| [99g.1](entscheiden/99g1-name-beschluesse.md) | 16.10. | Beschlüsse ziehen als reiner Text ins Repo (nach Sa 21:00); Name `LISTE-BESCHLUESSE.md`, `LISTE-VORGAENGE.md` oder „Vorgangsarchiv“? (Empfehlung: `LISTE-BESCHLUESSE.md`) | Sokrates Projekt |
+| [99g.1](entscheiden/99g1-name-beschluesse.md) | 16.10. | Beschlüsse heißen künftig Vorgangsarchiv, Datei `docs/VORGANGSARCHIV.md`, nur Text, Umzug nach Sa 21:00 (Empfehlung) | Sokrates Projekt |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Sokrates |
 
 ## Anzusehen
