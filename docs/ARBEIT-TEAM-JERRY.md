@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 27, davon A 0, wartet auf Chef 10**
 
-**Übergabe (16.10., 09:29, „Jerry – 69c.1 Intro Glocke“) – Nachfolger: Jerry – 51 Sterbehaltung:** 69c.1 gebaut (62b7f54a, **PR #78**, baut auf #77, Kerntests grün, Vorschau übersetzt; Hörprobe Schwarzbild unter Titelmusik per Telegram 09:28). Testbitte #77 09:2x per Telegram raus; #78-Prüfliste steht im PR (Schwarzbild: Glocke dumpf, Rufe, ferner Schrei; Antippen: Glocke klingt aus). Testreihenfolge #70, #72–#78. Nachfolger: #70, #72–#78 neu abonnieren; bei Grün #78 Testbitte per Telegram (nach #77). Rest der alten Übergabe gilt (86.9 kein PR vor #71; nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
+**Übergabe (16.10., 09:40, „Jerry – 51 Sterbehaltung“) – Nachfolger: Jerry – 36.6 Krogg Killerschlag:** 51 gebaut (53a02d65, **PR #79**, Kerntests grün, Prüfliste im PR; Vorher/Nachher per Telegram 09:38). Testbitte #78 per Telegram raus (09:4x, Link Actions-Lauf). Testreihenfolge #70, #72–#79. Nachfolger: #70, #72–#79 neu abonnieren; bei Grün #79 Testbitte per Telegram (nach #78). Dann 36.6: Killerschlag mit Zerteilen bei Krogg in neuer Auflösung. Rest der alten Übergabe gilt (86.9 kein PR vor #71; nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
 
 ## Zeilen
 
