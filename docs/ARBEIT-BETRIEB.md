@@ -70,6 +70,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Arch
 - 20:28 16.10.: Tom meldet Neustart (dce7e883); Nachfolger „Tom – 92 nach Test zusammenführen“ erst auf Testergebnis des Chefs (0.1.806), Meldung laut; Tom 92 archiviert
 - 20:26 16.10.: Start Diogenes (Auftrag 125, 106.1; Sokrates Projekt, a1e6380b)
 - 20:14 16.10.: Start Tom (Neustart, 75d49f75, 92 Bram schubsen); Vorgänger D3 archiviert (1,77 $)
+- 20:39 16.10.: Start Jerry (Neustart, fe2339f2, D3 Kampfgeheul) (Ford 2)
 - 20:32 16.10.: Start Jerry (Neustart, 81f0caee, 86 Außer Atem und Rennen laut) (Ford 2)
 - 19:55 16.10.: Start Jerry (Neustart, e952c65d, 39 Schwierigkeitsgrad) (Ford 2)
 - 19:46 16.10.: Start Jerry (Neustart, c9aa6b9f, Build 10 verfolgen, dann 59e) (Ford 2)
