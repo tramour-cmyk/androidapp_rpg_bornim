@@ -2,6 +2,8 @@
 
 Sokrates · 15.10., 12:5x · Beschlossen ist: ein Platz für einen Söldner oder einen Gefährten, der Gefährte steigt mit auf, Einstieg ab Kapitel 2, die Story wird dafür umgebaut (72.7, 72.9, 72s, 72t). Der Storyplan sagt noch „kein fester Begleiter“ (41l). Texte schreiben wir danach gemeinsam (41).
 
+Kurz: Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn)
+
 **Frage:** Wer geht in Kapitel 2 an der Seite des Helden, und ab wann?
 
 - **A** **Jäger Garrick** aus Bornim, ab Beginn von Kapitel 2. Nach der Tempelszene sitzt er an seinem Feuer und bietet an mitzukommen; Tobin ist ein Mann aus seinem Dorf. Der Spieler kann ihn mitnehmen oder ablehnen (dann allein oder mit einem Söldner, den er selbst anheuert). Langbogen, steht in der hinteren Reihe.

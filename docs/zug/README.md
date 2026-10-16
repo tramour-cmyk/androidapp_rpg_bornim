@@ -1,9 +1,24 @@
 # Dein Zug
 
-Was auf den Chef wartet (63, Beschluss 108 A): je Punkt eine Datei. Die Ordnerliste oben ist die Liste; erledigt heißt Datei löschen.
+Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tools/zug-index.py`) bei jedem Push; nicht von Hand ändern.
 
-- `entscheiden/`: Fragen mit Empfehlung, Name `<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`)
-- `ansehen/`: Testbitten, Name `t<build>-<stichwort>.md` (z. B. `t757-sammelbuild.md`) oder `<nr>-<stichwort>.md`
-- `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“.
+## Zu entscheiden
 
-Jede Datei: Überschrift „<Nr.> · <Frage>“, darunter Absender und Zeit, dann Frage, Empfehlung, stärkstes Gegenargument (lange Begründung in `<details>`). Telegram-Sprungmarke `[72s.1](dz:72s1)` führt auf die Datei (`tools/meldung.sh`).
+| Nr. | Seit | Was | Wer |
+|---|---|---|---|
+| [99g](entscheiden/99g-dokumente-pro.md) | 16.10. | Gehen Kampf-Dokument, Storyplan, Heldenbau auf Pro auf? Sonst Abschriften ins Repo (Empfehlung: Abschriften) | Sokrates Projekt |
+| [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Sokrates |
+| [D10](entscheiden/d10-kein-leerlauf.md) | 15.10. | Kein Leerlauf nachts: Ford-Wache steht (D10.1); zu entscheiden Vorrat-Zeile, erste Nachricht = Name, Startmarken an einem Ort, wer Diogenes startet (Empfehlung: Paket ja) | Sokrates |
+
+## Anzusehen
+
+| Nr. | Seit | Was | Wer |
+|---|---|---|---|
+| [0.1.757](ansehen/t757-sammelbuild.md) | 16.10. | Sammelbuild: Überspringen fragt nach (104), Intromusik (69f), Rast/Met/Zimmer (86), Held im Schatten (89), Funken senkrecht (27n, D1.7) | Tom |
+
+## So geht's
+
+- Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
+- Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · …`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann Frage, Empfehlung, stärkstes Gegenargument (lange Begründung in `<details>`).
+- Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“.
+- Telegram-Sprungmarke `[72s.1](dz:72s1)` führt auf die Datei (`tools/meldung.sh`).

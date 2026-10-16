@@ -2,6 +2,8 @@
 
 Tom · 16.10., 07:55 · [PR #71](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/71) · APK: [Build 0.1.757](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38858230143) (grün, unten „Artifacts“)
 
+Kurz: Sammelbuild: Überspringen fragt nach (104), Intromusik (69f), Rast/Met/Zimmer (86), Held im Schatten (89), Funken senkrecht (27n, D1.7)
+
 Enthält alles aus 0.1.753 (jetzt auf `main`). Neues Spiel genügt.
 
 ### 1. Überspringen nachfragen (104)

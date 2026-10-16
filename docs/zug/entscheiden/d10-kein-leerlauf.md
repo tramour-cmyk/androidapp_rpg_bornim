@@ -2,6 +2,8 @@
 
 Sokrates · 15.10., 18:2x · Befunde Diogenes Lauf 10 ([Prüfbericht](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ)), Anlass deine Vorgabe 18:1x „kein Leerlauf, auch nicht in der Nacht“
 
+Kurz: Kein Leerlauf nachts: Ford-Wache steht (D10.1); zu entscheiden Vorrat-Zeile, erste Nachricht = Name, Startmarken an einem Ort, wer Diogenes startet (Empfehlung: Paket ja)
+
 **Erledigt, wie du es aufgetragen hast (D10.1, 18:3x):** (1) Beim Selbstneustart legt der neue Ford zuerst seine Uhr an, erst danach wird der alte archiviert. Ford hat sich um 18:2x bereits so neu gestartet. (2) Das Netz ist die Sitzung „Ford-Wache“. Sie prüft Ford jeden Morgen um 07:08 und meldet mit Ton, wenn er steht. Die Probe ist bestanden: Ford lebt, Telegram geht, ein Lauf kostet etwa 0,30 $. Eine frisch gestartete Prüfsitzung reicht dafür nicht, sie hat weder Repo noch Sitzungswerkzeuge. (3) In CLAUDE.md steht jetzt: „Kommt um 7 Uhr keine Morgenmeldung, steht Ford.“ Dafür ist die überholte Zeile zur Selbstarbeit weg.
 
 **Zu entscheiden, alles als ein Paket:**
