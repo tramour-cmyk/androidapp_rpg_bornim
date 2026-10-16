@@ -4,14 +4,14 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 27, davon A 0, wartet auf Chef 4**
 
-**Übergabe (16.10., 06:46, „Jerry – D1.7 Absprache“) – Nachfolger: Jerry – 72.10 Probe Grak:** D1.7 passt, in Toms Vorrat vermerkt. Weiter gilt: `docs/ROLLE-TEAM.md` ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds höchstens 4 Punkte, nie mit Tom gemischt. 24.6 wartet auf Chef, darum 72.10. **65.2:** zwei pausierte Weck-Routinen „Jerry Selbstarbeit“ (12:27, 15:27) auf Pro noch löschen.
+**Übergabe (16.10., 06:55, „Jerry – 72.10 Probe Grak“) – Nachfolger: Jerry – 72u Standbild Grak im Wald:** 72.10 Kampfkern auf `claude/jerry-72-10-probe-grak` (9566107c, Entwurfs-PR #68, Kerntests grün): `Skirmish` mit Reihen, Platztausch, Ring-Stufen, Automatik nach 72.13, KO-Zählung. **Hängt am Kampf-Dokument** (Max, von Pro nicht lesbar; Abschrift im Eingang von `ARBEIT-BETRIEB.md` erbeten): Graks drei Absichten und Ring-Wirkung sind vorläufig, Oberfläche erst danach. Weiter gilt: `docs/ROLLE-TEAM.md` ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds höchstens 4 Punkte, nie mit Tom gemischt. **65.2:** zwei pausierte Weck-Routinen „Jerry Selbstarbeit“ (12:27, 15:27) auf Pro noch löschen.
 
 ## Zeilen
 
 | Nr. | Thema | Stand | Zweig |
 |---|---|---|---|
 | 24.6 | Kampferöffnung wartet + Herzschlag in der Blende (nach Toms 24.5 auf `main`) | offen; **wartet auf Chef** (24e: wartet, bis Kampfbilder fertig sind) | – |
-| 72.10 | Probe Held plus Söldner gegen Grak auf dem gemalten Kampfort (drei Absichten, Ring, zwei Reihen mit je zwei Plätzen, Platztausch, Automatik nach 72.13); danach 72o (vorher Vorschaubilder je Zustand auf Dein Zug), 72.15, sechs Plätze (72v) | offen; Beschlüsse 72.6–72.15, 72o, 72r–72v; [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) | – |
+| 72.10 | Probe Held plus Söldner gegen Grak auf dem gemalten Kampfort (drei Absichten, Ring, zwei Reihen mit je zwei Plätzen, Platztausch, Automatik nach 72.13); danach 72o (vorher Vorschaubilder je Zustand auf Dein Zug), 72.15, sechs Plätze (72v) | Kern auf `claude/jerry-72-10-probe-grak` (PR #68, Entwurf); wartet auf Abschrift Kampf-Dokument (Absichten, Ring), dann Oberfläche; Beschlüsse 72.6–72.15, 72o, 72r–72v; [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) | – |
 | 72u | Standbild Grak im Wald | offen, Entscheidung nach Probe | – |
 | 95 | Atem: Keuchen hörbar machen (86.3; Chef 15.10., 16:5x: „Atem mit Anzeige … hört man nicht“) | offen (Balken bei Tom passt) | – |
 | 86 | Bewegung und Übersicht: Keuchen, Initiative mit Nachteil, Rennen laut (84.4); 86.11 mit 72b/38 | offen; zur Kenntnis `GameState.winded`/`stamina`. Von Team Tom (16.10., 01:2x): **86.9** betrunken (`GameState.drunk`, fünfter Met, bis zur Rast) soll im Kampf wie SRD „Vergiftet“ wirken (Nachteil auf Angriffe); Ausdauertrank ist `ItemKind.TONIC` (nicht im Kampf); `WorldScreen.kt`: eine Zeile in `PlayScreen` (`Mode.Rest`) | – |
