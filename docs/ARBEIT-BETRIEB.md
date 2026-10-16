@@ -25,6 +25,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Projekt wertet nach zwei Tagen aus.
 
+- 16.10., 09:05: Neustart Jerry 69c; Jerry 86.9 kostete 2,15 $
 - 16.10., 08:59: Neustart Jerry 86.9; Jerry D6.4 kostete 3,90 $ (`usage.cost_usd` aus der Antwort von `archive_session`; späteres `get_session` liefert es nicht)
 - 16.10., 08:49: Selbstneustart Ford 2; Vorgänger 5,52 $ (`usage.cost_usd`, 272 Tsd. Token Kontext); Jerry 84 und Jerry D3: `get_session` liefert nach dem Archivieren kein `usage`, Kosten nicht ermittelbar
 - 16.10., 06:46: Einrichtung plus ein Start; ca. 127 Tsd. Token Kontext (`get_session` meldet `used_tokens` 0, Messung daher aus dem Sitzungszähler); Jerry D1.7 kostete 0,89 $, Jerry 72u 6,71 $, Jerry 95 4,25 $, Jerry 38 4,71 $, Jerry 40 4,16 $ (`usage.cost_usd` nach dem Archivieren; Jerrys Kosten, nicht Ford 2)
