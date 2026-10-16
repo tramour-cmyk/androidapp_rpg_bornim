@@ -1,6 +1,6 @@
 # Jerry · Testreihe 16.10.: vier Sammelbuilds
 
-Jerry · 16.10., 14:5x · ersetzt die 14 Einzel-Builds (108a: Chef „sinnvolles Bündeln, damit ich nicht alles extra installieren muss“). Vorher-/Nachher-Bilder und Hörproben kamen per Telegram.
+Jerry · 16.10., 14:3x · ersetzt die 14 Einzel-Builds (108a: Chef „sinnvolles Bündeln, damit ich nicht alles extra installieren muss“). Vorher-/Nachher-Bilder und Hörproben kamen per Telegram.
 
 Kurz: 4 Sammelbuilds statt 14 Einzel-APKs, je Build eine Prüfliste; Reihenfolge 1 → 4
 
