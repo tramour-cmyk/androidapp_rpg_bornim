@@ -14,7 +14,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 23:09)“ `session_01XWRdGrGASFYbx6MMqjVV6Y` (seit 16.10., 23:09, Selbstneustart, Tiefe 5; Vorgänger `session_01B3GyS2dPCbVVLgZ2umvMQt` archiviert). Stundenuhr „Ford-Uhr“ `trig_01MHvLjkYXRb7JKbtriztn6a` (:03, seit 23:10; alte Uhr `trig_013eNWtEGr7bAJCFxhGY5WHk` gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (17.10., 01:04)“ `session_01EshK4EhbFrGSCR6qeh3VYn` (seit 17.10., 01:04, Selbstneustart, Tiefe 6: kein weiterer Selbstneustart; Vorgänger `session_01XWRdGrGASFYbx6MMqjVV6Y` archiviert). Stundenuhr „Ford-Lauf“ `trig_01Y44JZv22h4mpFANruNYxH3` (:03, seit 01:04; alte Uhr `trig_01MHvLjkYXRb7JKbtriztn6a` gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 18:34)“ `session_017Gzi9LijVCMaW5UJrzYaXZ` (seit 16.10., 18:34; Vorgänger `session_013oK9KoFaRYSMbNWxWWtuW8` archiviert). Stundenuhr „Ford-2-Stundenuhr“ `trig_01DXxbKZYYttXJEEYeCyARt7` (:33, seit 18:34). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren.
 
@@ -74,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 01:05 17.10.: Ford neu übernommen; Uhr trig_01Y44JZv22h4mpFANruNYxH3 angelegt und geprüft, alte Uhr trig_01MHvLjkYXRb7JKbtriztn6a gelöscht, alter Ford session_01XWRdGrGASFYbx6MMqjVV6Y archiviert ($3,96)
 - 01:04 17.10.: Selbstneustart Ford (Haken-Erinnerung 2, ≈217 Tsd. Token) → session_01EshK4E… (Tiefe 6, kein weiterer Selbstneustart); Lauf: Tom Builds nach main läuft, sonst nichts
 - 01:00 17.10.: Start Tom (Builds 8, 11, 12, 13 nach main: #68, #98, #99, #100; Zuruf Chef 01:00: „Tom, Builds nach main“)
 - 01:00 17.10.: Chef: Build 13 passt (wörtlich in Toms 129); Rückfrage 129a (68, 26 mitgemeint?)
@@ -93,33 +94,3 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:55 16.10.: Start Perikles (106.1a, D22.1 zuerst; Chef 22:4x: „106.1a ja“; Auftrag von Diogenes, e5cacf45)
 - 22:33 16.10.: Umbau 106.1 auf main (b37fff95), Perikles archiviert (10,75 $); Start Diogenes 106.1
 - 22:2x 16.10.: Start Perikles – Umbau Rollen und Namen (vorgezogen von Sa 21:15; Chef 16.10., 22:2x: „Lege los! Godspeed.“ (100 $ Extra-Guthaben)); Vorgabe: ein Push am Ende; danach Diogenes Nachprüfung
-- 22:1x 16.10.: Chef Testergebnis Build 8 (72.10, #68) wörtlich in Jerrys Vorrat (Zeile 72.10)
-- 22:07 16.10.: Perikles 106.1 beschlossen (08a3e4c7), archiviert; Nachfolger Sa ab 21:15 (Eingang)
-- 22:04 16.10.: Lauf: Tom (#97 auf main, #68 neu 0.1.812, #98 Build 11) fertig, archiviert (3,89 $); Kreativ D21 fertig, archiviert (2,05 $); Perikles 106.1 wartet auf Chef („Paket ja“); Ford 1,96 $, 145 Tsd. Token
-- 21:5x 16.10.: Start Homer (D21: 39.1, 72u), Zuruf Chef: „Wort. Starte bitte Sokrates kreativ.“
-- 21:48 16.10.: Start Perikles (Neustart e6777f7a, 106.1 Entwürfe, Zuruf Chef 21:5x)
-- 21:46 16.10.: Diogenes (125, D21) archiviert; Starts Kreativ, Projekt, Tom für D21 in den Eingang (Startsperre bis Max-Wechsel)
-- 21:32 16.10.: Diogenes Lauf 21 fertig, kein Nachfolger; Wunsch Kreativ-Start in den Eingang (Startsperre bis Max-Wechsel); Diogenes archivieren ab 22:03
-- 21:29 16.10.: Start Tom (Übernahme D1/D3: #93, #94, #95 nach main; Chef 16.10., 21:2x: „Ich will alle fertigen Builds, die ich getestet habe, auf Main haben. Also lass das Tom mal bitte machen. Auch das von Jerry. Soweit du weißt, dass wir es freigegeben haben.“)
-- 21:20 16.10.: von Perikles: Wache Mo–Fr 07:08, Sa/So 09:08 (zweite Uhr); Guthaben Max 91 %; Umbau Namen auf Sa 21:15
-- 21:19 16.10.: neuer Ford session_01B3GyS2dPCbVVLgZ2umvMQt läuft, Uhr trig_013eNWtEGr7bAJCFxhGY5WHk; alte Uhr gelöscht, alter Ford archiviert
-- 21:18 16.10.: Selbstneustart Ford (Haken-Erinnerung 2, ≈233 Tsd. Token); offen: Diogenes 125 (session_01NN52c14B4vhpWH2KyWnUGT) fertig seit 20:57, archivieren ab 22:03, wenn unverändert; Tom pausiert bis Testergebnis 0.1.806 (dann „Tom – 92 nach Test zusammenführen“ starten); Sa 08:00 Start Perikles (Eingang); Guthabenzeile 128
-- 21:10 16.10.: Chef „Build 10 … PR #95 passt“ in Jerrys Vorrat (Zeile D3)
-- 21:05 16.10.: Chef „Build 9 … PR #94 passt“ und Frage zu 9.2 (Regen im Kampf) in Jerrys Vorrat (Zeile D3)
-- 20:54 16.10.: Chef „Build 7 · 0.1.798 · D1.14 … PR #93 alles passt“ in Jerrys Vorrat (Zeile D1); send_message an Jerry geht nicht über Accounts
-- 20:28 16.10.: Tom meldet Neustart (dce7e883); Nachfolger „Tom – 92 nach Test zusammenführen“ erst auf Testergebnis des Chefs (0.1.806), Meldung laut; Tom 92 archiviert
-- 20:26 16.10.: Start Diogenes (Auftrag 125, 106.1; Perikles, a1e6380b)
-- 20:14 16.10.: Start Tom (Neustart, 75d49f75, 92 Bram schubsen); Vorgänger D3 archiviert (1,77 $)
-- 20:39 16.10.: Start Jerry (Neustart, fe2339f2, D3 Kampfgeheul) (Ford 2)
-- 20:32 16.10.: Start Jerry (Neustart, 81f0caee, 86 Außer Atem und Rennen laut) (Ford 2)
-- 19:55 16.10.: Start Jerry (Neustart, e952c65d, 39 Schwierigkeitsgrad) (Ford 2)
-- 19:46 16.10.: Start Jerry (Neustart, c9aa6b9f, Build 10 verfolgen, dann 59e) (Ford 2)
-- 19:28 16.10.: Start Jerry (Neustart, 60796285, D3.8 Wolfsgeheul, D3.9 Monster auf der Karte) (Ford 2)
-- 19:16 16.10.: Start Jerry (Neustart, 825bd31f, D3 Rest) (Ford 2)
-- 19:15 16.10.: Start Jerry (Neustart, 9518b526, 24aa Ortsklang an der Tür prüfen) (Ford 2)
-- 18:56 16.10.: Start Jerry (Neustart, e868a630, 120 Musik in Schichten prüfen) (Ford 2)
-- 18:37 16.10.: Start Jerry (Neustart, 62d1df8d, 72.10 Probe Grak Bild prüfen) (Ford 2)
-- 18:36 16.10.: Ford 2 neu (session_017Gzi9L…), Uhr trig_01DXxbKZYYttXJEEYeCyARt7, alte Uhr gelöscht, Vorgänger archiviert; Jerry 72.10 läuft (Ford 2)
-- 18:34 16.10.: Jerry 72.10 nach Pro-Sperre geweckt; Start Ford 2 (Selbstneustart) (Ford 2)
-- 18:06 16.10.: Tom D3 wartet auf Chef (D3a: #92 zusammengeführt, Notizen von Freigabeprüfung gesperrt), Meldung laut
-- 17:52 16.10.: Ford neu übernommen; Uhr trig_01X9ykKgg4ibrwLnXHVW7666 angelegt und geprüft, alte Uhr trig_01Bg6UMEA6njTVfnsccoRe5G gelöscht, alter Ford session_01Hr5Go7BFHT2zpmsRmGmLc1 archiviert
