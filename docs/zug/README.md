@@ -15,7 +15,6 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
 | [Jerry](ansehen/jerry-testreihe.md) | 16.10. | 4 Sammelbuilds statt 14 Einzel-APKs, je Build eine Prüfliste; Reihenfolge 1 → 4 | Jerry |
-| [Tom](ansehen/t781-d3-monster.md) | 16.10. | Zeichen, Glühen und Schatten sitzen am Tier; „bemerkt“-Klang nach Entfernung; Schänkenherd an der Tür hörbar | Tom |
 
 ## So geht's
 

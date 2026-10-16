@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kosten-Nutzen der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 23, davon A 1, wartet auf Chef 1**
+**offen 24, davon A 1, wartet auf Chef 1**
 
 **Gelesen bis:** `8879dbf5` (16.10., 16:3x)
 
@@ -12,6 +12,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 | Nr. | Thema | Stand |
 |---|---|---|
+| 123 | **von Team Tom:** Testseiten mit klarer Nummer (Chef 16.10., 17:49 zu Build 5/t781: „Da war nicht eine richtige Nummer dabei. Das ist so ein Bündel-Build.“) | offen: Vorgabe für Prüflisten (Vorgangsnummer je Punkt sichtbar, Seite nach Build benannt) in `ROLLE-TEAM.md`, Regelbilanz |
 | D17 | **von Diogenes** (Lauf 17, 99g Umzug aller Artefakte; Prüfbericht): D17.1 Beschlüsse nur Text ins Repo, Bilder/Hörproben bleiben im Artefakt; D17.2 Docs-Dokumente per Ausfuhr, Kommentare vorher sichten, Doppeladressen ersetzen; D17.3 Graumoor-Karte; D17.4 Marktvergleich (Frage Chef in 99g); D17.5 gestaffelt: Kampf jetzt, Rest nach Sa 21:00, Regelbilanz an fünf Stellen | entschieden 12:4x, Umsetzung mit 99g nach Sa 21:00; **99g.1 beschlossen** 17:3x (Chef: „99g.1 ja“): Beschlüsse → `docs/VORGANGSARCHIV.md`, nur Text, mit 117 |
 | D16 | **von Diogenes** (Lauf 16, 110 Sitzungstiefe; Prüfbericht https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ): D16.1 Notfall-Selbststart (`ARBEIT-ABLAEUFE.md` Neustart 2) ohne Tiefensperre, Nachfolger auf 8 ohne Weckruf; D16.2 Tiefe Ford 2 in seine Kennungszeile; D16.3 Regel verweist auf gelöschte Zug-Datei 110; Anregung: Hand-Start Ford morgens | offen; im Prüfbericht „bestätigt“/„verworfen“ vermerken |
 | 122 | Inhaltsverzeichnis `docs/README.md` | **A, beschlossen** 17:4x (Chef: „122 ja, du machst das einmal morgen in einem Rutsch“): von Hand, ohne Action; Gliederung Jetzt/Spiel/Firma (Beschlüsse 122); **Sa 17.10. in einem Rutsch** mit 117, 99g-Rest, 99g.1, 102 |

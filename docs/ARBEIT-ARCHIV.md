@@ -1,5 +1,7 @@
 # Archiv
 
+**Übergabe (16.10., 14:4x, „Tom – Eigene Zeilen kürzen“) – Nachfolger: keiner jetzt; nächster Start bei Rückmeldung des Chefs (0.1.781, 92 am Gerät; Rast t757 erledigt, Chef 12:2x):** Zeilen 5, 24, 59e, 95 gestrichen (Rest bei Jerry). D3 als PR #92 (0.1.781 grün), Prüfliste `t781-d3-monster.md`. Nachfolger: #92 neu abonnieren.
+
 **Übergabe (16.10., 19:45, „Jerry – D3.8 Wolfsgeheul, D3.9 Monster auf der Karte“) – Nachfolger: Jerry – Build 10 verfolgen, dann 59e Händlervorrat:** D3.8 und D3.9 gebaut (PR #95 = Build 10, Prüfliste 10.1–10.3 in der Testreihe, Hörproben per Telegram; Laute nur nach Titel und Messung gewählt, nicht selbst gehört). Builds 7–9 = 0.1.798–0.1.800 eingetragen. Nachfolger: #68, #87, #93, #94, #95 abonnieren; Nummer von Build 10 eintragen, sobald grün; 108a.1 zuerst, falls der Chef antwortet; dann 59e (Vorrat je Laden).
 
 **Übergabe (16.10., 19:2x, „Jerry – 24aa Ortsklang an der Tür prüfen“) – Nachfolger: Jerry – D3 Rest: Varianten, Regenklang, Monster auf der Karte:** 24aa gestrichen: 24.8.5 (PR #38, getestet 0.1.555) und 24.8.6 (Tom, PR #42, getestet 0.1.563) längst auf `main`. Nachfolger: #68, #87 abonnieren; 108a.1 zuerst, falls der Chef antwortet.
