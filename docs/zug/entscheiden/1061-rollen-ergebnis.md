@@ -12,6 +12,8 @@ Kurz: je Rolle „gutes Ergebnis“ mit Beispiel und „dein typischer Fehler“
 3. **Maß messbar machen.** Jedes Maß (Rückläufer, Verwerfquote, Spielanteil) wird heute nirgends gezählt; der Tagesrückblick ab 18.10. zählt sie.
 4. **Kürzer.** Mechanik (Uhren, Kennungen, Stellungstabelle) in eine `LISTE-…`; die Rollendatei unter 4 KB. Netto keine Regel mehr (90a).
 
+**Diogenes als QS/QM** (Chef 16:3x: „vielleicht nachhalten, dass wir irgendwo vielleicht für Diogenes noch das QS, QM mit reinbringen“): beim Schärfen Titel „Prüfer und Revisor (Qualitätssicherung und Qualitätsmanagement)“; QS = Spiel prüfen (heute), QM = Abläufe prüfen (heute „Revisor“) plus das Zählen der Maße aller Rollen (Rückläufer, Verwerfquote) statt im Tagesrückblick.
+
 **Fehlt eine Rolle?** Nein. Die Lücke einer jungen Schmiede wäre Qualitätssicherung vor dem Kunden. Die deckt bei uns Diogenes, und der Engpass ist dein Test am Gerät, nicht eine fehlende Rolle. Eine weitere Rolle kostet Guthaben und Abstimmung; Marketing und Community erst mit einem Termin für die Veröffentlichung, und dann beim Berater.
 
 **Stärkstes Gegenargument:** Das Verhalten der Sitzungen bestimmen eher `CLAUDE.md` und der einzelne Auftrag als die Rollendatei; ein Umbau aller sechs Dateien kostet einen Tag und bringt vielleicht wenig. Deshalb erst die Probe an einer Rolle und Rückläufer eine Woche vorher und nachher vergleichen; lohnt es nicht, bleibt es dabei.
