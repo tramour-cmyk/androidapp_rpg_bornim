@@ -8,16 +8,7 @@ Kurz: 4 Sammelbuilds statt 14 Einzel-APKs, je Build eine Prüfliste; Reihenfolge
 
 APK: im PR unten unter „Checks“ → „build“ → „Artifacts“. Testmenü: Reiter „Test“ (Uhrzeit +3 h, Teleport, „Held trifft immer kritisch“, „Bosse zurücksetzen“, „Alle Vorräte auf mindestens 10“).
 
-Build 1 passt (Chef 16.10., 15:0x), auf `main` (PR #88). Build 2 passt, wird zusammengeführt.
-
-## Build 2 · 0.1.778 · Intro und Menü · [PR #89](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/89)
-
-| # | Nr. | Wo und wie | Richtig | Falsch |
-|---|---|---|---|---|
-| 2.1 | 69c | neues Spiel, Intro nicht überspringen | Bild 1–4 je eigene leise Mischung (Wind, Grillen, Fluss), zum Schwarzbild still | Klang lauter als die Musik; Sprung zwischen den Bildern |
-| 2.2 | 69c.1 | wie 2.1, bis Bild 5; dann antippen | dumpfe Glocke schwillt an, drei Rufe, ein ferner Schrei unter der Titelmusik; Antippen: Glocke klingt aus | Glocke bricht hart ab |
-| 2.3 | 40, 13e.6 | Menü → System: drei Regler; in der Höhle „Dunkle Töne“ von 0 auf 100 % | Gesamt, Musik, Effekte wirken einzeln (Ortsklang und Intro-Klang hängen an „Effekte“); Schwarz hebt sich höchstens leicht, Prüfzeichen gerade noch sichtbar | ein Regler ohne Wirkung; Höhle sieht hell und grau aus |
-| 2.4 | 30 | App starten und sofort beenden (Zurück), dreimal | kein Absturz (sonst nichts zu sehen) | „App wurde beendet“ |
+Build 1 und 2 passen, auf `main` (PR #88, #89). Build 3, 4, 5 passen (Chef 16.10., 15:2x–15:4x), werden zusammengeführt. Neu: Build 8, die Probe des neuen Kampfes (nach Build 6 und 7 testen).
 
 ## Build 3 · 0.1.779 · Kampf · [PR #90](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/90)
 
@@ -42,3 +33,32 @@ Build 1 passt (Chef 16.10., 15:0x), auf `main` (PR #88). Build 2 passt, wird zus
 | 5.1 | 18.11 | Höhle und Wald: gegen Keiler, Kobold, Riesenratte, Riesenspinne, Fledermaus kämpfen, dann Krogg (Test: „Bosse zurücksetzen“) | jeder Gegner ruft beim Angriff, bei Treffer und im Tod mit eigener Stimme, wie die Hörproben; Krogg tief und schwer | Gegner stumm; Stimme zu laut gegen die Hiebe; falsche Stimme |
 
 Fällt ein Punkt durch, nehme ich ihn per `git revert` aus dem Build, der Rest geht auf `main` (78a).
+
+## Build 6 · Musik in Schichten · [PR #87](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/87)
+
+Nummer folgt mit dem Build (höher als Build 5). Stil-Abgleich: Musik orchestral und düster (Spur aus Celli und tiefen Streichern, CC0); Übergänge Ruhe ↔ Jäger nah (2 s weich) ↔ bemerkt (0,4 s in die Stille) ↔ Kampf (hart wie bisher), Jäger dreht ab (2 s zurück); geprüft mit Kerntest `MusicLayersTest`, das Gefühl nur am Gerät.
+
+| # | Nr. | Wo und wie | Richtig | Falsch |
+|---|---|---|---|---|
+| 6.1 | 120 | Wald, Musik an; langsam auf einen Wolf oder Goblin zugehen (ab etwa 10 Feldern), vor der Bemerkgrenze (4 Felder) umdrehen und weggehen; dann noch einmal hin, bis er „!“ zeigt | beim Näherkommen wird die Musik leiser und dumpfer, eine dunkle Streicherspur wächst; beim Weggehen kommt alles weich zurück; beim „!“ Stille, dann setzt die Kampfmusik ein; beim nächsten Jäger eine andere Spur | nichts ändert sich; Sprünge in der Lautstärke; die Spur läuft im Kampf weiter |
+| 6.2 | 120 | Höhle: wie 6.1 an einem Goblin oder Skelett | über dem Klangbett dieselbe Spur, leiser als draußen; Klangbett bleibt | Spur lauter als die Höhlenmusik |
+
+
+## Build 7 · D1.14 und Testknopf · [PR #93](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/93)
+
+| # | Nr. | Wo und wie | Richtig | Falsch |
+|---|---|---|---|---|
+| 7.1 | D1.14 | Höhle mehrmals betreten (Klangbett wechselt) | Tropfen, Wind, fernes Grollen; keine Hörner, keine Kreaturenrufe | Hörner zu hören |
+| 7.2 | D4.1 | Test: „Alle Vorräte auf mindestens 10“ | ein Rauchbündel in der Tasche | kein Rauchbündel |
+
+## Build 8 · 0.1.796 · Probe 72.10: Held und Söldner gegen Grak · [PR #68](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/68)
+
+Erst die neue Kampfart zum Ausprobieren, noch nicht im Spiel: Reiter „Test“ → „Probe 72.10: Held und Söldner gegen Grak“ → Klasse des Söldners. Zahlen und Texte sind vorläufig (Texte bei Kreativ). Stil-Abgleich: gemalte Höhlenhalle mit Fackeln, Figuren im Fackellicht mit Schatten; Übergänge Ruhe ↔ Ausholen (Grak, solange der Ring läuft) ↔ Schlag mit kurzem Ausfall ↔ Ruhe, Treffer lässt zittern; selbst gefilmt durch die echte Oberfläche (Ring, Zielwahl, Wechsel der Züge). Bild des Rings per Telegram (18:5x).
+
+| # | Nr. | Wo und wie | Richtig | Falsch |
+|---|---|---|---|---|
+| 8.1 | 72.10 | Probe starten (zuerst Kämpfer als Söldner) | nach 1–2 s stehen Held, Söldner und Grak; über Grak ein Schild mit seiner Absicht (»Rudel rufen«, »Schwerer Hieb«, »Kraft sammeln«) | Höhle bleibt länger als 3 s leer; Absturz |
+| 8.2 | 72.11 | warten, bis Grak zuschlägt (nur Grak, Goblins ohne Ring); ein goldener Ring zieht sich um den Angegriffenen; irgendwo in die Szene tippen, wenn er sich schließt (mehrmals, auch zu früh und zu spät) | Grak holt sichtbar aus; oben „Perfekt!“, „Gut“ oder „Verpasst“; bei „Gut“ weniger Schaden, bei „Perfekt!“ keiner | Ring ruckelt; Tippen ohne Wirkung; Moment kaum zu treffen |
+| 8.3 | 72.10, 72.13 | Angriff (bei mehreren Gegnern Ziel wählen), Platz, Abwarten; dann „Söldner: selbst“ auf „Automatik“ | Szene und Knöpfe bleiben ruhig an ihrem Platz; auf Automatik handelt der Söldner allein | Szene springt; Söldner wartet trotz Automatik |
+| 8.4 | 72.11 | Grak hart treffen, solange er »Schwerer Hieb« oder »Kraft sammeln« angesagt hat | ab einem Fünftel seiner Lebenspunkte taumelt er, die Absicht ist vereitelt | Absicht läuft trotzdem |
+| 8.5 | Gefühl | zwei, drei Durchgänge mit anderen Klassen (auch Magier) | spannend, echte Wahl zwischen Angreifen, Platz und Abwarten | langweilig; Takt nervt (dann sagen, was) |

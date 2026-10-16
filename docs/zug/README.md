@@ -6,8 +6,8 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
-| [99g.1](entscheiden/99g1-name-beschluesse.md) | 16.10. | Beschlüsse heißen künftig Vorgangsarchiv, Datei `docs/VORGANGSARCHIV.md`, nur Text, Umzug nach Sa 21:00 (Empfehlung) | Sokrates Projekt |
-| [D1.14](entscheiden/d114-hoehlen-klangbett.md) | 16.10. | Hörner aus dem Höhlen-Klangbett nehmen (Empfehlung: ja, zehn Betten bleiben) | Jerry |
+| [106.1](entscheiden/1061-rollen-ergebnis.md) | 16.10. | je Rolle „gutes Ergebnis“ mit Beispiel und „dein typischer Fehler“, Abläufe raus; keine neue Rolle; Probe an ROLLE-TEAM nach Sa 21:00 | Sokrates Projekt |
+| [108a.1](entscheiden/108a1-zusammenfuehren-freigabe.md) | 16.10. | Freigabeprüfung sperrt das Zusammenführen; Regel eintragen oder selbst auf GitHub zusammenführen | Jerry |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Sokrates |
 
 ## Anzusehen

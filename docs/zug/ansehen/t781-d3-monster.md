@@ -6,7 +6,7 @@ Kurz: Zeichen, Glühen und Schatten sitzen am Tier; „bemerkt“-Klang nach Ent
 
 **Zu tun:** installieren, Punkte prüfen, je Punkt „5.1 passt“ oder „5.2 nicht, weil …“ schreiben.
 
-APK: [Lauf 781](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38902740393) → „Artifacts“, oder im PR unter „Checks“ → „build“ → „Artifacts“. Testmenü: Reiter „Test“ (Uhrzeit +3 h, Regen: immer, Teleport).
+APK: **0.1.791** (neu gebaut 16.10., 16:1x von Sokrates Projekt, weil 0.1.781 nicht über 0.1.788 installiert): [Lauf 791](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38913958789) → „Artifacts“, oder im PR unter „Checks“ → „build“ → „Artifacts“. Testmenü: Reiter „Test“ (Uhrzeit +3 h, Regen: immer, Teleport).
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|

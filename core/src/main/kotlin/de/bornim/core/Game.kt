@@ -72,6 +72,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     /** Sound effects triggered by the last actions; the app plays and clears them. */
     val sounds = ArrayDeque<de.bornim.core.audio.Sound>()
+    /** Sounds from a spot on the map, with how loud they are where the hero stands (D3.9); played and cleared like [sounds]. */
+    val placedSounds = ArrayDeque<Pair<de.bornim.core.audio.Sound, Float>>()
     private var battleFromScript: Cmd.Fight? = null
     private var graceSteps = 3
     private val npcFacing = mutableMapOf<String, Facing>()
@@ -729,7 +731,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     r.hunting = true
                     r.alertUntil = now + 800
                     r.nextMoveAt = now + 500
-                    sounds += de.bornim.core.audio.Sound.ALERT
+                    placedSounds += de.bornim.core.audio.Sound.ALERT to de.bornim.core.audio.Ambience.heardAt(dist)
                 }
                 r.returning -> {
                     if (fromHome <= 1) {

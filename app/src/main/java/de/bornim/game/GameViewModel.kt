@@ -14,6 +14,7 @@ import de.bornim.core.Hero
 import de.bornim.core.Lang
 import de.bornim.core.Race
 import de.bornim.core.audio.Sound
+import de.bornim.core.audio.Mix
 import de.bornim.game.audio.MusicPlayer
 import de.bornim.game.audio.SfxPlayer
 import de.bornim.game.ui.MapZoom
@@ -218,6 +219,51 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         music.setEnabled(musicOn)
     }
 
+    /** 40a: the three sliders, 0–100 %; the place's sounds go with the effects. The switches above stay as mutes. */
+    var volumeAll by mutableIntStateOf(Mix.clamp(prefs.getInt(KEY_VOL_ALL, Mix.FULL)))
+        private set
+    var volumeMusic by mutableIntStateOf(Mix.clamp(prefs.getInt(KEY_VOL_MUSIC, Mix.FULL)))
+        private set
+    var volumeFx by mutableIntStateOf(Mix.clamp(prefs.getInt(KEY_VOL_FX, Mix.FULL)))
+        private set
+
+    init { applyVolume() }
+
+    private fun applyVolume() {
+        music.gain = Mix.gain(volumeAll, volumeMusic)
+        Mix.gain(volumeAll, volumeFx).let { sfx.gain = it; music.bedGain = it }
+    }
+
+    fun changeVolumeAll(v: Int) {
+        volumeAll = Mix.clamp(v)
+        prefs.edit().putInt(KEY_VOL_ALL, volumeAll).apply()
+        applyVolume()
+    }
+
+    /** Moving the slider of a muted part switches it on: a slider set but silent would only puzzle. */
+    fun changeVolumeMusic(v: Int) {
+        volumeMusic = Mix.clamp(v)
+        prefs.edit().putInt(KEY_VOL_MUSIC, volumeMusic).apply()
+        if (!musicOn && volumeMusic > 0) toggleMusic()
+        applyVolume()
+    }
+
+    fun changeVolumeFx(v: Int) {
+        volumeFx = Mix.clamp(v)
+        prefs.edit().putInt(KEY_VOL_FX, volumeFx).apply()
+        if (!sfxOn && volumeFx > 0) toggleSfx()
+        applyVolume()
+    }
+
+    /** 13e.6: lifts the black for dark screens, 0 % (nothing) to 100 % ([Mix.LIFT_MAX]); for all heroes, not per save. */
+    var brightness by mutableIntStateOf(Mix.clamp(prefs.getInt(KEY_BRIGHT, 0)))
+        private set
+
+    fun changeBrightness(v: Int) {
+        brightness = Mix.clamp(v)
+        prefs.edit().putInt(KEY_BRIGHT, brightness).apply()
+    }
+
     override fun onCleared() {
         music.release()
         sfx.release()
@@ -354,6 +400,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     fun refresh() {
         game?.sounds?.let { q -> while (q.isNotEmpty()) sfx.play(q.removeFirst()) }
+        game?.placedSounds?.let { q -> while (q.isNotEmpty()) q.removeFirst().let { (s, v) -> sfx.play(s, v) } }
         val g = game
         if (g != null && g.mapChanged) {
             g.mapChanged = false
@@ -394,6 +441,10 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_AUTO = "battle_auto"
         private const val KEY_STICK = "stick_feel"
         private const val KEY_MAP_NEAR = "map_near"
+        private const val KEY_VOL_ALL = "volume_all"
+        private const val KEY_VOL_MUSIC = "volume_music"
+        private const val KEY_VOL_FX = "volume_fx"
+        private const val KEY_BRIGHT = "brightness"
     }
 }
 

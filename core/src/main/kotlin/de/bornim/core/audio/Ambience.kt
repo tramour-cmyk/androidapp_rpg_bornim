@@ -1,6 +1,7 @@
 package de.bornim.core.audio
 
 import de.bornim.core.MapDef
+import de.bornim.core.MapKind
 import de.bornim.core.Tile
 import kotlin.math.max
 import kotlin.math.min
@@ -14,6 +15,8 @@ object Ambience {
     const val FIRE_FAR = 6.0
     /** Within this many tiles the crackle is at its loudest. */
     const val FIRE_NEAR = 1.0
+    /** Indoors the walls throw the crackle back: it carries this much further, a hearth fills its room (D3.12). */
+    const val INDOOR_CARRY = 1.5
     const val FIRE_MAX = 0.5f
     /** Time to swell from silence to full, or to fade back (entering, leaving, a fight starting). */
     const val FADE_MS = 1000.0
@@ -29,10 +32,12 @@ object Ambience {
     /**
      * Distance in tiles from ([x], [y]) to the nearest campfire or hearth by the open way, round walls and never
      * through them (D1.9), or null if none is within reach. Steps go straight or diagonally, a diagonal only where
-     * neither side is wall.
+     * neither side is wall. Indoors the way counts shorter by [INDOOR_CARRY].
      */
     fun nearestFire(map: MapDef, x: Int, y: Int): Double? {
-        val r = FIRE_FAR.toInt() + 1
+        val carry = if (map.kind == MapKind.INTERIOR) INDOOR_CARRY else 1.0
+        val far = FIRE_FAR * carry
+        val r = far.toInt() + 1
         val n = 2 * r + 1
         val dist = DoubleArray(n * n) { Double.MAX_VALUE }
         fun open(tx: Int, ty: Int) = map.inside(tx, ty) && map.tile(tx, ty) !in WALLS
@@ -41,9 +46,9 @@ object Ambience {
         dist[r * n + r] = 0.0; queue += 0.0 to (r * n + r)
         while (queue.isNotEmpty()) {
             val (d, k) = queue.poll()
-            if (d > dist[k] || d >= FIRE_FAR) continue
+            if (d > dist[k] || d >= far) continue
             val cx = k % n - r; val cy = k / n - r
-            if (fire(x + cx, y + cy)) return d
+            if (fire(x + cx, y + cy)) return d / carry
             // the fire stands in the way of walking, not of sound; other things that cannot be walked on carry it on
             for (dy in -1..1) for (dx in -1..1) {
                 if (dx == 0 && dy == 0) continue
@@ -70,6 +75,9 @@ object Ambience {
         val step = (FIRE_MAX * dtMs / FADE_MS).toFloat()
         return if (target > cur) min(target, cur + step) else max(target, cur - step)
     }
+
+    /** A sound [dist] tiles (steps) from the hero (D3.9): full close by, softer the further off, never lost. */
+    fun heardAt(dist: Int, loud: Float = 0.8f): Float = maxOf(0.3f, loud - 0.15f * maxOf(0, dist - 2))
 
     /** Volume of a drop while the crackle is at [fire]. */
     fun dripVolume(fire: Float): Float = DRIP_VOLUME * (1f - 0.6f * fire / FIRE_MAX)

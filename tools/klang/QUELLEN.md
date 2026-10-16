@@ -198,3 +198,16 @@ Dunkle Spur unter der Ortsmusik, wenn ein Jäger näher kommt (`tools/klang/schi
 | Cello | cello drone.wav | carrieedick | https://freesound.org/s/465558/ |
 | gedehnt | Cellos Destroyed and Droned with Paulstretch.wav | RutgerMuller | https://freesound.org/s/195850/ |
 | tief | Dark Strings Music 02 | Magmi.Soundtracks | https://freesound.org/s/507741/ |
+
+## Runde 9 (69c.1 Nacht unter dem Schwarzbild des Intros)
+
+CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026. Rezept: `tools/klang/nacht.py` (gedämpft, mit Hall, wie durch Wände).
+
+| Klang | Aufnahme | Urheber, Paket | Quelle |
+|---|---|---|---|
+| `alarm_bell_1` | 0830 „1 church bell“, ab 20,5 s, vier Schwünge (Schleife) | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/1-church-bell-s0830.html |
+| `alarm_bell_2` | 0135 „Church Bell“, ab 3,2 s, vier Schläge (Schleife) | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/church-bell-s0135.html |
+| `alarm_bell_3` | 0829 „4 church bells“, ab 20 s (Schleife) | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/4-church-bells-s0829.html |
+| `far_shout_1–3` | humanYell1, humanYell2, humanYell4 | arcadeparty, Zombie / Skeleton / Monster Voice Effects | https://opengameart.org/content/zombie-skeleton-monster-voice-effects |
+| `far_scream_1–2` | humanDeath1, humanDeath2 | arcadeparty, ebenda | https://opengameart.org/content/zombie-skeleton-monster-voice-effects |
+| `far_scream_3` | 2361 „Cry of Pain“ | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/cry-of-pain-s2361.html |

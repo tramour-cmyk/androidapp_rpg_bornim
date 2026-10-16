@@ -111,6 +111,12 @@ object WorldArt {
     /** Soft shadow under a character's feet: a level circle, so 2:1 in the diagonal view (D1.5). */
     fun shadow(): PixelImage = cached("char-shadow", 24, 8) { ellipse(12.0, 4.0, 7.8, 3.9, SHADOW) }
 
+    /** D3.6: under an animal a shadow as wide as the picture of it seen now, [w] map pixels (a person's is 24). */
+    fun shadow(w: Int): PixelImage {
+        val ww = w.coerceIn(8, 56) / 2 * 2; val h = maxOf(6, ww / 3)
+        return cached("char-shadow-$ww", ww, h) { ellipse(ww / 2.0, h / 2.0, ww * 0.325, h * 0.4875, SHADOW) }
+    }
+
     /** The same under something small, a hen or a cat (83b). */
     fun smallShadow(): PixelImage = cached("small-shadow", 12, 6) { ellipse(6.0, 3.0, 4.4, 2.2, SHADOW) }
 }

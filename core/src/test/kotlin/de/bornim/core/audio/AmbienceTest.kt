@@ -46,7 +46,8 @@ class AmbienceTest {
     fun everyFireOnTheMapsIsFoundAndTheCaveDrips() {
         for (m in World.maps.values) for (y in 0 until m.height) for (x in 0 until m.width) {
             if (m.tile(x, y) != Tile.CAMPFIRE && m.tile(x, y) != Tile.HEARTH) continue
-            assertEquals(1.0, Ambience.nearestFire(m, x, y + 1) ?: Ambience.nearestFire(m, x + 1, y), "Feuer ${m.id} $x,$y")
+            val carry = if (m.kind == MapKind.INTERIOR) Ambience.INDOOR_CARRY else 1.0
+            assertEquals(1.0 / carry, Ambience.nearestFire(m, x, y + 1) ?: Ambience.nearestFire(m, x + 1, y), "Feuer ${m.id} $x,$y")
         }
         // the cave has floor far from any fire, where only the drops are heard
         val cave = World.maps.values.first { it.kind == MapKind.CAVE }
@@ -67,7 +68,31 @@ class AmbienceTest {
         // on open floor the way is the straight line
         for (m in World.maps.values) for (y in 0 until m.height) for (x in 0 until m.width) {
             if (m.tile(x, y) != Tile.CAMPFIRE && m.tile(x, y) != Tile.HEARTH) continue
-            if (m.tile(x, y + 1).walkable && m.tile(x, y + 2).walkable) assertEquals(2.0, Ambience.nearestFire(m, x, y + 2), "${m.id} $x,$y")
+            val carry = if (m.kind == MapKind.INTERIOR) Ambience.INDOOR_CARRY else 1.0
+            if (m.tile(x, y + 1).walkable && m.tile(x, y + 2).walkable) assertEquals(2.0 / carry, Ambience.nearestFire(m, x, y + 2), "${m.id} $x,$y")
         }
+    }
+
+    @Test
+    fun theInnHearthIsHeardFromTheDoor() {
+        // D3.12: the hearth stood exactly FIRE_FAR from the door, the crackle was cut off there; softly heard now
+        for (m in World.maps.values.filter { it.kind == MapKind.INTERIOR }) {
+            val hearth = (0 until m.height).any { y -> (0 until m.width).any { x -> m.tile(x, y) == Tile.HEARTH } }
+            if (!hearth) continue
+            for (w in m.warps) {
+                val (x, y) = listOf(w.x to w.y - 1, w.x to w.y + 1, w.x - 1 to w.y, w.x + 1 to w.y).first { (x, y) -> m.inside(x, y) && m.tile(x, y).walkable }
+                val t = Ambience.fireTarget(Ambience.nearestFire(m, x, y))
+                assertTrue(t > 0.1f * Ambience.FIRE_MAX, "${m.id}: Herd an der Tür $x,$y kaum hörbar: $t")
+            }
+        }
+    }
+
+    @Test
+    fun aMonsterNoticingIsSofterFurtherOff() {
+        // D3.9: the "noticed" sound was always 0.8, however far off the animal stood
+        val v = (1..8).map { Ambience.heardAt(it) }
+        assertEquals(0.8f, v[0]); assertEquals(0.8f, v[1])
+        assertTrue(v.zipWithNext().all { (a, b) -> b <= a } && v[3] < v[1], "nicht leiser mit der Entfernung: $v")
+        assertTrue(v.last() >= 0.3f, "verschwindet: $v")
     }
 }

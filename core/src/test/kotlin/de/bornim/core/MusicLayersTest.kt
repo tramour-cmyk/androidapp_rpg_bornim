@@ -103,9 +103,9 @@ class MusicLayersTest {
     }
 
     @Test
-    fun noLayerOutsideTheWorld() {
+    fun noLayerInTheVillageNorOutsideTheWorld() {
         val d = MusicDirector(1)
-        for (s in listOf(MusicScene.TITLE, MusicScene.INTRO, MusicScene.TEMPLE, MusicScene.CHAPTER_END)) {
+        for (s in listOf(MusicScene.VILLAGE, MusicScene.TITLE, MusicScene.INTRO, MusicScene.TEMPLE, MusicScene.CHAPTER_END)) {
             val w = d.update(s, 0, threat = Threat(1f, noticed = true))
             assertNull(w.layer)
             assertEquals(0f, w.dark)

@@ -38,6 +38,8 @@ private class Driver(val scene: ImageComposeScene) {
 
 @OptIn(ExperimentalComposeUiApi::class)
 private fun touchShot(name: String, touch: Boolean = true, setup: (GameViewModel) -> Unit, act: Driver.(GameViewModel) -> Unit) {
+    // TOUCH=<Anfang des Namens> macht nur diese Bilder (TOUCH=1 alle)
+    System.getenv("TOUCH")?.let { only -> if (only != "1" && !name.startsWith(only)) return }
     val vm = GameViewModel(Application())
     if (vm.touchControls != touch) vm.toggleControls()
     vm.newGame("Mira", Race.ELF, CharClass.WIZARD)
@@ -127,6 +129,20 @@ fun touchShots() {
         g.state.place = Place("forest", 10, 20, Facing.UP)
         g.cheatRain()
     }) { frames(30) }
+    // D3.5, D3.6: a wolf pack, the leader an elite, shiny and alert, in the rain, off the middle of the screen
+    touchShot("43_d3_pack", setup = { vm ->
+        val g = vm.game!!
+        g.state.minutes = 13 * 60
+        g.state.place = Place("forest", 10, 20, Facing.UP)
+        g.cheatRain()
+        g.roamers.forEach { it.x = 0; it.y = 0; it.fromX = 0; it.fromY = 0 }
+        val look = de.bornim.core.MonsterLook((1..200).first { de.bornim.core.Packs.size("wolf", de.bornim.core.MonsterLook(it)) == 2 })
+        val pack = de.bornim.core.Roamer(501, "wolf", 8, 19, 8, 19, de.bornim.core.EliteTrait.values().first(), true, look)
+        (g.roamers as MutableList).add(pack)
+        pack.calmUntil = Long.MAX_VALUE
+        pack.alertUntil = Long.MAX_VALUE
+        de.bornim.game.ui.VeilMemory.game = g; de.bornim.game.ui.VeilMemory.map = "forest"
+    }) { frames(40) }
     // A kobold pack on the map
     touchShot("40_pack_map", setup = { vm ->
         val g = vm.game!!

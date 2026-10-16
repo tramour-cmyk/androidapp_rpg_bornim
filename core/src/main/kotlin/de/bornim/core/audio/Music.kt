@@ -29,8 +29,8 @@ data class MusicWant(
 data class Threat(val near: Float = 0f, val noticed: Boolean = false) {
     companion object {
         val NONE = Threat()
-        /** From how far away a hunter starts to darken the music, in tiles. */
-        const val FAR_TILES = 10
+        /** From how far away a hunter starts to darken the music, in tiles (Beschluss 120: about 8). */
+        const val FAR_TILES = 8
     }
 }
 
@@ -123,7 +123,8 @@ class MusicDirector(seed: Long = System.nanoTime()) {
             music = Track(pick(s)); fadeMs = PLACE_FADE_MS
         }
         val level = if (s == MusicScene.INTRO) INTRO_LEVEL else 1f
-        if (s != MusicScene.VILLAGE && s != MusicScene.FOREST && s != MusicScene.CAVE) {
+        // 120: out in the world and in the cave, not in the village
+        if (s != MusicScene.FOREST && s != MusicScene.CAVE) {
             layer = null
             return MusicWant(music, bed, fadeMs, level)
         }

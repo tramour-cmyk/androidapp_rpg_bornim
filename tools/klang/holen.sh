@@ -58,6 +58,10 @@ for p in 465/465558_9572672 195/195850_179538 507/507741_6900479; do
     f="fs_$(basename "$p" | cut -d_ -f1).mp3"
     [ -s "$f" ] || { curl -sSfL -m 300 -A "Mozilla/5.0" -o "$f" "https://cdn.freesound.org/previews/$p-hq.mp3"; sleep 3; }
 done
+# Runde 8 (69c.1 Nacht im Intro): Glocken, Schmerzensschrei (BigSoundBank, CC0); Rufe aus dem Stimmenpaket oben
+for n in 0830 0135 0829 2361; do
+    get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
+done
 python3 -m pip -q install py7zr numpy scipy soundfile >/dev/null 2>&1 || true
 for z in *.zip; do d="x_${z%.zip}"; [ -d "$d" ] || { mkdir -p "$d"; unzip -qo "$z" -d "$d"; }; done
 for z in *.7z; do d="x_${z%.7z}"; [ -d "$d" ] || { mkdir -p "$d"; python3 -I -m py7zr x "$z" "$d"; }; done
