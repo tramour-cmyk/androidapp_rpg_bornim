@@ -30,6 +30,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 06:56 16.10.: Start Jerry (Neustart, 0399d333, 72u Standbild Grak im Wald) (Ford 2)
 - 06:47 16.10.: Start Jerry (Neustart, ca572983, 72.10 Probe Grak) (Ford 2)
 - 06:44 16.10.: Ford 2 eingerichtet (Uhr :33); Start Jerry (Probe `create_session` auf Pro); 6 von 8 alten Weck-Routinen „Jerry Selbstarbeit“ abgeschaltet (12:27, 15:27 vom Freigabe-Filter abgelehnt)
 - 02:06 16.10.: Ford neu (session_01KYjYQS…), Uhr trig_01YZ7SgXEiSXQqrJKMsRmGyj, alte Uhr gelöscht, Vorgänger archiviert
