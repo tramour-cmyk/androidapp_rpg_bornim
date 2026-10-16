@@ -2,7 +2,7 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 10, davon A 0, wartet auf Chef 3**
+**offen 11, davon A 0, wartet auf Chef 3**
 
 **Gelesen bis:** `8abeae7b` (15.10., 23:0x; für `tools/story.sh`)
 
@@ -12,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Thema | Stand |
 |---|---|---|
+| 86.9 | **von Team Jerry:** Anzeige „betrunken“ (Met, SRD Vergiftet bis zur Rast): Chef 16.10., 15:3x „Zustand betrunken wegen Met und vergiftet, warum kein Status in Leiste?“ Gebaut ist nur die Wirkung; es fehlen Name (DE/EN), Kurztext und ob ein Zeichen in der oberen Leiste und im Kampf | offen; danach baut Jerry |
 | 114 | **von Team Tom:** Idee des Chefs prüfen: Aufwachen am Bett im Gasthaus, 114.1 Aufstehsequenz (Wortlaut in `LISTE-IDEEN.md`) | offen; Entwurf ohne Aufstehen in PR #83 (nicht auf `main`), Tom empfiehlt 114.1 „noch nicht“ |
 | 112 | **von Sokrates Projekt:** Intro als Muster festschreiben (Chef 16.10., 11:3x: „wir haben ganz viel Energie in die Entwicklung des Intros eines Musterbildes gesteckt, als Maß aller Dinge … Aber im Vergleich dazu ist ja die Sequenz Tempel eher schlecht. Also wusste wohl keiner wieder, dass das das Muster sein soll, an dem sich alles zu orientieren hat.“) | offen. In `DESIGN-STIL.md` „Zwischensequenzen“ „Musterbild folgt aus 69e“ ersetzen durch: Intro (`CutsceneArt.kt` ROAD–INN, `IntroLife.kt`) ist das Maß; was es ausmacht, benennen. Dann Tempel (`tempel_1–5`) dagegen vergleichen, Abweichungen als Liste auf Dein Zug für den Chef; danach Zeile an Tom (68). **Nach Sparmodus** (Chef 11:3x: „So machen wir das bis Samstagabend.“) |
 | 72.14 | Feuerball-Text (von Team Jerry) | `Rules.kt` FIREBALL: „Verjagt Begleiter, die ihren Rettungswurf nicht schaffen.“ meint das gegnerische Rudel; mit eigenem Hund (72.15) mehrdeutig. Bitte Wortlaut (DE/EN), Vorschlag Tom: „Verjagt Rudel und Späher des Gegners …“ |

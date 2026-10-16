@@ -29,7 +29,7 @@ for f in "wind%20background%20noise%202.wav" park_ambience_wind.wav tree_creak.f
     get "$O/$f" "$(echo "$f" | sed 's/%20/ /g')"
 done
 # BigSoundBank (CC0): Becher, Einschenken, Wischen, Stuhl, Husten
-for n in 3202 0606 0627 1204 1205 1721 1156 1933 0689 1104 0666 3053 0518 0488 2183 0207; do
+for n in 3202 0606 0627 1204 1205 1721 1156 1933 0689 1104 0666 3053 0518 0488 2183 0207 1103 1345; do
     get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
 done
 # Runde 4 (27j Waldweiher): Frösche, Libellen
@@ -42,6 +42,12 @@ done
 for n in 1039 0975 1040 0453 0840 2891 2894 3202 0163 0137; do
     get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
 done
+# 84 Umweltklang: fernes Wolfsgeheul, Grollen im Berg (Freesound); Flügel und Scharren kleiner Vögel (BigSoundBank)
+for p in 500/500646_339183 389/389303_5486695 675/675736_2524442 381/381645_5486695; do
+    f="fs_$(basename "$p" | cut -d_ -f1).mp3"
+    [ -s "$f" ] || { curl -sSfL -m 300 -A "Mozilla/5.0" -o "$f" "https://cdn.freesound.org/previews/$p-hq.mp3"; sleep 3; }
+done
+for n in 2891 2894 0840 3202; do get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"; done
 # Runde 7 (D6.4 Fluss): Weichsel (OpenGameArt, CC0), Bäche (BigSoundBank, CC0)
 get "$O/VistulaShort_0.mp3" VistulaShort_0.mp3
 for n in 0864 0823; do

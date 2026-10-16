@@ -104,6 +104,9 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun play(s: Sound, volume: Float = 0.8f) = sfx.play(s, volume)
+
+    /** Plays [s] from [side] (-1 left to 1 right; 84). */
+    fun playFrom(s: Sound, volume: Float, side: Float) = de.bornim.core.audio.WildSound.speakers(volume, side).let { (l, r) -> sfx.play(s, l, r) }
     fun voice(id: String, cue: de.bornim.core.audio.Recorded.Cue, volume: Float = 0.8f) = sfx.voice(id, cue, volume)
 
     /** Touch controls (drag and tap) or the classic D-pad. */
