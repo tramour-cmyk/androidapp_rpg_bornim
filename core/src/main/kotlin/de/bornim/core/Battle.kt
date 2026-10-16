@@ -105,6 +105,8 @@ class Battle(
     var blessed = false; private set
     /** A good meal before the fight: +1 to attack rolls and +1 weapon damage. */
     val wellFed: Boolean = state.wellFed.also { state.wellFed = false }
+    /** 86.9: drunk on mead, poisoned after the SRD: disadvantage on attack rolls and ability checks (here: fleeing). */
+    val drunk: Boolean = state.drunk
     var spiritualWeapon = false; private set
     var guardians = false; private set
     private var heroProne = false
@@ -294,6 +296,7 @@ class Battle(
             heroProne = false
         }
         if (Status.BLIND in heroStatus) mode -= 1
+        if (drunk) mode -= 1
         val roll = heroD20(mode.coerceIn(-1, 1))
         val crit = roll >= hero.critFrom || (heroCritsAlways && roll != 1)
         val total = roll + hero.attackBonus(w) + blessBonus() + fedBonus() + missStreak.bonus - attackPenalty(onHero = true)
@@ -361,7 +364,7 @@ class Battle(
     }
 
     private fun spellAttack(dmg: DiceExpr, type: DamageType, kind: FxKind): Boolean {
-        val roll = heroD20(((if (Status.BLIND in heroStatus) -1 else 0) + takeCounter()).coerceIn(-1, 1))
+        val roll = heroD20(((if (Status.BLIND in heroStatus) -1 else 0) - (if (drunk) 1 else 0) + takeCounter()).coerceIn(-1, 1))
         val crit = roll == 20
         if (roll == 1 || (!crit && roll + hero.spellAttack + blessBonus() + fedBonus() + missStreak.bonus - attackPenalty(onHero = true) < enemyAc)) {
             missStreak.miss()
@@ -511,7 +514,7 @@ class Battle(
             return false
         }
         val elf = if (hero.race == Race.ELF) 2 else 0
-        val ok = hero.has(Skill.CUNNING_ACTION) || dice.d20() + hero.mod(Ability.DEX) + elf >= 10 + monster.dexSave
+        val ok = hero.has(Skill.CUNNING_ACTION) || dice.d20(if (drunk) -1 else 0) + hero.mod(Ability.DEX) + elf >= 10 + monster.dexSave
         if (ok) {
             say(Msg.fled.f(lang, name))
             outcome = Outcome.FLED
