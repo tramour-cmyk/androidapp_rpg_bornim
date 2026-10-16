@@ -12,7 +12,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 - **Ford lebt in einer Sitzung** „Ford – Teamleiter (16.10., 02:05)“ `session_01KYjYQSUyCT2WSXinMf6rPA` (seit 16.10., 02:04; Vorgänger `session_01QWF3R8AxcZRH4EicjhyjkF` archiviert). Stundenuhr „Ford-Stundenuhr“ `trig_01YZ7SgXEiSXQqrJKMsRmGyj` (:03, seit 02:05).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhr „Ford-Wache 07:08“ `trig_01Phk9eXekP5yY9M6L3bgS1c` (täglich 07:08; 15.10., 22:5x zurückgeholt, D13.2).
-- **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 06:42)“ `session_01R7KS2bJJNiqcTvwgFNSBNS` (seit 16.10., 06:42). Stundenuhr „Ford-2-Stundenuhr“ `trig_019ARG2fvRFhkhk3VNHDr56A` (:33). Telegram auf Pro geht (Probe 06:43).
+- **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 06:42)“ `session_01R7KS2bJJNiqcTvwgFNSBNS` (seit 16.10., 06:42). Stundenuhr „Ford-2-Stundenuhr“ `trig_019ARG2fvRFhkhk3VNHDr56A` (:33). Telegram auf Pro geht (Probe 06:43). **Übergabe (16.10., 08:48) – Nachfolger: Ford 2 – Niederlassungsleiter (16.10., 08:49):** Selbstneustart wie Ford (D10.1): neue Uhr anlegen, prüfen, dann alte Uhr löschen und Vorgänger archivieren. Kosten noch nachtragen: Jerry 84 `session_01JLKhkNNst5xLuUiV96ZByS`, Jerry D3 `session_016GogVR9hA8GqKMactqB2kJ` (`get_session` → `usage.cost_usd`). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren.
 
 ## Eingang
 
