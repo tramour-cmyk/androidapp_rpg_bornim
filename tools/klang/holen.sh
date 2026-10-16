@@ -57,6 +57,10 @@ done
 for n in 0830 0135 0829 2361; do
     get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
 done
+# D3.9 Leerlauf-Laute der Monster (BigSoundBank, CC0); dazu die Pakete oben (Kreaturen, Hund, Knochen)
+for n in 0784 1095 1691 1692 1693 0941 0185 1073 0458 2892 2893 0822 2106 2107 2108 1280 3176; do
+    get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
+done
 python3 -m pip -q install py7zr numpy scipy soundfile >/dev/null 2>&1 || true
 for z in *.zip; do d="x_${z%.zip}"; [ -d "$d" ] || { mkdir -p "$d"; unzip -qo "$z" -d "$d"; }; done
 for z in *.7z; do d="x_${z%.7z}"; [ -d "$d" ] || { mkdir -p "$d"; python3 -I -m py7zr x "$z" "$d"; }; done
