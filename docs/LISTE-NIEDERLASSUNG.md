@@ -12,7 +12,7 @@ Anleitung für den Chef: Ford 2 und Team Jerry auf dem zweiten Account (Pro) in 
 
 ## 2. Ford 2 starten
 
-Neue Sitzung auf Pro, Repo auswählen, Freigabe-Modus **„Auto“** (sonst fragt jedes Werkzeug einmal nach; von Ford 2 gestartete Sitzungen erben den Modus), Titel „Ford 2 – Niederlassungsleiter (TT.MM., HH:MM)“, erste Nachricht:
+Neue Sitzung auf Pro, Repo auswählen, Freigabe-Modus **„Auto“** (von Ford 2 gestartete Sitzungen erben ihn; auch in „Auto“ fragt die App einmal bei Eingriffen außerhalb der Sitzung, etwa fremde geplante Aufgaben ändern: „Immer erlauben“), Titel „Ford 2 – Niederlassungsleiter (TT.MM., HH:MM)“, erste Nachricht:
 
 > Ford 2. Telegram-Schlüssel ist eingerichtet, Jerrys Pause ist aufgehoben (Chef). Einrichten nach `ROLLE-BETRIEB.md` „Ford 2“: Probe-Meldung über `meldung.sh`; deine Stundenuhr mit `create_trigger` auf diese Sitzung; Kennung von Sitzung und Uhr oben in `ARBEIT-BETRIEB.md` (Zeile „Ford 2“); „Pause bis“ in `ARBEIT-TEAM-JERRY.md` streichen; als Probe `create_session` Team Jerry starten (erste Nachricht „Jerry“), Zeile in `ARBEIT-BESETZUNG.md`; Kosten je Lauf als Zeile in `ARBEIT-BETRIEB.md`; alte Sitzungen auf Pro archivieren (außer solchen, die auf einen Test des Chefs warten).
 
