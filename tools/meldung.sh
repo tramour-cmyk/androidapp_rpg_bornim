@@ -61,6 +61,20 @@ keys = {}
 for f in glob.glob(os.path.join(os.environ["ZUG"], "*", "*.md")):
     k = os.path.basename(f).split("-")[0].removesuffix(".md").lower()
     if re.search(r"\d", k): keys[k] = gh + "blob/main/docs/zug/" + os.path.basename(os.path.dirname(f)) + "/" + os.path.basename(f)
+# Jede andere Vorgangsnummer (Chef 16.10., 12:0x: „105 … ist NICHT anklickbar!!!“): Link auf ihre Zeile im Vorrat,
+# zuerst im eigenen des Absenders, dann in den übrigen, zuletzt LISTE-THEMEN.md (GitHub, Zeile markiert)
+docs = os.path.dirname(os.environ["ZUG"])
+eigen = {"Tom": "TEAM-TOM", "Jerry": "TEAM-JERRY", "Sokrates Projekt": "PROJEKT", "Sokrates Kreativ": "KREATIV", "Sokrates Berater": "BERATUNG", "Diogenes": "PRUEFUNG", "Ford": "BETRIEB", "Ford 2": "BETRIEB"}
+reihe = sorted(glob.glob(os.path.join(docs, "ARBEIT-*.md")), key=lambda f: not f.endswith("ARBEIT-" + eigen.get(os.environ["NAME"].split(" – ")[0], "-") + ".md"))
+reihe = [f for f in reihe if not f.endswith(("ARCHIV.md", "ABLAEUFE.md", "UMGEBUNG.md", "BESETZUNG.md"))] + [os.path.join(docs, "LISTE-THEMEN.md"), os.path.join(docs, "ARBEIT-ARCHIV.md")]
+for f in reversed(reihe):
+    try:
+        for i, z in enumerate(open(f, encoding="utf-8"), 1):
+            m = re.match(r"\|\s*([A-Za-z]?\d+[a-z]?(?:\.\d+)?[a-z]?)\s*\|", z)
+            k = m and m.group(1).replace(".", "").lower()
+            if k and k not in keys or (k and keys.get(k, "").startswith(gh + "blob/main/docs/ARBEIT") or k and keys.get(k, "").startswith(gh + "blob/main/docs/LISTE")):
+                keys[k] = gh + "blob/main/docs/" + os.path.basename(f) + "?plain=1#L" + str(i)
+    except OSError: pass
 sitz = {}
 try:
     for z in open(os.environ["BESETZUNG"], encoding="utf-8"):
@@ -73,11 +87,12 @@ def nummer(m):
     tok = m.group(0); k = tok.replace(".", "").lower()
     v = re.fullmatch(r"0\.1\.(\d+)", tok)
     if v: k = "t" + v.group(1)
-    return "<a href=\"" + keys[k] + "\"><b>" + tok + "</b></a>" if k in keys else tok
+    if k not in keys or len(tok) < 2 and "/zug/" not in keys[k]: return tok  # einstellige Zahlen („Stufe 3“) nur mit Datei auf Dein Zug
+    return "<a href=\"" + keys[k] + "\"><b>" + tok + "</b></a>"
 def frei(seg):
     seg = re.sub(r"\bPR #(\d+)", lambda m: "<a href=\"" + gh + "pull/" + m.group(1) + "\">" + m.group(0) + "</a>", seg)
     teile = re.split(r"(<a [^>]*>.*?</a>|<[^>]+>)", seg)
-    return "".join(x if x.startswith("<") else re.sub(r"(?<![\w.#/])(?:0\.1\.\d+|[A-Za-z]?\d+[a-z]?(?:\.\d+)?[a-z]?)(?![\w.:]\w|\w)", nummer, x) for x in teile)
+    return "".join(x if x.startswith("<") else re.sub(r"(?<![\w.#/:])(?:0\.1\.\d+|[A-Za-z]?\d+[a-z]?(?:\.\d+)?[a-z]?)(?![\w.:]\w|\w)", nummer, x) for x in teile)
 t = "".join(x if x.startswith("<a ") else frei(x) for x in re.split(r"(<a [^>]*>.*?</a>)", t, flags=re.S))
 t = re.sub(r"(?m)^(\s*(?:⚠\s*)?)<b>([^<:]+):</b>", lambda m: m.group(1) + ("<a href=\"" + sitz[m.group(2)] + "\"><b>" + m.group(2) + ":</b></a>" if m.group(2) in sitz else "<b>" + m.group(2) + ":</b>"), t)
 n = "<b>" + html.escape(os.environ["NAME"]) + "</b>"
