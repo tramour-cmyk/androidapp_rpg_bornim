@@ -28,3 +28,5 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 ## Lehren für alle
 
 Tom, Jerry, Diogenes und Ford tragen hier ein (eine Zeile, Datum, Thema); Sokrates Projekt übernimmt sie in die passende Rollendatei und streicht die Zeile.
+
+- 16.10., Sokrates Projekt (99g): Freigabeliste nannte „fehlt“ ohne Prüfung (Doppellinks, „Mit dir geteilt“ zeigt keine Dokumente); der Chef hat daraufhin funktionierende Freigaben gelöscht. Lehre: Stand einer Freigabe nur eintragen, wenn auf Pro geprüft; nie zum Löschen raten, ohne den Stand gesehen zu haben.
