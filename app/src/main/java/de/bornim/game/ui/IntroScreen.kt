@@ -18,8 +18,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.withFrameMillis
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Intro
 import de.bornim.core.IntroLife
+import de.bornim.core.Lang
 import de.bornim.core.Reel
 import de.bornim.core.TempleScene
 import de.bornim.game.GameViewModel
@@ -56,7 +59,7 @@ object IntroLook {
 
 /**
  * The intro (69, form `docs/DESIGN-STIL.md` „Zwischensequenzen“): the pictures one after the other with soft crossfades,
- * each with its sentence in the text box below; the last picture black. A tap anywhere skips it; the chronicle shows it again.
+ * each with its sentence in the text box below; the last picture black. A tap asks whether to skip it (104); the chronicle shows it again.
  */
 @Composable
 fun IntroScreen(vm: GameViewModel) {
@@ -65,7 +68,7 @@ fun IntroScreen(vm: GameViewModel) {
 
 /**
  * The temple scene at the end of chapter 1 (68), built like the intro: five painted pictures with their sentences, the music
- * „Ancient Legend“ under it. A tap skips it; afterwards the morning goes on (or, watched again, the chronicle comes back).
+ * „Ancient Legend“ under it. A tap asks whether to skip it (104); afterwards the morning goes on (or, watched again, the chronicle comes back).
  */
 @Composable
 fun TempleSceneScreen(vm: GameViewModel) {
@@ -86,9 +89,12 @@ private fun ReelScreen(vm: GameViewModel, reel: Reel, onPicture: (Int) -> Unit, 
     val f = reel.at(ms)
     LaunchedEffect(f.picture) { onPicture(f.picture) }
     LaunchedEffect(f.done) { if (f.done) onEnd() }
+    // 104 (Chef 16.10.): a stray tap on the phone must not end the scene, so a tap only asks; the scene runs on meanwhile
+    var asking by remember { mutableStateOf(false) }
+    Box(Modifier.fillMaxSize()) {
     Box(
         Modifier.fillMaxSize().background(Color.Black)
-            .clickable(remember { MutableInteractionSource() }, indication = null) { onEnd() },
+            .clickable(remember { MutableInteractionSource() }, indication = null) { asking = true },
         contentAlignment = Alignment.Center,
     ) {
         Column(Modifier.fillMaxWidth().alpha(1f - f.gone), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -110,6 +116,16 @@ private fun ReelScreen(vm: GameViewModel, reel: Reel, onPicture: (Int) -> Unit, 
                 )
             }
         }
+    }
+    if (asking) {
+        val de = vm.lang == Lang.DE
+        ConfirmDialog(DialogSpec(
+            title = if (de) "Überspringen?" else "Skip?",
+            confirm = if (de) "Überspringen" else "Skip",
+            cancel = if (de) "Weiter ansehen" else "Keep watching",
+            onConfirm = onEnd,
+        ) { Txt(if (de) "Die Zwischensequenz endet, du kannst sie in der Chronik wieder ansehen." else "The scene ends; you can watch it again in the chronicle.", size = 16.sp) }) { asking = false }
+    }
     }
 }
 

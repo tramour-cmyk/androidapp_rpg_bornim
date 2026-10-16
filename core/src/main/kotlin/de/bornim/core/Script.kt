@@ -18,6 +18,8 @@ sealed interface Cmd {
     data object TempleScene : Cmd
     /** 68g: the night passes as a rest; the hero wakes at sunrise at [place]. */
     data class Morning(val place: Place) : Cmd
+    /** 86.9: Rowena's counter: mead and a room; the script goes on when the player leaves it. */
+    data object Tavern : Cmd
 }
 
 class ScriptBuilder {
@@ -34,6 +36,7 @@ class ScriptBuilder {
     fun chapterEnd() { cmds += Cmd.ChapterEnd }
     fun templeScene() { cmds += Cmd.TempleScene }
     fun morning(place: Place) { cmds += Cmd.Morning(place) }
+    fun tavern() { cmds += Cmd.Tavern }
 }
 
 fun script(block: ScriptBuilder.() -> Unit): List<Cmd> = ScriptBuilder().apply(block).cmds

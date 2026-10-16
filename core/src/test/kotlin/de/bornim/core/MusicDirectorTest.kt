@@ -124,11 +124,43 @@ class MusicDirectorTest {
     }
 
     @Test
-    fun theIntroIsQuietUntilItsBlackPicture() {
-        // 69c: no music under the intro's pictures; the title music only with the black one
+    fun theTitleMusicCarriesTheIntro() {
+        // 69f: the title music goes on from the hero's making, quietly under the pictures, fuller with the black one
         val d = MusicDirector(3)
-        d.update(MusicScene.TITLE, 0)
-        for (t in 0L..120_000L step 500L) assertNull(d.update(MusicScene.INTRO, 1_000 + t).music)
-        assertEquals(MusicLib.title.name, d.update(MusicScene.TITLE, 200_000).music?.name)
+        assertEquals(1f, d.update(MusicScene.TITLE, 0).level)
+        for (t in 0L..30_000L step 500L) {
+            val w = d.update(MusicScene.INTRO, 1_000 + t)
+            assertEquals(MusicLib.title, w.music, "the same piece runs on")
+            assertEquals(MusicDirector.INTRO_LEVEL, w.level)
+        }
+        val black = d.update(MusicScene.TITLE, 40_000)
+        assertEquals(MusicLib.title, black.music)
+        assertEquals(1f, black.level)
+        // in the inn: it dies away over about 6 s, only then the inn's music
+        val inn = d.update(MusicScene.VILLAGE, 41_000)
+        assertNull(inn.music)
+        assertEquals(MusicDirector.TITLE_OUT_MS, inn.fadeMs)
+        assertNull(d.update(MusicScene.VILLAGE, 41_000L + MusicDirector.TITLE_OUT_MS - 1).music)
+        val later = d.update(MusicScene.VILLAGE, 41_000L + MusicDirector.TITLE_OUT_MS)
+        assertTrue(later.music!!.name in MusicLib.village)
+        assertEquals(MusicDirector.PLACE_FADE_MS, later.fadeMs)
+    }
+
+    @Test
+    fun theIntroFromTheChronicleStartsTheTitleMusicQuietly() {
+        // 69f: not playing (village music before) → the title music from the top, quietly
+        val d = MusicDirector(4)
+        d.update(MusicScene.VILLAGE, 0)
+        val w = d.update(MusicScene.INTRO, 5_000)
+        assertEquals(MusicLib.title, w.music)
+        assertEquals(MusicDirector.INTRO_LEVEL, w.level)
+        // skipped before the black picture: it dies away just the same
+        assertNull(d.update(MusicScene.VILLAGE, 8_000).music)
+        // a saved game in the cave: the bed at once, the music only after a while as always
+        val c = MusicDirector(5)
+        c.update(MusicScene.TITLE, 0)
+        val cave = c.update(MusicScene.CAVE, 1_000)
+        assertNotNull(cave.bed)
+        assertNull(c.update(MusicScene.CAVE, 1_000 + MusicDirector.CAVE_FIRST_MIN_MS - 1).music)
     }
 }

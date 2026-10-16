@@ -1,7 +1,8 @@
 package de.bornim.core
 
 /** Stackable items: potions, throwables and story items. Equipment is [Gear]. */
-enum class ItemKind { POTION, BOMB, KEY, FOOD, INGREDIENT }
+/** [TONIC]: drunk outside a fight only (86.6). */
+enum class ItemKind { POTION, BOMB, KEY, FOOD, INGREDIENT, TONIC }
 
 /** Icon shapes the app knows how to draw. */
 enum class Icon {
@@ -43,6 +44,9 @@ object Items {
             ItemKind.POTION, 200, Icon.BIG_POTION, Rarity.RARE, heal = dice(8, 4, 8)),
         ItemDef("remedy", T("Kräutertrank", "Herbal Remedy"), T("Heilt alle Zustände: Vergiftung, Brand, Blutung, Betäubung, Flüche. Auch mit vollen TP trinkbar.", "Cures every condition: poison, burning, bleeding, stun, curses. Can be drunk even at full HP."),
             ItemKind.POTION, 20, Icon.FLASK, heal = dice(1, 4), cures = true),
+        // 86.6: priced like the healing potion
+        ItemDef("stamina_potion", T("Ausdauertrank", "Stamina Draught"), T("Bis zur nächsten Rast reicht der Atem beim Rennen doppelt so lange. Nicht im Kampf.", "Until the next rest, your breath for running lasts twice as long. Not in battle."),
+            ItemKind.TONIC, 25, Icon.FLASK),
         ItemDef("alchemist_fire", T("Alchemistenfeuer", "Alchemist's Fire"), T("Wurfgeschoss, trifft immer und setzt den Gegner in Brand.", "Thrown, always hits and sets the foe on fire."),
             ItemKind.BOMB, 30, Icon.FLASK, damage = dice(2, 6), damageType = DamageType.FIRE),
         ItemDef("holy_water", T("Weihwasser", "Holy Water"), T("Wurfgeschoss, trifft immer. Wirkt nur gegen Untote: 2W6 gleißender Schaden.", "Thrown, always hits. Only harms undead: 2d6 radiant damage."),
@@ -69,8 +73,8 @@ object Items {
             ItemKind.KEY, 0, Icon.RING),
         ItemDef("grey_rag", T("Grauer Fetzen", "Grey Rag"), T("Grobes graues Tuch, ein offenes Auge hineingestickt. Jorin will es sehen.", "Coarse grey cloth, an open eye stitched into it. Jorin wants to see it."),
             ItemKind.KEY, 0, Icon.CLOAK),
-        // D4.1: the description is put together from Morwen's freed lines; own wording is up to the adviser (41)
-        ItemDef("smoke_bundle", T("Rauchbündel", "Smoke Bundle"), T("Von Morwen. Krogg vor die Füße werfen, sobald er auftaucht: Der Rauch beißt in den Augen, und sein Hieb geht ins Leere.", "From Morwen. Throw it at Krogg's feet as soon as he shows up: the smoke stings the eyes, and his blow goes astray."),
+        // D4.1: [D4.1.rauch.tasche]
+        ItemDef("smoke_bundle", T("Rauchbündel", "Smoke Bundle"), T("Ein Bündel beißender Kräuter von Morwen. Krogg vor die Füße werfen: Der Rauch nimmt ihm den ersten Hieb. Nur im Kampf.", "A bundle of acrid herbs from Morwen. Throw it at Krogg's feet: the smoke takes away his first blow. Only in battle."),
             ItemKind.KEY, 0, Icon.HERB),
         ItemDef("rusty_key", T("Rostiger Schlüssel", "Rusty Key"), T("Er gehörte Krogg dem Grobian.", "It belonged to Krogg the Brute."),
             ItemKind.KEY, 0, Icon.KEY),
