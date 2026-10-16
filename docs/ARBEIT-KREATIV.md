@@ -2,7 +2,7 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 13, Muss 2, A 0, Chefsache 1**
+**offen 14, Muss 2, A 0, Chefsache 1**
 
 **Gelesen bis:** `8abeae7b` (15.10., 23:0x; für `tools/story.sh`)
 
@@ -26,3 +26,4 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | 38 | K | Balance-Langzeitplan über alle Kapitel (Stufe, Gold, Preise, Ausrüstung, Ziel-Siegquoten) | Plan in `DESIGN-BALANCE.md`; Messung bei Jerry, Eichung (38h) durch Chef später |
 | 79 | K | Kampfhintergründe an die Diagonalwelt angleichen (nur Aussehen, Chef 09:08) | durch 72u B (Kampfort aus der Karte, Zoom 8) gelöst; Bau bei Jerry, danach streichen |
 | 70 | K | Zwischensequenzen: Bildsprache für alle Kapitel (Chef 14.10., 08:00) | entschieden (Vorgangsarchiv, `DESIGN-STIL.md`): 70.1–70.6; Rest später, mit dem nächsten Kapitel |
+| 106.1 | K | **von Diogenes (16.10., 22:4x), Lauf 22** ([Prüfbericht](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ)): D22.4 `STORY-REGELN.md`:14 nennt für neue Kapitel noch `STORY-K<n>.md` / `-W.md`, nach 117 `STORY-K<n>-HANDLUNG.md` / `-WELT.md`; D22.5c Übergabe nennt „39.1 auf Chefsache“ (entschieden) und die alte Startregel | offen |
