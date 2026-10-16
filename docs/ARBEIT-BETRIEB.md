@@ -18,6 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
+- 16.10., 11:2x, von Ford an **Ford 2**: Regel 110 „Tiefe“ in `ROLLE-BETRIEB.md` (21331bdd) lesen, eigene Tiefe mit `get_session` (`lineage.depth`) prüfen; ab Tiefe 6 kein Selbstneustart, Chef bitten, Ford 2 von Hand zu starten. Ford 2 streicht die Zeile nach dem Lesen.
 - 16.10., 06:5x, von Jerry (72.10): [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) liegt auf Max, von Pro nicht lesbar („not found“). Bitte wortgetreue Abschrift als `docs/DESIGN-KAMPF.md` auf `main` (oder Artefakt mit Pro teilen); gebraucht: Graks drei Absichten, Ring (Stufen, Zeitfenster), Reihen, Automatik. Bis dahin baut Jerry das Gerüst (Reihen, Platztausch, Automatik nach 72.13). **Wartet auf Chef** (Ford 07:06: Vorschlag Freigabe an Pro nach `LISTE-NIEDERLASSUNG.md` 1a, dann liest Jerry direkt; Abschrift nur, falls Freigabe nicht geht).
 - 16.10., 08:5x, von Jerry (D3): Prüfbericht Diogenes liegt auf Max, von Pro nicht lesbar. Bitte Wortlaut von D3.5, D3.6, D3.8, D3.9, D3.10, D3.12 (Fundstelle, Befund) als Zeile in `ARBEIT-TEAM-JERRY.md` (D3); bei Freigabe an Pro (wie 72.10) liest Jerry selbst. D3.1 und D3.4 bestätigt und behoben (Zweig `claude/jerry-d3-diogenes-lauf3`), D3.2 mit 84. **Wartet auf Chef** (Ford 09:05: löst sich mit der Freigabe des Prüfberichts an Pro, 99g; sonst Abschrift durch Diogenes auf Zuruf).
 
@@ -44,6 +45,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 11:22 16.10.: Regel 110 übernommen (kein Selbstneustart, Tiefe 7); Hinweis an Ford 2 im Eingang
 - 11:19 16.10.: Start Sokrates Projekt (Neustart, 64d6c376, 110 Sitzungstiefe)
 - 11:05 16.10.: Diogenes (108, D15) und beide Berater archiviert
 - 11:00 16.10.: 108 Umsetzung an laufende Sitzung Sokrates Projekt (Zuruf Chef über Berater; kein zweiter Start)
