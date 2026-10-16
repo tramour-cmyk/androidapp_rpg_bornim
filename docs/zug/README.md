@@ -6,6 +6,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
+| [117](entscheiden/117-namen-archiv.md) | 16.10. | `ARBEIT-ARCHIV.md` einfrieren (Verlauf steht in Git), drei Nachschlage-Dateien von ARBEIT- nach LISTE-, STORY-K1-W → STORY-K1-WELT (Empfehlung) | Sokrates Projekt |
 | [99g.1](entscheiden/99g1-name-beschluesse.md) | 16.10. | Beschlüsse heißen künftig Vorgangsarchiv, Datei `docs/VORGANGSARCHIV.md`, nur Text, Umzug nach Sa 21:00 (Empfehlung) | Sokrates Projekt |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Sokrates |
 
