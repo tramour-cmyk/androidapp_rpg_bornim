@@ -1,6 +1,6 @@
 # 72s.1 · Wer ist der Gefährte in Kapitel 2?
 
-Sokrates · 15.10., 12:5x · Beschlossen ist: ein Platz für einen Söldner oder einen Gefährten, der Gefährte steigt mit auf, Einstieg ab Kapitel 2, die Story wird dafür umgebaut (72.7, 72.9, 72s, 72t). Der Storyplan sagt noch „kein fester Begleiter“ (41l). Texte schreiben wir danach gemeinsam (41).
+Sokrates Kreativ · 15.10., 12:5x · Beschlossen ist: ein Platz für einen Söldner oder einen Gefährten, der Gefährte steigt mit auf, Einstieg ab Kapitel 2, die Story wird dafür umgebaut (72.7, 72.9, 72s, 72t). Der Storyplan sagt noch „kein fester Begleiter“ (41l). Texte schreiben wir danach gemeinsam (41).
 
 Kurz: Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn)
 
