@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 
 **offen 7, davon A 0, wartet auf Chef 2**
 
-**Übergabe (16.10., 21:14, „Tom – 92 nach Test zusammenführen“) – Nachfolger: keiner (nichts Startbares):** 92 nach Test 0.1.806 zusammengeführt (PR #96), Prüfliste gelöscht, Änderungshistorie ergänzt. Sonst nichts Startbares (27, 68, 26 warten).
+**Übergabe (16.10., 21:38, „Tom – Jerrys Builds nach main“) – Nachfolger: keiner:** #93, #94, #95 (Builds 7, 9, 10) in PR #97 zusammengeführt, Konflikte gelöst, Regen und Monster-Laute ohne Raumfassung (nach 119), Kerntests grün. Direkter Push nach `main` von der Freigabe-Sperre abgelehnt: Chef führt #97 zusammen; danach CHANGELOG und `jerry-testreihe.md` (Builds 7, 9, 10 auf main) nachziehen (Jerry). 9.2 bleibt bei Jerry.
 
 ## Zeilen
 
