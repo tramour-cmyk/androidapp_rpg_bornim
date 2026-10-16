@@ -4,11 +4,11 @@ Jerry · 16.10., 14:5x · ersetzt die 14 Einzel-Builds (108a: Chef „sinnvolles
 
 Kurz: 4 Sammelbuilds statt 14 Einzel-APKs, je Build eine Prüfliste; Reihenfolge 1 → 4
 
-**Zu tun:** Build 1 installieren, seine Punkte prüfen, Ergebnis je Punkt („1.2 passt“, „1.3 nicht, weil …“) schreiben; dann Build 2, 3, 4. Jeder Build enthält `main` (auch Toms #71) und lässt sich über 0.1.757 und 0.1.773 installieren; die Nummern steigen von 1 nach 4.
+**Zu tun:** Build 1 installieren, seine Punkte prüfen, Ergebnis je Punkt („1.2 passt“, „1.3 nicht, weil …“) schreiben; dann Build 2, 3, 4. Jeder Build enthält `main` (auch Toms #71) und lässt sich über 0.1.757 und 0.1.773 installieren; die Nummern steigen von 1 nach 4 (0.1.777–0.1.780).
 
 APK: im PR unten unter „Checks“ → „build“ → „Artifacts“. Testmenü: Reiter „Test“ (Uhrzeit +3 h, Teleport, „Held trifft immer kritisch“, „Bosse zurücksetzen“, „Alle Vorräte auf mindestens 10“).
 
-## Build 1 · Klang draußen · [PR #88](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/88)
+## Build 1 · 0.1.777 · Klang draußen · [PR #88](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/88)
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
@@ -17,7 +17,7 @@ APK: im PR unten unter „Checks“ → „build“ → „Artifacts“. Testmen
 | 1.3 | D3.1, D3.4 | im Dorf durch eine Tür gehen und daneben an der Wand entlang; am Lagerfeuer stehen, während Kampfklänge spielen | Türklang nur auf der Tür; Feuer und Ortsklang reißen nicht ab | Türklang ohne Tür; Feuer verstummt |
 | 1.4 | D6.4 | im Dorf zum Fluss und über die Brücke, dann 10 Felder weg | Rauschen am Fluss, auf der Brücke am lautesten, ab etwa 8 Feldern still; Weiher still | kein Rauschen, oder es reißt beim Gehen ab |
 
-## Build 2 · Intro und Menü · [PR #89](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/89)
+## Build 2 · 0.1.778 · Intro und Menü · [PR #89](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/89)
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
@@ -26,7 +26,7 @@ APK: im PR unten unter „Checks“ → „build“ → „Artifacts“. Testmen
 | 2.3 | 40, 13e.6 | Menü → System: drei Regler; in der Höhle „Dunkle Töne“ von 0 auf 100 % | Gesamt, Musik, Effekte wirken einzeln (Ortsklang und Intro-Klang hängen an „Effekte“); Schwarz hebt sich höchstens leicht, Prüfzeichen gerade noch sichtbar | ein Regler ohne Wirkung; Höhle sieht hell und grau aus |
 | 2.4 | 30 | App starten und sofort beenden (Zurück), dreimal | kein Absturz (sonst nichts zu sehen) | „App wurde beendet“ |
 
-## Build 3 · Kampf · [PR #90](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/90)
+## Build 3 · 0.1.779 · Kampf · [PR #90](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/90)
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
@@ -35,7 +35,7 @@ APK: im PR unten unter „Checks“ → „build“ → „Artifacts“. Testmen
 | 3.3 | 36.6 | Test: „Held trifft immer kritisch“ an, „Bosse zurücksetzen“, Krogg töten (Schwert und Speer) | Stücke beim Zerteilen und Durchbohren so fein wie Krogg selbst | grobe Pixel an den Stücken (Oberkörper teils hinter dem Rand: bekannt) |
 | 3.4 | 53 | Krogg mit Feuer treffen (Feuerzauber oder Alchemistenfeuer) | Flammen sitzen auf Kroggs Umriss | Flammen links neben ihm |
 
-## Build 4 · Schänke und Raumklang · [PR #91](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/91)
+## Build 4 · 0.1.780 · Schänke und Raumklang · [PR #91](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/91)
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
