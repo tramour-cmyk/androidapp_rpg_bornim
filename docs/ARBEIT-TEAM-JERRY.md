@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 27, davon A 0, wartet auf Chef 11**
 
-**Übergabe (16.10., 10:17, „Jerry – 53 Zustände auf Krogg“):** 53 gebaut (PR #81). #79/#80 grün, Testbitte per Telegram (nach #78). Testreihenfolge #70, #72–#81. Rest der alten Übergaben gilt (86.9 kein PR vor #71; nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
+**Übergabe (16.10., 10:17, „Jerry – 53 Zustände auf Krogg“) – Nachfolger: Jerry – 30 Klang-Fäden:** 53 gebaut (PR #81). #79/#80 grün, Testbitte per Telegram (nach #78). Testreihenfolge #70, #72–#81. Nachfolger: #70, #72–#81 neu abonnieren; bei Grün #81 Testbitte per Telegram (nach #80). Dann 30 (59e hängt an 38). Rest der alten Übergaben gilt (86.9 kein PR vor #71; nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
 
 ## Zeilen
 
