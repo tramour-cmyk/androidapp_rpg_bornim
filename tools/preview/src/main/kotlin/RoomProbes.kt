@@ -12,16 +12,47 @@ import java.io.File
  * Raumklang (119): the same row of sounds as heard outside, in the inn, a small room, the temple hall and the cave, one
  * file per place in build/screens/raumproben (env RAUMPROBEN=1). Recordings are read with ffmpeg.
  */
-fun writeRoomProbes() {
-    val rate = 44100
-    val dir = File("build/screens/raumproben").apply { deleteRecursively(); mkdirs() }
-    val assets = File("../../app/src/main/assets").takeIf { it.isDirectory } ?: File("app/src/main/assets")
-    fun ogg(path: String): DoubleArray {
-        val p = ProcessBuilder("ffmpeg", "-v", "error", "-i", File(assets, path).path, "-ac", "1", "-ar", "$rate", "-f", "s16le", "-").start()
-        val b = p.inputStream.readBytes(); p.waitFor()
-        val bb = java.nio.ByteBuffer.wrap(b).order(java.nio.ByteOrder.LITTLE_ENDIAN)
-        return DoubleArray(b.size / 2) { bb.getShort(it * 2) / 32768.0 }
+private const val RATE = 44100
+private val ASSETS = File("../../app/src/main/assets").takeIf { it.isDirectory } ?: File("app/src/main/assets")
+
+/** A recording from the app's files, mono at [RATE], read with ffmpeg. */
+private fun ogg(path: String): DoubleArray {
+    val p = ProcessBuilder("ffmpeg", "-v", "error", "-i", File(ASSETS, path).path, "-ac", "1", "-ar", "$RATE", "-f", "s16le", "-").start()
+    val b = p.inputStream.readBytes(); p.waitFor()
+    val bb = java.nio.ByteBuffer.wrap(b).order(java.nio.ByteOrder.LITTLE_ENDIAN)
+    return DoubleArray(b.size / 2) { bb.getShort(it * 2) / 32768.0 }
+}
+
+/** Writes [x] as a WAV file. */
+private fun wav(x: DoubleArray, f: File) {
+    val bytes = java.nio.ByteBuffer.allocate(x.size * 2).order(java.nio.ByteOrder.LITTLE_ENDIAN)
+    for (v in x) bytes.putShort((v.coerceIn(-1.0, 1.0) * 32767).toInt().toShort())
+    javax.sound.sampled.AudioSystem.write(javax.sound.sampled.AudioInputStream(java.io.ByteArrayInputStream(bytes.array()),
+        javax.sound.sampled.AudioFormat(RATE.toFloat(), 16, 1, true, false), x.size.toLong()), javax.sound.sampled.AudioFileFormat.Type.WAVE, f)
+}
+
+/**
+ * Raumklang into the game (env RAUMKLANG=spiel): every recording heard in a room ([Room.recordingsFor]) as heard there,
+ * to app/src/main/assets/raum/<ort>/. Run again whenever a recording or [Room.acoustics] changes; RoomTest checks the files.
+ */
+fun bakeRoomVersions() {
+    val out = File(ASSETS, "raum").apply { deleteRecursively() }
+    val tmp = File.createTempFile("raum", ".wav")
+    for (kind in Room.ROOMS) {
+        val a = Room.acoustics(kind)!!
+        for (asset in Room.recordingsFor(kind)) {
+            val f = File(ASSETS, Room.file(kind, asset)).apply { parentFile.mkdirs() }
+            wav(Room.process(ogg(asset), RATE, a), tmp)
+            ProcessBuilder("ffmpeg", "-v", "error", "-y", "-i", tmp.path, "-c:a", "libvorbis", "-q:a", "3", f.path).inheritIO().start().waitFor()
+        }
+        println("wrote ${kind.name.lowercase()}: ${Room.recordingsFor(kind).size}")
     }
+    tmp.delete()
+}
+
+fun writeRoomProbes() {
+    val rate = RATE
+    val dir = File("build/screens/raumproben").apply { deleteRecursively(); mkdirs() }
     fun synth(s: Sound, v: Int): DoubleArray {
         val pcm = Sfx.render(s, v); val k = rate / Synth.SAMPLE_RATE
         return DoubleArray(pcm.size * k) { pcm[it / k] / 32768.0 }
@@ -52,10 +83,7 @@ fun writeRoomProbes() {
         }
         val n = minOf(out.size, at + rate)
         val wav = File(dir, "$name.wav")
-        val bytes = java.nio.ByteBuffer.allocate(n * 2).order(java.nio.ByteOrder.LITTLE_ENDIAN)
-        for (i in 0 until n) bytes.putShort((out[i].coerceIn(-1.0, 1.0) * 32767).toInt().toShort())
-        javax.sound.sampled.AudioSystem.write(javax.sound.sampled.AudioInputStream(java.io.ByteArrayInputStream(bytes.array()),
-            javax.sound.sampled.AudioFormat(rate.toFloat(), 16, 1, true, false), n.toLong()), javax.sound.sampled.AudioFileFormat.Type.WAVE, wav)
+        wav(out.copyOf(n), wav)
         ProcessBuilder("ffmpeg", "-v", "error", "-y", "-i", wav.path, "-c:a", "libmp3lame", "-q:a", "3", File(dir, "raumklang_$name.mp3").path).inheritIO().start().waitFor()
         wav.delete()
         println("wrote $name")

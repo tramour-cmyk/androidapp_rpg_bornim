@@ -59,6 +59,20 @@ object Room {
     fun soundsFor(kind: PlaceSound.Kind): List<Sound> = if (acoustics(kind) == null) emptyList() else
         Sound.entries.filter { affects(it) && (it !in INDOOR_ONLY || kind == PlaceSound.Kind.TAVERN || kind == PlaceSound.Kind.ROOM) }
 
+    /** The places that answer: one version of the sounds each. */
+    val ROOMS = PlaceSound.Kind.entries.filter { acoustics(it) != null }
+
+    /**
+     * The recordings heard in [kind], as asset paths of the dry files: the recorded sounds of [soundsFor] and the
+     * creatures' voices. Their room versions lie at [file].
+     */
+    fun recordingsFor(kind: PlaceSound.Kind): List<String> = if (acoustics(kind) == null) emptyList() else
+        soundsFor(kind).flatMap { s -> (0 until (Recorded.TAKES[s] ?: 0)).map { Recorded.file(s, it) } } +
+            Recorded.VOICES.flatMap { v -> Recorded.Cue.entries.flatMap { c -> (0 until Recorded.VOICE_TAKES).map { Recorded.voiceFile(v, c, it) } } }
+
+    /** Where the version of the recording [asset] (sfx/…) for [kind] lies, made by the preview (RAUMKLANG=spiel). */
+    fun file(kind: PlaceSound.Kind, asset: String) = "raum/${kind.name.lowercase()}/${asset.substringAfterLast('/')}"
+
     /** The longest the tail is kept (it is below hearing long before its full [Acoustics.rt60]). */
     private const val MAX_TAIL = 1.8
 

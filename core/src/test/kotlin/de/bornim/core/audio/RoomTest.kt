@@ -75,4 +75,14 @@ class RoomTest {
         assertTrue(Sound.CUP !in Room.soundsFor(Kind.CAVE))
         assertEquals(Room.soundsFor(Kind.CAVE).toSet(), Room.soundsFor(Kind.HALL).toSet())
     }
+
+    @Test
+    fun everyRoomVersionIsThere() {
+        val assets = java.io.File("../app/src/main/assets")
+        val want = Room.ROOMS.flatMap { k -> Room.recordingsFor(k).map { Room.file(k, it) } }.toSet()
+        val missing = want.filterNot { java.io.File(assets, it).isFile }
+        assertTrue(missing.isEmpty(), "fehlende Raumfassungen (RAUMKLANG=spiel): $missing")
+        val have = java.io.File(assets, "raum").walk().filter { it.isFile }.map { it.relativeTo(assets).path }.toSet()
+        assertTrue((have - want).isEmpty(), "Raumfassungen ohne Verwendung: ${have - want}")
+    }
 }

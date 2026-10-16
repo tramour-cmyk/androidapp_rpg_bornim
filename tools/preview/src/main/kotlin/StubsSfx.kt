@@ -7,6 +7,7 @@ import de.bornim.core.audio.Sound
 /** Silent stand-in for the Android sound effect player. */
 class SfxPlayer(context: android.content.Context) {
     var enabled = true
+    var room = de.bornim.core.audio.PlaceSound.Kind.OUTSIDE
     fun play(s: Sound, volume: Float = 0.8f) {}
     fun voice(id: String, cue: de.bornim.core.audio.Recorded.Cue, volume: Float = 0.8f) {}
     fun loop(s: Sound, volume: Float): Int = 0
