@@ -831,8 +831,8 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.toast = Ui.saved(lang)
         }
         PixelButton(Ui.language(lang), Modifier.fillMaxWidth()) { vm.toggleLang() }
-        PixelButton((if (vm.musicOn) Ui.musicOn else Ui.musicOff)(lang), Modifier.fillMaxWidth()) { vm.toggleMusic() }
-        PixelButton((if (vm.sfxOn) Ui.sfxOn else Ui.sfxOff)(lang), Modifier.fillMaxWidth()) { vm.toggleSfx() }
+        // 40a: three sliders instead of the music and effects switches; the title keeps them as quick mutes
+        SoundAndLight(vm, lang)
         // 91: the footsteps on their own, under the effects
         PixelButton((if (vm.stepsOn) Ui.stepsOn else Ui.stepsOff)(lang), Modifier.fillMaxWidth()) { vm.toggleSteps() }
         Txt(if (lang == Lang.DE) "Blut bei Treffern" else "Blood on hits", size = 15.sp, bold = true)
