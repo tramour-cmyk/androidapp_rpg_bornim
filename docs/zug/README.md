@@ -8,7 +8,6 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 |---|---|---|---|
 | [106.1](entscheiden/1061-rollen-ergebnis.md) | 16.10. | je Rolle „gutes Ergebnis“ mit Beispiel und „dein typischer Fehler“, Abläufe raus; keine neue Rolle; Probe an ROLLE-TEAM nach Sa 21:00 | Sokrates Projekt |
 | [108a.1](entscheiden/108a1-zusammenfuehren-freigabe.md) | 16.10. | Freigabeprüfung sperrt das Zusammenführen; Regel eintragen oder selbst auf GitHub zusammenführen | Jerry |
-| [122](entscheiden/122-docs-uebersicht.md) | 16.10. | `docs/README.md` als Inhaltsverzeichnis von Hand, nur Links auf die wesentlichen Dokumente, ohne Action; mit 117 nach Sa 21:00 | Sokrates Projekt |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Sokrates |
 
 ## Anzusehen
