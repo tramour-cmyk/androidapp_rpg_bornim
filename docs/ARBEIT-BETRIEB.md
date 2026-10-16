@@ -42,6 +42,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 10:25 16.10.: Start Sokrates Berater (Neustart, b95f16ce, 108 Dokumente beider Accounts)
 - 10:19 16.10.: Start Jerry (Neustart, 17ebf13f, 30 Klang-Fäden) (Ford 2)
 - 10:06 16.10.: Ford neu (session_0146qrC6…), Uhr trig_01XjYt5Mi2cFZLQcgy5UxvRW, alte Uhr gelöscht, Vorgänger archiviert
 - 10:05 16.10.: Start Jerry (Neustart, a8db8d44, 53 Zustände auf Krogg) (Ford 2)
