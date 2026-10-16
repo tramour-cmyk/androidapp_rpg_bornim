@@ -90,7 +90,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 87 | Schänke: Katze, Rowena, Borins Becher | Tom | fertig |
 | 88 | Leitlinien-Abgleich sichtbar | Berater | erledigt |
 | 91 | Schrittgeräusche eigenständig abschaltbar | Tom, Berater | offen |
-| 92 | Bram blockiert an der Brücke | Tom | zu testen |
+| 92 | Bram blockiert an der Brücke | Tom | fertig |
 | 93 | Beete bis zum Zaun | Tom | zu testen |
 | 94 | Hühner auf dem Fluss | Tom | zu testen |
 | 95 | Atem hörbar, Balken | Jerry | offen |
@@ -107,3 +107,8 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 116 | Zwischenbildschirm umbenennen | Projekt | beschlossen |
 | 117 | Namen in docs und Archiv | Projekt | beschlossen |
 | 118 | Teams ohne Themen | Projekt | offen |
+| 124 | Vorgänge gliedern und bepreisen | Projekt | offen |
+| 125 | Drei Namen statt Sokrates-Hüte | Projekt | offen |
+| 126 | Muss und Kür, Wochenziel | Projekt | offen |
+| 127 | Anzusehen: Zeile je Build mit Version und Folge | Projekt | erledigt |
+| 128 | Stillstand, Guthaben einteilen | Projekt | beschlossen |

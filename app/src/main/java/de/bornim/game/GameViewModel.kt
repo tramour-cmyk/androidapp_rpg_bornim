@@ -58,7 +58,10 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     var tick by mutableIntStateOf(0)
         private set
 
-    val music = MusicPlayer(app)
+    val music = MusicPlayer(app).also { m ->
+        // 120: the nearest hunter darkens the music while the hero is out in the world
+        m.threat = { game?.takeIf { screen == Screen.PLAYING }?.threat() ?: de.bornim.core.audio.Threat.NONE }
+    }
     val sfx = SfxPlayer(app)
     val introArt = IntroArt(app)
 
@@ -407,6 +410,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun refresh() {
+        // 119: the sounds take on the room the hero is in (also in a fight there)
+        game?.let { g -> de.bornim.core.World.maps[g.state.place.map]?.let { sfx.room = de.bornim.core.audio.PlaceSound.kindOf(it) } }
         game?.sounds?.let { q -> while (q.isNotEmpty()) sfx.play(q.removeFirst()) }
         game?.placedSounds?.let { q -> while (q.isNotEmpty()) q.removeFirst().let { (s, v) -> sfx.play(s, v) } }
         val g = game

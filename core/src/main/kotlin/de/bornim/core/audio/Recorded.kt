@@ -31,7 +31,9 @@ object Recorded {
         Sound.PANT_MAN to 3, Sound.PANT_WOMAN to 3,
         // what lives at a place but is not in sight (84, D3.15)
         Sound.WOLF_FAR to 3, Sound.RUMBLE to 3, Sound.BIRD_FLAP to 3, Sound.BIRD_SCRATCH to 3,
-    )
+        // rain and far thunder (D3.10): three loops of rain, three thunders
+        Sound.RAIN to 3, Sound.THUNDER to 3,
+    ) + MonsterIdle.SOUNDS.associateWith { 3 }
 
     /** Fewer than three takes by the user's choice (27k): the pond's one chorus loop, its two dragonflies. */
     val FEWER = setOf(Sound.FROG_CHORUS, Sound.DRAGONFLY)
@@ -42,8 +44,12 @@ object Recorded {
     /** What a creature's voice is for. */
     enum class Cue(val file: String) { ATTACK("angriff"), HURT("schmerz"), DIE("tod") }
 
-    /** The voices there are, three takes of each cue. */
-    val VOICES = listOf("wolf", "goblin", "skeleton")
+    /** The voices there are, three takes of each cue (18.11: all the other foes, tools/klang/stimmen.py). */
+    val VOICES = listOf(
+        "wolf", "goblin", "skeleton",
+        "bugbear", "hobgoblin_captain", "boar", "giant_spider", "giant_bat", "kobold",
+        "giant_rat", "stirge", "giant_centipede", "zombie", "ghoul", "ochre_jelly",
+    )
     const val VOICE_TAKES = 3
 
     fun voiceFile(voice: String, cue: Cue, take: Int) = "sfx/${voice}_${cue.file}_${take + 1}.ogg"
@@ -56,7 +62,7 @@ object Recorded {
         "wolf" -> "wolf" to 1f
         "dire_wolf" -> "wolf" to 0.82f
         "goblin", "goblin_archer", "goblin_shaman" -> "goblin" to 1f
-        "skeleton" -> "skeleton" to 1f
+        in VOICES -> id to 1f
         else -> null
     }
 }

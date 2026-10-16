@@ -10,6 +10,8 @@ enum class FxKind {
     BITE, POISON, DODGE, BLOCK,
     DRAIN, ACID, PARALYZE, BURN,
     BLEED, STUN, CURSE,
+    /** D4.1: Morwen's smoke bundle flies at the foe's feet and the smoke rises to its eyes. */
+    SMOKE,
 }
 
 /** An effect to play with a battle message. [seed] varies angles and particles so repeats look different. */
@@ -105,6 +107,8 @@ class Battle(
     var blessed = false; private set
     /** A good meal before the fight: +1 to attack rolls and +1 weapon damage. */
     val wellFed: Boolean = state.wellFed.also { state.wellFed = false }
+    /** 86.9: drunk on mead, poisoned after the SRD: disadvantage on attack rolls and ability checks (here: fleeing). */
+    val drunk: Boolean = state.drunk
     var spiritualWeapon = false; private set
     var guardians = false; private set
     private var heroProne = false
@@ -116,6 +120,10 @@ class Battle(
     private var enemyTurns = 0
     private var enemyPotions = monster.potions
     private var enemyHasHit = false
+    /** D4.1: the hero threw Morwen's smoke bundle at Krogg's feet; his first blow goes astray. */
+    var smokeThrown = false
+        private set
+    private var smokeSpent = false
     private var acid = 0
     private var foeRelentlessUsed = false
     private var shamanHeals = 2
@@ -192,6 +200,7 @@ class Battle(
             Opening.NORMAL -> say(if (monster.boss) Msg.bossAppears.f(lang, foe) else Msg.appears.f(lang, foe))
         }
         if (shiny) say(Msg.shiny(lang))
+        smokeBundle()
         trait?.let { say(Msg.eliteTrait.f(lang, it.desc(lang))) }
         if (pack != null && packSize > 0) say(pack.intro.f(lang, packSize))
         if (wellFed) say(Msg.fed.f(lang, name))
@@ -222,6 +231,17 @@ class Battle(
     }
 
     fun usesLeft(skill: Skill): Int? = usesLeft[skill]
+
+    /**
+     * D4.1: the hero throws Morwen's smoke bundle as soon as Krogg shows up ("as soon as he shows up"), by itself, so it
+     * cannot be forgotten and comes before an ambush too. It does not take the hero's turn.
+     */
+    private fun smokeBundle() {
+        if (monster.id != "bugbear" || state.count(Story.SMOKE_BUNDLE) <= 0) return
+        state.remove(Story.SMOKE_BUNDLE)
+        smokeThrown = true
+        say(Msg.throws.f(lang, name, Items[Story.SMOKE_BUNDLE].name(lang)), Anim.THROW, fx = fx(FxKind.SMOKE, onHero = false))
+    }
 
     /** Null if usable, otherwise the reason why not. */
     /** Fireball can be cast once per battle. */
@@ -294,6 +314,7 @@ class Battle(
             heroProne = false
         }
         if (Status.BLIND in heroStatus) mode -= 1
+        if (drunk) mode -= 1
         val roll = heroD20(mode.coerceIn(-1, 1))
         val crit = roll >= hero.critFrom || (heroCritsAlways && roll != 1)
         val total = roll + hero.attackBonus(w) + blessBonus() + fedBonus() + missStreak.bonus - attackPenalty(onHero = true)
@@ -361,7 +382,7 @@ class Battle(
     }
 
     private fun spellAttack(dmg: DiceExpr, type: DamageType, kind: FxKind): Boolean {
-        val roll = heroD20(((if (Status.BLIND in heroStatus) -1 else 0) + takeCounter()).coerceIn(-1, 1))
+        val roll = heroD20(((if (Status.BLIND in heroStatus) -1 else 0) - (if (drunk) 1 else 0) + takeCounter()).coerceIn(-1, 1))
         val crit = roll == 20
         if (roll == 1 || (!crit && roll + hero.spellAttack + blessBonus() + fedBonus() + missStreak.bonus - attackPenalty(onHero = true) < enemyAc)) {
             missStreak.miss()
@@ -511,7 +532,7 @@ class Battle(
             return false
         }
         val elf = if (hero.race == Race.ELF) 2 else 0
-        val ok = hero.has(Skill.CUNNING_ACTION) || dice.d20() + hero.mod(Ability.DEX) + elf >= 10 + monster.dexSave
+        val ok = hero.has(Skill.CUNNING_ACTION) || dice.d20(if (drunk) -1 else 0) + hero.mod(Ability.DEX) + elf >= 10 + monster.dexSave
         if (ok) {
             say(Msg.fled.f(lang, name))
             outcome = Outcome.FLED
@@ -611,6 +632,14 @@ class Battle(
         // a foe with another weapon than its kind's own names that one (a goblin's hand axe)
         val attackName = MonsterKits.of(monster.id, look.seed)?.attack ?: monster.attackName
         say(Msg.foeAttacks.f(lang, foe, attackName(lang)), Anim.ENEMY_ACT)
+        if (smokeThrown && !smokeSpent) {
+            // the smoke stings his eyes: the first blow goes astray, and with it the brutal first hit and its stun
+            smokeSpent = true
+            enemyHasHit = true
+            say(Msg.foeMisses.f(lang, foe), Anim.MISS, fx = fx(if (defending) defenceFx() else FxKind.DODGE, onHero = true, past = monster.attackFx))
+            openedUp()
+            return
+        }
         val mode = foeMode(if (Status.BLIND in foeStatus) -1 else 0)
         val roll = dice.d20(mode)
         val crit = roll == 20

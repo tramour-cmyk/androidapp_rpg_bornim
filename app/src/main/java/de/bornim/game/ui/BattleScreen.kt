@@ -293,6 +293,13 @@ private class BattleUi(val battle: Battle) {
                 // the arrow or bolt leaves the bow on the frame the string is let go
                 else { release = HeroFigure.Act.ATTACK to 0; fxDelay = (HeroBattle.strikeFrame(m.strike) - m.to) * BattlePace.ms(ATTACK_FRAME_MS) }
             }
+            // D4.1: Morwen's smoke bundle is thrown in one go as it is named; the smoke rises when it lands
+            s.anim == Anim.THROW && fx?.kind == de.bornim.core.FxKind.SMOKE -> {
+                val v = HeroBattle.throwVariant(hero)
+                play(HeroFigure.Act.THROW, HeroFigure.Strike.CAST, v, 0, -1, perFrame = CAST_FRAME_MS)
+                release = HeroFigure.Act.THROW to v
+                fxDelay = HeroBattle.strikeFrame(HeroFigure.Strike.CAST) * BattlePace.ms(CAST_FRAME_MS)
+            }
             // a flask: drawn back while it is named, thrown with the next message
             s.anim == Anim.THROW -> play(HeroFigure.Act.THROW, HeroFigure.Strike.CAST, HeroBattle.throwVariant(hero), 0, HeroBattle.strikeFrame(HeroFigure.Strike.CAST) - 1, perFrame = CAST_FRAME_MS, hold = true)
             m != null && m.act == HeroFigure.Act.THROW && m.hold && (fx != null || s.anim != Anim.NONE) -> {
@@ -691,6 +698,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
         val flight = when (ui.current?.fx?.let { f -> f.past?.takeIf { it in FLYING && (f.kind == de.bornim.core.FxKind.DODGE || f.kind == de.bornim.core.FxKind.BLOCK) } ?: f.kind }) {
             de.bornim.core.FxKind.FIRE_BOLT, de.bornim.core.FxKind.MISSILES, de.bornim.core.FxKind.ARROW,
             de.bornim.core.FxKind.BOMB_FIRE, de.bornim.core.FxKind.BOMB_HOLY -> 0.5f
+            de.bornim.core.FxKind.SMOKE -> 0.3f
             de.bornim.core.FxKind.FIREBALL -> 0.45f
             else -> 0f
         }
@@ -1248,10 +1256,13 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                 }
                 // lasting statuses show on the body as long as they hold (flames, a sickly vapour, dripping blood, frost);
                 // drawn in the foe's own frame, they go with it when it lunges, dodges or reels
+                // they sit on the figure as now shown, on its own outline, not round the mark of its feet (53)
+                val foeOutline = remember(shownFoe) { shownFoe?.let { de.bornim.core.art.Outline.of(it) } }
                 if (ui.foeStatus.isNotEmpty() && !ui.enemyGone) Canvas(Modifier.size(1.dp)) {
                     val chest = Offset(foeAnchor.toPx(), (foeFeet - (if (newStyle) foeTall * 0.55f else monsterSize * 0.45f)).toPx())
                     val u = (if (newStyle) foeW / 90 else monsterSize / 64).toPx()
-                    for (st in ui.foeStatus.keys) drawStatus(st, clockMs / 1000f, chest, foeFeet.toPx(), u, vm.bloodLevel)
+                    val fit = foeOutline?.let { BodyFit(it, sprDp.toPx()) }
+                    for (st in ui.foeStatus.keys) drawStatus(st, clockMs / 1000f, chest, foeFeet.toPx(), u, vm.bloodLevel, fit)
                 }
             }
             // Hero (seen from behind)

@@ -67,7 +67,7 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, `docs/`: nur auf `main`, direkt committen
 
 **Begriffe** (62p/62q, 113): Was wir mit Nummer und Buchstaben nachhalten, heißt **Vorgang** („Vorgang 72s.1“, in Meldungen „72s.1:“; nicht „Thema“, nicht „Nummer“). **Landkarte** (alle Gebiete eines Landes) → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang). Wo gekämpft wird: **Kampfort** (nie „Bühne“; 72.12). Menschen an der Seite des Helden: **Gefährte** oder **Söldner**, alles andere **Begleiter** (72.14). Übereinanderliegende Teile eines Grundrisses: **Ebene** (nie „Stockwerk“, nie für Kartenstufen). Auch im Spiel und in Prüflisten.
 
-**Sitzungen:** **Kommt um 7 Uhr keine Morgenmeldung, steht Ford** (D10.1): dann ein Wort an Team Tom oder Sokrates Projekt; Netz ist die „Ford-Wache“ (`ROLLE-BETRIEB.md`). Freigabe-Rückfragen steuert der Freigabe-Modus der App.
+**Sitzungen:** **Kommt um 7 Uhr (Sa, So, Urlaub 9 Uhr) keine Morgenmeldung, steht Ford** (D10.1): dann ein Wort an Team Tom oder Sokrates Projekt; Netz ist die „Ford-Wache“ (`ROLLE-BETRIEB.md`). Freigabe-Rückfragen steuert der Freigabe-Modus der App.
 
 ## Technik und Sicherheit
 

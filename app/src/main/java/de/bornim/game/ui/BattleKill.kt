@@ -85,8 +85,10 @@ fun DrawScope.drawKillPieces(plan: KillPlan, t: Float, u: Float, shade: Color?) 
             translate((pose.dx * u).toFloat(), (pose.dy * u).toFloat())
             rotate(pose.angle.toFloat(), pivot - Offset((pose.dx * u).toFloat(), (pose.dy * u).toFloat()))
         }) {
-            drawImage(Bitmaps.of(p.img), IntOffset.Zero, IntSize(p.img.width, p.img.height), IntOffset((p.ox * u).roundToInt(), (p.oy * u).roundToInt()),
-                IntSize((p.img.width * u).roundToInt(), (p.img.height * u).roundToInt()), colorFilter = filter, filterQuality = FilterQuality.None)
+            // (a piece cut from a finer picture, Krogg's, has smaller pixels: 36.6)
+            val v = u / p.fine.toFloat()
+            drawImage(Bitmaps.of(p.img), IntOffset.Zero, IntSize(p.img.width, p.img.height), IntOffset((p.ox * v).roundToInt(), (p.oy * v).roundToInt()),
+                IntSize((p.img.width * v).roundToInt(), (p.img.height * v).roundToInt()), colorFilter = filter, filterQuality = FilterQuality.None)
         }
     }
 }

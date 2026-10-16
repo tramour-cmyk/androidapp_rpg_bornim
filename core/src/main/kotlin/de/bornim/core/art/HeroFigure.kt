@@ -399,8 +399,9 @@ object HeroFigure {
 
     /**
      * The hero struck down, in three ways, lying on the ground at the end: 0 the knees give and it pitches forward
-     * onto its face, arms out before it; 1 thrown back flat, arms flung wide; 2 spun round, down on one knee and over
-     * onto its side. The weapon hand goes slack, the weapon hanging from it.
+     * onto its face, arms out before it; 1 thrown back, down onto its right side, the arms lying on the ground; 2 spun
+     * round, down on one knee and over onto its left side, its back to us. All three come to lie to the right of the feet,
+     * inside the frame. The weapon hand goes slack, the weapon hanging from it.
      */
     fun die(st: Stance, variant: Int): List<Rig> {
         val r = restOf(st)
@@ -422,11 +423,16 @@ object HeroFigure {
             // thrown back by the blow, it staggers and goes down onto its right side, into the picture (flat on its back
             // it would fall towards us, out of it)
             1 -> tween(r to 1, reel.copy(lean = -0.6, stride = -6.0) to 4, slack.copy(crouch = 8.0, lean = -0.4, stride = -7.0, headDown = -6.0, rh = V(26.0, 80.0, -4.0), lh = V(-26.0, 80.0, -4.0), fallS = 20.0) to 5,
-                slack.copy(crouch = 4.0, lean = -0.2, stride = -4.0, headDown = -4.0, headTurn = -20.0, rh = V(30.0, 96.0, -2.0), lh = V(-30.0, 96.0, -2.0), fallS = 82.0) to 8,
-                slack.copy(crouch = 4.0, lean = -0.2, stride = -4.0, headDown = -4.0, headTurn = -20.0, rh = V(30.0, 96.0, -2.0), lh = V(-30.0, 96.0, -2.0), fallS = 86.0) to 1)
-            else -> tween(r to 1, reel.copy(twist = 30.0) to 4, slack.copy(crouch = 16.0, lean = 0.4, twist = 35.0, headTurn = 30.0, headDown = 6.0, rh = V(20.0, 46.0, 4.0), lh = V(-24.0, 46.0, 10.0), fallS = -10.0) to 6,
-                slack.copy(crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(22.0, 56.0, 6.0), lh = V(-26.0, 56.0, 10.0), fallS = -80.0) to 8,
-                slack.copy(crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(22.0, 56.0, 6.0), lh = V(-26.0, 56.0, 10.0), fallS = -84.0) to 1)
+                // on its side the left arm would stand up into the sky: it drops forward onto the ground before the belly,
+                // the right one, underneath, lies stretched out past the head
+                slack.copy(crouch = 4.0, lean = -0.2, stride = -4.0, headDown = -4.0, headTurn = -20.0, rh = V(8.0, 118.0, 10.0), lh = V(-4.0, 62.0, 22.0), fallS = 82.0) to 8,
+                slack.copy(crouch = 4.0, lean = -0.2, stride = -4.0, headDown = -4.0, headTurn = -20.0, rh = V(8.0, 120.0, 8.0), lh = V(-4.0, 60.0, 22.0), fallS = 86.0) to 1)
+            // spun right round as it goes down on one knee, so it then tips over away from us, into the picture (onto
+            // its left side unturned it would fall out of the frame on the left)
+            else -> tween(r to 1, reel.copy(twist = 30.0) to 4,
+                slack.copy(yaw = r.yaw + 170.0, crouch = 16.0, lean = 0.4, twist = 35.0, headTurn = 30.0, headDown = 6.0, rh = V(20.0, 46.0, 4.0), lh = V(-24.0, 46.0, 10.0), fallS = -10.0) to 6,
+                slack.copy(yaw = r.yaw + 170.0, crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(4.0, 62.0, 22.0), lh = V(-8.0, 118.0, 10.0), fallS = -80.0) to 8,
+                slack.copy(yaw = r.yaw + 170.0, crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(4.0, 62.0, 22.0), lh = V(-8.0, 118.0, 10.0), fallS = -84.0) to 1)
         })
     }
 

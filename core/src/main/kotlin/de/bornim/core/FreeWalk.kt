@@ -221,12 +221,15 @@ class FreeWalk(private val game: Game) {
         if (abs(ox) + abs(oy) != 1) return
         // only when walking mostly towards it
         if (ox * dx + oy * dy < 0.7) return
+        val d = if (ox > 0) Facing.RIGHT else if (ox < 0) Facing.LEFT else if (oy > 0) Facing.DOWN else Facing.UP
+        // 92 (test 0.1.791): a villager in the way makes room; the hero then walks on by himself
+        if (game.yields(tile.first, tile.second)) { bumpCooldown = nowMs + 600; game.face(d); game.nudge(d); return }
         val m = game.map
         val acts = game.roamerAt(tile.first, tile.second) != null || m.tile(tile.first, tile.second) == Tile.BARRIER || m.warpAt(tile.first, tile.second) != null
         if (!acts) return
         // knocking again only after a while, when the hero still walks against the door after the words
         bumpCooldown = nowMs + if (shut(tile.first, tile.second)) 1_500 else 600
-        game.move(if (ox > 0) Facing.RIGHT else if (ox < 0) Facing.LEFT else if (oy > 0) Facing.DOWN else Facing.UP)
+        game.move(d)
     }
 
     /** Whether the straight line from the hero to ([tx], [ty]) is clear for the hero's circle (for walking to a tapped place). */

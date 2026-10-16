@@ -2,17 +2,16 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 8, davon A 0, wartet auf Chef 2**
+**offen 7, davon A 0, wartet auf Chef 2**
 
-**Übergabe (16.10., 14:4x, „Tom – Eigene Zeilen kürzen“) – Nachfolger: keiner jetzt; nächster Start bei Rückmeldung des Chefs (0.1.781, 92 am Gerät; Rast t757 erledigt, Chef 12:2x):** Zeilen 5, 24, 59e, 95 gestrichen (Rest bei Jerry). D3 als PR #92 (0.1.781 grün), Prüfliste `t781-d3-monster.md`. Nachfolger: #92 neu abonnieren.
+**Übergabe (16.10., 21:38, „Tom – Jerrys Builds nach main“) – Nachfolger: keiner:** #93, #94, #95 (Builds 7, 9, 10) in PR #97 zusammengeführt, Konflikte gelöst, Regen und Monster-Laute ohne Raumfassung (nach 119), Kerntests grün. #97 auf `main` (Chef: „Bitte mach das“), CHANGELOG, Testreihe, Jerrys D1/D3 nachgezogen. 9.2 bleibt bei Jerry.
 
 ## Zeilen
 
 | Nr. | Thema | Stand | Zweig |
 |---|---|---|---|
-| D3 | Übernahme von Jerry (118): D3.5, D3.6, D3.9 (Lautstärke), D3.12 | **PR #92 (Sammelbuild 5, 0.1.781 grün)**, Prüfliste `docs/zug/ansehen/t781-d3-monster.md`; **Chef 16.10., 17:49 (an Ford): „unter meinen To-Dos anzusehen, Tom, habe ich die Tests gemacht, die waren alle positiv. Da war nicht eine richtige Nummer dabei. Das ist so ein Bündel-Build.“** → passt; Wunsch: Testseite mit klarer Nummer; bei „passt“ zusammenführen, CHANGELOG | `claude/tom-118-uebernahme` |
+| D21 | **von Diogenes** (Lauf 21, Abgleich Vorrat gegen Dein Zug, Zuruf Chef 21:2x; Prüfbericht): 26 (Kapitel 1 durchspielen) und 68 (Durchsicht Tempelszene, Knopf 100) als Testbitte in `docs/zug/ansehen/`, bisher nie gestellt; nach 128 Testergebnisse Jerry: Build 7 (0.1.798, Chef 20:5x „alles passt“) aus `ansehen/jerry-testreihe.md` nehmen. **Dazu D21.3 beschlossen (Chef 16.10, „3 ja“):** `tools/zug-index.py` sucht in allen `ARBEIT-*.md` nach „Dein Zug <Nr>“ und „wartet auf Chef“ und schreibt unten in die Übersicht „Nicht gestellt: …“ und „Ohne Datei: …“ | klein, sofort |
 | 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Auf `main` bis 27m und D3.13a (#67). **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1. 27n auf `main` (#71) | – |
-| 92 | Bauer Bram blockiert an der Brücke den Weg (Chef 15.10., 16:5x; Idee: „Held muss NPC schieben können. Keine Gegner, aber neutrale.“) | **Test 0.1.791 nicht bestanden** (Chef 16.10., 16:2x: „92, Bram schubsen, bekomme ich anscheinend nicht hin. Auch keinen anderen … ich laufe dauerhaft gegen ihn … da passiert nichts, da bewegt sich nichts, da wird keine Position gewechselt.“). Prüfen: zählt Dauerlaufen als Anstoß (`PUSH_BUMPS` 2 in `Game.kt`), ist Bram an der Brücke ein Walker; `MakeWayTest` grün, am Gerät nicht | – |
 | 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | **112:** fällt gegen das Intro ab (Chef 16.10., 11:3x); nachziehen erst nach Vergleichsliste von Kreativ und Entscheid des Chefs · auf `main` mit #67 (0.1.753 „passt“); Durchsicht der Szene mit Knopf 100 durch den Chef offen | – |
 | 26 | Kapitel 1 fertig: Zielliste vor Neuem (`LISTE-KAPITEL1.md`) | Toms Teil erledigt (16.10., 00:4x): Ort fertig Dorf, Räume, Wald ohne Lücke außer D3.14 (Lückenliste in der Übergabe); Zufallsspieler grün. Offen: Höhle (13e), Durchspielen durch den Chef nach #67 | – |
 | 13e | Höhle „Ort fertig“ (Zuteilung des Chefs 14.10., 16:0x; bleibt bei Tom, D14.3) | D1.3/D1.11, D1.5, 13e.6 auf `main`; D1.7 auf `main` (#71); Helligkeitsregler bei Jerry (40); Mond mit D3.14 | – |
