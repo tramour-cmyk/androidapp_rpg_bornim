@@ -48,6 +48,11 @@ for p in 500/500646_339183 389/389303_5486695 675/675736_2524442 381/381645_5486
     [ -s "$f" ] || { curl -sSfL -m 300 -A "Mozilla/5.0" -o "$f" "https://cdn.freesound.org/previews/$p-hq.mp3"; sleep 3; }
 done
 for n in 2891 2894 0840 3202; do get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"; done
+# Runde 7 (D6.4 Fluss): Weichsel (OpenGameArt, CC0), Bäche (BigSoundBank, CC0)
+get "$O/VistulaShort_0.mp3" VistulaShort_0.mp3
+for n in 0864 0823; do
+    get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
+done
 python3 -m pip -q install py7zr numpy scipy soundfile >/dev/null 2>&1 || true
 for z in *.zip; do d="x_${z%.zip}"; [ -d "$d" ] || { mkdir -p "$d"; unzip -qo "$z" -d "$d"; }; done
 for z in *.7z; do d="x_${z%.7z}"; [ -d "$d" ] || { mkdir -p "$d"; python3 -I -m py7zr x "$z" "$d"; }; done

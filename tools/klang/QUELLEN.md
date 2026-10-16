@@ -178,3 +178,13 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026. Geschnitten mit 
 | `rumble_3` | RockFall1b (381645), ebenso | AlanCat, Freesound | https://freesound.org/people/AlanCat/sounds/381645/ |
 | `bird_flap_1–3` | 2891, 2894 „Flight bird“, 0840 „Flight of a pigeon“, höher und kürzer | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/ |
 | `bird_scratch_1–3` | 3202 (Schritte auf Erde), viel höher, nur das Helle | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/ |
+
+## Runde 8 (D6.4 Fluss am Dorf)
+
+CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026. Rezept: `tools/klang/fluss.py` (je 12 s, gedämpft, nahtlos).
+
+| Klang | Aufnahme | Urheber, Paket | Quelle |
+|---|---|---|---|
+| `river_1` | VistulaShort (Wellen an der Weichsel), ab 75 s | RandomMind, OpenGameArt | https://opengameart.org/content/sea-and-river-wave-sounds |
+| `river_2` | 0864 „Brooklet“, ab 20 s | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/brooklet-s0864.html |
+| `river_3` | 0823 „Small Stream“, ab 30 s | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/detail-0823-small-stream.html |

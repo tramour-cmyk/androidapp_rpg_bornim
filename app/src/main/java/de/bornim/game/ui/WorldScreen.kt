@@ -273,6 +273,9 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         val ear = pond?.let { de.bornim.core.audio.PondSound.Ear(it) }
         var chorus = 0f
         var chorusStream = 0
+        // the river (D6.4): running water rushes, swelling towards the bank and the bridge
+        var river = 0f
+        var riverStream = 0
         // the hens (83c): clucking, scratching, alarm and wings, from what each hen is doing
         val henEar = if (game.map.kind == MapKind.TOWN) de.bornim.core.art.MapHen.of(game.map).takeIf { it.isNotEmpty() }?.let { de.bornim.core.audio.HenSound.Ear(it) } else null
         // the small birds pecking on the grass (84): wings as one flies up, now and then a scratch as it hops
@@ -322,6 +325,15 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                         else -> vm.sfx.volume(chorusStream, chorus)
                     }
                 }
+                if (outside) {
+                    val want = if (calm) de.bornim.core.audio.RiverSound.target(de.bornim.core.audio.RiverSound.nearest(game.map, p.x, p.y)) else 0f
+                    river = de.bornim.core.audio.RiverSound.approach(river, want, tick)
+                    when {
+                        river > 0f && riverStream == 0 -> riverStream = vm.sfx.loop(de.bornim.core.audio.Sound.RIVER, river)
+                        river == 0f && riverStream != 0 -> { vm.sfx.stop(riverStream); riverStream = 0 }
+                        else -> vm.sfx.volume(riverStream, river)
+                    }
+                }
                 if (henEar != null && de.bornim.core.art.MapHen.draft) {
                     val heard = henEar.hear((p.x + 0.5f) * de.bornim.core.art.WorldArt.T, (p.y + 0.5f) * de.bornim.core.art.WorldArt.T)
                     if (calm) for ((s, v) in heard) vm.play(s, v)
@@ -341,6 +353,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             vm.sfx.fadeOut(crackle, fire)
             vm.sfx.fadeOut(bedStream, bed)
             vm.sfx.fadeOut(chorusStream, chorus)
+            vm.sfx.fadeOut(riverStream, river)
         }
     }
 
