@@ -4,6 +4,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 16, davon A 0, wartet auf Chef 4**
 
+**Pause bis So 18.10., 21:00** (128, Chef 16.10., 21:2x: Pro einteilen, 49 % der Woche nach 18 Stunden): laufende Sitzung beendet ihren Punkt, dann kein Start. Testergebnisse des Chefs (Freigabe, Rückläufer) trägt ein, wer sie hört; Team Tom übernimmt sie ab Sa 21:15 (`FIRMA.md`, Pro leer oder eingeteilt).
+
 **Übergabe (16.10., 20:39, „Jerry – 86 Außer Atem und Rennen laut“) – Nachfolger: Jerry – D3 Kampfgeheul:** 86 gebaut ohne PR (Zweig `claude/jerry-86-atem-rennen`, Testreihe voll), Kerntests grün. #68, #87, #93, #94, #95 abonniert; Nachfolger abonniert sie wieder. Dann D3 Kampfgeheul erzeugt (mit 18; #85 ist auf `main`).
 
 ## Zeilen
