@@ -4,9 +4,9 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Themennumm
 
 **offen 2, davon A 0, wartet auf Chef 0**
 
-**Geprüft bis:** `f52d09e3` (16.10., Lauf 20: 128 und Kennzahlen zusammen, nur Notizen; Lauf 9 Code bis 8836512); nächste Nummer D21.
+**Geprüft bis:** `1a6d3e1a` (16.10., Lauf 21: Abgleich Vorräte gegen Dein Zug, nur Notizen; Lauf 9 Code bis 8836512); nächste Nummer D22.
 
-**Übergabe (16.10., 20:57, Lauf 20):** Läufe 18 (125, 106.1), 19 (126) und 20 (128, Nachtrag Sokrates Projekt 20:56: Kennzahlen 124/126/128 zusammen) fertig, Prüfbericht. D20.1 Pro im Tempo Sa gegen 15 Uhr leer, Jerry jetzt pausieren, wieder etwa Mo 21 Uhr; D20.2 Schwelle an `allowed_warning` binden (nur Muss); D20.3 Ursache „eingeteilt“. D18–D20 bei Sokrates Projekt. Nachfolger: keiner nötig bis zum nächsten Auftrag.
+**Übergabe (16.10., 21:31, Lauf 21):** Läufe 18–20 (125, 106.1, 126, 128) und 21 (Abgleich Vorräte gegen Dein Zug, Zuruf Chef 21:2x) fertig, Prüfbericht. D21: 11 Zeilen sagen „Chef“ ohne Auftrag, Build 7 erledigt aber noch auf Dein Zug; Ursachen D21.1 Hut läuft nicht, D21.2 „wartet auf Chef“ dreideutig, D21.3 kein Abgleich im Werkzeug. Zeilen an Projekt, Kreativ (A: 39.1, 72u), Tom, Jerry. Nachfolger: keiner nötig bis zum nächsten Auftrag.
 
 ## Zeilen
 
