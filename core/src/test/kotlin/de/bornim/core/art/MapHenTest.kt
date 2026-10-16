@@ -67,6 +67,30 @@ class MapHenTest {
         }
     }
 
+    /**
+     * 129 (Chef 16.10.: the white and the brown hen on one place): two hens never share a spot, not at home, not
+     * strolling, not chased by the hero, not going in under the trees or coming out again; only for a moment.
+     */
+    @Test
+    fun neverTwoOnOneSpot() {
+        val hens = MapHen.flocked(MapHen.of(village).map { MapHen.Hen(it.homeX, it.homeY, it.seed, it.variant) })
+        for (a in hens) for (b in hens) if (a !== b) assertTrue(hypot(a.homeX - b.homeX, a.homeY - b.homeY) >= MapHen.GAP, "homes ${a.homeX},${a.homeY} and ${b.homeX},${b.homeY} too close")
+        var close = 0; var steps = 0
+        for (t in 0L..900_000L step 40L) {
+            val minute = t / 60_000L
+            val away = minute % 5 == 3L
+            // now and then the hero walks through the hens of one bale after the other
+            val chased = if (minute % 5 == 1L) hens[((t / 10_000L) % hens.size).toInt()] else null
+            val at = hens.map { h -> h.at(t, (chased?.homeX ?: 0f) - 20f, chased?.homeY ?: 0f, village, away) }
+            steps++
+            for (i in at.indices) for (j in i + 1 until at.size) {
+                val x = at[i]; val y = at[j]
+                if (x.shown > 0f && y.shown > 0f && hypot(x.x - y.x, x.y - y.y) < MapHen.GAP * 0.6f) close++
+            }
+        }
+        assertTrue(close * 100 < steps, "two hens on one spot in $close of $steps steps")
+    }
+
     /** 94: the drawn river bank reaches over its tiles; even running from the hero a hen keeps off it. */
     @Test
     fun neverOnTheRiver() {
@@ -85,8 +109,10 @@ class MapHenTest {
     /** D7.1: in the rain and at dusk the hens hurry off under the trees and are gone there, never on the spot; then out again. */
     @Test
     fun underTheTreesInTheRainAndOutAgain() {
+        // with the others of the flock at home (129: each its own side of the trees)
+        val flock = MapHen.flocked(MapHen.of(village).map { MapHen.Hen(it.homeX, it.homeY, it.seed, it.variant) })
         for (src in MapHen.of(village)) {
-            val h = MapHen.Hen(src.homeX, src.homeY, src.seed, src.variant)
+            val h = flock.first { it.seed == src.seed && it.homeX == src.homeX }
             for (t in 0L..2_000L step 40L) h.at(t, 0f, 0f, village)
             val sx = h.x; val sy = h.y
             var lx = h.x; var ly = h.y; var ls = 1f; var goneAt = -1L
