@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 8, davon A 0, wartet auf Chef 2**
+**offen 9, davon A 0, wartet auf Chef 2**
 
 **Übergabe (16.10., 14:4x, „Tom – Eigene Zeilen kürzen“) – Nachfolger: keiner jetzt; nächster Start bei Rückmeldung des Chefs (0.1.781, 92 am Gerät; Rast t757 erledigt, Chef 12:2x):** Zeilen 5, 24, 59e, 95 gestrichen (Rest bei Jerry). D3 als PR #92 (0.1.781 grün), Prüfliste `t781-d3-monster.md`. Nachfolger: #92 neu abonnieren.
 
@@ -18,3 +18,4 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 | 13e | Höhle „Ort fertig“ (Zuteilung des Chefs 14.10., 16:0x; bleibt bei Tom, D14.3) | D1.3/D1.11, D1.5, 13e.6 auf `main`; D1.7 auf `main` (#71); Helligkeitsregler bei Jerry (40); Mond mit D3.14 | – |
 | 62c | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p) | bis 62r auf `main`; 62i–62k mit 64; 62l später (62m bei Jerry mit 39) | – |
 | 30 | Abstürze beim Testen (Technik) | beobachten (bei neuem `adb logcat` mit Anleitung); 30.7 Merkliste | – |
+| D3.10 | **von Team Jerry (16.10., 19:25), Absprache `WorldScreen.kt`:** für den Regenklang ändere ich dort nur die Klangschleife (neben Fluss: `rain`/`rainStream`, `RainSound`, Ausblenden im `finally`), sonst nichts | Einwand hier, sonst gilt ok; Zweig `claude/jerry-d3-rest` | – |
