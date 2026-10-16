@@ -75,7 +75,7 @@ Hörproben per Telegram (16.10., 20:0x). Stil-Abgleich: echte Aufnahmen statt Sy
 
 ## Build 10 · Wölfe und Monster auf der Karte · [PR #95](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/95)
 
-Hörproben per Telegram (16.10., 19:36 und 19:5x). Stil-Abgleich: echte Aufnahmen, drei Fassungen je Klang mit eigenem Charakter; „was man sieht, klingt selbst“. Übergänge: Ruhe (Laute) ↔ bemerkt („!“, Laute verstummen, Jagd) ↔ zurück nach Hause (wieder Laute). Geprüft mit Kerntest `MonsterIdleTest`; das Gefühl nur am Gerät.
+Hörproben per Telegram (16.10., 19:36 und 19:4x). Stil-Abgleich: echte Aufnahmen, drei Fassungen je Klang mit eigenem Charakter; „was man sieht, klingt selbst“. Übergänge: Ruhe (Laute) ↔ bemerkt („!“, Laute verstummen, Jagd) ↔ zurück nach Hause (wieder Laute). Geprüft mit Kerntest `MonsterIdleTest`; das Gefühl nur am Gerät.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
