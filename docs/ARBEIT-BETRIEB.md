@@ -12,7 +12,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 17:50)“ `session_01CxGVVG35nLayNTuubcUd7Q` (seit 16.10., 17:50, Selbstneustart, Tiefe 3; Vorgänger `session_01Hr5Go7BFHT2zpmsRmGmLc1` archiviert). Stundenuhr „Ford-Uhr“ `trig_01X9ykKgg4ibrwLnXHVW7666` (:03, seit 17:50; alte Uhr `trig_01Bg6UMEA6njTVfnsccoRe5G` gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 21:18)“ `session_01B3GyS2dPCbVVLgZ2umvMQt` (seit 16.10., 21:18, Selbstneustart, Tiefe 4; Vorgänger `session_01CxGVVG35nLayNTuubcUd7Q` archiviert). Stundenuhr „Ford-Uhr“ `trig_013eNWtEGr7bAJCFxhGY5WHk` (:03, seit 21:18; alte Uhr `trig_01X9ykKgg4ibrwLnXHVW7666` gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhr „Ford-Wache 07:08“ `trig_01Phk9eXekP5yY9M6L3bgS1c` (täglich 07:08; 15.10., 22:5x zurückgeholt, D13.2).
 - **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 18:34)“ `session_017Gzi9LijVCMaW5UJrzYaXZ` (seit 16.10., 18:34; Vorgänger `session_013oK9KoFaRYSMbNWxWWtuW8` archiviert). Stundenuhr „Ford-2-Stundenuhr“ `trig_01DXxbKZYYttXJEEYeCyARt7` (:33, seit 18:34). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren.
 
@@ -70,6 +70,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 21:19 16.10.: neuer Ford session_01B3GyS2dPCbVVLgZ2umvMQt läuft, Uhr trig_013eNWtEGr7bAJCFxhGY5WHk; alte Uhr gelöscht, alter Ford archiviert
 - 21:18 16.10.: Selbstneustart Ford (Haken-Erinnerung 2, ≈233 Tsd. Token); offen: Diogenes 125 (session_01NN52c14B4vhpWH2KyWnUGT) fertig seit 20:57, archivieren ab 22:03, wenn unverändert; Tom pausiert bis Testergebnis 0.1.806 (dann „Tom – 92 nach Test zusammenführen“ starten); Sa 08:00 Start Sokrates Projekt (Eingang); Guthabenzeile 128
 - 21:10 16.10.: Chef „Build 10 … PR #95 passt“ in Jerrys Vorrat (Zeile D3)
 - 21:05 16.10.: Chef „Build 9 … PR #94 passt“ und Frage zu 9.2 (Regen im Kampf) in Jerrys Vorrat (Zeile D3)
