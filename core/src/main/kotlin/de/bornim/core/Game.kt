@@ -11,6 +11,8 @@ sealed interface Mode {
     data object ChapterEnd : Mode
     /** 68: a cutscene's pictures fill the screen; [Game.advance] when they are over or skipped. */
     data object TempleScene : Mode
+    /** 86.10/86.9: "Rasten?" by a campfire, Rowena's counter, the bed of the inn ([Resting]); [Game.advance] to leave. */
+    data class Rest(val spot: Resting.Spot) : Mode
 }
 
 /** Result of a movement attempt, used by the UI to animate. */
@@ -173,12 +175,60 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     init { sunCut() }
 
-    /** Sleep until morning (beds in the inn). */
-    private fun sleep() {
-        state.minutes = 7 * 60
-        state.day++
-        rainLeft = 0
-        enqueue(listOf(Cmd.Rest, Cmd.Say(null, T("Du schläfst tief und fest. Ein neuer Morgen bricht an – TP und ZP sind voll.", "You sleep soundly. A new morning dawns – HP and SP are full."))))
+    /**
+     * 86.10: rests for [kind] at [spot]: the clock moves on, then the rest's lines. A room (86.9) costs gold; a long
+     * rest only once a game day. Returns why not, or null when rested; the app fades out and in around it.
+     */
+    fun rest(kind: Resting.Kind, spot: Resting.Spot): T? {
+        if (mode !is Mode.Rest) return null
+        if (kind == Resting.Kind.LONG && !Resting.longAllowed(state)) return Resting.longDone
+        if (spot != Resting.Spot.FIRE && kind == Resting.Kind.SHORT) return null
+        if (spot != Resting.Spot.FIRE && state.gold < Resting.ROOM_PRICE) return Resting.noGold
+        if (spot != Resting.Spot.FIRE) { state.gold -= Resting.ROOM_PRICE; sounds += de.bornim.core.audio.Sound.COINS }
+        sounds += de.bornim.core.audio.Sound.HEAL
+        Resting.pass(state, kind.minutes)
+        Resting.ends(state)
+        val lines = mutableListOf<Cmd>()
+        if (kind == Resting.Kind.LONG) {
+            hero.restoreFully()
+            state.ailments.clear()
+            state.longRestDay = state.day
+            rainLeft = 0
+            lines += Cmd.Say(null, Resting.longRested)
+        } else {
+            val before = hero.hp
+            hero.hp = minOf(hero.maxHp, hero.hp + Resting.shortHeal(hero))
+            lines += Cmd.Say(null, Resting.shortRested.let { T(it.de.replace("{0}", "${hero.hp - before}"), it.en.replace("{0}", "${hero.hp - before}")) })
+        }
+        state.respawn = state.place
+        if (spot == Resting.Spot.FIRE) {
+            val meat = state.count("raw_meat")
+            if (meat > 0) {
+                // Raw meat goes on the fire while the hero rests.
+                state.remove("raw_meat", meat)
+                state.add("roast_meat", meat)
+                lines += Cmd.Say(null, Msgs.roasted.let { T(it.de.replace("{0}", "$meat"), it.en.replace("{0}", "$meat")) })
+            }
+        }
+        sunCut()
+        // the villagers, the shadows and the save follow the new hour, as after a change of map
+        walkers.clear()
+        mapChanged = true
+        queue.addAll(0, lines)
+        advance()
+        return null
+    }
+
+    /** 86.9: a mead at Rowena's counter: the breath is full; the fifth makes the hero drunk until the next rest. */
+    fun drinkMead(): T {
+        val price = Resting.meadPrice(state)
+        if (state.gold < price) return Resting.noGold
+        state.gold -= price
+        if (price > 0) sounds += de.bornim.core.audio.Sound.COINS
+        Stamina.refill(state)
+        state.mead++
+        changed()
+        return if (state.drunk) Resting.drunkNow else Resting.meadDrunk
     }
 
     // ------------------------------------------------------------ villagers strolling around
@@ -773,16 +823,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         when (map.tile(tx, ty)) {
             Tile.NOTICE -> { Jobs.read(state); mode = Mode.Board; changed() }
             Tile.CHEST -> openChest(tx, ty)
-            Tile.CAMPFIRE -> {
-                val meat = state.count("raw_meat")
-                val roast = if (meat == 0) emptyList() else {
-                    // Raw meat goes on the fire while the hero rests.
-                    state.remove("raw_meat", meat)
-                    state.add("roast_meat", meat)
-                    listOf(Cmd.Say(null, Msgs.roasted.let { T(it.de.replace("{0}", "$meat"), it.en.replace("{0}", "$meat")) }))
-                }
-                enqueue(listOf(Cmd.Rest, Cmd.Say(null, Ui.rested)) + roast)
-            }
+            Tile.CAMPFIRE -> { mode = Mode.Rest(Resting.Spot.FIRE); changed() }
             Tile.GATE -> gate()
             Tile.BARRIER -> if (!state.has(Story.BARRIER_OPEN)) barrier()
             Tile.WELL -> say(T("Ein alter Brunnen. Das Wasser ist klar und kalt.", "An old well. The water is clear and cold."))
@@ -801,7 +842,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             Tile.HEARTH -> say(T("Das Feuer knackt im Herd. Über der Glut hängt ein rußiger Kessel.", "The fire crackles in the hearth. A sooty kettle hangs over the embers."))
             Tile.BENCH -> say(if (map.kind == MapKind.INTERIOR) T("Eine Bank, blank gesessen. Im Holz sind Namen eingeritzt.", "A bench, worn smooth. Names are carved into the wood.")
                 else T("Eine Bank zum Ausruhen. Von hier hat man den ganzen Dorfplatz im Blick.", "A bench to rest on. From here you can see the whole village square."))
-            Tile.BED -> if (isNight) sleep() else say(T("Ein weiches Bett. Schlafen kannst du, wenn es Nacht ist.", "A soft bed. You can sleep here once night falls."))
+            // 86.9: in the inn a bed is a room for gold; elsewhere it is someone else's
+            Tile.BED -> if (map.id == "inn") { mode = Mode.Rest(Resting.Spot.ROOM); changed() } else say(T("Ein weiches Bett.", "A soft bed."))
             Tile.ALTAR -> say(
                 if (state.has(Story.CHAPTER1_DONE)) T("Das Sonnenamulett strahlt auf dem Altar.", "The Sun Amulet shines on the altar.")
                 else T("Auf dem Altar ist eine leere Halterung. Hier lag das Sonnenamulett.", "There's an empty holder on the altar. This is where the Sun Amulet lay.")
@@ -945,16 +987,22 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     changed()
                     return
                 }
+                Cmd.Tavern -> {
+                    mode = Mode.Rest(Resting.Spot.TAVERN)
+                    changed()
+                    return
+                }
                 is Cmd.Morning -> {
                     // the night counts as a rest (68g): healed, the clock at sunrise of the next day, the hero where the morning finds them
                     hero.restoreFully()
                     state.ailments.clear()
-                    Stamina.refill(state)
+                    Resting.ends(state)
                     if (state.minutes >= SUNRISE_MIN) state.day++
                     state.minutes = SUNRISE_MIN
                     state.place = c.place
                     state.respawn = c.place
                     if (World.maps[c.place.map]?.kind == MapKind.INTERIOR) state.flags += MapPeople.been(c.place.map)
+                    state.longRestDay = state.day
                     mapChanged = true
                 }
             }
@@ -1222,6 +1270,15 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** Use a consumable outside of battle. Returns a message to show. */
     fun useItemOutside(id: String): String {
         val def = Items[id]
+        if (def.kind == ItemKind.TONIC && state.count(id) > 0) {
+            // 86.6: the stamina draught doubles the breath until the next rest
+            if (state.staminaBoost) return Resting.staminaAlready(lang)
+            state.remove(id)
+            sounds += de.bornim.core.audio.Sound.POTION
+            state.staminaBoost = true
+            changed()
+            return Resting.staminaDrunk.f(lang, hero.name)
+        }
         if (def.kind == ItemKind.FOOD && state.count(id) > 0) {
             if (state.wellFed && hero.hp >= hero.maxHp) return Msgs.alreadyFed.f(lang, hero.name)
             state.remove(id)

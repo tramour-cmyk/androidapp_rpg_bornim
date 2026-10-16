@@ -47,10 +47,14 @@ class MusicPlayer(private val context: Context) {
         }.getOrNull()
         var vol = 0f
         var step = 1f
+        private var aim = Float.NaN
 
+        /** Towards [target] in about [ms], whatever the distance (asked again every tick: only a new target sets the pace). */
         fun fadeTo(target: Float, ms: Int) {
+            if (target == aim) return
+            aim = target
             level = target
-            step = if (ms <= 0) 1f else TICK_MS.toFloat() / ms
+            step = if (ms <= 0) 1f else maxOf(kotlin.math.abs(target - vol), 0.01f) * TICK_MS / ms
         }
 
         /** One fade step; true once it has gone silent. */
@@ -74,7 +78,7 @@ class MusicPlayer(private val context: Context) {
     }
 
     private fun apply(w: MusicWant) {
-        val musicLevel = if (scene == MusicScene.CAVE) CAVE_MUSIC_LEVEL else MUSIC_LEVEL
+        val musicLevel = (if (scene == MusicScene.CAVE) CAVE_MUSIC_LEVEL else MUSIC_LEVEL) * w.level
         if (w.music?.name != music?.name) {
             music?.let { it.fadeTo(0f, w.fadeMs); leaving += it }
             music = w.music?.let { t -> Voice(t.name, t.loop, musicLevel).also { it.fadeTo(musicLevel, w.fadeMs) } }

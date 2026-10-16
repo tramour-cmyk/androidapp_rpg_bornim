@@ -89,6 +89,12 @@ object SupplyArt {
                 rod(p(-4.0, 8.4, 0.0), p(4.0, 8.4, 0.0), 0.7, 0.7, mat(0xB89A6A), Doll.TRIM)
                 pitch = 15.0; yaw = 10.0
             }
+            // 86.6 the stamina draught: a slim flask of amber, the gold of the breath bar, twine round the neck
+            "stamina_potion" -> {
+                flask(0xD8961E, 9.0, 12.0, 6.0, 0.65, glow = 0.12)
+                rod(p(0.0, 12.0 * 0.8 + 1.6), p(0.0, 12.0 * 0.8 + 2.6), 9.0 * 0.36, 9.0 * 0.36, mat(0xB89A6A), Doll.TRIM)
+                pitch = 15.0; yaw = 10.0
+            }
             // alchemist's fire: glowing orange, a rag stuffed in the neck for a wick
             "alchemist_fire" -> {
                 flask(0xF07A18, 10.0, 11.0, 6.0, 0.8, glow = 0.3)

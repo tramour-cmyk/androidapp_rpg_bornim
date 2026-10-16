@@ -1,7 +1,8 @@
 package de.bornim.core
 
 /** Stackable items: potions, throwables and story items. Equipment is [Gear]. */
-enum class ItemKind { POTION, BOMB, KEY, FOOD, INGREDIENT }
+/** [TONIC]: drunk outside a fight only (86.6). */
+enum class ItemKind { POTION, BOMB, KEY, FOOD, INGREDIENT, TONIC }
 
 /** Icon shapes the app knows how to draw. */
 enum class Icon {
@@ -43,6 +44,9 @@ object Items {
             ItemKind.POTION, 200, Icon.BIG_POTION, Rarity.RARE, heal = dice(8, 4, 8)),
         ItemDef("remedy", T("Kräutertrank", "Herbal Remedy"), T("Heilt alle Zustände: Vergiftung, Brand, Blutung, Betäubung, Flüche. Auch mit vollen TP trinkbar.", "Cures every condition: poison, burning, bleeding, stun, curses. Can be drunk even at full HP."),
             ItemKind.POTION, 20, Icon.FLASK, heal = dice(1, 4), cures = true),
+        // 86.6: priced like the healing potion
+        ItemDef("stamina_potion", T("Ausdauertrank", "Stamina Draught"), T("Bis zur nächsten Rast reicht der Atem beim Rennen doppelt so lange. Nicht im Kampf.", "Until the next rest, your breath for running lasts twice as long. Not in battle."),
+            ItemKind.TONIC, 25, Icon.FLASK),
         ItemDef("alchemist_fire", T("Alchemistenfeuer", "Alchemist's Fire"), T("Wurfgeschoss, trifft immer und setzt den Gegner in Brand.", "Thrown, always hits and sets the foe on fire."),
             ItemKind.BOMB, 30, Icon.FLASK, damage = dice(2, 6), damageType = DamageType.FIRE),
         ItemDef("holy_water", T("Weihwasser", "Holy Water"), T("Wurfgeschoss, trifft immer. Wirkt nur gegen Untote: 2W6 gleißender Schaden.", "Thrown, always hits. Only harms undead: 2d6 radiant damage."),
