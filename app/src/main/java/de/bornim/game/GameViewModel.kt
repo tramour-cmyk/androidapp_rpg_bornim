@@ -277,6 +277,17 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     }
     var toast by mutableStateOf<String?>(null)
 
+    /** 72.10: the probe of the new fight against Grak, from the test menu; null when none runs. */
+    var probe by mutableStateOf<de.bornim.core.Skirmish?>(null)
+    var probeClass = CharClass.FIGHTER
+        private set
+
+    fun startProbe(merc: CharClass) {
+        val g = game ?: return
+        probeClass = merc
+        probe = de.bornim.core.Skirmish.grakProbe(g.state, merc, lang)
+    }
+
     // ------------------------------------------------------------ save slots
 
     init {

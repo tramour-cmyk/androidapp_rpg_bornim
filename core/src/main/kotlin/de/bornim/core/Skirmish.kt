@@ -83,8 +83,20 @@ class Fighter(
     fun name(lang: Lang): String = hero?.name ?: monster!!.name(lang)
 }
 
-/** One message of the probe, with who acted and who was hit, for the screen. */
-data class SkirmishEvent(val text: String, val actor: String? = null, val target: String? = null, val damage: Int = 0)
+/**
+ * One message of the probe, with who acted and who was hit, and how things stood right after it, for the screen:
+ * the screen plays the messages one after another while the fight itself may be further on.
+ */
+data class SkirmishEvent(
+    val text: String,
+    val actor: String? = null,
+    val target: String? = null,
+    val damage: Int = 0,
+    val hp: Map<String, Int> = emptyMap(),
+    val places: Map<String, Spot> = emptyMap(),
+    /** Each foe's announced intent and the figures it aims at. */
+    val intents: Map<String, Pair<Intent, List<String>>> = emptyMap(),
+)
 
 sealed interface Order {
     data class Attack(val target: String) : Order
@@ -101,7 +113,7 @@ class Skirmish(
     /** The hero is out of breath: disadvantage on initiative (86.3). */
     winded: Boolean = false,
 ) {
-    private val all = (party + foes).toMutableList()
+    private val all = java.util.concurrent.CopyOnWriteArrayList(party + foes)
     val fighters: List<Fighter> get() = all
     /** Knocked-out Söldner in this fight (72r). */
     var knockouts = 0
@@ -117,6 +129,8 @@ class Skirmish(
     private var turn = 0
     private fun nextTurn() { turn = (turn + 1) % order.size }
     private val log = mutableListOf<SkirmishEvent>()
+    /** Hears every message as it is said, before [act] returns; the screen plays them while a ring waits for a tap. */
+    var listener: ((SkirmishEvent) -> Unit)? = null
 
     init {
         require(fighters.map { it.id }.toSet().size == fighters.size) { "ids must be unique" }
@@ -169,6 +183,13 @@ class Skirmish(
         check(f.side == Side.PARTY && f.standing)
         perform(f, order)
         advance(react)
+        return log.toList().also { log.clear() }
+    }
+
+    /** Plays on without an order: after the autopilot or a Söldner's automatic was switched on during its turn. */
+    fun proceed(react: (Fighter, Intent) -> Reaction = { _, _ -> Reaction.GOOD }): List<SkirmishEvent> {
+        check(outcome == Outcome.ONGOING) { "Skirmish is over" }
+        skipToChoice(react)
         return log.toList().also { log.clear() }
     }
 
@@ -259,6 +280,8 @@ class Skirmish(
         val reach = targets(foe)
         val hit = if (intent.kind != IntentKind.STRIKE) emptyList() else listOfNotNull(reach.firstOrNull { it.id in aimed } ?: reach.firstOrNull())
         for (t in hit) {
+            // the ring comes with the blow, before anyone knows whether it lands
+            val r = if (!intent.ring) Reaction.NONE else if (autopilot || t.auto) Reaction.GOOD else react(t, intent)
             val roll = dice.d20()
             if (roll == 1 || (roll != 20 && roll + m.attackBonus < t.ac)) {
                 say(Msg72.misses.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id)
@@ -266,7 +289,6 @@ class Skirmish(
             }
             var dmg = dice.roll(if (roll == 20) m.damage.copy(count = m.damage.count * 2) else m.damage)
             intent.extra?.let { dmg += dice.roll(it) }
-            val r = if (!intent.ring) Reaction.NONE else if (autopilot || t.auto) Reaction.GOOD else react(t, intent)
             if (r != Reaction.NONE) say(Msg72.reacts(r).f(lang, t.name(lang)), t.id)
             dmg = (dmg * r.share).toInt()
             if (dmg > 0) hurt(t, dmg, foe.id, Msg72.hits.f(lang, foe.name(lang), t.name(lang), dmg))
@@ -346,7 +368,9 @@ class Skirmish(
     }
 
     private fun say(text: String, actor: String? = null, target: String? = null, damage: Int = 0) {
-        log += SkirmishEvent(text, actor, target, damage)
+        val e = SkirmishEvent(text, actor, target, damage, fighters.associate { it.id to it.hp }, fighters.associate { it.id to it.place }, LinkedHashMap(intents))
+        log += e
+        listener?.invoke(e)
     }
 
     companion object {
