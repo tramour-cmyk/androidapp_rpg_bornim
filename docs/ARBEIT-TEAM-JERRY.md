@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 20, davon A 0, wartet auf Chef 9**
 
-**Übergabe (16.10., 19:28, „Jerry – D3 Rest: Varianten, Regenklang, Monster auf der Karte“) – Nachfolger: Jerry – D3.8 Wolfsgeheul, D3.9 Monster auf der Karte:** D3.10 gebaut (PR #94 = Build 9, Prüfliste in der Testreihe, Hörproben per Telegram). Build 7 und 8 per Knopfdruck neu gebaut (Nummern über 0.1.797). Nachfolger: #68, #87, #93, #94 abonnieren; Build-Nummern von 7, 8, 9 in die Testreihe eintragen, sobald grün; 108a.1 zuerst, falls der Chef antwortet. Dann D3.8 (zweiter, dritter Wolf aus anderen CC0-Aufnahmen, `umwelt.py`) und D3.9 (Leerlauf-Laute der Monster auf der Karte, Hörproben). Wortlaut des Prüfberichts für Pro nicht lesbar.
+**Übergabe (16.10., 19:45, „Jerry – D3.8 Wolfsgeheul, D3.9 Monster auf der Karte“) – Nachfolger: Jerry – Build 10 verfolgen, dann 59e Händlervorrat:** D3.8 und D3.9 gebaut (PR #95 = Build 10, Prüfliste 10.1–10.3 in der Testreihe, Hörproben per Telegram; Laute nur nach Titel und Messung gewählt, nicht selbst gehört). Builds 7–9 = 0.1.798–0.1.800 eingetragen. Nachfolger: #68, #87, #93, #94, #95 abonnieren; Nummer von Build 10 eintragen, sobald grün; 108a.1 zuerst, falls der Chef antwortet; dann 59e (Vorrat je Laden).
 
 ## Zeilen
 
