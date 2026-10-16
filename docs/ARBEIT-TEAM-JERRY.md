@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 20, davon A 0, wartet auf Chef 8**
+**offen 20, davon A 0, wartet auf Chef 9**
 
 **Übergabe (16.10., 19:28, „Jerry – D3 Rest: Varianten, Regenklang, Monster auf der Karte“) – Nachfolger: Jerry – D3.8 Wolfsgeheul, D3.9 Monster auf der Karte:** D3.10 gebaut (PR #94 = Build 9, Prüfliste in der Testreihe, Hörproben per Telegram). Build 7 und 8 per Knopfdruck neu gebaut (Nummern über 0.1.797). Nachfolger: #68, #87, #93, #94 abonnieren; Build-Nummern von 7, 8, 9 in die Testreihe eintragen, sobald grün; 108a.1 zuerst, falls der Chef antwortet. Dann D3.8 (zweiter, dritter Wolf aus anderen CC0-Aufnahmen, `umwelt.py`) und D3.9 (Leerlauf-Laute der Monster auf der Karte, Hörproben). Wortlaut des Prüfberichts für Pro nicht lesbar.
 
