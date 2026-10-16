@@ -36,8 +36,9 @@ class LifeTest {
         assertEquals(1f, g.daylight)
     }
 
+    /** 86.9: the bed of the inn is a room for gold, a long rest of 8 hours (no longer free sleep until morning). */
     @Test
-    fun sleepingInTheInnAtNight() {
+    fun sleepingInTheInnCostsARoom() {
         val g = game(Place("inn", 7, 2, Facing.DOWN))
         val inn = g.map
         // find a bed and a free tile next to it
@@ -46,17 +47,21 @@ class LifeTest {
         r.steps.forEach { g.move(it) }
         g.face(r.face!!)
         g.state.hero.hp = 1
+        g.state.gold = 10
         g.state.minutes = 23 * 60
         assertEquals(ActionKind.REST, g.actionAhead())
         val day = g.state.day
         g.interact()
+        assertEquals(Mode.Rest(Resting.Spot.ROOM), g.mode)
+        g.rest(Resting.Kind.LONG, Resting.Spot.ROOM)
         var guard = 0
         while (g.mode != Mode.Explore && guard++ < 20) g.advance()
         assertEquals(7 * 60, g.state.minutes)
         assertEquals(day + 1, g.state.day)
         assertEquals(g.state.hero.maxHp, g.state.hero.hp)
+        assertEquals(10 - Resting.ROOM_PRICE, g.state.gold)
         g.state.minutes = 12 * 60
-        assertEquals(ActionKind.LOOK, g.actionAhead())
+        assertEquals(ActionKind.REST, g.actionAhead(), "a room at any hour")
     }
 
     @Test

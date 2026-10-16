@@ -119,7 +119,6 @@ object Ui {
     val chestEmpty = T("Die Truhe ist leer.", "The chest is empty.")
     val found = T("Erhalten: {0}!", "Received: {0}!")
     val foundGold = T("Erhalten: {0} Gold!", "Received: {0} gold!")
-    val rested = T("Du rastest am Feuer. TP und ZP sind vollständig wiederhergestellt.", "You rest by the fire. HP and SP are fully restored.")
 
     val aboutText = T(
         "Ein Fantasy-Rollenspiel: Erkunde das Dorf Bornim und seine Umgebung, stelle dich in rundenbasierten Kämpfen 17 Monsterarten, sammle Beute in sechs Seltenheitsstufen und entwickle deinen Helden bis Stufe 20.\n\nRegeln, Klassen, Völker, Zauber und Monster sind vereinfacht und basieren auf dem System Reference Document 5.1 (SRD 5.1) von Wizards of the Coast LLC, verfügbar unter https://dnd.wizards.com/resources/systems-reference-document. Das SRD 5.1 ist lizenziert unter der Creative Commons Namensnennung 4.0 International (https://creativecommons.org/licenses/by/4.0/legalcode).\n\nGeschichte, Orte und Figuren sind eigene Erfindungen.",

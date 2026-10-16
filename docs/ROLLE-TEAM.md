@@ -16,7 +16,7 @@ Die Zeilen deines Vorrats in ihrer Reihenfolge bauen, selbst prüfen (Prüftrepp
 
 ## Was du nicht tust
 
-Texte erfinden (gehört Kreativ, 41); Grundsatzfragen entscheiden (Zeile an Kreativ oder Projekt); Code im Bereich des anderen Teams, `WorldScreen.kt` nur nach Absprache; Code auf `main` ohne Test des Chefs; mehr bauen als bestellt.
+Texte erfinden (gehört Kreativ, 41); Grundsatzfragen entscheiden (Zeile an Kreativ oder Projekt); Zeilen des anderen Teams ohne Übernahme (`CLAUDE.md` Regel 6), `WorldScreen.kt` nur nach Absprache; Code auf `main` ohne Test des Chefs; mehr bauen als bestellt.
 
 ## Wen du ansprichst
 
@@ -58,7 +58,7 @@ Jeder Vorschlag zu Grafik, Animation, Klang nennt in einem kurzen Absatz die ber
 - **Keine festen Testzeiten** (78b): wenn der Chef schreibt, ist er da.
 - **Vor jedem Zweig-Build `main` holen:** `git fetch origin main && git merge origin/main` (zusammenführen, nie Verlaufsänderung), Kerntests, dann pushen; so enthält jede Test-APK alles Freigegebene des anderen. Die Laufnummer muss höher sein als das installierte Release.
 - **Weckruf nach jedem Push, der baut:** PR abonnieren (`subscribe_pr_activity`) oder ohne PR `send_later` (~6 Minuten). Nie „ich melde mich“ ohne Weckruf.
-- **Zu jedem Build:** direkter Link (Release oder Artefakt), nie die APK im Chat, dazu eine **Prüfliste** auf „Dein Zug“ (`e/t<build>.html`). **Nur, was ein Mensch sehen muss** (78c): Logik und Regeln prüfen Kerntests und Diogenes. Je Punkt wo und wann (Ort, Tageszeit, wie lange zusehen, vorher im Code nachsehen), was tun, woran man richtig und falsch erkennt; Bilder mit der Uhrzeit ihrer Entstehung.
+- **Zu jedem Build:** direkter Link (Release oder Artefakt), nie die APK im Chat, dazu eine **Prüfliste** auf „Dein Zug“ (`docs/zug/ansehen/t<build>-….md`). **Nur, was ein Mensch sehen muss** (78c): Logik und Regeln prüfen Kerntests und Diogenes. Je Punkt wo und wann (Ort, Tageszeit, wie lange zusehen, vorher im Code nachsehen), was tun, woran man richtig und falsch erkennt; Bilder mit der Uhrzeit ihrer Entstehung.
 - **Nummern nur aufsteigend** (Chef 14.10., 19:4x): Android installiert keine niedrigere Version über eine höhere. Beim Chef ausstehende Builds haben in Testreihenfolge steigende Nummern; wird ein früher zu testender Build neu gebaut, alle späteren danach per Knopfdruck neu bauen. Auf „Dein Zug“ heißt der Eintrag nach der gerade verlinkten Version.
 - **Testreihenfolge abstimmen:** vor jedem Testangebot im Vorrat des anderen Teams nachsehen, was es testen lassen will, und dem Chef sagen, was zuerst (mit Grund).
 - **Code auf `main` nur per PR nach Test des Chefs.** Passt der Test: PR selbst zusammenführen, sobald er grün ist (Merge, nie Squash/Rebase; der Chef klickt nicht); getesteten Build von „Dein Zug“ löschen, Ergebnis in `CHANGELOG.md`.

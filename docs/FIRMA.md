@@ -72,9 +72,9 @@ Die Zentrale (Toms Account, Max) und die Niederlassung (zweiter Account, Pro) st
 | Fall | Wer merkt es | Was geschieht |
 |---|---|---|
 | **Normalbetrieb** | – | Ford 2 startet eine Sitzung von Team Jerry, wenn dessen Vorrat offen ist und keine läuft; meldet seine Starts selbst lautlos und schreibt Jerrys Zeilen in `ARBEIT-BESETZUNG.md`. Ford startet kein Team Jerry. |
-| **Guthaben auf Pro leer** | Jerry meldet es selbst (Zeile im Vorrat, Telegram) | Ford holt Team Jerry in die Zentrale, wenn Max Luft hat (Wochenstand `rate_limit_info`), und trägt die Sitzung in die Besetzung ein. Hat Max keine Luft, wartet Jerry bis zum Wochenwechsel, Ford sagt es dem Chef. |
+| **Guthaben auf Pro leer** | Jerry meldet es selbst (Zeile im Vorrat, Telegram) | Team Tom übernimmt Jerrys Zeilen nach Regel 6 (118); Ford startet kein Team Jerry in der Zentrale. Hat Max keine Luft, wartet die Arbeit bis zum Wochenwechsel, Ford sagt es dem Chef. |
 | **Stiller Ausfall** (Jerry oder Ford 2 steht, keiner meldet) | Ford: 2 Stunden kein Commit von Team Jerry bei offenem Vorrat; gilt erst, wenn Ford 2 läuft, nie bei „Pause bis“ im Kopf von Jerrys Vorrat (D13.7); bis dahin startet der Chef Jerry von Hand | wie „Guthaben leer“ |
-| **Rückkehr** | Ford: Pro hat wieder Guthaben (Meldung von Team Jerry oder vom Chef; Pro wechselt zu eigener Zeit, nicht Sa 21:00, D13.8) | Ford startet kein neues Team Jerry mehr; die laufende Sitzung beendet ihren Punkt mit Übergabe, dann übernimmt Ford 2. Ford 2 startet nie, solange die Besetzung eine Jerry-Sitzung der Zentrale zeigt (98.7). |
+| **Rückkehr** | Ford: Pro hat wieder Guthaben (Meldung von Team Jerry oder vom Chef; Pro wechselt zu eigener Zeit, nicht Sa 21:00, D13.8) | Ford 2 startet Jerry wieder; eine laufende Übernahme von Tom beendet ihren Punkt. |
 
 - **Voraussetzung:** Telegram-Schlüssel auf dem Pro-Account (Chef, Freitag), dann eine Probe `create_session` dort. Bis dahin startet der Chef Jerry von Hand. Schritte für den Chef: `LISTE-NIEDERLASSUNG.md`.
 - **Messung:** zwei Tage lang; Ford 2 schreibt nach jedem Lauf seine Kosten als Zeile in `ARBEIT-BETRIEB.md`, Sokrates Projekt wertet aus (von Max aus ist Pro nicht sichtbar). Kostet Ford 2 mehr als 10 % von Jerrys Woche, fällt er weg, und es gilt wieder „von Hand“.

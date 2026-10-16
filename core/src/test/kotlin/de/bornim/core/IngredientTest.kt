@@ -43,6 +43,9 @@ class IngredientTest {
         g.state.add("raw_meat", 3)
         g.state.place = Place("forest", 10, 9, Facing.RIGHT) // the hunter's campfire
         g.interact()
+        // 86.10: the meat roasts while the hero rests
+        assertEquals(Mode.Rest(Resting.Spot.FIRE), g.mode)
+        g.rest(Resting.Kind.SHORT, Resting.Spot.FIRE)
         skip(g)
         assertEquals(0, g.state.count("raw_meat"))
         assertEquals(3, g.state.count("roast_meat"))

@@ -4,9 +4,9 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Themennumm
 
 **offen 1, davon A 0, wartet auf Chef 0**
 
-**Geprüft bis:** `d573f7eb` (15.10., Lauf 14: Nachprüfung Umbau 98; Lauf 9 Code bis 8836512); nächste Nummer D15.
+**Geprüft bis:** `aa032653` (16.10., Lauf 17: 99g alle Artefakte ins Repo, nur Notizen und Artefaktliste; Lauf 9 Code bis 8836512); nächste Nummer D18.
 
-**Übergabe (15.10., 23:3x):** Lauf 14 (98 Nachprüfung Umbau, Start durch Ford 23:21) fertig: Umbau trägt, kein Rückweg nötig; D14.1–D14.4 (Klasse 2) an Sokrates Projekt, Zeile D14 dort. Nachfolger: keiner nötig bis zum nächsten Auftrag.
+**Übergabe (16.10., 12:4x, Lauf 17):** Läufe 16 (110) und 17 (99g Umzug aller Artefakte, Zuruf Chef; Plan von Diogenes selbst, befangen) fertig: D17.1 Bilder der Beschlüsse nicht ins Repo, D17.2 Docs-Ausfuhr, D17.3 Graumoor, D17.4 Marktvergleich (Frage Chef in 99g), D17.5 gestaffelt; 99g fortgeschrieben; D16 und D17 bei Sokrates Projekt. Chef entschied 99g 12:4x (Kampf jetzt, Rest Wiedervorlage, Marktvergleich bleibt auf Max); Starts Kreativ und Projekt bei Ford angefragt. Nachfolger: keiner nötig bis zum nächsten Auftrag.
 
 ## Zeilen
 

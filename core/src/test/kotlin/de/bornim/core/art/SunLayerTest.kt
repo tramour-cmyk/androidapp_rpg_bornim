@@ -34,3 +34,18 @@ class SunLayerTest {
         assertTrue(MapSun.shadows(inside).isEmpty())
     }
 }
+
+/** 89: a person in the shadow of a house is drawn darker, in the sun as bright as ever. */
+class FigureShadeTest {
+    @Test
+    fun aPersonInAHousesShadowIsDarkerThanInTheSun() {
+        val map = World["village"]
+        val r = assertNotNull(MapSun.drawn(map, MapSun.Stand.EVENING))
+        // evening: long shadows to the east, so just east of a house's wall lies in its shadow
+        val (f, _) = MapTownIso.houses(map).first()
+        val shade = MapSun.bright(r, f.x + f.n + 0.6, f.y + 0.5)
+        assertTrue(shade < 0.75f, "beside the house $shade")
+        val bright = (0 until map.height).flatMap { y -> (0 until map.width).map { x -> MapSun.bright(r, x + 0.5, y + 0.5) } }.max()
+        assertEquals(1f, bright, 0.001f)
+    }
+}

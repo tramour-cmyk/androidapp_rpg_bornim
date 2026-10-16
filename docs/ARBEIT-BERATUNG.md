@@ -2,14 +2,13 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**offen 3, davon A 0, wartet auf Chef 1**
+**offen 2, davon A 0, wartet auf Chef 0**
 
-**Übergabe (16.10., 10:3x, „Sokrates Berater – Zuruf (16.10., 09:33)“):** Neustart nach zweiter Erinnerung. Erledigt: Vorräte getrennt lassen; 109 beschlossen (noch nicht privat). Offen beim Chef: 108 auf Dein Zug ([Matrix](https://claude.ai/code/artifact/064b50b6-a800-4192-955f-4d710f6bf114)): Repo einzige Quelle, Dein Zug zuerst (Weg B, C als Rückfall), Diogenes-Probe vor dem Umschalten; Docs-Entwürfe ohne Kommentarbedarf gleich als MD (Kreativ). Nach Go: Zeile an Projekt (Umbau mit 99g, Probe Diogenes), Zeile an Kreativ (Docs → MD, Heldenbau-Docs „abgelöst“). Chef 10:3x (Satz brach ab): „Wenn wir die Datei meinzug … in die Repo packen,“ → Zusammenfassung Weg B gegeben; Rest der Frage im Nachfolger abwarten. Nachfolger: Sokrates Berater – 108 Dokumente beider Accounts
+**Übergabe (16.10., 10:58, „Sokrates Berater – 108 Dokumente beider Accounts (16.10., 10:25)“):** 108 beschlossen A (Dein Zug als Markdown im Repo, Bilder klein, Hörproben und Großbilder über Telegram), Diogenes D15 trägt mit Auflagen, alles an Sokrates Projekt (Zeile 108 dort, Probe zuerst). Lehre ergänzt (Gegenargument muss tragen). Nachfolger: keiner bis zum nächsten Zuruf des Chefs.
 
 ## Zeilen
 
 | Nr. | Thema | Stand |
 |---|---|---|
 | 45 | Geschäftsmodell (Play Store) | 45a/45c ja (Beschlüsse); 45b zurückgestellt bis nach 38 |
-| 108 | Ein Ort für Dokumente beider Accounts (Chef 16.10., 09:5x: „können wir die Dateien, die auch Jerry bearbeiten muss, zentral im Repo nachhalten? Geht das für alle Dateien? … Zu-Tun-Datei … Formatierungen … Bilder … Matrix aufstellen“; berührt 99g bei Projekt) | **wartet auf Chef** ([108](https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow), [Matrix](https://claude.ai/code/artifact/064b50b6-a800-4192-955f-4d710f6bf114)): Repo einzige Quelle, Seiten wie heute (Weg B, bei öffentlichem Repo C); zwei Schritte, **Dein Zug zuerst** (10:0x: Jerrys 10 Punkte für den Chef stehen nur in Telegram/PR/Vorrat, nie auf Dein Zug), dann Prüfbericht, Beschlüsse; nach Go Zeile an Projekt (mit 99g); **vor dem Umschalten Probe durch Diogenes** (Chef 10:3x: „egal wie wir es entscheiden, vor der Umsetzung Diogenes den Verfahrensweg … mittesten … bevor dann live umgeschaltet wird“). Chef 10:0x: „bleiben im Dokument, solange du kommentierst. Das ist halt nur, weil … Kommentierungsfunktion … ansonsten brauche ich das nicht wirklich … betrifft also nur Sokrates kreativ“ → Sokrates: ja; ohne Kommentare Entwürfe gleich als MD (Kreativ), Rest bleibt Projekt |
 | 109 | Repo öffentlich | **beschlossen: noch nicht privat** (Chef 16.10., 10:2x, Beschlüsse); wieder vorlegen vor dem Marktstart (Play Store); vorher APK-Aufbewahrung kürzen |

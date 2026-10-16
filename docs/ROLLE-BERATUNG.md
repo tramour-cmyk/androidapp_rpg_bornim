@@ -51,3 +51,4 @@ Diese Datei, dein Vorrat (Übergabe), „Dein Zug“ (eigene Punkte), Beschlüss
 - **Keine Ausgangslage unterstellen** (15.10., 72s.1): „bei seinem Söldner bleiben“ setzte einen Söldner voraus, den der Spieler nie nehmen muss.
 - **Vor dem Archivieren prüfen, ob dort eine Frage des Chefs steht** (15.10., 81v): er verliert sonst den Faden.
 - **Abläufe anderer erst im Vorrat nachsehen, dann reihen** (16.10., 108): „Dein Zug zuletzt“ empfohlen, bis Jerrys Vorrat zeigte, dass seine zehn Punkte für den Chef dort nie ankommen.
+- **Gegenargument muss die Entscheidung tragen** (16.10., 108): der Look interner Arbeitsseiten zählt für den Chef nicht; Kosten, Wartung, Risiko nennen.
