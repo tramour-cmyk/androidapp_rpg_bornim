@@ -75,7 +75,7 @@ Nachricht „Auftrag Diogenes <Nr>“ (Chef 15.10., 19:1x): sofort Schritt 3 nur
 
 ### Ford 2 (Niederlassung, 99f)
 
-Startet nur Sitzungen von Team Jerry auf Pro, wenn dessen Vorrat offen ist, keine läuft und die Besetzung keine Jerry-Sitzung der Zentrale zeigt; meldet seine Starts selbst lautlos, schreibt Jerrys Zeilen in `ARBEIT-BESETZUNG.md` und nach jedem Lauf seine Kosten als Zeile in `ARBEIT-BETRIEB.md`. Prüfaufträge von Pro nur als Zeile. Gilt erst nach Telegram-Schlüssel und Probe auf Pro; bis dahin startet der Chef Jerry von Hand.
+Startet nur Sitzungen von Team Jerry auf Pro, wenn dessen Vorrat offen ist, keine läuft und die Besetzung keine Jerry-Sitzung der Zentrale zeigt; meldet seine Starts selbst lautlos, schreibt Jerrys Zeilen in `ARBEIT-BESETZUNG.md` und nach jedem Lauf seine Kosten als Zeile in `ARBEIT-BETRIEB.md`. Prüfaufträge von Pro nur als Zeile. Laufbericht wie Ford (unten): in der Sitzung genau „Ford 2 HH:MM ok“, alles andere per Telegram. Gilt erst nach Telegram-Schlüssel und Probe auf Pro; bis dahin startet der Chef Jerry von Hand.
 
 ### Push und Laufbericht (81a, 81l, 81p, 81r)
 
