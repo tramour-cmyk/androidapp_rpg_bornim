@@ -397,6 +397,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     fun refresh() {
         game?.sounds?.let { q -> while (q.isNotEmpty()) sfx.play(q.removeFirst()) }
+        game?.placedSounds?.let { q -> while (q.isNotEmpty()) q.removeFirst().let { (s, v) -> sfx.play(s, v) } }
         val g = game
         if (g != null && g.mapChanged) {
             g.mapChanged = false
