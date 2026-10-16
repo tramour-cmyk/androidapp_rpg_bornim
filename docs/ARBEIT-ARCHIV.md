@@ -1,4 +1,8 @@
 # Archiv
+### Übergabe Team Jerry (16.10., 07:4x), abgelöst 16.10., 08:06
+
+**Übergabe (16.10., 07:4x, „Jerry – 95 Keuchen hörbar“) – Nachfolger: Jerry – 38 Rauchbündel im Kampf:** 95 gebaut, PR #70 (`claude/jerry-95-keuchen`; Nachfolger abonniert neu, meldet Grün oder behebt Rot), Prüfliste 07:4x per Telegram, wartet auf Test des Chefs nach Toms #67; Prüfliste per Telegram (Pro sieht Dein Zug nicht). Nach „passt“: #70 zusammenführen, CHANGELOG. 86.9 blockiert, bis Toms `claude/tom-86-bewegung-rest` auf `main` ist (`GameState.drunk`; nie mischen). 65.2 erledigt (alle acht Weck-Routinen „Jerry Selbstarbeit“ aus). 72u (PR #69) und 72.10 (PR #68) unverändert wie zuvor. Weiter gilt: `docs/ROLLE-TEAM.md` ganz; in jedem Zweig zuerst `git merge origin/main`; Zeitstempel von der Uhr.
+
 ### Übergabe Team Jerry (16.10., 06:55), abgelöst 16.10., 07:30
 
 **Übergabe (16.10., 02:01, „Tom – 38 Rauchbündel Dialoge“) – Nachfolger: keiner, bis der Chef PR #67 testet:** 38 war schon fast ganz auf `main` (Garrick-Hinweis, Warnung unter Stufe 3, Morwens Gabe, Chronik, `KroggSmokeTest`); nachgezogen nur der Taschentext wortgetreu nach `[D4.1.rauch.tasche]` (59f0f2c1 auf `claude/tom-38-rauchbuendel-dialoge`, Kerntests grün) → in den nächsten Sammelbuild nach #67 (Prüfliste: Rauchbündel in der Tasche antippen, Text wie `STORY-K1.md`). Morwen gibt das Bündel schon nach dem ersten Treffen mit Garrick (Vorgabe „sobald Garrick getroffen“), also auch vor seinem Krogg-Hinweis. Sonst unverändert: PR #67 wartet auf Test des Chefs (neu abonnieren); nach „passt“ #67 zusammenführen, #66 schließen, dann **ein** PR von `claude/tom-86-bewegung-rest` (D3.3 + 89 + 69f + 86) mit D1.7, 27n und 38.
