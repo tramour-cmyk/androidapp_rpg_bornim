@@ -65,7 +65,7 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, `docs/`: nur auf `main`, direkt committen
 
 **„Dein Zug“** (63, 108): Ordner `docs/zug/` auf `main` (`entscheiden/`, `ansehen/`; Regeln in `docs/zug/README.md`, Bilder höchstens 60 KB); im Chat nur Nummern. Je Punkt eine Datei, jeder nur seine. Entscheidet der Chef: Eintrag in die Beschlüsse (https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) mit einer Zeile *Leitlinien* (88), Stand im Vorrat, Datei im selben Schritt löschen.
 
-**Begriffe** (62p/62q): **Landkarte** (alle Gebiete eines Landes) → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang). Wo gekämpft wird: **Kampfort** (nie „Bühne“; 72.12). Menschen an der Seite des Helden: **Gefährte** oder **Söldner**, alles andere **Begleiter** (72.14). Übereinanderliegende Teile eines Grundrisses: **Ebene** (nie „Stockwerk“, nie für Kartenstufen). Auch im Spiel und in Prüflisten.
+**Begriffe** (62p/62q, 113): Was wir mit Nummer und Buchstaben nachhalten, heißt **Vorgang** („Vorgang 72s.1“, in Meldungen „72s.1:“; nicht „Thema“, nicht „Nummer“). **Landkarte** (alle Gebiete eines Landes) → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang). Wo gekämpft wird: **Kampfort** (nie „Bühne“; 72.12). Menschen an der Seite des Helden: **Gefährte** oder **Söldner**, alles andere **Begleiter** (72.14). Übereinanderliegende Teile eines Grundrisses: **Ebene** (nie „Stockwerk“, nie für Kartenstufen). Auch im Spiel und in Prüflisten.
 
 **Sitzungen:** **Kommt um 7 Uhr keine Morgenmeldung, steht Ford** (D10.1): dann ein Wort an Team Tom oder Sokrates Projekt; Netz ist die „Ford-Wache“ (`ROLLE-BETRIEB.md`). Freigabe-Rückfragen steuert der Freigabe-Modus der App.
 
