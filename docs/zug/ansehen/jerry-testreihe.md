@@ -12,7 +12,7 @@ Build 1–7, 9, 10 passen, auf `main` (PR #88, #89, #90, #91, #85, #87; 7, 9, 10
 
 ## Build 8 · 0.1.812 · Probe 72.10: Held und Söldner gegen Grak · [PR #68](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/68)
 
-**APK:** [Lauf 812](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38957534926) → „Artifacts“ (neu gebaut 16.10., 21:47 von Tom, enthält `main` bis PR #97). Ältere Builds im PR (0.1.796, 0.1.799) nicht mehr nehmen.
+**APK direkt:** [0.1.812](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38957534926/artifacts/12071372011) (neu gebaut 16.10., 21:47 von Tom, enthält `main` bis PR #97). Ältere Builds im PR (0.1.796, 0.1.799) nicht mehr nehmen.
 
 Erst die neue Kampfart zum Ausprobieren, noch nicht im Spiel: Reiter „Test“ → „Probe 72.10: Held und Söldner gegen Grak“ → Klasse des Söldners. Zahlen und Texte sind vorläufig (Texte bei Kreativ). Stil-Abgleich: gemalte Höhlenhalle mit Fackeln, Figuren im Fackellicht mit Schatten; Übergänge Ruhe ↔ Ausholen (Grak, solange der Ring läuft) ↔ Schlag mit kurzem Ausfall ↔ Ruhe, Treffer lässt zittern; selbst gefilmt durch die echte Oberfläche (Ring, Zielwahl, Wechsel der Züge). Bild des Rings per Telegram (18:5x).
 
@@ -27,7 +27,7 @@ Erst die neue Kampfart zum Ausprobieren, noch nicht im Spiel: Reiter „Test“ 
 
 ## Build 11 · 0.1.813 · 86: Rennen laut · [PR #98](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/98)
 
-**APK:** [Lauf 813](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38957756429) → „Artifacts“. Von Tom aus Jerrys Zweig gebaut (16.10., 21:49). Außer Atem würfelt der Held die Initiative mit Nachteil; das prüfen Kerntests, nicht du.
+**APK direkt:** [0.1.813](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38957756429/artifacts/12072105768). Von Tom aus Jerrys Zweig gebaut (16.10., 21:49). Außer Atem würfelt der Held die Initiative mit Nachteil; das prüfen Kerntests, nicht du.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
