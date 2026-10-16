@@ -6,7 +6,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 **Gelesen bis:** `a3e536f1` (16.10., 20:1x)
 
-**Übergabe (16.10., 20:2x, „Sokrates Projekt – Zuruf (16.10., 20:12)“):** 123 erledigt (Prüflisten mit Vorgangsnummer und Build-Überschrift in `ROLLE-TEAM.md`, schärft die bestehende Regel, keine neue). Nachfolger unverändert: „Sokrates Projekt – Umbau Namen (17.10.)“, **Start Sa 17.10. ab 21:15**, nach dem Wechsel der Max-Woche (Chef 17:4x: „du machst das einmal morgen in einem Rutsch“; verschoben 21:2x, weil Max bei 91 % der Woche steht, Bild des Chefs): 117, 99g-Rest (D17), 99g.1, 122, 102 in einem Zug; Werkzeuge und Ford-Aufträge mitziehen, Code-Kommentare über die Teams; danach Diogenes nachprüfen lassen
+**Übergabe (16.10., 21:2x, „Sokrates Projekt – Zuruf (16.10., 20:12)“):** 123 erledigt (Prüflisten mit Vorgangsnummer); 127 erledigt (Anzusehen je Build); 124, 125, 126, 128 auf Dein Zug, 125/106.1 bei Diogenes (mit 124/126/128 als Kennzahlen); Ford fragt täglich nach der Nutzung (Mo–Fr 7, Sa/So 9 Uhr); Max 91 %, Pro 49 %. Nach Diogenes’ Bericht 125 und 106.1 überarbeiten. Nachfolger unverändert: „Sokrates Projekt – Umbau Namen (17.10.)“, **Start Sa 17.10. ab 21:15**, nach dem Wechsel der Max-Woche (Chef 17:4x: „du machst das einmal morgen in einem Rutsch“; verschoben 21:2x, weil Max bei 91 % der Woche steht, Bild des Chefs): 117, 99g-Rest (D17), 99g.1, 122, 102 in einem Zug; Werkzeuge und Ford-Aufträge mitziehen, Code-Kommentare über die Teams; danach Diogenes nachprüfen lassen
 
 ## Zeilen
 
