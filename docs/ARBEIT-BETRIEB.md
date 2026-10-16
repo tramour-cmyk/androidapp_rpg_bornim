@@ -68,7 +68,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
-- 20:44 16.10.: Chef „Build 7 · 0.1.798 · D1.14 … PR #93 alles passt“ in Jerrys Vorrat (Zeile D1); send_message an Jerry geht nicht über Accounts
+- 20:54 16.10.: Chef „Build 7 · 0.1.798 · D1.14 … PR #93 alles passt“ in Jerrys Vorrat (Zeile D1); send_message an Jerry geht nicht über Accounts
 - 20:28 16.10.: Tom meldet Neustart (dce7e883); Nachfolger „Tom – 92 nach Test zusammenführen“ erst auf Testergebnis des Chefs (0.1.806), Meldung laut; Tom 92 archiviert
 - 20:26 16.10.: Start Diogenes (Auftrag 125, 106.1; Sokrates Projekt, a1e6380b)
 - 20:14 16.10.: Start Tom (Neustart, 75d49f75, 92 Bram schubsen); Vorgänger D3 archiviert (1,77 $)
