@@ -68,6 +68,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 21:05 16.10.: Chef „Build 9 … PR #94 passt“ und Frage zu 9.2 (Regen im Kampf) in Jerrys Vorrat (Zeile D3)
 - 20:54 16.10.: Chef „Build 7 · 0.1.798 · D1.14 … PR #93 alles passt“ in Jerrys Vorrat (Zeile D1); send_message an Jerry geht nicht über Accounts
 - 20:28 16.10.: Tom meldet Neustart (dce7e883); Nachfolger „Tom – 92 nach Test zusammenführen“ erst auf Testergebnis des Chefs (0.1.806), Meldung laut; Tom 92 archiviert
 - 20:26 16.10.: Start Diogenes (Auftrag 125, 106.1; Sokrates Projekt, a1e6380b)
@@ -87,4 +88,3 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Arch
 - 17:52 16.10.: Ford neu übernommen; Uhr trig_01X9ykKgg4ibrwLnXHVW7666 angelegt und geprüft, alte Uhr trig_01Bg6UMEA6njTVfnsccoRe5G gelöscht, alter Ford session_01Hr5Go7BFHT2zpmsRmGmLc1 archiviert
 - 17:49 16.10.: Selbstneustart Ford (≈266 Tsd. Token, Haken-Erinnerung 2); offen: Tom D3 (session_01P8uYMDB1vVs1Tjg8Kp4jQi) läuft; Sa 08:00 Start Sokrates Projekt (Eingang)
 - 17:49 16.10.: Start Tom (Chef: Build 5 / t781 „alle positiv“)
-- 17:45 16.10.: Sokrates Projekt Zuruf 16:29 (session_018v2tV8RsTB2fQjc88TSreS) archiviert; Nachfolger Sa 08:00 im Eingang vorgemerkt
