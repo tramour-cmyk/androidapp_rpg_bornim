@@ -1087,6 +1087,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** Fills every supply (draughts, flasks, food, ingredients; not keys) up to at least [n]. */
     fun cheatSupplies(n: Int = 10) {
         for (d in Items.all) if (d.kind != ItemKind.KEY && state.count(d.id) < n) state.add(d.id, n - state.count(d.id))
+        // D4.1: the smoke bundle is a key item but a supply for the fight against Krogg; one is enough
+        if (state.count(Story.SMOKE_BUNDLE) == 0) state.add(Story.SMOKE_BUNDLE, 1)
         changed()
     }
 
