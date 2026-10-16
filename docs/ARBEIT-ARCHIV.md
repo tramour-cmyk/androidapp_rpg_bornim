@@ -84,6 +84,10 @@
 - 20:31 15.10.: Start Diogenes (98 Entwurf Firma und Rollen, Auftrag Sokrates)
 - 20:28 15.10.: Start Sokrates (Neustart, 00dd62d5)
 
+## Jerry, Übergabe 16.10., 16:0x
+
+**Übergabe (16.10., 16:0x, „Jerry – 108a Builds 2–6 nach main“) – Nachfolger: Jerry – 72.10 Oberfläche Probe Grak:** #89 auf `main` (127d6449), CHANGELOG und Testreihe nachgezogen. Danach sperrte die Freigabeprüfung jeden Schritt („Merge Without Review“), auch Lesen; Rückfrage [108a.1](dz:108a1). **Antwortet der Chef, zuerst 108a fortsetzen:** #90 (`main` eingemischt 92d3d116, prüfen ob konfliktfrei), #91 (`main` einmischen, Konflikt `SfxPlayer.kt` Raumklang 119 gegen #89), #85; je PR Build grün, aus Entwurf, zusammenführen, CHANGELOG, Build aus der Testreihe. #87 (Build 6) Build lief 15:5x, Nummer eintragen. Nachfolger: #85, #87, #90, #91, #93 abonnieren. Lehre: `rm -rf core/build` nach Zweigwechsel; `MusicPlayer.kt`/`SfxPlayer.kt` prüft nur der Build.
+
 ## Jerry, Übergabe 16.10., 14:5x
 
 - Sokrates Projekt, alte Übergabe: **Übergabe (16.10., 13:3x, „Sokrates Projekt – 118 Teams ohne Themen“):** 118 beschlossen B und umgesetzt (Chef 13:5x „Sofort“); Prüfauftrag 118 gestrichen. An Jerry Zeile 108a (Chef hat 0.1.757: kein Neubau, Testseite klarer, Sammelbuild nach 78a). Nachfolger: keiner jetzt (Sparmodus 99d); nächster Start auf Antwort zu 99g.1, sonst nach Sa 21:00 „Sokrates Projekt – 117 Ausmisten“.

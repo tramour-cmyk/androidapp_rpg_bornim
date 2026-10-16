@@ -4,9 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 21, davon A 0, wartet auf Chef 8**
 
-**Pause bis 16.10., 18:30** (Nutzungslimit Pro, Chef 16:1x)
-
-**Übergabe (16.10., 16:0x, „Jerry – 108a Builds 2–6 nach main“) – Nachfolger: Jerry – 72.10 Oberfläche Probe Grak:** #89 auf `main` (127d6449), CHANGELOG und Testreihe nachgezogen. Danach sperrte die Freigabeprüfung jeden Schritt („Merge Without Review“), auch Lesen; Rückfrage [108a.1](dz:108a1). **Antwortet der Chef, zuerst 108a fortsetzen:** #90 (`main` eingemischt 92d3d116, prüfen ob konfliktfrei), #91 (`main` einmischen, Konflikt `SfxPlayer.kt` Raumklang 119 gegen #89), #85; je PR Build grün, aus Entwurf, zusammenführen, CHANGELOG, Build aus der Testreihe. #87 (Build 6) Build lief 15:5x, Nummer eintragen. Nachfolger: #85, #87, #90, #91, #93 abonnieren. Lehre: `rm -rf core/build` nach Zweigwechsel; `MusicPlayer.kt`/`SfxPlayer.kt` prüft nur der Build.
+**Übergabe (16.10., 18:3x, „Jerry – 72.10 Oberfläche Probe Grak“) – Nachfolger: Jerry – 72.10 Probe Grak Bild prüfen:** 108a.1 weiter offen; antwortet der Chef, zuerst 108a (alte Übergabe im Archiv). Zweig `claude/jerry-72-10-probe-grak` (PR #68, Entwurf, abonnieren): Kern nach Kampf-Dokument (Graks Absichten Schwerer Hieb/Rudel rufen/Kraft sammeln, Unterbrechen ab 1/5 LP, Söldner einzeln auf Automatik, `proceed`, Ereignisse mit Zustand und `listener`), Bildschirm `SkirmishScreen.kt` (Testmenü „Probe 72.10“, je Söldner-Klasse; Ring-Tippen, Absicht über Grak, Befehle), Vorschau `PROBE=fighter:rogue PROBELEVEL=3 PROBETAPS=x,y,ms;…`. Übersetzt; **erstes Standbild zeigt Höhlenhalle und Leiste, aber noch keine Figuren** (vermutlich `ready` nach 4 s noch falsch oder Lage falsch): klären, Standbild prüfen, Ring filmen, dann Prüfliste und Build. Zahlen vorläufig (im Dateikopf).
 
 ## Zeilen
 
