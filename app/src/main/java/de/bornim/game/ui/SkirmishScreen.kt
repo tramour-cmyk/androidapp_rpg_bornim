@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -81,6 +82,8 @@ private const val GOOD_MS = 260L
 /** How long one message stays before the next. */
 private const val SAY_MS = 750L
 private const val LUNGE_MS = 340L
+/** The orders under the scene: the line of who acts and two rows of buttons (48 dp each). */
+private val ORDERS_H = 136.dp
 
 /** Where a place stands on the scene, as a share of its width and height: the party lower left, the foes upper right. */
 private fun placeAt(side: Side, s: Spot): Pair<Float, Float> = when (side) {
@@ -327,6 +330,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 for (p in party) Txt("${p.name(lang)} ${shown.hp[p.id] ?: p.hp}/${p.maxHp}", size = 14.sp, color = if ((shown.hp[p.id] ?: p.hp) <= 0) Veil.warn else Veil.text, pixel = true)
             }
             val merc = party.firstOrNull { it.id == "merc" }
+            // the orders keep one height whatever shows, so the scene above never jumps
+            Column(Modifier.fillMaxWidth().height(ORDERS_H), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             when {
                 !busy && sk.outcome != Outcome.ONGOING -> {
                     val won = sk.outcome == Outcome.WON
@@ -350,21 +355,21 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                             PixelButton(t("Platz", "Place"), Modifier.weight(1f), size = 15.sp) { pick = Pick.PLACE }
                             PixelButton(t("Abwarten", "Wait"), Modifier.weight(1f), size = 15.sp) { order(Order.Wait) }
                         }
-                        Pick.TARGET -> Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                            for (target in sk.targets(f)) PixelButton(target.name(lang) + "  ${target.hp}/${target.maxHp}", Modifier.fillMaxWidth(), size = 14.sp) { order(Order.Attack(target.id)) }
-                            PixelButton(t("Zurück", "Back"), Modifier.fillMaxWidth(), size = 14.sp) { pick = Pick.MAIN }
+                        Pick.TARGET -> {
+                            val reach = sk.targets(f)
+                            Choices(reach.map { target -> (target.name(lang) + if (reach.size < 4) "  ${target.hp}/${target.maxHp}" else "") to { order(Order.Attack(target.id)) } } +
+                                (t("Zurück", "Back") to { pick = Pick.MAIN }))
                         }
-                        Pick.PLACE -> Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                            for (s in Spot.ALL.filter { it != f.place }) {
-                                val who = sk.fighters.firstOrNull { it.side == f.side && it.place == s }
-                                PixelButton(spotName(s, lang) + (who?.let { "  ⇄ " + it.name(lang) } ?: ""), Modifier.fillMaxWidth(), size = 14.sp) { order(Order.Swap(s)) }
-                            }
-                            PixelButton(t("Zurück", "Back"), Modifier.fillMaxWidth(), size = 14.sp) { pick = Pick.MAIN }
-                        }
+                        Pick.PLACE -> Choices(Spot.ALL.filter { it != f.place }.map { s ->
+                            val who = sk.fighters.firstOrNull { it.side == f.side && it.place == s }
+                            (spotName(s, lang) + (who?.let { " ⇄ " + it.name(lang) } ?: "")) to { order(Order.Swap(s)) }
+                        } + (t("Zurück", "Back") to { pick = Pick.MAIN }))
                     }
                 }
             }
-            if (sk.outcome == Outcome.ONGOING) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            // at the bottom always, so it stays under the finger; while a target or a place is picked, its choices take it
+            Spacer(Modifier.weight(1f))
+            if (sk.outcome == Outcome.ONGOING && pick == Pick.MAIN) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 if (merc != null) {
                     var auto by remember(sk) { mutableStateOf(merc.auto) }
                     PixelButton(t("Söldner: ", "Söldner: ") + if (auto) t("Automatik", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = auto, size = 13.sp) {
@@ -380,7 +385,18 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     else { heroAuto = sk.setAutopilot(true); if (heroAuto) goOn() }
                 }
             }
+            }
         }
+    }
+}
+
+/** Choices in the two rows of the orders: two side by side, three when there are more than four. */
+@Composable
+private fun Choices(items: List<Pair<String, () -> Unit>>) {
+    val cols = if (items.size > 4) 3 else 2
+    for (row in items.chunked(cols)) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        for ((label, go) in row) PixelButton(label, Modifier.weight(1f), size = 13.sp, onClick = go)
+        repeat(cols - row.size) { Spacer(Modifier.weight(1f)) }
     }
 }
 
