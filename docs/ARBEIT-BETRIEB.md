@@ -30,6 +30,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 02:04 16.10.: Selbstneustart Ford (≈290 Tsd. Token); Tom wartet mit 38 auf Test #67
 - 01:57 16.10.: Start Tom (Neustart, 4ad6caf8, 38 Rauchbündel Dialoge)
 - 01:42 16.10.: Start Tom (Neustart, f7f0610b, 27n Funken im Wald senkrecht)
 - 01:27 16.10.: Start Tom (Neustart, 6ccb062f, 13e Höhle D1.7 Leben)
