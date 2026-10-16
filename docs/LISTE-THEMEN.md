@@ -107,3 +107,5 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 116 | Zwischenbildschirm umbenennen | Projekt | beschlossen |
 | 117 | Namen in docs und Archiv | Projekt | beschlossen |
 | 118 | Teams ohne Themen | Projekt | offen |
+| 124 | Vorgänge gliedern und bepreisen | Projekt | offen |
+| 125 | Drei Namen statt Sokrates-Hüte | Projekt | offen |

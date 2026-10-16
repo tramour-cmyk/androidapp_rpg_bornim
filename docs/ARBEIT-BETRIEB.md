@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Themennummer: 123** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 126** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 **Ford: Co-Pilot bis Sa 17.10., 21:00, danach Pilot** (Chef 15.10., 22:5x: „dann kriegt Ford die Stellung Co-Pilot … wieder zurückstellen … wenn wir wieder volles Guthaben haben“; der erste Lauf danach stellt selbst auf Pilot zurück, pusht, meldet lautlos; 81g)
 
@@ -65,6 +65,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 20:14 16.10.: Start Tom (Neustart, 75d49f75, 92 Bram schubsen); Vorgänger D3 archiviert (1,77 $)
 - 19:55 16.10.: Start Jerry (Neustart, e952c65d, 39 Schwierigkeitsgrad) (Ford 2)
 - 19:46 16.10.: Start Jerry (Neustart, c9aa6b9f, Build 10 verfolgen, dann 59e) (Ford 2)
 - 19:28 16.10.: Start Jerry (Neustart, 60796285, D3.8 Wolfsgeheul, D3.9 Monster auf der Karte) (Ford 2)
@@ -84,14 +85,3 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Arch
 - 15:54 16.10.: Start Jerry (Neustart, 29afeb5c, 72.10 Oberfläche Probe Grak) (Ford 2)
 - 15:50 16.10.: Start Jerry (Neustart, fd7c0492, 108a Builds 2–6 nach main) (Ford 2)
 - 15:18 16.10.: Start Jerry (Neustart, 5bf84675, D1.14 Hörner-Betten heraus) (Ford 2)
-- 15:06 16.10.: Tom „Eigene Zeilen kürzen“ archiviert (wartet auf Chef, 0.1.781 Build 5), Meldung laut; Eingang D3 gestrichen (erledigt mit 118)
-- 14:57 16.10.: Start Jerry (Neustart, a6b7e5cc, 120 Musik in Schichten ins Spiel) (Ford 2)
-- 14:41 16.10.: Start Jerry (Neustart, f5ffb85c, 18 Stimmen ins Spiel, dann 120) (Ford 2)
-- 14:38 16.10.: Start Tom (Neustart, 8159aec1, Eigene Zeilen kürzen)
-- 14:18 16.10.: Start Jerry (Neustart, 73bcde8f, 108a Sammelbuilds, dann 18) (Ford 2)
-- 14:08 16.10.: Ford 2 neu (session_013oK9Ko…), Uhr trig_012UBBSnM2MhWgWzstn1SaFy, alte Uhr gelöscht, Vorgänger archiviert (Ford 2)
-- 14:05 16.10.: Start Jerry (Neustart, d7cde4da, Musik in Schichten Idee 10) (Ford 2)
-- 13:58 16.10.: Sokrates Projekt 118 (session_01XPcJHh5fXzcwHcFp6RhVgW) archiviert („Neustart erledigt“, kein Nachfolger)
-- 13:57 16.10.: Start Tom (118 Übernahme, Auftrag Sokrates Projekt)
-- 13:57 16.10.: Ford neu übernommen; Uhr trig_01Bg6UMEA6njTVfnsccoRe5G angelegt und geprüft, alte Uhr trig_01FXfKMx7SdRCVGnmrht8W4R gelöscht, alter Ford session_01J3A7bVXcJjdsqCbQRgt7xi archiviert
-- 13:55 16.10.: Selbstneustart Ford (≈271 Tsd. Token, Haken-Erinnerung 2); offen: Sokrates Projekt 118 (session_01XPcJHh5fXzcwHcFp6RhVgW) schrieb „Neustart“ ohne Nachfolger, Chef spricht noch mit ihm: nicht archivieren, bis er „Neustart erledigt“ meldet
