@@ -6,7 +6,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
-| [106.1](entscheiden/1061-rollen-ergebnis.md) | 16.10. | Vorher/Nachher für ROLLE-TEAM (9,6 → etwa 3 KB): gutes Ergebnis mit echtem Beispiel, Maß als Zahl mit Quelle, ein typischer Fehler; Mechanik in LISTE-BAUEN-TESTEN; erst eine Woche zählen, dann Probe | Sokrates Projekt |
+| [106.1](entscheiden/1061-rollen-ergebnis.md) | 16.10. | Zusammenfassung: alle sechs Rollen Sa ab 21:15 in einem Rutsch, je Rolle eine Kennzahl mit Quelle und eine Schwäche; dazu 124, 125, 126; ein „Paket ja“ genügt | Sokrates Projekt |
 | [124](entscheiden/124-vorgaenge-gliedern-preis.md) | 16.10. | fünf Hauptthemen mit Buchstaben; Preis je Vorgang aus den Sitzungskosten, Ford trägt ihn beim Neustart ein; Probe eine Woche ab So 18.10., Bilanz 23.10. | Sokrates Projekt |
 | [125](entscheiden/125-drei-namen.md) | 16.10. | ja, drei Namen; getrennt sind die Rollen schon (Datei, Vorrat, Sitzung), nur der Name ist gemeinsam; Umbenennung im Samstagsumbau (117) | Sokrates Projekt |
 | [126](entscheiden/126-muss-und-kuer.md) | 16.10. | M = steht im Wochenziel oder vom Chef „jetzt“, sonst Kür; Ersteller trägt ein, Ford prüft; Kür nur, wenn nichts Muss startbar ist; Wochenziel vom Projektmanager, Anteil Muss als Kennzahl (124) | Sokrates Projekt |
