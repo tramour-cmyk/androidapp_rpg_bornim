@@ -50,6 +50,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 15:18 16.10.: Start Jerry (Neustart, 5bf84675, D1.14 Hörner-Betten heraus) (Ford 2)
 - 15:06 16.10.: Tom „Eigene Zeilen kürzen“ archiviert (wartet auf Chef, 0.1.781 Build 5), Meldung laut; Eingang D3 gestrichen (erledigt mit 118)
 - 14:57 16.10.: Start Jerry (Neustart, a6b7e5cc, 120 Musik in Schichten ins Spiel) (Ford 2)
 - 14:41 16.10.: Start Jerry (Neustart, f5ffb85c, 18 Stimmen ins Spiel, dann 120) (Ford 2)
