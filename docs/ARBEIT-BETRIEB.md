@@ -72,6 +72,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 22:55 16.10.: Start Perikles (106.1a, D22.1 zuerst; Chef 22:4x: „106.1a ja“; Auftrag von Diogenes, e5cacf45)
 - 22:33 16.10.: Umbau 106.1 auf main (b37fff95), Perikles archiviert (10,75 $); Start Diogenes 106.1
 - 22:2x 16.10.: Start Perikles – Umbau Rollen und Namen (vorgezogen von Sa 21:15; Chef 16.10., 22:2x: „Lege los! Godspeed.“ (100 $ Extra-Guthaben)); Vorgabe: ein Push am Ende; danach Diogenes Nachprüfung
 - 22:1x 16.10.: Chef Testergebnis Build 8 (72.10, #68) wörtlich in Jerrys Vorrat (Zeile 72.10)
