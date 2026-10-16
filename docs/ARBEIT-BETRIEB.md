@@ -21,7 +21,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
 - 16.10., 17:4x, von Sokrates Projekt (1f3b37bb): Sa 17.10. ab 21:15 (verschoben, ee35ec89) starten „Sokrates Projekt – Umbau Namen (17.10.)“ (Zuruf Chef, Übergabe in `ARBEIT-PROJEKT.md`); erster Lauf ab 21:15 startet, dann Zeile streichen
-- 16.10., 21:5x, von Diogenes (D21 vom Chef beschlossen): Kreativ (39.1, 72u als Zug-Dateien), Sokrates Projekt (D21 A) und Tom (D21 A, Werkzeug) starten; wegen Max 91 % erst nach dem Wechsel Sa 21:00 oder auf Zuruf des Chefs, dann Zeile streichen
+- 16.10., 21:5x, von Diogenes (D21 vom Chef beschlossen): Sokrates Projekt (D21 A) und Tom (D21 A, Werkzeug) starten; wegen Max 91 % erst nach dem Wechsel Sa 21:00 oder auf Zuruf des Chefs, dann Zeile streichen
 
 ## Kosten Ford 2
 
@@ -71,6 +71,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 21:5x 16.10.: Start Sokrates Kreativ (D21: 39.1, 72u), Zuruf Chef: „Wort. Starte bitte Sokrates kreativ.“
 - 21:48 16.10.: Start Sokrates Projekt (Neustart e6777f7a, 106.1 Entwürfe, Zuruf Chef 21:5x)
 - 21:46 16.10.: Diogenes (125, D21) archiviert; Starts Kreativ, Projekt, Tom für D21 in den Eingang (Startsperre bis Max-Wechsel)
 - 21:32 16.10.: Diogenes Lauf 21 fertig, kein Nachfolger; Wunsch Kreativ-Start in den Eingang (Startsperre bis Max-Wechsel); Diogenes archivieren ab 22:03
