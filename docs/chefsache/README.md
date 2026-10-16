@@ -15,16 +15,13 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.812](ansehen/jerry-testreihe.md) | Build 8 | Probe 72.10: Held und Söldner gegen Grak | Jerry | 16.10. |
-| 2 | [0.1.813](ansehen/jerry-testreihe.md) | Build 11 | 86: Rennen laut | Jerry | 16.10. |
-| 3 | [0.1.815](ansehen/jerry-testreihe.md) | Build 12 | D3: Kampfgeheul aus Aufnahmen | Jerry | 16.10. |
-| 4 | [0.1.816](ansehen/t13-huehner.md) | Build 13 | 129: Hühner nie zwei auf einem Platz | Tom | 16.10. |
+| 1 | [0.1.816](ansehen/t13-huehner.md) | – | 68/26: Tempelszene und Kapitel 1 durchspielen | Tom | 17.10. |
 
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 24.6 (Team Jerry), 9i (Team Jerry), 19e (Team Jerry)
+Nicht gestellt: D21 (Team Jerry), 24.6 (Team Jerry), 9i (Team Jerry), 19e (Team Jerry)
 
 Ohne Datei: 39.1 (Kreativ)
 
