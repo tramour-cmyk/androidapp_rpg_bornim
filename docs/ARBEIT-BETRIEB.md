@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Themennummer: 120** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 121** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 **Ford: Co-Pilot bis Sa 17.10., 21:00, danach Pilot** (Chef 15.10., 22:5x: „dann kriegt Ford die Stellung Co-Pilot … wieder zurückstellen … wenn wir wieder volles Guthaben haben“; der erste Lauf danach stellt selbst auf Pilot zurück, pusht, meldet lautlos; 81g)
 
@@ -12,7 +12,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 - **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 13:56)“ `session_01Hr5Go7BFHT2zpmsRmGmLc1` (seit 16.10., 13:56, Selbstneustart, Tiefe 2; Vorgänger `session_01J3A7bVXcJjdsqCbQRgt7xi` archiviert). Stundenuhr „Ford-Uhr“ `trig_01Bg6UMEA6njTVfnsccoRe5G` (:03, seit 13:56; alte Uhr `trig_01FXfKMx7SdRCVGnmrht8W4R` gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhr „Ford-Wache 07:08“ `trig_01Phk9eXekP5yY9M6L3bgS1c` (täglich 07:08; 15.10., 22:5x zurückgeholt, D13.2).
-- **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 08:49)“ `session_01JDBt2kNDbu2Udn7WRr5wE7` (seit 16.10., 08:48; Vorgänger `session_01R7KS2bJJNiqcTvwgFNSBNS` archiviert). Stundenuhr „Ford-2-Stundenuhr“ `trig_01SGCVra7Xeg6ChsDYSK1DR3` (:33, seit 08:48). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren.
+- **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 14:07)“ `session_013oK9KoFaRYSMbNWxWWtuW8` (seit 16.10., 14:06; Vorgänger `session_01JDBt2kNDbu2Udn7WRr5wE7` archiviert). Stundenuhr „Ford-2-Stundenuhr“ `trig_012UBBSnM2MhWgWzstn1SaFy` (:33, seit 14:06). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren.
 
 ## Eingang
 
@@ -24,6 +24,10 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Projekt wertet nach zwei Tagen aus.
 
+- 16.10., 14:33: Stundenlauf ohne Tat (Jerry läuft, 108a, Sammelbuild 1 PR #88); Ford 2 seit 14:06 zwei Starts, Pro weiter `allowed_warning`
+- 16.10., 14:20: Neustart Jerry 108a; Jerry 120 kostete 4,14 $ (216 Tsd. Token Kontext)
+- 16.10., 14:08: Selbstneustart Ford 2; Vorgänger 9,20 $ (`usage.cost_usd`, 356 Tsd. Token Kontext)
+- 16.10., 14:06: Neustart Jerry Idee 10; Jerry Raumklang kostete 4,38 $; Pro-Wochengrenze jetzt `allowed_warning`; 33 alte Pro-Sitzungen (8.–12.10.) auf Zuruf des Chefs archiviert
 - 16.10., 13:45: Neustart Jerry Raumklang; Jerry 18 kostete 8,15 $ (326 Tsd. Token Kontext, über die Pro-Sperre hinweg)
 - 16.10., 13:35: Läufe 11:33/12:33 fielen in die Pro-Sperre (zugestellt 13:34); Jerry 18 stand seit 10:36 („session limit“), geweckt statt neu gestartet; Ford 2 Tiefe 1
 - 16.10., 10:34: Stundenlauf ohne Tat (Jerry läuft, 18); Ford 2 seit 08:48 4,38 $, 220 Tsd. Token Kontext, acht Neustarts Jerry eingeschlossen; Pro weiter `allowed_warning`
@@ -45,6 +49,10 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 14:38 16.10.: Start Tom (Neustart, 8159aec1, Eigene Zeilen kürzen)
+- 14:18 16.10.: Start Jerry (Neustart, 73bcde8f, 108a Sammelbuilds, dann 18) (Ford 2)
+- 14:08 16.10.: Ford 2 neu (session_013oK9Ko…), Uhr trig_012UBBSnM2MhWgWzstn1SaFy, alte Uhr gelöscht, Vorgänger archiviert (Ford 2)
+- 14:05 16.10.: Start Jerry (Neustart, d7cde4da, Musik in Schichten Idee 10) (Ford 2)
 - 13:58 16.10.: Sokrates Projekt 118 (session_01XPcJHh5fXzcwHcFp6RhVgW) archiviert („Neustart erledigt“, kein Nachfolger)
 - 13:57 16.10.: Start Tom (118 Übernahme, Auftrag Sokrates Projekt)
 - 13:57 16.10.: Ford neu übernommen; Uhr trig_01Bg6UMEA6njTVfnsccoRe5G angelegt und geprüft, alte Uhr trig_01FXfKMx7SdRCVGnmrht8W4R gelöscht, alter Ford session_01J3A7bVXcJjdsqCbQRgt7xi archiviert

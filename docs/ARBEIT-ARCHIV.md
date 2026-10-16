@@ -1,5 +1,29 @@
 # Archiv
 
+## Tom, Übergabe 16.10., 14:4x
+
+**Übergabe (16.10., 14:4x, „Tom – 118 Übernahme von Jerry“) – Nachfolger: Tom – Eigene Zeilen kürzen:** D3-Rest von Jerry übernommen, Zeile D3 oben; wartet auf Jerrys „ok“ zu `WorldScreen.kt` (Zeile in seinem Vorrat) und freie Testreihe. Vorher: Build `main` nach #71 grün (0.1.773); Rast t757, 92 am Gerät warten auf Chef.
+
+Gestrichene Zeilen (16.10., Eigene Zeilen kürzen):
+
+- | 95 | Atem: „Atem mit Anzeige (Balken rechts) hört man nicht und der Balken funktioniert nicht.“ (Chef 15.10., 16:5x) | Balken (95a) passt (Test 0.1.752); Keuchen bei Jerry. `WorldScreen.kt`-Zeilen aus #70 durchgesehen, kein Einwand (16.10., 12:2x) | – |
+- | 59e | Händler: Menge „Alle“, Vorrat je Laden | „Alle“ erledigt (0.1.660); Vorrat je Laden bei Jerry mit 38/39 | – |
+- | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm (Technik) | Großteil auf `main`; Inhalt (24.6) bei Jerry | – |
+- | 5 | Dorf draußen, Dorfbewohner als Puppen | auf `main` bis 5.5 | – |
+- | – | Eigene Zeilen kürzen | Erledigtes ins Archiv | – |
+
+## Tom, Übergabe 16.10., 12:13
+
+**Übergabe (16.10., 12:13, „Tom – 40 Helligkeitswert“) – Nachfolger: keiner jetzt; nächster Start bei Rückmeldung des Chefs (Rast t757, 92 am Gerät) oder mit „Eigene Zeilen kürzen“:** Build `main` nach #71 grün (0.1.773). 40 beantwortet: Wert passt (Zeile bei Jerry). #70 und #76 (`WorldScreen.kt`) durchgesehen, kein Einwand. Sonst wartet alles auf Chef oder andere.
+
+## Jerry, Übergabe 16.10., 14:05
+
+**Übergabe (16.10., 14:05, „Jerry – Raumklang (Idee 8)“) – Nachfolger: Jerry – Musik in Schichten (Idee 10):** 119 Raumklang gebaut (PR #86, Entwurf, baut), Hörproben per Telegram, wartet auf Chef ([119](dz:119)); bei Ja Prüfliste in die Testreihe (Testreihenfolge nach #84), bei Änderung `Room.acoustics` anpassen, dann `RAUMKLANG=spiel` (Vorschau) neu backen und `RAUMPROBEN=1`. Nachfolger: #70, #72–#82, #84, #85, #86 abonnieren. Rest der Übergabe vom 16.10., 13:44 gilt (im Archiv: 18.11, 108a, D1.14, D4.1 an Diogenes nach #72).
+
+## Jerry, Übergabe 16.10., 13:44
+
+**Übergabe (16.10., 13:44, „Jerry – 18 Gegnerstimmen“) – Nachfolger: Jerry – Raumklang (Idee 8):** 18 Hörproben fertig (PR #85, nur Werkzeug, baut nicht), per Telegram, wartet auf Chef ([18.11](dz:1811)); Wahl dann mit `stimmen.py` ins Spiel (`--spiel` fehlt noch, wie `huehner.py`). 108 erledigt: Testreihe ergänzt; Rückfrage [108a](dz:108a) (Builds #70–#82 unter 0.1.773, ohne #71): bei „A“ in jeden Zweig `main` einmischen, Kerntests, in Testreihenfolge einzeln pushen (ein Sammel-Skript lehnte der Freigabe-Modus ab). 86.9 PR #84 (baut). D1.14 Hörproben gesendet ([D1.14](dz:d114)). Nachfolger: #70, #72–#82, #84, #85 abonnieren. Rest der alten Übergaben gilt (nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
+
 - Jerry, alte Übergabe: **Übergabe (16.10., 10:24, „Jerry – 30 Klang-Fäden“) – Nachfolger: Jerry – 18 Gegnerstimmen:** 30 gebaut (PR #82, baut). #81 grün, Testbitte per Telegram (nach #80), 30 gleich mit angekündigt. Testreihenfolge #70, #72–#82. Nachfolger: #70, #72–#82 neu abonnieren; bei Grün #82 nur kurze Zeile per Telegram (Testbitte steht). Dann 18 (59e hängt an 38). Rest der alten Übergaben gilt (86.9 kein PR vor #71; nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
 - Sokrates Projekt, alte Übergabe: **Übergabe (16.10., 13:3x, „Sokrates Projekt – 99g Umzug (16.10., 12:49)“):** 99g eingetragen; 99g.1 (Vorgangsarchiv, Empfehlung `docs/VORGANGSARCHIV.md`) und 117.1–117.6 (Namen, Ausmisten, Chefsache, `ROLLE-ENTWICKLUNG`) auf Dein Zug, Datei `117-namen-archiv.md`; 117 Kern mit Go, alles nach Sa 21:00 in einem Zug. Neu 118 (Teams ohne Themen) offen. Nachfolger: Sokrates Projekt – 118 Teams ohne Themen.
 - Sokrates Projekt, alte Übergabe: **Übergabe (16.10., 12:5x, „Sokrates Projekt – 99g Umzug (16.10., 12:49)“):** 99g Beschluss eingetragen (gestaffelt: Kampf jetzt durch Kreativ, Rest Wiedervorlage nach Sa 21:00; Marktvergleich bleibt auf Max), Zug-Datei gelöscht. Offen sonst: nach Sparmodus 99g-Rest, 112, 101, 102, D16; 115 und 116 warten auf Vorrang; 108 streichen nach Jerrys erstem Punkt. Nachfolger: keiner bis Zuruf oder Ende Sparmodus.
