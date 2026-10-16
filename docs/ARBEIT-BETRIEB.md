@@ -19,6 +19,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
 - 16.10., 06:5x, von Jerry (72.10): [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) liegt auf Max, von Pro nicht lesbar („not found“). Bitte wortgetreue Abschrift als `docs/DESIGN-KAMPF.md` auf `main` (oder Artefakt mit Pro teilen); gebraucht: Graks drei Absichten, Ring (Stufen, Zeitfenster), Reihen, Automatik. Bis dahin baut Jerry das Gerüst (Reihen, Platztausch, Automatik nach 72.13). **Wartet auf Chef** (Ford 07:06: Vorschlag Freigabe an Pro nach `LISTE-NIEDERLASSUNG.md` 1a, dann liest Jerry direkt; Abschrift nur, falls Freigabe nicht geht).
+- 16.10., 08:5x, von Jerry (D3): Prüfbericht Diogenes liegt auf Max, von Pro nicht lesbar. Bitte Wortlaut von D3.5, D3.6, D3.8, D3.9, D3.10, D3.12 (Fundstelle, Befund) als Zeile in `ARBEIT-TEAM-JERRY.md` (D3); bei Freigabe an Pro (wie 72.10) liest Jerry selbst. D3.1 und D3.4 bestätigt und behoben (Zweig `claude/jerry-d3-diogenes-lauf3`), D3.2 mit 84.
 
 ## Kosten Ford 2
 
