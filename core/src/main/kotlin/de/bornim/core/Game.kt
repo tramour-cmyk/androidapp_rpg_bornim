@@ -296,6 +296,24 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     private var bumpedBy: String? = null
     private var bumps = 0
 
+    /** 92: whether a villager who gives way when pushed (not a guard on the round) stands at ([x], [y]). */
+    fun yields(x: Int, y: Int): Boolean = yielderAt(x, y) != null
+
+    private fun yielderAt(x: Int, y: Int) = walkersHere().firstOrNull { it.x == x && it.y == y && shown(it) && it.npc.patrol.isEmpty() }
+
+    /**
+     * 92: the hero walks into whoever stands next to them in [dir]; a villager makes room when the hero keeps
+     * walking into them. Also for free walking, where the hero pushes against them without a step (test 0.1.791).
+     */
+    fun nudge(dir: Facing) {
+        val p = state.place
+        yielderAt(p.x + dir.dx, p.y + dir.dy)?.let { w ->
+            bumps = if (bumpedBy == w.npc.id) bumps + 1 else 1
+            bumpedBy = w.npc.id
+            if (bumps >= PUSH_BUMPS) makeWay(w, dir)
+        } ?: run { bumpedBy = null; bumps = 0 }
+    }
+
     /**
      * 92: the villager [w] the hero walks into in [dir] steps aside, to the left or right of the way, else on ahead;
      * where there is no room at all the two change places. They then stay a moment before going on with their day.
@@ -511,12 +529,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             engage(r, if (r.facing == dir || (r.temper == Temper.LURKER && !r.hunting)) Opening.HERO_FIRST else Opening.NORMAL)
             return Move.Blocked
         }
-        // 92: a villager in the way makes room when the hero keeps walking into them (not the guards on their round)
-        walkersHere().firstOrNull { it.x == nx && it.y == ny && shown(it) && it.npc.patrol.isEmpty() }?.let { w ->
-            bumps = if (bumpedBy == w.npc.id) bumps + 1 else 1
-            bumpedBy = w.npc.id
-            if (bumps >= PUSH_BUMPS) makeWay(w, dir)
-        } ?: run { bumpedBy = null; bumps = 0 }
+        nudge(dir)
         if (!free(nx, ny)) {
             changed()
             if (map.tile(nx, ny) == Tile.BARRIER && !state.has(Story.BARRIER_OPEN)) barrier()
