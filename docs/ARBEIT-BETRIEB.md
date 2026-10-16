@@ -12,7 +12,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 - **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 17:50)“ `session_01CxGVVG35nLayNTuubcUd7Q` (seit 16.10., 17:50, Selbstneustart, Tiefe 3; Vorgänger `session_01Hr5Go7BFHT2zpmsRmGmLc1` archiviert). Stundenuhr „Ford-Uhr“ `trig_01X9ykKgg4ibrwLnXHVW7666` (:03, seit 17:50; alte Uhr `trig_01Bg6UMEA6njTVfnsccoRe5G` gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhr „Ford-Wache 07:08“ `trig_01Phk9eXekP5yY9M6L3bgS1c` (täglich 07:08; 15.10., 22:5x zurückgeholt, D13.2).
-- **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 14:07)“ `session_013oK9KoFaRYSMbNWxWWtuW8` (seit 16.10., 14:06; Vorgänger `session_01JDBt2kNDbu2Udn7WRr5wE7` archiviert). Stundenuhr „Ford-2-Stundenuhr“ `trig_012UBBSnM2MhWgWzstn1SaFy` (:33, seit 14:06). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren. **Übergabe (16.10., 18:34) – Nachfolger: Ford 2 – Niederlassungsleiter (16.10., 18:34):** Selbstneustart (≈225 Tsd. Token, zweite Erinnerung): neue Uhr anlegen, prüfen, dann alte Uhr `trig_012UBBSnM2MhWgWzstn1SaFy` löschen und Vorgänger `session_013oK9KoFaRYSMbNWxWWtuW8` archivieren. Jerry `session_019MXEeRqrvEA4qMfEjUQHJN` (72.10) stand in der Pro-Sperre bis 18:30, um 18:34 geweckt; prüfen, ob er läuft. Läufe 16:33/17:33 fielen in die Sperre. In der Sitzung nur „Ford 2 HH:MM ok“.
+- **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 18:34)“ `session_017Gzi9LijVCMaW5UJrzYaXZ` (seit 16.10., 18:34; Vorgänger `session_013oK9KoFaRYSMbNWxWWtuW8` archiviert). Stundenuhr „Ford-2-Stundenuhr“ `trig_01DXxbKZYYttXJEEYeCyARt7` (:33, seit 18:34). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren.
 
 ## Eingang
 
@@ -24,6 +24,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Projekt wertet nach zwei Tagen aus.
 
+- 16.10., 18:36: Selbstneustart Ford 2; Vorgänger 5,81 $ (`usage.cost_usd`, 253 Tsd. Token Kontext); Jerry 72.10 läuft wieder
 - 16.10., 18:34: Läufe 16:33/17:33 in der Pro-Sperre (zugestellt 18:33); Jerry 72.10 geweckt; Jerry 72.10 bisher 4,68 $; Selbstneustart Ford 2
 - 16.10., 15:55: Neustart Jerry 72.10; Jerry 108a nach main kostete 1,62 $ (4 Minuten; Freigabeprüfung sperrte, 108a.1)
 - 16.10., 15:51: Neustart Jerry 108a nach main; Jerry D1.14 kostete 4,09 $ (220 Tsd. Token Kontext)
@@ -56,6 +57,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 18:36 16.10.: Ford 2 neu (session_017Gzi9L…), Uhr trig_01DXxbKZYYttXJEEYeCyARt7, alte Uhr gelöscht, Vorgänger archiviert; Jerry 72.10 läuft (Ford 2)
 - 18:34 16.10.: Jerry 72.10 nach Pro-Sperre geweckt; Start Ford 2 (Selbstneustart) (Ford 2)
 - 18:06 16.10.: Tom D3 wartet auf Chef (D3a: #92 zusammengeführt, Notizen von Freigabeprüfung gesperrt), Meldung laut
 - 17:52 16.10.: Ford neu übernommen; Uhr trig_01X9ykKgg4ibrwLnXHVW7666 angelegt und geprüft, alte Uhr trig_01Bg6UMEA6njTVfnsccoRe5G gelöscht, alter Ford session_01Hr5Go7BFHT2zpmsRmGmLc1 archiviert
