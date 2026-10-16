@@ -55,6 +55,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 17:49 16.10.: Selbstneustart Ford (≈266 Tsd. Token, Haken-Erinnerung 2); offen: Tom D3 (session_01P8uYMDB1vVs1Tjg8Kp4jQi) läuft; Sa 08:00 Start Sokrates Projekt (Eingang)
 - 17:49 16.10.: Start Tom (Chef: Build 5 / t781 „alle positiv“)
 - 17:45 16.10.: Sokrates Projekt Zuruf 16:29 (session_018v2tV8RsTB2fQjc88TSreS) archiviert; Nachfolger Sa 08:00 im Eingang vorgemerkt
 - 17:06 16.10.: Sokrates Projekt Zuruf 15:44 (session_012yUrpHao6th2Ntyv14T9SH, 5,05 $) archiviert; neue Zuruf-Sitzung 16:29 des Chefs in der Besetzung
