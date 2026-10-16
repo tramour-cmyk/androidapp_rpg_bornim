@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 
 **offen 7, davon A 0, wartet auf Chef 2**
 
-**Übergabe (16.10., 21:38, „Tom – Jerrys Builds nach main“) – Nachfolger: keiner:** #93, #94, #95 (Builds 7, 9, 10) in PR #97 zusammengeführt, Konflikte gelöst, Regen und Monster-Laute ohne Raumfassung (nach 119), Kerntests grün. #97 auf `main` (Chef: „Bitte mach das“), CHANGELOG, Testreihe, Jerrys D1/D3 nachgezogen. 9.2 bleibt bei Jerry.
+**Übergabe (16.10., 21:38, „Tom – Jerrys Builds nach main“) – Nachfolger: keiner:** #93, #94, #95 (Builds 7, 9, 10) in PR #97 zusammengeführt, Konflikte gelöst, Regen und Monster-Laute ohne Raumfassung (nach 119), Kerntests grün. #97 auf `main` (Chef: „Bitte mach das“), CHANGELOG, Testreihe, Jerrys D1/D3 nachgezogen. Danach (Chef: „alles glatt ziehen, was … mit dem Build zu tun hat“): #68 mit `main` neu gebaut (0.1.812), 86 als PR #98 (0.1.813, Build 11), Prüflisten in `jerry-testreihe.md`. 9.2 bleibt bei Jerry.
 
 ## Zeilen
 
