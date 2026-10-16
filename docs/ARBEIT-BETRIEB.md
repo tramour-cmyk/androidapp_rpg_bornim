@@ -46,6 +46,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 11:34 16.10.: Selbstneustart Ford (≈276 Tsd. Token, Haken-Erinnerung 2); Chef bestätigt: „alt“ = älter als heute; 2 Sitzungen (11.10. „Session start“, 13.10. „Tom: Test 0.1.662/0.1.667…“) archiviert der Chef von Hand
 - 11:34 16.10.: Start Sokrates Projekt (Neustart, bdb28b23, Vorrang und Kosten)
 - 11:33 16.10.: 82 alte Sitzungen (9.–15.10. und Projekt Niederlassung) archiviert auf Zuruf Chef; 2 vom Freigabe-Filter abgelehnt
 - 11:28 16.10.: Ford neu von Hand (110, Tiefe 0, session_01PbT46B…), Uhr trig_01QNT865saNWYEcuTeWjDpML, alte Uhr gelöscht, Vorgänger archiviert (4,09 $)
