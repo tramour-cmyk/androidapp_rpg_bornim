@@ -6,7 +6,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 **Gelesen bis:** `142a1b40` (16.10., 11:3x)
 
-**Übergabe (16.10., 12:0x, „Sokrates Projekt – Vorrang und Kosten (16.10., 11:34)“):** auf Zuruf erledigt: D10 beschlossen (Beschlüsse, Datei weg); 105 gebaut (`meldung.sh` verlinkt selbst, Chef sieht Probe); 112 angelegt (Intro ist Muster, Tempel fällt ab), ruht bis Sa 21:00; 0.1.757 „passt“ an Tom, Rast nicht prüfbar. Offen: 99g wartet auf Chef; nach Sparmodus 112, 101, 102; 108 streichen nach Jerrys erstem Punkt; 105 streichen, wenn der Chef nichts mehr meldet. Nachfolger: keiner bis Zuruf oder Ende Sparmodus.
+**Übergabe (16.10., 12:1x, „Sokrates Projekt – Vorrang und Kosten (16.10., 11:34)“):** 105 gebaut: `meldung.sh` verlinkt selbst, aber nur, was auf Dein Zug liegt (Chef 12:1x: „Wenn ich nichts zu entscheiden habe, brauche ich keine Verlinkung … Wichtig ist, dass Sachen, die ich entscheiden muss, schnell angelegt werden und dann verlinkt sind. Genauso wie neue Sitzungen mit dem Hyperlink direkt.“); nackte Adressen und „Tom:“ werden Link; Prüfbitte 105 auf Dein Zug. 113 (Wort „Vorgang“) wartet auf Chef: bei Ja `CLAUDE.md` „Begriffe“ eine Zeile, Rest mit 102. D10 beschlossen. 112 ruht bis Sa 21:00. Offen sonst: 99g wartet; nach Sparmodus 112, 101, 102; 108 streichen nach Jerrys erstem Punkt. Nachfolger: Sokrates Projekt – 113 Vorgang (16.10., HH:MM)
 
 ## Zeilen
 
