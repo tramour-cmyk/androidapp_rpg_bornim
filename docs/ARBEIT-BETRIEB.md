@@ -25,6 +25,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Projekt wertet nach zwei Tagen aus.
 
+- 16.10., 09:30: Neustart Jerry 51; Jerry 69c.1: `archive_session` lieferte kein `usage`, Kosten nicht ermittelbar
 - 16.10., 09:18: Neustart Jerry 69c.1; Jerry 69c kostete 3,80 $
 - 16.10., 09:05: Neustart Jerry 69c; Jerry 86.9 kostete 2,15 $
 - 16.10., 08:59: Neustart Jerry 86.9; Jerry D6.4 kostete 3,90 $ (`usage.cost_usd` aus der Antwort von `archive_session`; späteres `get_session` liefert es nicht)
