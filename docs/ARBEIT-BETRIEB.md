@@ -14,7 +14,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 21:18)“ `session_01B3GyS2dPCbVVLgZ2umvMQt` (seit 16.10., 21:18, Selbstneustart, Tiefe 4; Vorgänger `session_01CxGVVG35nLayNTuubcUd7Q` archiviert). Stundenuhr „Ford-Uhr“ `trig_013eNWtEGr7bAJCFxhGY5WHk` (:03, seit 21:18; alte Uhr `trig_01X9ykKgg4ibrwLnXHVW7666` gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 23:09)“ `session_01XWRdGrGASFYbx6MMqjVV6Y` (seit 16.10., 23:09, Selbstneustart, Tiefe 5; Vorgänger `session_01B3GyS2dPCbVVLgZ2umvMQt` archiviert). Stundenuhr „Ford-Uhr“ `trig_01MHvLjkYXRb7JKbtriztn6a` (:03, seit 23:10; alte Uhr `trig_013eNWtEGr7bAJCFxhGY5WHk` gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 18:34)“ `session_017Gzi9LijVCMaW5UJrzYaXZ` (seit 16.10., 18:34; Vorgänger `session_013oK9KoFaRYSMbNWxWWtuW8` archiviert). Stundenuhr „Ford-2-Stundenuhr“ `trig_01DXxbKZYYttXJEEYeCyARt7` (:33, seit 18:34). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren.
 
@@ -73,6 +73,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 23:10 16.10.: Ford neu (session_01XWRdGr…, Tiefe 5); Uhr trig_01MHvLjkYXRb7JKbtriztn6a angelegt und geprüft, alte Uhr trig_013eNWtEGr7bAJCFxhGY5WHk gelöscht, alter Ford session_01B3GyS2… archiviert (4,59 $)
 - 23:10 16.10.: Perikles 106.1a fertig (57241d3d), archiviert (2,81 $, je 1,40 $ auf 106 und 99); Nachfolger in den Eingang. Selbstneustart Ford (Haken-Erinnerung 2, ≈231 Tsd. Token); offen: nur Ford 2/Jerry laut Besetzung, Eingang (Tom D21, Perikles 99g.2) nach Sa 21:00; Morgenmeldung Sa 9 Uhr
 - 23:04 16.10.: Lauf: Diogenes 106.1 fertig, archiviert (5,31 $ auf 106); Perikles 106.1a läuft. Stillstand eingeteilt (Sparmodus Max bis Sa 21:00): Tom (Muss 4, A 1), Homer (Muss 2), keine Starts ohne Zuruf
 - 22:55 16.10.: Start Perikles (106.1a, D22.1 zuerst; Chef 22:4x: „106.1a ja“; Auftrag von Diogenes, e5cacf45)
