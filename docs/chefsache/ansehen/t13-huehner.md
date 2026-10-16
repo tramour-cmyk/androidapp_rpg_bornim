@@ -1,6 +1,6 @@
 # Build 13 · 0.1.816 · 129: Hühner nie zwei auf einem Platz · [PR #100](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/100)
 
-Tom · 17.10. · **APK:** [Lauf 0.1.816](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38972574140) → „Artifacts“ (enthält `main`). Lässt sich über 0.1.815 (Build 12, Jerry) installieren; Reihenfolge nach Jerrys Builds 8 → 11 → 12.
+Tom · 16.10., 23:5x · **APK:** [Lauf 0.1.816](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38972574140) → „Artifacts“ (enthält `main`). Lässt sich über 0.1.815 (Build 12, Jerry) installieren; Reihenfolge nach Jerrys Builds 8 → 11 → 12.
 
 Ursache: die zwei Heuballen am Feld am Fluss setzten je ein Huhn auf denselben Punkt. Jetzt hält jedes Huhn Abstand zu den anderen, auch beim Weglaufen und unter den Bäumen (Kerntest).
 
