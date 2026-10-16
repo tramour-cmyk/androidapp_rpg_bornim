@@ -20,7 +20,7 @@ Artefakte und Dokumente von Max sind privat; Pro sieht sie nur nach Freigabe (Te
 |---|---|---|---|---|
 | [Prüfbericht](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ) | Artefakt | lesen | Befunde Diogenes | fehlt (16.10.) |
 | [Beschlüsse](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) | Artefakt | lesen | alles Entschiedene | ja (16.10.) |
-| [Kampfsystem neu denken](https://claude.ai/artifact/NeqVveiFAF82CPoSjAkqKR) | Dokument | lesen | 72.x Kampf | ja (16.10.) |
+| Kampfsystem neu denken (`DESIGN-KAMPF.md`, seit 16.10. im Repo, 99g) | Repo | lesen | 72.x Kampf | keine Freigabe nötig |
 | [Storyplan](https://claude.ai/artifact/7E8w8DQLuAB1hRhGGKpefe) | Dokument | lesen | Geschichte | ja (16.10.) |
 | [Heldenbau: Klassen, Pfade, Talente](https://claude.ai/artifact/PjzCstGJyyoaYzwj6RRubq) (`DESIGN-HELDENBAU.md`) | Dokument | lesen | Klassen, Balance | ja (16.10.) |
 
