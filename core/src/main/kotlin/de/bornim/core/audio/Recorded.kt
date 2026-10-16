@@ -33,6 +33,8 @@ object Recorded {
         Sound.WOLF_FAR to 3, Sound.RUMBLE to 3, Sound.BIRD_FLAP to 3, Sound.BIRD_SCRATCH to 3,
         // rain and far thunder (D3.10): three loops of rain, three thunders
         Sound.RAIN to 3, Sound.THUNDER to 3,
+        // the pack leader's howl in a fight (D3, 18): three recorded wolves
+        Sound.HOWL to 3,
     ) + MonsterIdle.SOUNDS.associateWith { 3 }
 
     /** Fewer than three takes by the user's choice (27k): the pond's one chorus loop, its two dragonflies. */

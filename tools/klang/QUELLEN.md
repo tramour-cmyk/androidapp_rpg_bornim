@@ -262,3 +262,13 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026 (BigSoundBank: Jo
 | `idle_zombie_1–3` | 2106, 2107, 2108 „Zombie“ | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/ |
 | `idle_ghoul_1–3` | 1095 „Man sniffing“; eat_03, snore | Joseph Sardin, BigSoundBank; rubberduck, 80 CC0 creature SFX | https://opengameart.org/content/80-cc0-creature-sfx |
 | `idle_ochre_jelly_1–3` | 1280, 3176 „Stomach gurgling“; burble_01 | Joseph Sardin, BigSoundBank; rubberduck, 80 CC0 creature SFX | https://bigsoundbank.com/stomach-gurgling-3-s3176.html |
+
+## D3 Kampfgeheul des Leitwolfs (16.10., im Spiel: `howl_1–3`, ersetzt das erzeugte Heulen)
+
+Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026. Geschnitten mit `tools/klang/geheul.py` (je Fassung eine andere Aufnahme und eine andere Stelle als `wolf_far`).
+
+| Klang im Spiel | Aufnahme(n) | Urheber, Paket | Quelle |
+|---|---|---|---|
+| `howl_1` | Cooper Creek 20160313_014852 solitary wolf howl very clear (500646): zweiter Heuler, 11,4–14,4 s | betchkal, Freesound | https://freesound.org/people/betchkal/sounds/500646/ |
+| `howl_2` | wolfs.wav (143568): 9,4–12,4 s | ondrosik, Freesound | https://freesound.org/people/ondrosik/sounds/143568/ |
+| `howl_3` | Wolfes howl howling Wolf Pack heulen (651193, Harz): 67,15–69,7 s | Borgory, Freesound | https://freesound.org/people/Borgory/sounds/651193/ |
