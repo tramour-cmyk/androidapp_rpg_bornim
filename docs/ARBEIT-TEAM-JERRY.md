@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 27, davon A 0, wartet auf Chef 5**
 
-**Übergabe (16.10., 07:4x, „Jerry – 95 Keuchen hörbar“) – Nachfolger: Jerry – 38 Rauchbündel im Kampf:** 95 gebaut, PR #70 (`claude/jerry-95-keuchen`, abonniert), wartet auf Test des Chefs nach Toms #67; Prüfliste per Telegram (Pro sieht Dein Zug nicht). Nach „passt“: #70 zusammenführen, CHANGELOG. 86.9 blockiert, bis Toms `claude/tom-86-bewegung-rest` auf `main` ist (`GameState.drunk`; nie mischen). 65.2 erledigt (alle acht Weck-Routinen „Jerry Selbstarbeit“ aus). 72u (PR #69) und 72.10 (PR #68) unverändert wie zuvor. Weiter gilt: `docs/ROLLE-TEAM.md` ganz; in jedem Zweig zuerst `git merge origin/main`; Zeitstempel von der Uhr.
+**Übergabe (16.10., 07:4x, „Jerry – 95 Keuchen hörbar“) – Nachfolger: Jerry – 38 Rauchbündel im Kampf:** 95 gebaut, PR #70 (`claude/jerry-95-keuchen`; Nachfolger abonniert neu, meldet Grün oder behebt Rot), Prüfliste 07:5x per Telegram, wartet auf Test des Chefs nach Toms #67; Prüfliste per Telegram (Pro sieht Dein Zug nicht). Nach „passt“: #70 zusammenführen, CHANGELOG. 86.9 blockiert, bis Toms `claude/tom-86-bewegung-rest` auf `main` ist (`GameState.drunk`; nie mischen). 65.2 erledigt (alle acht Weck-Routinen „Jerry Selbstarbeit“ aus). 72u (PR #69) und 72.10 (PR #68) unverändert wie zuvor. Weiter gilt: `docs/ROLLE-TEAM.md` ganz; in jedem Zweig zuerst `git merge origin/main`; Zeitstempel von der Uhr.
 
 ## Zeilen
 
