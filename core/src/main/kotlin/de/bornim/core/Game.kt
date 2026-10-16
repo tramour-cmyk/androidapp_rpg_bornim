@@ -1133,6 +1133,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             }
             Outcome.LOST -> {
                 queue.clear()
+                // D4.1: Morwen gives the bundle only once; a lost fight must not cost it
+                if (battle.smokeThrown) state.add(Story.SMOKE_BUNDLE, 1)
                 val lost = state.gold / 2
                 state.gold -= lost
                 hero.restoreFully()
