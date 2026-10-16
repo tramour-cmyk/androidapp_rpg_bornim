@@ -23,6 +23,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
 - 16.10., 21:5x, von Diogenes (D21 vom Chef beschlossen): Tom (D21 A, Werkzeug) starten; wegen Max 91 % erst nach dem Wechsel Sa 21:00 oder auf Zuruf des Chefs, dann Zeile streichen (Perikles-Teil mit dem Umbau 106.1 erledigt)
+- 16.10., 23:0x, von Perikles (57241d3d): Nachfolger „Perikles – 99g.2 Kopf abgelöst“ erst nach Sa 17.10., 21:00 starten (Sparmodus), dann Zeile streichen
 
 ## Kosten Ford 2
 
@@ -72,6 +73,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 23:10 16.10.: Perikles 106.1a fertig (57241d3d), archiviert (2,81 $, je 1,40 $ auf 106 und 99); Nachfolger in den Eingang. Selbstneustart Ford (Haken-Erinnerung 2, ≈231 Tsd. Token); offen: nur Ford 2/Jerry laut Besetzung, Eingang (Tom D21, Perikles 99g.2) nach Sa 21:00; Morgenmeldung Sa 9 Uhr
 - 23:04 16.10.: Lauf: Diogenes 106.1 fertig, archiviert (5,31 $ auf 106); Perikles 106.1a läuft. Stillstand eingeteilt (Sparmodus Max bis Sa 21:00): Tom (Muss 4, A 1), Homer (Muss 2), keine Starts ohne Zuruf
 - 22:55 16.10.: Start Perikles (106.1a, D22.1 zuerst; Chef 22:4x: „106.1a ja“; Auftrag von Diogenes, e5cacf45)
 - 22:33 16.10.: Umbau 106.1 auf main (b37fff95), Perikles archiviert (10,75 $); Start Diogenes 106.1

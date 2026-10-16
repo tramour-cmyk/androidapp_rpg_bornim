@@ -108,14 +108,14 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 96 | Gesprächstext zu lang | E Oberfläche | K |  | Tom | zu testen |
 | 97 | Vorrang in der Arbeitsliste | B Abläufe | – |  | Perikles | erledigt |
 | 98 | Firma WireStormTCS | B Abläufe | – |  | Perikles | umgebaut |
-| 99 | Zwei Niederlassungen | B Steuerung | K |  | Perikles | offen |
+| 99 | Zwei Niederlassungen | B Steuerung | K | 1,40 $ | Perikles | offen |
 | 100 | Testschalter Ende Kapitel 1 | Q QS | K |  | Tom | zu testen |
 | 101 | Ford-Titel „Betriebsleiter“ | B Steuerung | – |  | Perikles | erledigt |
 | 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Perikles | offen |
 | 103 | Kurz antworten (Haltung 5) | B Abläufe | – |  | Perikles | fertig |
 | 104 | Überspringen in Intro und Tempelszene fragt nach | E Oberfläche | – |  | Tom | erledigt |
 | 105 | Links in Telegram-Meldungen | B Werkzeuge | – |  | Perikles | erledigt |
-| 106 | Rollen schärfen, Kennzahlen (106.1) | B Abläufe | – | 16,06 $ | Perikles | umgebaut |
+| 106 | Rollen schärfen, Kennzahlen (106.1) | B Abläufe | – | 17,46 $ | Perikles | umgebaut |
 | 107 | Ford hält alle Aufträge nach | B Steuerung | – |  | Perikles | umgebaut |
 | 108 | Chefsache als Markdown im Repo | B Werkzeuge | – |  | Perikles | erledigt |
 | 109 | Repo öffentlich | M Veröffentlichung | K |  | Sokrates | ruht |
