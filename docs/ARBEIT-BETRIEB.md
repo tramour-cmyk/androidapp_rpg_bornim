@@ -20,7 +20,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- 16.10., 17:4x, von Sokrates Projekt (1f3b37bb): Sa 17.10. ab 21:15 (verschoben, ee35ec89) starten „Sokrates Projekt – Umbau Namen (17.10.)“ (Zuruf Chef, Übergabe in `ARBEIT-PROJEKT.md`); erster Lauf ab 21:15 startet, dann Zeile streichen
+- 16.10., 17:4x, von Sokrates Projekt (1f3b37bb): Sa 17.10. ab 21:15 (verschoben, ee35ec89) starten „Sokrates Projekt – Umbau Rollen und Namen (17.10., 21:15)“ (Zuruf Chef, Paket 106.1, Übergabe in `ARBEIT-PROJEKT.md`); erster Lauf ab 21:15 startet, dann Zeile streichen
 - 16.10., 21:5x, von Diogenes (D21 vom Chef beschlossen): Sokrates Projekt (D21 A) und Tom (D21 A, Werkzeug) starten; wegen Max 91 % erst nach dem Wechsel Sa 21:00 oder auf Zuruf des Chefs, dann Zeile streichen
 
 ## Kosten Ford 2
