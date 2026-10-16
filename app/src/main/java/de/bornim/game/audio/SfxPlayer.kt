@@ -23,7 +23,7 @@ import kotlin.concurrent.thread
  */
 class SfxPlayer(private val context: Context) {
     private val pool = SoundPool.Builder()
-        .setMaxStreams(6)
+        .setMaxStreams(MAX_STREAMS)
         .setAudioAttributes(
             AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_GAME)
@@ -61,10 +61,13 @@ class SfxPlayer(private val context: Context) {
     /** The take loaded from [asset], or 0 (silent) if it cannot be read. */
     private fun load(asset: String): Int = runCatching { context.assets.openFd(asset).use { pool.load(it, 1) } }.getOrDefault(0)
 
-    fun play(s: Sound, volume: Float = 0.8f) {
+    fun play(s: Sound, volume: Float = 0.8f) = play(s, volume, volume)
+
+    /** Plays [s] with its own volume on the [left] and [right] speaker: a sound from one side (84). */
+    fun play(s: Sound, left: Float, right: Float) {
         if (!enabled) return
         val takes = ids[s] ?: return
-        pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume, volume, 1, 0, 1f)
+        pool.play(takes[kotlin.random.Random.nextInt(takes.size)], left, right, 1, 0, 1f)
     }
 
     /**
@@ -74,7 +77,9 @@ class SfxPlayer(private val context: Context) {
     fun loop(s: Sound, volume: Float): Int {
         if (!enabled) return 0
         val takes = ids[s] ?: return 0
-        return pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume, volume, 0, -1, 1f)
+        // D3.4: a loop ranks above the one-shots, so a burst of steps and calls takes the oldest one-shot, never the
+        // fire or the wind (a stolen loop stayed silent until the place changed)
+        return pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume, volume, LOOP_PRIORITY, -1, 1f)
     }
 
     fun volume(stream: Int, volume: Float) { if (stream != 0) pool.setVolume(stream, volume, volume) }
@@ -123,5 +128,9 @@ class SfxPlayer(private val context: Context) {
         /** Bump when the sounds change so the cache is rebuilt. */
         private const val VERSION = 4
         private const val FADE_TICK_MS = 40L
+        /** Three loops at most (fire, place bed, frog chorus) plus room for the one-shots. */
+        private const val MAX_STREAMS = 8
+        /** Above the one-shots (1); SoundPool stops the lowest-ranked stream when all are busy. */
+        private const val LOOP_PRIORITY = 2
     }
 }

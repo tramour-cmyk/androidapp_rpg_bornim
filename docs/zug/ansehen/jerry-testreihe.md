@@ -8,14 +8,7 @@ Kurz: 4 Sammelbuilds statt 14 Einzel-APKs, je Build eine Prüfliste; Reihenfolge
 
 APK: im PR unten unter „Checks“ → „build“ → „Artifacts“. Testmenü: Reiter „Test“ (Uhrzeit +3 h, Teleport, „Held trifft immer kritisch“, „Bosse zurücksetzen“, „Alle Vorräte auf mindestens 10“).
 
-## Build 1 · 0.1.777 · Klang draußen · [PR #88](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/88)
-
-| # | Nr. | Wo und wie | Richtig | Falsch |
-|---|---|---|---|---|
-| 1.1 | 95 | draußen rennen, bis die Atemanzeige leer ist; dann stehen bleiben, 10 s zuhören | Held keucht erst dicht, dann leiser mit Pausen, 5–10 s, bis er wieder rennen darf | stumm, oder Keuchen läuft weiter, wenn er wieder rennen darf |
-| 1.2 | 84 | Tiefer Wald nachts (Uhrzeit +3 h), 3 min stehen; Höhle 3 min; Wiese am Dorf, auf pickende Vögel zugehen | Tiefer Wald ohne Vogelgesang und Eule, fernes Wolfsgeheul alle 1–2½ min von einer Seite; Höhle selten leises Grollen; Vögel flattern hörbar auf, scharren ab und zu | Vogelgesang im Tiefen Wald; Geheul laut oder im Takt |
-| 1.3 | D3.1, D3.4 | im Dorf durch eine Tür gehen und daneben an der Wand entlang; am Lagerfeuer stehen, während Kampfklänge spielen | Türklang nur auf der Tür; Feuer und Ortsklang reißen nicht ab | Türklang ohne Tür; Feuer verstummt |
-| 1.4 | D6.4 | im Dorf zum Fluss und über die Brücke, dann 10 Felder weg | Rauschen am Fluss, auf der Brücke am lautesten, ab etwa 8 Feldern still; Weiher still | kein Rauschen, oder es reißt beim Gehen ab |
+Build 1 passt (Chef 16.10., 15:0x), auf `main` (PR #88). Build 2 passt, wird zusammengeführt.
 
 ## Build 2 · 0.1.778 · Intro und Menü · [PR #89](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/89)
 

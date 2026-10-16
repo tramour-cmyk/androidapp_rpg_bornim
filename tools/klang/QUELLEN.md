@@ -159,7 +159,37 @@ CC0 1.0, Lizenz in den Paketen (License.txt) und auf der Quellseite geprüft am 
 | `step_wood_1–3` | footstep_wood_000, _002, _003 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
 | `step_stone_1–3` | footstep_concrete_001, _003, _004 (tiefer, mit Höhlenhall) | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
 
-## 120 Musik in Schichten (Hörproben, noch nicht im Spiel)
+## Runde 7: Keuchen des Helden (95, `tools/klang/atem.py`)
+
+| Klang | Aufnahme(n) | Urheber, Paket | Quelle |
+|---|---|---|---|
+| `pant_man_1–3` | 1103 „Breathless Man“, Atemzüge bei 1,35 / 8,30 / 12,55 s | Joseph Sardin, BigSoundBank, CC0 (Seite geprüft 16.10.2026) | https://bigsoundbank.com/breathless-man-s1103.html |
+| `pant_woman_1–3` | 1345 „Breathless Woman“, Atemzüge bei 1,50 / 6,20 / 11,05 s | Joseph Sardin, BigSoundBank, CC0 (Seite geprüft 16.10.2026) | https://bigsoundbank.com/breathless-woman-s1345.html |
+
+## 84 Umweltklang (16.10., im Spiel: `wolf_far_1–3`, `rumble_1–3`, `bird_flap_1–3`, `bird_scratch_1–3`)
+
+Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026. Geschnitten mit `tools/klang/umwelt.py`; Freesound als Vorschau (128 kbit/s), die Lizenz gilt für die Aufnahme.
+
+| Klang im Spiel | Aufnahme(n) | Urheber, Paket | Quelle |
+|---|---|---|---|
+| `wolf_far_1–3` | Cooper Creek 20160313_014852 solitary wolf howl very clear (500646): drei der vier Heuler, dumpfer, Hall | betchkal, Freesound | https://freesound.org/people/betchkal/sounds/500646/ |
+| `rumble_1` | rockfall2a (389303), tiefer, nur unter 600 Hz, Höhlenhall | AlanCat, Freesound | https://freesound.org/people/AlanCat/sounds/389303/ |
+| `rumble_2` | S24-18 Landslide (675736), ebenso | craigsmith, Freesound | https://freesound.org/people/craigsmith/sounds/675736/ |
+| `rumble_3` | RockFall1b (381645), ebenso | AlanCat, Freesound | https://freesound.org/people/AlanCat/sounds/381645/ |
+| `bird_flap_1–3` | 2891, 2894 „Flight bird“, 0840 „Flight of a pigeon“, höher und kürzer | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/ |
+| `bird_scratch_1–3` | 3202 (Schritte auf Erde), viel höher, nur das Helle | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/ |
+
+## Runde 8 (D6.4 Fluss am Dorf)
+
+CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026. Rezept: `tools/klang/fluss.py` (je 12 s, gedämpft, nahtlos).
+
+| Klang | Aufnahme | Urheber, Paket | Quelle |
+|---|---|---|---|
+| `river_1` | VistulaShort (Wellen an der Weichsel), ab 75 s | RandomMind, OpenGameArt | https://opengameart.org/content/sea-and-river-wave-sounds |
+| `river_2` | 0864 „Brooklet“, ab 20 s | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/brooklet-s0864.html |
+| `river_3` | 0823 „Small Stream“, ab 30 s | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/detail-0823-small-stream.html |
+
+## 120 Musik in Schichten (`spur_*.ogg` in `assets/music`)
 
 Dunkle Spur unter der Ortsmusik, wenn ein Jäger näher kommt (`tools/klang/schichten.py`). CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026; geladen als Freesound-Vorschau (128 kbit/s), bis 2,5 kHz gefiltert.
 
