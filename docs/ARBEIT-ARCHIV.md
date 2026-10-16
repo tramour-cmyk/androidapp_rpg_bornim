@@ -548,6 +548,8 @@ Sitzung 14.10., 22:1x–23:0x: 72.14 Gefährte/Söldner/Begleiter, 72.15 Begleit
 
 
 
+
+Jerry alt (16.10., 07:30): **Übergabe (16.10., 07:30, „Jerry – 72u Standbild Grak im Wald“) – Nachfolger: Jerry – 95 Keuchen hörbar:** 72u Standbild fertig (Telegram 07:2x, Zeile 72u; Kreativ soll entscheiden lassen); Zweig `claude/jerry-72u-standbild-grak`, Entwurfs-PR #69 (nur Vorschau `KAMPFORT=`, baut; nicht zusammenführen ohne Bedarf). 72.10 Kampfkern weiter auf `claude/jerry-72-10-probe-grak` (PR #68), wartet auf Kampf-Dokument: **Pro hat keinen Zugriff** auf den Inhalt (Claude Docs verweigert) und nicht auf Dein Zug (Chef 07:2x informiert, Freigabe fehlt). Weiter gilt: `docs/ROLLE-TEAM.md` ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds höchstens 4 Punkte, nie mit Tom gemischt; Zeitstempel immer von der Uhr. **65.2:** zwei pausierte Weck-Routinen „Jerry Selbstarbeit“ (12:27, 15:27) auf Pro noch löschen.
 ## Aus ROLLE-BERATER.md, 15.10., 18:0x (Übergabe)
 
 **Übergabe (15.10., 17:2x) – Nachfolger: „Sokrates – CLAUDE.md kürzen und Kapitel 2“:**
