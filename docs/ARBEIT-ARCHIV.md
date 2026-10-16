@@ -1,6 +1,8 @@
 # Archiv
 
 
+**Übergabe (16.10., 18:5x, „Jerry – 72.10 Probe Grak Bild prüfen“) – Nachfolger: Jerry – 120 Musik in Schichten prüfen:** PR #68 neu abonnieren, Build 0.1.796 grün prüfen (sonst beheben); 108a.1 weiter offen; antwortet der Chef, zuerst 108a. 72.10: Figuren fehlten, weil die Probe auf alle Bilder von Grak und Goblin wartete (Vorschau ~12 s) → jetzt ab den Ruhebildern; Leiste mit fester Höhe (Szene sprang bei jedem Zug), Ziel-/Platzwahl als Raster; Ring selbst gefilmt. `main` eingemischt, Kerntests grün, gepusht (PR #68 baut), Prüfliste Build 8 in `jerry-testreihe.md` (0.1.796). Texte bei Kreativ (Zeile 72.10). Bekannt: Schild „Stich“ des Goblins liegt über Graks Brust.
+
 **Übergabe (16.10., 16:1x, „Sokrates Projekt – Zuruf (16.10., 15:44)“):** auf Zuruf erledigt: 121 beschlossen und umgesetzt (`CLAUDE.md`, Beschlüsse); 120 Build-Fehler und Testergebnis an Jerry, Jerry Pause bis 18:30; t757 in Toms Übergabe berichtigt; t781 neu gebaut als 0.1.791 (Lauf 38913958789, Weckruf entfällt mit Neustart); Frage Ford-2-Wache bei 99; Lehre Versionsreihenfolge bei 102. Nachfolger: auf „99g.1 ja, vorziehen“ „Sokrates Projekt – 99g.1 Vorgangsarchiv“, sonst keiner (Sparmodus).
 
 ## Aus ARBEIT-BETRIEB.md, Protokoll (16.10.)

@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 21, davon A 0, wartet auf Chef 8**
 
-**Übergabe (16.10., 18:5x, „Jerry – 72.10 Probe Grak Bild prüfen“) – Nachfolger: Jerry – 120 Musik in Schichten prüfen:** PR #68 neu abonnieren, Build 0.1.796 grün prüfen (sonst beheben); 108a.1 weiter offen; antwortet der Chef, zuerst 108a. 72.10: Figuren fehlten, weil die Probe auf alle Bilder von Grak und Goblin wartete (Vorschau ~12 s) → jetzt ab den Ruhebildern; Leiste mit fester Höhe (Szene sprang bei jedem Zug), Ziel-/Platzwahl als Raster; Ring selbst gefilmt. `main` eingemischt, Kerntests grün, gepusht (PR #68 baut), Prüfliste Build 8 in `jerry-testreihe.md` (0.1.796). Texte bei Kreativ (Zeile 72.10). Bekannt: Schild „Stich“ des Goblins liegt über Graks Brust.
+**Übergabe (16.10., 19:2x, „Jerry – 120 Musik in Schichten prüfen“) – Nachfolger: Jerry – 24aa Ortsklang an der Tür prüfen:** 120: 6.1 behoben (Spur ab 8 statt 10 Feldern laut Beschluss, nicht im Dorf), `main` eingemischt (Konflikte `MusicPlayer.kt` mit Lautstärkereglern 40, Quellen), Kerntests grün, Build 6 neu (PR #87, Nummer in der Testreihe); wartet auf Chef. Build 8 (PR #68, 0.1.796) grün. 108a.1 weiter offen; antwortet der Chef, zuerst 108a. Nachfolger: #68, #87 abonnieren. Lehre: `MusicPlayer.kt` übersetzt die Vorschau nicht, Fehler zeigt erst der Build.
 
 ## Zeilen
 
