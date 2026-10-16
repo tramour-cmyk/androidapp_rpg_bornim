@@ -23,7 +23,7 @@ import kotlin.concurrent.thread
  */
 class SfxPlayer(private val context: Context) {
     private val pool = SoundPool.Builder()
-        .setMaxStreams(6)
+        .setMaxStreams(MAX_STREAMS)
         .setAudioAttributes(
             AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_GAME)
@@ -34,7 +34,12 @@ class SfxPlayer(private val context: Context) {
     private val ids = ConcurrentHashMap<Sound, IntArray>()
     private val voices = ConcurrentHashMap<String, IntArray>()
     private val main = Handler(Looper.getMainLooper())
+    /** 30: the loading thread and [release] take turns on the pool; a load into a pool being freed ends the app natively. */
+    private val lock = Any()
+    @Volatile private var released = false
     var enabled = true
+    /** The sliders' factor for every effect, the place's sounds and voices included (40). */
+    var gain = 1f
 
     init {
         val dir = File(context.cacheDir, "sfx-$VERSION").apply { mkdirs() }
@@ -43,6 +48,7 @@ class SfxPlayer(private val context: Context) {
             for (v in Recorded.VOICES) for (c in Recorded.Cue.entries)
                 voices["$v/${c.name}"] = IntArray(Recorded.VOICE_TAKES) { load(Recorded.voiceFile(v, c, it)) }
             for (s in Sound.entries) {
+                if (released) break
                 // a recording where there is one
                 val recorded = Recorded.TAKES[s]
                 if (recorded != null) { ids[s] = IntArray(recorded) { load(Recorded.file(s, it)) }; continue }
@@ -51,7 +57,7 @@ class SfxPlayer(private val context: Context) {
                     runCatching {
                         val f = File(dir, "${s.name.lowercase()}_$v.wav")
                         if (!f.exists()) writeWav(f, Sfx.render(s, v))
-                        pool.load(f.path, 1)
+                        synchronized(lock) { if (released) 0 else pool.load(f.path, 1) }
                     }.getOrDefault(0)
                 }
             }
@@ -59,12 +65,18 @@ class SfxPlayer(private val context: Context) {
     }
 
     /** The take loaded from [asset], or 0 (silent) if it cannot be read. */
-    private fun load(asset: String): Int = runCatching { context.assets.openFd(asset).use { pool.load(it, 1) } }.getOrDefault(0)
+    private fun load(asset: String): Int = runCatching {
+        synchronized(lock) { if (released) 0 else context.assets.openFd(asset).use { pool.load(it, 1) } }
+    }.getOrDefault(0)
 
-    fun play(s: Sound, volume: Float = 0.8f) {
-        if (!enabled) return
+    /** Plays [s] once; [take] picks one of its takes (so a row of them differs, 69c.1), otherwise one at random. */
+    fun play(s: Sound, volume: Float = 0.8f, take: Int = -1) = play(s, volume, volume, take)
+
+    /** Plays [s] with its own volume on the [left] and [right] speaker: a sound from one side (84). */
+    fun play(s: Sound, left: Float, right: Float, take: Int = -1) {
+        if (!enabled || gain <= 0f) return
         val takes = ids[s] ?: return
-        pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume, volume, 1, 0, 1f)
+        pool.play(takes[if (take in takes.indices) take else kotlin.random.Random.nextInt(takes.size)], left * gain, right * gain, 1, 0, 1f)
     }
 
     /**
@@ -74,10 +86,13 @@ class SfxPlayer(private val context: Context) {
     fun loop(s: Sound, volume: Float): Int {
         if (!enabled) return 0
         val takes = ids[s] ?: return 0
-        return pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume, volume, 0, -1, 1f)
+        // D3.4: a loop ranks above the one-shots, so a burst of steps and calls takes the oldest one-shot, never the
+        // fire or the wind (a stolen loop stayed silent until the place changed)
+        val v = volume * gain
+        return pool.play(takes[kotlin.random.Random.nextInt(takes.size)], v, v, LOOP_PRIORITY, -1, 1f)
     }
 
-    fun volume(stream: Int, volume: Float) { if (stream != 0) pool.setVolume(stream, volume, volume) }
+    fun volume(stream: Int, volume: Float) { if (stream != 0) pool.setVolume(stream, volume * gain, volume * gain) }
 
     fun stop(stream: Int) { if (stream != 0) pool.stop(stream) }
 
@@ -88,7 +103,7 @@ class SfxPlayer(private val context: Context) {
         val start = SystemClock.uptimeMillis()
         main.post(object : Runnable {
             override fun run() {
-                val v = PlaceSound.leaving(from, SystemClock.uptimeMillis() - start)
+                val v = PlaceSound.leaving(from, SystemClock.uptimeMillis() - start) * gain
                 if (v <= 0f) { pool.stop(stream); return }
                 pool.setVolume(stream, v, v)
                 main.postDelayed(this, FADE_TICK_MS)
@@ -98,15 +113,15 @@ class SfxPlayer(private val context: Context) {
 
     /** The voice of the monster [id] for [cue] (a growl as it attacks, a yelp when struck, its death), if it has one. */
     fun voice(id: String, cue: Recorded.Cue, volume: Float = 0.8f) {
-        if (!enabled) return
+        if (!enabled || gain <= 0f) return
         val (v, rate) = Recorded.voiceOf(id) ?: return
         val takes = voices["$v/${cue.name}"] ?: return
-        pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume, volume, 1, 0, rate)
+        pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume * gain, volume * gain, 1, 0, rate)
     }
 
     fun release() {
         main.removeCallbacksAndMessages(null)
-        pool.release()
+        synchronized(lock) { released = true; pool.release() }
     }
 
     private fun writeWav(f: File, pcm: ShortArray) {
@@ -123,5 +138,9 @@ class SfxPlayer(private val context: Context) {
         /** Bump when the sounds change so the cache is rebuilt. */
         private const val VERSION = 4
         private const val FADE_TICK_MS = 40L
+        /** Three loops at most (fire, place bed, frog chorus) plus room for the one-shots. */
+        private const val MAX_STREAMS = 8
+        /** Above the one-shots (1); SoundPool stops the lowest-ranked stream when all are busy. */
+        private const val LOOP_PRIORITY = 2
     }
 }

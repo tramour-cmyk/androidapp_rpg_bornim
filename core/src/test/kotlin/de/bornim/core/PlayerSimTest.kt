@@ -56,6 +56,16 @@ class PlayerSimTest {
                 if (j != null && r.rnd.nextInt(2) == 0) { r.note("aushang:${j.id}"); g.takeJob(j.id) } else { r.note("brett-zu"); g.advance() }
             }
             Mode.ChapterEnd -> { r.note("kapitelende") }
+            Mode.TempleScene -> { r.note("tempelszene"); g.advance() }
+            is Mode.Rest -> {
+                // 86.9/86.10: rest short or long, a mead now and then, or walk on
+                when (r.rnd.nextInt(4)) {
+                    0 -> { r.note("rast-kurz"); if (g.rest(Resting.Kind.SHORT, m.spot) != null) g.advance() }
+                    1 -> { r.note("rast-lang"); if (g.rest(Resting.Kind.LONG, m.spot) != null) g.advance() }
+                    2 -> if (m.spot == Resting.Spot.TAVERN) { r.note("met"); g.drinkMead() } else { r.note("rast-zu"); g.advance() }
+                    else -> { r.note("rast-zu"); g.advance() }
+                }
+            }
             Mode.Explore -> {
                 // as the map screen does: the clock runs (monsters roam), the hero walks a route a tap away
                 r.clock += 200; g.update(r.clock)

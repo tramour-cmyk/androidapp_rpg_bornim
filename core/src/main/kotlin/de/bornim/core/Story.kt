@@ -17,6 +17,10 @@ object Story {
     const val GRAK_DEFEATED = "grak_defeated"
     const val LYRA_RESCUED = "lyra_rescued"
     const val CHAPTER1_DONE = "chapter1_done"
+    /** 68: the temple scene has been shown (the morning after the amulet came back). */
+    const val TEMPLE_SEEN = "temple_seen"
+    /** 68j/68k: Lyra told the hero of the camp in the south; the chronicle carries it as a task. */
+    const val CAMP_TOLD = "camp_told"
     const val GRIMFANG_DEFEATED = "grimfang_defeated"
     const val HERBALIST_MET = "hedda_met"
     /** D4.1: Garrick sent the hero to Morwen for help against Krogg. */
@@ -32,7 +36,7 @@ object Story {
     const val CHAPTER1_LEVEL_CAP = 6
 
     /** What Morwen sells; she also brews potions from ingredients. */
-    private val HERBALIST_STOCK = listOf("potion", "greater_potion", "remedy", "holy_water")
+    private val HERBALIST_STOCK = listOf("potion", "greater_potion", "remedy", "stamina_potion", "holy_water")
     private val HERBALIST_HERBS = T(
         "Auf den bunten Blumenwiesen im Wald wachsen Heilkräuter – achte auf die hellgrünen Pflanzen und lauf einfach darüber. Was du pflückst, wächst am nächsten Tag nach. Bring sie mir, dann braue ich dir Tränke für ein paar Münzen. Fledermausflügel und Giftdrüsen nehme ich auch.",
         "Healing herbs grow in the colourful flower meadows of the forest – look for the light green plants and just walk over them. What you pick grows back the next day. Bring them to me and I'll brew you potions for a few coins. I'll take bat wings and venom glands too.",
@@ -84,7 +88,7 @@ object Story {
     private val morwen = T("Kräuterfrau Morwen", "Morwen the Herbalist")
 
     /** Consumables sold by Thessa; her gear stock is generated (see [Loot.shopGear]). */
-    val shopStock = listOf("potion", "greater_potion", "superior_potion", "remedy", "alchemist_fire", "holy_water")
+    val shopStock = listOf("potion", "greater_potion", "superior_potion", "remedy", "stamina_potion", "alchemist_fire", "holy_water")
 
     /** Chest item resolved per class, so every hero finds a fitting weapon. */
     const val CLASS_WEAPON = "@class_weapon"
@@ -251,9 +255,13 @@ object Story {
     /**
      * What the hero thinks at the south edge of the village (67), by how far the story is: the first time
      * in each part a line to read, after that the short one as a passing note. Second is true for the short one.
+     * After Lyra spoke of the camp in the south (68l) the edge says plainly that the road comes later (68p), the same
+     * line each time, until chapter 2 opens the road.
      */
-    fun southEdge(state: GameState): Pair<T, Boolean> {
+    fun southEdge(state: GameState): Pair<T, Boolean>? {
         val (part, long, short) = when {
+            CAMP_TOLD in state.flags -> T("Der Weg nach Süden ist noch nicht begehbar. Kapitel 2 folgt mit einem späteren Update.",
+                "The road south cannot be travelled yet. Chapter 2 follows in a later update.").let { Triple("camp", it, it) }
             CHAPTER1_DONE in state.flags -> Triple("after", T("Der Brief mit dem grauen Siegel lässt dich nicht los. Die Antwort liegt nicht im Süden.",
                 "The letter with the grey seal won't let you go. The answer doesn't lie in the south."), T("Die Antwort liegt nicht im Süden.", "The answer doesn't lie in the south."))
             QUEST_STARTED in state.flags -> Triple("quest", T("Lyra ist irgendwo im Norden. Der Weg nach Süden kann warten.",
@@ -285,16 +293,26 @@ object Story {
         ),
         warps = interiorExit(toVillage(6, 6)),
         npcs = listOf(
+            // 86.9: after her word Rowena's counter: mead and a room
             Npc("rowena", 1, 2, "innkeeper", Facing.DOWN) { s ->
                 when {
                     !s.has(QUEST_STARTED) -> script {
                         say(rowena, "Ältester Aldric wartet auf dich. Sein Haus liegt unten links am Dorfplatz.", "Elder Aldric is waiting for you. His house is at the bottom left of the village square.")
+                        tavern()
                     }
                     !s.has(CHAPTER1_DONE) -> script {
                         say(rowena, "Pass auf dich auf, {name}. Wenn du verletzt bist: Bruder Osric im Tempel heilt jeden, der darum bittet.", "Take care, {name}. If you're hurt, Brother Osric at the temple heals anyone who asks.")
+                        tavern()
+                    }
+                    // [68.rowena.lager]
+                    s.has(CAMP_TOLD) -> script {
+                        say(rowena, "Ein Lager im Süden? Die Fuhrleute meiden die Südstraße seit dem Frühjahr. Jetzt weiß ich vielleicht, warum.",
+                            "A camp in the south? The carters have avoided the south road since spring. Now I may know why.")
+                        tavern()
                     }
                     else -> script {
                         say(rowena, "Für den Helden von Bornim geht das Bier heute aufs Haus!", "Drinks are on the house for the hero of Bornim tonight!")
+                        tavern()
                     }
                 }
             },
@@ -360,6 +378,32 @@ object Story {
         npcs = listOf(Npc("aldric", 7, 3, "elder", Facing.DOWN) { s -> elderTalk(s) }),
     )
 
+    /**
+     * 68 (68a, 68e–68g, 68j, 68k): after Aldric's invitation there is no free choice: the night passes (it counts as a rest),
+     * the temple scene runs at sunrise, and afterwards the hero stands in the temple in the first row, where Lyra speaks to
+     * them of her own accord (`[68.lyra.1–3]`); from then on the chronicle carries the camp in the south as a task (68k, no
+     * mark on the map) and Rowena and Aldric speak of it.
+     */
+    private fun ScriptBuilder.templeMorning() {
+        templeScene()
+        morning(Place("temple", 4, 3, Facing.UP))
+        flag(TEMPLE_SEEN)
+        campLines()
+    }
+
+    /** `[68.lyra.1–3]`: Lyra thanks the hero and speaks of the camp in the south; the chronicle takes it up as a task. */
+    private fun ScriptBuilder.campLines() {
+        // [68.lyra.1]
+        say(lyra, "Ich verdanke dir mein Leben, {name}. Und Bornim sein Licht.", "I owe you my life, {name}. And Bornim its light.")
+        // [68.lyra.2]
+        say(lyra, "Graks Leute sprachen von einem Lager im Süden. Dort brachten sie, wen sie nicht selbst behalten wollten.",
+            "Grak's men spoke of a camp in the south. That is where they took those they did not want to keep themselves.")
+        // [68.lyra.3]
+        say(lyra, "Ich weiß nicht, was er von mir will. Aber ich träume seit Wochen von grauer Asche.",
+            "I do not know what he wants from me. But for weeks I have dreamt of grey ash.")
+        flag(CAMP_TOLD)
+    }
+
     private fun elderTalk(s: GameState): List<Cmd> = when {
         !s.has(QUEST_STARTED) -> script {
             say(aldric, "Du bist also {name}. Rowena sagt, du verstehst dich aufs Kämpfen.", "So you're {name}. Rowena tells me you know how to fight.")
@@ -371,6 +415,11 @@ object Story {
             gold(50)
             say(aldric, "Wache Jorin öffnet dir den Schlagbaum am Nordweg. Möge das Licht dich leiten.", "Guard Jorin will raise the barrier on the north road for you. May the light guide you.")
             flag(QUEST_STARTED)
+        }
+        // [68.aldric.lager]
+        s.has(CAMP_TOLD) -> script {
+            say(aldric, "Lyra hat mir vom Lager erzählt. Wenn dort Leute aus der Gegend festsitzen, kann Bornim nicht einfach wegsehen.",
+                "Lyra told me about the camp. If people from these parts are held there, Bornim cannot simply look away.")
         }
         s.has(CHAPTER1_DONE) -> script {
             say(aldric, "Ruh dich aus, {name}. Der Graue Prophet wird nicht lange warten …", "Rest now, {name}. The Grey Prophet won't wait for long...")
@@ -384,8 +433,12 @@ object Story {
             say(aldric, "Wenn er hinter all dem steckt, war Grak erst der Anfang. Nimm diesen Ring. Er hat schon meinem Vater gute Dienste geleistet.", "If he is behind all this, Grak was only the beginning. Take this ring. It served my father well.")
             give("ring_protection")
             gold(200)
+            // [68.aldric]
+            say(aldric, "Morgen bei Sonnenaufgang legt Lyra das Amulett zurück auf den Altar. Ganz Bornim wird dort sein, und du gehörst in die erste Reihe.",
+                "Tomorrow at sunrise Lyra will lay the amulet back on the altar. All of Bornim will be there, and you belong in the front row.")
             flag(CHAPTER1_DONE)
             chapterEnd()
+            templeMorning()
         }
         s.has(GRAK_DEFEATED) -> script {
             say(aldric, "Grak ist besiegt? Wunderbar! Aber … wo ist Lyra? Hast du sie in der Höhle nicht gefunden?", "Grak is defeated? Wonderful! But... where is Lyra? Didn't you find her in the cave?")
@@ -430,6 +483,9 @@ object Story {
             Npc("lyra_temple", 6, 2, "lyra", Facing.DOWN, visible = { it.has(LYRA_RESCUED) }) { s ->
                 if (!s.has(CHAPTER1_DONE)) script {
                     say(lyra, "Danke, dass du mich gerettet hast, {name}. Bitte bring das Amulett zu Ältestem Aldric!", "Thank you for rescuing me, {name}. Please take the amulet to Elder Aldric!")
+                } else if (!s.has(CAMP_TOLD)) script {
+                    // the morning was cut short (the game closed during the scene) or the chapter ended before 68: Lyra tells it now
+                    campLines()
                 } else script {
                     say(lyra, "Der Graue Prophet … Ich habe seine Stimme in meinen Träumen gehört. Wir müssen vorbereitet sein.", "The Grey Prophet... I've heard his voice in my dreams. We must be prepared.")
                 }
@@ -566,17 +622,17 @@ object Story {
             "=======.....=.T......=....,,,,,,,=,TTTTTTTTT",
             "TT.S..========.r.....=============,,TTTTTTTT",
             "TTT.fff.,,,,,==========T..,====,,,,TTTTTTTTT",
-            "TTT.ff.,,,,,,,.==.^^......,,,,=,,,TTTTTTTTTT",
-            "TTT.....,,,,,T==..W#.F.,.,,,,,=,,,TTTTTTTTTT",
+            "TTT.ff.,,,,,,,.==.........,,,,=,,,TTTTTTTTTT",
+            "TTT.....,,,,,T==.......,.,,,,,=,,,TTTTTTTTTT",
             "TTTTTTT...TTTT=TT.....,,,,,,,,=TTTTTTTTTTTTT",
             "TTTTTTTTTTTTTT=TTTT....,,,,,TT====TTTTTTTTTT",
-            "TTTTTTTTTTT,T==TTTT.T..TTTTTTT...=....T.TTTT",
-            "TTTTTTTTT,,,==,,TTTTTTTTTTTTT....=......TTTT",
-            "TTTTTTTT,,,,=,,,,TTTTTTTTTTT...===......TTTT",
-            "TTTTTTT,,,,,=,,,,,,,TTTTTTTT...=....~....TTT",
-            "TTTTT,T,,,OO=,,,,,,,TTTTTTT....=..~~~~~...TT",
-            "TTTTTT,,,,r,=,,,,,,TTTTTTTTT...=.~~~~~~...TT",
-            "TTTTT,,,,,,,,,,,,,,TTTTTTTTT..ff..~~~~~C..TT",
+            "TTTTTTTTTTT,T==TTTT.T=.TTTTTTT...=....T.TTTT",
+            "TTTTTTTTT,,,==,,TTTTT=TTTTTTT....=......TTTT",
+            "TTTTTTTT,,,,=,,,,TTTT..^^.TTT..===......TTTT",
+            "TTTTTTT,,,,,=,,,,TT....##.TTT..=....~....TTT",
+            "TTTTT,T,,,OO=,,,,TT.......TTT..=..~~~~~...TT",
+            "TTTTTT,,,,r,=,,,,TTT...F..TTT..=.~~~~~~...TT",
+            "TTTTT,,,,,,,,,,,,TTT.....TTTT.ff..~~~~~C..TT",
             "TTTTTT,,,C,,,,,,,,,TTTTTTTTTT.fff...~...TTTT",
             "TTTTTTTr,,,,,,,,,TTTTTTTTTTTTTTT.......TTTTT",
             "TTTTTTTT,,,,,,,,,TTTTTTTTTTTTTTTT.T..TTTTTTT",
@@ -586,10 +642,11 @@ object Story {
         ),
         warps = listOf(
             Warp(0, 18, Place("forest", 18, 10, Facing.LEFT)),
-            // D3.13: Morwen's hut, its door in the east side towards her fire; she is out there, the door stays shut
-            Warp(19, 22, Place("deep_forest", 20, 22, Facing.RIGHT), LOCKED),
+            // D3.13a: Morwen's hut on its own clearing south of the camp place, its door to the south towards her fire;
+            // she is out there, the door stays shut
+            Warp(23, 28, Place("deep_forest", 23, 29, Facing.DOWN), LOCKED),
         ),
-        houseStyles = mapOf((18 to 21) to HouseStyle(RoofKind.STRAW, WallKind.PLANKS, feature = HouseFeature.HUT)),
+        houseStyles = mapOf((23 to 27) to HouseStyle(RoofKind.STRAW, WallKind.PLANKS, feature = HouseFeature.HUT)),
         signs = mapOf(
             // 27.6b (draft): south of the way, in the light and before the trees (north of it the sign stood in deep shade)
             (3 to 19) to T("Tiefer Flüsterwald\nHier endet der Weg der Jäger.\nNur für erfahrene Abenteurer!", "Deep Whisperwood\nThe hunters' trail ends here.\nFor seasoned adventurers only!"),
@@ -601,7 +658,7 @@ object Story {
             Chest("deep_4", 27, 4, randomGear(Rarity.VERY_RARE)),
         ),
         npcs = listOf(
-            Npc("morwen", 24, 21, "herbalist", Facing.LEFT) { s ->
+            Npc("morwen", 25, 30, "herbalist", Facing.LEFT) { s ->
                 if (!s.has(HERBALIST_MET)) script {
                     say(morwen, "Na sieh an, jemand wagt sich so tief in den Wald. Ich bin Morwen, ich sammle hier Kräuter.", "Well, well, someone dares to come this deep into the woods. I'm Morwen, I gather herbs here.")
                     say(morwen, "Am Feuer bist du sicher: Der Rauch meiner Kräuter hält die Biester fern.", "You're safe by the fire: the smoke of my herbs keeps the beasts away.")
@@ -754,7 +811,7 @@ object Story {
     }
 
     val chapterEndText = T(
-        "Bornim feiert bis tief in die Nacht. Das Sonnenamulett leuchtet wieder im Tempel, und Schwester Lyra ist in Sicherheit.\n\nDoch der Brief mit dem grauen Siegel lässt dich nicht los. Wer ist der Graue Prophet? Und was ist der Tag der Asche?\n\nENDE VON KAPITEL 1\n\nDu kannst weiterspielen, Monster jagen und deinen Helden verbessern.",
-        "Bornim celebrates deep into the night. The Sun Amulet shines in the temple once more, and Sister Lyra is safe.\n\nBut the letter with the grey seal won't leave your mind. Who is the Grey Prophet? And what is the Day of Ashes?\n\nEND OF CHAPTER 1\n\nYou can keep playing, hunt monsters and improve your hero.",
+        "Bornim feiert bis tief in die Nacht. Das Sonnenamulett ist zurück in Bornim, und Schwester Lyra ist in Sicherheit.\n\nDoch der Brief mit dem grauen Siegel lässt dich nicht los. Wer ist der Graue Prophet? Und was ist der Tag der Asche?\n\nENDE VON KAPITEL 1\n\nDu kannst weiterspielen, Monster jagen und deinen Helden verbessern.",
+        "Bornim celebrates deep into the night. The Sun Amulet is back in Bornim, and Sister Lyra is safe.\n\nBut the letter with the grey seal won't leave your mind. Who is the Grey Prophet? And what is the Day of Ashes?\n\nEND OF CHAPTER 1\n\nYou can keep playing, hunt monsters and improve your hero.",
     )
 }

@@ -10,11 +10,13 @@ on:
     # Pure documentation and tooling changes need no new APK.
     paths-ignore:
       - "**.md"
+      - "docs/**"
       - "tools/**"
       - ".claude/**"
   pull_request:
     paths-ignore:
       - "**.md"
+      - "docs/**"
       - "tools/**"
       - ".claude/**"
   workflow_dispatch:

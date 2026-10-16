@@ -120,7 +120,7 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
                     Tab.BAG -> BagTab(vm, game, lang, ask)
                     Tab.GEAR -> GearTab(vm, game, lang, ask)
                     Tab.MAP -> {}
-                    Tab.CHRONICLE -> ChronicleTab(game, lang, onIntro = { vm.watchIntro() }) { who ->
+                    Tab.CHRONICLE -> ChronicleTab(game, lang, onIntro = { vm.watchIntro() }, onTemple = { vm.watchTemple() }) { who ->
                         de.bornim.core.MapMarks.of(game.state).firstOrNull { it.who == who }?.let { MapLook.focusMap = it.map; MapLook.focusWho = who }
                         tab = Tab.MAP
                     }
@@ -712,7 +712,7 @@ private fun BagTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec) 
     items.forEach { (id, count) ->
         val def = Items[id]
         ItemRow(def, lang, count) {
-            val potion = def.kind == ItemKind.POTION || def.kind == ItemKind.FOOD
+            val potion = def.kind == ItemKind.POTION || def.kind == ItemKind.FOOD || def.kind == ItemKind.TONIC
             ask(DialogSpec(
                 title = def.name(lang), icon = def.icon, supply = def.id, titleColor = rarityColor(def.rarity),
                 confirm = if (def.kind == ItemKind.FOOD) (if (de) "Essen" else "Eat") else if (potion) Ui.use(lang) else "OK", cancel = cancel,
@@ -831,8 +831,8 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.toast = Ui.saved(lang)
         }
         PixelButton(Ui.language(lang), Modifier.fillMaxWidth()) { vm.toggleLang() }
-        PixelButton((if (vm.musicOn) Ui.musicOn else Ui.musicOff)(lang), Modifier.fillMaxWidth()) { vm.toggleMusic() }
-        PixelButton((if (vm.sfxOn) Ui.sfxOn else Ui.sfxOff)(lang), Modifier.fillMaxWidth()) { vm.toggleSfx() }
+        // 40a: three sliders instead of the music and effects switches; the title keeps them as quick mutes
+        SoundAndLight(vm, lang)
         // 91: the footsteps on their own, under the effects
         PixelButton((if (vm.stepsOn) Ui.stepsOn else Ui.stepsOff)(lang), Modifier.fillMaxWidth()) { vm.toggleSteps() }
         Txt(if (lang == Lang.DE) "Blut bei Treffern" else "Blood on hits", size = 15.sp, bold = true)

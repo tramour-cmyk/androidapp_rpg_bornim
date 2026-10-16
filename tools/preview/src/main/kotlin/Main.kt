@@ -97,6 +97,14 @@ fun geared(vm: GameViewModel, cls: CharClass, race: Race = Race.DWARF) {
 fun main() {
     // 69: new heroes in the stills start in the world, not in the intro; INTROBILD=ms,ms,… shows the intro at those times
     de.bornim.game.ui.IntroLook.auto = false
+    // TEMPELBILD=ms,ms,…: the temple scene (68) in the app at those times, as watched again from the chronicle
+    System.getenv("TEMPELBILD")?.let { list ->
+        for (ms in list.split(",").map { it.trim().toLong() }) {
+            de.bornim.game.ui.IntroLook.fromMs = maxOf(0L, ms - 1600L)
+            shot("tempel_${ms}_de", Lang.DE) { vm -> vm.newGame("Thora", Race.HUMAN, CharClass.FIGHTER); vm.watchTemple() }
+        }
+        System.exit(0)
+    }
     System.getenv("INTROBILD")?.let { list ->
         for (ms in list.split(",").map { it.trim().toLong() }) for (lang in listOf(Lang.DE, Lang.EN)) {
             if (lang == Lang.EN && System.getenv("INTROEN") == null) continue
@@ -623,6 +631,8 @@ fun main() {
     if (System.getenv("BRUECKE69E") != null) { renderBridgeProbe(); System.exit(0) }
     // INTRO69=1 (or 3, 4; anything else: all): the other intro pictures in the style of the model picture (69, draft)
     if (System.getenv("INTRO69") != null) { renderIntroProbe(); System.exit(0) }
+    // TEMPEL68=1..5 (anything else: all): the temple scene at the end of chapter 1 in the style of the intro (68, draft)
+    if (System.getenv("TEMPEL68") != null) { renderTempleProbe(); System.exit(0) }
     if (System.getenv("BACKVIEW") != null) { renderBackViews(); System.exit(0) }
     if (System.getenv("ATTACKVIEW") != null) { renderAttackViews(); System.exit(0) }
     if (System.getenv("RANGED") != null) { renderRangedViews(); System.exit(0) }
@@ -649,12 +659,15 @@ fun main() {
             }
             vm.refresh()
         }
-        for (draft in listOf(false, true)) {
+        if (System.getenv("TEXTKASTEN") != "96") for (draft in listOf(false, true)) {
             de.bornim.game.ui.DialogLook.draft = draft
             val tag = if (draft) "neu" else "alt"
             shot("42_gespraech_$tag", settle = 150) { vm -> opened(vm, spoken = true) }
             shot("42_erzaehlt_$tag", settle = 150) { vm -> opened(vm, spoken = false) }
         }
+        // 96 (TEXTKASTEN=96: only this): Garrick's long warning, the box grows, nothing is cut
+        de.bornim.game.ui.DialogLook.draft = true
+        shot("96_lang", settle = 300) { vm -> opened(vm, spoken = true); de.bornim.core.Game::class.java.getDeclaredField("mode").apply { isAccessible = true }.set(vm.game!!, Mode.Dialog("Jäger Garrick", "Und ehrlich, Mira: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald, dann reden wir weiter.")); vm.refresh() }
         System.exit(0)
     }
     // SCHRIFT=1: 60b/60.4: the free serifs on trial in the text box, the shop and the title (SCHRIFT=titel: only the title faces)
@@ -792,6 +805,21 @@ fun main() {
         shot("41_brett_menue", taps = listOf(Offset(950f, 95f))) { vm -> jobs(vm); vm.menuOpen = true; vm.refresh() }
         System.exit(0)
     }
+    // RAST=1: 86.9/86.10 the "Rasten?" window by a campfire, Rowena's counter, the room, and after a rest
+    if (System.getenv("RAST") != null) {
+        fun at(vm: GameViewModel, place: Place, minutes: Int) {
+            vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
+            g.state.gold = 37; g.state.minutes = minutes; g.state.place = place; g.interact()
+            // the map is the one already shown: no black screen of arrival over the world
+            de.bornim.game.ui.VeilMemory.game = g; de.bornim.game.ui.VeilMemory.map = place.map
+            g.mapChanged = true; vm.refresh()
+        }
+        shot("50_rast_feuer", lastFrames = 150) { vm -> at(vm, Place("forest", 10, 9, Facing.RIGHT), 20 * 60) }
+        shot("51_rast_feuer_lang_heute", lastFrames = 150) { vm -> at(vm, Place("forest", 10, 9, Facing.RIGHT), 20 * 60); vm.game!!.state.longRestDay = vm.game!!.state.day; vm.refresh() }
+        shot("52_rast_schaenke", lastFrames = 150) { vm -> at(vm, Place("inn", 1, 3, Facing.UP), 20 * 60); val g = vm.game!!; while (g.mode is Mode.Dialog) g.advance(); vm.refresh() }
+        shot("53_rast_nachher", lastFrames = 150) { vm -> at(vm, Place("forest", 10, 9, Facing.RIGHT), 20 * 60); val g = vm.game!!; g.hero.hp = 2; g.rest(de.bornim.core.Resting.Kind.SHORT, de.bornim.core.Resting.Spot.FIRE); vm.refresh() }
+        System.exit(0)
+    }
     if (System.getenv("GEARSHOTS") != null) {
         // drawn ahead, so the shots show the built pictures rather than the stand-ins
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
@@ -890,7 +918,7 @@ fun main() {
     // Chapter 1 maps in their new light
     for ((n, spec) in listOf(
         "forest_day" to Triple("forest", 15 to 26, 12 * 60), "forest_dusk" to Triple("forest", 4 to 19, 19 * 60 + 30), "forest_night" to Triple("forest", 11 to 9, 23 * 60),
-        "deep_day" to Triple("deep_forest", 8 to 15, 12 * 60), "deep_night" to Triple("deep_forest", 22 to 21, 23 * 60),
+        "deep_day" to Triple("deep_forest", 8 to 15, 12 * 60), "deep_night" to Triple("deep_forest", 23 to 31, 23 * 60),
         "village_day" to Triple("village", 17 to 12, 12 * 60), "village_dusk" to Triple("village", 17 to 12, 19 * 60 + 30), "village_night" to Triple("village", 17 to 12, 23 * 60),
         "inn_day" to Triple("inn", 5 to 5, 12 * 60), "temple_night" to Triple("temple", 5 to 5, 23 * 60),
     )) {
@@ -1136,7 +1164,7 @@ fun main() {
         g.skipDialogs()
         g.state.gold = 80
         for ((id, n) in listOf("herbs" to 5, "raw_meat" to 2, "roast_meat" to 1, "wolf_pelt" to 2, "boar_tusk" to 1, "spider_gland" to 1, "bat_wing" to 1)) g.state.add(id, n)
-        g.state.place = Place("deep_forest", 23, 21, Facing.RIGHT)
+        g.state.place = Place("deep_forest", 24, 30, Facing.RIGHT)
     }
     shot("52_hedda_brew", taps = listOf(Offset(900f, 250f))) { vm ->
         stocked(vm)

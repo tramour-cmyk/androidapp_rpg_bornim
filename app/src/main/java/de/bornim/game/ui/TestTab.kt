@@ -157,6 +157,14 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.toast = t("Krogg und Grak sind zurück in der Höhle.", "Krogg and Grak are back in the cave.")
         }
 
+        // 100: straight to the end of chapter 1, to test the temple scene without playing it through
+        PixelButton(t("Kapitel 1 bis kurz vor Ende", "Chapter 1 to just before its end"), Modifier.fillMaxWidth(), size = 14.sp) {
+            game.cheatChapterEnd()
+            vm.menuOpen = false
+            vm.refresh()
+            vm.toast = t("Höhle geschafft, Lyra frei, Amulett in der Tasche: sprich mit Aldric.", "Cave cleared, Lyra free, the amulet in your bag: talk to Aldric.")
+        }
+
         Spacer(Modifier.height(4.dp))
         Txt(t("Teleport", "Teleport"), size = 16.sp, bold = true)
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {

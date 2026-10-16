@@ -57,9 +57,11 @@ fun BornimApp(vm: GameViewModel) {
     val fight = (vm.game?.mode as? Mode.Fight)?.takeIf { vm.screen == Screen.PLAYING }
     val musicScene = when {
         vm.screen != Screen.PLAYING || vm.game == null -> MusicScene.TITLE
-        // 69c: no music under the intro's pictures, the title music with the black one
+        // 69f: the title music quietly under the intro's pictures, fuller with the black one
         vm.intro -> if (vm.introPicture >= de.bornim.core.Intro.black) MusicScene.TITLE else MusicScene.INTRO
         vm.game?.mode is Mode.ChapterEnd -> MusicScene.CHAPTER_END
+        // 68: „Ancient Legend“ under the temple scene
+        vm.templeAgain || vm.game?.mode is Mode.TempleScene -> MusicScene.TEMPLE
         fight == null -> MusicLib.sceneOf(vm.game!!.map.kind)
         fight.battle.monster.boss -> MusicScene.BOSS
         else -> MusicScene.BATTLE
@@ -91,7 +93,15 @@ fun BornimApp(vm: GameViewModel) {
                 // 60k (test 0.1.650): the saved games and the about page in the title's look too
                 Screen.ABOUT -> TitleVeil { AboutScreen(vm) }
                 Screen.SLOTS -> TitleVeil { SlotsScreen(vm) }
-                Screen.PLAYING -> if (vm.intro) IntroScreen(vm) else PlayScreen(vm)
+                // 13e.6: the brightness lifts the black of the game's picture, menus included (the test sign is there)
+                Screen.PLAYING -> Box(Modifier.fillMaxSize().liftBlack(de.bornim.core.audio.Mix.lift(vm.brightness))) {
+                    when {
+                        // 69c: the quiet sounds under the pictures go with them
+                        vm.intro -> { IntroScreen(vm); IntroSounds(vm) }
+                        vm.templeAgain || vm.game?.mode == Mode.TempleScene -> TempleSceneScreen(vm)
+                        else -> PlayScreen(vm)
+                    }
+                }
             }
             vm.toast?.let { msg ->
                 LaunchedEffect(msg) {

@@ -14,6 +14,7 @@ import de.bornim.core.Hero
 import de.bornim.core.Lang
 import de.bornim.core.Race
 import de.bornim.core.audio.Sound
+import de.bornim.core.audio.Mix
 import de.bornim.game.audio.MusicPlayer
 import de.bornim.game.audio.SfxPlayer
 import de.bornim.game.ui.MapZoom
@@ -70,6 +71,16 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     fun watchIntro() { introPicture = 0; menuOpen = false; intro = true }
     fun endIntro() { intro = false; introPicture = 0 }
 
+    /** The temple scene (68) watched again from the chronicle; the first time the game's mode shows it. */
+    var templeAgain by mutableStateOf(false)
+        private set
+    fun watchTemple() { menuOpen = false; templeAgain = true }
+    /** The temple scene is over or skipped: back to the chronicle's game, or on with the morning the first time. */
+    fun endTemple() {
+        if (templeAgain) templeAgain = false
+        else game?.let { if (it.mode == de.bornim.core.Mode.TempleScene) { it.advance(); refresh() } }
+    }
+
     var sfxOn by mutableStateOf(prefs.getString(KEY_SFX, "on") != "off")
         private set
 
@@ -93,6 +104,9 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun play(s: Sound, volume: Float = 0.8f) = sfx.play(s, volume)
+
+    /** Plays [s] from [side] (-1 left to 1 right; 84). */
+    fun playFrom(s: Sound, volume: Float, side: Float) = de.bornim.core.audio.WildSound.speakers(volume, side).let { (l, r) -> sfx.play(s, l, r) }
     fun voice(id: String, cue: de.bornim.core.audio.Recorded.Cue, volume: Float = 0.8f) = sfx.voice(id, cue, volume)
 
     /** Touch controls (drag and tap) or the classic D-pad. */
@@ -200,6 +214,51 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         musicOn = !musicOn
         prefs.edit().putString(KEY_MUSIC, if (musicOn) "on" else "off").apply()
         music.setEnabled(musicOn)
+    }
+
+    /** 40a: the three sliders, 0–100 %; the place's sounds go with the effects. The switches above stay as mutes. */
+    var volumeAll by mutableIntStateOf(Mix.clamp(prefs.getInt(KEY_VOL_ALL, Mix.FULL)))
+        private set
+    var volumeMusic by mutableIntStateOf(Mix.clamp(prefs.getInt(KEY_VOL_MUSIC, Mix.FULL)))
+        private set
+    var volumeFx by mutableIntStateOf(Mix.clamp(prefs.getInt(KEY_VOL_FX, Mix.FULL)))
+        private set
+
+    init { applyVolume() }
+
+    private fun applyVolume() {
+        music.gain = Mix.gain(volumeAll, volumeMusic)
+        Mix.gain(volumeAll, volumeFx).let { sfx.gain = it; music.bedGain = it }
+    }
+
+    fun changeVolumeAll(v: Int) {
+        volumeAll = Mix.clamp(v)
+        prefs.edit().putInt(KEY_VOL_ALL, volumeAll).apply()
+        applyVolume()
+    }
+
+    /** Moving the slider of a muted part switches it on: a slider set but silent would only puzzle. */
+    fun changeVolumeMusic(v: Int) {
+        volumeMusic = Mix.clamp(v)
+        prefs.edit().putInt(KEY_VOL_MUSIC, volumeMusic).apply()
+        if (!musicOn && volumeMusic > 0) toggleMusic()
+        applyVolume()
+    }
+
+    fun changeVolumeFx(v: Int) {
+        volumeFx = Mix.clamp(v)
+        prefs.edit().putInt(KEY_VOL_FX, volumeFx).apply()
+        if (!sfxOn && volumeFx > 0) toggleSfx()
+        applyVolume()
+    }
+
+    /** 13e.6: lifts the black for dark screens, 0 % (nothing) to 100 % ([Mix.LIFT_MAX]); for all heroes, not per save. */
+    var brightness by mutableIntStateOf(Mix.clamp(prefs.getInt(KEY_BRIGHT, 0)))
+        private set
+
+    fun changeBrightness(v: Int) {
+        brightness = Mix.clamp(v)
+        prefs.edit().putInt(KEY_BRIGHT, brightness).apply()
     }
 
     override fun onCleared() {
@@ -312,6 +371,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     private fun prepareFigures(g: Game) {
         val map = de.bornim.core.World[g.state.place.map]
         de.bornim.core.art.MapGround.prepare(map, g.state.place.x, g.state.place.y)
+        de.bornim.core.art.MapSun.prepare(map)
         de.bornim.core.art.MapFigure.prepare(g.state.hero, de.bornim.core.art.MapFigure.yawOf(g.state.place.facing))
         bagSeen = null
         de.bornim.core.art.MapFolk.prepareFor(map)
@@ -342,6 +402,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
             g.mapChanged = false
             de.bornim.core.World[g.state.place.map].let { m ->
                 de.bornim.core.art.MapGround.prepare(m, g.state.place.x, g.state.place.y)
+                de.bornim.core.art.MapSun.prepare(m)
                 de.bornim.core.art.MapFolk.prepareFor(m)
             }
             save()
@@ -376,6 +437,10 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_AUTO = "battle_auto"
         private const val KEY_STICK = "stick_feel"
         private const val KEY_MAP_NEAR = "map_near"
+        private const val KEY_VOL_ALL = "volume_all"
+        private const val KEY_VOL_MUSIC = "volume_music"
+        private const val KEY_VOL_FX = "volume_fx"
+        private const val KEY_BRIGHT = "brightness"
     }
 }
 

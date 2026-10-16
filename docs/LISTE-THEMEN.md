@@ -8,7 +8,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 2 | Waffe verstaut (auf der Karte geschultert bzw. am Rücken) | Tom | erledigt v0.1.409 |
 | 3 | Garrick hockt, schürt, döst (3a weich) | Tom | erledigt v0.1.430 |
 | 4 | Glühwürmchen fest, treibende Blätter | Tom | erledigt |
-| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | in Arbeit |
+| 5 | Dorf draußen, Dorfbewohner als Puppen | Tom | erledigt |
 | 6 | Innenräume (Schänke), Zoom (6.15) | Tom | erledigt v0.1.471 |
 | 7 | Stopp-Punkt und Zusammenarbeit der Accounts | Tom | erledigt |
 | 8 | Zusammenarbeit Tom und Jerry, Notizen nur auf `main` | Jerry | erledigt |
@@ -27,7 +27,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 21 | Releaseflut eindämmen | Jerry | erledigt |
 | 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | Tom | erledigt |
 | 23 | Aufgabenteilung und Vorrat für Selbstarbeit | Tom | erledigt |
-| 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Tom (Technik), Jerry (Inhalt) | in Arbeit |
+| 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
 | 25 | Laternen und Fenster nachts als Quelle zu dunkel | Tom | erledigt v0.1.512 |
 | 26 | Kapitel 1 fertig (Zielliste) | Tom und Jerry | in Arbeit |
 | 27 | Wald „Ort fertig“ | Tom | in Arbeit |
@@ -56,7 +56,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 50 | Weitere Klassen, ggf. zum Kauf | Berater mit Nutzer | ruht |
 | 51 | Sterbehaltung des Helden (Magier) sieht komisch aus | Jerry | offen |
 | 52 | Feinarbeit an den Kampfanimationen | Jerry | ruht |
-| 53 | Zustände (Brennend) auf Krogg prüfen | Jerry | ruht |
+| 53 | Zustände (Brennend) auf Krogg prüfen | Jerry | gebaut |
 | 54 | Nicht warten, von selbst weiterarbeiten | Tom und Jerry | erledigt |
 | 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | erledigt |
 | 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | Tom | erledigt |
@@ -93,7 +93,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 92 | Bram blockiert an der Brücke | Tom | zu testen |
 | 93 | Beete bis zum Zaun | Tom | zu testen |
 | 94 | Hühner auf dem Fluss | Tom | zu testen |
-| 95 | Atem hörbar, Balken | Tom, Jerry | offen |
+| 95 | Atem hörbar, Balken | Jerry | offen |
 | 96 | Gesprächstext zu lang | Tom | zu testen |
 | 97 | Vorrang in der Arbeitsliste | Projekt | in 98 |
 | 98 | Firma WireStormTCS | Projekt | umgebaut |
@@ -101,3 +101,9 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 100 | Testschalter Ende Kapitel 1 | Tom | zu testen |
 | 101 | Ford-Titel „Betriebsleiter“ | Projekt | offen |
 | 102 | Dokumente WireStormTCS nachziehen | Projekt | offen |
+| 103 | Kurz antworten (Haltung 5) | Projekt | fertig |
+| 114 | Aufwachen am Bett im Gasthaus | Kreativ | Idee |
+| 115 | Idee heißt prüfen | Projekt | offen |
+| 116 | Zwischenbildschirm umbenennen | Projekt | beschlossen |
+| 117 | Namen in docs und Archiv | Projekt | beschlossen |
+| 118 | Teams ohne Themen | Projekt | offen |

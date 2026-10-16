@@ -20,6 +20,10 @@ class MusicPlayer(private val context: Context) {
     private var scene = MusicScene.TITLE
     private var enabled = true
     private var paused = false
+    /** The sliders' factor for the music (40). */
+    var gain = 1f
+    /** For the cave's sound bed: a place's sound, so under the effects (40a). */
+    var bedGain = 1f
     private var ticking = false
     private var finished: String? = null
     private var music: Voice? = null
@@ -29,7 +33,7 @@ class MusicPlayer(private val context: Context) {
     /** Players stopped by [pause], started again by [resume]. */
     private val held = ArrayList<MediaPlayer>()
 
-    private inner class Voice(val name: String, looped: Boolean, var level: Float) {
+    private inner class Voice(val name: String, looped: Boolean, var level: Float, val isBed: Boolean = false) {
         val mp: MediaPlayer? = runCatching {
             context.assets.openFd("music/$name.ogg").use { fd ->
                 MediaPlayer().apply {
@@ -47,16 +51,21 @@ class MusicPlayer(private val context: Context) {
         }.getOrNull()
         var vol = 0f
         var step = 1f
+        private var aim = Float.NaN
 
+        /** Towards [target] in about [ms], whatever the distance (asked again every tick: only a new target sets the pace). */
         fun fadeTo(target: Float, ms: Int) {
+            if (target == aim) return
+            aim = target
             level = target
-            step = if (ms <= 0) 1f else TICK_MS.toFloat() / ms
+            step = if (ms <= 0) 1f else maxOf(kotlin.math.abs(target - vol), 0.01f) * TICK_MS / ms
         }
 
         /** One fade step; true once it has gone silent. */
         fun tick(): Boolean {
             vol = if (vol < level) minOf(level, vol + step) else maxOf(level, vol - step)
-            mp?.runCatching { setVolume(vol, vol) }
+            val g = vol * (if (isBed) bedGain else gain)
+            mp?.runCatching { setVolume(g, g) }
             return vol <= 0f && level <= 0f
         }
 
@@ -74,14 +83,14 @@ class MusicPlayer(private val context: Context) {
     }
 
     private fun apply(w: MusicWant) {
-        val musicLevel = if (scene == MusicScene.CAVE) CAVE_MUSIC_LEVEL else MUSIC_LEVEL
+        val musicLevel = (if (scene == MusicScene.CAVE) CAVE_MUSIC_LEVEL else MUSIC_LEVEL) * w.level
         if (w.music?.name != music?.name) {
             music?.let { it.fadeTo(0f, w.fadeMs); leaving += it }
             music = w.music?.let { t -> Voice(t.name, t.loop, musicLevel).also { it.fadeTo(musicLevel, w.fadeMs) } }
         } else music?.fadeTo(musicLevel, w.fadeMs)
         if (w.bed != bed?.name) {
             bed?.let { it.fadeTo(0f, w.fadeMs); leaving += it }
-            bed = w.bed?.let { n -> Voice(n, true, BED_LEVEL).also { it.fadeTo(BED_LEVEL, maxOf(w.fadeMs, MusicDirector.PLACE_FADE_MS)) } }
+            bed = w.bed?.let { n -> Voice(n, true, BED_LEVEL, isBed = true).also { it.fadeTo(BED_LEVEL, maxOf(w.fadeMs, MusicDirector.PLACE_FADE_MS)) } }
         }
     }
 

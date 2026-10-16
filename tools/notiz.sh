@@ -42,6 +42,9 @@ alt_dateien=$(git ls-tree --name-only origin/main docs/ 2>/dev/null | grep -E "^
 [ -n "$alt_dateien" ] && echo "FEHLER (77): alte Notizdatei wieder da: $(echo $alt_dateien). Inhalt in die neue Datei übernehmen, alte löschen, Nutzer melden."
 alt_verweise=$(git grep -l -P "(?<![\w-])($altnamen)\.md" origin/main -- CLAUDE.md docs tools ':!docs/ARBEIT-ARCHIV.md' ':!tools/notiz.sh' 2>/dev/null | sed 's/^origin\/main://')
 [ -n "$alt_verweise" ] && echo "Warnung (77): alte Dateinamen erwähnt in: $(echo $alt_verweise). Neue Namen: Vorsilben ROLLE-/DESIGN-/STORY-/LISTE-/ARBEIT- (CLAUDE.md, erster Absatz)."
+# Wächter Bilder Dein Zug (108, D15.4): höchstens 60 KB je Datei, höchstens 3 Bilder je Punkt; Größeres über Telegram.
+gross=$(git ls-tree -r -l origin/main docs/zug/ 2>/dev/null | awk '$4>61440 && $5 !~ /\.md$/ {print $5}')
+[ -n "$gross" ] && echo "Warnung (108): Datei über 60 KB in docs/zug/: $(echo $gross). Verkleinern (800 px, JPG/WebP) oder über Telegram (--datei), Verlauf bleibt."
 # Wächter Umbau 98 (15.10.): die alten Vorrats- und Rollennamen dürfen nicht zurückkommen.
 altvoll='ARBEIT-OFFEN|ARBEIT-SELBST|ARBEIT-FORD|ROLLE-BERATER|ROLLE-FORD|ROLLE-ENTWICKLER|ROLLE-TESTER'
 alt98=$(git ls-tree --name-only origin/main docs/ 2>/dev/null | grep -E "^docs/($altvoll)\.md$")

@@ -1,0 +1,52 @@
+# Jerry · Testreihe 16.10.: vier Sammelbuilds
+
+Jerry · 16.10., 14:3x · ersetzt die 14 Einzel-Builds (108a: Chef „sinnvolles Bündeln, damit ich nicht alles extra installieren muss“). Vorher-/Nachher-Bilder und Hörproben kamen per Telegram.
+
+Kurz: 4 Sammelbuilds statt 14 Einzel-APKs, je Build eine Prüfliste; Reihenfolge 1 → 4
+
+**Zu tun:** Build 1 installieren, seine Punkte prüfen, Ergebnis je Punkt („1.2 passt“, „1.3 nicht, weil …“) schreiben; dann Build 2, 3, 4. Jeder Build enthält `main` (auch Toms #71) und lässt sich über 0.1.757 und 0.1.773 installieren; die Nummern steigen von 1 nach 4 (0.1.777–0.1.780).
+
+APK: im PR unten unter „Checks“ → „build“ → „Artifacts“. Testmenü: Reiter „Test“ (Uhrzeit +3 h, Teleport, „Held trifft immer kritisch“, „Bosse zurücksetzen“, „Alle Vorräte auf mindestens 10“).
+
+Build 1 und 2 passen, auf `main` (PR #88, #89). Build 3, 4, 5 passen (Chef 16.10., 15:2x–15:4x), werden zusammengeführt.
+
+## Build 3 · 0.1.779 · Kampf · [PR #90](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/90)
+
+| # | Nr. | Wo und wie | Richtig | Falsch |
+|---|---|---|---|---|
+| 3.1 | 38, D4.1 | Höhle, Rauchbündel in der Tasche (beim Händler oder „Vorräte auffüllen“), Kampf gegen Krogg beginnen; danach verlieren | Held wirft das Bündel zu Kampfbeginn selbst, Kroggs erster Hieb geht ins Leere; nach Niederlage liegt das Bündel wieder in der Tasche | Bündel bleibt ungenutzt oder ist nach der Niederlage weg |
+| 3.2 | 51 | einen Kampf verlieren (Magier und eine zweite Klasse), dreimal | Held liegt am Boden, kein Arm in der Luft, fällt nicht aus dem Bild | Arm steht nach oben; Held verschwindet links |
+| 3.3 | 36.6 | Test: „Held trifft immer kritisch“ an, „Bosse zurücksetzen“, Krogg töten (Schwert und Speer) | Stücke beim Zerteilen und Durchbohren so fein wie Krogg selbst | grobe Pixel an den Stücken (Oberkörper teils hinter dem Rand: bekannt) |
+| 3.4 | 53 | Krogg mit Feuer treffen (Feuerzauber oder Alchemistenfeuer) | Flammen sitzen auf Kroggs Umriss | Flammen links neben ihm |
+
+## Build 4 · 0.1.780 · Schänke und Raumklang · [PR #91](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/91)
+
+| # | Nr. | Wo und wie | Richtig | Falsch |
+|---|---|---|---|---|
+| 4.1 | 86.9 | in der Schänke Met trinken bis „betrunken“, dann draußen kämpfen und einmal fliehen | Held trifft seltener, Flucht misslingt öfter (im Kampf keine Anzeige, das ist so gewollt) | kein Unterschied zu nüchtern; Absturz beim Kampf nach dem Met |
+| 4.2 | 119 | in der Höhle kämpfen und eine Truhe öffnen; in der Schänke Becher und Stühle hören; im Tempel und im Laden eine Tür; draußen kämpfen | Höhle hallt (Hiebe, Stimmen, Tür), Tempel weit, Schänke und Laden nah und gedämpft, draußen trocken wie bisher; Systemklänge überall gleich | Hall draußen; Treffer in der Höhle verschwimmen; Systemklang hallt |
+
+## Build 5 · 0.1.782 · Gegnerstimmen · [PR #85](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/85)
+
+| # | Nr. | Wo und wie | Richtig | Falsch |
+|---|---|---|---|---|
+| 5.1 | 18.11 | Höhle und Wald: gegen Keiler, Kobold, Riesenratte, Riesenspinne, Fledermaus kämpfen, dann Krogg (Test: „Bosse zurücksetzen“) | jeder Gegner ruft beim Angriff, bei Treffer und im Tod mit eigener Stimme, wie die Hörproben; Krogg tief und schwer | Gegner stumm; Stimme zu laut gegen die Hiebe; falsche Stimme |
+
+Fällt ein Punkt durch, nehme ich ihn per `git revert` aus dem Build, der Rest geht auf `main` (78a).
+
+## Build 6 · Musik in Schichten · [PR #87](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/87)
+
+Nummer folgt mit dem Build (höher als Build 5). Stil-Abgleich: Musik orchestral und düster (Spur aus Celli und tiefen Streichern, CC0); Übergänge Ruhe ↔ Jäger nah (2 s weich) ↔ bemerkt (0,4 s in die Stille) ↔ Kampf (hart wie bisher), Jäger dreht ab (2 s zurück); geprüft mit Kerntest `MusicLayersTest`, das Gefühl nur am Gerät.
+
+| # | Nr. | Wo und wie | Richtig | Falsch |
+|---|---|---|---|---|
+| 6.1 | 120 | Wald, Musik an; langsam auf einen Wolf oder Goblin zugehen (ab etwa 10 Feldern), vor der Bemerkgrenze (4 Felder) umdrehen und weggehen; dann noch einmal hin, bis er „!“ zeigt | beim Näherkommen wird die Musik leiser und dumpfer, eine dunkle Streicherspur wächst; beim Weggehen kommt alles weich zurück; beim „!“ Stille, dann setzt die Kampfmusik ein; beim nächsten Jäger eine andere Spur | nichts ändert sich; Sprünge in der Lautstärke; die Spur läuft im Kampf weiter |
+| 6.2 | 120 | Höhle: wie 6.1 an einem Goblin oder Skelett | über dem Klangbett dieselbe Spur, leiser als draußen; Klangbett bleibt | Spur lauter als die Höhlenmusik |
+
+
+## Build 7 · D1.14 und Testknopf · [PR #93](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/93)
+
+| # | Nr. | Wo und wie | Richtig | Falsch |
+|---|---|---|---|---|
+| 7.1 | D1.14 | Höhle mehrmals betreten (Klangbett wechselt) | Tropfen, Wind, fernes Grollen; keine Hörner, keine Kreaturenrufe | Hörner zu hören |
+| 7.2 | D4.1 | Test: „Alle Vorräte auf mindestens 10“ | ein Rauchbündel in der Tasche | kein Rauchbündel |

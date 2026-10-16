@@ -105,7 +105,7 @@ class Bot(val game: Game) {
         while (game.mode != Mode.Explore) {
             if (++guard > 10_000) fail("stuck in ${game.mode}")
             when (val m = game.mode) {
-                is Mode.Dialog, is Mode.Shop, Mode.ChapterEnd, Mode.Board -> game.advance()
+                is Mode.Dialog, is Mode.Shop, Mode.ChapterEnd, Mode.Board, Mode.TempleScene, is Mode.Rest -> game.advance()
                 is Mode.Fight -> {
                     battles++
                     val b = m.battle
@@ -216,7 +216,7 @@ class Bot(val game: Game) {
         settle()
     }
 
-    private fun enterMap(mapId: String) {
+    fun enterMap(mapId: String) {
         var hops = 0
         while (state.place.map != mapId) {
             if (++hops > 10) fail("cannot reach map $mapId")
@@ -227,7 +227,7 @@ class Bot(val game: Game) {
     }
 
     /** Walk next to (x,y) — or across a counter from it — and face it. */
-    private fun approach(x: Int, y: Int) {
+    fun approach(x: Int, y: Int) {
         val map = game.map
         val spots = Facing.entries.flatMap { f ->
             listOf(1, 2).map { d -> Triple(x - f.dx * d, y - f.dy * d, f) to d }

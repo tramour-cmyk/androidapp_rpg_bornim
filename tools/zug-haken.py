@@ -3,7 +3,7 @@
 nachzukontrollieren“). Läuft als Stop-Haken für alle Rollen und tut bei jedem Fehler still nichts.
 
 Enthält die letzte Antwort eine Frage oder Empfehlung an den Nutzer, hält der Haken den Zug einmal an und nennt die
-Nummern: Jede muss auf „Dein Zug“ stehen (Datei e/<nr>.html plus Zeile in der Liste), bevor der Zug endet. Beim
+Nummern: Jede muss auf „Dein Zug“ stehen (Datei docs/zug/<ordner>/<nr>-….md), bevor der Zug endet. Beim
 zweiten Beenden lässt er durch (stop_hook_active), es gibt also nie eine Schleife.
 """
 import json
@@ -60,7 +60,7 @@ def main():
         print(json.dumps({
             "decision": "block",
             "reason": "Dein-Zug-Haken (63): Deine Antwort enthält eine Frage oder Empfehlung an den Nutzer (Nummern: "
-                      + liste + "). Steht jede davon auf „Dein Zug“ (e/<nr>.html und Zeile in der Liste) und hat eine "
+                      + liste + "). Steht jede davon auf „Dein Zug“ (Datei docs/zug/entscheiden/ oder ansehen/<nr>-….md) und hat eine "
                       "Zeile mit Nummer im Vorrat (ARBEIT-…)? Gilt auch für Testbitten („Anzusehen“). Fehlt etwas: jetzt eintragen, ohne es im Chat zu erwähnen. Ohne "
                       "Nummer: erst Nummer vergeben. Steht schon alles dort oder ist es keine Frage an den Nutzer: "
                       "einfach erneut beenden.",
