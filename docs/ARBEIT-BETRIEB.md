@@ -71,6 +71,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 22:04 16.10.: Lauf: Tom (#97 auf main, #68 neu 0.1.812, #98 Build 11) fertig, archiviert (3,89 $); Kreativ D21 fertig, archiviert (2,05 $); Sokrates Projekt 106.1 wartet auf Chef („Paket ja“); Ford 1,96 $, 145 Tsd. Token
 - 21:5x 16.10.: Start Sokrates Kreativ (D21: 39.1, 72u), Zuruf Chef: „Wort. Starte bitte Sokrates kreativ.“
 - 21:48 16.10.: Start Sokrates Projekt (Neustart e6777f7a, 106.1 Entwürfe, Zuruf Chef 21:5x)
 - 21:46 16.10.: Diogenes (125, D21) archiviert; Starts Kreativ, Projekt, Tom für D21 in den Eingang (Startsperre bis Max-Wechsel)
