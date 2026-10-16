@@ -106,3 +106,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 115 | Idee heißt prüfen | Projekt | offen |
 | 116 | Zwischenbildschirm umbenennen | Projekt | beschlossen |
 | 117 | Namen in docs und Archiv | Projekt | beschlossen |
+| 118 | Teams ohne Themen | Projekt | offen |
