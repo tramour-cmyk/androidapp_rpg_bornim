@@ -1,24 +1,21 @@
 # 117 · Namen in docs/ und Archiv
 
-Sokrates Projekt · 16.10., 13:10 · Anlass Chef 13:0x: „wofür brauchen wir das Arbeitarchiv? … Können wir da nicht was einsparen?“
+Sokrates Projekt · 16.10., 13:10 · fortgeschrieben 13:1x
 
-Kurz: `ARBEIT-ARCHIV.md` einfrieren (Verlauf steht in Git), drei Nachschlage-Dateien von ARBEIT- nach LISTE-, STORY-K1-W → STORY-K1-WELT (Empfehlung)
+Kurz: 117.1 `LISTE-RELEASE-NEUSTART` und `LISTE-BAUEN-TESTEN`; 117.2 „Dein Zug“ heißt künftig „Chefsache“ (Empfehlung)
 
-**Frage:** (1) `ARBEIT-ARCHIV.md` einfrieren: nichts mehr eintragen, alte Übergaben einfach überschreiben? (2) Die Umbenennungen unten?
+**Entschieden** (Chef 13:1x: „da gehe ich mal voll mit, außer bei Arbeitabläufe und Arbeitumgebung …“): `ARBEIT-ARCHIV.md` einfrieren (Verlauf = Git), `STORY-K1-WELT`, `LISTE-VORGAENGE`, `DESIGN-BLENDE`. Umsetzung nach Sa 21:00 mit 99g-Rest und 102.
 
-**Empfehlung:** Ja zu beiden, umgesetzt mit dem Rest von 99g und 102 nach Sa 21:00.
+**117.1 Frage:** Wie heißen die beiden Nachschlage-Dateien? (Chef: „Abläufe, welche Abläufe? … Und Umgebung? Ja, wie Umgebung? Was denn?“)
 
-**Abgrenzung**
-| Datei | Inhalt | Wer schaut nach |
-|---|---|---|
-| Vorgangsarchiv (99g.1) | was entschieden ist und gilt | alle vor Bau oder Empfehlung, Chef |
-| Vorrat `ARBEIT-<Rolle>.md` | was offen ist | die Rolle beim Start, Ford die Kopfzeilen |
-| Dein Zug | was der Chef entscheidet oder ansieht | Chef |
-| `CHANGELOG.md` | was gebaut ist | Chef, Tester |
-| `ARBEIT-ARCHIV.md` | alte Übergaben, alte Protokollzeilen, Volltext alter Dateien (477 KB) | fast niemand, „nur gezielt durchsuchen“ |
+**Empfehlung:**
+- `ARBEIT-ABLAEUFE.md` → **`LISTE-RELEASE-NEUSTART.md`**: enthält genau zwei Abläufe, Release und Neustart einer Sitzung.
+- `ARBEIT-UMGEBUNG.md` → **`LISTE-BAUEN-TESTEN.md`**: enthält Schnellprüfung, Tests, SDK, Bauen über GitHub, Werkzeuge und Vorschau-Schalter.
 
-**Warum einsparen geht:** Alles im Archiv steht schon in der Git-Geschichte. Jede Arbeitskopie hat die volle Geschichte (3.080 Commits); `git log -S"<Text>"` findet jede alte Übergabe. Das Archiv kostet dagegen jede Sitzung einen Schreibschritt (89 Commits in zwei Tagen), Zusammenstöße oben in der Datei und eine Regel. Wegfall der Regel zählt für 90a.
+Gegenargument: Kommt ein dritter Ablauf dazu, passt der Name nicht mehr. Dann bekommt er eine eigene Datei, das ist billiger als ein vager Name.
 
-**Umbenennungen** (Vorsilbe sagt den Zweck, `CLAUDE.md`): `ARBEIT-ABLAEUFE` → `LISTE-ABLAEUFE`, `ARBEIT-UMGEBUNG` → `LISTE-UMGEBUNG` (beides Nachschlagen, kein Vorrat); `STORY-K1-W` → `STORY-K1-WELT`; `LISTE-THEMEN` → `LISTE-VORGAENGE` (113); `DESIGN-ZWISCHENBILD` → `DESIGN-BLENDE` (116). Der Rest passt: ROLLE-, ARBEIT- (Vorräte, Besetzung), DESIGN-, STORY-, LISTE- sind zuordenbar.
+**117.2 Frage:** Heißt „Dein Zug“ künftig **Chefsache** (Ordner `docs/chefsache/`, in Meldungen „Chefsache 117“)? (Chef: „Wie wäre es denn … Chefsache nennen oder irgendwas in die Richtung … Dein Zug finde ich echt schwierig“)
 
-**Stärkstes Gegenargument:** In einer Datei sucht man bequemer als in Git, und die Rollendateien verweisen auf ältere Lehren „im Archiv“. Deshalb bleibt die Datei eingefroren stehen statt gelöscht; Neues kommt nur noch in Git.
+**Empfehlung:** Ja. „Chefsache“ sagt genau, was es ist: Sachen, die nur der Chef entscheidet oder ansieht; jeder versteht es ohne Erklärung. Erwogen: „Vorlage“ (passt nur fürs Entscheiden, nicht fürs Ansehen), „Eingang Chef“ (klingt nach Posteingang für alles).
+
+Gegenargument: Umbenennen trifft 24 Dateien und vier Werkzeuge (Haken, Übersicht, `meldung.sh`, Action). Deshalb zusammen mit 117 nach Sa 21:00, nicht einzeln.
