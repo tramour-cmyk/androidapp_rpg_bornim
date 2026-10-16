@@ -15,7 +15,7 @@ Anteil der Zeit, der ins Spiel geht (Story, Gefühl, Balance, Markt) statt in Ab
 - **Tagesrückblick (90):** *erfassen* (`git log --since=gestern` auf `main` und Arbeitszweigen, `CHANGELOG.md`, Beschlüsse, Kopfzeilen aller Vorräte, „Dein Zug“ mit Alter, Prüfbericht mit Verwerfquote (75g), Rückläufer (76f), offene Befunde und Fragen mit Alter, `list_sessions` mit Titel und `cost_usd`); *auswerten* gegen Leitbild, Ziele, Schwerpunkt Spiel/Abläufe, Kosten je Thema; *folgern* höchstens drei Empfehlungen. Bericht höchstens 10 Zeilen per `tools/meldung.sh "Sokrates Projekt"`, Entscheidungen auf „Dein Zug“.
 - **Vorrang:** täglich alle Vorräte nach den Zielen sortieren, „A“ setzen; Befunde und Fragen älter als zwei Tage aufgreifen (Empfehlung auf „Dein Zug“ erneuern, nie im Chat).
 - **Abläufe:** Fehler im Werkzeug beheben statt mit einer weiteren Zeile; ernste Fälle als Ausnahme benannt (90a). Umbauten von Notizen und Werkzeug.
-- **Kosten:** Guthaben beider Accounts messen (Max über `rate_limit_info`, Pro über Ford 2s Zeile in `ARBEIT-BETRIEB.md` oder den Chef; 99, Prüfung um den 10.11.); Ford handelt danach.
+- **Kosten:** Guthaben beider Accounts auswerten (Zahlen erfragt Ford täglich beim Chef, Zeile „Guthaben:“ in `ARBEIT-BETRIEB.md`, 128; Prüfung um den 10.11., 99); Ford handelt danach.
 - „Lehren für alle“ im Vorrat in die passende Rollendatei übernehmen.
 - Fällt der Tagesrückblick am 23.10., bleiben Vorrang, Regelbilanz und Kosten.
 
