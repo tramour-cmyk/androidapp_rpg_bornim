@@ -17,6 +17,7 @@
 
 **Übergabe (16.10., 16:1x, „Sokrates Projekt – Zuruf (16.10., 15:44)“):** auf Zuruf erledigt: 121 beschlossen und umgesetzt (`CLAUDE.md`, Beschlüsse); 120 Build-Fehler und Testergebnis an Jerry, Jerry Pause bis 18:30; t757 in Toms Übergabe berichtigt; t781 neu gebaut als 0.1.791 (Lauf 38913958789, Weckruf entfällt mit Neustart); Frage Ford-2-Wache bei 99; Lehre Versionsreihenfolge bei 102. Nachfolger: auf „99g.1 ja, vorziehen“ „Sokrates Projekt – 99g.1 Vorgangsarchiv“, sonst keiner (Sparmodus).
 
+- Tom **Übergabe (16.10., 20:1x, „Tom – D3 passt, PR #92 zusammenführen“) – Nachfolger: Tom – 92 Bram schubsen:** D3 erledigt: PR #92 auf `main` (5fb73554, Chef „alle positiv“), CHANGELOG, Prüfliste t781 gelöscht. Chef-Wunsch „Testseite mit klarer Nummer“ als 123 an Sokrates Projekt. Nachfolger: 92 (Test 0.1.791 nicht bestanden; Stand in der Zeile).
 ## Aus ARBEIT-BETRIEB.md, Protokoll (16.10.)
 
 - 13:45 16.10.: Start Jerry (Neustart, 3934f9c5, Raumklang Idee 8) (Ford 2)

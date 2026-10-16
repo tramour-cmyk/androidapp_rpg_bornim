@@ -6,7 +6,7 @@ Kurz: Dauerlaufen gegen Dorfleute schiebt sie zur Seite (Test 0.1.791 nicht best
 
 **Zu tun:** installieren, Punkte prüfen, je Punkt „92.1 passt“ oder „92.1 nicht, weil …“ schreiben.
 
-APK: **0.1.806**: [Lauf 806](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38946470050) → „Artifacts“ (fertig etwa 20:30).
+APK: **0.1.806**: [Lauf 806](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38946470050) → „Artifacts“ (grün).
 
 Ursache: Beim freien Laufen zählte das Anlaufen nur gegen Monster, Sperren und Türen, nie gegen Dorfleute.
 
