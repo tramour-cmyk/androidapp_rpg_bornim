@@ -12,7 +12,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 - **Ford lebt in einer Sitzung** „Ford – Teamleiter (16.10., 02:05)“ `session_01KYjYQSUyCT2WSXinMf6rPA` (seit 16.10., 02:04; Vorgänger `session_01QWF3R8AxcZRH4EicjhyjkF` archiviert). Stundenuhr „Ford-Stundenuhr“ `trig_01YZ7SgXEiSXQqrJKMsRmGyj` (:03, seit 02:05).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhr „Ford-Wache 07:08“ `trig_01Phk9eXekP5yY9M6L3bgS1c` (täglich 07:08; 15.10., 22:5x zurückgeholt, D13.2).
-- **Ford 2** (Pro): noch nicht eingerichtet (Chef, Fr. 16.10. nachmittags: Telegram-Schlüssel, Probe `create_session`).
+- **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 Einrichtung“ `session_01R7KS2bJJNiqcTvwgFNSBNS` (seit 16.10., 06:42). Stundenuhr „Ford-2-Stundenuhr“ `trig_019ARG2fvRFhkhk3VNHDr56A` (:33). Telegram auf Pro geht (Probe 06:43).
 
 ## Eingang
 
@@ -30,6 +30,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 06:44 16.10.: Ford 2 eingerichtet (Uhr :33); Start Jerry (Probe `create_session` auf Pro); 6 von 8 alten Weck-Routinen „Jerry Selbstarbeit“ abgeschaltet (12:27, 15:27 vom Freigabe-Filter abgelehnt)
 - 02:06 16.10.: Ford neu (session_01KYjYQS…), Uhr trig_01YZ7SgXEiSXQqrJKMsRmGyj, alte Uhr gelöscht, Vorgänger archiviert
 - 02:04 16.10.: Selbstneustart Ford (≈290 Tsd. Token); Tom wartet mit 38 auf Test #67
 - 01:57 16.10.: Start Tom (Neustart, 4ad6caf8, 38 Rauchbündel Dialoge)
