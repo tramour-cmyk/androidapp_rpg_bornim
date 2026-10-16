@@ -214,6 +214,7 @@ fun renderKillSheet() {
                 val tr = AffineTransform()
                 if (p.topple) tr.rotate(Math.toRadians(pose.angle), p.px, p.py)
                 else { tr.translate(pose.dx, pose.dy); tr.rotate(Math.toRadians(pose.angle), p.cx, p.cy) }
+                tr.scale(1 / p.fine, 1 / p.fine)
                 tr.translate(p.ox.toDouble(), p.oy.toDouble())
                 sub.drawImage(toImage(p.img), tr, null)
             }

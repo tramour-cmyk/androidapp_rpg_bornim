@@ -30,11 +30,13 @@ object KillArt {
     /**
      * One piece of the foe: its picture (the whole frame's size, empty but for the piece), where its middle is, and how
      * it moves: flying off with ([vx], [vy]) px/ms and turning [spin] °/ms until it lies on the ground, or, [topple],
-     * tipping over [toAngle]° about ([px], [py]) where it stands, after [delay] ms.
+     * tipping over [toAngle]° about ([px], [py]) where it stands, after [delay] ms. Its picture may be drawn [fine] times
+     * finer than the art pixels everything else is given in (Krogg, 36.6).
      */
     class Piece(img0: PixelImage, val cx: Double, val cy: Double, val vx: Double, val vy: Double, val spin: Double,
-        val topple: Boolean = false, val px: Double = 0.0, val py: Double = 0.0, val toAngle: Double = 0.0, val delay: Double = 0.0, val rest: Double = 3.0) {
-        /** Only as much of the picture as the piece covers, and where that lies in the foe's frame. */
+        val topple: Boolean = false, val px: Double = 0.0, val py: Double = 0.0, val toAngle: Double = 0.0, val delay: Double = 0.0, val rest: Double = 3.0,
+        val fine: Double = 1.0) {
+        /** Only as much of the picture as the piece covers, and where that lies in the foe's frame (in its own, [fine] pixels). */
         val img: PixelImage
         val ox: Int
         val oy: Int
@@ -99,40 +101,41 @@ object KillArt {
     /**
      * Cut in two along a line through ([cx], [cy]) at [deg]° (0 level, positive turning down to the right): the upper
      * part slides off along the cut away from the hero and falls, the lower part topples over backwards where it stands.
-     * The raw faces of the cut are painted [wound] (dark blood, ichor, ooze).
+     * The raw faces of the cut are painted [wound] (dark blood, ichor, ooze). [img] may be [fine] times finer than the
+     * art pixels the rest is given in.
      */
-    fun split(img: PixelImage, cx: Double, cy: Double, deg: Double, anchorX: Double, ground: Double, wound: Int, fall: Double = 82.0): List<Piece> {
+    fun split(img: PixelImage, cx: Double, cy: Double, deg: Double, anchorX: Double, ground: Double, wound: Int, fall: Double = 82.0, fine: Double = 1.0): List<Piece> {
         val a = Math.toRadians(deg); val nx = -sin(a); val ny = cos(a)
         val up = PixelImage(img.width, img.height); val dn = PixelImage(img.width, img.height)
         var ux = 0.0; var uy = 0.0; var un = 0
         for (y in 0 until img.height) for (x in 0 until img.width) {
             val q = img[x, y]; if ((q ushr 24) < 128) continue
-            val side = (x - cx) * nx + (y - cy) * ny
+            val side = (x / fine - cx) * nx + (y / fine - cy) * ny
             val edge = abs(side) < 2.0
-            if (side < 0) { up.set(x, y, if (edge) wound else q); ux += x; uy += y; un++ } else dn.set(x, y, if (edge) mix(wound, argb(0x000000), 0.25) else q)
+            if (side < 0) { up.set(x, y, if (edge) wound else q); ux += x / fine; uy += y / fine; un++ } else dn.set(x, y, if (edge) mix(wound, argb(0x000000), 0.25) else q)
         }
         val ucx = if (un > 0) ux / un else cx; val ucy = if (un > 0) uy / un else cy
         // along the cut, away from the hero (to the right of the picture)
         val along = if (cos(a) >= 0) 1.0 else -1.0
         return listOf(
-            Piece(dn, cx, cy, 0.0, 0.0, 0.0, topple = true, px = anchorX + 4, py = ground, toAngle = fall, delay = 160.0),
+            Piece(dn, cx, cy, 0.0, 0.0, 0.0, topple = true, px = anchorX + 4, py = ground, toAngle = fall, delay = 160.0, fine = fine),
             // (a beast's back half slides off without turning over)
-            Piece(up, ucx, ucy, along * cos(a) * 0.07 + 0.02, sin(a) * along * 0.07 - 0.07, if (fall > 45) 0.22 else 0.03, rest = 4.0),
+            Piece(up, ucx, ucy, along * cos(a) * 0.07 + 0.02, sin(a) * along * 0.07 - 0.07, if (fall > 45) 0.22 else 0.03, rest = 4.0, fine = fine),
         )
     }
 
     /** Run through: a hole torn through the middle of it, its rim [wound]; then the whole of it topples over backwards. */
-    fun hole(img: PixelImage, cx: Double, cy: Double, anchorX: Double, ground: Double, wound: Int, fall: Double = 84.0): List<Piece> {
+    fun hole(img: PixelImage, cx: Double, cy: Double, anchorX: Double, ground: Double, wound: Int, fall: Double = 84.0, fine: Double = 1.0): List<Piece> {
         val b = bbox(img)
-        val rx = ((b[2] - b[0]) * 0.17).coerceIn(4.0, 14.0); val ry = rx * 1.3
+        val rx = ((b[2] - b[0]) / fine * 0.17).coerceIn(4.0, 14.0); val ry = rx * 1.3
         val out = PixelImage(img.width, img.height)
         for (y in 0 until img.height) for (x in 0 until img.width) {
             val q = img[x, y]; if ((q ushr 24) < 128) continue
-            val d = sqrt(((x - cx) / rx) * ((x - cx) / rx) + ((y - cy) / ry) * ((y - cy) / ry))
+            val d = sqrt(((x / fine - cx) / rx) * ((x / fine - cx) / rx) + ((y / fine - cy) / ry) * ((y / fine - cy) / ry))
             if (d < 1.0) continue
             out.set(x, y, if (d < 1.35) mix(wound, q, ((d - 1.0) / 0.35) * 0.4) else q)
         }
-        return listOf(Piece(out, cx, cy, 0.0, 0.0, 0.0, topple = true, px = anchorX + 4, py = ground, toAngle = fall, delay = 380.0))
+        return listOf(Piece(out, cx, cy, 0.0, 0.0, 0.0, topple = true, px = anchorX + 4, py = ground, toAngle = fall, delay = 380.0, fine = fine))
     }
 
     /**
@@ -241,6 +244,9 @@ class KillPlan(val kind: KillArt.Kind, val pieces: List<KillArt.Piece>, val cx: 
             val dieV = MonsterArt.dieVariant(id, look)
             val img = MonsterArt.battleFrame(id, look, Act.DIE, dieV, 0)
             val (cx, cy) = KillArt.heart(img)
+            // Krogg is drawn finer in battle (36.4): his halves are cut from that finer picture (36.6)
+            val fine = MonsterArt.fine(id)
+            val fineImg = if (fine == 1.0) img else FoeArt.fineFrame(id, look, Act.DIE, dieV, 0)
             val wound = argb(if (id == "zombie" || id == "ghoul") 0x2A2014 else 0x5E0A0E)
             val anchor = MonsterArt.anchorX(id, img.width)
             // one standing upright falls over backwards; a beast low on its legs only sags where it stands
@@ -267,13 +273,13 @@ class KillPlan(val kind: KillArt.Kind, val pieces: List<KillArt.Piece>, val cx: 
                     val bare = FoeArt.unarmedFrame(id, look, Act.DIE, dieV, 0)
                     KillArt.shatter(bare, cx, cy, 28, seed, KillArt.difference(img, bare))
                 } else KillArt.shatter(img, cx, cy, 22, seed, force = 1.25)
-                KillArt.Kind.SPLIT -> KillArt.split(img, cx, cy, cut, anchor, ground, wound, fall)
-                KillArt.Kind.HOLE -> KillArt.hole(img, cx, cy, anchor, ground, wound, fall)
+                KillArt.Kind.SPLIT -> KillArt.split(fineImg, cx, cy, cut, anchor, ground, wound, fall, fine)
+                KillArt.Kind.HOLE -> KillArt.hole(fineImg, cx, cy, anchor, ground, wound, fall, fine)
                 else -> emptyList()
             }
             // a flyer has no ground under it to topple over on: its pieces drop out of the air
             if (pieces.any { it.topple } && bottomOf(img) < ground - 8) pieces = pieces.map {
-                if (it.topple) KillArt.Piece(with(KillArt) { it.full() }, it.cx, it.cy, 0.01, -0.01, 0.25, rest = 3.0) else it
+                if (it.topple) KillArt.Piece(with(KillArt) { it.full() }, it.cx, it.cy, 0.01, -0.01, 0.25, rest = 3.0, fine = it.fine) else it
             }
             return KillPlan(kind, pieces, cx, cy, ground, cut)
         }
