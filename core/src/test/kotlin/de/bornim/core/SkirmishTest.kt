@@ -115,4 +115,65 @@ class SkirmishTest {
         }.average()
         assertTrue(mean(true) < mean(false) - 2)
     }
+
+    @Test
+    fun grakAnnouncesOnlyHisThreeIntents() {
+        val seen = mutableSetOf<String>()
+        for (seed in 0 until 200) {
+            val sk = probe(seed)
+            sk.start { _, _ -> Reaction.GOOD }
+            var guard = 0
+            while (sk.outcome == Outcome.ONGOING && guard++ < 200) {
+                sk.intents["grak"]?.let { seen += it.first.id }
+                val t = sk.targets(sk.current).firstOrNull()
+                sk.act(if (t != null) Order.Attack(t.id) else Order.Wait) { _, _ -> Reaction.GOOD }
+            }
+        }
+        assertEquals(setOf("heavy", "call", "gather"), seen)
+    }
+
+    @Test
+    fun calledGoblinsJoinTheFoesAndTheFightStillEnds() {
+        var joined = false
+        for (seed in 0 until 200) {
+            val sk = probe(seed)
+            val out = play(sk, Reaction.GOOD)
+            assertTrue(out != Outcome.ONGOING, "seed $seed did not end")
+            val gobs = sk.fighters.filter { it.monster?.id == Skirmish.CALLED }
+            assertTrue(gobs.size <= Skirmish.CALL_MAX)
+            assertEquals(sk.fighters.size, sk.fighters.map { it.side to it.place }.toSet().size, "one figure per place")
+            if (gobs.isNotEmpty()) joined = true
+        }
+        assertTrue(joined)
+    }
+
+    @Test
+    fun aHardHitBreaksAnAnnouncedHeavyBlow() {
+        var broke = false
+        for (seed in 0 until 300) {
+            val sk = probe(seed)
+            sk.start()
+            var guard = 0
+            while (sk.outcome == Outcome.ONGOING && guard++ < 200 && !broke) {
+                val before = sk.intents["grak"]?.first
+                val t = sk.targets(sk.current).firstOrNull()
+                val ev = sk.act(if (t != null) Order.Attack(t.id) else Order.Wait)
+                if (before?.breakable == true && ev.any { it.text.contains("vereitelt") }) broke = true
+            }
+        }
+        assertTrue(broke)
+    }
+
+    @Test
+    fun aSoeldnerOnAutoPlaysItselfEvenAgainstABoss() {
+        for (seed in 0 until 50) {
+            val sk = probe(seed)
+            sk.byId("merc").auto = true
+            sk.start()
+            if (sk.outcome != Outcome.ONGOING) continue
+            assertEquals("hero", sk.current.id)
+            sk.act(Order.Wait)
+            if (sk.outcome == Outcome.ONGOING) assertEquals("hero", sk.current.id)
+        }
+    }
 }

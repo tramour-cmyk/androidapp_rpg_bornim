@@ -10,8 +10,10 @@ package de.bornim.core
  * only weapon attacks), a downed Söldner is out, not dead (72.8), knockouts counted per fight (72r), winded
  * means disadvantage on initiative (86.3).
  *
- * Provisional until the combat document is readable here: Grak's three intents ([Intents.grak]) and what
- * a ring grade does to the damage ([Reaction.share]).
+ * Grak's three intents follow the combat document (DESIGN-KAMPF.md, "Magier gegen Grak": heavy blow, call the
+ * pack, gather strength). Provisional numbers for the probe: what a ring grade does to the damage ([Reaction.share]),
+ * how often Grak picks which intent ([Skirmish.pickIntent]), how much a hit must take to break an intent
+ * ([Skirmish.BREAK_SHARE]), how much gathering heals and how many goblins answer the call.
  */
 
 enum class Row { FRONT, BACK }
@@ -28,25 +30,31 @@ enum class Side { PARTY, FOES }
 /** How well the attacked figure met the ring (72.11). The autopilot always gets [GOOD], never [PERFECT] (72m). */
 enum class Reaction(val share: Double) { NONE(1.0), GOOD(0.5), PERFECT(0.0) }
 
-/** What a foe announces for its next turn. [strong] stops the autopilot (72p.1); [ring] lets the target react. */
+enum class IntentKind { STRIKE, CALL, GATHER }
+
+/**
+ * What a foe announces for its next turn. [strong] stops the autopilot (72p.1); [ring] lets the target react;
+ * [breakable]: a hard enough hit before the foe's turn foils it (72.11, interrupting an announced blow).
+ */
 data class Intent(
     val id: String,
     val name: T,
+    val kind: IntentKind = IntentKind.STRIKE,
     /** Damage dice added to the foe's own weapon damage. */
     val extra: DiceExpr? = null,
-    /** Hits every standing figure of the front row instead of one. */
-    val sweep: Boolean = false,
     val strong: Boolean = false,
     val ring: Boolean = true,
+    val breakable: Boolean = false,
 )
 
 object Intents {
-    /** Provisional (see the file head): a blow, a heavy blow, a sweep across the front row. */
-    val grak = listOf(
-        Intent("blow", T("Hieb", "Blow")),
-        Intent("heavy", T("Wuchtschlag", "Heavy blow"), extra = dice(2, 6), strong = true),
-        Intent("sweep", T("Rundumschlag", "Sweep"), sweep = true),
-    )
+    val heavy = Intent("heavy", T("Schwerer Hieb", "Heavy blow"), extra = dice(2, 6), strong = true, breakable = true)
+    val call = Intent("call", T("Rudel rufen", "Call the pack"), IntentKind.CALL, ring = false)
+    val gather = Intent("gather", T("Kraft sammeln", "Gather strength"), IntentKind.GATHER, ring = false, breakable = true)
+    /** Grak's three intents (combat document). */
+    val grak = listOf(heavy, call, gather)
+    /** A plain stab, as a pack's small hits: no ring (72.11). */
+    val stab = Intent("stab", T("Stich", "Stab"), ring = false)
 }
 
 /** One figure in the fight: the hero, a Söldner (a [Hero] that does not level up, 72t) or a foe. */
@@ -67,6 +75,10 @@ class Fighter(
     val ac: Int get() = hero?.armorClass ?: monster!!.ac
     val ranged: Boolean get() = hero?.weapon?.def?.ranged == true
     val boss: Boolean get() = monster?.boss == true
+    /** A Söldner the game plays for the player (72.7); it meets the ring with "gut" (72.11). */
+    var auto = false
+    /** Damage taken since this foe announced its intent, to tell whether the intent breaks. */
+    internal var takenSinceAnnounce = 0
 
     fun name(lang: Lang): String = hero?.name ?: monster!!.name(lang)
 }
@@ -89,7 +101,8 @@ class Skirmish(
     /** The hero is out of breath: disadvantage on initiative (86.3). */
     winded: Boolean = false,
 ) {
-    val fighters: List<Fighter> = party + foes
+    private val all = (party + foes).toMutableList()
+    val fighters: List<Fighter> get() = all
     /** Knocked-out Söldner in this fight (72r). */
     var knockouts = 0
         private set
@@ -99,8 +112,10 @@ class Skirmish(
     val intents = LinkedHashMap<String, Pair<Intent, List<String>>>()
     var autopilot = false
         private set
-    private val order: List<Fighter>
+    private val order = mutableListOf<Fighter>()
+    /** Index into [order] of the figure whose turn it is. */
     private var turn = 0
+    private fun nextTurn() { turn = (turn + 1) % order.size }
     private val log = mutableListOf<SkirmishEvent>()
 
     init {
@@ -110,12 +125,12 @@ class Skirmish(
             val dex = f.hero?.mod(Ability.DEX) ?: f.monster!!.dexSave
             f.initiative = dice.d20(if (winded && f === party.first()) -1 else 0) + dex
         }
-        order = fighters.sortedWith(compareByDescending<Fighter> { it.initiative }.thenBy { it.side })
+        order += fighters.sortedWith(compareByDescending<Fighter> { it.initiative }.thenBy { it.side })
         foes.forEach { announce(it) }
     }
 
     /** Whose turn it is; a party figure waits for an [Order] (or the autopilot). */
-    val current: Fighter get() = order[turn % order.size]
+    val current: Fighter get() = order[turn]
 
     fun byId(id: String): Fighter = fighters.first { it.id == id }
 
@@ -165,7 +180,7 @@ class Skirmish(
     }
 
     private fun advance(react: (Fighter, Intent) -> Reaction) {
-        turn++
+        nextTurn()
         skipToChoice(react)
     }
 
@@ -173,17 +188,17 @@ class Skirmish(
         while (outcome == Outcome.ONGOING) {
             val f = current
             when {
-                !f.standing -> turn++
-                f.side == Side.FOES -> { foeTurn(f, react); turn++ }
+                !f.standing -> nextTurn()
+                f.side == Side.FOES -> { foeTurn(f, react); nextTurn() }
                 autopilot && autopilotBlocked() != null -> {
                     autopilot = false
                     say(Msg72.autopilotStops(lang))
                     return
                 }
-                autopilot -> {
+                autopilot || f.auto -> {
                     val t = targets(f).minByOrNull { it.hp }
                     perform(f, if (t != null) Order.Attack(t.id) else Order.Wait)
-                    turn++
+                    nextTurn()
                 }
                 else -> return
             }
@@ -221,13 +236,28 @@ class Skirmish(
     }
 
     private fun foeTurn(foe: Fighter, react: (Fighter, Intent) -> Reaction) {
-        val (intent, aimed) = intents.remove(foe.id) ?: return
+        val plan = intents.remove(foe.id)
+        if (plan == null) {
+            // its intent was broken: it gathers itself and announces anew
+            announce(foe)
+            intents[foe.id]?.let { say(Msg72.announces.f(lang, foe.name(lang), it.first.name(lang)), foe.id) }
+            return
+        }
+        val (intent, aimed) = plan
         val m = foe.monster!!
+        say(Msg72.foeUses.f(lang, foe.name(lang), intent.name(lang)), foe.id)
+        when (intent.kind) {
+            IntentKind.CALL -> summon(foe)
+            IntentKind.GATHER -> {
+                val heal = minOf(foe.maxHp - foe.hp, dice.roll(GATHER_HEAL))
+                foe.hp += heal
+                say(Msg72.gathers.f(lang, foe.name(lang), heal), foe.id, foe.id)
+            }
+            IntentKind.STRIKE -> {}
+        }
         // the target may have moved or fallen since the announcement: then the nearest one takes it
         val reach = targets(foe)
-        val hit = if (intent.sweep) reach.filter { it.place.row == Row.FRONT }.ifEmpty { reach.take(1) }
-        else listOfNotNull(reach.firstOrNull { it.id in aimed } ?: reach.firstOrNull())
-        say(Msg72.foeUses.f(lang, foe.name(lang), intent.name(lang)), foe.id)
+        val hit = if (intent.kind != IntentKind.STRIKE) emptyList() else listOfNotNull(reach.firstOrNull { it.id in aimed } ?: reach.firstOrNull())
         for (t in hit) {
             val roll = dice.d20()
             if (roll == 1 || (roll != 20 && roll + m.attackBonus < t.ac)) {
@@ -236,7 +266,7 @@ class Skirmish(
             }
             var dmg = dice.roll(if (roll == 20) m.damage.copy(count = m.damage.count * 2) else m.damage)
             intent.extra?.let { dmg += dice.roll(it) }
-            val r = if (!intent.ring) Reaction.NONE else if (autopilot) Reaction.GOOD else react(t, intent)
+            val r = if (!intent.ring) Reaction.NONE else if (autopilot || t.auto) Reaction.GOOD else react(t, intent)
             if (r != Reaction.NONE) say(Msg72.reacts(r).f(lang, t.name(lang)), t.id)
             dmg = (dmg * r.share).toInt()
             if (dmg > 0) hurt(t, dmg, foe.id, Msg72.hits.f(lang, foe.name(lang), t.name(lang), dmg))
@@ -249,16 +279,57 @@ class Skirmish(
     /** The foe picks its next move and its target, and says it (72.11: the ring follows only on these). */
     private fun announce(foe: Fighter) {
         if (!foe.standing || outcome != Outcome.ONGOING) return
-        val intent = dice.pick(Intents.grak)
+        val intent = pickIntent(foe)
         val reach = targets(foe)
-        val aimed = if (intent.sweep) reach.filter { it.place.row == Row.FRONT }.map { it.id } else listOfNotNull(dice.pick(reach).id)
+        val aimed = if (intent.kind != IntentKind.STRIKE || reach.isEmpty()) emptyList() else listOf(dice.pick(reach).id)
+        foe.takenSinceAnnounce = 0
         intents[foe.id] = intent to aimed
+    }
+
+    private fun freeFoeSpot(): Spot? = Spot.ALL.firstOrNull { s -> fighters.none { it.side == Side.FOES && it.place == s && it.standing } }
+
+    /** Provisional: Grak strikes half the time or more, calls while goblins may still come, gathers below half his life. */
+    private fun pickIntent(foe: Fighter): Intent {
+        if (foe.monster?.id != GRAK) return Intents.stab
+        val can = buildList {
+            add(Intents.heavy); add(Intents.heavy)
+            if (called < CALL_MAX && freeFoeSpot() != null) add(Intents.call)
+            if (foe.hp * 2 < foe.maxHp) add(Intents.gather)
+        }
+        return dice.pick(can)
+    }
+
+    private var called = 0
+
+    /** A goblin answers the call: to the first free place, front first; it acts right after its caller. */
+    private fun summon(by: Fighter) {
+        val spot = freeFoeSpot() ?: return
+        fighters.firstOrNull { it.side == Side.FOES && it.place == spot }?.let { gone ->
+            if (order.indexOf(gone) < turn) turn--
+            all.remove(gone); order.remove(gone)
+        }
+        val m = Monsters[CALLED]
+        called++
+        val g = Fighter("gob$called", Side.FOES, spot, monster = m, hp = dice.roll(m.hp))
+        g.initiative = dice.d20() + m.dexSave
+        all += g
+        order.add(order.indexOf(by) + 1, g)
+        say(Msg72.answers.f(lang, m.name(lang)), g.id)
+        announce(g)
     }
 
     private fun hurt(t: Fighter, dmg: Int, by: String, text: String) {
         t.hp = (t.hp - dmg).coerceAtLeast(0)
         say(text, by, t.id, dmg)
-        if (t.standing) return
+        if (t.standing) {
+            val plan = intents[t.id] ?: return
+            t.takenSinceAnnounce += dmg
+            if (plan.first.breakable && t.takenSinceAnnounce * BREAK_SHARE >= t.maxHp) {
+                intents.remove(t.id)
+                say(Msg72.broken.f(lang, t.name(lang), plan.first.name(lang)), target = t.id)
+            }
+            return
+        }
         if (t.side == Side.FOES) {
             intents.remove(t.id)
             say(Msg72.falls.f(lang, t.name(lang)), target = t.id)
@@ -279,13 +350,22 @@ class Skirmish(
     }
 
     companion object {
+        const val GRAK = "hobgoblin_captain"
+        const val CALLED = "goblin"
+        /** Provisional: a hit taking a fifth of the foe's life points or more breaks a breakable intent. */
+        const val BREAK_SHARE = 5
+        /** Provisional: Grak calls at most two goblins per fight. */
+        const val CALL_MAX = 2
+        /** Provisional: what gathering strength heals. */
+        val GATHER_HEAL = dice(2, 10)
+
         /** The probe's lineup: hero in front, a Söldner of [cls] behind (ranged) or beside (melee), Grak opposite. */
         fun grakProbe(state: GameState, cls: CharClass, lang: Lang, dice: Dice = Dice()): Skirmish {
             val hero = state.hero
             val merc = Hero.create("Söldner", Race.HUMAN, cls)
             if (hero.level > 1) merc.gainXp(Rules.xpForLevel[hero.level] - merc.xp)
             val mercBack = merc.weapon?.def?.ranged == true || cls.caster
-            val grak = Monsters["hobgoblin_captain"]
+            val grak = Monsters[GRAK]
             return Skirmish(
                 listOf(
                     Fighter("hero", Side.PARTY, Spot(Row.FRONT, 0), hero = hero, hp = hero.hp),
@@ -309,6 +389,9 @@ private object Msg72 {
     val falls = T("{0} fällt.", "{0} falls.")
     val heroFalls = T("{0} bricht zusammen.", "{0} collapses.")
     val knockedOut = T("{0} geht zu Boden, bewusstlos.", "{0} goes down, unconscious.")
+    val gathers = T("{0} sammelt Kraft: {1} Lebenspunkte zurück.", "{0} gathers strength: {1} life points back.")
+    val answers = T("Ein {0} eilt herbei.", "A {0} comes running.")
+    val broken = T("{0} taumelt, {1} vereitelt.", "{0} staggers, {1} foiled.")
     val autopilotStops = T("Automatik hält an.", "Autopilot stops.")
     private val good = T("{0} fängt den Schlag halb ab.", "{0} half catches the blow.")
     private val perfect = T("{0} weicht dem Schlag ganz aus.", "{0} evades the blow entirely.")
