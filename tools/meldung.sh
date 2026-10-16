@@ -61,20 +61,8 @@ keys = {}
 for f in glob.glob(os.path.join(os.environ["ZUG"], "*", "*.md")):
     k = os.path.basename(f).split("-")[0].removesuffix(".md").lower()
     if re.search(r"\d", k): keys[k] = gh + "blob/main/docs/zug/" + os.path.basename(os.path.dirname(f)) + "/" + os.path.basename(f)
-# Jede andere Vorgangsnummer (Chef 16.10., 12:0x: „105 … ist NICHT anklickbar!!!“): Link auf ihre Zeile im Vorrat,
-# zuerst im eigenen des Absenders, dann in den übrigen, zuletzt LISTE-THEMEN.md (GitHub, Zeile markiert)
-docs = os.path.dirname(os.environ["ZUG"])
-eigen = {"Tom": "TEAM-TOM", "Jerry": "TEAM-JERRY", "Sokrates Projekt": "PROJEKT", "Sokrates Kreativ": "KREATIV", "Sokrates Berater": "BERATUNG", "Diogenes": "PRUEFUNG", "Ford": "BETRIEB", "Ford 2": "BETRIEB"}
-reihe = sorted(glob.glob(os.path.join(docs, "ARBEIT-*.md")), key=lambda f: not f.endswith("ARBEIT-" + eigen.get(os.environ["NAME"].split(" – ")[0], "-") + ".md"))
-reihe = [f for f in reihe if not f.endswith(("ARCHIV.md", "ABLAEUFE.md", "UMGEBUNG.md", "BESETZUNG.md"))] + [os.path.join(docs, "LISTE-THEMEN.md"), os.path.join(docs, "ARBEIT-ARCHIV.md")]
-for f in reversed(reihe):
-    try:
-        for i, z in enumerate(open(f, encoding="utf-8"), 1):
-            m = re.match(r"\|\s*([A-Za-z]?\d+[a-z]?(?:\.\d+)?[a-z]?)\s*\|", z)
-            k = m and m.group(1).replace(".", "").lower()
-            if k and k not in keys or (k and keys.get(k, "").startswith(gh + "blob/main/docs/ARBEIT") or k and keys.get(k, "").startswith(gh + "blob/main/docs/LISTE")):
-                keys[k] = gh + "blob/main/docs/" + os.path.basename(f) + "?plain=1#L" + str(i)
-    except OSError: pass
+# Nur Nummern mit Datei auf Dein Zug werden Link (Chef 16.10., 12:0x: Verlinkung auf eine Vorratsdatei „macht keinen Sinn“):
+# fett mit Link heißt „du bist dran“, schlichte Nummer heißt „nur Stand“.
 sitz = {}
 try:
     for z in open(os.environ["BESETZUNG"], encoding="utf-8"):
