@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 21, davon A 0, wartet auf Chef 8**
 
-**Übergabe (16.10., 18:5x, „Jerry – 72.10 Probe Grak Bild prüfen“):** 108a.1 weiter offen; antwortet der Chef, zuerst 108a. 72.10: Figuren fehlten, weil die Probe auf alle Bilder von Grak und Goblin wartete (Vorschau ~12 s) → jetzt ab den Ruhebildern; Leiste mit fester Höhe (Szene sprang bei jedem Zug), Ziel-/Platzwahl als Raster; Ring selbst gefilmt. `main` eingemischt, Kerntests grün, gepusht (PR #68 baut), Prüfliste Build 8 in `jerry-testreihe.md` (Nummer nach dem Build eintragen). Texte bei Kreativ (Zeile 72.10). Bekannt: Schild „Stich“ des Goblins liegt über Graks Brust.
+**Übergabe (16.10., 18:5x, „Jerry – 72.10 Probe Grak Bild prüfen“):** 108a.1 weiter offen; antwortet der Chef, zuerst 108a. 72.10: Figuren fehlten, weil die Probe auf alle Bilder von Grak und Goblin wartete (Vorschau ~12 s) → jetzt ab den Ruhebildern; Leiste mit fester Höhe (Szene sprang bei jedem Zug), Ziel-/Platzwahl als Raster; Ring selbst gefilmt. `main` eingemischt, Kerntests grün, gepusht (PR #68 baut), Prüfliste Build 8 in `jerry-testreihe.md` (0.1.796). Texte bei Kreativ (Zeile 72.10). Bekannt: Schild „Stich“ des Goblins liegt über Graks Brust.
 
 ## Zeilen
 
