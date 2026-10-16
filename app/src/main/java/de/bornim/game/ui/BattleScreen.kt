@@ -1451,7 +1451,7 @@ private fun ForestBackground(spot: BattleScene.Spot, light: BattleScene.Light, d
 
 /** The cave is lit pixel by pixel, which takes a moment: it is drawn in the background and fades in. */
 @Composable
-private fun CaveBackground(spot: CaveScene.Spot, light: CaveScene.Light, seed: Int, night: Boolean, scale: Int, modifier: Modifier) {
+internal fun CaveBackground(spot: CaveScene.Spot, light: CaveScene.Light, seed: Int, night: Boolean, scale: Int, modifier: Modifier) {
     var dims by remember { mutableStateOf(androidx.compose.ui.unit.IntSize.Zero) }
     var img by remember { mutableStateOf<de.bornim.core.art.PixelImage?>(null) }
     LaunchedEffect(dims, spot, light, seed, night) {
