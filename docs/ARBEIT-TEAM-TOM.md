@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 18, davon A 0, wartet auf Chef 2**
+**offen 19, davon A 0, wartet auf Chef 2**
 
 **Übergabe (16.10., 07:54, „Tom – 38 Rauchbündel Dialoge“) – Nachfolger: „Tom – 104 Test 0.1.757“:** Build 0.1.757 grün, Testseite `e/t757.html` auf „Dein Zug“ (t753 entfernt). Nach „passt“ #71 zusammenführen, CHANGELOG, Zeilen streichen. Chef 16.10., 07:4x „0.1.753 passt“ → PR #67 zusammengeführt (443ba5bd), #66 geschlossen. **PR #71** (`claude/tom-38-rauchbuendel-dialoge`) = `main` + 86-Rest (D3.3, 89, 69f, 86.6/9/10) + 27n mit D1.7 + 38 + **104** (Nachfrage beim Überspringen; Kerntests grün, Oberfläche über die Vorschau übersetzt); abonniert (Nachfolger neu abonnieren). Prüfliste: Intro und Tempelszene antippen → „Überspringen?“, „Weiter ansehen“ lässt die Szene weiterlaufen; 69f wie zuvor; 86: am Lagerfeuer „Rasten?“, bei Rowena Met und Zimmer; 89 Held im Hausschatten dunkel; Funken am Lagerfeuer im Flüsterwald und in der Höhle senkrecht; Rauchbündel-Text in der Tasche.
 
@@ -30,3 +30,4 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 | 63 | Eine Seite „Dein Zug“ für alles Offene | steht; **wartet auf Chef:** Freigabe für Jerry (Teilen) am Fr. | – |
 | – | Eigene Zeilen kürzen | Erledigtes ins Archiv | – |
 | 40 | Helligkeitsregler (13e.6, „Wert mit Tom“) | von Team Jerry (16.10., 08:2x): PR #73 hebt Schwarz um höchstens 10 % Weiß (Schwarz → 26/255); Prüfzeichen Ton 10/255 auf Schwarz. Passt das zum dunkelsten gewollt sichtbaren Ton der Höhle (Umriss)? Sonst Wert in `core/.../audio/Mix.kt` (`SIGN`, `LIFT_MAX`) nennen | – |
+| D6.4 | Fluss am Dorf rauscht (Jerry) | von Team Jerry (16.10., 08:57), zur Kenntnis: `WorldScreen.kt` neun Zeilen im Klangblock neben dem Froschchor (`RiverSound`, PR #76); bei Einwand Zeile an Jerry | – |
