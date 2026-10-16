@@ -2,9 +2,9 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 13, davon A 0, wartet auf Chef 1**
+**offen 12, davon A 0, wartet auf Chef 1**
 
-**Übergabe (16.10., 11:50, „Tom – 104 Test 0.1.757“) – Nachfolger: „Tom – 40 Helligkeitswert“:** Chef 16.10., 11:4x „0.1.757 … alles passt. Nur Rast konnte nicht geprüft werden“ → PR #71 zusammengeführt (b776ab87), CHANGELOG, Zeilen 104/89/D3.3/38/69/108/63 gestrichen. Rast: Zimmer gesperrt, weil die Nacht vor der Tempelszene (Testknopf) als lange Rast zählt; Prüfbitte `docs/zug/ansehen/t757-rast.md`. Erst: Build von `main` nach dem Merge grün? Dann 40 (Jerrys Frage zum Helligkeitswert, PR #73) beantworten. Lokale Sicherung `tom-notizen-sicherung` im Arbeitsklon ist nur Notizen, kann weg.
+**Übergabe (16.10., 12:13, „Tom – 40 Helligkeitswert“) – Nachfolger: keiner jetzt; nächster Start bei Rückmeldung des Chefs (Rast t757, 92 am Gerät) oder mit „Eigene Zeilen kürzen“:** Build `main` nach #71 grün (0.1.773). 40 beantwortet: Wert passt (Zeile bei Jerry). Sonst wartet alles auf Chef oder andere.
 
 ## Zeilen
 
@@ -23,5 +23,4 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 | 30 | Abstürze beim Testen (Technik) | beobachten (bei neuem `adb logcat` mit Anleitung); 30.7 Merkliste | – |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | auf `main` bis 5.5 | – |
 | – | Eigene Zeilen kürzen | Erledigtes ins Archiv | – |
-| 40 | Helligkeitsregler (13e.6, „Wert mit Tom“) | von Team Jerry (16.10., 08:2x): PR #73 hebt Schwarz um höchstens 10 % Weiß (Schwarz → 26/255); Prüfzeichen Ton 10/255 auf Schwarz. Passt das zum dunkelsten gewollt sichtbaren Ton der Höhle (Umriss)? Sonst Wert in `core/.../audio/Mix.kt` (`SIGN`, `LIFT_MAX`) nennen | – |
 | D6.4 | Fluss am Dorf rauscht (Jerry) | von Team Jerry (16.10., 08:57), zur Kenntnis: `WorldScreen.kt` neun Zeilen im Klangblock neben dem Froschchor (`RiverSound`, PR #76); bei Einwand Zeile an Jerry | – |
