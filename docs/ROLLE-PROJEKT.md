@@ -55,6 +55,7 @@ Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), „Dein Zug“ (eigene 
 - **Befunde selbst abholen, nichts vorschlagen, was schon da ist** (15.10., 65.11): vor jeder Antwort Prüfbericht und `git log` ansehen.
 - **Beim Kürzen die eigene Rolle gegen die Beschlüsse prüfen** (15.10., 65.11): der Entwurf verlor die Projektleitung (90).
 - **Werkzeuge im Zielort prüfen** (15.10., 81p): Routinen-Sitzungen haben kein `create_session`; erst die Probe mit ToolSearch im Zielort zählt.
+- **Jeder Vorschlag an den Chef auf „Dein Zug“, nie nur im Chat** (16.10., 103): der Haken mahnte, ich hielt es für eine Chatfrage; der Chef fand es dort nicht.
 - **Beim Umbau von der alten Datei ausgehen, jede Übernahme dreifach prüfen** (15.10., 98): erst jeden Abschnitt der Quelle einem Ziel zuordnen; schon da? präziser? gebraucht?
 
 Ältere (Notizen frisch holen, Entwürfe sofort, freie Welt, Werkzeugausgaben, Ablauf nicht vorführen, nur ausdrückliches Ja, Technik belegen) im Archiv („15.10., 12:5x“, „15.10., 13:3x“, „Umbau 98: alte Berater-Rolle“).
