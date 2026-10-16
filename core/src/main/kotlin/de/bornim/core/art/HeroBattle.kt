@@ -341,6 +341,8 @@ object HeroBattle {
         if (ambushed) plan += Triple(Act.AMBUSHED, Strike.SLASH, 0)
         else { plan += Triple(Act.INTRO, Strike.SLASH, 0); plan += Triple(Act.TURN, Strike.SLASH, 0) }
         plan += Triple(Act.IDLE, Strike.SLASH, 0)
+        // D4.1: against Krogg, Morwen's smoke bundle may be thrown as soon as he shows up, before anything else is drawn
+        if (foeId == "bugbear") { plan += Triple(Act.THROW, Strike.CAST, throwVariant(hero)); if (!cancelled()) launch(hero, Act.THROW, throwVariant(hero)) }
         // the guard and being hit early: they come with the foe's first blow, and a guard must not drop for want of frames
         for (v in blockVariants(hero, foeId)) plan += Triple(Act.BLOCK, Strike.SLASH, v)
         for (v in 0..2) plan += Triple(Act.HURT, Strike.SLASH, v)

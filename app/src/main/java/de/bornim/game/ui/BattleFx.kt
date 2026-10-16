@@ -42,7 +42,7 @@ private fun kindSound(kind: FxKind, crit: Boolean): Sound = when (kind) {
         FxKind.SMASH -> if (crit) Sound.CRIT else Sound.HIT_SMASH
         FxKind.ARROW -> Sound.ARROW
         FxKind.FIRE_BOLT, FxKind.RAYS, FxKind.FIREBALL -> Sound.FIRE
-        FxKind.BOMB_FIRE, FxKind.BOMB_HOLY -> Sound.THROW
+        FxKind.BOMB_FIRE, FxKind.BOMB_HOLY, FxKind.SMOKE -> Sound.THROW
         FxKind.MISSILES, FxKind.SPIRIT_WEAPON, FxKind.SPIRIT_SUMMON, FxKind.MAGE_ARMOR -> Sound.MAGIC
         FxKind.SACRED_FLAME, FxKind.GUARDIANS, FxKind.TURN, FxKind.DESTROY -> Sound.HOLY
         FxKind.HEAL -> Sound.HEAL
@@ -66,6 +66,7 @@ fun fxDuration(kind: FxKind): Int = BattlePace.ms(baseFxDuration(kind))
 
 private fun baseFxDuration(kind: FxKind): Int = when (kind) {
     FxKind.DESTROY -> 1400
+    FxKind.SMOKE -> 1800
     FxKind.FIREBALL, FxKind.SACRED_FLAME, FxKind.GUARDIANS, FxKind.TURN -> 900
     FxKind.MISSILES, FxKind.FIRE_BOLT, FxKind.ARROW, FxKind.BOMB_FIRE, FxKind.BOMB_HOLY, FxKind.HEAL, FxKind.BLESS -> 750
     else -> 520
@@ -614,6 +615,34 @@ private fun DrawScope.guardians(r: Random, p: Float, centre: Offset, u: Float) {
  * A thrown flask: glass with its liquid catching the light, tumbling through the air; it bursts on the foe in glass
  * shards. Alchemist's fire splashes burning and clings; holy water splashes cold and hisses into steam.
  */
+/** D4.1: Morwen's bundle of herbs lands at the foe's feet, and grey-green smoke billows up to its eyes and drifts off. */
+private fun DrawScope.smokeBundle(r: Random, p: Float, from: Offset, target: Offset, ground: Float, u: Float) {
+    val feet = Offset(target.x + (r.nextFloat() - 0.5f) * 10 * u, ground - 4 * u)
+    if (p < 0.3f) {
+        val pos = arc(from, feet, p / 0.3f, -70 * u)
+        rotate(p * 900, pos) {
+            drawOval(Color(0xFF5E6A3A), Offset(pos.x - 6 * u, pos.y - 4 * u), Size(12 * u, 8 * u))
+            drawOval(Color(0xFF7E8A4E), Offset(pos.x - 4 * u, pos.y - 3.5f * u), Size(6 * u, 4 * u))
+            drawLine(Color(0xFF8A6A3A), Offset(pos.x, pos.y - 4.5f * u), Offset(pos.x, pos.y + 4.5f * u), 1.4f * u)
+        }
+        return
+    }
+    val s = (p - 0.3f) / 0.7f
+    // the smoke climbs from the feet past the head ([target] is about the chest) and spreads as it thins
+    val height = (ground - target.y) * 2.4f
+    repeat(22) { i ->
+        val born = r.nextFloat() * 0.4f
+        val t = ((s - born) / (1f - born)).coerceIn(0f, 1f)
+        if (t <= 0f || t >= 1f) return@repeat
+        val side = (r.nextFloat() - 0.5f) * 36 * u
+        val c = Offset(feet.x + side * (0.5f + 1.2f * t) + sin(t * 4f + i) * 5 * u, feet.y - height * t * (0.55f + 0.5f * r.nextFloat()))
+        val rad = (12 + 26 * t) * u
+        val a = 0.75f * (1f - t) * (t / 0.12f).coerceAtMost(1f)
+        val tone = if (i % 3 == 0) Color(0xFFB4B89E) else Color(0xFF858A78)
+        drawCircle(Brush.radialGradient(listOf(tone.copy(alpha = a), tone.copy(alpha = a * 0.45f), Color.Transparent), c, rad), rad, c)
+    }
+}
+
 private fun DrawScope.flask(r: Random, p: Float, from: Offset, to: Offset, u: Float, holy: Boolean) {
     val liquid = if (holy) Color(0xFF9CC8E8) else Color(0xFFFF8A2A)
     if (p < 0.5f) {
@@ -775,6 +804,7 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
         }
         FxKind.TURN -> holyWave(r, p, source, target, ground, back, u)
         FxKind.BOMB_FIRE, FxKind.BOMB_HOLY -> flask(r, p, source, hit, u, holy = fx.kind == FxKind.BOMB_HOLY)
+        FxKind.SMOKE -> smokeBundle(r, p, source, target, ground, u)
         FxKind.HEAL -> mending(r, p, target, u, HEAL_LIGHT, WHITE)
         FxKind.ENEMY_HEAL -> mending(r, p, target, u, Color(0xFFC89A50), Color(0xFFE8D0A0))
         FxKind.BLESS -> blessing(r, p, target, ground, u)
