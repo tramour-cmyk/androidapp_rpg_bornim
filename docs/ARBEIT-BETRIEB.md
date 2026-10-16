@@ -18,12 +18,16 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- 16.10., 08:5x, von Jerry (D3): Prüfbericht Diogenes liegt auf Max, von Pro nicht lesbar. Bitte Wortlaut von D3.5, D3.6, D3.8, D3.9, D3.10, D3.12 (Fundstelle, Befund) als Zeile in `ARBEIT-TEAM-JERRY.md` (D3); bei Freigabe an Pro (wie 72.10) liest Jerry selbst. D3.1 und D3.4 bestätigt und behoben (Zweig `claude/jerry-d3-diogenes-lauf3`), D3.2 mit 84. **Wartet auf Chef** (Ford 09:05: löst sich mit der Freigabe des Prüfberichts an Pro, 99g; sonst Abschrift durch Diogenes auf Zuruf).
 
 ## Kosten Ford 2
 
 Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Projekt wertet nach zwei Tagen aus.
 
+- 16.10., 15:34: Stundenlauf ohne Tat (Jerry läuft, D1.14); Ford 2 seit 14:06 fünf Starts, 185 Tsd. Token Kontext; Pro weiter `allowed_warning`
+- 16.10., 15:19: Neustart Jerry D1.14; Jerry 120 kostete 4,18 $ (211 Tsd. Token Kontext)
+- 16.10., 14:58: Neustart Jerry 120; Jerry 18 kostete 2,10 $ (147 Tsd. Token Kontext); Weckruf trig_01GvuBVi… war schon weg
+- 16.10., 14:42: Neustart Jerry 18; Jerry 108a kostete 4,99 $ (257 Tsd. Token Kontext)
+- 16.10., 14:33: Stundenlauf ohne Tat (Jerry läuft, 108a, Sammelbuild 1 PR #88); Ford 2 seit 14:06 zwei Starts, Pro weiter `allowed_warning`
 - 16.10., 14:20: Neustart Jerry 108a; Jerry 120 kostete 4,14 $ (216 Tsd. Token Kontext)
 - 16.10., 14:08: Selbstneustart Ford 2; Vorgänger 9,20 $ (`usage.cost_usd`, 356 Tsd. Token Kontext)
 - 16.10., 14:06: Neustart Jerry Idee 10; Jerry Raumklang kostete 4,38 $; Pro-Wochengrenze jetzt `allowed_warning`; 33 alte Pro-Sitzungen (8.–12.10.) auf Zuruf des Chefs archiviert
@@ -48,6 +52,11 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 15:18 16.10.: Start Jerry (Neustart, 5bf84675, D1.14 Hörner-Betten heraus) (Ford 2)
+- 15:06 16.10.: Tom „Eigene Zeilen kürzen“ archiviert (wartet auf Chef, 0.1.781 Build 5), Meldung laut; Eingang D3 gestrichen (erledigt mit 118)
+- 14:57 16.10.: Start Jerry (Neustart, a6b7e5cc, 120 Musik in Schichten ins Spiel) (Ford 2)
+- 14:41 16.10.: Start Jerry (Neustart, f5ffb85c, 18 Stimmen ins Spiel, dann 120) (Ford 2)
+- 14:38 16.10.: Start Tom (Neustart, 8159aec1, Eigene Zeilen kürzen)
 - 14:18 16.10.: Start Jerry (Neustart, 73bcde8f, 108a Sammelbuilds, dann 18) (Ford 2)
 - 14:08 16.10.: Ford 2 neu (session_013oK9Ko…), Uhr trig_012UBBSnM2MhWgWzstn1SaFy, alte Uhr gelöscht, Vorgänger archiviert (Ford 2)
 - 14:05 16.10.: Start Jerry (Neustart, d7cde4da, Musik in Schichten Idee 10) (Ford 2)

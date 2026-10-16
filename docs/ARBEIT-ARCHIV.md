@@ -1,5 +1,33 @@
 # Archiv
 
+## Jerry, Übergabe 16.10., 14:5x
+
+**Übergabe (16.10., 14:56, „Jerry – 18 Stimmen ins Spiel“) – Nachfolger: Jerry – 120 Musik in Schichten ins Spiel:** 18.11 gebaut (681c6076, PR #85, Build 0.1.782 läuft, Kerntests grün), Prüfliste als Build 5 in der Testreihe; Zeile 18 wartet auf Chef. Als Nächstes 120: `MusicDirector`, Nähe des nächsten Jägers, Form wie Probe 1, drei Spuren im Wechsel (Zweig `claude/jerry-idee10-musik-schichten`, PR #87). Nachfolger: #85, #87, #88–#91 abonnieren; Build 0.1.782 grün prüfen. Zurück von Tom: D3.8, D3.9, D3.10. Lehre: nach Zweigwechsel `rm -rf core/build`.
+
+## Jerry, Übergabe 16.10., 14:4x
+
+**Übergabe (16.10., 14:4x, „Jerry – 108a Sammelbuilds“) – Nachfolger: Jerry – 18 Stimmen ins Spiel, dann 120 Musik in Schichten:** 108a erledigt: vier Sammelbuilds mit `main` (PR #88 0.1.777 Klang draußen, #89 0.1.778 Intro/Menü, #90 0.1.779 Kampf, #91 0.1.780 Schänke/Raumklang), Testseite `docs/zug/ansehen/jerry-testreihe.md` je Build mit Prüfliste, Einzel-PRs geschlossen (Zweige bleiben); fällt ein Punkt durch: `git revert` des Merge-Commits im Sammelbuild (`-m 1`), Rest auf `main`. 120 entschieden (ja, Beschluss eingetragen). Als Nächstes 18: alle 12 Stimmen ins Spiel (Zweig `claude/jerry-18-gegnerstimmen`, `Recorded.voiceOf`), dann 120 (`MusicDirector`). Zurück von Tom (D3-Zeile): D3.8, D3.9, D3.10. Nachfolger: #87, #88–#91 abonnieren. Lehre: nach Zweigwechsel `rm -rf core/build`, sonst laufen alte Testklassen mit.
+
+## Jerry, Übergabe 16.10., 14:1x
+
+**Übergabe (16.10., 14:1x, „Jerry – 120 Musik in Schichten“) – Nachfolger: Jerry – 108a Sammelbuilds, dann 18 Stimmen ins Spiel:** 120 Hörproben fertig (PR #87, nur Werkzeug), wartet auf Chef ([120](dz:120)). 119 und 18.11 entschieden, Beschlüsse eingetragen. **Zuerst 108a** (Chef 14:1x: „108a ist entschieden? Wer baut APK mit mehreren PR und klarer Teststruktur?“): Jerry baut; PRs #70, #72–#82, #84, #86 zu höchstens 4 Sammelbuilds je bis 4 Punkte (78a) mit `main` bündeln, Testseite `docs/zug/ansehen/jerry-testreihe.md` je Build mit Prüfliste und Satz „Zu tun“ oben neu schreiben, Zug-Datei 108a löschen, Einzel-PRs danach schließen oder als Teil vermerken. Dann 18: alle 12 Stimmen ins Spiel (Zweig `claude/jerry-18-gegnerstimmen`, `Recorded.voiceOf`). Nachfolger: #70, #72–#82, #84, #86, #87 abonnieren. D3: Tom hat mein „ok“ zu `WorldScreen.kt`.
+
+## Tom, Übergabe 16.10., 14:4x
+
+**Übergabe (16.10., 14:4x, „Tom – 118 Übernahme von Jerry“) – Nachfolger: Tom – Eigene Zeilen kürzen:** D3-Rest von Jerry übernommen, Zeile D3 oben; wartet auf Jerrys „ok“ zu `WorldScreen.kt` (Zeile in seinem Vorrat) und freie Testreihe. Vorher: Build `main` nach #71 grün (0.1.773); Rast t757, 92 am Gerät warten auf Chef.
+
+Gestrichene Zeilen (16.10., Eigene Zeilen kürzen):
+
+- | 95 | Atem: „Atem mit Anzeige (Balken rechts) hört man nicht und der Balken funktioniert nicht.“ (Chef 15.10., 16:5x) | Balken (95a) passt (Test 0.1.752); Keuchen bei Jerry. `WorldScreen.kt`-Zeilen aus #70 durchgesehen, kein Einwand (16.10., 12:2x) | – |
+- | 59e | Händler: Menge „Alle“, Vorrat je Laden | „Alle“ erledigt (0.1.660); Vorrat je Laden bei Jerry mit 38/39 | – |
+- | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm (Technik) | Großteil auf `main`; Inhalt (24.6) bei Jerry | – |
+- | 5 | Dorf draußen, Dorfbewohner als Puppen | auf `main` bis 5.5 | – |
+- | – | Eigene Zeilen kürzen | Erledigtes ins Archiv | – |
+
+## Tom, Übergabe 16.10., 12:13
+
+**Übergabe (16.10., 12:13, „Tom – 40 Helligkeitswert“) – Nachfolger: keiner jetzt; nächster Start bei Rückmeldung des Chefs (Rast t757, 92 am Gerät) oder mit „Eigene Zeilen kürzen“:** Build `main` nach #71 grün (0.1.773). 40 beantwortet: Wert passt (Zeile bei Jerry). #70 und #76 (`WorldScreen.kt`) durchgesehen, kein Einwand. Sonst wartet alles auf Chef oder andere.
+
 ## Jerry, Übergabe 16.10., 14:05
 
 **Übergabe (16.10., 14:05, „Jerry – Raumklang (Idee 8)“) – Nachfolger: Jerry – Musik in Schichten (Idee 10):** 119 Raumklang gebaut (PR #86, Entwurf, baut), Hörproben per Telegram, wartet auf Chef ([119](dz:119)); bei Ja Prüfliste in die Testreihe (Testreihenfolge nach #84), bei Änderung `Room.acoustics` anpassen, dann `RAUMKLANG=spiel` (Vorschau) neu backen und `RAUMPROBEN=1`. Nachfolger: #70, #72–#82, #84, #85, #86 abonnieren. Rest der Übergabe vom 16.10., 13:44 gilt (im Archiv: 18.11, 108a, D1.14, D4.1 an Diogenes nach #72).

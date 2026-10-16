@@ -19,10 +19,16 @@ object Recorded {
         Sound.CUP to 3, Sound.POUR to 3, Sound.WIPE to 3, Sound.CHAIR to 3, Sound.COUGH to 3,
         // the forest pond (27k, chosen by the user: three calls, one chorus, two dragonflies)
         Sound.FROG to 3, Sound.FROG_CHORUS to 1, Sound.DRAGONFLY to 2,
+        // the river by the village (D6.4): three loops of running water
+        Sound.RIVER to 3,
         // the village hens (83c; scratching: the straw broom, chosen by the user)
         Sound.HEN_CLUCK to 3, Sound.HEN_SCRATCH to 4, Sound.HEN_ALARM to 4, Sound.HEN_FLAP to 3,
         // the hero's steps (74, all five chosen by the user)
         Sound.STEP_GRASS to 3, Sound.STEP_EARTH to 3, Sound.STEP_COBBLE to 3, Sound.STEP_WOOD to 3, Sound.STEP_STONE to 3,
+        // the hero out of breath (95)
+        Sound.PANT_MAN to 3, Sound.PANT_WOMAN to 3,
+        // what lives at a place but is not in sight (84, D3.15)
+        Sound.WOLF_FAR to 3, Sound.RUMBLE to 3, Sound.BIRD_FLAP to 3, Sound.BIRD_SCRATCH to 3,
     )
 
     /** Fewer than three takes by the user's choice (27k): the pond's one chorus loop, its two dragonflies. */
