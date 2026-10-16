@@ -6,7 +6,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
-| [117](entscheiden/117-namen-archiv.md) | 16.10. | 117.1 `LISTE-RELEASE-NEUSTART` und `LISTE-BAUEN-TESTEN`; 117.2 „Dein Zug“ heißt künftig „Chefsache“ (Empfehlung) | Sokrates Projekt |
+| [117](entscheiden/117-namen-archiv.md) | 16.10. | 117.3 Ausmisten (Umgebung halbieren, Niederlassung kürzen); 117.1 `LISTE-RELEASE-NEUSTART` und `LISTE-BAUEN-TESTEN`; 117.2 „Dein Zug“ heißt künftig „Chefsache“ (Empfehlung) | Sokrates Projekt |
 | [99g.1](entscheiden/99g1-name-beschluesse.md) | 16.10. | Beschlüsse heißen künftig Vorgangsarchiv, Datei `docs/VORGANGSARCHIV.md`, nur Text, Umzug nach Sa 21:00 (Empfehlung) | Sokrates Projekt |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Sokrates |
 
