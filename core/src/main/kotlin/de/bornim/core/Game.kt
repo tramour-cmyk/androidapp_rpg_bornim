@@ -504,7 +504,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (mode != Mode.Explore) return
         val p = state.place
         map.warpAt(p.x, p.y)?.let { warp ->
-            sounds += de.bornim.core.audio.Sound.DOOR
+            // D3.1: only a real door creaks; cave mouths, paths and map edges are passed in silence (the steps go on)
+            if (map.tile(p.x, p.y) == Tile.DOOR) sounds += de.bornim.core.audio.Sound.DOOR
             state.place = warp.to
             sunCut()
             if (World.maps[warp.to.map]?.kind == MapKind.INTERIOR) state.flags += MapPeople.been(warp.to.map)
