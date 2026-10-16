@@ -68,6 +68,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 20:44 16.10.: Chef „Build 7 · 0.1.798 · D1.14 … PR #93 alles passt“ in Jerrys Vorrat (Zeile D1); send_message an Jerry geht nicht über Accounts
 - 20:28 16.10.: Tom meldet Neustart (dce7e883); Nachfolger „Tom – 92 nach Test zusammenführen“ erst auf Testergebnis des Chefs (0.1.806), Meldung laut; Tom 92 archiviert
 - 20:26 16.10.: Start Diogenes (Auftrag 125, 106.1; Sokrates Projekt, a1e6380b)
 - 20:14 16.10.: Start Tom (Neustart, 75d49f75, 92 Bram schubsen); Vorgänger D3 archiviert (1,77 $)
@@ -87,6 +88,3 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Arch
 - 17:49 16.10.: Selbstneustart Ford (≈266 Tsd. Token, Haken-Erinnerung 2); offen: Tom D3 (session_01P8uYMDB1vVs1Tjg8Kp4jQi) läuft; Sa 08:00 Start Sokrates Projekt (Eingang)
 - 17:49 16.10.: Start Tom (Chef: Build 5 / t781 „alle positiv“)
 - 17:45 16.10.: Sokrates Projekt Zuruf 16:29 (session_018v2tV8RsTB2fQjc88TSreS) archiviert; Nachfolger Sa 08:00 im Eingang vorgemerkt
-- 17:06 16.10.: Sokrates Projekt Zuruf 15:44 (session_012yUrpHao6th2Ntyv14T9SH, 5,05 $) archiviert; neue Zuruf-Sitzung 16:29 des Chefs in der Besetzung
-- 16:20 16.10.: Sokrates Projekt Zuruf (session_012yUrpHao6th2Ntyv14T9SH) meldet Neustart (4ca8c9fb, kein Nachfolger); Chef sprach eben noch mit ihm (APK 0.1.791) → archivieren im nächsten Lauf, wenn dort nichts Neues vom Chef; Nachfolger „Sokrates Projekt – 99g.1 Vorgangsarchiv“ nur auf „99g.1 ja, vorziehen“
-- 15:54 16.10.: Start Jerry (Neustart, 29afeb5c, 72.10 Oberfläche Probe Grak) (Ford 2)
