@@ -1,5 +1,17 @@
 # Archiv
 
+## Tom, Übergabe 16.10., 14:4x
+
+**Übergabe (16.10., 14:4x, „Tom – 118 Übernahme von Jerry“) – Nachfolger: Tom – Eigene Zeilen kürzen:** D3-Rest von Jerry übernommen, Zeile D3 oben; wartet auf Jerrys „ok“ zu `WorldScreen.kt` (Zeile in seinem Vorrat) und freie Testreihe. Vorher: Build `main` nach #71 grün (0.1.773); Rast t757, 92 am Gerät warten auf Chef.
+
+Gestrichene Zeilen (16.10., Eigene Zeilen kürzen):
+
+- | 95 | Atem: „Atem mit Anzeige (Balken rechts) hört man nicht und der Balken funktioniert nicht.“ (Chef 15.10., 16:5x) | Balken (95a) passt (Test 0.1.752); Keuchen bei Jerry. `WorldScreen.kt`-Zeilen aus #70 durchgesehen, kein Einwand (16.10., 12:2x) | – |
+- | 59e | Händler: Menge „Alle“, Vorrat je Laden | „Alle“ erledigt (0.1.660); Vorrat je Laden bei Jerry mit 38/39 | – |
+- | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm (Technik) | Großteil auf `main`; Inhalt (24.6) bei Jerry | – |
+- | 5 | Dorf draußen, Dorfbewohner als Puppen | auf `main` bis 5.5 | – |
+- | – | Eigene Zeilen kürzen | Erledigtes ins Archiv | – |
+
 ## Tom, Übergabe 16.10., 12:13
 
 **Übergabe (16.10., 12:13, „Tom – 40 Helligkeitswert“) – Nachfolger: keiner jetzt; nächster Start bei Rückmeldung des Chefs (Rast t757, 92 am Gerät) oder mit „Eigene Zeilen kürzen“:** Build `main` nach #71 grün (0.1.773). 40 beantwortet: Wert passt (Zeile bei Jerry). #70 und #76 (`WorldScreen.kt`) durchgesehen, kein Einwand. Sonst wartet alles auf Chef oder andere.
