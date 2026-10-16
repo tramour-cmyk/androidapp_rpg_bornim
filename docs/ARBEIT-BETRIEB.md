@@ -12,7 +12,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 - **Ford lebt in einer Sitzung** „Ford – Teamleiter (16.10., 02:05)“ `session_01KYjYQSUyCT2WSXinMf6rPA` (seit 16.10., 02:04; Vorgänger `session_01QWF3R8AxcZRH4EicjhyjkF` archiviert). Stundenuhr „Ford-Stundenuhr“ `trig_01YZ7SgXEiSXQqrJKMsRmGyj` (:03, seit 02:05).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhr „Ford-Wache 07:08“ `trig_01Phk9eXekP5yY9M6L3bgS1c` (täglich 07:08; 15.10., 22:5x zurückgeholt, D13.2).
-- **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 Einrichtung“ `session_01R7KS2bJJNiqcTvwgFNSBNS` (seit 16.10., 06:42). Stundenuhr „Ford-2-Stundenuhr“ `trig_019ARG2fvRFhkhk3VNHDr56A` (:33). Telegram auf Pro geht (Probe 06:43).
+- **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 06:42)“ `session_01R7KS2bJJNiqcTvwgFNSBNS` (seit 16.10., 06:42). Stundenuhr „Ford-2-Stundenuhr“ `trig_019ARG2fvRFhkhk3VNHDr56A` (:33). Telegram auf Pro geht (Probe 06:43).
 
 ## Eingang
 
@@ -24,7 +24,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Projekt wertet nach zwei Tagen aus.
 
-(noch keine)
+- 16.10., 06:46: Einrichtung plus ein Start; ca. 127 Tsd. Token Kontext (`get_session` meldet `used_tokens` 0, Messung daher aus dem Sitzungszähler)
 
 ## Protokoll
 

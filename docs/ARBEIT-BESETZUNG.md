@@ -9,3 +9,5 @@
 | Ford | [Ford – Teamleiter (16.10., 02:05)](https://claude.ai/code/session_01KYjYQSUyCT2WSXinMf6rPA) | Betrieb | – | 16.10., 02:04 |
 | Sokrates Projekt | [Sokrates Projekt – Nachprüfung Umbau 98 (15.10., 23:29)](https://claude.ai/code/session_01Q3udwKqdEaYzf8uhvT52Jv) | 98 (D14) | `claude/sokrates-projekt-98-nachpruefung` | 15.10., 23:29 |
 | Team Tom | [Tom – 38 Rauchbündel Dialoge (16.10., 01:57)](https://claude.ai/code/session_01VxFBWqSJFWpcQ21gSRLEkB) | 38 | `claude/tom-38-rauchbuendel-dialoge` | 16.10., 01:57 |
+| Ford 2 | [Ford 2 – Niederlassungsleiter (16.10., 06:42)](https://claude.ai/code/session_01R7KS2bJJNiqcTvwgFNSBNS) | Betrieb Pro | – | 16.10., 06:42 |
+| Team Jerry | [Jerry – D1.7 Absprache Höhle (16.10., 06:45)](https://claude.ai/code/session_01TZmNxzVCUWn5mrSoyyEdzu) | D1.7 | `claude/jerry-d17-absprache` | 16.10., 06:45 |
