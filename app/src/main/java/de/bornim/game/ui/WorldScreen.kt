@@ -96,6 +96,7 @@ fun PlayScreen(vm: GameViewModel) {
         mode is Mode.Shop -> ShopScreen(vm, game, mode.stock, mode.brewing)
         mode == Mode.ChapterEnd -> ChapterEndScreen(vm, game)
         mode == Mode.Board -> BoardScreen(vm, game)
+        mode is Mode.Rest -> RestScreen(vm, game, mode.spot)
         vm.menuOpen -> MenuScreen(vm, game)
         else -> WorldScreen(vm, game)
     }
@@ -719,7 +720,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
 
         // while true, [put] cuts the picture out of what is drawn below it (the lit windows behind something in front)
         var cutting = false
-        fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f, corner: Boolean = false, bleed: Int = 0) {
+        fun put(img: PixelImage, x: Int, y: Int, density: Int = 1, alpha: Float = 1f, corner: Boolean = false, bleed: Int = 0,
+                filter: androidx.compose.ui.graphics.ColorFilter? = null) {
             val dw = img.width * scale / density + bleed; val dh = img.height * scale / density + bleed
             val (sx, sy) = placeOf(img, x, y, density, corner)
             if (!flat && (sx > size.width || sy > size.height || sx + dw < 0 || sy + dh < 0)) return
@@ -730,6 +732,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 dstOffset = IntOffset(sx, sy),
                 dstSize = IntSize(dw, dh),
                 alpha = alpha,
+                colorFilter = filter,
                 filterQuality = if (density > 1 && scale % density != 0) FilterQuality.Low else FilterQuality.None,
                 blendMode = if (cutting) androidx.compose.ui.graphics.BlendMode.DstOut else DrawScope.DefaultBlendMode,
             )
@@ -739,6 +742,23 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             val (sx, sy) = placeOf(o.img, o.x, o.y, o.density, o.corner)
             val dw = o.img.width * scale / o.density; val dh = o.img.height * scale / o.density
             return sx < box.right && sx + dw > box.left && sy < box.bottom && sy + dh > box.top
+        }
+
+        // the shadow layer of the sun and how strongly it shows now (by day, faded in)
+        val sunNow = ((game.daylight - 0.2f) / 0.6f).coerceIn(0f, 1f)
+        val sunLayer = if (sunNow > 0.02f) MapFlora.shadowsReady(map) else null
+        val sunShade = sunLayer?.let { sunNow * ((System.nanoTime() - it.at) / 4e8).toFloat().coerceIn(0f, 1f) } ?: 0f
+        /**
+         * 89: a person standing in the shadow of a house or a crown is drawn as dark as the ground there; [fx], [fy] the
+         * feet in map pixels. Steps of 1/32, so the filters are few.
+         */
+        val shaded = HashMap<Int, androidx.compose.ui.graphics.ColorFilter>()
+        fun shadeAt(fx: Int, fy: Int): androidx.compose.ui.graphics.ColorFilter? {
+            val r = sunLayer ?: return null
+            val b = 1f - (1f - de.bornim.core.art.MapSun.bright(r, fx.toDouble() / T, fy.toDouble() / T)) * sunShade
+            val q = ((1f - b) * 32).roundToInt()
+            if (q <= 0) return null
+            return shaded.getOrPut(q) { (1f - q / 32f).let { m -> androidx.compose.ui.graphics.ColorFilter.lighting(Color(m, m, m), Color.Black) } }
         }
 
         ground {
@@ -760,12 +780,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         }
 
         // shadows of trees, rocks and stones on the ground, strong by day, gone at night
-        val sun = ((game.daylight - 0.2f) / 0.6f).coerceIn(0f, 1f)
         // D9.2: drawn in the background; once there they fade in over 0.4 s rather than appear at once
-        if (sun > 0.02f) MapFlora.shadowsReady(map)?.let { r ->
-            val fade = ((System.nanoTime() - r.at) / 4e8).toFloat().coerceIn(0f, 1f)
-            for (o in r.pieces) put(o.img, o.x, o.y, o.density, sun * fade)
-        }
+        if (sunLayer != null) for (o in sunLayer.pieces) put(o.img, o.x, o.y, o.density, sunShade)
 
         // draft (idea 7): blood where a foe fell, footprints in the wet ground, dust kicked up running
         if (de.bornim.core.Tracks.draft) drawTracks(game.tracks.on(map.id, clock), clock, camX, camY, scale)
@@ -1009,11 +1025,12 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
                 val dollLit = doll?.let { warmEdge(it, nx, ny) }
+                val dark = shadeAt(nx + T / 2, ny + 14)
                 sprites += Sprite((ny + T - 1).toFloat(), nx + T / 2f) {
                     // pictures may be wider than the standing ones (a raised torch): the feet stay in the middle, near the bottom
                     if (dollLit != null) put(dollLit, nx + T / 2 - dollLit.width / 2 / MapFigure.DENSITY,
-                        ny + T - 3 - (dollLit.height - MapFigure.FOOT_BELOW) / MapFigure.DENSITY, MapFigure.DENSITY)
-                    else put(img, nx, ny - 2)
+                        ny + T - 3 - (dollLit.height - MapFigure.FOOT_BELOW) / MapFigure.DENSITY, MapFigure.DENSITY, filter = dark)
+                    else put(img, nx, ny - 2, filter = dark)
                 }
             }
         }
@@ -1163,8 +1180,9 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         } else null
         val doll = warmEdge(heroRest ?: heroSwing ?: MapFigure.frameNow(state.hero, heroSlot, walkStep), heroX, heroY)
         // +0.5 so the hero is drawn after objects standing on the same row
+        val heroDark = shadeAt(heroX + T / 2, heroY + 14)
         sprites += Sprite(heroY + T - 0.5f, heroX + T / 2f) {
-            put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY)
+            put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY, filter = heroDark)
             // Feet hidden in tall grass.
             if (map.tile(p.x, p.y) == Tile.TALL_GRASS) {
                 // the same dark blades of the ground stand before the feet
@@ -1180,7 +1198,9 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         if (map.kind == MapKind.CAVE) drawCaveShaft(game, map, clock, cam, camX, camY, scale)
         if (map.kind == MapKind.CAVE) drawCaveTorches(game, map, clock, cam, camX, camY, scale)
         if (map.kind == MapKind.TOWN) drawTownSmoke(map, clock, cam, camX, camY, scale, game.daylight)
-        if (map.kind == MapKind.FOREST) drawCampSmoke(game, map, clock, cam, camX, camY, scale)
+        if (map.kind == MapKind.FOREST || map.kind == MapKind.CAVE) drawCampSmoke(game, map, clock, cam, camX, camY, scale)
+        if (map.kind != MapKind.INTERIOR && MapLight.needed(map, game.daylight)) drawRisingLife(game, map, clock, cam, camX, camY, scale)
+        if (map.kind == MapKind.CAVE) drawCaveDrops(game, map, clock, cam, camX, camY, scale)
         // what shines by itself (25.1: a lamp's glass; 25b: lit windows) is drawn over the light of the place, so the source is the brightest
         // spot around it, waking with the dusk like the light it throws; a small warm halo around it
         val night = MapLight.strength(map, MapLight.When.NIGHT, game.daylight).toFloat()
@@ -1841,7 +1861,8 @@ private object LightImage {
 /**
  * Light on the map: the light image multiplied over it (dark where nothing shines), a glow around
  * every light that flickers (fire) or pulses (mushrooms), and small life: sparks over fires, spores
- * over mushrooms, dust in daylight and, in caves, drops falling from the roof.
+ * over mushrooms, dust in daylight; under the open sky and in caves sparks and spores stand upright on the screen
+ * ([drawRisingLife]), drops in caves fall straight down ([drawCaveDrops]).
  */
 /**
  * Seen diagonally (5.1): smoke rising from the mouth of each house's chimney, upright on the screen, drifting
@@ -1882,13 +1903,16 @@ private fun DrawScope.drawTownSmoke(map: de.bornim.core.MapDef, clock: Long, cam
 /**
  * Seen diagonally (27.6c, draft): smoke rising from the camp fires in the woods, a loose column of soft wisps like
  * the chimneys' (drawTownSmoke), carried off with the wind as it climbs; over Morwen's herb fire in the deep woods
- * paler and faintly green. Only over fires the hero has seen.
+ * paler and faintly green. Only over fires the hero has seen. In the cave (D1.7) the goblins' fire smokes too, straight
+ * up in the still air, warmed by the flames below and thinner, for it hangs in the dark.
  */
 private fun DrawScope.drawCampSmoke(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int) {
     val T = WorldArt.T
     val herbs = map.id == "deep_forest"
+    val cave = map.kind == MapKind.CAVE
     // pale against the dark woods (dark grey like the chimneys' was lost against the ground)
-    val col = if (herbs) Color(0xFFC2CAB6) else Color(0xFFB4B0A8)
+    val col = if (cave) Color(0xFFA89C8E) else if (herbs) Color(0xFFC2CAB6) else Color(0xFFB4B0A8)
+    val lean = if (cave) 2f else 18f
     for (ty in 0 until map.height) for (tx in 0 until map.width) {
         if (map.tile(tx, ty) != de.bornim.core.Tile.CAMPFIRE) continue
         val seen = LightImage.seen(game, tx, ty, 0.5f, clock)
@@ -1903,12 +1927,91 @@ private fun DrawScope.drawCampSmoke(game: Game, map: de.bornim.core.MapDef, cloc
             val period = 6400L
             val ph = (((clock + seed * 211) + k * period / n) % period) / period.toFloat()
             val sway = kotlin.math.sin(ph * 3.6f + seed + clock / 2700f) * (0.8f + ph * 3f)
-            val x = bx + (sway + ph * ph * 18f) * scale
+            val x = bx + (sway + ph * ph * lean) * scale
             val y = by - (ph * 56f) * scale
             val r = (2.2f + ph * 9f) * scale
-            val a = (if (herbs) 0.42f else 0.34f) * seen * (1f - ph) * (1f - ph) * kotlin.math.min(1f, ph * 8f)
+            val a = (if (cave) 0.26f else if (herbs) 0.42f else 0.34f) * seen * (1f - ph) * (1f - ph) * kotlin.math.min(1f, ph * 8f)
             val c = Offset(x, y)
             drawCircle(Brush.radialGradient(listOf(col.copy(alpha = a), col.copy(alpha = a * 0.5f), col.copy(alpha = 0f)), c, r), r, c)
+        }
+    }
+}
+
+/**
+ * D1.7, 27n: the small life over fires and mushrooms, seen diagonally (it was drawn on the tilted floor, so it drifted
+ * aslant): sparks leaving a camp fire and spores leaving the glowing mushrooms rise upright on the screen, in the
+ * cave as in the woods. Only where the hero has seen.
+ */
+private fun DrawScope.drawRisingLife(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int) {
+    val T = WorldArt.T
+    val px = scale.toFloat()
+    val zs = de.bornim.core.art.MapRoomIso.ZS.toFloat()
+    fun foot(x: Double, y: Double): Offset {
+        val mx = ((x - camX) * scale).toFloat(); val my = ((y - camY) * scale).toFloat()
+        return Offset(cam.toScreenX(mx, my), cam.toScreenY(mx, my))
+    }
+    for ((i, src) in MapLight.sources(map).withIndex()) {
+        val seen = LightImage.seen(game, floor(src.x / T).toInt(), floor(src.y / T).toInt(), 0.4f, clock)
+        if (seen <= 0f) continue
+        val o = foot(src.x, src.y)
+        when (src.kind) {
+            MapLight.Kind.FIRE -> for (k in 0 until 5) {
+                // sparks rising from the flames, swaying, fading before about a man's height
+                val period = 1400 + k * 230
+                val ph = ((clock + k * 517 + i * 131) % period) / period.toFloat()
+                val sx = kotlin.math.sin(ph * 6f + k) * 3f + (k - 2) * 2f
+                val h = (14f + ph * 44f) * zs
+                drawRect(Color(0xFFFFC060).copy(alpha = (1 - ph) * 0.9f * seen), Offset(o.x + sx * px, o.y - h * px), androidx.compose.ui.geometry.Size(px, px))
+            }
+            MapLight.Kind.SHROOM -> for (k in 0 until 3) {
+                // spores drifting up from the caps, slow and wavering, a little to either side
+                val period = 3200 + k * 700
+                val ph = ((clock + k * 1100 + i * 377) % period) / period.toFloat()
+                val sx = (k - 1) * 6f + kotlin.math.sin(ph * 9f + i) * 2.5f
+                val h = (4f + ph * 36f) * zs
+                drawRect(Color(0xFFA8FFF0).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * 0.8f * seen), Offset(o.x + sx * px, o.y - h * px), androidx.compose.ui.geometry.Size(px, px))
+            }
+            else -> {}
+        }
+    }
+}
+
+/**
+ * D1.7: drops fall straight down from the dark of the cave onto the floor near the hero and leave a ring lying flat
+ * on it. Only where the hero has seen.
+ */
+private fun DrawScope.drawCaveDrops(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int) {
+    val T = WorldArt.T
+    val px = scale.toFloat()
+    val zs = de.bornim.core.art.MapRoomIso.ZS.toFloat()
+    fun foot(x: Double, y: Double): Offset {
+        val mx = ((x - camX) * scale).toFloat(); val my = ((y - camY) * scale).toFloat()
+        return Offset(cam.toScreenX(mx, my), cam.toScreenY(mx, my))
+    }
+    // drops: a few at a time on the floor round the middle of the view, each on a tile of its own
+    val cx = floor(cam.mapX(size.width / 2, size.height / 2) / T).toInt(); val cy = floor(cam.mapY(size.width / 2, size.height / 2) / T).toInt()
+    for (k in 0 until 7) {
+        val period = 2600L + k * 410
+        val cycle = (clock + k * 777) / period
+        val ph = ((clock + k * 777) % period) / period.toFloat()
+        val tx = cx - 6 + Math.floorMod(hash(k, cycle.toInt()), 13); val ty = cy - 6 + Math.floorMod(hash(cycle.toInt(), k + 50), 13)
+        if (!map.inside(tx, ty) || !map.tile(tx, ty).walkable) continue
+        val seen = LightImage.seen(game, tx, ty, 0.4f, clock)
+        if (seen <= 0f) continue
+        val o = foot(tx * T + 6.0 + Math.floorMod(hash(k, 9), 20), ty * T + 6.0 + Math.floorMod(hash(k, 11), 20))
+        if (ph < 0.25f) {
+            // falling ever faster out of the dark, a short streak
+            val q = ph / 0.25f
+            val h = (1 - q * q) * 64f * zs
+            drawRect(Color(0xFFB8D8F0).copy(alpha = 0.8f * seen * kotlin.math.min(1f, q * 4f)), Offset(o.x - px / 2, o.y - (h + 1.5f + q * 2f) * px), androidx.compose.ui.geometry.Size(px, (1.5f + q * 2f) * px))
+        } else if (ph < 0.6f) {
+            // the ring spreading on the floor, an ellipse as the floor is seen
+            val q = (ph - 0.25f) / 0.35f
+            val w = (3 + q * 9) * px
+            drawOval(
+                Color(0xFFB8D8F0).copy(alpha = (1 - q) * 0.6f * seen), Offset(o.x - w / 2, o.y - w / 4), androidx.compose.ui.geometry.Size(w, w / 2),
+                style = androidx.compose.ui.graphics.drawscope.Stroke(0.8f * px),
+            )
         }
     }
 }
@@ -2287,8 +2390,8 @@ private fun DrawScope.drawMapLight(
         val px = scale.toFloat()
         when (src.kind) {
             // seen diagonally, a hearth's sparks and smoke rise upright on the screen (drawHearthSmoke)
-            MapLight.Kind.FIRE, MapLight.Kind.TORCH -> if (!(indoor && src.kind == MapLight.Kind.FIRE) &&
-                !(src.kind == MapLight.Kind.TORCH && map.kind == MapKind.CAVE)) { for (k in 0 until (if (src.kind == MapLight.Kind.FIRE) 5 else 2)) {
+            // a camp fire's sparks rise upright on the screen (drawRisingLife, D1.7, 27n), a cave torch's too (drawCaveTorches)
+            MapLight.Kind.FIRE, MapLight.Kind.TORCH -> { if (src.kind == MapLight.Kind.TORCH && map.kind != MapKind.CAVE) for (k in 0 until 2) {
                 // sparks rising and fading
                 val period = 1400 + k * 230
                 val ph = ((clock + k * 517 + i * 131) % period) / period.toFloat()
@@ -2318,7 +2421,7 @@ private fun DrawScope.drawMapLight(
                 val sy = src.y - 8 + ((k * 23) % 30) + kotlin.math.sin(ph * 3f + k * 2) * 6 + ph * 6
                 drawRect(Color(0xFFF0E8D8).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * 0.55f * on), at(sx, sy), androidx.compose.ui.geometry.Size(px, px))
             }
-            MapLight.Kind.SHROOM -> for (k in 0 until 3) {
+            MapLight.Kind.SHROOM -> if (indoor) for (k in 0 until 3) {
                 // spores drifting up from the mushrooms
                 val period = 3200 + k * 700
                 val ph = ((clock + k * 1100 + i * 377) % period) / period.toFloat()
@@ -2328,29 +2431,6 @@ private fun DrawScope.drawMapLight(
             }
             // the shaft of light stands upright in the cave (drawCaveShaft)
             else -> {}
-        }
-    }
-    if (map.kind != MapKind.CAVE) return
-    // drops falling from the roof onto the floor, leaving a small ring
-    val tx0 = (camX / T).coerceAtLeast(0); val ty0 = (camY / T).coerceAtLeast(0)
-    val tw = (viewW / T).toInt() + 2; val th = (viewH / T).toInt() + 2
-    for (k in 0 until 7) {
-        val period = 2600L + k * 410
-        val cycle = (clock + k * 777) / period
-        val ph = ((clock + k * 777) % period) / period.toFloat()
-        val tx = tx0 + Math.floorMod(hash(k, cycle.toInt()), tw); val ty = ty0 + Math.floorMod(hash(cycle.toInt(), k + 50), th)
-        if (!map.tile(tx, ty).walkable) continue
-        val dx = tx * T + 6.0 + Math.floorMod(hash(k, 9), 20); val dy = ty * T + 10.0 + Math.floorMod(hash(k, 11), 16)
-        if (ph < 0.25f) {
-            val fy = dy - (1 - ph / 0.25f) * 26
-            drawRect(Color(0xCCB8D8F0), at(dx, fy), androidx.compose.ui.geometry.Size(scale.toFloat(), 2f * scale))
-        } else if (ph < 0.6f) {
-            val q = (ph - 0.25f) / 0.35f
-            val o = at(dx, dy)
-            drawOval(
-                Color(0xFFB8D8F0).copy(alpha = (1 - q) * 0.6f), Offset(o.x - (2 + q * 5) * scale, o.y - (1 + q * 1.5f) * scale),
-                androidx.compose.ui.geometry.Size((4 + q * 10) * scale, (2 + q * 3) * scale), style = androidx.compose.ui.graphics.drawscope.Stroke(0.8f * scale),
-            )
         }
     }
 }

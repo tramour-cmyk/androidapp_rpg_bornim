@@ -13,11 +13,11 @@ object Stamina {
     /** Out of breath, the hero may run again from this much on. */
     const val AGAIN = 0.25
 
-    /** How long a full store lasts while running, in ms. */
-    fun lastsMs(hero: Hero): Double {
+    /** How long a full store lasts while running, in ms; a stamina draught ([boost], 86.6) doubles it. */
+    fun lastsMs(hero: Hero, boost: Boolean = false): Double {
         val s = (20.0 + 3.0 * hero.mod(Ability.CON)).coerceAtLeast(8.0)
         val heavy = hero.item(GearSlot.CHEST)?.def?.weight == Weight.HEAVY && hero.score(Ability.STR) < 13
-        return s * 1000.0 * (if (heavy) 0.5 else 1.0)
+        return s * 1000.0 * (if (heavy) 0.5 else 1.0) * (if (boost) 2.0 else 1.0)
     }
 
     /**
@@ -27,7 +27,7 @@ object Stamina {
     fun step(state: GameState, dt: Long, moving: Boolean, run: Boolean): Boolean {
         val runs = moving && run && !state.winded
         state.stamina = when {
-            runs -> state.stamina - dt / lastsMs(state.hero)
+            runs -> state.stamina - dt / lastsMs(state.hero, state.staminaBoost)
             moving -> state.stamina + dt / WALK_REFILL_MS
             else -> state.stamina + dt / STAND_REFILL_MS
         }.coerceIn(0.0, 1.0)

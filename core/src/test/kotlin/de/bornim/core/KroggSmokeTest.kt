@@ -63,4 +63,10 @@ class KroggSmokeTest {
         assertEquals(1, s.count(Story.SMOKE_BUNDLE))
         assertTrue(s.has(Story.SMOKE_GIVEN))
     }
+
+    @Test
+    fun `the bag shows the freed text`() {
+        assertEquals("Ein Bündel beißender Kräuter von Morwen. Krogg vor die Füße werfen: Der Rauch nimmt ihm den ersten Hieb. Nur im Kampf.",
+            Items[Story.SMOKE_BUNDLE].desc.de)
+    }
 }
