@@ -1,5 +1,7 @@
 # Archiv
 
+**Übergabe (16.10., 20:26, „Tom – 92 Bram schubsen“) – Nachfolger: Tom – 92 nach Test zusammenführen:** 92 behoben (Ursache: `FreeWalk.pushed` zählte Dorfleute nie), PR #96 = 0.1.806 grün, Prüfliste `zug/ansehen/t806-92-bram-schubsen.md`. D3.10 ohne Einwand gestrichen. Sonst nichts Startbares (27, 68, 26 warten); Übernahme bei Jerry nicht möglich (mehr als 4 Builds warten).
+
 **Übergabe (16.10., 20:3x, „Jerry – 39 Schwierigkeitsgrad“) – Nachfolger: Jerry – 86 Außer Atem und Rennen laut:** 108a.1 erledigt (Beschluss, #90, #91, #85 auf `main`, CHANGELOG). 39 gebaut ohne PR (Zweig `claude/jerry-39-schwierigkeit`), wartet auf 39.1/39.2 bei Kreativ; 38 neu messen an Diogenes. Nachfolger: #68, #87, #93, #94, #95 abonnieren; dann 86: außer Atem in den Kampf = Initiative mit Nachteil, Rennen laut (84.4; Beschluss 86.3/86.6, mit 72.11 abgleichen); danach D3 Kampfgeheul (#85 ist auf `main`).
 
 **118 Wortlaut** (Chef 16.10., 13:3x: „wie wäre es, wenn die … nicht mehr thematisch arbeiten, sondern arbeiten einfach die Liste ab und ergänzen sich im Sinne von, okay, ich brauche das andere, dann mach doch du das, ich mach das. Also keine thematische Trennung mehr. Was spricht dafür, was spricht dagegen?“)

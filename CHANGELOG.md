@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Zusammengeführt nach Test 0.1.806** (PR #96, 16.10., 21:1x): wer beim freien Laufen dauerhaft gegen Dorfleute läuft, bringt sie nach dem zweiten Anstoß dazu, zur Seite zu treten; Wachen auf ihrer Runde weichen nicht (92; Rückläufer: 1).
 - **Zusammengeführt nach Test 0.1.797** (PR #87, 16.10., 20:5x): nähert sich ein Jäger, wird die Musik leiser und dumpfer und eine dunkle Spur schleicht sich ein; bemerkt er den Helden, ist es still bis zur Kampfmusik (120).
 - **Zusammengeführt nach Test 0.1.779/0.1.780/0.1.782** (PR #90, #91, #85, 16.10., 20:0x–20:2x): Rauchbündel nimmt Kroggs ersten Hieb (D4.1); Sterbehaltung liegt am Boden (51); Krogg zerfällt in feine Stücke (36.6); Zustände sitzen auf dem Umriss des Gegners (53); betrunken = Nachteil wie Vergiftet (86.9); Raumklang in Höhle, Tempelhalle, Schänke und Kammer (119); Stimmen der zwölf übrigen Gegner (18.11).
 - **Zusammengeführt nach Test 0.1.781/0.1.791** (PR #92, 16.10., 17:5x): „!“, Elite-Glühen und Glitzern sitzen am Tier, Regenspritzer schräg wie die Karte (D3.5); Schatten unter Rudelwölfen und Wachen (D3.6); „bemerkt“-Laut nach Entfernung (D3.9); Schänkenherd an der Tür leise hörbar (D3.12).
