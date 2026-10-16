@@ -8,7 +8,7 @@ Kurz: 4 Sammelbuilds statt 14 Einzel-APKs, je Build eine Prüfliste; Reihenfolge
 
 APK: im PR unten unter „Checks“ → „build“ → „Artifacts“. Testmenü: Reiter „Test“ (Uhrzeit +3 h, Teleport, „Held trifft immer kritisch“, „Bosse zurücksetzen“, „Alle Vorräte auf mindestens 10“).
 
-Build 1 passt (Chef 16.10., 15:0x), auf `main` (PR #88). Build 2, 3, 4 passen (Chef 16.10., 15:2x/15:3x), werden zusammengeführt.
+Build 1 passt (Chef 16.10., 15:0x), auf `main` (PR #88). Build 2, 3, 4, 5 passen (Chef 16.10., 15:2x–15:4x), werden zusammengeführt.
 
 ## Build 2 · 0.1.778 · Intro und Menü · [PR #89](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/89)
 
