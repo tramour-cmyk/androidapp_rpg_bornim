@@ -4,6 +4,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 28, davon A 0, wartet auf Chef 11**
 
+**Pause bis 16.10., 13:20** (Stundenkontingent Pro aufgebraucht; Chef 16.10., 11:1x: „ab 13:20 Uhr wieder verfügbar“). Danach zuerst Zeile 108 (Testreihe in `docs/zug/ansehen/jerry-testreihe.md` prüfen).
+
 **Übergabe (16.10., 10:24, „Jerry – 30 Klang-Fäden“) – Nachfolger: Jerry – 18 Gegnerstimmen:** 30 gebaut (PR #82, baut). #81 grün, Testbitte per Telegram (nach #80), 30 gleich mit angekündigt. Testreihenfolge #70, #72–#82. Nachfolger: #70, #72–#82 neu abonnieren; bei Grün #82 nur kurze Zeile per Telegram (Testbitte steht). Dann 18 (59e hängt an 38). Rest der alten Übergaben gilt (86.9 kein PR vor #71; nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
 
 ## Zeilen
