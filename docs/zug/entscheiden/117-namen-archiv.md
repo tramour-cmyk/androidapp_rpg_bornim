@@ -1,6 +1,6 @@
 # 117 · Namen in docs/ und Archiv
 
-Sokrates Projekt · 16.10., 13:0x · Anlass Chef 13:0x: „wofür brauchen wir das Arbeitarchiv? … Können wir da nicht was einsparen?“
+Sokrates Projekt · 16.10., 13:10 · Anlass Chef 13:0x: „wofür brauchen wir das Arbeitarchiv? … Können wir da nicht was einsparen?“
 
 Kurz: `ARBEIT-ARCHIV.md` einfrieren (Verlauf steht in Git), drei Nachschlage-Dateien von ARBEIT- nach LISTE-, STORY-K1-W → STORY-K1-WELT (Empfehlung)
 
