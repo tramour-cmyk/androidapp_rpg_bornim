@@ -6,7 +6,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
-| [99g](entscheiden/99g-dokumente-pro.md) | 16.10. | Alle lebenden Artefakte ins Repo, gestaffelt: Kampf jetzt, Rest nach Sa 21:00; nur Marktvergleich bleibt auf Max (Empfehlung) | Sokrates Projekt |
+| [99g](entscheiden/99g-dokumente-pro.md) | 16.10. | Alle lebenden Artefakte ins Repo, gestaffelt: Kampf jetzt, Rest nach Sa 21:00; nur Marktvergleich bleibt auf Max (Empfehlung) | **Entschieden** (Chef 16.10., 12:4x: „dann entscheide ich hier mal, dass wir gestaffelt umziehen. Also jetzt mit Design Kampf MD, genau das. Und den Rest legen wir auf Wiedervorlage. Marktvergleich bleibt auf jeden Fall auf Max-Account und geht nicht ins Repo. … irgendwer sollte dann auch der Niederlassung Bescheid geben, dass sie jetzt Zugriff aufs Dokument haben.“) |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Sokrates |
 
 ## Anzusehen
