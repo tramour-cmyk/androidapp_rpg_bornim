@@ -1256,10 +1256,13 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                 }
                 // lasting statuses show on the body as long as they hold (flames, a sickly vapour, dripping blood, frost);
                 // drawn in the foe's own frame, they go with it when it lunges, dodges or reels
+                // they sit on the figure as now shown, on its own outline, not round the mark of its feet (53)
+                val foeOutline = remember(shownFoe) { shownFoe?.let { de.bornim.core.art.Outline.of(it) } }
                 if (ui.foeStatus.isNotEmpty() && !ui.enemyGone) Canvas(Modifier.size(1.dp)) {
                     val chest = Offset(foeAnchor.toPx(), (foeFeet - (if (newStyle) foeTall * 0.55f else monsterSize * 0.45f)).toPx())
                     val u = (if (newStyle) foeW / 90 else monsterSize / 64).toPx()
-                    for (st in ui.foeStatus.keys) drawStatus(st, clockMs / 1000f, chest, foeFeet.toPx(), u, vm.bloodLevel)
+                    val fit = foeOutline?.let { BodyFit(it, sprDp.toPx()) }
+                    for (st in ui.foeStatus.keys) drawStatus(st, clockMs / 1000f, chest, foeFeet.toPx(), u, vm.bloodLevel, fit)
                 }
             }
             // Hero (seen from behind)
