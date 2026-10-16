@@ -86,4 +86,13 @@ class AmbienceTest {
             }
         }
     }
+
+    @Test
+    fun aMonsterNoticingIsSofterFurtherOff() {
+        // D3.9: the "noticed" sound was always 0.8, however far off the animal stood
+        val v = (1..8).map { Ambience.heardAt(it) }
+        assertEquals(0.8f, v[0]); assertEquals(0.8f, v[1])
+        assertTrue(v.zipWithNext().all { (a, b) -> b <= a } && v[3] < v[1], "nicht leiser mit der Entfernung: $v")
+        assertTrue(v.last() >= 0.3f, "verschwindet: $v")
+    }
 }

@@ -213,7 +213,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 game.update(ms)
                 if (!vm.menuOpen) game.releaseFlash()
                 game.notices.removeFirstOrNull()?.let { vm.toast = it(game.lang) }
-                if (game.sounds.isNotEmpty() || game.mode != modeBefore) vm.refresh()
+                if (game.sounds.isNotEmpty() || game.placedSounds.isNotEmpty() || game.mode != modeBefore) vm.refresh()
             }
         }
     }

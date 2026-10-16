@@ -76,6 +76,9 @@ object Ambience {
         return if (target > cur) min(target, cur + step) else max(target, cur - step)
     }
 
+    /** A sound [dist] tiles (steps) from the hero (D3.9): full close by, softer the further off, never lost. */
+    fun heardAt(dist: Int, loud: Float = 0.8f): Float = maxOf(0.3f, loud - 0.15f * maxOf(0, dist - 2))
+
     /** Volume of a drop while the crackle is at [fire]. */
     fun dripVolume(fire: Float): Float = DRIP_VOLUME * (1f - 0.6f * fire / FIRE_MAX)
 }
