@@ -2,9 +2,9 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 27, davon A 0, wartet auf Chef 10**
+**offen 27, davon A 0, wartet auf Chef 11**
 
-**Übergabe (16.10., 10:04, „Jerry – 36.6 Krogg Killerschlag“) – Nachfolger: Jerry – 53 Zustände auf Krogg:** 36.6 gebaut (64f7d95d, **PR #80**, Kerntests grün, Prüfliste im PR; Film per Telegram). Testreihenfolge #70, #72–#80. Nachfolger: #70, #72–#80 neu abonnieren; bei Grün #79/#80 Testbitte per Telegram (nach #78). Dann 53. Rest der alten Übergaben gilt (86.9 kein PR vor #71; nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
+**Übergabe (16.10., 10:17, „Jerry – 53 Zustände auf Krogg“):** 53 gebaut (PR #81). #79/#80 grün, Testbitte per Telegram (nach #78). Testreihenfolge #70, #72–#81. Rest der alten Übergaben gilt (86.9 kein PR vor #71; nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
 
 ## Zeilen
 
@@ -28,8 +28,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 | 79 | Kampfhintergründe an die Diagonalwelt angleichen (Chef 14.10., 08:34; nur Aussehen) | hängt an 72u; erst Standbild, dann Entwurf nach Musterbild 70.1 | – |
 | 51 | Sterbehaltung des Helden (Magier) im Kampf sieht komisch aus (liegt verdreht auf der Seite, Arm abgeknickt nach oben; Chef 12.10., 15:4x, erneut 14.10., 21:1x, Test 0.1.741) | **gebaut** (16.10., 09:38, 53a02d65, PR #79, Kerntests grün): Sturz 2 oberer Arm stand in die Luft (alle Klassen), liegt jetzt am Boden; Sturz 3 fiel links aus dem Bild, dreht sich jetzt beim Knien und fällt nach rechts; Vorher/Nachher per Telegram. Magier-Robe beim Sturz aufs Gesicht wirkt kastig (nicht geändert). **Wartet auf Chef** (Test nach #78) | `claude/jerry-51-sterbehaltung` |
 | 36 | Krogg (Vorboss Höhle) wirkt verpixelt | 36.4–36.7, 36h/36j/36k auf `main`; **36.6 gebaut** (16.10., 10:04, 64f7d95d, PR #80, Kerntests grün, Film selbst gesehen): Stücke beim Zerteilen/Durchbohren aus dem feinen Bild. Bekannt: Oberkörper liegt nach dem Umkippen teils hinter dem rechten Rand (schon vorher; mit 52). **Wartet auf Chef** (Test nach #79) | `claude/jerry-36-6-krogg-killerschlag` |
+| 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg (Chef 12.10., 15:4x) | **gebaut** (16.10., 10:17, aacf565a, PR #81, Kerntests grün, `OutlineTest`, Filme selbst gesehen): Zustände liegen auf dem Umriss des gezeigten Bilds statt um den Fußpunkt (Krogg stand links davon); geprüft Krogg, Grak, Goblin, Wolf, Keiler, Spinne, Fledermaus; Vorher/Nachher per Telegram. **Wartet auf Chef** (Test nach #80) | `claude/jerry-53-zustaende-krogg` |
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Krogg so lassen, später alle gesamt; Rudelwölfe auf `main` | – |
-| 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg (Chef 12.10., 15:4x) | wenn Zeit ist; alle großen Gegner mitprüfen | – |
 | 59e | Händler: Vorrat je Laden (mit 38/39) | offen | – |
 | 30 | Abstürze: eigene Klang-Fäden prüfen | offen | – |
 | 18 | Stimmen der übrigen Gegner (Angriff, Schmerz, Tod, je drei Fassungen), nur als Hörproben | offen (Selbstarbeit) | – |
