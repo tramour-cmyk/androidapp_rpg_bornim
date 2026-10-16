@@ -6,7 +6,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `d6ebd86f` (16.10., 22:54)
 
-**Übergabe (16.10., 23:0x, „Perikles – 106.1a Befunde Diogenes (16.10., 22:55)“):** 106.1a (Lauf 22) eingearbeitet: D22.1 Ford startet Homer und Perikles auch für Muss-Zeilen (`ROLLE-BETRIEB.md`; im Sparmodus weiter nur auf Zuruf); D22.2 Befundzeilen D1, D3, D21, Woche in `LISTE-VORGAENGE.md`; D22.3 Liste an Vorräte angeglichen (9, 19, 59, 72, 102, 117; 38 stimmt: Homers Teil Kür, Wochenziel Jerry/Diogenes); D22.5 „Beschlüsse“ ersetzt, Kopfzahlen Jerry und Homer. **Nachfolger: „Perikles – 99g Umzug“** (nach Sa 17.10., 21:00).
+**Übergabe (16.10., 22:56, „Perikles – 106.1a Befunde Diogenes (16.10., 22:55)“):** 106.1a (Lauf 22) eingearbeitet: D22.1 Ford startet Homer und Perikles auch für Muss-Zeilen (`ROLLE-BETRIEB.md`; im Sparmodus weiter nur auf Zuruf); D22.2 Befundzeilen D1, D3, D21, Woche in `LISTE-VORGAENGE.md`; D22.3 Liste an Vorräte angeglichen (9, 19, 59, 72, 102, 117; 38 stimmt: Homers Teil Kür, Wochenziel Jerry/Diogenes); D22.5 „Beschlüsse“ ersetzt, Kopfzahlen Jerry und Homer. **Nachfolger: „Perikles – 99g Umzug“** (nach Sa 17.10., 21:00).
 
 ## Zeilen
 
