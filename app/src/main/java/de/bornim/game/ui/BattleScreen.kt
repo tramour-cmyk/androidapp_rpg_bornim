@@ -111,10 +111,9 @@ private class BattleUi(val battle: Battle) {
     var foePoised by mutableStateOf(false)
     /** A spell of the poised foe that lands (or is turned aside) on the hero without a blow: the wind-up is let go with it. */
     var foeCastLands by mutableStateOf(false)
-    /** Counts the leader's howls; [howlStart] is when the latest began, [howlSound] which voice it uses. */
+    /** Counts the leader's howls; [howlStart] is when the latest began. */
     var howlKey by mutableIntStateOf(0)
     var howlStart = 0L
-    var howlSound = Sound.HOWL_1
     private val howls = MonsterArt.isNewStyle(battle.monster.id) && battle.monster.id.contains("wolf")
 
     /**
@@ -450,7 +449,6 @@ private class BattleUi(val battle: Battle) {
             }
             if (howls && !enemyGone && kotlin.random.Random.nextDouble() < chance) {
                 howlStart = System.currentTimeMillis()
-                howlSound = listOf(Sound.HOWL_1, Sound.HOWL_2, Sound.HOWL_3).random()
                 howlKey++
             }
             animKey++
@@ -635,7 +633,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
         if (ui.howlKey == 0) return@LaunchedEffect
         // the sound starts once the head is raised
         delay(HOWL_RAISE_MS)
-        vm.play(ui.howlSound)
+        vm.play(Sound.HOWL)
     }
     // the swish of a blow, as the weapon comes down: heavier for great weapons and hammers
     LaunchedEffect(ui.swingKey) {
@@ -1451,7 +1449,7 @@ private fun ForestBackground(spot: BattleScene.Spot, light: BattleScene.Light, d
 
 /** The cave is lit pixel by pixel, which takes a moment: it is drawn in the background and fades in. */
 @Composable
-private fun CaveBackground(spot: CaveScene.Spot, light: CaveScene.Light, seed: Int, night: Boolean, scale: Int, modifier: Modifier) {
+internal fun CaveBackground(spot: CaveScene.Spot, light: CaveScene.Light, seed: Int, night: Boolean, scale: Int, modifier: Modifier) {
     var dims by remember { mutableStateOf(androidx.compose.ui.unit.IntSize.Zero) }
     var img by remember { mutableStateOf<de.bornim.core.art.PixelImage?>(null) }
     LaunchedEffect(dims, spot, light, seed, night) {

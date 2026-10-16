@@ -36,7 +36,8 @@ enum class Sound {
     IDLE_WOLF, IDLE_BOAR, IDLE_GOBLIN, IDLE_KOBOLD, IDLE_GIANT_RAT, IDLE_GIANT_BAT, IDLE_STIRGE, IDLE_GIANT_SPIDER,
     IDLE_GIANT_CENTIPEDE, IDLE_SKELETON, IDLE_ZOMBIE, IDLE_GHOUL, IDLE_OCHRE_JELLY,
     SWING, SWING_HEAVY,
-    HOWL_1, HOWL_2, HOWL_3,
+    // the pack leader's howl in a fight (D3, 18): three recorded wolves
+    HOWL,
 }
 
 /** Synthesized sound effects, rendered once to 16-bit mono PCM. */
@@ -63,7 +64,7 @@ object Sfx {
         Sound.ALARM_BELL, Sound.FAR_SHOUT, Sound.FAR_SCREAM,
         Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
         Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE, Sound.PANT_MAN, Sound.PANT_WOMAN,
-        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH, Sound.RAIN) + MonsterIdle.SOUNDS
+        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH, Sound.RAIN, Sound.HOWL) + MonsterIdle.SOUNDS
 
     fun variants(s: Sound): Int = if (s in VARIED) 3 else 1
 
@@ -752,21 +753,6 @@ object Sfx {
             tone(0.0, 0.12, midi(91), midi(79), 0.3, Wave.TRIANGLE, 0.03)
             tone(0.14, 0.3, midi(84), midi(81), 0.08, Wave.TRIANGLE, 0.1)
         }
-        // Three wolf howls, each with the echo of the forest: a long one that swells and sinks,
-        // a short call answered by a longer, higher one, and a deep mournful one that breaks upward.
-        Sound.HOWL_1 -> Buf(2.6).apply {
-            howl(0.0, 1.9, listOf(0.0 to 330.0, 0.18 to 560.0, 0.55 to 610.0, 0.85 to 520.0, 1.0 to 360.0), 0.6, seed = 51)
-            reverb(0.55)
-        }
-        Sound.HOWL_2 -> Buf(2.6).apply {
-            howl(0.0, 0.6, listOf(0.0 to 380.0, 0.35 to 590.0, 1.0 to 470.0), 0.5, wobble = 0.008, seed = 53)
-            howl(0.62, 1.4, listOf(0.0 to 470.0, 0.2 to 680.0, 0.6 to 660.0, 1.0 to 430.0), 0.6, seed = 54)
-            reverb(0.55)
-        }
-        Sound.HOWL_3 -> Buf(2.6).apply {
-            howl(0.0, 2.0, listOf(0.0 to 230.0, 0.25 to 400.0, 0.42 to 410.0, 0.47 to 520.0, 0.75 to 500.0, 1.0 to 280.0), 0.6, wobble = 0.018, seed = 55)
-            reverb(0.6)
-        }
         // ---- battle: hits and misses, layered from swish, body blow and crunch, in a small room
         Sound.HIT_SLASH -> Buf(0.7).apply {
             band(0.0, 0.14, 0.5, 4200.0, 1300.0, 1.4, 101, decay = 0.05)
@@ -948,7 +934,7 @@ object Sfx {
         Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH,
         Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY, Sound.RIVER, Sound.ALARM_BELL, Sound.FAR_SHOUT, Sound.FAR_SCREAM, Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
         Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE, Sound.PANT_MAN, Sound.PANT_WOMAN,
-        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH, Sound.RAIN,
+        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH, Sound.RAIN, Sound.HOWL,
         Sound.IDLE_WOLF, Sound.IDLE_BOAR, Sound.IDLE_GOBLIN, Sound.IDLE_KOBOLD, Sound.IDLE_GIANT_RAT, Sound.IDLE_GIANT_BAT, Sound.IDLE_STIRGE,
         Sound.IDLE_GIANT_SPIDER, Sound.IDLE_GIANT_CENTIPEDE, Sound.IDLE_SKELETON, Sound.IDLE_ZOMBIE, Sound.IDLE_GHOUL, Sound.IDLE_OCHRE_JELLY -> Buf(0.05)
     }.pcm()
