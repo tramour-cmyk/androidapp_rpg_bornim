@@ -24,6 +24,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Projekt wertet nach zwei Tagen aus.
 
+- 16.10., 14:20: Neustart Jerry 108a; Jerry 120 kostete 4,14 $ (216 Tsd. Token Kontext)
 - 16.10., 14:08: Selbstneustart Ford 2; Vorgänger 9,20 $ (`usage.cost_usd`, 356 Tsd. Token Kontext)
 - 16.10., 14:06: Neustart Jerry Idee 10; Jerry Raumklang kostete 4,38 $; Pro-Wochengrenze jetzt `allowed_warning`; 33 alte Pro-Sitzungen (8.–12.10.) auf Zuruf des Chefs archiviert
 - 16.10., 13:45: Neustart Jerry Raumklang; Jerry 18 kostete 8,15 $ (326 Tsd. Token Kontext, über die Pro-Sperre hinweg)
