@@ -24,6 +24,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Projekt wertet nach zwei Tagen aus.
 
+- 16.10., 20:40: Neustart Jerry D3 Kampfgeheul, Vorgänger (86) Kosten nicht ermittelbar; Pro meldet jetzt `five_hour` `allowed_warning` (zurück um 23:30)
 - 16.10., 20:34: Stundenlauf ohne Tat (Jerry 86 seit 20:32); Ford 2 seit 18:34 3,53 $, 203 Tsd. Token Kontext, sieben Neustarts Jerry eingeschlossen; Pro weiter `allowed_warning`
 - 16.10., 20:33: Neustart Jerry 86, Vorgänger (39) Kosten nicht ermittelbar (`get_session` ohne `usage`)
 - 16.10., 19:56: Neustart Jerry 39, Vorgänger (Build 10, 59e) Kosten nicht ermittelbar (`get_session` ohne `usage`)

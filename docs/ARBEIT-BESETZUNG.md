@@ -9,4 +9,4 @@
 | Ford | [Ford – Betriebsleiter (16.10., 17:50)](https://claude.ai/code/session_01CxGVVG35nLayNTuubcUd7Q) | Betrieb | – | 16.10., 17:50 |
 | Diogenes | [Diogenes – 125 und 106.1 Rollen und Kennzahlen (16.10., 20:26)](https://claude.ai/code/session_01NN52c14B4vhpWH2KyWnUGT) | 125, 106.1 | `claude/diogenes-125-rollen` | 16.10., 20:26 |
 | Ford 2 | [Ford 2 – Niederlassungsleiter (16.10., 18:34)](https://claude.ai/code/session_017Gzi9LijVCMaW5UJrzYaXZ) | Betrieb Pro | – | 16.10., 18:34 |
-| Team Jerry | [Jerry – 86 Außer Atem und Rennen laut (16.10., 20:32)](https://claude.ai/code/session_015wvUmLgwaqJp75TCNPt8Q9) | 86 | `claude/jerry-86-atem-rennen` | 16.10., 20:32 |
+| Team Jerry | [Jerry – D3 Kampfgeheul (16.10., 20:39)](https://claude.ai/code/session_01UnU87U1Vgjs5jZRoCzhWQt) | D3 | `claude/jerry-d3-kampfgeheul` | 16.10., 20:39 |
