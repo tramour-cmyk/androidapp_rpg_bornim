@@ -14,6 +14,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
+| [Jerry](ansehen/jerry-testreihe.md) | 16.10. | Elf Builds von Jerry, Reihenfolge nach Toms 0.1.757 (#71): Keuchen, Rauchbündel, Lautstärke, Umweltklang, Fluss, Intro-Klang, Glocke, Sterbehaltung, Krogg, Zustände, Absturz Klang | Jerry |
 | [0.1.757](ansehen/t757-sammelbuild.md) | 16.10. | Sammelbuild: Überspringen fragt nach (104), Intromusik (69f), Rast/Met/Zimmer (86), Held im Schatten (89), Funken senkrecht (27n, D1.7) | Tom |
 
 ## So geht's
