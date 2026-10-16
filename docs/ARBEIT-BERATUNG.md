@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 **offen 1, davon A 0, wartet auf Chef 0**
 
-**Übergabe (15.10., 23:1x, Umbau 98):** neu angelegt. Gesprächsstand: keiner offen. Nachfolger: keiner; Ford startet den Berater nie aus dem Vorrat, nur auf Zuruf des Chefs oder Neustart-Meldung.
+**Übergabe (16.10., 09:4x):** Chef fragte, ob die drei Sokrates-Vorräte zu einem zusammengelegt werden (Überblick über die anderen). Empfehlung getrennt lassen (Ford startet je Vorrat, Kosten je Start, 15-KB-Grenze); Abgleich auf Zuruf durch Einlesen der anderen Vorräte. Chef 09:4x: „Okay, dann lassen wir das so stehen.“ Gesprächsstand: keiner offen. Nachfolger: keiner; Ford startet den Berater nur auf Zuruf des Chefs.
 
 ## Zeilen
 
