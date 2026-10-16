@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kosten-Nutzen der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 23, davon A 0, wartet auf Chef 2**
+**offen 22, davon A 0, wartet auf Chef 1**
 
 **Gelesen bis:** `a9f8ab69` (16.10., 15:44)
 
@@ -12,7 +12,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 | Nr. | Thema | Stand |
 |---|---|---|
-| 121 | Übergabe schleppt Erledigtes mit (Chef 16.10., 15:4x: „wie Tom das durchrutschen konnte, dass T757 schon durch war. Wo ist da der Fehler? Wie können wir den das nächste Mal verhindern? Was lief da schief bei der Übergabe?“) | Ursache: Tom 12:21 Vorratszeile 86 und Zug-Datei gelöscht, Übergabe (12:13, „wartet auf Chef: Rast t757“) nicht; Nachfolger übernahm die Liste zweimal (14:4x). Empfehlung: Übergabe nennt keinen Stand, den Vorrat oder `docs/zug/` führen (65.4 schärfen, ersetzt Wortlaut, 90a); wartet auf Chef |
 | D17 | **von Diogenes** (Lauf 17, 99g Umzug aller Artefakte; Prüfbericht): D17.1 Beschlüsse nur Text ins Repo, Bilder/Hörproben bleiben im Artefakt; D17.2 Docs-Dokumente per Ausfuhr, Kommentare vorher sichten, Doppeladressen ersetzen; D17.3 Graumoor-Karte; D17.4 Marktvergleich (Frage Chef in 99g); D17.5 gestaffelt: Kampf jetzt, Rest nach Sa 21:00, Regelbilanz an fünf Stellen | entschieden 12:4x, Umsetzung mit 99g nach Sa 21:00 |
 | D16 | **von Diogenes** (Lauf 16, 110 Sitzungstiefe; Prüfbericht https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ): D16.1 Notfall-Selbststart (`ARBEIT-ABLAEUFE.md` Neustart 2) ohne Tiefensperre, Nachfolger auf 8 ohne Weckruf; D16.2 Tiefe Ford 2 in seine Kennungszeile; D16.3 Regel verweist auf gelöschte Zug-Datei 110; Anregung: Hand-Start Ford morgens | offen; im Prüfbericht „bestätigt“/„verworfen“ vermerken |
 | 118 | Teams ohne Themen (Chef 16.10., 13:3x: „wie wäre es, wenn die … nicht mehr thematisch arbeiten, sondern arbeiten einfach die Liste ab und ergänzen sich im Sinne von, okay, ich brauche das andere, dann mach doch du das, ich mach das. Also keine thematische Trennung mehr. Was spricht dafür, was spricht dagegen?“) | **umgesetzt** 16.10., 13:56 (Chef 13:5x: „118 B“, dann „Sofort“): `CLAUDE.md` Regel 6, `ROLLE-TEAM.md`, `FIRMA.md` Pro-Ausfall; Zeilen an Tom und Jerry. Rest: Bilanz 23.10. (Übernahmen, Rückläufer) |

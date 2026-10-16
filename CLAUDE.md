@@ -59,7 +59,7 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, `docs/`: nur auf `main`, direkt committen
 **Nachhalten**
 - **Nummern:** jedes Thema eine Nummer aus der gemeinsamen Folge (Zähler oben in `ARBEIT-BETRIEB.md`); Vorschläge 7.1 …, Rückfragen 7a …. Erst eintragen und pushen, dann nennen; sie bleibt fest.
 - **Jeder Text an einem Ort** (65.4): Stand im Vorrat, wer woran in der Besetzung; Gestaltung in den Beschlüssen; Begründung in der Rollendatei dessen, der empfiehlt; Umgesetztes in `CHANGELOG.md` („## Unveröffentlicht“); Verlauf in Commits oder `ARBEIT-ARCHIV.md`; `LISTE-THEMEN.md` nur Einwort-Stand.
-- **Vorräte klein halten:** je Vorrat höchstens etwa 15 KB, je Zeile höchstens 3 Zeilen; Erledigtes streichen, `LISTE-THEMEN.md` anpassen. Je Rolle eine Übergabe, oben im eigenen Vorrat; die alte oben ins Archiv; vor Pause oder Neustart pushen.
+- **Vorräte klein halten:** je Vorrat höchstens etwa 15 KB, je Zeile höchstens 3 Zeilen; Erledigtes streichen, `LISTE-THEMEN.md` anpassen. Je Rolle eine Übergabe, oben im eigenen Vorrat: was getan ist und der Nachfolger, kein Stand aus Vorrat oder `docs/zug/` (121); die alte oben ins Archiv; vor Pause oder Neustart pushen.
 
 **Story und Dialoge** (41): Plot und Texte legen Chef und Sokrates Kreativ fest. Verzeichnis in `STORY-REGELN.md`; gezielt über die Marke `[Thema.kurz]` suchen: wortgetreu übernehmen, Englisch beim Bauen selbst übersetzen. Fehlt ein Text: Zeile an Kreativ, nie selbst erfinden. Tippfehler direkt korrigieren (Commit „Text:“). Änderungen zeigt `tools/story.sh <von> [<bis>]`.
 
