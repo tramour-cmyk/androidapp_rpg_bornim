@@ -10,7 +10,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 10:05)“ `session_0146qrC68GQ3gCeHSC17RwLo` (seit 16.10., 10:04; Vorgänger `session_01KYjYQSUyCT2WSXinMf6rPA` archiviert). Stundenuhr „Ford-Stundenuhr“ `trig_01XjYt5Mi2cFZLQcgy5UxvRW` (:03, seit 10:05). Abstammung Tiefe 7 von 8: der nächste Selbstneustart ist der letzte in dieser Kette.
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 10:05)“ `session_0146qrC68GQ3gCeHSC17RwLo` (seit 16.10., 10:04; Vorgänger `session_01KYjYQSUyCT2WSXinMf6rPA` archiviert). Stundenuhr „Ford-Stundenuhr“ `trig_01XjYt5Mi2cFZLQcgy5UxvRW` (:03, seit 10:05). Tiefe 7 von 8: kein Selbstneustart mehr, der Chef startet Ford von Hand (110, `ROLLE-BETRIEB.md` „Tiefe“).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhr „Ford-Wache 07:08“ `trig_01Phk9eXekP5yY9M6L3bgS1c` (täglich 07:08; 15.10., 22:5x zurückgeholt, D13.2).
 - **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 08:49)“ `session_01JDBt2kNDbu2Udn7WRr5wE7` (seit 16.10., 08:48; Vorgänger `session_01R7KS2bJJNiqcTvwgFNSBNS` archiviert). Stundenuhr „Ford-2-Stundenuhr“ `trig_01SGCVra7Xeg6ChsDYSK1DR3` (:33, seit 08:48). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren.
 
