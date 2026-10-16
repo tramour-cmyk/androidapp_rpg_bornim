@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kosten-Nutzen der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 16, davon A 1, wartet auf Chef 1**
+**offen 17, davon A 1, wartet auf Chef 2**
 
 **Gelesen bis:** `142a1b40` (16.10., 11:3x)
 
@@ -12,6 +12,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 | Nr. | Thema | Stand |
 |---|---|---|
+| 113 | Einheitliches Wort für unsere Nummern (Chef 16.10., 12:1x: „Wie wollen wir denn einheitlich mal diese Nummern … nennen? Weil Nummer ist es ja keine Nummer, wenn Buchstaben drin sind … mach mal einen Vorschlag“) | **wartet auf Chef** ([113](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/main/docs/zug/entscheiden/113-vorgang.md)): Empfehlung „Vorgang“; danach `CLAUDE.md` „Begriffe“, Rest mit 102 |
 | 112 | Intro ist das Muster, Tempel fällt ab (Chef 16.10., 11:3x: „wir haben ganz viel Energie in die Entwicklung des Intros eines Musterbildes gesteckt, als Maß aller Dinge … Aber im Vergleich dazu ist ja die Sequenz Tempel eher schlecht. Also wusste wohl keiner wieder, dass das das Muster sein soll, an dem sich alles zu orientieren hat.“) | **nach Sparmodus** (Chef 11:3x: „So machen wir das bis Samstagabend.“). Ursache: `DESIGN-STIL.md` „Zwischensequenzen“ sagt noch „Musterbild folgt aus 69e“; nie festgeschrieben, dass das fertige Intro das Muster ist. Zeilen an Kreativ (Muster festschreiben, Vergleich Tempel) und Tom (68 nachziehen). Lehre: fertiges Muster sofort als Muster in die Designnotiz, mit Fundstelle im Code |
 | 111 | `DESIGN-ZWISCHENBILD.md` kürzen (Chef 16.10., 11:3x: „Welchen Zweck hat die MD-Datei Zwischenbildschirm … Brauchen wir die noch?“, auf Empfehlung behalten bis 24.6, dann kürzen: „Ich will das.“) | **nach 24.6** (Jerry, Kampferöffnung). Dann: Gebautes ins Archiv, offene Ideen (Nachtsätze, Sätze je Spielstand) nach `LISTE-IDEEN.md`, Rest bleibt; Verweise in `Interlude.kt`, `InterludeClock.kt`, `InterludeUi.kt`, `STORY-BLENDE.md` prüfen (Code-Kommentare nur über das Team) |
 | 108 | **von Sokrates Berater:** Dein Zug als Markdown im Repo umsetzen (Beschluss 108 A, 16.10.): Diogenes D15 trägt mit Auflagen (Prüfbericht Lauf 15): D15.1 `docs/**` in paths-ignore, D15.3 keine README-Liste (Sokrates: Unterordner `entscheiden/`, `ansehen/`, sprechende Namen), D15.4 Bilder ≤ 60 KB, ≤ 3 je Punkt mit Warnung, D15.5 Stellenliste, Probe `docs/zug/probe.md`; D15.2 erledigt (bleibt öffentlich); Regeln (`CLAUDE.md` 63, Rollendateien), `tools/meldung.sh` (dz:), `tools/zug-haken.py`; mit 99g zusammen | **umgestellt** (16.10., 11:2x; Probe: Chef „das Bild und alles ist toll“): offene Punkte nach `docs/zug/` (D10, 72s.1, 99g, t757), `meldung.sh` dz:, `zug-haken.py`, Stellen D15.5, Bildwarnung `notiz.sh`, Artefakt „abgelöst“; Zeilen an Tom und Jerry. Übersicht `docs/zug/README.md` schreibt die Action `zug-index.yml` (`tools/zug-index.py`; Chef 11:1x: „zusammengefassten Überblick … mit Klick … Indexdatei“), geprüft 84047857. Rest: streichen nach erstem echten Punkt von Jerry |
