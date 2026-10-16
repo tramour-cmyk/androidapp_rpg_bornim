@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 
 | Nr. | Thema | Stand | Zweig |
 |---|---|---|---|
-| 114 | Aufwachen im Gasthaus: „Nach Schlaf in Gasthaus und Buchung über Wirtin neben Bett aufwachen und nicht neben Tresen nach Dialog zur Rast. Idee: Aufstehsequenz aus Bett?“ (Chef 16.10., 12:2x) | in Arbeit; 114.1 Aufstehsequenz: Entwurf nach 114 | `claude/tom-40-helligkeit` |
+| 114 | Aufwachen im Gasthaus: „Nach Schlaf in Gasthaus und Buchung über Wirtin neben Bett aufwachen und nicht neben Tresen nach Dialog zur Rast. Idee: Aufstehsequenz aus Bett?“ (Chef 16.10., 12:2x) | gebaut (PR #83, Kerntest grün), Test nach Build; **114.1** Aufstehsequenz: Empfehlung „noch nicht“ an Chef (16.10., 12:3x) | `claude/tom-40-helligkeit` |
 | 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Auf `main` bis 27m und D3.13a (#67). **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1. 27n auf `main` (#71) | – |
 | 92 | Bauer Bram blockiert an der Brücke den Weg (Chef 15.10., 16:5x; Idee: „Held muss NPC schieben können. Keine Gegner, aber neutrale.“) | Kerntest `MakeWayTest` fängt Held-gegen-Bram an der Brücke (Selbstarbeit erledigt, 23:1x); Test am Gerät mit 0.1.753 | – |
 | 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | **112:** fällt gegen das Intro ab (Chef 16.10., 11:3x); nachziehen erst nach Vergleichsliste von Kreativ und Entscheid des Chefs · auf `main` mit #67 (0.1.753 „passt“); Durchsicht der Szene mit Knopf 100 durch den Chef offen | – |

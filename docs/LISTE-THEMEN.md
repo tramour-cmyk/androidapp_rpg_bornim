@@ -102,3 +102,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 101 | Ford-Titel „Betriebsleiter“ | Projekt | offen |
 | 102 | Dokumente WireStormTCS nachziehen | Projekt | offen |
 | 103 | Kurz antworten (Haltung 5) | Projekt | fertig |
+| 114 | Aufwachen am Bett im Gasthaus | Tom | gebaut |
