@@ -46,6 +46,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 11:34 16.10.: Start Sokrates Projekt (Neustart, bdb28b23, Vorrang und Kosten)
 - 11:33 16.10.: 82 alte Sitzungen (9.–15.10. und Projekt Niederlassung) archiviert auf Zuruf Chef; 2 vom Freigabe-Filter abgelehnt
 - 11:28 16.10.: Ford neu von Hand (110, Tiefe 0, session_01PbT46B…), Uhr trig_01QNT865saNWYEcuTeWjDpML, alte Uhr gelöscht, Vorgänger archiviert (4,09 $)
 - 11:22 16.10.: Regel 110 übernommen (kein Selbstneustart, Tiefe 7); Hinweis an Ford 2 im Eingang
