@@ -138,7 +138,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 126 | Muss und Kür, Wochenziel | B Abläufe | K |  | Perikles | Probe |
 | 127 | Anzusehen: Zeile je Build mit Version und Folge | B Werkzeuge | – |  | Perikles | erledigt |
 | 128 | Stillstand, Guthaben einteilen | B Steuerung | – |  | Perikles | erledigt |
-| 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K |  | Tom | gebaut |
+| 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K |  | Tom | zu testen |
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K |  | Jerry | offen |
 | D21 | Abgleich Vorrat gegen Chefsache | Q QM | M |  | Tom, Jerry | Jerry |
