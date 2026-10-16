@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Zusammengeführt nach Test 0.1.798/0.1.800/0.1.802** (PR #93, #94, #95 über #97, 16.10., 21:4x): Höhle ohne Hörner im Klangbett (D1.14); „Alle Vorräte auffüllen“ legt ein Rauchbündel dazu (D4.1); Regen hörbar, ferner Donner aus echten Aufnahmen, im Kampf still (D3.10); ferne Wölfe aus drei Aufnahmen (D3.8); Monster auf der Karte geben in Ruhe Laute von sich (D3.9); Regen und Monster-Laute ohne Raumklang
 - **Zusammengeführt nach Test 0.1.806** (PR #96, 16.10., 21:1x): wer beim freien Laufen dauerhaft gegen Dorfleute läuft, bringt sie nach dem zweiten Anstoß dazu, zur Seite zu treten; Wachen auf ihrer Runde weichen nicht (92; Rückläufer: 1).
 - **Zusammengeführt nach Test 0.1.797** (PR #87, 16.10., 20:5x): nähert sich ein Jäger, wird die Musik leiser und dumpfer und eine dunkle Spur schleicht sich ein; bemerkt er den Helden, ist es still bis zur Kampfmusik (120).
 - **Zusammengeführt nach Test 0.1.779/0.1.780/0.1.782** (PR #90, #91, #85, 16.10., 20:0x–20:2x): Rauchbündel nimmt Kroggs ersten Hieb (D4.1); Sterbehaltung liegt am Boden (51); Krogg zerfällt in feine Stücke (36.6); Zustände sitzen auf dem Umriss des Gegners (53); betrunken = Nachteil wie Vergiftet (86.9); Raumklang in Höhle, Tempelhalle, Schänke und Kammer (119); Stimmen der zwölf übrigen Gegner (18.11).
