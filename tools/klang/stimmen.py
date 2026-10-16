@@ -1,9 +1,10 @@
 """
 Hörproben der Stimmen der übrigen Gegner (18): Angriff, Schmerz, Tod, je drei Fassungen, aus CC0-Aufnahmen
-(QUELLEN.md, „Gegnerstimmen“). Noch nicht im Spiel; ins Spiel erst nach Wahl des Nutzers.
+(QUELLEN.md, „Gegnerstimmen“). Alle Fassungen im Spiel (18.11, Wahl des Nutzers 16.10.).
 
     python3 tools/klang/stimmen.py <ordner mit den Aufnahmen> <ziel>              # alle Gegner
     python3 tools/klang/stimmen.py <ordner> <ziel> --nur bugbear,boar             # nur diese
+    python3 tools/klang/stimmen.py <ordner> --spiel                               # ins Spiel (assets/sfx, OGG)
 
 Je Gegner WAV-Dateien <gegner>_<ruf>_<n>.wav und eine Probe probe_<gegner>.mp3 (Angriff 1–3, Schmerz 1–3, Tod 1–3,
 mit Pausen dazwischen). Aufnahmen: tools/klang/holen.sh („Gegnerstimmen“).
@@ -12,6 +13,8 @@ import sys, os, subprocess, numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from klang import *
 D, OUT = sys.argv[1], sys.argv[2]
 NUR = sys.argv[sys.argv.index("--nur") + 1].split(",") if "--nur" in sys.argv else None
+SPIEL = OUT == "--spiel"
+if SPIEL: OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
 os.makedirs(OUT, exist_ok=True)
 
 _index = {}
@@ -170,10 +173,17 @@ for mon, cues in S.items():
     probe = []
     for cue in RUFE:
         for i, x in enumerate(cues[cue]):
-            y = finish(x); write(os.path.join(OUT, f"{mon}_{cue}_{i + 1}.wav"), y)
+            y = finish(x)
+            if SPIEL:
+                tmp = os.path.join(OUT, "_tmp.wav"); write(tmp, y)
+                subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", tmp, "-ac", "1", "-ar", "44100", "-c:a", "libvorbis", "-q:a", "4",
+                                "-map_metadata", "-1", os.path.join(OUT, f"{mon}_{cue}_{i + 1}.ogg")], check=True)
+                os.remove(tmp); continue
+            write(os.path.join(OUT, f"{mon}_{cue}_{i + 1}.wav"), y)
             probe += [y, np.zeros(int(0.8 * SR))]
         probe.append(np.zeros(int(0.8 * SR)))
+    if SPIEL: continue
     tmp = os.path.join(OUT, f"_probe_{mon}.wav"); write(tmp, np.concatenate(probe))
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", tmp, "-c:a", "libmp3lame", "-q:a", "3", os.path.join(OUT, f"probe_{mon}.mp3")], check=True)
     os.remove(tmp)
-print("Proben:", OUT)
+print("Stimmen nach" if SPIEL else "Proben:", os.path.normpath(OUT))

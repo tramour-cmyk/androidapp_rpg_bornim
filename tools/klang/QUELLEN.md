@@ -159,7 +159,7 @@ CC0 1.0, Lizenz in den Paketen (License.txt) und auf der Quellseite geprüft am 
 | `step_wood_1–3` | footstep_wood_000, _002, _003 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
 | `step_stone_1–3` | footstep_concrete_001, _003, _004 (tiefer, mit Höhlenhall) | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
 
-## Gegnerstimmen (18: Angriff, Schmerz, Tod der übrigen Gegner; Hörproben, noch nicht im Spiel)
+## Gegnerstimmen (18: Angriff, Schmerz, Tod der übrigen Gegner; alle Fassungen im Spiel, 18.11)
 
 Alle CC0 1.0. BigSoundBank: Joseph Sardin, Lizenz „CC0 (public domain): Free and royalty-free“ auf der Seite geprüft 16.10.2026 (0458). Laden mit `holen.sh`, schneiden mit `stimmen.py`. OpenGameArt-Pakete wie oben (rubberduck 80 CC0 creature SFX; arcadeparty Voice Effects).
 

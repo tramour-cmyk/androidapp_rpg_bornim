@@ -34,8 +34,12 @@ object Recorded {
     /** What a creature's voice is for. */
     enum class Cue(val file: String) { ATTACK("angriff"), HURT("schmerz"), DIE("tod") }
 
-    /** The voices there are, three takes of each cue. */
-    val VOICES = listOf("wolf", "goblin", "skeleton")
+    /** The voices there are, three takes of each cue (18.11: all the other foes, tools/klang/stimmen.py). */
+    val VOICES = listOf(
+        "wolf", "goblin", "skeleton",
+        "bugbear", "hobgoblin_captain", "boar", "giant_spider", "giant_bat", "kobold",
+        "giant_rat", "stirge", "giant_centipede", "zombie", "ghoul", "ochre_jelly",
+    )
     const val VOICE_TAKES = 3
 
     fun voiceFile(voice: String, cue: Cue, take: Int) = "sfx/${voice}_${cue.file}_${take + 1}.ogg"
@@ -48,7 +52,7 @@ object Recorded {
         "wolf" -> "wolf" to 1f
         "dire_wolf" -> "wolf" to 0.82f
         "goblin", "goblin_archer", "goblin_shaman" -> "goblin" to 1f
-        "skeleton" -> "skeleton" to 1f
+        in VOICES -> id to 1f
         else -> null
     }
 }
