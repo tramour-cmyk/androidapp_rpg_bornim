@@ -29,3 +29,4 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 | 5 | Dorf draußen, Dorfbewohner als Puppen | auf `main` bis 5.5 | – |
 | 63 | Eine Seite „Dein Zug“ für alles Offene | steht; **wartet auf Chef:** Freigabe für Jerry (Teilen) am Fr. | – |
 | – | Eigene Zeilen kürzen | Erledigtes ins Archiv | – |
+| 40 | Helligkeitsregler (13e.6, „Wert mit Tom“) | von Team Jerry (16.10., 08:2x): PR #73 hebt Schwarz um höchstens 10 % Weiß (Schwarz → 26/255); Prüfzeichen Ton 10/255 auf Schwarz. Passt das zum dunkelsten gewollt sichtbaren Ton der Höhle (Umriss)? Sonst Wert in `core/.../audio/Mix.kt` (`SIGN`, `LIFT_MAX`) nennen | – |
