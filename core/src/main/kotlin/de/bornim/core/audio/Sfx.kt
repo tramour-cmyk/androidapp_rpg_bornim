@@ -21,6 +21,9 @@ enum class Sound {
     HEN_CLUCK, HEN_SCRATCH, HEN_ALARM, HEN_FLAP,
     // the hero's steps (74): grass, earth, cobbles, wooden boards, the cave's stone
     STEP_GRASS, STEP_EARTH, STEP_COBBLE, STEP_WOOD, STEP_STONE,
+    // what lives at a place but is not in sight (84, D3.15): a wolf far off in the deep forest, a rumble deep in the
+    // mountain; the small birds on the grass flying up and scratching
+    WOLF_FAR, RUMBLE, BIRD_FLAP, BIRD_SCRATCH,
     SWING, SWING_HEAVY,
     HOWL_1, HOWL_2, HOWL_3,
 }
@@ -47,7 +50,8 @@ object Sfx {
     /** Sounds that exist only as recordings (the sound of a place, 24.8): nothing is synthesized for them. */
     val RECORDED_ONLY = setOf(Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH, Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY,
         Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
-        Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE)
+        Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE,
+        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH)
 
     fun variants(s: Sound): Int = if (s in VARIED) 3 else 1
 
@@ -931,6 +935,7 @@ object Sfx {
         // the sound of a place (24.8) comes only from recordings
         Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH,
         Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY, Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
-        Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE -> Buf(0.05)
+        Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE,
+        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH -> Buf(0.05)
     }.pcm()
 }

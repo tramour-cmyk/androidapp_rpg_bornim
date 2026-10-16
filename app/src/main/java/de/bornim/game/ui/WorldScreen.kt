@@ -217,21 +217,27 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         }
     }
 
-    // Quiet ambient sounds: birds by day, crickets and owls at night.
+    // Quiet ambient sounds (84, D3.15): birds by day, crickets and owls at night, none of them in the deep forest;
+    // rarely, far off from one side, a wolf in the deep forest and the mountain rumbling in the cave.
     LaunchedEffect(game.state.place.map) {
         val rnd = kotlin.random.Random(game.state.steps)
+        val wild = de.bornim.core.audio.WildSound
+        val kind = wild.kindOf(game.map)
+        var now = 0L
+        var nextLife = wild.LIFE_MIN_MS + rnd.nextLong(wild.LIFE_SPAN_MS)
+        var nextFar = wild.firstFarMs(rnd)
         while (isActive) {
-            delay(5000L + rnd.nextLong(8000))
-            if (game.mode != Mode.Explore || vm.menuOpen) continue
-            val sound = when (game.map.kind) {
-                MapKind.TOWN, MapKind.FOREST -> when {
-                    game.raining -> null
-                    game.isNight -> if (game.map.kind == MapKind.FOREST && rnd.nextInt(3) == 0) de.bornim.core.audio.Sound.OWL else de.bornim.core.audio.Sound.CRICKET
-                    else -> de.bornim.core.audio.Sound.BIRD
-                }
-                else -> null
+            val wait = minOf(nextLife, nextFar) - now
+            delay(wait); now += wait
+            val calm = game.mode == Mode.Explore && !vm.menuOpen
+            if (now >= nextLife) {
+                if (calm) wild.life(kind, game.isNight, game.raining, rnd)?.let { vm.play(it, wild.LIFE_VOLUME) }
+                nextLife = now + wild.LIFE_MIN_MS + rnd.nextLong(wild.LIFE_SPAN_MS)
             }
-            sound?.let { vm.play(it, 0.3f) }
+            if (now >= nextFar) {
+                if (calm) wild.far(kind)?.let { vm.playFrom(it, wild.farVolume(it, rnd), wild.side(rnd)) }
+                nextFar = now + wild.farGapMs(kind, game.isNight, rnd)
+            }
         }
     }
 
@@ -265,6 +271,8 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         var chorusStream = 0
         // the hens (83c): clucking, scratching, alarm and wings, from what each hen is doing
         val henEar = if (game.map.kind == MapKind.TOWN) de.bornim.core.art.MapHen.of(game.map).takeIf { it.isNotEmpty() }?.let { de.bornim.core.audio.HenSound.Ear(it) } else null
+        // the small birds pecking on the grass (84): wings as one flies up, now and then a scratch as it hops
+        val birdEar = if (outside) de.bornim.core.audio.WildSound.BirdEar(game.map) else null
         try {
             while (isActive) {
                 delay(tick)
@@ -313,6 +321,11 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 if (henEar != null && de.bornim.core.art.MapHen.draft) {
                     val heard = henEar.hear((p.x + 0.5f) * de.bornim.core.art.WorldArt.T, (p.y + 0.5f) * de.bornim.core.art.WorldArt.T)
                     if (calm) for ((s, v) in heard) vm.play(s, v)
+                }
+                if (birdEar != null) {
+                    val fw = game.freeWalk
+                    val out = calm && de.bornim.core.art.MapBirds.out(game.map, game.daylight, game.raining)
+                    for ((s, v) in birdEar.hear(clock, ((fw.x - 0.5) * de.bornim.core.art.WorldArt.T).roundToInt(), ((fw.y - 0.5) * de.bornim.core.art.WorldArt.T).roundToInt(), out)) vm.play(s, v)
                 }
                 if (game.map.kind == MapKind.CAVE && now >= nextDrip) {
                     if (calm) vm.play(de.bornim.core.audio.Sound.DRIP, de.bornim.core.audio.Ambience.dripVolume(fire))
@@ -1460,19 +1473,17 @@ private fun DrawScope.drawCritters(
             }
             px(x, y, 1f, 2f, Color(0xFF302020))
         }
-        // Birds pecking on the grass fly off when the hero comes close
-        for (ty in ty0..ty1) for (tx in tx0..tx1) {
-            val t = map.tile(tx, ty)
-            if ((t != Tile.GRASS && t != Tile.PATH) || hash(tx, ty, 3) % 23 != 0) continue
-            val bx = tx * T + 10f + hash(tx, ty, 4) % 12
-            val by = ty * T + 18f
-            val dist = kotlin.math.hypot((bx - heroX - 16).toDouble(), (by - heroY - 16).toDouble())
-            val flee = ((80.0 - dist) / 30.0).coerceIn(0.0, 1.0).toFloat()
+        // Birds pecking on the grass fly off when the hero comes close (none in the deep forest, D3.2; heard: 84)
+        if (de.bornim.core.art.MapBirds.out(map, day, game.raining)) for (ty in ty0..ty1) for (tx in tx0..tx1) {
+            if (!de.bornim.core.art.MapBirds.at(map, tx, ty)) continue
+            val bx = de.bornim.core.art.MapBirds.x(tx, ty)
+            val by = de.bornim.core.art.MapBirds.y(tx, ty)
+            val flee = de.bornim.core.art.MapBirds.flee(tx, ty, heroX, heroY)
             val fx = bx + flee * 70f
             val fy = by - flee * 90f
             if (flee >= 1f || covered(fx, fy)) continue
             val brown = Color(0xFF7A5030)
-            val hop = if (flee == 0f && (clock / 140 + hash(tx, ty)) % 9 == 0L) 1f else 0f
+            val hop = if (flee == 0f && de.bornim.core.art.MapBirds.hopping(tx, ty, clock)) 1f else 0f
             px(fx, fy - hop, 3f, 2f, brown)
             px(fx + 3, fy - 1 - hop, 1f, 1f, brown)
             px(fx + 4, fy - 1 - hop, 1f, 1f, Color(0xFFE0A030))
