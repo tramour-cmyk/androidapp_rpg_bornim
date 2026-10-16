@@ -19,6 +19,8 @@ enum class Sound {
     FROG, FROG_CHORUS, DRAGONFLY,
     // the river by the village (D6.4): running water, a loop
     RIVER,
+    // the night under the intro's black picture (69c.1): far off and muffled, a bell ringing (a loop), shouts, one scream
+    ALARM_BELL, FAR_SHOUT, FAR_SCREAM,
     // the village hens (83c): quiet clucking while pecking, a claw raking the ground, alarm and wings when they run off
     HEN_CLUCK, HEN_SCRATCH, HEN_ALARM, HEN_FLAP,
     // the hero's steps (74): grass, earth, cobbles, wooden boards, the cave's stone
@@ -48,6 +50,7 @@ object Sfx {
 
     /** Sounds that exist only as recordings (the sound of a place, 24.8): nothing is synthesized for them. */
     val RECORDED_ONLY = setOf(Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH, Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY, Sound.RIVER,
+        Sound.ALARM_BELL, Sound.FAR_SHOUT, Sound.FAR_SCREAM,
         Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
         Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE)
 
@@ -932,7 +935,7 @@ object Sfx {
         Sound.SWING_HEAVY -> Buf(0.7).apply { band(0.0, 0.4, 0.8, 250.0, 900.0, 1.4, 153, swell = true); room(0.2) }
         // the sound of a place (24.8) comes only from recordings
         Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH,
-        Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY, Sound.RIVER, Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
+        Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY, Sound.RIVER, Sound.ALARM_BELL, Sound.FAR_SHOUT, Sound.FAR_SCREAM, Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
         Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE -> Buf(0.05)
     }.pcm()
 }

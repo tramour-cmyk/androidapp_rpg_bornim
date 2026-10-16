@@ -47,6 +47,10 @@ get "$O/VistulaShort_0.mp3" VistulaShort_0.mp3
 for n in 0864 0823; do
     get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
 done
+# Runde 8 (69c.1 Nacht im Intro): Glocken, Schmerzensschrei (BigSoundBank, CC0); Rufe aus dem Stimmenpaket oben
+for n in 0830 0135 0829 2361; do
+    get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
+done
 python3 -m pip -q install py7zr numpy scipy soundfile >/dev/null 2>&1 || true
 for z in *.zip; do d="x_${z%.zip}"; [ -d "$d" ] || { mkdir -p "$d"; unzip -qo "$z" -d "$d"; }; done
 for z in *.7z; do d="x_${z%.7z}"; [ -d "$d" ] || { mkdir -p "$d"; python3 -I -m py7zr x "$z" "$d"; }; done
