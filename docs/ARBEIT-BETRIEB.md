@@ -10,7 +10,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 13:56)“ `session_01Hr5Go7BFHT2zpmsRmGmLc1` (seit 16.10., 13:56, Selbstneustart, Tiefe 2; Vorgänger `session_01J3A7bVXcJjdsqCbQRgt7xi` archiviert). Stundenuhr „Ford-Uhr“ `trig_01Bg6UMEA6njTVfnsccoRe5G` (:03, seit 13:56; alte Uhr `trig_01FXfKMx7SdRCVGnmrht8W4R` gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 17:50)“ `session_01CxGVVG35nLayNTuubcUd7Q` (seit 16.10., 17:50, Selbstneustart, Tiefe 3; Vorgänger `session_01Hr5Go7BFHT2zpmsRmGmLc1` archiviert). Stundenuhr „Ford-Uhr“ `trig_01X9ykKgg4ibrwLnXHVW7666` (:03, seit 17:50; alte Uhr `trig_01Bg6UMEA6njTVfnsccoRe5G` gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhr „Ford-Wache 07:08“ `trig_01Phk9eXekP5yY9M6L3bgS1c` (täglich 07:08; 15.10., 22:5x zurückgeholt, D13.2).
 - **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 14:07)“ `session_013oK9KoFaRYSMbNWxWWtuW8` (seit 16.10., 14:06; Vorgänger `session_01JDBt2kNDbu2Udn7WRr5wE7` archiviert). Stundenuhr „Ford-2-Stundenuhr“ `trig_012UBBSnM2MhWgWzstn1SaFy` (:33, seit 14:06). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren.
 
@@ -55,6 +55,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 17:52 16.10.: Ford neu übernommen; Uhr trig_01X9ykKgg4ibrwLnXHVW7666 angelegt und geprüft, alte Uhr trig_01Bg6UMEA6njTVfnsccoRe5G gelöscht, alter Ford session_01Hr5Go7BFHT2zpmsRmGmLc1 archiviert
 - 17:49 16.10.: Selbstneustart Ford (≈266 Tsd. Token, Haken-Erinnerung 2); offen: Tom D3 (session_01P8uYMDB1vVs1Tjg8Kp4jQi) läuft; Sa 08:00 Start Sokrates Projekt (Eingang)
 - 17:49 16.10.: Start Tom (Chef: Build 5 / t781 „alle positiv“)
 - 17:45 16.10.: Sokrates Projekt Zuruf 16:29 (session_018v2tV8RsTB2fQjc88TSreS) archiviert; Nachfolger Sa 08:00 im Eingang vorgemerkt
@@ -74,81 +75,3 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Arch
 - 13:57 16.10.: Start Tom (118 Übernahme, Auftrag Sokrates Projekt)
 - 13:57 16.10.: Ford neu übernommen; Uhr trig_01Bg6UMEA6njTVfnsccoRe5G angelegt und geprüft, alte Uhr trig_01FXfKMx7SdRCVGnmrht8W4R gelöscht, alter Ford session_01J3A7bVXcJjdsqCbQRgt7xi archiviert
 - 13:55 16.10.: Selbstneustart Ford (≈271 Tsd. Token, Haken-Erinnerung 2); offen: Sokrates Projekt 118 (session_01XPcJHh5fXzcwHcFp6RhVgW) schrieb „Neustart“ ohne Nachfolger, Chef spricht noch mit ihm: nicht archivieren, bis er „Neustart erledigt“ meldet
-- 13:45 16.10.: Start Jerry (Neustart, 3934f9c5, Raumklang Idee 8) (Ford 2)
-- 13:35 16.10.: Jerry 18 nach Pro-Sperre geweckt (108, dann 18); Eingang 110 und „kürzer schreiben“ gelesen, gestrichen (Ford 2)
-- 13:33 16.10.: Start Sokrates Projekt (Neustart, 479ef5b4, 118 Teams ohne Themen)
-- 13:04 16.10.: Diogenes 110 (5,08 $) und Kreativ 99g (1,57 $, DESIGN-KAMPF.md b95aaf8e) archiviert; Projekt wartet mit 99g.1 auf Chef
-- 12:49 16.10.: Start Sokrates Kreativ und Sokrates Projekt (99g, Chef 12:4x über Diogenes, 4963f209)
-- 12:10 16.10.: Sokrates Projekt zog Neustart zurück (113 erledigt, 7b39471e); alter (5,54 $) und gerade gestarteter Nachfolger (0,53 $) archiviert. Lehre: vor dem Start prüfen, ob der Chef dem Absender gerade schreibt
-- 12:08 16.10.: Start Sokrates Projekt (Neustart, d9f81779, 113 Vorgang)
-- 11:51 16.10.: Start Tom (Neustart, 62b48fa1, 40 Helligkeitswert)
-- 11:35 16.10.: Ford neu übernommen; Uhr trig_01FXfKMx7SdRCVGnmrht8W4R angelegt und geprüft, alte Uhr trig_01QNT865saNWYEcuTeWjDpML gelöscht, alter Ford session_01PbT46BNgNjQCdzsESVQgUR archiviert
-- 11:34 16.10.: Selbstneustart Ford (≈276 Tsd. Token, Haken-Erinnerung 2); Chef bestätigt: „alt“ = älter als heute; 2 Sitzungen (11.10. „Session start“, 13.10. „Tom: Test 0.1.662/0.1.667…“) archiviert der Chef von Hand
-- 11:34 16.10.: Start Sokrates Projekt (Neustart, bdb28b23, Vorrang und Kosten)
-- 11:33 16.10.: 82 alte Sitzungen (9.–15.10. und Projekt Niederlassung) archiviert auf Zuruf Chef; 2 vom Freigabe-Filter abgelehnt
-- 11:28 16.10.: Ford neu von Hand (110, Tiefe 0, session_01PbT46B…), Uhr trig_01QNT865saNWYEcuTeWjDpML, alte Uhr gelöscht, Vorgänger archiviert (4,09 $)
-- 11:22 16.10.: Regel 110 übernommen (kein Selbstneustart, Tiefe 7); Hinweis an Ford 2 im Eingang
-- 11:19 16.10.: Start Sokrates Projekt (Neustart, 64d6c376, 110 Sitzungstiefe)
-- 11:05 16.10.: Diogenes (108, D15) und beide Berater archiviert
-- 11:00 16.10.: 108 Umsetzung an laufende Sitzung Sokrates Projekt (Zuruf Chef über Berater; kein zweiter Start)
-- 10:54 16.10.: Thema 110 (Abstammungsgrenze Tiefe 8) an Sokrates Projekt, Chef gemeldet
-- 10:52 16.10.: Start Diogenes (Auftrag 108 Dein Zug als Markdown, Chef 10:4x über Berater)
-- 10:25 16.10.: Start Jerry (Neustart, c97ed4ff, 18 Gegnerstimmen) (Ford 2)
-- 10:25 16.10.: Start Sokrates Berater (Neustart, b95f16ce, 108 Dokumente beider Accounts)
-- 10:19 16.10.: Start Jerry (Neustart, 17ebf13f, 30 Klang-Fäden) (Ford 2)
-- 10:06 16.10.: Ford neu (session_0146qrC6…), Uhr trig_01XjYt5Mi2cFZLQcgy5UxvRW, alte Uhr gelöscht, Vorgänger archiviert
-- 10:05 16.10.: Start Jerry (Neustart, a8db8d44, 53 Zustände auf Krogg) (Ford 2)
-- 10:05 16.10.: Selbstneustart Ford (≈282 Tsd. Token); Besetzung mit Berater (108, 109)
-- 09:40 16.10.: Start Jerry (Neustart, 9463dbe9, 36.6 Krogg Killerschlag) (Ford 2)
-- 09:30 16.10.: Start Jerry (Neustart, 879a5ebb, 51 Sterbehaltung) (Ford 2)
-- 09:17 16.10.: Start Jerry (Neustart, efdb95a6, 69c.1 Intro Glocke) (Ford 2)
-- 09:04 16.10.: Start Jerry (Neustart, 6b7a805a, 69c Intro-Klang) (Ford 2)
-- 09:05 16.10.: Eingang Prüfbericht (Jerry, D3) dem Chef vorgelegt
-- 08:59 16.10.: Start Jerry (Neustart, d3517ba8, 86.9 betrunken im Kampf) (Ford 2)
-- 08:49 16.10.: Ford 2 neu (session_01JDBt2k…), Uhr trig_01SGCVra7Xeg6ChsDYSK1DR3, alte Uhr gelöscht, Vorgänger archiviert; Wecker „Jerry Neustart prüfen“ gelöscht (D6.4 läuft) (Ford 2)
-- 08:47 16.10.: Start Jerry (Neustart, 7044eb42, D6.4 Fluss stumm) (Ford 2)
-- 08:39 16.10.: Start Jerry (Neustart, c41fe91b, D3 Diogenes Lauf 3) (Ford 2)
-- 08:19 16.10.: Start Jerry (Neustart, a86446ba, 84 Umweltklang) (Ford 2)
-- 08:07 16.10.: Start Jerry (Neustart, c464326b, 40 Lautstärke im Menü) (Ford 2)
-- 08:01 16.10.: Start Tom (Neustart, a511156c, 104 Test 0.1.757)
-- 07:46 16.10.: Start Jerry (Neustart, 2e6b2b19, 38 Rauchbündel im Kampf) (Ford 2)
-- 07:30 16.10.: Start Jerry (Neustart, 596dd4d0, 95 Keuchen hörbar) (Ford 2)
-- 07:11 16.10.: Start Sokrates Projekt (Neustart, af440a91, Niederlassung)
-- 07:06 16.10.: Morgenmeldung; Eingang Kampf-Dokument (Jerry, 72.10) dem Chef vorgelegt
-- 06:56 16.10.: Start Jerry (Neustart, 0399d333, 72u Standbild Grak im Wald) (Ford 2)
-- 06:47 16.10.: Start Jerry (Neustart, ca572983, 72.10 Probe Grak) (Ford 2)
-- 06:44 16.10.: Ford 2 eingerichtet (Uhr :33); Start Jerry (Probe `create_session` auf Pro); 6 von 8 alten Weck-Routinen „Jerry Selbstarbeit“ abgeschaltet (12:27, 15:27 vom Freigabe-Filter abgelehnt)
-- 02:06 16.10.: Ford neu (session_01KYjYQS…), Uhr trig_01YZ7SgXEiSXQqrJKMsRmGyj, alte Uhr gelöscht, Vorgänger archiviert
-- 02:04 16.10.: Selbstneustart Ford (≈290 Tsd. Token); Tom wartet mit 38 auf Test #67
-- 01:57 16.10.: Start Tom (Neustart, 4ad6caf8, 38 Rauchbündel Dialoge)
-- 01:42 16.10.: Start Tom (Neustart, f7f0610b, 27n Funken im Wald senkrecht)
-- 01:27 16.10.: Start Tom (Neustart, 6ccb062f, 13e Höhle D1.7 Leben)
-- 01:25 16.10.: Start Tom (Neustart, 2641040f, 72.14 Begriffe)
-- 00:48 16.10.: Start Tom (Neustart, e441d666, 86 Bewegung Rest)
-- 00:45 16.10.: Start Tom (Neustart, cee65c97, 68 Tempelszene)
-- 23:44 15.10.: Start Tom (Neustart, 8be146bd, 26 Ort fertig)
-- 23:29 15.10.: Start Sokrates Projekt (Neustart, 1a965aa9, Nachprüfung Umbau 98)
-- 23:21 15.10.: Start Tom (Neustart, 3b01b364, 69f Intromusik)
-- 23:22 15.10.: Ford neu (session_01QWF3R8…), Uhr trig_01Mzcw22Q4wvzvBsGavkwnvN, alte Uhr gelöscht, beide Vorgänger archiviert
-- 23:23 15.10.: Selbstneustart Ford (≈280 Tsd. Token, nach Umstellung 98)
-- 23:21 15.10.: Umstellung fertig (Sokrates, 560658a9), Startsperre aufgehoben; Tom weiter; Start Diogenes (98 Nachprüfung Umbau)
-- 23:05 15.10.: Startsperre Umstellung 98 (Go des Nutzers, Sokrates) bis „Umstellung fertig“; Tom angehalten
-- 23:00 15.10.: Start Sokrates (Neustart, 73e12092); 99d Sparmodus bis Sa 21:00: kein Tagesrückblick 16.10., Sokrates und Diogenes nur auf Zuruf
-- 22:53 15.10.: Ford-Wache zurückgeholt (D13.2, war archiviert), Uhr aktiv; Diogenes (98) archiviert
-- 22:52 15.10.: Start Sokrates (Neustart, 297d25d1)
-- 22:51 15.10.: Stellung Co-Pilot bis Sa 17.10., 21:00 (Nutzer, 8bf4c31c); erster Lauf danach stellt auf Pilot zurück, pusht, meldet lautlos
-- 22:45 15.10.: Start Sokrates (Neustart, 43787ff8)
-- 22:38 15.10.: Start Diogenes (98 Firma und Rollen prüfen, Auftrag Sokrates)
-- 22:35 15.10.: Start Sokrates (Neustart, 712422b4)
-- 22:24 15.10.: Start Tom (Neustart, fd520610)
-- 22:17 15.10.: Start Sokrates (Neustart, 6fd32e28)
-- 22:04 15.10.: Diogenes (98 Entwurf, ruhend) archiviert
-- 22:02 15.10.: Start Sokrates (Neustart, 1f47ae27)
-- 21:42 15.10.: Start Sokrates (Neustart, 13d9016d)
-- 21:18 15.10.: Start Sokrates (Neustart, a0d72206)
-- 21:05 15.10.: Ford neu, Uhr trig_018F9ggGoC6AXkQxfSpU4XQZ, alte Uhr gelöscht, Archivieren des Vorgängers abgelehnt
-- 21:04 15.10.: Selbstneustart Ford (über 300 Tsd. Token)
-- 21:03 15.10.: Start Sokrates (Neustart, 9d5c3b69)
-- 20:47 15.10.: Start Tom (Neustart, cb9d4384)
-- 20:31 15.10.: Start Diogenes (98 Entwurf Firma und Rollen, Auftrag Sokrates)
-- 20:28 15.10.: Start Sokrates (Neustart, 00dd62d5)
