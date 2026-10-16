@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kosten-Nutzen der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 25, davon A 1, wartet auf Chef 3**
+**offen 26, davon A 1, wartet auf Chef 4**
 
 **Gelesen bis:** `a3e536f1` (16.10., 20:1x)
 
@@ -12,6 +12,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 | Nr. | Thema | Stand |
 |---|---|---|
+| 126 | Muss und Kür, Wochenziel (Chef 16.10., 20:3x, Wortlaut in der Zug-Datei) | **auf Dein Zug**; ersetzt Teil von 106 |
 | 125 | Drei eigene Namen statt Sokrates-Hüte (Chef 16.10., 20:2x, Wortlaut in der Zug-Datei) | **auf Dein Zug**; bei Ja mit 117 am Sa; Prüfung Diogenes mit 106.1 bestellt (Chef 20:2x) |
 | 124 | Vorgänge in Hauptthemen gliedern, Preis je Vorgang (Chef 16.10., 20:2x, Wortlaut in der Zug-Datei) | **auf Dein Zug**; Probe ab So 18.10., Bilanz 23.10. |
 | D17 | **von Diogenes** (Lauf 17, 99g Umzug aller Artefakte; Prüfbericht): D17.1 Beschlüsse nur Text ins Repo, Bilder/Hörproben bleiben im Artefakt; D17.2 Docs-Dokumente per Ausfuhr, Kommentare vorher sichten, Doppeladressen ersetzen; D17.3 Graumoor-Karte; D17.4 Marktvergleich (Frage Chef in 99g); D17.5 gestaffelt: Kampf jetzt, Rest nach Sa 21:00, Regelbilanz an fünf Stellen | entschieden 12:4x, Umsetzung mit 99g nach Sa 21:00; **99g.1 beschlossen** 17:3x (Chef: „99g.1 ja“): Beschlüsse → `docs/VORGANGSARCHIV.md`, nur Text, mit 117 |
