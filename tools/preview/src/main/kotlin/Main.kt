@@ -601,6 +601,7 @@ fun main() {
     if (System.getenv("BEASTANIM") != null) { renderBeastAnims(); System.exit(0) }
     System.getenv("SOUNDS")?.let { writeSounds(it.split(",")); System.exit(0) }
     System.getenv("KLANGPROBEN")?.let { writeSoundProposals(it); System.exit(0) }
+    System.getenv("RAUMPROBEN")?.let { writeRoomProbes(); System.exit(0) }
     if (System.getenv("FOECLASH") != null) { checkFoeClashes(); System.exit(0) }
     if (System.getenv("HEROVAR") != null) { checkHeroVariants(); System.exit(0) }
     if (System.getenv("FOEKITS") != null) { renderFoeKits(); System.exit(0) }
