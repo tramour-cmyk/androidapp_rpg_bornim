@@ -94,7 +94,8 @@ fun BornimApp(vm: GameViewModel) {
                 Screen.ABOUT -> TitleVeil { AboutScreen(vm) }
                 Screen.SLOTS -> TitleVeil { SlotsScreen(vm) }
                 Screen.PLAYING -> when {
-                    vm.intro -> IntroScreen(vm)
+                    // 69c: the quiet sounds under the pictures go with them
+                    vm.intro -> { IntroScreen(vm); IntroSounds(vm) }
                     vm.templeAgain || vm.game?.mode == Mode.TempleScene -> TempleSceneScreen(vm)
                     else -> PlayScreen(vm)
                 }
