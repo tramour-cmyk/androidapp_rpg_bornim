@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kosten-Nutzen der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 16, davon A 1, wartet auf Chef 2**
+**offen 16, davon A 1, wartet auf Chef 1**
 
 **Gelesen bis:** `142a1b40` (16.10., 11:3x)
 
