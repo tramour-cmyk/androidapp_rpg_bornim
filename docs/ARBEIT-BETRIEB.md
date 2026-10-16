@@ -29,6 +29,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford und Ford 2 Kosten je Vorgang in `LISTE-VORGAENGE.md` (124), hier keine neuen Zeilen.
 
+- 16.10., 23:32: Pro-Sperre 21:30–23:30 (Jerry D3 Kampfgeheul bis dahin 3,12 $); Ford 2 ohne Neustart weiter, ca. 220 Tsd. Token Kontext
 - 16.10., 20:40: Neustart Jerry D3 Kampfgeheul, Vorgänger (86) Kosten nicht ermittelbar; Pro meldet jetzt `five_hour` `allowed_warning` (zurück um 23:30)
 - 16.10., 20:34: Stundenlauf ohne Tat (Jerry 86 seit 20:32); Ford 2 seit 18:34 3,53 $, 203 Tsd. Token Kontext, sieben Neustarts Jerry eingeschlossen; Pro weiter `allowed_warning`
 - 16.10., 20:33: Neustart Jerry 86, Vorgänger (39) Kosten nicht ermittelbar (`get_session` ohne `usage`)
@@ -73,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 23:32 16.10.: Läufe 21:33/22:33 in der Pro-Sperre; Jerry D3 Kampfgeheul geweckt, soll Punkt beenden, danach Pause bis Mo 19.10., 21:00 (Ford 2)
 - 23:10 16.10.: Ford neu (session_01XWRdGr…, Tiefe 5); Uhr trig_01MHvLjkYXRb7JKbtriztn6a angelegt und geprüft, alte Uhr trig_013eNWtEGr7bAJCFxhGY5WHk gelöscht, alter Ford session_01B3GyS2… archiviert (4,59 $)
 - 23:10 16.10.: Perikles 106.1a fertig (57241d3d), archiviert (2,81 $, je 1,40 $ auf 106 und 99); Nachfolger in den Eingang. Selbstneustart Ford (Haken-Erinnerung 2, ≈231 Tsd. Token); offen: nur Ford 2/Jerry laut Besetzung, Eingang (Tom D21, Perikles 99g.2) nach Sa 21:00; Morgenmeldung Sa 9 Uhr
 - 23:04 16.10.: Lauf: Diogenes 106.1 fertig, archiviert (5,31 $ auf 106); Perikles 106.1a läuft. Stillstand eingeteilt (Sparmodus Max bis Sa 21:00): Tom (Muss 4, A 1), Homer (Muss 2), keine Starts ohne Zuruf
