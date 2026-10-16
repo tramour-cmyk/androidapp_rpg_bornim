@@ -111,3 +111,4 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 125 | Drei Namen statt Sokrates-Hüte | Projekt | offen |
 | 126 | Muss und Kür, Wochenziel | Projekt | offen |
 | 127 | Anzusehen: Zeile je Build mit Version und Folge | Projekt | erledigt |
+| 128 | Stillstand, Guthaben einteilen | Projekt | offen |

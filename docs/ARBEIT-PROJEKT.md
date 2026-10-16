@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kosten-Nutzen der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 26, davon A 1, wartet auf Chef 4**
+**offen 27, davon A 1, wartet auf Chef 5**
 
 **Gelesen bis:** `a3e536f1` (16.10., 20:1x)
 
@@ -12,6 +12,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 | Nr. | Thema | Stand |
 |---|---|---|
+| 128 | Stillstand wegen Guthaben als Kennzahl, Pro einteilen (Chef 16.10., 20:4x, Wortlaut in der Zug-Datei) | **auf Dein Zug** |
 | 126 | Muss und Kür, Wochenziel (Chef 16.10., 20:3x, Wortlaut in der Zug-Datei) | **auf Dein Zug**; ersetzt Teil von 106 |
 | 125 | Drei eigene Namen statt Sokrates-Hüte (Chef 16.10., 20:2x, Wortlaut in der Zug-Datei) | **auf Dein Zug**; bei Ja mit 117 am Sa; Prüfung Diogenes mit 106.1 bestellt (Chef 20:2x) |
 | 124 | Vorgänge in Hauptthemen gliedern, Preis je Vorgang (Chef 16.10., 20:2x, Wortlaut in der Zug-Datei) | **auf Dein Zug**; Probe ab So 18.10., Bilanz 23.10. |
