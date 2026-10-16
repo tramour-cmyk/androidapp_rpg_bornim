@@ -55,6 +55,12 @@ object Chronicle {
                 "Garrick advised {name} to seek out Morwen the herbwoman in the Deep Whisperwood before fighting Krogg. He said she knew a means against a bugbear's first blow."),
             given = { it.has(Story.KROGG_HINT) },
             done = { it.has(Story.SMOKE_GIVEN) || it.has(Story.KROGG_DEFEATED) }),
+        // [68.chronik.lager] (68k: no mark on the map); done when chapter 2 says so
+        Task("lager", T("Das Lager im Süden", "The Camp in the South"),
+            T("Lyra erinnerte sich, dass Graks Leute von einem Lager im Süden sprachen, in das sie Gefangene brachten. Wer dort festgehalten wird und wer das Lager führt, weiß niemand in Bornim.",
+                "Lyra remembered that Grak's men spoke of a camp in the south where they took prisoners. Who is held there and who runs the camp, no one in Bornim knows."),
+            given = { it.has(Story.CAMP_TOLD) },
+            done = { false }),
     )
 
     /** Story tasks the hero carries now. */

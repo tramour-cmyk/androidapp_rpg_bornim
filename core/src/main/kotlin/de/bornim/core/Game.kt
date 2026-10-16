@@ -9,6 +9,8 @@ sealed interface Mode {
     /** The notice board before the inn (29): its notes, each to take up or leave. */
     data object Board : Mode
     data object ChapterEnd : Mode
+    /** 68: a cutscene's pictures fill the screen; [Game.advance] when they are over or skipped. */
+    data object TempleScene : Mode
 }
 
 /** Result of a movement attempt, used by the UI to animate. */
@@ -25,12 +27,16 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     companion object {
         /** 55.1b: the shortest of a guard's longer watches at a patrol point. */
         const val LONG_WATCH_MS = 10_000L
+        /** 92: how often the hero walks into a villager before they make way. */
+        const val PUSH_BUMPS = 2
         const val ELITE_CHANCE = 0.12
         const val SHINY_CHANCE = 1.0 / 150
         /** Poison and bleeding carried out of a fight hurt once every this many steps. */
         const val AILMENT_STEPS = 4
         /** Share of flower tiles that carry a healing herb on a given day. */
         const val HERB_CHANCE = 0.5
+        /** 68: when the morning service begins, minutes after midnight. */
+        const val SUNRISE_MIN = 6 * 60 + 30
         /** Test switch (9f): monsters go about as ever but never notice or attack the hero; bumping into one still fights. */
         @Volatile var monstersIgnoreHero = false
         /** Test switch (9f.2): no line of sight and no fog: the whole map and every monster on it is in view. */
@@ -235,6 +241,27 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
     }
 
+    private var bumpedBy: String? = null
+    private var bumps = 0
+
+    /**
+     * 92: the villager [w] the hero walks into in [dir] steps aside, to the left or right of the way, else on ahead;
+     * where there is no room at all the two change places. They then stay a moment before going on with their day.
+     */
+    private fun makeWay(w: Walker, dir: Facing) {
+        val p = state.place
+        fun open(x: Int, y: Int) = map.walkable(x, y, state) && map.warpAt(x, y) == null && free(x, y) && !(x == p.x && y == p.y)
+        val sides = Facing.entries.filter { it != dir && it != dir.opposite }.let { if (roamRandom.nextBoolean()) it else it.reversed() }
+        val to = (sides + dir).map { (w.x + it.dx) to (w.y + it.dy) }.firstOrNull { (x, y) -> open(x, y) } ?: (p.x to p.y)
+        w.fromX = w.x; w.fromY = w.y
+        w.facing = Facing.entries.first { it.dx == to.first - w.x && it.dy == to.second - w.y }
+        w.x = to.first; w.y = to.second
+        w.movedAt = now
+        w.nextMoveAt = now + 4000
+        npcFacing.remove(w.npc.id)
+        bumpedBy = null; bumps = 0
+    }
+
     /** One step of a villager on the way to ([tx], [ty]) (5l), along the shortest way round houses and fences, past no door. */
     private fun goTowards(w: Walker, tx: Int, ty: Int) {
         val p = state.place
@@ -395,8 +422,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (warp != null && warp.requires != null && !state.has(warp.requires)) {
             changed()
             if (warp.turnBack) {
-                val (text, short) = Story.southEdge(state)
-                if (short) notices += text else enqueue(listOf(Cmd.Say(null, text)))
+                Story.southEdge(state)?.let { (text, short) -> if (short) notices += text else enqueue(listOf(Cmd.Say(null, text))) }
                 stepBack = dir.opposite
             } else enqueue(warp.knock?.invoke(state, isNight) ?: warp.denied)
             return Move.Blocked
@@ -406,6 +432,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             engage(r, if (r.facing == dir || (r.temper == Temper.LURKER && !r.hunting)) Opening.HERO_FIRST else Opening.NORMAL)
             return Move.Blocked
         }
+        // 92: a villager in the way makes room when the hero keeps walking into them (not the guards on their round)
+        walkersHere().firstOrNull { it.x == nx && it.y == ny && shown(it) && it.npc.patrol.isEmpty() }?.let { w ->
+            bumps = if (bumpedBy == w.npc.id) bumps + 1 else 1
+            bumpedBy = w.npc.id
+            if (bumps >= PUSH_BUMPS) makeWay(w, dir)
+        } ?: run { bumpedBy = null; bumps = 0 }
         if (!free(nx, ny)) {
             changed()
             if (map.tile(nx, ny) == Tile.BARRIER && !state.has(Story.BARRIER_OPEN)) barrier()
@@ -908,6 +940,23 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     changed()
                     return
                 }
+                Cmd.TempleScene -> {
+                    mode = Mode.TempleScene
+                    changed()
+                    return
+                }
+                is Cmd.Morning -> {
+                    // the night counts as a rest (68g): healed, the clock at sunrise of the next day, the hero where the morning finds them
+                    hero.restoreFully()
+                    state.ailments.clear()
+                    Stamina.refill(state)
+                    if (state.minutes >= SUNRISE_MIN) state.day++
+                    state.minutes = SUNRISE_MIN
+                    state.place = c.place
+                    state.respawn = c.place
+                    if (World.maps[c.place.map]?.kind == MapKind.INTERIOR) state.flags += MapPeople.been(c.place.map)
+                    mapChanged = true
+                }
             }
         }
         mode = Mode.Explore
@@ -1078,6 +1127,25 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val g = state.addGear(Loot.generate(state, dice, hero.level, rarity, hero.cls))
         changed()
         return g
+    }
+
+    /**
+     * 100 (user 15.10., 20:5x: the temple scene could not be tested without playing the chapter through): the cave
+     * done, Lyra free, the sun amulet in the bag, an evening, the hero before Aldric in his house; talking to him
+     * brings the amulet home and the chapter's end follows.
+     */
+    fun cheatChapterEnd() {
+        if (mode !is Mode.Explore) return
+        state.flags += listOf(Story.INTRO_DONE, Story.QUEST_STARTED, Story.BARRIER_OPEN, Story.KROGG_DEFEATED, Story.GRAK_DEFEATED, Story.LYRA_RESCUED)
+        if (state.count("sun_amulet") == 0) state.add("sun_amulet", 1)
+        if (state.minutes < 18 * 60) state.minutes = 20 * 60
+        val elder = World["elder"]
+        val npc = elder.npcs.first { it.id == "aldric" }
+        val (x, y, f) = listOf(Triple(npc.x, npc.y + 1, Facing.UP), Triple(npc.x - 1, npc.y, Facing.RIGHT), Triple(npc.x + 1, npc.y, Facing.LEFT))
+            .first { (x, y) -> elder.tile(x, y).walkable }
+        state.place = Place("elder", x, y, f)
+        sunCut()
+        changed()
     }
 
     fun cheatWarp(place: Place) {

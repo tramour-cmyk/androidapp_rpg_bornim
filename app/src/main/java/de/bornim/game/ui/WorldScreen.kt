@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -406,6 +407,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 DialogBox(
                     speaker = dialog.speaker,
                     text = dialog.text.take(revealed),
+                    full = dialog.text,
                     done = dialogDone,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
@@ -762,7 +764,11 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
 
         // shadows of trees, rocks and stones on the ground, strong by day, gone at night
         val sun = ((game.daylight - 0.2f) / 0.6f).coerceIn(0f, 1f)
-        if (sun > 0.02f) for (o in MapFlora.shadows(map)) put(o.img, o.x, o.y, o.density, sun)
+        // D9.2: drawn in the background; once there they fade in over 0.4 s rather than appear at once
+        if (sun > 0.02f) MapFlora.shadowsReady(map)?.let { r ->
+            val fade = ((System.nanoTime() - r.at) / 4e8).toFloat().coerceIn(0f, 1f)
+            for (o in r.pieces) put(o.img, o.x, o.y, o.density, sun * fade)
+        }
 
         // draft (idea 7): blood where a foe fell, footprints in the wet ground, dust kicked up running
         if (de.bornim.core.Tracks.draft) drawTracks(game.tracks.on(map.id, clock), clock, camX, camY, scale)
@@ -1138,16 +1144,19 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 }
             }
         }
-        // 83b: the hens by the hay bales, by day and in the dry; they run off flapping when the hero comes close
-        if (de.bornim.core.art.MapHen.draft && game.daylight > 0.3f && !game.raining) {
+        // 83b: the hens by the hay bales; they run off flapping when the hero comes close, and in the rain and at dusk
+        // they hurry off under the trees (94, D7.1)
+        if (de.bornim.core.art.MapHen.draft) {
+            val away = game.daylight <= 0.3f || game.raining
             for (h in de.bornim.core.art.MapHen.of(map)) {
-                val a = h.at(clock, heroX + T / 2f, heroY + T - 3f, map)
+                val a = h.at(clock, heroX + T / 2f, heroY + T - 3f, map, away)
+                if (a.shown <= 0f) continue
                 val hs = MapFigure.slot(a.yaw)
                 val himg = (if (HeroSwing.now) de.bornim.core.art.MapHen.frameNow(a, hs) else de.bornim.core.art.MapHen.frame(a, hs)) ?: continue
                 val fx = a.x.toInt(); val fy = a.y.toInt()
                 sprites += Sprite(fy + 2f, a.x) {
-                    put(WorldArt.smallShadow(), fx - 6, fy - 3)
-                    put(himg, fx - de.bornim.core.art.MapHen.AX / MapFigure.DENSITY, fy - de.bornim.core.art.MapHen.GY / MapFigure.DENSITY, MapFigure.DENSITY)
+                    put(WorldArt.smallShadow(), fx - 6, fy - 3, alpha = a.shown)
+                    put(himg, fx - de.bornim.core.art.MapHen.AX / MapFigure.DENSITY, fy - de.bornim.core.art.MapHen.GY / MapFigure.DENSITY, MapFigure.DENSITY, alpha = a.shown)
                 }
             }
         }
@@ -2246,7 +2255,8 @@ private fun DrawScope.drawMapLight(
         // a light the hero has never seen stays dark, one out of sight shines dimmed: it must not light up what the
         // fog of war hides
         val seen = LightImage.seen(game, floor(src.x / T).toInt(), floor(src.y / T).toInt(), 0.4f, clock)
-        val on = MapLight.strength(map, src.shines, day).toFloat() * seen
+        // a light standing behind a house throws no glow over its roof (D3.13a)
+        val on = MapLight.strength(map, src.shines, day).toFloat() * seen * (1f - MapLight.behindHouse(map, src.x, src.y))
         if (on <= 0.02f || !visible(c, r)) continue
         val t = clock.toFloat()
         val indoor = map.kind == MapKind.INTERIOR
@@ -2516,8 +2526,8 @@ private fun HudBar(label: String, fraction: Float, color: Color, value: String, 
 }
 
 @Composable
-fun DialogBox(speaker: String?, text: String, done: Boolean, modifier: Modifier = Modifier) {
-    if (DialogLook.draft) { DialogBoxVeil(speaker, text, done, modifier); return }
+fun DialogBox(speaker: String?, text: String, done: Boolean, modifier: Modifier = Modifier, full: String = text) {
+    if (DialogLook.draft) { DialogBoxVeil(speaker, text, done, modifier, full); return }
     val time = rememberTime()
     Column(modifier.fillMaxWidth()) {
         if (speaker != null) {
@@ -2526,9 +2536,9 @@ fun DialogBox(speaker: String?, text: String, done: Boolean, modifier: Modifier 
         Panel(
             Modifier
                 .fillMaxWidth()
-                .height(120.dp)
+                .heightIn(min = 120.dp)
         ) {
-            Txt(text, size = 18.sp)
+            Box { Txt(full, size = 18.sp, color = Color.Transparent); Txt(text, size = 18.sp) }
             if (done && (time / 400) % 2 == 0L) {
                 Txt("▼", Modifier.align(Alignment.BottomEnd), size = 14.sp, color = Colors.accent)
             }
