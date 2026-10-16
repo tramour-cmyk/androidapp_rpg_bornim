@@ -12,7 +12,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 | Nr. | Thema | Stand |
 |---|---|---|
-| 125 | Drei eigene Namen statt Sokrates-Hüte (Chef 16.10., 20:2x, Wortlaut in der Zug-Datei) | **auf Dein Zug**; bei Ja mit 117 am Sa |
+| 125 | Drei eigene Namen statt Sokrates-Hüte (Chef 16.10., 20:2x, Wortlaut in der Zug-Datei) | **auf Dein Zug**; bei Ja mit 117 am Sa; Prüfung Diogenes mit 106.1 bestellt (Chef 20:2x) |
 | 124 | Vorgänge in Hauptthemen gliedern, Preis je Vorgang (Chef 16.10., 20:2x, Wortlaut in der Zug-Datei) | **auf Dein Zug**; Probe ab So 18.10., Bilanz 23.10. |
 | D17 | **von Diogenes** (Lauf 17, 99g Umzug aller Artefakte; Prüfbericht): D17.1 Beschlüsse nur Text ins Repo, Bilder/Hörproben bleiben im Artefakt; D17.2 Docs-Dokumente per Ausfuhr, Kommentare vorher sichten, Doppeladressen ersetzen; D17.3 Graumoor-Karte; D17.4 Marktvergleich (Frage Chef in 99g); D17.5 gestaffelt: Kampf jetzt, Rest nach Sa 21:00, Regelbilanz an fünf Stellen | entschieden 12:4x, Umsetzung mit 99g nach Sa 21:00; **99g.1 beschlossen** 17:3x (Chef: „99g.1 ja“): Beschlüsse → `docs/VORGANGSARCHIV.md`, nur Text, mit 117 |
 | D16 | **von Diogenes** (Lauf 16, 110 Sitzungstiefe; Prüfbericht https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ): D16.1 Notfall-Selbststart (`ARBEIT-ABLAEUFE.md` Neustart 2) ohne Tiefensperre, Nachfolger auf 8 ohne Weckruf; D16.2 Tiefe Ford 2 in seine Kennungszeile; D16.3 Regel verweist auf gelöschte Zug-Datei 110; Anregung: Hand-Start Ford morgens | offen; im Prüfbericht „bestätigt“/„verworfen“ vermerken |
