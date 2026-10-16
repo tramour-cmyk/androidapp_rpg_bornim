@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
-| [Jerry](ansehen/jerry-testreihe.md) | 16.10. | Zwölf Builds von Jerry nach Toms #71: Keuchen, Rauchbündel, Lautstärke, Umweltklang, Türklang, Fluss, Intro-Klang, Glocke, Sterbehaltung, Krogg, Zustände, Absturz Klang | Jerry |
+| [Jerry](ansehen/jerry-testreihe.md) | 16.10. | 13 Builds von Jerry nach Toms #71: Keuchen, Rauchbündel, Lautstärke, Umweltklang, Türklang, Fluss, Intro-Klang, Glocke, Sterbehaltung, Krogg, Zustände, Absturz Klang, betrunken | Jerry |
 
 ## So geht's
 
