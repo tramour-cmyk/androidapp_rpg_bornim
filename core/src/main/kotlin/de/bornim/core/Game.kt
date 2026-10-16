@@ -89,6 +89,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     private var peaceUntil = 0L
     // Movement of monsters is cosmetic randomness and must not shift the game's dice.
     private val roamRandom = kotlin.random.Random(state.steps * 31 + 7)
+    /** Its own dice for the monsters' sounds (D3.9), so they never change where monsters go. */
+    private val idleRandom = kotlin.random.Random(state.steps * 17 + 3)
+    private var nextIdleAnyAt = 0L
 
     val map: MapDef get() = World[state.place.map]
     val hero: Hero get() = state.hero
@@ -705,6 +708,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         var moved = false
         val heroSafe = map.safeZones.firstOrNull { it.contains(p.x, p.y) }
         for (r in herd) {
+            hearIdle(r, kotlin.math.abs(r.x - p.x) + kotlin.math.abs(r.y - p.y))
             if (now < r.nextMoveAt) continue
             val dist = kotlin.math.abs(r.x - p.x) + kotlin.math.abs(r.y - p.y)
             val fromHome = kotlin.math.abs(r.x - r.homeX) + kotlin.math.abs(r.y - r.homeY)
@@ -765,6 +769,23 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             moved = true
         }
         if (moved) changed()
+    }
+
+    /**
+     * D3.9: a monster that is not hunting is heard now and then, close by only and never two at once. The first time
+     * a monster is looked at it only draws its pause, so a herd does not all speak up when the hero arrives.
+     */
+    private fun hearIdle(r: Roamer, dist: Int) {
+        if (r.hunting || now < r.nextIdleAt) return
+        val first = r.nextIdleAt == 0L
+        r.nextIdleAt = now + (if (first) idleRandom.nextLong(de.bornim.core.audio.MonsterIdle.PAUSE_MIN_MS) else 0L) +
+            de.bornim.core.audio.MonsterIdle.pause(idleRandom)
+        if (first || now < nextIdleAnyAt) return
+        val sound = de.bornim.core.audio.MonsterIdle.of(r.monster) ?: return
+        val volume = de.bornim.core.audio.MonsterIdle.volume(dist)
+        if (volume <= 0f) return
+        nextIdleAnyAt = now + de.bornim.core.audio.MonsterIdle.GAP_MS
+        placedSounds += sound to volume
     }
 
     /** Turns [r] to the one of its four directions nearest to ([x], [y]), without a step. */

@@ -6,7 +6,8 @@ der pickenden Vögel auf der Wiese. Alle CC0 (QUELLEN.md, „84 Umweltklang“).
     python3 tools/klang/umwelt.py <ordner mit den Aufnahmen> --spiel    # OGG nach app/src/main/assets/sfx
 
 Aufnahmen (Freesound, Vorschau 128 kbit/s): 500646 betchkal „Cooper Creek … solitary wolf howl very clear“ (ein Wolf im
-Wrangell-St.-Elias-Nationalpark, vier Heuler); 389303 AlanCat „rockfall2a“, 381645 AlanCat „RockFall1b“, 675736
+Wrangell-St.-Elias-Nationalpark, vier Heuler), 143568 ondrosik „wolfs“ (fünf Wölfe), 158780 Paresh „wolves“ (Rudel in
+Wolf Haven International, Washington); 389303 AlanCat „rockfall2a“, 381645 AlanCat „RockFall1b“, 675736
 craigsmith „S24-18 Landslide“ (Steinschlag, tiefer gestimmt und mit Höhlenhall: Grollen im Berg).
 BigSoundBank (Joseph Sardin): 2891/2894 „Flight bird“, 0840 „Flight of a pigeon“ (Flügel), 3202 (Schritte auf Erde, fürs Scharren).
 """
@@ -18,10 +19,11 @@ L = lambda f: load(os.path.join(D, f))
 def win(x, a, b, fi=0.05, fo=0.4): return cut(x, a, b, fi, fo)
 
 S = {}
-# Wolf: drei der vier Heuler (der zweite folgt dem ersten zu dicht); weit weg im Wald: oben dumpf, etwas Hall der Bäume
-wolf = L("fs_500646.mp3")
+# Wolf: je Fassung eine andere Aufnahme (D3.8): der einsame Wolf, ein Wolf aus fünf (ohne die übersteuerten ersten
+# Sekunden), das Rudel; weit weg im Wald: oben dumpf, etwas Hall der Bäume
 def far(x, seed): return reverb(lowpass(highpass(x, 220, 2), 2400, 2), 0.25, 1.6, 2500, seed, 0.03)
-S["wolf_far"] = [far(win(wolf, 1.8, 11.2), 1), far(win(wolf, 29.2, 38.6), 2), far(win(wolf, 40.4, 49.6), 3)]
+S["wolf_far"] = [far(win(L("fs_500646.mp3"), 1.8, 11.2), 1), far(win(L("fs_143568.mp3"), 18.0, 29.4, 0.3, 1.2), 2),
+                 far(win(L("fs_158780.mp3"), 0.9, 10.4, 0.3, 1.0), 3)]
 
 # Grollen: Steinschlag eine halbe Oktave und mehr tiefer, nur das Tiefe (bis 600 Hz, damit es auch aus dem Handy kommt),
 # langer dunkler Höhlenhall
