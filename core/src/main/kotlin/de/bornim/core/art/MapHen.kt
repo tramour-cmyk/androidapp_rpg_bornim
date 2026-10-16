@@ -144,7 +144,7 @@ object MapHen {
     // ---------------------------------------------------------------- what a hen does
 
     /** Where a hen is and how it looks: map pixels of its feet, facing map direction [yaw], pose [key] at step [k] of 8. */
-    data class At(val x: Float, val y: Float, val yaw: Double, val key: String, val k: Int, val variant: Int)
+    data class At(val x: Float, val y: Float, val yaw: Double, val key: String, val k: Int, val variant: Int, val shown: Float = 1f, val seed: Int = 0)
 
     private fun pose(name: String) = when (name) {
         "low" -> LOW; "peck" -> PECK; "scratch" -> SCRATCH; "alert" -> ALERT; "run" -> RUN; else -> STAND
@@ -161,12 +161,14 @@ object MapHen {
         }
     }
 
-    enum class Mood { IDLE, WALK, FLEE, WARY }
+    enum class Mood { IDLE, WALK, FLEE, WARY, SHELTER }
 
     /**
      * A hen at home by ([homeX], [homeY]) in map pixels. Left alone it pecks, scratches, looks up and now and
      * then strolls to a new spot within [ROAM] pixels; the hero within [SHY] pixels and it runs off flapping,
-     * away from him, stops once he is [SAFE] off, stands wary a while and goes back to its business.
+     * away from him, stops once he is [SAFE] off, stands wary a while and goes back to its business. In the rain
+     * and at dusk ([at] with away) it hurries off under the trees nearest home and is gone there; when it is
+     * dry and light again it comes out the same way (94, D7.1: never vanishing on the spot).
      */
     class Hen(val homeX: Float, val homeY: Float, val seed: Int, val variant: Int) {
         var x = homeX; var y = homeY
@@ -191,6 +193,11 @@ object MapHen {
         private var last = Long.MIN_VALUE
         private var tx = homeX; private var ty = homeY
         private var walkSlot = Long.MIN_VALUE
+        /** How much of it is to be seen: 1 out in the open, 0 gone under the trees. */
+        private var seen = 1f
+        /** Under the trees (map pixels): the open spot before them, and the spot among them where it is gone. */
+        private var shelter: Pair<Float, Float>? = null
+        private var cover: Pair<Float, Float>? = null
 
         private fun free(map: MapDef, px: Float, py: Float): Boolean {
             val T = WorldArt.T
@@ -200,34 +207,84 @@ object MapHen {
                 val t = map.tile(Math.floorDiv((px + dx).toInt(), T), Math.floorDiv((py + dy).toInt(), T))
                 if (!t.walkable) return false
             }
-            return true
+            return !nearWater(map, px, py)
+        }
+
+        /** Where to go in the rain and at dusk: the walkable spot beside the nearest trees within a few tiles of home. */
+        private fun findShelter(map: MapDef) {
+            val T = WorldArt.T
+            val hx = Math.floorDiv(homeX.toInt(), T); val hy = Math.floorDiv(homeY.toInt(), T)
+            var best = Float.MAX_VALUE
+            for (ty in hy - 4..hy + 4) for (tx in hx - 4..hx + 4) {
+                if (map.tile(tx, ty) != Tile.TREE) continue
+                for ((dx, dy) in listOf(0 to -1, -1 to 0, 1 to 0, 0 to 1)) {
+                    val ox = (tx + dx) * T + T / 2f; val oy = (ty + dy) * T + T / 2f
+                    if (!map.tile(tx + dx, ty + dy).walkable || nearWater(map, ox, oy)) continue
+                    val d = hypot(ox - homeX, oy - homeY)
+                    if (d < best) { best = d; shelter = ox to oy; cover = (ox - dx * T * 0.55f) to (oy - dy * T * 0.55f) }
+                }
+            }
+            if (shelter == null) { shelter = homeX to homeY; cover = homeX to homeY }
         }
 
         /** Moves towards ([gx], [gy]) at [speed] px/s for [dt] ms; false when the way is blocked. */
-        private fun step(map: MapDef, gx: Float, gy: Float, speed: Float, dt: Long): Boolean {
+        private fun step(map: MapDef, gx: Float, gy: Float, speed: Float, dt: Long, through: Boolean = false): Boolean {
             val dx = gx - x; val dy = gy - y
             val d = hypot(dx, dy)
             if (d < 0.5f) return true
             val s = minOf(d, speed * dt / 1000f)
             val nx = x + dx / d * s; val ny = y + dy / d * s
-            if (!free(map, nx, ny)) return false
+            if (!through && !free(map, nx, ny)) return false
             yaw = Math.toDegrees(atan2(dx.toDouble(), dy.toDouble()))
             x = nx; y = ny
             return true
         }
 
-        fun at(clock: Long, heroX: Float, heroY: Float, map: MapDef): At {
-            if (since == Long.MIN_VALUE || clock < last || clock - last > 5_000) { since = clock; mood = Mood.IDLE }
+        /** Where it is and how it looks at [clock]; [away] in the rain and at dusk, when it goes under the trees. */
+        fun at(clock: Long, heroX: Float, heroY: Float, map: MapDef, away: Boolean = false): At {
+            if (shelter == null) findShelter(map)
+            if (since == Long.MIN_VALUE || clock < last || clock - last > 5_000) {
+                // back on the map after a while: it is where the weather put it, not on its way
+                since = clock; mood = Mood.IDLE
+                if (away) { mood = Mood.SHELTER; seen = 0f; cover!!.let { (cx, cy) -> x = cx; y = cy } }
+                else if (seen < 1f) { seen = 1f; x = homeX; y = homeY }
+            }
             val dt = if (last == Long.MIN_VALUE) 0L else (clock - last).coerceIn(0L, 200L)
             last = clock
             val near = hypot(heroX - x, heroY - y)
             fun go(m: Mood) {
                 if (m == Mood.FLEE) fled++
-                from = when (mood) { Mood.FLEE, Mood.WARY -> "alert"; Mood.WALK -> "stand"; Mood.IDLE -> "low" }
+                from = when (mood) { Mood.FLEE, Mood.WARY -> "alert"; Mood.WALK, Mood.SHELTER -> "stand"; Mood.IDLE -> "low" }
                 mood = m; since = clock
             }
-            if (near < SHY && mood != Mood.FLEE) go(Mood.FLEE)
+            if (away && mood != Mood.SHELTER) go(Mood.SHELTER)
+            if (!away && mood == Mood.SHELTER) {
+                // out again: from among the trees into the open, then home at its own pace
+                if (seen < 1f) { seen = minOf(1f, seen + dt / FADE_MS); val (sx, sy) = shelter!!; step(map, sx, sy, WALK_SPEED, dt, through = true) }
+                if (seen >= 1f) { tx = homeX; ty = homeY; go(Mood.WALK) }
+            }
+            if (near < SHY && mood != Mood.FLEE && mood != Mood.SHELTER) go(Mood.FLEE)
             when (mood) {
+                Mood.SHELTER -> if (away) {
+                    // hurrying to the trees, round the bale or a fence; there it steps in among them and is gone
+                    val (sx, sy) = shelter!!
+                    if (hypot(sx - x, sy - y) > 2f && seen >= 1f) {
+                        val dx = sx - x; val dy = sy - y
+                        val base = atan2(dx.toDouble(), dy.toDouble())
+                        var moved = false
+                        for (turn in listOf(0, 45, -45, 90, -90)) {
+                            val a = base + Math.toRadians(turn.toDouble())
+                            val r = minOf(hypot(dx, dy), 20f)
+                            if (step(map, x + sin(a).toFloat() * r, y + cos(a).toFloat() * r, HURRY_SPEED, dt)) { moved = true; break }
+                        }
+                        // blocked for good (or far too long on the way): it slips in where it is
+                        if (!moved || clock - since > 20_000) seen = minOf(seen, 0.999f)
+                    } else {
+                        val (cx, cy) = cover!!
+                        if (hypot(cx - x, cy - y) < WorldArt.T) step(map, cx, cy, WALK_SPEED, dt, through = true)
+                        seen = maxOf(0f, seen - dt / FADE_MS)
+                    }
+                }
                 Mood.FLEE -> {
                     if (near > SAFE) go(Mood.WARY)
                     else {
@@ -277,6 +334,8 @@ object MapHen {
             if (mood != Mood.FLEE) aside = 0
             val t = clock - since
             val a = when (mood) {
+                Mood.SHELTER -> if (seen >= 1f && hypot(shelter!!.first - x, shelter!!.second - y) > 2f) At(x, y, yaw, "run", Math.floorMod((clock / 60).toInt(), 8), variant)
+                    else At(x, y, yaw, "walk", Math.floorMod((clock / 80).toInt(), 8), variant)
                 Mood.FLEE -> if (stuck) At(x, y, yaw, "alert", 0, variant) else At(x, y, yaw, "run", Math.floorMod((clock / 45).toInt(), 8), variant)
                 Mood.WALK -> if (t < BLEND) At(x, y, yaw, "$from>stand", (t * 8 / BLEND).toInt(), variant) else At(x, y, yaw, "walk", Math.floorMod((clock / 80).toInt(), 8), variant)
                 Mood.WARY -> At(x, y, yaw, if (t < 300) "run>alert" else "alert", if (t < 300) (t * 8 / 300).toInt() else 0, variant)
@@ -288,7 +347,7 @@ object MapHen {
             if (d > 180) d -= 360.0 else if (d < -180) d += 360.0
             val most = (if (mood == Mood.FLEE) TURN_RUN else TURN) * dt / 1000.0
             shown += d.coerceIn(-most, most)
-            return a.copy(yaw = shown)
+            return a.copy(yaw = shown, shown = seen, seed = seed)
         }
 
         /** What it does standing: pecking mostly, a bout of scratching, looking up; each bout a few seconds. */
@@ -340,6 +399,10 @@ object MapHen {
     const val LEASH = 120f
     private const val WALK_SPEED = 16f
     private const val RUN_SPEED = 85f
+    /** Off to the trees in the rain: quicker than a stroll, slower than running from the hero. */
+    private const val HURRY_SPEED = 40f
+    /** How long it takes to step in among the trees, or out again (ms). */
+    private const val FADE_MS = 900f
     private const val SLOT = 4_200L
     /** A bout of pecking or scratching is whole jabs and rakes long. */
     private const val JAB = 440L
@@ -349,6 +412,15 @@ object MapHen {
     // ---------------------------------------------------------------- the places
 
     private val cache = HashMap<String, List<Hen>>()
+
+    /** Whether ([px], [py]) lies within about two thirds of a tile of water: the drawn bank reaches over the tile's edge (94). */
+    internal fun nearWater(map: MapDef, px: Float, py: Float): Boolean {
+        val T = WorldArt.T
+        for ((dx, dy) in listOf(0f to -30f, 0f to 14f, -18f to 0f, 18f to 0f, -14f to -24f, 14f to -24f)) {
+            if (map.tile(Math.floorDiv((px + dx).toInt(), T), Math.floorDiv((py + dy).toInt(), T)) == Tile.WATER) return true
+        }
+        return false
+    }
 
     /** The hens of [map]: two by each hay bale of a village, on the open ground beside it (west or north of it). */
     fun of(map: MapDef): List<Hen> = synchronized(cache) { cache.getOrPut(map.id) { find(map) } }
@@ -360,9 +432,11 @@ object MapHen {
         for (ty in 0 until map.height) for (tx in 0 until map.width) {
             if (map.tile(tx, ty) != Tile.HAY) continue
             // beside the bale on the open side away from the edge of the map, where nothing stands in front (west, north)
-            val spots = listOf(-1 to 0, 0 to -1, -1 to -1, 1 to 0, 0 to 1).filter { (dx, dy) -> map.tile(tx + dx, ty + dy).walkable }
+            val spots = listOf(-1 to 0, 0 to -1, -1 to -1, 1 to 0, 0 to 1).filter { (dx, dy) -> map.tile(tx + dx, ty + dy).walkable && !nearWater(map, (tx + dx) * T + T / 2f, (ty + dy) * T + T / 2f) }
+            // east of a bale is a pocket against the trees at the edge of the map: only where nothing else is free (94)
+            val open = spots.filter { it != (1 to 0) }.ifEmpty { spots }
             for (n in 0 until 2) {
-                val (dx, dy) = spots.getOrNull(n) ?: spots.firstOrNull() ?: continue
+                val (dx, dy) = open.getOrNull(n) ?: open.firstOrNull() ?: continue
                 val seed = hash(tx, ty, 50 + n) % 10_000
                 out += Hen((tx + dx) * T + T / 2f + (n * 2 - 1) * 5f, (ty + dy) * T + T / 2f, seed, out.size % VARIANTS)
             }
@@ -373,15 +447,29 @@ object MapHen {
     // ---------------------------------------------------------------- the pictures
 
     /** The hen at [a], drawn in the background when first wanted (null until then); [slot] as [MapFigure.slot]. */
-    fun frame(a: At, slot: Int): PixelImage? =
-        MapRest.picture(key(a, slot)) { render(poseOf(a.key, a.k), a.variant, slot * 360.0 / MapFigure.YAWS) }
+    fun frame(a: At, slot: Int): PixelImage? {
+        // until a picture is ready the hen's last one stays, so it never blinks out for a frame (94, test of 0.1.752:
+        // the hens flickered; like the cat, 87.1)
+        val img = shelf.picture(key(a, slot)) { render(poseOf(a.key, a.k), a.variant, slot * 360.0 / MapFigure.YAWS) }
+        synchronized(last) { if (img != null) last[a.seed] = img else return last[a.seed] }
+        return img
+    }
+    private val last = HashMap<Int, PixelImage>()
 
     /** The same, drawn now (the previews). */
     fun frameNow(a: At, slot: Int): PixelImage =
-        MapRest.pictureNow(key(a, slot)) { render(poseOf(a.key, a.k), a.variant, slot * 360.0 / MapFigure.YAWS) }
+        shelf.pictureNow(key(a, slot)) { render(poseOf(a.key, a.k), a.variant, slot * 360.0 / MapFigure.YAWS) }
+
+    /**
+     * The hens' own pictures: they have many (three plumages, sixteen directions, every step of a move), and on the
+     * shelf of the villagers they pushed each other out, to be drawn again and again (94). Room for what half an hour
+     * among them calls for ([MapHenTest]); small pictures (48 × 48, 9 KB each).
+     */
+    const val SHELF = 2_400
+    private val shelf = MapRest.Shelf(SHELF)
 
     /** Blends go in steps of two of eight: enough for so small a figure, half the pictures. */
-    private fun key(a: At, slot: Int) = "hen|${a.variant}|${a.key}|${if ('>' in a.key) a.k / 2 * 2 else a.k}|$slot"
+    internal fun key(a: At, slot: Int) = "hen|${a.variant}|${a.key}|${if ('>' in a.key) a.k / 2 * 2 else a.k}|$slot"
 
     /** The picture's size and where the feet stand in it. */
     const val W = 48; const val H = 48; const val AX = 24; const val GY = 40

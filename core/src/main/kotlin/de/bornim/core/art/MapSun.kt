@@ -35,9 +35,12 @@ object MapSun {
         EVENING(1.0, -0.2, 1.2);
 
         companion object {
-            /** The stand for the minute of the day [minutes] (at night that of the evening; the moon follows with D3.14). */
+            /**
+             * The stand for the minute of the day [minutes]: after midnight already that of the morning to come, from
+             * 15 o'clock that of the evening (D9.3; at night the moon follows with D3.14).
+             */
             fun at(minutes: Int): Stand = when (Math.floorMod(minutes, 24 * 60) / 60) {
-                in 5 until 10 -> MORNING
+                in 0 until 10 -> MORNING
                 in 10 until 15 -> NOON
                 else -> EVENING
             }
@@ -54,12 +57,64 @@ object MapSun {
     /** Upright drawing units a tile (as [MapTownIso]: 57 to the metre, a tile 116 cm). */
     private const val ZT = 66.0
 
-    private val cache = HashMap<String, List<WorldArt.Obj>>()
+    /** A drawn layer and when it was done ([System.nanoTime]), so it can fade in. */
+    class Ready(val pieces: List<WorldArt.Obj>, val at: Long)
 
-    /** The shadow layer of [map] for [stand], or nothing under a roof or underground. */
-    fun shadows(map: MapDef, stand: Stand = this.stand): List<WorldArt.Obj> = synchronized(cache) {
-        if (map.kind != MapKind.FOREST && map.kind != MapKind.TOWN) return emptyList()
-        cache.getOrPut("${map.id}/$stand") { Layer(map, stand).also { it.cast(map) }.pieces() }
+    /** The layers drawn, the last used last; only [KEEP] are kept (30.2). */
+    private val cache = LinkedHashMap<String, Ready>(8, 0.75f, true)
+    private const val KEEP = 4
+    private val drawing = HashSet<String>()
+
+    private fun applies(map: MapDef) = map.kind == MapKind.FOREST || map.kind == MapKind.TOWN
+
+    private fun build(map: MapDef, stand: Stand) = Layer(map, stand).also { it.cast(map) }.pieces()
+
+    private fun keep(key: String, pieces: List<WorldArt.Obj>): Ready = synchronized(cache) {
+        cache.getOrPut(key) { Ready(pieces, System.nanoTime()) }.also {
+            while (cache.size > KEEP) cache.remove(cache.keys.first())
+        }
+    }
+
+    /** The shadow layer of [map] for [stand], or nothing under a roof or underground; drawn now if need be (previews, tests). */
+    fun shadows(map: MapDef, stand: Stand = this.stand): List<WorldArt.Obj> {
+        if (!applies(map)) return emptyList()
+        val key = "${map.id}/$stand"
+        synchronized(cache) { cache[key] }?.let { return it.pieces }
+        return keep(key, build(map, stand)).pieces
+    }
+
+    /**
+     * D9.2: the layer of [map] for [stand] if it is drawn, else null and it is drawn in the background (in the Tiefer
+     * Wald it takes over half a second, too long for one picture); the shadows come in a moment later, at a cut
+     * usually still under the fade.
+     */
+    fun ready(map: MapDef, stand: Stand = this.stand): Ready? {
+        if (!applies(map)) return null
+        val key = "${map.id}/$stand"
+        synchronized(cache) { cache[key] }?.let { return it }
+        prepare(map, stand)
+        return null
+    }
+
+    /** Starts drawing the layer of [map] for [stand] in the background, if it is not there yet. */
+    fun prepare(map: MapDef, stand: Stand = this.stand) {
+        if (!applies(map)) return
+        val key = "${map.id}/$stand"
+        synchronized(cache) { if (key in cache || !drawing.add(key)) return }
+        worker.execute {
+            try {
+                de.bornim.core.Guard.run("Schatten $key") { keep(key, build(map, stand)) }
+            } finally {
+                synchronized(cache) { drawing.remove(key) }
+            }
+        }
+    }
+
+    /** 30.2: memory short: only the layer used last is kept. */
+    fun trim() = synchronized(cache) { while (cache.size > 1) cache.remove(cache.keys.first()) }
+
+    private val worker = java.util.concurrent.Executors.newSingleThreadExecutor { r ->
+        Thread(r, "map-sun").also { it.isDaemon = true; it.priority = Thread.NORM_PRIORITY - 1 }
     }
 
     /**
@@ -247,17 +302,17 @@ object MapSun {
                         rod(bx - 1.0, by - 0.5, u(70.0), bx, by - 0.5, u(70.0), 0.04)
                     }
                     t == Tile.FENCE -> {
-                        // a fence is a thin wall about a metre high: from the post in the middle to each fence beside it
-                        val m = -0.5; val top = u(50.0)
+                        // a fence is a thin wall about a metre high: from the post to each fence beside it (93: a garden's on its edge)
+                        val (mi, mj) = MapTownIso.fenceSpot(map, tx, ty); val top = u(50.0)
                         fun run(i0: Double, j0: Double, i1: Double, j1: Double) = solid(listOf(
                             doubleArrayOf(bx + i0, by + j0, 0.0), doubleArrayOf(bx + i1, by + j1, 0.0),
                             doubleArrayOf(bx + i0, by + j0, top), doubleArrayOf(bx + i1, by + j1, top),
                             doubleArrayOf(bx + i0 + 0.03, by + j0 + 0.03, 0.0), doubleArrayOf(bx + i1 + 0.03, by + j1 + 0.03, top)), alpha = 0.36, soft = 0.05)
-                        post(m, m, 56.0, 0.05)
-                        if (map.tile(tx - 1, ty) == Tile.FENCE) run(-1.0, m, m, m)
-                        if (map.tile(tx + 1, ty) == Tile.FENCE) run(m, m, 0.0, m)
-                        if (map.tile(tx, ty - 1) == Tile.FENCE) run(m, -1.0, m, m)
-                        if (map.tile(tx, ty + 1) == Tile.FENCE) run(m, m, m, 0.0)
+                        post(mi, mj, 56.0, 0.05)
+                        if (map.tile(tx - 1, ty) == Tile.FENCE) run(-1.0, mj, mi, mj)
+                        if (map.tile(tx + 1, ty) == Tile.FENCE) run(mi, mj, 0.0, mj)
+                        if (map.tile(tx, ty - 1) == Tile.FENCE) run(mi, -1.0, mi, mj)
+                        if (map.tile(tx, ty + 1) == Tile.FENCE) run(mi, mj, mi, 0.0)
                     }
                     t == Tile.HAY -> {
                         // a heap: its foot a ring, its top a point

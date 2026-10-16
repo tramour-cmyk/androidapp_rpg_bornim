@@ -39,5 +39,10 @@ class SouthEdgeTest {
         assertTrue(tryLeave(g)!!.startsWith("Der Brief mit dem grauen Siegel"))
         assertEquals("Die Antwort liegt nicht im Süden.", tryLeave(g))
         assertEquals(Mode.Explore, g.mode)
+        // 68p: after Lyra spoke of the camp in the south the edge says plainly that the road comes later
+        g.state.flags += Story.CAMP_TOLD
+        assertEquals("Der Weg nach Süden ist noch nicht begehbar. Kapitel 2 folgt mit einem späteren Update.", tryLeave(g))
+        assertEquals("Der Weg nach Süden ist noch nicht begehbar. Kapitel 2 folgt mit einem späteren Update.", tryLeave(g))
+        assertEquals(Mode.Explore, g.mode)
     }
 }

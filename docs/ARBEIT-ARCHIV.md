@@ -1,6 +1,8 @@
 # Archiv
 ### Übergabe Team Jerry (16.10., 06:55), abgelöst 16.10., 07:30
 
+**Übergabe (16.10., 02:01, „Tom – 38 Rauchbündel Dialoge“) – Nachfolger: keiner, bis der Chef PR #67 testet:** 38 war schon fast ganz auf `main` (Garrick-Hinweis, Warnung unter Stufe 3, Morwens Gabe, Chronik, `KroggSmokeTest`); nachgezogen nur der Taschentext wortgetreu nach `[D4.1.rauch.tasche]` (59f0f2c1 auf `claude/tom-38-rauchbuendel-dialoge`, Kerntests grün) → in den nächsten Sammelbuild nach #67 (Prüfliste: Rauchbündel in der Tasche antippen, Text wie `STORY-K1.md`). Morwen gibt das Bündel schon nach dem ersten Treffen mit Garrick (Vorgabe „sobald Garrick getroffen“), also auch vor seinem Krogg-Hinweis. Sonst unverändert: PR #67 wartet auf Test des Chefs (neu abonnieren); nach „passt“ #67 zusammenführen, #66 schließen, dann **ein** PR von `claude/tom-86-bewegung-rest` (D3.3 + 89 + 69f + 86) mit D1.7, 27n und 38.
+
 **Übergabe (16.10., 06:55, „Jerry – 72.10 Probe Grak“) – Nachfolger: Jerry – 72u Standbild Grak im Wald:** 72.10 Kampfkern auf `claude/jerry-72-10-probe-grak` (9566107c, Entwurfs-PR #68, Kerntests grün): `Skirmish` mit Reihen, Platztausch, Ring-Stufen, Automatik nach 72.13, KO-Zählung. **Hängt am Kampf-Dokument** (Max, von Pro nicht lesbar; Abschrift im Eingang von `ARBEIT-BETRIEB.md` erbeten): Graks drei Absichten und Ring-Wirkung sind vorläufig, Oberfläche erst danach. Weiter gilt: `docs/ROLLE-TEAM.md` ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds höchstens 4 Punkte, nie mit Tom gemischt. **65.2:** zwei pausierte Weck-Routinen „Jerry Selbstarbeit“ (12:27, 15:27) auf Pro noch löschen.
 
 ### Übergabe Sokrates Projekt (15.10., 23:4x), abgelöst 16.10., 07:10

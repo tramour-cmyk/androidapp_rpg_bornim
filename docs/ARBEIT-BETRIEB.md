@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Themennummer: 104** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 105** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 **Ford: Co-Pilot bis Sa 17.10., 21:00, danach Pilot** (Chef 15.10., 22:5x: „dann kriegt Ford die Stellung Co-Pilot … wieder zurückstellen … wenn wir wieder volles Guthaben haben“; der erste Lauf danach stellt selbst auf Pilot zurück, pusht, meldet lautlos; 81g)
 
@@ -24,7 +24,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Projekt wertet nach zwei Tagen aus.
 
-- 16.10., 06:46: Einrichtung plus ein Start; ca. 127 Tsd. Token Kontext (`get_session` meldet `used_tokens` 0, Messung daher aus dem Sitzungszähler); Jerry D1.7 kostete 0,89 $, Jerry 72u 6,71 $ (`usage.cost_usd` nach dem Archivieren; Jerrys Kosten, nicht Ford 2)
+- 16.10., 06:46: Einrichtung plus ein Start; ca. 127 Tsd. Token Kontext (`get_session` meldet `used_tokens` 0, Messung daher aus dem Sitzungszähler); Jerry D1.7 kostete 0,89 $, Jerry 72u 6,71 $, Jerry 95 4,25 $ (`usage.cost_usd` nach dem Archivieren; Jerrys Kosten, nicht Ford 2)
 - 16.10., 07:33: Stundenlauf ohne Tat (Jerry läuft); Ford 2 bisher ca. 185 Tsd. Token Kontext, drei Neustarts Jerry eingeschlossen
 
 ## Protokoll
