@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 27, davon A 0, wartet auf Chef 4**
 
-**Übergabe (12.10., 16:59; gekürzt 77e):** **Startauftrag, vor allem anderen:** `docs/ROLLE-TEAM.md` ganz lesen (seit Umbau 98, 15.10.: Firma WireStormTCS, `CLAUDE.md` und `docs/FIRMA.md`); in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds (höchstens 4 Punkte, nie mit Tom gemischt), „(Rückläufer: n)“ im `CHANGELOG.md`. Zweig `claude/jerry-13e-hoehle-diagonal` (13e.3 fertig, 13e.4 halb; 13e bleibt bei Tom (Zuteilung des Chefs, D14.3); Archiv). **65.2:** deine acht pausierten Weck-Routinen „Jerry Selbstarbeit HH:27“ auf Pro löschen (Ford weckt, 81s; D13.8d).
+**Übergabe (16.10., 06:46, „Jerry – D1.7 Absprache“) – Nachfolger: Jerry – 72.10 Probe Grak:** D1.7 passt, in Toms Vorrat vermerkt. Weiter gilt: `docs/ROLLE-TEAM.md` ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds höchstens 4 Punkte, nie mit Tom gemischt. 24.6 wartet auf Chef, darum 72.10. **65.2:** zwei pausierte Weck-Routinen „Jerry Selbstarbeit“ (12:27, 15:27) auf Pro noch löschen.
 
 ## Zeilen
 
