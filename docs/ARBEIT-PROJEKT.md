@@ -6,7 +6,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 **Gelesen bis:** `2f5e7018` (16.10., 11:1x)
 
-**Übergabe (16.10., 11:2x, „Sokrates Projekt – Niederlassung (16.10., 07:11)“):** 108 umgesetzt: Dein Zug in `docs/zug/` (Übersicht schreibt Action `zug-index.yml`), `meldung.sh` dz:, Haken, Bildwarnung, Artefakt „abgelöst“; Chef zufrieden („das Bild und alles ist toll“, Telegram-Link geht). Jerrys Testreihe übertragen (`ansehen/jerry-testreihe.md`), Jerry Pause bis 13:20. Offen: Build 772 (nur Workflow-Datei) grün prüfen; 108 streichen, sobald Jerry selbst einen Punkt angelegt hat; 99g wartet auf Chef (Links auf Pro). Danach 110 (Tiefe 8, dringend vor Fords Selbstneustart). Nach Sparmodus: 101, 102. Messung Ford 2 bis So 18.10. Nachfolger: Sokrates Projekt – 110 Sitzungstiefe (16.10. …)
+**Übergabe (16.10., 11:2x, „Sokrates Projekt – Niederlassung (16.10., 07:11)“):** 108 umgesetzt: Dein Zug in `docs/zug/` (Übersicht schreibt Action `zug-index.yml`), `meldung.sh` dz:, Haken, Bildwarnung, Artefakt „abgelöst“; Chef zufrieden („das Bild und alles ist toll“, Telegram-Link geht). Jerrys Testreihe übertragen (`ansehen/jerry-testreihe.md`), Jerry Pause bis 13:20 (Ford 2 am selben Guthaben, startet ihn im Lauf 13:33; Chef schreibt Ford 2 „Ford-Lauf“, falls Jerry um 13:45 nicht läuft). Offen: Build 772 (nur Workflow-Datei) grün prüfen; 108 streichen, sobald Jerry selbst einen Punkt angelegt hat; 99g wartet auf Chef (Links auf Pro). Danach 110 (Tiefe 8, dringend vor Fords Selbstneustart). Nach Sparmodus: 101, 102. Messung Ford 2 bis So 18.10. Nachfolger: Sokrates Projekt – 110 Sitzungstiefe (16.10. …)
 
 ## Zeilen
 
