@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**offen 10, Muss 1, A 0, Chefsache 0**
+**offen 10, Muss 2, A 0, Chefsache 0**
 
 **Gelesen bis:** `d6ebd86f` (16.10., 22:54)
 
@@ -14,7 +14,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 |---|---|---|---|
 | 106.1 | M | Umbau Rollen und Namen (Paket mit 115, 117, 122, 124–126, 99g.1, 101, 102, 107, D16, D21; Chef 16.10., 22:0x: „106.1. Ja … und am Schluss muss Diogenes einmal wieder drüber prüfen“) | umgebaut 16.10.; Nachprüfung Diogenes bestellt; D16–D21 im Prüfbericht als eingearbeitet vermerken; Erste Woche 18.–24.10. Ausgangswert, Wochenzählung Mo 26.10., danach Zielwerte (D19.4) |
 | 99 | K | Zwei Niederlassungen (Chef 15.10., 19:0x): **99f Messung Ford 2** auswerten (Zeilen „Kosten Ford 2“ in `ARBEIT-BETRIEB.md`; über 10 % von Jerrys Woche → Ford 2 fällt weg, Chefsache mit Empfehlung); **Ford-2-Wache?** (Chef 16.10., 15:5x: „warum hat Ford 2 in der Niederlassung keine Ford 2 Wache? Braucht ihr das denn nicht?“): Empfehlung mit der Auswertung | offen; Abos prüfen um den 10.11. (99e) |
-| 99g | K | Gestaffelter Umzug ins Repo (Chef 16.10., 12:4x) | Rest nach Sa 17.10., 21:00: Storyplan, Texte K2, Prüfbericht, Graumoor (D17.1–D17.5; Regeln an fünf Stellen, Freigabeliste `LISTE-NIEDERLASSUNG.md` 1a weg), dann Diogenes. Beschlüsse sind umgezogen (99g.1, 16.10.), Kopf „abgelöst“ auf dem Artefakt fehlt noch; Marktvergleich bleibt auf Max |
+| 99g | M | Gestaffelter Umzug ins Repo (Chef 16.10., 12:4x) | **Prüfbericht jetzt (Chef 16.10., 23:0x: „Jetzt“, auf Empfehlung: Prüfbericht mit Regeln und Freigabeliste jetzt, Storyplan, Texte K2, Graumoor über Homer nach Sa 21:00), in Arbeit.** Rest nach Sa 17.10., 21:00: Storyplan, Texte K2, Prüfbericht, Graumoor (D17.1–D17.5; Regeln an fünf Stellen, Freigabeliste `LISTE-NIEDERLASSUNG.md` 1a weg), dann Diogenes. Beschlüsse sind umgezogen (99g.1, 16.10.), Kopf „abgelöst“ auf dem Artefakt fehlt noch; Marktvergleich bleibt auf Max |
 | 117 | K | Ausmisten Rest (117.3) | `LISTE-NIEDERLASSUNG.md` auf „Pro neu einrichten“ kürzen (mit 99g, 1a fällt weg); Code-Kommentare bei Tom (Zeile 117) |
 | 102 | K | Rest: Kleinigkeiten aus D14 (Stellungstafel Co-Pilot, `CLAUDE.md` „nach der Kennung“, bis D11.1) prüfen; Firmenordnung und Rollenkonzept (Artefakte) mit Kopf „überholt, es gilt `main`“ | offen |
 | 90 | K | Tagesrückblick (Chef 15.10., 12:4x) | Probe 18.–22.10. (nach Sparmodus), Kopf „Tag n von 5“; Diogenes prüft die Woche; 23.10. Bilanz mit dem Chef: weiter oder abschaffen. **90a** bis 23.10.: keine neue Ablaufregel ohne Wegfall einer alten |
