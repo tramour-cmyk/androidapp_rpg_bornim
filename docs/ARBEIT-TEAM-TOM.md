@@ -2,15 +2,14 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 15, davon A 0, wartet auf Chef 2**
+**offen 13, davon A 0, wartet auf Chef 1**
 
-**Übergabe (16.10., 07:54, „Tom – 38 Rauchbündel Dialoge“) – Nachfolger: „Tom – 104 Test 0.1.757“:** Build 0.1.757 grün, Testseite `e/t757.html` auf „Dein Zug“ (t753 entfernt). Nach „passt“ #71 zusammenführen, CHANGELOG, Zeilen streichen. Chef 16.10., 07:4x „0.1.753 passt“ → PR #67 zusammengeführt (443ba5bd), #66 geschlossen. **PR #71** (`claude/tom-38-rauchbuendel-dialoge`) = `main` + 86-Rest (D3.3, 89, 69f, 86.6/9/10) + 27n mit D1.7 + 38 + **104** (Nachfrage beim Überspringen; Kerntests grün, Oberfläche über die Vorschau übersetzt); abonniert (Nachfolger neu abonnieren). Prüfliste: Intro und Tempelszene antippen → „Überspringen?“, „Weiter ansehen“ lässt die Szene weiterlaufen; 69f wie zuvor; 86: am Lagerfeuer „Rasten?“, bei Rowena Met und Zimmer; 89 Held im Hausschatten dunkel; Funken am Lagerfeuer im Flüsterwald und in der Höhle senkrecht; Rauchbündel-Text in der Tasche.
+**Übergabe (16.10., 11:50, „Tom – 104 Test 0.1.757“) – Nachfolger: „Tom – 40 Helligkeitswert“:** Chef 16.10., 11:4x „0.1.757 … alles passt. Nur Rast konnte nicht geprüft werden“ → PR #71 zusammengeführt (b776ab87), CHANGELOG, Zeilen 104/89/D3.3/38/69/108/63 gestrichen. Rast: Zimmer gesperrt, weil die Nacht vor der Tempelszene (Testknopf) als lange Rast zählt; Prüfbitte `docs/zug/ansehen/t757-rast.md`. Erst: Build von `main` nach dem Merge grün? Dann 40 (Jerrys Frage zum Helligkeitswert, PR #73) beantworten. Lokale Sicherung `tom-notizen-sicherung` im Arbeitsklon ist nur Notizen, kann weg.
 
 ## Zeilen
 
 | Nr. | Thema | Stand | Zweig |
 |---|---|---|---|
-| 108 | **von Sokrates Projekt (16.10.):** „Dein Zug“ liegt jetzt im Repo: `docs/zug/entscheiden/`, `ansehen/` (Regeln `docs/zug/README.md`, `CLAUDE.md` 63); Sprungmarke `[72s.1](dz:72s1)`. Neue Punkte nur noch dort; die Seite (Artefakt) ist abgelöst. t757 ist umgezogen (`ansehen/t757-sammelbuild.md`); Zeile 63 „Freigabe für Jerry“ entfällt. | offen | – |
 | 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Auf `main` bis 27m und D3.13a (#67). **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1. 27n auf `main` (#71) | – |
 | 92 | Bauer Bram blockiert an der Brücke den Weg (Chef 15.10., 16:5x; Idee: „Held muss NPC schieben können. Keine Gegner, aber neutrale.“) | Kerntest `MakeWayTest` fängt Held-gegen-Bram an der Brücke (Selbstarbeit erledigt, 23:1x); Test am Gerät mit 0.1.753 | – |
 | 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | **112:** fällt gegen das Intro ab (Chef 16.10., 11:3x); nachziehen erst nach Vergleichsliste von Kreativ und Entscheid des Chefs · auf `main` mit #67 (0.1.753 „passt“); Durchsicht der Szene mit Knopf 100 durch den Chef offen | – |
@@ -23,7 +22,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 | 24 | Animationen nach Spielstart und Kartenwechsel; Zwischenbildschirm (Technik) | Großteil auf `main`; Inhalt (24.6) bei Jerry | – |
 | 30 | Abstürze beim Testen (Technik) | beobachten (bei neuem `adb logcat` mit Anleitung); 30.7 Merkliste | – |
 | 5 | Dorf draußen, Dorfbewohner als Puppen | auf `main` bis 5.5 | – |
-| 63 | Eine Seite „Dein Zug“ für alles Offene | steht; **wartet auf Chef:** Freigabe für Jerry (Teilen) am Fr. | – |
 | – | Eigene Zeilen kürzen | Erledigtes ins Archiv | – |
 | 40 | Helligkeitsregler (13e.6, „Wert mit Tom“) | von Team Jerry (16.10., 08:2x): PR #73 hebt Schwarz um höchstens 10 % Weiß (Schwarz → 26/255); Prüfzeichen Ton 10/255 auf Schwarz. Passt das zum dunkelsten gewollt sichtbaren Ton der Höhle (Umriss)? Sonst Wert in `core/.../audio/Mix.kt` (`SIGN`, `LIFT_MAX`) nennen | – |
 | D6.4 | Fluss am Dorf rauscht (Jerry) | von Team Jerry (16.10., 08:57), zur Kenntnis: `WorldScreen.kt` neun Zeilen im Klangblock neben dem Froschchor (`RiverSound`, PR #76); bei Einwand Zeile an Jerry | – |
