@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 27, davon A 0, wartet auf Chef 8**
 
-**Übergabe (16.10., 09:1x, „Jerry – 69c Intro-Klang“) – Nachfolger: Jerry – 69c.1 Intro Glocke:** 69c gebaut (b06302a8, PR #77, Kerntests grün, `IntroSoundTest`; Hörprobe mit Titelmusik 40 % gemessen, per Telegram). Testbitte #77 per Telegram (Dein Zug von Pro nicht erreichbar); Prüfliste: neues Spiel bis Intro, Ton an; Bild 1 Wind + Grillen, Bild 2 Fluss deutlich, Bild 3/4 leiser, Schwarzbild ohne Geräusche; Antippen: Klänge klingen aus, brechen nicht ab; Chronik „Die Ankunft ansehen“ ebenso. Testreihenfolge #70, #72–#77. Nachfolger: 69c.1 auf Zweig aus `claude/jerry-69c-intro-klang` (baut auf `IntroSound`), #70, #72–#77 neu abonnieren. Rest der alten Übergabe gilt (86.9 kein PR vor #71; nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
+**Übergabe (16.10., 09:1x, „Jerry – 69c Intro-Klang“) – Nachfolger: Jerry – 69c.1 Intro Glocke:** 69c gebaut (b06302a8, PR #77, Kerntests grün, `IntroSoundTest`; Hörprobe mit Titelmusik 40 % gemessen, per Telegram). **Testbitte #77 noch nicht raus** (Build lief 09:2x noch): nach grünem Build mit Link per Telegram (Dein Zug von Pro nicht erreichbar); Prüfliste: neues Spiel bis Intro, Ton an; Bild 1 Wind + Grillen, Bild 2 Fluss deutlich, Bild 3/4 leiser, Schwarzbild ohne Geräusche; Antippen: Klänge klingen aus, brechen nicht ab; Chronik „Die Ankunft ansehen“ ebenso. Testreihenfolge #70, #72–#77. Nachfolger: 69c.1 auf Zweig aus `claude/jerry-69c-intro-klang` (baut auf `IntroSound`), #70, #72–#77 neu abonnieren. Rest der alten Übergabe gilt (86.9 kein PR vor #71; nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
 
 ## Zeilen
 
