@@ -8,16 +8,7 @@ Kurz: 4 Sammelbuilds statt 14 Einzel-APKs, je Build eine Prüfliste; Reihenfolge
 
 APK: im PR unten unter „Checks“ → „build“ → „Artifacts“. Testmenü: Reiter „Test“ (Uhrzeit +3 h, Teleport, „Held trifft immer kritisch“, „Bosse zurücksetzen“, „Alle Vorräte auf mindestens 10“).
 
-Build 1 passt (Chef 16.10., 15:0x), auf `main` (PR #88). Build 2, 3, 4, 5 passen (Chef 16.10., 15:2x–15:4x), werden zusammengeführt.
-
-## Build 2 · 0.1.778 · Intro und Menü · [PR #89](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/89)
-
-| # | Nr. | Wo und wie | Richtig | Falsch |
-|---|---|---|---|---|
-| 2.1 | 69c | neues Spiel, Intro nicht überspringen | Bild 1–4 je eigene leise Mischung (Wind, Grillen, Fluss), zum Schwarzbild still | Klang lauter als die Musik; Sprung zwischen den Bildern |
-| 2.2 | 69c.1 | wie 2.1, bis Bild 5; dann antippen | dumpfe Glocke schwillt an, drei Rufe, ein ferner Schrei unter der Titelmusik; Antippen: Glocke klingt aus | Glocke bricht hart ab |
-| 2.3 | 40, 13e.6 | Menü → System: drei Regler; in der Höhle „Dunkle Töne“ von 0 auf 100 % | Gesamt, Musik, Effekte wirken einzeln (Ortsklang und Intro-Klang hängen an „Effekte“); Schwarz hebt sich höchstens leicht, Prüfzeichen gerade noch sichtbar | ein Regler ohne Wirkung; Höhle sieht hell und grau aus |
-| 2.4 | 30 | App starten und sofort beenden (Zurück), dreimal | kein Absturz (sonst nichts zu sehen) | „App wurde beendet“ |
+Build 1 und 2 passen, auf `main` (PR #88, #89). Build 3, 4, 5 passen (Chef 16.10., 15:2x–15:4x), werden zusammengeführt.
 
 ## Build 3 · 0.1.779 · Kampf · [PR #90](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/90)
 
