@@ -4,9 +4,9 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **offen 10, Muss 1, A 0, Chefsache 0**
 
-**Gelesen bis:** `ad364813` (17.10., 00:3x)
+**Gelesen bis:** `ad364813` (17.10., 00:19)
 
-**Übergabe (17.10., 00:3x, „Perikles – 99g.2 Kopf abgelöst (17.10., 00:17)“):** 99g.2 erledigt (Zuruf Chef trotz Sparmodus): Artefakte Prüfbericht und Beschlüsse ganz gelesen, Kopf „abgelöst, gilt `docs/…`“ mit Link gesetzt und veröffentlicht. **Nachfolger: „Perikles – 106.1 Vermerke D16–D21“** (nach Sa 17.10., 21:00).
+**Übergabe (17.10., 00:19, „Perikles – 99g.2 Kopf abgelöst (17.10., 00:17)“):** 99g.2 erledigt (Zuruf Chef trotz Sparmodus): Artefakte Prüfbericht und Beschlüsse ganz gelesen, Kopf „abgelöst, gilt `docs/…`“ mit Link gesetzt und veröffentlicht. **Nachfolger: „Perikles – 106.1 Vermerke D16–D21“** (nach Sa 17.10., 21:00).
 
 ## Zeilen
 
