@@ -8,7 +8,7 @@ Kurz: 4 Sammelbuilds statt 14 Einzel-APKs, je Build eine Prüfliste; Reihenfolge
 
 APK: im PR unten unter „Checks“ → „build“ → „Artifacts“. Testmenü: Reiter „Test“ (Uhrzeit +3 h, Teleport, „Held trifft immer kritisch“, „Bosse zurücksetzen“, „Alle Vorräte auf mindestens 10“).
 
-Build 1 und 2 passen, auf `main` (PR #88, #89). Build 3, 4, 5 passen (Chef 16.10., 15:2x–15:4x), werden zusammengeführt. Neu: Build 8, die Probe des neuen Kampfes (nach Build 6 und 7 testen).
+Build 1 und 2 passen, auf `main` (PR #88, #89). Build 3, 4, 5 passen (Chef 16.10., 15:2x–15:4x), werden zusammengeführt. Neu: Build 8, die Probe des neuen Kampfes (nach Build 6 und 7 testen); Build 9 Regen und Donner. Build 7 und 8 neu gebaut (16.10., 20:1x), damit die Nummern über Build 6 liegen: die neue APK aus dem PR nehmen.
 
 ## Build 3 · 0.1.779 · Kampf · [PR #90](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/90)
 
@@ -62,3 +62,13 @@ Erst die neue Kampfart zum Ausprobieren, noch nicht im Spiel: Reiter „Test“ 
 | 8.3 | 72.10, 72.13 | Angriff (bei mehreren Gegnern Ziel wählen), Platz, Abwarten; dann „Söldner: selbst“ auf „Automatik“ | Szene und Knöpfe bleiben ruhig an ihrem Platz; auf Automatik handelt der Söldner allein | Szene springt; Söldner wartet trotz Automatik |
 | 8.4 | 72.11 | Grak hart treffen, solange er »Schwerer Hieb« oder »Kraft sammeln« angesagt hat | ab einem Fünftel seiner Lebenspunkte taumelt er, die Absicht ist vereitelt | Absicht läuft trotzdem |
 | 8.5 | Gefühl | zwei, drei Durchgänge mit anderen Klassen (auch Magier) | spannend, echte Wahl zwischen Angreifen, Platz und Abwarten | langweilig; Takt nervt (dann sagen, was) |
+
+## Build 9 · Regen und Donner · [PR #94](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/94)
+
+Hörproben per Telegram (16.10., 20:0x). Stil-Abgleich: echte Aufnahmen statt Synthese, drei Fassungen je Klang; Übergänge Trocken ↔ Regen setzt ein ↔ Regen hört auf (blendet mit dem Regen), draußen ↔ drinnen (Regen weg), Erkunden ↔ Kampf (still); geprüft mit Kerntest.
+
+| # | Nr. | Wo und wie | Richtig | Falsch |
+|---|---|---|---|---|
+| 9.1 | D3.10 | Test: „Regen: immer“; im Wald oder Dorf stehen, 1 min zuhören, dann „Regen: nie“ | Regen rauscht gleichmäßig ohne Knacken an der Schleifenstelle; nach dem Umschalten wird er über einige Sekunden leiser | kein Regen zu hören; Knacken alle 12 s; bricht hart ab |
+| 9.2 | D3.10 | bei Regen ein Haus betreten, wieder hinaus; einen Kampf beginnen | drinnen still, draußen wieder Regen; im Kampf still | Regen drinnen gleich laut; im Kampf weiter |
+| 9.3 | D3.10 | bei Regen draußen 5–10 min warten (Wetterleuchten kommt selten) | einige Sekunden nach dem Leuchten fernes, tiefes Grollen ohne Krachen | kein Donner; schrilles Krachen |

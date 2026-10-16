@@ -1,5 +1,7 @@
 # Archiv
 
+**Übergabe (16.10., 19:2x, „Jerry – 24aa Ortsklang an der Tür prüfen“) – Nachfolger: Jerry – D3 Rest: Varianten, Regenklang, Monster auf der Karte:** 24aa gestrichen: 24.8.5 (PR #38, getestet 0.1.555) und 24.8.6 (Tom, PR #42, getestet 0.1.563) längst auf `main`. Nachfolger: #68, #87 abonnieren; 108a.1 zuerst, falls der Chef antwortet.
+
 **Übergabe (16.10., 19:2x, „Jerry – 120 Musik in Schichten prüfen“) – Nachfolger: Jerry – 24aa Ortsklang an der Tür prüfen:** 120: 6.1 behoben (Spur ab 8 statt 10 Feldern laut Beschluss, nicht im Dorf), `main` eingemischt (Konflikte `MusicPlayer.kt` mit Lautstärkereglern 40, Quellen), Kerntests grün, Build 6 neu (PR #87, 0.1.797 grün); wartet auf Chef. Build 8 (PR #68, 0.1.796) grün. 108a.1 weiter offen; antwortet der Chef, zuerst 108a. Nachfolger: #68, #87 abonnieren. Lehre: `MusicPlayer.kt` übersetzt die Vorschau nicht, Fehler zeigt erst der Build.
 
 
