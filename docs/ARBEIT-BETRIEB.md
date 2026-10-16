@@ -46,6 +46,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 12:49 16.10.: Start Sokrates Kreativ und Sokrates Projekt (99g, Chef 12:4x über Diogenes, 4963f209)
 - 12:10 16.10.: Sokrates Projekt zog Neustart zurück (113 erledigt, 7b39471e); alter (5,54 $) und gerade gestarteter Nachfolger (0,53 $) archiviert. Lehre: vor dem Start prüfen, ob der Chef dem Absender gerade schreibt
 - 12:08 16.10.: Start Sokrates Projekt (Neustart, d9f81779, 113 Vorgang)
 - 11:51 16.10.: Start Tom (Neustart, 62b48fa1, 40 Helligkeitswert)
