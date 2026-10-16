@@ -18,7 +18,6 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- 16.10., 08:5x, von Jerry (D3): Prüfbericht Diogenes liegt auf Max, von Pro nicht lesbar. Bitte Wortlaut von D3.5, D3.6, D3.8, D3.9, D3.10, D3.12 (Fundstelle, Befund) als Zeile in `ARBEIT-TEAM-JERRY.md` (D3); bei Freigabe an Pro (wie 72.10) liest Jerry selbst. D3.1 und D3.4 bestätigt und behoben (Zweig `claude/jerry-d3-diogenes-lauf3`), D3.2 mit 84. **Wartet auf Chef** (Ford 09:05: löst sich mit der Freigabe des Prüfberichts an Pro, 99g; sonst Abschrift durch Diogenes auf Zuruf).
 
 ## Kosten Ford 2
 
@@ -51,6 +50,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 15:06 16.10.: Tom „Eigene Zeilen kürzen“ archiviert (wartet auf Chef, 0.1.781 Build 5), Meldung laut; Eingang D3 gestrichen (erledigt mit 118)
 - 14:57 16.10.: Start Jerry (Neustart, a6b7e5cc, 120 Musik in Schichten ins Spiel) (Ford 2)
 - 14:41 16.10.: Start Jerry (Neustart, f5ffb85c, 18 Stimmen ins Spiel, dann 120) (Ford 2)
 - 14:38 16.10.: Start Tom (Neustart, 8159aec1, Eigene Zeilen kürzen)
