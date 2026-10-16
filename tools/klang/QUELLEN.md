@@ -158,3 +158,22 @@ CC0 1.0, Lizenz in den Paketen (License.txt) und auf der Quellseite geprüft am 
 | `step_cobble_1–3` (zweite Runde) | 0606 „Step, Shoe on Stone Staircase“, Schritte bei 1,15 / 9,85 / 10,7 s | BigSoundBank, CC0 | https://bigsoundbank.com/search?q=footsteps |
 | `step_wood_1–3` | footstep_wood_000, _002, _003 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
 | `step_stone_1–3` | footstep_concrete_001, _003, _004 (tiefer, mit Höhlenhall) | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
+
+## Gegnerstimmen (18: Angriff, Schmerz, Tod der übrigen Gegner; Hörproben, noch nicht im Spiel)
+
+Alle CC0 1.0. BigSoundBank: Joseph Sardin, Lizenz „CC0 (public domain): Free and royalty-free“ auf der Seite geprüft 16.10.2026 (0458). Laden mit `holen.sh`, schneiden mit `stimmen.py`. OpenGameArt-Pakete wie oben (rubberduck 80 CC0 creature SFX; arcadeparty Voice Effects).
+
+| Gegner | Aufnahme(n) | Urheber, Paket | Quelle |
+|---|---|---|---|
+| Krogg (`bugbear`) | troll_01, _03, roar_02, grunt_02, monster_04, _07; 0486 „Grunts“; Körperfall 2452, 2454, 2456 | rubberduck, 80 CC0 creature SFX; BigSoundBank | https://opengameart.org/content/80-cc0-creature-sfx , https://bigsoundbank.com/search?CatID=CREA , https://bigsoundbank.com/search?CatID=FGHT |
+| Grak (`hobgoblin_captain`) | humanYell1–4, humanDeath1–2; hurt_03, _04, breath; 2361 „Cry of Pain“; Körperfall 2453–2455 | arcadeparty, Zombie / Skeleton / Monster Voice Effects; rubberduck; BigSoundBank | https://opengameart.org/content/zombie-skeleton-monster-voice-effects , https://bigsoundbank.com/search?CatID=VOX |
+| Keiler (`boar`) | 1658, 1659 „Grumpy Pig, with the Mouth“ (Mensch ahmt Schwein nach); 1886, 1888 „Growling Cat“ (tief gestimmt); 0459 „Mouse Screams“; 3177 „Stomach Gurgling“; hurt_05, snore | BigSoundBank; rubberduck | https://bigsoundbank.com/search?CatID=ANML , https://bigsoundbank.com/search?CatID=GORE |
+| Riesenspinne (`giant_spider`) | 1881–1884 „Cat Roar“ (Fauchen); bug_01–04, spit_02, alien_03, burble_02; 1409 „Bones Cracking“; Gore 2583, 2587, 2594 | BigSoundBank; rubberduck | wie oben |
+| Riesenfledermaus (`giant_bat`) | 0458 „Cries of Bats“; 0459; alien_05, _06 | BigSoundBank; rubberduck | wie oben |
+| Kobold (`kobold`) | 0941 „Hedgehog Cry“; misc_01, _06, hurt_01, _02, weird_02; 1281 „Stomach Gurgling“ | BigSoundBank; rubberduck | wie oben |
+| Riesenratte (`giant_rat`) | 0459 „Mouse Screams“; 1073 „Garden Dormouse“; eat_02 | BigSoundBank; rubberduck | wie oben |
+| Stirge (`stirge`) | 0822 „Many Flies“ (sehr tief); alien_01, _02, _04, _05, eat_01; 0459; Gore 2587, 2594 | BigSoundBank; rubberduck | wie oben |
+| Riesenhundertfüßer (`giant_centipede`) | bug_01–04, spit_01, _03; 1881–1883; 1408, 1409 „Bones Cracking“; Gore 2594 | rubberduck; BigSoundBank | wie oben |
+| Zombie (`zombie`) | 2106–2112 „Zombie #1–7“; Körperfall 2452, 2454, 2456 | BigSoundBank | https://bigsoundbank.com/search?CatID=CREA |
+| Ghul (`ghoul`) | 0475 „Horrible Laugh“; 2106 „Zombie #1“; 1882, 1883; 3177; weird_01, scream_01, zombieDeath3 | BigSoundBank; rubberduck; arcadeparty | wie oben |
+| Ockergallerte (`ochre_jelly`) | Gore 2583, 2587, 2594; 0334 „Tripes“; 1280, 1281, 3177 „Stomach Gurgling“; burble_01, _02, eat_04 | BigSoundBank; rubberduck | https://bigsoundbank.com/search?CatID=GORE |

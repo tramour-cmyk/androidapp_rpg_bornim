@@ -42,6 +42,11 @@ done
 for n in 1039 0975 1040 0453 0840 2891 2894 3202 0163 0137; do
     get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
 done
+# Gegnerstimmen (18): BigSoundBank (CC0)
+for n in 1658 1659 0458 0459 0941 1073 1881 1882 1883 1884 1886 1888 2106 2107 2108 2109 2110 2111 2112 0486 2361 0475 0822 \
+         2452 2453 2454 2455 2456 3177 1280 1281 2583 2587 2594 0334 1408 1409; do
+    get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
+done
 python3 -m pip -q install py7zr numpy scipy soundfile >/dev/null 2>&1 || true
 for z in *.zip; do d="x_${z%.zip}"; [ -d "$d" ] || { mkdir -p "$d"; unzip -qo "$z" -d "$d"; }; done
 for z in *.7z; do d="x_${z%.7z}"; [ -d "$d" ] || { mkdir -p "$d"; python3 -I -m py7zr x "$z" "$d"; }; done
