@@ -7,7 +7,6 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
 | [108a](entscheiden/108a-neubau-testreihe.md) | 16.10. | Jerrys 12 Test-Builds mit `main` neu bauen (Empfehlung A: ja, nur wenn du 0.1.773 installiert hast) | Jerry |
-| [118](entscheiden/118-teams-ohne-themen.md) | 16.10. | Bereiche bleiben, aber wer nichts Startbares hat, nimmt die oberste freie Zeile des anderen Teams (Empfehlung B) | Sokrates Projekt |
 | [18.11](entscheiden/1811-gegnerstimmen.md) | 16.10. | Stimmen für 12 Gegner (Angriff, Schmerz, Tod, je drei Fassungen): welche Fassungen kommen ins Spiel? (Empfehlung: alle, die dir nicht missfallen) | Jerry |
 | [99g.1](entscheiden/99g1-name-beschluesse.md) | 16.10. | Beschlüsse heißen künftig Vorgangsarchiv, Datei `docs/VORGANGSARCHIV.md`, nur Text, Umzug nach Sa 21:00 (Empfehlung) | Sokrates Projekt |
 | [D1.14](entscheiden/d114-hoehlen-klangbett.md) | 16.10. | Hörner aus dem Höhlen-Klangbett nehmen (Empfehlung: ja, zehn Betten bleiben) | Jerry |
