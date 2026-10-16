@@ -1,4 +1,8 @@
 # Archiv
+### Übergabe Team Jerry (16.10., 06:55), abgelöst 16.10., 07:30
+
+**Übergabe (16.10., 06:55, „Jerry – 72.10 Probe Grak“) – Nachfolger: Jerry – 72u Standbild Grak im Wald:** 72.10 Kampfkern auf `claude/jerry-72-10-probe-grak` (9566107c, Entwurfs-PR #68, Kerntests grün): `Skirmish` mit Reihen, Platztausch, Ring-Stufen, Automatik nach 72.13, KO-Zählung. **Hängt am Kampf-Dokument** (Max, von Pro nicht lesbar; Abschrift im Eingang von `ARBEIT-BETRIEB.md` erbeten): Graks drei Absichten und Ring-Wirkung sind vorläufig, Oberfläche erst danach. Weiter gilt: `docs/ROLLE-TEAM.md` ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds höchstens 4 Punkte, nie mit Tom gemischt. **65.2:** zwei pausierte Weck-Routinen „Jerry Selbstarbeit“ (12:27, 15:27) auf Pro noch löschen.
+
 ### Übergabe Sokrates Projekt (15.10., 23:4x), abgelöst 16.10., 07:10
 
 **Übergabe (15.10., 23:4x, „Sokrates Projekt – Nachprüfung Umbau 98“):** D14 eingearbeitet, D14.3 entschieden (bei Tom); Beschlüsse-Eintrag erledigt. Chef 23:3x: „Die Kaffeekasse ist trockengelegt“: nichts starten, nur auf Zuruf. Offen ohne Chef: 16.10. Ford-Morgenmeldung „Umbau läuft / hakt“ (98, Prüfen 4); hakt sie, Rückweg prüfen. Sparmodus 99d bis Sa 21:00: Sokrates Projekt nur auf Zuruf. Nachfolger: keiner bis Zuruf („Sokrates Projekt – <Thema>“).

@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 27, davon A 0, wartet auf Chef 4**
 
-**Übergabe (16.10., 06:55, „Jerry – 72.10 Probe Grak“) – Nachfolger: Jerry – 72u Standbild Grak im Wald:** 72.10 Kampfkern auf `claude/jerry-72-10-probe-grak` (9566107c, Entwurfs-PR #68, Kerntests grün): `Skirmish` mit Reihen, Platztausch, Ring-Stufen, Automatik nach 72.13, KO-Zählung. **Hängt am Kampf-Dokument** (Max, von Pro nicht lesbar; Abschrift im Eingang von `ARBEIT-BETRIEB.md` erbeten): Graks drei Absichten und Ring-Wirkung sind vorläufig, Oberfläche erst danach. Weiter gilt: `docs/ROLLE-TEAM.md` ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds höchstens 4 Punkte, nie mit Tom gemischt. **65.2:** zwei pausierte Weck-Routinen „Jerry Selbstarbeit“ (12:27, 15:27) auf Pro noch löschen.
+**Übergabe (16.10., 07:30, „Jerry – 72u Standbild Grak im Wald“) – Nachfolger: Jerry – 95 Keuchen hörbar:** 72u Standbild fertig (Telegram 07:2x, Zeile 72u; Kreativ soll entscheiden lassen); Zweig `claude/jerry-72u-standbild-grak`, Entwurfs-PR #69 (nur Vorschau `KAMPFORT=`, baut; nicht zusammenführen ohne Bedarf). 72.10 Kampfkern weiter auf `claude/jerry-72-10-probe-grak` (PR #68), wartet auf Kampf-Dokument: **Pro hat keinen Zugriff** auf den Inhalt (Claude Docs verweigert) und nicht auf Dein Zug (Chef 07:2x informiert, Freigabe fehlt). Weiter gilt: `docs/ROLLE-TEAM.md` ganz lesen; in jedem Zweig zuerst `git merge origin/main`; Sammelbuilds höchstens 4 Punkte, nie mit Tom gemischt; Zeitstempel immer von der Uhr. **65.2:** zwei pausierte Weck-Routinen „Jerry Selbstarbeit“ (12:27, 15:27) auf Pro noch löschen.
 
 ## Zeilen
 
