@@ -48,6 +48,8 @@ class Roamer(
     var returning = false
     /** Ignores the hero until this time (after the hero fled). */
     var calmUntil = 0L
+    /** When it is next heard on the map, if it is not hunting (D3.9); 0 until first seen. */
+    var nextIdleAt = 0L
 
     val temper: Temper get() = Temper.of(monster)
 }

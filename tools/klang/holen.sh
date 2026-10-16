@@ -43,7 +43,7 @@ for n in 1039 0975 1040 0453 0840 2891 2894 3202 0163 0137; do
     get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
 done
 # 84 Umweltklang: fernes Wolfsgeheul, Grollen im Berg (Freesound); Flügel und Scharren kleiner Vögel (BigSoundBank)
-for p in 500/500646_339183 389/389303_5486695 675/675736_2524442 381/381645_5486695; do
+for p in 500/500646_339183 143/143568_2140699 158/158780_229952 389/389303_5486695 675/675736_2524442 381/381645_5486695; do
     f="fs_$(basename "$p" | cut -d_ -f1).mp3"
     [ -s "$f" ] || { curl -sSfL -m 300 -A "Mozilla/5.0" -o "$f" "https://cdn.freesound.org/previews/$p-hq.mp3"; sleep 3; }
 done
@@ -67,7 +67,13 @@ for n in 1658 1659 0458 0459 0941 1073 1881 1882 1883 1884 1886 1888 2106 2107 2
          2452 2453 2454 2455 2456 3177 1280 1281 2583 2587 2594 0334 1408 1409; do
     get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
 done
+# D3.9 Leerlauf-Laute der Monster (BigSoundBank, CC0); dazu die Pakete oben (Kreaturen, Hund, Knochen)
+for n in 0784 1095 1691 1692 1693 0941 0185 1073 0458 2892 2893 0822 2106 2107 2108 1280 3176; do
+    get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
+done
 python3 -m pip -q install py7zr numpy scipy soundfile >/dev/null 2>&1 || true
+# Runde 10 (D3.10 Regen und Donner, regen.py)
+for n in 0124 0740 1019 3116 3182 3179; do get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"; done
 for z in *.zip; do d="x_${z%.zip}"; [ -d "$d" ] || { mkdir -p "$d"; unzip -qo "$z" -d "$d"; }; done
 for z in *.7z; do d="x_${z%.7z}"; [ -d "$d" ] || { mkdir -p "$d"; python3 -I -m py7zr x "$z" "$d"; }; done
 echo "fertig: $D"

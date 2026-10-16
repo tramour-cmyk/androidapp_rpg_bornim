@@ -48,7 +48,7 @@ object MusicLib {
     /** Sound beds for the cave: always under everything there, looped. */
     val caveBeds = listOf(
         "grund_dark_cavern", "grund_deep_humidity", "grund_dungeon_ambience", "grund_forgotten_tombs", "grund_loopable_dungeon",
-        "grund_eternal_sleep", "grund_fs_38963", "grund_fs_460459", "grund_fs_516566", "grund_fs_530161", "grund_fs_540836", "grund_fs_609422",
+        "grund_eternal_sleep", "grund_fs_38963", "grund_fs_460459", "grund_fs_516566", "grund_fs_530161",
     )
     val battle = listOf(
         "kampf_evil_approach", "kampf_determined_pursuit", "kampf_corrupted_minds", "kampf_eclipse_legion",

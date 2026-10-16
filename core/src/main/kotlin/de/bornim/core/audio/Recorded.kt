@@ -31,7 +31,9 @@ object Recorded {
         Sound.PANT_MAN to 3, Sound.PANT_WOMAN to 3,
         // what lives at a place but is not in sight (84, D3.15)
         Sound.WOLF_FAR to 3, Sound.RUMBLE to 3, Sound.BIRD_FLAP to 3, Sound.BIRD_SCRATCH to 3,
-    )
+        // rain and far thunder (D3.10): three loops of rain, three thunders
+        Sound.RAIN to 3, Sound.THUNDER to 3,
+    ) + MonsterIdle.SOUNDS.associateWith { 3 }
 
     /** Fewer than three takes by the user's choice (27k): the pond's one chorus loop, its two dragonflies. */
     val FEWER = setOf(Sound.FROG_CHORUS, Sound.DRAGONFLY)
