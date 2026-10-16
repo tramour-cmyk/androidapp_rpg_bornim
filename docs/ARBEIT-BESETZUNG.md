@@ -8,4 +8,3 @@
 |---|---|---|---|---|
 | Ford | [Ford – Betriebsleiter (16.10., 21:18)](https://claude.ai/code/session_01B3GyS2dPCbVVLgZ2umvMQt) | Betrieb | – | 16.10., 21:18 |
 | Ford 2 | [Ford 2 – Niederlassungsleiter (16.10., 18:34)](https://claude.ai/code/session_017Gzi9LijVCMaW5UJrzYaXZ) | Betrieb Pro | – | 16.10., 18:34 |
-| Team Jerry | [Jerry – D3 Kampfgeheul (16.10., 20:39)](https://claude.ai/code/session_01UnU87U1Vgjs5jZRoCzhWQt) | D3 | `claude/jerry-d3-kampfgeheul` | 16.10., 20:39 |
