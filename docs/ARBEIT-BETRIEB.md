@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Vorgangsnummer: 131** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 132** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Sparmodus bis Sa 17.10., 21:00** (99d, `FIRMA.md` „Sparmodus“)
 
@@ -74,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 00:41 17.10.: Chef: Build 11 passt (wörtlich in Jerrys 86); 131 Laufen/Ausdauer bei Sokrates angelegt
 - 00:35 17.10.: Chef: Build 8 passt (wörtlich in Jerrys 72.10); 130 Kampfgefühl (8.5) bei Sokrates angelegt
 - 00:22 17.10.: Perikles 99g.2 fertig (5af1dd15), archiviert (3,48 $ auf 99); Nachfolger in den Eingang
 - 00:17 17.10.: Start Perikles (99g.2 Kopf abgelöst; Zuruf Chef 00:17: „Perikles“, trotz Sparmodus)
