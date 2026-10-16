@@ -44,6 +44,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 13:45 16.10.: Start Jerry (Neustart, 3934f9c5, Raumklang Idee 8) (Ford 2)
 - 13:35 16.10.: Jerry 18 nach Pro-Sperre geweckt (108, dann 18); Eingang 110 und „kürzer schreiben“ gelesen, gestrichen (Ford 2)
 - 13:33 16.10.: Start Sokrates Projekt (Neustart, 479ef5b4, 118 Teams ohne Themen)
 - 13:04 16.10.: Diogenes 110 (5,08 $) und Kreativ 99g (1,57 $, DESIGN-KAMPF.md b95aaf8e) archiviert; Projekt wartet mit 99g.1 auf Chef
