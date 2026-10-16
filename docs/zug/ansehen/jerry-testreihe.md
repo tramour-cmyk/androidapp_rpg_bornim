@@ -34,9 +34,9 @@ Build 1 und 2 passen, auf `main` (PR #88, #89). Build 3, 4, 5 passen (Chef 16.10
 
 Fällt ein Punkt durch, nehme ich ihn per `git revert` aus dem Build, der Rest geht auf `main` (78a).
 
-## Build 6 · Musik in Schichten · [PR #87](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/87)
+## Build 6 · 0.1.797 · Musik in Schichten · [PR #87](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/87)
 
-**Neu gebaut** nach 6.1 „nicht bestanden“: Spur jetzt ab etwa 8 Feldern (Beschluss; war 10), im Dorf keine. Nummer folgt; im Menü prüfen, dass genau sie installiert ist. Der Held darf höchstens 4 Stufen über dem Gebiet stehen (erster Wald: Stufe 5), sonst weichen gewöhnliche Monster aus und die Musik bleibt, wie sie ist. Stil-Abgleich: Musik orchestral und düster (Spur aus Celli und tiefen Streichern, CC0); Übergänge Ruhe ↔ Jäger nah (2 s weich) ↔ bemerkt (0,4 s in die Stille) ↔ Kampf (hart wie bisher), Jäger dreht ab (2 s zurück); geprüft mit Kerntest `MusicLayersTest`, das Gefühl nur am Gerät.
+**Neu gebaut** nach 6.1 „nicht bestanden“: Spur jetzt ab etwa 8 Feldern (Beschluss; war 10), im Dorf keine. Im Menü prüfen, dass 0.1.797 installiert ist. Build 8 (0.1.796) ist niedriger: vorher deinstallieren, sonst lehnt Android ihn ab. Der Held darf höchstens 4 Stufen über dem Gebiet stehen (erster Wald: Stufe 5), sonst weichen gewöhnliche Monster aus und die Musik bleibt, wie sie ist. Stil-Abgleich: Musik orchestral und düster (Spur aus Celli und tiefen Streichern, CC0); Übergänge Ruhe ↔ Jäger nah (2 s weich) ↔ bemerkt (0,4 s in die Stille) ↔ Kampf (hart wie bisher), Jäger dreht ab (2 s zurück); geprüft mit Kerntest `MusicLayersTest`, das Gefühl nur am Gerät.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
