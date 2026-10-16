@@ -6,6 +6,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
+| [110](entscheiden/110-ford-von-hand.md) | 16.10. | Ford einmal von Hand starten (Sitzungstiefe 8 erreicht), bitte bald | Sokrates Projekt |
 | [99g](entscheiden/99g-dokumente-pro.md) | 16.10. | Öffnen Kampf-Dokument, Storyplan, Heldenbau auf Pro? Sonst Abschriften ins Repo (Empfehlung: Abschriften) | Sokrates Projekt |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Sokrates |
 | [D10](entscheiden/d10-kein-leerlauf.md) | 15.10. | Kein Leerlauf nachts: Ford-Wache steht (D10.1); zu entscheiden Vorrat-Zeile, erste Nachricht = Name, Startmarken an einem Ort, wer Diogenes startet (Empfehlung: Paket ja) | Sokrates |
