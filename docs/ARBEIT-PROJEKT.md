@@ -4,9 +4,9 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 **offen 9, davon A 1, wartet auf Chef 1**
 
-**Gelesen bis:** `cd8fcfb6` (15.10., 23:3x; Umbau 98 = `560658a9`)
+**Gelesen bis:** `7ea5ee9c` (16.10., 07:1x)
 
-**Übergabe (15.10., 23:4x, „Sokrates Projekt – Nachprüfung Umbau 98“):** D14 eingearbeitet, D14.3 entschieden (bei Tom); Beschlüsse-Eintrag erledigt. Chef 23:3x: „Die Kaffeekasse ist trockengelegt“: nichts starten, nur auf Zuruf. Offen ohne Chef: 16.10. Ford-Morgenmeldung „Umbau läuft / hakt“ (98, Prüfen 4); hakt sie, Rückweg prüfen. Sparmodus 99d bis Sa 21:00: Sokrates Projekt nur auf Zuruf. Nachfolger: keiner bis Zuruf („Sokrates Projekt – <Thema>“).
+**Übergabe (16.10., 07:10, „Sokrates Projekt – Nachprüfung Umbau 98“):** D14 und 103 erledigt (Beschlüsse eingetragen). Niederlassung: Anleitung `LISTE-NIEDERLASSUNG.md` (Umgebung, Freigabeliste mit Stand, Ford 2 starten, Zeichen); Ford 2 läuft, Jerry gestartet; offen beim Chef: Freigaben „fehlt“ in der Liste. Nach Sparmodus: 101, 102. Messung Ford 2 bis So 18.10. auswerten (Kostenzeilen in `ARBEIT-BETRIEB.md`). Nachfolger: Sokrates Projekt – Niederlassung (16.10. …)
 
 ## Zeilen
 
