@@ -4,7 +4,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 **offen 15, davon A 1, wartet auf Chef 2**
 
-**Gelesen bis:** `9d056ce6` (16.10., 11:2x)
+**Gelesen bis:** `142a1b40` (16.10., 11:3x)
 
 **Übergabe (16.10., 11:3x, „Sokrates Projekt – 110 Sitzungstiefe (16.10., 11:19)“):** 110 erledigt (Ford neu von Hand, Tiefe 0; Regel `ROLLE-BETRIEB.md` „Tiefe“; Diogenes prüft nach, `ARBEIT-PRUEFUNG.md` 110). Ford 2: Chef-Wortlaut „schreibt brutal viel“ im Eingang `ARBEIT-BETRIEB.md`, Laufbericht-Regel jetzt auch unter „Ford 2“. Offen: 108 streichen nach Jerrys erstem Punkt; 99g wartet auf Chef; nach Sparmodus 101 (Titel in `ROLLE-BETRIEB.md` schon geändert), 102; Messung Ford 2 bis So 18.10. Nachfolger: Sokrates Projekt – Vorrang und Kosten (16.10. …)
 
