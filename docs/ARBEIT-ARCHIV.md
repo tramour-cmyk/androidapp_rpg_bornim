@@ -1,6 +1,6 @@
 # Archiv
 
-**118 Wortlaut** 
+**118 Wortlaut** (Chef 16.10., 13:3x: „wie wäre es, wenn die … nicht mehr thematisch arbeiten, sondern arbeiten einfach die Liste ab und ergänzen sich im Sinne von, okay, ich brauche das andere, dann mach doch du das, ich mach das. Also keine thematische Trennung mehr. Was spricht dafür, was spricht dagegen?“)
 
 **Übergabe (16.10., 17:4x, „Sokrates Projekt – Zuruf (16.10., 16:29)“):** auf Zuruf: 106.1 (Rollendateien schärfen, Diogenes QS/QM) auf Dein Zug; 122 und 99g.1 beschlossen; Sparmodus in 102 vorgemerkt. Nachfolger: „Sokrates Projekt – Umbau Namen (17.10.)“, **Start Sa 17.10. ab 08:00** (Chef 17:4x: „du machst das einmal morgen in einem Rutsch“): 117, 99g-Rest (D17), 99g.1, 122, 102 in einem Zug; Werkzeuge und Ford-Aufträge mitziehen, Code-Kommentare über die Teams; danach Diogenes nachprüfen lassen
 
