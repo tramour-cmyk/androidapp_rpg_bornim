@@ -6,7 +6,7 @@
 
 | Rolle | Sitzung | Zeile | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford – Teamleiter (16.10., 02:05)](https://claude.ai/code/session_01KYjYQSUyCT2WSXinMf6rPA) | Betrieb | – | 16.10., 02:04 |
+| Ford | [Ford – Betriebsleiter (16.10., 10:05)](https://claude.ai/code/session_0146qrC68GQ3gCeHSC17RwLo) | Betrieb | – | 16.10., 10:04 |
 | Sokrates Projekt | [Sokrates Projekt – Niederlassung (16.10., 07:11)](https://claude.ai/code/session_01PFTy5NtmFuxaDaNZPxx88H) | 99 Niederlassung | `claude/sokrates-projekt-99-niederlassung` | 16.10., 07:11 |
 | Sokrates Berater | [Sokrates Berater – Zuruf (16.10., 09:33)](https://claude.ai/code/session_01UQ24bEBiCmw4JuuLZHQsdJ) | 108, 109 | `ccr-be0310dc-qkhrjf` | 16.10., 09:33 |
 | Team Tom | [Tom – 104 Test 0.1.757 (16.10., 08:01)](https://claude.ai/code/session_01P2N7CBap3y2orX7gvBbF9K) | 104 (PR #71) | `claude/tom-38-rauchbuendel-dialoge` | 16.10., 08:01 |

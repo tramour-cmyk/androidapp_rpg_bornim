@@ -10,7 +10,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
 
-- **Ford lebt in einer Sitzung** „Ford – Teamleiter (16.10., 02:05)“ `session_01KYjYQSUyCT2WSXinMf6rPA` (seit 16.10., 02:04; Vorgänger `session_01QWF3R8AxcZRH4EicjhyjkF` archiviert). Stundenuhr „Ford-Stundenuhr“ `trig_01YZ7SgXEiSXQqrJKMsRmGyj` (:03, seit 02:05).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 10:05)“ `session_0146qrC68GQ3gCeHSC17RwLo` (seit 16.10., 10:04; Vorgänger `session_01KYjYQSUyCT2WSXinMf6rPA` archiviert). Stundenuhr „Ford-Stundenuhr“ `trig_01XjYt5Mi2cFZLQcgy5UxvRW` (:03, seit 10:05). Abstammung Tiefe 7 von 8: der nächste Selbstneustart ist der letzte in dieser Kette.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhr „Ford-Wache 07:08“ `trig_01Phk9eXekP5yY9M6L3bgS1c` (täglich 07:08; 15.10., 22:5x zurückgeholt, D13.2).
 - **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 08:49)“ `session_01JDBt2kNDbu2Udn7WRr5wE7` (seit 16.10., 08:48; Vorgänger `session_01R7KS2bJJNiqcTvwgFNSBNS` archiviert). Stundenuhr „Ford-2-Stundenuhr“ `trig_01SGCVra7Xeg6ChsDYSK1DR3` (:33, seit 08:48). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren.
 
@@ -41,6 +41,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 10:06 16.10.: Ford neu (session_0146qrC6…), Uhr trig_01XjYt5Mi2cFZLQcgy5UxvRW, alte Uhr gelöscht, Vorgänger archiviert
 - 10:05 16.10.: Start Jerry (Neustart, a8db8d44, 53 Zustände auf Krogg) (Ford 2)
 - 10:05 16.10.: Selbstneustart Ford (≈282 Tsd. Token); Besetzung mit Berater (108, 109)
 - 09:40 16.10.: Start Jerry (Neustart, 9463dbe9, 36.6 Krogg Killerschlag) (Ford 2)
