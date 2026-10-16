@@ -141,5 +141,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K |  | Tom | gebaut |
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K |  | Jerry | offen |
-| D21 | Abgleich Vorrat gegen Chefsache | Q QM | M |  | Tom, Jerry | offen |
+| D21 | Abgleich Vorrat gegen Chefsache | Q QM | M |  | Tom, Jerry | Jerry |
 | Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |

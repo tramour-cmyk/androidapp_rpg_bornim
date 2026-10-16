@@ -9,6 +9,7 @@ on:
     paths:
       - "docs/chefsache/**"
       - "tools/zug-index.py"
+      - "docs/ARBEIT-*.md"  # D21.3: Lücken (wartet auf Chef ohne Datei)
   workflow_dispatch:
 
 permissions:

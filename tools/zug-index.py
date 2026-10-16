@@ -78,7 +78,37 @@ def tafel_ansehen():
     kopf = "## Anzusehen\n\nReihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).\n\n| Folge | Version | Build | Was | Wer | Seit |\n|---|---|---|---|---|---|\n"
     return kopf + "\n".join(f"| {i} | [{v}](ansehen/{n}) | {b or '–'} | {w} | {wer} | {seit} |" for i, (_, v, b, w, n, wer, seit) in enumerate(alle, 1)) + "\n"
 
-neu = "\n".join([KOPF, tafel("entscheiden", "Zu entscheiden"), tafel_ansehen(), REGELN])
+DOCS = os.path.join(ZUG, "..")
+NR = r"[A-Z]?\d+[a-z]*(?:\.\d+[a-z]*)?"
+
+def luecken():
+    """D21.3: Vorratszeilen, die auf den Chef warten oder „Chefsache <Nr>“ nennen, ohne Datei hier (ARCHIV eingefroren, nicht gelesen)."""
+    texte = []
+    for ordner in ("entscheiden", "ansehen"):
+        pfad = os.path.join(ZUG, ordner)
+        for n in (sorted(os.listdir(pfad)) if os.path.isdir(pfad) else []):
+            if n.endswith(".md"): texte.append(n + "\n" + open(os.path.join(pfad, n), encoding="utf-8").read())
+    alles = "\n".join(texte)
+    def gestellt(nr):
+        return re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w])", alles) or re.search(r"(?<![\w])" + re.escape(nr.replace(".", "")) + r"-", alles)
+    nicht, ohne = [], []
+    for n in sorted(os.listdir(DOCS)):
+        if not (n.startswith("ARBEIT-") and n.endswith(".md")) or n == "ARBEIT-ARCHIV.md": continue
+        wer = n[7:-3].replace("-", " ").title()
+        for z in open(os.path.join(DOCS, n), encoding="utf-8").read().splitlines():
+            if not z.startswith("| "): continue
+            nr = z.split("|")[1].strip()
+            if not re.fullmatch(NR, nr): continue
+            if "wartet auf Chef" in z and not gestellt(nr) and (nr, wer) not in nicht: nicht.append((nr, wer))
+            for c in re.findall(r"Chefsache (" + NR + r")\b", z):
+                if not gestellt(c) and (c, wer) not in ohne: ohne.append((c, wer))
+    if not nicht and not ohne: return ""
+    teile = ["## Lücken\n\nVom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.\n"]
+    if nicht: teile.append("Nicht gestellt: " + ", ".join(f"{nr} ({wer})" for nr, wer in nicht) + "\n")
+    if ohne: teile.append("Ohne Datei: " + ", ".join(f"{nr} ({wer})" for nr, wer in ohne) + "\n")
+    return "\n".join(teile)
+
+neu = "\n".join([t for t in [KOPF, tafel("entscheiden", "Zu entscheiden"), tafel_ansehen(), luecken(), REGELN] if t])
 ziel = os.path.join(ZUG, "README.md")
 alt = open(ziel, encoding="utf-8").read() if os.path.exists(ziel) else ""
 if neu != alt:

@@ -2,15 +2,14 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 9, Muss 4, A 1, Chefsache 1**
+**offen 8, Muss 3, A 0, Chefsache 1**
 
-**Übergabe (17.10., 00:2x, „Tom – 129 Hühner“) – Nachfolger: Tom – D21 Testbitten (nach Sparmodus, Sa 21:00):** 129 gebaut (PR #100, Build 13), Prüfliste `chefsache/ansehen/t13-huehner.md`; nach „passt“ PR zusammenführen, CHANGELOG, Datei löschen.
+**Übergabe (17.10., 00:1x, „Tom – 129 Hühner“) – Nachfolger: Tom – 117 Verweise im Code (nach Sparmodus, Sa 21:00, oder auf Zuruf):** 129 gebaut (PR #100, Build 13, 0.1.816), Prüfliste `chefsache/ansehen/t13-huehner.md` mit den Testbitten 26 und 68 (D21); nach „passt“ PR zusammenführen, CHANGELOG, Datei löschen. D21 erledigt: Build 7 war schon aus der Testreihe; D21.3 in `tools/zug-index.py` (Abschnitt „Lücken“, läuft auch bei Änderungen an `ARBEIT-*.md`); fand: Jerry 24.6, 9i, 19e nicht gestellt, Kreativ 39.1 ohne Datei.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand | Zweig |
 |---|---|---|---|---|
-| D21 | M | **von Diogenes** (Lauf 21, Abgleich Vorrat gegen Chefsache, Zuruf Chef 21:2x; Prüfbericht): 26 (Kapitel 1 durchspielen) und 68 (Durchsicht Tempelszene, Knopf 100) als Testbitte in `docs/chefsache/ansehen/`, bisher nie gestellt; nach 128 Testergebnisse Jerry: Build 7 (0.1.798, Chef 20:5x „alles passt“) aus `ansehen/jerry-testreihe.md` nehmen. **Dazu D21.3 beschlossen (Chef 16.10, „3 ja“):** `tools/zug-index.py` sucht in allen `ARBEIT-*.md` nach „Chefsache <Nr>“ und „wartet auf Chef“ und schreibt unten in die Übersicht „Nicht gestellt: …“ und „Ohne Datei: …“ | **A** (Chef 21:5x „Dann mach es so“), sofort |
 | 27 | K | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Auf `main` bis 27m und D3.13a (#67). **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1. 27n auf `main` (#71) | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | **112:** fällt gegen das Intro ab (Chef 16.10., 11:3x); nachziehen erst nach Vergleichsliste von Kreativ und Entscheid des Chefs · auf `main` mit #67 (0.1.753 „passt“); Durchsicht der Szene mit Knopf 100 durch den Chef offen | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem (`LISTE-ABNAHME-KAPITEL1.md`) | Toms Teil erledigt (16.10., 00:4x): Ort fertig Dorf, Räume, Wald ohne Lücke außer D3.14 (Lückenliste in der Übergabe); Zufallsspieler grün. Offen: Höhle (13e), Durchspielen durch den Chef nach #67 | – |
