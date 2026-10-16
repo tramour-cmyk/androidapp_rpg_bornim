@@ -9,4 +9,4 @@
 | Ford | [Ford – Betriebsleiter (16.10., 17:50)](https://claude.ai/code/session_01CxGVVG35nLayNTuubcUd7Q) | Betrieb | – | 16.10., 17:50 |
 | Team Tom | [Tom – D3 passt, PR #92 zusammenführen (16.10., 17:49)](https://claude.ai/code/session_01P8uYMDB1vVs1Tjg8Kp4jQi) | D3 (wartet auf Chef, D3a) | `claude/tom-d3-zusammenfuehren` | 16.10., 17:49 |
 | Ford 2 | [Ford 2 – Niederlassungsleiter (16.10., 18:34)](https://claude.ai/code/session_017Gzi9LijVCMaW5UJrzYaXZ) | Betrieb Pro | – | 16.10., 18:34 |
-| Team Jerry | [Jerry – 24aa Ortsklang an der Tür prüfen (16.10., 19:15)](https://claude.ai/code/session_01L5jG6bD2F9uBWoAy2JXgFi) | 24aa | `claude/jerry-24aa-ortsklang` | 16.10., 19:15 |
+| Team Jerry | [Jerry – D3 Rest: Varianten, Regenklang, Monster auf der Karte (16.10., 19:16)](https://claude.ai/code/session_01Hxe1PyF4rZB8NbCbxWWJ1E) | D3 | `claude/jerry-d3-rest` | 16.10., 19:16 |
