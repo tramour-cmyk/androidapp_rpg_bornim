@@ -178,6 +178,9 @@ class RestingTest {
         assertEquals(0, g.state.gold)
         assertEquals(5 * 60, g.state.minutes)
         assertEquals(g.hero.maxHp, g.hero.hp)
+        // 114: awake beside the bed, not at the counter
+        assertEquals(Story.START, g.state.place)
+        assertEquals(Story.START, g.state.respawn)
         skip(g)
         // no gold, no room
         g.state.longRestDay = 0
