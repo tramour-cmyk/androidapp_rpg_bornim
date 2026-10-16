@@ -18,7 +18,6 @@ Artefakte und Dokumente von Max sind privat; Pro sieht sie nur nach Freigabe (Te
 
 | Dokument | Art | Recht | Wozu | Pro |
 |---|---|---|---|---|
-| [Dein Zug](https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow) | Artefakt | bearbeiten | Testbitten, eigene Punkte | fehlt (16.10.) |
 | [Prüfbericht](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ) | Artefakt | lesen | Befunde Diogenes | fehlt (16.10.) |
 | [Beschlüsse](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) | Artefakt | lesen | alles Entschiedene | ja (16.10.) |
 | [Kampfsystem neu denken](https://claude.ai/artifact/NeqVveiFAF82CPoSjAkqKR) | Dokument | lesen | 72.x Kampf | ja (16.10.) |
@@ -27,7 +26,7 @@ Artefakte und Dokumente von Max sind privat; Pro sieht sie nur nach Freigabe (Te
 
 Ein Dokument hat zwei Links (kurz `claude.ai/artifact/…`, lang `claude.ai/code/artifact/<uuid>`); in den Notizen steht oft der lange. Monster- und Kampftexte stehen in `STORY-REGELN.md` (Repo), keine Freigabe nötig.
 
-Nicht nötig: Entwürfe 98, Firmenordnung, Rollenkonzept, Marktvergleich, Berater. **Pflege:** wer ein Dokument anlegt, das Team Jerry braucht, trägt es hier ein und bittet den Chef auf „Dein Zug“ um Freigabe.
+Nicht nötig: Entwürfe 98, Firmenordnung, Rollenkonzept, Marktvergleich, Berater. **Pflege:** wer ein Dokument anlegt, das Team Jerry braucht, trägt es hier ein und bittet den Chef auf „Dein Zug“ um Freigabe. Dein Zug selbst liegt im Repo (`docs/zug/`, 108), keine Freigabe nötig.
 
 ## 2. Ford 2 starten
 

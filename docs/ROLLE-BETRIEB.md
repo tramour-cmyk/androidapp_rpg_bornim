@@ -82,10 +82,10 @@ Nur Push, keine E-Mail (Chef 14.10.). Weg: Telegram-Bot `@Bornim_Ford_Bot`, Schl
 
 Jeder Lauf eine Nachricht über `tools/meldung.sh Ford "…"`, lautlos (Läufe ohne Tat nur „Geprüft: …“ je Rolle mit Grund, z. B. „Diogenes: kein Auftrag“, „Tom: läuft“; zugleich Lebenszeichen); `--laut` nur, wenn der Chef dran ist. **In Fords Sitzung genau eine Zeile „Ford HH:MM ok“, sonst nichts** (Chef 15.10., 11:3x); nur wenn `meldung.sh` einen Fehler meldet, den ganzen Bericht dort mit „Telegram fehlgeschlagen“. Aufbau in drei Absätzen (Leerzeile = `\n\n`):
 ```
-tools/meldung.sh Ford "Du bist dran: [0.1.748](dz:e/t748.html) testen.\n\n[Tom](https://claude.ai/code/<id>): läuft (89 Schatten)\nDiogenes: wartet auf 0.1.748 (71 Dorf)\n[Sokrates Kreativ](https://claude.ai/code/<id>): wartet auf dich ([72s.1](dz:e/72s1.html) Gefährte)\nSokrates Projekt: kein Vorrat mit A\nJerry: Pause bis Fr.\n\nGestartet: [Tom – D1.3](https://claude.ai/code/<id>)\nSeit dem letzten Lauf: Tom hat D3 gebaut (Commit 09:15)"
+tools/meldung.sh Ford "Du bist dran: [0.1.748](dz:t748) testen.\n\n[Tom](https://claude.ai/code/<id>): läuft (89 Schatten)\nDiogenes: wartet auf 0.1.748 (71 Dorf)\n[Sokrates Kreativ](https://claude.ai/code/<id>): wartet auf dich ([72s.1](dz:72s1) Gefährte)\nSokrates Projekt: kein Vorrat mit A\nJerry: Pause bis Fr.\n\nGestartet: [Tom – D1.3](https://claude.ai/code/<id>)\nSeit dem letzten Lauf: Tom hat D3 gebaut (Commit 09:15)"
 ```
 1. **Einleitung:** ein Satz, ob der Chef dran ist („Du bist dran: 5.5 testen“ oder „Alles läuft, nichts wartet auf dich“).
-2. **Je Rolle eine Zeile** „Name:“ vorn, Sokrates mit Hut (das Werkzeug setzt Namen fett), Stand, in Klammern worum es geht; nur Rollen mit Vorrat oder Sitzung, Team Tom, Team Jerry und Diogenes immer (Lebenszeichen). Jede Nummer mit Seite auf „Dein Zug“ als Sprungmarke `[72s.1](dz:e/72s1.html)`, jede laufende Sitzung als Link `[Tom](URL):` (Chef 15.10., 15:5x).
+2. **Je Rolle eine Zeile** „Name:“ vorn, Sokrates mit Hut (das Werkzeug setzt Namen fett), Stand, in Klammern worum es geht; nur Rollen mit Vorrat oder Sitzung, Team Tom, Team Jerry und Diogenes immer (Lebenszeichen). Jede Nummer mit Seite auf „Dein Zug“ als Sprungmarke `[72s.1](dz:72s1)`, jede laufende Sitzung als Link `[Tom](URL):` (Chef 15.10., 15:5x).
 3. **Ereignisse** (Gestartet, Seit dem letzten Lauf, Fehlgeschlagen) nur, wenn es welche gibt; Sitzungen als Link im Titel, nie die nackte Adresse. „Seit dem letzten Lauf“ prüft Ford mit `list_sessions` und `git log`: ob die Gestarteten angefangen haben, weiterarbeiten oder hängen.
 
 ## Lehren

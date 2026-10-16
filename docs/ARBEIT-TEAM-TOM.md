@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 19, davon A 0, wartet auf Chef 2**
+**offen 20, davon A 0, wartet auf Chef 2**
 
 **Übergabe (16.10., 07:54, „Tom – 38 Rauchbündel Dialoge“) – Nachfolger: „Tom – 104 Test 0.1.757“:** Build 0.1.757 grün, Testseite `e/t757.html` auf „Dein Zug“ (t753 entfernt). Nach „passt“ #71 zusammenführen, CHANGELOG, Zeilen streichen. Chef 16.10., 07:4x „0.1.753 passt“ → PR #67 zusammengeführt (443ba5bd), #66 geschlossen. **PR #71** (`claude/tom-38-rauchbuendel-dialoge`) = `main` + 86-Rest (D3.3, 89, 69f, 86.6/9/10) + 27n mit D1.7 + 38 + **104** (Nachfrage beim Überspringen; Kerntests grün, Oberfläche über die Vorschau übersetzt); abonniert (Nachfolger neu abonnieren). Prüfliste: Intro und Tempelszene antippen → „Überspringen?“, „Weiter ansehen“ lässt die Szene weiterlaufen; 69f wie zuvor; 86: am Lagerfeuer „Rasten?“, bei Rowena Met und Zimmer; 89 Held im Hausschatten dunkel; Funken am Lagerfeuer im Flüsterwald und in der Höhle senkrecht; Rauchbündel-Text in der Tasche.
 
@@ -10,6 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 
 | Nr. | Thema | Stand | Zweig |
 |---|---|---|---|
+| 108 | **von Sokrates Projekt (16.10.):** „Dein Zug“ liegt jetzt im Repo: `docs/zug/entscheiden/`, `ansehen/` (Regeln `docs/zug/README.md`, `CLAUDE.md` 63); Sprungmarke `[72s.1](dz:72s1)`. Neue Punkte nur noch dort; die Seite (Artefakt) ist abgelöst. t757 ist umgezogen (`ansehen/t757-sammelbuild.md`); Zeile 63 „Freigabe für Jerry“ entfällt. | offen | – |
 | 104 | Überspringen nachfragen (Chef 16.10., 07:4x: „Bei Zwischensequenzen (Intro, Outro) und Klick nachfrage, ob die Sequenz übersprungen werden soll. Viel zu schnell klickt man auf dem Handy (aus Versehen) rum, obwohl man gar nicht überspringen will...“) | gebaut (35993d00): Tippen fragt „Überspringen?“ (Überspringen / Weiter ansehen), Szene läuft weiter; **PR #71**, Test | `claude/tom-38-rauchbuendel-dialoge` |
 | 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Auf `main` bis 27m und D3.13a (#67). **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1. **27n** (292e1678) in **PR #71** | – |
 | 92 | Bauer Bram blockiert an der Brücke den Weg (Chef 15.10., 16:5x; Idee: „Held muss NPC schieben können. Keine Gegner, aber neutrale.“) | Kerntest `MakeWayTest` fängt Held-gegen-Bram an der Brücke (Selbstarbeit erledigt, 23:1x); Test am Gerät mit 0.1.753 | – |
