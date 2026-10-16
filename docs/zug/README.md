@@ -14,7 +14,6 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
-| [105](ansehen/105-telegram-links.md) | 16.10. | In der Meldung von 12:03 die Nummern 105, 112 und 86 antippen; jede führt auf ihre Zeile im Vorrat | Sokrates Projekt |
 | [Jerry](ansehen/jerry-testreihe.md) | 16.10. | Elf Builds von Jerry, Reihenfolge nach Toms 0.1.757 (#71): Keuchen, Rauchbündel, Lautstärke, Umweltklang, Fluss, Intro-Klang, Glocke, Sterbehaltung, Krogg, Zustände, Absturz Klang | Jerry |
 | [0.1.757](ansehen/t757-rast.md) | 16.10. | Rast nachprüfen: Zimmer war gesperrt, weil die Nacht vor der Tempelszene schon als lange Rast zählt | Tom |
 
