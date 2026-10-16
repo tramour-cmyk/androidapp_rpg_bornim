@@ -32,6 +32,27 @@ class KillBlowTest {
     }
 
     @Test
+    fun kroggComesApartInHisFinePicture() {
+        // 36.6: Krogg is drawn 1.5 times finer in battle, and so are the halves of the killing blow, in the same place
+        val fine = de.bornim.core.art.MonsterArt.fine("bugbear")
+        assertTrue(fine > 1.0)
+        for (s in listOf(HeroFigure.Strike.KILL_HIGH, HeroFigure.Strike.KILL_PIERCE)) {
+            val plan = KillPlan.of("bugbear", MonsterLook(5), s, 2, 3)
+            val coarse = KillPlan.of("goblin", MonsterLook(5), s, 2, 3)
+            assertTrue(plan.pieces.isNotEmpty() && plan.pieces.all { it.fine == fine }, "$s")
+            assertTrue(coarse.pieces.all { it.fine == 1.0 }, "$s goblin")
+            // the pieces together cover what the whole coarse frame covers, in art pixels
+            val img = de.bornim.core.art.MonsterArt.battleFrame("bugbear", MonsterLook(5), de.bornim.core.art.Act.DIE, de.bornim.core.art.MonsterArt.dieVariant("bugbear", MonsterLook(5)), 0)
+            var x0 = img.width; var x1 = 0; var y0 = img.height; var y1 = 0
+            for (y in 0 until img.height) for (x in 0 until img.width) if ((img[x, y] ushr 24) >= 128) { x0 = minOf(x0, x); x1 = maxOf(x1, x); y0 = minOf(y0, y); y1 = maxOf(y1, y) }
+            val px0 = plan.pieces.minOf { it.ox / fine }; val py0 = plan.pieces.minOf { it.oy / fine }
+            val px1 = plan.pieces.maxOf { (it.ox + it.img.width) / fine }; val py1 = plan.pieces.maxOf { (it.oy + it.img.height) / fine }
+            assertTrue(kotlin.math.abs(px0 - x0) < 2 && kotlin.math.abs(py0 - y0) < 2 && kotlin.math.abs(px1 - x1) < 3 && kotlin.math.abs(py1 - y1) < 3,
+                "$s: pieces $px0,$py0–$px1,$py1, frame $x0,$y0–$x1,$y1")
+        }
+    }
+
+    @Test
     fun killingBlowsLandOnTheirStrikeFrame() {
         for (st in HeroFigure.Stance.entries) for (s in HeroFigure.Strike.entries.filter { it.killing }) {
             val seq = HeroFigure.sequence(HeroFigure.Act.ATTACK, s, 0, st)

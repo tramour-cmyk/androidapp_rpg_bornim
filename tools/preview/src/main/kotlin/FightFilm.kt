@@ -87,6 +87,8 @@ fun film(f: FilmSpec, outDir: File) {
         listOf("greater_potion", "potion", "remedy", "alchemist_fire", "holy_water").forEach { g.state.add(it, 2) }
     }
     f.weapon?.let { g.state.hero.equip(Gear(9_999L, it, Rarity.COMMON, 1)) }
+    // FILMITEMS=smoke_bundle,…: items in the bag before the fight starts (one each)
+    System.getenv("FILMITEMS")?.split(",")?.filter { it.isNotBlank() }?.forEach { g.state.add(it, 1) }
     val seed = f.seed
     val battle = Battle(g.state, Monsters[foe], g.lang, Dice(kotlin.random.Random(seed)), 1, false, 1, null, false, MonsterLook(seed),
         if (f.heroFirst) Opening.HERO_FIRST else Opening.NORMAL)
