@@ -9,4 +9,4 @@
 | Ford | [Ford – Betriebsleiter (16.10., 17:50)](https://claude.ai/code/session_01CxGVVG35nLayNTuubcUd7Q) | Betrieb | – | 16.10., 17:50 |
 | Team Tom | [Tom – D3 passt, PR #92 zusammenführen (16.10., 17:49)](https://claude.ai/code/session_01P8uYMDB1vVs1Tjg8Kp4jQi) | D3 (wartet auf Chef, D3a) | `claude/tom-d3-zusammenfuehren` | 16.10., 17:49 |
 | Ford 2 | [Ford 2 – Niederlassungsleiter (16.10., 18:34)](https://claude.ai/code/session_017Gzi9LijVCMaW5UJrzYaXZ) | Betrieb Pro | – | 16.10., 18:34 |
-| Team Jerry | [Jerry – Build 10 verfolgen, dann 59e Händlervorrat (16.10., 19:46)](https://claude.ai/code/session_01T21rfqcyaEneSPd1DxgqQL) | 59e | `claude/jerry-59e-haendlervorrat` | 16.10., 19:46 |
+| Team Jerry | [Jerry – 39 Schwierigkeitsgrad (16.10., 19:55)](https://claude.ai/code/session_01XWMUb7pJp9eVpcHkuwF6Ms) | 39 | `claude/jerry-39-schwierigkeit` | 16.10., 19:55 |

@@ -24,6 +24,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Projekt wertet nach zwei Tagen aus.
 
+- 16.10., 19:56: Neustart Jerry 39, Vorgänger (Build 10, 59e) Kosten nicht ermittelbar (`get_session` ohne `usage`)
 - 16.10., 19:46: Neustart Jerry 59e, Vorgänger (D3.8/D3.9) 6,25 $ (`usage.cost_usd`, 266 Tsd. Token Kontext); Build 10 wartet auf Chef, Meldung laut
 - 16.10., 19:33: Stundenlauf ohne Tat (Jerry D3.8/D3.9 läuft); Ford 2 seit 18:34 2,08 $, 154 Tsd. Token Kontext, vier Neustarts Jerry eingeschlossen; Pro weiter `allowed_warning`
 - 16.10., 19:29: Neustart Jerry D3.8/D3.9, Vorgänger (D3 Rest) Kosten nicht ermittelbar (`get_session` ohne `usage`); D3.10 Build 9 wartet auf Chef, Meldung laut
