@@ -23,7 +23,6 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
 - 17.10., 00:0x, von Tom (62078f62): Nachfolger „Tom – 117 Verweise im Code“ erst nach Sa 17.10., 21:00 oder auf Zuruf starten (PR #100 neu abonnieren), dann Zeile streichen
-- 16.10., 23:0x, von Perikles (57241d3d): Nachfolger „Perikles – 99g.2 Kopf abgelöst“ erst nach Sa 17.10., 21:00 starten (Sparmodus), dann Zeile streichen
 
 ## Kosten Ford 2
 
@@ -74,6 +73,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 00:17 17.10.: Start Perikles (99g.2 Kopf abgelöst; Zuruf Chef 00:17: „Perikles“, trotz Sparmodus)
 - 00:02 17.10.: Tom 129 fertig (62078f62, PR #100, Build 13 zu testen; D21 erledigt), archiviert (4,17 $, je etwa 2,08 $ auf 129 und D21); Nachfolger in den Eingang
 - 23:43 16.10.: Start Tom (129 Hühner; Zuruf Chef 23:43: „Tom“, trotz Sparmodus)
 - 23:33 16.10.: Chef-Meldung Hühner auf gleichem Platz → 129 in Toms Vorrat (K)
