@@ -165,3 +165,16 @@ CC0 1.0, Lizenz in den Paketen (License.txt) und auf der Quellseite geprüft am 
 |---|---|---|---|
 | `pant_man_1–3` | 1103 „Breathless Man“, Atemzüge bei 1,35 / 8,30 / 12,55 s | Joseph Sardin, BigSoundBank, CC0 (Seite geprüft 16.10.2026) | https://bigsoundbank.com/breathless-man-s1103.html |
 | `pant_woman_1–3` | 1345 „Breathless Woman“, Atemzüge bei 1,50 / 6,20 / 11,05 s | Joseph Sardin, BigSoundBank, CC0 (Seite geprüft 16.10.2026) | https://bigsoundbank.com/breathless-woman-s1345.html |
+
+## 84 Umweltklang (16.10., im Spiel: `wolf_far_1–3`, `rumble_1–3`, `bird_flap_1–3`, `bird_scratch_1–3`)
+
+Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026. Geschnitten mit `tools/klang/umwelt.py`; Freesound als Vorschau (128 kbit/s), die Lizenz gilt für die Aufnahme.
+
+| Klang im Spiel | Aufnahme(n) | Urheber, Paket | Quelle |
+|---|---|---|---|
+| `wolf_far_1–3` | Cooper Creek 20160313_014852 solitary wolf howl very clear (500646): drei der vier Heuler, dumpfer, Hall | betchkal, Freesound | https://freesound.org/people/betchkal/sounds/500646/ |
+| `rumble_1` | rockfall2a (389303), tiefer, nur unter 600 Hz, Höhlenhall | AlanCat, Freesound | https://freesound.org/people/AlanCat/sounds/389303/ |
+| `rumble_2` | S24-18 Landslide (675736), ebenso | craigsmith, Freesound | https://freesound.org/people/craigsmith/sounds/675736/ |
+| `rumble_3` | RockFall1b (381645), ebenso | AlanCat, Freesound | https://freesound.org/people/AlanCat/sounds/381645/ |
+| `bird_flap_1–3` | 2891, 2894 „Flight bird“, 0840 „Flight of a pigeon“, höher und kürzer | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/ |
+| `bird_scratch_1–3` | 3202 (Schritte auf Erde), viel höher, nur das Helle | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/ |

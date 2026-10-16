@@ -61,10 +61,13 @@ class SfxPlayer(private val context: Context) {
     /** The take loaded from [asset], or 0 (silent) if it cannot be read. */
     private fun load(asset: String): Int = runCatching { context.assets.openFd(asset).use { pool.load(it, 1) } }.getOrDefault(0)
 
-    fun play(s: Sound, volume: Float = 0.8f) {
+    fun play(s: Sound, volume: Float = 0.8f) = play(s, volume, volume)
+
+    /** Plays [s] with its own volume on the [left] and [right] speaker: a sound from one side (84). */
+    fun play(s: Sound, left: Float, right: Float) {
         if (!enabled) return
         val takes = ids[s] ?: return
-        pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume, volume, 1, 0, 1f)
+        pool.play(takes[kotlin.random.Random.nextInt(takes.size)], left, right, 1, 0, 1f)
     }
 
     /**
