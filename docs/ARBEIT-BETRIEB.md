@@ -8,6 +8,8 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **„Dein Zug“ (63): `docs/zug/`** (108; Übersicht = `docs/zug/README.md`, zeigt GitHub unter der Dateiliste; Lesezeichen für den Chef: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/main/docs/zug) · Beschlüsse: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM · Prüfbericht Diogenes: https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ
 
+**Guthaben:** Max ? %, Pro 49 % (Woche), 16.10., 21:0x (Bild des Chefs über Sokrates Projekt; Pro-Sitzungslimit voll bis etwa 23:30)
+
 **Jetzt installieren:** nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
 
 - **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 17:50)“ `session_01CxGVVG35nLayNTuubcUd7Q` (seit 16.10., 17:50, Selbstneustart, Tiefe 3; Vorgänger `session_01Hr5Go7BFHT2zpmsRmGmLc1` archiviert). Stundenuhr „Ford-Uhr“ `trig_01X9ykKgg4ibrwLnXHVW7666` (:03, seit 17:50; alte Uhr `trig_01Bg6UMEA6njTVfnsccoRe5G` gelöscht).
@@ -68,6 +70,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 21:18 16.10.: Selbstneustart Ford (Haken-Erinnerung 2, ≈233 Tsd. Token); offen: Diogenes 125 (session_01NN52c14B4vhpWH2KyWnUGT) fertig seit 20:57, archivieren ab 22:03, wenn unverändert; Tom pausiert bis Testergebnis 0.1.806 (dann „Tom – 92 nach Test zusammenführen“ starten); Sa 08:00 Start Sokrates Projekt (Eingang); Guthabenzeile 128
 - 21:10 16.10.: Chef „Build 10 … PR #95 passt“ in Jerrys Vorrat (Zeile D3)
 - 21:05 16.10.: Chef „Build 9 … PR #94 passt“ und Frage zu 9.2 (Regen im Kampf) in Jerrys Vorrat (Zeile D3)
 - 20:54 16.10.: Chef „Build 7 · 0.1.798 · D1.14 … PR #93 alles passt“ in Jerrys Vorrat (Zeile D1); send_message an Jerry geht nicht über Accounts
@@ -87,4 +90,3 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Arch
 - 18:34 16.10.: Jerry 72.10 nach Pro-Sperre geweckt; Start Ford 2 (Selbstneustart) (Ford 2)
 - 18:06 16.10.: Tom D3 wartet auf Chef (D3a: #92 zusammengeführt, Notizen von Freigabeprüfung gesperrt), Meldung laut
 - 17:52 16.10.: Ford neu übernommen; Uhr trig_01X9ykKgg4ibrwLnXHVW7666 angelegt und geprüft, alte Uhr trig_01Bg6UMEA6njTVfnsccoRe5G gelöscht, alter Ford session_01Hr5Go7BFHT2zpmsRmGmLc1 archiviert
-- 17:49 16.10.: Selbstneustart Ford (≈266 Tsd. Token, Haken-Erinnerung 2); offen: Tom D3 (session_01P8uYMDB1vVs1Tjg8Kp4jQi) läuft; Sa 08:00 Start Sokrates Projekt (Eingang)
