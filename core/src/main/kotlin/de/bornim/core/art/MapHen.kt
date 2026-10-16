@@ -198,10 +198,18 @@ object MapHen {
         /** Under the trees (map pixels): the open spot before them, and the spot among them where it is gone. */
         private var shelter: Pair<Float, Float>? = null
         private var cover: Pair<Float, Float>? = null
+        /** The other hens of the map: two never stand on one spot (129, Chef 16.10.: the white and the brown one on one place). */
+        var flock: List<Hen> = emptyList()
 
-        private fun free(map: MapDef, px: Float, py: Float): Boolean {
+        /** Whether another hen out in the open stands within [GAP] of ([px], [py]) and the step would bring the two closer. */
+        private fun crowded(px: Float, py: Float): Boolean = flock.any {
+            it !== this && it.seen > 0f && hypot(it.x - px, it.y - py) < GAP && hypot(it.x - px, it.y - py) < hypot(it.x - x, it.y - y)
+        }
+
+        private fun free(map: MapDef, px: Float, py: Float, apart: Boolean = true): Boolean {
             val T = WorldArt.T
             if (hypot(px - homeX, py - homeY) > LEASH) return false
+            if (apart && crowded(px, py)) return false
             // keep a little off what is not walkable, so it never stands in the bale or a fence
             for ((dx, dy) in listOf(0f to 0f, 5f to 0f, -5f to 0f, 0f to 4f, 0f to -4f)) {
                 val t = map.tile(Math.floorDiv((px + dx).toInt(), T), Math.floorDiv((py + dy).toInt(), T))
@@ -210,7 +218,10 @@ object MapHen {
             return !nearWater(map, px, py)
         }
 
-        /** Where to go in the rain and at dusk: the walkable spot beside the nearest trees within a few tiles of home. */
+        /**
+         * Where to go in the rain and at dusk: the walkable spot beside the nearest trees within a few tiles of home,
+         * one it can run to straight before one behind the bale (129: the one on the far side of a bale stood stuck before it).
+         */
         private fun findShelter(map: MapDef) {
             val T = WorldArt.T
             val hx = Math.floorDiv(homeX.toInt(), T); val hy = Math.floorDiv(homeY.toInt(), T)
@@ -220,21 +231,36 @@ object MapHen {
                 for ((dx, dy) in listOf(0 to -1, -1 to 0, 1 to 0, 0 to 1)) {
                     val ox = (tx + dx) * T + T / 2f; val oy = (ty + dy) * T + T / 2f
                     if (!map.tile(tx + dx, ty + dy).walkable || nearWater(map, ox, oy)) continue
-                    val d = hypot(ox - homeX, oy - homeY)
+                    val d = hypot(ox - homeX, oy - homeY) + (if (clear(map, ox, oy)) 0f else 1_000f)
                     if (d < best) { best = d; shelter = ox to oy; cover = (ox - dx * T * 0.55f) to (oy - dy * T * 0.55f) }
                 }
             }
             if (shelter == null) { shelter = homeX to homeY; cover = homeX to homeY }
+            // the two of a bale share the nearest trees: each its own side of them, so they never go in on one spot (129)
+            val side = if (flock.size < 2) 0f else if (flock.indexOf(this) % 2 == 0) -GAP / 2 else GAP / 2
+            val (sx, sy) = shelter!!; val (cx, cy) = cover!!
+            val len = hypot(cx - sx, cy - sy)
+            val (ux, uy) = if (len < 0.1f) 1f to 0f else -(cy - sy) / len to (cx - sx) / len
+            val ox = sx + ux * side; val oy = sy + uy * side
+            if (map.tile(Math.floorDiv(ox.toInt(), T), Math.floorDiv(oy.toInt(), T)).walkable && !nearWater(map, ox, oy)) {
+                shelter = ox to oy; cover = (cx + ux * side) to (cy + uy * side)
+            }
+        }
+
+        /** Whether the way from home straight to ([px], [py]) is free ground. */
+        private fun clear(map: MapDef, px: Float, py: Float): Boolean {
+            val n = (hypot(px - homeX, py - homeY) / 4f).toInt()
+            return (1..n).all { i -> free(map, homeX + (px - homeX) * i / n, homeY + (py - homeY) * i / n, apart = false) }
         }
 
         /** Moves towards ([gx], [gy]) at [speed] px/s for [dt] ms; false when the way is blocked. */
-        private fun step(map: MapDef, gx: Float, gy: Float, speed: Float, dt: Long, through: Boolean = false): Boolean {
+        private fun step(map: MapDef, gx: Float, gy: Float, speed: Float, dt: Long, through: Boolean = false, apart: Boolean = true): Boolean {
             val dx = gx - x; val dy = gy - y
             val d = hypot(dx, dy)
             if (d < 0.5f) return true
             val s = minOf(d, speed * dt / 1000f)
             val nx = x + dx / d * s; val ny = y + dy / d * s
-            if (!through && !free(map, nx, ny)) return false
+            if (!through && !free(map, nx, ny, apart)) return false
             yaw = Math.toDegrees(atan2(dx.toDouble(), dy.toDouble()))
             x = nx; y = ny
             return true
@@ -266,7 +292,7 @@ object MapHen {
             if (near < SHY && mood != Mood.FLEE && mood != Mood.SHELTER) go(Mood.FLEE)
             when (mood) {
                 Mood.SHELTER -> if (away) {
-                    // hurrying to the trees, round the bale or a fence; there it steps in among them and is gone
+                    // hurrying to the trees, round the bale or a fence, brushing past the others; there it steps in among them and is gone
                     val (sx, sy) = shelter!!
                     if (hypot(sx - x, sy - y) > 2f && seen >= 1f) {
                         val dx = sx - x; val dy = sy - y
@@ -275,7 +301,7 @@ object MapHen {
                         for (turn in listOf(0, 45, -45, 90, -90)) {
                             val a = base + Math.toRadians(turn.toDouble())
                             val r = minOf(hypot(dx, dy), 20f)
-                            if (step(map, x + sin(a).toFloat() * r, y + cos(a).toFloat() * r, HURRY_SPEED, dt)) { moved = true; break }
+                            if (step(map, x + sin(a).toFloat() * r, y + cos(a).toFloat() * r, HURRY_SPEED, dt, apart = false)) { moved = true; break }
                         }
                         // blocked for good (or far too long on the way): it slips in where it is
                         if (!moved || clock - since > 20_000) seen = minOf(seen, 0.999f)
@@ -317,6 +343,12 @@ object MapHen {
                     if (!moved || hypot(tx - x, ty - y) < 0.6f || clock - since > 12_000) go(Mood.IDLE)
                 }
                 Mood.IDLE -> {
+                    // one that finds another on its spot steps aside, unhurried (129)
+                    flock.firstOrNull { it !== this && it.seen > 0f && hypot(it.x - x, it.y - y) < GAP }?.let { o ->
+                        val d = hypot(x - o.x, y - o.y)
+                        val (ux, uy) = if (d < 0.1f) (if (seed >= o.seed) 1f else -1f) to 0f else (x - o.x) / d to (y - o.y) / d
+                        step(map, x + ux * 20f, y + uy * 20f, WALK_SPEED, dt)
+                    }
                     // now and then off to a new spot near home; far from home it goes back first
                     val slot = Math.floorDiv(clock + seed * 313L, SLOT)
                     if (slot != walkSlot && hash(slot.toInt(), seed, 2) % 3 == 0) {
@@ -392,6 +424,8 @@ object MapHen {
     private const val BLEND = 300L
     private const val TURN = 240.0
     private const val TURN_RUN = 720.0
+    /** How close two hens may come: about a hen's width, the two of a bale stand so far apart (129). */
+    const val GAP = 10f
     const val SHY = 46f
     const val SAFE = 90f
     /** How far from home it strolls, and how far it may run off. */
@@ -435,14 +469,22 @@ object MapHen {
             val spots = listOf(-1 to 0, 0 to -1, -1 to -1, 1 to 0, 0 to 1).filter { (dx, dy) -> map.tile(tx + dx, ty + dy).walkable && !nearWater(map, (tx + dx) * T + T / 2f, (ty + dy) * T + T / 2f) }
             // east of a bale is a pocket against the trees at the edge of the map: only where nothing else is free (94)
             val open = spots.filter { it != (1 to 0) }.ifEmpty { spots }
-            for (n in 0 until 2) {
-                val (dx, dy) = open.getOrNull(n) ?: open.firstOrNull() ?: continue
-                val seed = hash(tx, ty, 50 + n) % 10_000
-                out += Hen((tx + dx) * T + T / 2f + (n * 2 - 1) * 5f, (ty + dy) * T + T / 2f, seed, out.size % VARIANTS)
+            // two bales side by side share their free ground: each hen a hen's length from every other (129)
+            val places = (open.mapIndexed { n, s -> s to (n % 2 * 2 - 1) * 5f } + open.flatMap { s -> listOf(s to -5f, s to 5f, s to -9f, s to 9f) })
+                .map { (s, off) -> ((tx + s.first) * T + T / 2f + off) to ((ty + s.second) * T + T / 2f) }
+            var n = 0
+            for ((px, py) in places) {
+                if (n == 2) break
+                if (out.any { hypot(it.homeX - px, it.homeY - py) < GAP }) continue
+                out += Hen(px, py, hash(tx, ty, 50 + n) % 10_000, out.size % VARIANTS)
+                n++
             }
         }
-        return out
+        return flocked(out)
     }
+
+    /** Lets each of [hens] know the others, so they keep apart (129). */
+    fun flocked(hens: List<Hen>): List<Hen> { for (h in hens) h.flock = hens; return hens }
 
     // ---------------------------------------------------------------- the pictures
 
