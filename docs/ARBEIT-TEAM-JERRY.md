@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 18, davon A 0, wartet auf Chef 5**
 
-**Übergabe (16.10., 19:54, „Jerry – Build 10 verfolgen, dann 59e Händlervorrat“) – Nachfolger: Jerry – 39 Schwierigkeitsgrad:** Build 10 grün (0.1.802, Testreihe eingetragen). 59e hängt an 39; Vorstufe 38e/38f gemessen (`ChapterSimTest.chapterOneGold`, Zweig `claude/jerry-59e-haendlervorrat`, nur Testcode, kein PR), 59e.1/59e.2 an Kreativ. Nachfolger: #68, #87, #93, #94, #95 abonnieren; 108a.1 zuerst, falls der Chef antwortet; dann 39: Gegner-TP/-Schaden für Leicht/Schwer messen (Ziel `DESIGN-BALANCE.md`, Siegquoten ±10–20 Punkte), Werte als Vorschlag, Menü mit Tom.
+**Übergabe (16.10., 20:3x, „Jerry – 39 Schwierigkeitsgrad“) – Nachfolger: Jerry – 86 Außer Atem und Rennen laut:** 108a.1 erledigt (Beschluss, #90, #91, #85 auf `main`, CHANGELOG). 39 gebaut ohne PR (Zweig `claude/jerry-39-schwierigkeit`), wartet auf 39.1/39.2 bei Kreativ; 38 neu messen an Diogenes. Nachfolger: #68, #87, #93, #94, #95 abonnieren; dann 86: außer Atem in den Kampf = Initiative mit Nachteil, Rennen laut (84.4; Beschluss 86.3/86.6, mit 72.11 abgleichen); danach D3 Kampfgeheul (#85 ist auf `main`).
 
 ## Zeilen
 
