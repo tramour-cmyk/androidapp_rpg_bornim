@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kosten-Nutzen der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 17, davon A 1, wartet auf Chef 1**
+**offen 18, davon A 1, wartet auf Chef 1**
 
 **Gelesen bis:** `39ce8146` (16.10., 12:1x)
 
@@ -12,6 +12,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 | Nr. | Thema | Stand |
 |---|---|---|
+| D16 | **von Diogenes** (Lauf 16, 110 Sitzungstiefe; Prüfbericht https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ): D16.1 Notfall-Selbststart (`ARBEIT-ABLAEUFE.md` Neustart 2) ohne Tiefensperre, Nachfolger auf 8 ohne Weckruf; D16.2 Tiefe Ford 2 in seine Kennungszeile; D16.3 Regel verweist auf gelöschte Zug-Datei 110; Anregung: Hand-Start Ford morgens | offen; im Prüfbericht „bestätigt“/„verworfen“ vermerken |
 | 115 | Idee heißt prüfen, nicht bauen (Chef 16.10., 12:2x: „Ach Leute, wenn ich eine Idee äußere, heißt das nicht umsetzen. Dann heißt das, irgendwer soll die Idee prüfen. Müssen wir das wo festschreiben?“; 12:3x: „Wenn überhaupt, müsste es erstmal auf irgendeinem Vorrat landen und dann von der Priorisierung her entschieden werden, … ob es wichtig ist, es gleich zu machen oder nicht.“) | von Team Tom: Anlass 114 (gleich gebaut, PR #83 jetzt Entwurf). Empfehlung Tom: keine neue Regel, CLAUDE.md „Ideen in `LISTE-IDEEN.md`“ ersetzen durch „Idee (auch des Chefs): Zeile in den Vorrat des Bereichs, nicht bauen; wann, entscheidet der Vorrang“ (90a) |
 | 113 | Einheitliches Wort für unsere Nummern (Chef 16.10., 12:1x) | **beschlossen** 12:1x (Chef: „Wir nennen es Vorgang. Finde ich gut.“): `CLAUDE.md` „Begriffe“; Zähler „Themennummer“, `LISTE-THEMEN.md`, Haken und Rollendateien mit 102 nach dem Sparmodus |
 | 112 | Intro ist das Muster, Tempel fällt ab (Chef 16.10., 11:3x: „wir haben ganz viel Energie in die Entwicklung des Intros eines Musterbildes gesteckt, als Maß aller Dinge … Aber im Vergleich dazu ist ja die Sequenz Tempel eher schlecht. Also wusste wohl keiner wieder, dass das das Muster sein soll, an dem sich alles zu orientieren hat.“) | **nach Sparmodus** (Chef 11:3x: „So machen wir das bis Samstagabend.“). Ursache: `DESIGN-STIL.md` „Zwischensequenzen“ sagt noch „Musterbild folgt aus 69e“; nie festgeschrieben, dass das fertige Intro das Muster ist. Zeilen an Kreativ (Muster festschreiben, Vergleich Tempel) und Tom (68 nachziehen). Lehre: fertiges Muster sofort als Muster in die Designnotiz, mit Fundstelle im Code |
