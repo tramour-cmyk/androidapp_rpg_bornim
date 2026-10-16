@@ -20,9 +20,10 @@ Artefakte und Dokumente von Max sind privat; Pro sieht sie nur nach Freigabe (Te
 | [Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14) (`DESIGN-HELDENBAU.md`) | lesen | Klassen, Balance |
 | [Story-Texte](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d) (`STORY-REGELN.md`) | lesen | Monster- und Kampftexte |
 | [Prüfbericht](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ) | lesen | Befunde Diogenes |
-| [Dein Zug](https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow), [Beschlüsse](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) | schreiben / lesen | schon freigegeben |
+| [Dein Zug](https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow) | bearbeiten | Testbitten, eigene Punkte |
+| [Beschlüsse](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM), Storyplan, Kampfsystem neu denken | lesen | freigegeben 16.10. |
 
-Nicht nötig: Entwürfe 98, Firmenordnung, Rollenkonzept, Markt, Berater. Neues Dokument, das Jerry braucht: gleich mit freigeben.
+Prüfen: auf Pro unter „Artefakte → Mit dir geteilt“; Dokumente (Kampf-Dokument, Story-Texte) haben ein eigenes Teilen-Menü, dort direkt den Link auf Pro öffnen. Eine Einladungs-E-Mail kommt nicht verlässlich. Nicht nötig: Entwürfe 98, Firmenordnung, Rollenkonzept, Markt, Berater. Neues Dokument, das Jerry braucht: gleich mit freigeben.
 
 ## 2. Ford 2 starten
 
