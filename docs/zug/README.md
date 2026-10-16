@@ -18,7 +18,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.799](ansehen/jerry-testreihe.md) | Build 8 | Probe 72.10: Held und Söldner gegen Grak | Jerry | 16.10. |
+| 1 | [0.1.812](ansehen/jerry-testreihe.md) | Build 8 | Probe 72.10: Held und Söldner gegen Grak | Jerry | 16.10. |
+| 2 | [0.1.813](ansehen/jerry-testreihe.md) | Build 11 | 86: Rennen laut | Jerry | 16.10. |
 
 ## So geht's
 
