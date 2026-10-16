@@ -119,6 +119,7 @@ Dorran wohnt heute nur hinter einer verschlossenen Tür („Er ist wohl in seine
 - **Echtes Zerteilen in 3D (Killerschlag, gewählt als späterer Schritt am 09.10.):** Das Körpermodell selbst durchschneiden statt des flachen Bildes; Schnittflächen mit Fleisch und Knochen, beide Hälften fallen räumlich. Dann auch für Tiere. Aufwand grob ein bis zwei Arbeitstage.
 - **Flüssigere Grafik mit mehr Zwischenbildern** (teilweise erledigt: Sprungtest 12/12a, Gehen in 8 Bildern) (Wunsch 10.10., 11:00; vorher „Zu entscheiden“): Die Haltungen (Arme, Beine, Waffe) wechseln heute 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn; Claude prüft selbst mit Filmen und Kerntests.
 - **Kampfkulisse der Höhle an die neue Karte angleichen** (zurückgestellt 10.10.): Beim Kampf in der Höhle soll die Kulisse wie dieselbe Höhle aussehen wie auf der Karte (Boden, Wände, Dinge, Licht).
+- **114 Aufwachen am Bett** (Chef 16.10., 12:2x): „Nach Schlaf in Gasthaus und Buchung über Wirtin neben Bett aufwachen und nicht neben Tresen nach Dialog zur Rast. Idee: Aufstehsequenz aus Bett?“ Prüfen: Kreativ. Liegt vorschnell gebaut als Entwurf in PR #83 (eine Zeile, nicht auf `main`); 114.1 Aufstehsequenz: Empfehlung Tom „noch nicht“ (neue Bilder des Helden liegend und aufstehend in allen Richtungen).
 
 ## Klänge überarbeiten (Rest, aus „Offen“ am 11.10.)
 
