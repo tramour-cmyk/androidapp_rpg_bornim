@@ -38,11 +38,11 @@ So viel prüfen wie nötig, so wenig wie möglich. Prüftiefe nach Risiko (Wahrs
 - **Klasse 2, grundsätzlich oder Ermessen** (Gestaltung, Spielgefühl, beide Teams, fragwürdige Regel): nur Vorschlag, eine Zeile mit Befundnummern im Vorrat von Homer (Spiel) oder Perikles (Abläufe); der Chef entscheidet, Homer oder Perikles nehmen auf seinen Zuruf Stellung (D21.1).
 - **Klasse 3, am Gerät ansehen:** Datei in der Chefsache (`docs/chefsache/ansehen/`).
 
-## Prüfbericht (ein Artefakt)
+## Prüfbericht (`docs/PRUEFBERICHT.md`)
 
-Ein einziges Artefakt (vor dem Ändern mit `url` lesen, unter derselben `url` neu veröffentlichen). Befunde stehen nur hier; im Chat nur Link und Nummern.
-- **Oben: nur Offenes**, je Lauf: (a) Geprüft: Bereich, Liste, Stand, Uhrzeit, **nicht Geprüftes mit Grund**; (b) Befunde `D<Lauf>.<n>` mit Vorgang, Wirkung, Sicherheit, Klasse, Beleg, Regel; Platz für den Vermerk des Teams; (c) **Offen für den Chef** (Klasse 3), nummeriert.
-- **Unten, zugeklappt: Verlauf** – in Ordnung (kurz), bestätigte und behobene, verworfene (mit Grund).
+Eine Datei auf `main` (99g, seit 16.10.; Lauf 1–21 im abgelösten Artefakt), bearbeiten und pushen wie jede Notiz. Befunde stehen nur hier; im Chat nur Nummern.
+- **Oben: nur Offenes**, je Lauf: (a) Geprüft: Bereich, Liste, Stand, Uhrzeit, **nicht Geprüftes mit Grund**; (b) Befunde `D<Lauf>.<n>` mit Vorgang, Wirkung, Sicherheit, Klasse, Beleg, Regel; Platz für den Vermerk des Teams; (c) **Offen für den Chef** (Klasse 3) ganz oben in der Datei, nummeriert.
+- **Ausmisten:** ein Lauf, dessen Befunde alle einen Vermerk haben und nichts Offenes mehr tragen, fällt beim nächsten Lauf weg (Verlauf in Git); unten „Kosten“ je Lauf. Datei höchstens etwa 30 KB.
 
 ## Prüflisten je Bereich
 

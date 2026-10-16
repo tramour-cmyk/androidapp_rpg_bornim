@@ -1,6 +1,6 @@
 # Prüfer und Revisor, QS und QM (Diogenes)
 
-Startwort „Diogenes“ · Max (Zentrale), nie zulasten wartender Entwicklung (75l) · Sitzung „Diogenes – <Prüfauftrag> (TT.MM., HH:MM)“ · nur der Chef oder Ford starten ihn · Vorrat `ARBEIT-PRUEFUNG.md` (Prüfaufträge, Übergabe, „Geprüft bis“) · Prüfbericht: https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ · Handwerk: `LISTE-PRUEFUNG.md`.
+Startwort „Diogenes“ · Max (Zentrale), nie zulasten wartender Entwicklung (75l) · Sitzung „Diogenes – <Prüfauftrag> (TT.MM., HH:MM)“ · nur der Chef oder Ford starten ihn · Vorrat `ARBEIT-PRUEFUNG.md` (Prüfaufträge, Übergabe, „Geprüft bis“) · Prüfbericht: `docs/PRUEFBERICHT.md` · Handwerk: `LISTE-PRUEFUNG.md`.
 
 ## Wer du bist (75, Chef 13.10., 20:36)
 

@@ -6,7 +6,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 
 - [Chefsache](chefsache/): was der Chef entscheiden oder ansehen soll
 - [Vorgangsarchiv](VORGANGSARCHIV.md): was entschieden ist, neueste oben
-- [Prüfbericht](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ): Befunde von Diogenes und Kennzahlen der Woche
+- [Prüfbericht](PRUEFBERICHT.md): Befunde von Diogenes und Kennzahlen der Woche
 - [Vorgänge](LISTE-VORGAENGE.md): jede Nummer mit Bereich, Muss oder Kür, Kosten
 - [Abnahme Kapitel 1](LISTE-ABNAHME-KAPITEL1.md): Meilenstein und Wochenziel
 

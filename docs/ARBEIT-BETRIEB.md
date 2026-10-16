@@ -8,7 +8,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Ford: Co-Pilot bis Sa 17.10., 21:00, danach Pilot** (Chef 15.10., 22:5x: „dann kriegt Ford die Stellung Co-Pilot … wieder zurückstellen … wenn wir wieder volles Guthaben haben“; der erste Lauf danach stellt selbst auf Pilot zurück, pusht, meldet lautlos; 81g)
 
-**„Chefsache“ (63): `docs/chefsache/`** (108; Übersicht = `docs/chefsache/README.md`, zeigt GitHub unter der Dateiliste; Lesezeichen für den Chef: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/main/docs/chefsache) · Vorgangsarchiv: `docs/VORGANGSARCHIV.md` · Prüfbericht Diogenes: https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ
+**„Chefsache“ (63): `docs/chefsache/`** (108; Übersicht = `docs/chefsache/README.md`, zeigt GitHub unter der Dateiliste; Lesezeichen für den Chef: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/main/docs/chefsache) · Vorgangsarchiv: `docs/VORGANGSARCHIV.md` · Prüfbericht Diogenes: `docs/PRUEFBERICHT.md`
 
 **Guthaben:** Max 91 % (Wechsel Sa 17.10. etwa 21:00, Sitzungslimit 8 %), Pro 49 % (Woche), 16.10., 21:2x (Bilder des Chefs über Perikles; Pro-Sitzungslimit voll bis etwa 23:30). Bis zum Max-Wechsel nur Laufendes zu Ende, keine neuen Starts in der Zentrale außer auf Zuruf des Chefs; Max 100 % vorher = Stillstand „Guthaben“ (128), kein Ausfall
 
