@@ -17,6 +17,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | 1 | [0.1.812](ansehen/jerry-testreihe.md) | Build 8 | Probe 72.10: Held und Söldner gegen Grak | Jerry | 16.10. |
 | 2 | [0.1.813](ansehen/jerry-testreihe.md) | Build 11 | 86: Rennen laut | Jerry | 16.10. |
 | 3 | [0.1.815](ansehen/jerry-testreihe.md) | Build 12 | D3: Kampfgeheul aus Aufnahmen | Jerry | 16.10. |
+| 4 | [0.1.816](ansehen/t13-huehner.md) | Build 13 | 129: Hühner nie zwei auf einem Platz | Tom | 17.10. |
 
 ## So geht's
 
