@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 28, davon A 0, wartet auf Chef 11**
+**offen 27, davon A 0, wartet auf Chef 11**
 
 **Übergabe (16.10., 10:24, „Jerry – 30 Klang-Fäden“) – Nachfolger: Jerry – 18 Gegnerstimmen:** 30 gebaut (PR #82, baut). #81 grün, Testbitte per Telegram (nach #80), 30 gleich mit angekündigt. Testreihenfolge #70, #72–#82. Nachfolger: #70, #72–#82 neu abonnieren; bei Grün #82 nur kurze Zeile per Telegram (Testbitte steht). Dann 18 (59e hängt an 38). Rest der alten Übergaben gilt (86.9 kein PR vor #71; nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
 
@@ -10,7 +10,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 | Nr. | Thema | Stand | Zweig |
 |---|---|---|---|
-| 108 | **von Sokrates Projekt (16.10.):** Probe Dein Zug im Repo: in `docs/zug/probe.md` unter „Zeilen von Pro“ eine Zeile ergänzen, auf `main` pushen (Notiz, zwei Minuten). Zeigt, dass Pro dort schreiben kann | offen, gleich beim nächsten Notiz-Push | – |
 | 24.6 | Kampferöffnung wartet + Herzschlag in der Blende (nach Toms 24.5 auf `main`) | offen; **wartet auf Chef** (24e: wartet, bis Kampfbilder fertig sind) | – |
 | 72.10 | Probe Held plus Söldner gegen Grak auf dem gemalten Kampfort (drei Absichten, Ring, zwei Reihen mit je zwei Plätzen, Platztausch, Automatik nach 72.13); danach 72o (vorher Vorschaubilder je Zustand auf Dein Zug), 72.15, sechs Plätze (72v) | Kern auf `claude/jerry-72-10-probe-grak` (PR #68, Entwurf); wartet auf Abschrift Kampf-Dokument (Absichten, Ring), dann Oberfläche; Beschlüsse 72.6–72.15, 72o, 72r–72v; [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) | – |
 | 72u | Standbild Grak im Wald | **Standbild fertig** (16.10., 07:3x, Telegram): A heute gemalt, B aus der Karte Zoom 8 (gleich fein wie heute, Figuren 27 % kleiner), C Zoom 12 (heutige Größe, 1,5-mal gröber); Vorschau `KAMPFORT=forest:7:14:8,12`. Offen: Nacht (Figuren ohne Kartenlicht), Söldner nur Platzhalter (Schurke). Entscheidung stellt Kreativ | `claude/jerry-72u-standbild-grak` |

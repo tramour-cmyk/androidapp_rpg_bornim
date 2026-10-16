@@ -19,4 +19,4 @@ Zurück zur [Übersicht](README.md).
 
 ## Zeilen von Pro
 
-- (Jerry: hier eine Zeile ergänzen und pushen)
+- (entfällt: Schreiben von Pro ist durch Commits von Ford 2 und Jerry belegt)
