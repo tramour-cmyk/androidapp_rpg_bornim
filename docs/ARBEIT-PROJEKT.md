@@ -6,7 +6,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 **Gelesen bis:** `a3e536f1` (16.10., 20:1x)
 
-**Übergabe (16.10., 21:2x, „Sokrates Projekt – Zuruf (16.10., 20:12)“):** 123 erledigt (Prüflisten mit Vorgangsnummer); 127 erledigt (Anzusehen je Build); 124, 125, 126, 128 auf Dein Zug, 125/106.1 bei Diogenes (mit 124/126/128 als Kennzahlen); Ford fragt täglich nach der Nutzung (Mo–Fr 7, Sa/So 9 Uhr); Max 91 %, Pro 49 %. Nach Diogenes’ Bericht 125 und 106.1 überarbeiten. Nachfolger unverändert: „Sokrates Projekt – Umbau Namen (17.10.)“, **Start Sa 17.10. ab 21:15**, nach dem Wechsel der Max-Woche (Chef 17:4x: „du machst das einmal morgen in einem Rutsch“; verschoben 21:2x, weil Max bei 91 % der Woche steht, Bild des Chefs): 117, 99g-Rest (D17), 99g.1, 122, 102 in einem Zug; Werkzeuge und Ford-Aufträge mitziehen, Code-Kommentare über die Teams; danach Diogenes nachprüfen lassen
+**Übergabe (16.10., 21:5x, „Sokrates Projekt – Zuruf (16.10., 20:12)“):** 123, 127 erledigt; 128 beschlossen (Jerry Pause bis Mo 21:00 nach D20.1, Testergebnisse übernimmt Tom); 124, 125, 126 auf Dein Zug; Diogenes D18–D21 zurück; Tom: PR #97 (Jerrys Builds 7, 9, 10) wartet auf grünen Build, dann zusammenführen (108a.1), danach #68 neu bauen. **Nachfolger jetzt: „Sokrates Projekt – 106.1 Rollen schärfen, Entwürfe (16.10., 21:5x)“** (Chef 21:5x: „Wer ist denn jetzt für das Schärfen der Rollenbilder zuständig? … gib mir mal da vorher-nachher-Entwürfe dazu“): D18 einarbeiten, Vorher/Nachher für `ROLLE-TEAM.md` als Probe (gutes Ergebnis mit Beispiel, typischer Fehler, Maß als Zahl mit Quelle, Mechanik raus), Zug-Datei 106.1 neu; dann D21 (A) umsetzen, #97 zusammenführen, falls noch offen. Umbau Namen weiter Sa ab 21:15.
 
 ## Zeilen
 
