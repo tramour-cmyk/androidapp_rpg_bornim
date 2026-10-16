@@ -14,6 +14,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
 | [Jerry](ansehen/jerry-testreihe.md) | 16.10. | 4 Sammelbuilds statt 14 Einzel-APKs, je Build eine Prüfliste; Reihenfolge 1 → 4 | Jerry |
+| [Tom](ansehen/t806-92-bram-schubsen.md) | 16.10. | Dauerlaufen gegen Dorfleute schiebt sie zur Seite (Test 0.1.791 nicht bestanden, Ursache behoben) | Tom |
 
 ## So geht's
 
