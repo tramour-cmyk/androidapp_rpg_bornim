@@ -36,11 +36,11 @@ Fällt ein Punkt durch, nehme ich ihn per `git revert` aus dem Build, der Rest g
 
 ## Build 6 · Musik in Schichten · [PR #87](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/87)
 
-Nummer folgt mit dem Build (höher als Build 5). Stil-Abgleich: Musik orchestral und düster (Spur aus Celli und tiefen Streichern, CC0); Übergänge Ruhe ↔ Jäger nah (2 s weich) ↔ bemerkt (0,4 s in die Stille) ↔ Kampf (hart wie bisher), Jäger dreht ab (2 s zurück); geprüft mit Kerntest `MusicLayersTest`, das Gefühl nur am Gerät.
+**Neu gebaut** nach 6.1 „nicht bestanden“: Spur jetzt ab etwa 8 Feldern (Beschluss; war 10), im Dorf keine. Nummer folgt; im Menü prüfen, dass genau sie installiert ist. Der Held darf höchstens 4 Stufen über dem Gebiet stehen (erster Wald: Stufe 5), sonst weichen gewöhnliche Monster aus und die Musik bleibt, wie sie ist. Stil-Abgleich: Musik orchestral und düster (Spur aus Celli und tiefen Streichern, CC0); Übergänge Ruhe ↔ Jäger nah (2 s weich) ↔ bemerkt (0,4 s in die Stille) ↔ Kampf (hart wie bisher), Jäger dreht ab (2 s zurück); geprüft mit Kerntest `MusicLayersTest`, das Gefühl nur am Gerät.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
-| 6.1 | 120 | Wald, Musik an; langsam auf einen Wolf oder Goblin zugehen (ab etwa 10 Feldern), vor der Bemerkgrenze (4 Felder) umdrehen und weggehen; dann noch einmal hin, bis er „!“ zeigt | beim Näherkommen wird die Musik leiser und dumpfer, eine dunkle Streicherspur wächst; beim Weggehen kommt alles weich zurück; beim „!“ Stille, dann setzt die Kampfmusik ein; beim nächsten Jäger eine andere Spur | nichts ändert sich; Sprünge in der Lautstärke; die Spur läuft im Kampf weiter |
+| 6.1 | 120 | Wald, Musik an; langsam auf einen Wolf oder Goblin zugehen (ab etwa 8 Feldern), vor der Bemerkgrenze (4 Felder) umdrehen und weggehen; dann noch einmal hin, bis er „!“ zeigt | beim Näherkommen wird die Musik leiser und dumpfer, eine dunkle Streicherspur wächst; beim Weggehen kommt alles weich zurück; beim „!“ Stille, dann setzt die Kampfmusik ein; beim nächsten Jäger eine andere Spur | nichts ändert sich; Sprünge in der Lautstärke; die Spur läuft im Kampf weiter |
 | 6.2 | 120 | Höhle: wie 6.1 an einem Goblin oder Skelett | über dem Klangbett dieselbe Spur, leiser als draußen; Klangbett bleibt | Spur lauter als die Höhlenmusik |
 
 
