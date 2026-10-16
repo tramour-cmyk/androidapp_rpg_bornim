@@ -62,6 +62,8 @@ import de.bornim.game.GameViewModel
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 import kotlin.math.abs
 import kotlin.math.sin
@@ -150,12 +152,16 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var pick by remember(sk) { mutableStateOf(Pick.MAIN) }
     var ready by remember(sk) { mutableStateOf(false) }
 
-    // the figures' pictures, drawn ahead before the fight starts
+    // the figures standing ready before the fight starts (about a second); the rest of Grak's and the goblins' frames
+    // follow in the background (about six seconds), shown as soon as each is drawn
     LaunchedEffect(sk) {
         kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
             for (f in sk.fighters) f.hero?.let { HeroBattle.prepareAct(it, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0) }
-            MonsterArt.prepare(Skirmish.GRAK, MonsterLook(0))
-            MonsterArt.prepare(Skirmish.CALLED, MonsterLook(0))
+            MonsterArt.shownFrame(Skirmish.GRAK, MonsterLook(0), Act.IDLE, 0, 0)
+        }
+        launch(kotlinx.coroutines.Dispatchers.Default) {
+            MonsterArt.prepare(Skirmish.GRAK, MonsterLook(0)) { !isActive }
+            MonsterArt.prepare(Skirmish.CALLED, MonsterLook(0)) { !isActive }
         }
         ready = true
         run.run { sk.start(run.react) }
