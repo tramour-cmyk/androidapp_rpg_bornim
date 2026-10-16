@@ -80,6 +80,6 @@ Hörproben per Telegram (16.10., 19:36 und 19:5x). Stil-Abgleich: echte Aufnahme
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
 | 10.1 | D3.8 | Tiefer Wald, 3–5 min stehen (Wolfsgeheul kommt selten) | drei verschieden klingende ferne Wölfe: ein einzelner, ein anderer, ein Rudel | immer derselbe Wolf |
-| 10.2 | D3.9 | Wald: Test „Monster greifen nicht an“ an, an Wolf, Keiler, Goblin bis auf 2–5 Felder herangehen, je 30 s stehen | jedes Tier ab und zu leise zu hören (Schnüffeln, Grunzen, Räuspern), näher lauter, ab etwa 7 Feldern still; nie mehrere zugleich | stumm; zu laut oder zu oft; Tiere klingen gleich |
+| 10.2 | D3.9 | Wald: Test „Monster beachten mich nicht: an“, an Wolf, Keiler, Goblin bis auf 2–5 Felder herangehen, je 30 s stehen | jedes Tier ab und zu leise zu hören (Schnüffeln, Grunzen, Räuspern), näher lauter, ab etwa 7 Feldern still; nie mehrere zugleich | stumm; zu laut oder zu oft; Tiere klingen gleich |
 | 10.3 | D3.9 | Höhle (gleicher Testschalter): Skelett, Zombie, Fledermaus, Goblin | Knochen klappern, Stöhnen, Flügel; passt zum Tier | falscher Laut zum Tier |
 
