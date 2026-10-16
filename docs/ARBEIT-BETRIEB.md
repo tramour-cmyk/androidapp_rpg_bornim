@@ -25,6 +25,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Projekt wertet nach zwei Tagen aus.
 
+- 16.10., 10:26: Neustart Jerry 18; Jerry 30 kostete 2,38 $; Pro-Fünfstundengrenze meldet `allowed_warning` (Rücksetzung 12:00)
 - 16.10., 10:19: Neustart Jerry 30; Jerry 53 kostete 3,87 $
 - 16.10., 10:06: Neustart Jerry 53; Jerry 36.6: kein `usage` beim Archivieren; dessen Wecker „Jerry 36.6 Neustart prüfen“ gelöscht (Nachfolger läuft)
 - 16.10., 09:41: Neustart Jerry 36.6; Jerry 51 kostete 3,29 $
