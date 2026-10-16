@@ -10,6 +10,8 @@ package de.bornim.core
 object Stamina {
     const val WALK_REFILL_MS = 40_000.0
     const val STAND_REFILL_MS = 20_000.0
+    /** 84.4: running is loud; monsters notice the hero this many tiles sooner (to be tuned in the test). */
+    const val RUN_NOISE = 2
     /** Out of breath, the hero may run again from this much on. */
     const val AGAIN = 0.25
 
@@ -33,7 +35,8 @@ object Stamina {
         }.coerceIn(0.0, 1.0)
         if (state.stamina <= 0.0) state.winded = true
         else if (state.winded && state.stamina >= AGAIN) state.winded = false
-        return runs && !state.winded
+        state.running = runs && !state.winded
+        return state.running
     }
 
     /** A rest fills the store. */

@@ -1,6 +1,7 @@
 package de.bornim.core
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -67,6 +68,9 @@ class GameState(
     init {
         hero.chapter = Story.chapter(this)
     }
+
+    /** 86.3/84.4: the hero is running this frame ([Stamina.step]); running is loud, monsters hear him sooner. Not saved. */
+    @Transient var running: Boolean = false
 
     fun nextUid(): Long = ++uidCounter
 

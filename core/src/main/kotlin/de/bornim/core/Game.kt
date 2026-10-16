@@ -671,7 +671,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             val calm = monstersIgnoreHero || now < r.calmUntil || now < peaceUntil
             // Weak monsters keep away from a far stronger hero; elites are never afraid.
             val afraid = strongHero && r.trait == null
-            val sees = heroSafe == null && dist <= (if (r.temper == Temper.LURKER) 2 else Perks.noticeRange(hero))
+            // 84.4: running is loud, the hero is heard sooner; a lurker waits in its place and only notices what comes close
+            val sees = heroSafe == null && dist <= (if (r.temper == Temper.LURKER) 2 else Perks.noticeRange(hero) + (if (state.running) Stamina.RUN_NOISE else 0))
             when {
                 !calm && afraid && dist <= 4 && heroSafe == null -> {
                     r.hunting = false
