@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kosten-Nutzen der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 13, davon A 1, wartet auf Chef 2**
+**offen 14, davon A 1, wartet auf Chef 2**
 
 **Gelesen bis:** `7ea5ee9c` (16.10., 07:1x)
 
@@ -12,6 +12,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 | Nr. | Thema | Stand |
 |---|---|---|
+| 108 | **von Sokrates Berater:** Dein Zug als Markdown im Repo umsetzen (Beschluss 108 A, 16.10.): erst nach Diogenes (D15, Befunde über Berater); Regeln (`CLAUDE.md` 63, Rollendateien), `tools/meldung.sh` (dz:), `tools/zug-haken.py`; mit 99g zusammen | nach D15 |
 | 101 | Ford-Sitzung heißt noch „Teamleiter“ (Chef 16.10., 06:47: „Bei Ford steht immer noch Teamleiter, Ford 2 … meldet sich richtigerweise als Niederlassungsleiter. Halte den Fehler mal fest“) | **nach Sparmodus** (ab Sa 17.10., 21:00). Ursache: Umbau 98 hat `ROLLE-BETRIEB.md` Kopf und „Selbstneustart“ nicht auf „Ford – Betriebsleiter (TT.MM., HH:MM)“ umgestellt. Dort ändern, dann Ford umbenennen (`set_session_title`), `ARBEIT-BETRIEB.md`, Besetzung; Lehre: Titel gegen Rollentabelle prüfen |
 | 102 | Aktualisierung aller Dokumente von WireStormTCS nach Neustart, mit Lessons learned (Chef 16.10., 06:47) | **nach Sparmodus.** Alle Notizen gegen `CLAUDE.md`/`FIRMA.md` abgleichen (Titel, Begriffe, alte Namen); Firmenordnung und Rollenkonzept (Artefakte) „überholt, es gilt `main`“; offene Kleinigkeiten aus D14 (Stellungstafel Co-Pilot, `CLAUDE.md` „nach der Kennung“); Lehren aus Umbau und Niederlassung (u. a. Rückfragen auch in „Auto“, Jerrys Routinen liefen trotz Pause) in die Rollendateien; Diogenes kurz nachprüfen lassen |
 | 105 | Telegram-Sprungmarken auf „Dein Zug“ (Chef 16.10., 08:0x: „Telegram nochmal nachbessern, weil das haut wieder mal nicht hin mit der Verlinkung auf die zu erledigen Tops“) | offen, von Team Tom. Ursache in `tools/meldung.sh` (`dz:`-Marken) und Ziel auf der Seite prüfen; Merkliste des Chefs |
