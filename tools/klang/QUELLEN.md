@@ -172,7 +172,9 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026. Geschnitten mit 
 
 | Klang im Spiel | Aufnahme(n) | Urheber, Paket | Quelle |
 |---|---|---|---|
-| `wolf_far_1–3` | Cooper Creek 20160313_014852 solitary wolf howl very clear (500646): drei der vier Heuler, dumpfer, Hall | betchkal, Freesound | https://freesound.org/people/betchkal/sounds/500646/ |
+| `wolf_far_1` | Cooper Creek 20160313_014852 solitary wolf howl very clear (500646): erster Heuler, dumpfer, Hall | betchkal, Freesound | https://freesound.org/people/betchkal/sounds/500646/ |
+| `wolf_far_2` | wolfs.wav (143568, fünf Wölfe): 18,0–29,4 s, ebenso (D3.8, Lizenz geprüft 16.10.2026) | ondrosik, Freesound | https://freesound.org/people/ondrosik/sounds/143568/ |
+| `wolf_far_3` | wolves.wav (158780, Rudel in Wolf Haven International): 0,9–10,4 s, ebenso (D3.8, Lizenz geprüft 16.10.2026) | Paresh, Freesound | https://freesound.org/people/Paresh/sounds/158780/ |
 | `rumble_1` | rockfall2a (389303), tiefer, nur unter 600 Hz, Höhlenhall | AlanCat, Freesound | https://freesound.org/people/AlanCat/sounds/389303/ |
 | `rumble_2` | S24-18 Landslide (675736), ebenso | craigsmith, Freesound | https://freesound.org/people/craigsmith/sounds/675736/ |
 | `rumble_3` | RockFall1b (381645), ebenso | AlanCat, Freesound | https://freesound.org/people/AlanCat/sounds/381645/ |
