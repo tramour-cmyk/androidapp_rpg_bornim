@@ -200,6 +200,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             hero.hp = minOf(hero.maxHp, hero.hp + Resting.shortHeal(hero))
             lines += Cmd.Say(null, Resting.shortRested.let { T(it.de.replace("{0}", "${hero.hp - before}"), it.en.replace("{0}", "${hero.hp - before}")) })
         }
+        // 114 (user 16.10.): a room booked at Rowena's counter: the hero wakes beside the bed, not at the counter
+        if (spot == Resting.Spot.TAVERN && state.place.map == Story.START.map) state.place = Story.START
         state.respawn = state.place
         if (spot == Resting.Spot.FIRE) {
             val meat = state.count("raw_meat")
