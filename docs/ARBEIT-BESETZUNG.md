@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt nur Ford bei jedem Lauf aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 16.10., 02:06 (Ford)
+**Stand:** 16.10., 07:06 (Ford; Jerry-Zeilen Ford 2)
 
 | Rolle | Sitzung | Zeile | Zweig | seit |
 |---|---|---|---|---|

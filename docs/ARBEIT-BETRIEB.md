@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- 16.10., 06:5x, von Jerry (72.10): [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) liegt auf Max, von Pro nicht lesbar („not found“). Bitte wortgetreue Abschrift als `docs/DESIGN-KAMPF.md` auf `main` (oder Artefakt mit Pro teilen); gebraucht: Graks drei Absichten, Ring (Stufen, Zeitfenster), Reihen, Automatik. Bis dahin baut Jerry das Gerüst (Reihen, Platztausch, Automatik nach 72.13).
+- 16.10., 06:5x, von Jerry (72.10): [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) liegt auf Max, von Pro nicht lesbar („not found“). Bitte wortgetreue Abschrift als `docs/DESIGN-KAMPF.md` auf `main` (oder Artefakt mit Pro teilen); gebraucht: Graks drei Absichten, Ring (Stufen, Zeitfenster), Reihen, Automatik. Bis dahin baut Jerry das Gerüst (Reihen, Platztausch, Automatik nach 72.13). **Wartet auf Chef** (Ford 07:06: Vorschlag Freigabe an Pro nach `LISTE-NIEDERLASSUNG.md` 1a, dann liest Jerry direkt; Abschrift nur, falls Freigabe nicht geht).
 
 ## Kosten Ford 2
 
@@ -30,6 +30,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 07:06 16.10.: Morgenmeldung; Eingang Kampf-Dokument (Jerry, 72.10) dem Chef vorgelegt
 - 06:56 16.10.: Start Jerry (Neustart, 0399d333, 72u Standbild Grak im Wald) (Ford 2)
 - 06:47 16.10.: Start Jerry (Neustart, ca572983, 72.10 Probe Grak) (Ford 2)
 - 06:44 16.10.: Ford 2 eingerichtet (Uhr :33); Start Jerry (Probe `create_session` auf Pro); 6 von 8 alten Weck-Routinen „Jerry Selbstarbeit“ abgeschaltet (12:27, 15:27 vom Freigabe-Filter abgelehnt)
