@@ -2,7 +2,7 @@
 
 Sokrates Projekt · 16.10., 21:52 · Anlass Chef 16.10., 16:3x: „ob die Rollendefinition der Mitarbeiter verbessert werden könnte … Nicht länger, präziser. Oder vielleicht fehlt ja sogar was für eine Rolle.“ · 21:5x: „gib mir mal da vorher-nachher-Entwürfe dazu“ · 21:5x: „meine Bitte war ja, alle Rollen zu schärfen … Wenn aber jetzt schon aufgefallen ist, dass irgendeine Rolle schwach aufgestellt ist oder noch keine Kennzahlen hat … 124 … 125 126 Das möchte ich in einen Rutsch morgen umgebaut wissen und dann auch mit vernünftigen KPIs … Das muss also jetzt hier mal irgendwer zusammenfassen“
 
-Kurz: Zusammenfassung: alle sechs Rollen Sa ab 21:15 in einem Rutsch, je Rolle eine Kennzahl mit Quelle und eine Schwäche; dazu 124, 125, 126; ein „Paket ja“ genügt
+Kurz: Zusammenfassung: alle sechs Rollen Sa ab 21:15 in einem Rutsch, je Rolle eine Kennzahl, dazu fünf Firmenkennzahlen (Kosten, Guthaben, Meilenstein, Testrunden, ersparte Fragen); dazu 124, 125, 126; ein „Paket ja“ genügt
 
 **Frage:** Samstag ab 21:15 alles in einem Rutsch umbauen, wie unten zusammengefasst? Ein „Paket ja“ entscheidet 106.1, 124, 125, 126 und 115 zusammen; Abweichungen dazuschreiben (z. B. andere Namen als Perikles und Homer). Sonst ist für Samstag nichts offen.
 
@@ -20,6 +20,20 @@ Zählen einmal vergeben (D18.4): **erfassen** die Rollen selbst bzw. Ford beim N
 | **Berater** (Sokrates) | Anteil Empfehlungen, die nach einer Woche noch gelten | Beschlüsse / Vorgangsarchiv | Maß steht schon, wird nicht gezählt |
 | **Betriebsleiter** Ford, Ford 2 | Stillstand in Stunden (startbare Arbeit ohne Sitzung), getrennt nach Ursache: Guthaben, eingeteilt, Fehler; Ziel Fehler 0 | Besetzung, Protokoll (128, D20.3); ersetzt „Leerlauf“ | Aufträge und Befunde bleiben liegen (107); falscher Sitzungstitel (101); Ford 2 zusätzlich unter 10 % von Jerrys Woche (99f) |
 | **Prüfer** Diogenes (QS/QM) | Verwerfquote; Fehler, die erst der Chef am Gerät fand | Prüfbericht, Rückläufer | QS/QM fehlt im Titel; zählt künftig alle Kennzahlen |
+
+## Firmenkennzahlen (Wochenbericht)
+
+Chef 16.10., 21:5x: „Hatten wir da nicht mehr Ideen? Als nur eine Kennzahl. … sind Finanzen nicht auch eine Kennzahl“. Eine Kennzahl je Rolle war der Vorschlag von Diogenes (D18), damit jede Rolle weiß, woran sie gemessen wird. Besprochen waren mehr; die zählen für die ganze Firma, einmal die Woche in einer Tabelle (Diogenes zählt, Projekt bewertet):
+
+| Kennzahl | Ziel | Herkunft |
+|---|---|---|
+| **Kosten der Woche** je Hauptthema, Anteil Spiel (E+G) | Anteil Spiel steigt; Wert nach Woche 1 | 124, 90a (Anteil Spielcode sank 92:296 → 28:149) |
+| **Guthaben:** Verbrauch je Account gegen die Woche; vor Wochenmitte `allowed_warning` → nur Muss | kein Account vor dem Wechsel leer | 128, D20.2 |
+| **Fortschritt Meilenstein:** Pflichtpunkte Kapitel 1 erledigt (heute in `LISTE-KAPITEL1.md`) | Wochenziel erreicht | 126 |
+| **Testrunden des Chefs** je Woche und Rückläufer darunter | Rückläufer 0 | 76f, 124 („Testzeit nicht im Preis“) |
+| **Ersparte Fragen** an den Chef durch Vorentscheid | mindestens 5 je Woche, sonst fällt der Vorentscheid weg | 98.2 |
+
+**Finanzen:** echtes Geld ändert sich nicht (zwei Pauschalen, Max und Pro, je fester Monatsbetrag). Was knapp ist, ist das Guthaben je Woche; darum stehen „Kosten der Woche“ und „Guthaben“ oben. Die Dollarbeträge (`cost_usd`) sind API-Preise, als Maß für Anteile und Vergleiche gut, keine Rechnung. Prüfung beider Abos auf Preis-Leistung um den 10.11. (99e). Mehr Kennzahlen nicht: jede kostet Zählen, und wer zu vielen Zahlen folgt, folgt keiner.
 
 ## Was mitkommt
 
