@@ -2,7 +2,7 @@
 
 Sokrates Projekt · 16.10., 07:2x, Stand 11:1x
 
-Kurz: Gehen Kampf-Dokument, Storyplan, Heldenbau auf Pro auf? Sonst Abschriften ins Repo (Empfehlung: Abschriften)
+Kurz: Öffnen Kampf-Dokument, Storyplan, Heldenbau auf Pro? Sonst Abschriften ins Repo (Empfehlung: Abschriften)
 
 **Erledigt durch 108:** Dein Zug liegt jetzt im Repo (`docs/zug/`), Pro schreibt dort ohne Freigabe. Die Freigabe für die alte Seite Dein Zug ist damit nicht mehr nötig.
 
