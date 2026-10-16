@@ -70,6 +70,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 21:29 16.10.: Start Tom (Übernahme D1/D3: #93, #94, #95 nach main; Chef 16.10., 21:2x: „Ich will alle fertigen Builds, die ich getestet habe, auf Main haben. Also lass das Tom mal bitte machen. Auch das von Jerry. Soweit du weißt, dass wir es freigegeben haben.“)
 - 21:20 16.10.: von Sokrates Projekt: Wache Mo–Fr 07:08, Sa/So 09:08 (zweite Uhr); Guthaben Max 91 %; Umbau Namen auf Sa 21:15
 - 21:19 16.10.: neuer Ford session_01B3GyS2dPCbVVLgZ2umvMQt läuft, Uhr trig_013eNWtEGr7bAJCFxhGY5WHk; alte Uhr gelöscht, alter Ford archiviert
 - 21:18 16.10.: Selbstneustart Ford (Haken-Erinnerung 2, ≈233 Tsd. Token); offen: Diogenes 125 (session_01NN52c14B4vhpWH2KyWnUGT) fertig seit 20:57, archivieren ab 22:03, wenn unverändert; Tom pausiert bis Testergebnis 0.1.806 (dann „Tom – 92 nach Test zusammenführen“ starten); Sa 08:00 Start Sokrates Projekt (Eingang); Guthabenzeile 128
