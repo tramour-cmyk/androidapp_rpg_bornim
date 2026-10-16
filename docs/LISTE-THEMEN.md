@@ -56,7 +56,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 50 | Weitere Klassen, ggf. zum Kauf | Berater mit Nutzer | ruht |
 | 51 | Sterbehaltung des Helden (Magier) sieht komisch aus | Jerry | offen |
 | 52 | Feinarbeit an den Kampfanimationen | Jerry | ruht |
-| 53 | Zustände (Brennend) auf Krogg prüfen | Jerry | ruht |
+| 53 | Zustände (Brennend) auf Krogg prüfen | Jerry | gebaut |
 | 54 | Nicht warten, von selbst weiterarbeiten | Tom und Jerry | erledigt |
 | 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | erledigt |
 | 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | Tom | erledigt |
@@ -102,3 +102,8 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 101 | Ford-Titel „Betriebsleiter“ | Projekt | offen |
 | 102 | Dokumente WireStormTCS nachziehen | Projekt | offen |
 | 103 | Kurz antworten (Haltung 5) | Projekt | fertig |
+| 114 | Aufwachen am Bett im Gasthaus | Kreativ | Idee |
+| 115 | Idee heißt prüfen | Projekt | offen |
+| 116 | Zwischenbildschirm umbenennen | Projekt | beschlossen |
+| 117 | Namen in docs und Archiv | Projekt | beschlossen |
+| 118 | Teams ohne Themen | Projekt | offen |

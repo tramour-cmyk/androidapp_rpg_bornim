@@ -2,12 +2,12 @@
 
 **Wer gerade woran** (98.5). Schreibt nur Ford bei jedem Lauf aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 16.10., 08:02 (Ford; Jerry-Zeilen Ford 2)
+**Stand:** 16.10., 13:34 (Ford; Jerry-Zeilen Ford 2)
 
 | Rolle | Sitzung | Zeile | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford – Teamleiter (16.10., 02:05)](https://claude.ai/code/session_01KYjYQSUyCT2WSXinMf6rPA) | Betrieb | – | 16.10., 02:04 |
-| Sokrates Projekt | [Sokrates Projekt – Niederlassung (16.10., 07:11)](https://claude.ai/code/session_01PFTy5NtmFuxaDaNZPxx88H) | 99 Niederlassung | `claude/sokrates-projekt-99-niederlassung` | 16.10., 07:11 |
-| Team Tom | [Tom – 104 Test 0.1.757 (16.10., 08:01)](https://claude.ai/code/session_01P2N7CBap3y2orX7gvBbF9K) | 104 (PR #71) | `claude/tom-38-rauchbuendel-dialoge` | 16.10., 08:01 |
+| Ford | [Ford – Betriebsleiter (16.10., 11:35)](https://claude.ai/code/session_01J3A7bVXcJjdsqCbQRgt7xi) | Betrieb | – | 16.10., 11:35 |
+| Sokrates Projekt | [Sokrates Projekt – 118 Teams ohne Themen (16.10., 13:33)](https://claude.ai/code/session_01XPcJHh5fXzcwHcFp6RhVgW) | 118 | `claude/sokrates-projekt-118-teams` | 16.10., 13:33 |
+| Team Tom | [Tom – 40 Helligkeitswert (16.10., 11:51)](https://claude.ai/code/session_01Syzr4rUnfZa3irV1c89CmP) | Build `main`, dann 40 | `claude/tom-40-helligkeit` | 16.10., 11:51 |
 | Ford 2 | [Ford 2 – Niederlassungsleiter (16.10., 08:49)](https://claude.ai/code/session_01JDBt2kNDbu2Udn7WRr5wE7) | Betrieb Pro | – | 16.10., 08:48 |
-| Team Jerry | [Jerry – D6.4 Fluss stumm (16.10., 08:47)](https://claude.ai/code/session_01VWS3X7g3zDAVWC2ivSuV5z) | D6.4 | `claude/jerry-d6-4-fluss` | 16.10., 08:47 |
+| Team Jerry | [Jerry – 18 Gegnerstimmen (16.10., 10:25)](https://claude.ai/code/session_01AT4KoMEG8zRZWxVqMsWpSy) | 18 | `claude/jerry-18-gegnerstimmen` | 16.10., 10:25 |
