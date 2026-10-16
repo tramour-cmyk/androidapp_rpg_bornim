@@ -4,9 +4,9 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 **offen 15, davon A 1, wartet auf Chef 3**
 
-**Gelesen bis:** `2f5e7018` (16.10., 11:1x)
+**Gelesen bis:** `9d056ce6` (16.10., 11:2x)
 
-**Übergabe (16.10., 11:2x, „Sokrates Projekt – Niederlassung (16.10., 07:11)“):** 108 umgesetzt: Dein Zug in `docs/zug/` (Übersicht schreibt Action `zug-index.yml`), `meldung.sh` dz:, Haken, Bildwarnung, Artefakt „abgelöst“; Chef zufrieden („das Bild und alles ist toll“, Telegram-Link geht). Jerrys Testreihe übertragen (`ansehen/jerry-testreihe.md`), Jerry Pause bis 13:20 (Ford 2 am selben Guthaben, startet ihn im Lauf 13:33; Chef schreibt Ford 2 „Ford-Lauf“, falls Jerry um 13:45 nicht läuft). Offen: Build 772 (nur Workflow-Datei) grün prüfen; 108 streichen, sobald Jerry selbst einen Punkt angelegt hat; 99g wartet auf Chef (Links auf Pro). Danach 110 (Tiefe 8, dringend vor Fords Selbstneustart). Nach Sparmodus: 101, 102. Messung Ford 2 bis So 18.10. Nachfolger: Sokrates Projekt – 110 Sitzungstiefe (16.10. …)
+**Übergabe (16.10., 11:2x, „Sokrates Projekt – 110 Sitzungstiefe (16.10., 11:19)“):** 110 Regel auf `main` (`ROLLE-BETRIEB.md` „Tiefe“), Ford per Nachricht, Chef laut gemeldet, wartet auf Hand-Start „Ford“ ([110](zug/entscheiden/110-ford-von-hand.md)). Diese Sitzung liegt auf Tiefe 8 (kein Weckruf, kein Neustart möglich): bleibt offen bis zum neuen Ford, dann 110 prüfen (neue Uhr, alter Ford archiviert, Tiefe 0) und streichen, Dein-Zug-Datei löschen. Weiter offen: 108 streichen nach Jerrys erstem Punkt; 99g wartet auf Chef; nach Sparmodus 101 (Titel in `ROLLE-BETRIEB.md` schon geändert), 102; Messung Ford 2 bis So 18.10. Nachfolger: Sokrates Projekt – Vorrang und Kosten (16.10. …)
 
 ## Zeilen
 
