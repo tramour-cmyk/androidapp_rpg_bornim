@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 
 **offen 8, davon A 0, wartet auf Chef 2**
 
-**Übergabe (16.10., 14:4x, „Tom – Eigene Zeilen kürzen“) – Nachfolger: keiner jetzt; nächster Start bei Rückmeldung des Chefs (0.1.781, Rast t757, 92 am Gerät):** Zeilen 5, 24, 59e, 95 gestrichen (Rest bei Jerry). D3 als PR #92 (0.1.781 grün), Prüfliste `t781-d3-monster.md`. Nachfolger: #92 neu abonnieren.
+**Übergabe (16.10., 14:4x, „Tom – Eigene Zeilen kürzen“) – Nachfolger: keiner jetzt; nächster Start bei Rückmeldung des Chefs (0.1.781, 92 am Gerät; Rast t757 erledigt, Chef 12:2x):** Zeilen 5, 24, 59e, 95 gestrichen (Rest bei Jerry). D3 als PR #92 (0.1.781 grün), Prüfliste `t781-d3-monster.md`. Nachfolger: #92 neu abonnieren.
 
 ## Zeilen
 
