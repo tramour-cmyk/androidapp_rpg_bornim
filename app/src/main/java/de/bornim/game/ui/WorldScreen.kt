@@ -140,6 +140,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
     LaunchedEffect(game) {
         var lastFrame = 0L
         val feet = de.bornim.core.audio.Footsteps.Feet()
+        val breath = de.bornim.core.audio.Panting.Breath()
         while (isActive) {
             // turned round at the edge of the map (67): once the line is read, one step back the way the hero came
             if (game.mode == Mode.Explore && !VeilMemory.active) game.stepBack?.let { d ->
@@ -187,6 +188,8 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 lastFrame = now
                 // 86.3: running uses up breath; out of breath, the hero walks
                 val runs = de.bornim.core.Stamina.step(game.state, dt, vx != 0.0 || vy != 0.0, running)
+                // 95: out of breath, the hero pants (Team Jerry)
+                breath.due(game.state, now)?.let { vm.play(de.bornim.core.audio.Panting.sound(game.state.hero.sex), it) }
                 if (vx != 0.0 || vy != 0.0) {
                     // a tapped walk slows down for the last bit so it does not overshoot the middle of the tile
                     val left = if (sv == null && waypoints.isNotEmpty()) kotlin.math.hypot(vx, vy) else 9.0

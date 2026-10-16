@@ -158,3 +158,10 @@ CC0 1.0, Lizenz in den Paketen (License.txt) und auf der Quellseite geprüft am 
 | `step_cobble_1–3` (zweite Runde) | 0606 „Step, Shoe on Stone Staircase“, Schritte bei 1,15 / 9,85 / 10,7 s | BigSoundBank, CC0 | https://bigsoundbank.com/search?q=footsteps |
 | `step_wood_1–3` | footstep_wood_000, _002, _003 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
 | `step_stone_1–3` | footstep_concrete_001, _003, _004 (tiefer, mit Höhlenhall) | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
+
+## Runde 7: Keuchen des Helden (95, `tools/klang/atem.py`)
+
+| Klang | Aufnahme(n) | Urheber, Paket | Quelle |
+|---|---|---|---|
+| `pant_man_1–3` | 1103 „Breathless Man“, Atemzüge bei 1,35 / 8,30 / 12,55 s | Joseph Sardin, BigSoundBank, CC0 (Seite geprüft 16.10.2026) | https://bigsoundbank.com/breathless-man-s1103.html |
+| `pant_woman_1–3` | 1345 „Breathless Woman“, Atemzüge bei 1,50 / 6,20 / 11,05 s | Joseph Sardin, BigSoundBank, CC0 (Seite geprüft 16.10.2026) | https://bigsoundbank.com/breathless-woman-s1345.html |
