@@ -31,6 +31,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 08:01 16.10.: Start Tom (Neustart, a511156c, 104 Test 0.1.757)
 - 07:46 16.10.: Start Jerry (Neustart, 2e6b2b19, 38 Rauchbündel im Kampf) (Ford 2)
 - 07:30 16.10.: Start Jerry (Neustart, 596dd4d0, 95 Keuchen hörbar) (Ford 2)
 - 07:11 16.10.: Start Sokrates Projekt (Neustart, af440a91, Niederlassung)
