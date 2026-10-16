@@ -417,6 +417,33 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** Monsters walking around on the current map. */
     val roamers: List<Roamer> get() = herd()
 
+    /**
+     * 120: how close the nearest hunter is, for the music (see [de.bornim.core.audio.Threat]). Monsters that leave the
+     * hero be (calm, afraid of a far stronger hero, on the way home) and lurkers in hiding do not count, nor does a hero in
+     * a safe place; one that hunts the hero has noticed him. Only reads: no herd is made here.
+     */
+    fun threat(): de.bornim.core.audio.Threat {
+        val none = de.bornim.core.audio.Threat.NONE
+        if (mode != Mode.Explore) return none
+        val herd = herds[state.place.map] ?: return none
+        val p = state.place
+        if (map.safeZones.any { it.contains(p.x, p.y) }) return none
+        // as in updateRoamers
+        val strongHero = hero.level >= map.areaLevel + 5
+        val far = de.bornim.core.audio.Threat.FAR_TILES
+        val range = Perks.noticeRange(hero)
+        var near = 0f
+        var noticed = false
+        for (r in herd) {
+            if (monstersIgnoreHero || now < r.calmUntil || now < peaceUntil || (strongHero && r.trait == null)) continue
+            if (r.hunting) { noticed = true; continue }
+            if (r.temper != Temper.HUNTER || r.returning) continue
+            val dist = kotlin.math.abs(r.x - p.x) + kotlin.math.abs(r.y - p.y)
+            near = maxOf(near, ((far - dist).toFloat() / (far - range)).coerceIn(0f, 1f))
+        }
+        return de.bornim.core.audio.Threat(near, noticed)
+    }
+
     fun roamerAt(x: Int, y: Int): Roamer? = herd().firstOrNull { it.x == x && it.y == y }
 
     /** Walkable for the hero and monsters: free of walls, people and monsters. */

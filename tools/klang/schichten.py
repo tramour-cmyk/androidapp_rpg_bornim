@@ -1,8 +1,13 @@
 """
 Hörproben zu „Musik in Schichten“ (120, Idee 10): nähert sich ein Jäger, schleicht sich eine dunkle Spur in die Musik,
-bevor der Kampf beginnt; Stille bewusst einsetzen. Noch nicht im Spiel; ins Spiel erst nach Wahl des Nutzers.
+bevor der Kampf beginnt; Stille bewusst einsetzen. Gewählt: Form wie Probe 1, alle drei Spuren im Wechsel (Nutzer 16.10.).
 
     python3 tools/klang/schichten.py <ordner mit den Aufnahmen> <ziel>
+    python3 tools/klang/schichten.py --spiel <ordner mit den Aufnahmen>
+
+--spiel schreibt die drei Spuren als Schleifen nach app/src/main/assets/music (spur_*.ogg, Vorbis q 1, höchstens 90 s,
+die letzten 3 s gehen in den Anfang über), Effektivpegel SPUR_RMS + SPUR_TOP: so laut wie in Probe 1 im Augenblick,
+bevor der Jäger den Helden bemerkt (Hüllkurve 1,2); das Spiel regelt sie mit der Nähe herunter (MusicDirector).
 
 Musik aus app/src/main/assets/music (schon auf -18 LUFS), Spur aus drei CC0-Aufnahmen (QUELLEN.md, „Musik in
 Schichten“; laden mit tools/klang/holen.sh), auf gleichen Effektivpegel gebracht. Pegel wie im Spiel (Musik 0,6).
@@ -18,12 +23,15 @@ import numpy as np
 from scipy import signal
 
 SR = 44100
-D, OUT = sys.argv[1], sys.argv[2]
-os.makedirs(OUT, exist_ok=True)
+SPIEL = sys.argv[1] == "--spiel"
+D, OUT = (sys.argv[2], None) if SPIEL else (sys.argv[1], sys.argv[2])
+if OUT: os.makedirs(OUT, exist_ok=True)
 MUSIC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../app/src/main/assets/music")
 LEVEL = 0.6
 # Pegel der Spur bei Hüllkurve 1 (RMS, dBFS): etwa so laut wie die Waldmusik im Spiel (-28), nach Tiefe gleich laut
 SPUR_RMS = -31
+SPUR_TOP = 20 * np.log10(1.2)
+SPUR_MAX_S = 90
 SPUR = {"cello": "fs_465558.mp3", "gedehnt": "fs_195850.mp3", "tief": "fs_507741.mp3"}
 
 
@@ -88,6 +96,28 @@ def probe(name, total, wald_env, dark_env, spur=None, spur_env=None, fight_at=No
     os.remove(wav)
     print(name, f"{total:.0f} s, Spitze {20 * np.log10(np.max(np.abs(y)) + 1e-9):.1f} dB")
 
+
+def spiel():
+    for name, f in SPUR.items():
+        x = lowpass(load(os.path.join(D, f)), 2500)
+        x = x[: SPUR_MAX_S * SR]
+        s = 3 * SR
+        k = np.linspace(0, 1, s)[:, None]
+        # Schleife: das Ende geht in den Anfang über, die Datei beginnt nach der Überblendung
+        x = np.concatenate([x[-s:] * (1 - k) + x[:s] * k, x[s:-s]])
+        x *= 10 ** ((SPUR_RMS + SPUR_TOP) / 20) / np.sqrt(np.mean(x ** 2))
+        wav = os.path.join(D, f"spur_{name}.wav")
+        import soundfile as sf
+        sf.write(wav, x, SR, subtype="PCM_16")
+        ogg = os.path.join(MUSIC, f"spur_{name}.ogg")
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", wav, "-c:a", "libvorbis", "-q:a", "1", ogg], check=True)
+        os.remove(wav)
+        print(ogg, f"{len(x) / SR:.0f} s, Spitze {20 * np.log10(np.max(np.abs(x))):.1f} dB")
+
+
+if SPIEL:
+    spiel()
+    sys.exit()
 
 # 0 heute: Wald, nach 14 s steht der Jäger da, Kampf sofort (300 ms)
 probe("probe0_heute", 26, [(0, 1), (14, 1), (14.3, 0)], [(0, 0)], fight_at=14)
