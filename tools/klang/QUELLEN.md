@@ -158,3 +158,13 @@ CC0 1.0, Lizenz in den Paketen (License.txt) und auf der Quellseite geprüft am 
 | `step_cobble_1–3` (zweite Runde) | 0606 „Step, Shoe on Stone Staircase“, Schritte bei 1,15 / 9,85 / 10,7 s | BigSoundBank, CC0 | https://bigsoundbank.com/search?q=footsteps |
 | `step_wood_1–3` | footstep_wood_000, _002, _003 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
 | `step_stone_1–3` | footstep_concrete_001, _003, _004 (tiefer, mit Höhlenhall) | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
+
+## 120 Musik in Schichten (Hörproben, noch nicht im Spiel)
+
+Dunkle Spur unter der Ortsmusik, wenn ein Jäger näher kommt (`tools/klang/schichten.py`). CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026; geladen als Freesound-Vorschau (128 kbit/s), bis 2,5 kHz gefiltert.
+
+| Spur | Aufnahme | Urheber | Quelle |
+|---|---|---|---|
+| Cello | cello drone.wav | carrieedick | https://freesound.org/s/465558/ |
+| gedehnt | Cellos Destroyed and Droned with Paulstretch.wav | RutgerMuller | https://freesound.org/s/195850/ |
+| tief | Dark Strings Music 02 | Magmi.Soundtracks | https://freesound.org/s/507741/ |
