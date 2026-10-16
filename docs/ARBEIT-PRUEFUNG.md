@@ -4,9 +4,9 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Themennumm
 
 **offen 2, davon A 0, wartet auf Chef 0**
 
-**Geprüft bis:** `d2739993` (16.10., Lauf 18: 125 und 106.1, nur Notizen; Lauf 9 Code bis 8836512); nächste Nummer D19.
+**Geprüft bis:** `1a6d3e1a` (16.10., Lauf 21: Abgleich Vorräte gegen Dein Zug, nur Notizen; Lauf 9 Code bis 8836512); nächste Nummer D22.
 
-**Übergabe (16.10., 20:29, Lauf 18):** 125 und 106.1 geprüft (Zuruf Chef 20:2x), Prüfbericht Lauf 18: D18.1 Termin Samstagsumbau dreifach, D18.2 „Dein Maß“ gibt es schon, D18.3 Probe misst nichts ohne Zählung, D18.4 Zählen dreifach vergeben, D18.5 `cost_usd` fehlt bei einem Drittel; Vorschlag je Rolle eine Kennzahl; D18 bei Sokrates Projekt. Nachfolger: keiner nötig bis zum nächsten Auftrag.
+**Übergabe (16.10., 21:31, Lauf 21):** Läufe 18–20 (125, 106.1, 126, 128) und 21 (Abgleich Vorräte gegen Dein Zug, Zuruf Chef 21:2x) fertig, Prüfbericht. D21: 11 Zeilen sagen „Chef“ ohne Auftrag, Build 7 erledigt aber noch auf Dein Zug; Ursachen D21.1 Hut läuft nicht, D21.2 „wartet auf Chef“ dreideutig, D21.3 kein Abgleich im Werkzeug. Zeilen an Projekt, Kreativ (A: 39.1, 72u), Tom, Jerry. Chef 16.10: D21.2 und D21.3 ja; D21.1 ja (Hut nur auf Zuruf, außer Story und Spieltexte). Nachfolger: keiner nötig bis zum nächsten Auftrag.
 
 ## Zeilen
 

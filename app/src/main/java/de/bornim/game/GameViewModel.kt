@@ -58,7 +58,10 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     var tick by mutableIntStateOf(0)
         private set
 
-    val music = MusicPlayer(app)
+    val music = MusicPlayer(app).also { m ->
+        // 120: the nearest hunter darkens the music while the hero is out in the world
+        m.threat = { game?.takeIf { screen == Screen.PLAYING }?.threat() ?: de.bornim.core.audio.Threat.NONE }
+    }
     val sfx = SfxPlayer(app)
     val introArt = IntroArt(app)
 

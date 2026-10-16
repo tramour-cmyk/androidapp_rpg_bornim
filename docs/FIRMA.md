@@ -72,7 +72,7 @@ Die Zentrale (Toms Account, Max) und die Niederlassung (zweiter Account, Pro) st
 | Fall | Wer merkt es | Was geschieht |
 |---|---|---|
 | **Normalbetrieb** | – | Ford 2 startet eine Sitzung von Team Jerry, wenn dessen Vorrat offen ist und keine läuft; meldet seine Starts selbst lautlos und schreibt Jerrys Zeilen in `ARBEIT-BESETZUNG.md`. Ford startet kein Team Jerry. |
-| **Guthaben auf Pro leer** | Jerry meldet es selbst (Zeile im Vorrat, Telegram) | Team Tom übernimmt Jerrys Zeilen nach Regel 6 (118); Ford startet kein Team Jerry in der Zentrale. Hat Max keine Luft, wartet die Arbeit bis zum Wochenwechsel, Ford sagt es dem Chef. |
+| **Guthaben auf Pro leer oder eingeteilt** (128) | Jerry meldet es selbst (Zeile im Vorrat, Telegram); eingeteilt: Ford 2 („Pause bis …“ oben in Jerrys Vorrat) | Team Tom übernimmt Jerrys Zeilen nach Regel 6 (118), **zuerst deine Testergebnisse** (Chef 16.10., 21:2x: „meine Freigaben und die Rückläufer“): Freigabe → PR zusammenführen, Rückläufer → beheben. Wer ein Ergebnis von dir hört, trägt es sofort in Jerrys Vorrat und auf „Dein Zug“ ein. Ford startet kein Team Jerry in der Zentrale. Hat Max keine Luft, wartet die Arbeit bis zum Wochenwechsel, Ford sagt es dem Chef. |
 | **Stiller Ausfall** (Jerry oder Ford 2 steht, keiner meldet) | Ford: 2 Stunden kein Commit von Team Jerry bei offenem Vorrat; gilt erst, wenn Ford 2 läuft, nie bei „Pause bis“ im Kopf von Jerrys Vorrat (D13.7); bis dahin startet der Chef Jerry von Hand | wie „Guthaben leer“ |
 | **Rückkehr** | Ford: Pro hat wieder Guthaben (Meldung von Team Jerry oder vom Chef; Pro wechselt zu eigener Zeit, nicht Sa 21:00, D13.8) | Ford 2 startet Jerry wieder; eine laufende Übernahme von Tom beendet ihren Punkt. |
 

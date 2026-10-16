@@ -18,12 +18,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.797](ansehen/jerry-testreihe.md) | Build 6 | Musik in Schichten | Jerry | 16.10. |
-| 2 | [0.1.798](ansehen/jerry-testreihe.md) | Build 7 | D1.14 und Testknopf | Jerry | 16.10. |
-| 3 | [0.1.799](ansehen/jerry-testreihe.md) | Build 8 | Probe 72.10: Held und Söldner gegen Grak | Jerry | 16.10. |
-| 4 | [0.1.800](ansehen/jerry-testreihe.md) | Build 9 | Regen und Donner | Jerry | 16.10. |
-| 5 | [0.1.802](ansehen/jerry-testreihe.md) | Build 10 | Wölfe und Monster auf der Karte | Jerry | 16.10. |
-| 6 | [0.1.806](ansehen/t806-92-bram-schubsen.md) | – | Bram schubsen | Tom | 16.10. |
+| 1 | [0.1.799](ansehen/jerry-testreihe.md) | Build 8 | Probe 72.10: Held und Söldner gegen Grak | Jerry | 16.10. |
 
 ## So geht's
 

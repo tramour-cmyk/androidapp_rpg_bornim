@@ -130,8 +130,6 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools
 | grund | `grund_fs_460459` | Ambient Rumble | Fission9 | https://freesound.org/s/460459/ |
 | grund | `grund_fs_516566` | Dark Dungeon Ambience | Kinoton | https://freesound.org/s/516566/ |
 | grund | `grund_fs_530161` | Dungeon Air | Flamiffer | https://freesound.org/s/530161/ |
-| grund | `grund_fs_540836` | Temple Cave Myts Storm | szegvari | https://freesound.org/s/540836/ |
-| grund | `grund_fs_609422` | Dark Cave Horns Fantasy Creatures Atmo | szegvari | https://freesound.org/s/609422/ |
 | kampf | `kampf_evil_approach` | Evil Approach | nene | https://opengameart.org/content/evil-approach |
 | kampf | `kampf_determined_pursuit` | Determined Pursuit (epic orchestra loop) | emmama | https://opengameart.org/content/determined-pursuit-epic-orchestra-loop |
 | kampf | `kampf_corrupted_minds` | Corrupted Minds | vitalezzz | https://opengameart.org/content/corrupted-minds |
@@ -172,7 +170,9 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026. Geschnitten mit 
 
 | Klang im Spiel | Aufnahme(n) | Urheber, Paket | Quelle |
 |---|---|---|---|
-| `wolf_far_1–3` | Cooper Creek 20160313_014852 solitary wolf howl very clear (500646): drei der vier Heuler, dumpfer, Hall | betchkal, Freesound | https://freesound.org/people/betchkal/sounds/500646/ |
+| `wolf_far_1` | Cooper Creek 20160313_014852 solitary wolf howl very clear (500646): erster Heuler, dumpfer, Hall | betchkal, Freesound | https://freesound.org/people/betchkal/sounds/500646/ |
+| `wolf_far_2` | wolfs.wav (143568, fünf Wölfe): 18,0–29,4 s, ebenso (D3.8, Lizenz geprüft 16.10.2026) | ondrosik, Freesound | https://freesound.org/people/ondrosik/sounds/143568/ |
+| `wolf_far_3` | wolves.wav (158780, Rudel in Wolf Haven International): 0,9–10,4 s, ebenso (D3.8, Lizenz geprüft 16.10.2026) | Paresh, Freesound | https://freesound.org/people/Paresh/sounds/158780/ |
 | `rumble_1` | rockfall2a (389303), tiefer, nur unter 600 Hz, Höhlenhall | AlanCat, Freesound | https://freesound.org/people/AlanCat/sounds/389303/ |
 | `rumble_2` | S24-18 Landslide (675736), ebenso | craigsmith, Freesound | https://freesound.org/people/craigsmith/sounds/675736/ |
 | `rumble_3` | RockFall1b (381645), ebenso | AlanCat, Freesound | https://freesound.org/people/AlanCat/sounds/381645/ |
@@ -188,6 +188,16 @@ CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026. Rezept: `tools/klang/
 | `river_1` | VistulaShort (Wellen an der Weichsel), ab 75 s | RandomMind, OpenGameArt | https://opengameart.org/content/sea-and-river-wave-sounds |
 | `river_2` | 0864 „Brooklet“, ab 20 s | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/brooklet-s0864.html |
 | `river_3` | 0823 „Small Stream“, ab 30 s | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/detail-0823-small-stream.html |
+
+## 120 Musik in Schichten (`spur_*.ogg` in `assets/music`)
+
+Dunkle Spur unter der Ortsmusik, wenn ein Jäger näher kommt (`tools/klang/schichten.py`). CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026; geladen als Freesound-Vorschau (128 kbit/s), bis 2,5 kHz gefiltert.
+
+| Spur | Aufnahme | Urheber | Quelle |
+|---|---|---|---|
+| Cello | cello drone.wav | carrieedick | https://freesound.org/s/465558/ |
+| gedehnt | Cellos Destroyed and Droned with Paulstretch.wav | RutgerMuller | https://freesound.org/s/195850/ |
+| tief | Dark Strings Music 02 | Magmi.Soundtracks | https://freesound.org/s/507741/ |
 
 ## Runde 9 (69c.1 Nacht unter dem Schwarzbild des Intros)
 
@@ -220,3 +230,35 @@ Alle CC0 1.0. BigSoundBank: Joseph Sardin, Lizenz „CC0 (public domain): Free a
 | Zombie (`zombie`) | 2106–2112 „Zombie #1–7“; Körperfall 2452, 2454, 2456 | BigSoundBank | https://bigsoundbank.com/search?CatID=CREA |
 | Ghul (`ghoul`) | 0475 „Horrible Laugh“; 2106 „Zombie #1“; 1882, 1883; 3177; weird_01, scream_01, zombieDeath3 | BigSoundBank; rubberduck; arcadeparty | wie oben |
 | Ockergallerte (`ochre_jelly`) | Gore 2583, 2587, 2594; 0334 „Tripes“; 1280, 1281, 3177 „Stomach Gurgling“; burble_01, _02, eat_04 | BigSoundBank; rubberduck | https://bigsoundbank.com/search?CatID=GORE |
+
+## Runde 10 (D3.10 Regen und Donner, im Spiel: `rain_1–3`, `thunder_1–3`)
+
+BigSoundBank, Joseph Sardin, CC0 1.0 („CC0 (public domain): Free and royalty-free“, Quellseite geprüft 16.10.2026). Rezept: `tools/klang/regen.py` (Regen je 12 s nahtlos; Donner nur unter 700 Hz, weich einsetzend, mit Hall: fern).
+
+| Klang | Aufnahme | Quelle |
+|---|---|---|
+| `rain_1` | 0124 „Rain and storm“, ab 2 s (vor dem Gewitter) | https://bigsoundbank.com/rain-and-storm-s0124.html |
+| `rain_2` | 0740 „Rain and storm #2“, ab 30 s (zwischen den Donnern) | https://bigsoundbank.com/rain-and-storm-2-s0740.html |
+| `rain_3` | 1019 „Summer rain on terrace“, ab 42 s | https://bigsoundbank.com/summer-rain-on-terrace-s1019.html |
+| `thunder_1` | 3116 „Thunder #5“ | https://bigsoundbank.com/thunder-5-s3116.html |
+| `thunder_2` | 3182 „Thunder #9“ | https://bigsoundbank.com/thunder-9-s3182.html |
+| `thunder_3` | 3179 „Thunder #6“ | https://bigsoundbank.com/thunder-6-s3179.html |
+
+## D3.9 Leerlauf-Laute der Monster auf der Karte (16.10., im Spiel: `idle_<familie>_1–3`)
+
+Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026 (BigSoundBank: Joseph Sardin). Geschnitten mit `tools/klang/ruhe.py`.
+
+| Klang im Spiel | Aufnahme(n) | Urheber, Paket | Quelle |
+|---|---|---|---|
+| `idle_wolf_1–3` | 0784 „Sniff“; dog-grumble; nose, breath | Joseph Sardin, BigSoundBank; qubodup, Dog Snarl Grunt Grumble; rubberduck, 80 CC0 creature SFX | https://bigsoundbank.com/sniff-s0784.html , https://opengameart.org/content/dog-snarl-grunt-grumble , https://opengameart.org/content/80-cc0-creature-sfx |
+| `idle_boar_1–3` | 1691, 1692, 1693 „Prout'cochons“ | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/prout-cochons-1-s1691.html |
+| `idle_goblin_1–3` | 1095 „Man sniffing“; grunt_01, cough_01 | Joseph Sardin, BigSoundBank; rubberduck, 80 CC0 creature SFX | https://bigsoundbank.com/man-sniffing-s1095.html |
+| `idle_kobold_1–3` | 0941 „Hedgehog cry“, drei Stellen | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/ |
+| `idle_giant_rat_1–3` | 0185 „Rat nibbling“; 1073 „Garden dormouse“ | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/rat-nibbling-s0185.html |
+| `idle_giant_bat_1–3` | 2892, 2893 „Flight bird“; 0458 „Cries of bats“ | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/cries-of-bats-s0458.html |
+| `idle_stirge_1–3` | 0822 „Many flies“, drei Stellen | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/ |
+| `idle_giant_spider_1–3`, `idle_giant_centipede_1–3` | bug_01–04 | rubberduck, 80 CC0 creature SFX | https://opengameart.org/content/80-cc0-creature-sfx |
+| `idle_skeleton_1–3` | bones rattle 0–9 | congusbongus, Bones rattle | https://opengameart.org/content/bones-rattle |
+| `idle_zombie_1–3` | 2106, 2107, 2108 „Zombie“ | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/ |
+| `idle_ghoul_1–3` | 1095 „Man sniffing“; eat_03, snore | Joseph Sardin, BigSoundBank; rubberduck, 80 CC0 creature SFX | https://opengameart.org/content/80-cc0-creature-sfx |
+| `idle_ochre_jelly_1–3` | 1280, 3176 „Stomach gurgling“; burble_01 | Joseph Sardin, BigSoundBank; rubberduck, 80 CC0 creature SFX | https://bigsoundbank.com/stomach-gurgling-3-s3176.html |
