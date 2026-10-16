@@ -71,6 +71,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 21:48 16.10.: Start Sokrates Projekt (Neustart e6777f7a, 106.1 Entwürfe, Zuruf Chef 21:5x)
 - 21:46 16.10.: Diogenes (125, D21) archiviert; Starts Kreativ, Projekt, Tom für D21 in den Eingang (Startsperre bis Max-Wechsel)
 - 21:32 16.10.: Diogenes Lauf 21 fertig, kein Nachfolger; Wunsch Kreativ-Start in den Eingang (Startsperre bis Max-Wechsel); Diogenes archivieren ab 22:03
 - 21:29 16.10.: Start Tom (Übernahme D1/D3: #93, #94, #95 nach main; Chef 16.10., 21:2x: „Ich will alle fertigen Builds, die ich getestet habe, auf Main haben. Also lass das Tom mal bitte machen. Auch das von Jerry. Soweit du weißt, dass wir es freigegeben haben.“)
