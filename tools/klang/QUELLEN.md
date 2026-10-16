@@ -158,3 +158,13 @@ CC0 1.0, Lizenz in den Paketen (License.txt) und auf der Quellseite geprüft am 
 | `step_cobble_1–3` (zweite Runde) | 0606 „Step, Shoe on Stone Staircase“, Schritte bei 1,15 / 9,85 / 10,7 s | BigSoundBank, CC0 | https://bigsoundbank.com/search?q=footsteps |
 | `step_wood_1–3` | footstep_wood_000, _002, _003 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
 | `step_stone_1–3` | footstep_concrete_001, _003, _004 (tiefer, mit Höhlenhall) | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
+
+## Runde 7 (D6.4 Fluss am Dorf)
+
+CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026. Rezept: `tools/klang/fluss.py` (je 12 s, gedämpft, nahtlos).
+
+| Klang | Aufnahme | Urheber, Paket | Quelle |
+|---|---|---|---|
+| `river_1` | VistulaShort (Wellen an der Weichsel), ab 75 s | RandomMind, OpenGameArt | https://opengameart.org/content/sea-and-river-wave-sounds |
+| `river_2` | 0864 „Brooklet“, ab 20 s | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/brooklet-s0864.html |
+| `river_3` | 0823 „Small Stream“, ab 30 s | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/detail-0823-small-stream.html |
