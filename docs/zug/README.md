@@ -9,7 +9,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 | [106.1](entscheiden/1061-rollen-ergebnis.md) | 16.10. | je Rolle „gutes Ergebnis“ mit Beispiel und „dein typischer Fehler“, Abläufe raus; keine neue Rolle; Probe an ROLLE-TEAM nach Sa 21:00 | Sokrates Projekt |
 | [124](entscheiden/124-vorgaenge-gliedern-preis.md) | 16.10. | fünf Hauptthemen mit Buchstaben; Preis je Vorgang aus den Sitzungskosten, Ford trägt ihn beim Neustart ein; Probe eine Woche ab So 18.10., Bilanz 23.10. | Sokrates Projekt |
 | [125](entscheiden/125-drei-namen.md) | 16.10. | ja, drei Namen; getrennt sind die Rollen schon (Datei, Vorrat, Sitzung), nur der Name ist gemeinsam; Umbenennung im Samstagsumbau (117) | Sokrates Projekt |
-| [126](entscheiden/126-muss-und-kuer.md) | 16.10. | jede Zeile Muss (bringt das Wochenziel voran) oder Kür; Kür nur, wenn nichts Muss startbar ist; Wochenziel vom Projektmanager, Anteil Muss als Kennzahl (124) | Sokrates Projekt |
+| [126](entscheiden/126-muss-und-kuer.md) | 16.10. | M = steht im Wochenziel oder vom Chef „jetzt“, sonst Kür; Ersteller trägt ein, Ford prüft; Kür nur, wenn nichts Muss startbar ist; Wochenziel vom Projektmanager, Anteil Muss als Kennzahl (124) | Sokrates Projekt |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Sokrates |
 
 ## Anzusehen
