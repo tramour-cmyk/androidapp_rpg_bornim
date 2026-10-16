@@ -4,9 +4,9 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Themennumm
 
 **offen 1, davon A 0, wartet auf Chef 0**
 
-**Geprüft bis:** `99e00cc2` (16.10., Lauf 16: 110 Sitzungstiefe, nur Notizen; Lauf 9 Code bis 8836512); nächste Nummer D17.
+**Geprüft bis:** `aa032653` (16.10., Lauf 17: 99g alle Artefakte ins Repo, nur Notizen und Artefaktliste; Lauf 9 Code bis 8836512); nächste Nummer D18.
 
-**Übergabe (16.10., 12:4x):** Lauf 16 (110 Sitzungstiefe, Start durch Chef 12:28) fertig: Grenze 6 schlüssig; D16.1 Notfall-Selbststart ohne Tiefensperre, D16.2 Tiefe Ford 2, D16.3 Vorlage Dein Zug 110, Anregung Hand-Start morgens; Zeile an Sokrates Projekt. Nachfolger: keiner nötig bis zum nächsten Auftrag.
+**Übergabe (16.10., 12:4x, Lauf 17):** Läufe 16 (110) und 17 (99g Umzug aller Artefakte, Zuruf Chef; Plan von Diogenes selbst, befangen) fertig: D17.1 Bilder der Beschlüsse nicht ins Repo, D17.2 Docs-Ausfuhr, D17.3 Graumoor, D17.4 Marktvergleich (Frage Chef in 99g), D17.5 gestaffelt; 99g fortgeschrieben; D16 und D17 bei Sokrates Projekt. Nachfolger: keiner nötig bis zum nächsten Auftrag.
 
 ## Zeilen
 
