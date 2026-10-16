@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 23, davon A 0, wartet auf Chef 11**
 
-**Übergabe (16.10., 14:56, „Jerry – 18 Stimmen ins Spiel“) – Nachfolger: Jerry – 120 Musik in Schichten ins Spiel:** 18.11 gebaut (681c6076, PR #85, Build 0.1.782 läuft, Kerntests grün), Prüfliste als Build 5 in der Testreihe; Zeile 18 wartet auf Chef. Als Nächstes 120: `MusicDirector`, Nähe des nächsten Jägers, Form wie Probe 1, drei Spuren im Wechsel (Zweig `claude/jerry-idee10-musik-schichten`, PR #87). Nachfolger: #85, #87, #88–#91 abonnieren; Build 0.1.782 grün prüfen. Zurück von Tom: D3.8, D3.9, D3.10. Lehre: nach Zweigwechsel `rm -rf core/build`.
+**Übergabe (16.10., 15:18, „Jerry – 120 Musik in Schichten ins Spiel“) – Nachfolger: Jerry – D1.14 Hörner-Betten heraus:** 120 gebaut (407c2f94, PR #87, Kerntests grün, Vorschau übersetzt), Build läuft, Prüfliste Build 6. 108a: Chef 15:0x „1.1 bis 2.4 passt“ → #88 auf `main`; **#89 noch zusammenführen** (vorher `main` einmischen, Konflikte nur Listen): die Freigabeprüfung der App sperrte das Einmischen („Merge Without Review“), Chef gefragt, ob freigeben oder selbst. Dann CHANGELOG für #89, Build 2 aus der Testreihe. Nachfolger: #85, #87, #89–#91 abonnieren; Build von #87 grün prüfen, Nummer in Build 6 eintragen. Lehre: nach Zweigwechsel `rm -rf core/build`.
 
 ## Zeilen
 

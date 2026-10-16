@@ -1,5 +1,9 @@
 # Archiv
 
+## Jerry, Übergabe 16.10., 14:5x
+
+**Übergabe (16.10., 14:56, „Jerry – 18 Stimmen ins Spiel“) – Nachfolger: Jerry – 120 Musik in Schichten ins Spiel:** 18.11 gebaut (681c6076, PR #85, Build 0.1.782 läuft, Kerntests grün), Prüfliste als Build 5 in der Testreihe; Zeile 18 wartet auf Chef. Als Nächstes 120: `MusicDirector`, Nähe des nächsten Jägers, Form wie Probe 1, drei Spuren im Wechsel (Zweig `claude/jerry-idee10-musik-schichten`, PR #87). Nachfolger: #85, #87, #88–#91 abonnieren; Build 0.1.782 grün prüfen. Zurück von Tom: D3.8, D3.9, D3.10. Lehre: nach Zweigwechsel `rm -rf core/build`.
+
 ## Jerry, Übergabe 16.10., 14:4x
 
 **Übergabe (16.10., 14:4x, „Jerry – 108a Sammelbuilds“) – Nachfolger: Jerry – 18 Stimmen ins Spiel, dann 120 Musik in Schichten:** 108a erledigt: vier Sammelbuilds mit `main` (PR #88 0.1.777 Klang draußen, #89 0.1.778 Intro/Menü, #90 0.1.779 Kampf, #91 0.1.780 Schänke/Raumklang), Testseite `docs/zug/ansehen/jerry-testreihe.md` je Build mit Prüfliste, Einzel-PRs geschlossen (Zweige bleiben); fällt ein Punkt durch: `git revert` des Merge-Commits im Sammelbuild (`-m 1`), Rest auf `main`. 120 entschieden (ja, Beschluss eingetragen). Als Nächstes 18: alle 12 Stimmen ins Spiel (Zweig `claude/jerry-18-gegnerstimmen`, `Recorded.voiceOf`), dann 120 (`MusicDirector`). Zurück von Tom (D3-Zeile): D3.8, D3.9, D3.10. Nachfolger: #87, #88–#91 abonnieren. Lehre: nach Zweigwechsel `rm -rf core/build`, sonst laufen alte Testklassen mit.
