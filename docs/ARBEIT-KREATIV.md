@@ -2,7 +2,7 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 13, davon A 0, Dein Zug 3**
+**offen 13, davon A 0, Dein Zug 2**
 
 **Gelesen bis:** `8abeae7b` (15.10., 23:0x; für `tools/story.sh`)
 
@@ -20,9 +20,9 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | 72.14 | Feuerball-Text (von Team Jerry) | `Rules.kt` FIREBALL: „Verjagt Begleiter, die ihren Rettungswurf nicht schaffen.“ meint das gegnerische Rudel; mit eigenem Hund (72.15) mehrdeutig. Bitte Wortlaut (DE/EN), Vorschlag Tom: „Verjagt Rudel und Späher des Gegners …“ |
 | 86 | Wortlaut für Rast, Met, Zimmer, Ausdauertrank (von Team Tom, 16.10., 01:2x): gebaut mit sachlichen Platzhaltern in `core/.../Resting.kt` (Feldtitel „Rasten?“, „Schänke“, Knöpfe, Zeilen nach der Rast, Met „erholt“/„betrunken (Vergiftet)“, Blende „Eine Stunde vergeht.“) und Beschreibung `stamina_potion` in `Items.kt`; bitte prüfen oder ersetzen, Tom übernimmt wortgetreu. Offen auch: Rowena sagt nichts zu Met und Zimmer | offen, nicht eilig | – |
 | 41 | Storyplan; Texte Kapitel 2 | [Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d) Kapitel 2 fertig (ohne 5b). [Textentwurf](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413) ruht, wartet auf 72s.1 (Gefährte ändert die Texte); offen 4.4, 5.3, 6.3. **D4.1 A** (Chef 15.10., 10:5x): Texte zur Quest vor der Höhle (Morwen, Garrick warnt unter Stufe 3) mit dem Chef, dann Tom |
-| 72 | Profil und Kampfsystem | [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), Kampf-Dokument `DESIGN-KAMPF.md`; beschlossen 72.6–72.15, 72o B, 72o.1 A mit C, 72r–72t, 72v. Dein Zug 72s.1 (Gefährte Kapitel 2), Dein Zug 72u (Kampfort). Offen 72a, 72c–72j. Bau bei Jerry (72.10) |
+| 72 | Profil und Kampfsystem | [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), Kampf-Dokument `DESIGN-KAMPF.md`; beschlossen 72.6–72.15, 72o B, 72o.1 A mit C, 72r–72t, 72v. Dein Zug 72s.1 (Gefährte Kapitel 2); 72u B beschlossen (16.10., 21:5x). Offen 72a, 72c–72j. Bau bei Jerry (72.10) |
 | 84 | Licht und Laut (Chef 14.10., 17:5x; Idee 4, `Perks.kt`) | **84.1** Fackel als Gegenstand (Laden, Nebenhand); **84.2** Schnellwechsel zweier Handbelegungen; **84.3** Schleichen; **84.4** Lauschen beim Stehen: Welle am Helden zur Quelle, Stärke = Deutlichkeit (Chef 18:0x), Wort nur bei deutlichem Hören; Stufen Stehen > Schleichen > Gehen > Rennen (Chef 18:1x: „sehr gut“). Kampfteile mit 72b; D3.14 hängt an 84.1 |
 | 59e | **von Team Jerry (16.10., 19:5x), Händlervorrat:** 59e.1 Thessas Ausrüstung wechselt heute alle 8 Siege (durch Kämpfen beliebig erzwingbar, widerspricht Beschluss 59e „an Nicht-Beliebiges gekoppelt“); Vorschlag: Wechsel an Story-Schritten (Auftrag angenommen, Garrick getroffen, Krogg, Grak, Kapitelwechsel). 59e.2 Mengen je Laden (Tränke): Messung zeigt 110–175 G für Tränke je Kapitel (Tränke auf 3 aufgefüllt), eine Grenze bisse auf „Normal“ kaum; Empfehlung „noch nicht“, erst mit 39 | Jerry baut nach Entscheidung |
 | 38 | Balance-Langzeitplan über alle Kapitel (Stufe, Gold, Preise, Ausrüstung, Ziel-Siegquoten) | Plan in `DESIGN-BALANCE.md`; Messung bei Jerry, Eichung (38h) durch Chef später |
-| 79 | Kampfhintergründe an die Diagonalwelt angleichen (nur Aussehen, Chef 09:08) | Dein Zug 72u. **Von Team Jerry (16.10., 07:3x):** Standbild 72u fertig (Telegram, A heute / B Karte Zoom 8 / C Zoom 12); Befund: B braucht keine neue Kulissenkunst, nur Kamera und Kampffiguren im Kartenmaßstab |
+| 79 | Kampfhintergründe an die Diagonalwelt angleichen (nur Aussehen, Chef 09:08) | durch 72u B (Kampfort aus der Karte, Zoom 8) gelöst; Bau bei Jerry, danach streichen |
 | 70 | Zwischensequenzen: Bildsprache für alle Kapitel (Chef 14.10., 08:00) | entschieden (Beschlüsse, `DESIGN-STIL.md`): 70.1–70.6; Rest später, mit dem nächsten Kapitel |
