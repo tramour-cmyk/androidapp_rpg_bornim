@@ -69,8 +69,8 @@ object Items {
             ItemKind.KEY, 0, Icon.RING),
         ItemDef("grey_rag", T("Grauer Fetzen", "Grey Rag"), T("Grobes graues Tuch, ein offenes Auge hineingestickt. Jorin will es sehen.", "Coarse grey cloth, an open eye stitched into it. Jorin wants to see it."),
             ItemKind.KEY, 0, Icon.CLOAK),
-        // D4.1: the description is put together from Morwen's freed lines; own wording is up to the adviser (41)
-        ItemDef("smoke_bundle", T("Rauchbündel", "Smoke Bundle"), T("Von Morwen. Krogg vor die Füße werfen, sobald er auftaucht: Der Rauch beißt in den Augen, und sein Hieb geht ins Leere.", "From Morwen. Throw it at Krogg's feet as soon as he shows up: the smoke stings the eyes, and his blow goes astray."),
+        // D4.1: [D4.1.rauch.tasche]
+        ItemDef("smoke_bundle", T("Rauchbündel", "Smoke Bundle"), T("Ein Bündel beißender Kräuter von Morwen. Krogg vor die Füße werfen: Der Rauch nimmt ihm den ersten Hieb. Nur im Kampf.", "A bundle of acrid herbs from Morwen. Throw it at Krogg's feet: the smoke takes away his first blow. Only in battle."),
             ItemKind.KEY, 0, Icon.HERB),
         ItemDef("rusty_key", T("Rostiger Schlüssel", "Rusty Key"), T("Er gehörte Krogg dem Grobian.", "It belonged to Krogg the Brute."),
             ItemKind.KEY, 0, Icon.KEY),
