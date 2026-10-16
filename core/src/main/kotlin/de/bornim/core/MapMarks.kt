@@ -76,7 +76,8 @@ object MapMarks {
             }
             goal(j)?.let { (mapId, at) ->
                 val m = World.maps[mapId] ?: return@let
-                if (seen(s, m, at.first, at.second)) out += Mark(mapId, at.first, at.second, Kind.GOAL, done, j.title)
+                // 62m: on Leicht the place is gold from the moment the job is taken, unseen or not
+                if (s.difficulty == Difficulty.EASY || seen(s, m, at.first, at.second)) out += Mark(mapId, at.first, at.second, Kind.GOAL, done, j.title)
             }
         }
         // 62e: who lives or works indoors is marked at the house's door as well, several at one door as one mark

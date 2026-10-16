@@ -844,7 +844,8 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
         val pct = Math.round(kotlin.math.abs(d.hp - 1) * 100)
         Txt(when {
             d == Difficulty.NORMAL -> if (lang == Lang.DE) "Gegner wie gemessen." else "Foes as measured."
-            d.hp < 1 -> if (lang == Lang.DE) "Gegner haben $pct % weniger Lebenspunkte und richten $pct % weniger Schaden an." else "Foes have $pct% fewer hit points and deal $pct% less damage."
+            d.hp < 1 -> if (lang == Lang.DE) "Gegner haben $pct % weniger Lebenspunkte und richten $pct % weniger Schaden an. Questziele stehen ab Annahme gold auf der Karte."
+                else "Foes have $pct% fewer hit points and deal $pct% less damage. Quest goals are gold on the map from the moment you take them."
             else -> if (lang == Lang.DE) "Gegner haben $pct % mehr Lebenspunkte und richten $pct % mehr Schaden an." else "Foes have $pct% more hit points and deal $pct% more damage."
         }, size = 13.sp, color = Colors.textDim)
         // 40a: three sliders instead of the music and effects switches; the title keeps them as quick mutes

@@ -59,6 +59,16 @@ class MapMarksTest {
     }
 
     @Test
+    fun `62m on Leicht the cave chest is gold from taking the job`() {
+        val s = state()
+        s.difficulty = Difficulty.EASY
+        Jobs.take(s, Jobs["ring"])
+        val chest = World["cave"].chests.first { it.id == Jobs.RING_CHEST }
+        val goal = quests(s).single { it.kind == MapMarks.Kind.GOAL }
+        assertEquals(Triple("cave", chest.x, chest.y), Triple(goal.map, goal.x, goal.y))
+    }
+
+    @Test
     fun `62f people once met, habits once come upon there, houses once inside or heard`() {
         val s = state()
         assertTrue(MapPeople.marks(s).isEmpty(), "nobody met")
