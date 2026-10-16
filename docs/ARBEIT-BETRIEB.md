@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Vorgangsnummer: 129** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 130** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Sparmodus bis Sa 17.10., 21:00** (99d, `FIRMA.md` „Sparmodus“)
 
@@ -74,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 23:33 16.10.: Chef-Meldung Hühner auf gleichem Platz → 129 in Toms Vorrat (K)
 - 23:32 16.10.: Läufe 21:33/22:33 in der Pro-Sperre; Jerry D3 Kampfgeheul geweckt, soll Punkt beenden, danach Pause bis Mo 19.10., 21:00 (Ford 2)
 - 23:10 16.10.: Ford neu (session_01XWRdGr…, Tiefe 5); Uhr trig_01MHvLjkYXRb7JKbtriztn6a angelegt und geprüft, alte Uhr trig_013eNWtEGr7bAJCFxhGY5WHk gelöscht, alter Ford session_01B3GyS2… archiviert (4,59 $)
 - 23:10 16.10.: Perikles 106.1a fertig (57241d3d), archiviert (2,81 $, je 1,40 $ auf 106 und 99); Nachfolger in den Eingang. Selbstneustart Ford (Haken-Erinnerung 2, ≈231 Tsd. Token); offen: nur Ford 2/Jerry laut Besetzung, Eingang (Tom D21, Perikles 99g.2) nach Sa 21:00; Morgenmeldung Sa 9 Uhr
