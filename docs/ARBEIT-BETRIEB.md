@@ -74,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 23:43 16.10.: Start Tom (129 Hühner; Zuruf Chef 23:43: „Tom“, trotz Sparmodus)
 - 23:33 16.10.: Chef-Meldung Hühner auf gleichem Platz → 129 in Toms Vorrat (K)
 - 23:41 16.10.: Jerry D3 Kampfgeheul fertig (PR #99, Build 12), archiviert; Pause bis Mo 19.10., 21:00, kein Nachfolger (Ford 2)
 - 23:32 16.10.: Läufe 21:33/22:33 in der Pro-Sperre; Jerry D3 Kampfgeheul geweckt, soll Punkt beenden, danach Pause bis Mo 19.10., 21:00 (Ford 2)
