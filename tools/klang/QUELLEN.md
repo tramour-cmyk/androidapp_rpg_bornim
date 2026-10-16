@@ -228,3 +228,16 @@ Alle CC0 1.0. BigSoundBank: Joseph Sardin, Lizenz „CC0 (public domain): Free a
 | Zombie (`zombie`) | 2106–2112 „Zombie #1–7“; Körperfall 2452, 2454, 2456 | BigSoundBank | https://bigsoundbank.com/search?CatID=CREA |
 | Ghul (`ghoul`) | 0475 „Horrible Laugh“; 2106 „Zombie #1“; 1882, 1883; 3177; weird_01, scream_01, zombieDeath3 | BigSoundBank; rubberduck; arcadeparty | wie oben |
 | Ockergallerte (`ochre_jelly`) | Gore 2583, 2587, 2594; 0334 „Tripes“; 1280, 1281, 3177 „Stomach Gurgling“; burble_01, _02, eat_04 | BigSoundBank; rubberduck | https://bigsoundbank.com/search?CatID=GORE |
+
+## Runde 10 (D3.10 Regen und Donner, im Spiel: `rain_1–3`, `thunder_1–3`)
+
+BigSoundBank, Joseph Sardin, CC0 1.0 („CC0 (public domain): Free and royalty-free“, Quellseite geprüft 16.10.2026). Rezept: `tools/klang/regen.py` (Regen je 12 s nahtlos; Donner nur unter 700 Hz, weich einsetzend, mit Hall: fern).
+
+| Klang | Aufnahme | Quelle |
+|---|---|---|
+| `rain_1` | 0124 „Rain and storm“, ab 2 s (vor dem Gewitter) | https://bigsoundbank.com/rain-and-storm-s0124.html |
+| `rain_2` | 0740 „Rain and storm #2“, ab 30 s (zwischen den Donnern) | https://bigsoundbank.com/rain-and-storm-2-s0740.html |
+| `rain_3` | 1019 „Summer rain on terrace“, ab 42 s | https://bigsoundbank.com/summer-rain-on-terrace-s1019.html |
+| `thunder_1` | 3116 „Thunder #5“ | https://bigsoundbank.com/thunder-5-s3116.html |
+| `thunder_2` | 3182 „Thunder #9“ | https://bigsoundbank.com/thunder-9-s3182.html |
+| `thunder_3` | 3179 „Thunder #6“ | https://bigsoundbank.com/thunder-6-s3179.html |

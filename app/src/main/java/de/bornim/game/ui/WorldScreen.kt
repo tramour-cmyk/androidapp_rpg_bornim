@@ -276,6 +276,9 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         // the river (D6.4): running water rushes, swelling towards the bank and the bridge
         var river = 0f
         var riverStream = 0
+        // the rain (D3.10): out of doors as heavy as it falls
+        var rain = 0f
+        var rainStream = 0
         // the hens (83c): clucking, scratching, alarm and wings, from what each hen is doing
         val henEar = if (game.map.kind == MapKind.TOWN) de.bornim.core.art.MapHen.of(game.map).takeIf { it.isNotEmpty() }?.let { de.bornim.core.audio.HenSound.Ear(it) } else null
         // the small birds pecking on the grass (84): wings as one flies up, now and then a scratch as it hops
@@ -334,6 +337,12 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                         else -> vm.sfx.volume(riverStream, river)
                     }
                 }
+                rain = de.bornim.core.audio.RainSound.approach(rain, de.bornim.core.audio.RainSound.target(game.map.kind, game.rainLevel, calm), tick)
+                when {
+                    rain > 0f && rainStream == 0 -> rainStream = vm.sfx.loop(de.bornim.core.audio.Sound.RAIN, rain)
+                    rain == 0f && rainStream != 0 -> { vm.sfx.stop(rainStream); rainStream = 0 }
+                    else -> vm.sfx.volume(rainStream, rain)
+                }
                 if (henEar != null && de.bornim.core.art.MapHen.draft) {
                     val heard = henEar.hear((p.x + 0.5f) * de.bornim.core.art.WorldArt.T, (p.y + 0.5f) * de.bornim.core.art.WorldArt.T)
                     if (calm) for ((s, v) in heard) vm.play(s, v)
@@ -354,6 +363,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             vm.sfx.fadeOut(bedStream, bed)
             vm.sfx.fadeOut(chorusStream, chorus)
             vm.sfx.fadeOut(riverStream, river)
+            vm.sfx.fadeOut(rainStream, rain)
         }
     }
 

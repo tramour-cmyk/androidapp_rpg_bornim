@@ -68,6 +68,8 @@ for n in 1658 1659 0458 0459 0941 1073 1881 1882 1883 1884 1886 1888 2106 2107 2
     get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
 done
 python3 -m pip -q install py7zr numpy scipy soundfile >/dev/null 2>&1 || true
+# Runde 10 (D3.10 Regen und Donner, regen.py)
+for n in 0124 0740 1019 3116 3182 3179; do get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"; done
 for z in *.zip; do d="x_${z%.zip}"; [ -d "$d" ] || { mkdir -p "$d"; unzip -qo "$z" -d "$d"; }; done
 for z in *.7z; do d="x_${z%.7z}"; [ -d "$d" ] || { mkdir -p "$d"; python3 -I -m py7zr x "$z" "$d"; }; done
 echo "fertig: $D"
