@@ -11,7 +11,6 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 | [125](entscheiden/125-drei-namen.md) | 16.10. | ja, drei Namen; getrennt sind die Rollen schon (Datei, Vorrat, Sitzung), nur der Name ist gemeinsam; Umbenennung im Samstagsumbau (117) | Sokrates Projekt |
 | [126](entscheiden/126-muss-und-kuer.md) | 16.10. | M = steht im Wochenziel oder vom Chef „jetzt“, sonst Kür; Ersteller trägt ein, Ford prüft; Kür nur, wenn nichts Muss startbar ist; Wochenziel vom Projektmanager, Anteil Muss als Kennzahl (124) | Sokrates Projekt |
 | [39.1](entscheiden/391-schwierigkeit-werte.md) | 16.10. | Schwierigkeitsgrad: Gegner-TP und -Schaden ×0,8 / ×1 / ×1,2 (Empfehlung A) | Sokrates Kreativ |
-| [72u](entscheiden/72u-kampfort-aus-karte.md) | 16.10. | Kampfort: gemalt (heute) oder Ausschnitt der Karte (Empfehlung B, Zoom 8) | Sokrates Kreativ |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Sokrates |
 
 ## Anzusehen
