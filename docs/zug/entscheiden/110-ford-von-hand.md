@@ -1,6 +1,6 @@
 # 110 · Ford einmal von Hand starten, bitte heute vor 12:30
 
-Sokrates Projekt · 16.10., 11:25 · Thema 110 (von Ford, 10:54)
+Sokrates Projekt · 16.10., 11:20 · Thema 110 (von Ford, 10:54)
 
 Kurz: Ford einmal von Hand starten (Sitzungstiefe 8 erreicht), bitte bald
 
