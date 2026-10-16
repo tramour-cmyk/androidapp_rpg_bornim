@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kosten-Nutzen der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 23, davon A 0, wartet auf Chef 3**
+**offen 23, davon A 0, wartet auf Chef 2**
 
 **Gelesen bis:** `8879dbf5` (16.10., 16:3x)
 
@@ -12,7 +12,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 | Nr. | Thema | Stand |
 |---|---|---|
-| D17 | **von Diogenes** (Lauf 17, 99g Umzug aller Artefakte; Prüfbericht): D17.1 Beschlüsse nur Text ins Repo, Bilder/Hörproben bleiben im Artefakt; D17.2 Docs-Dokumente per Ausfuhr, Kommentare vorher sichten, Doppeladressen ersetzen; D17.3 Graumoor-Karte; D17.4 Marktvergleich (Frage Chef in 99g); D17.5 gestaffelt: Kampf jetzt, Rest nach Sa 21:00, Regelbilanz an fünf Stellen | entschieden 12:4x, Umsetzung mit 99g nach Sa 21:00 |
+| D17 | **von Diogenes** (Lauf 17, 99g Umzug aller Artefakte; Prüfbericht): D17.1 Beschlüsse nur Text ins Repo, Bilder/Hörproben bleiben im Artefakt; D17.2 Docs-Dokumente per Ausfuhr, Kommentare vorher sichten, Doppeladressen ersetzen; D17.3 Graumoor-Karte; D17.4 Marktvergleich (Frage Chef in 99g); D17.5 gestaffelt: Kampf jetzt, Rest nach Sa 21:00, Regelbilanz an fünf Stellen | entschieden 12:4x, Umsetzung mit 99g nach Sa 21:00; **99g.1 beschlossen** 17:3x (Chef: „99g.1 ja“): Beschlüsse → `docs/VORGANGSARCHIV.md`, nur Text, mit 117 |
 | D16 | **von Diogenes** (Lauf 16, 110 Sitzungstiefe; Prüfbericht https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ): D16.1 Notfall-Selbststart (`ARBEIT-ABLAEUFE.md` Neustart 2) ohne Tiefensperre, Nachfolger auf 8 ohne Weckruf; D16.2 Tiefe Ford 2 in seine Kennungszeile; D16.3 Regel verweist auf gelöschte Zug-Datei 110; Anregung: Hand-Start Ford morgens | offen; im Prüfbericht „bestätigt“/„verworfen“ vermerken |
 | 122 | Übersicht `docs/README.md` (Chef 16.10., 16:4x: „auf der Ebene Docs auch eine sozusagen Datei zu haben, wie unter zug, … dass ich da die wesentlichen Lines habe“) | auf „Dein Zug“ (16:5x: „nicht um alle Dateien, sondern nur um ausgewählte“); 17:2x: „nur in Art Inhaltsverzeichnis schnell navigierbar … können wir uns den Akt auch sparen“; Empfehlung: Inhaltsverzeichnis von Hand, ohne Action, mit 117 nach Sa 21:00 |
 | 118 | Teams ohne Themen (Chef 16.10., 13:3x: „wie wäre es, wenn die … nicht mehr thematisch arbeiten, sondern arbeiten einfach die Liste ab und ergänzen sich im Sinne von, okay, ich brauche das andere, dann mach doch du das, ich mach das. Also keine thematische Trennung mehr. Was spricht dafür, was spricht dagegen?“) | **umgesetzt** 16.10., 13:56 (Chef 13:5x: „118 B“, dann „Sofort“): `CLAUDE.md` Regel 6, `ROLLE-TEAM.md`, `FIRMA.md` Pro-Ausfall; Zeilen an Tom und Jerry. Rest: Bilanz 23.10. (Übernahmen, Rückläufer) |
