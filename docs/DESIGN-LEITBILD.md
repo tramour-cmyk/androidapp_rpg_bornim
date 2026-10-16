@@ -13,7 +13,7 @@ Der rote Faden (Thema 44, mit dem Nutzer 12.10.). Wer unsicher ist, ob etwas ins
 5. **Eine Sicht: diagonal.** Was wichtig ist, steht frei im Blick; Verstecktes belohnt das Erkunden. Nur diagonal, die alte Ansicht ist ausgebaut (13t). → `DESIGN-STIL.md` Karte, `DESIGN-ABNAHME.md`
 6. **Glaubwürdiger Klang, der die Welt belebt.** Echte Aufnahmen, Musik orchestral und düster, das Dorf mittelalterlich. Man hört nur, was da ist, aber das voll: Wind, Feuer, Tiere, Schritte, Arbeit der Leute; Hintergrundklänge werden von sich aus angeboten (44d). → `DESIGN-STIL.md` Klang
 7. **Die Geschichte entsteht zu zweit.** Plot und Texte legen Nutzer und Berater fest, Tom und Jerry setzen sie wortgetreu um. → `STORY-REGELN.md`, `CLAUDE.md`
-8. **Fertig vor neu.** Erst wird ein Kapitel rund, dann kommt Neues. → `LISTE-KAPITEL1.md`
+8. **Fertig vor neu.** Erst wird ein Kapitel rund, dann kommt Neues. → `LISTE-ABNAHME-KAPITEL1.md`
 9. **Nur freie Inhalte.** → `CLAUDE.md` „Fremde Inhalte“
 10. **Erst reden, dann bauen.** Vorschlag, Standbilder, Freigabe, dann Umsetzung. Eine Rückfrage ist keine Freigabe. → `CLAUDE.md`
 11. **Selbst prüfen, dann zeigen.** Mit eigenen Werkzeugen und Standbildern; der Nutzer testet das Spiel, nicht die Grundlagen. → `DESIGN-ABNAHME.md`

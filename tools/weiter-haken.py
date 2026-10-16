@@ -40,9 +40,9 @@ def letzter_text(pfad):
     return text
 
 
-# 54 gilt nur für Tom und Jerry (Nutzer 14.10., 17:3x, 65.9; Ford seit D5.3): Sokrates, Diogenes und Ford starten mit ihrem Namen als
+# 54 gilt nur für Tom und Jerry (Nutzer 14.10., 17:3x, 65.9; Ford seit D5.3): Perikles, Homer, Sokrates, Diogenes und Ford starten mit ihrem Namen als
 # erster Nachricht (bei Ford-Starts steht er im angehängten Text); dort schweigt der Haken.
-ROLLE_OHNE_HAKEN = re.compile(r"\b(sokrates|diogenes|ford)\b", re.IGNORECASE)
+ROLLE_OHNE_HAKEN = re.compile(r"\b(sokrates|perikles|homer|diogenes|ford)\b", re.IGNORECASE)
 
 
 def erste_nachricht(pfad):

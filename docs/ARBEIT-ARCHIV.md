@@ -1,5 +1,7 @@
 # Archiv
 
+**Eingefroren seit 16.10. (117):** keine neuen Einträge; der Verlauf steht in Git, Entschiedenes in `VORGANGSARCHIV.md`. Nur gezielt durchsuchen.
+
 **Übergabe (16.10., 12:5x, 99g):** Kampf-Dokument ausgeführt nach `docs/DESIGN-KAMPF.md` (keine offenen Kommentare; Skizze Darkest Dungeon bleibt nur im alten Dokument), altes Dokument als abgelöst markiert, Adressen in den Notizen ersetzt, Jerry Bescheid (72.10). Nachfolger: keiner nötig; Ford startet Kreativ nur für eine Zeile mit „A“, auf Neustart-Meldung oder Zuruf.
 
 **Übergabe (16.10., 21:2x, „Sokrates Projekt – Zuruf (16.10., 20:12)“):** 123 erledigt (Prüflisten mit Vorgangsnummer); 127 erledigt (Anzusehen je Build); 124, 125, 126, 128 auf Dein Zug, 125/106.1 bei Diogenes (mit 124/126/128 als Kennzahlen); Ford fragt täglich nach der Nutzung (Mo–Fr 7, Sa/So 9 Uhr); Max 91 %, Pro 49 %. Nach Diogenes’ Bericht 125 und 106.1 überarbeiten. Nachfolger unverändert: „Sokrates Projekt – Umbau Namen (17.10.)“, **Start Sa 17.10. ab 21:15**, nach dem Wechsel der Max-Woche (Chef 17:4x: „du machst das einmal morgen in einem Rutsch“; verschoben 21:2x, weil Max bei 91 % der Woche steht, Bild des Chefs): 117, 99g-Rest (D17), 99g.1, 122, 102 in einem Zug; Werkzeuge und Ford-Aufträge mitziehen, Code-Kommentare über die Teams; danach Diogenes nachprüfen lassen

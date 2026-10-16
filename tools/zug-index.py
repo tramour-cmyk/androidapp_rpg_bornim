@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""Übersicht für „Dein Zug“ (108): schreibt docs/zug/README.md aus den Dateien in entscheiden/ und ansehen/.
+"""Übersicht für „Chefsache“ (108): schreibt docs/chefsache/README.md aus den Dateien in entscheiden/ und ansehen/.
 
-Läuft als GitHub Action bei jedem Push nach docs/zug/ (zug-index.yml); keine Sitzung bearbeitet die README von Hand,
+Läuft als GitHub Action bei jedem Push nach docs/chefsache/ (zug-index.yml); keine Sitzung bearbeitet die README von Hand,
 darum gibt es dort keine Konflikte (D15.3). Lokal zur Vorschau: python3 tools/zug-index.py (nicht committen).
 Je Datei: Zeile 1 „# <Nr.> · <Frage>“, Zeile 2 „<Absender> · <TT.MM.>, …“; optional „Kurz: …“ als Text der Übersicht.
 """
 import os, re, sys
 
-ZUG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "zug")
+ZUG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "chefsache")
 
-KOPF = """# Dein Zug
+KOPF = """# Chefsache
 
 Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tools/zug-index.py`) bei jedem Push; nicht von Hand ändern.
 """
@@ -20,7 +20,7 @@ REGELN = """## So geht's
 - Anzusehen: Zeile 1 `# <Team> · <Version> · <Thema> · <PR>`, Sammelseite je Build `## Build <n> · <Version> · <Thema> · <PR>`; die Übersicht zeigt jeden Build als Zeile, nach Version sortiert (127).
 - Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · …`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann Frage, Empfehlung, stärkstes Gegenargument (lange Begründung in `<details>`).
 - Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“.
-- Telegram-Sprungmarke `[72s.1](dz:72s1)` führt auf die Datei (`tools/meldung.sh`).
+- Telegram-Sprungmarke `[72s.1](cs:72s1)` führt auf die Datei (`tools/meldung.sh`).
 """
 
 def eintrag(ordner, name):

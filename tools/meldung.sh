@@ -5,8 +5,8 @@
 #   tools/meldung.sh --bild <datei> <Name> "<Text>"     Standbild mit der Zeile als Unterschrift (Telegram verkleinert)
 #   tools/meldung.sh --datei <datei> <Name> "<Text>"    Bild in voller Auflösung als Datei (Pixelprüfung)
 # Kostet in der Sitzung nichts: das Bild wird nur hochgeladen, nicht gelesen. Optionen kombinierbar, --laut zuerst.
-# Kopf: Name verlinkt automatisch auf die eigene Sitzung. Pflicht für alle (Nutzer 15.10.): jede Nummer mit Datei auf „Dein Zug“ als Sprungmarke.
-# Sprungmarke: „[72o.1](dz:72o1): …“ macht die Nummer zum Link auf docs/zug/*/72o1-….md auf GitHub (108; alte Form dz:e/72o1.html geht weiter), [Wort](URL) im Text ebenso.
+# Kopf: Name verlinkt automatisch auf die eigene Sitzung. Pflicht für alle (Nutzer 15.10.): jede Nummer mit Datei auf „Chefsache“ als Sprungmarke.
+# Sprungmarke: „[72o.1](cs:72o1): …“ macht die Nummer zum Link auf docs/chefsache/*/72o1-….md auf GitHub (108, 117; alte Formen dz:72o1 und dz:e/72o1.html gehen weiter), [Wort](URL) im Text ebenso.
 # Form: Kopf „Name TT.MM. HH:MM“, darunter je Thema eine Zeile „81s: …“ (Ford: je Agent „Tom: …“), getrennt mit \n; nur Nummern und Stichworte, nie Spieltexte.
 # Schlüssel nur aus der Umgebungsvariable TELEGRAM_BOT_TOKEN, nie ins Repo oder in den Chat.
 # Veraltete Kopie im Arbeitszweig (Nutzer 15.10.: Meldungen ohne Links): an die Notizkopie auf main weitergeben
@@ -33,7 +33,7 @@ still=true; [ $laut = 1 ] && still=false
 # Aussehen (Nutzer 15.10.): Kopf fett in eigener Zeile; Zeilen, die mit „Name:“ oder „Nummer:“ beginnen, bis zum Doppelpunkt fett; **x** fett.
 # Kopf verlinkt auf die Sitzung des Absenders (Nutzer 15.10., 16:0x), wenn die Umgebung sie kennt
 sitzung=""; case "$CLAUDE_CODE_REMOTE_SESSION_ID" in cse_*) sitzung="https://claude.ai/code/session_${CLAUDE_CODE_REMOTE_SESSION_ID#cse_}" ;; esac
-zug="$(dirname "$(realpath "$0")")/../docs/zug"
+zug="$(dirname "$(realpath "$0")")/../docs/chefsache"
 besetzung="$(dirname "$(realpath "$0")")/../docs/ARBEIT-BESETZUNG.md"
 zeile=$(NAME="$name" ZEIT="$zeit" SITZUNG="$sitzung" TEXT="$text" ZUG="$zug" BESETZUNG="$besetzung" python3 -c '
 import os, re, html
@@ -41,27 +41,27 @@ t = html.escape(os.environ["TEXT"].replace("\\n", "\n"), quote=False)
 t = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
 import glob
 gh = "https://github.com/tramour-cmyk/androidapp_rpg_bornim/"
-def dz(u):  # Dein Zug im Repo (108): dz:72o1 -> docs/zug/<ordner>/72o1-….md, sonst der Ordner
+def dz(u):  # Chefsache im Repo (108, 117): cs:72o1 -> docs/chefsache/<ordner>/72o1-….md, sonst der Ordner
     k = u[3:].removeprefix("e/").removesuffix(".html").removesuffix(".md").replace(".", "").lower()
     for f in sorted(glob.glob(os.path.join(os.environ["ZUG"], "*", "*.md"))):
         if os.path.basename(f).split("-")[0].removesuffix(".md").replace(".", "").lower() == k:
-            return gh + "blob/main/docs/zug/" + os.path.basename(os.path.dirname(f)) + "/" + os.path.basename(f)
-    return gh + "tree/main/docs/zug"
-url = lambda u: dz(u) if u.startswith("dz:") else u
-# Sprungmarke (Nutzer 15.10.): Zeile „[72o.1](dz:72o1): …“ macht die fette Nummer selbst zum Link
+            return gh + "blob/main/docs/chefsache/" + os.path.basename(os.path.dirname(f)) + "/" + os.path.basename(f)
+    return gh + "tree/main/docs/chefsache"
+url = lambda u: dz(u) if u.startswith(("cs:", "dz:")) else u  # cs: Chefsache (117), dz: alte Form
+# Sprungmarke (Nutzer 15.10.): Zeile „[72o.1](cs:72o1): …“ macht die fette Nummer selbst zum Link
 t = re.sub(r"(?m)^(\s*(?:⚠\s*)?)\[([^\]]{1,30})\]\(([^)\s]+)\):", lambda m: m.group(1) + "<a href=\"" + url(m.group(3)) + "\"><b>" + m.group(2) + ":</b></a>", t)
 t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", lambda m: "<a href=\"" + url(m.group(2)) + "\">" + m.group(1) + "</a>", t)
 # Nackte Adresse (105, Chef 16.10.: „Hyperlink nicht unterlegt, sondern extra“): „Titel“: URL -> Titel als Link, sonst das Wort „Link“
 t = re.sub(r"„([^“<]+)“:?\s*(https?://[^\s<]+)", lambda m: "<a href=\"" + m.group(2) + "\">„" + m.group(1) + "“</a>", t)
 t = re.sub(r"(?<![\"=>])(https?://[^\s<]+?)([.,;)]?(?:\s|$))", lambda m: "<a href=\"" + m.group(1) + "\">Link</a>" + m.group(2), t)
 t = re.sub(r"(?m)^(\s*(?:⚠\s*)?)([\wÄÖÜäöüß][\wÄÖÜäöüß .,/–-]{0,30}):", r"\1<b>\2:</b>", t)
-# Selbsttätig (105, Nutzer 16.10.: Links fehlen, Fettdruck uneinheitlich): auch ohne [..](dz:..) wird jede Nummer mit Datei
-# auf Dein Zug (72s.1, 99g, D10, 0.1.757 -> t757) fetter Link, „PR #71“ Link auf den PR, „Tom:“ am Zeilenanfang Link auf die laufende Sitzung (Besetzung).
+# Selbsttätig (105, Nutzer 16.10.: Links fehlen, Fettdruck uneinheitlich): auch ohne [..](cs:..) wird jede Nummer mit Datei
+# auf Chefsache (72s.1, 99g, D10, 0.1.757 -> t757) fetter Link, „PR #71“ Link auf den PR, „Tom:“ am Zeilenanfang Link auf die laufende Sitzung (Besetzung).
 keys = {}
 for f in glob.glob(os.path.join(os.environ["ZUG"], "*", "*.md")):
     k = os.path.basename(f).split("-")[0].removesuffix(".md").lower()
-    if re.search(r"\d", k): keys[k] = gh + "blob/main/docs/zug/" + os.path.basename(os.path.dirname(f)) + "/" + os.path.basename(f)
-# Nur Nummern mit Datei auf Dein Zug werden Link (Chef 16.10., 12:0x: Verlinkung auf eine Vorratsdatei „macht keinen Sinn“):
+    if re.search(r"\d", k): keys[k] = gh + "blob/main/docs/chefsache/" + os.path.basename(os.path.dirname(f)) + "/" + os.path.basename(f)
+# Nur Nummern mit Datei auf Chefsache werden Link (Chef 16.10., 12:0x: Verlinkung auf eine Vorratsdatei „macht keinen Sinn“):
 # fett mit Link heißt „du bist dran“, schlichte Nummer heißt „nur Stand“.
 sitz = {}
 try:
@@ -75,7 +75,7 @@ def nummer(m):
     tok = m.group(0); k = tok.replace(".", "").lower()
     v = re.fullmatch(r"0\.1\.(\d+)", tok)
     if v: k = "t" + v.group(1)
-    if k not in keys or len(tok) < 2 and "/zug/" not in keys[k]: return tok  # einstellige Zahlen („Stufe 3“) nur mit Datei auf Dein Zug
+    if k not in keys or len(tok) < 2 and "/chefsache/" not in keys[k]: return tok  # einstellige Zahlen („Stufe 3“) nur mit Datei auf Chefsache
     return "<a href=\"" + keys[k] + "\"><b>" + tok + "</b></a>"
 def frei(seg):
     seg = re.sub(r"\bPR #(\d+)", lambda m: "<a href=\"" + gh + "pull/" + m.group(1) + "\">" + m.group(0) + "</a>", seg)

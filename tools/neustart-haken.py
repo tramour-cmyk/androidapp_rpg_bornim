@@ -57,9 +57,9 @@ def zuwachs(werte):
 def text(stufe, plus, gesamt):
     k = lambda n: f"{round(n / 1000)} Tsd."
     kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist seit dem Start um etwa {k(plus)} Token gewachsen (jetzt {k(gesamt)}, Schwelle {k(AB)}); Erinnerung Nr. {stufe}."
-    # 81r: der Anlass entscheidet, nicht ein Ja des Nutzers; kein Vorschlag im Chat (D8.2: der löste den Dein-Zug-Haken aus)
+    # 81r: der Anlass entscheidet, nicht ein Ja des Nutzers; kein Vorschlag im Chat (D8.2: der löste den Chefsache-Haken aus)
     if stufe == 1:
-        rest = "An der nächsten Bruchstelle (Thema fertig, Build ausgeliefert): Übergabe mit „Nachfolger: <Titel>“ pushen, send_message an Ford „Neustart <Name>, <Commit>“ (81r, ARBEIT-ABLAEUFE.md „Neustart“). Im Chat nichts dazu."
+        rest = "An der nächsten Bruchstelle (Thema fertig, Build ausgeliefert): Übergabe mit „Nachfolger: <Titel>“ pushen, send_message an Ford „Neustart <Name>, <Commit>“ (81r, LISTE-RELEASE-NEUSTART.md „Neustart“). Im Chat nichts dazu."
     else:
         rest = "Zweite Erinnerung: jetzt den Schritt beenden, Übergabe pushen, Neustart über Ford (81r); im Chat danach genau „Weiter in <Titel>: <Link>“."
     return kopf + " " + rest
@@ -93,14 +93,14 @@ def prompt(eingabe):
 
 def start(eingabe):
     wurzel = os.environ.get("CLAUDE_PROJECT_DIR") or eingabe.get("cwd") or "."
-    # 98: jeder Vorrat ARBEIT-*.md, außer Archiv, Abläufe und Umgebung (Nachschlagen, kein Vorrat).
+    # 98: jeder Vorrat ARBEIT-*.md, außer dem eingefrorenen Archiv (117).
     docs = os.path.join(wurzel, "docs")
     try:
         namen = sorted(os.listdir(docs))
     except OSError:
         return
     for name in namen:
-        if not (name.startswith("ARBEIT-") and name.endswith(".md")) or name in ("ARBEIT-ARCHIV.md", "ARBEIT-ABLAEUFE.md", "ARBEIT-UMGEBUNG.md"):
+        if not (name.startswith("ARBEIT-") and name.endswith(".md")) or name == "ARBEIT-ARCHIV.md":
             continue
         n = os.path.getsize(os.path.join(docs, name))
         if n > OFFEN_MAX:

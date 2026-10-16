@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Richtet eine Sitzung für schnelle, sparsame Tests ein (siehe docs/ARBEIT-UMGEBUNG.md). Läuft beim Sitzungsstart
+# Richtet eine Sitzung für schnelle, sparsame Tests ein (siehe docs/LISTE-BAUEN-TESTEN.md). Läuft beim Sitzungsstart
 # über .claude/settings.json und lässt sich jederzeit von Hand wiederholen.
 #   tools/setup-session.sh          Maven-Spiegel für Gradle einrichten (Sekundenbruchteil)
 #   tools/setup-session.sh --warm   dazu im Hintergrund die Kerntests vorübersetzen (Log: /tmp/bornim-warm.log)

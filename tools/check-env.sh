@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Prüft, ob eine Sitzung alles hat, was die Arbeit an "Chroniken von Bornim" braucht (siehe docs/ARBEIT-UMGEBUNG.md).
+# Prüft, ob eine Sitzung alles hat, was die Arbeit an "Chroniken von Bornim" braucht (siehe docs/LISTE-BAUEN-TESTEN.md).
 # Aufruf im Hauptordner:  tools/check-env.sh          kurz: Programme und Versionen
 #                         tools/check-env.sh --full   dazu Kerntests und ein Vorschaubild (warm unter 15 s, kalt einige Minuten)
 cd "$(dirname "$0")/.." || exit 1

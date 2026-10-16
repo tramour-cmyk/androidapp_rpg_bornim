@@ -2,13 +2,15 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Themennummer: 129** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 129** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+
+**Sparmodus bis Sa 17.10., 21:00** (99d, `FIRMA.md` „Sparmodus“)
 
 **Ford: Co-Pilot bis Sa 17.10., 21:00, danach Pilot** (Chef 15.10., 22:5x: „dann kriegt Ford die Stellung Co-Pilot … wieder zurückstellen … wenn wir wieder volles Guthaben haben“; der erste Lauf danach stellt selbst auf Pilot zurück, pusht, meldet lautlos; 81g)
 
-**„Dein Zug“ (63): `docs/zug/`** (108; Übersicht = `docs/zug/README.md`, zeigt GitHub unter der Dateiliste; Lesezeichen für den Chef: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/main/docs/zug) · Beschlüsse: https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM · Prüfbericht Diogenes: https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ
+**„Chefsache“ (63): `docs/chefsache/`** (108; Übersicht = `docs/chefsache/README.md`, zeigt GitHub unter der Dateiliste; Lesezeichen für den Chef: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/main/docs/chefsache) · Vorgangsarchiv: `docs/VORGANGSARCHIV.md` · Prüfbericht Diogenes: https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ
 
-**Guthaben:** Max 91 % (Wechsel Sa 17.10. etwa 21:00, Sitzungslimit 8 %), Pro 49 % (Woche), 16.10., 21:2x (Bilder des Chefs über Sokrates Projekt; Pro-Sitzungslimit voll bis etwa 23:30). Bis zum Max-Wechsel nur Laufendes zu Ende, keine neuen Starts in der Zentrale außer auf Zuruf des Chefs; Max 100 % vorher = Stillstand „Guthaben“ (128), kein Ausfall
+**Guthaben:** Max 91 % (Wechsel Sa 17.10. etwa 21:00, Sitzungslimit 8 %), Pro 49 % (Woche), 16.10., 21:2x (Bilder des Chefs über Perikles; Pro-Sitzungslimit voll bis etwa 23:30). Bis zum Max-Wechsel nur Laufendes zu Ende, keine neuen Starts in der Zentrale außer auf Zuruf des Chefs; Max 100 % vorher = Stillstand „Guthaben“ (128), kein Ausfall
 
 **Jetzt installieren:** nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
 
@@ -20,11 +22,11 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- 16.10., 21:5x, von Diogenes (D21 vom Chef beschlossen): Sokrates Projekt (D21 A) und Tom (D21 A, Werkzeug) starten; wegen Max 91 % erst nach dem Wechsel Sa 21:00 oder auf Zuruf des Chefs, dann Zeile streichen
+- 16.10., 21:5x, von Diogenes (D21 vom Chef beschlossen): Tom (D21 A, Werkzeug) starten; wegen Max 91 % erst nach dem Wechsel Sa 21:00 oder auf Zuruf des Chefs, dann Zeile streichen (Perikles-Teil mit dem Umbau 106.1 erledigt)
 
 ## Kosten Ford 2
 
-Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Projekt wertet nach zwei Tagen aus.
+Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford und Ford 2 Kosten je Vorgang in `LISTE-VORGAENGE.md` (124), hier keine neuen Zeilen.
 
 - 16.10., 20:40: Neustart Jerry D3 Kampfgeheul, Vorgänger (86) Kosten nicht ermittelbar; Pro meldet jetzt `five_hour` `allowed_warning` (zurück um 23:30)
 - 16.10., 20:34: Stundenlauf ohne Tat (Jerry 86 seit 20:32); Ford 2 seit 18:34 3,53 $, 203 Tsd. Token Kontext, sieben Neustarts Jerry eingeschlossen; Pro weiter `allowed_warning`
@@ -68,25 +70,25 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 ## Protokoll
 
-Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
+Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
-- 22:2x 16.10.: Start Sokrates Projekt – Umbau Rollen und Namen (vorgezogen von Sa 21:15; Chef 16.10., 22:2x: „Lege los! Godspeed.“ (100 $ Extra-Guthaben)); Vorgabe: ein Push am Ende; danach Diogenes Nachprüfung
+- 22:2x 16.10.: Start Perikles – Umbau Rollen und Namen (vorgezogen von Sa 21:15; Chef 16.10., 22:2x: „Lege los! Godspeed.“ (100 $ Extra-Guthaben)); Vorgabe: ein Push am Ende; danach Diogenes Nachprüfung
 - 22:1x 16.10.: Chef Testergebnis Build 8 (72.10, #68) wörtlich in Jerrys Vorrat (Zeile 72.10)
-- 22:07 16.10.: Sokrates Projekt 106.1 beschlossen (08a3e4c7), archiviert; Nachfolger Sa ab 21:15 (Eingang)
-- 22:04 16.10.: Lauf: Tom (#97 auf main, #68 neu 0.1.812, #98 Build 11) fertig, archiviert (3,89 $); Kreativ D21 fertig, archiviert (2,05 $); Sokrates Projekt 106.1 wartet auf Chef („Paket ja“); Ford 1,96 $, 145 Tsd. Token
-- 21:5x 16.10.: Start Sokrates Kreativ (D21: 39.1, 72u), Zuruf Chef: „Wort. Starte bitte Sokrates kreativ.“
-- 21:48 16.10.: Start Sokrates Projekt (Neustart e6777f7a, 106.1 Entwürfe, Zuruf Chef 21:5x)
+- 22:07 16.10.: Perikles 106.1 beschlossen (08a3e4c7), archiviert; Nachfolger Sa ab 21:15 (Eingang)
+- 22:04 16.10.: Lauf: Tom (#97 auf main, #68 neu 0.1.812, #98 Build 11) fertig, archiviert (3,89 $); Kreativ D21 fertig, archiviert (2,05 $); Perikles 106.1 wartet auf Chef („Paket ja“); Ford 1,96 $, 145 Tsd. Token
+- 21:5x 16.10.: Start Homer (D21: 39.1, 72u), Zuruf Chef: „Wort. Starte bitte Sokrates kreativ.“
+- 21:48 16.10.: Start Perikles (Neustart e6777f7a, 106.1 Entwürfe, Zuruf Chef 21:5x)
 - 21:46 16.10.: Diogenes (125, D21) archiviert; Starts Kreativ, Projekt, Tom für D21 in den Eingang (Startsperre bis Max-Wechsel)
 - 21:32 16.10.: Diogenes Lauf 21 fertig, kein Nachfolger; Wunsch Kreativ-Start in den Eingang (Startsperre bis Max-Wechsel); Diogenes archivieren ab 22:03
 - 21:29 16.10.: Start Tom (Übernahme D1/D3: #93, #94, #95 nach main; Chef 16.10., 21:2x: „Ich will alle fertigen Builds, die ich getestet habe, auf Main haben. Also lass das Tom mal bitte machen. Auch das von Jerry. Soweit du weißt, dass wir es freigegeben haben.“)
-- 21:20 16.10.: von Sokrates Projekt: Wache Mo–Fr 07:08, Sa/So 09:08 (zweite Uhr); Guthaben Max 91 %; Umbau Namen auf Sa 21:15
+- 21:20 16.10.: von Perikles: Wache Mo–Fr 07:08, Sa/So 09:08 (zweite Uhr); Guthaben Max 91 %; Umbau Namen auf Sa 21:15
 - 21:19 16.10.: neuer Ford session_01B3GyS2dPCbVVLgZ2umvMQt läuft, Uhr trig_013eNWtEGr7bAJCFxhGY5WHk; alte Uhr gelöscht, alter Ford archiviert
-- 21:18 16.10.: Selbstneustart Ford (Haken-Erinnerung 2, ≈233 Tsd. Token); offen: Diogenes 125 (session_01NN52c14B4vhpWH2KyWnUGT) fertig seit 20:57, archivieren ab 22:03, wenn unverändert; Tom pausiert bis Testergebnis 0.1.806 (dann „Tom – 92 nach Test zusammenführen“ starten); Sa 08:00 Start Sokrates Projekt (Eingang); Guthabenzeile 128
+- 21:18 16.10.: Selbstneustart Ford (Haken-Erinnerung 2, ≈233 Tsd. Token); offen: Diogenes 125 (session_01NN52c14B4vhpWH2KyWnUGT) fertig seit 20:57, archivieren ab 22:03, wenn unverändert; Tom pausiert bis Testergebnis 0.1.806 (dann „Tom – 92 nach Test zusammenführen“ starten); Sa 08:00 Start Perikles (Eingang); Guthabenzeile 128
 - 21:10 16.10.: Chef „Build 10 … PR #95 passt“ in Jerrys Vorrat (Zeile D3)
 - 21:05 16.10.: Chef „Build 9 … PR #94 passt“ und Frage zu 9.2 (Regen im Kampf) in Jerrys Vorrat (Zeile D3)
 - 20:54 16.10.: Chef „Build 7 · 0.1.798 · D1.14 … PR #93 alles passt“ in Jerrys Vorrat (Zeile D1); send_message an Jerry geht nicht über Accounts
 - 20:28 16.10.: Tom meldet Neustart (dce7e883); Nachfolger „Tom – 92 nach Test zusammenführen“ erst auf Testergebnis des Chefs (0.1.806), Meldung laut; Tom 92 archiviert
-- 20:26 16.10.: Start Diogenes (Auftrag 125, 106.1; Sokrates Projekt, a1e6380b)
+- 20:26 16.10.: Start Diogenes (Auftrag 125, 106.1; Perikles, a1e6380b)
 - 20:14 16.10.: Start Tom (Neustart, 75d49f75, 92 Bram schubsen); Vorgänger D3 archiviert (1,77 $)
 - 20:39 16.10.: Start Jerry (Neustart, fe2339f2, D3 Kampfgeheul) (Ford 2)
 - 20:32 16.10.: Start Jerry (Neustart, 81f0caee, 86 Außer Atem und Rennen laut) (Ford 2)

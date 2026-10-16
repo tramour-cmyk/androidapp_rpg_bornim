@@ -1,6 +1,6 @@
 # Story: Zwischenbildschirm (24), alle Kapitel
 
-Texte der schwarzen Blende bei Ortswechsel und Kampfbeginn; gelten kapitelübergreifend (Bornim bleibt Bornim). Gestaltung, Zeiten und Aufteilung: `DESIGN-ZWISCHENBILD.md`; Regeln und Marken: `STORY-REGELN.md`. Marken neu seit 77e (13.10.); im Code noch ohne Markenkommentar (`Interlude.kt`). Englisch beim Bauen übersetzen.
+Texte der schwarzen Blende bei Ortswechsel und Kampfbeginn; gelten kapitelübergreifend (Bornim bleibt Bornim). Gestaltung, Zeiten und Aufteilung: `DESIGN-BLENDE.md`; Regeln und Marken: `STORY-REGELN.md`. Marken neu seit 77e (13.10.); im Code noch ohne Markenkommentar (`Interlude.kt`). Englisch beim Bauen übersetzen.
 
 ## Orte
 

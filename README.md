@@ -2,7 +2,7 @@
 
 Ein düsteres Fantasy-Rollenspiel für Android. Erkunde das Dorf Bornim, den Wald und die Höhlen darunter in schräger Sicht, sprich mit seinen Bewohnern und stell dich gefährlichen Monstern in rundenbasierten Kämpfen. Erzählt in Kapiteln, mit einer lebendigen Welt, echten Klängen und orchestraler Musik. Die Regeln bauen auf dem SRD 5.1 auf. Auf Deutsch und Englisch.
 
-**Download:** [bornim.apk (neueste Version)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/latest/download/bornim.apk) · [Leitbild](docs/DESIGN-LEITBILD.md) · [Änderungshistorie](CHANGELOG.md) · [Offen](docs/ARBEIT-OFFEN.md) · [Merkliste](docs/LISTE-IDEEN.md) · [Stil](docs/DESIGN-STIL.md) · [Entwicklung](docs/DESIGN-ABNAHME.md) · [Balance](docs/DESIGN-BALANCE.md) · [Kapitel 1](docs/LISTE-KAPITEL1.md)
+**Download:** [bornim.apk (neueste Version)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/latest/download/bornim.apk) · [Leitbild](docs/DESIGN-LEITBILD.md) · [Änderungshistorie](CHANGELOG.md) · [Notizen](docs/README.md) · [Ideen](docs/LISTE-IDEEN.md) · [Stil](docs/DESIGN-STIL.md) · [Entwicklung](docs/DESIGN-ABNAHME.md) · [Balance](docs/DESIGN-BALANCE.md) · [Kapitel 1](docs/LISTE-ABNAHME-KAPITEL1.md)
 
 ## Features
 

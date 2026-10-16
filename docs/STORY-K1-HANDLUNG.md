@@ -1,6 +1,6 @@
 # Story Kapitel 1: Hauptquest, Nebenquests, Zwischensequenzen
 
-Gruppen K1-H, K1-N, K1-Z (Regeln, Marken, übrige Teildateien: `STORY-REGELN.md`). Welttexte (K1-W) in `STORY-K1-W.md`, Zwischenbildschirm in `STORY-BLENDE.md`. Nur Deutsch; Englisch beim Bauen übersetzen.
+Gruppen K1-H, K1-N, K1-Z (Regeln, Marken, übrige Teildateien: `STORY-REGELN.md`). Welttexte (K1-W) in `STORY-K1-WELT.md`, Zwischenbildschirm in `STORY-BLENDE.md`. Nur Deutsch; Englisch beim Bauen übersetzen.
 
 ## K1-H Hauptquest
 
