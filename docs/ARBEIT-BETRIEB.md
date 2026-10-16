@@ -74,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 01:04 17.10.: Selbstneustart Ford (Haken-Erinnerung 2, ≈217 Tsd. Token) → session_01EshK4E… (Tiefe 6, kein weiterer Selbstneustart); Lauf: Tom Builds nach main läuft, sonst nichts
 - 01:00 17.10.: Start Tom (Builds 8, 11, 12, 13 nach main: #68, #98, #99, #100; Zuruf Chef 01:00: „Tom, Builds nach main“)
 - 01:00 17.10.: Chef: Build 13 passt (wörtlich in Toms 129); Rückfrage 129a (68, 26 mitgemeint?)
 - 00:51 17.10.: Chef: Build 12 passt (wörtlich in Jerrys D3)
