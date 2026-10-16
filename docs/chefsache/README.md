@@ -6,6 +6,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
+| [129a](entscheiden/129a-build13-umfang.md) | 17.10. | Build 13: gilt „passt“ auch für 13.4 und 13.5? (Empfehlung: :) | Ford |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
 ## Anzusehen
