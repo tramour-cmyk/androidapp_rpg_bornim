@@ -8,5 +8,5 @@
 |---|---|---|---|---|
 | Ford | [Ford – Betriebsleiter (16.10., 13:56)](https://claude.ai/code/session_01Hr5Go7BFHT2zpmsRmGmLc1) | Betrieb | – | 16.10., 13:56 |
 | Team Tom | [Tom – 118 Übernahme von Jerry (16.10., 13:57)](https://claude.ai/code/session_01UdYjMX8UVUYGtwDmUmaKao) | 118 | `claude/tom-118-uebernahme` | 16.10., 13:57 |
-| Ford 2 | [Ford 2 – Niederlassungsleiter (16.10., 08:49)](https://claude.ai/code/session_01JDBt2kNDbu2Udn7WRr5wE7) | Betrieb Pro | – | 16.10., 08:48 |
+| Ford 2 | [Ford 2 – Niederlassungsleiter (16.10., 14:07)](https://claude.ai/code/session_013oK9KoFaRYSMbNWxWWtuW8) | Betrieb Pro | – | 16.10., 14:06 |
 | Team Jerry | [Jerry – Musik in Schichten (Idee 10) (16.10., 14:05)](https://claude.ai/code/session_018DVf7mq9FGUZu4TzUuNHVK) | Musik in Schichten (Idee 10) | `claude/jerry-idee10-musik-schichten` | 16.10., 14:05 |
