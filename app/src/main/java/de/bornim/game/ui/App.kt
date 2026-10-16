@@ -93,11 +93,14 @@ fun BornimApp(vm: GameViewModel) {
                 // 60k (test 0.1.650): the saved games and the about page in the title's look too
                 Screen.ABOUT -> TitleVeil { AboutScreen(vm) }
                 Screen.SLOTS -> TitleVeil { SlotsScreen(vm) }
-                Screen.PLAYING -> when {
-                    // 69c: the quiet sounds under the pictures go with them
-                    vm.intro -> { IntroScreen(vm); IntroSounds(vm) }
-                    vm.templeAgain || vm.game?.mode == Mode.TempleScene -> TempleSceneScreen(vm)
-                    else -> PlayScreen(vm)
+                // 13e.6: the brightness lifts the black of the game's picture, menus included (the test sign is there)
+                Screen.PLAYING -> Box(Modifier.fillMaxSize().liftBlack(de.bornim.core.audio.Mix.lift(vm.brightness))) {
+                    when {
+                        // 69c: the quiet sounds under the pictures go with them
+                        vm.intro -> { IntroScreen(vm); IntroSounds(vm) }
+                        vm.templeAgain || vm.game?.mode == Mode.TempleScene -> TempleSceneScreen(vm)
+                        else -> PlayScreen(vm)
+                    }
                 }
             }
             vm.toast?.let { msg ->

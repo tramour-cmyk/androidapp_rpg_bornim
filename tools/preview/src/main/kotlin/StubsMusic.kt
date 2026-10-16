@@ -6,6 +6,8 @@ import de.bornim.core.audio.MusicScene
 
 /** Silent stand-in for the Android music player. */
 class MusicPlayer(context: Any? = null) {
+    var gain = 1f
+    var bedGain = 1f
     fun play(now: MusicScene) {}
     fun victory() {}
     fun setEnabled(on: Boolean) {}
