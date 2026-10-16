@@ -4,9 +4,9 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 **offen 22, davon A 0, wartet auf Chef 1**
 
-**Gelesen bis:** `a9f8ab69` (16.10., 15:44)
+**Gelesen bis:** `1407fed0` (16.10., 16:2x)
 
-**Übergabe (16.10., 13:3x, „Sokrates Projekt – 118 Teams ohne Themen“):** 118 beschlossen B und umgesetzt (Chef 13:5x „Sofort“); Prüfauftrag 118 gestrichen. An Jerry Zeile 108a (Chef hat 0.1.757: kein Neubau, Testseite klarer, Sammelbuild nach 78a). Nachfolger: keiner jetzt (Sparmodus 99d); nächster Start auf Antwort zu 99g.1, sonst nach Sa 21:00 „Sokrates Projekt – 117 Ausmisten“.
+**Übergabe (16.10., 16:2x, „Sokrates Projekt – Zuruf (16.10., 15:44)“):** auf Zuruf erledigt: 121 beschlossen und umgesetzt (`CLAUDE.md`, Beschlüsse); 120 Build-Fehler und Testergebnis an Jerry, Jerry Pause bis 18:30; t757 in Toms Übergabe berichtigt; t781 neu gebaut als 0.1.791 (Weckruf `trig_01TydoF53GQYKdDoo8eSuVQh`); Frage Ford-2-Wache bei 99; Lehre Versionsreihenfolge bei 102. Nachfolger: auf „99g.1 ja, vorziehen“ „Sokrates Projekt – 99g.1 Vorgangsarchiv“, sonst keiner (Sparmodus).
 
 ## Zeilen
 
