@@ -56,7 +56,7 @@ Eine Zeile je Themennummer, für den Überblick. **Wird beim Start nicht gelesen
 | 50 | Weitere Klassen, ggf. zum Kauf | Berater mit Nutzer | ruht |
 | 51 | Sterbehaltung des Helden (Magier) sieht komisch aus | Jerry | offen |
 | 52 | Feinarbeit an den Kampfanimationen | Jerry | ruht |
-| 53 | Zustände (Brennend) auf Krogg prüfen | Jerry | ruht |
+| 53 | Zustände (Brennend) auf Krogg prüfen | Jerry | Test |
 | 54 | Nicht warten, von selbst weiterarbeiten | Tom und Jerry | erledigt |
 | 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | Tom | erledigt |
 | 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | Tom | erledigt |
