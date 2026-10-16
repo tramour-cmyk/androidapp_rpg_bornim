@@ -6,7 +6,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
-| [99g](entscheiden/99g-dokumente-pro.md) | 16.10. | Öffnen Kampf-Dokument, Storyplan, Heldenbau auf Pro? Sonst Abschriften ins Repo (Empfehlung: Abschriften) | Sokrates Projekt |
+| [99g](entscheiden/99g-dokumente-pro.md) | 16.10. | Kampf-Dokument und Storyplan ins Repo umziehen wie Dein Zug, statt das Teilen weiter zu prüfen (Empfehlung: umziehen) | Sokrates Projekt |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Sokrates |
 
 ## Anzusehen
