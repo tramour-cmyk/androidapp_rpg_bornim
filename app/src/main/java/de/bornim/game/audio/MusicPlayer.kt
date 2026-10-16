@@ -55,7 +55,7 @@ class MusicPlayer(private val context: Context) {
         var step = 1f
         private var aim = Float.NaN
         /** 120: cuts the bands above about 700 Hz (sample 1: low-passed at 700 Hz); none where the device has none. */
-        private val eq: Equalizer? = if (!muffle || mp == null) null else runCatching { Equalizer(0, mp.audioSessionId).apply { enabled = true } }.getOrNull()
+        private val eq: Equalizer? = if (!muffle) null else mp?.let { p -> runCatching { Equalizer(0, p.audioSessionId).apply { enabled = true } }.getOrNull() }
         private var dark = 0f
         private var darkAim = 0f
         private var darkStep = 0f
