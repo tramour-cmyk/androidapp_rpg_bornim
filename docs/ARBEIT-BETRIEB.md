@@ -10,7 +10,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 10:05)“ `session_0146qrC68GQ3gCeHSC17RwLo` (seit 16.10., 10:04; Vorgänger `session_01KYjYQSUyCT2WSXinMf6rPA` archiviert). Stundenuhr „Ford-Stundenuhr“ `trig_01XjYt5Mi2cFZLQcgy5UxvRW` (:03, seit 10:05). Tiefe 7 von 8: kein Selbstneustart mehr, der Chef startet Ford von Hand (110, `ROLLE-BETRIEB.md` „Tiefe“).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 11:27)“ `session_01PbT46BNgNjQCdzsESVQgUR` (seit 16.10., 11:27, vom Chef von Hand gestartet, Tiefe 0; Vorgänger `session_0146qrC68GQ3gCeHSC17RwLo` archiviert). Stundenuhr „Ford-Stundenuhr“ `trig_01QNT865saNWYEcuTeWjDpML` (:03, seit 11:28).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhr „Ford-Wache 07:08“ `trig_01Phk9eXekP5yY9M6L3bgS1c` (täglich 07:08; 15.10., 22:5x zurückgeholt, D13.2).
 - **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 08:49)“ `session_01JDBt2kNDbu2Udn7WRr5wE7` (seit 16.10., 08:48; Vorgänger `session_01R7KS2bJJNiqcTvwgFNSBNS` archiviert). Stundenuhr „Ford-2-Stundenuhr“ `trig_01SGCVra7Xeg6ChsDYSK1DR3` (:33, seit 08:48). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren.
 
@@ -46,6 +46,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 11:28 16.10.: Ford neu von Hand (110, Tiefe 0, session_01PbT46B…), Uhr trig_01QNT865saNWYEcuTeWjDpML, alte Uhr gelöscht, Vorgänger archiviert (4,09 $)
 - 11:22 16.10.: Regel 110 übernommen (kein Selbstneustart, Tiefe 7); Hinweis an Ford 2 im Eingang
 - 11:19 16.10.: Start Sokrates Projekt (Neustart, 64d6c376, 110 Sitzungstiefe)
 - 11:05 16.10.: Diogenes (108, D15) und beide Berater archiviert
