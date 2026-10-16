@@ -2,9 +2,9 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 21, davon A 0, wartet auf Chef 8**
+**offen 20, davon A 0, wartet auf Chef 8**
 
-**Übergabe (16.10., 19:2x, „Jerry – 120 Musik in Schichten prüfen“) – Nachfolger: Jerry – 24aa Ortsklang an der Tür prüfen:** 120: 6.1 behoben (Spur ab 8 statt 10 Feldern laut Beschluss, nicht im Dorf), `main` eingemischt (Konflikte `MusicPlayer.kt` mit Lautstärkereglern 40, Quellen), Kerntests grün, Build 6 neu (PR #87, 0.1.797 grün); wartet auf Chef. Build 8 (PR #68, 0.1.796) grün. 108a.1 weiter offen; antwortet der Chef, zuerst 108a. Nachfolger: #68, #87 abonnieren. Lehre: `MusicPlayer.kt` übersetzt die Vorschau nicht, Fehler zeigt erst der Build.
+**Übergabe (16.10., 19:2x, „Jerry – 24aa Ortsklang an der Tür prüfen“) – Nachfolger: Jerry – D3 Rest: Varianten, Regenklang, Monster auf der Karte:** 24aa gestrichen: 24.8.5 (PR #38, getestet 0.1.555) und 24.8.6 (Tom, PR #42, getestet 0.1.563) längst auf `main`. Nachfolger: #68, #87 abonnieren; 108a.1 zuerst, falls der Chef antwortet.
 
 ## Zeilen
 
@@ -29,7 +29,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 | 53 | Zustände (z. B. Brennend) sitzen nicht richtig auf Krogg (Chef 12.10., 15:4x) | **gebaut** (16.10., 10:17, aacf565a, PR #81, Kerntests grün, `OutlineTest`, Filme selbst gesehen): Zustände liegen auf dem Umriss des gezeigten Bilds statt um den Fußpunkt (Krogg stand links davon); geprüft Krogg, Grak, Goblin, Wolf, Keiler, Spinne, Fledermaus; Vorher/Nachher per Telegram. **passt** (Chef 16.10., 15:2x „3.1-3.4 passt“); Zusammenführen PR #90 offen | `claude/jerry-53-zustaende-krogg` |
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Krogg so lassen, später alle gesamt; Rudelwölfe auf `main` | – |
 | 59e | Händler: Vorrat je Laden (mit 38/39) | offen | – |
-| 24aa | Ortsklang beim Betreten von Häusern überblenden (24.8.5), Ausklingen an der Tür länger (24.8.6)? (Rückfrage 11.10., in archivierter Sitzung offen; von Ford 2, 16.10.) | prüfen, ob noch offen; sonst streichen | – |
 | 30 | Abstürze: eigene Klang-Fäden prüfen | **gebaut** (16.10., 10:3x, 01522e0e, PR #82, Kerntests grün): Beenden während `sfx-render` lädt konnte den SoundPool mitten in `load()` freigeben (nativer Absturz); jetzt unter Sperre. Sonst ohne Befund (`MusicPlayer` Hauptfaden, keine Klangaufrufe aus Hintergrundfäden). Kein Kerntest möglich (Android-Klasse). **passt** (Chef 16.10., 15:0x: „1.1 bis 2.4 passt“); Zusammenführen PR #89 offen (main einmischen) | `claude/jerry-30-klang-faeden` |
 | 18 | Stimmen der übrigen Gegner (Angriff, Schmerz, Tod, je drei Fassungen) | **18.11 gebaut** (16.10., 14:55, 681c6076, PR #85, Kerntests grün, `everyMonsterHasAVoice`): alle 12 Gegner, je 9 Fassungen im Spiel (`tools/klang/stimmen.py --spiel`, 108 OGG, 1,8 MB); **passt** (Chef 16.10., 15:4x „108a 5.1 passt“); Zusammenführen PR #85 offen | `claude/jerry-18-gegnerstimmen` |
 | 119 | Raumklang (Idee 8): Hall in der Höhle, gedämpft und nah in der Schänke, offen im Wald; Hörproben | **gebaut** (16.10., 14:0x, PR #86, Kerntests grün, Vorschau übersetzt): Höhle, Tempelhalle, Schänke, Kammer je eigene Fassung der Ereignisklänge, draußen trocken; Hörproben per Telegram (13:5x); **Chef 16.10., 14:0x: „119 ja“** (Beschluss eingetragen, Prüfliste Nr. 14 in der Testreihe); **wartet auf Chef** (Sammelbuild 4, PR #91) | `claude/jerry-idee8-raumklang` |
