@@ -19,6 +19,14 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | 3 | [0.1.815](ansehen/jerry-testreihe.md) | Build 12 | D3: Kampfgeheul aus Aufnahmen | Jerry | 16.10. |
 | 4 | [0.1.816](ansehen/t13-huehner.md) | Build 13 | 129: Hühner nie zwei auf einem Platz | Tom | 17.10. |
 
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Nicht gestellt: 24.6 (Team Jerry), 9i (Team Jerry), 19e (Team Jerry)
+
+Ohne Datei: 39.1 (Kreativ)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
