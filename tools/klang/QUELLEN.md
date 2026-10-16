@@ -130,8 +130,6 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools
 | grund | `grund_fs_460459` | Ambient Rumble | Fission9 | https://freesound.org/s/460459/ |
 | grund | `grund_fs_516566` | Dark Dungeon Ambience | Kinoton | https://freesound.org/s/516566/ |
 | grund | `grund_fs_530161` | Dungeon Air | Flamiffer | https://freesound.org/s/530161/ |
-| grund | `grund_fs_540836` | Temple Cave Myts Storm | szegvari | https://freesound.org/s/540836/ |
-| grund | `grund_fs_609422` | Dark Cave Horns Fantasy Creatures Atmo | szegvari | https://freesound.org/s/609422/ |
 | kampf | `kampf_evil_approach` | Evil Approach | nene | https://opengameart.org/content/evil-approach |
 | kampf | `kampf_determined_pursuit` | Determined Pursuit (epic orchestra loop) | emmama | https://opengameart.org/content/determined-pursuit-epic-orchestra-loop |
 | kampf | `kampf_corrupted_minds` | Corrupted Minds | vitalezzz | https://opengameart.org/content/corrupted-minds |
