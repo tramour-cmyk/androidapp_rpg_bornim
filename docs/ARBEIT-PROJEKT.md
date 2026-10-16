@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kosten-Nutzen der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 10, davon A 1, wartet auf Chef 1**
+**offen 11, davon A 1, wartet auf Chef 2**
 
 **Gelesen bis:** `cd8fcfb6` (15.10., 23:3x; Umbau 98 = `560658a9`)
 
@@ -13,6 +13,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 | Nr. | Thema | Stand |
 |---|---|---|
 | D14 | Diogenes Lauf 14, Nachprüfung Umbau 98 | erledigt 15.10., 23:4x (D14.1, .2, .4, Anregung a, b). **D14.3** Chef 23:3x: „Zuteilung des Chefs. Also bleibt bei Tom.“ Eingetragen bei Tom und Jerry; Beschlüsse-Eintrag beim nächsten Lauf (Chef: „Die Kaffeekasse ist trockengelegt.“), dann Zeile streichen |
+| 103 | Kurz antworten (Chef 16.10., 06:51: „alle Teams kurz, präzise antworten, Füllwörter und Phrasen weglassen … Sokrates Berater darf etwas ‚auschweifender‘ sein“) | Vorschlag im Chat: Haltung 5 „Sparsam: kurz, einfach, ohne Füllwörter und Floskeln; nur der Berater begründet ausführlich. …“, dafür in Regel 9 „dann nur Ergebnis, Frage, Bitte“ streichen (90a). **Wartet auf Chef** (Go) |
 | 101 | Ford-Sitzung heißt noch „Teamleiter“ (Chef 16.10., 06:47: „Bei Ford steht immer noch Teamleiter, Ford 2 … meldet sich richtigerweise als Niederlassungsleiter. Halte den Fehler mal fest“) | **nach Sparmodus** (ab Sa 17.10., 21:00). Ursache: Umbau 98 hat `ROLLE-BETRIEB.md` Kopf und „Selbstneustart“ nicht auf „Ford – Betriebsleiter (TT.MM., HH:MM)“ umgestellt. Dort ändern, dann Ford umbenennen (`set_session_title`), `ARBEIT-BETRIEB.md`, Besetzung; Lehre: Titel gegen Rollentabelle prüfen |
 | 102 | Aktualisierung aller Dokumente von WireStormTCS nach Neustart, mit Lessons learned (Chef 16.10., 06:47) | **nach Sparmodus.** Alle Notizen gegen `CLAUDE.md`/`FIRMA.md` abgleichen (Titel, Begriffe, alte Namen); Firmenordnung und Rollenkonzept (Artefakte) „überholt, es gilt `main`“; offene Kleinigkeiten aus D14 (Stellungstafel Co-Pilot, `CLAUDE.md` „nach der Kennung“); Lehren aus Umbau und Niederlassung (u. a. Rückfragen auch in „Auto“, Jerrys Routinen liefen trotz Pause) in die Rollendateien; Diogenes kurz nachprüfen lassen |
 | 98 | Firma WireStormTCS (Chef 15.10., 18:5x: „kleine, aufstrebende Software-Schmiede … ganz vorne, damit alle wissen, wie sie zusammenarbeiten“) | **A.** Umgebaut 15.10., 23:1x nach Go des Chefs (23:0x: „Go! Welcome WireStormTCS!“); Sicherung: Stand vor dem Umbau 8abeae7b (Tag `vor-umbau-98` vom Proxy abgelehnt). **Prüfen:** (1) Sokrates sofort erledigt; (2) Diogenes blind gegen [Firmenordnung](https://claude.ai/code/artifact/1757d98a-8847-4483-9c51-05be34b45356) und [Rollenkonzept](https://claude.ai/code/artifact/3a9cbaec-bc3a-47b9-9ff1-c89f4bf59faa); (3) Ford die ersten 24 Stunden je Start `list_events`; (4) Ford Morgenmeldung 16.10. „Umbau läuft / hakt“. **Rückweg** (Chef entscheidet; Empfehlung nur, wenn in 24 Stunden eine Rolle falsch startet und ein Commit es nicht behebt; danach nur vorwärts): Ford stoppt alle Sitzungen; `git revert` des Umbau-Commits; was seither in die neuen Vorräte kam, von Hand zurück (`git diff <Umbau>..HEAD -- docs/ARBEIT-*.md`; Revert hat drei Konflikte: BESETZUNG, BETRIEB, TEAM-TOM, D14 Anregung b); Wache-Auftrag zurück (Wortlaut unten); Ford neu starten; etwa 15 Minuten |
