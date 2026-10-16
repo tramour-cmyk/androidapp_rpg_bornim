@@ -4,13 +4,13 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 
 **offen 8, davon A 0, wartet auf Chef 1**
 
-**Übergabe (16.10., 14:4x, „Tom – Eigene Zeilen kürzen“) – Nachfolger: keiner jetzt; nächster Start mit D3 (Jerrys „ok“ zu `WorldScreen.kt`, freie Testreihe) oder Rückmeldung des Chefs (Rast t757, 92 am Gerät):** Zeilen 5, 24, 59e, 95 gestrichen (erledigt, Rest bei Jerry: 24.6, 59e, 95 Keuchen); Archiv ergänzt.
+**Übergabe (16.10., 14:4x, „Tom – Eigene Zeilen kürzen“) – Nachfolger: Tom – D3 Prüfliste:** Zeilen 5, 24, 59e, 95 gestrichen (Rest bei Jerry). D3 als PR #92 (Sammelbuild 5) gepusht, abonniert; bei Grün Prüfliste mit Build-Nummer anlegen und melden. Nachfolger: #92 neu abonnieren.
 
 ## Zeilen
 
 | Nr. | Thema | Stand | Zweig |
 |---|---|---|---|
-| D3 | Übernahme von Jerry (118): D3.5, D3.6, D3.9 (Lautstärke), D3.12 | fertig auf `claude/tom-118-uebernahme` (Kerntests grün, Vorschau übersetzt, Standbild selbst gesehen); **PR und Build erst, wenn Jerry die Absprache `WorldScreen.kt` bestätigt und bei Jerry höchstens 4 Builds auf Test warten**; dann als Sammelbuild mit Prüfliste (Wolf im Regen: „!“ über dem Tier, Glühen am Tier, Schatten unter den Jungen; Schänke: Herd an der Tür leise) | `claude/tom-118-uebernahme` |
+| D3 | Übernahme von Jerry (118): D3.5, D3.6, D3.9 (Lautstärke), D3.12 | **PR #92 (Sammelbuild 5, baut)**, Jerrys „ok“ zu `WorldScreen.kt` da, Kerntests grün; bei Grün Prüfliste `docs/zug/ansehen/t<build>-d3-monster.md` (Test nach Jerrys Builds 1–4) | `claude/tom-118-uebernahme` |
 | 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Auf `main` bis 27m und D3.13a (#67). **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1. 27n auf `main` (#71) | – |
 | 92 | Bauer Bram blockiert an der Brücke den Weg (Chef 15.10., 16:5x; Idee: „Held muss NPC schieben können. Keine Gegner, aber neutrale.“) | Kerntest `MakeWayTest` fängt Held-gegen-Bram an der Brücke (Selbstarbeit erledigt, 23:1x); Test am Gerät mit 0.1.753 | – |
 | 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | **112:** fällt gegen das Intro ab (Chef 16.10., 11:3x); nachziehen erst nach Vergleichsliste von Kreativ und Entscheid des Chefs · auf `main` mit #67 (0.1.753 „passt“); Durchsicht der Szene mit Knopf 100 durch den Chef offen | – |
