@@ -15,14 +15,15 @@ if [ -z "$MELDUNG_WEITER" ] && [ -f "$haupt" ] && [ "$(realpath "$0")" != "$(rea
   git -C /home/user/bornim-main pull -q --no-rebase origin main >/dev/null 2>&1
   MELDUNG_WEITER=1 exec "$haupt" "$@"
 fi
-laut=0
+laut=0; probe=0
 bild=""; art=""
+[ "$1" = "--probe" ] && { probe=1; shift; }  # nur zeigen, was gesendet würde (HTML), nichts senden
 [ "$1" = "--laut" ] && { laut=1; shift; }
 case "$1" in --bild) art=photo; bild="$2"; shift 2 ;; --datei) art=document; bild="$2"; shift 2 ;; esac
 if [ -n "$art" ] && [ ! -f "$bild" ]; then echo "meldung: Bild $bild fehlt" >&2; exit 2; fi
 name="$1"; text="$2"
 if [ -z "$name" ] || [ -z "$text" ]; then echo "Aufruf: tools/meldung.sh [--laut] <Name> \"<Text>\"" >&2; exit 2; fi
-if [ -z "$TELEGRAM_BOT_TOKEN" ]; then echo "meldung: TELEGRAM_BOT_TOKEN fehlt in dieser Umgebung, Meldung nicht gesendet" >&2; exit 1; fi
+if [ $probe = 0 ] && [ -z "$TELEGRAM_BOT_TOKEN" ]; then echo "meldung: TELEGRAM_BOT_TOKEN fehlt in dieser Umgebung, Meldung nicht gesendet" >&2; exit 1; fi
 zeit=$(TZ=Europe/Berlin date "+%d.%m. %H:%M"); stunde=$(TZ=Europe/Berlin date +%H)
 if [ $laut = 1 ]; then
   text="⚠ $text"
@@ -33,7 +34,8 @@ still=true; [ $laut = 1 ] && still=false
 # Kopf verlinkt auf die Sitzung des Absenders (Nutzer 15.10., 16:0x), wenn die Umgebung sie kennt
 sitzung=""; case "$CLAUDE_CODE_REMOTE_SESSION_ID" in cse_*) sitzung="https://claude.ai/code/session_${CLAUDE_CODE_REMOTE_SESSION_ID#cse_}" ;; esac
 zug="$(dirname "$(realpath "$0")")/../docs/zug"
-zeile=$(NAME="$name" ZEIT="$zeit" SITZUNG="$sitzung" TEXT="$text" ZUG="$zug" python3 -c '
+besetzung="$(dirname "$(realpath "$0")")/../docs/ARBEIT-BESETZUNG.md"
+zeile=$(NAME="$name" ZEIT="$zeit" SITZUNG="$sitzung" TEXT="$text" ZUG="$zug" BESETZUNG="$besetzung" python3 -c '
 import os, re, html
 t = html.escape(os.environ["TEXT"].replace("\\n", "\n"), quote=False)
 t = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
@@ -50,9 +52,35 @@ url = lambda u: dz(u) if u.startswith("dz:") else u
 t = re.sub(r"(?m)^(\s*(?:⚠\s*)?)\[([^\]]{1,30})\]\(([^)\s]+)\):", lambda m: m.group(1) + "<a href=\"" + url(m.group(3)) + "\"><b>" + m.group(2) + ":</b></a>", t)
 t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", lambda m: "<a href=\"" + url(m.group(2)) + "\">" + m.group(1) + "</a>", t)
 t = re.sub(r"(?m)^(\s*(?:⚠\s*)?)([\wÄÖÜäöüß][\wÄÖÜäöüß .,/–-]{0,30}):", r"\1<b>\2:</b>", t)
+# Selbsttätig (105, Nutzer 16.10.: Links fehlen, Fettdruck uneinheitlich): auch ohne [..](dz:..) wird jede Nummer mit Datei
+# auf Dein Zug (72s.1, 99g, D10, 0.1.757 -> t757) fetter Link, „PR #71“ Link auf den PR, „Tom:“ am Zeilenanfang Link auf die laufende Sitzung (Besetzung).
+keys = {}
+for f in glob.glob(os.path.join(os.environ["ZUG"], "*", "*.md")):
+    k = os.path.basename(f).split("-")[0].removesuffix(".md").lower()
+    if re.search(r"\d", k): keys[k] = gh + "blob/main/docs/zug/" + os.path.basename(os.path.dirname(f)) + "/" + os.path.basename(f)
+sitz = {}
+try:
+    for z in open(os.environ["BESETZUNG"], encoding="utf-8"):
+        m = re.match(r"\|\s*([^|]+?)\s*\|\s*\[[^\]]*\]\((https://claude\.ai/code/session_\w+)\)", z)
+        if m:
+            sitz[m.group(1)] = m.group(2)
+            if m.group(1).startswith("Team "): sitz[m.group(1)[5:]] = m.group(2)
+except OSError: pass
+def nummer(m):
+    tok = m.group(0); k = tok.replace(".", "").lower()
+    v = re.fullmatch(r"0\.1\.(\d+)", tok)
+    if v: k = "t" + v.group(1)
+    return "<a href=\"" + keys[k] + "\"><b>" + tok + "</b></a>" if k in keys else tok
+def frei(seg):
+    seg = re.sub(r"\bPR #(\d+)", lambda m: "<a href=\"" + gh + "pull/" + m.group(1) + "\">" + m.group(0) + "</a>", seg)
+    teile = re.split(r"(<a [^>]*>.*?</a>|<[^>]+>)", seg)
+    return "".join(x if x.startswith("<") else re.sub(r"(?<![\w.#/])(?:0\.1\.\d+|[A-Za-z]?\d+[a-z]?(?:\.\d+)?[a-z]?)(?![\w.:]\w|\w)", nummer, x) for x in teile)
+t = "".join(x if x.startswith("<a ") else frei(x) for x in re.split(r"(<a [^>]*>.*?</a>)", t, flags=re.S))
+t = re.sub(r"(?m)^(\s*(?:⚠\s*)?)<b>([^<:]+):</b>", lambda m: m.group(1) + ("<a href=\"" + sitz[m.group(2)] + "\"><b>" + m.group(2) + ":</b></a>" if m.group(2) in sitz else "<b>" + m.group(2) + ":</b>"), t)
 n = "<b>" + html.escape(os.environ["NAME"]) + "</b>"
 if os.environ["SITZUNG"]: n = "<a href=\"" + os.environ["SITZUNG"] + "\">" + n + "</a>"
 print(n + " <b>" + os.environ["ZEIT"] + "</b>\n" + t)')
+[ $probe = 1 ] && { echo "$zeile"; exit 0; }
 if [ -n "$art" ]; then
   methode=sendPhoto; [ $art = document ] && methode=sendDocument
   antwort=$(curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/$methode" \
