@@ -10,20 +10,25 @@ Anleitung für den Chef: Ford 2 und Team Jerry auf dem zweiten Account (Pro) in 
 - **Telegram:** `TELEGRAM_BOT_TOKEN` als Umgebungsvariable der Umgebung (nie ins Repo oder in den Chat).
 - **Netz:** „Vollzugriff“ reicht (für `api.telegram.org`); nichts weiter einstellen.
 
-## 1a. Dokumente für Pro freigeben (einmalig)
+## 1a. Dokumente für Pro freigeben
 
-Artefakte und Dokumente von Max sind privat; Pro sieht sie nur nach Freigabe (Teilen-Menü des Dokuments → E-Mail des Pro-Accounts einladen). Für Team Jerry:
+Artefakte und Dokumente von Max sind privat; Pro sieht sie nur nach Freigabe (Teilen-Menü des Dokuments → E-Mail des Pro-Accounts). Eine Einladungs-E-Mail kommt nicht verlässlich. Prüfen auf Pro: Artefakte unter „Artefakte → Mit dir geteilt“; Dokumente (Typ „Dokument“) haben ein eigenes Teilen-Menü, dort den Link auf Pro direkt öffnen.
 
-| Dokument | Recht | Wozu |
-|---|---|---|
-| [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) | lesen | 72.x Kampf |
-| [Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14) (`DESIGN-HELDENBAU.md`) | lesen | Klassen, Balance |
-| [Story-Texte](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d) (`STORY-REGELN.md`) | lesen | Monster- und Kampftexte |
-| [Prüfbericht](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ) | lesen | Befunde Diogenes |
-| [Dein Zug](https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow) | bearbeiten | Testbitten, eigene Punkte |
-| [Beschlüsse](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM), Storyplan, Kampfsystem neu denken | lesen | freigegeben 16.10. |
+**Freigabeliste** (Stand der Spalte „Pro“ trägt ein, wer es prüft):
 
-Prüfen: auf Pro unter „Artefakte → Mit dir geteilt“; Dokumente (Kampf-Dokument, Story-Texte) haben ein eigenes Teilen-Menü, dort direkt den Link auf Pro öffnen. Eine Einladungs-E-Mail kommt nicht verlässlich. Nicht nötig: Entwürfe 98, Firmenordnung, Rollenkonzept, Markt, Berater. Neues Dokument, das Jerry braucht: gleich mit freigeben.
+| Dokument | Art | Recht | Wozu | Pro |
+|---|---|---|---|---|
+| [Dein Zug](https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow) | Artefakt | bearbeiten | Testbitten, eigene Punkte | fehlt (16.10.) |
+| [Beschlüsse](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) | Artefakt | lesen | alles Entschiedene | ja (16.10.) |
+| [Prüfbericht](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ) | Artefakt | lesen | Befunde Diogenes | fehlt (16.10.) |
+| [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) | Dokument | lesen | 72.x Kampf | fehlt (16.10.) |
+| [Story-Texte](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d) (`STORY-REGELN.md`) | Dokument | lesen | Monster- und Kampftexte | fehlt (16.10.) |
+| [Heldenbau (Dokument)](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14) (`DESIGN-HELDENBAU.md`) | Dokument | lesen | Klassen, Balance | offen |
+| [Heldenbau: Klassen, Pfade, Talente](https://claude.ai/artifact/PjzCstGJyyoaYzwj6RRubq) | Artefakt | lesen | Klassen | ja (16.10.) |
+| [Kampfsystem neu denken](https://claude.ai/artifact/NeqVveiFAF82CPoSjAkqKR) | Artefakt | lesen | Hintergrund Kampf | ja (16.10.) |
+| [Storyplan](https://claude.ai/artifact/7E8w8DQLuAB1hRhGGKpefe) | Artefakt | lesen | Geschichte | ja (16.10.) |
+
+Nicht nötig: Entwürfe 98, Firmenordnung, Rollenkonzept, Marktvergleich, Berater. **Pflege:** wer ein Dokument anlegt, das Team Jerry braucht, trägt es hier ein und bittet den Chef auf „Dein Zug“ um Freigabe.
 
 ## 2. Ford 2 starten
 
