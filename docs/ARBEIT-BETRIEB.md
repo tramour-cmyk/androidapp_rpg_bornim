@@ -23,6 +23,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Projekt wertet nach zwei Tagen aus.
 
+- 16.10., 15:19: Neustart Jerry D1.14; Jerry 120 kostete 4,18 $ (211 Tsd. Token Kontext)
 - 16.10., 14:58: Neustart Jerry 120; Jerry 18 kostete 2,10 $ (147 Tsd. Token Kontext); Weckruf trig_01GvuBVi… war schon weg
 - 16.10., 14:42: Neustart Jerry 18; Jerry 108a kostete 4,99 $ (257 Tsd. Token Kontext)
 - 16.10., 14:33: Stundenlauf ohne Tat (Jerry läuft, 108a, Sammelbuild 1 PR #88); Ford 2 seit 14:06 zwei Starts, Pro weiter `allowed_warning`
