@@ -8,7 +8,7 @@ Kurz: 4 Sammelbuilds statt 14 Einzel-APKs, je Build eine Prüfliste; Reihenfolge
 
 APK: im PR unten unter „Checks“ → „build“ → „Artifacts“. Testmenü: Reiter „Test“ (Uhrzeit +3 h, Teleport, „Held trifft immer kritisch“, „Bosse zurücksetzen“, „Alle Vorräte auf mindestens 10“).
 
-Build 1–7, 9, 10 passen, auf `main` (PR #88, #89, #90, #91, #85, #87; 7, 9, 10 über PR #97). Offen: Build 8 (neu gebaut als 0.1.812, mit `main`, Zuruf Chef zu 72.10) und Build 11 (0.1.813, Rennen laut). Beide lassen sich über 0.1.806 installieren; Reihenfolge 8 → 11.
+Build 1–7, 9, 10 passen, auf `main` (PR #88, #89, #90, #91, #85, #87; 7, 9, 10 über PR #97). Offen: Build 8 (neu gebaut als 0.1.812, mit `main`, Zuruf Chef zu 72.10), Build 11 (0.1.813, Rennen laut) und Build 12 (0.1.815, Kampfgeheul). Beide lassen sich über 0.1.806 installieren; Reihenfolge 8 → 11.
 
 ## Build 8 · 0.1.812 · Probe 72.10: Held und Söldner gegen Grak · [PR #68](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/68)
 
@@ -33,3 +33,11 @@ Erst die neue Kampfart zum Ausprobieren, noch nicht im Spiel: Reiter „Test“ 
 |---|---|---|---|---|
 | 11.1 | 86 | Tiefer Wald, tagsüber; einem Wolf erst gehend, dann (neu laden oder anderer Wolf) rennend entgegen | rennend erscheint das „!“ über dem Wolf deutlich früher (etwa 2 Felder weiter weg) | kein Unterschied; „!“ schon über den halben Bildschirm |
 | 11.2 | 86 | ausdauernd rennen, bis der Held keucht, dann gehend an einen Wolf heran | nicht mehr früher bemerkt als beim Gehen | bemerkt wie beim Rennen |
+
+## Build 12 · 0.1.815 · D3: Kampfgeheul aus Aufnahmen · [PR #99](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/99)
+
+**APK:** [Lauf 0.1.815](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38970792542) → „Artifacts“. Der Leitwolf heult beim Erscheinen (etwa jeder zweite Kampf) und wenn ein Rudelwolf fällt oder flieht; bisher war das Heulen künstlich erzeugt. Hörproben per Telegram.
+
+| # | Nr. | Wo und wie | Richtig | Falsch |
+|---|---|---|---|---|
+| 12.1 | D3 | Wald, mehrere Kämpfe gegen ein Wolfsrudel, bis der Leitwolf drei- bis viermal geheult hat | echter Wolf, mal hoch, mal tiefer, nicht immer gleich; das Heulen klingt aus, wenn er den Kopf senkt | Pfeifton wie früher; immer dasselbe Heulen; heult deutlich länger als die Kopfbewegung |

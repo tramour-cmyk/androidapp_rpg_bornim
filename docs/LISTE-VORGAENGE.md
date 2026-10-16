@@ -27,7 +27,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 15 | Offen-Liste entschlacken, Archiv, Themenliste (heute Vorräte, 98) | B Abläufe | – |  | Tom | erledigt |
 | 16 | Trefferstopp | E Kampf | – |  | Jerry | erledigt v0.1.460 |
 | 17 | Nachschwingen | E Figuren | – |  | Tom | erledigt |
-| 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | E Klang | K |  | Jerry | offen |
+| 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | E Klang | K |  | Jerry | erledigt |
 | 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | offen |
 | 20 | Uhrzeit der APK im ZIP | B Werkzeuge | – |  | Tom | erledigt |
 | 21 | Releaseflut eindämmen | B Werkzeuge | – |  | Jerry | erledigt |
