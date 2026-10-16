@@ -10,6 +10,20 @@ Anleitung für den Chef: Ford 2 und Team Jerry auf dem zweiten Account (Pro) in 
 - **Telegram:** `TELEGRAM_BOT_TOKEN` als Umgebungsvariable der Umgebung (nie ins Repo oder in den Chat).
 - **Netz:** „Vollzugriff“ reicht (für `api.telegram.org`); nichts weiter einstellen.
 
+## 1a. Dokumente für Pro freigeben (einmalig)
+
+Artefakte und Dokumente von Max sind privat; Pro sieht sie nur nach Freigabe (Teilen-Menü des Dokuments → E-Mail des Pro-Accounts einladen). Für Team Jerry:
+
+| Dokument | Recht | Wozu |
+|---|---|---|
+| [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) | lesen | 72.x Kampf |
+| [Heldenbau](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14) (`DESIGN-HELDENBAU.md`) | lesen | Klassen, Balance |
+| [Story-Texte](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d) (`STORY-REGELN.md`) | lesen | Monster- und Kampftexte |
+| [Prüfbericht](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ) | lesen | Befunde Diogenes |
+| [Dein Zug](https://claude.ai/artifact/5BapvnBEmqyQA1tfH4Gfow), [Beschlüsse](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) | schreiben / lesen | schon freigegeben |
+
+Nicht nötig: Entwürfe 98, Firmenordnung, Rollenkonzept, Markt, Berater. Neues Dokument, das Jerry braucht: gleich mit freigeben.
+
 ## 2. Ford 2 starten
 
 Neue Sitzung auf Pro, Repo auswählen, Freigabe-Modus **„Auto“** (von Ford 2 gestartete Sitzungen erben ihn; auch in „Auto“ fragt die App einmal bei Eingriffen außerhalb der Sitzung, etwa fremde geplante Aufgaben ändern: „Immer erlauben“), Titel „Ford 2 – Niederlassungsleiter (TT.MM., HH:MM)“, erste Nachricht:
