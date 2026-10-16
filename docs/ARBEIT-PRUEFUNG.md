@@ -6,7 +6,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Themennumm
 
 **Geprüft bis:** `8d852d57` (16.10., Lauf 15: 108 Weg A, nur Notizen und Werkzeuge; Lauf 9 Code bis 8836512); nächste Nummer D16.
 
-**Übergabe (16.10., 11:0x):** Lauf 15 (108 Weg A, Start durch Ford 10:51) fertig: A trägt mit vier Auflagen (D15.1 Bilder bauen APK, D15.2 öffentlich wie C, D15.3 README-Konflikte, D15.4 Bildgrenze), D15.5 Stellenliste; Zeile an Sokrates Berater (108). Nachfolger: keiner nötig bis zum nächsten Auftrag.
+**Übergabe (16.10., 10:5x):** Lauf 15 (108 Weg A, Start durch Ford 10:51) fertig: A trägt mit drei Auflagen (D15.1 Bilder bauen APK, D15.2 erledigt: bleibt öffentlich, Chef 10:5x, D15.3 README-Konflikte, D15.4 Bildgrenze), D15.5 Stellenliste; Zeile an Sokrates Berater (108). Nachfolger: keiner nötig bis zum nächsten Auftrag.
 
 ## Zeilen
 
