@@ -2,12 +2,12 @@
 
 **Wer gerade woran** (98.5). Schreibt nur Ford bei jedem Lauf aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 16.10., 10:55 (Ford; Jerry-Zeilen Ford 2)
+**Stand:** 16.10., 11:00 (Ford; Jerry-Zeilen Ford 2)
 
 | Rolle | Sitzung | Zeile | Zweig | seit |
 |---|---|---|---|---|
 | Ford | [Ford – Betriebsleiter (16.10., 10:05)](https://claude.ai/code/session_0146qrC68GQ3gCeHSC17RwLo) | Betrieb | – | 16.10., 10:04 |
-| Sokrates Projekt | [Sokrates Projekt – Niederlassung (16.10., 07:11)](https://claude.ai/code/session_01PFTy5NtmFuxaDaNZPxx88H) | 99 Niederlassung | `claude/sokrates-projekt-99-niederlassung` | 16.10., 07:11 |
+| Sokrates Projekt | [Sokrates Projekt – Niederlassung (16.10., 07:11)](https://claude.ai/code/session_01PFTy5NtmFuxaDaNZPxx88H) | 99 Niederlassung, 108 Umsetzung (Probe) | `claude/sokrates-projekt-99-niederlassung` | 16.10., 07:11 |
 | Sokrates Berater | [Sokrates Berater – Zuruf (16.10., 09:33)](https://claude.ai/code/session_01UQ24bEBiCmw4JuuLZHQsdJ) | 108, 109 (Gespräch mit Chef, Nachfolger läuft) | `ccr-be0310dc-qkhrjf` | 16.10., 09:33 |
 | Sokrates Berater | [Sokrates Berater – 108 Dokumente beider Accounts (16.10., 10:25)](https://claude.ai/code/session_0115fPwq9qGSwsHQQ123ohCU) | 108 | `claude/berater-108-dokumente` | 16.10., 10:25 |
 | Diogenes | [Diogenes – 108 Prüfung Dein Zug als Markdown (16.10., 10:52)](https://claude.ai/code/session_01NcE4CLYR6pGqkshtwbXPLf) | 108 (D15) | `claude/diogenes-108-zug-markdown` | 16.10., 10:52 |

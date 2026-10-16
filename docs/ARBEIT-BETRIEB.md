@@ -44,6 +44,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 11:00 16.10.: 108 Umsetzung an laufende Sitzung Sokrates Projekt (Zuruf Chef über Berater; kein zweiter Start)
 - 10:54 16.10.: Thema 110 (Abstammungsgrenze Tiefe 8) an Sokrates Projekt, Chef gemeldet
 - 10:52 16.10.: Start Diogenes (Auftrag 108 Dein Zug als Markdown, Chef 10:4x über Berater)
 - 10:25 16.10.: Start Jerry (Neustart, c97ed4ff, 18 Gegnerstimmen) (Ford 2)
