@@ -6,7 +6,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 **Gelesen bis:** `b5b61320` (16.10., 13:3x)
 
-**Übergabe (16.10., 13:3x, „Sokrates Projekt – 118 Teams ohne Themen“):** 118 beschlossen B (Chef 13:5x), Umsetzung nach Sa 21:00 (Zeile 118); Prüfauftrag 118 gestrichen. An Jerry Zeile 108a (Sammelbuilds statt 13 Einzel-APKs). Nachfolger: keiner jetzt (Sparmodus 99d); nächster Start auf Antwort zu 99g.1, sonst nach Sa 21:00 „Sokrates Projekt – 117 Ausmisten“.
+**Übergabe (16.10., 13:3x, „Sokrates Projekt – 118 Teams ohne Themen“):** 118 beschlossen B (Chef 13:5x), Umsetzung nach Sa 21:00 (Zeile 118); Prüfauftrag 118 gestrichen. An Jerry Zeile 108a (Chef hat 0.1.757: kein Neubau, Testseite klarer, Sammelbuild nach 78a). Nachfolger: keiner jetzt (Sparmodus 99d); nächster Start auf Antwort zu 99g.1, sonst nach Sa 21:00 „Sokrates Projekt – 117 Ausmisten“.
 
 ## Zeilen
 
