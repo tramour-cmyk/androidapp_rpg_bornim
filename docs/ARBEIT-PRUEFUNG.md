@@ -4,9 +4,9 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Themennumm
 
 **offen 2, davon A 0, wartet auf Chef 0**
 
-**Geprüft bis:** `fe2339f2` (16.10., Lauf 19: 126, nur Notizen; Lauf 9 Code bis 8836512); nächste Nummer D20.
+**Geprüft bis:** `f52d09e3` (16.10., Lauf 20: 128 und Kennzahlen zusammen, nur Notizen; Lauf 9 Code bis 8836512); nächste Nummer D21.
 
-**Übergabe (16.10., 20:39, Lauf 19):** Läufe 18 (125, 106.1) und 19 (126, Zuruf Chef 20:3x) fertig, Prüfbericht: D19.1 Muss/Kür als Abschnitte statt Zeichen, D19.2 Wochenziel als Nummernliste, D19.3 Montagsstart durch Ford (Ursache: Sortieren hing am nie gelaufenen Rückblick), D19.4 Zielwert erst nach Woche 1, Übernahme einordnen; Ablauf Eingang bis Priorität (Bereich aus dem Vorrat). D18, D19 bei Sokrates Projekt. Nachfolger: keiner nötig bis zum nächsten Auftrag.
+**Übergabe (16.10., 20:57, Lauf 20):** Läufe 18 (125, 106.1), 19 (126) und 20 (128, Nachtrag Sokrates Projekt 20:56: Kennzahlen 124/126/128 zusammen) fertig, Prüfbericht. D20.1 Pro im Tempo Sa gegen 15 Uhr leer, Jerry jetzt pausieren, wieder etwa Mo 21 Uhr; D20.2 Schwelle an `allowed_warning` binden (nur Muss); D20.3 Ursache „eingeteilt“. D18–D20 bei Sokrates Projekt. Nachfolger: keiner nötig bis zum nächsten Auftrag.
 
 ## Zeilen
 
