@@ -8,7 +8,7 @@ Kurz: 4 Sammelbuilds statt 14 Einzel-APKs, je Build eine Prüfliste; Reihenfolge
 
 APK: im PR unten unter „Checks“ → „build“ → „Artifacts“. Testmenü: Reiter „Test“ (Uhrzeit +3 h, Teleport, „Held trifft immer kritisch“, „Bosse zurücksetzen“, „Alle Vorräte auf mindestens 10“).
 
-Build 1 und 2 passen, auf `main` (PR #88, #89). Build 3, 4, 5 passen (Chef 16.10., 15:2x–15:4x), werden zusammengeführt. Neu: Build 8, die Probe des neuen Kampfes (nach Build 6 und 7 testen); Build 9 Regen und Donner. Build 7, 8, 9 liegen über Build 6 (0.1.798–0.1.800): Reihenfolge 6 → 10.
+Build 1 und 2 passen, auf `main` (PR #88, #89). Build 3, 4, 5 passen (Chef 16.10., 15:2x–15:4x), werden zusammengeführt. Neu: Build 8, die Probe des neuen Kampfes (nach Build 6 und 7 testen); Build 9 Regen und Donner. Build 7, 8, 9, 10 liegen über Build 6 (0.1.798–0.1.802): Reihenfolge 6 → 10.
 
 ## Build 3 · 0.1.779 · Kampf · [PR #90](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/90)
 
@@ -73,7 +73,7 @@ Hörproben per Telegram (16.10., 20:0x). Stil-Abgleich: echte Aufnahmen statt Sy
 | 9.2 | D3.10 | bei Regen ein Haus betreten, wieder hinaus; einen Kampf beginnen | drinnen still, draußen wieder Regen; im Kampf still | Regen drinnen gleich laut; im Kampf weiter |
 | 9.3 | D3.10 | bei Regen draußen 5–10 min warten (Wetterleuchten kommt selten) | einige Sekunden nach dem Leuchten fernes, tiefes Grollen ohne Krachen | kein Donner; schrilles Krachen |
 
-## Build 10 · Wölfe und Monster auf der Karte · [PR #95](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/95)
+## Build 10 · 0.1.802 · Wölfe und Monster auf der Karte · [PR #95](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/95)
 
 Hörproben per Telegram (16.10., 19:36 und 19:4x). Stil-Abgleich: echte Aufnahmen, drei Fassungen je Klang mit eigenem Charakter; „was man sieht, klingt selbst“. Übergänge: Ruhe (Laute) ↔ bemerkt („!“, Laute verstummen, Jagd) ↔ zurück nach Hause (wieder Laute). Geprüft mit Kerntest `MonsterIdleTest`; das Gefühl nur am Gerät.
 
