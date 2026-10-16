@@ -1,5 +1,9 @@
 # Archiv
 
+## Tom, Übergabe 16.10., 12:13
+
+**Übergabe (16.10., 12:13, „Tom – 40 Helligkeitswert“) – Nachfolger: keiner jetzt; nächster Start bei Rückmeldung des Chefs (Rast t757, 92 am Gerät) oder mit „Eigene Zeilen kürzen“:** Build `main` nach #71 grün (0.1.773). 40 beantwortet: Wert passt (Zeile bei Jerry). #70 und #76 (`WorldScreen.kt`) durchgesehen, kein Einwand. Sonst wartet alles auf Chef oder andere.
+
 ## Jerry, Übergabe 16.10., 14:05
 
 **Übergabe (16.10., 14:05, „Jerry – Raumklang (Idee 8)“) – Nachfolger: Jerry – Musik in Schichten (Idee 10):** 119 Raumklang gebaut (PR #86, Entwurf, baut), Hörproben per Telegram, wartet auf Chef ([119](dz:119)); bei Ja Prüfliste in die Testreihe (Testreihenfolge nach #84), bei Änderung `Room.acoustics` anpassen, dann `RAUMKLANG=spiel` (Vorschau) neu backen und `RAUMPROBEN=1`. Nachfolger: #70, #72–#82, #84, #85, #86 abonnieren. Rest der Übergabe vom 16.10., 13:44 gilt (im Archiv: 18.11, 108a, D1.14, D4.1 an Diogenes nach #72).
