@@ -34,6 +34,9 @@ class SfxPlayer(private val context: Context) {
     private val ids = ConcurrentHashMap<Sound, IntArray>()
     private val voices = ConcurrentHashMap<String, IntArray>()
     private val main = Handler(Looper.getMainLooper())
+    /** 30: the loading thread and [release] take turns on the pool; a load into a pool being freed ends the app natively. */
+    private val lock = Any()
+    @Volatile private var released = false
     var enabled = true
 
     init {
@@ -43,6 +46,7 @@ class SfxPlayer(private val context: Context) {
             for (v in Recorded.VOICES) for (c in Recorded.Cue.entries)
                 voices["$v/${c.name}"] = IntArray(Recorded.VOICE_TAKES) { load(Recorded.voiceFile(v, c, it)) }
             for (s in Sound.entries) {
+                if (released) break
                 // a recording where there is one
                 val recorded = Recorded.TAKES[s]
                 if (recorded != null) { ids[s] = IntArray(recorded) { load(Recorded.file(s, it)) }; continue }
@@ -51,7 +55,7 @@ class SfxPlayer(private val context: Context) {
                     runCatching {
                         val f = File(dir, "${s.name.lowercase()}_$v.wav")
                         if (!f.exists()) writeWav(f, Sfx.render(s, v))
-                        pool.load(f.path, 1)
+                        synchronized(lock) { if (released) 0 else pool.load(f.path, 1) }
                     }.getOrDefault(0)
                 }
             }
@@ -59,7 +63,9 @@ class SfxPlayer(private val context: Context) {
     }
 
     /** The take loaded from [asset], or 0 (silent) if it cannot be read. */
-    private fun load(asset: String): Int = runCatching { context.assets.openFd(asset).use { pool.load(it, 1) } }.getOrDefault(0)
+    private fun load(asset: String): Int = runCatching {
+        synchronized(lock) { if (released) 0 else context.assets.openFd(asset).use { pool.load(it, 1) } }
+    }.getOrDefault(0)
 
     /** Plays [s] once; [take] picks one of its takes (so a row of them differs, 69c.1), otherwise one at random. */
     fun play(s: Sound, volume: Float = 0.8f, take: Int = -1) {
@@ -107,7 +113,7 @@ class SfxPlayer(private val context: Context) {
 
     fun release() {
         main.removeCallbacksAndMessages(null)
-        pool.release()
+        synchronized(lock) { released = true; pool.release() }
     }
 
     private fun writeWav(f: File, pcm: ShortArray) {
