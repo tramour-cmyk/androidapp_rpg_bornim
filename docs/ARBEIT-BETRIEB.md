@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Themennummer: 110** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
+**Nächste freie Themennummer: 111** (wer ein Thema anlegt, zählt hier hoch, pusht und nennt dann die Nummer)
 
 **Ford: Co-Pilot bis Sa 17.10., 21:00, danach Pilot** (Chef 15.10., 22:5x: „dann kriegt Ford die Stellung Co-Pilot … wieder zurückstellen … wenn wir wieder volles Guthaben haben“; der erste Lauf danach stellt selbst auf Pilot zurück, pusht, meldet lautlos; 81g)
 
@@ -44,6 +44,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 10:54 16.10.: Thema 110 (Abstammungsgrenze Tiefe 8) an Sokrates Projekt, Chef gemeldet
 - 10:52 16.10.: Start Diogenes (Auftrag 108 Dein Zug als Markdown, Chef 10:4x über Berater)
 - 10:25 16.10.: Start Jerry (Neustart, c97ed4ff, 18 Gegnerstimmen) (Ford 2)
 - 10:25 16.10.: Start Sokrates Berater (Neustart, b95f16ce, 108 Dokumente beider Accounts)
