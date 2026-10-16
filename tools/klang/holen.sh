@@ -53,6 +53,11 @@ get "$O/VistulaShort_0.mp3" VistulaShort_0.mp3
 for n in 0864 0823; do
     get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"
 done
+# 120 Musik in Schichten: dunkle Spur (Freesound, CC0)
+for p in 465/465558_9572672 195/195850_179538 507/507741_6900479; do
+    f="fs_$(basename "$p" | cut -d_ -f1).mp3"
+    [ -s "$f" ] || { curl -sSfL -m 300 -A "Mozilla/5.0" -o "$f" "https://cdn.freesound.org/previews/$p-hq.mp3"; sleep 3; }
+done
 # Runde 8 (69c.1 Nacht im Intro): Glocken, Schmerzensschrei (BigSoundBank, CC0); Rufe aus dem Stimmenpaket oben
 for n in 0830 0135 0829 2361; do
     get "https://bigsoundbank.com/UPLOAD/mp3/$n.mp3" "bsb_$n.mp3"

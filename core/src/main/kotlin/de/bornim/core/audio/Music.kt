@@ -12,9 +12,27 @@ data class Track(val name: String, val loop: Boolean = false)
 
 /**
  * What should be heard now: a piece of music (or none), a sound bed under it (cave), and how quickly to fade to it;
- * [level]: the music's loudness against its usual one (quieter under the intro's pictures, 69f).
+ * [level]: the music's loudness against its usual one (quieter under the intro's pictures, 69f; fainter as a hunter
+ * comes near, silent once it has noticed the hero, 120).
+ * 120: [layer] is the dark layer over it (looped, [layerLevel] 1 at its full loudness), [dark] how much the music is
+ * muffled (0 open, 1 only its low part); [shadeMs]: how quickly the same piece, the layer and the muffling follow.
  */
-data class MusicWant(val music: Track?, val bed: String?, val fadeMs: Int, val level: Float = 1f)
+data class MusicWant(
+    val music: Track?, val bed: String?, val fadeMs: Int, val level: Float = 1f,
+    val layer: String? = null, val layerLevel: Float = 0f, val dark: Float = 0f, val shadeMs: Int = fadeMs,
+)
+
+/**
+ * 120: the nearest hunter, as far as the music cares. [near]: 0 at [FAR_TILES] or farther, 1 where it would notice the
+ * hero; [noticed]: one hunts the hero now (the fight is only steps away).
+ */
+data class Threat(val near: Float = 0f, val noticed: Boolean = false) {
+    companion object {
+        val NONE = Threat()
+        /** From how far away a hunter starts to darken the music, in tiles (Beschluss 120: about 8). */
+        const val FAR_TILES = 8
+    }
+}
 
 /** The recorded music (28, all CC0; sources in `tools/klang/QUELLEN.md`), named after the scene it plays in. */
 object MusicLib {
@@ -37,10 +55,12 @@ object MusicLib {
         "kampf_orchestral_battle", "kampf_battlefield", "kampf_devils_dome",
     )
     val boss = listOf("boss_fall_of_nightmares", "boss_fantasy_choir1", "boss_fantasy_choir2")
+    /** 120: the dark layers that creep in as a hunter comes near (cello, stretched celli, low strings), in turn. */
+    val layers = listOf("spur_cello", "spur_gedehnt", "spur_tief")
     /** Too stately for a fight (37a): kept for the Sun Amulet's return to the temple, not yet played anywhere. */
     val amuletReturn = Track("boss_ancient_legend")
 
-    val all: List<String> get() = listOf(title.name, victory.name, chapterEnd.name, amuletReturn.name) + village + forest + cave + caveBeds + battle + boss
+    val all: List<String> get() = listOf(title.name, victory.name, chapterEnd.name, amuletReturn.name) + village + forest + cave + caveBeds + battle + boss + layers
 
     fun pool(scene: MusicScene): List<String> = when (scene) {
         MusicScene.VILLAGE -> village
@@ -67,6 +87,9 @@ object MusicLib {
  * - place to place a soft crossfade (~2 s), into a fight at once, after a won fight the victory piece, then the place again;
  * - the title music carries the intro (69f): quietly under its pictures, fuller with the black one; it goes on if it is
  *   already playing, else starts quietly from the top; in the game it dies away over [TITLE_OUT_MS] before the place's music.
+ * - 120, music in layers: out in the world a hunter coming near darkens and quietens the music while a dark layer creeps in
+ *   (each approach the next of [MusicLib.layers]); turning away, it all eases back; once it notices the hero, silence
+ *   until the fight's music cuts in.
  * The player asks [update] a few times a second and tells it which piece has run out.
  */
 class MusicDirector(seed: Long = System.nanoTime()) {
@@ -80,12 +103,16 @@ class MusicDirector(seed: Long = System.nanoTime()) {
     private var quietUntil = 0L
     private var fadeMs = PLACE_FADE_MS
     private var victoryPending = false
+    private var layer: String? = null
+    private var lastLayer: String? = null
+    /** When the layer last had something to do: it is let go a while later, once it has faded out. */
+    private var layerSeen = 0L
 
     /** A fight was won: the victory piece plays before the place's music comes back. */
     fun victory() { victoryPending = true }
 
     /** [finished]: the piece that has just played to its end, if any. */
-    fun update(s: MusicScene, timeMs: Long, finished: String? = null): MusicWant {
+    fun update(s: MusicScene, timeMs: Long, finished: String? = null, threat: Threat = Threat.NONE): MusicWant {
         if (finished != null && finished == music?.name) {
             music = null
             fadeMs = PLACE_FADE_MS
@@ -95,7 +122,29 @@ class MusicDirector(seed: Long = System.nanoTime()) {
         if (music == null && timeMs >= quietUntil && s != MusicScene.CHAPTER_END && s != MusicScene.INTRO && s != MusicScene.TEMPLE) {
             music = Track(pick(s)); fadeMs = PLACE_FADE_MS
         }
-        return MusicWant(music, bed, fadeMs, if (s == MusicScene.INTRO) INTRO_LEVEL else 1f)
+        val level = if (s == MusicScene.INTRO) INTRO_LEVEL else 1f
+        // 120: out in the world and in the cave, not in the village
+        if (s != MusicScene.FOREST && s != MusicScene.CAVE) {
+            layer = null
+            return MusicWant(music, bed, fadeMs, level)
+        }
+        return shade(MusicWant(music, bed, fadeMs, level), timeMs, threat)
+    }
+
+    /** 120: the nearest hunter's shadow over the place's music (form of sample 1, 16.10.). */
+    private fun shade(w: MusicWant, timeMs: Long, t: Threat): MusicWant {
+        val near = t.near.coerceIn(0f, 1f)
+        if (near > 0f || t.noticed) {
+            if (layer == null) layer = MusicLib.layers.filter { it != lastLayer }.let { it[rnd.nextInt(it.size)] }.also { lastLayer = it }
+            layerSeen = timeMs
+        } else if (timeMs - layerSeen > LAYER_HOLD_MS) layer = null
+        return w.copy(
+            level = if (t.noticed) 0f else w.level * (1f - DIM * near),
+            layer = layer,
+            layerLevel = if (t.noticed) 0f else near,
+            dark = DARK * near,
+            shadeMs = if (t.noticed) NOTICE_FADE_MS else PLACE_FADE_MS,
+        )
     }
 
     private fun enter(s: MusicScene, timeMs: Long) {
@@ -157,5 +206,12 @@ class MusicDirector(seed: Long = System.nanoTime()) {
         const val CAVE_FIRST_MAX_MS = 45_000L
         const val CAVE_QUIET_MIN_MS = 45_000L
         const val CAVE_QUIET_MAX_MS = 120_000L
+        /** 120: how much quieter the music gets with the hunter at hand (sample 1: to 45 %), and how muffled. */
+        const val DIM = 0.55f
+        const val DARK = 0.8f
+        /** 120: noticed, the music and the layer fall silent this quickly (sample 1: 0.4 s). */
+        const val NOTICE_FADE_MS = 400
+        /** 120: the layer is kept this long after the hunter has gone, so it fades out instead of changing. */
+        const val LAYER_HOLD_MS = 4000L
     }
 }

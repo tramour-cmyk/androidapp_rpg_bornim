@@ -189,6 +189,16 @@ CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026. Rezept: `tools/klang/
 | `river_2` | 0864 „Brooklet“, ab 20 s | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/brooklet-s0864.html |
 | `river_3` | 0823 „Small Stream“, ab 30 s | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/detail-0823-small-stream.html |
 
+## 120 Musik in Schichten (`spur_*.ogg` in `assets/music`)
+
+Dunkle Spur unter der Ortsmusik, wenn ein Jäger näher kommt (`tools/klang/schichten.py`). CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026; geladen als Freesound-Vorschau (128 kbit/s), bis 2,5 kHz gefiltert.
+
+| Spur | Aufnahme | Urheber | Quelle |
+|---|---|---|---|
+| Cello | cello drone.wav | carrieedick | https://freesound.org/s/465558/ |
+| gedehnt | Cellos Destroyed and Droned with Paulstretch.wav | RutgerMuller | https://freesound.org/s/195850/ |
+| tief | Dark Strings Music 02 | Magmi.Soundtracks | https://freesound.org/s/507741/ |
+
 ## Runde 9 (69c.1 Nacht unter dem Schwarzbild des Intros)
 
 CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026. Rezept: `tools/klang/nacht.py` (gedämpft, mit Hall, wie durch Wände).
