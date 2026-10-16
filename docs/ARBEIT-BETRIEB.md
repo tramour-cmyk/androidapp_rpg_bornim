@@ -45,6 +45,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 13:55 16.10.: Selbstneustart Ford (≈271 Tsd. Token, Haken-Erinnerung 2); offen: Sokrates Projekt 118 (session_01XPcJHh5fXzcwHcFp6RhVgW) schrieb „Neustart“ ohne Nachfolger, Chef spricht noch mit ihm: nicht archivieren, bis er „Neustart erledigt“ meldet
 - 13:45 16.10.: Start Jerry (Neustart, 3934f9c5, Raumklang Idee 8) (Ford 2)
 - 13:35 16.10.: Jerry 18 nach Pro-Sperre geweckt (108, dann 18); Eingang 110 und „kürzer schreiben“ gelesen, gestrichen (Ford 2)
 - 13:33 16.10.: Start Sokrates Projekt (Neustart, 479ef5b4, 118 Teams ohne Themen)
