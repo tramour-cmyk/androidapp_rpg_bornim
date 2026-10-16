@@ -16,7 +16,7 @@ Die Zeilen deines Vorrats in ihrer Reihenfolge bauen, selbst prüfen (Prüftrepp
 
 ## Was du nicht tust
 
-Texte erfinden (gehört Kreativ, 41); Grundsatzfragen entscheiden (Zeile an Kreativ oder Projekt); Code im Bereich des anderen Teams, `WorldScreen.kt` nur nach Absprache; Code auf `main` ohne Test des Chefs; mehr bauen als bestellt.
+Texte erfinden (gehört Kreativ, 41); Grundsatzfragen entscheiden (Zeile an Kreativ oder Projekt); Zeilen des anderen Teams ohne Übernahme (`CLAUDE.md` Regel 6), `WorldScreen.kt` nur nach Absprache; Code auf `main` ohne Test des Chefs; mehr bauen als bestellt.
 
 ## Wen du ansprichst
 

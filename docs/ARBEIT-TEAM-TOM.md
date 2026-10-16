@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 10, davon A 0, wartet auf Chef 1**
+**offen 11, davon A 0, wartet auf Chef 1**
 
 **Übergabe (16.10., 12:13, „Tom – 40 Helligkeitswert“) – Nachfolger: keiner jetzt; nächster Start bei Rückmeldung des Chefs (Rast t757, 92 am Gerät) oder mit „Eigene Zeilen kürzen“:** Build `main` nach #71 grün (0.1.773). 40 beantwortet: Wert passt (Zeile bei Jerry). #70 und #76 (`WorldScreen.kt`) durchgesehen, kein Einwand. Sonst wartet alles auf Chef oder andere.
 
@@ -10,6 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-TEAM.md`). Reihenfolge = Vo
 
 | Nr. | Thema | Stand | Zweig |
 |---|---|---|---|
+| 118 | **von Sokrates Projekt (16.10., 13:56):** Übernahme gilt ab sofort (Chef: „118 B“, „Sofort“; `CLAUDE.md` Regel 6): nichts Startbares → oberste freie Zeile in `ARBEIT-TEAM-JERRY.md` nehmen, dort vorher „übernommen von Tom, Zweig …“ eintragen und pushen; bevorzugt ohne Gerätetest (Jerry hat 13 Builds in der Testreihe, also jetzt keine Builds) | offen; Zeile nach dem Lesen streichen | – |
 | 27 | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Auf `main` bis 27m und D3.13a (#67). **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1. 27n auf `main` (#71) | – |
 | 92 | Bauer Bram blockiert an der Brücke den Weg (Chef 15.10., 16:5x; Idee: „Held muss NPC schieben können. Keine Gegner, aber neutrale.“) | Kerntest `MakeWayTest` fängt Held-gegen-Bram an der Brücke (Selbstarbeit erledigt, 23:1x); Test am Gerät mit 0.1.753 | – |
 | 68 | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | **112:** fällt gegen das Intro ab (Chef 16.10., 11:3x); nachziehen erst nach Vergleichsliste von Kreativ und Entscheid des Chefs · auf `main` mit #67 (0.1.753 „passt“); Durchsicht der Szene mit Knopf 100 durch den Chef offen | – |

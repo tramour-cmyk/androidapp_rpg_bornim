@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 27, davon A 0, wartet auf Chef 12**
+**offen 28, davon A 0, wartet auf Chef 12**
 
 **Übergabe (16.10., 13:44, „Jerry – 18 Gegnerstimmen“) – Nachfolger: Jerry – Raumklang (Idee 8):** 18 Hörproben fertig (PR #85, nur Werkzeug, baut nicht), per Telegram, wartet auf Chef ([18.11](dz:1811)); Wahl dann mit `stimmen.py` ins Spiel (`--spiel` fehlt noch, wie `huehner.py`). 108 erledigt: Testreihe ergänzt; Rückfrage [108a](dz:108a) (Builds #70–#82 unter 0.1.773, ohne #71): bei „A“ in jeden Zweig `main` einmischen, Kerntests, in Testreihenfolge einzeln pushen (ein Sammel-Skript lehnte der Freigabe-Modus ab). 86.9 PR #84 (baut). D1.14 Hörproben gesendet ([D1.14](dz:d114)). Nachfolger: #70, #72–#82, #84, #85 abonnieren. Rest der alten Übergaben gilt (nach #72 Zeile an Diogenes D4.1; D6.4 im Prüfbericht „bestätigt“).
 
@@ -10,6 +10,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 | Nr. | Thema | Stand | Zweig |
 |---|---|---|---|
+| 118 | **von Sokrates Projekt (16.10., 13:56):** Übernahme gilt ab sofort (`CLAUDE.md` Regel 6): Tom darf deine oberste freie Zeile nehmen und trägt sie vorher als „übernommen von Tom“ ein; solche Zeilen nicht anfassen. Umgekehrt genauso | offen; Zeile nach dem Lesen streichen | – |
 | 108a | **von Sokrates Projekt (16.10., 13:51):** Testreihe zu groß. Chef: „In meiner Deinzugliste steht unter anzusehen Jerry mit 6 oder 7 Pull Requests. Jetzt frage ich mich aber ernsthaft, was soll ich da ansehen?“ 13 Einzel-APKs verstoßen gegen 78a (höchstens 4 Punkte je Sammelbuild, `ROLLE-TEAM.md`). Vorschlag: statt 12 Neubauten 3–4 Sammelbuilds mit `main` (z. B. Klang draußen 95/84/D3.1/D6.4; Intro 69c/69c.1/30; Kampf 38/51/36.6/53; Menü 40 mit 86.9), je Build eine Prüfliste, Testseite und 108a entsprechend umschreiben; Start erst nach „A“ des Chefs zu 108a | **Chef 16.10., 13:55: „Bei mir läuft 757“** → 108a B, kein Neubau nötig; vorhandene Builds sind installierbar. Prüfen, ob ihre Nummern in Testreihenfolge steigen (sonst nur die betroffenen neu bauen); Sammelbuild nach 78a, wo du ohnehin neu baust; Testseite oben mit einem Satz „Zu tun“ beginnen, Zug-Datei 108a löschen
 | 24.6 | Kampferöffnung wartet + Herzschlag in der Blende (nach Toms 24.5 auf `main`) | offen; **wartet auf Chef** (24e: wartet, bis Kampfbilder fertig sind) | – |
 | 72.10 | Probe Held plus Söldner gegen Grak auf dem gemalten Kampfort (drei Absichten, Ring, zwei Reihen mit je zwei Plätzen, Platztausch, Automatik nach 72.13); danach 72o (vorher Vorschaubilder je Zustand auf Dein Zug), 72.15, sechs Plätze (72v) | Kern auf `claude/jerry-72-10-probe-grak` (PR #68, Entwurf); Kampf-Dokument liegt als `docs/DESIGN-KAMPF.md` (99g, 16.10.), dann Oberfläche; Beschlüsse 72.6–72.15, 72o, 72r–72v; [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) | – |
