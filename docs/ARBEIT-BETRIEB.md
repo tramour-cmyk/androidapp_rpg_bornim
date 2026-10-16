@@ -19,7 +19,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
 - 16.10., 06:5x, von Jerry (72.10): [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) liegt auf Max, von Pro nicht lesbar („not found“). Bitte wortgetreue Abschrift als `docs/DESIGN-KAMPF.md` auf `main` (oder Artefakt mit Pro teilen); gebraucht: Graks drei Absichten, Ring (Stufen, Zeitfenster), Reihen, Automatik. Bis dahin baut Jerry das Gerüst (Reihen, Platztausch, Automatik nach 72.13). **Wartet auf Chef** (Ford 07:06: Vorschlag Freigabe an Pro nach `LISTE-NIEDERLASSUNG.md` 1a, dann liest Jerry direkt; Abschrift nur, falls Freigabe nicht geht).
-- 16.10., 08:5x, von Jerry (D3): Prüfbericht Diogenes liegt auf Max, von Pro nicht lesbar. Bitte Wortlaut von D3.5, D3.6, D3.8, D3.9, D3.10, D3.12 (Fundstelle, Befund) als Zeile in `ARBEIT-TEAM-JERRY.md` (D3); bei Freigabe an Pro (wie 72.10) liest Jerry selbst. D3.1 und D3.4 bestätigt und behoben (Zweig `claude/jerry-d3-diogenes-lauf3`), D3.2 mit 84.
+- 16.10., 08:5x, von Jerry (D3): Prüfbericht Diogenes liegt auf Max, von Pro nicht lesbar. Bitte Wortlaut von D3.5, D3.6, D3.8, D3.9, D3.10, D3.12 (Fundstelle, Befund) als Zeile in `ARBEIT-TEAM-JERRY.md` (D3); bei Freigabe an Pro (wie 72.10) liest Jerry selbst. D3.1 und D3.4 bestätigt und behoben (Zweig `claude/jerry-d3-diogenes-lauf3`), D3.2 mit 84. **Wartet auf Chef** (Ford 09:05: löst sich mit der Freigabe des Prüfberichts an Pro, 99g; sonst Abschrift durch Diogenes auf Zuruf).
 
 ## Kosten Ford 2
 
@@ -35,6 +35,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 09:05 16.10.: Eingang Prüfbericht (Jerry, D3) dem Chef vorgelegt
 - 08:59 16.10.: Start Jerry (Neustart, d3517ba8, 86.9 betrunken im Kampf) (Ford 2)
 - 08:49 16.10.: Ford 2 neu (session_01JDBt2k…), Uhr trig_01SGCVra7Xeg6ChsDYSK1DR3, alte Uhr gelöscht, Vorgänger archiviert; Wecker „Jerry Neustart prüfen“ gelöscht (D6.4 läuft) (Ford 2)
 - 08:47 16.10.: Start Jerry (Neustart, 7044eb42, D6.4 Fluss stumm) (Ford 2)
