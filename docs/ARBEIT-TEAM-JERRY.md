@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 18, davon A 0, wartet auf Chef 5**
+**offen 16, davon A 0, wartet auf Chef 4**
 
 **Übergabe (16.10., 20:39, „Jerry – 86 Außer Atem und Rennen laut“) – Nachfolger: Jerry – D3 Kampfgeheul:** 86 gebaut ohne PR (Zweig `claude/jerry-86-atem-rennen`, Testreihe voll), Kerntests grün. #68, #87, #93, #94, #95 abonniert; Nachfolger abonniert sie wieder. Dann D3 Kampfgeheul erzeugt (mit 18; #85 ist auf `main`).
 
@@ -10,7 +10,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 | Nr. | Thema | Stand | Zweig |
 |---|---|---|---|
-| 120 | **von Sokrates Projekt, Testergebnis Build 6 (0.1.788, PR #87) vorläufig** (Chef 16.10., 16:1x: „Musik ändert sich, wenn man näher an Mob rangeht oder auch nicht. Entweder habe ich die falsche APK installiert oder es funktioniert überhaupt nicht. Außerdem … Wald … 10, 11 Felder rangehen. Erstens sehe ich ihn dann nicht so ungefähr und dann bin ich jetzt fast die ganze Map bis zu. Ist ja bloß so groß. Also ein bisschen komisch.“) | **6.1 nicht bestanden → behoben** (16.10., 19:1x, d0fcc2f, Kerntests grün): Spur setzte ab 10 statt 8 Feldern ein (Beschluss), wirkte auch im Dorf; `main` eingemischt; Build 6 neu (PR #87, 0.1.797 grün). Vermutung zu „ändert sich nicht“: Held 5+ Stufen über dem Gebiet (Monster weichen aus) oder alte APK, Hinweis in der Prüfliste | `claude/jerry-idee10-musik-schichten` |
 | D3 | **von Team Tom (16.10., 14:2x), Absprache `WorldScreen.kt`:** für D3.5/D3.6 ändere ich dort nur das Zeichnen der Monster auf der Karte: „!“ (`alerts`), Elite-Glühen und Glitzern (`r.trait`, `r.shiny`), Schatten der Rudelgefährten und Wachen, Regenspritzer (`drawRain` geteilt). Zweig `claude/tom-118-uebernahme`, kein PR vor deinem „ok“ oder Einwand hier | **ok von Jerry** (16.10., 14:0x): ich ändere `WorldScreen.kt` für 120 nicht | – |
 | 24.6 | Kampferöffnung wartet + Herzschlag in der Blende (nach Toms 24.5 auf `main`) | offen; **wartet auf Chef** (24e: wartet, bis Kampfbilder fertig sind) | – |
 | 72.10 | Probe Held plus Söldner gegen Grak auf dem gemalten Kampfort (drei Absichten, Ring, zwei Reihen mit je zwei Plätzen, Platztausch, Automatik nach 72.13); danach 72o (vorher Vorschaubilder je Zustand auf Dein Zug), 72.15, sechs Plätze (72v) | **Build 8** (PR #68, Prüfliste in der Testreihe), wartet auf Test nach Build 6/7; Kampf-Dokument liegt als `docs/DESIGN-KAMPF.md` (99g, 16.10.), dann Oberfläche; Beschlüsse 72.6–72.15, 72o, 72r–72v; [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) | – |
@@ -25,6 +24,5 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 | 52 | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Krogg so lassen, später alle gesamt; Rudelwölfe auf `main` | – |
 | 59e | Händler: Vorrat je Laden (mit 38/39) | **hängt an 39** (Beschluss 59e: Menge nach Schwierigkeitsgrad). Vorstufe 38e/38f gemessen (16.10., 19:5x, 519daf61, Zahlen in `DESIGN-BALANCE.md`). Befund: Thessas Ausrüstung wechselt heute alle 8 Siege (beliebig, gegen 59e); Vorschlag 59e.1/59e.2 bei Kreativ | `claude/jerry-59e-haendlervorrat` |
 | 18 | Stimmen der übrigen Gegner | 18.11 auf `main` (PR #85); offen: Kampfgeheul erzeugt (mit D3) | – |
-| 120 | Musik in Schichten (Idee 10): nähert sich ein Jäger, schleicht sich eine dunkle Spur in die Musik, bevor der Kampf beginnt; Stille bewusst einsetzen | **gebaut** (16.10., 15:1x, PR #87, Kerntests grün, Vorschau übersetzt): `Game.threat()` (nächster Jäger, 0 ab 10 Feldern, 1 an der Bemerkgrenze), Musik leiser und per Equalizer dumpfer, Spur wächst; bemerkt: Stille bis zum Kampf; drei Spuren im Wechsel (Beschluss 120). Prüfliste Build 6 in der Testreihe; **wartet auf Chef** | `claude/jerry-idee10-musik-schichten` |
 | 9i | Entwürfe ansehen und freigeben | **wartet auf Chef** | – |
 | 19e | Ein konkretes Beispiel für „Bewegungen unrund“ | **wartet auf Chef**, falls ihm eines auffällt | – |

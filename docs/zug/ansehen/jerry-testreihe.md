@@ -8,19 +8,11 @@ Kurz: 4 Sammelbuilds statt 14 Einzel-APKs, je Build eine Prüfliste; Reihenfolge
 
 APK: im PR unten unter „Checks“ → „build“ → „Artifacts“. Testmenü: Reiter „Test“ (Uhrzeit +3 h, Teleport, „Held trifft immer kritisch“, „Bosse zurücksetzen“, „Alle Vorräte auf mindestens 10“).
 
-Build 1–5 passen, auf `main` (PR #88, #89, #90, #91, #85). Neu: Build 8, die Probe des neuen Kampfes (nach Build 6 und 7 testen); Build 9 Regen und Donner. Build 7, 8, 9, 10 liegen über Build 6 (0.1.798–0.1.802): Reihenfolge 6 → 10.
-
-## Build 6 · 0.1.797 · Musik in Schichten · [PR #87](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/87)
-
-**Neu gebaut** nach 6.1 „nicht bestanden“: Spur jetzt ab etwa 8 Feldern (Beschluss; war 10), im Dorf keine. Im Menü prüfen, dass 0.1.797 installiert ist. Der Held darf höchstens 4 Stufen über dem Gebiet stehen (erster Wald: Stufe 5), sonst weichen gewöhnliche Monster aus und die Musik bleibt, wie sie ist. Stil-Abgleich: Musik orchestral und düster (Spur aus Celli und tiefen Streichern, CC0); Übergänge Ruhe ↔ Jäger nah (2 s weich) ↔ bemerkt (0,4 s in die Stille) ↔ Kampf (hart wie bisher), Jäger dreht ab (2 s zurück); geprüft mit Kerntest `MusicLayersTest`, das Gefühl nur am Gerät.
-
-| # | Nr. | Wo und wie | Richtig | Falsch |
-|---|---|---|---|---|
-| 6.1 | 120 | Wald, Musik an; langsam auf einen Wolf oder Goblin zugehen (ab etwa 8 Feldern), vor der Bemerkgrenze (4 Felder) umdrehen und weggehen; dann noch einmal hin, bis er „!“ zeigt | beim Näherkommen wird die Musik leiser und dumpfer, eine dunkle Streicherspur wächst; beim Weggehen kommt alles weich zurück; beim „!“ Stille, dann setzt die Kampfmusik ein; beim nächsten Jäger eine andere Spur | nichts ändert sich; Sprünge in der Lautstärke; die Spur läuft im Kampf weiter |
-| 6.2 | 120 | Höhle: wie 6.1 an einem Goblin oder Skelett | über dem Klangbett dieselbe Spur, leiser als draußen; Klangbett bleibt | Spur lauter als die Höhlenmusik |
-
+Build 1–6 passen, auf `main` (PR #88, #89, #90, #91, #85, #87). Neu: Build 8, die Probe des neuen Kampfes (nach Build 7 testen); Build 9 Regen und Donner. Build 7, 8, 9, 10 liegen über Build 6 (0.1.798–0.1.802): Reihenfolge 7 → 10.
 
 ## Build 7 · 0.1.798 · D1.14 und Testknopf · [PR #93](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/93)
+
+**APK direkt:** [0.1.798](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38939792708/artifacts/12062722657). Der PR zeigt zwei Builds; der ältere (13:35) ist eine kleinere Nummer und lässt sich über 0.1.797 nicht installieren.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
