@@ -10,7 +10,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 11:27)“ `session_01PbT46BNgNjQCdzsESVQgUR` (seit 16.10., 11:27, vom Chef von Hand gestartet, Tiefe 0; Vorgänger `session_0146qrC68GQ3gCeHSC17RwLo` archiviert). Stundenuhr „Ford-Stundenuhr“ `trig_01QNT865saNWYEcuTeWjDpML` (:03, seit 11:28).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (16.10., 11:35)“ `session_01J3A7bVXcJjdsqCbQRgt7xi` (seit 16.10., 11:35, Selbstneustart, Tiefe 1; Vorgänger `session_01PbT46BNgNjQCdzsESVQgUR` archiviert). Stundenuhr „Ford-Stundenuhr“ `trig_01FXfKMx7SdRCVGnmrht8W4R` (:03, seit 11:34; alte Uhr `trig_01QNT865saNWYEcuTeWjDpML` gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhr „Ford-Wache 07:08“ `trig_01Phk9eXekP5yY9M6L3bgS1c` (täglich 07:08; 15.10., 22:5x zurückgeholt, D13.2).
 - **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 08:49)“ `session_01JDBt2kNDbu2Udn7WRr5wE7` (seit 16.10., 08:48; Vorgänger `session_01R7KS2bJJNiqcTvwgFNSBNS` archiviert). Stundenuhr „Ford-2-Stundenuhr“ `trig_01SGCVra7Xeg6ChsDYSK1DR3` (:33, seit 08:48). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren.
 
@@ -44,6 +44,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 ## Protokoll
 
+- 11:35 16.10.: Ford neu übernommen; Uhr trig_01FXfKMx7SdRCVGnmrht8W4R angelegt und geprüft, alte Uhr trig_01QNT865saNWYEcuTeWjDpML gelöscht, alter Ford session_01PbT46BNgNjQCdzsESVQgUR archiviert
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
 - 11:34 16.10.: Selbstneustart Ford (≈276 Tsd. Token, Haken-Erinnerung 2); Chef bestätigt: „alt“ = älter als heute; 2 Sitzungen (11.10. „Session start“, 13.10. „Tom: Test 0.1.662/0.1.667…“) archiviert der Chef von Hand
