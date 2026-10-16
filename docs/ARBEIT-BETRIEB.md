@@ -25,6 +25,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Projekt wertet nach zwei Tagen aus.
 
+- 16.10., 10:34: Stundenlauf ohne Tat (Jerry läuft, 18); Ford 2 seit 08:48 4,38 $, 220 Tsd. Token Kontext, acht Neustarts Jerry eingeschlossen; Pro weiter `allowed_warning`
 - 16.10., 10:26: Neustart Jerry 18; Jerry 30 kostete 2,38 $; Pro-Fünfstundengrenze meldet `allowed_warning` (Rücksetzung 13:20)
 - 16.10., 10:19: Neustart Jerry 30; Jerry 53 kostete 3,87 $
 - 16.10., 10:06: Neustart Jerry 53; Jerry 36.6: kein `usage` beim Archivieren; dessen Wecker „Jerry 36.6 Neustart prüfen“ gelöscht (Nachfolger läuft)
