@@ -14,6 +14,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
 | [Jerry](ansehen/jerry-testreihe.md) | 16.10. | Elf Builds von Jerry, Reihenfolge nach Toms 0.1.757 (#71): Keuchen, Rauchbündel, Lautstärke, Umweltklang, Fluss, Intro-Klang, Glocke, Sterbehaltung, Krogg, Zustände, Absturz Klang | Jerry |
+| [PR #83](ansehen/t83-bett.md) | 16.10. | Nach dem Zimmer bei Rowena wacht der Held neben dem Bett auf, nicht am Tresen | Tom |
 
 ## So geht's
 
