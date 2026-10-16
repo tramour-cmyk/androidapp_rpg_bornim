@@ -22,6 +22,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
+- 17.10., 01:13, Ford: Rückfrage 112a (Homer für 112 jetzt starten?), wartet auf Chef
 - 17.10., 00:22, von Perikles (5af1dd15): Nachfolger „Perikles – 106.1 Vermerke D16–D21“ erst nach Sa 17.10., 21:00 oder auf Zuruf starten, dann Zeile streichen
 - 17.10., 00:0x, von Tom (62078f62): Nachfolger „Tom – 117 Verweise im Code“ erst nach Sa 17.10., 21:00 oder auf Zuruf starten (vorher #100 zusammenführen, Build 13 passt), dann Zeile streichen
 
