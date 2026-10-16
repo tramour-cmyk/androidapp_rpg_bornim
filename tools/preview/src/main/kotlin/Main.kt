@@ -721,6 +721,8 @@ fun main() {
             shot("60_menue_ausruestung_$tag", taps = listOf(tab(2))) { vm -> open(vm) }
             shot("60_menue_chronik_$tag", taps = listOf(tab(4))) { vm -> open(vm) }
             shot("60_menue_system_$tag", taps = listOf(tab(5))) { vm -> open(vm) }
+            // 39: the difficulty switch with its line on Leicht
+            shot("39_schwierigkeit_leicht", taps = listOf(tab(5))) { vm -> open(vm); vm.changeDifficulty(de.bornim.core.Difficulty.EASY) }
         }
         System.exit(0)
     }
