@@ -6,7 +6,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `8abeae7b` (15.10., 23:0x; für `tools/story.sh`)
 
-**Übergabe (16.10., 21:5x, D21):** 39.1 und 72u auf Dein Zug gestellt (Empfehlung A 0,8/1,2; B Zoom 8); 41 Textentwurf ruht bis 72s.1; 70 „später“. Nachfolger: keiner nötig; Ford startet Kreativ nur für eine Zeile mit „A“, auf Neustart-Meldung oder Zuruf.
+**Übergabe (16.10., 21:5x, D21):** 39.1 auf Dein Zug gestellt; 72u B beschlossen, Zeile an Jerry; 41 Textentwurf ruht bis 72s.1; 70 „später“. Nachfolger: keiner nötig; Ford startet Kreativ nur für eine Zeile mit „A“, auf Neustart-Meldung oder Zuruf.
 
 ## Zeilen
 
