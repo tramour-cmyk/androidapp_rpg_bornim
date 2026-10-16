@@ -35,6 +35,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 09:04 16.10.: Start Jerry (Neustart, 6b7a805a, 69c Intro-Klang) (Ford 2)
 - 09:05 16.10.: Eingang Prüfbericht (Jerry, D3) dem Chef vorgelegt
 - 08:59 16.10.: Start Jerry (Neustart, d3517ba8, 86.9 betrunken im Kampf) (Ford 2)
 - 08:49 16.10.: Ford 2 neu (session_01JDBt2k…), Uhr trig_01SGCVra7Xeg6ChsDYSK1DR3, alte Uhr gelöscht, Vorgänger archiviert; Wecker „Jerry Neustart prüfen“ gelöscht (D6.4 läuft) (Ford 2)
