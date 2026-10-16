@@ -1,8 +1,8 @@
-# Jerry · Testreihe 16.10. (#70, #72–#82)
+# Jerry · Testreihe 16.10. (#70, #72–#82, #84, #86)
 
 Jerry · 16.10., 13:5x · von Sokrates Projekt übertragen (11:2x), von Jerry ergänzt. Vorher-/Nachher-Bilder und Hörproben kamen per Telegram.
 
-Kurz: 13 Builds von Jerry nach Toms #71: Keuchen, Rauchbündel, Lautstärke, Umweltklang, Türklang, Fluss, Intro-Klang, Glocke, Sterbehaltung, Krogg, Zustände, Absturz Klang, betrunken
+Kurz: 14 Builds von Jerry nach Toms #71: Keuchen, Rauchbündel, Lautstärke, Umweltklang, Türklang, Fluss, Intro-Klang, Glocke, Sterbehaltung, Krogg, Zustände, Absturz Klang, betrunken, Raumklang
 
 **Vorher wichtig:** Die Builds stammen von 08–10 Uhr, ihre Nummern liegen unter `main` 0.1.773 und sie enthalten Toms #71 noch nicht. Hast du 0.1.773 installiert, lässt Android sie nicht darüber installieren. Dann baue ich #70–#82 neu (#84 ist schon mit `main` gebaut), mit `main` darin und in dieser Reihenfolge steigend; dafür brauche ich dein Okay (Rückfrage [108a](dz:108a)).
 
@@ -23,5 +23,6 @@ APK je PR: unten im PR unter „Checks“ → „build“ → „Artifacts“. T
 | 11 | [#81](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/81) | 53 | Krogg mit Feuer treffen (Feuerzauber oder Alchemistenfeuer) | Flammen sitzen auf Kroggs Umriss | Flammen links neben ihm |
 | 12 | [#82](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/82) | 30 | App starten und sofort beenden (Zurück), dreimal | kein Absturz (sonst nichts zu sehen) | „App wurde beendet“ |
 | 13 | [#84](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/84) | 86.9 | in der Schänke Met trinken bis „betrunken“, dann draußen kämpfen und einmal fliehen | Held trifft seltener, Flucht misslingt öfter (im Kampf keine Anzeige, das ist so gewollt) | kein Unterschied zu nüchtern; Absturz beim Kampf nach dem Met |
+| 14 | [#86](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/86) | 119 | in der Höhle kämpfen und eine Truhe öffnen; in der Schänke Becher und Stühle hören; im Tempel und im Laden eine Tür; draußen kämpfen | Höhle hallt (Hiebe, Stimmen, Tür), Tempel weit, Schänke und Laden nah und gedämpft, draußen trocken wie bisher; Systemklänge überall gleich | Hall draußen; Treffer in der Höhle verschwimmen; Systemklang hallt |
 
-**Außerdem bei Jerry, wartet auf dich:** D1.14 Höhlen-Klangbett (Empfehlung: Tropfen und Grollen behalten, Hörner heraus; Hörprobe mit und ohne folgt per Telegram). 72u Standbild Grak im Wald (A/B/C): die Frage stellt Sokrates Kreativ. 18 Gegnerstimmen: [18.11](dz:1811).
+**Außerdem bei Jerry, wartet auf dich:** D1.14 Höhlen-Klangbett (Empfehlung: Tropfen und Grollen behalten, Hörner heraus; Hörprobe mit und ohne folgt per Telegram). 72u Standbild Grak im Wald (A/B/C): die Frage stellt Sokrates Kreativ. 18.11 entschieden (passt), Einbau folgt.
