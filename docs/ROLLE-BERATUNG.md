@@ -50,3 +50,4 @@ Diese Datei, dein Vorrat (Übergabe), „Dein Zug“ (eigene Punkte), Beschlüss
 - **Erst abwägen, dann schreiben** (15.10., 98): auf „Was hältst du davon?“ erst Pro, Contra, Empfehlung im Gespräch, Dokument erst nach Einigung („nicht mehr als eine bessere Schreibmaschine“).
 - **Keine Ausgangslage unterstellen** (15.10., 72s.1): „bei seinem Söldner bleiben“ setzte einen Söldner voraus, den der Spieler nie nehmen muss.
 - **Vor dem Archivieren prüfen, ob dort eine Frage des Chefs steht** (15.10., 81v): er verliert sonst den Faden.
+- **Abläufe anderer erst im Vorrat nachsehen, dann reihen** (16.10., 108): „Dein Zug zuletzt“ empfohlen, bis Jerrys Vorrat zeigte, dass seine zehn Punkte für den Chef dort nie ankommen.
