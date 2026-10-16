@@ -115,7 +115,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 103 | Kurz antworten (Haltung 5) | B Abläufe | – |  | Perikles | fertig |
 | 104 | Überspringen in Intro und Tempelszene fragt nach | E Oberfläche | – |  | Tom | erledigt |
 | 105 | Links in Telegram-Meldungen | B Werkzeuge | – |  | Perikles | erledigt |
-| 106 | Rollen schärfen, Kennzahlen (106.1) | B Abläufe | – | 10,75 $ | Perikles | umgebaut |
+| 106 | Rollen schärfen, Kennzahlen (106.1) | B Abläufe | – | 16,06 $ | Perikles | umgebaut |
 | 107 | Ford hält alle Aufträge nach | B Steuerung | – |  | Perikles | umgebaut |
 | 108 | Chefsache als Markdown im Repo | B Werkzeuge | – |  | Perikles | erledigt |
 | 109 | Repo öffentlich | M Veröffentlichung | K |  | Sokrates | ruht |
