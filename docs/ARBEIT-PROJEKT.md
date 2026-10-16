@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kosten-Nutzen der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 20, davon A 0, wartet auf Chef 1**
+**offen 21, davon A 0, wartet auf Chef 2**
 
 **Gelesen bis:** `a420677c` (16.10., 12:5x)
 
@@ -14,6 +14,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 |---|---|---|
 | D17 | **von Diogenes** (Lauf 17, 99g Umzug aller Artefakte; Prüfbericht): D17.1 Beschlüsse nur Text ins Repo, Bilder/Hörproben bleiben im Artefakt; D17.2 Docs-Dokumente per Ausfuhr, Kommentare vorher sichten, Doppeladressen ersetzen; D17.3 Graumoor-Karte; D17.4 Marktvergleich (Frage Chef in 99g); D17.5 gestaffelt: Kampf jetzt, Rest nach Sa 21:00, Regelbilanz an fünf Stellen | entschieden 12:4x, Umsetzung mit 99g nach Sa 21:00 |
 | D16 | **von Diogenes** (Lauf 16, 110 Sitzungstiefe; Prüfbericht https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ): D16.1 Notfall-Selbststart (`ARBEIT-ABLAEUFE.md` Neustart 2) ohne Tiefensperre, Nachfolger auf 8 ohne Weckruf; D16.2 Tiefe Ford 2 in seine Kennungszeile; D16.3 Regel verweist auf gelöschte Zug-Datei 110; Anregung: Hand-Start Ford morgens | offen; im Prüfbericht „bestätigt“/„verworfen“ vermerken |
+| 117 | Namen in `docs/` und Archiv (Chef 16.10., 13:0x: „schau dir mal die Nomenklatur … unter Docs an. Passt das jetzt so halbwegs? … verständlich und … zuordnenbar … wofür brauchen wir das Arbeitarchiv? Und wie grenzt sich das vom Vorgangsarchiv dann ab? Können wir da nicht was einsparen? Und wenn nein, warum nicht? Und wer schaut wo denn überhaupt was nach?“) | auf Dein Zug: `ARBEIT-ARCHIV.md` einfrieren (Verlauf = Git), drei Nachschlage-Dateien `ARBEIT-` → `LISTE-`, `STORY-K1-W` → `STORY-K1-WELT`; Umsetzung mit 99g-Rest und 102 nach Sa 21:00 |
 | 116 | `DESIGN-ZWISCHENBILD.md` umbenennen (Chef 16.10., 12:4x: „ob wir die Datei Design zwischen Bildschirm nicht griffiger umbenennen können in Design Überblendung … zwischen Bildschirm hört sich echt bescheuert an. Müsste man da viel umschreiben?“) | von Team Tom, geprüft: wenig Arbeit (Datei umbenennen, 2 Verweise in Notizen, 3 Kommentare im Code beim nächsten Code-PR; Wort „Zwischenbildschirm“ in 13 Notizen nach und nach). Empfehlung Tom: `DESIGN-BLENDE.md` statt „Überblendung“, passt zu `STORY-BLENDE.md` und „Technik der Blende“ |
 | 115 | Idee heißt prüfen, nicht bauen (Chef 16.10., 12:2x: „Ach Leute, wenn ich eine Idee äußere, heißt das nicht umsetzen. Dann heißt das, irgendwer soll die Idee prüfen. Müssen wir das wo festschreiben?“; 12:3x: „Wenn überhaupt, müsste es erstmal auf irgendeinem Vorrat landen und dann von der Priorisierung her entschieden werden, … ob es wichtig ist, es gleich zu machen oder nicht.“) | von Team Tom: Anlass 114 (gleich gebaut, PR #83 jetzt Entwurf). Empfehlung Tom: keine neue Regel, CLAUDE.md „Ideen in `LISTE-IDEEN.md`“ ersetzen durch „Idee (auch des Chefs): Zeile in den Vorrat des Bereichs, nicht bauen; wann, entscheidet der Vorrang“ (90a) |
 | 113 | Einheitliches Wort für unsere Nummern (Chef 16.10., 12:1x) | **beschlossen** 12:1x (Chef: „Wir nennen es Vorgang. Finde ich gut.“): `CLAUDE.md` „Begriffe“; Zähler „Themennummer“, `LISTE-THEMEN.md`, Haken und Rollendateien mit 102 nach dem Sparmodus |
