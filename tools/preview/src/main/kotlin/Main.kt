@@ -365,6 +365,34 @@ fun main() {
         shot("blende_4_auftauchen", over = { de.bornim.game.ui.InterludeVeil("Bornim", "Bornim schläft. Nur hinter wenigen Fenstern brennt noch Licht.", 0.55f, 0f) }) { village(it, 23 * 60) }
         System.exit(0)
     }
+    // KAMPFORT=karte:x:y:zoom,zoom…[:stunde] (72u): Grak im Wald, heute (gemalter Kampfort) und als Kampfort aus der Karte,
+    // die Karte ohne Helden mit dem Zoom (Bildpunkte je Kartenpunkt), dann Held, Söldner und Grak darübergesetzt (KampfortKarte.kt)
+    System.getenv("KAMPFORT")?.let { spec ->
+        val p = spec.split(":")
+        val map = p[0]; val x = p[1].toInt(); val y = p[2].toInt(); val zooms = p[3].split(",").map { it.toInt() }
+        val hour = p.getOrNull(4)?.toInt() ?: 12
+        shot("72u_heute", settle = 60) { vm -> vm.newGame("Borin", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
+            g.state.place = Place(map, x, y, Facing.UP); g.state.minutes = hour * 60; g.enqueue(listOf(Cmd.Fight("hobgoblin_captain"))); vm.refresh() }
+        for (z in zooms) {
+            // the zoom is whole-numbered from the tiles across (WorldScreen camera): ask for a little less than z
+            de.bornim.game.ui.MapZoom.near = true
+            for (l in 0..2) de.bornim.game.ui.MapZoom.levels[l] = W / (de.bornim.core.art.WorldArt.T * (z + 0.01f))
+            shot("72u_karte_${map}_${x}_${y}_$z", settle = 1) { vm ->
+                vm.newGame("Borin", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
+                g.state.place = Place(map, x, y, Facing.DOWN); g.state.minutes = hour * 60; g.sunCut()
+                val m = de.bornim.core.World[map]
+                g.state.explored[map] = "f".repeat((m.width * m.height + 3) / 4)
+                de.bornim.core.art.MapGround.prepareNow(m)
+                de.bornim.core.art.MapFigure.prepareNow(g.state.hero)
+                hideMapHero()
+                de.bornim.core.Weather.mode = de.bornim.core.Weather.Mode.NEVER; g.settleWeather()
+                de.bornim.game.ui.VeilMemory.game = g; de.bornim.game.ui.VeilMemory.map = map
+                vm.refresh()
+            }
+            composeKampfort(File(out, "72u_karte_${map}_${x}_${y}_$z.png"), z, W, H)
+        }
+        System.exit(0)
+    }
     if (System.getenv("KARTENZOOM") != null) {
         // RANDAUS=1: without the ring beyond the edge, to compare (27m)
         if (System.getenv("RANDAUS") != null) de.bornim.core.art.MapEdge.on = false
