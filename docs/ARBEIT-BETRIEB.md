@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Vorgangsnummer: 132** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 133** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Sparmodus bis Sa 17.10., 21:00** (99d, `FIRMA.md` „Sparmodus“)
 
@@ -74,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 01:06 17.10.: Idee Chef → 132 (Spieldauer im Spielstand, vierter Spielstand) an Tom (K, prüfen)
 - 01:05 17.10.: Ford neu übernommen; Uhr trig_01Y44JZv22h4mpFANruNYxH3 angelegt und geprüft, alte Uhr trig_01MHvLjkYXRb7JKbtriztn6a gelöscht, alter Ford session_01XWRdGrGASFYbx6MMqjVV6Y archiviert ($3,96)
 - 01:04 17.10.: Selbstneustart Ford (Haken-Erinnerung 2, ≈217 Tsd. Token) → session_01EshK4E… (Tiefe 6, kein weiterer Selbstneustart); Lauf: Tom Builds nach main läuft, sonst nichts
 - 01:00 17.10.: Start Tom (Builds 8, 11, 12, 13 nach main: #68, #98, #99, #100; Zuruf Chef 01:00: „Tom, Builds nach main“)
