@@ -74,7 +74,7 @@ class IngredientTest {
     @Test
     fun morwenOffersBrewingFromTheFirstVisit() {
         val g = game()
-        g.state.place = Place("deep_forest", 23, 21, Facing.RIGHT)
+        g.state.place = Place("deep_forest", 24, 30, Facing.RIGHT)
         repeat(2) { visit ->
             g.interact()
             var guard = 0

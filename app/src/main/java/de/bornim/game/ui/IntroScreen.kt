@@ -38,10 +38,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Intro
 import de.bornim.core.IntroLife
+import de.bornim.core.Reel
+import de.bornim.core.TempleScene
 import de.bornim.game.GameViewModel
 
 /** How the intro starts: [auto] plays it for every new hero (the preview turns it off); [fromMs] starts it later (stills). */
@@ -56,24 +60,42 @@ object IntroLook {
  */
 @Composable
 fun IntroScreen(vm: GameViewModel) {
+    ReelScreen(vm, Intro, onPicture = { vm.introPicture = it }, onEnd = { vm.endIntro() }) { index, alpha, ms -> IntroPicture(vm, index, alpha, ms) }
+}
+
+/**
+ * The temple scene at the end of chapter 1 (68), built like the intro: five painted pictures with their sentences, the music
+ * „Ancient Legend“ under it. A tap skips it; afterwards the morning goes on (or, watched again, the chronicle comes back).
+ */
+@Composable
+fun TempleSceneScreen(vm: GameViewModel) {
+    ReelScreen(vm, TempleScene, onPicture = {}, onEnd = { vm.endTemple() }) { index, alpha, _ ->
+        val img = vm.introArt.temple(index)
+        if (img != null) Image(img, null, Modifier.fillMaxSize().alpha(alpha), contentScale = ContentScale.Crop)
+    }
+}
+
+/** A cutscene on screen: [reel]'s clock, the picture (drawn by [picture]) over the one before, the sentence below. */
+@Composable
+private fun ReelScreen(vm: GameViewModel, reel: Reel, onPicture: (Int) -> Unit, onEnd: () -> Unit, picture: @Composable (Int, Float, Long) -> Unit) {
     val start = remember { IntroLook.fromMs }
     val ms by produceState(start) {
         val t0 = withFrameMillis { it }
         while (true) withFrameMillis { value = start + it - t0 }
     }
-    val f = Intro.at(ms)
-    LaunchedEffect(f.picture) { vm.introPicture = f.picture }
-    LaunchedEffect(f.done) { if (f.done) vm.endIntro() }
+    val f = reel.at(ms)
+    LaunchedEffect(f.picture) { onPicture(f.picture) }
+    LaunchedEffect(f.done) { if (f.done) onEnd() }
     Box(
         Modifier.fillMaxSize().background(Color.Black)
-            .clickable(remember { MutableInteractionSource() }, indication = null) { vm.endIntro() },
+            .clickable(remember { MutableInteractionSource() }, indication = null) { onEnd() },
         contentAlignment = Alignment.Center,
     ) {
         Column(Modifier.fillMaxWidth().alpha(1f - f.gone), horizontalAlignment = Alignment.CenterHorizontally) {
             // the picture: 1080 × 1200, as wide as the screen allows
             Box(Modifier.fillMaxWidth().aspectRatio(0.9f)) {
-                f.under?.let { IntroPicture(vm, it, 1f, ms) }
-                IntroPicture(vm, f.picture, f.mix, ms)
+                f.under?.let { picture(it, 1f, ms) }
+                picture(f.picture, f.mix, ms)
             }
             Spacer(Modifier.height(14.dp))
             // the sentence in the text box: black, the thin gold rim, the serif of the black screens
@@ -83,7 +105,7 @@ fun IntroScreen(vm: GameViewModel) {
                 contentAlignment = Alignment.CenterStart,
             ) {
                 Text(
-                    Intro.lines[f.picture](vm.lang), color = Veil.text, textAlign = TextAlign.Start,
+                    reel.lines[f.picture](vm.lang), color = Veil.text, textAlign = TextAlign.Start,
                     style = TextStyle(fontFamily = Serif, fontSize = 19.sp * TypeLook.scale, lineHeight = 27.sp, letterSpacing = 0.4.sp),
                 )
             }
@@ -102,10 +124,11 @@ private fun IntroPicture(vm: GameViewModel, index: Int, alpha: Float, ms: Long) 
         Image(img, null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
         if (index == IntroLife.SQUARE) {
             val zug = vm.introArt.layer(index)
+            val vorn = vm.introArt.front(index)
             Canvas(Modifier.fillMaxSize()) {
                 // the picture is 1080 × 1200 and fills the box exactly (same aspect)
                 withTransform({ scale(size.width / IntroLife.W, size.width / IntroLife.W, Offset.Zero) }) {
-                    clipRect(0f, 0f, IntroLife.W, IntroLife.H) { squareLife(zug, ms - index * Intro.STEP_MS, ms) }
+                    clipRect(0f, 0f, IntroLife.W, IntroLife.H) { squareLife(zug, vorn, ms - index * Intro.STEP_MS, ms) }
                 }
             }
         }
@@ -121,7 +144,6 @@ private fun IntroPicture(vm: GameViewModel, index: Int, alpha: Float, ms: Long) 
 private val warm = Color(0xFFFFC060)
 private val warmDeep = Color(0xFFE07A28)
 private val amber = Color(0xFFB07A40)
-private val smoke = Color(0xFF8A94AC)
 private val flameColors = listOf(Color(0xFFE06A20), Color(0xFFFFB040), Color(0xFFFFF0B0))
 
 /** A soft round light as the painter's `glow`: [a] in the middle, a third of it at a third of [r], none at the rim. */
@@ -132,33 +154,24 @@ private fun DrawScope.glow(x: Float, y: Float, r: Float, c: Color, a: Float) {
 }
 
 /**
- * Life over picture 3, the square (70.3 B), in the picture's own pixels, [u] ms into the picture, [ms] into the intro:
- * the torch bearers' layer walks its last steps to the temple door (once), their light on the stones and in the puddle goes
- * with them, the flames flicker, the candles in the door breathe, the smoke from the left chimney rises.
+ * Life over picture 3, the square (70.3 B, 70.6 A), in the picture's own pixels, [u] ms into the picture, [ms] into the intro:
+ * the torch bearers walk along the lower street and up the temple path, each a painted cut-out from the sheet [zug] carried
+ * along its way; their light on the street and in the puddle goes with them, the flames flicker; the temple [vorn] is laid
+ * over them last, so they disappear behind its corner one after the other.
  */
-private fun DrawScope.squareLife(zug: ImageBitmap?, u: Long, ms: Long) {
-    val (k, shift) = IntroLife.layer(u)
-    val vx = IntroLife.W / 2 - IntroLife.PAN; val vy = IntroLife.HY
-    fun mx(x: Float) = vx + (x - vx) * k + shift
-    fun my(y: Float) = vy + (y - vy) * k
+private fun DrawScope.squareLife(zug: ImageBitmap?, vorn: ImageBitmap?, u: Long, ms: Long) {
     val torches = IntroLife.bearers.withIndex().filter { it.value.torch }
-    // the smoke from the chimney of the left house: puffs rise, drift off to the right and thin out
-    val sway = IntroLife.sway(ms)
-    for (i in 0 until IntroLife.SMOKE_PUFFS) {
-        val t = IntroLife.puff(i, ms)
-        val a = 0.2f * (1 - t) * (t / 0.08f).coerceAtMost(1f)
-        glow(IntroLife.smokeX + IntroLife.drift(t, i) + sway * t, IntroLife.smokeY - 6 - t * 220, 8 + t * 50, smoke, a)
-    }
-    // the candles in the open temple door breathe
-    glow(IntroLife.sx(IntroLife.doorX, IntroLife.doorZ), IntroLife.sy(1.65f, IntroLife.doorZ), IntroLife.F * 1.2f / IntroLife.doorZ, Color(0xFFFFD080), 0.12f * (IntroLife.flicker(11, ms) - 0.8f) / 0.4f)
-    // the torchlight lying on the stones under each torch, added to the painted stones
-    for ((i, b) in torches) {
-        val gx = mx(IntroLife.sx(b.x, b.z)); val gy = my(IntroLife.sy(0f, b.z))
-        val r = IntroLife.F * 6.6f / b.z * k
-        val a = 0.36f * IntroLife.flicker(i, ms)
-        withTransform({ scale(1f, IntroLife.EYE / b.z, Offset(gx, gy)) }) {
+    val pos = IntroLife.bearers.indices.map { IntroLife.at(it, u) }
+    // the torchlight lying on the street under each torch, added to the painted ground
+    for ((i, _) in torches) {
+        val (x, z) = pos[i]
+        if (IntroLife.behindTemple(x, z)) continue
+        val gx = IntroLife.sx(x, z); val gy = IntroLife.sy(0f, z)
+        val r = IntroLife.F * 3.6f / z
+        val a = 0.3f * IntroLife.flicker(i, ms)
+        withTransform({ scale(1f, 0.3f, Offset(gx, gy)) }) {
             drawCircle(
-                Brush.radialGradient(0f to amber.copy(alpha = a), 0.33f to amber.copy(alpha = a * 0.37f), 0.67f to amber.copy(alpha = a * 0.135f), 1f to amber.copy(alpha = 0f), center = Offset(gx, gy), radius = r),
+                Brush.radialGradient(0f to amber.copy(alpha = a), 0.45f to amber.copy(alpha = a * 0.4f), 1f to amber.copy(alpha = 0f), center = Offset(gx, gy), radius = r),
                 r, Offset(gx, gy), blendMode = BlendMode.Plus,
             )
         }
@@ -169,19 +182,33 @@ private fun DrawScope.squareLife(zug: ImageBitmap?, u: Long, ms: Long) {
     clipPath(pool) {
         val y0 = IntroLife.sy(0f, IntroLife.PUDDLE_Z + IntroLife.PUDDLE_W * 0.6f); val y1 = IntroLife.sy(0f, IntroLife.PUDDLE_Z - IntroLife.PUDDLE_W * 0.6f)
         for ((i, b) in torches) {
-            val x = mx(IntroLife.sx(b.x + 0.45f, b.z)) + 1.5f * kotlin.math.sin(ms / 1000f * 5f + i)
+            val (bx, bz) = pos[i]
+            if (IntroLife.behindTemple(bx, bz)) continue
+            val x = IntroLife.sx(bx + IntroLife.tipX(b), bz) + 1.5f * kotlin.math.sin(ms / 1000f * 5f + i)
             val fl = IntroLife.flicker(i, ms)
-            drawRect(Brush.verticalGradient(0f to warm.copy(alpha = (0.7f * fl).coerceAtMost(1f)), 1f to warmDeep.copy(alpha = 0f), startY = y0, endY = y1), Offset(x - 4, y0), Size(8f, y1 - y0))
-            glow(x, y0 + 8, 22f, warmDeep, 0.3f * fl)
-            for (q in 1 until 6) { val yy = y0 + (y1 - y0) * q / 6f; drawLine(Color(0x990A0E18), Offset(x - 6, yy), Offset(x + 6, yy + 1), 1.2f) }
+            drawRect(Brush.verticalGradient(0f to warm.copy(alpha = (0.7f * fl).coerceAtMost(1f)), 1f to warmDeep.copy(alpha = 0f), startY = y0, endY = y1), Offset(x - 3, y0), Size(6f, y1 - y0))
+            glow(x, y0 + 6, 16f, warmDeep, 0.3f * fl)
+            for (q in 1 until 6) { val yy = y0 + (y1 - y0) * q / 6f; drawLine(Color(0x990A0E18), Offset(x - 5, yy), Offset(x + 5, yy + 1), 1.2f) }
         }
     }
-    // the torch bearers, painted, walking as one group
-    if (zug != null) withTransform({ translate(shift, 0f); scale(k, k, Offset(vx, vy)) }) { drawImage(zug) }
+    // the bearers, far ones first: each cut-out from its slot on the sheet, scaled to its depth, feet on its place on the way
+    val box = IntroLife.BOX
+    if (zug != null) for (i in IntroLife.bearers.indices.sortedByDescending { pos[it].second }) {
+        val (x, z) = pos[i]
+        val k = IntroLife.SHEET_Z / z
+        val fx = IntroLife.sx(x, z); val fy = IntroLife.sy(0f, z)
+        val sl = IntroLife.slotX(i); val st = IntroLife.slotY
+        drawImage(
+            zug,
+            srcOffset = IntOffset((sl + box[0]).toInt(), (st + box[1]).toInt()), srcSize = IntSize((box[2] - box[0]).toInt(), (box[3] - box[1]).toInt()),
+            dstOffset = IntOffset((fx + box[0] * k).toInt(), (fy + box[1] * k).toInt()), dstSize = IntSize(((box[2] - box[0]) * k).toInt(), ((box[3] - box[1]) * k).toInt()),
+        )
+    }
     // the flames on the torch shafts
     for ((i, b) in torches) {
-        val fx = mx(IntroLife.sx(b.tipX, b.z)); val fy = my(IntroLife.sy(b.tipY, b.z))
-        val s = IntroLife.F / b.z * k * 1.5f
+        val (x, z) = pos[i]
+        val fx = IntroLife.sx(x + IntroLife.tipX(b), z); val fy = IntroLife.sy(IntroLife.tipY(b), z)
+        val s = IntroLife.F / z * 1.5f
         val fl = IntroLife.flicker(i, ms)
         glow(fx, fy, s * 4.5f, warmDeep, 0.3f * fl)
         glow(fx, fy, s * 1.3f, warm, 0.6f * fl)
@@ -193,4 +220,6 @@ private fun DrawScope.squareLife(zug: ImageBitmap?, u: Long, ms: Long) {
             drawPath(p, flameColors[q])
         }
     }
+    // the temple in front of everything that walks behind it
+    if (vorn != null) drawImage(vorn)
 }

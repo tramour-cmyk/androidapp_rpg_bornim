@@ -161,4 +161,7 @@ object MapFlora {
 
     /** The shadows of all that stands under the open sky, by the sun ([MapSun], 89); drawn under it, faded by the time of day. */
     fun shadows(map: MapDef): List<WorldArt.Obj> = MapSun.shadows(map)
+
+    /** The same without waiting (D9.2): null while the layer is still drawn in the background. */
+    fun shadowsReady(map: MapDef): MapSun.Ready? = MapSun.ready(map)
 }

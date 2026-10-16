@@ -70,6 +70,16 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     fun watchIntro() { introPicture = 0; menuOpen = false; intro = true }
     fun endIntro() { intro = false; introPicture = 0 }
 
+    /** The temple scene (68) watched again from the chronicle; the first time the game's mode shows it. */
+    var templeAgain by mutableStateOf(false)
+        private set
+    fun watchTemple() { menuOpen = false; templeAgain = true }
+    /** The temple scene is over or skipped: back to the chronicle's game, or on with the morning the first time. */
+    fun endTemple() {
+        if (templeAgain) templeAgain = false
+        else game?.let { if (it.mode == de.bornim.core.Mode.TempleScene) { it.advance(); refresh() } }
+    }
+
     var sfxOn by mutableStateOf(prefs.getString(KEY_SFX, "on") != "off")
         private set
 
@@ -312,6 +322,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     private fun prepareFigures(g: Game) {
         val map = de.bornim.core.World[g.state.place.map]
         de.bornim.core.art.MapGround.prepare(map, g.state.place.x, g.state.place.y)
+        de.bornim.core.art.MapSun.prepare(map)
         de.bornim.core.art.MapFigure.prepare(g.state.hero, de.bornim.core.art.MapFigure.yawOf(g.state.place.facing))
         bagSeen = null
         de.bornim.core.art.MapFolk.prepareFor(map)
@@ -342,6 +353,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
             g.mapChanged = false
             de.bornim.core.World[g.state.place.map].let { m ->
                 de.bornim.core.art.MapGround.prepare(m, g.state.place.x, g.state.place.y)
+                de.bornim.core.art.MapSun.prepare(m)
                 de.bornim.core.art.MapFolk.prepareFor(m)
             }
             save()
