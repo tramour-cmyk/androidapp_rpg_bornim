@@ -10,7 +10,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
 
-- **Ford lebt in einer Sitzung** „Ford – Teamleiter (15.10., 23:24)“ `session_01QWF3R8AxcZRH4EicjhyjkF` (seit 15.10., 23:21; Vorgänger `session_01XHpNGp9VNKhvd4FHLmBb7J` und `session_01HSk1rBL32n3xMcP6tQqNMX` archiviert). Stundenuhr „Ford-Stundenuhr“ `trig_01Mzcw22Q4wvzvBsGavkwnvN` (:03, seit 23:21).
+- **Ford lebt in einer Sitzung** „Ford – Teamleiter (16.10., 02:05)“ `session_01KYjYQSUyCT2WSXinMf6rPA` (seit 16.10., 02:04; Vorgänger `session_01QWF3R8AxcZRH4EicjhyjkF` archiviert). Stundenuhr „Ford-Stundenuhr“ `trig_01YZ7SgXEiSXQqrJKMsRmGyj` (:03, seit 02:05).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhr „Ford-Wache 07:08“ `trig_01Phk9eXekP5yY9M6L3bgS1c` (täglich 07:08; 15.10., 22:5x zurückgeholt, D13.2).
 - **Ford 2** (Pro): noch nicht eingerichtet (Chef, Fr. 16.10. nachmittags: Telegram-Schlüssel, Probe `create_session`).
 
@@ -30,6 +30,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 02:06 16.10.: Ford neu (session_01KYjYQS…), Uhr trig_01YZ7SgXEiSXQqrJKMsRmGyj, alte Uhr gelöscht, Vorgänger archiviert
 - 02:04 16.10.: Selbstneustart Ford (≈290 Tsd. Token); Tom wartet mit 38 auf Test #67
 - 01:57 16.10.: Start Tom (Neustart, 4ad6caf8, 38 Rauchbündel Dialoge)
 - 01:42 16.10.: Start Tom (Neustart, f7f0610b, 27n Funken im Wald senkrecht)
