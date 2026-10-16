@@ -2,7 +2,7 @@
 
 Sokrates Projekt · 16.10., 13:10 · fortgeschrieben 13:1x
 
-Kurz: 117.4 `LISTE-KAPITEL1-FERTIG`; 117.3 Ausmisten (Umgebung halbieren, Niederlassung kürzen); 117.1 `LISTE-RELEASE-NEUSTART` und `LISTE-BAUEN-TESTEN`; 117.2 „Dein Zug“ heißt künftig „Chefsache“ (Empfehlung)
+Kurz: 117.4 `LISTE-ABNAHME-KAPITEL1`; 117.3 Ausmisten (Umgebung halbieren, Niederlassung kürzen); 117.1 `LISTE-RELEASE-NEUSTART` und `LISTE-BAUEN-TESTEN`; 117.2 „Dein Zug“ heißt künftig „Chefsache“ (Empfehlung)
 
 **Entschieden** (Chef 13:1x: „da gehe ich mal voll mit, außer bei Arbeitabläufe und Arbeitumgebung …“): `ARBEIT-ARCHIV.md` einfrieren (Verlauf = Git), `STORY-K1-WELT`, `LISTE-VORGAENGE`, `DESIGN-BLENDE`. Umsetzung nach Sa 21:00 mit 99g-Rest und 102.
 
@@ -32,8 +32,8 @@ Gegenargument: Umbenennen trifft 24 Dateien und vier Werkzeuge (Haken, Übersich
 
 Gegenargument: Gestrichenes fehlt, wenn die Umgebung sich ändert. Es bleibt in Git, und `tools/check-env.sh` meldet, was fehlt.
 
-**117.4 Frage:** Wie heißt `LISTE-KAPITEL1.md`? (Chef 13:2x: „Was soll das für eine Datei sein? Der Name ist eben nicht sprechend.“)
+**117.4 Frage:** Wie heißt `LISTE-KAPITEL1.md`? (Chef 13:2x: „Was soll das für eine Datei sein? Der Name ist eben nicht sprechend.“; zu `LISTE-KAPITEL1-FERTIG`: „Klingt eigentlich, als ob da die Story von Kapitel 1 drinsteckt.“)
 
-**Empfehlung:** **`LISTE-KAPITEL1-FERTIG.md`**. Die Datei ist die Abhakliste, was fehlt, bis Kapitel 1 fertig ist und an die 12 Tester geht (vier Pflichtpunkte offen); ihr Titel lautet schon „Kapitel 1 fertig“. Ist alles abgehakt, wird sie gelöscht; für Kapitel 2 kommt dann `LISTE-KAPITEL2-FERTIG.md`.
+**Empfehlung:** **`LISTE-ABNAHME-KAPITEL1.md`**. Die Datei ist die Abhakliste, was fehlt, bis Kapitel 1 an die 12 Tester geht (vier Pflichtpunkte offen). „Abnahme“ heißt prüfen, ob etwas fertig ist, und passt zu `DESIGN-ABNAHME.md` („Ort fertig“), auf das die Liste verweist. Ist alles abgehakt, wird sie gelöscht; für Kapitel 2 kommt `LISTE-ABNAHME-KAPITEL2.md`.
 
-Gegenargument: Projektsprache wäre „Meilenstein“ (`LISTE-MEILENSTEIN-KAPITEL1.md`, passt zu 106). Das Wort ist aber länger und sagt weniger, was drinsteht.
+Gegenargument: „Abnahme“ ist ein Fachwort. Alltäglicher wäre `LISTE-AUFGABEN-BIS-TESTER.md`, aber dann fehlt das Kapitel im Namen.
