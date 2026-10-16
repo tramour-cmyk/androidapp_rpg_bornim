@@ -22,6 +22,13 @@ Kurz: fünf Hauptthemen mit Buchstaben; Preis je Vorgang aus den Sitzungskosten,
 2. **Preis:** jede Sitzung meldet ihre Kosten (`get_session` → `usage.cost_usd`; geht auf beiden Accounts). Ford liest beim Neustart die Kosten des Vorgängers und schreibt sie in die Zeile des Vorgangs; mehrere Nummern: zu gleichen Teilen; Fords eigene Läufe auf B Steuerung. Ersetzt Ford 2s Kostenzeilen (FIRMA „Messung“), damit keine Regel dazukommt (90a).
 3. **Auswertung:** einmal die Woche eine Tabelle Anteil je Hauptthema. Die wichtigste Zahl ist der Anteil E+G: unser Ziel „die meiste Zeit ins Spiel“ wird damit zum ersten Mal messbar.
 
+**Wer macht das Rechnungswesen?** (Chef 16.10., 20:2x: „Bleibt auch die Frage, wer übernimmt das Rechnungswesen? Macht das dann jeweils der Betriebsleiter und der Niederlassungsleiter? Kümmern sich um die Rechnungen? Macht das Sinn?“) Echte Rechnungen gibt es nicht: zwei Pauschalen, fester Betrag. Gemeint ist die Kostenrechnung, aufgeteilt nach Vier-Augen-Prinzip:
+- **Erfassen:** Ford (Zentrale) und Ford 2 (Niederlassung, nur er sieht Pro). Sie lesen beim Neustart ohnehin die Sitzung des Vorgängers; eine Zahl mehr eintragen.
+- **Auswerten:** Sokrates Projekt (Kosten-Nutzen der Arbeit), einmal die Woche, Anteil je Hauptthema, mit Empfehlung.
+- **Prüfen:** Diogenes, mit dem Wochenrückblick (Zeile 90 in seinem Vorrat prüft schon „was hat die Woche gekostet“), auch Fords eigene Kosten.
+
+Gegenargument: Ford erfasst seine eigenen Kosten; darum prüft Diogenes, und die Zahl kommt vom System, nicht aus Fords Schätzung.
+
 **Was „Preis“ heißt:** Der Betrag in Dollar ist, was die Sitzung zu API-Preisen gekostet hätte, nicht deine Rechnung (Max und Pro sind Pauschalen mit Wochengrenze). Als Maß taugt er trotzdem: Anteile und Vergleiche zwischen Vorgängen stimmen. Deine Testzeit ist nicht enthalten; ersatzweise zählen wir Testrunden je Vorgang.
 
 **Stärkstes Gegenargument:** Buchhaltung kostet selbst Guthaben und lädt zum Falschen ein: wer Kosten sieht, baut billig statt gut. Dagegen: Ford liest die Sitzung beim Neustart ohnehin; eine Zahl mehr kostet fast nichts, und bewertet wird nur der Anteil je Hauptthema, nicht die einzelne Sitzung. Bringt die Woche keine Entscheidung, fällt es am 23.10. wieder weg.
