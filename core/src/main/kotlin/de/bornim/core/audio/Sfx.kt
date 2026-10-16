@@ -30,6 +30,8 @@ enum class Sound {
     // what lives at a place but is not in sight (84, D3.15): a wolf far off in the deep forest, a rumble deep in the
     // mountain; the small birds on the grass flying up and scratching
     WOLF_FAR, RUMBLE, BIRD_FLAP, BIRD_SCRATCH,
+    // rain falling out of doors (D3.10): a loop
+    RAIN,
     SWING, SWING_HEAVY,
     HOWL_1, HOWL_2, HOWL_3,
 }
@@ -58,7 +60,7 @@ object Sfx {
         Sound.ALARM_BELL, Sound.FAR_SHOUT, Sound.FAR_SCREAM,
         Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
         Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE, Sound.PANT_MAN, Sound.PANT_WOMAN,
-        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH)
+        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH, Sound.RAIN)
 
     fun variants(s: Sound): Int = if (s in VARIED) 3 else 1
 
@@ -943,6 +945,6 @@ object Sfx {
         Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH,
         Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY, Sound.RIVER, Sound.ALARM_BELL, Sound.FAR_SHOUT, Sound.FAR_SCREAM, Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
         Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE, Sound.PANT_MAN, Sound.PANT_WOMAN,
-        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH -> Buf(0.05)
+        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH, Sound.RAIN -> Buf(0.05)
     }.pcm()
 }

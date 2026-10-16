@@ -201,3 +201,16 @@ CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026. Rezept: `tools/klang/
 | `far_shout_1–3` | humanYell1, humanYell2, humanYell4 | arcadeparty, Zombie / Skeleton / Monster Voice Effects | https://opengameart.org/content/zombie-skeleton-monster-voice-effects |
 | `far_scream_1–2` | humanDeath1, humanDeath2 | arcadeparty, ebenda | https://opengameart.org/content/zombie-skeleton-monster-voice-effects |
 | `far_scream_3` | 2361 „Cry of Pain“ | Joseph Sardin, BigSoundBank | https://bigsoundbank.com/cry-of-pain-s2361.html |
+
+## Runde 10 (D3.10 Regen und Donner, im Spiel: `rain_1–3`, `thunder_1–3`)
+
+BigSoundBank, Joseph Sardin, CC0 1.0 („CC0 (public domain): Free and royalty-free“, Quellseite geprüft 16.10.2026). Rezept: `tools/klang/regen.py` (Regen je 12 s nahtlos; Donner nur unter 700 Hz, weich einsetzend, mit Hall: fern).
+
+| Klang | Aufnahme | Quelle |
+|---|---|---|
+| `rain_1` | 0124 „Rain and storm“, ab 2 s (vor dem Gewitter) | https://bigsoundbank.com/rain-and-storm-s0124.html |
+| `rain_2` | 0740 „Rain and storm #2“, ab 30 s (zwischen den Donnern) | https://bigsoundbank.com/rain-and-storm-2-s0740.html |
+| `rain_3` | 1019 „Summer rain on terrace“, ab 42 s | https://bigsoundbank.com/summer-rain-on-terrace-s1019.html |
+| `thunder_1` | 3116 „Thunder #5“ | https://bigsoundbank.com/thunder-5-s3116.html |
+| `thunder_2` | 3182 „Thunder #9“ | https://bigsoundbank.com/thunder-9-s3182.html |
+| `thunder_3` | 3179 „Thunder #6“ | https://bigsoundbank.com/thunder-6-s3179.html |
