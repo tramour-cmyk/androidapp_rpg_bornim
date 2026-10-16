@@ -2,7 +2,7 @@
 
 Sokrates Projekt · 16.10., 13:10 · fortgeschrieben 13:1x
 
-Kurz: 117.5 `STORY-K1-HANDLUNG`; 117.4 `LISTE-ABNAHME-KAPITEL1`; 117.3 Ausmisten (Umgebung halbieren, Niederlassung kürzen); 117.1 `LISTE-RELEASE-NEUSTART` und `LISTE-BAUEN-TESTEN`; 117.2 „Dein Zug“ heißt künftig „Chefsache“ (Empfehlung)
+Kurz: 117.6 `ROLLE-ENTWICKLUNG`; 117.5 `STORY-K1-HANDLUNG`; 117.4 `LISTE-ABNAHME-KAPITEL1`; 117.3 Ausmisten (Umgebung halbieren, Niederlassung kürzen); 117.1 `LISTE-RELEASE-NEUSTART` und `LISTE-BAUEN-TESTEN`; 117.2 „Dein Zug“ heißt künftig „Chefsache“ (Empfehlung)
 
 **Entschieden** (Chef 13:1x: „da gehe ich mal voll mit, außer bei Arbeitabläufe und Arbeitumgebung …“): `ARBEIT-ARCHIV.md` einfrieren (Verlauf = Git), `STORY-K1-WELT`, `LISTE-VORGAENGE`, `DESIGN-BLENDE`. Umsetzung nach Sa 21:00 mit 99g-Rest und 102.
 
@@ -46,3 +46,9 @@ Gegenargument: „Abnahme“ ist ein Fachwort. Alltäglicher wäre `LISTE-AUFGAB
 - Passt: alle `ROLLE-`/`ARBEIT-`-Paare je Rolle (gleiches Wort hinten), `ARBEIT-BESETZUNG`, `DESIGN-LEITBILD`, `-STIL`, `-BALANCE`, `-KAMPF`, `-HELDENBAU`, `-ABNAHME`, `LISTE-FIGUREN`, `STORY-REGELN`, `STORY-BLENDE`, `FIRMA`.
 
 Gegenargument: Jede Umbenennung zieht Verweise in Code-Kommentaren und Notizen nach sich; deshalb alle in einem Zug nach Sa 21:00.
+
+**117.6 Frage:** `ROLLE-TEAM.md` umbenennen? (Chef 13:2x: „Sollte es nicht eher Rolle Entwickler heißen, weil es ja ein Entwicklerteam ist und es ist nicht die Rolle des Teams, sondern die Rolle der Entwickler.“)
+
+**Empfehlung:** Ja, als **`ROLLE-ENTWICKLUNG.md`**. Die anderen Rollendateien heißen nach dem Bereich, nicht nach der Person (`BETRIEB` für den Betriebsleiter, `PRUEFUNG` für den Prüfer, `BERATUNG` für den Berater); „Entwicklung“ passt in diese Reihe. Die Vorräte `ARBEIT-TEAM-TOM` und `ARBEIT-TEAM-JERRY` bleiben, denn ein Vorrat gehört einem Team. `ROLLE-ENTWICKLER.md` wie vorgeschlagen ginge genauso, bricht nur die Reihe.
+
+Gegenargument: Bis 15.10. hieß die Datei `ROLLE-ENTWICKLER.md`; mit 98.4 wurde sie auf deinen Wunsch in `ROLLE-TEAM.md` umbenannt, „passend zu den Vorräten“ (Chef: „macht doch Sinn, dass wir das alles gleich mit erledigen“). Das wäre die zweite Umbenennung in zwei Tagen; 98.4 wird damit geändert.
