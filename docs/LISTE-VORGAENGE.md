@@ -138,7 +138,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 126 | Muss und Kür, Wochenziel | B Abläufe | K |  | Perikles | Probe |
 | 127 | Anzusehen: Zeile je Build mit Version und Folge | B Werkzeuge | – |  | Perikles | erledigt |
 | 128 | Stillstand, Guthaben einteilen | B Steuerung | – |  | Perikles | erledigt |
-| 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K | 2,09 | Tom | zu testen |
+| 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K | 2,09 | Tom | erledigt |
 | 130 | Kampfgefühl der Probe 72.10 (Prüfpunkt 8.5) | G Balance | K |  | Sokrates | offen |
 | 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | K |  | Sokrates | offen |
 | 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | K |  | Tom | prüfen |

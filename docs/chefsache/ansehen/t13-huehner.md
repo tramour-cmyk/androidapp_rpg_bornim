@@ -1,16 +1,6 @@
-# Build 13 · 0.1.816 · 129: Hühner nie zwei auf einem Platz · [PR #100](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/100)
+# Tom · 0.1.816 · 68/26: Tempelszene und Kapitel 1 durchspielen · PR #101
 
-Tom · 16.10., 23:5x · **APK direkt:** [0.1.816](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38972574140/artifacts/12077906552) (enthält `main`). Lässt sich über 0.1.815 (Build 12, Jerry) installieren; Reihenfolge nach Jerrys Builds 8 → 11 → 12.
-
-Ursache: die zwei Heuballen am Feld am Fluss setzten je ein Huhn auf denselben Punkt. Jetzt hält jedes Huhn Abstand zu den anderen, auch beim Weglaufen und unter den Bäumen (Kerntest).
-
-| # | Nr. | Wo und wie | Richtig | Falsch |
-|---|---|---|---|---|
-| 13.1 | 129 | Dorf, tagsüber, zum Feld am Fluss mit den zwei Heuballen übereinander; eine Minute zusehen | vier Hühner, jedes an seinem Platz; laufen sie aneinander vorbei, stehen sie danach wieder getrennt | zwei Hühner decken sich ganz; ein Huhn springt |
-| 13.2 | 129 | auf die Hühner zugehen, dann weggehen und warten | sie laufen weg, kommen zurück, landen nicht aufeinander | zwei bleiben aufeinander stehen |
-| 13.3 | 129 | Reiter „Test“: Uhrzeit +3 h bis zur Dämmerung (oder Regen abwarten) | die Hühner laufen unter die Bäume, die zwei eines Ballens an verschiedenen Stellen; keines verschwindet an Ort und Stelle | verschwindet neben dem Ballen; zwei gehen am selben Punkt hinein |
-
-Dazu zwei Testbitten, die nie gestellt waren (D21, Diogenes); beide gehen mit diesem Build, weil er `main` enthält:
+Tom · 17.10., 01:1x · Rest von Build 13: 13.1–13.3 (129, Hühner) passen, auf `main` über PR #101. Offen sind die zwei Testbitten unten (Chef zu 129a, 17.10., 01:1x: „Die anderen zwei Punkte sind offen.“). Jeder Build ab 0.1.816 genügt, also auch der nächste von `main`.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
