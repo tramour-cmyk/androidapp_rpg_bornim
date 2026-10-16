@@ -1,5 +1,9 @@
 # Archiv
 
+## Jerry, Übergabe 16.10., 14:1x
+
+**Übergabe (16.10., 14:1x, „Jerry – 120 Musik in Schichten“) – Nachfolger: Jerry – 108a Sammelbuilds, dann 18 Stimmen ins Spiel:** 120 Hörproben fertig (PR #87, nur Werkzeug), wartet auf Chef ([120](dz:120)). 119 und 18.11 entschieden, Beschlüsse eingetragen. **Zuerst 108a** (Chef 14:1x: „108a ist entschieden? Wer baut APK mit mehreren PR und klarer Teststruktur?“): Jerry baut; PRs #70, #72–#82, #84, #86 zu höchstens 4 Sammelbuilds je bis 4 Punkte (78a) mit `main` bündeln, Testseite `docs/zug/ansehen/jerry-testreihe.md` je Build mit Prüfliste und Satz „Zu tun“ oben neu schreiben, Zug-Datei 108a löschen, Einzel-PRs danach schließen oder als Teil vermerken. Dann 18: alle 12 Stimmen ins Spiel (Zweig `claude/jerry-18-gegnerstimmen`, `Recorded.voiceOf`). Nachfolger: #70, #72–#82, #84, #86, #87 abonnieren. D3: Tom hat mein „ok“ zu `WorldScreen.kt`.
+
 ## Tom, Übergabe 16.10., 14:4x
 
 **Übergabe (16.10., 14:4x, „Tom – 118 Übernahme von Jerry“) – Nachfolger: Tom – Eigene Zeilen kürzen:** D3-Rest von Jerry übernommen, Zeile D3 oben; wartet auf Jerrys „ok“ zu `WorldScreen.kt` (Zeile in seinem Vorrat) und freie Testreihe. Vorher: Build `main` nach #71 grün (0.1.773); Rast t757, 92 am Gerät warten auf Chef.
