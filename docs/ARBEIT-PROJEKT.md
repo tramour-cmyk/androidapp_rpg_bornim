@@ -4,9 +4,9 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 **offen 15, davon A 1, wartet auf Chef 2**
 
-**Gelesen bis:** `7ea5ee9c` (16.10., 07:1x)
+**Gelesen bis:** `2f5e7018` (16.10., 11:1x)
 
-**Übergabe (16.10., 07:10, „Sokrates Projekt – Nachprüfung Umbau 98“):** D14 und 103 erledigt (Beschlüsse eingetragen). Niederlassung: Anleitung `LISTE-NIEDERLASSUNG.md` (Umgebung, Freigabeliste mit Stand, Ford 2 starten, Zeichen); Ford 2 läuft, Jerry gestartet; offen beim Chef: Freigaben „fehlt“ in der Liste. Nach Sparmodus: 101, 102. Messung Ford 2 bis So 18.10. auswerten (Kostenzeilen in `ARBEIT-BETRIEB.md`). Nachfolger: Sokrates Projekt – Niederlassung (16.10. …)
+**Übergabe (16.10., 11:2x, „Sokrates Projekt – Niederlassung (16.10., 07:11)“):** 108 umgesetzt: Dein Zug in `docs/zug/` (Übersicht schreibt Action `zug-index.yml`), `meldung.sh` dz:, Haken, Bildwarnung, Artefakt „abgelöst“; Chef zufrieden („das Bild und alles ist toll“, Telegram-Link geht). Jerrys Testreihe übertragen (`ansehen/jerry-testreihe.md`), Jerry Pause bis 13:20. Offen: Build 772 (nur Workflow-Datei) grün prüfen; 108 streichen, sobald Jerry selbst einen Punkt angelegt hat; 99g wartet auf Chef (Links auf Pro). Danach 110 (Tiefe 8, dringend vor Fords Selbstneustart). Nach Sparmodus: 101, 102. Messung Ford 2 bis So 18.10. Nachfolger: Sokrates Projekt – 110 Sitzungstiefe (16.10. …)
 
 ## Zeilen
 
