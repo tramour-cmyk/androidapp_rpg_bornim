@@ -35,6 +35,8 @@ class SfxPlayer(private val context: Context) {
     private val voices = ConcurrentHashMap<String, IntArray>()
     private val main = Handler(Looper.getMainLooper())
     var enabled = true
+    /** The sliders' factor for every effect, the place's sounds and voices included (40). */
+    var gain = 1f
 
     init {
         val dir = File(context.cacheDir, "sfx-$VERSION").apply { mkdirs() }
@@ -62,9 +64,10 @@ class SfxPlayer(private val context: Context) {
     private fun load(asset: String): Int = runCatching { context.assets.openFd(asset).use { pool.load(it, 1) } }.getOrDefault(0)
 
     fun play(s: Sound, volume: Float = 0.8f) {
-        if (!enabled) return
+        if (!enabled || gain <= 0f) return
         val takes = ids[s] ?: return
-        pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume, volume, 1, 0, 1f)
+        val v = volume * gain
+        pool.play(takes[kotlin.random.Random.nextInt(takes.size)], v, v, 1, 0, 1f)
     }
 
     /**
@@ -74,10 +77,11 @@ class SfxPlayer(private val context: Context) {
     fun loop(s: Sound, volume: Float): Int {
         if (!enabled) return 0
         val takes = ids[s] ?: return 0
-        return pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume, volume, 0, -1, 1f)
+        val v = volume * gain
+        return pool.play(takes[kotlin.random.Random.nextInt(takes.size)], v, v, 0, -1, 1f)
     }
 
-    fun volume(stream: Int, volume: Float) { if (stream != 0) pool.setVolume(stream, volume, volume) }
+    fun volume(stream: Int, volume: Float) { if (stream != 0) pool.setVolume(stream, volume * gain, volume * gain) }
 
     fun stop(stream: Int) { if (stream != 0) pool.stop(stream) }
 
@@ -88,7 +92,7 @@ class SfxPlayer(private val context: Context) {
         val start = SystemClock.uptimeMillis()
         main.post(object : Runnable {
             override fun run() {
-                val v = PlaceSound.leaving(from, SystemClock.uptimeMillis() - start)
+                val v = PlaceSound.leaving(from, SystemClock.uptimeMillis() - start) * gain
                 if (v <= 0f) { pool.stop(stream); return }
                 pool.setVolume(stream, v, v)
                 main.postDelayed(this, FADE_TICK_MS)
@@ -98,10 +102,10 @@ class SfxPlayer(private val context: Context) {
 
     /** The voice of the monster [id] for [cue] (a growl as it attacks, a yelp when struck, its death), if it has one. */
     fun voice(id: String, cue: Recorded.Cue, volume: Float = 0.8f) {
-        if (!enabled) return
+        if (!enabled || gain <= 0f) return
         val (v, rate) = Recorded.voiceOf(id) ?: return
         val takes = voices["$v/${cue.name}"] ?: return
-        pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume, volume, 1, 0, rate)
+        pool.play(takes[kotlin.random.Random.nextInt(takes.size)], volume * gain, volume * gain, 1, 0, rate)
     }
 
     fun release() {
