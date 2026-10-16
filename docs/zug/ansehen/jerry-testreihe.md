@@ -12,7 +12,7 @@ Build 1–6 passen, auf `main` (PR #88, #89, #90, #91, #85, #87). Neu: Build 8, 
 
 ## Build 7 · 0.1.798 · D1.14 und Testknopf · [PR #93](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/93)
 
-**APK direkt:** [0.1.798](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38939792708/artifacts/12062722657). Der PR zeigt zwei Builds; der ältere (13:35) ist eine kleinere Nummer und lässt sich über 0.1.797 nicht installieren.
+**APK direkt:** [0.1.798](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38939792708/artifacts/12062722657). Der PR zeigt zwei Builds; der ältere (13:35, 0.1.785) lässt sich über 0.1.797 nicht installieren.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
@@ -20,6 +20,8 @@ Build 1–6 passen, auf `main` (PR #88, #89, #90, #91, #85, #87). Neu: Build 8, 
 | 7.2 | D4.1 | Test: „Alle Vorräte auf mindestens 10“ | ein Rauchbündel in der Tasche | kein Rauchbündel |
 
 ## Build 8 · 0.1.799 · Probe 72.10: Held und Söldner gegen Grak · [PR #68](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/68)
+
+**APK direkt:** [0.1.799](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38939799375/artifacts/12062986421). Der PR zeigt zwei Builds; der ältere (16:54, 0.1.796) lässt sich über 0.1.797 nicht installieren.
 
 Erst die neue Kampfart zum Ausprobieren, noch nicht im Spiel: Reiter „Test“ → „Probe 72.10: Held und Söldner gegen Grak“ → Klasse des Söldners. Zahlen und Texte sind vorläufig (Texte bei Kreativ). Stil-Abgleich: gemalte Höhlenhalle mit Fackeln, Figuren im Fackellicht mit Schatten; Übergänge Ruhe ↔ Ausholen (Grak, solange der Ring läuft) ↔ Schlag mit kurzem Ausfall ↔ Ruhe, Treffer lässt zittern; selbst gefilmt durch die echte Oberfläche (Ring, Zielwahl, Wechsel der Züge). Bild des Rings per Telegram (18:5x).
 
@@ -33,6 +35,8 @@ Erst die neue Kampfart zum Ausprobieren, noch nicht im Spiel: Reiter „Test“ 
 
 ## Build 9 · 0.1.800 · Regen und Donner · [PR #94](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/94)
 
+**APK direkt:** [0.1.800](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38939917604/artifacts/12062009566).
+
 Hörproben per Telegram (16.10., 20:0x). Stil-Abgleich: echte Aufnahmen statt Synthese, drei Fassungen je Klang; Übergänge Trocken ↔ Regen setzt ein ↔ Regen hört auf (blendet mit dem Regen), draußen ↔ drinnen (Regen weg), Erkunden ↔ Kampf (still); geprüft mit Kerntest.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
@@ -42,6 +46,8 @@ Hörproben per Telegram (16.10., 20:0x). Stil-Abgleich: echte Aufnahmen statt Sy
 | 9.3 | D3.10 | bei Regen draußen 5–10 min warten (Wetterleuchten kommt selten) | einige Sekunden nach dem Leuchten fernes, tiefes Grollen ohne Krachen | kein Donner; schrilles Krachen |
 
 ## Build 10 · 0.1.802 · Wölfe und Monster auf der Karte · [PR #95](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/95)
+
+**APK direkt:** [0.1.802](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38941907723/artifacts/12063029607).
 
 Hörproben per Telegram (16.10., 19:36 und 19:4x). Stil-Abgleich: echte Aufnahmen, drei Fassungen je Klang mit eigenem Charakter; „was man sieht, klingt selbst“. Übergänge: Ruhe (Laute) ↔ bemerkt („!“, Laute verstummen, Jagd) ↔ zurück nach Hause (wieder Laute). Geprüft mit Kerntest `MonsterIdleTest`; das Gefühl nur am Gerät.
 
