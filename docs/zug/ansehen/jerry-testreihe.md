@@ -8,11 +8,11 @@ Kurz: 4 Sammelbuilds statt 14 Einzel-APKs, je Build eine Prüfliste; Reihenfolge
 
 APK: im PR unten unter „Checks“ → „build“ → „Artifacts“. Testmenü: Reiter „Test“ (Uhrzeit +3 h, Teleport, „Held trifft immer kritisch“, „Bosse zurücksetzen“, „Alle Vorräte auf mindestens 10“).
 
-Build 1–7, 9, 10 passen, auf `main` (PR #88, #89, #90, #91, #85, #87; 7, 9, 10 über PR #97). Offen: Build 8, die Probe des neuen Kampfes; wird über 0.1.806 neu gebaut (Zuruf Chef, Zeile 72.10).
+Build 1–7, 9, 10 passen, auf `main` (PR #88, #89, #90, #91, #85, #87; 7, 9, 10 über PR #97). Offen: Build 8 (neu gebaut als 0.1.812, mit `main`, Zuruf Chef zu 72.10) und Build 11 (0.1.813, Rennen laut). Beide lassen sich über 0.1.806 installieren; Reihenfolge 8 → 11.
 
-## Build 8 · 0.1.799 · Probe 72.10: Held und Söldner gegen Grak · [PR #68](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/68)
+## Build 8 · 0.1.812 · Probe 72.10: Held und Söldner gegen Grak · [PR #68](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/68)
 
-**APK direkt:** [0.1.799](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38939799375/artifacts/12062986421). Der PR zeigt zwei Builds; der ältere (16:54, 0.1.796) lässt sich über 0.1.797 nicht installieren.
+**APK:** [Lauf 812](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38957534926) → „Artifacts“ (neu gebaut 16.10., 21:47 von Tom, enthält `main` bis PR #97). Ältere Builds im PR (0.1.796, 0.1.799) nicht mehr nehmen.
 
 Erst die neue Kampfart zum Ausprobieren, noch nicht im Spiel: Reiter „Test“ → „Probe 72.10: Held und Söldner gegen Grak“ → Klasse des Söldners. Zahlen und Texte sind vorläufig (Texte bei Kreativ). Stil-Abgleich: gemalte Höhlenhalle mit Fackeln, Figuren im Fackellicht mit Schatten; Übergänge Ruhe ↔ Ausholen (Grak, solange der Ring läuft) ↔ Schlag mit kurzem Ausfall ↔ Ruhe, Treffer lässt zittern; selbst gefilmt durch die echte Oberfläche (Ring, Zielwahl, Wechsel der Züge). Bild des Rings per Telegram (18:5x).
 
@@ -24,3 +24,12 @@ Erst die neue Kampfart zum Ausprobieren, noch nicht im Spiel: Reiter „Test“ 
 | 8.4 | 72.11 | Grak hart treffen, solange er »Schwerer Hieb« oder »Kraft sammeln« angesagt hat | ab einem Fünftel seiner Lebenspunkte taumelt er, die Absicht ist vereitelt | Absicht läuft trotzdem |
 | 8.5 | Gefühl | zwei, drei Durchgänge mit anderen Klassen (auch Magier) | spannend, echte Wahl zwischen Angreifen, Platz und Abwarten | langweilig; Takt nervt (dann sagen, was) |
 
+
+## Build 11 · 0.1.813 · 86: Rennen laut · [PR #98](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/98)
+
+**APK:** [Lauf 813](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/38957756429) → „Artifacts“. Von Tom aus Jerrys Zweig gebaut (16.10., 21:49). Außer Atem würfelt der Held die Initiative mit Nachteil; das prüfen Kerntests, nicht du.
+
+| # | Nr. | Wo und wie | Richtig | Falsch |
+|---|---|---|---|---|
+| 11.1 | 86 | Tiefer Wald, tagsüber; einem Wolf erst gehend, dann (neu laden oder anderer Wolf) rennend entgegen | rennend erscheint das „!“ über dem Wolf deutlich früher (etwa 2 Felder weiter weg) | kein Unterschied; „!“ schon über den halben Bildschirm |
+| 11.2 | 86 | ausdauernd rennen, bis der Held keucht, dann gehend an einen Wolf heran | nicht mehr früher bemerkt als beim Gehen | bemerkt wie beim Rennen |
