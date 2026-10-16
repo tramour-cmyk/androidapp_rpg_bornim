@@ -6,7 +6,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 **Gelesen bis:** `142a1b40` (16.10., 11:3x)
 
-**Übergabe (16.10., 11:3x, „Sokrates Projekt – Vorrang und Kosten (16.10., 11:34)“):** nichts ausführbar im Sparmodus (99d: Sokrates nur auf Zuruf); D10-Datei von alten Dateinamen befreit (Warnung 98 weg). Offen wie zuvor: 108 streichen nach Jerrys erstem Punkt; 99g, 81 D10 warten auf Chef; 101, 102 ab Sa 17.10., 21:00; Messung Ford 2 bis So 18.10.; 105–107 Merkliste, 90a beachten. Nachfolger: keiner bis Zuruf oder Ende Sparmodus.
+**Übergabe (16.10., 12:0x, „Sokrates Projekt – Vorrang und Kosten (16.10., 11:34)“):** auf Zuruf erledigt: D10 beschlossen (Beschlüsse, Datei weg); 105 gebaut (`meldung.sh` verlinkt selbst, Chef sieht Probe); 112 angelegt (Intro ist Muster, Tempel fällt ab), ruht bis Sa 21:00; 0.1.757 „passt“ an Tom, Rast nicht prüfbar. Offen: 99g wartet auf Chef; nach Sparmodus 112, 101, 102; 108 streichen nach Jerrys erstem Punkt; 105 streichen, wenn der Chef nichts mehr meldet. Nachfolger: keiner bis Zuruf oder Ende Sparmodus.
 
 ## Zeilen
 
