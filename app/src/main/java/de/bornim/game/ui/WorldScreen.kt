@@ -817,6 +817,11 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         }
 
         // 2) shadows under characters
+        /** D3.6: a shadow as wide as [pic] (a monster on the map, in map pixels), under the tile's middle like a person's. */
+        fun putShadow(pic: MapFoe.Pic?, x: Int, y: Int) {
+            val sh = if (pic == null) WorldArt.shadow() else WorldArt.shadow(pic.img.width * 4 / (5 * MapFigure.DENSITY))
+            put(sh, x + T / 2 - sh.width / 2, y + 30 - sh.height / 2)
+        }
         val visibleNpcs = map.npcs.filter { it.visible(state) && !game.indoors(it) }
         // Strolling villagers slide between tiles like the hero.
         fun npcPos(npc: de.bornim.core.Npc): Pair<Int, Int> {
@@ -925,7 +930,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                         if (game.fog(npc.x, npc.y) != de.bornim.core.Fog.VISIBLE) continue
                         val lit = warmEdge(pic.img, bx, by)
                         sprites += Sprite(bottom.toFloat(), bx + T / 2f) {
-                            put(WorldArt.shadow(), bx + 4, by + 26)
+                            putShadow(pic, bx, by)
                             put(lit, bx + T / 2 - pic.ax / MapFigure.DENSITY, by + T - 3 - pic.ay / MapFigure.DENSITY, MapFigure.DENSITY)
                         }
                         // the guards at its sides, a little behind, whichever way it faces
@@ -940,7 +945,10 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                                 Math.floorMod((f.dist / T * MapFoe.STEPS).toInt(), MapFoe.STEPS), gScale) else g0
                             if (g != null) {
                                 val gl = warmEdge(g.img, gx, gy)
-                                sprites += Sprite((gy + T - 1).toFloat(), gx + T / 2f) { put(gl, gx + T / 2 - g.ax / MapFigure.DENSITY, gy + T - 3 - g.ay / MapFigure.DENSITY, MapFigure.DENSITY) }
+                                sprites += Sprite((gy + T - 1).toFloat(), gx + T / 2f) {
+                                    putShadow(g, gx, gy)
+                                    put(gl, gx + T / 2 - g.ax / MapFigure.DENSITY, gy + T - 3 - g.ay / MapFigure.DENSITY, MapFigure.DENSITY)
+                                }
                             }
                         }
                         continue
@@ -1081,7 +1089,10 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                     else MapFoe.idleAt(pack.mate, r.uid * 31 + i + 1, clock).let { st -> MapFoe.idleNow(pack.mate, mateLook, mSlot, st.idle, st.breath, mScale, st.level) }
                 if (matePic != null) {
                     val lit = warmEdge(matePic.img, mx, my)
-                    sprites += Sprite((my + T - 1).toFloat(), mx + T / 2f) { put(lit, mx + T / 2 - matePic.ax / MapFigure.DENSITY, my + T - 3 - matePic.ay / MapFigure.DENSITY, MapFigure.DENSITY) }
+                    sprites += Sprite((my + T - 1).toFloat(), mx + T / 2f) {
+                        putShadow(matePic, mx, my)
+                        put(lit, mx + T / 2 - matePic.ax / MapFigure.DENSITY, my + T - 3 - matePic.ay / MapFigure.DENSITY, MapFigure.DENSITY)
+                    }
                     continue
                 }
                 // the former sprite (kobolds), looking the way the mate goes
@@ -1089,35 +1100,42 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                     pack.mate, mateLook, ((clock / 240 + i + 1) % 4).toInt(),
                     mirrored = kotlin.math.sin(Math.toRadians(f.yaw)) > 0.2, scale = mapMateScale(pack),
                 )
-                sprites += Sprite((my + T - 1).toFloat(), mx + T / 2f) { put(mate, mx + T / 2 - mate.width / 2, my + T - mate.height) }
+                sprites += Sprite((my + T - 1).toFloat(), mx + T / 2f) {
+                    put(WorldArt.shadow(), mx + 4, my + 26)
+                    put(mate, mx + T / 2 - mate.width / 2, my + T - mate.height)
+                }
             }
             val picLit = pic?.let { warmEdge(it.img, rx, ry) }
             sprites += Sprite(foot.toFloat(), rx + T / 2f, cuts = false) {
                 val sx = if (pic != null) rx + T / 2 - pic.ax / MapFigure.DENSITY else rx + T / 2 - img.width / 2
                 val sy = if (pic != null) ry + T - 3 - pic.ay / MapFigure.DENSITY else foot + 1 - img.height
-                put(WorldArt.shadow(), rx + 4, ry + 26)
+                putShadow(pic, rx, ry)
                 r.trait?.let { tr ->
                     // Elites glow in the color of their trait.
                     val pulse = 0.5f + 0.5f * kotlin.math.sin(clock / 220f)
+                    // D3.5: round the body, through the camera's turn like the figure standing on the tile's middle
+                    val gx = (rx + T / 2f - camX) * scale; val gy = (ry + T / 2f - camY) * scale
+                    val c = Offset(cam.toScreenX(gx, gy), cam.toScreenY(gx, gy) - T * 0.4f * scale)
                     drawCircle(
                         androidx.compose.ui.graphics.Brush.radialGradient(
                             listOf(Color(tr.color).copy(alpha = 0.35f + 0.25f * pulse), Color.Transparent),
-                            center = Offset((rx + T / 2f - camX) * scale, (ry + T / 2f - camY) * scale),
+                            center = c,
                             radius = T * 0.75f * scale,
                         ),
                         radius = T * 0.75f * scale,
-                        center = Offset((rx + T / 2f - camX) * scale, (ry + T / 2f - camY) * scale),
+                        center = c,
                     )
                 }
                 if (pic != null && picLit != null) put(picLit, sx, sy, MapFigure.DENSITY) else put(img, sx, sy)
                 if (r.shiny) {
-                    // a few twinkling pixels
+                    // a few twinkling pixels, on the picture where it is drawn (D3.5)
+                    val at = if (pic != null) placeOf(pic.img, sx, sy, MapFigure.DENSITY) else placeOf(img, sx, sy)
                     for (k in 0 until 3) {
                         val phase = ((clock / 180 + k * 3 + r.uid) % 8).toInt()
                         if (phase > 3) continue
-                        val px = sx + 6 + ((r.uid * 7 + k * 11) % 20)
-                        val py = sy + 4 + ((r.uid * 5 + k * 13) % 18)
-                        drawRect(Color.White, Offset((px - camX) * scale.toFloat(), (py - camY) * scale.toFloat()), androidx.compose.ui.geometry.Size(scale.toFloat(), scale.toFloat()))
+                        val px = 6 + ((r.uid * 7 + k * 11) % 20)
+                        val py = 4 + ((r.uid * 5 + k * 13) % 18)
+                        drawRect(Color.White, Offset((at.x + px * scale).toFloat(), (at.y + py * scale).toFloat()), androidx.compose.ui.geometry.Size(scale.toFloat(), scale.toFloat()))
                     }
                 }
             }
@@ -1266,7 +1284,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             }
             ground { drawCritters(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH, ::covered) }
             if (de.bornim.core.art.PondLife.draft) drawPondLife(game, map, clock, cam)
-            drawRain(game, map, clock, camX, camY, scale)
+            drawRain(game, clock, scale)
+            ground { drawRainSplashes(game, map, clock, camX, camY, scale, viewW, viewH) }
         }
 
         // Fog of war over wild areas: black where unexplored, dimmed where not in sight.
@@ -1287,9 +1306,11 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             ))
         }
         for ((ax, ay) in alerts) {
-            // "!" above a monster that has seen the hero
-            val bx = (ax - 4 - camX) * scale
-            val by = (ay - 30f - camY) * scale
+            // "!" above a monster that has seen the hero; D3.5: over its feet on the tile's middle, through the camera's
+            // turn like the figure, as high above them as before (62 map pixels to the top of the sign)
+            val fx = (ax - camX) * scale; val fy = (ay + T / 2f - camY) * scale
+            val bx = cam.toScreenX(fx, fy) - 4 * scale
+            val by = cam.toScreenY(fx, fy) - (T + 30f) * scale
             drawRoundRect(Color.White, Offset(bx, by), androidx.compose.ui.geometry.Size(9f * scale, 12f * scale), androidx.compose.ui.geometry.CornerRadius(2f * scale))
             drawRect(Color(0xFFD83030), Offset(bx + 3.5f * scale, by + 2f * scale), androidx.compose.ui.geometry.Size(2f * scale, 5f * scale))
             drawRect(Color(0xFFD83030), Offset(bx + 3.5f * scale, by + 8.5f * scale), androidx.compose.ui.geometry.Size(2f * scale, 1.5f * scale))
@@ -2441,9 +2462,8 @@ private fun DrawScope.drawMapLight(
  * fast), each drop its own length and brightness; the light goes grey under it, drops splash on
  * the ground and ring the water. Now and then, far off, sheet lightning ([Game.flashAt]).
  */
-private fun DrawScope.drawRain(game: Game, map: de.bornim.core.MapDef, clock: Long, camX: Int, camY: Int, scale: Int) {
+private fun DrawScope.drawRain(game: Game, clock: Long, scale: Int) {
     val level = game.rainLevel
-    val T = WorldArt.T
     if (level > 0.01f) {
         // gusts: the rain comes heavier and slants more, then eases
         val gust = 0.5f + 0.5f * kotlin.math.sin(clock / 6100f) * kotlin.math.sin(clock / 2300f + 1.3f)
@@ -2474,26 +2494,6 @@ private fun DrawScope.drawRain(game: Game, map: de.bornim.core.MapDef, clock: Lo
                 drawLine(Color(0xFFB8C4D0).copy(alpha = a), Offset(x, y), Offset(x - len * slant, y + len), l.thick * scale)
             }
         }
-        // splashes on the ground, rings on the water: each lives a moment at its own spot
-        val viewTx = camX / T; val viewTy = camY / T
-        val tw = (w / scale / T).toInt() + 2; val th = (h / scale / T).toInt() + 2
-        for (d in 0 until (60 * k).toInt()) {
-            val life = 380L + hash(d, 50) % 300
-            val cycle = (clock + hash(d, 51) % 997) / life
-            val ph = ((clock + hash(d, 51) % 997) % life) / life.toFloat()
-            val wx = (viewTx + Math.floorMod(hash(d, cycle.toInt(), 52), tw)) * T + Math.floorMod(hash(cycle.toInt(), d, 53), T)
-            val wy = (viewTy + Math.floorMod(hash(cycle.toInt(), d, 54), th)) * T + Math.floorMod(hash(d, cycle.toInt(), 55), T)
-            val tile = map.tile(wx / T, wy / T)
-            val o = Offset(((wx - camX) * scale).toFloat(), ((wy - camY) * scale).toFloat())
-            if (tile == de.bornim.core.Tile.WATER) {
-                val r = (1.5f + ph * 5f) * scale
-                drawOval(Color(0xFFC8D8E8).copy(alpha = (1 - ph) * 0.45f), Offset(o.x - r, o.y - r * 0.45f), androidx.compose.ui.geometry.Size(r * 2, r * 0.9f), style = androidx.compose.ui.graphics.drawscope.Stroke(0.6f * scale))
-            } else if (tile.walkable && ph < 0.45f) {
-                // a drop striking the ground: a tiny flat spray that spreads and is gone
-                val q = ph / 0.45f; val r = (0.7f + q * 1.8f) * scale
-                drawOval(Color(0xFFC8D4E0).copy(alpha = (1 - q) * 0.32f), Offset(o.x - r, o.y - r * 0.35f), androidx.compose.ui.geometry.Size(r * 2, r * 0.7f), style = androidx.compose.ui.graphics.drawscope.Stroke(0.5f * scale))
-            }
-        }
     }
     // sheet lightning far off: the sky lights up twice in quick succession, then fades
     val since = clock - game.flashAt
@@ -2502,6 +2502,40 @@ private fun DrawScope.drawRain(game: Game, map: de.bornim.core.MapDef, clock: Lo
         val f = maxOf(pulse(0, 110), 0.75f * pulse(170, 140), 0.35f * pulse(420, 700))
         // by day it must outshine the daylight to be seen at all (1.4)
         drawRect(Color(0xFFDDE6F4).copy(alpha = (0.33f + 0.32f * game.daylight) * f))
+    }
+}
+
+
+/**
+ * Splashes on the ground, rings on the water, drawn under the turned mapping like the ground itself (D3.5): each lives
+ * a moment at its own spot of the part of the map in view ([viewW] × [viewH] map pixels from [camX], [camY]).
+ */
+private fun DrawScope.drawRainSplashes(game: Game, map: de.bornim.core.MapDef, clock: Long, camX: Int, camY: Int, scale: Int, viewW: Float, viewH: Float) {
+    val level = game.rainLevel
+    if (level <= 0.01f) return
+    val T = WorldArt.T
+    val gust = 0.5f + 0.5f * kotlin.math.sin(clock / 6100f) * kotlin.math.sin(clock / 2300f + 1.3f)
+    val k = level * (0.7f + 0.3f * gust)
+    val viewTx = camX / T; val viewTy = camY / T
+    val tw = (viewW / T).toInt() + 2; val th = (viewH / T).toInt() + 2
+    // as many to a tile as on the screen before
+    val screenTiles = ((size.width / scale / T).toInt() + 2) * ((size.height / scale / T).toInt() + 2)
+    for (d in 0 until (60 * k * tw * th / screenTiles).toInt()) {
+        val life = 380L + hash(d, 50) % 300
+        val cycle = (clock + hash(d, 51) % 997) / life
+        val ph = ((clock + hash(d, 51) % 997) % life) / life.toFloat()
+        val wx = (viewTx + Math.floorMod(hash(d, cycle.toInt(), 52), tw)) * T + Math.floorMod(hash(cycle.toInt(), d, 53), T)
+        val wy = (viewTy + Math.floorMod(hash(cycle.toInt(), d, 54), th)) * T + Math.floorMod(hash(d, cycle.toInt(), 55), T)
+        val tile = map.tile(wx / T, wy / T)
+        val o = Offset(((wx - camX) * scale).toFloat(), ((wy - camY) * scale).toFloat())
+        if (tile == de.bornim.core.Tile.WATER) {
+            val r = (1.5f + ph * 5f) * scale
+            drawOval(Color(0xFFC8D8E8).copy(alpha = (1 - ph) * 0.45f), Offset(o.x - r, o.y - r), androidx.compose.ui.geometry.Size(r * 2, r * 2), style = androidx.compose.ui.graphics.drawscope.Stroke(0.6f * scale))
+        } else if (tile.walkable && ph < 0.45f) {
+            // a drop striking the ground: a tiny flat spray that spreads and is gone
+            val q = ph / 0.45f; val r = (0.7f + q * 1.8f) * scale
+            drawOval(Color(0xFFC8D4E0).copy(alpha = (1 - q) * 0.32f), Offset(o.x - r, o.y - r * 0.8f), androidx.compose.ui.geometry.Size(r * 2, r * 1.6f), style = androidx.compose.ui.graphics.drawscope.Stroke(0.5f * scale))
+        }
     }
 }
 
