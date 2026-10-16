@@ -4,7 +4,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Ziele, Meilensteine, Vorrang, Kos
 
 **offen 22, davon A 0, wartet auf Chef 1**
 
-**Gelesen bis:** `b5b61320` (16.10., 13:3x)
+**Gelesen bis:** `a9f8ab69` (16.10., 15:44)
 
 **Übergabe (16.10., 13:3x, „Sokrates Projekt – 118 Teams ohne Themen“):** 118 beschlossen B und umgesetzt (Chef 13:5x „Sofort“); Prüfauftrag 118 gestrichen. An Jerry Zeile 108a (Chef hat 0.1.757: kein Neubau, Testseite klarer, Sammelbuild nach 78a). Nachfolger: keiner jetzt (Sparmodus 99d); nächster Start auf Antwort zu 99g.1, sonst nach Sa 21:00 „Sokrates Projekt – 117 Ausmisten“.
 
