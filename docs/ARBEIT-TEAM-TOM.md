@@ -2,9 +2,9 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 9, Muss 4, A 1, Chefsache 0**
+**offen 9, Muss 4, A 1, Chefsache 1**
 
-**Übergabe (16.10., 21:38, „Tom – Jerrys Builds nach main“) – Nachfolger: keiner:** #93, #94, #95 (Builds 7, 9, 10) in PR #97 zusammengeführt, Konflikte gelöst, Regen und Monster-Laute ohne Raumfassung (nach 119), Kerntests grün. #97 auf `main` (Chef: „Bitte mach das“), CHANGELOG, Testreihe, Jerrys D1/D3 nachgezogen. Danach (Chef: „alles glatt ziehen, was … mit dem Build zu tun hat“): #68 mit `main` neu gebaut (0.1.812), 86 als PR #98 (0.1.813, Build 11), Prüflisten in `jerry-testreihe.md`. 9.2 bleibt bei Jerry.
+**Übergabe (17.10., 00:2x, „Tom – 129 Hühner“) – Nachfolger: Tom – D21 Testbitten (nach Sparmodus, Sa 21:00):** 129 gebaut (PR #100, Build 13), Prüfliste `chefsache/ansehen/t13-huehner.md`; nach „passt“ PR zusammenführen, CHANGELOG, Datei löschen.
 
 ## Zeilen
 
