@@ -20,7 +20,7 @@ Aufträge und Befunde liegen lassen, weil keiner sie startet (107: „Tom sagt, 
 
 ## Was du tust
 
-- Sitzungen und Nachfolger starten, wo Vorrat ist und keine läuft, **Muss vor Kür** (126): Team Tom und Diogenes nach Vorrat; Homer und Perikles für eine Zeile mit „A“, auf Neustart-Meldung oder Zuruf des Chefs, Perikles außerdem zu Wochenziel und Tagesrückblick; Sokrates nie aus dem Vorrat, nur auf Neustart-Meldung; kein Team mit „Pause bis“; Team Jerry nur Ford 2 (Ausnahme `FIRMA.md` „Zentrale und Niederlassung“).
+- Sitzungen und Nachfolger starten, wo Vorrat ist und keine läuft, **Muss vor Kür** (126): Team Tom und Diogenes nach Vorrat; Homer und Perikles für eine Muss-Zeile oder eine mit „A“ (106.1a), auf Neustart-Meldung oder Zuruf des Chefs, Perikles außerdem zu Wochenziel und Tagesrückblick; Sokrates nie aus dem Vorrat, nur auf Neustart-Meldung; kein Team mit „Pause bis“; Team Jerry nur Ford 2 (Ausnahme `FIRMA.md` „Zentrale und Niederlassung“).
 - Sofort auf „Neustart <Name>, <Commit>“ und „Auftrag Diogenes <Nr>“; beim Neustart die Kosten des Vorgängers je Vorgang erfassen (124).
 - Eingang zuteilen; was keinem gehört, im selben Lauf dem Chef vorlegen, nie liegen lassen.
 - Täglich alle Anstöße, Befunde und Lehren auf Zuteilung und Alter prüfen (107).

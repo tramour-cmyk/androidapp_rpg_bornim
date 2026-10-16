@@ -17,7 +17,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 6 | Innenräume (Schänke), Zoom (6.15) | E Welt | – |  | Tom | erledigt v0.1.471 |
 | 7 | Stopp-Punkt und Zusammenarbeit der Accounts | B Abläufe | – |  | Tom | erledigt |
 | 8 | Zusammenarbeit Tom und Jerry, Notizen nur auf `main` | B Abläufe | – |  | Jerry | erledigt |
-| 9 | Monster auf der Karte | E Figuren | – |  | Jerry | erledigt |
+| 9 | Monster auf der Karte (9i Entwürfe) | E Figuren | K |  | Jerry | offen |
 | 10 | Höhle: Flammen feiner | E Welt | – |  | Tom (von Jerry, 13y) | erledigt |
 | 11 | Höhle: Lichtstrahl am Lichtschacht | E Welt | – |  | Tom (von Jerry, 13y) | erledigt |
 | 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Q QS | – |  | Jerry, Tom | erledigt v0.1.483 |
@@ -28,7 +28,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 16 | Trefferstopp | E Kampf | – |  | Jerry | erledigt v0.1.460 |
 | 17 | Nachschwingen | E Figuren | – |  | Tom | erledigt |
 | 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | E Klang | K |  | Jerry | offen |
-| 19 | Zeitablauf der Kampfbewegungen | E Kampf | – |  | Jerry | erledigt v0.1.455 |
+| 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | offen |
 | 20 | Uhrzeit der APK im ZIP | B Werkzeuge | – |  | Tom | erledigt |
 | 21 | Releaseflut eindämmen | B Werkzeuge | – |  | Jerry | erledigt |
 | 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | B Abläufe | – |  | Tom | erledigt |
@@ -68,7 +68,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | E Welt | – |  | Tom | erledigt |
 | 57 | Gemeinsame Beschlüsse für Entschiedenes (früher Bildbuch) | B Abläufe | – |  | Tom | erledigt |
 | 58 | Umhang hängt beim Laufen über dem Schild | E Figuren | – |  | Tom | erledigt |
-| 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf | E Oberfläche | – |  | Tom | erledigt |
+| 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf (59e Vorrat je Laden) | E Oberfläche | K |  | Jerry, Homer | offen |
 | 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | E Oberfläche | – |  | Tom | erledigt |
 | 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | E Welt | – |  | Tom | erledigt |
 | 62 | Gezeichnete Karte im Menü | E Oberfläche | K |  | Tom | in Arbeit |
@@ -81,7 +81,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 69 | Intro in Standbildern (Ankunft bei Nacht) | G Stil | K |  | Homer (69e); Tom | offen |
 | 70 | Zwischensequenzen einheitlich, Bildsprache | G Stil | K |  | Homer mit Chef | in Arbeit |
 | 71 | Bestandsprüfung Stil und Klang aller Orte | Q QS | K |  | Diogenes | offen |
-| 72 | Profil und Marktvergleich | E Kampf | K |  | Sokrates mit Nutzer | offen |
+| 72 | Profil und Marktvergleich | E Kampf | K |  | Homer, Jerry | offen |
 | 73 | Versperrte Hütten: nachts Läden zu, Stimmen | E Welt | – |  | Tom | erledigt |
 | 74 | Schrittgeräusche je Untergrund an allen Orten | E Klang | – |  | Jerry (Klang), Tom (Dorf, Räume) | erledigt |
 | 75 | Diogenes schärfen; Kosten und Nutzen des Testens | B Abläufe | – |  | Sokrates mit Nutzer | erledigt |
@@ -111,7 +111,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 99 | Zwei Niederlassungen | B Steuerung | K |  | Perikles | offen |
 | 100 | Testschalter Ende Kapitel 1 | Q QS | K |  | Tom | zu testen |
 | 101 | Ford-Titel „Betriebsleiter“ | B Steuerung | – |  | Perikles | erledigt |
-| 102 | Dokumente WireStormTCS nachziehen | B Abläufe | – |  | Perikles | erledigt |
+| 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Perikles | offen |
 | 103 | Kurz antworten (Haltung 5) | B Abläufe | – |  | Perikles | fertig |
 | 104 | Überspringen in Intro und Tempelszene fragt nach | E Oberfläche | – |  | Tom | erledigt |
 | 105 | Links in Telegram-Meldungen | B Werkzeuge | – |  | Perikles | erledigt |
@@ -126,7 +126,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 114 | Aufwachen am Bett im Gasthaus | G Story | K |  | Homer | Idee |
 | 115 | Idee heißt prüfen | B Abläufe | – |  | Perikles | erledigt |
 | 116 | Zwischenbildschirm umbenennen | B Abläufe | – |  | Perikles | erledigt |
-| 117 | Namen in docs und Archiv | B Abläufe | – |  | Perikles | erledigt |
+| 117 | Namen in docs und Archiv | B Abläufe | K |  | Perikles, Tom | offen |
 | 118 | Teams ohne Themen | B Abläufe | K |  | Perikles | Probe |
 | 119 | Raumklang je Ort | E Klang | – |  | Jerry | erledigt |
 | 120 | Musik in Schichten | E Klang | – |  | Jerry | erledigt |
@@ -138,3 +138,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 126 | Muss und Kür, Wochenziel | B Abläufe | K |  | Perikles | Probe |
 | 127 | Anzusehen: Zeile je Build mit Version und Folge | B Werkzeuge | – |  | Perikles | erledigt |
 | 128 | Stillstand, Guthaben einteilen | B Steuerung | – |  | Perikles | erledigt |
+| D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |
+| D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K |  | Jerry | offen |
+| D21 | Abgleich Vorrat gegen Chefsache | Q QM | M |  | Tom, Jerry | offen |
+| Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |

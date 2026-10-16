@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 16, Muss 3, A 0, Chefsache 2**
+**offen 17, Muss 3, A 0, Chefsache 2**
 
 **Pause bis Mo 19.10., 21:00** (128 und D20.1: im heutigen Tempo wäre Pro Sa gegen 15 Uhr leer; Ford 2 darf früher starten, wenn die Schwelle es erlaubt; Chef 16.10., 21:2x: Pro einteilen, 49 % der Woche nach 18 Stunden): laufende Sitzung beendet ihren Punkt, dann kein Start. Testergebnisse des Chefs (Freigabe, Rückläufer) trägt ein, wer sie hört; Team Tom übernimmt sie ab Sa 21:15 (`FIRMA.md`, Pro leer oder eingeteilt).
 
