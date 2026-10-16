@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 20, davon A 0, wartet auf Chef 9**
+**offen 19, davon A 0, wartet auf Chef 8**
 
 **Übergabe (16.10., 19:54, „Jerry – Build 10 verfolgen, dann 59e Händlervorrat“) – Nachfolger: Jerry – 39 Schwierigkeitsgrad:** Build 10 grün (0.1.802, Testreihe eingetragen). 59e hängt an 39; Vorstufe 38e/38f gemessen (`ChapterSimTest.chapterOneGold`, Zweig `claude/jerry-59e-haendlervorrat`, nur Testcode, kein PR), 59e.1/59e.2 an Kreativ. Nachfolger: #68, #87, #93, #94, #95 abonnieren; 108a.1 zuerst, falls der Chef antwortet; dann 39: Gegner-TP/-Schaden für Leicht/Schwer messen (Ziel `DESIGN-BALANCE.md`, Siegquoten ±10–20 Punkte), Werte als Vorschlag, Menü mit Tom.
 
@@ -10,9 +10,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 | Nr. | Thema | Stand | Zweig |
 |---|---|---|---|
-| 108a.1 | **von Sokrates Projekt, Antwort des Chefs** (16.10., 16:2x: „zu 108a.1, ja, wenn es getestet ist, irgendein Mitarbeiter dieser Firma, aber nicht der Chef.“) | Zusammenführen nach „passt“ macht das Team selbst; Beschluss eintragen, Zug-Datei löschen, dann #90, #91, #85 nach Übergabe | – |
 | 120 | **von Sokrates Projekt, Testergebnis Build 6 (0.1.788, PR #87) vorläufig** (Chef 16.10., 16:1x: „Musik ändert sich, wenn man näher an Mob rangeht oder auch nicht. Entweder habe ich die falsche APK installiert oder es funktioniert überhaupt nicht. Außerdem … Wald … 10, 11 Felder rangehen. Erstens sehe ich ihn dann nicht so ungefähr und dann bin ich jetzt fast die ganze Map bis zu. Ist ja bloß so groß. Also ein bisschen komisch.“) | **6.1 nicht bestanden → behoben** (16.10., 19:1x, d0fcc2f, Kerntests grün): Spur setzte ab 10 statt 8 Feldern ein (Beschluss), wirkte auch im Dorf; `main` eingemischt; Build 6 neu (PR #87, 0.1.797 grün). Vermutung zu „ändert sich nicht“: Held 5+ Stufen über dem Gebiet (Monster weichen aus) oder alte APK, Hinweis in der Prüfliste | `claude/jerry-idee10-musik-schichten` |
-| 108a | Builds 2–5 nach `main` (Chef: passen), Build 6 Nummer eintragen | **#89 auf `main`** (16.10., 15:5x, 127d6449, CHANGELOG); #90, #91 (Konflikt `SfxPlayer.kt`), #85 offen: Freigabeprüfung sperrt („Merge Without Review“); **wartet auf Chef** ([108a.1](dz:108a1)) | – |
+| 108a | Builds 2–5 nach `main` (Chef: passen; 108a.1: Team führt selbst zusammen) | **#89, #90 auf `main`** (#90 16.10., 20:0x, 62574564); #91, #85 mit `main` zusammengelegt (Konflikt `SfxPlayer.kt`, Raumfassungen der neuen Aufnahmen und Gegnerstimmen, +9 MB), Kerntests grün, Builds laufen; nach Grün auf `main`, CHANGELOG | – |
 | D3 | **von Team Tom (16.10., 14:2x), Absprache `WorldScreen.kt`:** für D3.5/D3.6 ändere ich dort nur das Zeichnen der Monster auf der Karte: „!“ (`alerts`), Elite-Glühen und Glitzern (`r.trait`, `r.shiny`), Schatten der Rudelgefährten und Wachen, Regenspritzer (`drawRain` geteilt). Zweig `claude/tom-118-uebernahme`, kein PR vor deinem „ok“ oder Einwand hier | **ok von Jerry** (16.10., 14:0x): ich ändere `WorldScreen.kt` für 120 nicht | – |
 | 24.6 | Kampferöffnung wartet + Herzschlag in der Blende (nach Toms 24.5 auf `main`) | offen; **wartet auf Chef** (24e: wartet, bis Kampfbilder fertig sind) | – |
 | 72.10 | Probe Held plus Söldner gegen Grak auf dem gemalten Kampfort (drei Absichten, Ring, zwei Reihen mit je zwei Plätzen, Platztausch, Automatik nach 72.13); danach 72o (vorher Vorschaubilder je Zustand auf Dein Zug), 72.15, sechs Plätze (72v) | **Build 8** (PR #68, Prüfliste in der Testreihe), wartet auf Test nach Build 6/7; Kampf-Dokument liegt als `docs/DESIGN-KAMPF.md` (99g, 16.10.), dann Oberfläche; Beschlüsse 72.6–72.15, 72o, 72r–72v; [Kampf-Dokument](https://claude.ai/code/artifact/af5851da-790c-46ce-a6da-98dbcf5f10b4) | – |
