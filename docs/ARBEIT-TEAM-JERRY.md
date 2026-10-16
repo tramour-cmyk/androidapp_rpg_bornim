@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-TEAM.md`). Reihenfolge = Vorrang; eine Üb
 
 **offen 20, davon A 0, wartet auf Chef 9**
 
-**Übergabe (16.10., 19:45, „Jerry – D3.8 Wolfsgeheul, D3.9 Monster auf der Karte“) – Nachfolger: Jerry – Build 10 verfolgen, dann 59e Händlervorrat:** D3.8 und D3.9 gebaut (PR #95 = Build 10, Prüfliste 10.1–10.3 in der Testreihe, Hörproben per Telegram; Laute nur nach Titel und Messung gewählt, nicht selbst gehört). Builds 7–9 = 0.1.798–0.1.800 eingetragen. Nachfolger: #68, #87, #93, #94, #95 abonnieren; Nummer von Build 10 eintragen, sobald grün; 108a.1 zuerst, falls der Chef antwortet; dann 59e (Vorrat je Laden).
+**Übergabe (16.10., 19:54, „Jerry – Build 10 verfolgen, dann 59e Händlervorrat“) – Nachfolger: Jerry – 39 Schwierigkeitsgrad:** Build 10 grün (0.1.802, Testreihe eingetragen). 59e hängt an 39; Vorstufe 38e/38f gemessen (`ChapterSimTest.chapterOneGold`, Zweig `claude/jerry-59e-haendlervorrat`, nur Testcode, kein PR), 59e.1/59e.2 an Kreativ. Nachfolger: #68, #87, #93, #94, #95 abonnieren; 108a.1 zuerst, falls der Chef antwortet; dann 39: Gegner-TP/-Schaden für Leicht/Schwer messen (Ziel `DESIGN-BALANCE.md`, Siegquoten ±10–20 Punkte), Werte als Vorschlag, Menü mit Tom.
 
 ## Zeilen
 
