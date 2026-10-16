@@ -6,6 +6,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
+| [106.1a](entscheiden/1061a-perikles-vor-sparmodusende.md) | 16.10. | Perikles vor Sa 21:00 starten, damit Ford Homer für Muss-Zeilen startet (D22.1)? | Diogenes |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
 ## Anzusehen
