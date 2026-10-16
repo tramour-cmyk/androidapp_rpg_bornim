@@ -57,6 +57,7 @@ Ford 2 schreibt nach jedem Lauf eine Zeile (Datum, Uhrzeit, Kosten); Sokrates Pr
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere ins Archiv.
 
+- 18:37 16.10.: Start Jerry (Neustart, 62d1df8d, 72.10 Probe Grak Bild prüfen) (Ford 2)
 - 18:36 16.10.: Ford 2 neu (session_017Gzi9L…), Uhr trig_01DXxbKZYYttXJEEYeCyARt7, alte Uhr gelöscht, Vorgänger archiviert; Jerry 72.10 läuft (Ford 2)
 - 18:34 16.10.: Jerry 72.10 nach Pro-Sperre geweckt; Start Ford 2 (Selbstneustart) (Ford 2)
 - 18:06 16.10.: Tom D3 wartet auf Chef (D3a: #92 zusammengeführt, Notizen von Freigabeprüfung gesperrt), Meldung laut
