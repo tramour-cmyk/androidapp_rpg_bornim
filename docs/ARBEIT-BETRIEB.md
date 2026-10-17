@@ -64,4 +64,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:45 17.10.: Pro Mittel in „Startzuordnung“ eingetragen; Probe Pro Mittel (`session_01Km1dp2ah4jtt6FKknDup1e`, archiviert, 0,00 $): Modell wie Startzuordnung, Stufe mittel; Uhr alle 4 Stunden (147.2) (Ford 2)
 - 17:46 17.10.: Ford 2 neu (`session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`); alte Uhr gelöscht, Vorgänger archiviert (6,92 $, Betrieb: Ford 2 16,79 $) (Ford 2)
 - 17:5x 17.10.: Start Jerry (Ford 2; Chef: „Ja“, Start trotz Schwelle, Pause aufgehoben; 154, 155)
+- 18:2x 17.10.: Jerry 154/155 fertig (PR #106), archiviert, 0,85 $ zu gleichen Teilen auf 154, 155 (Ford 2)
 - 11:58 17.10.: Homer 137 fertig (0dfd582a) → Startsperre: 11:58 Start Perikles (137, Zuruf Chef „erst Homer, dann Perikles“)

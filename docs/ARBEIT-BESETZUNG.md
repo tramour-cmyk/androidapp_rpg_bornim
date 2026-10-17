@@ -8,4 +8,3 @@
 |---|---|---|---|---|
 | Ford | [Ford – Betriebsleiter (17.10., 18:24)](https://claude.ai/code/session_013WgUpHvEMutiBeSbQoworP) | Betrieb | – | 17.10., 18:24 |
 | Ford 2 | [Ford 2 – Niederlassungsleiter (17.10., 17:42)](https://claude.ai/code/session_017VRJsTBwEbU16mwomLknhm) | Betrieb Pro | – | 17.10., 17:42 |
-| Jerry | [Jerry – 154 Gold beim Tod, 155 Feuer in der Höhle (17.10., 17:55)](https://claude.ai/code/session_01XBnri3vUBSXsaX4saWrYCq) | 154, 155 | claude/jerry-154-155-gold-feuer | 17.10., 17:50 |
