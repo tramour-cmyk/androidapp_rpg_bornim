@@ -6,5 +6,5 @@
 
 | Rolle | Sitzung | Zeile | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford – Betriebsleiter (17.10., 14:58)](https://claude.ai/code/session_014hTid4SzEFjBD6XRJwoqK6) | Betrieb | – | 17.10., 14:58 |
+| Ford | [Ford – Betriebsleiter (17.10., 17:06)](https://claude.ai/code/session_01HYhTkjcRUjMW4Eu2uypUst) | Betrieb | – | 17.10., 17:06 |
 | Ford 2 | [Ford 2 – Niederlassungsleiter (17.10., 03:34)](https://claude.ai/code/session_01Bgr3YihKQVLNAM59U56Cva) | Betrieb Pro | – | 17.10., 03:34 |
