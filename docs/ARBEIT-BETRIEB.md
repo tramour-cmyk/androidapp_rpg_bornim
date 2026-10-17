@@ -93,3 +93,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18.10., 00:05 Homer 72.10a fertig, archiviert, 4,90 $ auf 72.10a. Selbstneustart Ford (236 Tsd. Token): neuer Ford folgt; Stand: Tom 139 läuft, Jerry wartet auf Test t19 (Build 19), Perikles M? läuft, nichts Startbares
 - 18.10., 00:06 Selbstneustart Ford: neue Uhr, alte gelöscht, Vorgänger archiviert, 2,52 $ auf Betrieb (Ford 32,54 $). 162-Prüfung: Tom 134.2 (Kür) wartet auf Homer, erbt keine Muss-Klasse; Tom 139 wartet nur auf Sammelbuild; Jerry wartet auf Perikles-Wochenziel/Test t19 erledigt (passt)
 - 00:1x Startsperre: Start Diogenes 164 (Muss, Entwurf e3f16635 liegt)
+- 18.10., 00:12 Start Diogenes 164 `session_01UvPhHJ7SQAJA2PSoWxAAUq`; Tom 139 fertig (nichts Startbares), archiviert, 2,25 $ auf 139; Jerry (Test t19 „passt“, Zeile Muss) archiviert, 3,55 $ auf 72.10a, Start Jerry `session_01Pt1eVKd5b53G8GKn9zUyMZ` (PR #109 zusammenführen, t19 löschen)
