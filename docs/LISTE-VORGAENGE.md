@@ -170,4 +170,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 147 | Regel „Idee“: abwägen, erst passenden Vorgang suchen (Chef) | B Abläufe | M | Perikles 2,84 $ | Perikles | erledigt |
 | 147.1 | Nutzungsguthaben Pro (erledigt), Fable-Limit Max | B Kosten | M |  | Perikles | erledigt |
 | 147.2 | Ford 2 schaut in Jerrys Pause alle 4 Stunden | B Abläufe | M |  | Perikles | erledigt |
+| 149 | Probewoche Ford mit neuem Modell: Regelverstöße zählen bis 24.10. (Chef) | Q QM | M? |  | Diogenes | offen |
 | 148 | Ideenspeicher ausmisten: Vorgaben und Bewusst-gelassenes an ihren Ort (Chef) | B Abläufe | K |  | Homer | offen |
