@@ -7,7 +7,6 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
 | [137](entscheiden/137-ideen-verwerfen.md) | 17.10. | fünf Ideen aus dem Ideenspeicher verwerfen (Empfehlung: alle fünf) | Perikles |
-| [147.1](entscheiden/1471-nutzungsguthaben-pro.md) | 17.10. | freies Fable-Limit auf Max (Empfehlung: Probe ab Montag nur für Ford-Läufe) | Perikles |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
 ## Anzusehen
