@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**offen 14, Muss 3, A 0, Chefsache 1**
+**offen 15, Muss 3, A 0, Chefsache 1**
 
 **Gelesen bis:** `caa83a3f` (17.10., 11:57)
 
@@ -26,6 +26,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 124 | K | Hauptthemen und Preis je Vorgang; mit 126 Muss und Kür | Probe ab 17.10.; Bilanz 23.10.: bringt die Woche keine Entscheidung, fällt die Kostenerfassung weg |
 | 111 | K | `DESIGN-BLENDE.md` kürzen (Chef 16.10., 11:3x: „Ich will das.“) | nach 24.6 (Jerry): Gebautes streichen, offene Ideen in den Vorrat des Bereichs (115), Verweise in `Interlude.kt`, `InterludeClock.kt`, `InterludeUi.kt`, `STORY-BLENDE.md` (Code über das Team) |
 | 99d | K | Stellung zurück: Ford „Co-Pilot bis Sa 17.10., 21:00, danach Pilot“, Sparmodus endet | Ford stellt im ersten Lauf danach selbst zurück; prüfen am 18.10. (D13.1) |
+| 143 | K | **von Chef (17.10., 11:5x, über Sokrates):** „So eine Art Wochenplan … vor allem für mich, wann was ansteht oder welche Termine oder Zeitpunkte wir irgendwie ablauftechnisch festgelegt haben. So ein bisschen so Routine, das muss ja nicht ständig fortgeschrieben werden“ Eine Seite für den Chef (Artefakt auf der Zentrale): feste Zeitpunkte und Routinen (Morgenmeldung, Stundenlauf, So Ideen, Mo Wochenziel, Messung, Bilanz …), kurz; nur ändern, wenn sich ein Termin in den Regeln ändert | offen |
 
 ## Lehren für alle
 

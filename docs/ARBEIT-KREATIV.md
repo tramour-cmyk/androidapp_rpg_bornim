@@ -2,7 +2,7 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 13, Muss 0, A 0, Chefsache 1**
+**offen 14, Muss 0, A 0, Chefsache 1**
 
 **Gelesen bis:** `8abeae7b` (15.10., 23:0x; für `tools/story.sh`)
 
@@ -25,3 +25,4 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | 99g | K | **von Perikles (16.10., 23:03):** Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach Sa 17.10., 21:00 (Vorgangsarchiv 99g; D17.2: Docs `export`, offene Kommentare des Chefs vorher sichten, oben im Dokument „abgelöst, gilt `docs/…`“; D17.3: Karte als Bild unter 60 KB oder bleibt auf Max, entscheidest du); Verweise in den Notizen nachziehen, dann Zeile an Diogenes | offen |
 | 133 | K | **von Perikles (Ideenspeicher, 137):** Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal jemanden vor.“): Vorschlag, wo und wie oft Wahlen in Kapitel 1–2 passen und was sie ändern, mit Charisma (Überreden, Einschüchtern); kein Bau | vor den weiteren Texten Kapitel 2 (41) |
 | 139 | K | **von Perikles (Ideenspeicher, 137):** zwei Sätze für „Fleisch an die Wirtin“ (Rowena kauft Fleisch), DE/EN | dann Tom (Zeile 139) |
+| 144 | K | **von Chef (17.10., 11:5x, über Sokrates):** „Unseren Storyplan, wo auch so ein irgendwie in der Übersicht so ein roter Faden mit drin ist.“ Übersicht über sieben Kapitel mit rotem Faden (Artefakt auf der Zentrale, Niederlassung braucht es nicht) | offen |
