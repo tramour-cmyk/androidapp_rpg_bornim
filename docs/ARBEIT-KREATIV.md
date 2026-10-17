@@ -2,17 +2,16 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 18, Muss 2, A 0, Chefsache 2**
+**offen 17, Muss 1, A 0, Chefsache 2**
 
 **Gelesen bis:** `8abeae7b` (15.10., 23:0x; für `tools/story.sh`)
 
-**Übergabe (17.10., 09:1x, 112):** Intro in `DESIGN-STIL.md` als Muster mit sechs Merkmalen festgeschrieben; Tempel dagegen verglichen, sieben Abweichungen auf Chefsache 112. Nachfolger: keiner nötig; nach Antwort des Chefs Zeile an Tom (68).
+**Übergabe (17.10., 09:4x, 39.2):** Wortlaut Schwierigkeit DE/EN in `STORY-BLENDE.md` „Einstellungen“ (`[39.2.…]`), Zeile an Jerry (39). „Gelesen bis“ nicht weitergesetzt (story.sh nicht durchgesehen). Nachfolger: keiner nötig; 112 wartet auf den Chef.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 39 | M | **von Team Jerry (16.10., 20:2x), Schwierigkeitsgrad:** **39.1 Werte** (Chefsache 39.1) gemessen (`ChapterSimTest.difficulty`, Zweig `claude/jerry-39-schwierigkeit`): Gegner-TP und -Schaden je ×0,8 (Leicht) / ×1 / ×1,2 (Schwer) geben im Mittel der neun Kämpfe mit Luft (Normal 63–89 %) **+14 / −18 Punkte** (Ziel +10–15 / −15–20); ×0,75 wäre +16, ×1,25 −23. Empfehlung Jerry: 0,8 / 1,2; Gegenargument: Normal selbst liegt bei Wolf Stufe 1 (75 %) unter dem Ziel 85–95, also erst 38 nachmessen. Bitte zur Entscheidung auf Chefsache. **39.2 Wortlaut** (DE/EN) im System-Reiter: Name des Schalters, die drei Stufen, je ein Satz, was sich ändert (62m: „jeden Unterschied genau erklären“; Leicht auch Questziele gold). Gebaut wird mit Platzhaltern | **39.1 beschlossen** (Chef 16.10., 21:5x: „39.1 A, Build nach 38“; eingetragen von Perikles): ×0,8 / ×1,2, Build erst nach 38; 39.2 offen |
 | D23.2 | M? | **von Team Tom (17.10., 09:3x):** Garrick sagt Krogg, Morwen-Hinweis und Warnung (`[41.garrick.krogg]`, `[D4.1.garrick.morwen]`, `[D4.1.garrick.warnung]`) erst im zweiten Gespräch; wer einmal spricht, hört nichts davon, Chronik „Rauch gegen Krogg“ fehlt (Befund Diogenes, im Code bestätigt). Frage: Krogg-Teil schon ans erste Gespräch anhängen (Vorschlag Tom), oder Übergangssatz? Dann Zeile an Tom | offen |
 | 72.10 | K | **von Team Jerry (16.10., 18:5x):** Wortlaut der Kampfmeldungen der Probe gegen Grak; gebaut mit sachlichen Platzhaltern in `core/.../Skirmish.kt` (`Msg72`: ankündigen, treffen, verfehlen, abwarten, Platz tauschen, fällt, bewusstlos, Kraft sammeln, Goblin eilt herbei, taumelt/vereitelt, Automatik hält an, Schlag halb/ganz abgefangen) und `SkirmishScreen.kt` (Perfekt/Gut/Verpasst, Hinweis zum Ring) | offen; nicht eilig, Probe läuft mit Platzhaltern |
 | 86.9 | K | **von Team Jerry:** Anzeige „betrunken“ (Met, SRD Vergiftet bis zur Rast): Chef 16.10., 15:3x „Zustand betrunken wegen Met und vergiftet, warum kein Status in Leiste?“ Gebaut ist nur die Wirkung; es fehlen Name (DE/EN), Kurztext und ob ein Zeichen in der oberen Leiste und im Kampf. **Dazu (Jerry 16.10., 20:3x, 86):** außer Atem in den Kampf = Initiative mit Nachteil, ohne Kampfzeile; Wortlaut nötig, falls der Kampf es sagen soll | offen; danach baut Jerry |
