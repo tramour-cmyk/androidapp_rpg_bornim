@@ -2,7 +2,7 @@
 
 Ideen, die noch **nicht umgesetzt** sind, nach Bereichen (124). Hierher gehört jede Kür ohne Zweig, ohne Termin und ohne angefangene Arbeit (137); Kür mit angefangener Arbeit bleibt im Vorrat. **Sonntags** bereitet Homer auf (Urteil je Idee), **montags** holt Perikles beim Wochenziel Reifes in den Vorrat; „verwerfen?“ geht in die Chefrunde, verwerfen nur der Chef. Umgesetztes steht in der [Änderungshistorie](../CHANGELOG.md). Für alle Ideen gelten die [Stil-Leitlinien](DESIGN-STIL.md).
 
-**Urteil** (Homer), je Idee kurz: Pro, Contra, Ergänzung, Bewertung, Folgerung (Chef 17.10.); dann **reif** = kann in den Vorrat, sobald Perikles Platz hat; **später** = Bedingung fehlt (meist: nach dem Meilenstein Kapitel 1, Kapitel 2, eine Entscheidung); **verwerfen?** = erledigt, überholt oder doppelt, Chef entscheidet. Der Meilenstein (Kapitel 1 rund vor Neuem, `LISTE-ABNAHME-KAPITEL1.md`) macht fast alles Neue „später“.
+**Urteil** (Homer), je Idee ein Satz Pro und Contra (147); dann **reif** = kann in den Vorrat, sobald Perikles Platz hat; **später** = Bedingung fehlt (meist: nach dem Meilenstein Kapitel 1, Kapitel 2, eine Entscheidung); **verwerfen?** = erledigt, überholt oder doppelt, Chef entscheidet. Der Meilenstein (Kapitel 1 rund vor Neuem, `LISTE-ABNAHME-KAPITEL1.md`) macht fast alles Neue „später“.
 
 **Aufbereitet:** 17.10., 11:5x (Homer, 137, erstmals). Aus den Vorräten hergeholt: 133, 70 (Rest), 84.2, 84.3 (Homer), 52, 79 (Jerry; 79 Perikles). Gestrichen, weil erledigt: Raumklang (119).
 
