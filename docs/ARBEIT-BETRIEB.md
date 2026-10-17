@@ -32,6 +32,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 
 ## Protokoll
+- 18:33 17.10.: Chef-Zuruf: Start Perikles 158 (Sparmodus, auf Zuruf) `session_01KsucyJdfuaygQrFPCS1aq4`; Diogenes folgt auf „Auftrag Diogenes 158“
 - 18:31 17.10.: 157.1 Selbstneustart: Ford auf sonnet (Tiefe 1), neue Uhr, alte gelöscht, Vorgänger archiviert, 1,12 $ auf Betrieb; Sparmodus, kein Start
 - 18:30 17.10.: 157.1 Chef „Ja.“ zum Selbstneustart auf sonnet, Mittel (diese Sitzung lief auf opus) → Start Ford
 - 18:25 17.10.: Ford von Hand neu (157, Mittel, Tiefe 0): Uhr übernommen, Vorgänger archiviert, 1,53 $ auf Betrieb; Sparmodus, kein Start
