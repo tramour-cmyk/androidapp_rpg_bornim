@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Vorgangsnummer: 148** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 149** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Sparmodus bis Sa 17.10., 21:00** (99d, `FIRMA.md` „Sparmodus“), **ausgesetzt Sa 17.10. 09:08–11:00 für die Zentrale** (Chef 17.10., 09:08: „Weck mal den Betrie bis auf die Niederlassung auf und lass mal probeweise alle so arbeiten, wie es sein soll. Ab 11100 Uhr gehst du wieder in den Sparmodus und lässt aktive Arbeitssitzungen ausklingen.“; „11100“ gelesen als 11:00): Ford Pilot, Starts nach Vorrang; ab 11:00 keine Starts, laufende Sitzungen beenden ihren Punkt
 
@@ -72,6 +72,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 - 16.10., 07:33: Stundenlauf ohne Tat (Jerry läuft); Ford 2 bisher ca. 185 Tsd. Token Kontext, drei Neustarts Jerry eingeschlossen
 
 ## Protokoll
+- 14:10 17.10.: 84.5 Lichttrank (Idee Chef) und 148 Ideenspeicher ausmisten (Chef) an Homer; Sparmodus, kein Start
 - 14:05 17.10.: Perikles 147 fertig, archiviert, 2,84 $ auf 147; Tom läuft (D23.2 gebaut); Sparmodus, kein Start
 - 14:02 17.10.: Chef: Spalte „Build“ in Anzusehen leer → zug-index nimmt die Nummer aus dem Dateinamen t<n>, wenn die Kopfzeile kein „Build n“ hat (leer seit t14, 11:12; Build 13 kam nur aus der Sammelseite t13, um 13:59 zurückgezogen)
 - 13:59 17.10.: Startsperre: 13:59 Start Tom (Zuruf Chef trotz Sparmodus; 26 t13 zurückziehen, dann D23.2 Garrick nach Homers Wortlaut; 132 zusammenführen erst nach „passt“ zu t14)
