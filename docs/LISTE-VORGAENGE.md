@@ -117,7 +117,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 99h.5 | Testbuilds zum Durchspielen bündeln | B Abläufe | M | Perikles 0,10 $ | Perikles | erledigt |
 | 100 | Testschalter Ende Kapitel 1 | Q QS | K |  | Tom | zu testen |
 | 101 | Ford-Titel „Betriebsleiter“ | B Steuerung | – |  | Perikles | erledigt |
-| 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Perikles | offen |
+| 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K | Diogenes 0,64 $ | Perikles | offen |
 | 103 | Kurz antworten (Haltung 5) | B Abläufe | – |  | Perikles | fertig |
 | 104 | Überspringen in Intro und Tempelszene fragt nach | E Oberfläche | – |  | Tom | erledigt |
 | 105 | Links in Telegram-Meldungen | B Werkzeuge | – |  | Perikles | erledigt |
