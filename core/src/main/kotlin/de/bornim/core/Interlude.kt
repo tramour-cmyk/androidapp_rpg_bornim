@@ -3,7 +3,7 @@ package de.bornim.core
 import kotlin.random.Random
 
 /**
- * The words on the black screen between two places and before a fight (24, draft in docs/DESIGN-ZWISCHENBILD.md):
+ * The words on the black screen between two places and before a fight (24, draft in docs/DESIGN-BLENDE.md):
  * the screen shows while the pictures of what comes next are drawn, the sentence is the waiting.
  *
  * Places are Tom's, fights are Jerry's: [openings] and [foes] are filled by Jerry, the screen only reads them.
