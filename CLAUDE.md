@@ -24,7 +24,7 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 | **Team Tom** `87d3bd86-24be-4bd5-ae2c-dc084f6e97dd` | Entwickler: Leute, Dorf, Innenräume, Technik der Blende | `ROLLE-ENTWICKLUNG.md` |
 | **Team Jerry** `55f497f6-95a0-41a6-9996-9a72f364b54c` | Entwickler: Monster, Höhle, Kampf, Klang | `ROLLE-ENTWICKLUNG.md` |
 
-Wer man ist, sagt die erste Nachricht („Tom“, „Homer“ …); bis das Werkzeug es kann (D11.1), meldet der Starthaken die Rolle nach der Kennung. **Zentrale** = Toms Account (Max): Ford, Perikles, Homer, Sokrates, Diogenes, Team Tom. **Niederlassung** = zweiter Account (Pro): Ford 2, Team Jerry.
+Wer man ist, sagt die erste Nachricht („Tom“, „Homer“ …); bis das Werkzeug es kann (D11.1), meldet der Starthaken die Rolle nach der Kennung. **Zentrale** = Toms Account (Max): Ford, Perikles, Homer, Sokrates, Diogenes, Team Tom. **Niederlassung** = zweiter Account (Pro, gekündigt, ruht seit 17.10., 159): Ford 2; Team Jerry läuft derzeit in der Zentrale.
 
 ## Wo was steht
 
@@ -32,7 +32,7 @@ Wer man ist, sagt die erste Nachricht („Tom“, „Homer“ …); bis das Werk
 - `ARBEIT-…` (**Vorrat**) je Rolle: `ARBEIT-TEAM-TOM.md`, `-TEAM-JERRY`, `-KREATIV`, `-PROJEKT`, `-BERATUNG`, `-PRUEFUNG`. Oben „offen n, Muss m, A a, Chefsache k“ (k zählt nur Punkte mit Datei in der Chefsache, D21.2), „Übergabe:“, ggf. „Pause bis …“ (Ford startet dann nicht). Reihenfolge der Zeilen = Vorrang; Spalte „Kl.“: **M** (Muss: steht im Wochenziel oder der Chef sagt „jetzt“), **K** (Kür), „M?“ (wer anlegt, hält es für nötig; Perikles entscheidet, 126). Kür nur, wenn kein Muss startbar ist. „A“ heißt nur: hält Arbeit an.
 - `ARBEIT-BETRIEB.md`: Vorgangszähler, Fords Stellung und Kennungen, Guthaben, Eingang für alles, was keinem gehört, Protokoll.
 - `LISTE-VORGAENGE.md`: jeder Vorgang eine Zeile mit Bereich (Hauptthema E, G, Q, B, M und Unterthema, 124), Klasse, Kosten, einem Wort Stand. `LISTE-ABNAHME-KAPITEL1.md`: Meilenstein und **Wochenziel** (oben, setzt Perikles montags).
-- `ARBEIT-BESETZUNG.md`: **wer gerade woran**, eine Zeile je laufender Sitzung; schreibt nur Ford (Ford 2 Jerrys Zeilen), darum haben Vorräte keine Spalte „Wer“ (98.5).
+- `ARBEIT-BESETZUNG.md`: **wer gerade woran**, eine Zeile je laufender Sitzung; schreibt nur Ford (Ford 2 Jerrys Zeilen, solange die Niederlassung nicht ruht), darum haben Vorräte keine Spalte „Wer“ (98.5).
 - **Chefsache** (`docs/chefsache/`): was der Chef entscheiden oder ansehen soll. **Vorgangsarchiv** (`docs/VORGANGSARCHIV.md`): was entschieden ist. `DESIGN-…`, `STORY-…`, `LISTE-…` nur, wenn die Aufgabe es braucht.
 - **Idee** (auch des Chefs): heißt prüfen, nicht bauen: Pro und Contra abwägen, ergänzen, bewerten, folgern. Wer sie aufnimmt, prüft zuerst, ob sie zu einem Vorgang in Arbeit oder im Vorrat passt, dann dorthin; unsicher → Sokrates (147). Sonst in den **Ideenspeicher** `LISTE-IDEEN.md` (nach Bereichen), ebenso jede Kür ohne Zweig, Termin oder angefangene Arbeit. Sonntags urteilt Homer („reif“, „später“, „verwerfen?“), montags holt Perikles Reifes in die Vorräte; verwerfen nur der Chef (115, 137).
 
