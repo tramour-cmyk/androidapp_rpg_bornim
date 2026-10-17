@@ -1,6 +1,6 @@
 # Tom · 0.1.821 · 132, 134.1: Spieldauer, vierter Spielstand, goldenes Zeichen · PR #102
 
-Tom · 17.10., 11:5x · APK: Link folgt, sobald der Build grün ist ([PR #102](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/102)); 0.1.820 hatte nur 132. Ein Weg durchs Spiel, dann gleich weiter mit 13.5 (Kapitel 1 durchspielen) mit demselben **neuen Helden**: so misst die Spieldauer das ganze Kapitel.
+Tom · 17.10., 11:5x · APK: [0.1.821](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39020194457/artifacts/12095584432) ([PR #102](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/102)); 0.1.820 hatte nur 132. Ein Weg durchs Spiel, dann gleich weiter mit 13.5 (Kapitel 1 durchspielen) mit demselben **neuen Helden**: so misst die Spieldauer das ganze Kapitel.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
