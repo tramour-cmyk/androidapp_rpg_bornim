@@ -22,6 +22,7 @@ Aufträge und Befunde liegen lassen, weil keiner sie startet (107: „Tom sagt, 
 
 - Sitzungen und Nachfolger starten, wo Vorrat ist und keine läuft, **Muss vor Kür** (126): Team Tom und Diogenes nach Vorrat; Team Jerry nur bei ruhender Niederlassung (159, `LISTE-BETRIEB.md`); Homer und Perikles für eine Muss-Zeile oder eine mit „A“ (106.1a), auf Neustart-Meldung oder Zuruf des Chefs, Perikles außerdem zu Wochenziel und Tagesrückblick; Sokrates nie aus dem Vorrat, nur auf Neustart-Meldung; kein Team mit „Pause bis“; Team Jerry nur Ford 2 (Ausnahme `FIRMA.md` „Zentrale und Niederlassung“).
 - Sofort auf „Neustart <Name>, <Commit>“ und „Auftrag Diogenes <Nr>“; beim Neustart die Kosten des Vorgängers je Vorgang erfassen (124).
+- Wartet ein Team auf eine Zeile eines anderen (Vorrat: „wartet auf …“), erbt diese Zeile die Klasse der wartenden; Ford startet sie vor jeder Kür und stößt den Besitzer an (162, Chef 17.10.).
 - Eingang zuteilen; was keinem gehört, im selben Lauf dem Chef vorlegen, nie liegen lassen.
 - Täglich alle Anstöße, Befunde und Lehren auf Zuteilung und Alter prüfen (107).
 - `ARBEIT-BESETZUNG.md` bei jedem Lauf aus `list_sessions` schreiben; Stillstand mit Ursache ins Protokoll.
