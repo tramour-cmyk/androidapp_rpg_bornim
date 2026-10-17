@@ -105,6 +105,19 @@ def tafel_ansehen():
     return kopf + "\n".join(f"| {i} | [{v}](ansehen/{n}) | {b or '–'} | {w} | {wer} | {seit} |" for i, (_, v, b, w, n, wer, seit) in enumerate(alle, 1)) + "\n"
 
 DOCS = os.path.join(ZUG, "..")
+TEAMS = ("Tom", "Jerry", "Homer", "Perikles", "Sokrates", "Diogenes", "Ford")
+
+def formfehler():
+    """Testdateien in ansehen/ mit t<Build>-Namen: Team in Zeile 1, Bereichszeile („E Kampf · Team · TT.MM.“) als Zeile 2."""
+    pfad = os.path.join(ZUG, "ansehen")
+    fehler = []
+    for n in sorted(os.listdir(pfad)) if os.path.isdir(pfad) else []:
+        if not re.match(r"t\d+-.*\.md$", n): continue
+        z = [x.strip() for x in open(os.path.join(pfad, n), encoding="utf-8").read().splitlines() if x.strip()]
+        kopf, meta = (z + ["", ""])[:2]
+        if kopf.lstrip("# ").split(" · ")[0] not in TEAMS: fehler.append(f"{n}: Zeile 1 beginnt nicht mit dem Team")
+        elif not re.match(r"[A-Z] \w+ · ", meta): fehler.append(f"{n}: Zeile 2 ist keine Bereichszeile")
+    return fehler
 NR = r"[A-Z]?\d+[a-z]*(?:\.\d+[a-z]*)?"
 
 def luecken():
@@ -128,8 +141,10 @@ def luecken():
             if "wartet auf Chef" in z and not gestellt(nr) and (nr, wer) not in nicht: nicht.append((nr, wer))
             for c in re.findall(r"Chefsache (" + NR + r")\b", z):
                 if not gestellt(c) and (c, wer) not in ohne: ohne.append((c, wer))
-    if not nicht and not ohne: return ""
+    form = formfehler()
+    if not nicht and not ohne and not form: return ""
     teile = ["## Lücken\n\nVom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.\n"]
+    if form: teile.append("Format (Vorlage: letzte Datei von Tom, `ROLLE-ENTWICKLUNG.md`): " + "; ".join(form) + "\n")
     if nicht: teile.append("Nicht gestellt: " + ", ".join(f"{nr} ({wer})" for nr, wer in nicht) + "\n")
     if ohne: teile.append("Ohne Datei: " + ", ".join(f"{nr} ({wer})" for nr, wer in ohne) + "\n")
     return "\n".join(teile)
