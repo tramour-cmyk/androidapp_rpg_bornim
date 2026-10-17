@@ -29,7 +29,6 @@ Aktive Abwehr per Tippen · Echte Gruppenkämpfe · Gefährte Lyra oder Garrick 
 
 ### Figuren
 
-- **146 Figurenübersicht erweitern** (Chef 17.10., 12:5x: „Beschreibung … groß, klein, dick …, nicht alles. Dann vielleicht typische Kleidung, dann Waffenfertigkeiten und Fähigkeiten, dann einen leichten Charakterzug … jähzornig, aufbrausend, ruhig, unterstützend … oder mehrere. Und vielleicht so ein … Schlüsselsatz oder … Schlüsselgeste.“): `LISTE-FIGUREN.md` hat Statur, Merkmal, Farben, Klang; es fehlen Waffen/Fähigkeiten, Charakterzug, Schlüsselsatz/-geste. → **noch ohne Urteil** (Homer, So 18.10.).
 - **Handlaterne für Jorin** (66a, 13.10.): Laterne in der freien Hand bei Nacht, neue Haltungen für Gehen, Wache, Abstellen. → **später:** neue Haltungen nach dem Meilenstein; Leerlauf (55) und Licht im Dorf (66) sind erledigt.
 - **114.1 Aufstehsequenz** (Chef 16.10., 12:2x: „Idee: Aufstehsequenz aus Bett?“): Held liegt und steht auf. → **später:** Tom empfiehlt „noch nicht“ (neue Bilder liegend und aufstehend in allen Richtungen); 114 selbst bleibt im Vorrat Homer (Entwurf PR #83).
 - **Mehr Abwechslung beim Helden** (Rest aus 08.10.): Ausweichen ist nur ein Hüpfer (zwei Seiten), der Speer hat zwei Stöße, Zauber eine Bewegung je Fokus. → **später:** mit 52.

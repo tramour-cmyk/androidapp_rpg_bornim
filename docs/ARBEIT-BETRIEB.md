@@ -72,6 +72,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 - 16.10., 07:33: Stundenlauf ohne Tat (Jerry läuft); Ford 2 bisher ca. 185 Tsd. Token Kontext, drei Neustarts Jerry eingeschlossen
 
 ## Protokoll
+- 13:25 17.10.: 146 doch zu 144 (Storyplan, Homer) statt Ideenspeicher; CLAUDE.md „Idee“: erst passenden Vorgang suchen, unsicher → Sokrates (Chef)
 - 13:10 17.10.: 146 in den Ideenspeicher statt Vorrat Homer (137); Chef: Idee abwägen (CLAUDE.md „Idee“, Urteil in LISTE-IDEEN)
 - 12:59 17.10.: 146 (Idee Chef, Figurenübersicht) an Homer, Kür
 - 12:35 17.10.: Sokrates Chefrunde fertig (34ebccab), archiviert, 5,30 $ auf 135 (statt 3,21 $ Zwischenstand); 143–145 Kür, Sparmodus: kein Start
