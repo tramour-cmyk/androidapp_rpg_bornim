@@ -114,22 +114,41 @@ class FreeWalkTest {
         }
     }
 
-    /** 152 (Chef, Build 16): Garrick can be come up to about as near from the west as from the south. */
+    /**
+     * 152 (Chef, Build 16 and 17: from the west far off; "Ein gleichmäßiges und nahes Umrunden ist nicht möglich"):
+     * the hero comes as near to Garrick from every side, and walking round him keeps the same distance.
+     */
     @Test
-    fun garrickIsAsNearFromEverySide() {
+    fun garrickIsAsNearFromEverySideAndCanBeWalkedRound() {
         val g = game("forest")
-        assertTrue(World["forest"].npcAt(10, 9, g.state) != null)
-        // where he is drawn, close to his fire
-        val gx = 10.5 + de.bornim.core.art.MapFolk.nudge(World["forest"].npcAt(10, 9, g.state)!!, World["forest"]).first / 32.0
-        fun near(from: Place, vx: Double, vy: Double): Double {
-            g.state.place = from
+        val npc = World["forest"].npcAt(10, 9, g.state)!!
+        val gx = 10.5 + de.bornim.core.art.MapFolk.nudge(npc, World["forest"]).first / 32.0
+        val gy = 9.5
+        fun dist() = kotlin.math.hypot(g.freeWalk.x - gx, g.freeWalk.y - gy)
+        // up to him from seven sides (east is his fire)
+        val near = listOf(-1 to 0, -1 to 1, 0 to 1, 1 to 1, 1 to -1, 0 to -1, -1 to -1).map { (dx, dy) ->
+            g.state.place = Place("forest", 10 + dx * 2, 9 + dy * 2, Facing.DOWN)
             g.freeWalk.sync()
-            g.go(vx, vy, 2_000)
-            return kotlin.math.hypot(g.freeWalk.x - gx, g.freeWalk.y - 9.5)
+            var t = 1_000L
+            repeat(150) { g.freeWalk.walk(gx - g.freeWalk.x, gy - g.freeWalk.y, 16, FreeWalk.WALK, t); t += 16 }
+            dist()
         }
-        val west = near(Place("forest", 8, 9, Facing.RIGHT), 1.0, 0.0)
-        val south = near(Place("forest", 10, 11, Facing.UP), 0.0, -1.0)
-        assertTrue(west < 0.95 && south < 0.95 && kotlin.math.abs(west - south) < 0.3, "von Westen $west, von Süden $south")
+        assertTrue(near.all { it in 0.68..0.78 }, "Abstände $near")
+        // round him from the west through south to north-east: always pressing inward a little
+        g.state.place = Place("forest", 9, 9, Facing.DOWN)
+        g.freeWalk.sync()
+        var t = 1_000L
+        repeat(60) { g.freeWalk.walk(gx - g.freeWalk.x, gy - g.freeWalk.y, 16, FreeWalk.WALK, t); t += 16 }
+        val seen = mutableListOf<Double>()
+        repeat(200) {
+            val rx = g.freeWalk.x - gx; val ry = g.freeWalk.y - gy
+            // west, south, on to the fire in the east: the tangent plus a fifth inward
+            g.freeWalk.walk(ry - rx * 0.2, -rx - ry * 0.2, 16, FreeWalk.WALK, t); t += 16
+            seen += dist()
+        }
+        val angle = Math.toDegrees(kotlin.math.atan2(g.freeWalk.y - gy, g.freeWalk.x - gx))
+        assertTrue(seen.min() > 0.68 && seen.max() < 0.8, "beim Umrunden ${seen.min()}..${seen.max()}")
+        assertTrue(angle in 0.0..75.0, "nicht bis vor das Feuer herumgekommen, Winkel $angle")
     }
 
     /** 151 (Chef, Build 16): over the bridge and left towards the elder, nothing unseen stops the hero below Pim's house. */

@@ -508,6 +508,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         return de.bornim.core.audio.Threat(near, noticed)
     }
 
+    /** 152: someone of the village walking about stands on ([x], [y]). */
+    fun walkerAt(x: Int, y: Int): Boolean = walkersHere().any { it.x == x && it.y == y && shown(it) }
+
     fun roamerAt(x: Int, y: Int): Roamer? = herd().firstOrNull { it.x == x && it.y == y }
 
     /** Walkable for the hero and monsters: free of walls, people and monsters. */
