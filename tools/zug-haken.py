@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Dein-Zug-Haken (63, 65.8; Nutzer 15.10., 16:3x: „nur ständig dafür sorgen, von mir gegebene Anweisungen
+"""Chefsache-Haken (63, 65.8; Nutzer 15.10., 16:3x: „nur ständig dafür sorgen, von mir gegebene Anweisungen
 nachzukontrollieren“). Läuft als Stop-Haken für alle Rollen und tut bei jedem Fehler still nichts.
 
 Enthält die letzte Antwort eine Frage oder Empfehlung an den Nutzer, hält der Haken den Zug einmal an und nennt die
-Nummern: Jede muss auf „Dein Zug“ stehen (Datei docs/zug/<ordner>/<nr>-….md), bevor der Zug endet. Beim
+Nummern: Jede muss auf „Chefsache“ stehen (Datei docs/chefsache/<ordner>/<nr>-….md), bevor der Zug endet. Beim
 zweiten Beenden lässt er durch (stop_hook_active), es gibt also nie eine Schleife.
 """
 import json
@@ -13,7 +13,7 @@ import sys
 # Frage an den Nutzer: Satz endet mit „?“ (nicht in Code oder Links); Empfehlung oder Vorschlag in eigenen Worten
 FRAGE = re.compile(r"\?\s*(\*\*)?\s*$", re.MULTILINE)
 EMPFEHLUNG = re.compile(r"empfehl|empfiehl|vorschlag|schlage .{0,30}vor|würde ich|zu entscheiden", re.IGNORECASE)
-# Testbitte (D8.5): auch „Anzusehen“ gehört auf Dein Zug
+# Testbitte (D8.5): auch „Anzusehen“ gehört auf Chefsache
 TEST = re.compile(r"\b(ansehen|anschauen|schau|sieh|teste\w*|anhören|hör\w*|ausprobier\w*|probier\w*)\b", re.IGNORECASE)
 # Empfehlung und Testbitte zählen nur, wenn sie den Nutzer ansprechen (D8.6: Berichte zitieren Empfehlungen)
 ANSPRACHE = re.compile(r"\b(du|dir|dich|dein\w*)\b", re.IGNORECASE)
@@ -59,8 +59,8 @@ def main():
         liste = ", ".join(nummern[:12]) or "keine Nummer gefunden"
         print(json.dumps({
             "decision": "block",
-            "reason": "Dein-Zug-Haken (63): Deine Antwort enthält eine Frage oder Empfehlung an den Nutzer (Nummern: "
-                      + liste + "). Steht jede davon auf „Dein Zug“ (Datei docs/zug/entscheiden/ oder ansehen/<nr>-….md) und hat eine "
+            "reason": "Chefsache-Haken (63): Deine Antwort enthält eine Frage oder Empfehlung an den Nutzer (Nummern: "
+                      + liste + "). Steht jede davon auf „Chefsache“ (Datei docs/chefsache/entscheiden/ oder ansehen/<nr>-….md) und hat eine "
                       "Zeile mit Nummer im Vorrat (ARBEIT-…)? Gilt auch für Testbitten („Anzusehen“). Fehlt etwas: jetzt eintragen, ohne es im Chat zu erwähnen. Ohne "
                       "Nummer: erst Nummer vergeben. Steht schon alles dort oder ist es keine Frage an den Nutzer: "
                       "einfach erneut beenden.",

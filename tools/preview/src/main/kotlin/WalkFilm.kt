@@ -76,11 +76,13 @@ fun walkFilm(spec: String) {
             Thread.sleep(2)
         }
     }
-    run(800, false)
+    run(System.getenv("WALKWAIT")?.toInt() ?: 800, false)
     val c = Offset(540f, 1500f)
     scene.sendPointerEvent(PointerEventType.Press, c)
     run(50, false)
-    for ((dx, dy) in listOf(-140f to 0f, 0f to 140f, 140f to 0f, 0f to -140f)) {
+    // WALKREACH: how far the finger is dragged, in pixels (131: past the ring, about 430, the hero runs)
+    val r = System.getenv("WALKREACH")?.toFloat() ?: 140f
+    for ((dx, dy) in listOf(-r to 0f, 0f to r, r to 0f, 0f to -r)) {
         scene.sendPointerEvent(PointerEventType.Move, c + Offset(dx, dy))
         run(System.getenv("WALKMS")?.toInt() ?: 1400)
     }

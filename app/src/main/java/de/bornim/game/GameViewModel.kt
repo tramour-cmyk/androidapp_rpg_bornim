@@ -35,6 +35,8 @@ data class SlotInfo(
     val minutes: Int,
     /** When it was last saved, in milliseconds since 1970, or 0 if unknown. */
     val savedAt: Long,
+    /** 132: real time played, in milliseconds. */
+    val playedMs: Long,
     /** The saved hero itself, to draw it as equipped. */
     val hero: Hero,
 )
@@ -59,7 +61,10 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     var tick by mutableIntStateOf(0)
         private set
 
-    val music = MusicPlayer(app)
+    val music = MusicPlayer(app).also { m ->
+        // 120: the nearest hunter darkens the music while the hero is out in the world
+        m.threat = { game?.takeIf { screen == Screen.PLAYING }?.threat() ?: de.bornim.core.audio.Threat.NONE }
+    }
     val sfx = SfxPlayer(app)
     val introArt = IntroArt(app)
 
@@ -167,6 +172,15 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     fun changeStickFeel(level: Int) {
         stickFeel = level.coerceIn(0, 2)
         prefs.edit().putInt(KEY_STICK, stickFeel).apply()
+    }
+
+    /** 131: a button to run with beside the joystick, besides pushing past its ring; off by default. */
+    var runButton by mutableStateOf(prefs.getBoolean(KEY_RUN_BUTTON, false))
+        private set
+
+    fun toggleRunButton() {
+        runButton = !runButton
+        prefs.edit().putBoolean(KEY_RUN_BUTTON, runButton).apply()
     }
 
     /** 6l: the map one step nearer (5.6 tiles across) instead of the default 6.75; kept across starts (`MapZoom`). */
@@ -285,6 +299,17 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     }
     var toast by mutableStateOf<String?>(null)
 
+    /** 72.10: the probe of the new fight against Grak, from the test menu; null when none runs. */
+    var probe by mutableStateOf<de.bornim.core.Skirmish?>(null)
+    var probeClass = CharClass.FIGHTER
+        private set
+
+    fun startProbe(merc: CharClass) {
+        val g = game ?: return
+        probeClass = merc
+        probe = de.bornim.core.Skirmish.grakProbe(g.state, merc, lang)
+    }
+
     // ------------------------------------------------------------ save slots
 
     init {
@@ -309,7 +334,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         val json = prefs.getString(slotKey(n), null) ?: return null
         val s = runCatching { GameState.fromJson(json) }.getOrNull() ?: return null
         val h = s.hero
-        return SlotInfo(n, h.name, h.race, h.cls, h.level, s.place.map, s.day, s.minutes, prefs.getLong(slotKey(n) + "_at", 0L), h)
+        return SlotInfo(n, h.name, h.race, h.cls, h.level, s.place.map, s.day, s.minutes, prefs.getLong(slotKey(n) + "_at", 0L), s.playedMs, h)
     }
 
     fun slots(): List<SlotInfo?> = (1..SLOTS).map { slotInfo(it) }
@@ -321,6 +346,18 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     /** First empty slot, or null if all are taken. */
     val freeSlot: Int? get() = (1..SLOTS).firstOrNull { !prefs.contains(slotKey(it)) }
+
+    /** 132: counts the time played while the game shows and the app is in front. */
+    private val playClock = de.bornim.core.PlayClock()
+    private fun now() = System.nanoTime() / 1_000_000
+
+    /** 132: the app comes to the front; the count goes on if a hero is played. */
+    fun resumePlayClock() {
+        if (game != null && screen == Screen.PLAYING) playClock.start(now())
+    }
+
+    /** 132: the app goes to the back; call after [save], which booked the time. */
+    fun pausePlayClock() = playClock.drop()
 
     /** Slot chosen on the slot screen for the next new game. */
     var pendingSlot by mutableStateOf<Int?>(null)
@@ -351,6 +388,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         game = g
         menuOpen = false
         screen = Screen.PLAYING
+        playClock.drop()
+        playClock.start(now())
         // 69: the arrival by night, once, before Rowena wakes the hero
         introPicture = 0
         intro = de.bornim.game.ui.IntroLook.auto
@@ -370,6 +409,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         game = g
         menuOpen = false
         screen = Screen.PLAYING
+        playClock.drop()
+        playClock.start(now())
         g.begin()
         prepareFigures(g)
         refresh()
@@ -399,6 +440,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     fun save() {
         val g = game ?: return
         if (screen != Screen.PLAYING) return
+        playClock.book(g.state, now())
         prefs.edit().putString(slotKey(slot), g.state.toJson()).putLong(slotKey(slot) + "_at", System.currentTimeMillis()).apply()
         slotsVersion++
     }
@@ -424,13 +466,14 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     fun toTitle() {
         save()
+        playClock.drop()
         menuOpen = false
         screen = Screen.TITLE
     }
 
     companion object {
         /** Number of save slots. */
-        const val SLOTS = 3
+        const val SLOTS = 4
         /** The single save of versions before slots; moved to slot 1. */
         private const val KEY_SAVE = "save"
         private const val KEY_LAST_SLOT = "last_slot"
@@ -447,6 +490,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_TEMPO = "battle_tempo"
         private const val KEY_AUTO = "battle_auto"
         private const val KEY_STICK = "stick_feel"
+        private const val KEY_RUN_BUTTON = "run_button"
         private const val KEY_MAP_NEAR = "map_near"
         private const val KEY_VOL_ALL = "volume_all"
         private const val KEY_VOL_MUSIC = "volume_music"

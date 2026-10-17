@@ -1,6 +1,6 @@
 # Kampfsystem neu denken
 
-Stand 14.10.2026. Original seit 16.10. hier (99g); vorher Docs-Dokument „Bornim – Kampfsystem neu denken“ auf Max. Was entschieden ist, steht in den Beschlüssen (72.x).
+Stand 14.10.2026. Original seit 16.10. hier (99g); vorher Docs-Dokument „Bornim – Kampfsystem neu denken“ auf Max. Was entschieden ist, steht im Vorgangsarchiv (`VORGANGSARCHIV.md`, 72.x).
 
 ## Kurzfassung
 

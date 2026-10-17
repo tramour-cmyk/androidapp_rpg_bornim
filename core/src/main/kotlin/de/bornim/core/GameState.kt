@@ -1,6 +1,7 @@
 package de.bornim.core
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -65,10 +66,17 @@ class GameState(
     var mead: Int = 0,
     /** 39: how hard the foes are; changeable at any time. */
     var difficulty: Difficulty = Difficulty.NORMAL,
+    /** 132: real time this hero was played, in milliseconds ([PlayClock]); saves from before count from 0. */
+    var playedMs: Long = 0,
+    /** 134.1: what each person said when last spoken to ([Hail.fingerprint]); saves from before have none. */
+    val heard: MutableMap<String, List<Int>> = mutableMapOf(),
 ) {
     init {
         hero.chapter = Story.chapter(this)
     }
+
+    /** 86.3/84.4: the hero is running this frame ([Stamina.step]); running is loud, monsters hear him sooner. Not saved. */
+    @Transient var running: Boolean = false
 
     fun nextUid(): Long = ++uidCounter
 

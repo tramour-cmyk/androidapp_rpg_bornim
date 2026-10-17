@@ -832,7 +832,7 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.toast = Ui.saved(lang)
         }
         PixelButton(Ui.language(lang), Modifier.fillMaxWidth()) { vm.toggleLang() }
-        // 39: Leicht, Normal, Schwer scale the foes' hit points and damage; wording is a placeholder until 39.2 (Kreativ)
+        // 39: Leicht, Normal, Schwer scale the foes' hit points and damage; wording from STORY-BLENDE.md [39.2.*]
         Txt(if (lang == Lang.DE) "Schwierigkeit" else "Difficulty", size = 15.sp, bold = true)
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             val names = if (lang == Lang.DE) listOf("Leicht", "Normal", "Schwer") else listOf("Easy", "Normal", "Hard")
@@ -843,11 +843,15 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
         val d = game.state.difficulty
         val pct = Math.round(kotlin.math.abs(d.hp - 1) * 100)
         Txt(when {
-            d == Difficulty.NORMAL -> if (lang == Lang.DE) "Gegner wie gemessen." else "Foes as measured."
-            d.hp < 1 -> if (lang == Lang.DE) "Gegner haben $pct % weniger Lebenspunkte und richten $pct % weniger Schaden an. Questziele stehen ab Annahme gold auf der Karte."
-                else "Foes have $pct% fewer hit points and deal $pct% less damage. Quest goals are gold on the map from the moment you take them."
-            else -> if (lang == Lang.DE) "Gegner haben $pct % mehr Lebenspunkte und richten $pct % mehr Schaden an." else "Foes have $pct% more hit points and deal $pct% more damage."
+            d == Difficulty.NORMAL -> if (lang == Lang.DE) "Gegner sind so stark, wie das Spiel sie gedacht hat. Das Ziel eines Auftrags erscheint auf der Karte, sobald du den Ort gesehen hast."
+                else "Foes are as strong as the game intends. A quest's goal appears on the map once you have seen the place."
+            d.hp < 1 -> if (lang == Lang.DE) "Gegner haben $pct % weniger Trefferpunkte und richten $pct % weniger Schaden an. Das Ziel eines Auftrags steht gold auf der Karte, sobald du ihn annimmst."
+                else "Foes have $pct% fewer hit points and deal $pct% less damage. A quest's goal shows in gold on the map as soon as you accept it."
+            else -> if (lang == Lang.DE) "Gegner haben $pct % mehr Trefferpunkte und richten $pct % mehr Schaden an. Das Ziel eines Auftrags erscheint auf der Karte, sobald du den Ort gesehen hast."
+                else "Foes have $pct% more hit points and deal $pct% more damage. A quest's goal appears on the map once you have seen the place."
         }, size = 13.sp, color = Colors.textDim)
+        Txt(if (lang == Lang.DE) "Erfahrung und Beute bleiben gleich. Gilt für diesen Helden und lässt sich jederzeit umstellen; Gegner ändern sich ab dem nächsten Kampf."
+            else "Experience and loot stay the same. Applies to this hero and can be changed at any time; foes change from the next fight.", size = 13.sp, color = Colors.textDim)
         // 40a: three sliders instead of the music and effects switches; the title keeps them as quick mutes
         SoundAndLight(vm, lang)
         // 91: the footsteps on their own, under the effects
@@ -879,8 +883,11 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
                 val names = if (lang == Lang.DE) listOf("Fein", "Normal", "Ruhig") else listOf("Fine", "Normal", "Calm")
                 names.forEachIndexed { i, label -> PixelButton(label, Modifier.weight(1f), selected = vm.stickFeel == i, size = 15.sp) { vm.changeStickFeel(i) } }
             }
-            Txt(if (lang == Lang.DE) "Fein: kurzes Ziehen genügt zum Gehen und Rennen. Ruhig: erst weit ziehen, man geht länger, bevor man rennt."
-                else "Fine: a short drag walks and runs. Calm: drag further, you walk longer before you run.", size = 13.sp, color = Colors.textDim)
+            Txt(if (lang == Lang.DE) "Im Kreis geht man, über den Ring hinaus rennt man. Fein: kleiner Ring. Ruhig: großer Ring."
+                else "Inside the circle you walk, past the ring you run. Fine: a small ring. Calm: a large ring.", size = 13.sp, color = Colors.textDim)
+            // 131: a button to run with, as well as the ring
+            PixelButton(if (lang == Lang.DE) (if (vm.runButton) "Taste „Rennen“: an" else "Taste „Rennen“: aus")
+                else (if (vm.runButton) "Run button: on" else "Run button: off"), Modifier.fillMaxWidth()) { vm.toggleRunButton() }
         }
         PixelButton((if (vm.leftHanded) Ui.actionLeft else Ui.actionRight)(lang), Modifier.fillMaxWidth()) { vm.toggleLeftHanded() }
         PixelButton((if (vm.haptics) Ui.hapticsOn else Ui.hapticsOff)(lang), Modifier.fillMaxWidth()) { vm.toggleHaptics() }

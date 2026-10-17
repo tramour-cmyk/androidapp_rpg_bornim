@@ -223,7 +223,8 @@ class Battle(
         }
         if (opening == Opening.HERO_FIRST) return flush()
         val elf = if (hero.race == Race.ELF) 2 else 0
-        val heroInit = dice.d20() + hero.mod(Ability.DEX) + elf
+        // 86.3/72.11: out of breath, the hero rolls initiative with disadvantage
+        val heroInit = dice.d20(if (state.winded) -1 else 0) + hero.mod(Ability.DEX) + elf
         val foeInit = dice.d20() + monster.dexSave
         if (foeInit > heroInit || (trait == EliteTrait.SWIFT && eliteTier == 2)) {
             say(Msg.foeFaster.f(lang, foe))

@@ -1,14 +1,16 @@
-name: Dein Zug Übersicht
+name: Chefsache Übersicht
 
-# Schreibt docs/zug/README.md (Übersicht „Dein Zug“, 108) aus den Dateien in docs/zug/ neu, sobald sich dort etwas ändert.
+# Schreibt docs/chefsache/README.md (Übersicht „Chefsache“, 108) aus den Dateien in docs/chefsache/ neu, sobald sich dort etwas ändert.
 # Keine Sitzung bearbeitet die README von Hand, darum gibt es keine Konflikte (D15.3). Pushes mit dem Actions-Schlüssel
 # starten keine weiteren Workflows, also auch keinen APK-Build.
 on:
   push:
     branches: [main]
     paths:
-      - "docs/zug/**"
+      - "docs/chefsache/**"
       - "tools/zug-index.py"
+      - "docs/ARBEIT-*.md"  # D21.3: Lücken (wartet auf Chef ohne Datei)
+      - "docs/LISTE-VORGAENGE.md"  # Vorrang und Bereich (124, 126, 136)
   workflow_dispatch:
 
 permissions:
@@ -30,8 +32,8 @@ jobs:
           for versuch in 1 2 3 4; do
             git pull -q --rebase origin main
             python3 tools/zug-index.py
-            git diff --quiet docs/zug/README.md && exit 0
-            git commit -qm "Dein Zug: Übersicht" docs/zug/README.md
+            git diff --quiet docs/chefsache/README.md && exit 0
+            git commit -qm "Chefsache: Übersicht" docs/chefsache/README.md
             git push -q origin HEAD:main && exit 0
             git reset -q --hard origin/main
             sleep $((versuch * 3))

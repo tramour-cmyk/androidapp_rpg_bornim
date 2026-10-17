@@ -34,6 +34,19 @@ class MakeWayTest {
     }
 
     @Test
+    fun walkingFreelyIntoHimHeMakesRoomToo() {
+        // test 0.1.791: walking on against Bram with the stick, nothing happened; free walking never counted him
+        val g = game(Place("village", 20, 28, Facing.DOWN), 6 * 60)
+        val bram = g.map.npcs.first { it.id == "bram" }
+        val w = g.walkerOf(bram)!!
+        g.freeWalk.sync()
+        var t = 1_000L
+        repeat(3_000 / 16) { g.freeWalk.walk(0.0, 1.0, 16, FreeWalk.WALK, t); t += 16 }
+        assertTrue((w.x to w.y) != (20 to 29), "Bram did not move")
+        assertTrue(g.state.place.y >= 29, "the hero did not get past, at ${g.state.place.x},${g.state.place.y}")
+    }
+
+    @Test
     fun withNoRoomAtAllTheyChangePlaces() {
         // in the narrow way the hero is in, with nothing free beside the villager: they change places
         val g = game(Place("village", 20, 28, Facing.DOWN), 6 * 60)

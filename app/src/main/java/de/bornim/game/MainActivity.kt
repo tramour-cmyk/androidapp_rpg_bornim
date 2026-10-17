@@ -56,11 +56,13 @@ class MainActivity : ComponentActivity() {
     override fun onStart() {
         super.onStart()
         vm.music.resume()
+        vm.resumePlayClock()
     }
 
     override fun onStop() {
         super.onStop()
         vm.music.pause()
         vm.save()
+        vm.pausePlayClock()
     }
 }

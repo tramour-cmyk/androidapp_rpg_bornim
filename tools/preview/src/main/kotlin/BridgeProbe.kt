@@ -74,7 +74,7 @@ internal open class BridgePainter(val detail: Boolean = true) {
     /** Round 4: the banks follow the camera, now at the foot of the bridge. */
     val ZN get() = wz(28.0); val ZF get() = ZN + 7.0
 
-    // the moon, high up on the left, clear of the roof, its chimney and the fir (Sokrates 14.10.: it sat on the chimney)
+    // the moon, high up on the left, clear of the roof, its chimney and the fir (Homer 14.10.: it sat on the chimney)
     open val moonX = 120.0; open val moonY = 175.0
 
     // the night colours of the diagonal world (village at 23:00)
@@ -926,7 +926,7 @@ internal open class BridgePainter(val detail: Boolean = true) {
         val wood = Color(0x221A14); val woodLit = night(0x7A5C40, 1.3)
         val lx = hw - 0.06; val lz = z0 + 0.1; val lh = y + 1.75
         // the warm pool on the deck and on the water beside the bridge
-        // (the lantern sits on the top of the tall near post, its foot on the post: Sokrates 14.10., it floated above it)
+        // (the lantern sits on the top of the tall near post, its foot on the post: Homer 14.10., it floated above it)
         val lpx = sx(lx, lz); val lpy = sy(lh, lz) - f * 0.16 / lz * 0.3
         run {
             val r = f * 2.6 / lz; val t = g.transform; g.translate(sx(lx - 0.7, lz + 1.4), sy(y, lz + 1.4)); g.scale(1.0, 0.3)

@@ -33,8 +33,6 @@ grund_fs_38963.mp3 https://cdn.freesound.org/previews/38/38963_107780-hq.mp3
 grund_fs_460459.mp3 https://cdn.freesound.org/previews/460/460459_9395330-hq.mp3
 grund_fs_516566.mp3 https://cdn.freesound.org/previews/516/516566_2247456-hq.mp3
 grund_fs_530161.mp3 https://cdn.freesound.org/previews/530/530161_2683450-hq.mp3
-grund_fs_540836.mp3 https://cdn.freesound.org/previews/540/540836_2282212-hq.mp3
-grund_fs_609422.mp3 https://cdn.freesound.org/previews/609/609422_2282212-hq.mp3
 kampf_evil_approach.wav Evil%20Approach.wav
 kampf_determined_pursuit.wav determined_pursuit_loop.wav
 kampf_corrupted_minds.flac corrupted_minds.flac

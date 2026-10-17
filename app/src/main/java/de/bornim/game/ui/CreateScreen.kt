@@ -287,8 +287,11 @@ private fun SlotChooser(vm: GameViewModel, lang: Lang, onCancel: () -> Unit, onP
                     else "Which hero should the new one replace? That saved game will be lost.",
                     size = 14.sp, color = Colors.accent,
                 )
-                vm.slots().filterNotNull().forEach { info ->
-                    Panel(Modifier.fillMaxWidth().tap { onPick(info.slot) }) { SlotCard(info, lang) }
+                // 132: four heroes do not fit on a small phone; the list rolls, title and cancel stay
+                Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    vm.slots().filterNotNull().forEach { info ->
+                        Panel(Modifier.fillMaxWidth().tap { onPick(info.slot) }) { SlotCard(info, lang) }
+                    }
                 }
                 PixelButton(if (de) "Abbrechen" else "Cancel", Modifier.fillMaxWidth(), size = 15.sp, onClick = onCancel)
             }

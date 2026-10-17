@@ -1,0 +1,159 @@
+# Prüfbericht Diogenes
+
+Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prüfbericht“). Jeder Befund ist ein **Verdacht**, bis der Zuständige ihn bestätigt; Vermerke („bestätigt“, „behoben“, „verworfen“ mit Grund) schreibt er unter den Befund. Neuester Lauf oben. Seit 16.10. im Repo (99g); **Lauf 1–21** stehen im abgelösten [Artefakt](https://claude.ai/artifact/GMig9HQKmabNkBSrbgmZiQ), offene Befunde daraus in den Vorräten.
+
+## Offen für den Chef
+
+**D4.1 neu gemessen (Lauf 23):** **Ziel verfehlt.** Das Rauchbündel allein reicht nicht: Wer zielstrebig über Morwen geht, steht trotzdem mit Stufe 1 vor Krogg und stirbt im Median 24 Mal. Wer Garricks Warnung folgt (Stufe 3), stirbt in der Höhle im Median 3,5 Mal; Kämpfer und Schurke treffen das Ziel, Magier und Kleriker nicht. Balance entscheidest du; Empfehlung bei Jerry (D23.1).
+
+**Umbau 106.1 (Lauf 22):** hat funktioniert. D22.1 (Ford startete Homer nicht für Muss-Zeilen) ist behoben. Nichts am Gerät anzusehen.
+
+## Lauf 25 · Auftrag 159 (Ablaufentwurf „Niederlassung ruht“, Commit `983cb56c`)
+
+**Prüffrage (Perikles):** Widersprechen sich die geänderten Stellen, bleiben Reste von Ford 2? **Antwort: Der Schalter trägt als Prinzip (eine Zeile, nichts gestrichen, Vorgangsarchiv, Vorrat und `LISTE-VORGAENGE.md` stimmen überein), aber zwei Reste sind scharf, weil Jerry ab Sa 17.10., 21:00 in der Zentrale starten soll.** Stand `main` 17.10., 20:0x; nur gelesen (alle zwölf Dateien des Commits, dazu `LISTE-RELEASE-NEUSTART.md`, `ROLLE-ENTWICKLUNG.md`, `ARBEIT-BESETZUNG.md`, `tools/*.py`, `tools/notiz.sh`); nichts gelaufen. **Nicht geprüft:** ob Ford 2 und seine Uhr auf Pro wirklich noch laufen (von Max aus nicht sichtbar), ob `archive_session` für Jerry auf Max `usage.cost_usd` liefert, die Zahlen in 159.1 (Pro 154,37 $, 20x = 200 $) außer dem Rechenweg.
+
+- **D25.1** (hoch, Klasse 2 an Perikles) **Jerrys Neustart-Weg führt wieder ins Leere.** `LISTE-RELEASE-NEUSTART.md` 1a schickt Jerrys „Neustart <Name>, <Commit>“ an *Ford 2* (Ford erreicht Pro nicht, 158); `LISTE-BETRIEB.md` „Ruht die Niederlassung“ sagt dagegen: Jerrys „Neustart“-Meldung geht an Ford. 159 hat 1a nicht angefasst (nicht im Commit, nicht in Perikles' Übergabe). Folge: Jerry meldet an die ruhende Ford 2, wartet 5 Minuten, startet nach Schritt 2 selbst, Ford sieht den Vorgänger nie, seine Kosten fehlen, der alte Jerry wird nicht archiviert (genau D24.1, jetzt in umgekehrter Richtung). Behebung: 1a „Team Jerry an Ford, solange die Zeile ‚Niederlassung ruht‘ steht, sonst an Ford 2“. Nötig vor Jerrys erstem Start (Sa 21:00).
+- **D25.2** (hoch, Klasse 2 an Perikles, Entscheidung beim Chef) **Niemand schaltet Ford 2 ab.** Die Regeln „ruhen“, aber Ford 2 ist eine Sitzung mit eigener Uhr (`ARBEIT-BETRIEB.md` Z. 22: `trig_01WCdVm…`, alle 4 Stunden, :33) auf einem Konto, das der Chef gekündigt hat; Ford erreicht Pro nicht (`FIRMA.md`), der Satz „Ford 2 läuft nicht“ aus der Fassung vor 159 ist weggefallen und durch „Regeln ausgesetzt“ ersetzt. Ob Ford 2 beim nächsten Weckruf den Schalter liest, steht nirgends; er könnte auf Pro (Free, Zusatznutzung ohne Limit, 154,37 $ im Oktober) noch Jerry starten, dann liefen zwei Jerry. Der Schalter regelt nur Fords Seite. Behebung: eine Zeile an den Chef (er allein erreicht Pro): Ford-2-Uhr ausschalten und Sitzung beenden; im Schalter-Absatz „Ford 2 liest beim Wecken zuerst diese Zeile und beendet den Lauf“ als Rückhalt. `ARBEIT-BESETZUNG.md` führt Ford 2 und Perikles' Sitzung 158 noch als laufend (Stand 19:04, Ford schreibt neu beim nächsten Lauf; nur Hinweis).
+- **D25.3** (mittel, Klasse 2) **Luft-Regel für Max unvollständig.** „Wochenverbrauch von Max höchstens verstrichener Anteil der Woche plus 10 %“ nennt keinen Wochenanfang für Max. Der einzige im Text ist „Woche ab Fr. 03:00“, und der steht im ruhenden Absatz für Pro; Max wechselt laut Guthabenzeile am Sa 21:00. Ford müsste raten; bei Fr 03:00 statt Sa 21:00 sind es 42 Stunden Unterschied. Dazu: der Stillstand, den die Luft-Regel selbst erzeugt („nichts läuft, Stillstand Guthaben“), zählt in 159.1 für die 12-Stunden-Schwelle zu 20x mit; die Messung kann so durch die eigene Vorgabe auslösen. Behebung: Wochenanfang Max (Sa 21:00 laut Guthabenzeile) nennen; im Protokoll „Stillstand Guthaben (Luft)“ getrennt von „(Max voll)“ führen, die Schwelle sagt, welche zählt.
+- **D25.4** (mittel, Klasse 2) **Alte Sätze widersprechen dem Schalter, ohne ihn zu nennen.** (a) `CLAUDE.md` Z. 27: „Niederlassung = zweiter Account (Pro): Ford 2, Team Jerry“, Zentrale ohne Jerry; `ROLLE-ENTWICKLUNG.md` Z. 3: „Jerry auf Pro (Niederlassung)“. (b) `ROLLE-BETRIEB.md` Z. 23 „Team Jerry nur Ford 2“ verweist auf eine „Ausnahme“ in `FIRMA.md`, die dort nur als Nachsatz hinter der Tabelle steht; die Tabellenzeile „Normalbetrieb“ sagt weiter „Ford startet kein Team Jerry“. (c) `CLAUDE.md` Z. 35 und `ARBEIT-BESETZUNG.md` Z. 3: „Ford 2 Jerrys Zeilen“, aber Ford schreibt sie nach `LISTE-BETRIEB.md`. (d) `LISTE-BETRIEB.md`: Fords Startschritt 4 nennt Jerry nicht, die Regel steht nur im Abschnitt „Ford 2“, der als ruhend überschrieben ist. (e) `ARBEIT-BETRIEB.md` Z. 21 Rest eines Sternchens, Z. 22 „Jerry pausiert bis Mo 19.10., 21:00“ gegen „Pause entfällt“ (beide als „ruht“ markiert, also hinnehmbar, aber ein Leser sieht zwei Stände). Ford liest `LISTE-BETRIEB.md` ganz und kommt zurecht; neue Sitzungen lesen `CLAUDE.md` und gehen davon aus, Jerry laufe auf Pro. Behebung: je eine Halbsatz-Änderung in (a)–(c), Jerrys Start als Punkt 4a in den Ablauf.
+- **D25.5** (klein) **Sicherung steht nur in Jerrys Übergabe.** Der Auftrag 159 (6) „Tom sichtet beim ersten Übernehmen Jerrys offene Zweige“ steht jetzt nur in `ARBEIT-TEAM-JERRY.md` (Übergabe); in Toms Vorrat und in `ROLLE-ENTWICKLUNG.md` nicht. Regel 6 (118) lässt Tom ohnehin in Jerrys Vorrat lesen, daher klein; ohne die Zeile geht Pro-Arbeit aus nicht gepushten Zweigen leicht verloren (PR #106 ist gepusht).
+
+**Was stimmt (geprüft, kein Befund):** Vorgang 159 in Vorgangsarchiv, `ARBEIT-PROJEKT.md` (159.1), `LISTE-VORGAENGE.md` (Stand „umgebaut“) und Zähler 160 stimmen überein; Regelbilanz 90a im Kern eingehalten (nur ausgesetzt, aber „Ruht“-Absätze an sieben Stellen kommen hinzu); Morgenmeldung, Guthaben, Abo-Prüfung 10.11., Messung Leitung 20.–21.10. sind für Max allein gefasst; `tools/` kennt weder Ford 2 noch Pro (keine Werkzeugänderung nötig); Jerrys Vorrat hat zwei Muss-Zeilen, startbar nach Schalter.
+
+**Urteil:** Schalter ja. **Empfehlung: D25.1 und D25.2 vor Sa 17.10., 21:00 beheben (D25.2 braucht den Chef); D25.3 bis zum ersten Luft-Test; D25.4 und D25.5 beim nächsten Notizlauf.**
+
+## Lauf 24 · Auftrag 158 (Entwurf Ford-2-Lauf, `chefsache/entscheiden/158-ford2-lauf.md`)
+
+**Prüffrage des Chefs:** Klappt der Ablauf in der Niederlassung (Ford 2, Team Jerry) wie in der Zentrale? **Antwort: noch nicht. Option A trägt, aber nur mit den Änderungen D24.1–D24.3.** Stand `main` 17.10., 18:3x; nur gelesen (`LISTE-BETRIEB.md`, `ROLLE-BETRIEB.md`, `LISTE-NIEDERLASSUNG.md`, `FIRMA.md`, `ARBEIT-BETRIEB.md`, `LISTE-RELEASE-NEUSTART.md`, `ARBEIT-BESETZUNG.md`, Vorgangsarchiv 99h/147.2); nichts gelaufen. **Nicht geprüft:** ob `archive_session` auf Pro `usage.cost_usd` liefert (nur behauptet, nie belegt), Kosten eines Pausenlaufs (keine Zahl; Ford 2 bisher 16,79 $ gesamt, Jerrys Woche nicht in den Notizen).
+
+**Was stimmt.** Brüche 1–4 bestehen wörtlich: „fertig“ fehlt; der Pausen-Absatz endet mit „sonst schreibt er nichts“ trotz Archivieren (Commit `802c8e6c`, 17.10., 18:26 Berliner Zeit, Ford 2); außerhalb der Pause steht nur „erfasst Kosten wie oben (Neustart)“; die Besetzung wird bei Ford bei jedem Lauf geschrieben (`ROLLE-BETRIEB.md`), im Pausenlauf nicht. Bruch 5 ist schwächer als dargestellt (D24.6). Das Gegenargument ist fair und stark dargestellt; Kriterium (3) bleibt Pflicht.
+
+- **D24.1** (hoch) **Der Neustart-Weg der Niederlassung führt ins Leere.** `LISTE-RELEASE-NEUSTART.md` 1a schickt „Neustart <Name>, <Commit>“ an *Fords* Sitzung, auch für Jerry. Ford erreicht Pro nicht (`FIRMA.md`: kann dort nichts starten oder archivieren), Ford 2 kommt als Empfänger nirgends vor; „Jerry ohne Ford“ heißt dort nur: selbst starten (2). `LISTE-BETRIEB.md` „Ford 2“ setzt aber „Kosten wie oben (Neustart)“ voraus, also eine Meldung, die Jerry nicht an ihn schickt. Folge: Jerrys Vorgänger bleiben stehen, ihre Kosten fehlen. Das ist der eigentliche Grund für das Archivieren im Lauf, und der Entwurf nennt ihn nicht. Behebung: in 1a Ford 2 als Empfänger für Jerry eintragen (Kennung steht oben in `ARBEIT-BETRIEB.md`, Jerry erreicht ihn auf Pro) oder ausdrücklich sagen, dass Jerrys Neustart nur über den Lauf geht.
+- **D24.2** (mittel) **Kriterium (1) zitiert Schritt 3 falsch.** „Laufend“ heißt dort: `working`/`blocked`, `updated_at` jünger als 60 Minuten **oder offener Wecker** (`list_triggers`). Der Entwurf lässt den Wecker weg; eine Sitzung mit offenem Wecker (z. B. `send_later`) würde archiviert. Behebung: Wortlaut „nicht laufend nach Schritt 3“, ohne Klammer.
+- **D24.3** (mittel) **Kriterium (2) ist kaum prüfbar.** Je Rolle gibt es *eine* Übergabe oben im Vorrat (`CLAUDE.md`), sie gehört der letzten Sitzung, nicht jeder; und „erledigt“ steht in Jerrys Zeilen nicht, Erledigtes wird gestrichen (Stand ist freier Text, z. B. „gebaut, ohne PR“). „Zu testen“ ist kein feststehendes Wort. Ford 2 müsste raten. Behebung: Maßstab nur die Übergabe („Nachfolger: keiner“ oder genannter Nachfolger läuft schon), die zweite Alternative streichen.
+- **D24.4** (mittel) **Kriterium (3) sieht nur die letzte Nachricht.** Eine Rückfrage steht nach `CLAUDE.md` 8 einmal im Chat und wird nie wiederholt; die letzte Nachricht (Link, „Weiter in …“) enthält sie meist nicht. Der Chef kann in einer archivierten Sitzung nicht mehr antworten (schreibgeschützt). Das ist in der Zentrale gleich, aber dort fragt Ford vor dem Archivieren mit demselben Mangel; Jerrys offener Test 155 (Übergabe 17.10.) wäre der erste Fall. Behebung: die letzten drei Nachrichten lesen oder Chefsache-Dateien des Vorgangs mit ansehen; und sagen, dass Testergebnisse nie in die Sitzung getippt werden, sondern über Ford in den Vorrat (so läuft es heute, z. B. „Build 11 passt“).
+- **D24.5** (mittel) **Dritter Zustand ohne Regel.** Eine Jerry-Sitzung, die weder läuft noch fertig ist (still, mit offener Frage), gilt für „keine Jerry-Sitzung läuft“ als nicht laufend: Ford 2 startet einen zweiten Jerry neben ihr, und „Eine Sitzung, ein Punkt“ gilt nicht mehr. Behebung: ein Satz, ob Ford 2 dann wartet oder startet.
+- **D24.6** (mittel) **Wortlaut nach Annahme.** (a) `ARBEIT-BETRIEB.md` Eintrag Ford 2 sagt noch „99h gilt: Stundenuhr aus … Läufe ohne Tat, nichts schreiben … nur Kopfzeilen“; 147.2 hat das für Ford 2 ersetzt (Uhr alle 4 Stunden), der Eintrag ist nicht nachgeführt, der Entwurf nennt nur die Kopfzeilen-Zeile. Beides gehört in einen Schritt. (b) Bruch 5: die Klammer „außer Test des Chefs“ steht in der *einmaligen Startnachricht* (`LISTE-NIEDERLASSUNG.md` 2), keine laufende Regel; der `FIRMA.md`-Satz „wer ein Ergebnis hört …“ regelt die Übernahme durch Tom, nicht das Archivieren. Die Auflösung im Entwurf stimmt trotzdem, nur der Verweis ist falsch. (c) Ford 2 schreibt nur bei Abweichung (Entwurf), Ford bei jedem Lauf (`ROLLE-BETRIEB.md`) und „sonst nichts“ (Ablauf 12): bei Ford derselbe Widerspruch, im Entwurf nur für Ford 2 gelöst.
+- **D24.7** (klein) **Reichweite.** Der Entwurf ersetzt Fords Satz in „Neustart auf Meldung“ und macht „Fertig“ damit auch zu Fords Maßstab; „Nicht geklärt“ nennt nur „nichts Neues anfangen“. Das soll der Chef bei der Entscheidung wissen. Zusätzlich fehlt die Zahl zu den Mehrkosten der Pausenläufe (6 Läufe am Tag mit `list_sessions`); sie lässt sich erst nach der Messung 20.–21.10. beziffern, 99h.4 entscheidet am 22.10. über Ford 2.
+
+**Urteil für die Entscheidungsvorlage:** A ist richtig in der Richtung (eine Regel, ein Ort), aber der Entwurf löst die Zentrale-Sicht, nicht die der Niederlassung: ohne D24.1 kommt der Neustart bei Jerry nie an, ohne D24.2/D24.3 archiviert Ford 2 falsch oder rät. **Empfehlung: A mit D24.1–D24.3 eingearbeitet; sonst B.** Die Entscheidung bleibt beim Chef.
+
+## Lauf 23 · Geprüft
+
+**Auftrag:** **38, D4.1 neu messen** (Zeile von Team Jerry 16.10., 20:2x; Start durch Ford 17.10., 09:08, Probebetrieb): Rauchbündel ist auf `main` (PR #90); Kapitel 1 wie in D4 messen, Ziel laut Beschluss D4.1: zielstrebig Stufe 2–3 vor Krogg, Median höchstens 3 Tode.
+
+**Stand:** `main` 799f7cf4
+
+**Wann:** 17.10., 09:08–09:2x
+
+**Wie:** Mess-Spieler aus Lauf 4 (38g), angepasst und auf Zweig `claude/diogenes-d41-messung` (`tools/messung/`, mit Rohausgabe; nicht nach `main`). Anpassungen: Rast fragt jetzt nach (86.10), der Spieler nimmt die lange Rast, sonst die kurze; lange Rast nur einmal je Spieltag, darum nicht ganz gleich wie Lauf 4. Drei Profile, je 4 Klassen × 5 Läufe = 20: **ohne Umweg** (wie D4: Aldric, Jorin, Höhle), **über Morwen** (dazu einmal Garrick, dann Morwen, Bündel), **folgt der Warnung** (Garrick zweimal, Morwen, dann im Tiefen Wald bis Stufe 3). Der Spieler kämpft schlicht: greift an, jede dritte Runde eine Fähigkeit, Trank unter 35 %; nach einer Niederlage gegen Krogg oder Grak sammelt er eine Stufe. Tode zählen alle Niederlagen bis Kapitelende (auch Grak und das Sammeln danach).
+
+**Figuren** (Chef 17.10., 09:2x: „mit welchen Charakteren“): je Klasse fünf, Volk nach Laufnummer (0 und 3 Mensch, 1 und 4 Elf, 2 Zwerg), Werte wie der Vorschlag der Heldenerstellung (15, 14, 12, 10, 10, 8 nach Klasse verteilt, dazu Volksbonus), Startausrüstung der Klasse, keine Käufe. **Kämpfer:** Langschwert, Kettenhemd, Schild, 2 Tränke. **Magier:** Kampfstab, Robe, 3 Tränke. **Schurke:** Kurzschwert, Leder, 2 Tränke. **Kleriker:** Kampfstab, Kettenhemd, Rundschild, 1 Trank. Welcher Lauf welche Figur war, steht je Zeile in der Rohausgabe.
+
+**Nicht geprüft:** Spieler mit Taktik (Ausweichen, Gegenstände, gezielte Fähigkeiten): echte Spieler sterben weniger, die Zahlen sind eine obere Schranke wie in Lauf 4. Gründliches Profil (unverändert seit Lauf 4 außer dem Bündel). Gerät, Bild, Texte.
+
+**Urteil:** **Das Bündel wirkt, das Ziel verfehlt der Weg dorthin.** Der Umweg über Morwen bringt im Median einen Kampf und keine Stufe; nur wer Garricks Warnung befolgt, kommt mit Stufe 3 an, und dann gewinnt der Held gegen Krogg in 8 von 20 Läufen beim ersten Versuch (ohne Umweg 1 von 20).
+
+| Profil | Stufe vor Krogg | Tode gesamt (Median) | Tode Höhle | Niederlagen gegen Krogg |
+|---|---|---|---|---|
+| ohne Umweg (D4) | 1 (20 von 20) | 16,5 | 16 | 2,5 |
+| über Morwen | 1 (15), 2 (4) | 24 | 15 | 3 |
+| folgt der Warnung | 3 (20 von 20) | 12 | 3,5 | 1 |
+
+Je Klasse, folgt der Warnung (Tode gesamt, Median): Kämpfer 1, Schurke 3, Magier 17, Kleriker 32.
+
+## Lauf 23 · Befunde
+
+- **D23.1** (hoch) **Zielstrebig kommt auch über Morwen mit Stufe 1 zu Krogg**
+
+  D4.1 · sicher (gemessen, 20 Läufe je Profil). Wald und Tiefer Wald bis Morwen: im Median 1 Kampf, 5 Runden; 15 von 19 Läufen stehen mit Stufe 1 vor Krogg. Das Ziel „zielstrebig Stufe 2–3, Median höchstens 3 Tode“ trifft nur, wer die Warnung befolgt und sammelt, also genau der Grind, den D4.1 vermeiden wollte.
+
+  Klasse 2, an Team Jerry (Balance, Zeile 38), Entscheidung Chef · Empfehlung: den Weg zu Morwen tragen lassen statt den Helden zu schicken: auf dem Weg durch den Tiefen Wald einen festen Kampf oder eine kleine Aufgabe Morwens (z. B. Kräuter an zwei Stellen), die zusammen etwa eine Stufe bringen. Stärkstes Gegenargument: die Messung kennt keine Taktik, echte Spieler mit Stufe 1 schaffen Krogg vielleicht in 2–3 Versuchen; vorher am Gerät einmal mit Stufe 1 gegen Krogg (mit Bündel) spielen lassen (38h, Eichung durch den Chef).
+
+- **D23.2** (mittel) **Garricks Warnung und Hinweis auf Morwen kommen erst beim zweiten Gespräch**
+
+  D4.1 · sicher (Code `Story.kt` Garrick: Hinweis und Warnung nur im Zweig nach `HUNTER_MET`, das erst das erste Gespräch setzt). Wer einmal mit Garrick spricht, hört weder Warnung noch Hinweis, und der Auftrag „Rauch gegen Krogg“ (`KROGG_HINT`) erscheint nicht in der Chronik; Morwen gibt das Bündel trotzdem (`wantsSmoke` prüft nur `HUNTER_MET`). Beschluss D4.1: „Garrick warnt, solange der Held unter Stufe 3 ist.“
+
+  Klasse 2, an Team Tom (Dialog) · Empfehlung: Hinweis und Warnung ans Ende des ersten Gesprächs hängen (wortgleich, keine neuen Texte). Stärkstes Gegenargument: erstes Gespräch wird lang; dann Homer fragen, ob eine Zeile reicht.
+
+- **D23.3** (mittel) **Mit Stufe 3 und Bündel sterben Magier und Kleriker weiter oft**
+
+  D4.1 · wahrscheinlich (gemessen; Anteil der schlichten Kampfweise unbekannt). Magier 17, Kleriker 32 Tode im Median gegen Kämpfer 1, Schurke 3; die meisten fallen beim Sammeln im Wald nach einer Niederlage (Wölfe, Wildschweine), nicht bei Krogg. Kein neuer Befund zu D4.1 selbst, aber das Ziel gilt für alle Klassen.
+
+  Klasse 2, an Team Jerry (zu D23.1) · Empfehlung: beim Messen für D23.1 je Klasse prüfen; erst ändern, wenn auch ein Spieler mit Taktik es zeigt. Stärkstes Gegenargument: Zauberklassen sind im SRD auf Stufe 1–2 zerbrechlich gewollt.
+
+## Lauf 22 · Geprüft
+
+**Auftrag:** **106.1 Nachprüfung Samstagsumbau** (Zeile von Perikles 16.10., 22:0x; Chef: „am Schluss muss Diogenes einmal wieder drüber prüfen, ob alles funktioniert hat“; Start durch Ford 22:32): Rollendateien nach Muster, Kennzahlen mit Quelle, Namen (117, 125), Zuordnung aller Vorgänge (124, 126), Wochenziel, Verweise und Werkzeuge; startet jede Rolle richtig?
+
+**Stand:** `main` 5338741b (Umbau b37fff95, ein Commit, 54 Dateien)
+
+**Wann:** 16.10., 22:33–22:4x
+
+**Wie:** Nur lesen, keine Standbilder, keine Agenten. Gegen `VORGANGSARCHIV.md` 106.1, 117, 122, 99g.1 und die Vorlage in `FIRMA.md` „Vorlage für jede Rollendatei“. Maschinell: alle sechs `ROLLE-…` (Abschnitte, Größe bis „Start“, Rest, Zahl der Lehren); jede Zeile aller sechs Vorräte gegen `LISTE-VORGAENGE.md` (Nummer, Klasse, Stand); Kopfzahlen gegen gezählte Zeilen; Muss-Zeilen gegen das Wochenziel; `git grep` nach allen alten Datei- und Rollennamen in `CLAUDE.md`, `docs/`, `tools/`, `.claude/`, `.github/`; alle relativen Links in allen `.md`; Abschnittsverweise „Datei ‚Abschnitt‘“. Werkzeuge ausgeführt: `notiz.sh`, `check-env.sh` (9 von 9), `story.sh`, `zug-index.py` (in einer Kopie, „unverändert“); Haken (`weiter-`, `zug-`, `neustart-haken.py`, `.claude/settings.json`) und `meldung.sh` (`cs:`/`dz:`) gelesen. Start jeder Rolle: Kopf und „Start“ jeder Rollendatei gegen vorhandene Dateien und Abschnitte; Fords Startregeln (`ROLLE-BETRIEB.md`, `LISTE-BETRIEB.md` 4, 11, „Neustart auf Meldung“) gegen die Vorräte.
+
+**Nicht geprüft:** **Echte Starts** außer diesem (Diogenes): Perikles, Homer, Sokrates, Ford 2 und Jerry sind seit dem Umbau nicht gestartet. **Pro**: keine Sicht. **Code-Kommentare** mit alten Namen (`Chronicle.kt`, `Intro.kt`, `Story.kt`, `IntroSound.kt`: `STORY-K1.md`): stehen schon als Zeile 117 bei Tom. **Inhalt** der Rollendateien Satz für Satz gegen das Vorgangsarchiv nur stichprobenweise; Wochenzählung und Tagesrückblick erst im Betrieb (Mo 26.10. bzw. ab 18.10.). GitHub-Action nicht ausgelöst (keine Änderung in `docs/chefsache/`).
+
+**Urteil:** **Der Umbau hat funktioniert, mit einer Lücke, die das Wochenziel anhält.** Alle sechs Rollendateien folgen der Vorlage und ihren Größen, jede Rolle hat eine Kennzahl mit Quelle und Zähler, alte Namen sind aus Regeln und Werkzeugen verschwunden, alle Links und Abschnittsverweise treffen, die Werkzeuge laufen, jede Vorratszeile trägt M oder K. Aber Ford startet Homer und Perikles nach seiner Rollendatei nur für „A“, und Homer hat zwei Muss-Zeilen des Wochenziels ohne „A“ (D22.1). Dazu fehlt den Befundzeilen ein Vorgang, damit fehlen Kosten und Bereich (D22.2), und Liste und Vorräte widersprechen sich bei sieben Nummern (D22.3).
+
+## Lauf 22 · Befunde
+
+- **D22.1** (hoch) **Homer hat zwei Muss-Zeilen des Wochenziels, Ford startet ihn dafür nicht**
+
+  126, 128, D21.1 · sicher (Text). `ROLLE-BETRIEB.md` „Was du tust“: „Homer und Perikles für eine Zeile mit ‚A‘, auf Neustart-Meldung oder Zuruf“. `ARBEIT-KREATIV.md` hat „Muss 2, A 0“: **39** (39.2 Wortlaut Schwierigkeitsgrad) und **112** (Intro als Muster, Abweichungsliste Tempel); beide stehen im Wochenziel 18.–24.10. (`LISTE-ABNAHME-KAPITEL1.md`: „39 … Jerry, Homer (39.2 Wortlaut)“, „112, 68 … Homer, dann Tom“). Homers Übergabe sagt dasselbe („Ford startet Kreativ nur für eine Zeile mit ‚A‘“). Folge: Ford startet Homer nach dem Sparmodus nie von selbst; 39 (Build nach 39.2) und 68 (nach 112) warten bis Sa 24.10. auf einen Zuruf. Zugleich widerspricht es `LISTE-BETRIEB.md` 4 („Erst Muss, dann Kür … je Rolle“) und der Kennzahl Stillstand (startbares Muss ohne Sitzung), die Ford dann nicht als Stillstand zählt, weil seine eigene Regel Homer nicht für startbar hält.
+
+  Klasse 2, an Perikles (Abläufe, eine Stelle, Vorentscheid möglich) · Empfehlung: in `ROLLE-BETRIEB.md` „für eine Zeile mit ‚A‘“ ersetzen durch „**für eine Muss-Zeile oder eine mit ‚A‘**“ (eine Regel enger statt neu), Homers Übergabe danach berichtigen. Stärkstes Gegenargument: Homer und Perikles sollten seltener laufen (D13.1, Guthaben). Dagegen: Muss sind höchstens etwa acht Nummern je Woche, und genau die sollen laufen; Kür bleibt gesperrt.
+
+  **Vermerk:** behoben 16.10., 22:56 (Perikles, 106.1a, Chef „106.1a ja“): `ROLLE-BETRIEB.md` „für eine Muss-Zeile oder eine mit ‚A‘“; im Sparmodus weiter nur auf Zuruf.
+
+- **D22.2** (mittel) **Befundzeilen haben keinen Vorgang: Kosten, Bereich und Klasse fallen heraus**
+
+  124, 126, `CLAUDE.md` „Nummern“ · sicher (gezählt). In den Vorräten stehen Zeilen **D21** (Tom, Jerry, beide M), **D3** (Jerry, zweimal), **D1** (Jerry) und „Woche“ (Diogenes); `LISTE-VORGAENGE.md` hat für keine davon eine Zeile. Ford trägt die Kosten „in die Spalte ‚Kosten‘ seines Vorgangs“ ein (`LISTE-BETRIEB.md` „Neustart auf Meldung“); für „Jerry – D3 Kampfgeheul“, das gerade läuft, gibt es keine. Dann fehlen sie in „Kosten je Hauptthema“ und im „Anteil Muss“ (Kennzahl Perikles), ohne dass es auffällt (wie D18.5). Auch Diogenes' eigene Läufe (Q) haben außer 106 keinen Ort.
+
+  Klasse 2, an Perikles · Empfehlung: eine Zeile je Befundlauf in `LISTE-VORGAENGE.md` (z. B. „D3 · Befunde Lauf 3 · E Klang · K“, „D21 · Abgleich · B Abläufe · M“), dazu „Diogenes · Prüfläufe · Q“ wie die Zeile „Betrieb“ für Ford.
+
+  **Vermerk:** behoben 16.10., 22:56 (Perikles, 106.1a): Zeilen D1, D3, D21, Woche in `LISTE-VORGAENGE.md`; eine eigene Zeile „Prüfläufe“ nicht, Diogenes-Läufe tragen die Nummer ihres Auftrags.
+
+- **D22.3** (mittel) **Liste und Vorräte widersprechen sich bei sieben Nummern**
+
+  124, 126, 65.4 · sicher (gezählt). In `LISTE-VORGAENGE.md` „erledigt“ mit Klasse „–“, im Vorrat aber offen: **9** (9i, Jerry), **19** (19e, Jerry; der Meilenstein verlangt „‚Bewegungen unrund‘ (19e) geklärt“), **59** (59e, Jerry und Homer), **117** (Rest bei Perikles und Tom), **102** (Rest bei Perikles). **38** ist in der Liste M, in `ARBEIT-KREATIV.md` K. **72** heißt in der Liste „Profil und Marktvergleich“ (E Kampf, Vorrat „Sokrates mit Nutzer“), im Vorrat Homers „Profil und Kampfsystem“. Kosten auf einen „erledigten“ Vorgang mit Klasse „–“ zählen weder als Muss noch als Kür. Dazu 9i und 19e „wartet auf Chef“ ohne Datei in der Chefsache, gegen D21.2.
+
+  Klasse 1, Perikles (Liste) · Empfehlung: Stand und Klasse der sieben Zeilen an die Vorräte angleichen („in Arbeit“, K); 9i und 19e auf „wartet auf \<was\>“ oder „ruht“ (Jerry, nach der Pause)
+
+  **Vermerk:** behoben 16.10., 22:56 (Perikles): 9, 19, 59, 72, 102, 117 angeglichen; 38 stimmt (Homers Teil Kür, Wochenziel Jerry und Diogenes). 9i und 19e bleiben bei Jerry.
+
+- **D22.4** (mittel) **Story-Verzeichnis nennt für neue Kapitel noch das alte Namensmuster**
+
+  117, 41 · sicher. `STORY-REGELN.md:14`: „je Kapitel `STORY-K<n>.md` (H, N, Z) und `STORY-K<n>-W.md` (Welt)“. Nach 117 heißen sie `STORY-K1-HANDLUNG.md` und `STORY-K1-WELT.md`. Wer Kapitel 2 anlegt (41, 72s.1), legt `STORY-K2.md` an; der Wächter in `notiz.sh` kennt nur die alten K1-Namen und schweigt.
+
+  Klasse 1, Homer (Story-Verzeichnis) · Empfehlung: Muster auf `STORY-K<n>-HANDLUNG.md` / `-WELT.md`
+
+- **D22.5** (klein) **Reste: „Beschlüsse“, Kopfzahlen, Übergabe Homer**
+
+  99g.1, 65.4 · sicher. (a) 99g.1: „Das Wort ‚Beschlüsse‘ wird in Regeln … ersetzt“; steht noch in `ROLLE-PROJEKT.md:31` („im Rahmen der Beschlüsse“) und `LISTE-NIEDERLASSUNG.md:22` (Freigabeliste: „Beschlüsse … alles Entschiedene“; Pro liest damit das abgelöste Artefakt statt `VORGANGSARCHIV.md`). (b) Kopfzahlen: Jerry „offen 16“ bei 17 Zeilen (D3 zweimal), Homer „offen 13“ bei 14. (c) Homers Übergabe nennt „39.1 auf Chefsache gestellt“; 39.1 ist entschieden, die Datei weg (richtig nach 63), die Übergabe ist alt. (d) 106 trägt 10,75 \$ vom 16.10., die Spalte sagt „Summe ab 17.10.“; für die erste Wochenzählung ohne Vorwoche zähle ich ab 17.10. aus `git log`.
+
+  (a), (b) Perikles; (c) Homer beim nächsten Start; (d) kein Handlungsbedarf, nur vermerkt
+
+  **Vermerk:** (a), (b) behoben 16.10., 22:56 (Perikles).
+
+**In Ordnung:** Alle sechs Rollendateien mit Kopf (Startwort, Account, Titel, Vorrat, Handwerk) und den Abschnitten der Vorlage in fester Reihenfolge; bis „Start“ 2,9–3,8 KB (Grenze 4 KB), Begründungen und Lehren 0,4–1,6 KB (Grenze 2 KB), höchstens fünf Lehren. Jede Rolle eine Kennzahl mit Quelle und „Diogenes zählt“ (Perikles und Diogenes je ein Paar, wie D18 empfahl); Wochenzählung mit Quellen in `LISTE-PRUEFUNG.md`, Montagsstart in `LISTE-BETRIEB.md` 11. Namen: Perikles, Homer, Sokrates überall in Regeln, Tabellen und Haken; „Dein Zug“ nur noch im Archiv, Vorgangsarchiv und einem Kommentar in `tools/klang/huehner.py`; alle umbenannten Dateien nur noch im Wächter von `notiz.sh`. `docs/chefsache/` mit Übersicht aktuell, `meldung.sh` führt `cs:` und `dz:` dorthin. Jede Vorratszeile trägt M, K oder M?; alle Muss-Zeilen stehen im Wochenziel oder sind „jetzt“ (106.1, D21). Wochenziel mit Satz, Termin und Nummernliste (D19.2). Alle relativen Links treffen (außer drei alten im `CHANGELOG.md`, Verlauf). Inhaltsverzeichnis `docs/README.md` nach 122. Vorräte alle unter 10 KB.
+
+**Nachprüfung früherer Befunde:** D16.1 behoben (`LISTE-RELEASE-NEUSTART.md` 2 „nur bis Tiefe 6“). D18.1 erledigt (Umbau vorgezogen, ein Termin). D19.2, D19.3, D20.3 behoben. D21.1 und D21.2 in `CLAUDE.md` 4 und „Wo was steht“. **D21.3 offen**: `zug-index.py` gleicht noch nicht ab (Zeile D21 bei Tom, Start nach dem Max-Wechsel).
+
+## Vermerke zu Lauf 16–21 (Befunde im Artefakt)
+
+Eingearbeitet mit 106.1 (Perikles, 17.10., 09:1x); Wortlaut der Befunde im Artefakt.
+
+- **D16** (110 Tiefe): D16.1 behoben (`LISTE-RELEASE-NEUSTART.md` 2). D16.2 behoben (`LISTE-BETRIEB.md` „Tiefe“: Ford 2 ebenso, Tiefe in der Kennungszeile). D16.3 verworfen: „Dein Zug“ abgelöst durch die Chefsache (108).
+- **D17** (99g Umzug): D17.4, D17.5 entschieden (Vorgangsarchiv 99g). D17.1 umgesetzt (Bilder bleiben im Artefakt, `DESIGN-KAMPF.md`). D17.2, D17.3 offen mit 99g (Homer, nach Sa 17.10., 21:00).
+- **D18** (125, 106.1): D18.1 erledigt. D18.2, D18.4 umgesetzt („Dein Maß“ je Rolle, Diogenes zählt, `FIRMA.md`). D18.3 umgesetzt (90 und Woche mit Zählung durch Diogenes). D18.5 umgesetzt („fehlt“, `LISTE-PRUEFUNG.md`).
+- **D19** (126): D19.1 nicht übernommen: Umbau 106.1 führt Muss und Kür als Spalte „Kl.“, nicht als Abschnitte. D19.2, D19.3 behoben. D19.4 umgesetzt: Zielwerte erst nach Woche 18.–24.10. (106.1), Übernahme im Vorrang (`FIRMA.md`, 118).
+- **D20** (128): D20.1 entschieden (128, Jerry pausiert). D20.2 umgesetzt (`FIRMA.md` Kennzahlen). D20.3 behoben.
+- **D21** (Abgleich): D21.1, D21.2 umgesetzt (`CLAUDE.md` 4, „Wo was steht“). D21.3 behoben (`zug-index.py` „Lücken“, Tom 17.10.).
+
+## Kosten
+
+Lauf 25: Lektüre ohne Messung, keine Standbilder, keine Agenten; fünf Befunde (D25.1–D25.5).
+Lauf 24: Lektüre ohne Messung, keine Standbilder, keine Agenten; sieben Befunde (D24.1–D24.7).
+Lauf 23: etwa 150.000 Token, drei Messläufe (je unter 5 Minuten), kein Standbild, keine Agenten; drei Befunde.
+Lauf 22: etwa 200.000 Token (davon rund 100.000 für das Lesen des Artefakts), kein Standbild, keine Agenten; vier Befunde der Klasse 1 und 2, einer klein. Frühere Läufe im Artefakt.

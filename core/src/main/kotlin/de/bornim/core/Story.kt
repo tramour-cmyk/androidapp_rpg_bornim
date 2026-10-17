@@ -45,6 +45,19 @@ object Story {
     /** D4.1: Morwen hands over her smoke bundle once, after Garrick was met and while Krogg lives. */
     fun wantsSmoke(s: GameState): Boolean = s.has(HUNTER_MET) && !s.has(KROGG_DEFEATED) && !s.has(SMOKE_GIVEN)
 
+    /** Garrick on Krogg and Morwen (41, D4.1); from the first talk on until Krogg falls. */
+    private fun ScriptBuilder.kroggTip(s: GameState) {
+        say(garrick, "Ich habe Goblins belauscht. Ihr Grottenschrat Krogg trägt den Schlüssel zu Graks Halle.", "I overheard some goblins. Their bugbear Krogg carries the key to Grak's hall.")
+        say(garrick, "Er haust im Ostflügel der Höhle. Ruh dich vorher gut aus!", "He lurks in the east wing of the cave. Rest well before you face him!")
+        // D4.1: the way to Krogg leads past Morwen
+        say(garrick, "Geh nicht mit leeren Händen zu ihm. Morwen, die Kräuterfrau im Tiefen Flüsterwald, weiß, wie man so einem den ersten Hieb nimmt.",
+            "Don't go to him empty-handed. Morwen, the herbwoman in the Deep Whisperwood, knows how to take the first blow out of one like him.")
+        if (s.hero.level < KROGG_WARN_BELOW)
+            say(garrick, "Und ehrlich, {name}: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald.",
+                "And honestly, {name}: the way you look now, Krogg will knock you down with a single blow. Gather a few scars in the Deep Whisperwood first.")
+        flag(KROGG_HINT)
+    }
+
     private fun ScriptBuilder.smokeAgainstKrogg(s: GameState) {
         if (!wantsSmoke(s)) return
         say(morwen, "Krogg? Grottenschrate schlagen aus dem Dunkel zu, und der erste Hieb ist der schlimmste. Aber ihre Nasen sind fein.",
@@ -158,7 +171,7 @@ object Story {
             Warp(5, 20, inside("elder", 6)),
             Warp(28, 20, inside("temple", 7)),
             // Homes of villagers: locked for now.
-            // 73b (Nutzer 13.10., 21:05): someone answers from inside, by the story and the hour (STORY-K1.md [73b.…])
+            // 73b (Nutzer 13.10., 21:05): someone answers from inside, by the story and the hour (STORY-K1-WELT.md [73b.…])
             lockedDoor(12, 5) { s, _ -> if (s.has(CHAPTER1_DONE)) voice("Du hast die Goblins vertrieben? … Morgen vielleicht. Heute nicht.", "You drove off the goblins? … Tomorrow, maybe. Not today.")
                 else voice("Wer ist da? … Ich mach nicht auf. Für niemanden.", "Who's there? … I'm not opening. Not for anyone.") },
             lockedDoor(23, 5) { _, _ -> voice("Geh weiter. Ich hab in meinem Leben genug an fremde Türen klopfen hören.", "Move along. I've heard enough knocking at strange doors in my life.") },
@@ -557,16 +570,10 @@ object Story {
                     say(garrick, "An einem Lagerfeuer kannst du rasten – das heilt dich vollständig. Und hier, nimm das.", "You can rest at a campfire to fully heal. And here, take these.")
                     give("potion", 2)
                     flag(HUNTER_MET)
+                    // D23.2 (Homer 17.10.): the Krogg part follows at once, so a single talk is enough
+                    if (!s.has(KROGG_DEFEATED)) kroggTip(s)
                 } else if (!s.has(KROGG_DEFEATED)) script {
-                    say(garrick, "Ich habe Goblins belauscht. Ihr Grottenschrat Krogg trägt den Schlüssel zu Graks Halle.", "I overheard some goblins. Their bugbear Krogg carries the key to Grak's hall.")
-                    say(garrick, "Er haust im Ostflügel der Höhle. Ruh dich vorher gut aus!", "He lurks in the east wing of the cave. Rest well before you face him!")
-                    // D4.1: the way to Krogg leads past Morwen
-                    say(garrick, "Geh nicht mit leeren Händen zu ihm. Morwen, die Kräuterfrau im Tiefen Flüsterwald, weiß, wie man so einem den ersten Hieb nimmt.",
-                        "Don't go to him empty-handed. Morwen, the herbwoman in the Deep Whisperwood, knows how to take the first blow out of one like him.")
-                    if (s.hero.level < KROGG_WARN_BELOW)
-                        say(garrick, "Und ehrlich, {name}: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald.",
-                            "And honestly, {name}: the way you look now, Krogg will knock you down with a single blow. Gather a few scars in the Deep Whisperwood first.")
-                    flag(KROGG_HINT)
+                    kroggTip(s)
                 } else script {
                     say(garrick, "Du siehst aus, als könntest du eine Rast gebrauchen. Das Feuer brennt noch.", "You look like you could use a rest. The fire's still burning.")
                 }

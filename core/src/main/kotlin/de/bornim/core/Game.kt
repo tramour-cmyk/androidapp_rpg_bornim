@@ -89,6 +89,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     private var peaceUntil = 0L
     // Movement of monsters is cosmetic randomness and must not shift the game's dice.
     private val roamRandom = kotlin.random.Random(state.steps * 31 + 7)
+    /** Its own dice for the monsters' sounds (D3.9), so they never change where monsters go. */
+    private val idleRandom = kotlin.random.Random(state.steps * 17 + 3)
+    private var nextIdleAnyAt = 0L
 
     val map: MapDef get() = World[state.place.map]
     val hero: Hero get() = state.hero
@@ -296,6 +299,24 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     private var bumpedBy: String? = null
     private var bumps = 0
 
+    /** 92: whether a villager who gives way when pushed (not a guard on the round) stands at ([x], [y]). */
+    fun yields(x: Int, y: Int): Boolean = yielderAt(x, y) != null
+
+    private fun yielderAt(x: Int, y: Int) = walkersHere().firstOrNull { it.x == x && it.y == y && shown(it) && it.npc.patrol.isEmpty() }
+
+    /**
+     * 92: the hero walks into whoever stands next to them in [dir]; a villager makes room when the hero keeps
+     * walking into them. Also for free walking, where the hero pushes against them without a step (test 0.1.791).
+     */
+    fun nudge(dir: Facing) {
+        val p = state.place
+        yielderAt(p.x + dir.dx, p.y + dir.dy)?.let { w ->
+            bumps = if (bumpedBy == w.npc.id) bumps + 1 else 1
+            bumpedBy = w.npc.id
+            if (bumps >= PUSH_BUMPS) makeWay(w, dir)
+        } ?: run { bumpedBy = null; bumps = 0 }
+    }
+
     /**
      * 92: the villager [w] the hero walks into in [dir] steps aside, to the left or right of the way, else on ahead;
      * where there is no room at all the two change places. They then stay a moment before going on with their day.
@@ -378,9 +399,50 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         now = nowMs
         if (mode != Mode.Explore) return
         tickClock(delta)
+        talkingTo?.let { npc -> if (queue.isEmpty()) { Hail.heard(state, npc, after = true); talkingTo = null } }
         updateWalkers()
+        updateHails()
         walkerTracks()
         updateRoamers(nowMs)
+    }
+
+    // ------------------------------------------------------------ 134.1: people with news hail the hero
+
+    /** The person talked to until the talk is over, then what they would say next counts as heard ([Hail.heard]). */
+    private var talkingTo: Npc? = null
+
+    /** When each person near the hero came to notice him with news; [Long.MIN_VALUE]: noticed, nothing to show. */
+    private val hails = HashMap<String, Long>()
+    private var hailsMap = ""
+
+    /**
+     * People notice the hero by the rules of the monsters: near enough ([Perks.noticeRange]) and in sight, which
+     * the night shortens. Whoever notices him with news hails him once on coming near; again only once he has
+     * gone off (two tiles beyond that) and comes back.
+     */
+    private fun updateHails() {
+        val p = state.place
+        // coming into a place counts as coming near anew
+        if (p.map != hailsMap) { hails.clear(); hailsMap = p.map }
+        val range = Perks.noticeRange(hero)
+        for (npc in map.npcs) {
+            if (npc.look.startsWith("monster:") || !npc.visible(state) || indoors(npc)) { hails.remove(npc.id); continue }
+            val w = walkerOf(npc)
+            val x = w?.x ?: npc.x
+            val y = w?.y ?: npc.y
+            val dist = kotlin.math.abs(x - p.x) + kotlin.math.abs(y - p.y)
+            if (npc.id in hails) {
+                if (dist > range + 2) hails.remove(npc.id)
+            } else if (dist <= range && inSight(x + 0.5, y + 0.5)) {
+                hails[npc.id] = if (Hail.news(state, npc)) now else Long.MIN_VALUE
+            }
+        }
+    }
+
+    /** 134.1: whether [npc] shows the golden sign now. */
+    fun hailing(npc: Npc): Boolean {
+        val at = hails[npc.id] ?: return false
+        return at != Long.MIN_VALUE && Hail.showing(now - at)
     }
 
     /** 61 (test of 0.1.662): villagers leave prints in the wet like the hero; between tiles where they are drawn. */
@@ -418,6 +480,33 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     /** Monsters walking around on the current map. */
     val roamers: List<Roamer> get() = herd()
+
+    /**
+     * 120: how close the nearest hunter is, for the music (see [de.bornim.core.audio.Threat]). Monsters that leave the
+     * hero be (calm, afraid of a far stronger hero, on the way home) and lurkers in hiding do not count, nor does a hero in
+     * a safe place; one that hunts the hero has noticed him. Only reads: no herd is made here.
+     */
+    fun threat(): de.bornim.core.audio.Threat {
+        val none = de.bornim.core.audio.Threat.NONE
+        if (mode != Mode.Explore) return none
+        val herd = herds[state.place.map] ?: return none
+        val p = state.place
+        if (map.safeZones.any { it.contains(p.x, p.y) }) return none
+        // as in updateRoamers
+        val strongHero = hero.level >= map.areaLevel + 5
+        val far = de.bornim.core.audio.Threat.FAR_TILES
+        val range = Perks.noticeRange(hero)
+        var near = 0f
+        var noticed = false
+        for (r in herd) {
+            if (monstersIgnoreHero || now < r.calmUntil || now < peaceUntil || (strongHero && r.trait == null)) continue
+            if (r.hunting) { noticed = true; continue }
+            if (r.temper != Temper.HUNTER || r.returning) continue
+            val dist = kotlin.math.abs(r.x - p.x) + kotlin.math.abs(r.y - p.y)
+            near = maxOf(near, ((far - dist).toFloat() / (far - range)).coerceIn(0f, 1f))
+        }
+        return de.bornim.core.audio.Threat(near, noticed)
+    }
 
     fun roamerAt(x: Int, y: Int): Roamer? = herd().firstOrNull { it.x == x && it.y == y }
 
@@ -484,12 +573,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             engage(r, if (r.facing == dir || (r.temper == Temper.LURKER && !r.hunting)) Opening.HERO_FIRST else Opening.NORMAL)
             return Move.Blocked
         }
-        // 92: a villager in the way makes room when the hero keeps walking into them (not the guards on their round)
-        walkersHere().firstOrNull { it.x == nx && it.y == ny && shown(it) && it.npc.patrol.isEmpty() }?.let { w ->
-            bumps = if (bumpedBy == w.npc.id) bumps + 1 else 1
-            bumpedBy = w.npc.id
-            if (bumps >= PUSH_BUMPS) makeWay(w, dir)
-        } ?: run { bumpedBy = null; bumps = 0 }
+        nudge(dir)
         if (!free(nx, ny)) {
             changed()
             if (map.tile(nx, ny) == Tile.BARRIER && !state.has(Story.BARRIER_OPEN)) barrier()
@@ -665,13 +749,15 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         var moved = false
         val heroSafe = map.safeZones.firstOrNull { it.contains(p.x, p.y) }
         for (r in herd) {
+            hearIdle(r, kotlin.math.abs(r.x - p.x) + kotlin.math.abs(r.y - p.y))
             if (now < r.nextMoveAt) continue
             val dist = kotlin.math.abs(r.x - p.x) + kotlin.math.abs(r.y - p.y)
             val fromHome = kotlin.math.abs(r.x - r.homeX) + kotlin.math.abs(r.y - r.homeY)
             val calm = monstersIgnoreHero || now < r.calmUntil || now < peaceUntil
             // Weak monsters keep away from a far stronger hero; elites are never afraid.
             val afraid = strongHero && r.trait == null
-            val sees = heroSafe == null && dist <= (if (r.temper == Temper.LURKER) 2 else Perks.noticeRange(hero))
+            // 84.4: running is loud, the hero is heard sooner; a lurker waits in its place and only notices what comes close
+            val sees = heroSafe == null && dist <= (if (r.temper == Temper.LURKER) 2 else Perks.noticeRange(hero) + (if (state.running) Stamina.RUN_NOISE else 0))
             when {
                 !calm && afraid && dist <= 4 && heroSafe == null -> {
                     r.hunting = false
@@ -725,6 +811,23 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             moved = true
         }
         if (moved) changed()
+    }
+
+    /**
+     * D3.9: a monster that is not hunting is heard now and then, close by only and never two at once. The first time
+     * a monster is looked at it only draws its pause, so a herd does not all speak up when the hero arrives.
+     */
+    private fun hearIdle(r: Roamer, dist: Int) {
+        if (r.hunting || now < r.nextIdleAt) return
+        val first = r.nextIdleAt == 0L
+        r.nextIdleAt = now + (if (first) idleRandom.nextLong(de.bornim.core.audio.MonsterIdle.PAUSE_MIN_MS) else 0L) +
+            de.bornim.core.audio.MonsterIdle.pause(idleRandom)
+        if (first || now < nextIdleAnyAt) return
+        val sound = de.bornim.core.audio.MonsterIdle.of(r.monster) ?: return
+        val volume = de.bornim.core.audio.MonsterIdle.volume(dist)
+        if (volume <= 0f) return
+        nextIdleAnyAt = now + de.bornim.core.audio.MonsterIdle.GAP_MS
+        placedSounds += sound to volume
     }
 
     /** Turns [r] to the one of its four directions nearest to ([x], [y]), without a step. */
@@ -815,7 +918,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         npcAt(tx, ty)?.let { npc ->
             npcFacing[npc.id] = p.facing.opposite
             state.flags += MapMarks.met(npc.id)
-            enqueue(Jobs.handIn(state, npc.id) ?: npc.talk(state))
+            val cmds = Jobs.handIn(state, npc.id) ?: npc.talk(state)
+            Hail.heard(state, npc, after = false)
+            hails[npc.id] = Long.MIN_VALUE
+            talkingTo = npc
+            enqueue(cmds)
             return
         }
         map.signs[tx to ty]?.let {
@@ -1089,6 +1196,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** Fills every supply (draughts, flasks, food, ingredients; not keys) up to at least [n]. */
     fun cheatSupplies(n: Int = 10) {
         for (d in Items.all) if (d.kind != ItemKind.KEY && state.count(d.id) < n) state.add(d.id, n - state.count(d.id))
+        // D4.1: the smoke bundle is a key item but a supply for the fight against Krogg; one is enough
+        if (state.count(Story.SMOKE_BUNDLE) == 0) state.add(Story.SMOKE_BUNDLE, 1)
         changed()
     }
 

@@ -37,7 +37,7 @@ class FreeWalkTest {
         val steps = g.state.steps
         g.freeWalk.sync()
         val x0 = g.freeWalk.x; val y0 = g.freeWalk.y
-        g.go(1.0, 1.0, 400)
+        g.go(1.0, 1.0, 800)
         assertTrue(g.freeWalk.x > x0 + 0.3 && g.freeWalk.y > y0 + 0.3, "moved slanted: ${g.freeWalk.x}, ${g.freeWalk.y}")
         // the tile in the game follows the feet
         assertEquals(floor(g.freeWalk.x).toInt(), g.state.place.x)

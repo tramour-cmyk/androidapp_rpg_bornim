@@ -1,6 +1,6 @@
 # Story: Zwischenbildschirm (24), alle Kapitel
 
-Texte der schwarzen Blende bei Ortswechsel und Kampfbeginn; gelten kapitelübergreifend (Bornim bleibt Bornim). Gestaltung, Zeiten und Aufteilung: `DESIGN-ZWISCHENBILD.md`; Regeln und Marken: `STORY-REGELN.md`. Marken neu seit 77e (13.10.); im Code noch ohne Markenkommentar (`Interlude.kt`). Englisch beim Bauen übersetzen.
+Texte der schwarzen Blende bei Ortswechsel und Kampfbeginn; gelten kapitelübergreifend (Bornim bleibt Bornim). Gestaltung, Zeiten und Aufteilung: `DESIGN-BLENDE.md`; Regeln und Marken: `STORY-REGELN.md`. Marken neu seit 77e (13.10.); im Code noch ohne Markenkommentar (`Interlude.kt`). Englisch beim Bauen übersetzen.
 
 ## Orte
 
@@ -427,3 +427,27 @@ Ein Heulen, dann Stille. Er hat dich gefunden.
 
 `[24.gegner.grimmzahn.5]`
 Grimmzahn umkreist dich. Er hat Zeit.
+
+## Einstellungen: Schwierigkeit (39.2)
+
+System-Reiter unter „Sprache“. Erklärt jeden Unterschied genau (62m). Die Zahlen folgen den Faktoren (39.1: ×0,8 / ×1,2); ändern sie sich, ändert sich nur die Zahl.
+
+`[39.2.name]` Schwierigkeit / Difficulty
+
+`[39.2.stufen]` Leicht · Normal · Schwer / Easy · Normal · Hard
+
+`[39.2.leicht]` (Leicht gewählt)
+Gegner haben 20 % weniger Trefferpunkte und richten 20 % weniger Schaden an. Das Ziel eines Auftrags steht gold auf der Karte, sobald du ihn annimmst.
+EN: Foes have 20% fewer hit points and deal 20% less damage. A quest's goal shows in gold on the map as soon as you accept it.
+
+`[39.2.normal]` (Normal gewählt)
+Gegner sind so stark, wie das Spiel sie gedacht hat. Das Ziel eines Auftrags erscheint auf der Karte, sobald du den Ort gesehen hast.
+EN: Foes are as strong as the game intends. A quest's goal appears on the map once you have seen the place.
+
+`[39.2.schwer]` (Schwer gewählt)
+Gegner haben 20 % mehr Trefferpunkte und richten 20 % mehr Schaden an. Das Ziel eines Auftrags erscheint auf der Karte, sobald du den Ort gesehen hast.
+EN: Foes have 20% more hit points and deal 20% more damage. A quest's goal appears on the map once you have seen the place.
+
+`[39.2.immer]` (unter der Stufenzeile, immer)
+Erfahrung und Beute bleiben gleich. Gilt für diesen Helden und lässt sich jederzeit umstellen; Gegner ändern sich ab dem nächsten Kampf.
+EN: Experience and loot stay the same. Applies to this hero and can be changed at any time; foes change from the next fight.

@@ -47,10 +47,24 @@ class FreeWalk(private val game: Game) {
         /** The hero's size: a circle of this radius, in tiles. */
         const val RADIUS = 0.3
         private val FULL = doubleArrayOf(0.0, 0.0, 1.0, 1.0)
-        /** Walking pace on open grass, in tiles per second (a step used to take 200 ms × [Terrain.PACE]). */
-        val WALK = 1000.0 / (200.0 * Terrain.PACE)
+        /** 131: walking pace on open grass, in tiles per second, about 1.5 (a step used to take 200 ms × [Terrain.PACE], half as fast). */
+        val WALK = 1000.0 / (400.0 * Terrain.PACE)
         /** Running pace (110 ms a step). */
         val RUN = 1000.0 / (110.0 * Terrain.PACE)
+
+        /**
+         * 131: how fast this hero goes, as a share of [WALK] and [RUN]: the speed of the folk as in the SRD (dwarves and
+         * halflings 25 feet against 30), 10 feet less in heavy armor without the strength for it (not dwarves), and 5 %
+         * more or less for each point of the Dexterity bonus.
+         */
+        fun speed(hero: Hero): Double {
+            val feet = (if (hero.race == Race.DWARF || hero.race == Race.HALFLING) 25.0 else 30.0) -
+                (if (hero.race != Race.DWARF && Stamina.heavy(hero)) 10.0 else 0.0)
+            return feet / 30.0 * (1.0 + 0.05 * hero.mod(Ability.DEX)).coerceAtLeast(0.5)
+        }
+
+        /** The pace of this hero walking or running, in tiles per second on open grass. */
+        fun pace(hero: Hero, run: Boolean): Double = (if (run) RUN else WALK) * speed(hero)
     }
 
     /** Puts the hero back on the middle of its tile when the game moved it (a warp, loading, a script). */
@@ -221,12 +235,15 @@ class FreeWalk(private val game: Game) {
         if (abs(ox) + abs(oy) != 1) return
         // only when walking mostly towards it
         if (ox * dx + oy * dy < 0.7) return
+        val d = if (ox > 0) Facing.RIGHT else if (ox < 0) Facing.LEFT else if (oy > 0) Facing.DOWN else Facing.UP
+        // 92 (test 0.1.791): a villager in the way makes room; the hero then walks on by himself
+        if (game.yields(tile.first, tile.second)) { bumpCooldown = nowMs + 600; game.face(d); game.nudge(d); return }
         val m = game.map
         val acts = game.roamerAt(tile.first, tile.second) != null || m.tile(tile.first, tile.second) == Tile.BARRIER || m.warpAt(tile.first, tile.second) != null
         if (!acts) return
         // knocking again only after a while, when the hero still walks against the door after the words
         bumpCooldown = nowMs + if (shut(tile.first, tile.second)) 1_500 else 600
-        game.move(if (ox > 0) Facing.RIGHT else if (ox < 0) Facing.LEFT else if (oy > 0) Facing.DOWN else Facing.UP)
+        game.move(d)
     }
 
     /** Whether the straight line from the hero to ([tx], [ty]) is clear for the hero's circle (for walking to a tapped place). */

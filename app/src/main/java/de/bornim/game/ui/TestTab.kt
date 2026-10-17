@@ -19,6 +19,7 @@ import de.bornim.core.EliteTrait
 import de.bornim.core.Facing
 import de.bornim.core.Game
 import de.bornim.core.Gender
+import de.bornim.core.CharClass
 import de.bornim.core.Lang
 import de.bornim.core.GearBases
 import de.bornim.core.GearSlot
@@ -105,7 +106,7 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         PixelButton(t("Alle Vorräte auf mindestens 10", "All supplies to at least 10"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatSupplies(10)
             vm.refresh()
-            vm.toast = t("Tränke, Flaschen, Essen und Zutaten aufgefüllt.", "Draughts, flasks, food and ingredients filled up.")
+            vm.toast = t("Tränke, Flaschen, Essen und Zutaten aufgefüllt, ein Rauchbündel dazu.", "Draughts, flasks, food, ingredients and a smoke bundle filled up.")
         }
         // 9f: to watch the monsters on the map go about without being set upon
         var ignore by remember { mutableStateOf(de.bornim.core.Game.monstersIgnoreHero) }
@@ -228,6 +229,14 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             val next = offOptions[(offOptions.indexOf(off) + 1).mod(offOptions.size)]
             game.cheatOffHand(next)
             vm.refresh()
+        }
+        // 72.10: the probe of the new fight, hero and a Söldner of the chosen class against Grak
+        Txt(t("Probe 72.10: Held und Söldner gegen Grak", "Probe 72.10: hero and Söldner against Grak"), size = 14.sp)
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            for (c in CharClass.entries) PixelButton(c.title(lang), Modifier.weight(1f), size = 12.sp) {
+                vm.menuOpen = false
+                vm.startProbe(c)
+            }
         }
         PixelButton(if (showMonsters) t("Monsterliste schließen", "Hide monsters") else t("Monster wählen …", "Choose monster..."), Modifier.fillMaxWidth(), size = 14.sp) {
             showMonsters = !showMonsters

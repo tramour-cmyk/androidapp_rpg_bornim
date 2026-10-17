@@ -62,6 +62,8 @@ fun BornimApp(vm: GameViewModel) {
         vm.game?.mode is Mode.ChapterEnd -> MusicScene.CHAPTER_END
         // 68: „Ancient Legend“ under the temple scene
         vm.templeAgain || vm.game?.mode is Mode.TempleScene -> MusicScene.TEMPLE
+        // 72.10: the probe against Grak
+        vm.probe != null -> MusicScene.BOSS
         fight == null -> MusicLib.sceneOf(vm.game!!.map.kind)
         fight.battle.monster.boss -> MusicScene.BOSS
         else -> MusicScene.BATTLE
@@ -99,6 +101,7 @@ fun BornimApp(vm: GameViewModel) {
                         // 69c: the quiet sounds under the pictures go with them
                         vm.intro -> { IntroScreen(vm); IntroSounds(vm) }
                         vm.templeAgain || vm.game?.mode == Mode.TempleScene -> TempleSceneScreen(vm)
+                        vm.probe != null -> SkirmishScreen(vm, vm.probe!!)
                         else -> PlayScreen(vm)
                     }
                 }

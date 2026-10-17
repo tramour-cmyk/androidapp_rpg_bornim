@@ -107,6 +107,8 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
     val rev = vm.tick
     var heldDir by remember { mutableStateOf<Facing?>(null) }
     var running by remember { mutableStateOf(false) }
+    // 131: the run button beside the joystick, a switch: on until tapped again, the hero stops or is out of breath
+    var runLatch by remember { mutableStateOf(false) }
     // A walk planned by tapping on the map.
     var route by remember { mutableStateOf<Route?>(null) }
     var routeIdx by remember { mutableIntStateOf(0) }
@@ -141,6 +143,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         var lastFrame = 0L
         val feet = de.bornim.core.audio.Footsteps.Feet()
         val breath = de.bornim.core.audio.Panting.Breath()
+        var wasMoving = false
         while (isActive) {
             // turned round at the edge of the map (67): once the line is read, one step back the way the hero came
             if (game.mode == Mode.Explore && !VeilMemory.active) game.stepBack?.let { d ->
@@ -187,19 +190,22 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 val dt = if (lastFrame == 0L) 16L else (now - lastFrame).coerceIn(0L, 100L)
                 lastFrame = now
                 // 86.3: running uses up breath; out of breath, the hero walks
-                val runs = de.bornim.core.Stamina.step(game.state, dt, vx != 0.0 || vy != 0.0, running)
+                val moves = vx != 0.0 || vy != 0.0
+                val runs = de.bornim.core.Stamina.step(game.state, dt, moves, running || runLatch)
+                if (runLatch && (game.state.winded || (wasMoving && !moves))) runLatch = false
+                wasMoving = moves
                 // 95: out of breath, the hero pants (Team Jerry)
                 breath.due(game.state, now)?.let { vm.play(de.bornim.core.audio.Panting.sound(game.state.hero.sex), it) }
                 if (vx != 0.0 || vy != 0.0) {
                     // a tapped walk slows down for the last bit so it does not overshoot the middle of the tile
                     val left = if (sv == null && waypoints.isNotEmpty()) kotlin.math.hypot(vx, vy) else 9.0
-                    val pace = (if (runs) de.bornim.core.FreeWalk.RUN else de.bornim.core.FreeWalk.WALK) * (if (sv == null) 1.15 else 1.0)
+                    val pace = de.bornim.core.FreeWalk.pace(game.state.hero, runs) * (if (sv == null) 1.15 else 1.0)
                     fw.walk(vx, vy, dt, pace * minOf(1.0, 0.25 + left * 4), now)
                 } else fw.walk(0.0, 0.0, dt, 0.0, now)
                 // 74: a step's sound each time a foot sets down, by the ground under it
                 if (feet.fell(fw.walked) && fw.moving && vm.stepsOn) {
                     val tile = game.map.tile(kotlin.math.floor(fw.x).toInt(), kotlin.math.floor(fw.y).toInt())
-                    vm.play(de.bornim.core.audio.Footsteps.sound(game.map, tile), de.bornim.core.audio.Footsteps.volume(tile, running))
+                    vm.play(de.bornim.core.audio.Footsteps.sound(game.map, tile), de.bornim.core.audio.Footsteps.volume(tile, runs))
                 }
             }
             vm.refresh()
@@ -276,6 +282,9 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         // the river (D6.4): running water rushes, swelling towards the bank and the bridge
         var river = 0f
         var riverStream = 0
+        // the rain (D3.10): out of doors as heavy as it falls
+        var rain = 0f
+        var rainStream = 0
         // the hens (83c): clucking, scratching, alarm and wings, from what each hen is doing
         val henEar = if (game.map.kind == MapKind.TOWN) de.bornim.core.art.MapHen.of(game.map).takeIf { it.isNotEmpty() }?.let { de.bornim.core.audio.HenSound.Ear(it) } else null
         // the small birds pecking on the grass (84): wings as one flies up, now and then a scratch as it hops
@@ -334,6 +343,12 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                         else -> vm.sfx.volume(riverStream, river)
                     }
                 }
+                rain = de.bornim.core.audio.RainSound.approach(rain, de.bornim.core.audio.RainSound.target(game.map.kind, game.rainLevel, calm), tick)
+                when {
+                    rain > 0f && rainStream == 0 -> rainStream = vm.sfx.loop(de.bornim.core.audio.Sound.RAIN, rain)
+                    rain == 0f && rainStream != 0 -> { vm.sfx.stop(rainStream); rainStream = 0 }
+                    else -> vm.sfx.volume(rainStream, rain)
+                }
                 if (henEar != null && de.bornim.core.art.MapHen.draft) {
                     val heard = henEar.hear((p.x + 0.5f) * de.bornim.core.art.WorldArt.T, (p.y + 0.5f) * de.bornim.core.art.WorldArt.T)
                     if (calm) for ((s, v) in heard) vm.play(s, v)
@@ -354,6 +369,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             vm.sfx.fadeOut(bedStream, bed)
             vm.sfx.fadeOut(chorusStream, chorus)
             vm.sfx.fadeOut(riverStream, river)
+            vm.sfx.fadeOut(rainStream, rain)
         }
     }
 
@@ -390,6 +406,8 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             if (touch) {
                 TouchLayer(
                     feel = vm.stickFeel,
+                    runs = game.state.running,
+                    haptics = vm.haptics,
                     onDir = { d -> heldDir = d },
                     onStick = { stick = it },
                     onRun = { running = it },
@@ -429,6 +447,16 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                         .align(if (vm.leftHanded) Alignment.BottomStart else Alignment.BottomEnd)
                         .padding(22.dp),
                 ) { pressed -> if (pressed) pressA() }
+            }
+            // 131: the run button, if chosen in the menu, above the action button
+            if (touch && vm.runButton && dialog == null && game.mode == Mode.Explore) {
+                ActionButton(
+                    ActionArt.icon(ActionArt.Extra.RUN), 58.dp,
+                    Modifier
+                        .align(if (vm.leftHanded) Alignment.BottomStart else Alignment.BottomEnd)
+                        .padding(start = 31.dp, end = 31.dp, bottom = 112.dp),
+                    dim = !runLatch,
+                ) { pressed -> if (pressed) runLatch = !runLatch }
             }
             if (dialog != null) {
                 DialogBox(
@@ -621,15 +649,23 @@ private fun tappedThing(game: Game, cam: Cam, px: Float, py: Float, fx: Int, fy:
 }
 
 @Composable
-private fun TouchLayer(feel: Int, onDir: (Facing?) -> Unit, onStick: (Offset?) -> Unit, onRun: (Boolean) -> Unit, onTap: (Offset, Float, Float) -> Unit) {
+private fun TouchLayer(feel: Int, runs: Boolean, haptics: Boolean, onDir: (Facing?) -> Unit, onStick: (Offset?) -> Unit, onRun: (Boolean) -> Unit, onTap: (Offset, Float, Float) -> Unit) {
     var origin by remember { mutableStateOf<Offset?>(null) }
     var knob by remember { mutableStateOf(Offset.Zero) }
     var stickDir by remember { mutableStateOf<Facing?>(null) }
     val density = LocalDensity.current
     // 86.4: the menu's joystick setting, how far a drag goes before the hero walks and runs
     val slop = with(density) { StickFeel.walkAt(feel).dp.toPx() }
+    // 131: inside the ring the hero walks, pushed past it he runs
     val runAt = with(density) { StickFeel.runAt(feel).dp.toPx() }
-    val radius = with(density) { 46.dp.toPx() }
+    val radius = runAt * 1.15f
+    // 131: a short buzz when the hero starts or stops running, the ring turns gold while he runs
+    val haptic = LocalHapticFeedback.current
+    var ranBefore by remember { mutableStateOf(runs) }
+    if (runs != ranBefore) {
+        ranBefore = runs
+        if (haptics && origin != null) haptic.performHapticFeedback(if (runs) HapticFeedbackType.LongPress else HapticFeedbackType.TextHandleMove)
+    }
     Box(
         Modifier
             .fillMaxSize()
@@ -693,9 +729,10 @@ private fun TouchLayer(feel: Int, onDir: (Facing?) -> Unit, onStick: (Offset?) -
         val o = origin
         if (o != null) {
             Canvas(Modifier.fillMaxSize()) {
-                drawCircle(Color.White.copy(alpha = 0.12f), radius, o)
-                drawCircle(Color.White.copy(alpha = 0.45f), radius, o, style = androidx.compose.ui.graphics.drawscope.Stroke(3.dp.toPx()))
-                drawCircle(Color.White.copy(alpha = 0.7f), radius * 0.42f, o + knob)
+                drawCircle(Color.White.copy(alpha = 0.07f), runAt, o)
+                if (runs) drawCircle(Colors.gold.copy(alpha = 0.9f), runAt, o, style = androidx.compose.ui.graphics.drawscope.Stroke(4.dp.toPx()))
+                else drawCircle(Color.White.copy(alpha = 0.4f), runAt, o, style = androidx.compose.ui.graphics.drawscope.Stroke(2.dp.toPx()))
+                drawCircle((if (runs) Colors.gold else Color.White).copy(alpha = 0.7f), 19.dp.toPx(), o + knob)
             }
         }
     }
@@ -1071,6 +1108,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 }
             }
         }
+        // 134.1: people with news for the hero hail him briefly with a golden sign over their head
+        val hails = visibleNpcs.filter { game.hailing(it) }.map { npcPos(it).let { (nx, ny) -> nx + T / 2f to ny.toFloat() } }
         // Monsters walking around; only those in sight are shown, the "!" of a hunter is heard from anywhere.
         val alerts = mutableListOf<Pair<Float, Float>>()
         for (r in game.roamers) {
@@ -1343,6 +1382,18 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             drawRoundRect(Color.White, Offset(bx, by), androidx.compose.ui.geometry.Size(9f * scale, 12f * scale), androidx.compose.ui.geometry.CornerRadius(2f * scale))
             drawRect(Color(0xFFD83030), Offset(bx + 3.5f * scale, by + 2f * scale), androidx.compose.ui.geometry.Size(2f * scale, 5f * scale))
             drawRect(Color(0xFFD83030), Offset(bx + 3.5f * scale, by + 8.5f * scale), androidx.compose.ui.geometry.Size(2f * scale, 1.5f * scale))
+        }
+        for ((ax, ay) in hails) {
+            // 134.1: a golden "!" without the white card of the monsters (D3.5), with a dark rim to stand out on any ground
+            val fx = (ax - camX) * scale; val fy = (ay + T / 2f - camY) * scale
+            val bx = cam.toScreenX(fx, fy) - 1.5f * scale
+            val by = cam.toScreenY(fx, fy) - (T + 30f) * scale
+            val rim = Color(0xB0201408)
+            val gold = Color(0xFFF0C850)
+            drawRect(rim, Offset(bx - scale, by - scale), androidx.compose.ui.geometry.Size(5f * scale, 8f * scale))
+            drawRect(rim, Offset(bx - scale, by + 8.5f * scale), androidx.compose.ui.geometry.Size(5f * scale, 4.5f * scale))
+            drawRect(gold, Offset(bx, by), androidx.compose.ui.geometry.Size(3f * scale, 6f * scale))
+            drawRect(gold, Offset(bx, by + 9.5f * scale), androidx.compose.ui.geometry.Size(3f * scale, 2.5f * scale))
         }
 
 
