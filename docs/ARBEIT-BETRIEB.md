@@ -14,7 +14,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (17.10., 01:04)“ `session_01EshK4EhbFrGSCR6qeh3VYn` (seit 17.10., 01:04, Selbstneustart, Tiefe 6: kein weiterer Selbstneustart; Vorgänger `session_01XWRdGrGASFYbx6MMqjVV6Y` archiviert). Stundenuhr „Ford-Lauf“ `trig_01Y44JZv22h4mpFANruNYxH3` (:03, seit 01:04; alte Uhr `trig_01MHvLjkYXRb7JKbtriztn6a` gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (17.10., 09:37)“ `session_011Gp2Rv1XPqcVRJ5GZ6diEo` (seit 17.10., 09:37, vom Chef von Hand gestartet, Tiefe 0; Vorgänger `session_01EshK4EhbFrGSCR6qeh3VYn` archiviert). Stundenuhr „Ford-Lauf“ `trig_01C93THa7J9s6YNsT74H9ZAZ` (:03, seit 09:37; alte Uhr `trig_01Y44JZv22h4mpFANruNYxH3` gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (17.10., 03:34)“ `session_01Bgr3YihKQVLNAM59U56Cva` (seit 17.10., 03:34; Vorgänger `session_017Gzi9LijVCMaW5UJrzYaXZ` archiviert, 9,87 $). Stundenuhr „Ford-2-Stundenuhr“ `trig_01JVENqEgw8TKsZQXrJKHQn5` (:33, seit 03:34). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren. Jerry pausiert bis Mo 19.10., 21:00; bis dahin Läufe ohne Tat, nichts schreiben. In der Sitzung nur „Ford 2 HH:MM ok“.
 
@@ -74,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 09:38 17.10.: Ford vom Chef von Hand neu (110, Tiefe 0) → session_011Gp2Rv…; Uhr trig_01C93THa7J9s6YNsT74H9ZAZ angelegt und geprüft, alte Uhr trig_01Y44JZv22h4mpFANruNYxH3 gelöscht, alter Ford session_01EshK4E… archiviert (6,55 $ auf Betrieb)
 - 09:32 17.10.: Tom D23.2 bestätigt (c4a37c55), Zeile an Homer, archiviert (Kosten fehlt); Startsperre: 09:32 Start Tom (132 Spieldauer im Spielstand)
 - 09:29 17.10.: Tom 13e fertig (7d811ddd), archiviert, 2,75 $ auf 13e; Startsperre: 09:29 Start Tom (D23 Garricks Hinweis, Kür, kein Muss startbar)
 - 09:26 17.10.: Zuruf Chef an Perikles (09:2x): „Aufgaben Jerry für Testlauf hier für Probebetrieb bis 1100 mitübernehmen.“ → Startsperre: 09:26 Start Tom 2 (Übernahme Jerry D21, oberste startbare Zeile ohne Gerätetest)
