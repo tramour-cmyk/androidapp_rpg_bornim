@@ -6,7 +6,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 17.10., 17:47
 
-**Übergabe (17.10., 17:5x, „Perikles – Vorrat durchgesehen“): 99h.5 in `LISTE-BAUEN-TESTEN.md` „Sammelbuild“ geschrieben (ersetzt alte Zeile, 90a); Rest wartet auf Termine (20.–23.10.) oder Chef. Nachfolger: „Perikles – Wochenziel 19.10.“. Davor:** (17.10., 13:3x, „Perikles – 147 Regel Idee (17.10., 13:31)“):** 147 geprüft: Fords Text in `CLAUDE.md` „Idee“ bleibt, Zitate ins Vorgangsarchiv 147; Doppelung in `ROLLE-KREATIV.md` gestrichen (90a); Sonntagsurteil im Ideenspeicher kurz (ein Satz Pro und Contra); 146 bei Homer neben 144 bestätigt, Hinweis Regeldaten. 147.1 (Nutzungsguthaben Pro, Fable-Limit Max) in die Chefsache. 147.2 als Regel in `LISTE-BETRIEB.md` „Ford 2“ (Ford 2 übernimmt beim nächsten Start). **Nachfolger: „Perikles – Tagesrückblick (90)“** (Probe ab 18.10.).
+**Übergabe (17.10., 20:4x, „Perikles – Vorrat durchsehen (17.10., 17:48)“):** 99h.5 in `LISTE-BAUEN-TESTEN.md` „Sammelbuild“; 154 (kein Goldverlust auf Normal, 4 Stunden Heimweg) und 155 (Feuer bleibt, Rast gesperrt) entschieden und archiviert; 156 (Modellvergleich Tom/Jerry bis 24.10.) entschieden, Diogenes zählt, ich werte 26.10. aus; Chefsache-Dateien mit Leerzeilen (sonst ein Textblock); Kosten dieser Sitzung (1,50 $, geschätzt) eingetragen. Lehre: Zeilen „von Tom“ mit Empfehlung nie als Auftrag lesen, solange der Stand „Chefsache“ lautet (Regelverstoß Ford 2, zählt in 149). **Nachfolger: „Perikles – Wochenziel 19.10.“**
 
 ## Zeilen
 
