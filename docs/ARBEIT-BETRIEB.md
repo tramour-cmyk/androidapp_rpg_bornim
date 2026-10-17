@@ -55,4 +55,5 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 17:45 17.10.: Pro Mittel in „Startzuordnung“ eingetragen; Probe Pro Mittel (`session_01Km1dp2ah4jtt6FKknDup1e`, archiviert, 0,00 $): Modell wie Startzuordnung, Stufe mittel; Uhr alle 4 Stunden (147.2) (Ford 2)
 - 11:58 17.10.: Homer 137 fertig (0dfd582a) → Startsperre: 11:58 Start Perikles (137, Zuruf Chef „erst Homer, dann Perikles“)
