@@ -19,8 +19,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.821](ansehen/t14-spieldauer.md) | Build 14 | 132, 134.1: Spieldauer, vierter Spielstand, goldenes Zeichen | Tom | 17.10. |
-| 2 | [–](ansehen/137-ideenspeicher.md) | – | Ideenspeicher | Perikles | 17.10. |
+| 1 | [–](ansehen/137-ideenspeicher.md) | – | Ideenspeicher | Perikles | 17.10. |
 
 ## So geht's
 
