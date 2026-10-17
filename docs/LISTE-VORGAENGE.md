@@ -180,6 +180,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 147.1 | Nutzungsguthaben Pro (erledigt), Fable-Limit Max | B Kosten | M |  | Perikles | erledigt |
 | 147.2 | Ford 2 schaut in Jerrys Pause alle 4 Stunden | B Abläufe | M |  | Perikles | erledigt |
 | 149 | Probewoche Ford mit neuem Modell: Regelverstöße zählen bis 24.10. (Chef) | Q QM | M? |  | Diogenes | offen |
+| 149.1 | Kür-Starts Jerry nach 159b mitzählen | Q QM | M? |  | Diogenes | offen |
 | 150 | Spielzeit im Menü? (Frage Chef) | B Technik | K |  | Tom | beantwortet |
 | 148 | Ideenspeicher ausmisten: Vorgaben und Bewusst-gelassenes an ihren Ort (Chef) | B Abläufe | K |  | Homer | offen |
 | 153 | Fehler: Überspringen-Kasten im Intro (und Kapitelende 1) weiß mit schwarzer Schrift, passt nicht zum Design | E Oberfläche | M | 1,14 $ | Tom | erledigt |
@@ -193,3 +194,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 160 | Design-Texte (Kampf, Heldenbau, Stil) wieder als Dokument zum Kommentieren? | B Abläufe | K | 0,74 $ | Perikles | erledigt |
 | 161 | 144 und 145: roter Faden und Karten je Kapitel, zwei Dokumente mit Querlink | G Story | K | 0,74 $ | Perikles | erledigt |
 | 162 | Klasse bei Abhängigkeit: wartet ein Punkt auf einen anderen, Muss statt Kür? (Chef) | B Abläufe | M? |  | Perikles | offen |
+| 163 | Diogenes vor jedem Release (Schritt in der Release-Anleitung) | B Abläufe | M? |  | Perikles | offen |
+| 163.1 | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz 23.10.) | B Kosten | M? |  | Perikles | offen |

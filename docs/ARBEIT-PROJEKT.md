@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**offen 13, Muss 1, A 0, Chefsache 0**
+**offen 15, Muss 1, A 0, Chefsache 0**
 
 **Gelesen bis:** `origin/main` 17.10., 19:5x (`9e2e74bb`)
 
@@ -14,6 +14,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Vorgang | Stand |
 |---|---|---|---|
+| 163 | M? | **von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates, Vorgangsarchiv 163):** Diogenes vor jedem Release: in `LISTE-RELEASE-NEUSTART.md` „Release“ als ersten Schritt „Auftrag Diogenes Release“ an Ford; Release erst nach seinem Prüfbericht (Pflicht steht schon in `ROLLE-PRUEFUNG.md`, 75i; fehlte am Ort der Ausführung: 0.1.827 ging am 17.10., 16:18 ungeprüft raus) | offen |
+| 163.1 | M? | **von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates):** Kosten der Abläufe in die Regelbilanz 23.10.: seit 17.10. 132 $ verbucht, davon etwa 49 $ Betrieb (Ford) und 45 $ Abläufe (106, 135, 99, 137, 147), also etwa 70 % Abläufe gegen 30 % Spiel (Ziel: „die meiste Zeit ins Spiel“); Vorschlag mit Obergrenze für Fords Läufe (z. B. Anteil am Wochenguthaben oder Lauf ohne Tat ohne Commit) | bis 23.10. |
 | 159.1 | M | **Messung Max 5x** (Chef 17.10., 19:5x, Teil von 159): Max-% je Tag und Stillstand „Guthaben“ bis Bilanz 23.10.; Tagesrückblick trägt sie ein. **Schwelle 20x** (Vorentscheid Perikles): Empfehlung Max 20x (200 $/Monat), wenn bis 23.10. Stillstand „Guthaben“ bei startbarem Muss zusammen mehr als 12 Stunden beträgt oder das Wochenziel am Guthaben scheitert; Gegenrechnung: Pro kostete im Oktober 154 $ Zusatznutzung, 20x kostet nur 100 $ mehr als 5x. Ergebnis 23.10. als Chefsache `entscheiden/159-max20x.md` (Frage, Empfehlung, stärkstes Gegenargument) | offen |
 | 162 | M? | **von Team Tom, Chef 17.10., 22:4x, Wortlaut:** „Wenn Abhängigkeiten bestehen, wie bei Vorgang 139, der auf einen anderen wartet, dann sollte das nicht Kür sein, sondern ein Muss. Stups Homer mal an für 139.“ Dazu (22:4x): „Und eigentlich sollte das Ford alles klären, damit hier die Leute was zu tun haben.“ Regel fassen (Regelbilanz 90a). **Gegenargument Tom:** wird jede Abhängigkeit Muss, wächst Muss ohne Wochenziel und „Kür nur, wenn kein Muss startbar“ filtert nicht mehr; Vorschlag: der vorgelagerte Punkt erbt die Klasse des wartenden | offen; 139 schon auf M (Homer, Tom) |
 | 156 | K | Modellvergleich Tom opus, Jerry sonnet (Chef 17.10., 19:4x: folgt Empfehlung; Jerry läuft ab 159 auf Max, Vergleich gilt unverändert) | entschieden (Vorgangsarchiv 156); Diogenes zählt bis 24.10. (Zeile 149), Perikles wertet am 26.10. aus, Schwelle im Archiv |
