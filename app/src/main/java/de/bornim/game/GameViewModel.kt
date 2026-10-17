@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import de.bornim.core.CharClass
+import de.bornim.core.Difficulty
 import de.bornim.core.Game
 import de.bornim.core.GameState
 import de.bornim.core.Hero
@@ -200,6 +201,13 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     fun changeTempo(level: Int) {
         battleTempo = level.coerceIn(0, 2)
         prefs.edit().putInt(KEY_TEMPO, battleTempo).apply()
+    }
+
+    /** 39: the difficulty belongs to the save (one per hero), not to the device; changeable at any time. */
+    fun changeDifficulty(d: Difficulty) {
+        val g = game ?: return
+        g.state.difficulty = d
+        tick++
     }
 
     fun changeBlood(level: Int) {

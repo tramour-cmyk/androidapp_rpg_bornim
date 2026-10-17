@@ -33,12 +33,12 @@ class ChapterSimTest {
 
     private class Result(var wins: Int = 0, var rounds: Int = 0, var lost: Int = 0)
 
-    private fun fight(s: GameState, id: String, lvl: Int, area: Int, rng: Random): Pair<Boolean, Int> {
+    private fun fight(s: GameState, id: String, lvl: Int, area: Int, rng: Random, hpF: Double = 1.0, dmgF: Double = 1.0): Pair<Boolean, Int> {
         val def = Monsters[id]
         val monsterLevel = if (def.boss) minOf(maxOf(area, lvl), area + 2) else maxOf(area, lvl - 1 + (if (rng.nextDouble() < 0.3) 1 else 0))
         s.inventory.clear()
         s.add("potion", 2)
-        val b = Battle(s, def, Lang.DE, Dice(rng), monsterLevel, false, area, look = MonsterLook(rng.nextInt()))
+        val b = Battle(s, def, Lang.DE, Dice(rng), monsterLevel, false, area, look = MonsterLook(rng.nextInt()), hpFactor = hpF, damageFactor = dmgF)
         b.start()
         var turns = 0
         while (b.outcome == Outcome.ONGOING && turns < 60) {
@@ -65,6 +65,40 @@ class ChapterSimTest {
             b.act(action)
         }
         return (b.outcome == Outcome.WON || b.outcome == Outcome.ENEMY_FLED) to turns
+    }
+
+    /**
+     * 39: win rate of every chapter 1 fight, the four classes averaged, for pairs of factors on the foe's hit points
+     * and damage. Target (DESIGN-BALANCE): Leicht 10 to 15 points above Normal, Schwer 15 to 20 below. SIM=1.
+     */
+    @Test
+    fun difficulty() {
+        if (System.getenv("SIM") == null) return
+        val grid = listOf(0.75, 0.8, 1.0, 1.15, 1.2, 1.25).map { it to it } + Difficulty.entries.map { it.hp to it.damage }
+        val fights = listOf(
+            "wolf" to (1 to 1), "goblin" to (1 to 1), "boar" to (1 to 1), "goblin_shaman" to (3 to 2), "skeleton" to (3 to 2),
+            "giant_spider" to (3 to 3), "bugbear" to (3 to 3), "ghoul" to (4 to 3), "dire_wolf" to (4 to 2),
+            "bugbear" to (4 to 3), "hobgoblin_captain" to (5 to 3), "hobgoblin_captain" to (6 to 3),
+        )
+        val runs = 400
+        val sb = StringBuilder("Sieg% je Kampf (Mittel der vier Klassen, Spannweite) je Faktorpaar TP×Schaden\n".padEnd(0))
+        sb.append("".padEnd(24)); fights.forEach { (id, la) -> sb.append("${id.take(10)}@${la.first}/${la.second}".padStart(18)) }; sb.append("\n")
+        for ((hpF, dmgF) in grid) {
+            sb.append("TP ${"%.2f".format(hpF)} Schaden ${"%.2f".format(dmgF)}".padEnd(24))
+            for ((id, la) in fights) {
+                val (lvl, area) = la
+                val rates = CharClass.entries.map { cls ->
+                    val rng = Random(7 + cls.ordinal)
+                    var wins = 0
+                    repeat(runs) { if (fight(hero(cls, lvl), id, lvl, area, rng, hpF, dmgF).first) wins++ }
+                    wins * 100 / runs
+                }
+                sb.append("${rates.average().toInt()} (${rates.min()}–${rates.max()})".padStart(18))
+            }
+            sb.append("\n")
+        }
+        println(sb)
+        java.io.File(System.getProperty("java.io.tmpdir"), "difficulty_sim.txt").writeText(sb.toString())
     }
 
     @Test
