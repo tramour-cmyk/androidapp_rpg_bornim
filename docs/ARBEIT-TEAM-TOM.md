@@ -2,24 +2,21 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 11, Muss 3, A 0, Chefsache 2**
+**offen 8, Muss 1, A 0, Chefsache 2**
 
-**Übergabe (17.10., 21:59, „Tom – 145 Kartenmappe (17.10., 21:35)“) – Nachfolger: keiner (Vorrat ohne Startbares; 152 und 138 warten auf t18):** Build 17 „passt“, PR #105 auf `main`; 152 neu gebaut (runder Fleck, Gleiten, Garrick mittig) mit 138 in PR #108, Build 18 = 0.1.833; 145 Kapitel 1 als [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn), Werkzeug auf Zweig `claude/tom-145-kartenmappe`.
+**Übergabe (17.10., 22:33, „Tom – 152.1 Build 18 auf main (17.10., 22:12)“) – Nachfolger: keiner:** Build 18 freigegeben, PR #108 (152, 138) auf `main`; t18 gelöscht.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand | Zweig |
 |---|---|---|---|
-| 152.1 | M | **von Ford (Chef 17.10., 22:1x: „Build 18 freigegeben“):** PR #108 (152, 138) auf `main` zusammenführen, t18 löschen, 152 und 138 streichen, `CHANGELOG.md`, `LISTE-VORGAENGE.md` auf „erledigt“; kein Build | offen | – |
-| 152 | M | **Fehler, Feedback Chef zu Build 16, 17.10., 17:1x, Wortlaut:** „An Garrick kommt man nicht richtig ran. Wenn man vom Südwesten kommt, ist der Abstand zu ihm ewig groß. …“ · **Rückläufer, Chef zu Build 17, 17.10., 21:3x, Wortlaut:** „17.9 und 17.10 klappt zwar besser, aber nicht richtig. Aus westlicher Rochtung definitiv größerer Abstsmd zum NPC. Ein gleichmäßiges und nahes Umrunden ist nicht möglich.“ | gebaut: runder Fleck, Gleiten, Garrick mittig, Bram; Abstand überall 0,72–0,74 (Kerntest); PR #108, Test [t18](chefsache/ansehen/t18-abstand-kraeuter.md) | claude/tom-152-abstand |
 | 27 | K | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Auf `main` bis 27m und D3.13a (#67). **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1. 27n auf `main` (#71) | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | **112 entschieden (Chef 17.10., 10:4x):** fünf Bilder neu malen nach den sieben Punkten (Vorgangsarchiv 112), **erst nach dem Meilenstein**; Vorlage zuerst an Homer messen, dann an den Chef · auf `main` mit #67 (0.1.753 „passt“); Durchsicht der Szene mit Knopf 100 durch den Chef offen: **Chef 17.10., 01:17: „T13, 13.4 habe ich ganz angesehen und es lief fehlerfrei durch.“** (keine Stichworte für 112) | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem (`LISTE-ABNAHME-KAPITEL1.md`) | Toms Teil erledigt (16.10., 00:4x): Ort fertig Dorf, Räume, Wald ohne Lücke außer D3.14 (Lückenliste in der Übergabe); Zufallsspieler grün. Höhle (13e) ohne Lücke außer Schacht nachts (D3.14) seit 17.10., 09:28. Offen: **13.5** Durchspielen durch den Chef, eigener Punkt [26](chefsache/ansehen/26-kapitel1-durchspielen.md) (Chef 17.10., 21:3x: „17.12 sollte ein eigener Vorgang sein“) | – |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p) | bis 62r auf `main`; 62i–62k mit 64; 62l später (62m bei Jerry mit 39) | – |
 | 30 | K | Abstürze beim Testen (Technik) | beobachten (bei neuem `adb logcat` mit Anleitung); 30.7 Merkliste | – |
 | 134.2 | K | **von Chef (17.10., 10:4x):** Gesten zum Zeichen 134.1 (Hand heben, herwinken, nicken; je Person Vorschlag Homer) | nach 134.1 | – |
-| 138 | K | **von Perikles (Ideenspeicher, 137):** Kräuter wachsen am Morgen nach statt um Mitternacht (Spielzeit, passt zu 5la) | gebaut (ab Sonnenaufgang 6:30 neu, `Game.herbDay`), Kerntest; gebaut, PR #108, Test [t18](chefsache/ansehen/t18-abstand-kraeuter.md) | claude/tom-152-abstand |
 | 139 | K | **von Perikles (Ideenspeicher, 137):** Fleisch an die Wirtin (Rowena) verkaufen, heute nur Thessa und Morwen | wartet auf zwei Sätze von Homer (Zeile 139 dort) | – |
 | 150 | K | **von Chef (17.10., 16:1x):** „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt nicht zur Spielzeit, oder?“ | beantwortet: zählt heute mit (nur App im Vordergrund mit geladenem Helden); Änderung nur auf Wunsch | – |
 | 145 | K | **von Chef (17.10., 11:5x, über Sokrates):** „im Artefakt, das braucht ja auch nicht die Niederlassung, jeweils die Einzelkarten, Gebietsübersichten, Landeskarte … je Kapitel, damit ich das auch drucken kann.“ Je Kapitel Landkarte, Gebietskarten, Grundrisse als druckbares Artefakt „Kartenmappe“ auf der Zentrale (Bilder aus `tools/preview`), mit Querlink zum roten Faden 144, Beginn Kapitel 1 und 2 (161) | **Kapitel 1 fertig: [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn)** (Kapitel 2 hat noch keine Karten); Link zu 144 nachtragen, sobald Homers Seite steht | claude/tom-145-kartenmappe |

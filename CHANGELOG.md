@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **152, 138 (PR #108, Build 18 freigegeben, 17.10.):** Leute sperren einen runden Fleck um die Füße, der Held gleitet daran entlang; Garrick mitten auf seinem Feld, Abstand aus allen Richtungen gleich; Bram sperrt beim Umhergehen nicht mehr das ganze Feld; Kräuter wachsen bei Sonnenaufgang nach statt um Mitternacht.
 - **131.1, 151, 152, 153 (PR #105, Build 17 „passt“, 17.10.):** Joystick kleiner (Normal 1,5 cm), Gehen etwas schneller, Rennen etwas langsamer, weicher Wechsel; unsichtbarer Busch unter Pims Haus weg; Leute sperren nur noch um die Füße, Garrick näher am Feuer (Abstand von Westen noch zu groß, 152 offen); Überspringen-Kasten schwarz-golden.
 - **154, 155 (PR #106, Test offen):** Niederlage kostet kein Gold mehr, der Heimweg dauert 4 Stunden; Höhlenfeuer bleibt, Rast dort gibt nur den Hinweis „zu gefährlich“ (Chef-Idee).
 

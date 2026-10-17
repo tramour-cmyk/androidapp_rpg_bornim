@@ -153,11 +153,11 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | M | 1,93 $ | Tom | erledigt |
 | 131.1 | Feedback Chef Build 16: Joystick, Tempo, Beschleunigung | G Balance | M |  | Tom | erledigt |
 | 151 | Fehler: unsichtbare Kollision am ersten Haus im Dorf | E Welt | M | 1,14 $ | Tom | erledigt |
-| 152 | Fehler: Ansprech-Abstand zu Leuten je Anlaufrichtung (Garrick) | E Welt | M | 1,14 $ | Tom | Test |
+| 152 | Fehler: Ansprech-Abstand zu Leuten je Anlaufrichtung (Garrick) | E Welt | M | 1,14 $ | Tom | erledigt |
 | 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | M | 2,43 $ | Tom | erledigt |
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | offen |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
-| 138 | Kräuter wachsen am Morgen nach | E Welt | K | 1,04 $ | Tom | Test |
+| 138 | Kräuter wachsen am Morgen nach | E Welt | K | 1,04 $ | Tom | erledigt |
 | 139 | Fleisch an die Wirtin verkaufen | E Welt | K |  | Homer, Tom | offen |
 | 140 | Monster-Geräusche, Rest | E Klang | K |  | Jerry | offen |
 | 141 | Klänge überarbeiten, Rest | E Klang | K |  | Jerry | offen |
