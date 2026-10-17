@@ -34,6 +34,7 @@ class InnCatTest {
         assertTrue(de.bornim.core.art.MapFolk.nudge(rowena, Story.inn).second > 0)
         val moved = MAPS.flatMap { m -> m.npcs.filter { de.bornim.core.art.MapFolk.nudge(it, m) != (0 to 0) }.map { it.id } }.toSet()
         println("verschoben: $moved")
-        assertTrue(moved == setOf("rowena", "thessa", "garrick"), "verschoben: $moved")
+        // 152: Garrick no longer, so he is as near from every side
+        assertTrue(moved == setOf("rowena", "thessa"), "verschoben: $moved")
     }
 }

@@ -78,14 +78,15 @@ object MapFolk {
         Outfit(CharClass.ROGUE, kit("robe", "hood"), cloakRgb = 0x3E4A30, clothes = clothes(0x4A5A36, 0x34402A, 0x2E2A22)))
 
     /**
-     * How far [npc] stands off the middle of its tile, in map pixels: Garrick close to his fire (3b), and whoever stands
+     * How far [npc] stands off the middle of its tile, in map pixels: whoever stands
      * at a counter facing it close up to it, so the cloth and the jug reach the board (87.2, test of 0.1.740: Rowena
      * wiped the air half a tile behind her counter).
      */
     fun nudge(npc: de.bornim.core.Npc, map: de.bornim.core.MapDef): Pair<Int, Int> {
         val T = WorldArt.T
-        // 152: 0.55 of a tile kept the hero far off from the west; 0.35 still close to the fire
-        if (npc.id == "garrick") return T * 7 / 20 to 0
+        // 152 (Chef, Build 17: "aus westlicher Richtung definitiv größerer Abstand"): the hero never enters someone's
+        // tile, so anyone drawn off its middle is farther off from one side; Garrick now stands in the middle of his
+        // tile, beside the fire
         val f = npc.facing
         if (map.tile(npc.x + f.dx, npc.y + f.dy) == de.bornim.core.Tile.COUNTER) return f.dx * T * 2 / 5 to f.dy * T * 2 / 5
         return 0 to 0
