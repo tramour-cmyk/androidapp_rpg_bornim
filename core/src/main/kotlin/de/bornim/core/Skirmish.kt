@@ -1,7 +1,7 @@
 package de.bornim.core
 
 /*
- * Probe 72.10: the hero and a Söldner against one foe, in two rows of two places (72.11, 72v).
+ * MARS (72.10): the hero and a Söldner against one foe, in two rows of two places (72.11, 72v).
  * Stands beside [Battle] and does not replace it; option A stays the fallback (72.11).
  *
  * Decided and built here: two rows instead of near/far, lineup fixed at the start, a place swap costs the
@@ -631,7 +631,7 @@ class Skirmish(
     }
 }
 
-/** Texts of the probe; placeholders for the build, final wording with Kreativ (41). */
+/** Texts of MARS; placeholders for the build, final wording with Kreativ (41). */
 private object Msg72 {
     val announces = T("{0} kündigt an: {1}.", "{0} announces: {1}.")
     val foeUses = T("{0}: {1}!", "{0}: {1}!")

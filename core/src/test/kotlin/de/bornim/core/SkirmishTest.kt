@@ -7,7 +7,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-/** Probe 72.10: rows, place swap, ring, autopilot, knockouts (72.11, 72.13, 72v, 72r). */
+/** MARS (72.10, 72.10a): rows, place swap, ring, autopilot, knockouts (72.11, 72.13, 72v, 72r). */
 class SkirmishTest {
     private fun probe(seed: Int, cls: CharClass = CharClass.FIGHTER, merc: CharClass = CharClass.ROGUE): Skirmish {
         val s = GameState.newGame("T", Race.HUMAN, cls)

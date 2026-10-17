@@ -230,8 +230,11 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             game.cheatOffHand(next)
             vm.refresh()
         }
-        // 72.10: the probe of the new fight, hero and a Söldner of the chosen class against Grak
-        Txt(t("Probe 72.10: Held und Söldner gegen Grak", "Probe 72.10: hero and Söldner against Grak"), size = 14.sp)
+        // 72.10: MARS, the new fight; hero and a Söldner of the chosen class against Grak, both on level 3 (72.10a.10)
+        Txt(t("MARS: Held und Söldner gegen Grak", "MARS: hero and Söldner against Grak"), size = 14.sp)
+        PixelButton(t("Würfe im Kampf zeigen: ", "Show rolls in the fight: ") + if (vm.showRolls) t("an", "on") else t("aus", "off"), Modifier.fillMaxWidth(), size = 14.sp) {
+            vm.toggleRolls()
+        }
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             for (c in CharClass.entries) PixelButton(c.title(lang), Modifier.weight(1f), size = 12.sp) {
                 vm.menuOpen = false
