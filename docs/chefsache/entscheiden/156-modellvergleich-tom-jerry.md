@@ -1,4 +1,8 @@
-# 156: Tom auf opus, Jerry auf sonnet – messen, ob das reicht
+# 156 · Tom auf opus, Jerry auf sonnet – reicht das?
+
+Perikles · 17.10., 18:4x · B Abläufe · …
+Kurz: Tom opus, Jerry sonnet: bis 24.10. messen, dann entscheiden (Empfehlung Perikles)
+
 
 **Wortlaut Chef (17.10., 18:3x):** „macht das Sinn, dass Tom jetzt auf Opus läuft und Jerry auf Sonnet. Wir machen doch eigentlich beide den gleichen Job. Bin mir nicht ganz schlüssig, ob Jerry das gut hinkriegt mit Sonnet. Keine Ahnung. Wenn man das irgendwie messen …“
 **Heute:** Startzuordnung (Chef 17.10., `LISTE-BETRIEB.md` Schritt 4): Tom opus, Jerry sonnet, beide „WireStorm Mittel“; Grund war Guthaben (Pro knapper als Max). Vergleich bisher nicht möglich.
