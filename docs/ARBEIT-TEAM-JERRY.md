@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **offen 19, Muss 4, A 0, Chefsache 2**
 
-**Pause bis Mo 19.10., 21:00** (128 und D20.1: im heutigen Tempo wäre Pro Sa gegen 15 Uhr leer; Ford 2 darf früher starten, wenn die Schwelle es erlaubt; Chef 16.10., 21:2x: Pro einteilen, 49 % der Woche nach 18 Stunden): laufende Sitzung beendet ihren Punkt, dann kein Start. Testergebnisse des Chefs (Freigabe, Rückläufer) trägt ein, wer sie hört; Team Tom übernimmt sie ab Sa 21:15 (`FIRMA.md`, Pro leer oder eingeteilt).
+**Pause aufgehoben (Chef 17.10., „Ja“): Start trotz Schwelle für 154, 155 (Muss, „jetzt“).** Danach gilt die Schwelle wieder (128): Testergebnisse des Chefs trägt ein, wer sie hört.
 
 **Übergabe (16.10., 23:4x, „Jerry – D3 Kampfgeheul“) – Nachfolger: keiner (Pause bis Mo 19.10., 21:00):** #87 auf `main` (0.1.797 passt), direkte APK-Links in der Testreihe (Chef konnte die alten Builds im PR nicht installieren). D3 Kampfgeheul gebaut, PR #99 = Build 12. Nächster: #68, #98, #99 abonnieren; 9.2 (Regen im Kampf still) dem Chef begründen.
 
