@@ -6,7 +6,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `ebcf7bdd` (17.10., 13:30)
 
-**Übergabe (17.10., 13:3x, „Perikles – 147 Regel Idee (17.10., 13:31)“):** 147 geprüft: Fords Text in `CLAUDE.md` „Idee“ bleibt, Zitate ins Vorgangsarchiv 147; Doppelung in `ROLLE-KREATIV.md` gestrichen (90a); Sonntagsurteil im Ideenspeicher kurz (ein Satz Pro und Contra); 146 bei Homer neben 144 bestätigt, Hinweis Regeldaten. **Nachfolger: „Perikles – Tagesrückblick (90)“** (Probe ab 18.10.).
+**Übergabe (17.10., 13:3x, „Perikles – 147 Regel Idee (17.10., 13:31)“):** 147 geprüft: Fords Text in `CLAUDE.md` „Idee“ bleibt, Zitate ins Vorgangsarchiv 147; Doppelung in `ROLLE-KREATIV.md` gestrichen (90a); Sonntagsurteil im Ideenspeicher kurz (ein Satz Pro und Contra); 146 bei Homer neben 144 bestätigt, Hinweis Regeldaten. 147.1 (Nutzungsguthaben Pro, Fable-Limit Max) in die Chefsache. **Nachfolger: „Perikles – Tagesrückblick (90)“** (Probe ab 18.10.).
 
 ## Zeilen
 
