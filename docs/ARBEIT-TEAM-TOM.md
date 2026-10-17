@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **offen 10, Muss 4, A 0, Chefsache 1**
 
-**Übergabe (17.10., 11:2x, „Tom – 132 Spieldauer, vierter Spielstand“) – Nachfolger: keiner (Sparmodus ab 11:00; nach Test „passt“: PR #102 zusammenführen, CHANGELOG):** 132 mit 117 gebaut, PR #102 = Build 14 (0.1.820), Prüfliste t14.
+**Übergabe (17.10., 11:5x, „Tom – 132 Spieldauer, vierter Spielstand“) – Nachfolger: keiner (Sparmodus; nach Test „passt“: PR #102 zusammenführen, CHANGELOG):** 132, 134.1 und 117 gebaut, PR #102 = Build 14 (0.1.821), Prüfliste t14.
 
 ## Zeilen
 
