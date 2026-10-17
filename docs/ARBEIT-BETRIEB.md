@@ -82,3 +82,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17.10., 21:20 Tom 131.2 fertig (5b39a29e), archiviert, 0,79 $ auf 131; Start Tom 138
 - 17.10., 21:3x Startsperre: Start Homer (72.10a, Muss auf Zuruf Chef)
 - 17.10., 21:35 Tom 138 fertig (5859b9c4), archiviert, Kosten fehlt; Start Tom 145
+- 17.10., 21:45 Chefsache: 154/155-Testdatei gelöscht (kein Build, Chef: nichts zu sehen); Regel Testbitte nur mit Build in ROLLE-ENTWICKLUNG

@@ -30,6 +30,8 @@ Texte erfinden (gehört Homer, 41); Ideen gleich bauen (Zeile in den Vorrat, der
 
 Anderes Team, Homer, Perikles über deren Vorrat („von Team Tom“); den Chef über die Chefsache (Testbitten; eigene Grundsatzfragen mit Empfehlung und Gegenargument, `CLAUDE.md` 4) und Telegram; Ford, wenn eine Sitzung fehlt. Was alle lernen sollen: Zeile unter „Lehren für alle“ in `ARBEIT-PROJEKT.md`.
 
+**Testbitte nur mit Build** (Chef 17.10.): eine Datei in `ansehen/` entsteht erst, wenn es etwas zu installieren gibt, mit Version und Build in Zeile 1 und konkreten Schritten („Tippe …, erwarte …“). Zweig oder Entwurf ohne Build ist keine Testbitte; der Punkt fährt im nächsten Build mit (Beispiel 154/155, PR #106).
+
 ## Start
 
 1. Diese Datei; dein Vorrat ganz.
