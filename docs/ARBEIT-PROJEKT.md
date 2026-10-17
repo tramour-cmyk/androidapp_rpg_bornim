@@ -6,7 +6,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 17.10., 19:5x (`9e2e74bb`)
 
-**Übergabe (17.10., 20:2x, „Perikles – 159 Niederlassung ruht (17.10., 20:03)“):** 159 umgesetzt: schlichter Schalter in `ARBEIT-BETRIEB.md` (alle Ford-2-Regeln ausgesetzt, nichts gestrichen), Jerry in der Zentrale (`LISTE-BETRIEB.md` „Ruht die Niederlassung“, nur Muss, Luft Max plus 10 %), Jerrys Pause entfällt, Guthaben nur Max (`LISTE-BETRIEB.md`, `FIRMA.md`, `ROLLE-BETRIEB.md`, `ROLLE-PROJEKT.md`, `CLAUDE.md`, `LISTE-NIEDERLASSUNG.md`), Vorgangsarchiv 159. Diogenes prüft die Stellen (Auftrag über Ford). Offen: 159.1 Messung und Schwelle 20x. **Nachfolger: „Perikles – Tagesrückblick 18.10.“** (Ford, Probe 90).
+**Übergabe (17.10., 20:2x, „Perikles – 159 Niederlassung ruht (17.10., 20:03)“):** 159 umgesetzt: schlichter Schalter in `ARBEIT-BETRIEB.md` (alle Ford-2-Regeln ausgesetzt, nichts gestrichen), Jerry in der Zentrale (`LISTE-BETRIEB.md` „Ruht die Niederlassung“, nur Muss, gleiche Bremse wie Tom), Jerrys Pause entfällt, Guthaben nur Max (`LISTE-BETRIEB.md`, `FIRMA.md`, `ROLLE-BETRIEB.md`, `ROLLE-PROJEKT.md`, `CLAUDE.md`, `LISTE-NIEDERLASSUNG.md`), Vorgangsarchiv 159. Diogenes prüft die Stellen (Auftrag über Ford). Offen: 159.1 Messung und Schwelle 20x. **Nachfolger: „Perikles – Tagesrückblick 18.10.“** (Ford, Probe 90).
 
 ## Zeilen
 
