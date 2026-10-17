@@ -2,7 +2,7 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**offen 4, Muss 0, A 0, Chefsache 0**
+**offen 6, Muss 0, A 0, Chefsache 0**
 
 **Übergabe (17.10., 11:0x, „Sokrates – Chefliste (17.10., 10:41)“):** mit dem Chef im Gespräch entschieden und eingetragen: 112, 132 (Muss, Build 14 fertig), 134 (aufgeteilt 134.1–134.3), 99h 1–3, 99h.5/99h.5a (Sammelbuild), D23.1, 99h.6 (an Perikles); 135 Chefrunde festgeschrieben (`CLAUDE.md`, Rollendatei). Lehre: Rückfragen der Teams im selben Gespräch gleich mit erledigen spart Starts. Nachfolger: keiner bis zum nächsten Zuruf des Chefs.
 
@@ -10,6 +10,8 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 136 | K | **von Chef (17.10., 11:1x), Idee:** „in der Vorgangsübersicht haben wir ja die Bereiche mit drin, das haben wir aber, glaube ich, bei den Vorräten dann nicht mit drin … Erstens können wir es dann besser auswerten … Und zweitens sehe ich auch, wen es betrifft.“ | in der Chefrunde besprochen, wartet auf Chef |
+| 137 | K | **von Chef (17.10., 11:1x), Idee:** „ob wir nicht ganz gewisse Dinge tatsächlich komplett wieder in den Ideenspeicher zurückschieben. Mit Stand und Begründung … Weil wenn es nicht im Vorrat steht, muss weniger gelesen werden“ | in der Chefrunde besprochen, wartet auf Chef |
 | 130 | K | **von Chef (17.10., 00:35, über Ford):** „Zum Punkt Gefühl, 5, bitte eigenen Punkt zur Diskussion mit Sokrates aufmachen.“ Gemeint: Prüfpunkt 8.5 „Gefühl“ zu Build 8 (Probe 72.10 Held und Söldner gegen Grak): spannend, echte Wahl zwischen Angreifen, Platz und Abwarten, oder langweilig, Takt nervt (`DESIGN-LEITBILD.md`, `DESIGN-KAMPF.md`) | offen, Start auf Zuruf des Chefs |
 | 131 | K | **von Chef (17.10., 00:41, über Ford):** „Build 11 passt. @Sokrates Müssen nochmal über Laufen, Gehen, Ausdauer und Nachteile sprechen. Oder mit Perikles?“ Bezug: 86 bei Jerry (außer Atem = Initiative mit Nachteil, rennend 2 Felder früher bemerkt), Build 11; Ford empfiehlt Sokrates (Regeln, Rollenspiel), mit 130 in einer Sitzung | offen, Start auf Zuruf des Chefs |
 | 45 | K | Geschäftsmodell (Play Store) | 45a/45c ja (Vorgangsarchiv); 45b zurückgestellt bis nach 38 |
