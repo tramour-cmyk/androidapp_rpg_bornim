@@ -16,7 +16,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.827 (131 + D23.2, PR #104; Testaufgaben t16); 0.1.827 auf `main`.
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (17.10., 18:30)“ `session_01PNxStdGrFySxHPYtEXZ8og` (seit 17.10., 18:31, Selbstneustart 157.1 auf sonnet, Tiefe 1, Umgebung Mittel; Vorgänger `session_013WgUpHvEMutiBeSbQoworP` archiviert, 1,12 $). Stundenuhr „Ford-Lauf“ `trig_017KAszY143BCSdUrvWmnSVp` (:03, seit 18:31; alte Uhr `trig_01VKm78mC2SQH7HUcwYs4AoY` gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (17.10., 21:16)“ `session_01LGPv3cFkmPHWRxcYyx2b4X` (seit 17.10., 21:05, Selbstneustart auf sonnet, Tiefe 2, Umgebung Mittel; Vorgänger `session_01PNxStdGrFySxHPYtEXZ8og` archiviert, 1,85 $). Stundenuhr „Ford-Lauf“ `trig_015iDVpHTdDeWLGgnVtpZHed` (:03, seit 17.10., 21:05; alte Uhr `trig_017KAszY143BCSdUrvWmnSVp` gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: 99h gilt ab 17.10., 10:4x** (Vorgangsarchiv): Stundenuhr aus, solange Jerry „Pause bis …“ hat, per einmaliger Aufgabe zum Pausenende (Mo 19.10., 21:00) wieder an; Neustart bei etwa 150 Tsd. Token; Lauf ohne Tat liest Kopfzeilen und `list_sessions` (archiviert fertige Jerry-Sitzungen, 158; Ford erreicht Ford 2 nicht per Nachricht).
 - **(ruht, 159)** **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (17.10., 17:42)“ `session_017VRJsTBwEbU16mwomLknhm` (seit 17.10., 17:42, Tiefe 5; Vorgänger `session_01Bgr3YihKQVLNAM59U56Cva` archiviert, 6,92 $). Uhr „Ford-2-Stundenuhr“ `trig_01WCdVmLssvGbjCSK9KJPCPH` (:33 alle 4 Stunden, 147.2). Selbstneustart und Jerry-Starts nur nach „Startzuordnung“ (`LISTE-BETRIEB.md`, Pro Mittel; Chef 17.10.). Jerry pausiert bis Mo 19.10., 21:00; bis dahin Läufe nach `LISTE-BETRIEB.md` „Lauf von Ford 2“, ohne Tat nichts schreiben. In der Sitzung nur „Ford 2 HH:MM ok“.
@@ -77,3 +77,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:5x 17.10.: Start Jerry (Ford 2; Chef: „Ja“, Start trotz Schwelle, Pause aufgehoben; 154, 155)
 - 18:2x 17.10.: Jerry 154/155 fertig (PR #106), archiviert, 0,85 $ zu gleichen Teilen auf 154, 155 (Ford 2)
 - 11:58 17.10.: Homer 137 fertig (0dfd582a) → Startsperre: 11:58 Start Perikles (137, Zuruf Chef „erst Homer, dann Perikles“)
+- 17.10., 21:08 Selbstneustart Ford: neue Sitzung `session_01LGPv3cFkmPHWRxcYyx2b4X` (Tiefe 2), Uhr getauscht, Vorgänger archiviert (1,85 $).
