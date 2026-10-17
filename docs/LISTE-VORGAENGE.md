@@ -109,6 +109,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 97 | Vorrang in der Arbeitsliste | B Abläufe | – |  | Perikles | erledigt |
 | 98 | Firma WireStormTCS | B Abläufe | – |  | Perikles | umgebaut |
 | 99 | Zwei Niederlassungen | B Steuerung | K | 7,25 $ | Perikles | Messung |
+| 135 | Chefrunde: Chefsache mit Sokrates entscheiden | B Abläufe | – | 3,21 $ | Sokrates | erledigt |
 | 99h.6 | Neustarts der Teams mitmessen | B Steuerung | K |  | Perikles | offen |
 | 99h.5 | Testbuilds zum Durchspielen bündeln | B Abläufe | M |  | Perikles | entschieden |
 | 100 | Testschalter Ende Kapitel 1 | Q QS | K |  | Tom | zu testen |
