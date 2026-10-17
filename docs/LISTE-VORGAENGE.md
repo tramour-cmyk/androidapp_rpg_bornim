@@ -165,3 +165,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 143 | Wochenplan der Routinen für den Chef | B Abläufe | K |  | Perikles | offen |
 | 144 | Storyplan mit rotem Faden als Übersicht | G Story | K |  | Homer | offen |
 | 145 | Karten je Kapitel zum Drucken | E Welt | K |  | Tom | offen |
+| 146 | Figurenübersicht: Fähigkeiten, Charakterzug, Schlüsselsatz (Idee Chef) | G Story | K |  | Homer | offen |
