@@ -2,15 +2,14 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 18, Muss 3, A 0, Chefsache 3**
+**offen 17, Muss 2, A 0, Chefsache 3**
 
-**Übergabe (17.10., Jerry – 154, 155) – Nachfolger: keiner (Pause bis Mo 19.10., 21:00; Schwelle gilt wieder, 128):** 154 und 155 gebaut, PR #106 (Entwurf), Kerntests grün, Chef-Test am Gerät offen. 154: kein Goldverlust, Heimweg 4 Stunden; 155: Höhlenfeuer bleibt, Rast dort nur Hinweis „zu gefährlich“ (Idee Chef, ersetzt Entfernen).
+**Übergabe (17.10., Jerry – 154, 155) – Nachfolger: keiner (Pause bis Mo 19.10., 21:00; Schwelle gilt wieder, 128):** 154 und 155 gebaut, PR #106 (Entwurf), Kerntests grün, Chef-Test am Gerät offen (nur 155; 154 fertig ohne Test, Chef 17.10., 20:0x). 154: kein Goldverlust, Heimweg 4 Stunden; 155: Höhlenfeuer bleibt, Rast dort nur Hinweis „zu gefährlich“ (Idee Chef, ersetzt Entfernen).
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand | Zweig |
 |---|---|---|---|
-| 154 | M | Goldverlust beim Tod: **Chef 17.10., 19:3x endgültig: auf Normal kein Goldverlust, Heimweg 4 Stunden** (Toms Empfehlung; 10 %-Entscheid hinfällig). PR #106 stimmt, **kein Umbau**. [154](VORGANGSARCHIV.md) | gebaut; Chef-Test offen ([154-155-test](chefsache/ansehen/154-155-test.md)); 155 ebenso (Feuer bleibt, Rast gesperrt) |
 | 72.10b | K | **von Sokrates:** Chef 17.10., 15:1x (an Sokrates): „diese neue Kampfumgebungs-Szenario … dass das nicht immer Probe heißt … irgendwer sollte ja dazu noch eine kleine Anleitung schreiben, wie das überhaupt funktioniert. Aber wir sind da deutlich zu wenig Optionen. Und ich habe bis jetzt jeden Kampf verloren, egal welchen, weil ich nie treffe.“ Befund: `grakProbe` nimmt den aktuellen Helden in jeder Stufe gegen Hauptmann Grak (Boss, Herausforderungsgrad 2, RK 16, 6W10+6 TP, +5); auf Stufe 1 trifft ein Kämpfer nur mit 11+, ein Magier seltener, ein Treffer Grak 1W10+3. Vorschlag: Stufe der Probe festlegen oder wählbar, Treffer sichtbar machen; Balance entscheidet der Chef (130) | offen |---|
 | 134.1 | – | **von Team Tom (17.10., 11:5x), Vermerk `WorldScreen.kt`** (Sokrates: Jerry pausiert, Vermerk genügt): nur ein Block neben dem Monster-„!“ (`alerts`): goldenes „!“ über Leuten mit Neuem (`hails`, `game.hailing`). Zweig `claude/tom-132-spieldauer`, PR #102 | zur Kenntnis; streichen nach Lesen | – |
 | D23 | M? | **von Diogenes** (Lauf 23, D4.1 neu gemessen; Prüfbericht): **D23.1** über Morwen mit Stufe 1 zu Krogg; **D23.3** Magier, Kleriker sterben oft. **Bestätigt von Tom** (17.10., Übernahme, Rohdaten nach Gegner): Krogg nur 3 Tode, Rest sammelt der Mess-Spieler in der Höhle. Mess-Spieler `claude/diogenes-d41-messung` | **D23.1 entschieden: nichts ändern** (Chef 17.10., 10:5x, Vorgangsarchiv); erst spielt der Chef (13.5/38h); D23.3 ruht mit | – |
