@@ -35,7 +35,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 23 | Aufgabenteilung und Vorrat für Selbstarbeit | B Abläufe | – |  | Tom | erledigt |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
 | 25 | Laternen und Fenster nachts als Quelle zu dunkel | E Welt | – |  | Tom | erledigt v0.1.512 |
-| 26 | Kapitel 1 fertig (Zielliste) | Q QS | M |  | Tom und Jerry | in Arbeit |
+| 26 | Kapitel 1 fertig (Zielliste) | Q QS | M | 1,79 $ | Tom und Jerry | in Arbeit |
 | 27 | Wald „Ort fertig“ | E Welt | K |  | Tom | in Arbeit |
 | 28 | Musik neu | E Klang | – |  | Jerry | erledigt v0.1.540 |
 | 29 | Nebenquests (Anschlagbrett) | E Welt | – |  | Tom | erledigt |
@@ -146,7 +146,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 128 | Stillstand, Guthaben einteilen | B Steuerung | – |  | Perikles | erledigt |
 | 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K | 2,81 | Tom | erledigt |
 | 130 | Kampfgefühl der Probe 72.10 (Prüfpunkt 8.5) | G Balance | K |  | Sokrates | offen |
-| 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | K |  | Sokrates | offen |
+| 130.1 | Name für den neuen Kampf und den Testkampf (statt „Probe“) | G Stil | K |  | Sokrates | offen |
+| 72.10a | Spielanleitung neuer Kampf | G Story | K |  | Homer | offen |
+| 72.10b | Probe gegen Grak: Stufe und Treffer | E Kampf | K |  | Jerry | offen |
+| 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | M |  | Tom | entschieden |
 | 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | M | 2,43 $ | Tom | erledigt |
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | offen |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
@@ -161,7 +164,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K | 0,72 | Jerry | offen |
 | D21 | Abgleich Vorrat gegen Chefsache | Q QM | – | 3,17 $ | Tom, Jerry | erledigt |
-| D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen) | G Balance | M? | 0,63 $ | Jerry, Tom | offen |
+| D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen) | G Balance | M? | 2,42 $ | Jerry, Tom | offen |
 | Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |
 | 143 | Wochenplan der Routinen für den Chef | B Abläufe | K |  | Perikles | offen |
 | 144 | Storyplan mit rotem Faden als Übersicht | G Story | K |  | Homer | offen |
