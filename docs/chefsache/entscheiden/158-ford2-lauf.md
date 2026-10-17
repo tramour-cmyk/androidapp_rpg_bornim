@@ -1,6 +1,6 @@
 # 158 · Ford-2-Lauf wie Fords Lauf fassen: wann archiviert Ford 2 eine Jerry-Sitzung?
 
-Perikles · 17.10., 18:4x · B Abläufe · von Ford 2 (Chef 17.10., 18:3x: „Vorgang 158 ist wichtig“)
+Perikles · 17.10., 18:3x · B Abläufe · von Ford 2 (Chef 17.10., 18:3x: „Vorgang 158 ist wichtig“)
 
 Kurz: Ford 2 archiviert fertige Jerry-Sitzungen wie Ford, mit festem Kriterium „fertig“ (Empfehlung A: Regel einmal in `LISTE-BETRIEB.md`, Ford 2 verweist darauf)
 
@@ -33,7 +33,7 @@ Folge: `ARBEIT-BETRIEB.md` „Lauf ohne Tat nur Kopfzeilen“ wird zu „Kopfzei
 
 **Warum A:** Die Regel gehört an einen Ort (65.4). Ford 2 kopiert sonst Fords Satz sinngemäß und die zwei Fassungen laufen auseinander; der Fehler „Satz gilt nur in der Pause“ ist genau so entstanden.
 
-**Stärkstes Gegenargument (für B oder D):** Archivieren ist Aufräumen, keine Pflicht. Eine fertige Sitzung kostet im Leerlauf nichts, Besetzung rechnet sich ohnehin neu, und jede neue Prüfung ist ein Fehlerrisiko: ein falsch archivierter Jerry mit Frage des Chefs ist schlimmer als zehn stehengebliebene Sitzungen (81v). Dazu kostet der Pausenlauf jetzt einen `list_sessions`-Aufruf und gelegentlich `list_events` je 4 Stunden, während 99h gerade Läufe verkürzen wollte; Ford 2 steht ab 22.10. zur Entscheidung (99h.4). Was dagegen spricht: die Kosten je Vorgang. Kostenzahl wird nur beim Archivieren gelesen (`usage.cost_usd`); wer später nachträgt, hat sie nicht mehr. Ausweg, wenn dir das Risiko zu hoch ist: **A ohne Kriterium (3)** ist gefährlich, Kriterium (3) bleibt auf jeden Fall; wer es nicht will, nimmt B.
+**Stärkstes Gegenargument (für B oder D):** Archivieren ist Aufräumen, keine Pflicht. Eine fertige Sitzung kostet im Leerlauf nichts, Besetzung rechnet sich ohnehin neu, und jede neue Prüfung ist ein Fehlerrisiko: ein falsch archivierter Jerry mit Frage des Chefs ist schlimmer als zehn stehengebliebene Sitzungen (81v). Dazu kostet der Pausenlauf jetzt einen `list_sessions`-Aufruf und gelegentlich `list_events` je 4 Stunden, während 99h gerade Läufe verkürzen wollte; Ford 2 steht ab 22.10. zur Entscheidung (99h.4). Was dagegen spricht: die Kosten je Vorgang. Kostenzahl wird nur beim Archivieren gelesen (`usage.cost_usd`); wer später nachträgt, hat sie nicht mehr. Kriterium (3) darf in keinem Fall wegfallen; wem das Risiko trotzdem zu hoch ist, nimmt B.
 
 **Nicht geklärt, Entscheid bei dir:** „nichts Neues anfangen“ gilt in der Lehre nur für Jerry (Weiter-Haken); Ford archiviert Zentrale-Sitzungen ohne diese Nachricht. Entwurf übernimmt das so. Soll es für alle gelten, wäre das eine Änderung an Fords Lauf.
 
