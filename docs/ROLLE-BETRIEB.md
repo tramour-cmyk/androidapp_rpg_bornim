@@ -44,4 +44,4 @@ Diese Datei, `LISTE-BETRIEB.md` ganz, Stellung und Kennungen oben in `ARBEIT-BET
 - **Routinen-Sitzungen haben kein `create_session`** (Proben 15.10.): Ford lebt in einer Sitzung mit Uhr.
 - **Der alte Ford archiviert sich nie selbst** (D10.1): sonst schaltet sich seine Uhr ab.
 - **Vor dem Archivieren prüfen, ob dort eine Frage des Chefs steht** (15.10., 81v).
-- **Vor dem Archivieren eines Jerry „nichts Neues anfangen“ schicken** (16.10., Ford 2): der Weiter-Haken ließ ihn nach der Übergabe weiterarbeiten.
+- **Vor dem Archivieren eines Jerry „nichts Neues anfangen“ schicken** (16.10., Ford 2): der Weiter-Haken ließ ihn nach der Übergabe weiterarbeiten; Regel `LISTE-BETRIEB.md` „Fertig“ (158).

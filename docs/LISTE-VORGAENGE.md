@@ -184,4 +184,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 155 | Lagerfeuer in der Höhle: bleibt, Rast gesperrt (Feedback Chef Build 16) | G Höhle | M | Perikles 0,30 $, Jerry 0,43 $ | Jerry | Test |
 | 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? | Perikles 0,35 $ | Perikles | in Arbeit |
 | 157 | Ford von Hand auf opus und fremder Umgebung: so lassen oder neu in „WireStorm Mittel“? | B Steuerung | K |  | Ford | erledigt |
-| 158 | Ford-2-Lauf wie Fords Lauf fassen (Archivieren, Kosten, Besetzung, Fragen des Chefs) | B Abläufe | K |  | Perikles | offen |
+| 158 | Ford-2-Lauf wie Fords Lauf fassen (Archivieren, Kosten, Besetzung, Fragen des Chefs) | B Abläufe | K |  | Perikles | erledigt |
