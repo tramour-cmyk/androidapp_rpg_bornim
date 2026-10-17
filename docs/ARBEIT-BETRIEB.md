@@ -10,7 +10,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **„Chefsache“ (63): `docs/chefsache/`** (108; Übersicht = `docs/chefsache/README.md`, zeigt GitHub unter der Dateiliste; Lesezeichen für den Chef: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/main/docs/chefsache) · Vorgangsarchiv: `docs/VORGANGSARCHIV.md` · Prüfbericht Diogenes: `docs/PRUEFBERICHT.md`
 
-**Guthaben:** Pro 53 % Woche, Sitzung 4 % (Bild Chef 17.10., 13:4x; Hinweis dort: „bei diesem Tempo … morgen Abend aus“; Nutzungsguthaben an, −0,01 $; 154,37 $ diesen Monat, kein Ausgabenlimit); Max fehlt · vorher: Max 91 % (Wechsel Sa 17.10. etwa 21:00, Sitzungslimit 8 %), Pro 49 % (Woche), 16.10., 21:2x (Bilder des Chefs über Perikles; Pro-Sitzungslimit voll bis etwa 23:30). Bis zum Max-Wechsel nur Laufendes zu Ende, keine neuen Starts in der Zentrale außer auf Zuruf des Chefs; Max 100 % vorher = Stillstand „Guthaben“ (128), kein Ausfall
+**Guthaben:** Pro 53 % Woche, Sitzung 4 % (Bild Chef 17.10., 13:4x; Hinweis dort: „bei diesem Tempo … morgen Abend aus“; Nutzungsguthaben an, −0,01 $; 154,37 $ diesen Monat, kein Ausgabenlimit); Max 97 % Woche, Sitzung 8 % (Bild Chef 17.10., 13:5x; Wechsel 21:00; „Fable diese Woche“ eigenes Limit, 0 %) · vorher: Max 91 % (Wechsel Sa 17.10. etwa 21:00, Sitzungslimit 8 %), Pro 49 % (Woche), 16.10., 21:2x (Bilder des Chefs über Perikles; Pro-Sitzungslimit voll bis etwa 23:30). Bis zum Max-Wechsel nur Laufendes zu Ende, keine neuen Starts in der Zentrale außer auf Zuruf des Chefs; Max 100 % vorher = Stillstand „Guthaben“ (128), kein Ausfall
 
 **Jetzt installieren:** Build 14 · 0.1.821 (PR #102, 132 + 134.1 + 117), Prüfliste t14; 0.1.750 zuletzt auf `main`.
 
