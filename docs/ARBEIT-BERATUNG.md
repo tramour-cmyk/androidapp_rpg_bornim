@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 **offen 5, Muss 0, A 0, Chefsache 0**
 
-**Übergabe (17.10., 11:0x, „Sokrates – Chefliste (17.10., 10:41)“):** mit dem Chef im Gespräch entschieden und eingetragen: 112, 132 (Muss, Build 14 fertig), 134 (aufgeteilt 134.1–134.3), 99h 1–3, 99h.5/99h.5a (Sammelbuild), D23.1, 99h.6 (an Perikles); 135 Chefrunde festgeschrieben (`CLAUDE.md`, Rollendatei); 136 an Perikles; 137 jetzt Homer, dann Perikles. Lehre: Rückfragen der Teams im selben Gespräch gleich mit erledigen spart Starts. Nachfolger: keiner bis zum nächsten Zuruf des Chefs.
+**Übergabe (17.10., 12:3x, „Sokrates – Chefrunde (17.10., 10:41)“):** Chefrunde: 112, 132, 134 (134.1–134.3), 99h 1–3, 99h.5/5a, D23.1, 99h.6, 135 (Chefrunde als Regel), 136, 137 (Homer läuft, dann Perikles) entschieden und eingetragen; 143–145 als Kür verteilt (Artefakte nur Zentrale, Chef: wegen Drucken, Einwand 108 zur Kenntnis). Lehre: Rückfragen der Teams im selben Gespräch erledigen spart Starts (7 Entscheide für 3,21 $). Nachfolger: keiner bis zum nächsten Zuruf des Chefs.
 
 ## Zeilen
 
