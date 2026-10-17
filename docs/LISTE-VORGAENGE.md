@@ -188,4 +188,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 158a | Abwägung 158 dauerhaft ablegen | B Abläufe | K |  | Perikles | erledigt |
 | 159 | Pro gekündigt: Niederlassung ruht, Jerry in der Zentrale, Messung Max 5x (Chef) | B Abläufe | M |  | Perikles | umgebaut; 159.1 Messung offen |
 | 160 | Design-Texte (Kampf, Heldenbau, Stil) wieder als Dokument zum Kommentieren? | B Abläufe | K |  | Perikles | offen |
-| 161 | 144 und 145 zu einem Auftrag: Storyplan mit rotem Faden und Karten je Kapitel | G Story | K |  | Perikles | offen |
+| 161 | 144 und 145: roter Faden und Karten je Kapitel, ein Dokument oder zwei | G Story | K |  | Perikles | offen |
