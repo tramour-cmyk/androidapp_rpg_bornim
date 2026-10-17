@@ -114,7 +114,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 137 | Kür ohne Zweig zurück in den Ideenspeicher (Idee Chef) | B Abläufe | M | 3,64 $ | Homer, Perikles | in Arbeit |
 | 135 | Chefrunde: Chefsache mit Sokrates entscheiden | B Abläufe | – | 10,01 $ | Sokrates | erledigt |
 | 99h.6 | Neustarts der Teams mitmessen | B Steuerung | K |  | Perikles | offen |
-| 99h.5 | Testbuilds zum Durchspielen bündeln | B Abläufe | M |  | Perikles | erledigt |
+| 99h.5 | Testbuilds zum Durchspielen bündeln | B Abläufe | M | Perikles 0,10 $ | Perikles | erledigt |
 | 100 | Testschalter Ende Kapitel 1 | Q QS | K |  | Tom | zu testen |
 | 101 | Ford-Titel „Betriebsleiter“ | B Steuerung | – |  | Perikles | erledigt |
 | 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Perikles | offen |
@@ -180,6 +180,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 150 | Spielzeit im Menü? (Frage Chef) | B Technik | K |  | Tom | beantwortet |
 | 148 | Ideenspeicher ausmisten: Vorgaben und Bewusst-gelassenes an ihren Ort (Chef) | B Abläufe | K |  | Homer | offen |
 | 153 | Fehler: Überspringen-Kasten im Intro (und Kapitelende 1) weiß mit schwarzer Schrift, passt nicht zum Design | E Oberfläche | M | 1,14 $ | Tom | Test |
-| 154 | Goldverlust beim Tod zu hart (Feedback Chef Build 16) | G Balance | M? |  | Jerry | erledigt |
-| 155 | Lagerfeuer in der Höhle: bleibt, Rast gesperrt (Feedback Chef Build 16) | G Höhle | M |  | Jerry | Test |
-| 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? |  | Perikles | entschieden |
+| 154 | Goldverlust beim Tod zu hart (Feedback Chef Build 16) | G Balance | M? | Perikles 0,50 $ | Jerry | erledigt |
+| 155 | Lagerfeuer in der Höhle: bleibt, Rast gesperrt (Feedback Chef Build 16) | G Höhle | M | Perikles 0,30 $ | Jerry | Test |
+| 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? | Perikles 0,35 $ | Perikles | entschieden |
