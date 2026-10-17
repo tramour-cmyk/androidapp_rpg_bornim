@@ -7,7 +7,6 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
 | [134](entscheiden/134-ausrufezeichen-gesten.md) | 17.10. | machbar und passt; Empfehlung: ja, in zwei Schritten (erst goldenes „!“, dann Gesten), Kür | Tom |
-| [D23.1](entscheiden/d231-weg-zu-morwen.md) | 17.10. | Rauchbündel wirkt, aber zielstrebig kommt man mit Stufe 1 zu Krogg (Ziel Stufe 2–3); Empfehlung: erst du einmal am Gerät, dann ändern | Tom (für Jerry, Übernahme) |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
 ## Anzusehen

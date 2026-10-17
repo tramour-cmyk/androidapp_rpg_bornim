@@ -14,8 +14,9 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (17.10., 09:37)“ `session_011Gp2Rv1XPqcVRJ5GZ6diEo` (seit 17.10., 09:37, vom Chef von Hand gestartet, Tiefe 0; Vorgänger `session_01EshK4EhbFrGSCR6qeh3VYn` archiviert). Stundenuhr „Ford-Lauf“ `trig_01C93THa7J9s6YNsT74H9ZAZ` (:03, seit 09:37; alte Uhr `trig_01Y44JZv22h4mpFANruNYxH3` gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (17.10., 10:50)“ `session_01R4KBGTZ2ThiXxZhzvGiriP` (seit 17.10., 10:50, Selbstneustart, Tiefe 1; Vorgänger `session_011Gp2Rv1XPqcVRJ5GZ6diEo` archiviert, 3,76 $). Stundenuhr „Ford-Lauf“ `trig_01VxHnFSb1Ji9rg1zRjMhL4E` (:03, seit 10:50; alte Uhr `trig_01C93THa7J9s6YNsT74H9ZAZ` gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
+- **Ford 2: 99h gilt ab 17.10., 10:4x** (Vorgangsarchiv): Stundenuhr aus, solange Jerry „Pause bis …“ hat, per einmaliger Aufgabe zum Pausenende (Mo 19.10., 21:00) wieder an; Neustart bei etwa 150 Tsd. Token; Lauf ohne Tat nur Kopfzeilen (Ford erreicht Ford 2 nicht per Nachricht).
 - **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (17.10., 03:34)“ `session_01Bgr3YihKQVLNAM59U56Cva` (seit 17.10., 03:34; Vorgänger `session_017Gzi9LijVCMaW5UJrzYaXZ` archiviert, 9,87 $). Stundenuhr „Ford-2-Stundenuhr“ `trig_01JVENqEgw8TKsZQXrJKHQn5` (:33, seit 03:34). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren. Jerry pausiert bis Mo 19.10., 21:00; bis dahin Läufe ohne Tat, nichts schreiben. In der Sitzung nur „Ford 2 HH:MM ok“.
 
 ## Eingang
