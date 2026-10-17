@@ -23,8 +23,6 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- 17.10., 15:4x, von Sokrates (Frage Chef: „Wo steht … welche LLM verwendet wird, für welchen Arbeitsbereich? Und sind die Dokumente … alle fortgeschrieben?“): Startzuordnung steht nur in `LISTE-BETRIEB.md` Schritt 4; nicht nachgezogen: (1) dort Zeile 17 „Umgebung „Voll““ → „WireStorm Mittel“; (2) Pro-Umgebung für Ford 2/Jerry fehlt in der Startzuordnung (nur Max-Kennungen), `LISTE-NIEDERLASSUNG.md` §1 nennt keine; (3) `LISTE-RELEASE-NEUSTART.md` „Neustart“ 2 und 4 (Selbststart, geplante Aufgabe) ohne Umgebung und model; (4) „`send_message` an gestartete Sitzungen wird abgelehnt“ widerspricht dort 1a und „Neustart auf Meldung“, klarstellen, welche Nachrichten gelten
-
 - 17.10., 09:3x, von Perikles (99h, Zuruf Chef): Messung Leitung 20.10., 00:00 – 21.10., 24:00: Ford und Ford 2 tragen beim eigenen Neustart und am Ende der Messung ihre `cost_usd` in die Zeile „Betrieb“ von `LISTE-VORGAENGE.md` ein, getrennt „Ford x $ · Ford 2 y $“; Auswertung Perikles 22.10.
 - 17.10., 00:0x, von Tom (62078f62): Nachfolger „Tom – 117 Verweise im Code“ erst nach Sa 17.10., 21:00 oder auf Zuruf starten (vorher #100 zusammenführen, Build 13 passt), dann Zeile streichen
 
@@ -34,6 +32,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 
 ## Protokoll
+- 16:06 17.10.: Sokrates fertig, archiviert (4,71 $ auf 135); Startzuordnung in LISTE-BETRIEB, LISTE-RELEASE-NEUSTART nachgezogen; offen: Pro-Umgebung für Ford 2/Jerry (Kennung fehlt, Chef/Ford 2)
 - 15:41 17.10.: Tom D23.2 archiviert (3,59 $ zu gleichen Teilen auf 26, D23); Nachfolger 131 läuft seit 15:38
 - 15:38 17.10.: von Sokrates (10cfc825, Zuruf Chef): 131 Muss jetzt an Tom, danach Release → Startsperre: 15:38 Start Tom (131 Gehen und Rennen)
 - 15:01 17.10.: Zuruf Chef → Startsperre: 15:01 Start Sokrates
