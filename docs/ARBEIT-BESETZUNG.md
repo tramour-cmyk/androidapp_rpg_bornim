@@ -7,4 +7,5 @@
 | Rolle | Sitzung | Zeile | Zweig | seit |
 |---|---|---|---|---|
 | Ford | [Ford – Betriebsleiter (17.10., 09:37)](https://claude.ai/code/session_011Gp2Rv1XPqcVRJ5GZ6diEo) | Betrieb | – | 17.10., 09:37 |
+| Homer | [Homer – D23.2 Garricks Hinweis (17.10., 10:05)](https://claude.ai/code/session_01C28bYWXg2oaNfsHR3krPLC) | D23.2 | claude/homer-d232-garrick | 17.10., 10:05 |
 | Ford 2 | [Ford 2 – Niederlassungsleiter (17.10., 03:34)](https://claude.ai/code/session_01Bgr3YihKQVLNAM59U56Cva) | Betrieb Pro | – | 17.10., 03:34 |
