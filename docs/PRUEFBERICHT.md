@@ -4,7 +4,51 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 ## Offen für den Chef
 
+**D4.1 neu gemessen (Lauf 23):** **Ziel verfehlt.** Das Rauchbündel allein reicht nicht: Wer zielstrebig über Morwen geht, steht trotzdem mit Stufe 1 vor Krogg und stirbt im Median 24 Mal. Wer Garricks Warnung folgt (Stufe 3), stirbt in der Höhle im Median 3,5 Mal; Kämpfer und Schurke treffen das Ziel, Magier und Kleriker nicht. Balance entscheidest du; Empfehlung bei Jerry (D23.1).
+
 **Umbau 106.1 (Lauf 22):** hat funktioniert. D22.1 (Ford startete Homer nicht für Muss-Zeilen) ist behoben. Nichts am Gerät anzusehen.
+
+## Lauf 23 · Geprüft
+
+**Auftrag:** **38, D4.1 neu messen** (Zeile von Team Jerry 16.10., 20:2x; Start durch Ford 17.10., 09:08, Probebetrieb): Rauchbündel ist auf `main` (PR #90); Kapitel 1 wie in D4 messen, Ziel laut Beschluss D4.1: zielstrebig Stufe 2–3 vor Krogg, Median höchstens 3 Tode.
+
+**Stand:** `main` 799f7cf4
+
+**Wann:** 17.10., 09:08–09:2x
+
+**Wie:** Mess-Spieler aus Lauf 4 (38g), angepasst und auf Zweig `claude/diogenes-d41-messung` (`tools/messung/`, mit Rohausgabe; nicht nach `main`). Anpassungen: Rast fragt jetzt nach (86.10), der Spieler nimmt die lange Rast, sonst die kurze; lange Rast nur einmal je Spieltag, darum nicht ganz gleich wie Lauf 4. Drei Profile, je 4 Klassen × 5 Läufe = 20: **ohne Umweg** (wie D4: Aldric, Jorin, Höhle), **über Morwen** (dazu einmal Garrick, dann Morwen, Bündel), **folgt der Warnung** (Garrick zweimal, Morwen, dann im Tiefen Wald bis Stufe 3). Der Spieler kämpft schlicht: greift an, jede dritte Runde eine Fähigkeit, Trank unter 35 %; nach einer Niederlage gegen Krogg oder Grak sammelt er eine Stufe. Tode zählen alle Niederlagen bis Kapitelende (auch Grak und das Sammeln danach).
+
+**Nicht geprüft:** Spieler mit Taktik (Ausweichen, Gegenstände, gezielte Fähigkeiten): echte Spieler sterben weniger, die Zahlen sind eine obere Schranke wie in Lauf 4. Gründliches Profil (unverändert seit Lauf 4 außer dem Bündel). Gerät, Bild, Texte.
+
+**Urteil:** **Das Bündel wirkt, das Ziel verfehlt der Weg dorthin.** Der Umweg über Morwen bringt im Median einen Kampf und keine Stufe; nur wer Garricks Warnung befolgt, kommt mit Stufe 3 an, und dann gewinnt der Held gegen Krogg in 8 von 20 Läufen beim ersten Versuch (ohne Umweg 1 von 20).
+
+| Profil | Stufe vor Krogg | Tode gesamt (Median) | Tode Höhle | Niederlagen gegen Krogg |
+|---|---|---|---|---|
+| ohne Umweg (D4) | 1 (20 von 20) | 16,5 | 16 | 2,5 |
+| über Morwen | 1 (15), 2 (4) | 24 | 15 | 3 |
+| folgt der Warnung | 3 (20 von 20) | 12 | 3,5 | 1 |
+
+Je Klasse, folgt der Warnung (Tode gesamt, Median): Kämpfer 1, Schurke 3, Magier 17, Kleriker 32.
+
+## Lauf 23 · Befunde
+
+- **D23.1** (hoch) **Zielstrebig kommt auch über Morwen mit Stufe 1 zu Krogg**
+
+  D4.1 · sicher (gemessen, 20 Läufe je Profil). Wald und Tiefer Wald bis Morwen: im Median 1 Kampf, 5 Runden; 15 von 19 Läufen stehen mit Stufe 1 vor Krogg. Das Ziel „zielstrebig Stufe 2–3, Median höchstens 3 Tode“ trifft nur, wer die Warnung befolgt und sammelt, also genau der Grind, den D4.1 vermeiden wollte.
+
+  Klasse 2, an Team Jerry (Balance, Zeile 38), Entscheidung Chef · Empfehlung: den Weg zu Morwen tragen lassen statt den Helden zu schicken: auf dem Weg durch den Tiefen Wald einen festen Kampf oder eine kleine Aufgabe Morwens (z. B. Kräuter an zwei Stellen), die zusammen etwa eine Stufe bringen. Stärkstes Gegenargument: die Messung kennt keine Taktik, echte Spieler mit Stufe 1 schaffen Krogg vielleicht in 2–3 Versuchen; vorher am Gerät einmal mit Stufe 1 gegen Krogg (mit Bündel) spielen lassen (38h, Eichung durch den Chef).
+
+- **D23.2** (mittel) **Garricks Warnung und Hinweis auf Morwen kommen erst beim zweiten Gespräch**
+
+  D4.1 · sicher (Code `Story.kt` Garrick: Hinweis und Warnung nur im Zweig nach `HUNTER_MET`, das erst das erste Gespräch setzt). Wer einmal mit Garrick spricht, hört weder Warnung noch Hinweis, und der Auftrag „Rauch gegen Krogg“ (`KROGG_HINT`) erscheint nicht in der Chronik; Morwen gibt das Bündel trotzdem (`wantsSmoke` prüft nur `HUNTER_MET`). Beschluss D4.1: „Garrick warnt, solange der Held unter Stufe 3 ist.“
+
+  Klasse 2, an Team Tom (Dialog) · Empfehlung: Hinweis und Warnung ans Ende des ersten Gesprächs hängen (wortgleich, keine neuen Texte). Stärkstes Gegenargument: erstes Gespräch wird lang; dann Homer fragen, ob eine Zeile reicht.
+
+- **D23.3** (mittel) **Mit Stufe 3 und Bündel sterben Magier und Kleriker weiter oft**
+
+  D4.1 · wahrscheinlich (gemessen; Anteil der schlichten Kampfweise unbekannt). Magier 17, Kleriker 32 Tode im Median gegen Kämpfer 1, Schurke 3; die meisten fallen beim Sammeln im Wald nach einer Niederlage (Wölfe, Wildschweine), nicht bei Krogg. Kein neuer Befund zu D4.1 selbst, aber das Ziel gilt für alle Klassen.
+
+  Klasse 2, an Team Jerry (zu D23.1) · Empfehlung: beim Messen für D23.1 je Klasse prüfen; erst ändern, wenn auch ein Spieler mit Taktik es zeigt. Stärkstes Gegenargument: Zauberklassen sind im SRD auf Stufe 1–2 zerbrechlich gewollt.
 
 ## Lauf 22 · Geprüft
 
@@ -77,4 +121,5 @@ Eingearbeitet mit 106.1 (Perikles, 17.10., 09:1x); Wortlaut der Befunde im Artef
 
 ## Kosten
 
+Lauf 23: etwa 150.000 Token, drei Messläufe (je unter 5 Minuten), kein Standbild, keine Agenten; drei Befunde.
 Lauf 22: etwa 200.000 Token (davon rund 100.000 für das Lesen des Artefakts), kein Standbild, keine Agenten; vier Befunde der Klasse 1 und 2, einer klein. Frühere Läufe im Artefakt.

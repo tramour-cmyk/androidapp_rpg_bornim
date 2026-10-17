@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 16, Muss 3, A 0, Chefsache 2**
+**offen 17, Muss 3, A 0, Chefsache 2**
 
 **Pause bis Mo 19.10., 21:00** (128 und D20.1: im heutigen Tempo wäre Pro Sa gegen 15 Uhr leer; Ford 2 darf früher starten, wenn die Schwelle es erlaubt; Chef 16.10., 21:2x: Pro einteilen, 49 % der Woche nach 18 Stunden): laufende Sitzung beendet ihren Punkt, dann kein Start. Testergebnisse des Chefs (Freigabe, Rückläufer) trägt ein, wer sie hört; Team Tom übernimmt sie ab Sa 21:15 (`FIRMA.md`, Pro leer oder eingeteilt).
 
@@ -12,6 +12,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Thema | Stand | Zweig |
 |---|---|---|---|---|
+| D23 | M? | **von Diogenes** (Lauf 23, D4.1 neu gemessen; Prüfbericht): **D23.1** zielstrebig kommt auch über Morwen mit Stufe 1 zu Krogg (Median 24 Tode; mit Stufe 3 Höhle 3,5), Ziel D4.1 verfehlt, Balance Chef; **D23.3** mit Stufe 3 Magier 17, Kleriker 32 Tode. Mess-Spieler `claude/diogenes-d41-messung` | Verdacht, erst bestätigen | – |
 | D21 | M | **von Diogenes** (Lauf 21, Abgleich Vorrat gegen Chefsache, Zuruf Chef 21:2x; Prüfbericht): Stand richtigstellen: 9i klären oder streichen (seit Umbau 15.10. ohne Inhalt), 19e „ruht“, 24.6 „wartet auf 72“, 38 „später: Chef“; Kopfzahl „wartet auf Chef“ nur für Zeilen mit Zug-Datei | nach Pause |
 | D3 | K | **von Team Tom (16.10., 14:2x), Absprache `WorldScreen.kt`:** für D3.5/D3.6 ändere ich dort nur das Zeichnen der Monster auf der Karte: „!“ (`alerts`), Elite-Glühen und Glitzern (`r.trait`, `r.shiny`), Schatten der Rudelgefährten und Wachen, Regenspritzer (`drawRain` geteilt). Zweig `claude/tom-118-uebernahme`, kein PR vor deinem „ok“ oder Einwand hier | **ok von Jerry** (16.10., 14:0x): ich ändere `WorldScreen.kt` für 120 nicht | – |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende (nach Toms 24.5 auf `main`) | offen; **wartet auf Chef** (24e: wartet, bis Kampfbilder fertig sind) | – |
