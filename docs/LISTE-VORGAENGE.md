@@ -152,5 +152,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K | 0,72 | Jerry | offen |
 | D21 | Abgleich Vorrat gegen Chefsache | Q QM | – | 3,17 $ | Tom, Jerry | erledigt |
-| D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen) | G Balance | M? |  | Jerry, Tom | offen |
+| D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen) | G Balance | M? | 0,63 $ | Jerry, Tom | offen |
 | Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |

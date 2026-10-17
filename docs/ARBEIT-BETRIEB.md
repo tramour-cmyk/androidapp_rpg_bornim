@@ -75,6 +75,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 11:06 17.10.: Sparmodus wieder an, keine Starts; Homer D23.2 fertig, archiviert (0,63 $ auf D23); Tom 132 mit 134.1 im Sammelbuild (Zuruf Chef über Sokrates), Sokrates Zuruf laufen aus
 - 10:53 17.10.: Selbstneustart Ford (Vorgänger 3,76 $); Neustart Perikles 531b0b5b: 99h fertig, archiviert (1,12 $ auf 99); Nachfolger „Perikles – Tagesrückblick (90)“ erst 18.10.
 - 10:47 17.10.: von Sokrates: Chef entschied 99h 1–3 (Uhr aus ohne Arbeit, Neustart bei 150 Tsd., kleine Punkte mitnehmen) → Startsperre: 10:47 Start Perikles (99h Regeln, 99h.5); Ford startet sich danach neu (über 150 Tsd.)
 - 10:44 17.10.: von Sokrates: Chef entschied 132 (Muss, jetzt, mit 117) und 112 → Startsperre: 10:44 Start Tom (132 Spieldauer, vierter Spielstand)
@@ -94,22 +95,3 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:12 17.10.: Chef zu 129a: nur Hühner erledigt, 68 und 26 offen → Vorgangsarchiv, Toms 129, Datei gelöscht
 - 01:06 17.10.: Idee Chef → 132 (Spieldauer im Spielstand, vierter Spielstand) an Tom (K, prüfen)
 - 01:05 17.10.: Ford neu übernommen; Uhr trig_01Y44JZv22h4mpFANruNYxH3 angelegt und geprüft, alte Uhr trig_01MHvLjkYXRb7JKbtriztn6a gelöscht, alter Ford session_01XWRdGrGASFYbx6MMqjVV6Y archiviert ($3,96)
-- 01:04 17.10.: Selbstneustart Ford (Haken-Erinnerung 2, ≈217 Tsd. Token) → session_01EshK4E… (Tiefe 6, kein weiterer Selbstneustart); Lauf: Tom Builds nach main läuft, sonst nichts
-- 01:00 17.10.: Start Tom (Builds 8, 11, 12, 13 nach main: #68, #98, #99, #100; Zuruf Chef 01:00: „Tom, Builds nach main“)
-- 01:00 17.10.: Chef: Build 13 passt (wörtlich in Toms 129); Rückfrage 129a (68, 26 mitgemeint?)
-- 00:51 17.10.: Chef: Build 12 passt (wörtlich in Jerrys D3)
-- 00:41 17.10.: Chef: Build 11 passt (wörtlich in Jerrys 86); 131 Laufen/Ausdauer bei Sokrates angelegt
-- 00:35 17.10.: Chef: Build 8 passt (wörtlich in Jerrys 72.10); 130 Kampfgefühl (8.5) bei Sokrates angelegt
-- 00:22 17.10.: Perikles 99g.2 fertig (5af1dd15), archiviert (3,48 $ auf 99); Nachfolger in den Eingang
-- 00:17 17.10.: Start Perikles (99g.2 Kopf abgelöst; Zuruf Chef 00:17: „Perikles“, trotz Sparmodus)
-- 00:02 17.10.: Tom 129 fertig (62078f62, PR #100, Build 13 zu testen; D21 erledigt), archiviert (4,17 $, je etwa 2,08 $ auf 129 und D21); Nachfolger in den Eingang
-- 23:43 16.10.: Start Tom (129 Hühner; Zuruf Chef 23:43: „Tom“, trotz Sparmodus)
-- 23:33 16.10.: Chef-Meldung Hühner auf gleichem Platz → 129 in Toms Vorrat (K)
-- 23:41 16.10.: Jerry D3 Kampfgeheul fertig (PR #99, Build 12), archiviert; Pause bis Mo 19.10., 21:00, kein Nachfolger (Ford 2)
-- 23:32 16.10.: Läufe 21:33/22:33 in der Pro-Sperre; Jerry D3 Kampfgeheul geweckt, soll Punkt beenden, danach Pause bis Mo 19.10., 21:00 (Ford 2)
-- 23:10 16.10.: Ford neu (session_01XWRdGr…, Tiefe 5); Uhr trig_01MHvLjkYXRb7JKbtriztn6a angelegt und geprüft, alte Uhr trig_013eNWtEGr7bAJCFxhGY5WHk gelöscht, alter Ford session_01B3GyS2… archiviert (4,59 $)
-- 23:10 16.10.: Perikles 106.1a fertig (57241d3d), archiviert (2,81 $, je 1,40 $ auf 106 und 99); Nachfolger in den Eingang. Selbstneustart Ford (Haken-Erinnerung 2, ≈231 Tsd. Token); offen: nur Ford 2/Jerry laut Besetzung, Eingang (Tom D21, Perikles 99g.2) nach Sa 21:00; Morgenmeldung Sa 9 Uhr
-- 23:04 16.10.: Lauf: Diogenes 106.1 fertig, archiviert (5,31 $ auf 106); Perikles 106.1a läuft. Stillstand eingeteilt (Sparmodus Max bis Sa 21:00): Tom (Muss 4, A 1), Homer (Muss 2), keine Starts ohne Zuruf
-- 22:55 16.10.: Start Perikles (106.1a, D22.1 zuerst; Chef 22:4x: „106.1a ja“; Auftrag von Diogenes, e5cacf45)
-- 22:33 16.10.: Umbau 106.1 auf main (b37fff95), Perikles archiviert (10,75 $); Start Diogenes 106.1
-- 22:2x 16.10.: Start Perikles – Umbau Rollen und Namen (vorgezogen von Sa 21:15; Chef 16.10., 22:2x: „Lege los! Godspeed.“ (100 $ Extra-Guthaben)); Vorgabe: ein Push am Ende; danach Diogenes Nachprüfung
