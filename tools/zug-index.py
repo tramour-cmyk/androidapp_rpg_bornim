@@ -8,6 +8,28 @@ Je Datei: Zeile 1 „# <Nr.> · <Frage>“, Zeile 2 „<Absender> · <TT.MM.>, �
 import os, re, sys
 
 ZUG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "chefsache")
+BEREICH = re.compile(r"^[EGQBM] [A-ZÄÖÜ]\w+$")
+
+def vorgaenge():
+    """Bereich und Klasse je Nummer aus LISTE-VORGAENGE.md (124, 126, 136)."""
+    pfad = os.path.join(ZUG, "..", "LISTE-VORGAENGE.md")
+    tafel = {}
+    for z in (open(pfad, encoding="utf-8").read().splitlines() if os.path.exists(pfad) else []):
+        t = [x.strip() for x in z.split("|")]
+        if len(t) > 4 and z.startswith("| "): tafel[t[1]] = (t[3], t[4])
+    return tafel
+
+VORGAENGE = vorgaenge()
+KLASSE = {"M": "Muss", "K": "Kür"}
+
+def nachschlagen(nr):
+    """72s.1 → 72s.1, 72s, 72: die nächste Nummer mit Zeile in LISTE-VORGAENGE.md."""
+    while nr:
+        if nr in VORGAENGE: return VORGAENGE[nr]
+        kurz = re.sub(r"(\.\d+[a-z]*|[a-z])$", "", nr)
+        if kurz == nr: break
+        nr = kurz
+    return ("", "")
 
 KOPF = """# Chefsache
 
@@ -18,7 +40,7 @@ REGELN = """## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
 - Anzusehen: Zeile 1 `# <Team> · <Version> · <Thema> · <PR>`, Sammelseite je Build `## Build <n> · <Version> · <Thema> · <PR>`; die Übersicht zeigt jeden Build als Zeile, nach Version sortiert (127).
-- Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · …`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann Frage, Empfehlung, stärkstes Gegenargument (lange Begründung in `<details>`).
+- Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich> · …` (Bereich wie „B Abläufe“, 136); Vorrang = Klasse der Nummer in `LISTE-VORGAENGE.md`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann Frage, Empfehlung, stärkstes Gegenargument (lange Begründung in `<details>`).
 - Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“.
 - Telegram-Sprungmarke `[72s.1](cs:72s1)` führt auf die Datei (`tools/meldung.sh`).
 """
@@ -39,14 +61,17 @@ def eintrag(ordner, name):
         e = re.search(r"\*\*Empfehlung:?\s*([^*]{1,40}?)\.?\*\*", text)
         if e and e.group(1).strip(): was += f" (Empfehlung: {e.group(1).strip()})"
     sort = (m.group(2) + m.group(1)) if m else "0000"
-    return sort, f"| [{nr}]({ordner}/{name}) | {seit} | {was.replace('|', '/')} | {wer} |"
+    bereich, klasse = nachschlagen(nr)
+    bereich = next((t.strip() for t in meta.split(" · ")[1:] if BEREICH.match(t.strip())), bereich)
+    vorrang = KLASSE.get(klasse, klasse if klasse not in ("", "–") else "–")
+    return (vorrang == "Muss", sort), f"| [{nr}]({ordner}/{name}) | {'**Muss**' if vorrang == 'Muss' else vorrang} | {bereich or '–'} | {seit} | {was.replace('|', '/')} | {wer} |"
 
 def tafel(ordner, titel):
     pfad = os.path.join(ZUG, ordner)
     namen = sorted(n for n in os.listdir(pfad) if n.endswith(".md")) if os.path.isdir(pfad) else []
     zeilen = [z for _, z in sorted((eintrag(ordner, n) for n in namen), key=lambda t: t[0], reverse=True)]
     if not zeilen: return f"## {titel}\n\nNichts offen.\n"
-    return f"## {titel}\n\n| Nr. | Seit | Was | Wer |\n|---|---|---|---|\n" + "\n".join(zeilen) + "\n"
+    return f"## {titel}\n\nMuss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).\n\n| Nr. | Vorrang | Bereich | Seit | Was | Wer |\n|---|---|---|---|---|---|\n" + "\n".join(zeilen) + "\n"
 
 VERSION = re.compile(r"\b0\.1\.(\d+)\b")
 

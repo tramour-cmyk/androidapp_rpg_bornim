@@ -10,6 +10,7 @@ on:
       - "docs/chefsache/**"
       - "tools/zug-index.py"
       - "docs/ARBEIT-*.md"  # D21.3: Lücken (wartet auf Chef ohne Datei)
+      - "docs/LISTE-VORGAENGE.md"  # Vorrang und Bereich (124, 126, 136)
   workflow_dispatch:
 
 permissions:
