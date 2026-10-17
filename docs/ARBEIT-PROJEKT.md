@@ -6,14 +6,14 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `7f4c3783` (17.10., 09:12)
 
-**Übergabe (17.10., 09:12, „Perikles – 99 Auswertung Ford 2 (17.10., 09:11)“):** Messung Ford 2 ausgewertet, Chefsache angelegt. **Nachfolger: „Perikles – Tagesrückblick (90)“** (Probe ab 18.10.).
+**Übergabe (17.10., 09:26, „Perikles – 99 Auswertung Ford 2 (17.10., 09:11)“):** 99 ausgewertet, auf Zuruf erweitert (99h: Sparvorschläge, Messung 20.–21.10.); Zuruf „Jerry mitübernehmen“ an Ford. **Nachfolger: „Perikles – Tagesrückblick (90)“** (Probe ab 18.10.).
 
 ## Zeilen
 
 | Nr. | Kl. | Vorgang | Stand |
 |---|---|---|---|
 | 106.1 | M | Umbau Rollen und Namen (Paket mit 115, 117, 122, 124–126, 99g.1, 101, 102, 107, D16, D21; Chef 16.10., 22:0x: „106.1. Ja … und am Schluss muss Diogenes einmal wieder drüber prüfen“) | umgebaut 16.10.; Nachprüfung Diogenes Lauf 22 (trägt); D16–D21 im Prüfbericht vermerkt (17.10.); offen nur D17.2, D17.3 mit 99g; Erste Woche 18.–24.10. Ausgangswert, Wochenzählung Mo 26.10., danach Zielwerte (D19.4) |
-| 99 | K | Zwei Niederlassungen (Chef 15.10., 19:0x): 99f Messung Ford 2 und Ford-2-Wache (Chef 16.10., 15:5x) | ausgewertet 17.10.: Ford 2 kostet 19–25 % von Jerry; Chefsache [99](chefsache/entscheiden/99-ford2-entfaellt.md) (Empfehlung: entfällt, Jerry startet selbst); Abos prüfen um den 10.11. (99e) |
+| 99 | K | Kosten der Leitung (Chef 15.10., 19:0x; 99h Chef 17.10., 09:2x: „Fords Kostenanteil an Zentrale analog zu Vorgang 99 messen. 99 nochmal bei Normalbetrieb durchführen. Kostensparvorschläge ermitteln und vorschlagen (warum nicht von alleine? …)“) | Vorwerte und Sparvorschläge in Chefsache [99](chefsache/entscheiden/99-ford2-entfaellt.md); Messung Ford und Ford 2 20.–21.10. (Eingang Ford), Auswertung 22.10.; Abos prüfen um den 10.11. (99e) |
 | 99g | K | Gestaffelter Umzug ins Repo (Chef 16.10., 12:4x) | Prüfbericht umgezogen (Chef 16.10., 23:0x: „Jetzt“): `docs/PRUEFBERICHT.md` mit Lauf 22, Regeln (`LISTE-PRUEFUNG.md`, `ROLLE-PRUEFUNG.md`), Verweise; Lauf 1–21 bleiben im Artefakt. 99g.2 Kopf „abgelöst“ auf Prüfbericht und Beschlüsse erledigt (17.10.). Rest nach Sa 17.10., 21:00 über Homer (Zeile dort): Storyplan, Texte K2, Graumoor (D17.1–D17.5; Regeln an fünf Stellen, Freigabeliste `LISTE-NIEDERLASSUNG.md` 1a weg), dann Diogenes. Marktvergleich bleibt auf Max |
 | 117 | K | Ausmisten Rest (117.3) | `LISTE-NIEDERLASSUNG.md` auf „Pro neu einrichten“ kürzen (mit 99g, 1a fällt weg); Code-Kommentare bei Tom (Zeile 117) |
 | 102 | K | Rest: Kleinigkeiten aus D14 (Stellungstafel Co-Pilot, `CLAUDE.md` „nach der Kennung“, bis D11.1) prüfen; Firmenordnung und Rollenkonzept (Artefakte) mit Kopf „überholt, es gilt `main`“ | offen |
