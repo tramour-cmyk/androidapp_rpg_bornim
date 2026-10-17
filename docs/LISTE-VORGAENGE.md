@@ -94,6 +94,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 82 | Held vor verschlossener Tür | E Welt | – |  | Tom | erledigt |
 | 83 | Dorf Süd: Hecke, Felder, Hühner | E Welt | – |  | Tom | erledigt |
 | 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | G Balance | K |  | Sokrates | offen |
+| 84.5 | Lichttrank: schwebendes Licht über dem Helden, 8 Spielstunden (Chef) | G Balance | K |  | Homer | offen |
 | 85 | Testmenü aufräumen | B Werkzeuge | – |  | Tom | fertig |
 | 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72 | Jerry | in Arbeit |
 | 87 | Schänke: Katze, Rowena, Borins Becher | E Welt | – |  | Tom | fertig |
