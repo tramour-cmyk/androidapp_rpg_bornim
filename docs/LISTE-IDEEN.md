@@ -12,7 +12,7 @@ Alle sechs am 17.10. in die Vorräte geholt (Perikles, 137): 138 Kräuter (Tom),
 
 ## Verwerfen? (für die Chefrunde)
 
-Aktive Abwehr per Tippen · Echte Gruppenkämpfe · Gefährte Lyra oder Garrick · Kampfkulisse der Höhle (mit 79) · Film-Uhr. Gründe bei der Idee; in der Chefsache [137](chefsache/entscheiden/137-ideen-verwerfen.md).
+Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, Echte Gruppenkämpfe, Gefährte Lyra oder Garrick, Kampfkulisse der Höhle (mit 79), Film-Uhr; Text in Git.
 
 ## E Entwicklung
 
@@ -44,10 +44,6 @@ Aktive Abwehr per Tippen · Echte Gruppenkämpfe · Gefährte Lyra oder Garrick 
 - **Kampfaktion „Helfen“** (Chef 12.10., zu 34): Gefährte greift im Vorteil an. „Abwarten“ ist in der Probe 72.10 gebaut. → **später:** mit 72.10 nach dem Meilenstein.
 - **Weitere Zauber** ab Stufe 5 für alle Zauberklassen; **Kleriker „Läutern“** (heilt Zustände); **positive Zustände** (Gesegnet, Geschützt, Hast, z. B. durch Tränke); **Ausrüstung mit Giftresistenz.** → **später:** Kapitel 2, Werte mit dem Balanceplan (38).
 - **Rauchbündel allgemein** (Sokrates 15.10., D4.1): bei Morwen kaufbar gegen jeden Hinterhalt oder ersten Hieb. → **später:** erst wenn „Normal“ eingestellt ist (38, Wochenziel); sonst verschiebt es die Messung.
-- **Aktive Abwehr per Tippen** (Idee 1): kurzes Fenster beim gegnerischen Hieb, Tippen = Parieren mit halbem Schaden; der Chef fand sie nicht gut, wollte sie aber behalten. → **verwerfen?:** steckt im Ring der Probe 72.10 („Schlag halb/ganz abgefangen“); dort zu prüfen, nicht doppelt hier.
-- **Echte Gruppenkämpfe:** mehrere Gegner gleichzeitig, Zielauswahl, eigene Lebensbalken, Flächenzauber gegen alle. → **verwerfen?:** aufgegangen in 72 (Probe 72.10, sechs Plätze 72v), dort weitergeführt.
-- **Gefährte Lyra (Heilerin) oder Garrick** als zweites Gruppenmitglied. → **verwerfen?:** überholt durch Chefsache 72s.1 (Gefährte Kapitel 2).
-- **Kampfkulisse der Höhle an die Karte angleichen** (zurückgestellt 10.10.), dazu **79 Kampfhintergründe an die Diagonalwelt angleichen** (Chef 14.10., 08:34, nur Aussehen; aus Vorrat Jerry, hing an 72u). → **verwerfen?:** gelöst durch 72u B (Kampfort aus der Karte, Zoom 8).
 
 ### Klang
 
@@ -99,7 +95,6 @@ Aktive Abwehr per Tippen · Echte Gruppenkämpfe · Gefährte Lyra oder Garrick 
 
 ### Werkzeuge
 
-- **Film-Uhr** (ruht seit 09.10., 23:09, Entscheidung des Chefs; Zwischenstand Zweig `claude/film-uhr`, nicht installieren): Kampfbildschirm auf eigene Uhr `BattleClock`, Wartezeiten über Bilder (`pause`), Zufall der Anzeige säbar; Kampffilme vollständig (140 statt 76–102 Bilder). Offen: Filme mit Angriffen bleiben beim ersten Hieb stehen; 5 von 140 Bildern weichen in einzelnen Pixeln ab (`Sdf.kt`). Kaum schneller als Echtzeit, die Hälfte der Zeit ist Vorzeichnen. Danach wären Ablaufprotokoll und Bildvergleich möglich. → **verwerfen?:** brachte keine Zeit, der Kampf wird mit 72.10 ohnehin neu gebaut; der Zweig liegt seit acht Tagen.
 
 ## M Markt
 

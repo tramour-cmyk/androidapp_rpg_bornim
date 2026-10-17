@@ -6,7 +6,7 @@ Wie gewünscht („dass das einmal jetzt einen Stand hat, dann kann ich mir … 
 
 - Aufbau: nach Bereichen (Entwicklung, Gestaltung, Betrieb, Markt), je Idee Homers Urteil „reif“, „später“ oder „verwerfen?“ mit Grund.
 - **Reif, in die Vorräte geholt (alle Kür):** 138 Kräuter wachsen morgens (Tom), 139 Fleisch an die Wirtin (Homer Text, dann Tom), 140 Monster-Geräusche und 141 Klänge (Jerry, nach der Pause), 133 Wahlen nur als Vorschlag (Homer), 142 Vorbereitung Pflichttest Play Store (Sokrates, nächste Chefrunde; braucht dich).
-- **Verwerfen?:** fünf Ideen in [137](../entscheiden/137-ideen-verwerfen.md).
+- **Verwerfen?:** fünf Ideen, verworfen 17.10. (Vorgangsarchiv 137a).
 - Ab jetzt: sonntags urteilt Homer, montags holt Perikles mit dem Wochenziel.
 
 Erledigt, wenn du es angesehen hast: Datei löschen (oder sagen).
