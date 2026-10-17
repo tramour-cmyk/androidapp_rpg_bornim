@@ -95,7 +95,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 83 | Dorf Süd: Hecke, Felder, Hühner | E Welt | – |  | Tom | erledigt |
 | 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | G Balance | K |  | Sokrates | offen |
 | 85 | Testmenü aufräumen | B Werkzeuge | – |  | Tom | fertig |
-| 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K |  | Jerry | in Arbeit |
+| 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72 | Jerry | in Arbeit |
 | 87 | Schänke: Katze, Rowena, Borins Becher | E Welt | – |  | Tom | fertig |
 | 88 | Leitlinien-Abgleich sichtbar | B Abläufe | – |  | Sokrates | erledigt |
 | 89 | Schatten mit dem Tag | E Welt | – |  | Tom | erledigt |
@@ -138,12 +138,12 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 126 | Muss und Kür, Wochenziel | B Abläufe | K |  | Perikles | Probe |
 | 127 | Anzusehen: Zeile je Build mit Version und Folge | B Werkzeuge | – |  | Perikles | erledigt |
 | 128 | Stillstand, Guthaben einteilen | B Steuerung | – |  | Perikles | erledigt |
-| 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K | 2,09 | Tom | erledigt |
+| 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K | 2,81 | Tom | erledigt |
 | 130 | Kampfgefühl der Probe 72.10 (Prüfpunkt 8.5) | G Balance | K |  | Sokrates | offen |
 | 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | K |  | Sokrates | offen |
 | 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | K |  | Tom | prüfen |
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | Idee |
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |
-| D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K |  | Jerry | offen |
+| D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K | 0,72 | Jerry | offen |
 | D21 | Abgleich Vorrat gegen Chefsache | Q QM | M | 2,08 | Tom, Jerry | Jerry |
 | Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |
