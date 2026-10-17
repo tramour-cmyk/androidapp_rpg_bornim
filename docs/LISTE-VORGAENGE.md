@@ -146,9 +146,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 128 | Stillstand, Guthaben einteilen | B Steuerung | – |  | Perikles | erledigt |
 | 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K | 2,81 | Tom | erledigt |
 | 130 | Kampfgefühl der Probe 72.10 (Prüfpunkt 8.5) | G Balance | K |  | Sokrates | offen |
-| 130.1 | Name für den neuen Kampf und den Testkampf (statt „Probe“) | G Stil | K |  | Sokrates | offen |
-| 72.10a | Neuer Kampf: Zauber, Zugleiste, Reichweite, Stufe 3 | E Kampf | M |  | Jerry | offen |
-| 72.10a.7 | Neuer Kampf: Reihen, Klassen, Zweitwaffe | E Kampf | K |  | Jerry | wartet |
+| 130.1 | Name des neuen Kampfsystems: MARS | G Stil | K |  | Sokrates | entschieden |
+| 72.10a | MARS: Zauber, Zugleiste, Reichweite, Stufe 3 | E Kampf | M |  | Jerry | offen |
+| 72.10a.7 | MARS: Reihen, Klassen, Zweitwaffe | E Kampf | K |  | Jerry | wartet |
 | 72.10b | Probe gegen Grak: Stufe und Treffer | E Kampf | K |  | Jerry | offen |
 | 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | M | 1,93 $ | Tom | erledigt |
 | 131.1 | Feedback Chef Build 16: Joystick, Tempo, Beschleunigung | G Balance | M |  | Tom | erledigt |
