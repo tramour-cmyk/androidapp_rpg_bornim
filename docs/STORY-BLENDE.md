@@ -451,3 +451,12 @@ EN: Foes have 20% more hit points and deal 20% more damage. A quest's goal appea
 `[39.2.immer]` (unter der Stufenzeile, immer)
 Erfahrung und Beute bleiben gleich. Gilt für diesen Helden und lässt sich jederzeit umstellen; Gegner ändern sich ab dem nächsten Kampf.
 EN: Experience and loot stay the same. Applies to this hero and can be changed at any time; foes change from the next fight.
+
+## Söldner-Namen (72.10a.5)
+
+`[72.10a.5.namen]` (neuer Kampf: jeder angeheuerte Söldner bekommt den nächsten freien Namen der Liste, nie den des Helden; feste Namen, im Englischen gleich)
+Bertram, Hagen, Edric, Tamsin, Wulf, Ilsa, Corwin, Maren, Odo, Fenna, Rurik, Sela
+
+`[72.10a.5.anzeige]` (an der Figur und in der Zugleiste)
+{söldner} ({klasse})
+EN: {söldner} ({klasse})
