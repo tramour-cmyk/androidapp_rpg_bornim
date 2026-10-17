@@ -78,3 +78,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:2x 17.10.: Jerry 154/155 fertig (PR #106), archiviert, 0,85 $ zu gleichen Teilen auf 154, 155 (Ford 2)
 - 11:58 17.10.: Homer 137 fertig (0dfd582a) → Startsperre: 11:58 Start Perikles (137, Zuruf Chef „erst Homer, dann Perikles“)
 - 17.10., 21:08 Selbstneustart Ford: neue Sitzung `session_01LGPv3cFkmPHWRxcYyx2b4X` (Tiefe 2), Uhr getauscht, Vorgänger archiviert (1,85 $).
+- 17.10., 21:13 Startsperre: Start Tom (131.2, Chef will t16/t17 zusammengefasst)
