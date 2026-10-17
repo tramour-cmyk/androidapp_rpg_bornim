@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [72.10a](entscheiden/72-10a-kampf-ideen.md) | **Muss** | E Kampf | 17.10. | Neuer Kampf – 14 Ideen (Zaubern, wer ist dran, Positionieren, Klassen, Ausrüstung, Gegenstände, Animation); Empfehlung: .1, .4, .6, .10 jetzt | Homer |
+| [72.10a](entscheiden/7210a-kampf-ideen.md) | **Muss** | E Kampf | 17.10. | Neuer Kampf – 14 Ideen (Zaubern, wer ist dran, Positionieren, Klassen, Ausrüstung, Gegenstände, Animation); Empfehlung: .1, .4, .6, .10 jetzt | Homer |
 | [130](entscheiden/130-kampfgefuehl.md) | Kür | G Balance | 17.10. | Kampfgefühl und Name – zurückgestellt für ein ruhiges Gespräch mit Sokrates (Chef 17.10., 15:2x) | Sokrates |
 | [142](entscheiden/142-pflichttest-play-store.md) | Kür | M Veröffentlichung | 17.10. | Play-Store-Konto und Pflichttest – ab wann (Empfehlung A: Konto jetzt, Tester sammeln ab Durchspielen 13.5) | Sokrates |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | Kür | E Kampf | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
