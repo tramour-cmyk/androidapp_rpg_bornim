@@ -4,7 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
-- **154, 155 (PR #106, Test offen):** Niederlage kostet kein Gold mehr, der Heimweg dauert 4 Stunden; Feuerstelle aus der Höhle entfernt.
+- **154, 155 (PR #106, Test offen):** Niederlage kostet kein Gold mehr, der Heimweg dauert 4 Stunden; Höhlenfeuer bleibt, Rast dort gibt nur den Hinweis „zu gefährlich“ (Chef-Idee).
 
 ## v0.1.827 – 17.10.2026, 16:18
 
