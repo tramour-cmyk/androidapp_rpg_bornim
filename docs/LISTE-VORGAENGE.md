@@ -149,7 +149,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 130.2 | MARS: Prüfpunkt „Gefühl“ im Build 72.10a | G Balance | M |  | Jerry | offen |
 | 130.3 | MARS: Gegner mit verschiedenen Antworten | E Kampf | K |  | Jerry | wartet |
 | 130.1 | Name des neuen Kampfsystems: MARS, Spieltexte | G Stil | M |  | Jerry | offen |
-| 72.10a | MARS: Zauber, Zugleiste, Reichweite, Stufe 3 | E Kampf | M | 8,45 $ | Jerry | offen |
+| 72.10a | MARS: Zauber, Zugleiste, Reichweite, Stufe 3 | E Kampf | M | 8,97 $ | Jerry | offen |
 | 72.10a.7 | MARS: Reihen, Klassen, Zweitwaffe | E Kampf | K |  | Jerry | wartet |
 | 72.10b | Probe gegen Grak: Stufe und Treffer | E Kampf | K |  | Jerry | offen |
 | 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | M | 1,93 $ | Tom | erledigt |
@@ -196,5 +196,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 162 | Klasse bei Abhängigkeit: wartet ein Punkt auf einen anderen, Muss statt Kür? (Chef) | B Abläufe | M | 0,42 $ | Perikles | erledigt |
 | 163 | Diogenes vor jedem Release (Schritt in der Release-Anleitung) | B Abläufe | M? | 0,42 $ | Perikles | erledigt |
 | 163.1 | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz 23.10.) | B Kosten | K |  | Perikles | ruht bis 23.10. |
-| 164 | Testdatei-Format: Rollendatei-Satz und Formatprüfung in zug-index (Auslöser Jerry Build 19) | B Abläufe | M |  | Perikles | Befund Diogenes |
+| 164 | Testdatei-Format: Rollendatei-Satz und Formatprüfung in zug-index (Auslöser Jerry Build 19) | B Abläufe | M | Diogenes 0,35 $ | Perikles | Befund Diogenes |
 | 165 | Ablaufstichprobe: wer findet Ablauffehler vor dem Chef (Empfehlung Tagesrückblick + Zählung) | B Abläufe | M | 0,42 $ | Perikles | läuft, Bilanz 23.10. |

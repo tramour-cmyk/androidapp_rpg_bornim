@@ -95,3 +95,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:1x Startsperre: Start Diogenes 164 (Muss, Entwurf e3f16635 liegt)
 - 18.10., 00:12 Start Diogenes 164 `session_01UvPhHJ7SQAJA2PSoWxAAUq`; Tom 139 fertig (nichts Startbares), archiviert, 2,25 $ auf 139; Jerry (Test t19 „passt“, Zeile Muss) archiviert, 3,55 $ auf 72.10a, Start Jerry `session_01Pt1eVKd5b53G8GKn9zUyMZ` (PR #109 zusammenführen, t19 löschen)
 - 18.10., 00:20 Kosten Perikles nachgetragen (Chef: fehlten): 158 Diogenes 0,64 $ + Perikles 1,26 $ (standen fälschlich auf 102), Perikles M? (fertig, Übergabe da) archiviert, 1,26 $ zu gleichen Teilen auf 162, 163, 165 (je 0,42 $)
+- 18.10., 01:05 Lauf: Diogenes 164 fertig (D26.1–D26.4 an Perikles), archiviert, 0,35 $ auf 164; Jerry (Build 19 zusammengeführt, Auswahl leer) archiviert, 0,52 $ auf 72.10a; Startsperre 01:06 Start Perikles 164 (Muss, Befunde Diogenes)
