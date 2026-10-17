@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 **offen 4, Muss 0, A 0, Chefsache 0**
 
-**Übergabe (17.10., 23:0x, „Sokrates – Stab des Chefs (17.10., 22:56)“):** 130.1 aus Chefsache gestrichen (MARS); 142 zurückgestellt bis 31.10.; 130 von der Chefsache genommen, 130.2 und 130.3 an Jerry. Nachfolger: Sokrates – Gespräch MARS (130), nach Test des Builds mit 72.10a, auf Zuruf des Chefs; 31.10. 142 wieder vorlegen.
+**Übergabe (17.10., 23:0x, „Sokrates – Stab des Chefs (17.10., 22:56)“):** 130.1 aus Chefsache gestrichen (MARS); 142 zurückgestellt bis 31.10.; 130 von der Chefsache genommen, 130.2 und 130.3 an Jerry; Prüfung Ford und Betrieb: 163, 163.1 an Perikles, 149.1 an Diogenes. Nachfolger: Sokrates – Gespräch MARS (130), nach Test des Builds mit 72.10a, auf Zuruf des Chefs; 31.10. 142 wieder vorlegen.
 
 ## Zeilen
 
