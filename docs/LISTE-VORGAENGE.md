@@ -48,7 +48,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 36 | Krogg verpixelt (schärfen) | E Figuren | K |  | Jerry | offen |
 | 37 | Kampfmusik aussortieren (3 raus, Boss-Stück anders verwenden) | E Klang | – |  | Jerry | erledigt v0.1.578 |
 | 38 | Balance-Langzeitplan (`DESIGN-BALANCE.md`) | G Balance | M | 3,52 $ | Homer, Jerry | in Arbeit |
-| 39 | Schwierigkeitsgrad im Menü | E Kampf | M | 0,81 $ | Jerry (Menü mit Tom) | gebaut |
+| 39 | Schwierigkeitsgrad im Menü | E Kampf | M | 1,22 $ | Jerry (Menü mit Tom) | gebaut |
 | 40 | Lautstärke Gesamt/Musik/Effekte | E Oberfläche | K |  | Jerry | offen |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | G Story | K |  | Homer mit Chef | in Arbeit |
 | 42 | Textkasten unten im Stil der Blenden (schwarz, Sprecher Gold) | E Oberfläche | – |  | Tom | erledigt |
