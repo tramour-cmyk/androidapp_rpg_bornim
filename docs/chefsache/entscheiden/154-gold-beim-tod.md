@@ -1,6 +1,7 @@
 # 154: Goldverlust beim Tod
 
 **Wortlaut Chef (17.10., 17:4x):** „… alle im normalen Wald. Mit etwas Glück im Kampf gewonnen oder zwei, aber dann auf jeden Fall auch gestorben. Und da das Gold am Anfang eh so knapp ist, ist jetzt dieses äh, du verlierst 40, 30 irgendwas Gold das ist schon echt hardcore. Das ist nicht gut. Dann kann man dann noch weniger Chancen. Äh, was zu reißen. Also ich weiß nicht, ob das gut ist. Hat es erst sozusagen auf dem Schwierigkeitsgrad übernormal macht. Dass das Gold weg ist. So mal als Anregung“
+**Antwort Chef (17.10., 18:0x):** „Vorgang 154 den Prozent machen wir halt dann maximal und wegen des Balancing äh, ist es wohl eh schon bei 130 gelandet.“ **Lesart Perikles (nicht bestätigt):** Goldverlust bleibt, aber als Prozentsatz mit niedriger Obergrenze (Mittelweg, Empfehlung 10 %); Anfangsbalance läuft über [130](130-kampfgefuehl.md). **Offen:** „maximal“ = welche Zahl? Bis zur Antwort Jerry: 10 % als Höchstwert, in einer Konstante.
 **Heute:** Niederlage kostet die Hälfte des Golds (`Game.kt`), Held erwacht voll geheilt am sicheren Ort. Schwierigkeitsgrade gibt es noch nicht.
 **Frage:** Goldverlust beim Tod abschaffen oder mildern?
 **Empfehlung (Tom):** auf „Normal“ kein Goldverlust; der Tod kostet stattdessen Zeit (einige Stunden Spielzeit vergehen, Heimweg). Goldverlust erst mit einem späteren Schwierigkeitsgrad „schwer“. Klein, ein Commit.
