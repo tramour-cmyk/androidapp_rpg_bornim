@@ -6,7 +6,7 @@
 
 | Rolle | Sitzung | Zeile | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford – Betriebsleiter (17.10., 10:50)](https://claude.ai/code/session_01R4KBGTZ2ThiXxZhzvGiriP) | Betrieb | – | 17.10., 10:50 |
+| Ford | [Ford – Betriebsleiter (17.10., 12:00)](https://claude.ai/code/session_017CcNwQFqDvNBK2e9i2opWh) | Betrieb | – | 17.10., 12:00 |
 | Sokrates | [Sokrates – Zuruf Chef (17.10., 10:40)](https://claude.ai/code/session_01A7TqQqEGA4k94PVBMXMJow) | Zuruf | claude/sokrates-zuruf | 17.10., 10:40 |
 | Perikles | [Perikles – 137 Ideenspeicher (17.10., 11:58)](https://claude.ai/code/session_01FSrQzDYN4ahjCfvgs4ZJ3r) | 137 | claude/perikles-137-ideenspeicher | 17.10., 11:58 |
 | Ford 2 | [Ford 2 – Niederlassungsleiter (17.10., 03:34)](https://claude.ai/code/session_01Bgr3YihKQVLNAM59U56Cva) | Betrieb Pro | – | 17.10., 03:34 |
