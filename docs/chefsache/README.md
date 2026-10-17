@@ -6,7 +6,6 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
-| [112a](entscheiden/112a-homer-jetzt.md) | 17.10. | Homer für 112 jetzt starten oder nach dem Sparmodus? (Empfehlung: :) | Ford |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
 ## Anzusehen

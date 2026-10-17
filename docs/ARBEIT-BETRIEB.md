@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Nächste freie Vorgangsnummer: 134** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
-**Sparmodus bis Sa 17.10., 21:00** (99d, `FIRMA.md` „Sparmodus“)
+**Sparmodus bis Sa 17.10., 21:00** (99d, `FIRMA.md` „Sparmodus“), **ausgesetzt Sa 17.10. 09:08–11:00 für die Zentrale** (Chef 17.10., 09:08: „Weck mal den Betrie bis auf die Niederlassung auf und lass mal probeweise alle so arbeiten, wie es sein soll. Ab 11100 Uhr gehst du wieder in den Sparmodus und lässt aktive Arbeitssitzungen ausklingen.“; „11100“ gelesen als 11:00): Ford Pilot, Starts nach Vorrang; ab 11:00 keine Starts, laufende Sitzungen beenden ihren Punkt
 
 **Ford: Co-Pilot bis Sa 17.10., 21:00, danach Pilot** (Chef 15.10., 22:5x: „dann kriegt Ford die Stellung Co-Pilot … wieder zurückstellen … wenn wir wieder volles Guthaben haben“; der erste Lauf danach stellt selbst auf Pilot zurück, pusht, meldet lautlos; 81g)
 
@@ -22,7 +22,6 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- 17.10., 01:13, Ford: Rückfrage 112a (Homer für 112 jetzt starten?), wartet auf Chef
 - 17.10., 00:22, von Perikles (5af1dd15): Nachfolger „Perikles – 106.1 Vermerke D16–D21“ erst nach Sa 17.10., 21:00 oder auf Zuruf starten, dann Zeile streichen
 - 17.10., 00:0x, von Tom (62078f62): Nachfolger „Tom – 117 Verweise im Code“ erst nach Sa 17.10., 21:00 oder auf Zuruf starten (vorher #100 zusammenführen, Build 13 passt), dann Zeile streichen
 
@@ -75,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 09:08 17.10.: Probebetrieb Zentrale bis 11:00 (Zuruf Chef); 112a damit erledigt (Homer jetzt); Startsperre: 09:08 Start Homer (112), 09:08 Start Perikles (106.1 Vermerke, dann Tagesrückblick), 09:08 Start Tom (13e), 09:08 Start Diogenes (38 D4.1 neu messen)
 - 09:04 17.10.: Morgenmeldung laut (mit Bild-Bitte)
 - 03:35 17.10.: Ford 2 neu (Selbstneustart), Uhr trig_01JVENqEgw8TKsZQXrJKHQn5, alte Uhr gelöscht, Vorgänger archiviert (9,87 $, 315 Tsd. Token) (Ford 2)
 - 02:05 17.10.: Tom „Builds 8–13 nach main“ fertig (#101), archiviert, 2,87 $ zu gleichen Teilen auf 72.10, 86, D3, 129; Nachfolger 117 nach Sparmodus; sonst nichts
