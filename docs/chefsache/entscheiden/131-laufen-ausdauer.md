@@ -8,7 +8,7 @@ Kurz: Laufen, Gehen, Ausdauer (Empfehlung E: Rennen kurz, Steigerung sichtbar, G
 
 **Chef 17.10., 15:2x, dazu:** „wie lange gehe ich denn sonst, wenn ich von einem Haus zum anderen gehe? Dass das so langsam muss es im Zweifelsfall nicht unbedingt sein, aber es müssen sich ja irgendwie in der Grundgeschwindigkeit Klassenunterschiede und Attributsunterschiede herausstellen lassen. Weil ansonsten bringt das alles nichts.“ Noch nicht entschieden: „Das muss ich mir erst durchlesen.“
 
-**Zur Grundgeschwindigkeit (Ergänzung zu E):** Das SRD kennt Unterschiede nur nach Volk (Zwerg, Halbling 25 statt 30 Fuß) und Rüstung (schwere Rüstung ohne genug Stärke −10 Fuß), nicht nach Klasse oder Geschick. Für spürbare Unterschiede (Leitbild 4: SRD als Gerüst) Vorschlag: Gehen nach Volk und Rüstung wie im SRD, dazu Geschick ±5 % je Bonus; Rennen und Ausdauer nach Konstitution und Stufe wie in E. Ein Feld ist etwa 1,5 m, heute geht der Held also etwa 4,5 m/s, ein Mensch geht 1,4 m/s; das Spiel darf schneller sein, aber nicht als Joggen.
+**Zur Grundgeschwindigkeit (Ergänzung zu E):** Das SRD kennt Unterschiede nur nach Volk (Zwerg, Halbling 25 statt 30 Fuß) und Rüstung (schwere Rüstung ohne genug Stärke −10 Fuß), nicht nach Klasse oder Geschick. Für spürbare Unterschiede (Leitbild 4: SRD als Gerüst) Vorschlag: Gehen nach Volk und Rüstung wie im SRD, dazu Geschick ±5 % je Bonus; Rennen und Ausdauer nach Konstitution und Stufe wie in E. Rechnet man ein Feld wie im SRD mit 1,5 m, geht der Held also etwa 4,5 m/s, ein Mensch geht 1,4 m/s; das Spiel darf schneller sein, aber nicht als Joggen.
 
 **Nachgerechnet:** Gehen etwa 3 Felder je Sekunde, also eine Bildschirmbreite (6,75 Felder) in gut 2 s; Rennen etwa 5,7 Felder je Sekunde, 20 s lang = rund 110 Felder am Stück.
 
