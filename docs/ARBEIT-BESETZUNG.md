@@ -10,3 +10,4 @@
 | Ford 2 | [Ford 2 – Niederlassungsleiter (17.10., 17:42)](https://claude.ai/code/session_017VRJsTBwEbU16mwomLknhm) | Betrieb Pro | – | 17.10., 17:42 |
 | Jerry | [Jerry – 39 Schwierigkeit (17.10., 21:06)](https://claude.ai/code/session_01LfmkuKyrXbzNwnujccC6u4) | 39 | claude/jerry-39-schwierigkeit | 17.10., 21:06 |
 | Homer | [Homer – 72.10a Spielanleitung und Ideen (17.10., 21:32)](https://claude.ai/code/session_01B6ShdZgVoMGx7DBn4xWorD) | 72.10a | – | 17.10., 21:32 |
+| Tom | [Tom – 152.1 Build 18 auf main (17.10., 22:12)](https://claude.ai/code/session_019EmCYqfV31MZZSTfG2HEeQ) | 152.1 | – | 17.10., 22:12 |
