@@ -173,6 +173,15 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         prefs.edit().putInt(KEY_STICK, stickFeel).apply()
     }
 
+    /** 131: a button to run with beside the joystick, besides pushing past its ring; off by default. */
+    var runButton by mutableStateOf(prefs.getBoolean(KEY_RUN_BUTTON, false))
+        private set
+
+    fun toggleRunButton() {
+        runButton = !runButton
+        prefs.edit().putBoolean(KEY_RUN_BUTTON, runButton).apply()
+    }
+
     /** 6l: the map one step nearer (5.6 tiles across) instead of the default 6.75; kept across starts (`MapZoom`). */
     var mapNear by mutableStateOf(prefs.getBoolean(KEY_MAP_NEAR, false))
         private set
@@ -473,6 +482,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_TEMPO = "battle_tempo"
         private const val KEY_AUTO = "battle_auto"
         private const val KEY_STICK = "stick_feel"
+        private const val KEY_RUN_BUTTON = "run_button"
         private const val KEY_MAP_NEAR = "map_near"
         private const val KEY_VOL_ALL = "volume_all"
         private const val KEY_VOL_MUSIC = "volume_music"
