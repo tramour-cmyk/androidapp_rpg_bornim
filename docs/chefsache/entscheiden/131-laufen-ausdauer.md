@@ -2,7 +2,7 @@
 
 Sokrates · 17.10., 15:2x · G Balance · Auftrag Chef 17.10., 00:41 („Build 11 passt. @Sokrates Müssen nochmal über Laufen, Gehen, Ausdauer und Nachteile sprechen. Oder mit Perikles?“), zu 86 (Jerry, auf `main`)
 
-Kurz: Laufen, Gehen, Ausdauer (Empfehlung F: Joystick nur Gehen, langsamer; Rennen über Taste, kurz; Schleichen später)
+Kurz: Laufen, Gehen, Ausdauer (Empfehlung F mit G: Gehen halb so schnell, Rennen über einen Ring am Joystick, kurz; Schleichen später)
 
 **Chef 17.10., 15:2x:** „das ist ein einziges Rennen über die Karte. Man kann irgendwie fast gar nicht langsamer machen. Also ich finde die Grundgeschwindigkeit des Gehens schon schnell. Und dann bin ich eh fast immer am Rennen. Und das hält viel zu lange. Wenn ich einen Magier wähle … Magierstufe 1. Ich muss viel eher die Puste ausgehen. … entweder gibt es dann einen Fuhrmann, der einen mitnimmt, oder es gibt andere Möglichkeiten. … Aber die Karten per se sind zum Erkunden da. … und da ist keine Steigerung erkennbar, dann mit irgendwelchen Tränken, oder weil ich Level 20 bin irgendwann, dann macht das für mich gar keinen Sinn.“
 
@@ -14,7 +14,15 @@ Kurz: Laufen, Gehen, Ausdauer (Empfehlung F: Joystick nur Gehen, langsamer; Renn
 
 - **F (nach Rückmeldung Chef, ersetzt E):** Drei Gangarten. **Gehen** ist alles, was der Joystick tut, und wird langsamer: Startwert etwa 1,5 Felder je Sekunde statt 3 (rund 2,2 m/s, zügiges Gehen; Chef 15:2x: „dann ist nämlich das Gehen im Spiel eigentlich joggen. Und das kann nicht sein. Das ist einfach zu schnell.“), im Test eichen, mit Unterschieden nach Volk, Rüstung, Geschick (unten). **Rennen** nur, solange eine Taste „Rennen“ gedrückt ist (wie in der klassischen Steuerung), kurz nach Konstitution und Stufe wie in E. **Schleichen** kommt mit eigener Taste, wenn Heimlichkeit gebaut wird (SRD Fertigkeit Heimlichkeit: langsamer, Monster bemerken später); bis dahin nicht. Weite Wege: Fuhrmann, Wegmarken (wie E).
 
-**Votum: F.** E fällt: der halbe Ausschlag ist am Handy nicht zu treffen (Chef). Gegenargument gegen F: eine Taste mehr auf dem Bildschirm, und Rennen braucht zwei Finger; dafür ist jede Gangart eine bewusste Wahl.
+**Chef 17.10., 15:2x, Bedienung:** „wenn ich jetzt eh schon Panik habe und will weglaufen vor dem Wolf … dann will ich nicht erst noch einen Finger wegmachen für Doppelklick … Kann man die Intensität des Drückens auf dem Bildschirm nehmen? … Festes Drücken wir rennen, leichtes Streicheln nicht … gibt es diese Sensoren bei Handys?“
+
+**Druck:** Android meldet einen Druckwert, auf fast allen Handys ist er aber nur die Größe der Auflagefläche, kein echter Druck (eigene Drucksensoren hatten nur ältere iPhones); auf dem Samsung A56 nicht verlässlich. Fällt aus.
+
+- **G (Bedienung zu F, ein Finger):** Gehen im ganzen inneren Kreis des Joysticks (groß, heute nur 1–11 mm). Rennen, wenn der Finger über einen sichtbaren Ring hinausgeschoben wird (etwa 2,5 cm vom Ansatz), mit kurzem Rütteln beim Umschalten und Wechsel des Rings auf Gold; Rennen bleibt, bis der Finger zurück in den Kreis geht oder die Puste aus ist. Taste „Rennen“ zusätzlich für die, die sie wollen (Menü).
+
+**Votum: F mit G.** Fliehen geht ohne Absetzen: einfach weiter schieben. **Gegenargument:** heute scheitert genau so ein Weg-Schalter; der Unterschied ist die Größe (innen 2,5 cm statt 1 cm), der sichtbare Ring und das Rütteln. Ob das reicht, zeigt nur ein Test; sonst Taste.
+
+~~Votum F~~: E fällt: der halbe Ausschlag ist am Handy nicht zu treffen (Chef). Gegenargument gegen F: eine Taste mehr auf dem Bildschirm, und Rennen braucht zwei Finger; dafür ist jede Gangart eine bewusste Wahl.
 
 **Zur Grundgeschwindigkeit:** Das SRD kennt Unterschiede nur nach Volk (Zwerg, Halbling 25 statt 30 Fuß) und Rüstung (schwere Rüstung ohne genug Stärke −10 Fuß), nicht nach Klasse oder Geschick. Für spürbare Unterschiede (Leitbild 4: SRD als Gerüst) Vorschlag: Gehen nach Volk und Rüstung wie im SRD, dazu Geschick ±5 % je Bonus; Rennen und Ausdauer nach Konstitution und Stufe wie in E. Rechnet man ein Feld wie im SRD mit 1,5 m, geht der Held also etwa 4,5 m/s, ein Mensch geht 1,4 m/s; das Spiel darf schneller sein, aber nicht als Joggen.
 
