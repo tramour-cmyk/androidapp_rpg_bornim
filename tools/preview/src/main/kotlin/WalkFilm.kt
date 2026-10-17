@@ -76,7 +76,7 @@ fun walkFilm(spec: String) {
             Thread.sleep(2)
         }
     }
-    run(800, false)
+    run(System.getenv("WALKWAIT")?.toInt() ?: 800, false)
     val c = Offset(540f, 1500f)
     scene.sendPointerEvent(PointerEventType.Press, c)
     run(50, false)
