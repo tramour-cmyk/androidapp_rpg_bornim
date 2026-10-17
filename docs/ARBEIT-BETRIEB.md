@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Vorgangsnummer: 147** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 148** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Sparmodus bis Sa 17.10., 21:00** (99d, `FIRMA.md` „Sparmodus“), **ausgesetzt Sa 17.10. 09:08–11:00 für die Zentrale** (Chef 17.10., 09:08: „Weck mal den Betrie bis auf die Niederlassung auf und lass mal probeweise alle so arbeiten, wie es sein soll. Ab 11100 Uhr gehst du wieder in den Sparmodus und lässt aktive Arbeitssitzungen ausklingen.“; „11100“ gelesen als 11:00): Ford Pilot, Starts nach Vorrang; ab 11:00 keine Starts, laufende Sitzungen beenden ihren Punkt
 
@@ -72,6 +72,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 - 16.10., 07:33: Stundenlauf ohne Tat (Jerry läuft); Ford 2 bisher ca. 185 Tsd. Token Kontext, drei Neustarts Jerry eingeschlossen
 
 ## Protokoll
+- 13:31 Start Perikles (147, Zuruf Chef trotz Sparmodus)
 - 13:25 17.10.: 146 doch zu 144 (Storyplan, Homer) statt Ideenspeicher; CLAUDE.md „Idee“: erst passenden Vorgang suchen, unsicher → Sokrates (Chef)
 - 13:10 17.10.: 146 in den Ideenspeicher statt Vorrat Homer (137); Chef: Idee abwägen (CLAUDE.md „Idee“, Urteil in LISTE-IDEEN)
 - 12:59 17.10.: 146 (Idee Chef, Figurenübersicht) an Homer, Kür
