@@ -75,6 +75,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 10:53 17.10.: Selbstneustart Ford (Vorgänger 3,76 $); Neustart Perikles 531b0b5b: 99h fertig, archiviert (1,12 $ auf 99); Nachfolger „Perikles – Tagesrückblick (90)“ erst 18.10.
 - 10:47 17.10.: von Sokrates: Chef entschied 99h 1–3 (Uhr aus ohne Arbeit, Neustart bei 150 Tsd., kleine Punkte mitnehmen) → Startsperre: 10:47 Start Perikles (99h Regeln, 99h.5); Ford startet sich danach neu (über 150 Tsd.)
 - 10:44 17.10.: von Sokrates: Chef entschied 132 (Muss, jetzt, mit 117) und 112 → Startsperre: 10:44 Start Tom (132 Spieldauer, vierter Spielstand)
 - 10:40 17.10.: Zuruf Chef: „Ich brauche mal Sokrates.“ → Startsperre: 10:40 Start Sokrates
