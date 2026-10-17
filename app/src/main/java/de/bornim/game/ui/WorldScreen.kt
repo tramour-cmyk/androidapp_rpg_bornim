@@ -1081,6 +1081,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 }
             }
         }
+        // 134.1: people with news for the hero hail him briefly with a golden sign over their head
+        val hails = visibleNpcs.filter { game.hailing(it) }.map { npcPos(it).let { (nx, ny) -> nx + T / 2f to ny.toFloat() } }
         // Monsters walking around; only those in sight are shown, the "!" of a hunter is heard from anywhere.
         val alerts = mutableListOf<Pair<Float, Float>>()
         for (r in game.roamers) {
@@ -1353,6 +1355,18 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             drawRoundRect(Color.White, Offset(bx, by), androidx.compose.ui.geometry.Size(9f * scale, 12f * scale), androidx.compose.ui.geometry.CornerRadius(2f * scale))
             drawRect(Color(0xFFD83030), Offset(bx + 3.5f * scale, by + 2f * scale), androidx.compose.ui.geometry.Size(2f * scale, 5f * scale))
             drawRect(Color(0xFFD83030), Offset(bx + 3.5f * scale, by + 8.5f * scale), androidx.compose.ui.geometry.Size(2f * scale, 1.5f * scale))
+        }
+        for ((ax, ay) in hails) {
+            // 134.1: a golden "!" without the white card of the monsters (D3.5), with a dark rim to stand out on any ground
+            val fx = (ax - camX) * scale; val fy = (ay + T / 2f - camY) * scale
+            val bx = cam.toScreenX(fx, fy) - 1.5f * scale
+            val by = cam.toScreenY(fx, fy) - (T + 30f) * scale
+            val rim = Color(0xB0201408)
+            val gold = Color(0xFFF0C850)
+            drawRect(rim, Offset(bx - scale, by - scale), androidx.compose.ui.geometry.Size(5f * scale, 8f * scale))
+            drawRect(rim, Offset(bx - scale, by + 8.5f * scale), androidx.compose.ui.geometry.Size(5f * scale, 4.5f * scale))
+            drawRect(gold, Offset(bx, by), androidx.compose.ui.geometry.Size(3f * scale, 6f * scale))
+            drawRect(gold, Offset(bx, by + 9.5f * scale), androidx.compose.ui.geometry.Size(3f * scale, 2.5f * scale))
         }
 
 
