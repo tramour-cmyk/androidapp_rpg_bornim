@@ -2,11 +2,12 @@
 
 **Wer gerade woran** (98.5). Schreibt nur Ford bei jedem Lauf aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 17.10., 09:41 (Ford; Jerry-Zeilen Ford 2)
+**Stand:** 17.10., 09:49 (Ford; Jerry-Zeilen Ford 2)
 
 | Rolle | Sitzung | Zeile | Zweig | seit |
 |---|---|---|---|---|
 | Ford | [Ford – Betriebsleiter (17.10., 09:37)](https://claude.ai/code/session_011Gp2Rv1XPqcVRJ5GZ6diEo) | Betrieb | – | 17.10., 09:37 |
+| Tom | [Tom – 134 Ausrufezeichen und Gesten prüfen (17.10., 09:48)](https://claude.ai/code/session_019kHrv8JyHy6iVQQoXG3a9j) | 134 | claude/tom-134-ausrufezeichen | 17.10., 09:48 |
 | Homer | [Homer – 39.2 Wortlaut Schwierigkeitsgrad (17.10., 09:40)](https://claude.ai/code/session_01Mb44yztF3KBduCB6zXRVHz) | 39 | claude/homer-39-wortlaut | 17.10., 09:40 |
 | Diogenes | [Diogenes – 38 D4.1 neu messen (17.10., 09:08)](https://claude.ai/code/session_01VHkZ3gU8SN2xVwtch4MndG) | 38 | – | 17.10., 09:08 |
 | Ford 2 | [Ford 2 – Niederlassungsleiter (17.10., 03:34)](https://claude.ai/code/session_01Bgr3YihKQVLNAM59U56Cva) | Betrieb Pro | – | 17.10., 03:34 |
