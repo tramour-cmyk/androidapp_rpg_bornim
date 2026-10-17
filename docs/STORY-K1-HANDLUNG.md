@@ -121,3 +121,13 @@ Das erste Licht des Tages fällt durchs Fenster. Das Amulett fängt es auf.
 
 `[68.tempel.5]` (Bild: Lyra allein, Blick in die Dämmerung; leiser Hinweis auf Kapitel 2)
 Bornim atmet auf. Nur Lyra sieht noch lange ins Grau hinaus.
+
+## Fleisch an die Wirtin (139)
+
+`[139.rowena.fleisch]` (Rowena, wenn der Held rohes Fleisch dabeihat; vor dem Verkauf)
+Frisches Fleisch aus dem Wald? Gib her, daraus wird morgen der Eintopf im Greif.
+EN: Fresh meat from the woods? Hand it over, it'll be tomorrow's stew at the Griffin.
+
+`[139.rowena.danke]` (nach dem Verkauf)
+Ehrlicher Preis für ehrliche Ware. Komm wieder, wenn du mehr erlegst.
+EN: An honest price for honest goods. Come back when you've hunted more.
