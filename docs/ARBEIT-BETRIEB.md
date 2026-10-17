@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Vorgangsnummer: 134** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 135** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Sparmodus bis Sa 17.10., 21:00** (99d, `FIRMA.md` „Sparmodus“), **ausgesetzt Sa 17.10. 09:08–11:00 für die Zentrale** (Chef 17.10., 09:08: „Weck mal den Betrie bis auf die Niederlassung auf und lass mal probeweise alle so arbeiten, wie es sein soll. Ab 11100 Uhr gehst du wieder in den Sparmodus und lässt aktive Arbeitssitzungen ausklingen.“; „11100“ gelesen als 11:00): Ford Pilot, Starts nach Vorrang; ab 11:00 keine Starts, laufende Sitzungen beenden ihren Punkt
 
@@ -74,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 09:48 17.10.: Idee Chef → 134 (Ausrufezeichen und Mikrogesten bei Leuten mit Neuem) an Tom (K, prüfen); Startsperre: 09:48 Start Tom (134 prüfen, Kür, kein Muss startbar)
 - 09:40 17.10.: archiviert Tom 132 (0,70 $ auf 132), Tom 2 Übernahme D21 (1,09 $ auf D21), Perikles 99 (1,25 $ auf 99), Homer 112 (1,34 $ auf 112); Diogenes offen (Chef spricht dort); Startsperre: 09:40 Start Homer (39.2 Wortlaut Schwierigkeitsgrad, Muss)
 - 09:38 17.10.: Ford vom Chef von Hand neu (110, Tiefe 0) → session_011Gp2Rv…; Uhr trig_01C93THa7J9s6YNsT74H9ZAZ angelegt und geprüft, alte Uhr trig_01Y44JZv22h4mpFANruNYxH3 gelöscht, alter Ford session_01EshK4E… archiviert (6,55 $ auf Betrieb)
 - 09:32 17.10.: Tom D23.2 bestätigt (c4a37c55), Zeile an Homer, archiviert (Kosten fehlt); Startsperre: 09:32 Start Tom (132 Spieldauer im Spielstand)
