@@ -161,7 +161,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 139 | Fleisch an die Wirtin verkaufen | E Welt | M |  | Homer, Tom | offen |
 | 140 | Monster-Geräusche, Rest | E Klang | K |  | Jerry | offen |
 | 141 | Klänge überarbeiten, Rest | E Klang | K |  | Jerry | offen |
-| 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | K |  | Sokrates | offen |
+| 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | K |  | Sokrates | zurückgestellt |
 | 134.1 | Goldenes Zeichen bei Leuten mit Neuem | E Figuren | M | 1,73 $ | Tom | erledigt |
 | 134.2 | Gesten zum Zeichen | E Figuren | K |  | Tom | offen |
 | 134.3 | Ruf als Klang zum Zeichen | E Klang | K |  | Jerry | offen |
