@@ -6,7 +6,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `8abeae7b` (15.10., 23:0x; für `tools/story.sh`)
 
-**Übergabe (17.10., 12:0x, 137):** Ideenspeicher `LISTE-IDEEN.md` nach Bereichen aufbereitet, je Idee Urteil; 133, 70 Rest, 84.2, 84.3, 52 (Jerry) hergeholt; 79 gestrichen (bei Jerry); 106.1 erledigt (D22.4 in `STORY-REGELN.md`, D22.5c mit dieser Übergabe). Zeile an Perikles (137). „Gelesen bis“ nicht weitergesetzt (neue Texte aus 86, 72.10 offen). Nachfolger: keiner nötig; nächstes Aufbereiten So 18.10.
+**Übergabe (17.10., 11:5x, 137):** Ideenspeicher `LISTE-IDEEN.md` nach Bereichen aufbereitet, je Idee Urteil; 133, 70 Rest, 84.2, 84.3, 52 (Jerry) hergeholt; 79 gestrichen (bei Jerry); 106.1 erledigt (D22.4 in `STORY-REGELN.md`, D22.5c mit dieser Übergabe). Zeile an Perikles (137). „Gelesen bis“ nicht weitergesetzt (neue Texte aus 86, 72.10 offen). Nachfolger: keiner nötig; nächstes Aufbereiten So 18.10.
 
 ## Zeilen
 
