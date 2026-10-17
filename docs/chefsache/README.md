@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [130](entscheiden/130-kampfgefuehl.md) | Kür | G Balance | 17.10. | Kampfgefühl in MARS – zurückgestellt für ein ruhiges Gespräch mit Sokrates (Chef 17.10., 15:2x); Name entschieden: MARS (130.1, Vorgangsarchiv) | Sokrates |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | Kür | E Kampf | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
 ## Anzusehen
