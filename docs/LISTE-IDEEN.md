@@ -2,7 +2,7 @@
 
 Ideen, die noch **nicht umgesetzt** sind, nach Bereichen (124). Hierher gehört jede Kür ohne Zweig, ohne Termin und ohne angefangene Arbeit (137); Kür mit angefangener Arbeit bleibt im Vorrat. **Sonntags** bereitet Homer auf (Urteil je Idee), **montags** holt Perikles beim Wochenziel Reifes in den Vorrat; „verwerfen?“ geht in die Chefrunde, verwerfen nur der Chef. Umgesetztes steht in der [Änderungshistorie](../CHANGELOG.md). Für alle Ideen gelten die [Stil-Leitlinien](DESIGN-STIL.md).
 
-**Urteil** (Homer): **reif** = kann in den Vorrat, sobald Perikles Platz hat; **später** = Bedingung fehlt (meist: nach dem Meilenstein Kapitel 1, Kapitel 2, eine Entscheidung); **verwerfen?** = erledigt, überholt oder doppelt, Chef entscheidet. Der Meilenstein (Kapitel 1 rund vor Neuem, `LISTE-ABNAHME-KAPITEL1.md`) macht fast alles Neue „später“.
+**Urteil** (Homer), je Idee kurz: Pro, Contra, Ergänzung, Bewertung, Folgerung (Chef 17.10.); dann **reif** = kann in den Vorrat, sobald Perikles Platz hat; **später** = Bedingung fehlt (meist: nach dem Meilenstein Kapitel 1, Kapitel 2, eine Entscheidung); **verwerfen?** = erledigt, überholt oder doppelt, Chef entscheidet. Der Meilenstein (Kapitel 1 rund vor Neuem, `LISTE-ABNAHME-KAPITEL1.md`) macht fast alles Neue „später“.
 
 **Aufbereitet:** 17.10., 11:5x (Homer, 137, erstmals). Aus den Vorräten hergeholt: 133, 70 (Rest), 84.2, 84.3 (Homer), 52, 79 (Jerry; 79 Perikles). Gestrichen, weil erledigt: Raumklang (119).
 
@@ -29,6 +29,7 @@ Aktive Abwehr per Tippen · Echte Gruppenkämpfe · Gefährte Lyra oder Garrick 
 
 ### Figuren
 
+- **146 Figurenübersicht erweitern** (Chef 17.10., 12:5x: „Beschreibung … groß, klein, dick …, nicht alles. Dann vielleicht typische Kleidung, dann Waffenfertigkeiten und Fähigkeiten, dann einen leichten Charakterzug … jähzornig, aufbrausend, ruhig, unterstützend … oder mehrere. Und vielleicht so ein … Schlüsselsatz oder … Schlüsselgeste.“): `LISTE-FIGUREN.md` hat Statur, Merkmal, Farben, Klang; es fehlen Waffen/Fähigkeiten, Charakterzug, Schlüsselsatz/-geste. → **noch ohne Urteil** (Homer, So 18.10.).
 - **Handlaterne für Jorin** (66a, 13.10.): Laterne in der freien Hand bei Nacht, neue Haltungen für Gehen, Wache, Abstellen. → **später:** neue Haltungen nach dem Meilenstein; Leerlauf (55) und Licht im Dorf (66) sind erledigt.
 - **114.1 Aufstehsequenz** (Chef 16.10., 12:2x: „Idee: Aufstehsequenz aus Bett?“): Held liegt und steht auf. → **später:** Tom empfiehlt „noch nicht“ (neue Bilder liegend und aufstehend in allen Richtungen); 114 selbst bleibt im Vorrat Homer (Entwurf PR #83).
 - **Mehr Abwechslung beim Helden** (Rest aus 08.10.): Ausweichen ist nur ein Hüpfer (zwei Seiten), der Speer hat zwei Stöße, Zauber eine Bewegung je Fokus. → **später:** mit 52.
