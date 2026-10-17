@@ -22,7 +22,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 11 | Höhle: Lichtstrahl am Lichtschacht | E Welt | – |  | Tom (von Jerry, 13y) | erledigt |
 | 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Q QS | – |  | Jerry, Tom | erledigt v0.1.483 |
 | 13 | Diagonale Sicht | E Welt | – |  | Tom | erledigt |
-| 13e | Höhle „Ort fertig“ (Zuteilung des Chefs an Tom) | E Welt | M |  | Tom | in Arbeit |
+| 13e | Höhle „Ort fertig“ (Zuteilung des Chefs an Tom) | E Welt | M |  | Tom | erledigt |
 | 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für die Vorräte) | B Werkzeuge | – |  | Sokrates | erledigt |
 | 15 | Offen-Liste entschlacken, Archiv, Themenliste (heute Vorräte, 98) | B Abläufe | – |  | Tom | erledigt |
 | 16 | Trefferstopp | E Kampf | – |  | Jerry | erledigt v0.1.460 |
