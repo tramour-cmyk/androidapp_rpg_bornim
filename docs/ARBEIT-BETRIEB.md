@@ -32,6 +32,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 
 ## Protokoll
+- 15:38 17.10.: von Sokrates (10cfc825, Zuruf Chef): 131 Muss jetzt an Tom, danach Release → Startsperre: 15:38 Start Tom (131 Gehen und Rennen)
 - 15:01 17.10.: Zuruf Chef → Startsperre: 15:01 Start Sokrates
 - 14:59 17.10.: Selbstneustart Ford (Vorgänger 1,45 $, auf Betrieb: Ford 23,04 $); Sparmodus bis 21:00, kein Start
 - 14:44 17.10.: Probe Aufwand (Auftrag Chef): Feld model=sonnet wirkt (claude-sonnet-5-5), /effort status „high“ in Opus Hoch; 0,00 $ (nur lokale Befehle), archiviert
