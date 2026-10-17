@@ -64,6 +64,17 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **Nachprüfung früherer Befunde:** D16.1 behoben (`LISTE-RELEASE-NEUSTART.md` 2 „nur bis Tiefe 6“). D18.1 erledigt (Umbau vorgezogen, ein Termin). D19.2, D19.3, D20.3 behoben. D21.1 und D21.2 in `CLAUDE.md` 4 und „Wo was steht“. **D21.3 offen**: `zug-index.py` gleicht noch nicht ab (Zeile D21 bei Tom, Start nach dem Max-Wechsel).
 
+## Vermerke zu Lauf 16–21 (Befunde im Artefakt)
+
+Eingearbeitet mit 106.1 (Perikles, 17.10., 09:1x); Wortlaut der Befunde im Artefakt.
+
+- **D16** (110 Tiefe): D16.1 behoben (`LISTE-RELEASE-NEUSTART.md` 2). D16.2 behoben (`LISTE-BETRIEB.md` „Tiefe“: Ford 2 ebenso, Tiefe in der Kennungszeile). D16.3 verworfen: „Dein Zug“ abgelöst durch die Chefsache (108).
+- **D17** (99g Umzug): D17.4, D17.5 entschieden (Vorgangsarchiv 99g). D17.1 umgesetzt (Bilder bleiben im Artefakt, `DESIGN-KAMPF.md`). D17.2, D17.3 offen mit 99g (Homer, nach Sa 17.10., 21:00).
+- **D18** (125, 106.1): D18.1 erledigt. D18.2, D18.4 umgesetzt („Dein Maß“ je Rolle, Diogenes zählt, `FIRMA.md`). D18.3 umgesetzt (90 und Woche mit Zählung durch Diogenes). D18.5 umgesetzt („fehlt“, `LISTE-PRUEFUNG.md`).
+- **D19** (126): D19.1 nicht übernommen: Umbau 106.1 führt Muss und Kür als Spalte „Kl.“, nicht als Abschnitte. D19.2, D19.3 behoben. D19.4 umgesetzt: Zielwerte erst nach Woche 18.–24.10. (106.1), Übernahme im Vorrang (`FIRMA.md`, 118).
+- **D20** (128): D20.1 entschieden (128, Jerry pausiert). D20.2 umgesetzt (`FIRMA.md` Kennzahlen). D20.3 behoben.
+- **D21** (Abgleich): D21.1, D21.2 umgesetzt (`CLAUDE.md` 4, „Wo was steht“). D21.3 behoben (`zug-index.py` „Lücken“, Tom 17.10.).
+
 ## Kosten
 
 Lauf 22: etwa 200.000 Token (davon rund 100.000 für das Lesen des Artefakts), kein Standbild, keine Agenten; vier Befunde der Klasse 1 und 2, einer klein. Frühere Läufe im Artefakt.

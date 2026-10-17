@@ -4,15 +4,15 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **offen 10, Muss 1, A 0, Chefsache 0**
 
-**Gelesen bis:** `ad364813` (17.10., 00:19)
+**Gelesen bis:** `799f7cf4` (17.10., 09:08)
 
-**Übergabe (17.10., 00:19, „Perikles – 99g.2 Kopf abgelöst (17.10., 00:17)“):** 99g.2 erledigt (Zuruf Chef trotz Sparmodus): Artefakte Prüfbericht und Beschlüsse ganz gelesen, Kopf „abgelöst, gilt `docs/…`“ mit Link gesetzt und veröffentlicht. **Nachfolger: „Perikles – 106.1 Vermerke D16–D21“** (nach Sa 17.10., 21:00).
+**Übergabe (17.10., 09:1x, „Perikles – 106.1 Vermerke D16–D21 (17.10., 09:08)“):** Vermerke zu Lauf 16–21 im Prüfbericht eingetragen (alle eingearbeitet außer D17.2, D17.3 mit 99g). **Nachfolger: „Perikles – Tagesrückblick (90)“** (Probe ab 18.10.).
 
 ## Zeilen
 
 | Nr. | Kl. | Vorgang | Stand |
 |---|---|---|---|
-| 106.1 | M | Umbau Rollen und Namen (Paket mit 115, 117, 122, 124–126, 99g.1, 101, 102, 107, D16, D21; Chef 16.10., 22:0x: „106.1. Ja … und am Schluss muss Diogenes einmal wieder drüber prüfen“) | umgebaut 16.10.; Nachprüfung Diogenes bestellt; D16–D21 im Prüfbericht als eingearbeitet vermerken; Erste Woche 18.–24.10. Ausgangswert, Wochenzählung Mo 26.10., danach Zielwerte (D19.4) |
+| 106.1 | M | Umbau Rollen und Namen (Paket mit 115, 117, 122, 124–126, 99g.1, 101, 102, 107, D16, D21; Chef 16.10., 22:0x: „106.1. Ja … und am Schluss muss Diogenes einmal wieder drüber prüfen“) | umgebaut 16.10.; Nachprüfung Diogenes Lauf 22 (trägt); D16–D21 im Prüfbericht vermerkt (17.10.); offen nur D17.2, D17.3 mit 99g; Erste Woche 18.–24.10. Ausgangswert, Wochenzählung Mo 26.10., danach Zielwerte (D19.4) |
 | 99 | K | Zwei Niederlassungen (Chef 15.10., 19:0x): **99f Messung Ford 2** auswerten (Zeilen „Kosten Ford 2“ in `ARBEIT-BETRIEB.md`; über 10 % von Jerrys Woche → Ford 2 fällt weg, Chefsache mit Empfehlung); **Ford-2-Wache?** (Chef 16.10., 15:5x: „warum hat Ford 2 in der Niederlassung keine Ford 2 Wache? Braucht ihr das denn nicht?“): Empfehlung mit der Auswertung | offen; Abos prüfen um den 10.11. (99e) |
 | 99g | K | Gestaffelter Umzug ins Repo (Chef 16.10., 12:4x) | Prüfbericht umgezogen (Chef 16.10., 23:0x: „Jetzt“): `docs/PRUEFBERICHT.md` mit Lauf 22, Regeln (`LISTE-PRUEFUNG.md`, `ROLLE-PRUEFUNG.md`), Verweise; Lauf 1–21 bleiben im Artefakt. 99g.2 Kopf „abgelöst“ auf Prüfbericht und Beschlüsse erledigt (17.10.). Rest nach Sa 17.10., 21:00 über Homer (Zeile dort): Storyplan, Texte K2, Graumoor (D17.1–D17.5; Regeln an fünf Stellen, Freigabeliste `LISTE-NIEDERLASSUNG.md` 1a weg), dann Diogenes. Marktvergleich bleibt auf Max |
 | 117 | K | Ausmisten Rest (117.3) | `LISTE-NIEDERLASSUNG.md` auf „Pro neu einrichten“ kürzen (mit 99g, 1a fällt weg); Code-Kommentare bei Tom (Zeile 117) |
