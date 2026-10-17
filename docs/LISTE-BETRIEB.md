@@ -47,7 +47,7 @@ Steht oben in `ARBEIT-BETRIEB.md` („Ford: aus / Co-Pilot / Pilot“). Der Chef
 
 Startet nur Team Jerry auf Pro, wenn dessen Vorrat offen ist, keine Jerry-Sitzung läuft (auch keine der Zentrale laut Besetzung) und der Wochenverbrauch von Pro (Guthabenzeile) höchstens dem Anteil der verstrichenen Woche plus 10 % entspricht (Woche ab Fr. 03:00); sonst „Pause bis <Zeitpunkt>“ oben in Jerrys Vorrat. Meldet seine Starts selbst lautlos, schreibt Jerrys Zeilen in `ARBEIT-BESETZUNG.md` und erfasst Kosten wie oben (Neustart), auch seine eigenen auf Vorgang „Betrieb“. Prüfaufträge von Pro nur als Zeile. In der Sitzung genau „Ford 2 HH:MM ok“, alles andere per Telegram. Einrichten: `LISTE-NIEDERLASSUNG.md`.
 
-**Pause** (147.2): solange Jerry „Pause bis …“ hat, läuft Ford 2s Uhr alle 4 Stunden; der Lauf prüft Schwelle und Jerrys Vorrat, startet Jerry nur bei Luft und offener Muss-Zeile (Pause dann streichen), sonst schreibt er nichts. Bei 100 % Wochenverbrauch Pro Uhr aus bis Fr 03:00 (einmalige Aufgabe „Uhr an“). Eiliges schreibt der Chef Ford 2 direkt.
+**Pause** (147.2): solange Jerry „Pause bis …“ hat, läuft Ford 2s Uhr alle 4 Stunden; der Lauf archiviert zuerst fertige Jerry-Sitzungen ohne Nachfolger mit Kosten (wie „Neustart auf Meldung“), prüft dann Schwelle und Jerrys Vorrat, startet Jerry nur bei Luft und offener Muss-Zeile (Pause dann streichen), sonst schreibt er nichts. Bei 100 % Wochenverbrauch Pro Uhr aus bis Fr 03:00 (einmalige Aufgabe „Uhr an“). Eiliges schreibt der Chef Ford 2 direkt.
 
 ## Meldung und Laufbericht (81a, 81l, 81p)
 
