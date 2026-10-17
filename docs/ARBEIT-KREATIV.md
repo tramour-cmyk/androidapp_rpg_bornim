@@ -2,18 +2,18 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 19, Muss 0, A 0, Chefsache 1**
+**offen 19, Muss 1, A 0, Chefsache 2**
 
 **Gelesen bis:** `8abeae7b` (15.10., 23:0x; für `tools/story.sh`)
 
-**Übergabe (17.10., 11:5x, 137):** Ideenspeicher `LISTE-IDEEN.md` nach Bereichen aufbereitet, je Idee Urteil; 133, 70 Rest, 84.2, 84.3, 52 (Jerry) hergeholt; 79 gestrichen (bei Jerry); 106.1 erledigt (D22.4 in `STORY-REGELN.md`, D22.5c mit dieser Übergabe). Zeile an Perikles (137). „Gelesen bis“ nicht weitergesetzt (neue Texte aus 86, 72.10 offen). Nachfolger: keiner nötig; nächstes Aufbereiten So 18.10.
+**Übergabe (17.10., 21:22, 72.10a):** Spielanleitung und Ideenpapier zum neuen Kampf als Dokument, Ideen 72.10a.1–.14, Chefsache-Datei angelegt. Nachfolger: keiner nötig; nach Entscheid des Chefs Bauzeilen an Jerry, nächstes Aufbereiten So 18.10.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 112 | K | **Tempel neu malen nach Muster Intro** (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team Tom, Zeile 68): wenn Tom die Vorlage hat, misst Homer sie an den sieben Punkten der Abweichungsliste (`DESIGN-STIL.md`), bevor sie zum Chef geht | ruht bis nach dem Meilenstein (Kapitel 1); Stand in `LISTE-VORGAENGE.md` „ruht“ |
-| 72.10a | M | **jetzt (Chef 17.10., 21:3x):** Spielanleitung zum neuen Kampf **und** Ideenpapier als Artefakt (Dokument), Ideen durchnummeriert (72.10a.1 …), Chef entscheidet danach. Wortlaut Chef: „Der Homer soll mir mal das Spiel erklären, weil wir das jetzt umbauen. Nicht nur die Spielanleitung, sondern auch was man verbessern könnte. Magier, Zaubern geht ja gar nicht. Klarer verständlich, wer dran ist, was das Positionieren bringen soll. Schlecht animiert (später pimpen). Unterschiede zwischen den Klassen, was das bringt. Ausrüstungswechsel? Gegenstände nutzen? Viele Fragen. Ideen entwickeln, über die wir sprechen können.“ Ältere Wünsche: Chef 16.10., 22:1x, 17.10., 15:1x („jeden Kampf verloren, weil ich nie treffe“); von Sokrates. Name nach 130.1 | offen |
+| 72.10a | M | **jetzt (Chef 17.10., 21:3x):** Spielanleitung zum neuen Kampf **und** Ideenpapier als Artefakt (Dokument), Ideen durchnummeriert (72.10a.1 …), Chef entscheidet danach. Wortlaut Chef: „Der Homer soll mir mal das Spiel erklären, weil wir das jetzt umbauen. Nicht nur die Spielanleitung, sondern auch was man verbessern könnte. Magier, Zaubern geht ja gar nicht. Klarer verständlich, wer dran ist, was das Positionieren bringen soll. Schlecht animiert (später pimpen). Unterschiede zwischen den Klassen, was das bringt. Ausrüstungswechsel? Gegenstände nutzen? Viele Fragen. Ideen entwickeln, über die wir sprechen können.“ Ältere Wünsche: Chef 16.10., 22:1x, 17.10., 15:1x („jeden Kampf verloren, weil ich nie treffe“); von Sokrates. Name nach 130.1 | **Dokument fertig** ([Spielanleitung und Ideen](https://claude.ai/code/artifact/44fcae03-5cf2-40b6-b7bc-114ca8c9d54a), 72.10a.1–.14); wartet auf Chef, Chefsache 72.10a; danach Bauzeilen an Jerry, Namensliste Söldner (.5) mit 72.10 |
 | 72.10 | K | **von Team Jerry (16.10., 18:5x):** Wortlaut der Kampfmeldungen der Probe gegen Grak; gebaut mit sachlichen Platzhaltern in `core/.../Skirmish.kt` (`Msg72`: ankündigen, treffen, verfehlen, abwarten, Platz tauschen, fällt, bewusstlos, Kraft sammeln, Goblin eilt herbei, taumelt/vereitelt, Automatik hält an, Schlag halb/ganz abgefangen) und `SkirmishScreen.kt` (Perfekt/Gut/Verpasst, Hinweis zum Ring) | offen; nicht eilig, Probe läuft mit Platzhaltern |
 | 86.9 | K | **von Team Jerry:** Anzeige „betrunken“ (Met, SRD Vergiftet bis zur Rast): Chef 16.10., 15:3x „Zustand betrunken wegen Met und vergiftet, warum kein Status in Leiste?“ Gebaut ist nur die Wirkung; es fehlen Name (DE/EN), Kurztext und ob ein Zeichen in der oberen Leiste und im Kampf. **Dazu (Jerry 16.10., 20:3x, 86):** außer Atem in den Kampf = Initiative mit Nachteil, ohne Kampfzeile; Wortlaut nötig, falls der Kampf es sagen soll | offen; danach baut Jerry |
 | 114 | K | **von Team Tom:** Idee des Chefs prüfen: Aufwachen am Bett im Gasthaus, 114.1 Aufstehsequenz (Wortlaut in `LISTE-IDEEN.md`) | offen; Entwurf ohne Aufstehen in PR #83 (nicht auf `main`), Tom empfiehlt 114.1 „noch nicht“ |

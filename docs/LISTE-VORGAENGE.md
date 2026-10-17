@@ -147,7 +147,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K | 2,81 | Tom | erledigt |
 | 130 | Kampfgefühl der Probe 72.10 (Prüfpunkt 8.5) | G Balance | K |  | Sokrates | offen |
 | 130.1 | Name für den neuen Kampf und den Testkampf (statt „Probe“) | G Stil | K |  | Sokrates | offen |
-| 72.10a | Spielanleitung neuer Kampf | G Story | K |  | Homer | offen |
+| 72.10a | Spielanleitung neuer Kampf | G Story | M |  | Homer | Chef |
 | 72.10b | Probe gegen Grak: Stufe und Treffer | E Kampf | K |  | Jerry | offen |
 | 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | M | 1,93 $ | Tom | Test |
 | 131.1 | Feedback Chef Build 16: Joystick, Tempo, Beschleunigung | G Balance | M |  | Tom | Test |
