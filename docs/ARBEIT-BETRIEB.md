@@ -16,7 +16,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 - **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (17.10., 01:04)“ `session_01EshK4EhbFrGSCR6qeh3VYn` (seit 17.10., 01:04, Selbstneustart, Tiefe 6: kein weiterer Selbstneustart; Vorgänger `session_01XWRdGrGASFYbx6MMqjVV6Y` archiviert). Stundenuhr „Ford-Lauf“ `trig_01Y44JZv22h4mpFANruNYxH3` (:03, seit 01:04; alte Uhr `trig_01MHvLjkYXRb7JKbtriztn6a` gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
-- **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (16.10., 18:34)“ `session_017Gzi9LijVCMaW5UJrzYaXZ` (seit 16.10., 18:34; Vorgänger `session_013oK9KoFaRYSMbNWxWWtuW8` archiviert). Stundenuhr „Ford-2-Stundenuhr“ `trig_01DXxbKZYYttXJEEYeCyARt7` (:33, seit 18:34). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren. **Übergabe (17.10., 03:34) – Nachfolger: Ford 2 – Niederlassungsleiter (17.10., 03:34):** Selbstneustart (≈301 Tsd. Token): neue Uhr anlegen, prüfen, dann alte Uhr `trig_01DXxbKZYYttXJEEYeCyARt7` löschen und Vorgänger `session_017Gzi9LijVCMaW5UJrzYaXZ` archivieren. Jerry pausiert bis Mo 19.10., 21:00 (keine Sitzung läuft; Kampfgeheul PR #99 = Build 12 fertig). Bis dahin Läufe ohne Tat, nichts schreiben. In der Sitzung nur „Ford 2 HH:MM ok“.
+- **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (17.10., 03:34)“ `session_01Bgr3YihKQVLNAM59U56Cva` (seit 17.10., 03:34; Vorgänger `session_017Gzi9LijVCMaW5UJrzYaXZ` archiviert, 9,87 $). Stundenuhr „Ford-2-Stundenuhr“ `trig_01JVENqEgw8TKsZQXrJKHQn5` (:33, seit 03:34). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren. Jerry pausiert bis Mo 19.10., 21:00; bis dahin Läufe ohne Tat, nichts schreiben. In der Sitzung nur „Ford 2 HH:MM ok“.
 
 ## Eingang
 
@@ -75,7 +75,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
-- 03:34 17.10.: Start Ford 2 (Selbstneustart, ≈301 Tsd. Token) (Ford 2)
+- 03:35 17.10.: Ford 2 neu (Selbstneustart), Uhr trig_01JVENqEgw8TKsZQXrJKHQn5, alte Uhr gelöscht, Vorgänger archiviert (9,87 $, 315 Tsd. Token) (Ford 2)
 - 02:05 17.10.: Tom „Builds 8–13 nach main“ fertig (#101), archiviert, 2,87 $ zu gleichen Teilen auf 72.10, 86, D3, 129; Nachfolger 117 nach Sparmodus; sonst nichts
 - 01:12 17.10.: Chef zu 129a: nur Hühner erledigt, 68 und 26 offen → Vorgangsarchiv, Toms 129, Datei gelöscht
 - 01:06 17.10.: Idee Chef → 132 (Spieldauer im Spielstand, vierter Spielstand) an Tom (K, prüfen)
