@@ -117,7 +117,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 99h.5 | Testbuilds zum Durchspielen bündeln | B Abläufe | M | Perikles 0,10 $ | Perikles | erledigt |
 | 100 | Testschalter Ende Kapitel 1 | Q QS | K |  | Tom | zu testen |
 | 101 | Ford-Titel „Betriebsleiter“ | B Steuerung | – |  | Perikles | erledigt |
-| 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K | Diogenes 0,64 $, Perikles 1,26 $ | Perikles | offen |
+| 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Perikles | offen |
 | 103 | Kurz antworten (Haltung 5) | B Abläufe | – |  | Perikles | fertig |
 | 104 | Überspringen in Intro und Tempelszene fragt nach | E Oberfläche | – |  | Tom | erledigt |
 | 105 | Links in Telegram-Meldungen | B Werkzeuge | – |  | Perikles | erledigt |
@@ -188,13 +188,13 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 155 | Lagerfeuer in der Höhle: bleibt, Rast gesperrt (Feedback Chef Build 16) | G Höhle | M | Perikles 0,30 $, Jerry 0,43 $ | Jerry | Test |
 | 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? | Perikles 0,35 $ | Perikles | in Arbeit |
 | 157 | Ford von Hand auf opus und fremder Umgebung: so lassen oder neu in „WireStorm Mittel“? | B Steuerung | K |  | Ford | erledigt |
-| 158 | Ford-2-Lauf wie Fords Lauf fassen (Archivieren, Kosten, Besetzung, Fragen des Chefs) | B Abläufe | K |  | Perikles | erledigt |
+| 158 | Ford-2-Lauf wie Fords Lauf fassen (Archivieren, Kosten, Besetzung, Fragen des Chefs) | B Abläufe | K | Diogenes 0,64 $, Perikles 1,26 $ | Perikles | erledigt |
 | 158a | Abwägung 158 dauerhaft ablegen | B Abläufe | K |  | Perikles | erledigt |
 | 159 | Pro gekündigt: Niederlassung ruht, Jerry in der Zentrale, Messung Max 5x (Chef) | B Abläufe | M | 1,70 $ | Perikles | umgebaut; 159.1 Messung offen |
 | 160 | Design-Texte (Kampf, Heldenbau, Stil) wieder als Dokument zum Kommentieren? | B Abläufe | K | 0,74 $ | Perikles | erledigt |
 | 161 | 144 und 145: roter Faden und Karten je Kapitel, zwei Dokumente mit Querlink | G Story | K | 0,74 $ | Perikles | erledigt |
-| 162 | Klasse bei Abhängigkeit: wartet ein Punkt auf einen anderen, Muss statt Kür? (Chef) | B Abläufe | M |  | Perikles | erledigt |
-| 163 | Diogenes vor jedem Release (Schritt in der Release-Anleitung) | B Abläufe | M? |  | Perikles | erledigt |
+| 162 | Klasse bei Abhängigkeit: wartet ein Punkt auf einen anderen, Muss statt Kür? (Chef) | B Abläufe | M | 0,42 $ | Perikles | erledigt |
+| 163 | Diogenes vor jedem Release (Schritt in der Release-Anleitung) | B Abläufe | M? | 0,42 $ | Perikles | erledigt |
 | 163.1 | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz 23.10.) | B Kosten | K |  | Perikles | ruht bis 23.10. |
 | 164 | Testdatei-Format: Rollendatei-Satz und Formatprüfung in zug-index (Auslöser Jerry Build 19) | B Abläufe | M |  | Perikles | Befund Diogenes |
-| 165 | Ablaufstichprobe: wer findet Ablauffehler vor dem Chef (Empfehlung Tagesrückblick + Zählung) | B Abläufe | M |  | Perikles | läuft, Bilanz 23.10. |
+| 165 | Ablaufstichprobe: wer findet Ablauffehler vor dem Chef (Empfehlung Tagesrückblick + Zählung) | B Abläufe | M | 0,42 $ | Perikles | läuft, Bilanz 23.10. |
