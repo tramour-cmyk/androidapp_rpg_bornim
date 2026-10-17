@@ -831,6 +831,9 @@ fun main() {
         shot("50_rast_feuer", lastFrames = 150) { vm -> at(vm, Place("forest", 10, 9, Facing.RIGHT), 20 * 60) }
         shot("51_rast_feuer_lang_heute", lastFrames = 150) { vm -> at(vm, Place("forest", 10, 9, Facing.RIGHT), 20 * 60); vm.game!!.state.longRestDay = vm.game!!.state.day; vm.refresh() }
         shot("52_rast_schaenke", lastFrames = 150) { vm -> at(vm, Place("inn", 1, 3, Facing.UP), 20 * 60); val g = vm.game!!; while (g.mode is Mode.Dialog) g.advance(); vm.refresh() }
+        // 139: with raw meat Rowena asks for it first, then the counter offers the sale
+        shot("54_rast_fleisch_wort", lastFrames = 150) { vm -> at(vm, Place("inn", 1, 3, Facing.UP), 20 * 60); val g = vm.game!!; while (g.mode is Mode.Dialog) g.advance(); g.advance(); g.state.add("raw_meat", 3); g.state.place = Place("inn", 1, 3, Facing.UP); g.interact(); g.advance(); vm.refresh() }
+        shot("55_rast_fleisch_theke", lastFrames = 150) { vm -> at(vm, Place("inn", 1, 3, Facing.UP), 20 * 60); val g = vm.game!!; while (g.mode is Mode.Dialog) g.advance(); g.state.add("raw_meat", 3); g.state.place = Place("inn", 1, 3, Facing.UP); g.advance(); g.interact(); while (g.mode is Mode.Dialog) g.advance(); vm.refresh() }
         shot("53_rast_nachher", lastFrames = 150) { vm -> at(vm, Place("forest", 10, 9, Facing.RIGHT), 20 * 60); val g = vm.game!!; g.hero.hp = 2; g.rest(de.bornim.core.Resting.Kind.SHORT, de.bornim.core.Resting.Spot.FIRE); vm.refresh() }
         System.exit(0)
     }
