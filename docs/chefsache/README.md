@@ -8,6 +8,9 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [130](entscheiden/130-kampfgefuehl.md) | Kür | G Balance | 17.10. | Kampfgefühl nach Build 8 – wo ansetzen (Empfehlung A: erst Gegner, die verschiedene Antworten verlangen) | Sokrates |
+| [131](entscheiden/131-laufen-ausdauer.md) | Kür | G Balance | 17.10. | Laufen, Gehen, Ausdauer (Empfehlung B: Gehen schneller, Rennen kurz und laut) | Sokrates |
+| [142](entscheiden/142-pflichttest-play-store.md) | Kür | M Veröffentlichung | 17.10. | Play-Store-Konto und Pflichttest – ab wann (Empfehlung A: Konto jetzt, Tester sammeln ab Durchspielen 13.5) | Sokrates |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | Kür | E Kampf | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
 ## Anzusehen
