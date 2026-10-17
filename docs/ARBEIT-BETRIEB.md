@@ -72,6 +72,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 - 16.10., 07:33: Stundenlauf ohne Tat (Jerry läuft); Ford 2 bisher ca. 185 Tsd. Token Kontext, drei Neustarts Jerry eingeschlossen
 
 ## Protokoll
+- 14:32 17.10.: Probe Umgebungen (Auftrag Chef): Sonnet Mittel 0,25 $, Opus Hoch 0,33 $ (zusammen 0,58 $ auf Betrieb), beide archiviert; Ergebnis per Telegram
 - 14:17 17.10.: 84.5 Lichttrank (Idee Chef) und 148 Ideenspeicher ausmisten (Chef) an Homer; Sparmodus, kein Start
 - 14:05 17.10.: Perikles 147 fertig, archiviert, 2,84 $ auf 147; Tom läuft (D23.2 gebaut); Sparmodus, kein Start
 - 14:02 17.10.: Chef: Spalte „Build“ in Anzusehen leer → zug-index nimmt die Nummer aus dem Dateinamen t<n>, wenn die Kopfzeile kein „Build n“ hat (leer seit t14, 11:12; Build 13 kam nur aus der Sammelseite t13, um 13:59 zurückgezogen)
