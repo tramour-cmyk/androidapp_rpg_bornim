@@ -197,4 +197,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 163 | Diogenes vor jedem Release (Schritt in der Release-Anleitung) | B Abläufe | M? |  | Perikles | erledigt |
 | 163.1 | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz 23.10.) | B Kosten | K |  | Perikles | ruht bis 23.10. |
 | 164 | Testdatei-Format: Rollendatei-Satz und Formatprüfung in zug-index (Auslöser Jerry Build 19) | B Abläufe | M |  | Perikles | Prüfung Diogenes |
-| 165 | Ablaufstichprobe: wer findet Ablauffehler vor dem Chef (Empfehlung Tagesrückblick + Zählung) | B Abläufe | K |  | Perikles | wartet auf Chef |
+| 165 | Ablaufstichprobe: wer findet Ablauffehler vor dem Chef (Empfehlung Tagesrückblick + Zählung) | B Abläufe | M |  | Perikles | läuft, Bilanz 23.10. |

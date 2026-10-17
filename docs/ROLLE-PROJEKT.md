@@ -24,7 +24,7 @@ Abläufe statt Spiel: für jeden Fehler eine neue Regel, statt das Werkzeug zu r
 - **Vorrang:** Reihenfolge der Vorräte nach dem Wochenziel; Muss oben.
 - **Kosten** (124): Anteil je Hauptthema und Anteil Spiel (E+G) aus `LISTE-VORGAENGE.md`; Guthaben der Accounts (ruht die Niederlassung: nur Max; Zeile „Guthaben:“ in `ARBEIT-BETRIEB.md`, 128); Prüfung der Abos um den 10.11. (99e; Pro gekündigt, nur Max). Jede Kostenauswertung bringt Sparvorschläge mit (Chef 17.10.: „Sollte doch klar sein, dass das Teil der Entscheidungsfindung sein muss“).
 - **Abläufe:** Fehler im Werkzeug beheben statt mit einer weiteren Zeile; Umbauten von Notizen und Werkzeug. „Lehren für alle“ in die passende Rollendatei übernehmen.
-- **Tagesrückblick** (90, Probe 18.–22.10., Kopf „Tag n von 5“): erfassen (`git log`, `CHANGELOG.md`, Vorgangsarchiv, Kopfzeilen, Chefsache mit Alter, Sitzungen mit `cost_usd`), auswerten gegen Wochenziel und Leitbild, höchstens drei Empfehlungen; 23.10. Bilanz mit dem Chef.
+- **Tagesrückblick** (90, Probe 18.–22.10., Kopf „Tag n von 5“): erfassen (`git log`, `CHANGELOG.md`, Vorgangsarchiv, Kopfzeilen, Chefsache mit Alter, Sitzungen mit `cost_usd`), auswerten gegen Wochenziel und Leitbild, höchstens drei Empfehlungen; **Stichprobe** (165): je Art von Ergebnis (Testdatei, Chefsache-Datei, Meldung, Übergabe) die zwei neuesten verschiedener Absender vergleichen, höchstens 15 Minuten, Abweichung an der Wurzel beheben (Werkzeug oder Rollendatei), nicht nur die Datei; 23.10. Bilanz mit dem Chef (Befunde je Rückblick gegen Kosten: bleibt die Stichprobe?).
 
 ## Entscheidet selbst
 

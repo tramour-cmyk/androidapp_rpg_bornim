@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**offen 13, Muss 2, A 0, Chefsache 1**
+**offen 13, Muss 2, A 0, Chefsache 0**
 
 **Gelesen bis:** `origin/main` 17.10., 19:5x (`9e2e74bb`)
 
@@ -12,4 +12,4 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Was | Termin |
 |---|---|---|---|
-| 165 | K | Ablaufstichprobe: wartet auf Chef (Chefsache 165); bei Ja Schritt in Tagesrückblick, Zählung bei Diogenes | Probe bis 23.10. |
+| 165 | M | Ablaufstichprobe läuft (Chef Ja 18.10.): Schritt in `ROLLE-PROJEKT.md` Tagesrückblick, Zählung in `ROLLE-PRUEFUNG.md`; Bilanz 23.10. | 23.10. |
