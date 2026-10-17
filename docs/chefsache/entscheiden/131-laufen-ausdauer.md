@@ -4,7 +4,7 @@ Sokrates · 17.10., 15:2x · G Balance · Auftrag Chef 17.10., 00:41 („Build 1
 
 Kurz: Laufen, Gehen, Ausdauer (Empfehlung E: Rennen kurz, Steigerung sichtbar, Gehen bleibt)
 
-**Chef 17.10., 15:3x:** „das ist ein einziges Rennen über die Karte. Man kann irgendwie fast gar nicht langsamer machen. Also ich finde die Grundgeschwindigkeit des Gehens schon schnell. Und dann bin ich eh fast immer am Rennen. Und das hält viel zu lange. Wenn ich einen Magier wähle … Magierstufe 1. Ich muss viel eher die Puste ausgehen. … entweder gibt es dann einen Fuhrmann, der einen mitnimmt, oder es gibt andere Möglichkeiten. … Aber die Karten per se sind zum Erkunden da. … und da ist keine Steigerung erkennbar, dann mit irgendwelchen Tränken, oder weil ich Level 20 bin irgendwann, dann macht das für mich gar keinen Sinn.“
+**Chef 17.10., 15:2x:** „das ist ein einziges Rennen über die Karte. Man kann irgendwie fast gar nicht langsamer machen. Also ich finde die Grundgeschwindigkeit des Gehens schon schnell. Und dann bin ich eh fast immer am Rennen. Und das hält viel zu lange. Wenn ich einen Magier wähle … Magierstufe 1. Ich muss viel eher die Puste ausgehen. … entweder gibt es dann einen Fuhrmann, der einen mitnimmt, oder es gibt andere Möglichkeiten. … Aber die Karten per se sind zum Erkunden da. … und da ist keine Steigerung erkennbar, dann mit irgendwelchen Tränken, oder weil ich Level 20 bin irgendwann, dann macht das für mich gar keinen Sinn.“
 
 **Nachgerechnet:** Gehen etwa 3 Felder je Sekunde, also eine Bildschirmbreite (6,75 Felder) in gut 2 s; Rennen etwa 5,7 Felder je Sekunde, 20 s lang = rund 110 Felder am Stück.
 
