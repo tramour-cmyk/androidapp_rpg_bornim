@@ -17,7 +17,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 6 | Innenräume (Schänke), Zoom (6.15) | E Welt | – |  | Tom | erledigt v0.1.471 |
 | 7 | Stopp-Punkt und Zusammenarbeit der Accounts | B Abläufe | – |  | Tom | erledigt |
 | 8 | Zusammenarbeit Tom und Jerry, Notizen nur auf `main` | B Abläufe | – |  | Jerry | erledigt |
-| 9 | Monster auf der Karte (9i Entwürfe) | E Figuren | K |  | Jerry | offen |
+| 9 | Monster auf der Karte (9i Entwürfe) | E Figuren | – |  | Jerry | erledigt |
 | 10 | Höhle: Flammen feiner | E Welt | – |  | Tom (von Jerry, 13y) | erledigt |
 | 11 | Höhle: Lichtstrahl am Lichtschacht | E Welt | – |  | Tom (von Jerry, 13y) | erledigt |
 | 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Q QS | – |  | Jerry, Tom | erledigt v0.1.483 |
@@ -28,7 +28,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 16 | Trefferstopp | E Kampf | – |  | Jerry | erledigt v0.1.460 |
 | 17 | Nachschwingen | E Figuren | – |  | Tom | erledigt |
 | 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | E Klang | K |  | Jerry | erledigt |
-| 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | offen |
+| 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | ruht |
 | 20 | Uhrzeit der APK im ZIP | B Werkzeuge | – |  | Tom | erledigt |
 | 21 | Releaseflut eindämmen | B Werkzeuge | – |  | Jerry | erledigt |
 | 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | B Abläufe | – |  | Tom | erledigt |
@@ -145,6 +145,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | Idee |
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K | 0,72 | Jerry | offen |
-| D21 | Abgleich Vorrat gegen Chefsache | Q QM | M | 2,08 | Tom, Jerry | Jerry |
+| D21 | Abgleich Vorrat gegen Chefsache | Q QM | – | 2,08 | Tom, Jerry | erledigt |
 | D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen) | G Balance | M? |  | Jerry, Tom | offen |
 | Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |
