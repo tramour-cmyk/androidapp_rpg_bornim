@@ -23,7 +23,6 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- 17.10., 18:2x, Ford: 157 Ford läuft auf opus in Umgebung `env_01YH2om4…` statt sonnet „WireStorm Mittel“ (von Hand gestartet, 110); wartet auf Chef (Chefsache 157)
 - 17.10., 09:3x, von Perikles (99h, Zuruf Chef): Messung Leitung 20.10., 00:00 – 21.10., 24:00: Ford und Ford 2 tragen beim eigenen Neustart und am Ende der Messung ihre `cost_usd` in die Zeile „Betrieb“ von `LISTE-VORGAENGE.md` ein, getrennt „Ford x $ · Ford 2 y $“; Auswertung Perikles 22.10.
 - 17.10., 00:0x, von Tom (62078f62): Nachfolger „Tom – 117 Verweise im Code“ erst nach Sa 17.10., 21:00 oder auf Zuruf starten (vorher #100 zusammenführen, Build 13 passt), dann Zeile streichen
 
@@ -33,6 +32,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 
 ## Protokoll
+- 18:23 17.10.: 157 Chef: „Ich starte dich nochmal mit Wildstorm Mittel neu. Mein Fehler.“ → neuer Ford übernimmt Uhr `trig_01KNsW6MA8WGBDcRaRpKJK3D` (löschen, eigene anlegen) und archiviert `session_01ERcnjwM44tLiTHy1t4mmPQ`
 - 18:20 17.10.: Ford von Hand neu (110, Tiefe 0): Uhr übernommen, Vorgänger archiviert, 0,92 $ auf Betrieb; Chefsache 110 gelöscht; Sparmodus, kein Start
 - 18:2x 17.10.: Perikles (Vorrat durchsehen, 112 ruht) fertig, archiviert, 1,90 $ auf „Betrieb“
 - 17:59 17.10.: Tom (131.1, 151–153, e23a37d4, Build 0.1.828, t17 beim Chef) archiviert, 4,57 $ zu gleichen Teilen auf 131, 151, 152, 153; Nachfolger 138 (Kür) erst ab 21:00 (Sparmodus)

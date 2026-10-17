@@ -183,4 +183,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 154 | Goldverlust beim Tod zu hart (Feedback Chef Build 16) | G Balance | M? | Perikles 0,50 $ | Jerry | erledigt |
 | 155 | Lagerfeuer in der Höhle: bleibt, Rast gesperrt (Feedback Chef Build 16) | G Höhle | M | Perikles 0,30 $ | Jerry | Test |
 | 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? | Perikles 0,35 $ | Perikles | in Arbeit |
-| 157 | Ford von Hand auf opus und fremder Umgebung: so lassen oder neu in „WireStorm Mittel“? | B Steuerung | K |  | Ford | Chefsache |
+| 157 | Ford von Hand auf opus und fremder Umgebung: so lassen oder neu in „WireStorm Mittel“? | B Steuerung | K |  | Ford | erledigt |
