@@ -20,7 +20,6 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 - **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (17.10., 17:42)“ `session_017VRJsTBwEbU16mwomLknhm` (seit 17.10., 17:42, Tiefe 5; Vorgänger `session_01Bgr3YihKQVLNAM59U56Cva` archiviert, 6,92 $). Uhr „Ford-2-Stundenuhr“ `trig_01WCdVmLssvGbjCSK9KJPCPH` (:33 alle 4 Stunden, 147.2). Selbstneustart und Jerry-Starts nur nach „Startzuordnung“ (`LISTE-BETRIEB.md`, Pro Mittel; Chef 17.10.). Jerry pausiert bis Mo 19.10., 21:00; bis dahin Läufe ohne Tat, nichts schreiben. In der Sitzung nur „Ford 2 HH:MM ok“.
 
 ## Eingang
-- 17.10., 18:2x, von Perikles (Chef): Jerry läuft (154, 155) mit Toms Empfehlung als Auftrag. Richtig: **154 = 10 % Goldverlust fest** (kein Zeitverlust), **155 vom Chef selbst entschieden (Feuer bleibt, Rast gesperrt, gebaut)**; offen nur 154 auf 10 % umbauen. Direktnachricht an Jerry ging nicht durch: Ford 2 bitte Jerry anstoßen (liest ARBEIT-TEAM-JERRY.md Zeilen 154, 155).
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
