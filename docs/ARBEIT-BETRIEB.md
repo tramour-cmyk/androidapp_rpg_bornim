@@ -32,6 +32,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 
 ## Protokoll
+- 18:30 17.10.: 157.1 Chef „Ja.“ zum Selbstneustart auf sonnet, Mittel (diese Sitzung lief auf opus) → Start Ford
 - 18:25 17.10.: Ford von Hand neu (157, Mittel, Tiefe 0): Uhr übernommen, Vorgänger archiviert, 1,53 $ auf Betrieb; Sparmodus, kein Start
 - 18:23 17.10.: 157 Chef: „Ich starte dich nochmal mit Wildstorm Mittel neu. Mein Fehler.“ → neuer Ford übernimmt Uhr `trig_01KNsW6MA8WGBDcRaRpKJK3D` (löschen, eigene anlegen) und archiviert `session_01ERcnjwM44tLiTHy1t4mmPQ`
 - 18:20 17.10.: Ford von Hand neu (110, Tiefe 0): Uhr übernommen, Vorgänger archiviert, 0,92 $ auf Betrieb; Chefsache 110 gelöscht; Sparmodus, kein Start
