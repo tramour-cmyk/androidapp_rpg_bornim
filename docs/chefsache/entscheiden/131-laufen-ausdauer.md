@@ -2,13 +2,21 @@
 
 Sokrates · 17.10., 15:2x · G Balance · Auftrag Chef 17.10., 00:41 („Build 11 passt. @Sokrates Müssen nochmal über Laufen, Gehen, Ausdauer und Nachteile sprechen. Oder mit Perikles?“), zu 86 (Jerry, auf `main`)
 
-Kurz: Laufen, Gehen, Ausdauer (Empfehlung E: Rennen kurz, Steigerung sichtbar, Gehen bleibt)
+Kurz: Laufen, Gehen, Ausdauer (Empfehlung F: Joystick nur Gehen, langsamer; Rennen über Taste, kurz; Schleichen später)
 
 **Chef 17.10., 15:2x:** „das ist ein einziges Rennen über die Karte. Man kann irgendwie fast gar nicht langsamer machen. Also ich finde die Grundgeschwindigkeit des Gehens schon schnell. Und dann bin ich eh fast immer am Rennen. Und das hält viel zu lange. Wenn ich einen Magier wähle … Magierstufe 1. Ich muss viel eher die Puste ausgehen. … entweder gibt es dann einen Fuhrmann, der einen mitnimmt, oder es gibt andere Möglichkeiten. … Aber die Karten per se sind zum Erkunden da. … und da ist keine Steigerung erkennbar, dann mit irgendwelchen Tränken, oder weil ich Level 20 bin irgendwann, dann macht das für mich gar keinen Sinn.“
 
 **Chef 17.10., 15:2x, dazu:** „wie lange gehe ich denn sonst, wenn ich von einem Haus zum anderen gehe? Dass das so langsam muss es im Zweifelsfall nicht unbedingt sein, aber es müssen sich ja irgendwie in der Grundgeschwindigkeit Klassenunterschiede und Attributsunterschiede herausstellen lassen. Weil ansonsten bringt das alles nichts.“ Noch nicht entschieden: „Das muss ich mir erst durchlesen.“
 
-**Zur Grundgeschwindigkeit (Ergänzung zu E):** Das SRD kennt Unterschiede nur nach Volk (Zwerg, Halbling 25 statt 30 Fuß) und Rüstung (schwere Rüstung ohne genug Stärke −10 Fuß), nicht nach Klasse oder Geschick. Für spürbare Unterschiede (Leitbild 4: SRD als Gerüst) Vorschlag: Gehen nach Volk und Rüstung wie im SRD, dazu Geschick ±5 % je Bonus; Rennen und Ausdauer nach Konstitution und Stufe wie in E. Rechnet man ein Feld wie im SRD mit 1,5 m, geht der Held also etwa 4,5 m/s, ein Mensch geht 1,4 m/s; das Spiel darf schneller sein, aber nicht als Joggen.
+**Chef 17.10., 15:2x, weiter:** „ich stoppe jetzt schon keinen halben Anschlag und bin immer nur am Rennen. Und kann schon nicht normal gehen. … Also gehen bleibt nicht, wie es ist. Gehen muss prinzipiell schon mal langsamer sein. … Gleichen [Schleichen] haben wir ja bis jetzt noch nicht. Bräuchten wir vielleicht … Taste dazu oder wie? … über einen Joystick kannst du nicht schleichen … eigentlich gäbe es ja die Geschwindigkeit schleichen, gehen und rennen.“
+
+**Nachgesehen (Code):** der Joystick rennt heute schon ab einem Fingerweg von 70 dp (etwa 11 mm; Menü „fein“ 50, „ruhig“ 95, 86.4); darunter geht er. Der halbe Ausschlag gibt es also, er ist aber zu kurz, um ihn zu treffen. Eine Taste „Rennen“ gibt es nur in der klassischen Steuerung.
+
+- **F (nach Rückmeldung Chef, ersetzt E):** Drei Gangarten. **Gehen** ist alles, was der Joystick tut, und wird langsamer (etwa 2 Felder je Sekunde statt 3), mit Unterschieden nach Volk, Rüstung, Geschick (unten). **Rennen** nur, solange eine Taste „Rennen“ gedrückt ist (wie in der klassischen Steuerung), kurz nach Konstitution und Stufe wie in E. **Schleichen** kommt mit eigener Taste, wenn Heimlichkeit gebaut wird (SRD Fertigkeit Heimlichkeit: langsamer, Monster bemerken später); bis dahin nicht. Weite Wege: Fuhrmann, Wegmarken (wie E).
+
+**Votum: F.** E fällt: der halbe Ausschlag ist am Handy nicht zu treffen (Chef). Gegenargument gegen F: eine Taste mehr auf dem Bildschirm, und Rennen braucht zwei Finger; dafür ist jede Gangart eine bewusste Wahl.
+
+**Zur Grundgeschwindigkeit:** Das SRD kennt Unterschiede nur nach Volk (Zwerg, Halbling 25 statt 30 Fuß) und Rüstung (schwere Rüstung ohne genug Stärke −10 Fuß), nicht nach Klasse oder Geschick. Für spürbare Unterschiede (Leitbild 4: SRD als Gerüst) Vorschlag: Gehen nach Volk und Rüstung wie im SRD, dazu Geschick ±5 % je Bonus; Rennen und Ausdauer nach Konstitution und Stufe wie in E. Rechnet man ein Feld wie im SRD mit 1,5 m, geht der Held also etwa 4,5 m/s, ein Mensch geht 1,4 m/s; das Spiel darf schneller sein, aber nicht als Joggen.
 
 **Nachgerechnet:** Gehen etwa 3 Felder je Sekunde, also eine Bildschirmbreite (6,75 Felder) in gut 2 s; Rennen etwa 5,7 Felder je Sekunde, 20 s lang = rund 110 Felder am Stück.
 
