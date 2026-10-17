@@ -10,7 +10,8 @@ Kurz: Ford 2 archiviert fertige Jerry-Sitzungen wie Ford, mit festem Kriterium �
 2. Der Absatz endet weiter mit „sonst schreibt er nichts“, obwohl der Lauf jetzt archiviert, Kosten und Besetzung schreibt.
 3. Das Archivieren steht nur unter „Pause“. Ohne Pause sagt die Ford-2-Regel nur „erfasst Kosten wie oben (Neustart)“, also nur auf Meldung einer Sitzung, die nie kommt, wenn sie ohne Nachfolger endet.
 4. „Besetzung pflegen“: `ARBEIT-BESETZUNG.md` wird bei jedem Lauf neu aus `list_sessions` geschrieben; im Pausenlauf nicht (siehe 2). Eine beendete Jerry-Sitzung bliebe bis Montag als „laufend“ stehen.
-5. Fragen des Chefs: Fords Lehre (81v, 15.10.) und „nichts Neues anfangen“ (16.10., `ROLLE-BETRIEB.md` Lehren) stehen nur in `ROLLE-BETRIEB.md`; `LISTE-NIEDERLASSUNG.md` sagt zusätzlich „außer solchen, die auf einen Test des Chefs warten“, was zu `FIRMA.md` („wer ein Ergebnis hört, trägt es in Jerrys Vorrat ein“) nicht passt. Ferner: `ARBEIT-BETRIEB.md` sagt „Lauf ohne Tat nur Kopfzeilen“; Archivieren braucht `list_sessions`.
+5. Fragen des Chefs: Fords Lehre (81v, 15.10.) und „nichts Neues anfangen“ (16.10.) stehen nur in `ROLLE-BETRIEB.md`, nicht bei Ford 2 (die Klammer „außer Test des Chefs“ in `LISTE-NIEDERLASSUNG.md` steht nur in der einmaligen Startnachricht; schwacher Bruch, Diogenes D24.6). `ARBEIT-BETRIEB.md` sagt außerdem „Lauf ohne Tat nur Kopfzeilen“ und für Ford 2 noch „99h: Uhr aus, nichts schreiben“ (von 147.2 ersetzt); Archivieren braucht `list_sessions`.
+6. **Wurzel (Diogenes D24.1, hoch):** Jerrys „Neustart“-Meldung geht laut `LISTE-RELEASE-NEUSTART.md` 1a an Ford, der auf Pro nichts erreicht („Jerry ohne Ford: weiter mit 2“). Ford 2 ist nirgends Empfänger, „Kosten wie oben (Neustart)“ läuft ins Leere. Darum muss der Lauf selbst archivieren; im ersten Entwurf fehlte das.
 
 **Frage:** Soll Ford 2 so archivieren wie Ford, und nach welchem Kriterium?
 
@@ -21,13 +22,19 @@ Kurz: Ford 2 archiviert fertige Jerry-Sitzungen wie Ford, mit festem Kriterium �
 
 **Votum: A.** Ohne Archivieren fehlen Jerrys Kosten je Vorgang (124, Spalte „Kosten“ = „fehlt“), und die Messung „Ford 2 unter 10 % von Jerrys Woche“ (99f) und die Auswertung 99h am 22.10. rechnen mit Lücken. Ein festes Kriterium schützt vor dem Fehler, der 81v erzeugt hat (Sitzung mit Frage des Chefs archiviert). A ersetzt Sätze, es kommt keine neue Regel dazu (90a).
 
-**Entwurf (Wortlaut, den ich eintrage, wenn du ja sagst; ersetzt den letzten Satz von „Neustart auf Meldung“ und den Absatz „Pause“):**
+**Entwurf (nach Prüfung Diogenes, Lauf 24; Wortlaut, den ich eintrage, wenn du ja sagst; ersetzt den letzten Satz von „Neustart auf Meldung“ und den Absatz „Pause“):**
 
-> **Fertig** (158): eine Sitzung ist fertig, wenn (1) sie nicht läuft (Schritt 3: weder `working`/`blocked` noch `updated_at` jünger als 60 Minuten), (2) ihre Übergabe im Vorrat „Nachfolger: keiner“ nennt oder ihre Zeile „erledigt“/„zu testen“ ist, und (3) ihre letzte Nachricht (`list_events`, `kinds` `assistant`) keine offene Frage an den Chef enthält; ein ausstehender Test des Chefs hindert nicht, das Ergebnis trägt der, der es hört, in den Vorrat ein (`FIRMA.md`). Fertige Sitzungen ohne Neustart-Meldung archiviert der nächste Lauf ebenso: Kosten in die Zeile ihres Vorgangs, Besetzungszeile streichen; Team Jerry vorher „nichts Neues anfangen“ (`ROLLE-BETRIEB.md`).
+> **Fertig** (158): eine Sitzung ist fertig, wenn (1) sie nicht läuft (Schritt 3: weder `working`/`blocked` mit `updated_at` jünger als 60 Minuten noch offener Wecker) und (2) kein Hindernis besteht: keine eigene Datei in `docs/chefsache/entscheiden/` (Frage an den Chef), keine Zeile ihres Vorrats „wartet auf Chef“, keine offene Frage in ihrer letzten Nachricht (`list_events`, `kinds` `assistant`). Ein ausstehender Test des Chefs ist kein Hindernis; sein Ergebnis trägt, wer es hört, in den Vorrat ein. Fertige Sitzungen ohne Neustart-Meldung archiviert der nächste Lauf ebenso: Kosten in die Zeile ihres Vorgangs, Besetzungszeile streichen; Team Jerry vorher „nichts Neues anfangen“ (`ROLLE-BETRIEB.md`). Weder laufend noch fertig (Hindernis): archivieren nicht, und sie zählt als laufender Jerry, Ford 2 startet keinen zweiten.
 >
-> **Ford 2, jeder Lauf** (mit und ohne Pause): 1. fertige Jerry-Sitzungen archivieren (Fertig); 2. `ARBEIT-BESETZUNG.md` aus `list_sessions` nur schreiben, wenn sie abweicht; 3. Schwelle, Vorrat, Start (bei Pause nur bei Luft und offener Muss-Zeile, Pause dann streichen); 4. etwas getan → Protokollzeile, sonst nichts schreiben. **Pause** ändert nur den Takt: Uhr alle 4 Stunden, bei 100 % Pro aus bis Fr 03:00 (einmalige Aufgabe „Uhr an“).
+> **Ford 2, jeder Lauf** (mit und ohne Pause): 1. fertige Jerry-Sitzungen archivieren; 2. `ARBEIT-BESETZUNG.md` aus `list_sessions` nur schreiben, wenn sie abweicht; 3. Schwelle, Vorrat, Start (bei Pause nur bei Luft und offener Muss-Zeile, Pause dann streichen); 4. etwas getan → Protokollzeile, sonst nichts schreiben. **Pause** ändert nur den Takt: Uhr alle 4 Stunden, bei 100 % Pro aus bis Fr 03:00 (einmalige Aufgabe „Uhr an“).
+>
+> **Neustart-Meldung von Jerry** (`LISTE-RELEASE-NEUSTART.md` 1a): „Neustart Jerry, <Commit>“ geht an Ford 2 (Kennung in `ARBEIT-BETRIEB.md`), nicht an Ford.
 
-Folge: `ARBEIT-BETRIEB.md` „Lauf ohne Tat nur Kopfzeilen“ wird zu „Kopfzeilen und `list_sessions`“; `LISTE-NIEDERLASSUNG.md` verliert die Klammer „außer Test des Chefs“; `ROLLE-BETRIEB.md` Lehre „nichts Neues anfangen“ verweist auf die Regel.
+Folgeänderungen: `ARBEIT-BETRIEB.md` Eintrag Ford 2 („Lauf ohne Tat nur Kopfzeilen“, „nichts schreiben“) auf „Kopfzeilen und `list_sessions`“ ändern; `ROLLE-BETRIEB.md` Lehre „nichts Neues anfangen“ verweist auf die Regel. Kriterium „Übergabe/erledigt“ aus dem ersten Entwurf entfällt (D24.3: es gibt nur eine Übergabe je Rolle, Erledigtes wird gestrichen); der Test an Jerrys Zeile 155 hindert nicht (D24.4), Fragen stehen in der Chefsache statt nur im Verlauf.
+
+**Mehrkosten (Diogenes D24.7):** nicht beziffert. Bis Montag etwa 12 Pausenläufe zu je einem `list_sessions`; bei einer Jerry-Sitzung kommen `list_events` und ein Archivieren dazu. Die Messung 20.–21.10. (99h) liefert die Zahl; Sparhebel, falls zu teuer: `list_events` nur bei einer Jerry-Sitzung ohne Chefsache-Datei. Der Entwurf ändert damit auch Fords Maßstab für „fertig“ (gleiche Regel für Ford und Ford 2), nicht nur Ford 2.
+
+**Ergebnis Prüfung Diogenes (Lauf 24):** Ablauf der Niederlassung klappt noch nicht wie in der Zentrale; A trägt nur mit D24.1–D24.3 (oben eingearbeitet: 1 Empfänger, 2 Wecker, 3/4 Kriterium, 5 Sperre für zweiten Jerry, 6 Texte, 7 Kosten), sonst B. Brüche 1–4 und Datum stimmen, Gegenargument fair dargestellt.
 
 <details><summary>Warum, und das stärkste Gegenargument</summary>
 
@@ -37,8 +44,6 @@ Folge: `ARBEIT-BETRIEB.md` „Lauf ohne Tat nur Kopfzeilen“ wird zu „Kopfzei
 
 **Nicht geklärt, Entscheid bei dir:** „nichts Neues anfangen“ gilt in der Lehre nur für Jerry (Weiter-Haken); Ford archiviert Zentrale-Sitzungen ohne diese Nachricht. Entwurf übernimmt das so. Soll es für alle gelten, wäre das eine Änderung an Fords Lauf.
 
-**Prüfung Diogenes:** steht aus (Zeile `ARBEIT-PRUEFUNG.md`, Auftrag 158); sein Ergebnis kommt hier unten hinein.
-
 </details>
 
-Berührt: 158, 147.2, 99f, 99h (.2, .4), 81r, 81v, 124, 128, 98.5 (Besetzung), 65.4, 90a
+Berührt: 158, 81 (1a), 147.2, 99f, 99h (.2, .4), 81r, 81v, 124, 128, 98.5 (Besetzung), 65.4, 90a
