@@ -236,6 +236,14 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         return if (state.drunk) Resting.drunkNow else Resting.meadDrunk
     }
 
+    /** 139: Rowena buys all the hero's raw meat at the counter, at the price Thessa and Morwen pay. */
+    fun sellMeat(): T? {
+        val n = state.count("raw_meat")
+        if (n < 1) return null
+        sell("raw_meat", n)
+        return Resting.meatThanks
+    }
+
     // ------------------------------------------------------------ villagers strolling around
 
     private val walkers = HashMap<String, List<Walker>>()

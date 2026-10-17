@@ -63,6 +63,10 @@ object Resting {
     val longRested = T("Du hast acht Stunden gerastet. TP, ZP und Ausdauer sind voll.", "You rested for eight hours. HP, SP and stamina are full.")
     val meadDrunk = T("Du trinkst einen Met. Du bist erholt, die Ausdauer ist voll.", "You drink a mead. You feel refreshed, your stamina is full.")
     val drunkNow = T("Du trinkst einen Met. Du bist betrunken (Vergiftet) bis zur nächsten Rast.", "You drink a mead. You are drunk (poisoned) until your next rest.")
+    /** 139: Rowena buys the hero's raw meat at the counter, at the shop's price. */
+    val meatSell = T("Fleisch verkaufen · {0} Gold", "Sell meat · {0} gold")
+    // [139.rowena.danke]
+    val meatThanks = T("Rowena: „Ehrlicher Preis für ehrliche Ware. Komm wieder, wenn du mehr erlegst.“", "Rowena: “An honest price for honest goods. Come back when you've hunted more.”")
     val noGold = T("Dafür reicht dein Gold nicht.", "You don't have enough gold for that.")
     val staminaDrunk = T("{0} trinkt den Ausdauertrank. Bis zur nächsten Rast reicht der Atem doppelt so lange.", "{0} drinks the stamina draught. Until the next rest, the breath lasts twice as long.")
     val staminaAlready = T("Der Ausdauertrank wirkt noch bis zur nächsten Rast.", "The stamina draught still works until the next rest.")

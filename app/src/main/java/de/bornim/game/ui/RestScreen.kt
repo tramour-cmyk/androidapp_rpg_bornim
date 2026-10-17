@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Game
+import de.bornim.core.Items
 import de.bornim.core.Resting
 import de.bornim.core.Ui
 import de.bornim.game.GameViewModel
@@ -103,6 +104,13 @@ private fun RestBody(vm: GameViewModel, game: Game, spot: Resting.Spot) {
                         val price = Resting.meadPrice(s)
                         RestChoice(Resting.meadBuy.f(lang, price), Resting.meadDoes(lang), s.gold >= price) {
                             note = game.drinkMead()(lang)
+                            vm.save()
+                            vm.refresh()
+                        }
+                        // 139: Rowena buys raw meat, only while the hero carries some
+                        val meat = s.count("raw_meat")
+                        if (meat > 0) RestChoice(Resting.meatSell.f(lang, meat * game.sellPrice("raw_meat")), "${meat}× ${Items["raw_meat"].name(lang)}") {
+                            note = game.sellMeat()?.invoke(lang)
                             vm.save()
                             vm.refresh()
                         }
