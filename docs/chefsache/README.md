@@ -17,7 +17,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.828](ansehen/26-kapitel1-durchspielen.md) | – | 26 | E Welt | 17.10. |
-| 2 | [0.1.835](ansehen/t19-72-10a-mars.md) | Build 19 | MARS: Können, Tasche, Zugleiste, Wurfzahlen | Build 19 |  |
+| 2 | [0.1.835](ansehen/t19-72-10a-mars.md) | Build 19 | 72.10a MARS: Können, Tasche, Zugleiste, Wurfzahlen; 130.1/130.2 | E Kampf | 17.10. |
 
 ## So geht's
 
