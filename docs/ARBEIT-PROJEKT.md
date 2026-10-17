@@ -6,7 +6,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 17.10., 19:5x (`9e2e74bb`)
 
-**Übergabe (17.10., 19:4x, „Perikles – 158 Ford-2-Lauf (17.10., 18:32)“):** 158 entschieden (Variante A mit D24.1–D24.7) und in `LISTE-BETRIEB.md` („Fertig“, „Lauf von Ford 2“), `LISTE-RELEASE-NEUSTART.md` 1a, `ARBEIT-BETRIEB.md` eingetragen; 158a (Abwägung in `ROLLE-PROJEKT.md`) erledigt; Vorgangsarchiv 158, 158a. Kosten dieser Sitzung auf 158 (Ford erfasst beim Archivieren). Lehre: Ablaufbrüche zuerst gegeneinander lesen (Vorgang, Wortlaut, Quellen), dann erst Optionen; Diogenes vor der Chefsache einschalten lohnte (D24.1 Wurzel fehlte im Entwurf). **Nachfolger: „Perikles – 159 Niederlassung ruht (17.10., 19:5x)“** (159 ist Muss, Auftrag des Chefs in der Zeile).
+**Übergabe (17.10., 19:4x, „Perikles – 158 Ford-2-Lauf (17.10., 18:32)“):** 158 entschieden (Variante A mit D24.1–D24.7) und in `LISTE-BETRIEB.md` („Fertig“, „Lauf von Ford 2“), `LISTE-RELEASE-NEUSTART.md` 1a, `ARBEIT-BETRIEB.md` eingetragen; 158a (Abwägung in `ROLLE-PROJEKT.md`) erledigt; Vorgangsarchiv 158, 158a. Kosten dieser Sitzung auf 158 (Ford erfasst beim Archivieren). Lehre: Ablaufbrüche zuerst gegeneinander lesen (Vorgang, Wortlaut, Quellen), dann erst Optionen; Diogenes vor der Chefsache einschalten lohnte (D24.1 Wurzel fehlte im Entwurf). **Nachfolger: „Perikles – 159 Niederlassung ruht (17.10., 20:03)“** (159 ist Muss, Auftrag des Chefs in der Zeile).
 
 ## Zeilen
 
