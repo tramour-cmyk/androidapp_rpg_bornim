@@ -84,7 +84,8 @@ object MapFolk {
      */
     fun nudge(npc: de.bornim.core.Npc, map: de.bornim.core.MapDef): Pair<Int, Int> {
         val T = WorldArt.T
-        if (npc.id == "garrick") return T * 11 / 20 to 0
+        // 152: 0.55 of a tile kept the hero far off from the west; 0.35 still close to the fire
+        if (npc.id == "garrick") return T * 7 / 20 to 0
         val f = npc.facing
         if (map.tile(npc.x + f.dx, npc.y + f.dy) == de.bornim.core.Tile.COUNTER) return f.dx * T * 2 / 5 to f.dy * T * 2 / 5
         return 0 to 0

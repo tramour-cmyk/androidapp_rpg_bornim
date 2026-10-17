@@ -144,6 +144,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         val feet = de.bornim.core.audio.Footsteps.Feet()
         val breath = de.bornim.core.audio.Panting.Breath()
         var wasMoving = false
+        var pace = 0.0
         while (isActive) {
             // turned round at the edge of the map (67): once the line is read, one step back the way the hero came
             if (game.mode == Mode.Explore && !VeilMemory.active) game.stepBack?.let { d ->
@@ -199,9 +200,10 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 if (vx != 0.0 || vy != 0.0) {
                     // a tapped walk slows down for the last bit so it does not overshoot the middle of the tile
                     val left = if (sv == null && waypoints.isNotEmpty()) kotlin.math.hypot(vx, vy) else 9.0
-                    val pace = de.bornim.core.FreeWalk.pace(game.state.hero, runs) * (if (sv == null) 1.15 else 1.0)
+                    // 131.1: between walking and running the pace eases over a moment
+                    pace = de.bornim.core.FreeWalk.ease(pace, de.bornim.core.FreeWalk.pace(game.state.hero, runs) * (if (sv == null) 1.15 else 1.0), dt)
                     fw.walk(vx, vy, dt, pace * minOf(1.0, 0.25 + left * 4), now)
-                } else fw.walk(0.0, 0.0, dt, 0.0, now)
+                } else { pace = 0.0; fw.walk(0.0, 0.0, dt, 0.0, now) }
                 // 74: a step's sound each time a foot sets down, by the ground under it
                 if (feet.fell(fw.walked) && fw.moving && vm.stepsOn) {
                     val tile = game.map.tile(kotlin.math.floor(fw.x).toInt(), kotlin.math.floor(fw.y).toInt())

@@ -113,6 +113,34 @@ class FreeWalkTest {
             assertTrue(g.freeWalk.y >= d.y + 1 + FreeWalk.RADIUS - 1e-6, "body outside the door ${d.x},${d.y}: ${g.freeWalk.y}")
         }
     }
+
+    /** 152 (Chef, Build 16): Garrick can be come up to about as near from the west as from the south. */
+    @Test
+    fun garrickIsAsNearFromEverySide() {
+        val g = game("forest")
+        assertTrue(World["forest"].npcAt(10, 9, g.state) != null)
+        // where he is drawn, close to his fire
+        val gx = 10.5 + de.bornim.core.art.MapFolk.nudge(World["forest"].npcAt(10, 9, g.state)!!, World["forest"]).first / 32.0
+        fun near(from: Place, vx: Double, vy: Double): Double {
+            g.state.place = from
+            g.freeWalk.sync()
+            g.go(vx, vy, 2_000)
+            return kotlin.math.hypot(g.freeWalk.x - gx, g.freeWalk.y - 9.5)
+        }
+        val west = near(Place("forest", 8, 9, Facing.RIGHT), 1.0, 0.0)
+        val south = near(Place("forest", 10, 11, Facing.UP), 0.0, -1.0)
+        assertTrue(west < 0.95 && south < 0.95 && kotlin.math.abs(west - south) < 0.3, "von Westen $west, von Süden $south")
+    }
+
+    /** 151 (Chef, Build 16): over the bridge and left towards the elder, nothing unseen stops the hero below Pim's house. */
+    @Test
+    fun fromTheBridgeLeftTowardsTheElderNothingUnseenStopsTheHero() {
+        val g = game("village")
+        g.state.place = Place("village", 17, 25, Facing.LEFT)
+        g.freeWalk.sync()
+        g.go(-1.0, -0.2, 3_000)
+        assertTrue(g.freeWalk.x < 13.0, "hängen geblieben bei ${g.freeWalk.x}, ${g.freeWalk.y}")
+    }
 }
 
 /** 13p.5: the floor before the counter at the wall (1,4), beside the barrel in the corner, can be stepped on. */

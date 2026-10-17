@@ -46,11 +46,23 @@ class FreeWalk(private val game: Game) {
     companion object {
         /** The hero's size: a circle of this radius, in tiles. */
         const val RADIUS = 0.3
+        /** 152: half the side of the square someone standing fills, round the feet. */
+        private const val NPC = 0.3
         private val FULL = doubleArrayOf(0.0, 0.0, 1.0, 1.0)
-        /** 131: walking pace on open grass, in tiles per second, about 1.5 (a step used to take 200 ms × [Terrain.PACE], half as fast). */
-        val WALK = 1000.0 / (400.0 * Terrain.PACE)
-        /** Running pace (110 ms a step). */
-        val RUN = 1000.0 / (110.0 * Terrain.PACE)
+        /** 131, 131.1: walking pace on open grass, in tiles per second, about 1.8 (340 ms a step; 131 had 400, a bit too slow). */
+        val WALK = 1000.0 / (340.0 * Terrain.PACE)
+        /** Running pace (130 ms a step; 131.1: 110 ran like a hare). */
+        val RUN = 1000.0 / (130.0 * Terrain.PACE)
+
+        /**
+         * 131.1: the pace eases from [current] towards [target] instead of jumping: from walking to running in about
+         * 0.6 s, back in about 0.4 s. Starting from standing begins at once at the walking pace or less.
+         */
+        fun ease(current: Double, target: Double, dtMs: Long): Double {
+            if (current <= 0.0 || target <= 0.0) return target.coerceAtMost(WALK)
+            val rate = (RUN - WALK) / (if (target > current) 600.0 else 400.0) * dtMs
+            return if (target > current) min(target, current + rate) else max(target, current - rate)
+        }
 
         /**
          * 131: how fast this hero goes, as a share of [WALK] and [RUN]: the speed of the folk as in the SRD (dwarves and
@@ -115,7 +127,14 @@ class FreeWalk(private val game: Game) {
      */
     private fun footprint(tx: Int, ty: Int): DoubleArray {
         val map = game.map
-        if (map.kind != MapKind.INTERIOR || !map.inside(tx, ty) || map.npcAt(tx, ty, game.state) != null) return FULL
+        // 152 (Chef, Build 16: Garrick far off from one side, near from the other): someone standing fills only a
+        // small square round the feet as drawn, so the hero comes about as near from every side
+        map.npcAt(tx, ty, game.state)?.let { npc ->
+            val (ox, oy) = de.bornim.core.art.MapFolk.nudge(npc, map)
+            val cx = 0.5 + ox.toDouble() / de.bornim.core.art.WorldArt.T; val cy = 0.5 + oy.toDouble() / de.bornim.core.art.WorldArt.T
+            return doubleArrayOf(cx - NPC, cy - NPC, cx + NPC, cy + NPC)
+        }
+        if (map.kind != MapKind.INTERIOR || !map.inside(tx, ty)) return FULL
         return when (map.tile(tx, ty)) {
             Tile.SHELF -> doubleArrayOf(0.0, 0.0, 1.0, 0.42)
             Tile.COUNTER -> doubleArrayOf(0.0, 0.38, 1.0, 0.88)
