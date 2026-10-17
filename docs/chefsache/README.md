@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [165](entscheiden/165-ablaufpruefung.md) | Kür | B Abläufe | 18.10. | Ablaufstichprobe im Tagesrückblick (Perikles) statt weiterer Regeln; Diogenes zählt Abweichungen in der Wochenzählung | Perikles |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | Kür | E Kampf | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
 ## Anzusehen
