@@ -72,6 +72,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 - 16.10., 07:33: Stundenlauf ohne Tat (Jerry läuft); Ford 2 bisher ca. 185 Tsd. Token Kontext, drei Neustarts Jerry eingeschlossen
 
 ## Protokoll
+- 14:44 17.10.: Probe Aufwand (Auftrag Chef): Feld model=sonnet wirkt (claude-sonnet-5-5), /effort status „high“ in Opus Hoch; 0,00 $ (nur lokale Befehle), archiviert
 - 14:37 17.10.: Probe Modell (Auftrag Chef): /model sonnet als erste Nachricht wirkt (Antworten auf claude-sonnet-5-5); Aufgabe per send_message abgelehnt (Nachricht einer Sitzung, nicht des Chefs); 0,34 $ auf Betrieb, archiviert
 - 14:32 17.10.: Probe Umgebungen (Auftrag Chef): Sonnet Mittel 0,25 $, Opus Hoch 0,33 $ (zusammen 0,58 $ auf Betrieb), beide archiviert; Ergebnis per Telegram
 - 14:17 17.10.: 84.5 Lichttrank (Idee Chef) und 148 Ideenspeicher ausmisten (Chef) an Homer; Sparmodus, kein Start
