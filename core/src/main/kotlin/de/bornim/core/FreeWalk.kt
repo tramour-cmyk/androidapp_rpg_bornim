@@ -47,10 +47,24 @@ class FreeWalk(private val game: Game) {
         /** The hero's size: a circle of this radius, in tiles. */
         const val RADIUS = 0.3
         private val FULL = doubleArrayOf(0.0, 0.0, 1.0, 1.0)
-        /** Walking pace on open grass, in tiles per second (a step used to take 200 ms × [Terrain.PACE]). */
-        val WALK = 1000.0 / (200.0 * Terrain.PACE)
+        /** 131: walking pace on open grass, in tiles per second, about 1.5 (a step used to take 200 ms × [Terrain.PACE], half as fast). */
+        val WALK = 1000.0 / (400.0 * Terrain.PACE)
         /** Running pace (110 ms a step). */
         val RUN = 1000.0 / (110.0 * Terrain.PACE)
+
+        /**
+         * 131: how fast this hero goes, as a share of [WALK] and [RUN]: the speed of the folk as in the SRD (dwarves and
+         * halflings 25 feet against 30), 10 feet less in heavy armor without the strength for it (not dwarves), and 5 %
+         * more or less for each point of the Dexterity bonus.
+         */
+        fun speed(hero: Hero): Double {
+            val feet = (if (hero.race == Race.DWARF || hero.race == Race.HALFLING) 25.0 else 30.0) -
+                (if (hero.race != Race.DWARF && Stamina.heavy(hero)) 10.0 else 0.0)
+            return feet / 30.0 * (1.0 + 0.05 * hero.mod(Ability.DEX)).coerceAtLeast(0.5)
+        }
+
+        /** The pace of this hero walking or running, in tiles per second on open grass. */
+        fun pace(hero: Hero, run: Boolean): Double = (if (run) RUN else WALK) * speed(hero)
     }
 
     /** Puts the hero back on the middle of its tile when the game moved it (a warp, loading, a script). */
