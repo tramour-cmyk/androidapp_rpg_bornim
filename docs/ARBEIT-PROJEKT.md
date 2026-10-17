@@ -4,9 +4,9 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **offen 15, Muss 3, A 0, Chefsache 1**
 
-**Gelesen bis:** `origin/main` 17.10., 17:47
+**Gelesen bis:** `origin/main` 17.10., 19:5x (`9e2e74bb`)
 
-**Übergabe (17.10., 20:4x, „Perikles – Vorrat durchsehen (17.10., 17:48)“):** 99h.5 in `LISTE-BAUEN-TESTEN.md` „Sammelbuild“; 154 (kein Goldverlust auf Normal, 4 Stunden Heimweg) und 155 (Feuer bleibt, Rast gesperrt) entschieden und archiviert; 156 (Modellvergleich Tom/Jerry bis 24.10.) entschieden, Diogenes zählt, ich werte 26.10. aus; Chefsache-Dateien mit Leerzeilen (sonst ein Textblock); Kosten dieser Sitzung (1,50 $, geschätzt) eingetragen. Lehre: Zeilen „von Tom“ mit Empfehlung nie als Auftrag lesen, solange der Stand „Chefsache“ lautet (Regelverstoß Ford 2, zählt in 149). **Nachfolger: „Perikles – Wochenziel 19.10.“**
+**Übergabe (17.10., 19:4x, „Perikles – 158 Ford-2-Lauf (17.10., 18:32)“):** 158 entschieden (Variante A mit D24.1–D24.7) und in `LISTE-BETRIEB.md` („Fertig“, „Lauf von Ford 2“), `LISTE-RELEASE-NEUSTART.md` 1a, `ARBEIT-BETRIEB.md` eingetragen; 158a (Abwägung in `ROLLE-PROJEKT.md`) erledigt; Vorgangsarchiv 158, 158a. Kosten dieser Sitzung auf 158 (Ford erfasst beim Archivieren). Lehre: Ablaufbrüche zuerst gegeneinander lesen (Vorgang, Wortlaut, Quellen), dann erst Optionen; Diogenes vor der Chefsache einschalten lohnte (D24.1 Wurzel fehlte im Entwurf). **Nachfolger: „Perikles – 159 Niederlassung ruht (17.10., 19:5x)“** (159 ist Muss, Auftrag des Chefs in der Zeile).
 
 ## Zeilen
 
