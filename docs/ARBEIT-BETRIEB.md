@@ -14,7 +14,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.827 (131 + D23.2, PR #104; Testaufgaben t16); 0.1.827 auf `main`.
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (17.10., 18:24)“ `session_013WgUpHvEMutiBeSbQoworP` (seit 17.10., 18:24, von Hand durch den Chef, Tiefe 0, Umgebung Mittel, 157; Vorgänger `session_01ERcnjwM44tLiTHy1t4mmPQ` archiviert, 1,53 $). Stundenuhr „Ford-Lauf“ `trig_01VKm78mC2SQH7HUcwYs4AoY` (:03, seit 18:25; alte Uhr `trig_01KNsW6MA8WGBDcRaRpKJK3D` gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (17.10., 18:30)“ `session_01PNxStdGrFySxHPYtEXZ8og` (seit 17.10., 18:31, Selbstneustart 157.1 auf sonnet, Tiefe 1, Umgebung Mittel; Vorgänger `session_013WgUpHvEMutiBeSbQoworP` archiviert, 1,12 $). Stundenuhr „Ford-Lauf“ `trig_017KAszY143BCSdUrvWmnSVp` (:03, seit 18:31; alte Uhr `trig_01VKm78mC2SQH7HUcwYs4AoY` gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **Ford 2: 99h gilt ab 17.10., 10:4x** (Vorgangsarchiv): Stundenuhr aus, solange Jerry „Pause bis …“ hat, per einmaliger Aufgabe zum Pausenende (Mo 19.10., 21:00) wieder an; Neustart bei etwa 150 Tsd. Token; Lauf ohne Tat nur Kopfzeilen (Ford erreicht Ford 2 nicht per Nachricht).
 - **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (17.10., 17:42)“ `session_017VRJsTBwEbU16mwomLknhm` (seit 17.10., 17:42, Tiefe 5; Vorgänger `session_01Bgr3YihKQVLNAM59U56Cva` archiviert, 6,92 $). Uhr „Ford-2-Stundenuhr“ `trig_01WCdVmLssvGbjCSK9KJPCPH` (:33 alle 4 Stunden, 147.2). Selbstneustart und Jerry-Starts nur nach „Startzuordnung“ (`LISTE-BETRIEB.md`, Pro Mittel; Chef 17.10.). Jerry pausiert bis Mo 19.10., 21:00; bis dahin Läufe ohne Tat, nichts schreiben. In der Sitzung nur „Ford 2 HH:MM ok“.
@@ -32,6 +32,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 
 ## Protokoll
+- 18:31 17.10.: 157.1 Selbstneustart: Ford auf sonnet (Tiefe 1), neue Uhr, alte gelöscht, Vorgänger archiviert, 1,12 $ auf Betrieb; Sparmodus, kein Start
 - 18:30 17.10.: 157.1 Chef „Ja.“ zum Selbstneustart auf sonnet, Mittel (diese Sitzung lief auf opus) → Start Ford
 - 18:25 17.10.: Ford von Hand neu (157, Mittel, Tiefe 0): Uhr übernommen, Vorgänger archiviert, 1,53 $ auf Betrieb; Sparmodus, kein Start
 - 18:23 17.10.: 157 Chef: „Ich starte dich nochmal mit Wildstorm Mittel neu. Mein Fehler.“ → neuer Ford übernimmt Uhr `trig_01KNsW6MA8WGBDcRaRpKJK3D` (löschen, eigene anlegen) und archiviert `session_01ERcnjwM44tLiTHy1t4mmPQ`
