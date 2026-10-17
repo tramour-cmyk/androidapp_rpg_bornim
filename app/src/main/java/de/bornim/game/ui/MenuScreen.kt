@@ -862,8 +862,11 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
                 val names = if (lang == Lang.DE) listOf("Fein", "Normal", "Ruhig") else listOf("Fine", "Normal", "Calm")
                 names.forEachIndexed { i, label -> PixelButton(label, Modifier.weight(1f), selected = vm.stickFeel == i, size = 15.sp) { vm.changeStickFeel(i) } }
             }
-            Txt(if (lang == Lang.DE) "Fein: kurzes Ziehen genügt zum Gehen und Rennen. Ruhig: erst weit ziehen, man geht länger, bevor man rennt."
-                else "Fine: a short drag walks and runs. Calm: drag further, you walk longer before you run.", size = 13.sp, color = Colors.textDim)
+            Txt(if (lang == Lang.DE) "Im Kreis geht man, über den Ring hinaus rennt man. Fein: kleiner Ring. Ruhig: großer Ring."
+                else "Inside the circle you walk, past the ring you run. Fine: a small ring. Calm: a large ring.", size = 13.sp, color = Colors.textDim)
+            // 131: a button to run with, as well as the ring
+            PixelButton(if (lang == Lang.DE) (if (vm.runButton) "Taste „Rennen“: an" else "Taste „Rennen“: aus")
+                else (if (vm.runButton) "Run button: on" else "Run button: off"), Modifier.fillMaxWidth()) { vm.toggleRunButton() }
         }
         PixelButton((if (vm.leftHanded) Ui.actionLeft else Ui.actionRight)(lang), Modifier.fillMaxWidth()) { vm.toggleLeftHanded() }
         PixelButton((if (vm.haptics) Ui.hapticsOn else Ui.hapticsOff)(lang), Modifier.fillMaxWidth()) { vm.toggleHaptics() }

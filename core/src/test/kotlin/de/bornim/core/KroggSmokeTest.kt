@@ -24,6 +24,22 @@ class KroggSmokeTest {
     }
 
     @Test
+    fun `D23_2 the first talk already brings the Krogg part, once Krogg fell only the greeting`() {
+        val s = state()
+        val first = talk(s, "forest", "garrick")
+        val said = lines(first)
+        assertTrue(said.first().startsWith("Ein Abenteurer?"))
+        assertTrue(said.any { it.startsWith("Geh nicht mit leeren Händen") })
+        assertTrue(said.any { it.startsWith("Und ehrlich") })
+        assertTrue(Cmd.SetFlag(Story.KROGG_HINT) in first)
+        assertTrue(Cmd.SetFlag(Story.HUNTER_MET) in first)
+        val late = state().apply { flags += Story.KROGG_DEFEATED }
+        assertFalse(lines(talk(late, "forest", "garrick")).any { it.contains("Krogg") }, "no Krogg part after his fall")
+        s.flags += Story.HUNTER_MET
+        assertFalse(lines(talk(s, "forest", "garrick")).any { it.startsWith("Ein Abenteurer?") }, "later talks without greeting")
+    }
+
+    @Test
     fun `Morwen gives the smoke bundle once, only while Krogg lives`() {
         val s = state()
         assertFalse(Cmd.Give(Story.SMOKE_BUNDLE, 1) in talk(s, "deep_forest", "morwen"), "not before Garrick")
