@@ -18,7 +18,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.824](ansehen/t15-durchspielen.md) | Build 15 | 26, D23.2: Kapitel 1 durchspielen | Tom | 17.10. |
+| 1 | [Release](ansehen/t16-release-gehen-rennen.md) | Release | 131, D23.2, 26: Gehen und Rennen, Garrick, Kapitel 1 durchspielen | Tom | 17.10. |
 | 2 | [–](ansehen/137-ideenspeicher.md) | – | Ideenspeicher | Perikles | 17.10. |
 
 ## So geht's
