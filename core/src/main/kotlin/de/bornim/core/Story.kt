@@ -735,7 +735,7 @@ object Story {
             "XXXXX_XXXXHHXXXX_XXXXX",
             "XX~~____XX__XXe____uXX",
             "XX~~C___XX__XXe____uXX",
-            "XX~g____XX__XX____j_XX",
+            "XX~g____XX__XX__F_j_XX",
             "XX_%______________%_XX",
             "XXXXXXXXXXHHXXXXXXXXXX",
             "XXXXXXXXXX__XXXXXXXXXX",

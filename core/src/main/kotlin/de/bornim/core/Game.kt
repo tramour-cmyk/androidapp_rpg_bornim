@@ -935,7 +935,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         when (map.tile(tx, ty)) {
             Tile.NOTICE -> { Jobs.read(state); mode = Mode.Board; changed() }
             Tile.CHEST -> openChest(tx, ty)
-            Tile.CAMPFIRE -> { mode = Mode.Rest(Resting.Spot.FIRE); changed() }
+            // 155: the goblins' fire stays, but nobody rests among the monsters
+            Tile.CAMPFIRE -> if (map.kind == MapKind.CAVE) say(T("Das Feuer der Goblins. Es ist viel zu gefährlich, hier in der Höhle zu rasten.", "The goblins' fire. It is far too dangerous to rest here in the cave."))
+                else { mode = Mode.Rest(Resting.Spot.FIRE); changed() }
             Tile.GATE -> gate()
             Tile.BARRIER -> if (!state.has(Story.BARRIER_OPEN)) barrier()
             Tile.WELL -> say(T("Ein alter Brunnen. Das Wasser ist klar und kalt.", "An old well. The water is clear and cold."))
