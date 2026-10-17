@@ -2,14 +2,15 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 10, Muss 2, A 0, Chefsache 1**
+**offen 11, Muss 2, A 0, Chefsache 1**
 
 **Übergabe (17.10., 15:2x, „Tom – D23.2 Garrick (17.10., 13:58)“) – Nachfolger: Tom – 15 zusammenführen (nach „passt“ zu t15: PR #103 mergen, CHANGELOG, t15 löschen):** t13 zurückgezogen; D23.2 gebaut; PR #102 zusammengeführt; Build 15 = 0.1.824 mit Prüfliste t15.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand | Zweig |
-|---|---|---|---|---|
+|---|---|---|---|
+| 131 | K | **von Sokrates (Chef 17.10., 15:3x, Vorgangsarchiv 131):** Joystick: Gehen im ganzen inneren Kreis; Rennen über sichtbaren Ring hinaus (Normal etwa 2,5 cm, skaliert mit 86.4), Rütteln und goldener Ring beim Umschalten; Taste „Rennen“ wahlweise im Menü; `WorldScreen.kt` (`TouchLayer`, `StickFeel`); Tempo macht Jerry | offen |---|
 | D23 | M? | **von Diogenes** (Lauf 23; Prüfbericht): **D23.2** Garricks Warnung unter Stufe 3 und Hinweis auf Morwen (`KROGG_HINT`, Chronik „Rauch gegen Krogg“) erst im zweiten Gespräch; wer einmal spricht, hört beides nie (Beschluss D4.1) | **bestätigt** (17.10., 09:3x; `Story.kt` Garrick: erstes Gespräch nur Begrüßung und Tränke, Krogg-Teil samt Hinweis nur im Zweig nach `HUNTER_MET`). Text ist Story → Zeile an Homer (D23.2); bauen nach Homers Wortlaut und Perikles’ M · **von Homer (17.10., 10:06):** kein neuer Text; erstes Gespräch = Begrüßung, Gras, Lagerfeuer, Tränke, dann gleich `[41.garrick.krogg]`, „Ostflügel …“, `[D4.1.garrick.morwen]`, ggf. `[D4.1.garrick.warnung]`, `KROGG_HINT` setzen. Spätere Gespräche bis Kroggs Fall wiederholen den Krogg-Teil wie bisher (ohne Begrüßung) · **gebaut** (17.10., 14:0x, `KroggSmokeTest`): PR #103 = Build 15, **0.1.824 grün**, [Prüfliste t15](chefsache/ansehen/t15-durchspielen.md) | `claude/tom-d23-garrick` |
 | 27 | K | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Auf `main` bis 27m und D3.13a (#67). **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1. 27n auf `main` (#71) | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | **112 entschieden (Chef 17.10., 10:4x):** fünf Bilder neu malen nach den sieben Punkten (Vorgangsarchiv 112), **erst nach dem Meilenstein**; Vorlage zuerst an Homer messen, dann an den Chef · auf `main` mit #67 (0.1.753 „passt“); Durchsicht der Szene mit Knopf 100 durch den Chef offen: **Chef 17.10., 01:17: „T13, 13.4 habe ich ganz angesehen und es lief fehlerfrei durch.“** (keine Stichworte für 112) | – |

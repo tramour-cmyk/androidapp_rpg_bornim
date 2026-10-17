@@ -149,7 +149,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 130.1 | Name für den neuen Kampf und den Testkampf (statt „Probe“) | G Stil | K |  | Sokrates | offen |
 | 72.10a | Spielanleitung neuer Kampf | G Story | K |  | Homer | offen |
 | 72.10b | Probe gegen Grak: Stufe und Treffer | E Kampf | K |  | Jerry | offen |
-| 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | K |  | Sokrates | offen |
+| 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | K |  | Tom, Jerry | entschieden |
 | 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | M | 2,43 $ | Tom | erledigt |
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | offen |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |

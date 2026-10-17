@@ -22,10 +22,11 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 - **Monsterverhalten:** Goblins patrouillieren auf Wegen, Fledermäuse hängen an der Höhlendecke und stürzen herab. → **später:** nach dem Meilenstein; die Höhle ist „Ort fertig“ (13e) ohne das.
 - **Sammelbares und Verstecke:** geheime Truhen, rissige Wände. → **später:** Kapitel 2, mit der Katze aus 72.15 (findet Geheimtüren).
 - **Schnellreise über die Kartenübersicht** (Idee 09.10., 12:49): Pergamentkarte (Entwurf C, `tools/preview` Modus `WEGE`) mit Nebel des Unerkundeten; entdeckte Orte (Bornim, Garricks Feuer, Höhleneingang) sind Reiseziele gegen Gold. Gedanken: Fuhrmann in Bornim oder Garrick als Führer statt Teleport; Preis nach Entfernung; Zeit vergeht; unterwegs ein Wurf auf einen Überfall, nachts höher; nicht aus Höhlen, nicht im Kampf. → **später:** Kapitel 2 (Karten deutlich größer); in Kapitel 1 sind die Wege kurz.
+- *(131, 17.10.: Gehen wird halb so schnell; weite Wege sollen Schnellreise oder Fuhrmann kürzen, nicht das Tempo.)*
 - **86.5 Pferd** (Chef 14.10., 21:2x, zu 86.3 Ausdauer): Reittier für lange Wege draußen. → **später:** zusammen mit der Schnellreise prüfen, beide lösen dasselbe.
 - **Licht als Mechanik** (Idee 4, 10.10.): Fackel brennt ab; im Dunkeln sieht man Lauerer später, Untote sind stärker. → **später:** Teil von 84 (Fackel 84.1 im Vorrat Homer); erst wenn 84.1 gebaut ist.
 - **84.2 Schnellwechsel** zweier Handbelegungen (Chef 14.10.; aus Vorrat Homer, 84). → **später:** braucht 84.1 (Fackel in der Nebenhand), vorher gibt es nichts zu wechseln.
-- **84.3 Schleichen** (Chef 14.10.; aus Vorrat Homer, 84). → **später:** hängt am Kampfteil 72b; Lauschen und „Rennen laut“ sind schon gebaut (86).
+- **84.3 Schleichen** (Chef 14.10.; aus Vorrat Homer, 84). → **später:** hängt am Kampfteil 72b; Lauschen und „Rennen laut“ sind schon gebaut (86). 131: eigene Taste, wenn gebaut.
 
 ### Figuren
 
