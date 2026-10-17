@@ -1,6 +1,6 @@
-# Tom · Build 17 · Feedback Build 16 (131.1, 151, 152, 153) · PR #105
+# Tom · Build 17 · 0.1.828 · Feedback Build 16 (131.1, 151, 152, 153) · PR #105
 
-Tom · 17.10., 18:0x · APK im Lauf von [PR #105](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/105) (Version über 0.1.827; Link folgt, sobald gebaut). Joystick-Stufe im Menü: Normal.
+Tom · 17.10., 18:0x · APK: [0.1.828](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39046909672/artifacts/12106337366) (PR #105; über 0.1.827). Joystick-Stufe im Menü: Normal.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|

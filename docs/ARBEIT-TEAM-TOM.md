@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **offen 15, Muss 4, A 0, Chefsache 1**
 
-**Übergabe (17.10., 16:2x, „Tom – 131 Gehen und Rennen (17.10., 15:38)“) – Nachfolger: Tom – 138 Kräuter am Morgen (Kür; Muss 68 erst nach Meilenstein, 26 und 131 beim Chef):** 131 gebaut, PR #104 (mit D23.2) zusammengeführt, Release 0.1.827, Testaufgaben t16; t15 ersetzt.
+**Übergabe (17.10., 18:0x, „Tom – Feedback Build 16 (17.10., 17:32)“) – Nachfolger: Tom – 138 Kräuter am Morgen (Kür; 131.1, 151–153 beim Chef in t17; 154/155 bei Jerry/Chefsache, Übernahme möglich nach Entscheid):** 131.1, 151, 152, 153 gebaut, PR #105, Build 0.1.828, Prüfliste t17.
 
 ## Zeilen
 
