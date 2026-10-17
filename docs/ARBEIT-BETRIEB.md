@@ -32,6 +32,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 
 ## Protokoll
+- 16:21 17.10.: Tom 131 fertig (6ebc3e31, Release 0.1.827), archiviert, Kosten fehlt (kein usage); Nachfolger 138 (Kür) erst ab 21:00 (Sparmodus)
 - 16:06 17.10.: Sokrates fertig, archiviert (4,71 $ auf 135); Startzuordnung in LISTE-BETRIEB, LISTE-RELEASE-NEUSTART nachgezogen; offen: Pro-Umgebung für Ford 2/Jerry (Kennung fehlt, Chef/Ford 2)
 - 15:41 17.10.: Tom D23.2 archiviert (3,59 $ zu gleichen Teilen auf 26, D23); Nachfolger 131 läuft seit 15:38
 - 15:38 17.10.: von Sokrates (10cfc825, Zuruf Chef): 131 Muss jetzt an Tom, danach Release → Startsperre: 15:38 Start Tom (131 Gehen und Rennen)
