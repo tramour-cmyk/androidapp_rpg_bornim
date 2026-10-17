@@ -158,7 +158,7 @@ object Story {
             Warp(5, 20, inside("elder", 6)),
             Warp(28, 20, inside("temple", 7)),
             // Homes of villagers: locked for now.
-            // 73b (Nutzer 13.10., 21:05): someone answers from inside, by the story and the hour (STORY-K1.md [73b.…])
+            // 73b (Nutzer 13.10., 21:05): someone answers from inside, by the story and the hour (STORY-K1-WELT.md [73b.…])
             lockedDoor(12, 5) { s, _ -> if (s.has(CHAPTER1_DONE)) voice("Du hast die Goblins vertrieben? … Morgen vielleicht. Heute nicht.", "You drove off the goblins? … Tomorrow, maybe. Not today.")
                 else voice("Wer ist da? … Ich mach nicht auf. Für niemanden.", "Who's there? … I'm not opening. Not for anyone.") },
             lockedDoor(23, 5) { _, _ -> voice("Geh weiter. Ich hab in meinem Leben genug an fremde Türen klopfen hören.", "Move along. I've heard enough knocking at strange doors in my life.") },

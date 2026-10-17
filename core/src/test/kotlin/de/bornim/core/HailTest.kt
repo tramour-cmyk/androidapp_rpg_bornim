@@ -1,0 +1,91 @@
+package de.bornim.core
+
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
+
+/** 134.1: the golden sign only over people met before, who have news, and only briefly when the hero comes near. */
+class HailTest {
+    private fun state() = GameState.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
+    private fun npc(map: String, id: String) = World[map].npcs.first { it.id == id }
+
+    @Test
+    fun `strangers never, old saves not until the next talk`() {
+        val s = state()
+        val jorin = npc("village", "jorin")
+        assertFalse(Hail.news(s, jorin), "never spoken to")
+        s.flags += MapMarks.met("jorin")
+        assertFalse(Hail.news(s, jorin), "a save from before 134.1: nothing heard is known")
+        Hail.heard(s, jorin, after = false)
+        assertFalse(Hail.news(s, jorin), "just heard")
+    }
+
+    @Test
+    fun `news when the talk changes, none for what follows from the talk itself`() {
+        val s = state()
+        val jorin = npc("village", "jorin")
+        s.flags += MapMarks.met("jorin")
+        Hail.heard(s, jorin, after = false)
+        s.flags += Story.QUEST_STARTED
+        assertTrue(Hail.news(s, jorin), "the elder sent the hero: Jorin opens the barrier")
+        // the talk: heard as it starts, the barrier opens in it, then the talk is over
+        Hail.heard(s, jorin, after = false)
+        s.flags += Story.BARRIER_OPEN
+        Hail.heard(s, jorin, after = true)
+        assertFalse(Hail.news(s, jorin), "his short word after the barrier is no news")
+        val rowena = npc("inn", "rowena")
+        s.flags += MapMarks.met("rowena")
+        Hail.heard(s, rowena, after = false)
+        Hail.heard(s, rowena, after = true)
+        s.flags += Story.CHAPTER1_DONE
+        s.flags += Story.CAMP_TOLD
+        assertTrue(Hail.news(s, rowena), "Rowena on the camp in the south")
+    }
+
+    @Test
+    fun `a job to hand in is news`() {
+        val s = state()
+        val j = Jobs["tusks"]
+        val giver = World.maps.values.flatMap { it.npcs }.first { it.id == j.giver }
+        s.flags += MapMarks.met(giver.id)
+        Hail.heard(s, giver, after = false)
+        Jobs.take(s, j)
+        assertFalse(Hail.news(s, giver), "taken, nothing brought yet")
+        s.add(j.item, j.count)
+        assertTrue(Hail.news(s, giver))
+    }
+
+    @Test
+    fun `what was heard is saved, talks depend only on the save`() {
+        val s = state()
+        val jorin = npc("village", "jorin")
+        Hail.heard(s, jorin, after = false)
+        assertEquals(s.heard, GameState.fromJson(s.toJson()).heard)
+        // a talk with chance or the hour in it would hail anew each time
+        for (m in World.maps.values) for (n in m.npcs) if (!n.look.startsWith("monster:"))
+            assertEquals(Hail.fingerprint(n.talk(s)), Hail.fingerprint(n.talk(GameState.fromJson(s.toJson()))), n.id)
+    }
+
+    @Test
+    fun `briefly on coming near, once again, then only after going off`() {
+        val s = state()
+        s.place = Place("elder", 7, 4, Facing.UP)
+        val aldric = npc("elder", "aldric")
+        s.flags += MapMarks.met("aldric")
+        Hail.heard(s, aldric, after = false)
+        s.flags += Story.QUEST_STARTED
+        assertTrue(Hail.news(s, aldric))
+        val g = Game(s, Lang.DE)
+        g.update(10_000)
+        assertTrue(g.hailing(aldric))
+        g.update(10_000 + Hail.SHOW_MS + 100)
+        assertFalse(g.hailing(aldric))
+        g.update(10_000 + Hail.AGAIN_MS + 100)
+        assertTrue(g.hailing(aldric), "once again")
+        g.update(10_000 + Hail.AGAIN_MS + Hail.SHOW_MS + 100)
+        assertFalse(g.hailing(aldric))
+        g.update(30_000)
+        assertFalse(g.hailing(aldric), "not again while the hero stays")
+    }
+}

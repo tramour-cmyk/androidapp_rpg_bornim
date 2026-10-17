@@ -47,7 +47,7 @@ private object VeilInk {
 }
 
 /**
- * The black screen between two places (24.1, docs/DESIGN-ZWISCHENBILD.md): the place's name small and spaced above,
+ * The black screen between two places (24.1, docs/DESIGN-BLENDE.md): the place's name small and spaced above,
  * the sentence in a serif below, a breath of vignette so the black does not look like a crash.
  * [veil] is how much of the screen behind is hidden, [words] how far the words have come in; both 0..1.
  * [line] null shows only the name (a place visited often, 24i).
