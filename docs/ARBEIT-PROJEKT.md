@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**offen 13, Muss 2, A 0, Chefsache 0**
+**offen 14, Muss 3, A 0, Chefsache 0**
 
 **Gelesen bis:** `origin/main` 17.10., 19:5x (`9e2e74bb`)
 
@@ -12,4 +12,5 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Was | Termin |
 |---|---|---|---|
+| 164 | M | **Befunde Diogenes (Lauf 26, D26.1–D26.4):** ein festes Testdatei-Muster in `zug-index.py` REGELN statt „letzte Datei von Tom“ (D26.1); Formatwiderspruch Zeile 2 beheben, „Wer“ zeigt den Bereich (D26.2); Tabelle in `formfehler()` prüfen (D26.3) | bis 24.10. |
 | 165 | M | Ablaufstichprobe läuft (Chef Ja 18.10.): Schritt in `ROLLE-PROJEKT.md` Tagesrückblick, Zählung in `ROLLE-PRUEFUNG.md`; Bilanz 23.10. | 23.10. |

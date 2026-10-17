@@ -8,6 +8,19 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **Umbau 106.1 (Lauf 22):** hat funktioniert. D22.1 (Ford startete Homer nicht für Muss-Zeilen) ist behoben. Nichts am Gerät anzusehen.
 
+## Lauf 26 · Auftrag 164 (Testdatei-Format, Commit `e3f16635`)
+
+Geprüft: Satz in `ROLLE-ENTWICKLUNG.md`, `formfehler()` in `tools/zug-index.py`; selbst gelaufen mit fünf gebauten Testdateien in einer Kopie (nichts auf `main` geändert). Nicht geprüft: Gerät, GitHub Action.
+
+**Urteil: Entwurf trägt nur halb.** Er fängt Jerrys Fehler von Build 19 (Zeile 1 ohne Team; Zeile 2 ohne Bereich), nicht aber die Tabelle, die der Satz selbst vorschreibt.
+
+- **D26.1 Vorlage verschwindet.** „Nach dem Muster der letzten Datei von Tom“: Tom-Dateien werden nach dem Test gelöscht. Jetzt liegt in `ansehen/` keine von Tom (nur `t19` von Jerry, `26`); das Muster ist nicht auffindbar. Beleg: `ls docs/chefsache/ansehen`. Besserer Ort: ein festes Muster im Abschnitt „So geht's“ von `zug-index.py` (REGELN).
+- **D26.2 Zwei Formate widersprechen sich.** REGELN in `zug-index.py` sagt Zeile 2 `<Absender> · <TT.MM.> … · <Bereich>`, `ROLLE-ENTWICKLUNG.md` und `formfehler()` sagen `Bereich · Team · Zeit`. Folge sichtbar: in der Übersicht steht unter „Wer“ der Bereich („E Kampf“, „E Welt“) statt des Teams, weil `builds()` das erste Feld nimmt. Beleg: `docs/chefsache/README.md`, Tabelle „Anzusehen“.
+- **D26.3 Tabelle ungeprüft.** `formfehler()` liest nur Zeile 1 und 2. Testdatei mit Kopf und Bereichszeile, aber ohne Tabelle oder ohne Spalten `# | Nr. | Wo und wie | Richtig | Falsch` (Jerrys Abweichung in Build 19 war auch die Spaltenüberschrift „Vorgang / Was tun“) wird nicht gemeldet. Beleg: Probedateien `t7`, `t9` blieben ohne Meldung.
+- **D26.4 Nebenbefunde.** (a) Ein Fehler je Datei: Zeile 1 falsch verdeckt Zeile 2. (b) „Tom 2“ in Zeile 1 gilt als Fehler (Probe `t8`), obwohl der Chef Sitzungen so nennt. (c) Die Prüfung greift nur für `t<n>-`-Namen; `26-kapitel1-durchspielen.md` ist ausgenommen, ohne Absicht erkennbar.
+
+Wirkung heute: kein Fehlalarm in der echten Übersicht (Lücken leer). Behebung ist Sache von Perikles; D26.1 und D26.2 zuerst (eine Stelle als Muster), D26.3 ist eine Zeile im Werkzeug.
+
 ## Lauf 25 · Auftrag 159 (Ablaufentwurf „Niederlassung ruht“, Commit `983cb56c`)
 
 **Prüffrage (Perikles):** Widersprechen sich die geänderten Stellen, bleiben Reste von Ford 2? **Antwort: Der Schalter trägt als Prinzip (eine Zeile, nichts gestrichen, Vorgangsarchiv, Vorrat und `LISTE-VORGAENGE.md` stimmen überein), aber zwei Reste sind scharf, weil Jerry ab Sa 17.10., 21:00 in der Zentrale starten soll.** Stand `main` 17.10., 20:0x; nur gelesen (alle zwölf Dateien des Commits, dazu `LISTE-RELEASE-NEUSTART.md`, `ROLLE-ENTWICKLUNG.md`, `ARBEIT-BESETZUNG.md`, `tools/*.py`, `tools/notiz.sh`); nichts gelaufen. **Nicht geprüft:** ob Ford 2 und seine Uhr auf Pro wirklich noch laufen (von Max aus nicht sichtbar), ob `archive_session` für Jerry auf Max `usage.cost_usd` liefert, die Zahlen in 159.1 (Pro 154,37 $, 20x = 200 $) außer dem Rechenweg.
