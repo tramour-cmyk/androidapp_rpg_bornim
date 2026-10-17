@@ -6,7 +6,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Übergabe (17.10., 18:0x, „Tom – Feedback Build 16 (17.10., 17:32)“) – Nachfolger: Tom – 138 Kräuter am Morgen (Kür; 131.1, 151–153 beim Chef in t17; 154/155 bei Jerry/Chefsache, Übernahme möglich nach Entscheid):** 131.1, 151, 152, 153 gebaut, PR #105, Build 0.1.828, Prüfliste t17.
 
-**159:** beim ersten Übernehmen von Jerrys Zeilen (118) zuerst Jerrys offene Zweige sichten (Pro-Sitzungen sind nicht mehr erreichbar; PR #106 bleibt).
 
 ## Zeilen
 

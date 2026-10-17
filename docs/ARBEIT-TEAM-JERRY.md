@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **offen 17, Muss 2, A 0, Chefsache 3**
 
-**Übergabe (17.10., Jerry – 154, 155) – Nachfolger: keiner (Pause entfällt, 159: Ford startet Jerry in der Zentrale ab Max-Wechsel Sa 17.10., 21:00, Muss vor Kür, gleiche Bremse wie Tom; Tom sichtet beim ersten Übernehmen die offenen Zweige):** 154 und 155 gebaut, PR #106 (Entwurf), Kerntests grün, Chef-Test am Gerät offen (nur 155; 154 fertig ohne Test, Chef 17.10., 20:0x). 154: kein Goldverlust, Heimweg 4 Stunden; 155: Höhlenfeuer bleibt, Rast dort nur Hinweis „zu gefährlich“ (Idee Chef, ersetzt Entfernen).
+**Übergabe (17.10., Jerry – 154, 155) – Nachfolger: keiner (Pause entfällt, 159: Ford startet Jerry in der Zentrale ab Max-Wechsel Sa 17.10., 21:00, Muss vor Kür, gleiche Bremse wie Tom; Jerry sichtet beim ersten Start seine offenen Zweige, keine Übernahme durch Tom):** 154 und 155 gebaut, PR #106 (Entwurf), Kerntests grün, Chef-Test am Gerät offen (nur 155; 154 fertig ohne Test, Chef 17.10., 20:0x). 154: kein Goldverlust, Heimweg 4 Stunden; 155: Höhlenfeuer bleibt, Rast dort nur Hinweis „zu gefährlich“ (Idee Chef, ersetzt Entfernen).
 
 ## Zeilen
 
