@@ -93,7 +93,7 @@ Die Zentrale (Toms Account, Max) und die Niederlassung (zweiter Account, Pro) st
 | **Stiller Ausfall** (Jerry oder Ford 2 steht, keiner meldet) | Ford: 2 Stunden kein Commit von Team Jerry bei offenem Vorrat, nie bei „Pause bis“ (D13.7) | wie „Guthaben leer“ |
 | **Rückkehr** | Pro hat wieder Guthaben (Meldung Jerry oder Chef; Pro wechselt zu eigener Zeit, D13.8) | Ford 2 startet Jerry wieder; eine laufende Übernahme von Tom beendet ihren Punkt |
 
-Ford 2 kostet höchstens 10 % von Jerrys Woche, sonst fällt er weg und der Chef startet Jerry von Hand (99f; gemessen über die Kosten je Vorgang). Abos: Perikles prüft beide Accounts vor der Verlängerung um den 10.11. (99e). Einrichten und Neueinrichten von Pro: `LISTE-NIEDERLASSUNG.md`.
+Ford 2 kostet höchstens 10 % von Jerrys Woche, sonst fällt er weg und der Chef startet Jerry von Hand (99f; gemessen über die Kosten je Vorgang). Abos: Perikles prüft beide Accounts vor der Verlängerung um den 10.11. (99e). Einrichten und Neueinrichten von Pro: `LISTE-NIEDERLASSUNG.md`. **Ruht die Niederlassung** (Schalter in `ARBEIT-BETRIEB.md`, 159; Pro gekündigt 17.10.): Ford 2 und seine Regeln ausgesetzt, Jerry läuft in der Zentrale (`LISTE-BETRIEB.md`), Abo-Prüfung 10.11. nur Max.
 
 ## Sparmodus (99d, 102)
 

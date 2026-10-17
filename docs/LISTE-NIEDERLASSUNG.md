@@ -1,5 +1,7 @@
 # Niederlassung einrichten (Pro-Account)
 
+**Ruht seit 17.10. (159, Pro gekündigt).** Wiedereinschalten: Abo wieder buchen, Abschnitte 1 bis 2 neu durchgehen, Zeile „Niederlassung ruht“ in `ARBEIT-BETRIEB.md` streichen.
+
 Anleitung für den Chef: Ford 2 und Team Jerry auf dem zweiten Account (Pro) in Betrieb nehmen. Regeln dazu: `docs/FIRMA.md` „Zentrale und Niederlassung“, `LISTE-BETRIEB.md` „Ford 2“. Stand 16.10. (Perikles).
 
 ## 1. Umgebung auf Pro (einmalig)
