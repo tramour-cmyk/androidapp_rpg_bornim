@@ -185,4 +185,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? | Perikles 0,35 $ | Perikles | in Arbeit |
 | 157 | Ford von Hand auf opus und fremder Umgebung: so lassen oder neu in „WireStorm Mittel“? | B Steuerung | K |  | Ford | erledigt |
 | 158 | Ford-2-Lauf wie Fords Lauf fassen (Archivieren, Kosten, Besetzung, Fragen des Chefs) | B Abläufe | K |  | Perikles | erledigt |
-| 158a | Abwägung 158 dauerhaft ablegen | B Abläufe | K |  | Perikles | offen |
+| 158a | Abwägung 158 dauerhaft ablegen | B Abläufe | K |  | Perikles | erledigt |

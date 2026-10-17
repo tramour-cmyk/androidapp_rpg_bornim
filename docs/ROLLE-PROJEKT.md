@@ -48,6 +48,7 @@ Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), eigene Punkte in der Ch
 - **Rückfragen als Holschuld (65.8, 65.9):** wiederholte Fragen verdeckten das Neue; die Chefsache ist der eine Ort.
 - **Neustart über Ford (81r):** Agenten meldeten „voll“, starteten aber nie; Ford startet, weil er doppelte Starts sperrt.
 - **Muss und Kür (126):** „A“ sagte nur „hält an“, nichts über Wichtigkeit; gebaut wurde Kür (Raumklang, Musik in Schichten), während Pflichtpunkte Kapitel 1 offen blieben. Gegenargument: Stimmung ist Teil des Ziels; darum ist Kür nachgeordnet, nicht verboten, und gezählt wird der Anteil.
+- **Ford-2-Lauf wie Fords Lauf (158, 17.10.):** Ford 2 hatte „fertige Jerry-Sitzungen archivieren“ nur im Absatz „Pause“ ergänzt; sechs Brüche: „fertig“ undefiniert, „schreibt nichts“ gegen Archivieren, Archivieren nur in der Pause, Besetzung im Pausenlauf veraltet, Texte zu „Lauf ohne Tat“ und „Fragen des Chefs“ nur bei Ford, Wurzel (D24.1): Jerrys Neustart-Meldung ging an Ford, der Pro nicht erreicht. Optionen: A eine Regel mit Kriterium, B zurück auf Meldung und Hand, C Satz bereinigen, D erst nach Messung 22.10. Gewählt A mit den Korrekturen von Diogenes (D24.1–D24.7: Empfänger Ford 2, Wecker im Kriterium, Hindernisse statt „Übergabe/erledigt“, Sperre für zweiten Jerry). Stärkstes Gegenargument: Archivieren ist nur Aufräumen, ein falsch archivierter Jerry mit Frage des Chefs wäre schlimmer (81v); darum zählt die offene Frage als Hindernis. Mehrkosten der Pausenläufe offen, Messung 20.–21.10. (99h).
 
 ## Lehren
 
