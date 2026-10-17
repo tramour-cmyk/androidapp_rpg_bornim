@@ -74,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 09:32 17.10.: Tom D23.2 bestätigt (c4a37c55), Zeile an Homer, archiviert (Kosten fehlt); Startsperre: 09:32 Start Tom (132 Spieldauer im Spielstand)
 - 09:29 17.10.: Tom 13e fertig (7d811ddd), archiviert, 2,75 $ auf 13e; Startsperre: 09:29 Start Tom (D23 Garricks Hinweis, Kür, kein Muss startbar)
 - 09:26 17.10.: Zuruf Chef an Perikles (09:2x): „Aufgaben Jerry für Testlauf hier für Probebetrieb bis 1100 mitübernehmen.“ → Startsperre: 09:26 Start Tom 2 (Übernahme Jerry D21, oberste startbare Zeile ohne Gerätetest)
 - 09:10 17.10.: Perikles 106.1 Vermerke fertig (1e955644), archiviert, 0,88 $ auf 106; Nachfolger Tagesrückblick erst ab 18.10.; Startsperre: 09:10 Start Perikles (oberste startbare Kür, kein Muss startbar)

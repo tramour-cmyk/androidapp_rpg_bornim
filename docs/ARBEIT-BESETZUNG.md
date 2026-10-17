@@ -7,7 +7,6 @@
 | Rolle | Sitzung | Zeile | Zweig | seit |
 |---|---|---|---|---|
 | Ford | [Ford – Betriebsleiter (17.10., 01:04)](https://claude.ai/code/session_01EshK4EhbFrGSCR6qeh3VYn) | Betrieb | – | 17.10., 01:04 |
-| Tom | [Tom – D23 Garricks Hinweis (17.10., 09:31)](https://claude.ai/code/session_01VbEb9yAphVdiXXC9YPYWUz) | D23 | – | 17.10., 09:31 |
 | Tom 2 | [Tom 2 – Übernahme Jerry D21 (17.10., 09:26)](https://claude.ai/code/session_01HcSMeadVFm9tPczACmAy6N) | Jerry D21 (Übernahme) | – | 17.10., 09:26 |
 | Perikles | [Perikles – Kür nach Vorrang (17.10., 09:11)](https://claude.ai/code/session_014CVD2K7s5i55d5LvjgHjr8) | Kür | – | 17.10., 09:11 |
 | Homer | [Homer – 112 Intro als Muster (17.10., 09:08)](https://claude.ai/code/session_01M6nnTfXf2eQeU8U5ceCnb8) | 112 | – | 17.10., 09:08 |
