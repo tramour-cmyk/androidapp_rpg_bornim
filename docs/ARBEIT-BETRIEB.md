@@ -74,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 09:40 17.10.: archiviert Tom 132 (0,70 $ auf 132), Tom 2 Übernahme D21 (1,09 $ auf D21), Perikles 99 (1,25 $ auf 99), Homer 112 (1,34 $ auf 112); Diogenes offen (Chef spricht dort); Startsperre: 09:40 Start Homer (39.2 Wortlaut Schwierigkeitsgrad, Muss)
 - 09:38 17.10.: Ford vom Chef von Hand neu (110, Tiefe 0) → session_011Gp2Rv…; Uhr trig_01C93THa7J9s6YNsT74H9ZAZ angelegt und geprüft, alte Uhr trig_01Y44JZv22h4mpFANruNYxH3 gelöscht, alter Ford session_01EshK4E… archiviert (6,55 $ auf Betrieb)
 - 09:32 17.10.: Tom D23.2 bestätigt (c4a37c55), Zeile an Homer, archiviert (Kosten fehlt); Startsperre: 09:32 Start Tom (132 Spieldauer im Spielstand)
 - 09:29 17.10.: Tom 13e fertig (7d811ddd), archiviert, 2,75 $ auf 13e; Startsperre: 09:29 Start Tom (D23 Garricks Hinweis, Kür, kein Muss startbar)

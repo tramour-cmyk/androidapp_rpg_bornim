@@ -108,7 +108,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 96 | Gesprächstext zu lang | E Oberfläche | K |  | Tom | zu testen |
 | 97 | Vorrang in der Arbeitsliste | B Abläufe | – |  | Perikles | erledigt |
 | 98 | Firma WireStormTCS | B Abläufe | – |  | Perikles | umgebaut |
-| 99 | Zwei Niederlassungen | B Steuerung | K | 4,88 $ | Perikles | Chefsache |
+| 99 | Zwei Niederlassungen | B Steuerung | K | 6,13 $ | Perikles | Chefsache |
 | 100 | Testschalter Ende Kapitel 1 | Q QS | K |  | Tom | zu testen |
 | 101 | Ford-Titel „Betriebsleiter“ | B Steuerung | – |  | Perikles | erledigt |
 | 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Perikles | offen |
@@ -121,7 +121,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 109 | Repo öffentlich | M Veröffentlichung | K |  | Sokrates | ruht |
 | 110 | Sitzungstiefe, Ford von Hand | B Steuerung | – |  | Perikles | erledigt |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | B Abläufe | K |  | Perikles | offen |
-| 112 | Intro als Muster, Tempel dagegen | G Stil | M |  | Homer | Chefsache |
+| 112 | Intro als Muster, Tempel dagegen | G Stil | M | 1,34 $ | Homer | Chefsache |
 | 113 | Begriff „Vorgang“ | B Abläufe | – |  | Perikles | erledigt |
 | 114 | Aufwachen am Bett im Gasthaus | G Story | K |  | Homer | Idee |
 | 115 | Idee heißt prüfen | B Abläufe | – |  | Perikles | erledigt |
@@ -141,10 +141,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K | 2,81 | Tom | erledigt |
 | 130 | Kampfgefühl der Probe 72.10 (Prüfpunkt 8.5) | G Balance | K |  | Sokrates | offen |
 | 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | K |  | Sokrates | offen |
-| 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | K |  | Tom | Chef |
+| 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | K | 0,70 $ | Tom | Chef |
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | Idee |
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K | 0,72 | Jerry | offen |
-| D21 | Abgleich Vorrat gegen Chefsache | Q QM | – | 2,08 | Tom, Jerry | erledigt |
+| D21 | Abgleich Vorrat gegen Chefsache | Q QM | – | 3,17 $ | Tom, Jerry | erledigt |
 | D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen) | G Balance | M? |  | Jerry, Tom | offen |
 | Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |
