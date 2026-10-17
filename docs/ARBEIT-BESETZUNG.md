@@ -8,4 +8,4 @@
 |---|---|---|---|---|
 | Ford | [Ford – Betriebsleiter (18.10., 00:06)](https://claude.ai/code/session_014w4uqG6rum8CUh9hQzraEu) | Betrieb | – | 18.10., 00:06 |
 | Ford 2 | [Ford 2 – Niederlassungsleiter (17.10., 17:42)](https://claude.ai/code/session_017VRJsTBwEbU16mwomLknhm) | Betrieb Pro | – | 17.10., 17:42 |
-| Perikles | Perikles – 164 Befunde (18.10., 01:06) | 164 | – | 18.10., 01:06 |
+| Perikles | [Perikles – 164 Befunde (18.10., 01:06)](https://claude.ai/code/session_01U6A7tb6UXFSCa3J3WrENin) | 164 | – | 18.10., 01:06 |
