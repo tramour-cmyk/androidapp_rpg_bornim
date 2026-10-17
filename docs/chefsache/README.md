@@ -25,6 +25,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | 1 | [0.1.827](ansehen/t16-release-gehen-rennen.md) | Build 16 | 131 Gehen und Rennen, D23.2, 26 | Tom | 17.10. |
 | 2 | [0.1.828](ansehen/t17-feedback-build16.md) | Build 17 | Feedback Build 16 (131.1, 151, 152, 153) | Tom | 17.10. |
 | 3 | [–](ansehen/137-ideenspeicher.md) | – | Ideenspeicher | Perikles | 17.10. |
+| 4 | [–](ansehen/154-155-test.md) | – | 154, 155: Test am Gerät (PR #106) | 154, 155: Test am Gerät (PR #106) |  |
 
 ## So geht's
 
