@@ -2,15 +2,15 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**offen 4, Muss 0, A 0, Chefsache 1**
+**offen 4, Muss 0, A 0, Chefsache 0**
 
-**Übergabe (17.10., 15:3x, „Sokrates – Stab des Chefs (17.10., 15:01)“):** 149a A entschieden; 130, 142 als Chefsache mit Optionen und Votum (130 zurückgestellt für Gespräch zum ganzen neuen Kampf, mit 130.1 Name); 131 entschieden (F mit G) und an Tom und Jerry; 72.10a Anleitung an Homer, 72.10b Testkampf Stufe/Treffer an Jerry; 99 Ersparnis Startzuordnung an Perikles. Lehre: Aufträge zum Besprechen sofort als Chefsache mit Optionen vorlegen, nicht auf Zuruf warten (Chef). Nachfolger: Sokrates – Gespräch neuer Kampf (130), auf Zuruf des Chefs.
+**Übergabe (17.10., 23:0x, „Sokrates – Stab des Chefs (17.10., 22:56)“):** 130.1 aus Chefsache gestrichen (MARS); 142 zurückgestellt bis 31.10.; 130 von der Chefsache genommen, 130.2 und 130.3 an Jerry. Nachfolger: Sokrates – Gespräch MARS (130), nach Test des Builds mit 72.10a, auf Zuruf des Chefs; 31.10. 142 wieder vorlegen.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 130 | K | **von Chef (17.10., 00:35, über Ford):** „Zum Punkt Gefühl, 5, bitte eigenen Punkt zur Diskussion mit Sokrates aufmachen.“ Gemeint: Prüfpunkt 8.5 „Gefühl“ zu Build 8 (Probe 72.10 Held und Söldner gegen Grak): spannend, echte Wahl zwischen Angreifen, Platz und Abwarten, oder langweilig, Takt nervt (`DESIGN-LEITBILD.md`, `DESIGN-KAMPF.md`) | Chefsache 130 (Name entschieden: MARS, 130.1); **zurückgestellt** für ein ruhiges Gespräch Chef–Sokrates über das ganze neue Kampfsystem (Chef 17.10., 15:2x: „lass uns mal 130 sozusagen für uns beide zurückstellen und schauen, was da noch alles mit reinspielt und wie wir dieses Thema jetzt überhaupt nennen. Oder wir nennen es ganz banal neues …“; „ich nicht verstehe, was mir was bringt, welche Option … was bringt mir Platz?“) |
+| 130 | K | **von Chef (17.10., 00:35, über Ford):** „Zum Punkt Gefühl, 5, bitte eigenen Punkt zur Diskussion mit Sokrates aufmachen.“ Gemeint: Prüfpunkt 8.5 „Gefühl“ zu Build 8 (Probe 72.10 Held und Söldner gegen Grak): spannend, echte Wahl zwischen Angreifen, Platz und Abwarten, oder langweilig, Takt nervt (`DESIGN-LEITBILD.md`, `DESIGN-KAMPF.md`) | **Chefsache gestrichen** (Chef 17.10., 23:0x, Vorgangsarchiv 130): überholt durch 72.10a; Prüfpunkt Gefühl 130.2 und Gegner 130.3 bei Jerry; **Gespräch MARS mit dem Chef, sobald er den Build mit 72.10a getestet hat** (Anlass: Antwort zu 130.2) |
 | 142 | K | **von Perikles (Ideenspeicher, 137):** Vorbereitung Pflichttest Play Store (Entwicklerkonto 25 $ mit Identitätsprüfung, Spiel in der Play Console, Fingerabdruck des Signierschlüssels, Datenschutzerklärung; nur der Chef kann es). Der Meilenstein geht an 12 Tester für 14 Tage am Stück; Konto und Prüfung brauchen Vorlauf | **zurückgestellt bis 31.10.** (Chef 17.10., 22:5x, Vorgangsarchiv); dann wieder vorlegen, Datei aus Git (vor Commit „142 zurückgestellt“) |
 | 45 | K | Geschäftsmodell (Play Store) | 45a/45c ja (Vorgangsarchiv); 45b zurückgestellt bis nach 38 |
 | 109 | K | Repo öffentlich | **beschlossen: noch nicht privat** (Chef 16.10., 10:2x, Vorgangsarchiv); wieder vorlegen vor dem Marktstart (Play Store); vorher APK-Aufbewahrung kürzen |

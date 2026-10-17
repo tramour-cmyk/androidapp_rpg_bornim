@@ -145,7 +145,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 127 | Anzusehen: Zeile je Build mit Version und Folge | B Werkzeuge | – |  | Perikles | erledigt |
 | 128 | Stillstand, Guthaben einteilen | B Steuerung | – |  | Perikles | erledigt |
 | 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K | 2,81 | Tom | erledigt |
-| 130 | Kampfgefühl der Probe 72.10 (Prüfpunkt 8.5) | G Balance | K |  | Sokrates | offen |
+| 130 | Kampfgefühl MARS: Gespräch nach Test 72.10a | G Balance | K |  | Sokrates | wartet |
+| 130.2 | MARS: Prüfpunkt „Gefühl“ im Build 72.10a | G Balance | M |  | Jerry | offen |
+| 130.3 | MARS: Gegner mit verschiedenen Antworten | E Kampf | K |  | Jerry | wartet |
 | 130.1 | Name des neuen Kampfsystems: MARS, Spieltexte | G Stil | M |  | Jerry | offen |
 | 72.10a | MARS: Zauber, Zugleiste, Reichweite, Stufe 3 | E Kampf | M |  | Jerry | offen |
 | 72.10a.7 | MARS: Reihen, Klassen, Zweitwaffe | E Kampf | K |  | Jerry | wartet |
