@@ -32,6 +32,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 
 ## Protokoll
+- 17:47 17.10.: Zuruf Chef „Perikles in seinen Arbeitsvorrat gucken“ (trotz Sparmodus) → Startsperre: 17:47 Start Perikles
 - 17:32 17.10.: Zuruf Chef „Tom muss jetzt diese Fehler ausbügeln“ → 131.1, 151, 152, 153 auf Muss → Startsperre: 17:32 Start Tom (131.1, 151–153)
 - 16:21 17.10.: Tom 131 fertig (6ebc3e31, Release 0.1.827), archiviert, Kosten fehlt (kein usage); Nachfolger 138 (Kür) erst ab 21:00 (Sparmodus)
 - 16:06 17.10.: Sokrates fertig, archiviert (4,71 $ auf 135); Startzuordnung in LISTE-BETRIEB, LISTE-RELEASE-NEUSTART nachgezogen; offen: Pro-Umgebung für Ford 2/Jerry (Kennung fehlt, Chef/Ford 2)
