@@ -8,6 +8,7 @@ Einmal „Zeit für ein Release?“ fragen (Rückfrage auf „Chefsache“), sob
 
 ## Release (nur wenn der Nutzer „Release“ sagt, Thema 21)
 
+0. **Prüfung zuerst** (75i, 163): Zeile in `ARBEIT-PRUEFUNG.md` „Release“, dann `send_message` an Ford „Auftrag Diogenes Release“; weiter erst nach seinem Prüfbericht (Befunde, die das Release aufhalten, nennt er dort). Ohne Prüfbericht kein Release.
 1. `gh workflow run android.yml -R tramour-cmyk/androidapp_rpg_bornim --ref main -f release=true` (Version 0.1.<Laufnummer>, Notizen aus „## Unveröffentlicht“ in `CHANGELOG.md`).
 2. Danach in `CHANGELOG.md` „## Unveröffentlicht“ umbenennen in „## v0.1.X – TT.MM.JJJJ, HH:MM“ (X = Nummer des Release-Laufs).
 3. Den Link nennen.
