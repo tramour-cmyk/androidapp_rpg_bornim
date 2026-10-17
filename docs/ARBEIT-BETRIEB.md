@@ -75,6 +75,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 03:34 17.10.: Start Ford 2 (Selbstneustart, ≈301 Tsd. Token) (Ford 2)
 - 02:05 17.10.: Tom „Builds 8–13 nach main“ fertig (#101), archiviert, 2,87 $ zu gleichen Teilen auf 72.10, 86, D3, 129; Nachfolger 117 nach Sparmodus; sonst nichts
 - 01:12 17.10.: Chef zu 129a: nur Hühner erledigt, 68 und 26 offen → Vorgangsarchiv, Toms 129, Datei gelöscht
 - 01:06 17.10.: Idee Chef → 132 (Spieldauer im Spielstand, vierter Spielstand) an Tom (K, prüfen)
