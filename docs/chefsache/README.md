@@ -12,6 +12,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [142](entscheiden/142-pflichttest-play-store.md) | Kür | M Veröffentlichung | 17.10. | Play-Store-Konto und Pflichttest – ab wann (Empfehlung A: Konto jetzt, Tester sammeln ab Durchspielen 13.5) | Sokrates |
 | [154](entscheiden/154-gold-beim-tod.md) | M? | G Balance | 17.10. | 154: Goldverlust beim Tod (Empfehlung: (Tom):) |  |
 | [155](entscheiden/155-feuer-in-der-hoehle.md) | M? | G Höhle | 17.10. | 155: Lagerfeuer in der Höhle (Empfehlung: (Tom):) |  |
+| [156](entscheiden/156-modellvergleich-tom-jerry.md) | M? | B Abläufe | 17.10. | 156: Tom auf opus, Jerry auf sonnet – messen, ob das reicht (Empfehlung: (Perikles):) |  |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | Kür | E Kampf | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 | [110](entscheiden/110-ford-von-hand.md) | – | B Steuerung |  | 110: Ford bitte von Hand starten (Tiefe 6) (Empfehlung: :) |  |
 
