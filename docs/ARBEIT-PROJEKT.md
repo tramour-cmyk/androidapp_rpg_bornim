@@ -4,7 +4,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **offen 10, Muss 1, A 0, Chefsache 1**
 
-**Gelesen bis:** `7f4c3783` (17.10., 09:12)
+**Gelesen bis:** `ead2e5f5` (17.10., 09:26)
 
 **Übergabe (17.10., 09:26, „Perikles – 99 Auswertung Ford 2 (17.10., 09:11)“):** 99 ausgewertet, auf Zuruf erweitert (99h: Sparvorschläge, Messung 20.–21.10.); Zuruf „Jerry mitübernehmen“ an Ford. **Nachfolger: „Perikles – Tagesrückblick (90)“** (Probe ab 18.10.).
 
