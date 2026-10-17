@@ -1,0 +1,73 @@
+<title>Kartenmappe Bornim</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;1,400&family=Fondamento&display=swap">
+<style>
+/* Mappe: schwarz-goldene Hülle wie das Menü im Spiel, die Karten selbst auf Pergament; beim Druck weißes Papier, ein Blatt je Karte */
+:root{
+  --bg:#0e0d0b; --panel:#17150f; --gold:#c9a86a; --gold-dim:#7a6440; --ink:#e9dfc9; --muted:#a39a86;
+  --hand:'Fondamento','Alegreya',Georgia,serif; --text:'Alegreya',Georgia,'Times New Roman',serif;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--text);font-size:17px;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:40px}
+header{display:grid;gap:8px;border-bottom:1px solid var(--gold-dim);padding-bottom:20px}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dim)}
+h1{font-family:var(--hand);font-weight:400;color:var(--gold);font-size:clamp(34px,6vw,52px);line-height:1.1;margin:0;text-wrap:balance}
+h2{font-family:var(--hand);font-weight:400;color:var(--gold);font-size:30px;margin:0;text-wrap:balance}
+h3{font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0;font-weight:700}
+p{margin:0;max-width:65ch}
+a{color:var(--gold)}
+a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.meta{color:var(--muted);font-size:15px}
+section.ch{display:grid;gap:24px}
+.group{display:grid;gap:16px}
+.sheet{margin:0;display:grid;gap:8px;background:var(--panel);border:1px solid var(--gold-dim);padding:12px}
+.sheet img{display:block;width:100%;height:auto;image-rendering:pixelated}
+figcaption{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+figcaption b{font-family:var(--hand);font-weight:400;font-size:22px;color:var(--gold)}
+figcaption span{color:var(--muted);font-size:15px}
+.landbox{position:relative;max-width:520px;width:100%;justify-self:center}
+.ln{position:absolute;transform:translate(-50%,-50%);font-family:var(--hand);color:#4a3622;font-size:clamp(13px,2.6vw,20px);white-space:nowrap;text-shadow:0 0 3px #e6d3a8,0 0 6px #e6d3a8}
+.plans{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.empty{background:var(--panel);border:1px dashed var(--gold-dim);padding:20px;color:var(--muted)}
+@media print{
+  :root{--bg:#fff;--panel:#fff;--ink:#222;--muted:#555;--gold:#5a4520;--gold-dim:#999}
+  body{font-size:12pt}
+  .wrap{max-width:none;padding:0;gap:0}
+  header,.ch>h2,.empty{break-after:avoid}
+  .sheet{break-inside:avoid;break-before:page;border:none;padding:0}
+  .sheet img{max-height:24cm;width:auto;max-width:100%;justify-self:center}
+  .plans{display:block}
+  .noprint{display:none}
+  @page{size:A4;margin:12mm}
+}
+</style>
+<div class="wrap">
+<header>
+  <span class="eyebrow">Chroniken von Bornim · Vorgang 145</span>
+  <h1>Kartenmappe</h1>
+  <p>Alle Karten je Kapitel, ganz aufgedeckt, wie sie das Spiel im Menü zeigt, ohne Held. Drei Stufen: <b>Landkarte</b> (alle Gebiete), <b>Gebietskarten</b> (unter freiem Himmel), <b>Grundrisse</b> (hinter einem Eingang). Beim Drucken kommt jede Karte auf ein eigenes Blatt.</p>
+  <p class="meta">Text zur Geschichte: <b>Roter Faden</b> (Vorgang 144, Homer), Link folgt. · Stand: Spiel 0.1.827, 17.10.2026 · Bilder aus der Vorschau (<code>KARTENMAPPE=1</code>).</p>
+</header>
+
+<section class="ch">
+  <h2>Kapitel 1</h2>
+  <div class="group">
+    <h3>Landkarte</h3>
+    <figure class="sheet landbox"><div style="position:relative"><img src="@LAND@" alt="Landkarte">@LABELS@</div><figcaption><b>Landkarte</b><span>Die Hügel im Norden sind noch ohne Ort.</span></figcaption></figure>
+  </div>
+  <div class="group">
+    <h3>Gebietskarten</h3>
+    @AREA@
+  </div>
+  <div class="group">
+    <h3>Grundrisse</h3>
+    <div class="plans">@PLANS@</div>
+  </div>
+</section>
+
+<section class="ch">
+  <h2>Kapitel 2</h2>
+  <p class="empty">Noch keine Karten im Spiel. Sobald Gebiete für Kapitel 2 gebaut sind, kommen sie hier hinzu.</p>
+</section>
+</div>

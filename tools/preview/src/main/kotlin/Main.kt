@@ -118,6 +118,7 @@ fun main() {
     System.getenv("PROBE")?.let { probeFilm(it); System.exit(0) }
     System.getenv("FILMBATCH")?.let { fightBatch(it); System.exit(0) }
     if (System.getenv("KARTENBLATT") != null) { renderMapSheets(); System.exit(0) }
+    if (System.getenv("KARTENMAPPE") != null) { renderMapFolio(); System.exit(0) }
     // KARTE62=1: the map tab of 62c, zoomed in on the hero, with quest marks and the list of places
     if (System.getenv("KARTE62") != null) {
         if (System.getenv("KARTENTUSCHE") != null) de.bornim.core.art.MapSheet.ink = true
