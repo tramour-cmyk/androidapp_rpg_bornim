@@ -7,7 +7,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
 | [112](entscheiden/112-tempel-gegen-intro.md) | 17.10. | Tempel weicht in 7 Punkten vom Intro ab; Empfehlung: Tom malt neu, Ablauf und Texte bleiben | Homer |
-| [99](entscheiden/99-ford2-entfaellt.md) | 17.10. | Ford 2 kostet etwa 20 % von Jerry statt höchstens 10 %; Empfehlung: Ford 2 entfällt, Jerry startet seinen Nachfolger selbst über eine geplante Aufgabe | Perikles |
+| [99](entscheiden/99-ford2-entfaellt.md) | 17.10. | Ford 2 kostete am 16.10. etwa 20 % von Jerry (Grenze 10 %); vier Sparvorschläge jetzt, neue Messung Ford 2 und Ford 20.–21.10. | Perikles |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
 ## Anzusehen
