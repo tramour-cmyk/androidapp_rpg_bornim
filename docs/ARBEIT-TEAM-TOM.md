@@ -2,9 +2,9 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 9, Muss 2, A 0, Chefsache 2**
+**offen 9, Muss 2, A 0, Chefsache 3**
 
-**Übergabe (17.10., 09:3x, „Tom – 132 Spieldauer im Spielstand“) – Nachfolger: keiner (nichts Startbares; Übernahme bei Jerry nach Ford):** 132 geprüft, Empfehlung an den Chef; nichts gebaut.
+**Übergabe (17.10., 09:5x, „Tom – 134 Ausrufezeichen und Gesten prüfen“) – Nachfolger: keiner (nichts Startbares; Übernahme bei Jerry nach Ford):** 134 geprüft, Empfehlung an den Chef; nichts gebaut.
 
 ## Zeilen
 
@@ -18,4 +18,4 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 30 | K | Abstürze beim Testen (Technik) | beobachten (bei neuem `adb logcat` mit Anleitung); 30.7 Merkliste | – |
 | 117 | K | **von Perikles (16.10.):** Verweise in Code-Kommentaren auf umbenannte Notizen und Rollen nachziehen (`DESIGN-BLENDE`, `STORY-K1-HANDLUNG`, `STORY-K1-WELT`, `LISTE-…`, Sokrates → Homer/Perikles): `InterludeUi.kt`, `Intro.kt`, `IntroSound.kt`, `Story.kt`, `Interlude.kt`, `Chronicle.kt`, `InterludeClock.kt`, `BridgeProbe.kt`; mit dem nächsten eigenen Build, kein eigener | offen | – |
 | 132 | K | **von Chef (17.10., 01:06, über Ford), Idee zum Prüfen:** „Speicherstände ergänzen um den Wert Spieldauer. Weil dann kann ich auch sehen beim Durchspielen, wie lange es gedauert hat. Außerdem ist die Frage, ob man einen vierten Spielstand hinkriegt.“ | **Chefsache 132** (17.10., 09:35): Empfehlung beides, klein, mit 117 im nächsten eigenen Build; wartet auf Chef | – |
-| 134 | K | **Idee von Chef (17.10., 09:4x, über Ford), prüfen:** „NPCs, mit denen schon mal gesprochen wurde vom Helden, wenn er in die Nähe kommt, ein Ausrufungszeichen über den NPC machen, wenn er neue Inhalte zu vermitteln hat. Und dann können wir das Ganze auch in der Queue mit Mikrogesten unterstreichen. Natürlich drei Varianten, so wie herwinken oder grundsätzlich winken. Ja, kau da mal drauf rum.“ Hinweis Ford: „!“ heißt bei Monstern schon „bemerkt“ (D3.5, `alerts`); Gesten mit Homer (Spielgefühl) | offen | – |
+| 134 | K | **Idee von Chef (17.10., 09:4x, über Ford), prüfen:** „NPCs, mit denen schon mal gesprochen wurde vom Helden, wenn er in die Nähe kommt, ein Ausrufungszeichen über den NPC machen, wenn er neue Inhalte zu vermitteln hat. Und dann können wir das Ganze auch in der Queue mit Mikrogesten unterstreichen. Natürlich drei Varianten, so wie herwinken oder grundsätzlich winken. Ja, kau da mal drauf rum.“ Hinweis Ford: „!“ heißt bei Monstern schon „bemerkt“ (D3.5, `alerts`); Gesten mit Homer (Spielgefühl) | **geprüft** (17.10., 09:5x): Empfehlung ja, zwei Schritte (goldenes „!“, dann drei Gesten), [134](chefsache/entscheiden/134-ausrufezeichen-gesten.md); wartet auf Chef | – |
