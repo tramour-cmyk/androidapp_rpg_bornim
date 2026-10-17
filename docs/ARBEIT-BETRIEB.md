@@ -33,6 +33,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 
 ## Protokoll
+- 17:59 17.10.: Tom (131.1, 151–153, e23a37d4, Build 0.1.828, t17 beim Chef) archiviert, 4,57 $ zu gleichen Teilen auf 131, 151, 152, 153; Nachfolger 138 (Kür) erst ab 21:00 (Sparmodus)
 - 17:47 17.10.: Zuruf Chef „Perikles in seinen Arbeitsvorrat gucken“ (trotz Sparmodus) → Startsperre: 17:47 Start Perikles
 - 17:32 17.10.: Zuruf Chef „Tom muss jetzt diese Fehler ausbügeln“ → 131.1, 151, 152, 153 auf Muss → Startsperre: 17:32 Start Tom (131.1, 151–153)
 - 16:21 17.10.: Tom 131 fertig (6ebc3e31, Release 0.1.827), archiviert, Kosten fehlt (kein usage); Nachfolger 138 (Kür) erst ab 21:00 (Sparmodus)
