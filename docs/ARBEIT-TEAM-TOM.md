@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **offen 15, Muss 4, A 0, Chefsache 1**
 
-**Übergabe (17.10., 21:2x, „Tom – 138 Kräuter am Morgen (17.10., 21:20)“) – Nachfolger: Tom – 145 Kartenmappe (Kür; Muss alle beim Chef in t17):** 138 auf Zweig `claude/tom-138-kraeuter` (Kerntest grün, kein eigener Build); fährt im nächsten Test-Build nach t17 mit.
+**Übergabe (17.10., 21:26, „Tom – 145 Kartenmappe (17.10., 21:35)“) – Nachfolger: keiner (Muss alle beim Chef in t17; 138 auf Zweig wie zuvor):** 145 Kapitel 1 als [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Schalter `KARTENMAPPE=1` und `tools/preview/mappe/` auf Zweig `claude/tom-145-kartenmappe` (nur Werkzeug, kein Build).
 
 
 ## Zeilen
@@ -25,4 +25,4 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 138 | K | **von Perikles (Ideenspeicher, 137):** Kräuter wachsen am Morgen nach statt um Mitternacht (Spielzeit, passt zu 5la) | gebaut (ab Sonnenaufgang 6:30 neu, `Game.herbDay`), Kerntest; in den nächsten Test-Build nach t17 | claude/tom-138-kraeuter |
 | 139 | K | **von Perikles (Ideenspeicher, 137):** Fleisch an die Wirtin (Rowena) verkaufen, heute nur Thessa und Morwen | wartet auf zwei Sätze von Homer (Zeile 139 dort) | – |
 | 150 | K | **von Chef (17.10., 16:1x):** „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt nicht zur Spielzeit, oder?“ | beantwortet: zählt heute mit (nur App im Vordergrund mit geladenem Helden); Änderung nur auf Wunsch | – |
-| 145 | K | **von Chef (17.10., 11:5x, über Sokrates):** „im Artefakt, das braucht ja auch nicht die Niederlassung, jeweils die Einzelkarten, Gebietsübersichten, Landeskarte … je Kapitel, damit ich das auch drucken kann.“ Je Kapitel Landkarte, Gebietskarten, Grundrisse als druckbares Artefakt „Kartenmappe“ auf der Zentrale (Bilder aus `tools/preview`), mit Querlink zum roten Faden 144, Beginn Kapitel 1 und 2 (161) | offen | – |
+| 145 | K | **von Chef (17.10., 11:5x, über Sokrates):** „im Artefakt, das braucht ja auch nicht die Niederlassung, jeweils die Einzelkarten, Gebietsübersichten, Landeskarte … je Kapitel, damit ich das auch drucken kann.“ Je Kapitel Landkarte, Gebietskarten, Grundrisse als druckbares Artefakt „Kartenmappe“ auf der Zentrale (Bilder aus `tools/preview`), mit Querlink zum roten Faden 144, Beginn Kapitel 1 und 2 (161) | **Kapitel 1 fertig: [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn)** (Kapitel 2 hat noch keine Karten); Link zu 144 nachtragen, sobald Homers Seite steht | claude/tom-145-kartenmappe |
