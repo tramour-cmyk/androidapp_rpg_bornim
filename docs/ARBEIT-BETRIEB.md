@@ -12,7 +12,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Guthaben:** Max 91 % (Wechsel Sa 17.10. etwa 21:00, Sitzungslimit 8 %), Pro 49 % (Woche), 16.10., 21:2x (Bilder des Chefs über Perikles; Pro-Sitzungslimit voll bis etwa 23:30). Bis zum Max-Wechsel nur Laufendes zu Ende, keine neuen Starts in der Zentrale außer auf Zuruf des Chefs; Max 100 % vorher = Stillstand „Guthaben“ (128), kein Ausfall
 
-**Jetzt installieren:** nichts. 0.1.750 abgenommen und auf `main` (PR #65, 15.10., 16:5x).
+**Jetzt installieren:** Build 14 · 0.1.821 (PR #102, 132 + 134.1 + 117), Prüfliste t14; 0.1.750 zuletzt auf `main`.
 
 - **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (17.10., 10:50)“ `session_01R4KBGTZ2ThiXxZhzvGiriP` (seit 17.10., 10:50, Selbstneustart, Tiefe 1; Vorgänger `session_011Gp2Rv1XPqcVRJ5GZ6diEo` archiviert, 3,76 $). Stundenuhr „Ford-Lauf“ `trig_01VxHnFSb1Ji9rg1zRjMhL4E` (:03, seit 10:50; alte Uhr `trig_01C93THa7J9s6YNsT74H9ZAZ` gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
@@ -75,6 +75,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 11:20 17.10.: Neustart Tom 40bc5561: Build 14 fertig, archiviert (5,19 $ zu gleichen Teilen auf 132, 134.1, 117); Nachfolger „Tom – 132 zusammenführen“ erst nach „passt“ zu t14
 - 11:06 17.10.: Sparmodus wieder an, keine Starts; Homer D23.2 fertig, archiviert (0,63 $ auf D23); Tom 132 mit 134.1 im Sammelbuild (Zuruf Chef über Sokrates), Sokrates Zuruf laufen aus
 - 10:53 17.10.: Selbstneustart Ford (Vorgänger 3,76 $); Neustart Perikles 531b0b5b: 99h fertig, archiviert (1,12 $ auf 99); Nachfolger „Perikles – Tagesrückblick (90)“ erst 18.10.
 - 10:47 17.10.: von Sokrates: Chef entschied 99h 1–3 (Uhr aus ohne Arbeit, Neustart bei 150 Tsd., kleine Punkte mitnehmen) → Startsperre: 10:47 Start Perikles (99h Regeln, 99h.5); Ford startet sich danach neu (über 150 Tsd.)
