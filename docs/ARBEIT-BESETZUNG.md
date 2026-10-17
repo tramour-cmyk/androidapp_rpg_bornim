@@ -2,10 +2,10 @@
 
 **Wer gerade woran** (98.5). Schreibt nur Ford bei jedem Lauf aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 17.10., 18:20 (Ford; Jerry-Zeilen Ford 2)
+**Stand:** 17.10., 18:25 (Ford; Jerry-Zeilen Ford 2)
 
 | Rolle | Sitzung | Zeile | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford – Betriebsleiter (17.10., 18:18)](https://claude.ai/code/session_01ERcnjwM44tLiTHy1t4mmPQ) | Betrieb | – | 17.10., 18:18 |
+| Ford | [Ford – Betriebsleiter (17.10., 18:24)](https://claude.ai/code/session_013WgUpHvEMutiBeSbQoworP) | Betrieb | – | 17.10., 18:24 |
 | Ford 2 | [Ford 2 – Niederlassungsleiter (17.10., 17:42)](https://claude.ai/code/session_017VRJsTBwEbU16mwomLknhm) | Betrieb Pro | – | 17.10., 17:42 |
 | Jerry | [Jerry – 154 Gold beim Tod, 155 Feuer in der Höhle (17.10., 17:55)](https://claude.ai/code/session_01XBnri3vUBSXsaX4saWrYCq) | 154, 155 | claude/jerry-154-155-gold-feuer | 17.10., 17:50 |
