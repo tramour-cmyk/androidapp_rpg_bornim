@@ -6,6 +6,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
+| [112](entscheiden/112-tempel-gegen-intro.md) | 17.10. | Tempel weicht in 7 Punkten vom Intro ab; Empfehlung: Tom malt neu, Ablauf und Texte bleiben | Homer |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
 ## Anzusehen
