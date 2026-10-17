@@ -4,6 +4,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **offen 22, Muss 5, A 0, Chefsache 2**
 
+**Testergebnis Chef (18.10., Wortlaut „Build 19 passt“, aufgenommen von Perikles):** Build 19 (0.1.835, PR #109) freigegeben: PR zusammenführen, `t19` löschen, CHANGELOG. Die Antwort zu 130.2 „Gefühl“ hat der Chef nicht mitgegeben; bei Bedarf einmal nachfragen (Sokrates wartet darauf).
+
 **Übergabe (18.10., 00:2x, Jerry – 72.10a MARS) – Nachfolger: Jerry, Weiter in 72.10a.7/130.3 nach Test des Chefs:** 72.10a (.1 .3 .4 .5 .6 .10 .12), 130.1 gebaut, PR #109 (Entwurf), Build 19 = 0.1.835 grün, Testbitte `t19` auf `main` (mit Punkt „Gefühl“ 130.2). Nach „passt“: PR zusammenführen, t19 löschen, CHANGELOG; bei Rückläufern beheben. Texte: Zeile 72.10a.T bei Homer. PR-Abo läuft; 154/155 (PR #106) und 39 unverändert.
 
 ## Zeilen
