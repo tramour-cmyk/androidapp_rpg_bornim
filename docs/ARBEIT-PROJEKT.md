@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**offen 15, Muss 3, A 0, Chefsache 1**
+**offen 16, Muss 3, A 0, Chefsache 1**
 
 **Gelesen bis:** `ebcf7bdd` (17.10., 13:30)
 
@@ -12,6 +12,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Vorgang | Stand |
 |---|---|---|---|
+| 147.1 | M? | **von Ford (17.10., 13:4x):** Bild Verbrauch Pro (Chef): Nutzungsguthaben (Abrechnung über das Limit hinaus) ist **an**, „154,37 $ diesen Monat · Kein Ausgabenlimit · Automatisches Neuladen aus“. Prüfen, ob das gewollt ist und ob ein Ausgabenlimit gehört (Chefsache, falls Grundsatz); Zahl in `ARBEIT-BETRIEB.md` „Guthaben“ | offen |
 | 106.1 | M | Umbau Rollen und Namen (Paket mit 115, 117, 122, 124–126, 99g.1, 101, 102, 107, D16, D21; Chef 16.10., 22:0x: „106.1. Ja … und am Schluss muss Diogenes einmal wieder drüber prüfen“) | umgebaut 16.10.; Nachprüfung Diogenes Lauf 22 (trägt); D16–D21 im Prüfbericht vermerkt (17.10.); offen nur D17.2, D17.3 mit 99g; Erste Woche 18.–24.10. Ausgangswert, Wochenzählung Mo 26.10., danach Zielwerte (D19.4) |
 | 99h.5 | M | **von Chef (17.10., 10:4x, über Sokrates):** „auch die Testbuilds für mich zum Durchspielen dann so zusammenbauen, dass mehrere Sachen auf einmal getestet werden können.“ Reibt sich mit Sammelbuild höchstens 4 Punkte und „nie Tom und Jerry in einem Build“ (`LISTE-BAUEN-TESTEN.md`) | **entschieden** (Chef 17.10., 10:5x, Vorgangsarchiv 99h.5): Sammelbuild 2–4 Punkte, nie einer allein (außer „jetzt“); Tom und Jerry getrennt, Übernahme fährt im Build des Übernehmenden mit; in `LISTE-BAUEN-TESTEN.md` „Sammelbuild“ schreiben; ergänzt 99h.5a (A.1–A.4: bis 6 Punkte, wenn sie zusammengehören, Zweig bis 2 Tage, Prüfliste als Weg) |
 | 137 | M | **von Chef (17.10., 11:5x, über Sokrates), nach Homer:** Ideenspeicher einmalig durchgehen, Reifes in die Vorräte, „verwerfen?“ in die Chefrunde, Regeln nachziehen, Ansehen-Datei | **wartet auf Chef:** Chefsache 137 (fünf verwerfen?) und Ansehen 137; erledigt 17.10., 11:59: 138–142, 133 in die Vorräte, 79 in den Speicher, Regeln in `CLAUDE.md`, `ROLLE-KREATIV.md`, `ROLLE-PROJEKT.md` (ersetzen 115-Sätze, 90a) |
