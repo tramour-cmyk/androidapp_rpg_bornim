@@ -11,7 +11,7 @@
 | 13e Höhle „Ort fertig“ | Tom | Punkte aus `DESIGN-ABNAHME.md` ohne Lücke außer Mondlicht (hängt an 84.1, Kür) |
 | 38 Balance „Normal“ | Jerry, Diogenes | D4.1 neu gemessen (Zeile 38 in `ARBEIT-PRUEFUNG.md`), Zielwert Ausgleich mit dem Chef festgelegt (Chefsache) |
 | 39 Schwierigkeitsgrad | Jerry, Homer (39.2 Wortlaut) | Build nach 38 getestet (39.1) |
-| 112, 68 Tempelszene gegen das Intro | Homer, dann Tom | Abweichungsliste in der Chefsache, Entscheid des Chefs, nachgezogen |
+| 112, 68 Tempelszene gegen das Intro | Homer, dann Tom | entschieden 17.10.: Tom malt neu, nach dem Meilenstein |
 | 26 Durchspielen | Chef (Testbitte Tom) | Kapitel 1 einmal ganz gespielt, Befunde im Vorrat |
 
 Dazu Muss auf Zuruf des Chefs („jetzt“): D21 (Abgleich Vorrat gegen Chefsache, Tom und Jerry). Nicht diese Woche, weil Neues nach dem Meilenstein: Kampfprobe 72.10 und Kampfort 72u (Gruppenkämpfe), Kapitel 2 (41, 72s.1); der Chef kann jede Zeile mit „jetzt“ vorziehen.

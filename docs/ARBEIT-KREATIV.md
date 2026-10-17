@@ -2,7 +2,7 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 16, Muss 1, A 0, Chefsache 2**
+**offen 15, Muss 0, A 0, Chefsache 1**
 
 **Gelesen bis:** `8abeae7b` (15.10., 23:0x; für `tools/story.sh`)
 
@@ -15,7 +15,6 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | 72.10 | K | **von Team Jerry (16.10., 18:5x):** Wortlaut der Kampfmeldungen der Probe gegen Grak; gebaut mit sachlichen Platzhaltern in `core/.../Skirmish.kt` (`Msg72`: ankündigen, treffen, verfehlen, abwarten, Platz tauschen, fällt, bewusstlos, Kraft sammeln, Goblin eilt herbei, taumelt/vereitelt, Automatik hält an, Schlag halb/ganz abgefangen) und `SkirmishScreen.kt` (Perfekt/Gut/Verpasst, Hinweis zum Ring) | offen; nicht eilig, Probe läuft mit Platzhaltern |
 | 86.9 | K | **von Team Jerry:** Anzeige „betrunken“ (Met, SRD Vergiftet bis zur Rast): Chef 16.10., 15:3x „Zustand betrunken wegen Met und vergiftet, warum kein Status in Leiste?“ Gebaut ist nur die Wirkung; es fehlen Name (DE/EN), Kurztext und ob ein Zeichen in der oberen Leiste und im Kampf. **Dazu (Jerry 16.10., 20:3x, 86):** außer Atem in den Kampf = Initiative mit Nachteil, ohne Kampfzeile; Wortlaut nötig, falls der Kampf es sagen soll | offen; danach baut Jerry |
 | 114 | K | **von Team Tom:** Idee des Chefs prüfen: Aufwachen am Bett im Gasthaus, 114.1 Aufstehsequenz (Wortlaut in `LISTE-IDEEN.md`) | offen; Entwurf ohne Aufstehen in PR #83 (nicht auf `main`), Tom empfiehlt 114.1 „noch nicht“ |
-| 112 | M | **von Perikles:** Intro als Muster festschreiben (Chef 16.10., 11:3x: „wir haben ganz viel Energie in die Entwicklung des Intros eines Musterbildes gesteckt, als Maß aller Dinge … Aber im Vergleich dazu ist ja die Sequenz Tempel eher schlecht.“) | Muster in `DESIGN-STIL.md` „Zwischensequenzen“ (sechs Merkmale); Abweichungsliste Tempel auf **Chefsache 112** (Empfehlung: Tom malt neu, nach Wochenziel). Nach Antwort: Zeile an Tom (68) |
 | 72.14 | K | Feuerball-Text (von Team Jerry) | `Rules.kt` FIREBALL: „Verjagt Begleiter, die ihren Rettungswurf nicht schaffen.“ meint das gegnerische Rudel; mit eigenem Hund (72.15) mehrdeutig. Bitte Wortlaut (DE/EN), Vorschlag Tom: „Verjagt Rudel und Späher des Gegners …“ |
 | 86 | K | Wortlaut für Rast, Met, Zimmer, Ausdauertrank (von Team Tom, 16.10., 01:2x): gebaut mit sachlichen Platzhaltern in `core/.../Resting.kt` (Feldtitel „Rasten?“, „Schänke“, Knöpfe, Zeilen nach der Rast, Met „erholt“/„betrunken (Vergiftet)“, Blende „Eine Stunde vergeht.“) und Beschreibung `stamina_potion` in `Items.kt`; bitte prüfen oder ersetzen, Tom übernimmt wortgetreu. Offen auch: Rowena sagt nichts zu Met und Zimmer | offen, nicht eilig | – |
 | 41 | K | Storyplan; Texte Kapitel 2 | [Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d) Kapitel 2 fertig (ohne 5b). [Textentwurf](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413) ruht, wartet auf 72s.1 (Gefährte ändert die Texte); offen 4.4, 5.3, 6.3. **D4.1 A** (Chef 15.10., 10:5x): Texte zur Quest vor der Höhle (Morwen, Garrick warnt unter Stufe 3) mit dem Chef, dann Tom |

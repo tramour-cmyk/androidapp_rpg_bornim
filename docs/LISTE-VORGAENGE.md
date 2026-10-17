@@ -121,7 +121,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 109 | Repo öffentlich | M Veröffentlichung | K |  | Sokrates | ruht |
 | 110 | Sitzungstiefe, Ford von Hand | B Steuerung | – |  | Perikles | erledigt |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | B Abläufe | K |  | Perikles | offen |
-| 112 | Intro als Muster, Tempel dagegen | G Stil | M | 1,34 $ | Homer | Chefsache |
+| 112 | Intro als Muster, Tempel dagegen | G Stil | M | 1,34 $ | Homer | entschieden |
 | 113 | Begriff „Vorgang“ | B Abläufe | – |  | Perikles | erledigt |
 | 114 | Aufwachen am Bett im Gasthaus | G Story | K |  | Homer | Idee |
 | 115 | Idee heißt prüfen | B Abläufe | – |  | Perikles | erledigt |
