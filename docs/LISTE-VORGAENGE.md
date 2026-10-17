@@ -196,3 +196,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 162 | Klasse bei Abhängigkeit: wartet ein Punkt auf einen anderen, Muss statt Kür? (Chef) | B Abläufe | M |  | Perikles | erledigt |
 | 163 | Diogenes vor jedem Release (Schritt in der Release-Anleitung) | B Abläufe | M? |  | Perikles | erledigt |
 | 163.1 | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz 23.10.) | B Kosten | K |  | Perikles | ruht bis 23.10. |
+| 164 | Testdatei-Format: Rollendatei-Satz und Formatprüfung in zug-index (Auslöser Jerry Build 19) | B Abläufe | M |  | Perikles | Prüfung Diogenes |
