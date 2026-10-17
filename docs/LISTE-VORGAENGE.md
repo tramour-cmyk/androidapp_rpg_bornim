@@ -182,4 +182,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 153 | Fehler: Überspringen-Kasten im Intro (und Kapitelende 1) weiß mit schwarzer Schrift, passt nicht zum Design | E Oberfläche | M | 1,14 $ | Tom | Test |
 | 154 | Goldverlust beim Tod zu hart (Feedback Chef Build 16) | G Balance | M? | Perikles 0,50 $ | Jerry | erledigt |
 | 155 | Lagerfeuer in der Höhle: bleibt, Rast gesperrt (Feedback Chef Build 16) | G Höhle | M | Perikles 0,30 $ | Jerry | Test |
-| 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? | Perikles 0,35 $ | Perikles | entschieden |
+| 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? | Perikles 0,35 $ | Perikles | in Arbeit |
