@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **offen 17, Muss 2, A 0, Chefsache 2**
 
-**Übergabe (17.10., Jerry – 154, 155) – Nachfolger: keiner (Pause bis Mo 19.10., 21:00; Schwelle gilt wieder, 128):** 154 und 155 gebaut, PR #106 (Entwurf), Kerntests grün, Chef-Test am Gerät offen. 154: kein Goldverlust, Heimweg 4 Stunden; 155: Feuer aus der Höhle (Rast draußen am Eingang und Homers Prüfung „Goblinlager“ offen, Zeile an Homer nicht angelegt).
+**Übergabe (17.10., Jerry – 154, 155) – Nachfolger: keiner (Pause bis Mo 19.10., 21:00; Schwelle gilt wieder, 128):** 154 und 155 gebaut, PR #106 (Entwurf), Kerntests grün, Chef-Test am Gerät offen. 154: kein Goldverlust, Heimweg 4 Stunden; 155: Höhlenfeuer bleibt, Rast dort nur Hinweis „zu gefährlich“ (Idee Chef, ersetzt Entfernen).
 
 ## Zeilen
 
