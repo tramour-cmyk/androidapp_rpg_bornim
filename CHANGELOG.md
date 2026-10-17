@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.827 – 17.10.2026, 16:18
+
 - **Zusammengeführt ohne Test-Build, Test im Release** (PR #104 mit #103, 17.10.; Chef: „das teste ich dann in einem Release gleich“): der Held geht gemächlich, etwa halb so schnell wie bisher, Zwerge und Halblinge etwas langsamer, schwere Rüstung ohne Kraft bremst, Geschick hilft; Rennen ist kurz (etwa 6 s bei Konstitution 10, länger mit Konstitution und Stufe); Joystick: im Kreis gehen, über den Ring hinaus rennen, Ring golden mit kurzem Rütteln; Taste „Rennen“ wahlweise im Menü (131); Garrick nennt Krogg, den Ostflügel und Morwen schon im ersten Gespräch (D23.2).
 - **Zusammengeführt nach Test 0.1.821** (PR #102, 17.10., 14:1x; Chef: „0.1.821 passt. Sehr gut.“): Spielstände zeigen die gespielte Zeit („Gespielt: 2 Std. 14 Min.“), vier statt drei Plätze, das Fenster „Alle Plätze belegt“ rollt (132); Leute mit Neuem zeigen beim Herankommen kurz ein goldenes „!“ (134.1); Verweise in Code-Kommentaren auf umbenannte Notizen (117) (Rückläufer: 0).
 - **Zusammengeführt nach Test 0.1.812/0.1.813/0.1.815/0.1.816** (PR #68, #98, #99, #100 über #101, 17.10., 01:1x): Probe im Testmenü: Held und Söldner gegen Grak mit Absichten, goldenem Ring zum Abwehren, zwei Reihen, Platztausch und Automatik (72.10, 72.11, 72.13); rennend bemerken Monster den Helden früher, außer Atem würfelt er die Initiative mit Nachteil (86); der Leitwolf heult im Kampf aus echten Aufnahmen (D3); Hühner stehen nie zu zweit auf einem Platz, auch beim Weglaufen und unter den Bäumen (129).

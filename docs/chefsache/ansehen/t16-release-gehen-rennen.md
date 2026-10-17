@@ -1,6 +1,6 @@
-# Tom · Release (Version folgt) · 131 Gehen und Rennen, D23.2, 26 · PR #104
+# Tom · Release 0.1.827 · 131 Gehen und Rennen, D23.2, 26 · PR #104
 
-Tom · 17.10., 16:0x · direkt als Release (Chef 17.10., 16:0x), Link folgt. Enthält D23.2 (Garrick) und ersetzt Build 15 (t15); Spielstände bleiben. Joystick-Stufe im Menü: Normal.
+Tom · 17.10., 16:0x · direkt als Release (Chef 17.10., 16:0x): [v0.1.827](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.827). Enthält D23.2 (Garrick) und ersetzt Build 15 (t15); Spielstände bleiben. Joystick-Stufe im Menü: Normal.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|

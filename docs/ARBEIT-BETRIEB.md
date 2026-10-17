@@ -12,7 +12,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Guthaben:** Pro 53 % Woche, Sitzung 4 % (Bild Chef 17.10., 13:4x; Hinweis dort: „bei diesem Tempo … morgen Abend aus“; Nutzungsguthaben an, −0,01 $; 154,37 $ diesen Monat, kein Ausgabenlimit); Max 97 % Woche, Sitzung 8 % (Bild Chef 17.10., 13:5x; Wechsel 21:00) · vorher: Max 91 % (Wechsel Sa 17.10. etwa 21:00, Sitzungslimit 8 %), Pro 49 % (Woche), 16.10., 21:2x (Bilder des Chefs über Perikles; Pro-Sitzungslimit voll bis etwa 23:30). Bis zum Max-Wechsel nur Laufendes zu Ende, keine neuen Starts in der Zentrale außer auf Zuruf des Chefs; Max 100 % vorher = Stillstand „Guthaben“ (128), kein Ausfall
 
-**Jetzt installieren:** Build 14 · 0.1.821 (PR #102, 132 + 134.1 + 117), Prüfliste t14; 0.1.750 zuletzt auf `main`.
+**Jetzt installieren:** Release 0.1.827 (131 + D23.2, PR #104; Testaufgaben t16); 0.1.827 auf `main`.
 
 - **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (17.10., 14:58)“ `session_014hTid4SzEFjBD6XRJwoqK6` (seit 17.10., 14:58, Selbstneustart, Tiefe 5, sonnet, „WireStorm Mittel“; Vorgänger `session_012o4W291sdXFmdix8h3xGCx` archiviert, 1,45 $). Stundenuhr „Ford-Lauf“ `trig_01Ajgi3kkihedu96RizYv3N5` (:03, seit 14:59; alte Uhr `trig_01M2ai1CZr1QMSm5vTxA9Jvg` gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
