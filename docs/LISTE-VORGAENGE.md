@@ -81,7 +81,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 69 | Intro in Standbildern (Ankunft bei Nacht) | G Stil | K |  | Homer (69e); Tom | offen |
 | 70 | Zwischensequenzen einheitlich, Bildsprache | G Stil | K |  | Homer mit Chef | in Arbeit |
 | 71 | Bestandsprüfung Stil und Klang aller Orte | Q QS | K |  | Diogenes | offen |
-| 72 | Profil und Marktvergleich | E Kampf | K |  | Homer, Jerry | offen |
+| 72 | Profil und Marktvergleich | E Kampf | K | 0,72 | Homer, Jerry | offen |
 | 73 | Versperrte Hütten: nachts Läden zu, Stimmen | E Welt | – |  | Tom | erledigt |
 | 74 | Schrittgeräusche je Untergrund an allen Orten | E Klang | – |  | Jerry (Klang), Tom (Dorf, Räume) | erledigt |
 | 75 | Diogenes schärfen; Kosten und Nutzen des Testens | B Abläufe | – |  | Sokrates mit Nutzer | erledigt |
