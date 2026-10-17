@@ -645,19 +645,23 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
      */
     fun herbAt(x: Int, y: Int): Boolean {
         if (map.kind != MapKind.FOREST || map.tile(x, y) != Tile.FLOWERS) return false
-        if (state.picked["${state.place.map}:$x:$y"] == state.day) return false
+        val day = herbDay()
+        if (state.picked["${state.place.map}:$x:$y"] == day) return false
         // Fixed per tile and day, so the plant does not flicker and the map can show it.
-        var h = state.place.map.hashCode() * 31 + x * 73_856_093 + y * 19_349_663 + state.day * 83_492_791
+        var h = state.place.map.hashCode() * 31 + x * 73_856_093 + y * 19_349_663 + day * 83_492_791
         h = (h xor (h ushr 13)) * 0x5bd1e995
         h = h xor (h ushr 15)
         return Math.floorMod(h, 100) < HERB_CHANCE * 100
     }
 
-    /** Walking onto a herb picks it; it grows back the next day. */
+    /** 138: herbs grow back at sunrise, not at midnight; before sunrise it is still the day before. */
+    private fun herbDay(): Int = if (state.minutes >= SUNRISE_MIN) state.day else state.day - 1
+
+    /** Walking onto a herb picks it; it grows back the next morning. */
     private fun pickHerbs() {
         val p = state.place
         if (!herbAt(p.x, p.y)) return
-        state.picked["${p.map}:${p.x}:${p.y}"] = state.day
+        state.picked["${p.map}:${p.x}:${p.y}"] = herbDay()
         val n = 1 + (if (dice.chance(0.3)) 1 else 0) + (if (dice.chance(Perks.extraHerbChance(hero))) 1 else 0)
         state.add("herbs", n)
         sounds += de.bornim.core.audio.Sound.LOOT
