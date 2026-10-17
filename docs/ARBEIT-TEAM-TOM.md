@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **offen 11, Muss 3, A 0, Chefsache 1**
 
-**Übergabe (17.10., 15:2x, „Tom – D23.2 Garrick (17.10., 13:58)“) – Nachfolger: Tom – 15 zusammenführen (nach „passt“ zu t15: PR #103 mergen, CHANGELOG, t15 löschen):** t13 zurückgezogen; D23.2 gebaut; PR #102 zusammengeführt; Build 15 = 0.1.824 mit Prüfliste t15.
+**Übergabe (17.10., 15:4x, „Tom – D23.2 Garrick (17.10., 13:58)“) – Nachfolger: Tom – 131 Gehen und Rennen (Zuruf Chef über Sokrates 15:38; nach „passt“ zu t15 nebenbei PR #103 mergen, CHANGELOG, t15 löschen):** t13 zurückgezogen; D23.2 gebaut; PR #102 zusammengeführt; Build 15 = 0.1.824 mit Prüfliste t15.
 
 ## Zeilen
 
