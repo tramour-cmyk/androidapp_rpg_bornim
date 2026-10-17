@@ -113,6 +113,16 @@ class FreeWalkTest {
             assertTrue(g.freeWalk.y >= d.y + 1 + FreeWalk.RADIUS - 1e-6, "body outside the door ${d.x},${d.y}: ${g.freeWalk.y}")
         }
     }
+
+    /** 151 (Chef, Build 16): over the bridge and left towards the elder, nothing unseen stops the hero below Pim's house. */
+    @Test
+    fun fromTheBridgeLeftTowardsTheElderNothingUnseenStopsTheHero() {
+        val g = game("village")
+        g.state.place = Place("village", 17, 25, Facing.LEFT)
+        g.freeWalk.sync()
+        g.go(-1.0, -0.2, 3_000)
+        assertTrue(g.freeWalk.x < 13.0, "hängen geblieben bei ${g.freeWalk.x}, ${g.freeWalk.y}")
+    }
 }
 
 /** 13p.5: the floor before the counter at the wall (1,4), beside the barrel in the corner, can be stepped on. */
