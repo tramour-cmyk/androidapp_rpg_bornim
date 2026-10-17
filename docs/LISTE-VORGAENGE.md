@@ -186,6 +186,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 157 | Ford von Hand auf opus und fremder Umgebung: so lassen oder neu in „WireStorm Mittel“? | B Steuerung | K |  | Ford | erledigt |
 | 158 | Ford-2-Lauf wie Fords Lauf fassen (Archivieren, Kosten, Besetzung, Fragen des Chefs) | B Abläufe | K |  | Perikles | erledigt |
 | 158a | Abwägung 158 dauerhaft ablegen | B Abläufe | K |  | Perikles | erledigt |
-| 159 | Pro gekündigt: Niederlassung ruht, Jerry in der Zentrale, Messung Max 5x (Chef) | B Abläufe | M |  | Perikles | umgebaut; 159.1 Messung offen |
-| 160 | Design-Texte (Kampf, Heldenbau, Stil) wieder als Dokument zum Kommentieren? | B Abläufe | K |  | Perikles | erledigt |
-| 161 | 144 und 145: roter Faden und Karten je Kapitel, zwei Dokumente mit Querlink | G Story | K |  | Perikles | erledigt |
+| 159 | Pro gekündigt: Niederlassung ruht, Jerry in der Zentrale, Messung Max 5x (Chef) | B Abläufe | M | 1,70 $ | Perikles | umgebaut; 159.1 Messung offen |
+| 160 | Design-Texte (Kampf, Heldenbau, Stil) wieder als Dokument zum Kommentieren? | B Abläufe | K | 0,74 $ | Perikles | erledigt |
+| 161 | 144 und 145: roter Faden und Karten je Kapitel, zwei Dokumente mit Querlink | G Story | K | 0,74 $ | Perikles | erledigt |

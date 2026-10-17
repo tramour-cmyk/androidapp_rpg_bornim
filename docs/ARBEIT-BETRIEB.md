@@ -6,9 +6,9 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
-**Sparmodus bis Sa 17.10., 21:00** (99d, `FIRMA.md` „Sparmodus“), **ausgesetzt Sa 17.10. 09:08–11:00 für die Zentrale** (Chef 17.10., 09:08: „Weck mal den Betrie bis auf die Niederlassung auf und lass mal probeweise alle so arbeiten, wie es sein soll. Ab 11100 Uhr gehst du wieder in den Sparmodus und lässt aktive Arbeitssitzungen ausklingen.“; „11100“ gelesen als 11:00): Ford Pilot, Starts nach Vorrang; ab 11:00 keine Starts, laufende Sitzungen beenden ihren Punkt
+**Sparmodus beendet Sa 17.10., 21:00** (Max-Wechsel; 99d)
 
-**Ford: Co-Pilot bis Sa 17.10., 21:00, danach Pilot** (Chef 15.10., 22:5x: „dann kriegt Ford die Stellung Co-Pilot … wieder zurückstellen … wenn wir wieder volles Guthaben haben“; der erste Lauf danach stellt selbst auf Pilot zurück, pusht, meldet lautlos; 81g)
+**Ford: Pilot** (seit Sa 17.10., 21:05; zuvor Co-Pilot bis 21:00, Chef 15.10., 22:5x; 81g)
 
 **„Chefsache“ (63): `docs/chefsache/`** (108; Übersicht = `docs/chefsache/README.md`, zeigt GitHub unter der Dateiliste; Lesezeichen für den Chef: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/main/docs/chefsache) · Vorgangsarchiv: `docs/VORGANGSARCHIV.md` · Prüfbericht Diogenes: `docs/PRUEFBERICHT.md`
 
@@ -34,6 +34,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 
 ## Protokoll
+- 21:05 17.10.: Lauf: Pilot gesetzt, Sparmodus vorbei; Diogenes 159 (0,96 $) und Perikles (2,21 $) archiviert, Kosten auf 159–161; 21:06 Start Jerry (Zeile 39, Muss; Tom: 131.1/151–153 warten auf Test t17, kein Muss startbar)
 - 20:1x 17.10.: 160 Chef (Wortlaut): „160 alles bleibt so um Repo“ → gelesen als Empfehlung A (alles im Repo lassen, kein Dokument); an Perikles, Sokrates trägt ins Vorgangsarchiv ein
 - 20:06 17.10.: Auftrag Diogenes 159 (von Perikles) → Start Diogenes `session_01BwT625woAk6JRDYekGDq65`
 - 20:03 17.10.: Neustart Perikles abcc8249 (Übergabe ok, 158 entschieden) → Start „Perikles – 159 Niederlassung ruht“ `session_01CG5fMgY39mPnPxLMEJm29D`; Vorgänger archiviert, 1,26 $ auf 158. Hinweis: rate_limit_info Max „rejected“, Überschreitung an
