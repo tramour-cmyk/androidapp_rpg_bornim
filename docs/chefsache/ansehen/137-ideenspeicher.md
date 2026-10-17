@@ -1,5 +1,6 @@
 # Perikles · Ideenspeicher · 137
 Perikles · 17.10., 11:59 · B Abläufe · in Ruhe ansehen, nichts zu testen
+
 Kurz: 137: Ideenspeicher nach Bereichen, erster Stand
 
 Wie gewünscht („dass das einmal jetzt einen Stand hat, dann kann ich mir … den auch trotzdem mal in Ruhe anschauen“): **[Ideenspeicher](../../LISTE-IDEEN.md)**.
