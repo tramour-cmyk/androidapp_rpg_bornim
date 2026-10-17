@@ -73,6 +73,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 09:26 17.10.: Zuruf Chef an Perikles (09:2x): „Aufgaben Jerry für Testlauf hier für Probebetrieb bis 1100 mitübernehmen.“ → Startsperre: 09:26 Start Tom 2 (Übernahme Jerry D21, oberste startbare Zeile ohne Gerätetest)
 - 09:10 17.10.: Perikles 106.1 Vermerke fertig (1e955644), archiviert, 0,88 $ auf 106; Nachfolger Tagesrückblick erst ab 18.10.; Startsperre: 09:10 Start Perikles (oberste startbare Kür, kein Muss startbar)
 - 09:08 17.10.: Probebetrieb Zentrale bis 11:00 (Zuruf Chef); 112a damit erledigt (Homer jetzt); Startsperre: 09:08 Start Homer (112), 09:08 Start Perikles (106.1 Vermerke, dann Tagesrückblick), 09:08 Start Tom (13e), 09:08 Start Diogenes (38 D4.1 neu messen)
 - 09:04 17.10.: Morgenmeldung laut (mit Bild-Bitte)
