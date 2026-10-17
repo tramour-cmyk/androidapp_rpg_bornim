@@ -34,6 +34,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 
 ## Protokoll
+- 20:1x 17.10.: 160 Chef (Wortlaut): „160 alles bleibt so um Repo“ → gelesen als Empfehlung A (alles im Repo lassen, kein Dokument); an Perikles, Sokrates trägt ins Vorgangsarchiv ein
 - 20:06 17.10.: Auftrag Diogenes 159 (von Perikles) → Start Diogenes `session_01BwT625woAk6JRDYekGDq65`
 - 20:03 17.10.: Neustart Perikles abcc8249 (Übergabe ok, 158 entschieden) → Start „Perikles – 159 Niederlassung ruht“ `session_01CG5fMgY39mPnPxLMEJm29D`; Vorgänger archiviert, 1,26 $ auf 158. Hinweis: rate_limit_info Max „rejected“, Überschreitung an
 - 19:04 17.10.: Lauf: Diogenes 158 fertig, archiviert, 0,64 $ auf 158; Perikles wartet auf Chef (Vorlage 158); Sparmodus, kein Start
