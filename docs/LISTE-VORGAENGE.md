@@ -109,7 +109,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 97 | Vorrang in der Arbeitsliste | B Abläufe | – |  | Perikles | erledigt |
 | 98 | Firma WireStormTCS | B Abläufe | – |  | Perikles | umgebaut |
 | 99 | Zwei Niederlassungen | B Steuerung | K | 7,25 $ | Perikles | Messung |
-| 136 | Bereich auch in Vorräten zeigen (Idee Chef) | B Abläufe | K |  | Sokrates | offen |
+| 136 | Bereich in der Kopfzeile der Chefsache (Idee Chef) | B Abläufe | K |  | Perikles | offen |
 | 137 | Kür ohne Zweig zurück in den Ideenspeicher (Idee Chef) | B Abläufe | K |  | Sokrates | offen |
 | 135 | Chefrunde: Chefsache mit Sokrates entscheiden | B Abläufe | – | 3,21 $ | Sokrates | erledigt |
 | 99h.6 | Neustarts der Teams mitmessen | B Steuerung | K |  | Perikles | offen |

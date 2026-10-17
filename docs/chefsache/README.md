@@ -6,7 +6,6 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
-| [136](entscheiden/136-bereich-in-vorraeten.md) | 17.10. | Empfehlung: Bereich in die Kopfzeile jeder Chefsache-Datei, nicht als Spalte in die Vorräte | Sokrates |
 | [137](entscheiden/137-kuer-in-ideenspeicher.md) | 17.10. | Empfehlung: Kür ohne Zweig, Termin und angefangene Arbeit in `LISTE-IDEEN.md` nach Bereichen, Perikles holt montags zurück | Sokrates |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
