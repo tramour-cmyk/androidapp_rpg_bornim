@@ -2,7 +2,7 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 18, Muss 0, A 0, Chefsache 1**
+**offen 19, Muss 1, A 0, Chefsache 1**
 
 **Gelesen bis:** `8abeae7b` (15.10., 23:0x; für `tools/story.sh`)
 
@@ -12,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 155 | M | **von Chef (17.10., 18:1x), „jetzt“:** Prüfen, ob die Story das Lagerfeuer in der Höhle (Goblinlager, `cave` Zeile 4, Spalte 16) braucht. Chef: Höhle klein, Garrick mit Feuer draußen, nah; „aus meiner Sicht kann es auf jeden Fall raus“. Wer umsetzt, ist ihm egal. Entwurf in [155](chefsache/entscheiden/155-feuer-in-der-hoehle.md) | offen; Ergebnis in die Datei 155, Umsetzung Jerry |
 | 72.10a | K | **von Sokrates:** kleine Spielanleitung für den neuen Kampf (Absichten, Ring, Reihen, Platztausch, Automatik); schon gewünscht Chef 16.10., 22:1x („Eine kleine Spielanleitung wäre gut“, Zeile 72.10 bei Jerry), kam hier nie an; erneut Chef 17.10., 15:1x (an Sokrates): „diese neue Kampfumgebungs-Szenario … dass das nicht immer Probe heißt … irgendwer sollte ja dazu noch eine kleine Anleitung schreiben, wie das überhaupt funktioniert. Aber wir sind da deutlich zu wenig Optionen. Und ich habe bis jetzt jeden Kampf verloren, egal welchen, weil ich nie treffe.“ Name nach 130.1 | offen |
 | 72.10 | K | **von Team Jerry (16.10., 18:5x):** Wortlaut der Kampfmeldungen der Probe gegen Grak; gebaut mit sachlichen Platzhaltern in `core/.../Skirmish.kt` (`Msg72`: ankündigen, treffen, verfehlen, abwarten, Platz tauschen, fällt, bewusstlos, Kraft sammeln, Goblin eilt herbei, taumelt/vereitelt, Automatik hält an, Schlag halb/ganz abgefangen) und `SkirmishScreen.kt` (Perfekt/Gut/Verpasst, Hinweis zum Ring) | offen; nicht eilig, Probe läuft mit Platzhaltern |
 | 86.9 | K | **von Team Jerry:** Anzeige „betrunken“ (Met, SRD Vergiftet bis zur Rast): Chef 16.10., 15:3x „Zustand betrunken wegen Met und vergiftet, warum kein Status in Leiste?“ Gebaut ist nur die Wirkung; es fehlen Name (DE/EN), Kurztext und ob ein Zeichen in der oberen Leiste und im Kampf. **Dazu (Jerry 16.10., 20:3x, 86):** außer Atem in den Kampf = Initiative mit Nachteil, ohne Kampfzeile; Wortlaut nötig, falls der Kampf es sagen soll | offen; danach baut Jerry |
