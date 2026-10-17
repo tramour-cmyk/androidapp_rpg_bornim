@@ -2,7 +2,7 @@
 
 Sokrates · 17.10., 15:2x · G Balance · Auftrag Chef 17.10., 00:35 („Zum Punkt Gefühl, 5, bitte eigenen Punkt zur Diskussion mit Sokrates aufmachen.“), Prüfpunkt 8.5 zu Build 8 (Probe 72.10: Held und Söldner gegen Grak; drei Absichten, Ring, zwei Reihen, Platztausch, Automatik)
 
-Kurz: Kampfgefühl nach Build 8 und Name (Empfehlung A mit C; 130.1: „Reihenkampf“)
+Kurz: Kampfgefühl und Name – zurückgestellt für ein ruhiges Gespräch mit Sokrates (Chef 17.10., 15:2x)
 
 **Dazu Chef 17.10., 15:1x:** „deutlich zu wenig Optionen. Und ich habe bis jetzt jeden Kampf verloren, egal welchen, weil ich nie treffe.“ Befund: der Testkampf nimmt den Helden in seiner aktuellen Stufe gegen Hauptmann Grak, den Boss von Kapitel 1 (RK 16, etwa 39 TP); auf Stufe 1 trifft ein Kämpfer jeden zweiten Schlag, ein Magier seltener, und Grak trifft hart. Verlieren ist dort eingebaut, nicht Pech (an Jerry: 72.10b). Anleitung an Homer (72.10a; schon am 16.10. gewünscht, kam nie an).
 
