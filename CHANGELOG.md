@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **154, 155 (PR #106, Test offen):** Niederlage kostet kein Gold mehr, der Heimweg dauert 4 Stunden; Feuerstelle aus der Höhle entfernt.
+
 ## v0.1.827 – 17.10.2026, 16:18
 
 - **Zusammengeführt ohne Test-Build, Test im Release** (PR #104 mit #103, 17.10.; Chef: „das teste ich dann in einem Release gleich“): der Held geht gemächlich, etwa halb so schnell wie bisher, Zwerge und Halblinge etwas langsamer, schwere Rüstung ohne Kraft bremst, Geschick hilft; Rennen ist kurz (etwa 6 s bei Konstitution 10, länger mit Konstitution und Stufe); Joystick: im Kreis gehen, über den Ring hinaus rennen, Ring golden mit kurzem Rütteln; Taste „Rennen“ wahlweise im Menü (131); Garrick nennt Krogg, den Ostflügel und Morwen schon im ersten Gespräch (D23.2).

@@ -180,5 +180,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 150 | Spielzeit im Menü? (Frage Chef) | B Technik | K |  | Tom | beantwortet |
 | 148 | Ideenspeicher ausmisten: Vorgaben und Bewusst-gelassenes an ihren Ort (Chef) | B Abläufe | K |  | Homer | offen |
 | 153 | Fehler: Überspringen-Kasten im Intro (und Kapitelende 1) weiß mit schwarzer Schrift, passt nicht zum Design | E Oberfläche | M |  | Tom | Test |
-| 154 | Goldverlust beim Tod zu hart (Feedback Chef Build 16) | G Balance | M? |  | Jerry | Chefsache |
-| 155 | Lagerfeuer in der Höhle raus? (Feedback Chef Build 16) | G Höhle | M? |  | Jerry | Homer prüft |
+| 154 | Goldverlust beim Tod zu hart (Feedback Chef Build 16) | G Balance | M? |  | Jerry | Test |
+| 155 | Lagerfeuer in der Höhle raus? (Feedback Chef Build 16) | G Höhle | M? |  | Jerry | Test |
