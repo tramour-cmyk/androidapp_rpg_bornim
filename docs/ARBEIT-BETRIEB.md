@@ -90,3 +90,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17.10., 23:06 Lauf: Jerry (alt, 39 wartet auf 38) archiviert, 0,41 $ auf 39; Start Jerry für Muss 72.10a, 130.1–130.3 (Sokrates, Chef 22:26/23:0x)
 - 17.10., 23:1x Startsperre: Start Perikles (143, Chef: Initialisierung 143 = jetzt)
 - 17.10., 23:34 Perikles 143 fertig (726c1b8), archiviert, 0,76 $ auf 143; Start Perikles M? (Chef 23:4x)
+- 18.10., 00:05 Homer 72.10a fertig, archiviert, 4,90 $ auf 72.10a. Selbstneustart Ford (236 Tsd. Token): neuer Ford folgt; Stand: Tom 139 läuft, Jerry wartet auf Test t19 (Build 19), Perikles M? läuft, nichts Startbares

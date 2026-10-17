@@ -9,5 +9,4 @@
 | Ford | [Ford – Betriebsleiter (17.10., 21:16)](https://claude.ai/code/session_01LGPv3cFkmPHWRxcYyx2b4X) | Betrieb | – | 17.10., 21:05 |
 | Ford 2 | [Ford 2 – Niederlassungsleiter (17.10., 17:42)](https://claude.ai/code/session_017VRJsTBwEbU16mwomLknhm) | Betrieb Pro | – | 17.10., 17:42 |
 | Jerry | [Jerry – 72.10a MARS (17.10., 23:06)](https://claude.ai/code/session_011WhnbkazUnC7bnncvMARJK) | 72.10a, 130.1–130.3 | – | 17.10., 23:06 |
-| Homer | [Homer – 72.10a Spielanleitung und Ideen (17.10., 21:32)](https://claude.ai/code/session_01B6ShdZgVoMGx7DBn4xWorD) | 72.10a | – | 17.10., 21:32 |
 | Tom | [Tom – 139 Fleisch an die Wirtin (17.10., 22:48)](https://claude.ai/code/session_01NuiANrrsGUHmL4StyEGT5d) | 139 | – | 17.10., 22:48 |
