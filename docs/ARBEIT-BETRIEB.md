@@ -84,3 +84,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17.10., 21:35 Tom 138 fertig (5859b9c4), archiviert, Kosten fehlt; Start Tom 145
 - 17.10., 21:45 Chefsache: 154/155-Testdatei gelöscht (kein Build, Chef: nichts zu sehen); Regel Testbitte nur mit Build in ROLLE-ENTWICKLUNG
 - 17.10., 22:08 Lauf: Tom 145 fertig (Build 18, 0.1.833), archiviert, 6,22 $ auf 145, 1,04 $ auf 138; Homer 72.10a fertig, bleibt (Chefsache 7210a offen); Jerry 39 wartet auf 38; nichts zu starten
+- 17.10., 22:1x Startsperre: Start Tom (152.1, Chef: Build 18 freigegeben)
