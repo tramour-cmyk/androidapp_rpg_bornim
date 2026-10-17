@@ -20,7 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.828](ansehen/26-kapitel1-durchspielen.md) | – | 26 | E Welt | 17.10. |
-| 3 | [–](ansehen/154-155-test.md) | – | – | Jerry | 17.10. |
+| 2 | [–](ansehen/154-155-test.md) | – | – | Jerry | 17.10. |
 
 ## So geht's
 
