@@ -13,7 +13,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [130](entscheiden/130-kampfgefuehl.md) | Kür | G Balance | 17.10. | Kampfgefühl und Name – zurückgestellt für ein ruhiges Gespräch mit Sokrates (Chef 17.10., 15:2x) | Sokrates |
 | [142](entscheiden/142-pflichttest-play-store.md) | Kür | M Veröffentlichung | 17.10. | Play-Store-Konto und Pflichttest – ab wann (Empfehlung A: Konto jetzt, Tester sammeln ab Durchspielen 13.5) | Sokrates |
 | [154](entscheiden/154-gold-beim-tod.md) | M? | G Balance | 17.10. | Goldverlust beim Tod: Chef folgt Tom, auf Normal keiner, Zeitverlust stattdessen (PR #106, Test offen) | Tom |
-| [156](entscheiden/156-modellvergleich-tom-jerry.md) | M? | B Abläufe | 17.10. | Tom opus, Jerry sonnet: bis 24.10. messen, dann entscheiden (Empfehlung Perikles) | Perikles |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | Kür | E Kampf | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
 ## Anzusehen
