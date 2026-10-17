@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**offen 16, Muss 3, A 0, Chefsache 3**
+**offen 15, Muss 3, A 0, Chefsache 2**
 
 **Gelesen bis:** `origin/main` 17.10., 19:5x (`9e2e74bb`)
 
@@ -13,7 +13,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | Nr. | Kl. | Vorgang | Stand |
 |---|---|---|---|
 | 159.1 | M | **Messung Max 5x** (Chef 17.10., 19:5x, Teil von 159): Max-% je Tag und Stillstand „Guthaben“ bis Bilanz 23.10.; Tagesrückblick trägt sie ein. **Schwelle 20x** (Vorentscheid Perikles): Empfehlung Max 20x (200 $/Monat), wenn bis 23.10. Stillstand „Guthaben“ bei startbarem Muss zusammen mehr als 12 Stunden beträgt oder das Wochenziel am Guthaben scheitert; Gegenrechnung: Pro kostete im Oktober 154 $ Zusatznutzung, 20x kostet nur 100 $ mehr als 5x. Ergebnis 23.10. als Chefsache `entscheiden/159-max20x.md` (Frage, Empfehlung, stärkstes Gegenargument) | offen |
-| 161 | K | **von Chef (17.10., 21:3x):** 144 (Homer) und 145 (Tom): roter Faden über sieben Kapitel mit Karten je Kapitel; Chefsache `entscheiden/161-faden-mit-karten.md` (Empfehlung: zwei Dokumente mit Querlink) | wartet auf Chef |
 | 160 | K | **von Chef (17.10., 21:1x):** nach Ende der Niederlassung prüfen, ob Dateien wieder Artefaktdokumente werden; Chefsache `entscheiden/160-design-als-dokument.md` (Empfehlung: alles im Repo) | wartet auf Chef |
 | 156 | K | Modellvergleich Tom opus, Jerry sonnet (Chef 17.10., 19:4x: folgt Empfehlung; Jerry läuft ab 159 auf Max, Vergleich gilt unverändert) | entschieden (Vorgangsarchiv 156); Diogenes zählt bis 24.10. (Zeile 149), Perikles wertet am 26.10. aus, Schwelle im Archiv |
 | 106.1 | M | Umbau Rollen und Namen (Paket mit 115, 117, 122, 124–126, 99g.1, 101, 102, 107, D16, D21; Chef 16.10., 22:0x: „106.1. Ja … und am Schluss muss Diogenes einmal wieder drüber prüfen“) | umgebaut 16.10.; Nachprüfung Diogenes Lauf 22 (trägt); D16–D21 im Prüfbericht vermerkt (17.10.); offen nur D17.2, D17.3 mit 99g; Erste Woche 18.–24.10. Ausgangswert, Wochenzählung Mo 26.10., danach Zielwerte (D19.4) |
