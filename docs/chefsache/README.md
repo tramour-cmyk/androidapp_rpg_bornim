@@ -20,6 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.828](ansehen/26-kapitel1-durchspielen.md) | – | 26 | E Welt | 17.10. |
+| 2 | [0.1.833](ansehen/t18-abstand-kraeuter.md) | Build 18 | 152 Abstand zu Leuten (Rückläufer), 138 Kräuter am Morgen | E Welt | 17.10. |
 
 ## So geht's
 
