@@ -1,0 +1,325 @@
+package de.bornim.core
+
+import kotlin.random.Random
+import kotlin.test.Test
+
+/**
+ * Diogenes, 38g (measurement only, not committed): a player who follows chapter 1 to its end and counts
+ * per section walked tiles, fights with rounds, dialogue lines, rests and menu occasions.
+ */
+class StoryRunMeasure {
+    class Sec {
+        var tiles = 0; var walkMs = 0L; var fights = 0; var rounds = 0; var lines = 0
+        var rests = 0; var menu = 0; var grindSteps = 0; var deaths = 0; var shops = 0; var gameMin = 0
+    }
+
+    private val sections = listOf("Dorf", "Wald", "Tiefer Wald", "Höhle", "Rückkehr")
+
+    private class Goal(val name: String, val map: String, val done: (Game) -> Boolean, val kind: String, val pos: (Game) -> Pair<Int, Int>?)
+
+    private class Run(val cls: CharClass, val seed: Int, val thorough: Boolean, val morwen: Boolean = false, val warn: Boolean = false) {
+        val rnd = Random(seed)
+        val game = Game(GameState.newGame("Sim", Race.entries[seed % Race.entries.size], cls), Lang.DE, Dice(Random(seed * 7 + 1)))
+        var clock = 1000L
+        val secs = LinkedHashMap<String, Sec>()
+        var restGoal: Goal? = null
+        var grindTo = 0
+        var wander: Pair<Int, Int>? = null
+        var useWander = 0
+        var grindFights = 0
+        var waits = 0
+        var caveLevel = 0
+        var kroggLevel = 0
+        var kroggTries = 0
+        var lastMin = 0
+        val lost = sortedMapOf<String, Int>()
+        val won = sortedMapOf<String, Int>()
+        fun sec(): Sec = secs.getOrPut(section(game.state)) { Sec() }
+    }
+
+    companion object {
+        fun section(s: GameState): String {
+            if (s.has(Story.GRAK_DEFEATED) && s.has(Story.LYRA_RESCUED) && s.place.map != "cave") return "Rückkehr"
+            return when (s.place.map) {
+                "forest" -> "Wald"; "deep_forest" -> "Tiefer Wald"; "cave" -> "Höhle"
+                else -> "Dorf"
+            }
+        }
+    }
+
+    private fun npcGoal(map: String, id: String, done: ((Game) -> Boolean)? = null) = Goal("talk:$id", map,
+        done ?: { g -> MapMarks.met(id) in g.state.flags }, "talk") { g ->
+        val npc = World[map].npcs.first { it.id == id }
+        if (!npc.visible(g.state)) null
+        else if (npc.moves) { if (g.indoors(npc)) null else g.walkerOf(npc)?.let { it.x to it.y } }
+        else npc.x to npc.y
+    }
+
+    private fun chestGoal(map: String, id: String) = Goal("chest:$id", map, { g -> id in g.state.openedChests }, "talk") { _ ->
+        World[map].chests.first { it.id == id }.let { it.x to it.y }
+    }
+
+    private fun tileGoal(map: String, name: String, tile: Tile, done: (Game) -> Boolean) = Goal(name, map, done, "talk") { _ ->
+        val m = World[map]
+        (0 until m.height).firstNotNullOfOrNull { y -> (0 until m.width).firstOrNull { m.tile(it, y) == tile }?.let { it to y } }
+    }
+
+    private fun goals(thorough: Boolean, morwen: Boolean = false, warn: Boolean = false): List<Goal> {
+        val f = Story
+        val g = mutableListOf<Goal>()
+        if (thorough) {
+            g += npcGoal("inn", "rowena"); g += npcGoal("inn", "borin")
+            World["village"].npcs.filter { it.id != "jorin" }.forEach { g += npcGoal("village", it.id) }
+            World["shop"].npcs.forEach { g += npcGoal("shop", it.id) }
+            World["temple"].npcs.filter { it.visible(GameState.newGame("x", Race.entries[0], CharClass.FIGHTER)) }.forEach { g += npcGoal("temple", it.id) }
+        }
+        g += npcGoal("elder", "aldric") { it.state.has(f.QUEST_STARTED) }
+        g += npcGoal("village", "jorin") { it.state.has(f.BARRIER_OPEN) }
+        if (thorough) {
+            g += npcGoal("forest", "garrick") { it.state.has(f.HUNTER_MET) }
+            World["forest"].chests.forEach { g += chestGoal("forest", it.id) }
+            g += npcGoal("deep_forest", "morwen") { it.state.has(f.HERBALIST_MET) }
+            World["deep_forest"].chests.forEach { g += chestGoal("deep_forest", it.id) }
+            g += npcGoal("deep_forest", "grimfang") { it.state.has(f.GRIMFANG_DEFEATED) }
+            World["cave"].chests.forEach { g += chestGoal("cave", it.id) }
+        }
+        if (!thorough && morwen) {
+            g += npcGoal("forest", "garrick") { it.state.has(f.HUNTER_MET) }
+            if (warn) g += npcGoal("forest", "garrick") { it.state.has(f.KROGG_HINT) }
+            g += npcGoal("deep_forest", "morwen") { it.state.has(f.SMOKE_GIVEN) || it.state.has(f.KROGG_DEFEATED) }
+        }
+        g += npcGoal("cave", "krogg") { it.state.has(f.KROGG_DEFEATED) }
+        g += tileGoal("cave", "gate", Tile.GATE) { it.state.has(f.GATE_OPEN) }
+        g += npcGoal("cave", "grak") { it.state.has(f.GRAK_DEFEATED) }
+        g += npcGoal("cave", "lyra_cave") { it.state.has(f.LYRA_RESCUED) }
+        g += npcGoal("elder", "aldric") { it.state.has(f.CHAPTER1_DONE) }
+        return g
+    }
+
+    // ---------------------------------------------------------------- navigation
+
+    private fun nextMap(from: String, to: String, s: GameState): String? {
+        if (from == to) return to
+        val prev = HashMap<String, String>(); val q = ArrayDeque(listOf(from)); prev[from] = from
+        while (q.isNotEmpty()) {
+            val c = q.removeFirst()
+            for (w in World[c].warps) {
+                if (w.requires != null && !s.has(w.requires)) continue
+                val n = w.to.map
+                if (n in prev) continue
+                prev[n] = c; q += n
+                if (n == to) { var x = n; while (prev[x] != from) x = prev[x]!!; return x }
+            }
+        }
+        return null
+    }
+
+    /** Dijkstra on the current map by walking time; [goals] tiles to stand on with the facing to take there. */
+    private fun path(g: Game, goals: Map<Pair<Int, Int>, Facing?>, allowWarp: Set<Pair<Int, Int>>): List<Facing>? {
+        val m = g.map; val p = g.state.place
+        val start = p.x to p.y
+        if (start in goals) return emptyList()
+        val dist = HashMap<Pair<Int, Int>, Double>(); val from = HashMap<Pair<Int, Int>, Pair<Pair<Int, Int>, Facing>>()
+        val pq = java.util.PriorityQueue<Pair<Double, Pair<Int, Int>>>(compareBy { it.first })
+        dist[start] = 0.0; pq += 0.0 to start
+        while (pq.isNotEmpty()) {
+            val (d, c) = pq.poll()
+            if (d > dist[c]!!) continue
+            if (c in goals) {
+                val out = ArrayList<Facing>(); var x = c
+                while (x != start) { val (pr, f) = from[x]!!; out += f; x = pr }
+                return out.reversed()
+            }
+            if (c != start && m.warpAt(c.first, c.second) != null) continue
+            for (f in Facing.entries) {
+                val n = (c.first + f.dx) to (c.second + f.dy)
+                if (!m.walkable(n.first, n.second, g.state) || g.npcAt(n.first, n.second) != null) continue
+                val w = m.warpAt(n.first, n.second)
+                if (w != null && (n !in allowWarp || (w.requires != null && !g.state.has(w.requires)))) continue
+                val nd = d + Terrain.stepFactor(m.tile(n.first, n.second))
+                if (nd < (dist[n] ?: Double.MAX_VALUE)) { dist[n] = nd; from[n] = c to f; pq += nd to n }
+            }
+        }
+        return null
+    }
+
+    private fun tick(r: Run, ms: Long) {
+        var left = ms
+        while (left > 0) { val d = minOf(200L, left); r.clock += d; left -= d; r.game.update(r.clock); if (r.game.mode != Mode.Explore) break }
+    }
+
+    private fun step(r: Run, d: Facing): Boolean {
+        val g = r.game
+        val res = g.move(d)
+        if (res !is Move.Stepped) return false
+        val s = r.sec(); s.tiles++
+        val ms = (200 * Terrain.PACE * Terrain.stepFactor(g.map.tile(g.state.place.x, g.state.place.y))).toLong()
+        s.walkMs += ms
+        tick(r, ms)
+        if (g.mode == Mode.Explore) g.afterStep()
+        return true
+    }
+
+    // ---------------------------------------------------------------- modes
+
+    private fun equipBetter(r: Run) {
+        val g = r.game; var any = false
+        for (gear in g.state.bag.toList()) {
+            if (!g.hero.canWear(gear)) continue
+            val cur = g.hero.item(gear.slot)
+            if (cur == null || gear.price > cur.price) { if (g.state.equipFromBag(gear)) any = true }
+        }
+        if (any) r.sec().menu++
+    }
+
+    private fun handleModes(r: Run): Boolean {
+        val g = r.game
+        when (val m = g.mode) {
+            is Mode.Dialog -> { r.sec().lines++; g.advance() }
+            is Mode.Shop -> {
+                r.sec().shops++
+                if (r.thorough) {
+                    val id = if (m.stock.contains("potion")) "potion" else null
+                    while (id != null && g.state.count("potion") < 5 && g.state.gold >= g.buyPrice(id) + 30) g.buy(id)
+                }
+                g.advance()
+            }
+            is Mode.Fight -> {
+                val b = m.battle
+                if (b.monster.id == "bugbear" && r.kroggLevel == 0) r.kroggLevel = g.hero.level
+                if (b.monster.id == "bugbear" && b.outcome == Outcome.LOST) r.kroggTries++
+                if (b.outcome != Outcome.ONGOING) {
+                    val s = r.sec(); s.fights++
+                    if (b.outcome == Outcome.LOST) { if (b.monster.boss || b.monster.id in setOf("bugbear", "hobgoblin_captain", "dire_wolf")) r.grindTo = maxOf(r.grindTo, minOf(g.hero.level + 1, Story.levelCap(g.state))); s.deaths++; r.lost.merge(b.monster.id, 1, Int::plus) } else { r.won.merge(b.monster.id, 1, Int::plus); if (b.monster.id in setOf("bugbear", "hobgoblin_captain", "dire_wolf")) r.grindTo = 0 }
+                    g.endBattle(); equipBetter(r); return true
+                }
+                val h = g.hero
+                val a = when {
+                    h.hp * 100 < h.maxHp * 35 && g.state.count("potion") > 0 && b.blockedItem("potion") == null -> Action.UseItem("potion")
+                    else -> {
+                        val skills = h.cls.skills().filter { it.level <= h.level && b.blocked(it) == null }
+                        if (skills.isNotEmpty() && r.rnd.nextInt(3) == 0) Action.UseSkill(skills.random(r.rnd)) else Action.Attack
+                    }
+                }
+                r.sec().rounds++
+                b.act(a)
+            }
+            Mode.Board -> g.advance()
+            Mode.TempleScene -> g.advance()
+            is Mode.Rest -> { if (g.rest(Resting.Kind.LONG, m.spot) != null) g.rest(Resting.Kind.SHORT, m.spot); g.advance() }
+            Mode.ChapterEnd -> return false
+            Mode.Explore -> return false
+        }
+        return true
+    }
+
+    private fun play(cls: CharClass, seed: Int, thorough: Boolean, morwen: Boolean = false, warn: Boolean = false): Pair<Run, String> {
+        val r = Run(cls, seed, thorough, morwen, warn)
+        val g = r.game
+        g.begin()
+        r.lastMin = g.state.minutes
+        val all = goals(thorough, morwen, warn)
+        var guard = 0
+        var status = "fertig"
+        var lastGoal = ""
+        loop@ while (guard++ < (System.getenv("GUARD")?.toInt() ?: 60_000)) {
+            if (g.mode == Mode.ChapterEnd) break
+            if (handleModes(r)) continue
+            // game minutes per section
+            val s = r.sec()
+            if (g.state.minutes != r.lastMin) { s.gameMin += Math.floorMod(g.state.minutes - r.lastMin, 24 * 60); r.lastMin = g.state.minutes }
+            if (r.caveLevel == 0 && g.state.place.map == "cave") r.caveLevel = g.hero.level
+            val h = g.hero
+            // healing outside a fight: a potion from the menu, else the campfire of this map
+            if (h.hp * 100 < h.maxHp * 50) {
+                if (g.state.count("potion") > 0) { g.useItemOutside("potion"); s.menu++; continue }
+                if (r.restGoal == null && World[g.state.place.map].let { m -> (0 until m.height).any { y -> (0 until m.width).any { m.tile(it, y) == Tile.CAMPFIRE } } })
+                    r.restGoal = tileGoal(g.state.place.map, "rest", Tile.CAMPFIRE) { false }
+            }
+            // heeds Garrick's warning: scars in the Deep Whisperwood up to level 3 before Krogg
+            if (r.warn && g.state.has(Story.SMOKE_GIVEN) && !g.state.has(Story.KROGG_DEFEATED) && r.kroggLevel == 0 && g.state.place.map == "deep_forest" && g.hero.level < Story.KROGG_WARN_BELOW) r.grindTo = maxOf(r.grindTo, Story.KROGG_WARN_BELOW)
+            val grinding = g.hero.level < r.grindTo && g.state.place.map in setOf("forest", "deep_forest", "cave")
+            val grindGoal = if (!grinding) null else Goal("grind", g.state.place.map, { false }, "talk") { gg ->
+                val p = gg.state.place
+                gg.roamers.minByOrNull { kotlin.math.abs(it.x - p.x) + kotlin.math.abs(it.y - p.y) }?.let { it.x to it.y }
+            }.let { gl0 -> if (gl0 != null && r.useWander <= 0) gl0 else { if (r.useWander > 0) r.useWander--;
+                if (r.wander == null) { val m = g.map; var tries = 0
+                    while (r.wander == null && tries++ < 500) { val x = r.rnd.nextInt(m.width); val y = r.rnd.nextInt(m.height)
+                        if (m.walkable(x, y, g.state) && m.warpAt(x, y) == null && (m.encounters?.tiles?.contains(m.tile(x, y)) == true)) r.wander = x to y } }
+                val w = r.wander
+                Goal("walk", g.state.place.map, { false }, "walk") { w } } }
+            if (grinding) s.grindSteps++
+            val goal = r.restGoal ?: grindGoal ?: all.firstOrNull { !it.done(g) } ?: break
+            // before a boss: rest first if not fit
+            if (r.restGoal == null && goal.name in setOf("talk:krogg", "talk:grak", "talk:grimfang") && h.hp * 100 < h.maxHp * 90 &&
+                World[g.state.place.map].let { m -> (0 until m.height).any { y -> (0 until m.width).any { m.tile(it, y) == Tile.CAMPFIRE } } }) {
+                r.restGoal = tileGoal(g.state.place.map, "rest", Tile.CAMPFIRE) { false }; continue
+            }
+            lastGoal = goal.name
+            val here = g.state.place.map
+            val path: List<Facing>?
+            var face: Facing? = null
+            if (here != goal.map) {
+                val nm = nextMap(here, goal.map, g.state)
+                if (nm == null) { status = "kein Weg nach ${goal.map}"; break@loop }
+                val exits = g.map.warps.filter { it.to.map == nm && (it.requires == null || g.state.has(it.requires)) }.map { it.x to it.y }.toSet()
+                path = path(g, exits.associateWith { null }, exits)
+            } else {
+                val pos = goal.pos(g)
+                if (pos == null) { if (r.waits % 2000 == 0) System.err.println("DBG pos null ${goal.name} min ${g.state.minutes}"); r.waits++; tick(r, 1000); continue }
+                val m = g.map
+                val gl = HashMap<Pair<Int, Int>, Facing?>()
+                if (goal.kind == "walk") gl[pos] = null else for (d in Facing.entries) {
+                    gl[(pos.first - d.dx) to (pos.second - d.dy)] = d
+                    if (m.tile(pos.first - d.dx, pos.second - d.dy) == Tile.COUNTER) gl[(pos.first - 2 * d.dx) to (pos.second - 2 * d.dy)] = d
+                }
+                path = path(g, gl, emptySet())
+                val p = g.state.place
+                face = gl[p.x to p.y]
+            }
+            if (path == null) { if (goal.kind == "walk") r.wander = null; if (goal.name == "grind") { r.useWander = 40; continue }; if (r.waits % 2000 == 0) System.err.println("DBG path null ${goal.name} at ${g.state.place} goal ${goal.pos(g)} min ${g.state.minutes}"); r.waits++; tick(r, 300); if (r.waits > 20000) { status = "hängt bei ${goal.name}"; break }; continue }
+            if (path.isEmpty()) {
+                if (goal.kind == "walk") { r.wander = null; continue }
+                if (face == null) { r.waits++; tick(r, 300); continue }
+                g.face(face); g.interact()
+                if (goal.name == "rest") { s.rests++; r.restGoal = null }
+                if (goal.kind == "talk" && goal.name.startsWith("chest")) equipBetter(r)
+                if (g.mode == Mode.Explore) tick(r, 300)
+                continue
+            }
+            if (!step(r, path.first())) { r.waits++; tick(r, 300) }
+        }
+        if (guard >= (System.getenv("GUARD")?.toInt() ?: 60_000)) status = "abgebrochen bei $lastGoal"
+        if (g.mode != Mode.ChapterEnd && status == "fertig") status = "Kapitelende nicht erreicht ($lastGoal)"
+        return r to status
+    }
+
+    @Test
+    fun measureChapterOne() {
+        val out = StringBuilder()
+        val profs = (System.getenv("PROF") ?: "zmg").map { it }
+        val classes = System.getenv("CLS")?.split(",")?.map { CharClass.valueOf(it) } ?: CharClass.entries
+        val nSeeds = System.getenv("SEEDS")?.toInt() ?: 3
+        for (pc in profs) {
+            val thorough = pc == 'g'; val warn = pc == 'w'; val morwen = pc == 'm' || warn
+            out.appendLine("== ${if (thorough) "gründlich" else if (warn) "zielstrebig, folgt Garricks Warnung (Stufe 3 im Tiefen Wald)" else if (morwen) "zielstrebig über Garrick und Morwen" else "zielstrebig ohne Umweg"} ==")
+            val runs = mutableListOf<Run>()
+            for (cls in classes) for (seed in 0 until nSeeds) {
+                val t0 = System.currentTimeMillis()
+                val (r, st) = play(cls, seed, thorough, morwen, warn)
+                System.err.println("LAUF ${cls.name} $seed $thorough: $st ${System.currentTimeMillis() - t0} ms, Ort ${r.game.state.place}, Ziele offen: ${goals(thorough, morwen, warn).filter { !it.done(r.game) }.map { it.name }.take(4)}")
+                runs += r
+                val tot = r.secs.values
+                out.appendLine("${cls.name} $seed: $st, Stufe Höhle ${r.caveLevel} Krogg ${r.kroggLevel} (verloren gegen ihn ${r.kroggTries}) Ende ${r.game.hero.level}, Tag ${r.game.state.day} ${r.game.state.minutes / 60}:${"%02d".format(r.game.state.minutes % 60)}, Felder ${tot.sumOf { it.tiles }}, Kämpfe ${tot.sumOf { it.fights }}, Runden ${tot.sumOf { it.rounds }}, Zeilen ${tot.sumOf { it.lines }}, Tode ${tot.sumOf { it.deaths }}, Tode Höhle ${r.secs["Höhle"]?.deaths ?: 0}, Bündel ${r.game.state.has(Story.SMOKE_GIVEN)}, Warten ${r.waits}, verloren ${r.lost}, gewonnen ${r.won}")
+            }
+            out.appendLine("Abschnitt | Felder | Gehzeit s | Kämpfe | Runden | Zeilen | Rasten | Menü | Läden | Tode | Sammelschritte | Spielminuten   (Median [min–max] über ${runs.size} Läufe)")
+            fun med(xs: List<Long>): String { val s = xs.sorted(); return "${s[s.size / 2]} [${s.first()}–${s.last()}]" }
+            for (name in sections) {
+                val ss = runs.map { it.secs[name] ?: Sec() }
+                out.appendLine("$name | ${med(ss.map { it.tiles.toLong() })} | ${med(ss.map { it.walkMs / 1000 })} | ${med(ss.map { it.fights.toLong() })} | ${med(ss.map { it.rounds.toLong() })} | ${med(ss.map { it.lines.toLong() })} | ${med(ss.map { it.rests.toLong() })} | ${med(ss.map { it.menu.toLong() })} | ${med(ss.map { it.shops.toLong() })} | ${med(ss.map { it.deaths.toLong() })} | ${med(ss.map { it.grindSteps.toLong() })} | ${med(ss.map { it.gameMin.toLong() })}")
+            }
+        }
+        println("MESSUNG38G\n$out")
+        java.io.File(System.getenv("OUT38G") ?: "build/38g.txt").writeText(out.toString())
+    }
+}
