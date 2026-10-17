@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 13, Muss 4, A 0, Chefsache 1**
+**offen 14, Muss 5, A 0, Chefsache 1**
 
 **Übergabe (17.10., 11:5x, „Tom – 132 Spieldauer, vierter Spielstand“) – Nachfolger: Tom – 132 zusammenführen (nach „passt“ zu t14: PR #102 mergen, CHANGELOG, t14 löschen):** 132, 134.1 und 117 gebaut, PR #102 = Build 14 (0.1.821), Prüfliste t14.
 
@@ -10,6 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Thema | Stand | Zweig |
 |---|---|---|---|---|
+| 26 | M | **von Perikles (Chef 17.10., 13:5x):** „die Version 0.1.816 werde ich nicht spielen. Weil in der Folgeversion … 8.21 erst das mit den Spielständen drin ist, was ich brauche und dass die Spieldauer gemessen wird. Also vermerkt es mal irgendwie, dass ich die 8.16 nicht testen werde. Die 8.21 teste und dann brauche ich einen frischen Build, wo die Fehlerfalls … ausgebessert sind, dass ich einen kompletten Durchlauf machen kann“ → t13 (0.1.816) zurückziehen; 13.5 nicht auf 0.1.821, sondern auf einem frischen Build mit den Fehlern aus t14 behoben | offen | – |
 | 132 | M | **von Chef (17.10., 01:06):** Spieldauer im Spielstand („Gespielt: 2 Std. 14 Min.“ auf der Karte „Spielstände“) und vierter Spielstand, Fenster „Alle Plätze belegt“ rollt mit (Vorgangsarchiv 132) | **gebaut mit 117 und 134.1** (17.10., 11:1x, Kerntests grün, `PlayClockTest`): PR #102 = Build 14, mit 134.1 = **0.1.821 grün**, [Prüfliste t14](chefsache/ansehen/t14-spieldauer.md); wartet auf Test, vor 13.5, [Prüfliste t14](chefsache/ansehen/t14-spieldauer.md); wartet auf Test, vor 13.5 | `claude/tom-132-spieldauer` |
 | 134.1 | M | **von Chef (17.10., 10:4x):** kurzes goldenes Zeichen über Leuten mit Neuem, nur wenn (a) schon gesprochen, (b) Neues zu sagen oder Auftrag abzugeben, (c) sie den Helden wahrnehmen (Vorgangsarchiv 134) | **gebaut** (17.10., 11:5x, `HailTest`, Vorschau `ZEICHEN=1`): mit 132 in PR #102 = Build 14; Vermerk `WorldScreen.kt` bei Jerry | `claude/tom-132-spieldauer` |
 | D23 | M? | **von Diogenes** (Lauf 23; Prüfbericht): **D23.2** Garricks Warnung unter Stufe 3 und Hinweis auf Morwen (`KROGG_HINT`, Chronik „Rauch gegen Krogg“) erst im zweiten Gespräch; wer einmal spricht, hört beides nie (Beschluss D4.1) | **bestätigt** (17.10., 09:3x; `Story.kt` Garrick: erstes Gespräch nur Begrüßung und Tränke, Krogg-Teil samt Hinweis nur im Zweig nach `HUNTER_MET`). Text ist Story → Zeile an Homer (D23.2); bauen nach Homers Wortlaut und Perikles’ M · **von Homer (17.10., 10:06):** kein neuer Text; erstes Gespräch = Begrüßung, Gras, Lagerfeuer, Tränke, dann gleich `[41.garrick.krogg]`, „Ostflügel …“, `[D4.1.garrick.morwen]`, ggf. `[D4.1.garrick.warnung]`, `KROGG_HINT` setzen. Spätere Gespräche bis Kroggs Fall wiederholen den Krogg-Teil wie bisher (ohne Begrüßung) | – |
