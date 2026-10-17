@@ -168,3 +168,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 146 | Figurenübersicht: Fähigkeiten, Charakterzug, Schlüsselsatz (Idee Chef) | G Story | K |  | Homer | offen |
 | 147 | Regel „Idee“: abwägen, erst passenden Vorgang suchen (Chef) | B Abläufe | M |  | Perikles | erledigt |
 | 147.1 | Nutzungsguthaben Pro ohne Ausgabenlimit | B Kosten | M |  | Perikles | Chefsache |
+| 147.2 | Ford 2 schaut in Jerrys Pause alle 4 Stunden | B Abläufe | M |  | Perikles | erledigt |
