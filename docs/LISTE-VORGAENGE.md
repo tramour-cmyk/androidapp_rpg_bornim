@@ -61,7 +61,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | G Balance | K |  | Sokrates mit Nutzer | ruht |
 | 50 | Weitere Klassen, ggf. zum Kauf | G Balance | K |  | Sokrates mit Nutzer | ruht |
 | 51 | Sterbehaltung des Helden (Magier) sieht komisch aus | E Figuren | K |  | Jerry | offen |
-| 52 | Feinarbeit an den Kampfanimationen | E Kampf | K |  | Jerry | ruht |
+| 52 | Feinarbeit an den Kampfanimationen | E Kampf | K |  | Ideen | Idee |
 | 53 | Zustände (Brennend) auf Krogg prüfen | E Kampf | K |  | Jerry | gebaut |
 | 54 | Nicht warten, von selbst weiterarbeiten | B Abläufe | – |  | Tom und Jerry | erledigt |
 | 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | E Figuren | – |  | Tom | erledigt |
@@ -79,7 +79,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 67 | Südrand des Dorfes (Feldweg, Wegweiser, Umkehr) | E Welt | – |  | Tom | erledigt |
 | 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M |  | Homer mit Chef; Tom, Jerry | offen |
 | 69 | Intro in Standbildern (Ankunft bei Nacht) | G Stil | K |  | Homer (69e); Tom | offen |
-| 70 | Zwischensequenzen einheitlich, Bildsprache | G Stil | K |  | Homer mit Chef | in Arbeit |
+| 70 | Zwischensequenzen einheitlich, Bildsprache | G Stil | K |  | Ideen | ruht |
 | 71 | Bestandsprüfung Stil und Klang aller Orte | Q QS | K |  | Diogenes | offen |
 | 72 | Profil und Marktvergleich | E Kampf | K | 0,72 | Homer, Jerry | offen |
 | 73 | Versperrte Hütten: nachts Läden zu, Stimmen | E Welt | – |  | Tom | erledigt |
@@ -110,7 +110,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 98 | Firma WireStormTCS | B Abläufe | – |  | Perikles | umgebaut |
 | 99 | Zwei Niederlassungen | B Steuerung | K | 7,25 $ | Perikles | Messung |
 | 136 | Bereich in der Kopfzeile der Chefsache (Idee Chef) | B Abläufe | K |  | Perikles | offen |
-| 137 | Kür ohne Zweig zurück in den Ideenspeicher (Idee Chef) | B Abläufe | M |  | Homer, Perikles | startbar |
+| 137 | Kür ohne Zweig zurück in den Ideenspeicher (Idee Chef) | B Abläufe | M |  | Homer, Perikles | in Arbeit |
 | 135 | Chefrunde: Chefsache mit Sokrates entscheiden | B Abläufe | – | 3,21 $ | Sokrates | erledigt |
 | 99h.6 | Neustarts der Teams mitmessen | B Steuerung | K |  | Perikles | offen |
 | 99h.5 | Testbuilds zum Durchspielen bündeln | B Abläufe | M |  | Perikles | entschieden |
@@ -147,7 +147,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 130 | Kampfgefühl der Probe 72.10 (Prüfpunkt 8.5) | G Balance | K |  | Sokrates | offen |
 | 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | K |  | Sokrates | offen |
 | 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | M | 2,43 $ | Tom | gebaut |
-| 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | Idee |
+| 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Ideen | Idee |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
 | 134.1 | Goldenes Zeichen bei Leuten mit Neuem | E Figuren | M | 1,73 $ | Tom | gebaut |
 | 134.2 | Gesten zum Zeichen | E Figuren | K |  | Tom | offen |

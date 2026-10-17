@@ -1,138 +1,132 @@
-# Ideen
+# Ideenspeicher
 
-Ideen und Vorschläge aus der bisherigen Entwicklung, die noch **nicht umgesetzt** sind. Gesammelt, damit wir sie später prüfen, neu bewerten oder verwerfen können. Stand: 11.10.2026, 11:45 (Berliner Zeit).
+Ideen, die noch **nicht umgesetzt** sind, nach Bereichen (124). Hierher gehört jede Kür ohne Zweig, ohne Termin und ohne angefangene Arbeit (137); Kür mit angefangener Arbeit bleibt im Vorrat. **Sonntags** bereitet Homer auf (Urteil je Idee), **montags** holt Perikles beim Wochenziel Reifes in den Vorrat; „verwerfen?“ geht in die Chefrunde, verwerfen nur der Chef. Umgesetztes steht in der [Änderungshistorie](../CHANGELOG.md). Für alle Ideen gelten die [Stil-Leitlinien](DESIGN-STIL.md).
 
-Bereits umgesetzte Punkte stehen in der [Änderungshistorie](../CHANGELOG.md), was gerade ansteht oder zu entscheiden ist in den Vorräten (`docs/ARBEIT-…`, Übersicht in [FIRMA.md](FIRMA.md)). Für alle Ideen gelten die [Stil-Leitlinien](DESIGN-STIL.md).
+**Urteil** (Homer): **reif** = kann in den Vorrat, sobald Perikles Platz hat; **später** = Bedingung fehlt (meist: nach dem Meilenstein Kapitel 1, Kapitel 2, eine Entscheidung); **verwerfen?** = erledigt, überholt oder doppelt, Chef entscheidet. Der Meilenstein (Kapitel 1 rund vor Neuem, `LISTE-ABNAHME-KAPITEL1.md`) macht fast alles Neue „später“.
 
-## Ideenrunde 10.10. (Tom-Beratung, 13:36)
+**Aufbereitet:** 17.10., 11:5x (Homer, 137, erstmals). Aus den Vorräten hergeholt: 133, 70 (Rest), 84.2, 84.3 (Homer), 52 (Jerry). Gestrichen, weil erledigt: Raumklang (119).
 
-Ideen zu Mechanik, Animation, Klang und Grafik. Als Themen angelegt: Trefferstopp (16), Nachschwingen (17), Pechsträhnen dämpfen (18), siehe die Vorräte. Der Rest:
+## Reif (Übersicht für Perikles)
 
-- **Aktive Abwehr per Tippen (Idee 1):** kurzes Zeitfenster beim gegnerischen Hieb, Tippen = Parieren mit halbem Schaden. Nutzer findet die Idee nicht gut, soll aber erhalten bleiben. Wäre eine Ausnahme von „kein Tippen mitten in einer Aktion“; nur als abschaltbarer Versuch.
-- **Trefferchancen sichtbar machen (Teil von Idee 2):** Chance vor dem Angriff anzeigen.
-- **Verletzungen bis zur Rast (Idee 3):** Wer tief fällt, behält eine Wunde (z. B. −1 RK), sichtbar als Verband am Helden; das Gasthaus heilt sie.
-- **Rauchbündel allgemein** (Sokrates 15.10., D4.1): später bei Morwen kaufbar gegen jeden Hinterhalt oder ersten Hieb, damit der Gegenstand mehr als einen Zweck hat.
-- **Mond nach Himmelsrichtung** (Nutzer 15.10., 13:5x, zu 70.6; vorerst nicht): in Bornim (52° N) steht der Mond nie im Norden. Zwischensequenzen mit Blick nach Norden zeigen keinen Mond, nur sein Licht; mit Blick nach Ost bis West darf er ins Bild.
-- **Licht als Mechanik (Idee 4):** Fackel brennt ab; im Dunkeln sieht man Lauerer später, Untote sind stärker.
-- (im Vorrat, 23a) **Raumklang (Idee 8):** Hall in der Höhle, gedämpft und nah in der Schänke, offen im Wald.
-- (im Vorrat, 23a) **Musik in Schichten (Idee 10):** Nähert sich ein Jäger, schleicht sich eine dunkle Spur in die Musik, bevor der Kampf beginnt; Stille bewusst einsetzen. Erweitert die neue Musik (28).
-- **Regeln:** SRD bleibt Grundlage, nicht wechseln; das Würfelglück wird abgefedert (18, sichtbare Chancen).
+Kräuter wachsen morgens · Fleisch an die Wirtin · Monster-Geräusche (Rest) · Klänge (Rest) · 133 Wahlen (nur Vorschlag) · Vorbereitung Play-Store-Test (Konto, Datenschutz).
 
-## Veröffentlichung (Weg, besprochen 10.10., 13:36)
+## Verwerfen? (für die Chefrunde)
 
-1. Stilumbau abschließen.
-2. Pflichttest im Play Store (neues privates Konto: mindestens 12 Tester, 14 Tage am Stück) als echten Test nutzen, Rückmeldungen sammeln.
-3. Kapitel 1 kostenlos veröffentlichen (Bewertungen, Spieler); 99 Cent für Kapitel 1 bringen kaum Käufer (keine Sichtbarkeit ohne Bewertungen, nach Steuer und Google-Anteil etwa 70 Cent).
-4. Danach Vollversion mit einmaligem Kauf, spätere Kapitel nachkaufbar (45a); Preis offen (72g).
-- Vorher: Datenschutzerklärung, Altersfreigabe (Blut), Zahlungsprofil mit Händleradresse, kurze Rechtsprüfung (Herkunft von Schriften und Klängen). Siehe auch „Google Play“ unten.
+Aktive Abwehr per Tippen · Echte Gruppenkämpfe · Gefährte Lyra oder Garrick · Kampfkulisse der Höhle · Film-Uhr. Gründe bei der Idee.
 
-## Ladezeiten
+## E Entwicklung
 
-- **Gezeichnete Bilder auf dem Gerät speichern (24.4, 11.10.):** Figuren-, Boden- und Kampfbilder nach dem ersten Zeichnen auf dem Gerät ablegen, damit der nächste Start ohne Wartezeit geht. Erst angehen, wenn mit 24.1–24.3 gemessen ist, wie lang das Übergangsbild noch dauert.
+### Welt
 
-## Werkzeuge
+- **Wetter:** Nebel; Wind als Umgebungsklang. → **später:** Kapitel 1 hat Regen und Donner (D3.10); neues Wetter erst mit neuen Orten.
+- **Monsterverhalten:** Goblins patrouillieren auf Wegen, Fledermäuse hängen an der Höhlendecke und stürzen herab. → **später:** nach dem Meilenstein; die Höhle ist „Ort fertig“ (13e) ohne das.
+- **Sammelbares und Verstecke:** geheime Truhen, rissige Wände. → **später:** Kapitel 2, mit der Katze aus 72.15 (findet Geheimtüren).
+- **Kräuter wachsen am Morgen nach** statt schon um Mitternacht (Spielzeit). → **reif:** klein, macht den Tagesablauf (5la) stimmig.
+- **Schnellreise über die Kartenübersicht** (Idee 09.10., 12:49): Pergamentkarte (Entwurf C, `tools/preview` Modus `WEGE`) mit Nebel des Unerkundeten; entdeckte Orte (Bornim, Garricks Feuer, Höhleneingang) sind Reiseziele gegen Gold. Gedanken: Fuhrmann in Bornim oder Garrick als Führer statt Teleport; Preis nach Entfernung; Zeit vergeht; unterwegs ein Wurf auf einen Überfall, nachts höher; nicht aus Höhlen, nicht im Kampf. → **später:** Kapitel 2 (Karten deutlich größer); in Kapitel 1 sind die Wege kurz.
+- **86.5 Pferd** (Chef 14.10., 21:2x, zu 86.3 Ausdauer): Reittier für lange Wege draußen. → **später:** zusammen mit der Schnellreise prüfen, beide lösen dasselbe.
+- **Licht als Mechanik** (Idee 4, 10.10.): Fackel brennt ab; im Dunkeln sieht man Lauerer später, Untote sind stärker. → **später:** Teil von 84 (Fackel 84.1 im Vorrat Homer); erst wenn 84.1 gebaut ist.
+- **84.2 Schnellwechsel** zweier Handbelegungen (Chef 14.10.; aus Vorrat Homer, 84). → **später:** braucht 84.1 (Fackel in der Nebenhand), vorher gibt es nichts zu wechseln.
+- **84.3 Schleichen** (Chef 14.10.; aus Vorrat Homer, 84). → **später:** hängt am Kampfteil 72b; Lauschen und „Rennen laut“ sind schon gebaut (86).
 
-- **Film-Uhr (ruht seit 09.10., 23:09, deine Entscheidung):** Zwischenstand auf Zweig `claude/film-uhr` (nicht installieren). Kampfbildschirm auf eine eigene Uhr `BattleClock` und Wartezeiten über Bilder (`pause`) umgestellt, Zufall der Anzeige säbar; Kampffilme damit vollständig (140 statt 76–102 Bilder), Speichern nebenher. Offen: Filme mit Angriffen bleiben beim ersten Hieb stehen; in 5 von 140 Bildern weichen einzelne Pixel ab (parallele Figurenzeichnung in `Sdf.kt`). Ergebnis bisher: kaum schneller als Echtzeit, etwa die Hälfte der Zeit ist das Vorzeichnen der Figuren. Danach wären Ablaufprotokoll (B) und Bildvergleich (D) möglich.
+### Figuren
 
-## Attribute (Rest aus dem Attribut-Paket)
+- **Handlaterne für Jorin** (66a, 13.10.): Laterne in der freien Hand bei Nacht, neue Haltungen für Gehen, Wache, Abstellen. → **später:** neue Haltungen nach dem Meilenstein; Leerlauf (55) und Licht im Dorf (66) sind erledigt.
+- **114.1 Aufstehsequenz** (Chef 16.10., 12:2x: „Idee: Aufstehsequenz aus Bett?“): Held liegt und steht auf. → **später:** Tom empfiehlt „noch nicht“ (neue Bilder liegend und aufstehend in allen Richtungen); 114 selbst bleibt im Vorrat Homer (Entwurf PR #83).
+- **Mehr Abwechslung beim Helden** (Rest aus 08.10.): Ausweichen ist nur ein Hüpfer (zwei Seiten), der Speer hat zwei Stöße, Zauber eine Bewegung je Fokus. → **später:** mit 52.
+- **Flüssigere Grafik mit mehr Zwischenbildern** (Wunsch 10.10., 11:00; teils erledigt: Sprungtest 12/12a, Gehen in 8 Bildern): Haltungen wechseln 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung. Mehr Bilder, längeres Vorabzeichnen. → **später:** erst wenn dem Chef etwas unrund vorkommt (19e im Vorrat Jerry, Meilenstein).
 
-- **Stärke – rohe Gewalt:** Manche verschlossene Truhen oder Gitter lassen sich ab einem Mindestwert aufbrechen statt nur mit Schlüssel. Braucht neuen Karteninhalt, daher für Kapitel 2 gedacht.
-- **Charisma – Gesprächsoptionen:** „Überreden“ oder „Einschüchtern“ bei Wachen, Händlern und Bösewichten, wenn es zur Geschichte passt. Braucht neue Dialoge, daher für Kapitel 2 gedacht.
-- **Charisma – Auftreten auf der Karte:** Wanderer und schwächere Monster weichen einem einschüchternden Helden aus.
-- **Weisheit – Lauerer erkennen:** Lauernde Monster (Spinne, Fledermaus) werden früher sichtbar.
+### Kampf
 
-## Kapitel 2
+- **52 Feinarbeit an den Kampfanimationen** (gesamt, auch Krogg; aus Vorrat Jerry): Krogg so lassen, später alle gesamt; Rudelwölfe auf `main`. → **später:** nach den neuen Kampforten (72u) und der Probe 72.10, sonst doppelte Arbeit.
+- **Todesstoß für Fernkampf und Zauber** (gewünscht 09.10.): Pfeil, der den Gegner umreißt und festnagelt; Feuer, das ihn verzehrt; Kraft, die ihn zerreißt. → **später:** nach dem Meilenstein, mit 52.
+- **Echtes Zerteilen in 3D** (Killerschlag, 09.10. als späterer Schritt gewählt): Körpermodell durchschneiden, Schnittflächen, Hälften fallen räumlich; auch für Tiere; ein bis zwei Arbeitstage. → **später:** nach dem Meilenstein; Altersfreigabe (Blut) vorher klären (45).
+- **Trefferchancen sichtbar** (Teil von Idee 2): Chance vor dem Angriff anzeigen. → **später:** mit der Oberfläche des neuen Kampfs (72.10, `DESIGN-KAMPF.md`), dort entscheiden.
+- **Verletzungen bis zur Rast** (Idee 3): wer tief fällt, behält eine Wunde (z. B. −1 RK), sichtbar als Verband; das Gasthaus heilt sie. → **später:** = 72c (Empfehlung „ab Kapitel 2“, unbeantwortet im Marktvergleich).
+- **Kampfaktion „Helfen“** (Chef 12.10., zu 34): Gefährte greift im Vorteil an. „Abwarten“ ist in der Probe 72.10 gebaut. → **später:** mit 72.10 nach dem Meilenstein.
+- **Weitere Zauber** ab Stufe 5 für alle Zauberklassen; **Kleriker „Läutern“** (heilt Zustände); **positive Zustände** (Gesegnet, Geschützt, Hast, z. B. durch Tränke); **Ausrüstung mit Giftresistenz.** → **später:** Kapitel 2, Werte mit dem Balanceplan (38).
+- **Rauchbündel allgemein** (Sokrates 15.10., D4.1): bei Morwen kaufbar gegen jeden Hinterhalt oder ersten Hieb. → **später:** erst wenn „Normal“ eingestellt ist (38, Wochenziel); sonst verschiebt es die Messung.
+- **Aktive Abwehr per Tippen** (Idee 1): kurzes Fenster beim gegnerischen Hieb, Tippen = Parieren mit halbem Schaden; der Chef fand sie nicht gut, wollte sie aber behalten. → **verwerfen?:** steckt im Ring der Probe 72.10 („Schlag halb/ganz abgefangen“); dort zu prüfen, nicht doppelt hier.
+- **Echte Gruppenkämpfe:** mehrere Gegner gleichzeitig, Zielauswahl, eigene Lebensbalken, Flächenzauber gegen alle. → **verwerfen?:** aufgegangen in 72 (Probe 72.10, sechs Plätze 72v), dort weitergeführt.
+- **Gefährte Lyra (Heilerin) oder Garrick** als zweites Gruppenmitglied. → **verwerfen?:** überholt durch Chefsache 72s.1 (Gefährte Kapitel 2).
+- **Kampfkulisse der Höhle an die Karte angleichen** (zurückgestellt 10.10.). → **verwerfen?:** gelöst durch 72u B (Kampfort aus der Karte, Zoom 8).
 
-- **Geschichte:** die Spur des „Grauen Propheten“ und der „Tag der Asche“ als Bedrohung.
-- **Neue Region:** z. B. Sumpf oder Ruinenstadt. Vorgabe: **Karten ab Kapitel 2 deutlich größer** als in Kapitel 1.
-- **Vorgaben für jede neue Karte** (geprüft nach 60 und 13t, Tom 14.10., 77e.3; Kampfort-Regel in `DESIGN-STIL.md`):
-  - Die Anzeige ist eine **feste Leiste über der Karte**; die Karte liegt darunter und wird nie von ihr verdeckt. Die Kamera folgt dem Helden ohne Anschlag am Rand (Füße etwas unter der Bildmitte), also gibt es keinen „oberen Rand unter der Leiste“ mehr.
-  - **Kartenränder laufen diagonal:** oben sitzt die Nordecke, links und rechts die Ecken West und Ost. Nahe am Rand sieht man jenseits davon schwarze Schrägen (Lücke 27/5.5). Neue Karten bekommen am Rand einen Abschluss (Bäume, Felsen, Zaun, Wasser), damit keine Schräge ins Bild ragt; Eingänge, Schilder und wichtige Figuren am Rand in der Vorschau vom Weg dorthin prüfen.
-  - Das Blickfeld ist ein gedrehtes Rechteck um den Helden, flach und breit: Wege, Engstellen und Sperren (z. B. Zäune wie am Schlagbaum) so legen, dass sie quer über den Bildschirm laufen statt steil nach oben.
-  - Die Leiste hat immer dieselbe Höhe (eine Zeile für Zustände steht auch leer); neue Zustände reihen sich nebeneinander und machen sie nicht höher.
-- **Neue Monster (SRD):** Banditen und Kultisten, Gnoll, Worg, Harpyie (Gesang/Bezauberung), Belebte Rüstung, Mimik (Klammern), Oger, Eulenbär.
-  - **Gebaut auf den 3D-Grundmodellen** (Heldenpuppe für Menschenähnliche, Vierbeiner-Modell wie beim Wolf): Rig, Bewegungen, Ausfallschritt und Stürze sind schon da; ein neues Monster braucht vor allem Ausrüstung, Maße, Kopf und eigene Haltungen. Es gelten die [Stil-Leitlinien](DESIGN-STIL.md) (je drei Varianten in Aussehen und Bewegung).
-  - Aufwand nach heutiger Einschätzung:
-    - sehr gering: Banditen und Kultisten (Puppe als Mensch mit Ausrüstung), Worg (Wolf, größer und dunkler);
-    - gering: Belebte Rüstung (Puppe nur aus Rüstung, innen hohl, wie beim Skelett);
-    - gering bis mittel: Oger (Puppe, Large, um 2,7 m, grob und schwer);
-    - mittel: Gnoll (Puppe mit Hyänenkopf), Eulenbär (Vierbeiner mit Bärenkörper und Eulenkopf);
-    - eher hoch: Harpyie (Puppe mit Flügeln und Vogelbeinen);
-    - eigenes Modell: Mimik (Truhe mit Maul).
-  - Was jetzt für Kobold, Zombie, Krogg, Grak, Wildschwein und Ratte entsteht (Kopfformen, große Statur, Vierbeiner-Varianten), macht diese Monster günstiger.
-- **Neue Untote:** Schatten (Stärke entziehen), Gruft-Unhold (Lebensraub), Irrlicht (unsichtbar).
-- **Neue Bosse:** Banditenhauptmann, Ogerhäuptling, Gelatinewürfel; mehrphasig, rufen Verstärkung.
+### Klang
 
-## Gruppe und Kampf
+- **Monster-Geräusche** (Rest; Hörproben Wolf, Goblin, Skelett 18e; Laute in Ruhe D3.9 gebaut): Knurren vor dem Angriff, Schmerzlaute, Todeslaute; Klappern (Skelett), Stöhnen (Zombie), Schmatzen (Ockergallert), Kreischen (Fledermaus), Kampfrufe (Goblin, Kobold), Brüllen (Bosse); Elite und Grimmzahn tiefer. → **reif:** steht unter „Wenn Zeit ist“ im Meilenstein (Stimmen der Gegner), kein Hindernis; Jerry nach der Pause.
+- **Klänge überarbeiten, Rest** (aus „Offen“ 11.10.; Hörproben Runde 1 und 2, 18d): Menü-Klick, Belohnungen (Stufenaufstieg, Beute, epische Beute, Münzen, Truhe), Welt (Tür, Begegnung, Alarm, Hinterhalt), Zauber und Tränke, Kampfende, Umgebung (Vögel, Grillen, Eule, Tropfen, Knistern). Vorgehen: Hörproben, dann nach Freigabe umstellen. → **reif:** einzeln klein, macht Kapitel 1 für die Tester runder; vorher nachsehen, was mit 18, D3 und 119 schon erledigt ist.
+- **Musik in Schichten** (Idee 10): nähert sich ein Jäger, schleicht eine dunkle Spur in die Musik, bevor der Kampf beginnt; Stille bewusst einsetzen. → **später:** nach dem Meilenstein; Musik (28) und Raumklang (119) sind fertig.
 
-- **Gefährte:** Lyra (Heilerin) oder Jäger Garrick als zweites Gruppenmitglied.
-- **Begleiter mit Bindung (72.15, Richtung beschlossen 14.10., Einzelheiten offen):** ein Begleiter zur Zeit, kommt aus Geschichte oder Welt, nie gekauft (45). Vertrautheit in 4 Stufen wächst durch gemeinsame Orte, Füttern am Feuerplatz, Nutzen seiner Gabe, nie durch Töten oder Warten; jede Stufe öffnet ein Verhalten und zeigt sich am Tier (Halsband, Narbe, Gruß). Hund (Wolf-Modell): hört Gegner früher (84), folgt Spuren (61a), weckt bei Überfall an der Rast (86.11), findet Verstecktes. Später Rabe (späht Nebel der Karte), Katze (Fallen, Geheimtüren). Verletzt zieht er sich bis zur Rast zurück, stirbt nie. Tiermeister: derselbe Begleiter, kämpft zusätzlich. Erst nach Probe 72.10, Start mit einem Hund.
-- **Eigenes Haus** (Nutzer 14.10.): der Held kann irgendwo ein Haus kaufen, dort Ausrüstung lagern und Begleiter zurücklassen, um später einen anderen mitzunehmen (Hund daheim, Katze oder Rabe dabei).
-- **Echte Gruppenkämpfe:** mehrere Gegner gleichzeitig mit Zielauswahl, eigenen Lebensbalken und Flächenzaubern gegen alle. Großer Umbau; die heutigen Rudel (Begleiter im Hintergrund) wären die Vorstufe.
-- **Kampfaktionen für Gruppen** (Nutzer 12.10., zu 34): „Abwarten“ (SRD *Bereithalten*: Angriff zurückhalten, zuschlagen, sobald der Gegner herankommt) und „Helfen“ (Gefährte greift im Vorteil an). „Zug beenden“ selbst ist Thema 34.
-- **Weitere Zauber** ab Stufe 5 für alle Zauberklassen.
-- **Kleriker-Fähigkeit „Läutern“:** heilt Zustände.
-- **Positive Zustände:** Gesegnet, Geschützt, Hast, z. B. durch Tränke.
-- **Neue Ausrüstungseigenschaft:** Giftresistenz.
-- **Monster-Geräusche** (erste Hörproben Wolf, Goblin, Skelett liegen vor, 18e): eigene Laute je Gegnerart, jeweils in mehreren zufälligen Varianten wie beim Wolfsheulen. Zum Beispiel Knurren vor dem Angriff, Fauchen, Schmerzlaute bei Treffern und Todeslaute. Dazu Klappern bei Skeletten, Stöhnen bei Zombies, Schmatzen beim Ockergallert, Kreischen bei Fledermäusen, Kampfrufe bei Goblins und Kobolden, Brüllen bei Bossen. Elite-Gegner und Grimmzahn klingen tiefer.
+### Oberfläche
 
+- **Gezeichnete Bilder auf dem Gerät speichern** (24.4, 11.10.): Figuren-, Boden- und Kampfbilder nach dem ersten Zeichnen ablegen, damit der nächste Start ohne Wartezeit geht. → **später:** erst messen, wie lang das Übergangsbild nach 24.1–24.3 noch dauert.
+- **59.6 Händler: Filter** „nur tragbare“, Sortierung nach Platz (Chef 12.10., 22:49). → **später:** wenn es mehr Ware gibt (Kapitel 2).
+- **59.7 Händler mit Gesicht:** Name, Bild, Begrüßungssatz statt „Laden“; Texte Chef und Homer (41) (Chef 12.10., 22:49). → **später:** nach dem Meilenstein; neue Bilder je Händler.
 
-## Welt und Leben auf der Karte
+## G Gestaltung
 
-- **Schnellreise über die Kartenübersicht (Idee 09.10., 12:49):** Die Pergamentkarte (Entwurf C, `tools/preview` Modus `WEGE`) als Übersicht, mit Nebel des Unerkundeten wie auf der Karte; einmal entdeckte Orte (z. B. Bornim, Garricks Feuer, Höhleneingang) sind Reiseziele, gegen Gold. Gedanken dazu: ein Fuhrmann in Bornim oder Garrick als Führer statt Teleport; Preis nach Entfernung; Zeit vergeht (wer abends aufbricht, kommt nachts an); unterwegs ein Wurf auf einen Überfall, nachts höher; nicht aus Höhlen heraus, nicht im Kampf.
-- **Monsterverhalten:** Goblins patrouillieren auf Wegen, Fledermäuse hängen an der Höhlendecke und stürzen herab.
-- **Wetter:** Nebel; Windgeräusche als weiterer Umgebungsklang.
-- **Sammelbares und Verstecke:** geheime Truhen, rissige Wände.
+### Story
 
-## Zutaten und Handwerk
+- **133 Wahlen im Spiel** (Chef 17.10., 01:09, an Tom; aus Vorrat Homer): „Auch eine Idee noch, dem Spiel ab und zu eine Wahl zu geben, aus mehreren Optionen, um den Plot voranzubringen. Also Gesprächsdialog-Optionen. Oder wenn ein Gegner besiegt wurde, ob man ihn halt leben lässt oder zum Beispiel tötet. Ja, legt es mal jemanden vor.“ → **reif** (nur der Vorschlag, kein Bau): Homer legt vor, wo und wie oft Wahlen in Kapitel 1–2 passen und was sie ändern; gehört in den Storyplan Kapitel 2 (41), bevor dessen Texte weitergehen. Dazu gehört **Charisma: Überreden, Einschüchtern** (unten).
+- **Kapitel 2, Geschichte:** Spur des „Grauen Propheten“, „Tag der Asche“ als Bedrohung. → **später:** steht im Storyplan (41).
+- **Fleisch an die Wirtin** im Gasthaus verkaufen (heute bei Thessa und Morwen). → **reif:** klein, gibt Rowena einen Grund mehr; zwei Sätze Text von Homer.
+- **Dorran, der Schmied** (wohnt heute hinter verschlossener Tür, „Er ist wohl in seiner Werkstatt“):
+  - **Schmiede:** offene Werkstatt neben seinem Haus mit Esse, Amboss, Wassertrog; Funken, Hammerschläge, abends glüht die Esse.
+  - **Einstieg als Quest:** Esse kalt, Goblins haben den Erzkarren auf der Waldstraße überfallen; **Eisenerz** aus der Blutzahnhöhle (Erzadern, Kisten) öffnet die Schmiede.
+  - **Aufwerten:** Schaden oder RK um eine Stufe gegen Gold und Material (Eisenerz für Metall, Felle für Leder, Hauer und Giftdrüsen für besondere Werte); wenige Stufen je Teil, nie über die Obergrenze des Kapitels.
+  - **Umschmieden:** eine Eigenschaft neu auswürfeln, jedes Mal teurer (72e empfiehlt: streichen).
+  - **Zerlegen:** Ausrüstung in Material (Eisen, Leder, ab „selten“ **Glutstaub** für bessere Aufwertungen).
+  - **Auftragsarbeit:** Waffe für die eigene Klasse, am nächsten Spieltag fertig.
+  - **Attribute:** Charisma senkt Preise; Stärke hilft am Amboss, spart Material.
+  - **Bedienung:** eigener Reiter im Laden („Schmieden“), Material-Anzeige wie bei den Rezepten.
+  - **Kapitel 2:** Runen, Sockel, seltene Erze, Belohnung für eine größere Aufgabe.
+  - → **später:** der Meilenstein nennt den Schmied ausdrücklich als „Neues danach“; vorher 72e entscheiden.
+- **Handwerk:** Felle und Hauer verarbeiten, z. B. Lederrüstung verbessern (heute nur zum Verkaufen). → **später:** mit dem Schmied, sonst zwei Wege für dasselbe.
+- **70 Bildsprache der Zwischensequenzen, Rest** (Chef 14.10., 08:00; aus Vorrat Homer): 70.1–70.6 entschieden (`DESIGN-STIL.md`). → **später:** mit dem nächsten Kapitel.
+- **Mond nach Himmelsrichtung** (Chef 15.10., 13:5x, zu 70.6, „vorerst nicht“): in Bornim (52° N) steht der Mond nie im Norden; Blick nach Norden zeigt nur sein Licht, Ost bis West darf er ins Bild. → **später:** mit 70 Rest.
+- **Eigenes Haus** (Chef 14.10.): irgendwo ein Haus kaufen, Ausrüstung lagern, Begleiter zurücklassen und einen anderen mitnehmen (Hund daheim, Katze oder Rabe dabei). → **später:** braucht mehr als einen Begleiter (72.15).
+- **Begleiter mit Bindung** (72.15, Richtung beschlossen 14.10.): ein Begleiter zur Zeit, aus Geschichte oder Welt, nie gekauft (45). Vertrautheit in 4 Stufen durch gemeinsame Orte, Füttern am Feuerplatz, Nutzen seiner Gabe, nie durch Töten oder Warten; jede Stufe öffnet ein Verhalten und zeigt sich am Tier (Halsband, Narbe, Gruß). Hund (Wolf-Modell): hört Gegner früher (84), folgt Spuren (61a), weckt bei Überfall an der Rast (86.11), findet Verstecktes. Später Rabe (späht Nebel), Katze (Fallen, Geheimtüren). Verletzt zieht er sich bis zur Rast zurück, stirbt nie. Tiermeister: derselbe Begleiter kämpft mit. → **später:** erst nach Probe 72.10, Start mit einem Hund.
 
-- **Handwerk:** Felle und Hauer verarbeiten, z. B. Lederrüstung verbessern (heute nur zum Verkaufen). Siehe auch den Schmied unten.
-- **Fleisch an die Wirtin** im Gasthaus verkaufen (heute bei Thessa und Morwen).
-- **Kräuter wachsen am Morgen nach** statt schon um Mitternacht (Spielzeit).
+### Balance und Attribute
 
-## Schmied Dorran
+- **Stärke, rohe Gewalt:** Truhen oder Gitter ab einem Mindestwert aufbrechen statt nur mit Schlüssel. → **später:** neuer Karteninhalt, Kapitel 2.
+- **Charisma, Gesprächsoptionen:** „Überreden“ oder „Einschüchtern“ bei Wachen, Händlern, Bösewichten, wenn es zur Geschichte passt. → **später:** mit 133 vorlegen, gebaut in Kapitel 2.
+- **Charisma, Auftreten auf der Karte:** Wanderer und schwächere Monster weichen einem einschüchternden Helden aus. → **später:** nach dem Meilenstein; verschiebt sonst die Messung 38.
+- **Weisheit, Lauerer erkennen:** Spinne, Fledermaus werden früher sichtbar. → **später:** mit 84 (Lauschen, Licht), sonst zwei Regeln für dasselbe.
 
-Dorran wohnt heute nur hinter einer verschlossenen Tür („Er ist wohl in seiner Werkstatt“). Er bekommt eine eigene Schmiede im Dorf.
+### Kapitel 2: Region und Gegner
 
-- **Die Schmiede:** offene Werkstatt neben seinem Haus mit Esse, Amboss und Wassertrog. Funken fliegen, ab und zu hört man Hammerschläge. Abends glüht die Esse.
-- **Einstieg als kleine Quest:** Dorrans Esse ist kalt, weil ihm das Eisenerz ausgegangen ist. Goblins haben den Erzkarren auf der Waldstraße überfallen. Bringt man ihm Erz aus der Blutzahnhöhle (neue Zutat **Eisenerz**, liegt dort in Erzadern oder in Kisten), öffnet er die Schmiede.
-- **Aufwerten:** ein Ausrüstungsteil verbessern, z. B. Schaden oder Rüstungsklasse um eine Stufe, gegen Gold und Material (Eisenerz für Metall, Felle für Leder, Hauer und Giftdrüsen für besondere Werte). Pro Teil nur wenige Stufen, und immer nur bis zur Obergrenze des Kapitels, damit die Balance hält.
-- **Umschmieden:** eine einzelne Eigenschaft eines Gegenstands neu auswürfeln, z. B. „+1 Stärke“ gegen etwas anderes. Jedes weitere Umschmieden desselben Teils wird teurer.
-- **Zerlegen:** ungeliebte Ausrüstung in Material verwandeln statt zu verkaufen: Eisenstücke, Leder und ab „selten“ etwas **Glutstaub** für bessere Aufwertungen.
-- **Auftragsarbeit:** Mit genug Material schmiedet Dorran eine passende Waffe für die eigene Klasse. Sie ist am nächsten Spieltag fertig, dann holt man sie ab (nutzt die Tageszeit, die es schon gibt).
-- **Attribute:** Charisma senkt seine Preise wie beim Händler. Stärke könnte erlauben, selbst am Amboss mitzuhelfen und so etwas Material zu sparen.
-- **Bedienung:** wie Morwens Brauen ein eigener Reiter im Laden („Schmieden“), mit Material-Anzeige wie bei den Rezepten.
-- **Später (Kapitel 2):** Runen oder Sockel für Ausrüstung, seltene Erze aus neuen Gebieten, eine Belohnung von Dorran für eine größere Aufgabe.
+- **Neue Region:** z. B. Sumpf oder Ruinenstadt; **Karten ab Kapitel 2 deutlich größer.** → **später:** Storyplan Kapitel 2 (41).
+- **Neue Monster (SRD):** Banditen und Kultisten, Gnoll, Worg, Harpyie (Gesang, Bezauberung), Belebte Rüstung, Mimik (Klammern), Oger, Eulenbär. Gebaut auf den 3D-Grundmodellen (Heldenpuppe für Menschenähnliche, Vierbeiner wie der Wolf); ein neues Monster braucht vor allem Ausrüstung, Maße, Kopf, eigene Haltungen; je drei Varianten (`DESIGN-STIL.md`). Aufwand: sehr gering Banditen, Kultisten, Worg (Wolf, größer und dunkler); gering Belebte Rüstung (hohl wie das Skelett); gering bis mittel Oger (Large, um 2,7 m); mittel Gnoll (Hyänenkopf), Eulenbär; eher hoch Harpyie (Flügel, Vogelbeine); eigenes Modell Mimik (Truhe mit Maul). Was für Kobold, Zombie, Krogg, Grak, Wildschwein, Ratte entsteht, macht sie günstiger. → **später:** Kapitel 2.
+- **Neue Untote:** Schatten (Stärke entziehen), Gruft-Unhold (Lebensraub), Irrlicht (unsichtbar). → **später:** Kapitel 2.
+- **Neue Bosse:** Banditenhauptmann, Ogerhäuptling, Gelatinewürfel; mehrphasig, rufen Verstärkung. → **später:** Kapitel 2.
 
-## Google Play
+## B Betrieb
 
-- **Anmeldung mit Google Play (Play Games Services):** automatische Anmeldung mit dem Google-Konto, Spielstände in der Cloud (pro Spielstand-Platz), Erfolge wie „Grak besiegt“ oder „Erste schimmernde Beute“, auf Wunsch Bestenlisten.
-- **Voraussetzungen, die nur der Inhaber erledigen kann:** Google-Play-Entwicklerkonto (einmalig 25 US-Dollar, Identitätsprüfung), das Spiel in der Play Console anlegen und den Fingerabdruck des Signierschlüssels hinterlegen, eine Datenschutzerklärung. Zum Testen reicht ein interner Test-Track.
-- **Danach im Code:** die Play-Games-Bibliothek einbinden, Anmeldung beim Start, Cloud-Abgleich der Spielstand-Plätze, Erfolge.
-- Sinnvoll erst, wenn das Spiel im Play Store erscheinen soll (siehe auch Rechtliches unten).
+### Werkzeuge
 
-## Sonstiges
+- **Film-Uhr** (ruht seit 09.10., 23:09, Entscheidung des Chefs; Zwischenstand Zweig `claude/film-uhr`, nicht installieren): Kampfbildschirm auf eigene Uhr `BattleClock`, Wartezeiten über Bilder (`pause`), Zufall der Anzeige säbar; Kampffilme vollständig (140 statt 76–102 Bilder). Offen: Filme mit Angriffen bleiben beim ersten Hieb stehen; 5 von 140 Bildern weichen in einzelnen Pixeln ab (`Sdf.kt`). Kaum schneller als Echtzeit, die Hälfte der Zeit ist Vorzeichnen. Danach wären Ablaufprotokoll und Bildvergleich möglich. → **verwerfen?:** brachte keine Zeit, der Kampf wird mit 72.10 ohnehin neu gebaut; der Zweig liegt seit acht Tagen.
 
-- **Rechtliches:** Vor einer Veröffentlichung im Play Store oder einer kommerziellen Nutzung eine kurze Prüfung durch einen Anwalt für Marken- und Urheberrecht.
-- **Mehr Abwechslung beim Helden (Rest aus 08.10.):** Ausweichen ist nur ein Hüpfer (zwei Seiten), der Speer hat zwei Stöße, Zauber eine Bewegung je Fokus.
-- **Todesstoß für Fernkampf und Zauber (gewünscht 09.10.):** Der Killerschlag gilt zunächst nur für Nahkampfwaffen. Für Bogen, Armbrust und Zauber soll später auch ein eigener tödlicher Treffer kommen (z. B. Pfeil, der den Gegner umreißt und festnagelt; Feuer, das ihn verzehrt; Kraft, die ihn zerreißt).
-- **Echtes Zerteilen in 3D (Killerschlag, gewählt als späterer Schritt am 09.10.):** Das Körpermodell selbst durchschneiden statt des flachen Bildes; Schnittflächen mit Fleisch und Knochen, beide Hälften fallen räumlich. Dann auch für Tiere. Aufwand grob ein bis zwei Arbeitstage.
-- **Flüssigere Grafik mit mehr Zwischenbildern** (teilweise erledigt: Sprungtest 12/12a, Gehen in 8 Bildern) (Wunsch 10.10., 11:00; vorher „Zu entscheiden“): Die Haltungen (Arme, Beine, Waffe) wechseln heute 11- bis 13-mal pro Sekunde und bremsen an jeder Zwischenhaltung kurz ab. Mehr Bilder, längeres Vorabzeichnen zu Kampfbeginn; Claude prüft selbst mit Filmen und Kerntests.
-- **Kampfkulisse der Höhle an die neue Karte angleichen** (zurückgestellt 10.10.): Beim Kampf in der Höhle soll die Kulisse wie dieselbe Höhle aussehen wie auf der Karte (Boden, Wände, Dinge, Licht).
-- **114 Aufwachen am Bett** (Chef 16.10., 12:2x): „Nach Schlaf in Gasthaus und Buchung über Wirtin neben Bett aufwachen und nicht neben Tresen nach Dialog zur Rast. Idee: Aufstehsequenz aus Bett?“ Prüfen: Kreativ. Liegt vorschnell gebaut als Entwurf in PR #83 (eine Zeile, nicht auf `main`); 114.1 Aufstehsequenz: Empfehlung Tom „noch nicht“ (neue Bilder des Helden liegend und aufstehend in allen Richtungen).
+## M Markt
 
-## Klänge überarbeiten (Rest, aus „Offen“ am 11.10.)
+### Veröffentlichung
 
-Nach den [Stil-Leitlinien](DESIGN-STIL.md): weg von Chiptune, hin zu glaubwürdigen Geräuschen. Hörproben Runde 1 und 2 liegen vor (18d, Auswahl beim Nutzer). Noch offen: Menü-Klick, Belohnungen (Stufenaufstieg, Beute, epische Beute, Münzen, Truhe), Welt (Tür, Begegnung, Alarm, Hinterhalt), Zauber und Tränke, Kampfende (Gegner fällt, Held fällt), Umgebung (Vögel, Grillen, Eule, Tropfen, Knistern), Musik (28 erledigt; Schichten siehe Ideenrunde). Vorgehen: Hörproben, dann nach Freigabe umstellen.
+- **Weg** (besprochen 10.10., 13:36): (1) Stilumbau abschließen. (2) Pflichttest im Play Store (neues privates Konto: mindestens 12 Tester, 14 Tage am Stück) als echten Test, Rückmeldungen sammeln. (3) Kapitel 1 kostenlos (99 Cent bringen kaum Käufer: keine Sichtbarkeit ohne Bewertungen, nach Steuer und Google-Anteil etwa 70 Cent). (4) Vollversion mit einmaligem Kauf, spätere Kapitel nachkaufbar (45a); Preis offen (72g). Vorher: Datenschutzerklärung, Altersfreigabe (Blut), Zahlungsprofil mit Händleradresse, kurze Rechtsprüfung (Schriften, Klänge).
+- **Vorbereitung Pflichttest:** Google-Play-Entwicklerkonto (einmalig 25 US-Dollar, Identitätsprüfung), Spiel in der Play Console anlegen, Fingerabdruck des Signierschlüssels, Datenschutzerklärung; zum Testen reicht ein interner Test-Track. Nur der Chef kann das. → **reif:** der Meilenstein geht an 12 Tester, der Test dauert 14 Tage am Stück; Konto und Prüfung brauchen Vorlauf (Sokrates, 45).
+- **Anmeldung mit Google Play** (Play Games Services): Anmeldung mit dem Google-Konto, Spielstände in der Cloud je Platz, Erfolge („Grak besiegt“, „Erste schimmernde Beute“), auf Wunsch Bestenlisten; im Code Bibliothek, Anmeldung beim Start, Cloud-Abgleich. → **später:** erst wenn das Spiel öffentlich erscheint.
+- **Rechtliches:** vor öffentlicher Veröffentlichung oder kommerzieller Nutzung kurze Prüfung durch einen Anwalt für Marken- und Urheberrecht. → **später:** vor Schritt 3, nicht für den geschlossenen Test.
+
+## Vorgaben (keine Ideen, gelten)
+
+- **Jede neue Karte** (geprüft nach 60 und 13t, Tom 14.10., 77e.3; Kampfort-Regel in `DESIGN-STIL.md`):
+  - Die Anzeige ist eine **feste Leiste über der Karte**, die Karte liegt darunter und wird nie verdeckt. Die Kamera folgt dem Helden ohne Anschlag am Rand (Füße etwas unter der Bildmitte), also gibt es keinen „oberen Rand unter der Leiste“.
+  - **Kartenränder laufen diagonal:** oben die Nordecke, links und rechts West und Ost; nahe am Rand sieht man jenseits schwarze Schrägen (Lücke 27/5.5). Neue Karten bekommen am Rand einen Abschluss (Bäume, Felsen, Zaun, Wasser); Eingänge, Schilder, wichtige Figuren am Rand in der Vorschau vom Weg dorthin prüfen.
+  - Das Blickfeld ist ein gedrehtes Rechteck um den Helden, flach und breit: Wege, Engstellen, Sperren (z. B. Zäune wie am Schlagbaum) quer über den Bildschirm legen statt steil nach oben.
+  - Die Leiste hat immer dieselbe Höhe (eine Zeile für Zustände steht auch leer); neue Zustände reihen sich nebeneinander.
+- **Regeln:** SRD bleibt Grundlage, nicht wechseln; Würfelglück wird abgefedert (18, sichtbare Chancen).
 
 ## Bewusst so gelassen
 
-- **Trank wird zweimal getrunken:** kein Fehler, Trinkvariante „zwei hastige Schlucke“ (08.10.).
-- **Testkämpfe im Dorf:** Held und Gegner erreichen sich beim Angriff nicht (alte Kulisse ohne berechneten Schritt); im Dorf gibt es sonst keine Kämpfe (08.10.).
+- **Trank wird zweimal getrunken:** kein Fehler, „zwei hastige Schlucke“ (08.10.).
+- **Testkämpfe im Dorf:** Held und Gegner erreichen sich beim Angriff nicht (alte Kulisse ohne berechneten Schritt); sonst keine Kämpfe im Dorf (08.10.).
 - **Figurgröße im Reiter „Held“** und **Kampfablauf** (Ansage mit Ausholen → Tippen → Schlag): so bestätigt.
-- **30.7 (Jerry, 36f, 12.10.):** Klänge mit 22 statt 44 kHz (etwa 5 MB Speicher weniger, Höhen etwas dumpfer); erst wenn der Speicher wieder knapp wird.
-
-- **59.6** Händler: Filter „nur tragbare“, Sortierung nach Platz – wenn es mehr Ware gibt (Nutzer 12.10., 22:49)
-- **59.7** Händler mit Gesicht: Name, Bild, Begrüßungssatz statt „Laden“; Texte Nutzer und Berater (41) (Nutzer 12.10., 22:49)
-- **Handlaterne für Jorin** (66a, 13.10.): Laterne in der freien Hand bei Nacht, neue Haltungen für Gehen, Wache, Abstellen; zusammen mit 55 (mehr Leerlauf).
-- **86.5 Pferd** (Nutzer 14.10., 21:2x, zu 86.3 Ausdauer): Reittier für lange Wege draußen; neben Schnellreise (Idee 09.10.).
+- **30.7 (Jerry, 36f, 12.10.):** Klänge mit 22 statt 44 kHz (etwa 5 MB weniger, Höhen dumpfer); erst wenn der Speicher knapp wird.
