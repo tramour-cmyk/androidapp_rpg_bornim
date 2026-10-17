@@ -78,7 +78,14 @@ Alle Zwischensequenzen (Intro 69, Tempelszene 68, spätere Wendepunkte) sind gle
 - Antippen überspringt; danach in der Chronik unter „Bisher geschehen“ wieder ansehbar
 - **Figuren** an Umriss und festem Merkmal erkennbar (Merkmale in `LISTE-FIGUREN.md`), nicht am Gesicht; Rückenansicht oder Schattenriss (70.2)
 - **Selten:** je Kapitel höchstens Anfang und Ende, dazu selten ein Wendepunkt (70.4)
-- **Bild:** dieselbe Welt (Grundsatz unter „Richtung“), **präzise und so detailreich wie die Diagonalwelt** (Nutzer 14.10., 09:5x: keine Abstraktion, keine Pinselstriche, eher mehr Rechenleistung, feiner): Licht aus Quellen mit warmen Lichtkegeln auf Weg und Wasser, Spiegelungen (Mond im Wasser), Leben im Bild; enger Ausschnitt, Wichtiges groß im Vordergrund; Augenhöhe. Musterbild folgt aus der zweiten Runde 69e (70.1)
+- **Bild:** dieselbe Welt (Grundsatz unter „Richtung“), **präzise und so detailreich wie die Diagonalwelt** (Nutzer 14.10., 09:5x: keine Abstraktion, keine Pinselstriche, eher mehr Rechenleistung, feiner): Licht aus Quellen mit warmen Lichtkegeln auf Weg und Wasser, Spiegelungen (Mond im Wasser), Leben im Bild; enger Ausschnitt, Wichtiges groß im Vordergrund; Augenhöhe. Muster siehe nächster Punkt
+- **Muster ist das Intro** (112; Chef 16.10.: „als Maß aller Dinge“): Bild 2 (Brücke, 69e, 70.1) und die Bilder 1, 3, 4 im selben Stil (`tools/preview` `BridgeProbe.kt`, `IntroProbe.kt`, Leben `IntroLife.kt`). Jede neue Zwischensequenz wird vor der Vorlage Bild für Bild daran gemessen. Was es ausmacht (Lesart Homer 17.10., Chefsache 112):
+  1. **Dunkel mit wenigen warmen Inseln:** Grundton kühl und dunkel (halbe Bildfläche fast schwarz), warmes Licht nur dort, wo eine Quelle steht (Fenster, Laterne, Fackel), als begrenzter Kegel mit Abfall; kein Farbschleier über dem ganzen Bild.
+  2. **Warm gegen kalt:** jede Szene hat ein Gegenlicht (Mond, Himmel, Morgengrau) neben dem warmen Licht.
+  3. **Stofflichkeit überall:** jede Fläche hat Struktur (Pflaster, Bohlen, Fachwerk, Moos, Gras, Putz); keine glatte Fläche größer als eine Handbreite im Bild.
+  4. **Tiefe in drei Ebenen:** großer Gegenstand vorn (Bohlen, Brunnen, Pflaster), Mitte mit dem Ziel des Blicks, Ferne mit Himmel oder Raum; Blick schräg in den Raum, nie frontal wie auf eine Bühne.
+  5. **Figuren wenige und glaubhaft:** Umriss mit Kleidung, Werkzeug, Merkmal (Rowena: Schürze, Krug); keine Kegel mit Kugelkopf, keine gleichen Figuren nebeneinander.
+  6. **Leben:** was leuchtet oder Luft ist, bewegt sich (70.3), Ton darunter.
 - **Blickwinkel:** Ich-Perspektive des Helden oder ein Bild ohne ihn (Stimmung, anderer Schauplatz); der Held erscheint nie, weil er wählbar ist (Geschlecht, Klasse, Ausrüstung); andere Figuren dürfen ins Bild (wie Lyra in der Tempeltür)
 - **Leises Leben** (Flackern, Lichtfall, Staub) wird nach der Stilwahl in einem Test-Build an einer Szene entschieden (70.3)
 
