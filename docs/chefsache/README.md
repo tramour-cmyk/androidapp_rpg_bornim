@@ -22,8 +22,6 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: D21 (Team Jerry), 24.6 (Team Jerry), 9i (Team Jerry), 19e (Team Jerry)
-
 Ohne Datei: 39.1 (Kreativ)
 
 ## So geht's
