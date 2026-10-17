@@ -1,6 +1,6 @@
 # Betrieb: Handwerk von Ford und Ford 2
 
-Mechanik zu `ROLLE-BETRIEB.md`: Stellung, Uhr, Neustart, Ablauf eines Laufs, Ford 2, Meldungen. Liest Ford beim Start ganz; andere nur bei Anlass. Vorgänge 81a–81v, 99f, 110, 124, 126, 128 (`VORGANGSARCHIV.md`).
+Mechanik zu `ROLLE-BETRIEB.md`: Stellung, Uhr, Neustart, Ablauf eines Laufs, Ford 2, Meldungen. Liest Ford beim Start ganz; andere nur bei Anlass. Vorgänge 81a–81v, 99f, 99h, 110, 124, 126, 128 (`VORGANGSARCHIV.md`).
 
 ## Stellung (81g)
 
@@ -15,7 +15,8 @@ Steht oben in `ARBEIT-BETRIEB.md` („Ford: aus / Co-Pilot / Pilot“). Der Chef
 ## Uhr, Selbstneustart, Tiefe, Wache (81p, 81s, 110, D10.1, D16)
 
 - Kennungen von Fords Sitzung, Uhr und Wache stehen oben in `ARBEIT-BETRIEB.md` (Zeile „Ford lebt in einer Sitzung“; Weiter-Haken und Wache lesen sie dort). Umgebung „Voll“: `create_session`, `list_sessions`, Telegram-Schlüssel. Keine `send_later`-Kette.
-- **Selbstneustart** (81r): zeigt `get_session` (eigene Sitzung) über 300.000 `used_tokens`, legt Ford „Ford – Betriebsleiter (TT.MM., HH:MM)“ mit `create_session` neu an (erste Nachricht: sein Auftrag mit Verweis auf diese Datei). Die neue Sitzung legt zuerst ihre Uhr an (`create_trigger`, `persistent_session_id` = eigene Kennung, Minute :03, Nachricht „Ford-Lauf“), prüft sie mit `list_triggers`, löscht dann die alte Uhr, archiviert den alten Ford, trägt beides in `ARBEIT-BETRIEB.md` ein, pusht; keine Meldung. Der alte Ford archiviert sich nie selbst (sonst schaltet sich seine Uhr ab).
+- **Uhr aus ohne Arbeit** (99h): nachts, wenn kein Vorrat startbar ist und keine Sitzung läuft, schaltet Ford seine Uhr ab (`update_trigger`, `enabled` false) und legt eine einmalige Aufgabe an (`create_trigger`, `run_once_at` 06:03, Sa, So, Urlaub 08:03, Nachricht „Uhr an“), die sie wieder anschaltet; Ford 2 ebenso, solange Jerry „Pause bis …“ hat, bis zum Pausenende. Nachrichten wecken weiter; die Wache bleibt.
+- **Selbstneustart** (81r, 99h): zeigt `get_session` (eigene Sitzung) über 150.000 `used_tokens`, legt Ford „Ford – Betriebsleiter (TT.MM., HH:MM)“ mit `create_session` neu an (erste Nachricht: sein Auftrag mit Verweis auf diese Datei). Die neue Sitzung legt zuerst ihre Uhr an (`create_trigger`, `persistent_session_id` = eigene Kennung, Minute :03, Nachricht „Ford-Lauf“), prüft sie mit `list_triggers`, löscht dann die alte Uhr, archiviert den alten Ford, trägt beides in `ARBEIT-BETRIEB.md` ein, pusht; keine Meldung. Der alte Ford archiviert sich nie selbst (sonst schaltet sich seine Uhr ab).
 - **Tiefe** (110): jede Sitzung trägt `lineage.depth` (Grenze 8); wer gestartet wird, liegt eins tiefer. Auf Tiefe 8 gehen weder `create_session` noch Uhr, Weckruf oder `send_later`. Ford bleibt darum höchstens auf 6, seine Teams auf 7: Selbstneustart nur bis Tiefe 5. Ab Tiefe 6 einmal `--laut` „Chef: Ford bitte von Hand starten (Tiefe n)“ und Datei `docs/chefsache/entscheiden/110-ford-von-hand.md` anlegen; weiterlaufen bis dahin. Der Chef startet in claude.ai/code eine Sitzung (Umgebung „Voll“, Repo) mit „Ford“ (Tiefe 0). Ford 2 ebenso auf Pro und trägt seine Tiefe in seine Kennungszeile (D16.2).
 - **Wache:** die Sitzung „Ford-Wache“ wird Mo–Fr 07:08, Sa, So und im Urlaub 09:08 geweckt, prüft `updated_at` und Uhr von Ford und meldet bei Stillstand `--laut` plus „Ford-Lauf“. Niemand archiviert sie (D13.2). Ausfall: Team Tom und Perikles wecken Ford (Start in ihren Rollendateien).
 - **Keine Routinen:** Routinen-Sitzungen haben kein `create_session`/`list_sessions` (Proben 15.10.).
@@ -28,7 +29,7 @@ Steht oben in `ARBEIT-BETRIEB.md` („Ford: aus / Co-Pilot / Pilot“). Der Chef
 
 ## Ablauf eines Laufs
 
-1. `tools/notiz.sh`, Stellung lesen; „aus“ → beenden.
+1. `tools/notiz.sh`, Stellung lesen; „aus“ → beenden. Kein neuer Commit seit dem letzten Lauf → nur Kopfzeilen und Besetzung lesen (99h).
 2. **Pause:** trägt der Kopf eines Vorrats „Pause bis <Zeit>“, lässt Ford die Rolle bis dahin aus.
 3. **Laufende Sitzungen:** `list_sessions` (`mine`); laufend = passender Titel und `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker (`list_triggers`). Daraus `ARBEIT-BESETZUNG.md` (Rolle, Titel mit Link, Zeile, Zweig, seit).
 4. **Starten:** je Rolle offene Zeile ohne Entscheidung des Chefs, keine laufende Sitzung, keine Startmarke jünger als 20 Minuten? **Erst Muss, dann Kür** (126): eine Muss-Zeile im Wochenziel oder mit „jetzt“ des Chefs geht vor; Kür nur, wenn nirgends Muss startbar ist; „M?“ zählt als Kür. Diogenes: Zeile in `ARBEIT-PRUEFUNG.md`, Bedingung „nach …“ jeden Lauf gegen `main` bzw. den PR prüfen. Pilot: **Startsperre** „HH:MM Start <Name>“ ins Protokoll, pushen (abgelehnt → `git pull`, neu prüfen), erst dann `create_session`. Co-Pilot: Push „<Name> hat Vorrat, keine Sitzung“.
