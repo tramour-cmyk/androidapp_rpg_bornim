@@ -8,7 +8,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 
 | Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |
 |---|---|---|---|---|---|---|
-| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 16,58 $ | Ford | laufend |
+| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 23,04 $ | Ford | laufend |
 | 1 | Regen, Wetterleuchten mit Donner | E Welt | – |  | Tom | erledigt v0.1.409 |
 | 2 | Waffe verstaut (auf der Karte geschultert bzw. am Rücken) | E Figuren | – |  | Tom | erledigt v0.1.409 |
 | 3 | Garrick hockt, schürt, döst (3a weich) | E Figuren | – |  | Tom | erledigt v0.1.430 |
@@ -94,6 +94,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 82 | Held vor verschlossener Tür | E Welt | – |  | Tom | erledigt |
 | 83 | Dorf Süd: Hecke, Felder, Hühner | E Welt | – |  | Tom | erledigt |
 | 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | G Balance | K |  | Sokrates | offen |
+| 84.5 | Lichttrank: schwebendes Licht über dem Helden, 8 Spielstunden (Chef) | G Balance | K |  | Homer | offen |
 | 85 | Testmenü aufräumen | B Werkzeuge | – |  | Tom | fertig |
 | 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72 | Jerry | in Arbeit |
 | 87 | Schänke: Katze, Rowena, Borins Becher | E Welt | – |  | Tom | fertig |
@@ -146,7 +147,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K | 2,81 | Tom | erledigt |
 | 130 | Kampfgefühl der Probe 72.10 (Prüfpunkt 8.5) | G Balance | K |  | Sokrates | offen |
 | 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | K |  | Sokrates | offen |
-| 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | M | 2,43 $ | Tom | gebaut |
+| 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | M | 2,43 $ | Tom | erledigt |
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | offen |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
 | 138 | Kräuter wachsen am Morgen nach | E Welt | K |  | Tom | offen |
@@ -154,7 +155,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 140 | Monster-Geräusche, Rest | E Klang | K |  | Jerry | offen |
 | 141 | Klänge überarbeiten, Rest | E Klang | K |  | Jerry | offen |
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | K |  | Sokrates | offen |
-| 134.1 | Goldenes Zeichen bei Leuten mit Neuem | E Figuren | M | 1,73 $ | Tom | gebaut |
+| 134.1 | Goldenes Zeichen bei Leuten mit Neuem | E Figuren | M | 1,73 $ | Tom | erledigt |
 | 134.2 | Gesten zum Zeichen | E Figuren | K |  | Tom | offen |
 | 134.3 | Ruf als Klang zum Zeichen | E Klang | K |  | Jerry | offen |
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |
@@ -166,6 +167,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 144 | Storyplan mit rotem Faden als Übersicht | G Story | K |  | Homer | offen |
 | 145 | Karten je Kapitel zum Drucken | E Welt | K |  | Tom | offen |
 | 146 | Figurenübersicht: Fähigkeiten, Charakterzug, Schlüsselsatz (Idee Chef) | G Story | K |  | Homer | offen |
-| 147 | Regel „Idee“: abwägen, erst passenden Vorgang suchen (Chef) | B Abläufe | M |  | Perikles | erledigt |
+| 147 | Regel „Idee“: abwägen, erst passenden Vorgang suchen (Chef) | B Abläufe | M | Perikles 2,84 $ | Perikles | erledigt |
 | 147.1 | Nutzungsguthaben Pro (erledigt), Fable-Limit Max | B Kosten | M |  | Perikles | erledigt |
 | 147.2 | Ford 2 schaut in Jerrys Pause alle 4 Stunden | B Abläufe | M |  | Perikles | erledigt |
+| 149 | Probewoche Ford mit neuem Modell: Regelverstöße zählen bis 24.10. (Chef) | Q QM | M? |  | Diogenes | offen |
+| 148 | Ideenspeicher ausmisten: Vorgaben und Bewusst-gelassenes an ihren Ort (Chef) | B Abläufe | K |  | Homer | offen |

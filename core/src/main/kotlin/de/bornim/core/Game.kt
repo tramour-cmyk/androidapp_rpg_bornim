@@ -399,9 +399,50 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         now = nowMs
         if (mode != Mode.Explore) return
         tickClock(delta)
+        talkingTo?.let { npc -> if (queue.isEmpty()) { Hail.heard(state, npc, after = true); talkingTo = null } }
         updateWalkers()
+        updateHails()
         walkerTracks()
         updateRoamers(nowMs)
+    }
+
+    // ------------------------------------------------------------ 134.1: people with news hail the hero
+
+    /** The person talked to until the talk is over, then what they would say next counts as heard ([Hail.heard]). */
+    private var talkingTo: Npc? = null
+
+    /** When each person near the hero came to notice him with news; [Long.MIN_VALUE]: noticed, nothing to show. */
+    private val hails = HashMap<String, Long>()
+    private var hailsMap = ""
+
+    /**
+     * People notice the hero by the rules of the monsters: near enough ([Perks.noticeRange]) and in sight, which
+     * the night shortens. Whoever notices him with news hails him once on coming near; again only once he has
+     * gone off (two tiles beyond that) and comes back.
+     */
+    private fun updateHails() {
+        val p = state.place
+        // coming into a place counts as coming near anew
+        if (p.map != hailsMap) { hails.clear(); hailsMap = p.map }
+        val range = Perks.noticeRange(hero)
+        for (npc in map.npcs) {
+            if (npc.look.startsWith("monster:") || !npc.visible(state) || indoors(npc)) { hails.remove(npc.id); continue }
+            val w = walkerOf(npc)
+            val x = w?.x ?: npc.x
+            val y = w?.y ?: npc.y
+            val dist = kotlin.math.abs(x - p.x) + kotlin.math.abs(y - p.y)
+            if (npc.id in hails) {
+                if (dist > range + 2) hails.remove(npc.id)
+            } else if (dist <= range && inSight(x + 0.5, y + 0.5)) {
+                hails[npc.id] = if (Hail.news(state, npc)) now else Long.MIN_VALUE
+            }
+        }
+    }
+
+    /** 134.1: whether [npc] shows the golden sign now. */
+    fun hailing(npc: Npc): Boolean {
+        val at = hails[npc.id] ?: return false
+        return at != Long.MIN_VALUE && Hail.showing(now - at)
     }
 
     /** 61 (test of 0.1.662): villagers leave prints in the wet like the hero; between tiles where they are drawn. */
@@ -877,7 +918,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         npcAt(tx, ty)?.let { npc ->
             npcFacing[npc.id] = p.facing.opposite
             state.flags += MapMarks.met(npc.id)
-            enqueue(Jobs.handIn(state, npc.id) ?: npc.talk(state))
+            val cmds = Jobs.handIn(state, npc.id) ?: npc.talk(state)
+            Hail.heard(state, npc, after = false)
+            hails[npc.id] = Long.MIN_VALUE
+            talkingTo = npc
+            enqueue(cmds)
             return
         }
         map.signs[tx to ty]?.let {

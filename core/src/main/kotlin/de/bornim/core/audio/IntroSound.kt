@@ -4,7 +4,7 @@ import de.bornim.core.Intro
 import kotlin.random.Random
 
 /**
- * The quiet sounds under the intro's painted pictures (69c, `docs/STORY-K1.md`: „leise Wind, Fluss, Grillen“): wind and the
+ * The quiet sounds under the intro's painted pictures (69c, `docs/STORY-K1-HANDLUNG.md`: „leise Wind, Fluss, Grillen“): wind and the
  * river loop, crickets chirp now and then. Each picture has its own mix, the loops follow its crossfade; with the black
  * picture the place dies away, and only the night is left under the title music (69c.1, [bell], [night]). Pure and driven
  * by the intro's clock.

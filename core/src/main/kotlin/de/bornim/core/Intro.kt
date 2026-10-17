@@ -47,7 +47,7 @@ open class Reel(val lines: List<T>, val blackLast: Boolean) {
 
 /**
  * The intro (69): the traveller arrives at Bornim by night, five still pictures (texts `[69.intro.1]` … `[69.intro.5]` in
- * `docs/STORY-K1.md`). Picture 5 is black. Shown once at the first start of a new hero, again from the chronicle.
+ * `docs/STORY-K1-HANDLUNG.md`). Picture 5 is black. Shown once at the first start of a new hero, again from the chronicle.
  */
 object Intro : Reel(
     listOf(
@@ -74,7 +74,7 @@ object Intro : Reel(
 
 /**
  * The temple scene at the end of chapter 1 (68): the sun amulet comes home at the morning service, five painted pictures
- * (texts `[68.tempel.1]` … `[68.tempel.5]` in `docs/STORY-K1.md`), the music „Ancient Legend“. Shown once after Aldric's
+ * (texts `[68.tempel.1]` … `[68.tempel.5]` in `docs/STORY-K1-HANDLUNG.md`), the music „Ancient Legend“. Shown once after Aldric's
  * invitation and the night, again from the chronicle.
  */
 object TempleScene : Reel(

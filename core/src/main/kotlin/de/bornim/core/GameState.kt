@@ -64,6 +64,10 @@ class GameState(
     var longRestDay: Int = 0,
     /** 86.9: mead drunk since the last rest; from [Resting.DRUNK] on the hero is drunk. */
     var mead: Int = 0,
+    /** 132: real time this hero was played, in milliseconds ([PlayClock]); saves from before count from 0. */
+    var playedMs: Long = 0,
+    /** 134.1: what each person said when last spoken to ([Hail.fingerprint]); saves from before have none. */
+    val heard: MutableMap<String, List<Int>> = mutableMapOf(),
 ) {
     init {
         hero.chapter = Story.chapter(this)

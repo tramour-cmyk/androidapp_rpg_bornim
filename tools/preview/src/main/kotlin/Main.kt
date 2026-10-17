@@ -416,6 +416,17 @@ fun main() {
                 val hour = p.getOrNull(4)?.toInt() ?: 12
                 shot("zoom_${z}_p_${p[0]}_${p[1]}_${p[2]}" + (if (p.size > 4) "_$hour" else "")) { place(it, p[0], p[1].toInt(), p[2].toInt(), hour * 60, f) }
             }
+            // ZEICHEN=1: 134.1, Aldric with news hails the hero, by day in his house and by Garrick's fire at night
+            if (System.getenv("ZEICHEN") != null) for ((k, at) in listOf("haus" to Triple("elder", 7 to 5, 12), "feuer" to Triple("forest", 12 to 9, 23))) {
+                shot("zoom_${z}_zeichen_$k") {
+                    place(it, at.first, at.second.first, at.second.second, at.third * 60, Facing.UP)
+                    val g = it.game!!
+                    val who = g.map.npcs.first { n -> n.id == "aldric" || n.id == "garrick" }
+                    g.state.flags += de.bornim.core.MapMarks.met(who.id)
+                    g.state.heard[who.id] = listOf(0)
+                    g.update(1_000)
+                }
+            }
             shot("zoom_${z}_1_wald_tag") { place(it, "forest", 9, 10, 12 * 60) }
             shot("zoom_${z}_2_wald_nacht") { place(it, "forest", 9, 10, 23 * 60) }
             shot("zoom_${z}_3_dorf") { place(it, "village", 11, 7, 12 * 60) }

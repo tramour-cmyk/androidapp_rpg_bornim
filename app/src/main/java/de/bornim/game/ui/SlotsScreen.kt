@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Facing
 import de.bornim.core.Lang
+import de.bornim.core.PlayClock
 import de.bornim.core.Ui
 import de.bornim.core.World
 import de.bornim.core.art.CharacterArt
@@ -104,6 +105,7 @@ fun SlotCard(info: SlotInfo, lang: Lang, onLoad: (() -> Unit)? = null, onDelete:
                     val fmt = SimpleDateFormat(if (de) "dd.MM.yyyy, HH:mm" else "yyyy-MM-dd, HH:mm", Locale.getDefault())
                     Txt((if (de) "Gespeichert: " else "Saved: ") + fmt.format(Date(info.savedAt)), size = 12.sp, color = Colors.textDim)
                 }
+                Txt(PlayClock.played(info.playedMs, lang), size = 12.sp, color = Colors.textDim)
             }
         }
         if (onLoad != null || onDelete != null) {
