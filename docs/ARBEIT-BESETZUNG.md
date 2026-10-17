@@ -11,4 +11,3 @@
 | Jerry | [Jerry – 72.10a MARS (17.10., 23:06)](https://claude.ai/code/session_011WhnbkazUnC7bnncvMARJK) | 72.10a, 130.1–130.3 | – | 17.10., 23:06 |
 | Homer | [Homer – 72.10a Spielanleitung und Ideen (17.10., 21:32)](https://claude.ai/code/session_01B6ShdZgVoMGx7DBn4xWorD) | 72.10a | – | 17.10., 21:32 |
 | Tom | [Tom – 139 Fleisch an die Wirtin (17.10., 22:48)](https://claude.ai/code/session_01NuiANrrsGUHmL4StyEGT5d) | 139 | – | 17.10., 22:48 |
-| Perikles | [Perikles – 143 Wochenplan (17.10., 23:12)](https://claude.ai/code/session_01AmAx3KweorYfrWETsfopF9) | 143 | – | 17.10., 23:12 |

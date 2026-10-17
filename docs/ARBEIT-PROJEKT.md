@@ -2,9 +2,11 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**offen 14, Muss 2, A 0, Chefsache 0**
+**offen 13, Muss 1, A 0, Chefsache 0**
 
 **Gelesen bis:** `origin/main` 17.10., 19:5x (`9e2e74bb`)
+
+**143 erledigt (17.10., 23:2x):** Wochenplan als [Artefakt](https://claude.ai/artifact/APSG9vqZwRFfWaBqQTibny) (Zentrale); ändert sich ein Termin in den Regeln, Seite mit derselben Datei neu veröffentlichen.
 
 **Übergabe (17.10., 20:2x, „Perikles – 159 Niederlassung ruht (17.10., 20:03)“):** 159 umgesetzt: schlichter Schalter in `ARBEIT-BETRIEB.md` (alle Ford-2-Regeln ausgesetzt, nichts gestrichen), Jerry in der Zentrale (`LISTE-BETRIEB.md` „Ruht die Niederlassung“, nur Muss, gleiche Bremse wie Tom), Jerrys Pause entfällt, Guthaben nur Max (`LISTE-BETRIEB.md`, `FIRMA.md`, `ROLLE-BETRIEB.md`, `ROLLE-PROJEKT.md`, `CLAUDE.md`, `LISTE-NIEDERLASSUNG.md`), Vorgangsarchiv 159. Diogenes prüft die Stellen (Auftrag über Ford). Offen: 159.1 Messung und Schwelle 20x. **Nachfolger: „Perikles – Tagesrückblick 18.10.“** (Ford, Probe 90).
 
@@ -26,7 +28,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 124 | K | Hauptthemen und Preis je Vorgang; mit 126 Muss und Kür | Probe ab 17.10.; Bilanz 23.10.: bringt die Woche keine Entscheidung, fällt die Kostenerfassung weg |
 | 111 | K | `DESIGN-BLENDE.md` kürzen (Chef 16.10., 11:3x: „Ich will das.“) | nach 24.6 (Jerry): Gebautes streichen, offene Ideen in den Vorrat des Bereichs (115), Verweise in `Interlude.kt`, `InterludeClock.kt`, `InterludeUi.kt`, `STORY-BLENDE.md` (Code über das Team) |
 | 99d | K | Stellung zurück: Ford „Co-Pilot bis Sa 17.10., 21:00, danach Pilot“, Sparmodus endet | Ford stellt im ersten Lauf danach selbst zurück; prüfen am 18.10. (D13.1) |
-| 143 | M | **von Chef (17.10., 11:5x, über Sokrates):** „So eine Art Wochenplan … vor allem für mich, wann was ansteht oder welche Termine oder Zeitpunkte wir irgendwie ablauftechnisch festgelegt haben. So ein bisschen so Routine, das muss ja nicht ständig fortgeschrieben werden“ Eine Seite für den Chef (Artefakt auf der Zentrale): feste Zeitpunkte und Routinen (Morgenmeldung, Stundenlauf, So Ideen, Mo Wochenziel, Messung, Bilanz …), kurz; nur ändern, wenn sich ein Termin in den Regeln ändert | offen |
 
 ## Lehren für alle
 
