@@ -75,6 +75,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 11:58 17.10.: Homer 137 fertig (0dfd582a) → Startsperre: 11:58 Start Perikles (137, Zuruf Chef „erst Homer, dann Perikles“)
 - 11:51 17.10.: von Sokrates (cdd1468d, Chef: „Das starten wir jetzt bitte mal einmalig“) → Startsperre: 11:51 Start Homer (137 Ideenspeicher); Perikles 137 danach
 - 11:20 17.10.: Neustart Tom 40bc5561: Build 14 fertig, archiviert (5,19 $ zu gleichen Teilen auf 132, 134.1, 117); Nachfolger „Tom – 132 zusammenführen“ erst nach „passt“ zu t14
 - 11:06 17.10.: Sparmodus wieder an, keine Starts; Homer D23.2 fertig, archiviert (0,63 $ auf D23); Tom 132 mit 134.1 im Sammelbuild (Zuruf Chef über Sokrates), Sokrates Zuruf laufen aus
@@ -94,4 +95,3 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:04 17.10.: Morgenmeldung laut (mit Bild-Bitte)
 - 03:35 17.10.: Ford 2 neu (Selbstneustart), Uhr trig_01JVENqEgw8TKsZQXrJKHQn5, alte Uhr gelöscht, Vorgänger archiviert (9,87 $, 315 Tsd. Token) (Ford 2)
 - 02:05 17.10.: Tom „Builds 8–13 nach main“ fertig (#101), archiviert, 2,87 $ zu gleichen Teilen auf 72.10, 86, D3, 129; Nachfolger 117 nach Sparmodus; sonst nichts
-- 01:12 17.10.: Chef zu 129a: nur Hühner erledigt, 68 und 26 offen → Vorgangsarchiv, Toms 129, Datei gelöscht
