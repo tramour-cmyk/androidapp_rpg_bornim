@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**offen 13, Muss 2, A 0, Chefsache 1**
+**offen 14, Muss 2, A 0, Chefsache 2**
 
 **Gelesen bis:** `origin/main` 17.10., 17:47
 
@@ -12,6 +12,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Vorgang | Stand |
 |---|---|---|---|
+| 156 | M? | **von Chef (17.10., 18:3x):** Tom opus, Jerry sonnet: sinnvoll, wie messen? Empfehlung: bis 24.10. Rückläufer, Befunde, Kosten je Punkt vergleichen (Diogenes zählt, Erweiterung 149), Ursache getrennt nach Modell/Auftrag | Chefsache [156](chefsache/entscheiden/156-modellvergleich-tom-jerry.md); nach Entscheid Zeile an Diogenes |
 | 106.1 | M | Umbau Rollen und Namen (Paket mit 115, 117, 122, 124–126, 99g.1, 101, 102, 107, D16, D21; Chef 16.10., 22:0x: „106.1. Ja … und am Schluss muss Diogenes einmal wieder drüber prüfen“) | umgebaut 16.10.; Nachprüfung Diogenes Lauf 22 (trägt); D16–D21 im Prüfbericht vermerkt (17.10.); offen nur D17.2, D17.3 mit 99g; Erste Woche 18.–24.10. Ausgangswert, Wochenzählung Mo 26.10., danach Zielwerte (D19.4) |
 | 137 | M | **von Chef (17.10., 11:5x, über Sokrates), nach Homer:** Ideenspeicher einmalig durchgehen, Reifes in die Vorräte, „verwerfen?“ in die Chefrunde, Regeln nachziehen, Ansehen-Datei | **wartet auf Chef:** Ansehen 137; fünf verworfen (137a); erledigt 17.10., 11:59: 138–142, 133 in die Vorräte, 79 in den Speicher, Regeln in `CLAUDE.md`, `ROLLE-KREATIV.md`, `ROLLE-PROJEKT.md` (ersetzen 115-Sätze, 90a) |
 | 99h.6 | K | **von Chef (17.10., 11:0x, über Sokrates):** Neustarts der Teams in die Messung 20.–21.10. aufnehmen: Startkosten (etwa 1,60 $) gegen Kosten fürs Weiterlaufen mit großem Kontext; Vorschlag zur Regelbilanz 23.10., ob „Neustart, wenn Punkt fertig“ und die Schwelle 100 Tsd. bleiben | mit Auswertung 99 am 22.10. |

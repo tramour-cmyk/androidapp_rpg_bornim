@@ -182,3 +182,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 153 | Fehler: Überspringen-Kasten im Intro (und Kapitelende 1) weiß mit schwarzer Schrift, passt nicht zum Design | E Oberfläche | M |  | Tom | Test |
 | 154 | Goldverlust beim Tod zu hart (Feedback Chef Build 16) | G Balance | M? |  | Jerry | Test |
 | 155 | Lagerfeuer in der Höhle raus? (Feedback Chef Build 16) | G Höhle | M? |  | Jerry | Test |
+| 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? |  | Perikles | Chefsache |
