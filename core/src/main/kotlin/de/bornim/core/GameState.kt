@@ -64,6 +64,8 @@ class GameState(
     var longRestDay: Int = 0,
     /** 86.9: mead drunk since the last rest; from [Resting.DRUNK] on the hero is drunk. */
     var mead: Int = 0,
+    /** 132: real time this hero was played, in milliseconds ([PlayClock]); saves from before count from 0. */
+    var playedMs: Long = 0,
 ) {
     init {
         hero.chapter = Story.chapter(this)

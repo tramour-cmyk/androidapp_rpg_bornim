@@ -34,6 +34,8 @@ data class SlotInfo(
     val minutes: Int,
     /** When it was last saved, in milliseconds since 1970, or 0 if unknown. */
     val savedAt: Long,
+    /** 132: real time played, in milliseconds. */
+    val playedMs: Long,
     /** The saved hero itself, to draw it as equipped. */
     val hero: Hero,
 )
@@ -315,7 +317,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         val json = prefs.getString(slotKey(n), null) ?: return null
         val s = runCatching { GameState.fromJson(json) }.getOrNull() ?: return null
         val h = s.hero
-        return SlotInfo(n, h.name, h.race, h.cls, h.level, s.place.map, s.day, s.minutes, prefs.getLong(slotKey(n) + "_at", 0L), h)
+        return SlotInfo(n, h.name, h.race, h.cls, h.level, s.place.map, s.day, s.minutes, prefs.getLong(slotKey(n) + "_at", 0L), s.playedMs, h)
     }
 
     fun slots(): List<SlotInfo?> = (1..SLOTS).map { slotInfo(it) }
@@ -327,6 +329,18 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     /** First empty slot, or null if all are taken. */
     val freeSlot: Int? get() = (1..SLOTS).firstOrNull { !prefs.contains(slotKey(it)) }
+
+    /** 132: counts the time played while the game shows and the app is in front. */
+    private val playClock = de.bornim.core.PlayClock()
+    private fun now() = System.nanoTime() / 1_000_000
+
+    /** 132: the app comes to the front; the count goes on if a hero is played. */
+    fun resumePlayClock() {
+        if (game != null && screen == Screen.PLAYING) playClock.start(now())
+    }
+
+    /** 132: the app goes to the back; call after [save], which booked the time. */
+    fun pausePlayClock() = playClock.drop()
 
     /** Slot chosen on the slot screen for the next new game. */
     var pendingSlot by mutableStateOf<Int?>(null)
@@ -357,6 +371,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         game = g
         menuOpen = false
         screen = Screen.PLAYING
+        playClock.drop()
+        playClock.start(now())
         // 69: the arrival by night, once, before Rowena wakes the hero
         introPicture = 0
         intro = de.bornim.game.ui.IntroLook.auto
@@ -376,6 +392,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         game = g
         menuOpen = false
         screen = Screen.PLAYING
+        playClock.drop()
+        playClock.start(now())
         g.begin()
         prepareFigures(g)
         refresh()
@@ -405,6 +423,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     fun save() {
         val g = game ?: return
         if (screen != Screen.PLAYING) return
+        playClock.book(g.state, now())
         prefs.edit().putString(slotKey(slot), g.state.toJson()).putLong(slotKey(slot) + "_at", System.currentTimeMillis()).apply()
         slotsVersion++
     }
@@ -430,13 +449,14 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     fun toTitle() {
         save()
+        playClock.drop()
         menuOpen = false
         screen = Screen.TITLE
     }
 
     companion object {
         /** Number of save slots. */
-        const val SLOTS = 3
+        const val SLOTS = 4
         /** The single save of versions before slots; moved to slot 1. */
         private const val KEY_SAVE = "save"
         private const val KEY_LAST_SLOT = "last_slot"
