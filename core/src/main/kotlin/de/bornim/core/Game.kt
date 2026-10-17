@@ -27,6 +27,8 @@ sealed interface Move {
  */
 class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()) {
     companion object {
+        /** 154: hours that pass when the hero is carried home after a lost fight. */
+        const val DEATH_HOURS = 4
         /** 55.1b: the shortest of a guard's longer watches at a patrol point. */
         const val LONG_WATCH_MS = 10_000L
         /** 92: how often the hero walks into a villager before they make way. */
@@ -1363,16 +1365,16 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                 queue.clear()
                 // D4.1: Morwen gives the bundle only once; a lost fight must not cost it
                 if (battle.smokeThrown) state.add(Story.SMOKE_BUNDLE, 1)
-                val lost = state.gold / 2
-                state.gold -= lost
+                // 154: no gold lost on normal; the way home costs time instead (a harsher level may take gold later)
+                Resting.pass(state, DEATH_HOURS * 60)
                 hero.restoreFully()
                 state.place = state.respawn
                 sunCut()
                 mapChanged = true
                 enqueue(listOf(Cmd.Say(null, T(
-                    "Du erwachst an einem sicheren Ort … Du hast {0} Gold verloren.",
-                    "You wake up somewhere safe... You lost {0} gold.",
-                ).let { T(it.de.replace("{0}", "$lost"), it.en.replace("{0}", "$lost")) })))
+                    "Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.",
+                    "You wake up somewhere safe... The way home took hours.",
+                ))))
             }
             Outcome.FLED, Outcome.ONGOING -> queue.clear()
         }

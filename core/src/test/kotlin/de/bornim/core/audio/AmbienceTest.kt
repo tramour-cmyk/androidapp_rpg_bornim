@@ -62,9 +62,9 @@ class AmbienceTest {
         val cave = World.maps.values.first { it.kind == MapKind.CAVE }
         val near = (-7..7).flatMap { dy -> (-7..7).map { dx -> dx to dy } }
             .filter { (dx, dy) -> cave.tile(11 + dx, 15 + dy) == Tile.CAMPFIRE }
-            .minOf { (dx, dy) -> Math.hypot(dx.toDouble(), dy.toDouble()) }
+            .minOfOrNull { (dx, dy) -> Math.hypot(dx.toDouble(), dy.toDouble()) } // 155: no fire in the cave any more
         val heard = Ambience.nearestFire(cave, 11, 15)
-        assertTrue(heard == null || heard > near + 1.5, "Feuer durch die Wand: Weg $heard, Luftlinie $near")
+        assertTrue(heard == null || heard > (near ?: 0.0) + 1.5, "Feuer durch die Wand: Weg $heard, Luftlinie $near")
         // on open floor the way is the straight line
         for (m in World.maps.values) for (y in 0 until m.height) for (x in 0 until m.width) {
             if (m.tile(x, y) != Tile.CAMPFIRE && m.tile(x, y) != Tile.HEARTH) continue
