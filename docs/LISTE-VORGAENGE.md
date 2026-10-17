@@ -109,7 +109,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 97 | Vorrang in der Arbeitsliste | B Abläufe | – |  | Perikles | erledigt |
 | 98 | Firma WireStormTCS | B Abläufe | – |  | Perikles | umgebaut |
 | 99 | Zwei Niederlassungen | B Steuerung | K | 7,25 $ | Perikles | Messung |
-| 99h.5 | Testbuilds zum Durchspielen bündeln | B Abläufe | M? |  | Perikles | Chefsache |
+| 99h.5 | Testbuilds zum Durchspielen bündeln | B Abläufe | M |  | Perikles | entschieden |
 | 100 | Testschalter Ende Kapitel 1 | Q QS | K |  | Tom | zu testen |
 | 101 | Ford-Titel „Betriebsleiter“ | B Steuerung | – |  | Perikles | erledigt |
 | 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Perikles | offen |

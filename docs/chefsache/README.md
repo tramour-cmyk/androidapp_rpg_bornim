@@ -6,7 +6,6 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
-| [99h.5](entscheiden/99h5-testbuilds-buendeln.md) | 17.10. | Empfehlung: je Team ein Durchspielbuild mit bis zu 6 Punkten, Prüfliste als ein Weg durchs Spiel; Tom und Jerry weiter getrennt | Perikles |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
 ## Anzusehen
