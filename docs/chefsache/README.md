@@ -6,6 +6,8 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
+| [136](entscheiden/136-bereich-in-vorraeten.md) | 17.10. | Empfehlung: Bereich in die Kopfzeile jeder Chefsache-Datei, nicht als Spalte in die Vorräte | Sokrates |
+| [137](entscheiden/137-kuer-in-ideenspeicher.md) | 17.10. | Empfehlung: Kür ohne Zweig, Termin und angefangene Arbeit in `LISTE-IDEEN.md` nach Bereichen, Perikles holt montags zurück | Sokrates |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
 ## Anzusehen
@@ -16,12 +18,6 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [0.1.816](ansehen/t13-huehner.md) | – | 26: Kapitel 1 durchspielen | Tom | 17.10. |
 | 2 | [0.1.821](ansehen/t14-spieldauer.md) | – | 132, 134.1: Spieldauer, vierter Spielstand, goldenes Zeichen | Tom | 17.10. |
-
-## Lücken
-
-Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Nicht gestellt: 136 (Beratung), 137 (Beratung)
 
 ## So geht's
 
