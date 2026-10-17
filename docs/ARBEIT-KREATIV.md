@@ -2,7 +2,7 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 15, Muss 0, A 0, Chefsache 1**
+**offen 16, Muss 1, A 0, Chefsache 1**
 
 **Gelesen bis:** `8abeae7b` (15.10., 23:0x; für `tools/story.sh`)
 
@@ -12,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 137 | M | **von Chef (17.10., 11:5x, über Sokrates), jetzt, einmalig:** Ideenspeicher aufbereiten (Vorgangsarchiv 137): `LISTE-IDEEN.md` nach Bereichen (124) gliedern; Kür-Zeilen ohne Zweig, Termin und angefangene Arbeit aus allen Vorräten hinein (Zuteilung des Chefs), mit Nummer, Stand, Grund; je Idee „reif“, „später“ oder „verwerfen?“ mit kurzem Grund. Danach Zeile an Perikles | startbar |
 | 72.10 | K | **von Team Jerry (16.10., 18:5x):** Wortlaut der Kampfmeldungen der Probe gegen Grak; gebaut mit sachlichen Platzhaltern in `core/.../Skirmish.kt` (`Msg72`: ankündigen, treffen, verfehlen, abwarten, Platz tauschen, fällt, bewusstlos, Kraft sammeln, Goblin eilt herbei, taumelt/vereitelt, Automatik hält an, Schlag halb/ganz abgefangen) und `SkirmishScreen.kt` (Perfekt/Gut/Verpasst, Hinweis zum Ring) | offen; nicht eilig, Probe läuft mit Platzhaltern |
 | 86.9 | K | **von Team Jerry:** Anzeige „betrunken“ (Met, SRD Vergiftet bis zur Rast): Chef 16.10., 15:3x „Zustand betrunken wegen Met und vergiftet, warum kein Status in Leiste?“ Gebaut ist nur die Wirkung; es fehlen Name (DE/EN), Kurztext und ob ein Zeichen in der oberen Leiste und im Kampf. **Dazu (Jerry 16.10., 20:3x, 86):** außer Atem in den Kampf = Initiative mit Nachteil, ohne Kampfzeile; Wortlaut nötig, falls der Kampf es sagen soll | offen; danach baut Jerry |
 | 114 | K | **von Team Tom:** Idee des Chefs prüfen: Aufwachen am Bett im Gasthaus, 114.1 Aufstehsequenz (Wortlaut in `LISTE-IDEEN.md`) | offen; Entwurf ohne Aufstehen in PR #83 (nicht auf `main`), Tom empfiehlt 114.1 „noch nicht“ |
