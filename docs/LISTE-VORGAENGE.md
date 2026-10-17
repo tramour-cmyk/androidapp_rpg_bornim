@@ -47,8 +47,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 35 | Weihwasser nur gegen Untote (2W6) | E Kampf | – |  | Jerry | erledigt v0.1.571 |
 | 36 | Krogg verpixelt (schärfen) | E Figuren | K |  | Jerry | offen |
 | 37 | Kampfmusik aussortieren (3 raus, Boss-Stück anders verwenden) | E Klang | – |  | Jerry | erledigt v0.1.578 |
-| 38 | Balance-Langzeitplan (`DESIGN-BALANCE.md`) | G Balance | M |  | Homer, Jerry | in Arbeit |
-| 39 | Schwierigkeitsgrad im Menü | E Kampf | M |  | Jerry (Menü mit Tom) | gebaut |
+| 38 | Balance-Langzeitplan (`DESIGN-BALANCE.md`) | G Balance | M | 3,52 $ | Homer, Jerry | in Arbeit |
+| 39 | Schwierigkeitsgrad im Menü | E Kampf | M | 0,81 $ | Jerry (Menü mit Tom) | gebaut |
 | 40 | Lautstärke Gesamt/Musik/Effekte | E Oberfläche | K |  | Jerry | offen |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | G Story | K |  | Homer mit Chef | in Arbeit |
 | 42 | Textkasten unten im Stil der Blenden (schwarz, Sprecher Gold) | E Oberfläche | – |  | Tom | erledigt |
@@ -143,7 +143,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | K |  | Sokrates | offen |
 | 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | K | 0,70 $ | Tom | Chef |
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | Idee |
-| 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K |  | Tom | Chefsache |
+| 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | Chefsache |
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K | 0,72 | Jerry | offen |
 | D21 | Abgleich Vorrat gegen Chefsache | Q QM | – | 3,17 $ | Tom, Jerry | erledigt |

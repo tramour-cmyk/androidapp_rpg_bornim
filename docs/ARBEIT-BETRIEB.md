@@ -74,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 10:05 17.10.: archiviert Homer 39.2 (0,81 $ auf 39), Tom 134 (1,06 $ auf 134), Diogenes 38 (3,52 $ auf 38); kein Muss startbar (Tom 68/26, Homer 112, Jerry 38/39 warten auf Chef); Startsperre: 10:05 Start Homer (D23.2 Garrick, Kür)
 - 09:48 17.10.: Idee Chef → 134 (Ausrufezeichen und Mikrogesten bei Leuten mit Neuem) an Tom (K, prüfen); Startsperre: 09:48 Start Tom (134 prüfen, Kür, kein Muss startbar)
 - 09:40 17.10.: archiviert Tom 132 (0,70 $ auf 132), Tom 2 Übernahme D21 (1,09 $ auf D21), Perikles 99 (1,25 $ auf 99), Homer 112 (1,34 $ auf 112); Diogenes offen (Chef spricht dort); Startsperre: 09:40 Start Homer (39.2 Wortlaut Schwierigkeitsgrad, Muss)
 - 09:38 17.10.: Ford vom Chef von Hand neu (110, Tiefe 0) → session_011Gp2Rv…; Uhr trig_01C93THa7J9s6YNsT74H9ZAZ angelegt und geprüft, alte Uhr trig_01Y44JZv22h4mpFANruNYxH3 gelöscht, alter Ford session_01EshK4E… archiviert (6,55 $ auf Betrieb)
