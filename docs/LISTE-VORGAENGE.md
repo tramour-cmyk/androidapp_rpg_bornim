@@ -147,7 +147,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | M | 0,70 $ | Tom | gebaut |
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | Idee |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
-| 134.1 | Goldenes Zeichen bei Leuten mit Neuem | E Figuren | M |  | Tom | startbar |
+| 134.1 | Goldenes Zeichen bei Leuten mit Neuem | E Figuren | M |  | Tom | gebaut |
 | 134.2 | Gesten zum Zeichen | E Figuren | K |  | Tom | offen |
 | 134.3 | Ruf als Klang zum Zeichen | E Klang | K |  | Jerry | offen |
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |

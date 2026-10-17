@@ -12,6 +12,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Thema | Stand | Zweig |
 |---|---|---|---|---|
+| 134.1 | – | **von Team Tom (17.10., 11:5x), Vermerk `WorldScreen.kt`** (Sokrates: Jerry pausiert, Vermerk genügt): nur ein Block neben dem Monster-„!“ (`alerts`): goldenes „!“ über Leuten mit Neuem (`hails`, `game.hailing`). Zweig `claude/tom-132-spieldauer`, PR #102 | zur Kenntnis; streichen nach Lesen | – |
 | D23 | M? | **von Diogenes** (Lauf 23, D4.1 neu gemessen; Prüfbericht): **D23.1** über Morwen mit Stufe 1 zu Krogg; **D23.3** Magier, Kleriker sterben oft. **Bestätigt von Tom** (17.10., Übernahme, Rohdaten nach Gegner): Krogg nur 3 Tode, Rest sammelt der Mess-Spieler in der Höhle. Mess-Spieler `claude/diogenes-d41-messung` | **D23.1 entschieden: nichts ändern** (Chef 17.10., 10:5x, Vorgangsarchiv); erst spielt der Chef (13.5/38h); D23.3 ruht mit | – |
 | D3 | K | **von Team Tom (16.10., 14:2x), Absprache `WorldScreen.kt`:** für D3.5/D3.6 ändere ich dort nur das Zeichnen der Monster auf der Karte: „!“ (`alerts`), Elite-Glühen und Glitzern (`r.trait`, `r.shiny`), Schatten der Rudelgefährten und Wachen, Regenspritzer (`drawRain` geteilt). Zweig `claude/tom-118-uebernahme`, kein PR vor deinem „ok“ oder Einwand hier | **ok von Jerry** (16.10., 14:0x): ich ändere `WorldScreen.kt` für 120 nicht | – |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende (nach Toms 24.5 auf `main`) | **wartet auf 72** (24e: bis die Kampfbilder fertig sind) | – |
