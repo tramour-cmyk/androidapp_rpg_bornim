@@ -156,7 +156,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | M | 2,43 $ | Tom | erledigt |
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | offen |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
-| 138 | Kräuter wachsen am Morgen nach | E Welt | K |  | Tom | offen |
+| 138 | Kräuter wachsen am Morgen nach | E Welt | K |  | Tom | gebaut |
 | 139 | Fleisch an die Wirtin verkaufen | E Welt | K |  | Homer, Tom | offen |
 | 140 | Monster-Geräusche, Rest | E Klang | K |  | Jerry | offen |
 | 141 | Klänge überarbeiten, Rest | E Klang | K |  | Jerry | offen |

@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **offen 15, Muss 4, A 0, Chefsache 1**
 
-**Übergabe (17.10., 21:1x, „Tom – 131.2 Prüfliste t17 (17.10., 21:14)“) – Nachfolger: Tom – 138 Kräuter am Morgen (Kür; 131, 131.1, 151–153, D23.2, 26 beim Chef in t17; 154/155 bei Jerry/Chefsache, Übernahme möglich nach Entscheid):** 131.2 erledigt: t16 in t17 aufgegangen (eine Liste zu Build 17, 0.1.828, 17.1–17.12), t16 gelöscht.
+**Übergabe (17.10., 21:2x, „Tom – 138 Kräuter am Morgen (17.10., 21:20)“) – Nachfolger: Tom – 145 Kartenmappe (Kür; Muss alle beim Chef in t17):** 138 auf Zweig `claude/tom-138-kraeuter` (Kerntest grün, kein eigener Build); fährt im nächsten Test-Build nach t17 mit.
 
 
 ## Zeilen
@@ -22,7 +22,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p) | bis 62r auf `main`; 62i–62k mit 64; 62l später (62m bei Jerry mit 39) | – |
 | 30 | K | Abstürze beim Testen (Technik) | beobachten (bei neuem `adb logcat` mit Anleitung); 30.7 Merkliste | – |
 | 134.2 | K | **von Chef (17.10., 10:4x):** Gesten zum Zeichen 134.1 (Hand heben, herwinken, nicken; je Person Vorschlag Homer) | nach 134.1 | – |
-| 138 | K | **von Perikles (Ideenspeicher, 137):** Kräuter wachsen am Morgen nach statt um Mitternacht (Spielzeit, passt zu 5la) | offen; klein | – |
+| 138 | K | **von Perikles (Ideenspeicher, 137):** Kräuter wachsen am Morgen nach statt um Mitternacht (Spielzeit, passt zu 5la) | gebaut (ab Sonnenaufgang 6:30 neu, `Game.herbDay`), Kerntest; in den nächsten Test-Build nach t17 | claude/tom-138-kraeuter |
 | 139 | K | **von Perikles (Ideenspeicher, 137):** Fleisch an die Wirtin (Rowena) verkaufen, heute nur Thessa und Morwen | wartet auf zwei Sätze von Homer (Zeile 139 dort) | – |
 | 150 | K | **von Chef (17.10., 16:1x):** „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt nicht zur Spielzeit, oder?“ | beantwortet: zählt heute mit (nur App im Vordergrund mit geladenem Helden); Änderung nur auf Wunsch | – |
 | 145 | K | **von Chef (17.10., 11:5x, über Sokrates):** „im Artefakt, das braucht ja auch nicht die Niederlassung, jeweils die Einzelkarten, Gebietsübersichten, Landeskarte … je Kapitel, damit ich das auch drucken kann.“ Je Kapitel Landkarte, Gebietskarten, Grundrisse als druckbares Artefakt „Kartenmappe“ auf der Zentrale (Bilder aus `tools/preview`), mit Querlink zum roten Faden 144, Beginn Kapitel 1 und 2 (161) | offen | – |
