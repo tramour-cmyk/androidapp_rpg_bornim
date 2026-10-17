@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [159a](entscheiden/159a-ford2-aus.md) | **Muss** | B Abläufe | 17.10. | Ford 2 auf Pro abschalten: Uhr und Sitzung stoppen (Empfehlung: .) | Perikles |
 | [130](entscheiden/130-kampfgefuehl.md) | Kür | G Balance | 17.10. | Kampfgefühl und Name – zurückgestellt für ein ruhiges Gespräch mit Sokrates (Chef 17.10., 15:2x) | Sokrates |
 | [142](entscheiden/142-pflichttest-play-store.md) | Kür | M Veröffentlichung | 17.10. | Play-Store-Konto und Pflichttest – ab wann (Empfehlung A: Konto jetzt, Tester sammeln ab Durchspielen 13.5) | Sokrates |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | Kür | E Kampf | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
