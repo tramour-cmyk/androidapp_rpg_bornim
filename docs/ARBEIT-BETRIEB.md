@@ -74,6 +74,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 10:47 17.10.: von Sokrates: Chef entschied 99h 1–3 (Uhr aus ohne Arbeit, Neustart bei 150 Tsd., kleine Punkte mitnehmen) → Startsperre: 10:47 Start Perikles (99h Regeln, 99h.5); Ford startet sich danach neu (über 150 Tsd.)
 - 10:44 17.10.: von Sokrates: Chef entschied 132 (Muss, jetzt, mit 117) und 112 → Startsperre: 10:44 Start Tom (132 Spieldauer, vierter Spielstand)
 - 10:40 17.10.: Zuruf Chef: „Ich brauche mal Sokrates.“ → Startsperre: 10:40 Start Sokrates
 - 10:05 17.10.: archiviert Homer 39.2 (0,81 $ auf 39), Tom 134 (1,06 $ auf 134), Diogenes 38 (3,52 $ auf 38); kein Muss startbar (Tom 68/26, Homer 112, Jerry 38/39 warten auf Chef); Startsperre: 10:05 Start Homer (D23.2 Garrick, Kür)
