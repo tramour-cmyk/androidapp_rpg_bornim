@@ -114,7 +114,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 137 | Kür ohne Zweig zurück in den Ideenspeicher (Idee Chef) | B Abläufe | M | 3,64 $ | Homer, Perikles | in Arbeit |
 | 135 | Chefrunde: Chefsache mit Sokrates entscheiden | B Abläufe | – | 10,01 $ | Sokrates | erledigt |
 | 99h.6 | Neustarts der Teams mitmessen | B Steuerung | K |  | Perikles | offen |
-| 99h.5 | Testbuilds zum Durchspielen bündeln | B Abläufe | M |  | Perikles | entschieden |
+| 99h.5 | Testbuilds zum Durchspielen bündeln | B Abläufe | M |  | Perikles | erledigt |
 | 100 | Testschalter Ende Kapitel 1 | Q QS | K |  | Tom | zu testen |
 | 101 | Ford-Titel „Betriebsleiter“ | B Steuerung | – |  | Perikles | erledigt |
 | 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Perikles | offen |

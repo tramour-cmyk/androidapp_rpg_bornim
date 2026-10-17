@@ -22,7 +22,7 @@ Jeder Vorschlag zu Grafik, Animation, Klang nennt kurz die berührten Punkte aus
 ### Test-Builds (78)
 
 - **Zweig nach Inhalt** (`claude/tom-<thema>`, `claude/jerry-<thema>`) gleich beim Start, nie den Zufallsnamen der Umgebung.
-- **Sammelbuild** (78a): höchstens 4 Punkte, je Punkt ein Commit, Zweig lebt höchstens 1 Tag; fällt ein Punkt durch, fliegt er per `git revert` heraus. **Nie Tom und Jerry in einem Build.**
+- **Sammelbuild** (78a, 99h.5/99h.5a): ein Build bündelt 2–4 Punkte, bis 6, wenn sie zusammengehören (gleicher Ort, gleiche Sache); nie ein Punkt allein, außer der Chef sagt „jetzt“. Bitte um Test bei 3 fertigen Punkten oder wenn der älteste 2 Tage wartet. Je Punkt ein Commit, Zweig lebt höchstens 2 Tage; fällt ein Punkt durch, fliegt nur er per `git revert` heraus. Prüfliste als ein Weg durchs Spiel in der Reihenfolge, in der der Chef auf die Punkte trifft. **Nie Tom und Jerry in einem Build** (Übernahme fährt im Build des Übernehmenden mit); Jerrys Build mit der nächsten Nummer gleich danach.
 - Gebaut wird nur bei PR, auf `main` oder per Knopfdruck (78d). Keine festen Testzeiten (78b).
 - **Vor jedem Build `main` holen:** `git fetch origin main && git merge origin/main`, Kerntests, pushen.
 - **Nummern nur aufsteigend** (Chef 14.10.): Android installiert keine niedrigere Version über eine höhere. Testbitte nur mit einem Build über der zuletzt getesteten Version (102); wird ein früher zu testender Build neu gebaut, die späteren danach neu bauen. Vor jedem Testangebot im Vorrat des anderen Teams nachsehen und dem Chef die Reihenfolge sagen.
