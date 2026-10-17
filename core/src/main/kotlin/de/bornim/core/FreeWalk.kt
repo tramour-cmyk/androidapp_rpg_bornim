@@ -47,10 +47,20 @@ class FreeWalk(private val game: Game) {
         /** The hero's size: a circle of this radius, in tiles. */
         const val RADIUS = 0.3
         private val FULL = doubleArrayOf(0.0, 0.0, 1.0, 1.0)
-        /** 131: walking pace on open grass, in tiles per second, about 1.5 (a step used to take 200 ms × [Terrain.PACE], half as fast). */
-        val WALK = 1000.0 / (400.0 * Terrain.PACE)
-        /** Running pace (110 ms a step). */
-        val RUN = 1000.0 / (110.0 * Terrain.PACE)
+        /** 131, 131.1: walking pace on open grass, in tiles per second, about 1.8 (340 ms a step; 131 had 400, a bit too slow). */
+        val WALK = 1000.0 / (340.0 * Terrain.PACE)
+        /** Running pace (130 ms a step; 131.1: 110 ran like a hare). */
+        val RUN = 1000.0 / (130.0 * Terrain.PACE)
+
+        /**
+         * 131.1: the pace eases from [current] towards [target] instead of jumping: from walking to running in about
+         * 0.6 s, back in about 0.4 s. Starting from standing begins at once at the walking pace or less.
+         */
+        fun ease(current: Double, target: Double, dtMs: Long): Double {
+            if (current <= 0.0 || target <= 0.0) return target.coerceAtMost(WALK)
+            val rate = (RUN - WALK) / (if (target > current) 600.0 else 400.0) * dtMs
+            return if (target > current) min(target, current + rate) else max(target, current - rate)
+        }
 
         /**
          * 131: how fast this hero goes, as a share of [WALK] and [RUN]: the speed of the folk as in the SRD (dwarves and
