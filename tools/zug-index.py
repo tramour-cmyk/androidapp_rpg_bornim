@@ -84,9 +84,10 @@ def builds(name):
     wer = (meta.split(" · ")[0] if " · " in meta else "") or kopf.split(" · ")[0]
     m = re.search(r"\b(\d\d)\.(\d\d)\.", meta)
     seit = m.group(0) if m else ""
+    tn = re.match(r"t(\d+)-", name)
     def zeile(teile, standard):
         v = next((VERSION.search(t) for t in teile if VERSION.search(t)), None)
-        build = next((t for t in teile if re.match(r"Build \d+$", t)), "")
+        build = next((t for t in teile if re.match(r"Build \d+$", t)), f"Build {tn.group(1)}" if tn else "")
         was = next((t for t in teile[1:] if not VERSION.search(t) and not t.startswith("[PR") and not re.match(r"Build \d+$", t)), standard)
         return (int(v.group(1)) if v else 10**6, v.group(0) if v else "–", build, was.replace("|", "/"))
     abschnitte = [z.lstrip("#").strip().split(" · ") for z in text.splitlines() if re.match(r"## Build \d+ · ", z)]

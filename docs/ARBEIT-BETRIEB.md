@@ -72,6 +72,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 - 16.10., 07:33: Stundenlauf ohne Tat (Jerry läuft); Ford 2 bisher ca. 185 Tsd. Token Kontext, drei Neustarts Jerry eingeschlossen
 
 ## Protokoll
+- 14:08 17.10.: Chef: Spalte „Build“ in Anzusehen leer → zug-index nimmt die Nummer aus dem Dateinamen t<n>, wenn die Kopfzeile kein „Build n“ hat (leer seit t14, 11:12; Build 13 kam nur aus der Sammelseite t13, um 13:59 zurückgezogen)
 - 13:59 17.10.: Startsperre: 13:59 Start Tom (Zuruf Chef trotz Sparmodus; 26 t13 zurückziehen, dann D23.2 Garrick nach Homers Wortlaut; 132 zusammenführen erst nach „passt“ zu t14)
 - 13:31 Start Perikles (147, Zuruf Chef trotz Sparmodus)
 - 13:25 17.10.: 146 doch zu 144 (Storyplan, Homer) statt Ideenspeicher; CLAUDE.md „Idee“: erst passenden Vorgang suchen, unsicher → Sokrates (Chef)
