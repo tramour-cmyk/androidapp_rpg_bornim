@@ -88,3 +88,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17.10., 22:1x Startsperre: Start Tom (152.1, Chef: Build 18 freigegeben)
 - 17.10., 22:48 Tom 152.1 fertig, archiviert (1,34 $); Start Tom 139 (Texte da). Eingang 162 (Chef: Ford klärt Abhängigkeiten) beachtet: im Lauf je Team ohne Startbares prüfen, worauf es wartet
 - 17.10., 23:06 Lauf: Jerry (alt, 39 wartet auf 38) archiviert, 0,41 $ auf 39; Start Jerry für Muss 72.10a, 130.1–130.3 (Sokrates, Chef 22:26/23:0x)
+- 17.10., 23:1x Startsperre: Start Perikles (143, Chef: Initialisierung 143 = jetzt)
