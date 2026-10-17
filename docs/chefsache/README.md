@@ -6,7 +6,6 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
-| [132](entscheiden/132-spieldauer-vierter-platz.md) | 17.10. | beides klein, ein Build; Empfehlung: ja, mit Toms nächstem eigenen Build | Tom |
 | [134](entscheiden/134-ausrufezeichen-gesten.md) | 17.10. | machbar und passt; Empfehlung: ja, in zwei Schritten (erst goldenes „!“, dann Gesten), Kür | Tom |
 | [99](entscheiden/99-ford2-entfaellt.md) | 17.10. | Ford 2 kostete am 16.10. etwa 20 % von Jerry (Grenze 10 %); vier Sparvorschläge jetzt, neue Messung Ford 2 und Ford 20.–21.10. | Perikles |
 | [D23.1](entscheiden/d231-weg-zu-morwen.md) | 17.10. | Rauchbündel wirkt, aber zielstrebig kommt man mit Stufe 1 zu Krogg (Ziel Stufe 2–3); Empfehlung: erst du einmal am Gerät, dann ändern | Tom (für Jerry, Übernahme) |
