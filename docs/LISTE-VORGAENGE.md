@@ -35,7 +35,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 23 | Aufgabenteilung und Vorrat für Selbstarbeit | B Abläufe | – |  | Tom | erledigt |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
 | 25 | Laternen und Fenster nachts als Quelle zu dunkel | E Welt | – |  | Tom | erledigt v0.1.512 |
-| 26 | Kapitel 1 fertig (Zielliste) | Q QS | M |  | Tom und Jerry | in Arbeit |
+| 26 | Kapitel 1 fertig (Zielliste) | Q QS | M | 1,79 $ | Tom und Jerry | in Arbeit |
 | 27 | Wald „Ort fertig“ | E Welt | K |  | Tom | in Arbeit |
 | 28 | Musik neu | E Klang | – |  | Jerry | erledigt v0.1.540 |
 | 29 | Nebenquests (Anschlagbrett) | E Welt | – |  | Tom | erledigt |
@@ -164,7 +164,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K | 0,72 | Jerry | offen |
 | D21 | Abgleich Vorrat gegen Chefsache | Q QM | – | 3,17 $ | Tom, Jerry | erledigt |
-| D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen) | G Balance | M? | 0,63 $ | Jerry, Tom | offen |
+| D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen) | G Balance | M? | 2,42 $ | Jerry, Tom | offen |
 | Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |
 | 143 | Wochenplan der Routinen für den Chef | B Abläufe | K |  | Perikles | offen |
 | 144 | Storyplan mit rotem Faden als Übersicht | G Story | K |  | Homer | offen |
