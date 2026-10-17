@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 15, Muss 2, A 0, Chefsache 0**
+**offen 16, Muss 2, A 0, Chefsache 0**
 
 **Pause bis Mo 19.10., 21:00** (128 und D20.1: im heutigen Tempo wäre Pro Sa gegen 15 Uhr leer; Ford 2 darf früher starten, wenn die Schwelle es erlaubt; Chef 16.10., 21:2x: Pro einteilen, 49 % der Woche nach 18 Stunden): laufende Sitzung beendet ihren Punkt, dann kein Start. Testergebnisse des Chefs (Freigabe, Rückläufer) trägt ein, wer sie hört; Team Tom übernimmt sie ab Sa 21:15 (`FIRMA.md`, Pro leer oder eingeteilt).
 
@@ -27,3 +27,4 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 52 | K | Feinarbeit an den Kampfanimationen (gesamt, auch Krogg) | Krogg so lassen, später alle gesamt; Rudelwölfe auf `main` | – |
 | 59e | K | Händler: Vorrat je Laden (mit 38/39) | **hängt an 39** (Beschluss 59e: Menge nach Schwierigkeitsgrad). Vorstufe 38e/38f gemessen (16.10., 19:5x, 519daf61, Zahlen in `DESIGN-BALANCE.md`). Befund: Thessas Ausrüstung wechselt heute alle 8 Siege (beliebig, gegen 59e); Vorschlag 59e.1/59e.2 bei Kreativ | `claude/jerry-59e-haendlervorrat` |
 | 19e | K | Ein konkretes Beispiel für „Bewegungen unrund“ | **ruht** (bis dem Chef eines auffällt) | – |
+| 134.3 | K | **von Chef (17.10., 10:4x, über Sokrates):** kurzer Ruf zum Zeichen 134.1 bei Leuten mit Neuem (Pfiff, „He!“; CC0-Aufnahmen) | nach 134.1 (Tom) | – |

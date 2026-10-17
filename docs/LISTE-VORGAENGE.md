@@ -144,7 +144,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | K |  | Sokrates | offen |
 | 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | M | 0,70 $ | Tom | startbar |
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | Idee |
-| 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | Chefsache |
+| 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
+| 134.1 | Goldenes Zeichen bei Leuten mit Neuem | E Figuren | M |  | Tom | startbar |
+| 134.2 | Gesten zum Zeichen | E Figuren | K |  | Tom | offen |
+| 134.3 | Ruf als Klang zum Zeichen | E Klang | K |  | Jerry | offen |
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K | 0,72 | Jerry | offen |
 | D21 | Abgleich Vorrat gegen Chefsache | Q QM | – | 3,17 $ | Tom, Jerry | erledigt |
