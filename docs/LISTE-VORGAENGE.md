@@ -149,7 +149,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 130.1 | Name für den neuen Kampf und den Testkampf (statt „Probe“) | G Stil | K |  | Sokrates | offen |
 | 72.10a | Spielanleitung neuer Kampf | G Story | K |  | Homer | offen |
 | 72.10b | Probe gegen Grak: Stufe und Treffer | E Kampf | K |  | Jerry | offen |
-| 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | M |  | Tom | entschieden |
+| 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | M |  | Tom | Test |
 | 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | M | 2,43 $ | Tom | erledigt |
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | offen |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
@@ -174,4 +174,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 147.1 | Nutzungsguthaben Pro (erledigt), Fable-Limit Max | B Kosten | M |  | Perikles | erledigt |
 | 147.2 | Ford 2 schaut in Jerrys Pause alle 4 Stunden | B Abläufe | M |  | Perikles | erledigt |
 | 149 | Probewoche Ford mit neuem Modell: Regelverstöße zählen bis 24.10. (Chef) | Q QM | M? |  | Diogenes | offen |
+| 150 | Spielzeit im Menü? (Frage Chef) | B Technik | K |  | Tom | beantwortet |
 | 148 | Ideenspeicher ausmisten: Vorgaben und Bewusst-gelassenes an ihren Ort (Chef) | B Abläufe | K |  | Homer | offen |
