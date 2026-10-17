@@ -2,17 +2,16 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 17, Muss 1, A 0, Chefsache 2**
+**offen 16, Muss 1, A 0, Chefsache 2**
 
 **Gelesen bis:** `8abeae7b` (15.10., 23:0x; für `tools/story.sh`)
 
-**Übergabe (17.10., 09:4x, 39.2):** Wortlaut Schwierigkeit DE/EN in `STORY-BLENDE.md` „Einstellungen“ (`[39.2.…]`), Zeile an Jerry (39). „Gelesen bis“ nicht weitergesetzt (story.sh nicht durchgesehen). Nachfolger: keiner nötig; 112 wartet auf den Chef.
+**Übergabe (17.10., 10:06, D23.2):** Antwort an Tom in dessen Zeile D23: Garricks Krogg-Teil ans erste Gespräch hängen, kein Übergangssatz, kein neuer Text. „Gelesen bis“ nicht weitergesetzt. Nachfolger: keiner nötig; 112 wartet auf den Chef.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| D23.2 | M? | **von Team Tom (17.10., 09:3x):** Garrick sagt Krogg, Morwen-Hinweis und Warnung (`[41.garrick.krogg]`, `[D4.1.garrick.morwen]`, `[D4.1.garrick.warnung]`) erst im zweiten Gespräch; wer einmal spricht, hört nichts davon, Chronik „Rauch gegen Krogg“ fehlt (Befund Diogenes, im Code bestätigt). Frage: Krogg-Teil schon ans erste Gespräch anhängen (Vorschlag Tom), oder Übergangssatz? Dann Zeile an Tom | offen |
 | 72.10 | K | **von Team Jerry (16.10., 18:5x):** Wortlaut der Kampfmeldungen der Probe gegen Grak; gebaut mit sachlichen Platzhaltern in `core/.../Skirmish.kt` (`Msg72`: ankündigen, treffen, verfehlen, abwarten, Platz tauschen, fällt, bewusstlos, Kraft sammeln, Goblin eilt herbei, taumelt/vereitelt, Automatik hält an, Schlag halb/ganz abgefangen) und `SkirmishScreen.kt` (Perfekt/Gut/Verpasst, Hinweis zum Ring) | offen; nicht eilig, Probe läuft mit Platzhaltern |
 | 86.9 | K | **von Team Jerry:** Anzeige „betrunken“ (Met, SRD Vergiftet bis zur Rast): Chef 16.10., 15:3x „Zustand betrunken wegen Met und vergiftet, warum kein Status in Leiste?“ Gebaut ist nur die Wirkung; es fehlen Name (DE/EN), Kurztext und ob ein Zeichen in der oberen Leiste und im Kampf. **Dazu (Jerry 16.10., 20:3x, 86):** außer Atem in den Kampf = Initiative mit Nachteil, ohne Kampfzeile; Wortlaut nötig, falls der Kampf es sagen soll | offen; danach baut Jerry |
 | 114 | K | **von Team Tom:** Idee des Chefs prüfen: Aufwachen am Bett im Gasthaus, 114.1 Aufstehsequenz (Wortlaut in `LISTE-IDEEN.md`) | offen; Entwurf ohne Aufstehen in PR #83 (nicht auf `main`), Tom empfiehlt 114.1 „noch nicht“ |

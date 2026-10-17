@@ -22,7 +22,7 @@ Ich habe Goblins belauscht. Ihr Grottenschrat Krogg trägt den Schlüssel zu Gra
 
 Freigegeben 15.10., 11:3x (Nutzer mit Sokrates); Grund: Bugbear-Merkmal „erster Hieb trifft härter“ (`Monsters.kt`) und Morwens Rauch (`[62i.ort.tiefwald]`). Rauchbündel nimmt Krogg den ersten Hieb (Kampfwirkung Jerry, Dialog Tom).
 
-`[D4.1.garrick.morwen]` (Garrick nach `[41.garrick.krogg]` und „Er haust im Ostflügel …“, bis Krogg fällt)
+`[D4.1.garrick.morwen]` (Garrick nach `[41.garrick.krogg]` und „Er haust im Ostflügel …“, bis Krogg fällt; der ganze Krogg-Teil schon im ersten Gespräch nach den Tränken, D23.2)
 Geh nicht mit leeren Händen zu ihm. Morwen, die Kräuterfrau im Tiefen Flüsterwald, weiß, wie man so einem den ersten Hieb nimmt.
 
 `[D4.1.garrick.warnung]` (nur Heldenstufe unter 3, danach)
