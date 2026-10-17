@@ -2,9 +2,9 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 17, Muss 2, A 0, Chefsache 0**
+**offen 19, Muss 4, A 0, Chefsache 2**
 
-**Pause bis Mo 19.10., 21:00** (128 und D20.1: im heutigen Tempo wäre Pro Sa gegen 15 Uhr leer; Ford 2 darf früher starten, wenn die Schwelle es erlaubt; Chef 16.10., 21:2x: Pro einteilen, 49 % der Woche nach 18 Stunden): laufende Sitzung beendet ihren Punkt, dann kein Start. Testergebnisse des Chefs (Freigabe, Rückläufer) trägt ein, wer sie hört; Team Tom übernimmt sie ab Sa 21:15 (`FIRMA.md`, Pro leer oder eingeteilt).
+**Pause aufgehoben (Chef 17.10., „Ja“): Start trotz Schwelle für 154, 155 (Muss, „jetzt“).** Danach gilt die Schwelle wieder (128): Testergebnisse des Chefs trägt ein, wer sie hört.
 
 **Übergabe (16.10., 23:4x, „Jerry – D3 Kampfgeheul“) – Nachfolger: keiner (Pause bis Mo 19.10., 21:00):** #87 auf `main` (0.1.797 passt), direkte APK-Links in der Testreihe (Chef konnte die alten Builds im PR nicht installieren). D3 Kampfgeheul gebaut, PR #99 = Build 12. Nächster: #68, #98, #99 abonnieren; 9.2 (Regen im Kampf still) dem Chef begründen.
 
@@ -12,6 +12,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Thema | Stand | Zweig |
 |---|---|---|---|
+| 154 | M | **von Team Tom, Feedback Chef Build 16 (17.10., 17:4x):** Goldverlust beim Tod (heute halbes Gold) zu hart; drei Tester starben im normalen Wald. Wortlaut und Empfehlung in [154](chefsache/entscheiden/154-gold-beim-tod.md) | Chefsache | – · **Chef 17.10., 18:0x:** „den Prozent machen wir halt dann maximal … Balancing … bei 130“ → Goldverlust prozentual mit Höchstwert, vorläufig 10 % (Konstante), Frage Zahl in der Chefsache 154; Balance läuft über 130 |
+| 155 | M | **von Team Tom, Feedback Chef Build 16 (17.10., 17:4x):** Lagerfeuer in der Höhle raus („sitze am Feuer, wo lauter Monster sind“). Wortlaut und Empfehlung in [155](chefsache/entscheiden/155-feuer-in-der-hoehle.md) | Chefsache | – |
 | 72.10b | K | **von Sokrates:** Chef 17.10., 15:1x (an Sokrates): „diese neue Kampfumgebungs-Szenario … dass das nicht immer Probe heißt … irgendwer sollte ja dazu noch eine kleine Anleitung schreiben, wie das überhaupt funktioniert. Aber wir sind da deutlich zu wenig Optionen. Und ich habe bis jetzt jeden Kampf verloren, egal welchen, weil ich nie treffe.“ Befund: `grakProbe` nimmt den aktuellen Helden in jeder Stufe gegen Hauptmann Grak (Boss, Herausforderungsgrad 2, RK 16, 6W10+6 TP, +5); auf Stufe 1 trifft ein Kämpfer nur mit 11+, ein Magier seltener, ein Treffer Grak 1W10+3. Vorschlag: Stufe der Probe festlegen oder wählbar, Treffer sichtbar machen; Balance entscheidet der Chef (130) | offen |---|
 | 134.1 | – | **von Team Tom (17.10., 11:5x), Vermerk `WorldScreen.kt`** (Sokrates: Jerry pausiert, Vermerk genügt): nur ein Block neben dem Monster-„!“ (`alerts`): goldenes „!“ über Leuten mit Neuem (`hails`, `game.hailing`). Zweig `claude/tom-132-spieldauer`, PR #102 | zur Kenntnis; streichen nach Lesen | – |
 | D23 | M? | **von Diogenes** (Lauf 23, D4.1 neu gemessen; Prüfbericht): **D23.1** über Morwen mit Stufe 1 zu Krogg; **D23.3** Magier, Kleriker sterben oft. **Bestätigt von Tom** (17.10., Übernahme, Rohdaten nach Gegner): Krogg nur 3 Tode, Rest sammelt der Mess-Spieler in der Höhle. Mess-Spieler `claude/diogenes-d41-messung` | **D23.1 entschieden: nichts ändern** (Chef 17.10., 10:5x, Vorgangsarchiv); erst spielt der Chef (13.5/38h); D23.3 ruht mit | – |

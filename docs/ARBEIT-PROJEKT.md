@@ -2,18 +2,17 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**offen 14, Muss 3, A 0, Chefsache 1**
+**offen 13, Muss 2, A 0, Chefsache 1**
 
-**Gelesen bis:** `ebcf7bdd` (17.10., 13:30)
+**Gelesen bis:** `origin/main` 17.10., 17:47
 
-**Übergabe (17.10., 13:3x, „Perikles – 147 Regel Idee (17.10., 13:31)“):** 147 geprüft: Fords Text in `CLAUDE.md` „Idee“ bleibt, Zitate ins Vorgangsarchiv 147; Doppelung in `ROLLE-KREATIV.md` gestrichen (90a); Sonntagsurteil im Ideenspeicher kurz (ein Satz Pro und Contra); 146 bei Homer neben 144 bestätigt, Hinweis Regeldaten. 147.1 (Nutzungsguthaben Pro, Fable-Limit Max) in die Chefsache. 147.2 als Regel in `LISTE-BETRIEB.md` „Ford 2“ (Ford 2 übernimmt beim nächsten Start). **Nachfolger: „Perikles – Tagesrückblick (90)“** (Probe ab 18.10.).
+**Übergabe (17.10., 17:5x, „Perikles – Vorrat durchgesehen“): 99h.5 in `LISTE-BAUEN-TESTEN.md` „Sammelbuild“ geschrieben (ersetzt alte Zeile, 90a); Rest wartet auf Termine (20.–23.10.) oder Chef. Nachfolger: „Perikles – Wochenziel 19.10.“. Davor:** (17.10., 13:3x, „Perikles – 147 Regel Idee (17.10., 13:31)“):** 147 geprüft: Fords Text in `CLAUDE.md` „Idee“ bleibt, Zitate ins Vorgangsarchiv 147; Doppelung in `ROLLE-KREATIV.md` gestrichen (90a); Sonntagsurteil im Ideenspeicher kurz (ein Satz Pro und Contra); 146 bei Homer neben 144 bestätigt, Hinweis Regeldaten. 147.1 (Nutzungsguthaben Pro, Fable-Limit Max) in die Chefsache. 147.2 als Regel in `LISTE-BETRIEB.md` „Ford 2“ (Ford 2 übernimmt beim nächsten Start). **Nachfolger: „Perikles – Tagesrückblick (90)“** (Probe ab 18.10.).
 
 ## Zeilen
 
 | Nr. | Kl. | Vorgang | Stand |
 |---|---|---|---|
 | 106.1 | M | Umbau Rollen und Namen (Paket mit 115, 117, 122, 124–126, 99g.1, 101, 102, 107, D16, D21; Chef 16.10., 22:0x: „106.1. Ja … und am Schluss muss Diogenes einmal wieder drüber prüfen“) | umgebaut 16.10.; Nachprüfung Diogenes Lauf 22 (trägt); D16–D21 im Prüfbericht vermerkt (17.10.); offen nur D17.2, D17.3 mit 99g; Erste Woche 18.–24.10. Ausgangswert, Wochenzählung Mo 26.10., danach Zielwerte (D19.4) |
-| 99h.5 | M | **von Chef (17.10., 10:4x, über Sokrates):** „auch die Testbuilds für mich zum Durchspielen dann so zusammenbauen, dass mehrere Sachen auf einmal getestet werden können.“ Reibt sich mit Sammelbuild höchstens 4 Punkte und „nie Tom und Jerry in einem Build“ (`LISTE-BAUEN-TESTEN.md`) | **entschieden** (Chef 17.10., 10:5x, Vorgangsarchiv 99h.5): Sammelbuild 2–4 Punkte, nie einer allein (außer „jetzt“); Tom und Jerry getrennt, Übernahme fährt im Build des Übernehmenden mit; in `LISTE-BAUEN-TESTEN.md` „Sammelbuild“ schreiben; ergänzt 99h.5a (A.1–A.4: bis 6 Punkte, wenn sie zusammengehören, Zweig bis 2 Tage, Prüfliste als Weg) |
 | 137 | M | **von Chef (17.10., 11:5x, über Sokrates), nach Homer:** Ideenspeicher einmalig durchgehen, Reifes in die Vorräte, „verwerfen?“ in die Chefrunde, Regeln nachziehen, Ansehen-Datei | **wartet auf Chef:** Ansehen 137; fünf verworfen (137a); erledigt 17.10., 11:59: 138–142, 133 in die Vorräte, 79 in den Speicher, Regeln in `CLAUDE.md`, `ROLLE-KREATIV.md`, `ROLLE-PROJEKT.md` (ersetzen 115-Sätze, 90a) |
 | 99h.6 | K | **von Chef (17.10., 11:0x, über Sokrates):** Neustarts der Teams in die Messung 20.–21.10. aufnehmen: Startkosten (etwa 1,60 $) gegen Kosten fürs Weiterlaufen mit großem Kontext; Vorschlag zur Regelbilanz 23.10., ob „Neustart, wenn Punkt fertig“ und die Schwelle 100 Tsd. bleiben | mit Auswertung 99 am 22.10. |
 | 99 | K | Kosten der Leitung (Chef 15.10., 19:0x; 99h Chef 17.10., 09:2x: „Fords Kostenanteil an Zentrale analog zu Vorgang 99 messen. 99 nochmal bei Normalbetrieb durchführen. Kostensparvorschläge ermitteln und vorschlagen (warum nicht von alleine? …)“) | **99h 1–3 in den Regeln** (1, 2 `LISTE-BETRIEB.md`, 3 `CLAUDE.md` Regel 1; ändern bestehende Sätze, 90a); 4 neue Chefsache nach der Messung; Messung Ford und Ford 2 20.–21.10. (Eingang Ford), Auswertung 22.10., dazu **von Sokrates** (Chef 17.10., 15:1x: „Kriegen wir das irgendwie mit, ob uns das jetzt Geld spart? Oder Token?“): Ford $ je Lauf vor/nach Startzuordnung 17.10., 14:58 (sonnet) und Max-% je Tag, mit Fehlern aus 149; Abos prüfen um den 10.11. (99e) |

@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Vorgangsnummer: 154** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 156** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Sparmodus bis Sa 17.10., 21:00** (99d, `FIRMA.md` „Sparmodus“), **ausgesetzt Sa 17.10. 09:08–11:00 für die Zentrale** (Chef 17.10., 09:08: „Weck mal den Betrie bis auf die Niederlassung auf und lass mal probeweise alle so arbeiten, wie es sein soll. Ab 11100 Uhr gehst du wieder in den Sparmodus und lässt aktive Arbeitssitzungen ausklingen.“; „11100“ gelesen als 11:00): Ford Pilot, Starts nach Vorrang; ab 11:00 keine Starts, laufende Sitzungen beenden ihren Punkt
 
@@ -17,7 +17,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 - **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (17.10., 17:06)“ `session_01HYhTkjcRUjMW4Eu2uypUst` (seit 17.10., 17:06, Selbstneustart, Tiefe 6, sonnet, „WireStorm Mittel“; Vorgänger `session_014hTid4SzEFjBD6XRJwoqK6` archiviert, 1,56 $). Stundenuhr „Ford-Lauf“ `trig_01ErxqehzqSxLFwsQgoFUPMV` (:03, seit 17:05; alte Uhr `trig_01Ajgi3kkihedu96RizYv3N5` gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **Ford 2: 99h gilt ab 17.10., 10:4x** (Vorgangsarchiv): Stundenuhr aus, solange Jerry „Pause bis …“ hat, per einmaliger Aufgabe zum Pausenende (Mo 19.10., 21:00) wieder an; Neustart bei etwa 150 Tsd. Token; Lauf ohne Tat nur Kopfzeilen (Ford erreicht Ford 2 nicht per Nachricht).
-- **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (17.10., 03:34)“ `session_01Bgr3YihKQVLNAM59U56Cva` (seit 17.10., 03:34; Vorgänger `session_017Gzi9LijVCMaW5UJrzYaXZ` archiviert, 9,87 $). Stundenuhr „Ford-2-Stundenuhr“ `trig_01JVENqEgw8TKsZQXrJKHQn5` (:33, seit 03:34). Telegram auf Pro geht (Probe 06:43). Lehre: der Weiter-Haken lässt Jerry nach der Übergabe weiterarbeiten; vor dem Archivieren „nichts Neues anfangen“ schicken, sofort archivieren. Jerry pausiert bis Mo 19.10., 21:00; bis dahin Läufe ohne Tat, nichts schreiben. In der Sitzung nur „Ford 2 HH:MM ok“.
+- **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (17.10., 17:42)“ `session_017VRJsTBwEbU16mwomLknhm` (seit 17.10., 17:42, Tiefe 5; Vorgänger `session_01Bgr3YihKQVLNAM59U56Cva` archiviert, 6,92 $). Uhr „Ford-2-Stundenuhr“ `trig_01WCdVmLssvGbjCSK9KJPCPH` (:33 alle 4 Stunden, 147.2). Selbstneustart und Jerry-Starts nur nach „Startzuordnung“ (`LISTE-BETRIEB.md`, Pro Mittel; Chef 17.10.). Jerry pausiert bis Mo 19.10., 21:00; bis dahin Läufe ohne Tat, nichts schreiben. In der Sitzung nur „Ford 2 HH:MM ok“.
 
 ## Eingang
 
@@ -32,6 +32,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 
 ## Protokoll
+- 17:47 17.10.: Zuruf Chef „Perikles in seinen Arbeitsvorrat gucken“ (trotz Sparmodus) → Startsperre: 17:47 Start Perikles
 - 17:32 17.10.: Zuruf Chef „Tom muss jetzt diese Fehler ausbügeln“ → 131.1, 151, 152, 153 auf Muss → Startsperre: 17:32 Start Tom (131.1, 151–153)
 - 16:21 17.10.: Tom 131 fertig (6ebc3e31, Release 0.1.827), archiviert, Kosten fehlt (kein usage); Nachfolger 138 (Kür) erst ab 21:00 (Sparmodus)
 - 16:06 17.10.: Sokrates fertig, archiviert (4,71 $ auf 135); Startzuordnung in LISTE-BETRIEB, LISTE-RELEASE-NEUSTART nachgezogen; offen: Pro-Umgebung für Ford 2/Jerry (Kennung fehlt, Chef/Ford 2)
@@ -55,4 +56,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 17:45 17.10.: Pro Mittel in „Startzuordnung“ eingetragen; Probe Pro Mittel (`session_01Km1dp2ah4jtt6FKknDup1e`, archiviert, 0,00 $): Modell wie Startzuordnung, Stufe mittel; Uhr alle 4 Stunden (147.2) (Ford 2)
+- 17:46 17.10.: Ford 2 neu (`session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`); alte Uhr gelöscht, Vorgänger archiviert (6,92 $, Betrieb: Ford 2 16,79 $) (Ford 2)
+- 17:5x 17.10.: Start Jerry (Ford 2; Chef: „Ja“, Start trotz Schwelle, Pause aufgehoben; 154, 155)
 - 11:58 17.10.: Homer 137 fertig (0dfd582a) → Startsperre: 11:58 Start Perikles (137, Zuruf Chef „erst Homer, dann Perikles“)

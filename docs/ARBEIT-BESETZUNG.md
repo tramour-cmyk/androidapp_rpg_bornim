@@ -7,5 +7,7 @@
 | Rolle | Sitzung | Zeile | Zweig | seit |
 |---|---|---|---|---|
 | Ford | [Ford – Betriebsleiter (17.10., 17:06)](https://claude.ai/code/session_01HYhTkjcRUjMW4Eu2uypUst) | Betrieb | – | 17.10., 17:06 |
+| Perikles | [Perikles – Vorrat durchsehen (17.10., 17:48)](https://claude.ai/code/session_014MmsGmmZrdur8ueDZpE2eJ) | Vorrat | – | 17.10., 17:48 |
 | Tom | [Tom – Fehler ausbügeln 131.1, 151–153 (17.10., 17:33)](https://claude.ai/code/session_01A96tpJSHZ9wxrfc1UVcQij) | 131.1, 151, 152, 153 | – | 17.10., 17:33 |
-| Ford 2 | [Ford 2 – Niederlassungsleiter (17.10., 03:34)](https://claude.ai/code/session_01Bgr3YihKQVLNAM59U56Cva) | Betrieb Pro | – | 17.10., 03:34 |
+| Ford 2 | [Ford 2 – Niederlassungsleiter (17.10., 17:42)](https://claude.ai/code/session_017VRJsTBwEbU16mwomLknhm) | Betrieb Pro | – | 17.10., 17:42 |
+| Jerry | [Jerry – 154 Gold beim Tod, 155 Feuer in der Höhle (17.10., 17:55)](https://claude.ai/code/session_01XBnri3vUBSXsaX4saWrYCq) | 154, 155 | claude/jerry-154-155-gold-feuer | 17.10., 17:50 |

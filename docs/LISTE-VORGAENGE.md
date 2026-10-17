@@ -8,7 +8,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 
 | Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |
 |---|---|---|---|---|---|---|
-| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 24,60 $ | Ford | laufend |
+| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 24,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $ | Ford | laufend |
 | 1 | Regen, Wetterleuchten mit Donner | E Welt | – |  | Tom | erledigt v0.1.409 |
 | 2 | Waffe verstaut (auf der Karte geschultert bzw. am Rücken) | E Figuren | – |  | Tom | erledigt v0.1.409 |
 | 3 | Garrick hockt, schürt, döst (3a weich) | E Figuren | – |  | Tom | erledigt v0.1.430 |
@@ -114,7 +114,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 137 | Kür ohne Zweig zurück in den Ideenspeicher (Idee Chef) | B Abläufe | M | 3,64 $ | Homer, Perikles | in Arbeit |
 | 135 | Chefrunde: Chefsache mit Sokrates entscheiden | B Abläufe | – | 10,01 $ | Sokrates | erledigt |
 | 99h.6 | Neustarts der Teams mitmessen | B Steuerung | K |  | Perikles | offen |
-| 99h.5 | Testbuilds zum Durchspielen bündeln | B Abläufe | M |  | Perikles | entschieden |
+| 99h.5 | Testbuilds zum Durchspielen bündeln | B Abläufe | M |  | Perikles | erledigt |
 | 100 | Testschalter Ende Kapitel 1 | Q QS | K |  | Tom | zu testen |
 | 101 | Ford-Titel „Betriebsleiter“ | B Steuerung | – |  | Perikles | erledigt |
 | 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Perikles | offen |
@@ -180,3 +180,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 150 | Spielzeit im Menü? (Frage Chef) | B Technik | K |  | Tom | beantwortet |
 | 148 | Ideenspeicher ausmisten: Vorgaben und Bewusst-gelassenes an ihren Ort (Chef) | B Abläufe | K |  | Homer | offen |
 | 153 | Fehler: Überspringen-Kasten im Intro (und Kapitelende 1) weiß mit schwarzer Schrift, passt nicht zum Design | E Oberfläche | M |  | Tom | offen |
+| 154 | Goldverlust beim Tod zu hart (Feedback Chef Build 16) | G Balance | M? |  | Jerry | Chefsache |
+| 155 | Lagerfeuer in der Höhle raus? (Feedback Chef Build 16) | G Höhle | M? |  | Jerry | Chefsache |
