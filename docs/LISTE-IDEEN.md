@@ -4,15 +4,15 @@ Ideen, die noch **nicht umgesetzt** sind, nach Bereichen (124). Hierher gehört 
 
 **Urteil** (Homer): **reif** = kann in den Vorrat, sobald Perikles Platz hat; **später** = Bedingung fehlt (meist: nach dem Meilenstein Kapitel 1, Kapitel 2, eine Entscheidung); **verwerfen?** = erledigt, überholt oder doppelt, Chef entscheidet. Der Meilenstein (Kapitel 1 rund vor Neuem, `LISTE-ABNAHME-KAPITEL1.md`) macht fast alles Neue „später“.
 
-**Aufbereitet:** 17.10., 11:5x (Homer, 137, erstmals). Aus den Vorräten hergeholt: 133, 70 (Rest), 84.2, 84.3 (Homer), 52 (Jerry). Gestrichen, weil erledigt: Raumklang (119).
+**Aufbereitet:** 17.10., 11:5x (Homer, 137, erstmals). Aus den Vorräten hergeholt: 133, 70 (Rest), 84.2, 84.3 (Homer), 52, 79 (Jerry; 79 Perikles). Gestrichen, weil erledigt: Raumklang (119).
 
 ## Reif (Übersicht für Perikles)
 
-Kräuter wachsen morgens · Fleisch an die Wirtin · Monster-Geräusche (Rest) · Klänge (Rest) · 133 Wahlen (nur Vorschlag) · Vorbereitung Play-Store-Test (Konto, Datenschutz).
+Alle sechs am 17.10. in die Vorräte geholt (Perikles, 137): 138 Kräuter (Tom), 139 Fleisch an die Wirtin (Homer, dann Tom), 140 Monster-Geräusche und 141 Klänge (Jerry), 133 Wahlen (Homer), 142 Pflichttest (Sokrates). Hier gestrichen.
 
 ## Verwerfen? (für die Chefrunde)
 
-Aktive Abwehr per Tippen · Echte Gruppenkämpfe · Gefährte Lyra oder Garrick · Kampfkulisse der Höhle · Film-Uhr. Gründe bei der Idee.
+Aktive Abwehr per Tippen · Echte Gruppenkämpfe · Gefährte Lyra oder Garrick · Kampfkulisse der Höhle (mit 79) · Film-Uhr. Gründe bei der Idee; in der Chefsache [137](chefsache/entscheiden/137-ideen-verwerfen.md).
 
 ## E Entwicklung
 
@@ -21,7 +21,6 @@ Aktive Abwehr per Tippen · Echte Gruppenkämpfe · Gefährte Lyra oder Garrick 
 - **Wetter:** Nebel; Wind als Umgebungsklang. → **später:** Kapitel 1 hat Regen und Donner (D3.10); neues Wetter erst mit neuen Orten.
 - **Monsterverhalten:** Goblins patrouillieren auf Wegen, Fledermäuse hängen an der Höhlendecke und stürzen herab. → **später:** nach dem Meilenstein; die Höhle ist „Ort fertig“ (13e) ohne das.
 - **Sammelbares und Verstecke:** geheime Truhen, rissige Wände. → **später:** Kapitel 2, mit der Katze aus 72.15 (findet Geheimtüren).
-- **Kräuter wachsen am Morgen nach** statt schon um Mitternacht (Spielzeit). → **reif:** klein, macht den Tagesablauf (5la) stimmig.
 - **Schnellreise über die Kartenübersicht** (Idee 09.10., 12:49): Pergamentkarte (Entwurf C, `tools/preview` Modus `WEGE`) mit Nebel des Unerkundeten; entdeckte Orte (Bornim, Garricks Feuer, Höhleneingang) sind Reiseziele gegen Gold. Gedanken: Fuhrmann in Bornim oder Garrick als Führer statt Teleport; Preis nach Entfernung; Zeit vergeht; unterwegs ein Wurf auf einen Überfall, nachts höher; nicht aus Höhlen, nicht im Kampf. → **später:** Kapitel 2 (Karten deutlich größer); in Kapitel 1 sind die Wege kurz.
 - **86.5 Pferd** (Chef 14.10., 21:2x, zu 86.3 Ausdauer): Reittier für lange Wege draußen. → **später:** zusammen mit der Schnellreise prüfen, beide lösen dasselbe.
 - **Licht als Mechanik** (Idee 4, 10.10.): Fackel brennt ab; im Dunkeln sieht man Lauerer später, Untote sind stärker. → **später:** Teil von 84 (Fackel 84.1 im Vorrat Homer); erst wenn 84.1 gebaut ist.
@@ -48,12 +47,10 @@ Aktive Abwehr per Tippen · Echte Gruppenkämpfe · Gefährte Lyra oder Garrick 
 - **Aktive Abwehr per Tippen** (Idee 1): kurzes Fenster beim gegnerischen Hieb, Tippen = Parieren mit halbem Schaden; der Chef fand sie nicht gut, wollte sie aber behalten. → **verwerfen?:** steckt im Ring der Probe 72.10 („Schlag halb/ganz abgefangen“); dort zu prüfen, nicht doppelt hier.
 - **Echte Gruppenkämpfe:** mehrere Gegner gleichzeitig, Zielauswahl, eigene Lebensbalken, Flächenzauber gegen alle. → **verwerfen?:** aufgegangen in 72 (Probe 72.10, sechs Plätze 72v), dort weitergeführt.
 - **Gefährte Lyra (Heilerin) oder Garrick** als zweites Gruppenmitglied. → **verwerfen?:** überholt durch Chefsache 72s.1 (Gefährte Kapitel 2).
-- **Kampfkulisse der Höhle an die Karte angleichen** (zurückgestellt 10.10.). → **verwerfen?:** gelöst durch 72u B (Kampfort aus der Karte, Zoom 8).
+- **Kampfkulisse der Höhle an die Karte angleichen** (zurückgestellt 10.10.), dazu **79 Kampfhintergründe an die Diagonalwelt angleichen** (Chef 14.10., 08:34, nur Aussehen; aus Vorrat Jerry, hing an 72u). → **verwerfen?:** gelöst durch 72u B (Kampfort aus der Karte, Zoom 8).
 
 ### Klang
 
-- **Monster-Geräusche** (Rest; Hörproben Wolf, Goblin, Skelett 18e; Laute in Ruhe D3.9 gebaut): Knurren vor dem Angriff, Schmerzlaute, Todeslaute; Klappern (Skelett), Stöhnen (Zombie), Schmatzen (Ockergallert), Kreischen (Fledermaus), Kampfrufe (Goblin, Kobold), Brüllen (Bosse); Elite und Grimmzahn tiefer. → **reif:** steht unter „Wenn Zeit ist“ im Meilenstein (Stimmen der Gegner), kein Hindernis; Jerry nach der Pause.
-- **Klänge überarbeiten, Rest** (aus „Offen“ 11.10.; Hörproben Runde 1 und 2, 18d): Menü-Klick, Belohnungen (Stufenaufstieg, Beute, epische Beute, Münzen, Truhe), Welt (Tür, Begegnung, Alarm, Hinterhalt), Zauber und Tränke, Kampfende, Umgebung (Vögel, Grillen, Eule, Tropfen, Knistern). Vorgehen: Hörproben, dann nach Freigabe umstellen. → **reif:** einzeln klein, macht Kapitel 1 für die Tester runder; vorher nachsehen, was mit 18, D3 und 119 schon erledigt ist.
 - **Musik in Schichten** (Idee 10): nähert sich ein Jäger, schleicht eine dunkle Spur in die Musik, bevor der Kampf beginnt; Stille bewusst einsetzen. → **später:** nach dem Meilenstein; Musik (28) und Raumklang (119) sind fertig.
 
 ### Oberfläche
@@ -66,9 +63,7 @@ Aktive Abwehr per Tippen · Echte Gruppenkämpfe · Gefährte Lyra oder Garrick 
 
 ### Story
 
-- **133 Wahlen im Spiel** (Chef 17.10., 01:09, an Tom; aus Vorrat Homer): „Auch eine Idee noch, dem Spiel ab und zu eine Wahl zu geben, aus mehreren Optionen, um den Plot voranzubringen. Also Gesprächsdialog-Optionen. Oder wenn ein Gegner besiegt wurde, ob man ihn halt leben lässt oder zum Beispiel tötet. Ja, legt es mal jemanden vor.“ → **reif** (nur der Vorschlag, kein Bau): Homer legt vor, wo und wie oft Wahlen in Kapitel 1–2 passen und was sie ändern; gehört in den Storyplan Kapitel 2 (41), bevor dessen Texte weitergehen. Dazu gehört **Charisma: Überreden, Einschüchtern** (unten).
 - **Kapitel 2, Geschichte:** Spur des „Grauen Propheten“, „Tag der Asche“ als Bedrohung. → **später:** steht im Storyplan (41).
-- **Fleisch an die Wirtin** im Gasthaus verkaufen (heute bei Thessa und Morwen). → **reif:** klein, gibt Rowena einen Grund mehr; zwei Sätze Text von Homer.
 - **Dorran, der Schmied** (wohnt heute hinter verschlossener Tür, „Er ist wohl in seiner Werkstatt“):
   - **Schmiede:** offene Werkstatt neben seinem Haus mit Esse, Amboss, Wassertrog; Funken, Hammerschläge, abends glüht die Esse.
   - **Einstieg als Quest:** Esse kalt, Goblins haben den Erzkarren auf der Waldstraße überfallen; **Eisenerz** aus der Blutzahnhöhle (Erzadern, Kisten) öffnet die Schmiede.
@@ -89,7 +84,7 @@ Aktive Abwehr per Tippen · Echte Gruppenkämpfe · Gefährte Lyra oder Garrick 
 ### Balance und Attribute
 
 - **Stärke, rohe Gewalt:** Truhen oder Gitter ab einem Mindestwert aufbrechen statt nur mit Schlüssel. → **später:** neuer Karteninhalt, Kapitel 2.
-- **Charisma, Gesprächsoptionen:** „Überreden“ oder „Einschüchtern“ bei Wachen, Händlern, Bösewichten, wenn es zur Geschichte passt. → **später:** mit 133 vorlegen, gebaut in Kapitel 2.
+- **Charisma, Gesprächsoptionen:** „Überreden“ oder „Einschüchtern“ bei Wachen, Händlern, Bösewichten, wenn es zur Geschichte passt. → **später:** Vorschlag mit 133 (Vorrat Homer), gebaut in Kapitel 2.
 - **Charisma, Auftreten auf der Karte:** Wanderer und schwächere Monster weichen einem einschüchternden Helden aus. → **später:** nach dem Meilenstein; verschiebt sonst die Messung 38.
 - **Weisheit, Lauerer erkennen:** Spinne, Fledermaus werden früher sichtbar. → **später:** mit 84 (Lauschen, Licht), sonst zwei Regeln für dasselbe.
 
@@ -111,7 +106,6 @@ Aktive Abwehr per Tippen · Echte Gruppenkämpfe · Gefährte Lyra oder Garrick 
 ### Veröffentlichung
 
 - **Weg** (besprochen 10.10., 13:36): (1) Stilumbau abschließen. (2) Pflichttest im Play Store (neues privates Konto: mindestens 12 Tester, 14 Tage am Stück) als echten Test, Rückmeldungen sammeln. (3) Kapitel 1 kostenlos (99 Cent bringen kaum Käufer: keine Sichtbarkeit ohne Bewertungen, nach Steuer und Google-Anteil etwa 70 Cent). (4) Vollversion mit einmaligem Kauf, spätere Kapitel nachkaufbar (45a); Preis offen (72g). Vorher: Datenschutzerklärung, Altersfreigabe (Blut), Zahlungsprofil mit Händleradresse, kurze Rechtsprüfung (Schriften, Klänge).
-- **Vorbereitung Pflichttest:** Google-Play-Entwicklerkonto (einmalig 25 US-Dollar, Identitätsprüfung), Spiel in der Play Console anlegen, Fingerabdruck des Signierschlüssels, Datenschutzerklärung; zum Testen reicht ein interner Test-Track. Nur der Chef kann das. → **reif:** der Meilenstein geht an 12 Tester, der Test dauert 14 Tage am Stück; Konto und Prüfung brauchen Vorlauf (Sokrates, 45).
 - **Anmeldung mit Google Play** (Play Games Services): Anmeldung mit dem Google-Konto, Spielstände in der Cloud je Platz, Erfolge („Grak besiegt“, „Erste schimmernde Beute“), auf Wunsch Bestenlisten; im Code Bibliothek, Anmeldung beim Start, Cloud-Abgleich. → **später:** erst wenn das Spiel öffentlich erscheint.
 - **Rechtliches:** vor öffentlicher Veröffentlichung oder kommerzieller Nutzung kurze Prüfung durch einen Anwalt für Marken- und Urheberrecht. → **später:** vor Schritt 3, nicht für den geschlossenen Test.
 

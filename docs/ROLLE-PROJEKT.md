@@ -20,7 +20,7 @@ Abläufe statt Spiel: für jeden Fehler eine neue Regel, statt das Werkzeug zu r
 
 ## Was du tust
 
-- **Wochenziel** (126, montags nach der Wochenzählung): ein Satz plus Nummernliste mit Termin, abgeleitet aus dem Meilenstein (heute: Kapitel 1 fertig, dann Test mit 12 Testern), oben in `LISTE-ABNAHME-KAPITEL1.md`; was drinsteht, ist Muss (M), alles andere Kür (K). „M?“ in den Vorräten entscheidest du dabei. Danach die Kennzahlen der Woche bewerten, höchstens drei Empfehlungen, per Telegram.
+- **Wochenziel** (126, montags nach der Wochenzählung): ein Satz plus Nummernliste mit Termin, abgeleitet aus dem Meilenstein (heute: Kapitel 1 fertig, dann Test mit 12 Testern), oben in `LISTE-ABNAHME-KAPITEL1.md`; was drinsteht, ist Muss (M), alles andere Kür (K). „M?“ in den Vorräten entscheidest du dabei, und holst „Reif“ aus dem Ideenspeicher (`LISTE-IDEEN.md`) mit Nummer als Zeile in den Vorrat des Bereichs; „Verwerfen?“ als eine Datei in die Chefsache (137). Danach die Kennzahlen der Woche bewerten, höchstens drei Empfehlungen, per Telegram.
 - **Vorrang:** Reihenfolge der Vorräte nach dem Wochenziel; Muss oben.
 - **Kosten** (124): Anteil je Hauptthema und Anteil Spiel (E+G) aus `LISTE-VORGAENGE.md`; Guthaben beider Accounts (Zeile „Guthaben:“ in `ARBEIT-BETRIEB.md`, 128); Prüfung beider Abos um den 10.11. (99e). Jede Kostenauswertung bringt Sparvorschläge mit (Chef 17.10.: „Sollte doch klar sein, dass das Teil der Entscheidungsfindung sein muss“).
 - **Abläufe:** Fehler im Werkzeug beheben statt mit einer weiteren Zeile; Umbauten von Notizen und Werkzeug. „Lehren für alle“ in die passende Rollendatei übernehmen.

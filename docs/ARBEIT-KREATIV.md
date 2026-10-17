@@ -2,7 +2,7 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 11, Muss 0, A 0, Chefsache 1**
+**offen 13, Muss 0, A 0, Chefsache 1**
 
 **Gelesen bis:** `8abeae7b` (15.10., 23:0x; für `tools/story.sh`)
 
@@ -23,3 +23,5 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | 59e | K | **von Team Jerry (16.10., 19:5x), Händlervorrat:** 59e.1 Thessas Ausrüstung wechselt heute alle 8 Siege (durch Kämpfen beliebig erzwingbar, widerspricht Beschluss 59e „an Nicht-Beliebiges gekoppelt“); Vorschlag: Wechsel an Story-Schritten (Auftrag angenommen, Garrick getroffen, Krogg, Grak, Kapitelwechsel). 59e.2 Mengen je Laden (Tränke): Messung zeigt 110–175 G für Tränke je Kapitel (Tränke auf 3 aufgefüllt), eine Grenze bisse auf „Normal“ kaum; Empfehlung „noch nicht“, erst mit 39 | Jerry baut nach Entscheidung |
 | 38 | K | Balance-Langzeitplan über alle Kapitel (Stufe, Gold, Preise, Ausrüstung, Ziel-Siegquoten) | Plan in `DESIGN-BALANCE.md`; Messung bei Jerry, Eichung (38h) durch Chef später |
 | 99g | K | **von Perikles (16.10., 23:03):** Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach Sa 17.10., 21:00 (Vorgangsarchiv 99g; D17.2: Docs `export`, offene Kommentare des Chefs vorher sichten, oben im Dokument „abgelöst, gilt `docs/…`“; D17.3: Karte als Bild unter 60 KB oder bleibt auf Max, entscheidest du); Verweise in den Notizen nachziehen, dann Zeile an Diogenes | offen |
+| 133 | K | **von Perikles (Ideenspeicher, 137):** Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal jemanden vor.“): Vorschlag, wo und wie oft Wahlen in Kapitel 1–2 passen und was sie ändern, mit Charisma (Überreden, Einschüchtern); kein Bau | vor den weiteren Texten Kapitel 2 (41) |
+| 139 | K | **von Perikles (Ideenspeicher, 137):** zwei Sätze für „Fleisch an die Wirtin“ (Rowena kauft Fleisch), DE/EN | dann Tom (Zeile 139) |

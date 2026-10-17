@@ -88,7 +88,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 76 | Tom und Jerry schärfen, CLAUDE.md entschlacken | B Abläufe | – |  | Tom, Jerry | erledigt |
 | 77 | Dokumentnamen ordnen | B Abläufe | – |  | Tom, Sokrates | erledigt |
 | 78 | Test-Builds bündeln | Q QS | – |  | Tom | fertig |
-| 79 | Kampfhintergründe wie Diagonalwelt | E Kampf | K |  | Sokrates, Jerry | offen |
+| 79 | Kampfhintergründe wie Diagonalwelt | E Kampf | K |  | Ideen | Idee |
 | 80 | Kaels Laterne im Dorf | E Welt | – |  | Tom | erledigt |
 | 81 | Teamleiter „Ford“ | B Steuerung | K |  | Sokrates | offen |
 | 82 | Held vor verschlossener Tür | E Welt | – |  | Tom | erledigt |
@@ -147,8 +147,13 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 130 | Kampfgefühl der Probe 72.10 (Prüfpunkt 8.5) | G Balance | K |  | Sokrates | offen |
 | 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | K |  | Sokrates | offen |
 | 132 | Spielstand: Spieldauer anzeigen, vierter Spielstand (Idee Chef) | E Oberfläche | M | 2,43 $ | Tom | gebaut |
-| 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Ideen | Idee |
+| 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | offen |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
+| 138 | Kräuter wachsen am Morgen nach | E Welt | K |  | Tom | offen |
+| 139 | Fleisch an die Wirtin verkaufen | E Welt | K |  | Homer, Tom | offen |
+| 140 | Monster-Geräusche, Rest | E Klang | K |  | Jerry | offen |
+| 141 | Klänge überarbeiten, Rest | E Klang | K |  | Jerry | offen |
+| 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | K |  | Sokrates | offen |
 | 134.1 | Goldenes Zeichen bei Leuten mit Neuem | E Figuren | M | 1,73 $ | Tom | gebaut |
 | 134.2 | Gesten zum Zeichen | E Figuren | K |  | Tom | offen |
 | 134.3 | Ruf als Klang zum Zeichen | E Klang | K |  | Jerry | offen |

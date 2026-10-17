@@ -2,11 +2,11 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**offen 14, Muss 3, A 0, Chefsache 0**
+**offen 14, Muss 3, A 0, Chefsache 1**
 
-**Gelesen bis:** `ead2e5f5` (17.10., 09:26)
+**Gelesen bis:** `caa83a3f` (17.10., 11:57)
 
-**Übergabe (17.10., 10:49, „Perikles – 99h Regeln (17.10., 10:47)“):** 99h 1–3 in `LISTE-BETRIEB.md` und `CLAUDE.md` Regel 1; 99h.5 in die Chefsache. **Nachfolger: „Perikles – Tagesrückblick (90)“** (Probe ab 18.10.).
+**Übergabe (17.10., 11:59, „Perikles – 137 Ideenspeicher (17.10., 11:58)“):** 137 durchgegangen: Reifes als 138–142 und 133 in die Vorräte (Tom, Jerry, Homer, Sokrates), 79 von Jerry in den Ideenspeicher; Regeln nachgezogen (`CLAUDE.md` Idee, `ROLLE-KREATIV.md` sonntags, `ROLLE-PROJEKT.md` montags). **Nachfolger: „Perikles – Tagesrückblick (90)“** (Probe ab 18.10.).
 
 ## Zeilen
 
@@ -14,7 +14,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 |---|---|---|---|
 | 106.1 | M | Umbau Rollen und Namen (Paket mit 115, 117, 122, 124–126, 99g.1, 101, 102, 107, D16, D21; Chef 16.10., 22:0x: „106.1. Ja … und am Schluss muss Diogenes einmal wieder drüber prüfen“) | umgebaut 16.10.; Nachprüfung Diogenes Lauf 22 (trägt); D16–D21 im Prüfbericht vermerkt (17.10.); offen nur D17.2, D17.3 mit 99g; Erste Woche 18.–24.10. Ausgangswert, Wochenzählung Mo 26.10., danach Zielwerte (D19.4) |
 | 99h.5 | M | **von Chef (17.10., 10:4x, über Sokrates):** „auch die Testbuilds für mich zum Durchspielen dann so zusammenbauen, dass mehrere Sachen auf einmal getestet werden können.“ Reibt sich mit Sammelbuild höchstens 4 Punkte und „nie Tom und Jerry in einem Build“ (`LISTE-BAUEN-TESTEN.md`) | **entschieden** (Chef 17.10., 10:5x, Vorgangsarchiv 99h.5): Sammelbuild 2–4 Punkte, nie einer allein (außer „jetzt“); Tom und Jerry getrennt, Übernahme fährt im Build des Übernehmenden mit; in `LISTE-BAUEN-TESTEN.md` „Sammelbuild“ schreiben; ergänzt 99h.5a (A.1–A.4: bis 6 Punkte, wenn sie zusammengehören, Zweig bis 2 Tage, Prüfliste als Weg) |
-| 137 | M | **von Chef (17.10., 11:5x, über Sokrates), nach Homer:** Ideenspeicher einmalig durchgehen: Reifes in die Vorräte (Wochenziel), „verwerfen?“ für die Chefrunde sammeln; Regeln nachziehen (115 in `CLAUDE.md`, `ROLLE-KREATIV.md` sonntags aufbereiten, `ROLLE-PROJEKT.md` montags zurückholen); Ansehen-Datei für den Chef auf die Chefsache | **startbar: Homer fertig** (17.10., 11:5x): `LISTE-IDEEN.md` nach Bereichen, je Idee Urteil; oben Übersicht „Reif“ (6) und „Verwerfen?“ (5); hergeholt 133, 70 Rest, 84.2, 84.3, 52. Bewusst im Vorrat gelassen: 134.2, 134.3 (Auftrag des Chefs nach 134.1), 19e (Meilenstein), 84 (84.1 für D3.14), Kür der Sokrates-, Perikles- und Diogenes-Vorräte (Termin oder Zuruf) |
+| 137 | M | **von Chef (17.10., 11:5x, über Sokrates), nach Homer:** Ideenspeicher einmalig durchgehen, Reifes in die Vorräte, „verwerfen?“ in die Chefrunde, Regeln nachziehen, Ansehen-Datei | **wartet auf Chef:** Chefsache 137 (fünf verwerfen?) und Ansehen 137; erledigt 17.10., 11:59: 138–142, 133 in die Vorräte, 79 in den Speicher, Regeln in `CLAUDE.md`, `ROLLE-KREATIV.md`, `ROLLE-PROJEKT.md` (ersetzen 115-Sätze, 90a) |
 | 136 | K | **von Chef (17.10., 11:4x, über Sokrates):** Bereich in die Kopfzeile jeder Chefsache-Datei (Vorgangsarchiv 136): Vorlage in den Regeln der Chefsache und `tools/zug-index.py` (Spalte „Bereich“ in der Übersicht) nachziehen | offen |
 | 99h.6 | K | **von Chef (17.10., 11:0x, über Sokrates):** Neustarts der Teams in die Messung 20.–21.10. aufnehmen: Startkosten (etwa 1,60 $) gegen Kosten fürs Weiterlaufen mit großem Kontext; Vorschlag zur Regelbilanz 23.10., ob „Neustart, wenn Punkt fertig“ und die Schwelle 100 Tsd. bleiben | mit Auswertung 99 am 22.10. |
 | 99 | K | Kosten der Leitung (Chef 15.10., 19:0x; 99h Chef 17.10., 09:2x: „Fords Kostenanteil an Zentrale analog zu Vorgang 99 messen. 99 nochmal bei Normalbetrieb durchführen. Kostensparvorschläge ermitteln und vorschlagen (warum nicht von alleine? …)“) | **99h 1–3 in den Regeln** (1, 2 `LISTE-BETRIEB.md`, 3 `CLAUDE.md` Regel 1; ändern bestehende Sätze, 90a); 4 neue Chefsache nach der Messung; Messung Ford und Ford 2 20.–21.10. (Eingang Ford), Auswertung 22.10.; Abos prüfen um den 10.11. (99e) |

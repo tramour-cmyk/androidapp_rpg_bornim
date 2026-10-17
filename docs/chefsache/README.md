@@ -6,6 +6,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 | Nr. | Seit | Was | Wer |
 |---|---|---|---|
+| [137](entscheiden/137-ideen-verwerfen.md) | 17.10. | fünf Ideen aus dem Ideenspeicher verwerfen (Empfehlung: alle fünf) | Perikles |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
 ## Anzusehen
@@ -16,6 +17,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [0.1.816](ansehen/t13-huehner.md) | – | 26: Kapitel 1 durchspielen | Tom | 17.10. |
 | 2 | [0.1.821](ansehen/t14-spieldauer.md) | – | 132, 134.1: Spieldauer, vierter Spielstand, goldenes Zeichen | Tom | 17.10. |
+| 3 | [–](ansehen/137-ideenspeicher.md) | – | Ideenspeicher | Perikles | 17.10. |
 
 ## So geht's
 
