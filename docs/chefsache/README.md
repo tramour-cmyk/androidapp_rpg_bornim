@@ -18,6 +18,12 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [0.1.828](ansehen/26-kapitel1-durchspielen.md) | – | 26 | Tom | 17.10. |
 
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Nicht gestellt: 166.2 (Projekt)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
