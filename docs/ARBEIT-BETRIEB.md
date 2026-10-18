@@ -110,3 +110,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:07 18.10.: Selbstneustart (Token über Schwelle): neue Sitzung und Uhr, alte Uhr gelöscht, Vorgänger archiviert (1,02 $, Kosten „Betrieb“ auf Ford 33,56 $)
 - 02:05 18.10.: Lauf: Perikles 164 fertig (Übergabe da, Nachfolger Wochenziel Mo 19.10.), archiviert, 0,28 $ auf 164; kein Startbares (Tom 139 wartet auf Sammelbuild, Jerry ohne Auswahl)
 - 11:05 18.10.: Selbstneustart (Token über Schwelle): neue Sitzung (Tiefe 6) und Uhr, alte Uhr gelöscht, Vorgänger archiviert (3,04 $, Kosten „Betrieb“ auf Ford 37,38 $)
+- 11:22 18.10.: Startsperre 11:22 Start Perikles 167.8 (Muss, Sokrates 167 entschieden), Startsperre 11:22 Start Jerry 130.2 (Muss)
