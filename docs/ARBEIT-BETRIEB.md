@@ -109,3 +109,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:03 18.10.: Startsperre 21:03 Start Homer (lauf.py)
 - 21:05 18.10.: Lauf 21:03: Homer 112 (0,98 $) archiviert. Startplan Homer 112 NICHT ausgeführt (Abweichung von lauf.py): Homer wartet auf Toms Vorlage zu 68, Sokrates 20:3x „Homer erst dann starten“; ein Start jetzt kostet ohne Ergebnis. Tom 27 läuft noch; Jerry 172 hat übergeben (Nachfolger über Ford, Start im nächsten Lauf nach Ruhe). An Perikles: lauf.py soll Homer 112 bis zur Vorlage zurückhalten.
 - 21:10 18.10.: Neuer Ford auf Wort des Chefs („Starte einen neuen Ford“, 21:08): `session_01EGJrCXu54ZzpXKDo32MsGX` (Tiefe 6, sonnet). Legt eigene Uhr an, löscht trig_01Sck61vd5yKcyi3DcfrHa6z, archiviert diese Sitzung und trägt die Zeile oben ein; bis dahin bleibt diese Sitzung Pilot.
+- 21:09 18.10.: Startsperre 21:09 Start Jerry (lauf.py)
