@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 176a | M | Schatten von Fackel und Funke direkt vor der Höhle falsch (Build 25, sonst „klappt überall“) | Test: Build 27 (PR #116) | claude/tom-176a-schatten |
-| 180 | M | Fackel im Laden nicht kaufbar (Chef, Build 25 und 27) | offen: Build 27 durchgefallen (Zu 180) | – |
+| 180 | M | Fackel im Laden nicht kaufbar (Chef, Build 25 und 27) | Bau: Fix und Kerntest fertig, nächster Build (Zu 180) | claude/tom-180-fackel-laden |
 | 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | Test: Build 27 (PR #116) | claude/tom-176a-schatten |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
@@ -41,7 +41,7 @@ Chef 18.10., 17:11, Wortlaut: „Du kannst wegen des Schattenproblems auch einfa
 
 Chef 18.10., 17:30, Wortlaut: „Build 27 getestet und freigegeben. Nur die Fackel kann ich nicht im Laden kaufen.“ (175, 176a freigegeben; 180 durchgefallen: Fix in `Game.buyGear` greift nicht, Laden-Oberfläche `ShopScreen.kt` prüfen, z. B. ob die Fackel im Angebot überhaupt erscheint oder der Kauf woanders gesperrt ist.)
 
-**Zu 180** siehe Satz „Ergänzung“ oben: zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird.
+**Zu 180** siehe Satz „Ergänzung“ oben: zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird. Ursache (18.10., 18:1x): der Kauf in Build 25 steht im Spielstand als „verkauft“; der Fix in Build 27 verhinderte nur neue Einträge. Jetzt bleibt die Fackel immer im Angebot (`Game.shopGear`), Kerntest `anOldSaleDoesNotHideTheTorch` (scheitert ohne Fix).
 
 **Zu 176** (Chef 18.10., 15:13, Wortlaut, mit Bild): „Fackel bei Build 24 leuchtet nicht richtig aus. Auch im Gang in der Höhle wirkt es nicht richtig.“ Bild: Nacht, Tag 6 00:14, Magier mit Fackel am Höhleneingang; der Lichtkegel um die Fackel ist kaum zu sehen, Umgebung bis auf einen schmalen Streifen schwarz. Zum Test von Build 24 (t24, 84.1/84.5): Ergebnis „nicht in Ordnung“, nicht freigeben, bis behoben. Perikles entscheidet Muss.
 
