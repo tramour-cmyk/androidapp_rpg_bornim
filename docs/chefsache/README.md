@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [185](entscheiden/185-ford-neustartgrenze.md) | Kür | B Abläufe | 18.10. | Ford startet sich erst bei 400.000 statt 150.000 Token selbst neu; dann musst du ihn viel seltener von Hand starten | Sokrates |
-| [186](entscheiden/186-pruefbogen-tester.md) | M? | Q Qualität | 18.10. | Entwurf eines druckbaren Prüfbogens (schwarz-weiß, vier Seiten) für die 12 Tester; sag, ob er so passt und wer ihn weiterführt | Perikles |
 
 ## Anzusehen
 
@@ -23,10 +22,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 10, Muss 0, startbar 9
+**Homer** – offen 11, Muss 0, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 186.1 | M? | von Perikles (Chef 18.10., „186 habe geändert und dann weiter wie empfohlen“): Prüfbogen f | startbar |
 | 84.1T.1 | M? | von Team Tom: [84.5.rast] „Dein Funke ist verglommen.“ kommt nach der Rast über das Menü. | startbar |
 | 174.1 | K | von Jerry: Plätze im Kampf heißen jetzt „vorn/hinten oben/unten“ (vorn = zum Gegner, oben/ | startbar |
 | 112 | K | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | ruht |
@@ -75,19 +75,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 4, Muss 1, startbar 2, PAUSE bis 19.10., 08:00
+**Perikles** – offen 3, Muss 1, startbar 2, PAUSE bis 19.10., 08:00
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 165 | M | Ablaufstichprobe | startbar |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | Chef (Datei in der Chefsache) |
-| 186 | M? | Prüfbogen für menschliche Tester (Chef 18.10., 19:1x: „Wer erstellt mir für menschliche Te | Chef (Datei in der Chefsache) |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | startbar |
 
-**Diogenes** – offen 4, Muss 1, startbar 0
+**Diogenes** – offen 5, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 186.2 | K | von Perikles (Chef 18.10., 186 weiter wie empfohlen): Auswertung der ausgefüllten Prüfböge | wartet auf 186.1 (offen) |
 | 149.1 | M | von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates): in die Zählung 149 aufneh | Dauerzeile bis 24.10. |
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
@@ -106,6 +106,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Nicht gestellt: 26 (Team Tom)
 
 Ohne Datei: 72s.1 (Kreativ)
 
