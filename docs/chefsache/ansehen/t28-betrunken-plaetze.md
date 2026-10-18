@@ -1,5 +1,5 @@
-# Jerry · Build 28 · Version folgt · Betrunken ohne Rennen, MARS-Plätze vorn/hinten · PR #117
-E Kampf · Jerry · 18.10., 17:40 · APK: folgt, sobald der Build durch ist
+# Jerry · Build 28 · 0.1.859 · Betrunken ohne Rennen, MARS-Plätze vorn/hinten · PR #117
+E Kampf · Jerry · 18.10., 17:40 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39140277769)
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
