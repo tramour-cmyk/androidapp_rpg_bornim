@@ -10,13 +10,13 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 176 | M? | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengang | in Arbeit: Licht reicht so weit wie die Sicht, Schein wie Wandfackel (Zu 176) | claude/tom-173-met |
+| 176 | M | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengang | in Arbeit: Licht reicht so weit wie die Sicht, Schein wie Wandfackel (Zu 176) | claude/tom-173-met |
 | 84.1T | M | von Homer: Texte Fackel und Leuchtfunke fertig, `STORY-SPIEL.md` Marken `[84.1.…]`, `[84.5.…]`; Platzhalter in `Light.kt`, `Items.kt` ersetzen, Ladentext und Meldungen an/aus für die Fackel neu | offen | – |
-| 175 | M? | Ruckeln beim Spielstart nach der Blende „Bornim“ | offen (Zu 175) | – |
+| 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | offen (Zu 175) | – |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
-| 173 | M? | Met: nach dem Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21) | fertig im Zweig, wartet auf Sammelbuild (nächster Tom-Build, mit 176) | claude/tom-173-met |
+| 173 | M | Met: nach dem Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21) | fertig im Zweig, wartet auf Sammelbuild (nächster Tom-Build, mit 176) | claude/tom-173-met |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | bis 62r auf `main`; 62l später | – |
 | 30 | K | Abstürze beim Testen (Technik) | beobachten | – |
 | 150 | K | Spielzeit im Menü | beantwortet; Änderung nur auf Wunsch | – |
