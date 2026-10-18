@@ -34,12 +34,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 10, Muss 4, startbar 8
+**Tom** – offen 10, Muss 5, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 176a | M | Schatten von Fackel und Funke direkt vor der Höhle falsch (Build 25, sonst „klappt überall | startbar |
-| 180 | M? | Zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird (Chef, Build 25) | startbar |
+| 180 | M | Fackel im Laden nicht kaufbar (Chef, Build 25 und 27) | startbar |
 | 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | startbar |
 | 27 | K | Wald „Ort fertig“ | startbar |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
