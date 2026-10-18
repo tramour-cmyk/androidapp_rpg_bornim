@@ -35,7 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
-- 13:58 18.10.: Neustart Tom b6a7a7ce (Übergabe ok, auf main) → Start „Tom – 84.5 Lichttrank mit Fackel (18.10., 13:58)“
+- 13:58 18.10.: Neustart Tom b6a7a7ce (Übergabe ok, auf main) → Start „Tom – 84.5 Lichttrank mit Fackel (18.10., 13:58)“; Vorgänger archiviert, Kosten fehlt (170, 171)
 - 13:45 18.10.: Selbstneustart abgeschlossen: Uhr `trig_01U6ffRSDCwgWdkqneKWafSx`, alte gelöscht, Vorgänger archiviert, 1,72 $ auf Betrieb
 - 13:47 18.10.: Chef: „110 damit erledigt. Wechsel auf Sonnet!“ → Selbstneustart Ford auf sonnet, Mittel (Tiefe 1); neuer Ford übernimmt Uhr `trig_01YX5A7ufr1x8kfSx8NXbjGw` (löschen, eigene anlegen) und archiviert `session_0123vjnDfdTkTv2nqxitYKrm`
 - 13:43 18.10.: Lauf mit `lauf.py` (Kurzzeilen, 167.2; Seiten bis 15.10. geholt, ältere nicht): Jerry 72.10a.8 (1,25 $), Perikles 169 (1,04 $) fertig, archiviert; Start Perikles `session_01EXkFZ41BNwKxWXT9h1zDai` (169), Jerry `session_011hqGLVvsgoy887svBaZi7J` (130.2a Kür). Zweifel an Perikles: 130.2a steht „gebaut, im nächsten Build“, Vorgänger meldete „nichts baubar“ → startbar zählt „gebaut“ als startbar
