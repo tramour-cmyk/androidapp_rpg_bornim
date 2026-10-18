@@ -18,12 +18,13 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 9, Muss 0, startbar 8
+**Homer** – offen 10, Muss 0, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 84.1T.1 | M? | von Team Tom: [84.5.rast] „Dein Funke ist verglommen.“ kommt nach der Rast über das Menü. | startbar |
 | 72.10a.8T | K | von Team Jerry: MARS-Texte zu 72.10a.8 (Absichten gegen die Aufstellung): Zeichen und Meld | startbar |
+| 72.10a.9T | K | von Team Jerry: MARS-Texte zu 72.10a.9 (Rolle und Reaktion je Klasse): Taste „Decken“ und | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
 | 72 | K | Profil und Kampfsystem | startbar |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | startbar |
