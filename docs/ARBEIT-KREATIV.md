@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `ae66f760` (18.10., 16:18)
+**Gelesen bis:** `e86a8beb` (18.10., 20:40)
 
-**Übergabe (18.10., 16:18):** 146 erledigt: `LISTE-FIGUREN.md` mit Spalten Charakter, Schlüssel (Geste aus Build 23 oder Satz), „Kleidung, Farben“; Gestentabelle 134.2 darin aufgegangen; Kapitel 2 Gesten als Vorschlag, Sätze mit den Texten (41). Nachfolger: Homer – 174.1 Wörter für die Plätze im Kampf.
+**Übergabe (18.10., 20:40):** 112: Tom hat noch keine Vorlage (arbeitet an 27); heutige Tempelbilder mit Pixelmessung gegen das Intro an den sieben Punkten gemessen, Ergebnis und Vorrang (Licht zuerst) bei Tom unter „Zu 68“. Texte seit `ae66f760` geprüft (84.5-Texte wortgleich, „Kein Ziel in Sicht.“ ist Systemmeldung). Nachfolger: Homer – 112 Vorlage messen, sobald Tom sie meldet.
 
 ## Zeilen
 
@@ -14,7 +14,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | 186.1 | M? | **von Perikles (Chef 18.10., „186 habe geändert und dann weiter wie empfohlen“):** Prüfbogen für Tester: Fragen zu Spielgefühl und Story (Teile B, C, E) lesen, schärfen, nichts Lenkendes | startbar: Claude-Doc https://claude.ai/code/artifact/a189ca60-7068-4f07-97d6-474b1bb6cf7f (Chef hat geändert, dessen Fassung gilt) |
 | 84.1T.1 | M? | **von Team Tom:** `[84.5.rast]` „Dein Funke ist verglommen.“ kommt nach der Rast über das Menü. Auch nach einem Morgen in einer Szene (`Cmd.Morning`, z. B. Tempelmorgen nach Lyras Rettung), wo der Funke ebenfalls endet? Ja: Tom setzt die Zeile hinter die erste Meldung des Morgens; nein: der Funke endet dort stumm. | offen |
 | 174.1 | K | von Jerry: Plätze im Kampf heißen jetzt „vorn/hinten oben/unten“ (vorn = zum Gegner, oben/unten wie im Bild; Chef-Fund 174); Wörter ansehen, gern bessere (Code: `spotName`, `SkirmishScreen.kt`) | offen |
-| 112 | M | **Tempel neu malen nach Muster Intro** (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team Tom, Zeile 68): wenn Tom die Vorlage hat, misst Homer sie an den sieben Punkten der Abweichungsliste (`DESIGN-STIL.md`), bevor sie zum Chef geht | **jetzt (Chef 18.10., 20:3x, Vorgangsarchiv 68):** Tom baut 68 jetzt; Vorlage an den sieben Punkten messen, sobald sie da ist |
+| 112 | M | **Tempel neu malen nach Muster Intro** (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team Tom, Zeile 68): Vorlage von Tom an den sieben Punkten (`DESIGN-STIL.md`) messen, bevor sie zum Chef geht | wartet auf Vorlage Tom (68 jetzt Muss, Chef 18.10.); Messung der heutigen Bilder steht bei Tom unter „Zu 68“ |
 | 41 | K | Storyplan; Texte Kapitel 2 | offen: K2 ohne 5b fertig, Texte ruhen bis 72s.1; 4.4, 5.3, 6.3 |
 | 72 | K | Profil und Kampfsystem | [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), Kampf-Dokument `DESIGN-KAMPF.md`; beschlossen 72.6–72.15, 72o B, 72o.1 A mit C, 72r–72t, 72v. Chefsache 72s.1 (Gefährte Kapitel 2); 72u B beschlossen (16.10., 21:5x). Offen 72a, 72c–72j. Bau bei Jerry (72.10) |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, `Perks.kt`) | **84.1** Fackel als Gegenstand (Laden, Nebenhand); 84.2, 84.3 im Ideenspeicher; **84.4** Lauschen beim Stehen: Welle am Helden zur Quelle, Stärke = Deutlichkeit (Chef 18:0x), Wort nur bei deutlichem Hören; Stufen Stehen > Schleichen > Gehen > Rennen (Chef 18:1x: „sehr gut“). Kampfteile mit 72b; D3.14 hängt an 84.1 |
