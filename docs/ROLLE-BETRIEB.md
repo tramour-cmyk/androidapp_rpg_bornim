@@ -46,3 +46,5 @@ Diese Datei, `LISTE-BETRIEB.md` ganz, Stellung und Kennungen oben in `ARBEIT-BET
 - **Der alte Ford archiviert sich nie selbst** (D10.1): sonst schaltet sich seine Uhr ab.
 - **Vor dem Archivieren prüfen, ob dort eine Frage des Chefs steht** (15.10., 81v).
 - **Vor dem Archivieren eines Jerry „nichts Neues anfangen“ schicken** (16.10., Ford 2): der Weiter-Haken ließ ihn nach der Übergabe weiterarbeiten; Regel `LISTE-BETRIEB.md` „Fertig“ (158).
+- **`create_session` immer mit `source_url`** (18.10., Jerry 39 lief ohne Repo und konnte nichts tun): nach jedem Start das Etikett prüfen, „no-git-repo“ heißt sofort neu starten.
+- **Kür der Zentrale nur nach Muss und mit Wort des Chefs** (18.10., 21:12 „heute Nacht sollen alle arbeiten“ galt nur für diese Nacht): Muss geht vor Kür, auch wenn ein Kür-Lauf schon läuft (Tom 27 vor 68 nur, weil der Chef es so sagte); eine Pause aus dem Vorrat (Perikles) hebt nur der Chef oder Perikles auf; Abweichungen vom Plan von `lauf.py` immer ins Protokoll.
