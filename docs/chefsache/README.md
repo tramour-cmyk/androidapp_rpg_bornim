@@ -75,11 +75,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | startbar |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | startbar |
 
-**Diogenes** – offen 6, Muss 2, startbar 1
+**Diogenes** – offen 5, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| Release | M | Release-Prüfung (Chef 18.10., 19:5x, Wortlaut: „Mach mal ein Release fertig.“): Prüfberich | startbar |
 | 186.2 | K | von Perikles (Chef 18.10., 186 weiter wie empfohlen): Auswertung der ausgefüllten Prüfböge | wartet auf 186.1 (offen) |
 | 149.1 | M | von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates): in die Zählung 149 aufneh | Dauerzeile bis 24.10. |
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
