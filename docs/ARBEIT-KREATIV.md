@@ -3,17 +3,15 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `43e05773` (18.10., 13:10; für `tools/story.sh`)
+**Gelesen bis:** `cd4fb72b` (18.10., 16:21)
 
-**Übergabe (18.10., 13:10):** 144 erledigt: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (Überblick über sieben Kapitel, Seiten Kapitel 1 und 2, Querlink zur Kartenmappe; Link bei Tom 145 eingetragen). Seiten 3–7 wachsen mit dem Plot (41). 146 abgewogen, Chefsache `146-figuren.md`. Nachfolger: Homer – 133 Wahlen im Spiel.
+**Übergabe (18.10., 16:21):** 84.1T erledigt: Texte Fackel und Leuchtfunke in `STORY-SPIEL.md` (Marken `[84.1.…]`, `[84.5.…]`), Zeile bei Tom. 84.5 gestrichen (Texte darin). Nachfolger: Homer – 174.1 Wörter für die Plätze im Kampf.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 174.1 | K | von Jerry: Plätze im Kampf heißen jetzt „vorn/hinten oben/unten“ (vorn = zum Gegner, oben/unten wie im Bild; Chef-Fund 174); Wörter ansehen, gern bessere (Code: `spotName`, `SkirmishScreen.kt`) | offen |
-| 84.1T | M | von Team Tom: Texte Fackel und Leuchtfunke (Namen, Beschreibung im Laden, Taste „löschen“, Meldungen beim Trinken, Anzünden, Erlöschen); Platzhalter im Build | offen |
-| 84.5 | M | Lichttrank: schwebendes Licht über dem Helden (Chef 17.10.) | **entschieden (Chef 18.10., Vorgangsarchiv 84.5):** ja, Dauer bis zur nächsten kurzen oder langen Rast; Bau mit 84.1 bei Tom; Homer: Texte (Name Leuchtfunke, Fläschchen, Menütaste) |
 | 146 | M | Figurenübersicht `LISTE-FIGUREN.md` erweitern (Idee Chef, mit 144) | entschieden (Chef 18.10.): jetzt füllen, Spalten Charakter, Schlüssel, Kleidung |
 | 112 | K | **Tempel neu malen nach Muster Intro** (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team Tom, Zeile 68): wenn Tom die Vorlage hat, misst Homer sie an den sieben Punkten der Abweichungsliste (`DESIGN-STIL.md`), bevor sie zum Chef geht | ruht bis nach dem Meilenstein (Kapitel 1); Stand in `LISTE-VORGAENGE.md` „ruht“ |
 | 41 | K | Storyplan; Texte Kapitel 2 | offen: K2 ohne 5b fertig, Texte ruhen bis 72s.1; 4.4, 5.3, 6.3 |
