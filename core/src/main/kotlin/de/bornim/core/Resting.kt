@@ -49,20 +49,41 @@ object Resting {
     val room = T("Zimmer", "Room")
     val short = T("Kurze Rast · 1 Stunde", "Short rest · 1 hour")
     val long = T("Lange Rast · 8 Stunden", "Long rest · 8 hours")
-    val shortDoes = T("Ausdauer voll, ein Viertel der TP", "Stamina full, a quarter of HP")
-    val longDoes = T("TP, ZP und Ausdauer voll, Zustände weg", "HP, SP and stamina full, conditions gone")
+    // [86.kurzwirkt]
+    val shortDoes = T("Ausdauer voll, ein Viertel der TP zurück", "Stamina full, a quarter of HP back")
+    // [86.langwirkt]
+    val longDoes = T("TP, ZP und Ausdauer voll, Zustände geheilt", "HP, SP and stamina full, conditions cured")
     val longDone = T("Heute hast du schon lange gerastet.", "You have already had a long rest today.")
     val meadBuy = T("Met · {0} Gold", "Mead · {0} gold")
     val meadDoes = T("Ausdauer voll; zu viel macht betrunken", "Stamina full; too much makes you drunk")
     val roomBuy = T("Zimmer · {0} Gold", "Room · {0} gold")
-    val roomDoes = T("Lange Rast, 8 Stunden", "Long rest, 8 hours")
+    // [86.zimmerwirkt]
+    val roomDoes = T("Ein Bett für die Nacht: lange Rast", "A bed for the night: long rest")
     val leave = T("Weiter", "Go on")
     val hourGone = T("Eine Stunde vergeht.", "An hour passes.")
     val hoursGone = T("Acht Stunden vergehen.", "Eight hours pass.")
-    val shortRested = T("Du hast eine Stunde gerastet. Die Ausdauer ist voll, du erhältst {0} TP zurück.", "You rested for an hour. Your stamina is full, you recover {0} HP.")
-    val longRested = T("Du hast acht Stunden gerastet. TP, ZP und Ausdauer sind voll.", "You rested for eight hours. HP, SP and stamina are full.")
-    val meadDrunk = T("Du trinkst einen Met. Du bist erholt, die Ausdauer ist voll.", "You drink a mead. You feel refreshed, your stamina is full.")
-    val drunkNow = T("Du trinkst einen Met. Du bist betrunken bis zur nächsten Rast.", "You drink a mead. You are drunk until your next rest.")
+    // [86.kurzfertig]
+    val shortRested = T("Eine Stunde Ruhe. Die Ausdauer ist voll, +{0} TP.", "An hour of rest. Your stamina is full, +{0} HP.")
+    // [86.langfertig]
+    val longRested = T("Acht Stunden Schlaf. TP, ZP und Ausdauer sind voll.", "Eight hours of sleep. HP, SP and stamina are full.")
+    // [86.met]
+    val meadDrunk = T("Der Met wärmt. Die Ausdauer ist voll.", "The mead warms you. Your stamina is full.")
+    // [86.metzuviel]
+    val drunkNow = T("Ein Met zu viel. Du bist betrunken bis zur nächsten Rast.", "One mead too many. You are drunk until your next rest.")
+    // [86.rowena.met], [86.rowena.zimmer]: Rowena when the inn's panel opens, one or the other; [86.rowena.genug] while the hero is drunk
+    val rowenaMead = T("Rowena: „Ein Met wärmt die Beine. Nach dem vierten findest du die Tür aber nicht mehr.“", "Rowena: “A mead warms the legs. After the fourth, though, you won't find the door.”")
+    val rowenaRoom = T("Rowena: „Oben ist ein Zimmer frei. Frische Laken, und keiner schnarcht durch die Wand. Meistens.“", "Rowena: “There's a room free upstairs. Fresh sheets, and nobody snores through the wall. Mostly.”")
+    val rowenaEnough = T("Rowena: „Genug für heute, {name}. Geh schlafen, die Treppe ist links.“", "Rowena: “Enough for today, {name}. Go to bed, the stairs are on the left.”")
+
+    /** 86: what Rowena says as the panel opens; [second] picks the room over the mead. */
+    fun rowenaSays(s: GameState, name: String, second: Boolean): T {
+        val t = if (s.drunk) rowenaEnough else if (second) rowenaRoom else rowenaMead
+        return T(t.de.replace("{name}", name), t.en.replace("{name}", name))
+    }
+    /** 139: Rowena buys the hero's raw meat at the counter, at the shop's price. */
+    val meatSell = T("Fleisch verkaufen · {0} Gold", "Sell meat · {0} gold")
+    // [139.rowena.danke]
+    val meatThanks = T("Rowena: „Ehrlicher Preis für ehrliche Ware. Komm wieder, wenn du mehr erlegst.“", "Rowena: “An honest price for honest goods. Come back when you've hunted more.”")
     val noGold = T("Dafür reicht dein Gold nicht.", "You don't have enough gold for that.")
     val staminaDrunk = T("{0} trinkt den Ausdauertrank. Bis zur nächsten Rast reicht der Atem doppelt so lange.", "{0} drinks the stamina draught. Until the next rest, the breath lasts twice as long.")
     val staminaAlready = T("Der Ausdauertrank wirkt noch bis zur nächsten Rast.", "The stamina draught still works until the next rest.")

@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Game
+import de.bornim.core.Items
 import de.bornim.core.Resting
 import de.bornim.core.Ui
 import de.bornim.game.GameViewModel
@@ -94,6 +95,11 @@ private fun RestBody(vm: GameViewModel, game: Game, spot: Resting.Spot) {
                 }
                 Txt(title(lang), size = 22.sp, bold = true, color = Veil.gold)
                 if (spot != Resting.Spot.FIRE) Txt("${Ui.gold(lang)}: ${s.gold}", size = 15.sp, color = Colors.textDim)
+                // 86: Rowena's word as the inn's panel opens, the mead or the room by chance, "enough" while drunk
+                if (spot == Resting.Spot.TAVERN) {
+                    val second = remember { kotlin.random.Random.nextBoolean() }
+                    Txt(Resting.rowenaSays(s, game.hero.name, second)(lang), size = 15.sp)
+                }
                 val longOk = Resting.longAllowed(s)
                 if (spot == Resting.Spot.FIRE) {
                     RestChoice(Resting.short(lang), Resting.shortDoes(lang)) { passing = Resting.Kind.SHORT }
@@ -103,6 +109,13 @@ private fun RestBody(vm: GameViewModel, game: Game, spot: Resting.Spot) {
                         val price = Resting.meadPrice(s)
                         RestChoice(Resting.meadBuy.f(lang, price), Resting.meadDoes(lang), s.gold >= price) {
                             note = game.drinkMead()(lang)
+                            vm.save()
+                            vm.refresh()
+                        }
+                        // 139: Rowena buys raw meat, only while the hero carries some
+                        val meat = s.count("raw_meat")
+                        if (meat > 0) RestChoice(Resting.meatSell.f(lang, meat * game.sellPrice("raw_meat")), "${meat}× ${Items["raw_meat"].name(lang)}") {
+                            note = game.sellMeat()?.invoke(lang)
                             vm.save()
                             vm.refresh()
                         }

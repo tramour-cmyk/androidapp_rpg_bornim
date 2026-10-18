@@ -308,24 +308,30 @@ object Story {
         npcs = listOf(
             // 86.9: after her word Rowena's counter: mead and a room
             Npc("rowena", 1, 2, "innkeeper", Facing.DOWN) { s ->
+                // [139.rowena.fleisch] before the counter, when the hero carries raw meat
+                fun ScriptBuilder.counter() {
+                    if (s.count("raw_meat") > 0) say(rowena, "Frisches Fleisch aus dem Wald? Gib her, daraus wird morgen der Eintopf im Greif.",
+                        "Fresh meat from the woods? Hand it over, it'll be tomorrow's stew at the Griffin.")
+                    tavern()
+                }
                 when {
                     !s.has(QUEST_STARTED) -> script {
                         say(rowena, "Ältester Aldric wartet auf dich. Sein Haus liegt unten links am Dorfplatz.", "Elder Aldric is waiting for you. His house is at the bottom left of the village square.")
-                        tavern()
+                        counter()
                     }
                     !s.has(CHAPTER1_DONE) -> script {
                         say(rowena, "Pass auf dich auf, {name}. Wenn du verletzt bist: Bruder Osric im Tempel heilt jeden, der darum bittet.", "Take care, {name}. If you're hurt, Brother Osric at the temple heals anyone who asks.")
-                        tavern()
+                        counter()
                     }
                     // [68.rowena.lager]
                     s.has(CAMP_TOLD) -> script {
                         say(rowena, "Ein Lager im Süden? Die Fuhrleute meiden die Südstraße seit dem Frühjahr. Jetzt weiß ich vielleicht, warum.",
                             "A camp in the south? The carters have avoided the south road since spring. Now I may know why.")
-                        tavern()
+                        counter()
                     }
                     else -> script {
                         say(rowena, "Für den Helden von Bornim geht das Bier heute aufs Haus!", "Drinks are on the house for the hero of Bornim tonight!")
-                        tavern()
+                        counter()
                     }
                 }
             },
