@@ -3,13 +3,13 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 19:0x, „Tom – 180 Fackel im Laden (18.10., 18:52)“):** `main` in `claude/tom-180-fackel-laden` gemischt (6b553701), Kerntests grün; Chef „180 jetzt“ → Build läuft (PR folgt).
+**Übergabe (18.10., 19:0x, „Tom – 180 Fackel im Laden (18.10., 18:52)“):** `main` in `claude/tom-180-fackel-laden` gemischt (6b553701), Kerntests grün; Chef „180 jetzt“ → Build 30 (PR #119, 0.1.864) grün, Prüfliste t30. Nachfolger: Tom, nach „passt“ PR #119 zusammenführen, t30 löschen, CHANGELOG.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 180 | M | Fackel im Laden nicht kaufbar (Chef, Build 25 und 27) | Build 30 (PR #119), Chef „jetzt“; Prüfliste t30 nach grünem Build (Zu 180) | claude/tom-180-fackel-laden |
+| 180 | M | Fackel im Laden nicht kaufbar (Chef, Build 25 und 27) | Build 30 (PR #119, 0.1.864) fertig, Testbitte t30 beim Chef (Zu 180) | claude/tom-180-fackel-laden |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
