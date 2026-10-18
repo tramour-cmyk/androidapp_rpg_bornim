@@ -33,7 +33,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M | 11,27 $ | Homer mit Chef; Tom, Jerry | gebaut |
 | 69 | Intro in Standbildern (Ankunft bei Nacht) | G Stil | K |  | Homer (69e); Tom | erledigt |
 | 70 | Zwischensequenzen einheitlich, Bildsprache | G Stil | K |  | Ideen | ruht |
-| 71 | Bestandsprüfung Stil und Klang aller Orte (B getan, A und C offen) | Q QS | K |  | Diogenes | offen |
+| 71 | Bestandsprüfung Stil und Klang aller Orte (B getan, A und C offen) | Q QS | K | 4,39 $ | Diogenes | offen |
 | 72 | Profil und Marktvergleich | E Kampf | K | 0,72 | Homer, Jerry | offen |
 | 79 | Kampfhintergründe wie Diagonalwelt | E Kampf | K |  | Ideen | Idee |
 | 81 | Teamleiter „Ford“ | B Steuerung | K |  | Sokrates | erledigt |
