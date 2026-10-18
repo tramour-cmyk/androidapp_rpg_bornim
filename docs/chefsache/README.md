@@ -13,6 +13,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.858](ansehen/t27-hoehle-fackel-start.md) | Build 27 | Schatten vor der Höhle, zweite Fackel, Ruckeln beim Start | Tom | 18.10. |
+| 2 | [–](ansehen/t28-betrunken-plaetze.md) | Build 28 | Version folgt | Jerry | 18.10. |
 
 ## Offen je Rolle
 
