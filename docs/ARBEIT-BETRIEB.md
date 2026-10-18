@@ -35,6 +35,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 
 ## Protokoll
+- 08:24 18.10.: Chef: „Keiner hat Aufgaben, macht mal das, fangt damit an.“ Fehler Ford: 72.10a.T (Muss) bei Homer startbar übersehen, Stillstand Homer seit Übergabe 17.10., 22:26, Ursache Fehler. Startsperre 08:24 Start Homer (72.10a.T, dann Aufbereiten Ideenspeicher So); Startsperre 08:24 Start Jerry (72.10a.7/130.3 laut Übergabe, Chef-Zuruf); Tom: nichts Startbares (139 wartet Sammelbuild, 134.2 wartet auf Homer)
 - 05:05 18.10.: Selbstneustart Ford (Tiefe 5): neue Uhr, alte gelöscht, Vorgänger archiviert, 0,78 $ auf Betrieb; nichts Startbares
 - 21:05 17.10.: Lauf: Pilot gesetzt, Sparmodus vorbei; Diogenes 159 (0,96 $) und Perikles (2,21 $) archiviert, Kosten auf 159–161; 21:06 Start Jerry (Zeile 39, Muss; Tom: 131.1/151–153 warten auf Test t17, kein Muss startbar)
 - 20:1x 17.10.: 160 Chef (Wortlaut): „160 alles bleibt so um Repo“ → gelesen als Empfehlung A (alles im Repo lassen, kein Dokument); an Perikles, Sokrates trägt ins Vorgangsarchiv ein
