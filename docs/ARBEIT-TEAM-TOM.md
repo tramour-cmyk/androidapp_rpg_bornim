@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | **jetzt (Chef 18.10., 20:3x, Vorgangsarchiv 68):** fünf Bilder nach Muster Intro (112, sieben Punkte), Vorlage zuerst an Homer; Durchsicht Chef offen | – |
+| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | **jetzt (Chef 18.10., 20:3x, Vorgangsarchiv 68):** Vorlage Punkte 1–6 an Homer (18.10., 22:5x); in Arbeit: 7 Leben (Kerzen, Staub) | `claude/tom-68-tempel` |
 | 27 | K | Wald „Ort fertig“ | gebaut: D3.14 Mondlicht, wartet auf Sammelbuild; Höhlenschacht nachts 27o bei Jerry | `claude/tom-d3-14-mondlicht` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | bis 62r auf `main`; 62l später | – |
