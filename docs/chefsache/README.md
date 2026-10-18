@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [185](entscheiden/185-ford-neustartgrenze.md) | Kür | B Abläufe | 18.10. | Ford startet sich erst bei 400.000 statt 150.000 Token selbst neu; dann musst du ihn viel seltener von Hand starten | Sokrates |
 
 ## Anzusehen
 
@@ -88,10 +92,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 
-**Sokrates** – offen 5, Muss 0, startbar 2
+**Sokrates** – offen 6, Muss 0, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 185 | K | von Chef (18.10., 18:5x): Ford wegen der Tiefe von den Teams neu starten lassen? (geht nic | Chef (Datei in der Chefsache) |
 | 167 | K | Chef: Werkzeuge statt Sitzungen, Betrieb schlank | startbar |
 | 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Test/Build |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles) | ruht bis 31.10. |
