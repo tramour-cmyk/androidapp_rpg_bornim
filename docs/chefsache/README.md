@@ -18,22 +18,22 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 12, Muss 0, startbar 10
+**Homer** – offen 12, Muss 3, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 84.5 | M | Muss (Chef 18.10., 12:36: „146, 144, 84.5 als Muss bei Homer, damit da was vorwärts geht“) | startbar |
+| 144 | M | von Chef (17.10., 11:5x, über Sokrates): „Unseren Storyplan, wo auch so ein irgendwie in d | startbar |
+| 146 | M | Idee Chef (17.10., 12:5x), mit 144: Figurenübersicht LISTE-FIGUREN.md erweitern: „Beschrei | startbar |
 | 86.9 | K | von Chef (18.10., 12:1x, Wortlaut): „Status heißt \"Met\" und nicht \"betrunken\". Warum?“ | startbar |
 | 112 | K | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | ruht |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | startbar |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | startbar |
-| 84.5 | K | von Chef (17.10., 14:0x, über Ford): Lichttrank für alle Klassen: „ein kleines Leuchtelich | startbar |
 | 59e | K | von Team Jerry (16.10., 19:5x), Händlervorrat: 59e.1 Thessas Ausrüstung wechselt heute all | startbar |
 | 38 | K | Balance-Langzeitplan über alle Kapitel (Stufe, Gold, Preise, Ausrüstung, Ziel-Siegquoten) | startbar |
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
-| 144 | K | von Chef (17.10., 11:5x, über Sokrates): „Unseren Storyplan, wo auch so ein irgendwie in d | startbar |
-| 146 | K | Idee Chef (17.10., 12:5x), mit 144: Figurenübersicht LISTE-FIGUREN.md erweitern: „Beschrei | startbar |
 
 **Tom** – offen 11, Muss 3, startbar 8
 
