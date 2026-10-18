@@ -66,6 +66,12 @@ def text(stufe, plus, gesamt):
 
 
 def prompt(eingabe):
+    # Uhr (Chef 18.10.: „keiner kann die Uhr lesen“): jede Nachricht trägt die echte Zeit, die Sitzung schätzt nie
+    try:
+        import datetime, zoneinfo
+        print("Uhr: " + datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Berlin")).strftime("%d.%m., %H:%M") + " (Berliner Zeit, Systemuhr; so stempeln)")
+    except Exception:
+        pass
     pfad = eingabe.get("transcript_path")
     sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
     if not pfad or not os.path.exists(pfad):
