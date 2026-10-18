@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 176 | M? | Fackel (84.1/84.5, Build 24) leuchtet nicht richtig aus, auch im Höhlengang | offen (Zu 176) | – |
+| 176 | M? | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengang | offen (Zu 176) | – |
 | 175 | M? | Ruckeln beim Spielstart nach der Blende „Bornim“ | offen (Zu 175) | – |
 | 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem Bau (Vorgangsarchiv 84.5) | wartet auf Test: Build 24 (0.1.843, PR #114, mit 84.1) | claude/tom-84-lichttrank |
 | 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (13e.6, 84.5) | wartet auf Test: Build 24 (0.1.843, PR #114, mit 84.5) | claude/tom-84-lichttrank |
@@ -45,3 +45,5 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 **Zu 175** (Chef 18.10., 14:46, Wortlaut, mit Bild des Testmodus): „Ruckeln beim Spielstart nach Blende Bornim...“ Testmodus im Bild: Letztes Ende der App 18.10., 14:44:40 „App aktualisiert“ (also frisch installiert, Build 24 vermutet); Blende: bereit nach –; Held ganz gezeichnet nach 5,8 s; Kampf bereit: Eröffnung –, Held –, Gegner –. Hinweis: gleiche Technik wie Vorgang der Blende (Tom); Ursache prüfen (Held-Zeichnung 5,8 s, Vorwärmen), nach frischer Installation und bei erstem Start getrennt messen. Perikles entscheidet Muss.
 
 **Zu 176** (Chef 18.10., 15:13, Wortlaut, mit Bild): „Fackel bei Build 24 leuchtet nicht richtig aus. Auch im Gang in der Höhle wirkt es nicht richtig.“ Bild: Nacht, Tag 6 00:14, Magier mit Fackel am Höhleneingang; der Lichtkegel um die Fackel ist kaum zu sehen, Umgebung bis auf einen schmalen Streifen schwarz. Zum Test von Build 24 (t24, 84.1/84.5): Ergebnis „nicht in Ordnung“, nicht freigeben, bis behoben. Perikles entscheidet Muss.
+
+**Zu 176, Nachtrag** (Chef 18.10., 15:15, Wortlaut, mit Bild): „Gibt auch für Leuchtfunken“ (gemeint: dasselbe Problem beim Leuchtfunken, 84.5). Bild: Nacht, Tag 6 01:17, Magier mit Leuchtfunke über dem Kopf (heller Punkt mit kleinem Hof), Umgebung kaum aufgehellt, Lichtkegel nicht erkennbar. Vorgang 176 umfasst Fackel und Leuchtfunke.
