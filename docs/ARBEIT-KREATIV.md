@@ -3,15 +3,14 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `e86a8beb` (18.10., 20:40)
+**Gelesen bis:** `ce71b648` (18.10., 21:27)
 
-**Übergabe (18.10., 20:40):** 112: Tom hat noch keine Vorlage (arbeitet an 27); heutige Tempelbilder mit Pixelmessung gegen das Intro an den sieben Punkten gemessen, Ergebnis und Vorrang (Licht zuerst) bei Tom unter „Zu 68“. Texte seit `ae66f760` geprüft (84.5-Texte wortgleich, „Kein Ziel in Sicht.“ ist Systemmeldung). Nachfolger: Homer – 112 Vorlage messen, sobald Tom sie meldet.
+**Übergabe (18.10., 21:27):** 186.1 erledigt: Prüfbogen B, C, E im Doc geschärft (Doppelfragen getrennt, Vorannahmen raus: B2 ohne „nicht nur angreifen“, B9/C8 mit „nein“-Feld; Kampfdauer als Dreiwahl B6; B5 Schwierigkeit gestrichen, weil doppelt mit E4; E4 hieß „Spielgefühl“, fragte Schwierigkeit; E1 mit Skalenanker; E6 mit Ort). A und D unverändert. Story-Texte seit `e86a8beb` ohne Änderung. Nachfolger: Homer – 112 Vorlage messen, sobald Tom sie meldet.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 186.1 | M? | **von Perikles (Chef 18.10., „186 habe geändert und dann weiter wie empfohlen“):** Prüfbogen für Tester: Fragen zu Spielgefühl und Story (Teile B, C, E) lesen, schärfen, nichts Lenkendes | startbar: Claude-Doc https://claude.ai/code/artifact/a189ca60-7068-4f07-97d6-474b1bb6cf7f (Chef hat geändert, dessen Fassung gilt) |
 | 84.1T.1 | M? | **von Team Tom:** `[84.5.rast]` „Dein Funke ist verglommen.“ kommt nach der Rast über das Menü. Auch nach einem Morgen in einer Szene (`Cmd.Morning`, z. B. Tempelmorgen nach Lyras Rettung), wo der Funke ebenfalls endet? Ja: Tom setzt die Zeile hinter die erste Meldung des Morgens; nein: der Funke endet dort stumm. | offen |
 | 174.1 | K | von Jerry: Plätze im Kampf heißen jetzt „vorn/hinten oben/unten“ (vorn = zum Gegner, oben/unten wie im Bild; Chef-Fund 174); Wörter ansehen, gern bessere (Code: `spotName`, `SkirmishScreen.kt`) | offen |
 | 112 | M | **Tempel neu malen nach Muster Intro** (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team Tom, Zeile 68): Vorlage von Tom an den sieben Punkten (`DESIGN-STIL.md`) messen, bevor sie zum Chef geht | wartet auf Vorlage Tom (68 jetzt Muss, Chef 18.10.); Messung der heutigen Bilder steht bei Tom unter „Zu 68“ |
