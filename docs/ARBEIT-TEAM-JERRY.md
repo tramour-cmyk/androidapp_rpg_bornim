@@ -2,7 +2,6 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 24, Muss 5, A 0, Chefsache 2**
 
 **Testergebnis Chef (18.10., „Build 19 passt“; im Chat bestätigt „freigegeben“):** Build 19 (0.1.835, PR #109) zusammengeführt (c2f9267), t19 gelöscht, CHANGELOG. Antwort zu 130.2: „meist dasselbe getippt, Takt okay“; Söldner-Frage offen (Sokrates).
 

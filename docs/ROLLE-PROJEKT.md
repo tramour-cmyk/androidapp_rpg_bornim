@@ -24,7 +24,7 @@ Abläufe statt Spiel: für jeden Fehler eine neue Regel, statt das Werkzeug zu r
 - **Vorrang:** Reihenfolge der Vorräte nach dem Wochenziel; Muss oben.
 - **Kosten** (124): Anteil je Hauptthema aus `LISTE-VORGAENGE.md`; **Anteil Spiel** = Kosten der Sitzungen Tom, Jerry, Homer durch alle, aus `cost_usd` (`tools/kosten.py`, 167.4), Stufen 50 % bis 25.10., 70 % bis 1.11., 90 % Richtung; Guthaben der Accounts (ruht die Niederlassung: nur Max; Zeile „Guthaben:“ in `ARBEIT-BETRIEB.md`, 128); Prüfung der Abos um den 10.11. (99e; Pro gekündigt, nur Max). Jede Kostenauswertung bringt Sparvorschläge mit (Chef 17.10.: „Sollte doch klar sein, dass das Teil der Entscheidungsfindung sein muss“).
 - **Abläufe:** Fehler im Werkzeug beheben statt mit einer weiteren Zeile; Umbauten von Notizen und Werkzeug. „Lehren für alle“ in die passende Rollendatei übernehmen.
-- **Tagesrückblick** (90, Probe 18.–22.10., Kopf „Tag n von 5“): erfassen (`git log`, `CHANGELOG.md`, Vorgangsarchiv, Kopfzeilen, Chefsache mit Alter, Sitzungen mit `cost_usd`), auswerten gegen Wochenziel und Leitbild, höchstens drei Empfehlungen; **Stichprobe** (165): je Art von Ergebnis (Testdatei, Chefsache-Datei, Meldung, Übergabe) die zwei neuesten verschiedener Absender vergleichen, höchstens 15 Minuten, Abweichung an der Wurzel beheben (Werkzeug oder Rollendatei), nicht nur die Datei; 23.10. Bilanz mit dem Chef (Befunde je Rückblick gegen Kosten: bleibt die Stichprobe?).
+- **Tagesrückblick** (90, Probe 18.–22.10., Kopf „Tag n von 5“): erfassen (`git log`, `CHANGELOG.md`, Vorgangsarchiv, `startbar.py --stand`, Chefsache mit Alter, Sitzungen mit `cost_usd`), auswerten gegen Wochenziel und Leitbild, höchstens drei Empfehlungen; **Stichprobe** (165): je Art von Ergebnis (Testdatei, Chefsache-Datei, Meldung, Übergabe) die zwei neuesten verschiedener Absender vergleichen, höchstens 15 Minuten, Abweichung an der Wurzel beheben (Werkzeug oder Rollendatei), nicht nur die Datei; 23.10. Bilanz mit dem Chef (Befunde je Rückblick gegen Kosten: bleibt die Stichprobe?).
 
 ## Entscheidet selbst
 
@@ -40,7 +40,7 @@ Ford (Wochenziel, Vorrang; er teilt zu); Diogenes: Abläufe nur in der Wochenzä
 
 ## Start
 
-Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), eigene Punkte in der Chefsache, Kopfzeilen aller Vorräte; Prüfbericht und `git log <Gelesen bis>..origin/main` vor jeder Antwort. **Ford muss laufen** (außer Stellung „aus“): `get_session` der Sitzung oben in `ARBEIT-BETRIEB.md`; älter als 70 Minuten → `send_message` „Ford-Lauf“. Größere Entwürfe als Claude-Docs-Dokument; Abläufe in `LISTE-RELEASE-NEUSTART.md`, Aufbau in `FIRMA.md`. **Ende:** Entscheidungen und Lehren eintragen, „Gelesen bis“ setzen, Übergabe mit „Nachfolger: Perikles – <Thema>“, pushen.
+Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), eigene Punkte in der Chefsache, `python3 tools/startbar.py --stand`; Prüfbericht und `git log <Gelesen bis>..origin/main` vor jeder Antwort. **Ford muss laufen** (außer Stellung „aus“): `get_session` der Sitzung oben in `ARBEIT-BETRIEB.md`; älter als 70 Minuten → `send_message` „Ford-Lauf“. Größere Entwürfe als Claude-Docs-Dokument; Abläufe in `LISTE-RELEASE-NEUSTART.md`, Aufbau in `FIRMA.md`. **Ende:** Entscheidungen und Lehren eintragen, „Gelesen bis“ setzen, Übergabe mit „Nachfolger: Perikles – <Thema>“, pushen.
 
 ## Begründungen
 

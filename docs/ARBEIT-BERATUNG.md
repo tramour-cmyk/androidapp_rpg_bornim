@@ -2,7 +2,6 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**offen 6, Muss 0, A 0, Chefsache 1**
 
 **Antwort Chef zu 130.2 Gefühl (18.10., Wortlaut, aufgenommen von Perikles):** „Hab zwar verschiedenes probiert, aber meist dasselbe getippt, Takt war okay.“ Die Frage zum Söldner (veränderte er die Entscheidung?) ist offen. Für das Gespräch MARS.
 

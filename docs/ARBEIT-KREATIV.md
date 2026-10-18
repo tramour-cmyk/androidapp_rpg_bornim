@@ -2,7 +2,6 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**offen 12, Muss 0, A 0, Chefsache 1**
 
 **Gelesen bis:** `ac2439ab` (18.10., 08:30; für `tools/story.sh`)
 

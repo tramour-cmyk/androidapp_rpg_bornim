@@ -2,7 +2,6 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 11, Muss 3, A 0, Chefsache 1**
 
 **Übergabe (17.10., 23:17, „Tom – 139 Fleisch an die Wirtin (17.10., 22:48)“) – Nachfolger: keiner (nichts Startbares):** 139 gebaut und selbst geprüft (Kerntest, Standbilder `RAST=1 ONLY=54`/`55`), Zweig `claude/tom-139-fleisch`, noch kein PR; wartet auf Sammelbuild (78a) oder „jetzt“ des Chefs.
 

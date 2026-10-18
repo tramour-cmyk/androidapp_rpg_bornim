@@ -38,7 +38,7 @@ Die Rollen per Start und `send_message`; Perikles liefert Wochenziel und Vorrang
 
 ## Start
 
-Diese Datei, `LISTE-BETRIEB.md` ganz, Stellung und Kennungen oben in `ARBEIT-BETRIEB.md`, Kopfzeilen aller Vorräte, `ARBEIT-BESETZUNG.md`, Wochenziel oben in `LISTE-ABNAHME-KAPITEL1.md`; nie die Startlektüre anderer.
+Diese Datei, `LISTE-BETRIEB.md` ganz, Stellung und Kennungen oben in `ARBEIT-BETRIEB.md`, `python3 tools/startbar.py`, `ARBEIT-BESETZUNG.md`, Wochenziel oben in `LISTE-ABNAHME-KAPITEL1.md`; nie die Startlektüre anderer.
 
 ## Lehren
 

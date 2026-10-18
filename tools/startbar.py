@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Startbares je Rolle (166): liest alle docs/ARBEIT-*.md und rechnet, was Ford starten darf.
 
-Aufruf: python3 tools/startbar.py [--alle]   (Ford ruft es in jedem Lauf, LISTE-BETRIEB.md Schritt 1 und 4)
+Aufruf: python3 tools/startbar.py [--alle] [--stand]   (Ford ruft es in jedem Lauf, LISTE-BETRIEB.md Schritt 1 und 4)
 Je Rolle: oberstes startbares Muss und oberste startbare Kür (Kl. „M?“ zählt als Kür, „–“ zählt nicht);
-dazu, warum andere Zeilen nicht startbar sind (--alle: jede Zeile). Prüft „offen n, Muss m“ der Kopfzeile
-gegen die Zeilen (Chefsache k nicht: die Zuordnung Datei–Zeile ist nicht eindeutig). Pause bis <Zeit> im Kopf sperrt die Rolle. Exit 1, wenn eine Kopfzeile falsch ist.
+dazu, warum andere Zeilen nicht startbar sind (--alle: jede Zeile). Es gibt keine Kopfzeile mehr (167.1):
+--stand rechnet je Rolle „offen n, Muss m, startbar s“ aus den Zeilen. Pause bis <Zeit> im Kopf sperrt die Rolle. Exit 1 bei erledigten, nicht gestrichenen oder unlesbaren Zeilen.
 Nicht startbar: „ruht“, „wartet auf X“ / „hängt an X“ / „nach X“ (solange X in LISTE-VORGAENGE.md nicht erledigt ist),
 Datei des Punkts in docs/chefsache/entscheiden/, „wartet auf Chef“, „wartet auf Test/Sammelbuild“, Datum in der Zukunft.
 Zusätzlich (166.2, D27): Stand beginnt mit „erledigt“/„auf main“ → „erledigt, nicht gestrichen“ (zählt nicht als offen, Exit 1);
@@ -119,10 +119,6 @@ def blocker(nr, rest, chef, thema=""):
     if re.search(r"wartet auf (Test|Sammelbuild|Build)", rest): return "wartet auf Test/Build"
     return None
 
-def kopf(inhalt):
-    m = re.search(r"\*\*offen (\d+), Muss (\d+), A (\d+), Chefsache (\d+)\*\*", inhalt)
-    return tuple(int(x) for x in m.groups()) if m else None
-
 def pause(inhalt):
     """„Pause bis TT.MM.[, HH[:MM] Uhr]“ in den ersten 14 Zeilen: Text, solange der Zeitpunkt nicht erreicht ist (D27.4).
     Nicht lesbares Datum sperrt vorsichtshalber und sagt es."""
@@ -139,6 +135,7 @@ def pause(inhalt):
 
 def main():
     alle = "--alle" in sys.argv
+    stand = "--stand" in sys.argv
     chef = chefdateien()
     falsch = 0
     print("Startbar am %s (Systemdatum):" % datetime.date.today().strftime("%d.%m."))
@@ -151,12 +148,7 @@ def main():
         sperr = {z[0]: blocker(z[0], z[3], chef, z[2]) for z in zs}
         erl = [z[0] for z in zs if sperr[z[0]] == "ERLEDIGT"]
         zs = [z for z in zs if sperr[z[0]] != "ERLEDIGT"]
-        soll = (len(zs), sum(1 for z in zs if z[1] == "M"))
-        k = kopf(inhalt)
         warn = ""
-        if k is None: warn = "  KOPF FEHLT"
-        elif (k[0], k[1]) != soll:
-            warn = "  KOPF FALSCH: steht offen %d, Muss %d; Zeilen ergeben offen %d, Muss %d" % (k[0], k[1], *soll)
         if erl: warn += "  ERLEDIGT, NICHT GESTRICHEN: " + ", ".join(erl)
         if unles: warn += "  UNLESBAR (Klasse/Spalten): " + ", ".join(unles)
         if warn: falsch += 1
@@ -171,6 +163,9 @@ def main():
             if erstes[art] is None: erstes[art] = (nr, kl, thema)
         def kurz(e): return "%s %s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70]) if e else "–"
         print("  %s: Muss %s | Kür %s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), warn))
+        if stand:
+            st = sum(1 for z in zs if not sperr[z[0]])
+            print("      offen %d, Muss %d, startbar %d, gesperrt %d" % (len(zs), sum(1 for z in zs if z[1] == "M"), st, len(sperren)))
         if alle:
             for nr, b in sperren: print("      nicht startbar: %s: %s" % (nr, b))
         elif sperren:
