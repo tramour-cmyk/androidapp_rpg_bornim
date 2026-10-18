@@ -57,7 +57,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | Spielzeit im Menü | startbar |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 21, Muss 3, startbar 15
+**Jerry** – offen 21, Muss 3, startbar 14
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -67,7 +67,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | startbar |
 | 168 | K | Kapitel 2: Garrick fest an der Seite, Söldner ab Kapitel 3 | startbar |
-| 130.3 | K | MARS mit drei bis vier Gegnern, die verschiedene Antworten verlangen | startbar |
+| 130.3 | K | MARS mit drei bis vier Gegnern, die verschiedene Antworten verlangen | wartet auf Test/Build |
 | 72.10b | K | Grak-Probe: Stufe festlegen oder wählbar, Treffer sichtbar | startbar |
 | D23 | K | Diogenes Lauf 23: Tode Krogg, Magier und Kleriker | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (offen) |
