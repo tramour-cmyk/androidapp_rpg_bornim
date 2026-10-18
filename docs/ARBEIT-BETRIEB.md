@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 23:41 18.10.: Neustart Jerry 579c4948: Vorgänger 72.10a.11 archiviert, 2,57 $ auf 72.10a.11. Nachfolger „72u.1 Kampfort“ NICHT gestartet (Abweichung): Wochenziel nimmt 72u aus („nicht diese Woche“, Neues nach dem Meilenstein), drei Kür-Zweige (.8 in Build 31, .9, .11) warten auf Test 31; Jerry ohne Sitzung, bis der Chef „jetzt“ sagt oder Muss kommt
 - 23:33 18.10.: Neustart Jerry 137f4294 (Übergabe ok) → „Jerry – 72.10a.11“ `session_01DTRfTer63VDKn6t2Rge5Zt`; Build 31 grün, Testbitte gemeldet; Vorgänger 72.10a.9 archiviert, Kosten fehlt. Befund an Perikles: startbar führt 72.10a.9 trotz „gebaut“ als startbar
 - 23:23 18.10.: Neustart Jerry 316f4b41 (Übergabe ok) → „Jerry – 72.10a.9“ `session_01VBgBUhPbjVCbpaRnLoXwXv` (zuerst PR #120 Build 31); Vorgänger archiviert, 4,85 $ zu gleichen Teilen auf 72.10a.8, 172
 - 23:08 18.10.: Neustart Jerry → „Jerry – 72.10a.8“ `session_01LPhxWDpxrW3qWNL1iycH2u` (Kür; Neustart-Meldung 3601406c, Übergabe ok; Chef 21:12 „heute Nacht sollen alle arbeiten“). Zweifel an Perikles: Wochenziel nennt Kampfprobe 72.10 „nicht diese Woche“, startbar führt 72.10a.8 als Kür. Vorgänger D21.J archiviert, 1,27 $ auf D21
