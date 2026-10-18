@@ -11,7 +11,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 156.1 | M | **von Sokrates (Chef 18.10., 19:4x, Wortlaut „156.1 ja“, jetzt):** Jerry auf opus: `tools/lauf.py` MODELL Jerry = opus, Startzuordnung in `LISTE-BETRIEB.md` und `ROLLE-ENTWICKLUNG.md` nachziehen (Vorgangsarchiv 156.1) | startbar |
 | 165 | M | Ablaufstichprobe | Dauerzeile, Tag 1 von 5 getan (18.10.), Bilanz 23.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | Messung: Grenze umstellen (`LISTE-BETRIEB.md` Selbstneustart), einen Tag Kosten je Lauf mit `tools/kosten.py`, dann Ergebnis an Sokrates |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Messung 20.–21.10. |
