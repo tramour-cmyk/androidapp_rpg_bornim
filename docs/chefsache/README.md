@@ -12,7 +12,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 2 | [0.1.853](ansehen/t26-tod-feuer-plaetze.md) | Build 26 | Tod ohne Goldverlust, Höhlenfeuer, Plätze, Met | Jerry | 18.10. |
+| 1 | [0.1.853](ansehen/t26-tod-feuer-plaetze.md) | Build 26 | Tod ohne Goldverlust, Höhlenfeuer, Plätze, Met | Jerry | 18.10. |
 
 ## Offen je Rolle
 
@@ -33,19 +33,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 13, Muss 7, startbar 10
+**Tom** – offen 10, Muss 4, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 176 | M | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengan | startbar |
 | 176a | M | Schatten von Fackel und Funke direkt vor der Höhle falsch (Build 25, sonst „klappt überall | startbar |
-| 84.1T | M | von Homer: Texte Fackel und Leuchtfunke eingesetzt (Laden, an/aus, Funke, nach der Rast) | startbar |
 | 180 | M? | Zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird (Chef, Build 25) | startbar |
 | 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | wartet auf Test (Build) |
 | 27 | K | Wald „Ort fertig“ | startbar |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
-| 173 | M | Met: nach dem Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21) | startbar |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | startbar |
 | 30 | K | Abstürze beim Testen (Technik) | startbar |
 | 150 | K | Spielzeit im Menü | startbar |
