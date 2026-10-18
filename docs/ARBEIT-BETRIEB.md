@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 14:41 18.10.: Startsperre 14:41 Start Tom 173 (Neustart auf Meldung fc4f2ee3)
 - 14:35 18.10.: Selbstneustart abgeschlossen (Uhr neu, alte gelöscht, Vorgänger archiviert, 1,35 $ auf Betrieb); die vier offenen Sitzungen (Perikles 169, 167.8, 143, Tom 114) ließen sich diesmal archivieren, Kosten 2,48/3,23/1,52/5,39 $ (kumuliert) eingetragen
 - 14:31 18.10.: Selbstneustart Ford (186 Tsd. Token) → Start „Ford – Betriebsleiter (18.10., 14:31)“, Tiefe 2; offen für den Nachfolger: 4 nicht archivierte Sitzungen (siehe Zeile 14:06), Perikles 169 `session_01VrzfAacCJttsBBXRZVnjpP` prüfen
 - 14:30 18.10.: Neustart Tom 494045f8 (Übergabe ok, auf main) → Start „Tom – 84.1/84.5 Build und Prüfliste (18.10., 14:30)“; Vorgänger archiviert, 8,44 $ auf 84.5
