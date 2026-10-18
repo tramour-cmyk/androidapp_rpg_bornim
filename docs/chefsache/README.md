@@ -37,14 +37,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 15, Muss 3, startbar 6
+**Tom** – offen 15, Muss 3, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 176 | M? | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengan | startbar |
 | 175 | M? | Ruckeln beim Spielstart nach der Blende „Bornim“ | startbar |
-| 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem B | wartet auf Test (Build) |
-| 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (1 | wartet auf Test (Build) |
+| 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem B | startbar |
+| 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (1 | startbar |
 | 114 | K | Aufwachen am Bett im Gasthaus | wartet auf Test (Build) |
 | 27 | K | Wald „Ort fertig“ | wartet auf 84.1 (Test) |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
