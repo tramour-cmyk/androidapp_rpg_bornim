@@ -43,19 +43,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 170 | M? | von Chef (18.10., 12:5x, Tester-Feedback, Wortlaut): „Am Lagerfeuerplatz bei Garrick ist e | startbar |
-| 171 | M? | von Chef (18.10., 12:5x, Tester-Feedback, Wortlaut): „Dann brauchen wir unbedingt in der T | startbar |
-| 114 | K | von Chef (18.10.): „114 ja“: Aufwachen am Bett im Gasthaus; 114.1 Aufstehsequenz zurückges | startbar |
-| 27 | K | Wald „Ort fertig“ (DESIGN-ABNAHME.md) | wartet auf 84.1 (offen) |
+| 170 | M? | Stein am Lagerfeuer bei Garrick versetzen | startbar |
+| 171 | M? | Gold als eigene Zeile in der Tasche | startbar |
+| 114 | K | Aufwachen am Bett im Gasthaus | startbar |
+| 27 | K | Wald „Ort fertig“ | wartet auf 84.1 (offen) |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
-| 26 | M | Kapitel 1 fertig: Zielliste vor Neuem (LISTE-ABNAHME-KAPITEL1.md) | Teil erledigt, Rest wartet |
-| 139 | M | (Chef 17.10., 22:4x: Muss) von Perikles (Ideenspeicher, 137): Fleisch an die Wirtin (Rowen | startbar |
-| 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, | startbar |
+| 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
+| 139 | M | Fleisch an die Wirtin (Rowena) verkaufen | startbar |
+| 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | startbar |
 | 30 | K | Abstürze beim Testen (Technik) | startbar |
-| 134.2 | K | von Chef (17.10., 10:4x): Gesten zum Zeichen 134.1 (Hand heben, herwinken, nicken; je Pers | startbar |
-| 86 | K | von Homer (18.10.): Wortlaut Rast, Met, Zimmer und Rowenas Zeilen dazu wortgetreu in Resti | startbar |
-| 150 | K | von Chef (17.10., 16:1x): „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt | startbar |
-| 145 | K | von Chef (17.10., 11:5x, über Sokrates): „im Artefakt, das braucht ja auch nicht die Niede | startbar |
+| 134.2 | K | Gesten zum Zeichen 134.1 | startbar |
+| 86 | K | Wortlaut Rast, Met, Zimmer, Rowenas Zeilen in Resting.kt | startbar |
+| 150 | K | Spielzeit im Menü | startbar |
+| 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
 **Jerry** – offen 23, Muss 3, startbar 18
 
@@ -114,6 +114,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Nicht gestellt: 26 (Team Tom)
 
 Ohne Datei: 72s.1 (Kreativ)
 
