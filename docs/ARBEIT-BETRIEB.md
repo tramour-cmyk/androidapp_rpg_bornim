@@ -101,3 +101,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:55 18.10.: Chef: „Release auslösen, wenn Diogenes freigibt“ (Wortlaut): bei Prüfbericht Release „ja“ von Diogenes sofort android.yml mit release=true auf main, danach CHANGELOG umbenennen, Link nennen.
 - 20:00 18.10.: Diogenes: Prüfbericht Release 4002fa46 (Code a073453c, Build 866 grün), freigeben ja (Lauf 29). Auslösen von android.yml release=true von der Auto-Freigabe abgelehnt (Production Deploy), nicht umgangen; Release wartet auf Chef (Erlaubnis für den Befehl oder selbst auslösen), CHANGELOG noch nicht umbenannt.
 - 20:03 18.10.: Release auf Wort des Chefs („Erstelle das Release“) ausgelöst: android.yml release=true, Lauf 867 (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39152235097); CHANGELOG „## v0.1.867 – 18.10.2026, 20:01“, neuer leerer Abschnitt „## Unveröffentlicht“ angelegt.
+- 20:03 18.10.: Startsperre 20:03 Start Tom, Jerry (lauf.py)
