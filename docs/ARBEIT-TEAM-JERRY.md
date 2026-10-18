@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (18.10., 23:21, Jerry – 72.10a.8):** 72.10a.8 gebaut (Durchbrechen, Flanke, Platztausch halber Zug; Texte vorläufig, 72.10a.8T bei Homer); Sammelbuild 31 mit 172 und Prüfpunkt 130.2: PR #120, Zweig `claude/jerry-build-172-72-10a-8`, Prüfliste `ansehen/t31-…`. Nachfolger: Jerry, nächster startbarer Punkt (72.10a.9).
+**Übergabe (18.10., 23:21, Jerry – 72.10a.8):** 72.10a.8 gebaut (Durchbrechen, Flanke, Platztausch halber Zug; Texte vorläufig, 72.10a.8T bei Homer); Sammelbuild 31 mit 172 und Prüfpunkt 130.2: PR #120, Zweig `claude/jerry-build-172-72-10a-8`, Prüfliste `ansehen/t31-…`. Build 0.1.869 lief beim Übergeben noch: Nachfolger prüft zuerst PR #120 (grün → Testbitte melden; rot → beheben). Nachfolger: Jerry – 72.10a.9 Rolle und Reaktion je Klasse.
 
 ## Zeilen
 
