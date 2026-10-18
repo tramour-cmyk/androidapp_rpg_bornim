@@ -64,7 +64,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 130.2 | MARS: Prüfpunkt „Gefühl“ im Build 72.10a | G Balance | M | 1,26 $ | Jerry | offen |
 | 130.3 | MARS: Gegner mit verschiedenen Antworten | E Kampf | K | 2,04 $ | Jerry | erledigt |
 | 72.10a.7 | MARS: Reihen, Klassen, Zweitwaffe | E Kampf | K | 1,22 $ | Jerry | erledigt |
-| 72.10a.8 | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | E Kampf | K |  | Jerry | offen |
+| 72.10a.8 | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | E Kampf | K |  | Jerry | gebaut |
+| 72.10a.8T | MARS: Texte zu Durchbrechen und Flanke | E Kampf | K |  | Homer | offen |
 | 72.10a.9 | MARS: Rolle und Reaktion je Klasse | E Kampf | K |  | Jerry | offen |
 | 72.10a.11 | MARS: Zweitwaffe ohne Zugverlust | E Kampf | K |  | Jerry | offen |
 | 72.10b | Probe gegen Grak: Stufe und Treffer | E Kampf | K |  | Jerry | erledigt |
